@@ -4,79 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23114CD6E44
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 283CBCD5BCF
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 07:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6847310E602;
-	Tue, 26 May 2026 07:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BED8410E0F0;
+	Tue, 26 May 2026 07:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="f8iE1Tpd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nkXryJcp";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D62B10F6AB;
- Fri, 22 May 2026 12:35:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1779453339; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DAnvLHSXBOYy3WtYwegEEB1aneUUu8+UmL/OF1rJ4I94eLp5HiMaGahOzGNwlSReBCZ2D9hLo5/Qs7/UZTqN17HPEYoH2bWO/JIA+DzdlLRN5KFxjGmI/5c/Xqc0xMcB6baOYFylsvgZd+sWQZwPasFHZtxNjRnVJZAoyWCHjkk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1779453339;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gGVpB3IASMynkptuB4kz7f6PDzq595OY22LNP1SYLO4=; 
- b=RkJmqGnX2Vx2RIaK+/GHoiW9R55LfEwejs2OU+5T12Jl4WL85y6ix2p+st4X4vNIFGf4Piw5vAwrBed0PbxZ3VpEvjBC4FmyKLVsalIXHW8umbqH2M8guLN2G6OlIvtmRrEkDdnG8C7kn4u/LAzxsnhrSI2anEKdSR4ThChBb5c=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779453339; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=gGVpB3IASMynkptuB4kz7f6PDzq595OY22LNP1SYLO4=;
- b=f8iE1TpdWqejy9aaKxhkQee+0abxtfD71iJx06vSZe5dVkRS3DbcFjfDGCYCw6xv
- uhx357POQK527yGf8eKPsbTXm9Oe+ELLlOh1BAL0UrMnUh2RjYqOhYMOoKNlvQjP/sw
- DWzE9F53g5NzXi45Ny9AfTm+NN+C8bpqLF6h4MMM=
-Received: by mx.zohomail.com with SMTPS id 1779453336932874.9753775019109;
- Fri, 22 May 2026 05:35:36 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 22 May 2026 14:32:11 +0200
-Subject: [PATCH v15 20/28] drm/rockchip: dw_hdmi_qp: Implement "color
- format" DRM property
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010038.outbound.protection.outlook.com [52.101.46.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AADAC10E0F0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:54:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mCCqe65scleK2sAXN228PDT2kBWTzYdRGEm/s6pTLGdUl/8XQx3AD1W5NspjP4A4TU6LL7EhYJdy8bujsSiGAV93fdOBjMO1TDFEpcNCk6fNBqsCmb9KhFWBzSGCHPOFHV/Czv8WMocjV7oqxVZ1D8qRtjLA9BWWC66HC1a1Nxp/86+w8fKgs5ebx4Sqr+Lz9ugyZUz6RCl3JCr7VL2OIHb5jifjQlOMtrJC80lvk5eWpmY+AmOMTZ+r+t4J2nGMiLjI/6nfKRjEraeuDNJXheKoAXt9p7JLdZsUHHYQpGK9cGHavRDywWYrBTLaif2iCncMFx5Ov6mDZdONc1JHQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zfi/DCBjCorJPmAhJdpG5mq6FHtVRD/IAvMaQmXIVAg=;
+ b=SAAAbKoQHInSadJSYphhPnVv9DfyO3i/L6/XyGuzIhaWfGktbONvngxmiCWz24qikSSj3xcPd1PiekkkRgUK1e003JOZAAgzuEBh8/ZI5Gphc0oUsV6n+W+L+3nIiPsSwtqWnBrsK09piRJ/i1wfUMRu1CuF2YtrAJXO0wZWLO5Sren1BEAIVGqARTV31rywnI2r3VON4cnwKsfQ0gRvoCAibV2s+QedhxEuqGZ5eiBltDmCu0BUeXhWU1hhjPT7uIKniPO8H3zsow5EE7C84/e+2RlYQQClUIGW2hEiykBotMjeqhXsPHdL0Fn2U1NINu4sUkP52GEHETF0Q5pkig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zfi/DCBjCorJPmAhJdpG5mq6FHtVRD/IAvMaQmXIVAg=;
+ b=nkXryJcptBPyXAeTYQC8qo5M+AHep7UGFdo/QG1KWI6POJ6tVzdc0KG6D7+4MHii4YY1IfPEpYKtGSf98k5BZgy58/4qrHGfwiYxkyT00oOTDb664S22lOwY1tnAcniTDWIJyJljcJi5lzYMPGTTZgC55GtYj4EtswtXreo39fg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by IA4PR12MB9810.namprd12.prod.outlook.com (2603:10b6:208:551::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 07:54:51 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%5]) with mapi id 15.21.0071.010; Tue, 26 May 2026
+ 07:54:51 +0000
+Content-Type: multipart/alternative;
+ boundary="------------83o3wpKNwqf1ce021C8R4rkR"
+Message-ID: <591307db-a567-4bac-b995-1eec64a7c42d@amd.com>
+Date: Tue, 26 May 2026 15:54:44 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: implement per-process MES context
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
+Cc: Ray.Huang@amd.com
+References: <20260525082359.5510-1-lingshan.zhu@amd.com>
+ <53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com>
+X-ClientProxiedBy: SI2PR06CA0009.apcprd06.prod.outlook.com
+ (2603:1096:4:186::17) To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260522-color-format-v15-20-21fb136c9df2@collabora.com>
-References: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-In-Reply-To: <20260522-color-format-v15-0-21fb136c9df2@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-X-Mailer: b4 0.15.2
-X-Mailman-Approved-At: Tue, 26 May 2026 07:53:08 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|IA4PR12MB9810:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1ea23fb-6d29-410c-efd2-08debafc1093
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|4143699003|11063799006|18002099003|56012099003|22082099003|8096899003;
+X-Microsoft-Antispam-Message-Info: 5cXYQrm6/yNjcozi0QfvGi0cbCQnjhovhX3RpK8lrHy9UEDIsTPYa1f8/m5KZXs7glplR8yKedRkQC5rUSWoQqMdc7bsCJ+uspalxfDG2Rhk80BjKzxfxdsNnCcyfRP+Ww6LHRn+MxIkpCsqaosYKTLPfNEP3QtALodO5Q6Am0ZTLoBljqrxYUnauJPHFJn9M7YKTp36fdLNkKm37NHfeDrswKc5AN7gAUJZMtsM8Bc/E+04ftm4HHW7oEe63zyvzMN61S8/+VZLmLffKD1zyknXpI5hqy2afhPYqKYcVUaxTgvXrenVEU1WOoOnRuV71vfr4wjpC4McBbnSQBUhSmDuUxmhW6I5pGnwCnIXFsIwyKEkf5Da/iW29b8KGg/lcfPwVSMb20WlEULUb5NNARH4OF2MW1Es/8c0CtvDRh5jQ7SQxkR/xc9u9rod/maD7ehne7rdCc9lc401Q28jB7HbaCTuKFOL9/JgnuXX/dK4Z78QKURGU5AU5rl3yHa2oT2DAuLdpfY45IXXGng+baROfWdHO5TWjDVk8ddL9aEm1ljzgJVYPVZKr65nrdNcAACLsM138gNyFzcqCv5Rrmrs0EK7TBMtQ0acE9mBJfDsHewzqoH+EF4mKz8MX9h3zBcB6adjgg9LbsG1osTsd44L6WGt/ob29jVZGPClcapy3wuHJl5hoXhV5TpyWven
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(4143699003)(11063799006)(18002099003)(56012099003)(22082099003)(8096899003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vzk1aU1lTFBVdFZ1MlRwaUlLT3ZITUpXNWt4anU1c0x6Q1dHWGZiRmlJcUJw?=
+ =?utf-8?B?dm1vVlFPQXFTeGdEVXJyVXR1MUUvMnQ2emdJOHlxSm1qY1BCczZlbnFNNHhE?=
+ =?utf-8?B?TG1GTm5NZVp6a3ZrZ3MrcjJXVzVKRUdzVDlWZW5ocWZZMWdoNkxBMlVwOGhp?=
+ =?utf-8?B?cWlHdDE0VlAvOXhEb0xyVHBKMDhycmxYTHR6T1ZCeDRaMkdlMC92U2lLMHF0?=
+ =?utf-8?B?WTd4bWtYMmhwd3Jnb1NFZjNtWExFdEpBeXVvQlAyMGlWUnY3VlhvN3JhQ0w2?=
+ =?utf-8?B?ejB5ZCtkT1hKUEdBeC9hNWpaSDFQWGZLZUdxWWhIZjdndFhVNEdhVlhFWGdo?=
+ =?utf-8?B?ZEVsbVFmRzV0UTNlZXIvd2lQYUxCREovU01IUGc0OExnSzBjcVIrcHZtRnY4?=
+ =?utf-8?B?TFR1dlBCTjRjYVdjcmdKY2NzY2JBeTZCRXRPRkRoUW95OFBoOHF0QTd0U0gv?=
+ =?utf-8?B?QzRiMjBCVGJTaVJkMTZ3dk9IT09KUm9JYVF5WU9TaENSNzJQK1lab0dEeGJm?=
+ =?utf-8?B?dUowbUFBK2ZPbXdESkx0TG9rOXhPUU1OOWc3RTNOOGp0aHVpdTZDUWVIMy8w?=
+ =?utf-8?B?ZEc5eExKRUVEZndCaTdrUkllTXM3UklKU21kRm1XNlZ5Qk1ZOEJXbHBudUc2?=
+ =?utf-8?B?SjA1VE1oeSsyRGwva1FySHJoNzI1eENMSU5sTU91aS9vb1BVcjBMYmVxNjZF?=
+ =?utf-8?B?U2tReUhLZFFwTldlT3hlOFExM3N5Z3JyRWhWd1B6Mkp0UGp5WVJ2emtrMzZ2?=
+ =?utf-8?B?enByUlJDc0pZeVZQK1g1dTkyOU1KVWVLY2p5V3JjTUZ3UEwvVGkxMkhmcDJm?=
+ =?utf-8?B?anB0M3NKUGQxdFl2OGk0UlJZYTBERHhmUGFmUGRlbXc0K1RMTTB2aGptWnM1?=
+ =?utf-8?B?REhmaFpQOW03WG9CcTE2RkJwVEswenkyQmt2WXByUEpNczU4blR3aWZFNmZ3?=
+ =?utf-8?B?YTNFRUw4VHhtU3NrODA4cnB6Y1RSNTR5b1RKNUJtSWdXZGJORFRjMzN0MmhL?=
+ =?utf-8?B?YU5tK25OV2ZmdDRKeVlqSGpzOEdxTkxVa2pOSjA3SWFmOEM5K2xJeWZNRDAw?=
+ =?utf-8?B?MUZablVvZ3hzRkJNTE5Gb21hUFg0cVh4WFB1UlNicTZjc0lxRWw1NXByTndC?=
+ =?utf-8?B?ZVMwV0ZKbVAvUmhtNll4YTVhSk9EQ29NSXBaMnJmMWVrS3J0VGtxN1lsN2Fq?=
+ =?utf-8?B?SEsrZ1ppUTJRSGdKanBBSzhXZVpKUHFlOWkxU3dtd24zVVBpWm93L0dMUUhQ?=
+ =?utf-8?B?T0JzOFRERXpVdXJqZmYvbUN4c0tsb3BxR3pjcUMyeEtJTUgxRmtHUDZidWRJ?=
+ =?utf-8?B?UDJEa1VHdlVVMGZucDl0QzRvS05nV1VnSFBTY001N3l3dlprWktDY2pBaDFa?=
+ =?utf-8?B?Q1pZb0dKcENqbnYrQms2bExYZ3p2aXdTME9tWTlXTWcyZzBNVXZ1ZmZLMTV5?=
+ =?utf-8?B?Mms0ejNGc2lnb0pieEw4N3BnaXVDMk9JY05XSWY1eVVMTVNwa01VQUhna2Iw?=
+ =?utf-8?B?Vno0dmx1OHpzR1BPRXdhOFVBcm1uWExQNmp5ajJpbjdYS1QrYTAyRHV6UUtD?=
+ =?utf-8?B?b1QvdTFQWnFiekhWRVJEZFBBdEJSa2ZZalVabklMWVQrVllVblJSbEczUWxu?=
+ =?utf-8?B?b0NGcC9RYWhHSndzcHJGVUU4b3JuWUNLTVd5NlNQajJnSi9HOXgvRmdRK1lK?=
+ =?utf-8?B?blJqMncwM0N6eGJwSStjdFE2S3ZtQWJDSkJyOHIycGFuWEJLWWlnRXlKN01Z?=
+ =?utf-8?B?UGxDQmtoeDBSbHl5eXZzTmdYd09WZ3gvcFJQV254OW9hYjFzbTF2MEgrVUo0?=
+ =?utf-8?B?SDh3VWZnc2pWWHNrTWRkWWhRdnY4NkszSkJNOFVUS3Jnem9nQkRWamc3UktL?=
+ =?utf-8?B?c1h5QW81SUw2S25VZC81akkxTThYV3dkb3VNREtVOFhJUnFCQWFxVUpMZ2xo?=
+ =?utf-8?B?VERyYmsxL0oxTVFFSm1XRThWWnRqMVYxak9GMHJLZ0V2TU5mclBMNjZNelhI?=
+ =?utf-8?B?SHNvbURqeHo1TW44cGZoOU95cDhramVrU3FLd1JGWHM2Zmg3bFdiNTdsWWxY?=
+ =?utf-8?B?aCtiQnBXaFc5NWlQNzFpZGtvZzZBcXE4VnNnOXJpZkZLamF6RU1UK1ZtYyt3?=
+ =?utf-8?B?SllNTFVsNDcvVzdaWmlqOVpLWWRyRm9UaWlPQ0M4UFRkN3JEcTE2aGpJRDli?=
+ =?utf-8?B?YmIxSGJYc2tnZjJOajM0WVpDbXNseGNmb2d1OGZjbWhTdUZUd0JXZGZJZHZn?=
+ =?utf-8?B?eXdYd012MUdxYSs0NlorcDFlY0ZnNG5CcTJYbTBTcmlwY0NHSXJIU0Zzd2JT?=
+ =?utf-8?Q?3pGZ0ZwhOmgDB9Kxrq?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1ea23fb-6d29-410c-efd2-08debafc1093
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 07:54:50.9426 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nAkxQ9Qs5tTcfAzCWfspkumpbK+yFWwZzP16NAdrxIDNkgLfX16RRCDoNIV56+k9TPDSvOqaaEzJlbQfEfAM0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9810
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,226 +135,431 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch between requested color formats by setting the right bus formats,
-configuring the VO GRF registers, and setting the right output mode.
+--------------83o3wpKNwqf1ce021C8R4rkR
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-To do this, the encoder's atomic_check queries the bus format of the
-first bridge, which was determined by the bridge chain recursive format
-selection. Pick the input format if it's !FIXED, otherwise, pick the
-output format.
+On 5/26/2026 3:02 AM, Christian König wrote:
 
-The previously unused GRF register color format defines are redone as
-well. Both RK3588 and RK3576 use the same defines; it didn't look like
-this as there was a typo in the previously (unused) definition.
+>
+> On 5/25/26 10:23, Zhu Lingshan wrote:
+>> MES process context is a process-level page
+>> where process specific context is saved for
+>> MES scheduler.
+>>
+>> However, current user-queue code path assigns
+>> fw_obj of a queue to MES process_context_addr
+>> when adding the queue to MES.
+>>
+>> This means every new queue from the same process
+>> would replace the previous process context address
+>> with that queue's fw_obj address.
+>> What's worse is, when user space frees a queue,
+>> its fw_obj will be freed as well, causing MES
+>> working on a NULL page pointer.
+>>
+>> This issue leads to inconsistency and crash
+>> in the scheduler.
+>>
+>> This commit allocates a process-level page for
+>> MES process contexts for a process other than queue-level
+>>
+>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  5 +++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  1 +
+>>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 48 ++++++++++++++++------
+>>  3 files changed, 42 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> index 38e310a8694d..0c4d6f80616e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> @@ -1225,6 +1225,11 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+>>  	 */
+>>  	cancel_work_sync(&userq_mgr->reset_work);
+>>  
+>> +	if (userq_mgr->proc_ctx_obj.obj)
+> Please drop that check it is unecessary.
 
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+sure, I can drop this in V2.
+
+>
+>> +		amdgpu_bo_free_kernel(&userq_mgr->proc_ctx_obj.obj,
+>> +				      &userq_mgr->proc_ctx_obj.gpu_addr,
+>> +				      &userq_mgr->proc_ctx_obj.cpu_ptr);
+>> +
+>>  	mutex_destroy(&userq_mgr->userq_mutex);
+>>  }
+>>  
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>> index 28cfc6682333..fe85234e58b3 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>> @@ -127,6 +127,7 @@ struct amdgpu_userq_mgr {
+>>  	struct amdgpu_device		*adev;
+>>  	struct delayed_work		resume_work;
+>>  	struct drm_file			*file;
+>> +	struct amdgpu_userq_obj		proc_ctx_obj;
+>>  
+>>  	/**
+>>  	 * @reset_work:
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>> index e9189f07c6dc..3022025bc2ec 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>> @@ -133,8 +133,8 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
+>>  	queue_input.gang_quantum = 10000;
+>>  	queue_input.paging = false;
+>>  
+>> -	queue_input.process_context_addr = ctx->gpu_addr;
+>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+>> +	queue_input.process_context_addr = uq_mgr->proc_ctx_obj.gpu_addr;
+>> +	queue_input.gang_context_addr = ctx->gpu_addr;
+>>  	queue_input.inprocess_gang_priority = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
+>>  	queue_input.gang_global_priority_level = convert_to_mes_priority(queue->priority);
+>>  
+>> @@ -169,7 +169,7 @@ static int mes_userq_unmap(struct amdgpu_usermode_queue *queue)
+>>  
+>>  	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
+>>  	queue_input.doorbell_offset = queue->doorbell_index;
+>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+>> +	queue_input.gang_context_addr = ctx->gpu_addr;
+>>  
+>>  	amdgpu_mes_lock(&adev->mes);
+>>  	r = adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
+>> @@ -186,12 +186,8 @@ static int mes_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
+>>  	struct amdgpu_userq_obj *ctx = &queue->fw_obj;
+>>  	int r, size;
+>>  
+>> -	/*
+>> -	 * The FW expects at least one page space allocated for
+>> -	 * process ctx and gang ctx each. Create an object
+>> -	 * for the same.
+>> -	 */
+>> -	size = AMDGPU_USERQ_PROC_CTX_SZ + AMDGPU_USERQ_GANG_CTX_SZ;
+>> +	/* The FW expects at least one page space allocated for gang ctx. */
+>> +	size = AMDGPU_USERQ_GANG_CTX_SZ;
+>>  	r = amdgpu_bo_create_kernel(uq_mgr->adev, size, 0,
+>>  				    AMDGPU_GEM_DOMAIN_GTT,
+>>  				    &ctx->obj, &ctx->gpu_addr,
+>> @@ -257,6 +253,27 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
+>>  	return r;
+>>  }
+>>  
+>> +static int mes_userq_create_proc_ctx_space(struct amdgpu_userq_mgr *uq_mgr)
+>> +{
+>> +	int r = 0;
+>> +
+>> +	mutex_lock(&uq_mgr->userq_mutex);
+> Clear NAK. We can't allocate anything while holding that lock.
+>
+> Please add a different lock to protected the buffer or just oportunistically allocate it with CMPXCHG().
+
+I will introduce a different lock in V2.
+
+>
+>> +	if (!uq_mgr->proc_ctx_obj.obj) {
+> Please drop that check, amdgpu_bo_create_kernel() should already take care of that.
+
+I think we still need this check, because although amdgpu_bo_create_kernel() checks (!*bo_ptr), but:
+1) it does not immediately return if bo_ptr is valid. It only skips re-creating the bo,
+it still calls amdgpu_bo_reserve(), amdgpu_bo_pin(), amdgpu_ttm_alloc_gart(), and amdgpu_bo_kmap()
+on every invocation.
+
+2) it calls memset() unconditionally on every invocation.
+
+So I think this check is still necessary, and another thing, do you think
+amdgpu_bo_create_kernel() should immediately return if *bo_ptr is not NULL?
+It looks like this deserve a fix.
+
+Thanks
+Lingshan
+
+>
+> Regards,
+> Christian.
+>
+>> +		r = amdgpu_bo_create_kernel(uq_mgr->adev, AMDGPU_USERQ_PROC_CTX_SZ,
+>> +					    0, AMDGPU_GEM_DOMAIN_GTT,
+>> +					    &uq_mgr->proc_ctx_obj.obj,
+>> +					    &uq_mgr->proc_ctx_obj.gpu_addr,
+>> +					    &uq_mgr->proc_ctx_obj.cpu_ptr);
+>> +
+>> +		if (!r)
+>> +			memset(uq_mgr->proc_ctx_obj.cpu_ptr, 0, AMDGPU_USERQ_PROC_CTX_SZ);
+>> +	}
+>> +
+>> +	mutex_unlock(&uq_mgr->userq_mutex);
+>> +
+>> +	return r;
+>> +}
+>> +
+>>  static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+>>  				struct drm_amdgpu_userq_in *args_in)
+>>  {
+>> @@ -429,7 +446,14 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+>>  		goto free_mqd;
+>>  	}
+>>  
+>> -	/* Create BO for FW operations */
+>> +	/* Create per-process MES process context BO */
+>> +	r = mes_userq_create_proc_ctx_space(uq_mgr);
+>> +	if (r) {
+>> +		DRM_ERROR("Failed to allocate MES process context space bo, error: %d\n", r);
+>> +		goto free_mqd;
+>> +	}
+>> +
+>> +	/* Create BO of a gang for FW operations */
+>>  	r = mes_userq_create_ctx_space(uq_mgr, queue, mqd_user);
+>>  	if (r) {
+>>  		DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
+>> @@ -492,7 +516,7 @@ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
+>>  	*fence_ptr = 0;
+>>  
+>>  	memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
+>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+>> +	queue_input.gang_context_addr = ctx->gpu_addr;
+>>  	queue_input.suspend_fence_addr = fence_gpu_addr;
+>>  	queue_input.suspend_fence_value = 1;
+>>  	amdgpu_mes_lock(&adev->mes);
+>> @@ -529,7 +553,7 @@ static int mes_userq_restore(struct amdgpu_usermode_queue *queue)
+>>  		return 0;
+>>  
+>>  	memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
+>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+>> +	queue_input.gang_context_addr = ctx->gpu_addr;
+>>  
+>>  	amdgpu_mes_lock(&adev->mes);
+>>  	r = adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
+--------------83o3wpKNwqf1ce021C8R4rkR
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre>On 5/26/2026 3:02 AM, Christian König wrote:</pre>
+    <blockquote type="cite" cite="mid:53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+On 5/25/26 10:23, Zhu Lingshan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">MES process context is a process-level page
+where process specific context is saved for
+MES scheduler.
+
+However, current user-queue code path assigns
+fw_obj of a queue to MES process_context_addr
+when adding the queue to MES.
+
+This means every new queue from the same process
+would replace the previous process context address
+with that queue's fw_obj address.
+What's worse is, when user space frees a queue,
+its fw_obj will be freed as well, causing MES
+working on a NULL page pointer.
+
+This issue leads to inconsistency and crash
+in the scheduler.
+
+This commit allocates a process-level page for
+MES process contexts for a process other than queue-level
+
+Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 107 ++++++++++++++++++++++---
- 1 file changed, 98 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  5 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 48 ++++++++++++++++------
+ 3 files changed, 42 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index f35484715c2d..b77ef92ae954 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -11,6 +11,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/hw_bitfield.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/phy/phy.h>
-@@ -44,10 +45,6 @@
- #define RK3576_8BPC			0x0
- #define RK3576_10BPC			0x6
- #define RK3576_COLOR_FORMAT_MASK	GENMASK(7, 4)
--#define RK3576_RGB			0x9
--#define RK3576_YUV422			0x1
--#define RK3576_YUV444			0x2
--#define RK3576_YUV420			0x3
- #define RK3576_CECIN_MASK		BIT(3)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 38e310a8694d..0c4d6f80616e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1225,6 +1225,11 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+ 	 */
+ 	cancel_work_sync(&amp;userq_mgr-&gt;reset_work);
  
- #define RK3576_VO0_GRF_SOC_CON14	0x0038
-@@ -75,8 +72,6 @@
- #define RK3588_8BPC			0x0
- #define RK3588_10BPC			0x6
- #define RK3588_COLOR_FORMAT_MASK	GENMASK(3, 0)
--#define RK3588_RGB			0x0
--#define RK3588_YUV420			0x3
- #define RK3588_SCLIN_MASK		BIT(9)
- #define RK3588_SDAIN_MASK		BIT(10)
- #define RK3588_MODE_MASK		BIT(11)
-@@ -88,6 +83,11 @@
- #define HOTPLUG_DEBOUNCE_MS		150
- #define MAX_HDMI_PORT_NUM		2
- 
-+#define RK_COLOR_FMT_RGB		0x0
-+#define RK_COLOR_FMT_YUV422		0x1
-+#define RK_COLOR_FMT_YUV444		0x2
-+#define RK_COLOR_FMT_YUV420		0x3
++	if (userq_mgr-&gt;proc_ctx_obj.obj)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Please drop that check it is unecessary.</pre>
+    </blockquote>
+    <pre><font face="monospace">sure, I can drop this in V2.</font></pre>
+    <blockquote type="cite" cite="mid:53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+		amdgpu_bo_free_kernel(&amp;userq_mgr-&gt;proc_ctx_obj.obj,
++				      &amp;userq_mgr-&gt;proc_ctx_obj.gpu_addr,
++				      &amp;userq_mgr-&gt;proc_ctx_obj.cpu_ptr);
 +
- struct rockchip_hdmi_qp {
- 	struct device *dev;
- 	struct regmap *regmap;
-@@ -116,6 +116,33 @@ static struct rockchip_hdmi_qp *to_rockchip_hdmi_qp(struct drm_encoder *encoder)
- 	return container_of(rkencoder, struct rockchip_hdmi_qp, encoder);
+ 	mutex_destroy(&amp;userq_mgr-&gt;userq_mutex);
  }
  
-+/**
-+ * dw_hdmi_qp_rockchip_bus_fmt_to_reg - converts a bus format to a GRF reg value
-+ * @bus_fmt: One of the MEDIA_BUS_FMT_s allowed by this driver's atomic_check
-+ *
-+ * Returns: an unshifted value to be written to the COLOR_FORMAT GRF register
-+ * on success, or %-EINVAL if the bus format is not supported.
-+ */
-+static int __pure dw_hdmi_qp_rockchip_bus_fmt_to_reg(u32 bus_fmt)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 28cfc6682333..fe85234e58b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -127,6 +127,7 @@ struct amdgpu_userq_mgr {
+ 	struct amdgpu_device		*adev;
+ 	struct delayed_work		resume_work;
+ 	struct drm_file			*file;
++	struct amdgpu_userq_obj		proc_ctx_obj;
+ 
+ 	/**
+ 	 * @reset_work:
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index e9189f07c6dc..3022025bc2ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -133,8 +133,8 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
+ 	queue_input.gang_quantum = 10000;
+ 	queue_input.paging = false;
+ 
+-	queue_input.process_context_addr = ctx-&gt;gpu_addr;
+-	queue_input.gang_context_addr = ctx-&gt;gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
++	queue_input.process_context_addr = uq_mgr-&gt;proc_ctx_obj.gpu_addr;
++	queue_input.gang_context_addr = ctx-&gt;gpu_addr;
+ 	queue_input.inprocess_gang_priority = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
+ 	queue_input.gang_global_priority_level = convert_to_mes_priority(queue-&gt;priority);
+ 
+@@ -169,7 +169,7 @@ static int mes_userq_unmap(struct amdgpu_usermode_queue *queue)
+ 
+ 	memset(&amp;queue_input, 0x0, sizeof(struct mes_remove_queue_input));
+ 	queue_input.doorbell_offset = queue-&gt;doorbell_index;
+-	queue_input.gang_context_addr = ctx-&gt;gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
++	queue_input.gang_context_addr = ctx-&gt;gpu_addr;
+ 
+ 	amdgpu_mes_lock(&amp;adev-&gt;mes);
+ 	r = adev-&gt;mes.funcs-&gt;remove_hw_queue(&amp;adev-&gt;mes, &amp;queue_input);
+@@ -186,12 +186,8 @@ static int mes_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
+ 	struct amdgpu_userq_obj *ctx = &amp;queue-&gt;fw_obj;
+ 	int r, size;
+ 
+-	/*
+-	 * The FW expects at least one page space allocated for
+-	 * process ctx and gang ctx each. Create an object
+-	 * for the same.
+-	 */
+-	size = AMDGPU_USERQ_PROC_CTX_SZ + AMDGPU_USERQ_GANG_CTX_SZ;
++	/* The FW expects at least one page space allocated for gang ctx. */
++	size = AMDGPU_USERQ_GANG_CTX_SZ;
+ 	r = amdgpu_bo_create_kernel(uq_mgr-&gt;adev, size, 0,
+ 				    AMDGPU_GEM_DOMAIN_GTT,
+ 				    &amp;ctx-&gt;obj, &amp;ctx-&gt;gpu_addr,
+@@ -257,6 +253,27 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
++static int mes_userq_create_proc_ctx_space(struct amdgpu_userq_mgr *uq_mgr)
 +{
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+		return RK_COLOR_FMT_RGB;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+		return RK_COLOR_FMT_YUV422;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		return RK_COLOR_FMT_YUV444;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		return RK_COLOR_FMT_YUV420;
++	int r = 0;
++
++	mutex_lock(&amp;uq_mgr-&gt;userq_mutex);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Clear NAK. We can't allocate anything while holding that lock.
+
+Please add a different lock to protected the buffer or just oportunistically allocate it with CMPXCHG().</pre>
+    </blockquote>
+    <pre>I will introduce a different lock in V2.</pre>
+    <blockquote type="cite" cite="mid:53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+	if (!uq_mgr-&gt;proc_ctx_obj.obj) {
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Please drop that check, amdgpu_bo_create_kernel() should already take care of that.</pre>
+    </blockquote>
+    <pre>I think we still need this check, because although amdgpu_bo_create_kernel() checks (!*bo_ptr), but:
+1) it does not immediately return if bo_ptr is valid. It only skips re-creating the bo,
+it still calls amdgpu_bo_reserve(), amdgpu_bo_pin(), amdgpu_ttm_alloc_gart(), and amdgpu_bo_kmap()
+on every invocation.
+
+2) it calls memset() unconditionally on every invocation.
+
+So I think this check is still necessary, and another thing, do you think
+amdgpu_bo_create_kernel() should immediately return if *bo_ptr is not NULL?
+It looks like this deserve a fix.
+
+Thanks
+Lingshan</pre>
+    <blockquote type="cite" cite="mid:53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Regards,
+Christian.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+		r = amdgpu_bo_create_kernel(uq_mgr-&gt;adev, AMDGPU_USERQ_PROC_CTX_SZ,
++					    0, AMDGPU_GEM_DOMAIN_GTT,
++					    &amp;uq_mgr-&gt;proc_ctx_obj.obj,
++					    &amp;uq_mgr-&gt;proc_ctx_obj.gpu_addr,
++					    &amp;uq_mgr-&gt;proc_ctx_obj.cpu_ptr);
++
++		if (!r)
++			memset(uq_mgr-&gt;proc_ctx_obj.cpu_ptr, 0, AMDGPU_USERQ_PROC_CTX_SZ);
 +	}
 +
-+	return -EINVAL;
++	mutex_unlock(&amp;uq_mgr-&gt;userq_mutex);
++
++	return r;
 +}
 +
- static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
+ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 				struct drm_amdgpu_userq_in *args_in)
  {
- 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
-@@ -131,29 +158,83 @@ static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
- 		hdmi->ctrl_ops->enc_init(hdmi, to_rockchip_crtc_state(crtc->state));
- }
+@@ -429,7 +446,14 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 		goto free_mqd;
+ 	}
  
-+/**
-+ * dw_hdmi_qp_rockchip_get_vop_format - get the bus format VOP should output
-+ * @encoder: pointer to a &struct drm_encoder
-+ * @conn_state: pointer to the current atomic &struct drm_connector_state
-+ *
-+ * Determines which bus format the Rockchip video processor should output as
-+ * to feed into the bridge chain.
-+ *
-+ * Returns a MEDIA_BUS_FMT_* on success, or negative errno on error.
-+ */
-+static int dw_hdmi_qp_rockchip_get_vop_format(struct drm_encoder *encoder,
-+					      struct drm_connector_state *conn_state)
-+{
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
-+	struct drm_bridge_state *bstate;
+-	/* Create BO for FW operations */
++	/* Create per-process MES process context BO */
++	r = mes_userq_create_proc_ctx_space(uq_mgr);
++	if (r) {
++		DRM_ERROR(&quot;Failed to allocate MES process context space bo, error: %d\n&quot;, r);
++		goto free_mqd;
++	}
 +
-+	bridge = drm_bridge_chain_get_first_bridge(encoder);
-+	if (!bridge)
-+		return -ENODEV;
-+
-+	bstate = drm_atomic_get_bridge_state(conn_state->state, bridge);
-+	if (IS_ERR(bstate))
-+		return PTR_ERR(bstate);
-+
-+	if (bstate->input_bus_cfg.format != MEDIA_BUS_FMT_FIXED)
-+		return bstate->input_bus_cfg.format;
-+
-+	return bstate->output_bus_cfg.format;
-+}
-+
- static int
- dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 					 struct drm_crtc_state *crtc_state,
- 					 struct drm_connector_state *conn_state)
- {
--	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
-+	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	union phy_configure_opts phy_cfg = {};
-+	int ingest_fmt;
- 	int ret;
++	/* Create BO of a gang for FW operations */
+ 	r = mes_userq_create_ctx_space(uq_mgr, queue, mqd_user);
+ 	if (r) {
+ 		DRM_ERROR(&quot;Failed to allocate BO for userqueue (%d)&quot;, r);
+@@ -492,7 +516,7 @@ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
+ 	*fence_ptr = 0;
  
-+	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
-+	if (ingest_fmt < 0)
-+		return -EINVAL;
-+
- 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
--	    s->output_bpc == conn_state->hdmi.output_bpc)
-+	    s->output_bpc == conn_state->hdmi.output_bpc &&
-+	    s->bus_format == ingest_fmt)
+ 	memset(&amp;queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
+-	queue_input.gang_context_addr = ctx-&gt;gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
++	queue_input.gang_context_addr = ctx-&gt;gpu_addr;
+ 	queue_input.suspend_fence_addr = fence_gpu_addr;
+ 	queue_input.suspend_fence_value = 1;
+ 	amdgpu_mes_lock(&amp;adev-&gt;mes);
+@@ -529,7 +553,7 @@ static int mes_userq_restore(struct amdgpu_usermode_queue *queue)
  		return 0;
  
-+	switch (ingest_fmt) {
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
-+		break;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
-+		break;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV420;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
- 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
- 	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
+ 	memset(&amp;queue_input, 0x0, sizeof(struct mes_resume_gang_input));
+-	queue_input.gang_context_addr = ctx-&gt;gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
++	queue_input.gang_context_addr = ctx-&gt;gpu_addr;
  
- 	ret = phy_configure(hdmi->phy, &phy_cfg);
- 	if (!ret) {
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
--		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 		s->output_type = DRM_MODE_CONNECTOR_HDMIA;
- 		s->output_bpc = conn_state->hdmi.output_bpc;
-+		s->bus_format = ingest_fmt;
- 	} else {
- 		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
- 	}
-@@ -383,6 +464,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
- static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
- 				       struct rockchip_crtc_state *state)
- {
-+	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
- 	u32 val;
- 
- 	if (state->output_bpc == 10)
-@@ -390,12 +472,16 @@ static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
- 	else
- 		val = FIELD_PREP_WM16(RK3576_COLOR_DEPTH_MASK, RK3576_8BPC);
- 
-+	if (likely(color >= 0))
-+		val |= FIELD_PREP_WM16(RK3576_COLOR_FORMAT_MASK, color);
-+
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON8, val);
- }
- 
- static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
- 				       struct rockchip_crtc_state *state)
- {
-+	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
- 	u32 val;
- 
- 	if (state->output_bpc == 10)
-@@ -403,6 +489,9 @@ static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
- 	else
- 		val = FIELD_PREP_WM16(RK3588_COLOR_DEPTH_MASK, RK3588_8BPC);
- 
-+	if (likely(color >= 0))
-+		val |= FIELD_PREP_WM16(RK3588_COLOR_FORMAT_MASK, color);
-+
- 	regmap_write(hdmi->vo_regmap,
- 		     hdmi->port_id ? RK3588_GRF_VO1_CON6 : RK3588_GRF_VO1_CON3,
- 		     val);
+ 	amdgpu_mes_lock(&amp;adev-&gt;mes);
+ 	r = adev-&gt;mes.funcs-&gt;resume_gang(&amp;adev-&gt;mes, &amp;queue_input);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
 
--- 
-2.54.0
-
+--------------83o3wpKNwqf1ce021C8R4rkR--
