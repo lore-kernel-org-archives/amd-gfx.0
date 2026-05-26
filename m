@@ -4,78 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C58CD5BD2
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 10:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 871EDCD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 10:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C6110E0D4;
-	Tue, 26 May 2026 10:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269A410E161;
+	Tue, 26 May 2026 10:13:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="II5lIHfS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JCLMpYnd";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E25810E0D4
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 10:12:02 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4905e190c71so22538195e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 03:12:02 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15D4910E161
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 10:13:09 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-44a14580111so7761515f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 03:13:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779790321; x=1780395121; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779790387; x=1780395187; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0eqLHCirYRSC23WXgv/uI5hiHASKf1PQtC12E/aDAbc=;
- b=II5lIHfSBsoUP/tkyWMC/GtSfpss9gPXf1hbgs4j5/ClZ1iHERg/AS+aXTevoZ+0Ix
- 4h8r2m0GLNNKB/1meKV2re8Qz3qY40fUPfqFZ8ow9i8uML89Rku7txhVK6SRo+PYSVtZ
- JFT3DxQvUkMoJX/tunwG5sR3RrK1LO+GNN3TXQwJEtUdctbdOP00Gal0zY48izOmqBZr
- kMnVwaJFq+vouAeOwpFkeEqoh8uLpcw3xrh0L6M18Z/n2X6L+ORrkeowy3v6cE4P1tt1
- 0lOHwOyFfACpY8kair+LFB/hFfD9CK4VUrH9pnwuHOBoIXGgosQszT8/LGWywm7XRxoi
- pMyw==
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=TfD/HQKh7ugMin9B+T9Zo+pvi7ikWmHtkMHo512ohpo=;
+ b=JCLMpYnd+GP80MiwtmsIUv61E701putQKPlxDJkS+F82LgxYs67Oly2JoTgjDHdwea
+ 5YnVsz19CEO21Dq7DNpAdF3Zp0z3kMKDfykJsM8rF3zZwJxGq0cA5d+6mi1kqZd4/nbp
+ EzZtlfKyjTOkpXusQGqlPCVmGUM4Jk805zqxcvWOwAdZGWpPY3WeupHdnjhpksy31lEA
+ zzOy3SMUwLYgVceyUcWWVwk8pf0BFKyPBFnfwKeSy+P+ip4UpvuuSQID7kaEASTxejHg
+ e8geaU9SFtmSOeT2I8ZH1RJE8WLP+MJEId6YYNHNT4g82+S13ANRZVH53fCUOhb8AIEZ
+ B9xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779790321; x=1780395121;
+ d=1e100.net; s=20251104; t=1779790387; x=1780395187;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=0eqLHCirYRSC23WXgv/uI5hiHASKf1PQtC12E/aDAbc=;
- b=kipde0N3UBeNjBU1vdyPLYIKSNSRta6xptP/gawFXV5Dhcq0bN0cr6qZ2WJZvQSmMp
- rmp0DAN5c2x7fhPTZZkyKVcnKSvPu6oPEBC79DSmQar05w+nG0LQlssgIIDMKJmj6HTQ
- ycEZNM1TY/CRUjfiZnpp84aIXKiuambiax4LUgn7yD5/LOaQsL/xfx7OyeNNwI/AiFot
- dsjqUlmt/YB1Ut3R+zkKn2EFAsNDxuv1QFqknPzGeKQTMgcPBtFY1GrQr1zol7aOzOsj
- BBPRzY51xNRljKFbMeSDumPhGnmvmpNsvcTF7Kj6E09Myqx0v4tgMdGBCg5AEUPGe5Uo
- fYbg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8RIn7283pl74lq6VwvB7RfNbuOVkw3dhi/IqW8iGrG6YKCu3y6s9YbiIY8/fseEDlz0uTP8cJm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyenNLiSaa1O4Ti4BoqRMP/390KGq80qiU5OtSgMBE+7+S9NmR4
- jMN7U10pyfJzgAp2YASEdYLPL6tSj5NGD/9SRXg0opufcSd2RROAGz3P
-X-Gm-Gg: Acq92OHv8OYwnNrcX9hoWsF5EVq4lwEMxtNwpxQA27J1T4l25/nVcdbF9AuIkF0B2Rp
- 8mpcbBpdik+AG7fSMo+iPraB8Zv2hqOc9HUiFqxawsyOyCxrVFZ9iAHfIdNFaNFhwBKAlTnnHF5
- 7+5iYIveySHaB7hIa+7D2KZzGib5nk2DGmDlsjBphubgFFEPknE/PGcxfyKmbntqXyXjHS7dUZL
- qQMECxLZNQtKE61Xf3fzmCBDHhJA3EvzCF8nCfxBVi4dTiuXUtOlx0fW1dRn97OBSMMFnayfZ0R
- S+Fpo6bQBDFG8JOL63o/c6xmnzTmPTa5Z3hKirhax8z7je+ppsIzpCmDReAU+YSUwmR1HxivoqN
- N6Fh6aIQ52CuBAWLtR8CtF4hzO5KgHaTyeQAzqeiTxbmWaNqo658DwIZr2hyOVuH5DztX/DUDHw
- PrdLLiFhMN44/mqeR1V7F7vv9ZA/myVfDDj+Yf+e+vZyH+r79BJheHogNJEClgfJDGb52V2T3ts
- 8cMhoNaFusM2CCVyOerSX1P+hg2zQ==
-X-Received: by 2002:a05:600c:4510:b0:48f:e230:72fc with SMTP id
- 5b1f17b1804b1-490428ee268mr277815545e9.33.1779790320892; 
- Tue, 26 May 2026 03:12:00 -0700 (PDT)
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=TfD/HQKh7ugMin9B+T9Zo+pvi7ikWmHtkMHo512ohpo=;
+ b=Em4UsAKgess/zT2VMOAAp6HpiAII1dAb6SmP9dtBsbs97beSrZ54o7urr9in97U16d
+ cchpQm77uPSDRKAs//dw52KuaSsdLVhonFufkUj9gCoq0DBgL8TKW5z42TgGJnmYbHwc
+ /S7mfaKb2NWGPA5bxFQ3ATz5BievQWs8wvtEVIp6NRfEm8XkfahZSW9W3AIUd3m0+eZE
+ LBTt/t8J2/9Yt3GSlVNt4cNTyk2t/srPCmWx7NLm08YrhJ2+i4pQG4y5J3G4o+yRe7Di
+ FShwDecrnQJc+qqY8Mm1TJ1Musg5KIedRQV7DQCb+7fbBfrYWBg/vx1O0MXfuoOJePal
+ vVGA==
+X-Gm-Message-State: AOJu0YzD4qAWGvljETlqPVMrfZMawNRu6MeFoWjue3kgOBt62Nir7kaR
+ o/kBDaBv26SWHBUOXDRs+1e/JvUTSkc0pvSNYIDLkw3YNzFay8yoVHriGyRtwFKG
+X-Gm-Gg: Acq92OGbnw+jH2g5BIjYa36XlaHxeZ/HfE55l69BYY34puSgzUxxXyb4XyuK9RPbW8f
+ 73/ytw2MHn20I32cE8bN8ztr2Iqg9XUBDKxHJENVU2zu+/JWmQPeKLr6ATHaJl9HaKYYBjNSvTr
+ I0Tp2I9AFKXu1xj4CwORIuEj4luRqGKAP5dP5WlZgu5I5FyvoKQ0uJHvYr7VDsRL0MwUwN6/a9b
+ 31dQWQqrFo4D2qpsSdROf3fq2w+mRGofC0QghJuLLuxjXx03Y8Z5Ke9l5oG6Vjfg9AeZWgzJZF/
+ jhOwG6bOBdfr49TYtWCQDhltvEvsjHRXFwX5UpfPYSINzq6QyKUo+nYqY+9TTqIY2QwD1yo4go8
+ fhW7gaxYtxc7LM2IeOvgyqtKwHRx0nu+5wREFJ+tWX7C9DL0PUJb+wmIYp3PaZMm1jtm8QKBarg
+ 1g95vLHsN7ilVS2FYPUJR/0Gfilx35CW7kaq396YyfJ8undFe9ba7V7+bGh7QQYYyTB36dydfb0
+ cRN0wVU0BP7Fp02YWt3Cp+dArbpdw==
+X-Received: by 2002:a05:6000:400c:b0:45e:651c:47bb with SMTP id
+ ffacd0b85a97d-45eb38af64bmr29953708f8f.28.1779790387153; 
+ Tue, 26 May 2026 03:13:07 -0700 (PDT)
 Received: from timur-max.localnet
  (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
  [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6d70c51sm36705494f8f.36.2026.05.26.03.12.00
+ ffacd0b85a97d-45eb6cce01asm35371174f8f.11.2026.05.26.03.13.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 03:12:00 -0700 (PDT)
+ Tue, 26 May 2026 03:13:06 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: alexander.deucher@amd.com, Prike.Liang@amd.com, sukhatri@amd.com,
- jesse.zhang@amd.com, amd-gfx@lists.freedesktop.org,
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ John Olender <john.olender@gmail.com>, Liu Leo <Leo.Liu@amd.com>,
+ Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
  Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Vock Natalie <natalie.vock@gmx.de>
-Subject: Re: [PATCH 8/8] drm/amdgpu: restructure VM state machine v2
-Date: Tue, 26 May 2026 12:11:59 +0200
-Message-ID: <2389346.vFx2qVVIhK@timur-max>
-In-Reply-To: <34270690-46ec-4212-92a8-8c782ab644b6@amd.com>
-References: <20260427182723.1715-1-christian.koenig@amd.com>
- <2840173.vuYhMxLoTh@timur-max> <34270690-46ec-4212-92a8-8c782ab644b6@amd.com>
+Subject: Re: [PATCH 4/4] drm/amdgpu/uvd: Fix forcing MSG,
+ FB BOs into VCPU segment when it isn't at 0 (v2)
+Date: Tue, 26 May 2026 12:13:05 +0200
+Message-ID: <2641264.XAFRqVoOGU@timur-max>
+In-Reply-To: <eed791bd-ef86-4d0a-baf4-f779ed70326a@amd.com>
+References: <20260525113321.17953-1-timur.kristof@gmail.com>
+ <20260525113321.17953-5-timur.kristof@gmail.com>
+ <eed791bd-ef86-4d0a-baf4-f779ed70326a@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -93,64 +94,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. m=C3=A1jus 26., kedd 10:51:38 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=
+On 2026. m=C3=A1jus 26., kedd 10:10:33 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=
 =A1ri id=C5=91 Christian K=C3=B6nig=20
 wrote:
-> On 5/26/26 01:29, Timur Krist=C3=B3f wrote:
-> > On 2026. =C3=A1prilis 27., h=C3=A9tf=C5=91 20:27:23 k=C3=B6z=C3=A9p-eur=
-=C3=B3pai ny=C3=A1ri id=C5=91 Christian
-> > K=C3=B6nig>=20
-> > wrote:
-> >> Instead of coming up with more sophisticated names for states a VM BO
-> >> can be in, group them by the type of BO first and then by the state.
-> >>=20
-> >> So we end with BO type kernel, always_valid and individual and then
-> >> states
-> >> evicted, moved and idle.
-> >>=20
-> >> Not much functional change, except that evicted_user is moved back
-> >> together with the other BOs again which makes the handling in
-> >> amdgpu_vm_validate() a bit more complex.
-> >>=20
-> >> Also fixes a problem with user queues and amdgpu_vm_ready(). We didn't
-> >> considered the VM ready when user BOs were not ideally placed, harmless
-> >> performance impact for kernel queues but a complete show stopper for
-> >> userqueues.
-> >>=20
-> >> v2: fix a few typos in comments, rename the BO types to make them more
-> >>=20
-> >>     descriptive, fix a couple of bugs found during testing
-> >>=20
-> >> v3: squashed together with revert to old status lock handling, looks
-> >>=20
-> >>     like the first patch still had some bug which this one here should
-> >>     fix.
-> >>     Fix a missing lock around debugfs printing.
-> >>=20
-> >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> On 5/25/26 13:33, Timur Krist=C3=B3f wrote:
+> > UVD 4.x and older can only access MSG, FEEDBACK buffers from a
+> > specific 256M VRAM segment that the VCPU BO is also located in.
+> > We already modify all placements of the given BO to ensure
+> > the BO is placed within this segment.
 > >=20
-> > Hi Christian,
+> > Previously, it always assumed that the VCPU segment is
+> > the first 256M of VRAM, even though under some conditions
+> > the VCPU BO could be allocated outside this segment,
+> > which made UVD non-functional as the BOs were
+> > not inside the same segment as the UVD VCPU BO.
 > >=20
-> > This patch regresses GPU recovery.
-> > (Tested on SI, haven't had time to test other GPUs yet.)
+> > Solve that by using the segment where the VCPU BO actually is.
 > >=20
-> > It hits the following warning:
-> > WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c:635 at
-> > amdgpu_vm_pde_update And then this error:
-> > [drm:amdgpu_gem_va_update_vm [amdgpu]] *ERROR* Couldn't update BO_VA (-=
-22)
+> > This fixes an issue with UVD failing to initialize on SI/CIK
+> > when resizable BAR is enabled and the VCPU BO is allocated
+> > in a different segment.
 > >=20
-> > Please fix.
+> > v2:
+> > - For other BOs, keep using the same UVD segment as before.
+> >=20
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3851
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> >=20
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 33 ++++++++++++++++++-------
+> >  1 file changed, 24 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c index
+> > 1e59ca924abe..480bf88def46 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> > @@ -135,7 +135,7 @@ MODULE_FIRMWARE(FIRMWARE_VEGA12);
+> >=20
+> >  MODULE_FIRMWARE(FIRMWARE_VEGA20);
+> > =20
+> >  static void amdgpu_uvd_idle_work_handler(struct work_struct *work);
+> >=20
+> > -static void amdgpu_uvd_force_into_uvd_segment(struct amdgpu_bo *abo);
+> > +static void amdgpu_uvd_force_into_vcpu_segment(struct amdgpu_bo *abo);
+> >=20
+> >  static int amdgpu_uvd_create_msg_bo_helper(struct amdgpu_device *adev,
+> > =20
+> >  					   uint32_t size,
+> >=20
+> > @@ -158,7 +158,7 @@ static int amdgpu_uvd_create_msg_bo_helper(struct
+> > amdgpu_device *adev,>=20
+> >  	amdgpu_bo_kunmap(bo);
+> >  	amdgpu_bo_unpin(bo);
+> >  	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
+> >=20
+> > -	amdgpu_uvd_force_into_uvd_segment(bo);
+> > +	amdgpu_uvd_force_into_vcpu_segment(bo);
+> >=20
+> >  	r =3D ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+> >  	if (r)
+> >  =09
+> >  		goto err;
+> >=20
+> > @@ -550,6 +550,24 @@ void amdgpu_uvd_free_handles(struct amdgpu_device
+> > *adev, struct drm_file *filp)>=20
+> >  	}
+> > =20
+> >  }
+> >=20
+> > +static void amdgpu_uvd_force_into_vcpu_segment(struct amdgpu_bo *bo)
+> > +{
+> > +	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
+> > +	struct amdgpu_bo *vcpu_bo =3D adev->uvd.inst[0].vcpu_bo;
+> > +	struct amdgpu_res_cursor vcpu_cur;
+> > +
+> > +	amdgpu_res_first(vcpu_bo->tbo.resource, 0,
+> > +			 amdgpu_bo_size(vcpu_bo), &vcpu_cur);
+> > +
+> > +	bo->placement.num_placement =3D 1;
+> > +	bo->placement.placement =3D &bo->placements[0];
+> > +	bo->placements[0].fpfn =3D ALIGN_DOWN(vcpu_cur.start, SZ_256M) >>
+> > PAGE_SHIFT; +	bo->placements[0].lpfn =3D bo->placements[0].fpfn +=20
+(SZ_256M
+> > >> PAGE_SHIFT); +	bo->placements[0].mem_type =3D
+> > vcpu_bo->tbo.resource->mem_type;
+> > +	if (bo->placements[0].mem_type =3D=3D TTM_PL_VRAM)
+> > +		bo->placements[0].flags |=3D TTM_PL_FLAG_CONTIGUOUS;
 >=20
-> Yeah that's a known issue. Fix is already pushed to amd-staging-drm-next.
+> You need to call ttm_bo_validate() here.
 
-Hi Christian,
+Can you say why?
+ttm_bo_validate() is already called by both callers of this function.
 
-Where is this fix? As far as I see "restructure VM state machine v2" is the=
- top=20
-commit on amd-staging-drm-next right now.
-
-Timur
 
 
 
