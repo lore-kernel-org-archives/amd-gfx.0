@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDC3CD6E40
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EDECD6E41
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F3E610E678;
-	Tue, 26 May 2026 14:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE5FD10E67C;
+	Tue, 26 May 2026 14:12:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DQY7mPJZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lbP8FOpI";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010039.outbound.protection.outlook.com
- [52.101.193.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25B3A10E671
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:12:03 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012018.outbound.protection.outlook.com [52.101.53.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D7E10E66D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:11:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AR0h25cup9VqhNG4EI6F+yKXb/z3Xq9BS+RMqQuJjhv0yh/DiJhErNoU748DrdlizBXBPOw74fgm2AwE3EelButNw0okHnRnYSR/+eqd2XFPupr9cqSEWZYfGY1xGNBx4QZoHpepIaCVeT8/E9dphpNLO4YBpQjv96wlr5mJ1X+FHfpdPRB5ly2MnEUXSsshhcYiXGOVMvkRqfT/gaS0+22wd7/rvJvachy+kKJN7lik6KVmXQSMPvWQO+s4KEtnhhvoHztKgI7q2i9gcBZP/+8+O6cohWeJEQdjyfqpuMhFbc7UbmJhTtAEstW/7eYfI+SOy+m/OT3XMmgY3AaKtw==
+ b=hk6jB6YBMIq81c40loYRRcn616LQEZK5DJ3vpMlre8tceHermsEF3KcdwujwR8+QndsKoAaI2QDdCWLicXixG7VHC3VvHp4diiuP6SjtfkwiCresOGtsLlh/yeoV9pCh5nwi+dGcrm28i3vLnaafB42KmUeXQHrryqRRrblaMz4aQb/QOwWpOWjyoofqxvS4AzDp6wPkveinQ7UtdlSDrVm38G6s4eEd6bXxnGx08ul+c9TP/XXmmAXgAPJQq83b/DRnkN7vAICMerbp+4bHaBifvS5FMkX4Ly2uDgjtpgjW/OshLbm2k8SKdyHLOOc95QKE58OHXdoxt9YK+Xn+Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w3Q5e32e5nb1AsyWCw8OpcMRtZyvOYv2ptw752gUI48=;
- b=G18ObNuzZZzXwDQ488hr9m8ihuUwYDFqP8vKVU+5Fgsq9QR6XsoQEEvXFGwBbZUIotnFRqy149T31A6clShW68mOt6XghTlng1Q+lE1Xsr80QccL194IfrrL4Yy0adNDDFlLXgY4cX9kvi1mZimTIOkqivc3XSHkqEmmW2LfCTD2l9ezh6WZp7JuDSIEKxLA7TuCtXtEASpN1kF8vAzzyiPAqYmTlBq67OjTdEhjSraUy7QipWfL/9eG3SiswM6ySztR12a08iMD5yOq6czKywSIBOWh2HnkKpI16HhX1TZvXKxv9PE0DPhqliEoW0LMcNX9qZOxH78ALIwf+eS2ug==
+ bh=gesbGdeR6Wv6XCfb5j0x5HoEFnPVFZmHp/J0Zcq+f+g=;
+ b=QPVH6wvDWrN+UOvwwuXcVs9shzqpnWjUn3seQrK/cu89mv4I6+GgVOZl+w4trczf6+uFjhLAZKTLvSWFBuKB8PwUQJNITg0nRfT8YFYgKzBXeLJEuLtojxpp1GkxEb1Qsj/wEikvH+l9tvvkCSCxy9oOrGnSFlUMDQD6Tv+TmxUPsaZ6gNxrGTRTe6upsyYi9fKQhdtElmsY7Oeh4ze7CqDBAK0BYllibXfcXZnp0R56+9//Aa06CT2Un5eNF03Fw8lORo8aYMqz47ZQmRaD/uCyn0BXJDBBvEAbMyFhwE4qlnGGlA2xFl9+78wxsKHMNh93UvpftGeHJ76IYxHRvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w3Q5e32e5nb1AsyWCw8OpcMRtZyvOYv2ptw752gUI48=;
- b=DQY7mPJZSvzvk8GAB48XIvKaetrcLsqcFlBqDQ7p0FcO2pBZZYg5NlcW3VfMSPTfrNKgsd4hsNL9mC16K9nLIzstboviOAog/VmRS4peGqmA/XbBlPtVuAA1jiM4gP4sP9nqu7L+kWV8egHxkiH/iDPcr7+QgpZ9/R0W9Ipl+js=
-Received: from BN9PR03CA0665.namprd03.prod.outlook.com (2603:10b6:408:10e::10)
- by IA1PR12MB8239.namprd12.prod.outlook.com (2603:10b6:208:3f7::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Tue, 26 May
- 2026 14:11:52 +0000
+ bh=gesbGdeR6Wv6XCfb5j0x5HoEFnPVFZmHp/J0Zcq+f+g=;
+ b=lbP8FOpIiBJ0esEdD+uqWnn9pwBRNwLTpmQkpTo9ikntv2JbaV7LzX7CUiwtM45kWAehBXNZjqcJIrBcwwnTZm8UsyB75jb8EroY60AYAXQcCGK19/AWLd4mR/6o0Nep2SFYGREbq9GBp1m++GcicF8I5L5yI9OrlsWSRZeNqwY=
+Received: from BN9PR03CA0685.namprd03.prod.outlook.com (2603:10b6:408:10e::30)
+ by DS7PR12MB6264.namprd12.prod.outlook.com (2603:10b6:8:94::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 14:11:55 +0000
 Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
- (2603:10b6:408:10e:cafe::af) by BN9PR03CA0665.outlook.office365.com
- (2603:10b6:408:10e::10) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:10e:cafe::a3) by BN9PR03CA0685.outlook.office365.com
+ (2603:10b6:408:10e::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
- May 2026 14:11:52 +0000
+ May 2026 14:11:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:11:52 +0000
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:11:55 +0000
 Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 09:11:50 -0500
+ 2026 09:11:51 -0500
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Bing.Ma@amd.com>, <jamesz@amd.com>
-Subject: [PATCH v4 02/17] drm/amdgpu: add profiler manager initialization and
- release
-Date: Tue, 26 May 2026 10:11:14 -0400
-Message-ID: <20260526141129.592886-2-James.Zhu@amd.com>
+Subject: [PATCH v4 05/17] drm/amdgpu: add amdgpu_bo_alloc_gtt_mem and
+ amdgpu_bo_free_gtt_mem
+Date: Tue, 26 May 2026 10:11:17 -0400
+Message-ID: <20260526141129.592886-5-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260526141129.592886-1-James.Zhu@amd.com>
 References: <20260526141129.592886-1-James.Zhu@amd.com>
@@ -74,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|IA1PR12MB8239:EE_
-X-MS-Office365-Filtering-Correlation-Id: c74c6544-4a83-4145-8c75-08debb30bc63
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|DS7PR12MB6264:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa4ec911-9d79-4a00-a00c-08debb30be07
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|11063799006|6133799003|3023799007|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: CXmmhcW9GTFjzhztwjWHIpBp17PFE5q7uhxhZiBAQCBdhE/EOrjmz9k03dvbOav/yp+wRyWf6OUO16x6exY6kuuYPvC3+aqFKCp7ifrxhHhfRBJjfR1Dkmh3xN9ep3AviZ/8hsHjLRyjXiaxnjv/hGiFioqxSGgbrd/agdLzDsyHwLtGxrYneOo7Q/PzH5pBsvknDSjX1TvxKVZMHIiFVAZ5i4c9EqmqswjLhr4RbTmEw3nFr4m6r7VfZroEV+mKPLbDssjKPSIWKfNgc6FjkYdpRnNZurk/BYYLhH8DAtktDj4EDu6Wp4zBf8qBfNyv5aZBejPb8OVIeKaEkdjDSIo8sqUCilqJTaUZcN5xLDZPUZubSqBRDRqU2Fpv+67CYkI4cf15FITXhInitONzWPw5UIkvPdzmz+oJPqeNmx9S03meKFFQ82E49RahFV2/r2s6/8EprhklBTm/iPsyYpDlAfpfeM5ue25USsU+yfNAAgSR0tNSKzAOOsVbx3cPPhIyAfmcXp2hzTkFCWYgs6OkpsOXG4TPwgqilSkFIJHKraqb7t3C9nWgBCK517lCPvMOYlVYsQZQKwFCCLLZgKk0kDMAYQj7OleAMx7sgm8S5AVlk1BPJkbK5pevU+yZiDcoEq0URPKI4qUr+b6q3q0l/I+W0v69DcyAUo7xuox87ESPb4MUyzRSynWNeoijL7SJCv9FbjBqra/o6V+a8YWODjPc+Nxvu0zcoHRm2ws=
+ ARA:13230040|82310400026|36860700016|376014|1800799024|6133799003|11063799006|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 7rD5uaVCuXb2dwS4X96gYTEhz6SiUGxAi6ONCgaLXdJKUaAGpu0lxiPo9Y+52WPi+Fya/Yjd4AY75VQNScHM8P9peLZfdtQUWpQfa8j6alWW6o+G4WBaG7d0LxhWJje/bT1hO6UoRe9nzQet0UISvvOV2RW9mwP869YG9ohjBghRCALunXbDsd5Hvd/lSsVYhhzvpEuOwRj2uOdLKZE8Al7HmSE+qDpjNQkvKTT44OcEyk81nXTuK7UJShac0QOe9cZ13rBGJ+BS3To/RkM8bp4t93ga1+7nCK7TfoeMoaHlj92JFbjwbXZqUufWyox2VNbq8dO4vGp0PXKWYouecyLrhtPD6Me0Sw0Rp06Ma00fT0lFDImEkPoAV/wA6XMZ2yhDu/AmaM/2acamt9r1jC2UnyYqNFrMuSqC1Y0OjSF2P6jOTgs4Q4ws6/N2dtEiH8ocpMdTrZBSgM2Ve4rtt/r5aL48MIHgxb71FeC6IzbAXgqOSydBWg5Wgr8x3KnGSxpR1KtATESrJ7w1Zrt22AZlRYy48zAiee5lYn6O4oVZL3b7tT52x1G7p5HDZV8dSaiBk87oUiGQGO1ZQMMpITLTK0OCaJTAkuHE/t3rGIKjYl5NGqJaQcthxpupl7I2P6L83y612oyO5XJjqZSzPnbwQp2jB+yvd/Z/3uPGTcS5dXXVdDZAN1ZKdPZnhVjvK5yHuGT1ZMOlwb3EFWQutV6sCrAnUrnGnVfAgnUZvwo=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(11063799006)(6133799003)(3023799007)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(6133799003)(11063799006)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zRSZUevxeFM7E5Bl8hzElZ2XlUbwwETJZ3SVzIGAbhhB2P4IjpbRj3tbvKA2Upv3HV+YKYcAWELuLuBpmFrOZGRk4zFRMFTFMqjxCObeAdwOv1w24w0sL4r1krJv336YzPDdH9lAhO2H3Tbr1GaUTvpI34UedeDVApbKnqwc/1Oe2blaGwGHN9o3D+pvh0/S6aqA3TD2uj6GGJjBGrk7iVodcpDIXxFYAp5PTbYP7CAzAldqJmiyQi+EcZCHKS2ke2suiO/wYMfgxS1rRfN9/YHs+y4OpbquL0hJJOEe+TqOrHayN+CC/1hxE9679BaKV6GHiUPP09ECbviK5DyvfiF0xnvHQ+UIwN7PiB82b6b9h7POuT1uM+vsDHJw2XZ/WpwVS4hTgPvv9wA+qF2Htlt/8qObd/g/loA4F9wkp2X9yU50Tl8cfCcZvsU5IiFM
+X-MS-Exchange-AntiSpam-MessageData-0: VBDVPDL7x8hx290fuUvaJHVgJNio2mCUdFB+tme/cMHo4Om30var8W7it8H6PdEXFgdoHpcGEsd3zyrjRTVFloeBoV2ssdFwIH0ViBGBDOwnMmiVURLDAv8271po0SOsBAKI1Vf1fq6xufBm9+28mvfLac5a6r/m1Iy1HLBVeQp04XaQ50LB4LA2vGulMnm2tCzy/kjv+C7ppuaExA6rdd4+C3GwRO+A9PFX7Q6dopuaP+VRhLHJOcfV4UgObyaV3if+zd+uk+a6QtW0VKvMhOwvfcucJL8g5wgo0NupOpZKDPSX4apAQi9BP97NycjXiQigOvVDH+BDNA4oZ0SGLFz7IS/EJEliFjn5e/YuIBm4Nb4bhvl4Tzt0dj6sHM/7GUSdoV570pBXI355KM/V09WMuW2WxJWq2/uWbUN7QEgHC4SSTtjYwYE/S+C4cWRW
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:11:52.6237 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c74c6544-4a83-4145-8c75-08debb30bc63
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:11:55.3758 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa4ec911-9d79-4a00-a00c-08debb30be07
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8239
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6264
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,270 +110,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-to introduce the profiler manager infrastructure needed to support
-per-process GPU hardware profiling features such as SPM and PCS.
+two helper functions for allocating and freeing kernel-internal
+GTT (Graphics Translation Table) buffer objects, intended for use by
+the SPM ring buffer allocation path.
 
-Two new files are added:
-- amdgpu_profiler.c/.h: define struct amdgpu_profiler_mgr, which
-  holds an array of per-XCP partition managers (amdgpu_profiler_xcp_mgr),
-  each reference-counted via kref and protected by a dedicated mutex.
+amdgpu_bo_alloc_gtt_mem():
+  Allocates a TTM kernel BO of the requested size in GTT domain,
+  PAGE_SIZE aligned. The bo_ptr_size is set to sizeof(struct amdgpu_bo).
+  After creation the BO is reserved, pinned to GTT, GART-bound via
+  amdgpu_ttm_alloc_gart(), and kernel-mapped via amdgpu_bo_kmap().
+  On success, the caller receives the opaque BO handle (*mem_obj),
+  the GPU virtual address (*gpu_addr), and the kernel virtual address
+  (*cpu_ptr). All intermediate steps are rolled back cleanly on any
+  failure via a chained goto error path.
 
-A device-level struct amdgpu_profiler_mgr prof_mgr is embedded in
-struct amdgpu_device and its top-level mutex is initialized during
-amdgpu_device_init().
+  Two optional flags control BO creation:
+  - mqd_gfx9=true: sets AMDGPU_GEM_CREATE_CP_MQD_GFX9, required for
+    GFX9 MQD-compatible allocations.
+  - is_uswc_mode=true: sets AMDGPU_GEM_CREATE_CPU_GTT_USWC, enabling
+    uncached speculative write-combining CPU access to the GTT buffer.
 
-The per-XCP profiler manager is initialized lazily on the first
-amdgpu_driver_open_kms() call for a given XCP partition:
-- If the XCP manager is already initialized, only the kref is
-  incremented.
-- On file close (amdgpu_drm_release()), the kref is decremented and
-  the per-XCP manager is destroyed (mutex destroyed, is_initialized cleared)
-  when the last user releases it.
-
-Non-partitioned devices uses XCP partition 0. Initialization is skipped
-when fpriv->xcp_id is AMDGPU_XCP_NO_PARTITION, which indicates the
-device has not yet been fully initialized.
-
--v3: rename is_init to is_initialized in amdgpu_profiler_xcp_mgr
--v4: fix mistake
+amdgpu_bo_free_gtt_mem():
+  Reverses the allocation by reserving the BO, unmapping (kunmap),
+  unpinning, unreserving, and dropping the last reference (unref).
+  Handles NULL gracefully and logs an error if reservation fails.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 Reviewed-by: Bing Ma <Bing.Ma@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile          |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h          |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c      |  5 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 89 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h | 48 +++++++++++
- 7 files changed, 148 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 97 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  1 -
+ 3 files changed, 101 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index e70322bd2086..a54869a20e73 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
- 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
- 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
- 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o amdgpu_events.o \
--	amdgpu_cwsr.o
-+	amdgpu_cwsr.o amdgpu_profiler.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 4dd7c712b8c3..0a163b5e850f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1701,4 +1701,101 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
  
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 36ee18250dcf..3394c17aed05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -110,6 +110,7 @@
- #include "amdgpu_seq64.h"
- #include "amdgpu_reg_state.h"
- #include "amdgpu_userq.h"
-+#include "amdgpu_profiler.h"
- #include "amdgpu_eviction_fence.h"
- #include "amdgpu_ip.h"
- #if defined(CONFIG_DRM_AMD_ISP)
-@@ -1207,6 +1208,8 @@ struct amdgpu_device {
- 
- 	struct amdgpu_uma_carveout_info uma_info;
- 
-+	struct amdgpu_profiler_mgr      prof_mgr;
+ 	return size;
+ }
 +
- 	/* KFD
- 	 * Must be last --ends in a flexible-array member.
- 	 */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e646a621c317..b5300c181c7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3754,6 +3754,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->gfx.userq_sch_mutex);
- 	mutex_init(&adev->gfx.workload_profile_mutex);
- 	mutex_init(&adev->vcn.workload_profile_mutex);
-+	mutex_init(&adev->prof_mgr.mutex);
- 
- 	amdgpu_device_init_apu_flags(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 7b14a0c24a8c..476d40dde319 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2971,6 +2971,7 @@ static int amdgpu_drm_release(struct inode *inode, struct file *filp)
- 		amdgpu_evf_mgr_flush_suspend(&fpriv->evf_mgr);
- 		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
- 		amdgpu_evf_mgr_fini(&fpriv->evf_mgr);
-+		amdgpu_profiler_mgr_fini(fpriv_to_prof_mgr(fpriv), fpriv);
- 		drm_dev_exit(idx);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 70cc70b6bac5..696f0b0a949f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1628,6 +1628,11 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 			dev_dbg(adev->dev, "cwsr trap not enabled");
- 	}
- 
-+	r = amdgpu_profiler_mgr_init(fpriv_to_prof_mgr(fpriv), fpriv);
-+	if (r)
-+		DRM_WARN("Can't setup profiler\n");
-+
-+
- 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
- 
- 	file_priv->driver_priv = fpriv;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-new file mode 100644
-index 000000000000..ffe65664e1d4
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#include "amdgpu.h"
-+
-+/*
-+ * Profiler revision change log
-+ *
-+ * 1.1 - Initial revision
-+ */
-+
-+#define AMDGPU_PROFILER_VERSION_MAJOR 1
-+#define AMDGPU_PROFILER_VERSION_MINOR 1
-+
-+int amdgpu_profiler_mgr_init(
-+		struct amdgpu_profiler_mgr *prof_mgr,
-+		struct amdgpu_fpriv *fpriv)
++int amdgpu_bo_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
++				void **mem_obj, uint64_t *gpu_addr,
++				void **cpu_ptr, bool mqd_gfx9, bool is_uswc_mode)
 +{
-+	struct amdgpu_profiler_xcp_mgr *prof_xcp_mgr;
-+	struct amdgpu_device *adev = fpriv_to_adev(fpriv);
++	struct amdgpu_bo *bo = NULL;
++	struct amdgpu_bo_param bp;
++	int r;
++	void *cpu_ptr_tmp = NULL;
 +
-+	if (fpriv->xcp_id == AMDGPU_XCP_NO_PARTITION)
-+		return 0;
++	memset(&bp, 0, sizeof(bp));
++	bp.size = size;
++	bp.byte_align = PAGE_SIZE;
++	bp.domain = AMDGPU_GEM_DOMAIN_GTT;
++	if (is_uswc_mode)
++		bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC;
++	else
++		bp.flags = 0;
++	bp.type = ttm_bo_type_kernel;
++	bp.resv = NULL;
++	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
 +
-+	mutex_lock(&prof_mgr->mutex);
++	if (mqd_gfx9)
++		bp.flags |= AMDGPU_GEM_CREATE_CP_MQD_GFX9;
 +
-+	prof_xcp_mgr = &prof_mgr->prof_xcp_mgr[fpriv->xcp_id];
-+	if (prof_xcp_mgr->is_initialized) {
-+		kref_get(&prof_xcp_mgr->ref);
-+		mutex_unlock(&prof_mgr->mutex);
-+		return 0;
++	r = amdgpu_bo_create(adev, &bp, &bo);
++	if (r) {
++		dev_err(adev->dev,
++			"failed to allocate BO for amdgpu (%d)\n", r);
++		return r;
 +	}
 +
-+	dev_dbg(adev->dev, "Initialize profiler on render node %d xcp %d",
-+		adev->ddev.render->index, fpriv->xcp_id);
-+	kref_init(&prof_xcp_mgr->ref);
-+	mutex_init(&prof_xcp_mgr->mutex);
-+	prof_xcp_mgr->xcp_id = fpriv->xcp_id;
++	/* map the buffer */
++	r = amdgpu_bo_reserve(bo, true);
++	if (r) {
++		dev_err(adev->dev, "(%d) failed to reserve bo for amdgpu\n", r);
++		goto allocate_mem_reserve_bo_failed;
++	}
 +
-+	prof_xcp_mgr->is_initialized = true;
++	r = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
++	if (r) {
++		dev_err(adev->dev, "(%d) failed to pin bo for amdgpu\n", r);
++		goto allocate_mem_pin_bo_failed;
++	}
 +
-+	mutex_unlock(&prof_mgr->mutex);
++	r = amdgpu_ttm_alloc_gart(&bo->tbo);
++	if (r) {
++		dev_err(adev->dev, "%p bind failed\n", bo);
++		goto allocate_mem_kmap_bo_failed;
++	}
++
++	r = amdgpu_bo_kmap(bo, &cpu_ptr_tmp);
++	if (r) {
++		dev_err(adev->dev,
++			"(%d) failed to map bo to GTT for amdgpu", r);
++		goto allocate_mem_kmap_bo_failed;
++	}
++
++	*mem_obj = bo;
++	*gpu_addr = amdgpu_bo_gpu_offset(bo);
++	*cpu_ptr = cpu_ptr_tmp;
++
++	amdgpu_bo_unreserve(bo);
++
 +	return 0;
++
++allocate_mem_kmap_bo_failed:
++	amdgpu_bo_unpin(bo);
++allocate_mem_pin_bo_failed:
++	amdgpu_bo_unreserve(bo);
++allocate_mem_reserve_bo_failed:
++	amdgpu_bo_unref(&bo);
++
++	return r;
 +}
 +
-+static void amdgpu_profiler_mgr_release(struct kref *ref)
++void amdgpu_bo_free_gtt_mem(struct amdgpu_device *adev, void **mem_obj)
 +{
-+	struct amdgpu_profiler_xcp_mgr *prof_xcp_mgr =
-+		container_of(ref, struct amdgpu_profiler_xcp_mgr, ref);
++	struct amdgpu_bo **bo = (struct amdgpu_bo **) mem_obj;
++	int r;
 +
-+	mutex_destroy(&prof_xcp_mgr->mutex);
-+	prof_xcp_mgr->is_initialized = false;
-+}
-+
-+void amdgpu_profiler_mgr_fini(
-+		struct amdgpu_profiler_mgr *prof_mgr,
-+		struct amdgpu_fpriv *fpriv)
-+{
-+	struct amdgpu_profiler_xcp_mgr *prof_xcp_mgr;
-+
-+	if (fpriv->xcp_id == AMDGPU_XCP_NO_PARTITION)
++	if (!bo || !*bo)
 +		return;
 +
-+	mutex_lock(&prof_mgr->mutex);
-+	prof_xcp_mgr = &prof_mgr->prof_xcp_mgr[fpriv->xcp_id];
-+	if (prof_xcp_mgr->is_initialized)
-+		kref_put(&prof_xcp_mgr->ref, amdgpu_profiler_mgr_release);
-+	mutex_unlock(&prof_mgr->mutex);
++	r = amdgpu_bo_reserve(*bo, true);
++	if (r) {
++		dev_err(adev->dev,
++			"(%d) failed to reserve bo to free", r);
++		return;
++	}
++
++	amdgpu_bo_kunmap(*bo);
++	amdgpu_bo_unpin(*bo);
++	amdgpu_bo_unreserve(*bo);
++	amdgpu_bo_unref(bo);
 +}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-new file mode 100644
-index 000000000000..c33018f01d0c
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
-@@ -0,0 +1,48 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
 +
-+#ifndef AMDGPU_PROFILER_H_
-+#define AMDGPU_PROFILER_H_
-+
-+#define fpriv_to_prof_mgr(fpriv) (&(fpriv)->userq_mgr.adev->prof_mgr)
-+#define fpriv_to_adev(fpriv) ((fpriv)->userq_mgr.adev)
-+
-+struct amdgpu_profiler_xcp_mgr {
-+	struct mutex                   mutex;
-+	uint32_t                       xcp_id;
-+	bool                           is_initialized;
-+	struct kref                    ref;
-+};
-+
-+struct amdgpu_profiler_mgr {
-+	struct mutex                   mutex;
-+	struct amdgpu_profiler_xcp_mgr prof_xcp_mgr[MAX_XCP];
-+};
-+
-+int amdgpu_profiler_mgr_init(struct amdgpu_profiler_mgr *prof_mgr,
-+					struct amdgpu_fpriv *fpriv);
-+void amdgpu_profiler_mgr_fini(struct amdgpu_profiler_mgr *prof_mgr,
-+					struct amdgpu_fpriv *fpriv);
-+
-+#endif /* AMDGPU_PROFILER_H_ */
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 912c9afaf9e1..0102d43b2edc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -353,5 +353,8 @@ void amdgpu_debugfs_sa_init(struct amdgpu_device *adev);
+ 
+ bool amdgpu_bo_support_uswc(u64 bo_flags);
+ 
+-
++int amdgpu_bo_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
++				void **mem_obj, uint64_t *gpu_addr,
++				void **cpu_ptr, bool mqd_gfx9, bool is_uswc_mode);
++void amdgpu_bo_free_gtt_mem(struct amdgpu_device *adev, void **mem_obj);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 1bbfa8744e01..ed9a228f5cef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -747,5 +747,4 @@ void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
+ 		list_for_each_entry(mapping, &(bo_va)->valids, list)
+ #define amdgpu_vm_bo_va_for_each_invalid_mapping(bo_va, mapping) \
+ 		list_for_each_entry(mapping, &(bo_va)->invalids, list)
+-
+ #endif
 -- 
 2.34.1
 
