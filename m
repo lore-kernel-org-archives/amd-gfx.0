@@ -4,94 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98B9DCD5BC8
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 15:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5085DCD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 15:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3F510E500;
-	Tue, 26 May 2026 15:00:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA73810E1C3;
+	Tue, 26 May 2026 15:04:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EdTsNip1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sbzhrdxn";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7079110E4C9
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 15:00:50 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-2f6e6a0a215so912784eec.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 08:00:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779807649; cv=none;
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9928810E1C3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 15:04:48 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-2f5ae07e2b5so881710eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 08:04:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779807888; cv=none;
  d=google.com; s=arc-20240605;
- b=NnvYt8NERBasCnge1049MHmhcoQNb7wOqS/0E5LV70VZbqbnLG4AVvFyq3jRd/sPpA
- /PgpHubffSLim2FlQE9CndBV9e7mLzYDA2i6EPmKi8HSFFqnXkHfWp471XhpshcUSgL8
- C0blr7L+EcchraREzjU1GNDkjD5P2DxNFa3U7Mu5ZdRSHodDQc+HuNo8zrMUlYL4e7AS
- 1KIp8KYesB8u1kPB0RhdocNI9HzkPLT2HMVcFNHP8UtwIqWSLEdOmC4lLgk9HXjj4qSJ
- FXh9JhsMdbKJGt2vZ8fHKHcu3sLKsK5SJoyqFE2r0Iw9riHNh27QZiXOdAgTOEOmphOp
- QEAg==
+ b=Mg3u+r0wKqVEqco/4qlT/dTd8I2sVmm71VNtynvXCxA8/MSzC1FkAaJLXaToZZPZvD
+ Ui6c4fnCbpHoiT+y3UD9fUFn3mz1AkUKXxsF/Lkq0xiDrW0y0CWl8Fmr1NJ9EvpL3XSK
+ eam8TszAmHeFPJIdngcyJiwYmxra/A3izF6UiMXNfXNQMaXJCbx2S/yeURmv3Ucx8tuY
+ hoEk/dNiBwwAqXjmUB0TbamMNDLayVJtCXdwTBcZJkLZ/ql9AW0+5JQrSWFomy1rylWm
+ xBOKmqgF7kUMJRj0Me3Ecf3LS1SSJ8Fr6E7DueC3qU0pIqJj3t4QV7AMyGsg1XdAUeRv
+ lvuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=M8BbtBh6h4IHFGJllYcSg9753hpPnuHPx+gjzgBQ574=;
- fh=6Tba4fIK037g9vkqh80dQgnOfOxlO//gA31YD0wQbk4=;
- b=AeqKjpoMvPMmklf4FLgALCyOW2fs5vuh+1rdiSSjfXrsWVHm8YoOrNm3eeGquMRbyh
- OFfzDxKUG1rKb6CBccehy7FQrAYMEiPnXHNQCjJpjc9FbSzX/rER8h7zPhqhSyJxiDi/
- bM504Rbi0nuIWH3gpmqBHwlrPRy0+gvNugXNVJQY7KiV0QiUSGdGpf0FdsQfOUkYQytN
- jm5fPWKGLRcEnO7px1QjIsujzyZVtNkMMrDlK9AuGnJ6udKWeGO3FFXXiIWVQJ3Ankw6
- /3wpwpN9ujRMtvpB+SJFMEN18YrFMEEB8lqYJJC9XLE0vLzq6MJYCZ9eNrmO8SAUN09k
- 7xWA==; darn=lists.freedesktop.org
+ bh=LRV46UQ5JJTLYZr24gSeEgTFm1RWBnAQRM5kpkotgFU=;
+ fh=kuXXPNLpbgu+QgSnwjBWFh7Uwlf7nGLz+J8cBaz/V84=;
+ b=NKbmvTtTxYwfJNtdIaEFKqXfM5AJwIpyMi6nItUgREGaLL94kTC5O+tW3vHMOhZadc
+ iO+OGAZzNmHcFzd2xdwySZP7FgoZszNrzQ+m/A4awIJRewDgItXm61z2s9eDRJT5YqlA
+ Q1dhNPUbjxsEnI6eKq81e7fLPq5qjkLwPdS7yK6Tw+DGAJ8ppMWgRpyLNX8zwhCJwadE
+ /uVOU42uMI4yqALLEvmyApz+pOgkCUghlp6qa0/rT/tWqdhy4oMJGbRN0+yIOOEQ81Hb
+ YIO+oRUyk4gctg7VRXJN8+/vPNvipPqfWgsqJ4iRJ8prfechGFesOzCvMxm1TecmCGwU
+ SWmA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779807649; x=1780412449; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779807888; x=1780412688; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=M8BbtBh6h4IHFGJllYcSg9753hpPnuHPx+gjzgBQ574=;
- b=EdTsNip1ZSgmF0Ab+9tlg1G26CJzUHnjVkxdLAhofqdJQjhrZiWTaCt27HymH/W7LA
- NRFyeiaF4jxxONw9/8wLrgvz3ZMxtm2vsFrpPHWfACVNGENC5UbXryxN5J9LiRkUM/kR
- 4qD1N2GFyklMHb7T3FaJKgT+t/GR5r3GO9L8cGgls7tzKTs3y6E5fc/8j8SGhlsp/GBJ
- 0/b3FYHQs6DSdP6K8ut2R/eBmK8K08Xi3Tlw7v6nWQ6JL8I8tntJiECREXLNhAyMUhW/
- 8KGNKdueItyNgOxNzlubT3EGpeSRCmk82f+hFxvrVHDIOTbtafbXKQxiqrPW3R3IJpfK
- QLAg==
+ bh=LRV46UQ5JJTLYZr24gSeEgTFm1RWBnAQRM5kpkotgFU=;
+ b=SbzhrdxnJUFhjhqDhEWbEt6HqXtDdO7Cwye9GLr7qMtG62P27/tNz4gktpJiA/JGTX
+ c5eeXPXjORqlVINgPh2Xzw51PartnN+Bd5yqQmfL4bcthLTVuLXHxX4Kgt3bQFb0i/y4
+ DWEexIYZ//ScW3MUV9hSdjuNBsQ/rzR2t/5JiQj83u4zttAh2xCwPID+b82cl3HAi5BY
+ 2prgEDOJuEqRF/FVUtGCh/S4AOdNinP3ompZLe5XM0fjsDmkaQpHy0tU4AlN+6GrOeJn
+ t7RCvQ1ioQuRWz2D2FoATrYN5gF1XCPtymkppOhVxOvdI1WLcD0M4JyTC17zHa8630N5
+ BTHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779807649; x=1780412449;
+ d=1e100.net; s=20251104; t=1779807888; x=1780412688;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=M8BbtBh6h4IHFGJllYcSg9753hpPnuHPx+gjzgBQ574=;
- b=aFOjQxni3GmhIa9nlyXaXeVdtLah58B8CdaSouBYeHufRh3JJg7hZVNr70IJmG/UEJ
- tgc4HnuVb17vYAyDBLEn2lUqlXimxWtiNdgTBelby+CFhDIqkdvFtW9G0yhjl8esjEim
- rpkxmtRjD274n8TjKM9wkJJAXWlRJX387ucwAhTwwlSPFE1fhq8MHDrNrJuGcUMgvAPS
- tGNKZlxDn/iO8/lWmH9PrIn4VzTDE0nlYakHbLvC0FgEsb+PuMcvQETYde65alFlxewE
- taTjhR4S24Tr5k85VdS73pU41IXTmXYLxS/ronk6AniOC/AHcaYa+ZC2DNAyzaidHASt
- 8AXw==
-X-Gm-Message-State: AOJu0YwqvNcEMh1MYgdlJ0ANof3f+S5xYBzXJBwzc+uNBdw4OBhA/vdg
- 4F2fw5Li0QSJCwc7hmRE6fRORbDB1cwNwxxX0v4qYwHfFmSqCBbq0g3Y1vj21t00qGOsUdPB5Yb
- FlUDQJxx+8ur0akEb0Rsxp6a7U6XJbVg=
-X-Gm-Gg: Acq92OEzvL9/FewJHgnVIobTenwjjkbJsvfTkGkd/pW0CkRo0AVlhto1iMEDH0I//Mw
- eIcjXAYhRjqCVn5VwN45+HSybPook4bmlhOXalVCC6BL1IX5WogN4RQpZEXi/ylipTeV1bBXKzu
- JCTxJiDXpJRvlUpFRFxhnJyf5D2pJWpn4WsLBjrJMXt5WdXymy9Or6pTNloVkQXi5gmIcPYQCrR
- /MeGtkefym/owQ7LBOp1y9COouC5QtNd/Fu5zYrCaaBH2bmH5DKEkPXct3awvRTMqdk/waIqhCs
- mpFsLlADLBKUdCWkLbWEPOWCbPRlNNkAxqkgUWr+GBIIzgAvkF3kmg4jnLR4H2X5LogaeXz+RvA
- tCnSf
-X-Received: by 2002:a05:7300:8c05:b0:2d1:9b35:4f03 with SMTP id
- 5a478bee46e88-304491af095mr4320694eec.5.1779807649007; Tue, 26 May 2026
- 08:00:49 -0700 (PDT)
+ bh=LRV46UQ5JJTLYZr24gSeEgTFm1RWBnAQRM5kpkotgFU=;
+ b=JSOQLW8CwA/VMGlz+Lk21/JCay0uonrx8kHSDi3rNlrB15t40KheAAhpqO8Y5HAhUq
+ i11nc7ENYpJXeuI/Rh1fyiVL1H1cZH5Y9TJR0Pvq9znRNCusnMjCTGvYZqBZ6S1v8YFQ
+ aflPRsynubQ4QyjdrK+rGLbPfl3bqLsPKFQdCmPmq+6Ifi6+59HA7Dp8s+gPjSUqt/M+
+ V5hNLr0yBqdAGO/q+zCQM3MSBojQo4woUHTxDXzPIEuuORr4Wm4t1IEDW+brNFpfGCOc
+ 423UGKoqTy2PDosA+n32Kf/HhcLfEAGq3W+F4tfCLFRrKM9s/RdxJueCw/sikq2jZzOL
+ hj4A==
+X-Gm-Message-State: AOJu0YxqDwJZHT5l4+9fIDguGznzzU+amap/HADy9wENsqcEMhHOPZ4n
+ glwr7D2o6oExpuFRJbRiFbQjr4d2wwcGtShSfFn2e6rVX/jf9Bz3StMr3iZ+yEYQetihlzYWvW9
+ FxWRKQpiydFf9qhD3zKv3px/b8cOLG3qnAg==
+X-Gm-Gg: Acq92OHrf4O9IJXYzFdO0x8iI/UQbJxFHPPzR7vcbCNjGNXyXIfy7fSH67ptFHIp1rQ
+ lNPRlszq/SwMO1qFatC5dxWoisSFRziLzt2cOf/LOtWQnR1PMt5h0OYoee0+KjdygMQvjWCAlSf
+ NgH7gAx1xGoWw2rjlsM0YGhmxOyoRvf2TwnV5UuYYCsKIHUN/GyQoEyP0KQ/qvU4bwdNXT5DMBD
+ sCFxtAYiK2gkR2v9uf0SNNrM8XqAjW4bpNLUB/vb2n7adU7f7/OD1QMAh0gsJCvL7p5mGXCIRTo
+ NrBhqOMnteQNuTp7w+AVodOvp6FX7aW3AWx50pxudb2Cdxj4cMEGR1iy18w/sx/y2g1gqw==
+X-Received: by 2002:a05:7022:68a3:b0:135:1b09:db43 with SMTP id
+ a92af1059eb24-1365fb651b4mr3219321c88.6.1779807887828; Tue, 26 May 2026
+ 08:04:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <20260525114507.24566-3-timur.kristof@gmail.com>
-In-Reply-To: <20260525114507.24566-3-timur.kristof@gmail.com>
+References: <20260526143219.609033-1-chih-wei.chien@amd.com>
+ <20260526143219.609033-4-chih-wei.chien@amd.com>
+In-Reply-To: <20260526143219.609033-4-chih-wei.chien@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 May 2026 11:00:37 -0400
-X-Gm-Features: AVHnY4JUpedUTBfv8aGHoJWhbBjATVhMAu2aCas4mNIAPT3sS2-D9mhfvStBnTc
-Message-ID: <CADnq5_NzaHitLofeB7=K1wdAUspgVx=UdU8Ce7W3_44bN5GNVA@mail.gmail.com>
-Subject: Re: [PATCH 2/7] drm/amdgpu/gfxhub: Program CRASH_ON_*_FAULT bits to 0
- as needed
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 26 May 2026 11:04:35 -0400
+X-Gm-Features: AVHnY4KzyHsSrN0bYxL3a8VWghYV5hKaWeJd7njgWtQ93x4E8rP4w-0o-huL82U
+Message-ID: <CADnq5_Non-70-vYpENW75QfQUm3Pwoh3rbrq_6sD-UoGF3=8-w@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu/vpe: add vpe v2.2.0 support
+To: Caden Chien <chih-wei.chien@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, 
+ Alexander.Deucher@amd.com, Solomon.Chiu@amd.com, Peyton.Lee@amd.com, 
+ HaoPing.Liu@amd.com, Yu.Wang4@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,271 +104,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied patches 1 and 2.
+On Tue, May 26, 2026 at 10:40=E2=80=AFAM Caden Chien <chih-wei.chien@amd.co=
+m> wrote:
+>
+> This initializes VPE IP version 2.2.0
+>
+> Signed-off-by: Caden Chien <chih-wei.chien@amd.com>
 
-Alex
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Mon, May 25, 2026 at 8:04=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> When the fault stop mode isn't AMDGPU_VM_FAULT_STOP_ALWAYS,
-> these bits should be programmed to 0.
->
-> Program CRASH_ON_NO_RETRY_FAULT and CRASH_ON_RETRY_FAULT
-> always, to make sure to clear the bits when we don't want
-> to crash.
->
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c   | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c   | 14 ++++++--------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c    | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c    | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c    | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  | 10 ++++------
->  9 files changed, 38 insertions(+), 56 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       | 1 +
+>  drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c         | 1 +
+>  3 files changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c b/drivers/gpu/dr=
-m/amd/amdgpu/gfxhub_v11_5_0.c
-> index f845ba698b40..652eea6eae4a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> @@ -449,12 +449,10 @@ static void gfxhub_v11_5_0_set_fault_enable_default=
-(struct amdgpu_device *adev,
->                             WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value)=
-;
->         tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
->                             EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, valu=
-e);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index 8e3b6a4050e9..9d95a4f915f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -2740,6 +2740,7 @@ static int amdgpu_discovery_set_vpe_ip_blocks(struc=
+t amdgpu_device *adev)
+>                 amdgpu_device_ip_block_add(adev, &vpe_v6_1_ip_block);
+>                 break;
+>         case IP_VERSION(2, 0, 0):
+> +       case IP_VERSION(2, 2, 0):
+>                 amdgpu_device_ip_block_add(adev, &vpe_v2_0_ip_block);
+>                 break;
+>         default:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vpe.c
+> index 601420491477..7bf74ff93fbd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> @@ -312,6 +312,7 @@ static int vpe_early_init(struct amdgpu_ip_block *ip_=
+block)
+>                 vpe->collaborate_mode =3D true;
+>                 break;
+>         case IP_VERSION(2, 0, 0):
+> +       case IP_VERSION(2, 2, 0):
+>                 vpe_v2_0_set_funcs(vpe);
+>                 break;
+>         default:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c b/drivers/gpu/drm/amd/=
+amdgpu/vpe_v2_0.c
+> index 0d91e01fbf3a..c92c5fc59aeb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
+> @@ -31,6 +31,7 @@
+>  #include "vpe/vpe_2_0_0_sh_mask.h"
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c b/drivers/gpu/drm/=
-amd/amdgpu/gfxhub_v12_0.c
-> index ba78b5a1a7cd..6cbf837d50dd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> @@ -454,12 +454,10 @@ static void gfxhub_v12_0_set_fault_enable_default(s=
-truct amdgpu_device *adev,
->                             WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value)=
-;
->         tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
->                             EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, valu=
-e);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
+>  MODULE_FIRMWARE("amdgpu/vpe_2_0_0.bin");
+> +MODULE_FIRMWARE("amdgpu/vpe_2_2_0.bin");
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c b/drivers/gpu/drm/=
-amd/amdgpu/gfxhub_v12_1.c
-> index 3544eb42dca6..4c2fd1e6616e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> @@ -633,19 +633,17 @@ static void gfxhub_v12_1_xcc_set_fault_enable_defau=
-lt(struct amdgpu_device *adev
->                 tmp =3D REG_SET_FIELD(tmp,
->                                     GCVM_L2_PROTECTION_FAULT_CNTL_LO32,
->                                     OTHER_CLIENT_ID_NO_RETRY_FAULT_INTERR=
-UPT, value);
-> -               if (!value)
-> -                       tmp =3D REG_SET_FIELD(tmp,
-> -                                           GCVM_L2_PROTECTION_FAULT_CNTL=
-_LO32,
-> -                                           CRASH_ON_NO_RETRY_FAULT, 1);
-> +               tmp =3D REG_SET_FIELD(tmp,
-> +                                   GCVM_L2_PROTECTION_FAULT_CNTL_LO32,
-> +                                   CRASH_ON_NO_RETRY_FAULT, !value);
->                 WREG32_SOC15(GC, GET_INST(GC, i),
->                              regGCVM_L2_PROTECTION_FAULT_CNTL_LO32, tmp);
->
->                 tmp =3D RREG32_SOC15(GC, GET_INST(GC, i),
->                                    regGCVM_L2_PROTECTION_FAULT_CNTL_HI32)=
-;
-> -               if (!value)
-> -                       tmp =3D REG_SET_FIELD(tmp,
-> -                                           GCVM_L2_PROTECTION_FAULT_CNTL=
-_HI32,
-> -                                           CRASH_ON_RETRY_FAULT, 1);
-> +               tmp =3D REG_SET_FIELD(tmp,
-> +                                   GCVM_L2_PROTECTION_FAULT_CNTL_HI32,
-> +                                   CRASH_ON_RETRY_FAULT, !value);
->                 WREG32_SOC15(GC, GET_INST(GC, i),
->                              regGCVM_L2_PROTECTION_FAULT_CNTL_HI32, tmp);
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfxhub_v1_0.c
-> index a7bfc9f41d0e..bfe247b1a333 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> @@ -403,12 +403,10 @@ static void gfxhub_v1_0_set_fault_enable_default(st=
-ruct amdgpu_device *adev,
->                         WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
->         tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
->                         EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-> +                       CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-> +                       CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/a=
-md/amdgpu/gfxhub_v1_2.c
-> index 6c03bf9f1ae8..fbdf46070b38 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> @@ -516,12 +516,10 @@ static void gfxhub_v1_2_xcc_set_fault_enable_defaul=
-t(struct amdgpu_device *adev,
->                                 WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, va=
-lue);
->                 tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
->                                 EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, =
-value);
-> -               if (!value) {
-> -                       tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT=
-_CNTL,
-> -                                       CRASH_ON_NO_RETRY_FAULT, 1);
-> -                       tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT=
-_CNTL,
-> -                                       CRASH_ON_RETRY_FAULT, 1);
-> -               }
-> +               tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-> +                               CRASH_ON_NO_RETRY_FAULT, !value);
-> +               tmp =3D REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-> +                               CRASH_ON_RETRY_FAULT, !value);
->                 WREG32_SOC15(GC, GET_INST(GC, i), regVM_L2_PROTECTION_FAU=
-LT_CNTL, tmp);
->         }
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfxhub_v2_0.c
-> index 793faf62cb07..9ea593e2c719 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> @@ -418,12 +418,10 @@ static void gfxhub_v2_0_set_fault_enable_default(st=
-ruct amdgpu_device *adev,
->                             WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value)=
-;
->         tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
->                             EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, valu=
-e);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/a=
-md/amdgpu/gfxhub_v2_1.c
-> index aceb8447feac..30b90d35abd0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> @@ -449,12 +449,10 @@ static void gfxhub_v2_1_set_fault_enable_default(st=
-ruct amdgpu_device *adev,
->                             WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value)=
-;
->         tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
->                             EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, valu=
-e);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfxhub_v3_0.c
-> index 631f99e3741a..9e6a6e13dec0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> @@ -446,12 +446,10 @@ static void gfxhub_v3_0_set_fault_enable_default(st=
-ruct amdgpu_device *adev,
->                             WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value)=
-;
->         tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
->                             EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, valu=
-e);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c b/drivers/gpu/drm=
-/amd/amdgpu/gfxhub_v3_0_3.c
-> index 8a87410ce016..b3b1085c7cd3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> @@ -434,12 +434,10 @@ static void gfxhub_v3_0_3_set_fault_enable_default(=
-struct amdgpu_device *adev,
->                             WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value)=
-;
->         tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
->                             EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, valu=
-e);
-> -       if (!value) {
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_NO_RETRY_FAULT, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> -                               CRASH_ON_RETRY_FAULT, 1);
-> -       }
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_NO_RETRY_FAULT, !value);
-> +       tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
-> +                           CRASH_ON_RETRY_FAULT, !value);
->         WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
->  }
+>  #define VPE_THREAD1_UCODE_OFFSET       0x8000
 >
 > --
-> 2.54.0
+> 2.53.0
 >
