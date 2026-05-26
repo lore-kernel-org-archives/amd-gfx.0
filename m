@@ -4,127 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C0FCCD5BD2
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 11:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62AA3CD5BB1
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 11:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2A9710E624;
-	Tue, 26 May 2026 11:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED5DE10E151;
+	Tue, 26 May 2026 11:46:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pwRz8tzj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2IBxsyyE";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012062.outbound.protection.outlook.com
- [40.107.200.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E99610E624
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 11:18:29 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012047.outbound.protection.outlook.com [52.101.48.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C563510E151
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 11:45:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L4Peo29E5hkBPr2DCXd8I5JxgBVYN8WV3jvEhY5Q6jAU3bwmp1mdikfJ1+iX0FjlrE/IxhfI4vj91PTcWKcc/xPDIcBX8j+TIgztMTEfgqcu0jQpUfASWfRYTcwZS5r2ymssE1+ebfs7y1P4QdTcUXgSNQ+BReRv8Bsp272SCh1G4K4BWNoLtzh7TfAoqj5PcY8Wz5KvnhEt6HdS55oKr4RP2clWa+5C9blS8/LC23bEu7Td5mYPJhCINdvDDuDPcIdDiGkCvHrQ6F2/VNYlNLO7PuBQXG+B0RAg6ALM6rFzfgjumaO5W8aGWuG3SokMr1xFiBN1mcn3uQZDBkJgxg==
+ b=Wa0z3HNvqakIF0FBUGRNdbpKEcct3RQuRZtyC8UzV3Xh/3fKtDLpbXky9YkLqTAdyUKRBemsjzWsb32GM6KYk7c8RocWcf5fH2hEWkCnqPQTkwBswzuAcAZ0cGvLkEFz602fwfg5D//44zGHFMiYpm0UOB4bljfpyo9Ank42kzgy1IfVERp9aLEt70dOycPTsBXuMd7nnjCp5EMotF2AsS3adxTSROUiHwaJAyZ0VcUFeFITDOOpsYJrdi8Ww8rGV96EFOpHLh1Pds7KYsdIPiRE7T5Q6oTt7CnM4A3Sty6sJfNMtbq16yf03ERpf9k01GG+XESm4KJ88wpxLoZf1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YSE3vetf7OcZ64NyZ5uaDaE6B9VDOPmuIsYXQZKjxr4=;
- b=nPlqHieq9f0wtPB5uYFgWFX01tbxUsiwQHeJZc/1z9FP8X1oOvW8lk7pMzJtsL+IGMV3WUNZAH7vgMFNpnPFUlrTZe2KU1GOlTVWfHiPiBMHHML3/GJbep0hoAzpzEg/P5/qubpNwyMKg9rtvBcymBn42GAT3XECnk/T8Ss9ju187kbkFwPow+8po2R8ltYsgu28AU8AoC0U9QQQvjdaoTvx7aF2t2HRKFKZwrH4H1SbWNv4QqT1uJBn2JQpFHvOuHHvJzCIqNJ95hqXmVsGtt4gxloMaMRnvSr8yLijBdjj362iFg0uswfT5ScP6/RuMG6hFyGvTEQVspSOQBjKZQ==
+ bh=qT4zAa4AFhbV6X0zyrjvfkMKrZ4Fe2uxk+m5D3/xxac=;
+ b=dnXizD3l6xK8Ib9sZyS2ipzjOJlaqKsJHsOZ5krYtrklY7+ebBEnJ4UZ+3MZucG1lZYt+DM/7B75Gt+Msmi4WvrIkmeXqPPMd2Sq6ZaLzlAv1QoMvYLWorlMa7loAfzOdZIuPwejchGsHorbQAr2GxF7m4cSBwDkxts2vOGAkhujB4i7J3VELiyukxp6c4y6og4DsE9RFSexMZoTcDlSMnt5DEGpjai8uEeqR3vyu3NMCrUmip3T7h1SRC2yoV/bDh+ILHdNYZPusgrEWJFn6FlROGsAkwqgqstHgpPJtBO6MXMYOkcYZku44MBkxwwgVxE1xYeCmw50aQqeS3bwXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YSE3vetf7OcZ64NyZ5uaDaE6B9VDOPmuIsYXQZKjxr4=;
- b=pwRz8tzjzrWL9ucbu2eJzijwWPrRplSqeeSeC8VQaLKJzdlMRLhwk08xOuEsZghqKIkVVBcwimHMIAIHobbLvDZ2ftbx9F/zZxs2eREKdoZGVxdRI3UO2RJ/Szxn0KDjguLg4oYe92PgZe5ovJ++PLyWynbwFmEh3sxo/O/bwPg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY1PR12MB8447.namprd12.prod.outlook.com (2603:10b6:a03:525::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
- 2026 11:18:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0048.016; Tue, 26 May 2026
- 11:18:24 +0000
-Message-ID: <a69dccf6-f0b6-4b65-ac43-d4354578a9b1@amd.com>
-Date: Tue, 26 May 2026 13:18:20 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: implement per-process MES context
-To: "Zhu, Lingshan" <lingshan.zhu@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com
-Cc: Ray.Huang@amd.com
-References: <20260525082359.5510-1-lingshan.zhu@amd.com>
- <53d1f30e-96d1-48a8-a933-c922439e9cdb@amd.com>
- <591307db-a567-4bac-b995-1eec64a7c42d@amd.com>
- <7f2be916-27ba-47bc-9440-121a9e7d659c@amd.com>
- <3f1b9712-841e-4a2f-984b-a27ccd1d7200@amd.com>
+ bh=qT4zAa4AFhbV6X0zyrjvfkMKrZ4Fe2uxk+m5D3/xxac=;
+ b=2IBxsyyEiIRtqogA/fI4jtvGAdiJZrUzHpgR52FweiNZ0porG1M5TwgYtn0RYvb4NYbmMRN+i4jXZo16kvV4o0iRRzNAHgLO5FQYZ1iJ/TTWNr5wDE5NsF1o5a+MJwievHDRiguuNZsJMPvpJ9Y964xf0sJWfvg4mbXlIFRGgD0=
+Received: from IA0PR12MB8895.namprd12.prod.outlook.com (2603:10b6:208:491::5)
+ by DS4PR12MB9659.namprd12.prod.outlook.com (2603:10b6:8:27f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Tue, 26 May
+ 2026 11:45:53 +0000
+Received: from IA0PR12MB8895.namprd12.prod.outlook.com
+ ([fe80::904a:1cfc:7595:522]) by IA0PR12MB8895.namprd12.prod.outlook.com
+ ([fe80::904a:1cfc:7595:522%5]) with mapi id 15.21.0048.016; Tue, 26 May 2026
+ 11:45:52 +0000
+From: "Hosur, Priya" <Priya.Hosur@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Limonciello, Mario"
+ <Mario.Limonciello@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+CC: "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, "Gopalakrishnan,
+ Veerabadhran (Veera)" <Veerabadhran.Gopalakrishnan@amd.com>
+Subject: RE: [PATCH 1/1] drm/amd/pm: smu_v14_0_0: use SoftMin for gfxclk in
+ set_soft_freq_limited_range
+Thread-Topic: [PATCH 1/1] drm/amd/pm: smu_v14_0_0: use SoftMin for gfxclk in
+ set_soft_freq_limited_range
+Thread-Index: AQHc3ffYwY2ypZgtJUyvUNJ6nKyG07YgStbQgAAAIsA=
+Date: Tue, 26 May 2026 11:45:52 +0000
+Message-ID: <IA0PR12MB88954E0603AE0591C9FA40FEF30B2@IA0PR12MB8895.namprd12.prod.outlook.com>
+References: <20260507080137.841442-1-Priya.Hosur@amd.com>
+ <20260507080137.841442-2-Priya.Hosur@amd.com>
+ <DS2PR12MB977328897A55E01978F41CBB8E0B2@DS2PR12MB9773.namprd12.prod.outlook.com>
+In-Reply-To: <DS2PR12MB977328897A55E01978F41CBB8E0B2@DS2PR12MB9773.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <3f1b9712-841e-4a2f-984b-a27ccd1d7200@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0262.namprd03.prod.outlook.com
- (2603:10b6:408:ff::27) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY1PR12MB8447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cfb63f5-749b-46ab-ec27-08debb188082
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: n3QbLTwYVRf+E8RPRKGTnQnFXkd1FgZLCcUNqGq0eTZtk4gO/2y1qCrVw04PurqEcUAvbmCnpAr2FVB0VRx+FVqk9LbwqGHlp/UU00UMhCamvvQwV+3v9dd7OU/YuQjZPBw0x7+G0SYlOsir/ftBD0Mwtpoe+Y182jxZVj0ujAicu/Ri+BQzw5lbLEUxp7wZMFWzcCAMufH5jZgxmFoA2sF0lzDp45W4hjrHBRv/gOfEcjK3jZjKafpITkwFmRj79WcCaXHKg+bNcEywOrHC/gYfQIoOchJoNMJ+a+MwWqCvF/tGwYd08K9Y3nng0qrqo8dbYruNL9K2lgKpame+PBhGugXrCcpaNnBvtBY1pP5rFh85qBG99eZgukqf/L9dzGapKFog5vqyzxZrrcVh8TzeLKwm46SOfvr04iHnKCMBvuoGI9b9U6QiAhNDDx/Mn+cQqUVDGf9yjgVZSWhI84F8RBWO16kQx0E/GWQwchFJmKjdh1DVQ68dK+H+Ny6xgBOHWSNFGXz7kxbpNg9kztcJeyYk334Nlop5tY2ry0/9PKAnmov0gvNlxXblqeme+sYYQ5eC9FWqd8zaY7MfTId9YJX/cVfGQH7vgx0LkrDnklkSnJdxECz7gzn+7hqfx9knFJs+WWRkcdzWD6zFZgjhox6oJC1inGav6hjPR4jz8Jw+B5DZ0hwVjgPPMSsu
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003)(11063799006)(4143699003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-26T11:32:51.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8895:EE_|DS4PR12MB9659:EE_
+x-ms-office365-filtering-correlation-id: 8d40a055-cddd-48e4-2049-08debb1c5716
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|11063799006|22082099003|3023799007|56012099003|18002099003|4143699003|921020|38070700021;
+x-microsoft-antispam-message-info: DG807pUDFIbmT2ozYM5xrDCjWdK4vKFBOYZbl4DJJyc8M4k3Lzz7Ppr0zqqvPzYyIm8oBA2aGqxOol289BH/R14echCX3Lj7xTJufv+wVi0xXsTqgVxQjQkxQJLznGFNvp3U0GBNWrnDmn9e7nDKh0Nz/Sk9B5c99GserPbTFN/3xfmUwspkOaADAqThUm9mmHreuDTbO8aCWDzMNLEcIX9C1NFA/rEG3aC5s74qBh4ARAYt46sp1JOVxlv+GEbieI18AZFaiq06aUWB6twjbDLXxR49lSlq11jgPBJKSlGu6Vx4EjlU9ZUNIkNDCUTFooC59TLXyso9c5Y/2RV6ohZDdNQN0dg+HHKsGL28t7+isJzyHOuGzpLA5+E84SxKXJXlfpsWDseN2CeIsNVOxeSJGsexPhNipjI7Nxqb1ATMNTvMNNHP0cAwL1+7ikFK4jC5j45G9FPAlW/9H8p3i555tcJOAHoLBDOzzveiA18UBXLDpWjzH4lb822vKy/RMxl7z01ZX1/0TQh29yEwMwzjT8RcPHY+annUJYuDI4cWzKmRRrMoRBPlEMx0eNMKWhtyKsPm68CZbBPboMV8R7xVquTPDirk+LAvxrEU8dzU/6elsw6U9x8Ipfsz8p9ZVsHPjPPsNt1Xy285zMtqnVEh/WdkkwcZqcw3GaK0jav1IG0zOaFS5l9FgD/udrsODm9CPm0ECEFhlje8UJ4paFKyDAMc2rMUxB7IerELFM93D+1x4syF7RVl/N/VXGsO0DYD6WyuY+zB8EN1q7nRIg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8895.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(11063799006)(22082099003)(3023799007)(56012099003)(18002099003)(4143699003)(921020)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2l0a3Jmb3NRNTlrWkhJS001dHErWHRjTXovSjJyamRZOURYaWxrM2d2ZmUr?=
- =?utf-8?B?NmtaNHh1UGlxMTNvemdndUluVDByY2w1byt5ajhzU0p5OVNpd083S0dYblY5?=
- =?utf-8?B?d3pKS2pNSnJPSjNTZUtJUGg5L29RZnVDZWsvUGNXdjc3OHp3REVpcHJFUHBm?=
- =?utf-8?B?RUx0Mkt6dkwwUmgxRDlJcmZydkVzSlpYTE9BSzY4TXBiTjZUVzV0alQ0SGdB?=
- =?utf-8?B?T0pkVmRFUHlwNjM2V01waGNsWXFqOTFMdlVoL0xrN1JzSDdVTGVkRkVVMDB1?=
- =?utf-8?B?d2tQWGxSMVhGcTJqWGc2U3V0T0V1cmhGdEFkRkZmSmI3bVkvZ082K0pkUytE?=
- =?utf-8?B?dW8zRHRIbU50b3ErRnc1ZS9yRzZEMGphQlNCTEZtYzRqTVVVTHZtaUNlaHg1?=
- =?utf-8?B?ejJFOUhmdjJ3eXpaK3pMSGxRc1dSdDFkNU9DTVl1RVFMNHUwdVh3S25xVXl2?=
- =?utf-8?B?MWFtQkVKdEljQTdodkVpZDRpMktkN2lvc2hkV05scTN0cVlOVmV5YmlxR1hP?=
- =?utf-8?B?dUtoblJkZCtqdXpyRFlvUlh6RG5DQ2xWeGlWTzJNMVRoWjlHa3RlWStmU3hC?=
- =?utf-8?B?c3BsSGV3MVdiZ1gxazFJdUdtK1c2MDdMWHh2eGRCbDlIaVlaaEdEbTczYVNi?=
- =?utf-8?B?VlB5b3BqZTFDVTY4ZnZlemlZenlSU0p0d1NIYSsxaVRoOHpWN1A0YkFaRzdE?=
- =?utf-8?B?RDJDVzRrbTY1R1FOWjZrU0RXZTJ4NHRSWG5BZGdUN0VtWHl3S0dCLzhWNnhY?=
- =?utf-8?B?RFBjTUNVU2E1NGZpNEFleWRNdTZPUlBkODNtaGFPVnlpMWkraTZKOXhvQTNF?=
- =?utf-8?B?NXZqRVlBUkVqWitMY2dyTHlGdlhkR1NDTnhqYmk3SStERTFkUjYyYVpDTTdE?=
- =?utf-8?B?VWZXM1orcjRQSFV0L1A5SDVlUXd3cHFSVEp2OE42MHpPcHUxVWt1WVRMem5M?=
- =?utf-8?B?SzBzYmtKRVUrcnZvOVVKZ1hpZGRqNHEvM3B3T0YrR0FwTWg0N0tHNjVrYnZF?=
- =?utf-8?B?MHFiRGpaazNya3A1dmZxMTJiWU55Z2Q0NENtMFdMRXlBQytQNHphMHJuZ2xX?=
- =?utf-8?B?NDhPZDg3dTVaYTEvamRnUHowdzB6K1B4UXMxOUNTYk50WkZRNEc1Wnpvc2Ns?=
- =?utf-8?B?QktpY3l0cjR5SWUrWkczT1FmTDc5ci9hbnpPUlo4dU5IemZWQk15NWRYenpp?=
- =?utf-8?B?VTFUVVlRajVqOTU4RGN1VFYxdjM3Q1dvcU9kRjVtUUgyZE85SUZvSnpHN3cz?=
- =?utf-8?B?YzZmcFhWaWNTZFEzT1dLNXUrdTBjU0FqTjZCclpkbDZCeGRWd0pLUmhVZXJo?=
- =?utf-8?B?Z1QxNTVkOG1tdUk3QVRXQUJqMVFBL0xwMHozdklUbFRuRWZHeklZSm5GUmEy?=
- =?utf-8?B?QVd1UU0xQ1J6VXlZbkprY0pqQzFyRmhWdU1TREk1OFhiemF1Y3hIZkp5VWl2?=
- =?utf-8?B?aDcydEFaZG02Q2Z3a1UyWm5LenZONFBwTTR1S0p2endtbGlWQ2R0SXgzSG80?=
- =?utf-8?B?dFY1Y0JyWVVQQTVlelFjdm5KTTErdWdFNXNaYkg5Ylc5OStRbkRFMGEzWTdW?=
- =?utf-8?B?UTM0UlpHbFBEb3ZOcGdabkRscmJ3ZVNsSE12OFNwZENCc0lUU1d4bUV4Y0o3?=
- =?utf-8?B?dFEvT3krNnlTaFhWS040UGltc1dMdXZOMWlaRU1kbXBKVng1U3VGeWdQVTF3?=
- =?utf-8?B?eGlkQWpzbkwwR3hkS01JUHNmRVBUUjBtblFJakVWdWFFSHJEOVNVaUVBUTkv?=
- =?utf-8?B?VzF6dDE3dllhZ1lnVU4veUgrWXRmdnk0eHR0S1V1RFZySFFBWWs5ZUtRVVZn?=
- =?utf-8?B?TXk2bkZKVHVGVVVtYmVkRFVoNHZEazdTYmM2OStXMUREUUZMNEdEcnJxS0lU?=
- =?utf-8?B?MjNPRTRzSG50anBnMHU3bWdSdjdrY29iTUlQWHVqSEVkdGNkenJZakViZGJv?=
- =?utf-8?B?cit3Vlp5eHNHV1AvVk1PS1pEN2Y5QTVhaWgyQ3JuR3JUU216V1Q2NGVFc0ds?=
- =?utf-8?B?TzVYNHM3R0JIdlRGbXI4Rjc4YnNMUWVvbjU5SHlTUE5QU0FBSmVHNnlJbmxH?=
- =?utf-8?B?ZUpXTmRNdUpRNTBRT0FxWTFTTHdETDd1SmtwQnNZT3IxVmxxQ0hpZCswL2VT?=
- =?utf-8?B?RkJWOVdwOHlvSkhpSHFNQXg4R0ZVUitQV2I5MzdIN2o1VCtqUFV1cmlUc0tq?=
- =?utf-8?B?eWFKTHpPd1ZxVEtHVWJQQlBEN2Mwa1kwWTR0UEM0NWVtT1RydmxNUlVHT1hh?=
- =?utf-8?B?N2duWUJlY2Naa2pvbVFIcnZRcmxwRU8xalRHZkZ2MGpuUWJBNWV3VXlINk12?=
- =?utf-8?Q?STALVKevtCLFLr9QPw?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1nkHPa2ba6W8P/nwEzPS7jqifgZD8wtvVzpVq35jEPdzU2PK0F0wPf8TLjlp?=
+ =?us-ascii?Q?MHIUUxO3j50XJHWplq8YwvE4IzuqTVYljPWKQgXbUlULNzlZjnISlV9AcodT?=
+ =?us-ascii?Q?/UdlTjnIhSpUZUDXJDWOnYb9X/b8KcrHDLXcq3Q0WZtATgfkvCrNgDXIM4C4?=
+ =?us-ascii?Q?gynPk7ytqITg/FUn63HB/O/A8btP2+vnJ83URbzDDRRXApvtI79lxeWjRqGM?=
+ =?us-ascii?Q?ocKDV1q2Tytftbc9Q+X/r/8W5fA9JtidFIrv1BP/NA9E+JlcsRn+KI3oxtl0?=
+ =?us-ascii?Q?wpOIuJfGU71qODmXFPy+yXrFO92xvAVaeK3ooMycrXUIp+8nOKlBVWvZcaLM?=
+ =?us-ascii?Q?Ge2KHm+UnMiW9BodSk/V1+fg7c8ipQHo/m4XARIQx+mkTLec/M/nq/N6WPIv?=
+ =?us-ascii?Q?9sx3KZm24eYpY0F+WSVwmmQMJvRsGInKxehok/Je0CJ7F0PpKBBnCAOzBuEB?=
+ =?us-ascii?Q?kYVCtqaIK2IigxdKn0R50ZIBspflQJsRiB2bJ62GF6p6CzqMOnaAKhGHlDZK?=
+ =?us-ascii?Q?w8WxEtc5lnS4j8GIzgmi0lr4dp6GVV0/GqG7t7uEFKp/KTRXi7GoaBER3iyM?=
+ =?us-ascii?Q?FF8V48clSMmsXbVXvLyGDtVVRiPbEKjTgvyYyOoo1X1/QoXusetn6dAsmxIC?=
+ =?us-ascii?Q?oqxSFtptHALLXxEnIYdRBpJ6rEnmNU/WQQuVZVOIajTjnATeyxFkmUipuxpV?=
+ =?us-ascii?Q?cOPG25O3rFv6Vjo0o66nH9VhpMbA+9JgZ2fa48rQ88iukwAE02bmtYT3gwzP?=
+ =?us-ascii?Q?HORzCZolnvu47J47YR4ZdkOc135SQ85tMjGbzDHw1iqlncVCnbwaA/UHnqe1?=
+ =?us-ascii?Q?SaW0KH7+TjTQ6GWNgvH4TaGX6L0KcLEctoLT96x2Mna6/MYHHNhjyQ3udocy?=
+ =?us-ascii?Q?dLNuqL6mhyhDru9U0PhqtE7c7w2oL6I8+7F5UMhxh0YuQxfId4GHSRjxrS3/?=
+ =?us-ascii?Q?OU4aT4AAdJyEaVWvfK11A91OmQnDx5UzkfgQjmwNvNS168sJapBixQOlrwuC?=
+ =?us-ascii?Q?jW1Sy0BYYNONwU+u4EzomX9DEOPqqoFlPc06U+tTlstfXdTvIOjUCr2fng+y?=
+ =?us-ascii?Q?Ub/kZBj2AfVm2ABK34l1kdkbMBDAOlI7Y5M4HaFVEYtddJv3A8R+1gINnWk2?=
+ =?us-ascii?Q?7VRnzluQZU6jFkXvRB7blxlzFPPzafVw5omaQSuaYUVrQEJ2Qi3rrS/oEA68?=
+ =?us-ascii?Q?+tDDZcRoFtdO8GIlRS13NCawUxSmsVfBPqe29mHwA0E6vFrTCdXHrJrzX/Tg?=
+ =?us-ascii?Q?PawkoPDMfeGGDmfThor+l7E+GwUjch0qh4B4kgBNeHqmGXNzx0JB2T8OUMv8?=
+ =?us-ascii?Q?xWHhKvawFXcBRud4hYKZ2NN0FfY7e3xz4+06pkthJs5vaM5zTpDZ7/Ygnwgl?=
+ =?us-ascii?Q?1DftmYCp8l3QHIHLX5g2wxjW1XDttXs42byl8DuD4OpDXmdNwnh6h25S+PaU?=
+ =?us-ascii?Q?LpdGC16qHatQkjKg+jyrxBdV3hkO+JHb7ZEccIcEoUby9Ys9GIQTDTmsj2sp?=
+ =?us-ascii?Q?/U72ltfaBCZlN5x/KKLb3TX5SOnSjZy0nnrGs+WgUzEiV+knOPfS9pHIHyrk?=
+ =?us-ascii?Q?37Qxbd+Ekx3E7wRklKLmfazw+dPuInb9Sd8j3aVyZunymm0Bv0a4WZqS+yOe?=
+ =?us-ascii?Q?hW6MAMrvjZiz/jNQKGso0LGIDz6ff99np896tR+ukPNZiRLgLVBXOFkJhd9N?=
+ =?us-ascii?Q?Rp5rRGyEs27ouEqPT0oI0Wditn7zEZROqvXTQmxQ6llRdtnj?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cfb63f5-749b-46ab-ec27-08debb188082
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 11:18:24.6372 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FnJwD8iRxfG/3aJtfI6TzftixZfev/ZaaAXW/mLigrlFdwjComhfl8MNmYEU4n2U
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8447
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8895.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d40a055-cddd-48e4-2049-08debb1c5716
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 May 2026 11:45:52.7146 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rJN3L4Ndy3TXAu/kGJClaDWx5iS4K0DhVMGnntbPsFldZ+W+c2Z2FO59eOggpvN1o+yfMZxrJZkDCQAWNqdmmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9659
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,222 +138,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD General
 
+Hi Team
 
-On 5/26/26 13:16, Zhu, Lingshan wrote:
-> On 5/26/2026 4:46 PM, Christian König wrote:
-> 
->> On 5/26/26 09:54, Zhu, Lingshan wrote:
->>> On 5/26/2026 3:02 AM, Christian König wrote:
->>>
->>>> On 5/25/26 10:23, Zhu Lingshan wrote:
->>>>> MES process context is a process-level page
->>>>> where process specific context is saved for
->>>>> MES scheduler.
->>>>>
->>>>> However, current user-queue code path assigns
->>>>> fw_obj of a queue to MES process_context_addr
->>>>> when adding the queue to MES.
->>>>>
->>>>> This means every new queue from the same process
->>>>> would replace the previous process context address
->>>>> with that queue's fw_obj address.
->>>>> What's worse is, when user space frees a queue,
->>>>> its fw_obj will be freed as well, causing MES
->>>>> working on a NULL page pointer.
->>>>>
->>>>> This issue leads to inconsistency and crash
->>>>> in the scheduler.
->>>>>
->>>>> This commit allocates a process-level page for
->>>>> MES process contexts for a process other than queue-level
->>>>>
->>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>> ---
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  5 +++
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  1 +
->>>>>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 48 ++++++++++++++++------
->>>>>  3 files changed, 42 insertions(+), 12 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>>> index 38e310a8694d..0c4d6f80616e 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>>> @@ -1225,6 +1225,11 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
->>>>>  	 */
->>>>>  	cancel_work_sync(&userq_mgr->reset_work);
->>>>>  
->>>>> +	if (userq_mgr->proc_ctx_obj.obj)
->>>> Please drop that check it is unecessary.
->>> sure, I can drop this in V2.
->>>
->>>>> +		amdgpu_bo_free_kernel(&userq_mgr->proc_ctx_obj.obj,
->>>>> +				      &userq_mgr->proc_ctx_obj.gpu_addr,
->>>>> +				      &userq_mgr->proc_ctx_obj.cpu_ptr);
->>>>> +
->>>>>  	mutex_destroy(&userq_mgr->userq_mutex);
->>>>>  }
->>>>>  
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->>>>> index 28cfc6682333..fe85234e58b3 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->>>>> @@ -127,6 +127,7 @@ struct amdgpu_userq_mgr {
->>>>>  	struct amdgpu_device		*adev;
->>>>>  	struct delayed_work		resume_work;
->>>>>  	struct drm_file			*file;
->>>>> +	struct amdgpu_userq_obj		proc_ctx_obj;
->>>>>  
->>>>>  	/**
->>>>>  	 * @reset_work:
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->>>>> index e9189f07c6dc..3022025bc2ec 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->>>>> @@ -133,8 +133,8 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
->>>>>  	queue_input.gang_quantum = 10000;
->>>>>  	queue_input.paging = false;
->>>>>  
->>>>> -	queue_input.process_context_addr = ctx->gpu_addr;
->>>>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
->>>>> +	queue_input.process_context_addr = uq_mgr->proc_ctx_obj.gpu_addr;
->>>>> +	queue_input.gang_context_addr = ctx->gpu_addr;
->>>>>  	queue_input.inprocess_gang_priority = AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
->>>>>  	queue_input.gang_global_priority_level = convert_to_mes_priority(queue->priority);
->>>>>  
->>>>> @@ -169,7 +169,7 @@ static int mes_userq_unmap(struct amdgpu_usermode_queue *queue)
->>>>>  
->>>>>  	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
->>>>>  	queue_input.doorbell_offset = queue->doorbell_index;
->>>>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
->>>>> +	queue_input.gang_context_addr = ctx->gpu_addr;
->>>>>  
->>>>>  	amdgpu_mes_lock(&adev->mes);
->>>>>  	r = adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
->>>>> @@ -186,12 +186,8 @@ static int mes_userq_create_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
->>>>>  	struct amdgpu_userq_obj *ctx = &queue->fw_obj;
->>>>>  	int r, size;
->>>>>  
->>>>> -	/*
->>>>> -	 * The FW expects at least one page space allocated for
->>>>> -	 * process ctx and gang ctx each. Create an object
->>>>> -	 * for the same.
->>>>> -	 */
->>>>> -	size = AMDGPU_USERQ_PROC_CTX_SZ + AMDGPU_USERQ_GANG_CTX_SZ;
->>>>> +	/* The FW expects at least one page space allocated for gang ctx. */
->>>>> +	size = AMDGPU_USERQ_GANG_CTX_SZ;
->>>>>  	r = amdgpu_bo_create_kernel(uq_mgr->adev, size, 0,
->>>>>  				    AMDGPU_GEM_DOMAIN_GTT,
->>>>>  				    &ctx->obj, &ctx->gpu_addr,
->>>>> @@ -257,6 +253,27 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
->>>>>  	return r;
->>>>>  }
->>>>>  
->>>>> +static int mes_userq_create_proc_ctx_space(struct amdgpu_userq_mgr *uq_mgr)
->>>>> +{
->>>>> +	int r = 0;
->>>>> +
->>>>> +	mutex_lock(&uq_mgr->userq_mutex);
->>>> Clear NAK. We can't allocate anything while holding that lock.
->>>>
->>>> Please add a different lock to protected the buffer or just oportunistically allocate it with CMPXCHG().
->>> I will introduce a different lock in V2.
->>>
->>>>> +	if (!uq_mgr->proc_ctx_obj.obj) {
->>>> Please drop that check, amdgpu_bo_create_kernel() should already take care of that.
->>> I think we still need this check, because although amdgpu_bo_create_kernel() checks (!*bo_ptr), but:
->>> 1) it does not immediately return if bo_ptr is valid. It only skips re-creating the bo,
->>> it still calls amdgpu_bo_reserve(), amdgpu_bo_pin(), amdgpu_ttm_alloc_gart(), and amdgpu_bo_kmap()
->>> on every invocation.
->>>
->>> 2) it calls memset() unconditionally on every invocation.
->>>
->>> So I think this check is still necessary, and another thing, do you think
->>> amdgpu_bo_create_kernel() should immediately return if *bo_ptr is not NULL?
->>> It looks like this deserve a fix.
->> Good point, IIRC we added this handling to make it easier to re-create kernel buffers after suspend/resume.
->>
->> I'm not sure if any code path is actually still using this since we found that for a lot of use cases you need to keep the FW buffers at the same location even after suspend/resume.
->>
->> Anyway just add an if and comment why it is necessary.
->>
->>
->>> Thanks
->>> Lingshan
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> +		r = amdgpu_bo_create_kernel(uq_mgr->adev, AMDGPU_USERQ_PROC_CTX_SZ,
->>>>> +					    0, AMDGPU_GEM_DOMAIN_GTT,
->>>>> +					    &uq_mgr->proc_ctx_obj.obj,
->>>>> +					    &uq_mgr->proc_ctx_obj.gpu_addr,
->>>>> +					    &uq_mgr->proc_ctx_obj.cpu_ptr);
->>>>> +
->>>>> +		if (!r)
->>>>> +			memset(uq_mgr->proc_ctx_obj.cpu_ptr, 0, AMDGPU_USERQ_PROC_CTX_SZ);
->> When amdgpu_bo_create_kernel() does that the memset here can probably be dropped.
-> 
-> oops, I missed this comment.
-> 
-> amdgpu_bo_create_reserved() sets the struct amdgpu_bo_param all zero by
-> memset(&bp, 0, sizeof(bp)), and amdgpu_bo_create() kvzalloc a struct amdgpu_bo.
-> However I think we need to set the BO all zero, just like what mes_userq_create_ctx_space() does.
+Gentle reminder regarding the review of the patch shared earlier.
 
-Yeah those are just the housekeeping structures. If you need the BO content to be zeroed out then you indeed need to do that manually.
+Thanks and Regards
+Priya Hosur
 
-Regards,
-Christian.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Priya Ho=
+sur
+Sent: Thursday, May 7, 2026 1:32 PM
+To: amd-gfx@lists.freedesktop.org; Lazar, Lijo <Lijo.Lazar@amd.com>; Deuche=
+r, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koen=
+ig@amd.com>
+Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Veera=
+badhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>
+Subject: [PATCH 1/1] drm/amd/pm: smu_v14_0_0: use SoftMin for gfxclk in set=
+_soft_freq_limited_range
 
-> 
-> Thanks
-> Lingshan  
-> 
->> Regards,
->> Christian.
->>
->>>>> +	}
->>>>> +
->>>>> +	mutex_unlock(&uq_mgr->userq_mutex);
->>>>> +
->>>>> +	return r;
->>>>> +}
->>>>> +
->>>>>  static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->>>>>  				struct drm_amdgpu_userq_in *args_in)
->>>>>  {
->>>>> @@ -429,7 +446,14 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
->>>>>  		goto free_mqd;
->>>>>  	}
->>>>>  
->>>>> -	/* Create BO for FW operations */
->>>>> +	/* Create per-process MES process context BO */
->>>>> +	r = mes_userq_create_proc_ctx_space(uq_mgr);
->>>>> +	if (r) {
->>>>> +		DRM_ERROR("Failed to allocate MES process context space bo, error: %d\n", r);
->>>>> +		goto free_mqd;
->>>>> +	}
->>>>> +
->>>>> +	/* Create BO of a gang for FW operations */
->>>>>  	r = mes_userq_create_ctx_space(uq_mgr, queue, mqd_user);
->>>>>  	if (r) {
->>>>>  		DRM_ERROR("Failed to allocate BO for userqueue (%d)", r);
->>>>> @@ -492,7 +516,7 @@ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
->>>>>  	*fence_ptr = 0;
->>>>>  
->>>>>  	memset(&queue_input, 0x0, sizeof(struct mes_suspend_gang_input));
->>>>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
->>>>> +	queue_input.gang_context_addr = ctx->gpu_addr;
->>>>>  	queue_input.suspend_fence_addr = fence_gpu_addr;
->>>>>  	queue_input.suspend_fence_value = 1;
->>>>>  	amdgpu_mes_lock(&adev->mes);
->>>>> @@ -529,7 +553,7 @@ static int mes_userq_restore(struct amdgpu_usermode_queue *queue)
->>>>>  		return 0;
->>>>>  
->>>>>  	memset(&queue_input, 0x0, sizeof(struct mes_resume_gang_input));
->>>>> -	queue_input.gang_context_addr = ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
->>>>> +	queue_input.gang_context_addr = ctx->gpu_addr;
->>>>>  
->>>>>  	amdgpu_mes_lock(&adev->mes);
->>>>>  	r = adev->mes.funcs->resume_gang(&adev->mes, &queue_input);
+[Some people who received this message don't often get email from priya.hos=
+ur@amd.com. Learn why this is important at https://aka.ms/LearnAboutSenderI=
+dentification ]
+
+In smu_v14_0_0_set_soft_freq_limited_range(), the gfxclk floor is programme=
+d via SetHardMinGfxClk together with SetSoftMaxGfxClk. Under power_dpm_forc=
+e_performance_level=3Dhigh this pins HardMin to peak gfxclk.
+
+In PMFW arbitration HardMin has higher priority than SoftMax, so the firmwa=
+re thermal/PPT throttler cannot clamp gfxclk via SoftMax once HardMin is se=
+t to peak. Replace SetHardMinGfxClk with SetSoftMinGfxclk so the driver sti=
+ll requests peak performance but the firmware throttler retains the ability=
+ to clamp gfxclk under thermal/PPT pressure. SoftMax handling is unchanged =
+and no other clock domains are affected.
+
+Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index c76b1f07885e..2fe006de927a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -1231,7 +1231,8 @@ static int smu_v14_0_0_set_soft_freq_limited_range(st=
+ruct smu_context *smu,
+        switch (clk_type) {
+        case SMU_GFXCLK:
+        case SMU_SCLK:
+-               msg_set_min =3D SMU_MSG_SetHardMinGfxClk;
++               /* SoftMin lets PMFW throttle gfxclk; HardMin would overrid=
+e SoftMax. */
++               msg_set_min =3D SMU_MSG_SetSoftMinGfxclk;
+                msg_set_max =3D SMU_MSG_SetSoftMaxGfxClk;
+                break;
+        case SMU_FCLK:
+--
+2.43.0
+
 
