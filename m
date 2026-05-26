@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD05CD5BD1
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:07:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D1BCD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DED10E6C0;
-	Tue, 26 May 2026 16:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79BDA10E6C2;
+	Tue, 26 May 2026 16:07:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bIakmlCn";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="etBKJamY";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E6B10E68E
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 16:07:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B56610E657
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 16:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Ey1mpB+s+FTtHaK/+UixRwyQVOQfuMxoL7Q4eGt68rk=; b=bIakmlCnProdqMNhZ6JA5iPJy/
- V2qOU8A8Lw5JYsCOtCY7nfnipkYG3lqxQAcDG40D7Rsu/Iant2wj+f7b2ePnyVJ6zuAzgSmPf5jYE
- 5gfyIt4MyM1S9xFtn2s5mDxeUYORF7abE7KsaOk1dHnC2n8YdslokiN+loPjoZwJ3kMBoi1U+3Lkp
- t90vC83Z3k3IAGVTIsm2hcMpgd+OFEdSriye/pgTlHByyPQxM7+2E9gl/xv+yddS3vZn0rQaUEKn0
- 1wf+LN4CQWNBZB4yOkIHQQgPpfTmBtUz2syIQaCist4JJeQp2MctCG/1P+rNyIeRSIok2NJ7Ta8sb
- MuvQWH1Q==;
+ bh=K+m+WkzeJICIHKc5BVS9WL5xjzv4jISht2PoB6f+OX0=; b=etBKJamYY5xh+Z0NQoV9oE2U0/
+ 1gXPesvPTRYzDz3gFBmGjjTTx3Gn5PPH4RWzXtpJ5tot4p67Fprkvo6tmVn95KTOiPyWwVTBQuTsc
+ 6pI+0fvIYyw7QyH9xE0IOgCJCu27d1LlX9S0H8Z8Y9O+q0JaOkt7KVeRM9hyDtIgKHA+NcL9BBTJE
+ L0QU8lRlr02NVTUJqpAj5OFq1xhEZpW5nsxdcaN5qXFaRuyzYUnny8c3RLfecg+KGTzEvqZi+FFKk
+ ViQJwpFnC6/lC++G7P0JiCNPcbIsZnmdlSRaPEIVtMRjVxF/ISOnCVlj++buCyzX1mXRjca1LsHJy
+ m/GkLrUA==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wRuJ1-008VbW-CP; Tue, 26 May 2026 18:06:59 +0200
+ id 1wRuIz-008VbI-JI; Tue, 26 May 2026 18:06:57 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -40,9 +40,9 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 5/5] drm/amdgpu: Add driver managed buffer copy
-Date: Tue, 26 May 2026 17:06:30 +0100
-Message-ID: <20260526160630.35562-6-tvrtko.ursulin@igalia.com>
+Subject: [RFC 3/5] drm/amdgpu: Add a new ioctl for listing client contexts
+Date: Tue, 26 May 2026 17:06:28 +0100
+Message-ID: <20260526160630.35562-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
 References: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
@@ -62,246 +62,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Saving and restoring buffer object content poses a challenge for the
-checkpoint and restore process for at least two reasons.
+Similar in principle to DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES, we need a new
+ioctl to list any contexts created by the client.
 
-For example not all objects can be exported as dma-buf to enable copying
-from a separate client context, neither can any objects be easily copied
-from the same context since the injected CRIU code is unaware of the GPU
-virtual memory free and allocated ranges.
+Lets add it as DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS, and the respective uapi
+data structures.
 
-Lets bypass both problems by simply exposing access to the alrady present
-fast kernel copy via a new DRM_IOCTL_AMDGPU_GEM_COPY_BUFFER ioctl.
-
-By giving the kernel simply the source and destination handles it is able
-to copy them without the need for objects to be mapped, or shared with a
-separate client.
-
-For now this is implemented fully synchronous but can easily be extended
-for more parallelsim.
+Structures contain all information required to re-create the context,
+modulo the handle id replication, which will be handled in a following
+patch.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 102 ++++++++++++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 102 ++++++++++++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  14 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |   7 ++
- include/uapi/drm/amdgpu_drm.h           |   8 ++
- 6 files changed, 127 insertions(+), 7 deletions(-)
+ include/uapi/drm/amdgpu_drm.h           |  33 ++++++++
+ 4 files changed, 138 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 2b971de3c189..b927e3a3089e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3066,6 +3066,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_CONTEXTS, amdgpu_gem_list_contexts_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_COPY_BUFFER, amdgpu_gem_copy_buffer_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 5eb8433229b4..4e0440cd6ee2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1216,6 +1216,108 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 7af86a32c0c5..15bf247c38f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -734,6 +734,108 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+ 	return r;
  }
  
 +/**
-+ * amdgpu_gem_copy_buffer_ioctl - copy buffer object content
++ * amdgpu_gem_list_contexts_ioctl - get information about clients contexts
 + *
 + * @dev: drm device pointer
-+ * @data: drm_amdgpu_gem_copy_buffer
++ * @data: drm_amdgpu_gem_list_handles
 + * @filp: drm file pointer
 + *
 + * Returns:
 + * 0 for success, -errno for errors.
 + */
-+int amdgpu_gem_copy_buffer_ioctl(struct drm_device *dev, void *data,
-+				 struct drm_file *filp)
++int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
++				   struct drm_file *filp)
 +{
-+	struct amdgpu_copy_mem src_mem = {}, dst_mem = {};
-+	struct drm_amdgpu_gem_copy_buffer *args = data;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct drm_gem_object *src_gobj, *dst_gobj;
-+	struct amdgpu_bo *src_bo, *dst_bo;
-+	struct dma_fence *fence = NULL;
-+	struct drm_exec exec;
-+	unsigned int e;
-+	long timeout;
-+	int r;
++	struct drm_amdgpu_gem_list_contexts *args = data;
++	struct drm_amdgpu_gem_list_contexts_entry *contexts;
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
++	struct amdgpu_device *adev = mgr->adev;
++	unsigned long num = 0, idx = 0;
++	struct amdgpu_ctx *ctx;
++	int ret = 0;
++	u32 id;
 +
-+	if (args->flags)
++	if (args->padding)
 +		return -EINVAL;
 +
-+	src_gobj = drm_gem_object_lookup(filp, args->src_handle);
-+	if (!src_gobj)
-+		return -ENOENT;
++	mutex_lock(&mgr->lock);
++	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
++		num++;
++	mutex_unlock(&mgr->lock);
 +
-+	dst_gobj = drm_gem_object_lookup(filp, args->dst_handle);
-+	if (!dst_gobj) {
-+		r = -ENOENT;
-+		goto err_dst;
++	if (num == 0 || args->num_contexts < num) {
++		args->num_contexts = num;
++		return 0;
 +	}
 +
-+	src_bo = gem_to_amdgpu_bo(src_gobj);
-+	dst_bo = gem_to_amdgpu_bo(dst_gobj);
++	contexts = kvzalloc_objs(*contexts, num);
++	if (!contexts)
++		return -ENOMEM;
 +
-+	if (amdgpu_bo_size(src_bo) < amdgpu_bo_size(dst_bo)) {
-+		r = -E2BIG;
-+		goto err_sizes;
++	mutex_lock(&mgr->lock);
++	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
++		struct drm_amdgpu_gem_list_contexts_entry *context;
++		enum amd_dpm_forced_level level;
++
++		if (idx >= num) {
++			ret = -EAGAIN;
++			break;
++		}
++
++		context = &contexts[idx];
++
++		context->handle = id;
++		context->init_priority = ctx->init_priority;
++		context->override_priority = ctx->override_priority;
++		if (atomic_read(&ctx->guilty))
++			context->flags = AMDGPU_GEM_LIST_CONTEXTS_FLAG_GUILTY;
++
++		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++		if (ctx == adev->pm.stable_pstate_ctx) {
++			level = amdgpu_dpm_get_performance_level(adev);
++
++			switch (level) {
++			case AMD_DPM_FORCED_LEVEL_AUTO:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_NONE;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_STANDARD;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK;
++				break;
++			case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
++				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_PEAK;
++				break;
++			default:
++				ret = -EIO;
++				break;
++			};
++
++		}
++		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
++
++		idx++;
 +	}
++	mutex_unlock(&mgr->lock);
 +
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++	args->num_contexts = idx;
 +
-+	drm_exec_until_all_locked(&exec) {
-+		r = drm_exec_prepare_obj(&exec, &src_bo->tbo.base, 1);
-+		drm_exec_retry_on_contention(&exec);
-+		if (r)
-+			goto err_unlock;
++	if (!ret)
++		if (copy_to_user(u64_to_user_ptr(args->contexts), contexts,
++				 num * sizeof(*contexts)))
++			ret = -EFAULT;
 +
-+		r = drm_exec_prepare_obj(&exec, &dst_bo->tbo.base, 1);
-+		drm_exec_retry_on_contention(&exec);
-+		if (r)
-+			goto err_unlock;
-+	}
++	kvfree(contexts);
 +
-+	src_mem.bo = &src_bo->tbo;
-+	src_mem.mem = src_bo->tbo.resource;
-+	dst_mem.bo = &dst_bo->tbo;
-+	dst_mem.mem = dst_bo->tbo.resource;
-+	e = atomic_inc_return(&adev->mman.next_move_entity) %
-+			      adev->mman.num_move_entities;
-+	r = amdgpu_ttm_copy_mem_to_mem(adev, &adev->mman.move_entities[e],
-+				       &src_mem, &dst_mem,
-+				       amdgpu_bo_size(src_bo),
-+				       amdgpu_bo_encrypted(src_bo),
-+				       dst_bo->tbo.base.resv, &fence);
-+	if (r) {
-+		goto err_unlock;
-+	} else if (!fence) {
-+		r = -ENXIO;
-+		goto err_unlock;
-+	}
-+
-+	dma_resv_add_fence(src_bo->tbo.base.resv, fence, DMA_RESV_USAGE_READ);
-+	dma_resv_add_fence(dst_bo->tbo.base.resv, fence, DMA_RESV_USAGE_WRITE);
-+	dma_fence_put(fence);
-+	drm_exec_fini(&exec);
-+
-+	timeout = dma_resv_wait_timeout(dst_bo->tbo.base.resv,
-+					DMA_RESV_USAGE_WRITE, true,
-+					MAX_SCHEDULE_TIMEOUT);
-+	if (timeout < 0)
-+		return timeout;
-+	else if (timeout == 0)
-+		return -ETIME;
-+	else
-+		goto out_put;
-+
-+err_unlock:
-+	drm_exec_fini(&exec);
-+out_put:
-+err_sizes:
-+	drm_gem_object_put(dst_gobj);
-+err_dst:
-+	drm_gem_object_put(src_gobj);
-+	return r;
++	return ret;
 +}
 +
- static int amdgpu_gem_align_pitch(struct amdgpu_device *adev,
- 				  int width,
- 				  int cpp,
+ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
+ {
+ 	struct amdgpu_ctx *ctx;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 46aae3fad4bf..2b971de3c189 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -3065,6 +3065,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_CONTEXTS, amdgpu_gem_list_contexts_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ };
+ 
+ static const struct drm_driver amdgpu_kms_driver = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-index 0e17d9fc665f..64529680fdad 100644
+index b558336bc4c6..0e17d9fc665f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-@@ -71,6 +71,8 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
+@@ -69,6 +69,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 			struct drm_file *filp);
+ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
  				  struct drm_file *filp);
- int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
- 				   struct drm_file *filp);
-+int amdgpu_gem_copy_buffer_ioctl(struct drm_device *dev, void *data,
-+				 struct drm_file *filp);
++int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
++				   struct drm_file *filp);
  
  int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
  				struct drm_file *filp);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 4023c84fe29d..3baad073ed54 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -294,13 +294,13 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
-  *
-  */
- __attribute__((nonnull))
--static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
--				      struct amdgpu_ttm_buffer_entity *entity,
--				      const struct amdgpu_copy_mem *src,
--				      const struct amdgpu_copy_mem *dst,
--				      uint64_t size, bool tmz,
--				      struct dma_resv *resv,
--				      struct dma_fence **f)
-+int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
-+			       struct amdgpu_ttm_buffer_entity *entity,
-+			       const struct amdgpu_copy_mem *src,
-+			       const struct amdgpu_copy_mem *dst,
-+			       uint64_t size, bool tmz,
-+			       struct dma_resv *resv,
-+			       struct dma_fence **f)
- {
- 	struct amdgpu_res_cursor src_mm, dst_mm;
- 	struct dma_fence *fence = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 8c0424577dea..360a860b8280 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -286,4 +286,11 @@ void amdgpu_ttm_mmio_remap_free_sgt(struct device *dev,
- 				    enum dma_data_direction dir,
- 				    struct sg_table *sgt);
- 
-+int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
-+			       struct amdgpu_ttm_buffer_entity *entity,
-+			       const struct amdgpu_copy_mem *src,
-+			       const struct amdgpu_copy_mem *dst,
-+			       uint64_t size, bool tmz,
-+			       struct dma_resv *resv,
-+			       struct dma_fence **f);
- #endif
 diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index d2a7b4e9daed..1335a181eb39 100644
+index 8a6f4c558102..15da4d9c44fd 100644
 --- a/include/uapi/drm/amdgpu_drm.h
 +++ b/include/uapi/drm/amdgpu_drm.h
-@@ -59,6 +59,7 @@ extern "C" {
+@@ -58,6 +58,7 @@ extern "C" {
+ #define DRM_AMDGPU_USERQ_SIGNAL		0x17
  #define DRM_AMDGPU_USERQ_WAIT		0x18
  #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_GEM_LIST_CONTEXTS	0x20
-+#define DRM_AMDGPU_GEM_COPY_BUFFER	0x21
++#define DRM_AMDGPU_GEM_LIST_CONTEXTS	0x20
  
  #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
  #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -81,6 +82,7 @@ extern "C" {
+@@ -79,6 +80,7 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
  #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
  #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_CONTEXTS, struct drm_amdgpu_gem_list_contexts)
-+#define DRM_IOCTL_AMDGPU_GEM_COPY_BUFFER DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_COPY_BUFFER, struct drm_amdgpu_gem_copy_buffer)
++#define DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_CONTEXTS, struct drm_amdgpu_gem_list_contexts)
  
  /**
   * DOC: memory domains
-@@ -206,6 +208,12 @@ union drm_amdgpu_gem_create {
- 	struct drm_amdgpu_gem_create_out	out;
+@@ -871,6 +873,37 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	__u64 alignment;
  };
  
-+struct drm_amdgpu_gem_copy_buffer {
-+	__u32	src_handle;
-+	__u32	dst_handle;
-+	__u64	flags;
++#define AMDGPU_GEM_LIST_CONTEXTS_FLAG_GUILTY	(1 << 0)
++
++struct drm_amdgpu_gem_list_contexts {
++	/* User pointer to array of drm_amdgpu_gem_list_contexts_entry */
++	__u64 contexts;
++
++	/* Size of the contexts buffer / Number of contexts in the client (if larger than size of buffer, must retry) */
++	__u32 num_contexts;
++
++	__u32 padding;
 +};
 +
- /** Opcode to create new residency list.  */
- #define AMDGPU_BO_LIST_OP_CREATE	0
- /** Opcode to destroy previously created residency list */
++struct drm_amdgpu_gem_list_contexts_entry {
++	/* gem context handle */
++	__u32 handle;
++
++	/* AMDGPU_GEM_LIST_CONTEXTS_FLAG_* */
++	__u32 flags;
++
++	/* context initial priority */
++	__s32 init_priority;
++
++	/* context override priority */
++	__s32 override_priority;
++
++	/* pstate flags */
++	__u32 pstate_flags;
++
++	__u32 padding;
++};
++
+ #define AMDGPU_VA_OP_MAP			1
+ #define AMDGPU_VA_OP_UNMAP			2
+ #define AMDGPU_VA_OP_CLEAR			3
 -- 
 2.54.0
 
