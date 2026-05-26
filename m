@@ -4,92 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5085DCD5BC8
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 15:04:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0465CD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:07:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA73810E1C3;
-	Tue, 26 May 2026 15:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8093A10E0CC;
+	Tue, 26 May 2026 16:07:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sbzhrdxn";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TAkDAoUi";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9928810E1C3
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 15:04:48 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-2f5ae07e2b5so881710eec.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 08:04:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779807888; cv=none;
- d=google.com; s=arc-20240605;
- b=Mg3u+r0wKqVEqco/4qlT/dTd8I2sVmm71VNtynvXCxA8/MSzC1FkAaJLXaToZZPZvD
- Ui6c4fnCbpHoiT+y3UD9fUFn3mz1AkUKXxsF/Lkq0xiDrW0y0CWl8Fmr1NJ9EvpL3XSK
- eam8TszAmHeFPJIdngcyJiwYmxra/A3izF6UiMXNfXNQMaXJCbx2S/yeURmv3Ucx8tuY
- hoEk/dNiBwwAqXjmUB0TbamMNDLayVJtCXdwTBcZJkLZ/ql9AW0+5JQrSWFomy1rylWm
- xBOKmqgF7kUMJRj0Me3Ecf3LS1SSJ8Fr6E7DueC3qU0pIqJj3t4QV7AMyGsg1XdAUeRv
- lvuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=LRV46UQ5JJTLYZr24gSeEgTFm1RWBnAQRM5kpkotgFU=;
- fh=kuXXPNLpbgu+QgSnwjBWFh7Uwlf7nGLz+J8cBaz/V84=;
- b=NKbmvTtTxYwfJNtdIaEFKqXfM5AJwIpyMi6nItUgREGaLL94kTC5O+tW3vHMOhZadc
- iO+OGAZzNmHcFzd2xdwySZP7FgoZszNrzQ+m/A4awIJRewDgItXm61z2s9eDRJT5YqlA
- Q1dhNPUbjxsEnI6eKq81e7fLPq5qjkLwPdS7yK6Tw+DGAJ8ppMWgRpyLNX8zwhCJwadE
- /uVOU42uMI4yqALLEvmyApz+pOgkCUghlp6qa0/rT/tWqdhy4oMJGbRN0+yIOOEQ81Hb
- YIO+oRUyk4gctg7VRXJN8+/vPNvipPqfWgsqJ4iRJ8prfechGFesOzCvMxm1TecmCGwU
- SWmA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779807888; x=1780412688; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LRV46UQ5JJTLYZr24gSeEgTFm1RWBnAQRM5kpkotgFU=;
- b=SbzhrdxnJUFhjhqDhEWbEt6HqXtDdO7Cwye9GLr7qMtG62P27/tNz4gktpJiA/JGTX
- c5eeXPXjORqlVINgPh2Xzw51PartnN+Bd5yqQmfL4bcthLTVuLXHxX4Kgt3bQFb0i/y4
- DWEexIYZ//ScW3MUV9hSdjuNBsQ/rzR2t/5JiQj83u4zttAh2xCwPID+b82cl3HAi5BY
- 2prgEDOJuEqRF/FVUtGCh/S4AOdNinP3ompZLe5XM0fjsDmkaQpHy0tU4AlN+6GrOeJn
- t7RCvQ1ioQuRWz2D2FoATrYN5gF1XCPtymkppOhVxOvdI1WLcD0M4JyTC17zHa8630N5
- BTHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779807888; x=1780412688;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=LRV46UQ5JJTLYZr24gSeEgTFm1RWBnAQRM5kpkotgFU=;
- b=JSOQLW8CwA/VMGlz+Lk21/JCay0uonrx8kHSDi3rNlrB15t40KheAAhpqO8Y5HAhUq
- i11nc7ENYpJXeuI/Rh1fyiVL1H1cZH5Y9TJR0Pvq9znRNCusnMjCTGvYZqBZ6S1v8YFQ
- aflPRsynubQ4QyjdrK+rGLbPfl3bqLsPKFQdCmPmq+6Ifi6+59HA7Dp8s+gPjSUqt/M+
- V5hNLr0yBqdAGO/q+zCQM3MSBojQo4woUHTxDXzPIEuuORr4Wm4t1IEDW+brNFpfGCOc
- 423UGKoqTy2PDosA+n32Kf/HhcLfEAGq3W+F4tfCLFRrKM9s/RdxJueCw/sikq2jZzOL
- hj4A==
-X-Gm-Message-State: AOJu0YxqDwJZHT5l4+9fIDguGznzzU+amap/HADy9wENsqcEMhHOPZ4n
- glwr7D2o6oExpuFRJbRiFbQjr4d2wwcGtShSfFn2e6rVX/jf9Bz3StMr3iZ+yEYQetihlzYWvW9
- FxWRKQpiydFf9qhD3zKv3px/b8cOLG3qnAg==
-X-Gm-Gg: Acq92OHrf4O9IJXYzFdO0x8iI/UQbJxFHPPzR7vcbCNjGNXyXIfy7fSH67ptFHIp1rQ
- lNPRlszq/SwMO1qFatC5dxWoisSFRziLzt2cOf/LOtWQnR1PMt5h0OYoee0+KjdygMQvjWCAlSf
- NgH7gAx1xGoWw2rjlsM0YGhmxOyoRvf2TwnV5UuYYCsKIHUN/GyQoEyP0KQ/qvU4bwdNXT5DMBD
- sCFxtAYiK2gkR2v9uf0SNNrM8XqAjW4bpNLUB/vb2n7adU7f7/OD1QMAh0gsJCvL7p5mGXCIRTo
- NrBhqOMnteQNuTp7w+AVodOvp6FX7aW3AWx50pxudb2Cdxj4cMEGR1iy18w/sx/y2g1gqw==
-X-Received: by 2002:a05:7022:68a3:b0:135:1b09:db43 with SMTP id
- a92af1059eb24-1365fb651b4mr3219321c88.6.1779807887828; Tue, 26 May 2026
- 08:04:47 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABC5D10E1B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 16:06:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=9nS2ldy7fc7/zU31AOHGp0Qbe7IHn4lGVam6bh1zb8U=; b=TAkDAoUicDEdlgWlLYCYVbpUii
+ PDpVofbUtjeJzO7fQIQADVHqZsnuHg5Atp2fVoJasTeIllpp1uplgsQNaX7CX1KlU46CTRJQT4Hlp
+ lC3kToJbIYtGjD0ewc0im4ZLoOQ56omQNTtGOeGpE+uB8kxKWp/1k+uhB/X5EPMK3eXZKFIrqQhyI
+ KRbG2gLWBQCypqXuDQ2E2mRGPqXqQyvNkRF3feSObygdhkNitsfDFfSeQume7SBsM1H0ckI4sgIj7
+ /Z60r2M0WqBKpJzaYkVA2P9k7DSBGg8Yl9CFFQ2Y/uy4vopGUM67vD10qaZwQojfI2HwP82784XLt
+ cgRmkDnQ==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wRuIx-008Vb6-St; Tue, 26 May 2026 18:06:55 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC 1/5] drm/amdgpu: Extend listing of buffer handles with the
+ userptr object flag
+Date: Tue, 26 May 2026 17:06:26 +0100
+Message-ID: <20260526160630.35562-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
+References: <20260526160630.35562-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-References: <20260526143219.609033-1-chih-wei.chien@amd.com>
- <20260526143219.609033-4-chih-wei.chien@amd.com>
-In-Reply-To: <20260526143219.609033-4-chih-wei.chien@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 26 May 2026 11:04:35 -0400
-X-Gm-Features: AVHnY4KzyHsSrN0bYxL3a8VWghYV5hKaWeJd7njgWtQ93x4E8rP4w-0o-huL82U
-Message-ID: <CADnq5_Non-70-vYpENW75QfQUm3Pwoh3rbrq_6sD-UoGF3=8-w@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/vpe: add vpe v2.2.0 support
-To: Caden Chien <chih-wei.chien@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, 
- Alexander.Deucher@amd.com, Solomon.Chiu@amd.com, Peyton.Lee@amd.com, 
- HaoPing.Liu@amd.com, Yu.Wang4@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,63 +63,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 26, 2026 at 10:40=E2=80=AFAM Caden Chien <chih-wei.chien@amd.co=
-m> wrote:
->
-> This initializes VPE IP version 2.2.0
->
-> Signed-off-by: Caden Chien <chih-wei.chien@amd.com>
+Add a new flag (AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR) to the
+DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS ioctl.
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+This is required to allow for checkpoint and restore of userptr objects.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       | 1 +
->  drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c         | 1 +
->  3 files changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 8e3b6a4050e9..9d95a4f915f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -2740,6 +2740,7 @@ static int amdgpu_discovery_set_vpe_ip_blocks(struc=
-t amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &vpe_v6_1_ip_block);
->                 break;
->         case IP_VERSION(2, 0, 0):
-> +       case IP_VERSION(2, 2, 0):
->                 amdgpu_device_ip_block_add(adev, &vpe_v2_0_ip_block);
->                 break;
->         default:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vpe.c
-> index 601420491477..7bf74ff93fbd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> @@ -312,6 +312,7 @@ static int vpe_early_init(struct amdgpu_ip_block *ip_=
-block)
->                 vpe->collaborate_mode =3D true;
->                 break;
->         case IP_VERSION(2, 0, 0):
-> +       case IP_VERSION(2, 2, 0):
->                 vpe_v2_0_set_funcs(vpe);
->                 break;
->         default:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vpe_v2_0.c
-> index 0d91e01fbf3a..c92c5fc59aeb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-> @@ -31,6 +31,7 @@
->  #include "vpe/vpe_2_0_0_sh_mask.h"
->
->  MODULE_FIRMWARE("amdgpu/vpe_2_0_0.bin");
-> +MODULE_FIRMWARE("amdgpu/vpe_2_2_0.bin");
->
->  #define VPE_THREAD1_UCODE_OFFSET       0x8000
->
-> --
-> 2.53.0
->
+The existing struct drm_amdgpu_gem_list_handles_entry is used with the
+userptr creation flags places in alloc_flags, while the alignment field
+contains the userspace address.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 18 +++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 40 +++++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 19 +++++++++++-
+ include/uapi/drm/amdgpu_drm.h           |  7 +++--
+ 4 files changed, 61 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 0259d81e5157..5eb8433229b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1186,14 +1186,20 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
+ 
+ 		bo_entry = &bo_entries[bo_index];
+ 
+-		bo_entry->size = amdgpu_bo_size(bo);
+-		bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
+-		bo_entry->preferred_domains = bo->preferred_domains;
+ 		bo_entry->gem_handle = id;
+-		bo_entry->alignment = bo->tbo.page_alignment;
++		bo_entry->size = amdgpu_bo_size(bo);
++		if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm)) {
++			bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR;
++			bo_entry->alloc_flags = amdgpu_ttm_tt_get_userptr_flags(bo->tbo.ttm);
++			bo_entry->alignment = amdgpu_ttm_tt_get_userptr_addr(bo->tbo.ttm);
++		} else {
++			bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
++			bo_entry->preferred_domains = bo->preferred_domains;
++			bo_entry->alignment = bo->tbo.page_alignment;
+ 
+-		if (bo->tbo.base.import_attach)
+-			bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
++			if (bo->tbo.base.import_attach)
++				bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
++		}
+ 
+ 		bo_index += 1;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 3d2e00efc741..4023c84fe29d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -767,6 +767,33 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+ 	return r;
+ }
+ 
++/*
++ * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
++ */
++bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
++{
++	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
++
++	if (gtt == NULL || !gtt->userptr)
++		return false;
++
++	return true;
++}
++
++u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm)
++{
++	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
++
++	return gtt->userflags;
++}
++
++u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm)
++{
++	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
++
++	return gtt->userptr;
++}
++
+ #endif
+ 
+ /*
+@@ -1374,19 +1401,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
+ 	return true;
+ }
+ 
+-/*
+- * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
+- */
+-bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
+-{
+-	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+-
+-	if (gtt == NULL || !gtt->userptr)
+-		return false;
+-
+-	return true;
+-}
+-
+ /*
+  * amdgpu_ttm_tt_is_readonly - Is the ttm_tt object read only?
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index f2f23a42b3cc..8c0424577dea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -211,12 +211,30 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
+ #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+ 				 struct amdgpu_hmm_range *range);
++bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
++u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm);
++u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm);
+ #else
+ static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+ 					       struct amdgpu_hmm_range *range)
+ {
+ 	return -EPERM;
+ }
++
++static inline bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
++{
++	return false;
++}
++
++static inline u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm)
++{
++	return -1;
++}
++
++static inline u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm)
++{
++	return 0;
++}
+ #endif
+ 
+ /**
+@@ -251,7 +269,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
+ 				  unsigned long end, unsigned long *userptr);
+ bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
+ 				       int *last_invalidated);
+-bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
+ bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
+ uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem);
+ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 9f3090db2f16..3069560ac26e 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -836,6 +836,7 @@ struct drm_amdgpu_gem_op {
+ };
+ 
+ #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
++#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR	(1 << 1)
+ 
+ struct drm_amdgpu_gem_list_handles {
+ 	/* User pointer to array of drm_amdgpu_gem_bo_info_entry */
+@@ -851,7 +852,7 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	/* gem handle of buffer object */
+ 	__u32 gem_handle;
+ 
+-	/* Currently just one flag: IS_IMPORT */
++	/* AMDGPU_GEM_LIST_HANDLES_FLAG_* */
+ 	__u32 flags;
+ 
+ 	/* Size of bo */
+@@ -860,10 +861,10 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	/* Preferred domains for GEM_CREATE */
+ 	__u64 preferred_domains;
+ 
+-	/* GEM_CREATE flags for re-creation of buffer */
++	/* GEM_CREATE flags for re-creation of buffer or drm_amdgpu_gem_userptr.flags */
+ 	__u64 alloc_flags;
+ 
+-	/* physical start_addr alignment in bytes for some HW requirements */
++	/* physical start_addr alignment in bytes for some HW requirements or drm_amdgpu_gem_userptr.addr */
+ 	__u64 alignment;
+ };
+ 
+-- 
+2.54.0
+
