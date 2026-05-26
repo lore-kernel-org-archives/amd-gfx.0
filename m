@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5791CD6E41
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC77CD5BC8
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:12:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 479D810E691;
-	Tue, 26 May 2026 14:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44C9210E693;
+	Tue, 26 May 2026 14:12:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qzk81VLH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2zGK5kmO";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013067.outbound.protection.outlook.com
- [40.93.201.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13AE510E67E
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:12:13 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96F2110E67E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:12:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PRRwPwXRQZMutce3XKJblq5FsiqmK7VgV2RbrodrDcQOGgUV17stoH84d+Iz9dvUQtesF+VYGmLLxc7DdgsT5yatDV8Y9bb8hTLuXkuKVB84VQ1oxEjSdLluXNlLIW5jN3VdQ5F2+wlpKzVQiSZcc4fKTLI6hVNPKXBsp6OlThEmNGinb6Vc37oXUtDyI2Cv4okC28LqWtndLvg8ITsTomuiZAyiTxZpr8RaewBetGM9clqOD5cxJVVARHEAqYltPM9ChB72u0kqQP7f0kGgi5YPvDjZVO7ptvXJqIvvik/qGc+HN4762Ni0WxUvWSHSZJK/3ONI5PnJtiC+fb7qFA==
+ b=DSthVscPDdwwCb3FH8v0XXfClEHs750vYIODsL5JB0Dp8wbT7lzM3QaeoqM0M8tVt9VL0EFCpAdETSJ3V9n0MbRun2RtqYgFDOVnFxP+qPGVneXwpk8bOENxOnl3m6MQrYfr4K037Oe6M2rGLV1jNKcxEG1np1kMqG/bLzud6JeRHXlA7xZ429mSQDh6hhdytZgb+bq770joM/TvpfkKsACnmdnr994vAgZLfTt0iaJzHzoMPhu8DLOfxeJhKasbF7HUszQ32lnUNgPiggE0QBamHITcG0KAZwgjjYVf3drZQbcK7owZOfkA1eECR6XSzcWIPbE3r710eLPsygrvrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wk8LfImObALAzFCgHDFREHaVM3/4JTFk+Y4aSLEG7F0=;
- b=kmyqmGVbTYHZ0lMxIJb956vD84l6ExWRl0VWeqyRJJyaR+MX0AViqv2+w2jux5WfIWp2V9iN5fIeca0KMyEzUwsU63TmEvDgvkAzUupbLED6XbDzKDiC/Er93sMYrTFnu4iZe+nQPMKOYXwxTgomjT+WDndpiVwLBRyJq9q2I5MsVQVm/rcgOdkcbiQA9aG89mOKi1Di2fqtE2a3eaYq65TS0pX44VaaA2CGshQMZIBBBQHX8Hpe+fUIN2Fglr8zLqZD3qSKX3z6xYH5ix9QJK9r72cKuIzOAtTezgBk/t8wiFh7ABsR8GJRSfP2I1v8FzwKfu+VX8kYH8PWiKlJcg==
+ bh=9cj6TqjNkFwa0qiq29UgHdpLqL/g1KLlzNHVAetxgzw=;
+ b=Wax5QYfRLaeeQ4um2asaNaz8wD9VDj67xRaxQvO6NORsCaTaQlUb0RCts0cwSBEv90ACZ/lqwPlUm71I0PxGPwghcxjNMudkjvXCM1iVMVvYsb2ZXval62FOZBPUBojRClHde1IayPFNdHFprZZGQRymsZhoRYur5bk9CL96sb4NwDTqdsqJhZuI91B6CxhzhpGpfsIka26nJ8TH8YIGk+v3bPcbrFFY73cgLCZkKu7x4N3GGGvYuhBnuMB/GZ/RAf1ZqAMRtOESjeTf3WcFjZvVqFSzokRFlNrT/55jriqfQ2kvMqhJrHOkSIYNRF2KSkUtPTXTz8r9/LW1O5TzZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wk8LfImObALAzFCgHDFREHaVM3/4JTFk+Y4aSLEG7F0=;
- b=Qzk81VLH47Apq2vuQH6vQmB0T0Z5qbRgPq179bMqnFKzIYUljRs5t43kYvjS66vqmDFYqH+iOYEQ8Nltdc2KrxIXtPfer2VJKnhoRKElgTV4ge2X4Dyy+b4OMwfOb/cafWqahSeB8PpRm5PEaYJyVbrrCRflw3cza4g0g7qRJV4=
-Received: from BN9PR03CA0686.namprd03.prod.outlook.com (2603:10b6:408:10e::31)
- by BL1PR12MB5922.namprd12.prod.outlook.com (2603:10b6:208:399::5)
+ bh=9cj6TqjNkFwa0qiq29UgHdpLqL/g1KLlzNHVAetxgzw=;
+ b=2zGK5kmOWR45EphBSTHeORVKwGCvzkVDAGrimpl0g7vtjN83DL0Qcbwvgs+RbTKasxd7k3jVaLOjY1nAhYH+03lHVumMh+lVbvt5K+2GVL8Wy3wFw9X/o+QObwU7u2C0uaw+ORaWFxi+L9Ml4zlbJDkPX3/yS9fwJ5ASakOXaNg=
+Received: from BN9PR03CA0679.namprd03.prod.outlook.com (2603:10b6:408:10e::24)
+ by LV8PR12MB9689.namprd12.prod.outlook.com (2603:10b6:408:296::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 14:12:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Tue, 26 May
+ 2026 14:12:06 +0000
 Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
- (2603:10b6:408:10e:cafe::40) by BN9PR03CA0686.outlook.office365.com
- (2603:10b6:408:10e::31) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:10e:cafe::77) by BN9PR03CA0679.outlook.office365.com
+ (2603:10b6:408:10e::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
- May 2026 14:12:04 +0000
+ May 2026 14:12:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,51 +50,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:12:04 +0000
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:12:05 +0000
 Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 09:11:54 -0500
+ 2026 09:11:55 -0500
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <Bing.Ma@amd.com>, <jamesz@amd.com>
-Subject: [PATCH v4 15/17] drm/amdgpu: workaround for hw stall issue
-Date: Tue, 26 May 2026 10:11:27 -0400
-Message-ID: <20260526141129.592886-15-James.Zhu@amd.com>
+Subject: [PATCH v4 17/17] drm/amdgpu: add profiler/spm support for gfx9_4_3
+Date: Tue, 26 May 2026 10:11:29 -0400
+Message-ID: <20260526141129.592886-17-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260526141129.592886-1-James.Zhu@amd.com>
 References: <20260526141129.592886-1-James.Zhu@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|BL1PR12MB5922:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68ca0e8b-7336-44ff-140b-08debb30c39c
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|LV8PR12MB9689:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff0b19d4-d7b3-45b9-bbe5-08debb30c41d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|22082099003|56012099003|18002099003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: hY9bNN3dv74OvAtTbwn+Cdm6rQ4qyvmRjcvZbBYf8pB9UOSjl56ebi0ZUKtqnF8JsNtZh4v+UhYqOYLTUwDO3BKfU14FktVXPKpJZegn06dnTNHk54GRfdjJu3+uweNNk6LWODeOoKQHQ/JmLaJ82Rax6fFPKVcrwVK3gUI7AEuwd9TlVukA/6srExN80G3Pok8uRSVSEW3qIbnLO26IcK0+EaGusabO4aytc42cQd4IpK31f9jhkTLRWZuQNBAW1aDP2r8tBpRZIf/5LL6nKebEgwJCWJoLPfWDVWBNR/ht2w0ZgfLPsn4w1h4gZ8sbHdbOxFU0clNUadmy57Qrt+8oJ7sCS2VXwPDm8sxDnld8+E1Al6Lxxyr6EvKScciigbhb/+ObcUaNl81sqGUzumZ6UhIaHLiH1MIdeW/UYzJwA8Uxd+P8kUsrHbUYzKqmQrpK4lGfQkZMmad6Eu5CKfToL5TUiKsPZAC0rypcaf2Tenl1dGgb8sDOdj4j9O7w5PLwv1NTzAODF4PTvdw+0Dt0H7YIUOE1hWYJ8o256Ydx2FzrUo1Deyk13CvI/agi3gI4ocBcS1ty/Ja+FJQwV1YcPWLeAvt8YX7Jg4vwJjEmeqKmPJPuJb+iFrrjZLLLi2t2MQc9sErZPYN0rm6DlR1fkswpMMN/e6lvJAgrcbHes1+PKTOERjnktMb+HCuSa/9j7Sv83NVHezO3njGG3I5tGRpZFiBrpCjv3xfBpgc=
+ ARA:13230040|1800799024|82310400026|376014|36860700016|18002099003|56012099003|22082099003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: fiQb5kfvsqZ5l9r0oiOIIDHndgIiuDPRDZ/X4z9cdEgXYLwiz+dAEB951vQ0xwTRCz5nMZB6BKkSIV68L8poyqhuN7GXBcFz6kUqgbR1ei4rhn41qS1AKmTu1LpoSvXvQ8TZd0iK1U0y8EIW5TZpdQE9xCqnR4jGWyX9Vx3hVbWcpWG9o5sU9fyUYUM4V/Do+wR9MOgP1m++44ikF02T2khqa7dA2f+O9MFGfePZ4qqoFfVuWPr0EmkOGIr5aiImH2BcVvG9UzAACY/bgz6TyzSWjvvQ+YYZtIAZbH6xq6C6oJXzuSjnutw8WjH4kgqnwzuGV7JhJ10o+TILMhkUyluWeh+k6WQRmSdGAWiYPjTBTCMCcy5lL1rldtgXqXCCJZjSf/1yo90guJcZLJ0d91XzT/580jQJhHllDSbvG7sehQz3UlZE9zGSJEs1AnGC6weEGLeeQoCNpgF0OU+A6/snu2raD3GTR3CXHfT93X+aKsB++Kvwk0gT/gEMSnZiG5UJndXQ06oBRU6RzQNb5CP5+Uu3ME6Zeblbvf9biJBOQgowH/r+C5N9dZ8uz4IWFQkD8QTOkYT5L7Km+hbWS1YD2J1hEPs2LJ5VdQO+FXvBMX0jrB9vmlavCdIlph6iJu5TSSshv3qdYuCGlIzl7bygXPL0CJNIKwJ++W0poTvsUg/Tv5mT/TVGpK5AbHZHu2QLUPTCqKQjfiv3YqHbN9htW5XSgqNOwO0oPxRWqi8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(22082099003)(56012099003)(18002099003)(11063799006)(6133799003);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(18002099003)(56012099003)(22082099003)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YJtqvkVrbfr1KMQBVzpc/8eAB1vs7QENB8Ak9SFER7M8fZvpJ7KcmGEjT2V3xoSJJSTGaJ6u9FJsJAs4ixJgsERO4t1Ox7oJvaZqkMRIkpyQU2ts3eQBjtXRENcnYtrpINloO8pcty8moDpfoPGCLuK3BchIEO4rbWtMZptTT0CyKfwZ7HCzaNZLAfwxaUR9Ve1OaAPMv1ACwga2VWvn5M4bWWex17uokIE082/fO5LfrRYgNHQJ3k1apFZIkAe28tO6lmxqBpQ7gS70UvJJaofVawRm8shl3GR2G70SD0o7L9BDl/eYXduHNu6NqmBC+J7H0td0CrZ9C69kCbR5Dy37rpgkHKDoDFgaDo6uE9uuGWKI6MUNZ5QvKxJ+EfUnCh0Aeu/fIfMQIrvfD2VXFOI5tYlxmwr2oWCsh5jtveE96RhBgqlGDQswfjM2COGh
+X-MS-Exchange-AntiSpam-MessageData-0: Kb2Bocle9mPsnr1TNSUc0e016jm4mauLaplKHZArFb2kULfoJxE0qkPWrQAz6tgE51OCKgzDE2DsWD1HmjiNqSiM0rVgYcR6uAdDf8CyQYrGZx7zBm7292Uy8c/GVGGcCawgDCNUTzHhw7u8lCuWxCZ2hFmyGlAtAQOhn8d+xilcJqkvczrGTahg1+Ly1WQlB82GPFyH0qkI2OsArd3exezdktVoq3L+Cwr98hHp6d/X7709hpROL3PMMGfSNq91vS39Lv70uyT3XeTvYMniD5rjEMC1FCyYr0+Jpud7K5d98qfzDMZ/Y5Jm7mfP7spfhhDTZ4wghcEERg5A56QYO1rqQ6a6csQNNVJLGNgO8HqGPtloRapQEaLHG6H8fgR50DmO1WaYHyzmov/LaIO+5DfeB/4yqMazO9bTWMLi9XGL4Cxcs4TncTa2T6AZbw4T
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:12:04.7380 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68ca0e8b-7336-44ff-140b-08debb30c39c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:12:05.5880 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff0b19d4-d7b3-45b9-bbe5-08debb30c41d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5922
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9689
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,248 +109,415 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When RLC_SPM_PERFMON_CNTL.PERFMON_RING_MODE is set to 0x11, the SPM
-hardware is designed to fire a warning interrupt when the ring fill level
-reaches RLC_SPM_SEGMENT_THRESHOLD, and stall only when the ring is
-completely full. A hardware bug causes both the stall and the warning
-interrupt to trigger simultaneously at RLC_SPM_SEGMENT_THRESHOLD, resulting
-in an unexpected early hardware stall at interrupt time, which causes data
-loss before the ring buffer is actually full.
+with implementation of amdgpu_spm_funcs callbacks for the GFX 9.4.3 IP
+block and wire up the per-XCC RLC Stream Performance Monitor interrupt.
 
-This patch replaces interrupt-driven ring drain scheduling with a software
-polling monitor thread to avoid triggering the premature stall.
+SPM function table (gfx_v9_4_3_spm_funcs):
+  gfx_v9_4_3_spm_start(adev, xcc_id):
+    Uses kiq[xcc_id].ring for the per-XCC KIQ ring. Programs:
+    - Read-modify-write RLC_SPM_PERFMON_CNTL to set PERFMON_RING_MODE
+      via MMIO read + KIQ write.
+    - CP_PERFMON_CNTL.SPM_PERFMON_STATE = DISABLE_AND_RESET via KIQ.
+    - RLC_SPM_RING_RDPTR = 0 via KIQ to match the hardware wptr reset.
+    - RLC_SPM_INT_CNTL = 1 via KIQ to enable the SPM interrupt.
+    - Read-modify-write RLC_CLK_CNTL to set RLC_SPM_CLK_CNTL_MASK via
+      direct MMIO, gating the SPM clock domain on.
 
-Software polling monitor (amdgpu_spm_monitor_thread):
-  A kthread named "spm_<render_index>" polls each active XCC instance
-  in a tight loop with usleep_range(1, 11) (1-11 us per iteration).
-  On each iteration, it attempts to acquire spm_worker_mutex with
-  mutex_trylock() (skipping if contended) and for each active XCC checks
-  whether the amount of unconsumed data in the ring exceeds half the ring
-  capacity, computed as:
-    (ring_size + ring_wptr - ring_rptr) % ring_size > (ring_size >> 1)
-  This condition fires only once per rptr advancement (guarded by
-  warned_ring_rptr != ring_rptr) to avoid redundant scheduling.
-  When triggered, schedules amdgpu_spm_work to drain the ring and logs
-  a "soft interrupt" debug message with the current rptr and wptr.
+  gfx_v9_4_3_spm_stop(adev, xcc_id):
+    Uses kiq[xcc_id].ring. Programs:
+    - Clear RLC_CLK_CNTL.RLC_SPM_CLK_CNTL_MASK via direct MMIO.
+    - CP_PERFMON_CNTL.SPM_PERFMON_STATE = STOP_COUNTING via KIQ.
+    - CP_PERFMON_CNTL.PERFMON_STATE = DISABLE_AND_RESET via KIQ.
+    - RLC_SPM_RING_RDPTR = 0 via KIQ.
 
-warned_ring_rptr (u32, added to amdgpu_spm_base):
-  Tracks the rptr value at which the last soft interrupt was issued.
-  Initialized to ~0U (U32_MAX) on acquire and on each SPM start/stop to
-  ensure the first polling check always passes. Updated to the current
-  rptr at the start of each ring buffer read to suppress duplicate
-  scheduling for the same rptr position.
+  gfx_v9_4_3_spm_set_rdptr(adev, xcc_id, rptr):
+    Writes rptr to RLC_SPM_RING_RDPTR via kiq[xcc_id].ring.
 
-Monitor thread lifecycle:
-  - Started lazily on the first SET_DEST_BUF call that starts the SPM
-    hardware (dest_buf != NULL, is_spm_started transitions false→true).
-    Only one thread is created per SPM session regardless of XCC count.
-  - Stopped on SET_DEST_BUF with dest_buf=NULL (SPM stopped) and on
-    AMDGPU_SPM_OP_RELEASE. spm_monitor_thread is initialized to NULL
-    in amdgpu_spm_acquire() and set back to NULL by the thread itself
-    on exit.
+  gfx_v9_4_3_set_spm_perfmon_ring_buf(adev, xcc_id, gpu_addr, size):
+    Programs via kiq[xcc_id].ring:
+    - RLC_SPM_PERFMON_RING_BASE_LO/HI with the GPU address
+      (currently uses GC instance 0 for base address registers).
+    - RLC_SPM_PERFMON_RING_SIZE and RLC_SPM_SEGMENT_THRESHOLD = 1
+      using GET_INST(GC, xcc_id) addressing.
+    - CP_PERFMON_CNTL = 0.
+    set_spm_config_size = 30 DWORDs per KIQ ring operation.
 
-amdgpu_spm_interrupt():
-  - schedules amdgpu_spm_work directly. But when detects affected hardware
-    via ip_versions[GC_HWIP][0] < IP_VERSION(12, 0, 0), the polling thread
-    is responsible for all ring drain scheduling in this mode. the hardware
-    interrupt only sets has_data_loss=1  under spm_irq_lock (indicating the
-     ring reached the stall threshold) and logs a debug message.
+  gfx_v9_4_3_set_spm_funcs() registers gfx_v9_4_3_spm_funcs into
+  adev->gfx.spmfuncs from gfx_v9_4_3_early_init().
 
--v3: signal_pending using current instead of spm_mgr->spm_monitor_thread to
-     fix race condition issue
-     use _spm_start/_spm_stop
+SPM IRQ handling:
+  The SPM interrupt source is registered in gfx_v9_4_3_sw_init() for
+  client SOC15_IH_CLIENTID_RLC with source ID
+  GFX_9_0__SRCID__RLC_STRM_PERF_MONITOR_INTERRUPT.
+
+  gfx_v9_4_3_spm_set_interrupt_state(): iterates over all XCC instances
+  and writes regRLC_SPM_INT_CNTL = 0/1 for each via WREG32_SOC15 with
+  GET_INST(GC, i) to enable or disable the per-XCC interrupt.
+
+  gfx_v9_4_3_spm_irq(): resolves xcc_id from the interrupt entry's
+  node_id via gfx_v9_4_3_ih_to_xcc_inst(), then calls
+  amdgpu_rlc_spm_interrupt(adev, xcc_id) to dispatch to the correct
+  XCP's SPM manager.
+
+update_spm_vmid refactoring:
+  gfx_v9_4_3_update_spm_vmid_internal(adev, xcc_id, vmid) is
+  extracted from the existing gfx_v9_4_3_update_spm_vmid() as a
+  lockless helper that performs the read-modify-write on
+  RLC_SPM_MC_CNTL.RLC_SPM_VMID using GET_INST(GC, xcc_id) addressing.
+  The original RREG32() path is replaced with RREG32_SOC15() for
+  correctness on multi-instance GC.
+
+  gfx_v9_4_3_update_spm_vmid() now wraps the internal helper with
+  amdgpu_gfx_off_ctrl(false/true) to prevent GFX power gating during
+  the VMID register update, and is used for runtime vmid changes.
+
+  gfx_v9_4_3_rlc_init() is updated to initialize the SPM VMID to 0xf
+  for all XCC instances (instead of only XCC 0), and now skips the
+  operation for SR-IOV VF or when update_spm_vmid is NULL.
+
+  gfx_v9_4_3_xcc_rlc_resume() is restructured to unconditionally call
+  rlc_stop() before firmware loading and rlc_start() after, regardless
+  of firmware load type. gfx_v9_4_3_update_spm_vmid_internal() is
+  called between stop and start to ensure the SPM VMID is correctly
+  initialized to 0xf before the RLC is started for both legacy and PSP
+  firmware loading paths.
+
+-v3: move RLC_CLK_CNTL__RLC_SPM_CLK_CNTL set/reset to rlc_init/rlc_fini
+     from spm_start and spm_stop, only apply on non-SRIOV, since this
+     register is only for PF.
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 Reviewed-by: Bing Ma <Bing.Ma@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c | 102 +++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h |   2 +
- 2 files changed, 102 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 203 ++++++++++++++++++++++--
+ 1 file changed, 192 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-index cbe7a2b61bb8..d4b6408f818d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-@@ -38,6 +38,77 @@
- static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *filp);
- static void _amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, int inst, struct drm_file *filp);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 9f76e1af8a55..0360819978e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -169,6 +169,8 @@ static void gfx_v9_4_3_set_gds_init(struct amdgpu_device *adev);
+ static void gfx_v9_4_3_set_rlc_funcs(struct amdgpu_device *adev);
+ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
+ 				struct amdgpu_cu_info *cu_info);
++static void gfx_v9_4_3_update_spm_vmid_internal(struct amdgpu_device *adev,
++					      int xcc_id, unsigned int vmid);
+ static void gfx_v9_4_3_xcc_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
+ static void gfx_v9_4_3_xcc_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
  
-+static int amdgpu_spm_monitor_thread(void *param)
+@@ -1066,6 +1068,13 @@ static int gfx_v9_4_3_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+ 
++	/* SPM */
++	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_RLC,
++			      GFX_9_0__SRCID__RLC_STRM_PERF_MONITOR_INTERRUPT,
++			      &adev->gfx.spm_irq);
++	if (r)
++		return r;
++
+ 	/* EOP Event */
+ 	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_GRBM_CP, GFX_9_0__SRCID__CP_EOP_INTERRUPT, &adev->gfx.eop_irq);
+ 	if (r)
+@@ -1454,10 +1463,14 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(struct amdgpu_device *adev)
+ 
+ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
+ {
+-	/* init spm vmid with 0xf */
+-	if (adev->gfx.rlc.funcs->update_spm_vmid)
+-		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, 0xf);
++	int i, num_xcc;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
++	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++	for (i = 0; i < num_xcc; i++)
++		adev->gfx.rlc.funcs->update_spm_vmid(adev, i, NULL, 0xf);
+ 	return 0;
+ }
+ 
+@@ -1628,22 +1641,39 @@ static int gfx_v9_4_3_xcc_rlc_load_microcode(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++static void gfx_v9_4_3_xcc_rlc_spm_clk_enable(struct amdgpu_device *adev, bool enable, int xcc_id)
 +{
-+	struct amdgpu_spm_mgr *spm_mgr = param;
-+	struct amdgpu_device *adev = mgr_to_adev(spm_mgr, spm_mgr);
++	uint32_t data = 0;
 +
-+	allow_signal(SIGKILL);
-+	while (!kthread_should_stop() &&
-+			!signal_pending(current) && spm_mgr->spm_cntr) {
-+		bool need_schedule = false;
-+		u32 inst;
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CLK_CNTL);
 +
-+		usleep_range(1, 11);
++	if (enable)
++		data |= RLC_CLK_CNTL__RLC_SPM_CLK_CNTL_MASK;
++	else
++		data &= (~RLC_CLK_CNTL__RLC_SPM_CLK_CNTL_MASK);
 +
-+		if (!mutex_trylock(&spm_mgr->spm_cntr->spm_worker_mutex))
-+			continue;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CLK_CNTL, data);
++}
 +
-+		for_each_inst(inst, AMDGPU_XCC_MASK(adev)) {
-+			struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
-+			u32 warned_ring_rptr;
-+			u32 ring_size;
-+			u32 ring_rptr;
-+			u32 ring_wptr;
+ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_device *adev, int xcc_id)
+ {
+ 	int r;
+ 
++	gfx_v9_4_3_xcc_rlc_stop(adev, xcc_id);
+ 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+-		gfx_v9_4_3_xcc_rlc_stop(adev, xcc_id);
+ 		/* legacy rlc firmware loading */
+ 		r = gfx_v9_4_3_xcc_rlc_load_microcode(adev, xcc_id);
+ 		if (r)
+ 			return r;
+-		gfx_v9_4_3_xcc_rlc_start(adev, xcc_id);
+ 	}
++	gfx_v9_4_3_update_spm_vmid_internal(adev, xcc_id, 0xf);
++	gfx_v9_4_3_xcc_rlc_start(adev, xcc_id);
+ 
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev, xcc_id);
+ 	/* disable CG */
+ 	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGCG_CGLS_CTRL, 0);
 +
-+			if (!spm->is_spm_started)
-+				continue;
++	gfx_v9_4_3_xcc_rlc_spm_clk_enable(adev, true, xcc_id);
+ 	gfx_v9_4_3_xcc_init_pg(adev, xcc_id);
+ 	amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
+ 
+@@ -1667,28 +1697,38 @@ static int gfx_v9_4_3_rlc_resume(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *adev,
+-					      int inst, struct amdgpu_ring *ring, unsigned int vmid)
++static void gfx_v9_4_3_update_spm_vmid_internal(struct amdgpu_device *adev,
++					      int xcc_id, unsigned int vmid)
+ {
+ 	u32 reg, pre_data, data;
+ 
+-	reg = SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regRLC_SPM_MC_CNTL);
++	reg = SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL);
+ 	if (amdgpu_sriov_is_pp_one_vf(adev) && !amdgpu_sriov_runtime(adev))
+ 		pre_data = RREG32_NO_KIQ(reg);
+ 	else
+-		pre_data = RREG32(reg);
++		pre_data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL);
+ 
+ 	data =	pre_data & (~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK);
+ 	data |= (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
+ 
+ 	if (pre_data != data) {
+ 		if (amdgpu_sriov_is_pp_one_vf(adev) && !amdgpu_sriov_runtime(adev)) {
+-			WREG32_SOC15_NO_KIQ(GC, GET_INST(GC, inst), regRLC_SPM_MC_CNTL, data);
++			WREG32_SOC15_NO_KIQ(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL, data);
+ 		} else
+-			WREG32_SOC15(GC, GET_INST(GC, inst), regRLC_SPM_MC_CNTL, data);
++			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL, data);
+ 	}
+ }
+ 
++static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
++		struct amdgpu_ring *ring, unsigned int vmid)
++{
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+			ring_size = spm->ring_size;
-+			ring_rptr = spm->ring_rptr;
-+			warned_ring_rptr = spm->warned_ring_rptr;
-+			ring_wptr = READ_ONCE(spm->cpu_addr[0]);
++	gfx_v9_4_3_update_spm_vmid_internal(adev, xcc_id, vmid);
 +
-+			if (need_schedule || (ring_rptr != warned_ring_rptr &&
-+				(ring_size + ring_wptr - ring_rptr) % ring_size >
-+					(ring_size >> 1))) {
-+				spm->warned_ring_rptr = ring_rptr;
-+				if (!need_schedule) {
-+					dev_dbg(adev->dev,
-+						"[SPM#%d] soft interrupt rptr:0x%08x--wptr:0x%08x",
-+						 inst, ring_rptr, ring_wptr);
-+					need_schedule = true;
-+				}
-+			}
++	amdgpu_gfx_off_ctrl(adev, true);
++}
++
+ static const struct soc15_reg_rlcg rlcg_access_gc_9_4_3[] = {
+ 	{SOC15_REG_ENTRY(GC, 0, regGRBM_GFX_INDEX)},
+ 	{SOC15_REG_ENTRY(GC, 0, regSQ_IND_INDEX)},
+@@ -2347,6 +2387,7 @@ static void gfx_v9_4_3_xcc_fini(struct amdgpu_device *adev, int xcc_id)
+ 	}
+ 
+ 	gfx_v9_4_3_xcc_kcq_fini_register(adev, xcc_id);
++	gfx_v9_4_3_xcc_rlc_spm_clk_enable(adev, false, xcc_id);
+ 	gfx_v9_4_3_xcc_cp_compute_enable(adev, false, xcc_id);
+ }
+ 
+@@ -2447,6 +2488,7 @@ static int gfx_v9_4_3_hw_fini(struct amdgpu_ip_block *ip_block)
+ 		gfx_v9_4_3_perf_monitor_ptl_init(adev, false);
+ 
+ 	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
++	amdgpu_irq_put(adev, &adev->gfx.spm_irq, 0);
+ 	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+ 	amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
+ 
+@@ -2590,12 +2632,104 @@ static void gfx_v9_4_3_ring_emit_gds_switch(struct amdgpu_ring *ring,
+ 				   (1 << (oa_size + oa_base)) - (1 << oa_base));
+ }
+ 
++static void gfx_v9_4_3_spm_start(struct amdgpu_device *adev, int xcc_id)
++{
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[xcc_id].ring;
++	uint32_t data = 0;
++
++	data = RLC_SPM_PERFMON_CNTL__PERFMON_RING_MODE_MASK;
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_PERFMON_CNTL), data);
++
++	data = REG_SET_FIELD(0, CP_PERFMON_CNTL, SPM_PERFMON_STATE,
++			CP_PERFMON_STATE_DISABLE_AND_RESET);
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regCP_PERFMON_CNTL), data);
++
++	/* When SPM is reset, RLC automatically resets wptr to 0.
++	 * Manually reset rptr to match this.
++	 */
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_RING_RDPTR), 0);
++
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_INT_CNTL), 1);
++}
++
++static void gfx_v9_4_3_spm_stop(struct amdgpu_device *adev, int xcc_id)
++{
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[xcc_id].ring;
++	uint32_t data = 0;
++
++	data = REG_SET_FIELD(0, CP_PERFMON_CNTL, SPM_PERFMON_STATE,
++			CP_PERFMON_STATE_STOP_COUNTING);
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regCP_PERFMON_CNTL), data);
++
++	data = REG_SET_FIELD(0, CP_PERFMON_CNTL, PERFMON_STATE,
++			CP_PERFMON_STATE_DISABLE_AND_RESET);
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regCP_PERFMON_CNTL), data);
++
++	/* When SPM is reset, RLC automatically resets wptr to 0.
++	 * Manually reset rptr to match this.
++	 */
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_RING_RDPTR), 0);
++}
++
++static void gfx_v9_4_3_spm_set_rdptr(struct amdgpu_device *adev, int xcc_id,  u32 rptr)
++{
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[xcc_id].ring;
++
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_RING_RDPTR), rptr);
++}
++
++static void gfx_v9_4_3_set_spm_perfmon_ring_buf(struct amdgpu_device *adev,
++					    int xcc_id, u64 gpu_addr, u32 size)
++{
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[xcc_id].ring;
++
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id),
++				regRLC_SPM_PERFMON_RING_BASE_LO), lower_32_bits(gpu_addr));
++
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id),
++				regRLC_SPM_PERFMON_RING_BASE_HI), upper_32_bits(gpu_addr));
++
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id),
++				regRLC_SPM_PERFMON_RING_SIZE), size);
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id),
++				regRLC_SPM_SEGMENT_THRESHOLD), 0x1);
++
++	gfx_v9_4_3_write_data_to_reg(kiq_ring, 0, false,
++			SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regCP_PERFMON_CNTL), 0);
++}
++
++static const struct amdgpu_spm_funcs gfx_v9_4_3_spm_funcs = {
++	.start = &gfx_v9_4_3_spm_start,
++	.stop = &gfx_v9_4_3_spm_stop,
++	.set_rdptr = &gfx_v9_4_3_spm_set_rdptr,
++	.set_spm_perfmon_ring_buf = &gfx_v9_4_3_set_spm_perfmon_ring_buf,
++	.set_spm_config_size = 30,
++};
++
++static void gfx_v9_4_3_set_spm_funcs(struct amdgpu_device *adev)
++{
++	adev->gfx.spmfuncs = &gfx_v9_4_3_spm_funcs;
++}
++
+ static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
+ 					  AMDGPU_MAX_COMPUTE_RINGS);
++	gfx_v9_4_3_set_spm_funcs(adev);
+ 	gfx_v9_4_3_set_kiq_pm4_funcs(adev);
+ 	gfx_v9_4_3_set_ring_funcs(adev);
+ 	gfx_v9_4_3_set_irq_funcs(adev);
+@@ -2617,6 +2751,10 @@ static int gfx_v9_4_3_late_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	r = amdgpu_irq_get(adev, &adev->gfx.spm_irq, 0);
++	if (r)
++		return r;
++
+ 	r = amdgpu_irq_get(adev, &adev->gfx.priv_inst_irq, 0);
+ 	if (r)
+ 		return r;
+@@ -3477,6 +3615,41 @@ static void gfx_v9_4_3_emit_mem_sync(struct amdgpu_ring *ring)
+ 	amdgpu_ring_write(ring, 0x0000000A); /* POLL_INTERVAL */
+ }
+ 
++static int gfx_v9_4_3_spm_set_interrupt_state(struct amdgpu_device *adev,
++					     struct amdgpu_irq_src *src,
++					     unsigned int type,
++					     enum amdgpu_interrupt_state state)
++{
++	int i, num_xcc;
++
++	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++	for (i = 0; i < num_xcc; i++) {
++		switch (state) {
++		case AMDGPU_IRQ_STATE_DISABLE:
++			WREG32_SOC15(GC, GET_INST(GC, i), regRLC_SPM_INT_CNTL, 0);
++			break;
++		case AMDGPU_IRQ_STATE_ENABLE:
++			WREG32_SOC15(GC, GET_INST(GC, i), regRLC_SPM_INT_CNTL, 1);
++			break;
++		default:
++			break;
 +		}
-+		mutex_unlock(&spm_mgr->spm_cntr->spm_worker_mutex);
-+		if (need_schedule)
-+			schedule_work(&spm_mgr->spm_work);
 +	}
-+	spm_mgr->spm_monitor_thread = NULL;
 +	return 0;
 +}
 +
-+static int amdgpu_spm_monitor_thread_start(struct amdgpu_spm_mgr *spm_mgr)
++static int gfx_v9_4_3_spm_irq(struct amdgpu_device *adev,
++			     struct amdgpu_irq_src *source,
++			     struct amdgpu_iv_entry *entry)
 +{
-+	struct amdgpu_device *adev = mgr_to_adev(spm_mgr, spm_mgr);
-+	char thread_name[16];
-+	int ret = 0;
++	int xcc_id;
 +
-+	snprintf(thread_name, 16, "spm_%d", adev->ddev.render->index);
-+	spm_mgr->spm_monitor_thread =
-+		kthread_run(amdgpu_spm_monitor_thread, spm_mgr, thread_name);
++	xcc_id = gfx_v9_4_3_ih_to_xcc_inst(adev, entry->node_id);
 +
-+	if (IS_ERR(spm_mgr->spm_monitor_thread)) {
-+		ret = PTR_ERR(spm_mgr->spm_monitor_thread);
-+		spm_mgr->spm_monitor_thread = NULL;
-+		dev_dbg(adev->dev, "Failed to create spm monitor thread %s with ret = %d.",
-+			thread_name, ret);
-+	}
-+
-+	return ret;
++	amdgpu_rlc_spm_interrupt(adev, xcc_id);
++	return 0;
 +}
 +
- static void amdgpu_spm_preset(struct amdgpu_spm_base *spm, u32 size)
+ static void gfx_v9_4_3_emit_wave_limit_cs(struct amdgpu_ring *ring,
+ 					uint32_t pipe, bool enable)
  {
- 	uint64_t *overflow_ptr, *overflow_end_ptr;
-@@ -122,6 +193,7 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
- 	if (spm->ring_rptr == ring_wptr)
- 		goto exit;
- 
-+	spm->warned_ring_rptr = spm->ring_rptr;
- 	if (ring_wptr > spm->ring_rptr) {
- 		size_to_copy = ring_wptr - spm->ring_rptr;
- 		ret = amdgpu_spm_data_copy(spm_mgr, size_to_copy, inst);
-@@ -246,6 +318,7 @@ static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int inst, struct
- 	 */
- 	spm->ring_size -= 0x20;
- 	amdgpu_spm_preset(spm, spm_mgr->spm_overflow_reserved);
-+	spm->warned_ring_rptr = ~0;
- 
- 	goto out;
- 
-@@ -290,6 +363,7 @@ static int amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *f
- 	INIT_WORK(&spm_mgr->spm_work, amdgpu_spm_work);
- 
- 	spin_lock_init(&spm_mgr->spm_irq_lock);
-+	spm_mgr->spm_monitor_thread = NULL;
- 	spm_mgr->file = filp;
- 
- 	goto out;
-@@ -324,8 +398,21 @@ static int _spm_start(struct amdgpu_spm_mgr *spm_mgr,
- 	 * wptr will become 0, adjust rptr accordingly.
- 	 */
- 	spm->ring_rptr = 0;
-+	spm->warned_ring_rptr = ~0;
- 	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
- 
-+	if (!spm_mgr->spm_monitor_thread) {
-+		ret = amdgpu_spm_monitor_thread_start(spm_mgr);
-+		if (ret) {
-+			/* Thread failed to start, revert state */
-+			dev_dbg(adev->dev,
-+				"Failed to start SPM monitor thread, ret = %d\n", ret);
-+			spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
-+			spm->is_spm_started = false;
-+			spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
-+			amdgpu_rlc_spm_cntl(adev, inst, 0);
-+		}
-+	}
- 	return ret;
- }
- 
-@@ -335,6 +422,9 @@ static void _spm_stop(struct amdgpu_spm_mgr *spm_mgr,
- 	struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
- 	unsigned long flags;
- 
-+	if (spm_mgr->spm_monitor_thread)
-+		kthread_stop(spm_mgr->spm_monitor_thread);
-+
- 	amdgpu_rlc_spm_cntl(adev, inst, 0);
- 	spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
- 	spm_mgr->spm_cntr->spm[inst].is_spm_started = false;
-@@ -342,6 +432,7 @@ static void _spm_stop(struct amdgpu_spm_mgr *spm_mgr,
- 	 * Adjust rptr accordingly
- 	 */
- 	spm->ring_rptr = 0;
-+	spm->warned_ring_rptr = ~0;
- 	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
- }
- 
-@@ -633,8 +724,15 @@ void amdgpu_spm_interrupt(struct amdgpu_device *adev, int xcc_id)
- 
- 	spm_mgr = &(adev->prof_mgr.prof_xcp_mgr[xcp_id].spm_mgr);
- 
-+	/*  watermark threshold is triggered */
- 	spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
--	if (spm_mgr->spm_cntr && spm_mgr->spm_cntr->spm[xcc_id].is_spm_started)
--		schedule_work(&spm_mgr->spm_work);
-+	if (spm_mgr->spm_cntr && spm_mgr->spm_cntr->spm[xcc_id].is_spm_started) {
-+		if (adev->ip_versions[GC_HWIP][0] < IP_VERSION(12, 0, 0))
-+			spm_mgr->spm_cntr->spm[xcc_id].has_data_loss = 1;
-+		else
-+			schedule_work(&spm_mgr->spm_work);
-+	}
- 	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
-+
-+	dev_dbg(adev->dev, "[SPM#%d:%d] ring buffer stall.", xcp_id, xcc_id);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-index f00a4751643e..db440b2e11f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-@@ -41,6 +41,7 @@ struct amdgpu_spm_base {
- 	bool   has_user_buf;
- 	bool   is_user_buf_filled;
- 	bool   is_spm_started;
-+	u32    warned_ring_rptr;
+@@ -4904,11 +5077,19 @@ static const struct amdgpu_irq_src_funcs gfx_v9_4_3_priv_inst_irq_funcs = {
+ 	.process = gfx_v9_4_3_priv_inst_irq,
  };
  
- struct amdgpu_spm_cntr {
-@@ -53,6 +54,7 @@ struct amdgpu_spm_cntr {
- };
++static const struct amdgpu_irq_src_funcs gfx_v9_4_3_spm_irq_funcs = {
++	.set = gfx_v9_4_3_spm_set_interrupt_state,
++	.process = gfx_v9_4_3_spm_irq,
++};
++
+ static void gfx_v9_4_3_set_irq_funcs(struct amdgpu_device *adev)
+ {
+ 	adev->gfx.eop_irq.num_types = AMDGPU_CP_IRQ_LAST;
+ 	adev->gfx.eop_irq.funcs = &gfx_v9_4_3_eop_irq_funcs;
  
- struct amdgpu_spm_mgr {
-+	struct task_struct *spm_monitor_thread;
- 	struct drm_file *file;
++	adev->gfx.spm_irq.num_types = 1;
++	adev->gfx.spm_irq.funcs = &gfx_v9_4_3_spm_irq_funcs;
++
+ 	adev->gfx.priv_reg_irq.num_types = 1;
+ 	adev->gfx.priv_reg_irq.funcs = &gfx_v9_4_3_priv_reg_irq_funcs;
  
- 	struct task_struct *lead_thread;
 -- 
 2.34.1
 
