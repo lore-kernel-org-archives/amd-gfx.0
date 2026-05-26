@@ -4,99 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E3F1CD5BC8
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98D5BCD5BB1
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:44:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B844B10E69F;
-	Tue, 26 May 2026 14:40:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E9F10E685;
+	Tue, 26 May 2026 14:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e8v98ShW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ie93BQcd";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011053.outbound.protection.outlook.com [52.101.62.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB0810E69F
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:40:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=adfS97KR2toGm/YqX2Fc30spRJRGgOly1IYa7OcIEvJnQ/osDPflndD/bvaV+yiX4kL60cH27hoEeBzOudOwk646wPwz8U/ucXmFAGaO0SXVpz0NnTOlmo0s09cG4L3ZKwLTqOmORNNh8OMCbEBKzbsPOy59i6z32KZ8n/zPVAqyDvxo5RrztAwYWxJjGrlma5C4e6Et+PUkEuJDZ/Eo1ncMg+zxKY5Xr0Zz/Z2QMDRJ6VCcncZYKgdrc5XCGjJz8glV7T17NoRevsqm4H8rbA+HXed9cM2jX/paJLWocvwVOITD/MiCXyTBBeM7gfoNuEUkxDRG2h8wKIAatKCu5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BZpMgJ7QxMKErVbW2ezJZbVGs0ZYNqSVrBnOWR9Gr2w=;
- b=hVEEU2NzvyQI9nP5JAWbZCet27m1BNxaz3vo7WequIgkJ3akOuWbgjTNu533szf7W2JSenjYhS/qMgGTgSqiorI4XaACYBkVIdNlnE0AmTix4nx4vqfKeH7waU3pFW2AoYlRhKfj+6XOA0MDq6NFnVBc2eKbJ1MHDRLtS2hsVWH0QNCaCBXPwUl9O56GyCrkFzYdUzk8KOBhjqJ2y5QDFsjyXS83yfbNUsO2tLimAWnH9LJtDaQq3whAUK9GmT/q51pWR8Kyykb8emoELtVXUSqhAvz3A8fLQN/2tvq6oINuw2PI3qoVf4tDb8/VGxRyFet/Dpkg7noN9Jg2/wsG0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BZpMgJ7QxMKErVbW2ezJZbVGs0ZYNqSVrBnOWR9Gr2w=;
- b=e8v98ShWnRd/zVxc+SJbiJJ/Rrl3vhIZhOuYO6hSsKbhKwzc1DJ6De0SM0OqcX/SVl5Q2A+gk9L96cCbO5j8lfHXH55y6hEdA2Tn3+Sysc9baB7mrH/CfY0e2Di8FlUPgiDki99+KOcxYmEgNUpSENa8Sw7prk8z6qHW7hLELss=
-Received: from BL0PR0102CA0014.prod.exchangelabs.com (2603:10b6:207:18::27) by
- SN7PR12MB6791.namprd12.prod.outlook.com (2603:10b6:806:268::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
- 2026 14:40:18 +0000
-Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:207:18:cafe::4c) by BL0PR0102CA0014.outlook.office365.com
- (2603:10b6:207:18::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
- May 2026 14:40:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 14:40:18 +0000
-Received: from caden-arch.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 09:40:15 -0500
-From: Caden Chien <chih-wei.chien@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Christian.Koenig@amd.com>,
- <Alexander.Deucher@amd.com>
-CC: <Solomon.Chiu@amd.com>, <Peyton.Lee@amd.com>, <HaoPing.Liu@amd.com>,
- <Yu.Wang4@amd.com>, Caden Chien <chih-wei.chien@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu/vpe: add vpe v2.2.0 support
-Date: Tue, 26 May 2026 22:32:19 +0800
-Message-ID: <20260526143219.609033-4-chih-wei.chien@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260526143219.609033-1-chih-wei.chien@amd.com>
-References: <20260526143219.609033-1-chih-wei.chien@amd.com>
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07FA610E6B4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 14:44:10 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-2f5ae07e2b5so878833eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2026 07:44:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779806649; cv=none;
+ d=google.com; s=arc-20240605;
+ b=MAfpHRPQ+skoI4BPJKF26LqdeVCf9f9grciQDhgFOpaS0i8BP+zhvxrprVaf2+IoTQ
+ eAfLEWiMPZ/gk2w1GC+gzWqCgk3Q9i83qBbAAOVfZNqIowQ8BGJpj2YKLyBNyke1h/ke
+ U45QS83HuQ+bvCx2nvXw6RGkwM59bDmUcOneSxhcsa1pEd0bKFVOEVSjvU6OgZuA3FCn
+ A8hEu4mUpzndEiS6ur1odqCVMi8gVeNEbQe8yGGBCcaf/NX0JuaE2inKKHcM01uLr1qf
+ ZbL2ZrU6KNSVxWZLHKmVJeS+iDRM+mEV8/bnvM6T4grlnQov+Dni/pNLrntqvEfT3ec1
+ /KQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=onDrreUXj8UO+PdKcK84CFu/SdIlVa0bfR+p75TWDU8=;
+ fh=Z8KoS9XFs5Oc1amUAun74POtOGZ8gF5xAaz27PMl4Kg=;
+ b=Qp8megj10k42PU2SWWaImov5ddRtGbfyuS7grMnt5ZfgMGVPAdVFKUMX2L5qPVtwy8
+ x2OILZELj6y19HnAgOT7DvWl96LN2v9NLzhV3557PAecy9nwzT1SQJpV/asg7EiIU3qe
+ BSwbbRIvU5kJ4sM3CFAI0x2LFHKea0sqQ4KbNSI5ZCD1yWXVp5e/d9aijZBFOeApAF7n
+ EhFkzcGyGYY25hA6pEbq05ekQAsPDZJjxQjtcMf7jI7ibmu3GbxQd6TTsOnps7+yZgHM
+ ZAdGu8finomjk32P4vfDAoRdmGxZau8/i42UwIYMTrQi8gNy3u6/n60Y6ULjH0f+PeH8
+ v+Zg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779806649; x=1780411449; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=onDrreUXj8UO+PdKcK84CFu/SdIlVa0bfR+p75TWDU8=;
+ b=Ie93BQcds3HsNqVIiFHtAWbhdzoNt2HgN4/hg9o3n76IEsutt09d98nkfj6IgvE7CW
+ Ft6tSCXgWqGBHGSVzrM6O9iRRFOWeplZ9mLVeG/+HfEa/iPpBPu8wzEhBYUrLvKQfkRv
+ u0zYaZhtPC4+V+wg3u8oHZqRs34lDFyTpQdOuW9o/K30nHm8qz8LN+F9UzXTSEIfRyp4
+ lhMYfx+PiJxaOuA3F7dWyaA7GFZ87Th5ae7LTZIFTXvc6z68Yrnz3db4RrCw/GE6b5+0
+ MJzhAw6q5dwRDmr/g7z6gyoO6601LW9yUo3YHLamdcpx2XdsaR2X4r6icsE87w124RLO
+ jxcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779806649; x=1780411449;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=onDrreUXj8UO+PdKcK84CFu/SdIlVa0bfR+p75TWDU8=;
+ b=OD3h1C809HxPbzZ2yqRiDst8RwmmZTF1KV2HSXhIY/Sk9XpWciHSLhWOp7KczI0PWi
+ vPj2JArEIESjUVSuD+uGV2hdXhIT0YR0zGr+Y7Gk9AW0IarMIusxjipZK+9j3/NAkm4e
+ 0w03W0YzjvxWn79VrbCbyRiNpfVrgqBtvFmtcckEIBPn4kwpCvdvSzm8sEonagtWDFM6
+ lwPMZPFqeFCq1ISz9KQkyTZFsgdCEpZZI9/jK37pULjnbaCRcxzqaHr/v9sdHe0O3dLf
+ q5amRp6dwbCBsUJiWSGLbYHrIUXqBfoMOlKbztKewlQLdufvKhIqDyqXMiysi1Q5Fp/Z
+ BLkQ==
+X-Gm-Message-State: AOJu0YxzQyXvepiR2fTO1QPb3GD51Rq+lYk5XgvPcW2LxsCd2jquzjo4
+ Jtaf1c03lRCqA6u0VJ/kZqc9fycMvhlsuniXS5/h4QhkysLFszApEkgmycHsH4utN+Ykz5I4nnn
+ rh7zRPnXCTXIGKvUMePsXqPlI2qZArqo=
+X-Gm-Gg: Acq92OHMWUd6dOCHxcVH1PRmSD/cjyH3onf+ZL6X0vXb8gsQ5kvwN90+jUnbmjsip+B
+ ntFcYlYtvBP27NWGkJFH0jbULfmN3T/Flq8LUzCX1BFzwlyNnBESac9ZXmJ7Cd92uj+lRLpSNQu
+ dMqXrZH7A/VF7Sr7jDt88Fz67PXW72YTgNmlWtishFn7Xp5uSZygq0Vd2sDoJYX/0mTt00VKJyC
+ 0kqsi609pQB0iiHjUgMAEJlwVkAd/37M+VGNRjH5Bfv4Wiuvff1HSjWa9feoKxkChqf+4s+APQV
+ Sye6R4td94szaScWW8NlH0Kievp3oVoR/Eewq43jr735DBKchh/BOp6EwIPPj1dM+Oy6ghmZ5xX
+ i5lPF
+X-Received: by 2002:a05:701b:2918:b0:136:b46c:31fb with SMTP id
+ a92af1059eb24-136b46c3666mr918902c88.5.1779806649245; Tue, 26 May 2026
+ 07:44:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|SN7PR12MB6791:EE_
-X-MS-Office365-Filtering-Correlation-Id: c135a6ab-91c6-4c81-a359-08debb34b4e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|11063799006|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 1FAJWOv68dbYxo6wZDIRpiA6Rsktlffsc35TIYKeUPU7d+hdZq0nXE5n/kDADSrqNi9cykWp4Wgok8fQdu5t87FA7bLMtmqV4EmII+isAfDx6K/QQ9KX66Qpp8IvnxUWQ051cEyWishB8S7/leSAJwjSjQp4ME3f9aKmKE+81srt46jF6MH4jdTkK5vWUDEvVH/0m4X1XMeThx6E0HFlFm8kL4fqF5DTCUYqAjGQtzzyDdz0MtrHnKQQFSLwDTclXxP6QmKvHld867Ba8y3bFtkoUKlKGW+bGwoaznVlLI4zmH5eLKHgaXpb6IiCvkSIHwaAXWWohbXtRkwy8rX7Bvo0fQqHkta+ogCgV8gKzKtMNBjRT7lQbqJXZmwMbX7Vtq28LN7pXuZ7Rs19whELcPSbIbmQZVz3wCd9WtgJ8/2TuPH17w+h/irJ2BN8PHII/aufKxWl/EVKe86p9K8mS7S1rD0Jyu2w7iHBUlICcJSTFQzSdH/L7K/bCazWgXK9CPxtb8CDgV7N6CUfwWpOrA0s5sncxgTPhbMAvDq1vDKEleslsV0IhX5B/Tjd3FX2eJRzI+VSYnycKlcjutXPLNiMZ6ck8xSBaVGKXLsSoZe27aGkVoWmJB/xok+mFUyHPXZov/kvxMPJlLO6JNcT8cx5x90yvHkl8I/rWKn8YwO9iIb4Uo72JcP3Ym64zXUY1fVfyj0uC+mhSRtkS/7P2UP2FvbaLRCAiUxLvxN3XGE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(11063799006)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mFcdB0+VeXzS2JOU5bRBqEc3m1EAeCGHwMnR/o6jllVDq4dOCc1TcBpVg+fflGR87Hjg6zBxXYSsisFeAaxthme4k5A5x6sHp/tcLv8cAFOFYmnY34IDQsjAsCwwkqjLzSQ6SeOgsqrG7HmokaPO0LhbuGxNbbfyykqAOrIeL+tpAN6ujzJRgmP3jnKZhp8U6TaJHVl47WtOijsTJ1WG9+Ns3y0pg0Mg9ttevnJx/+s4nHt33I8Cwi5KFxsmvh00E0Sgdyue5a1pcRBTQiNKrS4SplwfcMRkzanc6CTMP3NfT70yNw0NtCwoBPiH41dWDhk/MRFyX9Gjy8LvW7wM+vaeDH7a4Ea2rsxymO5vnbM/hSFbHUkLLFEA5tkDllFY/qsbzONkUP6PbzbJOVztrdIrnn7J8Y1PrxtVt/Bc6TR+DPftpvGc0lWhKd2R3n/h
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 14:40:18.0215 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c135a6ab-91c6-4c81-a359-08debb34b4e2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6791
+References: <20260523142748.50034-1-jpeisach@ubuntu.com>
+ <20260523142748.50034-3-jpeisach@ubuntu.com>
+In-Reply-To: <20260523142748.50034-3-jpeisach@ubuntu.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 26 May 2026 10:43:57 -0400
+X-Gm-Features: AVHnY4Ic2QxJYCZjWu-ixtMOMOd8y0Sy8SHI4wjdkygVoGxyWm41zFJuuBDIHho
+Message-ID: <CADnq5_M1niot3YbBxLbLnfG8KJDRBSBxmTKvgYwMEs5Ln55F5g@mail.gmail.com>
+Subject: Re: [PATCH NEXT 2/2] drm/radeon/radeon_connectors: remove
+ radeon_connector_free_edid
+To: Joshua Peisach <jpeisach@ubuntu.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,51 +106,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This initializes VPE IP version 2.2.0
+Applied the series.  Thanks!
 
-Signed-off-by: Caden Chien <chih-wei.chien@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       | 1 +
- drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c         | 1 +
- 3 files changed, 3 insertions(+)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 8e3b6a4050e9..9d95a4f915f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2740,6 +2740,7 @@ static int amdgpu_discovery_set_vpe_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &vpe_v6_1_ip_block);
- 		break;
- 	case IP_VERSION(2, 0, 0):
-+	case IP_VERSION(2, 2, 0):
- 		amdgpu_device_ip_block_add(adev, &vpe_v2_0_ip_block);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-index 601420491477..7bf74ff93fbd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-@@ -312,6 +312,7 @@ static int vpe_early_init(struct amdgpu_ip_block *ip_block)
- 		vpe->collaborate_mode = true;
- 		break;
- 	case IP_VERSION(2, 0, 0):
-+	case IP_VERSION(2, 2, 0):
- 		vpe_v2_0_set_funcs(vpe);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-index 0d91e01fbf3a..c92c5fc59aeb 100644
---- a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-@@ -31,6 +31,7 @@
- #include "vpe/vpe_2_0_0_sh_mask.h"
- 
- MODULE_FIRMWARE("amdgpu/vpe_2_0_0.bin");
-+MODULE_FIRMWARE("amdgpu/vpe_2_2_0.bin");
- 
- #define VPE_THREAD1_UCODE_OFFSET	0x8000
- 
--- 
-2.53.0
-
+On Sat, May 23, 2026 at 10:28=E2=80=AFAM Joshua Peisach <jpeisach@ubuntu.co=
+m> wrote:
+>
+> Since we are using struct drm_edid, we can call drm_edid_free directly.
+> Also make sure to set the pointer to NULL afterwards.
+>
+> Signed-off-by: Joshua Peisach <jpeisach@ubuntu.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_connectors.c | 30 +++++++++++-----------
+>  1 file changed, 15 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
+/radeon/radeon_connectors.c
+> index d3a2efbcfd0d..da678f41823d 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+> @@ -314,14 +314,6 @@ static void radeon_connector_get_edid(struct drm_con=
+nector *connector)
+>         }
+>  }
+>
+> -static void radeon_connector_free_edid(struct drm_connector *connector)
+> -{
+> -       struct radeon_connector *radeon_connector =3D to_radeon_connector=
+(connector);
+> -
+> -       kfree(radeon_connector->edid);
+> -       radeon_connector->edid =3D NULL;
+> -}
+> -
+>  static int radeon_ddc_get_modes(struct drm_connector *connector)
+>  {
+>         struct radeon_connector *radeon_connector =3D to_radeon_connector=
+(connector);
+> @@ -895,7 +887,9 @@ static void radeon_connector_destroy(struct drm_conne=
+ctor *connector)
+>  {
+>         struct radeon_connector *radeon_connector =3D to_radeon_connector=
+(connector);
+>
+> -       radeon_connector_free_edid(connector);
+> +       drm_edid_free(radeon_connector->edid);
+> +       radeon_connector->edid =3D NULL;
+> +
+>         kfree(radeon_connector->con_priv);
+>         drm_connector_unregister(connector);
+>         drm_connector_cleanup(connector);
+> @@ -1007,7 +1001,8 @@ radeon_vga_detect(struct drm_connector *connector, =
+bool force)
+>                 dret =3D radeon_ddc_probe(radeon_connector, false);
+>         if (dret) {
+>                 radeon_connector->detected_by_load =3D false;
+> -               radeon_connector_free_edid(connector);
+> +               drm_edid_free(radeon_connector->edid);
+> +               radeon_connector->edid =3D NULL;
+>                 radeon_connector_get_edid(connector);
+>
+>                 if (!radeon_connector->edid) {
+> @@ -1022,7 +1017,8 @@ radeon_vga_detect(struct drm_connector *connector, =
+bool force)
+>                          * with a shared ddc line (often vga + hdmi)
+>                          */
+>                         if (radeon_connector->use_digital && radeon_conne=
+ctor->shared_ddc) {
+> -                               radeon_connector_free_edid(connector);
+> +                               drm_edid_free(radeon_connector->edid);
+> +                               radeon_connector->edid =3D NULL;
+>                                 ret =3D connector_status_disconnected;
+>                         } else {
+>                                 ret =3D connector_status_connected;
+> @@ -1251,7 +1247,8 @@ radeon_dvi_detect(struct drm_connector *connector, =
+bool force)
+>         }
+>         if (dret) {
+>                 radeon_connector->detected_by_load =3D false;
+> -               radeon_connector_free_edid(connector);
+> +               drm_edid_free(radeon_connector->edid);
+> +               radeon_connector->edid =3D NULL;
+>                 radeon_connector_get_edid(connector);
+>
+>                 if (!radeon_connector->edid) {
+> @@ -1277,7 +1274,8 @@ radeon_dvi_detect(struct drm_connector *connector, =
+bool force)
+>                          * with a shared ddc line (often vga + hdmi)
+>                          */
+>                         if ((!radeon_connector->use_digital) && radeon_co=
+nnector->shared_ddc) {
+> -                               radeon_connector_free_edid(connector);
+> +                               drm_edid_free(radeon_connector->edid);
+> +                               radeon_connector->edid =3D NULL;
+>                                 ret =3D connector_status_disconnected;
+>                         } else {
+>                                 ret =3D connector_status_connected;
+> @@ -1301,7 +1299,8 @@ radeon_dvi_detect(struct drm_connector *connector, =
+bool force)
+>                                                 if (list_connector->conne=
+ctor_type !=3D DRM_MODE_CONNECTOR_VGA) {
+>                                                         /* hpd is our onl=
+y option in this case */
+>                                                         if (!radeon_hpd_s=
+ense(rdev, radeon_connector->hpd.hpd)) {
+> -                                                               radeon_co=
+nnector_free_edid(connector);
+> +                                                               drm_edid_=
+free(radeon_connector->edid);
+> +                                                               radeon_co=
+nnector->edid =3D NULL;
+>                                                                 ret =3D c=
+onnector_status_disconnected;
+>                                                         }
+>                                                 }
+> @@ -1635,7 +1634,8 @@ radeon_dp_detect(struct drm_connector *connector, b=
+ool force)
+>                 goto out;
+>         }
+>
+> -       radeon_connector_free_edid(connector);
+> +       drm_edid_free(radeon_connector->edid);
+> +       radeon_connector->edid =3D NULL;
+>
+>         if ((connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) ||
+>             (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_LVDS)) {
+> --
+> 2.53.0
+>
