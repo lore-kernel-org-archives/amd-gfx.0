@@ -4,117 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2550CCD6E45
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D50CD6E4D
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 932BF10ED24;
-	Thu, 28 May 2026 07:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A273F10ED1E;
+	Thu, 28 May 2026 07:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="bdQ5+7NB";
+	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="XSW7QKFz";
 	dkim-atps=neutral
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Wed, 27 May 2026 08:46:14 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [185.244.194.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A154410E167
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 08:46:14 +0000 (UTC)
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
- by relay01-mors.netcup.net (Postfix) with ESMTPS id 4gQNM773BRz95pN;
- Wed, 27 May 2026 10:38:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1779871140;
- bh=Sr0H+KAy4WCc04GejdOIgsotYR9rZsPYwwXu98pnoT8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=bdQ5+7NBHtESfpaU2IOzXYz3SQYl0lAcmfEQJ0N6W2Pt+/8ULStEOduh/Qv9Rij5p
- pcQG6/zLdtc8Rp1qfcyg9t0U7TxKtmNlVrAE7HmJPySkhA6jQkPv8rka0eg1DFJFJS
- YKyNKtOhiBWapwBIcC/DSgQFiZkymPgMyBwg0Ugo3BzecNdRmPTPbzw9GuoSD5z0gQ
- kfgqRNxZhxTj587JRQuZra37qOa3qZsd4wDRZsz6H3B5L6ttldsMgZumt0VHKQ2GJD
- 3LsXwziFnWvnD6lnutWtg8lYmh1QbWS00m/+Gy7RRr5Me0yaU8eyCC/KSwXr8mx21o
- eLyvB91iz/9ig==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by relay01-mors.netcup.net (Postfix) with ESMTPS id 4gQNM76KZlz7wgN;
- Wed, 27 May 2026 10:38:59 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+Received: from xry111.site (xry111.site [89.208.246.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A2A10E256
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 14:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
+ s=default; t=1779893121;
+ bh=saL80SJ/LqgRQE4qtqHHGzNNLWSyF4VQrKTLcrcmpPA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XSW7QKFzZ/Zj21tQT7dc5ObEd6e6lGN3y6bKsR4yMnXqT1bQXVjwM8J9sCvjX6uSc
+ pygFkLgKMu/8HzBwjr/gqhVULvN3FYtbe4qX+3tWe1LYBZZ66E26mWoVvimk3XURW0
+ 1CG9zKlPC4gaUQSwzduxHBaEitC+qTaGCLGcYWUU=
+Received: from stargazer (unknown
+ [IPv6:2409:8a4c:e1b:e231:5a6e:b99e:242d:222b])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gQNM63Bs3z8tZn;
- Wed, 27 May 2026 10:38:58 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 0A7E361820;
- Wed, 27 May 2026 10:38:57 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=linux@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <e3fa05e5-ca09-4179-8b03-db168558f77a@leemhuis.info>
-Date: Wed, 27 May 2026 10:38:55 +0200
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ (Client did not present a certificate)
+ (Authenticated sender: xry111@xry111.site)
+ by xry111.site (Postfix) with ESMTPSA id 0504E659C8;
+ Wed, 27 May 2026 10:45:17 -0400 (EDT)
+From: Xi Ruoyao <xry111@xry111.site>
+To: stable@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Chuanyu Tseng <Chuanyu.Tseng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH v7.0.y 4/8] drm/amd/display: Move FPU Guards From DML To DC -
+ Part 2
+Date: Wed, 27 May 2026 22:44:24 +0800
+Message-ID: <20260527144428.1095001-5-xry111@xry111.site>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260527144428.1095001-1-xry111@xry111.site>
+References: <20260527144428.1095001-1-xry111@xry111.site>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Write REFCLK to 48MHz on DCN21
-To: Alex Deucher <alexdeucher@gmail.com>, IVAN.LIPSKI@amd.com
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- mario.limonciello@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- Max Chernoff <git@maxchernoff.ca>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260514155348.2114429-3-IVAN.LIPSKI@amd.com>
- <CADnq5_PDFT1+8G_yAVBa0nGpBgbs=npszsW_G2n85f+zh33_zg@mail.gmail.com>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- xsFNBFJ4AQ0BEADCz16x4kl/YGBegAsYXJMjFRi3QOr2YMmcNuu1fdsi3XnM+xMRaukWby47
- JcsZYLDKRHTQ/Lalw9L1HI3NRwK+9ayjg31wFdekgsuPbu4x5RGDIfyNpd378Upa8SUmvHik
- apCnzsxPTEE4Z2KUxBIwTvg+snEjgZ03EIQEi5cKmnlaUynNqv3xaGstx5jMCEnR2X54rH8j
- QPvo2l5/79Po58f6DhxV2RrOrOjQIQcPZ6kUqwLi6EQOi92NS9Uy6jbZcrMqPIRqJZ/tTKIR
- OLWsEjNrc3PMcve+NmORiEgLFclN8kHbPl1tLo4M5jN9xmsa0OZv3M0katqW8kC1hzR7mhz+
- Rv4MgnbkPDDO086HjQBlS6Zzo49fQB2JErs5nZ0mwkqlETu6emhxneAMcc67+ZtTeUj54K2y
- Iu8kk6ghaUAfgMqkdIzeSfhO8eURMhvwzSpsqhUs7pIj4u0TPN8OFAvxE/3adoUwMaB+/plk
- sNe9RsHHPV+7LGADZ6OzOWWftk34QLTVTcz02bGyxLNIkhY+vIJpZWX9UrfGdHSiyYThHCIy
- /dLz95b9EG+1tbCIyNynr9TjIOmtLOk7ssB3kL3XQGgmdQ+rJ3zckJUQapLKP2YfBi+8P1iP
- rKkYtbWk0u/FmCbxcBA31KqXQZoR4cd1PJ1PDCe7/DxeoYMVuwARAQABzSdUaG9yc3RlbiBM
- ZWVtaHVpcyA8bGludXhAbGVlbWh1aXMuaW5mbz7CwZQEEwEKAD4CGwMFCwkIBwMFFQoJCAsF
- FgIDAQACHgECF4AWIQSoq8a+lZZX4oPULXVytubvTFg9LQUCaOO74gUJHfEI0wAKCRBytubv
- TFg9Lc4iD/4omf2z88yGmior2f1BCQTAWxI2Em3S4EJY2+Drs8ZrJ1vNvdWgBrqbOtxN6xHF
- uvrpM6nbYIoNyZpsZrqS1mCA4L7FwceFBaT9CTlQsZLVV/vQvh2/3vbj6pQbCSi7iemXklF7
- y6qMfA7rirvojSJZ2mi6tKIQnD2ndVhSsxmo/mAAJc4tiEL+wkdaX1p7bh2Ainp6sfxTqL6h
- z1kYyjnijpnHaPgQ6GQeGG1y+TSQFKkb/FylDLj3b3efzyNkRjSohcauTuYIq7bniw7sI8qY
- KUuUkrw8Ogi4e6GfBDgsgHDngDn6jUR2wDAiT6iR7qsoxA+SrJDoeiWS/SK5KRgiKMt66rx1
- Jq6JowukzNxT3wtXKuChKP3EDzH9aD+U539szyKjfn5LyfHBmSfR42Iz0sofE4O89yvp0bYz
- GDmlgDpYWZN40IFERfCSxqhtHG1X6mQgxS0MknwoGkNRV43L3TTvuiNrsy6Mto7rrQh0epSn
- +hxwwS0bOTgJQgOO4fkTvto2sEBYXahWvmsEFdLMOcAj2t7gJ+XQLMsBypbo94yFYfCqCemJ
- +zU5X8yDUeYDNXdR2veePdS3Baz23/YEBCOtw+A9CP0U4ImXzp82U+SiwYEEQIGWx+aVjf4n
- RZ/LLSospzO944PPK+Na+30BERaEjx04MEB9ByDFdfkSbM7BTQRSeAENARAAzu/3satWzly6
- +Lqi5dTFS9+hKvFMtdRb/vW4o9CQsMqL2BJGoE4uXvy3cancvcyodzTXCUxbesNP779JqeHy
- s7WkF2mtLVX2lnyXSUBm/ONwasuK7KLz8qusseUssvjJPDdw8mRLAWvjcsYsZ0qgIU6kBbvY
- ckUWkbJj/0kuQCmmulRMcaQRrRYrk7ZdUOjaYmjKR+UJHljxLgeregyiXulRJxCphP5migoy
- ioa1eset8iF9fhb+YWY16X1I3TnucVCiXixzxwn3uwiVGg28n+vdfZ5lackCOj6iK4+lfzld
- z4NfIXK+8/R1wD9yOj1rr3OsjDqOaugoMxgEFOiwhQDiJlRKVaDbfmC1G5N1YfQIn90znEYc
- M7+Sp8Rc5RUgN5yfuwyicifIJQCtiWgjF8ttcIEuKg0TmGb6HQHAtGaBXKyXGQulD1CmBHIW
- zg7bGge5R66hdbq1BiMX5Qdk/o3Sr2OLCrxWhqMdreJFLzboEc0S13BCxVglnPqdv5sd7veb
- 0az5LGS6zyVTdTbuPUu4C1ZbstPbuCBwSwe3ERpvpmdIzHtIK4G9iGIR3Seo0oWOzQvkFn8m
- 2k6H2/Delz9IcHEefSe5u0GjIA18bZEt7R2k8CMZ84vpyWOchgwXK2DNXAOzq4zwV8W4TiYi
- FiIVXfSj185vCpuE7j0ugp0AEQEAAcLBfAQYAQoAJgIbDBYhBKirxr6Vllfig9QtdXK25u9M
- WD0tBQJo47viBQkd8QjTAAoJEHK25u9MWD0tCH8P/1b+AZ8K3D4TCBzXNS0muN6pLnISzFa0
- cWcylwxX2TrZeGpJkg14v2R0cDjLRre9toM44izLaz4SKyfgcBSj9XET0103cVXUKt6SgT1o
- tevoEqFMKKp3vjDpKEnrcOSOCnfH9W0mXx/jDWbjlKbBlN7UBVoZD/FMM5Ul0KSVFJ9Uij0Z
- S2WAg50NQi71NBDPcga21BMajHKLFzb4wlBWSmWyryXI6ouabvsbsLjkW3IYl2JupTbK3viH
- pMRIZVb/serLqhJgpaakqgV7/jDplNEr/fxkmhjBU7AlUYXe2BRkUCL5B8KeuGGvG0AEIQR0
- dP6QlNNBV7VmJnbU8V2X50ZNozdcvIB4J4ncK4OznKMpfbmSKm3t9Ui/cdEK+N096ch6dCAh
- AeZ9dnTC7ncr7vFHaGqvRC5xwpbJLg3xM/BvLUV6nNAejZeAXcTJtOM9XobCz/GeeT9prYhw
- 8zG721N4hWyyLALtGUKIVWZvBVKQIGQRPtNC7s9NVeLIMqoH7qeDfkf10XL9tvSSDY6KVl1n
- K0gzPCKcBaJ2pA1xd4pQTjf4jAHHM4diztaXqnh4OFsu3HOTAJh1ZtLvYVj5y9GFCq2azqTD
- pPI3FGMkRipwxdKGAO7tJVzM7u+/+83RyUjgAbkkkD1doWIl+iGZ4s/Jxejw1yRH0R5/uTaB MEK4
-In-Reply-To: <CADnq5_PDFT1+8G_yAVBa0nGpBgbs=npszsW_G2n85f+zh33_zg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <177987113741.4140924.2598995578202932072@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 0A7E361820
-X-NC-CID: hsbW1m3zccmoQXJZeZUihVYgqvihA2KPedSs3+cUnrx/DP2djU8=
 X-Mailman-Approved-At: Thu, 28 May 2026 07:29:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,90 +60,1140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Rafal Ostrowski <rafal.ostrowski@amd.com>
 
+[ Upstream commit 4bb2f0721ed8a2a70f864b9358bd6cd4d92199b3 ]
 
-On 5/14/26 19:18, Alex Deucher wrote:
-> On Thu, May 14, 2026 at 12:04 PM <IVAN.LIPSKI@amd.com> wrote:
->>
->> From: Ivan Lipski <ivan.lipski@amd.com>
->>
->> [Why&How]
->> dccg21_init() calls dccg2_init() which hardcodes 100MHz refclk values
->> for MICROSECOND_TIME_BASE_DIV and MILLISECOND_TIME_BASE_DIV. DCN21
->> uses 48MHz refclk, so the wrong values corrupt DCCG timing and cause eDP
->> link training failure on cold boot.
->>
->> Write the correct 48MHz values directly instead of calling dccg2_init().
->>
->> Fixes: b7dfeea1e168 ("drm/amd/display: Add missing DCCG register entries for DCN20-DCN316")
->>
->> v2:
->> Fixed typo
->>
->> Reported-by: Max Chernoff <git@maxchernoff.ca>
->> Tested-by: Max Chernoff <git@maxchernoff.ca>
->> Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+[Why]
+FPU guards (DC_FP_START/DC_FP_END) are required to wrap around code that
+can manipulates floats. To do this properly, the FPU guards must be used
+in a file that is not compiled as a FPU unit. If the guards are used in
+a file that is a FPU unit, other sections in the file that aren't guarded
+may be end up being compiled to use FPU operations.
 
-What happened to this regression fix? From the outside it looks like it
-did not make any progress in the last 12+ days -- but from the outside
-it's easy to miss something (like an alternative fix), so please just
-tell me if that's the case
+[How]
+Removed DC_FP_START and DC_FP_END.
 
-Side note: Adding these might be good:
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Chuanyu Tseng <Chuanyu.Tseng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+[ Ignore dcn42 which is not supported by 7.0.y. ]
+Signed-off-by: Xi Ruoyao <xry111@xry111.site>
+---
+ .../gpu/drm/amd/display/dc/dml2_0/Makefile    |  73 +---
+ .../display/dc/dml2_0/dml21/dml21_wrapper.c   | 379 +----------------
+ .../display/dc/dml2_0/dml21/dml21_wrapper.h   |  30 --
+ .../dc/dml2_0/dml21/dml21_wrapper_fpu.c       | 381 ++++++++++++++++++
+ .../dc/dml2_0/dml21/dml21_wrapper_fpu.h       |  60 +++
+ .../drm/amd/display/dc/dml2_0/dml2_wrapper.c  |  21 +-
+ .../amd/display/dc/dml2_0/dml2_wrapper_fpu.c  |   9 +-
+ 7 files changed, 484 insertions(+), 469 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h
 
- Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5272
- Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5311
-
-Ciao, Thorsten
-
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> For a future patch, it would be a nice clean up to read the ref clock
-> from the driver and program the clock as needed rather than requiring
-> a separate callback for each chip and using a hardcoded programming
-> sequence.
-> 
-> Alex
-> 
->> ---
->>  .../drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c    | 15 +++++++++++++--
->>  1 file changed, 13 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c
->> index bdc3ce5d4f47..be167bbd42b5 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c
->> @@ -105,15 +105,26 @@ static void dccg21_update_dpp_dto(struct dccg *dccg, int dpp_inst, int req_dppcl
->>   * dccg2_init() unconditionally overwrites MICROSECOND_TIME_BASE_DIV to
->>   * 0x00120264, destroying the marker before it can be read.
->>   *
->> - * Guard the call: if the S0i3 marker is present, skip dccg2_init() so the
->> + * Guard the call: if the S0i3 marker is present, skip init so the
->>   * WA can function correctly. bios_golden_init() will handle init in that case.
->> + *
->> + * DCN21 uses 48MHz refclk, not 100MHz, so we must explicitly set the correct
->> + * values (48MHz is taken from rn_clk_mgr_construct()).
->>   */
->>  static void dccg21_init(struct dccg *dccg)
->>  {
->> +       struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
->> +
->>         if (dccg2_is_s0i3_golden_init_wa_done(dccg))
->>                 return;
->>
->> -       dccg2_init(dccg);
->> +       /* 48MHz refclk from rn_clk_mgr_construct() */
->> +       REG_WRITE(MICROSECOND_TIME_BASE_DIV, 0x00120230);
->> +       REG_WRITE(MILLISECOND_TIME_BASE_DIV, 0x0010bb80);
->> +       REG_WRITE(DISPCLK_FREQ_CHANGE_CNTL, 0x0e01003c);
->> +
->> +       if (REG(REFCLK_CNTL))
->> +               REG_WRITE(REFCLK_CNTL, 0);
->>  }
->>
->>  static const struct dccg_funcs dccg21_funcs = {
->> --
->> 2.43.0
->>
-> 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+index 30cfc0848792..a094cfa78260 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+@@ -53,25 +53,29 @@ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/dml2_0/dml21/src/inc
+ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/dml2_0/dml21/inc
+ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/dml2_0/dml21/
+ 
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/display_mode_core.o := $(dml2_ccflags) $(frame_warn_flag)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/display_mode_util.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_wrapper_fpu.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_utils.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_policy.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_translation_helper.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_mall_phantom.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml_display_rq_dlg_calc.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_dc_resource_mgmt.o := $(dml2_ccflags)
++# Add FPU flags to all dml2 files by default, remove NO_FPU flags.
++# FPU flags step 1: Find all .c files in dal/dc/dml2_0 and it's subfolders
++DML2_ABS_PATH := $(FULL_AMD_DISPLAY_PATH)/dc/dml2_0
++DML2_C_FILES := $(shell find $(DML2_ABS_PATH) -name '*.c' -type f)
++
++# FPU flags step 2: Convert to .o and make paths relative to $(AMDDALPATH)/dc/dml2_0/
++DML2_RELATIVE_O_FILES := $(patsubst $(DML2_ABS_PATH)/%,dc/dml2_0/%,$(patsubst %.c,%.o,$(DML2_C_FILES)))
+ 
++# FPU flags step 3: Apply FPU flags to all .o files from dal/dc/dml2_0 and it's subfolders
++$(foreach obj,$(DML2_RELATIVE_O_FILES),$(eval CFLAGS_$(AMDDALPATH)/$(obj) := $(dml2_ccflags)))
++$(foreach obj,$(DML2_RELATIVE_O_FILES),$(eval CFLAGS_REMOVE_$(AMDDALPATH)/$(obj) := $(dml2_rcflags)))
++
++# FPU flags step 4: Replace CFLAGS per file for files with additional flags beyond dml2_ccflags and dml2_rcflags
++CFLAGS_$(AMDDALPATH)/dc/dml2_0/display_mode_core.o := $(dml2_ccflags) $(frame_warn_flag)
++CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.o := $(dml2_ccflags) $(frame_warn_flag)
++CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.o := $(dml2_ccflags) $(frame_warn_flag)
++CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml2_wrapper.o := $(dml2_rcflags)
++CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_wrapper.o := $(dml2_rcflags)
+ CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/display_mode_core.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/display_mode_util.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_wrapper_fpu.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_utils.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_policy.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_translation_helper.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_mall_phantom.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml_display_rq_dlg_calc.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_dc_resource_mgmt.o := $(dml2_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.o := $(dml2_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.o := $(dml2_rcflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml2_wrapper.o := $(dml2_ccflags)
++CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_wrapper.o := $(dml2_ccflags)
+ 
+ DML2 = display_mode_core.o display_mode_util.o dml2_wrapper_fpu.o dml2_wrapper.o \
+ 		dml2_utils.o dml2_policy.o dml2_translation_helper.o dml2_dc_resource_mgmt.o dml2_mall_phantom.o \
+@@ -81,40 +85,6 @@ AMD_DAL_DML2 = $(addprefix $(AMDDALPATH)/dc/dml2_0/,$(DML2))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_DML2)
+ 
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.o := $(dml2_ccflags) $(frame_warn_flag)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.o := $(dml2_ccflags) $(frame_warn_flag)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_top/dml2_top_soc15.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn3.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_translation_helper.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_utils.o := $(dml2_ccflags)
+-
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_factory.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_top/dml2_top_interfaces.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_top/dml2_top_soc15.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_factory.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_factory.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn3.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_factory.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_translation_helper.o := $(dml2_rcflags)
+-CFLAGS_REMOVE_$(AMDDALPATH)/dc/dml2_0/dml21/dml21_utils.o := $(dml2_rcflags)
+-
+ DML21 := src/dml2_top/dml2_top_interfaces.o
+ DML21 += src/dml2_top/dml2_top_soc15.o
+ DML21 += src/dml2_core/dml2_core_dcn4.o
+@@ -131,6 +101,7 @@ DML21 += src/dml2_pmo/dml2_pmo_dcn4_fams2.o
+ DML21 += src/dml2_standalone_libraries/lib_float_math.o
+ DML21 += dml21_translation_helper.o
+ DML21 += dml21_wrapper.o
++DML21 += dml21_wrapper_fpu.o
+ DML21 += dml21_utils.o
+ 
+ AMD_DAL_DML21 = $(addprefix $(AMDDALPATH)/dc/dml2_0/dml21/,$(DML21))
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
+index 2623e917ec28..1a98578f223c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
+@@ -9,6 +9,10 @@
+ #include "dml21_utils.h"
+ #include "dml21_translation_helper.h"
+ #include "dml2_dc_resource_mgmt.h"
++#include "dml2_wrapper.h"
++#include "dml2_wrapper_fpu.h"
++#include "dml21_wrapper.h"
++#include "dml21_wrapper_fpu.h"
+ #include "dc_fpu.h"
+ 
+ #if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
+@@ -40,44 +44,11 @@ static bool dml21_allocate_memory(struct dml2_context **dml_ctx)
+ 	return true;
+ }
+ 
+-static void dml21_populate_configuration_options(const struct dc *in_dc,
+-		struct dml2_context *dml_ctx,
+-		const struct dml2_configuration_options *config)
+-{
+-	dml_ctx->config = *config;
+-
+-	/* UCLK P-State options */
+-	if (in_dc->debug.dml21_force_pstate_method) {
+-		dml_ctx->config.pmo.force_pstate_method_enable = true;
+-		for (int i = 0; i < MAX_PIPES; i++)
+-			dml_ctx->config.pmo.force_pstate_method_values[i] = in_dc->debug.dml21_force_pstate_method_values[i];
+-	} else {
+-		dml_ctx->config.pmo.force_pstate_method_enable = false;
+-	}
+-}
+-
+-static void dml21_init(const struct dc *in_dc, struct dml2_context *dml_ctx, const struct dml2_configuration_options *config)
+-{
+-
+-	dml_ctx->architecture = dml2_architecture_21;
+-
+-	dml21_populate_configuration_options(in_dc, dml_ctx, config);
+-
+-	DC_FP_START();
+-
+-	dml21_populate_dml_init_params(&dml_ctx->v21.dml_init, &dml_ctx->config, in_dc);
+-
+-	dml2_initialize_instance(&dml_ctx->v21.dml_init);
+-
+-	DC_FP_END();
+-}
+-
+ bool dml21_create(const struct dc *in_dc, struct dml2_context **dml_ctx, const struct dml2_configuration_options *config)
+ {
+ 	/* Allocate memory for initializing DML21 instance */
+-	if (!dml21_allocate_memory(dml_ctx)) {
++	if (!dml21_allocate_memory(dml_ctx))
+ 		return false;
+-	}
+ 
+ 	dml21_init(in_dc, *dml_ctx, config);
+ 
+@@ -90,337 +61,6 @@ void dml21_destroy(struct dml2_context *dml2)
+ 	vfree(dml2->v21.mode_programming.programming);
+ }
+ 
+-static void dml21_calculate_rq_and_dlg_params(const struct dc *dc, struct dc_state *context, struct resource_context *out_new_hw_state,
+-	struct dml2_context *in_ctx, unsigned int pipe_cnt)
+-{
+-	unsigned int dml_prog_idx = 0, dc_pipe_index = 0, num_dpps_required = 0;
+-	struct dml2_per_plane_programming *pln_prog = NULL;
+-	struct dml2_per_stream_programming *stream_prog = NULL;
+-	struct pipe_ctx *dc_main_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__];
+-	struct pipe_ctx *dc_phantom_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__] = {0};
+-	int num_pipes;
+-	unsigned int dml_phantom_prog_idx;
+-
+-	context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
+-
+-	/* copy global DCHUBBUB arbiter registers */
+-	memcpy(&context->bw_ctx.bw.dcn.arb_regs, &in_ctx->v21.mode_programming.programming->global_regs.arb_regs, sizeof(struct dml2_display_arb_regs));
+-
+-	/* legacy only */
+-	context->bw_ctx.bw.dcn.compbuf_size_kb = (int)in_ctx->v21.mode_programming.programming->global_regs.arb_regs.compbuf_size * 64;
+-
+-	context->bw_ctx.bw.dcn.mall_ss_size_bytes = 0;
+-	context->bw_ctx.bw.dcn.mall_ss_psr_active_size_bytes = 0;
+-	context->bw_ctx.bw.dcn.mall_subvp_size_bytes = 0;
+-
+-	/* phantom's start after main planes */
+-	dml_phantom_prog_idx = in_ctx->v21.mode_programming.programming->display_config.num_planes;
+-
+-	for (dml_prog_idx = 0; dml_prog_idx < DML2_MAX_PLANES; dml_prog_idx++) {
+-		pln_prog = &in_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
+-
+-		if (!pln_prog->plane_descriptor)
+-			continue;
+-
+-		stream_prog = &in_ctx->v21.mode_programming.programming->stream_programming[pln_prog->plane_descriptor->stream_index];
+-		num_dpps_required = pln_prog->num_dpps_required;
+-
+-		if (num_dpps_required == 0) {
+-			continue;
+-		}
+-		num_pipes = dml21_find_dc_pipes_for_plane(dc, context, in_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
+-
+-		if (num_pipes <= 0)
+-			continue;
+-
+-		/* program each pipe */
+-		for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
+-			dml21_program_dc_pipe(in_ctx, context, dc_main_pipes[dc_pipe_index], pln_prog, stream_prog);
+-
+-			if (pln_prog->phantom_plane.valid && dc_phantom_pipes[dc_pipe_index]) {
+-				dml21_program_dc_pipe(in_ctx, context, dc_phantom_pipes[dc_pipe_index], pln_prog, stream_prog);
+-			}
+-		}
+-
+-		/* copy per plane mcache allocation */
+-		memcpy(&context->bw_ctx.bw.dcn.mcache_allocations[dml_prog_idx], &pln_prog->mcache_allocation, sizeof(struct dml2_mcache_surface_allocation));
+-		if (pln_prog->phantom_plane.valid) {
+-			memcpy(&context->bw_ctx.bw.dcn.mcache_allocations[dml_phantom_prog_idx],
+-					&pln_prog->phantom_plane.mcache_allocation,
+-					sizeof(struct dml2_mcache_surface_allocation));
+-
+-			dml_phantom_prog_idx++;
+-		}
+-	}
+-
+-	/* assign global clocks */
+-	context->bw_ctx.bw.dcn.clk.bw_dppclk_khz = context->bw_ctx.bw.dcn.clk.dppclk_khz;
+-	context->bw_ctx.bw.dcn.clk.bw_dispclk_khz = context->bw_ctx.bw.dcn.clk.dispclk_khz;
+-	if (in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values > 1) {
+-		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz =
+-			in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values] * 1000;
+-	} else {
+-		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[0] * 1000;
+-	}
+-
+-	if (in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values > 1) {
+-		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz =
+-			in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values] * 1000;
+-	} else {
+-		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[0] * 1000;
+-	}
+-
+-	/* get global mall allocation */
+-	if (dc->res_pool->funcs->calculate_mall_ways_from_bytes) {
+-		context->bw_ctx.bw.dcn.clk.num_ways = dc->res_pool->funcs->calculate_mall_ways_from_bytes(dc, context->bw_ctx.bw.dcn.mall_subvp_size_bytes);
+-	} else {
+-		context->bw_ctx.bw.dcn.clk.num_ways = 0;
+-	}
+-}
+-
+-static void dml21_prepare_mcache_params(struct dml2_context *dml_ctx, struct dc_state *context, struct dc_mcache_params *mcache_params)
+-{
+-	int dc_plane_idx = 0;
+-	int dml_prog_idx, stream_idx, plane_idx;
+-	struct dml2_per_plane_programming *pln_prog = NULL;
+-
+-	for (stream_idx = 0; stream_idx < context->stream_count; stream_idx++) {
+-		for (plane_idx = 0; plane_idx < context->stream_status[stream_idx].plane_count; plane_idx++) {
+-			dml_prog_idx = map_plane_to_dml21_display_cfg(dml_ctx, context->streams[stream_idx]->stream_id, context->stream_status[stream_idx].plane_states[plane_idx], context);
+-			if (dml_prog_idx == INVALID) {
+-				continue;
+-			}
+-			pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
+-			mcache_params[dc_plane_idx].valid = pln_prog->mcache_allocation.valid;
+-			mcache_params[dc_plane_idx].num_mcaches_plane0 = pln_prog->mcache_allocation.num_mcaches_plane0;
+-			mcache_params[dc_plane_idx].num_mcaches_plane1 = pln_prog->mcache_allocation.num_mcaches_plane1;
+-			mcache_params[dc_plane_idx].requires_dedicated_mall_mcache = pln_prog->mcache_allocation.requires_dedicated_mall_mcache;
+-			mcache_params[dc_plane_idx].last_slice_sharing.plane0_plane1 = pln_prog->mcache_allocation.last_slice_sharing.plane0_plane1;
+-			memcpy(mcache_params[dc_plane_idx].mcache_x_offsets_plane0,
+-				pln_prog->mcache_allocation.mcache_x_offsets_plane0,
+-				sizeof(int) * (DML2_MAX_MCACHES + 1));
+-			memcpy(mcache_params[dc_plane_idx].mcache_x_offsets_plane1,
+-				pln_prog->mcache_allocation.mcache_x_offsets_plane1,
+-				sizeof(int) * (DML2_MAX_MCACHES + 1));
+-			dc_plane_idx++;
+-		}
+-	}
+-}
+-
+-static bool dml21_mode_check_and_programming(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
+-{
+-	bool result = false;
+-	struct dml2_build_mode_programming_in_out *mode_programming = &dml_ctx->v21.mode_programming;
+-	struct dc_mcache_params mcache_params[MAX_PLANES] = {0};
+-
+-	memset(&dml_ctx->v21.display_config, 0, sizeof(struct dml2_display_cfg));
+-	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
+-	memset(&dml_ctx->v21.mode_programming.dml2_instance->scratch.build_mode_programming_locals.mode_programming_params, 0, sizeof(struct dml2_core_mode_programming_in_out));
+-
+-	if (!context)
+-		return true;
+-
+-	if (context->stream_count == 0) {
+-		dml21_init_min_clocks_for_dc_state(dml_ctx, context);
+-		dml21_build_fams2_programming(in_dc, context, dml_ctx);
+-		return true;
+-	}
+-
+-	/* scrub phantom's from current dc_state */
+-	dml_ctx->config.svp_pstate.callbacks.remove_phantom_streams_and_planes(in_dc, context);
+-	dml_ctx->config.svp_pstate.callbacks.release_phantom_streams_and_planes(in_dc, context);
+-
+-	/* Populate stream, plane mappings and other fields in display config. */
+-	result = dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
+-	if (!result)
+-		return false;
+-
+-	DC_FP_START();
+-	result = dml2_build_mode_programming(mode_programming);
+-	DC_FP_END();
+-	if (!result)
+-		return false;
+-
+-	/* Check and map HW resources */
+-	if (result && !dml_ctx->config.skip_hw_state_mapping) {
+-		dml21_map_hw_resources(dml_ctx);
+-		dml2_map_dc_pipes(dml_ctx, context, NULL, &dml_ctx->v21.dml_to_dc_pipe_mapping, in_dc->current_state);
+-		/* if subvp phantoms are present, expand them into dc context */
+-		dml21_handle_phantom_streams_planes(in_dc, context, dml_ctx);
+-
+-		if (in_dc->res_pool->funcs->program_mcache_pipe_config) {
+-			//Prepare mcache params for each plane based on mcache output from DML
+-			dml21_prepare_mcache_params(dml_ctx, context, mcache_params);
+-
+-			//populate mcache regs to each pipe
+-			dml_ctx->config.callbacks.allocate_mcache(context, mcache_params);
+-		}
+-	}
+-
+-	/* Copy DML CLK, WM and REG outputs to bandwidth context */
+-	if (result && !dml_ctx->config.skip_hw_state_mapping) {
+-		dml21_calculate_rq_and_dlg_params(in_dc, context, &context->res_ctx, dml_ctx, in_dc->res_pool->pipe_count);
+-		dml21_copy_clocks_to_dc_state(dml_ctx, context);
+-		dml21_extract_watermark_sets(in_dc, &context->bw_ctx.bw.dcn.watermarks, dml_ctx);
+-		dml21_build_fams2_programming(in_dc, context, dml_ctx);
+-	}
+-
+-	return true;
+-}
+-
+-static bool dml21_check_mode_support(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
+-{
+-	bool is_supported = false;
+-	struct dml2_initialize_instance_in_out *dml_init = &dml_ctx->v21.dml_init;
+-	struct dml2_check_mode_supported_in_out *mode_support = &dml_ctx->v21.mode_support;
+-
+-	memset(&dml_ctx->v21.display_config, 0, sizeof(struct dml2_display_cfg));
+-	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
+-	memset(&dml_ctx->v21.mode_programming.dml2_instance->scratch.check_mode_supported_locals.mode_support_params, 0, sizeof(struct dml2_core_mode_support_in_out));
+-
+-	if (!context || context->stream_count == 0)
+-		return true;
+-
+-	/* Scrub phantom's from current dc_state */
+-	dml_ctx->config.svp_pstate.callbacks.remove_phantom_streams_and_planes(in_dc, context);
+-	dml_ctx->config.svp_pstate.callbacks.release_phantom_streams_and_planes(in_dc, context);
+-
+-	mode_support->dml2_instance = dml_init->dml2_instance;
+-	dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
+-	dml_ctx->v21.mode_programming.dml2_instance->scratch.build_mode_programming_locals.mode_programming_params.programming = dml_ctx->v21.mode_programming.programming;
+-	DC_FP_START();
+-	is_supported = dml2_check_mode_supported(mode_support);
+-	DC_FP_END();
+-	if (!is_supported)
+-		return false;
+-
+-	return true;
+-}
+-
+-bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx,
+-	enum dc_validate_mode validate_mode)
+-{
+-	bool out = false;
+-
+-	/* Use dml21_check_mode_support for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX path */
+-	if (validate_mode != DC_VALIDATE_MODE_AND_PROGRAMMING)
+-		out = dml21_check_mode_support(in_dc, context, dml_ctx);
+-	else
+-		out = dml21_mode_check_and_programming(in_dc, context, dml_ctx);
+-
+-	return out;
+-}
+-
+-void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
+-{
+-	unsigned int dml_prog_idx, dml_phantom_prog_idx, dc_pipe_index;
+-	int num_pipes;
+-	struct pipe_ctx *dc_main_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__];
+-	struct pipe_ctx *dc_phantom_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__] = {0};
+-
+-	struct dml2_per_plane_programming *pln_prog = NULL;
+-	struct dml2_plane_mcache_configuration_descriptor *mcache_config = NULL;
+-	struct prepare_mcache_programming_locals *l = &dml_ctx->v21.scratch.prepare_mcache_locals;
+-
+-	if (context->stream_count == 0) {
+-		return;
+-	}
+-
+-	memset(&l->build_mcache_programming_params, 0, sizeof(struct dml2_build_mcache_programming_in_out));
+-	l->build_mcache_programming_params.dml2_instance = dml_ctx->v21.dml_init.dml2_instance;
+-
+-	/* phantom's start after main planes */
+-	dml_phantom_prog_idx = dml_ctx->v21.mode_programming.programming->display_config.num_planes;
+-
+-	/* Build mcache programming parameters per plane per pipe */
+-	for (dml_prog_idx = 0; dml_prog_idx < dml_ctx->v21.mode_programming.programming->display_config.num_planes; dml_prog_idx++) {
+-		pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
+-
+-		mcache_config = &l->build_mcache_programming_params.mcache_configurations[dml_prog_idx];
+-		memset(mcache_config, 0, sizeof(struct dml2_plane_mcache_configuration_descriptor));
+-		mcache_config->plane_descriptor = pln_prog->plane_descriptor;
+-		mcache_config->mcache_allocation = &context->bw_ctx.bw.dcn.mcache_allocations[dml_prog_idx];
+-		mcache_config->num_pipes = pln_prog->num_dpps_required;
+-		l->build_mcache_programming_params.num_configurations++;
+-
+-		if (pln_prog->num_dpps_required == 0) {
+-			continue;
+-		}
+-
+-		num_pipes = dml21_find_dc_pipes_for_plane(in_dc, context, dml_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
+-		if (num_pipes <= 0 || dc_main_pipes[0]->stream == NULL ||
+-		    dc_main_pipes[0]->plane_state == NULL)
+-			continue;
+-
+-		/* get config for each pipe */
+-		for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
+-			ASSERT(dc_main_pipes[dc_pipe_index]);
+-			dml21_get_pipe_mcache_config(context, dc_main_pipes[dc_pipe_index], pln_prog, &mcache_config->pipe_configurations[dc_pipe_index]);
+-		}
+-
+-		/* get config for each phantom pipe */
+-		if (pln_prog->phantom_plane.valid &&
+-				dc_phantom_pipes[0] &&
+-				dc_main_pipes[0]->stream &&
+-				dc_phantom_pipes[0]->plane_state) {
+-			mcache_config = &l->build_mcache_programming_params.mcache_configurations[dml_phantom_prog_idx];
+-			memset(mcache_config, 0, sizeof(struct dml2_plane_mcache_configuration_descriptor));
+-			mcache_config->plane_descriptor = pln_prog->plane_descriptor;
+-			mcache_config->mcache_allocation = &context->bw_ctx.bw.dcn.mcache_allocations[dml_phantom_prog_idx];
+-			mcache_config->num_pipes = pln_prog->num_dpps_required;
+-			l->build_mcache_programming_params.num_configurations++;
+-
+-			for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
+-				ASSERT(dc_phantom_pipes[dc_pipe_index]);
+-				dml21_get_pipe_mcache_config(context, dc_phantom_pipes[dc_pipe_index], pln_prog, &mcache_config->pipe_configurations[dc_pipe_index]);
+-			}
+-
+-			/* increment phantom index */
+-			dml_phantom_prog_idx++;
+-		}
+-	}
+-
+-	/* Call to generate mcache programming per plane per pipe for the given display configuration */
+-	dml2_build_mcache_programming(&l->build_mcache_programming_params);
+-
+-	/* get per plane per pipe mcache programming */
+-	for (dml_prog_idx = 0; dml_prog_idx < dml_ctx->v21.mode_programming.programming->display_config.num_planes; dml_prog_idx++) {
+-		pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
+-
+-		num_pipes = dml21_find_dc_pipes_for_plane(in_dc, context, dml_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
+-		if (num_pipes <= 0 || dc_main_pipes[0]->stream == NULL ||
+-		    dc_main_pipes[0]->plane_state == NULL)
+-			continue;
+-
+-		/* get config for each pipe */
+-		for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
+-			ASSERT(dc_main_pipes[dc_pipe_index]);
+-			if (l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_prog_idx][dc_pipe_index]) {
+-				memcpy(&dc_main_pipes[dc_pipe_index]->mcache_regs,
+-						l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_prog_idx][dc_pipe_index],
+-						sizeof(struct dml2_hubp_pipe_mcache_regs));
+-			}
+-		}
+-
+-		/* get config for each phantom pipe */
+-		if (pln_prog->phantom_plane.valid &&
+-				dc_phantom_pipes[0] &&
+-				dc_main_pipes[0]->stream &&
+-				dc_phantom_pipes[0]->plane_state) {
+-			for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
+-				ASSERT(dc_phantom_pipes[dc_pipe_index]);
+-				if (l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_phantom_prog_idx][dc_pipe_index]) {
+-					memcpy(&dc_phantom_pipes[dc_pipe_index]->mcache_regs,
+-							l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_phantom_prog_idx][dc_pipe_index],
+-							sizeof(struct dml2_hubp_pipe_mcache_regs));
+-				}
+-			}
+-			/* increment phantom index */
+-			dml_phantom_prog_idx++;
+-		}
+-	}
+-}
+-
+ void dml21_copy(struct dml2_context *dst_dml_ctx,
+ 	struct dml2_context *src_dml_ctx)
+ {
+@@ -446,12 +86,8 @@ void dml21_copy(struct dml2_context *dst_dml_ctx,
+ 
+ 	dst_dml_ctx->v21.mode_programming.programming = dst_dml2_programming;
+ 
+-	DC_FP_START();
+-
+ 	/* need to initialize copied instance for internal references to be correct */
+ 	dml2_initialize_instance(&dst_dml_ctx->v21.dml_init);
+-
+-	DC_FP_END();
+ }
+ 
+ bool dml21_create_copy(struct dml2_context **dst_dml_ctx,
+@@ -466,8 +102,3 @@ bool dml21_create_copy(struct dml2_context **dst_dml_ctx,
+ 	return true;
+ }
+ 
+-void dml21_reinit(const struct dc *in_dc, struct dml2_context *dml_ctx, const struct dml2_configuration_options *config)
+-{
+-	dml21_init(in_dc, dml_ctx, config);
+-}
+-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h
+index b508bbcc0e16..c4813c51251b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h
+@@ -34,36 +34,6 @@ void dml21_copy(struct dml2_context *dst_dml_ctx,
+ 	struct dml2_context *src_dml_ctx);
+ bool dml21_create_copy(struct dml2_context **dst_dml_ctx,
+ 	struct dml2_context *src_dml_ctx);
+-void dml21_reinit(const struct dc *in_dc, struct dml2_context *dml_ctx, const struct dml2_configuration_options *config);
+-
+-/**
+- * dml21_validate - Determines if a display configuration is supported or not.
+- * @in_dc: dc.
+- * @context: dc_state to be validated.
+- * @dml_ctx: dml21 context.
+- * @validate_mode: DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX
+- *           will not populate context.res_ctx.
+- *
+- * Based on fast_validate option internally would call:
+- *
+- * -dml21_mode_check_and_programming - for DC_VALIDATE_MODE_AND_PROGRAMMING option
+- * Calculates if dc_state can be supported on the input display
+- * configuration. If supported, generates the necessary HW
+- * programming for the new dc_state.
+- *
+- * -dml21_check_mode_support - for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX option
+- * Calculates if dc_state can be supported for the input display
+- * config.
+- *
+- * Context: Two threads may not invoke this function concurrently unless they reference
+- *          separate dc_states for validation.
+- * Return: True if mode is supported, false otherwise.
+- */
+-bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx,
+-	enum dc_validate_mode validate_mode);
+-
+-/* Prepare hubp mcache_regs for hubp mcache ID and split coordinate programming */
+-void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx);
+ 
+ /* Structure for inputting external SOCBB and DCNIP values for tool based debugging. */
+ struct socbb_ip_params_external {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c
+new file mode 100644
+index 000000000000..d5885bbd14c4
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c
+@@ -0,0 +1,381 @@
++// SPDX-License-Identifier: MIT
++//
++// Copyright 2024 Advanced Micro Devices, Inc.
++
++#include "dml2_internal_types.h"
++#include "dml_top.h"
++#include "dml2_core_dcn4_calcs.h"
++#include "dml2_internal_shared_types.h"
++#include "dml21_utils.h"
++#include "dml21_translation_helper.h"
++#include "dml2_dc_resource_mgmt.h"
++#include "dml2_wrapper.h"
++#include "dml2_wrapper_fpu.h"
++#include "dml21_wrapper.h"
++#include "dml21_wrapper_fpu.h"
++
++#define INVALID -1
++
++static void dml21_populate_configuration_options(const struct dc *in_dc,
++		struct dml2_context *dml_ctx,
++		const struct dml2_configuration_options *config)
++{
++	dml_ctx->config = *config;
++
++	/* UCLK P-State options */
++	if (in_dc->debug.dml21_force_pstate_method) {
++		dml_ctx->config.pmo.force_pstate_method_enable = true;
++		for (int i = 0; i < MAX_PIPES; i++)
++			dml_ctx->config.pmo.force_pstate_method_values[i] = in_dc->debug.dml21_force_pstate_method_values[i];
++	} else {
++		dml_ctx->config.pmo.force_pstate_method_enable = false;
++	}
++}
++
++void dml21_init(const struct dc *in_dc, struct dml2_context *dml_ctx, const struct dml2_configuration_options *config)
++{
++	dml_ctx->architecture = dml2_architecture_21;
++
++	dml21_populate_configuration_options(in_dc, dml_ctx, config);
++
++	dml21_populate_dml_init_params(&dml_ctx->v21.dml_init, &dml_ctx->config, in_dc);
++
++	dml2_initialize_instance(&dml_ctx->v21.dml_init);
++}
++
++void dml21_reinit(const struct dc *in_dc, struct dml2_context *dml_ctx, const struct dml2_configuration_options *config)
++{
++	dml21_init(in_dc, dml_ctx, config);
++}
++
++static void dml21_calculate_rq_and_dlg_params(const struct dc *dc, struct dc_state *context, struct resource_context *out_new_hw_state,
++	struct dml2_context *in_ctx, unsigned int pipe_cnt)
++{
++	unsigned int dml_prog_idx = 0, dc_pipe_index = 0, num_dpps_required = 0;
++	struct dml2_per_plane_programming *pln_prog = NULL;
++	struct dml2_per_stream_programming *stream_prog = NULL;
++	struct pipe_ctx *dc_main_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__];
++	struct pipe_ctx *dc_phantom_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__] = {0};
++	int num_pipes;
++	unsigned int dml_phantom_prog_idx;
++
++	context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
++
++	/* copy global DCHUBBUB arbiter registers */
++	memcpy(&context->bw_ctx.bw.dcn.arb_regs, &in_ctx->v21.mode_programming.programming->global_regs.arb_regs, sizeof(struct dml2_display_arb_regs));
++
++	/* legacy only */
++	context->bw_ctx.bw.dcn.compbuf_size_kb = (int)in_ctx->v21.mode_programming.programming->global_regs.arb_regs.compbuf_size * 64;
++
++	context->bw_ctx.bw.dcn.mall_ss_size_bytes = 0;
++	context->bw_ctx.bw.dcn.mall_ss_psr_active_size_bytes = 0;
++	context->bw_ctx.bw.dcn.mall_subvp_size_bytes = 0;
++
++	/* phantom's start after main planes */
++	dml_phantom_prog_idx = in_ctx->v21.mode_programming.programming->display_config.num_planes;
++
++	for (dml_prog_idx = 0; dml_prog_idx < DML2_MAX_PLANES; dml_prog_idx++) {
++		pln_prog = &in_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
++
++		if (!pln_prog->plane_descriptor)
++			continue;
++
++		stream_prog = &in_ctx->v21.mode_programming.programming->stream_programming[pln_prog->plane_descriptor->stream_index];
++		num_dpps_required = pln_prog->num_dpps_required;
++
++		if (num_dpps_required == 0) {
++			continue;
++		}
++		num_pipes = dml21_find_dc_pipes_for_plane(dc, context, in_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
++
++		if (num_pipes <= 0)
++			continue;
++
++		/* program each pipe */
++		for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
++			dml21_program_dc_pipe(in_ctx, context, dc_main_pipes[dc_pipe_index], pln_prog, stream_prog);
++
++			if (pln_prog->phantom_plane.valid && dc_phantom_pipes[dc_pipe_index]) {
++				dml21_program_dc_pipe(in_ctx, context, dc_phantom_pipes[dc_pipe_index], pln_prog, stream_prog);
++			}
++		}
++
++		/* copy per plane mcache allocation */
++		memcpy(&context->bw_ctx.bw.dcn.mcache_allocations[dml_prog_idx], &pln_prog->mcache_allocation, sizeof(struct dml2_mcache_surface_allocation));
++		if (pln_prog->phantom_plane.valid) {
++			memcpy(&context->bw_ctx.bw.dcn.mcache_allocations[dml_phantom_prog_idx],
++					&pln_prog->phantom_plane.mcache_allocation,
++					sizeof(struct dml2_mcache_surface_allocation));
++
++			dml_phantom_prog_idx++;
++		}
++	}
++
++	/* assign global clocks */
++	context->bw_ctx.bw.dcn.clk.bw_dppclk_khz = context->bw_ctx.bw.dcn.clk.dppclk_khz;
++	context->bw_ctx.bw.dcn.clk.bw_dispclk_khz = context->bw_ctx.bw.dcn.clk.dispclk_khz;
++	if (in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values > 1) {
++		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz =
++			in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.num_clk_values] * 1000;
++	} else {
++		context->bw_ctx.bw.dcn.clk.max_supported_dispclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[0] * 1000;
++	}
++
++	if (in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values > 1) {
++		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz =
++			in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.num_clk_values] * 1000;
++	} else {
++		context->bw_ctx.bw.dcn.clk.max_supported_dppclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[0] * 1000;
++	}
++
++	/* get global mall allocation */
++	if (dc->res_pool->funcs->calculate_mall_ways_from_bytes) {
++		context->bw_ctx.bw.dcn.clk.num_ways = dc->res_pool->funcs->calculate_mall_ways_from_bytes(dc, context->bw_ctx.bw.dcn.mall_subvp_size_bytes);
++	} else {
++		context->bw_ctx.bw.dcn.clk.num_ways = 0;
++	}
++}
++
++static void dml21_prepare_mcache_params(struct dml2_context *dml_ctx, struct dc_state *context, struct dc_mcache_params *mcache_params)
++{
++	int dc_plane_idx = 0;
++	int dml_prog_idx, stream_idx, plane_idx;
++	struct dml2_per_plane_programming *pln_prog = NULL;
++
++	for (stream_idx = 0; stream_idx < context->stream_count; stream_idx++) {
++		for (plane_idx = 0; plane_idx < context->stream_status[stream_idx].plane_count; plane_idx++) {
++			dml_prog_idx = map_plane_to_dml21_display_cfg(dml_ctx, context->streams[stream_idx]->stream_id, context->stream_status[stream_idx].plane_states[plane_idx], context);
++			if (dml_prog_idx == INVALID) {
++				continue;
++			}
++			pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
++			mcache_params[dc_plane_idx].valid = pln_prog->mcache_allocation.valid;
++			mcache_params[dc_plane_idx].num_mcaches_plane0 = pln_prog->mcache_allocation.num_mcaches_plane0;
++			mcache_params[dc_plane_idx].num_mcaches_plane1 = pln_prog->mcache_allocation.num_mcaches_plane1;
++			mcache_params[dc_plane_idx].requires_dedicated_mall_mcache = pln_prog->mcache_allocation.requires_dedicated_mall_mcache;
++			mcache_params[dc_plane_idx].last_slice_sharing.plane0_plane1 = pln_prog->mcache_allocation.last_slice_sharing.plane0_plane1;
++			memcpy(mcache_params[dc_plane_idx].mcache_x_offsets_plane0,
++				pln_prog->mcache_allocation.mcache_x_offsets_plane0,
++				sizeof(int) * (DML2_MAX_MCACHES + 1));
++			memcpy(mcache_params[dc_plane_idx].mcache_x_offsets_plane1,
++				pln_prog->mcache_allocation.mcache_x_offsets_plane1,
++				sizeof(int) * (DML2_MAX_MCACHES + 1));
++			dc_plane_idx++;
++		}
++	}
++}
++
++static bool dml21_check_mode_support(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
++{
++	bool is_supported = false;
++	struct dml2_initialize_instance_in_out *dml_init = &dml_ctx->v21.dml_init;
++	struct dml2_check_mode_supported_in_out *mode_support = &dml_ctx->v21.mode_support;
++
++	memset(&dml_ctx->v21.display_config, 0, sizeof(struct dml2_display_cfg));
++	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
++	memset(&dml_ctx->v21.mode_programming.dml2_instance->scratch.check_mode_supported_locals.mode_support_params, 0, sizeof(struct dml2_core_mode_support_in_out));
++
++	if (!context || context->stream_count == 0)
++		return true;
++
++	/* Scrub phantom's from current dc_state */
++	dml_ctx->config.svp_pstate.callbacks.remove_phantom_streams_and_planes(in_dc, context);
++	dml_ctx->config.svp_pstate.callbacks.release_phantom_streams_and_planes(in_dc, context);
++
++	mode_support->dml2_instance = dml_init->dml2_instance;
++	dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
++	dml_ctx->v21.mode_programming.dml2_instance->scratch.build_mode_programming_locals.mode_programming_params.programming = dml_ctx->v21.mode_programming.programming;
++
++	is_supported = dml2_check_mode_supported(mode_support);
++
++	if (!is_supported)
++		return false;
++
++	return true;
++}
++
++static bool dml21_mode_check_and_programming(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
++{
++	bool result = false;
++	struct dml2_build_mode_programming_in_out *mode_programming = &dml_ctx->v21.mode_programming;
++	struct dc_mcache_params mcache_params[MAX_PLANES] = {0};
++
++	memset(&dml_ctx->v21.display_config, 0, sizeof(struct dml2_display_cfg));
++	memset(&dml_ctx->v21.dml_to_dc_pipe_mapping, 0, sizeof(struct dml2_dml_to_dc_pipe_mapping));
++	memset(&dml_ctx->v21.mode_programming.dml2_instance->scratch.build_mode_programming_locals.mode_programming_params, 0, sizeof(struct dml2_core_mode_programming_in_out));
++
++	if (!context)
++		return true;
++
++	if (context->stream_count == 0) {
++		dml21_init_min_clocks_for_dc_state(dml_ctx, context);
++		dml21_build_fams2_programming(in_dc, context, dml_ctx);
++		return true;
++	}
++
++	/* scrub phantom's from current dc_state */
++	dml_ctx->config.svp_pstate.callbacks.remove_phantom_streams_and_planes(in_dc, context);
++	dml_ctx->config.svp_pstate.callbacks.release_phantom_streams_and_planes(in_dc, context);
++
++	/* Populate stream, plane mappings and other fields in display config. */
++	result = dml21_map_dc_state_into_dml_display_cfg(in_dc, context, dml_ctx);
++	if (!result)
++		return false;
++
++	result = dml2_build_mode_programming(mode_programming);
++
++	if (!result)
++		return false;
++
++	/* Check and map HW resources */
++	if (result && !dml_ctx->config.skip_hw_state_mapping) {
++		dml21_map_hw_resources(dml_ctx);
++		dml2_map_dc_pipes(dml_ctx, context, NULL, &dml_ctx->v21.dml_to_dc_pipe_mapping, in_dc->current_state);
++		/* if subvp phantoms are present, expand them into dc context */
++		dml21_handle_phantom_streams_planes(in_dc, context, dml_ctx);
++
++		if (in_dc->res_pool->funcs->program_mcache_pipe_config) {
++			//Prepare mcache params for each plane based on mcache output from DML
++			dml21_prepare_mcache_params(dml_ctx, context, mcache_params);
++
++			//populate mcache regs to each pipe
++			dml_ctx->config.callbacks.allocate_mcache(context, mcache_params);
++		}
++	}
++
++	/* Copy DML CLK, WM and REG outputs to bandwidth context */
++	if (result && !dml_ctx->config.skip_hw_state_mapping) {
++		dml21_calculate_rq_and_dlg_params(in_dc, context, &context->res_ctx, dml_ctx, in_dc->res_pool->pipe_count);
++		dml21_copy_clocks_to_dc_state(dml_ctx, context);
++		dml21_extract_watermark_sets(in_dc, &context->bw_ctx.bw.dcn.watermarks, dml_ctx);
++		dml21_build_fams2_programming(in_dc, context, dml_ctx);
++	}
++
++	return true;
++}
++
++bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx,
++	enum dc_validate_mode validate_mode)
++{
++	bool out = false;
++
++	/* Use dml21_check_mode_support for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX path */
++	if (validate_mode != DC_VALIDATE_MODE_AND_PROGRAMMING)
++		out = dml21_check_mode_support(in_dc, context, dml_ctx);
++	else
++		out = dml21_mode_check_and_programming(in_dc, context, dml_ctx);
++
++	return out;
++}
++
++void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx)
++{
++	unsigned int dml_prog_idx, dml_phantom_prog_idx, dc_pipe_index;
++	int num_pipes;
++	struct pipe_ctx *dc_main_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__];
++	struct pipe_ctx *dc_phantom_pipes[__DML2_WRAPPER_MAX_STREAMS_PLANES__] = {0};
++
++	struct dml2_per_plane_programming *pln_prog = NULL;
++	struct dml2_plane_mcache_configuration_descriptor *mcache_config = NULL;
++	struct prepare_mcache_programming_locals *l = &dml_ctx->v21.scratch.prepare_mcache_locals;
++
++	if (context->stream_count == 0) {
++		return;
++	}
++
++	memset(&l->build_mcache_programming_params, 0, sizeof(struct dml2_build_mcache_programming_in_out));
++	l->build_mcache_programming_params.dml2_instance = dml_ctx->v21.dml_init.dml2_instance;
++
++	/* phantom's start after main planes */
++	dml_phantom_prog_idx = dml_ctx->v21.mode_programming.programming->display_config.num_planes;
++
++	/* Build mcache programming parameters per plane per pipe */
++	for (dml_prog_idx = 0; dml_prog_idx < dml_ctx->v21.mode_programming.programming->display_config.num_planes; dml_prog_idx++) {
++		pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
++
++		mcache_config = &l->build_mcache_programming_params.mcache_configurations[dml_prog_idx];
++		memset(mcache_config, 0, sizeof(struct dml2_plane_mcache_configuration_descriptor));
++		mcache_config->plane_descriptor = pln_prog->plane_descriptor;
++		mcache_config->mcache_allocation = &context->bw_ctx.bw.dcn.mcache_allocations[dml_prog_idx];
++		mcache_config->num_pipes = pln_prog->num_dpps_required;
++		l->build_mcache_programming_params.num_configurations++;
++
++		if (pln_prog->num_dpps_required == 0) {
++			continue;
++		}
++
++		num_pipes = dml21_find_dc_pipes_for_plane(in_dc, context, dml_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
++		if (num_pipes <= 0 || dc_main_pipes[0]->stream == NULL ||
++		    dc_main_pipes[0]->plane_state == NULL)
++			continue;
++
++		/* get config for each pipe */
++		for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
++			ASSERT(dc_main_pipes[dc_pipe_index]);
++			dml21_get_pipe_mcache_config(context, dc_main_pipes[dc_pipe_index], pln_prog, &mcache_config->pipe_configurations[dc_pipe_index]);
++		}
++
++		/* get config for each phantom pipe */
++		if (pln_prog->phantom_plane.valid &&
++				dc_phantom_pipes[0] &&
++				dc_main_pipes[0]->stream &&
++				dc_phantom_pipes[0]->plane_state) {
++			mcache_config = &l->build_mcache_programming_params.mcache_configurations[dml_phantom_prog_idx];
++			memset(mcache_config, 0, sizeof(struct dml2_plane_mcache_configuration_descriptor));
++			mcache_config->plane_descriptor = pln_prog->plane_descriptor;
++			mcache_config->mcache_allocation = &context->bw_ctx.bw.dcn.mcache_allocations[dml_phantom_prog_idx];
++			mcache_config->num_pipes = pln_prog->num_dpps_required;
++			l->build_mcache_programming_params.num_configurations++;
++
++			for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
++				ASSERT(dc_phantom_pipes[dc_pipe_index]);
++				dml21_get_pipe_mcache_config(context, dc_phantom_pipes[dc_pipe_index], pln_prog, &mcache_config->pipe_configurations[dc_pipe_index]);
++			}
++
++			/* increment phantom index */
++			dml_phantom_prog_idx++;
++		}
++	}
++
++	/* Call to generate mcache programming per plane per pipe for the given display configuration */
++	dml2_build_mcache_programming(&l->build_mcache_programming_params);
++
++	/* get per plane per pipe mcache programming */
++	for (dml_prog_idx = 0; dml_prog_idx < dml_ctx->v21.mode_programming.programming->display_config.num_planes; dml_prog_idx++) {
++		pln_prog = &dml_ctx->v21.mode_programming.programming->plane_programming[dml_prog_idx];
++
++		num_pipes = dml21_find_dc_pipes_for_plane(in_dc, context, dml_ctx, dc_main_pipes, dc_phantom_pipes, dml_prog_idx);
++		if (num_pipes <= 0 || dc_main_pipes[0]->stream == NULL ||
++		    dc_main_pipes[0]->plane_state == NULL)
++			continue;
++
++		/* get config for each pipe */
++		for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
++			ASSERT(dc_main_pipes[dc_pipe_index]);
++			if (l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_prog_idx][dc_pipe_index]) {
++				memcpy(&dc_main_pipes[dc_pipe_index]->mcache_regs,
++						l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_prog_idx][dc_pipe_index],
++						sizeof(struct dml2_hubp_pipe_mcache_regs));
++			}
++		}
++
++		/* get config for each phantom pipe */
++		if (pln_prog->phantom_plane.valid &&
++				dc_phantom_pipes[0] &&
++				dc_main_pipes[0]->stream &&
++				dc_phantom_pipes[0]->plane_state) {
++			for (dc_pipe_index = 0; dc_pipe_index < num_pipes; dc_pipe_index++) {
++				ASSERT(dc_phantom_pipes[dc_pipe_index]);
++				if (l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_phantom_prog_idx][dc_pipe_index]) {
++					memcpy(&dc_phantom_pipes[dc_pipe_index]->mcache_regs,
++							l->build_mcache_programming_params.per_plane_pipe_mcache_regs[dml_phantom_prog_idx][dc_pipe_index],
++							sizeof(struct dml2_hubp_pipe_mcache_regs));
++				}
++			}
++			/* increment phantom index */
++			dml_phantom_prog_idx++;
++		}
++	}
++}
++
++
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h
+new file mode 100644
+index 000000000000..2972c6eed21a
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h
+@@ -0,0 +1,60 @@
++// SPDX-License-Identifier: MIT
++//
++// Copyright 2024 Advanced Micro Devices, Inc.
++
++#ifndef _DML21_WRAPPER_FPU_H_
++#define _DML21_WRAPPER_FPU_H_
++
++#include "os_types.h"
++#include "dml_top_soc_parameter_types.h"
++#include "dml_top_display_cfg_types.h"
++
++struct dc;
++struct dc_state;
++struct dml2_configuration_options;
++struct dml2_context;
++enum dc_validate_mode;
++
++/**
++ * dml21_init - Initialize DML21 context
++ * @in_dc: dc.
++ * @dml_ctx: DML21 context to initialize.
++ * @config: dml21 configuration options.
++ *
++ * Performs FPU-requiring initialization. Must be called with FPU protection.
++ */
++void dml21_init(const struct dc *in_dc, struct dml2_context *dml_ctx, const struct dml2_configuration_options *config);
++
++/**
++ * dml21_validate - Determines if a display configuration is supported or not.
++ * @in_dc: dc.
++ * @context: dc_state to be validated.
++ * @dml_ctx: dml21 context.
++ * @validate_mode: DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX
++ *           will not populate context.res_ctx.
++ *
++ * Based on fast_validate option internally would call:
++ *
++ * -dml21_mode_check_and_programming - for DC_VALIDATE_MODE_AND_PROGRAMMING option
++ * Calculates if dc_state can be supported on the input display
++ * configuration. If supported, generates the necessary HW
++ * programming for the new dc_state.
++ *
++ * -dml21_check_mode_support - for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX option
++ * Calculates if dc_state can be supported for the input display
++ * config.
++ *
++ * Context: Two threads may not invoke this function concurrently unless they reference
++ *          separate dc_states for validation.
++ * Return: True if mode is supported, false otherwise.
++ */
++
++void dml21_reinit(const struct dc *in_dc, struct dml2_context *dml_ctx,
++		  const struct dml2_configuration_options *config);
++bool dml21_validate(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx,
++	enum dc_validate_mode validate_mode);
++
++/* Prepare hubp mcache_regs for hubp mcache ID and split coordinate programming */
++void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context, struct dml2_context *dml_ctx);
++
++#endif /* _DML21_WRAPPER_FPU_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
+index 307186eb6af0..9215e38343ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
+@@ -6,7 +6,20 @@
+  */
+ 
+ #include "dml2_internal_types.h"
++#include "dml2_wrapper.h"
+ #include "dml2_wrapper_fpu.h"
++#include "dml21_wrapper.h"
++#include "dml21_wrapper_fpu.h"
++
++#include "dc_fpu.h"
++
++struct dml2_context *dml2_allocate_memory(void)
++{
++	struct dml2_context *dml2;
++
++	DC_RUN_WITH_PREEMPTION_ENABLED(dml2 = vzalloc(sizeof(struct dml2_context)));
++	return dml2;
++}
+ 
+ bool dml2_validate(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml2,
+ 	enum dc_validate_mode validate_mode)
+@@ -23,16 +36,12 @@ bool dml2_validate(const struct dc *in_dc, struct dc_state *context, struct dml2
+ 		return out;
+ 	}
+ 
+-	DC_FP_START();
+-
+ 	/* Use dml_validate_only for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX path */
+ 	if (validate_mode != DC_VALIDATE_MODE_AND_PROGRAMMING)
+ 		out = dml2_validate_only(context, validate_mode);
+ 	else
+ 		out = dml2_validate_and_build_resource(in_dc, context, validate_mode);
+ 
+-	DC_FP_END();
+-
+ 	return out;
+ }
+ 
+@@ -70,15 +79,11 @@ static void dml2_init(const struct dc *in_dc, const struct dml2_configuration_op
+ 		break;
+ 	}
+ 
+-	DC_FP_START();
+-
+ 	initialize_dml2_ip_params(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.ip);
+ 
+ 	initialize_dml2_soc_bbox(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc);
+ 
+ 	initialize_dml2_soc_states(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc, &(*dml2)->v20.dml_core_ctx.states);
+-
+-	DC_FP_END();
+ }
+ 
+ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options *config, struct dml2_context **dml2)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
+index 203eef747262..66624cfc27b1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
+@@ -31,8 +31,10 @@
+ #include "dml2_translation_helper.h"
+ #include "dml2_mall_phantom.h"
+ #include "dml2_dc_resource_mgmt.h"
+-#include "dml21_wrapper.h"
++#include "dml2_wrapper.h"
+ #include "dml2_wrapper_fpu.h"
++#include "dml21_wrapper.h"
++#include "dml21_wrapper_fpu.h"
+ 
+ void initialize_dml2_ip_params(struct dml2_context *dml2, const struct dc *in_dc, struct ip_params_st *out)
+ {
+@@ -546,11 +548,6 @@ void dml2_apply_debug_options(const struct dc *dc, struct dml2_context *dml2)
+ 	}
+ }
+ 
+-inline struct dml2_context *dml2_allocate_memory(void)
+-{
+-	return (struct dml2_context *) vzalloc(sizeof(struct dml2_context));
+-}
+-
+ void dml2_destroy(struct dml2_context *dml2)
+ {
+ 	if (!dml2)
+-- 
+2.54.0
 
