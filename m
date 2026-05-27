@@ -4,122 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A20CD5BD1
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37FA7CD6E45
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6229310ED07;
-	Thu, 28 May 2026 07:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C2F10ED12;
+	Thu, 28 May 2026 07:29:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rzGVQ7c/";
+	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="E0SofC7M";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010065.outbound.protection.outlook.com [52.101.46.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB8810ED07
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 07:27:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xmD6TBsXdGvhdARlsfGc40F4Y3Dnjc4B8AXjqdt/E3RkG6WWzMoA9kSlyF+mT3/TYlMnmUCA3UAH1ZRq3Wac6yAHYzzzXwS4sIZsGYWh5fVGbbzccWdQSc+PLviEaz3lHVQrUZF+UkqTVYx6utPZns1clpg3P1dSeurg1Z6GJHeQztTjqxrZG32rgUeBJtHmDwenBY8A1540HkJgH1kR/N0va6w8UjXVKdfUVMx1wHMirY5RxhmAj/Cl/WAvzsY/QoyB/cPU5PuCptznk2CSo6poAoNVv2Onii6Kop++zsN23tMhIQuvsFSpiyn6ReqKKQADxOQdbN/bUKPPbyVXGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AtQsIVtfgxmaBJBE8N3ruTIf3iTPairQbVXI08j35S0=;
- b=MLTr3xNPB8QaArX6rqRbn5EOnJMkvX0EQYbHRTTfdokPh7CWeGkJuzvljGoDuPjsf8kbSq3k83JO8pOIcUspgjye+JDLuVeybunUORcKXKm53ROHwRoileuupNy63oyWoPFasjS7+Y9T39X9y6nEZaCCft6p0wziZQpeXWCnKTMaOrGwBwQYUYGjKzAkezkmwHNi/aaS9lQCSa7rwYLzrXtYLHIR/XlLIP4r6K3/GwAqO5YmB5Q+xq/YOU5E+y8cW/sfkw5b3LFolFJfKBbcZ2Mh1Fn0DAMSrdcgGfXhU01xLUk5Q6xpOPwMF7LkuEPAKbNPFs2nErgUPQWCE/6zsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AtQsIVtfgxmaBJBE8N3ruTIf3iTPairQbVXI08j35S0=;
- b=rzGVQ7c/z7MzkdlDEohbP6jHQQPdGKlDLaAq6O0BfB+X6ZXXJFb7HDt5MyC+l2sbQX3ym6peUSZxj8dahK+nVVNzGZGVj9EzrChGThAh6DWQhsaIuLnAw8/j2UBPWAHK8x6De4VzztTCFBXP6JafGk5Yw6hznJM1P2UqGqq7TzQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8183.namprd12.prod.outlook.com (2603:10b6:a03:4f4::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Thu, 28 May
- 2026 07:27:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Thu, 28 May 2026
- 07:27:26 +0000
-Message-ID: <9164ec6a-ef61-484d-9d52-92094fa28f7c@amd.com>
-Date: Thu, 28 May 2026 09:27:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/gfx9: guard fault IRQ puts in hw_fini
-To: Yunxiang Li <Yunxiang.Li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Tao Zhou <tao.zhou1@amd.com>, Guchun Chen <guchun.chen@amd.com>,
- amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-References: <20260527204940.1741202-1-Yunxiang.Li@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260527204940.1741202-1-Yunxiang.Li@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0370.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f8::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from xry111.site (xry111.site [89.208.246.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF8310E0E5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 14:45:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
+ s=default; t=1779893133;
+ bh=puWxmc6Z+xJvkaYDVsWdb//GIhA7YmpP5IjLxEL+a1Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=E0SofC7MZ5ZY9MQtaRsC4oH127s8JgGGHQiumsofVE9r4ENBkp/CVo/J/tuCbwJbY
+ aJg969LObKyNjk7JFJbrs3qKErZxPTAUDlyfQxl0ZzoQFB1iyclVHcJJpQ/8XrPNRM
+ HsxfzbsejqkNMOI3SchPpwb8ikOoaZX0Tm2dX8vU=
+Received: from stargazer (unknown
+ [IPv6:2409:8a4c:e1b:e231:5a6e:b99e:242d:222b])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ (Client did not present a certificate)
+ (Authenticated sender: xry111@xry111.site)
+ by xry111.site (Postfix) with ESMTPSA id 7B11565A80;
+ Wed, 27 May 2026 10:45:30 -0400 (EDT)
+From: Xi Ruoyao <xry111@xry111.site>
+To: stable@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, Wayne Lin <Wayne.Lin@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Chenyu Chen <chen-yu.chen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH v7.0.y 7/8] drm/amd/display: Fix fpu guard warning
+Date: Wed, 27 May 2026 22:44:27 +0800
+Message-ID: <20260527144428.1095001-8-xry111@xry111.site>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260527144428.1095001-1-xry111@xry111.site>
+References: <20260527144428.1095001-1-xry111@xry111.site>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a0e1809-1a7d-4ad8-10a3-08debc8a9108
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: Aaw+v6QlstJQbM6or+n8dHOWpEK8EOBaeKStEGwa+NMwyBV5Ard2+YIefo36kyBityIsVmOjnM1JSy9268+Q9NDITAKlrIn1LJbwlyW2me+qiw2v11znPYP8hvBUZckqiFxxgr9z7ooFD4iBwERdlR1Kud3Zg9pqfUOTIoZ0LEgO0MDMdynsLiiyyTGZCeBY8Q3+3J2zW7Bowe+kbMqb7upxdlk9G8qaV6sxl0ehuupn5ZeXrwVq7A/xvoD9RFV9vKOJoeKzDQWAYt6uxWaObqY9CB32BhqqVvakS3jtoTI3pLDWbnANFgN91NyZjw4kpCjDMFB9mN1r1UW+2a941RWfWJ732rAeGd66JGonQwgakJwrGerTbzmp22saAGCo5AzuOWz5LqOOsKdml/JIax+01D1Mhb5aRTn0cmBShSoe28WBsVmuCNFb6X8RQQx6QPdOkeFgVG+OmTZ66cJuPR1ciXsvxVHnX4FcmcuBpFKUc3+G5i0fsNXFnTFTrYmhIo9uuR8y0l3I92MnwcnSY+eysc+iQc0CKlX7nH/sWjDadO+zNHgocoI2OXHCGic3ax2UJUFc28yPOmYdgPBzUTKwkmx+2P1n72m6HTWL306ZvdPYLjkV1/W7NOEgNoJH9jphvvYjSGnqfTjNlyMndbmHbd5VUkQm1uEXlddlt0gzGzMigQe+5Cxxj7EYRhDk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0lDeHVFY1ZucDh2UGlSNURnbEMycWNydGpmNnU2czU0eVluTEV4T1I4SW1h?=
- =?utf-8?B?aXdUeHo3ZVozOGNlZmJXbXY4ZmEzOGZncU9vS1JEakkva1MzZjJrcWczdWww?=
- =?utf-8?B?K09WOGxCejZlNnNzeUYxdXBQTnhjNlJoMmVndTAxN1puaTgyU0ZJUmF5SE9Y?=
- =?utf-8?B?aTQ2c0xVU3hKTC84SjR1VGExZlBjM2g0U1RMRjBQaUZZam52bVNKOHBlb1lY?=
- =?utf-8?B?QWJDVllpbFhOb1RJQkRhdXV3L3VjalF0SzlHSkdBWlF6c0ZrZERraUdYRUVZ?=
- =?utf-8?B?akZRUURJSXIzRVkrUjdtT0RSR1k5Y2VhOW10ckNWYkM5NXJTV0Nsa3ZxQitW?=
- =?utf-8?B?cEtMRFJ0cEJyZmpmUWNjYkFnSkc4NFQyQlNkL0tsbzVqbHljNmxFcldZeFk0?=
- =?utf-8?B?R2o3VHZieSt4WGlWU0xGeDVNQlZoTlFiekRHSXNZbjZSS3ZBaGpUZTRrWnJy?=
- =?utf-8?B?N01HSjgvdVhCRzhRbFNwZ3ZEYUtMVHp1QkhPMW10SGxHTWl0L1RyMUF3WG5I?=
- =?utf-8?B?eHNGREt5ZWsydWFDL0R4eGpuU01ETmZoclNRRitwMStJazllZTFta3hZdUlR?=
- =?utf-8?B?TXZxVHkvSHlhcnF2eHVrTDRDeGpSb0VsMUg2QjIxNkZQQVkyQXZYaGRjeVVY?=
- =?utf-8?B?YVVZYWM1SXRocDVjdVVhYWFmUnE3VkZ0bjYxbmJoRDJDUmpGVy90S3RDZTgv?=
- =?utf-8?B?dS81VThhTThmR2hwMmFOWG04QWV6RVMxRFJSK3lnZUl6ejd4SDg1MkVaZHVO?=
- =?utf-8?B?RytUOFRKN1lmTkkybkFLanpnZjUzOW1LMUlzZnpKdlJ6RkZUNy8xOXRER1c1?=
- =?utf-8?B?RnU0cldPL0hCbm1NM2RmWkEwd1BlM25xQWczWW5lUnJNL00xSmVjWktlb0NG?=
- =?utf-8?B?V2tZL0w3ZmtYM0s1Rk8rbnM0VTdsSzBqTm9SMXZqSDhqSktrU3VQeWZtdXNt?=
- =?utf-8?B?Q2ZqZEVyWDBrRGxiYnJ2dGt1SkFFdlJBd2VEQUpPMnVVQkw1SDZKMTZjaHJM?=
- =?utf-8?B?bVVzUXJOb3dhQzM0bThsbk56VEVkdzc4RjFVT1ovN3RERFZUNGw2VTRGQUht?=
- =?utf-8?B?ZEV6YmNvY09icEt4cUxjZnB5REtTZmJ5NVVXVC9zSEhYb1o2OUJoR1hMQ1BR?=
- =?utf-8?B?V3lDTjMwNDFmUFY2bjU2Z1AyM0UybXFPU085bGlKeDc2MXppY3Foc3lRYnFS?=
- =?utf-8?B?MU9NcjV6ang4WEVpdDBFVDRSbWY2cStweFZsMkZVMVZxRWkybGZrOXRIM1R3?=
- =?utf-8?B?NERSSTIrME1ua3VnQ3pGcStWSS9UbkFBVldub1B6NTBhNVRUc0w0bWZ4SmNP?=
- =?utf-8?B?VncwdFQ5VEpjNUZ4dHZQLzBhbXJuNXJNWjBoNjV4b1o2a0dBTXoveUpWTVll?=
- =?utf-8?B?OHZTbmVRbHlqU2VnakUyMDA5TUtVaVAzZEUyQzhRWE1ERFJkSFk5c2R0U3px?=
- =?utf-8?B?VldncEd4cFFlYWlSZTNnRTZHc09tYVpoMG1DSUw1SUd4OXMwS2xwTVJXS3Ri?=
- =?utf-8?B?aXNOWlJ6cncvd3NkNHI2L3F6NnY1RjAxcHJLNkQ4bHRpUjg0azBPNmZnbWFX?=
- =?utf-8?B?ejJ5dzRSZG94OXFDOWNVU0I0WEhsN0o2eFlQUFlGMkNQbzQ3RlAra1FpUG1m?=
- =?utf-8?B?MExGYkxzUnJGTkJCTnE1QjZ3eDhYSDFrY2JRcVAxb2lxMGlsdEtyQ3A4M3B0?=
- =?utf-8?B?dCs1UGRhdkRKcHo2Y3RTTWFVZFJqTVZDdjFnMldPNVowMm5MRytEaDZRd09a?=
- =?utf-8?B?RHY2QlVleUoyT2hvQ2hzVjZ5ZEF6bFZGd3JVQmwveStMc0hNUWhtajYxTTFm?=
- =?utf-8?B?Um1lU0dOalRrVFJ0QmZjWEZtdktuY01WSDN0Q25yY3FWeU44Z2pkbFNLQUg4?=
- =?utf-8?B?TmE2TUZ1b3o3NyttZG5KSC9tamhSWHFrRnJVcVI0OUo2NmpjaWZFZFNSekxM?=
- =?utf-8?B?UkFseEcxejMrUkdHSXE3d3ZxWFZ2OXZRMStReEZ2YXFLRDZpbmpmVnVtYnUv?=
- =?utf-8?B?bFZ4aUJ3RnNrenIrM2tGVnB3dEtjMklSMXpMMUF0Vm82ZG1EbTkxT3F2TnZQ?=
- =?utf-8?B?SmJRbW1pMmZ6eDJvRzRybU9NTGNSSTF6Y3phcG43MEVaaWdwWStNZDUrK21k?=
- =?utf-8?B?aVVJVld3SFZjcERHclRvZ1hLbkRmWmM3RWhUdFNDZmJ5VzJlWnpuUXR3SkhU?=
- =?utf-8?B?WWFJdzlFTERHN280MHFRRXNHUUdGTmxzSk4ycW9vSlI2aXdkcmtJQ2xjUFFL?=
- =?utf-8?B?WnFpbWpVOGRta0RkcjdIZVl2cHpoWThvNTgzcnYrZi9SVFUrZGg1VWFUQnFv?=
- =?utf-8?Q?mUdJHLODgallTCmZSG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a0e1809-1a7d-4ad8-10a3-08debc8a9108
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 07:27:26.1032 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OkavZwk12HiJgtLazWagujrpJA7j6pezkK7AAqnzwpgRFYsdR80FERJMysC+iEGx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8183
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 28 May 2026 07:29:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,64 +60,353 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/27/26 22:49, Yunxiang Li wrote:
-> gfx_v9_0_hw_fini() unconditionally puts priv_reg_irq, priv_inst_irq,
-> bad_op_irq and cp_ecc_error_irq, but the matching gets in
-> gfx_v9_0_late_init() and amdgpu_gfx_ras_late_init() may be skipped
-> on SR-IOV VF, partial late_init failure, or an earlier IP init
-> failure.  When hw_fini then runs, the unmatched puts underflow the
-> refcounts and trip the amdgpu_irq_put() WARN:
-> 
->   WARNING: CPU: 4 PID: 6367 at drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:676
->   RIP: amdgpu_irq_put+0xc6/0xe0 [amdgpu]
->   Call Trace:
->    gfx_v9_0_hw_fini+0x200/0x9a0 [amdgpu]
->    amdgpu_ip_block_hw_fini+0x29/0xc0 [amdgpu]
->    amdgpu_device_fini_hw+0x309/0x5f0 [amdgpu]
->    amdgpu_driver_unload_kms+0x7c/0x90 [amdgpu]
->    amdgpu_pci_remove+0x51/0x90 [amdgpu]
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-That's a good catch.
+[ Upstream commit 07598c76964a2c73702fa652bcd07ec21088c5ef ]
 
-> Guard each put with amdgpu_irq_enabled() so hw_fini only releases
-> IRQs that are currently held.
+[Why]
+Due to improper fpu guarding, we encounter this warning during boot up:
 
-That's a clear NAK.
+[   10.027021] WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_=
+fpu.c:58 at dc_assert_fp_enabled+0x12/0x20 [amdgpu], CPU#8: (udev-worker)/4=
+69
+[   10.027644] Modules linked in: binfmt_misc snd_ctl_led nls_iso8859_1 int=
+el_rapl_msr amd_atl intel_rapl_common amdgpu(+) snd_acp_legacy_mach snd_acp=
+_mach snd_soc_nau8821 snd_acp3x_pdm_dma snd_acp3x_rn snd_soc_dmic snd_sof_a=
+md_acp63 snd_sof_amd_vangogh snd_sof_amd_rembrandt snd_sof_amd_renoir snd_s=
+of_amd_acp snd_sof_pci snd_hda_codec_alc269 snd_sof_xtensa_dsp snd_hda_scod=
+ec_component snd_hda_codec_realtek_lib snd_sof snd_hda_codec_generic snd_so=
+f_utils snd_pci_ps snd_soc_acpi_amd_match snd_amd_sdw_acpi soundwire_amd sn=
+d_hda_codec_atihdmi soundwire_generic_allocation snd_hda_codec_hdmi soundwi=
+re_bus snd_soc_sdca edac_mce_amd snd_hda_intel snd_soc_core snd_hda_codec k=
+vm_amd snd_compress snd_hda_core ac97_bus ee1004 amdxcp snd_pcm_dmaengine s=
+nd_intel_dspcfg snd_intel_sdw_acpi kvm drm_panel_backlight_quirks snd_rpl_p=
+ci_acp6x gpu_sched snd_hwdep snd_acp_pci irqbypass snd_amd_acpi_mach drm_bu=
+ddy snd_acp_legacy_common snd_seq_midi ghash_clmulni_intel drm_ttm_helper a=
+esni_intel snd_seq_midi_event snd_pci_acp6x joydev rapl
+[   10.027750]  snd_pcm snd_rawmidi ttm snd_seq snd_pci_acp5x drm_exec drm_=
+suballoc_helper snd_seq_device wmi_bmof snd_rn_pci_acp3x drm_display_helper=
+ snd_timer snd_acp_config cec snd_soc_acpi snd rc_core i2c_piix4 ccp snd_pc=
+i_acp3x i2c_smbus soundcore k10temp i2c_algo_bit spi_amd cdc_mbim input_led=
+s cdc_wdm mac_hid sch_fq_codel msr parport_pc ppdev lp parport efi_pstore n=
+fnetlink dmi_sysfs autofs4 cdc_ncm cdc_ether usbnet mii hid_logitech_hidpp =
+hid_logitech_dj hid_generic nvme nvme_core ahci serio_raw nvme_keyring usbh=
+id ucsi_acpi amd_xgbe nvme_auth libahci hkdf typec_ucsi video typec wmi i2c=
+_hid_acpi i2c_hid hid
+[   10.027853] CPU: 8 UID: 0 PID: 469 Comm: (udev-worker) Not tainted 6.19.=
+0asdn-260408-asdn #1 PREEMPT(voluntary)
+[   10.027858] Hardware name: AMD Crater-RN/Crater-RN, BIOS TCR1004A 03/12/=
+2024
+[   10.027861] RIP: 0010:dc_assert_fp_enabled+0x12/0x20 [amdgpu]
+[   10.028416] Code: 00 00 00 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 =
+90 90 90 90 90 90 65 8b 05 39 79 cc c4 85 c0 7e 07 31 c0 e9 9e 75 2a c3 <0f=
+> 0b 31 c0 e9 95 75 2a c3 0f 1f 44 00 00 90 90 90 90 90 90 90 90
+[   10.028420] RSP: 0018:ffffcca10188b348 EFLAGS: 00010246
+[   10.028425] RAX: 0000000000000000 RBX: ffff88c6077f8000 RCX: 00000000000=
+00000
+[   10.028428] RDX: ffff88c607d0e400 RSI: ffffffffc204d860 RDI: ffff88c624c=
+00000
+[   10.028430] RBP: ffffcca10188b3e8 R08: ffff88c624c35c88 R09: 00000000000=
+00000
+[   10.028433] R10: 0000000000000000 R11: 0000000000000000 R12: ffffcca1018=
+8b548
+[   10.028435] R13: ffff88c60be5bd00 R14: ffffffffc204d860 R15: ffff88c624c=
+00000
+[   10.028438] FS:  00007c80c2432980(0000) GS:ffff88cdc7464000(0000) knlGS:=
+0000000000000000
+[   10.028441] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   10.028443] CR2: 00007866ae013da8 CR3: 000000010a511000 CR4: 00000000003=
+50ef0
+[   10.028446] Call Trace:
+[   10.028449]  <TASK>
+[   10.028452]  ? dcn21_update_bw_bounding_box+0x38/0xb30 [amdgpu]
+[   10.028991]  ? srso_return_thunk+0x5/0x5f
+[   10.029001]  dc_create+0x37c/0x730 [amdgpu]
+[   10.029505]  ? srso_return_thunk+0x5/0x5f
+[   10.029512]  amdgpu_dm_init+0x374/0x2ff0 [amdgpu]
+[   10.030053]  ? srso_return_thunk+0x5/0x5f
+[   10.030057]  ? __irq_work_queue_local+0x61/0xe0
+[   10.030063]  ? srso_return_thunk+0x5/0x5f
+[   10.030067]  ? irq_work_queue+0x2f/0x70
+[   10.030071]  ? srso_return_thunk+0x5/0x5f
+[   10.030075]  ? __wake_up_klogd+0x75/0xa0
+[   10.030081]  ? srso_return_thunk+0x5/0x5f
+[   10.030085]  ? vprintk_emit+0x35b/0x3f0
+[   10.030102]  dm_hw_init+0x1c/0x110 [amdgpu]
+[   10.030625]  amdgpu_device_init+0x23e8/0x3210 [amdgpu]
+[   10.031041]  ? pci_read+0x55/0x90
+[   10.031047]  ? srso_return_thunk+0x5/0x5f
+[   10.031051]  ? pci_read_config_word+0x27/0x50
+[   10.031057]  ? srso_return_thunk+0x5/0x5f
+[   10.031061]  ? do_pci_enable_device+0x155/0x180
+[   10.031068]  amdgpu_driver_load_kms+0x1a/0xd0 [amdgpu]
+[   10.031486]  amdgpu_pci_probe+0x28c/0x6f0 [amdgpu]
+[   10.031902]  local_pci_probe+0x47/0xb0
+[   10.031908]  pci_device_probe+0xf3/0x270
+[   10.031914]  really_probe+0xf1/0x410
+[   10.031920]  __driver_probe_device+0x8c/0x190
+[   10.031924]  driver_probe_device+0x24/0xd0
+[   10.031928]  __driver_attach+0x10b/0x240
+[   10.031932]  ? __pfx___driver_attach+0x10/0x10
+[   10.031936]  bus_for_each_dev+0x8c/0xf0
+[   10.031942]  driver_attach+0x1e/0x30
+[   10.031947]  bus_add_driver+0x160/0x2a0
+[   10.031952]  driver_register+0x5e/0x130
+[   10.031957]  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
+[   10.032361]  __pci_register_driver+0x5e/0x70
+[   10.032366]  amdgpu_init+0x5d/0xff0 [amdgpu]
+[   10.032768]  ? srso_return_thunk+0x5/0x5f
+[   10.032773]  do_one_initcall+0x5d/0x340
+[   10.032783]  do_init_module+0x97/0x2c0
+[   10.032788]  load_module+0x2b49/0x2c30
+[   10.032800]  init_module_from_file+0xf4/0x120
+[   10.032804]  ? init_module_from_file+0xf4/0x120
+[   10.032813]  idempotent_init_module+0x10f/0x300
+[   10.032820]  __x64_sys_finit_module+0x73/0xf0
+[   10.032824]  ? srso_return_thunk+0x5/0x5f
+[   10.032829]  x64_sys_call+0x1d68/0x26b0
+[   10.032834]  do_syscall_64+0x81/0x500
+[   10.032839]  ? srso_return_thunk+0x5/0x5f
+[   10.032843]  ? do_syscall_64+0x2e5/0x500
+[   10.032848]  ? srso_return_thunk+0x5/0x5f
+[   10.032852]  ? native_flush_tlb_global+0x95/0xb0
+[   10.032860]  ? srso_return_thunk+0x5/0x5f
+[   10.032864]  ? __flush_tlb_all+0x13/0x60
+[   10.032870]  ? srso_return_thunk+0x5/0x5f
+[   10.032874]  ? do_flush_tlb_all+0xe/0x20
+[   10.032879]  ? srso_return_thunk+0x5/0x5f
+[   10.032882]  ? __flush_smp_call_function_queue+0x9c/0x430
+[   10.032888]  ? srso_return_thunk+0x5/0x5f
+[   10.032897]  ? irqentry_exit+0xb2/0x740
+[   10.032901]  ? srso_return_thunk+0x5/0x5f
+[   10.032906]  ? srso_return_thunk+0x5/0x5f
+[   10.032911]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[   10.032915] RIP: 0033:0x7c80c1d3490d
+[   10.032920] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 =
+89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48=
+> 3d 01 f0 ff ff 73 01 c3 48 8b 0d d3 f4 0f 00 f7 d8 64 89 01 48
+[   10.032923] RSP: 002b:00007fff3a12fe28 EFLAGS: 00000246 ORIG_RAX: 000000=
+0000000139
+[   10.032928] RAX: ffffffffffffffda RBX: 00005c44096804f0 RCX: 00007c80c1d=
+3490d
+[   10.032930] RDX: 0000000000000000 RSI: 00005c4409681690 RDI: 00000000000=
+0002b
+[   10.032933] RBP: 00007fff3a12fec0 R08: 0000000000000000 R09: 00005c44096=
+81790
+[   10.032935] R10: 0000000000000000 R11: 0000000000000246 R12: 00005c44096=
+81690
+[   10.032937] R13: 0000000000020000 R14: 00005c44094ff7f0 R15: 00005c44096=
+81690
+[   10.032945]  </TASK>
+[   10.032948] ---[ end trace 0000000000000000 ]---
 
-This just works around the problem in an incorrect way. The real question is why we have the get in late_init()?
+[How]
+Add wrapper function to guard fpu properly for dcn21/dcn31/dcn315/dcn316.
 
-Regards,
-Christian.
+Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Par=
+t 1")
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Reviewed-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Xi Ruoyao <xry111@xry111.site>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c       | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h       | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c       | 6 +++---
+ drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h       | 6 +++---
+ .../gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c | 7 +++++++
+ .../gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c | 7 +++++++
+ .../drm/amd/display/dc/resource/dcn315/dcn315_resource.c   | 7 +++++++
+ .../drm/amd/display/dc/resource/dcn316/dcn316_resource.c   | 7 +++++++
+ 8 files changed, 36 insertions(+), 8 deletions(-)
 
-> 
-> Fixes: d97b02bb9c7aa ("drm/amdgpu/gfx: disable gfx9 cp_ecc_error_irq only when enabling legacy gfx ras")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index bf270e605949f..e5a3735d98342 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4057,11 +4057,14 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
->  {
->  	struct amdgpu_device *adev = ip_block->adev;
->  
-> -	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-> +	if (amdgpu_irq_enabled(adev, &adev->gfx.cp_ecc_error_irq, 0))
->  		amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-> -	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
-> -	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
-> -	amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
-> +	if (amdgpu_irq_enabled(adev, &adev->gfx.priv_reg_irq, 0))
-> +		amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
-> +	if (amdgpu_irq_enabled(adev, &adev->gfx.priv_inst_irq, 0))
-> +		amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
-> +	if (amdgpu_irq_enabled(adev, &adev->gfx.bad_op_irq, 0))
-> +		amdgpu_irq_put(adev, &adev->gfx.bad_op_irq, 0);
->  
->  	/* DF freeze and kcq disable will fail */
->  	if (!amdgpu_ras_intr_triggered())
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index 7aaf13bbd4e4..eb4a76fc60d6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2398,7 +2398,7 @@ static struct _vcs_dpi_voltage_scaling_st construct_l=
+ow_pstate_lvl(struct clk_li
+ 	return low_pstate_lvl;
+ }
+=20
+-void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_=
+params)
++void dcn21_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params =
+*bw_params)
+ {
+ 	struct _vcs_dpi_voltage_scaling_st *s =3D dc->scratch.update_bw_bounding_=
+box.clock_limits;
+ 	struct dcn21_resource_pool *pool =3D TO_DCN21_RES_POOL(dc->res_pool);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
+index aed00039ca62..8b2226c5bbbf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.h
+@@ -78,7 +78,7 @@ int dcn21_populate_dml_pipes_from_context(struct dc *dc,
+ 					  enum dc_validate_mode validate_mode);
+ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context, =
+enum
+ 				 dc_validate_mode, display_e2e_pipe_params_st *pipes);
+-void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_=
+params);
++void dcn21_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params =
+*bw_params);
+=20
+ void dcn21_clk_mgr_set_bw_params_wm_table(struct clk_bw_params *bw_params);
+=20
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+index 1a28061bb9ff..ad23215da9f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+@@ -587,7 +587,7 @@ void dcn31_calculate_wm_and_dlg_fp(
+ 	context->bw_ctx.bw.dcn.compbuf_size_kb =3D context->bw_ctx.dml.ip.config_=
+return_buffer_size_in_kbytes - total_det;
+ }
+=20
+-void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_=
+params)
++void dcn31_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params =
+*bw_params)
+ {
+ 	struct _vcs_dpi_voltage_scaling_st *s =3D dc->scratch.update_bw_bounding_=
+box.clock_limits;
+ 	struct clk_limit_table *clk_table =3D &bw_params->clk_table;
+@@ -665,7 +665,7 @@ void dcn31_update_bw_bounding_box(struct dc *dc, struct=
+ clk_bw_params *bw_params
+ 	dml_init_instance(&dc->dml, &dcn3_1_soc, &dcn3_1_ip, DML_PROJECT_DCN31);
+ }
+=20
+-void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw=
+_params)
++void dcn315_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params=
+ *bw_params)
+ {
+ 	struct clk_limit_table *clk_table =3D &bw_params->clk_table;
+ 	int i, max_dispclk_mhz =3D 0, max_dppclk_mhz =3D 0;
+@@ -726,7 +726,7 @@ void dcn315_update_bw_bounding_box(struct dc *dc, struc=
+t clk_bw_params *bw_param
+ 	dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN315=
+);
+ }
+=20
+-void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw=
+_params)
++void dcn316_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params=
+ *bw_params)
+ {
+ 	struct _vcs_dpi_voltage_scaling_st *s =3D dc->scratch.update_bw_bounding_=
+box.clock_limits;
+ 	struct clk_limit_table *clk_table =3D &bw_params->clk_table;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h b/drivers=
+/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+index dfcc5d50071e..0b7fcbbfd17b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+@@ -44,9 +44,9 @@ void dcn31_calculate_wm_and_dlg_fp(
+ 		int pipe_cnt,
+ 		int vlevel);
+=20
+-void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_=
+params);
+-void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw=
+_params);
+-void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw=
+_params);
++void dcn31_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params =
+*bw_params);
++void dcn315_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params=
+ *bw_params);
++void dcn316_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params=
+ *bw_params);
+ int dcn_get_max_non_odm_pix_rate_100hz(struct _vcs_dpi_soc_bounding_box_st=
+ *soc);
+ int dcn_get_approx_det_segs_required_for_pstate(
+ 		struct _vcs_dpi_soc_bounding_box_st *soc,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c=
+ b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
+index 4333baac96ad..ec88630ae806 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
+@@ -1387,6 +1387,13 @@ static enum dc_status dcn21_patch_unknown_plane_stat=
+e(struct dc_plane_state *pla
+ 	return dcn20_patch_unknown_plane_state(plane_state);
+ }
+=20
++static void dcn21_update_bw_bounding_box(struct dc *dc, struct clk_bw_para=
+ms *bw_params)
++{
++	DC_FP_START();
++	dcn21_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static const struct resource_funcs dcn21_res_pool_funcs =3D {
+ 	.destroy =3D dcn21_destroy_resource_pool,
+ 	.link_enc_create =3D dcn21_link_encoder_create,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c=
+ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+index 4e9c041c707a..96b1ff262d15 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+@@ -1856,6 +1856,13 @@ static struct dc_cap_funcs cap_funcs =3D {
+ 	.get_dcc_compression_cap =3D dcn20_get_dcc_compression_cap
+ };
+=20
++static void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_para=
+ms *bw_params)
++{
++	DC_FP_START();
++	dcn31_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static struct resource_funcs dcn31_res_pool_funcs =3D {
+ 	.destroy =3D dcn31_destroy_resource_pool,
+ 	.link_enc_create =3D dcn31_link_encoder_create,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource=
+.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+index 131a6cd4c735..e1d703ce81d6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+@@ -1850,6 +1850,13 @@ static struct dc_cap_funcs cap_funcs =3D {
+ 	.get_dcc_compression_cap =3D dcn20_get_dcc_compression_cap
+ };
+=20
++static void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_par=
+ams *bw_params)
++{
++	DC_FP_START();
++	dcn315_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static struct resource_funcs dcn315_res_pool_funcs =3D {
+ 	.destroy =3D dcn315_destroy_resource_pool,
+ 	.link_enc_create =3D dcn31_link_encoder_create,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource=
+.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+index c8c0ce6efcfd..682606563e5d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+@@ -1726,6 +1726,13 @@ static struct dc_cap_funcs cap_funcs =3D {
+ 	.get_dcc_compression_cap =3D dcn20_get_dcc_compression_cap
+ };
+=20
++static void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_par=
+ams *bw_params)
++{
++	DC_FP_START();
++	dcn316_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static struct resource_funcs dcn316_res_pool_funcs =3D {
+ 	.destroy =3D dcn316_destroy_resource_pool,
+ 	.link_enc_create =3D dcn31_link_encoder_create,
+--=20
+2.54.0
 
