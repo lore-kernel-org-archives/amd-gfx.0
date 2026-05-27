@@ -4,104 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B4BCD5BD0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 12:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3116CD5BD0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 13:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B69810E1FC;
-	Wed, 27 May 2026 12:56:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0358410E7B9;
+	Wed, 27 May 2026 13:07:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="SuKHpDBa";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="esP9OcSl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fw2483cY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="esP9OcSl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fw2483cY";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8548210E1FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 12:56:45 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64QL4fiR3594720; Wed, 27 May 2026 12:56:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=3jk8ZD
- PSd66fE+M+C8bYgYwEKurE+lKDjbgQvOpr2pY=; b=SuKHpDBaJshgcDUsjAHBWt
- K8n616c0obEvaGlux++ZJMSV/v841Fm043Dw5OZG79eNKcWvqtuEsRDRfJQ/VBO8
- cTj1OwVAvUo0Q8V3nvajISLqB8hWEfKocpr33YbOmky8elBGxi861+7IjC3o9+II
- u65hpY++D4wOaSzBe3uqW54GXAOMNa9tOyHHjinaFifD89WB6Z7UnPA1PhlMVJJV
- B1bvAj+pVGehQTlmZHCj0hJLzbMfP9ozY4qN9ubZNqHS+d37GeKWYw/dsUFGJxET
- NdWd86PJ/kqvmizCgTXUPYE5yw9iC2HG17CmTGRKUFRICavfH5WRFxiVYw1z3yow
- ==
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eb4s2hb40-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 May 2026 12:56:43 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 64RCsri5017994;
- Wed, 27 May 2026 12:56:42 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4edjrbu1pd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 May 2026 12:56:42 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
- [10.39.53.232])
- by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 64RCufOl28181226
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 27 May 2026 12:56:41 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AE82D58059;
- Wed, 27 May 2026 12:56:41 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CE9AB58043;
- Wed, 27 May 2026 12:56:36 +0000 (GMT)
-Received: from [9.39.20.122] (unknown [9.39.20.122])
- by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 27 May 2026 12:56:36 +0000 (GMT)
-Message-ID: <883eba2d-bfae-4aa7-8010-c644ccda245a@linux.ibm.com>
-Date: Wed, 27 May 2026 18:26:34 +0530
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB46210E7B4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 13:07:11 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A932667569;
+ Wed, 27 May 2026 13:07:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779887230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
+ b=esP9OcSlpxOulRHCToW7/6cyCoN5yti/xmoyKd9e79MetL1+XOpIVFuo08ayfmAVG3kFKU
+ 96TyKKE2tuzmH1p/j3TlrcUUCUFVn+MqHwZcEny6ll9fplJa8mREBHZtbOf1nHi0r0n4Oq
+ /SSa2NUcUdqXBVb50nbVXUtWZYyvay0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779887230;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
+ b=Fw2483cYiiddYwEeOWJJ9pkkLNDS3rNaWDj/sBPwTYlpeqkmEC5ULJGJNMrsiXTLvbcRt/
+ q8Hs+4yIXg3FhhCg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=esP9OcSl;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Fw2483cY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779887230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
+ b=esP9OcSlpxOulRHCToW7/6cyCoN5yti/xmoyKd9e79MetL1+XOpIVFuo08ayfmAVG3kFKU
+ 96TyKKE2tuzmH1p/j3TlrcUUCUFVn+MqHwZcEny6ll9fplJa8mREBHZtbOf1nHi0r0n4Oq
+ /SSa2NUcUdqXBVb50nbVXUtWZYyvay0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779887230;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=vlT+/BAQdkxbWapVyZUuqzz0p8aDpSmVgE3x+y2I7Sc=;
+ b=Fw2483cYiiddYwEeOWJJ9pkkLNDS3rNaWDj/sBPwTYlpeqkmEC5ULJGJNMrsiXTLvbcRt/
+ q8Hs+4yIXg3FhhCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4970C5A843;
+ Wed, 27 May 2026 13:07:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kaqgEH7sFmq5EQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 13:07:10 +0000
+Message-ID: <4a7c2f87-60fd-458c-a579-a36799b86557@suse.de>
+Date: Wed, 27 May 2026 15:07:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Fix incorrect VRAM GART mappings on non-4K
- page size systems
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, timur.kristof@gmail.com
-References: <20260527111750.1084088-1-donettom@linux.ibm.com>
- <ee06fb47-75bc-4f22-ad0d-a7c1a2c8a413@amd.com>
+Subject: Re: [PATCH 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank interrupts
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ simona@ffwll.ch, airlied@gmail.com, pekka.paalanen@collabora.com,
+ jadahl@gmail.com, contact@emersion.fr, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
+References: <20260515120916.333614-1-tzimmermann@suse.de>
+ <b5d03921-1e6f-4c4f-900e-fc9e28222176@mailbox.org>
+ <cb461424-e4c1-4d2c-934b-ffd7374e2a56@mailbox.org>
 Content-Language: en-US
-From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <ee06fb47-75bc-4f22-ad0d-a7c1a2c8a413@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <cb461424-e4c1-4d2c-934b-ffd7374e2a56@mailbox.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: miEBFBPC2IwTCEH9IRKyLeHKN7N70MaS
-X-Authority-Analysis: v=2.4 cv=Sq2gLvO0 c=1 sm=1 tr=0 ts=6a16ea0b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=zd2uoN0lAAAA:8 a=0NibiDd3CSERIWqxv5MA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEyMyBTYWx0ZWRfX2aAq9wOKiSAu
- gXc+Us/Wm1nLILBqxWY4kuD6Hs8PyYaCAsaLngyd/3ZJ5faak06kU4I9MS2R/CPyZrN3yt4nCd6
- JNMVfv3r/cgI4hyL4F4GaSXcklobFPbQz+3rERiGzUGHEcMJiaiWPA1gRCE5dEBDXF1pPOyTzpx
- bIR0ALW0ZwbUKDKM3K+USUp/Qh8mAgPWMCdsQZWuDcdGTC8n7+dE0q1EqofFX7hujYk8rx1miZg
- qP5/CM2/hlsnuu21rE80tuQ7RbkvWJ9CV324gQqynFM2D0bHr6W1lSu2rn/1I0s5+HmZ+HnCu1e
- 5pMlB8rv7UQdeOzXhSMbjLrpZY31tF6B65eVA+ea3tZFiKQTRvwROXBadI76rI3Id2ehHrI2Xma
- F6UhkKBKw9HQ/IBDmcZGPcbCqF0E3H5GBJmt7dSYt07u0F4CwDCjarRUsHeEnCsu9ZflAhpYhva
- hjPoKPGy1Ym8VByu5sQ==
-X-Proofpoint-ORIG-GUID: fZ7yiC_SNsUh6TF1QRW9WSwKO3JF1eVX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270123
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: A932667569
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[mailbox.org,ffwll.ch,gmail.com,collabora.com,emersion.fr,linux.intel.com,kernel.org];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,77 +151,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi
 
-On 5/27/26 5:24 PM, Christian König wrote:
+Am 15.05.26 um 18:56 schrieb Michel Dänzer:
+> [ Adding the wayland-devel list for awareness ]
 >
-> On 5/27/26 13:17, Donet Tom wrote:
->> When mapping VRAM pages into the GART page table,
->> amdgpu_gart_map_vram_range() assumes that the system page size is the
->> same as the GPU page size.
+> On 5/15/26 17:12, Michel Dänzer wrote:
+>> On 5/15/26 13:55, Thomas Zimmermann wrote:
+>>> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
+>>> refresh. This is meaningless with vblank timers, which run unrelated
+>>> to the hardware's vblank.
+>>>
+>>> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
+>>> for CRTCs with simulated vblank events in all such drivers. The vblank
+>>> timers of these devices still rate-limit the number of page-flip events
+>>> to match the display refresh.
+>>>
+>>> According to maintainers, user-space compositors do not require the ioctl
+>>> for rate-limitting display output. Weston and Kwin rely on page-flip
+>>> events. Mutter uses and internal timer to limit the number of display
+>>> updates per second.
+>> Actually mutter fundamentally relies on atomic commit completion events for that, same as Weston & KWin. Mutter uses the WAIT_VBLANK ioctl only for minimizing input → output latency (which can hide issues when completion of atomic commits isn't properly throttled).
 >>
->> On systems with non-4K page sizes, multiple GPU pages can exist within
->> a single CPU page. As a result, the mappings are created incorrectly
->> because fewer page table entries are programmed than required.
 >>
->> Fix this by programming the mappings correctly for non-4K page size
->> systems.
->>
->> Fixes: 237d623ae659 ("drm/amdgpu/gart: Add helper to bind VRAM pages (v2)")
->> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
->> ---
->> v1 -> v2
->> - Addressed Felix's comment by updating the definition of
->>    amdgpu_gart_map_vram_range() to support non-4K page sizes.
->>
->> v1 - https://lore.kernel.org/all/20260522112838.1311531-1-donettom@linux.ibm.com/
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 12 ++++++++----
->>   1 file changed, 8 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
->> index b6f849d51c2e..66a15ee13b57 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
->> @@ -394,7 +394,8 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
->>   				uint64_t start_page, uint64_t num_pages,
->>   				uint64_t flags, void *dst)
->>   {
->> -	u32 i, idx;
->> +	u32 i, j, t = 0, idx;
->> +	u64 page_base;
->>   
->>   	/* The SYSTEM flag indicates the pages aren't in VRAM. */
->>   	WARN_ON_ONCE(flags & AMDGPU_PTE_SYSTEM);
->> @@ -402,9 +403,12 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
->>   	if (!drm_dev_enter(adev_to_drm(adev), &idx))
->>   		return;
->>   
->> -	for (i = 0; i < num_pages; ++i) {
->> -		amdgpu_gmc_set_pte_pde(adev, dst,
->> -			start_page + i, pa + AMDGPU_GPU_PAGE_SIZE * i, flags);
->> +	page_base = pa;
->> +	for (i = 0; i < num_pages; i++) {
-> Please make that for (i = 0, t = 0; .... and remove the initialization of t during deceleration.
+>> (Just a side not on the cover letter, no objections to the patches themselves)
+> After more discussion on IRC, I have some concerns.
+>
+>
+> The big one first: For drivers with no strict refresh cycle (i.e. an atomic commit can take effect more or less anytime after at least one "refresh cycle" has passed since the last one), does this change really make sense / what's the actual benefit?
+
+I don't have a strong opinion on that matter. I just think we should 
+clarify the meaning of these ioctls.
+
+Timing page flip is currently not supported on any driver without 
+hardware vblank IRQ or a vblank timer. The situation might vary among 
+compositors, but there have been plenty of reports of animation and 
+frame rates either being too high or too low. So I think we should 
+rollout vblank timers for all drivers without hardware vblank IRQ.
+
+Right now, vblank timers act like a vblank IRQ in these ioctls. That's a 
+convenient position for user space.
+
+But we don't really sync anything with hardware here, so the alternate 
+proposal is to not support them.  This also appears to be the original 
+intention of these ioctls.  Vblank timers would just limit the internal 
+page-flip rate, but nothing else. That's the more defensive approach. 
+I'd prefer this, as it does not give out guarantees to user space that 
+future drivers might not be able to fulfill.
 
 
-Thank you Christian
 
-I will send a v3 with this chanage
-
--Donet
 
 >
-> I was about to complain that t isn't initialized because I missed the line above.
+> In the case of the asahi & nvidia drivers, the problem with exposing this functionality to user space is that if the timestamps aren't accurate, it can result in missing display refresh cycles, which are dictated by hardware. That's why it makes sense to reject it there.
 >
-> Apart from that Reviewed-by: Christian König <christian.koenig@amd.com>.
+> When there's no strict refresh cycle, that issue doesn't apply though.
 >
-> Regards,
-> Christian
 >
->> +		for (j = 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++) {
->> +			amdgpu_gmc_set_pte_pde(adev, dst, start_page + t, page_base, flags);
->> +			page_base += AMDGPU_GPU_PAGE_SIZE;
->> +		}
->>   	}
->>   
->>   	drm_dev_exit(idx);
+> Any changes made to the WAIT_VBLANK ioctl should also be made to the CRTC_GET_SEQUENCE / CRTC_QUEUE_SEQUENCE ioctls, which are slightly different UAPI for the same functionality.
+
+I'll send out an update with that fixed in a bit.
+
+Best regards
+Thomas
+
+
+>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
