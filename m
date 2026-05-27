@@ -4,44 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 711FECD6E4A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CDCCD6E4B
 	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C78E510ED19;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D525210ED1A;
 	Thu, 28 May 2026 07:29:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="GGctIw34";
+	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="NWOu0gUx";
 	dkim-atps=neutral
 Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 357CA10E0E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 14:45:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 925BA10E0E5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 14:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1779893129;
- bh=hG1lWNbeUjBtC1lSP2ZjSpLTXw35ebgcjZMiyjrD1GM=;
+ s=default; t=1779893136;
+ bh=hGsMTYHoeQ0TOkj6e86i0hzrq9+4umeDk9Y0LdQv/5U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GGctIw34oNtgfFO69/vXYdvhDCB7C0jAQ/lTnn3GQRH9IrL1UyUp0vNuNd3GXiPrG
- 77PizUrs3VvUzf2D9X3p+zrP3XYRejYpmtLXyFwCvuklfDjWWMm5JZtLlwbDEtmaDw
- cbcwcJ9krUsoOs9xKjJFRy3eXcrHl0Mf/mO8FJEU=
+ b=NWOu0gUxzqaxdp3mXAwhEcw/crIRX9GTHNuhgUEXL4RRDFjO3gUh/6FUpyY98C6Jb
+ sPeb2+wWrcA3oJY6hRoba8aewOedPpxcPZmwJQZwsK/h7fz2Strmb0ShEQL16EAArM
+ LKkjiSjyVClR294LRiySgowNqI16rTwdDFbd/e6Q=
 Received: from stargazer (unknown
  [IPv6:2409:8a4c:e1b:e231:5a6e:b99e:242d:222b])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (Client did not present a certificate)
  (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id 06F60659C8;
- Wed, 27 May 2026 10:45:25 -0400 (EDT)
+ by xry111.site (Postfix) with ESMTPSA id A499B659C8;
+ Wed, 27 May 2026 10:45:33 -0400 (EDT)
 From: Xi Ruoyao <xry111@xry111.site>
 To: stable@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Roman Li <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
+Cc: amd-gfx@lists.freedesktop.org, Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH v7.0.y 6/8] drm/amd/display: Fix dc_is_fp_enabled name mismatch
-Date: Wed, 27 May 2026 22:44:26 +0800
-Message-ID: <20260527144428.1095001-7-xry111@xry111.site>
+Subject: [PATCH v7.0.y 8/8] drm/amd/display: Move dml2_destroy to non-FPU
+ compilation unit
+Date: Wed, 27 May 2026 22:44:28 +0800
+Message-ID: <20260527144428.1095001-9-xry111@xry111.site>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260527144428.1095001-1-xry111@xry111.site>
 References: <20260527144428.1095001-1-xry111@xry111.site>
@@ -62,44 +59,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+From: Rafal Ostrowski <rafal.ostrowski@amd.com>
 
-[ Upstream commit 57ce498faa1e4d358bf44b5df575874c22922786 ]
+[ Upstream commit 8bf0cb97edb697dba2515e6452c17c5245111448 ]
 
-Fix incorrect function name in comment to match dc_is_fp_enabled.
+On PREEMPT_RT kernels, vfree() can sleep because spin_lock is
+converted to rt_mutex. dml2_destroy() calls vfree() while inside
+an FPU-guarded region (preempt_count=2), which is illegal.
 
-This function checks if FPU is currently active by reading a counter.
-The FPU helpers manage safe usage of FPU in the kernel by tracking when
-it starts and stops, avoiding misuse or crashes.
+dml2_wrapper_fpu.c is compiled with CC_FLAGS_FPU which defines
+_LINUX_FPU_COMPILATION_UNIT, making DC_RUN_WITH_PREEMPTION_ENABLED()
+resolve to a no-op. This prevents the macro from cycling FPU
+context off/on around vfree().
 
-Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Dillon Varone <dillon.varone@amd.com>
-Cc: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Move dml2_destroy() to dml2_wrapper.c (non-FPU compilation unit)
+where DC_RUN_WITH_PREEMPTION_ENABLED() properly cycles DC_FP_END/
+DC_FP_START around vfree(). This pairs it with dml2_allocate_memory()
+which already lives there.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
+Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Xi Ruoyao <xry111@xry111.site>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c   |  4 ++--
+ drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c  | 11 +++++++++++
+ .../gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c  | 10 ----------
+ 3 files changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-index 8ba9b4f56f87..172999cc84e5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -59,7 +59,7 @@ inline void dc_assert_fp_enabled(void)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
+index 7398f8b69adb..8bed59e976d1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
+@@ -58,8 +58,8 @@ bool dml21_create(const struct dc *in_dc, struct dml2_context **dml_ctx, const s
+ 
+ void dml21_destroy(struct dml2_context *dml2)
+ {
+-	vfree(dml2->v21.dml_init.dml2_instance);
+-	vfree(dml2->v21.mode_programming.programming);
++	DC_RUN_WITH_PREEMPTION_ENABLED(vfree(dml2->v21.dml_init.dml2_instance));
++	DC_RUN_WITH_PREEMPTION_ENABLED(vfree(dml2->v21.mode_programming.programming));
  }
  
- /**
-- * dc_assert_fp_enabled - Check if FPU protection is enabled
-+ * dc_is_fp_enabled - Check if FPU protection is enabled
-  *
-  * This function tells if the code is already under FPU protection or not. A
-  * function that works as an API for a set of FPU operations can use this
+ void dml21_copy(struct dml2_context *dst_dml_ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
+index f4d45875d0be..6e3611a05c83 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
+@@ -107,6 +107,17 @@ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options
+ 	return true;
+ }
+ 
++void dml2_destroy(struct dml2_context *dml2)
++{
++	if (!dml2)
++		return;
++
++	if (dml2->architecture == dml2_architecture_21)
++		dml21_destroy(dml2);
++
++	DC_RUN_WITH_PREEMPTION_ENABLED(vfree(dml2));
++}
++
+ void dml2_reinit(const struct dc *in_dc,
+ 				 const struct dml2_configuration_options *config,
+ 				 struct dml2_context **dml2)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
+index 66624cfc27b1..a14e3004a7b7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
+@@ -548,16 +548,6 @@ void dml2_apply_debug_options(const struct dc *dc, struct dml2_context *dml2)
+ 	}
+ }
+ 
+-void dml2_destroy(struct dml2_context *dml2)
+-{
+-	if (!dml2)
+-		return;
+-
+-	if (dml2->architecture == dml2_architecture_21)
+-		dml21_destroy(dml2);
+-	vfree(dml2);
+-}
+-
+ void dml2_extract_dram_and_fclk_change_support(struct dml2_context *dml2,
+ 	unsigned int *fclk_change_support, unsigned int *dram_clk_change_support)
+ {
 -- 
 2.54.0
 
