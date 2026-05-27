@@ -4,96 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE972CD4F54
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 19:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC11ACD4F54
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 20:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59C1610E97B;
-	Wed, 27 May 2026 19:46:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7055A10E2B1;
+	Wed, 27 May 2026 20:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cXJ97C/q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PC+z7DxK";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013046.outbound.protection.outlook.com
- [40.93.196.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D72D610E97B
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 19:46:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fRelwhaYFeT6bL4kOS6eY+5R/Xr2pFjUv6upl6zY05cmsAalq65V+UtOtOS6pgxgbBwSnhADsFxt+0cZBfVF1ZJleUIYXTxBhGTH14gp9UPkp3UHIp3aQn/G8MJTwtpYUXJ/FOLzvviybwtdHygrmhBeb/f9hcV/BFfuV4QrOcSYgn5BTjdf6KmDZci/tzzNhktEySXpUK9emdSUAIdAuWVV3XSp/+x4pZYK+AA2F+m5C4FFdWSlxWsQJPLvKGln9cokPqA+tChmel3leLoZyxFXmYcapUDmTfBoasVCHY5Z6Rd4yPY09kp5GeVAajEly6QwwMfErhB28ygsZKnNpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Yw3Jfhho+GTSjNyJmpGp7xohT9bJSvzQRmpgFYo9zY=;
- b=iSj3ZIV0NDladUaCgYEkaBRmQ7JgROkUSzXneYsRZNzLt7Asj1B7k0KoqH5fi2qDOvKcczaYYV2XFcBnryP+Q1o0wJtCjvNNFEs4xlDExFmmkjXtdMn0TaNFyE2waBdbOPM1dx7ljqCfoUkR1Qkw+nXYMGzagqFtf3oiqJG8EeHMS0pbOCiiSWRN3iXnckanebjDVFnf1Gio5LHwylu+N5n1tq0H6qqoNs5aecrT/bGPHj2C4RXqH8a1byWVHO9ZksHv/8gK0lQVrPxBoQKKuk5S0qlca/WfCyF2Vq+N3Hlf3ADWhAjK1KqZkfwOqZyxFP3+9kDLf3uCrjuW05RUYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Yw3Jfhho+GTSjNyJmpGp7xohT9bJSvzQRmpgFYo9zY=;
- b=cXJ97C/qZbLkDfZkbdxkWXewkFYVl3a+6+6fnBrXWMkACbnKKUSoRbijUnA9B32OoG5G2vIDefgyiSz+jUYs0orApy6pb985tVn63GAXh93aRLR0EM2i75IdRqfPKJM6wM5Er6ujjmaElF/tak7ziuRGzmjYif3WmLse+PK7ZGI=
-Received: from BY3PR10CA0020.namprd10.prod.outlook.com (2603:10b6:a03:255::25)
- by CH1PR12MB9720.namprd12.prod.outlook.com (2603:10b6:610:2b2::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
- 2026 19:46:18 +0000
-Received: from SJ1PEPF000026C5.namprd04.prod.outlook.com
- (2603:10b6:a03:255:cafe::96) by BY3PR10CA0020.outlook.office365.com
- (2603:10b6:a03:255::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Wed, 27
- May 2026 19:46:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000026C5.mail.protection.outlook.com (10.167.244.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Wed, 27 May 2026 19:46:18 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 27 May
- 2026 14:46:13 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 27 May 2026 14:46:13 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/sdma7.1: fix support for disable_kq
-Date: Wed, 27 May 2026 15:46:03 -0400
-Message-ID: <20260527194603.3976381-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A46D10E2B1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 20:15:58 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-3042a99f0ceso643932eec.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 13:15:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779912957; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZPrGmdzJXAbyC/ZLOwIVVFaLuGOgiGmGcjA0Vbjg2zUvwv4iuHDGDaJmir08EIKQ1U
+ 8NeqqBhq42XOeS0wZGVLBAbs30jX5uFP8tOyzydeX7bnCpfkSiL011ZdjeMNnsMNaGmc
+ PFjHCfrs1SCWhtEvgOnrsP4xJnZkFCJ/tgzSA90yCsYfVfVofOFJjwB/YxXXCFMSkrST
+ gc0JDisryW6tj2T2L3HaRyaIL5xNGrpeb69dPWWqOncPf733zxu9ompITm/v2u3DNXqr
+ VT/97y4GBG1Ok7HnXsRdyCy7yeVbWIX4k6drplD2FfApFb2XD5M/xt/wB4bDv0DYd6xH
+ lgFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=HHTL2lW8xBsxHYofChLogKIIcw+GuM7d5qBPyd61uV4=;
+ fh=QYTOPa1tuyaAXX9RWsack1ix6tdGANHo7BRVYX4Rg6s=;
+ b=aw0SvH6ZWEfL9F2Lsh4KUgCFaDLGyVgdCydF2/xCA2RTUWIezIDf77Nmk3DuqPNRBu
+ rDvYoPg296H2mdMsh5ryml0oc6eR4KLGZ8Rs8CWYlNfcrm9QypRrGS1L9af4VrIuKKRY
+ DP7zV3lx+Ewt6yrkNFDZw9nq77hh3b3+0SO79MrSvqr2gOcBOcc9dZMOXKCLAQZ89MWd
+ roNn23ZOhkBHkOhCH0CdeQbz9Q8JoM60yD9zx3cYa0W/wUxx8+AWZ8d3S7ArFE7zTxmU
+ FsnspPX0ZlJoSArTFnm5Kbb5dR0HuxJv2OLGIUnVuwbPrZG/gmzpTpUVAUhgoXSif26Y
+ U0GQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779912957; x=1780517757; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HHTL2lW8xBsxHYofChLogKIIcw+GuM7d5qBPyd61uV4=;
+ b=PC+z7DxKtKfz/7NgS0Yxnb1d1Hq4aoRafDxTjhDSmXDljk4TcAqUPaAXFQlIDvOpXg
+ fGXsu8YzSwf4Qt8xEcRZG/FMF3besTW2v13pwnCMVxHYy2qabKce4XrmWnWLFOUOITKH
+ sL1knTMQi87fZ3y2qL4IC/MuivCKUnocZu1MLa1nLm2GU9jcvBomMW1qw+xP5q6JSlrN
+ wlyqwUtPvPWW8TksSvD6S4NUvP9kP5cazXuAKQ2S16nlv5NDdI2CLNfWZd5lVUoNxwd3
+ q1BwUGOklUAaC18qXtRJtLmWr7NAlP3wW5gycf5F4IOiePIVDGWYCWyTSoEv3j/qiaQU
+ Hyxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779912957; x=1780517757;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HHTL2lW8xBsxHYofChLogKIIcw+GuM7d5qBPyd61uV4=;
+ b=JKMhlNzlJg4FK4S9f6z1YOZBJirx4sDSBqblwfQmbWNVtgoGCynsivz+JViW/up30h
+ L+jxDxXC+axBIlrMv+wbMYwn6hQye3Q5T8RBkSMoWVw5Y+6+dmierDXPbcw6t5AW6tCt
+ fErpPTRa8MyqJu0O7X3GtwomQnSRYrhM0xqsa5VnAl0LsUrXCvB03O5kZ9p5cvMokVEY
+ BjZ2quX6KsEiy7U0VdgSI1c991Bfr+wwHn0AEh4mp0mNxO/mGEgK/P88FRB+nUD3L0pq
+ V+o5aNXSvr2PaLvj5tHCp8Kt370IwWsceqsak7O4awmUtpqc62Ru5/M+CXZXleuvXA82
+ 5ulw==
+X-Gm-Message-State: AOJu0YzpEnBnWBwyH7dVsxizBlQN6iJXehWjMV4uu9nAUygrYuwJ9dfM
+ WnKBJkrTr73tpNFBEcoQSfPw6mUV5+GpOuUU4QXgOb7Qr3K3U1ZT2dAWMej3y25VzfAtJdzs+ty
+ GocC7DdJz0nIpMfVly5epfO8iUl4z6ZU=
+X-Gm-Gg: Acq92OEOP7ZQ3ti79/Sgfi15PYEJcpH17v84qt8JLFlZQmDf3mfXl6PyqttOf4fqgP3
+ wsgXlv2lSdJ5nFh+DXcqp7abpNX0iGP45S9wRkrWpXqh5daxsCQjCV0dIdboP1sbilSMVmCEtYA
+ 5F2LnncH4BzFLXAOfSW35NWFpPMyjNF7u+fgHNXnBG2oKm1RnXOF+aOI33t46z4zTajqz/c97Rf
+ PXxuMfAgG8jYGFZ24EZRtE7R0Gr7ei6eBVddOqmwJgYte01b43NdXJmI9A5XjyoBHni/I7JB3E2
+ sJCK2fS7CUZq2ocKoSC05CKpeHMta53pJDsPV2OsevQf2U2mcgNv/TwCaL3nYOluW7LgzmKd6U+
+ bP7vl
+X-Received: by 2002:a05:7022:43a9:b0:12c:900b:9dee with SMTP id
+ a92af1059eb24-1377c95c89fmr71818c88.1.1779912957122; Wed, 27 May 2026
+ 13:15:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C5:EE_|CH1PR12MB9720:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bd46d69-348f-4758-09bc-08debc289f00
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: qXkX1a6QW0vIWg3tYbIBhXeoB8Dmx6GM9fo4GGiU9dPJfrv8991qt2HgYzra+8WLpy+wsUih+yQr9iuoMcarbxo1E3OOXKo3EA1yvSBDoRbL3eBVmLaxT4BHdLv4ZmQpOEEEi4zfbBjEnT9ol1BUonBAQDpgT9NRXQTxG9yZQ1DB/HRHNKRV0IJG9mpXmoPpIeLJA+hRNR5BKXmLI8loJcYB9f/iKHZRUFOtToN467D8tNS8SXbZ0FFCxKNzq9PZPbVwq88itV+X6PKSLQWxc2xII4qX9Gnv+wgJ+DOn5SS4LgxB4SyX3txvdrK/hFrUZupo3X42h/GKrh1tHesSPPXDFXGv1+OHZ31els2cqu4Nq2ZTnD3gcHMAEFGoEK/QqarP86BD9nWVFijwhNcOvNWuiFhlHiaUrjGj/LI5JuDRMvGsEj81xL34Llaoa2rYL3BQg2GxJjmOLJazdJxF6ow2xgyCi2kAdAh1TBZ/Fz6PoDgv37CQzAP/1a5WGEPImrkuY6b3Gaim541AVHOTND9MzlCntpjXQfwNsOcnYMGdwB4ah0pQFLCLQ539nGX+vaUuY8FvwFja0201BqvAqj4US8D8nzCrUSgnTPqXC8jTISZ/UA+r5CTTwkzKXpQGLV8vVVUBSYbH4PwenuGUAnguwjSKtu+ImiSCHgNRlG+KfWi2uFoFCzL7aD8ahqjFcOgzLLcVwTJPJuLFf+ea9Z1hAHLgJoDXRfZQUkhjJzU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /bC4yx+xqSwARvevGVjanvh9wQjf7+RiGfex6UmJVtgcp50nnWlJWQ2Dp1jO1+cCgThg0VuEI6FB2UU/SO2Im+usZskcZ1eY8drYNlxtd/WmohyZdb2GB3odIZeu/eo0sA1UeBX4sdg8gANI5MQMPkB3GK7JvCg4B6FamlYYKwBw5XtnjMelZUpIQEODgEavUYgjGMWpWGmPekMlTMKlOPZac/myxVkXpqe8G7sLvSaDIbENm8LfBEsf3idG+PC0A0mXw8tDTnVQ3A80iEhOorFYxltfZ64ZjPD/jdqFdS59Ck98RMWPFQq2K5r6T2huH/RMfBG+NLxUGhHHON7V15q7LhAMf277uQNgB1w2Os865EWCjSybbSsz/yeZX1sDwhlrie4egwhs6iPKJr4LDHYT02gn/Xbd/65+YGNlr699GGj9AawGR0cG4HHDUhQV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 19:46:18.4210 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bd46d69-348f-4758-09bc-08debc289f00
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9720
+References: <20260527194151.2253853-1-IVAN.LIPSKI@amd.com>
+In-Reply-To: <20260527194151.2253853-1-IVAN.LIPSKI@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 27 May 2026 16:15:44 -0400
+X-Gm-Features: AVHnY4JPIK2hBY8QIrGP4xGirBtqxWhsqmqFpPKALIcEi2DeigIBteA6TGFnnlM
+Message-ID: <CADnq5_OCM_6B19XQUZr650MNkXR8riaYbdytxdKRK=FF-f-sOQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Add a default case for dc_status_to_str
+To: IVAN.LIPSKI@amd.com
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,26 +104,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the flag in the ring structure.
+On Wed, May 27, 2026 at 3:43=E2=80=AFPM <IVAN.LIPSKI@amd.com> wrote:
+>
+> From: Ivan Lipski <ivan.lipski@amd.com>
+>
+> [Why&How]
+> If a parsed dc_status case is not covered by the dc_status_to_str, the
+> switch case is skipped, and the function returns
+> "Unexpected status error".
+>
+> This causes build failures when new dc_status enums are introduced.
+> Changing the 'return "Unexpected status error"' into default resolves it.
+>
+> Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 
-Fixes: 80d4d3a45b86 ("drm/amdgpu/sdma7.1: add support for disable_kq")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index e1c0a4ff0e7ff..cd9668605a501 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -1315,6 +1315,7 @@ static int sdma_v7_1_sw_init(struct amdgpu_ip_block *ip_block)
- 		ring->ring_obj = NULL;
- 		ring->use_doorbell = true;
- 		ring->me = i;
-+		ring->no_user_submission = adev->sdma.no_user_submission;
- 
- 		for (xcc_id = 0; xcc_id < fls(adev->gfx.xcc_mask); xcc_id++) {
- 			if (adev->sdma.instance[i].xcc_id == GET_INST(GC, xcc_id))
--- 
-2.54.0
-
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_debug.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu=
+/drm/amd/display/dc/core/dc_debug.c
+> index bbce751b485f..44028ba88f80 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+> @@ -272,9 +272,9 @@ char *dc_status_to_str(enum dc_status status)
+>                 return "Fail DP Tunnel BW validation";
+>         case DC_ERROR_UNEXPECTED:
+>                 return "Unexpected error";
+> +       default:
+> +               return "Unexpected status error";
+>         }
+> -
+> -       return "Unexpected status error";
+>  }
+>
+>  char *dc_pixel_encoding_to_str(enum dc_pixel_encoding pixel_encoding)
+> --
+> 2.43.0
+>
