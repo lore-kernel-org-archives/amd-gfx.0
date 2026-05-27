@@ -4,46 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CDCCD6E4B
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:29:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF75CD6E4C
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 07:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D525210ED1A;
-	Thu, 28 May 2026 07:29:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 815C910ED1D;
+	Thu, 28 May 2026 07:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="NWOu0gUx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HgTHkkXs";
 	dkim-atps=neutral
-Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 925BA10E0E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 14:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1779893136;
- bh=hGsMTYHoeQ0TOkj6e86i0hzrq9+4umeDk9Y0LdQv/5U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NWOu0gUxzqaxdp3mXAwhEcw/crIRX9GTHNuhgUEXL4RRDFjO3gUh/6FUpyY98C6Jb
- sPeb2+wWrcA3oJY6hRoba8aewOedPpxcPZmwJQZwsK/h7fz2Strmb0ShEQL16EAArM
- LKkjiSjyVClR294LRiySgowNqI16rTwdDFbd/e6Q=
-Received: from stargazer (unknown
- [IPv6:2409:8a4c:e1b:e231:5a6e:b99e:242d:222b])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
- (Client did not present a certificate)
- (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id A499B659C8;
- Wed, 27 May 2026 10:45:33 -0400 (EDT)
-From: Xi Ruoyao <xry111@xry111.site>
-To: stable@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH v7.0.y 8/8] drm/amd/display: Move dml2_destroy to non-FPU
- compilation unit
-Date: Wed, 27 May 2026 22:44:28 +0800
-Message-ID: <20260527144428.1095001-9-xry111@xry111.site>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260527144428.1095001-1-xry111@xry111.site>
-References: <20260527144428.1095001-1-xry111@xry111.site>
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
+ [74.125.224.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1598110E262
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 16:31:33 +0000 (UTC)
+Received: by mail-yx1-f41.google.com with SMTP id
+ 956f58d0204a3-65c477a3278so12150738d50.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 09:31:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779899492; cv=none;
+ d=google.com; s=arc-20240605;
+ b=azQoynpX33EzpwjFl6r+h5b5UUzIRv1PFAbCAb9H5Cch0jrsOabTiUj1tbTM74upLl
+ phX0AcwQO2MRiBYobw6WbPHEB8mpDmkwWZAWFDJypWeTm9FYxajzwSmwr4uOmoNofEyd
+ bhiQQwgUAoWwj0YGPKd88yKOYK8QI/7IeNCH5furiKvPtTz8fT+zSvsXOb2GU817aIrV
+ aYiZ+L0ldQc2klugWsvkyfilB0V8al/GQF4LzJZVJjwHJWIBm5KEUdLDhWIL4C2gSLFg
+ z13D4gSTUWPDvaMmituRRLUU116a6PHrrGq8HpYIA/SR7S8R4/pkdUvdBvC+n0Z7jClk
+ mz6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9tLf8lt1YoAuBidXkoX7o9PfBwuIjJNOIKz1xekd6O8=;
+ fh=ayRqx3dXxB5T6J1sKtvX6ZXjY0pF42Wr914CRkD6ujw=;
+ b=IcBxDnE0q/7RnjINpzvurhCSbVcYpqVdEzFRZGF5iL1S3zDEBrHLsFiKNekNhh1YAK
+ dFcHTK1HW6Z4R8DdOAuz+ynlWzCf+4GeN4cd/HmgFtX//+5jZz1gPSMS+camRdg0ojjv
+ +A3etk4jLkpGouVFSUjkA0OKClbuD+V2zX3k2UPEbR5dlOTgmyebfK0boEAEJ7G8w6ZI
+ TSQ0cIZ6rEsnRCDEdqgqXImGODJF/hLbsb8fT13SKCPu1Qcv7UrVKddd7IUQ718jptVf
+ 7r2bmTlRA21PWQduEtJVVMBgkHCVCsjr2QJEvsWln/fLohSJSK8aEkDplcZZYxPfr3SP
+ A+Tg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779899492; x=1780504292; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9tLf8lt1YoAuBidXkoX7o9PfBwuIjJNOIKz1xekd6O8=;
+ b=HgTHkkXs1YFtJgdmjxxPR2z72ubtM+as7l37XQ2VN55lTUEkJBMJuywBSlctIswxlm
+ xp9wFZBdUgyGKMJ3Gs6/oqMhwLInDsfdetp9FwQDtZ24W3a7vbWGMKpr4v1/rWox6Dga
+ uE9dcomPb9JFzqpg/Ekg7wSiIR+BDs+2GF4QDa1OHTWW6WiFu7val09x5Mh08K/FcQV8
+ 7wrUP0yB0tWZ0rrWCXot6Ptv5XrPLeeLxnw8E3jyLPJDt1ekPcJpxMxQPcHYPKZVJ1rw
+ jtbS+mQ89/DtWqyLhyWUnXe17bwJue4IWx+M+2HI1XqMb7B5WB6GoZseJmq8YJ6QHYWm
+ WnUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779899492; x=1780504292;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9tLf8lt1YoAuBidXkoX7o9PfBwuIjJNOIKz1xekd6O8=;
+ b=dQVLeBqk+QbiXf5kEHxH7j7miJhs51HulujzQR1FvnluqGmrhqzMmP1rlMUqAl2T+F
+ mjA780sbYUbtape4xT2dd96iYYjTZ1yTRfjLoOsbWH4oKCoNz6qGU5cZCHc/FpIwV1w3
+ SGqKEyxPn6oK4HaYqfgZq3FxV0SSjUvTqV4fH+yVZbP66QiEIg9NGmuHk4SR8RKnyiWK
+ 1v+1T916pO8mWcWVDauKNwSkHAL2T2Vs3XdF1I83gyg4qJsCfj9zqZK9UbM9gA9OLxdP
+ hUdpkI+ZVMFLBBr0o9o0OL3MJXZB1ErcY+lRRNBOJln9gE8ki4oI6rWolF03L8CL2lGO
+ 2xbQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8b5Gkm6jj1etu0M/sEf+sRX0pUxRjWGfMRLkvkHW2/0JDEsqs7bHkzePLQUl7bU/Cit1m1D8CQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTtLBeL7a9klAt79ZM5nXj397tcpyQLVKCDZc4Ue6JAFOefEK/
+ AligW1ShbLzOIDmejWHN6pTFpAF7RoDN5BDFoLelBz6hD0I6SnRAABwArQM7qt520RuhaKKwIkm
+ /6BWdy7YVHQTKBSpQWGKBLEJzOBmaQ0I=
+X-Gm-Gg: Acq92OG41AavTn8U7xo2k+Nk57cptHi39HdTxdt829bAra4X2szFq1VmxMFZUGORLEZ
+ lduPqhf9HiMBEs2nUizqiZ69r42aUwdB+8MBcZQ1dYK6vqPI73F0/MsuLVIhttEt3Bs8yRowEC5
+ onFhVG639/z9jPKkC6In9eRyezrE8Rwinny+teJIrMQw6Y4d10DJ3zjc/KLolMPaCYLY142nGqX
+ uglI7I7AD1v+GYbQfH2/9G9xm/eMgTWw3wglBWYI+xwmFhk+2MYRdQ7lOUQKcJA0jWh7aGv5/kJ
+ DVlkUPRgmgfWwQWwVCuq8jwTMuLQTnooxmScLbkvrG4zZgzeztBgt32SKNnvvxtiwl1TNeKi
+X-Received: by 2002:a05:690e:158f:10b0:65e:14b6:b1c3 with SMTP id
+ 956f58d0204a3-65ec965c9f8mr17896814d50.16.1779899491716; Wed, 27 May 2026
+ 09:31:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260527133917.207150-1-tzimmermann@suse.de>
+In-Reply-To: <20260527133917.207150-1-tzimmermann@suse.de>
+From: Julian Orth <ju.orth@gmail.com>
+Date: Wed, 27 May 2026 18:31:22 +0200
+X-Gm-Features: AVHnY4LiGKeklklqrya8rDzPqcZQqpOuXv9liIo0k9FzrL8MbPYNMzvo_QUUG_E
+Message-ID: <CAHijbEVZBRTK7yhZy8gaZwb19JMzUD_nA2S1LOKX2NrK19RBsQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank
+ interrupts
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com, 
+ pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 28 May 2026 07:29:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,93 +110,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rafal Ostrowski <rafal.ostrowski@amd.com>
+On Wed, May 27, 2026 at 3:39=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
+> refresh. This is meaningless with vblank timers, which run unrelated
+> to the hardware's vblank.
+>
+> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
+> for CRTCs with simulated vblank events in all such drivers. The vblank
+> timers of these devices still rate-limit the number of page-flip events
+> to match the display refresh.
+>
+> According to maintainers, user-space compositors do not require the ioctl
+> for rate-limitting display output. Weston, Kwin and Mutter rely on comple=
+tion
+> events. Mutter optionally uses the WAIT_VBLANK ioctl only to optimize the
+> time from input to output.
+>
+> When testing with mutter and weston, the page-flip rate appears correct
+> with the patch set applied.
 
-[ Upstream commit 8bf0cb97edb697dba2515e6452c17c5245111448 ]
+To avoid this being a regression, you need to test that this change
+does not regress input latency.
 
-On PREEMPT_RT kernels, vfree() can sleep because spin_lock is
-converted to rt_mutex. dml2_destroy() calls vfree() while inside
-an FPU-guarded region (preempt_count=2), which is illegal.
+As discussed on IRC, compositors use vblank data to predict the time
+of the next flip event. For each device that you are touching here,
+there are two possibilities:
 
-dml2_wrapper_fpu.c is compiled with CC_FLAGS_FPU which defines
-_LINUX_FPU_COMPILATION_UNIT, making DC_RUN_WITH_PREEMPTION_ENABLED()
-resolve to a no-op. This prevents the macro from cycling FPU
-context off/on around vfree().
+- The vblank data is related to the flip timing, i.e. flip events and
+vblank events are sent at almost the same time. In this case removing
+these apis removes the path for compositors to predict the time of the
+next flip event. Input latency will therefore regress after idle
+periods when the compositor no longer has the time of the last vblank.
 
-Move dml2_destroy() to dml2_wrapper.c (non-FPU compilation unit)
-where DC_RUN_WITH_PREEMPTION_ENABLED() properly cycles DC_FP_END/
-DC_FP_START around vfree(). This pairs it with dml2_allocate_memory()
-which already lives there.
+- The vblank data has nothing to do with the time of the next flip
+event. In this case this series could in fact improve latency because
+it removes the incorrect data from the compositor.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Xi Ruoyao <xry111@xry111.site>
----
- .../drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c   |  4 ++--
- drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c  | 11 +++++++++++
- .../gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c  | 10 ----------
- 3 files changed, 13 insertions(+), 12 deletions(-)
+Whether the times of the flip events correspond to hardware timings is
+not relevant. Everything in wayland compositors is scheduled against
+flip event timings and they are also forwarded to clients for their
+frame scheduling. If the flip timings are wrong/out of sync with the
+hardware, then removing the vblank apis does not improve this
+situation.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
-index 7398f8b69adb..8bed59e976d1 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
-@@ -58,8 +58,8 @@ bool dml21_create(const struct dc *in_dc, struct dml2_context **dml_ctx, const s
- 
- void dml21_destroy(struct dml2_context *dml2)
- {
--	vfree(dml2->v21.dml_init.dml2_instance);
--	vfree(dml2->v21.mode_programming.programming);
-+	DC_RUN_WITH_PREEMPTION_ENABLED(vfree(dml2->v21.dml_init.dml2_instance));
-+	DC_RUN_WITH_PREEMPTION_ENABLED(vfree(dml2->v21.mode_programming.programming));
- }
- 
- void dml21_copy(struct dml2_context *dst_dml_ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
-index f4d45875d0be..6e3611a05c83 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
-@@ -107,6 +107,17 @@ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options
- 	return true;
- }
- 
-+void dml2_destroy(struct dml2_context *dml2)
-+{
-+	if (!dml2)
-+		return;
-+
-+	if (dml2->architecture == dml2_architecture_21)
-+		dml21_destroy(dml2);
-+
-+	DC_RUN_WITH_PREEMPTION_ENABLED(vfree(dml2));
-+}
-+
- void dml2_reinit(const struct dc *in_dc,
- 				 const struct dml2_configuration_options *config,
- 				 struct dml2_context **dml2)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
-index 66624cfc27b1..a14e3004a7b7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper_fpu.c
-@@ -548,16 +548,6 @@ void dml2_apply_debug_options(const struct dc *dc, struct dml2_context *dml2)
- 	}
- }
- 
--void dml2_destroy(struct dml2_context *dml2)
--{
--	if (!dml2)
--		return;
--
--	if (dml2->architecture == dml2_architecture_21)
--		dml21_destroy(dml2);
--	vfree(dml2);
--}
--
- void dml2_extract_dram_and_fclk_change_support(struct dml2_context *dml2,
- 	unsigned int *fclk_change_support, unsigned int *dram_clk_change_support)
- {
--- 
-2.54.0
-
+>
+> This change has been discussed at length on IRC recently.
+>
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-08&show_html=3Dtrue
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-12&show_html=3Dtrue
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-13&show_html=3Dtrue
+> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&highl=
+ight_names=3D&date=3D2026-05-15&show_html=3Dtrue
+>
+> v2:
+> - add filter to CRTC_GET_SEQUENCE and CRTC_QUEUE_SEQUENCE ioctls (Michel)
+> - clarify Mutter's behavior in cover letter (Michel)
+>
+> Thomas Zimmermann (9):
+>   drm/vblank: Add drmm_vblank_init() to indicate managed cleanup
+>   drm/vblank: Add DRM_VBLANK_FLAG_SIMULATED
+>   drm/amdgpu: vkms: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/cirrus: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/hypervdrm: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/qxl: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/virtgpu: Set DRM_VBLANK_FLAG_SIMULATED
+>   drm/vkms: Set DRM_VBLANK_FLAG_SIMULATED
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c    |  3 ++-
+>  drivers/gpu/drm/drm_vblank.c                | 26 +++++++++++++++------
+>  drivers/gpu/drm/drm_vblank_helper.c         |  2 +-
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c |  2 +-
+>  drivers/gpu/drm/qxl/qxl_display.c           |  2 +-
+>  drivers/gpu/drm/tiny/bochs.c                |  2 +-
+>  drivers/gpu/drm/tiny/cirrus-qemu.c          |  2 +-
+>  drivers/gpu/drm/virtio/virtgpu_display.c    |  2 +-
+>  drivers/gpu/drm/vkms/vkms_drv.c             |  4 ++--
+>  include/drm/drm_crtc.h                      |  2 +-
+>  include/drm/drm_device.h                    |  2 +-
+>  include/drm/drm_vblank.h                    | 15 +++++++++++-
+>  12 files changed, 45 insertions(+), 19 deletions(-)
+>
+>
+> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
+> --
+> 2.54.0
+>
