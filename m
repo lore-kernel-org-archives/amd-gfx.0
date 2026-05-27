@@ -4,123 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39DA6CD5BC9
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 10:44:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 145CCCD4F54
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 11:18:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDBCB10E785;
-	Wed, 27 May 2026 10:44:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800DD10E23F;
+	Wed, 27 May 2026 11:18:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PwgnAeXz";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="V2H7NBZ9";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010013.outbound.protection.outlook.com
- [52.101.193.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3B6D10E782
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 10:44:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uGrH2lCGv1EBWQcbQ3aGp8cTGatIJcHMVD92fwy0dAI/HDiGd2lO7zQFnuO+S4AZaIHkVV2EX5a09JmirQRAcPH49gT6H5j9aFTqYc5iAYI+MztQM0VZGZU8q/WQJSZvEF9iC1L3X8B11jdxP4v5/CydkkFsknNKzvqDARkakejsQNk2vxxytSi7ocmEAAqoBR3yCVDsQeuzZvbZ3Cpr5Qs97LQfbPeNqmpDn603yxOOlk1MHweCGdD5OHjEOp+39ffednanZycz+qZOh9pPbkLk1Tv16zBnSYnTGx8bOgQDkQ7XbA1az6xyE2ME5jRzDSEOO7ewAl+EaymkZOyMOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tmN9RE5qFdgYQdwwA6Srr2kxT0Ads8U1lYWodMxeZiY=;
- b=XJc3W2Pb1P64U/CTT0Qw0ODID9YQb8XI1QjrMrW/MfBWnvpSVsHpU9T+E7WY80RIh8kzpCFxVL8XMloHm5ySPkW761JsYIqlu7pgnxYiDjoUStd7ZSKJdQqlEIJgu3xA20ygCmCCBgkctyvOzaFmL3mbvZYksKtydnUKyI1I9LVb/DttQQ4rjKeNkw1ysDS1+EjnbQ+Y0+RAbbjNcTSi/1OoJG8Ky7KI3AkpfMyZNlBu97UO5BlTxEHuzAVq1c6pcvUFPzsflh/SH5wMuqkfIY45tdfitPbtzt+5MhZVWEMdDSAUgLkEAJB8Si4iDN6PVGB+novG4tTBcuNXL0lyIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tmN9RE5qFdgYQdwwA6Srr2kxT0Ads8U1lYWodMxeZiY=;
- b=PwgnAeXzVDyyriYgP3dc14NpTY8sNWGdsXExkHmdK3EZK/1teZmJToJR3RUp/OLQ8mGqh9HXnfSAvvl6TqEJo9CMruBREFySJ9z3PTidzdbc46eGEr7etKDEY96YJu63UFLVD/VqXlp4sv9PlXo9ondP8KctwgcDsayV0NgroUA=
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12)
- by IA0PR12MB8695.namprd12.prod.outlook.com (2603:10b6:208:485::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Wed, 27 May
- 2026 10:44:02 +0000
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d]) by BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d%2]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 10:44:02 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Li, Candice" <Candice.Li@amd.com>
-Subject: RE: [PATCH 1/2] drm/amd/ras: Return RAS TA injection result to
- userspace
-Thread-Topic: [PATCH 1/2] drm/amd/ras: Return RAS TA injection result to
- userspace
-Thread-Index: AQHc7NXHbE7nhHQLtUGIkzABDG2c3rYhsDew
-Date: Wed, 27 May 2026 10:44:02 +0000
-Message-ID: <BN9PR12MB5306F83C3CCB8F410A273F1EFC082@BN9PR12MB5306.namprd12.prod.outlook.com>
-References: <20260526060602.69082-1-Stanley.Yang@amd.com>
-In-Reply-To: <20260526060602.69082-1-Stanley.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-27T10:38:23.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5306:EE_|IA0PR12MB8695:EE_
-x-ms-office365-filtering-correlation-id: d025d888-0874-4612-0756-08debbdcddd8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|56012099006|6133799003|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info: jhvl+RAEO1kBUW+zgznbwf3C0jRC2OsKuEb2xhrKxZoScPCMi3961aOQsbp2EhGoaXo4dCb0tjynOMWYLh6VDcdi6mT9XBlZPbgZ2817DvwBdnsUe5QPSpWMgGaxRzHSYpVF1vRqfzZDLaZ8WWUZBLE3EmH6XKrAx81/QnjcG3hfuUwUNwxltxeQIKA0BQHCyThBpsCJcccP37lyK1nF7//US+SKbNy8Z6/aCMyARm8g5waJ6D0txIT4Xj4keKORUL6l+xXfHnrxfIw9sipKugIsQtdsg4Buf/lS7Ghbnw8RFry7RMQ8w8Ht2riPXUEfyiX+RA9W4NgbJp33RQg/yqh81ERaVGonlH/0kFg/LnKCmfXApUwzpYurdAWvYb23FrVEhC1YtOxVwwJJkyJimcjTsIykQWTX5RUpq9ZaQoYUDIWWCN1JmLxAgbGz97VJMm5p/Qv/vKxJXuXARuZmHzKza5yS1GC1i/Fs4qyeHX8K947AisZkhzM0dzQlDQiCEuwd06p/pRlTPCDAALVzMDgibFeq4BCqkxOPLZTrUyplCl6SV2Fy5LTggaufeTE0dkzOwAwc+xMOMWnzqvXxdO4KfPDfIZylrgolMXwv7+jOGEmmmO/kHiLeTHj6NG5yw+P6dBftTESXNto5DFjVfviU/XIX1Mvi5qbmD6nc+xkIXXgdc51lheYSpteVXb38twfshA/42k4cVnzB3vn4chDeln2cQvhys6/ZN+TsbAvjVDGtQIW5a4LzzMy7DSg0
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5306.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?byu3LMuy8+sYkWvp7t7ThIMbeEECLxeCHpQiHZZ9yXiIM3b/q0e1RrjPEcSL?=
- =?us-ascii?Q?aI+UCMn57oKICgvq8oxhzcvPaeNYlj9bU0UWCidtpd+tyGA+OvbZSGjBE6s8?=
- =?us-ascii?Q?zJNB9kUe9au+afSlCrvAEpD0chuqvALET2Ed5bBkSnhvY5iupMnGgmgW6i2c?=
- =?us-ascii?Q?nbdnjTMnSo3Gr0QmiONQ9PCuH+xdUCTu/vmeEKHckm4BVf26919G24W6XIbR?=
- =?us-ascii?Q?vYhpWhMIOco/5/ZbVcspraUcXPyIYP/0ov1QcKNpa53EmPDtrDn7qUupgS4b?=
- =?us-ascii?Q?TG5B7gA5YH3+n7dUkUzYeHjbKjdthSpgB7AkvpTSC4EDo6TSWIXxbPpWqJlu?=
- =?us-ascii?Q?t8+bH6stPKfc58OxKoK3vDfZSBwg5x+7n3Y4OGmL+XuJeLAhSMvE5l3fPEWQ?=
- =?us-ascii?Q?k8TLDSmhDu0vEF76b1l2C1sOI7q2vvO02B+crhtmS2phV7IqXpI7CxdzU8O9?=
- =?us-ascii?Q?rOlSC9bGrAr6q7o3z0PNTuvxVNGtrETRoQaQC44lTKk2HQva3Brq6Qv0ef+4?=
- =?us-ascii?Q?v9mUxKKUIwY2t5C2F3EyPDhAx0IfERL6eFeB49iJsgvPYDQypa/o3wj9zpxX?=
- =?us-ascii?Q?3GEhbFq2GzG9cxbrjdiHRCq8Xp6/iCSm0ZKGpdR3xBzAhgpy/tMlEuwIRrbP?=
- =?us-ascii?Q?BtQ85hHu3nXUxqo0a/YIOjwynhwoXKjIoQCVjcWHfBkXgw042Km5u+1+im4h?=
- =?us-ascii?Q?P9ejVaNmT/PMQIajNQjNJNz58Q7B6wHZ41r0dSdyulzddLmWtJFQTGQNmdPF?=
- =?us-ascii?Q?aDAlq2HE7CyZXhuVK1MG6Yys9ZuCZ732BkXRHunGGdIQBSuNfHPrQl1iorY2?=
- =?us-ascii?Q?Umx6gSMIrCoV9FH3p86rUteRvAvRZDnJ4iuNeoR4v5rF0X8ihJFLzeKhzf8n?=
- =?us-ascii?Q?Ryqo/NTEjxi9dqD6DnrpyJwi0Kp6JN5Qmbb1MmwS98HhntXwJ4UcsC2ShkAC?=
- =?us-ascii?Q?h/qEEvhDAk4Kd/dmozipoukIfLbXIl6Rtgol+5lnKUgNVpwNsSfdRq7+6Lxi?=
- =?us-ascii?Q?pJ+bKxrxWTEoxtwg/SIH4u0GiL/HgwLOfHzkL7VzgbyK+009lYL5t42Uh0Ns?=
- =?us-ascii?Q?HXUGP1xWO4MA13Dtlunu+HP5vYNlYSt+Te3EridtCcVjz2kAOOMJDbJKm8Fd?=
- =?us-ascii?Q?9BDRMhuiIvE5f9Ybj16YiCueQzzd4booy8wY1W4DBJJY1RzehIOso4YBNXQS?=
- =?us-ascii?Q?BtrRUOYjsOC+r6ahIDdXzGi8FtX34Md3QcgPlO/tnv9rI22j7bRiOl61Ny/l?=
- =?us-ascii?Q?dwGOF/2gi8VxZZOC3O8SCxYmE/KAzhwVO8NkBeLaADkALpdNTj1d/RYSD/KW?=
- =?us-ascii?Q?/2HiBMzmVhv8fG2ifuRQnAbuREUwWvsvY0DYv+51vUwW5rdGElnbwZrxdhrg?=
- =?us-ascii?Q?U160JsoVKlJhAw1U1Ko0xbV6vEk6l7TtxMY3YXG3t5PeRHbIvr4sQGm4g3Xc?=
- =?us-ascii?Q?sxzdCnU4VcUuMlBLJ5V9yactv6h+JddQuHBJAmqgudP73r818iSR1Rz8CJ5r?=
- =?us-ascii?Q?81sxII+UrPl5Nuh83j6mWh+2SaUJxf4lmKnSBZuh+4TIYwMHp09KtjMSGyDl?=
- =?us-ascii?Q?IcxH577bVlX2/+3NHm3TrBIOaVzATzII0+a79pSZM0OF//zkrPvGwAiX689W?=
- =?us-ascii?Q?2iPl0b1cr2GDk2d6elpA/n98qZSEaAHGLk+OjQ/TeAaErAsA7ixxpUnIpsyZ?=
- =?us-ascii?Q?H4VsUzqGUX9FGFm45rvQwIju5V05G5WfWiw0917zmQddl94c?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B16010E23F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 11:18:05 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64QL4UTn3594574; Wed, 27 May 2026 11:18:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=5xjafkb7sBA6QP4WoEtqLrMnANaz2n5CMt/noem0p
+ TA=; b=V2H7NBZ9WAyJxhU2olI92eQxdrVvX+6BfMR0qqBQVn01ha66xTo66fzJc
+ C0lWRaJ/imPSQ94HLmYhbXUh0jXeUYG4NjCUiHA/Zij2/1N9llYW5LncHkGn9jXe
+ efNxdkmhTsESchYoqND0yddNeVPudwWijVwsm37BkndtkVtnkEMT0qUavIn5rh86
+ 7Rsxq5AjW4ZuUYscfNyG09Jyu/7RX2h2cinB0Z2FvhOAx/6uUlAl1YVGpdHIBTYt
+ /q97aoKoI7MyuMc2DGObddX2bNRspSXz1E0mnaIDY8EE3G590P5XwI5uPN93rb0I
+ +m4r7kGvNY+kkBygV+PEirxDzIALg==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eb4s2gxuy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 May 2026 11:18:02 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 64RB969a005099;
+ Wed, 27 May 2026 11:18:01 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4edjrb2q3y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 May 2026 11:18:01 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 64RBHvqP30212586
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 27 May 2026 11:17:57 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A4D6820043;
+ Wed, 27 May 2026 11:17:57 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BFCF420040;
+ Wed, 27 May 2026 11:17:53 +0000 (GMT)
+Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
+ [9.39.20.122]) by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 27 May 2026 11:17:53 +0000 (GMT)
+From: Donet Tom <donettom@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com,
+ timur.kristof@gmail.com
+Subject: [PATCH v2] drm/amdgpu: Fix incorrect VRAM GART mappings on non-4K
+ page size systems
+Date: Wed, 27 May 2026 16:47:50 +0530
+Message-ID: <20260527111750.1084088-1-donettom@linux.ibm.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5306.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d025d888-0874-4612-0756-08debbdcddd8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2026 10:44:02.1977 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dimT7J1jfbDyFTSWpD234Fp3Fp9y+xEJ3Y3Lq6W5cT7D7cHwvTr65ClKnC1Xrz5pLxSirHJfmC/Nqq7Qi2HGQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8695
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: oGRCi6Bpda83vHsoUjzFZBky6Gpl6sAf
+X-Authority-Analysis: v=2.4 cv=Sq2gLvO0 c=1 sm=1 tr=0 ts=6a16d2eb cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=n88roBbitPJnb_ZC6A4A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEwOCBTYWx0ZWRfX1klgxZy0tspy
+ n5a0W0fN86c+xARHIk7wk60oE87LlxbQvCCo7S4z1LOaVz/bo/Kh9E/ZwHp0qJXU3sTSggEWRlc
+ e5ovJZUoxBJheBEB9nUXohfhi7LWSiuoEzBeZqlVjXtWmjsB7+EfViHhkFsvfSi4TjXug8U+t59
+ xAjWHpsxAnpPhmWLiStX1vBrBODpDKTvA8hTsl6SbZKe/EsPUpM9+/uH8j2vS2LvAc3XG0Js/F0
+ uOTY57tbhtbRtKNNHXK1N+FWeKagm3fzhZi0cWcvC31H9K+5bwY/lP6ykHoHOXI8jxjTcsthcPK
+ L2CSy/OloW5skLYbG+2GFCm6WJ9udVcsWAYurkagxYcNzEG0I8eXG2TslRwMQK0w+0ns+CG+xeh
+ gVNnKa1a3YgbC5Dg4e7kCbHmoXDcSYU5zAIlaMy52ixx7H4Z/073I55oSgLlTHvubVvIwK9lBHk
+ 03nScFJ0T6v2lOLX+ng==
+X-Proofpoint-ORIG-GUID: eSHmWSAwDIs4vlRVTC_qqhN-l7Z_DllO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270108
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,128 +110,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+When mapping VRAM pages into the GART page table,
+amdgpu_gart_map_vram_range() assumes that the system page size is the
+same as the GPU page size.
 
-The __check_ras_ta_cmd_resp function should have a return statement added a=
-t the end.
+On systems with non-4K page sizes, multiple GPU pages can exist within
+a single CPU page. As a result, the mappings are created incorrectly
+because fewer page table entries are programmed than required.
 
-Fixed that the series is:
+Fix this by programming the mappings correctly for non-4K page size
+systems.
 
-Reviewed-by: YiPeng Chai <YiPeng.Chai@amd.com>
-
-
-Best Regards,
-Thomas
------Original Message-----
-From: Yang, Stanley <Stanley.Yang@amd.com>
-Sent: Tuesday, May 26, 2026 2:06 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Chai, Thomas <YiPeng.Chai@amd.com>; Li, Candice <Candice.Li@amd.com>; Yang=
-, Stanley <Stanley.Yang@amd.com>
-Subject: [PATCH 1/2] drm/amd/ras: Return RAS TA injection result to userspa=
-ce
-
-Return RAS TA injection result to userspace that avoid app continue to load=
- work once injection failed.
-
-Changed from V1:
-        refactor function __check_ras_ta_cmd_resp return
-        ras ta corresponding error.
-        return res instead of RAS_CMD__SUCCESS in function
-        amdgpu_ras_submit_cmd.
-
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+Fixes: 237d623ae659 ("drm/amdgpu/gart: Add helper to bind VRAM pages (v2)")
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  |  2 +-
- drivers/gpu/drm/amd/ras/rascore/ras_psp.c     | 21 ++++++++++---------
- 2 files changed, 12 insertions(+), 11 deletions(-)
+v1 -> v2
+- Addressed Felix's comment by updating the definition of
+  amdgpu_gart_map_vram_range() to support non-4K page sizes.
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c b/drivers/gpu=
-/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-index c22e53e84207..ff7f9af980d5 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-@@ -288,5 +288,5 @@ int amdgpu_ras_submit_cmd(struct ras_core_context *ras_=
-core, struct ras_cmd_ctx
-                return RAS_CMD__SUCCESS_EXEED_BUFFER;
-        }
+v1 - https://lore.kernel.org/all/20260522112838.1311531-1-donettom@linux.ibm.com/
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
--       return RAS_CMD__SUCCESS;
-+       return res;
- }
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/am=
-d/ras/rascore/ras_psp.c
-index 5d556e2a7000..358f602b167d 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
-@@ -317,36 +317,37 @@ static int send_psp_cmd(struct ras_core_context *ras_=
-core,
-        return ret;
- }
-
--static void __check_ras_ta_cmd_resp(struct ras_core_context *ras_core,
-+static int __check_ras_ta_cmd_resp(struct ras_core_context *ras_core,
-                        struct ras_ta_cmd *ras_cmd)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index b6f849d51c2e..66a15ee13b57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -394,7 +394,8 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
+ 				uint64_t start_page, uint64_t num_pages,
+ 				uint64_t flags, void *dst)
  {
--
-        if (ras_cmd->ras_out_message.flags.err_inject_switch_disable_flag) =
-{
-                RAS_DEV_WARN(ras_core->dev, "ECC switch disabled\n");
-                ras_cmd->ras_status =3D RAS_TA_STATUS__ERROR_RAS_NOT_AVAILA=
-BLE;
--       } else if (ras_cmd->ras_out_message.flags.reg_access_failure_flag)
-+       } else if (ras_cmd->ras_out_message.flags.reg_access_failure_flag) =
-{
-                RAS_DEV_WARN(ras_core->dev, "RAS internal register access b=
-locked\n");
-+               ras_cmd->ras_status =3D RAS_TA_STATUS__TEE_ERROR_ACCESS_DEN=
-IED;
-+       }
-
-        switch (ras_cmd->ras_status) {
-+       case RAS_TA_STATUS__SUCCESS:
-+               return 0;
-        case RAS_TA_STATUS__ERROR_UNSUPPORTED_IP:
-                RAS_DEV_WARN(ras_core->dev,
-                         "RAS WARNING: cmd failed due to unsupported ip\n")=
-;
--               break;
-+               return -EINVAL;
-        case RAS_TA_STATUS__ERROR_UNSUPPORTED_ERROR_INJ:
-                RAS_DEV_WARN(ras_core->dev,
-                         "RAS WARNING: cmd failed due to unsupported error =
-injection\n");
--               break;
--       case RAS_TA_STATUS__SUCCESS:
--               break;
-+               return -EINVAL;
-        case RAS_TA_STATUS__TEE_ERROR_ACCESS_DENIED:
-                if (ras_cmd->cmd_id =3D=3D RAS_TA_CMD_ID__TRIGGER_ERROR)
-                        RAS_DEV_WARN(ras_core->dev,
-                                 "RAS WARNING: Inject error to critical reg=
-ion is not allowed\n");
--               break;
-+               return -EACCES;
-        default:
-                RAS_DEV_WARN(ras_core->dev,
-                         "RAS WARNING: ras status =3D 0x%X\n", ras_cmd->ras=
-_status);
--               break;
-+               return -EINVAL;
-        }
- }
-
-@@ -417,7 +418,7 @@ static int send_ras_ta_runtime_cmd(struct ras_core_cont=
-ext *ras_core,
-        if (!ras_cmd->ras_status && out && out_size)
-                memcpy(out, &ras_cmd->ras_out_message, out_size);
-
--       __check_ras_ta_cmd_resp(ras_core, ras_cmd);
-+       ret =3D __check_ras_ta_cmd_resp(ras_core, ras_cmd);
-
- unlock:
-        mutex_unlock(&ta_ctx->ta_mutex);
---
-2.43.0
+-	u32 i, idx;
++	u32 i, j, t = 0, idx;
++	u64 page_base;
+ 
+ 	/* The SYSTEM flag indicates the pages aren't in VRAM. */
+ 	WARN_ON_ONCE(flags & AMDGPU_PTE_SYSTEM);
+@@ -402,9 +403,12 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
+ 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return;
+ 
+-	for (i = 0; i < num_pages; ++i) {
+-		amdgpu_gmc_set_pte_pde(adev, dst,
+-			start_page + i, pa + AMDGPU_GPU_PAGE_SIZE * i, flags);
++	page_base = pa;
++	for (i = 0; i < num_pages; i++) {
++		for (j = 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++) {
++			amdgpu_gmc_set_pte_pde(adev, dst, start_page + t, page_base, flags);
++			page_base += AMDGPU_GPU_PAGE_SIZE;
++		}
+ 	}
+ 
+ 	drm_dev_exit(idx);
+-- 
+2.52.0
 
