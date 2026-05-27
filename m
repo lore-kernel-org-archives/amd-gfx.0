@@ -4,98 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 145CCCD4F54
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 11:18:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 731CCCD6E44
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 11:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800DD10E23F;
-	Wed, 27 May 2026 11:18:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348E310E786;
+	Wed, 27 May 2026 11:29:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="V2H7NBZ9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eVU0TMZ0";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B16010E23F
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 11:18:05 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64QL4UTn3594574; Wed, 27 May 2026 11:18:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=pp1; bh=5xjafkb7sBA6QP4WoEtqLrMnANaz2n5CMt/noem0p
- TA=; b=V2H7NBZ9WAyJxhU2olI92eQxdrVvX+6BfMR0qqBQVn01ha66xTo66fzJc
- C0lWRaJ/imPSQ94HLmYhbXUh0jXeUYG4NjCUiHA/Zij2/1N9llYW5LncHkGn9jXe
- efNxdkmhTsESchYoqND0yddNeVPudwWijVwsm37BkndtkVtnkEMT0qUavIn5rh86
- 7Rsxq5AjW4ZuUYscfNyG09Jyu/7RX2h2cinB0Z2FvhOAx/6uUlAl1YVGpdHIBTYt
- /q97aoKoI7MyuMc2DGObddX2bNRspSXz1E0mnaIDY8EE3G590P5XwI5uPN93rb0I
- +m4r7kGvNY+kkBygV+PEirxDzIALg==
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eb4s2gxuy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 May 2026 11:18:02 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 64RB969a005099;
- Wed, 27 May 2026 11:18:01 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4edjrb2q3y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 May 2026 11:18:01 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 64RBHvqP30212586
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 27 May 2026 11:17:57 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A4D6820043;
- Wed, 27 May 2026 11:17:57 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BFCF420040;
- Wed, 27 May 2026 11:17:53 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
- [9.39.20.122]) by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 27 May 2026 11:17:53 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com,
- timur.kristof@gmail.com
-Subject: [PATCH v2] drm/amdgpu: Fix incorrect VRAM GART mappings on non-4K
- page size systems
-Date: Wed, 27 May 2026 16:47:50 +0530
-Message-ID: <20260527111750.1084088-1-donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013025.outbound.protection.outlook.com
+ [40.107.201.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26E6C10E780;
+ Wed, 27 May 2026 11:29:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UVSwUlu8NBADmxzXSsuO7ijO8HtHTZprdg198BggWf3n6Z18qzUXejsOe392bMuz/GpttSlaVFuJ7t2UCTGyIkAxB/gZ5/QjlpYXw29fyOQPidfOxOdTdICo/pFZ97JoYpWkUqxK2VVNUGn354w5IgyMPcFq6xIW1dURdXlD6ir80ULG+lkq7ld53Rz9KVPrN9XVaM3+AChjrWhLM/LIGI94eX5QZc65CK13f3dJyzfTPQOAGjcWfYiJP7YHpU8PMh/+737YrgyErBKjkvtI7zu+u9uMFSne9JJIo8ad5/GWxLmsJaKL47vxzMzSRz5uS/hqlDiZVboxaqw4jjwAuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AwZMtEYMN3ux8JGxnLo9TL+BXzg21fNesIbVuR1zRzQ=;
+ b=InO93tELvCKbwT311jDYOddXFW8dG20tGXf8xUckZA2U6glby0wS7pTV3sVlRJzJ4j3w7eW325f9d3EGzrFrx2cbTxdUeCj20GjJKD4Ev/FU/y+hqo1RH0k7N3JwFp3t5CKUMroHsjSn+7AXPsbtSvCOf1C7zSUl72oCpPHS9n5gWryOXYwIBRibGS290nKqBc6mLONKMdMc7yf8xtZffpR13g4jjgV/CDUcgnf8foiuxL/g9aZcYsREPtGZJXdFCJJSu/DsXHhXRE6s2V8FsrjuFhLAOK+Svl2j7MtOorpGmvXi3BwQsHFESJtmZ6unluWPhJABNSg5UJwpuXOIhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AwZMtEYMN3ux8JGxnLo9TL+BXzg21fNesIbVuR1zRzQ=;
+ b=eVU0TMZ0gYDgKdlm78Hq7VK0Om1ms9/ifjgDxLIs2eHot5nAj49t461ZePIwdU+H1eJYCA3N1VxnJJBaRFiAs21MmCTctBkULBrXCLEWQADQlEJHp4sS6urIQU97Acb+e592N5XOoNNta9M9w43kWszllLdG2Db939FN/ijSZhM=
+Received: from BN0PR02CA0029.namprd02.prod.outlook.com (2603:10b6:408:e4::34)
+ by CY1PR12MB9627.namprd12.prod.outlook.com (2603:10b6:930:104::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Wed, 27 May
+ 2026 11:29:28 +0000
+Received: from BN3PEPF0000B06D.namprd21.prod.outlook.com
+ (2603:10b6:408:e4:cafe::6a) by BN0PR02CA0029.outlook.office365.com
+ (2603:10b6:408:e4::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Wed, 27
+ May 2026 11:29:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B06D.mail.protection.outlook.com (10.167.243.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.0 via Frontend Transport; Wed, 27 May 2026 11:29:28 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 27 May
+ 2026 06:29:25 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v4 2/2] gpu/tests/buddy: add clear-tracker allocation latency
+ benchmarks
+Date: Wed, 27 May 2026 16:59:02 +0530
+Message-ID: <20260527112902.3815-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260527112902.3815-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260527112902.3815-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: oGRCi6Bpda83vHsoUjzFZBky6Gpl6sAf
-X-Authority-Analysis: v=2.4 cv=Sq2gLvO0 c=1 sm=1 tr=0 ts=6a16d2eb cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=n88roBbitPJnb_ZC6A4A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEwOCBTYWx0ZWRfX1klgxZy0tspy
- n5a0W0fN86c+xARHIk7wk60oE87LlxbQvCCo7S4z1LOaVz/bo/Kh9E/ZwHp0qJXU3sTSggEWRlc
- e5ovJZUoxBJheBEB9nUXohfhi7LWSiuoEzBeZqlVjXtWmjsB7+EfViHhkFsvfSi4TjXug8U+t59
- xAjWHpsxAnpPhmWLiStX1vBrBODpDKTvA8hTsl6SbZKe/EsPUpM9+/uH8j2vS2LvAc3XG0Js/F0
- uOTY57tbhtbRtKNNHXK1N+FWeKagm3fzhZi0cWcvC31H9K+5bwY/lP6ykHoHOXI8jxjTcsthcPK
- L2CSy/OloW5skLYbG+2GFCm6WJ9udVcsWAYurkagxYcNzEG0I8eXG2TslRwMQK0w+0ns+CG+xeh
- gVNnKa1a3YgbC5Dg4e7kCbHmoXDcSYU5zAIlaMy52ixx7H4Z/073I55oSgLlTHvubVvIwK9lBHk
- 03nScFJ0T6v2lOLX+ng==
-X-Proofpoint-ORIG-GUID: eSHmWSAwDIs4vlRVTC_qqhN-l7Z_DllO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270108
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06D:EE_|CY1PR12MB9627:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2f39f3d-3d2e-4eaa-9441-08debbe336d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|22082099003|5023799004|11063799006|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: YyncYXWvLn+9RXaJMIio52l/AP3ExW40ud5gI0p70/x4Rq/waAnpM4JWUsPdHNaWdH8nD5vuRA+fkG3zvmZ+9TysL/QXX0mn2qfxh61JhvzSWKChxU5ABG6y7cU8t6r8PfUy6t777B0ZOcguGat8mZWktRMSJvXlOQLA5OqSGsG+Z2wVKCdB7KZlAK/35aCiNvqq3zAAI6Rlfjz1O+L6H8+iCeW3vNW3uI9J9D+gab3Fc+bvOonoCcYA49VFm++RnQ/ZYtR/XXARbqFIjL6e+aa/BOWJgcqv9D0vQLBJgU2Tvi0Xfe3MRoXBlm6imSm3nyJQruqpZaDlN+bgZnEg9OLOAAethWk6roXmCMft0X7h3bVHYhi5AEk/1rYp5TsF0kF/T9wkLBD3BnSc4+5dXP+1WqCRK4egqNyCDTccHjHHcNgRF2VGbTluokWYkZhzE7YKUrWt5JgT3mcG5O3SzoCIQX1cnRgb8rowp1+w/FP5fgr0+Z0INc+akjSzxl04zYoj6Oq8YZiHXO5P8FTmFS72ED8cBMI+pTZtVOGY+PslD/BWIgZkrPKPwxSJbPPRJjKMR5jJOTe4+LgxQShnGNn6z1QAP3lCXHZExuOF65Jwmb8lJzIHAldvCXhazSd/ikC+CI+NekB/iSIyG1PNhZO6IIYrRJKZf3k0l9MLnRmfkVXzo6Q8Blw7Y2l6uzyrqULNtLNR05Wfoy+kTQMOkESM+7AJYMq3kQiXRuTHpGw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(5023799004)(11063799006)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: W7bIZyCKE0EGuWw8brhWSQXYyM8Djga+1jRmXywSM0ZOuk6KvPgxMwoUJOU8+4xPCsbFTQUbLnRv2eYrwQ7kKejikIi26dbgFLmxtRdLP9l7xLaboF5W/YGFgBvklcW++S3BSpZN7cH3ymL4+6ruepNGUqqUmO0Z+1jgMRF0JktPvDawH8qt37Lrrr7nkDE2sgPdsWhYYO3U7q/XotvZ3yql0twv610aVYDqnQY7+MxFftnVYYSTQVdxd/BziqIzdJCkd6Y1FgqNGDvsDUAACOFwfEEC9fVHB3r4AX1xVlVtzPDT0FKsf6RCZdxrVghHfrleFtsFpXEsiL+6kn4C9AbPiHrPBWTd3FOLi5+8vlluV6BZoQrhCefokljHFCZk0WT+NpqVLLY4c/Ni1S/57sj74PuNc46Pde3gwQuUzgjs8JjVTM7mFxLhBurGsXJx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 11:29:28.4709 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2f39f3d-3d2e-4eaa-9441-08debbe336d5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,59 +114,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When mapping VRAM pages into the GART page table,
-amdgpu_gart_map_vram_range() assumes that the system page size is the
-same as the GPU page size.
+Add gpu_test_buddy_clear_tracker_performance test case that measures
+allocation latency before and after replacing the dual-tree /
+force_merge design with a decoupled clear tracker.
 
-On systems with non-4K page sizes, multiple GPU pages can exist within
-a single CPU page. As a result, the mappings are created incorrectly
-because fewer page table entries are programmed than required.
+Two scenarios are covered.
 
-Fix this by programming the mappings correctly for non-4K page size
-systems.
+1. Single contiguous allocation after fragmentation. A 4 GiB pool is
+   filled with 4 KiB blocks and freed in alternating clear/dirty order,
+   so every buddy pair ends up split across the two trees and cannot
+   coalesce at free() time. A single contiguous 4 GiB allocation then
+   takes ~61 ms on the dual-tree design (the alloc path has to invoke
+   __force_merge() to climb back up to max_order) and ~25 ms with the
+   clear tracker (the pool is already coalesced at free() time).
 
-Fixes: 237d623ae659 ("drm/amdgpu/gart: Add helper to bind VRAM pages (v2)")
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+2. Repeated allocations from a fragmented pool. Same 4 GiB pool, freed
+   with even-indexed blocks cleared and odd-indexed dirty so every
+   adjacent buddy pair sits on opposite sides of the merge barrier.
+   16384 x 256 KiB allocations then take ~80 ms on the dual-tree
+   design (each alloc pays the __force_merge() cost) and ~39 ms with
+   the clear tracker (free-time merging makes each alloc an O(log N)
+   split).
+
+v2:
+ - Removed unwanted sub tests
+
+v3:
+ - Pass GPU_BUDDY_CONTIGUOUS_ALLOCATION on the timed full-pool alloc so
+   the benchmark actually exercises the contiguous (force_merge) path
+   instead of silently falling back to smaller blocks. (sashiko)
+
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
-v1 -> v2
-- Addressed Felix's comment by updating the definition of
-  amdgpu_gart_map_vram_range() to support non-4K page sizes.
+ drivers/gpu/tests/gpu_buddy_test.c | 128 ++++++++++++++++++++++++++---
+ 1 file changed, 118 insertions(+), 10 deletions(-)
 
-v1 - https://lore.kernel.org/all/20260522112838.1311531-1-donettom@linux.ibm.com/
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index b6f849d51c2e..66a15ee13b57 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -394,7 +394,8 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
- 				uint64_t start_page, uint64_t num_pages,
- 				uint64_t flags, void *dst)
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index e0d24a4542b2..1669c628847f 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -38,7 +38,7 @@ static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+ 	};
+ 	struct list_head allocated[ARRAY_SIZE(alignments)];
+ 	unsigned int i, max_subtree_align = 0;
+-	int ret, tree, order;
++	int ret, order;
+ 	struct gpu_buddy mm;
+ 
+ 	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
+@@ -93,15 +93,13 @@ static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+ 		gpu_buddy_free_list(&mm, &allocated[i], 0);
+ 
+ 		for (order = 0; order <= mm.max_order; order++) {
+-			{
+-				node = mm.free_tree[order].rb_node;
+-				if (!node)
+-					continue;
+-
+-				block = container_of(node, struct gpu_buddy_block, rb);
+-				max_subtree_align = max(max_subtree_align,
+-							block->subtree_max_alignment);
+-			}
++			node = mm.free_tree[order].rb_node;
++			if (!node)
++				continue;
++
++			block = container_of(node, struct gpu_buddy_block, rb);
++			max_subtree_align = max(max_subtree_align,
++						block->subtree_max_alignment);
+ 		}
+ 
+ 		KUNIT_EXPECT_GE(test, max_subtree_align, ilog2(alignments[i]));
+@@ -285,6 +283,115 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
+ }
+ 
++static void gpu_test_buddy_clear_tracker_performance(struct kunit *test)
++{
++	struct gpu_buddy_block *block, *tmp;
++	unsigned long elapsed_ms;
++	LIST_HEAD(clear_blocks);
++	LIST_HEAD(dirty_blocks);
++	LIST_HEAD(allocated);
++	struct gpu_buddy mm;
++	LIST_HEAD(results);
++	ktime_t start, end;
++	int i, count;
++
++	/*
++	 * Contiguous alloc latency after alternating clear/dirty fragmentation
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, partition them into
++	 * alternating cleared and dirty sets, then free both.  In the old
++	 * dual-tree design every adjacent buddy pair has one cleared half and
++	 * one dirty half, so the pair sits on opposite sides of the clear/dirty
++	 * merge barrier and cannot be coalesced at free() time.  The pool
++	 * stays fully fragmented and the subsequent contiguous 4 GiB allocation
++	 * has to invoke __force_merge() to climb back up to max_order before
++	 * it can succeed.  With the clear-tracker design buddy pairs coalesce
++	 * unconditionally during free(), so the pool is already at max_order
++	 * before the timed alloc begins and __force_merge() is not needed.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4G, SZ_4K,
++						      &results,
++						      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
++			       "contiguous alloc failed\n");
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Contiguous alloc after fragmentation: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++
++	/*
++	 * Repeated alloc throughput from a maximally fragmented pool
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, free even-indexed blocks
++	 * as cleared and odd-indexed blocks as dirty.  The alternating pattern
++	 * ensures every adjacent buddy pair has one cleared half and one dirty
++	 * half, so each pair lands on opposite sides of the old merge barrier.
++	 * Each of the 16 384 x 256 KiB allocations in the timed loop has to
++	 * pay the __force_merge() cost on the alloc path under the old design.
++	 * With the clear-tracker design the pool collapses to one max_order
++	 * block during free(), so each alloc is a simple O(log N) split.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	for (i = 0; i < SZ_4G / SZ_256K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_256K, SZ_4K,
++							      &results, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_256K);
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Repeated 256 KiB allocs from fragmented pool: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++}
++
+ static void gpu_test_buddy_alloc_range_bias(struct kunit *test)
  {
--	u32 i, idx;
-+	u32 i, j, t = 0, idx;
-+	u64 page_base;
- 
- 	/* The SYSTEM flag indicates the pages aren't in VRAM. */
- 	WARN_ON_ONCE(flags & AMDGPU_PTE_SYSTEM);
-@@ -402,9 +403,12 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
- 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
- 		return;
- 
--	for (i = 0; i < num_pages; ++i) {
--		amdgpu_gmc_set_pte_pde(adev, dst,
--			start_page + i, pa + AMDGPU_GPU_PAGE_SIZE * i, flags);
-+	page_base = pa;
-+	for (i = 0; i < num_pages; i++) {
-+		for (j = 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++) {
-+			amdgpu_gmc_set_pte_pde(adev, dst, start_page + t, page_base, flags);
-+			page_base += AMDGPU_GPU_PAGE_SIZE;
-+		}
- 	}
- 
- 	drm_dev_exit(idx);
+ 	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
+@@ -1398,6 +1505,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
++	KUNIT_CASE_SLOW(gpu_test_buddy_clear_tracker_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
 -- 
-2.52.0
+2.34.1
 
