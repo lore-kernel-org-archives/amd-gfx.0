@@ -4,101 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903B1CD5BD5
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 12:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B4BCD5BD0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2026 12:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4C410E7A4;
-	Wed, 27 May 2026 12:20:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B69810E1FC;
+	Wed, 27 May 2026 12:56:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eBib4JhC";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="SuKHpDBa";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013010.outbound.protection.outlook.com
- [40.107.201.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 979A410E171
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 12:20:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dxg7xAHkrlwHOLR3HulEovqJ/knGxEPu8BJ95oOgglAhtmXJAHrOR7L4HWRYKTqz7nNhT+ZHi4UzyDhBWgw34cpVYn3wOqEnyc9bBSd9QjnHZdRiZjCQ5mrz+Hlzh8BeyajYq8IOP5RLWtJpsFeMBcsnhWGLc2bKc+C5ZfW8bQOG3SNTo1wJGZakbtUASJI4KZKya63L5VAMxJRvThMSiQkxZj+R40W83taqeFTEfKLvfnx4SWTnEJj9OjiHKBYiTrsTGedGbHeZNfxONWlyYpfVSX102a//rGhdv/wph5OjEDc+x5L5/kLLUtfaY7aXiEmfByYD+3H6MFs6WEDRrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DOIfbbItcrTFjDHcEURLShvjbqCT+QMqFrM4Hvo+jI=;
- b=ar8BeXXEU/ur851vZN0GLbvNz0Q+S4CS3cM6iDy6Zt08fvQIvNAytEl79pDd8hoPCybSAqiafDJfHMq7vuEqFwjaUIS5OO19yv0z+C68lNklYz4AnAYK4QIrerjZs3ucgJ5JYw3l1bxMsqRkGqblyFtlQuUKmX+5k3wzgkpdFWixCs24PZOdcUH3s1KYuXKCeDLNYQc56hvw3yY2VLlyQyhko8rgfnDz4agUONmuzWF/8h0ArIcpsWxZLUazULT34/dcmM1PpTF2rviQkWF0hqiBdCmicw2tEMutnBrCRlt8eHlAHpmAsGtu+wsgf8tyxHDtdooJ2sguC+JpfWKWBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DOIfbbItcrTFjDHcEURLShvjbqCT+QMqFrM4Hvo+jI=;
- b=eBib4JhCXZHgMUHPni9lO17BO1eHYeKHEG4TNX+OEZqCxGOFJ4JXxRs+msXkQRBw6josxdYC5TjLbUGEMzJTatlHD3yXuPGGdpqQS/ygk+P+gjCU+1jPS6tnmbQVQTNEclG4Ljqx9mwKrJ/Yac9tY1dFryA+akEYBfICS7f55Zk=
-Received: from SA1P222CA0163.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c3::22)
- by MN2PR12MB4485.namprd12.prod.outlook.com (2603:10b6:208:269::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
- 2026 12:20:14 +0000
-Received: from SN1PEPF00026367.namprd02.prod.outlook.com
- (2603:10b6:806:3c3:cafe::31) by SA1P222CA0163.outlook.office365.com
- (2603:10b6:806:3c3::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Wed, 27
- May 2026 12:20:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Wed, 27 May 2026 12:20:14 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 27 May
- 2026 07:20:12 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Pierre-eric.Pelloux-prayer@amd.com>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: add userq job and state transition trace
- events
-Date: Wed, 27 May 2026 20:20:01 +0800
-Message-ID: <20260527122001.69831-2-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260527122001.69831-1-Prike.Liang@amd.com>
-References: <20260527122001.69831-1-Prike.Liang@amd.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8548210E1FC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2026 12:56:45 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64QL4fiR3594720; Wed, 27 May 2026 12:56:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=3jk8ZD
+ PSd66fE+M+C8bYgYwEKurE+lKDjbgQvOpr2pY=; b=SuKHpDBaJshgcDUsjAHBWt
+ K8n616c0obEvaGlux++ZJMSV/v841Fm043Dw5OZG79eNKcWvqtuEsRDRfJQ/VBO8
+ cTj1OwVAvUo0Q8V3nvajISLqB8hWEfKocpr33YbOmky8elBGxi861+7IjC3o9+II
+ u65hpY++D4wOaSzBe3uqW54GXAOMNa9tOyHHjinaFifD89WB6Z7UnPA1PhlMVJJV
+ B1bvAj+pVGehQTlmZHCj0hJLzbMfP9ozY4qN9ubZNqHS+d37GeKWYw/dsUFGJxET
+ NdWd86PJ/kqvmizCgTXUPYE5yw9iC2HG17CmTGRKUFRICavfH5WRFxiVYw1z3yow
+ ==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eb4s2hb40-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 May 2026 12:56:43 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 64RCsri5017994;
+ Wed, 27 May 2026 12:56:42 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4edjrbu1pd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 May 2026 12:56:42 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
+ [10.39.53.232])
+ by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 64RCufOl28181226
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 27 May 2026 12:56:41 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AE82D58059;
+ Wed, 27 May 2026 12:56:41 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CE9AB58043;
+ Wed, 27 May 2026 12:56:36 +0000 (GMT)
+Received: from [9.39.20.122] (unknown [9.39.20.122])
+ by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 27 May 2026 12:56:36 +0000 (GMT)
+Message-ID: <883eba2d-bfae-4aa7-8010-c644ccda245a@linux.ibm.com>
+Date: Wed, 27 May 2026 18:26:34 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: Fix incorrect VRAM GART mappings on non-4K
+ page size systems
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, timur.kristof@gmail.com
+References: <20260527111750.1084088-1-donettom@linux.ibm.com>
+ <ee06fb47-75bc-4f22-ad0d-a7c1a2c8a413@amd.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <ee06fb47-75bc-4f22-ad0d-a7c1a2c8a413@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|MN2PR12MB4485:EE_
-X-MS-Office365-Filtering-Correlation-Id: 360ae786-f28d-44c4-3b20-08debbea4e7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|11063799006|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: XlhlbReLKdpCmhMbhFKLQ+Lb9bhJs0h4ddDic08JRJKeTCYFGFJ73Jit/7N866LcyDWtfy6e+lgokbVIVmwGZ0iHtDNorKlViWTP1lhzLy6PVQphQ6ND/mBC3ZZHWO/5gVDAZi4e3GOZJ7s1P25IE3gDGyatgFKDodyfDag+QYeSNrWPiEnXveUVpb0K45elJezfSpHjGNxSVTl/mSq+9PA/dilbLaeR/naAQMoe5FPSUCtitn2tKQ9NXz8Vco3ylzDmE7FCghZ61Wga93EtNGgY9ykJDuncmfanBqfuG0zZ1emjvnDeltzbAH6CO/cuGTBRd2qqkN7iG7aFt7m9rI8TUitv7JqouJKGXNkC6JtqtqOdgFZmp8XfTfiTvgutbaLy0AQovaAQpmMriPa13zbu/ZTxIJxOl/Hu8Oc+WpAskMeGrgPb0OnTKJqDdkG7mTy5aCJqfQtedMhi8BJRGdWcihGN6OQgpTijnJKQS80MeJZ3LPUCk5LYyOx/7DsyPuSAh8bwgr7CVvAaF25Cf1zcEyy0Z13DCjQm9uEwHiolmqPI2Kni46KqJvSzkigK3EDcY5rCy2yARew5m27fKr9pBYnIuJa60kYFmJsUqbcIovjxkOlveoR1mGvG/18xnB29VyXrPzACCIrXnLV6zHDvFAPXSIO0Wg1qj9GhhGMAyjzinuZOPZjDBOrSPevgQcRuTgFYP5A1Sa+skHWDuO7cmIDdWVxoPu9wl2fXuIE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: NhA4pzGYxkyIItKpJlnnO/arfDk0TphNzNa38e7pZZ1wbVkCZWHGnAAG5evjRQvkqrlusjn4pbd8fYmq2b1wdYnvc9J2kgJ+MHf2M5H1AEeF2uZJ93Rc4tqAEvMJNyzRBVJDrFyObB1rTApfF+WLRwSFZBNjYbX3GovUGk6joHAtt4gEyEcnQPdombyA2/b2gI5LfXMWI0ry4jzuJ5pINJp1gHze2vxPoV65xHiJ6CbOej6YEhmpFnseM1UxZ0efnOm0Ra1kB9Q5t5bENVShIdP4bLLqFfV98zkOdCuVoxdlsRN1zS+N21EUfxydoe8PjH3VrzrtbfN19ghcXPw2+ZKa+BRImgOVLADGVVvfrVPXMao54KBkbzicxayiyzPnnnbKUrIm+0BFeq3ZpLsI+1ZWGOfw2qWWwbNGoGG/xUta8XmM+Yaviq1hpJUm7PUp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 12:20:14.6046 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 360ae786-f28d-44c4-3b20-08debbea4e7c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026367.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4485
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: miEBFBPC2IwTCEH9IRKyLeHKN7N70MaS
+X-Authority-Analysis: v=2.4 cv=Sq2gLvO0 c=1 sm=1 tr=0 ts=6a16ea0b cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=zd2uoN0lAAAA:8 a=0NibiDd3CSERIWqxv5MA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEyMyBTYWx0ZWRfX2aAq9wOKiSAu
+ gXc+Us/Wm1nLILBqxWY4kuD6Hs8PyYaCAsaLngyd/3ZJ5faak06kU4I9MS2R/CPyZrN3yt4nCd6
+ JNMVfv3r/cgI4hyL4F4GaSXcklobFPbQz+3rERiGzUGHEcMJiaiWPA1gRCE5dEBDXF1pPOyTzpx
+ bIR0ALW0ZwbUKDKM3K+USUp/Qh8mAgPWMCdsQZWuDcdGTC8n7+dE0q1EqofFX7hujYk8rx1miZg
+ qP5/CM2/hlsnuu21rE80tuQ7RbkvWJ9CV324gQqynFM2D0bHr6W1lSu2rn/1I0s5+HmZ+HnCu1e
+ 5pMlB8rv7UQdeOzXhSMbjLrpZY31tF6B65eVA+ea3tZFiKQTRvwROXBadI76rI3Id2ehHrI2Xma
+ F6UhkKBKw9HQ/IBDmcZGPcbCqF0E3H5GBJmt7dSYt07u0F4CwDCjarRUsHeEnCsu9ZflAhpYhva
+ hjPoKPGy1Ym8VByu5sQ==
+X-Proofpoint-ORIG-GUID: fZ7yiC_SNsUh6TF1QRW9WSwKO3JF1eVX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270123
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,315 +116,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-Add ftrace events for tracking the userq fence emit, signal
-and queue state transition.
+On 5/27/26 5:24 PM, Christian König wrote:
+>
+> On 5/27/26 13:17, Donet Tom wrote:
+>> When mapping VRAM pages into the GART page table,
+>> amdgpu_gart_map_vram_range() assumes that the system page size is the
+>> same as the GPU page size.
+>>
+>> On systems with non-4K page sizes, multiple GPU pages can exist within
+>> a single CPU page. As a result, the mappings are created incorrectly
+>> because fewer page table entries are programmed than required.
+>>
+>> Fix this by programming the mappings correctly for non-4K page size
+>> systems.
+>>
+>> Fixes: 237d623ae659 ("drm/amdgpu/gart: Add helper to bind VRAM pages (v2)")
+>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+>> ---
+>> v1 -> v2
+>> - Addressed Felix's comment by updating the definition of
+>>    amdgpu_gart_map_vram_range() to support non-4K page sizes.
+>>
+>> v1 - https://lore.kernel.org/all/20260522112838.1311531-1-donettom@linux.ibm.com/
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 12 ++++++++----
+>>   1 file changed, 8 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> index b6f849d51c2e..66a15ee13b57 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+>> @@ -394,7 +394,8 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
+>>   				uint64_t start_page, uint64_t num_pages,
+>>   				uint64_t flags, void *dst)
+>>   {
+>> -	u32 i, idx;
+>> +	u32 i, j, t = 0, idx;
+>> +	u64 page_base;
+>>   
+>>   	/* The SYSTEM flag indicates the pages aren't in VRAM. */
+>>   	WARN_ON_ONCE(flags & AMDGPU_PTE_SYSTEM);
+>> @@ -402,9 +403,12 @@ void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
+>>   	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+>>   		return;
+>>   
+>> -	for (i = 0; i < num_pages; ++i) {
+>> -		amdgpu_gmc_set_pte_pde(adev, dst,
+>> -			start_page + i, pa + AMDGPU_GPU_PAGE_SIZE * i, flags);
+>> +	page_base = pa;
+>> +	for (i = 0; i < num_pages; i++) {
+> Please make that for (i = 0, t = 0; .... and remove the initialization of t during deceleration.
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     | 113 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  21 ++++
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  12 +-
- 3 files changed, 143 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index df98be22f1f5..ef6a1fb82ff3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -28,6 +28,8 @@
- #include <linux/types.h>
- #include <linux/tracepoint.h>
- 
-+#include "amdgpu_userq_fence.h"
-+
- #undef TRACE_SYSTEM
- #define TRACE_SYSTEM amdgpu
- #define TRACE_INCLUDE_FILE amdgpu_trace
-@@ -636,6 +638,117 @@ DEFINE_EVENT(amdgpu_userq_queue_result, amdgpu_userq_destroy_end,
- 	     TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
- 	     TP_ARGS(queue, result));
- 
-+TRACE_EVENT(amdgpu_userq_job_run,
-+	    TP_PROTO(struct device *device, struct amdgpu_usermode_queue *queue, struct amdgpu_userq_fence *fence),
-+	    TP_ARGS(device, queue, fence),
-+	    TP_STRUCT__entry(
-+			     __field(u64, fence_context)
-+			     __field(u64, fence_seqno)
-+			     __string(dev, dev_name(device))
-+			     __field(u64, doorbell_index)
-+			     __field(u64, client_id)
-+			     __field(u32, queue_type)
-+			     ),
-+	    TP_fast_assign(
-+			   __entry->fence_context = fence->base.context;
-+			   __entry->fence_seqno = fence->base.seqno;
-+			   __assign_str(dev);
-+			   __entry->doorbell_index = queue->doorbell_index;
-+			   __entry->client_id = queue->userq_mgr->file->client_id;
-+			   __entry->queue_type = queue->queue_type;
-+			   ),
-+	    TP_printk("dev=%s, client_id=%llu, type=%u, doorbell=%llu, fence=%llu:%llu",
-+		      __get_str(dev), __entry->client_id, __entry->queue_type, __entry->doorbell_index,
-+		      __entry->fence_context,
-+		      __entry->fence_seqno)
-+);
-+
-+TRACE_EVENT(amdgpu_userq_job_queue,
-+	    TP_PROTO(struct device *device,
-+		     struct amdgpu_usermode_queue *queue),
-+	    TP_ARGS(device, queue),
-+	    TP_STRUCT__entry(__field(u64, context)
-+			     __string(dev, dev_name(device))
-+			     __field(u64, doorbell_index)
-+			     __field(u64, client_id)
-+			     __field(u32, queue_type)
-+			     ),
-+	    TP_fast_assign(__assign_str(dev);
-+			   __entry->doorbell_index = queue->doorbell_index;
-+			   __entry->queue_type = queue->queue_type;
-+			   __entry->client_id = queue->userq_mgr->file->client_id;
-+			   __entry->context = queue->fence_drv->context;
-+			  ),
-+	    TP_printk("dev=%s, client_id=%llu, type=%u, doorbell=%llu, context=%llu",
-+		      __get_str(dev), __entry->client_id, __entry->queue_type,
-+		      __entry->doorbell_index, __entry->context)
-+);
-+
-+TRACE_EVENT(amdgpu_userq_job_add_dep,
-+	    TP_PROTO(struct device *device, struct amdgpu_usermode_queue *queue, struct amdgpu_userq_fence *dep),
-+	    TP_ARGS(device, queue, dep),
-+	    TP_STRUCT__entry(
-+			     __field(u64, context)
-+			     __field(u64, dep_context)
-+			     __field(u64, dep_seqno)
-+			     __string(dev, dev_name(device))
-+			     __field(u64, doorbell_index)
-+			     __field(u64, client_id)
-+			     __field(u32, queue_type)
-+			     ),
-+	    TP_fast_assign(
-+			   __assign_str(dev);
-+			   __entry->doorbell_index = queue->doorbell_index;
-+			   __entry->queue_type = queue->queue_type;
-+			   __entry->client_id = queue->userq_mgr->file->client_id;
-+			   __entry->context = queue->fence_drv->context;
-+			   __entry->dep_context = dep->base.context;
-+			   __entry->dep_seqno = dep->base.seqno;
-+			   ),
-+	    TP_printk("dev=%s, client_id=%llu, type=%u, doorbell=%llu, context=%llu depends on fence=%llu:%llu",
-+		      __get_str(dev), __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->context,
-+		      __entry->dep_context,
-+		      __entry->dep_seqno)
-+);
-+
-+TRACE_EVENT(amdgpu_userq_state_start,
-+	    TP_PROTO(struct amdgpu_usermode_queue *queue),
-+	    TP_ARGS(queue),
-+	    TP_STRUCT__entry(
-+			     __field(u64, doorbell_index)
-+			     __field(u64, client_id)
-+			     __field(u32, queue_type)
-+			     __field(u32, from)
-+			     ),
-+	    TP_fast_assign(
-+			   __entry->doorbell_index = queue->doorbell_index;
-+			   __entry->queue_type = queue->queue_type;
-+			   __entry->client_id = queue->userq_mgr->file->client_id;
-+			   __entry->from = queue->state;
-+			   ),
-+	    TP_printk("client_id=%llu, type=%u, doorbell=%llu, from=%d",
-+		      __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->from)
-+);
-+
-+TRACE_EVENT(amdgpu_userq_state_changed,
-+	    TP_PROTO(struct amdgpu_usermode_queue *queue, enum amdgpu_userq_state new_state),
-+	    TP_ARGS(queue, new_state),
-+	    TP_STRUCT__entry(
-+			     __field(u64, doorbell_index)
-+			     __field(u64, client_id)
-+			     __field(u32, queue_type)
-+			     __field(u32, to)
-+			     ),
-+	    TP_fast_assign(
-+			   __entry->doorbell_index = queue->doorbell_index;
-+			   __entry->queue_type = queue->queue_type;
-+			   __entry->client_id = queue->userq_mgr->file->client_id;
-+			   __entry->to = new_state;
-+			   ),
-+	    TP_printk("client_id=%llu, type=%u, doorbell=%llu, to=%d",
-+		      __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->to)
-+);
-+
- #undef AMDGPU_JOB_GET_TIMELINE_NAME
- #endif
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 9dc6cb579ac7..536e73c7e9ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -296,11 +296,15 @@ static int amdgpu_userq_preempt_helper(struct amdgpu_usermode_queue *queue)
- 	int r;
- 
- 	if (queue->state == AMDGPU_USERQ_STATE_MAPPED) {
-+		trace_amdgpu_userq_state_start(queue);
-+
- 		r = userq_funcs->preempt(queue);
- 		if (r) {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
- 			queue->state = AMDGPU_USERQ_STATE_HUNG;
- 			return r;
- 		} else {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_PREEMPTED);
- 			queue->state = AMDGPU_USERQ_STATE_PREEMPTED;
- 		}
- 	}
-@@ -316,10 +320,14 @@ static int amdgpu_userq_restore_helper(struct amdgpu_usermode_queue *queue)
- 	int r = 0;
- 
- 	if (queue->state == AMDGPU_USERQ_STATE_PREEMPTED) {
-+		trace_amdgpu_userq_state_start(queue);
-+
- 		r = userq_funcs->restore(queue);
- 		if (r) {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
- 			queue->state = AMDGPU_USERQ_STATE_HUNG;
- 		} else {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_MAPPED);
- 			queue->state = AMDGPU_USERQ_STATE_MAPPED;
- 		}
- 	}
-@@ -337,12 +345,15 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
- 
- 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
- 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
-+		trace_amdgpu_userq_state_start(queue);
- 
- 		r = userq_funcs->unmap(queue);
- 		if (r) {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
- 			queue->state = AMDGPU_USERQ_STATE_HUNG;
- 			return r;
- 		} else {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);
- 			queue->state = AMDGPU_USERQ_STATE_UNMAPPED;
- 		}
- 	}
-@@ -359,11 +370,15 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
- 	int r;
- 
- 	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
-+		trace_amdgpu_userq_state_start(queue);
-+
- 		r = userq_funcs->map(queue);
- 		if (r) {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
- 			queue->state = AMDGPU_USERQ_STATE_HUNG;
- 			return r;
- 		} else {
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_MAPPED);
- 			queue->state = AMDGPU_USERQ_STATE_MAPPED;
- 		}
- 	}
-@@ -894,6 +909,7 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
- 		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
- 			drm_file_err(uq_mgr->file,
- 				     "trying restore queue without va mapping\n");
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_INVALID_VA);
- 			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
- 			continue;
- 		}
-@@ -1389,12 +1405,14 @@ void amdgpu_userq_pre_reset(struct amdgpu_device *adev)
- 		if (queue->state != AMDGPU_USERQ_STATE_MAPPED)
- 			continue;
- 
-+		trace_amdgpu_userq_state_start(queue);
- 		userq_funcs = adev->userq_funcs[queue->queue_type];
- 		userq_funcs->unmap(queue);
- 		/* just mark all queues as hung at this point.
- 		 * if unmap succeeds, we could map again
- 		 * in amdgpu_userq_post_reset() if vram is not lost
- 		 */
-+		trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
- 		queue->state = AMDGPU_USERQ_STATE_HUNG;
- 		amdgpu_userq_fence_driver_force_completion(queue);
- 	}
-@@ -1413,6 +1431,8 @@ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost)
- 
- 	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
- 		if (queue->state == AMDGPU_USERQ_STATE_HUNG && !vram_lost) {
-+			trace_amdgpu_userq_state_start(queue);
-+
- 			userq_funcs = adev->userq_funcs[queue->queue_type];
- 			/* Re-map queue */
- 			r = userq_funcs->map(queue);
-@@ -1420,6 +1440,7 @@ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost)
- 				dev_err(adev->dev, "Failed to remap queue %ld\n", queue_id);
- 				continue;
- 			}
-+			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_MAPPED);
- 			queue->state = AMDGPU_USERQ_STATE_MAPPED;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 008330a0d852..6071e83acd9e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -30,7 +30,7 @@
- #include <drm/drm_syncobj.h>
- 
- #include "amdgpu.h"
--#include "amdgpu_userq_fence.h"
-+#include "amdgpu_trace.h"
- 
- #define AMDGPU_USERQ_MAX_HANDLES	(1U << 16)
- 
-@@ -528,6 +528,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- 	/* Create the new fence */
- 	amdgpu_userq_fence_init(queue, fence, wptr);
- 
-+	trace_amdgpu_userq_job_run(dev->dev, queue, fence);
-+
- 	mutex_unlock(&userq_mgr->userq_mutex);
- 
- 	/*
-@@ -701,7 +703,7 @@ amdgpu_userq_wait_add_fence(struct drm_amdgpu_userq_wait *wait_info,
- }
- 
- static int
--amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
-+amdgpu_userq_wait_return_fence_info(struct drm_device *dev, struct drm_file *filp,
- 				    struct drm_amdgpu_userq_wait *wait_info,
- 				    u32 *syncobj_handles, u32 *timeline_points,
- 				    u32 *timeline_handles,
-@@ -835,6 +837,8 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
- 		goto free_fences;
- 	}
- 
-+	trace_amdgpu_userq_job_queue(dev->dev, waitq);
-+
- 	for (i = 0, cnt = 0; i < num_fences; i++) {
- 		struct amdgpu_userq_fence_driver *fence_drv;
- 		struct amdgpu_userq_fence *userq_fence;
-@@ -869,6 +873,8 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
- 
- 		amdgpu_userq_fence_driver_get(fence_drv);
- 
-+		trace_amdgpu_userq_job_add_dep(dev->dev, waitq, userq_fence);
-+
- 		/* Store drm syncobj's gpu va address and value */
- 		fence_info[cnt].va = fence_drv->va;
- 		fence_info[cnt].value = fences[i]->seqno;
-@@ -968,7 +974,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 						   gobj_write,
- 						   gobj_read);
- 	} else {
--		r = amdgpu_userq_wait_return_fence_info(filp, wait_info,
-+		r = amdgpu_userq_wait_return_fence_info(dev, filp, wait_info,
- 							syncobj_handles,
- 							timeline_points,
- 							timeline_handles,
--- 
-2.34.1
+Thank you Christian
 
+I will send a v3 with this chanage
+
+-Donet
+
+>
+> I was about to complain that t isn't initialized because I missed the line above.
+>
+> Apart from that Reviewed-by: Christian König <christian.koenig@amd.com>.
+>
+> Regards,
+> Christian
+>
+>> +		for (j = 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++) {
+>> +			amdgpu_gmc_set_pte_pde(adev, dst, start_page + t, page_base, flags);
+>> +			page_base += AMDGPU_GPU_PAGE_SIZE;
+>> +		}
+>>   	}
+>>   
+>>   	drm_dev_exit(idx);
