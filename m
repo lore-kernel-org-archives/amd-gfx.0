@@ -4,90 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1884FCD6E44
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 13:35:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 011AFCD6E44
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 13:35:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A525D10F1AB;
-	Thu, 28 May 2026 13:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 986AB10F1AD;
+	Thu, 28 May 2026 13:35:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cOIGESMw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XrVEreua";
 	dkim-atps=neutral
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C58C10F1AB
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 13:35:33 +0000 (UTC)
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-1324053d600so443020c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 06:35:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779975333; cv=none;
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B9A10F1AD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 13:35:49 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-134a84f0aa7so432664c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 06:35:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779975348; cv=none;
  d=google.com; s=arc-20240605;
- b=U0Xd+Ay+3zVvd6zZONat7oROoB413W8wMj6+cwkxbsHiOkKjffY8+3RKOc4c+g9EcY
- uL+GIFqalbjLui8hLzbk+tsa05jRG1Qn97K17XpnKRHxxFIJYYqWFIOGbL+6XhlgcIAI
- oAvkWjW3n52TtEaiBfSXv71JMzAk2XA3iI2/B14+QqDWWpQbP0zSqjt0Ni2yf6r1ADde
- isejT4yUBLRGB8f7VWWSFl4sFd1G0+Ad2C5gNCCanqQ21ra/x6ztI2To+1xtLxms+mgB
- Da18J+CHvvUNCBky7FIJplaPoKF7baz1ByHeWnQObYXuYMDEM53lARG54oy5fqEAUGOe
- uLbQ==
+ b=VsB8qkwaFbbQTgKUoYM9B5QDMITiYq/iJj/kAJZ/RhodstUrNM3gO1I3qJgg5+Iwih
+ 1il/DFNM8ferZlShESp84TiPbDhhCLn7aKuWT6UOop1Qe8+YPrjcatQbemU6BcmNtLtq
+ Gg6arJ5oBh3+YfUygHh1zVOcfjUJD6WXP8aCnA9uVlmzIEFgLORB6MtMLVBJx4Tkcv5X
+ aivgP7beQzdwyWF2v+hRd6+QdhRBd39w5nA3zLZ1OR72lZnUvjEEtZEl2/T2fOdawyll
+ gFDWhzCEoxzyKA5EPlScheOaqDy7nowe6F9BJt/jhOgM9/iFzTsJb0iTBNXCxwdE9Xu6
+ 7aLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=bQNxhe7U68idcLUFXiGskD61FP62ssl7PT69MfruFI0=;
- fh=Q2wUn3tQk4lf8adQxYOyMGXt8UiUFTlU3EGNPSNB8UI=;
- b=CvqP3BSaXYDY73g+UqkTZQ/5OjSaclipjoplxa/RkAOff/QNRjXZ/kNHimoyKz+yiT
- /+tEPJZ9OCL9QvLAHsSdIAm+Zvcr/G4Xizgiqp2rVdgO07qqW12A3U39FCh2dNsqeQId
- XWHaSlc7NIcf8n5XaMLMbBJhPRPMvA8UXB1P0V8fXPeS8UxVv5Oy6HZ/NX971vqKIrNu
- A+3+3eXofYYtSwo4ifLbwbrcyCXYYczm/sRL7A0eVXjtuOIOhoWH8qL83QWrzkI7HRqv
- +NVWEf3RuvM4ezDKbL97Ef+lAMoRmKvlaedSr5nXihl6/Z/Zj3FEObK0xwh24oQApDqP
- b1AA==; darn=lists.freedesktop.org
+ bh=P9OHROUjP+TT5784xM2MeRifQ1mx5BiCV/WoHPuhqgQ=;
+ fh=zcF1SMSzpgsRdOFpBhsXE6ElqEJjKwHw9I6eFiyBtI4=;
+ b=cGK1ItwOcpehi40q6IiNesPuY8/DmC9Y+aM0kOdnP8pmcHWvKKO04LsLUiM/rfTI1F
+ /cxSbJ7/zc8wikhN+AoZch9HC4K9gc7YISHpJlPJgGWNRFohOyYLyZVrhQLwPLNbNREI
+ 6XOUXUJZrJxpdluCzsjaiMhKVDawNgjoYNQZ5NUt4YCxP3Ho/lwNoRxQ8A1/msq0ufdu
+ Xh4wPpxtCZc03EbhfDVseoFxlR9NYG6EUbZkwezjX2H1X61LESbs2k0sMKYyY0/WacmT
+ ufwr3w0v/qpmhZaoaNViRuS8oUTV0tGJRwj8306W5CRcBv6erdoIfPbkqanHtzBV0iDY
+ eH0Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779975333; x=1780580133; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779975348; x=1780580148; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bQNxhe7U68idcLUFXiGskD61FP62ssl7PT69MfruFI0=;
- b=cOIGESMwXmRfUueISZGV7QudDKj+p614nwZ1VsLOJkRsd6hAWHlbIaVIfNqcoPSbD7
- SQJUSXKBdWicC5+zlzGT4tgAC7C4AZFGmjQgShozPsjyIeGbG6oCT7mSPeeZrEGggJ2K
- EC8WuptxORv4xNqam9OEpTSiqKjHxP7JIhvdR6oeXLM7tszwZftvhVr4TQMmWbVh0Ase
- LMzqhl23WGRzzV33jBDkkQbEl5Jb0TXvYWz8rvy3ChHBSXdsmI9i9u0GkZx0FXnaUxEh
- s7wkm7phyKX8fmfb4Vuek5yGxlSqu+3B0sYV1kO1n96+J3KCEjU5WFWKtVmhySP5MaOA
- EZJA==
+ bh=P9OHROUjP+TT5784xM2MeRifQ1mx5BiCV/WoHPuhqgQ=;
+ b=XrVEreuaJpPaNLUhRMFCKsMyXv8NrkHQ1jwUAMxmHJ7A3ZUDVHot8YaxuiiSmjn8yH
+ 6Udf6ucVjhAD0oxLtYNbLmXgeuRH9gH+juMq1ry6KJ9P0jTM8nkXvqM79wlMQZ5pRtXb
+ VqM9UrlU5jSSwtUHb10pQebrGW+DY/lAoWayO2VnKEwOGiCHWZ4IusYpr09rUIW9qj9y
+ eHss9F9MtOlRUG1rH6gfEvdDEGRQdLwKdmhSooNgH/MVbycN5PXSx8AmMd6WOYEFc2xo
+ ObPAulf1gEWu1vU8n8kQfdSB4c8kOgODic7P/YJ3PFLJ6qEStHIqxzliDQynYUWCwo1u
+ Ulsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779975333; x=1780580133;
+ d=1e100.net; s=20251104; t=1779975348; x=1780580148;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=bQNxhe7U68idcLUFXiGskD61FP62ssl7PT69MfruFI0=;
- b=K+qMaXSMrmCh1hUjvRjVovuOeo+IiSlondYNPC8WU7yXoVGTILFiuVspI6VJ7DhRBw
- jEMQwgU0EDC5W3NrCzk5s6AYdtan5+y4Qql+03UXdZc1XVfzudu0MSQ2EK+pN9pEvYfR
- qllC4qPUBf88RDmQ5VC8+o81Ex1WydQTWKVdrRUk8THSMj1irlEdT1C0vw4KKmlwoQyM
- DwLL6vJ+4dbMPGlOOwQ67fdbIGQ3hPIF9thXR1ht8qvP7gQ1XkjNBfj7+wJxGVdAWWSE
- UeQDMVThsV0YgBe9c8IRry/iDFQaJVSef8PjOqeEalA42yCBugV86UYySksx0p+vbTBD
- SOiA==
+ bh=P9OHROUjP+TT5784xM2MeRifQ1mx5BiCV/WoHPuhqgQ=;
+ b=bslztiXZoreAyHTOdMgNVYUKqz2ZNdRPw+T+IV2zPKcsnHLnyD87bkLcSWjsXk1SUy
+ s6iQIDhxTwN8EU2rdL8BCYq29zh4rlaeNjnVAqigs4G/JSDFXLzDtan+uX7c2eScG6gh
+ 3nVHxFhlyFXkWtCq9wDIUQgoaryHmZOffchklE7zLZElUoavhCMOfGB/C5wUy0ieL7n3
+ gRNPD9v7jHjabpbmD+PotNti1qexPD7w+KF/4PXeDLppTdcRIfwpwOltAaCKx0bxXgUP
+ ytBlBzwVyTcaon/iqOLpm7poHJnKgdpG0lt8zAu5a/TqI88YsaTYI/V9nG5tR8UsDXL6
+ ZzMw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8RlYHEnkFoE5MmHFPTdVRseoj69g610gI9k6Fh93WSJdoq1ggdHLJ22PBiT77KzdiHY7U3PC9O@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyeO94DDC3T3QqW4MAfYiJmcW8e2D/zd9KxGjwJGY9DO9fNMGmc
- hTQe8JELg41XolkrtHRDK3yb5cJNt/y0aMcmPUcpl4R04zDJdXpYTOXtsV4i8DCJh64JjJI1vVN
- ILdw7OrXZ4G7JlMu9fMGwRUhtIOA2lHI=
-X-Gm-Gg: Acq92OHaelRDnMdkFvG5i5C6rbzHoPa7AQAWS+FFvX0A931wsQtXsJTXTky3Q6iXcHj
- 8TbGi1IlULJlh2vNZoSBan8jhT4pqpa0pn11L1bltqsnjQQlQgLKDGhreGI/VBkW6jZ0HtHLdWn
- rhlvhT0VgSv+Nkr+8Fqa6e1KPc1EB7ECyargrJACL5VnP9T+I43E82czuGa4+AQHhQVVRg3udt/
- 7aRd8JdqTpuPKuavvNRYAZZoDAMLvwABzEZeq613IqYn2ILN3ooPHZGhZ3waSML74ErZ6c+GHu5
- ddfxWGOmPvwhTFNUa5T2rHcAzr2OLoB1B3zyQCzGpWgBsrBcTfmcVWbxqEq+YgedHEdg2mLHhyM
- i+PdQ
-X-Received: by 2002:a05:701b:4285:10b0:12c:897a:5219 with SMTP id
- a92af1059eb24-1365fd80cd6mr3443485c88.5.1779975332551; Thu, 28 May 2026
- 06:35:32 -0700 (PDT)
+ AFNElJ9PsywTWd6QN1QDguUPFZ2HZYFHn38izPR7V0+22Kt/nYa/4pvobi9BmVjK5FwQlvnDbfiBtpyR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxlg9Ns1d1HErahJAMuFh8SzVFaG1dqf2EjkGeaftnabtsAPJb8
+ ENHvFhJkK2FEfA+tIyfd3uF8ueHdYkSOrIpNRo22hpbz7n9t4X5GPeHgQAJIds9t9RfUf6596wj
+ mtAiD7NKLlxYk7XqIA1EpBI9d8sdTLxZ/dF4B
+X-Gm-Gg: Acq92OGmHBw7h2ND/bK9W4LaziudOGoYSm0sFDPZSCIFzfK4U/+gqE5aYmualcqpHUO
+ OnhxMV/1jeMZZpxbpTnt7GdU9rtkd0q+YjmlNArhdIm0eIQqBavYoeVW5kRGoF2YtTcAtRjX1W7
+ bnUQ0MU+7YSqYz+IxPaFe3h5RKJOAmrP0xhBpvYlzVTyxXkxhxqBhu7FSdm5voGNjnKs7MKrYpQ
+ Otur7DUnmoS+lPXIAlvIr8lH4RDVtqHDX2P+em6y+9tjuv8w/4HxBiUpOx7P4fSFn1chT1EzVWT
+ 4LH2/4RWDDAGe1LkiCj6ENPnpLtYOViif0fguW17JGpYTaU4Z8dLoRqxDQV7HCAKUmFjn1tlV86
+ DvzL4
+X-Received: by 2002:a05:7022:2202:b0:12c:888b:aa92 with SMTP id
+ a92af1059eb24-1377c94af3fmr718781c88.1.1779975348511; Thu, 28 May 2026
+ 06:35:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260528064206.12358-1-Pratik.Vishwakarma@amd.com>
- <20260528064206.12358-5-Pratik.Vishwakarma@amd.com>
-In-Reply-To: <20260528064206.12358-5-Pratik.Vishwakarma@amd.com>
+ <20260528064206.12358-8-Pratik.Vishwakarma@amd.com>
+In-Reply-To: <20260528064206.12358-8-Pratik.Vishwakarma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 28 May 2026 09:35:20 -0400
-X-Gm-Features: AVHnY4KJzSU51WzJ31KTk0-57LLYOuQHDJrFdzXiwMJhKSdr3X8m0Zhyo9SibE4
-Message-ID: <CADnq5_M8jyUQc0vR4opsfDrfWhdf3vBVc9tu7RDNP7UM1EcE7w@mail.gmail.com>
-Subject: Re: [PATCH 5/8] drm/amdgpu: add support for HDP IP version 6.4.0
+Date: Thu, 28 May 2026 09:35:37 -0400
+X-Gm-Features: AVHnY4KHNy_vPbQ5VZimelEqHipXYeeub0LOgfrpFkNe-Yi88m9n6XL58j87V2c
+Message-ID: <CADnq5_NtQnP7dgt5ds85W_Tz-vWjXBSecEcfYWrRS+YrxGyjhg@mail.gmail.com>
+Subject: Re: [PATCH 8/8] drm/admgpu: Add support for ATHUB 3.4.2
 To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,33 +105,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 2:49=E2=80=AFAM Pratik Vishwakarma
+On Thu, May 28, 2026 at 3:19=E2=80=AFAM Pratik Vishwakarma
 <Pratik.Vishwakarma@amd.com> wrote:
 >
-> This initializes HDP IP version 6.4.0.
+> From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.c=
+om>
 >
-> Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
+> Add ATHUB 3_4_2
+>
+> Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpa=
+nde@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/amdgpu/athub_v3_0.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 968cac5bcd5b..1af18c820d4f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -3242,6 +3242,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_de=
+> diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v3_0.c b/drivers/gpu/drm/am=
+d/amdgpu/athub_v3_0.c
+> index d1bba9c64e16..b42d9876e0a1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/athub_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/athub_v3_0.c
+> @@ -43,6 +43,7 @@ static uint32_t athub_v3_0_get_cg_cntl(struct amdgpu_de=
 vice *adev)
->         case IP_VERSION(6, 0, 1):
->         case IP_VERSION(6, 1, 0):
->         case IP_VERSION(6, 1, 1):
-> +       case IP_VERSION(6, 4, 0):
->                 adev->hdp.funcs =3D &hdp_v6_0_funcs;
+>                 data =3D RREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_0_1=
+);
 >                 break;
->         case IP_VERSION(7, 0, 0):
+>         case IP_VERSION(3, 3, 0):
+> +       case IP_VERSION(3, 4, 2):
+>                 data =3D RREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_3_0=
+);
+>                 break;
+>         default:
+> @@ -59,6 +60,7 @@ static void athub_v3_0_set_cg_cntl(struct amdgpu_device=
+ *adev, uint32_t data)
+>                 WREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_0_1, data);
+>                 break;
+>         case IP_VERSION(3, 3, 0):
+> +       case IP_VERSION(3, 4, 2):
+>                 WREG32_SOC15(ATHUB, 0, regATHUB_MISC_CNTL_V3_3_0, data);
+>                 break;
+>         default:
+> @@ -112,6 +114,7 @@ int athub_v3_0_set_clockgating(struct amdgpu_device *=
+adev,
+>         case IP_VERSION(3, 0, 1):
+>         case IP_VERSION(3, 0, 2):
+>         case IP_VERSION(3, 3, 0):
+> +       case IP_VERSION(3, 4, 2):
+>                 athub_v3_0_update_medium_grain_clock_gating(adev,
+>                                 state =3D=3D AMD_CG_STATE_GATE);
+>                 athub_v3_0_update_medium_grain_light_sleep(adev,
 > --
 > 2.43.0
 >
