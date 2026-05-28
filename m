@@ -4,87 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64DF7CD4F54
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 13:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7B24CD4F54
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 13:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E96AE10F1A0;
-	Thu, 28 May 2026 13:33:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1A810F1A1;
+	Thu, 28 May 2026 13:34:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ce76aolj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TzTeLODU";
 	dkim-atps=neutral
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0119110F1A0
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 13:33:17 +0000 (UTC)
-Received: by mail-dl1-f47.google.com with SMTP id
- a92af1059eb24-134a84f0aa7so432357c88.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 06:33:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779975197; cv=none;
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F35D810F1A1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 13:34:00 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-2f5ae07e2b5so1064481eec.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 06:34:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779975240; cv=none;
  d=google.com; s=arc-20240605;
- b=N2syPR0RTFxjTFxnCWu0JQOj4bzzdEihtXry3OQQAsZOqtCYX+Eni3V74XRShyq4QP
- f0s9PGSbDpurawAl5QRzxxkgcFOwK9eJKOEYIXsIv/6xpxiioSFRy31kex1dZdEajudo
- YatpuIs1FIgY5huVHIGCGzQ4UtttuFuhzsQ6j/bIrB+6O8uSnXBt7iOYaxhnoESesEgi
- Pm3bZ5cII2Hu89BBzJ8fDJ4vAmr5exhIzL5p+PYFwCV4+h7PNobTJGlRlYa8lrUgtlly
- uyR1Vcvt7VQeFyWXpFK5JI5ld3W+6d1PhThwJA7xe0CZpYY4w9ADirBexcDax2RISHIP
- Zm9w==
+ b=XMJBSW/GwegMZ0JV705I2YxLA1zV9VPqmsIFJP92Q98Ec+f0k57y5hAbLdtZYGjQdA
+ 5uvc2/qf8gHwlsqoNUdUi4ZTECw8zTEMnjNGEa/laqrWixSrdnqHad/d1ozeRWIy5ToD
+ ytiYzAv+vlk17pomoD2h26pqilwyq7UWQ82bpcpo0Kn7WnPxtWTbHfpsgBA9VlnWPjwS
+ VXCYjxQDsKv01mo2GxHRe7v+ecooOJJzOsrh9u/+sXYb8iJF/kG0RfOvTOtD/oO3f/bZ
+ h0d9wKYZHRmlnBDb+KM+jR31+9VMCetPI9/5cNfxjlgJV0qemZj/5VLpiNiNmKv7I+/M
+ AhiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Ydqx2uHxUxL7QoRnA3Tun/ZcI9nwiEZj7253SUCVLqQ=;
- fh=HWm2afAHSC8EWbIEVyZKFUECI5UubF+rmJwSUwteqGA=;
- b=ManKkQDYZhIqFAE06uI9PnTaRFtfONn8LqKLsbE7lOpygGMHVgJn1XWYxxOocYiPe8
- 4WBuhs1YCwnyPh0zELmGmXI4Pc7gZUT7GA98QZ83yWLBcentUtTYNVyiQ9+x73tl5CwZ
- y2b0PdirO2kQalSwxEXiANdX1Wd6FSIDEf3bBNkkI3xWVqxvPtaLRRiJuMzKFYRhFo7u
- kjtlpmU6NXsC5oPlYUbVkKLirIOGW165SKi6Gn8jFnKMSbfo3w2QbI0ocTHCNuKxM8Xq
- k1VozQzAnYP4TZpOeaz3SnJjJWO9GH/3QNbVVK5OSAjFqigE8OVObymdEDTuL2dtPycL
- ew+Q==; darn=lists.freedesktop.org
+ bh=6OYf3QnxkYH1sKoBofKMD6en8CMb8tbG+Gm/leMdwFI=;
+ fh=JhEcmjXq9HYu4HZw4rbX6bzs+kinZu2PaI8RTIjVGiQ=;
+ b=j5akT6oLr07Cs+av9Gpjo1jh3Oc308Ks90f9QV5lW6yNlo+fmkgQm8eRw4iFCXN+Wg
+ drfvIbBv1lzSPaic2Pl9sViMHjRV3G6NNjVZVCbhXUTYZJh/kIKVnYDmMyPf6CqBwcFa
+ tgX52mC1+/8amlgFw4qA8RokfriJ1AVQDuPLoVqncG87lkY34eBgMeI1igw99DU6naBh
+ /A2wV9it9nXde6KbJ/ODRhUWTrWMPG9t8PbjTOOEPbDTfCDiVvYlg85Bmhm0BsQUHQqt
+ JCl/fgXVYJ8OOpfcimIAMnmETULv/NijhLxGjwrWovBvlrC6ADb9qXn6iOq4cB+oLpiP
+ 3TKA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779975197; x=1780579997; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779975240; x=1780580040; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ydqx2uHxUxL7QoRnA3Tun/ZcI9nwiEZj7253SUCVLqQ=;
- b=Ce76aolj/zwPnvt1ShwIyA9aDlIaDL32kKtF2wC6GL+jN21Dzi1pge3z1SMPZIS0wh
- NVQw5F+qMM3mCypk+cMfF/h0BvNTWvLqmrtti569XAT3jRBJBZd7ykmKakiCutWm1K+v
- 8dcPT7Jt3o+CZq+XpqDOEj9ti9QSgeEkBhj6cvj1JbbuZPH0cdoRhsWvdZFVtRlEbbfT
- G2e4vi/iyEYqxT88lEsaEdwpCHh7tgVhfiUwsE/h0ucMvIBX3jdkcWncOdk8UY91uK2a
- 5hr8nlXBNWR7USQO8BQZAkG+SMOPiedocbn47AagSKSAqGEQ64inTWIJPX9eU3IuinAZ
- I2iQ==
+ bh=6OYf3QnxkYH1sKoBofKMD6en8CMb8tbG+Gm/leMdwFI=;
+ b=TzTeLODUHa2N77A4HOcUJrqamGx8pp/SpBpQgai4ww+117NNGj9GerjL0TeJ4SZtHK
+ 5dGLo/mGQRoX0avfzfUbgXDSDdVXAgg3r4ft7vg8KtwshUwTEpDZPAwnrKhsr26KGUul
+ 6qL+kHPNBhjHP4XbYXS9ShqHY0imONo6f0rpkOXzlMMAEsyCrSuIquUQz0rTZlYO52WN
+ UXD1NBaDicVG7CoGhp8vM7/Kp2IduXAve4BEoReXye73pQ3KzWFQcZ79tV2HYa4dQGd1
+ P+IQcFyp5Ghwi1+b/RRqsSb4g5ho4K21rLLDly0delZ6tDz02uVhsiLt2IC6nfSVELuo
+ qqtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779975197; x=1780579997;
+ d=1e100.net; s=20251104; t=1779975240; x=1780580040;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Ydqx2uHxUxL7QoRnA3Tun/ZcI9nwiEZj7253SUCVLqQ=;
- b=a97Bxk2Y9uEdmo/RTmqgdbv5lJiKnedoqX9v1rr3sAmGSnIfts6F9rjHcItUocPSiy
- Gkq0OsZ3QB1y9stoGXvEbxop+eaHNYzs7U6LMiYiYoEoCWKA5HeMNQST65xsJ2BBEHrf
- P7IrHm32yLIjGm2rRo+EB97En5yMoeBdG4A45ViqPccG7+Ocw/jpc3EBcu+RlhKrqK9W
- rQFPHyq9+I9am1hSywgJqSAv5qExVvPTICMPLsvqWNPkHGY3VdExFIbbPsX4woIo03pT
- l8BiQ9NdEjHScIGv64Vuok3xf4dJqIMRmtvJrjltTs0NRuR3MkR482+tomJTGVnUOFQj
- PJfw==
+ bh=6OYf3QnxkYH1sKoBofKMD6en8CMb8tbG+Gm/leMdwFI=;
+ b=gE1v0mhV1bC9acrLo2BZEe8CJgXMP3B6Eg1TviepafqxgHH9o2AcMPtGmDRjMtr3y7
+ 9zYXrYS1uR1XGGM5iAK2QICAKL4tmTGdVKSze9pSm8xnvFMDFfdHduD2irG8m2oI4DvP
+ mPNVcZWhxKzOS4JoQB8n79nYiIcM1+0wKjml6JboI3L6RlutY0fWl0Zff0EvRs2No6pV
+ d8aeoCbjEr7+X8UcLrZCL4SF2RJ87CaD/fI0KueDqi77wSq618vB6lRBkSKd+49F/Mbg
+ idd67V7O4v/FQmue1HPnLnaTEUIlGNxXGma/s7A+e0JPOQX1D2EmuadoZTZEeKYC0SzT
+ BAvQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+++p8pOQYOZ55yG7VNI8Ul/Fo4X5eY4mjE4JeRRS5iisd6TAVFDCbNxrrlkrpB6i4ccT7kcdB3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzujRbqBDTRRSqcJJOILFj3T20HS3ECNa1tORYA99i11irLUmY4
- 7pzv8AOyuwLStT7AknavuKIBduT9fSiP65GAGhem0JK+F/GS1C8n3kjdS23RmxSqjNPdp/USY3R
- vUDiSflYk3ugMj7imDiy5rpEFr/D8I5VPHg==
-X-Gm-Gg: Acq92OEQ/9e/BTISYufaqqZL6Q8joGlKe7et0qgruOk5mKhgAUyPHpCcSpqqAlzozwl
- VB3MUqTwCC6x8D81+giOPGtYAuHMT5K91Ftd14QJzJmbrlz+uJZpHi6eX7SeUP6iZQj3Lz+/CmN
- aPXCgHrmsTvfBrzbkJKYiycBoI6VB6vt/vJBM/W5QeB0uLm0NZRezD5kIMlP7YaBdock7wrid+V
- IF5q18NijqbTdi5qlmIL0fGhYxki8rGxHzJ3GaOsAjp+EJeZ0wvLA0ND6TTwNF03HqILuBXrVbz
- Xn5p/q95CeYmQU2x12GUT4YLlZ/4SvDWM/4vfnIxMbRysnYr3I4FlUME/vRkeueLUq8g5y+qQvv
- /xY5m
-X-Received: by 2002:a05:7022:61a0:b0:135:1b3a:bffb with SMTP id
- a92af1059eb24-1377c2d5f5cmr533618c88.0.1779975197002; Thu, 28 May 2026
- 06:33:17 -0700 (PDT)
+ AFNElJ+Bybw9uSEj2oJVhoQAcQ3h5fdC6AJMWmz52r5EKKideJDRC56EGsP4qddg9p5M+ArDEEFaVWxR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz71Bo5mabizIHookmQzvjV/M9BfNFct7r2YcQh5t1qjs4hSB4q
+ bIofMWaBdPbsxHToOji3Fz9mphlVB8jLE9uJ8cDq1JxlYoZJwajHX04uWNx5hoAPXieGDPY9S+y
+ sc9cm+J8fPETcyFnlsaLZtawXhx8oqcA=
+X-Gm-Gg: Acq92OHWAAOHAcRrx75aNP56ExEi9e9XnTcdJHPOFoqQSyYrSW++3vjdDTsOUJ6rB57
+ TYjAgRIAkDUBtlKjH+BeT3PYf4HjkaUeu5OLfM4moyRJ/OFju4pVYPr7MFxOmHfAKD7zHKgGaHs
+ QJ8DAavusGwrRJBhXzUlsr7uQOUvyyjwMkDzzdJSHfVV/DSLABJN2joeZiQQ9KKpvVzO9WtEXEL
+ 8V3zb/FxY25v/35VpmmlZIek+WG5mivt6ug5LGUnIOLHe8bNedvshU7TU0IfXFETUwBYRrEtRQp
+ jYB1hL90ZE00qXfF6FtPXxHbGNIujR74d6yLxserTt4PFuev5vEIPD2qwXrwHij6pmFFXwv049z
+ NNqqwUc7iwC4AlM8=
+X-Received: by 2002:a05:7300:1805:b0:2f3:3835:2005 with SMTP id
+ 5a478bee46e88-304d2ef2446mr653592eec.6.1779975240149; Thu, 28 May 2026
+ 06:34:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260528064206.12358-1-Pratik.Vishwakarma@amd.com>
-In-Reply-To: <20260528064206.12358-1-Pratik.Vishwakarma@amd.com>
+ <20260528064206.12358-2-Pratik.Vishwakarma@amd.com>
+In-Reply-To: <20260528064206.12358-2-Pratik.Vishwakarma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 28 May 2026 09:33:05 -0400
-X-Gm-Features: AVHnY4IdA_MYWrsglrpZQdVi49XX4c6jq5vk0wLeKbLGa6T7COqayk_LoSrt6xc
-Message-ID: <CADnq5_Mxb68t1CRMdUwzQcmjTcRmYbcdowDExgYBUd0FhgFLmA@mail.gmail.com>
-Subject: Re: [PATCH 1/8] drm/amdgpu: Add support for GC IP version 11.5.6
+Date: Thu, 28 May 2026 09:33:48 -0400
+X-Gm-Features: AVHnY4Lr5KI03N0GcvlKMwLRo1iufVrqYdr8ADw2JntDhfzC3zj98-ULT5r6Rig
+Message-ID: <CADnq5_Pgiqitj-+t50Forc0LtGnYtH=fAHnCDJHbhZpHLRsH_w@mail.gmail.com>
+Subject: Re: [PATCH 2/8] drm/amdgpu: add support for SDMA IP version 6.4.0
 To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -103,291 +105,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 2:49=E2=80=AFAM Pratik Vishwakarma
+On Thu, May 28, 2026 at 3:59=E2=80=AFAM Pratik Vishwakarma
 <Pratik.Vishwakarma@amd.com> wrote:
 >
-> Initialize GC IP 11_5_6
+> This initializes SDMA IP version 6.4.0.
 >
 > Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  6 ++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 12 +++++++++++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  2 ++
->  drivers/gpu/drm/amd/amdgpu/imu_v11_0.c        |  1 +
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  2 ++
->  drivers/gpu/drm/amd/amdgpu/soc21.c            |  5 +++++
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  1 +
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  5 +++++
->  9 files changed, 34 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 1 +
+>  3 files changed, 3 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
 drm/amd/amdgpu/amdgpu_discovery.c
-> index 8e3b6a4050e9..5364b0540613 100644
+> index 5364b0540613..e23eda0c4ea5 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -2097,6 +2097,7 @@ static int amdgpu_discovery_set_common_ip_blocks(st=
-ruct amdgpu_device *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 amdgpu_device_ip_block_add(adev, &soc21_common_ip_block);
+> @@ -2542,6 +2542,7 @@ static int amdgpu_discovery_set_sdma_ip_blocks(stru=
+ct amdgpu_device *adev)
+>         case IP_VERSION(6, 1, 2):
+>         case IP_VERSION(6, 1, 3):
+>         case IP_VERSION(6, 1, 4):
+> +       case IP_VERSION(6, 4, 0):
+>                 amdgpu_device_ip_block_add(adev, &sdma_v6_0_ip_block);
 >                 break;
->         case IP_VERSION(12, 0, 0):
-> @@ -2157,6 +2158,7 @@ static int amdgpu_discovery_set_gmc_ip_blocks(struc=
-t amdgpu_device *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 amdgpu_device_ip_block_add(adev, &gmc_v11_0_ip_block);
->                 break;
->         case IP_VERSION(12, 0, 0):
-> @@ -2479,6 +2481,7 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct=
- amdgpu_device *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 amdgpu_device_ip_block_add(adev, &gfx_v11_0_ip_block);
->                 break;
->         case IP_VERSION(12, 0, 0):
-> @@ -2690,6 +2693,7 @@ static int amdgpu_discovery_set_mes_ip_blocks(struc=
-t amdgpu_device *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 amdgpu_device_ip_block_add(adev, &mes_v11_0_ip_block);
->                 adev->enable_mes =3D true;
->                 adev->enable_mes_kiq =3D true;
-> @@ -3096,6 +3100,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_de=
-vice *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 adev->family =3D AMDGPU_FAMILY_GC_11_5_0;
->                 break;
->         case IP_VERSION(12, 0, 0):
-> @@ -3124,6 +3129,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_de=
-vice *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 adev->flags |=3D AMD_IS_APU;
->                 break;
->         default:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index 13bec8461cde..7bf4d1890152 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -976,6 +976,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 /* Don't enable it by default yet.
->                  */
->                 if (amdgpu_tmz < 1) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index fabdbbd0abb7..1941bfbcbfbf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -129,6 +129,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_4_pfp.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_4_me.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_4_mec.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_4_rlc.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_pfp.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_me.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_mec.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_rlc.bin");
+>         case IP_VERSION(7, 0, 0):
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v6_0.c
+> index bf09ac841a68..d894b7599c18 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -55,6 +55,7 @@ MODULE_FIRMWARE("amdgpu/sdma_6_1_1.bin");
+>  MODULE_FIRMWARE("amdgpu/sdma_6_1_2.bin");
+>  MODULE_FIRMWARE("amdgpu/sdma_6_1_3.bin");
+>  MODULE_FIRMWARE("amdgpu/sdma_6_1_4.bin");
+> +MODULE_FIRMWARE("amdgpu/sdma_6_4_0.bin");
 >
->  static const struct amdgpu_hwip_reg_entry gc_reg_list_11_0[] =3D {
->         SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS),
-> @@ -1123,6 +1127,7 @@ static int gfx_v11_0_gpu_early_init(struct amdgpu_d=
-evice *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 adev->gfx.config.max_hw_contexts =3D 8;
->                 adev->gfx.config.sc_prim_fifo_size_frontend =3D 0x20;
->                 adev->gfx.config.sc_prim_fifo_size_backend =3D 0x100;
-> @@ -1606,6 +1611,7 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block=
- *ip_block)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 adev->gfx.me.num_me =3D 1;
->                 adev->gfx.me.num_pipe_per_me =3D 1;
->                 adev->gfx.me.num_queue_per_pipe =3D 2;
-> @@ -3078,7 +3084,8 @@ static int gfx_v11_0_wait_for_rlc_autoload_complete=
-(struct amdgpu_device *adev)
->                     amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION=
-(11, 5, 1) ||
->                     amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION=
-(11, 5, 2) ||
->                     amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION=
-(11, 5, 3) ||
-> -                   amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION=
-(11, 5, 4))
-> +                   amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION=
-(11, 5, 4) ||
-> +                   amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION=
-(11, 5, 6))
->                         bootload_status =3D RREG32_SOC15(GC, 0,
->                                         regRLC_RLCS_BOOTLOAD_STATUS_gc_11=
-_0_1);
->                 else
-> @@ -5721,6 +5728,7 @@ static void gfx_v11_cntl_power_gating(struct amdgpu=
-_device *adev, bool enable)
->                 case IP_VERSION(11, 5, 2):
->                 case IP_VERSION(11, 5, 3):
->                 case IP_VERSION(11, 5, 4):
-> +               case IP_VERSION(11, 5, 6):
->                         WREG32_SOC15(GC, 0, regRLC_PG_DELAY_3, RLC_PG_DEL=
-AY_3_DEFAULT_GC_11_0_1);
->                         break;
->                 default:
-> @@ -5760,6 +5768,7 @@ static int gfx_v11_0_set_powergating_state(struct a=
-mdgpu_ip_block *ip_block,
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 if (!enable)
->                         amdgpu_gfx_off_ctrl(adev, false);
->
-> @@ -5795,6 +5804,7 @@ static int gfx_v11_0_set_clockgating_state(struct a=
-mdgpu_ip_block *ip_block,
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 gfx_v11_0_update_gfx_clock_gating(adev,
->                                 state =3D=3D  AMD_CG_STATE_GATE);
->                 break;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gmc_v11_0.c
-> index 16388e3caea3..9664b7b8f0db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -604,6 +604,7 @@ static void gmc_v11_0_set_gfxhub_funcs(struct amdgpu_=
-device *adev)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 adev->gfxhub.funcs =3D &gfxhub_v11_5_0_funcs;
->                 break;
->         default:
-> @@ -778,6 +779,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *=
-ip_block)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
->                 set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
->                 /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/imu_v11_0.c
-> index 46d25d55ebbe..f5927c3553ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> @@ -42,6 +42,7 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_1_imu.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_2_imu.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_3_imu.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_4_imu.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_imu.bin");
->
->  static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index a926a330700e..147ba2942690 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -58,6 +58,8 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_3_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_3_mes1.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_4_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_5_4_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes_2.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes1.bin");
->
->  static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block);
->  static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amd=
-gpu/soc21.c
-> index 93c002e511c7..963659deeaff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -833,6 +833,11 @@ static int soc21_common_early_init(struct amdgpu_ip_=
-block *ip_block)
->                         AMD_PG_SUPPORT_GFX_PG;
->                 adev->external_rev_id =3D adev->rev_id + 0x1;
->                 break;
-> +       case IP_VERSION(11, 5, 6):
-> +               adev->cg_flags =3D 0;
-> +               adev->pg_flags =3D 0;
-> +               adev->external_rev_id =3D adev->rev_id + 0xd0;
-> +               break;
->         default:
->                 /* FIXME: not supported yet */
->                 return -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_crat.c
-> index cf7b1b038d5f..af2ae144f508 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -1706,6 +1706,7 @@ int kfd_get_gpu_cache_info(struct kfd_node *kdev, s=
-truct kfd_gpu_cache_info **pc
->                 case IP_VERSION(11, 5, 2):
->                 case IP_VERSION(11, 5, 3):
->                 case IP_VERSION(11, 5, 4):
-> +               case IP_VERSION(11, 5, 6):
->                         /* Cacheline size not available in IP discovery f=
-or gc11.
->                          * kfd_fill_gpu_cache_info_from_gfx_config to har=
-d code it
->                          */
+>  #define SDMA1_REG_OFFSET 0x600
+>  #define SDMA0_HYP_DEC_REG_START 0x5880
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
 d/amdkfd/kfd_device.c
-> index 9e77c4a842ef..69facc5a544a 100644
+> index 69facc5a544a..57b40f4d035c 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -167,6 +167,7 @@ static void kfd_device_info_set_event_interrupt_class=
-(struct kfd_dev *kfd)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->         case IP_VERSION(11, 5, 4):
-> +       case IP_VERSION(11, 5, 6):
->                 kfd->device_info.event_interrupt_class =3D &event_interru=
-pt_class_v11;
->                 break;
->         case IP_VERSION(12, 0, 0):
-> @@ -448,6 +449,10 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *=
-adev, bool vf)
->                          gfx_target_version =3D 110504;
->                          f2g =3D &gfx_v11_kfd2kgd;
->                          break;
-> +               case IP_VERSION(11, 5, 6):
-> +                       gfx_target_version =3D 110504;
-> +                       f2g =3D &gfx_v11_kfd2kgd;
-> +                       break;
-
-This could be merged with the case above.  With that fixed:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
->                 case IP_VERSION(12, 0, 0):
->                         gfx_target_version =3D 120000;
->                         f2g =3D &gfx_v12_kfd2kgd;
+> @@ -106,6 +106,7 @@ static void kfd_device_info_set_sdma_info(struct kfd_=
+dev *kfd)
+>         case IP_VERSION(6, 1, 2):
+>         case IP_VERSION(6, 1, 3):
+>         case IP_VERSION(6, 1, 4):
+> +       case IP_VERSION(6, 4, 0):
+>         case IP_VERSION(7, 0, 0):
+>         case IP_VERSION(7, 0, 1):
+>         case IP_VERSION(7, 1, 0):
 > --
 > 2.43.0
 >
