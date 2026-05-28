@@ -4,88 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6101CCD6E44
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 13:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1884FCD6E44
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 13:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 017A010F1A9;
-	Thu, 28 May 2026 13:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A525D10F1AB;
+	Thu, 28 May 2026 13:35:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JP5M27mw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cOIGESMw";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04EF210F1A8
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 13:35:04 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1363f6f7535so217976c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 06:35:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779975303; cv=none;
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C58C10F1AB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 13:35:33 +0000 (UTC)
+Received: by mail-dl1-f49.google.com with SMTP id
+ a92af1059eb24-1324053d600so443020c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 06:35:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779975333; cv=none;
  d=google.com; s=arc-20240605;
- b=id3u9y25RmaSeG2u0Em4FVwoVnUGBeGbISSLDu4o//mw6gOh27ZxMtSp5fVdpXpIVy
- JZ43wvQyCQXftNexV/a6TII6nY6WuKvrEEa5+vLRO3aWpR9pBfMpjatkmV068T1KBttk
- iy8yE6fDhWqsHMeAqbVjiUTqoXyJZN8WQzM8aswkJa0XOt33h87a/w17nUWTCqgSBwOX
- 73atOcO/GoHUvnArN8rRJd1PnrJ/+SSsociggS39AKanzgAKwOq0cacAwVI5zX46Bmv/
- RXJJx8j0VTAKgLXNUyYG7yC2dnKC67jM5XRkvGPs8elCDIRWG3tOJEely0fFTa3uCTyg
- 4QQQ==
+ b=U0Xd+Ay+3zVvd6zZONat7oROoB413W8wMj6+cwkxbsHiOkKjffY8+3RKOc4c+g9EcY
+ uL+GIFqalbjLui8hLzbk+tsa05jRG1Qn97K17XpnKRHxxFIJYYqWFIOGbL+6XhlgcIAI
+ oAvkWjW3n52TtEaiBfSXv71JMzAk2XA3iI2/B14+QqDWWpQbP0zSqjt0Ni2yf6r1ADde
+ isejT4yUBLRGB8f7VWWSFl4sFd1G0+Ad2C5gNCCanqQ21ra/x6ztI2To+1xtLxms+mgB
+ Da18J+CHvvUNCBky7FIJplaPoKF7baz1ByHeWnQObYXuYMDEM53lARG54oy5fqEAUGOe
+ uLbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+gDquEiE2Pzn3EZqeMxEBphJxI3S81tdreou4Kx2Lg4=;
- fh=RTfDhAmlsQtLaCIa6XQrJDNPPwq88KWFxfnRLILnjpc=;
- b=XxP8ZSruzqkseWYeJY0VfQWbP+aiFg4yK/vpyhVspTSnPlrn5B5AS7jtD3G8dkrhvC
- 4gWkw5liuX4U2LDWcXwO7LlXWtX3beQBKO/xMIzR/HKY4hpGqOvono74FY0m/W29OkPA
- PpV0bEPfAMm3h1+tI18oQ96XjzNesnIO8Xp2CwfAMcvtUXAfZjyXIBXNYE7NqyYL0ExN
- C6JN+/nNwq4JWbdQVd461fvjqjC4LpqPFpI5UwbzwDwz5SisPY4mq+s7tiRqiADSVq9d
- i1Xh6hDo0hFe2M3lYsIpRkZxWLxvkYW0m+KPZiqSo3Rz4y/ZXWmyAIxITdRoMJf+9fJ5
- nc2Q==; darn=lists.freedesktop.org
+ bh=bQNxhe7U68idcLUFXiGskD61FP62ssl7PT69MfruFI0=;
+ fh=Q2wUn3tQk4lf8adQxYOyMGXt8UiUFTlU3EGNPSNB8UI=;
+ b=CvqP3BSaXYDY73g+UqkTZQ/5OjSaclipjoplxa/RkAOff/QNRjXZ/kNHimoyKz+yiT
+ /+tEPJZ9OCL9QvLAHsSdIAm+Zvcr/G4Xizgiqp2rVdgO07qqW12A3U39FCh2dNsqeQId
+ XWHaSlc7NIcf8n5XaMLMbBJhPRPMvA8UXB1P0V8fXPeS8UxVv5Oy6HZ/NX971vqKIrNu
+ A+3+3eXofYYtSwo4ifLbwbrcyCXYYczm/sRL7A0eVXjtuOIOhoWH8qL83QWrzkI7HRqv
+ +NVWEf3RuvM4ezDKbL97Ef+lAMoRmKvlaedSr5nXihl6/Z/Zj3FEObK0xwh24oQApDqP
+ b1AA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779975303; x=1780580103; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1779975333; x=1780580133; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+gDquEiE2Pzn3EZqeMxEBphJxI3S81tdreou4Kx2Lg4=;
- b=JP5M27mwH0/RykUoqIv4ynlEgxICtcO/nla2QostTHs6Dszf29IHzL4x42leteFxZN
- GEzNkucbDkPVZG2oIysZUSXW8PiUcuGhPyZnyhjSRvzreKjMCegFnu7Lila7ZXUkpDAS
- w9PcCuHWcadh+56Ij3pYPmO5fskEq/eVTYupznEsbmbSU/sq5LD2AShGRuLjbpA4Cafr
- OxlfY8CKerrM0xqlVPz9EKHTkWvfsAem0x0b406nxV10xE8uC50wYE3EljGsnBFLGS0M
- NIIxxtF9q3Kuv75+IV1QcFJ29EiPdzirvDyuLWjakxl98uo/soBHMRbFV3NBGVA24QkF
- TWRg==
+ bh=bQNxhe7U68idcLUFXiGskD61FP62ssl7PT69MfruFI0=;
+ b=cOIGESMwXmRfUueISZGV7QudDKj+p614nwZ1VsLOJkRsd6hAWHlbIaVIfNqcoPSbD7
+ SQJUSXKBdWicC5+zlzGT4tgAC7C4AZFGmjQgShozPsjyIeGbG6oCT7mSPeeZrEGggJ2K
+ EC8WuptxORv4xNqam9OEpTSiqKjHxP7JIhvdR6oeXLM7tszwZftvhVr4TQMmWbVh0Ase
+ LMzqhl23WGRzzV33jBDkkQbEl5Jb0TXvYWz8rvy3ChHBSXdsmI9i9u0GkZx0FXnaUxEh
+ s7wkm7phyKX8fmfb4Vuek5yGxlSqu+3B0sYV1kO1n96+J3KCEjU5WFWKtVmhySP5MaOA
+ EZJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779975303; x=1780580103;
+ d=1e100.net; s=20251104; t=1779975333; x=1780580133;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=+gDquEiE2Pzn3EZqeMxEBphJxI3S81tdreou4Kx2Lg4=;
- b=T/JucMYhemxWvnUScL7/xcyCcTDN/arhNTTwkXJRktT06a6bhyp/4Qmy0gUqQFaXoV
- u7EMC07fIQmbRkGy+fBvP828Jo2s2x6+bfpZN5bACdOiUzvEW9CWDlzTGGx8tARn8nVm
- ujyUJx1Y6513NfW6i65WF4amlndJhhuNS1J+/TPCy/pC9U2+T7U9mOSycxz/tCCqyoqt
- 2GFqMBTnDcMVwfHA5f/H749OBuQ4ATj30U0NCQ4tPp+W/KknRfPO0hPbU3ZOYYf16cbY
- rIcBFi2k822ChGUpmdqqYLGC4/VSHPk1mbfXMUI8g2GzVQm+g05aFB6qnaP+hgLVfzKc
- vipA==
+ bh=bQNxhe7U68idcLUFXiGskD61FP62ssl7PT69MfruFI0=;
+ b=K+qMaXSMrmCh1hUjvRjVovuOeo+IiSlondYNPC8WU7yXoVGTILFiuVspI6VJ7DhRBw
+ jEMQwgU0EDC5W3NrCzk5s6AYdtan5+y4Qql+03UXdZc1XVfzudu0MSQ2EK+pN9pEvYfR
+ qllC4qPUBf88RDmQ5VC8+o81Ex1WydQTWKVdrRUk8THSMj1irlEdT1C0vw4KKmlwoQyM
+ DwLL6vJ+4dbMPGlOOwQ67fdbIGQ3hPIF9thXR1ht8qvP7gQ1XkjNBfj7+wJxGVdAWWSE
+ UeQDMVThsV0YgBe9c8IRry/iDFQaJVSef8PjOqeEalA42yCBugV86UYySksx0p+vbTBD
+ SOiA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Cu7L29wZPfCnLxhmCfR0QHbZBkupg3vDd5AUsk/shP73cQzR22gD4+2P16jmMGM2fPoZdlHWJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAOcUrsP6eRYXPVLH4xRQp4HLsTp3lKyJeLrz1LrzGaDkXQWfh
- 9Bs0bxwwxi+YNEcz5sGSmWVebswFuuua6t30Ka6ChhO8mBYXtnKM8Ck5a0/obsGr9uoBeVJWT/Y
- z0c5hVwKKYOe7GfQHJm82WTx0n4ElF6G81AFP
-X-Gm-Gg: Acq92OGF1IrHZVRx3RDiaiaygeR9CvUDzMkZN9Gg8DXEfkH/EAyza/nq0y+8miEzm6e
- k2xRYFW1WefgCwI1cG7NAXlL1eypiQsjmEzfHil+1yLfzurGRT5AehpGF9BfBdbD/RY1av6GNUB
- A4B76Pn+aeWEofBFWke9aD8DOULlIsgm6z6wk3Q2AmvEIdEV/tyTCX28LUx/3q6c3b2HNNODvng
- LnG5A6vS2Ek3Jc+kQBmsY0kDx23nl+8Ecn9B2aS9j9Xc1HtiHvTDqt4JpqHiizqR2LDSAjeQUO2
- 4oHAad3MiCJR+4QY4GJFoYmTQCH4mErh2oDLQFkb7DiO9tDUqu0tYy7QVXXZ9LFPqp/EsMvQev+
- JR4sS
-X-Received: by 2002:a05:7022:2202:b0:12c:888b:aa92 with SMTP id
- a92af1059eb24-1377c94af3fmr717780c88.1.1779975303197; Thu, 28 May 2026
- 06:35:03 -0700 (PDT)
+ AFNElJ8RlYHEnkFoE5MmHFPTdVRseoj69g610gI9k6Fh93WSJdoq1ggdHLJ22PBiT77KzdiHY7U3PC9O@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyeO94DDC3T3QqW4MAfYiJmcW8e2D/zd9KxGjwJGY9DO9fNMGmc
+ hTQe8JELg41XolkrtHRDK3yb5cJNt/y0aMcmPUcpl4R04zDJdXpYTOXtsV4i8DCJh64JjJI1vVN
+ ILdw7OrXZ4G7JlMu9fMGwRUhtIOA2lHI=
+X-Gm-Gg: Acq92OHaelRDnMdkFvG5i5C6rbzHoPa7AQAWS+FFvX0A931wsQtXsJTXTky3Q6iXcHj
+ 8TbGi1IlULJlh2vNZoSBan8jhT4pqpa0pn11L1bltqsnjQQlQgLKDGhreGI/VBkW6jZ0HtHLdWn
+ rhlvhT0VgSv+Nkr+8Fqa6e1KPc1EB7ECyargrJACL5VnP9T+I43E82czuGa4+AQHhQVVRg3udt/
+ 7aRd8JdqTpuPKuavvNRYAZZoDAMLvwABzEZeq613IqYn2ILN3ooPHZGhZ3waSML74ErZ6c+GHu5
+ ddfxWGOmPvwhTFNUa5T2rHcAzr2OLoB1B3zyQCzGpWgBsrBcTfmcVWbxqEq+YgedHEdg2mLHhyM
+ i+PdQ
+X-Received: by 2002:a05:701b:4285:10b0:12c:897a:5219 with SMTP id
+ a92af1059eb24-1365fd80cd6mr3443485c88.5.1779975332551; Thu, 28 May 2026
+ 06:35:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260528064206.12358-1-Pratik.Vishwakarma@amd.com>
- <20260528064206.12358-7-Pratik.Vishwakarma@amd.com>
-In-Reply-To: <20260528064206.12358-7-Pratik.Vishwakarma@amd.com>
+ <20260528064206.12358-5-Pratik.Vishwakarma@amd.com>
+In-Reply-To: <20260528064206.12358-5-Pratik.Vishwakarma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 28 May 2026 09:34:51 -0400
-X-Gm-Features: AVHnY4Ix7rnYdImcZvY5cqlUKAXjSHmhCSp_cJ4eMY6eR8pnLOHhBl5SHxRuT5o
-Message-ID: <CADnq5_N7R-_p_TTLmbXUg03JZ+orVLMNpPFD8PTkR5GouUxhBg@mail.gmail.com>
-Subject: Re: [PATCH 7/8] drm/amdgpu: Add support for SMU 15.0.5
+Date: Thu, 28 May 2026 09:35:20 -0400
+X-Gm-Features: AVHnY4KJzSU51WzJ31KTk0-57LLYOuQHDJrFdzXiwMJhKSdr3X8m0Zhyo9SibE4
+Message-ID: <CADnq5_M8jyUQc0vR4opsfDrfWhdf3vBVc9tu7RDNP7UM1EcE7w@mail.gmail.com>
+Subject: Re: [PATCH 5/8] drm/amdgpu: add support for HDP IP version 6.4.0
 To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -107,53 +107,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Thu, May 28, 2026 at 2:49=E2=80=AFAM Pratik Vishwakarma
 <Pratik.Vishwakarma@amd.com> wrote:
 >
-> Add SMU 15_0_5 and SMUIO 15_0_5
+> This initializes HDP IP version 6.4.0.
 >
 > Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 ++
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 1 +
->  2 files changed, 3 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
 drm/amd/amdgpu/amdgpu_discovery.c
-> index 1af18c820d4f..de3c3d3939a7 100644
+> index 968cac5bcd5b..1af18c820d4f 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -2348,6 +2348,7 @@ static int amdgpu_discovery_set_smu_ip_blocks(struc=
-t amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &smu_v14_0_ip_block);
->                 break;
->         case IP_VERSION(15, 0, 0):
-> +       case IP_VERSION(15, 0, 5):
->         case IP_VERSION(15, 0, 8):
->                 amdgpu_device_ip_block_add(adev, &smu_v15_0_ip_block);
->                 break;
-> @@ -3325,6 +3326,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_de=
+> @@ -3242,6 +3242,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_de=
 vice *adev)
->                 adev->smuio.funcs =3D &smuio_v14_0_2_funcs;
+>         case IP_VERSION(6, 0, 1):
+>         case IP_VERSION(6, 1, 0):
+>         case IP_VERSION(6, 1, 1):
+> +       case IP_VERSION(6, 4, 0):
+>                 adev->hdp.funcs =3D &hdp_v6_0_funcs;
 >                 break;
->         case IP_VERSION(15, 0, 0):
-> +       case IP_VERSION(15, 0, 5):
->                 adev->smuio.funcs =3D &smuio_v15_0_0_funcs;
->                 break;
->         case IP_VERSION(15, 0, 8):
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index 337f9acacef0..ae44437af86b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -801,6 +801,7 @@ static int smu_set_funcs(struct amdgpu_device *adev)
->                 smu_v14_0_2_set_ppt_funcs(smu);
->                 break;
->         case IP_VERSION(15, 0, 0):
-> +       case IP_VERSION(15, 0, 5):
->                 smu_v15_0_0_set_ppt_funcs(smu);
->                 break;
->         case IP_VERSION(15, 0, 8):
+>         case IP_VERSION(7, 0, 0):
 > --
 > 2.43.0
 >
