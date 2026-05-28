@@ -4,100 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9567BCD6E49
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:44:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB7E3CD6E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:44:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C69310FA40;
-	Fri, 29 May 2026 07:44:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F41E510FA47;
+	Fri, 29 May 2026 07:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g3a498FF";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="tHUGdmUV";
 	dkim-atps=neutral
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
- [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD34210EF50
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 10:01:10 +0000 (UTC)
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-65e15fb394bso8880829d50.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 03:01:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779962469; cv=none;
- d=google.com; s=arc-20240605;
- b=apcLSeTp3uJlRToIolM7C6Ltr3Qe2JNzwxOz6q8D5hN4rqBzpmrZ94KnA+W3KvnorO
- +Cas/cayY0tkqno1UWvDefmkg3XzTCHETlJDt735r84JYM5rqux1TTNzYcewQ+8EuPpR
- AMyEe8eK2J/9FiEGOtToP9c4qzK10KOZVJANkx+phIxVmigD5+HyLezxDp0CFQdnRdT1
- lFi3mC5hO5HrYoV1bZFYvANKnoyC++ESDudb7LSbeidzAILnKdLblyfYLDRSZIs2thXR
- zj7z2mJ59d0QwR2dfyMOPxxT5WyYS3SZYWrtcnBAOEu97AD405BMSSC3+ZvUdFepObEy
- EUQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
- fh=Ca8+V5bvQf7cz/uQ/rOEXYD6EvMa4d0I040Bpe5rBS4=;
- b=DpPGu0m0LFQO5/1G6pnckSAFP3WWTBmCnoADLb5Lk6kaARqofTIP7uJmnjamCtMVpT
- m1FEO3fUj1bwco3Uo65yEXOQCp+tU4BKeofVCIPTVGEFEBdMbzOiCmoR9ChDCCwdaZN6
- SvWmyX1+LRmgD7DtdD1+1aZ/YW9XIdUxjJIb9pXuyDo1o+Rfw0dsI2+Udy0qtQvffDmw
- rDfWAB5s/OfprG7Ieg2Nm7VJ9jEk3jWMvlSXJlNp6PCjrASCzwjhSI14sYUl+/y/YbN+
- Qu3a0mKqHqoYfUDu7hd1AEeorKJYHcsfW+BchszjzGWCZ4J54xcJN/R8YL8Hs/PdSrDq
- 6Hdg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779962469; x=1780567269; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
- b=g3a498FFqNwSL3udJYupbXixF1mM8SbJqcFdB0qUQFsl0RityJQbCYMCt+BgvOghcL
- ZpenSjKsysi8tYOfPTVYgxKn78OXzgyDwSRsuBqiHsVmisand58F5nmOHnbqx7+f/TQq
- 5LbTNF96HJ1NTQSGxbfKMV998TZEAY0kZzjvjA+yTdjR+QGaJMP+bGC8J/Qsj1B8ek2I
- GP3ukQlZFIchWC937OP8wMEF9x3pPKfETmfJZGzKXsl5/sQ1F/+W1a9WpHOcXoDXJzUY
- qy7t0gxORyd1Vq04esnvMJSN86X3r9NtEMqKm66AqNaFcD9nK1ZGwAtR4VIyHSK0XMuO
- /wfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779962469; x=1780567269;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ENaGop7hdOhRvlo9/v6zprcr5Co1+opC5qv3HonlvMs=;
- b=ky/qieBTNFVRLbnzoWD846Ohhk2E15hFp7ehwW5TMEy6TH/x4y4dEyqZkXtoRcEEfZ
- 1BUQZHrMHE7Y83Iyjt/DJzLLvpAsHw9kTzR1ETnLKriCGdGLGnZgWd2we9ij4MD0pPNa
- Y3SuzTgxvQGm4f8idEOoouvV97t2rs6pjPE4b/URXikXwF16m3EbFouUxDDgL4hcNLla
- wIaLXXRF6s1Yy/7WY/kAtIwSD5/frVjrYgPzWwpp/3fDFWawZOQeaMiLbYU2Bw9thms2
- rSu6YmhVGb1xb32ZmOGdDkypbIHJN2e3tnHZFRZuylKHpJiYf6Le0/PR9wB2S4g75qbQ
- Z+LQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9PQiG7id04ugeuuwKayUHqPzBNgtTp2AmUIfy33tzKl0JytGclyLzW/yQBI2fkkXjnQAi6ZcEL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAd1aaeYq7w7msW1iroo2AsfB4oPxzeR9tNRj2AQZXpSwgyDus
- 74ktmGZ8zLY8EjHKt+IDzZGT6y8RCeJun+7srDxJXbV65Wm1BjcjgBknDsObwky41yZw0xeDcWz
- FvDw1jeU1mnKkDDDv+pvFePb2LzU4PJc=
-X-Gm-Gg: Acq92OFKbMUyzNjiuFDOMGIUHZlyqgiDyC+uj0URj3VDaOABCFAh90gMj9Ycbj2nFM/
- tjR3moNBtkRAViJaZUUxp7FSX4VA2/Ao1EEKYGyG6LjzwrexIyiTpZYeVQe7K6Yt/p5QAvr6MJ4
- 0Oi/n9/eoDmi+6/FkpYNrb5MThQjpip+cp4AHKOzTdmYCNyPf5mF0+iGCmEJum10KG3vqdtpWme
- uZs8ekPLSxlI68DcqABAVZEk2efuzvDYQf9Nxq/eLiSsWZGO+D8ENwf7IqhiE4HOv49ERlp1uy+
- /XumoQvL2ge7c5EOOvDJGnqxamWKFFnaeLi4Ih9XbU/EY32YppKvF7cci2JoF0/y5fN9DcisidJ
- eUx6rpQ==
-X-Received: by 2002:a05:690e:4090:b0:65e:421f:25a with SMTP id
- 956f58d0204a3-65ec9938b9dmr23205364d50.53.1779962469261; Thu, 28 May 2026
- 03:01:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260527133917.207150-1-tzimmermann@suse.de>
- <CAHijbEVZBRTK7yhZy8gaZwb19JMzUD_nA2S1LOKX2NrK19RBsQ@mail.gmail.com>
- <1d399c2d-b50f-4d19-8170-9db8961e4227@suse.de>
-In-Reply-To: <1d399c2d-b50f-4d19-8170-9db8961e4227@suse.de>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Thu, 28 May 2026 12:01:01 +0200
-X-Gm-Features: AVHnY4Kd6TXNqqh3i-IesxOIMTyuSSIzXsJX_ARE_lWWTyd_wM1yd783Bw12QD0
-Message-ID: <CAHijbEUKpOuDLJES9AbSp8Pk+egeDPe7KPyBy1xBFM9ET9peCg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/9] drm: Limit DRM_IOCTL_WAIT_VBLANK to vblank
- interrupts
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: simona@ffwll.ch, airlied@gmail.com, mdaenzer@redhat.com, 
- pekka.paalanen@collabora.com, jadahl@gmail.com, contact@emersion.fr, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mhklinux@outlook.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org, 
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
+Received: from mout.web.de (mout.web.de [217.72.192.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E1F10F253
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 17:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1779991172; x=1780595972; i=spasswolf@web.de;
+ bh=+t2uBMRmJqWbe7EEuTbwr1yRQbqM/ioHiPLugIxF0RE=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=tHUGdmUVuAbkG+fY6ZCY2EgNnl/Ps6LOdMcloY5zY/iW/OQPOsgeV91QlYLFA0vS
+ WuMri366Seza8nVqdnY4Ct3tsIZdi+iEyBNJ6JKsmgf9dC+kJiDRWJNUPzYq/q69w
+ CytPuNzoBpLlzkkqw3FxjXmS7OiaS36XHSN5WlP1dU7i/KrIqdc8knkLvQxnJv64s
+ sIlAjc41cRSMzZ2KmlmGBFgUo5I2q5USPCak/3nSXfEFc3qZ8bdE4cDft/yotvLFO
+ azuGcMVAxhcktONqt+r/Iv+AuWFTR5xfBW9pdNpZU4FLHsMPtsmwEE8cEzr9xIHCM
+ 9TYn6oS6GKyQuxT+YA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mrfp8-1x7HAe0ZLI-00oWDW; Thu, 28
+ May 2026 19:59:32 +0200
+Message-ID: <7e8f3a515208583d06c9b5ca18a3e007a8c6b692.camel@web.de>
+Subject: Re: context switch within RCU read-side critical section in
+ next-20260518+ with PREEMPT_RT
+From: Bert Karwatzki <spasswolf@web.de>
+To: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, spasswolf@web.de, Christian
+ Brauner	 <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-next@vger.kernel.org, 	linux-rt-devel@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, 	adobriyan@gmail.com, jack@suse.cz,
+ viro@zeniv.linux.org.uk, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, 	amd-gfx@lists.freedesktop.org
+Date: Thu, 28 May 2026 19:59:31 +0200
+In-Reply-To: <CAGudoHEX=Su_ehV8nNP_6Onfh=hB6uiyTTCojR7nSOkEj6zh4Q@mail.gmail.com>
+References: <20260520225245.2962-1-spasswolf@web.de>
+ <fnrz73n5jojl2wlbgrsjdtu5zuwykwbcjzznaijbquuovpoand@i6ihdqn7a6zv>
+ <s7cu3dpioidx6mepmai6eyj2pxjs4skbw7v534zbzs6g2fwcis@cvokidcxy3xa>
+ <4f548d61b2dd12e01f401ce4b8c865f238f7b23c.camel@web.de>
+ <878q9dvzh0.ffs@tglx>
+ <50e5e76bc13256e3f5b3301e92f159957c3d6762.camel@web.de>
+ <CAGudoHGk1CP3gRQLCV85AFHKx6vBEyKySOn4J+AZVAP2FkrN3g@mail.gmail.com>
+ <70676dae700e6a40989315bf31ea269a509ddc0f.camel@web.de>
+ <CAGudoHEX=Su_ehV8nNP_6Onfh=hB6uiyTTCojR7nSOkEj6zh4Q@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.2-0+deb13u1 
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:00WSvhz+TDyJCaqT65o7CCHgLmuLFFgzuy688cx9TWJOtR7WSeO
+ /Adyo5OULwI9pS52bPv4SUA+xnfypCdp6Ap7XbvO943ita7f6nia4PPRjIeQwCWBgDFgeZE
+ Dx+dI77s4rKPl+okHBYsOvVZdhmys4xXyb8rdhhkXkTvHHJ22CBmNpvFjssCC8tfthZZxsC
+ Mml2S5umvfUpB7S2Du8FQ==
+UI-OutboundReport: notjunk:1;M01:P0:PbM6UiLJT3k=;vWaKiJNlmb0UTjzm/mzok9hxmZu
+ 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
+ yonhuA==
 X-Mailman-Approved-At: Fri, 29 May 2026 07:44:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,172 +156,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 9:54=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> Hi
->
-> Am 27.05.26 um 18:31 schrieb Julian Orth:
-> > On Wed, May 27, 2026 at 3:39=E2=80=AFPM Thomas Zimmermann <tzimmermann@=
-suse.de> wrote:
-> >> DRM's WAIT_VBLANK ioctl synchronizes user-space clients to display
-> >> refresh. This is meaningless with vblank timers, which run unrelated
-> >> to the hardware's vblank.
-> >>
-> >> Disable the ioctl for simulated vblanks. Set DRM_VBLANK_FLAG_SIMULATED
-> >> for CRTCs with simulated vblank events in all such drivers. The vblank
-> >> timers of these devices still rate-limit the number of page-flip event=
-s
-> >> to match the display refresh.
-> >>
-> >> According to maintainers, user-space compositors do not require the io=
-ctl
-> >> for rate-limitting display output. Weston, Kwin and Mutter rely on com=
-pletion
-> >> events. Mutter optionally uses the WAIT_VBLANK ioctl only to optimize =
-the
-> >> time from input to output.
-> >>
-> >> When testing with mutter and weston, the page-flip rate appears correc=
-t
-> >> with the patch set applied.
-> > To avoid this being a regression, you need to test that this change
-> > does not regress input latency.
->
-> Let me stress that the current situation is that there's high-quality,
-> and low-quality and no timing information. Depends on the driver and
-> hardware.
->
-> >
-> > As discussed on IRC, compositors use vblank data to predict the time
-> > of the next flip event. For each device that you are touching here,
-> > there are two possibilities:
-> >
-> > - The vblank data is related to the flip timing, i.e. flip events and
-> > vblank events are sent at almost the same time. In this case removing
-> > these apis removes the path for compositors to predict the time of the
-> > next flip event. Input latency will therefore regress after idle
-> > periods when the compositor no longer has the time of the last vblank.
->
-> User-space compositors seem to operate under this assumption. That, I
-> think, makes sense on better hardware with rendering and vblank IRQs.
-> Page flips are fast on such systems.
->
-> >
-> > - The vblank data has nothing to do with the time of the next flip
-> > event. In this case this series could in fact improve latency because
-> > it removes the incorrect data from the compositor.
->
-> Most of the hardware that would use vblank timers falls in this
-> category. Page flips often consist of memcpys into video memory, or they
-> transfer pixel data over slow peripheral busses. The amount of work per
-> page flip varies with the size of the damage rectangles.
->
-> Any vblank timing information here is therefore of low quality. For some
-> scenarios, it would be common to miss a vblank or even the one after it.
+Am Donnerstag, dem 21.05.2026 um 14:01 +0200 schrieb Mateusz Guzik:
+>=20
+> So overall I think we are done here.
+>=20
+> Thank you for testing and sorry for the breakage.
 
-What matters is if the flip event will be aligned to _some_ vblank
-event. As long as that is the case, the compositor can estimate which
-vblank it will hit based on previous frames and can schedule its work
-accordingly. I believe KWin and Mutter already support scheduling
-frames for multiple vblanks in the future to support low-powered
-devices or devices that are under high load. I have not looked into
-this myself.
+Just as a reminder, this has not been fixed in linux-next, yet,
+up to version next-20260528.
 
-But even on high-powered devices compositors already take per-commit
-kernel work into account. For example, by default I aim to commit 1.5
-ms before vblank. This grace period is adjusted dynamically if I miss
-the expected vblank.
-
-Therefore I don't think this is an argument against exposing vblank
-info. Even if the hardware had such an interrupt, the memcpy and
-slow-bus issues would continue to apply.
-
->
->
-> IMHO, the first thing to discuss is whether having possibly low-quality
-> timing information is preferable to having either high-quality timing or
-> none. I have no strong opinion, but would tend to the latter.
-
-If you want to make userspace aware that vblank events are not backed
-by hardware interrupts, then maybe this could be exposed as a driver
-cap or a flag in the vblank event. Userspace could then decide on
-their own what to do with that information.
-
-Currently I don't think any compositor would use that information
-since they target flip times and don't care if those times are driven
-by hardware or software (since this is not actionable by userspace
-anyway). So maybe the useful flag would be "flip times will not be
-aligned to any vblank event" if that applies to any driver.
-
->
-> Best regards
-> Thomas
->
->
-> >
-> > Whether the times of the flip events correspond to hardware timings is
-> > not relevant. Everything in wayland compositors is scheduled against
-> > flip event timings and they are also forwarded to clients for their
-> > frame scheduling. If the flip timings are wrong/out of sync with the
-> > hardware, then removing the vblank apis does not improve this
-> > situation.
-> >
-> >> This change has been discussed at length on IRC recently.
-> >>
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-08&show_html=3Dtrue
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-12&show_html=3Dtrue
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-13&show_html=3Dtrue
-> >> https://people.freedesktop.org/~cbrill/dri-log/?channel=3Ddri-devel&hi=
-ghlight_names=3D&date=3D2026-05-15&show_html=3Dtrue
-> >>
-> >> v2:
-> >> - add filter to CRTC_GET_SEQUENCE and CRTC_QUEUE_SEQUENCE ioctls (Mich=
-el)
-> >> - clarify Mutter's behavior in cover letter (Michel)
-> >>
-> >> Thomas Zimmermann (9):
-> >>    drm/vblank: Add drmm_vblank_init() to indicate managed cleanup
-> >>    drm/vblank: Add DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/amdgpu: vkms: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/bochs: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/cirrus: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/hypervdrm: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/qxl: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/virtgpu: Set DRM_VBLANK_FLAG_SIMULATED
-> >>    drm/vkms: Set DRM_VBLANK_FLAG_SIMULATED
-> >>
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c    |  3 ++-
-> >>   drivers/gpu/drm/drm_vblank.c                | 26 +++++++++++++++----=
---
-> >>   drivers/gpu/drm/drm_vblank_helper.c         |  2 +-
-> >>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c |  2 +-
-> >>   drivers/gpu/drm/qxl/qxl_display.c           |  2 +-
-> >>   drivers/gpu/drm/tiny/bochs.c                |  2 +-
-> >>   drivers/gpu/drm/tiny/cirrus-qemu.c          |  2 +-
-> >>   drivers/gpu/drm/virtio/virtgpu_display.c    |  2 +-
-> >>   drivers/gpu/drm/vkms/vkms_drv.c             |  4 ++--
-> >>   include/drm/drm_crtc.h                      |  2 +-
-> >>   include/drm/drm_device.h                    |  2 +-
-> >>   include/drm/drm_vblank.h                    | 15 +++++++++++-
-> >>   12 files changed, 45 insertions(+), 19 deletions(-)
-> >>
-> >>
-> >> base-commit: 5fb5a9a63cf5ece68e0eeb6fa397da27712bccf0
-> >> --
-> >> 2.54.0
-> >>
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
-=BCrnberg)
->
->
+Bert Karwatzki
