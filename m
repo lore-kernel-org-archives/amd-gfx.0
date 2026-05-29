@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EF0DCD4F54
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:12:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F446CD6E4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8353610FEEC;
-	Fri, 29 May 2026 13:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBBF410FEEE;
+	Fri, 29 May 2026 13:13:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MOBeQvD7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C6vn3T3V";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66FF710FEEC
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 13:12:50 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012034.outbound.protection.outlook.com
+ [40.107.200.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B003C10FEEE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 13:13:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s8IGb5/StvqCPghYVVguuNlYKtvh+a6wu2otgYw98QlOEn2aAycjfF76tlBUvXQms/zmz+PLecVBwz0qzT7nPZ5U7q6DjUbsqxUNW2J42WfRjs0m3gi3Cg6ds+fGPXh1abo+TvwGGCRmGCqJmMNnOxP72dquXS7i5h8tmdZs9e9VJG3KA3ThYN6b+p6iB1sKzXeCA/hd+JFCbEYp8xO5+B1w7wWbMz/xKR1ZoDmPxqEqfhr3WyyDa0oiIB87PefB1C06aCZnpLTGVdPnZPfQxrbMBovtMjnYZ25VYuX4o5CP3MujXImVOVfV0QsiOWCHXIwbtzMchHHBPvzW3q2kOA==
+ b=K8rU5vRE21JV+olFWT4x98D5aacnqywnj2z7ECrpNH5iDx5F7nYU7U/whRqr1GXQMA7UeS2GPSVwakRBqfICKb1irp5/1W45vLouAXF2VaqPOTSj06UufgJHLhPo4wXjCLKFk14TlHUEA9gGDV328e8xKQyXkvDxxS2v1+VjQTE9IRDjAinr7nHjUdeymtk7IL5PYOT5ATBaTQhM5uRcVAetWm+33wKZVbbikkVDqdhLf0HHPbWaLfpUVy/oXwCylLGagkCAJj8Hc4GwNC+kTpIoI3Kxq9z+BGygxIUdlRp3IBJoQRTO2igEml8HDXahy+JxGvn1ji4vbeijhtQaoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pWxU/+miD9u0BC2c/FttcWW6RL8qoR3g4BKRZ3cs4Ls=;
- b=cWl0bnEDNB34/u3OwzuR6RYYtKwD6ZDG6CVMti/f7YeqxvgJo8n3tnB61VinV4Zys87xsAsodl1EYZSxlknTbZz2FeIqevYCikoBBTtPJsKkcpu5cvCcHqs229f1TlwUMPh+xOeRMDacyrxvivF5yoBUiH275axIGOD+1Fa2somm6QECAXvPastF0RE1qoAbDrp3vyvC2LRpRk6FNbrm0avluiaelGGcaSk2bNYAh0mCNpJdAChWGvSbxrSmOlRRxOpqYFXmPOqup/G/ZsCuSlCcBObU7zjEbGhfSowc9YQz1kkh0/wivLjOdwAyV5os2t+A89aN3oC8C6LOJYeiTw==
+ bh=86+E4rVadNeHnFLKUFW8gzFq1ZlsxtNMXLMWSOJS4yk=;
+ b=SdbLhDF390IrU80zCbSSqXv4L6XlKk8GX2piuBBKo9a24JAiHjQ2GzAUhYRMtvF8byJIJv60naDQQFkZkNqSjlG9XLBKxyW++S9zol/VrlTlQEbjjytLGM1fqxRR6adV2wh5J1QBe+KlbHALC/1agAQl8bSJc77j/roQyo8YPx6MFpvAMSH9UiPlY7O1MyYJ/Txp6mlAVJG/Gf/AV7B4EVRJoHku77vshwfD5jaKad4Aa4qnMJefPcRq67Bzvp+GBV3Q8T0ongXUxiB/RrqHDSlpBklBQNTTrBXogmUVtzZxEqAKZ5mSvn412pkgqTWFQiJ73O4p9RFpVprVKgu/tQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pWxU/+miD9u0BC2c/FttcWW6RL8qoR3g4BKRZ3cs4Ls=;
- b=MOBeQvD7t9yUoyA3YLRvuTn1Gjbm790BIKRMi4lpsJ7fpDL6GY7Ig+4g/9rndKH1iOE6pNxv3wVCdyk1Lh/8kyGwgp/0kBXTGbnRlPFpP852kLkTRh8qJjtEm2SnKCBxnT1gpfpJC67ZWwuABp6bYLbQbjpEMwoy7Yv/UQcPhG8=
+ bh=86+E4rVadNeHnFLKUFW8gzFq1ZlsxtNMXLMWSOJS4yk=;
+ b=C6vn3T3Vp+VmUUuCup0dpHBxdS1yLMrPcGkS1WX0dI8hfeQHXvUS1DzukRmxWD/Lz0t/GcDqKEEFmVtHn5dPufM/BWY293tDT073INYspEzMedFfUxWf9xi/x9qNk5ROxsG6GrDEAT08XommT8E2dhskABDJp+H7VQp5nftf9FM=
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
  by CH0PR12MB8507.namprd12.prod.outlook.com (2603:10b6:610:189::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
- 2026 13:12:45 +0000
+ 2026 13:13:25 +0000
 Received: from BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
  ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0071.014; Fri, 29 May 2026
- 13:12:45 +0000
+ 13:13:25 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kamal, Asad"
  <Asad.Kamal@amd.com>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: Validate custom profile parameters
-Thread-Topic: [PATCH] drm/amd/pm: Validate custom profile parameters
-Thread-Index: AQHc70/Eyj/6edyPvkiGJZPknafeBrYk+viw
-Date: Fri, 29 May 2026 13:12:45 +0000
-Message-ID: <BN9PR12MB525762299D5A0643E0763224FC162@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20260529094416.1135533-1-lijo.lazar@amd.com>
-In-Reply-To: <20260529094416.1135533-1-lijo.lazar@amd.com>
+Subject: RE: [PATCH] drm/amdxcp: Add more checks to amdxcp
+Thread-Topic: [PATCH] drm/amdxcp: Add more checks to amdxcp
+Thread-Index: AQHc70+NeUxTlwWlPEWC7yppjGSUV7Yk+xmA
+Date: Fri, 29 May 2026 13:13:25 +0000
+Message-ID: <BN9PR12MB52572A9830A4D7A2C3387950FC162@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20260529094246.1135225-1-lijo.lazar@amd.com>
+In-Reply-To: <20260529094246.1135225-1-lijo.lazar@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T13:12:26.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T13:12:54.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
@@ -65,58 +66,58 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|CH0PR12MB8507:EE_
-x-ms-office365-filtering-correlation-id: afbd1580-32d8-4408-8a7a-08debd83f91d
+x-ms-office365-filtering-correlation-id: 8b25fd67-b617-4e25-7a7c-08debd841162
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|22082099003|3023799007|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info: 9e0wUuJh493eqKi7OuU7Ewj9qxMYGsL/GGvnGN0OFUTFtGO/t9yHr6bBEPaL7IISuRRRaNfGktVSWkXT9Kq64DfaWb73E+6X/xX2yHapdJoRUpHmBqgCSqRSFEQbiR0bnv100/Y42PsgM5KW5s5W717VQL0KCA+BRZvW89WohUmTcxzn8gA3l0MhPyS3siTHC2yjGKGzI4IFHtb5yUkOVAStuhkeIyQ81GvLv3itNzkzjCMWcfhHVRRBVDxrqli0FO2kHMR/6gNOsTgjYYectt3uFgW5CE2mjVkeqLvlFUTr938J5SUtb7GupkdTULV6KdGJQm5/W3hmm12BuKaUhcquYJifHBavm+B/rK8MuJtOKKb396XxduNqNOqi3uFrl4/rv81Q3P7/lTmM893V4bFVP3l0qp1NJEPtVS3idkxpIud5E2K7Kb+T/XeAs7FRYSlIT9U1Xnd1a/nXQFnkUbVav8poNx0/7Y5DBVAyIO++nBgQ1+M9aEnQB8msIrh+3NXq548h0+te42dA3IVpNV88Z0ctGwyLjtSHg1rt8otoezDdCsCLg6ZYY+v+unsXkMWA3UeRvS7kGEFx5DDAcMDPhQ22X034Ixwx0PzZo+20pYC6FebhRqZ1sx33jQluFUYFRQ6G0el7MQzrrrR9LQgGJ8gP25D2R4/rP964giGSaXG7fw60JaiRsRdrDlrkV/UmvJx7K7Ij4FYCpTsnw74pg4ic7rRrn0m4YdUeRB91ZrdBN10/W+o0ox5Isf57
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info: DUJYSpJcu68nJNE2c3feMZedeCI0SF3AQUIo+DPncC4wY08GPG+IRbd1pgrbOFC7JS/zI1zItjrpn8lM6qXmRgaoat3L+xCVIZsA+f90m/GB9wwGvUocnRpNBzsVRCjYhO8bcMUUsyn0qVZBwgaJpHiK6U51g6QJ9KPxYLxqb4D47i6h3Eg1IiqzUhrP3zLDmfo1WEl+cXC8xpuYpLTJbhvldsDAZeoAPe1hsS9jsmwpeMO7nKe72rZrZTplaN+hXyWu+xi/Lp/ZN2f9/badFoozGSKyRJEfax7lgnkJoJuUKiQMfMqEisDlw2tZFU5y2LRxP8qPwwvSQuWuIQ5T2KGGEfTKiltYlryXf3YdVyWOf3fW38R4Mb0JwKDu5KsjkQdc0AUUpW8JcZq4Pwjj608DVKwiYI3kymz7H4/PEKGKQoi4zxDwGa5tmm8VNRRpvmGOB6U08AC4R1GxQISw0MCptTJP8wQJV4BE0v9M+I9vpieOhJufNp4Pfqnq1yKUB2SIOrz312/j3PncRMv4TweOTD1CLRIuxTSBrv5Lpmw/zO4QC1ttw6jO4Lc/WEG4bktCr+JTPm6oYkxN4UxP5GbIKESvn4+gY4OVgvLvKql7FEG20Avxm2uJTuHnQMJBhU7EQAEX9fhRwoGbybjahm6EUKBg5AXugwoyP0Aaes+6CJKuTHQWoxvzyVZLZj4M4t7NZ+lldAr/TELBZYQBuSjV/cUvI7/wYphiIu7acCk0STzOGu0jNCmYVQTi0B6H
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(38070700021);
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RbDSy6EJZUl0CjPJkyNV2sx1/b8oJbJCtF+0YY6exu0kdoDXLAOTBdhxfnju?=
- =?us-ascii?Q?u1mB3ZCSPj6+Xrj+apiWLsCA/MmOGv7HKR6nkkEONJ+/uHzxdw233mpqVKec?=
- =?us-ascii?Q?CiVulr884+3Uo64nVHLqXvMoaMBA2PpiwH9NxdPO1ZO9sJ4NGCgO/0pojP5N?=
- =?us-ascii?Q?mwtJi5gjt3mIxT6hMnGygCmbnpFg/hplCPo5xN7qoZ+j0h83gOYsyoI9LMYo?=
- =?us-ascii?Q?zFoaL7nZWTwwxsj671lnqxZQh52uR7nCb3yjdgbbaZjIx8HWq73+VIA5/a9X?=
- =?us-ascii?Q?c34zLcek2HF5O6ACs2my3KPXwohy22Cj9iuzSipSeRldxKnCDOD2xdF7Lor1?=
- =?us-ascii?Q?gn3DSvmg7Ffad3Y2yMjwvN4H6V1fr9p3bKo6JpfXB5Nzc30LtJf4u9Sca3v4?=
- =?us-ascii?Q?19p8WiVEbBd73KHUawWzWivk5f1bYXPkJ5d+g7Aj4zaA48pc9GdxkKlWwwzW?=
- =?us-ascii?Q?RF/DdaHK8pIRWblyv4Du9b1Et4EWZbxBk5ucEaVoDpAyjwKoQb02HJSVpLH1?=
- =?us-ascii?Q?pBeZU345y2DifeETtQT2Z3pjjRKDJxW6jX2L2FMMpWdHUmitiKftEzTIlSST?=
- =?us-ascii?Q?TEkSETULjRbcfLaDxEfAuYLZpK9rUp1b7JA1W1JXocwxgaiFwhxOthFx1M6a?=
- =?us-ascii?Q?9TIaABKCvRcen8bhPAF7Ri0GEAXgJX9pbnJeq/m/M0h+qvX0L6ppl4ntk1iZ?=
- =?us-ascii?Q?o7z1+R9bMQ8Nse4RonQenrSC/kHAXVmrV/PcOqEzt87yI1wq2wZIcz5cdDQ+?=
- =?us-ascii?Q?VvWEpFvzE1ccDKaJ/PZSmhPbQ8bw1TNShPLccZrulDE/xFv7xGEyIOPnC0ua?=
- =?us-ascii?Q?3LR1wTCIkbir5TQLbyJBM+UUJQ4W36FOD00YkufPi7DDKKmShvhHmg5YbIBJ?=
- =?us-ascii?Q?mz5delD7ruAicKIqtWEBypgpqFCPiT6KBNOSTNCAi+0PZ/r9cMMdDh/HW2UG?=
- =?us-ascii?Q?CKyeSZKc6d53IQo6jrURX0P9T4i6B/vnMNIFvi+QPWAzn6UOH6yVV4o5oS52?=
- =?us-ascii?Q?DmOsdSFM0p1RCbu7IG2P8Nl8BTZR4Fylu8CR8OQMmguyCMfqrowGDRMaPV01?=
- =?us-ascii?Q?rTbCz/9jGfvkaXhb5x3Af4YqqdpELlRoUzGhSenDHy4AUmMc8LXhIrvA3+ec?=
- =?us-ascii?Q?uTL1EwV1V/wfChbLZFdm8cWKlksWExODKleujhIFE2qPSCmG3gigKd1QJQVB?=
- =?us-ascii?Q?e65SuBuDqmPU+qWJWYg1yyFTj0Uk0Czzo43ZvPEc3wK0ORM+aARTYxHV0Aqr?=
- =?us-ascii?Q?r3La1ITnygPR5Xpb5jf5RENvBB2pYji+eK+kwCvzVStCU3D8ShGeVlsgiMPS?=
- =?us-ascii?Q?fA3yAAqcIc32aPodxANOBqg+e1Takpn9poqpOHif393QthRD6RFHFRrmCs1H?=
- =?us-ascii?Q?SKMbhYU2Ncj425u+L+T79b7qzCw2O2s/GFviwTWsatFDrhI0IaLdQMIGgh4b?=
- =?us-ascii?Q?mAVeH4VALTlhiAYBWXKjSFOuHjiZzPcmZSbjY+ILYLy4IE2P70UvlPBTaHPo?=
- =?us-ascii?Q?zB71kiVjJYAQNaRnHN4i090Qx28FYdTag5nI3r1opMekOmA2ABZPbkxSJfMy?=
- =?us-ascii?Q?uMCKb3GMAjpLTGwA2HmE75NjEql6/9EvP3nK/UtMvaQ7UTvaSFj8qPU6ayPo?=
- =?us-ascii?Q?S5VNfLGanPzRr94XrqqpDL4UQBfPcTRqzJ2ftkF2/9fBFaNPPkXN6ACvfTDS?=
- =?us-ascii?Q?B90RqpXnIyL718IRaM64UiIihNizo+goON0VUytU8Myg/arT?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eiq4CX/Dy+MXWcpYAoF5U67pUXyYQSJhOwsdq0QPjeO9M6BPI3GBenkLmDtV?=
+ =?us-ascii?Q?aKJIDBWTlfRCKG/uV4nE5F21XGDMA5kvvOdZ+NlQGPtwUao9SYkr5D6ALj4D?=
+ =?us-ascii?Q?dmWems+37NDMVTzDBFmcwwYZIy91RjUTEN1d87dB8c6PkIm+tSOXPH0eCP49?=
+ =?us-ascii?Q?x1sCyv9kPPMf8KupY43u76uF/+zqu9YN9PwqZo6YeGNK9vX8u9bYHfla5aHZ?=
+ =?us-ascii?Q?OoU8H6QaZw+QdCpkwM2kwm4o+7Jv1mNt05Vb24OlTkhfhTaMlJ7qBWCrgR9a?=
+ =?us-ascii?Q?GOPWhIU7Sx1XSg3cWLktuM53LQYrCMAEwAQGOIKuPIT00MszWhnYss7au6bD?=
+ =?us-ascii?Q?KiVa89nFySBFJjFlN8EQAN1iF8NYVZFBP3VEN99TsAqyAoY2YD/HydHWlK52?=
+ =?us-ascii?Q?fZXbPEnBqMxqdpa5EsdbUsc6wlVka7357zZQXf445xGWQ1Cpv4++vq+M5EdG?=
+ =?us-ascii?Q?23e+P6hUImROtLmXuYLzfxHwRHlfWQntuPqFvSkl516J0tjNrfkLwVP58VMh?=
+ =?us-ascii?Q?v1J/oCXAzBwPdtPOAAROPcTf4zSAb4uStMyLVP5a6gbosvgiA1x7pBOya2vI?=
+ =?us-ascii?Q?YbXpDhfNI44g7x52/bPpyoiQ9B8BbnW8waLqoIX/sUCyH11ML8r7YfTG2DzK?=
+ =?us-ascii?Q?LXtez25K8mzA8Q1RkHY7IvtXVPqaHfeEnA+xciMsWp0HjDiXtzeSgOqfnBXm?=
+ =?us-ascii?Q?Bgt7XEjDwHV8TW/Yo0gDXCIlFR0M83zSTcmBMecjlnx1PocEqQC6zOTkXnmV?=
+ =?us-ascii?Q?NQAQF9pK3+b74cwaE+Yb27nkOrX1VjwiyfNycOfTF+TKa/SIjJBL08qDRsM2?=
+ =?us-ascii?Q?Qvnbx4zagGH665qhEJJqu3k+ROGfFCH0OJ02BulI8JvZZ81yMHwX2ae3qiRf?=
+ =?us-ascii?Q?/Yl8uU0zVSAeawkWg5XXan1oPHOBgrYOpGF4YasTfRelH+mBNvdP3AfhNXPt?=
+ =?us-ascii?Q?XUZqN6zzlSOL6OGKHTpXG8XVS1H8VfUM/l7yYgw6i64AwLB8U300SAa1moBf?=
+ =?us-ascii?Q?1rhYyu8FTcI8FYXNha9WHLWSXIQMmH4RTieJLndZBA0RRmp5bjQCYzxVupvU?=
+ =?us-ascii?Q?XflTDoVrDKwx3E26mYmbK1wmIOtdQpX6ZqAdLCv1K2q06pFLD5m5w//6cqAg?=
+ =?us-ascii?Q?KfSwX8DW3TH12rXRoR8CPwhvN+iA084Ee9Ez+jtReHEDGud6sQfG1A0Z+DwX?=
+ =?us-ascii?Q?p6g19TP0rYpeP29MxDYYc13mqOqzZ6hg0PYUDdOruAGnztWEiLffrHBai8+t?=
+ =?us-ascii?Q?T6Gp5pXjhX2fVKa/EA10wXQ+OwJlgxaL4m44VhHhcA7g8KdGs5TGBIl6WLmR?=
+ =?us-ascii?Q?Uz79pTe+XAcC2yofMC1KZw2D7qo5xKtQ94PvLgWT5epcmGJrFyKZo9NmnkBg?=
+ =?us-ascii?Q?BntTAONYLvcNOxVcMc9YZPz76FtyzV07QCDA1LSiU1yjfTPdFRsoubnk2qTH?=
+ =?us-ascii?Q?CBDnbxcOq/PMnU4ngaGPxMiKFyfmm3wxS54QJCbU0LKnfIcbJh6R/80gWFvx?=
+ =?us-ascii?Q?AuYT2Z0+PbPkxyHgh1sUsb2H+UCumBmr9i56MNL8NAOfRPNHc73TjHtw/r02?=
+ =?us-ascii?Q?HI8QFfUeNn4pc75tOQGMZ6Xv5WRHTv1AFkK/E+E1HxCMldda++7k28Y3Pliq?=
+ =?us-ascii?Q?7UmScTOP2HnzvNqJgU8SVTmDwne+xJZAkxPjpKV+fyW/Oz4XOomXCUSBjvvc?=
+ =?us-ascii?Q?zeuAZOl3ibVfTPfVSkDU9V/JbdIo2tM0eZtKRmom57tEY1gu?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afbd1580-32d8-4408-8a7a-08debd83f91d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 13:12:45.0523 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b25fd67-b617-4e25-7a7c-08debd841162
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 13:13:25.8138 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kIU+rApbLM3M5MJt4boVQrK4EB2H/ipIQNfZeSdmmAvfFI4uJHnsOto31c8rpU6FYig2wgwbe5/96Ug8MzXlhw==
+X-MS-Exchange-CrossTenant-userprincipalname: QjNJQy1Mh5nHstXJzl+vNbcv8OJsB9M48/xaQD+HAsiJ7soDpM/00uH/skpYDQXQCcpz2Z9LCS2hZartCumw7w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8507
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,210 +141,83 @@ Regards,
 Hawking
 -----Original Message-----
 From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Friday, May 29, 2026 5:44 PM
+Sent: Friday, May 29, 2026 5:43 PM
 To: amd-gfx@lists.freedesktop.org
 Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
 eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Wang, Yang(Kevin) <Kevin=
 Yang.Wang@amd.com>
-Subject: [PATCH] drm/amd/pm: Validate custom profile parameters
+Subject: [PATCH] drm/amdxcp: Add more checks to amdxcp
 
-Add helpers to validate custom profile params against negative/out-of-range=
- values. Use the helpers to validate user passed params.
+Add NULL check to ddev argument and guard pdev_num against underflow.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Assisted-by: Claude Sonnet (Cursor AI)
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c      |  7 ++++---
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c        |  7 ++++---
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  7 ++++---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  7 ++++---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  7 ++++---
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  7 ++++---
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h                 | 10 ++++++++++
- 7 files changed, 34 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index d73c3c191e9c..051a0008aa10 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1467,9 +1467,10 @@ static int arcturus_set_power_profile_mode(struct sm=
-u_context *smu,
-                                return -ENOMEM;
-                }
-                if (custom_params && custom_params_max_idx) {
--                       if (custom_params_max_idx !=3D ARCTURUS_CUSTOM_PARA=
-MS_COUNT)
--                               return -EINVAL;
--                       if (custom_params[0] >=3D ARCTURUS_CUSTOM_PARAMS_CL=
-OCK_COUNT)
-+                       if (!smu_cmn_custom_params_count_valid(custom_param=
-s_max_idx,
-+                                                              ARCTURUS_CUS=
-TOM_PARAMS_COUNT) ||
-+                           !smu_cmn_custom_params_clock_valid(custom_param=
-s[0],
-+                                                              ARCTURUS_CUS=
-TOM_PARAMS_CLOCK_COUNT))
-                                return -EINVAL;
-                        idx =3D custom_params[0] * ARCTURUS_CUSTOM_PARAMS_C=
-OUNT;
-                        smu->custom_profile_params[idx] =3D 1; diff --git a=
-/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/s=
-wsmu/smu11/navi10_ppt.c
-index f2ce8de58cb9..2f2a5953dbbc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1845,9 +1845,10 @@ static int navi10_set_power_profile_mode(struct smu_=
-context *smu,
-                                return -ENOMEM;
-                }
-                if (custom_params && custom_params_max_idx) {
--                       if (custom_params_max_idx !=3D NAVI10_CUSTOM_PARAMS=
-_COUNT)
--                               return -EINVAL;
--                       if (custom_params[0] >=3D NAVI10_CUSTOM_PARAMS_CLOC=
-KS_COUNT)
-+                       if (!smu_cmn_custom_params_count_valid(custom_param=
-s_max_idx,
-+                                                              NAVI10_CUSTO=
-M_PARAMS_COUNT) ||
-+                           !smu_cmn_custom_params_clock_valid(custom_param=
-s[0],
-+                                                              NAVI10_CUSTO=
-M_PARAMS_CLOCKS_COUNT))
-                                return -EINVAL;
-                        idx =3D custom_params[0] * NAVI10_CUSTOM_PARAMS_COU=
-NT;
-                        smu->custom_profile_params[idx] =3D 1; diff --git a=
-/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/=
-amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 68255cfcb04d..70897c70db32 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -1756,9 +1756,10 @@ static int sienna_cichlid_set_power_profile_mode(str=
-uct smu_context *smu,
-                                return -ENOMEM;
-                }
-                if (custom_params && custom_params_max_idx) {
--                       if (custom_params_max_idx !=3D SIENNA_CICHLID_CUSTO=
-M_PARAMS_COUNT)
--                               return -EINVAL;
--                       if (custom_params[0] >=3D SIENNA_CICHLID_CUSTOM_PAR=
-AMS_CLOCK_COUNT)
-+                       if (!smu_cmn_custom_params_count_valid(custom_param=
-s_max_idx,
-+                                                              SIENNA_CICHL=
-ID_CUSTOM_PARAMS_COUNT) ||
-+                           !smu_cmn_custom_params_clock_valid(custom_param=
-s[0],
-+                                                              SIENNA_CICHL=
-ID_CUSTOM_PARAMS_CLOCK_COUNT))
-                                return -EINVAL;
-                        idx =3D custom_params[0] * SIENNA_CICHLID_CUSTOM_PA=
-RAMS_COUNT;
-                        smu->custom_profile_params[idx] =3D 1; diff --git a=
-/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd=
-/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index fa91837f7024..d7792616e4b9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2734,9 +2734,10 @@ static int smu_v13_0_0_set_power_profile_mode(struct=
- smu_context *smu,
-                                return -ENOMEM;
-                }
-                if (custom_params && custom_params_max_idx) {
--                       if (custom_params_max_idx !=3D SMU_13_0_0_CUSTOM_PA=
-RAMS_COUNT)
--                               return -EINVAL;
--                       if (custom_params[0] >=3D SMU_13_0_0_CUSTOM_PARAMS_=
-CLOCK_COUNT)
-+                       if (!smu_cmn_custom_params_count_valid(custom_param=
-s_max_idx,
-+                                                              SMU_13_0_0_C=
-USTOM_PARAMS_COUNT) ||
-+                           !smu_cmn_custom_params_clock_valid(custom_param=
-s[0],
-+                                                              SMU_13_0_0_C=
-USTOM_PARAMS_CLOCK_COUNT))
-                                return -EINVAL;
-                        idx =3D custom_params[0] * SMU_13_0_0_CUSTOM_PARAMS=
-_COUNT;
-                        smu->custom_profile_params[idx] =3D 1; diff --git a=
-/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd=
-/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 25f977a42a1c..ce83e299a66a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -2690,9 +2690,10 @@ static int smu_v13_0_7_set_power_profile_mode(struct=
- smu_context *smu,
-                                return -ENOMEM;
-                }
-                if (custom_params && custom_params_max_idx) {
--                       if (custom_params_max_idx !=3D SMU_13_0_7_CUSTOM_PA=
-RAMS_COUNT)
--                               return -EINVAL;
--                       if (custom_params[0] >=3D SMU_13_0_7_CUSTOM_PARAMS_=
-CLOCK_COUNT)
-+                       if (!smu_cmn_custom_params_count_valid(custom_param=
-s_max_idx,
-+                                                              SMU_13_0_7_C=
-USTOM_PARAMS_COUNT) ||
-+                           !smu_cmn_custom_params_clock_valid(custom_param=
-s[0],
-+                                                              SMU_13_0_7_C=
-USTOM_PARAMS_CLOCK_COUNT))
-                                return -EINVAL;
-                        idx =3D custom_params[0] * SMU_13_0_7_CUSTOM_PARAMS=
-_COUNT;
-                        smu->custom_profile_params[idx] =3D 1; diff --git a=
-/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd=
-/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 6b5aa4e514fd..933873de7850 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -1829,9 +1829,10 @@ static int smu_v14_0_2_set_power_profile_mode(struct=
- smu_context *smu,
-                                return -ENOMEM;
-                }
-                if (custom_params && custom_params_max_idx) {
--                       if (custom_params_max_idx !=3D SMU_14_0_2_CUSTOM_PA=
-RAMS_COUNT)
--                               return -EINVAL;
--                       if (custom_params[0] >=3D SMU_14_0_2_CUSTOM_PARAMS_=
-CLOCK_COUNT)
-+                       if (!smu_cmn_custom_params_count_valid(custom_param=
-s_max_idx,
-+                                                              SMU_14_0_2_C=
-USTOM_PARAMS_COUNT) ||
-+                           !smu_cmn_custom_params_clock_valid(custom_param=
-s[0],
-+                                                              SMU_14_0_2_C=
-USTOM_PARAMS_CLOCK_COUNT))
-                                return -EINVAL;
-                        idx =3D custom_params[0] * SMU_14_0_2_CUSTOM_PARAMS=
-_COUNT;
-                        smu->custom_profile_params[idx] =3D 1; diff --git a=
-/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_=
-cmn.h
-index 0e119965ce13..5b7f64b94179 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-@@ -113,6 +113,16 @@ static inline int pcie_gen_to_speed(uint32_t gen)
-        return ((gen =3D=3D 0) ? link_speed[0] : link_speed[gen - 1]);  }
+diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/=
+amd/amdxcp/amdgpu_xcp_drv.c
+index ae40f64369ab..a569163de047 100644
+--- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
++++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
+@@ -44,7 +44,7 @@ static const struct drm_driver amdgpu_xcp_driver =3D {
+        .minor =3D 0,
+ };
 
-+static inline bool smu_cmn_custom_params_count_valid(u32 max_idx, u32
-+params_count) {
-+       return max_idx =3D=3D params_count;
-+}
+-static int8_t pdev_num;
++static u8 pdev_num;
+ static struct xcp_device *xcp_dev[MAX_XCP_PLATFORM_DEVICE];
+ static DEFINE_MUTEX(xcp_mutex);
+
+@@ -56,6 +56,10 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
+        int ret, i;
+
+        static_assert(sizeof(dev_name) >=3D sizeof("amdgpu_xcp_") + 10);
++       if (!ddev)
++               return -EINVAL;
 +
-+static inline bool smu_cmn_custom_params_clock_valid(long clock_idx,
-+long clock_count) {
-+       return clock_idx >=3D 0 && clock_idx < clock_count; }
-+
- int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
-                                    enum smu_message_type msg,
-                                    uint32_t param,
++       BUILD_BUG_ON(MAX_XCP_PLATFORM_DEVICE >=3D U8_MAX);
+
+        guard(mutex)(&xcp_mutex);
+
+@@ -102,7 +106,7 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev) =
+ }  EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);
+
+-static void free_xcp_dev(int8_t index)
++static void free_xcp_dev(uint8_t index)
+ {
+        if ((index < MAX_XCP_PLATFORM_DEVICE) && (xcp_dev[index])) {
+                struct platform_device *pdev =3D xcp_dev[index]->pdev; @@ -=
+111,17 +115,18 @@ static void free_xcp_dev(int8_t index)
+                platform_device_unregister(pdev);
+
+                xcp_dev[index] =3D NULL;
+-               pdev_num--;
++               if (pdev_num > 0)
++                       pdev_num--;
+        }
+ }
+
+ void amdgpu_xcp_drm_dev_free(struct drm_device *ddev)  {
+-       int8_t i;
++       uint8_t i;
+
+        guard(mutex)(&xcp_mutex);
+
+-       for (i =3D 0; i < MAX_XCP_PLATFORM_DEVICE; i++) {
++       for (i =3D 0; pdev_num && i < MAX_XCP_PLATFORM_DEVICE; i++) {
+                if ((xcp_dev[i]) && (&xcp_dev[i]->drm =3D=3D ddev)) {
+                        free_xcp_dev(i);
+                        break;
+@@ -132,7 +137,7 @@ EXPORT_SYMBOL(amdgpu_xcp_drm_dev_free);
+
+ void amdgpu_xcp_drv_release(void)
+ {
+-       int8_t i;
++       uint8_t i;
+
+        guard(mutex)(&xcp_mutex);
+
 --
 2.49.0
 
