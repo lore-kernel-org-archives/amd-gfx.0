@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00C7CD6E45
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 09:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3D4CD6E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 09:41:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9503E10FBE6;
-	Fri, 29 May 2026 09:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4F610FC08;
+	Fri, 29 May 2026 09:41:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mlYt4yau";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EL3SJag1";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3939710FBE7
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 09:38:51 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013001.outbound.protection.outlook.com
+ [40.93.201.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34B0810FBFE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 09:41:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dATgYfaUCVtxCF8VcrzoKBES1Ze2oiBJy8fXIpykyIw7n/7kaeRn1PQJyudWcsDv45EhJ3VesQ+uagEJLAvRVSfkiU2bEh8MQYozeMcJePOO/raw3KJT4wxG+jq+/RdlaR5PTzcXFTzs8lhg4RGu1tVcjK8LzJ1DbgKeS9YvNhysg+C+Mk6dIf2d47uHf/rERZ1pmSgkE4xk0yFQK+PeF+GcjY0B1jnHuNeDB9+hbtOPPuyu1WLIiJP65skAbihiJOSkMefw0LgVQa0Orz63inZtG0bgTqgUYG40r2jRt7zViJ381jKPLWHomLhlfv5CJGxvRyuihba+BNjOzYIkng==
+ b=nPT4UgCO9eSkR+8pynt5YEjqg1bGfJgYux0VYyBh3hbbZFaOMEES2XKfvFWJsT9mctM7bCOc4a0154YudEg02QUEpnM/LVgMQOMH9f5unI2RjLSkX6blpwFPbFtmVlWa1mUscjyalqRszf7s0R9jqdvMG5uNj9ECpHr5dtmuOfplWHDbkPRhoez9YMmP6K1ZZ/zCd6QHvglv32YZzMD49rb+5rnauMKsSzXRJBV88Cq+pb2c5rvA5olVfcHJlEHduxIx1yYSLuOBcmAri+eyAAUbPWs0Fkwl/aGx9z3f/MON5DPCu9D85ROJF8pARbUIucxfmehP357soh+nXmATgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mGWkUAjTMmuQCqb4m8terTiS8FFt4ELP/B8zEZaDxqU=;
- b=xD2aQQIZvVcRuLCJLbr/tCOEt1tq/4UaIXZsWptl8WdbCybvHA2ghkPWay4cKDR1/1qeDkHyz+Hr0AmkowvD79W15tr4L8gnG4Kbmavdc7T0A0Kfay9FCZosQkzf15hfAtzegnwBiP83bORCVJGhC5WGOoEeLtIVW2kA+VG73bPi7jsZS/+tazzGiO2ZqW/oNiDn+QL6ec8pvf4/NpqeAsm/m+2H9mgshH3gm86xgSnydZaltNq0YXvgSbtAQe9MckwwnzyM/lty3Md4NyNk6+FWGjMpIJabTIplOi91dL6EQQVPHg6wd2r44LHAPYFpioPHpVX1lD5YrlFXTlM5jg==
+ bh=ZePg6NeXtanG7/tbjUduEIwvr+6ZULpzcqve2sB2J9A=;
+ b=EdXaVf6QjO0WieXUGSvOGpNAgg5nRK9MyrcZ4xuzJsK7S8x36g2rmxRQwmVtcnL75vqVuB0pi9tCVeTvLRfYOWAfrOQxDPEEzKvYxBvYEwrMnaKuzJkv4SetO64QyoUjb2G3KHJuOTOPN1G+tUxRWjNJTke/8dyXGk4MI8Ot28Lqlz/F4QuuiPIyp6Eo/ZWsBQC4LhsUHkkNUd4/4lsGeB7HE4keuQPHCh/X02cd7KDzWSe2R761VZS2rmceAWa7ceSQV5nM4bdaL74dLKOW/98PK2M9Lo2XiNqfZmSP6X+ikrXcchB0JfKW+FFjNms00WjYqYpVaR9prw8dD9zRQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mGWkUAjTMmuQCqb4m8terTiS8FFt4ELP/B8zEZaDxqU=;
- b=mlYt4yau5UkujZiyxcjY0wLIA1CuUxAiTRS90mtsRMdvf+wbLt0exz63YGNHfEKi0VecXmt9I5lx0+cnLcbS2UxDJd/sj7zTjTv9dLqndP+kmQgiGiNWvkYpjewRc5lahb5Z4qqhmYT9uSnSTfBeZKElsYX2RfPTbvX8ro/x9JI=
-Received: from DS1P221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:451::10) by
- CH3PR12MB8880.namprd12.prod.outlook.com (2603:10b6:610:17b::18) with
+ bh=ZePg6NeXtanG7/tbjUduEIwvr+6ZULpzcqve2sB2J9A=;
+ b=EL3SJag1KjD48PeIFMpCJJViVwBBE9ukjINtEVCMWUTHetF9mIUwW8RchEyQdq8KdfqcEdKsQ9limhCvRmonLeokUEOWEczBLQsSh/c8HNDuVp/nYfrb79iHb3Fgi4yxKb+f8yR1ULp7jXFz1eu4Alkr9m8Sl21jJjTCgFsn+e8=
+Received: from DS1P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::18) by
+ PH8PR12MB6891.namprd12.prod.outlook.com (2603:10b6:510:1cb::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 09:38:42 +0000
-Received: from CH3PEPF00000013.namprd21.prod.outlook.com
- (2603:10b6:8:451:cafe::6b) by DS1P221CA0013.outlook.office365.com
- (2603:10b6:8:451::10) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 09:41:38 +0000
+Received: from CH3PEPF00000012.namprd21.prod.outlook.com
+ (2603:10b6:8:455:cafe::9f) by DS1P220CA0014.outlook.office365.com
+ (2603:10b6:8:455::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 09:38:42 +0000
+ May 2026 09:41:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
+ CH3PEPF00000012.mail.protection.outlook.com (10.167.244.117) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.0 via Frontend Transport; Fri, 29 May 2026 09:38:42 +0000
+ 15.21.92.0 via Frontend Transport; Fri, 29 May 2026 09:41:38 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
- 2026 04:38:40 -0500
+ 2026 04:41:35 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Asad.Kamal@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: Add helper for parameter parsing
-Date: Fri, 29 May 2026 15:08:20 +0530
-Message-ID: <20260529093820.1134317-2-lijo.lazar@amd.com>
+Subject: [PATCH 1/5] drm/amd/pm: Add helper functions to fetch pptable
+Date: Fri, 29 May 2026 15:11:15 +0530
+Message-ID: <20260529094119.1134923-1-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260529093820.1134317-1-lijo.lazar@amd.com>
-References: <20260529093820.1134317-1-lijo.lazar@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,29 +72,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|CH3PR12MB8880:EE_
-X-MS-Office365-Filtering-Correlation-Id: de6ce93d-a340-4329-a157-08debd661243
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000012:EE_|PH8PR12MB6891:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f2ae8e9-c8e6-4008-dec9-08debd667b21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|3023799007|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: bOVMpyMVxmrvZy7s7xzK3la2yiugLswJARQa/MEjv0iKllpciqu+GwZmdsQWOxx4R1V7K6iHZ5qCiNAwefnizoNv6+pS5i0R6PALkOB2P1UaO+/u+J8z2cau3UHDZadN8GrBL8fgm/A51c7x0aXdUsfxI9l77gDubZ1V81Xnup0zUEmtNrglB1+YmNZrsDGjEoZqWmhIbpzqSDC8F+X1cKAhjkQHGp37G6GFmycvsnqHusHQVtKdJZ0ytnL5jbBht5eD4C9/umcFyOEBvh5jmbPTV2uTpTKJwezhfc+YX0F1gjPE0cZWR1S1vY2Qwh5jK53/q1GIezDpH56d9m78W9b66cy3XBmd0e2CHLtianCDh8UXRPhUWQThdP0KcQedPmZlHKEzN7l9uhK0iNtkOxXjCB0v6ARm6K/UPLMxuvsUhi7NvGCACSRbcJhRPylwQP5BBHjKxJVtf/gIQbvTy+GcDwndXVIUHS1tdYax7dSWGiZWZr+1M71CROhWYJqu65k9fcmDaNFwulIE+ZKmbfvDo7KqF+T6xPFt4T4pZrqQ21yMdSq0X7xNko8GPtYGHv1ug/Pm4e4GHqs4a2EtlJL+TYer511bOfJBMtV0ecN6inQU2DG09HjJZo4iWcXaYPr2HcnXLZR060q6fNAtHIJwnOhQiYcq/RrRwCe8Hwv/bdE7oFAl5TVUL87UPc9j/40YTcnV0aZxVpWEGTP4vJzHj8R6TqU0JYeAhFe0pv4=
+ ARA:13230040|376014|36860700016|82310400026|1800799024|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: BrxBlLEp3cbWjekeNv2eDzQBMmoJD21MFM0qDsi5zDNDc++zmoyP2fukazjqxjvLd4S12NwZgLBTHBEz4A9LzZhRpLe/bghuqpio9YBdwe66uphB5rk3xnr0xyiFki3U6peZYiV/obJF3UXTdp0aDlLRq+lsPz4o+j7CPIYT6CeWAVpD+YGAuVntrNfIylYDOv/Z1P8kOOtkBRiYH4iv0zCnNxd7GmymOcJW8PSjV54cRY3cMY3uPVkEZLy1syKQDLWQ7KWVOy/dgsaf/GQlW09xMAn6J84KAxpNjM9/i9CvZ8LLq2OXZeExufGfrAV027Sj1r2AdNi7oitrdX6qRemFrAQLLOyA6ze8IYFCZRCY6JAJiNU8VyDhLKtq9cQ4VFNTz/3rQFZpRcWAQLJwyivfEurBwdMYMyyloskzrOrNICfDIdA2IU+tvpza72rY2UcV9mgN9jci7CrCAVXmiwVZO/Tlf21rH4a9I/NMds4mXQb0LjG+JDGa2yljKF7lrFcABDP2QDT07w6yuPmoDxp0EDq61ghF377WZVVyPhtRtu13DGZpagQqk6IXtdM5s47j3xmsNyFCceV+BjIOn2WQVCbvVuZNXSU+R3ZFRPJdlC20N/45VyRfpXmsHh4GmL0dD4Lu72MY8wzlOTGAgMlCHepum6c5TGMcpJiE635+GlaGha8zyauakxhUqoEJaBO4ozdBSaQm5RICSfnZeR2cb4W4k/ITXeyCaYSBRgM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(3023799007)(56012099006)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UHBln4LjOoIX/SwKuejdqaQdu8mJlaq9uzZiusI40fWghtso17qWwRL+UYQcV16s78j5yN1UDlAXak5c/kJTdXCo+0q1ZFnZhwnOdM0AJ5ATj7WNmP0CBjqxORLrFZiWNgjhhRRv5EHPe67XD+o2hlrQlsvXYwFE7DyX4Yar1ync7AA7xdg6wWa4kBqxddmMFGo3EsTxPygsE32I5vMEhqO1RDOXfIfMyQe9zZ6ka5mZtrNF0wiXZ7CIqcG2spNCyojdBskkJ6Jo0/NYWOxrr6KYqfo97pquMGUZJBtt3mFWmGoJ9e3rKSU+bP2GKnL/Yo5pmtE9dq14rjQTPcgq56RNt3ZWh6EGeXjIJj3V2gl5gHLu6DXya30c7/LQx9eV0saBtmTyUKdDIv90bS1kS3pYIWZ4+hJujZvnkgrH6Ze5EtmOVSwf86JUJjTrv789
+X-MS-Exchange-AntiSpam-MessageData-0: pHRzG0vC4l6Sy3tv6PJSE+kfSZcTPMQXnrqzXLuOedgIpFlNWBwY4Ew2T/iS3zEaIJQc6aHY1jwJW0vXs0Pgxu2TnM8hKQY5vQ8sr/8jV0ir95va3mTgjkEQoqNY95ouYgmHpuAsKtCI0aGRxl19AjsYWCGdcIMJMRsdT1gVtqrCGAK7civ8GT9fW3OL2aBNe6ksaJ2u7JU9mX+5l4My41a0xSfHJNUDJWVVj9FJqIpjOOdH/jzjTI4FXFsU2RSwhN/2pKPuyT/ta/3GB4C4PYIZufNf2JUS99Zqzi5UXpuDn2PTDaqhuINaO7spbCOGqJZaGHBrPJ8iA5fZVvr66XQhfCpUb0Z1H9ymYHIIdoWubEAx34NAKwd1TtwKoUTI2Atmg/Ir5rZrT8E/O3EbSk3q4io8EsGJR+q7jML6rm0q+WeHlXCArl5DmRams7DD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 09:38:42.3378 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: de6ce93d-a340-4329-a157-08debd661243
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 09:41:38.2995 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f2ae8e9-c8e6-4008-dec9-08debd667b21
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000012.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8880
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,196 +109,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a helper function to extract long values passed in a string. The
-string may have values of multiple parameters separated by space char.
+PPTables could be embedded in firmware binaries with v2.0 or v2.1
+format. Add a common helper to get pptable from firmware binaries.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Assisted-by: Claude Sonnet (Cursor AI)
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 116 ++++++++++++-----------------
- 1 file changed, 48 insertions(+), 68 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 140 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h |   3 +
+ 2 files changed, 143 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index ebe0b320ca4f..040839dc6368 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -98,6 +98,37 @@ const char * const amdgpu_pp_profile_name[] = {
- 	"UNCAPPED",
- };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 0a745afa8552..ad1020b8389c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -1551,3 +1551,143 @@ int smu_cmn_dpm_pcie_width_idx(int width)
  
-+static int amdgpu_pm_parse_long_params(char *str, long *params,
-+				       uint32_t max_params,
-+				       uint32_t *num_params)
+ 	return ret;
+ }
++
++static int smu_cmn_get_pptable_v2_0(struct smu_context *smu, void **table, uint32_t *size)
 +{
-+	const char delimiter[] = { ' ', '\n', '\0' };
-+	uint32_t count = 0;
-+	char *sub_str;
-+	int ret;
++	const struct smc_firmware_header_v2_0 *v2;
++	struct amdgpu_device *adev = smu->adev;
++	size_t fw_size = adev->pm.fw->size;
++	uint32_t ppt_offset_bytes;
++	uint32_t ppt_size_bytes;
 +
-+	if (!params || !num_params)
++	if (fw_size < sizeof(*v2)) {
++		dev_err(adev->dev,
++			"SMC firmware too small for v2.0 header: %zu < %zu\n",
++			fw_size, sizeof(*v2));
 +		return -EINVAL;
-+
-+	while ((sub_str = strsep(&str, delimiter)) != NULL) {
-+		if (strlen(sub_str) == 0)
-+			continue;
-+		if (count >= max_params)
-+			return -EINVAL;
-+		ret = kstrtol(sub_str, 0, &params[count]);
-+		if (ret)
-+			return -EINVAL;
-+		count++;
-+		if (!str)
-+			break;
-+		while (isspace(*str))
-+			str++;
 +	}
-+	*num_params = count;
++
++	v2 = (const struct smc_firmware_header_v2_0 *)adev->pm.fw->data;
++
++	ppt_offset_bytes = le32_to_cpu(v2->ppt_offset_bytes);
++	ppt_size_bytes   = le32_to_cpu(v2->ppt_size_bytes);
++
++	if (ppt_offset_bytes > fw_size ||
++	    ppt_size_bytes > fw_size - ppt_offset_bytes) {
++		dev_err(adev->dev,
++			"pptable v2.0 exceeds firmware binary: offset %u + size %u > %zu\n",
++			ppt_offset_bytes, ppt_size_bytes, fw_size);
++		return -EINVAL;
++	}
++
++	*size  = ppt_size_bytes;
++	*table = (uint8_t *)v2 + ppt_offset_bytes;
 +
 +	return 0;
 +}
 +
- /**
-  * amdgpu_pm_dev_state_check - Check if device can be accessed.
-  * @adev: Target device.
-@@ -759,8 +790,6 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
- 	long parameter[64];
- 	char buf_cpy[128];
- 	char *tmp_str;
--	char *sub_str;
--	const char delimiter[3] = {' ', '\n', '\0'};
- 	uint32_t type;
++static int smu_cmn_get_pptable_v2_1(struct smu_context *smu, void **table,
++				     uint32_t *size, uint32_t pptable_id)
++{
++	const struct smc_firmware_header_v2_1 *v2_1;
++	struct amdgpu_device *adev = smu->adev;
++	struct smc_soft_pptable_entry *entries;
++	size_t fw_size = adev->pm.fw->size;
++	uint32_t pptable_entry_offset;
++	uint32_t ppt_offset_bytes;
++	uint32_t ppt_size_bytes;
++	uint32_t pptable_count;
++	int i;
++
++	if (fw_size < sizeof(*v2_1)) {
++		dev_err(adev->dev,
++			"SMC firmware too small for v2.1 header: %zu < %zu\n",
++			fw_size, sizeof(*v2_1));
++		return -EINVAL;
++	}
++
++	v2_1 = (const struct smc_firmware_header_v2_1 *)adev->pm.fw->data;
++
++	pptable_entry_offset = le32_to_cpu(v2_1->pptable_entry_offset);
++	pptable_count        = le32_to_cpu(v2_1->pptable_count);
++
++	if (pptable_entry_offset > fw_size ||
++	    pptable_count > (fw_size - pptable_entry_offset) / sizeof(*entries)) {
++		dev_err(adev->dev,
++			"pptable v2.1 entry array exceeds firmware binary: offset %u, count %u\n",
++			pptable_entry_offset, pptable_count);
++		return -EINVAL;
++	}
++
++	entries = (struct smc_soft_pptable_entry *)
++		((uint8_t *)v2_1 + pptable_entry_offset);
++
++	for (i = 0; i < pptable_count; i++) {
++		if (le32_to_cpu(entries[i].id) != pptable_id)
++			continue;
++
++		ppt_offset_bytes = le32_to_cpu(entries[i].ppt_offset_bytes);
++		ppt_size_bytes   = le32_to_cpu(entries[i].ppt_size_bytes);
++
++		if (ppt_offset_bytes > fw_size ||
++		    ppt_size_bytes > fw_size - ppt_offset_bytes) {
++			dev_err(adev->dev,
++				"pptable entry %d exceeds firmware binary: offset %u + size %u > %zu\n",
++				i, ppt_offset_bytes, ppt_size_bytes, fw_size);
++			return -EINVAL;
++		}
++
++		*table = (uint8_t *)v2_1 + ppt_offset_bytes;
++		*size  = ppt_size_bytes;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++/**
++ * smu_cmn_get_pptable_from_firmware - locate the soft pptable embedded in the
++ *                                     SMC firmware binary.
++ * @smu:        SMU context
++ * @table:      on success, set to the start of the pptable within the firmware
++ *              blob
++ * @size:       on success, set to the pptable size in bytes
++ * @pptable_id: the entry ID to search for (used only for v2.1 binaries)
++ *
++ * Reads the firmware header version and dispatches to the appropriate v2.x
++ * parser.  Only major version 2 is supported; minor version selects between
++ * the single-entry (v2.0) and multi-entry directory (v2.1) layouts.
++ *
++ * Return: 0 on success, -EINVAL for an unsupported version or if the
++ *         requested pptable cannot be found or exceeds the binary bounds.
++ */
++int smu_cmn_get_pptable_from_firmware(struct smu_context *smu, void **table,
++				      uint32_t *size, uint32_t pptable_id)
++{
++	const struct smc_firmware_header_v1_0 *hdr;
++	struct amdgpu_device *adev = smu->adev;
++	uint16_t version_major, version_minor;
++
++	hdr = (const struct smc_firmware_header_v1_0 *)adev->pm.fw->data;
++	if (!hdr)
++		return -EINVAL;
++
++	dev_info(adev->dev, "use driver provided pptable %d\n", pptable_id);
++
++	version_major = le16_to_cpu(hdr->header.header_version_major);
++	version_minor = le16_to_cpu(hdr->header.header_version_minor);
++	if (version_major != 2) {
++		dev_err(adev->dev, "Unsupported smu firmware version %d.%d\n",
++			version_major, version_minor);
++		return -EINVAL;
++	}
++
++	switch (version_minor) {
++	case 0:
++		return smu_cmn_get_pptable_v2_0(smu, table, size);
++	case 1:
++		return smu_cmn_get_pptable_v2_1(smu, table, size, pptable_id);
++	default:
++		return -EINVAL;
++	}
++}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index 5b7f64b94179..ae6742f5298f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -249,6 +249,9 @@ int smu_cmn_dpm_pcie_gen_idx(int gen);
+ int smu_cmn_dpm_pcie_width_idx(int width);
+ int smu_cmn_check_fw_version(struct smu_context *smu);
  
- 	if (count > 127 || count == 0)
-@@ -795,22 +824,10 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
- 		tmp_str++;
- 	while (isspace(*++tmp_str));
++int smu_cmn_get_pptable_from_firmware(struct smu_context *smu, void **table,
++				      uint32_t *size, uint32_t pptable_id);
++
+ /*SMU gpu metrics */
  
--	while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
--		if (strlen(sub_str) == 0)
--			continue;
--		if (parameter_size >= ARRAY_SIZE(parameter))
--			return -EINVAL;
--		ret = kstrtol(sub_str, 0, &parameter[parameter_size]);
--		if (ret)
--			return -EINVAL;
--		parameter_size++;
--
--		if (!tmp_str)
--			break;
--
--		while (isspace(*tmp_str))
--			tmp_str++;
--	}
-+	ret = amdgpu_pm_parse_long_params(
-+		tmp_str, parameter, ARRAY_SIZE(parameter), &parameter_size);
-+	if (ret)
-+		return ret;
- 
- 	ret = amdgpu_pm_get_access(adev);
- 	if (ret < 0)
-@@ -1373,11 +1390,9 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	uint32_t parameter_size = 0;
- 	long parameter[64];
--	char *sub_str, buf_cpy[128];
--	char *tmp_str;
-+	char buf_cpy[128];
- 	char tmp[2];
- 	long int profile_mode = 0;
--	const char delimiter[3] = {' ', '\n', '\0'};
- 
- 	tmp[0] = *(buf++);
- 	tmp[1] = '\0';
-@@ -1391,19 +1406,11 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 		while (isspace(*buf))
- 			buf++;
- 		strscpy(buf_cpy, buf, sizeof(buf_cpy));
--		tmp_str = buf_cpy;
--		while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
--			if (strlen(sub_str) == 0)
--				continue;
--			ret = kstrtol(sub_str, 0, &parameter[parameter_size]);
--			if (ret)
--				return -EINVAL;
--			parameter_size++;
--			if (!tmp_str)
--				break;
--			while (isspace(*tmp_str))
--				tmp_str++;
--		}
-+		ret = amdgpu_pm_parse_long_params(buf_cpy, parameter,
-+						  ARRAY_SIZE(parameter) - 1,
-+						  &parameter_size);
-+		if (ret)
-+			return ret;
- 	}
- 	parameter[parameter_size] = profile_mode;
- 
-@@ -3928,18 +3935,14 @@ static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
- 	return size;
- }
- 
--static int parse_input_od_command_lines(const char *buf,
--					size_t count,
--					u32 *type,
--					long *params,
--					size_t params_max,
-+static int parse_input_od_command_lines(const char *buf, size_t count,
-+					u32 *type, long *params,
-+					uint32_t max_params,
- 					uint32_t *num_of_params)
- {
--	const char delimiter[3] = {' ', '\n', '\0'};
- 	uint32_t parameter_size = 0;
- 	char buf_cpy[128] = {0};
--	char *tmp_str, *sub_str;
--	int ret;
-+	char *tmp_str;
- 
- 	if (count > sizeof(buf_cpy) - 1)
- 		return -EINVAL;
-@@ -3964,28 +3967,8 @@ static int parse_input_od_command_lines(const char *buf,
- 		break;
- 	}
- 
--	while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
--		if (strlen(sub_str) == 0)
--			continue;
--
--		if (parameter_size >= params_max)
--			return -EINVAL;
--
--		ret = kstrtol(sub_str, 0, &params[parameter_size]);
--		if (ret)
--			return -EINVAL;
--		parameter_size++;
--
--		if (!tmp_str)
--			break;
--
--		while (isspace(*tmp_str))
--			tmp_str++;
--	}
--
--	*num_of_params = parameter_size;
--
--	return 0;
-+	return amdgpu_pm_parse_long_params(tmp_str, params, max_params,
-+					   num_of_params);
- }
- 
- static int
-@@ -3998,10 +3981,7 @@ amdgpu_distribute_custom_od_settings(struct amdgpu_device *adev,
- 	long parameter[64];
- 	int ret;
- 
--	ret = parse_input_od_command_lines(in_buf,
--					   count,
--					   &cmd_type,
--					   parameter,
-+	ret = parse_input_od_command_lines(in_buf, count, &cmd_type, parameter,
- 					   ARRAY_SIZE(parameter),
- 					   &parameter_size);
- 	if (ret)
+ /* Attribute ID mapping */
 -- 
 2.49.0
 
