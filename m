@@ -4,97 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B09CD5BD2
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 06:20:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2645ACD6E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 06:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E682710F94A;
-	Fri, 29 May 2026 06:20:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA6510F991;
+	Fri, 29 May 2026 06:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZN5EBNmd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nVJXKwNg";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011000.outbound.protection.outlook.com [40.107.208.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5DFD10F94A
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:20:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eGRbRbetKk0ZNzjSduPzUxqn9aGruvT0RCKYl6N+SpP8k3dP2KyyvShNQM/mXnzJtRuYRrorHTdsJhlr5SU9ePQd+cbaDP/eyfJCEgnf/rg0FBME9n62iPzPmnjfi3KJkQtxmxql0K38ccxX2ryDtygxxWBEN8SRFyHGPOaCVS3sLkHm487NSE2lAX87MX+pBuc2H4qSKtPr0UKU8nsntVJYkreGhTEBHVv3S694CxfjsIP905A+/WvCzvp6sdmBsmZToYgBIOGPTM9a73O/xdNHnaB2eiUvVGOgEi5eqkfoYAC/N+k+D+Xh2zXiivLoL4vvIPai39h+IjNYmE2SqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K1/iiWbJO07oqm0/fflj4KkTnCancrVhE7l+nfi2gUM=;
- b=aa8wvwTkzO5rOxI9oEj3tave0g1yaZ/iy2X6/ONntv7L+Ca1PxvqXGEae4vymymlRPm3XKHKFvhxYeFu6YEVcG7jR1t4XuXG7frWyKFgYBvxmI25FzI13mGApkhVnCC2LgtEmuxicjZkik7d2yVMOayqA9TGexBkz8xt2f6x/igsvJwKpoqSEFIJJHocHzLEIVguu3AT4dT1c4HHfTybwN7LyREc9QfdLAWI7jqlv+eyiGOi7Ya9kB0SvMhzLtMktzy6wVU+euQ8zK/WzGscjUmqpJjj3W/aGTK4eMv1VynKUxFkUGysCnj9BU5sztcdZ/Z5XPNvBh7i2VDqGzvGJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K1/iiWbJO07oqm0/fflj4KkTnCancrVhE7l+nfi2gUM=;
- b=ZN5EBNmdJ9kltS/5vgmU9Af6xwyDwRJSf+adcVnRnTLOLneHBsZnaXPZoPukdP6Snq3FaViPptwIvbntyG1+NTprZHsVVgTHAbkeuyp4kmRdsNBUz7/SJsptW7ySma63YaV4y80WZ0l/saQJK/YnVDd5AEcKORd3RqMNraCttig=
-Received: from BL1PR13CA0335.namprd13.prod.outlook.com (2603:10b6:208:2c6::10)
- by SJ5PPFD525C5379.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::9a3) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
- 2026 06:20:23 +0000
-Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
- (2603:10b6:208:2c6:cafe::27) by BL1PR13CA0335.outlook.office365.com
- (2603:10b6:208:2c6::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.4 via Frontend Transport; Fri, 29
- May 2026 06:20:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 06:20:22 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
- 2026 01:20:20 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
- <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
- <asad.kamal@amd.com>
-Subject: [PATCH] drm/amd/pm: bound pp_dpm_set_pp_table() memcpy
-Date: Fri, 29 May 2026 14:20:08 +0800
-Message-ID: <20260529062008.357699-1-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59A9610F991
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:48:21 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5a995ab70d1so15945092e87.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 23:48:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780037300; x=1780642100; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=doPRw5QapmDdqAPGgFbdNczGbZz+3rVnzTYKju4SbAA=;
+ b=nVJXKwNgLEkYGbSon8RuduJfibLMASrGKUPxGSk2qpsGFTRtpHg63delRTE4QjoV8+
+ q+4Eum+etnez1tHO8oxNEa7ttBLb+bD2Y0LSqlkZv+K1CF6trfmOcwdCOhgFNegWfcUI
+ xMqjS1VRxjfcQ7zicAS+lZKdS8l4Mw4DoHjDCrKUPfe+2KJMV/zHdvhJ2jfrJPv+mnbV
+ vopVb05dcOG5jZg4Fm5hPfZpONCjEzktmGShBfulvWFEvC8in6Dv0oh8HNXMyfsRoQ65
+ CmBU7EQUvHVz8f1qNzkfAptUei5C2ZfvmdVXJB50wBmjB24ofipiO/99bH1Iz6T3/FtM
+ 0jdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780037300; x=1780642100;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=doPRw5QapmDdqAPGgFbdNczGbZz+3rVnzTYKju4SbAA=;
+ b=U90fiPRWoTll6u2TwxokGUo7pvQ1cyWJgq0FNuXE4tmjIt/aDK9KHqG+FozbN11MAa
+ TazgdVrOT+Q+D2qnYRrHK4Qft6GJ5TQsaIrjXyt6HAhd+j1Jfglr0WdMULtHTjTVoaQX
+ DZNc6y+2lW3JCKu4MyZsr//tkxKzqgNCm4aJ9sZ6VXOv0AZEDe6BWAC7QehUOIPOseGB
+ 4y33cpGkydx/eSMD/eT7QJIA5K2fv0XtGyfo2COR3BFvo+5TveQu3mbfbPLDJ6Tiv1AD
+ hXNeG3dp07Atn+HQPCkaQeS6P2odLQNIlVR6gKkr7oCOzfiYifNwRCBjUFQJxRQNeIZY
+ 35Jg==
+X-Gm-Message-State: AOJu0YxOY7/iWLvPn3XA2win1h2OcE+JBrvzkJlM9rOC1M06nqN9yF50
+ if/58IuvV1lLBvHxpXTbScwLhgIOIRFxAIYcSkQ53Zp7y1B2IM+BNZoiO4HkbCdQ3DZMOyux
+X-Gm-Gg: Acq92OGR2khpotAQG+ULrU6JTKYPGDQrixivF5myT/D+U/nNkArtNVKAbAf09jt31E5
+ 1U4ZpA+oeGqt4uQ9MoKX5MpUKd8CboPIyrq1ZOTJ87wpmLIniNBAngJKE9OgjcXDDWOHJ0GXCOG
+ VidWZvKCb/bBDCF4aMFp4mOQ4IfNOH9kvcKVKdZFyOonBdTFBU2ePK4lqUJe/coEgIA/xjQZfg/
+ iYrKUM6wGSiVorWq9K9fx5RVAz9X3M93wt2YG7bc4qZwswwvt5V9MyCHqcrH8Y+nrsu76MWEhV+
+ ytFvNfxLtWYdzbG4Up+1WCugVoEbObyCL0YwOkyy3oQMC6z2YgoRb7F+poF6hydByLRrMPrnnEJ
+ 4u3XZ228guNlhMVmfESNFxkwtU6164cVcea7xaUZyRdcI/d0ZMa4X+VcsD/1W/fVNrygCVFr5uZ
+ AdIXijiqZAH8aYjBWPsSI/v6VhHBNZnaiQs8KZmKIZze0=
+X-Received: by 2002:a05:6512:3d1c:b0:5aa:2a30:217a with SMTP id
+ 2adb3069b0e04-5aa594a573bmr325607e87.34.1780037299072; 
+ Thu, 28 May 2026 23:48:19 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aa5b79f04dsm72147e87.83.2026.05.28.23.48.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2026 23:48:17 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v6 0/2] drm/amdgpu: fix recursive ww_mutex in devcoredump IB
+ dump
+Date: Fri, 29 May 2026 11:47:37 +0500
+Message-ID: <20260529064740.25060-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
+References: <20260521150841.20625-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|SJ5PPFD525C5379:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4098a404-ce9d-4f7c-9f02-08debd4a5d95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: Gw05ZSWCr/7mneF4ml0EJs7vojxDaCcguuOgYuGfYj0EhTNyaYQLpX2jFW+ZaNSAsHuwaiDvHBFsV+juiWByHU3B4CgB/w4SvOucvvLdzlJfj2sVTbxsqXTgdyd/ViSkrEjRAA05Y7+nqBfvhQCBQeZEkSpgWko/aGm0IPoYQs5m/riokmAw7UgK5vWVYs8ljUp9Qas405XsJ+aVXtVPBpRW88w8/T+j2s5r494Td7jo+m7GFF4x/C6YyXedHPWkshCfP8sjnI8n0oFHHaev2FgWoiMFmE0FPAukhy4gSRttbjeudBEiYXVLvqf4kNjbBFCq5ziXhJ3F3/2a2Oc0PGeUjULctvMuJ8lQdVnbFS0yySSkdm0peH9Wq4NS7f5F7uM2VpQz01iOvpfpPhyIoobw2sgcyn1MJ34m26AdBvkNFvLMJtgldg+B9kJ+0UPGr2va9bjWYGanf8FMD/dC33yPS8hSIVpmCAObH+CQ2ibRiqmIDsZ8fjQRfdHujnWOB5BSiQ+CHmotdKUeB/Yrh9odX32/K25oVKbODawg70+HuM5s53IYcVTteITlJIVlCSMwwzHrj2DCWY1lr95m8turKSZGs3v8tAOP105RtGA+uER/i9EcM3oaFLaktBdq2ZIGU43+KORQRB9gf3VNdA8eAwqqk21RwMk5zuoCttzmBh3Vcy+iFa+sFBaQz4rdpxHTM9yxvEaZa7jzD1XxizFGdB9JTnuk/cBAoJYf3h4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lLTQTAeVCwfMw6blNWRYi3FV5II83uHPEYwt7I2apan3RUnciOOFk+0kVsWgTePakZ9HPkvClVwp1JaAqzAiHwd4x5CJK12xr57EuefUK+E/yLmVj69ENym0sHr5Y4Gz1G3/Dud08gikKQV3dSuOkSYGDausvWQwSBOenhLiS8uVciG9/ozoWu/S+wKXWQ1QcwM7ZCIVpZV9dvqaBEf5oxfA8KvVoJyNxVOY/yI0BPDbhKvQMED4MKL+53tn/GHZyFUW1BsO370PexPhMpulmQugpsspHssBOvuN5sei8t4imLcZI+XRejAhOhOVn3LFaB4cQ5fQRGu3b1cbOc0scCNCUojsP8KlyMXD73xOitXmyeIVedWsg0Up4AwcZm6VJxvbE1N0CI0bHQu2XB59Qi5/yMbtzF/Sol1x4Ow1wGT8T+wRgXTpFg4JJxT5jU5j
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 06:20:22.8079 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4098a404-ce9d-4f7c-9f02-08debd4a5d95
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFD525C5379
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,30 +93,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The powerplay path allocates hardcode_pp_table once with kmemdup(...,
-soft_pp_table_size). memcpy(..., size) used the sysfs store count (up to
-PAGE_SIZE) with no upper bound, causing heap overflow. Reject
-writes where size exceeds soft_pp_table_size.
-
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 3ee910503775..35974fd02b27 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -665,6 +665,9 @@ static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return -EINVAL;
+This series fixes a lockdep "possible recursive locking" splat in
+amdgpu_devcoredump_format() that fires on every GPU timeout once a job
+with a PASID context is involved. With amdgpu.gpu_recovery=0 the timeout
+handler refires every ~2 s, so the splat repeats until it drowns the
+kernel ring buffer. It is also a real self-deadlock for IB BOs that
+share their dma_resv with the root PD (the always-valid case).
  
-+	if (size > hwmgr->soft_pp_table_size)
-+		return -EINVAL;
-+
- 	if (!hwmgr->hardcode_pp_table) {
- 		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
- 						   hwmgr->soft_pp_table_size,
+The root cause: amdgpu_devcoredump_format() holds the VM root PD's
+reservation and then reserves each IB BO on top of it, nesting two
+reservation_ww_class_mutex acquires without a ww_acquire_ctx.
+ 
+The fix teaches amdgpu_vm_lock_by_pasid() to lock the root PD in a
+drm_exec context, so the devcoredump path can lock the root PD and all
+the IB BOs together in one ww ticket. Because amdgpu_vm_lock_by_pasid()
+has a second caller in the page-fault path, the series is split so each
+patch builds and works on its own:
+ 
+  1/2  Convert amdgpu_vm_lock_by_pasid() to take a drm_exec context and
+       lock the root PD with drm_exec_lock_obj(). The drm_exec context
+       holds the root BO reference, so the root output parameter is
+       dropped. Updates the existing caller, amdgpu_vm_handle_fault().
+       Pure refactor, no functional change to the page-fault path.
+       (Reviewed-by Christian on v5.)
+ 
+  2/2  Move the IB dumping into a separate helper that locks the root PD
+       and every IB BO together in one drm_exec ticket. The per-IB
+       amdgpu_bo_reserve() nesting is gone, along with a BO refcount
+       leak on the old reserve-failure path. This is the actual bug fix
+       and carries the Fixes: tag.
+ 
+Tested on Linux 7.1-rc4 + this series, Radeon RX 7900 XTX (gfx1100),
+KASAN + PROVE_LOCKING enabled, using a small libdrm_amdgpu reproducer
+that submits a GFX IB chained at GPU VA 0 and waits for the hang. Before
+the series the splat fires on every TDR; after it the dmesg is clean
+across repeated timeouts and the devcoredump IB dump is produced
+correctly.
+ 
+v1: https://lore.kernel.org/amd-gfx/20260429143743.50743-1-mikhail.v.gavrilov@gmail.com/
+v2: https://lore.kernel.org/amd-gfx/20260519161541.19994-1-mikhail.v.gavrilov@gmail.com/
+v3: https://lore.kernel.org/amd-gfx/20260520151741.50575-1-mikhail.v.gavrilov@gmail.com/
+v4: https://lore.kernel.org/amd-gfx/20260521104335.28978-1-mikhail.v.gavrilov@gmail.com/
+v5: https://lore.kernel.org/amd-gfx/20260521150841.20625-1-mikhail.v.gavrilov@gmail.com/
+ 
+Changes since v5 (all in patch 2, per Christian's review):
+- Trim the commit message: drop the reproducer paragraph, keep the
+  problem description and the solution.
+- Move the IB dumping out of amdgpu_devcoredump_format() into a separate
+  amdgpu_devcoredump_print_ibs() helper.
+- Use goto error handling inside drm_exec_until_all_locked() instead of
+  break, and drop the now-superfluous `locked` variable. drm_exec_fini()
+  is called once at the end of the helper, not in the locking path.
+- Patch 1 is unchanged from v5 and keeps Christian's Reviewed-by.
+ 
+A note on one review point I couldn't fully confirm before respinning
+(asked on the v5 thread [1], no reply yet): in the locking loop, when
+amdgpu_vm_bo_lookup_mapping() returns no mapping for an IB, this version
+treats it as non-fatal -- there is simply nothing to lock for that IB,
+so the loop continues, and the content loop still emits the
+"IB #N <addr>" header without a body. goto-abort is reserved for real
+errors (VM not found, drm_exec_lock_obj() failure). If a missing mapping
+should instead abort the whole dump, I'll change it.
+ 
+[1] https://lore.kernel.org/amd-gfx/CABXGCsPPY3qX7Ad-a7==nmA5R7aejCTCrmWYpn-9OQQU=1eMMA@mail.gmail.com/
+ 
+Changes since v4:
+- Pass nr=1 to drm_exec_init() in amdgpu_vm_handle_fault() (Christian).
+- Picked up Christian's Reviewed-by on patch 1.
+ 
+Changes since v3:
+- Lock the root PD with drm_exec_lock_obj() instead of
+  amdgpu_vm_lock_pd(); drop the root output parameter; unlock with
+  drm_exec_unlock_obj() on the VM-recheck-failed path (Christian).
+- Resolves the docutils warning the kernel test robot reported on v3.
+ 
+Changes since v2:
+- Reworked along the lines Christian suggested: amdgpu_vm_lock_by_pasid()
+  takes a drm_exec context directly (patch 1), devcoredump locks the
+  root PD and all IB BOs in one ticket (patch 2). The v2 helper struct
+  and the three collect/lock/release helpers are gone.
+ 
+Changes since v1:
+- Switched from per-IB amdgpu_bo_reserve() to drm_exec.
+- Dropped the Cc: stable tag: the regression only landed in 7.1-rc1, so
+  the fix reaches 7.1 via drm-fixes without a stable backport.
+
+Mikhail Gavrilov (2):
+  drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+  drm/amdgpu: fix recursive ww_mutex acquire in
+    amdgpu_devcoredump_format
+
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 215 ++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  91 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   2 +-
+ 3 files changed, 184 insertions(+), 124 deletions(-)
+
 -- 
-2.46.0
+2.54.0
 
