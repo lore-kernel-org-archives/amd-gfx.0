@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C53C8CD5BD2
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 10:31:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32339CD6E4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 10:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62C6B10FCB4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA43C10FCB5;
 	Fri, 29 May 2026 10:31:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W4yMuxNB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WXiIEpUr";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C78410FCB4
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 10:31:09 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4909e3fa4b2so4269725e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 03:31:09 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3289C10FCB4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 10:31:10 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-45ef5146b56so119834f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 03:31:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780050668; x=1780655468; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780050669; x=1780655469; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1g2soikWGEwvlFxH25rsfBGqEUSTkW/yH21MDOXrLuc=;
- b=W4yMuxNBVI0GJxV/4Bhb5B5ucLzsIK8jAsiQIegJ9En3CSCzJgypY5UbIXg8+KKCif
- o3bRvJGy7BAB31iM5vl37iNJoRXqPGqMZD5UM6ZxEWHc2FlhibV0l2AtnsR7wPUkRDge
- gtcJkF6Un7EieV1mJfLMfOz+65agUpW+p+lVAbFmC4nnBZPAYyiGmK1V8aqZMAYynHWm
- iDC5r048o2OBkRpsYBX67YtAu2oKMpzuHjtv03Wfz797L5SZq4JnFjjo11dMbvyXTp26
- CslnvD5oBvdWxlcyRNJkdH1bKf8C/zfoBJ/xNEA5G9jVSMU4bdN7xLGPxVdAhYlPvU2G
- qMOA==
+ bh=5YnIfhEBXAVqrQgapNbKoi/d7QeFzzKs5AqsCpcPVBQ=;
+ b=WXiIEpUr9q1+4p9SvEbeTBOOphTrz/u07x27A3qMh0nMRm2ilowjGA81v1u+xI+gVc
+ +jbi7XgZoB7vNDqNJ/+uIZ2cVV+ZfwjuZ6liieD4Os1MUHyHl4hfN88/0/RFITRFnypg
+ 5cRmAGsR2fnwv1ra0iaPkai8w3Uh2Cr2pVzZpeM8aO080mI/dM9E/9Xp31P//FKX3fta
+ N5QdDPl14FkpP0JOD2o266MdYvwlleSGEvn7fiIek8LoMjRy2j42+8YIUDhabQwIOV0r
+ uIjmpT3xOh/SNtSo0qy62i+4H1/GD4IUCPyEwoxGHgbQLMwQGgmBXLf6fR01vZ52nVWS
+ p+wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780050668; x=1780655468;
+ d=1e100.net; s=20251104; t=1780050669; x=1780655469;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=1g2soikWGEwvlFxH25rsfBGqEUSTkW/yH21MDOXrLuc=;
- b=WxjWzWOqiKe+LAZXta6nS6KXGasfD9y6V9nZaPIUpJHy5RSia9tdtLNyrV87pJ+RPa
- FZ7K4i9Ty34FSRkF4fwR5XVG8MHFhdst6uneJFR1rNGSOXN6LMdzcaCPgs4p5MTyMktJ
- TiXRm/GbmZC49trVVACiwvS4w+xjqW8OAQmYnDi3j/iuvphqaJ5z5K2GSTTFlQqa2D4d
- aKgOaN9FZZwoCzbpE02SiGjDuYF6S7s7E5/Ddf4pGzJ+fX4bOkZo1PMFKWITfuEhmi73
- Al3HPiMlpnF83DK3+NX+MYiN2dIxcPLyCtJTOlrqmMXR1YGhegvjpYnGzf8YLkFWB4nC
- iUZA==
-X-Gm-Message-State: AOJu0YwAzT6C8fZlg9xD1tnq2hJaeRlJgtYLdjjFU9oDiYOH2rzAXqIs
- JORDPw1b870DcEhpEMTi1XKdsCJfIr2C+2PWw/BNZcgqHe1xeZYzog/4d/DzWQxl0TI=
-X-Gm-Gg: Acq92OHUJ7WdcMM2sPLGy2/YzDS5/ccHDHlrB30fLP9jBUhC7p1PmwlzNd3LX/MX384
- hJLCtAUxi9kc2iLncbNPfEv28ZNRswI45WW6R3j7pYId/iT0dt0mtSVEmCrFUzKjkVT2UfKgQ1D
- 9avzKW4ahenlR4PJcQiww2Vvp/HojpsC5FQFkCoEAbNffMlaSytsmZojI1uZn8UryFvnVv8ltiH
- wxayDIFo/QII0DN38ycscW9Z6S+cnoYFBTSzQ+78/3E1q72S4KxSVIShCAptDW43FtgtGQnIctJ
- vZD9JxMw+XbQcTLGYZKWjtRaBU+OeJyAESUgNv2Ha7yn50+xNM3YiqRh6hPztceKvAoReF2BAP1
- 3KiwBGbSU1VvEdEZ6RGgK2dwx5gcYrEEXR42OvnRs0IGiBok/4eUWj4T82IYSTVnWoHBC9KYvAg
- kmm7PrcsokhN+JshSOE9XU82lXfQAKMKtTt7vWobzknlgXQ9aaqnUm/uzpuKLQDQCwIAYT1ecWX
- mmR9HWM7V3Hgn0g
-X-Received: by 2002:a05:600c:a399:b0:490:5e2a:dbaf with SMTP id
- 5b1f17b1804b1-4909c0b344dmr27997535e9.21.1780050667677; 
- Fri, 29 May 2026 03:31:07 -0700 (PDT)
+ bh=5YnIfhEBXAVqrQgapNbKoi/d7QeFzzKs5AqsCpcPVBQ=;
+ b=hkR345UidmPCx1N0UNma3JqQ5aH4vYDMx2KQ0JtpjUbe/dfp791qlymgjJbV3c/Sz6
+ ilm+feZrdJhdstmkdeGjDOMdUsJ4JUjvGtFdu5WA09+SnJ5p7blckvNpK7FelnvoAfWl
+ u6AFdtwZMq0ZLWOW89xQr3Q16bLAiPOU+0sk/BA2zjy7+AliGE8UgQdO3j4p88EZlyce
+ 2QzF9YIfqeDG2jAfGVhUSX3V5Ja6UKqFjm+QYnfWGArLrRdbDdlIiBzOLebcehQxqyPx
+ x16kuQHETfHWXh9GSkZQaH2hr9h3N/ZT+A38HNR9RP4s7Ye+dpZz/dU6+h3maU3GEKjr
+ MZOg==
+X-Gm-Message-State: AOJu0YzMt27PcQ7iOcqID2fddqIdfImssieMeA4H5M50OtwkqOhiIuyS
+ PXivyY2ucGnWYHeTcvvrFlcU0eAYMQ6ialNogZfx3tCo0sCsQy2ehhU0wlD2nwDKpvk=
+X-Gm-Gg: Acq92OEuMXHrywYocc5coa2rvNayHIEkV0Q1DIyyo0UBMtXs0+B76Ayg4oe+X6MtihX
+ 1GmHOczcLRjxP9pLn30kplG1bSrvPMIagv2RTtDRoQNfPYvKqyUZsp9daMt4ep6OJCm2Am4FJsR
+ j8lJcCICTzwH8Wr3RVBmt3KS0gMbil0eYlOtgmwlp/ZqwL0mut05y3N+D2DWipZTsoS6yICLICm
+ 16F+zxvgbtUBkYvSiAGDYkMqDgbpiCkTHWpxbv9SLiHTKBu5rrcLz7frf9fQYgF+l0zMTspPAZs
+ DFdoA1AaWj96pj7LZFe9glVVG1/31atKjw9RHpf7yrOK6jV+KznR4TAsmxh7vN1VFwUFQjH/JYd
+ zgM/V9OJfoDzUIqSLGJ4rNAEkOc4FZWT97MUTpCIGXJwPoXbgNBNI5WIB0BFl6bBuYfQri4IohK
+ MME9/y+ZThSaW8+okRKrL6Q82sCwRZB1pMwgKZe9zAbrbGaaNeWMP+EShC9A/9PbiH1+vKEr1r5
+ nJnnyV/6tDOjyoL
+X-Received: by 2002:a05:600c:810c:b0:48a:5339:a46 with SMTP id
+ 5b1f17b1804b1-4909c622598mr30529725e9.9.1780050668452; 
+ Fri, 29 May 2026 03:31:08 -0700 (PDT)
 Received: from Timur-Max.c.hoisthospitality.com (184.31.0.109.rev.sfr.net.
  [109.0.31.184]) by smtp.gmail.com with ESMTPSA id
  5b1f17b1804b1-4909d6a0a89sm40895945e9.7.2026.05.29.03.31.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 03:31:07 -0700 (PDT)
+ Fri, 29 May 2026 03:31:08 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -68,10 +68,10 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
  Mario Limonciello <mario.limonciello@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 5/7] drm/amdgpu/gmc12.0: Use AMDGPU_PTE_IS_PTE flag for
- init_pte_flags on GFX12.0
-Date: Fri, 29 May 2026 12:30:57 +0200
-Message-ID: <20260529103059.21470-6-timur.kristof@gmail.com>
+Subject: [PATCH 6/7] drm/amdgpu/vm: Use init PTE flags,
+ and NOALLOC in amdgpu_vm_handle_fault()
+Date: Fri, 29 May 2026 12:30:58 +0200
+Message-ID: <20260529103059.21470-7-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260529103059.21470-1-timur.kristof@gmail.com>
 References: <20260529103059.21470-1-timur.kristof@gmail.com>
@@ -92,32 +92,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-According to some SVM code this flag is necessary on
-also GFX12.0 not just GFX12.1.
+These flags seem to be necessary for retry faults to work.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 586703ec0dfa0..7bbf5f848ce1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -641,11 +641,12 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
- 		adev->gmc.xgmi.connected_to_cpu =
- 			adev->smuio.funcs->is_host_gpu_xgmi_supported(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index f5e9b97e92a8c..80c07abc81565 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3002,7 +3002,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	}
  
-+	adev->gmc.init_pte_flags = AMDGPU_PTE_IS_PTE;
-+
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(12, 1, 0):
- 		gmc_v12_1_set_gmc_funcs(adev);
- 		gmc_v12_1_set_irq_funcs(adev);
--		adev->gmc.init_pte_flags = AMDGPU_PTE_IS_PTE;
- 		break;
- 	default:
- 		gmc_v12_0_set_gmc_funcs(adev);
+ 	addr /= AMDGPU_GPU_PAGE_SIZE;
+-	flags = AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
++	flags = adev->gmc.init_pte_flags |
++		AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
+ 		AMDGPU_PTE_SYSTEM;
+ 
+ 	if (is_compute_context) {
+@@ -3017,6 +3018,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		flags |= AMDGPU_PTE_EXECUTABLE | AMDGPU_PTE_READABLE |
+ 			AMDGPU_PTE_WRITEABLE;
+ 
++		if (adev->family >= AMDGPU_FAMILY_NV)
++			flags |= AMDGPU_PTE_NOALLOC;
+ 	} else {
+ 		/* Let the hw retry silently on the PTE */
+ 		value = 0;
 -- 
 2.53.0
 
