@@ -4,121 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7141CD6E50
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 15:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE2CCD4F54
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 15:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA44112105;
-	Fri, 29 May 2026 15:30:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C949511211F;
+	Fri, 29 May 2026 15:36:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pdniYc9D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ndQZH19Q";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012049.outbound.protection.outlook.com [40.107.209.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 467AF112102
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 15:30:01 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010001.outbound.protection.outlook.com [52.101.56.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB85B11211F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 15:36:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aVA2EPOY1NXen/SOk6ZIYYoXZVsmSP52Hr+cNDd+WNQTaeCuxZJa7GDKVzCFxXW/XYSb/4RjwpT/PHuHdmqdPNKcQqxYFPtfV6JB/5u5/LYWAPAF7crAOBFjLT+PJJpX3VJyEZ0wAjhwZ7mZjeE73SnV+pa71lVy+MmtKOggfVXCxMETrFAr6+RdTXYoLlOXgEBIf1E1LZ6a4QFsbasBbEQOx83jTUs82DP+ydZwI6Y7EZHF704uU5hUp9g9K7vIGg6NW8xhTkv4ec2+1z3P8ILqOv4lhRiXk8uojLcmwzBXT2TbQRx7XmBMM0N3nAuBF1R3ClcvjIkBZvBJcDnEuA==
+ b=XbBcxie5n2teCH1G5IvRckYtVVz9Jph1tHpNt3nOEY3qVGTqAifWlihdn99ZeFiZG6Q4WFqj5GNRsM6OaE+n4V+Yu+PH9Gf0YrMWNEQqA+d/Vb3KaCNKTodw//wuMVBs5RrWFtYb61JghkIi4l1FWNdkUPBRYDRJkrDoRf18qnTzrf6UXXNIxbyeDYeWQpyrhBvKTM+q4/mXvUgmgRmQfTnRLotJriNKvGIfy9kx/vrCC5nu4ev9X77Y2slr8hTd0m0qOCYVCiUPhA3abWm65wfYu3EbYPeJS0N5jCbCEzFrEbcYgSxCteCzqqU0ubJUVtJzePh9L2ZQPLHtLL994Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ta/S1DJu3OpCDjkJbJONioRkiNtOP2NGcYhyPaXAZCY=;
- b=TrF6E0E75U4l8gF2uV7cnwHYQHYW4e1i5BOaQ4Fiw8LP5A1AqKRVkYieuXIcEkXAzFgzBP1JTD2VLVafsv2UokQU8pf744Wum4ZU+7EtnLRMDKjR+yKNRWTAR+tmjjO7Qq6J7pVK7uDl2oESJas4hlfLmrH4QOBIa546iVKMYOlHLXjhCiaocNyTxNDL8E++4Yuef8Sn7DgxfBehHgGWQFYag5lQEst4AI6ey5ZycnFbdZveXBKHFproVtOIq3hKWCyV1DKniujFgph+Gy6TS3piPny7dLjGl5dFJKU29YiR/Hu6iJtuzrCDnR+exG5MZGx265kZGNc1DmtGpzQx2A==
+ bh=OG9Hw3Ljw5UwQCi4yYieuy9SxG7TBUY84Nj2GukZyDY=;
+ b=r61a5bW9ZnHVtFXd/fc3yUPcLxSUICmuYU8j3PvOrmiVk7b6q+jxUM5VM1lYVsSNdxV9Z6AZR9f84kty9xkGNbXUfsoqX9eFzRuR/Ez03mnG4HoCBTsdEzIsAabs3bIlm4/qngl0QYgnDrFTnC7k6gWpc63i46BQbMEofNoeCH4PFabDQpK/1fx9/t6koIYL+jvNx24+kFWZhWs8gH3IjzHOgOxYeqgnUSSxHTeLXYUd2tj5JIDd9jCl18WrihyvA6aWhHZUXCSRNy2r0jrv9nojQi/0k31Kim0Nx1qMqeKdEJEIEU3pdSRRVvnqeUf6ArSNZZvMbWuJ+ilZneZAHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ta/S1DJu3OpCDjkJbJONioRkiNtOP2NGcYhyPaXAZCY=;
- b=pdniYc9DwQejhJqHEZq3p1OCRqf9fwYvy8f23fFNnJfREg+09aavdOGz1qSnzQ53OkmDHX+mP7tq//bgPByw70GOA8WrR1P0XNdAfDKc9bV5/rRGkX4pC9M9GiHDdmuayIRkt3nRBqT2u6SHhgJhMqMl03AEo6QamwVmMT69zHs=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by CYXPR12MB9280.namprd12.prod.outlook.com (2603:10b6:930:e4::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 15:29:56 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0071.014; Fri, 29 May 2026
- 15:29:50 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, 
- "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH 2/2] drm/amd/ras: chunk UNIRAS CPER debugfs reads
-Thread-Topic: [PATCH 2/2] drm/amd/ras: chunk UNIRAS CPER debugfs reads
-Thread-Index: AQHc7341KHQO6m5iOEyGkb9uO92Bk7YlIOJg
-Date: Fri, 29 May 2026 15:29:50 +0000
-Message-ID: <BN9PR12MB5257D628508CB277BF2C6A9CFC162@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20260529151624.1144318-1-xiang.liu@amd.com>
- <20260529151624.1144318-2-xiang.liu@amd.com>
-In-Reply-To: <20260529151624.1144318-2-xiang.liu@amd.com>
-Accept-Language: en-US
+ bh=OG9Hw3Ljw5UwQCi4yYieuy9SxG7TBUY84Nj2GukZyDY=;
+ b=ndQZH19Q3SiFkoqmFyX5knRx/fkcQ95gO+RHH+8sUiCXF3Qwcyj+MUo66CtbDgLkROV4p13wXT3zC9fCyp+r9YOo+ITJlexjW7PsAB9oIviNp9ecybnjPLpsY417CJnV1NtgkdnNaddCSF3cPlwWVI/d+eNO1TEhxTxQgN1ILxs=
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
+ by LV0PR12MB999067.namprd12.prod.outlook.com (2603:10b6:408:32d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Fri, 29 May
+ 2026 15:36:03 +0000
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::f3be:26ac:e6fd:16da]) by CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::f3be:26ac:e6fd:16da%4]) with mapi id 15.21.0071.014; Fri, 29 May 2026
+ 15:36:03 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>, "Lin, Amber" <Amber.Lin@amd.com>, "Zhang, Jesse(Jie)"
+ <Jesse.Zhang@amd.com>
+CC: "Chen, Michael" <Michael.Chen@amd.com>, "Zhang, Jesse(Jie)"
+ <Jesse.Zhang@amd.com>
+Subject: RE: [PATCH 12/42] drm/amdgpu/mes_v12_1: use mes schedule pipe for
+ legacy queues on unified MES
+Thread-Topic: [PATCH 12/42] drm/amdgpu/mes_v12_1: use mes schedule pipe for
+ legacy queues on unified MES
+Thread-Index: AQHc6YD8kDbRmhO180GGwEzyumvrybYlLrHw
+Date: Fri, 29 May 2026 15:36:02 +0000
+Message-ID: <CH0PR12MB537258E1F648A63DF404ADA9F4162@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20260522002048.98506-1-alexander.deucher@amd.com>
+ <20260522002048.98506-13-alexander.deucher@amd.com>
+In-Reply-To: <20260522002048.98506-13-alexander.deucher@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T15:29:27.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T15:33:49.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|CYXPR12MB9280:EE_
-x-ms-office365-filtering-correlation-id: c74514d3-890d-4ab5-36bc-08debd972005
+x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|LV0PR12MB999067:EE_
+x-ms-office365-filtering-correlation-id: 1065c93c-786e-471f-c5a8-08debd97fdc9
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|56012099006|4143699003|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info: QbHfvQUMXd97yCY/XxI+xEvJVyNDzN7gx55+VbM+nSmiNWg9PriAhdPTBCYYmsul7138Fx2UOvGjzmZG64/dgjkZ3yraybcjxZqaGm5lJdc/EcnxwHhLsPqmQaNdVtZkwgejehVs7PCdyXqnSOQ2L3tnooBI4PeVHqUl2EgWhiso5YdaKvl54IbPo0q0OkMUB/3mWUtoq5LL1SQoJxj8hRATd9SVh+C2aOmk8cNQpWJHQ2v7E5SVDGMmMPN3yNMxN1FU718816JBFyDywqPfa1mus71bCoPZsvTqAUwh3PzRctAt9cwuwtL0zUqMNtK6YkDPPesy4GCI3LGBqpiv59Aj9nrtldQn3KqdgHLIpoTuLlfJ3COWFa+z8wdFhHeF+WULpfxYfZ7INlJFVRRb8HJpdT6aEz0LX1OoSc78v0pQvWDn3z1XzBLq/R41t4L9k1uwJ4StiJMrt/jbcR/NNKiKvUbV8GiWJWjIRhhbDa1tzd4IA7Op2ltmeehRCkhb031XssmeUyMEyRmntE0GmD3oQT+Ns/t6Tbq1SO4hUiU1pj3v+EK+Y2RuakpVTnnzLVUfeLGPWGb4Ruaud8eREvUTinx6iyHlhj2GIKknSrMvlOexWtHhldKyYVrfwsCCLiUwpIQx64vWEc9bocVrJze2IWO8aSzlyCkNHirqhnJMZoz3EIqQ6ED1Bq1wkrN7ZNI9j6LOEQU8Kc59e60QG39ttYguS2HNEyoaLxjKNJZM/ToRnz4GP/utVpCUw2wl
+ ARA:13230040|366016|1800799024|376014|921020|4143699003|18002099003|22082099003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info: AKoeBTpF7c60Ey7ycTY1iJgSEL1ljpNDpK/QkfYmSEh/GZNEc6VXzJiKhsl1Rph4YE1f3m7gNkp3u7+/+ZrbDbj4DT5LxogBhu1891tM38PS7VcoI74ZgFsAH+VoQ7O+Khlngs7CSrbNUHVxRoGQKEsUoRNdWoqY3CqUfYxN+TYIjsN3ZpDWBFqSZ6YD+HNW7s9JD1siOyTTrKjezjsPGIkF8CWAUd8vLUMN6PeV4+ZnDjcBewVc6ugF8P1f3NW8h/z7mEbnR2Ks9clkdUfRM4lgnY990q87JynM2atpml5Fc1OxdVbinuZ5uyAA+8t9jjWOOgtXoSkqz/DlzGulwY/ep9IWq5dYAHI5PPOksexNrxXO27A9zZz+p1f1ED4Mb5QI4v0CmT7ORERZeG2ojb4/kmEDVhu7/woxiSvt6U8gZymAx7fyi5MrKDmCcpFPTuaBrI7QckuzugtjjcFUgHSGJY/BUT5SG08TLm6nP4ynT64lSl9dDvXeCEbThfV6vog0+DYDKX6Dou1X9i6/NUbSWKyh5yuucCyZC9Uc32OgRezPnVkEtNRBRZzB/d7EIXw5QSFKyHTwgDKfKsRkuO4LW7Jfhorbr1UBFNLPu8lETuEgTy0YQvsZjrZ6NJIB1rc4iTCtvCrIGBe4ZqF43OIFg/PkJS7kcvUGewvxNdxAzKUX+peXsjOHq8FqhC2uWaXsuwf51qyHvXZO7RnMvl2wjagoNN/d64dTbm/WPnjz1SGD00oQVPAyg9voAPfNWsQha4RvFW/YVavme641dw==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(921020)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bcbykn9zEEh6wSbeRbC/MKsZ7GIE8jPh/BmVxaVAO/yMzxq6Bx2XGCWGfglS?=
- =?us-ascii?Q?W+VNgCcfJLwCvHaDVb3H6gbQK83ILuj3uLqJAtVM4dIf8KVG24GAEAtR3mgj?=
- =?us-ascii?Q?8qufJmIlvQWJ42ize5P7XHY6fu7rZqjTyfVvsRZkTN3c0GIAMpop7PU1picj?=
- =?us-ascii?Q?KsuZtm9PA7rjXQF8mqja3x0S0rL3FG5n+Ztnj+Huy91pmtgNAMljdBXtoL/i?=
- =?us-ascii?Q?YdhCrAGrsUeAwi/g//dsz60hKixlQhiMPxeqMwRl1juiE8ml9zbzIRnPnrx3?=
- =?us-ascii?Q?0C7ignXcJsLvAV9O358K5J5sEn8YQWwtEKBo7rsFWdDSwXumKH3OKlJQGfTv?=
- =?us-ascii?Q?LMUVcR4hqTj+zlwGOGFSLo5l7TPaVS3vpwQAAPR3aXtqpWG3V8I5KoWEKpDK?=
- =?us-ascii?Q?NrY2E/ndlVbfdAA/8XKks3u6BObaeFF54u8369lUJoTiTYxQPyNlYUQyqj80?=
- =?us-ascii?Q?fjhIr4UhqkrDpBXa2es9N+XNpQlyarWMz+mNAJgOBHUZ/9na5IrDWzc2uCVx?=
- =?us-ascii?Q?eThvPZWUA9Ebl1eHzG3CNh9V1p9pZGWL55v5S/v9e5wGnvSWC8AByu2w4RCC?=
- =?us-ascii?Q?aqF63oB89vKPFMjBqxOvh1xZtoIfojCsu34LO5rXg+qNyqy/Qy7Vxmp/7Y9/?=
- =?us-ascii?Q?LkfR/ldx9PeIrgimYfhvDK6SUH42bf5fT4KoQemUkGf/7ANqzV7PRJ+qv6z0?=
- =?us-ascii?Q?OCwKzDtvK1psZdxnAExVpMZFzGAKx3eDaWnEB+bl5RBMDBZuvvulgXArl8Vs?=
- =?us-ascii?Q?NRINLFbFTTJpxj2geyl/a+YzrC+9yRJlodSBj0kvxrEJT06WbIp+RHT9jq9J?=
- =?us-ascii?Q?ved7+akXHxDuguus+dYC5dVn7DQERpZHm+vZK0gFRA7ei4EBeTHJTj+TK8Go?=
- =?us-ascii?Q?3sN3PxZQsqQMS3Pv0dFzGrwiNlgu4THg1DE9hEBFUhv9j3gCZ8v+U1kW+Uxy?=
- =?us-ascii?Q?8/NSDc8HQpw+M6mEKdzYWAJIZIMrXosNA1bhTb+UJflY3sh2pZ+PqwXI/E0G?=
- =?us-ascii?Q?MxXdTJ0OPlll1FAqVfCOe7R+/CiMGKYM3ciemIFfZhikHxE/whSHXkOrBiMo?=
- =?us-ascii?Q?j6tQpSCIoQ9WQqs3SIuB6glWwzQkQTuuwTlnGK4T05SraeCQEjuBuHS8l5oR?=
- =?us-ascii?Q?wgL4wb0qBGOYF21eb6wjkt51zAszR85yYBKn6TlzJ8WbYtCMKusN99qyGT16?=
- =?us-ascii?Q?rI6GP+XysYNJcrBZJBsIv4DflTl8gvCm0Tvi0yxqX4JNHfHVUrEbUUQwEhau?=
- =?us-ascii?Q?/dLir2XQw7BtF33OyKagclWNd0GYkRy4m5Ws54E7gKW51yQmlQ8nfWwrxjwS?=
- =?us-ascii?Q?vbQfFT4U9OxU2/iCo15sFCPHqCXkiqkfaQqGZvIPi6KSbKIGtbpCIiOaOhbu?=
- =?us-ascii?Q?cw5XuE7VUMviXqW4PDLh9lZDTftL+a4rbeYzCC01v7pxCxzAhNcRaDDxgpin?=
- =?us-ascii?Q?JwlYPzD+pdp5BSgrFMgRMPdjEwRuglgMc6oQ3PIVrt9CxVnRlguYlv0TD8D0?=
- =?us-ascii?Q?ag4ybeo35K7p89MSAduaiyOefllYcGdv2O//luJuwaFUGEELCbFapLWjsJEO?=
- =?us-ascii?Q?RoITq48ChZ/LThUGdLh+vcZwu1eIloIZzozTeLqMcE7IH859bKZr2cWSjB38?=
- =?us-ascii?Q?S1eZe1RYdPVlfrJtwns8LYfEodHj+q3leH5E3X14RUW5r735EloKCmYNJprv?=
- =?us-ascii?Q?SLcjEiIq15CgNdWTwjEMA7GS775JiXda/smTCcqEt5N4gZfK?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NTNPdbyFa3hTKg7vhZ4/C4g6LgUSGdjElsWXDEDOwMZdApXm4D7RjipeWMUF?=
+ =?us-ascii?Q?dbaXTA9mQxG362LuljQCAlca5s4+Z3ir6rXhDgpjblUfRD7nu/xfE92HY0E+?=
+ =?us-ascii?Q?VV3tHCt0Y9RV6+kKC/ORDE9b/oVZ/kv+8DdL5JK8N2S5HZTsBhrE2cUxU/5n?=
+ =?us-ascii?Q?9eZxR7/1FAa4hNzzXH2+O5BclHY6xi2TTlbUSVgOL6nVX2VSeLkyYh/tnN0O?=
+ =?us-ascii?Q?Go4eT3A8AP3u9LapOZLxJA/XTg9WlMzWzGCgJLB1IEXkKWDEm2//+IKK4ejf?=
+ =?us-ascii?Q?rZp9ddl1T7RQG8ZPGgw0tl/TZdFAjHjEvQnjHkSCzoloV8fHIwY/WbRkHn26?=
+ =?us-ascii?Q?yeYVqQOiIskdxAdOjx000yeHI0tKcVLb/Hrr1Bf6kscctlBzRaDa/qPJ+wvX?=
+ =?us-ascii?Q?zNmZ0IQHMxAHqQLbJBFkcZGYJ3iVweflhqRzXQIg+w+yMo/c17YHFlhS5kKi?=
+ =?us-ascii?Q?E+fQ6kNlf6lxtlweR79vF9Q+fD661hTf0czmG1iYcGSGMPVtr3nPK/WHK7jr?=
+ =?us-ascii?Q?e8ukDoMUDF23itNMuiCE+z8WqVsWy8wIGzVRprXC4YsAztztzFeboRxXnNwf?=
+ =?us-ascii?Q?4s/uqw/X593/BeAz25tMJrRExj3FXsaAGOvZ3KNrLSvCIbclsDby+2rRg9dA?=
+ =?us-ascii?Q?xzfFmCHc86AkwEMwZ6KBLXNGDCciqmxpgcop7Q7QxrFX4ecu1WksCVVn0T2W?=
+ =?us-ascii?Q?VY8zC0ExwcwVW1cc7YRGdZY3VbFmwzSB2JMp4qeNLBZTQi1FeF2Fg+uk0Kmu?=
+ =?us-ascii?Q?SNKVAcZNgqcik6fpL0KvXfmYyPGUBIfIkJqwQnnHGhACTxu9U+padnrSGHTA?=
+ =?us-ascii?Q?huEOQpHnTZYj8EZ7/JZ7C/RPHut9XNXasvOqFTNT8Zl0dr22ZX5QBuOjY3wq?=
+ =?us-ascii?Q?QXn1FMcL7BN0voDF2Y7Eb29wyy90BiNyQiSiCpFxahAJCC6NeL1JOd684Oaw?=
+ =?us-ascii?Q?tFwKetI6lShN13ADwldLi9F3VIuv6eCMwWzVLc+oqwka26QdGevioifnbkGw?=
+ =?us-ascii?Q?f/eLAMKleFevqI4+9ZFhe3mX5G2I7Aw0SR7G1vU/0DTKHPx7qDTwd6Be7U3C?=
+ =?us-ascii?Q?g+34pC+NV731malV/x9tJTohiADKmIR5DKwTQs4Z/6+h44JYCAjIZFd+rOyK?=
+ =?us-ascii?Q?PBS/XXwYFUqe4ZgefK6AIzVQAMpJNrr2JcKy7jkqAh4SY9k7XCOzttjIW1zu?=
+ =?us-ascii?Q?zsfgnrbnSJd2HBITLvuCmG9TBdtn3OkpZi3GKBl2qWsN5uQrYHtQmwaDGCC9?=
+ =?us-ascii?Q?clxwO4e7SQsGvJhiWGA6wanZMEJAIVT/15lh8P2VHC/jfZprMK/GwAIJ0Vyj?=
+ =?us-ascii?Q?aOnjV+PFndW9TqwTucNDpblTEHar/CfrsXyWuwlkecZDQ3zaNzrmXwnQI994?=
+ =?us-ascii?Q?bRQBBYYWpKpS0Hv7HD01ryzv6Xl6LB4VNRd3L3mfELYyo/jdBuh7mPuLvwwe?=
+ =?us-ascii?Q?GJKj33+BqpzoRd2DEwuomHdZyd7TWx/usyh7IUpbpbgODSnhYqu5MQJVqvKk?=
+ =?us-ascii?Q?lkTcoFUnxAOKPa3THMjupgkgp5urdwxf8SOa3N2gpN9fMK654eJWIFdBrNoJ?=
+ =?us-ascii?Q?sADgoJcEQrbhtrMaa92nn1wmz3O/gXnFvlWoRUZa5s4DOEwCc6M1vIpvoJlA?=
+ =?us-ascii?Q?8Sj8N2GkwXjJIrAH11vk2igUrYC3Bx6o0MPZH+k8nvCqqUnqterF1hXs38iI?=
+ =?us-ascii?Q?DXLANmpI7wr0cjw8jBFfpfqagLMeLSVi0e16xz6SvdQjlsPc?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c74514d3-890d-4ab5-36bc-08debd972005
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 15:29:50.7791 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1065c93c-786e-471f-c5a8-08debd97fdc9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 15:36:02.7712 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1Jf3P43p5KA/YOEa/2lkvxlSJGPJ8eAmdVaiW3FCShrNcpS9DIz+9BRQ3NjhQyGW6sCGxXaEn/jnBenJ0gIasw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9280
+X-MS-Exchange-CrossTenant-userprincipalname: lkVQ7AoKuNGmXizaND7dDxcMjWhbvQe/i07+PglGqHw2iDZmb+y7G49XpSQP8R+KBR0MT+DIGL6O/bMCnZy0ug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,125 +140,92 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-Series is
+The KCQ is not used for mes_v12_1 anymore , so it won't affect it  at all, =
+but It's still good to keep the  same logic as v12_0 .
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+ Reviewed-by : Shaoyun.liu < Shaoyun.liu@amd.com>
 
-Regards,
-Hawking
+Regards
+Shaoyun.liu
 -----Original Message-----
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Sent: Friday, May 29, 2026 11:16 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
-Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Subject: [PATCH 2/2] drm/amd/ras: chunk UNIRAS CPER debugfs reads
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Deucher,=
+ Alexander
+Sent: Thursday, May 21, 2026 8:20 PM
+To: amd-gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.=
+com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Lin, Amber <Amber.Lin@amd.com>;=
+ Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com=
+>
+Cc: Chen, Michael <Michael.Chen@amd.com>; Deucher, Alexander <Alexander.Deu=
+cher@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhang, Jesse(Jie) <Jesse=
+.Zhang@amd.com>
+Subject: [PATCH 12/42] drm/amdgpu/mes_v12_1: use mes schedule pipe for lega=
+cy queues on unified MES
 
-Legacy CPER ring readers can issue one debugfs read with a buffer larger th=
-an the UNIRAS RAS command payload limit. Passing that full size to GET_CPER=
-_RECORD makes the command reject the request, so userspace may only see the=
- ring prefix and treat the CPER stream as empty.
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-Commit 07d0ee31a5d6 ("drm/amd/ras: bound CPER record fetch buffer
-size") intentionally bounds CPER record fetch allocation by the command buf=
-fer size. Keep the debugfs ABI as a single contiguous ring read by splittin=
-g the internal GET_CPER_RECORD requests into RAS_CMD_MAX_CPER_BUF_SZ chunks=
-.
+when suspend_all_gangs is issued to pipe0 MES during system suspend or runt=
+ime PM, pipe0 can only suspend and resume queues it has tracked.
+KCQs registered with a non-zero pipe slot may not be correctly handled, lea=
+ving them in an inconsistent state after resume.
 
-Accumulate the copied payload and update the legacy header write pointers f=
-rom the total bytes returned to userspace.
+v3: fix the schedule pipe issue
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Suggested-by: Michael Chen <michael.chen@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 49 ++++++++++++++++--------
- 1 file changed, 33 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c
-index e8cee3728ade..5dc00db14a32 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -501,6 +501,8 @@ static ssize_t amdgpu_ras_cper_debugfs_read(struct file=
- *f, char __user *buf,
-        u32 total_cper_num;
-        u64 start_cper_id;
-        u64 cper_offset;
-+       size_t chunk_size;
-+       size_t total_data_size =3D 0;
-        bool read_header;
-        int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_1.c
+index b169e577e5838..2099beedd5755 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -417,10 +417,15 @@ static int mes_v12_1_map_legacy_queue(struct amdgpu_m=
+es *mes,
+                convert_to_mes_queue_type(input->queue_type);
+        mes_add_queue_pkt.map_legacy_kq =3D 1;
 
-@@ -550,30 +552,45 @@ static ssize_t amdgpu_ras_cper_debugfs_read(struct fi=
-le *f, char __user *buf,
-        if (!data_size)
-                return 0;
-
--       record_req->buf_ptr =3D (u64)(uintptr_t)data_buf;
--       record_req->buf_size =3D data_size;
--       record_req->cper_start_id =3D start_cper_id + cper_offset;
--       record_req->cper_num =3D total_cper_num - cper_offset;
--       r =3D amdgpu_ras_mgr_handle_ras_cmd(ring->adev,
--                                         RAS_CMD__GET_CPER_RECORD,
--                                         record_req, sizeof(struct ras_cmd=
-_cper_record_req),
--                                         record_rsp, sizeof(struct ras_cmd=
-_cper_record_rsp));
--       if (r)
--               return r;
--       if (record_rsp->real_data_size > data_size)
--               return -EIO;
-+       while (data_size && cper_offset < total_cper_num) {
-+               memset(record_req, 0, sizeof(*record_req));
-+               memset(record_rsp, 0, sizeof(*record_rsp));
-+               chunk_size =3D min_t(size_t, data_size, RAS_CMD_MAX_CPER_BU=
-F_SZ);
-+
-+               record_req->buf_ptr =3D (u64)(uintptr_t)data_buf;
-+               record_req->buf_size =3D chunk_size;
-+               record_req->cper_start_id =3D start_cper_id + cper_offset;
-+               record_req->cper_num =3D total_cper_num - cper_offset;
-+               r =3D amdgpu_ras_mgr_handle_ras_cmd(ring->adev,
-+                                                 RAS_CMD__GET_CPER_RECORD,
-+                                                 record_req,
-+                                                 sizeof(struct ras_cmd_cpe=
-r_record_req),
-+                                                 record_rsp,
-+                                                 sizeof(struct ras_cmd_cpe=
-r_record_rsp));
-+               if (r)
-+                       return r;
-+
-+               if (!record_rsp->real_data_size || !record_rsp->real_cper_n=
-um)
-+                       break;
-+               if (record_rsp->real_data_size > data_size)
-+                       return -EIO;
-+
-+               data_buf +=3D record_rsp->real_data_size;
-+               data_size -=3D record_rsp->real_data_size;
-+               total_data_size +=3D record_rsp->real_data_size;
-+               cper_offset +=3D record_rsp->real_cper_num;
+-       if (mes->adev->enable_uni_mes)
+-               pipe =3D AMDGPU_MES_KIQ_PIPE;
+-       else
++       if (mes->adev->enable_uni_mes) {
++               /* Keep scheduler queue on KIQ pipe; map all other kernel q=
+ueues on sched pipe. */
++               if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
++                       pipe =3D AMDGPU_MES_KIQ_PIPE;
++               else
++                       pipe =3D AMDGPU_MES_SCHED_PIPE;
++       } else {
+                pipe =3D AMDGPU_MES_SCHED_PIPE;
 +       }
 
-        if (read_header) {
--               ring_header[1] =3D record_rsp->real_data_size >> 2;
-+               ring_header[1] =3D total_data_size >> 2;
-                ring_header[2] =3D ring_header[1];
-
-                if (copy_to_user(buf, ring_header, ring_header_size))
-                        return -EFAULT;
+        return mes_v12_1_submit_pkt_and_poll_completion(mes,
+                        input->xcc_id, pipe,
+@@ -457,10 +462,15 @@ static int mes_v12_1_unmap_legacy_queue(struct amdgpu=
+_mes *mes,
+                        convert_to_mes_queue_type(input->queue_type);
         }
 
--       r =3D read_header ? record_rsp->real_data_size + ring_header_size :
--                               record_rsp->real_data_size;
--       *offset =3D cper_offset + record_rsp->real_cper_num + 1;
-+       r =3D read_header ? total_data_size + ring_header_size : total_data=
-_size;
-+       *offset =3D cper_offset + 1;
+-       if (mes->adev->enable_uni_mes)
+-               pipe =3D AMDGPU_MES_KIQ_PIPE;
+-       else
++       if (mes->adev->enable_uni_mes) {
++               /* Keep scheduler queue on KIQ pipe; map all other kernel q=
+ueues on sched pipe. */
++               if (input->queue_type =3D=3D AMDGPU_RING_TYPE_MES)
++                       pipe =3D AMDGPU_MES_KIQ_PIPE;
++               else
++                       pipe =3D AMDGPU_MES_SCHED_PIPE;
++       } else {
+                pipe =3D AMDGPU_MES_SCHED_PIPE;
++       }
 
-        return r;
- }
+        return mes_v12_1_submit_pkt_and_poll_completion(mes,
+                        input->xcc_id, pipe,
 --
-2.34.1
+2.54.0
 
