@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE21CD6E45
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 05:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 841A4CD5BD2
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 05:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2DB110F8F1;
-	Fri, 29 May 2026 05:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0339B10F8F6;
+	Fri, 29 May 2026 05:49:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5ov1t3YU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oiz8zjt0";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011028.outbound.protection.outlook.com
- [40.93.194.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C854A10F8EA;
- Fri, 29 May 2026 05:49:05 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013051.outbound.protection.outlook.com
+ [40.93.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C93F10F8F3;
+ Fri, 29 May 2026 05:49:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fUFN/HQK5R0seBR0Vrb1rCyu9zk8bWCPiSEEsKW6YYfUvpr4s/CTnMHTM+wV6jjTRrG9TAAAkuW0iZUrlKjC/Ti/1EYgrgUw+1fiHQ4OAJJT0yAvNtbzRXTDiatnWmlRs92MQms8ddemMb0iGpVwEN+/b5YEYLIrg2x/c5bxwwjpBKDGut/ta95U0AWER0Q9obge1fd2CxxNP2Aa8dE+YJ3f1nA/++va/wp2M6BfxX40OnqZAoPl81ZOJIyiSWrzF1PDyF+HeOib6QsCZIUHwl5YL1BKOt+CPsm8Gfe4eqgAgDCahFDiSonuLNCXe0zMqi+xJj5NxL5/o1hgKIPUdQ==
+ b=H5cJIR2LclJ8f9MC2Yhuz4gH+zO7lGcIHhYo0poYOb4rP83PFc4Hom2zTS7NfoxXwg3ebjUEOFU0BeY+cIauI35qtXki1e8B4kszr1UHzx8eeEm1j2ilm0QtQN4XMVp10gOiUh3pGluuJF5gDNY/dCwQ2/JjOObwWd/7rgXdcY6lCLoggamzQ0Tgj99k5R5ZDp6Lp3erukV8x2TSoJv5J3KbfOFcAXT3V+16t90Qu5vQUcz1mL2SO0NaeSFH/vWKg/Xcbg9VvyFk6IqqUdAI9d0xBcackrbdymlKXivxbywX5bAI3CcQUnbDB7ZFz8tdlN5NZQyF7kiCI6rfKiHXuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LLsWgIfa/N6rqTIs3sxR2XkYBzTAT2pO2xAog+iLv9g=;
- b=QquSWfDnfA+iaq14/F33B0p4gUtRO4VTna+HurYaxTsnBah7JP+FTQ3BJpHdz1Umjzj53G3s3ScwAgy8ZhbvcBKZXotvvA/RRk9cXe3mDLDqGPQc6jocXaXoFPfFMu5PMpukU7oNV8s435JUBBzp9jsZ98zSUaOjY5H9OdPPoNR2Qsio4WA0HnymGJP0HFp50NjNe1gvwRUkwkyHS3gXTRWjs4wUh1dYBDVQf+zpDIFvtuQS/YI6DG9hTmO8lXdNMiJzeUlQwTkmcPgHETVf4bbJGkPIrwJRcQxWoe9eO6q9dKVw1ky0NnkJdJFY8glTHBbpRacOe5z7tBgjKPMXEA==
+ bh=H2NY8Lhj7Whu6l/2bhIfoQasmDRrJq6jvS1nJ7k+KgA=;
+ b=hhewbqd1r4FiqJv/8N5dYViwMT7ZiS0To3kCv551FFdHoCQP4Wa0cOee84dghNiLFi7weab1fusJNXUT9uJcxjrB0/VrqdNi2tqc7gcWKHdHkF4dnvWRZo5fRvw8PutAZlcFySWOO/wRCdtQSK02BCoT28HtfYnmfGHHw8gRFuGsGm9//npQun8X3U3iG8qZ4XfTXPOGNRSJNFGyqTv9dpSJINpllhaGUPYmlqaZEvp7zQrnFmg2dl5RTtcfciZsm6gM7jX2otBy+MxojyuejaQ+NEtu4GlxeoxmFVKUlwUo810k19ptOkyvXhNfaQByysn+BP+fzjPkWJesQiQ3Zg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LLsWgIfa/N6rqTIs3sxR2XkYBzTAT2pO2xAog+iLv9g=;
- b=5ov1t3YUFZPN1hyye20AepPTE/5Jo4x3H4fvYk7/amMnGkfFA5mXHbICeaSb7FSwGRdIlTCWKrZsU1+FUG0QfyZ1/IIESCnyFaJciRlxylGtPuAlWegwdFher//0cvg40rvjjfVZ9uNydoKSK6KAxzBV5c1Pqi4/8v28nyXWnw4=
-Received: from CY8PR10CA0026.namprd10.prod.outlook.com (2603:10b6:930:4b::29)
- by DS7PR12MB5935.namprd12.prod.outlook.com (2603:10b6:8:7e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 05:48:54 +0000
-Received: from CH2PEPF0000013C.namprd02.prod.outlook.com
- (2603:10b6:930:4b:cafe::6) by CY8PR10CA0026.outlook.office365.com
- (2603:10b6:930:4b::29) with Microsoft SMTP Server (version=TLS1_3,
+ bh=H2NY8Lhj7Whu6l/2bhIfoQasmDRrJq6jvS1nJ7k+KgA=;
+ b=oiz8zjt0q02mvlu6DslFsfsZUFpJxgLdJN2bIOiSZuHMcS0rbh7bJyo77gGabZhhdm9q05lvzLP7tdRzLoH1rWaX0bAM2B/MQODeeCC4JdO5Dba1tq3p0M6gP0A/D4dpcieXpwhysUyJZ4BsJgIux3/vp+xMb3xlS8IUe/U74Z8=
+Received: from CH2PR11CA0027.namprd11.prod.outlook.com (2603:10b6:610:54::37)
+ by SA3PR12MB7952.namprd12.prod.outlook.com (2603:10b6:806:316::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
+ 2026 05:49:08 +0000
+Received: from CH2PEPF0000013B.namprd02.prod.outlook.com
+ (2603:10b6:610:54:cafe::7b) by CH2PR11CA0027.outlook.office365.com
+ (2603:10b6:610:54::37) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 05:48:54 +0000
+ May 2026 05:49:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000013C.mail.protection.outlook.com (10.167.244.73) with Microsoft
+ CH2PEPF0000013B.mail.protection.outlook.com (10.167.244.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 05:48:54 +0000
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 05:49:08 +0000
 Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
- 2026 00:48:49 -0500
+ 2026 00:49:03 -0500
 From: Honglei Huang <honglei1.huang@amd.com>
 To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
  <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
@@ -65,9 +65,9 @@ To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
  <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>, <aliceryhl@google.com>
 CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <honghuan@amd.com>
-Subject: [RFC V7 07/12] drm/amdgpu: implement SVM range GPU mapping core
-Date: Fri, 29 May 2026 13:47:59 +0800
-Message-ID: <20260529054804.596214-8-honglei1.huang@amd.com>
+Subject: [RFC V7 10/12] drm/amdgpu: implement SVM initialization and lifecycle
+Date: Fri, 29 May 2026 13:48:02 +0800
+Message-ID: <20260529054804.596214-11-honglei1.huang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260529054804.596214-1-honglei1.huang@amd.com>
 References: <20260529054804.596214-1-honglei1.huang@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013C:EE_|DS7PR12MB5935:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe317d8d-64ba-4cc2-54fb-08debd45f807
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013B:EE_|SA3PR12MB7952:EE_
+X-MS-Office365-Filtering-Correlation-Id: fadfd29a-426c-4789-2409-08debd460052
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|22082099003|18002099003|921020|6133799003|3023799007|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: TqNO+DO4cYglkCS32F39P49zxGbY6B9KP6XXY2UiwDjr6XTPZ1uTS//0vC8xkfPqJB4cLq4zRuqQv7MLQFKeOqP8b8acktXEO9cxM0Roi7HnjDh40wlhKd5n4T4V390WfG8jTSG9O4PpUzXTHntOhnCrvXpnj5zKYD61nHjXsWLDk8Z8+ym79y2KDD22SYY0qyS/MJM4pT7GJgP9jgyUqouC6kaioPiezdFZHKkRDYM6Cf8X9gS0i+Ne6UhBqhkB91bAQd8izoEp4VRB6r/B9yXPK6x8ovbyJsFO3gOznFfqUJ0+VRO67rEHP1TPFfXwdO85K1O5+hUreiIoWjiJ82Z3GjvtGYNTNTGAGNcAvAgnX+mt4V95Q9VlewV5d180QlcBuyuqcCrsYW0RNHZGf+ODQLx/Js2dyp1nuLskoci3uZFU+RQ6OSBAc1Odf6qvYyGqqq/tzvgdHLJJwVNVaNVr6i3/SMjjcZJsmEIVi1AQK1GP0ii+qcsRZy70jiuWjl5Bm7QYUCcQn1zKFjV6W1TJrb7cAtES8DEBHwkIxYijXYalXjZWZkkLthj/n9Rs+SWb1KljXaqrhOmCp9TlaTcbsdSSs9qDTovcIlLxsPUe5dzkNUwig/fSVTCwVZrgY6J9+WREnW18dwBTIGGKaPMGnO3GmcIXVkSvpu/xkZ4/fGSHz4BCaNDwo5sMbhK3bpVreWiXGtrtTGE5JG3liiu5zz+Gl0sI4o0BeKZuAgLm+8z/9E1DM7HfAp3mpvNUVkmSBQFtcV672VkVlp9lpg==
+ ARA:13230040|1800799024|82310400026|36860700016|376014|921020|22082099003|18002099003|56012099006|6133799003|3023799007|11063799006;
+X-Microsoft-Antispam-Message-Info: mNmJfLk3UDsAflDP3EIsxpLoHeJdC/pDP9Rjx11uVbXgkkAvZfqwzMn2kmfq1OAwrbq3C4r5ghcQgHexlIt3XhX6ehs5wV0r+jsYN7VjVBTx0o9iWW6cPN8dTvXqqwrzu0do1jvM8dBvinwQQAmbLA8VN/L0wT0hS2cOa3Nn3GN8vDOoIbZD8D+pu6u4fHxcvwvn4lTSe3WCXV1k3MVptLAWXNnCbPbCX4vC0Kohu2vbmsLv/nxHy8R6oB+tSIPprUPmIF4jVrKL8SgpVrj0FLqVRqljJRrpW2Uy/hNw5RXG34G0Hl059k4ZfVbskMqIVoPE0UWbi2tVTldi09HnMTqO9ppMXgqDC2EIkD2K6qwIyQ2yyOjKJclF+Ply/8ddurdjvMT2TUvCCF9GAhlHFZ3D7H0L1uaDKgH5m5gd0Xg7MGohfDPfOmuuUsK0OFYVNayTOygmHq63utKDYFOdk8IdDm8GM7foETeTcebas2w0gvm4KvY+HNiFP1ofbaw91c76Qhgd4/YiKNiFADVObrjZT+K7k7GMUwCq1Dt69APBZYaTZnLFxCrkEzxYmRCP8C0ZcbwcJt7Ff4qCfP9txKFB4qozGugBU0CCwnOF8FtHQboOsSYvFwr+j7/OQaf8DZyi8V461AFJMbg9NzXQMSK2hpl1AEw7CAOQonlIGImrBmFzYuylyR5DfC2CetHcfzhTWx42vomj7mhDiTboYYThJjvH6bcEhVl3Fucbj8p/zaxCk/GjQ9FukQ5gSVyRVt1NbKn8oLD2SXNcZac+aQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(22082099003)(18002099003)(921020)(6133799003)(3023799007)(56012099006)(11063799006);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(921020)(22082099003)(18002099003)(56012099006)(6133799003)(3023799007)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: JpllP0qpi3A5Y16Et4aBkS/2eQXJbkElbbKaxTkwHFbjQh+dPrxKsVgSb+Msc6uiH0qvEPyG0fyf7ed44LlJrP0DbhJsWAKHxRDzf7YaPJWUIJljsLchpWR6CYBBolHPgwTDZpe1YS2gKCmiz8N8PVIxqB0/EYOTuqg2ISF/eCxyfmnTJFYEUJukHGMA8YpUnOJKQgIl2Hdwpz47bRJpTB3lz2WVQEjd8sWUQZOHPvudnqlA5klkzOVOxV4Bffh8IWEU+SnrobGhwLPakImZa5ZjUDnZ8Arq4WLh2Ehs2hV9iiO/GS0qJJddlBjxyN5iv8wMhuAIhwq2bB4ZW2qLrss2iSF3wk3V1q3NQ8iDKhCjbj1owlAoWIuhp/2ivDVPo14NK92hjN8kOMedIT8LAyJv77PRoS1krwQEuKA8nhOz0VgeBkGUIqVBmKqZ3fzj
+X-MS-Exchange-AntiSpam-MessageData-0: /o5xZQo7yb6fT32PKaBB8bPnLJk5158wgFYSLiLIAalwRFTMj3CuTxdjJev0vgYJQM9k5OThCBOlUpJVfBl1fz95EXL94zNFfOTgb0MHMz+WAcMot1Tka9NK735w7Gmoj+eNTfjNid+rswKF8kwamnnOXQbe1lRJGovn5z5lD+6tYnE+0czfr39UD3Fn2oXQa6yGYOXGZDU2PtA5rbRbdcQjWfHDpf8QuE1SzQ4zklzdzBiLeG2yRhOaXtE/jqXPZNsZkTue/6aqET49SzZIwnTIMD+WxknL3P3/Ur8kBM4cajqLu/eS5PSqGKTDEYgL0wpBEFthHuWv0ovCOk2ZBPH2jnK8UnX9TaKROCqDxGHaGBW2xh6HvL3hxsbHZt7yRVQDGvZXViQNnYnsiRsz7yQtLtW0myZ2kpjwvaBRZA/g1Ewub4dGx6hoXrLjVVzc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 05:48:54.4279 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe317d8d-64ba-4cc2-54fb-08debd45f807
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 05:49:08.3400 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fadfd29a-426c-4789-2409-08debd460052
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5935
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7952
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,86 +118,42 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Honglei Huang <honghuan@amd.com>
 
-Implement GPU page table mapping in amdgpu_svm_range.c:
-- amdgpu_svm_range_pages_valid: check notifier sequence validity
-- amdgpu_svm_range_is_valid: validate gpu_mapped and attr_flags
-  against the requested attribute set; PTE flags are no longer
-  cached on the range (recomputed per DMA segment), so they are
-  not part of the validity check
-- amdgpu_svm_range_zap_ptes: clear GPU PTEs via amdgpu_vm_update_range
-  for an explicit [start_page, last_page] window (exposed for use by
-  notifier and attribute-invalidation paths in later commits)
-- amdgpu_svm_range_attr_pte_flags: compute PTE flags per GC IP version
-  from the attribute set plus the per-segment drm_pagemap protocol.
-  Branches model kfd_svm semantics:
-    * 9.4.1/9.4.2: local VRAM uses CC/RW (XGMI-to-CPU keeps snoop on
-      9.4.2); remote/sysmem keeps UC/NC
-    * 9.4.3/9.4.4/9.5.0: snoop on; is_vram tree picks mtype_local,
-      NC or UC based on ext_coherent and same-hive; sysmem splits
-      APU (NUMA-aware) vs dGPU
-    * 12.0.0/12.0.1: NC
-    * 12.1.0: AID A1 aware mtype_local/mtype_remote; ext_coherent UC;
-      sets AMDGPU_PTE_BUS_ATOMICS when the device supports it
-  AMDGPU_PTE_SYSTEM is set only when the segment is not local VRAM
-  (is_local derived from proto == AMDGPU_INTERCONNECT_VRAM).
-- amdgpu_svm_range_lock_vm_pd: acquire VM page directory via drm_exec
-- amdgpu_svm_range_update_gpu_range: DMA segment coalescing; recomputes
-  PTE flags per segment from entry->proto via attr_pte_flags, then
-  programs PTEs under notifier lock
-- amdgpu_svm_range_find_or_insert: wrapper with read-only fallback
-- amdgpu_svm_range_get_pages: pages acquisition; on -EOPNOTSUPP from
-  the mixed-residency path evicts via amdgpu_svm_range_evict
-- amdgpu_svm_range_evict: thin wrapper around drm_gpusvm_range_evict
-  that short-circuits when the range has no devmem-backed pages
-- amdgpu_svm_range_update_mapping: full pipeline (lock PD, validate
-  pages, program PTEs, update PDEs, flush TLB, record attr_flags
-  and mapped state); takes attrs + read_only and forwards them to
-  update_gpu_range
-- amdgpu_svm_range_map_attrs: cursor-based iteration across attr tree,
-  creating/mapping ranges; no longer pre-computes pte_flags (computed
-  per segment inside update_gpu_range)
-
-Also add to amdgpu_svm.h driver-private interconnect tags used in
-drm_pagemap_addr.proto (mirrors xe's XE_INTERCONNECT_VRAM/_P2P):
-  AMDGPU_INTERCONNECT_VRAM = DRM_INTERCONNECT_DRIVER
-  AMDGPU_INTERCONNECT_P2P  = AMDGPU_INTERCONNECT_VRAM + 1
-and include <drm/drm_pagemap.h>.
+Implement amdgpu_svm.c core module:
+- XNACK_OFF/ON helper macros for xnack state checks
+- Static amdgpu_svm_cache_lock mutex for slab cache lifecycle
+- drm_gpusvm_ops callbacks: range_alloc (kmem_cache), range_free,
+  invalidate (dispatches via svm->invalidate_ranges callback)
+- kref-based lifecycle: amdgpu_svm_release, amdgpu_svm_put
+- PASID lookup: amdgpu_svm_lookup_by_pasid (irq-safe xa_load)
+- Slab cache management: amdgpu_svm_cache_init/fini
+- Ioctl operation wrappers: op_set_attr, op_get_attr, op_reset_attr
+- Attribute change detection and application:
+  attr_change_trigger classifies changes into trigger types,
+  amdgpu_svm_apply_attr_change dispatches invalidate or remap
+  based on trigger flags and xnack state
+- Hardware detection: amdgpu_svm_default_xnack_enabled per GC IP
+- TLB flush: amdgpu_svm_flush_tlb_compute
+- xnack mode: amdgpu_svm_init_xnack_mode validates requested mode
+- Initialization: amdgpu_svm_init_with_ops (drm_gpusvm_init with
+  2M/64K/4K chunk sizes, attr tree, invalidate_ranges/flush_tlb
+  callbacks), amdgpu_svm_init_compute with xnack_mode parameter
+- Work init/fini forward declarations for init_with_ops
+- Teardown: amdgpu_svm_close (mark exiting, sync work),
+  amdgpu_svm_fini (gpusvm_fini, destroy attr tree, release ref)
+- amdgpu_svm_is_enabled predicate
 
 Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h       |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 490 ++++++++++++++++++
- 2 files changed, 494 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c | 510 ++++++++++++++++++++++++
+ 1 file changed, 510 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
-index 49f8b8f06..b04ef1617 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
-@@ -27,6 +27,7 @@
- 
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_gpusvm.h>
-+#include <drm/drm_pagemap.h>
- #include <linux/atomic.h>
- #include <linux/kref.h>
- #include <linux/list.h>
-@@ -44,6 +45,9 @@ struct amdgpu_svm_attrs;
- struct drm_device;
- struct drm_file;
- 
-+#define AMDGPU_INTERCONNECT_VRAM	DRM_INTERCONNECT_DRIVER
-+#define AMDGPU_INTERCONNECT_P2P		(AMDGPU_INTERCONNECT_VRAM + 1)
-+
- enum amdgpu_svm_xnack_mode {
- 	AMDGPU_SVM_XNACK_OFF,
- 	AMDGPU_SVM_XNACK_ON,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
 new file mode 100644
-index 000000000..61ef92c45
+index 000000000..70e2d173b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-@@ -0,0 +1,490 @@
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
+@@ -0,0 +1,510 @@
 +// SPDX-License-Identifier: GPL-2.0 OR MIT
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
@@ -222,472 +178,492 @@ index 000000000..61ef92c45
 + *
 + */
 +
++#include <linux/sched/mm.h>
++#include <linux/uaccess.h>
++#include <linux/xarray.h>
++
++#include <drm/drm_file.h>
++
++#include "amdgpu.h"
 +#include "amdgpu_svm.h"
 +#include "amdgpu_svm_attr.h"
-+#include "amdgpu_svm_range.h"
 +#include "amdgpu_svm_fault.h"
-+#include "amdgpu.h"
++#include "amdgpu_svm_range.h"
 +#include "amdgpu_vm.h"
 +
-+#include <drm/drm_exec.h>
-+#include <drm/drm_pagemap.h>
++#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
 +
-+#include <linux/mmu_notifier.h>
-+#include <uapi/linux/kfd_ioctl.h>
++#define AMDGPU_SVM_MAX_ATTRS 64
++#define AMDGPU_SVM_DEFAULT_SVM_NOTIFIER_SIZE 512
 +
-+bool
-+amdgpu_svm_range_pages_valid(struct amdgpu_svm *svm,
-+		  struct amdgpu_svm_range *range)
++static const unsigned long amdgpu_svm_chunk_sizes[] = {
++	SZ_2M,
++	SZ_64K,
++	SZ_4K,
++};
++
++#define AMDGPU_SVM_GC_WQ_NAME "amdgpu_svm_gc"
++#define XNACK_OFF(svm)	((svm)->xnack_enabled == false)
++#define XNACK_ON(svm)	((svm)->xnack_enabled == true)
++
++static struct kmem_cache *amdgpu_svm_range_cache;
++static DEFINE_MUTEX(amdgpu_svm_cache_lock);
++
++static void amdgpu_svm_invalidate(struct drm_gpusvm *gpusvm,
++				  struct drm_gpusvm_notifier *notifier,
++				  const struct mmu_notifier_range *mmu_range)
 +{
-+	struct drm_gpusvm_range *base = &range->base;
++	struct amdgpu_svm *svm = to_amdgpu_svm(gpusvm);
++	struct drm_gpusvm_range *first;
++	uint64_t adj_start = mmu_range->start, adj_end = mmu_range->end;
 +
-+	lockdep_assert_held(&svm->gpusvm.notifier_lock);
++	amdgpu_svm_assert_in_notifier(svm);
 +
-+	if (base->pages.flags.unmapped || base->pages.flags.partial_unmap)
-+		return false;
++	AMDGPU_SVM_TRACE(
++		"INVALIDATE: pasid=%u, gpusvm=%p, seqno=%lu, [0x%016lx-0x%016lx]-0x%lx, ev=%d\n",
++		svm->vm->pasid, &svm->gpusvm,
++		notifier->notifier.invalidate_seq,
++			 mmu_range->start, mmu_range->end,
++			 mmu_range->end - mmu_range->start, mmu_range->event);
 +
-+	return drm_gpusvm_range_pages_valid(&svm->gpusvm, base);
++	if (mmu_range->event == MMU_NOTIFY_RELEASE)
++		return;
++	if (atomic_read(&svm->exiting))
++		return;
++
++	adj_start = max(drm_gpusvm_notifier_start(notifier), adj_start);
++	adj_end = min(drm_gpusvm_notifier_end(notifier), adj_end);
++
++	first = drm_gpusvm_range_find(notifier, adj_start, adj_end);
++	if (!first)
++		return;
++
++	svm->invalidate_ranges(svm, notifier, mmu_range, first,
++			       adj_start, adj_end);
 +}
 +
-+bool amdgpu_svm_range_is_valid(struct amdgpu_svm *svm,
-+			       struct amdgpu_svm_range *range,
-+			       const struct amdgpu_svm_attrs *attrs)
++static struct drm_gpusvm_range *amdgpu_svm_range_alloc(struct drm_gpusvm *gpusvm)
 +{
-+	unsigned int flags;
-+	bool valid;
++	struct amdgpu_svm_range *range;
 +
-+	flags = memalloc_noreclaim_save();
-+	drm_gpusvm_notifier_lock(&svm->gpusvm);
-+	valid = range->gpu_mapped &&
-+		range->attr_flags == attrs->flags &&
-+		amdgpu_svm_range_pages_valid(svm, range);
-+	drm_gpusvm_notifier_unlock(&svm->gpusvm);
-+	memalloc_noreclaim_restore(flags);
++	range = kmem_cache_zalloc(amdgpu_svm_range_cache, GFP_KERNEL);
++	if (!range)
++		return NULL;
 +
-+	return valid;
++	INIT_LIST_HEAD(&range->work_node);
++	range->pending_start_page = ULONG_MAX;
++	return &range->base;
 +}
 +
-+
-+int
-+amdgpu_svm_range_zap_ptes(struct amdgpu_svm *svm,
-+			  struct amdgpu_svm_range *range,
-+			  unsigned long start_page,
-+			  unsigned long last_page)
++static void amdgpu_svm_range_free(struct drm_gpusvm_range *range)
 +{
-+	struct dma_fence *fence = NULL;
-+	unsigned int flags;
-+	int ret;
++	kmem_cache_free(amdgpu_svm_range_cache, to_amdgpu_svm_range(range));
++}
 +
-+	if (last_page < start_page)
++static const struct drm_gpusvm_ops amdgpu_gpusvm_ops = {
++	.range_alloc = amdgpu_svm_range_alloc,
++	.range_free = amdgpu_svm_range_free,
++	.invalidate = amdgpu_svm_invalidate,
++};
++
++static void amdgpu_svm_release(struct kref *ref)
++{
++	kfree(container_of(ref, struct amdgpu_svm, refcount));
++}
++
++void amdgpu_svm_put(struct amdgpu_svm *svm)
++{
++	if (svm)
++		kref_put(&svm->refcount, amdgpu_svm_release);
++}
++
++struct amdgpu_svm *
++amdgpu_svm_lookup_by_pasid(struct amdgpu_device *adev, uint32_t pasid)
++{
++	struct amdgpu_svm *svm = NULL;
++	struct amdgpu_vm *vm;
++	unsigned long irqflags;
++
++	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
++	vm = xa_load(&adev->vm_manager.pasids, pasid);
++	if (vm && vm->svm) {
++		svm = vm->svm;
++		kref_get(&svm->refcount);
++	}
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
++
++	return svm;
++}
++
++int amdgpu_svm_cache_init(void)
++{
++	int ret = 0;
++
++	mutex_lock(&amdgpu_svm_cache_lock);
++
++	if (amdgpu_svm_range_cache) {
++		mutex_unlock(&amdgpu_svm_cache_lock);
 +		return 0;
-+
-+	flags = memalloc_noreclaim_save();
-+	ret = amdgpu_vm_update_range(svm->adev, svm->vm, false, true, true, false,
-+				     NULL, start_page, last_page, 0, 0, 0, NULL,
-+				     NULL, &fence);
-+	memalloc_noreclaim_restore(flags);
-+
-+	if (!ret && fence) {
-+		ret = dma_fence_wait(fence, false);
-+		if (ret < 0)
-+			AMDGPU_SVM_TRACE(
-+				"notifier unmap fence wait failed: ret=%d [0x%lx-0x%lx]-0x%lx\n",
-+				ret, start_page, last_page,
-+				last_page - start_page + 1);
 +	}
 +
-+	dma_fence_put(fence);
++	amdgpu_svm_range_cache = AMDGPU_SVM_KMEM_CACHE_CREATE("amdgpu_svm_range_cache",
++								 struct amdgpu_svm_range);
++	if (!amdgpu_svm_range_cache) {
++		ret = -ENOMEM;
++		goto out_unlock;
++	}
++
++	ret = amdgpu_svm_attr_cache_init();
++	if (ret)
++		goto free_out;
++
++	mutex_unlock(&amdgpu_svm_cache_lock);
++	return 0;
++
++free_out:
++	amdgpu_svm_attr_cache_fini();
++	AMDGPU_SVM_KMEM_CACHE_DESTROY(amdgpu_svm_range_cache);
++out_unlock:
++	mutex_unlock(&amdgpu_svm_cache_lock);
 +	return ret;
 +}
 +
-+uint64_t
-+amdgpu_svm_range_attr_pte_flags(struct amdgpu_svm *svm,
-+			    const struct amdgpu_svm_attrs *attrs,
-+			    bool read_only,
-+			    enum drm_interconnect_protocol proto)
++void amdgpu_svm_cache_fini(void)
 +{
-+	uint32_t flags = attrs->flags;
-+	uint32_t mapping_flags = 0;
-+	uint32_t gc_ip_version = amdgpu_ip_version(svm->adev, GC_HWIP, 0);
-+	uint64_t pte_flags;
-+	bool snoop = proto != AMDGPU_INTERCONNECT_VRAM;
-+	bool coherent = flags & (AMDGPU_SVM_ATTR_BIT_COHERENT |
-+				 AMDGPU_SVM_ATTR_BIT_EXT_COHERENT);
-+	bool ext_coherent = flags & AMDGPU_SVM_ATTR_BIT_EXT_COHERENT;
-+	unsigned int mtype_local, mtype_remote;
-+	bool is_aid_a1;
-+	bool is_local = (proto == AMDGPU_INTERCONNECT_VRAM);
-+	bool is_vram = is_local || (proto == AMDGPU_INTERCONNECT_P2P);
++	if (!amdgpu_svm_range_cache)
++		return;
 +
-+	switch (gc_ip_version) {
-+	case IP_VERSION(9, 4, 1):
-+	case IP_VERSION(9, 4, 2):
-+		if (is_local) {
-+			mapping_flags |= coherent ?
-+				AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
-+			/* 9.4.2 local VRAM with XGMI keeps snoop */
-+			if (gc_ip_version == IP_VERSION(9, 4, 2) &&
-+			    svm->adev->gmc.xgmi.connected_to_cpu)
-+				snoop = true;
-+		} else {
-+			mapping_flags |= coherent ?
-+				AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-+			/* TODO: migration: re enable snoop for same hive */
++	amdgpu_svm_attr_cache_fini();
++	AMDGPU_SVM_KMEM_CACHE_DESTROY(amdgpu_svm_range_cache);
++}
++
++static int amdgpu_svm_op_set_attr(struct amdgpu_vm *vm,
++				  uint64_t start,
++				  uint64_t size,
++				  uint32_t nattr,
++				  const struct drm_amdgpu_svm_attribute *attrs)
++{
++	struct amdgpu_svm *svm = vm->svm;
++
++	amdgpu_svm_sync_work(svm);
++
++	return amdgpu_svm_attr_set(svm->attr_tree, start, size, nattr,
++				   attrs);
++}
++
++static int amdgpu_svm_op_get_attr(struct amdgpu_vm *vm,
++				  uint64_t start,
++				  uint64_t size,
++				  uint32_t nattr,
++				  struct drm_amdgpu_svm_attribute *attrs)
++{
++	amdgpu_svm_sync_work(vm->svm);
++
++	return amdgpu_svm_attr_get(vm->svm->attr_tree, start, size, nattr, attrs);
++}
++
++static int amdgpu_svm_op_reset_attr(struct amdgpu_vm *vm,
++				    uint64_t start, uint64_t size)
++{
++	struct amdgpu_svm *svm = vm->svm;
++	unsigned long start_page = start >> PAGE_SHIFT;
++	unsigned long last_page = (start + size - 1) >> PAGE_SHIFT;
++
++	amdgpu_svm_sync_work(svm);
++
++	return amdgpu_svm_attr_reset(svm->attr_tree,
++				     start_page, last_page);
++}
++
++static uint32_t
++attr_change_trigger(const struct amdgpu_svm_attrs *old_attrs,
++		    const struct amdgpu_svm_attrs *new_attrs)
++{
++	uint32_t trigger = 0;
++	uint32_t changed_flags = old_attrs->flags ^ new_attrs->flags;
++
++	if (old_attrs->access != new_attrs->access)
++		trigger |= AMDGPU_SVM_ATTR_TRIGGER_ACCESS_CHANGE;
++	if (changed_flags & AMDGPU_SVM_PTE_FLAG_MASK)
++		trigger |= AMDGPU_SVM_ATTR_TRIGGER_PTE_FLAG_CHANGE;
++	if (changed_flags & AMDGPU_SVM_MAPPING_FLAG_MASK)
++		trigger |= AMDGPU_SVM_ATTR_TRIGGER_MAPPING_FLAG_CHANGE;
++	if (old_attrs->preferred_loc != new_attrs->preferred_loc ||
++	    old_attrs->prefetch_loc != new_attrs->prefetch_loc)
++		trigger |= AMDGPU_SVM_ATTR_TRIGGER_LOCATION_CHANGE;
++	if (old_attrs->granularity != new_attrs->granularity)
++		trigger |= AMDGPU_SVM_ATTR_TRIGGER_GRANULARITY_CHANGE;
++	if (new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_UNDEFINED &&
++	    new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_SYSMEM)
++		trigger |= AMDGPU_SVM_ATTR_TRIGGER_PREFETCH;
++
++	return trigger;
++}
++
++int amdgpu_svm_apply_attr_change(struct amdgpu_svm *svm,
++				 const struct amdgpu_svm_attrs *old_attrs,
++				 const struct amdgpu_svm_attrs *new_attrs,
++				 unsigned long start_page,
++				 unsigned long last_page)
++{
++	bool old_access, new_access;
++	bool needs_invalidate = false;
++	bool needs_mapping = false;
++	uint32_t trigger;
++	int ret;
++
++	amdgpu_svm_assert_locked(svm);
++
++	if (!start_page && !last_page)
++		return 0;
++
++	trigger = attr_change_trigger(old_attrs, new_attrs);
++	old_access = amdgpu_svm_attr_has_access(old_attrs->access);
++	new_access = amdgpu_svm_attr_has_access(new_attrs->access);
++	if (XNACK_ON(svm) &&
++	    (trigger & AMDGPU_SVM_ATTR_TRIGGER_NEED_INVALIDATE))
++		needs_invalidate = true;
++
++	if (trigger & AMDGPU_SVM_ATTR_TRIGGER_PREFETCH)
++		needs_mapping = true;
++
++	if (!trigger && !needs_mapping)
++		return 0;
++
++	AMDGPU_SVM_TRACE("attr change trigger=0x%x old=%d new=%d [0x%lx-0x%lx]-0x%lx, xnack=%d\n",
++			 trigger, old_access, new_access, start_page, last_page,
++			 last_page - start_page + 1,
++			 svm->xnack_enabled ? 1 : 0);
++
++	if (needs_invalidate) {
++		AMDGPU_SVM_TRACE("attr change invalidate [0x%lx-0x%lx]-0x%lx trigger=0x%x\n",
++				 start_page, last_page,
++				 last_page - start_page + 1, trigger);
++		ret = amdgpu_svm_range_invalidate_interval(svm, start_page,
++							   last_page);
++		if (ret) {
++			AMDGPU_SVM_ERR(
++				"failed to invalidate range for attr change: [0x%lx-0x%lx], ret=%d\n",
++				start_page, last_page, ret);
++			return ret;
 +		}
-+		break;
++	}
++
++	if (!needs_mapping)
++		return 0;
++
++	return amdgpu_svm_range_map_attrs(svm, new_attrs,
++					  start_page << PAGE_SHIFT,
++					  (last_page + 1) << PAGE_SHIFT);
++}
++
++static bool amdgpu_svm_default_xnack_enabled(struct amdgpu_device *adev)
++{
++	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
++
++	if (gc_ver < IP_VERSION(9, 0, 1))
++		return false;
++	if (!amdgpu_sriov_xnack_support(adev))
++		return false;
++
++	switch (gc_ver) {
++	case IP_VERSION(9, 4, 2):
 +	case IP_VERSION(9, 4, 3):
 +	case IP_VERSION(9, 4, 4):
 +	case IP_VERSION(9, 5, 0):
-+		if (ext_coherent)
-+			mtype_local = AMDGPU_VM_MTYPE_CC;
-+		else
-+			mtype_local = amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
-+				amdgpu_mtype_local == 2 ? AMDGPU_VM_MTYPE_CC :
-+				AMDGPU_VM_MTYPE_RW;
-+		snoop = true;
-+		if (is_vram) {
-+			if (is_local) {
-+				/* local HBM region close to partition */
-+				mapping_flags |= mtype_local;
-+			} else if (!ext_coherent) {
-+				/* TODO: add same hive check */
-+				mapping_flags |= AMDGPU_VM_MTYPE_NC;
-+			} else if (gc_ip_version < IP_VERSION(9, 5, 0)) {
-+				/* TODO: add same hive check */
-+				mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+			} else {
-+				mapping_flags |= ext_coherent ?
-+					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-+			}
-+		} else if (svm->adev->flags & AMD_IS_APU) {
-+			/* On NUMA systems, locality is determined per-page
-+			 * in amdgpu_gmc_override_vm_pte_flags.
-+			 */
-+			if (num_possible_nodes() <= 1)
-+				mapping_flags |= mtype_local;
-+			else
-+				mapping_flags |= ext_coherent ?
-+					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-+		} else {
-+			if (gc_ip_version < IP_VERSION(9, 5, 0) || ext_coherent)
-+				mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+			else
-+				mapping_flags |= AMDGPU_VM_MTYPE_NC;
-+		}
++		return true;
++	default:
 +		break;
-+	case IP_VERSION(12, 0, 0):
-+	case IP_VERSION(12, 0, 1):
-+		mapping_flags |= AMDGPU_VM_MTYPE_NC;
-+		break;
-+	case IP_VERSION(12, 1, 0):
-+		is_aid_a1 = (svm->adev->rev_id & 0x10);
-+		mtype_local = amdgpu_mtype_local == 0 ? AMDGPU_VM_MTYPE_RW :
-+				amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
-+				is_aid_a1 ? AMDGPU_VM_MTYPE_RW : AMDGPU_VM_MTYPE_NC;
-+		mtype_remote = is_aid_a1 ? AMDGPU_VM_MTYPE_NC : AMDGPU_VM_MTYPE_UC;
-+		snoop = true;
++	}
++	if (gc_ver >= IP_VERSION(10, 1, 1))
++		return false;
++	return !adev->gmc.noretry;
++}
 +
-+		if (is_local) {
-+			mapping_flags |= mtype_local;
-+		} else if (ext_coherent) {
-+			mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+		} else {
-+			/* system memory or remote VRAM */
-+			mapping_flags |= mtype_remote;
++static void amdgpu_svm_flush_tlb_compute(struct amdgpu_svm *svm)
++{
++	amdgpu_vm_flush_compute_tlb(svm->adev, svm->vm, TLB_FLUSH_HEAVYWEIGHT,
++				    svm->adev->gfx.xcc_mask);
++}
++
++static int amdgpu_svm_work_init(struct amdgpu_svm *svm,
++				void (*gc_work_func)(struct work_struct *));
++static void amdgpu_svm_work_fini(struct amdgpu_svm *svm);
++
++static int amdgpu_svm_init_xnack_mode(struct amdgpu_device *adev,
++				    enum amdgpu_svm_xnack_mode mode,
++				    bool *xnack_enabled)
++{
++	bool xnack_default = amdgpu_svm_default_xnack_enabled(adev);
++
++	switch (mode) {
++	case AMDGPU_SVM_XNACK_DEFAULT:
++		*xnack_enabled = xnack_default;
++		break;
++	case AMDGPU_SVM_XNACK_ON:
++		if (!xnack_default) {
++			AMDGPU_SVM_ERR("xnack on not available (mode=%d)\n",
++					mode);
++			*xnack_enabled = xnack_default;
++			return -EOPNOTSUPP;
 +		}
++		*xnack_enabled = true;
++		break;
++	case AMDGPU_SVM_XNACK_OFF:
++		*xnack_enabled = false;
 +		break;
 +	default:
-+		mapping_flags |= coherent ?
-+			AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
-+		break;
-+	}
-+
-+	if (flags & AMDGPU_SVM_ATTR_BIT_GPU_EXEC)
-+		mapping_flags |= AMDGPU_VM_PAGE_EXECUTABLE;
-+
-+	pte_flags = AMDGPU_PTE_VALID;
-+	pte_flags |= is_local ? 0 : AMDGPU_PTE_SYSTEM;
-+	pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
-+	if (gc_ip_version >= IP_VERSION(12, 0, 0))
-+		pte_flags |= AMDGPU_PTE_IS_PTE;
-+
-+	amdgpu_gmc_get_vm_pte(svm->adev, svm->vm, NULL, mapping_flags, &pte_flags);
-+	pte_flags |= AMDGPU_PTE_READABLE;
-+	if (!(flags & AMDGPU_SVM_ATTR_BIT_GPU_RO) && !read_only)
-+		pte_flags |= AMDGPU_PTE_WRITEABLE;
-+
-+	if (gc_ip_version == IP_VERSION(12, 1, 0) &&
-+	    svm->adev->have_atomics_support)
-+		pte_flags |= AMDGPU_PTE_BUS_ATOMICS;
-+
-+	return pte_flags;
-+}
-+
-+
-+
-+int amdgpu_svm_range_lock_vm_pd(struct amdgpu_svm *svm, struct drm_exec *exec,
-+				bool intr)
-+{
-+	unsigned int exec_flags = DRM_EXEC_IGNORE_DUPLICATES;
-+	int ret;
-+
-+	if (intr)
-+		exec_flags |= DRM_EXEC_INTERRUPTIBLE_WAIT;
-+
-+	drm_exec_init(exec, exec_flags, 0);
-+	drm_exec_until_all_locked(exec) {
-+		ret = amdgpu_vm_lock_pd(svm->vm, exec, 1);
-+		drm_exec_retry_on_contention(exec);
-+		if (ret) {
-+			drm_exec_fini(exec);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int
-+amdgpu_svm_range_update_gpu_range(struct amdgpu_svm *svm,
-+				  struct amdgpu_svm_range *range,
-+				  const struct amdgpu_svm_attrs *attrs,
-+				  bool read_only,
-+				  bool flush_tlb,
-+				  bool wait_fence,
-+				  struct dma_fence **fence)
-+{
-+	struct drm_gpusvm_range *base = &range->base;
-+
-+	lockdep_assert_held(&svm->gpusvm.notifier_lock);
-+
-+	const unsigned long range_start_page = drm_gpusvm_range_start(base) >> PAGE_SHIFT;
-+	const unsigned long range_end_page = drm_gpusvm_range_end(base) >> PAGE_SHIFT;
-+	const unsigned long npages = range_end_page - range_start_page;
-+	unsigned long mapped_pages = 0;
-+	unsigned long dma_idx = 0;
-+	int ret;
-+
-+	if (!base->pages.dma_addr || !npages)
 +		return -EINVAL;
-+
-+	while (mapped_pages < npages) {
-+		const struct drm_pagemap_addr *entry = &base->pages.dma_addr[dma_idx++];
-+		unsigned long seg_pages = min_t(unsigned long, 1UL << entry->order,
-+						npages - mapped_pages);
-+		uint64_t pte_flags;
-+		unsigned long start_page, last_page;
-+		bool is_last_seg;
-+
-+		if (entry->proto != DRM_INTERCONNECT_SYSTEM)
-+			return -EOPNOTSUPP;
-+
-+		pte_flags = amdgpu_svm_range_attr_pte_flags(svm, attrs,
-+							    read_only,
-+							    entry->proto);
-+
-+		start_page = range_start_page + mapped_pages;
-+		last_page = start_page + seg_pages - 1;
-+		mapped_pages += seg_pages;
-+		is_last_seg = mapped_pages == npages;
-+
-+		ret = amdgpu_vm_update_range(svm->adev, svm->vm, false, false,
-+					     flush_tlb && is_last_seg, true, NULL,
-+					     start_page, last_page, pte_flags,
-+					     0, entry->addr, NULL, NULL,
-+					     wait_fence && is_last_seg ? fence : NULL);
-+		if (ret)
-+			return ret;
 +	}
 +
 +	return 0;
 +}
 +
-+struct amdgpu_svm_range *
-+amdgpu_svm_range_find_or_insert(struct amdgpu_svm *svm, unsigned long addr,
-+				unsigned long gpuva_start, unsigned long gpuva_end,
-+				struct drm_gpusvm_ctx *ctx)
++static int amdgpu_svm_init_with_ops(struct amdgpu_svm *svm,
++				    void (*invalidate_ranges)(struct amdgpu_svm *,
++						struct drm_gpusvm_notifier *,
++						const struct mmu_notifier_range *,
++						struct drm_gpusvm_range *,
++						uint64_t, uint64_t),
++				    void (*gc_work_func)(struct work_struct *),
++				    void (*flush_tlb)(struct amdgpu_svm *))
 +{
-+	struct drm_gpusvm_range *r;
-+
-+retry:
-+	r = drm_gpusvm_range_find_or_insert(&svm->gpusvm, addr,
-+					    gpuva_start, gpuva_end, ctx);
-+	/*
-+	 * UMD doesn't set RO for some RO VMAs, but the drm gpu svm framework
-+	 * denies no RO flag range insert for RO VMAs, so treat
-+	 * -EPERM as an indication of RO and retry if not set.
-+	 */
-+	if (PTR_ERR_OR_ZERO(r) == -EPERM && !ctx->read_only) {
-+		ctx->read_only = true;
-+		goto retry;
-+	}
-+
-+	if (IS_ERR(r))
-+		return ERR_CAST(r);
-+
-+	return to_amdgpu_svm_range(r);
-+}
-+
-+int amdgpu_svm_range_get_pages(struct amdgpu_svm *svm,
-+			       struct drm_gpusvm_range *range,
-+			       struct drm_gpusvm_ctx *ctx)
-+{
++	struct amdgpu_device *adev = svm->adev;
 +	int ret;
 +
-+retry:
-+	ret = drm_gpusvm_range_get_pages(&svm->gpusvm, range, ctx);
-+	/*
-+	 * HMM returns -EPERM when write access is requested for a read-only
-+	 * VMA. Retry as read-only so the eventual GPU mapping follows the CPU
-+	 * VMA permissions.
-+	 */
-+	if (ret == -EPERM && !ctx->read_only) {
-+		ctx->read_only = true;
-+		goto retry;
-+	}
++	svm->flush_tlb = flush_tlb;
++	svm->invalidate_ranges = invalidate_ranges;
 +
-+	if (ret == -EOPNOTSUPP) {
-+		AMDGPU_SVM_ERR(
-+			"range get pages -EOPNOTSUPP, evict and retry: gpuva=[0x%lx-0x%lx) ret=%d\n",
-+			drm_gpusvm_range_start(range),
-+			drm_gpusvm_range_end(range), ret);
-+		amdgpu_svm_range_evict(svm, range);
-+	}
-+
-+	return ret;
-+}
-+
-+void amdgpu_svm_range_evict(struct amdgpu_svm *svm,
-+			    struct drm_gpusvm_range *range)
-+{
-+	if (!range->pages.flags.has_devmem_pages)
-+		return;
-+
-+	drm_gpusvm_range_evict(&svm->gpusvm, range);
-+}
-+
-+int amdgpu_svm_range_update_mapping(struct amdgpu_svm *svm,
-+				    struct amdgpu_svm_range *range,
-+				    const struct amdgpu_svm_attrs *attrs,
-+				    bool read_only,
-+				    bool intr, bool wait,
-+				    bool flush_tlb)
-+{
-+	struct drm_exec exec;
-+	struct dma_fence *fence = NULL;
-+	unsigned int flags;
-+	int ret;
-+
-+	ret = amdgpu_svm_range_lock_vm_pd(svm, &exec, intr);
++	ret = amdgpu_svm_work_init(svm, gc_work_func);
 +	if (ret)
 +		return ret;
 +
-+	flags = memalloc_noreclaim_save();
-+	drm_gpusvm_notifier_lock(&svm->gpusvm);
-+
-+	if (!amdgpu_svm_range_pages_valid(svm, range)) {
-+		amdgpu_svm_range_invalidate_gpu_mapping(range);
-+		ret = -EAGAIN;
-+	} else {
-+		ret = amdgpu_svm_range_update_gpu_range(svm, range, attrs,
-+							read_only, flush_tlb,
-+							wait, wait ? &fence : NULL);
++	svm->attr_tree = amdgpu_svm_attr_tree_create(svm);
++	if (!svm->attr_tree) {
++		ret = -ENOMEM;
++		goto err_work_fini;
 +	}
 +
-+	drm_gpusvm_notifier_unlock(&svm->gpusvm);
-+	memalloc_noreclaim_restore(flags);
++	ret = drm_gpusvm_init(&svm->gpusvm, "AMDGPU SVM",
++						adev_to_drm(adev), current->mm, 0,
++						adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
++						AMDGPU_SVM_DEFAULT_SVM_NOTIFIER_SIZE * SZ_1M,
++						&amdgpu_gpusvm_ops,
++						amdgpu_svm_chunk_sizes,
++						ARRAY_SIZE(amdgpu_svm_chunk_sizes));
 +
-+	if (!ret && fence)
-+		dma_fence_wait(fence, intr);
-+	dma_fence_put(fence);
++	if (ret)
++		goto err_attr_tree_destroy;
 +
-+	if (!ret)
-+		ret = amdgpu_vm_update_pdes(svm->adev, svm->vm, false);
++	drm_gpusvm_driver_set_lock(&svm->gpusvm, &svm->svm_lock);
 +
-+	if (!ret) {
-+		if (flush_tlb)
-+			svm->flush_tlb(svm);
-+		WRITE_ONCE(range->attr_flags, attrs->flags);
-+		WRITE_ONCE(range->gpu_mapped, true);
-+		range->validate_timestamp = ktime_get_boottime();
-+	}
++	return 0;
 +
-+	drm_exec_fini(&exec);
++err_attr_tree_destroy:
++	amdgpu_svm_attr_tree_destroy(svm->attr_tree);
++err_work_fini:
++	amdgpu_svm_work_fini(svm);
 +	return ret;
 +}
 +
-+int
-+amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
-+		       const struct amdgpu_svm_attrs *attrs,
-+		       unsigned long start, unsigned long end)
++static void amdgpu_svm_gc_work_func(struct work_struct *w);
++
++static int amdgpu_svm_init_compute(struct amdgpu_device *adev,
++				   struct amdgpu_vm *vm,
++				   enum amdgpu_svm_xnack_mode xnack_mode)
 +{
-+	unsigned long addr = start;
++	struct amdgpu_svm *svm;
 +	int ret;
-+	bool devmem_possible = false; /* TODO: add migration */
-+	bool need_vram_migration = amdgpu_svm_attr_prefer_vram(svm, attrs);
-+	struct drm_gpusvm_ctx map_ctx = {
-+		.devmem_possible = devmem_possible,
-+		.devmem_only = need_vram_migration && devmem_possible,
-+		.check_pages_threshold = devmem_possible ? SZ_64K : 0,
-+	};
 +
-+	while (addr < end) {
-+		struct amdgpu_svm_range *range;
-+		unsigned long next_addr;
-+		/* reset read_only every iteration, amdgpu_svm_range_find_or_insert may change it */
-+		map_ctx.read_only = !!(attrs->flags & AMDGPU_SVM_ATTR_BIT_GPU_RO);
++	if (vm->svm)
++		return 0;
 +
-+		range = amdgpu_svm_range_find_or_insert(svm, addr,
-+							addr, end,
-+							&map_ctx);
-+		if (IS_ERR(range)) {
-+			AMDGPU_SVM_ERR(
-+				"failed to find/insert range for gpuva 0x%lx [0x%lx-0x%lx), ret=%ld\n",
-+				addr, start, end, PTR_ERR(range));
-+			return PTR_ERR(range);
-+		}
++	ret = amdgpu_svm_cache_init();
++	if (ret)
++		return ret;
 +
-+		next_addr = drm_gpusvm_range_end(&range->base);
-+		if (next_addr <= addr)
-+			return -EINVAL;
++	svm = kzalloc(sizeof(*svm), GFP_KERNEL);
++	if (!svm)
++		return -ENOMEM;
 +
-+		if (amdgpu_svm_range_is_valid(svm, range, attrs)) {
-+			addr = next_addr;
-+			continue;
-+		}
++	kref_init(&svm->refcount);
++	svm->adev = adev;
++	svm->vm = vm;
++	svm->default_granularity = min_t(u8, amdgpu_svm_default_granularity, 0x1B);
++	atomic_set(&svm->exiting, 0);
 +
-+		/* TODO: add migration */
++	ret = amdgpu_svm_init_xnack_mode(adev, xnack_mode,
++					  &svm->xnack_enabled);
++	if (ret)
++		goto err_free;
 +
-+		AMDGPU_SVM_RANGE_DEBUG(range, "GET PAGES");
-+
-+		ret = amdgpu_svm_range_get_pages(svm, &range->base,
-+						 &map_ctx);
-+		if (ret) {
-+			AMDGPU_SVM_ERR("failed to get pages for range [0x%lx-0x%lx), ret=%d\n",
-+					drm_gpusvm_range_start(&range->base),
-+					drm_gpusvm_range_end(&range->base), ret);
-+			return ret;
-+		}
-+
-+		AMDGPU_SVM_RANGE_DEBUG(range, "UPDATE MAPPING");
-+
-+		ret = amdgpu_svm_range_update_mapping(svm, range, attrs,
-+						      map_ctx.read_only,
-+						      true, true,
-+						      true);
-+		if (ret) {
-+			AMDGPU_SVM_ERR("failed to update gpu map for range [0x%lx-0x%lx), ret=%d\n",
-+					drm_gpusvm_range_start(&range->base),
-+					drm_gpusvm_range_end(&range->base), ret);
-+			return ret;
-+		}
-+
-+		addr = next_addr;
++	if (svm->xnack_enabled) {
++		ret = amdgpu_svm_init_with_ops(svm,
++					       amdgpu_svm_range_invalidate,
++					       amdgpu_svm_gc_work_func,
++					       amdgpu_svm_flush_tlb_compute);
++	} else {
++		AMDGPU_SVM_ERR("xnack off is not supported yet\n");
++		ret = -EOPNOTSUPP;
 +	}
 +
++	if (ret)
++		goto err_free;
++
++	AMDGPU_SVM_TRACE("AMDGPU SVM initialized: default granularity 0x%lx bytes, xnack: %s\n",
++	       1UL << (svm->default_granularity + PAGE_SHIFT),
++	       svm->xnack_enabled ? "enabled" : "disabled");
++
++	vm->svm = svm;
 +	return 0;
++
++err_free:
++	kfree(svm);
++	return ret;
 +}
 +
++int amdgpu_svm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm)
++{
++	/* graphics svm init maybe different */
++
++	return amdgpu_svm_init_compute(adev, vm, AMDGPU_SVM_XNACK_DEFAULT);
++}
++
++void amdgpu_svm_close(struct amdgpu_vm *vm)
++{
++	if (!vm->svm)
++		return;
++
++	if (atomic_xchg(&vm->svm->exiting, 1))
++		return;
++
++	amdgpu_svm_sync_work(vm->svm);
++}
++
++void amdgpu_svm_fini(struct amdgpu_vm *vm)
++{
++	struct amdgpu_svm *svm = vm->svm;
++
++	if (!svm)
++		return;
++
++	amdgpu_svm_close(vm);
++	amdgpu_svm_lock(svm);
++	drm_gpusvm_fini(&svm->gpusvm);
++	amdgpu_svm_unlock(svm);
++
++	amdgpu_svm_attr_tree_destroy(svm->attr_tree);
++	amdgpu_svm_work_fini(svm);
++	vm->svm = NULL;
++	amdgpu_svm_put(svm);
++}
++
++bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm)
++{
++	return vm->svm != NULL;
++}
++
++#endif /* CONFIG_DRM_AMDGPU_SVM */
 -- 
 2.34.1
 
