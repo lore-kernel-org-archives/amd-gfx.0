@@ -4,96 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6FE5CD6E4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 12:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9CDCD6E51
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 12:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C37210FEA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F56910FEA5;
 	Fri, 29 May 2026 12:49:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h6WyF4Hj";
-	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAF110FA32
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 07:43:29 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-687e7edaafeso12160061a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 00:43:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780040608; cv=none;
- d=google.com; s=arc-20240605;
- b=IeiDLE84v5vQhmNfHRoVTmScUGyv9u30EMX/YybVpNdtxh+JDIdX0BPTwlKlOcKrfP
- TdjaqRbJe+6JYzL26etALOQjasbxOFMAZ/L+tmO/4tOXY+qDtSIoufX3fD2HwRXg9qJe
- paFyUSDU8+4MsGzYMNbvm/lhhoPfn8YfTi1XxRDG5SQNNOBol2/dRqZCcymsgGi9kJo6
- 8xpdDJvO/1im7g752flICinKwZluXmbQLtwCH/NYr3S1GJSPAtwD8Kf4Mr2ZIjV9UpOU
- FtQ3/uIvt9ZL/e2C4YM8rA6B1z2wsRdWx6px6YLgtAwuTpyLIRPIjqznVkkLGKOV/3CK
- b8Lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GzZHOwAgPk7upKhwwz8rSQvZhiNurmaPnPBWCLZlTTc=;
- fh=6KIGsbXIMZdZfXjhepdjcpjj2cB1Zl9SiaVELsEDBIM=;
- b=foSoXiB5kFqK27WOK5J65S586Fel4D7xrixHtKo3LS+GUIdaud6jg2U625GnD+w43K
- 1X3pd7vPEjVqy/WphRzIVlBxqXox/bzWKWPwoM+o6F7QSCmbuASf5AGw9Sohg9ZHDJvV
- WddFAaC7adHlziotouWzP4IusPIYf0pX4fPXi8FcfyN6S5R6xrSRdiqWMPJwoZd13JIg
- gqIsm2XV8YnG+uF+Lx5SUl4kJuhuu7eLIGJ25MCJqaI8xvOj4T5pl7z/NGNDgXjugwSt
- dTnjAA6JrVMbX8vxWspcEEiS+qbxufMno+tpgzeFq0SBBf9fFjJbiLlu5ZTtgcKrslBC
- 1hTg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780040608; x=1780645408; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GzZHOwAgPk7upKhwwz8rSQvZhiNurmaPnPBWCLZlTTc=;
- b=h6WyF4HjM2NJdCDMiseAsuWpVLHsyEKdEPYkyAZ2mk0l7Diw5FbRW5RZfjV52NEPzs
- jf8Ll2WRAD0duZENmuL4MdyjsljggZcVT22zz6psVQylzE8DphZN7SRvhTWxrQq+xLlT
- XNRn8uzbPjLmkwyvmGs+Dv5wvIHpZWNqWDdPra/drM0IaaqurCIDFdNLMsDlad072gxf
- RRUOq1asZQbs+PRFPBjuKOuM8bSbwIPJBO/cDz0sPudbAJv11zBjJmOdCQZtYDpB28Ll
- utWH8IzVOlO3sgAsv62UssQI+8yXIMg1ZJNRvW0wn9fPff8BfKCWEa5QB93iWR0gbUPq
- l4MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780040608; x=1780645408;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=GzZHOwAgPk7upKhwwz8rSQvZhiNurmaPnPBWCLZlTTc=;
- b=IVJU+4+Q0sYRC5g38IzcGWRaG18Npcjb915swp+QiqjyJgylA0QVnIMeZEYJxZimcb
- bQufltzedriIJP3rLgblTRaojuycRHMM+v+XwJEkBdcu4nJmtz54FcT6hSFLZLhZMBE5
- iI9qTbd3vywEYtX2oPwYJ5hQofZVA1PMy+tLQ7llXoLEY3ONcHeHetd/3CFseerRkRe8
- gt/u5slHqBFTQCmt1C6QhsiomEC95v2omrFrpZHzJ/TYWNK9oG+BtVBywo0Qin652Pu3
- QwPX0rl5JmXYUhJqDNDD7sQu/pVJRVrk9RemN8MmsxpPaFPc6WkKYO1Xnp+XFUHiXj88
- VI5w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+yR/aPLf1GaYPNoOw8amYNgeSzn0Pa5068JiZuUN3Gn89w9Q5hoO4I5IREtFeD3iBnlmyvw0o5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyK0hESfEmuPNEkdcqxsMfa4H0fI5y2XWHDLpTp2Bj7duHh9I0W
- WSdTe6e2DwLA+xglyyBjjTFP8i2AkWkx3HivlNJ9iPfukeef3B2tuv/unK4Krv/MeMtbNJ4FOLn
- M8nVXXZEoHtar4DY6rNmFb4aU7lC+Ua8=
-X-Gm-Gg: Acq92OH+1bBPYJrI7HuuN5123ztM1URg1AoMhKv9P4apfL8i9FOHzt74j4lxwfVS3iV
- sIEH4qHd1BNPyytrIVQm/C8snbt65kVjwlCOs+AYXkcWdTFAXtSZAp+VpdNH+rOenlX7BZ/+esO
- WhnQkuD/FMIsr0GcQeoFOgOLSuSbJt3MyizX91DlXDaw0ytWbVO7gmMmno4qcDSPBSpLGnVDRqE
- M9m6R/GXphftKhYne6rztNgrlaTwRefyeJvpokN6NQQYY7gvNnYA2+8qInb2NnGQvSKSba/8z7M
- N1J9y8Fcp7C9DnWg
-X-Received: by 2002:a17:906:8468:b0:be2:d66:eb21 with SMTP id
- a640c23a62f3a-be9cbcc413fmr67394166b.26.1780040607489; Fri, 29 May 2026
- 00:43:27 -0700 (PDT)
+X-Greylist: delayed 327 seconds by postgrey-1.36 at gabe;
+ Fri, 29 May 2026 12:20:10 UTC
+Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3578910FE3F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 12:20:10 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Fri, 29 May
+ 2026 15:14:42 +0300
+Received: from localhost (10.0.253.153) by Ex16-01.fintech.ru (10.0.10.18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 29 May
+ 2026 15:14:41 +0300
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/radeon: Fix OOB read in MC register table init
+Date: Fri, 29 May 2026 15:14:34 +0300
+Message-ID: <20260529121436.1633842-1-n.zhandarovich@fintech.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <CADnq5_Pq947+u3U-iVXLanuDQa_WxJKr_=DzJg1z+4rS334NqQ@mail.gmail.com>
- <20260527222012.2943-2-gilles.risch@gmail.com>
- <CADnq5_N5nM4Vn8=YbzBTJWcp8SEjMmb2KZurNqgqsxOpxQGUoA@mail.gmail.com>
-In-Reply-To: <CADnq5_N5nM4Vn8=YbzBTJWcp8SEjMmb2KZurNqgqsxOpxQGUoA@mail.gmail.com>
-From: Gilles Risch <gilles.risch@gmail.com>
-Date: Fri, 29 May 2026 09:43:13 +0200
-X-Gm-Features: AVHnY4Ivf1vLxWzTWtlywRo5k9qKgdZdfdYYM0JHnqyU5gCLM8x3Gg-PPb2P0ZY
-Message-ID: <CALnjqVky2zET5U5N_PEorrsWG4stHQSeTJZV6fA8G0q0XU5ZDQ@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/radeon: fix internal display on iMac11,
- 1 (RV770/DCE3.1)
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 29 May 2026 12:49:39 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.253.153]
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
+X-Mailman-Approved-At: Fri, 29 May 2026 12:49:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,148 +53,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Good morning,
+radeon_atom_init_mc_reg_table() copies the previous mc_data[] entry when
+pre_reg_data requests DATA_EQU_PREV. However, the loop starts at i == 0,
+so a malformed or unexpected table can make the first entry use
+DATA_EQU_PREV and trigger an out-of-bounds read from mc_data[i - 1].
 
-I'll make that adjustment, shouldn't I just regroup all three iMac
-machines in one if statement?
+Emulate a fix for a similar issue in amdgpu_atombios_init_mc_reg_table,
+see commit 51dfc0a4d609 ("drm/amdgpu: fix mc_data out-of-bounds read
+warning"), by skipping DATA_EQU_PREV for the first entry.
 
-Am Do., 28. Mai 2026 um 20:53 Uhr schrieb Alex Deucher <alexdeucher@gmail.c=
-om>:
->
-> On Thu, May 28, 2026 at 3:39=E2=80=AFAM Gilles Risch <gilles.risch@gmail.=
-com> wrote:
-> >
-> > The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
-> > (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
-> > DisplayPort path. Without this fix the display stays dark under KMS.
-> >
-> > The same problem already exists for iMac10,1 and iMac11,2. Three fixes:
-> >
-> > 1. Introduce ASIC_IS_DCE31() for CHIP_RV770 and newer. Note that
-> >    CHIP_RV770 precedes CHIP_RV730 in the enum, so ASIC_IS_DCE31()
-> >    subsumes ASIC_IS_DCE32().
-> >
-> > 2. Extend the Link B encoder quirk from ASIC_IS_DCE32() to
-> >    ASIC_IS_DCE31() and add iMac11,1 to the DMI list.
-> >
-> > 3. The 2560x1440 panel needs RADEON_PLL_USE_FRAC_FB_DIV and
-> >    ATOM_ENCODER_CMD_DP_VIDEO_ON. These are limited to iMac11,1
-> >    via dmi_match() to avoid affecting other DCE3.1 boards.
-> >
-> > Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
-> > ---
-> >  drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
-> >  drivers/gpu/drm/radeon/atombios_encoders.c | 11 ++++++-----
-> >  drivers/gpu/drm/radeon/radeon.h            |  1 +
-> >  3 files changed, 11 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/r=
-adeon/atombios_crtc.c
-> > index 2fc0334e0..075eba2d4 100644
-> > --- a/drivers/gpu/drm/radeon/atombios_crtc.c
-> > +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
-> > @@ -24,6 +24,8 @@
-> >   *          Alex Deucher
-> >   */
-> >
-> > +#include <linux/dmi.h>
-> > +
-> >  #include <drm/drm_fixed.h>
-> >  #include <drm/drm_fourcc.h>
-> >  #include <drm/drm_framebuffer.h>
-> > @@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crt=
-c,
-> >                 if (((rdev->family =3D=3D CHIP_RS780) || (rdev->family =
-=3D=3D CHIP_RS880))
-> >                     && !radeon_crtc->ss_enabled)
-> >                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FRAC=
-_FB_DIV;
-> > -               if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
-> > +               if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME,=
- "iMac11,1"))
-> > +                   && mode->clock > 165000)
-> >                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FRAC=
-_FB_DIV;
-> >         } else {
-> >                 radeon_crtc->pll_flags |=3D RADEON_PLL_LEGACY;
-> > diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/d=
-rm/radeon/atombios_encoders.c
-> > index 5cfd8fcfa..4de60559f 100644
-> > --- a/drivers/gpu/drm/radeon/atombios_encoders.c
-> > +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-> > @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *=
-encoder, int mode)
-> >                 if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encode=
-r)) && connector) {
-> >                         /* DP_SET_POWER_D0 is set in radeon_dp_link_tra=
-in */
-> >                         radeon_dp_link_train(encoder, connector);
-> > -                       if (ASIC_IS_DCE4(rdev))
-> > +                       if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT=
-_NAME, "iMac11,1"))
-> >                                 atombios_dig_encoder_setup(encoder, ATO=
-M_ENCODER_CMD_DP_VIDEO_ON, 0);
-> >                 }
-> >                 if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)=
-) {
-> > @@ -2123,12 +2123,13 @@ int radeon_atom_pick_dig_encoder(struct drm_enc=
-oder *encoder, int fe_idx)
-> >         }
-> >
-> >         /*
-> > -        * On DCE32 any encoder can drive any block so usually just use=
- crtc id,
-> > -        * but Apple thinks different at least on iMac10,1 and iMac11,2=
-, so there use linkb,
-> > -        * otherwise the internal eDP panel will stay dark.
-> > +        * On DCE31 and DCE32 any encoder can drive any block so usuall=
-y just use crtc id,
-> > +        * but Apple thinks different at least on iMac10,1, iMac11,1 an=
-d iMac11,2,
-> > +        * so there use linkb, otherwise the internal eDP panel will st=
-ay dark.
-> >          */
-> > -       if (ASIC_IS_DCE32(rdev)) {
-> > +       if (ASIC_IS_DCE31(rdev)) {
->
-> This will change the routing for DCE3.1 as well.  Probably best to do
-> something like:
->
-> if (dmi_match(DMI_PRODUCT_NAME, "iMac11,1")) {
->     enc_idx =3D (dig->linkb) ? 1 : 0;
->     goto assigned;
-> }
->
-> before or after the DCE32() block.
->
-> >                 if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-> > +                   dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
-> >                     dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
-> >                         enc_idx =3D (dig->linkb) ? 1 : 0;
-> >                 else
-> > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
-adeon.h
-> > index 527b9d19d..6b7c0abe4 100644
-> > --- a/drivers/gpu/drm/radeon/radeon.h
-> > +++ b/drivers/gpu/drm/radeon/radeon.h
-> > @@ -2625,6 +2625,7 @@ void r100_pll_errata_after_index(struct radeon_de=
-vice *rdev);
-> >                             (rdev->family =3D=3D CHIP_RS740)  ||    \
-> >                             (rdev->family >=3D CHIP_R600))
-> >  #define ASIC_IS_DCE3(rdev) ((rdev->family >=3D CHIP_RV620))
-> > +#define ASIC_IS_DCE31(rdev) ((rdev->family >=3D CHIP_RV770))
-> >  #define ASIC_IS_DCE32(rdev) ((rdev->family >=3D CHIP_RV730))
-> >  #define ASIC_IS_DCE4(rdev) ((rdev->family >=3D CHIP_CEDAR))
-> >  #define ASIC_IS_DCE41(rdev) ((rdev->family >=3D CHIP_PALM) && \
-> >
-> > base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
-> > --
-> > 2.47.3
-> >
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
 
+Fixes: ae5b0abbb6f7 ("drm/radeon/kms: add atom helper functions for dpm (v3)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+---
+P.S. checkpatch warns that too many tabs were used but I can't do much
+about surrounding code being already too deeply nested.
 
+ drivers/gpu/drm/radeon/radeon_atombios.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---=20
-Gilles
-
-Sent from my Commodore C=3D64
+diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+index 3dd9724b331d..c6d229a4322f 100644
+--- a/drivers/gpu/drm/radeon/radeon_atombios.c
++++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+@@ -4032,6 +4032,8 @@ int radeon_atom_init_mc_reg_table(struct radeon_device *rdev,
+ 										(u32)le32_to_cpu(*((u32 *)reg_data + j));
+ 									j++;
+ 								} else if ((reg_table->mc_reg_address[i].pre_reg_data & LOW_NIBBLE_MASK) == DATA_EQU_PREV) {
++									if (i == 0)
++										continue;
+ 									reg_table->mc_reg_table_entry[num_ranges].mc_data[i] =
+ 										reg_table->mc_reg_table_entry[num_ranges].mc_data[i - 1];
+ 								}
