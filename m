@@ -4,98 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D0B5CD4F54
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 18:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F76CD4F54
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 18:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AECE1123BF;
-	Fri, 29 May 2026 18:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B80D01123C2;
+	Fri, 29 May 2026 18:35:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TjNM7MIz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bU6BrsYJ";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010038.outbound.protection.outlook.com [52.101.201.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D74C1123C7
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 18:34:09 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011046.outbound.protection.outlook.com
+ [40.93.194.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29F031123C2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 18:35:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MLYR5yEzsm5DriYROeJb/bH1iQlpZVj6q3hicq3DtDMSXVlDlJKpkhGpUU+Tb5mpphQU3a1EMSuRX/DWrfA7Z1P/GIQ9PyU6mwHoTg4cbWBNtYjFK8VEuhawm6z6P6Y7ht1FDNKsOB5/9uwbEaMeanqli9/odMFSlr5KU6iHJ2dQoTtGlrchPJwWZqfE61eIdLyr9wkQ0CXnJphnkF8bJQ8rlKjRRy7JDKMrRctuBdMG+BU4ARqjLl5V2f71rwYp5UONG+YdjyIFusjqDwU8JxvjDasqYtt+vIhltajhlUi8V9iL5iV0lP759HIG/BSHgPHzJkPVbFr3hP5cQNkT/A==
+ b=Z/XQTSoq7cE2yi7hA1zEWoxXY0tNGQrC7w/P7mvUPcxNRxKrMBIzLfouUaXXFrXp+Z7grsLXJAAwinpdtjWR/xPt6umJQPbZ/Y0aO2pnf08AUz9WjCsXZsxeCMJbSZJB3wOxZacA/u872f0RGOJnX0LApknA1uZ8qrdH2XgK+jNmor/uQJSyc8H18GU8EsHXDKRSOsjB9fR+Hsj1HLYwDT197rjxSYAiRNZX+pbjb9mLxJf+NZI5SH23CNTgWqdVUMmG2GSngT2SB/uD4h2zQqua2qjUPt/G0K6KF8eeuRnj1XWl4Mmv5+8nU/nFkIk+8HLUaIeFZ4j3Izf/U1wgKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=090NYwXvJ0ubb9NEMWZ6zWKvw2ZI6J7cNwkf1OgUSso=;
- b=EtZXRQ+wuT7dV3OY+/fcCD8ZLc5Tk+kwt5hAG/C8B7I7oEWYD9iy3GgbB9q/9XAfT9JKfiVNd+QNd6hEHb7R+4WjgCg2a2Q3FDsRNjCHNaVczF2JNag19I8pZIBWGxoJVM7IxfQkMc8B0BgPXWgztzeSDK+RhVWp1Ch9caE4HVSq+dlpXanzkpAH2JxPtIle+Orj1lZUCtpLSB1TnmsCd/6J1qsPM22H48xoeYvkvgH3dF9jaE9sx7bZeIar1ZJZJid1zP3hCbR8QhMJ+FA5LbY5Sl4PvC0u5rQNMe3WPI9PdzgHYzkaxZM2Cs1BPMVxDvyiE/nlci09gQCwj4l0YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=0aPu5NJhrwCCGdcJGz15tj4Jat29BfHrZNRebIS9dRk=;
+ b=LHLyyruu3f1WSJucxs26RU3CO5FrTJE86bWc+HoYrS0pOfZro8MVBa05FRExP6LLR4c/s8t0fLeUqU5pcjTxeWlBechnrduDBgihohld4eRCts5p2QdRUdQbPOGs5zXNIO6NgasWGPawcQ6eo00i89VS/cH7MuDA/3/M79pRuHecGKqJArv44rRF9zx0CYImjmaatZdfUAPeWzWbG+hwVFXDQI8aLCTukOgd9iN/em+C9lTJsg7U1THPslHwjGpQPkgkb0LRj/4M2TrsOWQL4Bll2mQgv6KgzHsMx1nUVO+4IzHE1EqIxIi8h73e5YqTT+88VnUdstmNXt/WevXXtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=090NYwXvJ0ubb9NEMWZ6zWKvw2ZI6J7cNwkf1OgUSso=;
- b=TjNM7MIztMKSQQkVjUngp6oMV9pw5B9ZrwTNucaZUTR4+w3zLcx3nfFFJarxRgNkqSEO4Ryf1pAw6hGSrVceOfYTTyLBcyZ0ntPm9AA3If6/R2ovIRtKIMVkKe/TSR1j+eMVOpez6v1rEte/tNFev+iEKwDP9trd2Z/gsyUjNN4=
-Received: from MN2PR01CA0059.prod.exchangelabs.com (2603:10b6:208:23f::28) by
- SA1PR12MB6752.namprd12.prod.outlook.com (2603:10b6:806:259::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
- 2026 18:34:02 +0000
-Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
- (2603:10b6:208:23f:cafe::6f) by MN2PR01CA0059.outlook.office365.com
- (2603:10b6:208:23f::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 18:34:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 18:34:02 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
- 2026 13:34:00 -0500
-Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 29 May 2026 13:34:00 -0500
-From: <vitaly.prosyak@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Christian Koenig
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
- Kuehling" <felix.kuehling@amd.com>
-Subject: [PATCH] drm/amdgpu: set noretry=1 as default for GFX 10.1.x
- (Navi10/12/14)
-Date: Fri, 29 May 2026 14:32:07 -0400
-Message-ID: <20260529183353.64803-1-vitaly.prosyak@amd.com>
-X-Mailer: git-send-email 2.54.0
+ bh=0aPu5NJhrwCCGdcJGz15tj4Jat29BfHrZNRebIS9dRk=;
+ b=bU6BrsYJB37zy8XkRD1koTsUIUmVlzrEBGIgqXDpEOKe2NSoEA8mCp+rA0L2wOU43lgq1gf60PIVY7OVSDUi0zAaoeUAb0MGNEZaHuGDahsKFi1ZmCLFlv82IOvuhmRe2lmy+/A3/BL4MyJpGw+yqrkgBTi7excMjWY5t2eUxLM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
+ by SJ1PR12MB6292.namprd12.prod.outlook.com (2603:10b6:a03:455::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 18:35:04 +0000
+Received: from IA1PR12MB8517.namprd12.prod.outlook.com
+ ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
+ ([fe80::c47e:c884:f06:1525%5]) with mapi id 15.21.0071.011; Fri, 29 May 2026
+ 18:35:04 +0000
+Content-Type: multipart/alternative;
+ boundary="------------iphHFqxhXdN2foDb0byplmb0"
+Message-ID: <5296dedf-df7f-43ca-9987-6e314fd90073@amd.com>
+Date: Fri, 29 May 2026 13:35:00 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [V2] drm/amdgpu: drop retry loop in amdgpu_hmm_range_get_pages
+To: Honglei Huang <honghuan@amd.com>, Christian.Koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Ray.Huang@amd.com, Vitaly.Prosyak@amd.com,
+ Jenny-Jing.Liu@amd.com
+References: <20260529073544.614561-1-honghuan@amd.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <20260529073544.614561-1-honghuan@amd.com>
+X-ClientProxiedBy: CH0PR03CA0334.namprd03.prod.outlook.com
+ (2603:10b6:610:11a::25) To IA1PR12MB8517.namprd12.prod.outlook.com
+ (2603:10b6:208:449::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|SA1PR12MB6752:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61237880-f9b1-488e-ca82-08debdb0db3a
+X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|SJ1PR12MB6292:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f6daa97-a1f8-49eb-2fa1-08debdb10016
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|6133799003|18002099003|3023799007|5023799004|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: oKlIGEoyt7vrygg4+Yf+l8OrdnTcCJz1gXTTotklsocWpqBKc7ASrXigwwoNhAqAyQf3tOPYvKE7nIvWfY0K5+tAQbvg6igYFNx9Nu9QHYnWsFMn9lADWeB1EZ85xNwB5xBMW4+NvAtnxcdRcAQeY4xZllTkFyd1HzdrxgaYbGqcAWOdhjspnhhkI6pXGCrtjmqcNBrOut9mVHCyvQQSTtCg/nSvyWWMQLgup+UX/5C5pW18v2ENkatQeUE1L16CSFsamqlzvZuxq746VlIdoj0r4LOrTeVR4IZwMEX0JjSwoHmBt9nYwAhW/TvHLFwYVZraewbHLmlES6XzotQIoQhHSr5X5q7oX7BEh5ueqpOznRlF9q+sffSS1pqcCGaFsZmaWnl+y0cEFZE271+TSzyAxaO0XYWg+B1JW7n5VrNsCuBg6HKKm7WApC99dssvZykwTB6tSmR4X5PuUOy9uvPmsPq/s9OPDlhK1PYW+fJCVhaoD83exm6/4ZBowojhulWxPWtKJJ9phuNSWmA80LQMx4D0BfpMIn8Z7N9i07JOCr7knpAFbF7Uag7vm7NTnTPU0DEtRkMIuN2T/6xLPvrKGrHC1nkcuyOXsVuZxKVWaq83zhWOrhgVtMu/AJ03UR0tEzp6sRD4rM3jaPqAu0qxr76FGH1UAB/CZnNC7G0cIF05ih4W7M2hfzFl6cG9bkt3FW5zoWXHoUCsG6o3fBN1Rhb5YCI2f1ft5+7epKM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(6133799003)(18002099003)(3023799007)(5023799004)(11063799006)(56012099006);
+ ARA:13230040|366016|376014|1800799024|11063799006|56012099006|18002099003|8096899003|22082099003;
+X-Microsoft-Antispam-Message-Info: OfkFH5m3ikFRXIdwtyD2lrnDQhxjkFHOoxwkRc0qRZpFEjdEycS/wx4IuLtFjPmPmcFSgi6MiOdiZLbxHrtDQGzYsjfnaTvTWiv7q9TC2ry+hzyTKEfAAAsJ1oH3x/oEs3VwZAnzOJ2cw+PQ9UAGQImvZdFZ9uZskewA7uyoCYXmqD0YJMMSVLUCKp/pb7eeE19JK9VCcvGOXU2io3mxLNhCqS0ojZvI0x/Td0hlJtIqf0KPImdn56lUdFpjKed+Mipwl48sncMsdUnog9SrimJldlhM5VZFPB3eJkPLJ7kKGCcyjOXhOItFrT+lb/kWWe0c8zd8E88srS5MzZrzITEDOzkcTreseD7Jl7xY93wtniKnN9LphPvIYc0gniiduNDhXklTRgFcw2cTuQRCKEcVC8lFdTaE8VPYgi6+uRGvn4sq4sSOR/sOeXJWuNs9QySpU2mD+6aDou1Y0WASvkXXVtHbMbCVNpn/DGJUFu+ep/jD2P8EQRmbMl7tXOe6kIG1FbbWhEJkAbJeELpf7wjzbKEMYN8lktgPG9ffeim8JYL5p0mYzOBVtRjzrRP9uHeSbS7A+tIfhKc7z5bPgUtLbzOvGHSRkhh6Mfe/cj5uqkDv6n/kD+gxMJpJl1YbB3uE71Fzfh4hjtF3mHZETBmyrxO9R1EtB5DVwLcd3+ei1NxaDKHSDZ9RkGqT7j5f/PumXG/agd8FDEp9ZmeTGw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(11063799006)(56012099006)(18002099003)(8096899003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: K6HqBg/gsx8xCeQQiL/QHn9VH7YYlW8WFsMqmKeSJGlEbtFIdVmtd5eKguJZrRT5QdWoyJXj0+EgVI/zOn5df1BLkVCFHRUUZESJdTNV6OFEPaZlOsar1y6MxG/Ez4onA/7WF1eaxJPAsEWvposZk6xC8+ltUrBt8EZzEgJVtXcrW9g6uvYYxqgTp6H6GPjD1KPgukZsvpn7m5PHULSdGORi5eN6xZt9xNYfmKZ8gyy4aeefpWRUVwsi/qxyWNS/ayvJgVpynGfamMy871hfEfEAstileCSm3gHxbR5P93N0IAbPda5pdd5vTwA4F2ysd9AcqJ7bhf73vrJmEaGpBJnf06LgQydFlDT2SNYmTqae2xGUhVzbmdbbD2Qy6np4yfmGUq5whoJI+O+nsLFHFJGyTifReUnL908zpozx/GQHsAU2lbVZNhAP46RfBl9e
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekxnOG00cWx3YUh5M1c0UEJ6NFZ5UDUxNTBzRVRvd0FpcStDUTArT01XSld3?=
+ =?utf-8?B?RWxwZlViVUs0WkdWSk0zbUNPQm1Tc2dQYUsvMVQ2Y1NQVmpsYVk0SlZhbkhV?=
+ =?utf-8?B?WEFyY2h2RGMxbGJhcnJrTlFNbWcvbnZ3WWZ6WWRMQklDSjZYeDd0VjNlTTdi?=
+ =?utf-8?B?bi9XRUdwczk0SWpIOTNJTGVPZDQ1L0pvZEpDS2FoT1JBM1FOTzREdTJBNGdJ?=
+ =?utf-8?B?TytBSmNNeHI1Vlhqc3habXl3MkoxaFNTcGNaU2pSVWVHdUI2bmppSmVUYk9Z?=
+ =?utf-8?B?WXhFMUtEY1QybE5iMHVXSWdqYXhFbVFjeUwrdC9xKzBXMG4rUVNOOWFLRUZj?=
+ =?utf-8?B?S1RoM1FhQVY4UjVDTkdpUUFBV2djdkIxSjBENVdiY3MyWlZFR1JoQ0JMOHVr?=
+ =?utf-8?B?ZDFNL3RCdU9BSUQwS01BU0dBcGNIc3BBd0g2OEl0alBwRnl5TjFya0VmNWtm?=
+ =?utf-8?B?U3VjY2VNdHBrcmQybTlGOXJyY01JVkFPTTFRTWhKZ0svS24wdWRmbW1mOXRN?=
+ =?utf-8?B?SFRJK0p2bEpqUllvWFJSc1VmSktrSVhLRjUydi9BSlZEaGp6ZFJia3oveGhB?=
+ =?utf-8?B?QXBweDJpS3RmbXZJb1JndE42OEI0bnNoYTg2R3RDanZ1dHk4OEpuYmVWbUhw?=
+ =?utf-8?B?SDlSOTZ3ckJTZkI3VVlnc2dnZTRYR1lUZWVYVzc1L2xMTnhaT1RUWGNBekQw?=
+ =?utf-8?B?L1pLWEF3bTEvZDk4RVdDTlpPSkE4STVWVVFTa1NaZG5nd2JkeWRQZzcxWmxs?=
+ =?utf-8?B?dnZLR09uQnVTM216WGxGVitoT0JvSk0wWkdyN1N4T0ZPbDFXU1dEbTVKUytv?=
+ =?utf-8?B?bjNKb2hJU3QyaWdGY0s1RVdJd0pqMkZycTF0ZGxxY2hvU3BuWFpqOGFDQnpK?=
+ =?utf-8?B?ZzV1aGQ1UUNBTkVmYzRqQVgxbnFoQUM4RUJMRXpudFRzMGl6UlpKK1JmZStt?=
+ =?utf-8?B?UmlFcU5zcEI1M0s3OGt2L2ljZEFlaHZyU1dHSjJxaTZnNFl0ZmQrRWpiSloy?=
+ =?utf-8?B?S05uNVNiSUtSZDd0bHFRRlZ4aXVGM0ZhWklqK3dvZzJVYzlXeFFGNmFuejZq?=
+ =?utf-8?B?YkNPQnFmSXp2M1JLMzV6ZnRtL3VuT3NnUW9Sb2FSd1drcnBsN0ZPendVamFY?=
+ =?utf-8?B?aGNuaHFFMkt6cjByZUwxSXhteE5UQmhvVmtLa2tQOTd4QytPdmFDSkdRdjRy?=
+ =?utf-8?B?NXZyN1BKWWRQYUVPck9UdjFNMGRQNGV3Q0V4UnJqWG04ZkwrUDlxdWJVNzFO?=
+ =?utf-8?B?ZWM3NDdTMEprNTZCelFDdEJrZlZDRDJjVHhCd2VtK0FSYVphdnB2Z1B6NEJO?=
+ =?utf-8?B?VlpIaXhDRUVPUUZhWDRUeVVvUENZdGdoMitDRTR1NXZ5WEl5bEZuSFhxYTY4?=
+ =?utf-8?B?RXdKdkxFR1MrallhcEUwSURORUQxdDlIcmQvekdHRU1VQ0JneTZEb281TmVZ?=
+ =?utf-8?B?TGVsdVVhbFg0MGFwaktudlFYNjA4UnVTMXpvN08yY25qb0N3VFF2WDR1aDU0?=
+ =?utf-8?B?SEF0YlBNclZabDgySW9BYTg2cnN6UnUrZUFnMFZsTWoyOU93TVFEL1g0UCtE?=
+ =?utf-8?B?UnVvcEJ6MFdZUSs5NE9FREFwZFltYm05NTVuVFBYb0oyTm13Slo2aEw4ekJ2?=
+ =?utf-8?B?WkZGdmhOMzV5OUNRU2ZnSmtYNm5OckVSdGVaN0JWUW1PNHYybXYwUHplTmhz?=
+ =?utf-8?B?cFpyZC84L2FaQ1BvYkpHSEpua0RSYlRpSWhNQmV2T1RjSjl6SUNjSHpKVVFE?=
+ =?utf-8?B?OWJBNGdrbFBrcUI0M3BBWG1NNlhsRklFais1emRjRW5xeGcrSU5SYnpGaVUy?=
+ =?utf-8?B?c1JjU2l6bnNxeVB5ZVVSM2tzbEVqUS9NZHQrOXVsVExHQlRER2hCY2JQSUlB?=
+ =?utf-8?B?Z256U0xLd1d0RElrb3VoL2hGQnJ6Wjc1WWUyOE5YUUQrZG5XczhzVG4yUGQ2?=
+ =?utf-8?B?cGVuSFVweDhPZGJSbGp5WUp6NFVzK0g0OElZV0tQSGpFN3RVYzhCcFZvam00?=
+ =?utf-8?B?ZEVBYUhvSFFHcG9nWFhTUlRqdW9GSERVYlBtejg3THM5bTd1ZXFXL29oc1M4?=
+ =?utf-8?B?WWxLZWxUeHoxQmFWdHAxZFMwRTJlV0hJR3Z5TktFNEE5M0dSYUh1ZGhGeTlt?=
+ =?utf-8?B?WXFCNklNaUh1U2pzNHlpM2ZSN1d6QktMZ2ZaMTBYdlVUajg3bk92OTZYTzNo?=
+ =?utf-8?B?OGF6TlNqdHJ3U1RYK0srd3Y5U0VlaDZKNHVCdSthR1JWTDFpOXBuNGJaWE0r?=
+ =?utf-8?B?SCtoWjBvV3BzZ1p4WTM2VUNmL2hLMDQybXNhOHJ3WVdzYnU4L1NSRHJQQXpX?=
+ =?utf-8?Q?VCYpcYKi4MPNI37UIX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 18:34:02.2659 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61237880-f9b1-488e-ca82-08debdb0db3a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f6daa97-a1f8-49eb-2fa1-08debdb10016
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 18:35:04.4750 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB74.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6752
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GTEvMCGllEezUjM5dI4QlVYPNJKJ7rhESrKVS80BGxOvQ3BSmRyGwIAgbVOk4fdL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,82 +136,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+--------------iphHFqxhXdN2foDb0byplmb0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Problem:
-While developing the amd_close_race IGT test (which intentionally triggers
-execute permission faults by removing VM_PAGE_EXECUTABLE from GPU page table
-entries), we discovered that on Navi10 (GFX 10.1.x) these faults produce
-zero diagnostic output. The GPU simply hangs silently for ~10s until the
-scheduler timeout fires. There is no way to distinguish an execute
-permission fault from any other type of GPU hang.
 
-Root cause:
-GFX 10.1.x defaults to noretry=0, which sets
-RETRY_PERMISSION_OR_INVALID_PAGE_FAULT=1 in the GFXHUB UTCL2 registers
-(gfxhub_v2_0.c line 313). With this bit set, permission faults (valid PTE,
-wrong R/W/X bits) are handled entirely within the UTCL1/UTCL2 hardware
-loop: UTCL2 returns an XNACK to UTCL1, and UTCL1 re-requests the
-translation indefinitely, expecting software to eventually fix the
-permission bits (as happens in SVM/HMM recovery). No interrupt of any kind
-reaches the IH ring.
+On 5/29/2026 2:35 AM, Honglei Huang wrote:
+> Since commit 144ba981783f ("drm/amdgpu: fix amdgpu_hmm_range_get_pages")
+> moved mmu_interval_read_begin() out of the per-chunk loop, the
+> captured notifier_seq is no longer refreshed across retries. As a
+> result, the existing -EBUSY retry path can never make progress:
+"retry" should come with mmu_interval_read_begin. The commit 
+144ba981783f move mmu_interval_read_begin out of loop, then "retry" 
+should also be moved out loop with mmu_interval_read_begin.
+>    hmm_range_fault() returns -EBUSY only when
+>    mmu_interval_check_retry(notifier, notifier_seq) reports that the
+>    sequence is stale. Once the sequence has advanced, the stored seq
+>    will never match again, so every subsequent call within the same
+>    invocation returns -EBUSY immediately.
+>
+> The "goto retry" therefore degenerates into a busy spin that simply
+> burns CPU for the full HMM_RANGE_DEFAULT_TIMEOUT (~1s) window before
+> finally bailing out with -EAGAIN. This is pure latency with no chance
+> of recovery, and it actively hurts the KFD userptr stack: the caller
+> ends up blocked for a second while holding mmap_lock, only to return
+> -EAGAIN to the restore worker (or to userspace) which would have
+> re-driven the operation immediately anyway.
+>
+> Drop the retry/timeout entirely and let -EBUSY propagate straight to
+> out_free_pfns, where it is already translated to -EAGAIN. Recovery is
+> handled at a higher level: the KFD restore_userptr_worker reschedules
+> itself, and the userptr ioctl path returns -EAGAIN to userspace.
+>
+> No functional regression: the previous behaviour on -EBUSY was already
+> to fail with -EAGAIN after a 1s stall; we just skip the stall.
+>
+> Reviewed-by: Christian König<christian.koenig@amd.com>
+> Signed-off-by: Honglei Huang<honghuan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 9 +--------
+>   1 file changed, 1 insertion(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> index 5d72878c8..229c30867 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> @@ -172,7 +172,6 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+>   	const u64 max_bytes = SZ_2G;
+>   
+>   	struct hmm_range *hmm_range = &range->hmm_range;
+> -	unsigned long timeout;
+>   	unsigned long *pfns;
+>   	unsigned long end;
+>   	int r;
+> @@ -199,15 +198,9 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+>   		pr_debug("hmm range: start = 0x%lx, end = 0x%lx",
+>   			hmm_range->start, hmm_range->end);
+>   
+> -		timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+> -
+> -retry:
+If you remove "retry" here the callers including user space need to redo 
+the thing. This function's work is memory validation. It should do that 
+in its best before return to caller.
 
-This is different from invalid-page faults (V=0) which DO generate a retry
-fault interrupt that the driver can escalate to a no-retry fault. Permission
-faults with valid PTEs loop silently forever in hardware.
+If user space is the caller there would be a lot of user space from/to 
+kernel space context switches. That will make the procedure even slower.
 
-GFX 10.3+ already defaults to noretry=1, which makes permission faults
-generate immediate L2 protection fault interrupts. GFX 10.1.x was
-inadvertently left out of this default.
+I think we need keep "retry" inside this function, but move "retry" out 
+of loop at mmu_interval_read_begin.
 
-Fix:
-Change the noretry=1 threshold from IP_VERSION(10, 3, 0) to
-IP_VERSION(10, 1, 0) in amdgpu_gmc_noretry_set(). This is a one-line
-change that aligns GFX 10.1.x behavior with GFX 10.3+ and all newer
-generations.
+Regards
+Xiaogang
 
-With noretry=1, the existing non-retry fault handler
-(gmc_v10_0_process_interrupt) already decodes and prints the full
-GCVM_L2_PROTECTION_FAULT_STATUS register including PERMISSION_FAULTS,
-faulting address, VMID, PASID, and process name. No additional logging
-code is needed — the fix is purely routing permission faults to the
-existing, fully-capable non-retry interrupt handler.
+>   		r = hmm_range_fault(hmm_range);
+> -		if (unlikely(r)) {
+> -			if (r == -EBUSY && !time_after(jiffies, timeout))
+> -				goto retry;
+> +		if (unlikely(r))
+>   			goto out_free_pfns;
+> -		}
+>   
+>   		if (hmm_range->end == end)
+>   			break;
+--------------iphHFqxhXdN2foDb0byplmb0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-v2: Dropped GFX10-specific logging from gmc_v10_0.c and
-kfd_int_process_v10.c (Felix Kuehling). v1 added logging in the retry
-fault handler, but with noretry=1 permission faults take the non-retry
-path — the v1 retry handler code was dead and would never execute.
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/29/2026 2:35 AM, Honglei Huang
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260529073544.614561-1-honghuan@amd.com">
+      <pre wrap="" class="moz-quote-pre">Since commit 144ba981783f (&quot;drm/amdgpu: fix amdgpu_hmm_range_get_pages&quot;)
+moved mmu_interval_read_begin() out of the per-chunk loop, the
+captured notifier_seq is no longer refreshed across retries. As a
+result, the existing -EBUSY retry path can never make progress:
+</pre>
+    </blockquote>
+    &quot;retry&quot; should come with mmu_interval_read_begin. The commit&nbsp;<span style="white-space: pre-wrap">144ba981783f </span>move&nbsp;<span style="white-space: pre-wrap">mmu_interval_read_begin  out of loop, then &quot;retry&quot; should also be moved out loop with mmu_interval_read_begin.</span>
+    <blockquote type="cite" cite="mid:20260529073544.614561-1-honghuan@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+  hmm_range_fault() returns -EBUSY only when
+  mmu_interval_check_retry(notifier, notifier_seq) reports that the
+  sequence is stale. Once the sequence has advanced, the stored seq
+  will never match again, so every subsequent call within the same
+  invocation returns -EBUSY immediately.
 
-Tested on Navi10 (GFX 10.1.10):
-- Execute permission faults now produce immediate, clear output:
-    [gfxhub] page fault (src_id:0 ring:64 vmid:4 pasid:592)
-     Process amd_close_race pid 13380 thread amd_close_race pid 13384
-      in page at address 0x40001000 from client 0x1b (UTCL2)
-    GCVM_L2_PROTECTION_FAULT_STATUS:0x00700881
-         PERMISSION_FAULTS: 0x8
-- No regressions with properly-mapped GPU workloads
+The &quot;goto retry&quot; therefore degenerates into a busy spin that simply
+burns CPU for the full HMM_RANGE_DEFAULT_TIMEOUT (~1s) window before
+finally bailing out with -EAGAIN. This is pure latency with no chance
+of recovery, and it actively hurts the KFD userptr stack: the caller
+ends up blocked for a second while holding mmap_lock, only to return
+-EAGAIN to the restore worker (or to userspace) which would have
+re-driven the operation immediately anyway.
 
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Drop the retry/timeout entirely and let -EBUSY propagate straight to
+out_free_pfns, where it is already translated to -EAGAIN. Recovery is
+handled at a higher level: the KFD restore_userptr_worker reschedules
+itself, and the userptr ioctl path returns -EAGAIN to userspace.
+
+No functional regression: the previous behaviour on -EBUSY was already
+to fail with -EAGAIN after a 1s stall; we just skip the stall.
+
+Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+Signed-off-by: Honglei Huang <a class="moz-txt-link-rfc2396E" href="mailto:honghuan@amd.com">&lt;honghuan@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 13bec8461cde..a9bb01c6cb58 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1014,7 +1014,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
- 				gc_ver == IP_VERSION(9, 4, 3) ||
- 				gc_ver == IP_VERSION(9, 4, 4) ||
- 				gc_ver == IP_VERSION(9, 5, 0) ||
--				gc_ver >= IP_VERSION(10, 3, 0));
-+				gc_ver >= IP_VERSION(10, 1, 0));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+index 5d72878c8..229c30867 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+@@ -172,7 +172,6 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 	const u64 max_bytes = SZ_2G;
  
- 	/* For GFX12.1 B0, set xnack (retry) on as default */
- 	if (gc_ver == IP_VERSION(12, 1, 0) && (adev->rev_id & 0xf) == 0x1)
--- 
-2.54.0
+ 	struct hmm_range *hmm_range = &amp;range-&gt;hmm_range;
+-	unsigned long timeout;
+ 	unsigned long *pfns;
+ 	unsigned long end;
+ 	int r;
+@@ -199,15 +198,9 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 		pr_debug(&quot;hmm range: start = 0x%lx, end = 0x%lx&quot;,
+ 			hmm_range-&gt;start, hmm_range-&gt;end);
+ 
+-		timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+-
+-retry:</pre>
+    </blockquote>
+    If you remove &quot;retry&quot; here the callers including user space need to
+    redo the thing. This function's work is memory validation. It should
+    do that in its best before return to caller.<br>
+    <br>
+    If user space is the caller there would be a lot of user space
+    from/to kernel space context switches. That will make the procedure
+    even slower.<br>
+    <br>
+    I think we need keep &quot;retry&quot; inside this function, but move &quot;retry&quot;
+    out of loop at mmu_interval_read_begin.<br>
+    <br>
+    Regards<br>
+    Xiaogang<br>
+    <br>
+    <blockquote type="cite" cite="mid:20260529073544.614561-1-honghuan@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 		r = hmm_range_fault(hmm_range);
+-		if (unlikely(r)) {
+-			if (r == -EBUSY &amp;&amp; !time_after(jiffies, timeout))
+-				goto retry;
++		if (unlikely(r))
+ 			goto out_free_pfns;
+-		}
+ 
+ 		if (hmm_range-&gt;end == end)
+ 			break;
+</pre>
+    </blockquote>
+  </body>
+</html>
 
+--------------iphHFqxhXdN2foDb0byplmb0--
