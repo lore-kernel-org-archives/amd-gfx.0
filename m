@@ -4,126 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5427FCD6E43
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2026 23:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A2EFCD6E43
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 01:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1123D10F6E3;
-	Thu, 28 May 2026 23:13:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F5D10F79F;
+	Fri, 29 May 2026 01:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DYKNmtfX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1wNluuQB";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012066.outbound.protection.outlook.com [52.101.43.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9A910F6E2;
- Thu, 28 May 2026 23:13:13 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013036.outbound.protection.outlook.com
+ [40.93.201.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DCC10F79F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 01:45:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HD9Wtd8XPlDprxIQhPsW/Lg9oACNM3AhyLR7N1JS3YaCX57I4DYBCl3EZK/I2dkH8BHh+PQxO7xag8mXXo5gNcI13X4FdcXx/1S5M5E6SKDM0SS6pQU/L83GphZ/Z+1HIwaIzuFi0IjXYIAflj0DCJ78cc0+XoFGeBxGsWSoRbEFhtvrZ/60ZslzaKcZb/L8jBI+OVhZFnyPVq0sJsVqLzCESwlHgdijoCIlz072FM0kYrXcgZ8BSdsSdi0G2nnoogMd3ckahKxS7x7O/3iVW0Qsrm06D7xNiTlpS8OQ55nkFaY/+dKfBfnpmoDQ/sxN0ESitN9/pW2KJk6TeghikA==
+ b=c0scAiqlxQ/fq32px9LpOCYYviSNQvJNprtm0taLpmpaeiR+zyy8/RsKDnOlXRfvICNNwbotKpojyQwoQi8X7btHRtrdjvyfDQaJCzgDXvx20He6vD93fC7gBT6CsDDpzboEuGz/iTsWSaED4VgvgazwjvQsjNRJRrD4MRoEawiQM+KMbc2L3uLywQ4goPN6/ZqtTCWigNuX+LCbshm8ZRvhSKbqDOWRTnuEunqlDI+wqvQKFRahwf3TQ7WeqK7/0nTHuqCe8g3edO5oS2XjeT1LYdPw+d//fA0u9xeSVZAc6VTtihe2mLKyWLn8W1qhHBVwU4cyvVMy0NqTTXY9fQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ado9ctj6dv7im+e1zH6aSB1B4EbGdFYq8k9s2M5CGNQ=;
- b=DaqfUABZHzDfx2QnarJ9+Gsj8w//UWmSnBVpXF1tIxT8q0lVwSnRndrAj+VxXKZrmh0PY46B6ZOQ+lnVLYqvAVpnEb+1oif7TzINmA6WhncDl8cIHkfaY6hHq7gWjbB4bb/n7EbBHnp/L7qm83hMiRyIRQ7qDEkIeWxcP1MZMLhhbGdKLx50qHxsNb0B5SZHyj7xLmbfFFGPDZx1bNVSBJUW2AzY3cPmGBrP6/TejgV4DUXNWjxwED92pnwwvqF+VMOGo4u8BQ4J6eh2ee656vz003o1g8qa+0TU9j6Ppmaak9YgOrhVd3+nfzbnTsYXWaAXEwIMfZx3UTC0+Z3iMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=KMTrrQcc7YiL5vj1N0eFfMo3tS3FrN72ZQ/FAjKSZgE=;
+ b=yfmsrXs/vrIQG9+QDXtRV2Xl7U5UVkiC+PIbvsvfPkK1S6yWVKACv1SOUdvRVRAGStQS03M3twErHhSPsvWW/mkfvCPwrcX7q0Sc/71a1VeP2k7080nTQ05r9+8NAURjk7Ob/7uEir27WhdsVlu3qXZm2SpMOcO4cosTgn03STqD8k8EQKsU+9jfryPurnbiLNbR3OREKwf1iFGoXn4ZZ6SjDYFW/HN8v4gMZH4GbrWEt9aVsJ7THuhQaZgTnjPxoG3E0gTkRgrkvJLkZWg6F67qLxmx3EdEZtwHkS0dfULqMxIJ21XySEoV4n/AYJu1GOcN/psMuPfepOAjvijWdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ado9ctj6dv7im+e1zH6aSB1B4EbGdFYq8k9s2M5CGNQ=;
- b=DYKNmtfXr8Ae/1wH3EgHxBuTwkSmHbYdtmBrFY2DaJ6Zjb18ViuljjHcNe9SEVDmSC18R6O8SyvTmoMDdHQuS7gWWxkCDKgzrKdeQYalZEl7MUh06t/X0cH8BcgcOqWFVen1TjyLOw3AKCUOKONGKdDUXVLDmo11OGvKcGcU2Ww=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CY5PR12MB6321.namprd12.prod.outlook.com (2603:10b6:930:22::20)
+ bh=KMTrrQcc7YiL5vj1N0eFfMo3tS3FrN72ZQ/FAjKSZgE=;
+ b=1wNluuQBCmUWyrIRiHR+P5+8lTj5J1XJ6zfXS6RNpQKyyg+diCEMXV0VHlSRvR7XAt9GtRGFNcjWAweB6IstOruZ0Eir+Rmpx4rxdNFpyDXJNWnJAxcyCjlQFvyQLh94FtiFXVEW5+iAF0s4UFzJUOxzbMxB6Fh+VjieC5cqEmI=
+Received: from MN0P223CA0016.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::29)
+ by MN0PR12MB6030.namprd12.prod.outlook.com (2603:10b6:208:3ce::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Thu, 28 May
- 2026 23:13:09 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0071.011; Thu, 28 May 2026
- 23:13:08 +0000
-Message-ID: <4ebe7f6b-aa32-4441-84db-1b09cc69c075@amd.com>
-Date: Thu, 28 May 2026 22:17:05 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Avoid using zero AC/DC brightness levels
-Content-Language: en-US
-To: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>, harry.wentland@amd.com
-Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- alex.hung@amd.com, Wayne.Lin@amd.com, timur.kristof@gmail.com,
- superm1@kernel.org, aurabindo.pillai@amd.com, ivan.lipski@amd.com,
- chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260526210048.1162477-1-edson.drosdeck@gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260526210048.1162477-1-edson.drosdeck@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0141.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:377::19) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 01:45:15 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:208:52b:cafe::52) by MN0P223CA0016.outlook.office365.com
+ (2603:10b6:208:52b::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.14 via Frontend Transport; Fri, 29
+ May 2026 01:45:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 01:45:15 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 28 May
+ 2026 20:45:14 -0500
+Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 28 May 2026 20:45:14 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH] drm/amdgpu: enable execute permission fault reporting on GFX
+ 10.1.x
+Date: Thu, 28 May 2026 21:44:32 -0400
+Message-ID: <20260529014508.115012-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CY5PR12MB6321:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78ad6d15-ab3e-4568-aa95-08debd0eae66
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|MN0PR12MB6030:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e61a44c-42cb-4c40-e5a7-08debd23ee9e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|22082099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: Fc0CW0kMhpmBZ+bLhwc9vFzCHwWl3kVGlE34/Kwo9tTelUCqi0ctIT+vjAgCyvG6GtITxp19UzVcjAyO01MSRoRIWYYtmwHJsmDFSbcywf+cmGpUDr8gLSyxosNP7bkU1jKqn93AfU8s3N1AFrb/bKQ86DVIswQ55vJ9yRbOc1ymkzrgrLaSt0TPCdP7gAfTtJg202qkisaG4mAYVD5f7U/UtLiXwoFIo9jB8blduTZp6mUlSi+yCDMZHWt5m84L6jt7jBL3em2+hhYBSTMq6oUWtgOBCJ8eRJUhfdtL67mv65Ca5srBqbPDP/etlO9jDbAst+8XuIERJVScqO2Y3xz0r0H6kb3UD18Lp045lsBq51ilAQ0/ZW+aiOX34Tdmy9WjCus2/RzvwONZ2+PF/beMVDGKQc5q3sm3on4at4Md6EJ3+lcSKp2l+BT9i4vKhvcM0fmuXFqtI1q0/Jsoj4eO/OENqGJwIY9zY8b3DZoLzbMvTJJLMGL9FgX/QFzlBQXN3aeBvpkiV+udyGaWqVvHEcVMkatkW3sUCZWzBbCNiW7phrJsGbs4pto+r1zjnDHvqXHL789kteNZkWy9ONa1uUNg7RugTAYuARxfP9U2ccbgtr5n0tJ3iKu5BQppE3uOc0EA1dR+8BtQs2Td+Fegoyi/BVifFx+VIzGUve++uQIENtUdRZzDvqVX8m+D
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003);
+ ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099006|6133799003|3023799007|11063799006;
+X-Microsoft-Antispam-Message-Info: Htwb68uklf9vvQFTsBwPfJbSHVZzSY+sG4olLczGWw30sFZx5zGJzM7z+3/G1jWmc+ro/IqHwkJiFgn/7SnqV2ak9FN1mI+7L1tEsZeyPa37S+PUebIs0XPb5CH6Ip5SiNCtuDuOrZxbUlzbAvg7PN2JdothbcMhw53UB8fgCkX5D7NyAefwuUmTO0mD/VZtZwobUSEQXTasR7DJG0StgoHxiT5/qQE7+2hr6JK6EJ09lRUhjRPES7OYSICd14wvd6yvlDtH3LZDTOABQfMOgpBp8tqstHnp+gZ0EpBtEWI2ZxnMZE/+by4Ev51EZSnIhu8xdN1Zim0Gzn9sBfAbNM/g5yLp5OpO4MWNYhKC8sXMTOVuJXtcrEm9fWgP9JlkU11eb4SDgFE/zGUox1JD6CPLkoObpdKLunYNVA8bB+hVjAefOwLVaBk/yKCUnPw5EdrcBSirHU9oLqqkxPjohhFDrIkrh/GrQw4E2WjLK8z1DE0N+zIpMAG6R2AnuJR471kEyih5HqOhf5xbQKj3uG77XsDa9Mv7JNKvK2lJpeOQj83aRNgYhDd5OuaoqUxfXZ0vSvUw90kYyjGwzREvLLQj2Z9FizUC9ADcPWVEUGnjXcyEkXDLibks3fqvMC+0J/UIVJ3OIG1uJEug0Q96tJ5csfnF2SWPc7Dzn4syBAzEmYg8JLzD8lxNI/iWxyN4g+VqB9ZAMqdRRh8J/fELTlsdk9RG7YzeCQRl7pRqWEQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099006)(6133799003)(3023799007)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkIrVmExcGQrT1ArYldZM1dxY0ZFVFVleVRVU2wreDR6eVhCbC92Mys5YlBR?=
- =?utf-8?B?U1ZEZVB4WEFZNzdHaWh1TTRXTzFQblZiQzE2c0NuN1llTFJpbVo3VUcyRUgr?=
- =?utf-8?B?YXRVMFBGQjZ6VjFMZzQ5NzRtVjlGMlk1LzYvczRnMm1qTTJvVldYamxmTmI1?=
- =?utf-8?B?MmU4QnBYdzFFTWlXL0g1aWdFeWo1WFEvbkF4MzBYNDhsS3JrREc3cG0yQ0Y1?=
- =?utf-8?B?Q1VFZ2lKcmt3UXJXeDlCU2U3V3dSeE1EKy91REFEcTY2azdNcnNxQzRKUGQ4?=
- =?utf-8?B?QjFaOTVSdkdWSTN3V0hnTmJpUHVnc2srYlB2eFNQMXY4OHkvbjJMcjA5ZDRM?=
- =?utf-8?B?Q1BHYzlRZHNpTW1RSkdBWjN4UXcxSUk0ZXdSNklYSUY2V1RVaWRCNlBJVXFV?=
- =?utf-8?B?QjdHR2xqcGFCcDJmN0R5Z3hGZHBGNHJLT3FxdHVJUzJOdjFOTklRUzRJNnpj?=
- =?utf-8?B?TDlaWDlLamczaE1NQkwxRlJYZTZ5YkQ4YTA0NkZSVTdMcE4zUVROdWhJRjFB?=
- =?utf-8?B?Uk1VRjlrSUIydlpHM0JYdkQ2MGlPRWxpMjhmTXhlMXdIUGkycG9CM204S0ov?=
- =?utf-8?B?K25pSXVEeGtNNjgwVWVHdEdwcDUxZzRmdTVNZXBxSXp3UnhzUmc1MTJWUzA4?=
- =?utf-8?B?Tm1QTmh4MGR3MUlJQnRSZ1p5NG1MNGMzeitZbXI1Nkx3OHhrTmE4SEE0bFpv?=
- =?utf-8?B?YjhXaE5wakJhRkgzT3h3Q21ESDlscXR1REFaOGJTZjBiVnFVcjVFRy83dHI0?=
- =?utf-8?B?VXdMclZ0dnZLdE9WY3VMdG5kdGFZeWJiZUdkazdBNEF2aDM3d05sWVI4SjEx?=
- =?utf-8?B?ZUdlVVBPSkp2K1N6bzlOamxwYitTOUV5dEh6Nyt6RmxSWDRzeExQc3dPN1JJ?=
- =?utf-8?B?REpCMy9lN0ZOK3lvQ1JjWklDRkNmNGtkT3NYTHdZUTJQVHNrUG1zcytUOTFj?=
- =?utf-8?B?WFMzODBhVTFmWmVaQVdEenVHTCtFRXJoTWlkZDhkcWx0SUVhdmxlS1NrY05Z?=
- =?utf-8?B?OUdvS1MrNUpKZE81dUZtUEVxRDBDb1c5UEdLOEY3WGlBZEJ0eExYRWhxK3NW?=
- =?utf-8?B?eGtEOUVUTXlQUk9mTVZ5bFF6RkZNN3U1SjAyK2taM1IvbzNEQ1NzVUJNV1Jr?=
- =?utf-8?B?a1oxMlZVWlBzTTBNTTZ2dWgraE5JNFlFVDc2NnJ3SmRTZmgybTN4UmQrZytj?=
- =?utf-8?B?RzRnL3dFS255U0puVHZWQWk0SDROdUcyR1ozbVVSNlR4bU9aTHdXbG5mYlJV?=
- =?utf-8?B?UVFRMy9oa2pscy9JaVgrbEpTSkNPeHJHUDFCcXBxM25CQmJZdjVVM25SemdG?=
- =?utf-8?B?Slk3NkowdnNRRTk1ZHVvMHo5M2ZSYjRvbVhSeTBoSzhkbFhVbWJXVmdCV1Rq?=
- =?utf-8?B?UC96U0tURFZTUld6YTVIUDhnMUhvMzlzSUZYQWtyQU1FdEVFV0ZUaWxLNkpQ?=
- =?utf-8?B?cnNTeEk0RmlUUW1ZTWNWYk9JUnhzTDdQVGRqMlFoNjVhOEFOVFQ2SFo2Uit1?=
- =?utf-8?B?UEQxTEZHQXBtRXlScDd3K1dKSHVRVXdqTm9mNFo4akxyNURIamhVOTBVVzRJ?=
- =?utf-8?B?SjBrMjI0d0p5TnFGa05aL2ZSY2xFTzFpckRnekE2K2xjQUpQYW5iTGxNcllH?=
- =?utf-8?B?enE1UmlNTjMzRldsdEM4U1haZkowZGszNVhyS2UrSzNqMjRjb3lISEJSb2RJ?=
- =?utf-8?B?NDRUY1VHNFlJWm85RzZFVWRpR05EZVpkRzk1ZVRlTnE4RURaa01lcEZvWkZC?=
- =?utf-8?B?R2ZiRk80VUZqRmtRSHgrb3JRam53T3FhL3NUUjZ2U2lIQXA5UWp3Y0N5dHM0?=
- =?utf-8?B?QXFSWU1FR0gzK3lmOWtGbXJRVjRsOXFrUnFNb0l2UW02YU0vTUZaelJzcnRx?=
- =?utf-8?B?YnhwSWk3eVhOblNQcWpraXc5UktPUFd0TGNKb3hqcEVia1pKS0dJNWUzKzNI?=
- =?utf-8?B?UzFXQVgvM2c1UnlGNmsreGdFSlczWHhlKzhWU04wOWJTYW1UV0xwamVPRDFi?=
- =?utf-8?B?Y3VPNHNhWFBQbi9LTFNOaktvRjZKT0U3dkJzeDdjUjVjRUFUbXZpZlp1SGgx?=
- =?utf-8?B?UkZhNTUwV1N5YVkvMXhhWHF5K0ZCY2hQbkNaVE5zMGttaW1OM09hNVFZbVZB?=
- =?utf-8?B?RlRsYkpGb3lZb0l5dnFReHpWM3JQQXV3dUd2YW9SejBURnVCOEFHdGkrb2Jq?=
- =?utf-8?B?ako3VVNQR2dKZ3RHcFhGdk5QSk9vYXN1UDJERWkzQXd1dEpqU3VMaVFpZVpJ?=
- =?utf-8?B?ZmhTcjdtU1diR01XcXVWR2oyeVlMRjJQclF6TzFlM0VhTUdJSGkzOE1uNE5I?=
- =?utf-8?Q?rQcDzHe2/kgRgyxXRO?=
+X-MS-Exchange-AntiSpam-MessageData-0: wwVJ15cg5pkcJloYbFal+eC5HXA9y/LH4Y99Nztn6tuNecB3UyrVe2yj85KKZ1yoA4y48IhJX5i6o8pZvDiZW19Wqpuwba8io9lzzcKQ9aEK4uTaLT+936cT1VKDAKLvY9TeLgTyo8I5cIx0YI9lztxAxJihJwoikWOVyNU7ivy55nnSLZ9tFFy4pUbfqUI097zl5bq6x3gQOsWkytEwhY6HIo7gD2LfPdr9kJr+AZAF5bADyZ+drSK7I2FOBExlyRzYUfxjsw9A/LDACX+a3AJ3b8TlbRxZClH78af37QafnUG2To3hfr0Q6MS9fj21mwuQuNYWtO6RBeXJkzTiZGownnMpwwrnh89AC7hF00B4w4IWSHYnx7WmHcUYUE9Pt6gT6cs3Jv1hEZ8sj46ljCjEwE2VC62lq7wwoSljkl0yGmIKs8mXdRvy9ljpPGyf
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78ad6d15-ab3e-4568-aa95-08debd0eae66
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 23:13:08.7875 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 01:45:15.7663 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e61a44c-42cb-4c40-e5a7-08debd23ee9e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tv9taUufS4omQWeS3skyhFBF1D+v0KHCukIV/0l8XQp0q/qO7hROE56VFuO/nj7I0d0f52OVx80wRiwcFMsRoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6321
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6030
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,37 +111,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
+Problem
+=======
+On GFX 10.1.x (Navi10, Navi12, Navi14), execute permission faults are
+completely invisible. When a GPU buffer is mapped without VM_PAGE_EXECUTABLE
+and the CP attempts to fetch shader instructions from it, the hardware
+enters an infinite retry loop with zero diagnostic output:
 
-On 5/26/26 22:00, Edson Juliano Drosdeck wrote:
-> Some systems report zero AC/DC brightness levels during
-> backlight initialization, causing the panel brightness to
-> start at the minimum level on boot.
-> 
-> Only use the firmware brightness levels when both AC and DC
-> values are non-zero
-> 
-> Signed-off-by: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>
+  - No interrupt is generated
+  - No dmesg message appears
+  - The CP silently stalls until the scheduler timeout fires (~10s)
+  - The only symptom is unexplained GPU job timeouts
 
-Can you please share an acpidump and an EDID into a bug report to look at?
+This was discovered using the IGT amd_close_race stress test when
+VM_PAGE_EXECUTABLE was intentionally removed from IB buffer mappings.
+The GPU would hang for ~8 seconds per job with no fault information,
+making it impossible to diagnose the root cause from kernel logs alone.
 
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 5fc5d5608506..f947ce2a8625 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5380,7 +5380,9 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
->   	}
->   
->   	caps = &dm->backlight_caps[aconnector->bl_idx];
-> -	if (get_brightness_range(caps, &min, &max)) {
-> +	if (get_brightness_range(caps, &min, &max) &&
-> +	    caps->ac_level > 0 &&
-> +	    caps->dc_level > 0) {
->   		if (power_supply_is_system_supplied() > 0)
->   			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->ac_level, 100);
->   		else
+Root Cause
+==========
+GFX 10.1.x defaults to RETRY_PERMISSION_OR_INVALID_PAGE_FAULT=1
+(noretry=0). With retry enabled, UTCL1 handles permission faults
+locally: it keeps re-requesting the translation from UTCL2 in a
+tight loop, hoping the PTE permissions will change. Since they never
+do for a genuine execute permission violation, this loops forever.
+
+Crucially, UTCL1 never propagates the fault to the interrupt handler
+(IH) ring -- the L2 protection fault interrupt is never generated.
+The gmc_v10_0_process_interrupt() handler is simply never called.
+
+GFX 10.3+ already defaults to noretry=1 (set in amdgpu_gmc_noretry_set),
+which makes ALL permission faults generate immediate L2 protection fault
+interrupts. GFX 10.1.x was the only remaining generation where this
+problem existed.
+
+Fix
+===
+1. Extend the noretry default to include GFX 10.1.x by changing the
+   threshold from IP_VERSION(10, 3, 0) to IP_VERSION(10, 1, 0) in
+   amdgpu_gmc_noretry_set(). This aligns Navi10/12/14 behavior with
+   all newer GPU generations.
+
+2. Add explicit execute permission fault logging in
+   gmc_v10_0_process_interrupt() so that when an execute fault
+   arrives (whether via retry or non-retry path), it is clearly
+   identified as an execute permission violation rather than a
+   generic page fault.
+
+3. Add execute permission fault detection in the KFD interrupt
+   handler (kfd_int_process_v10.c) to extract and log the EXE bit
+   from the IH ring entry source data.
+
+With noretry=1, the fault path becomes:
+  CP fetch -> UTCL1 miss -> UTCL2 lookup -> PTE found but no X bit ->
+  L2 protection fault interrupt -> IH ring -> gmc_v10_0_process_interrupt()
+
+The L2_PROTECTION_FAULT_STATUS register then shows PERMISSION_FAULTS=0x8
+(execute bit), and the handler prints the faulting address, process name,
+VMID, and PASID.
+
+Test Results (Navi10, IP_VERSION 10.1.10)
+=========================================
+With amd_close_race test (VM_PAGE_EXECUTABLE intentionally removed):
+
+Before fix:
+  - Zero fault messages in dmesg
+  - CP stalls for ~8s per job, scheduler timeout kills process
+  - No way to identify execute permission as the cause
+
+After fix:
+  amdgpu 0000:03:00.0: [gfxhub] page fault (src_id:0 ring:64 vmid:4 pasid:592)
+  amdgpu 0000:03:00.0:  Process amd_close_race pid 13380 thread amd_close_race:13384
+  amdgpu 0000:03:00.0:   in page at address 0x0000000040001000 from client 0x1b (UTCL2)
+  amdgpu 0000:03:00.0: GCVM_L2_PROTECTION_FAULT_STATUS:0x00700881
+  amdgpu 0000:03:00.0:      PERMISSION_FAULTS: 0x8
+  amdgpu 0000:03:00.0:      MAPPING_ERROR: 0x0
+  amdgpu 0000:03:00.0:      RW: 0x0
+
+  - 200 fault interrupts correctly fired during stress test (20 rounds)
+  - PERMISSION_FAULTS: 0x8 = execute permission violation
+  - Full process identification available
+  - No regressions with normal (properly-mapped) GPU workloads
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 23 +++++++++++++++++--
+ .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c  |  9 ++++++++
+ 3 files changed, 31 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 13bec8461cde..a9bb01c6cb58 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1014,7 +1014,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
+ 				gc_ver == IP_VERSION(9, 4, 3) ||
+ 				gc_ver == IP_VERSION(9, 4, 4) ||
+ 				gc_ver == IP_VERSION(9, 5, 0) ||
+-				gc_ver >= IP_VERSION(10, 3, 0));
++				gc_ver >= IP_VERSION(10, 1, 0));
+ 
+ 	/* For GFX12.1 B0, set xnack (retry) on as default */
+ 	if (gc_ver == IP_VERSION(12, 1, 0) && (adev->rev_id & 0xf) == 0x1)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 8523833a74fb..554f514e59f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -102,6 +102,8 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ {
+ 	uint32_t vmhub_index = entry->client_id == SOC15_IH_CLIENTID_VMC ?
+ 			       AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0);
++	bool exe_fault = !!(entry->src_data[1] &
++			    AMDGPU_GMC9_FAULT_SOURCE_DATA_EXE);
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub_index];
+ 	bool retry_fault = !!(entry->src_data[1] &
+ 			      AMDGPU_GMC9_FAULT_SOURCE_DATA_RETRY);
+@@ -117,9 +119,26 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
+ 	if (retry_fault) {
+ 		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
+ 							write_fault);
+-		/* Returning 1 here also prevents sending the IV to the KFD */
+-		if (ret == 1)
++		/*
++		 * For execute permission faults, always fall through to
++		 * print the fault info. This makes missing VM_PAGE_EXECUTABLE
++		 * mappings visible in dmesg instead of silently stalling
++		 * the CP in an infinite retry loop.
++		 */
++		if (ret == 1 && exe_fault) {
++			dev_err_ratelimited(adev->dev,
++				"[%s] execute permission retry fault "
++				"(src_id:%u ring:%u vmid:%u pasid:%u "
++				"addr:0x%016llx flags:0x%02x)\n",
++				entry->vmid_src ? "mmhub" : "gfxhub",
++				entry->src_id, entry->ring_id,
++				entry->vmid, entry->pasid, addr,
++				(unsigned int)(entry->src_data[1] & 0xff));
++			/* Fall through to print L2 protection fault status */
++		} else if (ret == 1) {
++			/* Returning 1 prevents sending the IV to the KFD */
+ 			return 1;
++		}
+ 	}
+ 
+ 	if (!amdgpu_sriov_vf(adev)) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+index 19406ab92c5b..800592bc908c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+@@ -360,6 +360,15 @@ static void event_interrupt_wq_v10(struct kfd_node *dev,
+ 		info.prot_valid = ring_id & 0x08;
+ 		info.prot_read  = ring_id & 0x10;
+ 		info.prot_write = ring_id & 0x20;
++		info.prot_exec  = ih_ring_entry[5] & 0x10;
++
++		if (info.prot_exec)
++			dev_info_ratelimited(dev->adev->dev,
++				"KFD: execute permission fault "
++				"(vmid:%u pasid:%u addr:0x%llx src_data1:0x%x)\n",
++				vmid, pasid,
++				(uint64_t)info.page_addr << PAGE_SHIFT,
++				le32_to_cpu(ih_ring_entry[5]));
+ 
+ 		memset(&exception_data, 0, sizeof(exception_data));
+ 		exception_data.gpu_id = dev->id;
+-- 
+2.54.0
 
