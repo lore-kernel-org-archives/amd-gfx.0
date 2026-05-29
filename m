@@ -4,117 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8521CCD6E4C
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0184ECD5BD2
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:44:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F7610FA3B;
-	Fri, 29 May 2026 07:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3C210FA41;
+	Fri, 29 May 2026 07:44:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="VpmNhuTd";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="bM8oqX+m";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [46.38.247.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A846110F03D
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2026 11:17:16 +0000 (UTC)
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4gR3q80p7Dz86j3;
- Thu, 28 May 2026 13:17:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1779967028;
- bh=t4MwfkzG0d4WtyKv3QbXG+UR8CR6zeiN3ZL2lNK0h4Q=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VpmNhuTdoynqjYo8z5kExba4HwusEPqN+HQTRLp07KrzZgQ9ZVzgsjEEAWVy0k4ru
- BUszghD7KR/zSz66QtgiJjjgRHFJWz93SRQVTpUdKItBPU4yo+aFK4XrZz5SkUPw6y
- hWkFGXtKtk7JoiO2wiEsG+A47yeegUQ7vKJdS4laXHitWrEQityopn6MuAfaI/K9LE
- huLdGV7uo8mFkJcv8+szyDueRFCcP9sFi4UJCV+SNB6BOVOVxPnKxWQoNOHh4f2mOq
- 91LLZ5p0oMHZ5PmGc3AaIQQnudB3jtjdmYd9UaBdhIzzhaeWRgJdbOW1FVQYlzFlQh
- mOW8iLYdHzTcg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4gR3q80568z4xYl;
- Thu, 28 May 2026 13:17:08 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gR3q66FRMz8tbj;
- Thu, 28 May 2026 13:17:06 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 07DB460150;
- Thu, 28 May 2026 13:17:05 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <1c522568-1d5e-4210-8f25-1aa96e0d3c3a@leemhuis.info>
-Date: Thu, 28 May 2026 13:17:05 +0200
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E06E510F975;
+ Fri, 29 May 2026 06:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1780036497; x=1780641297; i=natalie.vock@gmx.de;
+ bh=EPoM/bGKRx+EAZy54i/ajOwXnKH1NW0h8ot5mRJFek0=;
+ h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=bM8oqX+mZm12Cct9Jy4+hWuiZK02HiD1EzpRn8aVGSyViWc1Vs2PcsTjOzjnQxaC
+ XKhcVqEhv2b5eHJJ8NnYKtUEfYRxV3h//WkOv4/GpUXZ2cPC5C+kmbXEnfAVumjqf
+ +PNrGnQZXrd9Rl8+tUebpsyCxONcJRLR0OuA3YPjPCjhQqBkqtiGT52DqVabBVdZg
+ tJmdA3xARNO/v70WW2LDytHYM6wAsq02NWJPWBJgBgz1WAWZnc/x/trhFRp7XkT4O
+ 3xCMTtYDF1KtrxN+8i7GzHbcGUlK2vLBs9QOprsxNHQWj4QxPT9+5ZrWn4/aJqKmJ
+ I8h4/WfFWThLAhXd/g==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MGyxN-1wXTFK134t-003Jvl; Fri, 29
+ May 2026 08:34:57 +0200
+From: Natalie Vock <natalie.vock@gmx.de>
+Date: Fri, 29 May 2026 08:34:40 +0200
+Subject: [PATCH 3/3] drm/amdgpu: Bump minor version
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [External Mail] Re: Test result / finding of "drm/amd/display:
- Consult MCCS FreeSync cap only if requested & supported"
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Pei-Hsin Yang <peihsiny@valvesoftware.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <44069eb146824aa195312f5b02c49287@valvesoftware.com>
- <7a9021cd-fd78-4b0d-846b-135d0d72224e@mailbox.org>
- <16231b1742004f848af243ce398281ec@valvesoftware.com>
- <ce51243c-3b98-4f99-911f-70dd0b860da0@mailbox.org>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-X-Enigmail-Draft-Status: N11222
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <ce51243c-3b98-4f99-911f-70dd0b860da0@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <177996702631.3775691.10510101217118724061@mxe9fb.netcup.net>
-X-NC-CID: VT+3wFD0GlzxeSD2mIUc2r9Ft2dbk6T9azLuPB/KJWJySk6S9N4=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20260529-prt-explicit-sync-v1-3-9f1c60955cab@gmx.de>
+References: <20260529-prt-explicit-sync-v1-0-9f1c60955cab@gmx.de>
+In-Reply-To: <20260529-prt-explicit-sync-v1-0-9f1c60955cab@gmx.de>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Provags-ID: V03:K1:l8NjjEwb3NB3hrnZ8FqjFZfhPpyYbfXfoEnT/5oYRu8EEtD/ar/
+ y+c+dAdaNNmbGnBVw1PPqmC+aqzMbYbWrhRyW6EDoMoYwSusvWZZvYAULXf3LlnAXp1XVk/
+ aJqJp5zRQvS/079P2yjOqr/h6KPgutddiKdwFMBvyA+OwBdV5p8Gtff0zW7s6wH4h1D5KaJ
+ fS3V+vaVMm8jj7vjC6+sQ==
+UI-OutboundReport: notjunk:1;M01:P0:E3llLmWLHVA=;f1NgEZVjf1Z1W3qZNMPSU7g+29f
+ 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
 X-Mailman-Approved-At: Fri, 29 May 2026 07:44:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,34 +148,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[+Alex +Christian]
+To signal availability of explicit PRT sync to userspace.
 
-On 5/21/26 09:09, Michel Dänzer wrote:
-> On 5/20/26 17:54, Pei-Hsin Yang wrote:
->>
->>> Tested with 3 HDMI sinks with different FreeSync/HDMI VRR capabilities.  I saw one case that a FreeSync sink (Dell S2721HS) with E6h VCP code supported was detected as FreeSync capable at beginning but identified as not FreeSync capable later – after do_mccs is changed from true to false.
->>
->>>> And that doesn't happen without my patch applied?
->>
->> There are other issues without your patch applied.   One issue is that if a FreeSync capable sink with MCCS VCP Code = 0 (mostly are TVs), it will be detected as not FreeSync supported and VRR will be disabled.
-> 
-> That sounds similar to https://gitlab.freedesktop.org/drm/amd/-/work_items/5286 .
->
-> I was wondering if the specific issue you described above with Dell S2721HS is reproducible without my patch though, in which case it might be a separate regression (and wouldn't speak against merging my patch).
-> 
-> 
->>>> TBH I don't really want to be fixing the regression I hit, I'd prefer the AMD display team to handle it.
->>
->> Yes, agreed.  As FreeSync MCCS support has immediate impacts to Valve's Steam devices, I will work with AMD display team to handle it.   HDMI 2.1 VRR and VTEM packet sending support need to be included as well.
-> 
-> Note that some kind of short-term solution is needed for the regression(s) in 7.1-rc.
+Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+=2D--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yeah, that would be good. Makes me wonder how the rough plan to realize
-this looks like? Sounds like Michael's patch[1] that was discussed here
-is not a good option? Reminder, Linus ideally wants known regression
-fixed by -rc6, which is why I'm asking.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_drv.c
+index 1781c0c3d010f..f3b86fa4b181e 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -127,9 +127,10 @@
+  * - 3.62.0 - Add AMDGPU_IDS_FLAGS_MODE_PF, AMDGPU_IDS_FLAGS_MODE_VF & AM=
+DGPU_IDS_FLAGS_MODE_PT
+  * - 3.63.0 - GFX12 display DCC supports 256B max compressed block size
+  * - 3.64.0 - Userq IP support query
++ * - 3.65.0 - VM PRT explicit sync
+  */
+ #define KMS_DRIVER_MAJOR	3
+-#define KMS_DRIVER_MINOR	64
++#define KMS_DRIVER_MINOR	65
+ #define KMS_DRIVER_PATCHLEVEL	0
+=20
+ /*
 
-Ciao, Thorsten
+=2D-=20
+2.54.0
 
-[1]
-https://lore.kernel.org/amd-gfx/20260518154809.660061-1-michel@daenzer.net/
