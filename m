@@ -4,99 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A2EFCD6E43
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 01:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4867ACD6E43
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 01:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5F5D10F79F;
-	Fri, 29 May 2026 01:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC4F510F7B3;
+	Fri, 29 May 2026 01:56:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1wNluuQB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KXSU80UU";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013036.outbound.protection.outlook.com
- [40.93.201.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DCC10F79F
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 01:45:21 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013050.outbound.protection.outlook.com
+ [40.107.201.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F29810F7B3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 01:56:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c0scAiqlxQ/fq32px9LpOCYYviSNQvJNprtm0taLpmpaeiR+zyy8/RsKDnOlXRfvICNNwbotKpojyQwoQi8X7btHRtrdjvyfDQaJCzgDXvx20He6vD93fC7gBT6CsDDpzboEuGz/iTsWSaED4VgvgazwjvQsjNRJRrD4MRoEawiQM+KMbc2L3uLywQ4goPN6/ZqtTCWigNuX+LCbshm8ZRvhSKbqDOWRTnuEunqlDI+wqvQKFRahwf3TQ7WeqK7/0nTHuqCe8g3edO5oS2XjeT1LYdPw+d//fA0u9xeSVZAc6VTtihe2mLKyWLn8W1qhHBVwU4cyvVMy0NqTTXY9fQ==
+ b=Y2zuCVlFM6Cyf0TqieKmwCg2mYNL+m+mtfxt0EdAF/26FhGU1R1SIrgK+9snrRdibibtUAi3jh3zkT/cM2f9K8VPocHAupZjSn32UR1rieumqOaImoVsB7Cw+CRESwX45H5i9fOvgnWZ6ECFhvTpwypAQpkhezue6n4h6cdFeAJ7dqjPP1BWHELPfya2cYBvlCBBdY7+15WTr0IaYGdKq35ubJsGv6vKBIlUcjDaiZb9zH6znBY8gK4SOa2HjV7N+ZwVXEYq+PwKqW1UCf8TkllMRmpHHzw1d3RaobPDJlucwPGIRlM8MI7LSZhhjYtXHpaQ6JQEHzPtzcze3uif5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KMTrrQcc7YiL5vj1N0eFfMo3tS3FrN72ZQ/FAjKSZgE=;
- b=yfmsrXs/vrIQG9+QDXtRV2Xl7U5UVkiC+PIbvsvfPkK1S6yWVKACv1SOUdvRVRAGStQS03M3twErHhSPsvWW/mkfvCPwrcX7q0Sc/71a1VeP2k7080nTQ05r9+8NAURjk7Ob/7uEir27WhdsVlu3qXZm2SpMOcO4cosTgn03STqD8k8EQKsU+9jfryPurnbiLNbR3OREKwf1iFGoXn4ZZ6SjDYFW/HN8v4gMZH4GbrWEt9aVsJ7THuhQaZgTnjPxoG3E0gTkRgrkvJLkZWg6F67qLxmx3EdEZtwHkS0dfULqMxIJ21XySEoV4n/AYJu1GOcN/psMuPfepOAjvijWdA==
+ bh=6RO25M3+A5hLwM/5qOYh2rXsvBAWK3r/wl70nRrswBo=;
+ b=noY4CMOGcs65itKTR9kfbIpVW12/OHYnFdUmB7pgp2O53mEucQk4K2NqQHjGOIkmcP97EVwVtA37w833HnYwUJ/0WgEVssf4N8I+enGA71Ii9jiIvzp1G2bfazIEAtN/7LCIuCw0nDYTxUamOaoE2HlzMBgtq0TWZsgkaMR5ZPn6IL3UN0shZ6BDZUVn86hMX+Hl7szawWMUzvx+jR7HQuBCG/XE9nrF7GUDRNYS48j9gsoDPCuIPrs/wSMYL/8siRpO8VA3os/2fRI4DKVjBDTfpzjVRTSoJ6lc5G9P+gKk1UtDEctXoiP+C4lYl7+w1BHp/7qrS2jYCT0+CeQNcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KMTrrQcc7YiL5vj1N0eFfMo3tS3FrN72ZQ/FAjKSZgE=;
- b=1wNluuQBCmUWyrIRiHR+P5+8lTj5J1XJ6zfXS6RNpQKyyg+diCEMXV0VHlSRvR7XAt9GtRGFNcjWAweB6IstOruZ0Eir+Rmpx4rxdNFpyDXJNWnJAxcyCjlQFvyQLh94FtiFXVEW5+iAF0s4UFzJUOxzbMxB6Fh+VjieC5cqEmI=
-Received: from MN0P223CA0016.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::29)
- by MN0PR12MB6030.namprd12.prod.outlook.com (2603:10b6:208:3ce::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 01:45:15 +0000
-Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
- (2603:10b6:208:52b:cafe::52) by MN0P223CA0016.outlook.office365.com
- (2603:10b6:208:52b::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.14 via Frontend Transport; Fri, 29
- May 2026 01:45:15 +0000
+ bh=6RO25M3+A5hLwM/5qOYh2rXsvBAWK3r/wl70nRrswBo=;
+ b=KXSU80UUNOrNTdyC6NzNBrLVVNU16z2LbRfaAJftl4OAeB0qITwfAAR0XPnLzu8+LcCcAH+M3amK+NZltIAIdl7DqATdNk9rcQ+xCSqf7k3OARezP7pACcPprMwK6p6aXF6hXaXIcnSqVDu7m/spAW8NNN5yl9NmrFGcsgV8KoE=
+Received: from SJ0PR05CA0153.namprd05.prod.outlook.com (2603:10b6:a03:339::8)
+ by DS0PR12MB8477.namprd12.prod.outlook.com (2603:10b6:8:15b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Fri, 29 May
+ 2026 01:56:26 +0000
+Received: from CO1PEPF00012E65.namprd05.prod.outlook.com
+ (2603:10b6:a03:339:cafe::1) by SJ0PR05CA0153.outlook.office365.com
+ (2603:10b6:a03:339::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.5 via Frontend Transport; Fri, 29
+ May 2026 01:56:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E65.mail.protection.outlook.com (10.167.249.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 01:45:15 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 01:56:26 +0000
+Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 28 May
- 2026 20:45:14 -0500
-Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 28 May 2026 20:45:14 -0500
-From: <vitaly.prosyak@amd.com>
+ 2026 20:56:24 -0500
+From: Qiang Yu <qiang.yu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Vitaly Prosyak <vitaly.prosyak@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCH] drm/amdgpu: enable execute permission fault reporting on GFX
- 10.1.x
-Date: Thu, 28 May 2026 21:44:32 -0400
-Message-ID: <20260529014508.115012-1-vitaly.prosyak@amd.com>
-X-Mailer: git-send-email 2.54.0
+CC: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Pierre-Eric
+ Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, Qiang Yu
+ <Qiang.Yu@amd.com>
+Subject: [PATCH] drm/amdgpu: initialize iter.start in amdgpu_devcoredump_format
+Date: Fri, 29 May 2026 01:55:28 +0000
+Message-ID: <20260529015528.524595-1-qiang.yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|MN0PR12MB6030:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e61a44c-42cb-4c40-e5a7-08debd23ee9e
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E65:EE_|DS0PR12MB8477:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0329ed1c-04f2-4d32-cb06-08debd257e55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099006|6133799003|3023799007|11063799006;
-X-Microsoft-Antispam-Message-Info: Htwb68uklf9vvQFTsBwPfJbSHVZzSY+sG4olLczGWw30sFZx5zGJzM7z+3/G1jWmc+ro/IqHwkJiFgn/7SnqV2ak9FN1mI+7L1tEsZeyPa37S+PUebIs0XPb5CH6Ip5SiNCtuDuOrZxbUlzbAvg7PN2JdothbcMhw53UB8fgCkX5D7NyAefwuUmTO0mD/VZtZwobUSEQXTasR7DJG0StgoHxiT5/qQE7+2hr6JK6EJ09lRUhjRPES7OYSICd14wvd6yvlDtH3LZDTOABQfMOgpBp8tqstHnp+gZ0EpBtEWI2ZxnMZE/+by4Ev51EZSnIhu8xdN1Zim0Gzn9sBfAbNM/g5yLp5OpO4MWNYhKC8sXMTOVuJXtcrEm9fWgP9JlkU11eb4SDgFE/zGUox1JD6CPLkoObpdKLunYNVA8bB+hVjAefOwLVaBk/yKCUnPw5EdrcBSirHU9oLqqkxPjohhFDrIkrh/GrQw4E2WjLK8z1DE0N+zIpMAG6R2AnuJR471kEyih5HqOhf5xbQKj3uG77XsDa9Mv7JNKvK2lJpeOQj83aRNgYhDd5OuaoqUxfXZ0vSvUw90kYyjGwzREvLLQj2Z9FizUC9ADcPWVEUGnjXcyEkXDLibks3fqvMC+0J/UIVJ3OIG1uJEug0Q96tJ5csfnF2SWPc7Dzn4syBAzEmYg8JLzD8lxNI/iWxyN4g+VqB9ZAMqdRRh8J/fELTlsdk9RG7YzeCQRl7pRqWEQ=
+ ARA:13230040|36860700016|1800799024|376014|82310400026|18002099003|56012099006|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info: MaeGr/BFRsjB9n+ZzrTAX7lsEg36vwXE0naSJdtH+D9JxF2n8KXMEq7sOdqeSUqRrEPxCFFnrDel0d2PO+ED0ytUeARq9LXnCju8wDNlbIbNOvIDDZUPMOMj5j7O5E59hyoWaddIfKhIUgoIweDUlljIlWYgU5oHQuB/E+QMaUXBc1GY6Fqt9dloDXOKDnNVTV+oTZy5QWsc7w8TZ0zHc2WOYjDOW+D5qgVumihSHvW/iAFW4oVrJrY4grXg91fdK5JHqXthsd0Tl6rvtH5i7VYoUYAbl1P8MKvVJnEf92zbGn24tBmFn7wx05QavfZ2n4+ZXVJAJyI4tfciPeIi9dmhzwHYeye6FUEcdFO0wneG0CS2lpo5852inH4soVuwcvKSurQLd7OXJ036qbf5jEj3Qrpx2iIrVeyiNzNxrw71POuT83LE1qd+RB5goLp5XIwSTvYbVh8n98eavp1DmoCkeZENX4JstQGVzzIW/Fz8kw41WJCyuwYGRs6GNDX2IUWMYY7yjL1XxlUkDFmG8TnGHGbdHDFi+ptDf5ozvPF+JSyiPgwtQmwcKCdpDZOhWHvNEPs9KbULdYVuKisEOF2nQHRCeKjQxVbc5snov17wt+OhqhJsLhZro7s+VApgiCQ55dcNA/W3/8jR81x+tEx9HA/tEdOzCS9OjSVKQsV9Xr/dzENj6q1pN+6fGy6z9GJe5KVwBmBi8O73BAwzjR5CZuqFBLB3WdyQRGLq2PU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099006)(6133799003)(3023799007)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(18002099003)(56012099006)(6133799003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wwVJ15cg5pkcJloYbFal+eC5HXA9y/LH4Y99Nztn6tuNecB3UyrVe2yj85KKZ1yoA4y48IhJX5i6o8pZvDiZW19Wqpuwba8io9lzzcKQ9aEK4uTaLT+936cT1VKDAKLvY9TeLgTyo8I5cIx0YI9lztxAxJihJwoikWOVyNU7ivy55nnSLZ9tFFy4pUbfqUI097zl5bq6x3gQOsWkytEwhY6HIo7gD2LfPdr9kJr+AZAF5bADyZ+drSK7I2FOBExlyRzYUfxjsw9A/LDACX+a3AJ3b8TlbRxZClH78af37QafnUG2To3hfr0Q6MS9fj21mwuQuNYWtO6RBeXJkzTiZGownnMpwwrnh89AC7hF00B4w4IWSHYnx7WmHcUYUE9Pt6gT6cs3Jv1hEZ8sj46ljCjEwE2VC62lq7wwoSljkl0yGmIKs8mXdRvy9ljpPGyf
+X-MS-Exchange-AntiSpam-MessageData-0: oJM0fmSD4z7Gf9T0R+NYLWucm1cV/u1usIodCUn/5xLQj36eWjUhSu60i2qhk5rzaeOPQDWwncC3bRk6dQLqpkXejaGhF5eAqNJUsbFB7eWd5UnJluXSMVH0/2tMuOvA8ALnMdNieWNWbbjRnkmlZckyjgeLs/FVAdSx7ExbE6ztDxB4sKI3XOEuOhJ5B52EAefRMVT5b6pCef99ZtKpHpY+pQGCMj0CyxT//gA8sVilP7XPvu0QErRmNgO3lINW2oxvmi4nuJfZFf9s5a9IWi1qduXaBPsqJuwcCbud+ymina7oP7PQ9XveC6Z1W7xEw46Ub0pur/VP159XtoufcKC3vl5llpTvZHaM9BXxFhSZHOWyUgb777FG2KxWJNIIl5k6ZOyeAv6whiQpAoZNeKVUnR9Xz4CAyKr0ReFkAMzSMpkfXM9NtAtJidy7sh3N
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 01:45:15.7663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e61a44c-42cb-4c40-e5a7-08debd23ee9e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 01:56:26.2845 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0329ed1c-04f2-4d32-cb06-08debd257e55
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E65.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6030
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8477
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,175 +111,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+From: Qiang Yu <Qiang.Yu@amd.com>
 
-Problem
-=======
-On GFX 10.1.x (Navi10, Navi12, Navi14), execute permission faults are
-completely invisible. When a GPU buffer is mapped without VM_PAGE_EXECUTABLE
-and the CP attempts to fetch shader instructions from it, the hardware
-enters an infinite retry loop with zero diagnostic output:
+This fixes read /sys/class/drm/cardN/device/devcoredump/data
+return empty content sometimes.
 
-  - No interrupt is generated
-  - No dmesg message appears
-  - The CP silently stalls until the scheduler timeout fires (~10s)
-  - The only symptom is unexplained GPU job timeouts
+amdgpu_devcoredump_format() leaves struct drm_print_iterator's
+.start field uninitialized on the stack before passing it to
+drm_coredump_printer(). __drm_puts_coredump() compares the running
+.offset against .start to decide whether to skip or copy each
+chunk:
 
-This was discovered using the IGT amd_close_race stress test when
-VM_PAGE_EXECUTABLE was intentionally removed from IB buffer mappings.
-The GPU would hang for ~8 seconds per job with no fault information,
-making it impossible to diagnose the root cause from kernel logs alone.
+	if (iterator->offset < iterator->start) {
+		if (iterator->offset + len <= iterator->start) {
+			iterator->offset += len;
+			return;
+		}
+		...
+	}
 
-Root Cause
-==========
-GFX 10.1.x defaults to RETRY_PERMISSION_OR_INVALID_PAGE_FAULT=1
-(noretry=0). With retry enabled, UTCL1 handles permission faults
-locally: it keeps re-requesting the translation from UTCL2 in a
-tight loop, hoping the PTE permissions will change. Since they never
-do for a genuine execute permission violation, this loops forever.
-
-Crucially, UTCL1 never propagates the fault to the interrupt handler
-(IH) ring -- the L2 protection fault interrupt is never generated.
-The gmc_v10_0_process_interrupt() handler is simply never called.
-
-GFX 10.3+ already defaults to noretry=1 (set in amdgpu_gmc_noretry_set),
-which makes ALL permission faults generate immediate L2 protection fault
-interrupts. GFX 10.1.x was the only remaining generation where this
-problem existed.
-
-Fix
-===
-1. Extend the noretry default to include GFX 10.1.x by changing the
-   threshold from IP_VERSION(10, 3, 0) to IP_VERSION(10, 1, 0) in
-   amdgpu_gmc_noretry_set(). This aligns Navi10/12/14 behavior with
-   all newer GPU generations.
-
-2. Add explicit execute permission fault logging in
-   gmc_v10_0_process_interrupt() so that when an execute fault
-   arrives (whether via retry or non-retry path), it is clearly
-   identified as an execute permission violation rather than a
-   generic page fault.
-
-3. Add execute permission fault detection in the KFD interrupt
-   handler (kfd_int_process_v10.c) to extract and log the EXE bit
-   from the IH ring entry source data.
-
-With noretry=1, the fault path becomes:
-  CP fetch -> UTCL1 miss -> UTCL2 lookup -> PTE found but no X bit ->
-  L2 protection fault interrupt -> IH ring -> gmc_v10_0_process_interrupt()
-
-The L2_PROTECTION_FAULT_STATUS register then shows PERMISSION_FAULTS=0x8
-(execute bit), and the handler prints the faulting address, process name,
-VMID, and PASID.
-
-Test Results (Navi10, IP_VERSION 10.1.10)
-=========================================
-With amd_close_race test (VM_PAGE_EXECUTABLE intentionally removed):
-
-Before fix:
-  - Zero fault messages in dmesg
-  - CP stalls for ~8s per job, scheduler timeout kills process
-  - No way to identify execute permission as the cause
-
-After fix:
-  amdgpu 0000:03:00.0: [gfxhub] page fault (src_id:0 ring:64 vmid:4 pasid:592)
-  amdgpu 0000:03:00.0:  Process amd_close_race pid 13380 thread amd_close_race:13384
-  amdgpu 0000:03:00.0:   in page at address 0x0000000040001000 from client 0x1b (UTCL2)
-  amdgpu 0000:03:00.0: GCVM_L2_PROTECTION_FAULT_STATUS:0x00700881
-  amdgpu 0000:03:00.0:      PERMISSION_FAULTS: 0x8
-  amdgpu 0000:03:00.0:      MAPPING_ERROR: 0x0
-  amdgpu 0000:03:00.0:      RW: 0x0
-
-  - 200 fault interrupts correctly fired during stress test (20 rounds)
-  - PERMISSION_FAULTS: 0x8 = execute permission violation
-  - Full process identification available
-  - No regressions with normal (properly-mapped) GPU workloads
-
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Fixes: 4f28b4930f8e ("drm/amdgpu: move devcoredump generation to a worker")
+Signed-off-by: Qiang Yu <Qiang.Yu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        | 23 +++++++++++++++++--
- .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c  |  9 ++++++++
- 3 files changed, 31 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 13bec8461cde..a9bb01c6cb58 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1014,7 +1014,7 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *adev)
- 				gc_ver == IP_VERSION(9, 4, 3) ||
- 				gc_ver == IP_VERSION(9, 4, 4) ||
- 				gc_ver == IP_VERSION(9, 5, 0) ||
--				gc_ver >= IP_VERSION(10, 3, 0));
-+				gc_ver >= IP_VERSION(10, 1, 0));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index 46043a1479e4..63d7ef78c025 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -219,6 +219,7 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 	u32 ring_idx, off;
  
- 	/* For GFX12.1 B0, set xnack (retry) on as default */
- 	if (gc_ver == IP_VERSION(12, 1, 0) && (adev->rev_id & 0xf) == 0x1)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 8523833a74fb..554f514e59f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -102,6 +102,8 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- {
- 	uint32_t vmhub_index = entry->client_id == SOC15_IH_CLIENTID_VMC ?
- 			       AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0);
-+	bool exe_fault = !!(entry->src_data[1] &
-+			    AMDGPU_GMC9_FAULT_SOURCE_DATA_EXE);
- 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub_index];
- 	bool retry_fault = !!(entry->src_data[1] &
- 			      AMDGPU_GMC9_FAULT_SOURCE_DATA_RETRY);
-@@ -117,9 +119,26 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 	if (retry_fault) {
- 		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
- 							write_fault);
--		/* Returning 1 here also prevents sending the IV to the KFD */
--		if (ret == 1)
-+		/*
-+		 * For execute permission faults, always fall through to
-+		 * print the fault info. This makes missing VM_PAGE_EXECUTABLE
-+		 * mappings visible in dmesg instead of silently stalling
-+		 * the CP in an infinite retry loop.
-+		 */
-+		if (ret == 1 && exe_fault) {
-+			dev_err_ratelimited(adev->dev,
-+				"[%s] execute permission retry fault "
-+				"(src_id:%u ring:%u vmid:%u pasid:%u "
-+				"addr:0x%016llx flags:0x%02x)\n",
-+				entry->vmid_src ? "mmhub" : "gfxhub",
-+				entry->src_id, entry->ring_id,
-+				entry->vmid, entry->pasid, addr,
-+				(unsigned int)(entry->src_data[1] & 0xff));
-+			/* Fall through to print L2 protection fault status */
-+		} else if (ret == 1) {
-+			/* Returning 1 prevents sending the IV to the KFD */
- 			return 1;
-+		}
- 	}
+ 	iter.data = buffer;
++	iter.start = 0;
+ 	iter.offset = 0;
+ 	iter.remain = count;
  
- 	if (!amdgpu_sriov_vf(adev)) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-index 19406ab92c5b..800592bc908c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-@@ -360,6 +360,15 @@ static void event_interrupt_wq_v10(struct kfd_node *dev,
- 		info.prot_valid = ring_id & 0x08;
- 		info.prot_read  = ring_id & 0x10;
- 		info.prot_write = ring_id & 0x20;
-+		info.prot_exec  = ih_ring_entry[5] & 0x10;
-+
-+		if (info.prot_exec)
-+			dev_info_ratelimited(dev->adev->dev,
-+				"KFD: execute permission fault "
-+				"(vmid:%u pasid:%u addr:0x%llx src_data1:0x%x)\n",
-+				vmid, pasid,
-+				(uint64_t)info.page_addr << PAGE_SHIFT,
-+				le32_to_cpu(ih_ring_entry[5]));
- 
- 		memset(&exception_data, 0, sizeof(exception_data));
- 		exception_data.gpu_id = dev->id;
 -- 
-2.54.0
+2.43.0
 
