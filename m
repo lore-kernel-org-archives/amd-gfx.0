@@ -4,94 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A03F4CD6E4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:53:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70826CD6E4A
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 15:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35D4210FF78;
-	Fri, 29 May 2026 13:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1E81120BE;
+	Fri, 29 May 2026 15:17:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qJLW/RcW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nlaXSGff";
 	dkim-atps=neutral
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E05510FF78
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 13:53:56 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-304cf9a02f9so231209eec.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:53:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780062835; cv=none;
- d=google.com; s=arc-20240605;
- b=KveD2OKupQYnuOQzBXbrpoh7C9gmNA+AhZjGmtoEZKA7RwJ2ZpBI7im/e3tWLQYeO1
- N9cMg+YqKosA7xWYoAO6OgC5qvxy8F+BUK1FfH/ezVKdoINSKBSFsB124wunrsHtwhpI
- RVTilqsFumGrOandQ2wkovEfVRjQxnvK/gI6N6NwDHerstbi+Fh5PEBwvnA6/gObW7Mc
- peJqbd0an2ueHRuN9pENYiLTuxwUP3wKl8jwMCK9HtloJhMZFuRPtWift7KMxMNsnmtI
- XTeEYqBX3rqg62plLdlHedrVkoJUj74pTil1dW9tmyFoVVs2gZjIv4ADk95A6PA90KRD
- RCIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/cI1vJ78aR+YejF3lLdQizJWnc8ohIpsIq/Ifv181ro=;
- fh=PhCGDoLFYU3pW02okGmSl//bIdTEhu1mm1IJmsKNSXk=;
- b=QE+aRkwKQypxNi+qlpXaq5+oR1jPKbsQfSaonZqI3DiANmMA62bMjnxEVoZ/BepIA3
- CTMJTbk4ONWP36JsswbkHc9Tk5aLEaCdOWmE3Wi1/sS1JKNTVty1o1JkQ0irubXqg7sq
- HYFIK32e3eeXUZ85Ci7vhCLmlRiunA1VcK9yyfHLVLGafDjrRt5+edJrI3IIUD4nY6Ly
- UkH0eDRTmH8eKkr6CGjq1/WAh7MdiGOU+9hnAbNXjE0KwZExVT8IWQf2hKGg29gQHYqf
- +RDLGNa/EVvoGmH83/FhbkovQ24V4oBdfTag0cJR7sYC0W9sJvf7U5n29YzMRP6gyDoR
- KUVA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780062835; x=1780667635; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/cI1vJ78aR+YejF3lLdQizJWnc8ohIpsIq/Ifv181ro=;
- b=qJLW/RcW2CdBB6CeTgdwdczWQguX41NENLAq5F8vgSWnnbOqY+fnArk5B/8qdMTPIe
- ezeD6bSPfezpiFUujukSS7ESmzQY+c+6F2hVuCus0W9+IVhjc8zc9eDN3Xhb1i8yYZgA
- VHx9CCdk5THIZqVAQPShgU/qB7D40oZICR87WcZjqVs+zyICKD24ezDTpZPyZC3uzIXh
- Oug8EvhQNSWwVkR51pLgBZJ5g0NikFRq0Xei0qqmVhGL6dTDDxvB8cmFN8DyYAxY+xFx
- bIFhPs8DwH+29E/0KpCqoAnawFx0lhESFYeZcyXON7XSMvbb1H2+YrSb5XNSww7DLr1O
- NGBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780062835; x=1780667635;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=/cI1vJ78aR+YejF3lLdQizJWnc8ohIpsIq/Ifv181ro=;
- b=rfUnvsyVMpvIinur+hy1wTLaNJgak9SE0s7hA5AIG8bLQ12qC1eCuNiQ+nzGlWyS5r
- rV7SVuxRLfkI6SwLONBpZeYzJxwsH13hVCiCP+J3DeYlj387jX+jjwEL6y3GiOIqqrZF
- exncg+zlM1akha5srkg/oUpARRsI5aspkG+yhivE3XhpUoIhcXjYte23ND8CfeRjuizS
- NaVYezi+uEreD7WGNpnrB0DW0U5risz695yYPshj83oL8sUbWT8NmIAJkwCdOqJ2JpsF
- xjrsveOShIVT9l9PlGXo2a5Qb9GH0cO3W3HPg4MTVeIgGyH6mZ+oaJutYdSE10kBgqXs
- 7Lfw==
-X-Gm-Message-State: AOJu0YxMW2mvLSUPxtAI98gIzUxn0beOfxEn9l+yN6+Bx4Nh4y5etIzI
- Ng+QFFoJ8DRMUaj3rG8a9RUY56FzdR9ZjQLkjOzb8SIFFRB2DjEnWhwjUyWV9HHo7pl0WDHNn9O
- yqXXE73w/Y9EqZw4/CpVJiBWqpwqpDD4=
-X-Gm-Gg: Acq92OHXB5AgyL8R7zeqzkZGUgNia44FX30a4JiLX5Mp600GYsf7ELdh6mWww+4M4s+
- ZZc4p9g+lM9ePUMyzU204aABaIHmCTtFZ18VsLpkLG5OU2D2+STjJXfUatYOeu672kYad1tEee9
- 2DYOTqU9oJrYr11iI/ZQPOgZjzoZaH9VgEnn6n9qykL3zjnT6kLUKw7ATbDsJkrhL/Wn1bcTKSP
- d6Mz5Gnl5z4u0V8Uxw/FOtw+tcNTog1cbjk56yL6WhWqzZAE6QfTY4c/+mge7UtWEvweTD+mQd8
- kVcgHUJKPvbFIOP5uZysoeCFV5yeaSz3wZGGzqgWGTlcQ6V2gbn9ESppmGNIWcOCrHpekB0XhO4
- 4SHcyDSfTi1NJ400=
-X-Received: by 2002:a05:7022:785:b0:12c:897a:5219 with SMTP id
- a92af1059eb24-137af10897dmr489258c88.5.1780062835452; Fri, 29 May 2026
- 06:53:55 -0700 (PDT)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011041.outbound.protection.outlook.com [40.107.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6821120BE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 15:17:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l+Nd50PBOkKv4F/QVFNk+3e/alqYetl570JHEIegUK96P/71om6IR2Rs8s6pzxzzX8MAe2nVpIWpz4jcyKxCnx0vk0yL/22cJ0gEigMT4NSEZOZvM4KHzbCP12lmfzcmoyxIUk/rOaZ2dYssAUJCkNupLUiJmNQqZp5hfRbi+enL6AFwLZhQvtGFf/PbGwuapEi3dkQe+77r3ecYogIZajYb5CFsWCAYcCzco+124Qu2NZZunUuOEZV5NpnZdHXtzYv6O4afjRw/NvjXvV+U1B1j1tWSvacZ+qXTdh3WvIdeFsXxp8ioVQRBYLuWoIhl0uuP+c6k3V75m7WPfrWdHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jkQrcpKidRIFgPHeX6B3sopeqUPeJJmo6nU+PZxswDg=;
+ b=Y4N7J3S8Xt99BBQAlkIYW0KrV9l8Rhx3GxmptbEHP1nyJe/cH9PQdw0zbO9mJSc5+JjRHrCrSx+FNeGZLEO0sgg/wJIP9gu0vmTCm+V6t+2lPA1LVV6GAw5lHj4DgyiGSjjfeHHUmR1omoezvepNQzLCUKkPmj0yjHxye4Yiunk6Xdbj8ahFJNN7s6VvYotWQ1euOtuzoKrV1S1q5pGLJ99S0W5fogbjwyg+45dgExGc5CV8Fw/9ZYNyvB+rUH7EZ4BfKbvo7RqSFB2WSkUjaTcQ0VYgbF7QbcW3twJReSCKgFMJZzZrTecoJxaayq1LoK5uQgzdvYq90yyYjjtepg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jkQrcpKidRIFgPHeX6B3sopeqUPeJJmo6nU+PZxswDg=;
+ b=nlaXSGffHzZnLctDpDzVkE+xlfskx/Hm3tnxxYMyRwn978/bO3reh1JsJE8SXrs+IXP1/txQvjin2qsyMF+Xplypn2u4Lj8U8kZW4NTzWW7zJ1ct26Sl6p97o4TmolCl3QgX9rVAtPI66uFO90WbxcbEoWldGtp3tIEGMlczGeI=
+Received: from BN9PR03CA0416.namprd03.prod.outlook.com (2603:10b6:408:111::31)
+ by LV8PR12MB9360.namprd12.prod.outlook.com (2603:10b6:408:205::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 15:16:59 +0000
+Received: from MN1PEPF0000F0E0.namprd04.prod.outlook.com
+ (2603:10b6:408:111:cafe::66) by BN9PR03CA0416.outlook.office365.com
+ (2603:10b6:408:111::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 15:16:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E0.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 15:16:59 +0000
+Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 10:16:57 -0500
+From: Xiang Liu <xiang.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
+ <YiPeng.Chai@amd.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: [PATCH 1/2] drm/amd/ras: make UNIRAS CPER debugfs header
+ legacy-compatible
+Date: Fri, 29 May 2026 23:16:23 +0800
+Message-ID: <20260529151624.1144318-1-xiang.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260529092322.81977-1-tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260529092322.81977-1-tvrtko.ursulin@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 29 May 2026 09:53:43 -0400
-X-Gm-Features: AVHnY4Ik2gqLDh3-e28buVnkDgPch6LWZ5zs5TAt3VQ__Cr-omjbLHuuHHTWDbU
-Message-ID: <CADnq5_OjFSSuyr+XSUczspwfYcuM39EkU5hHBBmO4Qx0mC4QrQ@mail.gmail.com>
-Subject: Re: [PATCH] amd/amdkfd: Fix profiler lock init order
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, 
- Benjamin Welton <benjamin.welton@amd.com>, Perry Yuan <perry.yuan@amd.com>, 
- Kent Russell <kent.russell@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E0:EE_|LV8PR12MB9360:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f4bd918-33c7-4f0a-419b-08debd955443
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|1800799024|82310400026|18002099003|11063799006|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: 0vzoGYC+M2C0cvL5OiQJ+r/AFcy3RzWGmbE7YgnyxUVN/nM2EtO29SzckyyVWT/+On+46DSEO5V7MjkijgHdKab0YvUyyKHix2YbE6wVtJlQorsp3REJMWP5nKSzR+uZEMA8I5xFZPVb7NjXAu4oMhrY2zy0EMe/GFaY91TpbqeX++XmIF5XR6tkWFZ/2w0O6yvnKZDj3qIv57BUrqdccIA8bibCuktgZyYqBtnRu1zweRAkU3VVk559HyKIqKmLaSRxuaHqUXOF+p3ZK5YqF6YmOJOgCKTKIcyYdlYaiaNcn8bqCFIr/n9hBgu5lrsC5kh3Qev/0kd3w7LzrwB28aQ6q0bFKvoBT/TU88F2B8dpdwaTTFojFfHRw9iEIvrLbTUtFK0TlGAKnHpe2UOxPMBQa8DumRlGE6amNfxpgl+9uh8gPBzXJ0vrvlHuke+rfuU34mlD7Wi5U+l349xt/0G/7Vper3SkaUd7vZXA1cygUJWmQJt9g8RsH5Lb3txDv3w+Etp12viIA3R2jCwreFUgfk/rl1/ismzhcaHxr0PcKJFgAPjndj1qCqjrisaT/iTLGY+h3Sst7N8SYfCtS9wN4hv0C596rCXkbAxBS4d2j/gqXyPwUYCH7qOuDlxh8oUV/4wpmDYhwVz9jXC0bIwIgMOvmR6WtleYEAHbuagAMQOAaXDZf/VGoBj8jrLXEuSv7zCpPH5MB69DkXYvvjKuEUgadurVnk/0s9GyYGU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(11063799006)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Y/aY0C6A3Pmm0j9ArkD6bC77MO4YwvY9WHyrEosoHIcYTKAzeXUT97p+QEqut7Pjnc7xqsBVSYr42kQKmbsicl5oraINNAAVO9vMr6WqIWgeibxKKQ6YcxxTkCfTRrxbzp/NJ5AGDsry9wyh2agHIVVVKYfzFh2NmXWUwmsnSppyH339fZtx2RPBKJg69zLBUWy93USPOIKCO/jNix5ZmdadQmbaRnP0n1sAsnW/xD47xTEbydZEoULiv937pqMKiIgx4q/90ZCRQmjz1RNjNEPBXRZcycEcsjhLuLsHIvTE92E2+sAcDACGc/jPSrKDE6KPDHlb88SNH6/RTpBw0GVIdzg2AOyLrY0AFxe8u8Ln8i47rK9GfefdlYM8cxcUvNmZZamA0G81WXg2MTOAj3FFDlkAOkRJtArDzXgs7S1+DvWdJNWcavFVBWeBZdvI
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 15:16:59.4223 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f4bd918-33c7-4f0a-419b-08debd955443
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,108 +109,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 29, 2026 at 5:23=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
->
-> A call chain at driver probe exists where profiler lock is used before it
-> is initialized:
->
-> [   12.131440] kfd kfd: Allocated 3969056 bytes on gart
-> [   12.131561] kfd kfd: Total number of KFD nodes to be created: 1
-> [   12.132691] ------------[ cut here ]------------
-> [   12.132703] DEBUG_LOCKS_WARN_ON(lock->magic !=3D lock)
-> [   12.132705] WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x616/=
-0x1150, CPU#0: (udev-worker)/569
-> ...
-> [   12.133051] Call Trace:
-> [   12.133055]  <TASK>
-> [   12.133059]  ? mark_held_locks+0x40/0x70
-> [   12.133068]  ? init_mqd+0xe1/0x1b0 [amdgpu 5154987db73e842b9b4f761e2bd=
-86e17c7ada65c]
-> [   12.133671]  ? _raw_spin_unlock_irqrestore+0x4c/0x60
-> [   12.133683]  ? init_mqd+0xe1/0x1b0 [amdgpu 5154987db73e842b9b4f761e2bd=
-86e17c7ada65c]
-> [   12.134235]  init_mqd+0xe1/0x1b0 [amdgpu 5154987db73e842b9b4f761e2bd86=
-e17c7ada65c]
-> [   12.134781]  init_mqd_hiq+0x12/0x30 [amdgpu 5154987db73e842b9b4f761e2b=
-d86e17c7ada65c]
-> [   12.135340]  kq_initialize.constprop.0+0x309/0x400 [amdgpu 5154987db73=
-e842b9b4f761e2bd86e17c7ada65c]
-> [   12.135898]  kernel_queue_init+0x44/0x80 [amdgpu 5154987db73e842b9b4f7=
-61e2bd86e17c7ada65c]
-> [   12.136439]  pm_init+0x70/0x100 [amdgpu 5154987db73e842b9b4f761e2bd86e=
-17c7ada65c]
-> [   12.136984]  start_cpsch+0x1dc/0x280 [amdgpu 5154987db73e842b9b4f761e2=
-bd86e17c7ada65c]
-> [   12.137525]  kgd2kfd_device_init+0x70f/0xd10 [amdgpu 5154987db73e842b9=
-b4f761e2bd86e17c7ada65c]
-> [   12.138070]  amdgpu_amdkfd_device_init+0x172/0x230 [amdgpu 5154987db73=
-e842b9b4f761e2bd86e17c7ada65c]
-> [   12.138618]  amdgpu_device_init+0x246a/0x2960 [amdgpu 5154987db73e842b=
-9b4f761e2bd86e17c7ada65c]
->
-> The human readable call chain is:
->
-> kgd2kfd_device_init
->   kfd_init_node
->     kfd_resume
->       node->dqm->ops.start
->
-> Where start can be start_cpsch, which calls pm_init, etc, which ends up
-> calling kq->mqd_mgr->init_mqd, which takes the profiler lock:
->
-> init_mqd()
-> {
-> ...
->         mutex_lock(&mm->dev->kfd->profiler_lock);
-> ...
->
-> Fix it by initializing the mutext at the top of kgd2kfd_device_init().
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: a789761de305 ("amd/amdkfd: Add kfd_ioctl_profiler to contain profi=
-ler kernel driver changes")
-> Cc: Benjamin Welton <benjamin.welton@amd.com>
-> Cc: Perry Yuan <perry.yuan@amd.com>
-> Cc: Kent Russell <kent.russell@amd.com>
-> Cc: Yifan Zhang <yifan1.zhang@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+The UNIRAS CPER debugfs path returned a zeroed 12-byte prefix and used
+file offset directly as the CPER record index. Legacy CPER ring readers
+expect the prefix to contain three 32-bit ring pointers followed
+immediately by CPER payload data.
 
-Applied.  Thanks!
+Build the same header shape for UNIRAS reads by reporting a zero read
+pointer and matching write pointers for the returned payload size. Keep
+an internal record cursor behind the debugfs offset so follow-up reads
+continue from the correct CPER record while first reads still expose the
+legacy prefix.
 
-Alex
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 73 ++++++++++++++++++------
+ 1 file changed, 55 insertions(+), 18 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_device.c
-> index c2c59781feee..1c57e11220a7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -736,6 +736,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->         int partition_mode;
->         int xcp_idx;
->
-> +       kfd->profiler_process =3D NULL;
-> +       mutex_init(&kfd->profiler_lock);
-> +
->         kfd->mec_fw_version =3D amdgpu_amdkfd_get_fw_version(kfd->adev,
->                         KGD_ENGINE_MEC1);
->         kfd->mec2_fw_version =3D amdgpu_amdkfd_get_fw_version(kfd->adev,
-> @@ -936,9 +939,6 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->
->         svm_range_set_max_pages(kfd->adev);
->
-> -       kfd->profiler_process =3D NULL;
-> -       mutex_init(&kfd->profiler_lock);
-> -
->         kfd->init_complete =3D true;
->         dev_info(kfd_device, "added device %x:%x\n", kfd->adev->pdev->ven=
-dor,
->                  kfd->adev->pdev->device);
-> --
-> 2.54.0
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index e47a155f4bb1..e8cee3728ade 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -484,7 +484,7 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
+ static ssize_t amdgpu_ras_cper_debugfs_read(struct file *f, char __user *buf,
+ 					    size_t size, loff_t *offset)
+ {
+-	const uint8_t ring_header_size = 12;
++	const u8 ring_header_size = 12;
+ 	struct amdgpu_ring *ring = file_inode(f)->i_private;
+ 	struct ras_cmd_cper_snapshot_req *snapshot_req __free(kfree) =
+ 		kzalloc(sizeof(struct ras_cmd_cper_snapshot_req), GFP_KERNEL);
+@@ -494,49 +494,86 @@ static ssize_t amdgpu_ras_cper_debugfs_read(struct file *f, char __user *buf,
+ 		kzalloc(sizeof(struct ras_cmd_cper_record_req), GFP_KERNEL);
+ 	struct ras_cmd_cper_record_rsp *record_rsp __free(kfree) =
+ 		kzalloc(sizeof(struct ras_cmd_cper_record_rsp), GFP_KERNEL);
+-	uint8_t *ring_header __free(kfree) =
++	u32 *ring_header __free(kfree) =
+ 		kzalloc(ring_header_size, GFP_KERNEL);
+-	uint32_t total_cper_num;
+-	uint64_t start_cper_id;
++	char __user *data_buf = buf;
++	size_t data_size = size;
++	u32 total_cper_num;
++	u64 start_cper_id;
++	u64 cper_offset;
++	bool read_header;
+ 	int r;
+ 
+ 	if (!snapshot_req || !snapshot_rsp || !record_req || !record_rsp ||
+ 	    !ring_header)
+ 		return -ENOMEM;
+ 
+-	if (!(*offset)) {
++	read_header = !(*offset);
++	cper_offset = read_header ? 0 : *offset - 1;
++
++	if (read_header) {
+ 		/* Need at least 12 bytes for the header on the first read */
+ 		if (size < ring_header_size)
+ 			return -EINVAL;
+-
+-		if (copy_to_user(buf, ring_header, ring_header_size))
+-			return -EFAULT;
+-		buf += ring_header_size;
+-		size -= ring_header_size;
++		data_buf += ring_header_size;
++		data_size -= ring_header_size;
+ 	}
+ 
+ 	r = amdgpu_ras_mgr_handle_ras_cmd(ring->adev,
+ 					  RAS_CMD__GET_CPER_SNAPSHOT,
+ 					  snapshot_req, sizeof(struct ras_cmd_cper_snapshot_req),
+ 					  snapshot_rsp, sizeof(struct ras_cmd_cper_snapshot_rsp));
+-	if (r || !snapshot_rsp->total_cper_num)
++	if (r)
+ 		return r;
+ 
++	if (!snapshot_rsp->total_cper_num) {
++		if (!read_header)
++			return 0;
++
++		if (copy_to_user(buf, ring_header, ring_header_size))
++			return -EFAULT;
++
++		*offset = 1;
++		return ring_header_size;
++	}
++
+ 	start_cper_id = snapshot_rsp->start_cper_id;
+ 	total_cper_num = snapshot_rsp->total_cper_num;
++	if (read_header && !data_size) {
++		if (copy_to_user(buf, ring_header, ring_header_size))
++			return -EFAULT;
++
++		*offset = cper_offset + 1;
++		return ring_header_size;
++	}
+ 
+-	record_req->buf_ptr = (uint64_t)(uintptr_t)buf;
+-	record_req->buf_size = size;
+-	record_req->cper_start_id = start_cper_id + *offset;
+-	record_req->cper_num = total_cper_num;
+-	r = amdgpu_ras_mgr_handle_ras_cmd(ring->adev, RAS_CMD__GET_CPER_RECORD,
++	if (!data_size)
++		return 0;
++
++	record_req->buf_ptr = (u64)(uintptr_t)data_buf;
++	record_req->buf_size = data_size;
++	record_req->cper_start_id = start_cper_id + cper_offset;
++	record_req->cper_num = total_cper_num - cper_offset;
++	r = amdgpu_ras_mgr_handle_ras_cmd(ring->adev,
++					  RAS_CMD__GET_CPER_RECORD,
+ 					  record_req, sizeof(struct ras_cmd_cper_record_req),
+ 					  record_rsp, sizeof(struct ras_cmd_cper_record_rsp));
+ 	if (r)
+ 		return r;
++	if (record_rsp->real_data_size > data_size)
++		return -EIO;
++
++	if (read_header) {
++		ring_header[1] = record_rsp->real_data_size >> 2;
++		ring_header[2] = ring_header[1];
++
++		if (copy_to_user(buf, ring_header, ring_header_size))
++			return -EFAULT;
++	}
+ 
+-	r = *offset ? record_rsp->real_data_size : record_rsp->real_data_size + ring_header_size;
+-	(*offset) += record_rsp->real_cper_num;
++	r = read_header ? record_rsp->real_data_size + ring_header_size :
++				record_rsp->real_data_size;
++	*offset = cper_offset + record_rsp->real_cper_num + 1;
+ 
+ 	return r;
+ }
+-- 
+2.34.1
+
