@@ -4,122 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825C4CD4F54
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 20:33:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB13CD6E49
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 21:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D35AB1124F1;
-	Fri, 29 May 2026 20:33:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B9D11254F;
+	Fri, 29 May 2026 21:44:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="as52Ymjk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4ubxVKhD";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011060.outbound.protection.outlook.com [52.101.57.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEE011124F1
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 20:33:55 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010037.outbound.protection.outlook.com [52.101.56.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660F711254F;
+ Fri, 29 May 2026 21:44:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=svFra1Onzs1vQmXTJlrkzVmiQaT/g2MvDZ4oRH775NDMcqZZnCG77kDwNb87le8R/Zxk156Iex3E1Ng4AG0BU3GbHathtWzpNXgW09X92WCKmwwDm0GiQLEDRNn4qj8KrwpGRR3muYffVRej51jXBnliu9VcbceHoS56jGCYVdjuy6ad3PXUzf0DSP1lcxvx9qZptsFFh1C61yVmPCcVHtrmrqZLgh5fBbgXMsc+ZL8FcyIHmIOaE+8KTu+TN/aUTRuxTm53MDKxGWFNWXQuo5F7DJYdTRAH9Vdes5u6UD0/ICTLxeXvV30HMIAgmOmUd3iavkKhbf39cNS2lId8Rw==
+ b=TeLzx1uttS7yqAscHjBTh8u0uUoQwdvMC374jpVXJlZNPRO7DDpcS6eeZv/lz00MhjIYHyXugksG+judgyNbYu5gUz/j2spwmpbKMolVqmjgBhK+JuFlBEw6c/u3voZV8RfpxYrOhB1Jeirw0XM3eDnYfQgK0A3CbrqY7I1LisVGY1kxT2cjuCtjC2KJ4eNwKFnt+45xnRm9bIESjlGYrIqIp4QGLnvLSJbVGhgKwk+MkYSKVdB4QUryGQtIaWJrynstmZOFeUxsU1Qn/mqK5NWwy0EfoVz7gBLI4c8SZIc0gd86re0kaExU9bIUD8y6xPX0/kzGWjPy2fsXCeMklw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d2UiVhSX2qVujtwi4tGnp0AuJa1FH8/8vSZiAmnVo58=;
- b=SADi/WDTNetyaycTJt3Ypao4qN+VNg1Yfi9Opz3R33JM/fM3DeOSljwgCqqjUB0i/WLRBN1lqv5C65vrimvR2ImKGJHvOgXwpTgfE3jMO7nMiQU7egAQZcdBAqyG4LT1FJMcSDqYRd+/eNtu+jqFEqNZSlqTjJw5wae8DDSMuBI5fzJ6yUOS2jZHjUCG3Pe/vektxmVXSoi21cdoSw7tPLi9hY983lVNCbJ7MK7e9660mul8VPHMjQr/17Q23E/YU7i6kMrgEBJaJ3QDfJFvhZG3C4CrVSGoHm+6Sbsa8+AtJPsXcawq+5S8yfBH/k22z69mAs/YZ9KUuHDbWZJSqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ZyhDjEi91hCzhLxseBPDKsJVcPMybmVf1F3pf4K+g0M=;
+ b=tuJXv4o0pIbB7KnuR/0J4W2FQWbMvFKLtQJ7A95DizQ6lIsYSJ9mi2q5RRHe+2EmYK4qiSM05oCWvWWyRgoxnor4XDroCkn3uku+p5g84KkFsK1ewHkMspQZr6E30aAt5ZI0LVJzwx7f5tR21hW0JwZu06otPWB8UJe2MZ92Qg0sxovncL5/+XElAjQgL6Ic/mB0qsrPkAob4TUCWJD81VCzhT6rKJXfxX116Zb07LW9yvMkBndCqqOJGlMNVv7ABpj9vtUfjf79UujsA2kGOfhcOQrHac7TEowfuk8es8VssaouwcYHB7fWJcl20s//PJ1DXXk790+vJBkGJKOJPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d2UiVhSX2qVujtwi4tGnp0AuJa1FH8/8vSZiAmnVo58=;
- b=as52YmjkWe7uBiZO084E7nfaOb4A/jGkLOXYqROz9SYwdXKZzQFfiDghywuQp4R+yv3v1xCvy5yKMYhTJB+xFzHGWVyWr/s8hoJE8nNBlaHt7OnjIGi8nG+7VfuFng/RXvuIHij+cjw2/knBhfCi02zD5Fx8pfoZL+Og0NuXDsk=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 20:33:49 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::699b:1fb2:73:6a33]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::699b:1fb2:73:6a33%6]) with mapi id 15.21.0071.014; Fri, 29 May 2026
- 20:33:49 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: =?iso-8859-1?Q?Timur_Krist=F3f?= <timur.kristof@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Jeremy
- Klarenbeek <jeremy.klarenbeek99@gmail.com>
-Subject: Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
-Thread-Topic: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
-Thread-Index: AQHc52tfXhVK7GP6RkK1Dp8qwG2PbrYcwRSAgABSCoCACHK2pQ==
-Date: Fri, 29 May 2026 20:33:49 +0000
-Message-ID: <BL1PR12MB51440DCA164ED993EA5FAFBFF7162@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20260519084158.72960-1-timur.kristof@gmail.com>
- <CAOGA6Hix7yPkF2o3hapz9zfpRZ5HHjaaJuDcyWjp+Aoihxf9-A@mail.gmail.com>
- <3626507.sQuhbGJ8Bu@timur-hyperion>
-In-Reply-To: <3626507.sQuhbGJ8Bu@timur-hyperion>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T20:33:48.823Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|BL1PR12MB5994:EE_
-x-ms-office365-filtering-correlation-id: 3661670a-9393-46f0-7139-08debdc19708
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|13003099007|4143699003|18002099003|22082099003|56012099006|11063799006|8096899003;
-x-microsoft-antispam-message-info: OCOhE1+HwNB5TzdxldL/2BwLA57ee9Krdzk3ECAK6ZX3epu47m7G5iNwcRwYxC3g9xkq5qtxZ2KH4tQmuU/0qpxP6pGwne4o17O8GHFGxOdUTpuLosvZqhPavwZB4S/f4RXfyU4AfAmgy+t67cZZJ63UK1jxaYwM+BSnERzeAHxiUBE8216v7+aEPKoEWlwLKVJ1hQi9g3H86/RCvz6VKmSJEKzgKnOSIprguV6jdPqIMPMtU+n4nLxSYepmtg9aS/0OioQ1C/AkPztsvEWeYLMvoFRdgWk+jiVWGerTtaJvlUcSC8Uu2cXnkg9lw+OIbQrCC29OL/HjPMQruz+QYuJjmUySAUlrKUSN3nYVHqv2+spKv90ofGmg3UNtfF+ceg7m+p0OkxS2aK782XFv+i2jsneoObge8d3aSF1ymE9hVitT7Z2VWLFLzSZVO3CqeI+ugHpqAT8nqMB5aeRvZ2OJ79pJ7aNOTGZDPWrVC0xoFpIFCO9Jr6XBbcsFBnl11+DjsKdZB5JvFmuiRhN5tkdQ1cm13ShAwcisxopU5tE/VMzbyOLc7NSgXHMZwhW9SF/uNHWNotnLVDFY7bsw0Y2gHF6ykWYnDIdo5TCkFXShG6/O15fTOum4qklTGlLtesxstznfxT4YghjTrQPY+LXhghnCVeMltsnfK6o9I+/1c/fv8XVHP509O8l82g7Neow7V58E3yELBoxjNT3VnA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(13003099007)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?lNu2wMRE3gMTSxVwqS3RsXTBeLChQSyHQsXl5XjPz0eWLoTV9GydDfQobz?=
- =?iso-8859-1?Q?KiL+v6oH7Dmoysy6+7KhyR1uG+LmxdQTE+H4YidIPD1Pwch3ZmFJGbcRaP?=
- =?iso-8859-1?Q?0V5nWj6q1OMFsfUODS1/pGcTBBRR2WYN1MLyYFy+bPW/aEZr40nnObXxMB?=
- =?iso-8859-1?Q?+uB8TCYhuG5srxpTFNGq0XM0dKCWfhNgKorVEgpkfzV+7qd9RyRgRUUQ1f?=
- =?iso-8859-1?Q?lB4G9XmJtcL2Ul70a8eqUJ29UWAjjd/vQDUnXYoaB9IIPAfe72buN2vLXt?=
- =?iso-8859-1?Q?Od9gNwISrTjbMOSgJGeoO19EMhO41q9/p8HC6ovHyQYy62IB+p++dtIqOd?=
- =?iso-8859-1?Q?FI8szdvnOrOQmzkxwuogXwIlxRaR7A58JwrAh4tfbz6jFIzvpxlYgTVMvQ?=
- =?iso-8859-1?Q?ujX5r6HbKrCpGtyntycEkZlv56lhaj0Gn5R75snODJOzLLNnHIw8OMhiUs?=
- =?iso-8859-1?Q?mrFZj/z7RgjFgoZKx8e0fFrv3+xEnEQ7WAbfYziq0ndzkXTVUdZKPEttZz?=
- =?iso-8859-1?Q?V4Xpu0ElvbM8PzZMhuOLWvsQLCQHm2m6/foHtt/EFC/pRhpsh+yDjqxrhS?=
- =?iso-8859-1?Q?1KiTu0MViL/bWz649DiP0Iu91wjvmg04uoN1V1hOLht1mQIT8Ii6wTGOP4?=
- =?iso-8859-1?Q?zSzebp42LRe9P7X3YZV5mCRsOEhMH3unbjYp0zrV5IobUdoj3V1Va3omPs?=
- =?iso-8859-1?Q?q5R4IM+l6fw9wrHaLwxIoGZReOq4izbpTBKkfCMtJgiomZo9PjzSvBXyJf?=
- =?iso-8859-1?Q?MVwdpYPs/Y0Q+pvqrkJhjdO4gA86D0VYTTEEcc5UdHJ50RHelWSXIzJEc6?=
- =?iso-8859-1?Q?yQNZWKiDAQPEsbonvwUZaUtJrginGnpF4M5Y7qzO+llrAF9uvFXd3vDMcn?=
- =?iso-8859-1?Q?T9jWmspUyQiORYrtgVKmABSw7hFJ3AVYR7lL25Yz3cV46/yfsZuurJLJzR?=
- =?iso-8859-1?Q?JGHPgVa/C7SvavUrLiWla4fIV8PebdeOlMekfUoHvGwBavV7P2Qvlca7nK?=
- =?iso-8859-1?Q?6XcQuaab0hRDPVWCNQ+vwA/dAN7P+4U0cq2zFFdyUf2f1psvBztjxaTIuW?=
- =?iso-8859-1?Q?0sZYzwo00WxVq76nFQ0au/DtZO3XvCdjVKAEucGMKXqR6KNJLIQ08WilmZ?=
- =?iso-8859-1?Q?dpZ7JRfITlBO4T8lKs8j3H4n5pWYzqKSKI/EVZR/oKGVuKwPm4cNFjttU8?=
- =?iso-8859-1?Q?7z/sAXfkAhJYNJhPU3HL8mvpsCPcGHBjfRv1aI9HB20jktD15SACa7USnR?=
- =?iso-8859-1?Q?6vw2LWNHhpSWln2mTNZRmOp/eio8cjeAf48iADc+thbzAoEPit7uT18izt?=
- =?iso-8859-1?Q?BCcVBCE7zk3M5R3YKb2I955qFkKxySbiPt+DsLCltmcCl4DzYD7kzL6N9u?=
- =?iso-8859-1?Q?uxqKPw2Cx1Vn7FIjZb6SnEIUYcccwirG/nevl9TrRzxWMs09sMJ/W9gVQG?=
- =?iso-8859-1?Q?T2FAxFGb1Gzd3sG9tY5z6f9qQ4lTA1iyby+vyFCdFdK7kPtegDhI6FloZN?=
- =?iso-8859-1?Q?zSXmouWuucbR9LXqeOzBzUaNa6iSYjaRJbxq8PxXFlvnf5QxbFWqR+HwgI?=
- =?iso-8859-1?Q?kCqFXase6Ta3STUvFa5tk1WO4jhJ5LPcDnbEBoEYm6e4BhiVx0qaY8aull?=
- =?iso-8859-1?Q?Nc0f5mpj3yXfOei9AyWKOUaxSpiSOqfZkzBphU5IFbZ+9mHRxRVYWnfTJl?=
- =?iso-8859-1?Q?aAzpZoRezTAgp/yt6LRJQAHBLI+c0UQtvvXLfjyZxJzHHUeSONFhTeJ8Cc?=
- =?iso-8859-1?Q?T2/0rzcUF2z1jNIYKMQNkf7SwhxMdMHaAwUCIM7vFhXFPM?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51440DCA164ED993EA5FAFBFF7162BL1PR12MB5144namp_"
+ bh=ZyhDjEi91hCzhLxseBPDKsJVcPMybmVf1F3pf4K+g0M=;
+ b=4ubxVKhDyZiaYbMsix/IGZLi4FwibqP9ra6supPUnI2wAfEGdPofGBFs9dzWTOROR9sSxVgf1/aVfqSrSOCs8bYg32YKQrd446G6z/xVmXdAJMWsvvHY2c1qzc4t6e4RYp9ikY88Q5SU/+Kepb05rREzCa62IeAuosU4cWomT/w=
+Received: from CY8PR12CA0008.namprd12.prod.outlook.com (2603:10b6:930:4e::12)
+ by DS7PR12MB6118.namprd12.prod.outlook.com (2603:10b6:8:9a::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.14; Fri, 29 May 2026 21:43:53 +0000
+Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
+ (2603:10b6:930:4e:cafe::8d) by CY8PR12CA0008.outlook.office365.com
+ (2603:10b6:930:4e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 21:43:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 21:43:53 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 16:43:52 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
+ 2026 14:43:52 -0700
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 29 May 2026 16:43:51 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-next-7.2
+Date: Fri, 29 May 2026 17:43:45 -0400
+Message-ID: <20260529214346.2328355-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|DS7PR12MB6118:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50a30add-bb2c-4f4e-30bc-08debdcb60d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|3023799007|56012099006|6133799003|11063799006|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: bohPeCy/E3l+5/v3AnZKqU8MFH+7+jRICw/W1sDZzvNX7AgezE7rSOnr7NdyMXhtfL5RSQZWWsp8GR6adsftLNJqQ/DfJkK9I5QemDZ0N7l9M7TreNMqEm9klrnxNbfBhOfimTCRJ+F8uD5gN2wsUBDxmKOsVIepticxpf9OcaxYBsVQNzskSiFRfyVJJlbKmCFWzw488EazOwQnSfevlWEsNpTi4R6tPBdFafAozg2EksmQwzkzAVR3mSo33rOAyhfGt9UYtAiAVXl3a+YJQCA7fXwplNI+1mDFile2YT3VAUt6HQwOIwv5sVDdBazn6/oKcY37c+TuH8E5yaFdo1ez+PPAq5QMBl6c/R0Kw8dvcvUZfqPFynS23zv1lgGy4zGHBjZUx2FUDgBg0LFZJ14ocz4QnR3Z2ikE0u6TbvG+OIg1b8Y/mBQlJQAkFcP0ezV7VIPQlb+sk9Rohab9/kIzB9pp4i0xnRQlrxUhP1gL+8M82xEU3bqD5tzczoHd3/gwwG7i7LIqW1li71SyP9+d2RcpIAM3yNiyxndX1L1yo3+kGaTBv9sVzfwOU0yIA86kifq9XhZ/9Bg+XNM1qg54RvXWYTxk47fQAHLKY7um9uYHS8rk4Dzj052S8Na41kp/g0XSVvrYjOqwmNu4IZsfuFrq4mmoQrm7BPS00Z+0hK191ot+orCWRbk7oL3p
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(3023799007)(56012099006)(6133799003)(11063799006)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: oCraLmdxsLHxSAA0yYqAvLpkyyW1M1or3hfouTA7j+kH6x3l+uzw+dnLVzIrVjudfCskjXerRBpjeEnNeNSnKXgNVZvv4+iko05arHLwb8fTSHxE5krAh1G87An2dz4E7izJsUMwM1CwIuVBd/SkpzgolcycC3FpeC4WI9athOeod23YFk+c+wbWcHGzutFhZkWN9bvcOYNDm2y594YdK+dRo20LUeNoCyQr+sZnbDxljvV+hnuEC/t/aQHKSpjBjht+27oiF59adaJeDnhZByHTJdoDcRex5OBDQ42ujV6mXOmqDGoE08mvFDIe/2VuhV/DwaSsCjJfYmeEq0WSChwe4FSEDYv9qlxGrJ2R0TlDfZVfPebinn2MsqhWdWlYV8wYNcQLAuDje2PYlBE5DSiqnx2YFoStrRn92L9InT9g5RCWuY4ZeJ+Gim1gz4ro
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3661670a-9393-46f0-7139-08debdc19708
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 20:33:49.3201 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: c21Rr0JAMpgyYn3aiMR725XEx6C9xdeSxXytS7AJGJIvr23FaDljHluf+7PZbqjIZ0HEJWJTytFQJWkSINREew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5994
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 21:43:53.3110 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50a30add-bb2c-4f4e-30bc-08debdcb60d8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,277 +112,228 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51440DCA164ED993EA5FAFBFF7162BL1PR12MB5144namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Hi Dave, Simona,
 
-AMD General
+More stuff for 7.2.
 
-I dug into this a bit more and the ATOM_PP_PLATFORM_CAP_HARDWAREDC check is=
- inverted.  Switching that should fix it.
+The following changes since commit 4cdbba5a16aaf16513b69cc332b1d6f971a44b52:
 
-Alex
+  drm/amdgpu: restructure VM state machine v4 (2026-05-19 11:54:32 -0400)
 
-________________________________
-From: Timur Krist=F3f <timur.kristof@gmail.com>
-Sent: Sunday, May 24, 2026 7:32 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Jeremy Klarenbeek <jeremy.klarenbee=
-k99@gmail.com>
-Subject: Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
+are available in the Git repository at:
 
-Hi Jeremy & Alex,
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.2-2026-05-29
 
-> Apologies for my late reply. I tested the patch series (SI laptop
-> 1002:6606) and the problem remains where the clock speeds don't boost upo=
-n
-> switching to AC. Timur and I investigated this and found 2 problems
+for you to fetch changes up to 470d1ae31d29f90b8998c5c08ee0b267a05fe378:
 
-Thanks for getting back to us on this topic.
-At Alex's suggestion, I removed the clock recalculation and added the check=
- to
-verify ATOM_PP_PLATFORM_CAP_HARDWAREDC. I'm sad to hear that this broke you=
-r
-patches. I apologize for that.
+  drm/amd/display: Add a default case for dc_status_to_str (2026-05-28 16:21:42 -0400)
 
-Unfortunately I don't have a SI laptop GPU to test this stuff, so there was=
- no
-way for me to verify the correctness of those changes before I sent the
-patches to the mailing list.
+----------------------------------------------------------------
+amd-drm-next-7.2-2026-05-29:
 
-> 1. It seems that it is necessary after all to recompute clock speeds when
-> toggling AC/DC. Sending PPSMC_MSG_RunningOnAC on its own has no effect.
-> Each ASIC family's apply_state_adjust_rules appears to be responsible for
-> the switch by setting the max_limits, and this function is only called as
-> part of computing clocks.
+amdgpu:
+- GEM_OP warning fix
+- GEM_OP locking fix
+- Userq fixes
+- DCN 2.1 refclk fix
+- SI fixes
+- HMM fixes
+- Add DC KUNIT tests
+- UML fixes
+- Switch to system_dfl_wq
+- Old DC power state cleanup
+- RAS fixes
 
-That's right. I took another look at:
-si_apply_state_adjust_rules()
-smu7_apply_state_adjust_rules()
+amdkfd:
+- svm_range_set_attr locking fix
+- CRIU restore fix
+- KFD debugger fix
 
-Both of these rely on adev->pm.ac_power when determining max_limits, and th=
-ey
-set the maximum clocks accordingly. We should indeed re-calculate these clo=
-cks
-on both SI and SMU7 when there is an AC/DC switch to make sure to apply the
-updated max_limits. Additionally I think we should probably lock the mutexe=
-s
-to ensure that we are sending only one message at a time.
+radeon:
+- Use struct drm_edid instead of struct edid
 
-My suggestion would be to call pm_compute_clocks() inside notify_ac_dc(), a=
-nd
-also to lock the mutexes:
-https://gitlab.freedesktop.org/Venemo/linux/-/commit/
-e98279dff480cc297cbb1fe50c2b71ebd65b9576
+----------------------------------------------------------------
+Alex Hung (7):
+      drm/amd/display: Add KUnit test for HDCP process_output
+      drm/amd/display: Add KUnit test for colorop TF bitmasks
+      drm/amd/display: Add KUnit test for color helpers
+      drm/amd/display: Add KUnit test for PSR function
+      drm/amd/display: Add KUnit test for replay
+      drm/amd/display: Add KUnit test for ISM functions
+      drm/amdkfd: Fix UML build guards for x86_64-only code
 
-if that works, I'd like to submit that patch (and will also port it to SMU7=
-).
+Aurabindo Pillai (1):
+      drm/amd/display: Add KUnit test for CRC function
 
-> I'm considering removing the .notify_ac_dc field
-> from the IP block entirely and just calling .pm_compute_clocks from
-> amdgpu_pm_acpi_event_handler, but I only know for certain that this works
-> for my GPU.
+Chenglei Xie (2):
+      drm/amdgpu: bound SR-IOV RAS CPER dump parsing against used_size
+      drm/amdgpu: Fix TOCTOU on UniRAS  command response size
 
-I don't agree with that. amdgpu_dpm is generic between all supported HW
-generations and shouldn't contain HW generation specific code. Also, it cle=
-arly
-doesn't work the same way on every GPU generation, so we shouldn't generali=
-ze.
+Christian König (3):
+      drm/amdgpu: fix amdgpu_hmm_range_get_pages
+      drm/amdgpu: fix calling VM invalidation in amdgpu_hmm_invalidate_gfx
+      drm/amdgpu: fix amdgpu_vm_bo_reset_state_machine
 
-Furthermore, we should minimize the amount of messages we send to the SMU, =
-so
-we shouldn't send the RunningOnAC message every time we recompute the clock=
-s,
-only when it actually switches to AC.
+David Francis (1):
+      drm/amdkfd: Check for pdd drm file first in CRIU restore path
 
-> 2. The ATOM_PP_PLATFORM_CAP_HARDWAREDC flag is enabled for my GPU, causin=
-g
-> PPSMC_MSG_RunningOnAC to never be sent. Either the flag is enabled
-> erroneously, or we're interpreting its intended usage incorrectly.
+Eric Huang (2):
+      drm/amdkfd: fix NULL pointer bug in svm_range_set_attr
+      drm/amdkfd: fix a vulnerability of integer overflow in kfd debugger
 
-It's hard to judge that without having access to the hardware or docs.
-Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary on your
-laptop? Isn't it enough to just re-compute the clocks?
+Ivan Lipski (3):
+      drm/amd/display: Write REFCLK to 48MHz on DCN21
+      drm/amd/display: Initialize dsc_caps to 0
+      drm/amd/display: Add a default case for dc_status_to_str
 
-Can you check what exactly is the value of adev->pm.dpm.platform_caps on yo=
-ur
-laptop? Maybe we are looking at the wrong flag, or maybe the HARDWAREDC fla=
-g
-only refers to the AC->DC transition and not the DC->AC transition.
+Jeremy Klarenbeek (2):
+      drm/amd/pm/si: Fix updating clock limits from power states
+      drm/amd/pm/si: Notify the SMC when switching to AC
 
-This is just guesswork on my part, but maybe we should look at the
-SBIOSPOWERSOURCE flag instead, which is explained in pptable_v1_0.h:
-/* This cap indicates whether power source notificaiton is done by SBIOS
-directly. */
-Can you check if this flag is set on your laptop?
+Joshua Peisach (2):
+      drm/radeon/radeon_connectors: use struct drm_edid instead of struct edid
+      drm/radeon/radeon_connectors: remove radeon_connector_free_edid
 
-Thanks & best regards,
-Timur
+Marco Crivellari (2):
+      drm/amd/display: Replace use of system_unbound_wq with system_dfl_wq
+      drm/amdgpu: Replace use of system_unbound_wq with system_dfl_wq
 
+Mario Limonciello (1):
+      drm/amd: Add dedicated helper for amdgpu_device_find_parent()
 
+Michael Bommarito (1):
+      drm/amdgpu: fix lock leak on ENOMEM in AMDGPU_GEM_OP_GET_MAPPING_INFO
 
+Ray Wu (1):
+      drm/amd/display: Fix amdgpu_dm KUnit allmodconfig build
 
---_000_BL1PR12MB51440DCA164ED993EA5FAFBFF7162BL1PR12MB5144namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Stanley.Yang (3):
+      drm/amdgpu: fix potential overflow in fs_info.debugfs_name
+      drm/amdgpu: init locals in umc_v12_0_convert_error_address
+      drm/amd/ras: cap pending_ecc_list size
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif;">
-<span style=3D"font-size: 12pt; color: rgb(0, 0, 0);">I dug into this a bit=
- more and the
-</span><span style=3D"font-size: 11pt; color: rgb(0, 0, 0);">ATOM_PP_PLATFO=
-RM_CAP_HARDWAREDC check is inverted.&nbsp; Switching that should fix it.</s=
-pan></div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Alex</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Timur Krist=F3f &lt;t=
-imur.kristof@gmail.com&gt;<br>
-<b>Sent:</b> Sunday, May 24, 2026 7:32 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Jeremy Klarenbee=
-k &lt;jeremy.klarenbeek99@gmail.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hi Jeremy &amp; Alex,<br>
-<br>
-&gt; Apologies for my late reply. I tested the patch series (SI laptop<br>
-&gt; 1002:6606) and the problem remains where the clock speeds don't boost =
-upon<br>
-&gt; switching to AC. Timur and I investigated this and found 2 problems<br=
->
-<br>
-Thanks for getting back to us on this topic.<br>
-At Alex's suggestion, I removed the clock recalculation and added the check=
- to <br>
-verify ATOM_PP_PLATFORM_CAP_HARDWAREDC. I'm sad to hear that this broke you=
-r <br>
-patches. I apologize for that.<br>
-<br>
-Unfortunately I don't have a SI laptop GPU to test this stuff, so there was=
- no <br>
-way for me to verify the correctness of those changes before I sent the <br=
->
-patches to the mailing list.<br>
-<br>
-&gt; 1. It seems that it is necessary after all to recompute clock speeds w=
-hen<br>
-&gt; toggling AC/DC. Sending PPSMC_MSG_RunningOnAC on its own has no effect=
-.<br>
-&gt; Each ASIC family's apply_state_adjust_rules appears to be responsible =
-for<br>
-&gt; the switch by setting the max_limits, and this function is only called=
- as<br>
-&gt; part of computing clocks.<br>
-<br>
-That's right. I took another look at:<br>
-si_apply_state_adjust_rules()<br>
-smu7_apply_state_adjust_rules()<br>
-<br>
-Both of these rely on adev-&gt;pm.ac_power when determining max_limits, and=
- they <br>
-set the maximum clocks accordingly. We should indeed re-calculate these clo=
-cks <br>
-on both SI and SMU7 when there is an AC/DC switch to make sure to apply the=
- <br>
-updated max_limits. Additionally I think we should probably lock the mutexe=
-s <br>
-to ensure that we are sending only one message at a time.<br>
-<br>
-My suggestion would be to call pm_compute_clocks() inside notify_ac_dc(), a=
-nd <br>
-also to lock the mutexes:<br>
-<a href=3D"https://gitlab.freedesktop.org/Venemo/linux/-/commit/">https://g=
-itlab.freedesktop.org/Venemo/linux/-/commit/</a><br>
-e98279dff480cc297cbb1fe50c2b71ebd65b9576<br>
-<br>
-if that works, I'd like to submit that patch (and will also port it to SMU7=
-).<br>
-<br>
-&gt; I'm considering removing the .notify_ac_dc field<br>
-&gt; from the IP block entirely and just calling .pm_compute_clocks from<br=
->
-&gt; amdgpu_pm_acpi_event_handler, but I only know for certain that this wo=
-rks<br>
-&gt; for my GPU.<br>
-<br>
-I don't agree with that. amdgpu_dpm is generic between all supported HW <br=
->
-generations and shouldn't contain HW generation specific code. Also, it cle=
-arly <br>
-doesn't work the same way on every GPU generation, so we shouldn't generali=
-ze.<br>
-<br>
-Furthermore, we should minimize the amount of messages we send to the SMU, =
-so <br>
-we shouldn't send the RunningOnAC message every time we recompute the clock=
-s, <br>
-only when it actually switches to AC.<br>
-<br>
-&gt; 2. The ATOM_PP_PLATFORM_CAP_HARDWAREDC flag is enabled for my GPU, cau=
-sing<br>
-&gt; PPSMC_MSG_RunningOnAC to never be sent. Either the flag is enabled<br>
-&gt; erroneously, or we're interpreting its intended usage incorrectly.<br>
-<br>
-It's hard to judge that without having access to the hardware or docs.<br>
-Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary on your <=
-br>
-laptop? Isn't it enough to just re-compute the clocks?<br>
-<br>
-Can you check what exactly is the value of adev-&gt;pm.dpm.platform_caps on=
- your <br>
-laptop? Maybe we are looking at the wrong flag, or maybe the HARDWAREDC fla=
-g <br>
-only refers to the AC-&gt;DC transition and not the DC-&gt;AC transition.<b=
-r>
-<br>
-This is just guesswork on my part, but maybe we should look at the <br>
-SBIOSPOWERSOURCE flag instead, which is explained in pptable_v1_0.h:<br>
-/* This cap indicates whether power source notificaiton is done by SBIOS <b=
-r>
-directly. */<br>
-Can you check if this flag is set on your laptop?<br>
-<br>
-Thanks &amp; best regards,<br>
-Timur<br>
-<br>
-<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+Sunil Khatri (9):
+      drm/amdgpu/userq: Fix doorbell object cleanup of queue
+      drm/amdgpu/userq: Fix the mutex_init cleanup for fence_drv_lock
+      drm/amdgpu: simplify return value in amdgpu_userq_get_doorbell_index
+      drm/amdgpu/userq: add amdgpu_bo_unpin when amdgpu_ttm_alloc_gart fails
+      drm/amdgpu/userq: reserve root bo without interruption
+      drm/amdgpu/userq: make sure queue is valid in the hang_detect_work
+      drm/amdgpu/userq: remove amdgpu_userq_create/destroy_object wrapper
+      drm/amdgpu/userq: move mqd_destroy to later stage to keep core obj valid
+      drm/amdgpu/userq: use array instead of list for userq_vas
 
---_000_BL1PR12MB51440DCA164ED993EA5FAFBFF7162BL1PR12MB5144namp_--
+Timur Kristóf (17):
+      drm/amd/display: Delete unimplemented dm_pp_apply_power_level_change_request() (v2)
+      drm/amd/display: Delete dce_get_required_clocks_state()
+      drm/amd/display: Remove min/max clock levels from clk_mgr (v2)
+      drm/amd/display: Delete max_clocks_state
+      drm/amd/display: Set max supported display clock without max_clks_by_state (v2)
+      drm/amd/display: Delete max_clks_by_state from DCE clock manager (v2)
+      drm/amd/display: Delete disp_clk_voltage from integrated info (v2)
+      drm/amd/display: Delete dm_pp_clocks_state
+      drm/amd/pm: Delete unused get_display_power_level() function
+      drm/amd/pm: Delete dummy get_dal_power_level implementations
+      drm/amd/pm: Delete non-functional SMU8 get_dal_power_level implementation
+      drm/amd/pm: Delete vddc_dep_on_dal_pwrl
+      drm/amd/pm: Delete get_dal_power_level
+      drm/amd/pm: Delete PP_DAL_POWERLEVEL
+      drm/amd/pm/si: Disregard vblank time when no displays are connected
+      drm/amd/pm: Rename enable_bapm() to notify_ac_dc()
+      drm/amd/pm/smu7: Notify SMU7 of DC->AC switch
+
+Ziyi Guo (1):
+      drm/amdgpu: check num_entries in GEM_OP GET_MAPPING_INFO
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   44 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |   11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c            |   17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  207 +---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |   31 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   24 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   47 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             |    3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   10 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |    6 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |    8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |    3 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |    2 +-
+ drivers/gpu/drm/amd/display/Kconfig                |   12 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/Makefile     |    5 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |    2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |    2 -
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    |   65 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |   89 ++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |    4 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |   17 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h  |   10 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |    5 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |   13 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |   26 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h  |   10 +
+ .../display/amdgpu_dm/amdgpu_dm_kunit_helpers.h    |   19 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   |   55 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |    6 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |    5 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |    3 +
+ .../drm/amd/display/amdgpu_dm/tests/.kunitconfig   |   14 +
+ .../gpu/drm/amd/display/amdgpu_dm/tests/Makefile   |   18 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c | 1071 ++++++++++++++++++++
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |  161 +++
+ .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |  121 +++
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |  175 ++++
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |  636 ++++++++++++
+ .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  255 +++++
+ .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |  206 ++++
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |   36 -
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   18 -
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |  144 +--
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h    |    3 -
+ .../amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c |   25 -
+ .../amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c |   41 -
+ .../amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c |   16 -
+ drivers/gpu/drm/amd/display/dc/core/dc_debug.c     |    4 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c |   15 +-
+ drivers/gpu/drm/amd/display/dc/dm_services.h       |    8 -
+ drivers/gpu/drm/amd/display/dc/dm_services_types.h |   30 -
+ .../drm/amd/display/dc/inc/hw/clk_mgr_internal.h   |   10 -
+ .../amd/display/include/grph_object_ctrl_defs.h    |    9 -
+ drivers/gpu/drm/amd/include/dm_pp_interface.h      |   19 -
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |    4 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |    8 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c         |    6 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |   50 +-
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |   34 +-
+ .../drm/amd/pm/powerplay/hwmgr/hardwaremanager.c   |   10 -
+ .../drm/amd/pm/powerplay/hwmgr/processpptables.c   |    1 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |   47 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |   15 +
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    |   63 --
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |   18 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |   16 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |   17 -
+ .../gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h |    3 -
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h       |    5 +-
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c  |   16 +-
+ drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h          |    9 +
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c          |   35 +
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.h          |   12 +
+ drivers/gpu/drm/radeon/radeon_audio.c              |    4 +-
+ drivers/gpu/drm/radeon/radeon_combios.c            |    4 +-
+ drivers/gpu/drm/radeon/radeon_connectors.c         |   60 +-
+ drivers/gpu/drm/radeon/radeon_mode.h               |    4 +-
+ 80 files changed, 3307 insertions(+), 955 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_kunit_helpers.h
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/.kunitconfig
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_replay_test.c
