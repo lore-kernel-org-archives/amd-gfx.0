@@ -4,92 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F70CD4F54
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:31:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02470CD6E51
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:46:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 672C310FF34;
-	Fri, 29 May 2026 13:31:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8211F10FF66;
+	Fri, 29 May 2026 13:46:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EwAFG1kN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HbuDu6gi";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1D010FF34
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 13:31:53 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-1364ff8099cso212252c88.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:31:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780061513; cv=none;
- d=google.com; s=arc-20240605;
- b=R17ZfBbYAwIVrTjAEvwL3wlQ15/VkVm36xwSLdmg9mkeUnLYOSckavWj9eUhZh6uLj
- EGIliljynAk+3qs8JUY5x/0u+5AnKzybfP7Ym25aBDd3ZcH/MbFG5/W+tJgt7UbDneYJ
- prwB7fTfmucSuEM4wRfuXJQpVPmSBoi4CSEJ+D00C0seLewgJXhzGMpcs9FyhZhpiAfI
- 4GI8AnIZqe4VDcDEzVa+B4bfqDVbqIgHiKfbBwNc/rpWA4K3tmDVF1N5O6dOLSxtwTRJ
- c7NDg5AxObBaOKH6FJHRNrrEh/+8Hr46kKAaixlfsWXhgUk6ChgPtBTnsV6bwp/tLFNJ
- VDyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=N76d3FioC56PlAfwbkYxb7XiDYGFApNJACOLa/DfZvw=;
- fh=HMeKoZvWaIsiYsB3u5W569+HDQBe2pDN3xmC6Pl+0s8=;
- b=YgkXgcMT1zApTY2CdQQTJxG/z7DvPzsune5FtQRWx/iZJ78YjM8G8LCUclcG1OeOvd
- TYj4gsGRmbd/ukOpFxvfllIhunQo9K25V9DOGkyBV8k9ImMO9QgRRRui/Rq3UaByMaUU
- 4sNsj/D8S0BwKQntwJdQcgaXyyubae4NG+5Vc+7mvZUDBoIawuYvzf7YYOfJqyV9ojBD
- gphiiv9/6Mj5nXGYAhPACPhzRUO34K9FSxTzroc/B9NAvPGSSAt/iIECOEL/JVhGjRJF
- Y49SuQzBLhYVYUJXYeYAPV59gEjpHhJQtts1/FFcrbVSwpltYrU8McXC8sHHkwaQH7Ei
- xbCg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780061513; x=1780666313; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=N76d3FioC56PlAfwbkYxb7XiDYGFApNJACOLa/DfZvw=;
- b=EwAFG1kNH/J30okxVoDmqBi32I8U6w+O0/oQza93jl+/PulG97Z/1rzcgK0rsgVIrx
- o5Txc9z95y8TB0tWYP+mdvn8n2IjQRMHktmB2m7n1yPpYJ8v4IGvGeAAwObH2d3HnYwx
- SUrzynOmxdzFEX7g6nSlBSUblkXm1LUzH3FhPNpOeo7tkLWG31FrTwmuFiAb3cKroCU8
- Ktz8sWUXHtS/XBTqMeTT+Gp+1ya5FgKyB5LHUTgG7d9O5lDFXJR+S95Z0oSj4cm1Yk2i
- bI0E7kb4kgss6ByJG53pf53muoIOAdqUKuo1b4UK9rOwNcnSCgFGJF+oqhEWXYsSbxXm
- Pcdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780061513; x=1780666313;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=N76d3FioC56PlAfwbkYxb7XiDYGFApNJACOLa/DfZvw=;
- b=CPQztUuqkN60vL2VhzhRlLzjCkyrvZTzpNOz1Avag12EOVKURJReDFhTzBtY1xLO3N
- jPixRajtVVj3OZa3lIW57R/UHpnYABKoep394XOEdE7GagO6BvF2IOTksuiAuhKPBqDB
- WWwE9yvmtfnd+frut0GUgk/M3KHftcrssabJ1JkuRvWNeGM2n/ZNhOwx7uuxY1My034G
- UxygAO+v8npwkz4YQnYfdfLCuJGwVx6SO1fyMzkppsIzDgD+aTeB/sZpXDhaWTfKKWvl
- uqK4Sqba5ttyvO8I0923CHmvsnSJw+pX0VHNVoS4cbYFu9LCgM4Z1TlRI20jnoI9GWJT
- ciKQ==
-X-Gm-Message-State: AOJu0YwZqssBmwDykEDUNffVBVac3UooNB/cA0hoMPMYZkEfl+A/+OO+
- 7W5us2wv9UNCiMEVOGpAdy66n33DuBxWwOIa50SLPafwL1J9bVtVMIfNqDLIExKl342Z12IIN0n
- NZKAF2B6pDxUQHV4kSPA+40vxMcLKIJ7kOw==
-X-Gm-Gg: Acq92OEHVNiFAkyNpCZM4IeCn+1QSNEx7DEqiTUQSd+kcHSGTIHR0U72MXD1tMXEt9X
- ZkAizrr0fdYi+2hEenpnt3YIIRcQRr0P4dL3OcxQX9exUWCMO4Ezt2iSKHPQrKv+Ec4L0fyld/u
- 7yieS//Eq/3Aq2i7JsSk2OHhmap1RAaYXtI2wSMlfU+dBcm3jQRc6sB2MSCbJ09/wybp8Wt+gHV
- cr3JF933vUbmdDOCI5rtYYD1pNzZCwJBGB8H/pOe66+hNCJAdvc2mNJ7NvV5IOWgjoc+mHUU0vs
- RSWx96Ay8UVToWRjjeYrO76Kr4xejjETpuRekv9U522kjeu6VmNRfqeUmhpFgaNZBZqj1NY1MsS
- F6HvI
-X-Received: by 2002:a05:7022:f92:b0:134:feba:1eb8 with SMTP id
- a92af1059eb24-137aecc65f7mr606068c88.3.1780061512811; Fri, 29 May 2026
- 06:31:52 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD85910E187;
+ Fri, 29 May 2026 13:46:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780062404; x=1811598404;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=KahDASigffRrYNY2fcECjx0aBmuc/lCu2aotDwcoHh0=;
+ b=HbuDu6giLhsMv81S3KduuJ8PaUmhDnSLGs5o8bwTEmSp2mvexP1eHtkG
+ bb+VKubLGkJwqTT6x+gsJ+5wCDOz8OOWKYNWAD1Q50yLAU8RHheXFh7DP
+ F6meR/bL6IPsIGDYMctJmmHBho0suluDtXM+nhO5LEByIhiw1dM5fDE/y
+ EwBfV+x2KIfkWpgos7WtZp7T7vQ8nRy2LzXvWICpec9z6DMhaC2RVc17i
+ YxSNjNWPyeBTCIDbaGkkCKZ/lCTFkjHYR6QPyCbPh1FOSqqBHqzTo3OX7
+ UySvqSLRpeJIxXdO8ufIuzhE2UWQ15HDmCIP+tbt/+DfW5PZ8iI5y46n/ g==;
+X-CSE-ConnectionGUID: skarcxdbQO6zDQ5oLLPuTQ==
+X-CSE-MsgGUID: rOuONZ80QGCZ/i2y5oFyyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11801"; a="84800477"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="84800477"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 06:46:43 -0700
+X-CSE-ConnectionGUID: qs/w7OeFSaKMoNNE015oFw==
+X-CSE-MsgGUID: 0cI2WQZgQ0qk3t7kkDhJUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="247950446"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.147])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 06:46:36 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Alex Hung <alex.hung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de
+Cc: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>, Xaver Hugl
+ <xaver.hugl@kde.org>, Pekka Paalanen <pekka.paalanen@collabora.com>, Louis
+ Chauvet <louis.chauvet@bootlin.com>, Matthew Schwartz
+ <matthew.schwartz@linux.dev>, John Harrison <John.Harrison@Igalia.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry
+ Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] drm/atomic: only add states of active or transient
+ active colorops
+In-Reply-To: <e8aaf4da-8fb6-4d6a-95d6-563ac0562b49@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260526142940.504911-1-mwen@igalia.com>
+ <20260526142940.504911-2-mwen@igalia.com>
+ <e8aaf4da-8fb6-4d6a-95d6-563ac0562b49@amd.com>
+Date: Fri, 29 May 2026 16:46:32 +0300
+Message-ID: <4452e675c4853faf665b520a8932a960946206bb@intel.com>
 MIME-Version: 1.0
-References: <20260529015528.524595-1-qiang.yu@amd.com>
-In-Reply-To: <20260529015528.524595-1-qiang.yu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 29 May 2026 09:31:41 -0400
-X-Gm-Features: AVHnY4LfxCcs8SfjPvegm6DdvSkvUF3q1Pxa007DM3dbYUonCaO3gbKFdWgOz1g
-Message-ID: <CADnq5_OccD8uqrsnpW9zrQKCbaqriF7AF0mM+Td8ZJdJKgsp+Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: initialize iter.start in
- amdgpu_devcoredump_format
-To: Qiang Yu <qiang.yu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,51 +85,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 28, 2026 at 9:56=E2=80=AFPM Qiang Yu <qiang.yu@amd.com> wrote:
+On Tue, 26 May 2026, Alex Hung <alex.hung@amd.com> wrote:
+> On 5/26/26 08:17, Melissa Wen wrote:
+>> Only consider affected colorop states those that are part of an active
+>> color pipeline or a pipeline that is about to be activated or
+>> deactivated in the same atomic commit, i.e., colorop is in the chain of
+>> old/new plane color pipeline property. To cover color_pipeline
+>> deactivation, remove the condition for plane_state->color_pipeline.
+>> 
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++++++-----
+>>   1 file changed, 58 insertions(+), 9 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 170de30c28ae..4fb3a23e862a 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+>> @@ -812,6 +812,59 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
+>>   	return 0;
+>>   }
+>>   
+>> +/*
+>> + * This function walks old and new plane state color pipelines and adds all
+>> + * colorops in use by @plane to the atomic configuration @state. This is useful
+>> + * when an atomic commit needs to check all currently enabled or about to be
+>> + * enabled colorop on @plane, e.g. when changing the mode. This also avoids
+>> + * including colorop states that are not part of the atomic state.
+>> + *
+>> + * Returns:
+>> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
+>> + * then the w/w mutex code has detected a deadlock and the entire atomic
+>> + * sequence must be restarted. All other errors are fatal.
+>> + */
+>> +static int
+>> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+>> +				 struct drm_plane *plane)
+>> +{
+>> +	struct drm_colorop *colorop;
+>> +	struct drm_colorop_state *colorop_state;
+>> +	struct drm_plane_state *new_plane_state, *old_plane_state;
+>> +
+>> +	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+>> +	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>> +
+>> +	if (WARN_ON(!new_plane_state || !old_plane_state))
+>> +		return -EINVAL;
+>> +
+>> +	drm_dbg_atomic(plane->dev,
+>> +		       "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
+>> +		       plane->base.id, plane->name);
+>> +
+>> +	for (colorop = new_plane_state->color_pipeline;
+>> +	     colorop;
+>> +	     colorop = colorop->next) {
 >
-> From: Qiang Yu <Qiang.Yu@amd.com>
+> This for-loop is used 5 times in this patchset. How about a macro in 
+> drm_colorop.h?
 >
-> This fixes read /sys/class/drm/cardN/device/devcoredump/data
-> return empty content sometimes.
->
-> amdgpu_devcoredump_format() leaves struct drm_print_iterator's
-> .start field uninitialized on the stack before passing it to
-> drm_coredump_printer(). __drm_puts_coredump() compares the running
-> .offset against .start to decide whether to skip or copy each
-> chunk:
->
->         if (iterator->offset < iterator->start) {
->                 if (iterator->offset + len <=3D iterator->start) {
->                         iterator->offset +=3D len;
->                         return;
->                 }
->                 ...
->         }
->
-> Fixes: 4f28b4930f8e ("drm/amdgpu: move devcoredump generation to a worker=
-")
-> Signed-off-by: Qiang Yu <Qiang.Yu@amd.com>
+> #define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
+>      for ((colorop) = (pipeline); (colorop); (colorop) = (colorop)->next)
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Is there a reason struct drm_colorop reinvents lists and doesn't have
+struct list_head node?
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 1 +
->  1 file changed, 1 insertion(+)
+BR,
+Jani.
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index 46043a1479e4..63d7ef78c025 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -219,6 +219,7 @@ amdgpu_devcoredump_format(char *buffer, size_t count,=
- struct amdgpu_coredump_inf
->         u32 ring_idx, off;
+>> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>> +		if (IS_ERR(colorop_state))
+>> +			return PTR_ERR(colorop_state);
+>> +	}
+>> +
+>> +	/* Same color pipeline as new; no point walking old. */
+>> +	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
+>> +		return 0;
+>> +
+>> +	for (colorop = old_plane_state->color_pipeline;
+>> +	     colorop;
+>> +	     colorop = colorop->next) {
+>> +		colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>> +		if (IS_ERR(colorop_state))
+>> +			return PTR_ERR(colorop_state);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>>   					   const struct drm_colorop_state *state)
+>>   {
+>> @@ -1591,11 +1644,9 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
+>>   		if (IS_ERR(plane_state))
+>>   			return PTR_ERR(plane_state);
+>>   
+>> -		if (plane_state->color_pipeline) {
+>> -			ret = drm_atomic_add_affected_colorops(state, plane);
+>> -			if (ret)
+>> -				return ret;
+>> -		}
+>> +		ret = drm_atomic_add_pipeline_colorops(state, plane);
+>> +		if (ret)
+>> +			return ret;
+>>   	}
+>>   	return 0;
+>>   }
+>> @@ -1607,10 +1658,8 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
+>>    * @plane: DRM plane
+>>    *
+>>    * This function walks the current configuration and adds all colorops
+>> - * currently used by @plane to the atomic configuration @state. This is useful
+>> - * when an atomic commit also needs to check all currently enabled colorop on
+>> - * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
+>> - * to avoid special code to force-enable all colorops.
+>> + * currently used by @plane to the atomic configuration @state. It's useful
+>> + * when re-enabling a plane to avoid special code to force-enable all colorops.
+>>    *
+>>    * Since acquiring a colorop state will always also acquire the w/w mutex of the
+>>    * current plane for that colorop (if there is any) adding all the colorop states for
 >
->         iter.data =3D buffer;
-> +       iter.start =3D 0;
->         iter.offset =3D 0;
->         iter.remain =3D count;
->
-> --
-> 2.43.0
->
+
+-- 
+Jani Nikula, Intel
