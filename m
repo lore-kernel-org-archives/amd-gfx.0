@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CC1CD6E51
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 11:40:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA90CD6E52
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 11:40:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D09B10FDCF;
-	Fri, 29 May 2026 11:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C551A10FDCD;
+	Fri, 29 May 2026 11:40:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rvfmiMye";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FT64pAP0";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFC0910FDCC
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 11:40:41 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49050ff7cbdso64088275e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 04:40:41 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2B010FDC9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 11:40:44 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-490388fd0dbso81570275e9.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 04:40:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780054840; x=1780659640; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780054843; x=1780659643; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to;
- bh=cvfz8ujyA2xkHPxajFMCd0JlBWKDJOBIkdLN3eGnLfI=;
- b=rvfmiMye45wBWliwZatLu4M2+dl2dtJfX12K1FP1ThO6F+hOagdExce7GU+THKh4bW
- kf9SL/YRJdJw2e05n57MP+9u0Rgpmust2hIZtZootsO/U0Yvcy7Ij/go0mkpE1AMOcKS
- T0QxMKto0WjVkWGLSLA6lHm9oaeLoDdxtdM8OQcyBKr3sonvMkCvv0QEiUGXqncd+hob
- w+X5PTPlbQq6s+YTRs5h92KPa5HDi/bZRPQBk2n9brjlVnxgzWl7E5OVhwYjBoqt4KGi
- cNruMchtU5Or2Qn+cqlhKXeePp0e/xQLa/DB/oHMjvQB0ATsfbZFrEmSnOkplq6567p+
- MBPg==
+ bh=GnMp1GSTDPXdGTWJVEOChP+RS3BZG3+3IddhjYhK8wk=;
+ b=FT64pAP0DO2sRtg4+oxkk9ZfrFQ8Jj86ZWE3T6hyZ5g9o0LqPvXBrvb3FqzKFwnxWo
+ S31r/vx+dadeTSuP06HmWV8Qio1gE3uaFXJVIk6E2cB55/XBZKfqadegXCcrPF03XdZ0
+ 205kgpIjyd6HBM6qHPI5PGv5SVj8gDeXzpjLUmKliixOYfnbWNXWIaW57g88888GOREx
+ B8Tq6t0gA2P1zPEmo5wtbIQMj94qV1ixN+Pd3I28uznxEX+pg+eMySGE7H5P706Vv8yd
+ yuZkP/tBmkAlMarfYjCBazrs2UBYBhsfc0iMDPS4LHjkDzhmD+NCudjiY9ukigg9Wkf0
+ uThQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780054840; x=1780659640;
+ d=1e100.net; s=20251104; t=1780054843; x=1780659643;
  h=content-transfer-encoding:reply-to:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cvfz8ujyA2xkHPxajFMCd0JlBWKDJOBIkdLN3eGnLfI=;
- b=tHmocf9nuVWp5NQ+Q95Y/9Cgb93/+kyZSbhhc/s/bNRghTQ7sRuqJBCphpJO6SnLfC
- urjUSvYp773Nzz9L4mrnFzAlq24VJnQkN/PnFRfNvtBoCNur1EyXtm9yg/ifDF2P6toq
- ziwKAONNiUFocLRxWZ+TK3JoJ6gHoGQvL3LFciVNupO0Q+S47Qhg2yX36BuCB1r9aJvi
- 1zYkRaiz0mDk/FBKADoW4ETH0V/I9sBkU/K6YzqCF4uhPCexP4OCujrPL9avm6nKQ5Gc
- xlgAI8J8s9arCuBufrOQAXDJyJdOVSAwtU6PuEo0eI9kV+bQUWCvu2ia2iERnX5LZLne
- hfSQ==
-X-Gm-Message-State: AOJu0YzsMBHuaQamIfU+FvA6m0XlA/zYTafuPKHN2Y3DLFKyUi/DwpDM
- WRJweLp0mCCYsgnzKZ/Jl10lRUGWMDMj5yCHkI+rdj9JDfSS69qpYCXX
-X-Gm-Gg: Acq92OG6hpcnCL3vmV1io8+7bBCEkZzpoZPpA48z3Rc4K3J/9X9QPDVdX7hh9GFAe99
- wR9bAuoMn+xyDIKy+Jf/lDLUUe7ZXlpV5h0CZXYf9BHZuWqZoD5YCSHbjfNaSn7L3Sp/Ru0WSMg
- TmXohwkEGrd9IkJn4mE+XtAuk274Kj1hmDQpvbgK5KMRaE+CtrHa7u8akQij4bVgfnhd5VIAZ24
- Hg8YbjqP3aHqc2VkN6OrNfPs2S9L3NX/JzjLuRJ5JFmExAEfaWX+nuYxtUByPQp6DeCNthAJLKA
- ii93zWBgECBkv9b4N1A/9b4NSTf3xJ0F6biuydD+h1UHhu88g6xtRW5Q39ys7lasB95nZ06YE6F
- M9VVQPjswq/sH9cQwOwRIraDXKVjUjEBOFw7FQN5nU+eTgrdg4hSBACcbhdFxp0dZiTUVeVBnR0
- UGDxZobj0CDVzzoSeragwv0D6UeZfhibyENya/X6qzNLU=
-X-Received: by 2002:a05:600c:6287:b0:488:a882:c7 with SMTP id
- 5b1f17b1804b1-4909c0bce7bmr48357325e9.25.1780054840408; 
- Fri, 29 May 2026 04:40:40 -0700 (PDT)
+ bh=GnMp1GSTDPXdGTWJVEOChP+RS3BZG3+3IddhjYhK8wk=;
+ b=Dr/mmhD1qjk4PdvFxZPIFDRNIbdDa6FoGSbhAAxklOieuHGKWJMoY/sF5E3s+6xNiZ
+ r7mIwPQAOrmjQnYfLdBKp3vBCofYk/e+0lsZuIC17tsrExNlB7+LNHNETayr8+6Ymdm0
+ FprswC9jfOtsUpznCT01V+EOh6IXmF831g+oDQ+Qjnx6HQh1Bdbin1UvIC2CqzCJgEv5
+ qwcjMHv7G7M+nsWx2LL/UfhXuDUTF/fXclMhkqjjhK4SA4sL45vVvp49eiextahFvewV
+ uxqk6+77MfCgN+LRS88fGdr4kIyxiLvOTJz0eRJkU1Asf476KDzuYbBHexMqIi3jJzcP
+ 7TJg==
+X-Gm-Message-State: AOJu0YzPtpGlXNgWqlZpGtuzhyXVtT5Da1uUGVBKrRUvUp/vR3iU7Y96
+ 2UTmTXm0l3Xa/AFZ/n1FUyIt8AoG+bfHsPWJRsqliNyJj+6cf5IzwrCc
+X-Gm-Gg: Acq92OHqn7zSt/bDztBduMZj2XnD9+YSQMI4p371xliJ0dt+6zXuseX/epc87XxkKs+
+ ULDOa6BrjEla9DQLwS9RihQX554BtNHWt184yelwmLBwxuN+vTHd+pL5QAsdrpnV2PNG1D6CcYA
+ MNY4j7Vyg0ntQLzq0+5sc8NIbCA7CgXiwAmXAOUW3t8xvg73paTuKRozKsPwiV+TtFcYAlFB3jO
+ RoBW0VROzPeHsK4XctkmJs/GCRDR7SWIz+t578oiEbTvgwz8Nggrx1bLruCjlD7Dw+8qtSYTSB8
+ 86sVx0CfpT+/E9mto+3rZv4LvHn7YxN1XbS0hhCMo8bcV3JMKEtiLTjRLnQlt61as3nMs7nUUCe
+ 3EvQea+Zd7cR4bJlWKhCiQnws5UYsG5I+YUFgnVIrKA6DWe3XT5sx2xulMReR7jNY0oYUSC1cas
+ /JNVDLZfsYac5aTxSIS5esHKaTPV83wysQSDidZgt9avBIaakkPOQP1g==
+X-Received: by 2002:a05:600c:a105:b0:490:6e12:542c with SMTP id
+ 5b1f17b1804b1-4909c0e4476mr36438675e9.23.1780054843014; 
+ Fri, 29 May 2026 04:40:43 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1544:8100:da55:fa26:bd:a26])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef354cf0dsm2993109f8f.17.2026.05.29.04.40.39
+ ffacd0b85a97d-45ef354cf0dsm2993109f8f.17.2026.05.29.04.40.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 04:40:39 -0700 (PDT)
+ Fri, 29 May 2026 04:40:42 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
  Felix.Kuehling@amd.com, Philip.Yang@amd.com, timur.kristof@gmail.com
 Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 06/13] drm/amdgpu: add amdgpu_vm_update_leaves()
-Date: Fri, 29 May 2026 13:24:08 +0200
-Message-ID: <20260529114031.3714-7-christian.koenig@amd.com>
+Subject: [PATCH 09/13] drm/amdgpu: start to move VM internals into
+ amdgpu_vm_internal.h
+Date: Fri, 29 May 2026 13:24:11 +0200
+Message-ID: <20260529114031.3714-10-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260529114031.3714-1-christian.koenig@amd.com>
 References: <20260529114031.3714-1-christian.koenig@amd.com>
@@ -90,209 +91,404 @@ Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a new function amdgpu_vm_update_leaves() to avoid memory allocation
-on page faults.
+Avoid exposing some defines outside of the VM code.
 
-The idea is to only update the leave PTEs to insert a dummy PRT PTE.
-
-TODO: HW older than GMC v9 needs a different solution.
+Co-developed by Claude Sonnet 4.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 40 ++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 71 ++++++++++++++++++++++-
- 3 files changed, 103 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   2 +
+ .../gpu/drm/amd/amdgpu/amdgpu_trace_points.c  |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        | 118 -------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c    |   1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   | 159 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   1 +
+ 8 files changed, 166 insertions(+), 118 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index d13e64a69e25..d6def9bec72c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -35,6 +35,8 @@
+ #define AMDGPU_JOB_GET_TIMELINE_NAME(job) \
+ 	 job->base.s_fence->finished.ops->get_timeline_name(&job->base.s_fence->finished)
+ 
++struct amdgpu_vm_update_params;
++
+ TRACE_EVENT(amdgpu_device_rreg,
+ 	    TP_PROTO(unsigned did, uint32_t reg, uint32_t value),
+ 	    TP_ARGS(did, reg, value),
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c
+index b96d885f6e33..fe61ed5b487e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.c
+@@ -25,6 +25,7 @@
+ #include <drm/amdgpu_drm.h>
+ #include "amdgpu_cs.h"
+ #include "amdgpu.h"
++#include "amdgpu_vm_internal.h"
+ 
+ #define CREATE_TRACE_POINTS
+ #include "amdgpu_trace.h"
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index e5588346a03f..94632a660b79 100644
+index b5adfcacc55a..f81ddc6873a0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2984,10 +2984,12 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    u32 vmid, u32 node_id, uint64_t addr,
- 			    uint64_t ts, bool write_fault)
- {
--	bool is_compute_context = false;
-+	struct amdgpu_vm_update_params params;
-+	bool is_compute_context;
- 	struct amdgpu_bo *root;
- 	uint64_t value, flags;
- 	struct amdgpu_vm *vm;
-+	unsigned int idx;
- 	int r;
- 
- 	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
-@@ -3029,24 +3031,46 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		value = adev->dummy_page_addr;
- 		flags |= AMDGPU_PTE_EXECUTABLE | AMDGPU_PTE_READABLE |
- 			AMDGPU_PTE_WRITEABLE;
--
-+		/* On +gfx9 we can use the PRT functionality instead */
-+		if (!adev->gmc.gmc_funcs->set_prt) {
-+			flags &= ~AMDGPU_PTE_VALID;
-+			flags |= AMDGPU_PTE_PRT;
-+		}
- 	} else {
- 		/* Let the hw retry silently on the PTE */
- 		value = 0;
- 	}
- 
-+	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
-+		r = -ENODEV;
-+		goto error_unlock;
-+	}
-+
-+	amdgpu_vm_eviction_lock(vm);
-+	if (vm->evicting) {
-+		r = -EBUSY;
-+		goto error_dev_exit;
-+	}
-+
-+	memset(&params, 0, sizeof(params));
-+	params.adev = adev;
-+	params.vm = vm;
-+	params.immediate = true;
-+	params.pages_addr = NULL;
-+
- 	r = dma_resv_reserve_fences(root->tbo.base.resv, 1);
- 	if (r) {
- 		pr_debug("failed %d to reserve fence slot\n", r);
--		goto error_unlock;
-+		goto error_eviction_lock;
- 	}
- 
--	r = amdgpu_vm_update_range(adev, vm, true, false, false, false,
--				   NULL, addr, addr, flags, value, 0, NULL, NULL, NULL);
--	if (r)
--		goto error_unlock;
-+	amdgpu_vm_update_leaves(&params, addr, addr, value, flags);
- 
--	r = amdgpu_vm_update_pdes(adev, vm, true);
-+error_eviction_lock:
-+	amdgpu_vm_eviction_unlock(vm);
-+
-+error_dev_exit:
-+	drm_dev_exit(idx);
- 
- error_unlock:
- 	amdgpu_bo_unreserve(root);
+@@ -37,6 +37,7 @@
+ #include <drm/drm_exec.h>
+ #include "amdgpu.h"
+ #include "amdgpu_vm.h"
++#include "amdgpu_vm_internal.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_gmc.h"
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index cc096c005e34..04b32accfa3f 100644
+index 561f2873d2ec..21c78b18f4df 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -613,6 +613,9 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
- int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 			  uint64_t start, uint64_t end,
- 			  uint64_t dst, uint64_t flags);
+@@ -261,80 +261,6 @@ struct amdgpu_task_info {
+ 	struct kref	refcount;
+ };
+ 
+-/**
+- * struct amdgpu_vm_update_params
+- *
+- * Encapsulate some VM table update parameters to reduce
+- * the number of function parameters
+- *
+- */
+-struct amdgpu_vm_update_params {
+-
+-	/**
+-	 * @adev: amdgpu device we do this update for
+-	 */
+-	struct amdgpu_device *adev;
+-
+-	/**
+-	 * @vm: optional amdgpu_vm we do this update for
+-	 */
+-	struct amdgpu_vm *vm;
+-
+-	/**
+-	 * @immediate: if changes should be made immediately
+-	 */
+-	bool immediate;
+-
+-	/**
+-	 * @unlocked: true if the root BO is not locked
+-	 */
+-	bool unlocked;
+-
+-	/**
+-	 * @pages_addr:
+-	 *
+-	 * DMA addresses to use for mapping
+-	 */
+-	dma_addr_t *pages_addr;
+-
+-	/**
+-	 * @job: job to used for hw submission
+-	 */
+-	struct amdgpu_job *job;
+-
+-	/**
+-	 * @num_dw_left: number of dw left for the IB
+-	 */
+-	unsigned int num_dw_left;
+-
+-	/**
+-	 * @needs_flush: true whenever we need to invalidate the TLB
+-	 */
+-	bool needs_flush;
+-
+-	/**
+-	 * @override_pte: true for memory that is not uncached and gmc override function is
+-	 * implemented to allow MTYPE to be overridden for NUMA local memory.
+-	 */
+-	bool override_pte;
+-
+-	/**
+-	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
+-	 */
+-	struct list_head tlb_flush_waitlist;
+-};
+-
+-struct amdgpu_vm_update_funcs {
+-	int (*map_table)(struct amdgpu_bo_vm *bo);
+-	int (*prepare)(struct amdgpu_vm_update_params *p,
+-		       struct amdgpu_sync *sync, u64 k_job_id);
+-	int (*update)(struct amdgpu_vm_update_params *p,
+-		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
+-		      unsigned count, uint32_t incr, uint64_t flags);
+-	int (*commit)(struct amdgpu_vm_update_params *p,
+-		      struct dma_fence **fence);
+-};
+-
+ struct amdgpu_vm_fault_info {
+ 	/* fault address */
+ 	uint64_t	addr;
+@@ -604,24 +530,6 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+ 			  struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM]);
+ 
+-int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-		       struct amdgpu_bo_vm *vmbo);
+-int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-			int level, struct amdgpu_bo_vm **vmbo, int32_t xcp_id);
+-void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+-
+-int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
+-			 struct amdgpu_vm_bo_base *entry);
+-int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+-			  uint64_t start, uint64_t end,
+-			  uint64_t dst, uint64_t flags);
+-void amdgpu_vm_update_leaves(struct amdgpu_vm_update_params *params,
+-			     uint64_t start, uint64_t end,
+-			     int64_t dst, uint64_t flags);
+-void amdgpu_vm_pt_free_work(struct work_struct *work);
+-void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+-			    struct amdgpu_vm_update_params *params);
+-
+ #if defined(CONFIG_DEBUG_FS)
+ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
+ #endif
+@@ -657,32 +565,6 @@ static inline uint64_t amdgpu_vm_tlb_seq(struct amdgpu_vm *vm)
+ 	return atomic64_read(&vm->tlb_seq);
+ }
+ 
+-/*
+- * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
+- * happens while holding this lock anywhere to prevent deadlocks when
+- * an MMU notifier runs in reclaim-FS context.
+- */
+-static inline void amdgpu_vm_eviction_lock(struct amdgpu_vm *vm)
+-{
+-	mutex_lock(&vm->eviction_lock);
+-	vm->saved_flags = memalloc_noreclaim_save();
+-}
+-
+-static inline bool amdgpu_vm_eviction_trylock(struct amdgpu_vm *vm)
+-{
+-	if (mutex_trylock(&vm->eviction_lock)) {
+-		vm->saved_flags = memalloc_noreclaim_save();
+-		return true;
+-	}
+-	return false;
+-}
+-
+-static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
+-{
+-	memalloc_noreclaim_restore(vm->saved_flags);
+-	mutex_unlock(&vm->eviction_lock);
+-}
+-
+ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+ 				  unsigned int pasid,
+ 				  uint64_t addr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+index b31ff6f56f0d..d03b9bbe20c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -21,6 +21,7 @@
+  */
+ 
+ #include "amdgpu_vm.h"
++#include "amdgpu_vm_internal.h"
+ #include "amdgpu.h"
+ #include "amdgpu_reset.h"
+ #include "amdgpu_object.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+new file mode 100644
+index 000000000000..16710017e8ca
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+@@ -0,0 +1,159 @@
++/*
++ * Copyright 2016 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: Christian König
++ */
++#ifndef __AMDGPU_VM_INTERNAL_H__
++#define __AMDGPU_VM_INTERNAL_H__
++
++#include <linux/types.h>
++#include <linux/list.h>
++#include "amdgpu_vm.h"
++
++struct amdgpu_device;
++struct amdgpu_vm;
++struct amdgpu_job;
++struct amdgpu_sync;
++struct amdgpu_bo_vm;
++struct amdgpu_vm_bo_base;
++struct dma_fence;
++
++/**
++ * struct amdgpu_vm_update_params
++ *
++ * Encapsulate some VM table update parameters to reduce
++ * the number of function parameters
++ *
++ */
++struct amdgpu_vm_update_params {
++
++	/**
++	 * @adev: amdgpu device we do this update for
++	 */
++	struct amdgpu_device *adev;
++
++	/**
++	 * @vm: optional amdgpu_vm we do this update for
++	 */
++	struct amdgpu_vm *vm;
++
++	/**
++	 * @immediate: if changes should be made immediately
++	 */
++	bool immediate;
++
++	/**
++	 * @unlocked: true if the root BO is not locked
++	 */
++	bool unlocked;
++
++	/**
++	 * @pages_addr:
++	 *
++	 * DMA addresses to use for mapping
++	 */
++	dma_addr_t *pages_addr;
++
++	/**
++	 * @job: job to used for hw submission
++	 */
++	struct amdgpu_job *job;
++
++	/**
++	 * @num_dw_left: number of dw left for the IB
++	 */
++	unsigned int num_dw_left;
++
++	/**
++	 * @needs_flush: true whenever we need to invalidate the TLB
++	 */
++	bool needs_flush;
++
++	/**
++	 * @override_pte: true for memory that is not uncached and gmc override function is
++	 * implemented to allow MTYPE to be overridden for NUMA local memory.
++	 */
++	bool override_pte;
++
++	/**
++	 * @tlb_flush_waitlist: temporary storage for BOs until tlb_flush
++	 */
++	struct list_head tlb_flush_waitlist;
++};
++
++struct amdgpu_vm_update_funcs {
++	int (*map_table)(struct amdgpu_bo_vm *bo);
++	int (*prepare)(struct amdgpu_vm_update_params *p,
++		       struct amdgpu_sync *sync, u64 k_job_id);
++	int (*update)(struct amdgpu_vm_update_params *p,
++		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
++		      unsigned count, uint32_t incr, uint64_t flags);
++	int (*commit)(struct amdgpu_vm_update_params *p,
++		      struct dma_fence **fence);
++};
++
++int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++		       struct amdgpu_bo_vm *vmbo);
++int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++			int level, struct amdgpu_bo_vm **vmbo,
++			int32_t xcp_id);
++void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm *vm);
++
++int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
++			 struct amdgpu_vm_bo_base *entry);
++int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
++			  uint64_t start, uint64_t end,
++			  uint64_t dst, uint64_t flags);
 +void amdgpu_vm_update_leaves(struct amdgpu_vm_update_params *params,
 +			     uint64_t start, uint64_t end,
 +			     int64_t dst, uint64_t flags);
- void amdgpu_vm_pt_free_work(struct work_struct *work);
- void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
- 			    struct amdgpu_vm_update_params *params);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index e43a60d09808..9766b6b9aecc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -790,6 +790,8 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 			  uint64_t dst, uint64_t flags)
- {
- 	struct amdgpu_device *adev = params->adev;
-+	struct amdgpu_vm *vm = params->vm;
-+	pid_t tgid = vm->task_info ? vm->task_info->tgid : 0;
- 	struct amdgpu_vm_pt_cursor cursor;
- 	uint64_t frag_start = start, frag_end;
- 	unsigned int frag;
-@@ -881,7 +883,6 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 		entry_end = min(entry_end, end);
- 
- 		do {
--			struct amdgpu_vm *vm = params->vm;
- 			uint64_t upd_end = min(entry_end, frag_end);
- 			unsigned int nptes = (upd_end - frag_start) >> shift;
- 			uint64_t upd_flags = flags | AMDGPU_PTE_FRAG(frag);
-@@ -893,8 +894,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 
- 			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
- 						    min(nptes, 32u), dst, incr,
--						    upd_flags,
--						    vm->task_info ? vm->task_info->tgid : 0,
-+						    upd_flags, tgid,
- 						    vm->immediate.fence_context);
- 			amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
- 						   cursor.level, pe_start, dst,
-@@ -938,6 +938,71 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 	return 0;
- }
- 
-+/**
-+ * amdgpu_vm_update_leaves - update leave PDEs/PTEs
-+ *
-+ * @params: see amdgpu_vm_update_params definition
-+ * @start: start of GPU address range
-+ * @end: end of GPU address range
-+ * @dst: destination address to insert into the leave PDEs/PTEs
-+ * @flags: mapping flags
-+ *
-+ * Update the leave PDEs/PTEs in the range @start - @end without allocating or
-+ * freeing page tables.
-+ *
-+ * Returns:
-+ * 0 for success, negative error code for failure.
++void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
++			    struct amdgpu_vm_update_params *params);
++
++int amdgpu_vm_pt_map_tables(struct amdgpu_device *adev, struct amdgpu_vm *vm);
++
++/*
++ * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
++ * happens while holding this lock anywhere to prevent deadlocks when
++ * an MMU notifier runs in reclaim-FS context.
 + */
-+void amdgpu_vm_update_leaves(struct amdgpu_vm_update_params *params,
-+			     uint64_t start, uint64_t end,
-+			     int64_t dst, uint64_t flags)
++static inline void amdgpu_vm_eviction_lock(struct amdgpu_vm *vm)
 +{
-+	struct amdgpu_device *adev = params->adev;
-+	struct amdgpu_vm *vm = params->vm;
-+	pid_t tgid = vm->task_info ? vm->task_info->tgid : 0;
-+	struct amdgpu_vm_pt_cursor cursor;
-+
-+	amdgpu_vm_pt_start(adev, params->vm, start, &cursor);
-+	while (cursor.pfn < end) {
-+		unsigned int shift, mask;
-+		uint64_t entry_end, pe_start;
-+		struct amdgpu_bo *pt;
-+		unsigned int nptes;
-+
-+		/* Walk to the leave entries */
-+		if (amdgpu_vm_pt_descendant(adev, &cursor))
-+			continue;
-+
-+		pt = cursor.parent->bo;
-+		shift = amdgpu_vm_pt_level_shift(adev, cursor.level - 1);
-+		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level - 1);
-+
-+		/* Looks good so far, calculate parameters for the update */
-+		pe_start = ((cursor.pfn >> shift) & mask) * 8;
-+
-+		entry_end = ((uint64_t)mask + 1) << shift;
-+		entry_end += cursor.pfn & ~(entry_end - 1);
-+		entry_end = min(entry_end, end);
-+
-+		nptes = (entry_end - cursor.pfn) >> shift;
-+		/*
-+		 * This can happen when we set higher level PDEs to unmap and/or
-+		 * silent to stop fault floods.
-+		 */
-+		nptes = max(nptes, 1u);
-+
-+		trace_amdgpu_vm_update_ptes(params, cursor.pfn, entry_end,
-+					    min(nptes, 32u), dst, 0, flags,
-+					    tgid,
-+					    vm->immediate.fence_context);
-+		amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
-+					   cursor.level - 1, pe_start, dst,
-+					   nptes, 0, flags);
-+
-+		amdgpu_vm_pt_next(adev, &cursor);
-+	}
++	mutex_lock(&vm->eviction_lock);
++	vm->saved_flags = memalloc_noreclaim_save();
 +}
 +
- /**
-  * amdgpu_vm_pt_map_tables - have bo of root PD cpu accessible
-  * @adev: amdgpu device structure
++static inline bool amdgpu_vm_eviction_trylock(struct amdgpu_vm *vm)
++{
++	if (mutex_trylock(&vm->eviction_lock)) {
++		vm->saved_flags = memalloc_noreclaim_save();
++		return true;
++	}
++	return false;
++}
++
++static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
++{
++	memalloc_noreclaim_restore(vm->saved_flags);
++	mutex_unlock(&vm->eviction_lock);
++}
++
++#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index ac3f3e31e2e2..f9c93a71e153 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -26,6 +26,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_vm.h"
++#include "amdgpu_vm_internal.h"
+ #include "amdgpu_job.h"
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340..6acb6f08ddbf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -21,6 +21,7 @@
+  */
+ 
+ #include "amdgpu_vm.h"
++#include "amdgpu_vm_internal.h"
+ #include "amdgpu_job.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_trace.h"
 -- 
 2.43.0
 
