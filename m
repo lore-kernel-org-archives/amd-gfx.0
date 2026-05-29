@@ -4,126 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38109CD5BD2
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB2ECD6E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:19:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC1610F9E6;
-	Fri, 29 May 2026 07:16:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D191110F9F0;
+	Fri, 29 May 2026 07:19:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3KPmcrOz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eB8qcIL4";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010033.outbound.protection.outlook.com
- [52.101.193.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26B3E10F9E6
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 07:16:06 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011019.outbound.protection.outlook.com [52.101.62.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 362F610F9F0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 07:19:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CQ9IGYk3cfdjgSvl/DpLSP/6kbZ45FhHUvkfJIMnntMtAGa3/GIYkjuc9XYzeOB2tpOOILmfjKeobkHiiaNOIkhu0ls7hvPNq8A0t8koUUL6nJ8tAGc0bFmZBQ03zv6XUQ3Qz2E54Nd58dkz7N6r8nJ66M8FqUsAyPBqHUYOKAAAeKiYHhxu3i7mFlccW8NjFeQELvanyRN/yBdlv0OqrRgBPbjeS5Apl8AAjvd963nJfxynHLwhergVuX4/S3uPislnz2UF4GnQM02fXhLDsjh2Pd+Qjg01S3u/XT1RiydfXqTbuVQRDTNxXA+X+KLMd9J1IfLgBSJKc8G9TjB/4g==
+ b=IkwfmZijnv3eAS4Ji1gejZxe/ETrh6qX/UubX6QzaQ9IrpFsL/gU4M5WrrgJeNMdaZ/9lUs8/BhFuIGrDZH1vXXLzgIRedU8ik5RZUK80FDwKCaWei2DH+Ekmj6bdV3z8aYggkIxY77J54Tp+qKqSIC5SqEG0tyRHoxTiwJzzbU9pcKr1MNM2EMZ82GrL6wRHcrptLgJDnPxwib4zExVaKtnJB5SrdAbIAGlH+MGfhLiUjHdsLNfllsByAGYeDrcOcGsHPe5ScoItchUl2qq1Q5ieMdk/J8mDsd/J4sivLRRlAm0ka5mQw3ErH2Vm+Rt/Xb63xpblRPPWvTuwbPYVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ra71kD5/AiEeiFvE6VvXbcGyiAmxd5EPxcHNWlEsrI=;
- b=twy6bGa/y0g0ZYMLZBFsFlfTSLMZAiuqGj1IINV9NE6bRgRMZXO6pjsnW7nn/O++dDDkR7OI26amFTys056NTHj0qlGGL2tEoG9NWelX7JAHoac/uCmZP6prQB6ypmpZMKOvm2aGzY4yzqywrhgH/LU0Vso4lR68Z7J0t8QWt4CbSXoMVtkI09KAykvp9npb3OvzAD8CbmATCV1I4m/hyTsBF/UQuZhzQfabgailoABcf5WpeB8gnS3gIVEpE7mduSP/KXyOzB3VYVEVdj8zOjeUCiIOttS73UsJh00QiZahqg3fGL6b/QGSbdCp7lN/LTRBMu0vnc+jkno6bWI+pQ==
+ bh=pMhIRJ6AL2aZ5YqjMvGOldM4YciHim26IpdFv3QTCTc=;
+ b=R9zFN1oaQfynCm0PAfSTG6PM1H8V6zpcYGcH8D+TAGTjUf00H6Po3ENObCbDm0Y5WVP72YwDHtPU+hQlQnGpPrDQg12G1pypBW3m8jP/yI01zHAWP02UQbMDE2XIeHuqFmA1pNdSHbCBSYVZR/AROH1HBqPXJipi468R9f5ne6XQiZ7jfW3VZPhJq4caW8WhKxD4oP0OA3Psak1VwtV0jJn9HA75BP2krEIZ9FdFraxg4OgdoLGXHNUJzyJfMQ7xcuB30IGbIYeIquaYdTnCg66azvKwdBFhULQDJUoucGdLB7+KRbdtOc4VCnGsuQ6q37+t6OXQRx6odXbnc/aMog==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ra71kD5/AiEeiFvE6VvXbcGyiAmxd5EPxcHNWlEsrI=;
- b=3KPmcrOzaJf6ttSimc7L5lEYAk9N8WxH+ffciP8MhC8BoCmbssmavw7/XrpYcdFoJRr/G5IXu1pHsL1s8mlCH4HrhOdhASQhhS9iZ6vvW32wKI7WCXQmVV3p48GfS+MXTIGwDT9zADf43aHaZ/JXM8UtuEG8DgXP3TCPzNqf1b8=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- MN0PR12MB5834.namprd12.prod.outlook.com (2603:10b6:208:379::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 07:16:01 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0071.011; Fri, 29 May 2026
- 07:16:01 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
- <Shiwu.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 1/4] drm/amd/pm: Handle truncation in common clk/pcie
- printers
-Thread-Topic: [PATCH 1/4] drm/amd/pm: Handle truncation in common clk/pcie
- printers
-Thread-Index: AQHc7zMiATTs52bkPUijEL4YACEOF7YklPtA
-Date: Fri, 29 May 2026 07:16:01 +0000
-Message-ID: <DM6PR12MB2972DCC91EE8D0476171F39982162@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260529061920.357400-1-asad.kamal@amd.com>
-In-Reply-To: <20260529061920.357400-1-asad.kamal@amd.com>
-Accept-Language: en-US, zh-CN
+ bh=pMhIRJ6AL2aZ5YqjMvGOldM4YciHim26IpdFv3QTCTc=;
+ b=eB8qcIL4xg3r42al88+FbqWNzVy/+S+fgH5N+U2wNDrteiUuoIyKmnJuXZ/AS/Bh/xT6VeO9bpZKbo5DOH6edENHalIVflH7AAqN+psCFA+1mZ1uT+rwfvmCdyrErtLl2gSf75/72S1xyfckYFSLmLr58g3zDFu++7h0y1xyVYw=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SA1PR12MB7269.namprd12.prod.outlook.com (2603:10b6:806:2be::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
+ 2026 07:19:22 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0071.014; Fri, 29 May 2026
+ 07:19:22 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhang, Morris" <Shiwu.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: block the register writing if security
+ lockdown
+Thread-Topic: [PATCH] drm/amdgpu: block the register writing if security
+ lockdown
+Thread-Index: AQHc7nEQGW8UbbRmeUKNty4iAiXNLbYkmfWQ
+Date: Fri, 29 May 2026 07:19:22 +0000
+Message-ID: <BN9PR12MB52578677CEF6B43E3E9F3313FC162@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20260528070957.1081827-1-shiwu.zhang@amd.com>
+In-Reply-To: <20260528070957.1081827-1-shiwu.zhang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Mentions: Christian.Koenig@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T07:06:37.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T07:19:00.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|MN0PR12MB5834:EE_
-x-ms-office365-filtering-correlation-id: 5c809a04-bbb3-4fe0-1696-08debd522376
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA1PR12MB7269:EE_
+x-ms-office365-filtering-correlation-id: 50bb7d30-56f9-49f1-02ac-08debd529b4f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|6133799003|56012099006|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info: vsZsH/oeFmYLy40qSYU3qNjQ92hUTX8KC5CGTeFGVM+5txH5O734UdaOP8b3wjgscfbD/KfWtq16LxESyZjBx8Q4F4rBzgEonDcMfhedOCuKVoGS30GmzY+eb/PNw8jl6zjKj0QnxQ35SuJltLihBeT7nN8w3oDWQrRdVaLEcqDSPyeQCIUt1TJSQjXx64duP2c9DitydBpTVtlh6e3Dodbcy/gT2OyFJKHKcK2SeU0hwey3kH0N9m2RJnxx/c+UguCvYD9NgSvn8+zDeRW5v4RogNbfxpNmbqjxkEaz0ZpHEmKqWvkhoQHJgiSK1Vzi0M9SZm8NX7ybrTRKPEDbU+/IIA4yp25c3brl+MBigceyl/3G61hWLaEFLs8LXbWVoT3cw8Uufxfzn9831R0jUmWifoA+ILUBYqvgFI5Pzjz0gMlk2ekZmzSG8gzYTWQ4Nk41PCRdO59al22oFDrbSNWHgbTqr2o/Vtwj0RqAiXu8Gd/LVmPWsiaXgkxrTuB9TN0bnH4CfRt+PBqU92Hv/m0MJQUpRXHOYXbUWp9a3d9ybze2rjg347nj350/rL7cG2JDjntcgJ1lGYINgvQs4SJ3+z4PhEatDThcyXo53/WpPVs9NPX5J4KUfZf01icXRx1wXeKNgTi34HS1WYp7LVDzTY2UlMAOG7x4JRTqNgSkN3VuXrX/SITejPzQvDTbxBw08iVCI1aiP8IUyHLm5+lSsDR/gqdA8PXWY8ZwBLG/5EDG8X0W7YFoPklUe5AQ
+ ARA:13230040|1800799024|376014|366016|38070700021|56012099006|18002099003|11063799006|22082099003;
+x-microsoft-antispam-message-info: vyZa2zPmsQm33kEbQqQ8E+Mh/zqq98Tgwj0c+BrqEPs28otgmIXr5xH9EitiaCOEd47TKo/jxjYwE8CThY/wzkekBj5ly+Ij8ndFAN2hMyzmJS/nb4IQ9EdSwPop7h6oba5qrXsRia8jMRY24JGF3XCz3WibMdqODGEYXNPAk1KEBbycozbW2PTjTtr4vYxZvRvk7l15htsWiTJjJbDPqM9GiRjKtBU/kIm1RXvdumuFsLmmt/zxXIykxToJs/2rMaewij+6uO8jquE4/8Z2HamAPM1ObedAEdy9q44JMcteFJDm/EYMv8gkdjmBXE2OEotnzbdOltizsIqRpTk2Zayp2QQAtaKrZKU6yRz5hAoSnB6pfe1ccxO9IwKLBEddj5xiYYRYyhlEgDY0WwGepW9SsSUa/9FmD6oGiJ8WthyUicxyykdHylHx1vyFSI0qa/+N/oOw2aXbdyJ4lPAVc47l7FkS1nL0Us7/rYmbZmVOpUcMMCqjoKG4z9HnkunjqfIgp8iHnFk1Vj7PCswFI66wOQAu63RNpy6LspC/NiUJe6XX56m1l9HtyW6PhsGQTSB38tkWfHC4eggxR1Er4mupEJD+AZIgJXoIJ+d8b7qdAUthw8wJCN3q5saA/OVWqFoWXl+fPSV2cvRkSJE+WlMUp6bzT3Z6Pivv7EocrvsymoDyLQGc5mnRZZ1orMDwiZNl4WwiC6bAYCb7XAqXIFt+Nx0yeVuvQoAyU+n2ocwBUPtr5rKLSP4sI1eQMdCE
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(56012099006)(18002099003)(11063799006)(22082099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VU1BPo1BKkMkrHZq0s7M/cnQb1dYQ0TAVQZ/uuBhPZmJizbRYsNM28AxZcHn?=
- =?us-ascii?Q?UDNtmpl+qqmiPVj5qZ4IQUVJqHU2tu5hh/vzqB2xAqwtcCLRioNAqZPuFvBe?=
- =?us-ascii?Q?DpN2sfaS5kpK4QrWI66NLUbgDWgDQwyBriG59w5QToNzibgwIiQ3r2wgQY02?=
- =?us-ascii?Q?npGOUHw1uQxE38k6TRv2aaBkDP9zHQ4BMlbmFT+GDaZLzG1FZoEuGl13fty/?=
- =?us-ascii?Q?9THR2TkLnWMaZJKV4mPSbKel+I2gBQg3J6X72JuYo4UnWyNzKbkhfrih3cld?=
- =?us-ascii?Q?babdiUWvgibTogdNe/cx48yVSrKBMHNphuqtvRBxAEv51pg/INmeNgxrHQPb?=
- =?us-ascii?Q?CKZsPuKGjlbWNIOAdQGTuXthyWrlqvWvxK40FY9BpfwgSrj36VMSQF7B+nj0?=
- =?us-ascii?Q?egbme9rxBSxXJbJRAQD5LoL4OsoMLMkmmXfIv7TRVMyhzrxqXoMxehrRSCmi?=
- =?us-ascii?Q?QS3C/mjoQWEWkeXwTTl3YYRfQMFO9+I8Z2ZUeVD4PSvbCTrJSm6Y3rU9lK4w?=
- =?us-ascii?Q?YPK8/gfAl1CqZ37u8d99UvK3xJDwAlEQ+UL+ONaGqj1Toq8z5t/06tKSa8JO?=
- =?us-ascii?Q?HJN25d29RlRoJi8yKzclJjJfHBpJivq1jXqjcorso7IeEyChVcStCUAJj7qi?=
- =?us-ascii?Q?WPdiGJno84hfoAiM5ZrLuSAzwt6yh1n3behS9okZPEzrYZK7XRMjgj0Xlfxy?=
- =?us-ascii?Q?JbdkIoyXo47iodmPG7R8WtQma7JdOaHO1iIGw3jyoxFJuuDyaSqMGzv1onlP?=
- =?us-ascii?Q?ABZt6/eII+EON/QppedstPqTTNQCtll0AfpFThMWuxVSB7x+oAk2pnneaQH3?=
- =?us-ascii?Q?Tn6op3FCH79pfWF26JqBY0IKV8PWyKXi6KE//aCSj/GqsA/4kXsmd4TyzWyM?=
- =?us-ascii?Q?BxMco2jQFl86eY6K/ccmRov4T97+1fJMsx02XSBE3aHk4OgvfWUr4/BwPR+A?=
- =?us-ascii?Q?8t4Rzb5fHWtKg6c2sQ2FDsTj3vh4AlppnOSo1QtosYINeNdoObdC7yqlUTRi?=
- =?us-ascii?Q?177U9zP/V5DGgrP2qhxmAhJUdRWFs5DPLu1RXYRJIyHPGSjsbqjy1WS0EhuI?=
- =?us-ascii?Q?1Ui/yz57OHHdQkHEVM9tZa7eu/bol8OTzMK3i2FMhuk5UvH5e6fSP0G96JK3?=
- =?us-ascii?Q?YSeN4XcBLxKK7Pk7+wiKrbJtMirkU8MOuNgFG01yhbA/yOtzaPqWZTukAExj?=
- =?us-ascii?Q?lMU57wPixv6ZHf1VvZKWjbkHDI5wLXpoiF0ICmPSQMU7zbqhSyQbIqJj4U7F?=
- =?us-ascii?Q?GKOMI0aASA7x1adql+7M0wk/kaiHT09vdWjT1UNa5+mD3Voy9dVx+vBYXvJH?=
- =?us-ascii?Q?9vxG18quhs1aMLTw7DfqZYnQ4WzBleUDP6kqhwV9LGmrP0qURFZfQkbkMntj?=
- =?us-ascii?Q?1q4yd/TbuRpnQR8Bwc2wFksdBLAK634L1k94AhG0Q4u7aXVOU9fkursGOLf8?=
- =?us-ascii?Q?58fnPNXk17+XEQMStQLRrAqgyomSDmAewaTG3HpUh9BBnor9BPXdIek02bCz?=
- =?us-ascii?Q?MFvN9IwQfdKR5MEZykjytHi+ZG7PEjDp225H7oYFoqRfSLmETSp93CuGe7oG?=
- =?us-ascii?Q?uM5izz2jvUpGWFHH4bngzXco31E80GlwCodptox6KF5MlLvKpil3HHkTxyTV?=
- =?us-ascii?Q?m4Hp7sGHkb0nM5uIWrv8wMUzyow8rWNKqtaDv4pjgNznZ2N4kDnk2jzYbliX?=
- =?us-ascii?Q?vLyBLMhJhEPtm1FR6MCzL7ZX+NQ=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PkNkCo4sV2T6fVPBztJ83DjxZMpnwRCYqtnGNZBecQpyhwLqXFbC6EclWX/N?=
+ =?us-ascii?Q?ZVzuzcaKxkZMxuw49iypdg81TnVepAfaXvNRIO+hyo8v+YoqdO5YyZiGNN7q?=
+ =?us-ascii?Q?siTSh/3B+d49rqxPgb7qSK+5bBJ6gh3cywnt74HBMKoLVNV7phdckpKPWeHT?=
+ =?us-ascii?Q?P4JX8O0JhXi/zTmDaKyAo6u+fexETeE/f2zvASOLWzh2PCJs8irFZNPy6QVq?=
+ =?us-ascii?Q?vtu/4U3wCrbTFe2oMfdkNOmZbCnVrT0RNrtu6iASoEMwsDHFXkwJN4zKX68K?=
+ =?us-ascii?Q?7kOqXJ8u19VDBZTbWJLadLBCfYk5Cagwcy1t7IeboeP+BtCKvpMuhayNd2fO?=
+ =?us-ascii?Q?DhSnpbvupqd+p2vXHdqzsPtWrnWcqR62WcZQ7LRcSTure8CI++VifQBZ36si?=
+ =?us-ascii?Q?q1R+CQzw71lWwTv/xBykKzVk977RXqIHDF9ev2ZK7mbUw5RuvMqXVoqADoAl?=
+ =?us-ascii?Q?cLSlZDbOcjVASblkzDDRTznovoA+IiGRuu+nwpZccFIJAOVm+WRtln5m8qyA?=
+ =?us-ascii?Q?epMYWpk60+OUKclGrTIGiHrm/+ZDnqo/0DnSmTYOxcuOxnOMFIdpiy09Memi?=
+ =?us-ascii?Q?6E6xWm0Ra8ycH5y6gGHmti7MQOL1aVaQLPv9dLQnAKqIfFtawwwCeXwo1ZDS?=
+ =?us-ascii?Q?K2D6rfbKaWvfMK7KgAzp2Ester2E0orCynN5i1BVaD269MlXstrwXX6jkDHe?=
+ =?us-ascii?Q?Dfs0bnx80Pcx8ovCZPwtU/BXe2ZH+QuZYvorYAWtKxuOkKUYZSgkMBCc0fcb?=
+ =?us-ascii?Q?hZ6dZsBaw7JMYQLXOTR+SPN9NS4sS1ujuHHifxYKZUjsqIBSdzKI2fB60pk3?=
+ =?us-ascii?Q?xKRwzm/+VtW8odbdGRnhkgL92v3r7x8ktYz8tjurHtZe6zr73JhiVZKzqbvr?=
+ =?us-ascii?Q?tmVfbNnUt0YjeyBvqsi53Q8BVz814BYUu0ICumtMzi0w1NBibTwmOv9HhDWd?=
+ =?us-ascii?Q?OtrouGJ7A89wPtGsBfdIINRgNkhFSLHM2gukWEwz7I7rm1bjGj2sC8fdp61X?=
+ =?us-ascii?Q?QvNlDQJ8WmUhA2vu4mhoReuJ7Kj49y7i0s0M0r3mZv72pHadgy4DkgIWJ9oG?=
+ =?us-ascii?Q?qyvxMzGGsKXmntBVfNLZT/9vGLN4Ytfuhem/sXABQ2s8+8ihHt4ydNd0KSKd?=
+ =?us-ascii?Q?iSG+sysMAntE3FSEGkj+JohUTor3oNe8lSIicwUIHDC+mLqJDP2qaqAOaxrF?=
+ =?us-ascii?Q?YDUeLTDPrCqju0ke2rzerHac4amMdL9U/vPVfnNAic7CZ9q0gLwY2QBOoc3A?=
+ =?us-ascii?Q?YGY1AWsXdP2OwpFxBruR8eKk2SASQukQggePhBIcX2vOWAdwUi/ztnXqsR93?=
+ =?us-ascii?Q?ih0RhseiDE1ZCyiSh6qsRPpsP5uTahR4EtQWrc5L96qhKPQBXo1N5/5g/sCq?=
+ =?us-ascii?Q?uFUyJVJEnJNJonRGn7Jn/ifjJIHHWz9nuGOonaPMSzN0JX5joMH8KnrEvIZx?=
+ =?us-ascii?Q?Hl0Ib9tJDoTDCa1pCFdrigu8lbcx5I3Gw1gwrk3Nik3KLbYrrVXXzsiBmzDx?=
+ =?us-ascii?Q?HBeFII3aRfCHaULdefpYcRyRGbhQg5m0k8kFzgSp2SIQid9kgI5qgE+rFAOc?=
+ =?us-ascii?Q?XAcjaaaf9fv12E9cv6YGeMVzSkVy25liznt+i9OKYlQmN0g/m8cvBslH78Oj?=
+ =?us-ascii?Q?5H8Dt5naZMaxCm9+2mHTc/C+Uz34AGpSFO3WE5AYwQJT+yp7TBmERcR/2o4b?=
+ =?us-ascii?Q?GFdC9OtucNOXu68TjSVWRmLNG39uTy96FwpBBnalRAqm4ohQ?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c809a04-bbb3-4fe0-1696-08debd522376
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 07:16:01.2033 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50bb7d30-56f9-49f1-02ac-08debd529b4f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 07:19:22.3651 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cMR7IEqDsmvXexqR3BVQ9EUPEkD4EnmP8A0Byh4SC5Xw7s87N8+PWKS+SQ813rEN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5834
+X-MS-Exchange-CrossTenant-userprincipalname: Mmsnb9x3s2kALGA3u/GMAwQ42Z2GHD0MKQQPloXPtvGSCOgjwt9EacZk0rEjx+2BHKap8JXfnVC9ScZSHjo0Zw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7269
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,198 +134,106 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-The "len +=3D sysfs_emit_at(...)" is a common practice in the Linux kernel.
-Its return value has no adverse impact on subsequent calls, so repeatedly c=
-hecking the return value serves no practical purpose.
-You may refer to other usages of sysfs_emit_at() in the kernel source; none=
- of the existing examples check its return value.
-(this may be a widely adopted convention).
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Cc @Koenig, Christian
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Shiwu Zh=
+ang
+Sent: Thursday, May 28, 2026 3:10 PM
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: block the register writing if security lockdow=
+n
 
-Best Regards,
-Kevin
-> -----Original Message-----
-> From: Kamal, Asad <Asad.Kamal@amd.com>
-> Sent: Friday, May 29, 2026 14:19
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris
-> <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
-> Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Kamal, Asad
-> <Asad.Kamal@amd.com>
-> Subject: [PATCH 1/4] drm/amd/pm: Handle truncation in common clk/pcie pri=
-nters
->
-> In smu_cmn_print_dpm_clk_levels() and smu_cmn_print_pcie_levels(), use th=
-e
-> sysfs_emit_at() return value, break out of per-level loops when n =3D=3D =
-0, and use a
-> shared out label before updating offset.
->
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 77 +++++++++++++++-----------
->  1 file changed, 44 insertions(+), 33 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 546e64e3ba9c..0a745afa8552 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -1384,7 +1384,7 @@ int smu_cmn_print_dpm_clk_levels(struct smu_context
-> *smu,  {
->       uint32_t min_clk, max_clk, level_index, count;
->       uint32_t freq_values[3];
-> -     int size, lvl, i;
-> +     int size, lvl, i, n;
->       bool is_fine_grained;
->       bool is_deep_sleep;
->       bool freq_match;
-> @@ -1402,7 +1402,10 @@ int smu_cmn_print_dpm_clk_levels(struct smu_contex=
-t
-> *smu,
->       /* Deep sleep - current clock < min_clock/2, TBD: cur_clk =3D 0 as =
-GFXOFF */
->       is_deep_sleep =3D cur_clk < min_clk / 2;
->       if (is_deep_sleep) {
-> -             size +=3D sysfs_emit_at(buf, size, "S: %uMhz *\n", cur_clk)=
-;
-> +             n =3D sysfs_emit_at(buf, size, "S: %uMhz *\n", cur_clk);
-> +             if (!n)
-> +                     goto out;
-> +             size +=3D n;
->               level_index =3D 1;
->       }
->
-> @@ -1412,10 +1415,13 @@ int smu_cmn_print_dpm_clk_levels(struct
-> smu_context *smu,
->                                    smu_cmn_freqs_match(
->                                            cur_clk,
->                                            dpm_table->dpm_levels[i].value=
-);
-> -                     size +=3D sysfs_emit_at(buf, size, "%d: %uMhz %s\n"=
-,
-> -                                           level_index + i,
-> -                                           dpm_table->dpm_levels[i].valu=
-e,
-> -                                           freq_match ? "*" : "");
-> +                     n =3D sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
-> +                                       level_index + i,
-> +                                       dpm_table->dpm_levels[i].value,
-> +                                       freq_match ? "*" : "");
-> +                     if (!n)
-> +                             break;
-> +                     size +=3D n;
->               }
->       } else {
->               count =3D 2;
-> @@ -1437,13 +1443,16 @@ int smu_cmn_print_dpm_clk_levels(struct
-> smu_context *smu,
->               }
->
->               for (i =3D 0; i < count; i++) {
-> -                     size +=3D sysfs_emit_at(
-> -                             buf, size, "%d: %uMhz %s\n", level_index + =
-i,
-> -                             freq_values[i],
-> -                             (!is_deep_sleep && i =3D=3D lvl) ? "*" : ""=
-);
-> +                     n =3D sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
-> +                                       level_index + i, freq_values[i],
-> +                                       (!is_deep_sleep && i =3D=3D lvl) =
-? "*" : "");
-> +                     if (!n)
-> +                             break;
-> +                     size +=3D n;
->               }
->       }
->
-> +out:
->       *offset =3D size;
->
->       return 0;
-> @@ -1454,7 +1463,7 @@ int smu_cmn_print_pcie_levels(struct smu_context *s=
-mu,
->                             uint32_t cur_gen, uint32_t cur_lane, char *bu=
-f,
->                             int *offset)
->  {
-> -     int size, i;
-> +     int size, i, n;
->
->       if (!pcie_table || !buf)
->               return -EINVAL;
-> @@ -1462,28 +1471,30 @@ int smu_cmn_print_pcie_levels(struct smu_context
-> *smu,
->       size =3D *offset;
->
->       for (i =3D 0; i < pcie_table->lclk_levels; i++) {
-> -             size +=3D sysfs_emit_at(
-> -                     buf, size, "%d: %s %s %dMhz %s\n", i,
-> -                     (pcie_table->pcie_gen[i] =3D=3D 0) ? "2.5GT/s," :
-> -                     (pcie_table->pcie_gen[i] =3D=3D 1) ? "5.0GT/s," :
-> -                     (pcie_table->pcie_gen[i] =3D=3D 2) ? "8.0GT/s," :
-> -                     (pcie_table->pcie_gen[i] =3D=3D 3) ? "16.0GT/s," :
-> -                     (pcie_table->pcie_gen[i] =3D=3D 4) ? "32.0GT/s," :
-> -                     (pcie_table->pcie_gen[i] =3D=3D 5) ? "64.0GT/s," :
-> -                                                      "",
-> -                     (pcie_table->pcie_lane[i] =3D=3D 1) ? "x1" :
-> -                     (pcie_table->pcie_lane[i] =3D=3D 2) ? "x2" :
-> -                     (pcie_table->pcie_lane[i] =3D=3D 3) ? "x4" :
-> -                     (pcie_table->pcie_lane[i] =3D=3D 4) ? "x8" :
-> -                     (pcie_table->pcie_lane[i] =3D=3D 5) ? "x12" :
-> -                     (pcie_table->pcie_lane[i] =3D=3D 6) ? "x16" :
-> -                     (pcie_table->pcie_lane[i] =3D=3D 7) ? "x32" :
-> -                                                       "",
-> -                     pcie_table->lclk_freq[i],
-> -                     (cur_gen =3D=3D pcie_table->pcie_gen[i]) &&
-> -                                     (cur_lane =3D=3D pcie_table->pcie_l=
-ane[i]) ?
-> -                             "*" :
-> -                             "");
-> +             n =3D sysfs_emit_at(buf, size, "%d: %s %s %dMhz %s\n", i,
-> +                               (pcie_table->pcie_gen[i] =3D=3D 0) ? "2.5=
-GT/s," :
-> +                               (pcie_table->pcie_gen[i] =3D=3D 1) ? "5.0=
-GT/s," :
-> +                               (pcie_table->pcie_gen[i] =3D=3D 2) ? "8.0=
-GT/s," :
-> +                               (pcie_table->pcie_gen[i] =3D=3D 3) ? "16.=
-0GT/s," :
-> +                               (pcie_table->pcie_gen[i] =3D=3D 4) ? "32.=
-0GT/s," :
-> +                               (pcie_table->pcie_gen[i] =3D=3D 5) ? "64.=
-0GT/s," :
-> +                               "",
-> +                               (pcie_table->pcie_lane[i] =3D=3D 1) ? "x1=
-" :
-> +                               (pcie_table->pcie_lane[i] =3D=3D 2) ? "x2=
-" :
-> +                               (pcie_table->pcie_lane[i] =3D=3D 3) ? "x4=
-" :
-> +                               (pcie_table->pcie_lane[i] =3D=3D 4) ? "x8=
-" :
-> +                               (pcie_table->pcie_lane[i] =3D=3D 5) ? "x1=
-2" :
-> +                               (pcie_table->pcie_lane[i] =3D=3D 6) ? "x1=
-6" :
-> +                               (pcie_table->pcie_lane[i] =3D=3D 7) ? "x3=
-2" :
-> +                               "",
-> +                               pcie_table->lclk_freq[i],
-> +                               (cur_gen =3D=3D pcie_table->pcie_gen[i]) =
-&&
-> +                               (cur_lane =3D=3D pcie_table->pcie_lane[i]=
-) ?
-> +                               "*" :
-> +                               "");
-> +             if (!n)
-> +                     break;
-> +             size +=3D n;
->       }
->
->       *offset =3D size;
-> --
-> 2.46.0
+In case of security lockdown with integrity, prevent the root from changing=
+ kernel/firmware state by register writing to comply with the LSM security =
+requirement.
+
+Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_debugfs.c
+index 0ce6e2e4342c..3f9e5020722e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -27,6 +27,7 @@
+ #include <linux/pci.h>
+ #include <linux/uaccess.h>
+ #include <linux/pm_runtime.h>
++#include <linux/security.h>
+
+ #include "amdgpu.h"
+ #include "amdgpu_pm.h"
+@@ -200,6 +201,9 @@ static ssize_t amdgpu_debugfs_regs_read(struct file *f,=
+ char __user *buf,  static ssize_t amdgpu_debugfs_regs_write(struct file *f=
+, const char __user *buf,
+                                         size_t size, loff_t *pos)
+ {
++       if (security_locked_down(LOCKDOWN_DEBUGFS))
++               return -EPERM;
++
+        return amdgpu_debugfs_process_reg_op(false, f, (char __user *)buf, =
+size, pos);  }
+
+@@ -365,6 +369,9 @@ static ssize_t amdgpu_debugfs_regs2_read(struct file *f=
+, char __user *buf, size_
+
+ static ssize_t amdgpu_debugfs_regs2_write(struct file *f, const char __use=
+r *buf, size_t size, loff_t *pos)  {
++       if (security_locked_down(LOCKDOWN_DEBUGFS))
++               return -EPERM;
++
+        return amdgpu_debugfs_regs2_op(f, (char __user *)buf, *pos, size, 1=
+);  }
+
+@@ -577,6 +584,9 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct fi=
+le *f, const char __user
+        ssize_t result =3D 0;
+        int r;
+
++       if (security_locked_down(LOCKDOWN_DEBUGFS))
++               return -EPERM;
++
+        if (size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
+@@ -684,6 +694,9 @@ static ssize_t amdgpu_debugfs_regs_pcie64_write(struct =
+file *f, const char __use
+        ssize_t result =3D 0;
+        int r;
+
++       if (security_locked_down(LOCKDOWN_DEBUGFS))
++               return -EPERM;
++
+        if (size & 0x7 || *pos & 0x7)
+                return -EINVAL;
+
+@@ -798,6 +811,9 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct fi=
+le *f, const char __user
+        ssize_t result =3D 0;
+        int r;
+
++       if (security_locked_down(LOCKDOWN_DEBUGFS))
++               return -EPERM;
++
+        if (size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
+@@ -915,6 +931,9 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct fil=
+e *f, const char __user *
+        ssize_t result =3D 0;
+        int r;
+
++       if (security_locked_down(LOCKDOWN_DEBUGFS))
++               return -EPERM;
++
+        if (!adev->reg.smc.wreg)
+                return -EOPNOTSUPP;
+
+--
+2.43.0
 
