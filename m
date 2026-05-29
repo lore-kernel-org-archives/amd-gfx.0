@@ -4,94 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 319A9CD4F54
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F70CD4F54
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 13:31:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C527010FF38;
-	Fri, 29 May 2026 13:31:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 672C310FF34;
+	Fri, 29 May 2026 13:31:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nnx3uq4n";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EwAFG1kN";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD1A710FF39
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 13:31:20 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-1324053d600so470879c88.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:31:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780061480; cv=none;
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1D010FF34
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 13:31:53 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1364ff8099cso212252c88.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:31:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780061513; cv=none;
  d=google.com; s=arc-20240605;
- b=PRx9EO/uutbkZGcovUfbFwr5WLtLdTa7AGJP7URN5LBcU7R46e7Ko0GFcd5XVk60jI
- ABDv5T0a7Ikpb9aYHeOSiKaaW1iD9HMazX2Yg2imWrsgCOkCx7XyK1zKoRB6vavrk8Cn
- E2HvamBgIzlZqmOMKiVy/6i7VJXd3JxFuFtQ3Lhu6kxKxHI6sDMTHZ+u7EB/rzRKfZea
- xkdMsydTxZ/33QRU+MQqUazrYyfp6q0/CnpUI9R9uuinV1EqcBzQFV7+D6ky7nR+2e5D
- IY1QvtztkK/eBitfhaCtYcnF7yVTeI4ePOVCbigO2MC5OA8BgbALVRD79njRWr4JUcF1
- QaQQ==
+ b=R17ZfBbYAwIVrTjAEvwL3wlQ15/VkVm36xwSLdmg9mkeUnLYOSckavWj9eUhZh6uLj
+ EGIliljynAk+3qs8JUY5x/0u+5AnKzybfP7Ym25aBDd3ZcH/MbFG5/W+tJgt7UbDneYJ
+ prwB7fTfmucSuEM4wRfuXJQpVPmSBoi4CSEJ+D00C0seLewgJXhzGMpcs9FyhZhpiAfI
+ 4GI8AnIZqe4VDcDEzVa+B4bfqDVbqIgHiKfbBwNc/rpWA4K3tmDVF1N5O6dOLSxtwTRJ
+ c7NDg5AxObBaOKH6FJHRNrrEh/+8Hr46kKAaixlfsWXhgUk6ChgPtBTnsV6bwp/tLFNJ
+ VDyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=v6cPRqm8IHnVfrpS8wOaTOvXEDclNohXLKceEFLhjp8=;
- fh=1nghELBgnZbeMLrOf3W4KdRZm/TXmkRXXJEvrUn2dC0=;
- b=lCnXXxDqE8GqCio0T8sPnTe0HBNpgZynUCZTb7hcXiF7tbMfGtxfhafKF45ALCIyml
- NIYyFFkLdaKl09UsbzV8sqV0N9T1wDuvqIklOYDyyzGzwKivVwkivmqWKAEXuqvP5j6J
- 3acETMUbc7D1dTLS4lUk2wctCbxhAsoec466E4TKfbq2FvPhAHr+mRm5jhusKBTcxWzi
- 0G5yp6sMY9aWVsk2K8893WuJU8FZQGvST5v86IqQs+NIHXz7D6OaVCCm7Ao1eD1wtmj7
- zpQ4s77qPRbLCkCQXfBosMOsoizaR7uF26U0MtgvFJhEqNquDLYSViAc5Fc5uC5RjBAX
- 24wA==; darn=lists.freedesktop.org
+ bh=N76d3FioC56PlAfwbkYxb7XiDYGFApNJACOLa/DfZvw=;
+ fh=HMeKoZvWaIsiYsB3u5W569+HDQBe2pDN3xmC6Pl+0s8=;
+ b=YgkXgcMT1zApTY2CdQQTJxG/z7DvPzsune5FtQRWx/iZJ78YjM8G8LCUclcG1OeOvd
+ TYj4gsGRmbd/ukOpFxvfllIhunQo9K25V9DOGkyBV8k9ImMO9QgRRRui/Rq3UaByMaUU
+ 4sNsj/D8S0BwKQntwJdQcgaXyyubae4NG+5Vc+7mvZUDBoIawuYvzf7YYOfJqyV9ojBD
+ gphiiv9/6Mj5nXGYAhPACPhzRUO34K9FSxTzroc/B9NAvPGSSAt/iIECOEL/JVhGjRJF
+ Y49SuQzBLhYVYUJXYeYAPV59gEjpHhJQtts1/FFcrbVSwpltYrU8McXC8sHHkwaQH7Ei
+ xbCg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780061480; x=1780666280; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780061513; x=1780666313; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v6cPRqm8IHnVfrpS8wOaTOvXEDclNohXLKceEFLhjp8=;
- b=Nnx3uq4n89i/+2tNwpEkLRPfF/PPmI73q9dLNUBfIhHyPExekhKrXLyZ6RfGJNYFBt
- Vx3uEkPGBUUs8ye2COl2lVZd01WHDCpkMV11u/Q5kNEkFT5rwEknu+0kasUi6+EdR6hm
- BFTh+zPUJn5hA8OsvOl0vuJPl/lD6bMIh4XPGxJ0L/xSihe9hUYSpeo0O+ReTXuUtKTe
- k0D05B0zwJAxTQn367YfSmdj7RoO3sL58ZvVAarobgpN2RwPl4KC5zx7TD0rH5M/mom6
- 6vj3Mjb/FjL6oUlYX4UefgjWxCYb9Xx32lTezmZ5Qqcp5Op9JyucXe5Qd4hRDp7RVTgY
- fv9Q==
+ bh=N76d3FioC56PlAfwbkYxb7XiDYGFApNJACOLa/DfZvw=;
+ b=EwAFG1kNH/J30okxVoDmqBi32I8U6w+O0/oQza93jl+/PulG97Z/1rzcgK0rsgVIrx
+ o5Txc9z95y8TB0tWYP+mdvn8n2IjQRMHktmB2m7n1yPpYJ8v4IGvGeAAwObH2d3HnYwx
+ SUrzynOmxdzFEX7g6nSlBSUblkXm1LUzH3FhPNpOeo7tkLWG31FrTwmuFiAb3cKroCU8
+ Ktz8sWUXHtS/XBTqMeTT+Gp+1ya5FgKyB5LHUTgG7d9O5lDFXJR+S95Z0oSj4cm1Yk2i
+ bI0E7kb4kgss6ByJG53pf53muoIOAdqUKuo1b4UK9rOwNcnSCgFGJF+oqhEWXYsSbxXm
+ Pcdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780061480; x=1780666280;
+ d=1e100.net; s=20251104; t=1780061513; x=1780666313;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=v6cPRqm8IHnVfrpS8wOaTOvXEDclNohXLKceEFLhjp8=;
- b=bw1t79jn64tQuGzYIh6HhE41x1PQMku17DdBDfXRK9Rxxej5yAON9V17g5QeYP9cSg
- x58C5duEI26e+sI5xpaAeSrq3yrE6//hE80v9ORoicRYrpfHXnjE0yazNE5aapJ6yVzl
- D5uQrs4sXPlZxDx6XWPaxxwhUyk1e/ZMuoy8IvoMuf/+LIFNYw0kAKqF0qCnPoeYvfBu
- Pi90QYTYRPqdYQD9w0IfIbcMrD7lLbdTVOSsuKaBvV2ljZPDR7X87U/5PCO0NkceXCWs
- tiq3TsmTgf+eQyny5K4FBdGrFYWENorzmMygk0TNdt08IOR/18qpGUwX+WTQyi/Yxnea
- cchQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9uJk3DTZAQ4ixJno8N7DtTemlEIyPnbAJEp4k0zKEYOsqbZdCLhE1lj4ak4BLH6T9OQOgBHquH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxrjf/6QpuIEKrzsE0EVpdbwrCVLtcG5tGBDnpCf7OvyMw+YxdT
- tZSN3wkBAxzXq5RVNYg71zxzkElRb4fMTHgS4xdLHHUM1Bh527x6zGgs+QHeIJbMHf4x8gtGvHW
- irZQUj9MqWtRwtfHaDcEpMXAJuqBGnDQ=
-X-Gm-Gg: Acq92OFjL6aVIYF48bbQFFmqI+tXqgfjSoUHNRW2Sfg9CPJTcZ8pIM95HuTuFOaHTS8
- 9+akqK6WY/AYxG6qXsIJkWjTtsI3kGNN8L0nMKQgxg6/dkwgJpTXYVwVa6ORiLtohkZlxCPTZur
- WkTqTE8f8RY8Tc9dPPNVFv1sZpnJmUpJUKpd9nPwA2NXAjnZ+JJq6nvWJK9TG0ZCNnvu/l5jTfP
- C4nuOp9Ufzt/YzH/ko3XGnez1agnMw7fJzO3kVYsnWZJf4SYWbEwcVxNgdZVH2Ryp4KlfwikUdO
- yUUkcd7eiqzFbqyUgOiqLVL43duQ65ErdExgUMrOxAs3fT/EeqB+73INrEiWiMvSkn6HnOqAft6
- lY6co
-X-Received: by 2002:a05:7022:618c:b0:12c:90f9:4da0 with SMTP id
- a92af1059eb24-137af00013amr550533c88.3.1780061479755; Fri, 29 May 2026
- 06:31:19 -0700 (PDT)
+ bh=N76d3FioC56PlAfwbkYxb7XiDYGFApNJACOLa/DfZvw=;
+ b=CPQztUuqkN60vL2VhzhRlLzjCkyrvZTzpNOz1Avag12EOVKURJReDFhTzBtY1xLO3N
+ jPixRajtVVj3OZa3lIW57R/UHpnYABKoep394XOEdE7GagO6BvF2IOTksuiAuhKPBqDB
+ WWwE9yvmtfnd+frut0GUgk/M3KHftcrssabJ1JkuRvWNeGM2n/ZNhOwx7uuxY1My034G
+ UxygAO+v8npwkz4YQnYfdfLCuJGwVx6SO1fyMzkppsIzDgD+aTeB/sZpXDhaWTfKKWvl
+ uqK4Sqba5ttyvO8I0923CHmvsnSJw+pX0VHNVoS4cbYFu9LCgM4Z1TlRI20jnoI9GWJT
+ ciKQ==
+X-Gm-Message-State: AOJu0YwZqssBmwDykEDUNffVBVac3UooNB/cA0hoMPMYZkEfl+A/+OO+
+ 7W5us2wv9UNCiMEVOGpAdy66n33DuBxWwOIa50SLPafwL1J9bVtVMIfNqDLIExKl342Z12IIN0n
+ NZKAF2B6pDxUQHV4kSPA+40vxMcLKIJ7kOw==
+X-Gm-Gg: Acq92OEHVNiFAkyNpCZM4IeCn+1QSNEx7DEqiTUQSd+kcHSGTIHR0U72MXD1tMXEt9X
+ ZkAizrr0fdYi+2hEenpnt3YIIRcQRr0P4dL3OcxQX9exUWCMO4Ezt2iSKHPQrKv+Ec4L0fyld/u
+ 7yieS//Eq/3Aq2i7JsSk2OHhmap1RAaYXtI2wSMlfU+dBcm3jQRc6sB2MSCbJ09/wybp8Wt+gHV
+ cr3JF933vUbmdDOCI5rtYYD1pNzZCwJBGB8H/pOe66+hNCJAdvc2mNJ7NvV5IOWgjoc+mHUU0vs
+ RSWx96Ay8UVToWRjjeYrO76Kr4xejjETpuRekv9U522kjeu6VmNRfqeUmhpFgaNZBZqj1NY1MsS
+ F6HvI
+X-Received: by 2002:a05:7022:f92:b0:134:feba:1eb8 with SMTP id
+ a92af1059eb24-137aecc65f7mr606068c88.3.1780061512811; Fri, 29 May 2026
+ 06:31:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <CADnq5_Pq947+u3U-iVXLanuDQa_WxJKr_=DzJg1z+4rS334NqQ@mail.gmail.com>
- <20260527222012.2943-2-gilles.risch@gmail.com>
- <CADnq5_N5nM4Vn8=YbzBTJWcp8SEjMmb2KZurNqgqsxOpxQGUoA@mail.gmail.com>
- <CALnjqVky2zET5U5N_PEorrsWG4stHQSeTJZV6fA8G0q0XU5ZDQ@mail.gmail.com>
-In-Reply-To: <CALnjqVky2zET5U5N_PEorrsWG4stHQSeTJZV6fA8G0q0XU5ZDQ@mail.gmail.com>
+References: <20260529015528.524595-1-qiang.yu@amd.com>
+In-Reply-To: <20260529015528.524595-1-qiang.yu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 29 May 2026 09:31:06 -0400
-X-Gm-Features: AVHnY4IlPL3S6I-gZw-2aHB-hkNVfot9Hd4ECfLF5UFC4BrHvDqXPMzhX4Z3y4k
-Message-ID: <CADnq5_Os2Bk8Dd9d8m_CkK9nYSporzUqbiRA=YD85nRBB6XjMw@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/radeon: fix internal display on iMac11,
- 1 (RV770/DCE3.1)
-To: Gilles Risch <gilles.risch@gmail.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
+Date: Fri, 29 May 2026 09:31:41 -0400
+X-Gm-Features: AVHnY4LfxCcs8SfjPvegm6DdvSkvUF3q1Pxa007DM3dbYUonCaO3gbKFdWgOz1g
+Message-ID: <CADnq5_OccD8uqrsnpW9zrQKCbaqriF7AF0mM+Td8ZJdJKgsp+Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: initialize iter.start in
+ amdgpu_devcoredump_format
+To: Qiang Yu <qiang.yu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,158 +104,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 29, 2026 at 3:43=E2=80=AFAM Gilles Risch <gilles.risch@gmail.co=
-m> wrote:
+On Thu, May 28, 2026 at 9:56=E2=80=AFPM Qiang Yu <qiang.yu@amd.com> wrote:
 >
-> Good morning,
+> From: Qiang Yu <Qiang.Yu@amd.com>
 >
-> I'll make that adjustment, shouldn't I just regroup all three iMac
-> machines in one if statement?
+> This fixes read /sys/class/drm/cardN/device/devcoredump/data
+> return empty content sometimes.
+>
+> amdgpu_devcoredump_format() leaves struct drm_print_iterator's
+> .start field uninitialized on the stack before passing it to
+> drm_coredump_printer(). __drm_puts_coredump() compares the running
+> .offset against .start to decide whether to skip or copy each
+> chunk:
+>
+>         if (iterator->offset < iterator->start) {
+>                 if (iterator->offset + len <=3D iterator->start) {
+>                         iterator->offset +=3D len;
+>                         return;
+>                 }
+>                 ...
+>         }
+>
+> Fixes: 4f28b4930f8e ("drm/amdgpu: move devcoredump generation to a worker=
+")
+> Signed-off-by: Qiang Yu <Qiang.Yu@amd.com>
 
-Yeah, that works too.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> Am Do., 28. Mai 2026 um 20:53 Uhr schrieb Alex Deucher <alexdeucher@gmail=
-.com>:
-> >
-> > On Thu, May 28, 2026 at 3:39=E2=80=AFAM Gilles Risch <gilles.risch@gmai=
-l.com> wrote:
-> > >
-> > > The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 485=
-0
-> > > (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
-> > > DisplayPort path. Without this fix the display stays dark under KMS.
-> > >
-> > > The same problem already exists for iMac10,1 and iMac11,2. Three fixe=
-s:
-> > >
-> > > 1. Introduce ASIC_IS_DCE31() for CHIP_RV770 and newer. Note that
-> > >    CHIP_RV770 precedes CHIP_RV730 in the enum, so ASIC_IS_DCE31()
-> > >    subsumes ASIC_IS_DCE32().
-> > >
-> > > 2. Extend the Link B encoder quirk from ASIC_IS_DCE32() to
-> > >    ASIC_IS_DCE31() and add iMac11,1 to the DMI list.
-> > >
-> > > 3. The 2560x1440 panel needs RADEON_PLL_USE_FRAC_FB_DIV and
-> > >    ATOM_ENCODER_CMD_DP_VIDEO_ON. These are limited to iMac11,1
-> > >    via dmi_match() to avoid affecting other DCE3.1 boards.
-> > >
-> > > Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
-> > >  drivers/gpu/drm/radeon/atombios_encoders.c | 11 ++++++-----
-> > >  drivers/gpu/drm/radeon/radeon.h            |  1 +
-> > >  3 files changed, 11 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm=
-/radeon/atombios_crtc.c
-> > > index 2fc0334e0..075eba2d4 100644
-> > > --- a/drivers/gpu/drm/radeon/atombios_crtc.c
-> > > +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
-> > > @@ -24,6 +24,8 @@
-> > >   *          Alex Deucher
-> > >   */
-> > >
-> > > +#include <linux/dmi.h>
-> > > +
-> > >  #include <drm/drm_fixed.h>
-> > >  #include <drm/drm_fourcc.h>
-> > >  #include <drm/drm_framebuffer.h>
-> > > @@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *c=
-rtc,
-> > >                 if (((rdev->family =3D=3D CHIP_RS780) || (rdev->famil=
-y =3D=3D CHIP_RS880))
-> > >                     && !radeon_crtc->ss_enabled)
-> > >                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FR=
-AC_FB_DIV;
-> > > -               if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
-> > > +               if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAM=
-E, "iMac11,1"))
-> > > +                   && mode->clock > 165000)
-> > >                         radeon_crtc->pll_flags |=3D RADEON_PLL_USE_FR=
-AC_FB_DIV;
-> > >         } else {
-> > >                 radeon_crtc->pll_flags |=3D RADEON_PLL_LEGACY;
-> > > diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu=
-/drm/radeon/atombios_encoders.c
-> > > index 5cfd8fcfa..4de60559f 100644
-> > > --- a/drivers/gpu/drm/radeon/atombios_encoders.c
-> > > +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-> > > @@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder=
- *encoder, int mode)
-> > >                 if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(enco=
-der)) && connector) {
-> > >                         /* DP_SET_POWER_D0 is set in radeon_dp_link_t=
-rain */
-> > >                         radeon_dp_link_train(encoder, connector);
-> > > -                       if (ASIC_IS_DCE4(rdev))
-> > > +                       if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODU=
-CT_NAME, "iMac11,1"))
-> > >                                 atombios_dig_encoder_setup(encoder, A=
-TOM_ENCODER_CMD_DP_VIDEO_ON, 0);
-> > >                 }
-> > >                 if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPOR=
-T)) {
-> > > @@ -2123,12 +2123,13 @@ int radeon_atom_pick_dig_encoder(struct drm_e=
-ncoder *encoder, int fe_idx)
-> > >         }
-> > >
-> > >         /*
-> > > -        * On DCE32 any encoder can drive any block so usually just u=
-se crtc id,
-> > > -        * but Apple thinks different at least on iMac10,1 and iMac11=
-,2, so there use linkb,
-> > > -        * otherwise the internal eDP panel will stay dark.
-> > > +        * On DCE31 and DCE32 any encoder can drive any block so usua=
-lly just use crtc id,
-> > > +        * but Apple thinks different at least on iMac10,1, iMac11,1 =
-and iMac11,2,
-> > > +        * so there use linkb, otherwise the internal eDP panel will =
-stay dark.
-> > >          */
-> > > -       if (ASIC_IS_DCE32(rdev)) {
-> > > +       if (ASIC_IS_DCE31(rdev)) {
-> >
-> > This will change the routing for DCE3.1 as well.  Probably best to do
-> > something like:
-> >
-> > if (dmi_match(DMI_PRODUCT_NAME, "iMac11,1")) {
-> >     enc_idx =3D (dig->linkb) ? 1 : 0;
-> >     goto assigned;
-> > }
-> >
-> > before or after the DCE32() block.
-> >
-> > >                 if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-> > > +                   dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
-> > >                     dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
-> > >                         enc_idx =3D (dig->linkb) ? 1 : 0;
-> > >                 else
-> > > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon=
-/radeon.h
-> > > index 527b9d19d..6b7c0abe4 100644
-> > > --- a/drivers/gpu/drm/radeon/radeon.h
-> > > +++ b/drivers/gpu/drm/radeon/radeon.h
-> > > @@ -2625,6 +2625,7 @@ void r100_pll_errata_after_index(struct radeon_=
-device *rdev);
-> > >                             (rdev->family =3D=3D CHIP_RS740)  ||    \
-> > >                             (rdev->family >=3D CHIP_R600))
-> > >  #define ASIC_IS_DCE3(rdev) ((rdev->family >=3D CHIP_RV620))
-> > > +#define ASIC_IS_DCE31(rdev) ((rdev->family >=3D CHIP_RV770))
-> > >  #define ASIC_IS_DCE32(rdev) ((rdev->family >=3D CHIP_RV730))
-> > >  #define ASIC_IS_DCE4(rdev) ((rdev->family >=3D CHIP_CEDAR))
-> > >  #define ASIC_IS_DCE41(rdev) ((rdev->family >=3D CHIP_PALM) && \
-> > >
-> > > base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
-> > > --
-> > > 2.47.3
-> > >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index 46043a1479e4..63d7ef78c025 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -219,6 +219,7 @@ amdgpu_devcoredump_format(char *buffer, size_t count,=
+ struct amdgpu_coredump_inf
+>         u32 ring_idx, off;
 >
->
+>         iter.data =3D buffer;
+> +       iter.start =3D 0;
+>         iter.offset =3D 0;
+>         iter.remain =3D count;
 >
 > --
-> Gilles
+> 2.43.0
 >
-> Sent from my Commodore C=3D64
