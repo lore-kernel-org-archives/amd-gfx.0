@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E1F9CD5BD2
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 09:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE1C3CD6E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 09:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F088A10FBFF;
-	Fri, 29 May 2026 09:43:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E87D10FC0B;
+	Fri, 29 May 2026 09:44:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FxNBjOoe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UV26ZlPY";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDD4B10FC03
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 09:43:09 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6062710FC0B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 09:44:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dk8An0gXF6T/KeIAylGG7EbByEebaLYAOUjaYJpx3P3iX1aFy3isPJC/2E9/ia6stmO+9RC+Jt/ftFLQ8PIndaIas4m1uxJbMp1MgVfY69I9/P67QqucYS5eF1H09OfYwUlkZvO70iXpist/OxcQkPfltOta7G6IYju9Coiuj9e7Qki+mRl8T1+3ikcYdHqWY7TZXCZQG5v+RaFRAO7ZyEaL46zOZgh00Pgz5BUglz5fLyizNyDkciyO9Kx4mVgQJVegRaV1odYmRBszKBspkKPhcrCFPLgcouzYwUR9P90udDn8cbGPcAuyQp7AGDj8mGs3hI+dddBfDdvttr7zjw==
+ b=JEpsH0FdZPo/guu9GAFWDtQg0M0/ObszZlpfa9RN/n/DeiydbdFKIokt7rKdggQGJEAMwqdgijaF69/VG8WLdVXIrsZcq01LRJOWnaA4/pDPgB9KJI3wO6Zr0XF3EqrsL+a74N7AotRikjI3KeQIDl8rmzw+V5P1rqSgAmPwU5idyTYtd7uSB4e18BxZ3egre4bedrnNGOkFVeZeYePHcvsTFNBTQ2rooNYhsBI0JYU43EK2BDuf2T4F9Mqm6MoCPGZa439gCn/gFHac2b9A1ssenLLnEtGlLDpF3y7izdQmfYvCIS+XiIGrfgibkGmzUyuvzKDniqvFPV1ECqGYKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Dd9ujrSw/tjya4JAlkn8DNRb+DggZ5uLwDaAtbhxbo=;
- b=cXf4qL8lcdvbcVA4R06oYMvfZR9NaHCVd1yM4MqPRv5vFO8t1PETje7T+e8A7RWaC40aDvIMnq9emXqM0eX6IIBFMfsnM6MblwUrSK9TTvvBr87eAs/iuTIqjZS+LLqtPgUc9hRCumnrjeDf5vEjdkH//epKT8pybaJ5rM6bjW2BlTcpaa43AQLOr3oveOwR/4H/D3FczZc0Hw2L/B6oohIXS4Zjt5wTxwpN6oPWiXPDZEr20PQcFvyx21Bc/drm3sSYwHbnePoSOtYL2LsiOwnKnhv00IUJDUuf7ayRiK/pD9QULn1V6FNsVSr4hRQrnxX3bqCSeRmITC2Ak7XoNw==
+ bh=xD+aB0ZfbdmsFl05mjhuf4O8BIkzgUuEYhsyTxTDvmI=;
+ b=we0Dd5fY+HbDy6ALZOl0TAfusti90WGdLbqP0KO6WPdRRhHT2Z05gKhQ5fm62qQqk7Lg7D2OSGtvnqaRJvpIVkk5fFGrrB5k+W13DFKmAgGOucyYExLWD4s0Z60OFn4qFwA6ZGkMQm0EizSqqnTpK3gdOsvDQZMwJCbUjjKCcSo7IZFpU6sifXmuh/xIhA5HS1z2uUzaU6x7IfIgKJVioouG0fkAxFARqo5igzQvxos5Syiyph5uETDjw7ftR+RgTNT3sp/wnFfUn+3E8BQEhmbsl8t3+KQXBfNWwY5GHkfW1z4ES36xdDBHbjX99N0T2DxHNKuwrnrvlQwnq5V38g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Dd9ujrSw/tjya4JAlkn8DNRb+DggZ5uLwDaAtbhxbo=;
- b=FxNBjOoeAm2g5xBncMUzES7GNWYZLC0tzgKQcpD6Mb8XfJWpZDOf2NTKXEGWf6NqJrFgrKWx1UeckOO5UQtGjWT1Z9kqUBt+r6Oqci8iaGlGgBqRcFp/GGVNbfHEWcxrqdUOzTMknKSlg6wUJ4ZAIbrAMmEaZVMsDFdJCOBJN2c=
-Received: from BN0PR08CA0029.namprd08.prod.outlook.com (2603:10b6:408:142::15)
- by CYYPR12MB8890.namprd12.prod.outlook.com (2603:10b6:930:c7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 09:43:05 +0000
-Received: from BL6PEPF0002256F.namprd02.prod.outlook.com
- (2603:10b6:408:142:cafe::55) by BN0PR08CA0029.outlook.office365.com
- (2603:10b6:408:142::15) with Microsoft SMTP Server (version=TLS1_3,
+ bh=xD+aB0ZfbdmsFl05mjhuf4O8BIkzgUuEYhsyTxTDvmI=;
+ b=UV26ZlPY1uaqxpU4zLzDoE359kCAZaXJouCTEFDkThFPS1tGdl+I+snFAGnimi4PW19EwE6ct7Nrcc/FpMaM+QKc94ZnGu28SF5llr+tYA+K3EPQxKBjbAvcycrJ8oUQtjB8bjHA4OD51m8Y9jX84b2j+XmSonm/Sfx2hoXDiDs=
+Received: from BL1P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::31)
+ by SA3PR12MB9108.namprd12.prod.outlook.com (2603:10b6:806:37d::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Fri, 29 May
+ 2026 09:44:35 +0000
+Received: from BL6PEPF0002256E.namprd02.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::a4) by BL1P223CA0026.outlook.office365.com
+ (2603:10b6:208:2c4::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 09:43:04 +0000
+ May 2026 09:44:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0002256F.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ BL6PEPF0002256E.mail.protection.outlook.com (10.167.249.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 09:43:04 +0000
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 09:44:35 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 29 May
- 2026 04:43:02 -0500
+ 2026 04:44:33 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Asad.Kamal@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH] drm/amdxcp: Add more checks to amdxcp
-Date: Fri, 29 May 2026 15:12:46 +0530
-Message-ID: <20260529094246.1135225-1-lijo.lazar@amd.com>
+Subject: [PATCH] drm/amd/pm: Validate custom profile parameters
+Date: Fri, 29 May 2026 15:14:16 +0530
+Message-ID: <20260529094416.1135533-1-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,29 +71,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0002256F:EE_|CYYPR12MB8890:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff822a26-bd23-4edb-0817-08debd66ae56
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256E:EE_|SA3PR12MB9108:EE_
+X-MS-Office365-Filtering-Correlation-Id: e81c2f24-6f6e-4ef9-4690-08debd66e484
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: VqYySBjJdpVtzyDxrSYuHS5AhdsSIFj5t7ruuAFxDfNFLio82e/dXPcboqRXyrMqf67uoJNwVkm1CBtOcz371fHJAombSLm2si/bKy70lVGycR2KD5dNi/nA/kbqJfJtH/kv4hEq/GMR8B+W5y84JS/vx1xhzNQ80GU6DwsH+Isar8sVJgvreDKU/wrG8Yu1Atlil1lw5wGURsoTyBIqP7Re+V41xT8eF0m4BHo1TIPyaZajAPriLWt8A7GDtENmM3f9MGSMEcRaraYxdXZsh2DoRsYjMN+efmnu+RHLSD/4Oh1Gi426ZVE4fr4Ebrx8HsRJ72p0F5LEJJRTQr5sjuaBApILNLjZsFoyMcI8OMYViRkver/7/XH3sAFm3aSssnVz6QN+4PvkcRcjb0+Ti0aOjWhVVnnSAf7YMvvbJeW6JrNdxBALbkfWFc4EMhIpFpCkKOMRzZYtB6e3i4xYFzSffDGdNHC7U+Dy2f+kAgKL7Qceg39lqZzbw/UhXNHdoI3V5BiEfBhUKDEgkMevixFWX/0YtZuwBgJwnt1mdbLhi9DXoAXQQNYoWr2oJ0gJAWHNAYJtBKNjsyz63OcTV/BU4u92bX6qkdUC0T2E6uY5aISUxHrSBcibgICIlILQ5SUGTJ/ye6HSJ0v9IGJHfJ+twXwBQTrZLuq8O/RzZanYqBIywkqRzUNOmxlaiIVpJnf7JsSl2JCW2V8Qb07I7pA5WxRTMOabf9j1YFrTDgg=
+ ARA:13230040|36860700016|82310400026|1800799024|376014|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: umwP2nviYBsQqQrCc3ettZ+f9Je92lm6YFU0knD1lqhCgtnezBDQjz3AuNxh0HFBp4MTfQmkhtQoFokwkdTgCQQonDIm908n+FegR0dBYiuKBhane24DIDFOLHdz+K3zWt60ACdBSHKBCm3mbgaQW5gcyhMVriyIFemTbPGodnNqWCY9XiDYbjv9PaVF1iR6Rgny0chdiHLYGeQdqZEbn+0Dh+LF10R5lP8sc6ztCr+Zm/612lZu0+6XyqfHhAwTx3/XpDV1dZ5u4yY3fjtWzmIrHTacvJqf4E+KSOTQuxxMZGCWz3+PeOBDmc3dXRE7tDvmwRQskHw9eVquD5BK3EktiJdKrr2Gyc00K2iXDd3DZNI4vdL1pofOSYQ3pUBw7n42JE/HLoWW5xT7RT3/YZLZ2Kry0R7LXSMgFNwzvrJteegKobXUQOIxZYnDJqAS2lxUZJqOKRDV9/H1X3Nd8jX9Rn4nqkZOfYIxQvA+Nd+cqlGxbZN4JxNKQcIEDq8Yn2srJJv2aGlL2PtpadIVC6lQh01l7DlRPGs+TvUOvdVE1ZKn/WA0FS3g2HQXk5EzRQL5NP7LEtetH2KZ9kP7YJE/iQOG/zxTvDzqNSxoihiReauIA5Q0rWOHUt7cE/pN2W/DQ5WFZqm1Ns7B5Dv7W6RQFogvpzool7MUCMbm4HYUBtY4Igp9ii24QEIvz1jNrsLwdKcJ9FOOeLEt/iWU745APxzuy0c7EPqpCP4VIkQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: SpcWWl+shtqxYmAmmKOx/SqQ1PynJOW9mfCLgigf4CptMpay+t2KinsW4L44UqXZp1zKV6+7CzsssO5p6C01/be5C5X+swiJt/GE5mGKvObMH+mEBvcCgYNltx+/CP3KIxAMCVXHlguLSuWQHuxBNLC9XiNRmbUTUDsLS2SqPQxatC4SgcUH29gsDn+WTzmoC3yZPrqmfr+Z9PpINR9SIpgUMoEUgbFWPEdU9ST4dzrwsMDtAivAyaAfNycDK7l/w4VS/uV+RgnR6Md6Ci62ANrfRs82afhHQEUz1kSblp66O30+em0sgHdJkbtMVdHJZ0hcwL2aF67xNDU8HykiTM21yiAALAAEoAYBOCE86NNWykCGytamxgOxXe1S2v4BlLSUXcPpmGzOiv3vDfAz6SY9ICQlYVuP0cdh4eeM0jYjtcAhn20rISGoFBRSGOcE
+X-MS-Exchange-AntiSpam-MessageData-0: WbNeKSeWapJA//HQ7cU6hGI2Z4v3bv7AYx5x9cct981m/YrOn/iyacMkC0DK5Czt0AeIFscvINkolk8WDYKfT4+gFs7beAlmZAp/p9Bi6A+MgzRTi/hFhpFzF64ZlDHqyzYKh33+BBtvgsSLk8WrtrWHOyReszJnItTiGeFcQe/wwzb4VUckeOJ4GgcafpSOZTpVsuaH/pKhsPmy0Eyq+nQ3EdORq1dkn+aLXi8U+ONQkMrmZruCk5yR9xPn8wlkhg+f5apkmEwvn8BdAusC2Y0JACAhOGTgecJqMdRo4hldcCwNmx3MJGnxU0nfsljY8uKVga0Ibi2Ko4ch616olBH7atnKTfp/kq0+EQnIHaOtJhqWAw1aDGG6IiDoNMwc6LvjqOs6aR69qydJHFHzR9cw6lgsTxO9JSnnyyhBQjkdEs598aZ84MSleyRdu4GJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 09:43:04.1930 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff822a26-bd23-4edb-0817-08debd66ae56
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 09:44:35.0940 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e81c2f24-6f6e-4ef9-4690-08debd66e484
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8890
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9108
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,77 +108,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add NULL check to ddev argument and guard pdev_num against underflow.
+Add helpers to validate custom profile params against
+negative/out-of-range values. Use the helpers to validate user passed
+params.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Assisted-by: Claude Sonnet (Cursor AI)
 ---
- drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c      |  7 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c        |  7 ++++---
+ .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  7 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  7 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  7 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  7 ++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h                 | 10 ++++++++++
+ 7 files changed, 34 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-index ae40f64369ab..a569163de047 100644
---- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-+++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-@@ -44,7 +44,7 @@ static const struct drm_driver amdgpu_xcp_driver = {
- 	.minor = 0,
- };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index d73c3c191e9c..051a0008aa10 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1467,9 +1467,10 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
+ 				return -ENOMEM;
+ 		}
+ 		if (custom_params && custom_params_max_idx) {
+-			if (custom_params_max_idx != ARCTURUS_CUSTOM_PARAMS_COUNT)
+-				return -EINVAL;
+-			if (custom_params[0] >= ARCTURUS_CUSTOM_PARAMS_CLOCK_COUNT)
++			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++							       ARCTURUS_CUSTOM_PARAMS_COUNT) ||
++			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++							       ARCTURUS_CUSTOM_PARAMS_CLOCK_COUNT))
+ 				return -EINVAL;
+ 			idx = custom_params[0] * ARCTURUS_CUSTOM_PARAMS_COUNT;
+ 			smu->custom_profile_params[idx] = 1;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f2ce8de58cb9..2f2a5953dbbc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1845,9 +1845,10 @@ static int navi10_set_power_profile_mode(struct smu_context *smu,
+ 				return -ENOMEM;
+ 		}
+ 		if (custom_params && custom_params_max_idx) {
+-			if (custom_params_max_idx != NAVI10_CUSTOM_PARAMS_COUNT)
+-				return -EINVAL;
+-			if (custom_params[0] >= NAVI10_CUSTOM_PARAMS_CLOCKS_COUNT)
++			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++							       NAVI10_CUSTOM_PARAMS_COUNT) ||
++			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++							       NAVI10_CUSTOM_PARAMS_CLOCKS_COUNT))
+ 				return -EINVAL;
+ 			idx = custom_params[0] * NAVI10_CUSTOM_PARAMS_COUNT;
+ 			smu->custom_profile_params[idx] = 1;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 68255cfcb04d..70897c70db32 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1756,9 +1756,10 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu,
+ 				return -ENOMEM;
+ 		}
+ 		if (custom_params && custom_params_max_idx) {
+-			if (custom_params_max_idx != SIENNA_CICHLID_CUSTOM_PARAMS_COUNT)
+-				return -EINVAL;
+-			if (custom_params[0] >= SIENNA_CICHLID_CUSTOM_PARAMS_CLOCK_COUNT)
++			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++							       SIENNA_CICHLID_CUSTOM_PARAMS_COUNT) ||
++			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++							       SIENNA_CICHLID_CUSTOM_PARAMS_CLOCK_COUNT))
+ 				return -EINVAL;
+ 			idx = custom_params[0] * SIENNA_CICHLID_CUSTOM_PARAMS_COUNT;
+ 			smu->custom_profile_params[idx] = 1;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index fa91837f7024..d7792616e4b9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -2734,9 +2734,10 @@ static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
+ 				return -ENOMEM;
+ 		}
+ 		if (custom_params && custom_params_max_idx) {
+-			if (custom_params_max_idx != SMU_13_0_0_CUSTOM_PARAMS_COUNT)
+-				return -EINVAL;
+-			if (custom_params[0] >= SMU_13_0_0_CUSTOM_PARAMS_CLOCK_COUNT)
++			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++							       SMU_13_0_0_CUSTOM_PARAMS_COUNT) ||
++			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++							       SMU_13_0_0_CUSTOM_PARAMS_CLOCK_COUNT))
+ 				return -EINVAL;
+ 			idx = custom_params[0] * SMU_13_0_0_CUSTOM_PARAMS_COUNT;
+ 			smu->custom_profile_params[idx] = 1;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 25f977a42a1c..ce83e299a66a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2690,9 +2690,10 @@ static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu,
+ 				return -ENOMEM;
+ 		}
+ 		if (custom_params && custom_params_max_idx) {
+-			if (custom_params_max_idx != SMU_13_0_7_CUSTOM_PARAMS_COUNT)
+-				return -EINVAL;
+-			if (custom_params[0] >= SMU_13_0_7_CUSTOM_PARAMS_CLOCK_COUNT)
++			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++							       SMU_13_0_7_CUSTOM_PARAMS_COUNT) ||
++			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++							       SMU_13_0_7_CUSTOM_PARAMS_CLOCK_COUNT))
+ 				return -EINVAL;
+ 			idx = custom_params[0] * SMU_13_0_7_CUSTOM_PARAMS_COUNT;
+ 			smu->custom_profile_params[idx] = 1;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 6b5aa4e514fd..933873de7850 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -1829,9 +1829,10 @@ static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
+ 				return -ENOMEM;
+ 		}
+ 		if (custom_params && custom_params_max_idx) {
+-			if (custom_params_max_idx != SMU_14_0_2_CUSTOM_PARAMS_COUNT)
+-				return -EINVAL;
+-			if (custom_params[0] >= SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT)
++			if (!smu_cmn_custom_params_count_valid(custom_params_max_idx,
++							       SMU_14_0_2_CUSTOM_PARAMS_COUNT) ||
++			    !smu_cmn_custom_params_clock_valid(custom_params[0],
++							       SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT))
+ 				return -EINVAL;
+ 			idx = custom_params[0] * SMU_14_0_2_CUSTOM_PARAMS_COUNT;
+ 			smu->custom_profile_params[idx] = 1;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index 0e119965ce13..5b7f64b94179 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -113,6 +113,16 @@ static inline int pcie_gen_to_speed(uint32_t gen)
+ 	return ((gen == 0) ? link_speed[0] : link_speed[gen - 1]);
+ }
  
--static int8_t pdev_num;
-+static u8 pdev_num;
- static struct xcp_device *xcp_dev[MAX_XCP_PLATFORM_DEVICE];
- static DEFINE_MUTEX(xcp_mutex);
- 
-@@ -56,6 +56,10 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
- 	int ret, i;
- 
- 	static_assert(sizeof(dev_name) >= sizeof("amdgpu_xcp_") + 10);
-+	if (!ddev)
-+		return -EINVAL;
++static inline bool smu_cmn_custom_params_count_valid(u32 max_idx, u32 params_count)
++{
++	return max_idx == params_count;
++}
 +
-+	BUILD_BUG_ON(MAX_XCP_PLATFORM_DEVICE >= U8_MAX);
- 
- 	guard(mutex)(&xcp_mutex);
- 
-@@ -102,7 +106,7 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
- }
- EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);
- 
--static void free_xcp_dev(int8_t index)
-+static void free_xcp_dev(uint8_t index)
- {
- 	if ((index < MAX_XCP_PLATFORM_DEVICE) && (xcp_dev[index])) {
- 		struct platform_device *pdev = xcp_dev[index]->pdev;
-@@ -111,17 +115,18 @@ static void free_xcp_dev(int8_t index)
- 		platform_device_unregister(pdev);
- 
- 		xcp_dev[index] = NULL;
--		pdev_num--;
-+		if (pdev_num > 0)
-+			pdev_num--;
- 	}
- }
- 
- void amdgpu_xcp_drm_dev_free(struct drm_device *ddev)
- {
--	int8_t i;
-+	uint8_t i;
- 
- 	guard(mutex)(&xcp_mutex);
- 
--	for (i = 0; i < MAX_XCP_PLATFORM_DEVICE; i++) {
-+	for (i = 0; pdev_num && i < MAX_XCP_PLATFORM_DEVICE; i++) {
- 		if ((xcp_dev[i]) && (&xcp_dev[i]->drm == ddev)) {
- 			free_xcp_dev(i);
- 			break;
-@@ -132,7 +137,7 @@ EXPORT_SYMBOL(amdgpu_xcp_drm_dev_free);
- 
- void amdgpu_xcp_drv_release(void)
- {
--	int8_t i;
-+	uint8_t i;
- 
- 	guard(mutex)(&xcp_mutex);
- 
++static inline bool smu_cmn_custom_params_clock_valid(long clock_idx, long clock_count)
++{
++	return clock_idx >= 0 && clock_idx < clock_count;
++}
++
+ int smu_cmn_send_smc_msg_with_param(struct smu_context *smu,
+ 				    enum smu_message_type msg,
+ 				    uint32_t param,
 -- 
 2.49.0
 
