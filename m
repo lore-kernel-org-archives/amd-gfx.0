@@ -4,121 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 928B3CD5BD2
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 06:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFE64CD6E45
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2026 07:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A3010F9A3;
-	Fri, 29 May 2026 06:55:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C7210F9BD;
+	Fri, 29 May 2026 07:02:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5Z9ImkMP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RdFYVgti";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010023.outbound.protection.outlook.com [52.101.56.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA6010F9A3
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 06:55:36 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013008.outbound.protection.outlook.com
+ [40.107.201.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A93E10F9BD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 07:02:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=labsK6fZM9UIlBXt9/oWiYENJ/w/olcEUa06dvnsCSSrpaeSuomss1mjuil7BoHQfLfWGhH7yZM2xAwbrwBA86SuQyOQjoQhYI76v70gS9MKWG+f7wh6CA2qVv/WywOXhGp8bLRtwk48RT0acYqehma3noRCEJJGzrFSnRaPmLlvkbFG2DhiEv+5F66j2Qe0dISEN5pnPrXfbqCTuQVmSbwSbrPRgVLH/FDUFpJSMyibpy8Kytw2SmVPsjZhkHocEIThHpsJVcJQBUKr0t/xgWodGhpKzNwSPTEkjRioJX5OUuvx0UdgGL+wK4smAHpucquTjknU13RytuH/eHeK3w==
+ b=OIgBfwuk7NWtiln4jIGQeOsYp7Wlmg7rZgAwz9qiFaSYEqU1vLjiIfIEaiFNQpY6SsbuTKcHqvjARdwZ71CTPJOC2bbqNFibRnulOUqtAZjVssu5Cxv4YNk+n79wqr8ccCsQa9mvPXXioY/fzbFbUvKCaZ3HiEiwSMmrfXjNVFG+21whvt7eREH2lUVNydEbrPM9UG4wvh8J3giKP5QfM8Oxo6ACBLSo5EppF8IEmzfvyjTiLAvJG/ekCLKjwYLOaK4Thls5jSKIdD/gJxCs8npz+VRV6iCKNdftTvMxXHSAF2FHuV2GoD0ijI+BZMsD47gvCBOsbK/vhS0GwM6J4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8cVuKxU1oiigAS0wPtK18CLKCWoeafnC7X0V+VvpB4o=;
- b=e6Jeg4YFhtyF/8aBy7KdadIF9pBf8MAIB9xl3P5BJXxfuorMXzory6t85njJPAkutYvyqszx0tizKwWqbP/strD88YaDZixd0p48kVjQq89KE7o46Oo4lO38wubBkOuaFkNpimYMd7sGozSFIRakHVA3ZYeRfLLgbw0iRUxroGQZ/Puf8c055z9cXjWJ78HXUJBQIFaHgyNtilCdmqSI75BzA4ah3sV6lROGotaDlS3eJ2PgMQw3iyj3yxgJR5L0AxK8IBT17p+rsJ3mC9BkWsPjAZV/vSFS8TL3mARofOaJvXTogaEgk6MA7f4cnbw3k9aSqV+h9IX/0KuH9Cuz4g==
+ bh=vTq2ZMOKxmufDeWNB888WTMI43M8dr+EJZDvBjsY+34=;
+ b=nTe9/70jeNXq6LlwWYBytf0q5OkCEn5G3riRLmP8/sLhh/sV8D4aDot3wMHbzbt+V80Hxjt7WlhHU2CQQDNe0Devi68H99WwXliGqff+drNB0rW2IH9C6SSzR/xX+hhkGYZfrhPGEBg6xbbx4dsAp5MLwHSUFX1EtkuLIoU1+MEMLwu/zw2TT3OdIqxMG9vLqlbJ2OMvtaFyjBFpVlKXR9fbVDseh2hsmCchxZhTnY+3lQedimUbbmN0izO9Fyq0mgSpTrLJQ7AvgtTyEfaIOa5DblnpAuTG+lyTBqir4JMm5aQ/KJ7BUUFCzHoD393yoVUl2hqpBLH4HSpIz0mCfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8cVuKxU1oiigAS0wPtK18CLKCWoeafnC7X0V+VvpB4o=;
- b=5Z9ImkMPqGNQALqa2OVXP5VUvbmrh5VSwzp4bdjRd99O1lmIVQHNb8/K1d6ZvpwDJK/hV+uokyF8WLZ+9R/PDvPFwG+vOiP0pMjgARv7VBIJxyosu74XzVV7yTN39Zb+9h4PxCIqZaS8Y+7Qg/KjaipAP0ej7GURJXGifryjShU=
+ bh=vTq2ZMOKxmufDeWNB888WTMI43M8dr+EJZDvBjsY+34=;
+ b=RdFYVgti6pV69KK86L+qpLFacQ/VPfk6d8L2a6YU4NqsSLqPWdYfANwd/HMoAA+O0v0Pd9QjUqaSQC40CQb73IGnb8u7AoKgqttf9QA45O5wFFJIgCd/RbkY0S4WSEJXEyRRtIojeKaUylM6a+kKXdZnXOP2tTMqWoUzGcAjlCY=
 Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- IA0PR12MB8421.namprd12.prod.outlook.com (2603:10b6:208:40f::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.14; Fri, 29 May 2026 06:55:33 +0000
+ PH7PR12MB8156.namprd12.prod.outlook.com (2603:10b6:510:2b5::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
+ 2026 07:02:11 +0000
 Received: from DM6PR12MB2972.namprd12.prod.outlook.com
  ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
  ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0071.011; Fri, 29 May 2026
- 06:55:33 +0000
+ 07:02:11 +0000
 From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
 To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
  <Shiwu.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: fix off-by-one over-read in pp mode
-Thread-Topic: [PATCH] drm/amd/pm: fix off-by-one over-read in pp mode
-Thread-Index: AQHc7zL3OcbT5I3dHEufP0x0EAzU3rYkkIDA
-Date: Fri, 29 May 2026 06:55:33 +0000
-Message-ID: <DM6PR12MB2972B5C6F3EACBEF419362FE82162@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260529061811.357041-1-asad.kamal@amd.com>
-In-Reply-To: <20260529061811.357041-1-asad.kamal@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: bound pp_dpm_set_pp_table() memcpy
+Thread-Topic: [PATCH] drm/amd/pm: bound pp_dpm_set_pp_table() memcpy
+Thread-Index: AQHc7zM/9x/o0lVAh0WuGO6w97+gtbYkk6PA
+Date: Fri, 29 May 2026 07:02:10 +0000
+Message-ID: <DM6PR12MB2972EA423A40C5E8A5D45D7282162@DM6PR12MB2972.namprd12.prod.outlook.com>
+References: <20260529062008.357699-1-asad.kamal@amd.com>
+In-Reply-To: <20260529062008.357699-1-asad.kamal@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T06:50:34.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T07:01:48.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|IA0PR12MB8421:EE_
-x-ms-office365-filtering-correlation-id: 763ea718-1803-46e8-ede9-08debd4f477b
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|PH7PR12MB8156:EE_
+x-ms-office365-filtering-correlation-id: 682fa998-0ffa-4be8-a6af-08debd50348e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|18002099003|38070700021|11063799006|56012099006;
-x-microsoft-antispam-message-info: WDJUqBUXlUfaQqiH1Xuoz1NI49PLCAfPmgFk0bIOmScMDkIpOR3o5XwufMhvaicDQAxwdGKTbCZeCzQBNGanKAc8NzUWMXHzbteAyjqXfmqJoKBCJ/u5bQOSlVZJCj3wx6VIWTQofyRejcUl0FaMxSp+ewdo6n8RYJcibbnHOnkabtIAFK/t/tDCR2NLTUuUGD5fwVwimehr42/X5THh2C+M5eDi33RwmvfmvJg+uxqLgFU+ifeplmKWtOFUbFLZgWX4xabhWrEYYn2luLzhWiKoxDfv8YKq7cqod40V6zXqCBSvlKIJvm5e1uwQxIdk3tTxs5gTbHyGkGMWnkp2E0QVWHeHDHwldIKMBpIAwoCcEpiOAW5c+PAlia1tv3Wqa3VFucvRtRruJ7nSdpWSPP0ETKscXtzHoc0jIFMfDqid5IttWdZi/KmNSMms8iniXXktkDTGcgqbgaoACL/75JR6+FJo/RMFJmj4sJzRknV9xcBkiA+bx4bMpVkhmnHajku6gDfs941WV9nVM/dtmrElWiBhgp30epMhgmqs3ca1hvC5Y3DRx4ou8NYe7Vi9wPhgTtAun/18P7QBJvFM/r41WofpHrlQYPt7g/HR1q1jJ1ypfQA/erWXe/0tkyqc7+yJrTG5+wPDlpd7P2wUYyFswHi4229FDQxqH/j75senAPLgk0hGRvdFdmMP4kvjpVsoHQhEnz++YVJb3v3IE/dXCzKP0KtnscBnSuFxA22IuJMV+LR8kJ188pXeDd3H
+ ARA:13230040|376014|366016|1800799024|38070700021|18002099003|22082099003|11063799006|56012099006;
+x-microsoft-antispam-message-info: 5fimFmJVACQY+ho4jbf0QwP6ej+GLvgLzdFq9Rz13B+TaQ62Z3tiF0VfUbFAmH7CYn8DV4oZFIbMdw9OnmXwgIyS/HLEaPvOJw5HZOnCz1ZNcr6cXxIzpiAtjV2FFCuNyalXY/y+Z5qahV/Vu/uYmKd+iAC5xpJTXFIk2Y75SgV0m2Lm/sfwKDWVP25h6jGZH14nmYiKE+HByR7vkq/U76abBfshoQO6HA2/2XLwlU84XzyirK4/fnJSsU5NiEXafa1OGVYp9QkF62ej4tby6i2x0MV6Qbg8qu7w3dzebovQPWMTM/sYaYjmVzppteuSpzoKtdovfuoFG2SYt0acNFHRbwm76eslfw8XKd06rf/OOgmM7SiysJaQUpxFReAFTKORlskdeIoQh7+p2EsOgg4IUzlU3lsFIK4+Aka4rX2s9X+X0LSs35YIKS/X5yW2A5D7Yyd1XoSGHzb++eIDJwTADmdKUyqtWrV3Gp2AAfLxHn24YCPxm7Z8gP5PyVjgKPAN6KwOVcdY0wzETpPJIGJnMulOzA3gsjwvIdUAnp/CcyC2tifaPoH+4e7os74hzHvhzZ7hsNHvZQAh//lOazwcCid8pFolHoFPrplPJwC7ltQN2b6ziS/iGHY21PxTsbGx63TdgWzEIoOAKyTL9rOUtNPzIUDUnPa98dr8sT77Mkqhvw9nPuX/Mv3etKgpbLEVB+0eV/kMpqJmrK3vi+lMVbZWQTBB+e1ttHwkJYXhOx8VI4ahc8fCgx7hkHdv
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(38070700021)(11063799006)(56012099006);
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(18002099003)(22082099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jDqJ3KYKR57AdSICPfuwUEsi0MbxuCPLjbPyLiMLrv/BrHnX0gAImWoWczaM?=
- =?us-ascii?Q?Sazb2f/oCtFceJV+/fWAi9PWKFSganhtp9/2kFfPAjom9FJ/O2dlDc+Ra2V2?=
- =?us-ascii?Q?aV0QVy1h+slLOTZPFYiPLL+ie2px44c4ZfZgu8cE/ACpaXyObhR67vUSv8Fi?=
- =?us-ascii?Q?HNge3+NDJ3zDWjPnL8gxLc2vhR+DV49D5HEwFBstXGVXcC1iZ2zRtwwCVwdD?=
- =?us-ascii?Q?HdtBpTVQd6lQ1Rxtr+GLs8Yln80J17qUw5zKnq6kFiaNy6XcfTCxNISz69AC?=
- =?us-ascii?Q?Y88VlGUDYnxcg57aiRIMnpiOfrkp1MrLWAw5Tj9/sa2rEv8LAaoBQlGW6egX?=
- =?us-ascii?Q?yNfET+ZJ6cLjPyJhxb/LnLr9FLwBiulW0cHKkk3VDDX3t2EdU4DSSsb7GvYd?=
- =?us-ascii?Q?FNP1Y9/5LR338nGQtHDdUANg4rvFiBo9fTBdV8jShkhETmpEopF5Ars6izen?=
- =?us-ascii?Q?AkcMNupkjE1tywptAmXqxThIiuuwoioveGCGVds+jvBAwDCbvQm27yTlviwj?=
- =?us-ascii?Q?b2zH+H4BCcbXEHRz4tksyQx0lfqSLsZinK2Rvk826SxDR/vk+y8JCfwOv0YB?=
- =?us-ascii?Q?nInWklv+/vMq1Pd5QBjm1bt5iNOMPtnwWxGOq9UoMNO7DTvwSPUjR5Qubkaq?=
- =?us-ascii?Q?MttX7gMBI+oAeo5wVxGTCjMzV7Eap/DLzFz/hmiFnlZJGz1mwWzksNxuBw0y?=
- =?us-ascii?Q?x2XakA1nqwt5yHJv+FAcccyZAzDbNkT9pvi3ww7gshJHt8D5wLW2W1dfZ46C?=
- =?us-ascii?Q?qAMDtiGvy/NwIz7EhF3YEFItRm7ousMNm3bf2JCl7YNulpFIryzy2aQ02rLv?=
- =?us-ascii?Q?AyOxYFEc8Cgi1Wot8ZcxqKuBIoC3gkTlLzTLwCgc3ujWBmLg+0hRpZujv1Rr?=
- =?us-ascii?Q?fPC8MAKWHBqYc9Dk1hx+JcQSh4R4K80GwLJpg6r3jfHvSRiObIby+Wy0ct/b?=
- =?us-ascii?Q?yQvbXR0CK0JMW+69CF7gEVuyxaBMtnbPPHnmToK8DwA513E9x04gqB3wnZUG?=
- =?us-ascii?Q?UCv88MGAZYfoxzHn+U2u7k1uugXNbKifj7MtbI17UVP1oIealG1pB0BZmtx8?=
- =?us-ascii?Q?7ohFwhfo8SatQ6M+C+9ZgDi0qlL072YLim2SPaSkwpTBVNYmWY9AlsUo90Bq?=
- =?us-ascii?Q?Bb7A8gcgZDMks9NeWx8qviCdeN4aRy6s4TpgqC+CKOPXTGvQtuT5j3Gr6fj1?=
- =?us-ascii?Q?PGxH8ht3iHyumLqOS/XcbaOfdI3PVPDKc2d3XXvZWc94encyu5gENbi1z08s?=
- =?us-ascii?Q?KwaejzvLAopbXOcHKHtBQVy14iq/R2AqMCDiYaIztrlydFmK5fsqy84ia4aJ?=
- =?us-ascii?Q?sHmHzVR7tLr6IfGZcd1JL0AGARC79m48Iyj4WdmYoLbVyyN9OXlEV4X1AzHp?=
- =?us-ascii?Q?T4Q+ZTZdutbm4QTVRNKj4T73AktbjZX1i5racoMLk+vXkhsDmqaRy9yfQEpc?=
- =?us-ascii?Q?NhdPsL5ZKy/GNWWhkfLlaKbxaeec2UUDx4VZjC8g1sQqURzrI4OhGYQx8p5d?=
- =?us-ascii?Q?gfem8CsKPDc9RDZLZ1PJwXV0AK508swirIZ6W9/HNH432oEFc11DJ/r0s5uN?=
- =?us-ascii?Q?75OL3uWRjKRJnLa+89jSuiJY+w7OrJIZOYFiSBRXxOZoS8/RZWCYtfzVdiGZ?=
- =?us-ascii?Q?dGVShBVeJkRjTElI7cykxVN3tas+zqU/B+C7170RBtQBEmYTQ9ozrgzNN9QM?=
- =?us-ascii?Q?JmzYee4A5iU6fz0hmBblQex0deJk1MV9a9+PlEXXbfby5bKw?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1cxGaj2MU1gSJo/jdIhJUuzqjL7iRTl4i71UHN4Um8vyEVqVnKauIBVZoCOE?=
+ =?us-ascii?Q?pDf5zJM/HOGRtGgDAn+G6WrfyvC4kEFOqqI+YK0026EfPwvsu0SVe7bW3E+3?=
+ =?us-ascii?Q?w05fmEhxkQa0jkeoj79ovt5c5wSnsJHN99D1y7Tg7I7bh/201YHaGY4teEmQ?=
+ =?us-ascii?Q?7F+RR53lWZtX8kKUhOQZrh1cDO1mrh0ud3E5PwwGrJtOyrXwLGgZtk9+Oj0B?=
+ =?us-ascii?Q?lwL3xYuNXL1uaDA2XTZEToalmD3xgx29sYyk8pGJFo76M7qD6uCs7nf2dr89?=
+ =?us-ascii?Q?kMoVUh09MxqgmJ8RuMQY7DtVWiEKAzRH7Q62pdC05aRT9JyDEREHYcQSHPfX?=
+ =?us-ascii?Q?g0/Dn3PNDbH3v2SzzcPqkCVYtMGn/1xPePVUQzDMNkD1ueq59Epf69doDGo7?=
+ =?us-ascii?Q?Y5Kwn03p0fuRUNW0r6rTd6N/3Ulj32Gn2z93bWtLkJ4VsLXTIHZm/hXSotGM?=
+ =?us-ascii?Q?g17Gs4IJ2KVDCkhh4CxO99DwNf9eJPAyenPy/Q3qjPx28OKBpq423ajbO5CA?=
+ =?us-ascii?Q?TLqdiSpHsaepFHhvtsKugpKbEkRpieEP9aTOmHcb85+oY8ZovjMpHVYVXHtu?=
+ =?us-ascii?Q?T2eBw0N0l9WBGPs/korY9NwTpXFtMZe3OAqnVr4q+rk0DxEmXpZ0MwEceOVo?=
+ =?us-ascii?Q?mlyDU8qN7Ek5gDViiOeTKIBCrhQTeK6nzKPgrplI32lcROYt1wSArsPD+94w?=
+ =?us-ascii?Q?RaRkWLaK9VaJ3/5DojK21k9UEBc4PLhTzTozo+SOm4El+TXwCcZqDVf8BKUp?=
+ =?us-ascii?Q?jsRifWsa6pGmjqNN0sMzR3oIa3f0ZKmz/gFSgqzkB+pmxoa+A2gAi2yqmAE2?=
+ =?us-ascii?Q?Rg9bIWiXjZ8llQgVNscGEWNnOZbXYfEx6bD5hbZtlf/vbaukIANnXIk+LfJ1?=
+ =?us-ascii?Q?5FH34459qhptfe/qmI7nhCwsHCLYEbWWwTQ55pIPpmuu27knpONHByUGGr79?=
+ =?us-ascii?Q?3ZiTFZl2Hw3sWYQph9HFHAo46FfJayPdSxtt6WqdPw5f+jU0LE/sqIo9xsra?=
+ =?us-ascii?Q?s1JPEpD6+1drYHu1H9fg9Eqzzssy0+rtD4lCfHUpwcPS+/2hCxOZkyhsqjjq?=
+ =?us-ascii?Q?onwhFiS4YPPYq78Ka7Z0BhzLEoq4QoBypUV37QlpGhKEFyZuwN+wIjF2MycT?=
+ =?us-ascii?Q?Kk1gQ907aUEVc1GlCQQEDzCX+uX6QnSslL7bEP9K7daYYniEDuSRVaCFH59w?=
+ =?us-ascii?Q?TqzmwEvQr+LH54SOIM+DcPRqAqof7RXjNVMtyEDYa6uVaHqEn4OHJM10/Exo?=
+ =?us-ascii?Q?/8xhVvYe09vKqS0DMeEp4ZZhR1KgkixcS+KuqzwS7KtfRN/zbba0CHTcqlN/?=
+ =?us-ascii?Q?Z7KBFEfZYNeZxJ2Tvf84A0XnVK/eaBg//XNwx7/T4xvlbSF84t6/fULw/dnA?=
+ =?us-ascii?Q?UkmpBPznOZ5K160jLUKLiFTVk9VozCFYpokThiZ+dwRhNiR3V4CgVf7qczuw?=
+ =?us-ascii?Q?Yv213rz/Il+uTTAVpTmSjbkgcDEYuMTX5SV40rjSfphSynvAToBdBUst3JpF?=
+ =?us-ascii?Q?0+ZrlczleT6ZIEELo68e1RAlpcHjzeVunq6xJri7ID/NJvE77uYkxhk/2l8k?=
+ =?us-ascii?Q?nT8ys/f4eNwIbkSkH09r9dSCUUmWupUG+S65ZEc5JqRzhQv8Dzj9Vh2Pd4NN?=
+ =?us-ascii?Q?oMp40CmdbvomtlZtPPHuY1HxA7L0Wo5zcS0gyNdQn9Z10ICds6lPMae/8w2H?=
+ =?us-ascii?Q?klDWJ3FxPLIdDz4Xx5o3cOlu+ZA=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 763ea718-1803-46e8-ede9-08debd4f477b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 06:55:33.2072 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 682fa998-0ffa-4be8-a6af-08debd50348e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 07:02:10.9392 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: woCz75McYa59LL2r7wgQV2Zj0X57RIAVHinVFNfGLb/sZMptqMhXg4Jv7oX7oSJ/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8421
+X-MS-Exchange-CrossTenant-userprincipalname: jhFgpC8+EujxlWUp40U9Gz3K9XKKTb7BLSwHXjrgsD7p/pN5o10VDQUikTy6Laz0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8156
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,69 +136,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+
+Best Regards,
+Kevin
+
 > -----Original Message-----
 > From: Kamal, Asad <Asad.Kamal@amd.com>
-> Sent: Friday, May 29, 2026 14:18
+> Sent: Friday, May 29, 2026 14:20
 > To: amd-gfx@lists.freedesktop.org
 > Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
 > <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris
 > <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
 > Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Kamal, Asad
 > <Asad.Kamal@amd.com>
-> Subject: [PATCH] drm/amd/pm: fix off-by-one over-read in pp mode
+> Subject: [PATCH] drm/amd/pm: bound pp_dpm_set_pp_table() memcpy
 >
-> After consuming the leading profile digit in tmp[0] and skipping i bytes =
-of whitespace
-> via *++buf, buf points at original + 1 + i. The number of bytes still ins=
-ide the sysfs
-> buffer is count - (1 + i), not count - i; using the latter copied one byt=
-e past the store
-> buffer.
->
-> NUL-terminate buf_cpy before strsep() so parsing cannot run past the copi=
-ed
-> payload.
+> The powerplay path allocates hardcode_pp_table once with kmemdup(...,
+> soft_pp_table_size). memcpy(..., size) used the sysfs store count (up to
+> PAGE_SIZE) with no upper bound, causing heap overflow. Reject writes wher=
+e size
+> exceeds soft_pp_table_size.
 >
 > Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 60db9b66d08c..450ecb188aed 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -1379,6 +1379,7 @@ static ssize_t
-> amdgpu_set_pp_power_profile_mode(struct device *dev,
->       char tmp[2];
->       long int profile_mode =3D 0;
->       const char delimiter[3] =3D {' ', '\n', '\0'};
-> +     size_t len;
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> index 3ee910503775..35974fd02b27 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+> @@ -665,6 +665,9 @@ static int pp_dpm_set_pp_table(void *handle, const ch=
+ar
+> *buf, size_t size)
+>       if (!hwmgr || !hwmgr->pm_en)
+>               return -EINVAL;
 >
->       tmp[0] =3D *(buf);
->       tmp[1] =3D '\0';
-> @@ -1391,7 +1392,9 @@ static ssize_t
-> amdgpu_set_pp_power_profile_mode(struct device *dev,
->                       return -EINVAL;
->               while (isspace(*++buf))
->                       i++;
-> -             memcpy(buf_cpy, buf, count-i);
-> +             len =3D count - 1 - i;
-There is still a risk of signed integer overflow here, please review this p=
-art.
-btw, the variable 'i' may be greater than 'count' ?
->               while (isspace(*++buf))
->                       i++;
-
-Best Regards,
-Kevin
-> +             memcpy(buf_cpy, buf, len);
-> +             buf_cpy[len] =3D '\0';
->               tmp_str =3D buf_cpy;
->               while ((sub_str =3D strsep(&tmp_str, delimiter)) !=3D NULL)=
- {
->                       if (strlen(sub_str) =3D=3D 0)
+> +     if (size > hwmgr->soft_pp_table_size)
+> +             return -EINVAL;
+> +
+>       if (!hwmgr->hardcode_pp_table) {
+>               hwmgr->hardcode_pp_table =3D kmemdup(hwmgr->soft_pp_table,
+>                                                  hwmgr->soft_pp_table_siz=
+e,
 > --
 > 2.46.0
 
