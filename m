@@ -4,45 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E262BCD5BD1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C864ECD6E4C
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 07:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69E65112EF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59EB5112EFB;
 	Mon,  1 Jun 2026 07:28:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=poczta.fm header.i=@poczta.fm header.b="yssDv48P";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P5IgeHI9";
 	dkim-atps=neutral
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7303D10E60F
- for <amd-gfx@lists.freedesktop.org>; Sun, 31 May 2026 10:52:30 +0000 (UTC)
-Received: from Stacjonarny (62-133-144-026.dynamicip.ostnet.pl [62.133.144.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by www.poczta.fm (INTERIA.PL) with ESMTPSA;
- Sun, 31 May 2026 12:52:26 +0200 (CEST)
-From: "Artur Chlebek" <achlebek@poczta.fm>
-To: <amd-gfx@lists.freedesktop.org>
-Cc: <regressions@lists.linux.dev>,
-	<stable@vger.kernel.org>
-References: 
-In-Reply-To: 
-Subject: 7.0.9 vs 7.0.10/7.1 Radeon 260X regression
-Date: Sun, 31 May 2026 12:52:30 +0200
-Message-ID: <002901dcf0eb$9472e210$bd58a630$@poczta.fm>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF0B8112914;
+ Sat, 30 May 2026 16:58:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9875543B68;
+ Sat, 30 May 2026 16:58:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEFD11F00893;
+ Sat, 30 May 2026 16:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1780160329;
+ bh=lPKjVmu0Ahe65kkokKukSAmt4aMwiug+NgY6jDUgW3s=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=P5IgeHI9DO5iBGmCEjFwz28YiZzv5xjvRFs98JNarYy0knr+OAaycMCoievIyKGwR
+ yMNo80tAny6eZBv1HU1GEXrYbDQu2f7SJAk1x86Q7CjlH8sQbqdVUdIQFlMB0ghBGN
+ KAzXM4Uo0W7PIgJEWAbGHuYrXN8XXmeUNakUc05Y=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Arjan van de Ven <arjan@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1 275/969] drm/amdgpu: fix zero-size GDS range init on RDNA4
+Date: Sat, 30 May 2026 17:56:39 +0200
+Message-ID: <20260530160308.073458947@linuxfoundation.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260530160300.485627683@linuxfoundation.org>
+References: <20260530160300.485627683@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKsb98F3W6w4/I7L4gnl9a4wKSh5rSI9UcA
-Content-Language: pl
-X-IPL-Priority-Group: 0-0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
- t=1780224748; bh=23Hr6bVV2eGzZD4V9CAprmCqyNkeGDWQ61jdUyLqKXA=;
- h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=yssDv48Pev+PIQ+2CWFB85IQ+Bh6vUyB6EcyUY2JsblfJOKTNoUR7JLfmAhe6gNC4
- dqvPb+ENrbHGkxt0B+x00HJ4DMy/YsPADm3FfDuKs0HmsHKhSqJllvi8Tlu5OG7HTU
- s0rGTY07+HRX9nBmszgqidtRxpebVUdIXJG4X9fU=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Jun 2026 07:27:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,13 +62,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, I have 5x fps drop on amdgpu Radeon 260X 1GB between kernel 7.0.9 and
-7.0.10 or 7.1rc
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Original sparse mail got flagged as spam so let me elaborate:
-Newest vanilla Fedora with Plasma, Gigabyte GA-H97-D3H, looked into things
-like clocks, PM, ASPM, tried flags, GTTSIZE, .dc=0 - all seems fine nothing
-helps.
+------------------
 
-Regards.
+From: Arjan van de Ven <arjan@linux.intel.com>
+
+commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
+
+RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
+resources. The gfx_v12_0 initialisation code correctly leaves
+adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
+zero to reflect this.
+
+amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
+each of these resources regardless of size. When the size is zero,
+amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
+which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
+DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
+zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+
+Guard against this by returning 0 early from
+amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
+resource manager registration for hardware resources that are absent,
+without affecting any other GPU type.
+
+DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
+the kernel config.  This is apparently rarely enabled as these chips
+have been in the market for over a year and this issue was only reported
+now.
+
+Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
+Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
+Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
+Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -76,6 +76,9 @@ static int amdgpu_ttm_init_on_chip(struc
+ 				    unsigned int type,
+ 				    uint64_t size_in_page)
+ {
++	if (!size_in_page)
++		return 0;
++
+ 	return ttm_range_man_init(&adev->mman.bdev, type,
+ 				  false, size_in_page);
+ }
+
 
