@@ -4,129 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F83CD6E4C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A24BCD5BD1
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 07:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C58A112EDE;
-	Mon,  1 Jun 2026 07:27:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E093F112EDB;
+	Mon,  1 Jun 2026 07:27:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="IvqSRAbg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KaFcxR+V";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10767112113
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2026 15:31:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1780068673; x=1780673473; i=natalie.vock@gmx.de;
- bh=ikEiaM+ffzO0bTYOUme0nn9X5RRUKqYEItSN+Ht2+RQ=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
- MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=IvqSRAbgz4ZDg09D00JweBQRVSjUR0t9cw12+SrFcSfc2Rizm7uiMt7uojQgl3Nj
- 9WTkHA2dPYrxX7YpY7TrYzE/VdNPPipotW3jqQo1fw7G1/TwKPHGrS3V2pwnPPL/a
- Hc09f9hoBYkEjhOmFBrZo3V3rD6fWufuiv6xegMaLE/Z+pkYSgmSI0kqZDWSwj1dH
- 0IZYy24sBelTfBjmcqfh2gG8ZeezVBq4dxIMrQa6DzHtZ09r7D1Z9GRNTJ1+K1bK8
- UzpqFLBAt8ujQQDeaWXL4nGEwplsd8iOHaUwIAWfrc1dhF1Nf4mYEnZMt63UD1p49
- Zvn/bTt808Yxo5DEFA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N49lJ-1xSCeG0r0D-00saFj; Fri, 29
- May 2026 17:31:13 +0200
-From: Natalie Vock <natalie.vock@gmx.de>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3 1/2] drm/amdgpu: Only set bo->moved when the BO was
- actually moved
-Date: Fri, 29 May 2026 17:30:50 +0200
-Message-ID: <20260529153051.973261-1-natalie.vock@gmx.de>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4C2E10E10D
+ for <amd-gfx@lists.freedesktop.org>; Sat, 30 May 2026 12:51:24 +0000 (UTC)
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-43b7e186a0cso2603372fac.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 30 May 2026 05:51:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780145483; cv=none;
+ d=google.com; s=arc-20240605;
+ b=XLUF2ZOeYb5hu7X7/FTEsZWjZyUwXGrtkh2L98sr3DqJJvss3aBPGfEnPS4BWOBa1x
+ ghnHOCAp2sn2qWGHjZKBDK57sMNIqY3o2Sc+CIGaDpLrw5/IqA3AXaaGtpUZdXBRbd54
+ RcagqiPNdSbVBMJA0FBD3tDNYzBQkN7MpAtzTl2AwmZ4FxA4FErzaUe1t0H+unmzJ5ut
+ 7be0TShhm5U/c2nNQNmqN1LmU1dnwjrbS2M7fNVipBx8arr7ok6ZjiL2r5Go6g0EUwzK
+ h53F7Ap98ZcFWVAkUtAYxM5MFpflwNY3s/ab3JIJrXzghGjsnsN3/TgGS0qfEvrXa8Fh
+ J19w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :dkim-signature;
+ bh=3A/dvjO6Xz0UeZnJkZnw68G7gu0kDizyypSKA1X9AYI=;
+ fh=MmtVxSUe2WT0S+P/SDBVuCrs+InDkDRLIPbo+aKPf00=;
+ b=Wd7gf8cwaaM6n8QH5X49nzANQcpkkK8GDhDeY3z0xlOMWptT7odEKefpBcFnKXNWlo
+ +KxNiKeVpmuFG4hjpnjWp4HKZ+V0tiNT0Q3BsYd8oGQP2gH9LyoMqYJgjWFQKCvbm9vd
+ 22meRjIa4DY6EAKYk+/BwnOlaWIscW8dnF6+YNtCtOq6VroPOySbEJKQaobKMNhKFYx6
+ Ol5m9sKDG/QZEFLUcFeao5rweVUZEyjYOA1Sr+daJIU7WugEpg5BZ5yItXxlpF+6eyBf
+ F79vc15J7hVbbGN9+OHMrXqUtGGJ1Myr3/8i89NsiA6DMC37ol2ktFSYC9YmNo73C9Ut
+ wvOQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780145483; x=1780750283; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=3A/dvjO6Xz0UeZnJkZnw68G7gu0kDizyypSKA1X9AYI=;
+ b=KaFcxR+VeKxlzZNwPSioe0XkDECsJPz4yK/+KA6+YxBYH1fS2G/ztvO5e+COwtU/kE
+ Ti7ZfvBtZKsQ2Q+K1MfgetJDxeYNV7kHC6Rxoge7jCRA2dAyuLw6hR6qS5snAa3ng7ne
+ hBOF+JqB0M9aQES2nOjKG8+tF7Td+zAMySsrmdLN37d5pqoZcyl7Hcb7I9GPIQk36jho
+ bCStgcpNqJLQcX8uGIYlhlVNZtE1SVvEsiS84n/dZuW2vtZ4eTigNpSfcIWimhPsRuLv
+ VQlzEhyRqLpy63+vUwKmjAiNIuh8wwRwHRvtnT4kdEGXPLOYjpwiHrIZCGKXHAxzIsni
+ AcsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780145483; x=1780750283;
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3A/dvjO6Xz0UeZnJkZnw68G7gu0kDizyypSKA1X9AYI=;
+ b=Z6zd6NhS9ExNDdGb8UQOR9YEhpsCd0/rMCStRfv2a73ZdEATtAWJI8x4+c1gYVe64c
+ bqGLD32cjK9exi8oe3o5Tg2P29mQNb1iL3uFA2kO3uFn932Nu8pUbCN17eNJcKcZZi1u
+ t3HpRSf27p2JF6bKbQKnCPMqC2EjQQB5JoPcCVwvxz4+Fp2yrwiu0kV3bqVxglYBixEe
+ CdpbSsKEBTC5Tutfd5gsvI9+wGpS8qBBvIO6TfBTWfrTQjKF1kgi8b26UYeGWw5CUUnF
+ s0sbESzqiz1ZaBDe8g8lsQYDzXkZg7EFGPmMoWI12GmUbaux8Vvnu9+DgwiAyp4bkt8q
+ KHcA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ86DhieMuit32UUTMtiyLcbsUM+By5X8+H6bN+JKUmYz1U8xheSrAhRO4ZXJlPV14w4E/tZUQZz@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywjo6YMPj1BZAQEWIttPDnI9/EPRR/gXnEy/7iqsuFmXk10/jWv
+ FPDTvDGaaKdq4W5HOe6IswSg85U/Ag+jYawSfXdkROohGEk94UVZKw33X7J4OGoUcmyjsVtBwtg
+ PDuD6dYJXMn0A8ZxLgsBuOAcx8ReWdAU=
+X-Gm-Gg: Acq92OGQCyTOmmbZIE2ngyZEOS22HMNb4TZC9Kh5jrfSxxQlwEzww+TtqIbLeK9zGWq
+ J37h6wIAjL6KStYuw3AN6tkF52D6LtV6DubepylHF8E8GgMwpkpBNwRgsXgZEhkxYHrjrD4QSur
+ RzzM4oDZGuEuli3vpiR203V021wus15n3WI9KYzEfKUkbOT1DiMGj9i3aF2Xrf1xm1xtGN+KFrs
+ 5Vqbx3DQ6a4FGvCsN1CH/l+RlK079e7LaUwv4QB0KONfSvC284VFpKQlRdGOVtxyuc9fipOk6oc
+ auZsehAoNvw/e+FNG03T5QxK2IyZ57WOMohq/mwZ7XLL+ygDAuf8qmWtF2fLsKg=
+X-Received: by 2002:a05:6871:3a28:b0:42b:d6a3:7c49 with SMTP id
+ 586e51a60fabf-43ca4241d3dmr1945707fac.17.1780145483066; Sat, 30 May 2026
+ 05:51:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:NVlBkdn28Rtb/2bb4ihQ7lbI82cugwBL7ePkD2LbVJiCbDKbipM
- nxJsXv2WNLZxqzw7F/mPj2MvD09FV4NaemGvoDtDCiKRu7vNplaKTsHeXCi17LlhsIgj/zW
- +TQ66qRZGLXJrsQGluvUlKJbIZvz8ENc9UtBpnhu4U9tCx3BQFJrDtIsT7HQTcbwl3q94r3
- 62+oFhHI3f2l989eB3t3g==
-UI-OutboundReport: notjunk:1;M01:P0:yf+WCIJG8rk=;i1AKKv/SdyKd6WrYI0EzEYq4UHL
- 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
+References: <20260519084158.72960-1-timur.kristof@gmail.com>
+ <BL1PR12MB51440DCA164ED993EA5FAFBFF7162@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <CAOGA6HgfUjbT9wKU1Baz3QXFsDaRTEUd8WCrRQn2D5Fh8REEbg@mail.gmail.com>
+ <4899616.vXUDI8C0e8@timur-max>
+In-Reply-To: <4899616.vXUDI8C0e8@timur-max>
+From: Jeremy Klarenbeek <jeremy.klarenbeek99@gmail.com>
+Date: Sat, 30 May 2026 14:51:11 +0200
+X-Gm-Features: AVHnY4KsfaPlskrn3TapYcDfI6AfggHpJZ8X32hB0GUE-0X7rA_g56N13fy-LzA
+Message-ID: <CAOGA6Hj5q2uhb8ka2jNhBfDk7pX2NfJO2gcxzOb8VC1gPLxL1A@mail.gmail.com>
+Subject: Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="0000000000002ab1940653086b5c"
 X-Mailman-Approved-At: Mon, 01 Jun 2026 07:27:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,76 +105,464 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The "moved" VM state is a bit unfortunately named, because BOs can end
-up in this state without being physically moved. While we need to
-invalidate every mapping when BOs are physically moved, in some other
-cases like PRT binds/unbinds there is no need to refresh mappings except
-those affected by the bind.
+--0000000000002ab1940653086b5c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Full invalidation of all BO mappings manifested as severe regressions in
-PRT bind performance, which this patch fixes. The offending patch is
-53f0235c0284 ("drm/amdgpu: restructure VM state machine v4") in the
-amd-staging-drm-next tree, although it has not yet propagated anywhere
-else.
+I tested your patch without the ATOM_PP_PLATFORM_CAP_HARDWAREDC early exit
+and saw the same behavior. Looks like it's a mutex issue:
+both amdgpu_pm_acpi_event_handler and the modified
+si_notify_hw_of_powersource are attempting to lock the power manager mutex
+on the same thread.
 
-Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-=2D--
-v2: Move setting of vm_bo->moved out of amdgpu_vm_bo_moved (Christian)
-v3: Set moved =3D true in a few more places (Christian)
-=2D--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On Sat, May 30, 2026 at 12:32=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com>
+wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vm.c
-index b523a7b97d6f1..9ddeb984beff7 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -232,7 +232,6 @@ static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_bas=
-e *vm_bo)
- 		vm_bo->moved =3D false;
- 		list_move(&vm_bo->vm_status, &lists->idle);
- 	} else {
--		vm_bo->moved =3D true;
- 		list_move(&vm_bo->vm_status, &lists->moved);
- 	}
- 	amdgpu_vm_bo_unlock_lists(vm_bo);
-@@ -597,6 +596,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, str=
-uct amdgpu_vm *vm,
- 			return r;
-=20
- 		vm->update_funcs->map_table(to_amdgpu_bo_vm(bo_base->bo));
-+		bo_base->moved =3D true;
- 		amdgpu_vm_bo_moved(bo_base);
- 	}
-=20
-@@ -614,6 +614,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, str=
-uct amdgpu_vm *vm,
- 		if (r)
- 			return r;
-=20
-+		bo_base->moved =3D true;
- 		amdgpu_vm_bo_moved(bo_base);
- 	}
-=20
-@@ -634,6 +635,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, str=
-uct amdgpu_vm *vm,
- 		if (r)
- 			return r;
-=20
-+		bo_base->moved =3D true;
- 		amdgpu_vm_bo_moved(bo_base);
-=20
- 		/* It's a bit inefficient to always jump back to the start, but
-@@ -2270,6 +2272,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_bo *bo, b=
-ool evicted)
-=20
- 		if (bo_base->moved)
- 			continue;
-+		bo_base->moved =3D true;
- 		amdgpu_vm_bo_moved(bo_base);
- 	}
- }
-=2D-=20
-2.54.0
+> On 2026. m=C3=A1jus 30., szombat 12:07:12 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
+=C3=A1ri id=C5=91 Jeremy
+> Klarenbeek
+> wrote:
+> > Thanks everyone.
+> >
+> > > My suggestion would be to call pm_compute_clocks() inside
+> notify_ac_dc()
+> >
+> > I tried this patch and it's not working.
+>
+> Of course not. It wouldn't work without also inverting the HARDWAREDC
+> check.
+>
+> > The specific behavior I see:
+> > 1. Clocks do not respond to plugging/unplugging. Always idle.
+> > 2. Severe system stability issues. After opening a process that uses th=
+e
+> > AMDGPU, opening any more GPU processes (glxgears, radeontop, etc.) hang=
+s
+> > forever during init. The system hangs while shutting down and requires
+> > force power off.
+> > 3. This message is seen in dmesg. Not sure if it's related.
+> > [  151.684427] amdgpu 0000:01:00.0: bo 00000000c5a63ba0 va
+> > 0x000010cb00-0x000010cb53 conflict with 0x000010cb44-0x000010cb45
+> >
+> > > Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary on
+> your
+> >
+> > laptop?
+> > Yes, without sending this message, the SMC switches to idle speeds
+> instead
+> > of AC/performance speeds. Unplugging the laptop ironically makes it clo=
+ck
+> > back up instead of down. This fix was found while reverse engineering t=
+he
+> > SMC and confirmed by the clock speeds beginning to rise after
+> implementing
+> > the message. Commenting out just the one line that sends the message
+> undoes
+> > the fix.
+> >
+> > > the ATOM_PP_PLATFORM_CAP_HARDWAREDC check is inverted
+> >
+> > I've implemented this into my branch. Thanks for checking.
+> >
+> > Here is the current state, still a 6th commit on top of the original
+> series
+> > of 5: https://github.com/luisfonsivevo/linux/commit/083a2bbe81d6for
+> > applyingfdc670b5890de661a3bdd42e9b80
+> > <
+> https://github.com/luisfonsivevo/linux/commit/083a2bbe81d6fdc670b5890de66=
+1a
+> > 3bdd42e9b80>
+> >
+> > This has been working reliably for a week without any problems and I'd =
+be
+> > happy to submit it if there are no objections. A separate commit will b=
+e
+> > needed to apply this to SMU7.
+> >
+> > On Fri, May 29, 2026 at 10:33=E2=80=AFPM Deucher, Alexander <
+> >
+> > Alexander.Deucher@amd.com> wrote:
+> > > AMD General
+> > >
+> > > I dug into this a bit more and the ATOM_PP_PLATFORM_CAP_HARDWAREDC
+> check
+> > > is inverted.  Switching that should fix it.
+> > >
+> > > Alex
+> > >
+> > > ------------------------------
+> > > *From:* Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > *Sent:* Sunday, May 24, 2026 7:32 AM
+> > > *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>;
+> > > Deucher, Alexander <Alexander.Deucher@amd.com>; Jeremy Klarenbeek <
+> > > jeremy.klarenbeek99@gmail.com>
+> > > *Subject:* Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-7
+> > >
+> > > Hi Jeremy & Alex,
+> > >
+> > > > Apologies for my late reply. I tested the patch series (SI laptop
+> > > > 1002:6606) and the problem remains where the clock speeds don't boo=
+st
+> > >
+> > > upon
+> > >
+> > > > switching to AC. Timur and I investigated this and found 2 problems
+> > >
+> > > Thanks for getting back to us on this topic.
+> > > At Alex's suggestion, I removed the clock recalculation and added the
+> > > check to
+> > > verify ATOM_PP_PLATFORM_CAP_HARDWAREDC. I'm sad to hear that this bro=
+ke
+> > > your
+> > > patches. I apologize for that.
+> > >
+> > > Unfortunately I don't have a SI laptop GPU to test this stuff, so the=
+re
+> > > was no
+> > > way for me to verify the correctness of those changes before I sent t=
+he
+> > > patches to the mailing list.
+> > >
+> > > > 1. It seems that it is necessary after all to recompute clock speed=
+s
+> > > > when
+> > > > toggling AC/DC. Sending PPSMC_MSG_RunningOnAC on its own has no
+> effect.
+> > > > Each ASIC family's apply_state_adjust_rules appears to be responsib=
+le
+> > > > for
+> > > > the switch by setting the max_limits, and this function is only
+> called
+> > > > as
+> > > > part of computing clocks.
+> > >
+> > > That's right. I took another look at:
+> > > si_apply_state_adjust_rules()
+> > > smu7_apply_state_adjust_rules()
+> > >
+> > > Both of these rely on adev->pm.ac_power when determining max_limits,
+> and
+> > > they
+> > > set the maximum clocks accordingly. We should indeed re-calculate the=
+se
+> > > clocks
+> > > on both SI and SMU7 when there is an AC/DC switch to make sure to app=
+ly
+> > > the
+> > > updated max_limits. Additionally I think we should probably lock the
+> > > mutexes
+> > > to ensure that we are sending only one message at a time.
+> > >
+> > > My suggestion would be to call pm_compute_clocks() inside
+> notify_ac_dc(),
+> > > and
+> > > also to lock the mutexes:
+> > > https://gitlab.freedesktop.org/Venemo/linux/-/commit/
+> > > e98279dff480cc297cbb1fe50c2b71ebd65b9576
+> > >
+> > > if that works, I'd like to submit that patch (and will also port it t=
+o
+> > > SMU7).
+> > >
+> > > > I'm considering removing the .notify_ac_dc field
+> > > > from the IP block entirely and just calling .pm_compute_clocks from
+> > > > amdgpu_pm_acpi_event_handler, but I only know for certain that this
+> > > > works
+> > > > for my GPU.
+> > >
+> > > I don't agree with that. amdgpu_dpm is generic between all supported =
+HW
+> > > generations and shouldn't contain HW generation specific code. Also, =
+it
+> > > clearly
+> > > doesn't work the same way on every GPU generation, so we shouldn't
+> > > generalize.
+> > >
+> > > Furthermore, we should minimize the amount of messages we send to the
+> SMU,
+> > > so
+> > > we shouldn't send the RunningOnAC message every time we recompute the
+> > > clocks,
+> > > only when it actually switches to AC.
+> > >
+> > > > 2. The ATOM_PP_PLATFORM_CAP_HARDWAREDC flag is enabled for my GPU,
+> > >
+> > > causing
+> > >
+> > > > PPSMC_MSG_RunningOnAC to never be sent. Either the flag is enabled
+> > > > erroneously, or we're interpreting its intended usage incorrectly.
+> > >
+> > > It's hard to judge that without having access to the hardware or docs=
+.
+> > > Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary on
+> your
+> > > laptop? Isn't it enough to just re-compute the clocks?
+> > >
+> > > Can you check what exactly is the value of adev->pm.dpm.platform_caps
+> on
+> > > your
+> > > laptop? Maybe we are looking at the wrong flag, or maybe the HARDWARE=
+DC
+> > > flag
+> > > only refers to the AC->DC transition and not the DC->AC transition.
+> > >
+> > > This is just guesswork on my part, but maybe we should look at the
+> > > SBIOSPOWERSOURCE flag instead, which is explained in pptable_v1_0.h:
+> > > /* This cap indicates whether power source notificaiton is done by
+> SBIOS
+> > > directly. */
+> > > Can you check if this flag is set on your laptop?
+> > >
+> > > Thanks & best regards,
+> > > Timur
+>
+>
+>
+>
+>
 
+--0000000000002ab1940653086b5c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I tested your patch without the ATOM_PP_PLATFORM_CAP_HARDW=
+AREDC early exit and saw the same behavior. Looks like it&#39;s a mutex iss=
+ue: both=C2=A0amdgpu_pm_acpi_event_handler and the modified si_notify_hw_of=
+_powersource are attempting to lock the power manager mutex on the same thr=
+ead.<br></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Sat, May 30, 2026 at 12:32=E2=80=AFPM Timu=
+r Krist=C3=B3f &lt;<a href=3D"mailto:timur.kristof@gmail.com">timur.kristof=
+@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">On 2026. m=C3=A1jus 30., szombat 12:07:12 k=C3=B6z=C3=A9p-eur=C3=
+=B3pai ny=C3=A1ri id=C5=91 Jeremy Klarenbeek <br>
+wrote:<br>
+&gt; Thanks everyone.<br>
+&gt; <br>
+&gt; &gt; My suggestion would be to call pm_compute_clocks() inside notify_=
+ac_dc()<br>
+&gt; <br>
+&gt; I tried this patch and it&#39;s not working.<br>
+<br>
+Of course not. It wouldn&#39;t work without also inverting the HARDWAREDC c=
+heck.<br>
+<br>
+&gt; The specific behavior I see:<br>
+&gt; 1. Clocks do not respond to plugging/unplugging. Always idle.<br>
+&gt; 2. Severe system stability issues. After opening a process that uses t=
+he<br>
+&gt; AMDGPU, opening any more GPU processes (glxgears, radeontop, etc.) han=
+gs<br>
+&gt; forever during init. The system hangs while shutting down and requires=
+<br>
+&gt; force power off.<br>
+&gt; 3. This message is seen in dmesg. Not sure if it&#39;s related.<br>
+&gt; [=C2=A0 151.684427] amdgpu 0000:01:00.0: bo 00000000c5a63ba0 va<br>
+&gt; 0x000010cb00-0x000010cb53 conflict with 0x000010cb44-0x000010cb45<br>
+&gt; <br>
+&gt; &gt; Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary=
+ on your<br>
+&gt; <br>
+&gt; laptop?<br>
+&gt; Yes, without sending this message, the SMC switches to idle speeds ins=
+tead<br>
+&gt; of AC/performance speeds. Unplugging the laptop ironically makes it cl=
+ock<br>
+&gt; back up instead of down. This fix was found while reverse engineering =
+the<br>
+&gt; SMC and confirmed by the clock speeds beginning to rise after implemen=
+ting<br>
+&gt; the message. Commenting out just the one line that sends the message u=
+ndoes<br>
+&gt; the fix.<br>
+&gt; <br>
+&gt; &gt; the ATOM_PP_PLATFORM_CAP_HARDWAREDC check is inverted<br>
+&gt; <br>
+&gt; I&#39;ve implemented this into my branch. Thanks for checking.<br>
+&gt; <br>
+&gt; Here is the current state, still a 6th commit on top of the original s=
+eries<br>
+&gt; of 5: <a href=3D"https://github.com/luisfonsivevo/linux/commit/083a2bb=
+e81d6for" rel=3D"noreferrer" target=3D"_blank">https://github.com/luisfonsi=
+vevo/linux/commit/083a2bbe81d6for</a><br>
+&gt; applyingfdc670b5890de661a3bdd42e9b80<br>
+&gt; &lt;<a href=3D"https://github.com/luisfonsivevo/linux/commit/083a2bbe8=
+1d6fdc670b5890de661a" rel=3D"noreferrer" target=3D"_blank">https://github.c=
+om/luisfonsivevo/linux/commit/083a2bbe81d6fdc670b5890de661a</a><br>
+&gt; 3bdd42e9b80&gt;<br>
+&gt; <br>
+&gt; This has been working reliably for a week without any problems and I&#=
+39;d be<br>
+&gt; happy to submit it if there are no objections. A separate commit will =
+be<br>
+&gt; needed to apply this to SMU7.<br>
+&gt; <br>
+&gt; On Fri, May 29, 2026 at 10:33=E2=80=AFPM Deucher, Alexander &lt;<br>
+&gt; <br>
+&gt; <a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank">Alexand=
+er.Deucher@amd.com</a>&gt; wrote:<br>
+&gt; &gt; AMD General<br>
+&gt; &gt; <br>
+&gt; &gt; I dug into this a bit more and the ATOM_PP_PLATFORM_CAP_HARDWARED=
+C check<br>
+&gt; &gt; is inverted.=C2=A0 Switching that should fix it.<br>
+&gt; &gt; <br>
+&gt; &gt; Alex<br>
+&gt; &gt; <br>
+&gt; &gt; ------------------------------<br>
+&gt; &gt; *From:* Timur Krist=C3=B3f &lt;<a href=3D"mailto:timur.kristof@gm=
+ail.com" target=3D"_blank">timur.kristof@gmail.com</a>&gt;<br>
+&gt; &gt; *Sent:* Sunday, May 24, 2026 7:32 AM<br>
+&gt; &gt; *To:* <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"=
+_blank">amd-gfx@lists.freedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lis=
+ts.freedesktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>&gt;=
+;<br>
+&gt; &gt; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.co=
+m" target=3D"_blank">Alexander.Deucher@amd.com</a>&gt;; Jeremy Klarenbeek &=
+lt;<br>
+&gt; &gt; <a href=3D"mailto:jeremy.klarenbeek99@gmail.com" target=3D"_blank=
+">jeremy.klarenbeek99@gmail.com</a>&gt;<br>
+&gt; &gt; *Subject:* Re: [PATCH 0/5] drm/amd/pm: Fix laptop issues on SMU6-=
+7<br>
+&gt; &gt; <br>
+&gt; &gt; Hi Jeremy &amp; Alex,<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; Apologies for my late reply. I tested the patch series (SI l=
+aptop<br>
+&gt; &gt; &gt; 1002:6606) and the problem remains where the clock speeds do=
+n&#39;t boost<br>
+&gt; &gt; <br>
+&gt; &gt; upon<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; switching to AC. Timur and I investigated this and found 2 p=
+roblems<br>
+&gt; &gt; <br>
+&gt; &gt; Thanks for getting back to us on this topic.<br>
+&gt; &gt; At Alex&#39;s suggestion, I removed the clock recalculation and a=
+dded the<br>
+&gt; &gt; check to<br>
+&gt; &gt; verify ATOM_PP_PLATFORM_CAP_HARDWAREDC. I&#39;m sad to hear that =
+this broke<br>
+&gt; &gt; your<br>
+&gt; &gt; patches. I apologize for that.<br>
+&gt; &gt; <br>
+&gt; &gt; Unfortunately I don&#39;t have a SI laptop GPU to test this stuff=
+, so there<br>
+&gt; &gt; was no<br>
+&gt; &gt; way for me to verify the correctness of those changes before I se=
+nt the<br>
+&gt; &gt; patches to the mailing list.<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; 1. It seems that it is necessary after all to recompute cloc=
+k speeds<br>
+&gt; &gt; &gt; when<br>
+&gt; &gt; &gt; toggling AC/DC. Sending PPSMC_MSG_RunningOnAC on its own has=
+ no effect.<br>
+&gt; &gt; &gt; Each ASIC family&#39;s apply_state_adjust_rules appears to b=
+e responsible<br>
+&gt; &gt; &gt; for<br>
+&gt; &gt; &gt; the switch by setting the max_limits, and this function is o=
+nly called<br>
+&gt; &gt; &gt; as<br>
+&gt; &gt; &gt; part of computing clocks.<br>
+&gt; &gt; <br>
+&gt; &gt; That&#39;s right. I took another look at:<br>
+&gt; &gt; si_apply_state_adjust_rules()<br>
+&gt; &gt; smu7_apply_state_adjust_rules()<br>
+&gt; &gt; <br>
+&gt; &gt; Both of these rely on adev-&gt;pm.ac_power when determining max_l=
+imits, and<br>
+&gt; &gt; they<br>
+&gt; &gt; set the maximum clocks accordingly. We should indeed re-calculate=
+ these<br>
+&gt; &gt; clocks<br>
+&gt; &gt; on both SI and SMU7 when there is an AC/DC switch to make sure to=
+ apply<br>
+&gt; &gt; the<br>
+&gt; &gt; updated max_limits. Additionally I think we should probably lock =
+the<br>
+&gt; &gt; mutexes<br>
+&gt; &gt; to ensure that we are sending only one message at a time.<br>
+&gt; &gt; <br>
+&gt; &gt; My suggestion would be to call pm_compute_clocks() inside notify_=
+ac_dc(),<br>
+&gt; &gt; and<br>
+&gt; &gt; also to lock the mutexes:<br>
+&gt; &gt; <a href=3D"https://gitlab.freedesktop.org/Venemo/linux/-/commit/"=
+ rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/Venemo=
+/linux/-/commit/</a><br>
+&gt; &gt; e98279dff480cc297cbb1fe50c2b71ebd65b9576<br>
+&gt; &gt; <br>
+&gt; &gt; if that works, I&#39;d like to submit that patch (and will also p=
+ort it to<br>
+&gt; &gt; SMU7).<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; I&#39;m considering removing the .notify_ac_dc field<br>
+&gt; &gt; &gt; from the IP block entirely and just calling .pm_compute_cloc=
+ks from<br>
+&gt; &gt; &gt; amdgpu_pm_acpi_event_handler, but I only know for certain th=
+at this<br>
+&gt; &gt; &gt; works<br>
+&gt; &gt; &gt; for my GPU.<br>
+&gt; &gt; <br>
+&gt; &gt; I don&#39;t agree with that. amdgpu_dpm is generic between all su=
+pported HW<br>
+&gt; &gt; generations and shouldn&#39;t contain HW generation specific code=
+. Also, it<br>
+&gt; &gt; clearly<br>
+&gt; &gt; doesn&#39;t work the same way on every GPU generation, so we shou=
+ldn&#39;t<br>
+&gt; &gt; generalize.<br>
+&gt; &gt; <br>
+&gt; &gt; Furthermore, we should minimize the amount of messages we send to=
+ the SMU,<br>
+&gt; &gt; so<br>
+&gt; &gt; we shouldn&#39;t send the RunningOnAC message every time we recom=
+pute the<br>
+&gt; &gt; clocks,<br>
+&gt; &gt; only when it actually switches to AC.<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; 2. The ATOM_PP_PLATFORM_CAP_HARDWAREDC flag is enabled for m=
+y GPU,<br>
+&gt; &gt; <br>
+&gt; &gt; causing<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; PPSMC_MSG_RunningOnAC to never be sent. Either the flag is e=
+nabled<br>
+&gt; &gt; &gt; erroneously, or we&#39;re interpreting its intended usage in=
+correctly.<br>
+&gt; &gt; <br>
+&gt; &gt; It&#39;s hard to judge that without having access to the hardware=
+ or docs.<br>
+&gt; &gt; Are you actually sure that the PPSMC_MSG_RunningOnAC is necessary=
+ on your<br>
+&gt; &gt; laptop? Isn&#39;t it enough to just re-compute the clocks?<br>
+&gt; &gt; <br>
+&gt; &gt; Can you check what exactly is the value of adev-&gt;pm.dpm.platfo=
+rm_caps on<br>
+&gt; &gt; your<br>
+&gt; &gt; laptop? Maybe we are looking at the wrong flag, or maybe the HARD=
+WAREDC<br>
+&gt; &gt; flag<br>
+&gt; &gt; only refers to the AC-&gt;DC transition and not the DC-&gt;AC tra=
+nsition.<br>
+&gt; &gt; <br>
+&gt; &gt; This is just guesswork on my part, but maybe we should look at th=
+e<br>
+&gt; &gt; SBIOSPOWERSOURCE flag instead, which is explained in pptable_v1_0=
+.h:<br>
+&gt; &gt; /* This cap indicates whether power source notificaiton is done b=
+y SBIOS<br>
+&gt; &gt; directly. */<br>
+&gt; &gt; Can you check if this flag is set on your laptop?<br>
+&gt; &gt; <br>
+&gt; &gt; Thanks &amp; best regards,<br>
+&gt; &gt; Timur<br>
+<br>
+<br>
+<br>
+<br>
+</blockquote></div>
+
+--0000000000002ab1940653086b5c--
