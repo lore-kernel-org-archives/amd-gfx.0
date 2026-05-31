@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314C7CD5BD1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7190CD6E5C
 	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 11:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC41112AE9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42511112AEB;
 	Sun, 31 May 2026 11:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dgUwn73A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m4gRrXJx";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26B0F112AE8;
- Sun, 31 May 2026 11:49:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 91E2660123;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 695F9112AE8;
  Sun, 31 May 2026 11:49:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8561F00893;
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D3B5760132;
+ Sun, 31 May 2026 11:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE311F00899;
  Sun, 31 May 2026 11:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780228158;
- bh=tlkPkhOs5YbTIBDNRia+BhFNWjrhaoDIcQZS2a5qaYo=;
+ s=k20260515; t=1780228157;
+ bh=QCr8RuWgh7BT8YWHVoQXXll9LLtfsd+ille6N03tIw8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=dgUwn73ATSmTXzj4Rxw/qwG3pB9pte6w/yUPmNf63UR8dIuJVT1/lhjLhxNYhkreM
- FST/XOBTsKDx6jrX09PH+xqhQmj2pSU5rQ2RNru0dKw4tqJOPSVdDcG4Bc3MfDDfoc
- wdNgKUXLHkPlfWOf2gpsJRWubVC6tvDLEfNUErMbcCSG/KacS0B2Xew6S/qjpXHzlR
- sSFpAfpKzNEUqFTu8j/FPcmc1nOSTA+GlRguN0aSfD8FQhcAS311bFMe94fgRuy6Vz
- rTRNkoKvz5iZZ+W/NGJ7b6o2iyZ09+HbOyqTJOq9uq3m0BgiQGDThGolPUpH4ovGpG
- fYYNm4AKaO2pQ==
+ b=m4gRrXJxolxJ3y2mpy9CaqvF+Q5fMRZs8XoYJ60Sc29ylB6VqfTcZM2km5lCcsh+Q
+ 2izAeNMpvu/Vis7df5w3Tm10BAKp56znCjnz35qa3dWh4ekhxxHD9pW4y/fRsQPYgZ
+ w3O/ONjJJCYwqQRHSiIjfls/ulMEumnLbS/esgR/o/gbCBdgfxxlPwslAiOWhAm5dI
+ QdpzBCP/VdAAHw4tu/uPvSc3+3NWUwXJsK4aa4SlE1iLdIpposb0QAZo8xL3Ih+yr1
+ OufvD9Pgz3bVv9RwvC4xYFylpBmkCusBYLRhrb0dNF7/+TIrMVlw8zc/zyQ3LWvC7h
+ fAZC3g5q0GdZQ==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org,
  "Mario Limonciello (AMD)" <superm1@kernel.org>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v5 04/11] DRM: Add support for client indicating support for
- luminance
-Date: Sun, 31 May 2026 06:49:01 -0500
-Message-ID: <20260531114908.1693426-5-superm1@kernel.org>
+Subject: [PATCH v5 03/11] drm: link connectors to backlight devices
+Date: Sun, 31 May 2026 06:49:00 -0500
+Message-ID: <20260531114908.1693426-4-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260531114908.1693426-1-superm1@kernel.org>
 References: <20260531114908.1693426-1-superm1@kernel.org>
@@ -58,625 +57,862 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The legacy backlight control interface can only be disabled when both
-the client and driver has connector support that the luminance can be
-set during a modeset. Add capability for the client to register.
-
-When a luminance-aware client sets DRM_CLIENT_CAP_LUMINANCE, each
-DRM-connected backlight on the device is marked as taken over. Writes
-to the legacy /sys/class/backlight/<dev>/brightness attribute then
-return -EBUSY until the last luminance-aware client clears the cap or
-closes its DRM file. The takeover follows the active backlight_device
-when drm_backlight_link() retargets the link.
+This will show which connector in sysfs matches which backlight.
 
 Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # SM8150-HDK
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
 v5:
  * Add tag
- * Added special validation handling for the luminance property
- * Allows value 0 to be set even when the range starts at 1
- * This enables DPMS to set luminance to 0 to turn off the display
- * Add documentation
- * Fix a compile error
- * Drop the driver capability - no longer needed! (yay)
-v4:
- * Update unit for luminance
- * Disable backlight of other connectors on same CRTC
- * handle CRTC disconnect
- * Make DRM_CLIENT_CAP_LUMINANCE actually inhibit legacy sysfs writes
-   with -EBUSY
-
-f-luminance
+ * Changed the property range from 0-max to 1-max when a backlight
+   device is linked
+ * Move prototype to this patch
+ * Drop worker
 ---
- drivers/gpu/drm/drm_atomic_helper.c |  7 +++
- drivers/gpu/drm/drm_atomic_uapi.c   | 59 +++++++++++++++++++-
- drivers/gpu/drm/drm_backlight.c     | 86 +++++++++++++++++++++++++++--
- drivers/gpu/drm/drm_connector.c     | 51 +++++++++++++++++
- drivers/gpu/drm/drm_file.c          |  5 ++
- drivers/gpu/drm/drm_ioctl.c         | 15 +++++
- drivers/gpu/drm/drm_property.c      |  6 ++
- drivers/video/backlight/backlight.c |  7 +++
- include/drm/drm_backlight.h         |  2 +-
- include/drm/drm_connector.h         |  5 ++
- include/drm/drm_file.h              |  8 +++
- include/linux/backlight.h           | 15 +++++
- include/uapi/drm/drm.h              | 22 ++++++++
- 13 files changed, 280 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/Kconfig             |   1 +
+ drivers/gpu/drm/Makefile            |   1 +
+ drivers/gpu/drm/drm_backlight.c     | 371 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_connector.c     |  12 +
+ drivers/gpu/drm/drm_drv.c           |   8 +
+ drivers/gpu/drm/drm_mode_config.c   |   7 +
+ drivers/gpu/drm/drm_mode_object.c   |  66 ++++-
+ drivers/gpu/drm/drm_sysfs.c         |  28 ++-
+ drivers/video/backlight/backlight.c |  17 ++
+ include/drm/drm_backlight.h         |  51 ++++
+ include/drm/drm_connector.h         |   3 +
+ include/drm/drm_mode_config.h       |   5 +
+ include/linux/backlight.h           |  13 +
+ 13 files changed, 578 insertions(+), 5 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_backlight.c
+ create mode 100644 include/drm/drm_backlight.h
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 34ed8e5d93d7..bf85e98f1dff 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_backlight.h>
- #include <drm/drm_blend.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_colorop.h>
-@@ -1225,6 +1226,8 @@ drm_atomic_helper_commit_encoder_bridge_disable(struct drm_device *dev,
- 		 * it away), so we won't call disable hooks twice.
- 		 */
- 		bridge = drm_bridge_chain_get_first_bridge(encoder);
-+		if (connector->backlight)
-+			drm_backlight_set_luminance(connector->backlight, 0);
- 		drm_atomic_bridge_chain_disable(bridge, state);
- 		drm_bridge_put(bridge);
- 
-@@ -1737,6 +1740,10 @@ drm_atomic_helper_commit_encoder_bridge_enable(struct drm_device *dev, struct dr
- 
- 		drm_atomic_bridge_chain_enable(bridge, state);
- 		drm_bridge_put(bridge);
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 8f5a8d3012e4..8c00f534d50b 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -17,6 +17,7 @@ menuconfig DRM
+ # device and dmabuf fd. Let's make sure that is available for our userspace.
+ 	select KCMP
+ 	select VIDEO
++	select BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+ 	  introduced in XFree86 4.0. If you say Y here, you need to select
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e97faabcd783..bf980a2ac1e6 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -78,6 +78,7 @@ drm-$(CONFIG_DRM_CLIENT) += \
+ 	drm_client_event.o \
+ 	drm_client_modeset.o \
+ 	drm_client_sysrq.o
++drm-y += drm_backlight.o
+ drm-$(CONFIG_COMPAT) += drm_ioc32.o
+ drm-$(CONFIG_DRM_PANEL) += drm_panel.o
+ drm-$(CONFIG_OF) += drm_of.o
+diff --git a/drivers/gpu/drm/drm_backlight.c b/drivers/gpu/drm/drm_backlight.c
+new file mode 100644
+index 000000000000..b1ec470be86c
+--- /dev/null
++++ b/drivers/gpu/drm/drm_backlight.c
+@@ -0,0 +1,371 @@
++// SPDX-License-Identifier: MIT
++/*
++ * DRM Backlight Helpers
++ * Copyright (c) 2014 David Herrmann
++ * Copyright (c) 2026 Advanced Micro Devices, Inc.
++ */
 +
-+		if (connector->backlight && connector->state)
-+			drm_backlight_set_luminance(connector->backlight,
-+						    connector->state->luminance);
- 	}
- }
- EXPORT_SYMBOL(drm_atomic_helper_commit_encoder_bridge_enable);
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 5bd5bf6661df..64cd0830beb7 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -30,6 +30,8 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
++#include <linux/backlight.h>
++#include <linux/fs.h>
++#include <linux/list.h>
++#include <linux/math64.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/notifier.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
 +#include <drm/drm_backlight.h>
 +#include <drm/drm_connector.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_print.h>
- #include <drm/drm_drv.h>
-@@ -935,6 +937,14 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->privacy_screen_sw_state = val;
- 	} else if (property == connector->broadcast_rgb_property) {
- 		state->hdmi.broadcast_rgb = val;
-+	} else if (property == config->luminance_property) {
-+		state->luminance = val;
-+		/* Update hardware backlight only when DPMS is ON.
-+		 * Property value is always updated to remember the user's
-+		 * desired brightness.
-+		 */
-+		if (connector->dpms == DRM_MODE_DPMS_ON)
-+			drm_backlight_set_luminance(connector->backlight, val);
- 	} else if (connector->funcs->atomic_set_property) {
- 		return connector->funcs->atomic_set_property(connector,
- 				state, property, val);
-@@ -1020,6 +1030,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->privacy_screen_sw_state;
- 	} else if (property == connector->broadcast_rgb_property) {
- 		*val = state->hdmi.broadcast_rgb;
-+	} else if (property == config->luminance_property) {
-+		*val = state->luminance;
- 	} else if (connector->funcs->atomic_get_property) {
- 		return connector->funcs->atomic_get_property(connector,
- 				state, property, val);
-@@ -1104,6 +1116,31 @@ static struct drm_pending_vblank_event *create_vblank_event(
- 	return e;
- }
- 
-+static void drm_atomic_connector_set_backlight(struct drm_connector *connector,
-+						       unsigned int luminance)
-+{
-+	if (!connector->backlight)
-+		return;
++#include <drm/drm_device.h>
++#include <drm/drm_mode_config.h>
 +
-+	drm_backlight_set_luminance(connector->backlight, luminance);
-+}
++/**
++ * DOC: Backlight Devices
++ *
++ * Backlight devices have always been managed as a separate subsystem,
++ * independent of DRM. They are usually controlled via separate hardware
++ * interfaces than the display controller, so the split works out fine.
++ * However, backlight brightness is a property of a display, and thus a
++ * property of a DRM connector. We already manage DPMS states via connector
++ * properties, so it is natural to keep brightness control at the same place.
++ *
++ * This DRM backlight interface implements generic backlight properties on
++ * connectors. It does not handle any hardware backends but simply forwards
++ * the requests to a linked backlight device. The links between connectors and
++ * backlight devices are established by DRM drivers; user-space cannot create
++ * or modify these links. A 'change' uevent is sent whenever the brightness is
++ * updated.
++ *
++ * Drivers have to call drm_backlight_alloc() after allocating a connector via
++ * drm_connector_init(). This will automatically add a backlight device to the
++ * given connector. Drivers must then link a hardware backlight by calling
++ * drm_backlight_link() with the registered backlight_device. If no link is
++ * established, the DRM backlight property reports an empty range and
++ * brightness changes are no-ops.
++ */
 +
-+static void drm_atomic_crtc_set_backlight(struct drm_crtc *crtc, bool active)
-+{
-+	struct drm_connector_list_iter conn_iter;
++struct drm_backlight {
++	struct list_head list;
 +	struct drm_connector *connector;
++	struct backlight_device *link;
++	/*
++	 * Number of luminance-aware DRM clients that have taken over this
++	 * connector's backlight. While > 0, legacy sysfs writes to the
++	 * linked backlight_device return -EBUSY. Protected by
++	 * drm_backlight_lock.
++	 */
++	unsigned int luminance_clients;
++};
 +
-+	drm_connector_list_iter_begin(crtc->dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->state || connector->state->crtc != crtc)
-+			continue;
++static LIST_HEAD(drm_backlight_list);
++static DEFINE_SPINLOCK(drm_backlight_lock);
 +
-+		drm_atomic_connector_set_backlight(connector,
-+						  active ? connector->state->luminance : 0);
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
++/* caller must hold @drm_backlight_lock */
++static bool __drm_backlight_is_registered(struct drm_backlight *b)
++{
++	lockdep_assert_held(&drm_backlight_lock);
++	/* a device is live if it is linked to @drm_backlight_list */
++	return !list_empty(&b->list);
 +}
 +
- int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
- 				     struct drm_connector *connector,
- 				     int mode)
-@@ -1126,9 +1163,29 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
- 	if (connector->dpms == mode)
- 		goto out;
- 
-+	crtc = connector->state ? connector->state->crtc : NULL;
++/* caller must hold @drm_backlight_lock */
++static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
++{
++	unsigned int max, set;
 +
-+	/* Handle backlight brightness coordination with DPMS state changes */
-+	if (old_mode != DRM_MODE_DPMS_OFF && mode == DRM_MODE_DPMS_OFF) {
-+		/* DPMS ON -> OFF: dim all connectors driven by this CRTC. */
-+		if (crtc)
-+			drm_atomic_crtc_set_backlight(crtc, false);
-+		else
-+			drm_atomic_connector_set_backlight(connector, 0);
-+	}
++	lockdep_assert_held(&drm_backlight_lock);
 +
- 	connector->dpms = mode;
- 
--	crtc = connector->state->crtc;
-+	/* DPMS OFF -> ON: restore brightness to property value */
-+	if (old_mode == DRM_MODE_DPMS_OFF && mode == DRM_MODE_DPMS_ON &&
-+	    connector->state) {
-+		if (crtc)
-+			drm_atomic_crtc_set_backlight(crtc, true);
-+		else
-+			drm_atomic_connector_set_backlight(connector,
-+						  connector->state->luminance);
-+	}
-+
- 	if (!crtc)
- 		goto out;
- 	ret = drm_atomic_add_affected_connectors(state, crtc);
-diff --git a/drivers/gpu/drm/drm_backlight.c b/drivers/gpu/drm/drm_backlight.c
-index b1ec470be86c..2cddf209d508 100644
---- a/drivers/gpu/drm/drm_backlight.c
-+++ b/drivers/gpu/drm/drm_backlight.c
-@@ -71,6 +71,7 @@ static bool __drm_backlight_is_registered(struct drm_backlight *b)
- /* caller must hold @drm_backlight_lock */
- static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
- {
-+	struct drm_connector *connector = b->connector;
- 	unsigned int max, set;
- 
- 	lockdep_assert_held(&drm_backlight_lock);
-@@ -85,6 +86,15 @@ static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
- 	set = v;
- 	if (set >= max)
- 		set = max;
-+
-+	/* Update the atomic state directly.
-+	 * For atomic drivers, the luminance value is stored in
-+	 * connector->state->luminance, not in the legacy property array.
-+	 * We update it unconditionally to reflect the hardware state,
-+	 * regardless of DPMS.
-+	 */
-+	if (connector->state)
-+		connector->state->luminance = set;
- }
- 
- /**
-@@ -100,18 +110,22 @@ static void __drm_backlight_update_prop_range(struct drm_backlight *b)
- 	struct drm_device *dev = b->connector->dev;
- 	struct drm_property *prop = dev->mode_config.luminance_property;
- 	unsigned int max = 0;
-+	bool can_disable = false;
- 
- 	lockdep_assert_held(&drm_backlight_lock);
- 
--	if (b->link && b->link->props.max_brightness > 0)
-+	if (b->link && b->link->props.max_brightness > 0) {
- 		max = b->link->props.max_brightness;
-+		can_disable = b->link->props.can_disable;
-+	}
- 
- 	/* Update property range to match hardware capabilities.
- 	 * Range of 0-0 indicates no backing device.
--	 * Range of 1-max for normal operation (0 reserved for display off).
-+	 * Range of 1-max for normal operation.
-+	 * Range of 0-max means that the display would turn off at 0
- 	 */
- 	if (prop->values[1] != max) {
--		prop->values[0] = max ? 1 : 0;
-+		prop->values[0] = max ? (can_disable ? 0 : 1) : 0;
- 		prop->values[1] = max;
- 	}
- }
-@@ -123,6 +137,16 @@ static bool __drm_backlight_link(struct drm_backlight *b,
- 	if (bd == b->link)
- 		return false;
- 
-+	/* Transfer any DRM legacy-sysfs takeover from the old link to the
-+	 * new one so the inhibit follows the active backlight_device.
-+	 */
-+	if (b->luminance_clients) {
-+		if (b->link)
-+			atomic_sub(b->luminance_clients, &b->link->drm_takeover);
-+		if (bd)
-+			atomic_add(b->luminance_clients, &bd->drm_takeover);
-+	}
-+
- 	backlight_device_unref(b->link);
- 	b->link = bd;
- 	backlight_device_ref(b->link);
-@@ -177,6 +201,7 @@ void drm_backlight_free(struct drm_connector *connector)
- 
- 	WARN_ON(__drm_backlight_is_registered(b));
- 	WARN_ON(b->link);
-+	WARN_ON(b->luminance_clients);
- 
- 	kfree(b);
- 	connector->backlight = NULL;
-@@ -228,11 +253,18 @@ EXPORT_SYMBOL(drm_backlight_unregister);
-  */
- void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd)
- {
-+	static const char * const ep[] = { "BACKLIGHT=1", NULL };
-+	bool send_uevent = false;
-+
- 	if (!b)
- 		return;
- 
- 	guard(spinlock)(&drm_backlight_lock);
--	__drm_backlight_link(b, bd);
-+	send_uevent = __drm_backlight_link(b, bd);
-+
-+	if (send_uevent)
-+		kobject_uevent_env(&b->connector->kdev->kobj, KOBJ_CHANGE,
-+				   (char **)ep);
- }
- EXPORT_SYMBOL(drm_backlight_link);
- 
-@@ -269,6 +301,11 @@ void drm_backlight_inhibit_legacy(struct drm_backlight *b)
- {
- 	if (!b)
- 		return;
-+
-+	guard(spinlock)(&drm_backlight_lock);
-+	b->luminance_clients++;
-+	if (b->link)
-+		atomic_inc(&b->link->drm_takeover);
- }
- EXPORT_SYMBOL(drm_backlight_inhibit_legacy);
- 
-@@ -283,6 +320,13 @@ void drm_backlight_uninhibit_legacy(struct drm_backlight *b)
- {
- 	if (!b)
- 		return;
-+
-+	guard(spinlock)(&drm_backlight_lock);
-+	if (WARN_ON(b->luminance_clients == 0))
++	if (!b->link)
 +		return;
-+	b->luminance_clients--;
-+	if (b->link)
-+		atomic_dec(&b->link->drm_takeover);
- }
- EXPORT_SYMBOL(drm_backlight_uninhibit_legacy);
- 
-@@ -324,8 +368,38 @@ EXPORT_SYMBOL(drm_backlight_uninhibit_legacy_all);
- 
- void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value)
- {
--	guard(spinlock)(&drm_backlight_lock);
--	__drm_backlight_real_changed(b, value);
-+	struct backlight_device *bd = NULL;
-+	unsigned int set = 0;
-+	unsigned long flags;
++
++	max = b->link->props.max_brightness;
++	if (max < 1)
++		return;
++
++	set = v;
++	if (set >= max)
++		set = max;
++}
++
++/**
++ * __drm_backlight_update_prop_range - update the luminance property range
++ * @b: backlight device
++ *
++ * Updates the luminance property range based on the linked backlight device's
++ * max_brightness. If no device is linked, sets range to 0-0 to indicate
++ * unavailability.
++ */
++static void __drm_backlight_update_prop_range(struct drm_backlight *b)
++{
++	struct drm_device *dev = b->connector->dev;
++	struct drm_property *prop = dev->mode_config.luminance_property;
 +	unsigned int max = 0;
 +
-+	spin_lock_irqsave(&drm_backlight_lock, flags);
-+	if (b && b->link) {
-+		struct backlight_device *link = b->link;
++	lockdep_assert_held(&drm_backlight_lock);
 +
++	if (b->link && b->link->props.max_brightness > 0)
 +		max = b->link->props.max_brightness;
 +
-+		if (max == 0)
-+			goto out;
-+
-+		set = min(value, max);
-+		if (set == link->props.brightness)
-+			goto out;
-+
-+		bd = link;
-+		backlight_device_ref(bd);
++	/* Update property range to match hardware capabilities.
++	 * Range of 0-0 indicates no backing device.
++	 * Range of 1-max for normal operation (0 reserved for display off).
++	 */
++	if (prop->values[1] != max) {
++		prop->values[0] = max ? 1 : 0;
++		prop->values[1] = max;
 +	}
-+out:
-+	spin_unlock_irqrestore(&drm_backlight_lock, flags);
++}
 +
-+	if (bd) {
-+		int rc = backlight_set_brightness(bd, set, BACKLIGHT_UPDATE_DRM);
++/* caller must hold @drm_backlight_lock */
++static bool __drm_backlight_link(struct drm_backlight *b,
++				 struct backlight_device *bd)
++{
++	if (bd == b->link)
++		return false;
 +
-+		WARN_ON(rc);
-+		if (rc)
-+			backlight_set_brightness(bd, max, BACKLIGHT_UPDATE_DRM);
-+		backlight_device_unref(bd);
++	backlight_device_unref(b->link);
++	b->link = bd;
++	backlight_device_ref(b->link);
++	if (bd)
++		__drm_backlight_real_changed(b, bd->props.brightness);
++	__drm_backlight_update_prop_range(b);
++
++	return true;
++}
++
++/**
++ * drm_backlight_alloc - add backlight capability to a connector
++ * @connector: connector to add backlight to
++ *
++ * This allocates a new DRM-backlight device and attaches it to @connector.
++ * This *must* be called before registering the connector. The backlight
++ * device will be automatically registered in sync with the connector. It will
++ * also get removed once the connector is removed.
++ *
++ * No hardware backlight is linked by default. Drivers must call
++ * drm_backlight_link() to associate a registered backlight_device with the
++ * connector. User-space cannot create or modify this link.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int drm_backlight_alloc(struct drm_connector *connector)
++{
++	struct drm_mode_config *config = &connector->dev->mode_config;
++	struct drm_backlight *b;
++
++	b = kzalloc_obj(*b, GFP_KERNEL);
++	if (!b)
++		return -ENOMEM;
++
++	INIT_LIST_HEAD(&b->list);
++	b->connector = connector;
++	connector->backlight = b;
++
++	drm_object_attach_property(&connector->base,
++				   config->luminance_property, 0);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_backlight_alloc);
++
++void drm_backlight_free(struct drm_connector *connector)
++{
++	struct drm_backlight *b = connector->backlight;
++
++	if (!b)
++		return;
++
++	WARN_ON(__drm_backlight_is_registered(b));
++	WARN_ON(b->link);
++
++	kfree(b);
++	connector->backlight = NULL;
++}
++EXPORT_SYMBOL(drm_backlight_free);
++
++void drm_backlight_register(struct drm_backlight *b)
++{
++	if (!b)
++		return;
++
++	WARN_ON(__drm_backlight_is_registered(b));
++
++	guard(spinlock)(&drm_backlight_lock);
++	list_add(&b->list, &drm_backlight_list);
++}
++EXPORT_SYMBOL(drm_backlight_register);
++
++void drm_backlight_unregister(struct drm_backlight *b)
++{
++	if (!b)
++		return;
++
++	WARN_ON(!__drm_backlight_is_registered(b));
++
++	scoped_guard(spinlock, &drm_backlight_lock) {
++		list_del_init(&b->list);
++		__drm_backlight_link(b, NULL);
 +	}
- }
- EXPORT_SYMBOL(drm_backlight_set_luminance);
- 
++}
++EXPORT_SYMBOL(drm_backlight_unregister);
++
++/**
++ * drm_backlight_link - link a backlight device to a DRM backlight
++ * @b: DRM backlight to modify
++ * @bd: backlight device to link, or NULL to unlink
++ *
++ * Establish the link between a DRM connector's backlight property and a
++ * registered backlight_device. Drivers must call this with the
++ * backlight_device they registered for the connector. Passing NULL unlinks
++ * any previously linked device.
++ *
++ * The caller is responsible for ensuring @bd remains valid until either it
++ * is unlinked via drm_backlight_link(b, NULL) or the connector is
++ * unregistered.
++ *
++ * Whenever a hardware backlight is linked or unlinked, a uevent with
++ * "BACKLIGHT=1" is generated on the connector.
++ */
++void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd)
++{
++	if (!b)
++		return;
++
++	guard(spinlock)(&drm_backlight_lock);
++	__drm_backlight_link(b, bd);
++}
++EXPORT_SYMBOL(drm_backlight_link);
++
++/**
++ * drm_backlight_get_device - get the backlight_device linked to a DRM backlight
++ * @b: DRM backlight
++ *
++ * Returns the &backlight_device linked to @b, or NULL if no device is linked
++ * or @b is NULL. The caller must hold the appropriate lock to prevent the
++ * link from changing while the pointer is in use.
++ */
++struct backlight_device *drm_backlight_get_device(struct drm_backlight *b)
++{
++	if (!b)
++		return NULL;
++
++	guard(spinlock)(&drm_backlight_lock);
++	return b->link;
++}
++EXPORT_SYMBOL(drm_backlight_get_device);
++
++/**
++ * drm_backlight_inhibit_legacy - disable legacy sysfs control of the linked bd
++ * @b: DRM backlight to inhibit
++ *
++ * Record that one more luminance-aware DRM client has taken over @b. While
++ * any clients are recorded, writes to the linked backlight_device's legacy
++ * ``brightness`` sysfs attribute return ``-EBUSY``. The takeover follows
++ * @b->link if the link changes.
++ *
++ * Calls must be balanced with drm_backlight_uninhibit_legacy().
++ */
++void drm_backlight_inhibit_legacy(struct drm_backlight *b)
++{
++	if (!b)
++		return;
++}
++EXPORT_SYMBOL(drm_backlight_inhibit_legacy);
++
++/**
++ * drm_backlight_uninhibit_legacy - re-enable legacy sysfs control
++ * @b: DRM backlight to uninhibit
++ *
++ * Balances a previous drm_backlight_inhibit_legacy() call. When the last
++ * luminance-aware client goes away, legacy sysfs writes are allowed again.
++ */
++void drm_backlight_uninhibit_legacy(struct drm_backlight *b)
++{
++	if (!b)
++		return;
++}
++EXPORT_SYMBOL(drm_backlight_uninhibit_legacy);
++
++/**
++ * drm_backlight_inhibit_legacy_all - inhibit legacy sysfs on every connector
++ * @dev: DRM device whose connectors should be inhibited
++ *
++ * Walks all connectors on @dev and calls drm_backlight_inhibit_legacy() on
++ * each connector that has a DRM backlight attached. Used when a client
++ * declares it is luminance-aware via DRM_CLIENT_CAP_LUMINANCE.
++ */
++void drm_backlight_inhibit_legacy_all(struct drm_device *dev)
++{
++	struct drm_connector_list_iter iter;
++	struct drm_connector *connector;
++
++	drm_connector_list_iter_begin(dev, &iter);
++	drm_for_each_connector_iter(connector, &iter)
++		drm_backlight_inhibit_legacy(connector->backlight);
++	drm_connector_list_iter_end(&iter);
++}
++EXPORT_SYMBOL(drm_backlight_inhibit_legacy_all);
++
++/**
++ * drm_backlight_uninhibit_legacy_all - reverse drm_backlight_inhibit_legacy_all()
++ * @dev: DRM device whose connectors should be uninhibited
++ */
++void drm_backlight_uninhibit_legacy_all(struct drm_device *dev)
++{
++	struct drm_connector_list_iter iter;
++	struct drm_connector *connector;
++
++	drm_connector_list_iter_begin(dev, &iter);
++	drm_for_each_connector_iter(connector, &iter)
++		drm_backlight_uninhibit_legacy(connector->backlight);
++	drm_connector_list_iter_end(&iter);
++}
++EXPORT_SYMBOL(drm_backlight_uninhibit_legacy_all);
++
++void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value)
++{
++	guard(spinlock)(&drm_backlight_lock);
++	__drm_backlight_real_changed(b, value);
++}
++EXPORT_SYMBOL(drm_backlight_set_luminance);
++
++static int drm_backlight_notify(struct notifier_block *self,
++				unsigned long event, void *data)
++{
++	struct backlight_device *bd = data;
++	struct drm_backlight *b;
++
++	guard(spinlock)(&drm_backlight_lock);
++
++	switch (event) {
++	case BACKLIGHT_UNREGISTERED:
++		list_for_each_entry(b, &drm_backlight_list, list)
++			if (b->link == bd)
++				__drm_backlight_link(b, NULL);
++
++		break;
++	case BACKLIGHT_BRIGHTNESS_CHANGED:
++		/* Update DRM property value when hardware backlight changes */
++		list_for_each_entry(b, &drm_backlight_list, list)
++			if (b->link == bd)
++				__drm_backlight_real_changed(b, bd->props.brightness);
++
++		break;
++	}
++
++	return 0;
++}
++
++static struct notifier_block drm_backlight_notifier = {
++	.notifier_call = drm_backlight_notify,
++};
++
++int drm_backlight_init(void)
++{
++	return backlight_register_notifier(&drm_backlight_notifier);
++}
++
++void drm_backlight_exit(void)
++{
++	backlight_unregister_notifier(&drm_backlight_notifier);
++}
 diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 09bb790782f1..224661587241 100644
+index 47dc53c4a738..09bb790782f1 100644
 --- a/drivers/gpu/drm/drm_connector.c
 +++ b/drivers/gpu/drm/drm_connector.c
-@@ -1512,6 +1512,57 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
-  * 	Summarizing: Only set "DPMS" when the connector is known to be enabled,
-  * 	assume that a successful SETCONFIG call also sets "DPMS" to on, and
-  * 	never read back the value of "DPMS" because it can be incorrect.
-+ * LUMINANCE:
-+ * 	Atomic property for controlling the backlight brightness level of the
-+ * 	connector's display. This property provides unified access to the display
-+ * 	backlight, replacing the legacy sysfs interface for brightness control.
-+ *
-+ * 	The property value is an unsigned integer representing the brightness level.
-+ * 	The valid range is dynamically determined by the capabilities of the
-+ * 	connected backlight hardware and is exposed through the property's minimum
-+ * 	and maximum values:
-+ *
-+ * 	- Range 0-0: No backlight device is available for this connector.
-+ * 	- Range 1-N: Normal operation. Values from 1 to N (max_brightness) are
-+ * 	  valid brightness levels, where 1 is the minimum visible brightness and
-+ * 	  N is the maximum brightness the hardware supports.
-+ * 	- Value 0: Special value to turn off the display backlight completely.
-+ * 	  This value is accepted even when the normal range starts at 1.
-+ *
-+ * 	The range may change during runtime if a new backlight device is linked
-+ * 	or unlinked. The kernel will send a change uevent when this occurs.
-+ *
-+ * 	Setting LUMINANCE to 0 turns off the backlight, which may turn off the
-+ * 	display completely depending on the hardware. Setting it to any value
-+ * 	from 1 to N adjusts the brightness accordingly. Reading this property
-+ * 	returns the current brightness level that was last set (or the hardware's
-+ * 	current state for drivers that support reading actual brightness).
-+ *
-+ * 	For atomic drivers, the luminance value is stored in
-+ * 	&drm_connector_state.luminance. The actual hardware update only occurs
-+ * 	when the connector is active (DPMS is ON). When DPMS transitions to OFF,
-+ * 	the kernel automatically sets luminance to 0 to turn off the backlight.
-+ * 	When DPMS transitions back to ON, the kernel restores the previously
-+ * 	set luminance value.
-+ *
-+ * 	This property is only available on connectors that have an associated
-+ * 	backlight device.  The property is created by calling drm_backlight_alloc()
-+ * 	during connector initialization.
-+ *
-+ * 	Client Capability:
-+ * 		User-space must set the DRM_CLIENT_CAP_LUMINANCE client capability
-+ * 		to 1 before using this property. When this capability is enabled,
-+ * 		the legacy sysfs backlight interface is inhibited to prevent
-+ * 		conflicts between multiple clients trying to control the same
-+ * 		backlight. This ensures that only luminance-aware clients control
-+ * 		the backlight through the DRM atomic interface.
-+ *
-+ * 		Legacy clients that do not set this capability will not see the
-+ * 		LUMINANCE property and should continue using the sysfs interface
-+ * 		(if available).
-+ *
-+ * 	Note: This property can be set through MODE_ATOMIC ioctl as part of the
-+ * 	atomic state.
-  * panel_type:
-  * 	Immutable enum property to indicate the type of connected panel.
-  * 	Possible values are "unknown" (default) and "OLED".
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index ec820686b302..4d2520de7614 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -41,6 +41,7 @@
- #include <linux/slab.h>
- #include <linux/vga_switcheroo.h>
- 
-+#include <drm/drm_backlight.h>
- #include <drm/drm_client_event.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -252,6 +253,10 @@ void drm_file_free(struct drm_file *file)
- 	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
- 		drm_fb_release(file);
- 		drm_property_destroy_user_blobs(dev, file);
-+		if (file->supports_luminance_control) {
-+			drm_backlight_uninhibit_legacy_all(dev);
-+			file->supports_luminance_control = false;
-+		}
- 	}
- 
- 	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index ff193155129e..fdae36b13300 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -28,12 +28,14 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
+@@ -21,6 +21,7 @@
   */
- 
-+#include "drm/drm.h"
- #include <linux/export.h>
- #include <linux/nospec.h>
- #include <linux/pci.h>
- #include <linux/uaccess.h>
  
  #include <drm/drm_auth.h>
 +#include <drm/drm_backlight.h>
- #include <drm/drm_crtc.h>
+ #include <drm/drm_connector.h>
  #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -380,6 +382,19 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 			return -EINVAL;
- 		file_priv->plane_color_pipeline = req->value;
- 		break;
-+	case DRM_CLIENT_CAP_LUMINANCE:
-+		if (!file_priv->atomic)
-+			return -EINVAL;
-+		if (req->value > 1)
-+			return -EINVAL;
-+		if (req->value == file_priv->supports_luminance_control)
-+			break;
-+		if (req->value)
-+			drm_backlight_inhibit_legacy_all(dev);
-+		else
-+			drm_backlight_uninhibit_legacy_all(dev);
-+		file_priv->supports_luminance_control = req->value;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-index f38f2c5437e6..4475896c963b 100644
---- a/drivers/gpu/drm/drm_property.c
-+++ b/drivers/gpu/drm/drm_property.c
-@@ -952,6 +952,12 @@ bool drm_property_change_valid_get(struct drm_property *property,
- 	*ref = NULL;
+ #include <drm/drm_edid.h>
+@@ -760,6 +761,7 @@ void drm_connector_cleanup(struct drm_connector *connector)
+ 	struct drm_device *dev = connector->dev;
+ 	struct drm_display_mode *mode, *t;
  
- 	if (drm_property_type_is(property, DRM_MODE_PROP_RANGE)) {
-+		/* Special case for luminance property: allow 0 to turn off display
-+		 * even when the normal range starts at 1.
++	drm_backlight_free(connector);
+ 	/* The connector should have been removed from userspace long before
+ 	 * it is finally destroyed.
+ 	 */
+@@ -845,6 +847,8 @@ int drm_connector_register(struct drm_connector *connector)
+ 	if (connector->registration_state != DRM_CONNECTOR_INITIALIZING)
+ 		goto unlock;
+ 
++	drm_backlight_register(connector->backlight);
++
+ 	ret = drm_sysfs_connector_add(connector);
+ 	if (ret)
+ 		goto unlock;
+@@ -931,6 +935,8 @@ EXPORT_SYMBOL(drm_connector_dynamic_register);
+ void drm_connector_unregister(struct drm_connector *connector)
+ {
+ 	mutex_lock(&connector->mutex);
++	drm_backlight_unregister(connector->backlight);
++
+ 	if (connector->registration_state != DRM_CONNECTOR_REGISTERED) {
+ 		mutex_unlock(&connector->mutex);
+ 		return;
+@@ -3257,10 +3263,16 @@ int drm_connector_set_obj_prop(struct drm_mode_object *obj,
+ {
+ 	int ret = -EINVAL;
+ 	struct drm_connector *connector = obj_to_connector(obj);
++	struct drm_mode_config *config = &connector->dev->mode_config;
+ 
+ 	/* Do DPMS ourselves */
+ 	if (property == connector->dev->mode_config.dpms_property) {
+ 		ret = (*connector->funcs->dpms)(connector, (int)value);
++	} else if (property == config->luminance_property) {
++		if (connector->backlight && connector->dpms == DRM_MODE_DPMS_ON)
++			drm_backlight_set_luminance(connector->backlight,
++						    value);
++		ret = 0;
+ 	} else if (connector->funcs->set_property)
+ 		ret = connector->funcs->set_property(connector, property, value);
+ 
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index eb6cd5d7dac1..387ed0a83253 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -42,6 +42,7 @@
+ #include <linux/xarray.h>
+ 
+ #include <drm/drm_accel.h>
++#include <drm/drm_backlight.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_cache.h>
+ #include <drm/drm_client_event.h>
+@@ -1235,6 +1236,7 @@ static void drm_core_exit(void)
+ 	drm_privacy_screen_lookup_exit();
+ 	drm_panic_exit();
+ 	accel_core_exit();
++	drm_backlight_exit();
+ 	unregister_chrdev(DRM_MAJOR, "drm");
+ 	drm_debugfs_remove_root();
+ 	drm_sysfs_destroy();
+@@ -1258,6 +1260,12 @@ static int __init drm_core_init(void)
+ 	drm_debugfs_init_root();
+ 	drm_debugfs_bridge_params();
+ 
++	ret = drm_backlight_init();
++	if (ret < 0) {
++		DRM_ERROR("Cannot initialize backlight interface\n");
++		goto error;
++	}
++
+ 	ret = register_chrdev(DRM_MAJOR, "drm", &drm_stub_fops);
+ 	if (ret < 0)
+ 		goto error;
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 66f7dc37b597..25c5d2969462 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -32,6 +32,7 @@
+ #include <drm/drm_print.h>
+ #include <drm/drm_colorop.h>
+ #include <linux/dma-resv.h>
++#include <drm/drm_backlight.h>
+ 
+ #include "drm_crtc_internal.h"
+ #include "drm_internal.h"
+@@ -407,6 +408,12 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
+ 		return -ENOMEM;
+ 	dev->mode_config.size_hints_property = prop;
+ 
++	prop = drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC,
++					 "LUMINANCE", 0, 0);
++	if (!prop)
++		return -ENOMEM;
++	dev->mode_config.luminance_property = prop;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index 2d943a610b88..e6f0027d70cb 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_mode_object.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_backlight.h>
+ 
+ #include "drm_crtc_internal.h"
+ 
+@@ -287,11 +288,72 @@ int drm_object_property_set_value(struct drm_mode_object *obj,
+ {
+ 	int i;
+ 
+-	WARN_ON(drm_drv_uses_atomic_modeset(property->dev) &&
+-		!(property->flags & DRM_MODE_PROP_IMMUTABLE));
++	/* Exempt dpms and luminance properties from the atomic warning, as these
++	 * have special interdependencies managed internally in this function
++	 */
++	if (obj->type == DRM_MODE_OBJECT_CONNECTOR) {
++		struct drm_connector *connector = obj_to_connector(obj);
++		struct drm_mode_config *config = &connector->dev->mode_config;
++
++		if (property != config->dpms_property &&
++		    property != config->luminance_property) {
++			WARN_ON(drm_drv_uses_atomic_modeset(property->dev) &&
++				!(property->flags & DRM_MODE_PROP_IMMUTABLE));
++		}
++	} else {
++		WARN_ON(drm_drv_uses_atomic_modeset(property->dev) &&
++			!(property->flags & DRM_MODE_PROP_IMMUTABLE));
++	}
+ 
+ 	for (i = 0; i < obj->properties->count; i++) {
++		/* If properties depends on each other
++		 * this is where to resolve that issue
 +		 */
-+		if (property == property->dev->mode_config.luminance_property &&
-+		    value == 0 && property->values[1] > 0)
-+			return true;
- 		if (value < property->values[0] || value > property->values[1])
- 			return false;
- 		return true;
+ 		if (obj->properties->properties[i] == property) {
++			/* Connector-specific property interdependencies */
++			if (obj->type == DRM_MODE_OBJECT_CONNECTOR) {
++				struct drm_connector *connector = obj_to_connector(obj);
++				struct drm_property *dpms_property =
++					connector->dev->mode_config.dpms_property;
++				struct drm_property *luminance_property =
++					connector->dev->mode_config.luminance_property;
++
++				if (property == dpms_property) {
++					/* When DPMS goes from ON -> OFF,
++					 * set the brightness to the minimum possible
++					 * to save power.
++					 */
++					if (obj->properties->values[i] !=
++					    DRM_MODE_DPMS_OFF &&
++					    val == DRM_MODE_DPMS_OFF)
++						drm_backlight_set_luminance(
++							connector->backlight, 0);
++					/* When DPMS OFF -> ON, reset the brightness
++					 * to the original level
++					 */
++					else if (obj->properties->values[i] ==
++						 DRM_MODE_DPMS_OFF &&
++						 val != DRM_MODE_DPMS_OFF) {
++						uint64_t value;
++
++						drm_object_property_get_value(
++							obj, luminance_property,
++							&value);
++						drm_backlight_set_luminance(
++							connector->backlight, value);
++					}
++				} else if (property == luminance_property) {
++					/* Always update the property value to remember
++					 * the user's desired brightness, but only update
++					 * hardware when DPMS is ON.
++					 */
++					obj->properties->values[i] = val;
++					if (connector->dpms == DRM_MODE_DPMS_ON)
++						drm_backlight_set_luminance(
++							connector->backlight, val);
++					return 0;
++				}
++			}
+ 			obj->properties->values[i] = val;
+ 			return 0;
+ 		}
+diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+index ef4e923a8728..8609e1660f21 100644
+--- a/drivers/gpu/drm/drm_sysfs.c
++++ b/drivers/gpu/drm/drm_sysfs.c
+@@ -11,6 +11,7 @@
+  */
+ 
+ #include <linux/acpi.h>
++#include <linux/backlight.h>
+ #include <linux/component.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+@@ -27,6 +28,7 @@
+ #include <drm/drm_device.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_modes.h>
++#include <drm/drm_backlight.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_property.h>
+ #include <drm/drm_sysfs.h>
+@@ -391,15 +393,35 @@ int drm_sysfs_connector_add(struct drm_connector *connector)
+ 
+ int drm_sysfs_connector_add_late(struct drm_connector *connector)
+ {
+-	if (connector->ddc)
+-		return sysfs_create_link(&connector->kdev->kobj,
+-					 &connector->ddc->dev.kobj, "ddc");
++	if (connector->ddc) {
++		int ret = sysfs_create_link(&connector->kdev->kobj,
++					    &connector->ddc->dev.kobj, "ddc");
++		if (ret)
++			return ret;
++	}
++
++	if (connector->backlight) {
++		struct backlight_device *bd = drm_backlight_get_device(connector->backlight);
++
++		if (bd) {
++			int ret = sysfs_create_link(&connector->kdev->kobj,
++						    &bd->dev.kobj, "backlight");
++			if (ret) {
++				if (connector->ddc)
++					sysfs_remove_link(&connector->kdev->kobj, "ddc");
++				return ret;
++			}
++		}
++	}
+ 
+ 	return 0;
+ }
+ 
+ void drm_sysfs_connector_remove_early(struct drm_connector *connector)
+ {
++	if (connector->backlight && drm_backlight_get_device(connector->backlight))
++		sysfs_remove_link(&connector->kdev->kobj, "backlight");
++
+ 	if (connector->ddc)
+ 		sysfs_remove_link(&connector->kdev->kobj, "ddc");
+ }
 diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
-index 13954c2220b7..40cfc2296445 100644
+index cd1a161ae7bc..13954c2220b7 100644
 --- a/drivers/video/backlight/backlight.c
 +++ b/drivers/video/backlight/backlight.c
-@@ -217,6 +217,13 @@ static ssize_t brightness_store(struct device *dev,
- 	struct backlight_device *bd = to_backlight_device(dev);
- 	unsigned long brightness;
- 
-+	/* A luminance-aware DRM client has taken over this backlight; the
-+	 * legacy sysfs interface is disabled until the last such client
-+	 * goes away.
-+	 */
-+	if (atomic_read(&bd->drm_takeover) > 0)
-+		return -EBUSY;
-+
- 	rc = kstrtoul(buf, 0, &brightness);
- 	if (rc)
- 		return rc;
-diff --git a/include/drm/drm_backlight.h b/include/drm/drm_backlight.h
-index e0e09e38f7c0..2af48be3aa37 100644
---- a/include/drm/drm_backlight.h
-+++ b/include/drm/drm_backlight.h
-@@ -43,9 +43,9 @@ void drm_backlight_unregister(struct drm_backlight *b);
- 
- void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd);
- struct backlight_device *drm_backlight_get_device(struct drm_backlight *b);
--void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
- void drm_backlight_inhibit_legacy(struct drm_backlight *b);
- void drm_backlight_uninhibit_legacy(struct drm_backlight *b);
- void drm_backlight_inhibit_legacy_all(struct drm_device *dev);
- void drm_backlight_uninhibit_legacy_all(struct drm_device *dev);
-+void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
- #endif /* __DRM_BACKLIGHT_H__ */
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 10daf088b8f1..dcb7dd0bdf44 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1209,6 +1209,11 @@ struct drm_connector_state {
- 	 * @drm_atomic_helper_connector_hdmi_check().
- 	 */
- 	struct drm_connector_hdmi_state hdmi;
-+
-+	/**
-+	 * @luminance: Luminance for the connector
-+	 */
-+	unsigned int luminance;
- };
- 
- struct drm_connector_hdmi_audio_funcs {
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 6ee70ad65e1f..0bb1e53f36be 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -248,6 +248,14 @@ struct drm_file {
- 	 */
- 	bool supports_virtualized_cursor_plane;
- 
-+	/**
-+	 * @supports_luminance_control:
-+	 *
-+	 * This client is capable of setting the luminance for connectors.
-+	 *
-+	 */
-+	bool supports_luminance_control;
-+
- 	/**
- 	 * @master:
- 	 *
-diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-index 26a7281d179c..b03737ee8dac 100644
---- a/include/linux/backlight.h
-+++ b/include/linux/backlight.h
-@@ -197,6 +197,13 @@ struct backlight_properties {
- 	 */
- 	int brightness;
- 
-+	/**
-+	 * @can_disable: Minimum brightness would turn off the panel.
-+	 *
-+	 * Setting minimum brightness turns off the panel.
-+	 */
-+	bool can_disable;
-+
- 	/**
- 	 * @max_brightness: The maximum brightness value.
- 	 *
-@@ -314,6 +321,14 @@ struct backlight_device {
- 	 * @use_count: The number of unblanked displays.
- 	 */
- 	int use_count;
-+
-+	/**
-+	 * @drm_takeover: Number of luminance-aware DRM clients that have
-+	 * taken over brightness control of this device. When non-zero,
-+	 * writes to the legacy sysfs ``brightness`` attribute return
-+	 * ``-EBUSY``. Managed by the DRM backlight helpers.
-+	 */
-+	atomic_t drm_takeover;
- };
- 
- /* Forward declaration for backlight_update_status */
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index 27cc159c1d27..1b17fd2d3b2c 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -921,6 +921,28 @@ struct drm_get_cap {
-  */
- #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
+@@ -126,6 +126,9 @@ static void backlight_generate_event(struct backlight_device *bd,
+ 	case BACKLIGHT_UPDATE_HOTKEY:
+ 		envp[0] = "SOURCE=hotkey";
+ 		break;
++	case BACKLIGHT_UPDATE_DRM:
++		envp[0] = "SOURCE=drm";
++		break;
+ 	default:
+ 		envp[0] = "SOURCE=unknown";
+ 		break;
+@@ -579,6 +582,20 @@ int backlight_unregister_notifier(struct notifier_block *nb)
+ }
+ EXPORT_SYMBOL(backlight_unregister_notifier);
  
 +/**
-+ * DRM_CLIENT_CAP_LUMINANCE
++ * backlight_notify_brightness - notify brightness change to listeners
++ * @bd: backlight device that changed
 + *
-+ * If set to 1, the client declares support for the LUMINANCE connector property
-+ * and will control backlight brightness through the DRM atomic interface. This
-+ * enables the kernel to expose the LUMINANCE property on connectors that have
-+ * an associated backlight device.
-+ *
-+ * When this capability is enabled:
-+ *  - The LUMINANCE property becomes visible on supported connectors
-+ *  - Legacy sysfs writes to /sys/class/backlight/{*}/brightness will return
-+ *    -EBUSY to prevent conflicts with DRM-based brightness control
-+ *  - The client should include luminance values as part of atomic commits
-+ *  - Brightness changes are synchronized with display power state (DPMS)
-+ *
-+ * The LUMINANCE property accepts values from 0 to max_brightness, where 0 turns
-+ * off the backlight, and 1 to max_brightness control the brightness level.
-+ *
-+ * This capability is supported starting in kernel 7.2.
++ * Notify registered listeners that the backlight brightness has changed.
++ * This is called automatically after successful brightness updates.
 + */
-+#define DRM_CLIENT_CAP_LUMINANCE		8
++void backlight_notify_brightness(struct backlight_device *bd)
++{
++	blocking_notifier_call_chain(&backlight_notifier,
++				     BACKLIGHT_BRIGHTNESS_CHANGED, bd);
++}
++EXPORT_SYMBOL(backlight_notify_brightness);
 +
- /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
- struct drm_set_client_cap {
- 	__u64 capability;
+ /**
+  * devm_backlight_device_register - register a new backlight device
+  * @dev: the device to register
+diff --git a/include/drm/drm_backlight.h b/include/drm/drm_backlight.h
+new file mode 100644
+index 000000000000..e0e09e38f7c0
+--- /dev/null
++++ b/include/drm/drm_backlight.h
+@@ -0,0 +1,51 @@
++/* SPDX-License-Identifier: MIT */
++#ifndef __DRM_BACKLIGHT_H__
++#define __DRM_BACKLIGHT_H__
++
++/*
++ * Copyright (c) 2014 David Herrmann <dh.herrmann at gmail.com>
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <linux/kernel.h>
++#include <linux/types.h>
++
++struct backlight_device;
++struct drm_backlight;
++struct drm_connector;
++struct drm_device;
++struct drm_mode_object;
++
++int drm_backlight_init(void);
++void drm_backlight_exit(void);
++
++int drm_backlight_alloc(struct drm_connector *connector);
++void drm_backlight_free(struct drm_connector *connector);
++void drm_backlight_register(struct drm_backlight *b);
++void drm_backlight_unregister(struct drm_backlight *b);
++
++void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd);
++struct backlight_device *drm_backlight_get_device(struct drm_backlight *b);
++void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
++void drm_backlight_inhibit_legacy(struct drm_backlight *b);
++void drm_backlight_uninhibit_legacy(struct drm_backlight *b);
++void drm_backlight_inhibit_legacy_all(struct drm_device *dev);
++void drm_backlight_uninhibit_legacy_all(struct drm_device *dev);
++#endif /* __DRM_BACKLIGHT_H__ */
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index f83f28cae207..10daf088b8f1 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2410,6 +2410,9 @@ struct drm_connector {
+ 	 * @cec: CEC-related data.
+ 	 */
+ 	struct drm_connector_cec cec;
++
++	/* backlight link */
++	struct drm_backlight *backlight;
+ };
+ 
+ #define obj_to_connector(x) container_of(x, struct drm_connector, base)
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 687c0ee163d2..b340dc93f814 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -852,6 +852,11 @@ struct drm_mode_config {
+ 	 * the position of the output on the host's screen.
+ 	 */
+ 	struct drm_property *suggested_y_property;
++	/**
++	 * @luminance_property: Default connector property to control the
++	 * connector's backlight luminance.
++	 */
++	struct drm_property *luminance_property;
+ 
+ 	/**
+ 	 * @non_desktop_property: Optional connector property with a hint
+diff --git a/include/linux/backlight.h b/include/linux/backlight.h
+index 204eea9256fd..26a7281d179c 100644
+--- a/include/linux/backlight.h
++++ b/include/linux/backlight.h
+@@ -29,6 +29,7 @@ enum backlight_update_reason {
+ 	 * @BACKLIGHT_UPDATE_SYSFS: The backlight was updated using sysfs.
+ 	 */
+ 	BACKLIGHT_UPDATE_SYSFS,
++	BACKLIGHT_UPDATE_DRM,
+ };
+ 
+ /**
+@@ -80,6 +81,11 @@ enum backlight_notification {
+ 	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
+ 	 */
+ 	BACKLIGHT_UNREGISTERED,
++
++	/**
++	 * @BACKLIGHT_BRIGHTNESS_CHANGED: The backlight brightness has changed.
++	 */
++	BACKLIGHT_BRIGHTNESS_CHANGED,
+ };
+ 
+ /** enum backlight_scale - the type of scale used for brightness values
+@@ -310,6 +316,9 @@ struct backlight_device {
+ 	int use_count;
+ };
+ 
++/* Forward declaration for backlight_update_status */
++void backlight_notify_brightness(struct backlight_device *bd);
++
+ /**
+  * backlight_update_status - force an update of the backlight device status
+  * @bd: the backlight device
+@@ -323,6 +332,10 @@ static inline int backlight_update_status(struct backlight_device *bd)
+ 		ret = bd->ops->update_status(bd);
+ 	mutex_unlock(&bd->update_lock);
+ 
++	/* Notify DRM and other listeners that brightness changed */
++	if (ret == 0)
++		backlight_notify_brightness(bd);
++
+ 	return ret;
+ }
+ 
 -- 
 2.54.0
 
