@@ -4,44 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F59FCD6E52
-	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 11:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65561CD6E52
+	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 12:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0AA9112AF6;
-	Sun, 31 May 2026 11:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9C0F112B30;
+	Sun, 31 May 2026 12:57:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X86rgM8g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W2SHXTBp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E92F112AEC;
- Sun, 31 May 2026 11:49:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8683B437DA;
- Sun, 31 May 2026 11:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128531F00898;
- Sun, 31 May 2026 11:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780228161;
- bh=7j3xREiz6TaZFynKoDNbPly5H4/Z68zaoFZKyJzNWGc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=X86rgM8glaK/9j6LwXMfZhMG2JQB+jwmKo0yjN8SOWnJWgOTlGgips4JAq8aCYDJk
- lxH/avYeJwiPTPHoIcd35lbV0P7kygAF7dme+qEb+Ip6F0WyPvgWVHRp0FRFQOeNNd
- cVdpbrtB8NUgmT2978Pjto7gWYDHvXT+kwCzmCeXuRZTa3ECIOqmSHy0lmX6nzweqt
- mHH9kMr2X3pSPo1M/JXbzlWaURQ/0kJSr5GznEKWT/+eUjv992mcWZC2tDh1zJIcKF
- FDtLagahIqEaoe+//cPY+rD+O1+vN+xBarEbRMCwKT4MWnLR+DzJrzWYZ3molwlE3Q
- P8Hzmd/Ggzy4A==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v5 09/11] drm/amd/display: Drop brightness caching in amdgpu_dm
-Date: Sun, 31 May 2026 06:49:06 -0500
-Message-ID: <20260531114908.1693426-10-superm1@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260531114908.1693426-1-superm1@kernel.org>
-References: <20260531114908.1693426-1-superm1@kernel.org>
-MIME-Version: 1.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011066.outbound.protection.outlook.com
+ [40.93.194.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5696D112B30
+ for <amd-gfx@lists.freedesktop.org>; Sun, 31 May 2026 12:57:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i3vPawziQaQGmId9Sn04OcFSFry7umzORFsqnUJxBJ+J0nt+9QbLcfLsnoemqpnq03uiLKTKgzhV5IiV+zCEvkmwC7hZgP3Zac9h4wDqZsHpy6KemZIusrPR8sRwHVyRPpqxIk4BcVPstqmmxGExZQfj4yWMD8lAu6khZKL8ufHdKr+OHiiZ5WySFRnqPTOI6yqG5zCSWsAignIJoFsn+LAqGaAe0ig1C989m+9ThbyMdWoz7AKgFhYyATyY5Y6Ltf2itrpjbtkpoKaw8UMUNRNUAIMsTSLevLVX7+jHOdqt7T4nOWfMrHwIWmL7ijKVNbk9Y0dFNMb3/moChY4Xnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bqLFbDwyhwjzgh+h2pL79Suw1rELPE0hdZYCD9cbUiE=;
+ b=GO2Pr0G9SzkKHADqHzgQ31k+sPcHkTVABAfh+PuLOtqxr1t+PVWlAtJmrQpWoiFpbdmfdegZV8EXJNkDEkigUOiEJnHD9jLQeECZFb/0JsFIXNtkSk6mHk20HOVfdQ/NSg66SZRs6u3Kim9tCzjzqTNxyaGWi6iOn25Hzae+2HuPLTGcZiWkDjLbl8o6siOBd2tgOB2e8RgxU3kHsXymEJGdkBrNgGzs07T0qRGwhVRaGku8tDbARZz7iKkl2RlTbksJyA9Z6YtPFKDKjC7/rAyfXCQZPfRswU+TDB5xjSAKWmYifD9M8YjKhQcxSCwq6yQBZrfNwzG0xw04Ff2POQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bqLFbDwyhwjzgh+h2pL79Suw1rELPE0hdZYCD9cbUiE=;
+ b=W2SHXTBpb2EtvWEottiupCV5NwwR0dFFg1IF6YbVO1UuChTJcy6RfyCw2UO7XgEppSclOdLDkbrb1nfFh8zaz9w2ZX/Hw3eKu1kUHhITeRzLke4FLLYsv68+UgP9CZu4o1UlKJKcRyunudiW1xZZTsgC23WrStZeg+7px/BgVR0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by SJ0PR12MB6904.namprd12.prod.outlook.com (2603:10b6:a03:483::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Sun, 31 May
+ 2026 12:57:46 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0071.015; Sun, 31 May 2026
+ 12:57:45 +0000
+Message-ID: <4810ae14-8580-438f-ad3d-d7c7d8e7d6a3@amd.com>
+Date: Sun, 31 May 2026 08:57:39 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] drm/amd/display: Retry link detection when it fails
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Ray Wu <Ray.Wu@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>
+References: <20260531105744.28717-1-timur.kristof@gmail.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260531105744.28717-1-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0179.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8b::8) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|SJ0PR12MB6904:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9241aaca-5373-497c-b1ec-08debf1435e1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099006|11063799006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: fVmFoBVs1wxRdPi2J7Bx00obgDRoUiDLsQBVO3uGdtiRn5KIiV8xIhjOOctdtUYOgCVdvu+dD7HxSNexyv/6VFmacabgj5agDHJNwcAkMQuK20JdOFofSNRxoPzQ87yMyft9Y4/v1FsFB0VoQsSiX0JzgBtHJOOrf0CwD9NAD8+ztAW5lL0m0FYfCcYQi5xgW5pVJVprlyh41fKyPOIW1a/YLAOD4yL+RQ+I57DmSwkEqQTJhZSeRbOgi8ejhTnGGfcUpmb936k15VaymPHfJWAUy3z2AAqHWrfD8t3yjLjxUw6XX6jJ2+I428OZMAyZL9+kPbwuTsTAm7iLNcWswn5+cBISEjonGTuGikEv9kXEnpP34129MUEKY7tbpQzBb+DQJYtxqbPm11FpFTl1zUuLfxqYeFFiNfLwooiay3frHH0sIJwSTrsD/uN5H9oMuX2ShlLt1urDpFaGes9hv89bgM6hANLs05Pa7reA7t8uegKFlQ77FYgqgPFxjV1Y/NQd3b2w8QLnMmtI24jK1YkycxOwrg7zWFGcFdDbTzEIPNcot1Lq6d4NfArQ1q2GThpIEpu2hNperdn8l9itJZiG+xIYo/7+AD3B9LbQAwUD1LbR9Jap/fe7vcwP7dMrxlJvFW8yI+pXkPL38JzhrxeBX7GNv9l371sVz6kyKXjXPzUrCLSeJn4YSPQ05I90lK0oXLxu/8isnpT69FnkZpHimv6umrHrZOy26tNX1AeRY75TJUvCqf9tyV/7BMMb
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099006)(11063799006)(22082099003)(18002099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VE5DaC9zb2hqcjc1K2dIQk4vd3ZmZzVtRWVHbW9ZZlFBajIwZEVyZmdzbXhp?=
+ =?utf-8?B?Rlg1dHZ1dzdzTFpjeFc2ZG8rTXhvZ0RRNUhDUWlFbkowb2N2Sjl5NUtZazRn?=
+ =?utf-8?B?SjhscXVySEE3VDUvWlhROWgwa1JNbkVKOWc3K2RqakZjVzlQZ0cxN3dXUWo5?=
+ =?utf-8?B?d2ZmOGdnZkM4alRqSjhCandLUXhmK2VSM3VaSndmd09mSkV4dC9mQVgyQURQ?=
+ =?utf-8?B?a0NiQ3duUTltZndqN3NVdWdJT1ZxR3BnVjE1a2RjZEdHN2ZPWndvWENRc3JU?=
+ =?utf-8?B?RXN0MnowVlEwZUV2Y1lCclREYWppNXNoYnI0RnZrZll6OXhCUnEzNVhRV3hs?=
+ =?utf-8?B?YWJMbDQwWnU3eW40VFhNUGNiZ1JDYlZHbWUzc0RQWU9FQW5CQlhOcHdwVzQ2?=
+ =?utf-8?B?blA3Q2NoUng2Vm5TWFpROVJqSnZCQWdSd0VrM3JGbHFuUkJySXh5ZzJFa0xp?=
+ =?utf-8?B?WlpYWEpRSTkyZWZKNDc0RjFxSFo1Zm41UEh3aVQ5YUhlZ1ZsZUQyZW5RQmln?=
+ =?utf-8?B?U3FmSVlpdzU3b2VRU1prMHF1S2k2Y05OUDErZ1lCUG9XeXY2bzJHNkcydkNr?=
+ =?utf-8?B?VGRaZ0VKdU1tOXZCVGN2T09YdTgwZFdxeWJrNXZCVVdFblpIbjhYb3ZzcmJj?=
+ =?utf-8?B?NjkyZ1dsZ01JV09XcEZIRUxOc3Iyc3dWMjVqQjdiUXpGZjlHdEpVdFZVb2do?=
+ =?utf-8?B?dndLU0p5ZWtUZ0RBWEZmUkx5ZXNzRFltK0J6TFc0aWFqSVgzNG85VE9Eamwx?=
+ =?utf-8?B?NzNOVHY2U0gxeUNhYS9MUGJOenB5VzZoT2xGbXBNYzIrZXFDREJFZnk4Vm9m?=
+ =?utf-8?B?SEVaWnBlcnNJN2l2ZTVBUTFxcWQvcUc2NGRIK3dpZEtFdGZsdVQyajJMZGxS?=
+ =?utf-8?B?akFFU3hWclVQUTNBSHNsYXBVUFM0QkRsYTJBbTN6K2NRbXhtZ1AzbThHWE9K?=
+ =?utf-8?B?QXVXY0FOZldIaE5rSnJRR2tjWmt1ck9CcmgxejBONjVoQXE0MTVOL1I3dVd0?=
+ =?utf-8?B?QXU2dkd6M1JnUm5mcnpndno5NncvTFN3M1Y0UWtmQi80S05WRjVKT1VjbTk2?=
+ =?utf-8?B?c0ovaTViNkRtelZ6MDdBbi9SRld5MjZucVRnL0wrbEpTUk0vZlpYaGxOTXRX?=
+ =?utf-8?B?L1JWTnlYWGpoQ2t5bWU3VzVPWExZTGR3ZDJMVHpZMHFuekV4ditwSmtwbFA4?=
+ =?utf-8?B?bDJ3SUxidjBXYzlROWxTUHdDYmh4THlmVnRpcEJnT05rUDQyVkFBVEo0RmJ6?=
+ =?utf-8?B?V2VOaUZOU09QRmNneWIzbDdGT2UyYVduMVN2aFQ2cnRVTDliVUVWT0kxQUFQ?=
+ =?utf-8?B?V3NrcWd2dWtQR2hXN2FUWlhlNG9tOEFTVnozZm92QjcwMWoxOFlnRUUvc1dH?=
+ =?utf-8?B?Ry9vLzVjZUxDRzlHN1pEUGtUUWs4bGZnZUVKN2M0T1VOZVliUHdEUzRyMmJM?=
+ =?utf-8?B?WUM3c1N1ZUVPbTlOZVJJek54SWY5Y3hTN0tnUzBwaC9xRkZCWEFrYkQ5Ulcv?=
+ =?utf-8?B?cGVocnN3eVk2OFlzNjY0anMvTlpuaStYWWVZeDJWZllUMVhnWFlCcHIwQ3hD?=
+ =?utf-8?B?OGZOdnVWMUpqS0pFaXNreEVLZzFYa1VONkhwNWo4a1hWMWg5MFRVNnBCVlpF?=
+ =?utf-8?B?K1RjNHk5NVczSFBvZ3lJVGdsSk5BdGZ1YVV3aitQeUhnT25YeTJIWEdWSU9X?=
+ =?utf-8?B?aTRZMEtpWG9zbUNza1g3M3Mxa29uWmlnWlBJOEMwU3k1dXhSaFlOVHE5UzVK?=
+ =?utf-8?B?YkVZMXhsSXRXc1p5OEpTUCtpT2FxNE03dU9qT0V1cW5hK0NLNjZLMGFTeENI?=
+ =?utf-8?B?TTBGVGE2N2FrZVo0ZFJ6QkoyVHNScGlqTUl0cXZzUVZ3SmRFa1ZMTURBNUNL?=
+ =?utf-8?B?dE5VNllsWVhwak1XWUpYVFl5MmNuTWZaU09wbENGZU45czBqaU15KzBJUTVk?=
+ =?utf-8?B?TVhxL3lLS1BrZ25mNGtLeWx2TXRXNVlPbXRDRVdOR1p3dmJpMmY4SnQ1K2R6?=
+ =?utf-8?B?Wk5xVnNIdkMramVIWkhpbDJBcHUyR2VxMnZuZlJ4MFFkUFg0RCtZdkxZZUxL?=
+ =?utf-8?B?bkM1ZHZNRk1wUnZiaHEzN00vMFJ3Y3pHSHJINDMybjdFK2g1cWtyS2lUNzJX?=
+ =?utf-8?B?ay82MnRvdk84aGlkTmcyQUFoTGsvVDg1QzBhWitPeW5PVjQ5N0VwT2ZIQnUr?=
+ =?utf-8?B?QU1EeFREN3NPWnJTN0Z6L2VVeG5TUlllQVpLQ1hDQUk4OWYvZUF3RStsUkh0?=
+ =?utf-8?B?N1VwU3ZBMlVNQUh6Y0wvMy9iNmZ6dmZOOWkwWW5nTmgzVkNvc3FPdElwQVow?=
+ =?utf-8?B?bm96Zm8xNldiSUFyV3ZaZTE1L0tOMmQ1Y3JhRzR1RDJIRzllSEpNUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9241aaca-5373-497c-b1ec-08debf1435e1
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 12:57:45.8865 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b8z/rih+8u/MNc8NB3DmFoBn3CEAi9sEDFVBPDYGiQn4h+mfI9aBt4zSFfWUFB2KnK4+IMVpj2eniiAHBRLaIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6904
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,212 +138,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Brightness caching isn't necessary when the core is changing brightness
-as part of the connector state.
 
-[How]
-Drop all brightness and actual brightness caching
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 64 ++-----------------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 13 ----
- 2 files changed, 5 insertions(+), 72 deletions(-)
+On 2026-05-31 06:57, Timur Kristóf wrote:
+> When dc_link_detect_connection_type thinks that a display is
+> connected, but dc_link_detect failed, enqueue delayed work to
+> retry the link detection again.
+> 
+> Useful when eg. HPD pin is high but the display isn't ready and
+> didn't respond to DDC. Typically this may happen when the HPD
+> pins make contact before the DDC pins, or when the display
+> is "slow to wake up" and doesn't respond on DDC.
+> 
+> The first few patches are just a slight refactor to
+> de-duplicate some code and do some cleanup necessary
+> for the retry. This is to avoid adding even more duplicated
+> code.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 55c3838f7ec8..62161d7f7994 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3732,12 +3732,6 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 
- 		mutex_unlock(&dm->dc_lock);
- 
--		/* set the backlight after a reset */
--		for (i = 0; i < dm->num_of_edps; i++) {
--			if (dm->backlight_dev[i])
--				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
--		}
--
- 		return 0;
- 	}
- 	/* Recreate dc_state - DC invalidates it when setting power state to S3. */
-@@ -5350,10 +5344,8 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 		if (aconnector->bl_idx != bl_idx)
- 			continue;
- 
--		/* if connector is off, save the brightness for next time it's on */
-+		/* if connector is off, DRM core will restore it next time it's on */
- 		if (!aconnector->base.encoder) {
--			dm->brightness[bl_idx] = user_brightness;
--			dm->actual_brightness[bl_idx] = 0;
- 			return;
- 		}
- 	}
-@@ -5361,11 +5353,10 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 	amdgpu_dm_update_backlight_caps(dm, bl_idx);
- 	caps = &dm->backlight_caps[bl_idx];
- 
--	dm->brightness[bl_idx] = user_brightness;
- 	/* update scratch register */
- 	if (bl_idx == 0)
--		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
--	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
-+		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, user_brightness);
-+	brightness = convert_brightness_from_user(caps, user_brightness);
- 	link = (struct dc_link *)dm->backlight_link[bl_idx];
- 
- 	/* Apply brightness quirk */
-@@ -5407,9 +5398,6 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 		dc_allow_idle_optimizations(dm->dc, true);
- 
- 	mutex_unlock(&dm->dc_lock);
--
--	if (rc)
--		dm->actual_brightness[bl_idx] = user_brightness;
- }
- 
- static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-@@ -5457,7 +5445,7 @@ static int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
- static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
- {
- 	struct amdgpu_display_manager *dm = bl_get_data(bd);
--	int i, ret;
-+	int i;
- 
- 	for (i = 0; i < dm->num_of_edps; i++) {
- 		if (bd == dm->backlight_dev[i])
-@@ -5466,11 +5454,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
- 	if (i >= AMDGPU_DM_MAX_NUM_EDP)
- 		i = 0;
- 
--	ret = amdgpu_dm_backlight_get_level(dm, i);
--	if (ret < 0)
--		return dm->brightness[i];
--
--	return ret;
-+	return amdgpu_dm_backlight_get_level(dm, i);
- }
- 
- static const struct backlight_ops amdgpu_dm_backlight_ops = {
-@@ -5488,8 +5472,6 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	struct amdgpu_dm_backlight_caps *caps;
- 	char bl_name[16];
- 	int min, max;
--	int real_brightness;
--	int init_brightness;
- 	int r;
- 
- 	if (aconnector->bl_idx == -1)
-@@ -5515,8 +5497,6 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	} else
- 		props.brightness = props.max_brightness = MAX_BACKLIGHT_LEVEL;
- 
--	init_brightness = props.brightness;
--
- 	if (caps->data_points && !(amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)) {
- 		drm_info(drm, "Using custom brightness curve\n");
- 		props.scale = BACKLIGHT_SCALE_NON_LINEAR;
-@@ -5530,7 +5510,6 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	dm->backlight_dev[aconnector->bl_idx] =
- 		backlight_device_register(bl_name, aconnector->base.kdev, dm,
- 					  &amdgpu_dm_backlight_ops, &props);
--	dm->brightness[aconnector->bl_idx] = props.brightness;
- 
- 	if (IS_ERR(dm->backlight_dev[aconnector->bl_idx])) {
- 		r = PTR_ERR(dm->backlight_dev[aconnector->bl_idx]);
-@@ -5539,18 +5518,6 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 		return r;
- 	}
- 
--	/*
--	 * dm->brightness[x] can be inconsistent just after startup until
--	 * ops.get_brightness is called.
--	 */
--	real_brightness =
--		amdgpu_dm_backlight_ops.get_brightness(dm->backlight_dev[aconnector->bl_idx]);
--
--	if (real_brightness != init_brightness) {
--		dm->actual_brightness[aconnector->bl_idx] = real_brightness;
--		dm->brightness[aconnector->bl_idx] = real_brightness;
--	}
--
- 	/* Link the registered backlight device to the DRM connector. If
- 	 * drm_backlight_alloc() failed earlier in init_helper,
- 	 * aconnector->base.backlight is NULL and drm_backlight_link() is a
-@@ -10665,7 +10632,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 	bool mode_set_reset_required = false;
- 	u32 i;
- 	struct dc_commit_streams_params params = {dc_state->streams, dc_state->stream_count};
--	bool set_backlight_level = false;
- 
- 	/* Disable writeback */
- 	for_each_old_connector_in_state(state, connector, old_con_state, i) {
-@@ -10785,7 +10751,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 			acrtc->hw_mode = new_crtc_state->mode;
- 			crtc->hwmode = new_crtc_state->mode;
- 			mode_set_reset_required = true;
--			set_backlight_level = true;
- 		} else if (modereset_required(new_crtc_state)) {
- 			drm_dbg_atomic(dev,
- 				       "Atomic commit: RESET. crtc id %d:[%p]\n",
-@@ -10838,18 +10803,6 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
- 		}
- 	}
- 
--	/* During boot up and resume the DC layer will reset the panel brightness
--	 * to fix a flicker issue.
--	 * It will cause the dm->actual_brightness is not the current panel brightness
--	 * level. (the dm->brightness is the correct panel level)
--	 * So we set the backlight level with dm->brightness value after set mode
--	 */
--	if (set_backlight_level) {
--		for (i = 0; i < dm->num_of_edps; i++) {
--			if (dm->backlight_dev[i])
--				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
--		}
--	}
- }
- 
- static void dm_set_writeback(struct amdgpu_display_manager *dm,
-@@ -11355,13 +11308,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 	/* Update audio instances for each connector. */
- 	amdgpu_dm_commit_audio(dev, state);
- 
--	/* restore the backlight level */
--	for (i = 0; i < dm->num_of_edps; i++) {
--		if (dm->backlight_dev[i] &&
--		    (dm->actual_brightness[i] != dm->brightness[i]))
--			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
--	}
--
- 	/*
- 	 * send vblank event on all events not handled in flip and
- 	 * mark consumed event for drm_atomic_helper_commit_hw_done
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 1ab066859d9e..952bfea0d8dc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -648,19 +648,6 @@ struct amdgpu_display_manager {
- 	struct completion dmub_aux_transfer_done;
- 	struct workqueue_struct *delayed_hpd_wq;
- 
--	/**
--	 * @brightness:
--	 *
--	 * cached backlight values.
--	 */
--	u32 brightness[AMDGPU_DM_MAX_NUM_EDP];
--	/**
--	 * @actual_brightness:
--	 *
--	 * last successfully applied backlight values.
--	 */
--	u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
--
- 	/**
- 	 * @aux_hpd_discon_quirk:
- 	 *
--- 
-2.54.0
+Series is
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Dan, can we queue this for testing in the next promotion cycle before 
+merging?
+
+Harry
+
+> 
+> Timur Kristóf (5):
+>    drm/amd/display: Add detect reason to handle_hpd_irq_helper
+>    drm/amd/display: Use handle_hpd_irq_helper for HPD RX
+>    drm/amd/display: Always create delayed HPD work queue
+>    drm/amd/display: Retry link detection on hotplug
+>    drm/amd/display: Retry link detection on resume and boot
+> 
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 216 +++++++++++++-----
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  16 ++
+>   2 files changed, 179 insertions(+), 53 deletions(-)
+> 
 
