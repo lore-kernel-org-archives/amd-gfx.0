@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3EECD6E5D
-	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 11:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF3ECD6E52
+	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 11:49:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7976112AF3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E639112AF1;
 	Sun, 31 May 2026 11:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ToExa9UG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iXyvi0f0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00BD7112AE8;
- Sun, 31 May 2026 11:49:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58183112AEC;
+ Sun, 31 May 2026 11:49:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7841160123;
- Sun, 31 May 2026 11:49:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84531F00893;
- Sun, 31 May 2026 11:49:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3FCCC44635;
+ Sun, 31 May 2026 11:49:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CF31F00898;
+ Sun, 31 May 2026 11:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780228160;
- bh=5lzk+OTDldDG2SnGC+MYMfMJssDNEQ29EEsKCv9DX20=;
+ s=k20260515; t=1780228162;
+ bh=OCmzLrDf11CowVnaLX9u60t3iwYDZIlAE1pIoNvP2BY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ToExa9UGH3B1LMTgiGuTwl3jtaSBnNLG5YMVYC8W+s4qGhljAILwOO+FfYoR5FMOv
- o8KIVOsPgzyQGavxCQPHNyFOXBQ3UtlqPkqO748zAHub+JJh4DcNH5rLW5BSk3wfJc
- uKOmzlplpVO0FjgcfEIt9iWYFE5CT1/MkB56YQp8yVeggfIsSxGKBCXVJuKZwuwB0F
- seZsmBUxOJE+50+Si8BO8M6zZeFazmGCShgXM7UcNFqdOkHLTYMMZSwpGZ/MWMJu/N
- 2BY2rsHRuIG5nFGAnF0yZTAB9ya9W1Wazu1XnIX7v9+zGPS8elXzkp8PlBK+xxz95v
- nwAqtKoCwR9JQ==
+ b=iXyvi0f0U6r8UnczNjbKHTyDkq+BJKNuRfcMfq/Oa7isv0oJYXV4kcQgzN1pao2Az
+ Wa/ENw2B/eJg8Ay0dlJPMjNAm2NGNkAFlECI2hXXnFjG1v+jheJ1mtUA2qG5ikIfzA
+ BdsmlZrSn2Z7PiJu5k8ERDSGK3U63McowqQwIc7S8xI4IEwfE0zoczVIR4JR4JrvQM
+ 58jSK7S/bj0zxSt+rVN40E0UAVlqjE0gdiIKGmIGpK396l0IuXhvr7kzV0b9EtYIjb
+ PxYpDpS5nOzsQrtzIe4lEszOq9SF+G6XnfkI5T67Mtp19oEZYh0QpxBN1Yy6LQ4FSl
+ jaizrHvFKVYVA==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v5 07/11] drm/amd/display: Move backlight tracing out of the
- dc lock
-Date: Sun, 31 May 2026 06:49:04 -0500
-Message-ID: <20260531114908.1693426-8-superm1@kernel.org>
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v5 10/11] drm/bridge: auto-link panel backlight in bridge
+ connector
+Date: Sun, 31 May 2026 06:49:07 -0500
+Message-ID: <20260531114908.1693426-11-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260531114908.1693426-1-superm1@kernel.org>
 References: <20260531114908.1693426-1-superm1@kernel.org>
@@ -57,46 +58,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The backlight tracing doesn't need to be done with DC lock held as
-it's using information that is fed into the function.
+The link should allow clients to change luminance property.
 
+Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # SM8150-HDK
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+v5:
+ * Add tag
+---
+ drivers/gpu/drm/bridge/panel.c                 | 15 +++++++++++++++
+ drivers/gpu/drm/display/drm_bridge_connector.c | 15 ++++++++++++++-
+ include/drm/drm_bridge.h                       |  1 +
+ 3 files changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 430b7d3d8930..f6610902eee4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5371,13 +5371,6 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 	if (caps->brightness_mask)
- 		brightness |= caps->brightness_mask;
+diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+index 184a8b7049a7..1dbd3ba75903 100644
+--- a/drivers/gpu/drm/bridge/panel.c
++++ b/drivers/gpu/drm/bridge/panel.c
+@@ -233,6 +233,21 @@ bool drm_bridge_is_panel(const struct drm_bridge *bridge)
+ }
+ EXPORT_SYMBOL(drm_bridge_is_panel);
  
--	/* Change brightness based on AUX property */
--	mutex_lock(&dm->dc_lock);
--	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
--		dc_allow_idle_optimizations(dm->dc, false);
--		reallow_idle = true;
--	}
--
- 	if (trace_amdgpu_dm_brightness_enabled()) {
- 		trace_amdgpu_dm_brightness(__builtin_return_address(0),
- 					   user_brightness,
-@@ -5386,6 +5379,13 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 					   power_supply_is_system_supplied() > 0);
- 	}
++/**
++ * drm_panel_bridge_to_panel - get the drm_panel wrapped by a panel bridge
++ * @bridge: the panel bridge
++ *
++ * Returns the &drm_panel wrapped by @bridge, or NULL if @bridge is not a
++ * panel bridge.
++ */
++struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge)
++{
++	if (!drm_bridge_is_panel(bridge))
++		return NULL;
++	return drm_bridge_to_panel_bridge(bridge)->panel;
++}
++EXPORT_SYMBOL(drm_panel_bridge_to_panel);
++
+ /**
+  * drm_panel_bridge_add - Creates a &drm_bridge and &drm_connector that
+  * just calls the appropriate functions from &drm_panel.
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 39cc18f78eda..a1d54f7bac6a 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -11,7 +11,9 @@
+ #include <linux/slab.h>
  
-+	/* Change brightness based on AUX property */
-+	mutex_lock(&dm->dc_lock);
-+	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
-+		dc_allow_idle_optimizations(dm->dc, false);
-+		reallow_idle = true;
+ #include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_backlight.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_device.h>
+@@ -1048,9 +1050,20 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 		connector->polled = DRM_CONNECTOR_POLL_CONNECT
+ 				  | DRM_CONNECTOR_POLL_DISCONNECT;
+ 
+-	if (panel_bridge)
++	if (panel_bridge) {
++		struct drm_panel *panel;
++
+ 		drm_panel_bridge_set_orientation(connector, panel_bridge);
+ 
++		panel = drm_panel_bridge_to_panel(panel_bridge);
++		if (panel && panel->backlight) {
++			ret = drm_backlight_alloc(connector);
++			if (!ret)
++				drm_backlight_link(connector->backlight,
++						   panel->backlight);
++		}
 +	}
 +
- 	if (caps->aux_support) {
- 		rc = dc_link_set_backlight_level_nits(link, true, brightness,
- 						      AUX_BL_DEFAULT_TRANSITION_TIME_MS);
+ 	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
+ 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
+ 		drm_connector_attach_content_protection_property(connector, true);
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index a8d67bd9ee50..6cc2a22b2dec 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1558,6 +1558,7 @@ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
+ 
+ #ifdef CONFIG_DRM_PANEL_BRIDGE
+ bool drm_bridge_is_panel(const struct drm_bridge *bridge);
++struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge);
+ struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
+ struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
+ 					      u32 connector_type);
 -- 
 2.54.0
 
