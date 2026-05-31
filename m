@@ -4,39 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6164CD6E52
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3EFCD6E53
 	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 11:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E7EE112AE8;
-	Sun, 31 May 2026 11:49:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA89112AEA;
+	Sun, 31 May 2026 11:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LQeuNW5E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iqq6hqGF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB2DE112AEA;
- Sun, 31 May 2026 11:49:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A672E112AE6;
+ Sun, 31 May 2026 11:49:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A13B140C4D;
- Sun, 31 May 2026 11:49:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BF221F00899;
- Sun, 31 May 2026 11:49:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 25FC760123;
+ Sun, 31 May 2026 11:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527661F00893;
+ Sun, 31 May 2026 11:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780228159;
- bh=U2k+F91HwjQrpVP3BVgcbCSYpcxAxV57CRaPIrFsxM4=;
+ s=k20260515; t=1780228156;
+ bh=OJ5eWOpeWC1rYPnlhJy7ylMio7oO+YtTUhZjJYgersk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LQeuNW5EHjGT/VvCYkNCvBXhrcBu4uDTVK/feGdJaTxwubjSbpfAAg6EcKjqhlrVm
- lf8I9SG4ey2w/SXopeNY/jWVyWKZHTTAlzBDTjVjFXvJs33g47kglV3Yv0evaxXWOP
- G6DC9MeEeOfGa09sTKOycXHNZCBoqbiRw2Z4MMhrMb1on/mz9S6OW0jiympVqm6ld6
- fqVQFrXgSzt+XQwt7oNgayJChC+vE1ws4lWNgGEGrxzWUGqbd9yWezPGDQvaDb3WMP
- dJLCsEaqUK01aHaJEJWMuJYIAvsaaTdsdhbTK080OJKvloVfrcnbwZBEjotayZIxio
- hEQcK5UxTAcBA==
+ b=iqq6hqGF7mspvgWEiQ/XfZX/yHbnVBOjXo0cTKzlKG5kw0VOOA/n8o9PrMlrrPaFa
+ 8c7OE2FL04yhrBkUmCmyQR5p1JvOZ3X+xcdR64ZCErhJXom4c4x/9QZDRwPZ/4etBU
+ 0D6fDTXyhEnm80Y5NID1WiBz81lR6BLdGPX9dAW1xQLRUXxR/1xHYDfAjYVEU8sqiU
+ WaokdSa9dtfYmsvDsOgZtOb40O0gYSJAgqktBVMORU0rpe70wUPUlEtuHYngEYSz6d
+ 2xWFqMCuI7vZvebqb8sus8mpYFTLazl4rC2m9JqS/OfZEXjDc2iB07mFE5SJp3TeMj
+ 1EN4wvHkibMiA==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v5 06/11] drm/amd/display: Allow backlight registration to fail
-Date: Sun, 31 May 2026 06:49:03 -0500
-Message-ID: <20260531114908.1693426-7-superm1@kernel.org>
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ David Herrmann <dh.herrmann@gmail.com>,
+ Marta Lofstedt <marta.lofstedt@intel.com>
+Subject: [PATCH v5 02/11] backlight: add kernel-internal backlight API
+Date: Sun, 31 May 2026 06:48:59 -0500
+Message-ID: <20260531114908.1693426-3-superm1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260531114908.1693426-1-superm1@kernel.org>
 References: <20260531114908.1693426-1-superm1@kernel.org>
@@ -56,101 +58,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-If backlight registration fails then it's ignored. This could hide
-a fatal problem to a user.
+So far backlights have only been controlled via sysfs. However, sysfs is
+not a proper user-space API for runtime modifications, and never was
+intended to provide such. The DRM drivers are now prepared to provide
+such a backlight link so user-space can control backlight via DRM
+connector properties. This allows us to employ the same access-management
+we use for mode-setting.
 
-[How]
-Pass error codes up from backlight registration failures.
+This patch adds few kernel-internal backlight helpers so we can modify
+backlights from within DRM.
+
+Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
+
+V2: Marta Lofstedt <marta.lofstedt@intel.com>
+- rebase
+- minor edit for checkpatch warning
+
+Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
+
+V3: Mario Limonciello (AMD) <superm1@kernel.org>
+ - rebase
+ - Use guard(mutex)
+
+V4: Mario Limonciello (AMD) <superm1@kernel.org>
+ - Adjust return type for backlight_set_brightness() to return errors
+ - Stop clamping in backlight_set_brightness()
+ - Drop backlight_device_lookup()
+
+V5: Mario Limonciello (AMD) <superm1@kernel.org>
+ - Drop unnecessary dynamic debug message as backlight_generate_event()
+   sends a netlink event.
 
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +++++++++++--------
- 1 file changed, 24 insertions(+), 17 deletions(-)
+ drivers/video/backlight/backlight.c | 31 +++++++++++++++++++++++++++++
+ include/linux/backlight.h           | 15 ++++++++++++++
+ 2 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index de9b29ad6cab..430b7d3d8930 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5478,7 +5478,7 @@ static const struct backlight_ops amdgpu_dm_backlight_ops = {
- 	.update_status	= amdgpu_dm_backlight_update_status,
- };
- 
--static void
-+static int
- amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- {
- 	struct drm_device *drm = aconnector->base.dev;
-@@ -5489,15 +5489,16 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	int min, max;
- 	int real_brightness;
- 	int init_brightness;
-+	int r;
- 
- 	if (aconnector->bl_idx == -1)
--		return;
-+		return 0;
- 
- 	if (!acpi_video_backlight_use_native()) {
- 		drm_info(drm, "Skipping amdgpu DM backlight registration\n");
- 		/* Try registering an ACPI video backlight device instead. */
- 		acpi_video_register_backlight();
--		return;
-+		return 0;
- 	}
- 
- 	caps = &dm->backlight_caps[aconnector->bl_idx];
-@@ -5531,22 +5532,26 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
- 	dm->brightness[aconnector->bl_idx] = props.brightness;
- 
- 	if (IS_ERR(dm->backlight_dev[aconnector->bl_idx])) {
--		drm_err(drm, "DM: Backlight registration failed!\n");
-+		r = PTR_ERR(dm->backlight_dev[aconnector->bl_idx]);
-+		drm_err(drm, "DM: Backlight registration failed: %d\n", r);
- 		dm->backlight_dev[aconnector->bl_idx] = NULL;
--	} else {
--		/*
--		 * dm->brightness[x] can be inconsistent just after startup until
--		 * ops.get_brightness is called.
--		 */
--		real_brightness =
--			amdgpu_dm_backlight_ops.get_brightness(dm->backlight_dev[aconnector->bl_idx]);
-+		return r;
-+	}
- 
--		if (real_brightness != init_brightness) {
--			dm->actual_brightness[aconnector->bl_idx] = real_brightness;
--			dm->brightness[aconnector->bl_idx] = real_brightness;
--		}
--		drm_dbg_driver(drm, "DM: Registered Backlight device: %s\n", bl_name);
-+	/*
-+	 * dm->brightness[x] can be inconsistent just after startup until
-+	 * ops.get_brightness is called.
-+	 */
-+	real_brightness =
-+		amdgpu_dm_backlight_ops.get_brightness(dm->backlight_dev[aconnector->bl_idx]);
-+
-+	if (real_brightness != init_brightness) {
-+		dm->actual_brightness[aconnector->bl_idx] = real_brightness;
-+		dm->brightness[aconnector->bl_idx] = real_brightness;
- 	}
-+	drm_dbg_driver(drm, "DM: Registered Backlight device: %s\n", bl_name);
-+
-+	return 0;
+diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
+index ff2c2084c73a..cd1a161ae7bc 100644
+--- a/drivers/video/backlight/backlight.c
++++ b/drivers/video/backlight/backlight.c
+@@ -514,6 +514,37 @@ static int devm_backlight_device_match(struct device *dev, void *res,
+ 	return *r == data;
  }
  
- static int initialize_plane(struct amdgpu_display_manager *dm,
-@@ -8078,7 +8083,9 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
- 			return r;
- 	}
++/**
++ * backlight_set_brightness - set brightness on a backlight device
++ * @bd: backlight device to operate on
++ * @value: brightness value to set on the device
++ * @reason: backlight-change reason to use for notifications
++ *
++ * This is the in-kernel API equivalent of writing into the 'brightness' sysfs
++ * file. It calls into the underlying backlight driver to change the brightness
++ * value.
++ * A uevent notification is sent with the reason set to @reason.
++ * Return: 0 if successfully notified, -EINVAL for invalid values
++ */
++int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
++			      enum backlight_update_reason reason)
++{
++	int rc = 0;
++
++	guard(mutex)(&bd->ops_lock);
++	if (bd->ops) {
++		if (value > bd->props.max_brightness)
++			return -EINVAL;
++		bd->props.brightness = value;
++		rc = backlight_update_status(bd);
++	}
++	if (rc == 0)
++		backlight_generate_event(bd, reason);
++
++	return rc;
++}
++EXPORT_SYMBOL_GPL(backlight_set_brightness);
++
+ /**
+  * backlight_register_notifier - get notified of backlight (un)registration
+  * @nb: notifier block with the notifier to call on backlight (un)registration
+diff --git a/include/linux/backlight.h b/include/linux/backlight.h
+index d905173c7f73..204eea9256fd 100644
+--- a/include/linux/backlight.h
++++ b/include/linux/backlight.h
+@@ -429,6 +429,21 @@ static inline void backlight_notify_blank_all(struct device *display_dev,
+ { }
+ #endif
  
--	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
-+	r = amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
-+	if (r)
-+		return r;
++int backlight_set_brightness(struct backlight_device *bd, unsigned int value,
++			      enum backlight_update_reason reason);
++
++static inline void backlight_device_ref(struct backlight_device *bd)
++{
++	if (bd)
++		get_device(&bd->dev);
++}
++
++static inline void backlight_device_unref(struct backlight_device *bd)
++{
++	if (bd)
++		put_device(&bd->dev);
++}
++
+ #define to_backlight_device(obj) container_of(obj, struct backlight_device, dev)
  
- 	if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
- 	    (connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
+ /**
 -- 
 2.54.0
 
