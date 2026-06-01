@@ -4,100 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A80D4CD6E55
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4172CCD6E55
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:29:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2EF10E7EF;
-	Mon,  1 Jun 2026 14:25:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E191133FE;
+	Mon,  1 Jun 2026 14:29:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E+t6WwT3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B+3YIleW";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013056.outbound.protection.outlook.com
- [40.93.196.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56AF010E7F7
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 14:25:17 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012036.outbound.protection.outlook.com [52.101.43.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2CE1133FE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 14:29:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ge+U6lovlpp5t9T/YEr2XnqoLERTEmJ6scsSngT45uwcrzpUVFGvry5otyLiQ3qQcPKlbxJwGCUXFoKSC99Bc4LYTqD0/hLBDOkJ4MWO3FFHZYxAfT21Pnd9hW1tRrxmj9a4gui5PYVkBwLfE+l/tBfWx76BoK2bbP6JjuhKglictIWZi2CGhiG8u9AuBXGLlPAqMkj6RaQAGXJ5Ab0R658yTInnqAuMyl/e3j7HD/2p2G3fDwruXQl5AijjqaB8Z/aPcYeN1huOhwOTvw9A5r5H1gnV1shfPi6Z+D9Y/nh6z+2avvSRCoaQ9TAd3MYd9abvoQXilljyhvEuI/AqZA==
+ b=XxPCBQcsyJgNRdYNrEYiQ2ZFSWZ3JQTWMUbAll5WkeOlVT0YbqIxTeTxwfwbES3qpggyDws43pnOck3T3tOIbl5whXVwauV2a+LPySCLc8MjZmfL5LB1jzAAaYyAzCSd1URfSCTAbN5Ec+yeN0eDvGqDc+KxoSpVyhyiUzCHmaeoAcc5zsnPH9ah9C3vMrnwKZ3W5hQJqhMtLEjTvMaf49R5Qem5mxlCKw4O6Pb+UpN2xPvm7Sk2eR+97xhGLXbBtqPWo0x8+g63FU/gnHCnIlaZkPGUAfNrWsEt09rIcNEAPOhUI9QGh3O0XiN887cvT2PVogZSGoLMCeL9Xr32sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PRe6zzbjGTzjx0iO6Bs8L9bBoYsnDO3I5I4i9dX4Bds=;
- b=VmwPmG25UBispd1wTnVxRAfeqxHY4VZHmZsTTegpvmIVcThabaoi6ykFJUIGg5I2aUEpxdYhThi6xA1bNkfdhk7epkA/UXYVc6wsMvGxOy9aLwzfYvDl7p5q/Dxs8wcQAqHNKFRRNevKZu25fF1vIPNXggvT+KDt8CSEW8bLiTw1bG4m5rKrhOlMRG+wTYwykDY1eaW6fKoGUlrVe5FocjjqDVGWQw2dGfz2CjLD1uPgIvoEx/uIcpk1hbPR14WMJV7PXKjAlen5zUzr7XM5dlj5m6PQK/e2hJRtBebiUWmKRXIXORFSQGH7IW5/tZpVUMKuB6IXUXWv0yzMIKwopg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=DpJj+oTDIzSKFcnBGT3HHNBcs/QtCcnqxvur0PoU/XY=;
+ b=HvKuSeGymJHvxQExjgEU7bIDubdHt6Ke6V+Sbs85O9MFf1Ga0tnqkskECnWaenkUauA5kZw4sISWLv06w49aRTyFNrtawURVkhlVRBFQaP49djblfx1ZMA40nkP3k6z85bbToB1YNAZr7RG0vuaSSJ+jFTK8vMItL8vblU/DH8yXjhOfWCiZEsL8gWc0mdFTs4MklBGlArdVFKaM9sd5GRNNIyB60DZrHoJSO0AZctReYItnDOJ8QVM1tcngO7ABvluZCqKFvtZfYk7/rAMpQ/aS5GUP7bTWxZ/2FGbpAfzYZpAxsOSqgBrzomt7JOVhL4gOqkwMB1sIO6ipSpDWSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PRe6zzbjGTzjx0iO6Bs8L9bBoYsnDO3I5I4i9dX4Bds=;
- b=E+t6WwT3PYHbizRy6Z6XbiBj5bLUVFFg0CYLnlCXkLVZtC6SC6bb3d6fxXmgq97dgaWZAlP98QYpFY3ZAtjgTYW0dnDFwipE8/5vaekEAcgPuf52/WvwvYFS1YF5qvM7eorJoJoRn3fgoJXTRBdbxchWn14r9+EcuD/9q/MR11w=
-Received: from SA0PR11CA0075.namprd11.prod.outlook.com (2603:10b6:806:d2::20)
- by BY1PR12MB8445.namprd12.prod.outlook.com (2603:10b6:a03:523::6)
+ bh=DpJj+oTDIzSKFcnBGT3HHNBcs/QtCcnqxvur0PoU/XY=;
+ b=B+3YIleWsOjg8IzJHnurIK7qiXyRVev3/3YW0yjuvLhuDYh8Skrt24cVDhtodsxeLnCNWmTm0cJuIbLPJY4ulyX4nYnP44Q1Hz7CzxSXuz2Qm+4xudNnVc14hhdjYKg/Zhm94CHSiCDa6CqIbl0L0xWF1eeYDo1nJC+LE1dBIao=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB7101.namprd12.prod.outlook.com (2603:10b6:806:29d::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
- 14:25:13 +0000
-Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
- (2603:10b6:806:d2:cafe::28) by SA0PR11CA0075.outlook.office365.com
- (2603:10b6:806:d2::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Mon, 1
- Jun 2026 14:25:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 14:25:12 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Mon, 1 Jun 2026 09:25:01 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, "Roman
- Li" <roman.li@amd.com>, Tom Chung <chiahsuan.chung@amd.com>
-Subject: [PATCH] drm/amd/display: Fix kdoc parameter names for DSC padding
- helper
-Date: Mon, 1 Jun 2026 19:54:49 +0530
-Message-ID: <20260601142449.2648037-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
+ 14:29:20 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 14:29:18 +0000
+Message-ID: <8d0c2203-d585-45e7-bbf0-be3885186ff4@amd.com>
+Date: Mon, 1 Jun 2026 16:29:14 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [V2] drm/amdgpu: drop retry loop in amdgpu_hmm_range_get_pages
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
+ "Huang, Honglei1" <honghuan@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Ray.Huang@amd.com, Vitaly.Prosyak@amd.com,
+ Jenny-Jing.Liu@amd.com
+References: <20260529073544.614561-1-honghuan@amd.com>
+ <5296dedf-df7f-43ca-9987-6e314fd90073@amd.com>
+ <59558fba-db1f-4163-9e55-bd306112f0f2@amd.com>
+ <365bf4c3-9c6e-4fd4-99e0-32094cb37847@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <365bf4c3-9c6e-4fd4-99e0-32094cb37847@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR4P281CA0174.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|BY1PR12MB8445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 687e2b11-4cdd-4712-8dfa-08debfe997d6
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB7101:EE_
+X-MS-Office365-Filtering-Correlation-Id: 538fc47d-c08d-4fb0-79cb-08debfea2a19
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|18002099003|56012099006|11063799006|3023799007;
-X-Microsoft-Antispam-Message-Info: Trh9mvX6Xt7POKJttL08IFovMF0IodGUScB9MtU2NLgvz23k42aU/nAGIcYasIHPMpDf7zv2cfcrA+ObVP5Z69hAApLXeybzq33YLjkQvvtUagCUDVXqLilDn+bySqkxlAdQAtBlsmvOJYyhQ4PSA07zJv+iwOA3srCScdikR3XaVsmyAzmTJK6Q9Ik0mrxM3EEtFSNj5g0Nlotu7stycV2v4sIKK3C9NlxGG0pa4VL10q/F48wEWfsFZxVbKVqq7JX7FEC0JsWAWTdnWKSlcmondrLJPeTi/S7Ja0MAMTni8p/SHCZdVGc56/THd0ZtIkGGJxp1S5poPpVFoMwG7iCiJePYz6GblabtsBN5dn3aU79gPzeZCdEy0oLkAt5kgtm/1Ur/ht/gsw1OpYQiVuqFIIjGwm0cKGQxi4Q0PHAv+5S1by/1CCJPvP6nq6RV9APqh+Ab8kPvZE/EuiOzAOkVWgaKwmmohR6ZFtDyv9he/mHZnirsCKv8oz/Ed4pdcx0YFGlXRenENxFWYyZ4jFltfkawMQRlCHLcfU7A/5rxkmJZivXby46T6vvQawtCZel0QTLuEGtMEgoU4+adaFwVxnvip/CfgfNa2eDizv2WPHJMGrzk+AnZba84dj5L9fwMbs45BRc+0RiFV6oSrcPn//nEkKma1zPF1OZcFhBGNbrjASAB4weSqN1lco089ENqYH/0ALEaw7sR514ssNbMXCrhgYCc5Mg7Dvnbr8g=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(56012099006)(11063799006)(3023799007);
+ ARA:13230040|376014|1800799024|366016|18002099003|4143699003|56012099006|11063799006|22082099003;
+X-Microsoft-Antispam-Message-Info: kv152XxAHR8zulGsQevSj4hI99seo4J8OS0vGPaGUnpy6Iqrv6gPqcn5NONfhk0KD/wxXeTLZvYkQw4SjdlMNz9xBLYaJyzU/OVGbdoU+6o7BvoChRycuEkVeDTMEFpKgaOpWJx+lMYq4WnKk8x8gVQ+XGMUkfX/eaHduZ/FU/cJjsNrF9tOsWAkW24eVf0f8J7lFq7CCqi0i0HKoxpP58lLWTeQK9bzzcoyYshSmvAg9mAEChE3oc45bCZeW1gyvp5YRSiFdlMAd0FZewE+OEiWsbyyYg2N9gPha1G7Xj7mOULsFyS5ogbxMBB588Qd3cxmgOI82DD+cBEUyQarXmZJzlNgUyfeLYQZ9h6QtS50zAFTVf9c30dLT2xuXzdXPapIMPw6bFOW40SZmUeHKAvFFnC9uuo7XHMXqbsCYzVjz8K3ZnzWOoUdy6QGOTs5ELur2LoMUH6ReyRD1TPJUWWkjj2iHkEoUt3vh+dMl6pjFdOiLGqnpN+Tbjx+K5+IeOrpRLJfivkTWujzSAZdy5xpXW7E4MjWezvSDPjUelaHzI3mCkJcdEcc4vRL5zMYjZwXW2IhbCUy5sXAQrcAu9X6lhU5BEq5DxfqxhWLzmo/nmxc7U2DlU16OF+uYqwWY9sgibhJjKBlO+C1JAik7/8/EpxPwvyC8JH47/SArVT7jkCPVwqL6M1YggmYpM5mDV1hoSUj0fD8nXGHpgPk8w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(4143699003)(56012099006)(11063799006)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: f5XTVFtpYKDgOS42CX45PfbAIHo+o/sRgUEHeFF1spkKlQwgfppwg7xyhhmqa7rQaAPdQe0afs3brZXyXyrKdSqHfG6/+5RbQTmhKO2bxETwdXDD/Fy9YkibXBJA3LDOSLmJRj+vahEq67p58nvjrvS3abSwhy757u3MLMsiFfdocCMp4yO3Ne0VPSb1VVhDUglK8HZ9kfmSBjmEA0WRXCsSY/LHRDL5AINw3PFyNNTpCuD5EPZCyq762TxAVLviE4VUFzmj5vyA5PVyy6gZ1KU7JwA4Z9AJb1EIbBHF5jxEPM2kBBEXNNrDqCnYCaIn+fkuE+Q1aQeBcSxi381WJPGU29Tz9FMZo4vTDxS4CWdAzd4YWq8xvrMYEsA9/Aa+ne4iFqnqvfbzr/dB8uXSSsV4IoeeifKT93NRB9dEIFecYpjPMPIxgMmaAMF0jNvL
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGkyQldzL0I2bVowTVFWMGRobm9WazU2N29ZbS9ab0c1TTZ3d05iWG1EbGdM?=
+ =?utf-8?B?MTRIeXE3Y2lXQ0M3MkFJSWY3TFJ2WTFhbm1ac1ViMW5sSkJocWdGQXVsQ05r?=
+ =?utf-8?B?ZFRzZWNoTW4vcFNqeU04bTFpTHhadCszamJ5T0U1Z1dIdlhLVU5oUkxhVkts?=
+ =?utf-8?B?UldtRmFlN0hOcUtzZXlmSDBESm1mRzF0QWlIUkRrVlg5a2RHdUZoLzB2Qkor?=
+ =?utf-8?B?OXQ0Q3A3RS9pVnFWSXRSSk9RcnBiUHE1dEpSOGQ2TDZYWGVCSGRXUWRZVTlz?=
+ =?utf-8?B?RU1sbFZxTFIxTmpDOTVsVGtPeDJqR1dSajkwbDM2UUJDdlNKZ0NFYnkyVW1s?=
+ =?utf-8?B?L1BKN2l1Z0dMT0hUMFUzUnZjTDZ1TCtZL21JZjZZdC9pdmNKQmRUb3JnYjBB?=
+ =?utf-8?B?Z2lnS1phS1A4MVFSWVVDcm1mWVlkRm5xQnFBRWRvWXYzQzEwOGt1SzZTVDZl?=
+ =?utf-8?B?ejFabldEZDlyMktobkMxNkNJa29tTHpkMmYyWk9PYzYybCtOVkY5TlpESWpH?=
+ =?utf-8?B?K2VLeUV0aHAxdW1RVktJZGFBZHVXVk4wWDNnM08yRDNEQWRvTjNZbUY3M0Mr?=
+ =?utf-8?B?YjdtZkxzYmxKbVpLeUQ2ckJmc091NXJJZ2NEdVBqc3Jva0FzcVVaQjhnbmlQ?=
+ =?utf-8?B?OTVTWGM5VkxnN1JobUhOMDFjM2EyK0t5WHVaTHJUMWlTL01pSlZIemdFNFo3?=
+ =?utf-8?B?ZmIrQVBIZU53eXZ6VWJBaUFzcGRORWg3Qmw1M1Y5ZWNCd0hESWkrRmVOaUxh?=
+ =?utf-8?B?a3FFWFFnRlFCbUIrS3FpQnRwdm0wbnh1VUZlRmc0RUluQXV1STJzV0k2TG9P?=
+ =?utf-8?B?c25SK2dRT0pFRHlMMkJNQ3FhSTROdWJkdUdOd1dBUUxqL2hJaVdkNkM0WTFV?=
+ =?utf-8?B?d1R6bkhvd2FOS3hxNTdXY2dVK090WW5UM3hpamtWYjhHUkVzeHVvcGxHZlpQ?=
+ =?utf-8?B?TkdjcWpXYUVzdUxMREE1V2N1aEJGUDl2WnNNYXpRdkJtaVlKa0s3bks5YXFU?=
+ =?utf-8?B?dU82YXVQUWduWndaZ2ZFWUYxSFN3T0JvNE5XUWNnNGVFRDByYVUweWJEQ0Er?=
+ =?utf-8?B?SDdJSXJrY0VIcHQ5QWkyOTlIT0x0Zml1TC9PUXEwdm1wWHNRR1NmUjU4TDhB?=
+ =?utf-8?B?bThrZ0cwMlpxNFFhSmdMcXNndmg5OHJJdU5PenA0RURXekFJcDVwTmhwUWpu?=
+ =?utf-8?B?Q25OM2dFNEw2MkMyWWI0WEJLVlVaVnJqQkF0NFZ0REtBNmFPVU1RSGxwUExt?=
+ =?utf-8?B?VC80TndPMUlWNWRjbGpicVRLSDU2NEtLQXh4WEpCbkttSlVlMjNNUWVGVzVK?=
+ =?utf-8?B?U3lNME9ad3plMWd6U2ZhQkhqeDZqZnhRd1BrVEplTW4vYzZLTTlXQWhQRnNT?=
+ =?utf-8?B?dXJidTNIWDQ1SHQ4SEpOVWcxR0I3VEpla242MzMrZDVsNEovZVh5ZEE5S2RV?=
+ =?utf-8?B?QUpXUkRycGhnMUFqQ3BxWitCOURyWWZ6cHl0WVp0NEJzNzl5elk4N0VQczhX?=
+ =?utf-8?B?TU1veVI1YzJwQS9nc3R6b2NzYnBFc25uUmFsMW9BekJ0M0VxYjFNVnM3Rm9F?=
+ =?utf-8?B?bitxOG11QUZmNm1Sd1ErS0hxT3lpbERGNmJ2VmRnYlRoRFN5S2d4M25hTjR6?=
+ =?utf-8?B?Z0U0S1F2L1VPbERNODVScWZZczF5dXZSWW5hOFlUSFBKbmlrbkRQV1M5bmFp?=
+ =?utf-8?B?WHN4WkpFbUM2NDhNNzVTZVJnL0U4ck5VMVdzbFgxWTdXbjJ4OWlNbWRKcW13?=
+ =?utf-8?B?OHM5QWZidmFhUE51K2pldGlrRjNRNXo3N2RVeWZEMkJXVldRekkxVlJGNmdK?=
+ =?utf-8?B?RjR0MGdET2lpcFE5ZkFUTGd3TFBXYlh0VjRGdXZaNCtHVlhoTHlPN083RjBW?=
+ =?utf-8?B?Q0xiM0RIY2hmZzFscnhWbVRkcnJEWm9STDJFa0JmWGIxWVFDdjZGTVpaK3gw?=
+ =?utf-8?B?UHpPbmRJNEJidXZUNUpua21UaW94c29QTnJ6OTR2YkRHaHU4eWpaL3d4cnBL?=
+ =?utf-8?B?VU9CUUJPbGErS1FaVktyNE1iWE5OUmFIakI4dUViQXRrV1NURFoyaUNmdTQ0?=
+ =?utf-8?B?T1gvVHMzbG1rSUtyck5RdTlwd1ZOZmdkU1RmZkx0ekI5eFZ3ckl4MVN2VXkx?=
+ =?utf-8?B?V2Zhb2ZuQW1HOHVVdTFTbnNKSEN5QnJWaTZRQlNYcFF6NC81aTVTOXJJZEdl?=
+ =?utf-8?B?WU1xdm0vYVYzOVFaeU1hV0JkNXFjanQvTmNndVl4M2xPbnd6NXFtWnpHdTVr?=
+ =?utf-8?B?azhWSHEzUDR1bWk5VkN2Wm5ab3ROajhtV3dhQjNLOHl0RTdBampPVG83RFc1?=
+ =?utf-8?Q?anaZCGz3C6VcdQc+cx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 14:25:12.8285 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 687e2b11-4cdd-4712-8dfa-08debfe997d6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 538fc47d-c08d-4fb0-79cb-08debfea2a19
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 14:29:18.5492 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8445
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CQAav90mZ9v/UOXhOje71ltlCBU3w6aF0al6N9ufBtQ8yOfwlq5M4elZ4S3/wp+4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,44 +138,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace incorrect kdoc parameter names with the actual function
-parameter names used by
-dc_update_modified_pix_clock_for_dsc_with_padding().
+On 6/1/26 16:20, Chen, Xiaogang wrote:
+> 
+> On 5/31/2026 9:40 PM, Huang, Honglei1 wrote:
+>>
+>>
+>> On 5/30/2026 2:35 AM, Chen, Xiaogang wrote:
+>>>
+>>> On 5/29/2026 2:35 AM, Honglei Huang wrote:
+>>>> Since commit 144ba981783f ("drm/amdgpu: fix amdgpu_hmm_range_get_pages")
+>>>> moved mmu_interval_read_begin() out of the per-chunk loop, the
+>>>> captured notifier_seq is no longer refreshed across retries. As a
+>>>> result, the existing -EBUSY retry path can never make progress:
+>>> "retry" should come with mmu_interval_read_begin. The commit 144ba981783f move mmu_interval_read_begin out of loop, then "retry" should also be moved out loop with mmu_interval_read_begin.
+>>>>    hmm_range_fault() returns -EBUSY only when
+>>>>    mmu_interval_check_retry(notifier, notifier_seq) reports that the
+>>>>    sequence is stale. Once the sequence has advanced, the stored seq
+>>>>    will never match again, so every subsequent call within the same
+>>>>    invocation returns -EBUSY immediately.
+>>>>
+>>>> The "goto retry" therefore degenerates into a busy spin that simply
+>>>> burns CPU for the full HMM_RANGE_DEFAULT_TIMEOUT (~1s) window before
+>>>> finally bailing out with -EAGAIN. This is pure latency with no chance
+>>>> of recovery, and it actively hurts the KFD userptr stack: the caller
+>>>> ends up blocked for a second while holding mmap_lock, only to return
+>>>> -EAGAIN to the restore worker (or to userspace) which would have
+>>>> re-driven the operation immediately anyway.
+>>>>
+>>>> Drop the retry/timeout entirely and let -EBUSY propagate straight to
+>>>> out_free_pfns, where it is already translated to -EAGAIN. Recovery is
+>>>> handled at a higher level: the KFD restore_userptr_worker reschedules
+>>>> itself, and the userptr ioctl path returns -EAGAIN to userspace.
+>>>>
+>>>> No functional regression: the previous behaviour on -EBUSY was already
+>>>> to fail with -EAGAIN after a 1s stall; we just skip the stall.
+>>>>
+>>>> Reviewed-by: Christian König<christian.koenig@amd.com>
+>>>> Signed-off-by: Honglei Huang<honghuan@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 9 +--------
+>>>>   1 file changed, 1 insertion(+), 8 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>>>> index 5d72878c8..229c30867 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>>>> @@ -172,7 +172,6 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+>>>>       const u64 max_bytes = SZ_2G;
+>>>>         struct hmm_range *hmm_range = &range->hmm_range;
+>>>> -    unsigned long timeout;
+>>>>       unsigned long *pfns;
+>>>>       unsigned long end;
+>>>>       int r;
+>>>> @@ -199,15 +198,9 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+>>>>           pr_debug("hmm range: start = 0x%lx, end = 0x%lx",
+>>>>               hmm_range->start, hmm_range->end);
+>>>>   -        timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+>>>> -
+>>>> -retry:
+>>> If you remove "retry" here the callers including user space need to redo the thing. This function's work is memory validation. It should do that in its best before return to caller.
+>>>
+>>> If user space is the caller there would be a lot of user space from/to kernel space context switches. That will make the procedure even slower.
+>>>
+>>> I think we need keep "retry" inside this function, but move "retry" out of loop at mmu_interval_read_begin.
+>>
+>> This option has been discussed in previous:https://lore.kernel.org/amd-gfx/a8ded005-e2d8-4163-be35-f1b018cefe74@amd.com/#:~:text=%3E%3E%20What%20probably%20needs%20to%20happen%20is%20that%20we%20need%20to%20move%20the%20retry%20label%20or%20just%20completely%20stop%20retrying%20at%20all.
+>>
+>> Why drop the retry here is because to keep the behavior unchanged, the current code logic will always return -EBUSY when goto retry path (pages change when get pages).
+> It is a regression introduced by  commit 144ba981783f. Why not do "the retry need to be moved to the start of do while loop, the entire fault path need to be done again"? It is same as I said here.
 
-Fixes the below with gcc W=1:
-../display/dc/core/dc_resource.c:4616 function parameter 'stream' not described in 'dc_update_modified_pix_clock_for_dsc_with_padding'
-../display/dc/core/dc_resource.c:4616 function parameter 'timing' not described in 'dc_update_modified_pix_clock_for_dsc_with_padding'
-../display/dc/core/dc_resource.c:4616 function parameter 'stream' not described in 'dc_update_modified_pix_clock_for_dsc_with_padding'
-../display/dc/core/dc_resource.c:4616 function parameter 'timing' not described in 'dc_update_modified_pix_clock_for_dsc_with_padding'
+Retrying here is fundamentally wrong approach. Ideally a page fault retry should go all the way to userspace again so that we can eventually even handle signals and spend a couple of extra cycles doing something else than trying to hammer on the page tables.
 
-Fixes: 3bd4001e8d1d ("drm/amd/display: add HDMI 2.1 DSC over FRL support")
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: Dan Wheeler <daniel.wheeler@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> And there is a scenario of extreme conditions where a huge system buffer attempts to use this function, causing the function to retry indefinitely, for example, with a space of 60G, it will always gets retry again and again.
+> 
+> Having callers decide to do "retry" does not fix this problem. The callers have no idea what is going on inside low level code. This function(amdgpu_hmm_range_get_pages) knows more than callers, then better to let it make "retry" decision, ex: if amdgpu_hmm_range_get_pages has retried more than preset number of times or lasted more than preset time it can abort and return error.
+> 
+> If user space is the caller there will be a lot of user/kernel space context switches in the scenario you mentioned. That people want to avoid.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index e5565a61ef12..5f6cc1b1f788 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -4603,8 +4603,8 @@ enum dc_status dc_validate_with_context(struct dc *dc,
- /**
-  * dc_update_modified_pix_clock_for_dsc_with_padding() - update pix_clk for dsc with padding
-  *
-- * @dc_stream_state: Pointer to the stream structure.
-- * @dc_crtc_timing: Pointer to the stream dc_crtc_timing structure.
-+ * @stream: Pointer to the stream structure.
-+ * @timing: Pointer to the stream dc_crtc_timing structure.
-  * @dsc_padding_params: Pointer to the DSC padding parameters structure.
-  *
-  * This function updated the pix_clk for dsc with padding stored in pipe_ctx
--- 
-2.34.1
+No, that overhead is wanted. It is actually intentional to go all the way back to userspace and re-try.
+
+Regards,
+Christian.
+
+> 
+> Removing "retry" from amdgpu_hmm_range_get_pages does not help since callers have to decide whether do "retry", but callers have no idea what happened, also it has performance penalty.
+> 
+> Regards
+> 
+> Xiaogang
+> 
+>>
+>> Maybe it is about the overall architecture, the set of hmm function in amdgpu needs to be size limited or it needs to be cut into smaller pieces if the interval specified by the user is too large.
+>>
+>> Regards,
+>> Honglei
+>>
+>>
+>>>
+>>> Regards
+>>> Xiaogang
+>>>
+>>>>           r = hmm_range_fault(hmm_range);
+>>>> -        if (unlikely(r)) {
+>>>> -            if (r == -EBUSY && !time_after(jiffies, timeout))
+>>>> -                goto retry;
+>>>> +        if (unlikely(r))
+>>>>               goto out_free_pfns;
+>>>> -        }
+>>>>             if (hmm_range->end == end)
+>>>>               break;
+>>
 
