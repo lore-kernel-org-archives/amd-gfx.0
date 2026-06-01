@@ -4,130 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EA35CD6E52
-	for <amd-gfx@archiver.kernel.org>; Sun, 31 May 2026 17:15:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13E5CD6E56
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 01:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2C310E4C3;
-	Sun, 31 May 2026 17:15:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 249F9112CD2;
+	Mon,  1 Jun 2026 01:27:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="klw+bb9h";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nlao2T69";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBB210E4C3;
- Sun, 31 May 2026 17:15:31 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012010.outbound.protection.outlook.com
+ [40.107.200.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1ACE112CD2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 01:27:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NxzqDS4be3lvw/mvKdl5iNZsu9lBUNoWB5vX0MVvQNbl43XllsTf1AwX9mJmxWV+aNoJNqulq916DyuBEm9U7w0SZVFSvpZoUNQ8Bb0OojNwAE3fuvGC8Boz+kybfuDbdpYufYDCmd+0Bj6MIYPwczreAWSI8CUTjXq9FMz2ETugHz3TLi2Sv56f9k5dLEiL4SyPq90iBlBsDBOUmYAK1nC6jgGor7+nFmzXx/+ZIg2I7cz6KGGWFk7PPja5CYm1m1/Il0QpfZ3LIxwuv70xYSS3dsx8Iz+7wVocfKU9RmdzUKJTd3B4FxlxhFDhJfLt2cNc8oPsBx+AY5a51KX3XA==
+ b=Li0FMITbwB+4SfQNv2gp0t8bsN6FqNgrXaFmzuzp6Tv6j/PgXdnTCztsKETSfDwP6ym83o4rRpSi4RPY/2MzFYw1BuS0fJwPVeYYCWfSzUz4D+Af2LCd8MfbyAEw/Uzg/ft9iiqEA48HKyaLSKD/8KDyvSL5msMRPk4lkQvrA0MG1EDvS0HumFLNUsL6bEAdxTyZyUTHiMQenBWC4/vdXzAFWwufE20JakEGN5Rxrx5G6YQiVw2QQpYl27r/R0dbkl7Qvh95HmlUjwXdLOL7Ew0DtYlkiU6X/MTKtn3IZ1ckmJMus+yamMx4cGtvqNU6uzQCzpeuph1BvXIfsWB/aQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wAGoNt1gzRdz1TlTw7JlyEaLP1GSNOkKXxngtkwkg5Y=;
- b=J5k6DddAj5odVUW2ulhFNov7ZfJ8HazPjf3K2wizZucbbtOSR8qiu7VN1BGfQI3/6TPVlSr7rBSqAGjK4tVqd3Kvk5MnS/NrcDm/0vj58cpZXq+jPlY8T+IJabUgeY7w13knvEygBX4UaK9hrMTB9UJNIDRQpTes9nPA3hdRFqH4jD5mjrpu7P+jyHXKgTYbhnBBKsczRgRO/9mpIitzX/B9Pc3TqYhVxj1wa9Vl1CMMtphiA0MiE4UhuV2gly/aLXJAfsG/OVAsczH3taWyV2/54NFDC9G+RvBX2LJGXA4m2OWdj1pR29MazTJu27a35aW9M7Wd6lVcMfrBIAnuOg==
+ bh=4Hr7MMYm3aIIBln+AEHVCGDBDTiierGald3S+5C2Gt4=;
+ b=cuOvJwbVozOyz8ZdvPklSFuvEc0cebDH3JgjpdOTYTX2PTcdh8H9ENtu0xp3vTi4O7+1QrBr+rP7XpSTUBxVJHJq5wjQzjAepucqZTauiDsLUFY2oEMozAkjh3Ag4DP9PZrPROqCz/DbxuKVPYkq7g9Lns2iLyvMKUpa68zja1lQawP3JK/aaoa4Ld2ShuL4rbUolGKobQ8l1rToQnrnj2vTKwQS5P4c/ziIKNggEga25jf+YR/jKkHNcI27eQ1nXM4sswNsyfPEWf4YHiEuWk1Qso2ZcHoUdkgDHs7PAclVD2i+dOgdvq6BV4LwiHz5xzKKZbS+VSlbsMbiFtM/xA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wAGoNt1gzRdz1TlTw7JlyEaLP1GSNOkKXxngtkwkg5Y=;
- b=klw+bb9hhNNDp8U9d6YjNiwFcqO6s+ozyJtSy4nz1mfPfkuPBPc3awTPgKMoFdn1ofh5PhSzmveLzKXdMIaAR34fEbTmJJmMEmYNnpGWxHE/HioApr+XrFJ7nYeQ3PzGzgY4ydTioKyRqMoal4qbpfSfzygjxOvORc+EsEKpcqA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by CY5PR12MB6204.namprd12.prod.outlook.com (2603:10b6:930:23::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Sun, 31 May
- 2026 17:15:24 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 17:15:23 +0000
-Message-ID: <7934974e-adf1-4507-98ab-708095cce491@amd.com>
-Date: Sun, 31 May 2026 13:15:13 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] better LUT segmentation for EOTFs
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com
-Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
- "Dr . David Alan Gilbert" <linux@treblig.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Hung
- <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20260506191606.15022-1-mwen@igalia.com>
- <2a48f435-10d9-4e6e-8979-bfd61451a93e@igalia.com>
+ bh=4Hr7MMYm3aIIBln+AEHVCGDBDTiierGald3S+5C2Gt4=;
+ b=Nlao2T6968MBtz2f98Lyap7fmip8za7qEKRqNcyziyiPyMC7BWICxd4R98wlTjqOautXmGpqQKQW1VEBHCjDCliT/TlDJFGbVazSMo1Y84rdNI2Lta/kP8zO/OdQ37ZEr5W3a3kTcnMYbc6q/wyvbJIDvaIoHvEy07wHkdpqhDc=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by LV5PR12MB9777.namprd12.prod.outlook.com (2603:10b6:408:2b7::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 01:27:51 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d%5]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
+ 01:27:51 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Lin,
+ Amber" <Amber.Lin@amd.com>
+CC: "Rastogi, Manu" <Manu.Rastogi@amd.com>
+Subject: RE: [PATCH 14/42] drm/amdgpu/gfx12: Refactor compute pipe reset and
+ add HQD cleanup
+Thread-Topic: [PATCH 14/42] drm/amdgpu/gfx12: Refactor compute pipe reset and
+ add HQD cleanup
+Thread-Index: AQHc6YEHu7atyZl3Pk2zO3tkSvfi77YlOHEAgAO/4cA=
+Date: Mon, 1 Jun 2026 01:27:50 +0000
+Message-ID: <DM4PR12MB5152FBFFD808E0CE037F36D1E3152@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20260522002048.98506-1-alexander.deucher@amd.com>
+ <20260522002048.98506-15-alexander.deucher@amd.com>
+ <CH0PR12MB5372CB6EE646106B41E1B214F4162@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB5372CB6EE646106B41E1B214F4162@CH0PR12MB5372.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <2a48f435-10d9-4e6e-8979-bfd61451a93e@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0305.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::13) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CY5PR12MB6204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7841499d-fa44-4f60-2de3-08debf383368
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|56012099006|11063799006|4143699003|6133799003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: istCGwK1nCPoYVZohECx5HP67T8k1YJllbmSdIuxMWtfS7kyHCSVgevTacx8ME1NxhFRziP8O0NUzIfYEnSWHLFELv6Q/qgp0mHwqNPqN87JdlSTNJLIbeHutODfKCY8snK6P6f/pST6qXY/vB0riZWuYlimXwWfv6J4nR3iCwAlb443K2mv7+Nd/GrFpoF3/Y9YiZxbQWOlSyZxoHq4PSRqj0vw4cO2FOOtWOeazzmOTdJrYQ/WPtLijMnpPn6LKs4vfbrRXrsniPQGiVxruIuLy8T2LmHxYjQMNx+rzOhCk7nI7zG3u3PSpf2/uFuM54YdGlGwek70iZmC/2/rB4Z1sBzNzGEirkNiozMZnnFbV1Eeh2QY+tr2gEMlBlazuwufVyGLVAHI72qehB3Y9mOuyCCo6VaAg50rPh6Po7zgrNx4W6fQyQ9NN2fMlbzoIq3JhKWf4Ah6LzRemSrjRE9Xhtz7P/SnBsKL84DyOHJOvx4NDD93RzYezwL+v8RLM8HSJzM4VbZwMN3wjRHZEwKdHNs6Ik68z0joi3DyEHnymw8PzToLkQCMbOeGgzM3rtqqTp0vMkHI+mni0cU66B6pcS0eWOjbgYMY48uPshPLGnRPzLvyxHkDjMJSp1iXpzZKHmVUnYx10D5TmAitZ/8Xc9fu9H/JAacRX5x6CdTOz77v6JwLznYLopTIrjKF8HUhD4vUzcJj/XbH4MoWsw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-05-29T16:05:40.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|LV5PR12MB9777:EE_
+x-ms-office365-filtering-correlation-id: c1145e30-f66d-4c6f-4d3c-08debf7cfeff
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|3023799007|18002099003|11063799006|56012099006|4143699003|921020|38070700021;
+x-microsoft-antispam-message-info: k6Xz4DSmDqkDSolx8QX886PnNWFoZT/1HpTq8yczQn1kYJ1argaS5k21zjbAhr6Lpu/YgqM61Kn8oRA1RRJm1xEXfSpU2UAD8PbYEg+zcq+KvuAJqNhWzVj7hLx1D85BSRtmDvcMK0knhuDD6Y1slIyNXmC+jVEprDUp1VHq5CAQU1wnFbHuvszgBRJ+7mlOkwAIbA+PK55Nee4mSDwdioUmovym8C6AwBdDmyhxIlHX3gg+NG2wthRqeCgbp0iO8OY/inOT4C+qyG9XYWd6VG/8FoBXZVgUM3PEevPBl34QHC4jzNxvZU0NUJWtKfrDOnJT/TGMF3X0TWV++Lp4IQ3tL4EQ6wLVoNd87FwKO1lQhHL6J0orD8gEvecnZHNlWI7aYeYKxIsDV4BR7SeEEJE7t0u6xHL9fvxExcf0MXh1IPiKw94mizRyFQxAyiLCOZoYVBVBw7lNIkoBVuolOsNYRIIu4E+Io/OUgaGXJJjlgG2xXEF0XN+QNJX2h28ZwlMrrLGeh9G/9f27SNRDt0pbOyI4USH/KDjeOtSdWI0BcaxVinBQJUURiazWgZvv8blxYuMQcjRg6snwGfOI3eeNm6xukrNUaa0u9BmeMEFyhbfI/oAnGIJZrs5Eig0HwRDqacLmtc961knFQg+LvQ7EkHp1iGFff05nVHFCSMjziToIvbWLZv63ci6iAuuMEBF4mk/CFvGiIuKU5Bu+WhhmdUTLTOjCvSwhuRwsXLGzZmXSc5+n76uLo0Fc+qn4KVlzM42SIbFxtYlYzUQDxw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(3023799007)(18002099003)(11063799006)(56012099006)(4143699003)(921020)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDFQT2pxZ2xpZm4zR21nQ09sZnFQUnQ1V0dnRjdxU2FoTlZGRTF1SnloQ1hP?=
- =?utf-8?B?KzNQcW1RMmJmWXRzWkptTkhPNmRPMGJhRzF2MXBZaDBKenRkMWdibjViZkpS?=
- =?utf-8?B?K3FhTHplM2dOTkdKSEd3bm5nK3JRS2dmTUVMeWdhcTFLdDlUZi9FWWpSaFo5?=
- =?utf-8?B?MU1qYnE1dmpmM0RKSU93bmxTUUlXeUtWMlJlL1NYNUtKZ3Uvd3J2aFNFMnVk?=
- =?utf-8?B?RlNTNjRBVjR3Yit4eTZsZG1rekEzSk9DS2l6eEl1Q2VMbEh4VmxNTlVRZlFx?=
- =?utf-8?B?dnZ5N1dCbCtnZEVUcGJyT1JHcS9GdjRYZHZ4Wi81a25nZmplV2Z5U0NNRlI2?=
- =?utf-8?B?QXordlFCbXYvZWxQVHpjVk9SdUpvQk41WGtoM0RKbHR3VzJjZjdaNERXYXRL?=
- =?utf-8?B?dzFzamlZNnZKWllzazNyNW1DT1RQR3JBRExkU1RLUEVJWWdLMUdYTjY1TC9O?=
- =?utf-8?B?SDQxSXNMTTJZQ21wQXJGbHRnVHpRNEFtNmdKQU50UkN6M09EQ1c4N0NGbFhm?=
- =?utf-8?B?dlpFeDN3SGtmSkV0Z3ZyMHltUk9YTGttRWtxZGRSdWRFcFQ0cXJxLzY3NThU?=
- =?utf-8?B?aW5kTXJZNmhjcHY2eE5IS01uMFZQWHV4RXU5WGkydmVURE1ST3QwOC9PUGxp?=
- =?utf-8?B?NXdHcW9mUDZpWE9BeTRWOEZKeVE5TklZa20vM0J3R3VoZ1NDT2N1RytsSElh?=
- =?utf-8?B?SXh2bkFkdkN0WVR3NEpOOGtSRnlTNlE2aFNEajlWRkgxM2hCakllM0lDOFFS?=
- =?utf-8?B?dk5vbFdsT3ZGSDBQK3EyMm41SHpHVzNrRElWamtmK2NwTE5XeXVEVWtpNXdv?=
- =?utf-8?B?aVVhZzJEbHNRZnBGZDlCMnJQWENIQzJOV245N3lSa2Y2ck5qaFhqL1IzWi8z?=
- =?utf-8?B?cW1lTFFxZ21IbkdOTzZERWtYU1M2ZEUza21zOG41M0VMb0F6MnFQSk0zSXVK?=
- =?utf-8?B?Z09JblJFb2NJYzRsdm8zKzRvTklhUWhsdk9taXJMVVRvVDRYanR2YjNlb1ZW?=
- =?utf-8?B?b2VDYXAvT3JnWnc3K0tHeXcyUTUxSHkxcWViZ05HSWtielJQTklpc0xwaWlY?=
- =?utf-8?B?WUNqU0VvOUpwWGpOZDR5UXdCalBVb2N4d1A0RER3RFZ0Y2hIN2ZTclVEeDhh?=
- =?utf-8?B?ckFCYWN4dU9zQlUxSjRTNnc4Mis4dHB2TExHVzBqSFMvaG9GMWc2T3dNd1RU?=
- =?utf-8?B?dGE0andZbytRSzRIdHphdzR0cFlRODJkYUNsdU1ZQTBUZ0tlREg5MWszaWZD?=
- =?utf-8?B?MGsrVE9sUDloT09rOWE2cXhpSTJtNlhvejJTWUh2SHZzU1hHNWJ5NUF6N1BU?=
- =?utf-8?B?Y1JwYWw0dWdjTXRzeHE3K0R4L1NZTllMM2RYOVJieitia1lFdGpGSjdVL2J2?=
- =?utf-8?B?OUVqSFpwL011V21JVGQrMWc2WnlRMnZMVlZRbnZ6YXoza0pTdURnbVFITDVN?=
- =?utf-8?B?YWRYVlptNFJ6NXZXQWxJWElTdWp0Wlp3M1ZMaTJYSDErN1lnekpDbUUwWmkr?=
- =?utf-8?B?Y1VOams0UFo1L3EraWdWWHloQUpkMmc5UW1zU05QN3hqc0cvTGUvSUg5T01W?=
- =?utf-8?B?N3pLRmxSVWNubHRocEpOaVQzNmhsRzNPT3F1SjAxYjdtTkZhU3VqYjdYb2c5?=
- =?utf-8?B?RFpLL3FhMkxHQjZOQzA2MGRyTmVKVEdtc0hZbStESGVSMFFJZTcwSUFzOEpG?=
- =?utf-8?B?WC9Zc01CRTMvUVpxaFNiUTZQYzJmSnRsZ1NRdS9aT1J0Q2xIR1ZKMGxtYVgr?=
- =?utf-8?B?clAwWSt4QXhZeW5Qc3NZKytUTklueU5PUzIyc0I0RnRzaUlwZDNTd2Rua0w0?=
- =?utf-8?B?blJNWUYvUDdzUlVibjFtY3ZHNTRVZ0ZDc0Y5SWhVSWtKSnQ3d0JsbWlxZUxa?=
- =?utf-8?B?MXNpTjRzVXBYcHVNS0phdVVqOW91YXY3dVNUQUo4U3dPcGtVVEdEWlJ0WlVP?=
- =?utf-8?B?USs1RlNHdmsxSmkxd2tBVC9rS3FuK2JvZklEb0hyNnp6cXN0SFEwczBKcG1M?=
- =?utf-8?B?bUtpUHpwUFl6d29HVGlyZGVhcUlvMmlmVXJDSVBFTVFHTStwdzdsL1dla3h2?=
- =?utf-8?B?aXlKSmRaN2ZaWGRCd1VjcnNvb3pIMllZaSs3MmpJa3dkNktMcEpMRCtrTUhF?=
- =?utf-8?B?bTBpc0Y3Y0k4K1N2WHU4dG9YemNKZ3NydGlYem9WYmNJY3dXZzJhQnNjTE44?=
- =?utf-8?B?R3VIdjczSitIUmxnWmdXcVVMMDVwUWdGM2V6cFdhZ0REWkdQOE9yekFZZnEw?=
- =?utf-8?B?UlFZcnhTTVZWcGNpUHVYQWI3R2ZKeVJSTDNla1B6UWIzYVo0S1JTR2RsamRR?=
- =?utf-8?B?R3ZaTnNuaGZQUkhiSDhVYjFYY1lWdTZGRUZ1VHpEcjQ4allrTU5vUT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/INZCX8NUhDqIE7GUEW4HDtCbPQMTw5dkSG/VAVCJMIw0L3Nt/4S8lG8k9wy?=
+ =?us-ascii?Q?HJgBAlvofRxecyiYvcq1c2oUR5N2chfk5C4kwvoMkWiq5lPsLDPozWBILwHC?=
+ =?us-ascii?Q?xppW1bFqBvwCwe8U2h4e7eOfk8+seV38A1lQ5CUlyw7lC5AxP1sVXjRl/pap?=
+ =?us-ascii?Q?nkYAux21Sgu1MvZ8l2yeDbd3FF2s2/Mfq3WVeuBDvFj0pI7TnfXg1Uh9EJe6?=
+ =?us-ascii?Q?f2wwt9UFVMb6HLPVOXz5oTzxki0ncmKxSAzj5MjkrsU2ZWKpg7MYrsQhhpIW?=
+ =?us-ascii?Q?SCU6rjGw/tck9VSHJZVpk8JJU/Wf89zlIEFxUgV5hMWvcC9xin2FTLR96iWw?=
+ =?us-ascii?Q?k2msZ+FH3aasElkSoPKPeXlL9ShklU0QvlpFstxcOYvqSjTKjSnwFbZ3GUtx?=
+ =?us-ascii?Q?7VUOQjxCxrAK/9wCVsmUb2PdlQ3CbR8zoJy03BUJM+j9N1y50PiaZvzPMKxg?=
+ =?us-ascii?Q?uyK4u/P+AUDAmq/TR3WsCHTqfnwOOEV8xnLtL0K8ecc5gM1G7njme0DQFuQ2?=
+ =?us-ascii?Q?mudwpe+CkS4DVqktULzxN3QZt1ci0r4UWDUCdPwc1/jNzOYBCAa89o3DM9mX?=
+ =?us-ascii?Q?Q02a3mtkmcosJiaaXwS0/VWrCoka6+/4fiTDqXhgK4eGvft1BipFNyyx/OC3?=
+ =?us-ascii?Q?bvFdJ3Ps2J+MMffGcv8lFTNp0TEPaATISi7wXxUJnHZifOG2ewvRRgWeki+O?=
+ =?us-ascii?Q?1svtLl5LlgD92FTxcfSEDLzOSpO3Qg9PGMA77Oo6V5Xg/bM0Y/p2+kWfu4CA?=
+ =?us-ascii?Q?3Vlj8sbGE9tLWllDEaZL0gMLlDrmUUXCuP8PAyLOFEfMV7T2LsSovQDnwbjb?=
+ =?us-ascii?Q?jgF4C8u9RcVj4EM8klr8WZjY8SrHQUgsTBtn4sJ/pd+XKaT/JNUg5Qs5ZLK1?=
+ =?us-ascii?Q?VXCbMx7TSc82pyjDn1LUpvw8N0QiqPv7rls4z3rOzA60OkYUT8MtBTQO6ieh?=
+ =?us-ascii?Q?4SiTLNox/W+XSZCuhZKaqD6bpeOAqtWJtQcfw5clXC1keBlMZ5PRmIK4No0i?=
+ =?us-ascii?Q?GDU1oAAuCHIG3sitGvjr5Y/RDHhz1r+s8u+kt+5hY0VlmRDVuaZH+4W0d2mQ?=
+ =?us-ascii?Q?A/uXgS3SW8GEjzM57drfp5t0J5Wa50+gxJlr18pD4eiw9cy7RHqZ1oJstFEm?=
+ =?us-ascii?Q?gY2LgkJgllTsHfCZ5/p5WuJVfs3pMJPhx38sypW+EB3+ScNanSbTVHBnfKQf?=
+ =?us-ascii?Q?Gq7VFUjVYERoVJYz+McVPALcUIMdBm8M6Oy8mEuHVYJTPMsCCSGiIQVn3cij?=
+ =?us-ascii?Q?6OVzUrQBwwCyGN6QOauG7hTTmD0qXpyZEpqdXo9p+b5qWm9ASVk2qWCTD83N?=
+ =?us-ascii?Q?FLcX+r+nDnq9wmyvytjGejM9L+feWAQv8BvGqAUI1QoXQ13Z6h0Uo8LbWrXA?=
+ =?us-ascii?Q?jt+5fUVDgUon285+LPq6OUa57maUD6ouLRzrfwfGk8mckyRBrL9Kuk0EHB3s?=
+ =?us-ascii?Q?6nczOYvwGKh8as45+FevSgiwzXJJc5PnseAeW5o1jM2Wb8GXTVLUUGQDrJjv?=
+ =?us-ascii?Q?QE0iK4INxBJMgm6wAkxHQuRZhL4vg9olY+qQseP31wSzruAZwF5QSaGnNPuZ?=
+ =?us-ascii?Q?WxAA8kRadm5SZrRAhM+00zAv1UelUOrwGPGuQa8+LoDDLkp4T0pdlGF9gnDH?=
+ =?us-ascii?Q?SNN8i+pLAsnnBJdeu0bZ+NhGp8HXv8xLuz1BLBLqJoSnMppyxJiYChTCpglY?=
+ =?us-ascii?Q?q9wAMy75GIQOGpEl9Nx4ySYHtawfsb4sxG74mQtZVGgE/YpO?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7841499d-fa44-4f60-2de3-08debf383368
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 17:15:23.6287 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EtLbad0snrY7Kt/JnQEQuGGkt2D/YDhuX226FCyMAW0tH22Yl1hRfat608fCEX1kMgUhW/uiVPdIuytTLv7YNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6204
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1145e30-f66d-4c6f-4d3c-08debf7cfeff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2026 01:27:50.8099 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: l4CkAumIbVNY3eJCLUUCuSDxewrE9LTVkonEvZe7cf06dMf+Jhpl0j4a34uHiwQpkdYlf9EDRvGEVLi4dBcAtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9777
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,96 +139,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-05-21 10:50, Melissa Wen wrote:
-> 
-> 
-> On 06/05/2026 21:11, Melissa Wen wrote:
->> Hi,
->>
->> With an external HDR monitor, we can see gradient banding around the sun
->> in the intro of Ori and the Will of the Wisps game on steamOS/Gamescope.
->> Gamescope uses AMD predefined transfer functions for degamma,
->> shaper/pre-3D-LUT and blend/post-3D-LUT plus CRTC regamma, however, only
->> degamma block has hardware curves. Shaper, blend, regamma predefined TFs
->> are software-computed by AMD color module into PWL LUTs. In addition, we
->> cannot use hardware curves on PRE_DEGAM with subsampled format, so that,
->> predefined TFs are also translated to LUTs in this situation, using
->> GAMCOR block instead. For this translation, the driver originally used
->> the same helper for EOTFs and inverse EOTFs, even though they differ in
->> input domain, number of regions and number of TF points per region.
-> 
-> Hello,
-> 
-> Can someone review this series - and merge it, if everything is okay?
-> 
+AMD General
 
-Series is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
-> Thanks,
-> 
-> Melissa
-> 
->>
->> Baring this in mind, patch 1 maps degamma predefined curves as LUT using
->> GAMCOR block for AMD driver-specific property that are still in use by
->> current gamescope. This was inspired by a similar patch from Harry for
->> colorop [1]. Patch 2 reverts commit 8b89acc0b2ba ("drm/amd/display:
->> Remove unused cm3_helper_translate_curve_to_degamma_hw_format") to
->> reintroduce cm3_helper_translate_curve_to_degamma_hw_format() and patch
->> 3 wire it up for encoded -> linear-light LUTs (degamma/blend). With 16
->> samples per region across 12 regions for blend LUT (where hardware
->> fixed-function curves are not available and predefined TFs are
->> software-computed into LUTs), banding becomes almost imperceptible.
->>
->> Patch 4 and 5 increase precision in the brightest half, where PQ/SRGB
->> EOTFs are steeper, by enabling up to 256 samples per region and halving
->> the per-region point count across 9 regions (128 in [0.5, 1], 64 in
->> [0.25, 0.5], …). This better matches the shape of PQ/SRGB EOTFs.
->> Although patches 4 and 5 seem conceptually correct to me, I couldn't see
->> clear improvement in the bright end with or without them.
->>
->> This series targets DCN3+ hw families. With this series:
->> - degamma and blend LUTs use
->>    cm3_helper_translate_curve_to_degamma_hw_format(): encoded input,
->>    non-zero end slope, up to 256 points linearly interpolated between
->>    adjacent TF pts, fitting [0,1] encoded input range.
->> - shaper and regamma LUTs continue using
->>    cm3_helper_translate_curve_to_hw_format(): linear-light input, zero
->>    end slope, 16 points per region across 32 regions.
->>
->> [1] https://lore.kernel.org/dri-devel/20260330153451.99472-8- 
->> harry.wentland@amd.com/
->>
->> [v1] https://lore.kernel.org/dri-devel/20260414220237.184289-1- 
->> mwen@igalia.com/
->> Changes:
->> - new patch for GAMCOR usage in case of degamma predefined TF with 
->> subsampled formats
->> - fix misleading information regarding degamma hw curves (Kruno)
->> - clarify LUT segmentation choice using 8-bit sRGB as a reference (Kruno)
->>
->> Best Regards,
->>
->> Melissa
->>
->> Melissa Wen (5):
->>    drm/amd/display: use GAMCOR for degamma private props in subsampled
->>      format
->>    Revert "drm/amd/display: Remove unused
->>      cm3_helper_translate_curve_to_degamma_hw_format"
->>    drm/amd/display: use a separate helper to translate degamma curves
->>    drm/amd/display: support up to 256 samples per region in degamma/blend
->>      LUT
->>    drm/amd/display: use halving distribution for PQ/sRGB linearizing LUT
->>
->>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  16 +-
->>   .../amd/display/dc/dcn30/dcn30_cm_common.c    | 184 ++++++++++++++++++
->>   .../display/dc/dwb/dcn30/dcn30_cm_common.h    |   4 +
->>   .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  10 +-
->>   4 files changed, 204 insertions(+), 10 deletions(-)
->>
-> 
+> -----Original Message-----
+> From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+> Sent: Saturday, May 30, 2026 12:11 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
+> gfx@lists.freedesktop.org; Koenig, Christian <Christian.Koenig@amd.com>; =
+Khatri,
+> Sunil <Sunil.Khatri@amd.com>; Lin, Amber <Amber.Lin@amd.com>; Zhang,
+> Jesse(Jie) <Jesse.Zhang@amd.com>
+> Cc: Rastogi, Manu <Manu.Rastogi@amd.com>; Zhang, Jesse(Jie)
+> <Jesse.Zhang@amd.com>
+> Subject: RE: [PATCH 14/42] drm/amdgpu/gfx12: Refactor compute pipe reset =
+and
+> add HQD cleanup
+>
+> AMD General
+>
+> Comments in line.
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Deuche=
+r,
+> Alexander
+> Sent: Thursday, May 21, 2026 8:20 PM
+> To: amd-gfx@lists.freedesktop.org; Koenig, Christian
+> <Christian.Koenig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Lin, Am=
+ber
+> <Amber.Lin@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Liu,
+> Shaoyun <Shaoyun.Liu@amd.com>
+> Cc: Rastogi, Manu <Manu.Rastogi@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+> Subject: [PATCH 14/42] drm/amdgpu/gfx12: Refactor compute pipe reset and =
+add
+> HQD cleanup
+>
+> From: Jesse Zhang <Jesse.Zhang@amd.com>
+>
+> Refactor gfx_v12_0_reset_compute_pipe() to accept explicit me, pipe, and =
+queue
+> parameters instead of deriving them from the ring structure. This enables=
+ the
+> function to be used in generic pipe reset flows.
+>
+> Introduce gfx_v12_0_clear_hqds_on_mec_pipe() to properly clear
+> CP_HQD_ACTIVE and CP_HQD_DEQUEUE_REQUEST for all queues on a
+> given MEC pipe while the pipe reset is asserted, ensuring the HQDs are to=
+rn down
+> correctly before deasserting reset.
+>
+> Switch the KCQ reset path to use the common MEC pipe reset helper
+> amdgpu_gfx_mec_pipe_reset_run(), which coordinates the reset sequence
+> including KFD suspend/resume to avoid conflicts with user mode queues.
+>
+> v2: just update the sequence (Alex)
+>
+> Suggested-by:  Manu Rastogi <manu.rastogi@amd.com>
+> Suggested-by:  Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 123 ++++++++++++++++---------
+>  1 file changed, 77 insertions(+), 46 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index 4be650ce1fba7..d235e904b806b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -5309,10 +5309,38 @@ static int gfx_v12_0_reset_kgq(struct amdgpu_ring
+> *ring,
+>         return amdgpu_ring_reset_helper_end(ring, timedout_fence);  }
+>
+> -static int gfx_v12_0_reset_compute_pipe(struct amdgpu_ring *ring)
+> +/*
+> + * With MEC pipe reset asserted, clear CP_HQD_ACTIVE /
+> +CP_HQD_DEQUEUE_REQUEST for
+> + * every queue on (me, pipe). HQDs must be torn down while pipe reset
+> +stays
+> + * asserted; only then clear the pipe reset bit.
+> + * Caller must hold adev->srbm_mutex.
+> + */
+> +static void gfx_v12_0_clear_hqds_on_mec_pipe(struct amdgpu_device *adev,=
+ u32
+> me,
+> +                                            u32 pipe)
+>  {
+> -       struct amdgpu_device *adev =3D ring->adev;
+> -       uint32_t reset_pipe =3D 0, clean_pipe =3D 0;
+> +       unsigned int q;
+> +       int j;
+> +
+> +       for (q =3D 0; q < adev->gfx.mec.num_queue_per_pipe; q++) {
+> +               soc24_grbm_select(adev, me, pipe, q, 0);
+> +               /* Start from a clean HQD dequeue state before forcing HQ=
+D inactive. */
+> +               WREG32_SOC15(GC, 0, regCP_HQD_ACTIVE, 0);
+> {shaoyunl] : After pipe reset successfully , you should be able to direct=
+ly clear
+> ACTIVE and DEQUEUE_REQUEST .  One more thing  you need to set
+> regSPI_COMPUTE_QUEUE_RESET) to 1 to reset SPI after per queue reset
+> through  MMIO .
+[Zhang, Jesse(Jie)] Thanks Shaoyun
+1.will remove the HQD active poll gfx_v12_0_clear_hqds_on_mec_pipe() - dire=
+ct clear under pipe reset.
+2. this applies to per-queue MMIO reset(DEQUEUE_REQUEST=3D0x2 + SPI reset) =
+in mes_v12_0_reset_queue_mmio().
+>
+> +               if (RREG32_SOC15(GC, 0, regCP_HQD_ACTIVE) & 1) {
+> +                       WREG32_SOC15(GC, 0, regCP_HQD_DEQUEUE_REQUEST,
+> 1);
+> +                       for (j =3D 0; j < adev->usec_timeout; j++) {
+> +                               if (!(RREG32_SOC15(GC, 0, regCP_HQD_ACTIV=
+E) & 1))
+> +                                       break;
+> +                               udelay(1);
+> +                       }
+> +               }
+> +               WREG32_SOC15(GC, 0, regCP_HQD_DEQUEUE_REQUEST, 0);
+> +       }
+> +}
+> +
+> +static int gfx_v12_0_reset_compute_pipe(struct amdgpu_device *adev,
+> +                                          u32 me, u32 pipe, u32 queue)
+> +{
+> +       uint32_t reset_val, clean_val;
+>         int r =3D 0;
+>
+>         if (!gfx_v12_pipe_reset_support(adev))
+> @@ -5320,75 +5348,78 @@ static int gfx_v12_0_reset_compute_pipe(struct
+> amdgpu_ring *ring)
+>
+>         gfx_v12_0_set_safe_mode(adev, 0);
+>         mutex_lock(&adev->srbm_mutex);
+> -       soc24_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
+> -
+> -       reset_pipe =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
+> -       clean_pipe =3D reset_pipe;
+> -
+> +       soc24_grbm_select(adev, me, pipe, queue, 0);
+>         if (adev->gfx.rs64_enable) {
+> -               switch (ring->pipe) {
+> +               reset_val =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
+> +               clean_val =3D reset_val;
+> +
+> +               switch (pipe) {
+>                 case 0:
+> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
+S64_CNTL,
+> -                                                  MEC_PIPE0_RESET, 1);
+> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe,
+> CP_MEC_RS64_CNTL,
+> -                                                  MEC_PIPE0_RESET, 0);
+> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE0_RESET, 1);
+> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE0_RESET, 0);
+>                         break;
+>                 case 1:
+> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
+S64_CNTL,
+> -                                                  MEC_PIPE1_RESET, 1);
+> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe,
+> CP_MEC_RS64_CNTL,
+> -                                                  MEC_PIPE1_RESET, 0);
+> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE1_RESET, 1);
+> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE1_RESET, 0);
+>                         break;
+>                 case 2:
+> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
+S64_CNTL,
+> -                                                  MEC_PIPE2_RESET, 1);
+> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe,
+> CP_MEC_RS64_CNTL,
+> -                                                  MEC_PIPE2_RESET, 0);
+> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE2_RESET, 1);
+> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE2_RESET, 0);
+>                         break;
+>                 case 3:
+> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
+S64_CNTL,
+> -                                                  MEC_PIPE3_RESET, 1);
+> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe,
+> CP_MEC_RS64_CNTL,
+> -                                                  MEC_PIPE3_RESET, 0);
+> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE3_RESET, 1);
+> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_RS6=
+4_CNTL,
+> +                                                 MEC_PIPE3_RESET, 0);
+>                         break;
+>                 default:
+>                         break;
+>                 }
+> -               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_pipe);
+> -               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_pipe);
+> +               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_val);
+> +               gfx_v12_0_clear_hqds_on_mec_pipe(adev, me, pipe);
+> +               soc24_grbm_select(adev, me, pipe, queue, 0);
+> +               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_val);
+>                 r =3D (RREG32_SOC15(GC, 0, regCP_MEC_RS64_INSTR_PNTR) << =
+2) -
+>                                 RS64_FW_UC_START_ADDR_LO;
+>         } else {
+> -               switch (ring->pipe) {
+> +               reset_val =3D RREG32_SOC15(GC, 0, regCP_MEC_CNTL);
+> +               clean_val =3D reset_val;
+> +
+> +               switch (pipe) {
+>                 case 0:
+> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_C=
+NTL,
+> -                                                          MEC_ME1_PIPE0_=
+RESET, 1);
+> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_C=
+NTL,
+> -                                                          MEC_ME1_PIPE0_=
+RESET, 0);
+> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_CNT=
+L,
+> +                                                 MEC_ME1_PIPE0_RESET, 1)=
+;
+> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_CNT=
+L,
+> +                                                 MEC_ME1_PIPE0_RESET,
+> + 0);
+>                         break;
+>                 case 1:
+> -                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_C=
+NTL,
+> -                                                          MEC_ME1_PIPE1_=
+RESET, 1);
+> -                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_C=
+NTL,
+> -                                                          MEC_ME1_PIPE1_=
+RESET, 0);
+> +                       reset_val =3D REG_SET_FIELD(reset_val, CP_MEC_CNT=
+L,
+> +                                                 MEC_ME1_PIPE1_RESET, 1)=
+;
+> +                       clean_val =3D REG_SET_FIELD(clean_val, CP_MEC_CNT=
+L,
+> +                                                 MEC_ME1_PIPE1_RESET,
+> + 0);
+>                         break;
+>                 default:
+> -               break;
+> +                       break;
+>                 }
+> -               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_pipe);
+> -               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_pipe);
+> -               /* Doesn't find the F32 MEC instruction pointer register,=
+ and suppose
+> -                * the driver won't run into the F32 mode.
+> -                */
+> +
+> +               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_val);
+> +               gfx_v12_0_clear_hqds_on_mec_pipe(adev, me, pipe);
+> +               soc24_grbm_select(adev, me, pipe, queue, 0);
+> +               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_val);
+>         }
+>
+>         soc24_grbm_select(adev, 0, 0, 0, 0);
+>         mutex_unlock(&adev->srbm_mutex);
+>         gfx_v12_0_unset_safe_mode(adev, 0);
+>
+> -       dev_info(adev->dev, "The ring %s pipe resets: %s\n", ring->name,
+> -                       r =3D=3D 0 ? "successfully" : "failed");
+> -       /* Need the ring test to verify the pipe reset result.*/
+> +       dev_dbg(adev->dev, "MEC pipe me%u pipe%u queue%u resets to MEC FW
+> start PC: %s\n",
+> +               me, pipe, queue, r =3D=3D 0 ? "successfully" : "failed");
+>         return 0;
+>  }
+>
+> @@ -5405,7 +5436,7 @@ static int gfx_v12_0_reset_kcq(struct amdgpu_ring
+> *ring,
+>         r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, use_m=
+mio, 0);
+>         if (r) {
+>                 dev_warn(adev->dev, "fail(%d) to reset kcq  and try pipe =
+reset\n", r);
+> -               r =3D gfx_v12_0_reset_compute_pipe(ring);
+> +               r =3D gfx_v12_0_reset_compute_pipe(adev, ring->me,
+> + ring->pipe,
+> +ring->queue);
+>                 if (r)
+>                         return r;
+>         }
+> --
+> 2.54.0
+>
 
