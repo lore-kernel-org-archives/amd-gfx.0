@@ -4,126 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C25CD5BD1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 13:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4ABCD5BD1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 13:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC8C11331E;
-	Mon,  1 Jun 2026 13:05:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A57B113368;
+	Mon,  1 Jun 2026 13:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AmY7JA1l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ymkafHlw";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010013.outbound.protection.outlook.com [52.101.201.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0100511331F;
- Mon,  1 Jun 2026 13:05:16 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6039D113367
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 13:42:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ddofpriue1+F6XCyCFlCPA5QByV5vnXPCwb/rrfU2rOMZ6IinqYEn70f/rh6KFdYT9WqLITn4p6pRWUqnahn+OxGvN/B1jTO4A0K4tt/9RlbnUtGxxjjnk1p7izo4JL9KwguaqHtDAxscN+QYknHM5MGC/7V5Jkc27GmsoE3hzjgIBF1J+L4jGE53RTYvmu4ZnshiR3lq52Vsa8VQn/f1oa3ecJtLz12/lWbAD38f2Cscch0OjANgKEBzTFKfUgz8mTLb7HYLoveZQy1ce3nyOGwi6L0oBB06ZKvz9KgQsoFlJb/+I3PFRA5GOUYYXlc3Li1PX3EGnYbA4YmmuyBJA==
+ b=sCKLccZQixW4AXrJ6ILvU0crJe7WJ4xvoDUIIG3SnBLL6/uiZLalBUtNDL8jwEUq2S9OVTTrrfHTq0vbfp7uN+fHUWl6Ok1LgF9AEnW+1NgEA+SPQeD+Cz3eqAXTOLt4tkb3wWJCb+nd356MReacGClQcgMiXZ1UMviA5HTFxqukTV3bRmkaGn5dLBY94s0mPw4RhPZSyVQe/2eaX+GiFITDwaZxgbwMwuYKtxqD1yroZm1vddAeguaxgIY0w2G0MCwujR7BjBfWHL+OZY7GI26T+owvDqmdkFwJbausbOSfd1HjqChutY/6gbQ8/50NO2ZPV0iEqBPVNxW6Bvwkdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8hTGup22i68AmWhiUV4xcp1s8oqi08bLpp+nB6yq3ro=;
- b=LjgS/yesNSThdHhNtFwKglfI99f/IYDtan5pjK7XwDdymnyau0MvuxjbGrMfswpmaYUJXVIqjsYO5TfeEWgRCd7PdH+uJehg34ZeSifCgji2Ruoo/h18SW8aMtxXbeIyKUtqrUJy4OOCQPtRA1a0di9MAlG2l6sjjnMHkvljnejGinlSKQNB2CzWY4upcy/svuytwok7JP/oNKLx0a5XGNc+RfVzqFC5Lb/D8e0FZh94MQ/xtyynGELB0xnkWZqg1qwR2icz8NT1l6Z07uhnDEe/SSLO7cs3HC4zEl6UUXx00Fh3WcOcqop28Un1vl20+SnChKw8xZzkKYYkFUTVHA==
+ bh=yaRWOCucWCy9xMT6vH368jSG8r4Ha4lBRzAa9gDiucE=;
+ b=o1b66c9vGvwZEvf2Hr7eUGKKx0T+R3yOaTWND2U8e6cACwzrUKoHZgViykAtTyHvLS2xgR/fEOFsj50m5Bvs/z5Nj85MCRvGN2vkgNdiWAvUi7uFftV8sJhjhGnqSmiBEFZ4zCWN4G8VxB+gtbtdoK1SwhbWEl6/hFcZeD/8mP3H70hpgv22VTMTLxOuKZvxegXLlNkffgfKF2aR089x4SJ42u+9nWuMKNmobJ3NemrI9NqVjVhlHwje+lF0IQOpYTuyb4P0AYDxvPKcnoVta37HOSgss/Mn1mILY4ZmTKV97sSW2I+1Q06yUrvBdNejIqbmmlCVCzQUEtQxdzXAwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8hTGup22i68AmWhiUV4xcp1s8oqi08bLpp+nB6yq3ro=;
- b=AmY7JA1lzJ3tdrdDNQwIUdMfFRBv/QPYUk48FQAx4U8vDqKDTiH94VO5XUCMYprhEstI7tTOJ2MNmf8VyQQ0+Ng0KJozJXkhIsuP5rOup6jBs5UV8W1kJmjgyfFDLusHmNjX/Iqb/PC63+VzcDuOve7VGZEsR0fs3n0YnBxrKkY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SJ0PR12MB6853.namprd12.prod.outlook.com (2603:10b6:a03:47b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
- 13:05:09 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
- 13:05:09 +0000
-Message-ID: <7237b5c9-f97d-408f-8fd5-15ccbc9c08d8@amd.com>
-Date: Mon, 1 Jun 2026 18:35:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
-To: Kunal Zodape <kunal.devanandzodape@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rahul Kumar <Rahul.Kumar1@amd.com>, Prateek Gupta <Prateek1.Gupta@amd.com>
-References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
- <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
+ bh=yaRWOCucWCy9xMT6vH368jSG8r4Ha4lBRzAa9gDiucE=;
+ b=ymkafHlwo6OLMKKf6ZQQV4lMbQmBnlMpsu+bnQRoMSG+HlZi9q8AalzBuNvLlTp1GpNSUlyy+flpwg4PJisGTmqcIIIoLA7BDQy9Zaz6rnYYFMJFI+LkQEix4V7llje2sBJe9Fq1VHZupupV6jhIqxA2i3FZWGl7uxd0N9k+lxw=
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
+ SN7PR12MB7129.namprd12.prod.outlook.com (2603:10b6:806:2a1::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 13:42:35 +0000
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 13:42:35 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
+ "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
+Thread-Topic: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
+Thread-Index: AQHc74ODgiK2wpH6uki+rukYIp8+/bYpVHkggAAmnYCAADxzrg==
+Date: Mon, 1 Jun 2026 13:42:35 +0000
+Message-ID: <DM6PR12MB29729736F9A8FEFBFB2DCDBB82152@DM6PR12MB2972.namprd12.prod.outlook.com>
+References: <20260529155425.418803-1-asad.kamal@amd.com>
+ <DM6PR12MB2972E0714BA89B7B178CDB2882152@DM6PR12MB2972.namprd12.prod.outlook.com>
+ <e1adcfe9-9ea7-41d8-afee-eebdc5347d1f@amd.com>
+In-Reply-To: <e1adcfe9-9ea7-41d8-afee-eebdc5347d1f@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0082.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ad::8) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ0PR12MB6853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0627b1d4-f2bb-448a-772f-08debfde6850
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|18002099003|22082099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: jknw3Qi7EYbbJvCEECNvgFWsw4rFJgdlDvwFn+KZC3LPlO7B9Q1EEKyO2rQ0bVbdU2yKtDIsA0LqP9wNk0vy/x4VL8eDvf6TwSkSSli53IjrqMC2Gjlx0tMVv2Iwup49x33assufbA8UYUNb7ZKfZnF2cL1a1g8Fr1JFfS8qqO1KRYp26FkoFJhk+m63o7cE2cY1qGleXBdJ4oi/LyPIlA0ELvMWqB6Jd+fvjujaLzOa2j7d62Y232xJplcOlfn12jpFMBfUyAUGos5qS0RLXug5EnaKunVHeETRvnqGlidFkxVO5pA+M1fOlJTO03XMGrdOem1wlcz8iPxNYoOVP6mHuc3Ay9jrspdf67ifUEDZlpqNR7BPj2f2VMdi1/ki+txigH9tP7D3gx0a08JlPFKhR+CXIVPCvUKTXDIJmUV02ttRPeU2NWo1XFy4ag+JpdlOsZ2swrd1pk464UpJz5xAVdCXgr6HCycBPnAq0epvTUqpA1dRpBDt8UDfXlKxXDrrN3Vk4krPXhdDfTVtif0UNhZBARqd9HrQvJOpa1EPNG7DXHBUBvqcf4CYkp57khLv9ZeiNXiEEN1U+Y9oXi2peFp7WY2NYo7SkEwilBVFeCuEGeTdzxAJXCVkwHgt+JmpZFomhS+RqAVmFa6q89NphfiMIDIIy41tDpVEuM9BJn1PdLe3e/DWrxuUDZgu
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-01T13:33:50.9563668Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+x-ms-reactions: allow
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|SN7PR12MB7129:EE_
+x-ms-office365-filtering-correlation-id: b917efd1-b387-49c5-83ef-08debfe3a340
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|8096899003|11063799006|6133799003|22082099003|18002099003|56012099006|4143699003|38070700021;
+x-microsoft-antispam-message-info: kjExNws0V+VVKB+Vm7VYFIEgiG4qcOLgIhrultVJhy78/UnrsYVssO3UOh6qYpfGDEFuZseNpzPCaieHwlvZUj9nLPbZRYHxL904JH0AZoGHl36d8ohY8LAw+AyAIGRBkql5+49fNp7eI3WVlY3h9lbkRLIiID5Hx4RKN/sD5jkngTBvNxaq3OiHuTJ3osGzhb6yHlOGz3buzrxWqprstvO/L6CsqdV/s1cCPLmv1IRsIYf+X2mWi3qlypdsktCH3DTPr72f/EgQShQw2XFPODB5ZJcNbWt+qSwng9yBUom2h1y66vIPwfJSa0QKAU2ZkvH/tKSP/Haxfdy2SzUsmjnYsl52wkiarRRvhztIYDQ9t0JONYHJmlGDCHQqCV5aWFIXb0dc+SKkhx6OB82FBON1RiKdlqHekCC5PfpN/A33xJXmJG9nzKR/evz4No2tz7J+eGQWGmCj8p0RuNNv7KnB53DJCPMRm+cXak0Cg5MiuX3c7amIzP5C+RqtBRnTxLUFlsOmVxNP8yrq0zUtpXFo/LwJv2SOAXz9tZQDzDFoKHADI20ya1eF0vasxCYSew1bHPDhQGI47XhCKVJXrDZqywQ0KRWf7YfGlnmRnmJ1niQPru08o8Lx5rC3dMlPlFw6Va3xud3hx4U1GW7HpNEFY0BqngG9HdGrZVvvD2E3TJ0ruGQfPtTmL98IUriA1CLZJMnHcGNqjXcUJQrfJ/tOa7TBBdSKG9Ic7NVOvpW8LIxyjU6lxAwgqIx3+//y
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnh6N25wRnhJSnNPc3IzcmtxMlFuZTc3TmNaUHZTc2tERVZFaW85Zm83cDBa?=
- =?utf-8?B?TW01UzluUzdDeWxxVnJraWxRdTl6Wmt3S1BOUmVBM1hWcUtkMVFDanpwdVFJ?=
- =?utf-8?B?UnlnQkc2bHVGUDY2WlYrbGNQcnNhYXNXWE5PMUozVTBiNXRhRDV1VjEwdkky?=
- =?utf-8?B?eVo5MUFrbHROZTlGeENuZ2FUL0c4SWMrY2VRV1Q4YzZtbkcyelJmMDVZRS9N?=
- =?utf-8?B?Vzg4aHQxKzZ5SUNqMm5MbzQ0ZmprTzd3SVFYdEFOdzdUUTM2ZnBLYS9XaUFo?=
- =?utf-8?B?RThiZU1LWnFOclN4cEwyTEhlckFIaFRwMjhxY0M5RWlIcHRjdW1NKzdYMUl4?=
- =?utf-8?B?dlF3bmpvaUVjV1RyNXFJckdyNnJPT1o4ckllL1F5RUtMTHh5T1pXRUMvZWNC?=
- =?utf-8?B?WnJ1ZnYxSThCNlZUZmQvOERLRWl0QXdzaWRzQnZEVDVCUktIc0IzVk1tdzZZ?=
- =?utf-8?B?VmtiNTJmMHJWWHNrNGZRZjJxazlJaiszdjhSTDI1WnFwNXYzRW82cndTTTZF?=
- =?utf-8?B?dWJMczZVdElKcjU2ZmRTdXM5YmRHRE16MnBCUkk3djdkaFBkOHBHdUhwOHBH?=
- =?utf-8?B?RGlpc2RuNldjMllVVWkxWWd5WVQwQ0RIMVpKUTI0enl0MWtTZ3NCUXZQWmh0?=
- =?utf-8?B?WHhSazlnalJ4RnlBRzZoZVZUTmE0WXp2bTFxd1NEYzc5UjJpaEVFci9yK0JZ?=
- =?utf-8?B?ZDB6RU9MaFRjNE4wclNpTGw0aFRjZ3UwdndHWGxIMmMxNGZqSmwzbDJlaGIz?=
- =?utf-8?B?RW9jSDBNSXk2aEhHVk93aXJLOHhLeHN1TTByK3FTcW9VbTlpQTV0UytOY3hH?=
- =?utf-8?B?YkhzejdlK1VMV0IvVWpLejU0OEZ0clJtaCtxWVVHd2F1OUZBV05sWWxrd0NN?=
- =?utf-8?B?RW5FekVQQjFwSGs0eUdNK3R6aWsrSU95WWZ3OG9LeHFHQlBvN0d3ZTUrTUhs?=
- =?utf-8?B?RlFZS29ibTEyLzYxV2N0Q0tzcXhmWUdqb0Fld2tUQXRZTVNtalJNeUNud3B6?=
- =?utf-8?B?MllSeVB3cEhKWENHWFh3emlEdzJFejVIbUg3Qndvc2dpUjNkbnZxMEFPREZw?=
- =?utf-8?B?VVM3WHdRV0V3WXloNE1UMXZPRStVbHU0MW1nUnFtYTRpSG1hUzdUKzlXcmVR?=
- =?utf-8?B?WnpHR04wQXc4VXVVd3pjYTBUeGR1YjJucHhjR2ZKd1NlQlV5aW5oVlNqY3NF?=
- =?utf-8?B?MXJ6OXgxNjRSVWJScG1YTExyRDJnejFBa2laakxvNFg0b09rb29nbkpPSVND?=
- =?utf-8?B?VDhPMlNvK09YOVVNYTZtQi93NGhMdG8rNmZ4YXBsUGEwYkRBUGM5ajN2UXA5?=
- =?utf-8?B?T1F2KzRUVkY4emplOTNZT0l6NWZwRExNVjdBbWFadTBUMEd3NG9wVTc2c25L?=
- =?utf-8?B?dGtEamIrUUtBWjRGN09Uckl5dUJ5WWRiQXJqSXArVnF3Z1VrWW9WMmpJaEVB?=
- =?utf-8?B?RWkyaitoa1k4UFpjUVB6SnVoZjl3Rm9ObVR2MUNoZ1JjaEJta05hTXZ1VWg0?=
- =?utf-8?B?ektJRDM1OStZY3ZySzlueWt6VkpSR0grKzdDNUZOMmMxYXJ5WS9sWW9raWli?=
- =?utf-8?B?cThSM1hyQkpsMy81c0ZPM1dZVmMrcWtPRm00cGtRTnNtQjl0SDVobHd0U25Q?=
- =?utf-8?B?S0I1eFpxZVpwOGtpeTFnK0o1czJUejdReWc4SWxzMDY4S1BNZXZCK1BrY1Mz?=
- =?utf-8?B?enc2UnY1VUM2eDlod01tNjBLV2lFckFqeUYrWXlBWk8vNDgyUVBkbG9LTkFI?=
- =?utf-8?B?UVZ6RWQ3REpmeHJVU2xBY3gyNE1ISVZob3kreFRtd0VQMzBFZzRNaDhlekJQ?=
- =?utf-8?B?ektTbURpZ0NUSnFEdlpMVFBXNldzcjJsOTBXYzR5YlRXQnNYWElrbFFTcXV6?=
- =?utf-8?B?N0dwQW5hQ2tWNTR0RktkRTVSVjNDemJ4RGZNUmJ4R1ppcDlIMUhNQzJjNDJP?=
- =?utf-8?B?Sm1MUlY4c0NMWjJCYjFMYXV3SGNrT1p4S1FEUnRQaEwrMjlIc01ya2J5QTRL?=
- =?utf-8?B?bUpvcklEMm5adW9tMHZMR083NjVrcjNHZ0NPT3F4aGxoamFpZ1RsQ3JjWTdD?=
- =?utf-8?B?QktyRnhyYi9hR2FvaFBINmZKbTJUUW92OVBNR00zbnh4MEg4c3htYVduVzJk?=
- =?utf-8?B?czNkKzVoS2cra0RDQnJBdURWTjhLQmJjN0RGYnJKN3JYMlg1R3BjY0t2UVFO?=
- =?utf-8?B?Nm1leWlMbTlncUdNaGtKK3dpZEtkdW0yWTkwa01LYUFHeHU5RHYzSHVuYWhH?=
- =?utf-8?B?engrL2xBd0x6bTFuVFZQMWxHandnaW1TcDQwY0o2cHBVZkhqMGVwd0dYazcz?=
- =?utf-8?B?RlVOM3RQT3FTMmRoT1VITnpuZUJDYlZVU0tvNUFubmJuMi9HUHFEdz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Gq7Yuxyi19dwGTsG1YgQp/3Khkvb38X/fOHu4dQBBcXs0orx6JrjQuYfaiLn?=
+ =?us-ascii?Q?13A45cKQZHLIcS/QHIuPku7h+B0/gVYN2R9CiRYW7mmLhWzCKPd6SRCHJw15?=
+ =?us-ascii?Q?M9/kR4NhFZneRrRI/QOLC6vq73d24xw/EITzZJxGvOEnRLCCUM/axFtnR/VF?=
+ =?us-ascii?Q?UcvnFTnN4RvidNrLHTg9lFmpCaRg2Cnyqghs1uIWzHU8dEFjjHBwL6QpHP62?=
+ =?us-ascii?Q?wcvAflMn7J3zlQnGsHv5prxivjyt0rsnvNtBHeQL56KH+6ZmB0lbAFnGf4A9?=
+ =?us-ascii?Q?6e9nunEfC3j40YWDmtqsEVC+43MkHe6NBtNG/zRFoZ+PXeeuGOeM2NEVEr+b?=
+ =?us-ascii?Q?NvwFvDRgQFsDN9V4IfLCU2z6k+4JaOz2YxhVk60I+h9QFDVLsmRqLCSASF33?=
+ =?us-ascii?Q?TSa07jA2AUBBhYFPNQgLY4NabXo5rTu+cOEPAVJDSAPdSEYjMnXIjA6Dt7TO?=
+ =?us-ascii?Q?2uXp8TsfaW3OJlAAIQyc4FBxTm53Jk9G877Opr+fQ54ms6uAqUm2oDyX0vwz?=
+ =?us-ascii?Q?CRCftzyR583iuEWhis/rudi1XLM1TBw8xyR8rr8VowxWvWEWZb0I9jo4P7Av?=
+ =?us-ascii?Q?eCnoUMWU2ep1ZrPcXIQzXt53X13/YYIGOktmyBqtvqjC9LOlsRF2yEzduV+c?=
+ =?us-ascii?Q?/rlAjAlcYAHz0c/8Tp0ZCQOKP9OFlXUL4YKFVjyM3Rlfq7ZxdAa/pANblkgE?=
+ =?us-ascii?Q?SEA+roxZjsod8LzxFdaY1m+FcwFkm/KCu61kmjUvOxp8wocnZnkkTj5jeJgS?=
+ =?us-ascii?Q?4DQR7qty0NTWAaLzbr1ZFyduFxAtMVJZhEQqrPTe9DeWbGZ2E2ZDUaP6Rcsz?=
+ =?us-ascii?Q?NPcqwylc8/MJ3012fGoZH5NshSZCAUwg+zxzkFiw8jQFvcYOsSau/hwArddd?=
+ =?us-ascii?Q?AnKgF/wpOjogkMmcC6mpfVcZt/dIVGV7+ltEVLkKCNXM2ejYFFqoyP6zzpax?=
+ =?us-ascii?Q?NGKJJH9pzXe8foZpUJF6F20ybmPxDsqOhu1gRj2aGDE4IHCmD+U5+r3UU8f8?=
+ =?us-ascii?Q?9EjxfGxeNVArcHvt73/R1vTQvYAiLiNsFGTTOPGWFGYSivnExzA56YbnDjEz?=
+ =?us-ascii?Q?wEFortvVWfyUXOGoWGRsgSwjjE11bNqA4dh38MJfAmji1IcnK0mH2npJl9ox?=
+ =?us-ascii?Q?j5xLKrDpS1L1zeSzd3eP/fXpOsD/hKPRSgkCuJEzH3ECYVEYH/GSFXtK6hBT?=
+ =?us-ascii?Q?FoCumi8fIAxoVmXMN89ODf4N9eAENBQLStSybZbr1BhCbeylq2UvNPjIMM54?=
+ =?us-ascii?Q?Y4i9I8NYIN4gf2gE5q1Gnf9tQ+l9PHg0IFb9Edg4dcOvM/ozVKVY/DVw1tIh?=
+ =?us-ascii?Q?aX7DFA5+L4M+zxCPe7EPabL+UCXXU0FRmczk5PAoocOmzAfqr2VcquFzLe85?=
+ =?us-ascii?Q?ClsEtxdtZHcfQ8MhabPEVGelykXT9hfDCrHQSqIyyXk6MOLxOW0PYqLQwm2f?=
+ =?us-ascii?Q?DMsVoABDvaYHnWE+I3Bjtm0h5WACpgIfzmKaggJRZXhsJqVXcs/Ily8NsqTB?=
+ =?us-ascii?Q?e8ba2rPJBx5IVRmzW197UsofZX07/xD4AkxZeT8F0ob48qpzxF+Hc8p9Yeeg?=
+ =?us-ascii?Q?Y4n2Cu/YbqLYsdF+KVk02G7VfbXDQYCGzHPoRDE5x6CLnm7V7gjzH6mTYY6a?=
+ =?us-ascii?Q?IrTNExn3tH6U2ej4juXWM/ZE4i7tORQfQztKO1TdqWX4I72dDGPlcJ4gSDL8?=
+ =?us-ascii?Q?qpfzvlJDdqnvTzPvcFb5XkKymzX+ROLd0aBjQSgcyW9ymJ3X6eyWrQJmz8ob?=
+ =?us-ascii?Q?1LWC7b6PJA=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0627b1d4-f2bb-448a-772f-08debfde6850
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 13:05:09.0121 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rCcjKOIOkmJHokcFgvpU83L2O/txudY1aq/Q4W2gI9NKXPb0spgZObDUd2qOLoD6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b917efd1-b387-49c5-83ef-08debfe3a340
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2026 13:42:35.0377 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4O/ENFLVsNPSaLFXmETnfanh1K34qyrlT0TuV3pW3jTUun91V8ustsrFH1yrOxKb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,91 +137,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+AMD General
+
+After per discussed , the patch is
+
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+
+Best Regards,
+Kevin
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Monday, June 1, 2026 5:57 PM
+To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Kamal, Asad <Asad.Kamal@amd=
+.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, =
+Morris <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com=
+>
+Subject: Re: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZ=
+E
 
 
-On 01-Jun-26 4:53 PM, Kunal Zodape wrote:
-> [Some people who received this message don't often get email from kunal.devanandzodape@amd.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> The EEPROM write path currently waits a fixed 10 ms after each page
-> write to cover the maximum write-cycle time.
-> 
-> Replace the fixed delay with ACK polling so the driver can continue as
-> soon as the EEPROM finishes its internal write cycle. Since the SMU I2C
-> adapter used for these EEPROM accesses does not support zero-length
-> transfers, poll readiness with an offset-only dummy write.
-> 
-> Keep the existing 10 ms timeout as the upper bound for the polling loop.
-> 
-> Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
-> write/read-back with no I2C errors.
 
-The current sleep logic may be better than sending a dummy transfter 
-through firmware. That has the overhead of FW message logic and other 
-clients accessing i2c bus.
+On 01-Jun-26 1:15 PM, Wang, Yang(Kevin) wrote:
+> AMD General
+>
+> Hi Asad,
+>
+> Your patch doesn't seem to resolve the issue you're facing; I  think the =
+correct logic should check the return value and the size variable
+> What's your opinion?
 
-The original comments in the code logic are valid for optimization only 
-if driver has direct access to the i2c bus.
+I think stop printing if buffer is full seems sufficient.
+
+The expectation is that size out param shouldn't be updated if the
+function returns failure.
 
 Thanks,
 Lijo
 
-> 
-> Suggested-by: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
-> ---
-> v2: Use read_poll_timeout() instead of open-coded ktime + do-while loop
->      as suggested
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 27 +++++++++++++++-------
->   1 file changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> index 8cd69836dd99..9dc538073bb8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
-> @@ -21,6 +21,7 @@
->    *
->    */
-> 
-> +#include <linux/iopoll.h>
->   #include "amdgpu_eeprom.h"
->   #include "amdgpu.h"
-> 
-> @@ -153,15 +154,25 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
->                          break;
-> 
->                  if (!read) {
-> -                       /* According to EEPROM specs the length of the
-> -                        * self-writing cycle, tWR (tW), is 10 ms.
-> -                        *
-> -                        * TODO: Use polling on ACK, aka Acknowledge
-> -                        * Polling, to minimize waiting for the
-> -                        * internal write cycle to complete, as it is
-> -                        * usually smaller than tWR (tW).
-> +                       int ret;
-> +
-> +                       /* Poll for ACK to detect when the self-timed
-> +                        * internal write cycle has completed, as per
-> +                        * Acknowledge Polling described in the AT24CM02
-> +                        * datasheet, Section 7.4. The SMU I2C adapter
-> +                        * used by these EEPROM paths does not support
-> +                        * zero-length messages, so use an offset-only
-> +                        * dummy write to probe for the ACK. The address
-> +                        * pointer update is harmless because each real
-> +                        * transfer reprograms it before use.
->                           */
-> -                       msleep(10);
-> +                       ret = read_poll_timeout(i2c_transfer, r,
-> +                                                r == 1,
-> +                                                200, 10 * USEC_PER_MSEC,
-> +                                                false,
-> +                                                i2c_adap, &msgs[0], 1);
-> +                       if (ret)
-> +                               break;
->                  }
->          }
-> 
-> --
-> 2.17.1
-> 
+>
+> Here is the pseudocode:
+> ret =3D amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index], buf, &si=
+ze);
+> if (ret < 0) {
+>      continue; // for next clock item.
+> } else if (ret =3D=3D 0) {
+>      // Check ret and size/PAGE_SIZE here to meet the requirements
+> } else {
+>   // go out to return.
+> }
+> Best Regards,
+> Kevin
+>
+>> -----Original Message-----
+>> From: Kamal, Asad <Asad.Kamal@amd.com>
+>> Sent: Friday, May 29, 2026 11:54 PM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
+>> <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris
+>> <Shiwu.Zhang@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
+>> <KevinYang.Wang@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+>> Subject: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
+>>
+>> Stop appending OD sections in amdgpu_get_pp_od_clk_voltage() once the
+>> sysfs page is full, instead of checking every
+>> sysfs_emit_at() in SMU helpers
+>>
+>> v2: Drop the prior series that checked sysfs_emit_at() return values in =
+every
+>> SMU *_emit_clk_levels() helper and smu_cmn_print_*().
+>> (Kevin)
+>>
+>> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 15 ++++++++++++---
+>>   1 file changed, 12 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> index 60db9b66d08c..03c95621fe2c 100644
+>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>> @@ -866,11 +866,15 @@ static ssize_t
+>> amdgpu_get_pp_od_clk_voltage(struct device *dev,
+>>        if (ret)
+>>                return ret;
+>>
+>> -     for (clk_index =3D 0 ; clk_index < ARRAY_SIZE(od_clocks) ; clk_ind=
+ex++) {
+>> +     for (clk_index =3D 0; clk_index < ARRAY_SIZE(od_clocks); clk_index=
+++) {
+>> +             if (size >=3D PAGE_SIZE)
+>> +                     break;
+>>                amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index],
+>> buf, &size);
+>>        }
+>>
+>> -     if (size =3D=3D 0)
+>> +     if (size >=3D PAGE_SIZE)
+>> +             size =3D PAGE_SIZE;
+>> +     else if (size =3D=3D 0)
+>>                size =3D sysfs_emit(buf, "\n");
+>>
+>>        amdgpu_pm_put_access(adev);
+>> @@ -3915,12 +3919,17 @@ static int amdgpu_retrieve_od_settings(struct
+>> amdgpu_device *adev,
+>>        if (ret)
+>>                return ret;
+>>
+>> +     if (size >=3D PAGE_SIZE)
+>> +             goto out_pm_put;
+>> +
+>>        ret =3D amdgpu_dpm_emit_clock_levels(adev, od_type, buf, &size);
+>>        if (ret) {
+>>                size =3D ret;
+>>                goto out_pm_put;
+>>        }
+>> -     if (size =3D=3D 0)
+>> +     if (size >=3D PAGE_SIZE)
+>> +             size =3D PAGE_SIZE;
+>> +     else if (size =3D=3D 0)
+>>                size =3D sysfs_emit(buf, "\n");
+>>
+>>   out_pm_put:
+>> --
+>> 2.46.0
+>
 
+
+--_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+AMD General<br>
+</p>
+<br>
+<div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+After per discussed , the patch is&nbsp;</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+Reviewed-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+Best Regards,</div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+Kevin</div>
+<div id=3D"mail-editor-reference-message-container" class=3D"ms-outlook-mob=
+ile-reference-message">
+<div id=3D"mail-editor-reference-message-container">
+<hr style=3D"display: inline-block; width: 98%;">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><span style=3D"font-family: Calibri, =
+sans-serif;"><b>From:</b>&nbsp;Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+<b>Sent:</b>&nbsp;Monday, June 1, 2026 5:57 PM<br>
+<b>To:</b>&nbsp;Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; Kamal, As=
+ad &lt;Asad.Kamal@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@li=
+sts.freedesktop.org&gt;<br>
+<b>Cc:</b>&nbsp;Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Ma, Le &lt;Le=
+.Ma@amd.com&gt;; Zhang, Morris &lt;Shiwu.Zhang@amd.com&gt;; Deucher, Alexan=
+der &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b>&nbsp;Re: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit=
+ at PAGE_SIZE</span>
+<div style=3D"font-family: Calibri, sans-serif;">&nbsp;</div>
+</div>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<div class=3D"PlainText" style=3D"font-size: 11pt;"><br>
+<br>
+On 01-Jun-26 1:15 PM, Wang, Yang(Kevin) wrote:<br>
+&gt; AMD General<br>
+&gt;<br>
+&gt; Hi Asad,<br>
+&gt;<br>
+&gt; Your patch doesn't seem to resolve the issue you're facing; I&nbsp; th=
+ink the correct logic should check the return value and the size variable<b=
+r>
+&gt; What's your opinion?<br>
+<br>
+I think stop printing if buffer is full seems sufficient.<br>
+<br>
+The expectation is that size out param shouldn't be updated if the<br>
+function returns failure.<br>
+<br>
+Thanks,<br>
+Lijo<br>
+<br>
+&gt;<br>
+&gt; Here is the pseudocode:<br>
+&gt; ret =3D amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index], buf, =
+&amp;size);<br>
+&gt; if (ret &lt; 0) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue; // for next clock item.<br>
+&gt; } else if (ret =3D=3D 0) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Check ret and size/PAGE_SIZE here to =
+meet the requirements<br>
+&gt; } else {<br>
+&gt;&nbsp;&nbsp; // go out to return.<br>
+&gt; }<br>
+&gt; Best Regards,<br>
+&gt; Kevin<br>
+&gt;<br>
+&gt;&gt; -----Original Message-----<br>
+&gt;&gt; From: Kamal, Asad &lt;Asad.Kamal@amd.com&gt;<br>
+&gt;&gt; Sent: Friday, May 29, 2026 11:54 PM<br>
+&gt;&gt; To: amd-gfx@lists.freedesktop.org<br>
+&gt;&gt; Cc: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Zhang, Hawking<br>
+&gt;&gt; &lt;Hawking.Zhang@amd.com&gt;; Ma, Le &lt;Le.Ma@amd.com&gt;; Zhang=
+, Morris<br>
+&gt;&gt; &lt;Shiwu.Zhang@amd.com&gt;; Deucher, Alexander<br>
+&gt;&gt; &lt;Alexander.Deucher@amd.com&gt;; Wang, Yang(Kevin)<br>
+&gt;&gt; &lt;KevinYang.Wang@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com=
+&gt;<br>
+&gt;&gt; Subject: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAG=
+E_SIZE<br>
+&gt;&gt;<br>
+&gt;&gt; Stop appending OD sections in amdgpu_get_pp_od_clk_voltage() once =
+the<br>
+&gt;&gt; sysfs page is full, instead of checking every<br>
+&gt;&gt; sysfs_emit_at() in SMU helpers<br>
+&gt;&gt;<br>
+&gt;&gt; v2: Drop the prior series that checked sysfs_emit_at() return valu=
+es in every<br>
+&gt;&gt; SMU *_emit_clk_levels() helper and smu_cmn_print_*().<br>
+&gt;&gt; (Kevin)<br>
+&gt;&gt;<br>
+&gt;&gt; Signed-off-by: Asad Kamal &lt;asad.kamal@amd.com&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/amdgpu_pm.c | 15 ++++++++++++--=
+-<br>
+&gt;&gt;&nbsp;&nbsp; 1 file changed, 12 insertions(+), 3 deletions(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt;&gt; b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt;&gt; index 60db9b66d08c..03c95621fe2c 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
+&gt;&gt; @@ -866,11 +866,15 @@ static ssize_t<br>
+&gt;&gt; amdgpu_get_pp_od_clk_voltage(struct device *dev,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&gt;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; for (clk_index =3D 0 ; clk_index &lt; AR=
+RAY_SIZE(od_clocks) ; clk_index++) {<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; for (clk_index =3D 0; clk_index &lt; ARR=
+AY_SIZE(od_clocks); clk_index++) {<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_in=
+dex],<br>
+&gt;&gt; buf, &amp;size);<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (size =3D=3D 0)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; size =3D PAGE_SIZE;<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else if (size =3D=3D 0)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; size =3D sysfs_emit(buf, &quot;\n&quot;);<br>
+&gt;&gt;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_pm_put_access(ade=
+v);<br>
+&gt;&gt; @@ -3915,12 +3919,17 @@ static int amdgpu_retrieve_od_settings(str=
+uct<br>
+&gt;&gt; amdgpu_device *adev,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&gt;<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; goto out_pm_put;<br>
+&gt;&gt; +<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_dpm_emit_=
+clock_levels(adev, od_type, buf, &amp;size);<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; size =3D ret;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; goto out_pm_put;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (size =3D=3D 0)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; size =3D PAGE_SIZE;<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else if (size =3D=3D 0)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; size =3D sysfs_emit(buf, &quot;\n&quot;);<br>
+&gt;&gt;<br>
+&gt;&gt;&nbsp;&nbsp; out_pm_put:<br>
+&gt;&gt; --<br>
+&gt;&gt; 2.46.0<br>
+&gt;<br>
+<br>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_--
