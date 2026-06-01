@@ -4,125 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4ABCD5BD1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 13:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D0BCD6E55
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 13:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A57B113368;
-	Mon,  1 Jun 2026 13:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C08113392;
+	Mon,  1 Jun 2026 13:51:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ymkafHlw";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="UjmcfcCR";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="Nm55V1kj";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6039D113367
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 13:42:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sCKLccZQixW4AXrJ6ILvU0crJe7WJ4xvoDUIIG3SnBLL6/uiZLalBUtNDL8jwEUq2S9OVTTrrfHTq0vbfp7uN+fHUWl6Ok1LgF9AEnW+1NgEA+SPQeD+Cz3eqAXTOLt4tkb3wWJCb+nd356MReacGClQcgMiXZ1UMviA5HTFxqukTV3bRmkaGn5dLBY94s0mPw4RhPZSyVQe/2eaX+GiFITDwaZxgbwMwuYKtxqD1yroZm1vddAeguaxgIY0w2G0MCwujR7BjBfWHL+OZY7GI26T+owvDqmdkFwJbausbOSfd1HjqChutY/6gbQ8/50NO2ZPV0iEqBPVNxW6Bvwkdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yaRWOCucWCy9xMT6vH368jSG8r4Ha4lBRzAa9gDiucE=;
- b=o1b66c9vGvwZEvf2Hr7eUGKKx0T+R3yOaTWND2U8e6cACwzrUKoHZgViykAtTyHvLS2xgR/fEOFsj50m5Bvs/z5Nj85MCRvGN2vkgNdiWAvUi7uFftV8sJhjhGnqSmiBEFZ4zCWN4G8VxB+gtbtdoK1SwhbWEl6/hFcZeD/8mP3H70hpgv22VTMTLxOuKZvxegXLlNkffgfKF2aR089x4SJ42u+9nWuMKNmobJ3NemrI9NqVjVhlHwje+lF0IQOpYTuyb4P0AYDxvPKcnoVta37HOSgss/Mn1mILY4ZmTKV97sSW2I+1Q06yUrvBdNejIqbmmlCVCzQUEtQxdzXAwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yaRWOCucWCy9xMT6vH368jSG8r4Ha4lBRzAa9gDiucE=;
- b=ymkafHlwo6OLMKKf6ZQQV4lMbQmBnlMpsu+bnQRoMSG+HlZi9q8AalzBuNvLlTp1GpNSUlyy+flpwg4PJisGTmqcIIIoLA7BDQy9Zaz6rnYYFMJFI+LkQEix4V7llje2sBJe9Fq1VHZupupV6jhIqxA2i3FZWGl7uxd0N9k+lxw=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- SN7PR12MB7129.namprd12.prod.outlook.com (2603:10b6:806:2a1::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
- 13:42:35 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
- 13:42:35 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
- "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
-Thread-Topic: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
-Thread-Index: AQHc74ODgiK2wpH6uki+rukYIp8+/bYpVHkggAAmnYCAADxzrg==
-Date: Mon, 1 Jun 2026 13:42:35 +0000
-Message-ID: <DM6PR12MB29729736F9A8FEFBFB2DCDBB82152@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260529155425.418803-1-asad.kamal@amd.com>
- <DM6PR12MB2972E0714BA89B7B178CDB2882152@DM6PR12MB2972.namprd12.prod.outlook.com>
- <e1adcfe9-9ea7-41d8-afee-eebdc5347d1f@amd.com>
-In-Reply-To: <e1adcfe9-9ea7-41d8-afee-eebdc5347d1f@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-01T13:33:50.9563668Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-x-ms-reactions: allow
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|SN7PR12MB7129:EE_
-x-ms-office365-filtering-correlation-id: b917efd1-b387-49c5-83ef-08debfe3a340
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|11063799006|6133799003|22082099003|18002099003|56012099006|4143699003|38070700021;
-x-microsoft-antispam-message-info: kjExNws0V+VVKB+Vm7VYFIEgiG4qcOLgIhrultVJhy78/UnrsYVssO3UOh6qYpfGDEFuZseNpzPCaieHwlvZUj9nLPbZRYHxL904JH0AZoGHl36d8ohY8LAw+AyAIGRBkql5+49fNp7eI3WVlY3h9lbkRLIiID5Hx4RKN/sD5jkngTBvNxaq3OiHuTJ3osGzhb6yHlOGz3buzrxWqprstvO/L6CsqdV/s1cCPLmv1IRsIYf+X2mWi3qlypdsktCH3DTPr72f/EgQShQw2XFPODB5ZJcNbWt+qSwng9yBUom2h1y66vIPwfJSa0QKAU2ZkvH/tKSP/Haxfdy2SzUsmjnYsl52wkiarRRvhztIYDQ9t0JONYHJmlGDCHQqCV5aWFIXb0dc+SKkhx6OB82FBON1RiKdlqHekCC5PfpN/A33xJXmJG9nzKR/evz4No2tz7J+eGQWGmCj8p0RuNNv7KnB53DJCPMRm+cXak0Cg5MiuX3c7amIzP5C+RqtBRnTxLUFlsOmVxNP8yrq0zUtpXFo/LwJv2SOAXz9tZQDzDFoKHADI20ya1eF0vasxCYSew1bHPDhQGI47XhCKVJXrDZqywQ0KRWf7YfGlnmRnmJ1niQPru08o8Lx5rC3dMlPlFw6Va3xud3hx4U1GW7HpNEFY0BqngG9HdGrZVvvD2E3TJ0ruGQfPtTmL98IUriA1CLZJMnHcGNqjXcUJQrfJ/tOa7TBBdSKG9Ic7NVOvpW8LIxyjU6lxAwgqIx3+//y
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Gq7Yuxyi19dwGTsG1YgQp/3Khkvb38X/fOHu4dQBBcXs0orx6JrjQuYfaiLn?=
- =?us-ascii?Q?13A45cKQZHLIcS/QHIuPku7h+B0/gVYN2R9CiRYW7mmLhWzCKPd6SRCHJw15?=
- =?us-ascii?Q?M9/kR4NhFZneRrRI/QOLC6vq73d24xw/EITzZJxGvOEnRLCCUM/axFtnR/VF?=
- =?us-ascii?Q?UcvnFTnN4RvidNrLHTg9lFmpCaRg2Cnyqghs1uIWzHU8dEFjjHBwL6QpHP62?=
- =?us-ascii?Q?wcvAflMn7J3zlQnGsHv5prxivjyt0rsnvNtBHeQL56KH+6ZmB0lbAFnGf4A9?=
- =?us-ascii?Q?6e9nunEfC3j40YWDmtqsEVC+43MkHe6NBtNG/zRFoZ+PXeeuGOeM2NEVEr+b?=
- =?us-ascii?Q?NvwFvDRgQFsDN9V4IfLCU2z6k+4JaOz2YxhVk60I+h9QFDVLsmRqLCSASF33?=
- =?us-ascii?Q?TSa07jA2AUBBhYFPNQgLY4NabXo5rTu+cOEPAVJDSAPdSEYjMnXIjA6Dt7TO?=
- =?us-ascii?Q?2uXp8TsfaW3OJlAAIQyc4FBxTm53Jk9G877Opr+fQ54ms6uAqUm2oDyX0vwz?=
- =?us-ascii?Q?CRCftzyR583iuEWhis/rudi1XLM1TBw8xyR8rr8VowxWvWEWZb0I9jo4P7Av?=
- =?us-ascii?Q?eCnoUMWU2ep1ZrPcXIQzXt53X13/YYIGOktmyBqtvqjC9LOlsRF2yEzduV+c?=
- =?us-ascii?Q?/rlAjAlcYAHz0c/8Tp0ZCQOKP9OFlXUL4YKFVjyM3Rlfq7ZxdAa/pANblkgE?=
- =?us-ascii?Q?SEA+roxZjsod8LzxFdaY1m+FcwFkm/KCu61kmjUvOxp8wocnZnkkTj5jeJgS?=
- =?us-ascii?Q?4DQR7qty0NTWAaLzbr1ZFyduFxAtMVJZhEQqrPTe9DeWbGZ2E2ZDUaP6Rcsz?=
- =?us-ascii?Q?NPcqwylc8/MJ3012fGoZH5NshSZCAUwg+zxzkFiw8jQFvcYOsSau/hwArddd?=
- =?us-ascii?Q?AnKgF/wpOjogkMmcC6mpfVcZt/dIVGV7+ltEVLkKCNXM2ejYFFqoyP6zzpax?=
- =?us-ascii?Q?NGKJJH9pzXe8foZpUJF6F20ybmPxDsqOhu1gRj2aGDE4IHCmD+U5+r3UU8f8?=
- =?us-ascii?Q?9EjxfGxeNVArcHvt73/R1vTQvYAiLiNsFGTTOPGWFGYSivnExzA56YbnDjEz?=
- =?us-ascii?Q?wEFortvVWfyUXOGoWGRsgSwjjE11bNqA4dh38MJfAmji1IcnK0mH2npJl9ox?=
- =?us-ascii?Q?j5xLKrDpS1L1zeSzd3eP/fXpOsD/hKPRSgkCuJEzH3ECYVEYH/GSFXtK6hBT?=
- =?us-ascii?Q?FoCumi8fIAxoVmXMN89ODf4N9eAENBQLStSybZbr1BhCbeylq2UvNPjIMM54?=
- =?us-ascii?Q?Y4i9I8NYIN4gf2gE5q1Gnf9tQ+l9PHg0IFb9Edg4dcOvM/ozVKVY/DVw1tIh?=
- =?us-ascii?Q?aX7DFA5+L4M+zxCPe7EPabL+UCXXU0FRmczk5PAoocOmzAfqr2VcquFzLe85?=
- =?us-ascii?Q?ClsEtxdtZHcfQ8MhabPEVGelykXT9hfDCrHQSqIyyXk6MOLxOW0PYqLQwm2f?=
- =?us-ascii?Q?DMsVoABDvaYHnWE+I3Bjtm0h5WACpgIfzmKaggJRZXhsJqVXcs/Ily8NsqTB?=
- =?us-ascii?Q?e8ba2rPJBx5IVRmzW197UsofZX07/xD4AkxZeT8F0ob48qpzxF+Hc8p9Yeeg?=
- =?us-ascii?Q?Y4n2Cu/YbqLYsdF+KVk02G7VfbXDQYCGzHPoRDE5x6CLnm7V7gjzH6mTYY6a?=
- =?us-ascii?Q?IrTNExn3tH6U2ej4juXWM/ZE4i7tORQfQztKO1TdqWX4I72dDGPlcJ4gSDL8?=
- =?us-ascii?Q?qpfzvlJDdqnvTzPvcFb5XkKymzX+ROLd0aBjQSgcyW9ymJ3X6eyWrQJmz8ob?=
- =?us-ascii?Q?1LWC7b6PJA=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_"
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3699113392
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 13:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; r=y; 
+ h=From:To:Subject:Date:Message-ID; t=1780321875; bh=0vhgPsGMrBYtw4zj/VVcgcx
+ /cnuvi/VxFljV3zGx8eU=; b=UjmcfcCREcJSY0IwPJ9WVhdzWPun8z2zaBJag+LfKhhgcNNxT7
+ 45IfLzqTZlp38qGAuxSvjq4VMQjzvMIOTnDA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed;
+ r=y; 
+ h=From:To:Subject:Date:Message-ID; t=1780321875; bh=0vhgPsGMrBYtw4zj/VVcgcx
+ /cnuvi/VxFljV3zGx8eU=; b=Nm55V1kj+peB010eM0nnbx7wEGgbtU94o0uykkxUyeySOYpLJ/
+ z5ljmjHllXXBeQrXfCOnjUmjaIkgdemaYT6uDNXFHx6hruP/+4cjZ2Ex4NibBKPDKxRUg3I/IBn
+ DX4rinPmFsHckP7PszxqWMsSgvlt41TaFGbZFSGYrVM5e2Fi15CivPfo9zKBIH7BOfNFQMM7oBg
+ QwOIbU6NMMj5s/Sh21WuA/ThwTyaVoJFDa/ucFzAfMuXaBg8Nz8v0dwGvlEDVzpIL3xfLjyfAcm
+ uDBxRwz0cyNoe+cwiDZHX36s9IftK2HqJTo54y4qY6vk8iNccu+yStBqB015E4U8Pkw==;
+Message-ID: <e6f789e6-d5cb-485f-a8b9-8c087708f4f5@damsy.net>
+Date: Mon, 1 Jun 2026 15:51:15 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b917efd1-b387-49c5-83ef-08debfe3a340
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2026 13:42:35.0377 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4O/ENFLVsNPSaLFXmETnfanh1K34qyrlT0TuV3pW3jTUun91V8ustsrFH1yrOxKb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7129
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/13] drm/amdgpu: split amdgpu_vm_update_range
+To: christian.koenig@amd.com, natalie.vock@gmx.de, honghuan@amd.com,
+ Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Philip.Yang@amd.com,
+ timur.kristof@gmail.com
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260529114031.3714-1-christian.koenig@amd.com>
+ <20260529114031.3714-9-christian.koenig@amd.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <20260529114031.3714-9-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,336 +59,365 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-AMD General
-
-After per discussed , the patch is
-
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Monday, June 1, 2026 5:57 PM
-To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Kamal, Asad <Asad.Kamal@amd=
-.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, =
-Morris <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com=
->
-Subject: Re: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZ=
-E
 
 
+Le 29/05/2026 à 13:24, Christian König a écrit :
+> Split amdgpu_vm_update_range into two functions.
+> 
+> amdgpu_vm_map_range() is for mapping PTEs into a range and updates
+> which can be done while holding the VM lock.
+> 
+> amdgpu_vm_unmap_range() is for unmapping PTEs without holding the VM
+> lock in MMU notifiers.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h   |   3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 112 ++++++++++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  14 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  35 ++-----
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c      |  16 ++--
+>   5 files changed, 120 insertions(+), 60 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index 44fe40f9e8df..653ffa9ca0f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -47,7 +47,7 @@ enum amdgpu_ib_pool_type;
+>   /* Internal kernel job ids. (decreasing values, starting from U64_MAX). */
+>   #define AMDGPU_KERNEL_JOB_ID_VM_UPDATE              (18446744073709551615ULL)
+>   #define AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES         (18446744073709551614ULL)
+> -#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE_RANGE        (18446744073709551613ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_VM_MAP_RANGE           (18446744073709551613ULL)
 
-On 01-Jun-26 1:15 PM, Wang, Yang(Kevin) wrote:
-> AMD General
->
-> Hi Asad,
->
-> Your patch doesn't seem to resolve the issue you're facing; I  think the =
-correct logic should check the return value and the size variable
-> What's your opinion?
+Not reusing the same ID would make it easier for umr, but it's not a blocker so you can keep the 
+code as is if you prefer.
 
-I think stop printing if buffer is full seems sufficient.
+Pierre-Eric
 
-The expectation is that size out param shouldn't be updated if the
-function returns failure.
-
-Thanks,
-Lijo
-
->
-> Here is the pseudocode:
-> ret =3D amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index], buf, &si=
-ze);
-> if (ret < 0) {
->      continue; // for next clock item.
-> } else if (ret =3D=3D 0) {
->      // Check ret and size/PAGE_SIZE here to meet the requirements
-> } else {
->   // go out to return.
-> }
-> Best Regards,
-> Kevin
->
->> -----Original Message-----
->> From: Kamal, Asad <Asad.Kamal@amd.com>
->> Sent: Friday, May 29, 2026 11:54 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
->> <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris
->> <Shiwu.Zhang@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin)
->> <KevinYang.Wang@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
->> Subject: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAGE_SIZE
->>
->> Stop appending OD sections in amdgpu_get_pp_od_clk_voltage() once the
->> sysfs page is full, instead of checking every
->> sysfs_emit_at() in SMU helpers
->>
->> v2: Drop the prior series that checked sysfs_emit_at() return values in =
-every
->> SMU *_emit_clk_levels() helper and smu_cmn_print_*().
->> (Kevin)
->>
->> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
->> ---
->>   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 15 ++++++++++++---
->>   1 file changed, 12 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> index 60db9b66d08c..03c95621fe2c 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> @@ -866,11 +866,15 @@ static ssize_t
->> amdgpu_get_pp_od_clk_voltage(struct device *dev,
->>        if (ret)
->>                return ret;
->>
->> -     for (clk_index =3D 0 ; clk_index < ARRAY_SIZE(od_clocks) ; clk_ind=
-ex++) {
->> +     for (clk_index =3D 0; clk_index < ARRAY_SIZE(od_clocks); clk_index=
-++) {
->> +             if (size >=3D PAGE_SIZE)
->> +                     break;
->>                amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index],
->> buf, &size);
->>        }
->>
->> -     if (size =3D=3D 0)
->> +     if (size >=3D PAGE_SIZE)
->> +             size =3D PAGE_SIZE;
->> +     else if (size =3D=3D 0)
->>                size =3D sysfs_emit(buf, "\n");
->>
->>        amdgpu_pm_put_access(adev);
->> @@ -3915,12 +3919,17 @@ static int amdgpu_retrieve_od_settings(struct
->> amdgpu_device *adev,
->>        if (ret)
->>                return ret;
->>
->> +     if (size >=3D PAGE_SIZE)
->> +             goto out_pm_put;
->> +
->>        ret =3D amdgpu_dpm_emit_clock_levels(adev, od_type, buf, &size);
->>        if (ret) {
->>                size =3D ret;
->>                goto out_pm_put;
->>        }
->> -     if (size =3D=3D 0)
->> +     if (size >=3D PAGE_SIZE)
->> +             size =3D PAGE_SIZE;
->> +     else if (size =3D=3D 0)
->>                size =3D sysfs_emit(buf, "\n");
->>
->>   out_pm_put:
->> --
->> 2.46.0
->
-
-
---_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-AMD General<br>
-</p>
-<br>
-<div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-After per discussed , the patch is&nbsp;</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-<br>
-</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-Reviewed-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-<br>
-</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-Best Regards,</div>
-<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
-ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
- 0, 0);">
-Kevin</div>
-<div id=3D"mail-editor-reference-message-container" class=3D"ms-outlook-mob=
-ile-reference-message">
-<div id=3D"mail-editor-reference-message-container">
-<hr style=3D"display: inline-block; width: 98%;">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><span style=3D"font-family: Calibri, =
-sans-serif;"><b>From:</b>&nbsp;Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
-<b>Sent:</b>&nbsp;Monday, June 1, 2026 5:57 PM<br>
-<b>To:</b>&nbsp;Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; Kamal, As=
-ad &lt;Asad.Kamal@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@li=
-sts.freedesktop.org&gt;<br>
-<b>Cc:</b>&nbsp;Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Ma, Le &lt;Le=
-.Ma@amd.com&gt;; Zhang, Morris &lt;Shiwu.Zhang@amd.com&gt;; Deucher, Alexan=
-der &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b>&nbsp;Re: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit=
- at PAGE_SIZE</span>
-<div style=3D"font-family: Calibri, sans-serif;">&nbsp;</div>
-</div>
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<div class=3D"PlainText" style=3D"font-size: 11pt;"><br>
-<br>
-On 01-Jun-26 1:15 PM, Wang, Yang(Kevin) wrote:<br>
-&gt; AMD General<br>
-&gt;<br>
-&gt; Hi Asad,<br>
-&gt;<br>
-&gt; Your patch doesn't seem to resolve the issue you're facing; I&nbsp; th=
-ink the correct logic should check the return value and the size variable<b=
-r>
-&gt; What's your opinion?<br>
-<br>
-I think stop printing if buffer is full seems sufficient.<br>
-<br>
-The expectation is that size out param shouldn't be updated if the<br>
-function returns failure.<br>
-<br>
-Thanks,<br>
-Lijo<br>
-<br>
-&gt;<br>
-&gt; Here is the pseudocode:<br>
-&gt; ret =3D amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_index], buf, =
-&amp;size);<br>
-&gt; if (ret &lt; 0) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue; // for next clock item.<br>
-&gt; } else if (ret =3D=3D 0) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Check ret and size/PAGE_SIZE here to =
-meet the requirements<br>
-&gt; } else {<br>
-&gt;&nbsp;&nbsp; // go out to return.<br>
-&gt; }<br>
-&gt; Best Regards,<br>
-&gt; Kevin<br>
-&gt;<br>
-&gt;&gt; -----Original Message-----<br>
-&gt;&gt; From: Kamal, Asad &lt;Asad.Kamal@amd.com&gt;<br>
-&gt;&gt; Sent: Friday, May 29, 2026 11:54 PM<br>
-&gt;&gt; To: amd-gfx@lists.freedesktop.org<br>
-&gt;&gt; Cc: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Zhang, Hawking<br>
-&gt;&gt; &lt;Hawking.Zhang@amd.com&gt;; Ma, Le &lt;Le.Ma@amd.com&gt;; Zhang=
-, Morris<br>
-&gt;&gt; &lt;Shiwu.Zhang@amd.com&gt;; Deucher, Alexander<br>
-&gt;&gt; &lt;Alexander.Deucher@amd.com&gt;; Wang, Yang(Kevin)<br>
-&gt;&gt; &lt;KevinYang.Wang@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com=
-&gt;<br>
-&gt;&gt; Subject: [PATCH v2] drm/amd/pm: Stop pp_od_clk_voltage emit at PAG=
-E_SIZE<br>
-&gt;&gt;<br>
-&gt;&gt; Stop appending OD sections in amdgpu_get_pp_od_clk_voltage() once =
-the<br>
-&gt;&gt; sysfs page is full, instead of checking every<br>
-&gt;&gt; sysfs_emit_at() in SMU helpers<br>
-&gt;&gt;<br>
-&gt;&gt; v2: Drop the prior series that checked sysfs_emit_at() return valu=
-es in every<br>
-&gt;&gt; SMU *_emit_clk_levels() helper and smu_cmn_print_*().<br>
-&gt;&gt; (Kevin)<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Asad Kamal &lt;asad.kamal@amd.com&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/amdgpu_pm.c | 15 ++++++++++++--=
--<br>
-&gt;&gt;&nbsp;&nbsp; 1 file changed, 12 insertions(+), 3 deletions(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt;&gt; index 60db9b66d08c..03c95621fe2c 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c<br>
-&gt;&gt; @@ -866,11 +866,15 @@ static ssize_t<br>
-&gt;&gt; amdgpu_get_pp_od_clk_voltage(struct device *dev,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&gt;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; for (clk_index =3D 0 ; clk_index &lt; AR=
-RAY_SIZE(od_clocks) ; clk_index++) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; for (clk_index =3D 0; clk_index &lt; ARR=
-AY_SIZE(od_clocks); clk_index++) {<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_emit_clock_levels(adev, od_clocks[clk_in=
-dex],<br>
-&gt;&gt; buf, &amp;size);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (size =3D=3D 0)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; size =3D PAGE_SIZE;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else if (size =3D=3D 0)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; size =3D sysfs_emit(buf, &quot;\n&quot;);<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_pm_put_access(ade=
-v);<br>
-&gt;&gt; @@ -3915,12 +3919,17 @@ static int amdgpu_retrieve_od_settings(str=
-uct<br>
-&gt;&gt; amdgpu_device *adev,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&gt;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto out_pm_put;<br>
-&gt;&gt; +<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_dpm_emit_=
-clock_levels(adev, od_type, buf, &amp;size);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; size =3D ret;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; goto out_pm_put;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (size =3D=3D 0)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (size &gt;=3D PAGE_SIZE)<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; size =3D PAGE_SIZE;<br>
-&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else if (size =3D=3D 0)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; size =3D sysfs_emit(buf, &quot;\n&quot;);<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp;&nbsp; out_pm_put:<br>
-&gt;&gt; --<br>
-&gt;&gt; 2.46.0<br>
-&gt;<br>
-<br>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB29729736F9A8FEFBFB2DCDBB82152DM6PR12MB2972namp_--
+>   #define AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR            (18446744073709551612ULL)
+>   #define AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER         (18446744073709551611ULL)
+>   #define AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA (18446744073709551610ULL)
+> @@ -63,6 +63,7 @@ enum amdgpu_ib_pool_type;
+>   #define AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST         (18446744073709551600ULL)
+>   #define AMDGPU_KERNEL_JOB_ID_VPE_RING_TEST          (18446744073709551599ULL)
+>   #define AMDGPU_KERNEL_JOB_ID_RUN_SHADER             (18446744073709551598ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_VM_UNMAP_RANGE         (18446744073709551597ULL)
+>   
+>   struct amdgpu_job {
+>   	struct drm_sched_job    base;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index edc8b1ca2d3e..b5adfcacc55a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1080,11 +1080,10 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+>   }
+>   
+>   /**
+> - * amdgpu_vm_update_range - update a range in the vm page table
+> + * amdgpu_vm_map_range - map something to a range in the vm page tables
+>    *
+>    * @adev: amdgpu_device pointer to use for commands
+>    * @vm: the VM to update the range
+> - * @unlocked: unlocked invalidation during MM callback
+>    * @flush_tlb: trigger tlb invalidation after update completed
+>    * @allow_override: change MTYPE for local NUMA nodes
+>    * @sync: fences we need to sync to
+> @@ -1097,23 +1096,26 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+>    * @pages_addr: DMA addresses to use for mapping
+>    * @fence: optional resulting fence
+>    *
+> - * Fill in the page table entries between @start and @last.
+> + * Fill in the page table entries between @start and @last. Allocate and free
+> + * new page tables as needed. Can only be called while holding the VM lock.
+>    *
+>    * Returns:
+>    * 0 for success, negative erro code for failure.
+>    */
+> -int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -			   bool unlocked, bool flush_tlb, bool allow_override,
+> -			   struct amdgpu_sync *sync, uint64_t start,
+> -			   uint64_t last, uint64_t flags, uint64_t offset,
+> -			   uint64_t vram_base, struct ttm_resource *res,
+> -			   dma_addr_t *pages_addr, struct dma_fence **fence)
+> +int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +			bool flush_tlb, bool allow_override,
+> +			struct amdgpu_sync *sync, uint64_t start,
+> +			uint64_t last, uint64_t flags, uint64_t offset,
+> +			uint64_t vram_base, struct ttm_resource *res,
+> +			dma_addr_t *pages_addr, struct dma_fence **fence)
+>   {
+>   	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
+>   	struct amdgpu_vm_update_params params;
+>   	struct amdgpu_res_cursor cursor;
+>   	int r, idx;
+>   
+> +	amdgpu_vm_assert_locked(vm);
+> +
+>   	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+>   		return -ENODEV;
+>   
+> @@ -1138,7 +1140,6 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	params.adev = adev;
+>   	params.vm = vm;
+>   	params.pages_addr = pages_addr;
+> -	params.unlocked = unlocked;
+>   	params.needs_flush = flush_tlb;
+>   	params.override_pte = allow_override && adev->gmc.override_pte;
+>   	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+> @@ -1149,7 +1150,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		goto error_free;
+>   	}
+>   
+> -	if (!unlocked && !dma_fence_is_signaled(vm->last_unlocked)) {
+> +	if (!dma_fence_is_signaled(vm->last_unlocked)) {
+>   		struct dma_fence *tmp = dma_fence_get_stub();
+>   
+>   		amdgpu_bo_fence(vm->root.bo, vm->last_unlocked, true);
+> @@ -1158,7 +1159,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	}
+>   
+>   	r = vm->update_funcs->prepare(&params, sync,
+> -				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_RANGE);
+> +				      AMDGPU_KERNEL_JOB_ID_VM_MAP_RANGE);
+>   	if (r)
+>   		goto error_free;
+>   
+> @@ -1234,6 +1235,77 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	return r;
+>   }
+>   
+> +/**
+> + * amdgpu_vm_unmap_range - clear leave PTEs to unmap something
+> + *
+> + * @adev: amdgpu_device pointer to use for commands
+> + * @vm: the VM to update the range
+> + * @sync: fences we need to sync to
+> + * @start: start of unmapped range
+> + * @last: last unmapped entry
+> + * @flags: flags for the entries
+> + * @fence: optional resulting fence
+> + *
+> + * Fill in the page table entries between @start and @last with a fixed flags
+> + * value without allocating or freeing page tables. Can be used without locking
+> + * the VM.
+> + *
+> + * Returns:
+> + * 0 for success, negative erro code for failure.
+> + */
+> +int amdgpu_vm_unmap_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +			   struct amdgpu_sync *sync, uint64_t start,
+> +			   uint64_t last, uint64_t flags,
+> +			   struct dma_fence **fence)
+> +{
+> +	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
+> +	struct amdgpu_vm_update_params params;
+> +	int r, idx;
+> +
+> +	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+> +		return -ENODEV;
+> +
+> +	tlb_cb = kmalloc(sizeof(*tlb_cb), GFP_KERNEL);
+> +	if (!tlb_cb) {
+> +		drm_dev_exit(idx);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	memset(&params, 0, sizeof(params));
+> +	params.adev = adev;
+> +	params.vm = vm;
+> +	params.needs_flush = true;
+> +	params.unlocked = true;
+> +	INIT_LIST_HEAD(&params.tlb_flush_waitlist);
+> +
+> +	amdgpu_vm_eviction_lock(vm);
+> +	if (vm->evicting) {
+> +		r = -EBUSY;
+> +		goto error_free;
+> +	}
+> +
+> +	r = vm->update_funcs->prepare(&params, sync,
+> +				      AMDGPU_KERNEL_JOB_ID_VM_UNMAP_RANGE);
+> +	if (r)
+> +		goto error_free;
+> +
+> +	amdgpu_vm_update_leaves(&params, start, last, 0, flags);
+> +
+> +	r = vm->update_funcs->commit(&params, fence);
+> +	if (r)
+> +		goto error_free;
+> +
+> +	amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
+> +	amdgpu_vm_pt_free_list(adev, &params);
+> +	tlb_cb = NULL;
+> +
+> +error_free:
+> +	kfree(tlb_cb);
+> +	amdgpu_vm_eviction_unlock(vm);
+> +	drm_dev_exit(idx);
+> +	return r;
+> +}
+> +
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+>   			  struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM])
+>   {
+> @@ -1362,11 +1434,11 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   
+>   		trace_amdgpu_vm_bo_update(mapping);
+>   
+> -		r = amdgpu_vm_update_range(adev, vm, false, flush_tlb,
+> -					   !uncached, &sync, mapping->start,
+> -					   mapping->last, update_flags,
+> -					   mapping->offset, vram_base, mem,
+> -					   pages_addr, last_update);
+> +		r = amdgpu_vm_map_range(adev, vm, flush_tlb, !uncached, &sync,
+> +					mapping->start, mapping->last,
+> +					update_flags, mapping->offset,
+> +					vram_base, mem, pages_addr,
+> +					last_update);
+>   		if (r)
+>   			goto error_free;
+>   	}
+> @@ -1565,9 +1637,9 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   			struct amdgpu_bo_va_mapping, list);
+>   		list_del(&mapping->list);
+>   
+> -		r = amdgpu_vm_update_range(adev, vm, false, true, false,
+> -					   &sync, mapping->start, mapping->last,
+> -					   0, 0, 0, NULL, NULL, &f);
+> +		r = amdgpu_vm_map_range(adev, vm, true, false,
+> +					&sync, mapping->start, mapping->last,
+> +					0, 0, 0, NULL, NULL, &f);
+>   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>   		if (r) {
+>   			dma_fence_put(f);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 3e86a2a470f0..561f2873d2ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -529,12 +529,16 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
+>   				uint32_t xcc_mask);
+>   void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+> -int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> -			   bool unlocked, bool flush_tlb, bool allow_override,
+> +int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +			bool flush_tlb, bool allow_override,
+> +			struct amdgpu_sync *sync, uint64_t start,
+> +			uint64_t last, uint64_t flags, uint64_t offset,
+> +			uint64_t vram_base, struct ttm_resource *res,
+> +			dma_addr_t *pages_addr, struct dma_fence **fence);
+> +int amdgpu_vm_unmap_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			   struct amdgpu_sync *sync, uint64_t start,
+> -			   uint64_t last, uint64_t flags, uint64_t offset,
+> -			   uint64_t vram_base, struct ttm_resource *res,
+> -			   dma_addr_t *pages_addr, struct dma_fence **fence);
+> +			   uint64_t last, uint64_t flags,
+> +			   struct dma_fence **fence);
+>   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+>   			struct amdgpu_bo_va *bo_va,
+>   			bool clear);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 6f5415d5a1bc..ac3f3e31e2e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -553,7 +553,6 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+>   			    struct amdgpu_vm_update_params *params)
+>   {
+>   	struct amdgpu_vm_bo_base *entry, *next;
+> -	bool unlocked = params->unlocked;
+>   
+>   	if (list_empty(&params->tlb_flush_waitlist))
+>   		return;
+> @@ -561,7 +560,7 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
+>   	/*
+>   	 * unlocked unmap clear page table leaves, warning to free the page entry.
+>   	 */
+> -	WARN_ON(unlocked);
+> +	WARN_ON(params->unlocked);
+>   
+>   	list_for_each_entry_safe(entry, next, &params->tlb_flush_waitlist, vm_status)
+>   		amdgpu_vm_pt_free(entry);
+> @@ -801,24 +800,17 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   		uint64_t incr, entry_end, pe_start;
+>   		struct amdgpu_bo *pt;
+>   
+> -		if (!params->unlocked) {
+> -			/* make sure that the page tables covering the
+> -			 * address range are actually allocated
+> -			 */
+> -			r = amdgpu_vm_pt_alloc(params->adev, params->vm,
+> -					       &cursor);
+> -			if (r)
+> -				return r;
+> -		}
+> +		/* make sure that the page tables covering the
+> +		 * address range are actually allocated
+> +		 */
+> +		r = amdgpu_vm_pt_alloc(params->adev, params->vm, &cursor);
+> +		if (r)
+> +			return r;
+>   
+>   		shift = amdgpu_vm_pt_level_shift(adev, cursor.level);
+>   		parent_shift = amdgpu_vm_pt_level_shift(adev, cursor.level - 1);
+> -		if (params->unlocked) {
+> -			/* Unlocked updates are only allowed on the leaves */
+> -			if (amdgpu_vm_pt_descendant(adev, &cursor))
+> -				continue;
+> -		} else if (adev->asic_type < CHIP_VEGA10 &&
+> -			   (flags & AMDGPU_PTE_VALID)) {
+> +		if (adev->asic_type < CHIP_VEGA10 &&
+> +		    (flags & AMDGPU_PTE_VALID)) {
+>   			/* No huge page support before GMC v9 */
+>   			if (cursor.level != AMDGPU_VM_PTB) {
+>   				if (!amdgpu_vm_pt_descendant(adev, &cursor))
+> @@ -864,14 +856,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level);
+>   		pe_start = ((cursor.pfn >> shift) & mask) * 8;
+>   
+> -		if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
+> -			/*
+> -			 * MMU notifier callback unlocked unmap huge page, leave is PDE entry,
+> -			 * only clear one entry. Next entry search again for PDE or PTE leave.
+> -			 */
+> -			entry_end = 1ULL << shift;
+> -		else
+> -			entry_end = ((uint64_t)mask + 1) << shift;
+> +		entry_end = ((uint64_t)mask + 1) << shift;
+>   		entry_end += cursor.pfn & ~(entry_end - 1);
+>   		entry_end = min(entry_end, end);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 37b5166e9a14..d0ea20dea3e1 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1372,9 +1372,8 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		return -EINVAL;
+>   	}
+>   
+> -	return amdgpu_vm_update_range(adev, vm, true, true, false, NULL, gpu_start,
+> -				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
+> -				      fence);
+> +	return amdgpu_vm_unmap_range(adev, vm, NULL, gpu_start, gpu_end,
+> +				     init_pte_value, fence);
+>   }
+>   
+>   static int
+> @@ -1489,12 +1488,11 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+>   			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
+>   			 pte_flags);
+>   
+> -		r = amdgpu_vm_update_range(adev, vm, false, flush_tlb, true,
+> -					   NULL, gpu_start, gpu_end,
+> -					   pte_flags,
+> -					   (last_start - prange->start) << PAGE_SHIFT,
+> -					   bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
+> -					   NULL, dma_addr, &vm->last_update);
+> +		r = amdgpu_vm_map_range(adev, vm, flush_tlb, true, NULL,
+> +					gpu_start, gpu_end, pte_flags,
+> +					(last_start - prange->start) << PAGE_SHIFT,
+> +					bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
+> +					NULL, dma_addr, &vm->last_update);
+>   
+>   		for (j = last_start - prange->start; j <= i; j++)
+>   			dma_addr[j] |= last_domain;
