@@ -4,131 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F673CD6E5D
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 17:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7036CD5BD1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 18:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFFA113650;
-	Mon,  1 Jun 2026 17:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29AE2113749;
+	Mon,  1 Jun 2026 18:39:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xvxkyi9l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BmqnsQqC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GmMEXqc5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y6n3p1wY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wRSYPEEJ";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D1711364F
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 17:30:52 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A51576BB9C;
- Mon,  1 Jun 2026 17:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780335050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WjdbQ4xJezVp9Wa3jVVta4lyj8SRlbZm5FieCr1jNJs=;
- b=xvxkyi9l7YN8NRCNgaI8OGqa6igpVr3uy6FzMBE2jPkUwPiZF7jrRBO1GmqPCqVD/wqKf1
- +fDpT5/39IF/USECix80yh/WVejKwlg/XlJszQ8f8etTpbeBq6emjJJA83vbVaSNzIVH/L
- tdDsHII4N/jTb2cxutZJlZ9/K6P9gvU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780335050;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WjdbQ4xJezVp9Wa3jVVta4lyj8SRlbZm5FieCr1jNJs=;
- b=BmqnsQqCiC3H4w/mmGv5haZnp/RxGC2fc71TRRfYUKnnZR87/R9qpbPy0gPpBaLJ9UqeAR
- +axiGpuvDUhAThBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1780335046; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WjdbQ4xJezVp9Wa3jVVta4lyj8SRlbZm5FieCr1jNJs=;
- b=GmMEXqc5Tgih2c1LpKPudFZkBJfGYQo4FS+WxxFursq3LS1KINZwGs3MAQqFem/S2P87NW
- L1nG3Tf/lKeSb4EtywHNUzax35G/91a9nJELhJqHv/0TB6I4pSE4e7nihRiuFa2N+UQoU4
- cuZMPT2ScXb+jBCst5k0sAw2F8wqOiU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1780335046;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WjdbQ4xJezVp9Wa3jVVta4lyj8SRlbZm5FieCr1jNJs=;
- b=y6n3p1wY7NSghx27drpSWVFnVpGJsClAaIYIlSZP4svJWW3EaQ3dPZIZfaMDyijjTq9XvC
- J4wW+nGQgd72UABQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 52347779A7;
- Mon,  1 Jun 2026 17:30:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WjJrEsbBHWpnOgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 01 Jun 2026 17:30:46 +0000
-Message-ID: <f7f53f9b-2576-4488-b0c1-35b6998d123c@suse.de>
-Date: Mon, 1 Jun 2026 19:30:45 +0200
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010058.outbound.protection.outlook.com
+ [40.93.198.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3706113749
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 18:39:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NuaYF7Ps5/zoOsiOCS8jgRxpBjJzbW6uh5aZS53jSII/5l/cXwBzDIfhFgHq+66qLNQ5fOYfRP6ULd32OJicBrRFtxszfznj3rGwdMxtbw/NEDGVimrJI7pSnD1MNB+Lv9uY/VVr23xVPOPnaC3SFyRjDs744efHRALkb8NW2aDA/q3DLyZVZLBbIK5Qplv4GhvmR/a+fKphEfmPo3r1xKSdGvjtkjTmRfd0I4y5A5iJD51nQlYuAFi5RUN/hJwKvTyl+DAvWIg+2T9kAGz9sJXX81peEpHUxdOiTOv65q5JYV5nWaP9UQcipflVyGeoseVM2G23W/g2gHtdN/M4TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hq+shxv4A+RpJyQ8xhjjEdYLjUP0sBWMj1/cRfWPqsA=;
+ b=msq4+/cYQ0NfPLlu/wi5q8E0VKZ5oxm/LAimrGsSMKRSzLZlPeS1YySmW0AnYqkCpvNFLjraYKnhp8YVLB4xkZI+A5N90fO8ZLCPVArTkrgQytr+ZFNePI/r7oknbjRa+jU7trzCkK7AxYlh0mi+0yahaE14mxx/3jUHZR6Yfa+8ad7tNwTnVFD5U0P+jdHZxVd8uLxRlr8+KUkI6aqeWCUecBoDw0arflOSstP0szDbm3j8uO8dzFfymBehV06u7pTYr+m896LT7UnXFpUXBsf/xUmQNQGjBPyZW/KIGOCi4WYiozflud7Tp5Nmnz929Px8Cqn+a/9gWkK36aMmuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hq+shxv4A+RpJyQ8xhjjEdYLjUP0sBWMj1/cRfWPqsA=;
+ b=wRSYPEEJpCjIq0OhYgEzMCdUERgg9OntQpw2HQodS2ns72WD9nKTgR4xIDIYYpJsFNwfbEUOA3CUv2ISUZKEdFem+IrON0vcN7xQN+mrOw3RuWKjpfXa114C6uGVZq9aqO1qIMajrArD0PnRhYr1B2ElPhZq0JD9P/4qyglWiBo=
+Received: from BN9PR03CA0406.namprd03.prod.outlook.com (2603:10b6:408:111::21)
+ by BY5PR12MB4081.namprd12.prod.outlook.com (2603:10b6:a03:20e::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Mon, 1 Jun 2026
+ 18:39:00 +0000
+Received: from BN2PEPF000044AA.namprd04.prod.outlook.com
+ (2603:10b6:408:111:cafe::3b) by BN9PR03CA0406.outlook.office365.com
+ (2603:10b6:408:111::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.17 via Frontend Transport; Mon, 1
+ Jun 2026 18:39:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044AA.mail.protection.outlook.com (10.167.243.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 18:39:00 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 1 Jun
+ 2026 13:39:00 -0500
+Received: from [10.4.12.116] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 1 Jun 2026 13:38:59 -0500
+Message-ID: <29bf4401-4390-4247-9eaf-9da96c36797b@amd.com>
+Date: Mon, 1 Jun 2026 14:38:59 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] drm/vblank: timer: Fix timestamp calculation
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- simona@ffwll.ch, louis.chauvet@bootlin.com, ville.syrjala@linux.intel.com,
- jani.nikula@intel.com, mhklkml@zohomail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev
-References: <20260601141922.91498-1-tzimmermann@suse.de>
- <20260601141922.91498-3-tzimmermann@suse.de>
- <c048fbcb-d318-414f-805f-18816cfa86f3@mailbox.org>
+Subject: Re: [PATCH 0/5] drm/amd/display: Retry link detection when it fails
+To: Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, <amd-gfx@lists.freedesktop.org>,
+ <Alexander.Deucher@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Ray Wu <Ray.Wu@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Roman Li <roman.li@amd.com>, Dan Wheeler
+ <daniel.wheeler@amd.com>
+References: <20260531105744.28717-1-timur.kristof@gmail.com>
+ <4810ae14-8580-438f-ad3d-d7c7d8e7d6a3@amd.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <c048fbcb-d318-414f-805f-18816cfa86f3@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <4810ae14-8580-438f-ad3d-d7c7d8e7d6a3@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.986]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[mailbox.org,ffwll.ch,bootlin.com,linux.intel.com,intel.com,zohomail.com,kernel.org,gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- URIBL_BLOCKED(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AA:EE_|BY5PR12MB4081:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2701916f-2ef1-4deb-012a-08dec00d0c0c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|1800799024|921020|4143699003|11063799006|22082099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: L1cyTLcOd5eQb7oBChmWcAQPrfkTpW8UhNqU+YnZ6e5+d2TQv49ufgdqK6JRRlTK2C+o3jQ0A23Mnq6wTEttqgMGXsA1Q95RtIfOHTdxxxPIBOPwIooxN+ntCCV+JBQk2zM6n+4+f4RbkIKoR0DxExDVEyKwW1RcXczkTIIyz1xibZxBULDX5AkqNLDLcd+DJgzEHJ0x892ZudW3inTvojBGrgM0nFXsGuMIgLvUdJmrtZLHvBFZxiNhUBYJgXW1uJyLdW2u4Q7iqYzbeBGoEfTu8Yn4yRHymDZgn2JrlwzO0Dn8uAUvFGUDSowsvGjBO7Kx+nML9Eb/iERSy9iJE/RsAY5zGD2k7/bO+dbxXaz0owu5d2a1rW1y+wACfMI0g20lsjaK43Iwl/2sh3878ibC2TuCoUBneUz/6rIueb2+gKH7CMGxvpbUNpBh7fq0xyUjIuIsJkD7GmpL4s9TgDUCT8uvivL1b0aiu7orRbh7/QxNp0MnypSZGw9uvVlhnYT7PI71HGZ0DKfweImJjmRosU/VoDoZPu9yeditXowIyEmEA+d437+ets4I30Pi8YrZx3RvP8NiT1ALBIlcRnWz+ZFQ1NaAmcBd2ozwFiDwHtlLWkBiiY4SJKdYe+quHeosa9L076sE62q7OfS2TzP5TDt9c48128HlGr4iGxAqOJvDFhkMMuPbYAPRLxwmedSKHsedLNXHrj8F4jxN5XqyH0SmFOfY/4h0vgl5K5WTE6tpsCt60pq3umivDYIhKxFGAAxmoArkaQjsKnmvNQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(921020)(4143699003)(11063799006)(22082099003)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: yakCtOStTcpph6RaINXzOiV30tY4ER8LjVNp6TxWEnuLP62xUbjSYeDYHW+QqjmMKfnpeyk5WRZwytFspP5OU2L3Pfzr9wNXYf0SYhGAA9vo/mh2znFd+85INyWUghbnUQjcNzEJSqPk/MFXm48QtHicf3WBUQUTsmO35jwDO7XOYrI5AWMHaXzo8hWp4AgKwc06ErkoO9NDotxAt1vAwwZUQr60/rgY4+SXo9kim4x2qjfFGmvLlef5yE/lszk8wWCtpJHtfgxMqMX7rwBWa68U1DixivtjNTg8gCRWA18V/4+zaUUSbpgQzUG5RxcVcoyVQfvCpvumzXyyWvZuf527M3831pblZlWrsxY5cllCCcs0o1cwZQy3XyeuihMOVwi95ybK1YaBtX1aRk7WxHfiUTDExS6xq3nHpuooPBEkW9dFItR9bOKABE12zw1H
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 18:39:00.2001 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2701916f-2ef1-4deb-012a-08dec00d0c0c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4081
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,98 +116,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 01.06.26 um 18:24 schrieb Michel Dänzer:
-> On 6/1/26 16:08, Thomas Zimmermann wrote:
->> In drm_crtc_vblank_get_vblank_timeout(), return the timestamp of the
->> first visible scanline after the last vblank timeout. This is what the
->> caller expects.
+
+On 5/31/26 8:57 AM, Harry Wentland wrote:
+> 
+> 
+> On 2026-05-31 06:57, Timur Kristóf wrote:
+>> When dc_link_detect_connection_type thinks that a display is
+>> connected, but dc_link_detect failed, enqueue delayed work to
+>> retry the link detection again.
 >>
->> A vblank phase starts with a vblank timeout. At this point the display
->> is blanked for several scanlines. Afterwards the display is unblanked
->> until the next vblank timeout occurs. The display content is only visible
->> during that second part.
+>> Useful when eg. HPD pin is high but the display isn't ready and
+>> didn't respond to DDC. Typically this may happen when the HPD
+>> pins make contact before the DDC pins, or when the display
+>> is "slow to wake up" and doesn't respond on DDC.
 >>
->> The current implementation of drm_crtc_vblank_get_vblank_timeout()
->> returns the timestamp of the last vblank timeout that started the current
->> vblank phase. But the display only unblanks after 20 to 30 percent of
->> the overall frame duration. The returned timestamp is therefore too early.
+>> The first few patches are just a slight refactor to
+>> de-duplicate some code and do some cleanup necessary
+>> for the retry. This is to avoid adding even more duplicated
+>> code.
+> 
+> Series is
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> Dan, can we queue this for testing in the next promotion cycle before 
+> merging?
+> 
+> Harry
+> 
+
+I will add it to this week's candidate.
+
 >>
->> The next vblank timeout is already known when calculating the returned
->> timestamp. Instead of subtracting the duration of a full frame from the
->> value, only subtract the duration of the active, visible part. The result
->> is the timestamp of the first visible scanline, as expected by the caller.
+>> Timur Kristóf (5):
+>>    drm/amd/display: Add detect reason to handle_hpd_irq_helper
+>>    drm/amd/display: Use handle_hpd_irq_helper for HPD RX
+>>    drm/amd/display: Always create delayed HPD work queue
+>>    drm/amd/display: Retry link detection on hotplug
+>>    drm/amd/display: Retry link detection on resume and boot
 >>
->> This bug was not introduced by the generic vblank timer. It appears that
->> the get_vblank_timeout logic has always been buggy since it was first
->> added in commit 3a0709928b17 ("drm/vkms: Add vblank events simulated by
->> hrtimers").
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 216 +++++++++++++-----
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  16 ++
+>>   2 files changed, 179 insertions(+), 53 deletions(-)
 >>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/drm_vblank.c | 32 +++++++++++++++++++++++++-------
->>   1 file changed, 25 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
->> index 96d70c3d4522..d52df247d04e 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> [...]
->> @@ -2312,17 +2321,26 @@ bool drm_crtc_vblank_get_vblank_timeout(struct drm_crtc *crtc, ktime_t *vblank_t
->>   		*vblank_time = READ_ONCE(vtimer->timer.node.expires);
->>   	} while (cur_count != drm_crtc_vblank_count_and_time(crtc, &cur_time));
->>   
->> -	if (drm_WARN_ON(crtc->dev, !ktime_compare(*vblank_time, cur_time)))
->> +	if (drm_WARN_ON(dev, !ktime_compare(*vblank_time, cur_time)))
->>   		return false; /* Already expired */
->>   
->> +	framedur_ns = vblank->framedur_ns;
->> +
->>   	/*
->> -	 * To prevent races we roll the hrtimer forward before we do any
->> -	 * interrupt processing - this is how real hw works (the interrupt
->> -	 * is only generated after all the vblank registers are updated)
->> -	 * and what the vblank core expects. Therefore we need to always
->> -	 * correct the timestamp by one frame.
->> +	 * To prevent races we rolled the hrtimer forward before we did any
->> +	 * timeout processing - this is how real hw works (the interrupt is
->> +	 * only generated after all the vblank registers are updated) and what
->> +	 * the vblank core expects.
->> +	 *
->> +	 * Therefore we always need to correct the timestamp. The returned
->> +	 * time should be the time of the first active scanline after the
->> +	 * previous vblank. Hence subtract the active phase's duration from
->> +	 * the next expiration time.
->>   	 */
->> -	*vblank_time = ktime_sub(*vblank_time, vtimer->interval);
->> +	if (drm_WARN_ON(dev, !mode->crtc_vtotal))
->> +		return false;
->> +	activedur_ns = div_s64(framedur_ns * mode->crtc_vdisplay, mode->crtc_vtotal);
->> +	*vblank_time = ktime_sub_ns(*vblank_time, activedur_ns);
-> Normally the timestamp returned by drm_crtc_vblank_count_and_time is supposed to correspond to the end of vertical blank / start of active, in which case the new code here looks wrong.
->
-> Also, while the current time is inside an active area, it's supposed to return the timestamp corresponding to the start of the current active area, not the next one.
-
-The initial value of *vblank_time is when the vblank timer fires _next_ 
-and the display blanks. Subtracting the length of the active period 
-should give the time of the first active scanline within the current 
-vblank phase.
-
-Isn't that exactly what you describe?
-
-Best regards
-Thomas
-
->
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+> 
 
