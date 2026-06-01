@@ -4,48 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E12ECD6E66
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DE19CD5BD1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:14:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC9C71133B7;
-	Mon,  1 Jun 2026 14:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0441133C8;
+	Mon,  1 Jun 2026 14:14:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GkVDUOpU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Gp6uYTqA";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6315C1133AD
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 14:08:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=qFky50i69mHKmF4hLBqNjA3nuFaQMfA1/Z1R7d1Z84c=; b=GkVDUOpUWeYkqA2cjTqgiblv8B
- UhYZMArWic2tTcUuqmxcCSbO1RxSiKATQrbWT14z5vSuBoq58i/FBUXE3XHulOFvytQ/x0SCPl5Ht
- YcALiewlR6FYuP6koWnpHXFVTfXPI+x6A5RDynkNgz1pnIsjW3XP9gCbuW02T9BwAhpYf1gHCcoGN
- II0oC1r45pYa26ZsmWQNLPwz0NU1/yXEP0KDA2X5VDRjtEN5wia8//Ryf55xZKcceufcPyli86wIe
- iR6h0uQaKaPVMRIzMKgomZVW+bp5I8Hw7ReHMT/sRS4JF4uk5Xa9U8JKrGqtVmgHLEy3eYyrsG1Oe
- Y35ryB4A==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wU3Jn-00B2va-KG; Mon, 01 Jun 2026 16:08:39 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 6/7] drm/amdgpu: Convert context manager to xarray
-Date: Mon,  1 Jun 2026 15:08:27 +0100
-Message-ID: <20260601140828.27779-7-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260601140828.27779-1-tvrtko.ursulin@igalia.com>
-References: <20260601140828.27779-1-tvrtko.ursulin@igalia.com>
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010049.outbound.protection.outlook.com [52.101.85.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3E21133C8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 14:14:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oateMTZXCq4kEX07NtpASe6sNhRUMx6OR3/IdmZVUP8qpLIFQlq1Dw6etbiq6a3W1Be5lr56Z9SOLHpxSB2deJe1dJnJYmbv67UCXnVtSTOVnERi78316PtwGiLDqz/4nEUyPUl8csuiDR2KNd9c+98Z9QPthwcJEPhGyRak3fvwPZwbhsIn7waBI76txR04WxICM+72bS6mLFlFcll939CyWj0J58tW89EfGFfOP4xlPyi5x+weiTZm342aIOoDu/2rKxqcHchSHN0yVVcBhyrYmWkXsBK0AQI7nc89mL1aYtEpiOrCF6lVEcn/VK23d2LhieK3/d2tknRxXQIZcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fd7Riq5VcraJ4rkBHSnCCqi9DyIK3aSZUOil/X5lfqQ=;
+ b=W8cvthYJ8n6U1JRSV7pw2gz5nu+UCUJGYakzw5QaTDgPH5TKHQ2RQ3PNso12XGFMGK/jkt3igbQGDPPmDhYztyol3UZhGNrjkWbzGOglXszFUGkSlJ/Hp7LFvrF+XL/n24DC3FV1gOi1mLUM5eoRxSMvAAEQ4Osax1+WL7dgsjNwSDJ21linFgLC72oToV9pFXOT5wEYQvA/6n9ri+uAJXjSCrgMaJEJAs+ldo6Yw1asc+x94CqNkhBAqhj84IACf1kS+HcvXFDncAArp71YHILWXhrLHuXO+iBtAHNBnUxQEaE6gZtFSV2d5pANcQETL2HsXswo79XmpjYcrvZXJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fd7Riq5VcraJ4rkBHSnCCqi9DyIK3aSZUOil/X5lfqQ=;
+ b=Gp6uYTqAvK08ZMQHV2kktW/LbT++q0qkYHEfesJq9JlAW6m9bwU3EClBUbhWtfN0n4/0AKX6uPkN1tP3TAxFk/LJFOimm5SekG9sCKY2PoJFO6TtuAE8DhndNmmdQ0+H0EVkbYxxk+1GnIpKGtjoo+GQPL+aIeSWapdjXi2EQSU=
+Received: from SA9PR13CA0052.namprd13.prod.outlook.com (2603:10b6:806:22::27)
+ by IA1PR12MB6018.namprd12.prod.outlook.com (2603:10b6:208:3d6::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 14:14:13 +0000
+Received: from SN1PEPF00036F41.namprd05.prod.outlook.com
+ (2603:10b6:806:22:cafe::31) by SA9PR13CA0052.outlook.office365.com
+ (2603:10b6:806:22::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.5 via Frontend Transport; Mon, 1
+ Jun 2026 14:14:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF00036F41.mail.protection.outlook.com (10.167.248.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 14:14:13 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Mon, 1 Jun 2026 09:14:10 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Roman Li <roman.li@amd.com>, Tom Chung
+ <chiahsuan.chung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>, Nicholas Kazlauskas
+ <Nicholas.Kazlauskas@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH] drm/amd/display: Add missing kdoc for ALLM parameters
+Date: Mon, 1 Jun 2026 19:42:15 +0530
+Message-ID: <20260601141215.2647457-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F41:EE_|IA1PR12MB6018:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecc33539-5c31-47b1-c590-08debfe80e9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|1800799024|3023799007|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: WIH1SLaIvcodSRUSBiSV6+KkVlkVReMWZduej8hm/Z2aBpIIIrW62YyDtCmi/rUTCCerr4q/LzoMOfjrZu6/quufHMwFKrK9gUrLpSOvfYCvtSiGopEz/NUhVkxmRpfiDRW9xBVyYVwz/kjwU81E3VCtXAeZT2suMsB2mqgkjMcIDdhEM7jLVq6D+MR9j9O5qIfTB0QxmW0gBRevT9FCphi7IJ7tWJjYGh8c6kNTpmIP5AT5KWUmmgbOQt5nHk0BZ0DunY4iP+snRlPgiLZ4stVaQgNAUIHF8dusT8KVtdRsfQKEnXSmzkwwA9fywLayusT6Ar2cHnrglsEKXBgSt3Ck7KV/gDHNHl8NBdbBYlR+g5lQGzzGj89kInvxJ1lN3yx8nhsmRJjgo1GMxdKcwxIZTYY7EqlAUB8WTFA4ntCgzqQBf8Le+WXYCYpHPmDAk/Roi7oPww0xWmsCQht8uRfd9gkue5WNTtcoEzGOocVtstGACuhFZ1WKRWu22YgjdD/SvU3k3k/tKNOBD7YPkmh6ET8NGZsnc7i38HDrH91mDs6h2yTep3rwtkxjhXignaJiLKU+UW8Ddwh6DUhbQSbFHfJyd/n/yioXqoYj5A59Jq4rW+LVi6eV19fAEnS0GHDlF9Sa+HYLPSA66ejQ8M4DNvtk9effBh3waRvVk8JZqSpd00MR4jQzNjTIB7ttk3cbso16Btx20UgvWzjfXpDjrHYmp8txoAC9Byh52zA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(3023799007)(11063799006)(18002099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: SNzZCvPcrsUEPy+1i02o0KY9Aks5b6s56D7lCJVxsXrnhCzvE+5HGID3UrYGuyYSZx9lt05Mff9EZc2LxRhXqQUtX6FfTEB85Mf6B6YhHP8TVe/hRrNG0ak2nqRhOHG5Gw8zsXOt6W6C8fTQbMLOYrxPmXI6DEVTSH+m7cxPqCZ+zm9QCdsrea7s6UWLdJ5MI6zMPgMayVdqOUkJgp/maXa85Tv4f8lIm8WkQUFEnSdeMv16HTjEb0/0rbR3myK83ErQOkU/shFpXb7pDa4fp0zXszsLhjDnmwseTx9JzDiChcvF53dvfaXiTnacWfyxi6KtqbgzLg+SRJF8BQcLy+pDhhKqH77pfzGsitDn4boPhVmyP72wRurrCUGBBMy19jpQciJGmFOFKQEVnlJKQ+DqM9CDV02+s/qDeNAQFa+A/92np2F7oZClgYLeSt1V
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 14:14:13.1200 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecc33539-5c31-47b1-c590-08debfe80e9f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F41.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6018
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,330 +110,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-IDR is deprecated so let's convert the context manager to xarray.
+Add descriptions for the missing parameters for ALLMEnabled and
+ALLMValue  to keep the function documentation synchronized with the
+function prototype mod_build_hf_vsif_infopacket().
 
-In doing so we remove the context manager mutex and switch call sites
-which required the guarantee context cannot go away while they walk the
-list of context, or otherwise operate on them, to use reference counting.
+Fixes the below with gcc W=1:
+../display/modules/info_packet/info_packet.c:507 function parameter 'ALLMEnabled' not described in 'mod_build_hf_vsif_infopacket'
+../display/modules/info_packet/info_packet.c:507 function parameter 'ALLMValue' not described in 'mod_build_hf_vsif_infopacket'
 
-This allows us to use the built in xarray spinlock for all operations and
-just temporarily drop it when we need to call sleeping functions.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Fixes: 3c2381b92cba ("drm/amd/display: add support for VSIP info packet")
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
-v2:
- * No need for kref_get_unless_zero when locked.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 119 ++++++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c |   8 +-
- 3 files changed, 48 insertions(+), 84 deletions(-)
+ drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 4f4552c7732f..941cb80cab4e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -494,34 +494,26 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
- 	if (!ctx)
- 		return -ENOMEM;
- 
--	mutex_lock(&mgr->lock);
--	*id = 1;
--	r = idr_alloc_u32(&mgr->ctx_handles, ctx, id, UINT_MAX, GFP_KERNEL);
--	if (r) {
--		mutex_unlock(&mgr->lock);
--		kfree(ctx);
--		return r;
--	}
--
- 	r = amdgpu_ctx_init(mgr, priority, filp, ctx);
- 	if (r) {
--		idr_remove(&mgr->ctx_handles, *id);
--		*id = 0;
- 		kfree(ctx);
-+		return r;
- 	}
--	mutex_unlock(&mgr->lock);
-+
-+	r = xa_alloc(&mgr->ctx_handles, id, ctx, xa_limit_32b, GFP_KERNEL);
-+	if (r)
-+		amdgpu_ctx_put(ctx);
-+
- 	return r;
- }
- 
- static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
- {
--	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
- 	struct amdgpu_ctx *ctx;
- 
--	mutex_lock(&mgr->lock);
--	ctx = idr_remove(&mgr->ctx_handles, id);
-+	ctx = xa_erase(&fpriv->ctx_mgr.ctx_handles, id);
- 	amdgpu_ctx_put(ctx);
--	mutex_unlock(&mgr->lock);
-+
- 	return ctx ? 0 : -EINVAL;
- }
- 
-@@ -530,20 +522,12 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 			    union drm_amdgpu_ctx_out *out)
- {
- 	struct amdgpu_ctx *ctx;
--	struct amdgpu_ctx_mgr *mgr;
- 	unsigned reset_counter;
- 
--	if (!fpriv)
-+	ctx = amdgpu_ctx_get(fpriv, id);
-+	if (!ctx)
- 		return -EINVAL;
- 
--	mgr = &fpriv->ctx_mgr;
--	mutex_lock(&mgr->lock);
--	ctx = idr_find(&mgr->ctx_handles, id);
--	if (!ctx) {
--		mutex_unlock(&mgr->lock);
--		return -EINVAL;
--	}
--
- 	/* TODO: these two are always zero */
- 	out->state.flags = 0x0;
- 	out->state.hangs = 0x0;
-@@ -557,7 +541,8 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 		out->state.reset_status = AMDGPU_CTX_UNKNOWN_RESET;
- 	ctx->reset_counter_query = reset_counter;
- 
--	mutex_unlock(&mgr->lock);
-+	amdgpu_ctx_put(ctx);
-+
- 	return 0;
- }
- 
-@@ -569,19 +554,11 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct amdgpu_ctx *ctx;
--	struct amdgpu_ctx_mgr *mgr;
- 
--	if (!fpriv)
-+	ctx = amdgpu_ctx_get(fpriv, id);
-+	if (!ctx)
- 		return -EINVAL;
- 
--	mgr = &fpriv->ctx_mgr;
--	mutex_lock(&mgr->lock);
--	ctx = idr_find(&mgr->ctx_handles, id);
--	if (!ctx) {
--		mutex_unlock(&mgr->lock);
--		return -EINVAL;
--	}
--
- 	out->state.flags = 0x0;
- 	out->state.hangs = 0x0;
- 
-@@ -621,7 +598,8 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- 				      msecs_to_jiffies(AMDGPU_RAS_COUNTE_DELAY_MS));
- 	}
- 
--	mutex_unlock(&mgr->lock);
-+	amdgpu_ctx_put(ctx);
-+
- 	return 0;
- }
- 
-@@ -630,26 +608,18 @@ static int amdgpu_ctx_stable_pstate(struct amdgpu_device *adev,
- 				    bool set, u32 *stable_pstate)
- {
- 	struct amdgpu_ctx *ctx;
--	struct amdgpu_ctx_mgr *mgr;
- 	int r = 0;
- 
--	if (!fpriv)
-+	ctx = amdgpu_ctx_get(fpriv, id);
-+	if (!ctx)
- 		return -EINVAL;
- 
--	mgr = &fpriv->ctx_mgr;
--	mutex_lock(&mgr->lock);
--	ctx = idr_find(&mgr->ctx_handles, id);
--	if (!ctx) {
--		mutex_unlock(&mgr->lock);
--		return -EINVAL;
--	}
--
- 	if (set)
- 		r = amdgpu_ctx_set_stable_pstate(ctx, *stable_pstate);
- 	else
- 		*stable_pstate = amdgpu_get_stable_pstate(adev);
- 
--	mutex_unlock(&mgr->lock);
-+	amdgpu_ctx_put(ctx);
- 	return r;
- }
- 
-@@ -728,11 +698,11 @@ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
- 
- 	mgr = &fpriv->ctx_mgr;
- 
--	mutex_lock(&mgr->lock);
--	ctx = idr_find(&mgr->ctx_handles, id);
-+	xa_lock(&mgr->ctx_handles);
-+	ctx = xa_load(&mgr->ctx_handles, id);
- 	if (ctx)
- 		kref_get(&ctx->refcount);
--	mutex_unlock(&mgr->lock);
-+	xa_unlock(&mgr->ctx_handles);
- 	return ctx;
- }
- 
-@@ -869,8 +839,7 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
- 	unsigned int i;
- 
- 	mgr->adev = adev;
--	mutex_init(&mgr->lock);
--	idr_init_base(&mgr->ctx_handles, 1);
-+	xa_init_flags(&mgr->ctx_handles, XA_FLAGS_ALLOC1);
- 
- 	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
- 		atomic64_set(&mgr->time_spend[i], 0);
-@@ -879,13 +848,13 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
- long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
- {
- 	struct amdgpu_ctx *ctx;
--	struct idr *idp;
--	uint32_t id, i, j;
-+	unsigned long id;
-+	int i, j;
- 
--	idp = &mgr->ctx_handles;
--
--	mutex_lock(&mgr->lock);
--	idr_for_each_entry(idp, ctx, id) {
-+	xa_lock(&mgr->ctx_handles);
-+	xa_for_each(&mgr->ctx_handles, id, ctx) {
-+		kref_get(&ctx->refcount);
-+		xa_unlock(&mgr->ctx_handles);
- 		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
- 			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
- 				struct drm_sched_entity *entity;
-@@ -897,25 +866,21 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
- 				timeout = drm_sched_entity_flush(entity, timeout);
- 			}
- 		}
-+		amdgpu_ctx_put(ctx);
-+		xa_lock(&mgr->ctx_handles);
- 	}
--	mutex_unlock(&mgr->lock);
-+	xa_unlock(&mgr->ctx_handles);
- 	return timeout;
- }
- 
--static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
--{
--	struct amdgpu_ctx *ctx;
--	uint32_t id;
--
--	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
--		amdgpu_ctx_put(ctx);
--}
--
- void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr)
- {
--	amdgpu_ctx_mgr_entity_fini(mgr);
--	idr_destroy(&mgr->ctx_handles);
--	mutex_destroy(&mgr->lock);
-+	struct amdgpu_ctx *ctx;
-+	unsigned long id;
-+
-+	xa_for_each(&mgr->ctx_handles, id, ctx)
-+		amdgpu_ctx_put(ctx);
-+	xa_destroy(&mgr->ctx_handles);
- }
- 
- void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
-@@ -923,21 +888,21 @@ void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
- {
- 	struct amdgpu_ctx *ctx;
- 	unsigned int hw_ip, i;
--	uint32_t id;
-+	unsigned long id;
- 
- 	/*
- 	 * This is a little bit racy because it can be that a ctx or a fence are
- 	 * destroyed just in the moment we try to account them. But that is ok
- 	 * since exactly that case is explicitely allowed by the interface.
- 	 */
--	mutex_lock(&mgr->lock);
- 	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
- 		uint64_t ns = atomic64_read(&mgr->time_spend[hw_ip]);
- 
- 		usage[hw_ip] = ns_to_ktime(ns);
- 	}
- 
--	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
-+	xa_lock(&mgr->ctx_handles);
-+	xa_for_each(&mgr->ctx_handles, id, ctx) {
- 		for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
- 			for (i = 0; i < amdgpu_ctx_num_entities[hw_ip]; ++i) {
- 				struct amdgpu_ctx_entity *centity;
-@@ -951,5 +916,5 @@ void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
- 			}
- 		}
- 	}
--	mutex_unlock(&mgr->lock);
-+	xa_unlock(&mgr->ctx_handles);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-index b1fa7fe74569..8427a7d18cf3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-@@ -25,6 +25,7 @@
- 
- #include <linux/ktime.h>
- #include <linux/types.h>
-+#include <linux/xarray.h>
- 
- #include "amdgpu_ring.h"
- 
-@@ -61,9 +62,7 @@ struct amdgpu_ctx {
- 
- struct amdgpu_ctx_mgr {
- 	struct amdgpu_device	*adev;
--	struct mutex		lock;
--	/* protected by lock */
--	struct idr		ctx_handles;
-+	struct xarray		ctx_handles;
- 	atomic64_t		time_spend[AMDGPU_HW_IP_NUM];
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-index 0eecfaa3a94c..8effb1158430 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
-@@ -39,7 +39,7 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
- 	struct amdgpu_fpriv *fpriv;
- 	struct amdgpu_ctx_mgr *mgr;
- 	struct amdgpu_ctx *ctx;
--	uint32_t id;
-+	unsigned long id;
- 	int r;
- 
- 	if (fd_empty(f))
-@@ -50,10 +50,10 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
- 		return r;
- 
- 	mgr = &fpriv->ctx_mgr;
--	mutex_lock(&mgr->lock);
--	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
-+	xa_lock(&mgr->ctx_handles);
-+	xa_for_each(&mgr->ctx_handles, id, ctx)
- 		amdgpu_ctx_priority_override(ctx, priority);
--	mutex_unlock(&mgr->lock);
-+	xa_unlock(&mgr->ctx_handles);
- 
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index fa05547c615a..f5ac4bf32a78 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -502,6 +502,8 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+  *
+  *  @stream:      contains data we may need to construct VSIF (i.e. timing_3d_format, etc.)
+  *  @info_packet: output structure where to store VSIF
++ *  @ALLMEnabled: indicates whether ALLM HF-VSIF should be generated
++ *  @ALLMValue:   ALLM bit value to advertise in HF-VSIF
+  */
+ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet, int ALLMEnabled, int ALLMValue)
 -- 
-2.54.0
+2.34.1
 
