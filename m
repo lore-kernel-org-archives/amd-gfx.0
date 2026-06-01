@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 072E7CD6E61
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A73F8CD6E4A
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 07:24:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB05310ECB4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB88D10ECB0;
 	Tue,  2 Jun 2026 07:24:18 +0000 (UTC)
-Received: from mail-m8372.xmail.ntesmail.com (mail-m8372.xmail.ntesmail.com
- [156.224.83.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2060A10EBDD;
- Tue,  2 Jun 2026 05:09:25 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
- by smtp.qiye.163.com (Hmail) with ESMTP id 40b387ce2;
- Tue, 2 Jun 2026 13:04:19 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kenneth.feng@amd.com,
- kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn, stable@vger.kernel.org
-Subject: [PATCH 1/2] drm/amdgpu/mes11: fix queue init wptr reset
-Date: Tue,  2 Jun 2026 13:03:53 +0800
-Message-Id: <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
-References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=theesfeld.net header.i=@theesfeld.net header.b="N23YkX00";
+	dkim-atps=neutral
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A2D10E8EF;
+ Mon,  1 Jun 2026 19:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=theesfeld.net;
+ s=protonmail2; t=1780343717; x=1780602917;
+ bh=i5q6iyFTLtGZwAyQzskDa+UIgmFftyxv9qY3L/cfpX8=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=N23YkX00yFQSbqS9JbTZfcrjGpXrbY1qAJaobCIP0PT82buagoPDd/ZtTBRO0PrWy
+ QRyLqWJXWVvrvp4WB74iGrvOxHJVuf4CNBfEUPNxIamMe6qR3pKzn50QabDTBc4Rwd
+ bmXCAE1beNpaQYWGSA08v9nfxugiIHoTLTfbSmhitgUsZGYwPd/yNIoxDdqidRyV7v
+ b8SPpNBZHbtpQkRvQp6l3O8FTdCIWPcRsFZQ2r75lciJu0CZNbqsHvzlbdqKvhfyS+
+ ks/1v0eycTOqsGZRyu6rAoFAwNL+mid7cnEoELmKI7GP1ifryXP8gb11/MPG1CTTmI
+ YUI9tPokCXbhg==
+X-Pm-Submission-Id: 4gTl736RV8z2ScPK
+From: William Theesfeld <william@theesfeld.net>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdkfd: convert CRIU event-private allocation to
+ kvcalloc()
+Date: Mon,  1 Jun 2026 15:55:10 -0400
+Message-ID: <20260601195510.639318-1-william@theesfeld.net>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e86b7e7c603a1kunmb7f79aef178bd9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQx1MVkMaSxkZSUIdGE9OS1YeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
- hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
- b=MKydO2URJvMNqsbFPbiRAoftsZowajUZtt6lsy9k19RG7YsszGIn5LmMGQaosIYM6+c/S90Sw7gnIha8QPsAH7wbK62uz0Y1nb4ZsfK7VNOj0rmdrGd8LuTi0jdW/B+evOnS7Yt+QL1E08BXd52T3SvimSJ7OUNN5AiOgG1+y4A=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=A2XxhCSxRVdO/XEV+e5GPXDXNkjjX++njluVS+LkACU=;
- h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Tue, 02 Jun 2026 07:24:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,43 +56,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-mes_v11_0_queue_init() resets ring->wptr_cpu_addr with a plain 32-bit
-store in the reset/suspend path even though the same carrier is
-accessed with atomic64_set()/atomic64_read() and support_64bit_ptrs is
-enabled.
+criu_checkpoint_events() allocates the ev_privs[] array, sized by the
+runtime count returned from kfd_get_num_events(), using the open-coded
+kvzalloc(n * sizeof(*p), ...) form.  Switch to kvcalloc(), which
+carries the same zero-on-allocation semantics and adds the standard
+size_mul overflow check on the n * sizeof multiplication.
 
-This is not just a missing atomic annotation. The MES queue write
-pointer is a shared 64-bit carrier, and *ring->wptr_cpu_addr = 0 only
-clears the low 32 bits. A later atomic64_read() can then observe stale
-high 32 bits instead of a real zeroed reset state.
+No functional change.
 
-Use atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0) so the reset
-path updates the full 64-bit wptr with the same access family as the
-existing readers and writers.
-
-Build-tested by compiling mes_v11_0.o.
-
-No AMDGPU hardware was available for end-to-end runtime testing.
-
-Fixes: d81d75c99936 ("drm/amdgpu/gfx11: enable kiq to map mes ring")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: William Theesfeld <william@theesfeld.net>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index a926a3307..e2f762c2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1308,7 +1308,7 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 44150a71f..9739214e2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -543,7 +543,7 @@ int kfd_criu_checkpoint_events(struct kfd_process *p,
+ 	if (!num_events)
+ 		return 0;
  
- 	if ((pipe == AMDGPU_MES_SCHED_PIPE) &&
- 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
--		*(ring->wptr_cpu_addr) = 0;
-+		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
- 		*(ring->rptr_cpu_addr) = 0;
- 		amdgpu_ring_clear_ring(ring);
- 	}
+-	ev_privs = kvzalloc(num_events * sizeof(*ev_privs), GFP_KERNEL);
++	ev_privs = kvcalloc(num_events, sizeof(*ev_privs), GFP_KERNEL);
+ 	if (!ev_privs)
+ 		return -ENOMEM;
+ 
 -- 
-2.34.1
+2.54.0
+
