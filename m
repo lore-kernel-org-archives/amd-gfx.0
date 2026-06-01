@@ -4,126 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1009CD6E56
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 12:58:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C25CD5BD1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 13:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C85E113308;
-	Mon,  1 Jun 2026 12:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC8C11331E;
+	Mon,  1 Jun 2026 13:05:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yRDs58hd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AmY7JA1l";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C5B113308
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 12:58:58 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010013.outbound.protection.outlook.com [52.101.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0100511331F;
+ Mon,  1 Jun 2026 13:05:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q9p42gWHRGlmmejxxrkLKFEv0jAmmftS/D+51oTeKileheJDRIEOajN42c91j6Ll5cU/cpq57JbcJAXfCfCUCvQjffe74koMyUh8B93/4uSW8Zn26HR2H57n8M2gcQ+kbiHwt6uuUNIUhH7VxI5G8kGg6VS830YZ3MERoYnOnohUvfjDyhGn7G15D4ZKFgpM7+ft2VJKFmJUv4ZQ3ROsueFcit6ixrON4ayuwl2ZlSoi0iuA0aKETkMnfdrYZDXMkq9Ox4qMMm3zLN1Jc+1D6W/etO9dpKICUc2qyAbEFGfqOkIulLYuoedIuph9pNHBArSSq5gXC+SY4EG8xmXc7g==
+ b=ddofpriue1+F6XCyCFlCPA5QByV5vnXPCwb/rrfU2rOMZ6IinqYEn70f/rh6KFdYT9WqLITn4p6pRWUqnahn+OxGvN/B1jTO4A0K4tt/9RlbnUtGxxjjnk1p7izo4JL9KwguaqHtDAxscN+QYknHM5MGC/7V5Jkc27GmsoE3hzjgIBF1J+L4jGE53RTYvmu4ZnshiR3lq52Vsa8VQn/f1oa3ecJtLz12/lWbAD38f2Cscch0OjANgKEBzTFKfUgz8mTLb7HYLoveZQy1ce3nyOGwi6L0oBB06ZKvz9KgQsoFlJb/+I3PFRA5GOUYYXlc3Li1PX3EGnYbA4YmmuyBJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ii/b+GIrPBtcDwZf1/Fxzt9zQ8mYL9F3yuT9WzzrCYw=;
- b=Z5TEtXaXaQzjPHteH5wqcGYkhYv9ZUEwyp/+TJfesKoQVziia6nOKF+zn4imeSDDzw4S+S47t5s0dpJYH1J75b+j7RABshhsHnSMywpSFqy0HrLWmNKAXMocUUwrOz9MoInUbD2MrHQKfx0CekLQ/UlRuRzZm6QvHvI2i8FU6Qgi+Qt8Rw0boL2NfU/HS1VgmEhLpDqs4i+Qn3DUQMNR44heZRTH9op7zX8v9Nq7gYg6gFFLuKvippo15kOw7lEaeXPD90kTWAjIr00Nx3ygMfvrt/oT4VQrBEBXhFMrvDtXYMOYGcsm0yKI/7Kr24bHfk78tgQk3SotZSU/crDtTw==
+ bh=8hTGup22i68AmWhiUV4xcp1s8oqi08bLpp+nB6yq3ro=;
+ b=LjgS/yesNSThdHhNtFwKglfI99f/IYDtan5pjK7XwDdymnyau0MvuxjbGrMfswpmaYUJXVIqjsYO5TfeEWgRCd7PdH+uJehg34ZeSifCgji2Ruoo/h18SW8aMtxXbeIyKUtqrUJy4OOCQPtRA1a0di9MAlG2l6sjjnMHkvljnejGinlSKQNB2CzWY4upcy/svuytwok7JP/oNKLx0a5XGNc+RfVzqFC5Lb/D8e0FZh94MQ/xtyynGELB0xnkWZqg1qwR2icz8NT1l6Z07uhnDEe/SSLO7cs3HC4zEl6UUXx00Fh3WcOcqop28Un1vl20+SnChKw8xZzkKYYkFUTVHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ii/b+GIrPBtcDwZf1/Fxzt9zQ8mYL9F3yuT9WzzrCYw=;
- b=yRDs58hdV6vjSDRcgNlvfTVtXV+5LrgdGy+DdSq6/GsTPUpXN+Y4O7nSBDUsMusXwW7x58OYgWUbytoonR9kkViD1OvkSh9fcoLy2yT2dVeB68t/BYsY93svUtEX9ZtxyUuKbdUV/31bgUbp1nMlkR32rJkefU7f1za/wyp2nsM=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- DM6PR12MB4090.namprd12.prod.outlook.com (2603:10b6:5:217::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.23; Mon, 1 Jun 2026 12:58:54 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a%6]) with mapi id 15.21.0071.010; Mon, 1 Jun 2026
- 12:58:53 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Wu, Ray" <Ray.Wu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
- Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
- ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
- "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
- Alex" <Alex.Hung@amd.com>, "Lin, Ping Lei" <PingLei.Lin@amd.com>, "Chen,
- Chen-Yu" <Chen-Yu.Chen@amd.com>, "Wu, Ray" <Ray.Wu@amd.com>
-Subject: RE: [PATCH 00/41] DC Patches June 1 2026
-Thread-Topic: [PATCH 00/41] DC Patches June 1 2026
-Thread-Index: AQHc7N9MX9RyssjS1U6hTP821g3tPbYpslng
-Date: Mon, 1 Jun 2026 12:58:53 +0000
-Message-ID: <DS0PR12MB6534EAEF1E4DFC8B554257909C152@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20260526071413.2181251-1-ray.wu@amd.com>
-In-Reply-To: <20260526071413.2181251-1-ray.wu@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-06-01T12:56:58.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
+ bh=8hTGup22i68AmWhiUV4xcp1s8oqi08bLpp+nB6yq3ro=;
+ b=AmY7JA1lzJ3tdrdDNQwIUdMfFRBv/QPYUk48FQAx4U8vDqKDTiH94VO5XUCMYprhEstI7tTOJ2MNmf8VyQQ0+Ng0KJozJXkhIsuP5rOup6jBs5UV8W1kJmjgyfFDLusHmNjX/Iqb/PC63+VzcDuOve7VGZEsR0fs3n0YnBxrKkY=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|DM6PR12MB4090:EE_
-x-ms-office365-filtering-correlation-id: 4405272d-c862-4636-c9c8-08debfdd88cf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|3023799007|6133799003|11063799006|22082099003|56012099006|18002099003;
-x-microsoft-antispam-message-info: CfTh7zNU4DWn1IqUQnx0mCm4Ef1zRh/346Nvp7mZKNyVqTQazskSJltWtKcnDgrzIkdgMQouZCYbzikezKfsirjGqRHCd9KXzk5BiRVcHEEJpauJAtYdYeZG23VFnTqKmT5dmuS8Cfp9UXS1bsdVttm2if4gK32N6BUzT5adnxbVvEwp07FVuUM4wc3XVNH6C6lCFk6DTUbqU0knRWiikkmnrJHzrjdRTMoYbWh22hdUEqGtZuaeefRnZKkxrmoO51BUetpPO0PpXS/YA4wJ9zZAjF89QpUwssN4b/5h89gof8fLjGcjrbCvoaZyvhPiXCL4ZiHV7LDk4Rfg2pGIGoQaJdOFdgK+c10uTvBafk+yl9fkPjOvdxiNI0uTYvgLmqkj3wKoq5TFsgN70s5SoiMFcNbkyw3Ro0vnji+NtYVe+33pMVFZnLpU7PP5HhUcwAGpiPanJWHelJzXRw3b31V/RCMOCAtINSEmXCLGqp9yOE9s/BTLDCwGr6DHDlH99yOEjr5ILcAKeLZ7OZKxs14psPOHZTw/tWXHojvX+ZnHrJ1COEMiZkHgEoiGR0z4F5u0SEtDwRx7rLG9PgfX7U2YS6e0o9il+V4aoaBxRZS7xLxlevE+tfP/hoK/Jy1woDcwgHLVZdBHiTJgpVCHbcZUziHr1L//xZbr1eXfwKGYWa6yTY+6/o0HX9Wd1MwKJgJJ/MeE/SN+2qmMC7HwrGOyQppLpj0GxdX3eNmp84Gb1zgWJWPMLn9noUwDVNj/
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(3023799007)(6133799003)(11063799006)(22082099003)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?6l89FdDf1RxzGIBUQLZzmyVGHqpEIHorj+Zj8XwbyGt9d5+QCBZxiRuz7d?=
- =?iso-8859-1?Q?2a0BFcn8YbShi+/3K2rFx8UP6zw+KiwGPk8Mhb4POiklWY8rU8+oJHU9Yw?=
- =?iso-8859-1?Q?kpKWzupfYN8RsgkiqCwMn76vat1F2fvhP/i1AFlsZ+MOav4y4Btnp6sJf5?=
- =?iso-8859-1?Q?lUr1uhmceaL4qhSj5KawIrjIBoTNnMIcBlUBbjKEfuw1e29IDCVOS6HDKk?=
- =?iso-8859-1?Q?AyJh1LRdbXIxfgPxk37ligeNNNvz/YUjapgcWTmKvELbRVM6FV++KBtd+q?=
- =?iso-8859-1?Q?ikAW4UpIkl7MLGzNnULrYQMONcg70HsHCfpYU+7jexLjvoPevJqmq3Avzl?=
- =?iso-8859-1?Q?1G5HuOkO9ZaTO2RZKzpS2awdLUq4k2yrysXaKy+WULxGHqiq9CyllNKXy+?=
- =?iso-8859-1?Q?SfDD2TbsFw3l8tB4U5LYX/nYsbvk6UsyXR7xwI0I4kY21Xzafy/4hfJHGz?=
- =?iso-8859-1?Q?0F530jqnJZopL6lY19g9+ZWJZu1v695HSCCSe0hjBmupQ5JAKtffmdk5RS?=
- =?iso-8859-1?Q?0Q4OcwYkHvnVKh980mh2ynrfp6sjJmRy5arfs6tptBCcIfxMUjcZhL7lB0?=
- =?iso-8859-1?Q?Fv6+adeqQEM/rAR59pYFRZr+FWRfGvJgsI3WrDSLliMRAqv4sdNv8dI1Ls?=
- =?iso-8859-1?Q?rhKqQM/DJg+LqVz6B9AaxSqWT7YanM0Nj8pddE8K0HeJFL3bEZCn1W0h6T?=
- =?iso-8859-1?Q?nnguSvs8haECTfs09inuQw8HMp/7mNbrjkVsUDeUaXQaep++LqeNCKHu3v?=
- =?iso-8859-1?Q?TtBb/Qk808ZMguy289tl9BxPT8pgwYE7LjHGFfElK2GI1OMZv54c8VJp/P?=
- =?iso-8859-1?Q?1MP8bEC7liX9H2PhCV/jNKQRtzr214icJcYJ5sZ6dQFQ5mDkjStSqZU+4a?=
- =?iso-8859-1?Q?Q5TlHuwoUk1QqOKKZNyaeKcPi+IGRWyFOrz+LErcQWiGYeG9psujLVf6Vu?=
- =?iso-8859-1?Q?YwMxI8Ti4u1T9luUv6p+YE+kLTOn/n257k8adBCBMvmEQdAAT0a4c68YJ5?=
- =?iso-8859-1?Q?SQ13mkhbjVddF2DGeMliJmwYVSDpw+Grzscr3kOOhGCR4uSYuicqEI/Di0?=
- =?iso-8859-1?Q?KKgrn4ET/hLeH7gJ+5OlXQLWXCkUVhDfds4QdqDeByu3Vk/3tiHR7Oa8s1?=
- =?iso-8859-1?Q?fS+cg5W/AA21wMrsoNYrwq2Ap9ow4iib9JjU4wbpBCMKlK4IOeprgMFws6?=
- =?iso-8859-1?Q?jj2BnbLxendazWfjP7yOuNdSav7URWLdQID1QcfrqADMKc317/qGXKp3PC?=
- =?iso-8859-1?Q?8UZ1lhHiro1I3n8a3TuL3b2HoySQn7mNBqASYGkvCq8tWuI5HnpnI+egRZ?=
- =?iso-8859-1?Q?Ds+1kf0ZY2a0bKFvRoj9FA9O3ESZLnPADFo+wMzcFT7WLHlUno0rb+MA5c?=
- =?iso-8859-1?Q?z2acS7ueHatzTeOs474pI9wseHM+PpxnhUuz/gOHgttKGL2IWhm6N/i/Xr?=
- =?iso-8859-1?Q?QYfFxuUJ7PJjS7ou6cQjOJeTiNUG4k+AbcFOAOzGV+04mvYeYvEt7WSxDC?=
- =?iso-8859-1?Q?/1ii+EmW/HSVx/J5XuxW3yjae+7j7c6kpuzm8LFFeAzbYm3r7yT9MmPQjM?=
- =?iso-8859-1?Q?lRtKsxaeMKA7RIN4TJL7n4D5QQUG3FhIlCTz6YUNm+lCSeAIpDwz+qGWP+?=
- =?iso-8859-1?Q?Hf2DJJhITrYKofs1c19hHo+qUxfxPTcL58EhoMPqLmPOiIwK7SR+PE+op9?=
- =?iso-8859-1?Q?mYcNm1FIND/tlaCcY90Rj0lWpyJUTNz135mXwo4GPUscjqNmaHMbwXEJEX?=
- =?iso-8859-1?Q?FGtrHCRzuozo8TXfBnXspEewTjs+Rf5WjyBVbPiyETq3ZX?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SJ0PR12MB6853.namprd12.prod.outlook.com (2603:10b6:a03:47b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
+ 13:05:09 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0071.011; Mon, 1 Jun 2026
+ 13:05:09 +0000
+Message-ID: <7237b5c9-f97d-408f-8fd5-15ccbc9c08d8@amd.com>
+Date: Mon, 1 Jun 2026 18:35:02 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
+To: Kunal Zodape <kunal.devanandzodape@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rahul Kumar <Rahul.Kumar1@amd.com>, Prateek Gupta <Prateek1.Gupta@amd.com>
+References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
+ <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0082.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ad::8) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ0PR12MB6853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0627b1d4-f2bb-448a-772f-08debfde6850
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|18002099003|22082099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: jknw3Qi7EYbbJvCEECNvgFWsw4rFJgdlDvwFn+KZC3LPlO7B9Q1EEKyO2rQ0bVbdU2yKtDIsA0LqP9wNk0vy/x4VL8eDvf6TwSkSSli53IjrqMC2Gjlx0tMVv2Iwup49x33assufbA8UYUNb7ZKfZnF2cL1a1g8Fr1JFfS8qqO1KRYp26FkoFJhk+m63o7cE2cY1qGleXBdJ4oi/LyPIlA0ELvMWqB6Jd+fvjujaLzOa2j7d62Y232xJplcOlfn12jpFMBfUyAUGos5qS0RLXug5EnaKunVHeETRvnqGlidFkxVO5pA+M1fOlJTO03XMGrdOem1wlcz8iPxNYoOVP6mHuc3Ay9jrspdf67ifUEDZlpqNR7BPj2f2VMdi1/ki+txigH9tP7D3gx0a08JlPFKhR+CXIVPCvUKTXDIJmUV02ttRPeU2NWo1XFy4ag+JpdlOsZ2swrd1pk464UpJz5xAVdCXgr6HCycBPnAq0epvTUqpA1dRpBDt8UDfXlKxXDrrN3Vk4krPXhdDfTVtif0UNhZBARqd9HrQvJOpa1EPNG7DXHBUBvqcf4CYkp57khLv9ZeiNXiEEN1U+Y9oXi2peFp7WY2NYo7SkEwilBVFeCuEGeTdzxAJXCVkwHgt+JmpZFomhS+RqAVmFa6q89NphfiMIDIIy41tDpVEuM9BJn1PdLe3e/DWrxuUDZgu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnh6N25wRnhJSnNPc3IzcmtxMlFuZTc3TmNaUHZTc2tERVZFaW85Zm83cDBa?=
+ =?utf-8?B?TW01UzluUzdDeWxxVnJraWxRdTl6Wmt3S1BOUmVBM1hWcUtkMVFDanpwdVFJ?=
+ =?utf-8?B?UnlnQkc2bHVGUDY2WlYrbGNQcnNhYXNXWE5PMUozVTBiNXRhRDV1VjEwdkky?=
+ =?utf-8?B?eVo5MUFrbHROZTlGeENuZ2FUL0c4SWMrY2VRV1Q4YzZtbkcyelJmMDVZRS9N?=
+ =?utf-8?B?Vzg4aHQxKzZ5SUNqMm5MbzQ0ZmprTzd3SVFYdEFOdzdUUTM2ZnBLYS9XaUFo?=
+ =?utf-8?B?RThiZU1LWnFOclN4cEwyTEhlckFIaFRwMjhxY0M5RWlIcHRjdW1NKzdYMUl4?=
+ =?utf-8?B?dlF3bmpvaUVjV1RyNXFJckdyNnJPT1o4ckllL1F5RUtMTHh5T1pXRUMvZWNC?=
+ =?utf-8?B?WnJ1ZnYxSThCNlZUZmQvOERLRWl0QXdzaWRzQnZEVDVCUktIc0IzVk1tdzZZ?=
+ =?utf-8?B?VmtiNTJmMHJWWHNrNGZRZjJxazlJaiszdjhSTDI1WnFwNXYzRW82cndTTTZF?=
+ =?utf-8?B?dWJMczZVdElKcjU2ZmRTdXM5YmRHRE16MnBCUkk3djdkaFBkOHBHdUhwOHBH?=
+ =?utf-8?B?RGlpc2RuNldjMllVVWkxWWd5WVQwQ0RIMVpKUTI0enl0MWtTZ3NCUXZQWmh0?=
+ =?utf-8?B?WHhSazlnalJ4RnlBRzZoZVZUTmE0WXp2bTFxd1NEYzc5UjJpaEVFci9yK0JZ?=
+ =?utf-8?B?ZDB6RU9MaFRjNE4wclNpTGw0aFRjZ3UwdndHWGxIMmMxNGZqSmwzbDJlaGIz?=
+ =?utf-8?B?RW9jSDBNSXk2aEhHVk93aXJLOHhLeHN1TTByK3FTcW9VbTlpQTV0UytOY3hH?=
+ =?utf-8?B?YkhzejdlK1VMV0IvVWpLejU0OEZ0clJtaCtxWVVHd2F1OUZBV05sWWxrd0NN?=
+ =?utf-8?B?RW5FekVQQjFwSGs0eUdNK3R6aWsrSU95WWZ3OG9LeHFHQlBvN0d3ZTUrTUhs?=
+ =?utf-8?B?RlFZS29ibTEyLzYxV2N0Q0tzcXhmWUdqb0Fld2tUQXRZTVNtalJNeUNud3B6?=
+ =?utf-8?B?MllSeVB3cEhKWENHWFh3emlEdzJFejVIbUg3Qndvc2dpUjNkbnZxMEFPREZw?=
+ =?utf-8?B?VVM3WHdRV0V3WXloNE1UMXZPRStVbHU0MW1nUnFtYTRpSG1hUzdUKzlXcmVR?=
+ =?utf-8?B?WnpHR04wQXc4VXVVd3pjYTBUeGR1YjJucHhjR2ZKd1NlQlV5aW5oVlNqY3NF?=
+ =?utf-8?B?MXJ6OXgxNjRSVWJScG1YTExyRDJnejFBa2laakxvNFg0b09rb29nbkpPSVND?=
+ =?utf-8?B?VDhPMlNvK09YOVVNYTZtQi93NGhMdG8rNmZ4YXBsUGEwYkRBUGM5ajN2UXA5?=
+ =?utf-8?B?T1F2KzRUVkY4emplOTNZT0l6NWZwRExNVjdBbWFadTBUMEd3NG9wVTc2c25L?=
+ =?utf-8?B?dGtEamIrUUtBWjRGN09Uckl5dUJ5WWRiQXJqSXArVnF3Z1VrWW9WMmpJaEVB?=
+ =?utf-8?B?RWkyaitoa1k4UFpjUVB6SnVoZjl3Rm9ObVR2MUNoZ1JjaEJta05hTXZ1VWg0?=
+ =?utf-8?B?ektJRDM1OStZY3ZySzlueWt6VkpSR0grKzdDNUZOMmMxYXJ5WS9sWW9raWli?=
+ =?utf-8?B?cThSM1hyQkpsMy81c0ZPM1dZVmMrcWtPRm00cGtRTnNtQjl0SDVobHd0U25Q?=
+ =?utf-8?B?S0I1eFpxZVpwOGtpeTFnK0o1czJUejdReWc4SWxzMDY4S1BNZXZCK1BrY1Mz?=
+ =?utf-8?B?enc2UnY1VUM2eDlod01tNjBLV2lFckFqeUYrWXlBWk8vNDgyUVBkbG9LTkFI?=
+ =?utf-8?B?UVZ6RWQ3REpmeHJVU2xBY3gyNE1ISVZob3kreFRtd0VQMzBFZzRNaDhlekJQ?=
+ =?utf-8?B?ektTbURpZ0NUSnFEdlpMVFBXNldzcjJsOTBXYzR5YlRXQnNYWElrbFFTcXV6?=
+ =?utf-8?B?N0dwQW5hQ2tWNTR0RktkRTVSVjNDemJ4RGZNUmJ4R1ppcDlIMUhNQzJjNDJP?=
+ =?utf-8?B?Sm1MUlY4c0NMWjJCYjFMYXV3SGNrT1p4S1FEUnRQaEwrMjlIc01ya2J5QTRL?=
+ =?utf-8?B?bUpvcklEMm5adW9tMHZMR083NjVrcjNHZ0NPT3F4aGxoamFpZ1RsQ3JjWTdD?=
+ =?utf-8?B?QktyRnhyYi9hR2FvaFBINmZKbTJUUW92OVBNR00zbnh4MEg4c3htYVduVzJk?=
+ =?utf-8?B?czNkKzVoS2cra0RDQnJBdURWTjhLQmJjN0RGYnJKN3JYMlg1R3BjY0t2UVFO?=
+ =?utf-8?B?Nm1leWlMbTlncUdNaGtKK3dpZEtkdW0yWTkwa01LYUFHeHU5RHYzSHVuYWhH?=
+ =?utf-8?B?engrL2xBd0x6bTFuVFZQMWxHandnaW1TcDQwY0o2cHBVZkhqMGVwd0dYazcz?=
+ =?utf-8?B?RlVOM3RQT3FTMmRoT1VITnpuZUJDYlZVU0tvNUFubmJuMi9HUHFEdz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0627b1d4-f2bb-448a-772f-08debfde6850
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4405272d-c862-4636-c9c8-08debfdd88cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2026 12:58:53.6759 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T1k5W+N5kY+eBSYXGzICmZuGnsMDUowsiBkk8djs+0d/FXoJUUugDDybpxYJKqHlQF3ce/wyIY0cXzgrWiBy2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4090
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 13:05:09.0121 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rCcjKOIOkmJHokcFgvpU83L2O/txudY1aq/Q4W2gI9NKXPb0spgZObDUd2qOLoD6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,359 +138,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
-
-Hi all,
-
-This week this patchset was tested on 4 systems, two dGPU and two APU based=
-, and tested across multiple display and connection types. This week was al=
-so the last promotion test ran on Ubuntu 24.04. There won't be any testing =
-this week as we had a holiday this past Monday, so the first test on Ubuntu=
- 26.04 will begin next week.
-
-APU
-        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
-, 4k 240hz (Includes USB-C to DP/HDMI adapters)
-        * Thunderbolt -> LG Ultrafine 5k
-        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
-lays, HP Hook G2 with 2x 4k60hz displays
-        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
- DP and 1x 4k60hz HDMI displays
-        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
-ion supported by the dongle of 4k 120hz YUV420 12bpc.
-        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
-he adapter of 4k 120hz RGB 8bpc.
-
-DGPU
-        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
-        * Multiple Display DP -> 4k240hz + 4k144hz
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
-        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
-isplays)
-
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to)
-        * Changing display configurations and settings
-        * Video/Audio playback
-        * Benchmark testing
-        * Suspend/Resume testing
-        * Feature testing (Freesync, HDCP, etc.)
-
-Automated testing includes (but is not limited to)
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The testing is mainly tested on the following displays, but occasionally th=
-ere are tests with other displays
-        * Samsung G8 Neo 4k240hz
-        * Samsung QN55QN95B 4k 120hz
-        * Acer XV322QKKV 4k144hz
-        * HP U27 4k Wireless 4k60hz
-        * LG 27UD58B 4k60hz
-        * LG 32UN650WA 4k60hz
-        * LG Ultrafine 5k 5k60hz
-        * AU Optronics B140HAN01.1 1080p 60hz eDP
-        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
-        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
 
 
-The patchset consists of the amd-staging-drm-next branch (Head commit -> 2f=
-689def76af155a850fa9b2693b12973953c062 -> drm/amdgpu: fix calling VM invali=
-dation in amdgpu_hmm_invalidate_gfx) with new patches added on top of it.
+On 01-Jun-26 4:53 PM, Kunal Zodape wrote:
+> [Some people who received this message don't often get email from kunal.devanandzodape@amd.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> The EEPROM write path currently waits a fixed 10 ms after each page
+> write to cover the maximum write-cycle time.
+> 
+> Replace the fixed delay with ACK polling so the driver can continue as
+> soon as the EEPROM finishes its internal write cycle. Since the SMU I2C
+> adapter used for these EEPROM accesses does not support zero-length
+> transfers, poll readiness with an offset-only dummy write.
+> 
+> Keep the existing 10 ms timeout as the upper bound for the polling loop.
+> 
+> Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
+> write/read-back with no I2C errors.
 
-Tested on Ubuntu 24.04.4, on Wayland and X11, using Gnome.
+The current sleep logic may be better than sending a dummy transfter 
+through firmware. That has the overhead of FW message logic and other 
+clients accessing i2c bus.
 
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+The original comments in the code logic are valid for optimization only 
+if driver has direct access to the i2c bus.
 
-Thank you,
+Thanks,
+Lijo
 
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
-
------Original Message-----
-From: Ray Wu <ray.wu@amd.com>
-Sent: Tuesday, May 26, 2026 3:01 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
-Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
-uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
-.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
-com>; Hung, Alex <Alex.Hung@amd.com>; Lin, Ping Lei <PingLei.Lin@amd.com>; =
-Chen, Chen-Yu <Chen-Yu.Chen@amd.com>; Wu, Ray <Ray.Wu@amd.com>
-Subject: [PATCH 00/41] DC Patches June 1 2026
-
-This DC patchset brings improvements in multiple areas. In summary, we high=
-light:
-
-- Enable DCN 4.2.1:
-  * Add register header files for DCN42B
-  * Add DCN42B DC resource files
-  * Add DCN42B DMUB support
-  * Add DCN42B code to DC and dcn42b_soc_bb to DML2
-  * Add DCN42 PMO init_for_pstate_support
-  * Enable DCN42 PMO policy and pstate pmo
-  * Enable DCN 4.2.1 in amdgpu_dm
-  * Enable DM for DCN 4.2.1
-- Add no_native_i2c codepath
-- Add amdgpu_dm KUnit tests for:
-  * amdgpu_dm_psr_set_event
-  * dm_ism_dispatch_next_event and additional ISM functions
-  * amdgpu_dm_colorop
-  * color LUT functions and transfer function helpers
-- Enable gcov coverage for amdgpu_dm KUnit builds
-- Extract dm_ism_dispatch_next_event and transfer function helpers
-- Refactor amdgpu_dm_initialize_default_pipeline
-- Clean up PSR helper functions
-- Fix gamma 2.2 colorop TF direction in tests
-- Handle aux_inst for connectors without DDC pin
-- Fix DP_PIXEL_FORMAT fields & update clk_src for DCN4x
-- Avoid DPMS-on for phantom stream
-- Change default driver setting for "Force ODM2:1 for eDP" policy
-- Add DC_VALIDATE_MODE_AND_PROGRAMMING condition check for force odm2:1
-- Check for sharpening case when calculating max vtaps for scaler
-- Add DRAM table fields to clk_mgr_internal
-- Enable frame skipping in 0x37B
-- Bound VBIOS record-chain walk loops
-- Clamp HDMI HDCP2 rx_id_list read to buffer size
-- Clamp VBIOS HDMI retimer register count to array size
-- Reject gpio_bitshift >=3D 32 in bios_parser_get_gpio_pin_info()
-- Use krealloc_array() in dal_vector_reserve()
-- Fix NULL deref and buffer over-read in SDP debugfs
-- Fix out-of-bounds read in dp_get_eq_aux_rd_interval()
-- FW Release 0.1.61.0
-
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-
-Alex Hung (12):
-  drm/amd/display: Enable gcov coverage for amdgpu_dm KUnit builds
-  drm/amd/display: Add KUnit tests for color LUT functions
-  drm/amd/display: Extract transfer function helpers
-  drm/amd/display: Add more color KUnit tests
-  drm/amd/display: Refactor amdgpu_dm_initialize_default_pipeline
-  drm/amd/display: Fix gamma 2.2 colorop TF direction in tests
-  drm/amd/display: Add KUnit tests for amdgpu_dm_colorop
-  drm/amd/display: Add more KUnit tests for amdgpu_dm_ism
-  drm/amd/display: Extract dm_ism_dispatch_next_event
-  drm/amd/display: Add KUnit tests for dm_ism_dispatch_next_event
-  drm/amd/display: Add KUnit tests for amdgpu_dm_psr_set_event
-  drm/amd/display: Clean up PSR helper functions
-
-Charlene Liu (1):
-  drm/amd/display: Add DC_VALIDATE_MODE_AND_PROGRAMMING condition check
-    for force odm2:1
-
-Chuntao Tso (1):
-  drm/amd/display: Enable frame skipping in 0x37B
-
-Dmytro Laktyushkin (2):
-  drm/amd/display: Enable dcn42 pstate pmo
-  drm/amd/display: Add DCN42 PMO init_for_pstate_support
-
-Gabe Teeger (1):
-  drm/amd/display: Handle aux_inst for connectors without DDC pin
-
-Harry Wentland (7):
-  drm/amd/display: Fix out-of-bounds read in dp_get_eq_aux_rd_interval()
-  drm/amd/display: Clamp VBIOS HDMI retimer register count to array size
-  drm/amd/display: Fix NULL deref and buffer over-read in SDP debugfs
-  drm/amd/display: Use krealloc_array() in dal_vector_reserve()
-  drm/amd/display: Reject gpio_bitshift >=3D 32 in
-    bios_parser_get_gpio_pin_info()
-  drm/amd/display: Clamp HDMI HDCP2 rx_id_list read to buffer size
-  drm/amd/display: Bound VBIOS record-chain walk loops
-
-Ilya Bakoulin (1):
-  drm/amd/display: Avoid DPMS-on for phantom stream
-
-Matthew Stewart (8):
-  drm/amd/display: Add no_native_i2c codepath
-  drm/amd: Add register header files for DCN42B
-  drm/amd/display: Add DCN42B DC resource files
-  drm/amd/display: Add dcn42b_soc_bb to DML2
-  drm/amd/display: Add DCN42B code to DC
-  drm/amd/display: Add DCN42B DMUB support
-  drm/amd/display: Enable DCN 4.2.1 in amdgpu_dm
-  drm/amd/display: Enable DM for DCN 4.2.1
-
-Nicholas Kazlauskas (1):
-  drm/amd/display: Enable DCN42 PMO policy
-
-Ovidiu Bunea (3):
-  drm/amd/display: Update get_pixel_clk_frequency() for DCN4x DCCG DP
-    DTO
-  drm/amd/display: Change default driver setting for "Force ODM2:1 for
-    eDP" policy
-  drm/amd/display: Fix DP_PIXEL_FORMAT fields & update clk_src for DCN4x
-
-Samson Tam (1):
-  drm/amd/display: Check for sharpening case when calculating max vtaps
-    for scaler
-
-Taimur Hassan (2):
-  ddrm/amd/display: [FW Promotion] Release 0.1.61.0
-  drm/amd/display: Promote DC to 3.2.384
-
-Wenjing Liu (1):
-  drm/amd/display: Add DRAM table fields to clk_mgr_internal
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |     1 +
- drivers/gpu/drm/amd/display/Kconfig           |     2 +-
- .../gpu/drm/amd/display/amdgpu_dm/Makefile    |     3 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    29 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |    69 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.h   |    29 +
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |    22 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |     5 +
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |     5 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c |    83 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h |     7 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |    20 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h |     4 +-
- .../amd/display/amdgpu_dm/tests/.kunitconfig  |     8 +
- .../amdgpu_dm/tests/amdgpu_dm_color_test.c    |   568 +
- .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  |   102 +-
- .../amdgpu_dm/tests/amdgpu_dm_ism_test.c      |   302 +
- .../amdgpu_dm/tests/amdgpu_dm_psr_test.c      |    46 +-
- .../gpu/drm/amd/display/dc/basics/vector.c    |     4 +-
- .../gpu/drm/amd/display/dc/bios/bios_parser.c |    15 +-
- .../drm/amd/display/dc/bios/bios_parser2.c    |   148 +-
- .../amd/display/dc/bios/bios_parser_helper.h  |     5 +
- .../display/dc/bios/command_table_helper2.c   |     1 +
- .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |    10 +
- .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |    15 +
- .../dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c        |   483 +
- .../dc/clk_mgr/dcn42b/dcn42b_clk_mgr.h        |    48 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |     4 +-
- .../gpu/drm/amd/display/dc/core/dc_resource.c |     6 +
- drivers/gpu/drm/amd/display/dc/dc.h           |    10 +-
- .../gpu/drm/amd/display/dc/dc_bios_types.h    |     4 +
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |     7 +-
- drivers/gpu/drm/amd/display/dc/dc_fused_io.c  |     4 +-
- drivers/gpu/drm/amd/display/dc/dc_helper.c    |     2 +
- .../gpu/drm/amd/display/dc/dc_spl_translate.c |     1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  |   181 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.h  |     4 +
- .../drm/amd/display/dc/dce/dce_clock_source.c |    83 +-
- .../drm/amd/display/dc/dce/dce_clock_source.h |    26 +-
- .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.h  |    13 +
- .../dc/dio/dcn42/dcn42_dio_link_encoder.h     |    95 +
- .../dc/dio/dcn42/dcn42_dio_stream_encoder.c   |    64 +-
- .../dc/dio/dcn42/dcn42_dio_stream_encoder.h   |     6 +
- .../dml2_0/dml21/dml21_translation_helper.c   |     5 +-
- .../dml21/inc/bounding_boxes/dcn42b_soc_bb.h  |   227 +
- .../dc/dml2_0/dml21/inc/dml_top_types.h       |     1 +
- .../dml21/src/dml2_pmo/dml2_pmo_dcn42.c       |   223 +-
- .../dml21/src/dml2_pmo/dml2_pmo_dcn42.h       |     2 +
- .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |    30 +-
- .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.h  |    46 +-
- .../dml21/src/dml2_pmo/dml2_pmo_factory.c     |    16 +
- .../dml21/src/dml2_top/dml2_top_soc15.c       |    30 +-
- .../drm/amd/display/dc/dml2_0/dml2_wrapper.h  |     1 +
- .../amd/display/dc/dpp/dcn401/dcn401_dpp.c    |     8 +-
- drivers/gpu/drm/amd/display/dc/gpio/Makefile  |     8 +
- .../dc/gpio/dcn42b/hw_factory_dcn42b.c        |   313 +
- .../dc/gpio/dcn42b/hw_factory_dcn42b.h        |    11 +
- .../dc/gpio/dcn42b/hw_translate_dcn42b.c      |   192 +
- .../dc/gpio/dcn42b/hw_translate_dcn42b.h      |    13 +
- .../gpu/drm/amd/display/dc/gpio/hw_factory.c  |     4 +
- .../drm/amd/display/dc/gpio/hw_translate.c    |     4 +
- .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.h   |    47 +
- .../display/dc/hubbub/dcn35/dcn35_hubbub.h    |   198 +
- .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |    19 +
- drivers/gpu/drm/amd/display/dc/hwss/Makefile  |     8 +
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |     4 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |    27 +
- .../amd/display/dc/hwss/dcn42b/dcn42b_hwseq.c |   238 +
- .../amd/display/dc/hwss/dcn42b/dcn42b_hwseq.h |    15 +
- .../amd/display/dc/hwss/dcn42b/dcn42b_init.c  |    20 +
- .../amd/display/dc/hwss/dcn42b/dcn42b_init.h  |    14 +
- .../gpu/drm/amd/display/dc/inc/clock_source.h |     4 +-
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |    21 +
- .../amd/display/dc/inc/hw/clk_mgr_internal.h  |    44 +-
- drivers/gpu/drm/amd/display/dc/inc/resource.h |     2 +
- .../display/dc/link/accessories/link_dp_cts.c |     2 +
- .../drm/amd/display/dc/link/link_factory.c    |    86 +-
- .../amd/display/dc/link/protocols/link_ddc.c  |    60 +-
- .../dc/link/protocols/link_dp_capability.c    |     6 +
- .../link/protocols/link_edp_panel_control.c   |     7 +-
- .../amd/display/dc/optc/dcn42/dcn42_optc.h    |   179 +
- .../amd/display/dc/pg/dcn42/dcn42_pg_cntl.h   |    86 +
- .../gpu/drm/amd/display/dc/resource/Makefile  |     7 +
- .../dc/resource/dcn401/dcn401_resource.c      |     4 +-
- .../dc/resource/dcn42/dcn42_resource.c        |    17 +-
- .../dc/resource/dcn42/dcn42_resource.h        |     3 +-
- .../dc/resource/dcn42b/dcn42b_resource.c      |  2404 +
- .../dc/resource/dcn42b/dcn42b_resource.h      |   672 +
- .../dcn42/dcn42_soc_and_ip_translator.c       |     6 +-
- .../soc_and_ip_translator.c                   |     1 +
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |     1 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   606 +-
- drivers/gpu/drm/amd/display/dmub/src/Makefile |     1 +
- .../drm/amd/display/dmub/src/dmub_dcn42b.c    |    34 +
- .../drm/amd/display/dmub/src/dmub_dcn42b.h    |    13 +
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |     4 +
- .../amd/display/include/bios_parser_types.h   |     1 +
- .../gpu/drm/amd/display/include/dal_asic_id.h |     3 +
- .../gpu/drm/amd/display/include/dal_types.h   |     1 +
- .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |     3 +-
- .../gpu/drm/amd/display/modules/power/power.c |     9 +-
- .../drm/amd/display/modules/power/power_abm.c |    16 +-
- .../include/asic_reg/clk/clk_15_0_5_offset.h  |    41 +
- .../include/asic_reg/clk/clk_15_0_5_sh_mask.h |    44 +
- .../include/asic_reg/dcn/dcn_4_2_1_offset.h   | 16304 +++++
- .../include/asic_reg/dcn/dcn_4_2_1_sh_mask.h  | 60622 ++++++++++++++++
- .../include/asic_reg/dpcs/dpcs_4_0_1_offset.h |   108 +
- .../asic_reg/dpcs/dpcs_4_0_1_sh_mask.h        |   412 +
- 108 files changed, 85760 insertions(+), 342 deletions(-)  create mode 1006=
-44 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_cl=
-k_mgr.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/boundin=
-g_boxes/dcn42b_soc_bb.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_factory_d=
-cn42b.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_factory_d=
-cn42b.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_translate=
-_dcn42b.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42b/hw_translate=
-_dcn42b.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_hwseq=
-.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_hwseq=
-.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_init.=
-c
- create mode 100644 drivers/gpu/drm/amd/display/dc/hwss/dcn42b/dcn42b_init.=
-h
- create mode 100644 drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_r=
-esource.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_r=
-esource.h
- create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42b.c
- create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42b.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_off=
-set.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_=
-mask.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offs=
-et.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_m=
-ask.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_of=
-fset.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh=
-_mask.h
-
---
-2.43.0
+> 
+> Suggested-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
+> ---
+> v2: Use read_poll_timeout() instead of open-coded ktime + do-while loop
+>      as suggested
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 27 +++++++++++++++-------
+>   1 file changed, 19 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> index 8cd69836dd99..9dc538073bb8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> @@ -21,6 +21,7 @@
+>    *
+>    */
+> 
+> +#include <linux/iopoll.h>
+>   #include "amdgpu_eeprom.h"
+>   #include "amdgpu.h"
+> 
+> @@ -153,15 +154,25 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
+>                          break;
+> 
+>                  if (!read) {
+> -                       /* According to EEPROM specs the length of the
+> -                        * self-writing cycle, tWR (tW), is 10 ms.
+> -                        *
+> -                        * TODO: Use polling on ACK, aka Acknowledge
+> -                        * Polling, to minimize waiting for the
+> -                        * internal write cycle to complete, as it is
+> -                        * usually smaller than tWR (tW).
+> +                       int ret;
+> +
+> +                       /* Poll for ACK to detect when the self-timed
+> +                        * internal write cycle has completed, as per
+> +                        * Acknowledge Polling described in the AT24CM02
+> +                        * datasheet, Section 7.4. The SMU I2C adapter
+> +                        * used by these EEPROM paths does not support
+> +                        * zero-length messages, so use an offset-only
+> +                        * dummy write to probe for the ACK. The address
+> +                        * pointer update is harmless because each real
+> +                        * transfer reprograms it before use.
+>                           */
+> -                       msleep(10);
+> +                       ret = read_poll_timeout(i2c_transfer, r,
+> +                                                r == 1,
+> +                                                200, 10 * USEC_PER_MSEC,
+> +                                                false,
+> +                                                i2c_adap, &msgs[0], 1);
+> +                       if (ret)
+> +                               break;
+>                  }
+>          }
+> 
+> --
+> 2.17.1
+> 
 
