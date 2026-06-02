@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6FACD6E5D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 19:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 481F4CD6E5D
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 20:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF40510F550;
-	Tue,  2 Jun 2026 19:46:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE7810F5B5;
+	Tue,  2 Jun 2026 20:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YQZr/QHI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O360j6SI";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011038.outbound.protection.outlook.com [52.101.62.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD2B10F550
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 19:46:15 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013044.outbound.protection.outlook.com
+ [40.107.201.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053B710F5B5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 20:26:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UU+MVkbGoTkhf7cFp6GXyEtH/dsyWU4s3VeZv287ZyvyTo81TGfIO+roQpodzTl7O7kVpJuaoG0wBbWlFIkrtE5T/gPSSc7g1cl4ZH0bK6rKaKTZLcsTlevNO0apptvtn5MxztTP8BcOMn1qtyYOZ8RJCdWPbs8GKwXHRpJqINMaYZIq8NTJYgNdiD6mBB4Lhll7VKE+wWXfNgph4T86xzTWrT57yRYApnWEGULfZn7aV6LBU/hu8PYQlAzpzAQh+d8iyTAYjz3GDDsruyn6ss5UcXzqg5oGaV4TenzVSgr1EmF9xOJQTubseZ42NZc7LHKHpT5DGyN1dNxKe/vDtg==
+ b=YYU673yG8cjz2ubHVyGmiFvFbTYHv8oW8GiNzHb5sSkbWOet5TRfHWwaV4RX/jEAaoO0TgxeutzjQ2A8QaEu9kzuczI/4+wFsb7PyRqCOB4HJNdJCW54Zrx0LuLZZxfHQ740Tqs7bUmpM/UMHjQ1PVr3uo7ZV6n6Q9GyVwrcodPy8WR+pbl5+1YgHkWbjhz4rs1byyfUQbPEmCZu4euqJ428dpAvtrOLRJL+w0AwcQsiCW0AebpzXSBpLKjP2JWMpur+c8dp5huXFDPz9kwq0NtFVbk2XecLVQgPt8UPod3tkHJ5daamtLdLOoiU+MyUGK/79FbXGHRdx+V3X+Giyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cKg2+1Tonp3rhPHPp/GIEebkULH+2JoFoPUcaYzNTG4=;
- b=MM0KgUcyDY4UBn/m7z/a4gI+1ZGMoJSZ1709FisqQqGpJnhGW6LkPA42kS+I0E+ysEQvhtH7rk9XYO+nPrSPkll65Folz6uxGTmBXfzc3H2517hYnvBhe9yFNhi5EL8cECqWUUEN9rq6X43nHIX2U57eZzMVr1IIgIVKA60jEbyIjbDaT8paiteS9dvT1/xLC8Ut5/QF5SAOiuRX+pa1zYbJO2AH3thom2a3ZaWvTDfu/Tio7XDyQt/CNKDEDA7j+B+bjNdhlKRa9G9E4MHwyoRrBjZ59TFKJFMMmtbJzwhG1mVo5KLr3/RI8HisDLoATgNW+uGJ1ZvOzHN3ZTRjrg==
+ bh=6e7GtWDN9F9BhvC0rnZWlTVPDp57Aes7Wh6UgnTxutA=;
+ b=KXYIKm2PvZQqZatbtSJnQhG2vmgr59yulXInIsgTom7th1GWaF9qH64z9/lq9PbyRYdC3KWCzzKanKA8baoRKWEsYaparLTuedtaX0Rqaqt5wNd2EcjfKs3HIF2OqcsZvpO/ASBZxeQSkhRV5OCb2tYxl7TFcoVkps9Set2BcwndK4N+arxzNdrjgZ2M4UDPleSnyIagjK001AoDyQdY0+VVSw9ngwFTANnyJFw1bLvtw/E7cuchUQKRi1sk/H8vumip4Hw0DZ2FuqJzKJcfken/Mijy+8UoaDqru8jyR2u+nIcLPtKzqC1X38lK2GiZNmCQtVKgxF6iVw/2btDZ5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cKg2+1Tonp3rhPHPp/GIEebkULH+2JoFoPUcaYzNTG4=;
- b=YQZr/QHID3NA4UwsttAYlGhrT10UOs8Peq1zFL/fHy79V3qdu23K0RMBAL+D4ObQFNbiAHNYLneStU+cWCmhhzp+HC+SCi4Y7pF3KzrKw8gQYJUwKzv0cjlGvvv/UPLaqt7+GcY/LBMxrFcM4L5dpOJsENL3+LTvX6+hMhMCUC4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by PH7PR12MB8014.namprd12.prod.outlook.com (2603:10b6:510:27c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Tue, 2 Jun 2026
- 19:46:12 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 19:46:12 +0000
-Message-ID: <cf0faf87-a9de-4579-b82f-d694dceeee5e@amd.com>
-Date: Tue, 2 Jun 2026 13:46:11 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: widen FRL debug knobs to unsigned int
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260602185904.4165562-1-aurabindo.pillai@amd.com>
+ bh=6e7GtWDN9F9BhvC0rnZWlTVPDp57Aes7Wh6UgnTxutA=;
+ b=O360j6SIxJzUlFOtIocUXT9w9MRSR7DBpz293EdIVyRWNYsqOmUd7So7HRRu9hCJNvZQtfOR/cNBc0Oa4xnbpI/ZG3Piea6NxheAEexKxZkjZmFT2z7dobfaInysw5I8aK1hKUnBDT6/iJiYeP6oQke7D76jWqAOHBJIpvbPMWg=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DM3PR12MB9392.namprd12.prod.outlook.com (2603:10b6:0:44::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.16; Tue, 2 Jun 2026 20:26:38 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::699b:1fb2:73:6a33]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::699b:1fb2:73:6a33%6]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
+ 20:26:38 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2 1/3] drm/amdgpu: validate the mes firmware version for
+ gfx11
+Thread-Topic: [PATCH v2 1/3] drm/amdgpu: validate the mes firmware version for
+ gfx11
+Thread-Index: AQHc8r0Th+0dmQjfD0K9L0JjOke8MrYrtqI/
+Date: Tue, 2 Jun 2026 20:26:38 +0000
+Message-ID: <BL1PR12MB514431CC974614F82CFC27ABF7122@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20260602182429.3543432-1-sunil.khatri@amd.com>
+In-Reply-To: <20260602182429.3543432-1-sunil.khatri@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260602185904.4165562-1-aurabindo.pillai@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0143.namprd04.prod.outlook.com
- (2603:10b6:303:84::28) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH7PR12MB8014:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab65e68e-7169-412a-df33-08dec0df99e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|11063799006|6133799003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: Dmco4hJwbROcPsqQm+Ilx5HdT833IBjogy1c11hKK/JtnNGyd1EluzRkPClAdOEkho5+I+sLF1uoYfOH74iOUavSXg8w/Gq+N/utuaz2jGGB1wkz6BXZcPoXCvbxpGQi1rRM9jbJqpQg80xDHySkpfzz4DHucLoKHelMVZPAidhtEapwtoc4ZoeVkgO4v1GtX3W/p5D4H23jjPqDZ0lRuTBamacD5fPatupdo2DjOg06PCDV9kX6hoaYTT8AE9KDDC8lsqwX2RNotbuKWHoW9ZogPPZ9536lW+8HswePvwbNopJoiSR4BFBt56QSMfl8IiXFp1+V9POoQcM2FXWpTYjAuL9IXLkzbjBiw4LQCLa7Wld9qtN2SsLjqUTx35fPdOsCb80l1uVLI90INR6tL6xLH29tOjOs0q2bj8ldV//wOwkV4mq1hh8oxtF8UoNJYFuZWHC85MRw0QuanhkuTnEIpohl85aIzgc8Clu8xgPhBGfRsXveqxenyrlidJ4xF3XFdBZQnEHNBNWOawWnwo/awR41EsX9udy34Ai/tPo97TFhikxM1nNAntH1ce2oK03x5jQse4Cgmknswqik6VFdoIpMtr0ViUhsuIuGvQc8x0CEpNiiAq531EksUB3sgcVSMA9n7p1GRoklgU//o7L3ddex/Zbmym4Nyb1RLYOLqyYqEX3/dR7/nk35wufa
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(11063799006)(6133799003)(56012099006)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-06-02T20:26:37.783Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
+ Public; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=1;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM3PR12MB9392:EE_
+x-ms-office365-filtering-correlation-id: be53e6f7-04f9-4d86-3d13-08dec0e53fc1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|18002099003|22082099003|11063799006|56012099006|38070700021|8096899003;
+x-microsoft-antispam-message-info: EbiB8ooFo6uHjXlqwk1GrCh9t4Q0NMTt0x/ir0spIDkctwmJcJRJGEKwx5Cz1qYitE7Oad5602e09muTxZ/luczjBIvyb92aDcHnT6rBLL9oRh7fKtO7/Y0WKuZiqm87KXPyaBrIL8lzt+wQ1dFi1Vf59hgrCCB4VXx0clh/R+n4p9aDL6wCfIt0QpeZcYAXNi+M8frM2DYgNT7iwVVGVdiuI+HmF3OnzsXoCZPzD4pFv4H6hxqdLrZflEe3qdsiP04wXetUN9rYvyw6/tDOgBa2zmoLcK3wufGyGtMbVdV+v3QPhBkGimrk4X9N8CNpFY6CXxcZYvtlOZu8Wis6KVbuyPT8I/PcaIyQ6NYAdyg18mMzyvRatWrDJrachTtVJJ9PNj6Pb9Ou6RrtmCgBdttxESKuNqB+XtNncZcUkI6sHdArJAOavPoa1nWgRVDCXXy6S179QqrZ9w7oeNWAXU4sfqS5IvOsNvJHRysacKpmShdFI/tIJOm7CRRt0LXk3ZPBF8g8MXrSOawDV8kSBDzzGvl457lXEhU/zzDSj1UhxEee5uz5s6BxZt+AiqWJ6FBCbqZywfzoHWB+2kxcFcCK4nmqgFi56/Te0EFi09cRWnPBnhA333b8pToqtOpQjiDqzVPScQfYnsku2408ggS/ugreqVNSXv+utZQjavsT439TjLr2t0ubUwlut9qIYEtbQFBgoS57xMBvh33Ima0ZmTGxmtwXs4wEcjXb/X1yxeT/6Ukz3Alwy7V6C7YC
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(38070700021)(8096899003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akZLT3dhTkJ2T0x4aXRhZkdqcnlaMVREVTdJNlZLNHlaNFRpNHlFcWF4U0Uw?=
- =?utf-8?B?eVVqNUNpdG91S1BOQVlXUGpVVTg5bkJjL0Z2MXI2VCtMM0UxZUI1bE9hWTdC?=
- =?utf-8?B?SmFsU1FRTzhSZ1djSkZOWnF5TEFjdEtMSU1laHJseWRtV2Q3dXltQk1yYXlh?=
- =?utf-8?B?ZEFNeGtCNGNXcmkyUC9jY3FRbTYxRWFraWtrS0ZVQkF6TTVkcGtobGh1ZkhL?=
- =?utf-8?B?QUZRaWprTStjQThKakhLZkJtSitiRzg4bnRpS0pUMlAzblVJTjk1NjVSRHY3?=
- =?utf-8?B?akRNbEVIVDBBeExrV25MaVJYVThzUUtTc0VkaGRiczBXVnZETEpZeDJXYjR2?=
- =?utf-8?B?SUUwVnB0djlyRkVkWGoreWpIdWVRTzFwWFRlZUY2U2JkeUhyYVJGMCtSaUNM?=
- =?utf-8?B?RVFQOU1VTU9FM3JaWmY4SzIrRVdwMlpSR21GTEYzb3RhT3BML3k3U2VTWWo1?=
- =?utf-8?B?RUZXVE0yb2pvNHplSnFhekNoNTR6N2c3RjRjeGMrcXNhSUxvRmhzN0NvdEhy?=
- =?utf-8?B?K0dweGw2RzZxWW1qYno5OTlBVHR1eFdPQzBGbG9DalpBRm96Z3R1L2JkWWIv?=
- =?utf-8?B?ZDdCN1BML0pPWU45SURaRDByUDFhNTltNGFZeEtzRWZSRW9RSmhyWmpNeWUy?=
- =?utf-8?B?N0FLbFd1OHlXYjRMdzFiRElOeGJBL3JiMjhyeFhNOHh5WkhtREZMNDd4d29n?=
- =?utf-8?B?eGRGWXhrditWZjBUMS9aWHRHMUZRUVY3ZkRiUTJUcERoRFR6eldnTWJyellm?=
- =?utf-8?B?SEdHd3duMWZlYWxVOFhqMHRFN0gwazhDZGNPMWlJZEhvcnAvOEJXNkZhMWJJ?=
- =?utf-8?B?Tk9TU1dXYm9BdytxMm1WRmVQV1RYZit1eG9SaE9xblpseEoxV2orODhXeHp5?=
- =?utf-8?B?dkNoQ3RmekZyRjFDU1hNTEpsTFpYNnIyaFVPcjQ4amw2VlhrWllIdGZiNVJp?=
- =?utf-8?B?aVB3Q2plNVdZSkdBVTA5dFREVnNHeTRjdkZZenBFaXBIaVB6VFloT29uZ0Zo?=
- =?utf-8?B?WUptVnhCamg3NzNPSmxiSzJtbG4zdXQxd1hoT2lTVjUyYzhhK3FaV05xRkNr?=
- =?utf-8?B?SVl0cWpBNm8vc0VpdTlGeWg0Ymc0bk5ieUxQOW9iS2RpV0RGMEpZRk9tZlRS?=
- =?utf-8?B?WEk2eXl3Wm5mMEVTSWhIWDk5R0dnUnBSZTNJc0EvNTd0TktGRWtrV0hmcVNM?=
- =?utf-8?B?YnNCY2lZSCthQmJZdUwrR0x6RlBzeDczR2VsTUlBMWRIbDI1dlVnT3R2aEpQ?=
- =?utf-8?B?eUU1VUJmblRPLzliQnJDNlFsa1dIaEJmc0tvQmt5dzdWUTN1MlVoQ0hOdDQ5?=
- =?utf-8?B?WVBuc3ZsUC9CZm1pY3cvQlZMTnhNbFNuTlUrVVgrbDdBdkozejNkdlQ2dGg2?=
- =?utf-8?B?YktvVkxsYjd6ZzZ0b1Jua2paWlJkUXpCNm9PbkxBQncvcFA0L2ltR0U3ampY?=
- =?utf-8?B?d0pBbHRKM21vU3B2aFA3czc0bzVhUlNFTWtXNW5WZEN1NDl4SkZTaEhIVHYw?=
- =?utf-8?B?ajhiZDZITUlqUGRxZStZandNdnVRK2FyQXp6SWZmT2s4RHNUNWJzRWlkZXU1?=
- =?utf-8?B?VFF2RnBQTEZlS1ZBeXNFOHVLMThJdWxJbjRCMXdQSG1YZFArblZpc3g5Q2Nv?=
- =?utf-8?B?N2dQV0xqQncvR1pqc2ZqbXIxbWViN2d2Y2o5RlhnSG1sbXpJWmY1UVdPNHlL?=
- =?utf-8?B?elhIY0NGRFdZRkUyMmxjRDFOU2JKc2dHMXI3c0Jodm1UY1VhR0F5RVBPamt4?=
- =?utf-8?B?c1NsdFBDeDVYUlhFdEhRb3BmQVMzMUZwQUhISXZvck43aHN3WmhBM3JlM0o0?=
- =?utf-8?B?RHYxMjF1azFRWm5BNFNLQS8vSGxpeUtBNTBDZmJjUW1uYXR6WEVBZHlZTzZh?=
- =?utf-8?B?TUFsejFIb05iSU1oZllCYm9nVVU0ZWhyM2JPYlppcUdqY0xWcWNndnIxYnR6?=
- =?utf-8?B?NzhuM1p4VzNqTmNiVWhmQ0dLMC9zYVN2dG5xdkRUKzNPc0F1N1Z1b2NlS3pN?=
- =?utf-8?B?emlLcFI4UXFzNlk0dlZ1clhZMElGUnBBVGdZajIyajh4bXRzbE90TVpWYVZY?=
- =?utf-8?B?a3MwUi8zSWdDQnNQZ2xzK3NPNlowWGZlTXJwQ3hhUklpZzRXVXRQS3lHQ0oy?=
- =?utf-8?B?akZsM2hEYjVLRm5STndUaU9EUDlkUUdSc0tacWNybmMxSUIzZUdOTXNmaytE?=
- =?utf-8?B?MkRDeDd1NkVXalB2Ums1ZnhVTndPaUVvOU80T3pjS29IcVNvalJZN3hNWGx4?=
- =?utf-8?B?TlpOcEMra3JKM1BzT2FrWkNUTnBLMWFPYUs2K0wzcWpQZkhseW1CZm5Tbm1i?=
- =?utf-8?Q?AL96MC5LhsVZvc6Aip?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nUYkU9Qw/uTGvI+AvZuIllp+tHTozHb/6UAq/OVLOKfkp4HFa0rDqUTx//7k?=
+ =?us-ascii?Q?bZ0Qi7PDV/2tMD7EIRMXXC0cvuNTq31u/hUhAN527g9/uReE1Vnagd81Xgd8?=
+ =?us-ascii?Q?L74z80hKO6AGMDuNRZ8aJJ8/S3BWU+auQ6qZBpLn32XXdXmoYNbgpVPp6kXR?=
+ =?us-ascii?Q?tUqg4QPilzyI3eM79O8LVg8d8iZs3F1puH7U+9IZDYthf6wSxMIbjlzxjZnD?=
+ =?us-ascii?Q?wvQo92XLEtoORbxgx5EEuU5DaSiazbP4Z7VCTk0Rmyz4Pqn79upGhJVID+Te?=
+ =?us-ascii?Q?/cgD+J+pzDW8WpobGyRKQQU/9b779xz4UL6VT0jNe8tuWCCJfTqwJyRTJ+DJ?=
+ =?us-ascii?Q?yC24ifLGS0MGmUpzcE7qhmvZ8q5hINvEbfq5QFrkF5gu9Ewlc9O3/uBJB+ry?=
+ =?us-ascii?Q?hmfd+c0u19+DF2O+fHNyt/l7QDpO0FZQ1MmhQD8U8s8LGHBgScPw60OjPpfw?=
+ =?us-ascii?Q?CtyoC2qrKrJFZgP0zxa3mNYdyAKfU7ACUfWOw1OdFr7ZcqxmKyXQ3oIn9N23?=
+ =?us-ascii?Q?VU+GMqNsRaqDmoeE9rEps3fQ9ApXSaMRzf3VlsgWBKWpZPTy2d+PKbvh2Rya?=
+ =?us-ascii?Q?bysn6AB8bheZDOBL8UhtgG91Xz5MXBsrxrn3vrN4JF0IP1+2haXBQv89EGBp?=
+ =?us-ascii?Q?1jMzFgrX1F4k+zJpzIV3xFHtpKnZ2BneOLnG8bY0VWD2E5SXAGbCB8WFRMx3?=
+ =?us-ascii?Q?BfyYm1EjOtGc0dyozTl5G2iqgWDN7pEHg0wXQvWHo/NFLNlDIuJjy75L4Tbt?=
+ =?us-ascii?Q?qHeM+NBo7BAEpG2J1AkWr12tjHNGUp9hMSsHjx+knNV4l5KvQ2a5Vc+rPnHf?=
+ =?us-ascii?Q?XRL6ePJS8Oe3nOSofBtJAypvqoQ//J2E2q8Y4hcGh4TSNwf6S6JdtEz6H28T?=
+ =?us-ascii?Q?CPLvOjEluum87t3nGL8qxqxQ+3Ads8Ygm1gpxc3HBkwe2OrmD65KZuBTFdCC?=
+ =?us-ascii?Q?C0mpVa49letOh5zgN6rhWIJKcCRivyWqqEYJBnLiQUGW3YkvkPgWXzGQBqmK?=
+ =?us-ascii?Q?510/zJe7csTXgwZrI3vZL05LwXMv2IO0D4zOgpGctstadNhFyCaCydLcI0gU?=
+ =?us-ascii?Q?DFWF7kj3vZQbxs1xTt6nDymdDdgYuV6A3Dw9PzZWiLMaK3ayiAaQ/fbRxl1b?=
+ =?us-ascii?Q?deVCcQIP5T0JMFQVn82vod774tgtRZzI69WK/x8+xkSsTsVzHXGysQtDLvIe?=
+ =?us-ascii?Q?uP6oZrC8d65hD3BE4ITlHAtarEqwZAgc1rAFYf+At/hPyl//sdDq7j3Lx7ev?=
+ =?us-ascii?Q?TKYMn5ZP5ErYlDUUTWSOltMXPQyo8FOuQKRIXbaSXq7MstZn7omRVnCazPhu?=
+ =?us-ascii?Q?TJ94ThnyS2NIQwz3UXJozJNREHsW+ymVpIcDLu/L7wgxUhhiQKPJ9PRFWELX?=
+ =?us-ascii?Q?YHFC+rGmcBIhaEKUtgF+3DE2UKAxTFTVZH/G8s19ZE686L3Oi/G9tv0vf8JI?=
+ =?us-ascii?Q?lHrxK3SMOm/47sdHoK4dDG3JnnJWKH4tCAru9O1Zz7PlEuLQIsvH6sm9FbSQ?=
+ =?us-ascii?Q?ehn5wjQStOWKEmTxRrThkeew2fj/lw2u+Poh1SCtWZLlXYf5cXf52xrNC5g7?=
+ =?us-ascii?Q?0aLa2YbE7hM4P6eyXYMhR8DJDjmI5nlkX3+XwogcLZHrGnJcqngYJK6CYlyI?=
+ =?us-ascii?Q?s8qnnOCmiAfEFp9cd2TOp8tYTO45ScJZXopsC0ydLjyCgJyA950e780H8cQ1?=
+ =?us-ascii?Q?tNK4wfnfpisCOqxfSbxCsBR+1hxjTCYrUavpRppaEqBsAyn6?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB514431CC974614F82CFC27ABF7122BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab65e68e-7169-412a-df33-08dec0df99e3
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 19:46:12.6505 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VFf5RdwLa9NUKPgJrZa2h4UJw+Ee4nW1OaTazltZKAyeCiPBDb7AUFyGKsPXlJq3+6DgYZ4fWctf2slt3n7I2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8014
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be53e6f7-04f9-4d86-3d13-08dec0e53fc1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 20:26:38.2257 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4dY9Ru22wJKuAZx3He31VX5WNUjeVM9d8tByXM07ugdLzZnzTcGj4QDa/I2WRHenWaAvA4ewUMaA9y3sV31OUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9392
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,39 +134,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+--_000_BL1PR12MB514431CC974614F82CFC27ABF7122BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/2/26 12:59, Aurabindo Pillai wrote:
-> force_frl_rate, select_ffe and limit_ffe in dc_debug_options carry
-> non-negative configuration values: an FRL link-rate enum (0..0xF), an
-> FFE level selector and an FFE level limit. They are only ever compared
-> against 0/0xF, assigned, or cast to uint8_t before being written to
-> hardware. No call site relies on signed semantics.
-> 
-> Make the types unsigned int to match how the values are actually used
-> and to silence MISRA-style signedness warnings on internal builds.
-> 
-> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/dc.h | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index c6db021a61b0..82d02ebbd829 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -1155,10 +1155,10 @@ struct dc_debug_options {
->   	bool force_vrr;
->   	bool force_fva;
->   	int max_frl_rate;
-> -	int  force_frl_rate;
-> +	unsigned int  force_frl_rate;
->   	bool ignore_ffe;
-> -	int  select_ffe;
-> -	int  limit_ffe;
-> +	unsigned int  select_ffe;
-> +	unsigned int  limit_ffe;
->   	bool force_frl_always;
->   	bool force_frl_dsc;
->   	bool force_frl_max;
+Public
 
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Sunil Khatri <sunil.khatri@amd.com>
+Sent: Tuesday, June 2, 2026 2:24 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Khatri, =
+Sunil <Sunil.Khatri@amd.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: validate the mes firmware version for g=
+fx11
+
+MES fw should report the fw version same either read from the
+register or if read from the firmware ucode. That is not the
+case for MES firmware and we add a warning in case it is not
+same.
+
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  1 +
+ 3 files changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.c
+index c9467b26e42c..e3972673fd64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -781,6 +781,18 @@ int amdgpu_mes_init_microcode(struct amdgpu_device *ad=
+ev, int pipe)
+         return r;
+ }
+
++void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev)
++{
++       u32 fw_from_ucode =3D adev->mes.fw_version[AMDGPU_MES_SCHED_PIPE];
++       u32 fw_from_reg =3D adev->mes.sched_version & AMDGPU_MES_VERSION_MA=
+SK;
++
++       if (fw_from_ucode !=3D fw_from_reg)
++               dev_info(adev->dev,
++                        "MES firmware reports incorrect version in ucode b=
+inary (0x%x vs 0x%x)\n",
++                        fw_from_ucode, fw_from_reg);
++}
++
++
+ bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)
+ {
+         uint32_t mes_rev =3D adev->mes.sched_version & AMDGPU_MES_VERSION_=
+MASK;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.h
+index 93990d4990f2..fdd06a17520a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -441,6 +441,7 @@ struct amdgpu_mes_funcs {
+         (adev)->mes.kiq_hw_fini((adev), (xcc_id))
+
+ int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe);
++void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev);
+ int amdgpu_mes_init(struct amdgpu_device *adev);
+ void amdgpu_mes_fini(struct amdgpu_device *adev);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c
+index a926a330700e..0db378d126fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1686,6 +1686,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *=
+ip_block)
+         if (r)
+                 goto failure;
+
++       amdgpu_mes_validate_fw_version(adev);
+ out:
+         /*
+          * Disable KIQ ring usage from the driver once MES is enabled.
+--
+2.34.1
+
+
+--_000_BL1PR12MB514431CC974614F82CFC27ABF7122BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+Public</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Series is:</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sunil Khatri &lt;suni=
+l.khatri@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, June 2, 2026 2:24 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v2 1/3] drm/amdgpu: validate the mes firmware versio=
+n for gfx11</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">MES fw should report the fw version same either re=
+ad from the<br>
+register or if read from the firmware ucode. That is not the<br>
+case for MES firmware and we add a warning in case it is not<br>
+same.<br>
+<br>
+Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 12 ++++++++++++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |&nbsp; 1 +<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c&nbsp; |&nbsp; 1 +<br>
+&nbsp;3 files changed, 14 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.c<br>
+index c9467b26e42c..e3972673fd64 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
+@@ -781,6 +781,18 @@ int amdgpu_mes_init_microcode(struct amdgpu_device *ad=
+ev, int pipe)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
++void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 fw_from_ucode =3D adev-&gt;mes.fw=
+_version[AMDGPU_MES_SCHED_PIPE];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 fw_from_reg =3D adev-&gt;mes.sche=
+d_version &amp; AMDGPU_MES_VERSION_MASK;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fw_from_ucode !=3D fw_from_reg)<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_info(adev-&gt;dev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;MES =
+firmware reports incorrect version in ucode binary (0x%x vs 0x%x)\n&quot;,<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_from_uc=
+ode, fw_from_reg);<br>
++}<br>
++<br>
++<br>
+&nbsp;bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *ad=
+ev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mes_rev =3D adev-=
+&gt;mes.sched_version &amp; AMDGPU_MES_VERSION_MASK;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.h<br>
+index 93990d4990f2..fdd06a17520a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
+@@ -441,6 +441,7 @@ struct amdgpu_mes_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev)-&gt;mes.kiq_hw_fini=
+((adev), (xcc_id))<br>
+&nbsp;<br>
+&nbsp;int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe);<=
+br>
++void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev);<br>
+&nbsp;int amdgpu_mes_init(struct amdgpu_device *adev);<br>
+&nbsp;void amdgpu_mes_fini(struct amdgpu_device *adev);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c<br>
+index a926a330700e..0db378d126fb 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
+@@ -1686,6 +1686,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *=
+ip_block)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto failure;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_validate_fw_version(adev);=
+<br>
+&nbsp;out:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Disable KIQ ring u=
+sage from the driver once MES is enabled.<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BL1PR12MB514431CC974614F82CFC27ABF7122BL1PR12MB5144namp_--
