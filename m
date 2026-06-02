@@ -4,106 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF39BCD6E60
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 16:59:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E0BCD6E5D
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 18:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E3AA113AED;
-	Tue,  2 Jun 2026 16:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63FD010F49B;
+	Tue,  2 Jun 2026 18:09:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AQM0q7aJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vylOM0yn";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94B51113AED;
- Tue,  2 Jun 2026 16:59:16 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013010.outbound.protection.outlook.com
+ [40.93.201.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6400910F49B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 18:09:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=adYyV7NdUcTU/5XSV8/Yks3GQZVQ8hYFTxnbpVnHbTxjWHVYqy3tuoRCBnyQHiSpbbh3rt27iwLfAF13iT5R30O/DU1wReEhgwtooPY548jT+tFDEs3ENiNQw+6okAlgsoJERY20XqR/mi8CCCyoH3flaVWrbMcNGlOzjfV72s+eDLhZQzfNJ6c7y0TG3ELWKiNXS6qerMB/axN7oLxYaoJaUjt34vET0+rhtuq5cI9iW+yftnJNwNl9rPEp0QTGCGLoH4X6PqZOhMN6y6VVuo4HPIfFHMgbp2VOj9kXstNSAfSMU4VqVL0R6ud/SRZor2i26D4egTmuMLcd/HSLTw==
+ b=GzNlAyON2x6uPwWkHcOJkcvZhmv0h77akApvCLlu5NfkX0JEaiaClIwDkpn+vQG19EZK3j/KN6l2taadFIZUiNyY4Zi/UVnT+md89o0e//a5nUdcBf4ezu2VlYvaK6mQ/HPhpExpTTrgfQ/ffBKD/dYh2AKSlarSGKhWqcO/ZhHU2IQKkugQm8wC44qTD+TFu9wvk0EmQI9vwoJs8OpGgLp5PFJithelyCt2LXZGpNj9X7TpI5Nmb3ICZWdwEfg8ampoOQfB/rVQZNtASRQB1dF6g0qASvMI+QXzQi/1uGyw+jHyl2TZi2FoGLwNzYKn2IszJxMVXkBQciKZ55nfwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yRcqoexA5LPQOUmGmhtnWBK5jvnrg9NgM48PKukLr10=;
- b=QHoZBFcqPTASiBKsnqo19nUs0y4X5Lr51ZiZWouToKW0Gez/Wdk4o90K7nhoB4pw0It5mr0QO/ZGs2TibrlB7RWWQtedUP/mHKqQqcwRwUtlgLD2T3vn8si4A/yYpqx87AGDhQfqr4wETT3fOG0ocTQRqeNxXi4JqImFcDOC5ky/S8nqlNPBzp4u9r0jenhm2LTwe7Kb7Bru7uPMEuo7Hm9bMm1YzPVOHxI5p14Bt+KJG5Mh1gN/ozg+APDx1VJ8WA7YrTfFtsy9AMuwI1IMC541iMIkA+hBr0SFTNfVzsSntK6xZ7EOMZ99GLSeG49ssD6nFsmDWfrMHIkHMy2dCA==
+ bh=h7SaTJrwTrGv0O3VHehMu4LX8mvjMD2wOAu1RXm+RYI=;
+ b=GOKIkvhs7YI/Q6+3hLvuxy1QWCrYIsDwpK0o2td5XCTx+TsQIWI7VjBrhl0Huez71V0kSZ6V+JxEV3kPXF4oQZ7YtrqW84vPsWiM0eyStn2/cHEAV0yLhSqg+537lC88kzoG6aH2LnXb7pi5mn+daeHZAMecyv4EJX3n3pSzH/4WoIiDP9n4UBUWKgtZ9VJJFHI/RvQ6aUtZo0BgRWRjlhXxBvgel/lkNcOeR63Au0TE575gGS2sCTVK7kOLxNI1u4IjlvGYc5FtBdoiiwxMWSbbbFxgRwXohY9LMfpjzSg3SFIpYbO3hI582IIPlenAg87qsjA0LQMNx65V+sr6OQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yRcqoexA5LPQOUmGmhtnWBK5jvnrg9NgM48PKukLr10=;
- b=AQM0q7aJ0KFIMeh8sHJtAD6IAxHfRTBIKPCrC57ZLCy7QmJUHf7YCQToGTne7j9+CkmOWR1ip0voyrHdYw1ykvu3Ra/IoqT7QdjD3tOmrHClwraRkCQAXVmJeGbqj3byqBxI/v+rGznEzVETj5YwvPKFwnov8XpB5jXLhtJt9bQ=
-Received: from SJ0PR03CA0343.namprd03.prod.outlook.com (2603:10b6:a03:39c::18)
- by CH3PR12MB9313.namprd12.prod.outlook.com (2603:10b6:610:1ca::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Tue, 2 Jun 2026
- 16:59:10 +0000
-Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::26) by SJ0PR03CA0343.outlook.office365.com
- (2603:10b6:a03:39c::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
- Jun 2026 16:59:10 +0000
+ bh=h7SaTJrwTrGv0O3VHehMu4LX8mvjMD2wOAu1RXm+RYI=;
+ b=vylOM0yn9lAuKKeitY/rOQbcjyY+IN2tvoNW2ji7YsxLHE69Ih1sBA6s8px/8Vw5dk7FnUQ+58kNcuD+NgdMEs7U6FC0CCgWokqNtliCUOX/m3Fr0kAsAHFjjCjuzIWF0wzxDis0WX1g1u1/bT1sI8HnIMbK4g9wQOrAUc4t/Ww=
+Received: from BN0PR04CA0034.namprd04.prod.outlook.com (2603:10b6:408:e8::9)
+ by IA4PR12MB9788.namprd12.prod.outlook.com (2603:10b6:208:5d5::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 2 Jun 2026
+ 18:09:41 +0000
+Received: from BN2PEPF000044A3.namprd02.prod.outlook.com
+ (2603:10b6:408:e8:cafe::1f) by BN0PR04CA0034.outlook.office365.com
+ (2603:10b6:408:e8::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.17 via Frontend Transport; Tue, 2
+ Jun 2026 18:09:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A3.mail.protection.outlook.com (10.167.243.154) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 16:59:09 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 18:09:40 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
- 2026 11:59:08 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
- 2026 11:59:07 -0500
-Received: from [10.4.12.116] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 2 Jun 2026 11:59:07 -0500
-Message-ID: <0bae5fea-a1d8-4516-b1a7-eb90e35c39b1@amd.com>
-Date: Tue, 2 Jun 2026 12:59:02 -0400
+ 2026 13:09:38 -0500
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
+ <asad.kamal@amd.com>
+Subject: [PATCH v2] drm/amd/pm: Validate OD DPM triples before mutating tables
+Date: Wed, 3 Jun 2026 02:09:24 +0800
+Message-ID: <20260602180924.726003-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Export symbols for KUnit test modules
-To: Alex Hung <alex.hung@amd.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <siqueira@igalia.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ray.wu@amd.com>, <ivan.lipski@amd.com>, <srinivasan.shanmugam@amd.com>,
- <marco.crivellari@suse.com>, <mario.limonciello@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-References: <20260602161536.3909009-1-alex.hung@amd.com>
-Content-Language: en-US
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-In-Reply-To: <20260602161536.3909009-1-alex.hung@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|CH3PR12MB9313:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8cc3c02-126c-47cb-0daf-08dec0c8438f
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A3:EE_|IA4PR12MB9788:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65764fb1-5e35-49fb-ee1f-08dec0d21dc1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|22082099003|11063799006|56012099006|921020;
-X-Microsoft-Antispam-Message-Info: Pb8851Kyq71mKpbAFNRNPRgVm1i+r5DjK/nsDr72q4Ep3vXznVqiHGVqRH8f2ZAo4roiAz6ekGsoUQw3dWpS8xYXprTtU3v0VKc+KLvGLsLUaMnu/rba8TQJk1QvrvAq9ihvHuc7Akd1sWBGBHGX3VltBjcxhu608awlYcmJsh+VFLfzyQMg7pOh2VR0HMJj6RC75lYaD+ioJztypctZkDBJz2hbHEjJe7u3PrKZG92h1dTON9S9hLQetT3PT+SL4SD1HbMcyZ/Jkb/3kGQQF7OXuIzFjHJvNmD6ch5ca8irQTIWyNviGlYRYz6JxyXmZ4LxtaB/M6+9yQkFsNgHOGZR/rHaQyWRQ+jweL8Ij3qFMgd2TCJZ7xrZmUH91waZ1BrR8qMBjVVBhfJvLv0n1BLkYiTd+YbE+eA6rgQAWXUVt5paiYdkbODXkU8OOh/OD1Dp3zmNO4MRGUCqQyRDcev6Bdn4qXfo9yaTrxmj2nwX2WLn1liXAJwO1GOlrOcHga8g6OR606qSXW/+dxbCw0r4uRL3MUYwzPx/xaxmxiEDSMhfkeJQsa9xQRwqYU8WC4oZzQZZDDG++z6Q0Nd3SmHQrVP3hwWV1hU1dXzL5cn/IBnBJH9wSixG3IBNhfAprI8YfCof/Qmz59m9mf1kZIS48c7dZoZUym0cegmCEWDTG5DhkybuD3UaOUyo9LyeP38D8GgS4+jdLSxuzQ5zN3fsZNDJs+pvsADr6CCxTEnpH6C3fvEaDN1Cjy1nFZ1XE/cHag9/rTlEKxbeGlkUWA==
+ ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: xo0GHqkR2guN+r/pOTkp8C+iHd+bOu2SuqlN5ULlQgplqdmHasKW3M8Chb+lqCVGQJerfxKiSOjC1Ih9/GO/p6hOtRntLoEG3fBbWse6Qose1L9D9maIeTE2DA58UwupfYnCpUG7P9UCWbdhFLcVg/qygRvxutB9aFj1NjuscnTRAFx6PRX9VI/I985FCkeoQz4RWIap4b27Vca38hXcUI2ItXYUAkyW+dY1MPVczXXRNFLUnfQHVwiPuQ17kgj4njA1urQMWQDkoPl9E7bz34P8hAup7U/Ecr5wjCsNX/LmK6DS9o3bpOhrhqoXmh1lXMWCriQQ5Mg8IA6OTQ70p52zDo1q24ZC7pQNIwe4AdtOcbLcBpXOGdjil5VtX905ZSlhtXGVdK4J4eETqJUYBHU1vmCtkEDzEF/GY+rOgsxmmTQnF/YbltiyGYZ9yhQcPuzdy7lJoX5CLVJxspS+NE9sJPuE5r0EgaT9ys8Xae4EVCU+dG+wpWcVPG9uEsF9fSy8X0PNleQBDyhtb0IS8EjgWlXTY/p4MpdJbUzikPADj41Gfb5vleb/pk+x1GRBqT9cme5vax6SqaMVAJzMr++Db7GGZ/k5rVlH6YhFQC6CXtqsgt1W5nccWX706iHWta7Wqqx9E4z/7ObNTQZoK2qvKeK/IrhssysjXpyuiRU3z67cHy00mA4Wb5wc18dAEsSGYdwXfg/+lFuNFbeXxSCrb1W8qN3Vcs+hUqjxdxY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(921020);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Ut1XRmG646XClmrzv401ekr6bT4Y4rWY0JIBMx3mDeBZkyM0RNsC007S+8INuXLXsijLxRO9SBqQ8xfCLxID+sA9s/cal2iI4MB4IftdoBi2KPlfz1XuL3hKbs+eIU8zo3KgXgdF6FGvfVe6b7T0Zt9TZBnVpM4Yp4uVQLsCvP7Ppga0ZFPmtDFCMjMaL60Y6hyoFJSYJ4vPeFQ/zAMSHJlBllAftfagXYFduBv5jPmv8zZyacWObPRpzFH3qRJoeCL8pgdJuwuYWyT+O20DqckyvODFBPHVOF69ZFsvom9lgd4MHGgcKHat9yn0rC5wCOXm5k511/fXR2gDnj5cW8drW7HTntx0xcBhCWyifoFINrEBJq3bFauiuxqT+XHKVYzwY4WZugiQF4L01PuhzKrEghTha7nHHwDJY9jJwZCMrilW6u3+zMRq6d2LDkdS
+X-MS-Exchange-AntiSpam-MessageData-0: PSoJZe/DA9DfoMClviOHLsc4fOlLQq1NH72UahZZLX87wKHJXQ4j/bxa81Bvh0ElNmC3sJaPnf+Q5NCYxlQ0V7lfhc2sXiZR0WHzgrKMzZO5vOWfyqPrJDayYNv1s27bnzllafTFV5blVHYn1L6IQUsk2q9PszdlbAYSBmg0njoLAqC8nUuxIS0IMm3WO0qc8sWuZwblnskRVPcrzpOxb55KlTW/0n60kNyC4M0lh+C36yjK+UMqCOOHT+p2rN+/rOKpUe5C9RDa8P4xz7f7safWhEh7aywQYLPNtGX/MiVFQVMi1ISSfaOhJzvXE114O5DU4ajsVTUMe2zhHm/tyRlRd2LYqxrrfeKvlWuqDQNrjtUCpLGffBIQKiUt0lMe7Qg1xezGokOBie1BgnDe32OdeZZ9c8WL6JmWXKmjCkvYg7V22zrdANE8R/i3kSW5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:59:09.1896 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8cc3c02-126c-47cb-0daf-08dec0c8438f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 18:09:40.7696 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65764fb1-5e35-49fb-ee1f-08dec0d21dc1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A3.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9313
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9788
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,48 +110,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+vega10_odn_edit_dpm_table() and smu7_odn_edit_dpm_table() could mutate
+the live ODN table for valid triples, then return 0 after detecting a
+truncated buffer or out-of-range index. Validate all (index, clock,
+voltage) triples first and return -EINVAL on any failure; only then
+apply updates.
 
+v2: Use distinct message for different error case, removed unused
+input_level from validation loop (Lijo)
 
-On 6/2/26 12:15 PM, Alex Hung wrote:
-> Add missing EXPORT_IF_KUNIT() calls for amdgpu_dm_psr_set_event,
-> amdgpu_dm_ism_init, and amdgpu_dm_ism_fini so that the KUnit test
-> modules can resolve these symbols when built as modules, i.e.,
-> CONFIG_DRM_AMD_DC_KUNIT_TEST=m.
-> 
-> Fixes: 7c1bb28ce2f0 ("drm/amd/display: Add KUnit tests for amdgpu_dm_psr_set_event")
-> Fixes: 4db0dd9e5a63 ("drm/amd/display: Add more KUnit tests for amdgpu_dm_ism")
-> Assisted-by: Copilot:Claude-Opus-4.6
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 2 ++
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c | 1 +
->   2 files changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> index 5c0841728671..32391b56097e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> @@ -640,6 +640,7 @@ void amdgpu_dm_ism_init(struct amdgpu_dm_ism *ism,
->   	INIT_DELAYED_WORK(&ism->delayed_work, dm_ism_delayed_work_func);
->   	INIT_DELAYED_WORK(&ism->sso_delayed_work, dm_ism_sso_delayed_work_func);
->   }
-> +EXPORT_IF_KUNIT(amdgpu_dm_ism_init);
->   
->   
->   void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
-> @@ -647,3 +648,4 @@ void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism)
->   	cancel_delayed_work_sync(&ism->sso_delayed_work);
->   	cancel_delayed_work_sync(&ism->delayed_work);
->   }
-> +EXPORT_IF_KUNIT(amdgpu_dm_ism_fini);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-> index 85caa8534184..0dadc0bb214f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-> @@ -189,3 +189,4 @@ bool amdgpu_dm_psr_set_event(struct amdgpu_display_manager *dm, struct dc_stream
->   	return mod_power_set_psr_event(dm->power_module, stream,
->   				       set_event, event, wait_for_disable);
->   }
-> +EXPORT_IF_KUNIT(amdgpu_dm_psr_set_event);
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 34 +++++++++++--------
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 30 +++++++++-------
+ 2 files changed, 38 insertions(+), 26 deletions(-)
 
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 416b9380a70e..fb38247da8fc 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -5648,23 +5648,29 @@ static int smu7_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+ 	}
+ 
+ 	for (i = 0; i < size; i += 3) {
+-		if (i + 3 > size || input[i] >= podn_dpm_table_in_backend->num_of_pl) {
+-			pr_info("invalid clock voltage input \n");
+-			return 0;
++		if (i + 3 > size) {
++			pr_info("truncated clock/voltage input\n");
++			return -EINVAL;
+ 		}
+-		input_level = input[i];
+-		input_clk = input[i+1] * 100;
+-		input_vol = input[i+2];
+-
+-		if (smu7_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol)) {
+-			podn_dpm_table_in_backend->entries[input_level].clock = input_clk;
+-			podn_vdd_dep_in_backend->entries[input_level].clk = input_clk;
+-			podn_dpm_table_in_backend->entries[input_level].vddc = input_vol;
+-			podn_vdd_dep_in_backend->entries[input_level].vddc = input_vol;
+-			podn_vdd_dep_in_backend->entries[input_level].vddgfx = input_vol;
+-		} else {
++		if (input[i] >= podn_dpm_table_in_backend->num_of_pl) {
++			pr_info("invalid clock/voltage level\n");
+ 			return -EINVAL;
+ 		}
++		input_clk = input[i + 1] * 100;
++		input_vol = input[i + 2];
++		if (!smu7_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol))
++			return -EINVAL;
++	}
++
++	for (i = 0; i < size; i += 3) {
++		input_level = input[i];
++		input_clk = input[i + 1] * 100;
++		input_vol = input[i + 2];
++		podn_dpm_table_in_backend->entries[input_level].clock = input_clk;
++		podn_vdd_dep_in_backend->entries[input_level].clk = input_clk;
++		podn_dpm_table_in_backend->entries[input_level].vddc = input_vol;
++		podn_vdd_dep_in_backend->entries[input_level].vddc = input_vol;
++		podn_vdd_dep_in_backend->entries[input_level].vddgfx = input_vol;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 8b8c4e899878..0bcba317a358 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -5477,21 +5477,27 @@ static int vega10_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+ 	}
+ 
+ 	for (i = 0; i < size; i += 3) {
+-		if (i + 3 > size || input[i] >= podn_vdd_dep_table->count) {
+-			pr_info("invalid clock voltage input\n");
+-			return 0;
++		if (i + 3 > size) {
++			pr_info("truncated clock/voltage input\n");
++			return -EINVAL;
+ 		}
+-		input_level = input[i];
+-		input_clk = input[i+1] * 100;
+-		input_vol = input[i+2];
+-
+-		if (vega10_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol)) {
+-			dpm_table->dpm_levels[input_level].value = input_clk;
+-			podn_vdd_dep_table->entries[input_level].clk = input_clk;
+-			podn_vdd_dep_table->entries[input_level].vddc = input_vol;
+-		} else {
++		if (input[i] >= podn_vdd_dep_table->count) {
++			pr_info("invalid clock/voltage level\n");
+ 			return -EINVAL;
+ 		}
++		input_clk = input[i + 1] * 100;
++		input_vol = input[i + 2];
++		if (!vega10_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol))
++			return -EINVAL;
++	}
++
++	for (i = 0; i < size; i += 3) {
++		input_level = input[i];
++		input_clk = input[i + 1] * 100;
++		input_vol = input[i + 2];
++		dpm_table->dpm_levels[input_level].value = input_clk;
++		podn_vdd_dep_table->entries[input_level].clk = input_clk;
++		podn_vdd_dep_table->entries[input_level].vddc = input_vol;
+ 	}
+ 	vega10_odn_update_soc_table(hwmgr, type);
+ 	return 0;
+-- 
+2.46.0
+
