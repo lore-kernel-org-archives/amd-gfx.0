@@ -4,124 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC04CD6E5D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 11:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F105DCD6E4A
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 12:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1629C10EFCD;
-	Tue,  2 Jun 2026 11:47:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B7F10EFFE;
+	Tue,  2 Jun 2026 12:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J9O1mENV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k9IimOFm";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013017.outbound.protection.outlook.com
- [40.93.196.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F1010EFCD
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 11:47:33 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E75E10EFFE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 12:02:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xOIiMxZPCmCrEclBlplFbDSLz1BoYExn1cddiOA988mq86SvYVR3W+7Kx7ijJ7QvIm4/3UtFQdCdwm1OvBhaTuYZuVZHbvjRRegXGP5cGIIR4NG61GCSWYE6IEOGAj1ca+33CaEnEU2oONiErqL2LybRrMmNw7jWpBKINzdoWCUkI75Wmn/8boAJteCQSUU1rZFrS5MlDysO/dW1LLjN/mueyST0+ffJUBPSZ8ZB0nI64UL0xDNJfr38Mc8U35D4EOrbM6X+V8TUCTnnVkQgWQyyjO3XTqrWcFr5dcjYDX97WnRr53YYa4hS3LMExq3c7K1JdAq/JLs+7F7YEMlVTw==
+ b=YJFiG5kJoW15Vzf4gaTMPJF8nkIBGMe/tF58wTtkeJ9xX18EGxpQSi8RRVO0NXx1ixi5Fp/MTgpChAeD0VIV+y6t+TwyisHz6QHFBbpnkISfM24H8CRh3z8wG1KjkmekZGRphGRic4bA8AeVDYYffGcNjydjzAeVHEvzs4Dstn0yguV3ahb95yhUOKMV2V+Zn4ZLZmRJuug+FfMkKP2ZQTKiEteOI3iDZMcOHmKzB+beqUZYPiIeIRz04URLj/fUiOG8zXk3XEh+eGK5HV5MlRIy7MzTGeU1jA4xwlIHd591U3EOGEGpEohaw2dgDVwzKaJXetEQIpbKNC+C7Du43w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tJ+fuqyudzHARX3e06sLro9ww9i7Y1i2Q3GMlV2k2qg=;
- b=Oi8vR6ComhOCKAe8h0hbuauFZ5e44SEvPf71RNVnbfPvVLm2SK74izWm862aputd9Wu2X20UyNzgqPoLpMiYKJiHSMNpDENSMJtydv7Tdpje+pYO/c1yLZoCnH63YwzaIPJ6REV4Opvk9Z7dgC/1oVEO00J/m1bLo7FhYehYo3g5V49+R9Ui2+aUu0qyCP+o1/KxRBpV1rioAjgeXZyQPQcHQ8PvaWN671ZOVvpHUEuy+HXLPLJbSqBQI4FirPRyB+WLXvH1ahhuxnQAnQU5BKvK/tQxnEuT3x3fEf/jC6V3sqBvn5DKNePcL6czaDwc5YKA3qfHxDzf8NNxmSvCVg==
+ bh=ZJDuzrp6Q+D7DaO2Xt1tlYpBpyeayjV/j04gQocBehk=;
+ b=dT7KSGkWe5BlZDJwkOMl6BhSorApyPcciIChn3EUs4pwBx90X98BLe5IrDy7bbaB1aSGFCUwHYw+zkadncTmA4KG/o0U37UbvHnngtRNzLo+0W3aiUR9UcF71W8m8/fI6V5m6qnlm56mEWTZnxJHHXtJjC94B8Z+unD/nSyeMRjD1+XM4UCa+SFOO3WlNbdM9fMXAm2qjlBReLXzSHr7UM6Pfsepobl2V/5Cnm04Al7cq3S/8JUTEVqY2PCGIVwVQrq7ofh4de3Y8PNLhbNAQq7Q7Xq8uwt/dCsm/RsPv2drxKuynjJ6A4BPGrIzI3LfsFg7L64/xq9nIUkuZMZ6KQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tJ+fuqyudzHARX3e06sLro9ww9i7Y1i2Q3GMlV2k2qg=;
- b=J9O1mENV1wE4bDbXbYHd+8ViS+/PFvawQAfabBjjfrP5vBCKLGSzNSjU7bDSY4vjurF4MzXiiE2T8/hbVSbCvqjqiLJX+WY5FKLMoW30sgRIWy82Lp8luF3iucsripvkNAGJKfHNvTWUE2ZugZqXU9JCdbwp8zFPs0o2cKx1WDc=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SN7PR12MB8602.namprd12.prod.outlook.com (2603:10b6:806:26d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 11:47:28 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 11:47:27 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Yang, Stanley" <Stanley.Yang@amd.com>
-Subject: RE: [PATCH v1 2/3] drm/amdgpu/ras: Add IPID filtering for bad page
- recording
-Thread-Topic: [PATCH v1 2/3] drm/amdgpu/ras: Add IPID filtering for bad page
- recording
-Thread-Index: AQHc8mvX674S/X6LqEigQNrDnZ0/wbYrJf2w
-Date: Tue, 2 Jun 2026 11:47:27 +0000
-Message-ID: <BN9PR12MB525717144E03F76335E9A648FC122@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <cover.1780389586.git.cesun102@amd.com>
- <76f8d336fe220b3a4dca7f0bb2da09c61233c802.1780389586.git.cesun102@amd.com>
-In-Reply-To: <76f8d336fe220b3a4dca7f0bb2da09c61233c802.1780389586.git.cesun102@amd.com>
+ bh=ZJDuzrp6Q+D7DaO2Xt1tlYpBpyeayjV/j04gQocBehk=;
+ b=k9IimOFmArCPG1Dh9xIqDiWw/RuqtxoprYAgzRaUT9RePm4zEf8WrzLZOhrIjRIhCNpemR3E7KElsIg5IlL51Mm8hCIjyhfKiIPXYosrYfud1dv+nMV8Wul69j2GG+BO3XjWZJyyk12wib5272P4jwrCYBQ+JC7QtY6VZlVkLrU=
+Received: from DM4PR12MB5038.namprd12.prod.outlook.com (2603:10b6:5:389::18)
+ by PH7PR12MB7305.namprd12.prod.outlook.com (2603:10b6:510:209::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
+ 12:02:02 +0000
+Received: from DM4PR12MB5038.namprd12.prod.outlook.com
+ ([fe80::3c29:3d93:2028:85c4]) by DM4PR12MB5038.namprd12.prod.outlook.com
+ ([fe80::3c29:3d93:2028:85c4%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
+ 12:02:02 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
+ <Shiwu.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: Validate OD DPM triples before mutating tables
+Thread-Topic: [PATCH] drm/amd/pm: Validate OD DPM triples before mutating
+ tables
+Thread-Index: AQHc7zLVdmuoCqMoUEm+wADCwGxc6bYrMMqA
+Date: Tue, 2 Jun 2026 12:02:02 +0000
+Message-ID: <DM4PR12MB5038BB338161C3B205AA5B678E122@DM4PR12MB5038.namprd12.prod.outlook.com>
+References: <20260529061710.356706-1-asad.kamal@amd.com>
+In-Reply-To: <20260529061710.356706-1-asad.kamal@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-02T11:46:15.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-02T12:01:49.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SN7PR12MB8602:EE_
-x-ms-office365-filtering-correlation-id: 313f347a-2fa2-4145-111f-08dec09cb8b1
+x-ms-traffictypediagnostic: DM4PR12MB5038:EE_|PH7PR12MB7305:EE_
+x-ms-office365-filtering-correlation-id: c9bd00ac-83d4-49eb-bfc8-08dec09ec1ca
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|22082099003|18002099003|4143699003|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info: mgUi2i8G1Db7zgso8biQeMkcJJGczRKA7SwPSffJzB2gDOfYa/ghFQWtIA+QniFkNzH3OakaxHOCRkrtlsTaa36eh/YcVMy6YKrh3gFCKAW0LFdThQgqury/itQyL5b9P1ThtFu07hSC2GnMgkc8ZMa26haLIW2gURSHIzMyQdsXszbBD2a+74SteDfHBKTveFZjYcB38qedyFRnajxI+a7j6FSp2u7PhRoGWMUQE0VPWHjdOB5B4QsjvZUfFHjUS3+OQBcm5+5v9ksHxaO4AXN6VWxW6cPVwSO67D6Ht1NZDYMURmhkzP70yA/DBgByDM8kvwCdyeReFYZicmlgHBnOifgsfWxWSz82Xwmj7vrc8aMmGSuOCT6EqP7gSOOxSPytrWogpMgOdlKZfgWbE2w6f5JzBmc+KnDpuFIpY/zJ9U7j8amUzdTM1LMnvt3NM6qezQMRW3QCvW1/dsDiFSwftY4oGY5meazswcdZyOGeXCW8Mq//f52fM6UctgBvocKwcIHVBfs5kG0KG28c6czeBAPe31xusvvz1hOmEfmPjmPY65UMcpaqxzwd+RF4ragUZhRYLp4oTHa3fzAUVOBGTl0HqDM3gkQFdKlYfXCZFVkO/i29jslRnRNuc6t+BsQqefZVMY8cKEIGYZ2AFpAD+2NSmElQZrtV/xX97XvLu1jbrMtGGPA9QA5mkcX5WeDKcdmbVyHPG/Q++KYAChZJ5vqVzyG9vufoutGgjp7cNc2ts5H8wI1ZfAY8vmP4
+ ARA:13230040|1800799024|376014|366016|38070700021|22082099003|18002099003|56012099006|11063799006;
+x-microsoft-antispam-message-info: 4L5yttZE2inINi/pC6u00tfCR/DRqV4cRcPb/9UYN3ZQWVOoKgo7bNIqsuVm47kaqDVoya0ci6xNjpOpkc693MJHNvYBSUOAhP/0+HNyXgNkxyVHq+MTJoRVUCoyQ/jr3lev2CCTqxMRDmqMvtn6BvPGgd1DIf0hjVsRTLotrQ0ymDS29i5J4LTdeEbM0hQjhx1LEhpD7rNXweHMAudeL4gZbgYKOWbkJpL2ADrkaY6r9RcMCugU994g+HRWOP4Tz4aER+o9jIb6i0i/KxIVxtMmQVgaySEUJAzXpclN2InOPAiXSFqrTurNMqM28ttxBqxzcEyPFMqTXRLIlxoknxNcLb80UrZh3rnnvaguG3pu/mTotOTE6oe3OyI62W6BU505T6nEHAApQN3c1+ahr/s1oHrrr2NMHQHvi0sRb1Ylu0jxZxXGXQfo8TtCkkO7DUo01hFfr5F4kEPnAgqF9ZzgZRDYZkpMGaRDiR1Ok22FtBFx1KhapI/WlXCyMkjOZLVnnyq0p5L5cFSKOeCFXM/8USB2UjebnN2yom9WoereW+05FasO6RhDrGCuTwDhu/IMGa6jbgf4feijV1gSD0f1OqgIiFtIorKjM2XLtkfIWD+YvmjicUfusBoW0hgzRzrmaZNWs2mqMy1GXiwjRnFjNBjytfpKq6kLNs70RUn+31SglWNAk3paPU04C8V6X7Lmw2V9NG5ZGZhcK6XudTYniMdjDXiuMr5HbAqy+u9URkyYfrUnHo7P/W9C6d3a
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(38070700021);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5038.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Wpq6ITGfhPEdBjshNwmVeAggN+3x535HO8JDZQcs+5KcKF8FzPoQcsAAhN4h?=
- =?us-ascii?Q?dnk/GXknQchbC9TRnfVtjV9aP+vtXF+KbtQ67cK2WRfK7tlsdqtQeSx1fhWR?=
- =?us-ascii?Q?INS/OKhq1pr7x6LbisIEVB1OEEc/22URudr8qylwl6rJoBm/7PDgAFNRlHrP?=
- =?us-ascii?Q?m3nZibUg669EM3S8/krbaG3q6PUxXpnpJPODM19mpiUZtLzzKibKHj5pcXMX?=
- =?us-ascii?Q?tYRxFm/87s1jSu4iXPHh6huU2rRjWBGEPdE+3fxFodx73/KFTTu0TUaeeUs7?=
- =?us-ascii?Q?2y2mSJQx5q1pCvi/GDytOQ/9bM1eZQPJa+zk/ZwAdRw4wqDtrWimBBtJM+/s?=
- =?us-ascii?Q?+HIOU90mWnuo+FFDmEjgqhV+e/a97qvOm/tXLAO3/CSGa9pNFCYy3z8I51Ge?=
- =?us-ascii?Q?zwCYA1myj7NPfNpfPvRqcxm9CkBxEaagSJar9AE2ATV1GJ0cLn/1azuzRNwh?=
- =?us-ascii?Q?GYoRXyqFdzpUEHL8i/aEB+DXZvBcStIXmuPbG245s+UzfJKcsTA2qxMhlnIj?=
- =?us-ascii?Q?Enon7RwHrBZH3MmZ8NHUoevzpFuVhuQ8iU12akJXEr7s1LTXteA1MZSYWBSs?=
- =?us-ascii?Q?V6MAURAIzHOZWOnggPxRRoh+kKhifcaXtUftc8NHGpFAXtZCgyXF9F57I6hm?=
- =?us-ascii?Q?JQxi3DM1BkxWjDJurGLbgE9vgfQYyKH/kyq1na70hX0KvXRJKjbpTh4AM4Ly?=
- =?us-ascii?Q?4eImSReAOxatHs3BUMgcAoF5fKOAdEsTwdNLZB4YILb4dDWw1X3mj5NgpH1c?=
- =?us-ascii?Q?a4s0x5LoPY7nI2xVRt6LtMWnZZa94KFq69Xe9QPIpUMhqqQC+iK1jkLnoFD5?=
- =?us-ascii?Q?nB16zQP3T2lVF1qPwdAldvaEm+1KyOU8f9OS9av4s7ZcazU5LOWUrxUKiJ2C?=
- =?us-ascii?Q?hjcvUym193hWiAhAP/HuoY16eL2aS3IlAYNTcP8B+6tlZEjW/gRi2RcsAUfd?=
- =?us-ascii?Q?GGYXyajk9KOTd3WuNo4zPea+s4EWAJ/Cqc5l8SzgrhmJlKXvwWevuWsWvctM?=
- =?us-ascii?Q?fdV7lOzZG50lNdnRcJtwxuH+0B4l0INUgwO4vLVyR8rrk4KdDRLbIHZgtun/?=
- =?us-ascii?Q?JIEeLIsMahzYvSbafK3HKebtcmcPXqGoXcYwDPh6UHicV3jUO//7jh0gUvMF?=
- =?us-ascii?Q?GgXjY8PnnbC5zRtuv6l9RTxJFEuR5D4bBVT26PrAg7FzMVScSmdkxIBePtxq?=
- =?us-ascii?Q?e67+5eqiRsifainnUal1WOmylGeS+lbt31c8Jg7fcqswYH3HpKvubFVpKBO/?=
- =?us-ascii?Q?tE6UhXQrviU+sUtjLgNavyBFAC0i5gfDOqZ4+bpHTbJarIs/Pw1Gc/pF1B+U?=
- =?us-ascii?Q?S/UzflqCo+MdAccEhnSsv1PFJjiweXDJkSy+bKN1ua3Pfyj3j8oZG97D1do2?=
- =?us-ascii?Q?SxM4z8LQg6Z0gPEfZmbbNcR0nFjOCP2E13wMps1nJidAexhZuYkGYXixVkDs?=
- =?us-ascii?Q?Xcfnj5ioTXrc6RyGda5w0A8E3sqy36SdbYJtjqmIaDpP3jE2sNsrdyH23Eg4?=
- =?us-ascii?Q?boZwRcqzFTiq3MeNYhyUdvn5aNov1uR991A1CrLKoPmK13nTQcP4E59JBZPC?=
- =?us-ascii?Q?OWfFbesPNXZEra6tSRwZwI0aYacw57otC157wNNwCjw/aIO1cSTB7Zlf4l/Y?=
- =?us-ascii?Q?Rqaux3Wk++J/gUBP/LYt9otsbkz42aIcYh0M/kzJDYysfCkoLLkx6+k9X2rI?=
- =?us-ascii?Q?9PeoBkFUGVQ/hAC0eVveyvjABxsnZQzfDdPaQ7X95VGmWa2S?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qH0my7ioMl8cX6n4V4lif5ILDs3mTlHeUtsH3rPLA7LyM5C61s2l6XnSCqOz?=
+ =?us-ascii?Q?o1RRIoSINYtKhrQdZMcsJXCepisHe8Tm3rTMBqcMeihAfNUucWwme0PoJnGH?=
+ =?us-ascii?Q?WbbEn4HeBnkv4oQwpcpKqIR1LnWpEYxISuZQ3esCAAUdoFk+p5XV6GL5whTL?=
+ =?us-ascii?Q?cWR+eqNhRdb3ypg9WQNdGL6oKyit/011or6YgYskH/dvVeSubuCNQlyfKA5+?=
+ =?us-ascii?Q?1RC38EeXVxmE23Vv0VU3DRp/5H/S3osl9xfI1/MlUnWZ9vYPogRYIn/LqID4?=
+ =?us-ascii?Q?s5L4KYw/mMK2aE3l11unFcgexbyOBCg9Qruj4DZhFF7ExANA/5tkkngPg9aZ?=
+ =?us-ascii?Q?XrjOq6JbezdFnKgQ1ab5/imI/nQ8ESp5QBjpacUo7hPHRMquGSPzSbLaOkL/?=
+ =?us-ascii?Q?MPG0ljqMR+PdPRkMD7BRZa1NMqzlQoNV8kmmTzLNvj/GI+2wvd3r2FsycPCg?=
+ =?us-ascii?Q?qdAzhz/cNykjijyVE5P/xqj+O+1xIYdEHZWBClmb+y+UsRK7tDbbqwPbjxeK?=
+ =?us-ascii?Q?9SNC7J8OO7LaekYHQ7ICEyVogJzrMAu6MI3rDZek2GFKCka8Ocmlbi3S2Xxq?=
+ =?us-ascii?Q?/TotTNeFzSaXXqXU8KY2L6qiHpeQTV5zzXcIuRNx3YsO4SQ9ocoRCN+5vv/g?=
+ =?us-ascii?Q?WbyVTkzE+ViIJa20Xvwro83EKSN6uAxxA7zK8zV6sP7HGxZSSeNscJgrDTfg?=
+ =?us-ascii?Q?OQG3cHkXmItuUf/iUQmhS7Kf5EZj5t619Xe7AMzbhqtuTbJeT8b9M9ry6HYH?=
+ =?us-ascii?Q?BDiDZCx+T3i9GeZf0CVVF1LPCSwZrbQoE/3DQ8zj9+CIFY4+pFIUclNCAvl2?=
+ =?us-ascii?Q?qgsHfj7EMPs37N+7de0jkY1Ak/L03Rqo7wVWy0dbJkYhvClua+5BqsqlHQS8?=
+ =?us-ascii?Q?IEwmh1CC/tik2DqrFle6JbCTPRNCNmic8gAopkL5e+oEURSzGpPEWsdecMVR?=
+ =?us-ascii?Q?Mb5BSWN0v3vQCmmZ000tz0cZ8HvDPNdKUuAHPYmcNnDj8E4LfSt3PdcXXpB0?=
+ =?us-ascii?Q?11mrqjG7HUIBVOad1s7Vsl4YtoM3mau97p+r4dg2zs1D5gCnFSjVKHW8MHGp?=
+ =?us-ascii?Q?Qo4PYvKLTHVYeRLcoC73xB4qoB8hGi+9Vb6HNU8xI97lXc174lMyvgPcjuRd?=
+ =?us-ascii?Q?DzYtDBSqr/a7Jy2E+X/BM1QzRztSDy1fMMNq/4ti8D/HEoLFeKmI5tpcUxDs?=
+ =?us-ascii?Q?pYD12Oz1FhgdgZtqc9UYVakcxk9YDd3h5UVaIsMr+9YbTCUTASY3Vm2XSnh+?=
+ =?us-ascii?Q?kSCyMyDuGSa+YCJPP5lODqgIw1FQVaGMCIe9r/KQY5h1BpnsGrFMJO1j0QFz?=
+ =?us-ascii?Q?L6SGBf1TWYAV0zQYLz4DW/ZpmdvMhtbLQdVPKPN4k6e4tApKuSgG8FCOA75B?=
+ =?us-ascii?Q?og4wg20JJIam6jV3T28nd/0sxuDbtx1KGE+rCXYPPTQ1L3miancrl1iTfzWx?=
+ =?us-ascii?Q?nCNheTyI5Dx2KjkUiXaERxVeoeLd8OjDf8XhFbbqK3vsUkp+xQblecG7oPBJ?=
+ =?us-ascii?Q?V7ixh6JPJF7q1gaV/6y+rTLfO6zsRb6LM0Ucd0ME4v5T9PbXaMZn/zQAl5Pl?=
+ =?us-ascii?Q?Uw9WgETxgEMhIit2BZf76JXn3nzskMqcLbyRgUNEkHwI5b2lWowiSdC2bwIQ?=
+ =?us-ascii?Q?dkMg4ESriQibwmyUaulE033q0uqebVVVAoyuJRnG6xTS58Z5jltTsRyMcJrs?=
+ =?us-ascii?Q?flMKpYjIZzTAeeLKruFa234ZnKRDFkK1Ad8Os4KLkMpEjw3N?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 313f347a-2fa2-4145-111f-08dec09cb8b1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 11:47:27.8665 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5038.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9bd00ac-83d4-49eb-bfc8-08dec09ec1ca
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 12:02:02.1670 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: m0qNE06EGrWK7dlDda2KfVMb636zx9lUHCr4C63vr53rNuuKuvXfQUeDJ3q++GWgnVtUJx/1fE6czQ3bbe5Y1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8602
+X-MS-Exchange-CrossTenant-userprincipalname: 6IGL4Mv4y8BQiJ1ySScSiSgw3qjOkb9MyOscbOeuAJT3hl92jhuLMdTDUprAbrVK6yJgWHic6iDcrQgmA2WF/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,146 +136,145 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-+       /* The IP block decode of consumption is SMU */
-+       if (hwid !=3D UMC_HWID_V12_0 || mcatype !=3D UMC_MCATYPE_V12_0)
-+               return false;
-+       else
-+               return true;
-
-Alternatively, you can use return (hwid !=3D UMC_HWID_V12_0 || mcatype !=3D=
- UMC_MCATYPE_V12_0) ? false : true;
-
-The series is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
+ping
 
 -----Original Message-----
-From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Sent: Tuesday, June 2, 2026 4:43 PM
+From: Kamal, Asad <Asad.Kamal@amd.com>
+Sent: Friday, May 29, 2026 11:47 AM
 To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
-om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; =
-Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH v1 2/3] drm/amdgpu/ras: Add IPID filtering for bad page rec=
-ording
+Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com=
+>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.com>; Deucher, Al=
+exander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.=
+com>; Kamal, Asad <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amd/pm: Validate OD DPM triples before mutating tables
 
-Add IPID decoding macros and filter out SMU decoded IP blocks
+vega10_odn_edit_dpm_table() and smu7_odn_edit_dpm_table() could mutate the =
+live ODN table for valid triples, then return 0 after detecting a truncated=
+ buffer or out-of-range index. Validate all (index, clock,
+voltage) triples first and return -EINVAL on any failure, only then apply u=
+pdates.
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_umc.c     |  5 ++++-
- drivers/gpu/drm/amd/ras/rascore/ras_umc.h     |  1 +
- .../gpu/drm/amd/ras/rascore/ras_umc_v12_0.c   | 20 ++++++++++++++++++-
- .../gpu/drm/amd/ras/rascore/ras_umc_v12_0.h   |  9 +++++++++
- 4 files changed, 33 insertions(+), 2 deletions(-)
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 33 +++++++++++--------
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 27 +++++++++------
+ 2 files changed, 37 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/am=
-d/ras/rascore/ras_umc.c
-index e5971c3dd7da..cff6245d8add 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-@@ -270,7 +270,10 @@ int ras_umc_log_bad_bank(struct ras_core_context *ras_=
-core, struct ras_bank_ecc
-        struct ras_umc *ras_umc =3D &ras_core->ras_umc;
-        struct eeprom_umc_record umc_rec;
-        struct eeprom_umc_record *err_rec;
--       int ret;
-+       int ret =3D 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/=
+gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 416b9380a70e..0a74e4f98496 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -5648,23 +5648,30 @@ static int smu7_odn_edit_dpm_table(struct pp_hwmgr =
+*hwmgr,
+        }
+
+        for (i =3D 0; i < size; i +=3D 3) {
+-               if (i + 3 > size || input[i] >=3D podn_dpm_table_in_backend=
+->num_of_pl) {
++               if (i + 3 > size) {
+                        pr_info("invalid clock voltage input \n");
+-                       return 0;
++                       return -EINVAL;
+                }
+-               input_level =3D input[i];
+-               input_clk =3D input[i+1] * 100;
+-               input_vol =3D input[i+2];
+-
+-               if (smu7_check_clk_voltage_valid(hwmgr, type, input_clk, in=
+put_vol)) {
+-                       podn_dpm_table_in_backend->entries[input_level].clo=
+ck =3D input_clk;
+-                       podn_vdd_dep_in_backend->entries[input_level].clk =
+=3D input_clk;
+-                       podn_dpm_table_in_backend->entries[input_level].vdd=
+c =3D input_vol;
+-                       podn_vdd_dep_in_backend->entries[input_level].vddc =
+=3D input_vol;
+-                       podn_vdd_dep_in_backend->entries[input_level].vddgf=
+x =3D input_vol;
+-               } else {
++               if (input[i] >=3D podn_dpm_table_in_backend->num_of_pl) {
++                       pr_info("invalid clock voltage input\n");
+                        return -EINVAL;
+                }
++               input_level =3D input[i];
++               input_clk =3D input[i + 1] * 100;
++               input_vol =3D input[i + 2];
++               if (!smu7_check_clk_voltage_valid(hwmgr, type, input_clk, i=
+nput_vol))
++                       return -EINVAL;
++       }
 +
-+       if (!ras_umc->ip_func->mca_ipid_check(bank))
-+               return ret;
++       for (i =3D 0; i < size; i +=3D 3) {
++               input_level =3D input[i];
++               input_clk =3D input[i + 1] * 100;
++               input_vol =3D input[i + 2];
++               podn_dpm_table_in_backend->entries[input_level].clock =3D i=
+nput_clk;
++               podn_vdd_dep_in_backend->entries[input_level].clk =3D input=
+_clk;
++               podn_dpm_table_in_backend->entries[input_level].vddc =3D in=
+put_vol;
++               podn_vdd_dep_in_backend->entries[input_level].vddc =3D inpu=
+t_vol;
++               podn_vdd_dep_in_backend->entries[input_level].vddgfx =3D in=
+put_vol;
+        }
 
-        memset(&umc_rec, 0, sizeof(umc_rec));
+        return 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/driver=
+s/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 8b8c4e899878..ad06a2f26d91 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -5477,21 +5477,28 @@ static int vega10_odn_edit_dpm_table(struct pp_hwmg=
+r *hwmgr,
+        }
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/am=
-d/ras/rascore/ras_umc.h
-index 237525b46b9b..4a693865a9be 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
-@@ -110,6 +110,7 @@ struct ras_umc_ip_func {
-                        uint64_t soc_pa, struct umc_bank_addr *bank_addr);
-        void (*mca_ipid_parse)(struct ras_core_context *ras_core, uint64_t =
-ipid,
-                        uint32_t *did, uint32_t *ch, uint32_t *umc_inst, ui=
-nt32_t *sid);
-+       bool (*mca_ipid_check)(struct ras_bank_ecc *bank);
- };
-
- struct eeprom_store_record {
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c b/drivers/gpu/=
-drm/amd/ras/rascore/ras_umc_v12_0.c
-index b809a2f21d73..a272e0d80cdb 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
-@@ -356,11 +356,28 @@ static int convert_bank_to_nps_addr(struct ras_core_c=
-ontext *ras_core,
-        return ret;
- }
-
-+static bool umc_v12_0_mca_ipid_check(struct ras_bank_ecc *bank) {
-+       uint16_t hwid, mcatype;
+        for (i =3D 0; i < size; i +=3D 3) {
+-               if (i + 3 > size || input[i] >=3D podn_vdd_dep_table->count=
+) {
++               if (i + 3 > size) {
+                        pr_info("invalid clock voltage input\n");
+-                       return 0;
++                       return -EINVAL;
+                }
+                input_level =3D input[i];
+-               input_clk =3D input[i+1] * 100;
+-               input_vol =3D input[i+2];
+-
+-               if (vega10_check_clk_voltage_valid(hwmgr, type, input_clk, =
+input_vol)) {
+-                       dpm_table->dpm_levels[input_level].value =3D input_=
+clk;
+-                       podn_vdd_dep_table->entries[input_level].clk =3D in=
+put_clk;
+-                       podn_vdd_dep_table->entries[input_level].vddc =3D i=
+nput_vol;
+-               } else {
++               if (input_level >=3D podn_vdd_dep_table->count) {
++                       pr_info("invalid clock voltage input\n");
+                        return -EINVAL;
+                }
++               input_clk =3D input[i + 1] * 100;
++               input_vol =3D input[i + 2];
++               if (!vega10_check_clk_voltage_valid(hwmgr, type, input_clk,=
+ input_vol))
++                       return -EINVAL;
++       }
 +
-+       hwid =3D ACA_IPID_2_HWID(bank->ipid);
-+       mcatype =3D ACA_IPID_2_MCATYPE(bank->ipid);
-+
-+       /* The IP block decode of consumption is SMU */
-+       if (hwid !=3D UMC_HWID_V12_0 || mcatype !=3D UMC_MCATYPE_V12_0)
-+               return false;
-+       else
-+               return true;
-+}
-+
- static int umc_v12_0_bank_to_eeprom_record(struct ras_core_context *ras_co=
-re,
-                struct ras_bank_ecc *bank, struct eeprom_umc_record *record=
-)  {
-        struct umc_phy_addr nps_addr;
--       int ret;
-+       int ret =3D 0;
-+
-+       if (!umc_v12_0_mca_ipid_check(bank))
-+               return ret;
-
-        memset(&nps_addr, 0, sizeof(nps_addr));
-
-@@ -524,5 +541,6 @@ const struct ras_umc_ip_func ras_umc_func_v12_0 =3D {
-        .bank_to_soc_pa =3D umc_12_0_bank_to_soc_pa,
-        .soc_pa_to_bank =3D umc_12_0_soc_pa_to_bank,
-        .mca_ipid_parse =3D umc_v12_0_mca_ipid_parse,
-+       .mca_ipid_check =3D umc_v12_0_mca_ipid_check,
- };
-
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h b/drivers/gpu/=
-drm/amd/ras/rascore/ras_umc_v12_0.h
-index 8a35ad856165..51459b5ec06e 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
-@@ -287,6 +287,12 @@
- #define ACA_ADDR_2_ERR_ADDR(addr) \
-        REG_GET_FIELD(addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr)
-
-+#define ACA_IPID_2_HWID(ipid) \
-+       REG_GET_FIELD(ipid, MCMP1_IPIDT0, HardwareID)
-+
-+#define ACA_IPID_2_MCATYPE(ipid) \
-+       REG_GET_FIELD(ipid, MCMP1_IPIDT0, McaType)
-+
- /* R13 bit shift should be considered, double the number */  #define UMC_V=
-12_0_BAD_PAGE_NUM_PER_CHANNEL (UMC_V12_0_NA_MAP_PA_NUM * 2)
-
-@@ -306,6 +312,9 @@
- /* one device has 192GB HBM */
- #define SOCKET_LFB_SIZE   0x3000000000ULL
-
-+#define UMC_HWID_V12_0     0x96
-+#define UMC_MCATYPE_V12_0  0x0
-+
- extern const struct ras_umc_ip_func ras_umc_func_v12_0;
-
- int ras_umc_get_badpage_count(struct ras_core_context *ras_core);
++       for (i =3D 0; i < size; i +=3D 3) {
++               input_level =3D input[i];
++               input_clk =3D input[i + 1] * 100;
++               input_vol =3D input[i + 2];
++               dpm_table->dpm_levels[input_level].value =3D input_clk;
++               podn_vdd_dep_table->entries[input_level].clk =3D input_clk;
++               podn_vdd_dep_table->entries[input_level].vddc =3D input_vol=
+;
+        }
+        vega10_odn_update_soc_table(hwmgr, type);
+        return 0;
 --
-2.34.1
+2.46.0
 
