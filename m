@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7135CD5BD1
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 18:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAEFECD6E5D
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 18:17:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52FE310F2DD;
-	Tue,  2 Jun 2026 18:15:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D15210F2F7;
+	Tue,  2 Jun 2026 18:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iY1CjjrY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p0X3wu//";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1EF910F2DD
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 18:15:53 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-3042a99f0ceso1211638eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2026 11:15:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780424153; cv=none;
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36E2210F2F7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 18:17:20 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-137dd497007so251114c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2026 11:17:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780424239; cv=none;
  d=google.com; s=arc-20240605;
- b=iI0XimvMXNPUwvJSam1eA1CPWjpsD00UDst1U/n8fGXpAO5BFmSpKHYOJLSMwg8gVk
- Rodc7vqb1GoDLAatxeGNuw9icFkMo15wuA/EwGYI8hFN5gpBEmQ6UZucis76jEnBfVvq
- q2o8BL4Zjx+gtdcZaYB/o4wgbTF6IdKjZ+0QBxX2ymfXoaiqzfspLYMfCYY9FGAUbPaB
- YiK7w5S8AhsoQZpcAEwutUEhQ5fMV7YE4BqCJFeP2m5Qpq38WvYRbsYclW1bfspkm0fP
- euSZl9aaEZLhSXHbWSKLAmlWh5W1GiFwZcRDpRwx48rKapOjRVBkkj07AuKahE6kVloj
- UhoA==
+ b=UU7T3x5CJ6UOIrt6NoBn//DDx1DIjy//eXcYXn71vc+w1Nuy8gvbs2k/TwA61RceEv
+ GL/LYfphVFxBRcAUp1buuHO9JNMDsusaLeRiZ/0gLvNa84/NMEcjZlqD1DQoEYPlGqoi
+ f5t6SYObgtjih+38gsn/pRqpHEVNleqvzP0Xf13TiyOaiJe770H1quT5dMzv+VaNSowE
+ l8tYPfR4xQUK0cxH4vjrYmBCwRCClvk4lUloy9Qv8pB7U67EF3FErLw9Ie+moVMJSxb0
+ SmUsqTLgTGCrVCXpr7GnNPtFa9VRRDDmgcz+VwVYLarQgA1p/bbEYXHqRFuPe6rk0h0e
+ ftQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=G7yus9HKouUQHHR9xTi7qu+xES0zyoH/nrpEmMbB5Yw=;
+ bh=G3sgWGnftf5X/aLb0mFwyDARyKY0b/CqboZWogLPm+M=;
  fh=gZ/QuQ1El2NU1RRI5pc/CAX4Mv4g4Ez7PWwEsOz7Ag0=;
- b=WP9aDy7DHMWxXoG1y3mWplrzG2UlI0nFb/3L2zqTYryTectVQA+gLxts0q+2qQNMuW
- OhujNPj5e++LndSxNfRYAojc51lGpeAqFwaUsYLmKwYgiT1m26jzyxUfatW8VSLzAQkf
- SHADs63cqT0iv5DVUy/kDvklwkHNIGxzJAfMlsPqjKZUpNdZbGpsatUsjb5gKLXdTmrf
- icO8oiO2iQziOE8EUWuB1eZJOVa0AB/s+zr3IiOhbNo9jCdSGBe6EGkzTwGHdc4FZJlb
- JQ+ZMO+3mCXIL0l4GlSG+BNEidwiHgy5gtzCbDvcTzKx0AH+LyEPunpWaIIkYBNGnJfs
- 4KdA==; darn=lists.freedesktop.org
+ b=bvEMWwI3A1fns2IpS98vkHfPT0EzYtXustHRqj/KmTGw91VViH4ghtgPn2HOIVUANo
+ OAZxupC01UntHyiskadEl6fnDHkHBogTb8BHMv9Zdhn0JL6QNmKyFHbQNtD4WhmFivZc
+ /kO4ABwwzNSQiFzMOjNZ+Y5h5dbAFako3wirELgKZUtj9z15S7XTA0a517GGfUSEnqGD
+ Q5ubOjxvFMoWWJ5CAAMDdYVN39kL6GTb2ADe7mmSVeSNFRdAKQsekYYR5mdAaUEi2kby
+ kYXqc6tWFHXc/WorqWwrElPos4ykkoKEvEsWAX4Oze7M0Y40vE76onPrzGdxtp6K1tby
+ uLbQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780424153; x=1781028953; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780424239; x=1781029039; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=G7yus9HKouUQHHR9xTi7qu+xES0zyoH/nrpEmMbB5Yw=;
- b=iY1CjjrYi9mKsbtQFhbmquPpx1Bxc6HdEdjGqgBI6cHD/w4CQR/v0bSjaHNYPLNbA4
- mbbl7V6DGsFae8jTpmdO0qdKaVXfkcvVPVgqo9H4eJrx2Oume+dUsgRWirvKnAIhJsR0
- ayVIvfDQErna0xnXcnqHQqNPNZs1mIXdrpyFg4fKrMbn72FzbLr64QvVUymHmIaSN/xr
- sMiVQstuMtGzijAY3b4dzP/fgE1NHZ2Iq39fdaK27Vh39Pd9dR7dc4P/uCmfbZKnuqjo
- 8V2cz/VGAai38FOThrN125Qw/lMH9Y4cHAaLWHHme3bR+dFZ6sffvW9n6YQD3Obiu+LP
- SVig==
+ bh=G3sgWGnftf5X/aLb0mFwyDARyKY0b/CqboZWogLPm+M=;
+ b=p0X3wu//8hVNVkr815Z17S2M2lRrtZNUT9XYGpFTfy2IBZzodrtF5d0Jei6tjKfcnT
+ etMfoZJSsSvoAJVOkS7Hz+bHax1myo50OES/+uz4OMY1qB+2f4KPLh0BRW+Eb6o8orGK
+ 9dbic5yR8e0+3q5F8DEtOou1Dv9MCk4FTZAqBVk8+RPn0PHlegc/EbJKjScgA28t/Qk1
+ GkLgq9dYSQSzUvqD9BPzVGe1lx2fBtbKILwRhzzLlDiCR4Jjgl8BID/nsIURoJlUbPl/
+ RzWJHU+2urpHUia6AAERRvKE/inzazi0OgL9C+FFsgOEApBBDTHPHVT9HTEDl3bAjAQh
+ qf5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780424153; x=1781028953;
+ d=1e100.net; s=20251104; t=1780424239; x=1781029039;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=G7yus9HKouUQHHR9xTi7qu+xES0zyoH/nrpEmMbB5Yw=;
- b=Rz2u8C+OkJzCycEOZq9HrYyTOLWM7Dt+NSCVBBd3XyLJM+PVEyB5rO7fYDiIUBVy8p
- hG+M4O88A8EL4tsf2vJu+70RgaFQism+qRAxccjrX3D+YZKAp9CETB0mWGBKJUpmo+N3
- f7wxllHmgFu35xKHjR9xqenDBPcpF4dmLM7a9p1piT7dipzdjERAYcZuolG9GsfIPbB8
- OdCld02qI/JZ+yjlfUSEzYiILTqN/l7FPrP0mhoKYPk7QTTdrPThJRr4O3Wh+cUOHU/J
- rmVA3iZWd13UBNjBaPPGfBUydOuyI6b7sisiVrjKoDKiO3w1vDIt1fBesVosi7fwbpqX
- K0Gw==
-X-Gm-Message-State: AOJu0Yw0eQLc/rTC226bxvfZXVZrIDrtwEhFFt5+yWFfhCNZoeSQPR2B
- 4moB3lAFWpKCx3BjUbcxhiCYDUXZS3RJx49ZKi2b81HEJz/kZZa7sbyz1y25Tbyn8Af9fYQwGCO
- BU+wdo2oR103aRp8CzfqfwuP2T4RnJwA=
-X-Gm-Gg: Acq92OHQJiwD/Df4s4Dz6TGbHsJUW+LL+nyoDAUOgALmVDUVsfjknm85cuZSHSI+KOy
- 0mBxuRmQW0aP6AFwljHzbEjaMMOZAOa2S2BP4y55GGYWCb2GIQX7cWWyUShK6vQEjsd7d015m3D
- 8WPL/1hcPuXQYfB+EUByq7NO+9k3tnif8gKmiQwpn0IcOM0FCowPZUd4x3HSMHSehpJhNGPh/2b
- e+TWvuzr/j6bdDsm6T7RaDr4RvSmYqNo9NYNIKbKRpt63JNYXRCAbvIwi2jykxp0TMFedspxjE9
- sY3lLwkbJjEiJqNHblp2CESkzkAJ8TsokDXP7hSwXOQZ/xTwYzKHuEQig0y6vgrUJDswYpQPW0M
- 326bC
-X-Received: by 2002:a05:7022:eaca:b0:12d:b4e2:f566 with SMTP id
- a92af1059eb24-137d42535ebmr3120507c88.4.1780424152722; Tue, 02 Jun 2026
- 11:15:52 -0700 (PDT)
+ bh=G3sgWGnftf5X/aLb0mFwyDARyKY0b/CqboZWogLPm+M=;
+ b=DBnhKUvqDJJP+c2wcz/J/ejD6BA6f722U3U5gyR4cAlLvKQmyzPkPVqNgG42CDq4Sz
+ FymZVNFq+Wpld5LIPCbZF6KWZPZq82l8F5KqKZnKY0xWlxj48scDV890bRY3AjNf4T4V
+ 5DbuNeg6RKFNvyER4gGgS/Xh7OPql6J3xYZoAF67m8Wz92saMuiSmL243BVlmR/PnWkR
+ 0SQU3zsHt5wHVQxm/reYFJPeWN9UEjWKRq87WA+1pMt3Iruo8Er5mhqcVoPgvxs9GU82
+ uPVG83BUkhTJU3F2OEXNWbrK8Al2VTO6LiEQsSfRi++jZGp3QAZ8pJ08x0l2d0ufCcJf
+ kInw==
+X-Gm-Message-State: AOJu0YxmQ3a3WHhmYM6ufQOp2QcgQnFjyx5tfSNLLeRRnifPEVQV/9CG
+ zSpT3bitaryiZLUxMj4Hgg/7mJmI/mdP378Nm7t9SEFC+MCRsG9Et7qpb/l4pdaN6UCHGaTKwGm
+ O1/P3yR9+E3cTRpfVFt1gftJhIyTPmSPP+A==
+X-Gm-Gg: Acq92OFtXDvsOf0NklyacxiH0v4ZU+wANDmkjvT0pGC7rONar810My+bodmtue5Je1/
+ IXF83+OAoqKCh/R6GSVsSiDayFdh4sgNONY3eze9xPWQNWOaFZfqwQaATDZKaxpw26c3bseCoSv
+ sM+LCzI9j39HMN6PWUqIUX5PU0eH4leOW8Jj5NKLMfqaCr12kTV/FO82Enw7emu01PuzpTyjf8r
+ w1MgHweefWok+JgpuL+HOz7tRnE3mowb56ULTBJ9Dyh3CS58bZzWZwVjc1tig4uXCBMi8eyVlqs
+ GUpUTeHD8zOng7rS8+4cm6cYMYKbhElsiLjmoiTclLiiL4HmW5KiLdXbrqrpzW0ryRseJeVdxkN
+ VRdp3
+X-Received: by 2002:a05:7022:4092:b0:137:d966:d890 with SMTP id
+ a92af1059eb24-137d966de6bmr2059075c88.7.1780424239333; Tue, 02 Jun 2026
+ 11:17:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260601164601.71336-1-Yongqiang.Sun@amd.com>
-In-Reply-To: <20260601164601.71336-1-Yongqiang.Sun@amd.com>
+References: <20260601193545.210335-1-Yongqiang.Sun@amd.com>
+In-Reply-To: <20260601193545.210335-1-Yongqiang.Sun@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2026 14:15:40 -0400
-X-Gm-Features: AVHnY4Js9K4aT20Xr5ymLwNaG9CDr22uzYhqcJg_0M5R6b9TmlDw50sktqM2XFo
-Message-ID: <CADnq5_OWaejVHxJ25tu552r4uAsF8=umOFt4ZprFhjrqebZuew@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: fix SMI event cross-process information leak
+Date: Tue, 2 Jun 2026 14:17:07 -0400
+X-Gm-Features: AVHnY4LHxoyO1wj8y8Yg6Iy--BpwjCQNShQ_aAeSqsjCb5U26TeypEUMawKlUkk
+Message-ID: <CADnq5_PM0xrXHUunAaGqDwY9vy2i-ygBf-ZJWsDo4YxvL4x_Gw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix infinite loop parsing CRAT with zero
+ subtype length
 To: Yongqiang Sun <Yongqiang.Sun@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -102,61 +102,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 1, 2026 at 12:46=E2=80=AFPM Yongqiang Sun <Yongqiang.Sun@amd.co=
-m> wrote:
+On Mon, Jun 1, 2026 at 3:44=E2=80=AFPM Yongqiang Sun <Yongqiang.Sun@amd.com=
+> wrote:
 >
-> kfd_smi_ev_enabled() skips the suser privilege check when pid=3D0.
-> PROCESS_START, PROCESS_END, and VMFAULT events are emitted with
-> pid=3D0 while carrying another process's PID and command name, so any
-> /dev/kfd user in the render group can monitor all GPU workloads.
+> Malformed ACPI CRAT tables can advertise a zero or undersized subtype
+> length. The parser then fails to advance the cursor and loops forever
+> while the remaining image still looks large enough for a generic header.
 >
-> Pass the target process PID into kfd_smi_event_add() for these events
-> so the existing per-client filter restricts delivery to the owning
-> process or CAP_SYS_ADMIN subscribers.
+> Validate sub_type_hdr->length on each iteration before parsing or
+> advancing. Return -EINVAL and warn when length is zero or smaller than
+> the generic subtype header.
 >
 > Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_smi_events.c
-> index d2bc169e84b0..fe4b93692385 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-> @@ -254,8 +254,10 @@ void kfd_smi_event_update_vmfault(struct kfd_node *d=
-ev, uint16_t pasid)
->         if (task_info) {
->                 /* Report VM faults from user applications, not retry fro=
-m kernel */
->                 if (task_info->task.pid)
-> -                       kfd_smi_event_add(0, dev, KFD_SMI_EVENT_VMFAULT, =
-KFD_EVENT_FMT_VMFAULT(
-> -                                         task_info->task.pid, task_info-=
->task.comm));
-> +                       kfd_smi_event_add(task_info->tgid, dev,
-> +                                         KFD_SMI_EVENT_VMFAULT,
-> +                                         KFD_EVENT_FMT_VMFAULT(task_info=
-->task.pid,
-> +                                                               task_info=
-->task.comm));
->                 amdgpu_vm_put_task_info(task_info);
->         }
->  }
-> @@ -356,7 +358,7 @@ void kfd_smi_event_process(struct kfd_process_device =
-*pdd, bool start)
->         task_info =3D amdgpu_vm_get_task_info_vm(avm);
->
->         if (task_info) {
-> -               kfd_smi_event_add(0, pdd->dev,
-> +               kfd_smi_event_add(task_info->tgid, pdd->dev,
->                                   start ? KFD_SMI_EVENT_PROCESS_START :
->                                   KFD_SMI_EVENT_PROCESS_END,
->                                   KFD_EVENT_FMT_PROCESS(task_info->task.p=
-id,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_crat.c
+> index cf7b1b038d5f..cea1dc654125 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1404,6 +1404,14 @@ int kfd_parse_crat_table(void *crat_image, struct =
+list_head *device_list,
+>         sub_type_hdr =3D (struct crat_subtype_generic *)(crat_table+1);
+>         while ((char *)sub_type_hdr + sizeof(struct crat_subtype_generic)=
+ <
+>                         ((char *)crat_image) + image_len) {
+> +               if (!sub_type_hdr->length ||
+> +                   sub_type_hdr->length < sizeof(struct crat_subtype_gen=
+eric)) {
+> +                       pr_warn("Invalid CRAT subtype length %u\n",
+> +                               sub_type_hdr->length);
+> +                       ret =3D -EINVAL;
+> +                       break;
+> +               }
+> +
+>                 if (sub_type_hdr->flags & CRAT_SUBTYPE_FLAGS_ENABLED) {
+>                         ret =3D kfd_parse_subtype(sub_type_hdr, device_li=
+st);
+>                         if (ret)
 > --
 > 2.43.0
 >
