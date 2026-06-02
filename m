@@ -4,44 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F07EECD6E57
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 10:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A70CD6E57
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 10:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C63D10EE37;
-	Tue,  2 Jun 2026 10:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14FA10EE9A;
+	Tue,  2 Jun 2026 10:33:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="A5qRbJMW";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="m3Xcf++W";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA7310EE37
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 10:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1780394661; x=1780653861;
- bh=8yitcGedObR7T+mmA4PMc99vOGJuoP0FGUiv0c6lB3E=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=A5qRbJMWf5kCP3b4ltI0jE+f6xZ5OD6DOdz9oNUzlT5QCFS5vJt0MLzyUd9nU5Jmb
- Ldsvo8ApMAbCUJ6iPgXFoGQ/lWadX7xpfufQOLqT2fFzDLxyaTgnNnjP4j+86ISUra
- CwGRoGkGAFOZku+d/maaMGKRqEqWkkjQEzkZ5hmo3N+5UTnQynFttXY7BjLozKRCC7
- dOK5vMFIntNWk4f6FVfKR9YmLhKi87QunqjV3ECors/WCiWLrgtpD/ZQ71cg0Eqf76
- r0adLdAM/R0jB0pu/ruz4vflpHgBFfT0g73jganzdaS7yuGO2WLmBK2XJluTIYnI1y
- 9jYPnN6X+nMHw==
-Date: Tue, 02 Jun 2026 10:04:16 +0000
-To: regressions@lists.linux.dev
-From: Gerhard Schwanzer <geschw@pm.me>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- alexander.deucher@amd.com, xiaogang.chen@amd.com, Philip.Yang@amd.com
-Subject: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes SDMA0
- permission fault on RX 7600 XT
-Message-ID: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
-Feedback-ID: 110185885:user:proton
-X-Pm-Message-ID: 3827eb5612f6249c3e3ac56190779809977b43b4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B5C1810EE9A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 10:33:06 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4E41C353D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 03:33:01 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 0561F3F632
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 03:33:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1780396386; bh=iOHUK6brXgyIm879Y6Al2FeqYaz5id6uidKZL33WOWI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=m3Xcf++WuiNVPX1/ienNqF5arq4fFFEj7N115eYOaHd88WyovjkM/FbYd83JL8RMd
+ bBUmWJb5sOW/L7N3G8y4EMMhOoI9d8KXtbvBLpfOBkKjNs4sd2rFxZZZToEySVe/dr
+ 4ajsofygBG6bP8HBlYq8RdwqAqepvwXAe4uCdbYs=
+Date: Tue, 2 Jun 2026 11:32:32 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 3/8] drm/komeda: use drmm_writeback_connector_init()
+Message-ID: <ah6xQEWemicF_ECc@e142607>
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-3-42567b7c7af2@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature";
- micalg=pgp-sha256;
- boundary="------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4";
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260505-wb-drop-encoder-v5-3-42567b7c7af2@oss.qualcomm.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,113 +82,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4
-Content-Type: multipart/mixed;
- boundary=1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
-Message-ID: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
-Date: Tue, 2 Jun 2026 11:48:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Gerhard Schwanzer <geschw@pm.me>
-Subject: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes SDMA0
- permission fault on RX 7600 XT
-To: regressions@lists.linux.dev
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- alexander.deucher@amd.com, xiaogang.chen@amd.com, Philip.Yang@amd.com
-Content-Language: en-US
+On Tue, May 05, 2026 at 03:25:00AM +0300, Dmitry Baryshkov wrote:
+> The driver uses drm_writeback_connector_init() instead of its drmm
+> counterpart, but it doesn't perform the job queue cleanup (neither
+> manually nor by calling drm_writeback_connector_cleanup()). On the
+> contrary, the drmm_writeback_connector_init() function ensures the
+> proper cleanup of the job queue.
+> 
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
+> 
+> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
---1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-SGksDQoNCkkgd291bGQgbGlrZSB0byBtYWtlIHN1cmUgdGhpcyBBTURLRkQgU1ZNIHJlZ3Jlc3Np
-b24gaXMgdHJhY2tlZCBieSB0aGUNCkxpbnV4IHJlZ3Jlc3Npb24gcHJvY2Vzcy4NCg0KR2l0TGFi
-IHJlcG9ydDoNCg0KIMKgIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0v
-d29ya19pdGVtcy80OTE0DQoNClRoZSByZWdyZXNzaW9uIHdhcyBvcmlnaW5hbGx5IHJlcG9ydGVk
-IG9uIDIwMjYtMDEtMjcuIEl0IHdhcyBiaXNlY3RlZCB0byB0aGUNCnNhbWUgZnVuY3Rpb25hbCBj
-aGFuZ2UgdGhhdCBBbGV4IERldWNoZXIncyByZXZlcnQgcGF0Y2ggbGF0ZXIgdGFyZ2V0ZWQ6DQoN
-CiDCoCA0NDhlZTQ1MzUzZWY5ZmIxYTM0ZjVmMjZlYjNmNDg5MjNjNmYwODk4DQogwqAgZHJtL2Ft
-ZGtmZDogVXNlIGh1Z2UgcGFnZSBzaXplIHRvIGNoZWNrIHNwbGl0IHN2bSByYW5nZSBhbGlnbm1l
-bnQNCg0KVGhlIGFmZmVjdGVkIGtlcm5lbCBsaW5lIEkgdGVzdGVkIGlkZW50aWZpZXMgdGhlIHNh
-bWUgY2hhbmdlIGFzOg0KDQogwqAgYmYyMDg0YTdiMWQ3NWQwOTNiNmE3OWRmNGMxMDE0MmQ0OWZi
-YWEwZQ0KDQpBbGV4J3MgcmV2ZXJ0IHBhdGNoOg0KDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9hcmNoaXZlcy9hbWQtZ2Z4LzIwMjYtRmVicnVhcnkvMTM4ODI0Lmh0bWwNCg0KQSBzbWFs
-bCBDL0hTQSByZXByb2R1Y2VyIGlzIG5vdyBhdmFpbGFibGUgaW4gdGhlIEdpdExhYiByZXBvcnQu
-IEl0IGRvZXMgbm90DQpyZXF1aXJlIFB5VG9yY2gsIENvbWZ5VUksIERvY2tlciwgbW9kZWwgZmls
-ZXMsIG9yIHRoZSBvcmlnaW5hbCB3b3JrbG9hZC4gSXQNCnVzZXMgUk9Dci9IU0EsIGFuIGFub255
-bW91cyBUSFAtYWR2aXNlZCBob3N0IG1hcHBpbmcsIGV4cGxpY2l0IEtGRCBTVk0NClNFVF9BVFRS
-IGlvY3RscywgYW5kIGFuIEhTQSBTRE1BIEQySCBjb3B5Lg0KDQpTaW5nbGUgcmVwcm9kdWNlciBj
-b21tYW5kLCBzYW1lIGJpbmFyeSBvbiBib3RoIGtlcm5lbHM6DQoNCiDCoCAuL2tmZF9zdm1fc3Bs
-aXRfaHNhX2NvcHkgLS11cHN0cmVhbS1hYg0KDQpTYW1lLW1hY2hpbmUgQS9CIHJlc3VsdCBvbiBh
-biBSWCA3NjAwIFhUOg0KDQogwqAgNDQ4ZWU0NTMvYmYyMDg0YTcgYWN0aXZlOg0KIMKgIMKgIDEv
-MSBydW4gZmF1bHRzIHdpdGggU0RNQTAgcGVybWlzc2lvbiBmYXVsdA0KIMKgIMKgIEdDVk1fTDJf
-UFJPVEVDVElPTl9GQVVMVF9TVEFUVVM9MHgwMDg0MUE1MQ0KDQogwqAgNDQ4ZWU0NTMvYmYyMDg0
-YTcgbG9jYWxseSByZXZlcnRlZDoNCiDCoCDCoCAxMC8xMCBydW5zIGNvbXBsZXRlDQogwqAgwqAg
-bm8gUk9DciBtZW1vcnkgYWNjZXNzIGZhdWx0DQogwqAgwqAgbm8gbmV3IEdDVk0vU0RNQTAgcGVy
-bWlzc2lvbiBmYXVsdCBpbiBkbWVzZw0KDQpUaGUgYmFkIGZhdWx0IHBhZ2UgaXMgaW5zaWRlIHRo
-ZSBzcGxpdCB0YWlsIGFuZCBpbnNpZGUgdGhlIFNETUEgY29weSByYW5nZToNCg0KIMKgIGNyaXRp
-Y2FsIHRhaWw6IFsweDcyMjQyOWQ2MS4uMHg3MjI0MjlkZmZdDQogwqAgY29weSBwYWdlczrCoCDC
-oCBbMHg3MjI0MjliMzAuLjB4NzIyNDI5ZDcwXQ0KIMKgIGZhdWx0IHBhZ2U6wqAgwqAgMHg3MjI0
-MjlkNjUNCg0KQSBmdWxsIGZ0cmFjZS9QVEUgcnVuIHdpdGggdGhlIHNhbWUgQyByZXByb2R1Y2Vy
-L1NWTSBzZXF1ZW5jZSBhbHNvIHNob3dzOg0KDQogwqAgc3BsaXRfdGFpbCAuLi4gY3VycmVudF9y
-ZW1hcD0wIG9sZF9yZW1hcD0xIG1pc3NlZD0xDQogwqAgTUlTU0VEX1JFTUFQX0NBTkRJREFURSBz
-cGxpdD10YWlsDQogwqAgbm8gYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzIGNvdmVyaW5nIHRoZSBmYXVs
-dCBwYWdlIGFmdGVyIHRoZSBtYXJrZXIgYmVmb3JlDQogwqAgdGhlIGZhdWx0LXNpZGUgR0VUX0FU
-VFINCg0KVGhlIHN1c3BlY3RlZCBjb2RlIGlzc3VlIGlzIHRoYXQgdGhlIHNwbGl0LXRhaWwvaGVh
-ZCByZW1hcCBwcmVkaWNhdGUgDQppbnRyb2R1Y2VkDQpieSA0NDhlZTQ1My9iZjIwODRhNyBjYW4g
-bWlzcyB0YWlscyBpbnNpZGUgdGhlIGZpbmFsIDUxMi1wYWdlIGJsb2NrLiBTaW5jZQ0KcHJhbmdl
-LT5sYXN0IGlzIGluY2x1c2l2ZSwgQUxJR05fRE9XTihwcmFuZ2UtPmxhc3QsIDUxMikgaXMgdGhl
-IHN0YXJ0IG9mIHRoZQ0KZmluYWwgYmxvY2ssIG5vdCBhbiBleGNsdXNpdmUgdXBwZXIgYm91bmQu
-DQoNCkkgYWxzbyBzZW50IGEgc2hvcnQgZm9sbG93LXVwIHRvIGFtZC1nZnggd2l0aCB0aGUgcmVw
-cm9kdWNlci9BLUIgc3VtbWFyeSBhbmQNCmFza2VkIHdoYXQgb3JpZ2luYWwgZmFpbHVyZSBvciB3
-b3JrbG9hZCA0NDhlZTQ1My9iZjIwODRhNyB3YXMgaW50ZW5kZWQgDQp0byBmaXg6DQoNCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2FtZC1nZngvMjAyNi1KdW5lLzE0NTgw
-MC5odG1sDQoNCkkgY2FuIHJlc2VuZCB0aGUgcmVwcm9kdWNlciBzb3VyY2UgYW5kIHN1bW1hcmll
-cyBkaXJlY3RseSBvbi1saXN0IGlmIA0KcHJlZmVycmVkLg0KDQojcmVnemJvdCBpbnRyb2R1Y2Vk
-OiA0NDhlZTQ1MzUzZWY5ZmIxYTM0ZjVmMjZlYjNmNDg5MjNjNmYwODk4DQojcmVnemJvdCBtb25p
-dG9yOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL3dvcmtfaXRlbXMv
-NDkxNA0KDQpUaGFua3MsDQpHZXJoYXJkIFNjaHdhbnplcg0K
---1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - geschw@pm.me -
- 0xE32DB141.asc"; name="publickey - geschw@pm.me - 0xE32DB141.asc"
-Content-Type: application/pgp-keys; filename="publickey - geschw@pm.me -
- 0xE32DB141.asc"; name="publickey - geschw@pm.me - 0xE32DB141.asc"
+Best regards,
+Liviu
 
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
-ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuOS4wCgp4ak1FYWFZQ0loWUpLd1lCQkFIYVJ3
-OEJBUWRBTDhzSFhxTDN5Q21KNUp6d3FEQ0hkWTZoSTJRQTM1TWx6Q082CkpyMTNWakRORzJkbGMy
-Tm9kMEJ3YlM1dFpTQThaMlZ6WTJoM1FIQnRMbTFsUHNMQUVRUVRGZ29BZ3dXQ2FhWUMKSWdNTENR
-Y0pFSGJ4WHM4VnA1eFpSUlFBQUFBQUFCd0FJSE5oYkhSQWJtOTBZWFJwYjI1ekxtOXdaVzV3WjNC
-cQpjeTV2Y21mbmRLQmtNZmZLVmQvNWFFclk3VjRWR2g3L3U4Zm45OTQrQUZhemswRGF3UU1WQ2dn
-RUZnQUNBUUlaCkFRS2JBd0llQVJZaEJPTXRzVUVPWXNWaEJITnZ1M2J4WHM4VnA1eFpBQUErZlFE
-L2RFSXQyZGw1WUVwVFdBSkEKRU16MnlDOXNmTHJQN1piRm8vZytYcUlkNDNjQS8yaGlPUTJ1ZlB1
-VXlJbVBNU2xMRUJjV0pCWkxlVDJqRHVyeQpMSGNadmVJRHpqZ0VhYVlDSWhJS0t3WUJCQUdYVlFF
-RkFRRUhRQ0cyL0RXd2Z4R253S3hUUzF6MUluSkV2TkhqCm5WTndheE4rc1NjWFNvME1Bd0VJQjhL
-K0JCZ1dDZ0J3QllKcHBnSWlDUkIyOFY3UEZhZWNXVVVVQUFBQUFBQWMKQUNCellXeDBRRzV2ZEdG
-MGFXOXVjeTV2Y0dWdWNHZHdhbk11YjNKbkVIUDBza2ZMVDBsWWV6OHJLYW5Vb2E3YwpYekhFSmt4
-TkxoSlhuM2JJOXpZQ213d1dJUVRqTGJGQkRtTEZZUVJ6Yjd0MjhWN1BGYWVjV1FBQU1LY0JBTTNt
-CjlxYmt1cm9DTFdBMzZXMHhnRXJTaVBhdTNwTDR4c28yOFRzcUlCaE5BUDlQODhPYm41dnZzYmp1
-V29VaE4wWU4KeEVXQnpuQ1dsZmtPQ1ppOTBNaFFCQT09Cj1hbmNVCi0tLS0tRU5EIFBHUCBQVUJM
-SUMgS0VZIEJMT0NLLS0tLS0=
---1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f--
+> ---
+>  .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++++++++----------
+>  1 file changed, 17 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> index 41cc3e080dc9..bcc53d4015f1 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> @@ -5,6 +5,7 @@
+>   *
+>   */
+>  #include <drm/drm_framebuffer.h>
+> +#include <drm/drm_managed.h>
+>  #include "komeda_dev.h"
+>  #include "komeda_kms.h"
+>  
+> @@ -121,17 +122,10 @@ komeda_wb_connector_fill_modes(struct drm_connector *connector,
+>  	return 0;
+>  }
+>  
+> -static void komeda_wb_connector_destroy(struct drm_connector *connector)
+> -{
+> -	drm_connector_cleanup(connector);
+> -	kfree(to_kconn(to_wb_conn(connector)));
+> -}
+> -
+>  static const struct drm_connector_funcs komeda_wb_connector_funcs = {
+>  	.reset			= drm_atomic_helper_connector_reset,
+>  	.detect			= komeda_wb_connector_detect,
+>  	.fill_modes		= komeda_wb_connector_fill_modes,
+> -	.destroy		= komeda_wb_connector_destroy,
+>  	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+>  };
+> @@ -143,13 +137,15 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>  	struct komeda_wb_connector *kwb_conn;
+>  	struct drm_writeback_connector *wb_conn;
+>  	struct drm_display_info *info;
+> +	struct drm_encoder *encoder;
+> +
+>  	u32 *formats, n_formats = 0;
+>  	int err;
+>  
+>  	if (!kcrtc->master->wb_layer)
+>  		return 0;
+>  
+> -	kwb_conn = kzalloc_obj(*kwb_conn);
+> +	kwb_conn = drmm_kzalloc(&kms->base, sizeof(*kwb_conn), GFP_KERNEL);
+>  	if (!kwb_conn)
+>  		return -ENOMEM;
+>  
+> @@ -165,11 +161,19 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>  		return -ENOMEM;
+>  	}
+>  
+> -	err = drm_writeback_connector_init(&kms->base, wb_conn,
+> -					   &komeda_wb_connector_funcs,
+> -					   &komeda_wb_encoder_helper_funcs,
+> -					   formats, n_formats,
+> -					   BIT(drm_crtc_index(&kcrtc->base)));
+> +	encoder = drmm_plain_encoder_alloc(&kms->base, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (IS_ERR(encoder))
+> +		return PTR_ERR(encoder);
+> +
+> +	drm_encoder_helper_add(encoder, &komeda_wb_encoder_helper_funcs);
+> +
+> +	encoder->possible_crtcs = drm_crtc_mask(&kcrtc->base);
+> +
+> +	err = drmm_writeback_connector_init(&kms->base, wb_conn,
+> +					    &komeda_wb_connector_funcs,
+> +					    encoder,
+> +					    formats, n_formats);
+>  	komeda_put_fourcc_list(formats);
+>  	if (err) {
+>  		kfree(kwb_conn);
+> 
+> -- 
+> 2.47.3
+> 
 
---------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wqsEARYIAF0FgmoeqqAJEHbxXs8Vp5xZNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmctF4Bo6pC5YvBC7JAYk3jUFiEE4y2xQQ5ixWEE
-c2+7dvFezxWnnFkAAM/1AP9HCiI9L8eb4WAGxlEFWmdV9NA0hfw7zvV55dtd
-tLfxIQD/QL6fR3Qm/LieSsG4Mr6EPPDUQejl9Be7OfMq3qmjTwE=
-=l8Wl
------END PGP SIGNATURE-----
-
-
---------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4--
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
