@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABE9FC5DF71
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD291CD6E4A
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 07:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D5C10ECB5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C4210ECB6;
 	Tue,  2 Jun 2026 07:24:19 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="kWD9rCZs";
-	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3CE1137EB
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 03:12:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=I4gGLAdNf52WPFFAYkC6rriPGKuD0scRD8vqOYbdLQc=; b=kWD9rCZsI9ykxKpUQbSM5exlqD
- c9Is3RG5x/xo6zEVXgsfJdgEAtw4754gR0HOPzyG71eC9E00/HXmVcpW+VxVIL1r3Vm2LkQOEUr90
- XwI7gASIVM6BHh4+BuYza+GZt8h755WUttSHiXuDAO3c7E48kfoZiKh0m969A7DuF49eV0pner7Zc
- e+EJ86FpIqeD34Ct4THRPF2UAV3tLZ93dKtHCcU8Moa7P061higGUbuiWOH4gCOARzzh/Y0Z3CEjQ
- 3fB8NT8re6jbXbA1pMnOChw5FTrSkQ1FfcLzIhS510jTHcKO6z0tFu/K9PF4ffIrAyqOMAOb6jKJd
- cgLkgtOA==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wUFY8-0000000CD2c-2YA2; Tue, 02 Jun 2026 03:12:16 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-doc@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH] kdoc: xforms: ignore special static/inline macros
-Date: Mon,  1 Jun 2026 20:12:13 -0700
-Message-ID: <20260602031214.2817411-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.54.0
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Jun 2026 05:09:12 UTC
+Received: from mail-m8382.xmail.ntesmail.com (mail-m8382.xmail.ntesmail.com
+ [156.224.83.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C66A10EBDC;
+ Tue,  2 Jun 2026 05:09:11 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 40b387cd3;
+ Tue, 2 Jun 2026 13:04:05 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, kenneth.feng@amd.com,
+ kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn
+Subject: [PATCH 0/2] drm/amdgpu: fix MES queue init wptr reset on atomic64
+ carriers
+Date: Tue,  2 Jun 2026 13:03:52 +0800
+Message-Id: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e86b7aeb903a1kunmb7f79aef178b0e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTExKVhpLHkIdQx1NGE5CHVYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ hOQ0NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=LuX5yeVaeVplufiL3Ru4Rfo1I7zpi60gEnc7bKVZCGgMXjiS5XLabZLqRW38Tg6g3mWXqWiwyoeTOyQE2BaeAb16R6G9uLT1iIKAqV/d0knE6qwonxwPQ3EguOY8WWsN3dkCh8pPHt1S0JgZBnXj0jPmmgP2jZJ42RBFSX30WQU=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=3ozlCg70KuW0KiVNXBM6eYw1cpJ5baIR8QH2ZWdJFlU=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Tue, 02 Jun 2026 07:24:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,43 +58,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c contains 7 (for
-now) functions that use STATIC_IFN_KUNIT or INLINE_IFN_KUNIT macros for
-function qualifiers (static or not, inline or not).
+This series fixes two MES queue-init reset paths that still clear
+ring->wptr_cpu_addr with a plain 32-bit store even though the same
+carrier is accessed with atomic64_set()/atomic64_read() and
+support_64bit_ptrs is enabled.
 
-These cause parse warnings from kernel-doc:
-Invalid C declaration: Expected identifier in nested name, got keyword:
-  struct [error at 29]
-STATIC_IFN_KUNIT const struct drm_color_lut * __extract_blob_lut (const
-  struct drm_property_blob *blob, uint32_t *size)
+This is not just a missing atomic annotation. The write pointer carrier
+is used as a shared 64-bit value, so a plain *ring->wptr_cpu_addr = 0
+only clears the low 32 bits. A later atomic64_read() can then observe
+stale high 32 bits instead of a real zeroed reset state.
 
-Handle these in kernel-doc to prevent multiple warnings.
+Use atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0) in both reset
+paths so the full 64-bit MES wptr is cleared with the same access
+family as the existing readers and writers.
 
-Fixes: 647d1fd04652 ("drm/amd/display: Add KUnit test for color helpers")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Ivan Lipski <ivan.lipski@amd.com>
-Cc: Dan Wheeler <daniel.wheeler@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+This issue was first flagged by our static analysis tool while scanning
+for 64-bit atomic write pointer carriers mixed with plain reset stores,
+then manually audited on Linux v6.18.21.
 
- tools/lib/python/kdoc/xforms_lists.py |    2 ++
- 1 file changed, 2 insertions(+)
+It was further confirmed with a QEMU no-device stand-in that preserved
+the same access contract: atomic64_set() write, plain low-32 reset, and
+atomic64_read() readback. In that stand-in, a buggy reset turned
+0x12345678abcdeff0 into 0x1234567800000000, while replacing the reset
+with atomic64_set(..., 0) read back 0x0.
 
---- linux-next-20260601.orig/tools/lib/python/kdoc/xforms_lists.py
-+++ linux-next-20260601/tools/lib/python/kdoc/xforms_lists.py
-@@ -104,6 +104,8 @@ class CTransforms:
-         (CMatch("__context_unsafe"), ""),
-         (CMatch("__attribute_const__"), ""),
-         (CMatch("__attribute__"), ""),
-+        (CMatch("STATIC_IFN_KUNIT"), ""),
-+        (CMatch("INLINE_IFN_KUNIT"), ""),
- 
-         #
-         # HACK: this is similar to process_export() hack. It is meant to
+Build-tested by compiling mes_v11_0.o and mes_v12_0.o.
+
+No AMDGPU hardware was available for end-to-end runtime testing.
+
+Runyu Xiao (2):
+  drm/amdgpu/mes11: fix queue init wptr reset
+  drm/amdgpu/mes12: fix queue init wptr reset
+
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+-- 
+2.34.1
