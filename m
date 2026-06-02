@@ -4,121 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE19BC5DF71
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 05:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56021C5DF71
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 06:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F01C11385B;
-	Tue,  2 Jun 2026 05:44:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9B1010EBFC;
+	Tue,  2 Jun 2026 06:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Yl9vibG6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tj3r8a69";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011026.outbound.protection.outlook.com [52.101.62.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C9A611385B
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 05:44:04 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010017.outbound.protection.outlook.com [52.101.201.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F1110EBFC;
+ Tue,  2 Jun 2026 06:10:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iE/T1rkd9RAD/tBfHU3bs8qvGkrWBDbEcHnvBImRJQc3AEJPhD1BoC/QiMek++g4AdTyXI7C9C0YkF2zPoK3vUdDHN27IGV0Vw9W5mcUkYHbk9BmwzVfXk3ufBlaW60VhLrQLID6nYF5D0zd6rAEdn0A+rN2V52EzoykXVCacjGnXCPzEl6N9A7UMLQ68vFpVn8N2v+qbb4tVYt00ZZC1gKXOEqUnGTtE5qPDAe1W/SxTsc+b8p5+1fpHo+PqII3vJP/FlPDTvALHUqU2cVadXMz19hHT1hqbjg3bkvldcnlJMZ9dWpiG5OG32w2WgHvx5NCGqjVCqlou431BZehGA==
+ b=Nr9eUG4WWQeN/76YjCuy7XGP7KDArkmV54w8vsECkSUIcbSokpmMYAVp9wCPhAVmPUuZIOLl/sYv3Pw7NJjHzBmczvwt4+JSxnuAIu+v/+sh+Y11/ZQX9OZwZ0+8OQvzP9XYhDD7trEjBfWKbZ06O/p5mfwUyp9yZHejTF0YiR7qHOdzpYLR+OKRNRZUggyuCrijib2ybQ9BM/EBgCgg/X2cZDDovQbzPJ79MEMAbYLBNUx8pzSMS7jXbGlKMo9T+laf/kUsdf0urax5p2ivdn15tcD4jpLFUh8z667/gVlXij98fZvhQNXRQxv94aa8JNMlT7Usid1Qh5djAhCstQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cSxwSotYx6zxgThyOdE1m2XaSo6NddBmes9VXWen4ro=;
- b=U9nUR+NsPuBWoH5TiCDr8/SPXTi/W5v7ot4JLONK4P74pdXlB+7DBn5O+6g+lCgn6taL4ZhQ76R+HG+CpOzaY3c1XFLDINKgwpMcgFrl4WcZgueUV7FPQb7cVslZfFDZLx1+ZkTGjXH4GJkY8qlhJyG9nYAceY8kw2QBpgybx/Iq5sfjf2lSS1QKm3jHKqfBFgJahguvoO+OSA+g5NNk7ey5DLxyU7Lvr6aaf5hPqwJg/JEMMevXTMHTU5HUiZnaiPO5ANZNH4gtgh+i9jdXD/YEhmLob/LKLlLZoBN9Er3c8fIaYrpBbtZ3uI60NQHh2HT+zEquXx/02ioiJUtgRw==
+ bh=e0bcUDBh1kASgYKV50zPWIuiy4gVneMRuavGwvm+9as=;
+ b=m3lC3bpWoiHLohkiNqWO2BrotZzq0xKGBdrpFPhBmtpETaQezBwX0ieXUhppL0MWabO31FW62SYgMR9jcoKIIQZVUfq7HH238glcB0m9qQu0WuNRNJLjvVKQMaf+hKG9Mahzl64JbBart5cxMOA1hv5XXgmZpVVnbWuYiuBIAmjsquUbhwmGpyMNgFsW9kpW0YJZK7AF07kgEx3YcMt2cEhLgywyJ+qrHdtZUYUOurhCULEHzDbu0P2YfvD8o8DbPhmmFsiagk0sLSvs0nFqCmbfuffkMN1Joq5QWj4b1hMKWYnrT44GLyf+CntHfEPsAh9UblTfkWH8Q5xsjiZBww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cSxwSotYx6zxgThyOdE1m2XaSo6NddBmes9VXWen4ro=;
- b=Yl9vibG6RbxTNQtfYflAUuM9fXUYCDp5AYjTjqm5hGhzVKuC4uELXbDf/dSig2h17LQ5lW4aHNNpbkwHzyooMtagjjFMDIJfFWbuZuL6hN6KCzrKCN3WOJian5P5OSp4QPc438hb/eK6axAhcysZVIChI7xsDLAxdCNXFcUI9N8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SJ1PR12MB6172.namprd12.prod.outlook.com (2603:10b6:a03:459::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 2 Jun 2026
- 05:43:59 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
- 05:43:58 +0000
-Message-ID: <c20304a7-4f5e-459c-8da2-b67baab9f6cd@amd.com>
-Date: Tue, 2 Jun 2026 11:13:53 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Add enum for PCIe BAR regions
-To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20260601205553.239933-1-Harish.Kasiviswanathan@amd.com>
+ bh=e0bcUDBh1kASgYKV50zPWIuiy4gVneMRuavGwvm+9as=;
+ b=tj3r8a69Oy2R0kG+xXEGUf4UBhzGG3vzM9cAscBEtzuUTtFEv1ZVqKxDmPiA8DzOLdku9ETIO0+mG/KtL607jNx+OHUIk3+Hu6N14kR6xxKImlTRswAA1oGsAt91/BQ747jSi7pQzX/cioaELp68mKtXsyHuXzK/4XpQjOjpQtM=
+Received: from CY5PR12MB6276.namprd12.prod.outlook.com (2603:10b6:930:f::6) by
+ DS7PR12MB6006.namprd12.prod.outlook.com (2603:10b6:8:7d::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.16; Tue, 2 Jun 2026 06:10:10 +0000
+Received: from CY5PR12MB6276.namprd12.prod.outlook.com
+ ([fe80::971:7b52:1106:dd41]) by CY5PR12MB6276.namprd12.prod.outlook.com
+ ([fe80::971:7b52:1106:dd41%4]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
+ 06:10:10 +0000
+From: "Devanand Zodape, Kunal" <Kunal.DevanandZodape@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, "Kumar1, Rahul" <Rahul.Kumar1@amd.com>, "Gupta, Prateek1"
+ <Prateek1.Gupta@amd.com>
+Subject: RE: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
+Thread-Topic: [PATCH v2] drm/amdgpu: use ACK polling for page-write completion
+Thread-Index: AQHc8bkdO4Q1NJ7VQ0mVeIq5/ule2bYpqxEAgAEXoVA=
+Date: Tue, 2 Jun 2026 06:10:10 +0000
+Message-ID: <CY5PR12MB627679B46FC0317E69C047F298122@CY5PR12MB6276.namprd12.prod.outlook.com>
+References: <20260601093226.1255621-1-kunal.devanandzodape@amd.com>
+ <20260601112336.2277724-1-kunal.devanandzodape@amd.com>
+ <7237b5c9-f97d-408f-8fd5-15ccbc9c08d8@amd.com>
+In-Reply-To: <7237b5c9-f97d-408f-8fd5-15ccbc9c08d8@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260601205553.239933-1-Harish.Kasiviswanathan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0076.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d8::10) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ1PR12MB6172:EE_
-X-MS-Office365-Filtering-Correlation-Id: 544a942b-0ba9-4e7b-ebf8-08dec069f148
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|6133799003|3023799007|5023799004|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: c3aZ3A926wsM/CGyV0QuEZGC/6tt8rOASQur4ey5BVFQux6gweCguRHTiXUR0mVOZfj2wgQ3ROtgnnWXxIAlh2ZLJq2a9XMauclhegg5c7h1oQT4+eZ1NG3uyyf8a2+xpdpBaggUOdDagz8Uu4rkUnUZi6Xa5HHBAKneBFdNkLsxLqLm2ib8Aciau74Wo0yTY5fyPZDRyTiEx/pyahY3gL0Jh6Sb4gJmFKJt7cj57YzWMCIpxCjJEA4t/B/ts0l19UJtWaht2scW9qEg1JJt/BNh0+MLSQxoD+ubmJ2U1R/v1hhkS4zBNx5Zf39Y3swmHhnHvFzSwoTHjfShlpeeYUjXgiJDmTg7at7NzU3rtRH1lDVszNldvtFVP3PYVno0btiYm1IJo570bRxYzGv/hztG7/2i3IcDmd0a/O4iGhZvdPOrE4QaHYCCcp80/zsp3SzJs5x04GRixHGnNo62RoAECJzbiNY5FNMpVEXOyM9LXI3/sqOZNPNz0wCr4JoBkD6es2tbXIr5oFi0OXXCh6yaNx/rg7AapkoceLFKOqb4sFjO2liG7AniXF1J8fs0lPhddB+rGEvcaw2nwSWilz50kmx8XOpuWNC91JxYJGuyNZZCijX7It9R2EguGWfcZDaA9aVMB6zZnTwlULsBnLJIEDMLbd8Sn0rhKkNPhgUFNd8iztnMW5sIAKMHvm3c
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(6133799003)(3023799007)(5023799004)(11063799006)(56012099006)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-02T05:45:51.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR12MB6276:EE_|DS7PR12MB6006:EE_
+x-ms-office365-filtering-correlation-id: c309841e-24d3-4e53-69e1-08dec06d9a20
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|56012099006|18002099003|22082099003|4143699003|11063799006|38070700021;
+x-microsoft-antispam-message-info: piO5NySfkyibcv78tmL4MXN55HJXzr8ZwRXF4ZaWhhFWl9vC/U6w//CN1nFmHn6Xc33hwdshhHIXAVs8sPoV9jvnTRuvk0u/guq/7FR1DzKqXg0CxgazfL2ezC8b3IULPnPQqV+T7N+eSFeqGOvEP5CL7oUaPB9Veapj3tAm2U0fnEffc5Z0N40JWpGZolwj/fEyd916kpH9XO2rZ+yeQvSK9rVMRtGIVbToWRQB4mKJMu6kqR8gz4NJkomIXzTVbDg76au5PxHE2sffzjPy91FoYfEOvRqQm98QtwaH/y5pIHqbOspQueY1LoKigmtu7TQiGzR0OV+27pwbFOgT5w3ym+BBt/T93qaeMAD8eg0WBBXudIMHG47qNJt4u3TKlbAxqRqdDDIbs2/kcEwAICJ4x98JurtkAIfcmEx/wUI+s/grK+l827TuYD2KjJIhIIetY4wb/kxEbS7Z4SWQqD9Y434e5iPacbsE2Dy2Lhv60uewRs7cwbvdtzZdMw78pBNnBJlroByvvyWA8StBA/M/1iuDbXUvmXX+XjVJPfIc7GYCpQiSADYN3VHOsMSQT7VfD3X+UY8+Q0rS7dgNH+jci2kYokY8XmpDYa+cA5f1bLZSPr2FFXzzCylDAlM1Z2kyGp8TAVMEW+HDZpoTRW0TsJ3f9z4IiIPlhuq6eAMhJEreO3+E8nR7M2QFAqkKepRph1hyj5wNs8cFqI+yT+rMDSlzf+cgHXWmM4SH4tZOTerOgP9KiICi/FCmsH1w
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6276.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2p2RVJyY3lvbGpra1k2UFZ5RTN2NklNaEVIanN2MjdRb2lxSnJ1OWhURHdF?=
- =?utf-8?B?ZE9kQUlYR0hwUC80SGFJSy9SMjlROGtFbmo4bmRvT3BUa1VDY3cvWUcvK0ha?=
- =?utf-8?B?bzJWRDZOcTJTTy9kWmFtTXJaSW1kMUROQUw0WWpDUTFVSm43Nm5LMDdtL3ZQ?=
- =?utf-8?B?aHlhaHdrcmlKdFd6QkVsZ2xhR08zTXRxRVNBeGlSQjJBVE5nVFlQNHBESXIy?=
- =?utf-8?B?WExseEgreDduTG9DUDIwRVRkd2k2ZUZBU25QYWZIalVsdjhFQkVGZlUzbFlS?=
- =?utf-8?B?LzZYSmdVUXVoRDFBcXBjNFBEem9OUlN5cGE0YWk4S21vblFJUTRONS9pb3pH?=
- =?utf-8?B?ZmJXWkl3TlhCeHFVMktRRVpxOWVhUStJQ1lpTldGVUNrK011dXBjOVFPakhr?=
- =?utf-8?B?d3pzZHlVc2xWVVFnTXdPdyswSCtjRERlRmp4bmFJdTFrdno4Nk5hYmdJTGxY?=
- =?utf-8?B?TjMxTklkS2VqZVg4YTFvWENxTUZDVnZlYzExMkZZSUI3UjZZaEVIOGhLQkor?=
- =?utf-8?B?eXZCMHBDbEVqdjdtalVvcWIxWEdNV0FwN0NGQk9HYjE5MVpaSVl6d1l6NndL?=
- =?utf-8?B?MG4vdjJZTFhTTjdtMHVqYnVmalJuem02Zk1KdE5OTENsYWt6WkE1ckxxOXU4?=
- =?utf-8?B?UHprN252VzZsNVFiaHp2QWtEdFc2NUc4dWFVN1B4ZENxbityUHlURlMwTzVh?=
- =?utf-8?B?dUc5QUI3eHd4enE3MkduMG45M2wzQVBDeXlETGxKK2IxQWdkL01ZTFlBMUs3?=
- =?utf-8?B?Ly91TXdkcUxjcmVEM1NHaVBGNHoxSm1DcDFUYnphYlpkb21wWHpLTWs3Qmxt?=
- =?utf-8?B?RS95cVdpU1ZrajNUeGNkc3l4Wlhhdnl5cGVPSDZrYUt3Y2lRcXZqaVpSdkU2?=
- =?utf-8?B?MmpMSyszSk5xSnI1aEh6NkxYSDdtOTcrZHUwbmQrbWpadnZhZnQ2bkp0R2Ni?=
- =?utf-8?B?dVhDbi9wcHJuRFpMUTN0SDhCc09uclQ5WU9jbUNZUUtRZlJOTUx6akNHWnFG?=
- =?utf-8?B?SnJMWUJCU1dDeUVEVjl3NDRtTkRjdDh2Slp3QUZpV1FUVTFNNy9CTXppMXpR?=
- =?utf-8?B?MlJZSEp4Sy80bmdWK21PcGJDSnZlSTl5cndFa3ZTZ01JeHlRTDFha2ZreDVG?=
- =?utf-8?B?TzVsTnhzb1pteFg5aVVtSUhIQlNHaHl1bVR0bXBSU3U3cTBGUGk4SkdUNFc2?=
- =?utf-8?B?VVFSRXdxY0s5R0tGUGNOSDJ2bUlRUHFlYXFpOEkxTHJSUVdCV3J2cUlBNUFm?=
- =?utf-8?B?ZjFCdnFqQUE1ZnZkODlUOWxqWEhCQ0JhQm15aFREK2h3OUxIWEtrWEhvanBr?=
- =?utf-8?B?QWFPdlB4eDBYZGU4TTVKRHhSVjg5SkFqTkp6QnRRZ3owYVdhWTRickhMUzNr?=
- =?utf-8?B?UjV5Z0l6LzNJSkZ2eXppV2wwVDhYWXNhcUZ3UWdzd296bjEwLzBWR1pkT1BM?=
- =?utf-8?B?Zk9icGdSR2xkd2JHSGIzWHRuT3lseWZmY2tkb3AydzR4UlQ3MG56dkt3cGZL?=
- =?utf-8?B?UjhmcDBjQnJITDh0VFdiSTFEUkwyL0tCMGtDOUxoMk9mcVBKT3JQTHNxWFRQ?=
- =?utf-8?B?SDNFMitqSk5aQzdxOU9UbGhadGRzT2t5amM0dGh0UUhVZW8xeHVZOHZOemZa?=
- =?utf-8?B?QW1McUVTa3Vhc1NJd3ZXTEFiWkJYWjdUd3ovTXhoaWswYWRQaTlVVlZwczM2?=
- =?utf-8?B?N25EZEFLWWZTVEpwZHJ5WDBNaHJOTnptUEZObXBZVThMY0N1ZVRRaEZZdXhC?=
- =?utf-8?B?ZmJMREFudnBKcEZuUms5QWx4TU9LWlIwZitXWWJaZ2ZueG5FeXYzQmE4bGFi?=
- =?utf-8?B?N1ZSa2ttUGRsSWJmU2FBenRqZUY4SlZWaGMvcFZiaEREbGQzVEFXWC9jMWlM?=
- =?utf-8?B?aHl4V0FxMzZVVnBlZXowaGtRNW1TZ1Bla3d6M3NmTHN3QjNJcmdva3VhcDJM?=
- =?utf-8?B?SE1vSm1wMlQ1MzdIbERFODBpK0xqYVM2RFM0Yk9SakxEZWpocHhNNm9nQUVI?=
- =?utf-8?B?WEVBVytaZXVVVCtmMlhsQlBuWFFvT3ljOVdOdkxES1NtakgxMGN5aHlJVXhs?=
- =?utf-8?B?b1h5QncrQk0rSmtEREpwdndFeGE2eEJ4b1dVVngveVBCY1ZhbEU2eWQrem5u?=
- =?utf-8?B?Y3grYUF0aC83a2Q0b3gwaW1iQ1NpblBZajhpQkprY1c3a1NLcFZsOXJQR0xy?=
- =?utf-8?B?U2M2d0w3QUZwVEZsenpYTmFpeS81RUFCOS9zWHc0eCt6dU1KR3dabG1LU2o3?=
- =?utf-8?B?SE83ajB6Z2xneENmTk5BRG9pRldJRVh1bnpkZlovSEdORExYSWxrWHorQ3dl?=
- =?utf-8?B?eUoyQ3o2L2R3SDZjUXlQT0xWOHlHMHZhdEFBalVITDcxTkhDUHB0dz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3VEs1iq2REfEqoDhuT68fGdu93HHqU2gnh+JKd7BCFgyVW89327sBX1z+9yB?=
+ =?us-ascii?Q?L00sT1OQ+lFHyF9ERDxEckaKJehw/Rj9SpzrwkYQHz3vbDwwYbpm+LZuBK+Q?=
+ =?us-ascii?Q?z9+sJkGoDoy9zeYgzopS+XsRSSLGo5OSVJ2HrKLHVdKNnwyYmkBx9KoSEMjU?=
+ =?us-ascii?Q?CVL4gwjQHMcjalfHU0h+ts9luY1ZYjNdoF4FJf+r739/p5omt7zH6izi0qpH?=
+ =?us-ascii?Q?QZ640WR6xU/39AEEfueRaX2TwCxdTXkQULtFS+zobh/oIKyYTHXVnPMb3O6+?=
+ =?us-ascii?Q?/koeOe6tJ4Pujh584dR6k1K2nsdPIign7jHUfLXSkS8N0Ng8oY9YdidGDYrJ?=
+ =?us-ascii?Q?oxwLPbPMLCLtWjagrVM7ef1MtdJAtfSWI+5W31QDIaE53+EYvZouykHvvgxm?=
+ =?us-ascii?Q?YTVlk0ad09s4b71WVaLobW4xJvuwJRi16odSYUwPQ2Mex7iWhQFhExecoUN9?=
+ =?us-ascii?Q?km+PuEOc0hO4w0oIqsqPeN+0TuRMij4XVIF7iO5TmGXwhiM0Vie0rXOd3L0R?=
+ =?us-ascii?Q?FOCTj7aRgJzy+JRHu64fdOafJAhWkCakmDjy6Cs7sPyllOxdcbsnQQ3BtufN?=
+ =?us-ascii?Q?sdFceT2iuniQFieOY4565b39UA/NP2NYJvKDHuVmfxFCKK6qJ77sidQ7IyeW?=
+ =?us-ascii?Q?WBXOsl/xbbW/PS8mCZd5z67tY5+q/3JZ2F+dHNuIqruFVXY3VB9ZIox9z3Nr?=
+ =?us-ascii?Q?fO27DxSq3y5koPAWQ5YQ4QKqrNfgs9yTn8XQrSRGfe68SdH0xum+4fe42Mmf?=
+ =?us-ascii?Q?02H+3T37FX+s+kbqhI+Xzntrl4Q6jgJwwtTgA21XPkg4QIlTWkK2GiAMrlCf?=
+ =?us-ascii?Q?RP8P9hFdnCQziU6gYdSTQ0CK/mEAUUVfZhAivBLbkDMCb6Je6JIn1tcJd/oG?=
+ =?us-ascii?Q?T+4dZjxtpdbNm7tRMANx3VVk0m5w29tcw5ohVFY2P/OYy+YIsSAqDjXRrsm9?=
+ =?us-ascii?Q?WRip3d1yJkQk9vMfvROfwR2WgEDXc9wUUYenS7uLhRyOV3v4nKBFRaAGEvEY?=
+ =?us-ascii?Q?sYhu9sKh5SAYJWXkc52ERsC9vZeVXgnXc9h09nmTqr4bO8cfl42cEMEmA3wq?=
+ =?us-ascii?Q?H3mw5YOhzpfPFrRpigwPbunygXLXXC6Qa3J0iwAiva8L1tKvTf+W7gE4GGvb?=
+ =?us-ascii?Q?4HgD8WmOJVosn75JTdNsKjXFun8xOiEZkZKZVI4H+r7pR+lzPZL++B1c5N+K?=
+ =?us-ascii?Q?YMslIrqnaWAG2eTixPOWyvs3ADliHiM3qlm47wOXBKpSDH3wZLhpliOnFBz1?=
+ =?us-ascii?Q?Hy2S6GN+llDxQCRYXPmRpYzpWCEpiWEOrGe/UOVFQWPKAvx1syq+RWbCsWmc?=
+ =?us-ascii?Q?GDhS2WI4RtUwxKCZxXaCtdc/tnBHBi6Xv7aNApm5FfKsQ7AhQRyHJUZhbRrd?=
+ =?us-ascii?Q?gf+mzXcFarGfJ3PyyToQe5nJJ9Tjkv/U+3adeo/sHuMo04UBI8ltWTJBzQzd?=
+ =?us-ascii?Q?1Gw+XSnvM2NTM9R2UdcPR9fT8tFgNoO/x1VnomFoVS4hSY3vwCxSBgtOwW0F?=
+ =?us-ascii?Q?ZHt8tf0UUNJlgMJUO7f/H3y8Mats+sVWxaAJeF3+lZhySeXuaL6WnK+ttUCO?=
+ =?us-ascii?Q?3h64xKLiyN8kR9Sc6rma/qIqMtBNemVMREetEEXXYuxg3XZVKD7CUDplh4Rp?=
+ =?us-ascii?Q?MKOksscg8j8Lhm4G1I5culL7y66zy7O2lNC08Xg8Xj3hqewMUeceJH1b5NzE?=
+ =?us-ascii?Q?kPAdRdX0czTZMiDCxDXUSmf9BOLkSMqwKX7sCSZo3tE0NQLM?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 544a942b-0ba9-4e7b-ebf8-08dec069f148
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 05:43:58.7216 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AkVlIh1KamP04V85mqVYXZeQruvdtscm7TA20b3dY0BUepa2jMV86W31UWS9zM9I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6172
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6276.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c309841e-24d3-4e53-69e1-08dec06d9a20
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 06:10:10.2770 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: joz/8qb4iWGfB8KOmBJfJHYXplP0z4RqJo2zHlvUM3O2I4RzVxoHAqUzA0ws4oHHy8moE9YqqvKat+lnvahIvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6006
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,352 +138,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD General
+
+Hi Lijo,
+
+Thanks for the review. I want to make sure the trade-off is genuinely favou=
+rable before standing by the patch.
+
+The case for ACK polling rests on a couple of assumptions:
+
+- The AT24CM02 datasheet specifies a maximum write-cycle time of 10 ms, but=
+ the typical time is considerably shorter (often in the 2-5 ms range). With=
+ a fixed msleep(10), we always pay the worst-case cost, whereas ACK polling=
+ allows the write path to proceed as soon as the device is ready.
+
+- With sleep_us =3D 200, the polling loop runs at most ~50 times over the f=
+ull 10 ms window. If the write typically completes around ~3 ms, this reduc=
+es to ~15 polling attempts. Whether this is beneficial depends on the per-t=
+ransaction FW overhead, as you pointed out.
+
+That said, if the firmware I2C path has non-trivial per-message overhead (e=
+.g., > ~100 us per round-trip), or if bus contention is a concern on these =
+platforms, then the fixed delay could indeed be the better choice.
+
+Do you have a sense of the typical FW round-trip latency on this path? That=
+ would help settle this.
+
+Thanks,
+Kunal
+
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: 01 June 2026 18:35
+To: Devanand Zodape, Kunal <Kunal.DevanandZodape@amd.com>; amd-gfx@lists.fr=
+eedesktop.org
+Cc: dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig=
+@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch=
+>; Kumar1, Rahul <Rahul.Kumar1@amd.com>; Gupta, Prateek1 <Prateek1.Gupta@am=
+d.com>
+Subject: Re: [PATCH v2] drm/amdgpu: use ACK polling for page-write completi=
+on
 
 
-On 02-Jun-26 2:25 AM, Harish Kasiviswanathan wrote:
-> Use enum instead of hard coded values. There is no functional change.
-> 
-> v2:
-> - Add amdgpu_get_bar_idx() to map BAR roles to PCI BAR indices
-> 
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 17 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c      |  6 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 56 ++++++++++++++-----
->   .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  |  9 ++-
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  6 +-
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  9 ++-
->   11 files changed, 100 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 5d7bfa59424a..1944d1bece86 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1405,6 +1405,23 @@ bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
->   bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
->   int amdgpu_device_supports_baco(struct amdgpu_device *adev);
->   void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev);
-> +
-> +/**
-> + * enum amdgpu_pcie_bar - PCIe BAR role identifiers
-> + * @AMDGPU_PCIE_BAR_VRAM: VRAM aperture
-> + * @AMDGPU_PCIE_BAR_DOORBELL: Doorbell aperture (Bonaire+)
-> + * @AMDGPU_PCIE_BAR_MMIO: MMIO register aperture
-> + *
-> + * Use amdgpu_get_bar_idx() to map a role to the PCI BAR index on a given ASIC.
-> + */
-> +enum amdgpu_pcie_bar {
-> +	AMDGPU_PCIE_BAR_VRAM = 0,
-> +	AMDGPU_PCIE_BAR_DOORBELL = 2,
-> +	AMDGPU_PCIE_BAR_MMIO = 5,
-> +};
 
-This may just be treated as an enum, it's not required to designate 
-numbers for BAR index.
+On 01-Jun-26 4:53 PM, Kunal Zodape wrote:
+> [Some people who received this message don't often get email from
+> kunal.devanandzodape@amd.com. Learn why this is important at
+> https://aka.ms/LearnAboutSenderIdentification ]
+>
+> The EEPROM write path currently waits a fixed 10 ms after each page
+> write to cover the maximum write-cycle time.
+>
+> Replace the fixed delay with ACK polling so the driver can continue as
+> soon as the EEPROM finishes its internal write cycle. Since the SMU
+> I2C adapter used for these EEPROM accesses does not support
+> zero-length transfers, poll readiness with an offset-only dummy write.
+>
+> Keep the existing 10 ms timeout as the upper bound for the polling loop.
+>
+> Tested on MI200 (ALDEBARAN) with ras_eeprom_reset confirming clean
+> write/read-back with no I2C errors.
 
-> +
-> +int amdgpu_get_bar_idx(struct amdgpu_device *adev, enum amdgpu_pcie_bar bar);
-> +
->   bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
->   				      struct amdgpu_device *peer_adev);
->   int amdgpu_device_baco_enter(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> index aa039e148a5e..7e253bb35434 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> @@ -111,11 +111,13 @@ static bool amdgpu_read_bios_from_vram(struct amdgpu_device *adev)
->   			return false;
->   
->   	/* FB BAR not enabled */
-> -	if (pci_resource_len(adev->pdev, 0) == 0)
-> +	if (pci_resource_len(adev->pdev,
-> +			       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)) == 0)
->   		return false;
->   
->   	adev->bios = NULL;
-> -	vram_base = pci_resource_start(adev->pdev, 0);
-> +	vram_base = pci_resource_start(adev->pdev,
-> +				       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   	adev->bios = kmalloc(size, GFP_KERNEL);
->   	if (!adev->bios)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5ff224163bab..2e1e5791f123 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1103,6 +1103,34 @@ void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
->   	spin_unlock_irqrestore(&adev->wb.lock, flags);
->   }
->   
-> +/**
-> + * amdgpu_get_bar_idx - map a BAR role to the PCI BAR index
-> + * @adev: amdgpu_device pointer
-> + * @bar: BAR role to look up
-> + *
-> + * Return the PCI BAR index for @bar on @adev.
-> + *
-> + * VRAM is always BAR 0. Doorbells were introduced at Bonaire (CIK): pre-Bonaire
-> + * ASICs have no dedicated doorbell BAR, and BAR 2 is used for MMIO registers.
-> + * Bonaire and newer expose a doorbell aperture at BAR 2 and MMIO at BAR 5.
-> + */
-> +int amdgpu_get_bar_idx(struct amdgpu_device *adev, enum amdgpu_pcie_bar bar)
-> +{
-> +	switch (bar) {
-> +	case AMDGPU_PCIE_BAR_VRAM:
-> +		return AMDGPU_PCIE_BAR_VRAM;
-> +	case AMDGPU_PCIE_BAR_DOORBELL:
-> +		return AMDGPU_PCIE_BAR_DOORBELL;
-> +	case AMDGPU_PCIE_BAR_MMIO:
-> +		if (adev->asic_type >= CHIP_BONAIRE)
-> +			return AMDGPU_PCIE_BAR_MMIO;
-> +		return AMDGPU_PCIE_BAR_DOORBELL;
+The current sleep logic may be better than sending a dummy transfter throug=
+h firmware. That has the overhead of FW message logic and other clients acc=
+essing i2c bus.
 
-Was not expecting this function to return the enum itself. Input is enum 
-and output is a hardcoded index like 0, 2, 5.
-> +	default:
-> +		WARN_ON(1);
-
-pci_resource_len() expects a valid bar number.
-pci_resource_len(adev->pdev, amdgpu_get_bar_idx()) usage may invoke some 
-static code analyzer warnings.
-
-Thinking again, a one-time assignment of below ones somewhere in early 
-init amdgpu_init_pci_bars() may be simpler to deal with.
-
-gmc.aper_bar_idx
-rmmio_bar_idx
-doorbell.bar_idx
+The original comments in the code logic are valid for optimization only if =
+driver has direct access to the i2c bus.
 
 Thanks,
 Lijo
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->   /**
->    * amdgpu_device_resize_fb_bar - try to resize FB BAR
+
+>
+> Suggested-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Kunal Zodape <kunal.devanandzodape@amd.com>
+> ---
+> v2: Use read_poll_timeout() instead of open-coded ktime + do-while loop
+>      as suggested
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 27 +++++++++++++++-------
+>   1 file changed, 19 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> index 8cd69836dd99..9dc538073bb8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+> @@ -21,6 +21,7 @@
 >    *
-> @@ -1146,7 +1174,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->   
->   	/* skip if the bios has already enabled large BAR */
->   	if (adev->gmc.real_vram_size &&
-> -	    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size))
-> +	    (pci_resource_len(adev->pdev,
-> +			      amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)) >= adev->gmc.real_vram_size))
->   		return 0;
->   
->   	/* Check if the root BUS has 64bit memory resources */
-> @@ -1165,7 +1194,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->   		return 0;
->   
->   	/* Limit the BAR size to what is available */
-> -	max_size = pci_rebar_get_max_size(adev->pdev, 0);
-> +	max_size = pci_rebar_get_max_size(adev->pdev,
-> +					  amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   	if (max_size < 0)
->   		return 0;
->   	rbar_size = min(max_size, rbar_size);
-> @@ -1178,9 +1208,11 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->   	/* Tear down doorbell as resizing will release BARs */
->   	amdgpu_doorbell_fini(adev);
->   
-> -	r = pci_resize_resource(adev->pdev, 0, rbar_size,
-> -				(adev->asic_type >= CHIP_BONAIRE) ? 1 << 5
-> -								  : 1 << 2);
-> +	/* Resize the VRAM BAR. Exclude the MMIO BAR from being released. */
-> +	r = pci_resize_resource(adev->pdev,
-> +				amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM),
-> +				rbar_size,
-> +				BIT(amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_MMIO)));
->   	if (r == -ENOSPC)
->   		dev_info(adev->dev,
->   			 "Not enough PCI address space for a large BAR.");
-> @@ -1191,7 +1223,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->   	 * using the device.
->   	 */
->   	r = amdgpu_doorbell_init(adev);
-> -	if (r || (pci_resource_flags(adev->pdev, 0) & IORESOURCE_UNSET))
-> +	if (r || (pci_resource_flags(adev->pdev,
-> +				       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)) & IORESOURCE_UNSET))
->   		return -ENODEV;
->   
->   	pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
-> @@ -3825,13 +3858,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   
->   	/* Registers mapping */
->   	/* TODO: block userspace mapping of io register */
-> -	if (adev->asic_type >= CHIP_BONAIRE) {
-> -		adev->rmmio_base = pci_resource_start(adev->pdev, 5);
-> -		adev->rmmio_size = pci_resource_len(adev->pdev, 5);
-> -	} else {
-> -		adev->rmmio_base = pci_resource_start(adev->pdev, 2);
-> -		adev->rmmio_size = pci_resource_len(adev->pdev, 2);
-> -	}
-> +	adev->rmmio_base = pci_resource_start(adev->pdev,
-> +					      amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_MMIO));
-> +	adev->rmmio_size = pci_resource_len(adev->pdev,
-> +					    amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_MMIO));
->   
->   	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
->   		atomic_set(&adev->pm.pwr_state[i], POWER_STATE_UNKNOWN);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-> index bc7858567321..826b80481908 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-> @@ -201,14 +201,17 @@ int amdgpu_doorbell_init(struct amdgpu_device *adev)
->   		return 0;
->   	}
->   
-> -	if (pci_resource_flags(adev->pdev, 2) & IORESOURCE_UNSET)
-> +	if (pci_resource_flags(adev->pdev,
-> +			       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_DOORBELL)) & IORESOURCE_UNSET)
->   		return -EINVAL;
->   
->   	amdgpu_asic_init_doorbell_index(adev);
->   
->   	/* doorbell bar mapping */
-> -	adev->doorbell.base = pci_resource_start(adev->pdev, 2);
-> -	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
-> +	adev->doorbell.base = pci_resource_start(adev->pdev,
-> +						 amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_DOORBELL));
-> +	adev->doorbell.size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_DOORBELL));
->   
->   	adev->doorbell.num_kernel_doorbells =
->   		min_t(u32, adev->doorbell.size / sizeof(u32),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 8523833a74fb..728d93e96ea1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -694,8 +694,10 @@ static int gmc_v10_0_mc_init(struct amdgpu_device *adev)
->   		if (r)
->   			return r;
->   	}
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   #ifdef CONFIG_X86_64
->   	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index 16388e3caea3..a16e681b4de0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -694,8 +694,10 @@ static int gmc_v11_0_mc_init(struct amdgpu_device *adev)
->   		if (r)
->   			return r;
->   	}
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   #ifdef CONFIG_X86_64
->   	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index 586703ec0dfa..5c2b4d2f3f16 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -746,8 +746,10 @@ static int gmc_v12_0_mc_init(struct amdgpu_device *adev)
->   			return r;
->   	}
->   
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   #ifdef CONFIG_X86_64
->   	if (((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) ||
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index af6944d2d330..5bdcc276244c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -323,8 +323,10 @@ static int gmc_v6_0_mc_init(struct amdgpu_device *adev)
->   		if (r)
->   			return r;
->   	}
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   	adev->gmc.visible_vram_size = adev->gmc.aper_size;
->   
->   	/* set the gart size */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 93cf283191fa..d8b81d8ec954 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -379,8 +379,10 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
->   		if (r)
->   			return r;
->   	}
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   #ifdef CONFIG_X86_64
->   	if ((adev->flags & AMD_IS_APU) &&
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 1d3ddffd5a11..99bfd4e42977 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -572,8 +572,10 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
->   		if (r)
->   			return r;
->   	}
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   #ifdef CONFIG_X86_64
->   	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index ced0f3941863..774e93590389 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1588,7 +1588,8 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
->   		 * mode.
->   		 */
->   		adev->gmc.is_app_apu = (pkg_type == AMDGPU_PKG_TYPE_APU &&
-> -					!pci_resource_len(adev->pdev, 0));
-> +					!pci_resource_len(adev->pdev,
-> +							  amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)));
->   	}
->   
->   	gmc_v9_0_set_gmc_funcs(adev);
-> @@ -1700,8 +1701,10 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
->   		if (r)
->   			return r;
->   	}
-> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
-> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-> +	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-> +	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-> +					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
->   
->   #ifdef CONFIG_X86_64
->   	/*
+>    */
+>
+> +#include <linux/iopoll.h>
+>   #include "amdgpu_eeprom.h"
+>   #include "amdgpu.h"
+>
+> @@ -153,15 +154,25 @@ static int __amdgpu_eeprom_xfer(struct i2c_adapter =
+*i2c_adap, u32 eeprom_addr,
+>                          break;
+>
+>                  if (!read) {
+> -                       /* According to EEPROM specs the length of the
+> -                        * self-writing cycle, tWR (tW), is 10 ms.
+> -                        *
+> -                        * TODO: Use polling on ACK, aka Acknowledge
+> -                        * Polling, to minimize waiting for the
+> -                        * internal write cycle to complete, as it is
+> -                        * usually smaller than tWR (tW).
+> +                       int ret;
+> +
+> +                       /* Poll for ACK to detect when the self-timed
+> +                        * internal write cycle has completed, as per
+> +                        * Acknowledge Polling described in the AT24CM02
+> +                        * datasheet, Section 7.4. The SMU I2C adapter
+> +                        * used by these EEPROM paths does not support
+> +                        * zero-length messages, so use an offset-only
+> +                        * dummy write to probe for the ACK. The address
+> +                        * pointer update is harmless because each real
+> +                        * transfer reprograms it before use.
+>                           */
+> -                       msleep(10);
+> +                       ret =3D read_poll_timeout(i2c_transfer, r,
+> +                                                r =3D=3D 1,
+> +                                                200, 10 * USEC_PER_MSEC,
+> +                                                false,
+> +                                                i2c_adap, &msgs[0], 1);
+> +                       if (ret)
+> +                               break;
+>                  }
+>          }
+>
+> --
+> 2.17.1
+>
 
