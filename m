@@ -4,126 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED2E0CD6E57
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 09:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F07EECD6E57
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 10:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 627B51139A8;
-	Tue,  2 Jun 2026 09:49:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C63D10EE37;
+	Tue,  2 Jun 2026 10:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xAdM+XdU";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="A5qRbJMW";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012056.outbound.protection.outlook.com
- [40.107.200.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF4441139A8;
- Tue,  2 Jun 2026 09:49:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VcGU9J3FyrrvthpFKkRvFojES/hAXIqg/Hy0ZaxcXCMUQeB4286gOIcrjGzYEMeceaa33kfG3V4gqLmZxNP4mq0efMFQnH/2Fago7NPbSOB9dX3tbctHyimnGiOKULBb5Db19ask/q70jYEYDVIeqPLKoI4dZyc+XOkqV4rKMVa6RRdk6P/SgN8kFqgAVy/1DOJOtO6r1qizVC+162pHoV7UMZvBp9YFvfm+5X86xY00IUY28LKLEWm8eeMoQvpc9E+P6jqPf21AxEUVrt4VpvHZ/eZSf6k10R9y0Oo7Nh4S8jeB1a9x0FTdyAcAPGlj4FRKGbAywhuFidhMkyrIIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQftiW3WpOU2vaPmiuBQts+jIDPF8bMZINfgI5e+ivk=;
- b=EPgJuXUMDIyBVMLbe7S/Uftf+BaNL5MeCGc1RgWdwNcxtdZtLEHoL+4BLAeCnyEuU3FRsi3lrvVlpiAxdMj/nA3YubxK0EGvMCaKWFkbDPyWLPZfo7bxeY2vt+zvCsFLUbk2CWNZe0Eg8fb9f+yc2g8FHU0UTNV14ZkVylA9OKb1gZ5hozdp/nZr9OxfJnpO1MzWYLfcOp03Cdw77Zj9e2NPbGx3DrwNKm+Olzoa91uHyqlx+AsMD4LEszHz542A3paV65bEj/+1UR2f6MbY8li2DxBhTjQr+Dp/VFQOQCTnEYw6CewyytpQa28SHwzmnM4en5H8t7Q7jTqE2Ee4Sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQftiW3WpOU2vaPmiuBQts+jIDPF8bMZINfgI5e+ivk=;
- b=xAdM+XdUOrdUupxQTNMSa3VkF39+7xIAG6k0LymVHLDlsnsOgCOjyPNkGZE8l1l/XSAGXXnnzSEJkVHTmsmElTGljtbhZ0FEQ/lQ90qhsO0Ufc0Ujqxx8h1YtWh83OH8rvcGtmItj6cTx/zYLEwfJGetednTgT3DPqZw+lNOOhI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH0PR12MB8531.namprd12.prod.outlook.com (2603:10b6:610:181::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 09:49:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0071.011; Tue, 2 Jun 2026
- 09:49:12 +0000
-Message-ID: <bb4e417d-5669-4d06-a731-c9aa369f6bd7@amd.com>
-Date: Tue, 2 Jun 2026 11:49:05 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu/mes11: fix queue init wptr reset
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kenneth.feng@amd.com,
- kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, stable@vger.kernel.org
-References: <20260602050354.2237095-1-runyu.xiao@seu.edu.cn>
- <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260602050354.2237095-2-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0256.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA7310EE37
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 10:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1780394661; x=1780653861;
+ bh=8yitcGedObR7T+mmA4PMc99vOGJuoP0FGUiv0c6lB3E=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=A5qRbJMWf5kCP3b4ltI0jE+f6xZ5OD6DOdz9oNUzlT5QCFS5vJt0MLzyUd9nU5Jmb
+ Ldsvo8ApMAbCUJ6iPgXFoGQ/lWadX7xpfufQOLqT2fFzDLxyaTgnNnjP4j+86ISUra
+ CwGRoGkGAFOZku+d/maaMGKRqEqWkkjQEzkZ5hmo3N+5UTnQynFttXY7BjLozKRCC7
+ dOK5vMFIntNWk4f6FVfKR9YmLhKi87QunqjV3ECors/WCiWLrgtpD/ZQ71cg0Eqf76
+ r0adLdAM/R0jB0pu/ruz4vflpHgBFfT0g73jganzdaS7yuGO2WLmBK2XJluTIYnI1y
+ 9jYPnN6X+nMHw==
+Date: Tue, 02 Jun 2026 10:04:16 +0000
+To: regressions@lists.linux.dev
+From: Gerhard Schwanzer <geschw@pm.me>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ alexander.deucher@amd.com, xiaogang.chen@amd.com, Philip.Yang@amd.com
+Subject: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes SDMA0
+ permission fault on RX 7600 XT
+Message-ID: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
+Feedback-ID: 110185885:user:proton
+X-Pm-Message-ID: 3827eb5612f6249c3e3ac56190779809977b43b4
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH0PR12MB8531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 907f4963-a9a5-4a79-30c3-08dec08c332d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 2L+c/NQ6oqZm+iR7Se0MBBbxxBCVdZcbf3p1aIs1Qj4qzktkFOGRdQBmBhyq/5MCs62qXDvOKVmWebDtI2XGPm0jg1W+26D9IvWP6Ddre1x3Fd7Zo/3TmxF+mqxmnsDh05F991J3KhMH8LSPV5HCinfdKXC+zrJFrnonwmqxel8CNH9lBt+tq2TyzEDGZ7U3+4edANHF6uLUCG2oe++uw45mcG43NP1FrL6AFTo2SUiHFEoJKgkXSJRNyNVQOI149f6ZA4K11D8MVI3N15eLvCA6BfSEmjQ2ITWe4KD/ruWDFecHOdSgHRBeZS4mvD6nx9kM2s0tj0bLuyk/cGJ+pZNmG1DeExuqDIj94pWrsoDCqBFI2tz2xYwN3MXmQKldKOgutAXvf9kR3KIVz87kA6WgsKWqZkLpoIvoenZj/xH0tH9iV/3jh6rF77TP6UftNW+tizoukVndT83nr5yQ5cwcQIPY+1no0mL0g7COa0GohY2V2HLfJ4Cp3UzznrZf6Hx8uXEm0fFo1rRnncMXlmfz4oePdi6VGHCBAKGXRieK3mEp+WQea3VZ4QgoX5xGdcdpv5M5D0JeTdFipyeEB6RWXow0uKDSD7d1zWc2cxTlENICg5lEOPC1aOUzgnxgqah2BYsu6jWam3B2K6jbos/JdHgnr2mI8V2fBWV2q81ND4PHEJ/93EdeMJi1CPO2
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RW5HTzJFbGVKVUdtOGJCQWQ4akhrQnRMMFhJdXR4U0VnWUVtREFRUHlRaUJJ?=
- =?utf-8?B?cVBKMUdiVW5rYkRtUzN4Y0Z0Yi9VRGhweGgyT1NzSFY2bHdkTzhyTkZGdGVE?=
- =?utf-8?B?N3hhMEhkMm1QUTdaYy9RTFdqbElRL0NFa2ZpS3B5QU15Mm9tV3kwM1hNMU1Q?=
- =?utf-8?B?S0s5MWFYSUNmaklnMkt2ZWFwSDJuRmtma29VOEpIN1VUc3VXa3JQNmY2cTZn?=
- =?utf-8?B?WFVQK3YzM1pFSWU4SFBndnhhZ1NTOWswdnkxRWdXVjF2OHhDQUFwWlN6WlQ5?=
- =?utf-8?B?TWNiVnJVcHVQT0QwVnlla3JEaFBXTC9wWjdDVkFJbnNKSmNkVU5LK3V3N216?=
- =?utf-8?B?MUVjTll6UzF1Qk9nTjNuemRDNVBTb3JSRjgzWmtFMDBFdXRuVGU3cllaNjM3?=
- =?utf-8?B?U3RXRnRmT1ZNaE9uK3lhcjNKVGNCZkFZWmZOWW9LVmNtN0xQUVdLVkZTK3Y1?=
- =?utf-8?B?UmliaFRQblYvajZTN3ppVGpzM3IvWnM3ek9yTFFkOEZVV0RtYXUreitVZTNp?=
- =?utf-8?B?Ly9FbndSbEw5SmFPNnNMMXFiR3gzNk5BRWx5SlZwVmdWMzRkZDFuNGRXMFg3?=
- =?utf-8?B?bkx5NVF6UERTM0k3bFM1Z2ZjZmk4R0l5RHkyVkdzUlBSVkdoeDBYSTFaK3ZW?=
- =?utf-8?B?UGZJSFBobzNYN3BNRmRzaU1TTjVXUnltc0wrZS9aTHJNSVp5T1Y0cy81eVRL?=
- =?utf-8?B?eXk1eThRM21aakF1N1FOQ0pBcldrTDN1N0N2SWhiSUNiYlZBbjZDQWJIV1By?=
- =?utf-8?B?cU5KNkNpU1p0YWRtMk5sWGNYcDJrY2dUaXpmaTVlZjJ1b0o5SXVpNzlya1N2?=
- =?utf-8?B?Ums5c3ZXZEp3SStnV1UrVnJnR3V6anFXQlFlOTd5NUZPWlBnR25tbkVVSWVF?=
- =?utf-8?B?ZHlYL2FEV2JtQ0tzaktPQXFLMS96UjVwNy9ZZ0o0MlFydEJ6OTB6NGJDYVh0?=
- =?utf-8?B?U1lyYmsrUGdjQ2wwbXJNUXRabDdDZXZXOVFLMm96Mit3djJxdFdTRm9OeW5u?=
- =?utf-8?B?R2FoRy9QWW4vdk43U01HZUw3V3lKdGJlZVFsKzBCQkZRTU04b3ZyMmRmbFR6?=
- =?utf-8?B?VlVBT1Y3V0o2QWtFL2x4bzFBWGFNcEtKRlBhZ1laVndMMkl4SC9DMnF0d0g1?=
- =?utf-8?B?YnZLNW5Nc2lwU29MVmMybmpFb1pZaWUzTnJNelFjMHFmV1YvQzU5NW05d0Zt?=
- =?utf-8?B?bFNDbjhJU0prS2pkdTl2aDdCakxnSGJVK0dsNkxoazVoaW9zMG0zS2FnelJn?=
- =?utf-8?B?T2RYQUVmOCtCSSs0Zk1LNXFjaVBPVTdKS2RnK2lNTHVvSXhia3hDK3hHL01K?=
- =?utf-8?B?cVFkZTdDVkNabnptZjRmeU5ZRjEvTFZNNDVnTEpzaXlJdzVvY2JDU3J0RGhU?=
- =?utf-8?B?bFFtS3RGSmtjMGNJTWxZNXBDcE9xQytkd0ppV0NCM0lBZDUrQ0w2OU5IYjUz?=
- =?utf-8?B?MDBIVlY2bGNQUXNWemY3V1ZDUHc5OGhteU1CYXdkcUtOb20yTFJ5SmVNYlhW?=
- =?utf-8?B?RDFqV05xT3VZdzhRUFpnUnIxb0hncUZpcmFQcTgrSTNnYnE3bnlvb2N3UmlD?=
- =?utf-8?B?MkVrZTZpL2hsbC9qQnBrd1BuNXhsd0NwQXhWNFdrcGFCR1Jac2szc3FUeXJs?=
- =?utf-8?B?dGhBakZybGJnbWV0djZMYU4wdjRNK1RVRDNYUUIvaXRKdzdVNjFVckU1bnY3?=
- =?utf-8?B?ekxvcTYxMGFUMEhyZHRpM1JnU09jTkU2ejhOZGUvQ1ZuY3FPMk4xUFlRcXhQ?=
- =?utf-8?B?UDBHK2VNOEhxbEdiSG9ubGFvcDZucHpEa0lBbkw5ZndzTWhtQ3lNa0RyTmpW?=
- =?utf-8?B?K0FLRWJuRllPT0k4ejZKbXdxWTZHODQraDRDS1JYWXl5MzZRUVhneWdwS0RO?=
- =?utf-8?B?VFlNQy8zRTVGWXBXVDVPOS9lQUxQc1NQdWhtVEpySm9teHpzTmVHU04zcTdq?=
- =?utf-8?B?RUliUWhGMHNOZ1A4cTIzcVVzY1FqUzF6VVVDQTlZVFFRMzBrZXZvYmRaaHEr?=
- =?utf-8?B?eGM1M05PT3lHTGlVL2lHcllSYTZlYVpTTmJuMWVKOHdkNkdZWVhZOUV0NmNS?=
- =?utf-8?B?T200TkdXdnk2NWluT09RM2FLRmZiY3RicEtNcWZYRjM0VU9vSS83bFRqSi96?=
- =?utf-8?B?bTRDSDkxdjQ5Y245dVhrYmx2eUJyakNlY29oamdhTmgyTkc5ZFArQmptTkFv?=
- =?utf-8?B?ZUZ5c05uYVV5dTFwam5ZNjhrcUNib2owOFRId0ZqYVA5SHVscmJoM1JzcUZu?=
- =?utf-8?B?aUJqRUFoWjgyTU9vMC9qUUcvVXlJN1R4NXp5MnJLcWVGcU5aL1dhVkJSQWwr?=
- =?utf-8?Q?2p08GUIeFky+6ulumi?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 907f4963-a9a5-4a79-30c3-08dec08c332d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 09:49:12.2285 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K72P3tjxBFWs7NweeCNoPzJ6irhTsgzPsuPuKLDPt//bd+P0F09z0bpfqg122ZZN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8531
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg=pgp-sha256;
+ boundary="------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4";
+ charset=utf-8
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,55 +56,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/2/26 07:03, Runyu Xiao wrote:
-> mes_v11_0_queue_init() resets ring->wptr_cpu_addr with a plain 32-bit
-> store in the reset/suspend path even though the same carrier is
-> accessed with atomic64_set()/atomic64_read() and support_64bit_ptrs is
-> enabled.
-> 
-> This is not just a missing atomic annotation. The MES queue write
-> pointer is a shared 64-bit carrier, and *ring->wptr_cpu_addr = 0 only
-> clears the low 32 bits. A later atomic64_read() can then observe stale
-> high 32 bits instead of a real zeroed reset state.
-> 
-> Use atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0) so the reset
-> path updates the full 64-bit wptr with the same access family as the
-> existing readers and writers.
-> 
-> Build-tested by compiling mes_v11_0.o.
-> 
-> No AMDGPU hardware was available for end-to-end runtime testing.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4
+Content-Type: multipart/mixed;
+ boundary=1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
+Message-ID: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
+Date: Tue, 2 Jun 2026 11:48:23 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Gerhard Schwanzer <geschw@pm.me>
+Subject: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes SDMA0
+ permission fault on RX 7600 XT
+To: regressions@lists.linux.dev
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ alexander.deucher@amd.com, xiaogang.chen@amd.com, Philip.Yang@amd.com
+Content-Language: en-US
 
-Clear NAK.
+--1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8; format=flowed
 
-The atomic64_t cast hack is just something we did for older generations and is not something which is necessary not should be done here.
+SGksDQoNCkkgd291bGQgbGlrZSB0byBtYWtlIHN1cmUgdGhpcyBBTURLRkQgU1ZNIHJlZ3Jlc3Np
+b24gaXMgdHJhY2tlZCBieSB0aGUNCkxpbnV4IHJlZ3Jlc3Npb24gcHJvY2Vzcy4NCg0KR2l0TGFi
+IHJlcG9ydDoNCg0KIMKgIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0v
+d29ya19pdGVtcy80OTE0DQoNClRoZSByZWdyZXNzaW9uIHdhcyBvcmlnaW5hbGx5IHJlcG9ydGVk
+IG9uIDIwMjYtMDEtMjcuIEl0IHdhcyBiaXNlY3RlZCB0byB0aGUNCnNhbWUgZnVuY3Rpb25hbCBj
+aGFuZ2UgdGhhdCBBbGV4IERldWNoZXIncyByZXZlcnQgcGF0Y2ggbGF0ZXIgdGFyZ2V0ZWQ6DQoN
+CiDCoCA0NDhlZTQ1MzUzZWY5ZmIxYTM0ZjVmMjZlYjNmNDg5MjNjNmYwODk4DQogwqAgZHJtL2Ft
+ZGtmZDogVXNlIGh1Z2UgcGFnZSBzaXplIHRvIGNoZWNrIHNwbGl0IHN2bSByYW5nZSBhbGlnbm1l
+bnQNCg0KVGhlIGFmZmVjdGVkIGtlcm5lbCBsaW5lIEkgdGVzdGVkIGlkZW50aWZpZXMgdGhlIHNh
+bWUgY2hhbmdlIGFzOg0KDQogwqAgYmYyMDg0YTdiMWQ3NWQwOTNiNmE3OWRmNGMxMDE0MmQ0OWZi
+YWEwZQ0KDQpBbGV4J3MgcmV2ZXJ0IHBhdGNoOg0KDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9hcmNoaXZlcy9hbWQtZ2Z4LzIwMjYtRmVicnVhcnkvMTM4ODI0Lmh0bWwNCg0KQSBzbWFs
+bCBDL0hTQSByZXByb2R1Y2VyIGlzIG5vdyBhdmFpbGFibGUgaW4gdGhlIEdpdExhYiByZXBvcnQu
+IEl0IGRvZXMgbm90DQpyZXF1aXJlIFB5VG9yY2gsIENvbWZ5VUksIERvY2tlciwgbW9kZWwgZmls
+ZXMsIG9yIHRoZSBvcmlnaW5hbCB3b3JrbG9hZC4gSXQNCnVzZXMgUk9Dci9IU0EsIGFuIGFub255
+bW91cyBUSFAtYWR2aXNlZCBob3N0IG1hcHBpbmcsIGV4cGxpY2l0IEtGRCBTVk0NClNFVF9BVFRS
+IGlvY3RscywgYW5kIGFuIEhTQSBTRE1BIEQySCBjb3B5Lg0KDQpTaW5nbGUgcmVwcm9kdWNlciBj
+b21tYW5kLCBzYW1lIGJpbmFyeSBvbiBib3RoIGtlcm5lbHM6DQoNCiDCoCAuL2tmZF9zdm1fc3Bs
+aXRfaHNhX2NvcHkgLS11cHN0cmVhbS1hYg0KDQpTYW1lLW1hY2hpbmUgQS9CIHJlc3VsdCBvbiBh
+biBSWCA3NjAwIFhUOg0KDQogwqAgNDQ4ZWU0NTMvYmYyMDg0YTcgYWN0aXZlOg0KIMKgIMKgIDEv
+MSBydW4gZmF1bHRzIHdpdGggU0RNQTAgcGVybWlzc2lvbiBmYXVsdA0KIMKgIMKgIEdDVk1fTDJf
+UFJPVEVDVElPTl9GQVVMVF9TVEFUVVM9MHgwMDg0MUE1MQ0KDQogwqAgNDQ4ZWU0NTMvYmYyMDg0
+YTcgbG9jYWxseSByZXZlcnRlZDoNCiDCoCDCoCAxMC8xMCBydW5zIGNvbXBsZXRlDQogwqAgwqAg
+bm8gUk9DciBtZW1vcnkgYWNjZXNzIGZhdWx0DQogwqAgwqAgbm8gbmV3IEdDVk0vU0RNQTAgcGVy
+bWlzc2lvbiBmYXVsdCBpbiBkbWVzZw0KDQpUaGUgYmFkIGZhdWx0IHBhZ2UgaXMgaW5zaWRlIHRo
+ZSBzcGxpdCB0YWlsIGFuZCBpbnNpZGUgdGhlIFNETUEgY29weSByYW5nZToNCg0KIMKgIGNyaXRp
+Y2FsIHRhaWw6IFsweDcyMjQyOWQ2MS4uMHg3MjI0MjlkZmZdDQogwqAgY29weSBwYWdlczrCoCDC
+oCBbMHg3MjI0MjliMzAuLjB4NzIyNDI5ZDcwXQ0KIMKgIGZhdWx0IHBhZ2U6wqAgwqAgMHg3MjI0
+MjlkNjUNCg0KQSBmdWxsIGZ0cmFjZS9QVEUgcnVuIHdpdGggdGhlIHNhbWUgQyByZXByb2R1Y2Vy
+L1NWTSBzZXF1ZW5jZSBhbHNvIHNob3dzOg0KDQogwqAgc3BsaXRfdGFpbCAuLi4gY3VycmVudF9y
+ZW1hcD0wIG9sZF9yZW1hcD0xIG1pc3NlZD0xDQogwqAgTUlTU0VEX1JFTUFQX0NBTkRJREFURSBz
+cGxpdD10YWlsDQogwqAgbm8gYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzIGNvdmVyaW5nIHRoZSBmYXVs
+dCBwYWdlIGFmdGVyIHRoZSBtYXJrZXIgYmVmb3JlDQogwqAgdGhlIGZhdWx0LXNpZGUgR0VUX0FU
+VFINCg0KVGhlIHN1c3BlY3RlZCBjb2RlIGlzc3VlIGlzIHRoYXQgdGhlIHNwbGl0LXRhaWwvaGVh
+ZCByZW1hcCBwcmVkaWNhdGUgDQppbnRyb2R1Y2VkDQpieSA0NDhlZTQ1My9iZjIwODRhNyBjYW4g
+bWlzcyB0YWlscyBpbnNpZGUgdGhlIGZpbmFsIDUxMi1wYWdlIGJsb2NrLiBTaW5jZQ0KcHJhbmdl
+LT5sYXN0IGlzIGluY2x1c2l2ZSwgQUxJR05fRE9XTihwcmFuZ2UtPmxhc3QsIDUxMikgaXMgdGhl
+IHN0YXJ0IG9mIHRoZQ0KZmluYWwgYmxvY2ssIG5vdCBhbiBleGNsdXNpdmUgdXBwZXIgYm91bmQu
+DQoNCkkgYWxzbyBzZW50IGEgc2hvcnQgZm9sbG93LXVwIHRvIGFtZC1nZnggd2l0aCB0aGUgcmVw
+cm9kdWNlci9BLUIgc3VtbWFyeSBhbmQNCmFza2VkIHdoYXQgb3JpZ2luYWwgZmFpbHVyZSBvciB3
+b3JrbG9hZCA0NDhlZTQ1My9iZjIwODRhNyB3YXMgaW50ZW5kZWQgDQp0byBmaXg6DQoNCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2FtZC1nZngvMjAyNi1KdW5lLzE0NTgw
+MC5odG1sDQoNCkkgY2FuIHJlc2VuZCB0aGUgcmVwcm9kdWNlciBzb3VyY2UgYW5kIHN1bW1hcmll
+cyBkaXJlY3RseSBvbi1saXN0IGlmIA0KcHJlZmVycmVkLg0KDQojcmVnemJvdCBpbnRyb2R1Y2Vk
+OiA0NDhlZTQ1MzUzZWY5ZmIxYTM0ZjVmMjZlYjNmNDg5MjNjNmYwODk4DQojcmVnemJvdCBtb25p
+dG9yOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL3dvcmtfaXRlbXMv
+NDkxNA0KDQpUaGFua3MsDQpHZXJoYXJkIFNjaHdhbnplcg0K
+--1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - geschw@pm.me -
+ 0xE32DB141.asc"; name="publickey - geschw@pm.me - 0xE32DB141.asc"
+Content-Type: application/pgp-keys; filename="publickey - geschw@pm.me -
+ 0xE32DB141.asc"; name="publickey - geschw@pm.me - 0xE32DB141.asc"
 
-What could be possible is that we need to use amdgpu_ring_set_wptr() here to correctly distinct between queues with 32bit and 64bit wptrs.
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
+ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuOS4wCgp4ak1FYWFZQ0loWUpLd1lCQkFIYVJ3
+OEJBUWRBTDhzSFhxTDN5Q21KNUp6d3FEQ0hkWTZoSTJRQTM1TWx6Q082CkpyMTNWakRORzJkbGMy
+Tm9kMEJ3YlM1dFpTQThaMlZ6WTJoM1FIQnRMbTFsUHNMQUVRUVRGZ29BZ3dXQ2FhWUMKSWdNTENR
+Y0pFSGJ4WHM4VnA1eFpSUlFBQUFBQUFCd0FJSE5oYkhSQWJtOTBZWFJwYjI1ekxtOXdaVzV3WjNC
+cQpjeTV2Y21mbmRLQmtNZmZLVmQvNWFFclk3VjRWR2g3L3U4Zm45OTQrQUZhemswRGF3UU1WQ2dn
+RUZnQUNBUUlaCkFRS2JBd0llQVJZaEJPTXRzVUVPWXNWaEJITnZ1M2J4WHM4VnA1eFpBQUErZlFE
+L2RFSXQyZGw1WUVwVFdBSkEKRU16MnlDOXNmTHJQN1piRm8vZytYcUlkNDNjQS8yaGlPUTJ1ZlB1
+VXlJbVBNU2xMRUJjV0pCWkxlVDJqRHVyeQpMSGNadmVJRHpqZ0VhYVlDSWhJS0t3WUJCQUdYVlFF
+RkFRRUhRQ0cyL0RXd2Z4R253S3hUUzF6MUluSkV2TkhqCm5WTndheE4rc1NjWFNvME1Bd0VJQjhL
+K0JCZ1dDZ0J3QllKcHBnSWlDUkIyOFY3UEZhZWNXVVVVQUFBQUFBQWMKQUNCellXeDBRRzV2ZEdG
+MGFXOXVjeTV2Y0dWdWNHZHdhbk11YjNKbkVIUDBza2ZMVDBsWWV6OHJLYW5Vb2E3YwpYekhFSmt4
+TkxoSlhuM2JJOXpZQ213d1dJUVRqTGJGQkRtTEZZUVJ6Yjd0MjhWN1BGYWVjV1FBQU1LY0JBTTNt
+CjlxYmt1cm9DTFdBMzZXMHhnRXJTaVBhdTNwTDR4c28yOFRzcUlCaE5BUDlQODhPYm41dnZzYmp1
+V29VaE4wWU4KeEVXQnpuQ1dsZmtPQ1ppOTBNaFFCQT09Cj1hbmNVCi0tLS0tRU5EIFBHUCBQVUJM
+SUMgS0VZIEJMT0NLLS0tLS0=
+--1ea919c22093f7c70f318045009b12ce5122f2e65a6c40e57fa1a7b4729f--
 
-Regards,
-Christian.
+--------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-> 
-> Fixes: d81d75c99936 ("drm/amdgpu/gfx11: enable kiq to map mes ring")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index a926a3307..e2f762c2e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -1308,7 +1308,7 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
-> 
->         if ((pipe == AMDGPU_MES_SCHED_PIPE) &&
->             (amdgpu_in_reset(adev) || adev->in_suspend)) {
-> -               *(ring->wptr_cpu_addr) = 0;
-> +               atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
->                 *(ring->rptr_cpu_addr) = 0;
->                 amdgpu_ring_clear_ring(ring);
->         }
-> --
-> 2.34.1
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wqsEARYIAF0FgmoeqqAJEHbxXs8Vp5xZNRQAAAAAABwAEHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmctF4Bo6pC5YvBC7JAYk3jUFiEE4y2xQQ5ixWEE
+c2+7dvFezxWnnFkAAM/1AP9HCiI9L8eb4WAGxlEFWmdV9NA0hfw7zvV55dtd
+tLfxIQD/QL6fR3Qm/LieSsG4Mr6EPPDUQejl9Be7OfMq3qmjTwE=
+=l8Wl
+-----END PGP SIGNATURE-----
+
+
+--------b1d22f524bd0fce574b9f8951abc473a1600bb6c1d38a6de76fecad1260b7fd4--
 
