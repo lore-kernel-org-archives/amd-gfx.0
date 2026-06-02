@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F105DCD6E4A
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 12:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A071CD6E60
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 12:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B7F10EFFE;
-	Tue,  2 Jun 2026 12:02:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB6910F003;
+	Tue,  2 Jun 2026 12:02:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k9IimOFm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Jrxpva9r";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E75E10EFFE
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 12:02:08 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012068.outbound.protection.outlook.com [52.101.43.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ECE310F003
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 12:02:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YJFiG5kJoW15Vzf4gaTMPJF8nkIBGMe/tF58wTtkeJ9xX18EGxpQSi8RRVO0NXx1ixi5Fp/MTgpChAeD0VIV+y6t+TwyisHz6QHFBbpnkISfM24H8CRh3z8wG1KjkmekZGRphGRic4bA8AeVDYYffGcNjydjzAeVHEvzs4Dstn0yguV3ahb95yhUOKMV2V+Zn4ZLZmRJuug+FfMkKP2ZQTKiEteOI3iDZMcOHmKzB+beqUZYPiIeIRz04URLj/fUiOG8zXk3XEh+eGK5HV5MlRIy7MzTGeU1jA4xwlIHd591U3EOGEGpEohaw2dgDVwzKaJXetEQIpbKNC+C7Du43w==
+ b=Q55r3wTP9eiZenRR5bCqH7lNxSQBtn0PqrqyUfMh0iCwWeto+T39IgY9HBuOAXG9YxxnIK6TLPXaAJ86RiX6Vxi746xPtMeKqfiCsZ5jwW00YBMm+7L/3O4waMwLTlqKHBJIwkJO948ouIyTWIEZJyN1sid8NW/uXpwMmLEgxUTrK2YCheBAcQTty2zMWhKVCr0fkDh3I2aXmjtdJu3nxMqOMsev8UNTauBKDPhPGc5N+4B+NKyVxnFGVoGCGu2T+i+WLNjbX4iKfWbzDW9xaYFbz7cL+aKpLlQfYoax3S1PrcE8uc5SZSVtUc/UlV3kA5SFR1pKG5V/vXh+4jzCJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZJDuzrp6Q+D7DaO2Xt1tlYpBpyeayjV/j04gQocBehk=;
- b=dT7KSGkWe5BlZDJwkOMl6BhSorApyPcciIChn3EUs4pwBx90X98BLe5IrDy7bbaB1aSGFCUwHYw+zkadncTmA4KG/o0U37UbvHnngtRNzLo+0W3aiUR9UcF71W8m8/fI6V5m6qnlm56mEWTZnxJHHXtJjC94B8Z+unD/nSyeMRjD1+XM4UCa+SFOO3WlNbdM9fMXAm2qjlBReLXzSHr7UM6Pfsepobl2V/5Cnm04Al7cq3S/8JUTEVqY2PCGIVwVQrq7ofh4de3Y8PNLhbNAQq7Q7Xq8uwt/dCsm/RsPv2drxKuynjJ6A4BPGrIzI3LfsFg7L64/xq9nIUkuZMZ6KQ==
+ bh=vQFBXBcp5isVHwwc3W+hs3eeVNyTSRI28UkgiCzL2t8=;
+ b=LXDig6Wlpf4gl/PlSWqzxbg/7RVlSO6lpjOtGozpq8acpKWzJlSGDqLQU2G1UKcQUL6YbGsk5WF47mc+pvRGS21yxNTtkw/lerfnTYeoxBbELbAVz9yVNldglRxNK9EId7sy7/jQ0uGYdE/e7GQ7KxSMCm+rS5O2Vi47LAnEYTafN0CG+pSfm/KrsoQY5OWdQKmECMQryrdGi1sjMFG3XqW8BoFzzGJa99RQU/fbXDWMWm0apYzpq5gNGXzWvFEhCTKehP+4Z96gXWs7m6KatH5K0jvAgaIXKMmGOKEs/ImSZ4qfz4aqjcuJUx3C4QMKAf0bMuTk6PyBm0vMiZKMjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZJDuzrp6Q+D7DaO2Xt1tlYpBpyeayjV/j04gQocBehk=;
- b=k9IimOFmArCPG1Dh9xIqDiWw/RuqtxoprYAgzRaUT9RePm4zEf8WrzLZOhrIjRIhCNpemR3E7KElsIg5IlL51Mm8hCIjyhfKiIPXYosrYfud1dv+nMV8Wul69j2GG+BO3XjWZJyyk12wib5272P4jwrCYBQ+JC7QtY6VZlVkLrU=
+ bh=vQFBXBcp5isVHwwc3W+hs3eeVNyTSRI28UkgiCzL2t8=;
+ b=Jrxpva9rnsmuFdKHTdo7ccLZCy5kJU4mpI1V7Hs/RDq3e9V218AmoOqi+977ipipUJBc02Fqom234FbuMr1L9H3jvQPr6mS77aPunAlB5dzm3jKkKdhTSv1T26zuSln8PUv+puAEiKct7dHRjHkG7P4Wp9nHn560OkjjwcY6t08=
 Received: from DM4PR12MB5038.namprd12.prod.outlook.com (2603:10b6:5:389::18)
  by PH7PR12MB7305.namprd12.prod.outlook.com (2603:10b6:510:209::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 12:02:02 +0000
+ 12:02:09 +0000
 Received: from DM4PR12MB5038.namprd12.prod.outlook.com
  ([fe80::3c29:3d93:2028:85c4]) by DM4PR12MB5038.namprd12.prod.outlook.com
  ([fe80::3c29:3d93:2028:85c4%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 12:02:02 +0000
+ 12:02:09 +0000
 From: "Kamal, Asad" <Asad.Kamal@amd.com>
 To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
  <Shiwu.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
  "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: Validate OD DPM triples before mutating tables
-Thread-Topic: [PATCH] drm/amd/pm: Validate OD DPM triples before mutating
- tables
-Thread-Index: AQHc7zLVdmuoCqMoUEm+wADCwGxc6bYrMMqA
-Date: Tue, 2 Jun 2026 12:02:02 +0000
-Message-ID: <DM4PR12MB5038BB338161C3B205AA5B678E122@DM4PR12MB5038.namprd12.prod.outlook.com>
-References: <20260529061710.356706-1-asad.kamal@amd.com>
-In-Reply-To: <20260529061710.356706-1-asad.kamal@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
+Thread-Topic: [PATCH] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
+Thread-Index: AQHc7zKzCGSThaVocECZRh4yh2pHYrYrMNrQ
+Date: Tue, 2 Jun 2026 12:02:09 +0000
+Message-ID: <DM4PR12MB503864C2971265F7305041058E122@DM4PR12MB5038.namprd12.prod.outlook.com>
+References: <20260529061607.356352-1-asad.kamal@amd.com>
+In-Reply-To: <20260529061607.356352-1-asad.kamal@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-02T12:01:49.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-02T12:02:02.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
@@ -67,58 +66,58 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: DM4PR12MB5038:EE_|PH7PR12MB7305:EE_
-x-ms-office365-filtering-correlation-id: c9bd00ac-83d4-49eb-bfc8-08dec09ec1ca
+x-ms-office365-filtering-correlation-id: 07455147-41c6-4a7d-2053-08dec09ec5fc
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|38070700021|22082099003|18002099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: 4L5yttZE2inINi/pC6u00tfCR/DRqV4cRcPb/9UYN3ZQWVOoKgo7bNIqsuVm47kaqDVoya0ci6xNjpOpkc693MJHNvYBSUOAhP/0+HNyXgNkxyVHq+MTJoRVUCoyQ/jr3lev2CCTqxMRDmqMvtn6BvPGgd1DIf0hjVsRTLotrQ0ymDS29i5J4LTdeEbM0hQjhx1LEhpD7rNXweHMAudeL4gZbgYKOWbkJpL2ADrkaY6r9RcMCugU994g+HRWOP4Tz4aER+o9jIb6i0i/KxIVxtMmQVgaySEUJAzXpclN2InOPAiXSFqrTurNMqM28ttxBqxzcEyPFMqTXRLIlxoknxNcLb80UrZh3rnnvaguG3pu/mTotOTE6oe3OyI62W6BU505T6nEHAApQN3c1+ahr/s1oHrrr2NMHQHvi0sRb1Ylu0jxZxXGXQfo8TtCkkO7DUo01hFfr5F4kEPnAgqF9ZzgZRDYZkpMGaRDiR1Ok22FtBFx1KhapI/WlXCyMkjOZLVnnyq0p5L5cFSKOeCFXM/8USB2UjebnN2yom9WoereW+05FasO6RhDrGCuTwDhu/IMGa6jbgf4feijV1gSD0f1OqgIiFtIorKjM2XLtkfIWD+YvmjicUfusBoW0hgzRzrmaZNWs2mqMy1GXiwjRnFjNBjytfpKq6kLNs70RUn+31SglWNAk3paPU04C8V6X7Lmw2V9NG5ZGZhcK6XudTYniMdjDXiuMr5HbAqy+u9URkyYfrUnHo7P/W9C6d3a
+ ARA:13230040|1800799024|376014|366016|38070700021|22082099003|18002099003|3023799007|56012099006|11063799006;
+x-microsoft-antispam-message-info: 1WDeX7wBXed9YLphgtFKJXv69qv0dX0NzPvODmZieNIZ+hgVTT5Er4/KXCay1k+PAp1fl4plOvofkg4/sX4LJuCxLrlCKj3bF6JG15AdD4lcxW7tGWTO098fQsVsgrJW29EHVPvXA8J774rSHUhq58o+j9bqRjvV1KlTHefg6OP3cv461PiYTxyY7l1I0ZBctB90HVUS1UVTTSo16HqNZfkQvxxA80CD3XcPVD9XMscHimQjvPXzk3OhW6hDKEBOpxpttcyD29aThrGYXz37MnnuLa2PCRyxkVSJ+nOA9xq7RVsjXe8IgM1yrcRzhToTsHgE3jBENHyNIa+oZRZlPq3Qdk6xif2l5jfJxb+JscXYkFnKEhcj9BApQQkYQt1AFhNO6udrWDnBNkye7onO0kC5IgCVjGiDZJ6XVHfHHpfieEPHEGdnDhNnubx120y9zvO01o2ZVLF73a9xVcaecX6FO94WHuERGliKj3aj6EayS3w3epvVFSyUzOSc7uGui84Q3L1Os3av+wuHVdP+sgYu/mbkiMArJq0LHDoY6SfzVwg5tR3SDySqihpA5hUWv5Z7CWi2aVSHX+NZdLpGjo0HNqylnmHl/2XNHBzIPirxP9Gzht9bh7X89KW0X+ScTpcfMMCvO2WcybkxJxc9K7VwbbQWIlyXdXKJXQFwv4CJsnZiWmX+rhagg/pZccGehsIDn0Lv/FWj8uyktpCIoGwD4eNE1z9WMY3eJtY5nWx/GYJAmtPvuqk87Rp4Vlq+
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5038.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(22082099003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qH0my7ioMl8cX6n4V4lif5ILDs3mTlHeUtsH3rPLA7LyM5C61s2l6XnSCqOz?=
- =?us-ascii?Q?o1RRIoSINYtKhrQdZMcsJXCepisHe8Tm3rTMBqcMeihAfNUucWwme0PoJnGH?=
- =?us-ascii?Q?WbbEn4HeBnkv4oQwpcpKqIR1LnWpEYxISuZQ3esCAAUdoFk+p5XV6GL5whTL?=
- =?us-ascii?Q?cWR+eqNhRdb3ypg9WQNdGL6oKyit/011or6YgYskH/dvVeSubuCNQlyfKA5+?=
- =?us-ascii?Q?1RC38EeXVxmE23Vv0VU3DRp/5H/S3osl9xfI1/MlUnWZ9vYPogRYIn/LqID4?=
- =?us-ascii?Q?s5L4KYw/mMK2aE3l11unFcgexbyOBCg9Qruj4DZhFF7ExANA/5tkkngPg9aZ?=
- =?us-ascii?Q?XrjOq6JbezdFnKgQ1ab5/imI/nQ8ESp5QBjpacUo7hPHRMquGSPzSbLaOkL/?=
- =?us-ascii?Q?MPG0ljqMR+PdPRkMD7BRZa1NMqzlQoNV8kmmTzLNvj/GI+2wvd3r2FsycPCg?=
- =?us-ascii?Q?qdAzhz/cNykjijyVE5P/xqj+O+1xIYdEHZWBClmb+y+UsRK7tDbbqwPbjxeK?=
- =?us-ascii?Q?9SNC7J8OO7LaekYHQ7ICEyVogJzrMAu6MI3rDZek2GFKCka8Ocmlbi3S2Xxq?=
- =?us-ascii?Q?/TotTNeFzSaXXqXU8KY2L6qiHpeQTV5zzXcIuRNx3YsO4SQ9ocoRCN+5vv/g?=
- =?us-ascii?Q?WbyVTkzE+ViIJa20Xvwro83EKSN6uAxxA7zK8zV6sP7HGxZSSeNscJgrDTfg?=
- =?us-ascii?Q?OQG3cHkXmItuUf/iUQmhS7Kf5EZj5t619Xe7AMzbhqtuTbJeT8b9M9ry6HYH?=
- =?us-ascii?Q?BDiDZCx+T3i9GeZf0CVVF1LPCSwZrbQoE/3DQ8zj9+CIFY4+pFIUclNCAvl2?=
- =?us-ascii?Q?qgsHfj7EMPs37N+7de0jkY1Ak/L03Rqo7wVWy0dbJkYhvClua+5BqsqlHQS8?=
- =?us-ascii?Q?IEwmh1CC/tik2DqrFle6JbCTPRNCNmic8gAopkL5e+oEURSzGpPEWsdecMVR?=
- =?us-ascii?Q?Mb5BSWN0v3vQCmmZ000tz0cZ8HvDPNdKUuAHPYmcNnDj8E4LfSt3PdcXXpB0?=
- =?us-ascii?Q?11mrqjG7HUIBVOad1s7Vsl4YtoM3mau97p+r4dg2zs1D5gCnFSjVKHW8MHGp?=
- =?us-ascii?Q?Qo4PYvKLTHVYeRLcoC73xB4qoB8hGi+9Vb6HNU8xI97lXc174lMyvgPcjuRd?=
- =?us-ascii?Q?DzYtDBSqr/a7Jy2E+X/BM1QzRztSDy1fMMNq/4ti8D/HEoLFeKmI5tpcUxDs?=
- =?us-ascii?Q?pYD12Oz1FhgdgZtqc9UYVakcxk9YDd3h5UVaIsMr+9YbTCUTASY3Vm2XSnh+?=
- =?us-ascii?Q?kSCyMyDuGSa+YCJPP5lODqgIw1FQVaGMCIe9r/KQY5h1BpnsGrFMJO1j0QFz?=
- =?us-ascii?Q?L6SGBf1TWYAV0zQYLz4DW/ZpmdvMhtbLQdVPKPN4k6e4tApKuSgG8FCOA75B?=
- =?us-ascii?Q?og4wg20JJIam6jV3T28nd/0sxuDbtx1KGE+rCXYPPTQ1L3miancrl1iTfzWx?=
- =?us-ascii?Q?nCNheTyI5Dx2KjkUiXaERxVeoeLd8OjDf8XhFbbqK3vsUkp+xQblecG7oPBJ?=
- =?us-ascii?Q?V7ixh6JPJF7q1gaV/6y+rTLfO6zsRb6LM0Ucd0ME4v5T9PbXaMZn/zQAl5Pl?=
- =?us-ascii?Q?Uw9WgETxgEMhIit2BZf76JXn3nzskMqcLbyRgUNEkHwI5b2lWowiSdC2bwIQ?=
- =?us-ascii?Q?dkMg4ESriQibwmyUaulE033q0uqebVVVAoyuJRnG6xTS58Z5jltTsRyMcJrs?=
- =?us-ascii?Q?flMKpYjIZzTAeeLKruFa234ZnKRDFkK1Ad8Os4KLkMpEjw3N?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OOnyiPJyUT0hoqglQ2RtJKEoouha0aaBVSftdiaxtf5aJ4+pkJUz0pfekxjf?=
+ =?us-ascii?Q?Y+7uecDl+OvYPdHXZXWTjuZJAE6FENkaf8J8hgZKmtztEA3PB4chtBBSZX9V?=
+ =?us-ascii?Q?L2wsT7uT31C6UCGq/feUf2uv1xxaeAsRRDDSQFL4SmqVgzLQi0o7GvSozzml?=
+ =?us-ascii?Q?6JlkNU1bBGB6OgdXrktOBCIRgpQh/Ssou3yLXdig8IoGFbpZxFI9CpW13MgO?=
+ =?us-ascii?Q?9ljXcNPeI1pA8/bNJGU36lr5L8BEEFUxi8DbpbC+cEf5peevmJI718hmPN0H?=
+ =?us-ascii?Q?+Ljc8M60aZFMzdM0EruMCByVazs8iIr5+ImKYu28N8rrh9BKjfvlScPHtBsU?=
+ =?us-ascii?Q?JMQ9NAF7fMZIu6i12D0Sbpl8Pt93IcfjeKMg3JZD6VTYhjlvXe8vfS5Lwq3Z?=
+ =?us-ascii?Q?SAFaM3IQgngZkCg1689jXmlnIOpoaMtimMXk5lnyP1/eruoO23La4V53VZn0?=
+ =?us-ascii?Q?2Wav2nh11v1IsmTe0jvC8MrEkUs5pXQxE6MpiIbB407jXzZv01ZYX24qkoRh?=
+ =?us-ascii?Q?mxgQJARzwMaaWqSrUrX6hXpOAQpNS+LcZ81Eo/thcR/wthv/gO2IudJrfhMR?=
+ =?us-ascii?Q?RfJO593hADjuy3Nv3gsoqOrcp9aV8xOhZJyTjzDsSnks2rjg5y1Ojxvdi1Aa?=
+ =?us-ascii?Q?VbCTtjpXtQ8jhgAZFuniops0fx1AJRa12SSPnpqtkIT9AL6O91H6NZL8Ku/7?=
+ =?us-ascii?Q?HKOmSQIZ3J+oNoKbiD29WgtHpO8fK+krnhvXUHMxAlBC7wbDq0/MJJviTmbr?=
+ =?us-ascii?Q?gI2RqOoZNGY0WgwDpm3/23eCoUUwXuAwshGXnUFbjHIhuUXlrblArloiPcEo?=
+ =?us-ascii?Q?YmKHG8ZffNyEa9OgbCPYfYmvkR0qIHG3wWZ9sBam9+5nAbIf9EFxDLy/yJny?=
+ =?us-ascii?Q?aZ91ci/EKce4Gm9cJxXzmgM+dIVvqo4u85TqYdRX+FxhG+1Fw7mhWgwl2Ka7?=
+ =?us-ascii?Q?SBoMpS2Lpfpjs8TqHog1A3rNP9izhxfe7n9UUMSRNXzKao8lhvImWRwhzIJl?=
+ =?us-ascii?Q?uuqTTLCVgjVDEkvjqDBrNaFGUlsxL2swbQqvzBsG0QTrL8NdcWzdHerNjSGD?=
+ =?us-ascii?Q?FFzUm9Qb3bm6X4lmPOQ3l10t5+bTFzmSS9/1VIZAA1YMvFqSveMOzRZPIXY9?=
+ =?us-ascii?Q?TLuNOuOimC0QlbHupGogSLwTlQ0Yvw1P/zXIk3SI7Y6DzmVSfHdgvbZshoFp?=
+ =?us-ascii?Q?a3MjxjqUJVe/08fdwVGW1vbLAT1p4pjBiD3rafj7HJSZO+rau/wpiYy+xgdg?=
+ =?us-ascii?Q?5H2x2wFMLuvyjh+tM4X1tZq6uC6dpNYEiF+wY0jKjuo9YlhIhyvIPteGNNcp?=
+ =?us-ascii?Q?ie/JvQGSG3A10OCm293N9nepig6RaQzIs+jPgZLv/ma3rISfTq8wOC805zk9?=
+ =?us-ascii?Q?U8YQo0ODt4WxE2NQzZ0TTmDkaGjyR5HS5UT1hA9ak7ApU7lH2L/QVyFpnok6?=
+ =?us-ascii?Q?K4FZSvZiSnWI2L+z3SqofBqUOHXSXRIqyDCmj9KkrzrKIiR3dzreJkbeRhvZ?=
+ =?us-ascii?Q?Oa/PE1CG1J1F86HOn68A82/GGVgdEM+2rdwbkM6bLFKTo84MIxheTGf6DTaO?=
+ =?us-ascii?Q?wpIXRpkB2dXuygX6aL7yMvq+byia7YwVA640UFZzJGIumURefCvO4kamnRFw?=
+ =?us-ascii?Q?L5GIjEB+EP9Zk+f7tZ9nzsbHMhgL+CW5eYYoUaFM0X7ZFnUlwz3isAw+rAa3?=
+ =?us-ascii?Q?HJ2QtuEkXoS6tVp6WhOC+XPQ3JPhbGzx1Luk+QfzTb2tKhE9?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5038.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9bd00ac-83d4-49eb-bfc8-08dec09ec1ca
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 12:02:02.1670 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07455147-41c6-4a7d-2053-08dec09ec5fc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 12:02:09.2000 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6IGL4Mv4y8BQiJ1ySScSiSgw3qjOkb9MyOscbOeuAJT3hl92jhuLMdTDUprAbrVK6yJgWHic6iDcrQgmA2WF/Q==
+X-MS-Exchange-CrossTenant-userprincipalname: g395Tu30uk6sjt+sBfnDx24N47zYoQEteot6mZEwU2oAJ/OUT3UXHl8sKpDs+pJcEKsDnVmwmgr8HeJD0iJQJg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,141 +139,207 @@ ping
 
 -----Original Message-----
 From: Kamal, Asad <Asad.Kamal@amd.com>
-Sent: Friday, May 29, 2026 11:47 AM
+Sent: Friday, May 29, 2026 11:46 AM
 To: amd-gfx@lists.freedesktop.org
 Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com=
 >; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.com>; Deucher, Al=
 exander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.=
 com>; Kamal, Asad <Asad.Kamal@amd.com>
-Subject: [PATCH] drm/amd/pm: Validate OD DPM triples before mutating tables
+Subject: [PATCH] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
 
-vega10_odn_edit_dpm_table() and smu7_odn_edit_dpm_table() could mutate the =
-live ODN table for valid triples, then return 0 after detecting a truncated=
- buffer or out-of-range index. Validate all (index, clock,
-voltage) triples first and return -EINVAL on any failure, only then apply u=
-pdates.
+amdgpu_regs, amdgpu_regs2, and related debugfs nodes allow arbitrary MMIO r=
+ead/write via RREG32/WREG32 without checking security_locked_down().
+On kernel_lockdown=3Dintegrity systems this bypasses the same restrictions =
+as /dev/mem and PCI config space sysfs.
+
+Check LOCKDOWN_PCI_ACCESS (matching pci-sysfs) at the entry of every debugf=
+s handler that performs direct register access.
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 33 +++++++++++--------
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 27 +++++++++------
- 2 files changed, 37 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 58 +++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/=
-gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 416b9380a70e..0a74e4f98496 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -5648,23 +5648,30 @@ static int smu7_odn_edit_dpm_table(struct pp_hwmgr =
-*hwmgr,
-        }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_debugfs.c
+index 0ce6e2e4342c..c1f22b0985d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -25,6 +25,7 @@
 
-        for (i =3D 0; i < size; i +=3D 3) {
--               if (i + 3 > size || input[i] >=3D podn_dpm_table_in_backend=
-->num_of_pl) {
-+               if (i + 3 > size) {
-                        pr_info("invalid clock voltage input \n");
--                       return 0;
-+                       return -EINVAL;
-                }
--               input_level =3D input[i];
--               input_clk =3D input[i+1] * 100;
--               input_vol =3D input[i+2];
--
--               if (smu7_check_clk_voltage_valid(hwmgr, type, input_clk, in=
-put_vol)) {
--                       podn_dpm_table_in_backend->entries[input_level].clo=
-ck =3D input_clk;
--                       podn_vdd_dep_in_backend->entries[input_level].clk =
-=3D input_clk;
--                       podn_dpm_table_in_backend->entries[input_level].vdd=
-c =3D input_vol;
--                       podn_vdd_dep_in_backend->entries[input_level].vddc =
-=3D input_vol;
--                       podn_vdd_dep_in_backend->entries[input_level].vddgf=
-x =3D input_vol;
--               } else {
-+               if (input[i] >=3D podn_dpm_table_in_backend->num_of_pl) {
-+                       pr_info("invalid clock voltage input\n");
-                        return -EINVAL;
-                }
-+               input_level =3D input[i];
-+               input_clk =3D input[i + 1] * 100;
-+               input_vol =3D input[i + 2];
-+               if (!smu7_check_clk_voltage_valid(hwmgr, type, input_clk, i=
-nput_vol))
-+                       return -EINVAL;
-+       }
+ #include <linux/kthread.h>
+ #include <linux/pci.h>
++#include <linux/security.h>
+ #include <linux/uaccess.h>
+ #include <linux/pm_runtime.h>
+
+@@ -43,6 +44,11 @@
+
+ #if defined(CONFIG_DEBUG_FS)
+
++static int amdgpu_debugfs_lockdown_mmio(void)
++{
++       return security_locked_down(LOCKDOWN_PCI_ACCESS);
++}
 +
-+       for (i =3D 0; i < size; i +=3D 3) {
-+               input_level =3D input[i];
-+               input_clk =3D input[i + 1] * 100;
-+               input_vol =3D input[i + 2];
-+               podn_dpm_table_in_backend->entries[input_level].clock =3D i=
-nput_clk;
-+               podn_vdd_dep_in_backend->entries[input_level].clk =3D input=
-_clk;
-+               podn_dpm_table_in_backend->entries[input_level].vddc =3D in=
-put_vol;
-+               podn_vdd_dep_in_backend->entries[input_level].vddc =3D inpu=
-t_vol;
-+               podn_vdd_dep_in_backend->entries[input_level].vddgfx =3D in=
-put_vol;
-        }
+ /**
+  * amdgpu_debugfs_process_reg_op - Handle MMIO register reads/writes
+  *
+@@ -86,6 +92,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, str=
+uct file *f,
+                        ((*pos & (1ULL << 62)) && (*pos & (1ULL << 61))))
+                return -EINVAL;
 
-        return 0;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 8b8c4e899878..ad06a2f26d91 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -5477,21 +5477,28 @@ static int vega10_odn_edit_dpm_table(struct pp_hwmg=
-r *hwmgr,
-        }
-
-        for (i =3D 0; i < size; i +=3D 3) {
--               if (i + 3 > size || input[i] >=3D podn_vdd_dep_table->count=
-) {
-+               if (i + 3 > size) {
-                        pr_info("invalid clock voltage input\n");
--                       return 0;
-+                       return -EINVAL;
-                }
-                input_level =3D input[i];
--               input_clk =3D input[i+1] * 100;
--               input_vol =3D input[i+2];
--
--               if (vega10_check_clk_voltage_valid(hwmgr, type, input_clk, =
-input_vol)) {
--                       dpm_table->dpm_levels[input_level].value =3D input_=
-clk;
--                       podn_vdd_dep_table->entries[input_level].clk =3D in=
-put_clk;
--                       podn_vdd_dep_table->entries[input_level].vddc =3D i=
-nput_vol;
--               } else {
-+               if (input_level >=3D podn_vdd_dep_table->count) {
-+                       pr_info("invalid clock voltage input\n");
-                        return -EINVAL;
-                }
-+               input_clk =3D input[i + 1] * 100;
-+               input_vol =3D input[i + 2];
-+               if (!vega10_check_clk_voltage_valid(hwmgr, type, input_clk,=
- input_vol))
-+                       return -EINVAL;
-+       }
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
 +
-+       for (i =3D 0; i < size; i +=3D 3) {
-+               input_level =3D input[i];
-+               input_clk =3D input[i + 1] * 100;
-+               input_vol =3D input[i + 2];
-+               dpm_table->dpm_levels[input_level].value =3D input_clk;
-+               podn_vdd_dep_table->entries[input_level].clk =3D input_clk;
-+               podn_vdd_dep_table->entries[input_level].vddc =3D input_vol=
-;
-        }
-        vega10_odn_update_soc_table(hwmgr, type);
-        return 0;
+        /* are we reading registers for which a PG lock is necessary? */
+        pm_pg_lock =3D (*pos >> 23) & 1;
+
+@@ -237,6 +247,10 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f,=
+ char __user *buf, u32 off
+        if (size & 0x3 || offset & 0x3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -402,6 +416,10 @@ static ssize_t amdgpu_debugfs_gprwave_read(struct file=
+ *f, char __user *buf, siz
+        if (size > 4096 || size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -521,6 +539,10 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct fi=
+le *f, char __user *buf,
+        if (size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -580,6 +602,10 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct f=
+ile *f, const char __user
+        if (size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -635,6 +661,10 @@ static ssize_t amdgpu_debugfs_regs_pcie64_read(struct =
+file *f, char __user *buf,
+        if (size & 0x7 || *pos & 0x7)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -687,6 +717,10 @@ static ssize_t amdgpu_debugfs_regs_pcie64_write(struct=
+ file *f, const char __use
+        if (size & 0x7 || *pos & 0x7)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -746,6 +780,10 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct fi=
+le *f, char __user *buf,
+        if (!adev->reg.didt.rreg)
+                return -EOPNOTSUPP;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -804,6 +842,10 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct f=
+ile *f, const char __user
+        if (!adev->reg.didt.wreg)
+                return -EOPNOTSUPP;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -863,6 +905,10 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct fil=
+e *f, char __user *buf,
+        if (size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -921,6 +967,10 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct fi=
+le *f, const char __user *
+        if (size & 0x3 || *pos & 0x3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+        if (r < 0) {
+                pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+@@ -1156,6 +1206,10 @@ static ssize_t amdgpu_debugfs_wave_read(struct file =
+*f, char __user *buf,
+        if (size & 3 || *pos & 3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        /* decode offset */
+        offset =3D (*pos & GENMASK_ULL(6, 0));
+        se =3D (*pos & GENMASK_ULL(14, 7)) >> 7; @@ -1247,6 +1301,10 @@ sta=
+tic ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
+        if (size > 4096 || size & 3 || *pos & 3)
+                return -EINVAL;
+
++       r =3D amdgpu_debugfs_lockdown_mmio();
++       if (r)
++               return r;
++
+        /* decode offset */
+        offset =3D (*pos & GENMASK_ULL(11, 0)) >> 2;
+        se =3D (*pos & GENMASK_ULL(19, 12)) >> 12;
 --
 2.46.0
 
