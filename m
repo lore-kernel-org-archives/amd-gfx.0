@@ -4,123 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C62DCD6E5D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2026 22:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F55CD6E5D
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 02:06:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6B510E7BF;
-	Tue,  2 Jun 2026 22:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AE5310F77D;
+	Wed,  3 Jun 2026 02:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iIva1X6y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hqNiAtXQ";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010045.outbound.protection.outlook.com [52.101.56.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D0E10E7BF
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2026 22:28:00 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012033.outbound.protection.outlook.com
+ [40.93.195.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 991D410F77D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 02:06:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Epyu36btCrr//l/G7nOoMsjOJRimc+rGrV/Irbi8h6F63/4Zhq9p132AoGhdkqt25b/nUd6HVA41kGlWSETOg9LgpdJVmT8Q4X0YMzdAdC5QU4FuzpBmX1kPpxN02aOaa2m7SO2IhSRqMtYqI6iSgVWYGoC9yYzlMhMvgF6xYM3jYzwEIj5O4nzbMgak4sLxDI4SbIHGL8OGljAYI2c6ELfSqbHwl1pw1OMZhpJIdk3ag+TVydJT8YMIf5o6G1KGMm0nl2hNkQwrH7v3wBYQxZfANoAtQyKzKl2I29qCr3HXHGgsjV9IXvQF/3h/w2o8fUJKzKh6ekW8oPHADQnsBQ==
+ b=bCMTIGmRlqAGWRHHiZYk6XXW+eYnfRtHKKs6x9N+B2/C1uXyctkvenmt5SAsZI4x51CbaOXIywaKyb0hFFnx6JXgaCiILTShtOwJMCLPTsTf1SZjv6KLyBXA3fB6aTir60/y9hCtDZPE2obNACAt+momdGHnA8xJ5T9UlHk+gFoKst4E9fLR2/hbeIjbNouXqbXUp6lKd50+N7PjxdiIbAPnnncr95Fvi3SnjTFfBrzBdAG+UEexgfgy4UVkO+KcDo3582m95sRptEkEQABKE/1NJFiigRFIgaUbZfjqV+0UkWc42TzUyLvXlZDJtLCdpjhJbef4gQEco14IShtLfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nWJT9z88We0r6Tx90ifW3xEnIxFsu7LHShbZ6K0TXac=;
- b=JMuoeMXk+xBeoF88Sb+AM1s74V9u0AG2OKR/9kijlqWkScu5eTTpkqyp/weaXhWuW+gNZY+MGYH8kyVUtcPXqNzRtFRSVhOwZCnrP7Movzbe8n2NZqWao31Ajy/la85T+gHXu+zlXhKPAPSqx0UyYeOMaIdFv5aA/R7VGnC7TsUYmQ6WVWOxz/ijc+ugDG7xAbguNwECSGiTXKg8EoN2VrR35cLC4SKPwMUG/UZtePSB8fFJHhm6swGt26oQIELR+tFivp0i3A7UJucPXXoIa6GkyLdn/kMl5XY7X9mLJip77nJBrectYJRO3xSwQAAMBqF586u70jmPGCo2esmBAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=teBaXvzZr/0e8aMdp62sowKCRTBVgqsu+PmgPR30oQE=;
+ b=BZPVGm6ABWwBaLJebmkwt+ClUfoVg3eV5NWyEBmPjccP62DhYYBLfEfPmt8F5H3I5KTJsEtQWUlN/fkj6f71wxTz8WHI+aGLeV8D1vS2pH00ARhArqYMiSH2WU9GMqyD4g5X8LXf2X7/Xv4edNvBPoIREMq0AOkKELVmiaWK4p992fEa41IR+gZUhjtX+3gJNTBxhZD617Ht0CBSj6ZtnjAGxqoWWqk58ZuS6uT05GPzEUSZ31FEHAR1D07INRuNkbGL7+DQ1DtA1k5VOqzJerMX27iAS5KhmBxCO6vzaSAQ+4IHqg1Q7r2TkrHGppbf6fwAR/n1gJcx+LEy9zun4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nWJT9z88We0r6Tx90ifW3xEnIxFsu7LHShbZ6K0TXac=;
- b=iIva1X6yyZZxbycAkk9bsTlda45MaCJql26h2GHPahyVsiLtgtAGjP6Zv6PPn+tqdjf2sYOUibpqdYp2SV9SvJlKCnreukM86M1chU4V+6jMqD5+/14jOSWhQOm8szEy0hZIRtqFxr5pka9Y6Aem/5FzxBdOA1GSVC1fx9RBChM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
- by CY8PR12MB7731.namprd12.prod.outlook.com (2603:10b6:930:86::16)
+ bh=teBaXvzZr/0e8aMdp62sowKCRTBVgqsu+PmgPR30oQE=;
+ b=hqNiAtXQO1CbCi5s9Yy1xxmxHZH2fEivwaL1ubFJIHQPXBWfNq6wypSE3dur1u3EpTzW5T2IZ5Jt7NlHkseaJFnMvu9o1v/j2ZNwMs1OpmQ2pw7+Qy1v7yglOOOdMg8s3+Oen7LtmAX+K9Vu+y3SWl2mwar1X9PtQlzXJ1xAsPI=
+Received: from CH0PR04CA0102.namprd04.prod.outlook.com (2603:10b6:610:75::17)
+ by CH3PR12MB8710.namprd12.prod.outlook.com (2603:10b6:610:173::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 22:27:57 +0000
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525%5]) with mapi id 15.21.0071.011; Tue, 2 Jun 2026
- 22:27:56 +0000
-Message-ID: <53c2ad43-091d-46e9-b825-9aaa1d7114e8@amd.com>
-Date: Tue, 2 Jun 2026 17:27:54 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes
- SDMA0 permission fault on RX 7600 XT
-To: Gerhard Schwanzer <geschw@pm.me>, regressions@lists.linux.dev
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- alexander.deucher@amd.com, Philip.Yang@amd.com
-References: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR14CA0017.namprd14.prod.outlook.com
- (2603:10b6:610:60::27) To IA1PR12MB8517.namprd12.prod.outlook.com
- (2603:10b6:208:449::8)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 02:06:28 +0000
+Received: from CH1PEPF0000AD74.namprd04.prod.outlook.com
+ (2603:10b6:610:75:cafe::af) by CH0PR04CA0102.outlook.office365.com
+ (2603:10b6:610:75::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Wed, 3
+ Jun 2026 02:06:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD74.mail.protection.outlook.com (10.167.244.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 02:06:27 +0000
+Received: from canli-build.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
+ 2026 21:06:25 -0500
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Patrick Xie <gangliang.xie@amd.com>, Candice Li <candice.li@amd.com>
+Subject: [PATCH 1/2] drm/amd/ras: sleep on PMFW EEPROM busy in bad page count
+ query
+Date: Wed, 3 Jun 2026 10:05:58 +0800
+Message-ID: <20260603020559.1273844-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|CY8PR12MB7731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a5b1b52-8ccf-49c0-c457-08dec0f631df
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD74:EE_|CH3PR12MB8710:EE_
+X-MS-Office365-Filtering-Correlation-Id: 507dac35-a395-4ed7-cdf2-08dec114b8b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|11063799006|22082099003|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info: HcKFOmPwnZ290HSUAtQFWzThiAZ5zKeFmhf7pOZabs5bRxcCPwAjE3EsZ+yVt3wAV3CBwEtkbw5/YAvaEqivP2WieS59TsjKK6oqfVKTV4ywIU+D56R7QuteLGcreVkRrpF+X57aUIUeiHV2Xo5L0gJ1xBkA69i4Gnl7wyofrPPHHSfk+RMdUNWHWkktoUEuZbRvAd0mN5g1dk5HqgisZi1O/+eyX7kWfXCueqDiXjquhnLsIS6Lg47Rdm31RdC9R9GIAhVTqxAqJ+jgsG1gjBNyyzm9zqnpnutBW+cH1TSGBwiDepHClKP71xn16A4vMhxuKhcu6q19fsSMuUD/FiM0YKWgTwaU9JIweuBwENwD682+kTh14TWHe2+W9hQQ8aeOxd8O2cVC6Gh38VKRJcY1HFshYiVpRNMRHghytVDuADkJaprsvCRiEMU2FWcQB6aWLH5envp2W9/xO7jbAG16DYQu/HfkzzOp52Uh0dYcLZ6jA8+KLoeq3ygkZGSrkudI3kN83itP96i8woukSol98PmYlZFPykGiJYqqXyKCr0rO9jX/5wfp9qlczRRQ6rA0eWDxofBtZXuxeN7XwPdkEJKDKFIyASwZcdTnka7Q2ica9F9QxpkCKIDfZwZI+ES12puR/zWi5lCZJH50ZA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(11063799006)(22082099003)(56012099006)(13003099007);
+ ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|6133799003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: rWW5Ghrx4tBeWAuWReMJXlWMkWQplkCCO4Eh63plQCZNWT7aka1P5KTbEB6yBcMJP05kCHZBoSUnF8NNEOq0tl/uCLo+s1hgQM27hYyRB7vVa53qCfLriMQTNCKnvRNsDiSRMJyM0Bx+Vw7tgdPvOAGz9WGyixzOs1QoT34c3IY3kFgA2tYYGs8ksdWQ2hzDcJwLAjyy0rW0yIs5UAQP0RsHJJ7mCtxmSoSl6WIgMUYoa9d5Gu5MBkczOXc/iolGLLc44mso5Tv4K022xJaTsjJDflE6IKpUac41SwpOiHE40tSnZ4MJotVUH5mYqHJaQDGVakQY6e9kpvMOz/NVEwtOYZh394Zwv6wf2Xbq5CtDRwbeJWNoESAkUQaAZWt0BH8akxKyqa4V2v7EW+PkZLhIgLplDOzRhRtbdqwcSkiYnmqYllMVCpdxdKpO/XrHTKMHCA2yvfefQ9kVKPYosm7nIrQb9VmmjDTc3jdul5BWMv/g8FiB391vn8Yo8LHKwZJKotZCS9nduJtAXt/9h485BwAUlunyyf1rbKZr//7exTkXmJPtiO24maYVjqnzXduSTtelC16z9fy/sg4VA0ic3He5f1Tu95CYbjgJSgo0V/ZRPWoK7BEoedgIzL/BrbANcTLY5yiXzKzCQOLVF+L20wNL3C9G61LKoBK0vWUsXSYUyLC2K7o58eEUNIMJJgvawQBWu7JV522DSk8EtYjMgMiIWhjRtxBYHBF7pXo=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(6133799003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZThIUllVRUJLbDZwWlpmdS9iK3g0VVpaa2VkS3ZLSldETytEM1ZPQVVobzBz?=
- =?utf-8?B?MFJmaHBTL2kySUIvMTVGRTBya1dPUlhtRFV5U2dpVElVTmhHTzB1VURZSWIw?=
- =?utf-8?B?Z253SytkMEtBbjdjOTdGbEdqd1ZMekY3cWdOYk44K1c0eWFJa1R1dDlwTHhw?=
- =?utf-8?B?VjNZNmJ4alFGZmFSOTNkS21NeUdXUnh4RjdOMnJFbHJHc1hOTDczNStzaG5I?=
- =?utf-8?B?WktTdVJ4Sk1zUklHb1dhTW5GMWs1MUVFR1VFUXl6dUJReG5Tc3Qra0hKWTll?=
- =?utf-8?B?Vlc1Smt6SjRzczRlRytQVFZ6WUphTGZYZlhBaVVoNk1oV2pkNkF5K3RWcTIr?=
- =?utf-8?B?MFlwQ0d0K0tDWmdPZ2prYmxUYWxBMy9WQ2tZRHhuYUFlcDJtUnNHOUhFTW5M?=
- =?utf-8?B?K25DU2tLWnlQREl4RWJNRTQzWHkrU3dqTGNGdUZJaFUyUkp2WXpjTytmT0R4?=
- =?utf-8?B?WlhpbGhxSEV6RGpGY1JCNkdIQmlubi9BZzZ1c2JrLzJiNzA4TmI2OThqWWdi?=
- =?utf-8?B?QmRzUnc5R09zYklnYzdwUTRTVlVyRVF2RVNDcG9hdHZsaWNvTzRtMXBMSlRM?=
- =?utf-8?B?SUgvYy9xZ2pweFBsdG5jNmhjWno2UThzYmo1V3BUK0Z6WWRZRXhnQkhuWDJH?=
- =?utf-8?B?YlU3WkFicDdkUWRubkdSNklFTHlIb0E1UlBoSk1rSWxkcVhhQjM0Szk0TEts?=
- =?utf-8?B?UzJGSjRieldkOWh6M2o4ckNZN255MHgwUi9aaHhOazNrVXhqT05aRFE4VEti?=
- =?utf-8?B?WG1WaFZWR0w1b0hGVXlXYk4vdFBpVVdSNnpFZE9Rb0prcVRzd3QwVG1FYkUv?=
- =?utf-8?B?aUd0NlIwSHlobXJYNzZnM0FhVVNJblMwak1pQ1lnNTZrNExpWXNtcjVNZldD?=
- =?utf-8?B?Z29HQkV3WWpoV2ZNMVg1clkrdmlYdk93WWNaL2NtYmVlaDI3bDJwc1NiWHlI?=
- =?utf-8?B?VDdjZHBhY05FdXBVNFg4YURwUU9seHR0WjJvMVRqeHE1elU2TVVZL0ZnT0da?=
- =?utf-8?B?RERyZjY3ajhabmROMGdENjJpZkdpMWhVd211ei9tbVpVcG0vQUJCZVhrS25q?=
- =?utf-8?B?eXA4QVZmRjdIcFNjTkdGVEV0S3RjdWVvMmYvQmIrV0xZMCtWdnpLaDg0UmF0?=
- =?utf-8?B?NmR1YXFWMFFOaVMveDZqWVUybXMxN05VVVZQQXFuL3ZBVHJiNnYzRzRWVGVS?=
- =?utf-8?B?YlhSUDRRa3BEemdlR0tONFBMZEdtenR0YlpESXJ4QUxKU2FaZjFsSUt4OWtJ?=
- =?utf-8?B?aTR1QzQ3U2VEbWJGZzIvZ01WeU5QemdjK2I3SjJaM2E5eldXTEV5RUE1SXFT?=
- =?utf-8?B?VitmSjhYYWR3QnliMC9HUjVMT2Q3eVFyeVRleFFFVkh6dHpNbnhXUEplMXVv?=
- =?utf-8?B?ZUpmSW0yTTg2YkpSNW0xcWtjd2pQYTBmcnhNOFA3dTRWN1BkK1hpNXFZQUlx?=
- =?utf-8?B?aUFqMmJ3bXJPU3JyUkx0Mko1UlRLS1N6K3EycFdNL1VteGh6cUJMazJtc0Uv?=
- =?utf-8?B?THRSVW9tQTBwRlpEWU8yTXo3eEhlRE5OaVdPVHhOUDBOYVZoeDVwci83Zktm?=
- =?utf-8?B?UkRiQS8wcmlRUTdiazBPYTdEaktUdC8vUHJCOVN5d3JncXEvejVjSTlndWpk?=
- =?utf-8?B?U0JLM2pBKzUrT3VFUGZzQnNTRHRrVGFHQm1VbGNMK0VlWTc4WXQrbUxVY1VS?=
- =?utf-8?B?Y0FSazVoc2R6dzVTOHh5UVZBU0xvYnNXRU1FWUdMakFyU3M3RFd6OHpFNFpT?=
- =?utf-8?B?K2RPcnIxeU5ncS8rSWxlWjIyQ21NRzdhY3l1RWE5TXI3ZmlCNUU4YWkvUnc0?=
- =?utf-8?B?M0x5cStmMnJyeEpvcjdLelFyNlRYSkN5M3R4ZmFoaU1ndUt3cjZqeXozTGd3?=
- =?utf-8?B?V3lQQlBIZFdPVi9mZ2xDWkRpSnBwZzdueGNpbmRIV3BvQXFnbjBRMzNZQXR3?=
- =?utf-8?B?SW9IeWlsbFVyQnZlamVkQVJYZjZiSUpBbXhuMTRYbmZYTDVSRThzTTJnOEdj?=
- =?utf-8?B?eWVUZkhob3FMU3NsN1RMZzhNUTVzWGh5RGFYcDJ6dXQvNElva2E0RThmZTIz?=
- =?utf-8?B?Qzc0NEw0ME5YbldmSTZDclJiVEFrcUlWalcydmlnb2lZVGdkN0NuaVJMbUdr?=
- =?utf-8?B?cXFRUGsxZW5zS21BcHpWdEdjQ0MrRVQ4UlpGaWF1WFcwZFZtOCtCd2ppcHEv?=
- =?utf-8?B?MEhWZWk0NTR1R2VEWlh0ZS9MOEMyRmZuYUF4S2lYZUdVblZYb3pPd2hjSUc0?=
- =?utf-8?B?RXVibmh0UFBnQVFnZlduS2xTKzYvS0hPT2lDZ0xaWlg0OTdkcEF6SVBzeFlI?=
- =?utf-8?Q?rw3wFRUM2m8kgn0IXi?=
+X-MS-Exchange-AntiSpam-MessageData-0: N2tdpEuFMM+J75YpSFQnG7bhpzdn/fgeVcTb3W4DOxQd9z9lPPBsRAKrw2WP8tQ/NjBaEBuC22mk8HYpFv2AIlLI9m0Y1MZZmas5Daox9ETtYxdyOiYMhu6tIww5dkTnsCEUBDJ/rxFE7iZwoPLJfFXOuwvk9ude0aNJmeH2unBh8tgC+bw78EWV9AwykGdOkvTk/t/rdZDSPwaWH73yt/rGM/Zu47M4Z8yqqK78bq8Z4/N/sN8k/fzwOE0kNjhI/twRfkfy8nqPxyceLE9qjN6wuAgQ0ZOnkvT8/gyLDoVZJFP9Ap7hs6g5JBj/z5VpikD/h9/5Dvp3wuEifm+GYQlBv+4CNs8oZnvvJVSfbpysQ0/YMU89g5U1XBDqrWsYXc4shFzCPIX7Peh6l0vDlUcoPbQF/Ts6DIqr4eQjEiQMgiGYm5Z9mfKKoQYpUCsc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a5b1b52-8ccf-49c0-c457-08dec0f631df
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 22:27:56.6263 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 02:06:27.5491 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 507dac35-a395-4ed7-cdf2-08dec114b8b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iL2SFdzBHka+b8SfYUjKDpS2PmfjJ27NIfwj9q1lgTMTEF84NZXW3g87Tz5VWRuZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7731
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD74.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,99 +110,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I cannot compile kfd_svm_split_hsa_copy.c, there is no 
-"trace_history_replay.inc".
+Use usleep_range() instead of mdelay() when ras_fw_get_badpage_count()
+retries on -EBUSY so the driver yields the CPU while waiting for PMFW
+EEPROM to become ready.
 
-Or can you  send the test binary?  That should be enough to triage the 
-issue since it is a regression as you mentioned.
+Signed-off-by: Candice Li <candice.li@amd.com>
+---
+ drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Regards
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
+index f5fa80db91fb1e..59e195652e427f 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
+@@ -72,7 +72,7 @@ int ras_fw_get_badpage_count(struct ras_core_context *ras_core,
+ 		if (ret != -EBUSY)
+ 			return ret;
+ 
+-		mdelay(10);
++		usleep_range(10000, 15000);
+ 		now = (uint64_t)ktime_to_ms(ktime_get());
+ 	} while (now < end);
+ 
+-- 
+2.25.1
 
-Xiaogang
-
-On 6/2/2026 5:04 AM, Gerhard Schwanzer wrote:
-> Hi,
->
-> I would like to make sure this AMDKFD SVM regression is tracked by the
-> Linux regression process.
->
-> GitLab report:
->
->   https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
->
-> The regression was originally reported on 2026-01-27. It was bisected 
-> to the
-> same functional change that Alex Deucher's revert patch later targeted:
->
->   448ee45353ef9fb1a34f5f26eb3f48923c6f0898
->   drm/amdkfd: Use huge page size to check split svm range alignment
->
-> The affected kernel line I tested identifies the same change as:
->
->   bf2084a7b1d75d093b6a79df4c10142d49fbaa0e
->
-> Alex's revert patch:
->
-> https://lists.freedesktop.org/archives/amd-gfx/2026-February/138824.html
->
-> A small C/HSA reproducer is now available in the GitLab report. It 
-> does not
-> require PyTorch, ComfyUI, Docker, model files, or the original 
-> workload. It
-> uses ROCr/HSA, an anonymous THP-advised host mapping, explicit KFD SVM
-> SET_ATTR ioctls, and an HSA SDMA D2H copy.
->
-> Single reproducer command, same binary on both kernels:
->
->   ./kfd_svm_split_hsa_copy --upstream-ab
->
-> Same-machine A/B result on an RX 7600 XT:
->
->   448ee453/bf2084a7 active:
->     1/1 run faults with SDMA0 permission fault
->     GCVM_L2_PROTECTION_FAULT_STATUS=0x00841A51
->
->   448ee453/bf2084a7 locally reverted:
->     10/10 runs complete
->     no ROCr memory access fault
->     no new GCVM/SDMA0 permission fault in dmesg
->
-> The bad fault page is inside the split tail and inside the SDMA copy 
-> range:
->
->   critical tail: [0x722429d61..0x722429dff]
->   copy pages:    [0x722429b30..0x722429d70]
->   fault page:    0x722429d65
->
-> A full ftrace/PTE run with the same C reproducer/SVM sequence also shows:
->
->   split_tail ... current_remap=0 old_remap=1 missed=1
->   MISSED_REMAP_CANDIDATE split=tail
->   no amdgpu_vm_update_ptes covering the fault page after the marker 
-> before
->   the fault-side GET_ATTR
->
-> The suspected code issue is that the split-tail/head remap predicate 
-> introduced
-> by 448ee453/bf2084a7 can miss tails inside the final 512-page block. 
-> Since
-> prange->last is inclusive, ALIGN_DOWN(prange->last, 512) is the start 
-> of the
-> final block, not an exclusive upper bound.
->
-> I also sent a short follow-up to amd-gfx with the reproducer/A-B 
-> summary and
-> asked what original failure or workload 448ee453/bf2084a7 was intended 
-> to fix:
->
-> https://lists.freedesktop.org/archives/amd-gfx/2026-June/145800.html
->
-> I can resend the reproducer source and summaries directly on-list if 
-> preferred.
->
-> #regzbot introduced: 448ee45353ef9fb1a34f5f26eb3f48923c6f0898
-> #regzbot monitor: 
-> https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
->
-> Thanks,
-> Gerhard Schwanzer
