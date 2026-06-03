@@ -4,126 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 329F1CD6E55
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 14:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4767CD6E57
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 14:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBBEB10FEF2;
-	Wed,  3 Jun 2026 14:20:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E3410FF87;
+	Wed,  3 Jun 2026 14:50:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ECEzVuk6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Jl8JVuMz";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012062.outbound.protection.outlook.com [40.107.209.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 664D810FEF2
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 14:20:22 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010019.outbound.protection.outlook.com [52.101.46.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA3F10FF87
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 14:50:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yl1k2L9vlGjs6LXmyuQuMmHvUSCHJlk9uql7MaAoKMMhNFGWCUZFPxJ/2f8k+TdJif2jqK1cxJnyUBNo7yG8c6VfNJJ+wwoBgSK3+eZp7H27Fu6p+AQE5oG2mhA0j4eJ92KmwSBD4hMooPsKMRTGbzUjGt/+GyJbk1PBGEo0cKcQYGq2/FvzdW04XnzKzciv/XUpELiVIGI8VZvnBSBHS5Pgka4caP9fIx/R8ixHkyVsbFUxHhDHyYkrcnjzAbMTJ6ncXAQYgkb8eKor3lauzagHjUFw/6JS1Ct9xkWSfJD7DS4I9bw9krX9PKkTW1vIed+QEycubj7mwD9Z5vVQvQ==
+ b=hkKetdPSQWAtGIHu5WMo1+GfpZt89QHI33SnBGr4snkIyhqnlm9RifFIIRYdChceadoxh1XGemS0/mvlFr6liK4j4sFFVTpI3O24CDAkLVYhUeDzBxXWTzcwqrANMv9fAckJrUXdu6xcBFp0ygCgnpZIwLJ+zo2yUoBgOx99DnenskIrnaoDkpwbHHxaH3mBqKIJjiTx4hY5fhDq8ie2J+5yzNylMJqYAm85Hb1JnvG/hRixaBYsK0hHDxkwAcO4I8yR5quDRRcIKi1wSHOYrMXcWf1M1A1Excv37Wb5KYqrfx3a5ibNTF4ZsJNkT9j0OM+r98hxwvpsfVMUIiBLBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OdJlW6u6o04oJaj+1Yy/fmNApAwMh8yRNvhsuvtcjIM=;
- b=OT8882CdSos2Hmy9tdm2u0oSr8eqhLhs/9RXdiWi1jMENKHTxMtVL43uen4FwtboWGyjH4XCBxN3DiHzC5Pa8uqAOw997rl9bXmkpTd7YRKYpuSQT7AcPEn7Mo0vN5bAEokkvufminu8Myl9WECe0qaENBbHmA3F4txS1LWduvWXmghpyjzCn5gbOuVMyYEpMfsLLI8tRXh7DeCXir+DDeE3idc/7ZkQVk32YYw4LTm0RaQtdz5O6L9ZAFANCS8rjwYWl8xEUOqe2MixvTGUk4thfDZDqPzVYTHF7AgP88kBej5VJygPK35sC1F6z0DHT/2ArFZ1TlU3WZY3YuDfCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=pCwvcAJe7PLqfN9o1q3XLClggqkDu5CSrDaY3VAZe1g=;
+ b=BlBRKpJBpgvbf6zupr7dCA7ktajeJ0yBYa6Mz6tT0lwqSJWRkkfG47ZHRJAIv2DyKsXCSr8bNWUt3/84S5Gj7QEuige/t5Mi4f/ymym/eTAjk92sAXLSwCGHUF89udfMusfKpPPg1nuBcQsselsYwjMgA4/YiBZGCo8eF7tjhgOkjXhx4k7Bi3bwjIU281Hac1Sb32w1VrjRM2y8XZ0sCdswASHNJGqn6RjY2cPrmQqVkclnMZYeWkgXxKv2OukXrcUbVyxpjuRmLm7pbdrtYgCmDV0ZOQgtPUvu24FtmQ30bOitNe7DgbhkEWBhl2/oLJQgT4NxRtygZ+nzg1EXmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OdJlW6u6o04oJaj+1Yy/fmNApAwMh8yRNvhsuvtcjIM=;
- b=ECEzVuk6ohuC4xPDXGh7gIy6b3H8GHIeeKZmDMPOWRj7B/MXXKhoSLlEO+9jiuBUVnVcgykoo/QfpARjWKTsjsCcy9YWLHQWmEasJverVKi8LK4xBOwVwssdFq2I0dQhUD0RO/PmHZCWTpwaqSFVwN1BKcAEiR9+v6NBt0vihJA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CH3PR12MB8076.namprd12.prod.outlook.com (2603:10b6:610:127::11)
+ bh=pCwvcAJe7PLqfN9o1q3XLClggqkDu5CSrDaY3VAZe1g=;
+ b=Jl8JVuMzbTzJB5d/TWpd90iD2NWaRYPnIyFa8H9ApB4aL1ayep50FZ8IhayMDSSGYN7PuzzwJI8tmfHtANzk5R1kqR2Z+PZrgC0Lcn3wTiWrGisWVJcdB4sHHf1CORbE6XkHCdFt+D6PUCJmMxV645wHpvToYrpbZkekyyNzq0Q=
+Received: from BL1P223CA0036.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::18)
+ by SA1PR12MB5671.namprd12.prod.outlook.com (2603:10b6:806:23b::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 14:20:18 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 14:20:18 +0000
-Message-ID: <5cc3f24a-5fad-49b7-8978-f6d11abca294@amd.com>
-Date: Wed, 3 Jun 2026 19:50:11 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
-To: "StDenis, Tom" <Tom.StDenis@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
- "Zhang, Morris" <Shiwu.Zhang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-References: <20260603114459.938031-1-asad.kamal@amd.com>
- <DS0PR12MB7993177B829CF9CCE0BA7DFEF7132@DS0PR12MB7993.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DS0PR12MB7993177B829CF9CCE0BA7DFEF7132@DS0PR12MB7993.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0151.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::11) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Wed, 3 Jun 2026
+ 14:50:07 +0000
+Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
+ (2603:10b6:208:5b6:cafe::a4) by BL1P223CA0036.outlook.office365.com
+ (2603:10b6:208:5b6::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
+ Jun 2026 14:50:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 14:50:06 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 09:50:02 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 3 Jun 2026 09:50:02 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Matthew Stewart
+ <Matthew.Stewart2@amd.com>, Harry Wentland <harry.wentland@amd.com>, Ray Wu
+ <ray.wu@amd.com>
+Subject: [PATCH] drm/amdgpu: Add missing license to new header files
+Date: Wed, 3 Jun 2026 10:49:49 -0400
+Message-ID: <20260603144949.3796019-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH3PR12MB8076:EE_
-X-MS-Office365-Filtering-Correlation-Id: d62922bc-cc51-436f-2688-08dec17b3cc9
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|SA1PR12MB5671:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c5e335e-ccef-4285-ea36-08dec17f66ec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|3023799007|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: k/v07gkzuhLdDbJNoSqrhLTu63hPGD5QXnAs2ALwVJ/psT4uonfINRXNmcZXpdiFfTWdNHaylF+WMhA1Dy8oXG2Ew3y07ApXy/x6Gh5JQURn3mA4cIDK7HcR9FbYTqmnn/VkE3SW3jKoXWQHgHWPUkZVTt5EFxoL9wFdBTtmJr2ZmLKfVgIT6sfJrgCerANNt0N7vVlNAj/q1gD0wjTUmcWHLIJoBU05GIuEulGoD8J//Anq6QhuQyG1XZujWFDxbmurW2ChoNSKaBU7qH0Eg9WmfDRYSkwT/b3Mo6KJC+xOGcISbGpFyJ3DKhOnGj7Dej/l2NfpGNEDdPfuLJtFHwLGJ/TvbZ3ogJycaiLontYLuOPmIpdOCeWfsrDbVQD2CNUQdFj+pFi5ayF1EK9b0E6BzSaQw9u3HeAgGyWLuNGAHdAYzxzRJ//wQX7vU4Bv9BP4da5jW0T3hi4ewO493BuhqkATVfCy6AalWyfSTBNwEbyEGmtBp2HOxgVLOfec5OA363i/3hoWbulOWi9BaqheGcqvmmggiZSWj8IJ6dGvwdQ3XOJRLJ9fSnNem9hG7vbBy9bhzaY/xLNpi0wJLGzpuQqCGV3pR8VgG+XzCXTmkOQjgH0uVInu8Bd+6g76NHdLCwZ2t0F9HNNPb3ANXhIcu5ugUVoATRwaLacWkvgJnCGAX2BQXHSn8vfhqBh+
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(3023799007)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);
+ ARA:13230040|82310400026|36860700016|1800799024|376014|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: ce1Yumc+/34kNAaRenUG/4X9dMVcKlMB0irsVTC71sbKdqVpnrXplQAKQblpY397DwCd68jy9amG+Lh68MT685FUAtNcbcjNQX3joxejbvPUX5VpcDhpH9esoNAPIVSBaeHTwY41QNvfv53jk+/HrCMjk+Df9sLDEp2qbX1YHyMuHBP9Lj2OxJEzlaoB4deqcISb6AWzMIuYdScIWPI4HZl3RS+9s4Hlwq/VVm86CpzDVQqTYCxPPn0hqhGMM8sK//Og3DDeQnrJqOXcFLnbbtmHPhKGhXW6FVdy1QthEghkqA7kpYvd/eR0HuQrMghlaNA/XVFUVOQSmiKtQ1Kyfbm2VKBPObNEGPjpSK1nWuLgn+OfVhj2wuZtxnqaIBzLufzLV4JeKQOkKWQqTQWzMyT6bmilbbo7D3+yHjfNaMxW6Iah3i2ibDzhyn+To1sTm0CLt1dHM+soxE/HL0irqsa5NmOd9prjC/GxvbUrgrb5DrJoHZdwWgpbVzLEAMabNuc4MW+iJ1jvAr0UUEzZ7esN985In+XYfOpWTPaeKvZxsG7IA1WiCfRsEpa0jSM7DrplvHOjANxQBBD5b9KDXUlhosAURNW0w7rzmuDwa91fNijV4e0h20P8d0rfHZHAJmjK4JgPqu6sgV4WChZRs+lbGJ9Ur4GLtWgRyjznmxd9NKIwym0PKtiOAspwWV3p/RQ9uSKKMyEfv620ftbFnGUnV99NovzaaDxCvcnU3yw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(11063799006)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzJ0TkhzV1NtUUoxNmpjYkorRUQyM2szRklDamVrOG5ablY4dG5YcWdrSXRq?=
- =?utf-8?B?QkJoUkU1Y2xBWjRNbzBJNDcvNmdmUmlWV3R4WU5FRS9XUVpuMmJqalkxcnFR?=
- =?utf-8?B?emFQSkJqVktWQ29yQTZiZFFHTWJNSnZDT29lWWtkeWVPd3NWd21FeWEzOHVX?=
- =?utf-8?B?MGlVOWpSZ210RDNOejNQUFhIZnF0cTY4cm1veDRPNW9uVThQR2YyOXI3TWJ0?=
- =?utf-8?B?N2VTMHhmVHJqRVhWYlFDdnZreEMxTWVqcVUyaWhJRGNnQXRQbVBqSHNCQ0U0?=
- =?utf-8?B?cEJRN21FbjR5dncyZEZ3M0VrWnVxMWdsWUh4YitwbEI2cG9vWmI5QXlmQ2Z6?=
- =?utf-8?B?QitWeUJaSGFnTWZsSUtJNFJHSEQvem1SOWN4RnBxaC9wcWkzaktSSDBRSUtV?=
- =?utf-8?B?aTJBNlhZOHZ6Qy8wYTByQ09nbHVHMUZOQThkWTRqajVxVXMrUTlOeEViZ0lu?=
- =?utf-8?B?a0gvY2I4ZVFXbGNxUmxJOWhYSUx5TmUvdWcrVE9CdkJ5cEtubWJINTRpUE14?=
- =?utf-8?B?R1RRT3krYUpsRTFOVHJ1dFNZQkVJMWtkUGVUL3RBUUxRQVJOUExUbGo4anNX?=
- =?utf-8?B?QzFuL0hWOU9TSDc3dmlzTjlPUjdFRy84bWwxUnFRNmgrdmlQR09WVWhBMDdK?=
- =?utf-8?B?cEtyYytBWGIxNUtRa2FwUnBVR3luZDIvRXNDTW9vTVorV1p0THBQQzQydEwx?=
- =?utf-8?B?c21xRTBRYUFqOFJlMkdJUnk0dmNwQjdhYVpaTW52THhtKzl5MzdFMmp3WWRs?=
- =?utf-8?B?SVlzcDJhbmE4THFnOVFYeEF6Wjg2MUhjVGlxbEtPUElodXlSWE9uMGM2UTRT?=
- =?utf-8?B?d0FUYncrR1VkbDBUWk1HTnp5Rm4xeW50THNtOXA2bGEvdnBRU1RncTZUWG9E?=
- =?utf-8?B?alZSeHNJcDI1cFhPeThhdzlqU0k5aVpQUy8vYW5LcXVVZVB5SDhvMmRkeWJ2?=
- =?utf-8?B?OGdBUXpseDMrV1d2VzdCWEMySHh2ekZYa0hOMXNCTVNNN3RTdjIrQzBYMUhJ?=
- =?utf-8?B?cHQ4TGszanpWYytCTjF5d2poblMvcnJ5dVEzZjV4eUN1clc2MGFlZzBxUmI0?=
- =?utf-8?B?QWpPejE3eDlvQkQxeFpSMkg3TzNLVWsra3Nla0RJK2g4Z3NtTDhtaFRNSkdP?=
- =?utf-8?B?OW5GZTNTVERkdUdIalpoWm94WHEya3U0MzFqNlkwL04vL1VuU1o2RVRxT01o?=
- =?utf-8?B?cmZ1ZlBZL2hkTW10bFREaklFVjNJc0NPN2NQY3V5aUhJNXl1UlN0QmJKendL?=
- =?utf-8?B?cWExRGZnN0ZxTml4OWZpZHNSQ0dwcG9UOU1mUlZCdlM1bVhiaXdnL09GcE1M?=
- =?utf-8?B?OVhwUUc0WG5sVm4zaDJuajZmcHFkQVVORFJXUkVPa3d6eXNHcUxHWHRES0Fu?=
- =?utf-8?B?SjM3ZDJ2M2F0TnljNmVnYVFWa2tNZ0E1clpUM01IbHJ3dTFkdFFwRmQ5Uk9H?=
- =?utf-8?B?SEZFTk5kaExXdFJMTXRmRm5GMEZSdHVmMWZrNXU4SG1IL2htZlBId09NMENs?=
- =?utf-8?B?cnhvUU56ZTl0SCtFd3FnaDk4K1ZTUkN1bzQyY25kUThvN3I3OFhjeVVHWmR1?=
- =?utf-8?B?NU5XeTBZakFDc0tTQ2dGUTd5eEFKemE2YUpyL2JJaTZKRDRsVjZ5OTZTL0VY?=
- =?utf-8?B?cnloN1NKWGdoN2U1dXo2MzQxSEI3ZmZJUW5LK0Q1SUxHQ3ptdWpUazl5dUpn?=
- =?utf-8?B?VElJKzhDZHMyMlhId21JSzZabnl5ZXRPRzNPeHZQVGkwU3AxdlpKSndRODV6?=
- =?utf-8?B?dWFIa1pPVkJMNmJiOHlNU0VXRWNzMnN5TGxDaElXWG01NnJCWXFyS21tSEhr?=
- =?utf-8?B?eWZYWFE0SzJzdGdOMDhRcHA0TEtaN0x1ODRVNC9xQkVWK3FMNnFoRENjM1VK?=
- =?utf-8?B?Y2YvYUttWFlVVlNQQkxGSm91VjlJYThPb0VERGlHSnVyYzA4eTg0T1FvVHVH?=
- =?utf-8?B?MjFocElzZXZQVCtJMGZOVEpyNGpySWhKa2h3SEJXdjA1OEJhcWVuK1dEY0J2?=
- =?utf-8?B?ZGtYbE5GK1BPQkdFVUljVng1MHBzUFV5NHpwZCtyT2xJb1RBMXVvY29mSXNM?=
- =?utf-8?B?LzVGczVwYlBsRmVUUXd6YnpFdXo0K0pTVmllY0ZLN2FhUTh6RFd1S2pzQjF1?=
- =?utf-8?B?RG1jK0VqU29ZZndwb1V3V29GT1hLWHladFpsMzNPcXozNFp2aFRwT2lPejlR?=
- =?utf-8?B?aXYyNDhXZVU5enlkT09JWFcwakg4amYySlk5Z2g1Zi9MR2cvVWkzaHEzaXI2?=
- =?utf-8?B?ajJqd2krclYwdEk0Zms2dkVEVU4wVDc3NVozVVUvbzcyQXFCWEprOVZnNG9R?=
- =?utf-8?B?UEQydzEzRjdiUFZvVFMvb0tCd2FpY2NBc1N0L1JuTjJ4dG1EMDFOdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: MFxLF4M72MGNkJwGqo8rDKiX1mc2EiyJUGr7G7SNEaQoutczPuk0eS7Nfq6rFpwJDUrTvjiTkgu3EUknsZ5tTeSj7b4RY5MNkihNPWQ39MMpe3mmyMbb7PVvlCIis5Q+qst2xJ9esvP5Ag771xG3jxNpPdkMkqNDCTXbD8qzBq2HJ7qYBqlxiU0IiYaaeGqkrj9wKgUeLbqsiG0Zr26YCDrKf+DLvGQV9m4huc+LBEkbmRPnVWIU2WaDZ1vTpqqYHf3tor6ka4erXljnAO+HajLvs4AaTWtlaAuJuhUe7bHqL6mq7pu+OuB7ZvX5fnTUBN9LDsqOjPPTcFo9m1mPhfsmkQxHDvyW4fjQ3ySsCudlUNN+7L1YnkHAWqkXYPPABUbNMNKMAdnUu5ekgKFMc5h5i5pOVurnEhnuE2NNCfUcIlGDb5HDnta14Edwwhf2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d62922bc-cc51-436f-2688-08dec17b3cc9
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:20:18.0360 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:50:06.4557 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c5e335e-ccef-4285-ea36-08dec17f66ec
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l8ivw/MtOCBquNwFa8UEKdinWfVLpr+awbmBG1jzlNnForRfWLEDeV9W7F9lzVv+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8076
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5671
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,85 +109,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Missing MIT license.
 
-Thanks, Tom.
+Fixes: c942ccaadec8 ("drm/amd: Add register header files for DCN42B")
+Cc: Matthew Stewart <Matthew.Stewart2@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Ray Wu <ray.wu@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_offset.h   | 1 +
+ drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_mask.h  | 1 +
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offset.h    | 1 +
+ drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_mask.h   | 1 +
+ drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_offset.h  | 1 +
+ drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh_mask.h | 1 +
+ 6 files changed, 6 insertions(+)
 
-
-The patch looks good to me -
-
-	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Hi Alex/Hawking,
-
-Any concerns on shutting down the interfaces in lockdown mode?
-
-Thanks,
-Lijo
-
-
-On 03-Jun-26 5:59 PM, StDenis, Tom wrote:
-> HI Asad,
-> 
-> This should be fine for umr.  UMR detects when the lockdown mode isn't "none" and warns the user that the tool might not work.
-> 
-> So the net effect of this patch is the debugfs files are just not created at all?  That'll likely cause umr discovery to fail (after it prints he warning) which is still fine.
-> 
-> Tom
-> 
-> 
-> ________________________________________
-> From: Kamal, Asad <Asad.Kamal@amd.com>
-> Sent: Wednesday, June 3, 2026 07:44
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Lazar, Lijo; Zhang, Hawking; Ma, Le; Zhang, Morris; Deucher, Alexander; Wang, Yang(Kevin); Kamal, Asad; StDenis, Tom
-> Subject: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
-> 
-> amdgpu_regs, amdgpu_regs2, and related debugfs nodes allow
-> arbitrary MMIO read/write via RREG32/WREG32 without checking
-> security_locked_down(). On kernel_lockdown=integrity systems
-> this bypasses the same restrictions as /dev/mem and PCI config
-> space sysfs.
-> 
-> Check LOCKDOWN_PCI_ACCESS (matching pci-sysfs) at the entry of every
-> debugfs handler that performs direct register access.
-> 
-> v2: Use consistent check as per previous check to use
-> LOCKDOWN_DEBUGFS(Lijo)
-> 
-> v3: Do not create any entry from amdgpu_debugfs_regs_init() if
-> LOCKDOWN_PCI_ACCESS is active and log once. (Lijo)
-> 
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 0ce6e2e4342c..5c4d4ff001ea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -26,6 +26,7 @@
->   #include <linux/kthread.h>
->   #include <linux/pci.h>
->   #include <linux/uaccess.h>
-> +#include <linux/security.h>
->   #include <linux/pm_runtime.h>
-> 
->   #include "amdgpu.h"
-> @@ -1739,6 +1740,12 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
->          struct dentry *ent, *root = minor->debugfs_root;
->          unsigned int i;
-> 
-> +       if (security_locked_down(LOCKDOWN_PCI_ACCESS)) {
-> +               drm_info(adev_to_drm(adev),
-> +                        "amdgpu: HW debugfs nodes disabled (kernel lockdown)\n");
-> +               return 0;
-> +       }
-> +
->          for (i = 0; i < ARRAY_SIZE(debugfs_regs); i++) {
->                  ent = debugfs_create_file(debugfs_regs_names[i],
->                                            S_IFREG | 0400, root,
-> --
-> 2.46.0
-> 
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_offset.h b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_offset.h
+index 328c296e425a1..064a4090ecbd7 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_offset.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ // Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ #ifndef _clk_15_0_5_OFFSET_HEADER
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_mask.h
+index 1b98cfcf33649..6fc290c16a0f1 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_5_sh_mask.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ // Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ #ifndef _clk_15_0_5_SH_MASK_HEADER
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offset.h
+index 3751054e25f2e..7edc672240d67 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_offset.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ // Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ #ifndef _dcn_4_2_1_OFFSET_HEADER
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_mask.h
+index 71c74962147e6..0d6e618c1cc1b 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_4_2_1_sh_mask.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ // Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ #ifndef _dcn_4_2_1_SH_MASK_HEADER
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_offset.h
+index b004c80774bd5..4f993a73c417b 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_offset.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ // Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ #ifndef _dpcs_4_0_1_OFFSET_HEADER
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh_mask.h
+index 06e650b3dcc1d..8cb810a242484 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dpcs/dpcs_4_0_1_sh_mask.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: MIT
+ // Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ #ifndef _dpcs_4_0_1_SH_MASK_HEADER
+-- 
+2.54.0
 
