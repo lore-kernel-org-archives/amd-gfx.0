@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1828CD6E71
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 07:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03BD3CD6E73
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 07:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0550611271C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 168F5113CF8;
 	Thu,  4 Jun 2026 07:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="WkTY6+DV";
+	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="MX0VVWAq";
 	dkim-atps=neutral
 Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35780112083
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 15:40:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A9B11208A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 15:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1780501209;
- bh=Ri1tO8GMn6WbyO3R2aVVNaEbwovcSe6KpbCI36dIv1k=;
+ s=default; t=1780501226;
+ bh=8ZVMgWzTv1EuKhyLQdS7LYffrWhyz9g/6oHzSX4cx/c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WkTY6+DVqsP4ICURshJLjejq3XAX05Zazy4U7dO4nSqytaG26IHAeEAjRAmRDx386
- u78luyXdOZOBP1yD9AVx6IQW+ylViOHsYu7HReL/V704BIlmzldhvv6+sjWgbt0Iqd
- xr1SGcQfKn/e83NlPLudQnJxnVmW0b0Kj0iNSihY=
+ b=MX0VVWAqisuJkqVdWEOIUN11t6B22cUxoe3LOYcC0/HJceeR60zYBKj2NH5/UaO16
+ rwJcBOQyCqBdxUjbPleprVLkYBvkKUlPetsXOt/X2WDzTOA6h5F6b+FpAq+18J4G25
+ UPkr2f+KaTbbmP6Oss4yQH7VneOp5uNTuqY+USVw=
 Received: from stargazer (unknown
  [IPv6:2408:824e:307:6541:546a:40ae:5851:c0ef])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
  (Client did not present a certificate)
  (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id 5DABD65B57;
- Wed,  3 Jun 2026 11:40:04 -0400 (EDT)
+ by xry111.site (Postfix) with ESMTPSA id ECB9265BEA;
+ Wed,  3 Jun 2026 11:40:22 -0400 (EDT)
 From: Xi Ruoyao <xry111@xry111.site>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Alex Hung <alex.hung@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Alex Hung <alex.hung@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH v7.0.y v2 1/8] drm/amd/display: Add min clock init for DML21
- mode programming
-Date: Wed,  3 Jun 2026 23:39:13 +0800
-Message-ID: <20260603153920.249671-2-xry111@xry111.site>
+Subject: [PATCH v7.0.y v2 5/8] drm/amd/display: Move FPU Guards From DML To DC
+ - Part 3
+Date: Wed,  3 Jun 2026 23:39:17 +0800
+Message-ID: <20260603153920.249671-6-xry111@xry111.site>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260603153920.249671-1-xry111@xry111.site>
 References: <20260603153920.249671-1-xry111@xry111.site>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 04 Jun 2026 07:03:55 +0000
+X-Mailman-Approved-At: Thu, 04 Jun 2026 07:03:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +60,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Rafal Ostrowski <rafal.ostrowski@amd.com>
 
-[ Upstream commit 23dee18f6503d67b195f1513e404c78653ed0d40 ]
+[ Upstream commit 32c1c35b6d8bd8b7ea9ab3d1454b56b605f17dd1 ]
 
-[WHY & HOW]
-0 stream cases do not go through any DML validation which leaves DCN
-clocks in unoptimized states.
+[Why]
+FPU guards (DC_FP_START/DC_FP_END) are required to wrap around code that
+can manipulates floats. To do this properly, the FPU guards must be used
+in a file that is not compiled as a FPU unit. If the guards are used in
+a file that is a FPU unit, other sections in the file that aren't guarded
+may be end up being compiled to use FPU operations.
 
-If requesting DML validation or programming with 0 streams, program
-DCN clocks to lowest DPM state.
+[How]
+Added DC_FP_START and DC_FP_END to DC functions that call DML functions
+using FPU.
 
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Xi Ruoyao <xry111@xry111.site>
 ---
- .../dml2_0/dml21/dml21_translation_helper.c   | 25 +++++++++++++++++++
- .../dml2_0/dml21/dml21_translation_helper.h   |  1 +
- .../display/dc/dml2_0/dml21/dml21_wrapper.c   |  1 +
- 3 files changed, 27 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml2_0/Makefile              | 1 +
+ drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c | 1 +
+ .../gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c | 4 +---
+ .../gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c        | 6 +++++-
+ 5 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
-index bf5e7f4e0416..5bf3008a71c9 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
-@@ -927,3 +927,28 @@ void dml21_set_dc_p_state_type(
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+index a094cfa78260..145ff97ed560 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+@@ -85,6 +85,7 @@ AMD_DAL_DML2 = $(addprefix $(AMDDALPATH)/dc/dml2_0/,$(DML2))
  
-+void dml21_init_min_clocks_for_dc_state(struct dml2_context *in_ctx, struct dc_state *context)
-+{
-+	unsigned int lowest_dpm_state_index = 0;
-+	struct dc_clocks *min_clocks = &context->bw_ctx.bw.dcn.clk;
+ AMD_DISPLAY_FILES += $(AMD_DAL_DML2)
+ 
 +
-+	min_clocks->dispclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dispclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->dppclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dppclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->dcfclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.dcfclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->dramclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.uclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->fclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.fclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->idle_dramclk_khz = 0;
-+	min_clocks->idle_fclk_khz = 0;
-+	min_clocks->dcfclk_deep_sleep_khz = 0;
-+	min_clocks->fclk_p_state_change_support = true;
-+	min_clocks->p_state_change_support = true;
-+	min_clocks->dtbclk_en = false;
-+	min_clocks->ref_dtbclk_khz = 0;
-+	min_clocks->socclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.socclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->subvp_prefetch_dramclk_khz = 0;
-+	min_clocks->subvp_prefetch_fclk_khz = 0;
-+	min_clocks->phyclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.phyclk.clk_values_khz[lowest_dpm_state_index];
-+	min_clocks->stutter_efficiency.base_efficiency = 1;
-+	min_clocks->stutter_efficiency.low_power_efficiency = 1;
-+}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.h
-index 9880d3e0398e..f51d3d8a52c3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.h
-@@ -25,4 +25,5 @@ void dml21_map_hw_resources(struct dml2_context *dml_ctx);
- void dml21_get_pipe_mcache_config(struct dc_state *context, struct pipe_ctx *pipe_ctx, struct dml2_per_plane_programming *pln_prog, struct dml2_pipe_configuration_descriptor *mcache_pipe_config);
- void dml21_set_dc_p_state_type(struct pipe_ctx *pipe_ctx, struct dml2_per_stream_programming *stream_programming, bool sub_vp_enabled);
- unsigned int map_plane_to_dml21_display_cfg(const struct dml2_context *dml_ctx, unsigned int stream_id, const struct dc_plane_state *plane, const struct dc_state *context);
-+void dml21_init_min_clocks_for_dc_state(struct dml2_context *in_ctx, struct dc_state *context);
- #endif
+ DML21 := src/dml2_top/dml2_top_interfaces.o
+ DML21 += src/dml2_top/dml2_top_soc15.o
+ DML21 += src/dml2_core/dml2_core_dcn4.o
 diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
-index 798abb2b2e67..96c62bd6a37b 100644
+index 1a98578f223c..7398f8b69adb 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c
-@@ -215,6 +215,7 @@ static bool dml21_mode_check_and_programming(const struct dc *in_dc, struct dc_s
- 		return true;
+@@ -38,6 +38,7 @@ static bool dml21_allocate_memory(struct dml2_context **dml_ctx)
+ 	(*dml_ctx)->v21.mode_programming.display_config = (*dml_ctx)->v21.mode_support.display_config;
  
- 	if (context->stream_count == 0) {
-+		dml21_init_min_clocks_for_dc_state(dml_ctx, context);
- 		dml21_build_fams2_programming(in_dc, context, dml_ctx);
- 		return true;
+ 	DC_RUN_WITH_PREEMPTION_ENABLED((*dml_ctx)->v21.mode_programming.programming = vzalloc(sizeof(struct dml2_display_cfg_programming)));
++
+ 	if (!((*dml_ctx)->v21.mode_programming.programming))
+ 		return false;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c
+index d5885bbd14c4..f3abfdbe6805 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: MIT
+ //
+-// Copyright 2024 Advanced Micro Devices, Inc.
++// Copyright 2026 Advanced Micro Devices, Inc.
+ 
+ #include "dml2_internal_types.h"
+ #include "dml_top.h"
+@@ -377,5 +377,3 @@ void dml21_prepare_mcache_programming(struct dc *in_dc, struct dc_state *context
+ 		}
  	}
+ }
+-
+-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h
+index 2972c6eed21a..e5d9a456645f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper_fpu.h
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: MIT
+ //
+-// Copyright 2024 Advanced Micro Devices, Inc.
++// Copyright 2026 Advanced Micro Devices, Inc.
+ 
+ #ifndef _DML21_WRAPPER_FPU_H_
+ #define _DML21_WRAPPER_FPU_H_
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
+index 9215e38343ba..f4d45875d0be 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c
+@@ -13,6 +13,10 @@
+ 
+ #include "dc_fpu.h"
+ 
++#if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
++#define DC_RUN_WITH_PREEMPTION_ENABLED(code) code
++#endif // !DC_RUN_WITH_PREEMPTION_ENABLED
++
+ struct dml2_context *dml2_allocate_memory(void)
+ {
+ 	struct dml2_context *dml2;
+@@ -20,7 +24,6 @@ struct dml2_context *dml2_allocate_memory(void)
+ 	DC_RUN_WITH_PREEMPTION_ENABLED(dml2 = vzalloc(sizeof(struct dml2_context)));
+ 	return dml2;
+ }
+-
+ bool dml2_validate(const struct dc *in_dc, struct dc_state *context, struct dml2_context *dml2,
+ 	enum dc_validate_mode validate_mode)
+ {
+@@ -84,6 +87,7 @@ static void dml2_init(const struct dc *in_dc, const struct dml2_configuration_op
+ 	initialize_dml2_soc_bbox(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc);
+ 
+ 	initialize_dml2_soc_states(*dml2, in_dc, &(*dml2)->v20.dml_core_ctx.soc, &(*dml2)->v20.dml_core_ctx.states);
++
+ }
+ 
+ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options *config, struct dml2_context **dml2)
 -- 
 2.54.0
 
