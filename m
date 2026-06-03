@@ -4,122 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B91CD6E55
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 04:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDBEFCD6E4A
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 05:03:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F037E10F820;
-	Wed,  3 Jun 2026 04:59:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52C5E10F829;
+	Wed,  3 Jun 2026 05:03:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Oe6JWE6s";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qw6/UeUE";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012050.outbound.protection.outlook.com [40.107.209.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C291C10F820
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 04:59:05 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012025.outbound.protection.outlook.com [52.101.43.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F3F10F826
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 05:03:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T41pLwe1E+x6kai4U5p8vGdOsYqQdGfD9kJxOeVzbAJGsO31f+/RYluUa6lxzHF7gG1ji95w8qo+Wr06V2dIH+J3XpH4MmfZ1vjUou5xwrh4b914oVWxdNijKpZ9BTo2iSOoCOH0+enxVlL9CPZ26u+a8wQMCZbEHsNfIYvdQ2fIWfW7c1I2YvpXpSV/hmovnSde4Z9GWz25cUMhXl+v2mNg8qLMJvkk8nL3n8Wz6jk9gPTZbrqTlpin/LU24BvsZtXYGZAvAkS0+IGLYt6ScFRNk/pQJH0hOvBk6673+TURRaG8Tx8iLJYgQuUVy3GPM+pop9y70X6DALDUp/DzLg==
+ b=sLRQpjSjQt4UQzDYWXSHGrfGjN1B9y65HZZz4kjyL7xfCItftAekU7DczcGxleU2i68ZBBFZdRIMKZgkOHPRAPqyv8Io0gzczlNtUppkgEYPI1cgqFpEKtW0FhtDQ3488qusDWCeF+v0wcaMKWoaIGx1C4Q4CvEQ5YAg2LT+fehFOkahoMv00GQA6nK5uB2ncCLmkbg3wfuXZaKxtiC0hH/naDyyG9YQK1jn4E5YW6PfpVXdxrTswN0vDfvT/A30E8V9Z/tdgaGubF5ZCR5y86ZRMC+jpeUcw9wQ0cg5NBn1iUJafJmnlcMJAmuE75BT/+RmLozjv2VR5flGtU0lWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X7YwUkz6B+wSI1N5DMKLo0aUsR52PNdkmX86/cxCFlY=;
- b=EwOd9uWi7ur1roZ+5rTKWjcTG5co9a2MCG82D6TG6453zTFWP6LCtmGFL3jqC/Gtpvgu5JzS74tkQ5pj0r96n/wrJXmMYr7u2fg/F3Wxt9Hqw+1cC2J21mS42eOF6YRGbQvuH85h0ly5f7oZjaWhvLsvFjn4O2m3REEMhCP93iiAxoNr9Kq5fC7jUNYCy/04JMwh6KHGOXcJOzFhNg8FFZ1aWteoU73+d02mCRlsRviGJjYx4Y+XVEmH9D2l++u/sD2IB4SKqlviB8HQvaFdglGOXVtxLfToTUYL0KwY7DCPSXioRXqAHlxpry3S7jOjz2Yap0/Jconicc8g+bYEig==
+ bh=2POFPdNa/z+091eEaGsmZ6MgPe6XoVqL19+jjhtbgJw=;
+ b=GDUNFo4XeUYl/n+hY1Y6WWHGVRjOq9j5Y/pENNSugX17yFixRlXfV0Iyed06Hj+tP+KWRDrMQ812HWKQvTusXL8n/Mgqx10/6UcJSrpkLTOjkoXo/7Gtcsy4/iUI6b+wywdhNMdLDCuEo2PDiZPxASdr/yYRB7hM31hiCtCh32mE15OMl5v2bxz3KfS3UXn+JmQ3XN8BcY6IxNK+GWQZnhVd+NcgbcJ0/lRt9Ce10t5NeJPvlqWM2naq85lvi9sVo0jonji4Z4pKipxd4xYbDPdw0mqSkYFmCedQpUX17ej80BRBpaqmtFwtkMGTZOB6pspjORuzdbIxelUKIGRDWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X7YwUkz6B+wSI1N5DMKLo0aUsR52PNdkmX86/cxCFlY=;
- b=Oe6JWE6sRzH77NHhVe847C+4rPFV08xCW/G2BUVsmUk3S/jpaolj/xJ91vzPC9iDu0kbZYmyQk2IOFukLXC0WavxSoHWQL4j3h7nS4uk/igjXWvLlaeV4zFz1oBJLmpZqTvEVl3Bvt/ni8j+Qk5AXZIL8qvInjdrUMTzcnJffww=
+ bh=2POFPdNa/z+091eEaGsmZ6MgPe6XoVqL19+jjhtbgJw=;
+ b=qw6/UeUEXP1319jYQDPehFi0FBWS7SOGtj3E4Z34wNYy9QemJQu+FTEOJ8LNDTU9pOqhHG464iVHS6L3eTWEerPk8UaC8AHthD5trrfg5ZyFECtilDo9k9B/1Br40QXclUOmYsNC2ZGRE2ybod3ISD7B7zczHkYPkClNosO88Ww=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by MW6PR12MB8662.namprd12.prod.outlook.com (2603:10b6:303:243::6)
+ by CH2PR12MB4038.namprd12.prod.outlook.com (2603:10b6:610:7b::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 04:59:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.18; Wed, 3 Jun 2026
+ 05:03:00 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 04:59:02 +0000
-Message-ID: <eea096cd-f0c9-4c2d-90fc-ad6feccd15c1@amd.com>
-Date: Wed, 3 Jun 2026 10:28:55 +0530
+ 05:02:59 +0000
+Message-ID: <bbe9f7de-c1d2-47b0-9367-bbaece174f56@amd.com>
+Date: Wed, 3 Jun 2026 10:32:53 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
+Subject: Re: [PATCH v2] drm/amd/pm: Validate OD DPM triples before mutating
+ tables
 To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
  alexander.deucher@amd.com, kevinyang.wang@amd.com
-References: <20260602181825.730068-1-asad.kamal@amd.com>
+References: <20260602180924.726003-1-asad.kamal@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260602181825.730068-1-asad.kamal@amd.com>
+In-Reply-To: <20260602180924.726003-1-asad.kamal@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0105.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b5::7) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA5P287CA0109.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b5::14) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MW6PR12MB8662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a9c8329-cd87-4101-b6cc-08dec12cd491
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH2PR12MB4038:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae5079a1-56ea-4ee3-6bb5-08dec12d61cc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|22082099003|18002099003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: eIit9eShANy3AC77eUyBjPC/5ZufCvzsyJJLr8cyaAUA6yEFgwlT/LqWA0hbYs+Tqecrb5SP51T4s3KYr8JK5XG4TMlQhnF9G6xtODyD0RXnCG0aUTVfsXyIrKcRi9VOczDqQVW282g0Amt5l8gfnbO8SQ53vptlC0u1mvxO6/QvxkMiCgqjXp94o7GKbFvlYEgPVI6RRfEp8eWf/AhUWau8yNLhbP/qjaA+lZnVNGzU9SJIKQrxF6B5gPnAggcduTi46vjetNU2JkF7Bf5boFbbyZvJG3W53/RWmm4raQ00/xmyeNrHkXNNkPel+vQC+1o8VGY9VgwMu0HhZ9FpHsWt2v9gVi64UumuWMlMc6pUFh9TCXt9HGwx1z92RPEBJ/E9saxJcVghi15wUgq19LzkxS2jxu537ndARUb+KAb+inLOPegmDeit38rnfgF4+LAZHjezakH7+PVod7v6p6FedF0yxGrfMRA8SIZQBKM1jRxLJERmU0hysQ3WAIKDP741vntB3IoFt3yFTCRoX2XzZw5a6Y9EDFRrAXb/F2K4ZSAAyREkiwOe/BIUBSk18UDfgW20ZEj+SSQCKHIxKf9dGAYy/7IUUcj+/WT7wfQPY9A2/SDeWjxuGvCou8uZK1A66bVVgID7hzgg9jGzbw==
+ ARA:13230040|376014|366016|1800799024|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: h+877c6gGGmUDEvl3oV3OaZ7xJodS3OzWlaPCqFcs8kc6RHjOM/Uf1lCzoZ9+gvVCfKEQBPIFA8z9f7KxI7lsW0ElfT6E1xCfZA/ppdVIT3E7qSSufYIIM6HQ9lDuEsEVt9gq019XpSPGiBUzrDNKtJrms9F5lP+R8ggHdd9t/I3RE39JhQsjnMTARCmIq0mwN1h7wYwMmsERbAWH+ZqPtPkok8P434HlYFyYnHiGvtgu5+4eYt5BZRXEmWnNpWPoo+B2fsph0x/0lL86BRIvxR1E2jO3MOEnq3eSR7rmsUF3uBedDgjeKsV32QcO3fThdXGJYe9W05J2YFFkVYOIgHP+j6qT0IcQirsdIKlaj+bdNWAdDqr+cOXZ6H5t69sqah/LCRKnW9N23km+Ikj0jWnJV9o5IDBkS9TxlJtYNOqbV+PjUo3rL3S20yJTm06lyy58YegnD0UIWqU64mVqZItP6Is1doYSjKirtwONnCmNDuVNssugQZfcafAPtkXQnm+dk6JwjsDZabB1Vet7VYl68/R7bjyutZhdNbYulpB4W7HMett+Ik5cbmwu96W55lMQJYnO8sPiXtdksedFaTSWBvtgDP7ileweaIRWZi1n6oDnFa2TwbC8/n3BacpsNiuwhWr0bAjNI46WTVJSqKa7nDuH4R4/L3orIKnoYbYUZcbi4ed0RRi//5/evnR
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007);
+ SFS:(13230040)(376014)(366016)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1hNT2JJR0JtajlEeTBaaFc1cVFRdm4vcFY0NzZURU00R3RhYW9ZbVRaTy9z?=
- =?utf-8?B?QzJkaGI5cVV1YWl1T1dQWjJBTEJKdk1yYmlLNE5ZVHV4eklhUG1Fc25SU0NW?=
- =?utf-8?B?WCtKOUVCdTZjRHQ1Y3g5Q3IrYU9jeHRCU21oK3JPZmgxd0pqcWxkaEJFbjFp?=
- =?utf-8?B?TlJablBjRWlFRm84RXlSbnZUeGkyZGNLNkJnZUsrd20veXdIRFAzYTBpc1hZ?=
- =?utf-8?B?Q1Z0bElaODNvN3FCNXBaTU1JNkczMkdOTWdHaEREWTNQd1hSN09idHNYeWlH?=
- =?utf-8?B?SmdTUU5GZnBPQ1F0a0d5Mks2d1JDSXZxMHNNZDNpWFdyVzBFamVtSWw1Qlhs?=
- =?utf-8?B?RFFNVTdYYm5WWmViV0tmYmhyb2R5WlRINWFOcmxNTWsrWUt2REtHeXJoZm12?=
- =?utf-8?B?d0NMc1VlRms2cnJIaVVhSytuZHAvV3JOcWZ5VjJlNGV6RUREMXZmcCtvamRk?=
- =?utf-8?B?a3NnV0JCUkxwb2ZVN1F0elN5emhGa1pqZmFCWXhNeVpoS2RMZDZCWjJWWjAw?=
- =?utf-8?B?bi92RDJKS293SnNqeURmWldaMmw0ZXNVcExQU2tUT0VwbnlzaUplQjZHU2lx?=
- =?utf-8?B?ekZKdXQ3cG1meGRUQ05CZGd2QUhYc2xBWU1MU2RNV1lHYVBBbTliVGRuS2JN?=
- =?utf-8?B?c0JxNVNxbXpyNFcxTTduWXlRbEVzMjBRMy91cHhzNVZCNzBhMlFaRzhWRnIx?=
- =?utf-8?B?c0orcHQ3R3RaMlJrbGR6dWErdXdFZG96L0tacnRSVGV4a2JHZDBmbG91azMz?=
- =?utf-8?B?ZDNDbXo0aUZPY2ViZlFvVUt2cHlFNXZCNWw0M0E1ejBFZTZlVG01Y3dtdURE?=
- =?utf-8?B?bkVzU2Q1NUxMcU83UXJKbUFJTWszYzFZMkZRQ2lENDB5ckRhcENBQ1BKdFov?=
- =?utf-8?B?SU5MbDVIV2M1c2ZLdTRqc3B5NXZKRnRwSEhpdGVWY0Fpak1qU1YvMzRtK1kv?=
- =?utf-8?B?N05hSFFQVjJTWEpTd0F0VVR5aWpJWE5DSUp5dUprK3c1bzYvdytBZnpFTHgv?=
- =?utf-8?B?VW9QcGczSzBTRVNyRUpLa2t4cFIrSEU0dVowUnZGVis5RGpSWmtLOUpobHhh?=
- =?utf-8?B?QUpNL3ZCeDZjejhzc2RQWWZ2ckowQWl0d2NqYW1NcXlXaXJQRXlFVms5YmRD?=
- =?utf-8?B?Skc0WTAwMDVnNzh0WFlCVXpxTTUrWUZkVTBzS1VkdCtHdkJZbEtjdERIQTNs?=
- =?utf-8?B?UHZRcDhveUN6R0NtUWVEWTcvT3FFUzFwZTc2QWgySHRNRXczQ2VMeHhSR29p?=
- =?utf-8?B?NmRWL0p3Q01HNTFQV0laM2J0L3BIMmdKYmI2WTZQUnVVNTUxOTBzS1MvblZS?=
- =?utf-8?B?YnVGd3orVnVrN0ZFZzdQWG1nS3RIczJER3hFc0FQNjFLR2lMdU02d2hrZ1U0?=
- =?utf-8?B?UXRIRjVDNG96RUhoeDc1OWl3clE1RVN5cjVIVlhYaFhIdDBIVU9TZ3l1bWlS?=
- =?utf-8?B?LzkyRXdIVzByV1o0TXh2YmRZdzdCV0FWY0pIbGloak5xYUc1M0dNbHg4L3I4?=
- =?utf-8?B?dEtVYXFFOUtzUmM1NThmTHN6MEQvQmVyMWRvS0drQTVUUGNHT0t5RDE0WFlu?=
- =?utf-8?B?cTZMdXlwdGpPcXFVQ29tT3grMEk0Yko1QW1lYzNodjFVQ1c4YTRjVGF3V1N1?=
- =?utf-8?B?RU42aE9GYTBVMFdqd3ZlU2IwdzlZZ3ptL2d2R2V3RnY3VXNoY3dzRW9XMEZP?=
- =?utf-8?B?UlRPbHZwV0dreitTa29XNGtTaURFLzFWOEZpVVd6enYyeDZNVGZrVTkzTDU0?=
- =?utf-8?B?d1EzUFBUclFMd2R0TStNZXVJQUlIcDM0aE9NbUg2YlJnY01PUGVGWmc5M0hw?=
- =?utf-8?B?MGhOZGwzZTRleEhoY1RKY2JzdlhRUjVOVUkwWE1od1QvS1ZhbVBYVnlaWkd6?=
- =?utf-8?B?a3RJTllteEZFcDBiektNeWVVNmVUQk90a21JcDY5NkFBWkEyZDJSeDZMR3BL?=
- =?utf-8?B?Uks5WDlLQ0FyOFkyR1REdjZBSzJoZmd5ejJXckNmaE5ZdVZHb2ZMN3Y0em11?=
- =?utf-8?B?Q1VyaFcvWFFoRWJoOVVwUEc4aTFuUDZxelZXNlNuQ0dWYXB2UU93Nnd0b3ZG?=
- =?utf-8?B?WU9lY3ZiSGpNcENPU3BzY2JNMDAwMlFvZy9WQ1FLbXRINnZvWjdQMzR2VS9M?=
- =?utf-8?B?UWppNXhadHg1bG5pejRHOXJTYmZ6d1BoUmNEdUNLZThEdmVGQUZxVThnY3dX?=
- =?utf-8?B?OThnOEJmNnloQmFQY0tBNGJWOUZ5SWRlWmdEZkRnNEpDUHE2NEh2M2tFcVlI?=
- =?utf-8?B?K1hqSTNQOEdydXJ6UUhrU3FacUhqZTJITXRjclNuSDFJYXJWMW1SUHNPaWRF?=
- =?utf-8?B?dmpEUTNUbDRtVE1ldVlrUlJGbk9uZzZWaHQwR3lzYkoyODV1R2l3QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDZEbTJUMEh4SWYvN2g4blVkOCtIU0x6MTcrVjRmUUF0L2xNMlZkOUlWc1R2?=
+ =?utf-8?B?RzhQNHBVTzZoZVNVUUFYUGlmaG91Q3NYdmNmeC9rRnJvMDVnQkhhd1FPK1p6?=
+ =?utf-8?B?U25naUJWV3ZYaGRYTUJBVXc0TkVURnFEQUJEMjErMXJyekJmRUlXZm96WEdW?=
+ =?utf-8?B?bWJmVExYd2NmT1BtaDYyNXBNK1h6b3V4b1lZdnExSXNHMUIzbFZ0WWswRzFB?=
+ =?utf-8?B?Y2NMZGRLMmRCUHN3T21wVUJhM3RsSUNaMEZHWkFJOGlOZENUZFp1WExrSTd5?=
+ =?utf-8?B?bmZ3bUZpSEVlNUIydTJ4YzJaN2tDM0ZwMm9hT2d4YWJ2U3dvSllkZ2UwTHdn?=
+ =?utf-8?B?ZER6T0c0M1VoamdTaVZFbitYN2ppR1RBeXZPZjJSOWFJbEIyNXBWZEtvNHhD?=
+ =?utf-8?B?M2xyYTdDQlI1VnBVTGdTdXBRUXZCU1pLNXI5ZDZPN0dCMXpBRUhmL1lSN3dh?=
+ =?utf-8?B?WG93YzFGSDIxaG5mNi9WQyt6bnppLzdVN0IwaXJJMzREOUdzSC9yODc4RnM3?=
+ =?utf-8?B?dS9VbEw2M040N2RXckpVY2pqTFJkZElYbERuTXVqbEhlMVVVZUdOa1BMbWhK?=
+ =?utf-8?B?bUlSMnRWNlZtY01tb2wxbXpqOUN0dW9yZXkxeHU5MHBIcGRqdzhCVVlFRk5H?=
+ =?utf-8?B?RXcvTUV5cmxKK0JZYmhDSHRhczlzT09ibUp2M21lQ1NiemVDdmoyVWFORno0?=
+ =?utf-8?B?S0VIWVBnMnJTOWtSVzlYTU5GaThjRzM3SlhKQ0Nsa2RTaThBTkN6YVozZ2xo?=
+ =?utf-8?B?bStqV1YySjZKOTFoeHZJMWd4SVI2Q0lycmszbGVxLzFSUDRDNDM5aXE0ZDNW?=
+ =?utf-8?B?R2RJWjgybFZKejhqZ2NibUZMQk5HcVRWSmgwQktWQSsvd3ZveHFwa0ZweFFw?=
+ =?utf-8?B?WjUzdnFnNjlNblVUWjJ4cUtHc1RGTTVjbmh1cS9FYzc5SzVRYTdDQmRGdTQy?=
+ =?utf-8?B?aVk4N3lBcEJNd0xBdWRMRDRzYVdzL3VwVGxvQTVHcjJFOHlCODExS05OYm5i?=
+ =?utf-8?B?LzI0M2xzRE14Z2MzUjNzOWxrMGpXRGxLYlc0TlprRkxmcFhjOElzU01oMmxj?=
+ =?utf-8?B?R3NXM0srNW50eHJVbnRiUEZUbm5hWVFNSmFaMXl4RVF0ZmR0UUdJTi9mYUIv?=
+ =?utf-8?B?ekJyTW8xUmRSbGRzRkRIdjBTSnJKQmFldWY1QTNYemtMSXZTcXhmVzJWcmNZ?=
+ =?utf-8?B?T3pLUFBYUFZFcG5OaFlZQ2ErQk1UY3RYbnYwU3ZXQjRlRVhpTE1uWGdiclg3?=
+ =?utf-8?B?TG1qTTB1ZGpBUURLdG9zRGFvUXBudU9CbUV1VkkyRmVEQTI5Z0IrSlBPYjIv?=
+ =?utf-8?B?SGhuZjBQQSsyM1AwUHF1MzZmaFArTDlxd0RxYzFEU29MVnV0SmtwQ2cyZVl5?=
+ =?utf-8?B?d24yNCtndGowWmE2YmZkUWswbXNYK3MxcU1YQWYrZlF0ZGVld1ZVV3dJc29B?=
+ =?utf-8?B?TVgrTlV2aDRRZnVUWENBWDJtUHJFMHk3VmdxSWZjamIvOUVXdTlxcXVjMFZq?=
+ =?utf-8?B?cmxpd2t0L09QcUFJbWpDenBrNENvWk5sSXlSRDlrS015RlIwc2ZKb29XOFVq?=
+ =?utf-8?B?U0dxVlUwdTMyNzIzVHdNd0VyaWJEYkl1TXFHdzlRa0xLNExMN2tadW1ORVZV?=
+ =?utf-8?B?ME9OWjNjbE1CZW1DaGVDVUZadjZjVXhLYXNLSU5ZTG9KQ0VmeFRaTDBsT3Rx?=
+ =?utf-8?B?MGlGWExGQVptTnJ6VWU1RDNXZ29OUTY5ak5vNmErVzJRcUVMUkIzeHFKQVJX?=
+ =?utf-8?B?RW1Vd0VBRkE0bDRuTnRZUGVGcVZYMlpra3NXRkl0WG5zSndoZFR2VVU1YTRo?=
+ =?utf-8?B?TVFxeGZTVEpqemUyZmVIMVVYWGFiQlVKUFdicW9WMTdzdXhtaHhmRFJEbzBU?=
+ =?utf-8?B?RnFIRE10QVVjZ2FkTVQwTUczM0xLWXIyL2QzU0FVdzN2THgxQXlSVlhBN1U1?=
+ =?utf-8?B?ZzdDaVZiN2hjWmNZd2pudDNZNHZaNHZuamFDSVd2Nit5VVJFUVFOeERPa2Nu?=
+ =?utf-8?B?cEtOM1pldDlPZ1JmRXhhY3NzTFlNWDhEOHROYnFDV2c5SG8rOUltOE8zMGJW?=
+ =?utf-8?B?M09kUmpYYVRlQlE5Z2xmK2c1WmR3eW82M21jSW5LcHJ6UkdBUUl6RWNKczdh?=
+ =?utf-8?B?dFJMdll5WjlFTmpGR0dZSzBrN0xCRXRJcGpDekpSVmE5ZkQ1ZWNyMCtNaHJ4?=
+ =?utf-8?B?aDdZanpaVFhCTlZVK3hQaFFPRTRmWXQwWTJERlVYRStoQm5TdW9ZWHBpVlF4?=
+ =?utf-8?B?RlVSOUdTWTNBWU0zL01DZWZtNlN5cjE5TjlRVXJmVUFnbEI1SVZqR1BjWVpW?=
+ =?utf-8?B?SzZpNXhjL21VZ2FlQlZENDdqQTdmRGhDQXpCMUZGSmREWnpMaUJHUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a9c8329-cd87-4101-b6cc-08dec12cd491
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae5079a1-56ea-4ee3-6bb5-08dec12d61cc
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 04:59:02.5793 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 05:02:59.3272 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VJt1Dic9R2YDULqM1Dk3C18SIYhXJOddQjLI8psJ3c1Kg52w/kQsWV9Mt3mchOjf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8662
+X-MS-Exchange-CrossTenant-UserPrincipalName: xi20RCEUOXk4gRrcw5FbFa0OZYw0X584T5E9EBOShbt1Igo4adPuoOBGgJxMOpsm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,140 +137,118 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 02-Jun-26 11:48 PM, Asad Kamal wrote:
-> amdgpu_regs, amdgpu_regs2, and related debugfs nodes allow arbitrary
-> MMIO read/write via RREG32/WREG32 without checking security_locked_down().
-> On kernel_lockdown=integrity systems this bypasses the same restrictions
-> as /dev/mem and PCI config space sysfs.
+On 02-Jun-26 11:39 PM, Asad Kamal wrote:
+> vega10_odn_edit_dpm_table() and smu7_odn_edit_dpm_table() could mutate
+> the live ODN table for valid triples, then return 0 after detecting a
+> truncated buffer or out-of-range index. Validate all (index, clock,
+> voltage) triples first and return -EINVAL on any failure; only then
+> apply updates.
 > 
-> Check LOCKDOWN_PCI_ACCESS (matching pci-sysfs) at the entry of every
-> debugfs handler that performs direct register access
+> v2: Use distinct message for different error case, removed unused
+> input_level from validation loop (Lijo)
 > 
-> v2: Use consistent check as per previous check to use
-> LOCKDOWN_DEBUGFS(Lijo)
-> 
+> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 
-I didn't mean to apply LOCKDOWN_DEBUGFS. Debugfs is locked down 
-internally for all writes in LOCKDOWN_DEBUGFS.
-
-https://github.com/torvalds/linux/blob/master/fs/debugfs/file.c#L267
-
-So this patch may not help much for files opened for write operations -
-
-https://patchwork.freedesktop.org/patch/728769/?series=167435&rev=1
-
-Intention of the comment was to decide between 
-LOCKDOWN_PCI_ACCESS/LOCKDOWN_MMIOTRACE or something related to device 
-access and use it consistently.
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
 
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 28 +++++++++++++++++++++
->   1 file changed, 28 insertions(+)
+>   .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 34 +++++++++++--------
+>   .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 30 +++++++++-------
+>   2 files changed, 38 insertions(+), 26 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 0ce6e2e4342c..c554afa0963d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -26,6 +26,7 @@
->   #include <linux/kthread.h>
->   #include <linux/pci.h>
->   #include <linux/uaccess.h>
-> +#include <linux/security.h>
->   #include <linux/pm_runtime.h>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> index 416b9380a70e..fb38247da8fc 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -5648,23 +5648,29 @@ static int smu7_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+>   	}
 >   
->   #include "amdgpu.h"
-> @@ -86,6 +87,9 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
->   			((*pos & (1ULL << 62)) && (*pos & (1ULL << 61))))
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
+>   	for (i = 0; i < size; i += 3) {
+> -		if (i + 3 > size || input[i] >= podn_dpm_table_in_backend->num_of_pl) {
+> -			pr_info("invalid clock voltage input \n");
+> -			return 0;
+> +		if (i + 3 > size) {
+> +			pr_info("truncated clock/voltage input\n");
+> +			return -EINVAL;
+>   		}
+> -		input_level = input[i];
+> -		input_clk = input[i+1] * 100;
+> -		input_vol = input[i+2];
+> -
+> -		if (smu7_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol)) {
+> -			podn_dpm_table_in_backend->entries[input_level].clock = input_clk;
+> -			podn_vdd_dep_in_backend->entries[input_level].clk = input_clk;
+> -			podn_dpm_table_in_backend->entries[input_level].vddc = input_vol;
+> -			podn_vdd_dep_in_backend->entries[input_level].vddc = input_vol;
+> -			podn_vdd_dep_in_backend->entries[input_level].vddgfx = input_vol;
+> -		} else {
+> +		if (input[i] >= podn_dpm_table_in_backend->num_of_pl) {
+> +			pr_info("invalid clock/voltage level\n");
+>   			return -EINVAL;
+>   		}
+> +		input_clk = input[i + 1] * 100;
+> +		input_vol = input[i + 2];
+> +		if (!smu7_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol))
+> +			return -EINVAL;
+> +	}
 > +
->   	/* are we reading registers for which a PG lock is necessary? */
->   	pm_pg_lock = (*pos >> 23) & 1;
+> +	for (i = 0; i < size; i += 3) {
+> +		input_level = input[i];
+> +		input_clk = input[i + 1] * 100;
+> +		input_vol = input[i + 2];
+> +		podn_dpm_table_in_backend->entries[input_level].clock = input_clk;
+> +		podn_vdd_dep_in_backend->entries[input_level].clk = input_clk;
+> +		podn_dpm_table_in_backend->entries[input_level].vddc = input_vol;
+> +		podn_vdd_dep_in_backend->entries[input_level].vddc = input_vol;
+> +		podn_vdd_dep_in_backend->entries[input_level].vddgfx = input_vol;
+>   	}
 >   
-> @@ -237,6 +241,9 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
->   	if (size & 0x3 || offset & 0x3)
->   		return -EINVAL;
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> index 8b8c4e899878..0bcba317a358 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+> @@ -5477,21 +5477,27 @@ static int vega10_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+>   	}
 >   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
+>   	for (i = 0; i < size; i += 3) {
+> -		if (i + 3 > size || input[i] >= podn_vdd_dep_table->count) {
+> -			pr_info("invalid clock voltage input\n");
+> -			return 0;
+> +		if (i + 3 > size) {
+> +			pr_info("truncated clock/voltage input\n");
+> +			return -EINVAL;
+>   		}
+> -		input_level = input[i];
+> -		input_clk = input[i+1] * 100;
+> -		input_vol = input[i+2];
+> -
+> -		if (vega10_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol)) {
+> -			dpm_table->dpm_levels[input_level].value = input_clk;
+> -			podn_vdd_dep_table->entries[input_level].clk = input_clk;
+> -			podn_vdd_dep_table->entries[input_level].vddc = input_vol;
+> -		} else {
+> +		if (input[i] >= podn_vdd_dep_table->count) {
+> +			pr_info("invalid clock/voltage level\n");
+>   			return -EINVAL;
+>   		}
+> +		input_clk = input[i + 1] * 100;
+> +		input_vol = input[i + 2];
+> +		if (!vega10_check_clk_voltage_valid(hwmgr, type, input_clk, input_vol))
+> +			return -EINVAL;
+> +	}
 > +
->   	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->   	if (r < 0) {
->   		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -402,6 +409,9 @@ static ssize_t amdgpu_debugfs_gprwave_read(struct file *f, char __user *buf, siz
->   	if (size > 4096 || size & 0x3 || *pos & 0x3)
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->   	if (r < 0) {
->   		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -521,6 +531,9 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
->   	if (size & 0x3 || *pos & 0x3)
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->   	if (r < 0) {
->   		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -635,6 +648,9 @@ static ssize_t amdgpu_debugfs_regs_pcie64_read(struct file *f, char __user *buf,
->   	if (size & 0x7 || *pos & 0x7)
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->   	if (r < 0) {
->   		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -746,6 +762,9 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
->   	if (!adev->reg.didt.rreg)
->   		return -EOPNOTSUPP;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->   	if (r < 0) {
->   		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -863,6 +882,9 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
->   	if (size & 0x3 || *pos & 0x3)
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->   	if (r < 0) {
->   		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -1156,6 +1178,9 @@ static ssize_t amdgpu_debugfs_wave_read(struct file *f, char __user *buf,
->   	if (size & 3 || *pos & 3)
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	/* decode offset */
->   	offset = (*pos & GENMASK_ULL(6, 0));
->   	se = (*pos & GENMASK_ULL(14, 7)) >> 7;
-> @@ -1247,6 +1272,9 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
->   	if (size > 4096 || size & 3 || *pos & 3)
->   		return -EINVAL;
->   
-> +	if (security_locked_down(LOCKDOWN_DEBUGFS))
-> +		return -EPERM;
-> +
->   	/* decode offset */
->   	offset = (*pos & GENMASK_ULL(11, 0)) >> 2;
->   	se = (*pos & GENMASK_ULL(19, 12)) >> 12;
+> +	for (i = 0; i < size; i += 3) {
+> +		input_level = input[i];
+> +		input_clk = input[i + 1] * 100;
+> +		input_vol = input[i + 2];
+> +		dpm_table->dpm_levels[input_level].value = input_clk;
+> +		podn_vdd_dep_table->entries[input_level].clk = input_clk;
+> +		podn_vdd_dep_table->entries[input_level].vddc = input_vol;
+>   	}
+>   	vega10_odn_update_soc_table(hwmgr, type);
+>   	return 0;
 
