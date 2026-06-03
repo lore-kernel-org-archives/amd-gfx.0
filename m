@@ -4,69 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950A8CD6E56
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 11:27:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914B3CD6E6A
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 11:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED31D10FC60;
-	Wed,  3 Jun 2026 11:27:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A7F10FC83;
+	Wed,  3 Jun 2026 11:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="s34N3cAq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aiRXEXdL";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3997210FC60;
- Wed,  3 Jun 2026 11:27:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SskacXz9nn9lh6X6a6P91EXX6t2deHKrepH0n7+A9Zk=; b=s34N3cAqiTFiFsUGSuXnF9zJRh
- 5buVIAQFeoer6w+qFj/tKG7ivF386OjXm+kgR+PA13uhDX9Nn1IfXQUHKWmxPwM8HzCsRrTM3eG6d
- yW4lMTtXNH2Vx3ElWAWIw2QBFUisVSryGEs9aLmwZS/tMi18b0M9zeAhCqcIiP015G3OzbKWONxgu
- Enw8rKlCEq7lRIqmv+rr6aBWT+1owuUrWxKy+eKZQ1Qi5gyWfVKnSXPURya4ONHc1/dKY4wZpeh/j
- bKWbkA9GtPrDbyX5+fUL3e+z6WWuoKgoXL39HU0y0SJW6FQZa182YHn7qIvFC0FEjWETdCxS71Pvu
- RHM2m1iw==;
-Received: from [79.117.146.159] (helo=[192.168.1.135])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wUjkn-00C92S-6G; Wed, 03 Jun 2026 13:27:21 +0200
-Message-ID: <cb0599d2-9dd5-4e93-b21e-b843f4a79182@igalia.com>
-Date: Wed, 3 Jun 2026 13:27:18 +0200
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012016.outbound.protection.outlook.com
+ [40.93.195.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F9110FC82
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 11:45:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nJXHVtUxZ7H9kbQ9J4uHp/wpCpRyJd9bggn8iTLN9RwkRgAMjCKitxm+qWhGMMUqvmtTb5FLxJBUnPNDGU6c9OI72Yi1M0PchqvNNHQIMkyfedbP10G+43IMcbrl8ttNkOSa+Kx7GmPdCsOUOxnQcOeVHg1E4loH7ec/w2jpvaK89De5e/sOOIqp8QB/0A7Io6flhf1G6AKE6RCYBFq87P95rK2yExD1HWq/EmPJA1S4M36CFvoJU4orfRKqn8B8oLRafKpSdHGPeINyYUr9p5Etz6MTQnSOFhr0hOk2wEQV1J/Yp+34qi922I7EFFLhWV+AvM0qbHH+/npAOSxaOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0nrL7dsWB4CT6mLsPzNM5RbsWwXaR2tNLrZLE3awls0=;
+ b=stjwdAX4NnYBNrjdDpU44sylOvP/2sMp/JyNkKtd/4cvY87NZ+jHv5LTLmvqa4DjjtmF9FOnblzA5NHwIR9NC7JcnSxVcbMwAbP5NdlygNWNyMtc/nQqBi1Iy9A2jlVXUqvAlhKW/0IJUt4535wF7/tE8HaFbYMIWbx4XcOaJEE9OZ5h4koZE7HK4eDu0uvUWdD3yBr93hFkZCFeBrvxpIjIn6HtglVHLw0wRC5PfpkCabkD1FNnnhG/rkVDowiqGdCi5mGb1igKFbzlbBmUp/fZ8Q11N3O/cqyn4JkXGuSvpLFJVPGLPwhE049w6q9lETG8KSForRLOHddek2XD5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0nrL7dsWB4CT6mLsPzNM5RbsWwXaR2tNLrZLE3awls0=;
+ b=aiRXEXdL4nYAW9ErTlvqApNxzAbi80UWythmY7UOsIt3PDop147NmSjYq1w6I81mnadHzG1bRhrV6ioJiGMZupchg0GfOGTAHIB6yaW2SY2DehS+qhT93NPnKQVbOZlb3NKd4cHjGubKxKHWYTnp4OOMNE3OQFqsx6lWabmeQlI=
+Received: from BY3PR10CA0004.namprd10.prod.outlook.com (2603:10b6:a03:255::9)
+ by SJ2PR12MB9138.namprd12.prod.outlook.com (2603:10b6:a03:565::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 11:45:15 +0000
+Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
+ (2603:10b6:a03:255:cafe::9c) by BY3PR10CA0004.outlook.office365.com
+ (2603:10b6:a03:255::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
+ Jun 2026 11:45:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 11:45:14 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 06:45:14 -0500
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 04:45:12 -0700
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
+ <asad.kamal@amd.com>, <Tom.StDenis@amd.com>
+Subject: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
+Date: Wed, 3 Jun 2026 19:44:59 +0800
+Message-ID: <20260603114459.938031-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/atomic: only add states of active or transient
- active colorops
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Alex Hung <alex.hung@amd.com>,
- airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Cc: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- John Harrison <John.Harrison@Igalia.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- "harry.wentland@amd.com" <harry.wentland@amd.com>
-References: <20260526142940.504911-1-mwen@igalia.com>
- <20260526142940.504911-2-mwen@igalia.com>
- <e8aaf4da-8fb6-4d6a-95d6-563ac0562b49@amd.com>
- <4452e675c4853faf665b520a8932a960946206bb@intel.com>
- <f9e5f9ed-ed15-40ae-9330-44f8c42f5f98@intel.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <f9e5f9ed-ed15-40ae-9330-44f8c42f5f98@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|SJ2PR12MB9138:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4feb2b12-b40d-4728-abd7-08dec16593d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: Z0is2SiqpjVDRQaNecbThcjWjlBly7oMnxFD22//1zEPXVg7ZVw9qVXUr2nBaKZLmpYK5Z5NbPzpsZ1YIxVevVwe1oR7lFDNUOghMNyIbZuVhOjLKq7Ib+y/OJy5kM2ob99IJNMSdJL1NHUumqbXoQ8hTPP3e5ZAUSFueXCdVtSv/fYSw6QKn+9HOlKAKKtd5oJIV3l3HqUY59oC67aC/x1lT/JknSm08e2tMh6jKpj2YUW1Qng7A1oVVe8S0V0VHhucI4WS/p64I12Yth8GlKrfPtVIc5SC/Sn4ILAe+RTMSCFqHircQaiIjFuiqP3FhMBhbRtr7QPGDN3GigKd1TN0x4VsirFTNR8WS9gRr7liDu7/S2ADEo69cUxWx1EVbqnu6wZRX1OgLYN+PlgCF/uKcWiBrQKrBdr28Iv1sF8NTywdV3XtZW0LynQSL4rz6pO29FBBxNpRMDRAesfnW0hmzhPM+Laesdkf2Vnj29DBw6B/jomxLx0g6gCTM2NSKz/PDmdgq+iDxgiDMlL6fGV4QO3iSbWPFcFB81KRacE64tvS2DbXAnmEkaCMIacfaJHc+mZzkZtg2cdyD7LEhgRGGMrHKNTVfehCRroqrCB8kc2/zzAPYdVdG0R6jUGuquDsCaQa7RnXogu2CIe1cIfu3Jn9Fo1S+M2O/shUl7Xgw8daPytSjA+ON2NGI6blLRpLp89Ha8+Q1+2ZjhImD4jCWGsxdQJd2jYTIEMRHjI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(3023799007)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: IMDP+BMzDkpBmqVU60z3K/GpZXun2kSr6pwlnomboL/J7DbV41Z/MMiAJipKo2/4Knujx9PcY4e4AMKK94AQ3U6nV0RhT7G9b+BkxF0LWQ2d8jDV791pfY9lL/C/9zERMzY57Kiz2uQQlZqhU1pGS2ZDaknNdaPgehARZLcZPxqCYbnz8JY2xUs1KoYmIxuEpKo+0r6wZx2JWvlbHpctJ0wTzBJ78OY8ejz3ounLEToBZhEC9Jj+KBP1dhn2gauI9UtVtNajn3IzrAT10Gd6RmJMXWZy1Bd7IYgaMyb57k/7BG5qTfYIHf/CnZQpQhfnG5xYhZOqRyNXLgP+hrX7BQaHWCD0nwWP64zYsBk9kxsan/JYuQ4V9HlJPjomsWRvUHaIkzAF4DmvatceaBijlKBDpZ3AJjtspsCxQHIuvsuDYePygsJLvYYCVWI7DvvL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 11:45:14.8105 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4feb2b12-b40d-4728-abd7-08dec16593d2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9138
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,176 +114,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+amdgpu_regs, amdgpu_regs2, and related debugfs nodes allow
+arbitrary MMIO read/write via RREG32/WREG32 without checking
+security_locked_down(). On kernel_lockdown=integrity systems
+this bypasses the same restrictions as /dev/mem and PCI config
+space sysfs.
 
+Check LOCKDOWN_PCI_ACCESS (matching pci-sysfs) at the entry of every
+debugfs handler that performs direct register access.
 
-On 01/06/2026 11:24, Borah, Chaitanya Kumar wrote:
->
->
-> On 5/29/2026 7:16 PM, Jani Nikula wrote:
->> On Tue, 26 May 2026, Alex Hung <alex.hung@amd.com> wrote:
->>> On 5/26/26 08:17, Melissa Wen wrote:
->>>> Only consider affected colorop states those that are part of an active
->>>> color pipeline or a pipeline that is about to be activated or
->>>> deactivated in the same atomic commit, i.e., colorop is in the 
->>>> chain of
->>>> old/new plane color pipeline property. To cover color_pipeline
->>>> deactivation, remove the condition for plane_state->color_pipeline.
->>>>
->>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>> ---
->>>>    drivers/gpu/drm/drm_atomic.c | 67 
->>>> +++++++++++++++++++++++++++++++-----
->>>>    1 file changed, 58 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_atomic.c 
->>>> b/drivers/gpu/drm/drm_atomic.c
->>>> index 170de30c28ae..4fb3a23e862a 100644
->>>> --- a/drivers/gpu/drm/drm_atomic.c
->>>> +++ b/drivers/gpu/drm/drm_atomic.c
->>>> @@ -812,6 +812,59 @@ static int drm_atomic_plane_check(const struct 
->>>> drm_plane_state *old_plane_state,
->>>>        return 0;
->>>>    }
->>>>    +/*
->>>> + * This function walks old and new plane state color pipelines and 
->>>> adds all
->>>> + * colorops in use by @plane to the atomic configuration @state. 
->>>> This is useful
->>>> + * when an atomic commit needs to check all currently enabled or 
->>>> about to be
->>>> + * enabled colorop on @plane, e.g. when changing the mode. This 
->>>> also avoids
->>>> + * including colorop states that are not part of the atomic state.
->>>> + *
->>>> + * Returns:
->>>> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the 
->>>> error is EDEADLK
->>>> + * then the w/w mutex code has detected a deadlock and the entire 
->>>> atomic
->>>> + * sequence must be restarted. All other errors are fatal.
->>>> + */
->>>> +static int
->>>> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
->>>> +                 struct drm_plane *plane)
->>>> +{
->>>> +    struct drm_colorop *colorop;
->>>> +    struct drm_colorop_state *colorop_state;
->>>> +    struct drm_plane_state *new_plane_state, *old_plane_state;
->>>> +
->>>> +    new_plane_state = drm_atomic_get_new_plane_state(state, plane);
->>>> +    old_plane_state = drm_atomic_get_old_plane_state(state, plane);
->>>> +
->>>> +    if (WARN_ON(!new_plane_state || !old_plane_state))
->>>> +        return -EINVAL;
->>>> +
->>>> +    drm_dbg_atomic(plane->dev,
->>>> +               "Adding old+new pipeline colorops for 
->>>> [PLANE:%d:%s]\n",
->>>> +               plane->base.id, plane->name);
->>>> +
->>>> +    for (colorop = new_plane_state->color_pipeline;
->>>> +         colorop;
->>>> +         colorop = colorop->next) {
->>>
->>> This for-loop is used 5 times in this patchset. How about a macro in
->>> drm_colorop.h?
->>>
->>> #define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
->>>       for ((colorop) = (pipeline); (colorop); (colorop) = 
->>> (colorop)->next)
->>
->> Is there a reason struct drm_colorop reinvents lists and doesn't have
->> struct list_head node?
->>
->
-> I believe that's because the "next" colorop is exposed as a property 
-> (of the current colorop) to userspace. Since the chain is already 
-> described by the property, a struct list_head would be redundant.
+v2: Use consistent check as per previous check to use
+LOCKDOWN_DEBUGFS(Lijo)
 
-Also, each color pipeline is an immutable chain of colorops where the 
-sequence and position matter: once the chain is built, colorops are 
-never added, removed, replaced or walked in reverse. It's a forward-only 
-chain that ends when next == NULL, and it directly matches userspace 
-mapping. Another point to take into account is that there is no struct 
-drm_color_pipeline to hold a list_head yet, since each color pipeline is 
-identified by the first colorop element in the chain. Maybe we will want 
-a container to link a given pre-blend color pipeline to a specific 
-post-blend color pipeline for example, but linking pre- to post-blend 
-color pipelines is something we are still not clear about.
+v3: Do not create any entry from amdgpu_debugfs_regs_init() if
+LOCKDOWN_PCI_ACCESS is active and log once. (Lijo)
 
-Melissa
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
->
-> Harry, others can chime in.
->
-> ==
-> Chaitanya
->
->> BR,
->> Jani.
->>
->>>
->>>> +        colorop_state = drm_atomic_get_colorop_state(state, colorop);
->>>> +        if (IS_ERR(colorop_state))
->>>> +            return PTR_ERR(colorop_state);
->>>> +    }
->>>> +
->>>> +    /* Same color pipeline as new; no point walking old. */
->>>> +    if (new_plane_state->color_pipeline == 
->>>> old_plane_state->color_pipeline)
->>>> +        return 0;
->>>> +
->>>> +    for (colorop = old_plane_state->color_pipeline;
->>>> +         colorop;
->>>> +         colorop = colorop->next) {
->>>> +        colorop_state = drm_atomic_get_colorop_state(state, colorop);
->>>> +        if (IS_ERR(colorop_state))
->>>> +            return PTR_ERR(colorop_state);
->>>> +    }
->>>> +
->>>> +    return 0;
->>>> +}
->>>> +
->>>>    static void drm_atomic_colorop_print_state(struct drm_printer *p,
->>>>                           const struct drm_colorop_state *state)
->>>>    {
->>>> @@ -1591,11 +1644,9 @@ drm_atomic_add_affected_planes(struct 
->>>> drm_atomic_commit *state,
->>>>            if (IS_ERR(plane_state))
->>>>                return PTR_ERR(plane_state);
->>>>    -        if (plane_state->color_pipeline) {
->>>> -            ret = drm_atomic_add_affected_colorops(state, plane);
->>>> -            if (ret)
->>>> -                return ret;
->>>> -        }
->>>> +        ret = drm_atomic_add_pipeline_colorops(state, plane);
->>>> +        if (ret)
->>>> +            return ret;
->>>>        }
->>>>        return 0;
->>>>    }
->>>> @@ -1607,10 +1658,8 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
->>>>     * @plane: DRM plane
->>>>     *
->>>>     * This function walks the current configuration and adds all 
->>>> colorops
->>>> - * currently used by @plane to the atomic configuration @state. 
->>>> This is useful
->>>> - * when an atomic commit also needs to check all currently enabled 
->>>> colorop on
->>>> - * @plane, e.g. when changing the mode. It's also useful when 
->>>> re-enabling a plane
->>>> - * to avoid special code to force-enable all colorops.
->>>> + * currently used by @plane to the atomic configuration @state. 
->>>> It's useful
->>>> + * when re-enabling a plane to avoid special code to force-enable 
->>>> all colorops.
->>>>     *
->>>>     * Since acquiring a colorop state will always also acquire the 
->>>> w/w mutex of the
->>>>     * current plane for that colorop (if there is any) adding all 
->>>> the colorop states for
->>>
->>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 0ce6e2e4342c..5c4d4ff001ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -26,6 +26,7 @@
+ #include <linux/kthread.h>
+ #include <linux/pci.h>
+ #include <linux/uaccess.h>
++#include <linux/security.h>
+ #include <linux/pm_runtime.h>
+ 
+ #include "amdgpu.h"
+@@ -1739,6 +1740,12 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
+ 	struct dentry *ent, *root = minor->debugfs_root;
+ 	unsigned int i;
+ 
++	if (security_locked_down(LOCKDOWN_PCI_ACCESS)) {
++		drm_info(adev_to_drm(adev),
++			 "amdgpu: HW debugfs nodes disabled (kernel lockdown)\n");
++		return 0;
++	}
++
+ 	for (i = 0; i < ARRAY_SIZE(debugfs_regs); i++) {
+ 		ent = debugfs_create_file(debugfs_regs_names[i],
+ 					  S_IFREG | 0400, root,
+-- 
+2.46.0
 
