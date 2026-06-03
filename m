@@ -4,65 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 130C0CD6E55
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 21:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13378CD6E57
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 21:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A048A112371;
-	Wed,  3 Jun 2026 21:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97F60112398;
+	Wed,  3 Jun 2026 21:15:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MMcEJODF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n82x9xpy";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011048.outbound.protection.outlook.com
- [40.93.194.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC82112371
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 21:15:16 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010066.outbound.protection.outlook.com [52.101.85.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D854112398
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2026 21:15:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Etdwvj4PIf5DBlcXmg1UC8TRrB6rjXZYR6d4NwFIW2D37xO8CgrK32yYXUbg7IBy9IPfXs8lWnUubOmfGGa7k5FOVQBqh3xjHthJpA2S5yBtRvSogO26IlBwBNTRvKjUcfOh/+PgR58zYBOrcilp4vM37mWnK8/CCQx0uu0frZjWRe1eY//535/i2MuJjV9xxQjJARPUNWDmKH1J87gZEDyzSsk7r82K+QKKaQBR1MN25xeHAd5mxBi6sfMRW5+ybT++bXbefWXTyVaH1Gr5GZW2qFnDP0WluhkEJay2sqQ42SOW6faMExX2Qi3VK67CB7AiX7jKmgU2oahj+5A20g==
+ b=UjQ1wzGwVqalEgzrZ3o9Vo9+LdJSvk9utbnWBvziS4IcYtvVV4Fkaok5FwGwzYrdpWqZjJn/8854Wm6WDRWq9YLx/0HcARgmPNaEG6Q5HA0lQ5OnnkHdmt6HwiGumDrI8oGob564joQiCTQl1KIQNlqf1HeKnuvscpJarbVOi7eVVfasI3CCEPi79l5/cJvR6Mo1ptf5BqSpY/rIbg1bXk8vTUxtR4FFEs11qBepSuFD4eQ1dJPLo00/p9qUAkfxbvHCW9FP1iI8N55s0bAjlVFx+trQ6RugyHLBWFokcsLYhepPIvmFrTZZOGHduQ8effUeJT10HRCZNb46AhoGgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yyAIZdTFpUa9I/6bgA5nADy7QpT6OaKxPG2Ir6PUD8o=;
- b=RsZCz+sNzzxR+4w6HILu3YNqVxQB1grw4vnVyOafWj2l45dN2+h+LhMDcmzcRsj65VmYiQ0xddF1jfQeSKv3+mT37En5CHZ86fUhGp+wJ0gGKaJj/We7HQRiIdDWLYmOyNNv4U6GgtXPqcN7HMbAjl97TnGAtztdvIEix/NPNoXVHwCJLnLizi1OBIOiRZzC8agiBEozrIljsUB7BE/MNHjgcAzx0PJ1w2rw8js5c0HCvhXzGyIUVUWJVFTXExkgQkkN+7PFvKSvKma8GZly8/+ItWW1mjKJaSBIo+KtC/vvAFv3/Ry9CZne78ahFqkaHbTrDlqslceMleHba8Cgxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=9XKdmCOrk4P2e1StaUGRZf0371ReQIcHO3spmJVnXZ0=;
+ b=kqJAHI5/Etd9XkoYgpZtqel2ooynLLkMa4QYnQWN7czdE4Rs2XOidxYFm45Wat95IWwb2NCvKFowQexTXKXeE+NDtqkquwQm4sfwVJJslxZM+QPcXrRGdeN3un8KyrRckdwOl6kCI9UZY8OqYV4sgnjIDYKzuN5cNZaSe1M6Pl9/un7fPD8tWDERIJ3TqP6vQCUrcziSPQizLONh3IEufEbjfLrwDP2/qQrBfvNSX2i3c9SNNu0XYmwTJdKYmLUQowBVnZqn6tc1n5KftW/NeYTIzSxOdEQDm2hh/NTremOhp7vYZdK3WTA4K4gqeMOsneG4v75Y8gi+ZY4mn0I3QQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yyAIZdTFpUa9I/6bgA5nADy7QpT6OaKxPG2Ir6PUD8o=;
- b=MMcEJODFZ5aGHcMsydKnCMgsD7JDkqeqyyp2ahLQQ5lox0L51/bjubqjnBgUOdyStNJb3TxW13sAwPLpiOAJrrFJ4NXu1T0l2D4hx8+GJMULXe9Xmxqfdd2dkAH/2SpAGNmh1qK9lisrOBCEICyIhkaI7R2chPOhlZ+2HHNNsBA=
-Received: from CYZPR17CA0005.namprd17.prod.outlook.com (2603:10b6:930:8c::21)
- by PH7PR12MB7456.namprd12.prod.outlook.com (2603:10b6:510:20f::13)
+ bh=9XKdmCOrk4P2e1StaUGRZf0371ReQIcHO3spmJVnXZ0=;
+ b=n82x9xpybhO8clUzSzoJJOhzuCewP4+VBVlc8JH0uA5Bu823xcfNNgF+ZzEq7ze4YDzmEqwgsQQXkC/eNJwgSvBZFoZHUl6pC7uxlFQrm6Kqc7F/6fomhvZYfj57LN0z2KDnjilW1IseD3PTAUIT4qOhQ3F5xNJM/z9Dhuhebew=
+Received: from PH7P220CA0176.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:33b::29)
+ by SA3PR12MB7903.namprd12.prod.outlook.com (2603:10b6:806:307::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 21:15:10 +0000
-Received: from CH3PEPF00000009.namprd04.prod.outlook.com
- (2603:10b6:930:8c:cafe::79) by CYZPR17CA0005.outlook.office365.com
- (2603:10b6:930:8c::21) with Microsoft SMTP Server (version=TLS1_3,
+ 21:15:14 +0000
+Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
+ (2603:10b6:510:33b:cafe::4a) by PH7P220CA0176.outlook.office365.com
+ (2603:10b6:510:33b::29) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
- Jun 2026 21:15:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+ Jun 2026 21:15:14 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 21:15:08 +0000
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 21:15:12 +0000
 Received: from harish-base-compute.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Wed, 3 Jun 2026 16:15:07 -0500
+ 15.2.2562.41; Wed, 3 Jun 2026 16:15:10 -0500
 From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Subject: [PATCH v3 1/2] drm/amdgpu: Add enum for PCIe BAR regions
-Date: Wed, 3 Jun 2026 17:14:54 -0400
-Message-ID: <20260603211455.307285-1-Harish.Kasiviswanathan@amd.com>
+CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Felix Kuehling
+ <felix.kuehling@amd.com>
+Subject: [PATCH v3 2/2] drm/amdgpu: amdgpu_device_is_peer_accessible to
+ support all BARs
+Date: Wed, 3 Jun 2026 17:14:55 -0400
+Message-ID: <20260603211455.307285-2-Harish.Kasiviswanathan@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260603211455.307285-1-Harish.Kasiviswanathan@amd.com>
+References: <20260603211455.307285-1-Harish.Kasiviswanathan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +74,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|PH7PR12MB7456:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d4dfbcb-f3d7-49d9-4733-08dec1b530c0
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|SA3PR12MB7903:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33b0e27d-0c1e-43bf-690a-08dec1b53371
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|56012099006|18002099003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: 9hdhG1pzQJP49ACdujPBKLYnPEe/iZErA3t4Uz0YSR6MIWRWswiAj4xGMwCkS8RgNhGNaDeGHyYave8EfRRJl+GVwvD7sdZXp2ci/QbLiaNOFDYKEaydEjZ60sTvfNFziWtkK9VVXgwzbr0VvLd45tgtjafUb0lVmbTgRmFYje5+qc2pfV2Tw/VwRh1A3E4Lt2EvUSJz//QB4wPZnDbzwfUlgVOaak4skXfQJN+4eO+VuLCPR4YlC7ayfxWLsQgEQgawaHDsCPfWAaTbgDaBXiA8a1s/jyMq7YNAZ6kJYrCQ3dAFOPnqCYq10kPHFAJhSGcZWm8S0Ob7vtd91HJ8FsU7yr1lnfrgrgPXogfgdfEodjWNw5XgwB1JX7wnEAPcHWVZ9vMHq60tZxQYnfwRwOCfhB8J7kei57oCnnTrjVGkjvlM+1elG2vDHuIFVCdm+r223ZV17M5B59QQ+jJjasEVGdup18yE9j1ssnftgiOf7tTcCAIfTOhh9DPAo4ZvWonIWGVYf7ssvTUB65tKLnx438KI5s1vyBeg1OnTqcAuZMnwJEIvSGqZZhih7d9/psSnPfo0lE7EVNKrodW+DW69TGVf1xQ1xwNkT928DPoouDqADu2pWOBu4la2OAr7cN/JNHBBVwGY1g8TZGaLcE9Oceoz6VdhWEeqAo/GkYhEqew394ba2ORaUefJatvycE7K5Q9BmNnL2FU4yGnPxw2gGsLI502gncpybWHxRy4=
+ ARA:13230040|1800799024|36860700016|376014|82310400026|18002099003|22082099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: u6zr9T1YgLoc42rJ+4R/93fylqW36dfwvrL/fVp6jU15my/Le/cSpVufXYNLjjEZYW7oUz9BzYQ2bHpLhoMy0QFMoyvs3Ii3VxNXuHfCdr58Fkje/9hw6Ac9ge3kUngQcDpW/NcEzz1xR8sY5RSkkPmSHqN3xZK0shAF6fl5cKMp3KR/NjDJkr7MdDp+hCQPuMTvh8FLmoEeHzeEoVYGhNW7znPZS8eXcKsaEOYTmWs8Bh6JPSEAKJofXrGRvpxHovDF++LGiwcDoZDO7wAmBruXHtWpChNOe7lFbjCEzbqskrmxugMkpyCu0wp2sVtzhbZEEqOGOCBJ/03gmXUK/njY184rHa3LGcGpT3wy2CzrpesSkVU07Dp8dDCQlHfutyGebw5ExohHgr1B0uS/wHvgLmjIRQWgyAFncJ2j7uDQCK3dSYrdafHo5TExAk+hfenr8qysyoDfEsVivix5gAHLgdL+JVXdRVUcYmsqkDlmBBIq5MWIKJcZJlSXGkGHLSiTEqu2wVG1pr6V6mOq47JaFCkCMMvr2IY5cJCVTwiMah5DVQA2jr0kRG2kdk9vpssKjSAvw5i3Mm6+TgQc6NZOUJ7GO9rwJjF1v9GUTlLG4nMipGEEZklMusd/7jFOSicvurZ1ZDmYkXyKCsKP8+zL2il2mjQyXhjA3X009rUZ544lba+V38NYmCWHnYFuu8vH8Mrur46n16AWIS62RIjZITxtKnxmXigaHtP2Gww=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(56012099006)(18002099003)(11063799006)(6133799003);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VZ0UvQXMGSekomhSQ/txFlxvCtJh/pKzN3g13bErxRIzQhxv5Sk9l37RJ4GVDy8Sucs98Nq/Zf15Au06U7iV7pD37sVO3b01I13+7PxlJjwNqRwWd2GQc3F/PCiQHWyvEG2uivhOhnc1toT3eNhdJ/kr9/8e8i021497ZDyqESdzwMzpFK0/YD1Fxy23S4ScRHBOkYePbz1QrG4OdCNRqWLQZi4Kv4gXSiG6+dbhEUzRo6TGJB0OiatCep2kXvWG0j+4FrpAEv3PXSGwGrtWYMVg5Yq0KGqqpc0YkPAHW1tYEWat5CbPoB8hd9xsGsBbsmy1mouQtOmk7dwmzBrW88DvxrrrLPRuoofY6clWojEJisQbV1fAuQL70vGu+awG2ZlLXJyw0di1Mo4A6fNBMC91Mdz3GQkWAoGuXXV3FNO/lVzPnnDP3rT/u4BhgA7k
+X-MS-Exchange-AntiSpam-MessageData-0: np0/9l49q22abOAz2JdfoxRkAebNqn9OAgxlT+pGlFGb2TY4zAfshX1N3d1zFRcOSRDCHW8aiHa5DCI4qHnisUCjJTjxQ7CeLO62+9kvwJbHnI6tTJPtixVBwH0lNpxhy3cwwHXcQfVyHTneK1dDiOBjO66sgw1fYrNINxErfqoI8jdZka14U/tq6ravRsXCDNpE6ouN00dnZ3Rv16U/5MGFm3+fDA9hzqW24hKIGJ9LBibh64Vpptpdz2hVyFgI+gXBuuYvH9zdcJ3hIJufHdHZL5ZV1rJ3hwBMMQ7tFe10XH7b2c5khtDZA9irczrExpI34WwytMqCARmu5h0Bp4aRbADBXHypu//gc8KCZeCHH7Y9BiGBTAWE42z/vqUe8DJhxWO93agVwDHVmTcOxXUQ3xIZ8tE2g+U0K957VKJbWCry1N6hVUJl59bgSPh6
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 21:15:08.3945 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d4dfbcb-f3d7-49d9-4733-08dec1b530c0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 21:15:12.8608 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33b0e27d-0c1e-43bf-690a-08dec1b53371
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7456
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7903
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,343 +111,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use enum instead of hard coded values. There is no functional change.
+amdgpu_device_is_peer_accessible was initially written to check peer
+VRAM access, however, it is getting called for DOORBELL & MMIO range.
+Add support for these also
 
-v2:
-- Add amdgpu_get_bar_idx() to map BAR roles to PCI BAR indices
-
-v3:
-- Use opaque enum values for BAR roles instead of PCI BAR numbers
-- Return PCI BAR index literals from amdgpu_get_bar_idx()
+v2: Updated  comments in function amdgpu_device_is_peer_accessible()
 
 Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 18 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c      |  6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 57 ++++++++++++++-----
- .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  |  9 ++-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  9 ++-
- 11 files changed, 101 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 15 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 77 +++++++++++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  2 +-
+ 4 files changed, 78 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 5d7bfa59424a..8e7de8d436f5 100644
+index 8e7de8d436f5..42658574912b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1405,6 +1405,24 @@ bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
- bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
- int amdgpu_device_supports_baco(struct amdgpu_device *adev);
- void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev);
-+
-+/**
-+ * enum amdgpu_pcie_bar - PCIe BAR role identifiers
-+ * @AMDGPU_PCIE_BAR_VRAM: VRAM aperture
-+ * @AMDGPU_PCIE_BAR_DOORBELL: Doorbell aperture (Bonaire+)
-+ * @AMDGPU_PCIE_BAR_MMIO: MMIO register aperture
-+ *
-+ * Enum values identify BAR roles only, not PCI BAR indices. Use
-+ * amdgpu_get_bar_idx() to map a role to the PCI BAR index on a given ASIC.
-+ */
-+enum amdgpu_pcie_bar {
-+	AMDGPU_PCIE_BAR_VRAM,
-+	AMDGPU_PCIE_BAR_DOORBELL,
-+	AMDGPU_PCIE_BAR_MMIO,
-+};
-+
-+int amdgpu_get_bar_idx(struct amdgpu_device *adev, enum amdgpu_pcie_bar bar);
-+
+@@ -1424,7 +1424,8 @@ enum amdgpu_pcie_bar {
+ int amdgpu_get_bar_idx(struct amdgpu_device *adev, enum amdgpu_pcie_bar bar);
+ 
  bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 				      struct amdgpu_device *peer_adev);
+-				      struct amdgpu_device *peer_adev);
++				      struct amdgpu_device *peer_adev,
++				      enum amdgpu_pcie_bar pcie_bar);
  int amdgpu_device_baco_enter(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index aa039e148a5e..7e253bb35434 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -111,11 +111,13 @@ static bool amdgpu_read_bios_from_vram(struct amdgpu_device *adev)
- 			return false;
+ int amdgpu_device_baco_exit(struct amdgpu_device *adev);
  
- 	/* FB BAR not enabled */
--	if (pci_resource_len(adev->pdev, 0) == 0)
-+	if (pci_resource_len(adev->pdev,
-+			       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)) == 0)
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 7c01492e69dd..3df92b49d478 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -900,8 +900,19 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 	     (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP))) {
+ 		if (mem->domain == AMDGPU_GEM_DOMAIN_VRAM)
+ 			same_hive = amdgpu_xgmi_same_hive(adev, bo_adev);
+-		if (!same_hive && !amdgpu_device_is_peer_accessible(bo_adev, adev))
+-			return -EINVAL;
++		if (!same_hive) {
++			enum amdgpu_pcie_bar bar;
++
++			if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL)
++				bar = AMDGPU_PCIE_BAR_DOORBELL;
++			else if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)
++				bar = AMDGPU_PCIE_BAR_MMIO;
++			else
++				bar = AMDGPU_PCIE_BAR_VRAM;
++
++			if (!amdgpu_device_is_peer_accessible(bo_adev, adev, bar))
++				return -EINVAL;
++		}
+ 	}
  
- 	adev->bios = NULL;
--	vram_base = pci_resource_start(adev->pdev, 0);
-+	vram_base = pci_resource_start(adev->pdev,
-+				       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- 	adev->bios = kmalloc(size, GFP_KERNEL);
- 	if (!adev->bios)
+ 	for (i = 0; i <= is_aql; i++) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e46cdd6ecd42..48409b28ff55 100644
+index 48409b28ff55..6b04d8486217 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1103,6 +1103,34 @@ void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
- 	spin_unlock_irqrestore(&adev->wb.lock, flags);
- }
- 
-+/**
-+ * amdgpu_get_bar_idx - map a BAR role to the PCI BAR index
-+ * @adev: amdgpu_device pointer
-+ * @bar: BAR role to look up
-+ *
-+ * Return the PCI BAR index for @bar on @adev.
-+ *
-+ * VRAM is always BAR 0. Doorbells were introduced at Bonaire (CIK): pre-Bonaire
-+ * ASICs have no dedicated doorbell BAR, and BAR 2 is used for MMIO registers.
-+ * Bonaire and newer expose a doorbell aperture at BAR 2 and MMIO at BAR 5.
-+ */
-+int amdgpu_get_bar_idx(struct amdgpu_device *adev, enum amdgpu_pcie_bar bar)
-+{
-+	switch (bar) {
-+	case AMDGPU_PCIE_BAR_VRAM:
-+		return 0;
-+	case AMDGPU_PCIE_BAR_DOORBELL:
-+		return 2;
-+	case AMDGPU_PCIE_BAR_MMIO:
-+		if (adev->asic_type >= CHIP_BONAIRE)
-+			return 5;
-+		return 2;
-+	default:
-+		WARN_ON(1);
-+		return -EINVAL;
-+	}
-+}
-+
- /**
-  * amdgpu_device_resize_fb_bar - try to resize FB BAR
+@@ -6218,36 +6218,83 @@ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev)
   *
-@@ -1146,7 +1174,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 
- 	/* skip if the bios has already enabled large BAR */
- 	if (adev->gmc.real_vram_size &&
--	    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size))
-+	    (pci_resource_len(adev->pdev,
-+			      amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)) >= adev->gmc.real_vram_size))
- 		return 0;
- 
- 	/* Check if the root BUS has 64bit memory resources */
-@@ -1165,7 +1194,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 		return 0;
- 
- 	/* Limit the BAR size to what is available */
--	max_size = pci_rebar_get_max_size(adev->pdev, 0);
-+	max_size = pci_rebar_get_max_size(adev->pdev,
-+					  amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 	if (max_size < 0)
- 		return 0;
- 	rbar_size = min(max_size, rbar_size);
-@@ -1178,9 +1208,11 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 	/* Tear down doorbell as resizing will release BARs */
- 	amdgpu_doorbell_fini(adev);
- 
--	r = pci_resize_resource(adev->pdev, 0, rbar_size,
--				(adev->asic_type >= CHIP_BONAIRE) ? 1 << 5
--								  : 1 << 2);
-+	/* Resize the VRAM BAR. Exclude the MMIO BAR from being released. */
-+	r = pci_resize_resource(adev->pdev,
-+				amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM),
-+				rbar_size,
-+				BIT(amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_MMIO)));
- 	if (r == -ENOSPC)
- 		dev_info(adev->dev,
- 			 "Not enough PCI address space for a large BAR.");
-@@ -1191,7 +1223,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
- 	 * using the device.
- 	 */
- 	r = amdgpu_doorbell_init(adev);
--	if (r || (pci_resource_flags(adev->pdev, 0) & IORESOURCE_UNSET))
-+	if (r || (pci_resource_flags(adev->pdev,
-+				       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)) & IORESOURCE_UNSET))
- 		return -ENODEV;
- 
- 	pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
-@@ -3696,7 +3729,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 		       uint32_t flags)
+  * @adev: amdgpu_device pointer
+  * @peer_adev: amdgpu_device pointer for peer device trying to access @adev
++ * @pcie_bar: PCIe BAR role to check (enum amdgpu_pcie_bar)
++ *
++ * Return true if @peer_adev can access (DMA) @adev through the specified
++ * PCIe BAR. For VRAM, @adev must be "large BAR" and the BAR must match
++ * the DMA mask of @peer_adev. For doorbell and MMIO BARs, only the DMA
++ * addressability and P2P chipset support are checked. Doorbell P2P is
++ * only supported on Bonaire and newer ASICs.
++ *
++ * @note: CONFIG_HSA_AMD_P2P indicates support for P2P DMA mappings. Query
++ * P2PDMA distance only if the kernel has all the prerequisites for P2P DMA
++ * support.
+  *
+- * Return true if @peer_adev can access (DMA) @adev through the PCIe
+- * BAR, i.e. @adev is "large BAR" and the BAR matches the DMA mask of
+- * @peer_adev.
+  */
+ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+-				      struct amdgpu_device *peer_adev)
++				      struct amdgpu_device *peer_adev,
++				      enum amdgpu_pcie_bar pcie_bar)
  {
- 	struct pci_dev *pdev = adev->pdev;
--	int r, i;
-+	int r, i, mmio_bar;
- 	bool px = false;
- 	u32 max_MBps;
- 	int tmp;
-@@ -3826,13 +3859,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ #ifdef CONFIG_HSA_AMD_P2P
+-	bool p2p_access =
+-		!adev->gmc.xgmi.connected_to_cpu &&
++	bool p2p_access = true;
++	bool p2p_addressable = false;
++	resource_size_t bar_base = 0, bar_size = 0;
++
++	/* VRAM requires large BAR (full VRAM visible) for P2P access */
++	if (pcie_bar == AMDGPU_PCIE_BAR_VRAM) {
++		if (!adev->gmc.visible_vram_size ||
++		    adev->gmc.real_vram_size != adev->gmc.visible_vram_size)
++			return false;
++
++		/* VRAM on CPU-connected xGMI devices is accessed via
++		 * coherent fabric, not PCIe BAR P2P
++		 */
++		if (adev->gmc.xgmi.connected_to_cpu)
++			return false;
++	}
++
++	switch (pcie_bar) {
++	case AMDGPU_PCIE_BAR_DOORBELL:
++		if (adev->asic_type < CHIP_BONAIRE)
++			return false;
++		bar_base = adev->doorbell.base;
++		bar_size = adev->doorbell.size;
++		break;
++	case AMDGPU_PCIE_BAR_MMIO:
++		bar_base = adev->rmmio_base;
++		bar_size = adev->rmmio_size;
++		break;
++	case AMDGPU_PCIE_BAR_VRAM:
++	default:
++		bar_base = adev->gmc.aper_base;
++		bar_size = adev->gmc.aper_size;
++		break;
++	}
++
++	if (!bar_base || !bar_size) {
++		dev_dbg(adev->dev,
++			"Invalid BAR%d configuration for P2P access (role %d)\n",
++			amdgpu_get_bar_idx(adev, pcie_bar), pcie_bar);
++		return false;
++	}
++
++	p2p_access =
+ 		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
+ 	if (!p2p_access)
+ 		dev_info(adev->dev, "PCIe P2P access from peer device %s is not supported by the chipset\n",
+ 			pci_name(peer_adev->pdev));
+-
+-	bool is_large_bar = adev->gmc.visible_vram_size &&
+-		adev->gmc.real_vram_size == adev->gmc.visible_vram_size;
+-	bool p2p_addressable = amdgpu_device_check_iommu_remap(peer_adev);
++	p2p_addressable = amdgpu_device_check_iommu_remap(peer_adev);
  
- 	/* Registers mapping */
- 	/* TODO: block userspace mapping of io register */
--	if (adev->asic_type >= CHIP_BONAIRE) {
--		adev->rmmio_base = pci_resource_start(adev->pdev, 5);
--		adev->rmmio_size = pci_resource_len(adev->pdev, 5);
--	} else {
--		adev->rmmio_base = pci_resource_start(adev->pdev, 2);
--		adev->rmmio_size = pci_resource_len(adev->pdev, 2);
--	}
-+	mmio_bar = amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_MMIO);
-+	adev->rmmio_base = pci_resource_start(adev->pdev, mmio_bar);
-+	adev->rmmio_size = pci_resource_len(adev->pdev, mmio_bar);
+ 	if (!p2p_addressable) {
+ 		uint64_t address_mask = peer_adev->dev->dma_mask ?
+ 			~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
+-		resource_size_t aper_limit =
+-			adev->gmc.aper_base + adev->gmc.aper_size - 1;
++		resource_size_t bar_limit = bar_base + bar_size - 1;
  
- 	for (i = 0; i < AMD_IP_BLOCK_TYPE_NUM; i++)
- 		atomic_set(&adev->pm.pwr_state[i], POWER_STATE_UNKNOWN);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-index bc7858567321..826b80481908 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-@@ -201,14 +201,17 @@ int amdgpu_doorbell_init(struct amdgpu_device *adev)
- 		return 0;
+-		p2p_addressable = !(adev->gmc.aper_base & address_mask ||
+-				     aper_limit & address_mask);
++		p2p_addressable = !(bar_base & address_mask ||
++				     bar_limit & address_mask);
  	}
+-	return pcie_p2p && is_large_bar && p2p_access && p2p_addressable;
++
++	return p2p_access && p2p_addressable;
+ #else
+ 	return false;
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index f57da088f1f8..b77acf97fbc8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1497,7 +1497,7 @@ static int kfd_add_peer_prop(struct kfd_topology_device *kdev,
  
--	if (pci_resource_flags(adev->pdev, 2) & IORESOURCE_UNSET)
-+	if (pci_resource_flags(adev->pdev,
-+			       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_DOORBELL)) & IORESOURCE_UNSET)
- 		return -EINVAL;
+ 	if (!amdgpu_device_is_peer_accessible(
+ 				kdev->gpu->adev,
+-				peer->gpu->adev))
++				peer->gpu->adev, AMDGPU_PCIE_BAR_VRAM))
+ 		return ret;
  
- 	amdgpu_asic_init_doorbell_index(adev);
- 
- 	/* doorbell bar mapping */
--	adev->doorbell.base = pci_resource_start(adev->pdev, 2);
--	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
-+	adev->doorbell.base = pci_resource_start(adev->pdev,
-+						 amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_DOORBELL));
-+	adev->doorbell.size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_DOORBELL));
- 
- 	adev->doorbell.num_kernel_doorbells =
- 		min_t(u32, adev->doorbell.size / sizeof(u32),
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 6be2000c8261..711c76c8ca59 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -694,8 +694,10 @@ static int gmc_v10_0_mc_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 	}
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- #ifdef CONFIG_X86_64
- 	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 8eb9847d9e1e..12dff2ffe835 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -696,8 +696,10 @@ static int gmc_v11_0_mc_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 	}
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- #ifdef CONFIG_X86_64
- 	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 84c93364d220..dec3a2c3ad33 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -746,8 +746,10 @@ static int gmc_v12_0_mc_init(struct amdgpu_device *adev)
- 			return r;
- 	}
- 
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- #ifdef CONFIG_X86_64
- 	if (((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) ||
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index a914dd8183b5..136dcc901a6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -323,8 +323,10 @@ static int gmc_v6_0_mc_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 	}
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 	adev->gmc.visible_vram_size = adev->gmc.aper_size;
- 
- 	/* set the gart size */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 0cc6ebb53a09..6b9e2f0147a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -379,8 +379,10 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 	}
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- #ifdef CONFIG_X86_64
- 	if ((adev->flags & AMD_IS_APU) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index c8741ce71229..dddf05d53318 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -572,8 +572,10 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 	}
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- #ifdef CONFIG_X86_64
- 	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 8a5c44810ba1..bc62a59f79d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1588,7 +1588,8 @@ static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
- 		 * mode.
- 		 */
- 		adev->gmc.is_app_apu = (pkg_type == AMDGPU_PKG_TYPE_APU &&
--					!pci_resource_len(adev->pdev, 0));
-+					!pci_resource_len(adev->pdev,
-+							  amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM)));
- 	}
- 
- 	gmc_v9_0_set_gmc_funcs(adev);
-@@ -1700,8 +1701,10 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
- 	}
--	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
--	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
-+	adev->gmc.aper_base = pci_resource_start(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
-+	adev->gmc.aper_size = pci_resource_len(adev->pdev,
-+					       amdgpu_get_bar_idx(adev, AMDGPU_PCIE_BAR_VRAM));
- 
- #ifdef CONFIG_X86_64
- 	/*
+ 	if (list_empty(&kdev->io_link_props))
 -- 
 2.43.0
 
