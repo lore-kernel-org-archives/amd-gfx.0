@@ -4,65 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75BFDCD6E7B
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:55:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 280EBCD6E78
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:55:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2DC5112847;
-	Thu,  4 Jun 2026 14:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83632112851;
+	Thu,  4 Jun 2026 14:55:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E8EsRgWl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T4BBQEQl";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010048.outbound.protection.outlook.com
- [40.93.198.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1821D112843
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010055.outbound.protection.outlook.com [52.101.56.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3DAC112847
  for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 14:55:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RBWDaDJ+x+7qt55DwGDaZPbL9M4eAr2o+9IWWGWYR2YbFXSYBUE8Z+LK2TdJ6koYbIuMEKTIb2GY3ihh9z51Vl4HMfWmFLNT+dmWYstW86ucaGiD1yMTmht/et/VWlXB0U2JfW2BL7KmH9Bs7OjpRTV+MmUs/+OBe8LcybkNiPUSU3Lb2mmlW3R3MaRLhkWN2uZeI1uaBTOx9N9x91F408jO7vyucWlI4iTAS4gbHnOBj/CuThWWbYoGpeZFpPhdD3SuiglQI513jF9Xuys+NUpyPOghEua4R3tPAs5tsAHcDGOJvYc5xXkHscYYchVOqhMda+qBnzQ6KJdnYp2w9w==
+ b=FcgHpbExHpr7p7Hrn3lCo9vRwvp645EHFRTtUEUN2Luc73ULvoxUqoULNQx09tHCBnKglHzvZgqMZausyBZTKpDm7s04XkQzqbacwEa7TOgTiEP5OoeMB7B8VkKl5ym3z5cVwlMxKRbpk5gEyab0/t64FCu25aPu/wE208EO1BZMOqKwbYrfw2upkx53PSBnxTE48Xk9WC+LzPegTyR68cjwGk7tWCwGoOtqlg/GHIBEwXsRFaRNKKZz14uHkkpRH+LoIwA42Zls80zKC99c70dvm/laONqYtMDX25MDSGoTWAmt9L0HZ603gGSVWyi3KGwkAKS93gbJ++WZN/lVLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=whSHoQClzl7kPGAZpeGz7/kdRuXoaM3h2Bz8P2ySBjw=;
- b=x9r4dOJZJqkTe1L5zHSFg0R0E2ZusIxzwMCUctgXnN4DdG5tLaH5Rv7VMFq2tIiduW6x822HUEABYQLckMTYtXKhGSeSFfv1dHLfTOwcxlGtZF9AHOLRRWU244XJJ/K2v9iGjfMY7m5ggZyOpnrVDp2bR8SpFzT9fiMYwmw3Ue/foBcVQ2b0N6JzTbHDZv8g4iSwuk44t0/4vMKAsVTLJs/HULVPExnIh6tvQzQISVAXWaqzKu596tHj98IrgFgM2aLsWxCED8sIYqieVSMut7bD7ap3xYuQg+blpXTa9uk5poADWioLQ6CQojK5pk7lIjfcrZ5GhUPyruR1iym0SA==
+ bh=dlZ53a8cazNNRqINgKX/YLw+iYGde/9aFQ+YNEZYRWI=;
+ b=fMKu1c55tyFkh3RxzqrIYD8TQNI8/Pr/SlqFAUUMCFIPi+VsBM8DAGAb3htF/Wd8g2LrkakGBU7pvv+Kk6J2NCWR3pYYWSjfQL9yWPra6+c9SvPxh3+Faa8MTL/G8HwRqbCSQrPnH5k5MykMQTdPle7sLpsqPXOMAmhPiwcyVgaU+oYX+98uIpWpUNDSx4uqkitB7t93yZj5zpYOakunJz0S1plHw+Zdtufsect6im4EoX4JyI2OwxvD0zybzkJfgOhQW5O1/2MhuiOyfcwhMk8emG5s8sjw1OtsGRUKYSx0N9zsBqtpVN1dNEfk8xdATt2gs5lHnkVs8uUy3ZM8MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=whSHoQClzl7kPGAZpeGz7/kdRuXoaM3h2Bz8P2ySBjw=;
- b=E8EsRgWls/ddbaFBnHR4SmafwqUl/Nw/wRdWX385oKkOTVguiBYXlkv1a+YzTsqfDDGjrXOK3F4xmdvoa7KXCKkqsiGM5DpAhQPugGVujenIPrH0b7VnESUKxRZdMcCPHPbWCzsDCYu7mi5AzE1P2SNP4XO56ew3oyYIHCf9QP8=
-Received: from BN9PR03CA0227.namprd03.prod.outlook.com (2603:10b6:408:f8::22)
- by SJ2PR12MB9162.namprd12.prod.outlook.com (2603:10b6:a03:555::8)
+ bh=dlZ53a8cazNNRqINgKX/YLw+iYGde/9aFQ+YNEZYRWI=;
+ b=T4BBQEQldAtWKpcBf8y99tH0lV18xL8UgEJOIhIQNgV9g0W3tXMzbKKhg6x/97cER2Xfd0MLnGeR63PwML8DKeHMVBQqtFjLPdjFrkellWKjXCYsyyPLPQhz+HwFHrifInPxEHNOjIPoiI5ZYEsbPqToxsIkXM/BprXWKKS2dog=
+Received: from BL1PR13CA0370.namprd13.prod.outlook.com (2603:10b6:208:2c0::15)
+ by SJ0PR12MB7458.namprd12.prod.outlook.com (2603:10b6:a03:48d::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
- 14:55:16 +0000
-Received: from BN1PEPF00004689.namprd05.prod.outlook.com
- (2603:10b6:408:f8:cafe::b) by BN9PR03CA0227.outlook.office365.com
- (2603:10b6:408:f8::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
- Jun 2026 14:55:16 +0000
+ 14:55:20 +0000
+Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::20) by BL1PR13CA0370.outlook.office365.com
+ (2603:10b6:208:2c0::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Thu, 4
+ Jun 2026 14:55:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:55:16 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:55:20 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 09:55:04 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 09:55:03 -0500
+ 2026 09:55:08 -0500
 Received: from aaurabin-tumbleweed.king-squeaker.ts.net (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41
- via Frontend Transport; Thu, 4 Jun 2026 09:55:03 -0500
+ via Frontend Transport; Thu, 4 Jun 2026 09:55:07 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,11 +66,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 13/24] drm/amd/display: Extract DPRX CRC transition helpers
- for KUnit testing
-Date: Thu, 4 Jun 2026 10:52:07 -0400
-Message-ID: <20260604145428.809959-14-aurabindo.pillai@amd.com>
+ <Chen-Yu.Chen@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+ <timur.kristof@gmail.com>
+Subject: [PATCH 19/24] drm/amd/display: Use handle_hpd_irq_helper for HPD RX
+Date: Thu, 4 Jun 2026 10:52:13 -0400
+Message-ID: <20260604145428.809959-20-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260604145428.809959-1-aurabindo.pillai@amd.com>
 References: <20260604145428.809959-1-aurabindo.pillai@amd.com>
@@ -84,29 +79,29 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|SJ2PR12MB9162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c0ae1d9-8b8b-4e4a-0822-08dec2494a3b
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|SJ0PR12MB7458:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e776a84-5f13-441d-4a2f-08dec2494c3d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014|6133799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: +/9CxOCWUt2EIy5YINmXrpQ9FY5aQSkym4Zsjz4a/FAZGUO+vYaLJYysI0A0/8PjJ75+RrZcmw72L8bTItAxw8kiPacnhhoc45jCZAXpAmN0c8/73n3RAMJwEo7iEH1lDzdw8kWfuILxXIrry4hzsPoY6J1XJNH18A7KIdNZbsRaE3UnyUZhBiOViyXtS4NEU4wJbXoOuRHxqWotr6I0JmKPLeB2e/h+BdKit7LUjyhwQUUe8VOPKQPHvtLlofoIDWM5JFPa4c8BLKqFDO/5TLFDZdzEUIe4k50B8qGdcwALbiU4+GAF+Oqo0VCXubscp4r3iZTiZrn87nZsER8hJvOLjueGc/qCRXsXS8N1lLshNa+xUYv2VrY8zbN+TOEJZ8adOfgAMl1lAunD8YucEYg+0GIqU0CV41UY8bESntkTVMtZzYqUyP6ofz3Jjjze1O5wDBz6JeP6GkeYLys8Pk+xNbZWMySbL0PavTCjrPtiuBtImurgVFHP0HszBXZR0sRDc5F0xs+UOxfmIVpPVZudHf2I5a0Fq5bVl3IAsQtz0C7j8o1YOvqbGnYmTZMXoRx3VmYsbUtGR0ogf1IhA/31pUSolhRJ5X+CbsD42HmZBcBtZaWdJQyaeUbyIhBbcEQBGW220K3qnEu9Xtga9nJfFGEWP7fprYES5FEP5UUvuG4+otmWM0gMNZhRUtcYrfKApawMJdb57qpGARXy7XnDgcm4hkAiTvroG7Rl7Uw=
+ ARA:13230040|82310400026|36860700016|376014|1800799024|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: U1r4JCqBFApeh/w2v6ZGPMDhmoxJo9/A0kQIq/pzspgYNW2gxzuGhS5VfXAdyAQU2zVbQZBV2OiehghDrnhuS45YjEo4YLhoLLvlMJqI3uuGY5gWwSvhSJE03OTlDvdAVHOiJeS7QuAcJZc7QSdESKjUFr7UOssFY11xWUpw+UEGEqA5MFWpj++ZM4V2YE0Fv0vrgy082SW0BqEqqDQDRrvpd3y5EplbvMXE0d68DEls5jZgZmcAxnbUjReQgKAEDGjyFsaJf//HK6ubsl/2av5kYqBeRJgz9Ngv3JWTsqpBLykSkIQ97uLPOwmkLUW7IygkuVA6PYV0sPoaZKhQbDh678eaYMcPeQtJ5rOOiLqW64I5QC82Q8r/UtS8nufjgiZQZgoNNmPsxq96Z8Fp7qqTQNXMsa5G6bu4bsmGfgfJ96bFV9TVAc/tUzdqK799gEZzFITPn4iQ6KkrdKBY6VdAZAIwBGrHTM8tkuIgvrxbbhv1SaD+Dvt1WXCbWU8v1KxEG0hC+t3xsC3Y1T5AeLwBa9GooEDOY9NysimaPorvBOt3pEzOzX8b/rZLl20o3DM6Zh0p+0a1LxU0tagMe9TbacTJLcOi4Ytw6LN7yD/rEv2TzDpe62PZ3Kyy2WYi1a6ERo9qIN0VeJfAhQ7tx6YZ9AVhFr0NqU3AtfDRZqbaNmq0lY+7JqAxIA/xpT+U4CFFuwWeFQA3eEVmZCJrzHqwKlCFgrxz8wHLHMvnfT4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ynaaui6kuAMt8qH/uez4o5ex0TG0f/chdfI8KXCf7330rlC3+ZZ5yQEzVwlV+IAbKFC102j0/jI9fJOLW3o411fBIZ91DvySNgsLhgQDAT+UpaUZuk7S7gTiN0vxsFSvzlbNzkK5fa9bSoyu9fltMsk4EJGPurQ0psreqZb7BGFGTtwASkeyz2VT1NPi3UJf7l/CAAG7EgjSLkclx3jVa3OPmUrsZDc76POK4IOMentxDfU2hPcvX3thf3gjaiDaETIQD/X9z6ih9Tvb2i64pLWfG0YKHz88U86xgoXvuxBUq2KDlFbnOQeAEoTriVUehsgV80FhYWs1MM/HC50G5d1AXgeMTp7yAFRpn3oxZEkhZXHL3yYSToxltOvdnNCOjNl1FX4skzv8TiJMsgMKErMu6pPJ7qLRXNZsWjeobVWNaEku36rq5CaG8RGzgZg6
+X-MS-Exchange-AntiSpam-MessageData-0: ND/KfiFEhsGxr1KfZrMxDTF+6eV98ixdZBHsndeEKFXiUW6zjbpbpUTGh7lXFIIvQUv/6msxngI33TZWxJUjoOSnGc8+wUPcT0urCHFSQ/Wmf121mfgd1xGPbswUjcU+ulJ/k1NIwEnFn/Wm4Fzt2Q6qKy1dyyfFXMX4qz71nJBFHJ6FksVkTflJGLP+sNEpyZOwJVmKHAWXS0qtMdr8kGPKGBVEY7qIzxB6oy1Ddq5Tn2shFYVpRTsJhZT4l6eCgDpRL6T6dTX8pdwnmZhfQ9xatKbFKpeD8YU6rqiwU8TM6kVlotD/UhwDCcm8OrAwUlJQ/04avuC5PXUtETdKCcZNbafJuwO1PlCNsBtXD6YsgSwTjRFtVL+Gdxxqz+MoNR/A4LiU2SBNxiBe12akoFHh2vQYKbpZuxRJdB3cGRPnR2XOpf51ueGYhSdHXIyP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:55:16.6581 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c0ae1d9-8b8b-4e4a-0822-08dec2494a3b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:55:20.0238 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e776a84-5f13-441d-4a2f-08dec2494c3d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004689.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9162
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7458
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,312 +116,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-Extract three pure predicate functions from amdgpu_dm_crtc_set_crc_source():
-- dm_need_dp_aux
-- dm_crc_source_should_start_dprx
-- dm_crc_source_should_stop_dprx
+Remove duplicated code and just call handle_hpd_irq_helper
+with the appropriate detect reason.
 
-Refactor set_crc_source() to use these helpers, replacing the nested
-if/else if structure with flat, mutually-exclusive branches driven by
-the new predicates.
-
-Add KUnit test cases covering all relevant source combinations for each
-helper, including the regression case where DPRX→NONE must trigger
-drm_dp_stop_crc().
-
-Assisted-by: Copilot:Claude-Sonnet-4.6
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  92 ++++++++++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   6 +
- .../amdgpu_dm/tests/amdgpu_dm_crc_test.c      | 122 ++++++++++++++++++
- 3 files changed, 203 insertions(+), 17 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +------------------
+ 1 file changed, 1 insertion(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index d6d38c97fbad..7b0604e9216a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -87,6 +87,65 @@ bool dm_need_crc_dither(enum amdgpu_dm_pipe_crc_source src)
- }
- EXPORT_IF_KUNIT(dm_need_crc_dither);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 52cfe32f14b8..e1d23dd3c2a7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4491,14 +4491,12 @@ static void handle_hpd_rx_irq(void *param)
+ 	struct dc_link *dc_link = aconnector->dc_link;
+ 	bool is_mst_root_connector = aconnector->mst_mgr.mst_state;
+ 	bool result = false;
+-	enum dc_connection_type new_connection_type = dc_connection_none;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	union hpd_irq_data hpd_irq_data;
+ 	bool link_loss = false;
+ 	bool has_left_work = false;
+ 	int idx = dc_link->link_index;
+ 	struct hpd_rx_irq_offload_work_queue *offload_wq = &adev->dm.hpd_rx_offload_wq[idx];
+-	struct dc *dc = aconnector->dc_link->ctx->dc;
  
-+/**
-+ * dm_need_dp_aux() - Does this source transition require the DP AUX handle?
-+ * @source: Requested CRC source.
-+ * @cur_crc_src: Current CRC source.
-+ *
-+ * Returns true when either the new source is DPRX-based (starting DPRX CRC),
-+ * or the current source is DPRX-based and the new source is NONE (stopping it).
-+ *
-+ * Return: true if the DP AUX handle is needed, false otherwise.
-+ */
-+STATIC_IFN_KUNIT
-+bool dm_need_dp_aux(enum amdgpu_dm_pipe_crc_source source,
-+		    enum amdgpu_dm_pipe_crc_source cur_crc_src)
-+{
-+	return dm_is_crc_source_dprx(source) ||
-+	       (source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE && dm_is_crc_source_dprx(cur_crc_src));
-+}
-+EXPORT_IF_KUNIT(dm_need_dp_aux);
-+
-+/**
-+ * dm_crc_source_should_start_dprx() - Should drm_dp_start_crc() be called?
-+ * @source: Requested CRC source.
-+ * @cur_crc_src: Current CRC source.
-+ *
-+ * True when CRC is transitioning from off to a DPRX source
-+ * (!enabled && enable && is_dprx(@source)).
-+ *
-+ * Return: true if drm_dp_start_crc() should be called, false otherwise.
-+ */
-+STATIC_IFN_KUNIT
-+bool dm_crc_source_should_start_dprx(enum amdgpu_dm_pipe_crc_source source,
-+				      enum amdgpu_dm_pipe_crc_source cur_crc_src)
-+{
-+	return !amdgpu_dm_is_valid_crc_source(cur_crc_src) &&
-+	       amdgpu_dm_is_valid_crc_source(source) &&
-+	       dm_is_crc_source_dprx(source);
-+}
-+EXPORT_IF_KUNIT(dm_crc_source_should_start_dprx);
-+
-+/**
-+ * dm_crc_source_should_stop_dprx() - Should drm_dp_stop_crc() be called?
-+ * @source: Requested CRC source.
-+ * @cur_crc_src: Current CRC source.
-+ *
-+ * True when CRC is transitioning from a DPRX source to off
-+ * (enabled && !enable && is_dprx(@cur_crc_src)).
-+ *
-+ * Return: true if drm_dp_stop_crc() should be called, false otherwise.
-+ */
-+STATIC_IFN_KUNIT
-+bool dm_crc_source_should_stop_dprx(enum amdgpu_dm_pipe_crc_source source,
-+				     enum amdgpu_dm_pipe_crc_source cur_crc_src)
-+{
-+	return amdgpu_dm_is_valid_crc_source(cur_crc_src) &&
-+	       !amdgpu_dm_is_valid_crc_source(source) &&
-+	       dm_is_crc_source_dprx(cur_crc_src);
-+}
-+EXPORT_IF_KUNIT(dm_crc_source_should_stop_dprx);
-+
- const char *const *amdgpu_dm_crtc_get_crc_sources(struct drm_crtc *crtc,
- 						  size_t *count)
- {
-@@ -650,9 +709,7 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 	 * CRTC DITHER  | XXXX        | Enable CRTC CRC, set dither
- 	 * DPRX DITHER  | XXXX        | Enable DPRX CRC, need 'aux', set dither
- 	 */
--	if (dm_is_crc_source_dprx(source) ||
--	    (source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE &&
--	     dm_is_crc_source_dprx(cur_crc_src))) {
-+	if (dm_need_dp_aux(source, cur_crc_src)) {
- 		struct amdgpu_dm_connector *aconn = NULL;
- 		struct drm_connector *connector;
- 		struct drm_connector_list_iter conn_iter;
-@@ -714,23 +771,24 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 		goto cleanup;
- 	}
+ 	memset(&hpd_irq_data, 0, sizeof(hpd_irq_data));
  
--	if (!enabled && enable) {
--		if (dm_is_crc_source_dprx(source)) {
--			if (drm_dp_start_crc(aux, crtc)) {
--				DRM_DEBUG_DRIVER("dp start crc failed\n");
--				ret = -EINVAL;
--				goto cleanup;
+@@ -4567,44 +4565,7 @@ static void handle_hpd_rx_irq(void *param)
+ out:
+ 	if (result && !is_mst_root_connector) {
+ 		/* Downstream Port status changed. */
+-		if (!dc_link_detect_connection_type(dc_link, &new_connection_type))
+-			drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
+-
+-		if (aconnector->base.force && new_connection_type == dc_connection_none) {
+-			emulated_link_detect(dc_link);
+-
+-			if (aconnector->fake_enable)
+-				aconnector->fake_enable = false;
+-
+-			amdgpu_dm_update_connector_after_detect(aconnector);
+-
+-
+-			drm_modeset_lock_all(dev);
+-			dm_restore_drm_connector_state(dev, connector);
+-			drm_modeset_unlock_all(dev);
+-
+-			drm_kms_helper_connector_hotplug_event(connector);
+-		} else {
+-			bool ret = false;
+-
+-			mutex_lock(&adev->dm.dc_lock);
+-			dc_exit_ips_for_hw_access(dc);
+-			ret = dc_link_detect(dc_link, DETECT_REASON_HPDRX);
+-			mutex_unlock(&adev->dm.dc_lock);
+-
+-			if (ret) {
+-				if (aconnector->fake_enable)
+-					aconnector->fake_enable = false;
+-
+-				amdgpu_dm_update_connector_after_detect(aconnector);
+-
+-				drm_modeset_lock_all(dev);
+-				dm_restore_drm_connector_state(dev, connector);
+-				drm_modeset_unlock_all(dev);
+-
+-				drm_kms_helper_connector_hotplug_event(connector);
 -			}
-+	if (dm_crc_source_should_start_dprx(source, cur_crc_src)) {
-+		/* !enabled && enable && is_dprx(source): CRC off → DPRX on */
-+		if (drm_dp_start_crc(aux, crtc)) {
-+			DRM_DEBUG_DRIVER("dp start crc failed\n");
-+			ret = -EINVAL;
-+			goto cleanup;
- 		}
--	} else if (enabled && !enable) {
-+	} else if (dm_crc_source_should_stop_dprx(source, cur_crc_src)) {
-+		/* enabled && !enable && is_dprx(cur_crc_src): DPRX on → CRC off */
- 		drm_crtc_vblank_put(crtc);
--		if (dm_is_crc_source_dprx(cur_crc_src)) {
--			if (drm_dp_stop_crc(aux)) {
--				DRM_DEBUG_DRIVER("dp stop crc failed\n");
--				ret = -EINVAL;
--				goto cleanup;
--			}
-+		if (drm_dp_stop_crc(aux)) {
-+			DRM_DEBUG_DRIVER("dp stop crc failed\n");
-+			ret = -EINVAL;
-+			goto cleanup;
- 		}
-+	} else if (enabled && !enable) {
-+		/* Non-DPRX source (e.g. CRTC) turning off: release vblank ref */
-+		drm_crtc_vblank_put(crtc);
+-		}
++		handle_hpd_irq_helper(aconnector, DETECT_REASON_HPDRX);
  	}
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-index c9aa0c82038f..8bb8a6f6c148 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-@@ -156,6 +156,12 @@ enum amdgpu_dm_pipe_crc_source dm_parse_crc_source(const char *source);
- bool dm_is_crc_source_crtc(enum amdgpu_dm_pipe_crc_source src);
- bool dm_is_crc_source_dprx(enum amdgpu_dm_pipe_crc_source src);
- bool dm_need_crc_dither(enum amdgpu_dm_pipe_crc_source src);
-+bool dm_need_dp_aux(enum amdgpu_dm_pipe_crc_source source,
-+		    enum amdgpu_dm_pipe_crc_source cur_crc_src);
-+bool dm_crc_source_should_start_dprx(enum amdgpu_dm_pipe_crc_source source,
-+				      enum amdgpu_dm_pipe_crc_source cur_crc_src);
-+bool dm_crc_source_should_stop_dprx(enum amdgpu_dm_pipe_crc_source source,
-+				     enum amdgpu_dm_pipe_crc_source cur_crc_src);
- #endif
- 
- #endif /* AMD_DAL_DEV_AMDGPU_DM_AMDGPU_DM_CRC_H_ */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-index bba8b1a8fa1c..a6fd3a6fd803 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-@@ -95,17 +95,139 @@ static void dm_test_is_valid_crc_source(struct kunit *test)
- 	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_valid_crc_source(AMDGPU_DM_PIPE_CRC_SOURCE_INVALID));
- }
- 
-+/**
-+ * dm_test_need_dp_aux() - Test dm_need_dp_aux().
-+ * @test: KUnit test context.
-+ *
-+ * Verifies that dm_need_dp_aux() returns true when the transition starts or
-+ * stops a DPRX CRC source (requiring the DP AUX handle), and false for
-+ * non-DPRX transitions such as CRTC or NONE→NONE.
-+ */
-+static void dm_test_need_dp_aux(struct kunit *test)
-+{
-+	/* Starting a DPRX source always needs AUX, regardless of current source */
-+	KUNIT_EXPECT_TRUE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+	KUNIT_EXPECT_TRUE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
-+	KUNIT_EXPECT_TRUE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+
-+	/* Stopping a DPRX source (NONE requested, DPRX was active) needs AUX */
-+	KUNIT_EXPECT_TRUE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
-+	KUNIT_EXPECT_TRUE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER));
-+
-+	/* CRTC transitions do not need AUX */
-+	KUNIT_EXPECT_FALSE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+	KUNIT_EXPECT_FALSE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
-+	KUNIT_EXPECT_FALSE(test, dm_need_dp_aux(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+}
-+
-+/**
-+ * dm_test_crc_source_should_start_dprx() - Test dm_crc_source_should_start_dprx().
-+ * @test: KUnit test context.
-+ *
-+ * Verifies that dm_crc_source_should_start_dprx() returns true only when CRC
-+ * is transitioning from off (!enabled) to a DPRX source (enable &&
-+ * is_dprx(source)), and false for all other combinations including
-+ * already-enabled or non-DPRX targets.
-+ */
-+static void dm_test_crc_source_should_start_dprx(struct kunit *test)
-+{
-+	/* CRC off → DPRX: should start */
-+	KUNIT_EXPECT_TRUE(test,
-+		dm_crc_source_should_start_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+	KUNIT_EXPECT_TRUE(test,
-+		dm_crc_source_should_start_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+
-+	/* CRC already on (any source) → DPRX: should NOT start (already enabled) */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_start_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_start_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
-+
-+	/* CRC off → CRTC: not a DPRX start */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_start_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_CRTC,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+
-+	/* Disabling: should not start */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_start_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+						AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
-+}
-+
-+/**
-+ * dm_test_crc_source_should_stop_dprx() - Test dm_crc_source_should_stop_dprx().
-+ * @test: KUnit test context.
-+ *
-+ * Verifies that dm_crc_source_should_stop_dprx() returns true only when CRC
-+ * is transitioning from a DPRX source (enabled && is_dprx(cur_crc_src)) to
-+ * off (!enable), and false for non-DPRX disables, DPRX starts, and no-op
-+ * transitions.
-+ */
-+static void dm_test_crc_source_should_stop_dprx(struct kunit *test)
-+{
-+	/* DPRX → off: should stop */
-+	KUNIT_EXPECT_TRUE(test,
-+		dm_crc_source_should_stop_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
-+	KUNIT_EXPECT_TRUE(test,
-+		dm_crc_source_should_stop_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_DPRX_DITHER));
-+
-+	/* CRTC → off: not a DPRX stop */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_stop_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_CRTC));
-+
-+	/* off → DPRX: not a stop */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_stop_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+
-+	/* DPRX → DPRX: no transition, not a stop */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_stop_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_DPRX,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_DPRX));
-+
-+	/* off → off: not a stop */
-+	KUNIT_EXPECT_FALSE(test,
-+		dm_crc_source_should_stop_dprx(AMDGPU_DM_PIPE_CRC_SOURCE_NONE,
-+					       AMDGPU_DM_PIPE_CRC_SOURCE_NONE));
-+}
-+
- static struct kunit_case dm_crc_test_cases[] = {
-+	/* dm_parse_crc_source() */
- 	KUNIT_CASE(dm_test_parse_crc_source_none),
- 	KUNIT_CASE(dm_test_parse_crc_source_crtc),
- 	KUNIT_CASE(dm_test_parse_crc_source_dprx),
- 	KUNIT_CASE(dm_test_parse_crc_source_crtc_dither),
- 	KUNIT_CASE(dm_test_parse_crc_source_dprx_dither),
- 	KUNIT_CASE(dm_test_parse_crc_source_invalid),
-+	/* dm_is_crc_source_crtc() */
- 	KUNIT_CASE(dm_test_is_crc_source_crtc),
-+	/* dm_is_crc_source_dprx() */
- 	KUNIT_CASE(dm_test_is_crc_source_dprx),
-+	/* dm_need_crc_dither() */
- 	KUNIT_CASE(dm_test_need_crc_dither),
-+	/* amdgpu_dm_is_valid_crc_source() */
- 	KUNIT_CASE(dm_test_is_valid_crc_source),
-+	/* dm_need_dp_aux() */
-+	KUNIT_CASE(dm_test_need_dp_aux),
-+	/* dm_crc_source_should_start_dprx() */
-+	KUNIT_CASE(dm_test_crc_source_should_start_dprx),
-+	/* dm_crc_source_should_stop_dprx() */
-+	KUNIT_CASE(dm_test_crc_source_should_stop_dprx),
- 	{}
- };
- 
+ 	if (hpd_irq_data.bytes.device_service_irq.bits.CP_IRQ) {
+ 		if (adev->dm.hdcp_workqueue)
 -- 
 2.54.0
 
