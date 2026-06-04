@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FEABCD6E77
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:55:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D0ACD6E78
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036E9112842;
-	Thu,  4 Jun 2026 14:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE61F11284A;
+	Thu,  4 Jun 2026 14:55:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wR/p5GEE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bwVCBqh8";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013051.outbound.protection.outlook.com
- [40.107.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7A0C112840
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 14:55:22 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010009.outbound.protection.outlook.com [52.101.61.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 610D3112843
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 14:55:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qxsyygSFBiv9AkXqLu57gyAQewMefYx3p1OL4q074vsOP/bpKzEl3/wX3Qtu392iOYfzBpSdIV6Bcd6BcS6EWVfP4i8QkVo3syJbuHzTgi4gpjerSrDcjS/4ad8dj0UgYYAWEYpwajlKKL1QJ9BGMnY8o3Jll1xrtMk2eOkQA+uFmegDARCc1+AtVaNyoJpPj9tiYrNpoj7Q3wpwERN9XnXNgDoOPCjbkJg4TLCW98sa6pKaDwIwDuiSSdh5no3hd6hN1kePjL5CUwunS8sLNiAVzOPCXJvjt3QrkCD1UKz9hBAgjBlAbDgTHuCgqL7ERd6CJw+qeq/nTwddsm047A==
+ b=k+lYCO6gKKpjKZVY0OTXWdmImBCkFU+WGRoZIpizoVLc9+GpuslgGJqohRJPWdJvj+ihKJeLlK2zGCEnQwtTiGQq1DY4if/JPZqLhXy4sp8o2xIIxA0g9uUpDQr18xj1Uqkk899Sbw3TDcCOoQ5orKAHb43h/JrYwlxYdI0Of+bD3hd3kkKbPYK10rAatIcwQbqPdqIaUBaOmHIfapu1mmPAwj/5h8CxB+pjtS2+jpn9tGzIXzrOAAVK77Wn16nhQfRMzBxEV4CKL/a16Qo5UqrDoOK34gjKIPITBQVrMAoXjjf5lK1syYpdTe212a8w/JGkUrSQ/th5Rhi5zYUfCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iQSV0Hbi9mMS7V7jhCZMRx7w5kUfCAVCt0R6M1h63JA=;
- b=of6A7jJUcKvvAgtP/SF6DCBr20Mmi+UhNdTrvCILg8JxY20ArUJkmOIPzzU2LsAI3gOdOAWZgTSvjigQXzfrBxkePjLmwjEU0AzZOL8Bgsdq5g5hDuVlqPplKKmczbjsbbDeiaCYLhtj6JEDKEcviMCCJd1btwBdFiMzk8umGxpF/TE0Dkz1J7b1Cx9k5zTJee1m3sas1cLytLMvxPKerSI6a/BXnzZnRVzLsAgBkXmtM8ZxHwaxBnzx6zt6vHgPXAq7Pl38kGqtSc6CHcIILQUFYNloSQPWJbFt6aZoGX6OZE/CBAA/jYn4tlf/c9+RSXjk0pCrrC5cywxxtW/dzQ==
+ bh=dDkilYVCi6NTG64xLCGY1OmKGcMru4Px8u4nqdfVz/o=;
+ b=QkgNJtJg1FluyH2ckEuR3YMNNhbuji34jtZ+Yc3qr7AKq0R3LPAnFXjwX4HYs3dAMUlAnXHPapI0MXX0ElyfyI/cCsPUg9/PITc7W2Nr5y0EAPQJEYE9u6756UkXvCpln8J0BJTadyIJSQCqQCfSu1DOCJe1Roy9X0+bEeQgX4UxPFW+Thl04dlOPnPnDiQOS/ZIaMNtH3QVbAsJG2Crh5ROSy5MJ0s5SPY6VdvGUR0bYUkpAyF3h/k5Mr4qHGfhTx75JzCX7xAVKnL6Z1vwCjoEppwcDyy8xEskdxbF0z2elvkucDu+t9p34si1+RgB6DlFtfY/FSEumICdAr4chg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQSV0Hbi9mMS7V7jhCZMRx7w5kUfCAVCt0R6M1h63JA=;
- b=wR/p5GEEER4ER7v4kJH5ZoXEnlR2KkKCHhL+rvjaaTgdxnwAEjCQX6LFgg94bCyIDbo68e+OdbP+LYw7LAmjA0fVzkSUfU54+0uzkWdOBQuEH/0sQWmJN0DZTKF6HrPOibbfjHsyb3uGjPampc5xbAor6eXAF3iBHiNa1evehEc=
-Received: from BN9PR03CA0237.namprd03.prod.outlook.com (2603:10b6:408:f8::32)
- by MW4PR12MB6755.namprd12.prod.outlook.com (2603:10b6:303:1ea::21)
+ bh=dDkilYVCi6NTG64xLCGY1OmKGcMru4Px8u4nqdfVz/o=;
+ b=bwVCBqh8hOCDDyIrLpXKH20l+QSuoh4uoXtyQL10QHbN30TychsqJKyS0IaNnkSEjkUqbqHONLnDTeUCYhfVbUEZVJ+ok731AvWks/c4ek8W9myP/UewRXNj5pAV4NZdf9Z9UtmwcYt7hIK8lf8aOt1HAlAPKDU6URXsWx4N4yc=
+Received: from BN9PR03CA0239.namprd03.prod.outlook.com (2603:10b6:408:f8::34)
+ by SA3PR12MB7784.namprd12.prod.outlook.com (2603:10b6:806:317::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
- 14:55:17 +0000
+ 14:55:15 +0000
 Received: from BN1PEPF00004689.namprd05.prod.outlook.com
- (2603:10b6:408:f8:cafe::4) by BN9PR03CA0237.outlook.office365.com
- (2603:10b6:408:f8::32) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:f8:cafe::59) by BN9PR03CA0239.outlook.office365.com
+ (2603:10b6:408:f8::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
- Jun 2026 14:55:17 +0000
+ Jun 2026 14:55:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:55:17 +0000
+ 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:55:15 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 09:55:05 -0500
+ 2026 09:55:01 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 09:55:05 -0500
+ 2026 09:55:01 -0500
 Received: from aaurabin-tumbleweed.king-squeaker.ts.net (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41
- via Frontend Transport; Thu, 4 Jun 2026 09:55:04 -0500
+ via Frontend Transport; Thu, 4 Jun 2026 09:55:01 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,10 +70,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 15/24] drm/amd/display: Restore periodic detection for DCN35
-Date: Thu, 4 Jun 2026 10:52:09 -0400
-Message-ID: <20260604145428.809959-16-aurabindo.pillai@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Subject: [PATCH 10/24] drm/amd/display: Remove dead code in dm_dp_mst_get_modes
+Date: Thu, 4 Jun 2026 10:52:04 -0400
+Message-ID: <20260604145428.809959-11-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260604145428.809959-1-aurabindo.pillai@amd.com>
 References: <20260604145428.809959-1-aurabindo.pillai@amd.com>
@@ -83,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|MW4PR12MB6755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1632635e-e507-421a-8c90-08dec2494aaa
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|SA3PR12MB7784:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f7eed0c-9410-4cab-c0da-08dec24949b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|13003099007|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: kVokZrY1LK0nOKDyV8IUYqfhFICiLii5si1J8bJnyw2ATDba+ywH7CqWMmlq6kJd4y/ThiBQj1g1BzIyLedWLCAAMkBkkTMGc49uPJdO1Mn5Q7mPSsVdVeNeTiHNkJ4FJQFTQze9p2TGGoaM4I0Bcm5Aye0Q8C7yq+G1H/hEVWCPsrnCGK1v18uMEY1+LYbFdxEgRM2PLrykYp9wWfPnZkcaUpy2V+KmmeeM2HoUrKhSi7MpkSK3j9cHG8CvBMVe7QAsxxL3KQ//wKJMRXVCCGe5npenKs7yLDmKwlwl6woIjw5K5uuM9xZIpscQTWcNLzW+n9jhqFHq9Jx7dx5wpmVXNOnnIoq/54PeBVjwp55xQutSxdllokEjrEUJ7QrdUOa10Co1Z/qGBuWG618MnsI5FGstO/Xm/9+dhKsm0xixfyMlKj/52O0MSkFoxZjWYWylEyai2y0TgfypCczWMo4opSICay0HayQ1C1bGACRqe2vUIUrpUBccMVKY/wDExuFfIHnZo1zBsSBOg2tQlBNdoajU0Fl4OdiEo2nIg5WzQj0+x+k55Uh94WAXxuY3VBrkZcURB67KoPhWEIVRNUQ7x/wSonlHhqXhllKqo2uOYg/cIKMgM34DNM1qVjWS76UE/D/a27wx5KLNgYVVnOjBnfizKr16oU5/Mnek8FF2lNOuzkSZlT8ANLSqR65h
+ ARA:13230040|376014|82310400026|36860700016|1800799024|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: rtQ58bxVzAqnZvaln/XBLLCnu9NboW6EV3e8nXimbdgp1vqVavhveJOtebtNZKQDHyvFdMheWzWVv8s/OF8l0HN4JJF8NNm7qiT/CX+Vv25Ty4XO/x7Tm2yKgSkRk24N+59y5N//s2Ut6qNfIaXGfeRYgI76zbVMAGLHTBjRBWBJHXsSZk2IsKvvNwlXMjHXjxnkUDZvxsbCQUD+iJdgBp9yK7nGqf5/alR+aX/LprVnbwb1+U+SNH1Rpu7IJkooVt7GlXOC0+BfaIC/lAKZyAJUwZ5ytbXGnOliYtbKlKGKx10Mt3cHIOaqtg2tAHLVo3hAv8/MR92brrNW4fFovYZB6ClxBVr0XTbfiSdnEr4l7/8z6WQx1g79oOocdRZymeyVoeVMwCtMP+igqeII6T8mlWVnh0LeA00XZQefYLcZWUDw9Xsz8yGqgikGnmkxIS1rW0wrupasrIANJ4Zw/Uh25MZGlJsm0S5A8ikYiHvOwJyIB0LmLIZ9jBezwwpRx1Prpl/PZ9Rjyk+44NHwCE1E3bK6VU3x0fXlSpB2L61GseYCc0mDKZq3jY5Fp7olTI81Omv9nhyGUY62nfT6YPNKcI1Ox6v0ibgFhz34nIaY1e+sYExC2jfLajKUqV4DgQjs1S0sQe3zNflBc8an8qX7PWgY5EOLJTQkvbxftquR9p/EXs3HSO6KtRJDN9cCy6ENud5mT36+LEzSGBKBwkmUhsViEsarHr4Ys+Gvmlg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(13003099007)(22082099003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: g45H7S11QEJxj/vap91GOMp1veS8eRAeczUItrKRji18NmmoTLBtgChJjlZFR2MKUbt/zM3NlylXBnkmTtPL/xiY5r484zs2PehoRlGqaBgRWGLyPMJRqu6ovU16//5iT0NAkIzIvY8SEskPNcaVAkwwGvg1fADLBImts2tmSJ0lPKXNWlHXpY4WzeJBlthyHJdmqpPizqDv4sYkcWrmJ2ieDmPV1vrKMawtgQxSaLMVGPZCPg6TCI+3QgMNrfqUBJR9b7qiwbjxrezNnPCZx9nA+xPyqyUUwr0CIcRT+3C1gNevgD3Gnn8JqFQBL94ZyVLux7retEvhP825ElkfiUNEu/K9j+Bftr7+JvCtUZkh4gTb3k/xVHhWQRDfxH4D4WZy3jMiI1Gj7rSULR5IeZ8mOJ3+eQ7Ru13pqjdAXfDa0+irTtIi3oBKhe3roqie
+X-MS-Exchange-AntiSpam-MessageData-0: GNIdXGdjcp1cEcxcQOriaeYihRO9Q0+G4jQu6qg0LQ64OVHwH3oqro6w2dmcC8BowiyNJ4deIgkwPbcjYtQFO9GCIBv9qELKsgqYG4JejDPHog37bRVCB4srGyMox85n7GWWE4ZeZ4VE5BXAKk1Ys9BiBh7lP11nX6+ZNwoZmqt2qPaASbsD/Y9mB5hJNx/P19ARs/gvNJkv82AcKC3Wu5ooN7gUWL3Z2gZ/5eISQiW6dgOFZ8gU2+/ZYfvGwH1EPb4Cl0RTfYYQ+iig/gVAhmqoraqvPjI5i2jx9LnSd+WZ8odC0LEtql/BD+Ia+7uP9oqUfoTYrapAqnTBNfSw+I4M9bkYoL4R0EP0wl62suVe9gde0KBA2c9TK7QUpIJgLlLtz0R2uE+CxOwV24gzEM7jR9VoQesC7bjFCy5LB90LpHCTV8jHtJLBcyYBeeSM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:55:17.3899 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1632635e-e507-421a-8c90-08dec2494aaa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:55:15.7880 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f7eed0c-9410-4cab-c0da-08dec24949b6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004689.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6755
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,92 +119,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[Why&How]
-Periodic detection callbacks from DCN35 was removed for higher IPS
-residency causing some displays to fail to recover after DPMS sleep. The
-monitors bounces HPD ~1.2s after link training, and without periodic
-detection the system enters IPS with no mechanism to wake and rediscover
-the display.
+[WHAT]
+Remove unreachable null check on aconnector after container_of,
+and redundant dc_sink checks where dc_sink is guaranteed non-NULL
+after earlier null-check with early return.
 
-Restore the periodic detection calls in dcn35_clk_mgr for now. It should
-be replaced with a proper IPS-aware solution long term using DMUB.
-
-Also remove it from dcn31 and dcn314_clk_mgr.c since they do not have IPS,
-thus should not affect them.
-
-Fixes: 3f6c060846be ("drm/amd/display: Remove periodic detection callbacks from dcn35+")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5318
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.6
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   | 2 --
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c | 2 --
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 2 ++
- 3 files changed, 2 insertions(+), 4 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 23 ++++++++-----------
+ 1 file changed, 9 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-index 00c4be7c3aa4..ff47af3854b6 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c
-@@ -158,7 +158,6 @@ void dcn31_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (new_clocks->zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW &&
- 				new_clocks->zstate_support != clk_mgr_base->clks.zstate_support) {
- 			dcn31_smu_set_zstate_support(clk_mgr, new_clocks->zstate_support);
--			dm_helpers_enable_periodic_detection(clk_mgr_base->ctx, true);
- 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 8e2a8c2c1d84..3b6433fb1345 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -363,9 +363,6 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
+ 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+ 	int ret = 0;
+ 
+-	if (!aconnector)
+-		return drm_add_edid_modes(connector, NULL);
+-
+ 	if (!aconnector->drm_edid) {
+ 		const struct drm_edid *drm_edid;
+ 
+@@ -456,7 +453,7 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
+ 		 * plugged back with same display index, its hdcp properties
+ 		 * will be retrieved from hdcp_work within dm_dp_mst_get_modes
+ 		 */
+-		if (aconnector->dc_sink && connector->state) {
++		if (connector->state) {
+ 			struct drm_device *dev = connector->dev;
+ 			struct amdgpu_device *adev = drm_to_adev(dev);
+ 
+@@ -472,20 +469,18 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
+ 			}
  		}
  
-@@ -184,7 +183,6 @@ void dcn31_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (new_clocks->zstate_support == DCN_ZSTATE_SUPPORT_DISALLOW &&
- 				new_clocks->zstate_support != clk_mgr_base->clks.zstate_support) {
- 			dcn31_smu_set_zstate_support(clk_mgr, DCN_ZSTATE_SUPPORT_DISALLOW);
--			dm_helpers_enable_periodic_detection(clk_mgr_base->ctx, false);
- 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
- 		}
+-		if (aconnector->dc_sink) {
+-			amdgpu_dm_update_freesync_caps(
+-					connector, aconnector->drm_edid, true);
++		amdgpu_dm_update_freesync_caps(
++				connector, aconnector->drm_edid, true);
  
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-index dd6f11ecb9c9..24f6304011ae 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-@@ -230,7 +230,6 @@ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (new_clocks->zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW &&
- 				new_clocks->zstate_support != clk_mgr_base->clks.zstate_support) {
- 			dcn314_smu_set_zstate_support(clk_mgr, new_clocks->zstate_support);
--			dm_helpers_enable_periodic_detection(clk_mgr_base->ctx, true);
- 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
- 		}
+ #if defined(CONFIG_DRM_AMD_DC_FP)
+-			if (!validate_dsc_caps_on_connector(aconnector))
+-				memset(&aconnector->dc_sink->dsc_caps,
+-				       0, sizeof(aconnector->dc_sink->dsc_caps));
++		if (!validate_dsc_caps_on_connector(aconnector))
++			memset(&aconnector->dc_sink->dsc_caps,
++			       0, sizeof(aconnector->dc_sink->dsc_caps));
+ #endif
  
-@@ -255,7 +254,6 @@ void dcn314_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (new_clocks->zstate_support == DCN_ZSTATE_SUPPORT_DISALLOW &&
- 				new_clocks->zstate_support != clk_mgr_base->clks.zstate_support) {
- 			dcn314_smu_set_zstate_support(clk_mgr, DCN_ZSTATE_SUPPORT_DISALLOW);
--			dm_helpers_enable_periodic_detection(clk_mgr_base->ctx, false);
- 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
- 		}
+-			if (!retrieve_downstream_port_device(aconnector))
+-				memset(&aconnector->mst_downstream_port_present,
+-					0, sizeof(aconnector->mst_downstream_port_present));
+-		}
++		if (!retrieve_downstream_port_device(aconnector))
++			memset(&aconnector->mst_downstream_port_present,
++				0, sizeof(aconnector->mst_downstream_port_present));
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 103013e2a0de..a69824e1eb26 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -419,6 +419,7 @@ void dcn35_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (new_clocks->zstate_support != DCN_ZSTATE_SUPPORT_DISALLOW &&
- 				new_clocks->zstate_support != clk_mgr_base->clks.zstate_support) {
- 			dcn35_smu_set_zstate_support(clk_mgr, new_clocks->zstate_support);
-+			dm_helpers_enable_periodic_detection(clk_mgr_base->ctx, true);
- 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
- 		}
- 
-@@ -438,6 +439,7 @@ void dcn35_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (new_clocks->zstate_support == DCN_ZSTATE_SUPPORT_DISALLOW &&
- 				new_clocks->zstate_support != clk_mgr_base->clks.zstate_support) {
- 			dcn35_smu_set_zstate_support(clk_mgr, DCN_ZSTATE_SUPPORT_DISALLOW);
-+			dm_helpers_enable_periodic_detection(clk_mgr_base->ctx, false);
- 			clk_mgr_base->clks.zstate_support = new_clocks->zstate_support;
- 		}
- 
+ 	drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
 -- 
 2.54.0
 
