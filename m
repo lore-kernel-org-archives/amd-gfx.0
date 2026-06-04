@@ -4,60 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C043ECD6E4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:54:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECE81CD6E4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54FDF11283A;
-	Thu,  4 Jun 2026 14:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC6911283B;
+	Thu,  4 Jun 2026 14:54:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J4o9+eXa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z6CV3pIy";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011028.outbound.protection.outlook.com [52.101.62.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4077B11283A
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 14:54:40 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19B4311283B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 14:54:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=czbTQorXMc7yn65DjUDbg+ZlezcmJCi+to4pKd7ZjayuQe+3rbGMCYBE11OyCKP114qZFhLYYLHEfDUlNpffhJPxhAcfrPKDNj60ucQtFzSIzoWOGo2XlOFzp5drLyTpx2aDI3huCn/5P50f7nI2aE5VSKUnx0sJQ6QkmxmlNNyisfN7LmlzCLjwGKjf7fMxIN6MVxtpqchU+CswnvaPGgs9ZiyfVG7Sp0Zj1C1D4EjcOd0G+43oSdXaGNASRxrxqWqSdWAHwTt1Mn0+WaxWLuk1guixlj6b4adPk6KgS+125UZYEqNRjN+nMa7d+Re9atfBynfWDxyGMe1UuSggLA==
+ b=ouLGazZ+/5idggAKrzcvNfFiZ1SAneaxh4OFs13Xyf/27wQXdR6VWvPx+VNdrNP1WZFWgO86k7mFjWzIx56Z8VYV9vgwmcGp3dSafN0HFKOXHI6ngnqGRknnXN/UFAgyEVqEzmmXy02eIkxVun98X8vF7I3ADVRq9JWhHHrSkHmma7ZWB7XUuax831SY/355OwEDg7ghlv0cMTG7uPMM8fCN1mTbpmtpp6Fs2RQNUPHhhQQD5HBMUcAYLPBENk1jLdcWt4fcbpWjm0pbwtgJ1f69daUHrdmQ8lMHZU0rDn7R2gx9/2AyMa+ZMhtlGkF88Pce8Bl9dqsVf2m2TBb/ug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pz5YgNunkbSI6dZAuQqrFbuJw0UxVSQ7ltQAchIJexc=;
- b=xcsm2ivTefno3PkyQw9j6e+xp+QDmVKxUC7FMWSRtMnWH8yez6+uL1wxNpayJEKW4bSJzTOGrIEcz0/0KLR+r2dUbDbrLKoSIzYM5RPNzI1VTJAwv205lAiZeaCsGx8p5nU7/+zqO7oTlAEBlInYfdM/7XrsLfS9lGfq5ligzFhGn1oECjZN/9BeIR6g16Nm0Deo9foB3K4FqRptu1jncADNfU0S4kC2vDX4Et480abtZ+YeaAVBJq4vTeCWi/4oHUx/jBUyYFm4eqg223GQ/WAXIEfrA4pwqmtJOyOXIrGfnt0Y/ivQIgTnoadXrJlOXiynDvLsvqSz7ITdMmjBjw==
+ bh=7DKTw8GZ3E/I0IxvEaakqrHz2NBITBKLGJBJ+thsUCk=;
+ b=PyMEa9Lp+X50/fgTew6+PQ5QlUnPMBPorCbFKQcIAMLJ/QegJ15ApG79egElLQAr2H+t5wC5bpEej6c0uf6cCr1jgVnEC5I/jrRVz3wMnawDCyPfONrkzPqctmLTr/7fwKUVm2O4jNdeK+TMIdJ9PPerzhix33H/Fd68kR1oUKBQPUjMHtmGUCJnNwHPwKcssO+XxWuIO/aoVPUEvGakxdtBBX+HGkqovx38C2ZrjlWfmJ/euSNh+BElGqUGJAFVpqc7viQewh/bF4dzEHuUSvZgvfRbCqH5tX0Xt1SdT7KGfbB8+xUTweqSk5HOH2dbOrxIRKM0ltgosxb1dpQi/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pz5YgNunkbSI6dZAuQqrFbuJw0UxVSQ7ltQAchIJexc=;
- b=J4o9+eXa5w7EXG7F2YkXOtDvNOwcsFVhW0Z4y2KQMEhMwTZZ0YWduTXStOyi439JLmuDpRBo0J9QcljMumXyi34ub5QYNB3Y3SfEMYiHrm25cUJoi0vtJFf5YY63cpuoPZf2iT8I7m4tuMXZIlNkqSKNrIbd7HRYKGsP5axxi8Y=
-Received: from BL1PR13CA0234.namprd13.prod.outlook.com (2603:10b6:208:2bf::29)
- by DS7PR12MB5910.namprd12.prod.outlook.com (2603:10b6:8:7b::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.15; Thu, 4 Jun 2026 14:54:35 +0000
-Received: from MN1PEPF0000F0E1.namprd04.prod.outlook.com
- (2603:10b6:208:2bf:cafe::a6) by BL1PR13CA0234.outlook.office365.com
- (2603:10b6:208:2bf::29) with Microsoft SMTP Server (version=TLS1_3,
+ bh=7DKTw8GZ3E/I0IxvEaakqrHz2NBITBKLGJBJ+thsUCk=;
+ b=Z6CV3pIyqWbnbV5xzDUGznX1KPQsekbXg1RvA1mzAJUGyIvaXN2rdvRVQ47bEkIgweCRiFj9eHtkcy5RMwnwrB6rXwcLHm0Xxrtjeujcke3gTVuZTqWILyBK/MiC8O3D5D6GzFsTnPwZ+gfuCu2jMNOkhfNjEb5/SPo+wtABg+0=
+Received: from BN9PR03CA0239.namprd03.prod.outlook.com (2603:10b6:408:f8::34)
+ by BY5PR12MB4084.namprd12.prod.outlook.com (2603:10b6:a03:205::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Thu, 4 Jun 2026
+ 14:54:43 +0000
+Received: from BN1PEPF00004689.namprd05.prod.outlook.com
+ (2603:10b6:408:f8:cafe::a) by BN9PR03CA0239.outlook.office365.com
+ (2603:10b6:408:f8::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
- Jun 2026 14:54:35 +0000
+ Jun 2026 14:54:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MN1PEPF0000F0E1.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:54:35 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:54:42 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 09:54:34 -0500
+ 2026 09:54:40 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
+ 2026 09:54:40 -0500
 Received: from aaurabin-tumbleweed.king-squeaker.ts.net (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41
- via Frontend Transport; Thu, 4 Jun 2026 09:54:33 -0500
+ via Frontend Transport; Thu, 4 Jun 2026 09:54:34 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,39 +70,42 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 00/24] DC Patches for 8 June 2026
-Date: Thu, 4 Jun 2026 10:51:54 -0400
-Message-ID: <20260604145428.809959-1-aurabindo.pillai@amd.com>
+ <Chen-Yu.Chen@amd.com>, Roman Li <Roman.Li@amd.com>
+Subject: [PATCH 01/24] drm/amd/display: Skip PHY SSC reduction on some 8K
+ panels
+Date: Thu, 4 Jun 2026 10:51:55 -0400
+Message-ID: <20260604145428.809959-2-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260604145428.809959-1-aurabindo.pillai@amd.com>
+References: <20260604145428.809959-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E1:EE_|DS7PR12MB5910:EE_
-X-MS-Office365-Filtering-Correlation-Id: a51064ac-fe0e-4041-c0f8-08dec24931a3
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|BY5PR12MB4084:EE_
+X-MS-Office365-Filtering-Correlation-Id: edf3385b-8ef3-4c29-f523-08dec24935b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: nhFM4Wz9FOwVXivQuWKzzm08ldWF6la+HkiV09ooQWJ9bNB8aqnSdfoyC0wKQjfPX5gmUhWkdx+ZYIjSm0/V+6GvYU217gxMgoDpox/+hNq9n+8E54EUoDFesekcqYchlN/zweN6gQee1NVUGE29Z00fYJ0XerJ0FCz/g3nkCyAsc9Q/JkfzOkZaNLdLU82/53pz6jrITvdaUrKZfwCMoiWccFyiVBl05jE1qndA8Og9nwtwQozenKUcCZ9h8Q3nLN1qFgmPo/8/lpJb83SdC1m7YHeG/euKeT+4lNEsJol5aPzOBFETmNt+MKLPLpxBJaQvqOo6Nz/6H3DY62cFk+LKJzBL2enpODI5h6PjAHvYsB8nfYr1J+Mb3J8QoSl/RvFGrc+CLFFoklmPAqhbIwuJ0VtIlbEXPRV3xeMVEVCx7zOGvRUy9dkU4auIjxFRkyoGDOONsKCjZSDDsFzP2R+U+4SRbRDbWT56u4+atI/pKjGylFdfnVlhBN5YzMSliI8F0zmtDndD+3FGFtNvfQ7/Wm8uiw1wkKHV3E1xrNrSHaeWgu/vXwL68aGc8pcQnCAcIcen80cQUGNFyOxVjAuTWmRUHf/b1uxJ9CzY9cG9dDrIHNfxfJQe8sQRk9xBbPENYJF7snpRLdF7np3vpouzgbfrrOCGgVXDbk+AcgErQ2yxopWChadI+ce+CGu8P9KuHEmwEheQw+VQQPO2RL0lWjz7h8HbdQxVAxm7Lkk=
+ ARA:13230040|1800799024|376014|82310400026|36860700016|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: +fEaX3ceEnug+oIEL7O4NEyR2oSekeLeSB1+9plymE1pTPaFZdytzOANYKgQPHYah9A8B6Avhro4/d7A+zDGU6GVa8vGPb5AIfhpGSrPov6yzbWZQgvfYkkbmUw6FF/lDhFhPXE9rPFsjDQqVoktFnUufdFZmXgQ5SCEfuXq3JnLBHkmdga2RAhC/S3cSaSL2AqyeEtDafV9WEHd8glLBwZLoRu9k9gUhgirQ8Uo54T9APp/RIyJBElFV3bmmkF0GpRMwHJS8j85IGTGGDp/S8vKFiiGEGwYjfAqzmzDSED8b3o/IqZRNnzRQGXcBCoep+l0wc+qSrOLF5sNah0j8DMCVKEu3OSoAUzsg8IY5PY4BncaXpMs1O7JxCIsTTA8LCJtvyiIFtdYak7imCVD/OWrNAnBRRjSwSS4Yy+r3bOG3eFfcCbo9kk1ufFlk58evGElLsQGMHCqqvfLjZsERSpdmPlpDBUrz0S3ytGP5E8jULYVjioAfEWNfl2Oh8GF/BRrX9+D96ohs/tTjDEPZ1PiffHrOiUfFT4HWS9hYvOC3uBVEkkE4VEclV55o9JdBIm30Bnl+zAecAh+2flkyGLTeppc3KA3CaOcbH/7fTQvuhhFm5mNf3PKWS8Wt5DdGcN7R31YD+EKlz57gFq6JESbQFytUyWOfP5w+ChWfwXF7MqbAt4NRsX9V4LVBW7E1hsjsBc2DMCcluIDhoXugvQkAbJ4zaHHeTlu/JKkwgs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: hD8BXmYIou8UsbG23uvGn9gYApPKVqNW8RGD3Pdvwp4sOtIJcxpCGaMHjt4AZfKwmYtv0H5kdmqmjFDuUsTRQCp5r4QATnLqtu9+s9jRbodZTUWU1p3OQbazO355r9CUvbAW44uDs85jshXG3KJZm3rBOfmn7kHRhPkdsTZufkhA5pxvAC9MlHwxQUAWIWjkC0nVJQI65nSFtT+z42zfrJxV+SlRcQbV4M8huxLdb25esUbHw5lNnB+IQCnwGQ+4H/pNROnUaIJ0uVb09HWew6y6jZb48Ns4BOoy3S5EuvEMIMWQil2q0ppfCHE4U2sHB8PE5pxGIdN5OtG575LjPdfxIq9E18Q5K7lv8qSBiXDsV9dD1g/ybaLhlONlmcLk2UYlRd3lDOQV/Tz9wtb2P+mt2DDMVI6DXredaQ++bgYz4IqC9JX403Vvvy+gZTo+
+X-MS-Exchange-AntiSpam-MessageData-0: M2Va6j3mFK8+ejDz5gg97AwVRU/y1o4OS1JLNSggcMiFcGIjuJVNgvneEEavKDh0cWVTfaM8zcjCuD+MlmfM0bt4Q7ls8pPoq3jcHOGMCVRRCEWURwZDuX30QD0GO/A9KQcHE2IXHWFxRhAC4hnbyTAoPkfnzC3ruK9Vz+xh6qr7TAJA6spV0ohIYXSNZyQiWev7za5pTWWF9pOWhUiwx/6tYsHhJazLqVAcKYN238EzcWWotgyfm0KzeQ+vgMrOdev2YqO3B5Wzkg7VBqqVzzIgeMLGi5dBzJzbHwEUyh8VMoxjVLqKq/8Sxnc/KcWH8sU7isu/GWQDuOu0qs5z1N0DpChxliWD1oZuVN0PJ5e7h8dIkqWmsYgpvdiewJgj0ayF7I1DG/++bXaK26uoTrta8BBNfNoe5qLj03RX3/secPNUnkg7nkkSFFmb6wba
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:54:35.3975 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a51064ac-fe0e-4041-c0f8-08dec24931a3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:54:42.2207 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: edf3385b-8ef3-4c29-f523-08dec24935b4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E1.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004689.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5910
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4084
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,143 +120,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Summary:
+From: Roman Li <Roman.Li@amd.com>
 
-  * Display connectivity & HPD:
-    - Retry link detection on resume, boot, and hotplug
-    - Refactor HPD RX to use handle_hpd_irq_helper with detect reason
-    - Always create delayed HPD work queue
-    - Restore periodic detection for DCN35
+[Why]
+Some 8K displays cannot tolerate the reduced phy ssc value
+at high link utilization and show corruption or black screen.
 
-  * DCN42B support:
-    - Fix DCN42B version detection
-    - Add DCN42B to dml21_translation_helper
+[How]
+Add an EDID panel-id quirk to utilize existing skip_phy_ssc_reduction flag.
 
-  * KUnit testing infrastructure:
-    - Add KUnit tests for amdgpu_dm_pp_smu, amdgpu_dm_mst_types,
-      and writeback connector
-    - Extract HDCP and DPRX CRC transition helpers for KUnit
-    - Export symbols for KUnit test modules
-    - Enable warnings as errors for KUnit tests
+To pass the link into the quirk handler, change the signature of
+apply_edid_quirks() to take link as an argument. The dev local in
+dm_helpers_parse_edid_caps() becomes unused and is removed.
 
-  * Fixes & cleanups:
-    - Fix compressed buffer config routine waiting time
-    - Fix incorrect logic in CRC source handling
-    - Fix writeback format loop and variable init
-    - Fix max dispclk_khz/dppclk_khz double 1000
-    - Remove duplicate pp_rn_set_wm_ranges
-    - Remove dead code in dm_dp_mst_get_modes
-    - Remove redundant code in amdgpu_dm_replay
-    - Skip PHY SSC reduction on some 8K panels
-    - Temp disable repeater FGCG as workaround
-    - Deprecate DMUB register offload functionality
-    - TEST_HARNESS FSN could be 0
-
-  * Firmware:
-    - DMUB FW promotion to 0.1.62.0
-
+Fixes: 5fa62c87cffd ("drm/amd/display: Add option to disable PHY SSC reduction on transmitter enable")
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c   | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Alex Hung (11):
-  drm/amd/display: Fix writeback format loop and variable init
-  drm/amd/display: Add KUnit tests for writeback connector
-  drm/amd/display: remove redundant code in amdgpu_dm_replay
-  drm/amd/display: Enable warnings as errors for KUnit tests
-  drm/amd/display: Remove dead code in dm_dp_mst_get_modes
-  drm/amd/display: Add KUnit tests for amdgpu_dm_mst_types
-  drm/amd/display: Fix incorrect logic in CRC source handling
-  drm/amd/display: Extract DPRX CRC transition helpers for KUnit testing
-  drm/amd/display: Extract HDCP testable helpers for KUnit
-  drm/amd/display: Remove duplicate pp_rn_set_wm_ranges
-  drm/amd/display: Add KUnit tests for amdgpu_dm_pp_smu
-
-Antonio Quartulli (1):
-  drm/amd/display: fix compressed buffer config routine waiting time
-
-Austin Zheng (1):
-  drm/amd/display: Deprecate DMUB register offload functionality
-
-Charlene Liu (1):
-  drm/amd/display: fix max dispclk_khz/dppclk_khz double 1000
-
-ChunTao Tso (1):
-  drm/amd/display: TEST_HARNESS FSN could be 0
-
-Ivan Lipski (1):
-  drm/amd/display: Restore periodic detection for DCN35
-
-Ovidiu Bunea (1):
-  drm/amd/display: Temp disable repeater FGCG as workaround
-
-Roman Li (1):
-  drm/amd/display: Skip PHY SSC reduction on some 8K panels
-
-Taimur Hassan (1):
-  drm/amd/display: Promote DC to 3.2.385
-
-Timur Kristóf (5):
-  drm/amd/display: Add detect reason to handle_hpd_irq_helper
-  drm/amd/display: Use handle_hpd_irq_helper for HPD RX
-  drm/amd/display: Always create delayed HPD work queue
-  drm/amd/display: Retry link detection on hotplug
-  drm/amd/display: Retry link detection on resume and boot
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 224 ++++++++----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  16 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 100 ++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   6 +
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 115 ++++--
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |  12 +
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  13 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  25 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |   6 +
- .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  21 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.h  |  16 +
- .../amd/display/amdgpu_dm/amdgpu_dm_replay.c  |   7 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  15 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.h  |  13 +
- .../amd/display/amdgpu_dm/tests/.kunitconfig  |   3 +
- .../drm/amd/display/amdgpu_dm/tests/Makefile  |   4 +
- .../amdgpu_dm/tests/amdgpu_dm_crc_test.c      | 122 +++++++
- .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     | 297 +++++++++++++++-
- .../tests/amdgpu_dm_mst_types_test.c          | 124 +++++++
- .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c   | 241 +++++++++++++
- .../amdgpu_dm/tests/amdgpu_dm_wb_test.c       | 336 ++++++++++++++++++
- .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  |   2 -
- .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |   2 -
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |   2 +
- drivers/gpu/drm/amd/display/dc/dc.h           |   6 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  12 -
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   9 -
- drivers/gpu/drm/amd/display/dc/dc_helper.c    | 226 ------------
- .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |   6 +-
- drivers/gpu/drm/amd/display/dc/dm_services.h  |   4 -
- .../dc/dml2_0/dml21/dml21_wrapper_fpu.c       |   8 +-
- .../amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c   |   5 -
- .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |   8 +-
- .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    |   6 +
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |   3 -
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |   9 +-
- .../gpu/drm/amd/display/dc/inc/reg_helper.h   |  19 -
- .../drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c  |   4 -
- .../amd/display/dc/optc/dcn10/dcn10_optc.c    |   5 -
- .../amd/display/dc/optc/dcn20/dcn20_optc.c    |   5 -
- .../amd/display/dc/optc/dcn31/dcn31_optc.c    |   5 -
- .../amd/display/dc/optc/dcn314/dcn314_optc.c  |   5 -
- .../amd/display/dc/optc/dcn32/dcn32_optc.c    |   5 -
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    |   5 -
- .../amd/display/dc/optc/dcn401/dcn401_optc.c  |   5 -
- .../dc/resource/dcn35/dcn35_resource.c        |   1 -
- .../dc/resource/dcn351/dcn351_resource.c      |   1 -
- .../dc/resource/dcn36/dcn36_resource.c        |   1 -
- .../dc/resource/dcn42/dcn42_resource.c        |   1 +
- .../amd/display/modules/power/power_replay.c  |   9 +-
- 50 files changed, 1576 insertions(+), 519 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.h
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 844fd403795d..a2d0bb34e639 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -95,8 +95,11 @@ static u32 edid_extract_panel_id(struct edid *edid)
+ 	       (u32)EDID_PRODUCT_ID(edid);
+ }
+ 
+-static void apply_edid_quirks(struct drm_device *dev, struct edid *edid, struct dc_edid_caps *edid_caps)
++static void apply_edid_quirks(struct dc_link *link, struct edid *edid,
++			      struct dc_edid_caps *edid_caps)
+ {
++	struct amdgpu_dm_connector *aconnector = link->priv;
++	struct drm_device *dev = aconnector->base.dev;
+ 	uint32_t panel_id = edid_extract_panel_id(edid);
+ 
+ 	switch (panel_id) {
+@@ -126,6 +129,11 @@ static void apply_edid_quirks(struct drm_device *dev, struct edid *edid, struct
+ 		drm_dbg_driver(dev, "Disabling VSC on monitor with panel id %X\n", panel_id);
+ 		edid_caps->panel_patch.disable_colorimetry = true;
+ 		break;
++	/* Workaround for monitors that get corrupted by the PHY SSC reduction */
++	case drm_edid_encode_panel_id('D', 'E', 'L', 0x4147):
++		drm_dbg_driver(dev, "Skip PHY SSC reduction on panel id %X\n", panel_id);
++		link->wa_flags.skip_phy_ssc_reduction = true;
++		break;
+ 	default:
+ 		return;
+ 	}
+@@ -147,7 +155,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ {
+ 	struct amdgpu_dm_connector *aconnector = link->priv;
+ 	struct drm_connector *connector = &aconnector->base;
+-	struct drm_device *dev = connector->dev;
+ 	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
+ 	struct cea_sad *sads;
+ 	int sad_count = -1;
+@@ -188,7 +195,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 					edid_caps->frl_dsc_max_frl_rate, edid_caps->frl_dsc_total_chunk_kbytes);
+ 	}
+ 
+-	apply_edid_quirks(dev, edid_buf, edid_caps);
++	apply_edid_quirks(link, edid_buf, edid_caps);
+ 
+ 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
+ 	if (sad_count <= 0)
 -- 
 2.54.0
 
