@@ -4,64 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F020ACD6E4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 13:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43F64CD6E4A
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 14:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4F511A0EA;
-	Thu,  4 Jun 2026 13:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7D9B11A11F;
+	Thu,  4 Jun 2026 14:15:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Q04oiKb7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0fLWTrTy";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CCB211A0EA
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 13:58:17 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gWR3n4qS0z9tkg;
- Thu,  4 Jun 2026 15:58:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1780581494;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=20HnuCiLeZUp7D71D0Pu4lsKsj/HfsPf3C0COQTiyfE=;
- b=Q04oiKb7JIK6kXBYuDqtzk8cYQ2FUiD2Xze5bRXZdnfkcdFJXSSgR7ePt5YaVIt/Ib3i3H
- dQQ7htsMPSdrrHxFzZVu8mJDR6t+rq4GAniga4Km4exuAbgksY04wns84l0xo+htJAEkhf
- j7pXT5atztUERk+mBiMi02TeiiS4Rba4draOQ54tAHPAQ4tAG6UhKYxFETGJUoReeX9mJV
- SjSGwoU/w71bvJ67lLEd57XLGOQPj1tVVvmxyQRXYa+Ff6bc/illq2acytohmxS2+PJFO8
- 8k+4H27DU+JIV0o6v1CUFcgryXmGnQsgb8GHnzPgXFAQpk9EhVDVjCdpo92uyQ==
-Message-ID: <39ff584f-66ed-421a-918b-347d020a393a@mailbox.org>
-Date: Thu, 4 Jun 2026 15:58:09 +0200
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010004.outbound.protection.outlook.com [52.101.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5572111A11F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 14:15:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nh9lyEoh9JBGwHkNyFH8T/6cui2WQi5Tz/t3VJg5TEetgeO9Y9k6khTzYcjlorx5iYEzrRxbJLcJ4rM0ZcwiVvpMWMy+yk2SB06ePPK6vp6oQdHRyH9/5VzryvMkCDkGYxRtb4kDGga9ZvOqqiJYtL+SGFL15ppN3prWUPLjeM8Q4YRIWQrngwmafe0hE6r2oqAK5n7D8KxzyGMMNi9dEmedxbXf22EOeHYCH78CA8b0X5AxzUkLPFIsEcKfcBhmZYE/LNy6nHHm/94BXGt9YqmQx9jLhB6Qdao4af+U7zELEz2/6NffW3X9FyZBkwm5geKJs37bEPkw0FWNjNjeNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dDIEbX0qFjfzEWdjWkf+IH9wGQ/io4jtbcREDB4nEOc=;
+ b=oLZdZds6Yq/v+ruG7EAzOw3lSPhqir4i8AI3uG5kDPD8G33QlagQpyETcFlpsYZGlyfEwhoHdGsACwcjnLmTieGRUFt3C+dcBooEDS4bWkhmlVrrkdFsDjss0RJYSQ+Lo6V7kkKtC9h5tmtsWEGhzgUzHJDGKzM9c2MRiqtiKT35/D37lCj8AVHQrK4/YWOdEfaZDlEGF4/L9W/HY6inQSUeZ6Q2mReAoHWNdux/3R3JUNsUFsFvq2QbPMZpKgyOUoJZC1t3BMN7AqWKEFl1cpB00T8tYUkbJGhBlWDaQUi02aXbM/ABxDgo0fSbZgxVwsgeZpJwWNaLYjawV7iIkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dDIEbX0qFjfzEWdjWkf+IH9wGQ/io4jtbcREDB4nEOc=;
+ b=0fLWTrTygt472o+XzIHYDI8CEady+qg0KDpU+zOAWPOZf8XtIf6A7oNo+gzvspdqtBVkCUBDULTw7gf55ZNQhGR+/7CZIk1JN5Z7G5+H52Z3Uk87zfoxz//mZEfCaZb0XmGAfJLdjqlUreI7c6t1YLidzDWoIM0PuRACBXux1h0=
+Received: from SA1P222CA0159.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c3::7)
+ by SA1PR12MB6995.namprd12.prod.outlook.com (2603:10b6:806:24e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Thu, 4 Jun 2026
+ 14:15:24 +0000
+Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
+ (2603:10b6:806:3c3:cafe::8e) by SA1P222CA0159.outlook.office365.com
+ (2603:10b6:806:3c3::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
+ Jun 2026 14:15:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 14:15:24 +0000
+Received: from mkmvskvorts01.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
+ 2026 09:15:23 -0500
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Tao.Zhou1@amd.com>,
+ <Jeffrey.Chan@amd.com>
+CC: Victor Skvortsov <victor.skvortsov@amd.com>
+Subject: [PATCH] drm/amdgpu: Disable ras_check_bad_page_status on VFs
+Date: Thu, 4 Jun 2026 10:14:49 -0400
+Message-ID: <20260604141450.372045-1-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: Test result / finding of "drm/amd/display: Consult MCCS FreeSync
- cap only if requested & supported"
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Pei-Hsin Yang <peihsiny@valvesoftware.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <44069eb146824aa195312f5b02c49287@valvesoftware.com>
- <7a9021cd-fd78-4b0d-846b-135d0d72224e@mailbox.org>
- <16231b1742004f848af243ce398281ec@valvesoftware.com>
- <ce51243c-3b98-4f99-911f-70dd0b860da0@mailbox.org>
- <1c522568-1d5e-4210-8f25-1aa96e0d3c3a@leemhuis.info>
- <BL1PR12MB51447AB016BB28843BAD0216F7092@BL1PR12MB5144.namprd12.prod.outlook.com>
- <af4dff0f-0c62-4a7d-9a3f-fc029c8757f4@mailbox.org>
- <CADnq5_O9xMagapKQSO-6waXtmmFkDV-47ExVaNuiZd2xVdhefw@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <CADnq5_O9xMagapKQSO-6waXtmmFkDV-47ExVaNuiZd2xVdhefw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: d774bbd2ba4169ceed4
-X-MBO-RS-META: dowj6wdkmupcjgb6gsrzft39m4na7k8a
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|SA1PR12MB6995:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f7c1d96-0539-4369-eca8-08dec243b853
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|1800799024|376014|5023799004|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: dfJV/powG1Wx02IgGvgjCWlVotGdCmO1FaerGMXnfihGOa77z3Irue2JcU8ay+91KL8YcW05Auk9/sWvSCZs6vQgfTC7SXddczoT/Yi3bt/UW10vfZQpbBZ6MlLijp7Yboo91VJNvfwxvrKEN3IicuY1mH84lQ8AGJ9C/BsWEEkJa8cJDElE6igpNJ1/Nu3dGB4PWtWcllVptKfpPDHHtoaEqrfVEeZ81AlXLiS6tFxIe41pH7hGudD0RvbFgBzqk2kuOiJXnxsxXYR+vfSoOCSANz0MWH5uhSwZZyfNgj283xyd6z7SSe77UIs7098qPeO4nCpbmTBM3QVhDKEHsWZviyLDC6HvIbcmBmPWMemL0NlzKmSO1RrqTtxo0/FCESwrxVDfWmIIfhetGM5SwPz1njVyKyaMqIxdCQ+m9XrEnxhVV6uFUmrIxtnGDMjYxe40BPy32Pp0MZ8yEGF7zE6Fo/ImiGGEesk/uxhywZvoYvdZnGAy41Wcl0+9goN0RMro6USBSGYtt0QehookwpC9W6AmPe1gvbQ/f6Xv+0k8048f2SzKB5zVI82AZBtUzhnv1Em7fw1GXMaYh0I1e5FLSZFY8uePHKMPesHkTQCVFJYZ4FbBfVJpAyfUDwdj+FOBuqm0mBjlfO3LR/etonfw6MnnBgxv1SXXvgICeLGu/WbSSD8sIP4flRKDdV6cCW5cdTXz7zC9kmKqABqvDXNaOd2DLzLb57xlJo5f97U=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(5023799004)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: FLmTBTQtjUFA4fE5Z85OpLOlETUTHucbo0Z47dRV26fKi9hhM/MmYk0Xv5GcM5r4CroDTjZMoDCfNHkP+hFg2TGm8GnKeqOrvTXqW1ObLEQbeEQ7M/EI5aWKQ7P7MwRuBqBpqX24E9bdsTQscktQE/zbyOVmRzCtiJEEukEWEYuqrzW8zAU7NaIPYreYoSL2bugkLycOVQz7J6R3GhJq6VCcLtsK7Hdk3G5VJwyruUZ97zmrKU5qw2AKssWNJhv+TeLuLzZe7wFOU41PK/9xyRsSKtwKoZ3ah1aC4o4FVHNAcggYyYKI7L6I1GSySzuKGJH6tIij3ohXJfrT9KnT4q2b48ep12lbhKY3rS2SWBHRYYE4+DnE+8x4cBQQ5W55nt9uKOBn3AkOFtqoUu8WmDXy9LoNLEprkIya4G5ztV5eQcv9laBdNPMPuORSJzcp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:15:24.3655 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f7c1d96-0539-4369-eca8-08dec243b853
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6995
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,39 +108,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/4/26 15:20, Alex Deucher wrote:
-> On Thu, Jun 4, 2026 at 3:59 AM Michel Dänzer <michel.daenzer@mailbox.org> wrote:
->> On 5/29/26 00:02, Deucher, Alexander wrote:
->>>> From: Thorsten Leemhuis <regressions@leemhuis.info>
->>>> On 5/21/26 09:09, Michel Dänzer wrote:
->>>>>
->>>>> Note that some kind of short-term solution is needed for the regression(s) in
->>>> 7.1-rc.
->>>>
->>>> Yeah, that would be good. Makes me wonder how the rough plan to realize
->>>> this looks like? Sounds like Michael's patch[1] that was discussed here is not a
->>>> good option? Reminder, Linus ideally wants known regression fixed by -rc6,
->>>> which is why I'm asking.
->>>
->>> @Wentland, Harry can you sort this out for next week's -fixes PR?
->>
->> Looks like this regression will make it to 7.1 final?
->>
->> I filed https://gitlab.freedesktop.org/drm/amd/-/work_items/5286 3 weeks ago, and proposed a fix the following week. There's been no reaction by any AMD display developer.
->>
->> This is pretty sad.
-> 
-> @Wentland, Harry , @Leo (Sunpeng) Li come on guys!  I've picked up
-> Michel's patch and I'll send an update -PR today.
+Host driver determines the bad_page_status, not VF.
+VFs do not have access to the EEPROM, and eeprom_init
+is skipped. However, check_bad_page_status is called
+outside of the eeprom_init sequence without any is_vf checks.
 
-Thanks Alex.
+Add a return false in __is_ras_eeprom_supported for VFs, and use
+that guard in amdgpu_ras_check_bad_page_status to prevent
+incorrect access to un-initialized eeprom_control object.
 
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Note that Pei-Hsin reported an issue when running with my fix at the start of this thread, unfortunately it's still unclear if that's a regression of my fix or happens even without it (in which case it might be another regression of the MCCS related changes for 7.1).
-
-An alternative would be reverting the 4 commits d49086491bcb..8dc88c6a5948.
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index b265b4d9053f..fca2b49bc13b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -159,6 +159,9 @@
+ 
+ static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
+ {
++	if (amdgpu_sriov_vf(adev))
++		return false;
++
+ 	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
+ 	case IP_VERSION(11, 0, 2): /* VEGA20 and ARCTURUS */
+ 	case IP_VERSION(11, 0, 7): /* Sienna cichlid */
+@@ -1973,7 +1976,7 @@ void amdgpu_ras_check_bad_page_status(struct amdgpu_device *adev)
+ 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+ 	struct amdgpu_ras_eeprom_control *control = ras ? &ras->eeprom_control : NULL;
+ 
+-	if (!control || amdgpu_bad_page_threshold == 0)
++	if (!__is_ras_eeprom_supported(adev) || !control || amdgpu_bad_page_threshold == 0)
+ 		return;
+ 
+ 	if (control->ras_num_bad_pages > ras->bad_page_cnt_threshold) {
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.34.1
+
