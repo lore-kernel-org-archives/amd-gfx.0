@@ -4,92 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 451FECD6E4A
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 13:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54DACD6E6B
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2026 13:21:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C60B61127E2;
-	Thu,  4 Jun 2026 13:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6193D112805;
+	Thu,  4 Jun 2026 13:21:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jJdN9o6p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d0juI2/z";
 	dkim-atps=neutral
 Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
  [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43A851127E2
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 13:19:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE1ED112805
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 13:21:06 +0000 (UTC)
 Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-304dd3bb7a6so52645eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jun 2026 06:19:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780579186; cv=none;
+ 5a478bee46e88-304d3d3d8f8so88556eec.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jun 2026 06:21:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780579266; cv=none;
  d=google.com; s=arc-20240605;
- b=HboCisiQjY6t2xO2F7YU1rWO9qAvMC/KpQtpJTI/vYt0/GYWIWAMuSM5RjvFLqlTsQ
- GK2fYK7FBJlwfMxCEZodYc5O1Jv4Z16Ab2PPUArjAq/8m8JTe2jgeGjKXq9rRTGTIEYx
- 2Ubd7usCcsOAFiGrYVzxvZSyFLAWa6fZKFg8smgLips6rAWr/hL9AMPYH4dnXLVh0AD/
- cVxXTgnANco9WhO4ux2vL8bqXCujtGo4MHyAjhZRJn8ENGzd9+ziicSFjDgA7M13M/0t
- H/hFttpyRfjk8bGeroKzwsyANacFx70omakjWcVeEVIYRUPu6qkh7v/bDnVxelTf0soq
- FC6A==
+ b=YtR+LAHlExMmj5q8io7BoClLq2M4WZ93p9CTnzdU7/Imrnqvi3Ryd3gymF0dUc/qFK
+ lSOzt+HAbtgxY8PiY61h0ZVJS3GAscfSxGqQ/hGRnz23OWaFHUehVKroEeZPmAHgyhfB
+ LumO9jeEx6b7kMZW7myRjCTHg3HI7e/zXw3P9+WXHmd4ku7mMOsukC6c57xXD1tEw0mA
+ 46xEjTBEpW+INNgVFTCd9jWmT6dXOjsAY6ZUdbdupcRnhqRS2RImb4j8+0dg413mJr//
+ 6UzJT20bzUQ7NYidwpqkGtizaEMpQZOw6GEJgFDQdRwctzltzLlmSJy7cKuPEOHiGcnL
+ 659Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Hx0+Y48VLvFmTTPk+kFjY4FAtS7xL04mBoLTVlIwaZM=;
- fh=OkchnlaHe9sd8eyskib1mU0ZJ+aGK+3vvNvuUyH+thk=;
- b=izgKWQ38y29GbLRRlxmEAl5qjjASCF/pGDDKcGydblZ9nITWEASvIObF1h3oXK1K9y
- /COMF4gJYUZt6YhJJksKwt5WVsN03Auv/w34XCPXe5cSPZFFN/P8ayLLtD5Jn+W+a5mO
- U059HXzEWGAljCMjcFGE9Cz1ZY2juBP/KzJO7HxhF6pCOS3IxYS4fQYdChunOLLmofGP
- k8vFjJ+f9zzZr8fAQbCURSL+WsZ6wpaPVMkEjMLSGn64kfYRFl7cwWwlkNfA8J8wkuBy
- nQ9mn2v18i5Lgz18cUSCsURfCW1wd/iOg/wwmvjuGgx2ycqL6f1cvXhgKsdC7yn04H71
- erjA==; darn=lists.freedesktop.org
+ bh=GVpfbT32R/82qSV+18QDKxGtI3kc5zmvjXoLt5ITgqA=;
+ fh=kaErKi6AH0uBn4YQjkNtTatYELAvDPFYWdm/pD4sad4=;
+ b=XrOOZd3xmYnDoYXK5F+QmU1oM47bCDeUTtEME31TmsTqTjUKALws3QtG8fzaQ1DHmm
+ xUGnnIHXirniz7aKN6yHTqbnW9O0PkkMFUf9EC0ouexu+Jf4cTrC5AwrKMuH3SZFza+k
+ QiW7cMYl9VBl10JD5H/GZ02qXW65TNvlEvwR1K6DQU7dMrs6yr3IyN3vPDcseAIkmuCD
+ cKXjawvD6H0b3nH26KbGuCah/y8e+xYCzIB0S1zCjNi/OHigUloNZZKB/xLwlDaf4Cx0
+ 5vi3JXys3kHlGJy14YG5eidnSnt/28io1nfPZuBW4wWZmT8GQCZzE/joLs450mHP3gk2
+ /0Rw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780579186; x=1781183986; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780579266; x=1781184066; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Hx0+Y48VLvFmTTPk+kFjY4FAtS7xL04mBoLTVlIwaZM=;
- b=jJdN9o6pt/L/ROfpUbDfeABjCpJftPNwv5zMHxOfU9+cC0XXlrIpxzZZ4KpFvLHqkm
- 8W0GGo2Ia7mwCRNy5gumYbpEB4IksQZtaanj9jhY43BkTdGU90o6DYIOWFyTbU4WIVFt
- az449a2zmW7+Zn7u9oVsZ5UKoYRQTLdu6Go9gmsGZ2Dz9DFVwYf6zSgMLFLSbm+3d5UV
- wVWNYXdeLT/x0XCsqnMKzxuh2ommLHT/Vku4XsKRPVL+gUy/2v9WlK07nhAsQFdVwQUZ
- T2DZwULNY2ubaZ53AQMo4WUWO0eiSr//K/O7jMH2AtMuN1ZWwQBCoEyqNUVR3FBUrKta
- /Gsw==
+ bh=GVpfbT32R/82qSV+18QDKxGtI3kc5zmvjXoLt5ITgqA=;
+ b=d0juI2/zIx986jKeG+0FL7vY25ajGwRdAyeKLNDmaP56kmxt5YewQVyHeYZASolnAQ
+ XMUTY+FdpTSoeeQzWwKDS9R8flBOxsnmAPd0cQcMGuRAIYVGxVmhUedNkHF+u8mZa9bH
+ Prm+0KO5m5CPpOTZQvd0C0BJ+yDYlzw+IRfsuPnnjt+5sU9fjifKiR/RGtmRarW1lkPm
+ IogAa/D/dkH1htNGieauTtdMQsx3mqwD3SfK3CwgPghZ/vOLGoSJjk/szvdLnbosGKOy
+ NrAtMKk60LS4KUSRHJrqNiXWzEYzQw8oEET6Bf++2rsPLqFt6rnhH/qpqhg8xMl2yAsM
+ 2YCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780579186; x=1781183986;
+ d=1e100.net; s=20251104; t=1780579266; x=1781184066;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Hx0+Y48VLvFmTTPk+kFjY4FAtS7xL04mBoLTVlIwaZM=;
- b=W5cW7L10KLTBpLyuWioXrirsS8v+2T/6angK2Echl6iOk5ywqL08SauJR1F3gUHyhl
- x1hEQUridjORzwieVUaJJ/eriDZ1XhXI/qdsI07KAWVEvLiA4HFtTZbk/V3r2NAFcO2/
- qoZzT9e+O/PD/u80nFstvHNVk01MwTipX72qS6ylrn2qF9j98mdC1Mi0BlGUH4d0Th76
- zhCWstGEelrFzNrcksfNGohXBsKwgrHympoz8IVaDephpUpDYQxSwoZf4SrGtVSOrqb2
- Rd9CYlMGHwKRqN3crXLZcWNSaCFQGHNpUXe34hd7dVAmii9nvhhG+WT/7k6G4brFbaJW
- eb7w==
+ bh=GVpfbT32R/82qSV+18QDKxGtI3kc5zmvjXoLt5ITgqA=;
+ b=n6eXdY7UsVEHM+Ho0ojsG7EKEIq1SYO70pn6OTQDfkxXA4+cCplC2Uc31e6BdNF8jG
+ yrrCo2pPXrT/PxRKDkjF1rbi4CADfNI6PRyi3qYEO2sOeVLna2ElaC/qS11R/fO+b0MO
+ fqtqSifqACjme+NRW2EjkBdQsfVK8xkYRlP1MQoes1PXnSKUXR80shp1iCAgscCkwHRh
+ 3IwrQbJXAbrCq4pYUhR5BBCB6kZY/S3K+qdpSgG+OwrbSkUgPUXKBOk5q3LHPIY5Zl4H
+ S8uwBGMOUeVTNDx01XpBX4PDnduV/+m2Eik9kFIvr+kjr3v57VFKlmiNltO9knCi3aV/
+ 8VKw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8t0VjKbI7ZMIslPAUutHLVXwP+y/G+4rkP0qQSRZH3fsoaTjkoX9Xl5SmMw7KmB6Im//H3WGWH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyf0Q3twS4YYYVy1F15zZfZByUAXvJCkFv8pTXKohkjdMMbvhnE
- o9Qhwpm5YpShIZCUQP25H8QuoH20+5rKD7Jv3uAo9duosGVmIYuQZDnwB+J0f+pJrSqm5BtnpRj
- yIbiIDrT1iDSL8lmTUikE0FFO0IWpD7E=
-X-Gm-Gg: Acq92OH1VFb3r3Mnxw1f1sTQKv5vqUQNlA/D2onBjdngclTx9gkMrCSIEfgiygm/CfN
- mmw2N4IZbJA50Ibyh67oV6Qp204Uhva7q550PVSV7P1VCBD229v7HCjxYTDudim/7BMs+yXZKKZ
- Ixp0OtuaJIRYXSCbz/edc8lnzohHJMPgBWQbYCl5usWODE/0kD33r51kPctPneiHLYgKrpvgPHe
- lS9I3iWwPWQKTFwRflaMrqo+i1XGkfnU6SzUb6MD9i1fFQLxEYXNIlGQMeNtCmNdsBCgozAtV9y
- gmU7ZXoVKqJsti6q1knreskVcbuoTVtH5dWimWcDd+8MuTcJVaI1JbHAuKOvPi5WYeQM/WgoPs+
- +tn6l
-X-Received: by 2002:a05:7022:fa0a:b0:138:498:895a with SMTP id
- a92af1059eb24-13804988a79mr159531c88.4.1780579186303; Thu, 04 Jun 2026
- 06:19:46 -0700 (PDT)
+ AFNElJ8otLtKTjW3ZKjwGT2XKoMriNevwknlTzZZFEp/NPgvMr/OzLPB8YfCUvuZEYjQ+l+1FQdYQHSd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxkBrApY6ZXyE1JgxD+cRZ+6lLy9MyVBOKoXbm5veWp+tLx2fbX
+ moQUmvEXulRb6Z9GH/zjtiQKA3Do1wyTKXhelNaug6ZTSSBS0OfUTTGB7cdr05iHNkBcEmXURsX
+ Hvifec4FgF3+Pu9u22BvgITxS0VkipHg=
+X-Gm-Gg: Acq92OEsn8dsCzKvIPBfvmSY6CUkE9C3h435//K3yPiqYJ27IOuRdA3Vk1Tn1O+hgOI
+ uI7FsBWI3rUOygdfeayhnj5ty522pKPEUYBe93QDja5v4fJMUxPa6YJ09KNIg+htM7lUivKZ6+2
+ tPxNo97/hed+kXsj9c3KZQ3HIXrJ9XnoJ0vqDjhb4cINMzVCFrQBKEPl1YIS5SIqLlG8PrxbRj8
+ FqA3KqZq6IQLRr/VJU+fqD9wy//CtcOvSTJ52AuWJDchI86+ArAGRcWrUl2x/U6lIUCRVH0yefE
+ Ty+D2eqq15eYM+Q6S51e/VOD6Mqt+Pd6uJSyrJt+wMs0eHIs07YP0XNlhbVeWkVohXjbt3uN5js
+ 4RWql
+X-Received: by 2002:a05:7022:f9b:b0:135:1b3a:bffb with SMTP id
+ a92af1059eb24-137ff5987ddmr544213c88.0.1780579266081; Thu, 04 Jun 2026
+ 06:21:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260518154809.660061-1-michel@daenzer.net>
-In-Reply-To: <20260518154809.660061-1-michel@daenzer.net>
+References: <44069eb146824aa195312f5b02c49287@valvesoftware.com>
+ <7a9021cd-fd78-4b0d-846b-135d0d72224e@mailbox.org>
+ <16231b1742004f848af243ce398281ec@valvesoftware.com>
+ <ce51243c-3b98-4f99-911f-70dd0b860da0@mailbox.org>
+ <1c522568-1d5e-4210-8f25-1aa96e0d3c3a@leemhuis.info>
+ <BL1PR12MB51447AB016BB28843BAD0216F7092@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <af4dff0f-0c62-4a7d-9a3f-fc029c8757f4@mailbox.org>
+In-Reply-To: <af4dff0f-0c62-4a7d-9a3f-fc029c8757f4@mailbox.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 4 Jun 2026 09:19:33 -0400
-X-Gm-Features: AVHnY4JBenTpRPP8YA3Qmj-kqEge9AwSch2DkZfTv-k2Wj99f13hyNqMGmolzPE
-Message-ID: <CADnq5_O3CUB7LykA6x74XAWACigTS7sn7vyCmC0YvtPL=CEQ7g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Consult MCCS FreeSync cap only if
- requested & supported
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Thu, 4 Jun 2026 09:20:54 -0400
+X-Gm-Features: AVHnY4LjJNxJVvMBj9GVxXTCQGY3mGJk_7vTLN-2s2YrwHEyFdbbXxgb1Bauqxo
+Message-ID: <CADnq5_O9xMagapKQSO-6waXtmmFkDV-47ExVaNuiZd2xVdhefw@mail.gmail.com>
+Subject: Re: Test result / finding of "drm/amd/display: Consult MCCS FreeSync
+ cap only if requested & supported"
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Pei-Hsin Yang <peihsiny@valvesoftware.com>, 
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "Li,
+ Sun peng (Leo)" <Sunpeng.Li@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ Linux kernel regressions list <regressions@lists.linux.dev>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,69 +118,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 18, 2026 at 1:09=E2=80=AFPM Michel D=C3=A4nzer <michel@daenzer.=
-net> wrote:
+On Thu, Jun 4, 2026 at 3:59=E2=80=AFAM Michel D=C3=A4nzer <michel.daenzer@m=
+ailbox.org> wrote:
 >
-> From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> On 5/29/26 00:02, Deucher, Alexander wrote:
+> >> From: Thorsten Leemhuis <regressions@leemhuis.info>
+> >> On 5/21/26 09:09, Michel D=C3=A4nzer wrote:
+> >>>
+> >>> Note that some kind of short-term solution is needed for the regressi=
+on(s) in
+> >> 7.1-rc.
+> >>
+> >> Yeah, that would be good. Makes me wonder how the rough plan to realiz=
+e
+> >> this looks like? Sounds like Michael's patch[1] that was discussed her=
+e is not a
+> >> good option? Reminder, Linus ideally wants known regression fixed by -=
+rc6,
+> >> which is why I'm asking.
+> >
+> > @Wentland, Harry can you sort this out for next week's -fixes PR?
 >
-> When the do_mccs parameter is false, we don't call
-> dm_helpers_read_mccs_caps, so sink->mccs_caps.freesync_supported is
-> unlikely to be true.
+> Looks like this regression will make it to 7.1 final?
 >
-> Fixes: 6f71d5dd3206 ("drm/amd/display: Read sink freesync support via mcc=
-s")
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/work_items/5286
-> Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
+> I filed https://gitlab.freedesktop.org/drm/amd/-/work_items/5286 3 weeks =
+ago, and proposed a fix the following week. There's been no reaction by any=
+ AMD display developer.
+>
+> This is pretty sad.
 
-Applied.  Thanks!
+@Wentland, Harry , @Leo (Sunpeng) Li come on guys!  I've picked up
+Michel's patch and I'll send an update -PR today.
 
 Alex
 
-> ---
 >
-> I suspect this logic might not be quite right yet, it fixes the
-> regression and should be a step in the right direction though.
 >
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e0d209d016cd..9d4692e4ea26 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -13468,17 +13468,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_=
-connector *connector,
->         }
->
->         /* Handle MCCS */
-> -       if (do_mccs)
-> +       if (do_mccs) {
->                 dm_helpers_read_mccs_caps(adev->dm.dc->ctx, amdgpu_dm_con=
-nector->dc_link, sink);
->
-> -       if ((sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
-> -               as_type =3D=3D FREESYNC_TYPE_PCON_IN_WHITELIST) &&
-> -               (!sink->edid_caps.freesync_vcp_code ||
-> -               (sink->edid_caps.freesync_vcp_code && !sink->mccs_caps.fr=
-eesync_supported)))
-> -               freesync_capable =3D false;
-> +               if (sink->edid_caps.freesync_vcp_code && !sink->mccs_caps=
-.freesync_supported)
-> +                       freesync_capable =3D false;
->
-> -       if (do_mccs && sink->mccs_caps.freesync_supported && freesync_cap=
-able)
-> -               dm_helpers_mccs_vcp_set(adev->dm.dc->ctx, amdgpu_dm_conne=
-ctor->dc_link, sink);
-> +               if (sink->mccs_caps.freesync_supported && freesync_capabl=
-e)
-> +                       dm_helpers_mccs_vcp_set(adev->dm.dc->ctx, amdgpu_=
-dm_connector->dc_link, sink);
-> +       }
->
->  update:
->         if (dm_con_state)
 > --
-> 2.53.0
->
+> Earthling Michel D=C3=A4nzer       \        GNOME / Xwayland / Mesa devel=
+oper
+> https://redhat.com             \               Libre software enthusiast
