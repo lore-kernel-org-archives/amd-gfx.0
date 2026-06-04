@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2B0CD6E7B
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 07:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A21BCD6E7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 07:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAF6311A4F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7571112AD2;
 	Fri,  5 Jun 2026 07:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="QvnDAYl0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a53XU4z1";
 	dkim-atps=neutral
-X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
- Thu, 04 Jun 2026 20:45:23 UTC
-Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
- [136.143.188.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3208D1129C2
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2026 20:45:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1780605019; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=CekFGVvzF2nh/YXBp+KV/bQ2jmhVKUkC0aAeX3L6s3i0TI9egcH9sNBkwHcqFAysCr9WP9pVVLSy/Sr+F2c7RtZw/wZjGZ1w0VF0hBG+EORFXqKfxRHdm5EpJm19QmRmm+gAaU0vKctMht8HYvjXBQ7hBbsus2aUHUFKEr+dBfQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1780605019;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=muC6rawBX3CykhRdzS4yBFWa650rEAb1z3ELNMgRXrs=; 
- b=JM8Pc/KHR/l617ADswfNzQG3O7y47G13DMlMRq25EyDdx8n2nXZp07pU4cb9Pzfzcc2vxCvIs5Uw1Lb1dNC4QVOISUH8UX0rtb+UgWyNJExj/QcAb62FrUwDexDnHqzzxvKDVEid2EUwb0g/DeuryjiWjEeeJi3x47osF3DQTkU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=mark.filion@collabora.com;
- dmarc=pass header.from=<mark.filion@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780605019; 
- s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To:Cc;
- bh=muC6rawBX3CykhRdzS4yBFWa650rEAb1z3ELNMgRXrs=;
- b=QvnDAYl09j17c3rOEa5W4zq4fEY3yAN1/8D5JqxyzZXIroUj3RcR+aBto0MI2Jd5
- g7KWKMHjdZv4RD5GyZT3e70A0Yn664vF+IuIKpq1gWCyRXePR0JRuEP6srSyTAxB4gJ
- VODbSCWX8FT5M8MJiW6oxRk/nTruhAW9T72L6toI=
-Received: by mx.zohomail.com with SMTPS id 1780605017273696.9436458254814;
- Thu, 4 Jun 2026 13:30:17 -0700 (PDT)
-Message-ID: <da9b5fdab50e4353fe590521da93e90c622d3cbb.camel@collabora.com>
-Subject: XDC 2026: Registration & Call for Proposals now open!
-From: Mark Filion <mark.filion@collabora.com>
-To: amd-gfx@lists.freedesktop.org
-Date: Thu, 04 Jun 2026 16:30:16 -0400
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44app2) 
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12A1410E5EE;
+ Thu,  4 Jun 2026 09:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780566651; x=1812102651;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Jza6mxy5CFobueQBU5MXCjifhlqHrSL/hJl4KW3I3GE=;
+ b=a53XU4z1jyPiSGFgfWVVJLDbqxWP65x0gS4RjEJPx1RhViBXSQUT/7Xl
+ LrKqogeuCi5vb58jwV8WvSUr3ObPFBZ5msu+58A4+r0OE52zM5UU1+Sy/
+ bhI6zDQSrUVfPkBxEOQ931wA7yvYGEfqGRCjy256sjj4uI+ne6zvRuPHj
+ FQG5nZ2d7a1kl2uwjkpTOosFADdRQmjY7SyFy8eJQ1/T3TG06jO8aIMOw
+ jcW50PEACUf4CSaczJtkRbC8GTuT6aIrcruCykxzTQw0yMddAIAQ5Ez9+
+ X+LqTrPdYvwfULv8hoGo8y6t1n7lJvOi8p6oqNn4gg18yIDYqWS1ExkX0 g==;
+X-CSE-ConnectionGUID: LWKG/cu+THKkNDo+hhYV/w==
+X-CSE-MsgGUID: tBfzAnzvS+681dSkR+NebQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11806"; a="92876472"
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="92876472"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2026 02:50:51 -0700
+X-CSE-ConnectionGUID: nbYgU2gvQtKiXV+nwwsq0A==
+X-CSE-MsgGUID: EzyxdFuAR4CpVCD/9AcPXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,186,1774335600"; d="scan'208";a="249423464"
+Received: from nitin-super-server.iind.intel.com ([10.190.238.72])
+ by orviesa005.jf.intel.com with ESMTP; 04 Jun 2026 02:50:49 -0700
+From: Nitin Gote <nitin.r.gote@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, Nitin Gote <nitin.r.gote@intel.com>,
+ stable@vger.kernel.org, Christian Konig <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>
+Subject: [PATCH] drm/amdgpu: Fix UAF in amdgpu_gem_prime_import() on attach
+ failure
+Date: Thu,  4 Jun 2026 15:56:37 +0530
+Message-ID: <20260604102636.1816829-2-nitin.r.gote@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 05 Jun 2026 07:35:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,46 +68,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+amdgpu_dma_buf_create_obj() creates the importer BO with obj->resv
+pointing at the exporter's dma_buf->resv. If dma_buf_dynamic_attach()
+fails, no dma_buf reference is held and the exporter can be freed
+before ttm_bo_delayed_delete() runs, causing a UAF on dma_resv_lock().
 
-Registration and Call for Proposals are now open for XDC 2026,
-taking place at the Daniels Spectrum in Toronto, Canada,
-September 28=E2=80=9330, organized by Arm.
+Switch obj->resv to the BO's private _resv under lru_lock before
+dropping the last reference, mirroring ttm_bo_individualize_resv().
+The BO carries no fences and is not yet visible to other users, so
+the switch is safe.
 
-    https://xdc2026.x.org
-=20
-As usual, the conference is free of charge and open to the general
-public. If you plan on attending, please make sure to register as early
-as possible:
+This is the amdgpu counterpart to the xe fix:
+  ("drm/xe: Fix UAF in xe_gem_prime_import() on attach failure")
 
-    https://indico.freedesktop.org/event/12/registrations/
+Fixes: d99fbd9aab62 ("drm/ttm: Always take the bo delayed cleanup path for imported bos")
+Cc: stable@vger.kernel.org # v6.8+
+Cc: Christian Konig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
+---
+Hi,
+This is the amdgpu counterpart to the xe fix:
+  ("drm/xe: Fix UAF in xe_gem_prime_import() on attach failure")
+  https://patchwork.freedesktop.org/series/167647/
+- Nitin
 
-In addition to registration, the CfP is now open for talks, demos, and
-workshops at XDC 2026. While any serious proposal will be carefully
-considered, topics of interest to X.Org and freedesktop.org developers
-are encouraged. The program focus is on new development, ongoing
-challenges and anything else that will spark discussions among
-attendees in the hallway track.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-We are open to talks across all layers of the graphics stack, from the
-kernel to desktop environments / graphical applications and about how
-to make things better for the developers who build them. Head to the
-CfP page to learn more:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..6a24cf2e3666 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -568,6 +568,16 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+ 	attach = dma_buf_dynamic_attach(dma_buf, dev->dev,
+ 					&amdgpu_dma_buf_attach_ops, obj);
+ 	if (IS_ERR(attach)) {
++		/*
++		 * Attach failed with no dma_buf ref held; switch resv to the BO's
++		 * private _resv under lru_lock before the last put, so
++		 * ttm_bo_delayed_delete() doesn't dereference the stale exporter
++		 * resv.
++		 */
++		spin_lock(&gem_to_amdgpu_bo(obj)->tbo.bdev->lru_lock);
++		obj->resv = &obj->_resv;
++		spin_unlock(&gem_to_amdgpu_bo(obj)->tbo.bdev->lru_lock);
++
+ 		drm_gem_object_put(obj);
+ 		return ERR_CAST(attach);
+ 	}
+-- 
+2.50.1
 
-    https://indico.freedesktop.org/event/12/abstracts/
-
-The deadline for submissions Friday, July 3, 2026.
-
-We are looking forward to seeing you in Toronto! If you have any
-questions, please email the organizer (charlie.dixon at arm.com), and
-CC=20
-the X.Org board (board at foundation.x.org).
-
-Don't forget, you can follow us on Mastodon for all the latest
-updates and to stay connected:
-
-    https://floss.social/@XOrgDevConf
-
-Best,
-
-Mark
