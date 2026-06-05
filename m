@@ -4,91 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EDF0CD6E7C
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 20:14:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A034DCD6E7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 20:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94F3611AAF6;
-	Fri,  5 Jun 2026 20:14:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4F7811AB00;
+	Fri,  5 Jun 2026 20:22:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XyL9bpMj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZkfcnjXW";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D9E111AAF6
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 20:14:27 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-30741f821cfso281550eec.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Jun 2026 13:14:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780690466; cv=none;
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6976011AB01
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 20:22:22 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-304f9bc869aso301611eec.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Jun 2026 13:22:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780690942; cv=none;
  d=google.com; s=arc-20240605;
- b=L3fRPiQT8bOX0fh2Fh8elRRlvjaWCrE4C3L3dUoeGDWmez6cjaOk8Ieu+YPfawt2Bn
- L4DVT+2ZpP+V+M9tAC6tf5S/CaGy2A+YXusAPJR+wr9SoZA8dzza1c03HTwQNx3bbais
- uEp/2d0nejGbbnh8X9dTW+63ph+Vv94/mzxhd7tRYRsJae1u8GzyF6UFzew8m1tfY16q
- LhfsfE0vek1IreH1z410XDQA7gc94wCWPABTnsdmWcyIpwBqVBIcp1OAG+eDweVBiKrX
- EZM3wEhGtdW6kF8zkgAVCCy1CifmoODlt1FIqQZRTEkZ6WVlamnpJ5jrcwJM5lGfbej/
- U+3g==
+ b=igIXOfwt6szoDPOVoEsjvbUChEmYu/5Kx3DpiTqQkKYuW2bbQlDpHOa4z0U08nOjLU
+ XQ+l5twUZtMt4WdulGFcqQ32YbRubkKU3sFEGlp0M98TCkBd82/fO6mAlv0P0nutPfac
+ W2QaSKkGVXbnmtf1k5noG/+phrvFVgrI3oGaRNRV61vhm4jzxvVp3vIoCNKVs5ySArn3
+ 4xNZRppYB+mi7b5xQ6pzpklWML1ZsABml3KCpQeiMs6HbgpGDfZIYfAzzCcgOkk8GTF4
+ azTR3bJogHbwpm3UVgq3TnzuXhGEWxD/O4FrC1urusIW6lphxrBAA99QWxFYfoRSXZcD
+ UvNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=4gTrSDLGyJF9iLo0KtvOeeI0eTO0T0D8kcHwKiMqh2w=;
- fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=L1P7Rzc+Td0sH1iTHd2ksXy1oFwSaZykHVPe5z5jzgHqMY9J8ADrIAXJN0YuY7Cc0e
- npa43FyMIJ7y4waj4Y7LdlGZsJOkLuaKHuznVZePO7UT4GBzReVHXuyGC5t9/gHtUAhr
- E6lJunY+vDuDLOtO39ij8VJzD3lj8rZ0MOe2TNXLp4t9xHosedTW3BZqB2OowtpyVkBy
- HJiTlTAfWXiDFjfFWfzuo2dr+RB79ODfRCOHN8vjE/9VOeMucSSA9rXMew+GoZTs1WLG
- baFO/MUeFi8ly93+7Ru4loRVug0dES0I7Rhi6VnwNBe8DMMUMyvZ67jsp834pZogbwTK
- UZdQ==; darn=lists.freedesktop.org
+ bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
+ fh=AzrSD8AVmfL5pkg4s8PAslTgFVafn1ObjdsqUwm4D0E=;
+ b=Ij6UiatKG9S2z3tYUlaFvneRx6kBkoIbWWZ8mokh+toZbQLrDYqVOkrdK0E5Jjywya
+ HxCYF99epuD6I+N4Cs3MspgbYVXlMaDDut07HMijV3Dk+M5m0UsRJrU2rIf/EWSDF5Vh
+ XniL2UiJ9PYyoSx6GgoYEUdbWDC/jivMBp6eoM1rUkFpSCz0Vdh1DJ0Th9XpC1dFGuSO
+ Y4xRH7tgOoHIqD+jm4HS1eswba9cpx0r79AxviDbNWPw/GH/B4e4LAyx/ipOTXpJv1F9
+ qXQVU1WU3aA7MFZIrvjgtYvM/BhZrgriqKXVe+UUKm8svRxyQUri2vJnAKFX521DVPfi
+ RA5g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780690466; x=1781295266; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1780690942; x=1781295742; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4gTrSDLGyJF9iLo0KtvOeeI0eTO0T0D8kcHwKiMqh2w=;
- b=XyL9bpMjijMVWnqc0B+d0P1h5AZX28KD2oBOpaRcKUX1MNUZlnnFiLJTaG6KkUOBUd
- PDpxG0B7rZNzujfij8B+QWyo29Y7nmJr5/yQSHaNDzMImriP31WcSN64ILqAfBR1JdOW
- X4uqLmJy1W+Ex9Go+zuW5Ew2eczaRx5azMiqLfnxLSnvIgvf34rLjNF/Bz2bRpnw31nK
- 8E3LKHC0WDbB4znjGWadN2rhrn4d6t2M+L/gmHMC6Gsb01LgAbs7Pm3r5ceETOPF39ZO
- F0Vaubi5V8JfFd60+hf517MOFnH/bbQ8N/S8w+FyqnOI7q7bH/WAVSirh8x78yHUsc5T
- WSkQ==
+ bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
+ b=ZkfcnjXWhq1W+43qmhldaecpiPuFfargFUkDBYuk248BoBl9dHq+UNSfObS/i5Pb9J
+ +oUf5X9g8waZ8OWePnrLfB37gg7yx0eH9Khyb2uQqjz4TRphzXWn+UZqjYL5KfNirU6d
+ Ye+Yk2e8QjDrQXkAjc1xqIR3sw484wIX+Z6NbJ9UdJTn5lnWiD3oTwF14jVy01HVMqDh
+ dRkatdwic6VaQhx96q43mrSCGMGy9A7IxpLO3hH8d8lBXfjm+QCt+MXMAuNK2rZhZ5Eg
+ /SGDTdsycszhHEWe3auTLEt3wXNjKsSlecIxCCl1pqbwhmVCtQnWPYGl9wuShkmaRVW0
+ DQLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780690466; x=1781295266;
+ d=1e100.net; s=20251104; t=1780690942; x=1781295742;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4gTrSDLGyJF9iLo0KtvOeeI0eTO0T0D8kcHwKiMqh2w=;
- b=EZePL5PjH3DQyTIGkTwL6i1+9t5VvTme1pTNwYR2fkATN8zI5rGNWB3X3jto7KFYqs
- z+4lRWfuRxPEFRQFpsF6yq4rZubRMnJRCDy596td5jiFKxof288G3phyQ144A1LJj+3D
- Hu7vHW9Jdsp5Gi/rwcqcTDV+JAyhoF+G8sQVpM9FjK2eNxLuAnkc+XTXBsCEcV0jSEEQ
- TDm+dYhII2atZ/4PZGo4JhCIuuYQt7e9OAO1Et8jPR7ELedKZd1zsgpDfImw8mA1X5Zg
- WuzD4YeapPlJ3byqySSdYH8Ii72Hh6apnAVCSsAFARcP+XLVlbXzJKViA29NMZB/K8lJ
- v3aA==
-X-Gm-Message-State: AOJu0Ywz9u8W7+5H7QoRBTu2hJ0c0zPBLpFuZ9cATyA4KxG9wv9Zz5zh
- yJBQ/3duDA96isorbZVfbi7ZAkhVWItoTK5img9DJizWI9wH2NCuDBTew9uJEY+8Hkz22EQ1Wvl
- qH+Y6dQVYLJzbMS9XJYQmaUlL4BqbXIY=
-X-Gm-Gg: Acq92OFJpZU7EkNaCu/x5qEGkIjQwdmfAnU7keESvfgdMWqTWXkIwpLz39P7fgUr2hB
- IL6JbGyHR2cLFpzOZOwvMlXMBs4fprAOB/+LlT4GpDaa6dcC9QFnuDo4/mXvRf9aT0uGLSzazT7
- 5A/e4tkcAR5DfqJD/KZwn9KIVKowKdY43SmKbLxyM5Q0Veqqazm/nJ9p2z687dyo6+4uAePwGsU
- LV8KywDRgNl9knKl+mie2JVCAgKt6HmLSJvvpfGV979FOKktS4smj/xXQy9F/GMNkfaxVXzAgra
- ESatrEEReUoAm6Cuacnh9QtVEIYLWcMMTdFOm3Hv9rzclNYr3hG0yg1fW51pHdNoALDgHBmd2uN
- mJ4iG
-X-Received: by 2002:a05:7022:e01:b0:134:c6ab:a516 with SMTP id
- a92af1059eb24-13806759a9dmr1116123c88.6.1780690466291; Fri, 05 Jun 2026
- 13:14:26 -0700 (PDT)
+ bh=Jd8zZoj15MB4D27exy0vziD0YMpZOpqLLJrmgLP/VUs=;
+ b=dVjCq0p9/X5MXI/mqLN0P3nwMp6DgtO1T/XDlgebSCyzuL8aHwhG4DR/rA2A/6pUoe
+ 6kyWlEH5btlUSs1NzSTMt6MYgkNjyexiF6L8eLDwo7YejNOSUHuMznJTsLc0Uz3hAoEn
+ jhiiHozr8hEQDSFsA3U9gxMO2F4hS15k7rwcKawsjzyiFi1d6nj7tnpiMpBuIDNMxvag
+ IlxAVJcnRukrLYwLWgIWqH38V7TwS4c4EdM1xAvDVBSGdMfXTHTx+oaiT1+4aZY8YsbD
+ gQkxs2/InooNhC9jobdlFCaSwCLdE90ZUkiALVSrsNqj0w9QETcXNOwHaETr0J5rsW6L
+ A18Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/1oRZ+1GKqOFtxszdq3UXfdBiFW1KKPUKrlMgmE5cOp2ivoys6PezihZG62200ZCBRGaRuaNJM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaCSITFJ46VnxX5XJN28N/Uysk4gU0Twgxu7FYUb1wC0FnIjmf
+ Ur58O1Temyfun+3HN8X5zi5muVr54cecFzpvEGwFwdXiIjMjOxvCr9jAdhmwr8nhGqGthwh9Snw
+ KVxSDJTVdaE1TEYAqj6hIhkddqLUKinc=
+X-Gm-Gg: Acq92OHKSRxOnsVGN5/kWYRTT3XeeZaP6RaUyr14fimZ4hLUPNMWYMQG6qoQ30nswdg
+ cWO6oRN9QrpiuaMYwur6cdflw6ch1vFJy+BE0oEAJww7Vz1pA+VJB5JsKjYUoj4N2egltfaygBx
+ nkSw6NRlHthX4rluXAmA/OLab6j5VaQdtBOwwKkCgCJDiyw5YW0fp4RgINSNPlJJhQlaxMilOTn
+ 4MHR8FCk2iYQNQ5DhBoGiJta/+5i4B1izotRi6jZ9jxTmoFHYMp6fn9Di14vZAG5ll7TxavS4ec
+ 9do+vC2HK4P1rrgX4T2B+XHcZM1gZuJI27dBUTbAlpfD504oYVixSPcZUN4YeJnG8D1nOSRssh/
+ CB8aT
+X-Received: by 2002:a05:7022:423:b0:137:fdce:fec2 with SMTP id
+ a92af1059eb24-138067f0b96mr1031445c88.4.1780690941599; Fri, 05 Jun 2026
+ 13:22:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260605103144.2537331-1-Jesse.Zhang@amd.com>
- <20260605103144.2537331-4-Jesse.Zhang@amd.com>
-In-Reply-To: <20260605103144.2537331-4-Jesse.Zhang@amd.com>
+References: <20260605091803.6018-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260605091803.6018-1-vulab@iscas.ac.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 Jun 2026 16:14:14 -0400
-X-Gm-Features: AVHnY4JwmAroeXjrLfY5rbr7f5KJjxqmm3Jre1n-aNrAUdfHdkBkpRqXLPRuoms
-Message-ID: <CADnq5_MbDbev_4GTPE0jWYhxTasotJuaBUtp0XwQRJ0ZVyDR_Q@mail.gmail.com>
-Subject: Re: [PATCH 4/6] drm/amdgpu/userq: identify guilty user queue from
- priv-fault IRQ
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
+Date: Fri, 5 Jun 2026 16:22:09 -0400
+X-Gm-Features: AVHnY4Itf_LGBLOFfworAGpTyhoHXZvSw8OTwPFhRJI4fD0sd3Y6MHVuNEzj0Ic
+Message-ID: <CADnq5_PejRC_QGGYvph_0jAyGWX475LvxTVHZVo3qvH7ZVgv+A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix fence reference leak in
+ amdgpu_gfx_run_cleaner_shader_job
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, lijo.lazar@amd.com, aurabindo.pillai@amd.com, 
+ superm1@kernel.org, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,205 +109,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 5, 2026 at 6:39=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> wr=
-ote:
+On Fri, Jun 5, 2026 at 5:24=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wro=
+te:
 >
-> CP priv-fault IRQ carries the offending queue's per-process
-> doorbell_id in src_data[0][9:0] (same encoding KFD extracts via
-> KFD_CTXID0_DOORBELL_ID_MASK), with pasid in entry->pasid. The
-> existing lookup against BAR-absolute doorbell_index never matches
-> this payload, so the targeted-reset path is never taken.
+> In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
+> dma_fence with an elevated reference count. The function correctly
+> releases this reference on the success path after dma_fence_wait().
+> However, if dma_fence_wait() fails (e.g., due to a signal interruption),
+> the code jumps to the error label without calling dma_fence_put(),
+> resulting in a reference leak.
 >
-> Cache args->in.doorbell_offset on the queue and look it up by the
-> (vm->pasid, doorbell_offset) pair. Add a queue->guilty flag set by
-> the IRQ and consumed via xchg in hang_detect_work; on a hit, route
-> compute reset through amdgpu_gfx_reset_mes_compute(..., queue, ...)
-> and fire hang_detect immediately via mod_delayed_work(..., 0)
-> (queue_delayed_work() is a no-op when the work is already armed at
-> submit time).
-
-I would reorder/squash these patches to add support for handling the
-IH token format for this interrupt and then implement the interrupt
-handling for the user queues.
-
-Alex
-
+> Fix the leak by adding dma_fence_put(f) before the goto err when
+> dma_fence_wait() returns an error.
 >
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with=
+ 'drm_sched_entity' in cleaner shader")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 37 ++++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  5 ++-
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c    | 10 ++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c    | 10 ++++--
->  4 files changed, 49 insertions(+), 13 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 99c5adf3cb24..231ffb29fe5e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -140,9 +140,14 @@ static void amdgpu_userq_hang_detect_work(struct wor=
-k_struct *work)
->                                                  AMDGPU_RESET_TYPE_PER_QU=
-EUE)) {
->                 int r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index b8ca876694ff..88bec4e93712 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1686,8 +1686,10 @@ static int amdgpu_gfx_run_cleaner_shader_job(struc=
+t amdgpu_ring *ring)
+>         f =3D amdgpu_job_submit(job);
 >
-> -               if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE)
-> -                       r =3D amdgpu_gfx_reset_mes_compute(adev, NULL, NU=
-LL, NULL, NULL, NULL);
-> -               else
-> +               if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
-> +                       struct amdgpu_usermode_queue *guilty_uq;
-> +
-> +                       /* IRQ-side WRITE_ONCE(guilty,true) hand-off via =
-xchg */
-> +                       guilty_uq =3D xchg(&queue->guilty, false) ? queue=
- : NULL;
-> +                       r =3D amdgpu_gfx_reset_mes_compute(adev, NULL, NU=
-LL,
-> +                                                        guilty_uq, NULL,=
- NULL);
-> +               } else
->                         r =3D userq_funcs->reset(queue);
->                 if (r)
->                         gpu_reset =3D true;
-> @@ -671,6 +676,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
-amdgpu_userq *args)
->         }
->
->         queue->doorbell_index =3D index;
-> +       queue->doorbell_offset =3D (u32)args->in.doorbell_offset;
->         r =3D uq_funcs->mqd_create(queue, &args->in);
->         if (r) {
->                 drm_file_err(uq_mgr->file, "Failed to create Queue\n");
-> @@ -1111,16 +1117,31 @@ static void amdgpu_userq_restore_worker(struct wo=
-rk_struct *work)
->         dma_fence_put(ev_fence);
->  }
->
-> -void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev, u32 door=
-bell)
-> +void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev,
-> +                                   u32 pasid, u32 doorbell_offset)
->  {
->         struct xarray *xa =3D &adev->userq_doorbell_xa;
->         struct amdgpu_usermode_queue *queue;
-> -       unsigned long flags;
-> +       unsigned long flags, idx;
->
-> +       /*
-> +        * CP priv-fault payload is (pasid, src_data[0] & 0x3ff) =E2=80=
-=94 the same
-> +        * per-process doorbell encoding KFD extracts via
-> +        * KFD_CTXID0_DOORBELL_ID_MASK. Find the offending queue by the
-> +        * (vm->pasid, doorbell_offset) pair, mark it guilty and fire
-> +        * hang_detect immediately (queue_delayed_work() would no-op if t=
-he
-> +        * work is already armed at submit time).
-> +        */
->         xa_lock_irqsave(xa, flags);
-> -       queue =3D xa_load(xa, doorbell);
-> -       if (queue)
-> -               amdgpu_userq_start_hang_detect_work(queue);
-> +       xa_for_each(xa, idx, queue) {
-> +               if (queue->vm && queue->vm->pasid =3D=3D pasid &&
-> +                   queue->doorbell_offset =3D=3D doorbell_offset) {
-> +                       WRITE_ONCE(queue->guilty, true);
-> +                       mod_delayed_work(adev->reset_domain->wq,
-> +                                        &queue->hang_detect_work, 0);
-> +                       break;
-> +               }
+>         r =3D dma_fence_wait(f, false);
+> -       if (r)
+> +       if (r) {
+> +               dma_fence_put(f);
+>                 goto err;
 > +       }
->         xa_unlock_irqrestore(xa, flags);
->  }
+
+I think all of the clean up paths have issues.  How about something like th=
+is:
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 321d7aa52f042..848846ac9391e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1701,7 +1701,7 @@ static int
+amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+                                  &sched, 1, NULL);
+        if (r) {
+                dev_err(adev->dev, "Failed setting up GFX kernel entity.\n"=
+);
+-               goto err;
++               return r;
+        }
+
+        /*
+@@ -1729,16 +1729,12 @@ static int
+amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+        f =3D amdgpu_job_submit(job);
+
+        r =3D dma_fence_wait(f, false);
+-       if (r)
+-               goto err;
+
+        dma_fence_put(f);
+
++err:
+        /* Clean up the scheduler entity */
+        drm_sched_entity_destroy(&entity);
+-       return 0;
+-
+-err:
+        return r;
+ }
+
+
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index 5a2ae33135da..1e765cd765ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -53,6 +53,7 @@ struct amdgpu_usermode_queue {
->         enum amdgpu_userq_state state;
->         uint64_t                doorbell_handle;
->         uint64_t                doorbell_index;
-> +       u32                     doorbell_offset;
->         uint64_t                flags;
->         struct amdgpu_mqd_prop  *userq_prop;
->         struct amdgpu_userq_mgr *userq_mgr;
-> @@ -86,6 +87,7 @@ struct amdgpu_usermode_queue {
->          * Delayed work which runs when userq_fences time out.
->          */
->         struct delayed_work     hang_detect_work;
-> +       bool                    guilty;
->         struct kref             refcount;
+>         dma_fence_put(f);
 >
->         union {
-> @@ -175,7 +177,8 @@ void amdgpu_userq_pre_reset(struct amdgpu_device *ade=
-v);
->  int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost);
->  void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *q=
-ueue);
->  void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 door=
-bell);
-> -void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev, u32 door=
-bell);
-> +void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev,
-> +                                   u32 pasid, u32 doorbell_offset);
->
->  int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
->                                    struct amdgpu_usermode_queue *queue,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index ea323d241324..27d0a3dbfce8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6681,10 +6681,16 @@ static int gfx_v11_0_set_priv_inst_fault_state(st=
-ruct amdgpu_device *adev,
->  static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
->                                         struct amdgpu_iv_entry *entry)
->  {
-> -       u32 doorbell_offset =3D entry->src_data[0];
-> +       /*
-> +        * CP packs the per-process doorbell_id in src_data[0][9:0]; uppe=
-r
-> +        * bits hold other CTXID0 fields. Same mask KFD uses
-> +        * (KFD_CTXID0_DOORBELL_ID_MASK).
-> +        */
-> +       u32 doorbell_offset =3D entry->src_data[0] & 0x3ff;
->
->         if (adev->enable_mes && doorbell_offset) {
-> -               amdgpu_userq_process_reset_irq(adev, doorbell_offset);
-> +               amdgpu_userq_process_reset_irq(adev, entry->pasid,
-> +                                              doorbell_offset);
->         } else if (!adev->gfx.disable_kq) {
->                 u8 me_id =3D (entry->ring_id & 0x0c) >> 2;
->                 u8 pipe_id =3D (entry->ring_id & 0x03) >> 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index b3f1bbf3fc13..7c269cb75e07 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -5009,10 +5009,16 @@ static int gfx_v12_0_set_priv_inst_fault_state(st=
-ruct amdgpu_device *adev,
->  static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
->                                         struct amdgpu_iv_entry *entry)
->  {
-> -       u32 doorbell_offset =3D entry->src_data[0];
-> +       /*
-> +        * CP packs the per-process doorbell_id in src_data[0][9:0]; uppe=
-r
-> +        * bits hold other CTXID0 fields. Same mask KFD uses
-> +        * (KFD_CTXID0_DOORBELL_ID_MASK).
-> +        */
-> +       u32 doorbell_offset =3D entry->src_data[0] & 0x3ff;
->
->         if (adev->enable_mes && doorbell_offset) {
-> -               amdgpu_userq_process_reset_irq(adev, doorbell_offset);
-> +               amdgpu_userq_process_reset_irq(adev, entry->pasid,
-> +                                              doorbell_offset);
->         } else if (!adev->gfx.disable_kq) {
->                 u8 me_id, pipe_id, queue_id;
->                 struct amdgpu_ring *ring;
 > --
-> 2.49.0
+> 2.34.1
 >
