@@ -4,97 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 609D0CD8C83
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 15:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94681CD6E7D
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 16:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4B1D11A94F;
-	Fri,  5 Jun 2026 15:49:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24ED510E69B;
+	Fri,  5 Jun 2026 16:09:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t57CqIAl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nrSuRDVF";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010043.outbound.protection.outlook.com [52.101.56.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E48F11A951
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 15:49:43 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012059.outbound.protection.outlook.com [52.101.53.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD9D410E69B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 16:09:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hnOZ8srGYS1LhPbpkOLwVc+Fk1y4onwtsd9KgwyOtYrqcp/otqgRQbnZoXdysRX8t1to9RWEo015V1GmsUuiRs+wuuz8+kKHThL3TOU2BH6K0mfuKM6QxBJDKD/y10lWI9lgh/qqBdyMeFb73WoeiYZPKz0rs/CEuIyfKXsF+OTi2L2XDmCwwiaN4sRe+219OSK7Cuwl/uWuTAQqCGy8CLzYXJkOtL9EGLsr/ISgo28gYRUV4xZwjKPZtZWeMd6opozHG/VcCOGePa31up6DlKQeNTw2P9c8DY0d/vkoWLBQqe3Nz4Bd1l2bo4JUVctNiGDlMcxVS4SYbl6BT0EnEg==
+ b=p+dX4NVw5plMZCPFOg0eEB1CfQ0aaFIw0DC706xb5Hr07/nYIZi5yGNoHk2byUWdOyJLjti+VIB7HFFYdLOf6iLCs5YGeM8VcUr7CzH+IE5rfbUPUcB+ZJ1szZ6JGREXenlmre63pMGHlBeoWhy5eYa7JMEWZtZ60tO6nC2i5kUd5wrpy2AKkmmAhz5RjZddWtr6I9DqOizCiG0/6hc/4lluh3ZUGQWLMsNSGRRrSHBeWkEBmto6Y2ngavRHK+wYAkEEbOXHWN7JgeBmvldxA2x2ykAQbg6bSqFRovEg7DcIVZrF8YOtmFKpraSdKwae8bnVVozCUO3smDTTuwAAvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JKCmgEdqLQ6c2J4BZ0v3S+Vbhj17t2ZoQu4GfD7L/no=;
- b=BjG/5psEgnm0UJy+C9bEpi0PcOt59bLnnN5XS0idDEu1Qh/iVphckGLeenRjHJCp9dlNcD42WN9CuYIHB1KJO1TZD3XjyTBnPX2Ny4a+TiMDK3dAqLugLCJu3+8yZZNPYlvxgxbv2ey2yYbEIKoooedeG4Qek57kSw5KGCohSX65rVIobBMFpg2xqsdojJYx9+JJZ8y5JcqI3ZOzJd929VKLlto/etBrXHG1GuiGEU5ctP+RhJ9gmbLlceOxaaYRDO+ywLlmkd4AS9vI+1OzNFxmO0T/LtjlJMo7NdqH3z9Lmc3CDyNd9+TKtPfwV5RXMjmKerHbBS+TPaQP0RFjLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=jd2X0hjrpQ/GEXmfLx860XKQPD/ksAX065kk2vHS5qY=;
+ b=fLdiEFuVTD4uyKi9CoM1APkkAt9IT+hR9mm15GB+yYwZFhGZpOhL5QlPyZrueNhSRCHmfNQF3BmBb3DA99MYgWKVBvEPx8NKYdCeTOc1a+xgN9AL1nQwMst/s7vppmeceeKFywUvU5HDMCZk3Ne1i1jM2v8iETHh+02Yo3aAvZqLobaOdafrE4nTIg8/I6ppvN/FIP0ebRSY8MRV3sFuWJ0K1Czg0W4drG7aDn1JpI12wPweumj+ZkbYMGzbdCIde3Ubw/1esb4/syTu8yB2WdcxYqBN4oc3db8D87pJ5qmbyEI71DSzo4N6seMdECiDbMN+Fyl91PtWdWYlYhCMXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JKCmgEdqLQ6c2J4BZ0v3S+Vbhj17t2ZoQu4GfD7L/no=;
- b=t57CqIAl5o+hVyeUQCoSzmNK5TJBzUftRMxl8rOlpHtbbVvKLdAjctnDC3Mz7NB4JIoGAYeMW491khpp6lBpvgt/buNQBBywGEi+OZfB98NzCODD08xV6O+FJJ0/jA/XLDE0iwfI25uC1xlDefx48Scv6dBIoavA0Sm6bIMzJ3I=
-Received: from MW4PR03CA0103.namprd03.prod.outlook.com (2603:10b6:303:b7::18)
- by PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=jd2X0hjrpQ/GEXmfLx860XKQPD/ksAX065kk2vHS5qY=;
+ b=nrSuRDVFG2yl0DZkSjqcOoOu65jG5wIF64nQpPoZHsCdTpJnEokrbPOqpMP+mBGmUJhEkfRZRgF9qr4DwKKAR3WWuUpNYOrsRzBT3zTeSWy9SbKN4e0sffbf33rlmL49r1BdygZOFOPwuPBGS2KgGW5neINsOmsU3etovRtnpyE=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 15:49:38 +0000
-Received: from SJ1PEPF00001CE3.namprd05.prod.outlook.com
- (2603:10b6:303:b7:cafe::6c) by MW4PR03CA0103.outlook.office365.com
- (2603:10b6:303:b7::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.9 via Frontend Transport; Fri, 5
- Jun 2026 15:49:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE3.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 15:49:34 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
- 2026 10:49:32 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
- <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
- <asad.kamal@amd.com>, <srinivasan.shanmugam@amd.com>
-Subject: [PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
-Date: Fri, 5 Jun 2026 23:49:20 +0800
-Message-ID: <20260605154920.1314590-1-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE3:EE_|PH0PR12MB7957:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb7c275c-eee8-4814-05ad-08dec31a0acc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|6133799003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: 6O1wwcDTSUw0aUAtKqKUOFhvVMcJRslDsVHP01VlnLQBXpn0knuDpNyLyagr9h3JIAnLhDnxBheFiDmKk7oZaF0jf+l+36Pvo/liw5Rya/cmccHHI80QBv7bOBCJazUYhdH4pcBlKZ9gXvFPOPrmk1cz9ST+4lnHAhKGS3RDMCUB4MTcHOHIFWyjA1nviun+mTpOCNqQHTrmL0SqVUKx0CKlrh6W1E6h0Iv8OLSIAh4Y96PqmndLV11GMLn7a8s2TcAK59BSiMr8qgGzQM8Wp9refxnHZqHOwTOyHKO/woq0lE5EzNlP8NTqYD6dZgcdeM0RpbYm7N1e8upC77nLVmmCZVpQl9rfDtYVKYfJiI3UtH/1zeaWMKXNxoX60kVmbQKntCBPJsoAV+lJpXZ9TWZcepo7yM2YV8/XZN7JZUs1BPSlPTwrL+HKXtbEg4xOu8f5SXmtxqTmZxz4nAaDbmmC7RY5qJKceTkXax21Cm2XxcEiu7QkK2ioNzQanqavSPW7lTB5lvYHuYDvUKxvi9ephds0BQoHu0+5cIqwaqrCtXXdvrh31YgYXqf2lfrgULv0Ihyc73WvN3kLkVxhpvSUQTfP2Z1e4m7jtREQgb02HeNfb39jsww2l/oiXMQ/KZjmMSS2IAdHOMuiOGOc4FTRb5Yssq/G5qHWvzJK+g3Z1KEV8AGkUWsIxCVcaL4GTbmEhJ68S9D1Giot3RIMoMkAmgjLvxqujS2X7GtNWV8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(6133799003)(11063799006)(56012099006)(18002099003);
+ 16:09:24 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0%5]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
+ 16:09:23 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Francis, David" <David.Francis@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Yang, Philip" <Philip.Yang@amd.com>, "Yat Sin, David"
+ <David.YatSin@amd.com>, "Francis, David" <David.Francis@amd.com>
+Subject: RE: [PATCH] drm/amdkfd: Properly acquire queue buffers in CRIU restore
+Thread-Topic: [PATCH] drm/amdkfd: Properly acquire queue buffers in CRIU
+ restore
+Thread-Index: AQHc9FpyS/upLeb/hEmuLpAZp10DkbYwInyw
+Date: Fri, 5 Jun 2026 16:09:23 +0000
+Message-ID: <BL1PR12MB5898A8F05848537707B1297385112@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20260604194314.2981688-1-David.Francis@amd.com>
+In-Reply-To: <20260604194314.2981688-1-David.Francis@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-05T16:08:50.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|DS0PR12MB7771:EE_
+x-ms-office365-filtering-correlation-id: 251b7caa-ab3e-4ab5-1c0b-08dec31ccf39
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|38070700021|11063799006|56012099006;
+x-microsoft-antispam-message-info: RO1mZti1n96EHmU7kMv1NucAkLgTTSIkB5EYgJ190wjSvXP4pd7K7Wvu6rlTSwcSwSFhX/yzjZ9E67NJd2sbG9xe20P0JZBqYumGHOyW+cV74lemxWMNpLyXoeBSUbQCSe5krjzvcmF5uM2oEXy8PL1qt4mHd1u+lqkB+jO4ssiZ7B0GI6iYcnqNiBsQMuZXeMUVguY5HH6aY9YcDOcRWgWRvSYITcWGrUqfTUoD1Ey6gGT96+SJVw39oDE2PrYtNy22H8GwOcC2FT5QULvpiTutvlyl2Z5BFQb5qvag/8KNCzA0bh0y2K5Y9OlhQH8vka23foXQ9pLMUMK6KHNqJ2jGwHNb7HVMuVhakzHV3Lca1z2V/SCOCXEkaaqL6XRB0VApPvM8UdfaTwPiuZfrXYL+NJbvZyECgiE7Z5dKrkKn1I4H7UQxpVaE084BzGuQaxNvW3liVKoMups81d7ypcmeN98158yggedtPe784CuMaNH9ohLG92frm1CdEoR3/M1AziGq71aB4dkCUsA14xAfADvKt/6N7EQ3tWI2CpYiaALQDDKUZv3643UjWQVk5RJtoCU4wNAHCi2Pu1WZxxJkp+aTH6oUl0Xr4MTVWv94G5VyKMuycbIiC2ms/woEvM4m0HutV0tg+8qWephwNehuRKbf44bNmnzdSPOO4pNa4TwuLrcj2iN+LgG8GXbIdpIJ9IZHhuFdzEs3KvSzn280pNGq7PaffHJe7H+ZCR5EEldJSrPC/FF4yK7mwJBf
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(38070700021)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yFEF0Jyfzy7Iv82SvmTXnuPUHLQDNV/aqRvRCiA2waD/JDie6ByM5DM2LNwOhuXeZDBl++s577Zf89RvTZGhy8N/xLoy07Z5VoQQ0OgeoPiElOJeXSbcO3I5D/1pGN+RO6xTc2+4kvPVJy8B1gDJ5NnZFXMxkFj6x6Inx7D6w+XMuY+9/9UmeoHN6CzPkHp/rmbLq7cbeODp5vs2Ybe0HL/7byLxQwDq9agsAAkmN3m35PKvguHoDXsxQDCXqifD4LSzyhw4bUrNrL+0hFg35Fsujv9s3XdDkSgU6d9Z1s+yzamaF0PRAMFfiCfMRTjtTLmUkroDibbU7kjSvdMDGl65Ckdrk4ioSRUbLkT0kltsSGj7zLpJR/Bnixlc834KzfBgWHrMCT4Botx8Uh2jUuDgOIlv2hdFj7UlaYfP3m6u1QTTnKVnujh90ZeXg68i
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uFvPm2btsxma1MtCmZ85iAXa7gd0DE/YxfqgsZ4hfLos79ckIMBpKMMflPYT?=
+ =?us-ascii?Q?HDvsQ7pOVq4FJbtRK5CVCRTSkdJ7Skc3doq6i3cYEHTe7XvoreVxQhftwRSC?=
+ =?us-ascii?Q?pe1/8uS3Z97CEwgApDKSH6RsZHX7TmD3Z+us25CrjuIank+EvbuOfLE9qnYU?=
+ =?us-ascii?Q?LVnA4ZTlriBOcBVh6rwXSWIH1kDVxNJQsOwieAib4O2xehxbEbMZmXws5yMh?=
+ =?us-ascii?Q?ytp/oB7bdj55Iq8V8XNXno9o8BkuwUYSsYwz5tQqIm8rLgvb+U9u5+lHbmPF?=
+ =?us-ascii?Q?0WhzpYovz5ZDMTATSVXfKUPVGbS39/xnKQHOkCCQi/k76TJ5f70NrM+6/t8L?=
+ =?us-ascii?Q?TjVU2r+FCnt9BmGVQLERGOcg7yQeHNl4zUtO2cQXxru7QPyM206JuKmQfit4?=
+ =?us-ascii?Q?hNlziJLrGVQHbmU+Bg/mvfNdHcPTOUOfAP46cZbsecjvHJXmyJUh2z9w2Po5?=
+ =?us-ascii?Q?My2C8jrbGL1vZOJhm/0/qmolwhFoDMCdkEZXjonAXaO/1gU85ZZFoT5hAge6?=
+ =?us-ascii?Q?Z32M1A1dSHneCnfsZ89hmSzpqSdWSlpHsvatQvzmp7vx90lKg4zmZdvBnHy1?=
+ =?us-ascii?Q?x2vOVstI4MP9f8DdHZR45nQ6ThaFL6tDnDH5W7skyyE4nnBUq7V9GEc7/H4/?=
+ =?us-ascii?Q?tSO91zrlQ7Ulic1vS+E/eq5pq6zJfNw3jLATB2PPp9fpsh6lqTptcjPbV4jm?=
+ =?us-ascii?Q?aSe0ZSt5zwErsg5HfpyvvOKGLuiSIJMlaLq+2Md2HUeToaVy5DuTebxzACDB?=
+ =?us-ascii?Q?OaTrOB1wxDXfWCmoG0tlI6G8LXsTnHGxWLD5kB3kMekqXYeqAe2REzg10ztX?=
+ =?us-ascii?Q?cFP9BBoJFfaOyuSvE3LyqdPVuGyMdMV/x/YYrWc5j1jQHiTO8pNa+2fbu6NM?=
+ =?us-ascii?Q?Z03Er9sxmBAzd6C2f1K6L8b3BEerorojGmBketiTZaEYYJwQ9R3e0dsgmvay?=
+ =?us-ascii?Q?xMYRGPCS9914DvRd2GjEzQYett3g4QatpFQHnnvZoIWUvXxYTk0Ng3B3XtPh?=
+ =?us-ascii?Q?ewv62rfIgGfIJSLR7iZ9Quyxt6QKt1BqiroOdGsuqufgnsDObQyRIVp0AZQy?=
+ =?us-ascii?Q?qSj5j/wTxFQOLkUJze9i/n53u9cWiAhZ9xYEcMpHXiiX7mFPm/ZIIIWxzuBQ?=
+ =?us-ascii?Q?hOI4SRGzU4WCVb6yy10ljYkUHiUSTGfakVWO7z+NM4s6UZ5nZkmAp5ZQFlfu?=
+ =?us-ascii?Q?CLzuh0oCZj17QlUvRKSmRV55toKhYbIdML/UON3a5clsufEJrjg2rHJwRQr1?=
+ =?us-ascii?Q?+9Fhg02rQG1vhErUO9u2wkufQEgI8FBsZqQVG+lhB+pQ/BK5O/6cr+7wgzt4?=
+ =?us-ascii?Q?b1s0nIJUyoDzH6nQqu/aPMeS22YsLKSWlSFGfdpLVHUFgnEiK6KBGkUfxsDn?=
+ =?us-ascii?Q?RqBmQ8uZo4++hKj/KBWNCNkkfO+qgLCKQmgJbNjjEDZDOW7/aShDVsOXjAfE?=
+ =?us-ascii?Q?bYRT3bTfDlbINQC9h9oQutx+m9FJxXoOtaiK8cPqGvTy44dJ1dwLfHCMy8Ng?=
+ =?us-ascii?Q?xv5kJ1Y6R7D2SKmYaACKqKNUbcQ+kXU3mXiknKLAk6pTjW8DHF7IlnLZ4Mog?=
+ =?us-ascii?Q?iNzVRJkypk/8ImO65IN8owQhWCJ0qPNnDNUKFEHpWWJXDnHVDuSdJK3NxibJ?=
+ =?us-ascii?Q?NVY/iWp2j8iUN0EHURIKgu4l2IurmeHRd4NhWqzSf0RulZeU1kby72Pa/u7B?=
+ =?us-ascii?Q?dWis20SgVYjqqvIolUk/dfTNcAsfl4/biwRVTT+aVFVaPXL4?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 15:49:34.9874 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb7c275c-eee8-4814-05ad-08dec31a0acc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7957
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 251b7caa-ab3e-4ab5-1c0b-08dec31ccf39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2026 16:09:23.5495 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6j1A7VGZJqSkOcxLfUUoTk6RvIZwdvcbbzw20HQ66Ik+osqd5FTQdmnpapoqxSNZxhdX9rjk/COrxW38MufR9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7771
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,48 +133,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The cleaner shader sysfs path allocates a 16-dword (64 byte) IB but
-incorrectly fills (align_mask + 1) dwords. On GFX rings align_mask is
-0xff, so the loop wrote 256 dwords into a 64-byte buffer, causing a
-kernel page fault.
+AMD General
 
-The IB only needs to be a minimal NOP shell to schedule the job; the
-cleaner shader itself is emitted on the ring via emit_cleaner_shader().
-Fill 16 dwords to match the allocation.
+Unneeded removed line at the end. Take care of that and it's
 
-Fixes: d361ad5d2fc0 ("drm/amdgpu: Add sysfs interface for running cleaner shader")
+Reviewed-by: Kent Russell <kent.russell@amd.com>
 
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index ff5a55f5f3c9..f2c536929446 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1694,7 +1694,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
- 	void *owner;
--	int i, r;
-+	int r;
- 
- 	/* Initialize the scheduler entity */
- 	r = drm_sched_entity_init(&entity, DRM_SCHED_PRIORITY_NORMAL,
-@@ -1722,9 +1722,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	job->run_cleaner_shader = true;
- 
- 	ib = &job->ibs[0];
--	for (i = 0; i <= ring->funcs->align_mask; ++i)
--		ib->ptr[i] = ring->funcs->nop;
--	ib->length_dw = ring->funcs->align_mask + 1;
-+	memset32(ib->ptr, ring->funcs->nop, 16);
-+	ib->length_dw = 16;
- 
- 	f = amdgpu_job_submit(job);
- 
--- 
-2.46.0
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David
+> Francis
+> Sent: June 4, 2026 3:43 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Yang, Philip <Philip.Yang@amd.com>; Yat Sin, David
+> <David.YatSin@amd.com>; Francis, David <David.Francis@amd.com>
+> Subject: [PATCH] drm/amdkfd: Properly acquire queue buffers in CRIU resto=
+re
+>
+> When kfd_queue_acquire_buffers() was split off from
+> set_queue_properties_from_user(), set_queue_properties_from_criu()
+> was missed. Thus, set_queue_properties_from_criu() is not
+> filling out the buffer fields of queue_properties, which
+> can come up when subsequent code expects them to be non-null.
+>
+> Add the proper call to kfd_queue_acquire_buffers(), and also
+> use the right cast types in set_queue_properties_from_criu()
+> (which were missed at the same time)
+>
+> Signed-off-by: David Francis <David.Francis@amd.com>
+> ---
+>  .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c  | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 9295d0f9dce4..67b282dafbe7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -962,8 +962,8 @@ static void set_queue_properties_from_criu(struct
+> queue_properties *qp,
+>       qp->priority =3D q_data->priority;
+>       qp->queue_address =3D q_data->q_address;
+>       qp->queue_size =3D q_data->q_size;
+> -     qp->read_ptr =3D (uint32_t *) q_data->read_ptr_addr;
+> -     qp->write_ptr =3D (uint32_t *) q_data->write_ptr_addr;
+> +     qp->read_ptr =3D (void __user *)q_data->read_ptr_addr;
+> +     qp->write_ptr =3D (void __user *)q_data->write_ptr_addr;
+>       qp->eop_ring_buffer_address =3D q_data->eop_ring_buffer_address;
+>       qp->eop_ring_buffer_size =3D q_data->eop_ring_buffer_size;
+>       qp->ctx_save_restore_area_address =3D q_data-
+> >ctx_save_restore_area_address;
+> @@ -1042,17 +1042,24 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+>       memset(&qp, 0, sizeof(qp));
+>       set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev-
+> >adev->gfx.xcc_mask));
+>
+> +     ret =3D kfd_queue_acquire_buffers(pdd, &qp);
+> +     if (ret) {
+> +             pr_debug("failed to acquire user queue buffers for CRIU\n")=
+;
+> +             goto exit;
+> +     }
+> +
+>       print_queue_properties(&qp);
+>
+>       ret =3D pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data,
+> mqd, ctl_stack, NULL);
+>       if (ret) {
+> +             kfd_queue_unref_bo_vas(pdd, &qp);
+> +             kfd_queue_release_buffers(pdd, &qp);
+>               pr_err("Failed to create new queue err:%d\n", ret);
+>               goto exit;
+>       }
+>
+>       if (q_data->gws)
+>               ret =3D pqm_set_gws(&p->pqm, q_data->q_id, pdd->dev->gws);
+> -
+>  exit:
+>       if (ret)
+>               pr_err("Failed to restore queue (%d)\n", ret);
+> --
+> 2.34.1
 
