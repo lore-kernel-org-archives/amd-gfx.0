@@ -4,102 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E41FCD8C85
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 22:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C600CD6E7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 22:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB9AD11AB8A;
-	Fri,  5 Jun 2026 22:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACEB511AB8B;
+	Fri,  5 Jun 2026 22:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FB7slmTs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XXrDpLxm";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013059.outbound.protection.outlook.com
- [40.93.201.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4886411AB8A
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 22:19:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SPn8tv+ekf9vxZmf82UhFQwXTorS+Iy7aJgEYLyvv8pKWyQnMrulJPP6S2pshXwGE4Kq3MyGku/t4aQqDZiPYRalYQeP4fsAJUaqtUJ0jDPUr4DdDAg2n730vqMbZgt/VpxXKWsBBgAsZIOTd2dz5ZAJOHsuHAvLNye+xERtWPFpgqSEFQ1hq2Fttf0snhO0wIO773JZ6uFD0ln6TDMsOjBzcTvkuePTVsenyma0U78t3QTDP3qMeXPtwJ22gjBUi74F7GzTxOd426PvcHJbZQwOy5nDCyCVYVciJ+/Ipe/lj2Ac5AzYjGUZX0eK1DPP/ovRK5DhQVXSkfp0tJfIvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gFaSvs0NcP8KEeRA7gHr2ntq4uLXYQYu9Od8gTCQO00=;
- b=R+sH4ykqMpz2xo+n+NuPPVa8oIlVYVnZtJIwiPlqlq3JddI2PUNjX9u9U4H+3RHbzp7ng0fLh8lVXh9B0ZeHhKYrVmK5WDZMt2+7tizHv1mScj7zmIXQN2wg33QixLLJ1dcFR1M583Uwx2PtBB9YWvumO+j3bMu5I2WqYwrWh21pbKdTG4pamNSdDLA5WuPp/biV7uibsX79G+o6wJ3Pb8Z/c8q6COvYZo+gsLW5AQ18nY/+pec696BSffOgqFlwO0mJepuUrMMFeioHEs8u7JJTv4L2TzJJX7EtnvgziQPg0RV3ncrn0YIeMPMYs7dEcAvtM5/fgOrQQjII53bF5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFaSvs0NcP8KEeRA7gHr2ntq4uLXYQYu9Od8gTCQO00=;
- b=FB7slmTsm+TutS+V3c2M90Gq6Nn2KqA8OG3krH5NibPtf0DGLWm4eArD9cXadLPbZYeYOzqUd9nEJNVhKN6ie9zHpaYF/q6uWfxzHaghxRVSMLeus0fFlhFAZmOE3ZM9zHBZaNgMxeaJgdB1Cb20TA8alNL/tUX+0aX9FNhud64=
-Received: from SJ0PR05CA0065.namprd05.prod.outlook.com (2603:10b6:a03:332::10)
- by SA1PR12MB6871.namprd12.prod.outlook.com (2603:10b6:806:25f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Fri, 5 Jun 2026
- 22:19:06 +0000
-Received: from SJ1PEPF000026C9.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::1d) by SJ0PR05CA0065.outlook.office365.com
- (2603:10b6:a03:332::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
- Jun 2026 22:19:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000026C9.mail.protection.outlook.com (10.167.244.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 22:19:06 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
- 2026 17:19:06 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
- 2026 15:19:05 -0700
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 5 Jun 2026 17:19:05 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: handle GDS and SPM without a VM fence
-Date: Fri, 5 Jun 2026 18:18:53 -0400
-Message-ID: <20260605221853.903153-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260605221853.903153-1-alexander.deucher@amd.com>
-References: <20260605221853.903153-1-alexander.deucher@amd.com>
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9DD11AB8B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 22:19:20 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-3042a99f0ceso280528eec.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Jun 2026 15:19:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780697960; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Ws3xW5Jr3EkfpJXWTrN4XOyBFykH+7RUICeHDtk0zJ94rXey3843gsWexJiiPGE7At
+ TL7fSV8w0d1r/5tlqcjtYG4dmNimEJMDy95nNIDysgzDwt/i0nLnYa8Aexa/bgpgXStG
+ KkloqpogiHf5PkGfxgxy8SkXAOSeBtCXnPfOIQNcTRtw5X0otSyNenfqLbhJ6484/MxF
+ BCP0kWQ7XFxZ/hwUGEojllNZsloTZ5Ywbqz2Kk4yZW7qtXRWAz1Nkvo0Ghbo57f2Wjl/
+ K1XCz/SH2FhMl/ateYYViRrHQkwYp2SrsyP0bgtOLaeWrM5yO8GTZ6K/pdWB1B6f3iDg
+ N7Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=fF7tmMZdtlx2RMhQ8SYpuBdYYm9DQbjbP/TcuhfaQrY=;
+ fh=BkO+K4n8EYEBqKg6owXrzV0n+G9SahvjasSPRK+cwck=;
+ b=UJWUVCAk/5wlH68/malfdUuQfdB0unyMP/XW9GwSARIJqjeuzBh9nLZQft4w+hBAC0
+ PAef22l5aK9RMKefthjxD0grAYnhJQhjqAUlngnxq7+jFc2/hWq0Uem2S5WOqzt9N6bv
+ 4FG33BVUbkM0XZLrH+sTKofWmbTz9OmCPYKatkTC2rnTgHEhm7XnEoH9PBED3sfDvVyO
+ ZxlDxkKO8ZU9MgxDVGv6e1moiI/V/fPnJvdA49K8WWwjjxLZqlBTyj0C10qjOh7YWamf
+ YZm1iA85mGgyzeC0IP4NRm+lSHncFHjdgE3wyEntmRjK+9CfVUI7vVmDafF8lzB9tOUH
+ qX8w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780697960; x=1781302760; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fF7tmMZdtlx2RMhQ8SYpuBdYYm9DQbjbP/TcuhfaQrY=;
+ b=XXrDpLxmZZwC7ZnkqzYHX6ZlBR9vHeU762h2pqDLuE7JKcpl2IjFtyPd9DFQBs/t/m
+ EptcHEEWQmGBtW3AETvEPds+5N7GZDoR2QHyjBjjEvxeeVEWY/PJcR45T84Fgl6zKbXP
+ uImM/nXWcmRIFyEOsR104fDVQoTxeM6ZhC7T1NzV3Ou6jhuBoUNBnYbaF6vXOQrLkSmY
+ dys2oXwUFCgYyDM2YuqlyK5DwHyx6EaSRx1DFpiV1l5CBh8Ph0+7gkhN3/mdS0b5R7p8
+ imUHkx+R98e98cMlxJ30Z1Fcf8Tzk97sHlIVWueuupDPb1OkxZyRkGzWwQUw3pUXn+SU
+ 0wwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780697960; x=1781302760;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fF7tmMZdtlx2RMhQ8SYpuBdYYm9DQbjbP/TcuhfaQrY=;
+ b=UifePHXOxjn5jmUn9gijhO23DPlGFtv7iwQo1Z2ohmwXtGbFT8vk4PFhAI1x/gZAp2
+ mmeyKpt6jtwUVRE0T7Hlt+ruuA8FaLXqR/UL6sweD4LiHJNh/hvgTxOuwrA9tMsa/f4J
+ Hu+Bpc3jqIR0k45JmtBcFwM/zF/CE6zAAHlYCQchfLS3RtePl1wgrH8EYfC4vbouB485
+ eixAHHXe66g690SVvoGhugA/pErnB+uS08cbM/Iok7/i/MH0/BELzYrBPEVXspcJG2tC
+ UZ6RrDMu2g1Wtpsla3rRfkzXP3awu6cgO7BBg5S8RkuIN6LVS1BZWdRqMWGx163zM+cn
+ Nf4Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9cHU4wGrH+ex0rLILgP7Fpphnp/r2MupTAFi5KXlksx4wJokxOsc4XXvP9F8Sfapim4ik6JrvN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwH8NSzgG5TXbGxlEqMHS6/GWu4BTDxbMu1zVeq31tT6AW3kicH
+ EaCB+X0k/rLPLF3YsiSrYpVc/Y7T8F1FAyPH9UtqbHMU492TwOOiLpwRXOegn7OGUic08re30L7
+ zigUlBFB8voV9qW4yGh3osfh9WLD9QT4=
+X-Gm-Gg: Acq92OH/HI5JgjDTYV44Ab8k+nIiXLzgNlZcKJfbE7uRgDqGcup3c1iU4c7xAJNcjaS
+ XSnT4zRyObsHXpnGUYX9AV0/cuipY9uisI3tEGGw7lC+rWY3fiuW5DMVVIEke3y0Y7axqlZakkw
+ SQUaUOYsf2SpHmt8A57DfWSH8Zli2rWHw44fOJO/K/FJR5ATfgkxT6jLa98mF0/roe8jGXKGttP
+ Ru2AFLpM66zjlsyb3iENo1fhGa+sDqHnDftl6b/8Yh23Z1uuLcOSarjI+Y03qdMtMSPhzISNSLJ
+ Snhsk1zKCrkOOU3O0y/LTn+8UM0n6DExB0qnROTWO9Ov0qmPixL7EzRTNdNYT7EoqHy1yLWlQCp
+ id1Vc
+X-Received: by 2002:a05:7022:423:b0:137:fdce:fec2 with SMTP id
+ a92af1059eb24-138067f0b96mr1123950c88.4.1780697959490; Fri, 05 Jun 2026
+ 15:19:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C9:EE_|SA1PR12MB6871:EE_
-X-MS-Office365-Filtering-Correlation-Id: f832c174-3d83-4d11-822f-08dec350751f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|6133799003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: WYyLafZwyUf5+C+bd0xcsYcS0qSMRgpIh9wJH7Hx1yjVtMIe2if+qsbbrzau+aBkvUh3f32DJXkvnAD9SsfmfdLH+h0M6fecoAT/mXZDddhrEpL6nLICKkPcWLuhZmqCxZIV1hfPP+Ic7it7i7NHG3BjASAxGYnGRlWvi1LNTz4IQ8XeqrU7YfqWWs0pACwj2AtPbOaS8/We8EE2/8CIMhuxlw+wIUU65owXLRbXMrabPeoLQLOl1967zCGwT4pSJIkM8zC8MA1tGj8Y+QUaapJPujbFv2TyHHPRDDQtjJl1KlwTDpm88Sp8Hqg8yGtIBq8sxSW3rKWPLiF4XSZWfcsNgx/fA89tLo7BYPcCQgDEB+9XGquJhpJalTtZ2BtD9MhSTfum4HU2gcMmlWFY90ysxKSOkMbUK/qJkd1VRHUPLRGU7MwMY95/Zp1RZeJflvb/NyeVAvbr7xTTs1kkvjpb/S9wymn5Elp+x28w9Iq53uAeI0IHD7CpxGvlxMi+XmnPguryzUhwf1j+vNQtDKzZIDIi8DGkvcktWSn3smCO/Eo/78AsWUhMczc6VEN4TzcHXKddtOH3wsLRpNRy8nnaixNweFSQfz4jwlLWNnYZrLYNxyRAZe/K11g6rGvrZrf9Jdtg4vopnGOBQgC1/3YXCy9Rj9m7QCUyxKtxV4JsPhQGXkTLKrgYNqvPNJtGIKdpurUSMwmkUEQCATOuyr8Ydo98M73kj0ek8SJy54E=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gddQ7W/Ig1zngIUovaoNWFEGgM0BqfJ3MYR3IIeb9Kc9jyr8NcGGYsOhSXJKYEGwITPG6lXADNqaS9Lds3QjKxCZ8mLPWOnGZ7buxpO3Gn2FTmCJWBq0KEeoz/RkHI0ZSvwXg2s6xTf5fU7aMOzBJGboDQSTo13IV+vOz1M5jsQOU+wL6Lp8L/H3Xfw/kRTJkS6tpent6VueMhpLLxlJFIbCEJJNIMMN9yPsw7q90tu8acHR84du7jYtOrgGnUANeL45D9CacILSfr2k2rvMyqdwDKFrAnpM43dlccxBkoN1rR/lv5r16ivBktg/wWCJlh88/ZRsRhcn0y22zPESNUDUjZnczBKkKFZKh78jwdGwERadiE/5Az0T+dxqGWsERgOIHMGvHgp7GBoTKroW26w3Yu5t9G9X0ZjK2ox2gEH3bukUc6nVRtx4cApWWcKv
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 22:19:06.2271 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f832c174-3d83-4d11-822f-08dec350751f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C9.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6871
+References: <20260603194535.2371150-1-alexander.deucher@amd.com>
+ <9cc1c11a-ffbd-4b33-9608-111ba12bed1d@amd.com> <5051245.OV4Wx5bFTl@timur-max>
+In-Reply-To: <5051245.OV4Wx5bFTl@timur-max>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 5 Jun 2026 18:19:08 -0400
+X-Gm-Features: AVHnY4IftsJoT3NRlzni5QsXSP4BuQjPKI-TbZ5lj1MBZ9M14acKqWn-A9-vnwk
+Message-ID: <CADnq5_O=tWh9=CCqW0xw=x32O5i0_vDwASh++hyb+VYMQ3dbpg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always emit the job vm fence
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,169 +106,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If we end up emitting a VM fence keep GDS and SPM
-associated with that fence.  If not, emit them as
-part of the IB fence.
+On Fri, Jun 5, 2026 at 6:11=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
+ail.com> wrote:
+>
+> On 2026. j=C3=BAnius 5., p=C3=A9ntek 11:24:45 k=C3=B6z=C3=A9p-eur=C3=B3pa=
+i ny=C3=A1ri id=C5=91 Christian K=C3=B6nig
+> wrote:
+> > On 6/3/26 21:45, Alex Deucher wrote:
+> > > We need the fence to reemit the gds switch or spm update
+> > > after a queue reset.
+> > >
+> > > Fixes: a17ef941212b ("drm/amdgpu: rework ring reset backup and reemit=
+ v9")
+> > > Cc: timur.kristof@gmail.com
+> > > Cc: christian.koenig@amd.com
+> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >
+> > That was avoided because it means another entry in the EOP ring buffer =
+which
+> > can be bad for performance.
+> >
+> > But correctness is obviously more important, just to keep in mind when =
+we
+> > suddenly see 1% fps decrease and don't know where it's coming from.
+> >
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Thanks Christian, that's a valid point.
+> Do you think we should worry about an actual perf impact here?
+>
+> If we want to avoid adding an extra fence, then an alternative solution c=
+ould
+> be to include the emitted commands in the ib_wptr of the job's own fence =
+when
+> a VM fence was not emitted.
+>
+> What do you guys think?
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 14 +++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 47 ++++++++++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  4 ++-
- 3 files changed, 48 insertions(+), 17 deletions(-)
+@Christian Koenig Is there a reason we need to emit gds and spm before
+the vm fence if the vm fence is required?  I've sent out a series to
+retain that behavior, but if it doesn't matter, we could simplify
+things more and move gds and spm into the ib fence.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index f1ed4a436f5b4..d439c68eed9de 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -131,6 +131,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 	struct amdgpu_fence *af;
- 	struct amdgpu_fence *vm_af;
- 	bool need_ctx_switch;
-+	bool emit_spm_needed = false;
-+	bool emit_gds_needed = false;
- 	struct amdgpu_vm *vm;
- 	uint64_t fence_ctx;
- 	uint32_t status = 0, alloc_size;
-@@ -220,7 +222,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 		vm_af = job->hw_vm_fence;
- 		/* VM sequence */
- 		vm_af->ib_wptr = ring->wptr;
--		amdgpu_vm_flush(ring, job, need_pipe_sync);
-+		amdgpu_vm_flush(ring, job, need_pipe_sync, &emit_spm_needed,
-+				&emit_gds_needed);
- 		vm_af->ib_dw_size =
- 			amdgpu_ring_get_dw_distance(ring, vm_af->ib_wptr, ring->wptr);
- 	}
-@@ -232,6 +235,15 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 	if (ring->funcs->insert_start)
- 		ring->funcs->insert_start(ring);
- 
-+	if (emit_spm_needed)
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
-+
-+	if (emit_gds_needed)
-+		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
-+					    job->gds_size, job->gws_base,
-+					    job->gws_size, job->oa_base,
-+					    job->oa_size);
-+
- 	if ((ib->flags & AMDGPU_IB_FLAG_EMIT_MEM_SYNC) && ring->funcs->emit_mem_sync)
- 		ring->funcs->emit_mem_sync(ring);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 13031e4b6f1d5..339902c41fc7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -764,18 +764,22 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-  * @ring: ring to use for flush
-  * @job:  related job
-  * @need_pipe_sync: is pipe sync needed
-+ * @emit_spm_needed: does the caller need to emit spm
-+ * @emit_gds_needed: does the caller need to emit gds
-  *
-  * Emit a VM flush when it is necessary.
-  */
- void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
--		     bool need_pipe_sync)
-+		     bool need_pipe_sync, bool *emit_spm_needed,
-+		     bool *emit_gds_needed)
- {
- 	struct amdgpu_device *adev = ring->adev;
- 	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
- 	unsigned vmhub = ring->vm_hub;
- 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
- 	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
--	bool spm_update_needed = job->spm_update_needed;
-+	bool spm_update_needed = adev->gfx.rlc.funcs->update_spm_vmid &&
-+		job->spm_update_needed;
- 	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
- 		job->gds_switch_needed;
- 	bool vm_flush_needed = job->vm_needs_flush;
-@@ -783,6 +787,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	bool pasid_mapping_needed = false;
- 	struct dma_fence *fence = NULL;
- 	unsigned int patch = 0;
-+	bool emit_fence;
- 
- 	if (amdgpu_vmid_had_gpu_reset(adev, id)) {
- 		gds_switch_needed = true;
-@@ -798,6 +803,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	mutex_unlock(&id_mgr->lock);
- 
- 	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
-+	spm_update_needed &= !!adev->gfx.rlc.funcs->update_spm_vmid;
- 	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
- 			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
- 	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
-@@ -808,6 +814,17 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		ring->funcs->emit_cleaner_shader && job->base.s_fence &&
- 		&job->base.s_fence->scheduled == isolation->spearhead;
- 
-+	emit_fence = !!(vm_flush_needed || pasid_mapping_needed ||
-+			cleaner_shader_needed);
-+
-+	*emit_spm_needed = spm_update_needed;
-+	if (spm_update_needed && emit_fence)
-+		*emit_spm_needed = false;
-+
-+	*emit_gds_needed = gds_switch_needed;
-+	if (gds_switch_needed && emit_fence)
-+		*emit_gds_needed = false;
-+
- 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
- 	    !cleaner_shader_needed && !spm_update_needed)
- 		return;
-@@ -842,21 +859,21 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	if (pasid_mapping_needed)
- 		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
- 
--	if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
-+	if (emit_fence) {
-+		if (spm_update_needed)
-+			adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
- 
--	if (ring->funcs->emit_gds_switch &&
--	    gds_switch_needed) {
--		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
--					    job->gds_size, job->gws_base,
--					    job->gws_size, job->oa_base,
--					    job->oa_size);
--	}
-+		if (gds_switch_needed)
-+			amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
-+						    job->gds_size, job->gws_base,
-+						    job->gws_size, job->oa_base,
-+						    job->oa_size);
- 
--	amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
--	fence = &job->hw_vm_fence->base;
--	/* get a ref for the job */
--	dma_fence_get(fence);
-+		amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
-+		fence = &job->hw_vm_fence->base;
-+		/* get a ref for the job */
-+		dma_fence_get(fence);
-+	}
- 
- 	if (vm_flush_needed) {
- 		mutex_lock(&id_mgr->lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index cc096c005e348..b67eeec464e09 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -514,7 +514,9 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		       struct ww_acquire_ctx *ticket,
- 		       int (*callback)(void *p, struct amdgpu_bo *bo),
- 		       void *param);
--void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
-+void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
-+		     bool need_pipe_sync, bool *emit_spm_needed,
-+		     bool *emit_gds_needed);
- int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			  struct amdgpu_vm *vm, bool immediate);
- int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
--- 
-2.54.0
+Alex
 
+>
+> Thanks,
+> Timur
+>
+> >
+> > > ---
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 10 ++++------
+> > >  1 file changed, 4 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c index
+> > > 2f3470208829e..7e0e2281719b1 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > > @@ -853,12 +853,10 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring,
+> > > struct amdgpu_job *job,>
+> > >                                         job->oa_size);
+> > >
+> > >     }
+> > >
+> > > -   if (vm_flush_needed || pasid_mapping_needed ||
+> cleaner_shader_needed) {
+> > > -           amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
+> > > -           fence =3D &job->hw_vm_fence->base;
+> > > -           /* get a ref for the job */
+> > > -           dma_fence_get(fence);
+> > > -   }
+> > > +   amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
+> > > +   fence =3D &job->hw_vm_fence->base;
+> > > +   /* get a ref for the job */
+> > > +   dma_fence_get(fence);
+> > >
+> > >     if (vm_flush_needed) {
+> > >
+> > >             mutex_lock(&id_mgr->lock);
+>
+>
+>
+>
