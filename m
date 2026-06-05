@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A59ECD6E79
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 13:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D16CCD6E7D
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 13:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267FB10E638;
-	Fri,  5 Jun 2026 13:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB6210E636;
+	Fri,  5 Jun 2026 13:44:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bmrvfOsN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1ZeXVRMH";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010058.outbound.protection.outlook.com
- [40.93.198.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 686A110E4D2
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 13:44:22 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010008.outbound.protection.outlook.com [52.101.61.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 648BF10E675
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 13:44:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pnh9I6tjfoa8bivu7/SFE1mXmYhYzQ+WVUhiFooytPzybz1nG9qC4Rxh353Hjff5OkNhNkcM922c3On39vJrmaeLh9+1O3F97nn/DDWM4iN3k5XBXhN+p3w8rXxZSD8qPvNtSyTltRNMCmXIL0/aR9DdPm0orbeZQnVJEjVukhrQS803SP2aLrFUHZYsqWHynbf1uKtAtRepgVs1JyXKBThJcX1a+UNVIEMcs6tfyVSrtTxv5OSL8T68vzv7D9E1DNNgrY3KLzygGhv0u+7bZpALlB/MXpZSFuOjsFbxplHBh1yN+Lq6lqKF+Az8Ff0N9JVSgDtqq7urKRKHwOE4ug==
+ b=afHhNl4tQ4MLt+b8S8/hY5QVs1JcWH7Mz8NNMVeR5ll1GQRSboHhElOzC5k6cdeSQqAUp9GpzmLIJ/ymU49Xqeqjn8t5fJfM9NM/CO4QzGS5h294G2O2SDf6sZGJbU+T1YNaUeYi7r6a3X4eTGb+9J3twQU/abPudbIqVLTuLaglH/boM9jSlfNFzOvwFD16EFrKdA7y/eS4j8oE31ZztA8loOTbQXPzzpV7M3XkBzCLfCWzqLqheukmwPqLs38i35DC78aVHV5f7ulCcAEWqBaBvUrq8LG82RC2iNeYMxon2vZTFF1ghaJiFqXhg6uipylqiQwQfnvYnwVs7PT7lQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KBzsBEipSuzlEp4q6Bb6oHy/hJFDyUeUkahchiyST2s=;
- b=qeV/jngwDWPwymgq0tDLKty/IN2/5H6mLiCfahuq/VN624DwvxTSBj+U2aElVjyEwpK093bHYKh5UuTpI9ueGY90+1EyWgnl4c69+VEIphjMxu8qH6Qh4LrjTihGHMEnOIYF6DyM328mgDweZ6Rzgn8PxcqnXTGbddpS5S+wFFAi6clN87mwVQCV/ajwGXmt8w9xZRyWCPDYRaRaaa640UERAHPQYFRKSt0/Pl7RdE+ju3TQpY+hSVash8B7TRZqLRnnp1zOiXX+QqjjiJzFtE0S88zbgA0QaOLIst4GyY7DAI07ZBS67iVJnpBId1j/a+lPEZCrJ5weOQLfGjI/cw==
+ bh=TYdKW4495CwjK76ElFLck9YMax6g//KZsGsK0l+qLes=;
+ b=brjBrcLuVm5U5wKKzkIYgiR4nlsmlkD8VfX11fYcNIIoQVXd6JJ7PXyU7MKieKjSSqDtsCteK4LkK7ZXZQzo4hOnDrBJ+/wqqxlGCMliipEPCv6uVDZPcWJm+0yaupvM8vGcd3p1ec3oeKhWe+qGNFA31GOH/msfhIWtuiuqGD9LUjInZI5oIOcPbd/N2NsWOp47xAgTHwTk4QrNgSjd9zoaNgXKxA4GbxCZNPWHKaeIDXaMCYxS6bdYBldTlWW0cc1KoYmVIMc+5qBiDWHLQRz1R3RSKGjqgjvYod4NFbrd/L6RQanWEqLO2yLociV5x6kYRabU8JM/ZR0UbDELfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KBzsBEipSuzlEp4q6Bb6oHy/hJFDyUeUkahchiyST2s=;
- b=bmrvfOsNCo1oTFOwYTOhgfyZhPdluPE05yGDoF7hOrlv7l44oRp29aaesWxnxYyF5IbMokaJ5o9ee/uh5UUJsNVFlU8nb4VGZyYgzkiyHV+4rfXwL7lBmxlap52Oo64ahb+TtNrlEBJIqIos6VCcsshtVaSqas0QYNbG7KUGu2Y=
-Received: from DS1P222CA0011.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:454::11) by
- SJ5PPF816B88375.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99b)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Fri, 5 Jun 2026
- 13:44:17 +0000
-Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
- (2603:10b6:8:454:cafe::65) by DS1P222CA0011.outlook.office365.com
- (2603:10b6:8:454::11) with Microsoft SMTP Server (version=TLS1_3,
+ bh=TYdKW4495CwjK76ElFLck9YMax6g//KZsGsK0l+qLes=;
+ b=1ZeXVRMHuSp9c4XvhyOSMrcOId21OLrTFoW/HZ4jhvUor/y5l47uahrDrEEVk/Suro0nhsxKsawSzWy/TM9e40S4joRTftcmaZ982+2AzqAIJ78bluZKjll+urJwGUFe6aTjuxkKivdJgXRkAnpIa53Cnr89CsD3N/JQ017E7fI=
+Received: from CH0P221CA0040.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11d::20)
+ by DS0PR12MB7702.namprd12.prod.outlook.com (2603:10b6:8:130::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
+ 13:44:19 +0000
+Received: from DS3PEPF0000C37A.namprd04.prod.outlook.com
+ (2603:10b6:610:11d:cafe::83) by CH0P221CA0040.outlook.office365.com
+ (2603:10b6:610:11d::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.9 via Frontend Transport; Fri, 5
- Jun 2026 13:44:17 +0000
+ Jun 2026 13:44:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,9 +48,9 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
+ DS3PEPF0000C37A.mail.protection.outlook.com (10.167.23.4) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 13:44:16 +0000
+ 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 13:44:18 +0000
 Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
@@ -59,10 +58,10 @@ Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
 From: Shahyan Soltani <shahyan.soltani@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Shahyan Soltani <shahyan.soltani@amd.com>
-Subject: [PATCH 01/11] drm/amdgpu: move struct amdgpu_sa from amdgpu.h into
- its own header file
-Date: Fri, 5 Jun 2026 09:43:13 -0400
-Message-ID: <20260605134400.956791-2-shahyan.soltani@amd.com>
+Subject: [PATCH 03/11] drm/amdgpu: move struct amdgpu_uid and helpers into
+ header file
+Date: Fri, 5 Jun 2026 09:43:15 -0400
+Message-ID: <20260605134400.956791-4-shahyan.soltani@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260605134400.956791-1-shahyan.soltani@amd.com>
 References: <20260605134400.956791-1-shahyan.soltani@amd.com>
@@ -74,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|SJ5PPF816B88375:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d3f7b8e-3e8b-47d9-0918-08dec30889af
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37A:EE_|DS0PR12MB7702:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9acd39df-1be1-4b4a-4ee6-08dec3088ade
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|3023799007|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: iLo/OJdaGEAgBxMPCoemVBX+Z89KqP6ylawqxFE1TxKu96vo/DPuwKXbFNI6lt2yYlj08Cct7iE5EYabRp5+Jg/zVMti9isYEBF59fUFQgsh2JbQwGkuzDBnyxiBlPPLCF4OWXARglROmQ09Nf9oZgTp17qCohDDS5OpzjXcA4WnZnMtKTgu+MoJcJ4IxdNUK5YZtRECZVw/Ur1DKjwPuvsD0v5bdic4bygnzqLK89L4/OUp0k7mjVQubcDsguUK/1efzZjC2y9Aod6hbVnthSAxDGZ8zAZ2KaIEyA5Lr88onzE/WlYsfPL6ELc3pijLVw3txy+i/J9hI4LvcTWftQMf5eFhNDXZBmF2Yk1eyq0AcZZiA8HXBPUlK7GWPlqDxnLZZ8t4adDKHs8h1V9N/dO1Y8AX/yq76nBjo50iCMfTlTaDiaAFsCsSSJDsvbPDzz+ufc+nE+gyztY35Dsbs57EjzvEZwWEQdtiTLSHgKLpBmLDX/8mY0D72q+YBkNAejpzG8Fj/IUHZtFI4DYWFPE1JSr4jUOUxClrOUMQ2Qr5DS5gK0Rb+0mrpCi/pe2451llhf0ewoWhjrJxkS7059rjlFVuf87ZVyRY5H5tWnAUqUgPI8FTUdCWk+LhkrM+5AR9uaWaeMKU6Nk4EQfjmNSqM5Fxxwn5AJkuOHtAMVysNBYVaGLNct+0iyVyEvw3huWSlG80wM/bTPAxTsYl7TlP6KUrKIVXQHrSYvcRXDo=
+ ARA:13230040|82310400026|36860700016|376014|1800799024|56012099006|11063799006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: Cqr9lExPMliyJGWD7Mrl5IbzE6mhbJSOWtzLY/NcK/KHrrbG1mzxorxnfLJHCMOJk3KQlCwwF7Ia1eYFc6dKWHwsMP4s/pIw2anm7zC2GFfkvmDR4k9BuSUV0DqG/RLu14JdWyh4qUN1tPZC6Jvo16PIHNLI9fooMP+BdaJmuNyjdWrVob04orpTDv4pEHtPkUVGNzq8Wd+A8Vj7R7yevUglPcJQmJO0cKIwfqvcJEqeyxW5UUbq+jfeN8SIccAmsmk+dItjrooFYfORp6J7whtpogffkfIFaZo/db4Y0MJR6kDVLO/a2DktQWXdRNVCEXlew8X9mLhdph4vBdez59JaV5kzaiwpwussPuiA7Qnhm70QmbHq70i/Df5Tj3nbtdmWPKz9cGK5d4NdEGHzJ/HfAleh0nUzuEpdZxwbDOuqx8NewGb77bPZ99oML6ohHhwGTH23nu1BAoz69DlUBseL/dTG/h9EYqtCYMy/B5KH9FYEI8xACL34f9kMY92761zCEQiVlomrHvuCxMgMW+Oe6wpCxB4y8Ncv36rrg9OMl/kbTGum5Fyt3b3XOcOJoq7jpncecEsQHrmyacXo4/SniOglCCejYsSGI0ZR0khl2BdY8H4+k6qKt1R4iouunF6g5lp1ebiuGwvpI3M5d5UXAyfX87z/EYvXK+tLDrQKGvafmvK83pb4l4rqgRJKf0MhINwaggd+XZPBT2/7tBe9jH0IJOT7s+fqhJz/LGs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(3023799007)(56012099006)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099006)(11063799006)(22082099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qVM03PSGv4ASnaLP+HYpTyzmITW23E0vcJjvJZ3LTpSnHPb0u/zPQjYXD0TApZH81lF+UmQsCt3G3kw709i7hW7GoG23cGrvI+jXOPOkDbduqv1w3jcFe3jxnqHjGacD2A0TPEW7GM8rMyJVN2lLjIk+o84BLBjSzqAP7dRbbXoI72oYj4nVcoVyYMSmB0erQODS6P+Vnm/EhkCVKUErcuI0rS+KPVM48/ybbNPjbChx2wmI5n2RR2bC1Q+7ARWtcCZ/ScLXILhPIOBgdke65H7FsGn17IWz6Qhc9gznXYHJ2u87dK+zFX8aWLScgYALYq57RRaU53ag9+7Bsy+Rd2gRV0lUPEmsRpabSELH8Wyuu6v3/cgnbWJvMFvDt+F/CHoce32kOxGwhgSrXNyb2xVuihkVHI4/Wtpzu9eycCkZOQrTwztwbe0AwqUXipu7
+X-MS-Exchange-AntiSpam-MessageData-0: zi47gzS0r3tbuDXwfCQbNtU5B/0PtGqo9nanamXtfdxD/Px5lHyY7c5iOREt8k3ZzhZX/y/9uExxrTv6qFSDSGZTgWazq8e+xnB5OYIl2HsD7VI17LV+ng8zBbKS+IyiBJyGWgg+SWFAApV6PgVXB0NBKO5u7HDqbIUJe4TcixqCVkF1PDzbtqNVyh29if78Q5LNwll7/9UZR3TTb8SYxRiLCFzvy/2faGAykgNICdgce1iKsttXK/lGtbrO/4btqgTpMvv5LklEYEYWbKBNVG7v0mjX9SBcIzzrkabmVi9AoERSPLhHqkgvD2k/Yk4o2BFYo9aVedyG64ZGL7NIR3DFsWy0z0qWLCQS4HPt2/uV8u/r/9fSG9WYj7PqS71i6WzEtvKbUgXXp7wLCFdRBJp091LKrIhv2eiCxvPaViCTk47LxvD9vwq5x8Tu5CGp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 13:44:16.9470 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d3f7b8e-3e8b-47d9-0918-08dec30889af
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 13:44:18.9650 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9acd39df-1be1-4b4a-4ee6-08dec3088ade
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF816B88375
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7702
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,75 +110,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move struct amdgpu_sa_manager out of the monolithic header amdgpu.h into
-its own dedicated header amdgpu_sa.h.
+Move struct amdgpu_uid and helpers from the monolithic amdgpu.h file into a new amdgpu_uid.h file.
 
-This is part of the ongoing effort to reduce the size of amdgpu.h into
-their own respective separate headers.
+This is part of the ongoing effort to reduce the size of amdgpu.h into their own respective
+separate headers.
 
 Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h    | 32 +-------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h | 61 ++++++++++++++++++++++++++
- 2 files changed, 62 insertions(+), 31 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 22 +----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h | 50 +++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+), 21 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 5d7bfa59424a..d7d8664854fd 100644
+index 9a714b4b59bc..0f8743254fe6 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -111,6 +111,7 @@
- #include "amdgpu_reg_state.h"
- #include "amdgpu_userq.h"
- #include "amdgpu_eviction_fence.h"
-+#include "amdgpu_sa.h"
+@@ -114,6 +114,7 @@
+ #include "amdgpu_sa.h"
+ #include "amdgpu_wb.h"
  #include "amdgpu_ip.h"
++#include "amdgpu_uid.h"
  #if defined(CONFIG_DRM_AMD_ISP)
  #include "amdgpu_isp.h"
-@@ -386,37 +387,6 @@ struct amdgpu_clock {
- 	uint32_t max_pixel_clock;
+ #endif
+@@ -553,21 +554,6 @@ struct amdgpu_mmio_remap {
+ 	struct amdgpu_bo *bo;
  };
  
--/* sub-allocation manager, it has to be protected by another lock.
-- * By conception this is an helper for other part of the driver
-- * like the indirect buffer or semaphore, which both have their
-- * locking.
-- *
-- * Principe is simple, we keep a list of sub allocation in offset
-- * order (first entry has offset == 0, last entry has the highest
-- * offset).
-- *
-- * When allocating new object we first check if there is room at
-- * the end total_size - (last_object_offset + last_object_size) >=
-- * alloc_size. If so we allocate new object there.
-- *
-- * When there is not enough room at the end, we start waiting for
-- * each sub object until we reach object_offset+object_size >=
-- * alloc_size, this object then become the sub object we return.
-- *
-- * Alignment can't be bigger than page size.
-- *
-- * Hole are not considered for allocation to keep things simple.
-- * Assumption is that there won't be hole (all object on same
-- * alignment).
-- */
--
--struct amdgpu_sa_manager {
--	struct drm_suballoc_manager	base;
--	struct amdgpu_bo		*bo;
--	uint64_t			gpu_addr;
--	void				*cpu_ptr;
+-enum amdgpu_uid_type {
+-	AMDGPU_UID_TYPE_XCD,
+-	AMDGPU_UID_TYPE_AID,
+-	AMDGPU_UID_TYPE_SOC,
+-	AMDGPU_UID_TYPE_MID,
+-	AMDGPU_UID_TYPE_MAX
 -};
 -
- /*
-  * IRQS.
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
+-#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID type */
+-
+-struct amdgpu_uid {
+-	uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
+-	struct amdgpu_device *adev;
+-};
+-
+ #define MAX_UMA_OPTION_NAME	28
+ #define MAX_UMA_OPTION_ENTRIES	19
+ 
+@@ -1530,10 +1516,4 @@ static inline int amdgpu_device_bus_status_check(struct amdgpu_device *adev)
+ 
+        return 0;
+ }
+-
+-void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+-			   enum amdgpu_uid_type type, uint8_t inst,
+-			   uint64_t uid);
+-uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+-			       enum amdgpu_uid_type type, uint8_t inst);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
 new file mode 100644
-index 000000000000..a878443c8c75
+index 000000000000..d92ddcce9f58
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
-@@ -0,0 +1,61 @@
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
+@@ -0,0 +1,50 @@
 +/* SPDX-License-Identifier: GPL-2.0 OR MIT
 + *
 + * Copyright 2026 Advanced Micro Devices, Inc.
@@ -202,44 +195,33 @@ index 000000000000..a878443c8c75
 + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 + * OTHER DEALINGS IN THE SOFTWARE.
 + */
-+#ifndef __AMDGPU_SA_H__
-+#define __AMDGPU_SA_H__
++#ifndef __AMDGPU_UID_H__
++#define __AMDGPU_UID_H__
 +
-+#include <drm/drm_suballoc.h>
 +#include <linux/types.h>
 +
-+struct amdgpu_bo;
++#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID type */
 +
-+/* sub-allocation manager, it has to be protected by another lock.
-+ * By conception this is an helper for other part of the driver
-+ * like the indirect buffer or semaphore, which both have their
-+ * locking.
-+ *
-+ * Principe is simple, we keep a list of sub allocation in offset
-+ * order (first entry has offset == 0, last entry has the highest
-+ * offset).
-+ *
-+ * When allocating new object we first check if there is room at
-+ * the end total_size - (last_object_offset + last_object_size) >=
-+ * alloc_size. If so we allocate new object there.
-+ *
-+ * When there is not enough room at the end, we start waiting for
-+ * each sub object until we reach object_offset+object_size >=
-+ * alloc_size, this object then become the sub object we return.
-+ *
-+ * Alignment can't be bigger than page size.
-+ *
-+ * Hole are not considered for allocation to keep things simple.
-+ * Assumption is that there won't be hole (all object on same
-+ * alignment).
-+ */
++struct amdgpu_device;
 +
-+struct amdgpu_sa_manager {
-+	struct drm_suballoc_manager	base;
-+	struct amdgpu_bo		*bo;
-+	uint64_t			gpu_addr;
-+	void				*cpu_ptr;
++enum amdgpu_uid_type {
++	AMDGPU_UID_TYPE_XCD,
++	AMDGPU_UID_TYPE_AID,
++	AMDGPU_UID_TYPE_SOC,
++	AMDGPU_UID_TYPE_MID,
++	AMDGPU_UID_TYPE_MAX
 +};
++
++struct amdgpu_uid {
++	uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
++	struct amdgpu_device *adev;
++};
++
++void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
++			   enum amdgpu_uid_type type, uint8_t inst,
++			   uint64_t uid);
++uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
++			       enum amdgpu_uid_type type, uint8_t inst);
 +#endif
 -- 
 2.54.0
