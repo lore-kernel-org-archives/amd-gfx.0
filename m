@@ -4,120 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A51CD6E7C
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 18:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A8DCD6E7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 18:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95FA011AA67;
-	Fri,  5 Jun 2026 18:40:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81EE911AA6C;
+	Fri,  5 Jun 2026 18:41:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="id3/8Y6I";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="EgyKjAM4";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013004.outbound.protection.outlook.com
- [40.93.201.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1FE11AA67
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 18:40:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T7U94LjNNTcbuulGSGqD2w3/PKLiiuFF3TY/H2w1iI3zXlqziyIpBq3QZ1BYBlWbJtqtrksSv/cnvX50iPqSRJCUn2y7XkV9NLNI29FIx//YvaTxXr/7uGr41OFXRBpOyZBebLPb6DRwIa2YKyYbIBzSbblxjj4GXGEsxXv1ldgFBIOrA+I2CFX4Ckdf2B5gnYYDuYsg5oT6ESLhBqY8t4ErSkpN1y1hJOV7+8n+f+RJIr4PCJfpHSs8yDEq01EJdyhZvVMudkCZ+K9lNHhu+iPZW5jXAC9yWMqbQjHPgnX3AeMyY7Z587rDA1a3fh8bV/6zShk9nZYVcYephElr8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nnDKSexSkh0bPiFr60QFB0enUrqCXKT2Y9XYx3MwAkQ=;
- b=lm0Bq/mO7K8kgwmVS8tdC/ZkXuYo4eqH0mzZCLYMvDk08k7sMvYUyn0D169iwpE1/yfY72TxOmW13pw1q2sQaLc4rHv2sfBJY3wUT4w31j+riAnytDdbrkSjTE1JYPnimKzXTF+wno51zCiWRv1ABPQ891C3Ja5nRjZ35o4hfzpa3Hm5SEYgZRdDSvp0wYjYdFHDufiXkcB6NvqLhozLD7fNPlqoOy/WrPsAVQiL2lvT57Vb8Qm8qKvzst5VQFsDyL11btd511Cg7V0FO7IAy6I2k+58Miw9U25LwWwEIKpkq2FAGmY9K7SKcr7OBA3zPBd5SuvussCe+57iAh54xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nnDKSexSkh0bPiFr60QFB0enUrqCXKT2Y9XYx3MwAkQ=;
- b=id3/8Y6INVRgiy8uS808H0b3wNnpEW7varpu70sNe4gjfdOq2RwQ9wY8vyNWMkgUzcauIDPqr9JQfWfj+37VPQV87XassrkGOzX+izZxZ5HNn6SyW/9W5D3ozygMRqMuNKRxOX3vBZRkGL0/xOmUtMZzF7XhX+V3UqHCrXN91zA=
-Received: from SA1PR12MB8144.namprd12.prod.outlook.com (2603:10b6:806:337::15)
- by PH7PR12MB7116.namprd12.prod.outlook.com (2603:10b6:510:1ef::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 18:40:00 +0000
-Received: from SA1PR12MB8144.namprd12.prod.outlook.com
- ([fe80::56ac:f44f:8336:d7ec]) by SA1PR12MB8144.namprd12.prod.outlook.com
- ([fe80::56ac:f44f:8336:d7ec%7]) with mapi id 15.21.0092.007; Fri, 5 Jun 2026
- 18:40:00 +0000
-From: "Francis, David" <David.Francis@amd.com>
-To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH V2] drm/amdkfd: Check bounds on CRIU restore event id
-Thread-Topic: [PATCH V2] drm/amdkfd: Check bounds on CRIU restore event id
-Thread-Index: AQHc8sA3bkKI+2Rxck68GXyFvyZgMrYwJ76AgAAnrUI=
-Date: Fri, 5 Jun 2026 18:40:00 +0000
-Message-ID: <SA1PR12MB814424C2E09E5F9D046FB94BEF112@SA1PR12MB8144.namprd12.prod.outlook.com>
-References: <20260602184652.2614456-1-David.Francis@amd.com>
- <BL1PR12MB5898702AB07A4ACB83CF919885112@BL1PR12MB5898.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5898702AB07A4ACB83CF919885112@BL1PR12MB5898.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-05T18:39:58.967Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8144:EE_|PH7PR12MB7116:EE_
-x-ms-office365-filtering-correlation-id: ff048902-3153-432c-d3ba-08dec331d987
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700021|22082099003|18002099003|4143699003|11063799006|56012099006;
-x-microsoft-antispam-message-info: AnVEzUtTtw6eDbIJFzsybGcRtdn9IazvqQKGL+iWKVm0Us263pyljrWTf/H8NOA7sHQFJUIJ9kaUrzJbEdTZjjBVcUn/XML89OJzANglqCFUO6Od0mL+xeLZtGETPRH5Ov2ZR1sGRGIMG+OR6AOVQ4mj/fyg2phknrGD5wtZWuKvWhD+6s6//Zw3xVxeKiwn7sMIo2PgiIYrr5NlwDJPucFbegyCZ2fBQuqcA9P8WVTcigClthBHVfrZQ9RNQdgV16a9WXMydrwlxtRt7FrNbHUevAgJ0y50ANaGGtr5oDCBCVBknV8WwJJmy3fhXUSKgWrurLyJTa7lRYameygNGLuWP2U1on+LO9SBl1PXPUfoXIKFU7BjN2U4TWFoWJp+T8PRhBPxEi23tr9RwGhQCTZEKD21pKIfDC9yDTG2E7kuh1mYplkB5glgVoYvzjsCCJIw7qArdiOZ7jMlnjyAYBts8ZWQieELIy9oGNFDVu47e/N4Ga5EdUJryso9r3k4P+GV9sTnkPVcYOhDHe2GRsaaDNahCnacVQKaAw0Ry4uLD4pfdZtI5RgyivkM8qQOVJNPczIUlfo5Er4uT8K2voCBYeUCNQGGnXyhn0Ks354qU5FcITMeoAEDu5ssGO4KawvrNINnba6tayJhUuCM5AKt1LnB+WBdRLH7oTv5aJ+redEMI0/AirGo02+2J4bFv5f0Fx8IS8bUMaz4JGZFMjkP6V3alrDPkTSt5aZrZxix/Bdj4aAD75cVwCRQJLWq
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WNXpiBm9w7ID5mfU8ltVvcUkDBhhyGliSXuPCxtSsyLj69wT47zIyKR4r022?=
- =?us-ascii?Q?ScZ8izYsRPdC7hWxsXdTz1WJFLVlrBEd2sDaK+PyQwebahfLmvTowJIS0pDC?=
- =?us-ascii?Q?8+UlueMwKKaKPpXnJLjc4qh0iWSFmactsLUJQikRyeeN1GH+W8mJbaV2MbMA?=
- =?us-ascii?Q?cRshvpra+ZLOKYOv5QRWIHcBLQPfyyyZ+S9XC6XTqBci1SnSg+CFP2RMFzr9?=
- =?us-ascii?Q?/RBIbIIeb6moTzqsX2SkEAR1nOyiBINSu8yLaTIAvN+3iQtVP4Ac1W5KrWPt?=
- =?us-ascii?Q?X41/eq04dDyr6D+BP0Af2BiDMRW4CcwbcdpKhW3Roy0yI68/sBCPoKm0ECOG?=
- =?us-ascii?Q?fIercsNci+1UtglMZEvP+tP8vHmhkhNG0okJP5kiDKarw1OlFXKSOIYPE4Ye?=
- =?us-ascii?Q?utiuu2mJIjeWhdN6gKP/MQuIS6jWYMFkOPlgS/rcTavtKn4V2liRLxw+lS1q?=
- =?us-ascii?Q?g9r2rpsuaPprnLkph+NmrA1c6P4EAN9VAoEp9t0SwioKiT8jCBTGitLrfJf8?=
- =?us-ascii?Q?9LidpdTfIPJlwZEXj+3l+6D4DfUBgXcxYILhnQ70ionKcHw7Icot1BooHEtk?=
- =?us-ascii?Q?XZFWrxkWt70vWGkKZinTrF3d6KTSlX9H0rsRx2sb6WIEN7lXG697TeDWs5s/?=
- =?us-ascii?Q?Yr4pfLgIx25D5L7pehfk+6u4NfY+Vh3ioTTn98xTX6zNhXy28lH4MaFKN7n5?=
- =?us-ascii?Q?vMdDVukgxH4Mpc8O33S2KiQFQ8Z0cPX36VN/NH1NBicxU8QqHpTHSuipfrE5?=
- =?us-ascii?Q?fDzKFFT9eM7oDuoR0tSrmT3Taiamm3tyFJZ7s6kQLJCsnZbNdYrVSzcETqxs?=
- =?us-ascii?Q?MUsDULViUTFp/086S9GSdVIu8D1WWzWZLFxuTQKgfJw+mW2AtayBsLCBTpi4?=
- =?us-ascii?Q?9h//8lj/6PWUP+HEqfHPS18GWIN3g3MoA18Tug9OQMQ/hTAk+4dxYp3NzG9T?=
- =?us-ascii?Q?hZcHY2iSW7Ao4rxnlAS64t9Gf+TFCz2NzUBVjmMs6Fuyi7HOC7G7mocydTpx?=
- =?us-ascii?Q?g7mt71SLd2icKSR1BYc0AGIMDrSlhlUQpT6gKCULsnR+8+N0cL96KmGFR3RF?=
- =?us-ascii?Q?T4Xj9LFqFb9XLB5Qxf0U1Tc2EuoyJntsVYQEeBaSinbOLW+sq/OEdiTH0G2z?=
- =?us-ascii?Q?Cb/sWf6DbkNOtlb7aKZotlDmr0kOQljVLP2D8IDVtNig3F3VuD9HgZIfSc7h?=
- =?us-ascii?Q?8l8Cg619UhC1P1o2siXcMvgw5NU+SZljv+Zvgoye7MvHVLuqN0VuNSVx+jnI?=
- =?us-ascii?Q?dkGiGEFSntgd6UKPPG0NkVD+p0NeObn1wwyVzEbs2vLht6DcLTWQYxPKoLhR?=
- =?us-ascii?Q?UTPBhUEX6F9d6ht1FWxXXLusEg7KV/52wP3Bi8jT8nad7uRF/hyaKhQIYfXE?=
- =?us-ascii?Q?RKBA0gijsmApSpM0zHQdQWCgRLQ48xksq0X/oNxqDO2y+dd2VASKC8xhrP8x?=
- =?us-ascii?Q?51xiW0kJ7ubEyvJ1UeCyty8u9GEjA4dmWad3GpX1sCVreTTxvm3kvXdiUJbN?=
- =?us-ascii?Q?BMXZFV0pGKlKrPfQUih9R0BizusHl7zAYwTp1mr8NGMYHsvV59Uinvx/Q2up?=
- =?us-ascii?Q?i0hkDszjdobxDmpja0Zh4kFKEqSf/8yiu75bUmc7Hiyc7hyuq20sKgnh610b?=
- =?us-ascii?Q?gCE1RnkHjLHDfDrngTPv8/YKyXkY9S1d6uEEa9w20/HtpL+WSFCrkWMV62sE?=
- =?us-ascii?Q?r6Y3Wv4u0b5jwy6q4JxiHPcfwatiQPZq8CSOBq582ar3FsrL?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 433BA11AA6C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 18:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1780684879; x=1780944079;
+ bh=ULsQGivnYjlrEHvWGTExhk3oogWnRMwN7zkQhjbL9xQ=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=EgyKjAM4yV9ASOCijoTkaOjaGPoEAMxE1JcnLR/mT2KLr13GGdBltANXsStTZMmJE
+ Jt/uRpB8T03wGKX1CJ2zo/ZNFSwRap3VgQFBeVRDh0n/pYbaCtP0c6tcz++wvERsIq
+ N0b9/keQD06DFInmjN65IeAxXSv3n2DrsqiUYijo+fKjhVBnxM4Gl0iAsMVywmvwqF
+ 7Q1wXiXpEBgu7GdZCt4K/sHOo/wmE4ECCkBpdDekZLhYwBLcIZU9flx1/9ZIDOSGff
+ beUpCW+iXKeo1m+efm7VAlXqj//XscNXA0FbydS6wlHIRs2Brq+v3vmniIenG3zu6m
+ lfT5Ahe/sGeig==
+Date: Fri, 05 Jun 2026 18:41:16 +0000
+To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+From: Gerhard Schwanzer <geschw@pm.me>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Yang, Philip" <Philip.Yang@amd.com>
+Subject: Re: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes
+ SDMA0 permission fault on RX 7600 XT
+Message-ID: <d30aa220-802d-4575-8ab0-058698e4ffbb@pm.me>
+In-Reply-To: <IA1PR12MB85172F7FE9157C092EDA46A0E3112@IA1PR12MB8517.namprd12.prod.outlook.com>
+References: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
+ <53c2ad43-091d-46e9-b825-9aaa1d7114e8@amd.com>
+ <2145b14f-00e7-4565-b1da-9e08d2c89a49@pm.me>
+ <d39183d3-b961-4c74-997f-885eb7a887e4@amd.com>
+ <IA1PR12MB85172F7FE9157C092EDA46A0E3112@IA1PR12MB8517.namprd12.prod.outlook.com>
+Feedback-ID: 110185885:user:proton
+X-Pm-Message-ID: 86c139f74aae1853942fd3d6244241363100637c
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff048902-3153-432c-d3ba-08dec331d987
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2026 18:40:00.3404 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UNyZSQlXgjQkFgZfUIS57NTY3gPXyB3+NuQH3Tl0RbgXhgD2TVOs959fuqyMZame
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7116
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,83 +63,332 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Not sure if I'm being nit-picky, but if restore_id is negative, then idr_=
-alloc will return -EINVAL. That -EINVAL will go back up to the create_signa=
-l_event call, which gives > a pr_warn of "Signal event wasn't created becau=
-se out of kernel memory" , even though the issue was bad input. Mostly, I'm=
- wondering if we need to add something > in dmesg if idr_alloc fails for th=
-at reason, since someone could end up spending time debugging OOM when the =
-issue is an invalid param.
-> Or is a negative restore_id indicative of OOM?
+Hi Xiaogang, Thanks. I tested your attached patch on my RX 7600 XT=20
+system. Test setup:
+-
+kernel 7.0.11 with 448ee453/bf2084a7 active
+-
+local revert not applied
+-
+your attached candidate fix applied
+-
+same self-contained v2 reproducer source as before, unchanged sha256:=20
+33347b5a1915f7452417f776c85527e55f825078c146163470bfe3eacabe3b27=20
+Command: ./kfd_svm_split_hsa_copy --upstream-ab Result:
+-
+10/10 runs completed successfully
+-
+all HSA/SDMA D2H copies completed
+-
+no ROCr memory access fault
+-
+no new GCVM_L2_PROTECTION_FAULT_STATUS
+-
+no SDMA0 permission fault
+-
+no GPU page fault in the kernel log So your patch fixes the reproducer=20
+on my system with the original reproducer unchanged. Please feel free to=20
+add: Tested-by: Gerhard Schwanzer
+geschw@pm.me
+Thanks, Gerhard
 
-Not a nit pick; nice catch.
 
-I think "Signal event wasn't created because out of kernel memory" is just =
-straight wrong - idr_alloc can fail with -ENOSPC if there isn't an availabl=
-e ID,,
-which is different from being out of memory.
-
-David Francis
-
-________________________________________
-From: Russell, Kent <Kent.Russell@amd.com>
-Sent: Friday, June 5, 2026 12:16 PM
-To: Francis, David; amd-gfx@lists.freedesktop.org
-Cc: Francis, David
-Subject: RE: [PATCH V2] drm/amdkfd: Check bounds on CRIU restore event id
-
-AMD General
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David
-> Francis
-> Sent: June 2, 2026 2:47 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Francis, David <David.Francis@amd.com>
-> Subject: [PATCH V2] drm/amdkfd: Check bounds on CRIU restore event id
+On 05/06/26 at 19:59, Chen, Xiaogang wrote:
 >
-> The valid amdkfd event ids go from 0 to KFD_SIGNAL_EVENT_LIMIT - 1.
+> AMD General
 >
-> During CRIU restore, ensure that the provided event ids are
-> in that range.
 >
-> v2: No need for lower bound check since idr_alloc rejects negative
-> inputs
+> Hi Gerhard:
 >
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_events.c | 3 +++
->  1 file changed, 3 insertions(+)
+> I think the cause is checking the last byte address of svm range for=20
+> 2MB alignment when decide possible huge page mapping. Your test case=20
+> has vm range that ends just one byte before alignment.
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index e9be798c0a2b..850d6befeb6d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -107,6 +107,9 @@ static int allocate_event_notification_slot(struct
-> kfd_process *p,
->       }
+> I tested your app with the attachment, no page fault during sdma=20
+> operation. Please verify it.
 >
->       if (restore_id) {
-> +             if (*restore_id >=3D KFD_SIGNAL_EVENT_LIMIT)
-> +                     return -EINVAL;
-> +
->               id =3D idr_alloc(&p->event_idr, ev, *restore_id, *restore_i=
-d + 1,
->                               GFP_KERNEL);
-Not sure if I'm being nit-picky, but if restore_id is negative, then idr_al=
-loc will return -EINVAL. That -EINVAL will go back up to the create_signal_=
-event call, which gives a pr_warn of "Signal event wasn't created because o=
-ut of kernel memory" , even though the issue was bad input. Mostly, I'm won=
-dering if we need to add something in dmesg if idr_alloc fails for that rea=
-son, since someone could end up spending time debugging OOM when the issue =
-is an invalid param.
-Or is a negative restore_id indicative of OOM?
-
- Kent
-
-
->       } else {
-> --
-> 2.34.1
+> Thanks
+>
+> Xiaogang
+>
+> *From:*Chen, Xiaogang
+> *Sent:* Wednesday, June 3, 2026 5:51 PM
+> *To:* Gerhard Schwanzer <geschw@pm.me>; regressions@lists.linux.dev
+> *Cc:* amd-gfx@lists.freedesktop.org; stable@vger.kernel.org; Deucher,=20
+> Alexander <Alexander.Deucher@amd.com>; Yang, Philip <Philip.Yang@amd.com>
+> *Subject:* Re: [REGRESSION] drm/amdkfd: SVM split-tail remap=20
+> regression causes SDMA0 permission fault on RX 7600 XT
+>
+> Hi=C2=A0Gerhard:
+>
+> Thanks. I can build the app now. And I saw the regression. I am=20
+> triaging it.
+>
+> The purpose of this patch is to remap split svm ranges(head/tail) that=20
+> were mapped with huge page mapping(pmd), but cannot be mapped in huge=20
+> page mapping after split due to new svm ranges are not 2MB aligned. It=20
+> seems the remap decision misses case that both head and tail ranges=20
+> are from original range with huge page mappings were used. Will check....
+>
+> Regards
+>
+> Xiaogang
+>
+> On 6/3/2026 12:54 AM, Gerhard Schwanzer wrote:
+>
+>     [Some people who received this message don't often get email fromgesc=
+hw@pm.me. Learn why this is important athttps://aka.ms/LearnAboutSenderIden=
+tification ]
+>
+>     Hi Xiaogang,
+>
+>     Sorry, you are right. The source I uploaded was not self-contained, i=
+t still
+>
+>     referenced trace_history_replay.inc from an older local replay mode.
+>
+>     I uploaded a self-contained v2 source to the GitLab report:
+>
+>     https://gitlab.freedesktop.org/-/project/4522/uploads/7395b8985ecd7c5=
+4183a7615d479c02c/kfd_svm_split_hsa_copy-v2.c
+>
+>     The --upstream-ab path does not use that replay table, but the missin=
+g
+>
+>     include
+>
+>     obviously broke fresh builds. The v2 source embeds the table and othe=
+rwise
+>
+>     preserves the same source.
+>
+>     I re-tested this v2 source before uploading:
+>
+>      =C2=A0=C2=A0 - clean build from only kfd_svm_split_hsa_copy-v2.c: OK
+>
+>      =C2=A0=C2=A0 - ./kfd_svm_split_hsa_copy --help: OK
+>
+>      =C2=A0=C2=A0 - good/workaround kernel: --upstream-ab completed 10/10=
+ runs, no new
+>
+>      =C2=A0=C2=A0=C2=A0=C2=A0 GCVM/SDMA0/protection-fault messages in the=
+ test window
+>
+>      =C2=A0=C2=A0 - broken kernel: --upstream-ab reproduced the SDMA0 per=
+mission fault;
+>
+>      =C2=A0=C2=A0=C2=A0=C2=A0 the first kernel fault address matched the =
+planned split-tail page
+>
+>     Validation summaries:
+>
+>     https://gitlab.freedesktop.org/-/project/4522/uploads/e6d0f31c0fda0df=
+2c999439411f29dca/good-kernel-validation-summary.md
+>
+>     https://gitlab.freedesktop.org/-/project/4522/uploads/bdf8a3ac6786ddb=
+88dd426b59edb32a9/broken-kernel-validation-summary.md
+>
+>     The intended triage command remains:
+>
+>      =C2=A0=C2=A0 ./kfd_svm_split_hsa_copy --upstream-ab
+>
+>     Generic build shape is:
+>
+>      =C2=A0=C2=A0 cc -O2 -g -Wall -Wextra -pthread \
+>
+>      =C2=A0=C2=A0=C2=A0=C2=A0 -I/path/to/rocm/include -L/path/to/rocm/lib=
+ \
+>
+>      =C2=A0=C2=A0=C2=A0=C2=A0 -o kfd_svm_split_hsa_copy kfd_svm_split_hsa=
+_copy-v2.c \
+>
+>      =C2=A0=C2=A0=C2=A0=C2=A0 -lhsa-runtime64
+>
+>     If you still prefer a binary, please tell me the target runtime/distr=
+o. A
+>
+>     binary built on my NixOS system is Nix-store linked and likely not
+>
+>     portable to
+>
+>     your test system.
+>
+>     One more thing that would help me test any replacement fix: do you kn=
+ow what
+>
+>     specific failure or workload 448ee453 was intended to fix? I would li=
+ke to
+>
+>     avoid validating only the revert side while accidentally losing the o=
+riginal
+>
+>     fix.
+>
+>     Thanks for catching this, and thanks for taking a look.
+>
+>     Regards,
+>
+>     Gerhard
+>
+>     On 06/03/2026 Chen, Xiaogang wrote:
+>
+>         I cannot compile kfd_svm_split_hsa_copy.c, there is no
+>
+>         "trace_history_replay.inc".
+>
+>         Or can you=C2=A0 send the test binary?=C2=A0 That should be enoug=
+h to triage the
+>
+>         issue since it is a regression as you mentioned.
+>
+>         Regards
+>
+>         Xiaogang
+>
+>         On 6/2/2026 5:04 AM, Gerhard Schwanzer wrote:
+>
+>             Hi,
+>
+>             I would like to make sure this AMDKFD SVM regression is track=
+ed by the
+>
+>             Linux regression process.
+>
+>             GitLab report:
+>
+>                 https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
+>
+>             The regression was originally reported on 2026-01-27. It was =
+bisected
+>
+>             to the
+>
+>             same functional change that Alex Deucher's revert patch later=
+ targeted:
+>
+>              =C2=A0=C2=A0 448ee45353ef9fb1a34f5f26eb3f48923c6f0898
+>
+>              =C2=A0=C2=A0 drm/amdkfd: Use huge page size to check split s=
+vm range alignment
+>
+>             The affected kernel line I tested identifies the same change =
+as:
+>
+>              =C2=A0=C2=A0 bf2084a7b1d75d093b6a79df4c10142d49fbaa0e
+>
+>             Alex's revert patch:
+>
+>             https://lists.freedesktop.org/archives/amd-gfx/2026-February/=
+138824.html
+>
+>             A small C/HSA reproducer is now available in the GitLab repor=
+t. It
+>
+>             does not
+>
+>             require PyTorch, ComfyUI, Docker, model files, or the origina=
+l
+>
+>             workload. It
+>
+>             uses ROCr/HSA, an anonymous THP-advised host mapping, explici=
+t KFD SVM
+>
+>             SET_ATTR ioctls, and an HSA SDMA D2H copy.
+>
+>             Single reproducer command, same binary on both kernels:
+>
+>              =C2=A0=C2=A0 ./kfd_svm_split_hsa_copy --upstream-ab
+>
+>             Same-machine A/B result on an RX 7600 XT:
+>
+>              =C2=A0=C2=A0 448ee453/bf2084a7 active:
+>
+>              =C2=A0=C2=A0=C2=A0=C2=A0 1/1 run faults with SDMA0 permissio=
+n fault
+>
+>              =C2=A0=C2=A0=C2=A0=C2=A0 GCVM_L2_PROTECTION_FAULT_STATUS=3D0=
+x00841A51
+>
+>              =C2=A0=C2=A0 448ee453/bf2084a7 locally reverted:
+>
+>              =C2=A0=C2=A0=C2=A0=C2=A0 10/10 runs complete
+>
+>              =C2=A0=C2=A0=C2=A0=C2=A0 no ROCr memory access fault
+>
+>              =C2=A0=C2=A0=C2=A0=C2=A0 no new GCVM/SDMA0 permission fault =
+in dmesg
+>
+>             The bad fault page is inside the split tail and inside the SD=
+MA copy
+>
+>             range:
+>
+>              =C2=A0=C2=A0 critical tail: [0x722429d61..0x722429dff]
+>
+>              =C2=A0=C2=A0 copy pages:=C2=A0=C2=A0=C2=A0 [0x722429b30..0x7=
+22429d70]
+>
+>              =C2=A0=C2=A0 fault page:=C2=A0=C2=A0=C2=A0 0x722429d65
+>
+>             A full ftrace/PTE run with the same C reproducer/SVM sequence=
+ also shows:
+>
+>              =C2=A0=C2=A0 split_tail ... current_remap=3D0 old_remap=3D1 =
+missed=3D1
+>
+>              =C2=A0=C2=A0 MISSED_REMAP_CANDIDATE split=3Dtail
+>
+>              =C2=A0=C2=A0 no amdgpu_vm_update_ptes covering the fault pag=
+e after the marker
+>
+>             before
+>
+>              =C2=A0=C2=A0 the fault-side GET_ATTR
+>
+>             The suspected code issue is that the split-tail/head remap pr=
+edicate
+>
+>             introduced
+>
+>             by 448ee453/bf2084a7 can miss tails inside the final 512-page=
+ block.
+>
+>             Since
+>
+>             prange->last is inclusive, ALIGN_DOWN(prange->last, 512) is t=
+he start
+>
+>             of the
+>
+>             final block, not an exclusive upper bound.
+>
+>             I also sent a short follow-up to amd-gfx with the reproducer/=
+A-B
+>
+>             summary and
+>
+>             asked what original failure or workload 448ee453/bf2084a7 was=
+ intended
+>
+>             to fix:
+>
+>             https://lists.freedesktop.org/archives/amd-gfx/2026-June/1458=
+00.html
+>
+>             I can resend the reproducer source and summaries directly on-=
+list if
+>
+>             preferred.
+>
+>             #regzbot introduced: 448ee45353ef9fb1a34f5f26eb3f48923c6f0898
+>
+>             #regzbot monitor:
+>
+>             https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
+>
+>             Thanks,
+>
+>             Gerhard Schwanzer
+>
 
