@@ -4,131 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 075E5CD6E7B
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 18:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77403CD6E7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 19:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9546511AA7A;
-	Fri,  5 Jun 2026 18:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0F0711AAD6;
+	Fri,  5 Jun 2026 19:21:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EX7s1+XG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rJvbokp7";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010028.outbound.protection.outlook.com [52.101.201.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C366211AA79
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 18:46:05 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012038.outbound.protection.outlook.com
+ [40.107.200.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0901F11AAD6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 19:21:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x980MLUYPh1r3ZIRNBUJbJ38bdY8NrVG2uo8VdQwlpYgyWf0p0c6f7QdHvPlINazrfm9tdoOzM5LRyL3Z485EZ42ypbFQdRyG9G02CTNQtl5bu/F7EvtyxhBluKrAYG7CEjVpOsO62yJ85t1AHLwVQS3n1+3Y1OdKnFvC0Ll7ud5ZBn+JUDgURLC8AbzykQkFySVpjYUnjE8IQcowLlYYtb9YS9WdXfMnpQCYe8QvvdBzG1IVksHymZMTRqmz0WzpdhZxYSl+XTKHoMqIXbwyYx1/FRWTDwZ4VNLt3K6yzw1xsmq75trbLsaft+AyddSVDABknayPvb15+Iewg5sKA==
+ b=eikkqNeCc8fHryOGKxqJErmcq0TKLqw1vx2mdxfzPGGSkzgP9kfRp3GGTY6QXXtITEfLbRo3yYpw3vLvqdTlZDcT9S2/2tEme4n8MhJbvetXNq9kE+fzOer4qVD887rmSsAh0s7zqW6o0ItJ/nOUSqlGs3wNQabYhoiSRMnpnkzc/ASTX/zW+p2hOGDAabFnAoItS8E3zRN/2qEy2jWGF+rPjvNd3Gu4zT8ocRY2S7ktGJh0hJM94r/2/c0R3i4UElYlcM7/G0ADYxhc6k/rakEPWkqY4utn+uaaWzfbN1AYexH0NWosLHalzmd1CkMHHZ92629F3RDGKcloK+ujJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QeoIYjcS88ozTwuVQ+N6aGWtq2TZqIUpirM6cdTNF1M=;
- b=pqI6MV5kVQV0jQ0rasrcFwsORtJB1d1XvolSUWc4QNknOaB0Cwk3YA3r4/mxCWqShIWlF1RAzSQnSlSk4wGIvdRsFTuGl8nzZA2bIDews39JtSnl3HSbat70G3NfsrGvyMBSDXF1tilycgFRKbC5ADJDdab+dYrEjBajkpu44mSaIoTtRNhFgJALT8FdhuXy3mJtY7+/UEdvvC3JcIc7akROeICbpat0f3juuMhLOCAgTeObAUzxwz1zGK3etxpq14z8xS+iclCfhT5TDDjQ20oqlcxapmy1PCjEU3H4X9vXeqtTY38OMPwf7d8MD+MzXNQT2Z9VM6/svWSjPeY2jA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=hFPCsdXZ1dEouozlHwdsw5nR0RMXi0uF7fcHcVyAqCw=;
+ b=oFQRq+6nxj/hoj3EZwM1O4xJsONU7OeuERQg4HWjPGY6Fdz58g4dry8SKm/w9W1K2A3MdYujqY5/WXw7mDfvDKB9n5kKAtcW1bQw4NpNZTTrwSShu84ulRVh47Vg4eCJuSV788N1CK5TCbwWw4wB+aK7nhVds2BCQOPjanRO6mzFHyqOWcjmadLRSiX9+/81viR2MZLZGbg0yAoms1JBxifKVgtjko3uPOYoqqNnu1I3lWZIu+IgcgvMu0RcrSJl6SNLQ5hcRn6v9tdmDEmIRpfK6H8zBk0o0FOTIcnj0g9lOOROq0JT7Qlg3rwkD0Jal8HxWaX0MaTRZJO1q+oZKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QeoIYjcS88ozTwuVQ+N6aGWtq2TZqIUpirM6cdTNF1M=;
- b=EX7s1+XGQjmY2CXxLocUR4hjCsqNdtRaKLbJgj5y6HP5yH3wfOllTBBvvyWK17srxV4gSh1XhushkVWjbHGTVs0kM3qtW7ZojgorB3fueiqDklK+sU9mVO/HF8+0JD+rrZOlZJRtIreYdfGDKmHky7LJY/fA1cYuO+fU11iedYs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
- by DSVPR12MB999191.namprd12.prod.outlook.com (2603:10b6:8:496::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.21; Fri, 5 Jun 2026
- 18:46:03 +0000
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525%5]) with mapi id 15.21.0092.006; Fri, 5 Jun 2026
- 18:46:03 +0000
-Message-ID: <c967565e-e68c-4881-8cc6-064b7a3c3397@amd.com>
-Date: Fri, 5 Jun 2026 13:46:00 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/amdkfd: SVM split-tail remap regression causes
- SDMA0 permission fault on RX 7600 XT
-To: Gerhard Schwanzer <geschw@pm.me>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>
-References: <2bfa2f1b-567a-429b-aee2-a8dcf7efd5aa@pm.me>
- <53c2ad43-091d-46e9-b825-9aaa1d7114e8@amd.com>
- <2145b14f-00e7-4565-b1da-9e08d2c89a49@pm.me>
- <d39183d3-b961-4c74-997f-885eb7a887e4@amd.com>
- <IA1PR12MB85172F7FE9157C092EDA46A0E3112@IA1PR12MB8517.namprd12.prod.outlook.com>
- <d30aa220-802d-4575-8ab0-058698e4ffbb@pm.me>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <d30aa220-802d-4575-8ab0-058698e4ffbb@pm.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0182.namprd03.prod.outlook.com
- (2603:10b6:610:e4::7) To IA1PR12MB8517.namprd12.prod.outlook.com
- (2603:10b6:208:449::8)
+ bh=hFPCsdXZ1dEouozlHwdsw5nR0RMXi0uF7fcHcVyAqCw=;
+ b=rJvbokp7wN7ats9LVWMMYkAemSayWTpWRmsBWBKUxXwquPJJvNf/4v71Dua/r5qwHj7Qy9wXvU1wgg15IVJflc+CrHniOu4GxHb8aO2WOGBj86CP97N+P90Uq0uEe7EFCARhksP0M4YEkvL4CkdEKGKKQidDPPIGr91UBgHpbtU=
+Received: from SJ0PR13CA0027.namprd13.prod.outlook.com (2603:10b6:a03:2c0::32)
+ by DS7PR12MB5743.namprd12.prod.outlook.com (2603:10b6:8:72::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
+ 19:21:27 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::14) by SJ0PR13CA0027.outlook.office365.com
+ (2603:10b6:a03:2c0::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.9 via Frontend Transport; Fri, 5
+ Jun 2026 19:21:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 19:21:28 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
+ 2026 14:21:28 -0500
+Received: from [10.4.12.116] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 5 Jun 2026 14:21:27 -0500
+Message-ID: <305ba66f-93fb-4c2f-bfb4-d0d2223d5721@amd.com>
+Date: Fri, 5 Jun 2026 15:21:27 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] drm/amd/display: Always create delayed HPD work queue
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>, Ivan Lipski
+ <ivan.lipski@amd.com>, <harry.wentland@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Ray Wu <Ray.Wu@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Roman Li <roman.li@amd.com>, Dan Wheeler
+ <daniel.wheeler@amd.com>
+References: <20260531105744.28717-1-timur.kristof@gmail.com>
+ <20260531105744.28717-4-timur.kristof@gmail.com>
+Content-Language: en-US
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <20260531105744.28717-4-timur.kristof@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|DSVPR12MB999191:EE_
-X-MS-Office365-Filtering-Correlation-Id: 287582eb-6884-49e3-a5b7-08dec332b18f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|DS7PR12MB5743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a1a65f5-77ee-4e54-b844-08dec337a4d1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099006|18002099003|13003099007|22082099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: nSa1hSMI7nOsbKMlNd+u54noJUmXKJlDNgY/r/6Zs4UG/0ZLIDdh2HkAxaSzFJs24VE2lvBXpebmwCdZuDuQVtZs6zOY1XEhR0b/pmuDJ0G9Y9rSQxDcPDOq3Oa8i4QZmVh/3lwUC2qTLJiuMmZHl0Mx5jpJbeCO88cxeHsLukR7+S9rLFEhCF/I0LiK+akYEGCdMKab+7Y+KWCJ341zzncCKvAOTbGyZniTn349o57qKim8w8zIpho98kxox8KqnKW896OioyaMj0+TH1y2MXkwtLy3vUHf2epzMEmHshgjYW3zwFq5ndZ+hiSHiGvgMPD6zBxEML8GMxMNqqlrxcagi2wirf7yzVHpGBKFYMuz0GkCDK1Sw2L67TjBzeqQ6l69UXrpoEQuFIffsJHGrtfRmC8Gj9guBG4x/Z4rHREVdF6m58127SjVY9jbv7CA9HNrbFHvz20m4pnK33x2eJ9AUM+eSEHrjeNfAwWmPb8SAxDtZJKKfp/A8pcARURAj59fVEhSCGszOC1lt7n0cmuyfqXebPNMroM1vlu8nYd2ycDwWi3VJ8XahCs6q+4Xu87rorcZBhrI4sxPp4KbcUQH3yWNteSqxc35aB/a8Xe8iLe9GeZFATgsHv8g4Su/uWG8BMtmHbNmI+oE6rUq8A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099006)(18002099003)(13003099007)(22082099003)(11063799006)(4143699003);
+ ARA:13230040|376014|1800799024|82310400026|36860700016|4143699003|56012099006|11063799006|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: hKRfCgB9ZOkh5GpViQoAJ8oM2wqBl5UxcP+LQrm3xSflHmTWCFBPn9vhzdQCuFvK7LxMMUEmRoQA8TFMW9yqXKzzWc1Nd+nU2vHs3aN0Vt2hQTuwfMtPd0kXnqYdkElGmq5G3AIJEPOsqYn/96bhvWbDiI8aYDPXuR5eIrvmmH4fWXEIxFDHjyuZoMXgL6OJ+ZsVzLTGdYzrUXHhUB/edYX9kde8ozTB9TsRFRHYuqeprZ31VBAXYesS8itD7z5mgMYilMK9kZXAmD95oWvD1HgE84qAvE2CSmdG9B4+RKPN0xulNLdssICuIs0PijJtUBUxTSItjr3xRtdixvJsyKtfDWN5+ugLOD4WvEzdH/ZOOeBUZldBOLM4+MJhGL3YXVsukcjBLTUKwnm6n8LVOTxo0SCWYkcfTi4nqooXqCokRtwKzJjrEWoEMXrZ6o+vg6WdPh3HZXjSIxZZOVt5A4dkEzEoy3wcopAF9AsHt0LlzuEuTV/W26c0NF2zJWzscijShyeq8BP6ASQ95ca1aYhnSGXzclKFeRA9lLfIqZBpjDcU/4DA58m/2xGVlJLG4kYb1Kk5MSRfGre+0g3biiR3BbkqKMUL/84KFqrrdZtH2kmd9Ap361+Fx8qfR4shTjN91xrh6cLKE4foIx+6aJtLztRScvsE7XuQfCb6XGrexVqg1ZUZWoDiDT0SFlwihDHh3YWsFc7gCDW2OM+EOg+AOO8849qNpovj3Sj5FlyVVkpRz4HJmoa/g6yToq9quhKtGDRA8YsG3nKBwWSHqg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEhnNjg5K2xlR3ptVnQyS3RQTURYN2dTUWFnVzh6SVhEV1pqRTlLSFRycUhB?=
- =?utf-8?B?ZnBsZUVQVHE2L2x2R3hsRXVnaEVaK3NpRHdxTXd5VFdTVXhJakcvTEdNR1dV?=
- =?utf-8?B?MEhaeEs4V2h5NUw2VER3R1RmUTk4bjBIbWU2RDJXbGZwKzdTUTVFWXZLMHJ0?=
- =?utf-8?B?SDE3T25rSUREOFRrQi91TTA0Z0FhajlTZ0J1RG90Y2plZlBsWUEveHVnVFFx?=
- =?utf-8?B?VW93Umo2VnhrZk96MlVrNlgrcFN5ZzNGVTBuVlhUbmVuQllUZTVyV25LZ3NL?=
- =?utf-8?B?OGNXd0ZwdTNxU3dyRTRHMlJmczZYdzF2L0FHOXlTK2ExaXpMWnVrZ25YWkhv?=
- =?utf-8?B?ME5ZK3FRWUl6WS9xZGZ4WTlDUmUzUGtDUjh1U095RGdWR3haUmFTRktaci82?=
- =?utf-8?B?OWFhZzdqYnpJczgyQlVHRDZiRWZwais3aHZJbUQ3S2NFRnBtRkVnTlpnR1VQ?=
- =?utf-8?B?M1NuZm1oSDlYZURaNnFWZVMrV2R1Z2hWeENEV2ttOGVFN3NzT0xzb05ySHVy?=
- =?utf-8?B?UTRvNmFJN3lQOEhnMzlVTjZPY1VUa0EvbGl5V2VBbHhENFF1K0dGRnlydFVO?=
- =?utf-8?B?aStCemludkVDMXlZc0VmWHNWU2JJZVQwbSt5NHNRYjFoVU1KNG5GcGM3U3h4?=
- =?utf-8?B?MmNTQ3ozb0dyZW1nZ254cXlhbUZwWEU1d1gycEM2bGZIaDJ0b0lQc09EMlFR?=
- =?utf-8?B?S1hjMWVKRWVsdU5QbGhPQWtDbXZvRzN3SVQrMVlTZ0pyd2w2SUhqcysyUndE?=
- =?utf-8?B?ZXJFckQvdldaYlNJSTdTUzl3d01xQ0pUQStIUVBXN2JKZUJzUUFoMWZaSHhM?=
- =?utf-8?B?Ry8vQVNPS09EbnVtNU5nUElzbFNNTWExVjVJY3RYL2NaNGUzcVJ2cGZFalEz?=
- =?utf-8?B?M1hjQW5aNk1aVjc0RXV5SUsyY2FPMWJLeTZhaWpFbnBCbldQd0RmK2U5ZDRI?=
- =?utf-8?B?V2t1OW9iNForWWErajh3NzVjc3p3QXRWU2MyT0tiOEthTmR1Q0ZWbEdwYlQ0?=
- =?utf-8?B?bjRFdHJ1N3hiNjBTM0h0TTFsUS9rZkhoR0RZQjR1eXlDS29UMjR1S1orMURu?=
- =?utf-8?B?RmVEZjZLTE5panIwWEpWcVg0RThHMkVXNmRpTkhVZmszK2swU1ZsYnFWck54?=
- =?utf-8?B?MTg5NWRvU2Ewa0JSTUxRNUVJdGxSN1pHdDY2cThIZ3F3Z1pQOE5YdG5mMGl3?=
- =?utf-8?B?blpwdzhSUGthUHdpMHF0Y0w2WjBoRjk2dW5HNDNLbWk4eUd6MDQ4ZTJKR0Uz?=
- =?utf-8?B?dFM5aDlCMEJMOGdra2N1dldUNDFvMFVSOVRBbnkvLytlNFBRaFpkREpvRkMy?=
- =?utf-8?B?L1g2K3cwRVpzMmJGRlVFSXhmN2lYVXRGaTg0RHZ1OVBYYjhPcnp6SVM1d0Fx?=
- =?utf-8?B?MDJwd3o3dU4vNHJLMHFweFROUTlGZWhvVkF6MHRXSEpHTThRMTdKYlM3aTRa?=
- =?utf-8?B?TktrRTkyKy9PY3BPSXZVU2Z1SU5ka3hkdkkyeVhMZjl3VmpDcklld0lkSzg3?=
- =?utf-8?B?aHlkS1NCNC90SENyYS94VlFRMTRmN2JHODQ0RW9wUmw3R25YWXlGZVBnNzd6?=
- =?utf-8?B?RzN6YXFSdTN5Wnh1TXNiRzAwdU9pbms5emtqZEdsd09sSzNmU09YOXNSWEox?=
- =?utf-8?B?ajd6aCs0VmtIclBIZzlSYTBXOG5uTk9qTFk2UHQzNlhhQXZlWmozUDlUd25o?=
- =?utf-8?B?K3ZTaWFSSHJ6YU1wYmw1ZUdCd0R0MkpLTTFBUlpnbkZiR3QyMVpoc3ZURkNv?=
- =?utf-8?B?RjEwOFZDLzljMzh6OXpUck9SM1dQcGJhU2ZkeitLU1E1YmVVN0JVTHM5c1hr?=
- =?utf-8?B?b0krenpLRXZXdTJ1TmUzWlhRWE1yVXY4azlRU0RQOUFIOE1LODVoUVN1aFNt?=
- =?utf-8?B?YmVma3Nta3ZRVFFlaGE4bm5keUI3Z0VVZXRyeVhhQisyZU56TXpQZVRLcUF5?=
- =?utf-8?B?d0pqbUJyRHVncWFkVVBacy9aSHFkVEZsS0FRa3l6U1JramdEVFNNckdoYTda?=
- =?utf-8?B?cVl2OWQzdW40YUxXbnlLZkd2V1NnZGYrUjFjUGRKNTBGbnQ2aWVva0x6Nm5t?=
- =?utf-8?B?UEt2WFgyendLM0JJQ2MrM2FTQUdYZUc4M2x2SWpNQWdmWktHVFl4bi9KcjVx?=
- =?utf-8?B?Vmp2NDh2WlRoWU13enkzRXplVmt2aWgrQ3NHWlUwTjA0WTRZNW9HdDZJanpG?=
- =?utf-8?B?M0VXOUZTaHRnbk1hVkp6QkdIblJjSytpckJ3d0ZmeGgvcjBKb1pJcm96dlIv?=
- =?utf-8?B?TjdsY2dtbUhqSWZ5RzNBallRQ2FYMzdUTXp1dTZOdHlZVUpQcUVRMGtrUG1W?=
- =?utf-8?Q?urdmrR4CBL5I1a32fz?=
+X-MS-Exchange-AntiSpam-MessageData-0: 31o44KAAqPvZ3CzAHd6ZfVIh17BX9LsIKeoECLJez1auwn4agyqvWu04BuV/1P6RDE3VPpwlVBHO7duDvQdE1/GXPidnqk6umCJndgqrZsvKc/CQo4x9VzWnn8YFuVYQFysBe/EffBwSTo9frxLTZSfsQcynny92bEq7tj3g33Q7yvc+9KLU/R1wFENXTwXejgAzCzoa7CHyB4RXMbnMc/dz+wYCPuzFGAYNHy8fGhBGWlJMy676BVtgbxFPwpKanEvypXRpFpuQYO4q84Xl4a2aNg+9BXJoNRc9Mt/XgF0ObKRtShssZifge9Eg2hjr5wuteTsI+9QEOj7UVajx4A9WK6Tx7/Upg314hs1+oYJjF3ble7AFmduEPqm4Oe3N7LcsGFKx96SCUmMov2bOanyIBTbmSCHrreMzoGbdJQ4xAijhZ5F61uyGt39FpEyx
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 287582eb-6884-49e3-a5b7-08dec332b18f
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 18:46:02.9866 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 19:21:28.8330 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a1a65f5-77ee-4e54-b844-08dec337a4d1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F6DC8W9tnrw1o4D5wlvJwycqKh6Vp6uaoei9eBeFWfz0Fb4+pZs/XJCnbGqb54uK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999191
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5743
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,292 +116,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thank you for the testing/confirming.
 
-Xiaogang
 
-On 6/5/2026 1:41 PM, Gerhard Schwanzer wrote:
-> Hi Xiaogang, Thanks. I tested your attached patch on my RX 7600 XT
-> system. Test setup:
+On 5/31/26 6:57 AM, Timur Kristóf wrote:
+> Not just when DMUB outbox is supported.
+> It will be used for normal HPD events too.
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 28092ac052ae..255903d000c2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2197,6 +2197,12 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>   			create_singlethread_workqueue("dm_vblank_control_workqueue");
+>   		if (!adev->dm.vblank_control_workqueue)
+>   			drm_err(adev_to_drm(adev), "failed to initialize vblank_workqueue.\n");
+> +
+> +		adev->dm.delayed_hpd_wq = create_singlethread_workqueue("amdgpu_dm_hpd_wq");
+> +		if (!adev->dm.delayed_hpd_wq) {
+> +			drm_err(adev_to_drm(adev), "failed to create hpd offload workqueue.\n");
+> +			goto error;
+> +		}
+>   	}
+>   
+>   	if (adev->dm.dc->caps.ips_support &&
+> @@ -2223,12 +2229,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>   			goto error;
+>   		}
+>   
+> -		adev->dm.delayed_hpd_wq = create_singlethread_workqueue("amdgpu_dm_hpd_wq");
+> -		if (!adev->dm.delayed_hpd_wq) {
+> -			drm_err(adev_to_drm(adev), "failed to create hpd offload workqueue.\n");
+> -			goto error;
+> -		}
 > -
-> kernel 7.0.11 with 448ee453/bf2084a7 active
-> -
-> local revert not applied
-> -
-> your attached candidate fix applied
-> -
-> same self-contained v2 reproducer source as before, unchanged sha256:
-> 33347b5a1915f7452417f776c85527e55f825078c146163470bfe3eacabe3b27
-> Command: ./kfd_svm_split_hsa_copy --upstream-ab Result:
-> -
-> 10/10 runs completed successfully
-> -
-> all HSA/SDMA D2H copies completed
-> -
-> no ROCr memory access fault
-> -
-> no new GCVM_L2_PROTECTION_FAULT_STATUS
-> -
-> no SDMA0 permission fault
-> -
-> no GPU page fault in the kernel log So your patch fixes the reproducer
-> on my system with the original reproducer unchanged. Please feel free to
-> add: Tested-by: Gerhard Schwanzer
-> geschw@pm.me
-> Thanks, Gerhard
->
->
-> On 05/06/26 at 19:59, Chen, Xiaogang wrote:
->> AMD General
->>
->>
->> Hi Gerhard:
->>
->> I think the cause is checking the last byte address of svm range for
->> 2MB alignment when decide possible huge page mapping. Your test case
->> has vm range that ends just one byte before alignment.
->>
->> I tested your app with the attachment, no page fault during sdma
->> operation. Please verify it.
->>
->> Thanks
->>
->> Xiaogang
->>
->> *From:*Chen, Xiaogang
->> *Sent:* Wednesday, June 3, 2026 5:51 PM
->> *To:* Gerhard Schwanzer <geschw@pm.me>; regressions@lists.linux.dev
->> *Cc:* amd-gfx@lists.freedesktop.org; stable@vger.kernel.org; Deucher,
->> Alexander <Alexander.Deucher@amd.com>; Yang, Philip <Philip.Yang@amd.com>
->> *Subject:* Re: [REGRESSION] drm/amdkfd: SVM split-tail remap
->> regression causes SDMA0 permission fault on RX 7600 XT
->>
->> Hi Gerhard:
->>
->> Thanks. I can build the app now. And I saw the regression. I am
->> triaging it.
->>
->> The purpose of this patch is to remap split svm ranges(head/tail) that
->> were mapped with huge page mapping(pmd), but cannot be mapped in huge
->> page mapping after split due to new svm ranges are not 2MB aligned. It
->> seems the remap decision misses case that both head and tail ranges
->> are from original range with huge page mappings were used. Will check....
->>
->> Regards
->>
->> Xiaogang
->>
->> On 6/3/2026 12:54 AM, Gerhard Schwanzer wrote:
->>
->>      [Some people who received this message don't often get email fromgeschw@pm.me. Learn why this is important athttps://aka.ms/LearnAboutSenderIdentification ]
->>
->>      Hi Xiaogang,
->>
->>      Sorry, you are right. The source I uploaded was not self-contained, it still
->>
->>      referenced trace_history_replay.inc from an older local replay mode.
->>
->>      I uploaded a self-contained v2 source to the GitLab report:
->>
->>      https://gitlab.freedesktop.org/-/project/4522/uploads/7395b8985ecd7c54183a7615d479c02c/kfd_svm_split_hsa_copy-v2.c
->>
->>      The --upstream-ab path does not use that replay table, but the missing
->>
->>      include
->>
->>      obviously broke fresh builds. The v2 source embeds the table and otherwise
->>
->>      preserves the same source.
->>
->>      I re-tested this v2 source before uploading:
->>
->>          - clean build from only kfd_svm_split_hsa_copy-v2.c: OK
->>
->>          - ./kfd_svm_split_hsa_copy --help: OK
->>
->>          - good/workaround kernel: --upstream-ab completed 10/10 runs, no new
->>
->>            GCVM/SDMA0/protection-fault messages in the test window
->>
->>          - broken kernel: --upstream-ab reproduced the SDMA0 permission fault;
->>
->>            the first kernel fault address matched the planned split-tail page
->>
->>      Validation summaries:
->>
->>      https://gitlab.freedesktop.org/-/project/4522/uploads/e6d0f31c0fda0df2c999439411f29dca/good-kernel-validation-summary.md
->>
->>      https://gitlab.freedesktop.org/-/project/4522/uploads/bdf8a3ac6786ddb88dd426b59edb32a9/broken-kernel-validation-summary.md
->>
->>      The intended triage command remains:
->>
->>          ./kfd_svm_split_hsa_copy --upstream-ab
->>
->>      Generic build shape is:
->>
->>          cc -O2 -g -Wall -Wextra -pthread \
->>
->>            -I/path/to/rocm/include -L/path/to/rocm/lib \
->>
->>            -o kfd_svm_split_hsa_copy kfd_svm_split_hsa_copy-v2.c \
->>
->>            -lhsa-runtime64
->>
->>      If you still prefer a binary, please tell me the target runtime/distro. A
->>
->>      binary built on my NixOS system is Nix-store linked and likely not
->>
->>      portable to
->>
->>      your test system.
->>
->>      One more thing that would help me test any replacement fix: do you know what
->>
->>      specific failure or workload 448ee453 was intended to fix? I would like to
->>
->>      avoid validating only the revert side while accidentally losing the original
->>
->>      fix.
->>
->>      Thanks for catching this, and thanks for taking a look.
->>
->>      Regards,
->>
->>      Gerhard
->>
->>      On 06/03/2026 Chen, Xiaogang wrote:
->>
->>          I cannot compile kfd_svm_split_hsa_copy.c, there is no
->>
->>          "trace_history_replay.inc".
->>
->>          Or can you  send the test binary?  That should be enough to triage the
->>
->>          issue since it is a regression as you mentioned.
->>
->>          Regards
->>
->>          Xiaogang
->>
->>          On 6/2/2026 5:04 AM, Gerhard Schwanzer wrote:
->>
->>              Hi,
->>
->>              I would like to make sure this AMDKFD SVM regression is tracked by the
->>
->>              Linux regression process.
->>
->>              GitLab report:
->>
->>                  https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
->>
->>              The regression was originally reported on 2026-01-27. It was bisected
->>
->>              to the
->>
->>              same functional change that Alex Deucher's revert patch later targeted:
->>
->>                  448ee45353ef9fb1a34f5f26eb3f48923c6f0898
->>
->>                  drm/amdkfd: Use huge page size to check split svm range alignment
->>
->>              The affected kernel line I tested identifies the same change as:
->>
->>                  bf2084a7b1d75d093b6a79df4c10142d49fbaa0e
->>
->>              Alex's revert patch:
->>
->>              https://lists.freedesktop.org/archives/amd-gfx/2026-February/138824.html
->>
->>              A small C/HSA reproducer is now available in the GitLab report. It
->>
->>              does not
->>
->>              require PyTorch, ComfyUI, Docker, model files, or the original
->>
->>              workload. It
->>
->>              uses ROCr/HSA, an anonymous THP-advised host mapping, explicit KFD SVM
->>
->>              SET_ATTR ioctls, and an HSA SDMA D2H copy.
->>
->>              Single reproducer command, same binary on both kernels:
->>
->>                  ./kfd_svm_split_hsa_copy --upstream-ab
->>
->>              Same-machine A/B result on an RX 7600 XT:
->>
->>                  448ee453/bf2084a7 active:
->>
->>                    1/1 run faults with SDMA0 permission fault
->>
->>                    GCVM_L2_PROTECTION_FAULT_STATUS=0x00841A51
->>
->>                  448ee453/bf2084a7 locally reverted:
->>
->>                    10/10 runs complete
->>
->>                    no ROCr memory access fault
->>
->>                    no new GCVM/SDMA0 permission fault in dmesg
->>
->>              The bad fault page is inside the split tail and inside the SDMA copy
->>
->>              range:
->>
->>                  critical tail: [0x722429d61..0x722429dff]
->>
->>                  copy pages:    [0x722429b30..0x722429d70]
->>
->>                  fault page:    0x722429d65
->>
->>              A full ftrace/PTE run with the same C reproducer/SVM sequence also shows:
->>
->>                  split_tail ... current_remap=0 old_remap=1 missed=1
->>
->>                  MISSED_REMAP_CANDIDATE split=tail
->>
->>                  no amdgpu_vm_update_ptes covering the fault page after the marker
->>
->>              before
->>
->>                  the fault-side GET_ATTR
->>
->>              The suspected code issue is that the split-tail/head remap predicate
->>
->>              introduced
->>
->>              by 448ee453/bf2084a7 can miss tails inside the final 512-page block.
->>
->>              Since
->>
->>              prange->last is inclusive, ALIGN_DOWN(prange->last, 512) is the start
->>
->>              of the
->>
->>              final block, not an exclusive upper bound.
->>
->>              I also sent a short follow-up to amd-gfx with the reproducer/A-B
->>
->>              summary and
->>
->>              asked what original failure or workload 448ee453/bf2084a7 was intended
->>
->>              to fix:
->>
->>              https://lists.freedesktop.org/archives/amd-gfx/2026-June/145800.html
->>
->>              I can resend the reproducer source and summaries directly on-list if
->>
->>              preferred.
->>
->>              #regzbot introduced: 448ee45353ef9fb1a34f5f26eb3f48923c6f0898
->>
->>              #regzbot monitor:
->>
->>              https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
->>
->>              Thanks,
->>
->>              Gerhard Schwanzer
->>
+>   		amdgpu_dm_outbox_init(adev);
+>   		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_AUX_REPLY,
+>   			dmub_aux_setconfig_callback, false)) {
+
+Hi Timur,
+
+We'll drop this patch as well, since its logically related to the two 
+other patches being dropped. When we have a fix, we'll merge all 3 of 
+them together.
