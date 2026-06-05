@@ -4,78 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB656CD6E74
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 10:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E9ACD6E74
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 10:32:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E26710E116;
-	Fri,  5 Jun 2026 10:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E79C911A70C;
+	Fri,  5 Jun 2026 10:32:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aLk1ZS9/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T8AAMYMf";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A246810E116
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 10:11:07 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490ae94a89eso14909975e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Jun 2026 03:11:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780654266; x=1781259066; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=7HAS2PlCdMvegt9EyWAXWZ0dEMMbR/1/BF1g6rITxt4=;
- b=aLk1ZS9/Z8joPSmqzsXcRmZAgM3U4TFRxq9GmltldXD/L3GotvxE4S367SlQeqeUrE
- XXZ/s0dwQ0C29uQzpHIw+r8YdKbUh24m040J4SGfatU2soUGOTV3FuCo3geYpDj3tKNT
- n+ZRWHC6/0shkJufnE1ToF07uOkzJiHWlTbl0JCQ22ZryBNQm9b67ebSTNMRzodUecav
- PKK4/08F30PyExSUqs5hwoGZ6KJk1RRASyKtTcF5JPjlQ3vQzaq2BG3fOsoyNwekxBQA
- uYh4o5mj97LY7UrqaM/7Y3aO8coWVWeZhQQFrlOrPN+hmPEyv+TQhFUVfgH3YZnqS8sy
- NOug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780654266; x=1781259066;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=7HAS2PlCdMvegt9EyWAXWZ0dEMMbR/1/BF1g6rITxt4=;
- b=jkwsG65lTy9MmWTYc5/exg0yV3b2lF6FpTZPH7VVnok3rELZfccNcER6x1a2byzz9C
- ZUzoJGoN+m8NMsBpKdX6bUALMpE+1ToO5j6K42PO6ybZlymxH2BHRWRQHtOUhClaHhKZ
- 9uMTPKo7or5ezxbLsex8VzZkojwrBcfFb2eFAA17KVPiufJV220EChZF7qwUMYsf7MmQ
- hl7EocXW7dOB82WUGbGtT8O3qABMrzntbJHmOE19xWtGTUTAefSLAwXBFrAblyY86oIb
- VjMLHjk3VQkZdKiLxftxzegllhnMfamt+aSXLCwBaGwzSGH18rHXrTspH2iHiKCXkCy/
- Ybig==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+r4/KmGk/sRL1oAHIUM3MIApeTlY9M2ICurPDvFDMSN23SQZ5gFSRX9m0lKAp5bhAdTkSZOEGL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6aeMmaVpWsh5umFlEA3mZPn7uChOGIZgqPGmMH+/tSpXNA5KY
- y1ZOzKI19Xnj+011wgcRag+VVbokhFegs9CK/p6IBHATAF3JEcA+xX1I
-X-Gm-Gg: Acq92OGcG2F6zxIelnQlXWy8wbQCjN7h1EoqRWdfxYsBk97GGPo6V+AaSrKcNawJY8O
- aFFLN/n4NDBZK3ZCIC4tfQiHNlu/fjPe3pxsKzqdGo9EVWY+1rwV/YFCYmVAZ14VibSUvQyO47x
- 1C9D/I45rjN+soYiWjfLYsizgThqLk8CuPLHayqQF2sG9KKXh8ReMign5xwyNGMJrG6BPoNFWUo
- ARNreX8yhdGtATulOm9ll2kDM8D0qu19MVGVKjgJ0ziobr5bkgQgnplMvvWhKWGl3MbuZPS3Jk4
- gv4QYigic8AhFySNcq48SKSyFovwp/evfuQ4AECMrzWIYxufd1I6IOmO8w2QbgQrJ+QNF0LgGbI
- vD/w1LQfBYtlqTaTuO5LLujub56Y72x5DCh9YYS4rT3uDUpx3Z6PutNFHuC4+2czWBpYS3kYKXy
- e0Yq5ZAjpuCWWJj6/aX0w7ghnPpUOKIBemJTsDM7235o38g68m/jqqoa3qmqqIo1+VDikIcrr2c
- z2YXq+h/kYqaPKLqZvcphz6nmNbxi9UA/dMjxKk
-X-Received: by 2002:a05:600c:1d29:b0:490:50eb:b777 with SMTP id
- 5b1f17b1804b1-490c2597822mr45584565e9.5.1780654265613; 
- Fri, 05 Jun 2026 03:11:05 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
- [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490bc39def5sm134843295e9.5.2026.06.05.03.11.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2026 03:11:05 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: always emit the job vm fence
-Date: Fri, 05 Jun 2026 12:11:04 +0200
-Message-ID: <5051245.OV4Wx5bFTl@timur-max>
-In-Reply-To: <9cc1c11a-ffbd-4b33-9608-111ba12bed1d@amd.com>
-References: <20260603194535.2371150-1-alexander.deucher@amd.com>
- <9cc1c11a-ffbd-4b33-9608-111ba12bed1d@amd.com>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64AA911A70B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 10:32:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=knnsToilZkmPM3waIqYYQpYRb5LtJDGUW5jkV01uyuRBFYWBEhBM4vfQ42WI6ucTgUJwNxHlkpq3G94uHYr4zsTwumUHApATSdj8Jti0zFV8zngKqhVJ01y4jncR4A6GWU8/kiEGw+Rmq/vAtPIAkio8sKlKEjEAE1DpnuWqdgseg/xMn7IfjmqSFZ94c2r5vo8VkyGuGz9MrANybSXQlao2CQUqMpYN8JBMln60XcligmQ5I5cpLyyPnqH9Ht3Y7K7MkWgFKwRCRVotbtZlBTPGHAWUIBlagZ921l5xi/LiYZQrONk4rXVnpaaUhukU0mbM7EDf1dbYWRpxWlSM1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nKTompEvLrJI2af6LC9UnhFZQfpqy2URuomVALU09sE=;
+ b=vdug4Ixu3ZffMZ00xD+lnUnW8O+MJAAIwKlaV8ygDzUjpkju/kbvn/yqPaC8KKz9ufY4LX25E7yWSkTZ0g9pRtgwTt69mdq+3yXv6L9IPfrCsqaFyMB8cpZxaG98RUqHuLllfy80cz6sT6d6nXg4sqGHWSUkOvjs+6OxF6RrOFsXmoBGCDW7BneGK9rHWPFX1xCkfsnBbPKgQrcRgyfYsFoQZcMaZ6yGZVEuo4fthBNMjCK7WfoYSQ5kr41fIJB09kiLC2MZaqhKLdyL9/0u2Df+MpN1bsLmsxEZ4TlF7h6n2XS0dDRTb7/iuCcjlA6L39gxJRPT0TyNDggQqc4/vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nKTompEvLrJI2af6LC9UnhFZQfpqy2URuomVALU09sE=;
+ b=T8AAMYMfxQ957AiZwmKwXb3nx3fs5VT7LEWvr05Wx8DxRTilPEBBmJjYWIBtq3Za4zb5kifxu3pnh/7Sq8Q+8mJzb//WeFdPABYtXmmOTf8ZGe/hjdEYPbYQpZbaT/wdnlb3kjhgX4PuEF8aeqbyoR0932ZWmJvg9Rde8uVdzXE=
+Received: from SJ0PR03CA0183.namprd03.prod.outlook.com (2603:10b6:a03:2ef::8)
+ by PH7PR12MB6934.namprd12.prod.outlook.com (2603:10b6:510:1b8::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.9; Fri, 5 Jun 2026
+ 10:31:52 +0000
+Received: from CO1PEPF00012E7F.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::7a) by SJ0PR03CA0183.outlook.office365.com
+ (2603:10b6:a03:2ef::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.9 via Frontend Transport; Fri, 5
+ Jun 2026 10:31:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E7F.mail.protection.outlook.com (10.167.249.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 10:31:52 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
+ 2026 05:31:51 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 5 Jun
+ 2026 05:31:51 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 5 Jun 2026 05:31:45 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/6] drm/amdgpu/user: add reset helpers for error interrupts
+Date: Fri, 5 Jun 2026 18:30:47 +0800
+Message-ID: <20260605103144.2537331-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E7F:EE_|PH7PR12MB6934:EE_
+X-MS-Office365-Filtering-Correlation-Id: b81e598d-2bbd-4899-0da5-08dec2eda876
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: +CcJq14MRGPDtbxIgoQeUM+5KTsTc7OoyV9rWk5CGpeIU7mMbCTM7xCS6muPtKybCFAkRMrYF9o9jK089peA8TNw/f3b6TdK3+9OImsKmaIANTeyyl1NHTV1sdanDNl0jE9OrNYmod24uQrhcfLQTDC+SUy4v3FUxnvg3ugcS7HuGG0JXNu8xquHcIU9i7II/N3+F0BcMPO/2FZZFwlSP7EBSMtxezcqCZRl1miSAUyAAsVgpeD1qatottVkSfjXwwlKLip6matJt31gITBXCgG71Ba+Ga2YlDmuE1GMpLj//CHZ3U2A43258EIcoKGUaLl7t+Tx4jJDmoJ/Rq0yHG4WYOY8iWLypTFJcAO4oXORXa4sZMeedijPJM5il7TzScozRFVRc7catAj4fx7jjoVqiZjZWwYKl742zdS09GXMPF5cq0QrC3xcDTCmnD0L1uVt7ZbLcRNdbvQtdmqhd+7SPUQCH7rHlwC9TLDGFgQ+BdqD9sEVEorw4VA2NVJLD+PE3yXZyjNCRB0rHzEHD/NVLh0Q6a4RT2Q7WXXVe3OjpuciNl53421DxHSKyv4MytQB5bokdMo1Xv9uThM7jNiSjR48ApOla8jGRgD5UqNax9BfBEt2IvfygFps6gBc0/26DGAhelH/HwN225BxI626ilGO+LfQ6qGit9ftklEbz/iDZa1l9VhOLlZEOPopWh8tZPccCo76zTy2hp7qwvUKHXTfSaKyGi9HvMNlnF0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 1T4S9oyywlxNtEScCj3vD0EOrxvZJ14Ro/4kueIW78wE1V0cBxBTvhwLUWKvtKPPut7fCIVqccKSP1w9Sx9w6ur1RxiqcFZKdqtXW80mhkiC6rq0ev4vG//OqLqcUWIglMbtJ1yei4jiz3+/xKDmLktvAYgxz0UjgBPwbF0wmR5ysfHhJMbqOi7ccRDH75vwivR+oO6cqeqB8C4qt5+bD75ssweTNQYXwZWXzgJKydA7QQ6a1j7+b5JrmZQX2Ugr3D/jEdrtdwmD6IkDUXaqg/O0WA+nNiL11Y6P+/FpTsnCMzfg0T9cTYNTVesrPJRYN5owyVeTGpkg3b99mgp7F41alEtIeYLiNUSOnA1NaoLwfJWz1AITlMi2g7Y/Ey9FT9qaNRnTyFO+hzAeZaDSTArMOvzfit2PxhRY7XIrcQzZSzYXSPFBMIDpxrQ60GuU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 10:31:52.1799 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b81e598d-2bbd-4899-0da5-08dec2eda876
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E7F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6934
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,75 +112,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. j=C3=BAnius 5., p=C3=A9ntek 11:24:45 k=C3=B6z=C3=A9p-eur=C3=B3pai =
-ny=C3=A1ri id=C5=91 Christian K=C3=B6nig=20
-wrote:
-> On 6/3/26 21:45, Alex Deucher wrote:
-> > We need the fence to reemit the gds switch or spm update
-> > after a queue reset.
-> >=20
-> > Fixes: a17ef941212b ("drm/amdgpu: rework ring reset backup and reemit v=
-9")
-> > Cc: timur.kristof@gmail.com
-> > Cc: christian.koenig@amd.com
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->=20
-> That was avoided because it means another entry in the EOP ring buffer wh=
-ich
-> can be bad for performance.
->=20
-> But correctness is obviously more important, just to keep in mind when we
-> suddenly see 1% fps decrease and don't know where it's coming from.
->=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks Christian, that's a valid point.
-Do you think we should worry about an actual perf impact here?
+If we get an interrupt for a bad user queue (bad opcode, etc.),
+add a helper to handle the reset for user queues.
 
-If we want to avoid adding an extra fence, then an alternative solution cou=
-ld=20
-be to include the emitted commands in the ib_wptr of the job's own fence wh=
-en=20
-a VM fence was not emitted.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  1 +
+ 2 files changed, 14 insertions(+)
 
-What do you guys think?
-
-Thanks,
-Timur
-
->=20
-> > ---
-> >=20
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 10 ++++------
-> >  1 file changed, 4 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c index
-> > 2f3470208829e..7e0e2281719b1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -853,12 +853,10 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring,
-> > struct amdgpu_job *job,>=20
-> >  					    job->oa_size);
-> >  =09
-> >  	}
-> >=20
-> > -	if (vm_flush_needed || pasid_mapping_needed ||=20
-cleaner_shader_needed) {
-> > -		amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
-> > -		fence =3D &job->hw_vm_fence->base;
-> > -		/* get a ref for the job */
-> > -		dma_fence_get(fence);
-> > -	}
-> > +	amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
-> > +	fence =3D &job->hw_vm_fence->base;
-> > +	/* get a ref for the job */
-> > +	dma_fence_get(fence);
-> >=20
-> >  	if (vm_flush_needed) {
-> >  =09
-> >  		mutex_lock(&id_mgr->lock);
-
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index de6848b4fd67..99c5adf3cb24 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1111,6 +1111,19 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
+ 	dma_fence_put(ev_fence);
+ }
+ 
++void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev, u32 doorbell)
++{
++	struct xarray *xa = &adev->userq_doorbell_xa;
++	struct amdgpu_usermode_queue *queue;
++	unsigned long flags;
++
++	xa_lock_irqsave(xa, flags);
++	queue = xa_load(xa, doorbell);
++	if (queue)
++		amdgpu_userq_start_hang_detect_work(queue);
++	xa_unlock_irqrestore(xa, flags);
++}
++
+ static int
+ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 9df1b78407f5..5a2ae33135da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -175,6 +175,7 @@ void amdgpu_userq_pre_reset(struct amdgpu_device *adev);
+ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost);
+ void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *queue);
+ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell);
++void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev, u32 doorbell);
+ 
+ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 				   struct amdgpu_usermode_queue *queue,
+-- 
+2.49.0
 
