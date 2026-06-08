@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC462CD8CA8
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 19:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7915CD8CAB
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 19:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6A510F950;
-	Mon,  8 Jun 2026 19:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB4F10F955;
+	Mon,  8 Jun 2026 19:48:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YbXtoggh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bANNkk2N";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012019.outbound.protection.outlook.com [40.107.209.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A8110F950
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012039.outbound.protection.outlook.com [52.101.53.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3BEC10F953
  for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 19:48:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fz8h717ZxEkW9izjs7PQP7yO57/O5MtzbQH2XD+Ac9rmci4j4KeZ3M+CpP+KVSeMv7vPZiH5kySFXLCTXt0EanYDcHZK5PU6k+1ZClh7C7G+X9NkTOlT065eoo8mhACxvEyTTuZie0CZRuR9lmoAOpLnqbqNGH2d1Y8ZQv7NZdmzlO78DernZNhSgKQf4o4voC83uSCniziyqFW1Tz+g6K8c2TayMkXOak4oThrQdu2ytXt0gJlaz+nNOYYaqGmVoT8nViqweOTYSLYbov97JdapQLQXIKqZuPlI2OUvaLveEWdzgMHgncHYqHpVgXzyqWMBoE2GnzulxxeoQDSVJQ==
+ b=jZhkGuqPRAl1mo6LFrn/AI2U1AK4kSjGVrPvjfrtcrF37p7ljgy0xsg2rg8rh15QvTBTs53PWCt9LMDSDM42fxBMI2SWuFZWQtjDRF2vxISO3a5hlpDSe+S1do5E7LKOco4MVA+QRHnd3fKSMOKTjrA2+91bl3jBd3sef2QkY7nRrB4wQBoRlMi47pJJ/md/LRKrb9smG2D1zdUlo3Fr2vw34B1MLuA6hJNDchSVfw6qQ8dBHEwCMUbrVupgl4fEezQcGQvVWoGEMeR92VjBO2jh+ZXnJHNyb9MTxve5z8ez+LMJVQ5SZJSZOV8JVSXcyHZ2thflwNLRf9Dq8yWzrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XNIKi32IzhrmSDLa5O5YYj8uDbgoYvTDhrjoUFuQZNw=;
- b=pJaNtOeOEW6qnzmymm9qRR/b1Mt7qnOS5fxW/i9EvrgMEBsHiclXcyA9zKrl3+Fgmi/rnit4IeckpVxQ+jSm0FVBktOGeJrjxvrle3eDG+vU1k4sOEGe5bHKUJdl/lmmaBNVEgd1QCIUs0K0Di3sacy5KHKKQyN3bEmwFY17igWIbJDToL9pIJdHPhvPfCdNE7KT9Lpx7c9d+nfwG0eGAkdNq1Kh2y4PvQmjtvkFWe7iiJF6U5pmoP+e+n48Ka51QvOlrlA4kATmXZyZMKI8vwhZmfvmudrufIUUZusNYqTw3FMNbp8irzgpV78mvc+KjL+4laPtrCQ9uRRntc9cQw==
+ bh=SkF3ZwD2rx5Cu7VSTHinRdbgFzXzaFGmFvWcHMW8OwU=;
+ b=jO4eO4Tr+Lzho0cIo99YHliCLeW7EJ6d3gIkbsNFVdgNmZ9AcvItL5+ZXcxvZ6x+pTWj4GNYpZf3x86WAXc2NrSXRsd034jzlAMt/pjr/8XX1fbLDpB4lKzjTTIEpxiVCcscrK8WNgDPuf/m+eIGnSZk/QnClTG18qri6fzd06ve0p49pxG7zl2cxW8DbjSIkIik8HY5hnPPkzU7qJGyKeiTbZi927mxMPFm4VDv3s1vcc1Cb1s4rLCTgP6jXPtzAjYIEeBVTp4cvbihlfRSL4J0ESn9UDx6DMgOqNv0ovtsNF3VEVkzhj5g3TmZ2SrZzKu2lch0v90msOeNqcnFaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XNIKi32IzhrmSDLa5O5YYj8uDbgoYvTDhrjoUFuQZNw=;
- b=YbXtogghw+wVBy3PS4Cm0nRkQAtv4ail4EErnOlsVEjg1vS8NxP7lsxABYr1y2MSrS1YGFmMDOgqk2uDQIJpxpsDOlMwTa/AXd81wEDjCwSAwjchnTFhAcPAaO558jOCiHdM8tOTbaEA6Os14Xzp31cL6/9Tig1O4COrCqwQHjI=
-Received: from CY5PR22CA0076.namprd22.prod.outlook.com (2603:10b6:930:80::23)
- by PHXPR12MB999256.namprd12.prod.outlook.com (2603:10b6:510:3ca::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Mon, 8 Jun 2026
+ bh=SkF3ZwD2rx5Cu7VSTHinRdbgFzXzaFGmFvWcHMW8OwU=;
+ b=bANNkk2N21komdyXPa06gcna8ZNlFyrbKpvjhwC88+Mo7/vIjN48sU2mnxhvS/hhp8tFUa2y6wQJkUTjLs+ho9MH/N35Xf0jlaTFOV8vxqndzh7OWjyRDkRPMOIMONYdZZjl7yAgxajc1kQ8S74mG8I61FEHc8mLQ44m0pyJhOw=
+Received: from CY5PR22CA0063.namprd22.prod.outlook.com (2603:10b6:930:80::9)
+ by IA0PPF80FB91A80.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bd5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
  19:48:10 +0000
 Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
- (2603:10b6:930:80:cafe::72) by CY5PR22CA0076.outlook.office365.com
- (2603:10b6:930:80::23) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:930:80:cafe::4f) by CY5PR22CA0063.outlook.office365.com
+ (2603:10b6:930:80::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.13 via Frontend Transport; Mon, 8
- Jun 2026 19:48:09 +0000
+ Jun 2026 19:48:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Mon, 8 Jun 2026 19:48:09 +0000
+ 15.21.113.7 via Frontend Transport; Mon, 8 Jun 2026 19:48:10 +0000
 Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 8 Jun
- 2026 14:48:02 -0500
+ 2026 14:48:04 -0500
 From: Shahyan Soltani <shahyan.soltani@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alexander Deucher <alexander.deucher@amd.com>, Christian Koenig
  <christian.koenig@amd.com>, Shahyan Soltani <shahyan.soltani@amd.com>
-Subject: [PATCH v2 06/11] drm/amdgpu: move struct amdgpu_init_level and
- helpers into header file
-Date: Mon, 8 Jun 2026 15:47:36 -0400
-Message-ID: <20260608194741.1590055-7-shahyan.soltani@amd.com>
+Subject: [PATCH v2 09/11] drm/amdgpu: include amdgpu_uid.h only where needed
+Date: Mon, 8 Jun 2026 15:47:39 -0400
+Message-ID: <20260608194741.1590055-10-shahyan.soltani@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260608194741.1590055-1-shahyan.soltani@amd.com>
 References: <20260608194741.1590055-1-shahyan.soltani@amd.com>
@@ -74,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|PHXPR12MB999256:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac207a27-0fb8-4ba1-5bab-08dec596dded
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|IA0PPF80FB91A80:EE_
+X-MS-Office365-Filtering-Correlation-Id: 092f1d2f-b9fc-4ceb-5e94-08dec596deaa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|6133799003|3023799007|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: Eat1/7yy9aVuNVCGfyev7yiX3FzZpLACpTZsz6vqNmmxJQ3Q806fck78W+qkgYjOB2oZXNCDz074LEEUigzBfCfz/75shBwot3dH+2coho/zvSAyS5Bn6J3ksFtuQHVP2eRbxlEZlvhjeu5iO0CBxptzaOVRCFBgfGHSpzpQLaOtFmgRN+2Gz8S39FZ37QNAMq+bdivHXJ8rWplIwjQrS3Yrre0NBHNfUw6y1q0DEW8iZ+jvLOiVB2l8UuifT0KQO7b7nhNAbVGkl0f8fksl2d35Dxv6NAU/YWl5UCkdl9R1KRqrGPio5qrUBfHVhM/7KFPM/HZYWGfy1JhmMDKol4FYCdZDSwjceY8UZEsZCducIB4L0Yx2Ft5aKEgj2t/3ibuqHo01cQReMvDk3ewybM9HGtd0F4TbLgtaNJIgcSdzQFcFwirN/CEwQQsa6BOSe7kF3jurSWk3aTdRYPpsSmbWCvBQmN6kN4m3iD+B+fawFvJ95GS0idt/EjIo6z4bYLUGyQJKAvRhX8j+c7Uq8tULYntoZjRVKTuu7r9y0GadWCyS0XXfb8fAcpoXyHNwCjkR0KEycPknlZrYWBcoz7h9Lw6YXmiL70hajDTTaRKSccCnPvcjhdEBmtwaQek0a5h39j8EOU6fCvdt5LSLftYYd+cb+zT8RRtBGSJSoc5ovMgtsC2usAI6r8BDQy770XmpyQfLiIzSt7u8+M3Pvl98H8BN+8DHYs+CUgwH05A=
+ ARA:13230040|376014|82310400026|36860700016|1800799024|56012099006|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: mQCrflxkVz8LmXAJnmJzesgrSsqOcGhYpwsRTUfi3ZrN2yY1cTZeE/jBN6s4wQmMixfiYmSx/TCpvMzwR0qsPwhgNOXZ54zOc+e0pFn3FhKz3AzydLh1NdTB3gvDuLjjFBhlR07Bx0oxkBwei7Zt1n6chmNbrJvlyjiu6CVQcTd9zgz1SQfIf2NCTfBqZKDxjdGQcra3pCwP+nqiw1NdApPhCIWhhTyPf82Hg7RmTtH1UuLKeZfZIgF3GMLnoMvd/yJLyuoMyaBrqT+DriPyUyzmXdHXyQN5KmFLRF7ikOp25MqXx7paW3orlR/7a8lOYwT8Jv3JAu8WlXTMkMX3BHteMvjKMxFBUNmLrBw5gdG/wXBVa4Fl/8WaTJImWJTEt3N5H6oi2KH/if4fNgDtkLFfjsn38Lvlw9t4TNUomMMJ5+fagFf6QTvmz+KgCkFFrzZjKKqX3HlOhJuSPvtZ+ty2yDnd26Xv7JElytj9t8OYHArjie0Ey/GvBsH0yWukbZpekAve/FSc9LCGAxneC18bPuEbPiQ9VyxYnfET8Ge3MmAGowhHuGc4WH8S7ArdTYh8xdYhylnOixfV92TnqgrjfelcBd3J6xV5hO9QlcIQcb80PNoPB6rPSN13O4pYurM0v0Kvm/TPOaPFE0Rcqgy9NNrlsq8GYBAmN6CDY4LIKwfejsT0RAFPSRqR5BFcIx08ZAM5U2jnpt45nivWb+LogtlaMdu6Xp/1RNGTE+s=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(6133799003)(3023799007)(56012099006)(22082099003)(18002099003)(11063799006);
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: G7Zpg5Ry9njvxL31jKMyoUEsTBKfDt7odtbYINXvEhnzDf+YZBdPj/lnB/CS6q4E7DCPx/DiH1R/6Q0zI4EeXe5LIHuMMwIbPw5Bp/Ddg9u663j4TivbDQmQIUjK5CKpQWOPzHiksgDVa2hLTXcQbBsz2BEyw0kf+uSK5yZHt7uv8pXpr71td4vekj1EJ6rRGmQnvlUy2B8TRX+xYJ3eWD3MSYxc3R3KgKNpTALN6qOMckyIZCI8cHXxOXmDjndhFeLllxkBRtnFevw4ZOWitoBhPDqUVZaN/wzakszCeeLRoMPWYRUJhjCs0h2c7vdcII/MDEFY1v0heuBtC3vo7c88WII+E2tiqtywHpXNwZ1pyBgUOnWIv+HkYNkcY2U9VYek8rLjv34p85y8qqBzWE9q2BKp2ZgsjfZ54kTBulYmI0HK2dsybD/krD7Axn5a
+X-MS-Exchange-AntiSpam-MessageData-0: 4aqOKL1Xu0bP/wW+luWK3HbJ7u9ajK3JwzIBgogPHh5h9nTpYku9zrjGRK1Z3Gmv9lq0sB4hrif3h5pCa9TvKL1guhdmdvqBQfEQ4x4DFt/f8yJ9dsJX3Wbj4B8zwN69XZsLFllgZ/S4JFr3YHh4GaEljzqsaF8FZleJ9maZ664thUtM/iSoYbj/xTFSrT6eKEiONR1U6jdfbM797eAY6g7dfTvHwqcQUfCw+0soU3HrPwGwzYX3AXJdVeYgSdYKg56teQxVyNHFu8KhHrSuyzmDGgF/rQ/56HD0yMwldd4S44zvkArhFPdfi2E+Hd3qIVkjJiRH5KRHXPze/n17QRW9wx51WzT5LWKppmdJp4UYMHRwVQiWMabyMTRggmllIFHoaL/FlXNaWCr266qiCgNIIDfY2Lt2vTNHL+zijUSfMR452HOwwt186xWlESGR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 19:48:09.1401 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac207a27-0fb8-4ba1-5bab-08dec596dded
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 19:48:10.3791 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 092f1d2f-b9fc-4ceb-5e94-08dec596deaa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR12MB999256
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF80FB91A80
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,124 +110,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move struct amdgpu_init_level and helpers from the monolithic amdgpu.h file into a new
-amdgpu_init_level.h file.
+Remove #include "amdgpu_uid.h" from amdgpu.h and add a foward declaration
+of struct amdgpu_uid.
 
-This is part of the ongoing effort to reduce the size of amdgpu.h into their own respective
-separate headers.
+Add #include "amdgpu_uid.h" into files amdgpu_device.c, amdgpu_xcp.c,
+smu_v13_0_12_ppt.c, smu_v13_0_6_ppt.c, and smu_v15_0_8_ppt.c.
 
 Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 23 +--------
- .../gpu/drm/amd/amdgpu/amdgpu_init_level.h    | 51 +++++++++++++++++++
- 2 files changed, 52 insertions(+), 22 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_init_level.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c            | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c               | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 1 +
+ 6 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 9473626ea96f..07962b06168d 100644
+index a29987567a0b..06e61d66dcf3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -115,6 +115,7 @@
- #include "amdgpu_wb.h"
- #include "amdgpu_ip.h"
+@@ -117,7 +117,6 @@
+ #include "amdgpu_acpi.h"
  #include "amdgpu_mqd.h"
-+#include "amdgpu_init_level.h"
- #include "amdgpu_uid.h"
+ #include "amdgpu_init_level.h"
+-#include "amdgpu_uid.h"
  #include "amdgpu_video_codecs.h"
  #if defined(CONFIG_DRM_AMD_ISP)
-@@ -621,25 +622,6 @@ struct amdgpu_pcie_reset_ctx {
- 	struct pci_saved_state *swds_pcistate;
- };
+ #include "amdgpu_isp.h"
+@@ -329,6 +328,7 @@ struct amdgpu_hive_info;
+ struct amdgpu_reset_context;
+ struct amdgpu_reset_control;
+ struct amdgpu_coredump_info;
++struct amdgpu_uid;
  
--/*
-- * Custom Init levels could be defined for different situations where a full
-- * initialization of all hardware blocks are not expected. Sample cases are
-- * custom init sequences after resume after S0i3/S3, reset on initialization,
-- * partial reset of blocks etc. Presently, this defines only two levels. Levels
-- * are described in corresponding struct definitions - amdgpu_init_default,
-- * amdgpu_init_minimal_xgmi.
-- */
--enum amdgpu_init_lvl_id {
--	AMDGPU_INIT_LEVEL_DEFAULT,
--	AMDGPU_INIT_LEVEL_MINIMAL_XGMI,
--	AMDGPU_INIT_LEVEL_RESET_RECOVERY,
--};
--
--struct amdgpu_init_level {
--	enum amdgpu_init_lvl_id level;
--	uint32_t hwini_ip_block_mask;
--};
--
- #define AMDGPU_RESET_MAGIC_NUM 64
- #define AMDGPU_MAX_DF_PERFMONS 4
- struct amdgpu_reset_domain;
-@@ -1436,9 +1418,6 @@ extern const struct attribute_group amdgpu_vram_mgr_attr_group;
- extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
- extern const struct attribute_group amdgpu_flash_attr_group;
+ enum amdgpu_cp_irq {
+ 	AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP = 0,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 602e7eb1cc5c..20b67897d7ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -78,6 +78,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_virt.h"
+ #include "amdgpu_dev_coredump.h"
++#include "amdgpu_uid.h"
  
--void amdgpu_set_init_level(struct amdgpu_device *adev,
--			   enum amdgpu_init_lvl_id lvl);
--
- static inline int amdgpu_device_bus_status_check(struct amdgpu_device *adev)
- {
-        u32 status;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_init_level.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_init_level.h
-new file mode 100644
-index 000000000000..60e75cc88bfd
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_init_level.h
-@@ -0,0 +1,51 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT
-+ *
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+#ifndef __AMDGPU_INIT_LEVEL_H__
-+#define __AMDGPU_INIT_LEVEL_H__
-+
-+#include <linux/types.h>
-+
-+struct amdgpu_device;
-+
-+/*
-+ * Custom Init levels could be defined for different situations where a full
-+ * initialization of all hardware blocks are not expected. Sample cases are
-+ * custom init sequences after resume after S0i3/S3, reset on initialization,
-+ * partial reset of blocks etc. Presently, this defines only two levels. Levels
-+ * are described in corresponding struct definitions - amdgpu_init_default,
-+ * amdgpu_init_minimal_xgmi.
-+ */
-+enum amdgpu_init_lvl_id {
-+	AMDGPU_INIT_LEVEL_DEFAULT,
-+	AMDGPU_INIT_LEVEL_MINIMAL_XGMI,
-+	AMDGPU_INIT_LEVEL_RESET_RECOVERY,
-+};
-+
-+struct amdgpu_init_level {
-+	enum amdgpu_init_lvl_id level;
-+	uint32_t hwini_ip_block_mask;
-+};
-+
-+void amdgpu_set_init_level(struct amdgpu_device *adev,
-+			   enum amdgpu_init_lvl_id lvl);
-+#endif
+ #include <linux/suspend.h>
+ #include <drm/task_barrier.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index 389f69c7d5c3..2c990a1800d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -23,6 +23,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_drv.h"
++#include "amdgpu_uid.h"
+ 
+ #include <drm/drm_drv.h>
+ #include "../amdxcp/amdgpu_xcp_drv.h"
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 7193e3e4946a..edb0a23fb77a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -35,6 +35,7 @@
+ #include <linux/pci.h>
+ #include "smu_cmn.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_uid.h"
+ 
+ #undef MP1_Public
+ #undef smnMP1_FIRMWARE_FLAGS
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index ce520f43ab94..799ef8dbe66c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -50,6 +50,7 @@
+ #include "mp/mp_13_0_6_offset.h"
+ #include "mp/mp_13_0_6_sh_mask.h"
+ #include "umc_v12_0.h"
++#include "amdgpu_uid.h"
+ 
+ #undef MP1_Public
+ #undef smnMP1_FIRMWARE_FLAGS
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+index 2105a1d7bb34..c241fe5f2e09 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+@@ -36,6 +36,7 @@
+ #include "mp/mp_15_0_8_sh_mask.h"
+ #include "smu_v15_0.h"
+ #include "amdgpu_fru_eeprom.h"
++#include "amdgpu_uid.h"
+ 
+ #undef MP1_Public
+ 
 -- 
 2.54.0
 
