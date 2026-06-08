@@ -4,139 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B2AFCD8C9D
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 11:03:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2C3CD8C9F
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 11:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09C410F1C8;
-	Mon,  8 Jun 2026 11:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0796010F25D;
+	Mon,  8 Jun 2026 11:46:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iyr3CGW5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AOn7UR9H";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011071.outbound.protection.outlook.com [40.107.208.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5229910F1C8
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 11:03:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FGNIBkYt/OyVJLeqVceQgt2ssBP0NOCvkqIRGc8OnwRQlQbZ0jaIpmO7QwHtAg4uLLbicn0+ySM9ZJe7RNfpvJO4wJg6EM2fmnBy0RxisZ335hmVTk0jq5rpZ4bsVGZpS7kpTK+qmh9HXb4zQ1pOtJ1LP6KFuQCoojUdu6ZA5lBy4xX1BijfdZM4PKtQJLD5PC8cIvjQPe7BPPPZ6RTqYnWL611q5iOhPXbf8tTdvZOuUEKBgccvAx7ONS5mQIRmJhxbm43ea69hHA1s3IjQVCj/MbUSdldYbNu8yeD4Tibp8NAOOdtP+noKdWZg6dp6BCm76/QXjpYoGlHDXtxk3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qQJmOkvvEMOCJ/GPmI1dX5DEnJ9haqcLpgVq3kC7Chg=;
- b=ZH5bL1CRVn8cMl6wiHRuQXHp5gq2m2YE/ywoPjfvs16BgyBVYNewgkT8JICZ65FZCJJ38/LOrPiChOJ8BWDENoy+EyGuF3RuRrYqU8suQx8Gmo/I52T+G+dz9RS/5dkOz1+S46BFK92GGHuDsNZxXuC4jXt00nNmj0Fg30smR8vy76VDPO4EQQUV2mrLAYJ87fcKitv/hpE7/EK8B1PN2b7lPE9nw27g6tGXG17kBTh2Z40YVHF2JaDVFsHOYqy3XSpOfsbeCyPEXBf824S6D5NnN3vBu60vqM4j0eLvsR99Y9lUMCXGyhIVhH+rRBIR7Qjy/mrD4IcCLf/38roQxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qQJmOkvvEMOCJ/GPmI1dX5DEnJ9haqcLpgVq3kC7Chg=;
- b=iyr3CGW5rhUMdh85HeWVyzkjeX6lQaIPzrJxqs41TB1Br7wa9HhI8DtenlBi6Wq5j02WMuPhwyc0gKcaM8XKM05i8SWMYwh2VVp0iWaqKbd6zb8j0KtcUohFFbEl3ADrJwKiz0fn88C6x0y26lFPX4qr/jun7Qj50Pd4UkD64ZI=
-Received: from DM4PR12MB5038.namprd12.prod.outlook.com (2603:10b6:5:389::18)
- by PH7PR12MB5951.namprd12.prod.outlook.com (2603:10b6:510:1da::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
- 11:03:06 +0000
-Received: from DM4PR12MB5038.namprd12.prod.outlook.com
- ([fe80::3c29:3d93:2028:85c4]) by DM4PR12MB5038.namprd12.prod.outlook.com
- ([fe80::3c29:3d93:2028:85c4%6]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 11:03:05 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma,
- Le" <Le.Ma@amd.com>, "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Wang, Yang(Kevin)"
- <KevinYang.Wang@amd.com>, "StDenis, Tom" <Tom.StDenis@amd.com>
-Subject: RE: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
-Thread-Topic: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel
- lockdown
-Thread-Index: AQHc805zEVVWuGKc8EiTSYUHqImhnrY0ZM8AgAAcPXA=
-Date: Mon, 8 Jun 2026 11:03:05 +0000
-Message-ID: <DM4PR12MB5038BE603641525F68C9C3018E1C2@DM4PR12MB5038.namprd12.prod.outlook.com>
-References: <20260603114459.938031-1-asad.kamal@amd.com>
- <aiaEMl-b5qo6dmL6@archlinux>
-In-Reply-To: <aiaEMl-b5qo6dmL6@archlinux>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: nicolas.bouchinet@oss.cyber.gouv.fr
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-08T10:44:49.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5038:EE_|PH7PR12MB5951:EE_
-x-ms-office365-filtering-correlation-id: 77acf088-d1f0-48de-9961-08dec54d8436
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|10070799003|38070700021|22082099003|18002099003|3023799007|56012099006|11063799006|4143699003;
-x-microsoft-antispam-message-info: EPBADnmgImpjrZM6WPBE++U/rwYm7+kqZuwpOSiQpfSN6IARgpO4IRty1ldkS42q1zcl5LGZo/EJ+3a34GDERtlH4w1dUW4auOPw7wNA+baZaITHAXLt1DozhWiKsgqGTJCbF59agJMCJYP5LTJSUMxoo16CwAcz+llkBSUpE6dSq4Rk+hbtl3oDsqZlWFupX3yaUOSzLuHRFMlwaeBKomu6TR7Z/XAn1uKNxwB7nB94IJbNbymoMYeqYONas+1S40vnmTHhk+sYWHDYQalWJzPt5t/yEKY5cmgI+zK2LL1L96wy1iAE/BwNnnh7v1CDFWvyTC1libJLxG5+A4rwOug7t8x8wtp+Qy7cSGtc0RQTnlaRtAyiFn5AkSoURYnkXNecI6/O/2bmwIMrlvDAC76Ik9VQQ27OrSPyDRtq30dt5ZJ9evVwj3luIXaDfVjdVSCarEKUEfIOQecHctUW1eOO4UGPIgg/oAQqGyosrkmUHFFWqiE9Gb+CgvK9CwU3ux3yYlaZHEJnkeFuLy1853Cr7T2myMakQh9rrqI2zmXkfAuads5ZndP4OUKvDTj6T5Ep1mb7ivlqL2asyCsHNEXrmACo1O31wHY9By8T3fWuxLRGMb949MNL2TF/Ejnmkl7toAZ4zS/WkHnor7Rn8u7SB9aM7eXPz0uKhvj4Isdjv/2i5lmIKonJaNeto2bmHouuRipP+v7ce9HkeorKxTwryXBdwEF2z7VW4rNkXxKLWmgriqbssrCSVtjUjMZa
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:ja; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5038.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(10070799003)(38070700021)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-2022-jp?B?U3M5dmZzL2ZPVnJ5cWxVczI2djlnU2pCQVNjaERMM0xrb3N2eXdUYlZZ?=
- =?iso-2022-jp?B?VFE2akY1ZDVGNlBocWVKMm83YW1zb0t4NHJMSjBjaVVrRW9RaHdkdk53?=
- =?iso-2022-jp?B?WU9haE9Ld3RaTWVqQVA5cnZKMGdqWWxBVTdZV0hEV0tOYzA0WkZOMVJC?=
- =?iso-2022-jp?B?WmdZRkJyUE5hTnYxUDQrT0QzZEt3RjRFb0QzcnJVU3BDQnJZa3Fqc1FY?=
- =?iso-2022-jp?B?RzNIZUF0WDlXME94cGFQVXJKQ1dzbmVyazRxY3ZuM2xQclRudkh2ZXEw?=
- =?iso-2022-jp?B?QlZWQml0eldtVXdKeDg0K0hDVzdiS1JGZE9uaG5KRyt2VUZSUXF4OEdm?=
- =?iso-2022-jp?B?NDY5SVVQK0M4UEdFcS9UVWFFeGM3ck1OcUYxQkJFMEwvc0pEeXVWTUxq?=
- =?iso-2022-jp?B?cFl0YU1hU2xZWThKaFI5bm9NYkRsMTZHblVsdGw3L2JnYmxSMUxDbHVK?=
- =?iso-2022-jp?B?Rk1VbFpwdDVNVkYwZnZBdTRiWXp0Um1QM1NCY3hoNExhRnluMC9JVTN3?=
- =?iso-2022-jp?B?Y003Q01ROVNEZEoxSmhaT1hFeGcyNjdrdUN2VDV4RHBHSHVweWFBU2dX?=
- =?iso-2022-jp?B?OHlkWUVEZG84VWFLTHJFMWQwT0J3SHpMZUlkdDJvQW9xbnlMNU9SZ3NG?=
- =?iso-2022-jp?B?RVAxVHZPMU1XcDZzVjQ5eVdmVWVTNnhqa3czMmxkTnRuWlZJSHpBMStM?=
- =?iso-2022-jp?B?NTVXUHB6OGhRd0I3cEQ2Q3pEZklrbTNtU3BjZEpFR28xWmdPN1hGVlNP?=
- =?iso-2022-jp?B?VnhHb3Mwc1l3Yk5HYlAraU1pLzg4eEd4VlRRTWgxOVBGNnlxN2owRzlq?=
- =?iso-2022-jp?B?Q2w2NlA0TlFlM3RMRTFUNGllbDJvZUdZQ0tveS9wSGxucGZRTUx1S2Vw?=
- =?iso-2022-jp?B?aWYxNEc4NTVQUEhjR0RYd3dzUWJTdVhUVFo5WURSUmxYSzBFQXcxdDdT?=
- =?iso-2022-jp?B?cWFnS2wrUUVVUlM4d0cvWEpHTjI3WDF4Vno5YmgwMW5JaE1MVUwzaDZG?=
- =?iso-2022-jp?B?VW1hQ3VIWFdhemFSYlJid1N6MlpCc21XYm5DWHF3WTNuNmYyb2t3bGwv?=
- =?iso-2022-jp?B?NTYrQUZFc1lHZFJVTm56VjRaa3FRdzhPako0bGJRMi9QSHZlTTAwU3Rx?=
- =?iso-2022-jp?B?L1RhSUdubkZVRVRFaExsam9Rd1lpUXozc1p2Y2hXNENOWUFYUXJGZjlM?=
- =?iso-2022-jp?B?bHZFOEdpVjd2WGdIN1g5My9PYUY0d0I4blFHSlV1MEVvcGY3VktVVDc0?=
- =?iso-2022-jp?B?MHpia3hXRTk5N3BOZHVnUU9VM3lSRmhIY1Y2UEluampFS3c1TVg1aXVZ?=
- =?iso-2022-jp?B?cnkvQ0lPTVRHUFBOb2RjVXhKZG84M2xBWm1KQ0poYWU2bnp6cm15MlFx?=
- =?iso-2022-jp?B?ekc0cWlVTUxFRWxXNFVLRnhpZHpadmo3WFpGRlQ2R2xtVXE4U01ZVjFi?=
- =?iso-2022-jp?B?ZSt1VXBwVi83STFZbkFzLy9JSVJRYUtucWNtYlRIdFBnOS83RTdQOS9Q?=
- =?iso-2022-jp?B?Y0dkeGxoaGw5TlBFN3dkcHE2ZVhJUVU2RHlySXFNWWlubm5QanNEVjIr?=
- =?iso-2022-jp?B?Qlo4UmJuUng3YzRDSFZGNFRBNm1qeGNDcWduZ1RwV2VNWDRRdGVmbmtL?=
- =?iso-2022-jp?B?ZjV0RnprNEpmOFd0cXNTbjgxQVFCRnVFLzhWeXBEM2dwMGVKYmJqYVdy?=
- =?iso-2022-jp?B?Mm5sTWtwK3R6M1pSdnNMUHBlVlpNcGRNRFhUR0RZR09CeE5nRWxJZFlh?=
- =?iso-2022-jp?B?aEE4cmluSXRBU2gxOUxpRHlJeGZQR3FSSklFNkdUQTFseno2d0gwZzZl?=
- =?iso-2022-jp?B?bW5sdEtNKy9USDVOQTZqQnZWNjJKUUord0J5NGQ2MHVuSHVGUDYwaFBV?=
- =?iso-2022-jp?B?ZUhWRTM4ZGhqSG9LYllrR0JJSmgzMTA4Q2RIdTdOTzM5RSsxSmJHcVVS?=
- =?iso-2022-jp?B?YU5OeldHYVpvd2NIZlJla0dXTis4RWpCa29hQk5PenNlRkNoTjEvUDdW?=
- =?iso-2022-jp?B?M2NQUURJWWw0dUpWZGw0S01lZ3dpcG1FZkFLak0xSHlXbysrN3JTajRn?=
- =?iso-2022-jp?B?V1N0ZXN4YVFhOWVXMlNJdS83b01TSHVhcCtyZktZWG43MDY2NFkrQ1lI?=
- =?iso-2022-jp?B?eFV6Sk5oemRvTk5GTHY3SzF5YjNwTnp6ajgwaG5uQzNETklrR2JXU05S?=
- =?iso-2022-jp?B?blkwS2JMNFpmU0dsb29YUGE5Qzcwc01USDdpZnFxSHJEUHdPYjVXVjRv?=
- =?iso-2022-jp?B?MXBxRG5XbzhNQkw0SzBCcFJjN0xkNGxjdGRBbXdrSzNaS1NGUnpoQXRU?=
- =?iso-2022-jp?B?cmdhNUZueEZXTCtnV3pkZjAwbEVKU3RJa2xEcEozaFM5NDlWc2I3VC9G?=
- =?iso-2022-jp?B?RXorbEhFRTc1M3dZSHUwcXg4c1kxYSsrbGdsejJXSmxqeEtSb2Y4cW5E?=
- =?iso-2022-jp?B?dGxBV29zTVZXdURpYk1TU2pYT3Q2RkxXbVhreTJGKzlub3BZNWdscnlj?=
- =?iso-2022-jp?B?SmVnRkx3Wnh5eXczRnNmRktSM1pRTDJaVDZmZldad2tBcXpyLzMrUllv?=
- =?iso-2022-jp?B?cmZ6eVcva2Y1VGwveDdtazBYb1lEZ0p2SHJLRw==?=
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23C0710F25D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 11:46:48 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-304eb0fc233so339491eec.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Jun 2026 04:46:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780919207; cv=none;
+ d=google.com; s=arc-20240605;
+ b=f6r6XHasQru7KNVzyFQtGSWa3OhKQyWWSxyFJjnazKWoklsOGpXqdAodqdCm2LloY7
+ ew6fmvSrMTEsYlMi/WQHD5Np7vsas9NDpJ64HQm5gT3J81mcUtNqt8xLRrwNIm8cubgO
+ cxhwVUTZPVFQS+qRgWUx00IEMveYiAJZvfmwDs44+dGhpq9aPp51mm9CduXxzk7eWs0v
+ xkQV/DLREv9Wczm1TVl3VzFBqGgoZIcMkb1AiJSNfYgzAfMHF+lrjosLCFxNushWLawU
+ v7lqIrsee66cTFs0eYcRXX2B1YfGpoufIFZFcDF2U5USoeOe/wQI8dBeSYF04pMs8j9A
+ BbpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PdAfFNTHWxgXcumbrD9A813ql91FtBDsuDtrJ41Tu1U=;
+ fh=OPekTQnnLVCcWc//LmnCpZ2hURZmA8rDK790xSCBngY=;
+ b=FyVO6z+TRMC71NPw6YPML3G3rQlZlI3k5xcav2W9O9FNqe8KaUENYF4kxXEDKVXYKB
+ VB7JouDxBS/DdOUwvHV3QM6hhpYPhYynFtBG6U/Ngrfl0WlMA8DfrFpG2KfYVih9Kwsj
+ V2isPLKioheQGIXiGHX2cwa4TLKg90anPYh31668zCbfe8D0o3bUN23akKY8bz0fFC4l
+ E/JsL2YjRLopFRk88DC3OQilDo9m88KGEUxMWiIQ2aZaCjGC2cubcfnvOBoUPHDNUYrW
+ 9aYxX/IUJZahfZAb0b65A8N5xl1SspaLtjhQhm49GqESmREqrFRk8v0OSmgEAUEfvK3f
+ MRBw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780919207; x=1781524007; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PdAfFNTHWxgXcumbrD9A813ql91FtBDsuDtrJ41Tu1U=;
+ b=AOn7UR9H7hid0XoByCEycNT9Q5TWdqjp+ebBkmqFmJ4JsQfrIDjNdO1BySb3KXUpP3
+ AHQaYj/FyQEtKpmCZoVPhTOBX/XESPse+ST+Vdda8OKwNk75bFLHzcE5tZqFPvWNF4NR
+ L3GBdMlHbgolGxt77IJUVMRHQWapG5bB0lC2IUSKx6RcouE5ACQWCVnMsQn/ekcioptr
+ VFl1gQb52Cl66WUgHM8+DWdpOLI8kYBTI7MNC9iEbe2glR6hGrMQT/B0Q0Fn19LdS5bH
+ 85mkxVIW2TV/P8QzWx5wj7UJDdsHtVE8dI3U6iXwZBnyZykfdFaIOd6sFbP+DRd17vMy
+ uGcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780919207; x=1781524007;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=PdAfFNTHWxgXcumbrD9A813ql91FtBDsuDtrJ41Tu1U=;
+ b=OSA7RsuhoDz1SrWUMTslUxdJl0f4EveCOBpb5E+C3nO/lwC//ZeS1Zy++fKIrxGVKk
+ b/f7jv1wNrq21SkI0BsBFkgMVXGk7opXNfs4QlB+g4bvNV3fWeb3lvabllR8zyQW0IWv
+ cLT60Rg7lQiTi2JW2a5ECC0rn1ZWR/WoGvH9BkCh5DKpSjlt07eLK5j5qtcHCz8iBs59
+ c8e+6sdiZastHhi+nWYsLhNnLi8Qqq+RckOsYrPtxVMzN8pTlCFz3FMI46vRxNk6ilAj
+ 6zWIhdpDiA3yq6qxewSgbFtHiWxsLfqFoKydcuGPmMsrd7UKHkQ931CPAuU+rrERNq+n
+ AOrA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+cmpbzPjlTjPyWqHUbmptAZZX8EuFSYlpLxs9wNv34ME///dCOKIOUrWjsEmD+0CIgAHyLQZGf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrE21zv415BIzZqJALLm0NVlw1eh+DrUd0IRlVDPQnrfpEnSnC
+ qnA/Xe19IbAVnjEoq0ir1/vNd30VEXHXVIyKnTD5eUkAGUyD+qskNOcZbE4dXY8FqAI67vQczkm
+ eFl+Xo91TVtRfe7SOHg2N93dii6bl9tE=
+X-Gm-Gg: Acq92OGY/JiqoeKhPb50cjg36uvoUxSGGDh29AHHh/oz/igsSPdwM6GgrKTeMSHFXdW
+ tTAr2ZZQiZsGJHQKu4xgQAePIfFPXKRxpjX/RzW6a+JeZvhl165HOah+GznS+nMJGYFgw8gwu9O
+ 4/Tl5AVDych16c1owCBarIbd5EwHkWU8ncQZclOB38yeWBO+ZuRIvxUXyjg+LTydTneZHQtRFzL
+ oSNImkBx8+O/QK4kp4I3erJMJ9Z00J0Flei0CW38e/WWhPifGPGzaXMcuLxpVoDSy7TWNCFFFcc
+ ervRd/0KravE+xZZ4VG+3h4eiSe33jcPJ+Emeh/9+jhvyBA99XjOFWpiO4MPifCcc878bXUxQEW
+ Xlqs=
+X-Received: by 2002:a05:7022:e01:b0:134:c6ab:a516 with SMTP id
+ a92af1059eb24-13806759a9dmr2924000c88.6.1780919207149; Mon, 08 Jun 2026
+ 04:46:47 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5038.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77acf088-d1f0-48de-9961-08dec54d8436
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2026 11:03:05.3912 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Cqb825/MIzsNS5+p0mPAfZy/8W8+RZKFOEfpllOxH8z6Uutg8ju0EIsYzn/dGRdvIH2I53RUTPJR13LcaTF98g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5951
+References: <20260605154920.1314590-1-asad.kamal@amd.com>
+ <CADnq5_MO7q3E99QZhkLqYGAJP8m6kH7Mf2ATkut6kPikehB10g@mail.gmail.com>
+ <70051591-bce7-4a0a-86d6-b9a949a41069@amd.com>
+In-Reply-To: <70051591-bce7-4a0a-86d6-b9a949a41069@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Jun 2026 07:46:36 -0400
+X-Gm-Features: AVVi8Cf6_TU9q9swv1D4H9dmJa-y3BiT_LFErJKBftGV41dQcfQPOausOJByQxg
+Message-ID: <CADnq5_MbOXW+2NYuTJN19HOLy4euJcA8rsZ+zT+fTe1ZDk2bJw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org, 
+ hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com, 
+ alexander.deucher@amd.com, kevinyang.wang@amd.com, 
+ srinivasan.shanmugam@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,131 +109,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
-
-Hi @Nicolas Bouchinet
-
-Thank you for the review.
-
-The commit message references v1 behavior and is no longer accurate. Writes=
- are already blocked, the existing debugfs_locked_down() in fs/debugfs/file=
-.c handles writes when FMODE_WRITE is set, the early-return guard fails and=
- security_locked_down(LOCKDOWN_DEBUGFS) blocks the open under [integrity].
-
-The patch addresses only the read path. Here is why reads are not blocked b=
-y debugfs_locked_down():
-
-static int debugfs_locked_down(struct inode *inode,
-                               struct file *filp,
-                               const struct file_operations *real_fops)
-{
-    if ((inode->i_mode & 07777 & ~0444) =3D=3D 0 &&
-        !(filp->f_mode & FMODE_WRITE) &&
-        (!real_fops || (!real_fops->unlocked_ioctl &&
-                        !real_fops->compat_ioctl &&
-                        !real_fops->mmap)))
-        return 0;
-    if (security_locked_down(LOCKDOWN_DEBUGFS))
-        return -EPERM;
-    return 0;
-}
-
-For a read-only open of amdgpu_regs (mode 0400, no ioctl, no mmap):
-
-1) (0400 & 07777 & ~0444) =3D=3D 0 =1B$B"*=1B(B true - any mode with no bit=
-s set outside the 0444 mask (e.g. 0400, 0440, 0444) 0400 satisfies that.
-2) !(filp->f_mode & FMODE_WRITE) =1B$B"*=1B(B true for a read-only open.
-3) No unlocked_ioctl, compat_ioctl, or mmap in amdgpu_debugfs_regs_fops =1B=
-$B"*=1B(B true.
-
-All three conditions hold, so debugfs_locked_down() returns 0 and the read =
-open proceeds. The read handler then calls RREG32, a direct hardware MMIO r=
-ead, with no further lockdown check. That is the gap which this patch is ad=
-dressing.
-
-Thanks & Regards
-Asad
-
-
------Original Message-----
-From: Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
-Sent: Monday, June 8, 2026 2:34 PM
-To: Kamal, Asad <Asad.Kamal@amd.com>
-Cc: amd-gfx@lists.freedesktop.org; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang,=
- Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Sh=
-iwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Y=
-ang(Kevin) <KevinYang.Wang@amd.com>; StDenis, Tom <Tom.StDenis@amd.com>
-Subject: Re: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lock=
-down
-
-[Some people who received this message don't often get email from nicolas.b=
-ouchinet@oss.cyber.gouv.fr. Learn why this is important at https://aka.ms/L=
-earnAboutSenderIdentification ]
-
-On Wed, Jun 03, 2026 at 07:44:59PM +0800, Asad Kamal wrote:
-> amdgpu_regs, amdgpu_regs2, and related debugfs nodes allow arbitrary
-> MMIO read/write via RREG32/WREG32 without checking
-> security_locked_down(). On kernel_lockdown=3Dintegrity systems this
-> bypasses the same restrictions as /dev/mem and PCI config space sysfs.
+On Mon, Jun 8, 2026 at 3:25=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wro=
+te:
 >
-> Check LOCKDOWN_PCI_ACCESS (matching pci-sysfs) at the entry of every
-> debugfs handler that performs direct register access.
 >
-> v2: Use consistent check as per previous check to use
-> LOCKDOWN_DEBUGFS(Lijo)
 >
-> v3: Do not create any entry from amdgpu_debugfs_regs_init() if
-> LOCKDOWN_PCI_ACCESS is active and log once. (Lijo)
+> On 06-Jun-26 1:30 AM, Alex Deucher wrote:
+> > On Fri, Jun 5, 2026 at 11:59=E2=80=AFAM Asad Kamal <asad.kamal@amd.com>=
+ wrote:
+> >>
+> >> The cleaner shader sysfs path allocates a 16-dword (64 byte) IB but
+> >> incorrectly fills (align_mask + 1) dwords. On GFX rings align_mask is
+> >> 0xff, so the loop wrote 256 dwords into a 64-byte buffer, causing a
+> >> kernel page fault.
+> >
+> > It would be better to set the job alloc size to
+> > ring->funcs->align_mask + 1.  The whole point of the align mask is to
+> > align to the hardware's fetch boundary.
+> >
 >
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Hi Alex,
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 0ce6e2e4342c..5c4d4ff001ea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -26,6 +26,7 @@
->  #include <linux/kthread.h>
->  #include <linux/pci.h>
->  #include <linux/uaccess.h>
-> +#include <linux/security.h>
->  #include <linux/pm_runtime.h>
+> This is for IB packet. Is this a restriction from the FW? For 9.4.3, CP
+> team mentioned that hardware doesn't have any such restriction.
 >
->  #include "amdgpu.h"
-> @@ -1739,6 +1740,12 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device =
-*adev)
->       struct dentry *ent, *root =3D minor->debugfs_root;
->       unsigned int i;
->
-> +     if (security_locked_down(LOCKDOWN_PCI_ACCESS)) {
-> +             drm_info(adev_to_drm(adev),
-> +                      "amdgpu: HW debugfs nodes disabled (kernel lockdow=
-n)\n");
-> +             return 0;
-> +     }
-> +
->       for (i =3D 0; i < ARRAY_SIZE(debugfs_regs); i++) {
->               ent =3D debugfs_create_file(debugfs_regs_names[i],
->                                         S_IFREG | 0400, root,
-> --
-> 2.46.0
+> As a side note (not related to IB), within the primary queue, the
+> default RPTR_BLOCK_SIZE is 64DWs - block size granularity for RPTR update=
+s.
 >
 
-Hi,
+I thought the IB fetch would have similar restrictions since the
+existing code was trying to align to that.  If that's not the case,
+then the patch is fine as is.
 
-Lockdown denies opening of debugfs files but those with the following condi=
-tions :
+Alex
 
-- The file must only be opened for reading.
-- The file must have mode 00444.
-- The file must not have ioctl methods fops.
-- The file must not have mmap fops.
-
-I might be missing something, but how are you able to write in those ?
-
-Best regards,
-
-Nicolas
+> Thanks,
+> Lijo
+>
+> > Alex
+> >
+> >>
+> >> The IB only needs to be a minimal NOP shell to schedule the job; the
+> >> cleaner shader itself is emitted on the ring via emit_cleaner_shader()=
+.
+> >> Fill 16 dwords to match the allocation.
+> >>
+> >> Fixes: d361ad5d2fc0 ("drm/amdgpu: Add sysfs interface for running clea=
+ner shader")
+> >>
+> >> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> >> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 7 +++----
+> >>   1 file changed, 3 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gfx.c
+> >> index ff5a55f5f3c9..f2c536929446 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> >> @@ -1694,7 +1694,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(str=
+uct amdgpu_ring *ring)
+> >>          struct amdgpu_job *job;
+> >>          struct amdgpu_ib *ib;
+> >>          void *owner;
+> >> -       int i, r;
+> >> +       int r;
+> >>
+> >>          /* Initialize the scheduler entity */
+> >>          r =3D drm_sched_entity_init(&entity, DRM_SCHED_PRIORITY_NORMA=
+L,
+> >> @@ -1722,9 +1722,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(str=
+uct amdgpu_ring *ring)
+> >>          job->run_cleaner_shader =3D true;
+> >>
+> >>          ib =3D &job->ibs[0];
+> >> -       for (i =3D 0; i <=3D ring->funcs->align_mask; ++i)
+> >> -               ib->ptr[i] =3D ring->funcs->nop;
+> >> -       ib->length_dw =3D ring->funcs->align_mask + 1;
+> >> +       memset32(ib->ptr, ring->funcs->nop, 16);
+> >> +       ib->length_dw =3D 16;
+> >>
+> >>          f =3D amdgpu_job_submit(job);
+> >>
+> >> --
+> >> 2.46.0
+> >>
+>
