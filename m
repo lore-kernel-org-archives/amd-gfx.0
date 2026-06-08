@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7F11CD8CAB
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 19:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE2CCD8CA4
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 19:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7292E10F953;
-	Mon,  8 Jun 2026 19:48:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418E010F956;
+	Mon,  8 Jun 2026 19:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3GidkQVR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LnHQfdCV";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010067.outbound.protection.outlook.com
- [40.93.198.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF9210F961
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9F010F957
  for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 19:48:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hGZKJqRD1hTT0OUBfmlpT3Ri0wa0PEbhtLNB4K52TbEVeUosX+X/rmc5oHCqzydHZWkcadm7AmliHBxdsRmIJG110K0KBLVmT6xuoyvG4ZBbwV5JHFyxrbHGtLl/+OUoWDHqheyId6EMjvnoyeBrkjaCAZV76p07nsUY3bRUZMezpkyFJsFDHztU1ikHNDm2HQXCWZiSmeQHXTxZADOVmOfp3yi5UCrjNVIRcKsNKh6shGW9YbUEDcTiUqa6mx9b3V30Lxd0gq2x/cocdKSXGcRZIduaaJlArz/TVnSLTR5jI+eFzrTCRC0r+NN1KCx8au4z+xRwibWE7JjllrvLcA==
+ b=CWYarIKhzVN/iItLVCsN9wQn65OJzRQGtvkafsMVQtKQrtQVoiy5fh56Vo/703IzIzteroP7BbVglRi69spv6Wu/B2szI4mimKIIjsg+Acwu3YQ7K0DKs3kH1rAegBqFqITYMRI2rqqXz+ix8V3LrNpj/Ozcvk/i/QgRl4Q93kKfxLbf6pv2qEuvSYq38Rpu3G9QNjUn0l5pdKcn0tIna9g3N7eFPD4RnVyNjYwheA+3pRh7DqH+v2XWLirAot3/M8Ys6XcIwUy3itWY5HCfZr416Knrb03/s1BK5yC6E3/2PLUmYMjKQxjGC75is9yyNRtap2vEvemKbnmWoxF5ug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qkZEzTthDrHIlHSx2uXLBNxewWdwQ3voPn+wG3mIxqM=;
- b=HDBFebXl2j+yJW939EbT3y5Z8eyj3I48Nwxmd7yeHbJhoPDkUDF4XNZuvjSbF9aWiDqhfMVWTHPsQLRqHWH1gXQUfCPWy1qqqDeq4LcvM2l8ZK070O+E3sHKnrB/6IvAFvEqirxQEKWnOFDT0W05KQDG4YpaAvCehLNf3xs+jnQGdBrh7+FOX5hwAbA4NPrmp88yDvnoG1BENJrVPMPVTRVu5UTbGph8b5Ed90v7wov52AQjBp7m4cFKjG70rtj7K6HtrxuyIUe043m9T0WBNOsESyhSCE1g1OWjQH5HtHA4eSf9sK65QtV8mQzqmHnxlkx1bDdLFifMqg1egg+OJg==
+ bh=FNSYLOgp/3aOW5moflSUIyNS79s/FHWxvhq9XyyZf4M=;
+ b=KIYMHsB/TUrkquhnWf5dHf0ZdZBQtACqOLOMvX8+jzPnucQ8l0jr9GtdMQ3mxdivlgeswh7TmPn4LMnT6OZBBvQzIqSllet5NCq+BHptnYu1SGdc7ZhNUFpGodu5UgxPX0nO1F5TOkAw3Z079rclkTPAnfwpMq92vWj8UuB30Tj2g9MiZZEGsS43GrM/m3uWxtbfM4uigmu2kKQMHSJzfD6d03vLTUyveaWNKBxZ9sYAEQWGbaDfjEO/ShtuqDOM26YBByR8R9TT3UARppNH+RMZyUQXnsadqUsNcgCjp+nVccm+mYw14Oo87st+7heijtu7lrTr+Hp8/2jEbraIcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qkZEzTthDrHIlHSx2uXLBNxewWdwQ3voPn+wG3mIxqM=;
- b=3GidkQVR3G46J/oQL1Sw4Dyzs+gSn6yw5bnnzMaDA/kF5fZgG+pZKEN/0mjT0GksY/R8d5eYhTRlpGCXdPG5JlXbmokJ/ifPXJfl2YB0hKepGEn/WyWVpNuNcAeDmjYzzrzq6pDvyh8+2gGYZvDCebxzOT6kh8FlEvNjFmAuxJI=
-Received: from PH8PR05CA0020.namprd05.prod.outlook.com (2603:10b6:510:2cc::27)
- by CH3PR12MB7569.namprd12.prod.outlook.com (2603:10b6:610:146::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=FNSYLOgp/3aOW5moflSUIyNS79s/FHWxvhq9XyyZf4M=;
+ b=LnHQfdCVtHv9eqBkot2a4DiMMHswQspr7uyGX4mWGKjVAZYfdmnUuNrNBYCDhgPbCo/mE2y1u82I4IQ2HB6RwN1VwUy2zwSBEJie2iNGM04yNjAWHrrBzu7+ZzwAS6/sAd/TdrlMGb5hkE9kF6bM3bqNoW8itIiCTXHtdR4teZg=
+Received: from CY5PR22CA0061.namprd22.prod.outlook.com (2603:10b6:930:80::6)
+ by SJ2PR12MB8136.namprd12.prod.outlook.com (2603:10b6:a03:4f8::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
- 19:48:04 +0000
-Received: from SA2PEPF00003F65.namprd04.prod.outlook.com
- (2603:10b6:510:2cc:cafe::51) by PH8PR05CA0020.outlook.office365.com
- (2603:10b6:510:2cc::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.9 via Frontend Transport; Mon, 8
- Jun 2026 19:48:03 +0000
+ 19:48:11 +0000
+Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
+ (2603:10b6:930:80:cafe::35) by CY5PR22CA0061.outlook.office365.com
+ (2603:10b6:930:80::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.13 via Frontend Transport; Mon, 8
+ Jun 2026 19:48:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F65.mail.protection.outlook.com (10.167.248.40) with Microsoft
+ CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Mon, 8 Jun 2026 19:48:03 +0000
+ 15.21.113.7 via Frontend Transport; Mon, 8 Jun 2026 19:48:11 +0000
 Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 8 Jun
- 2026 14:48:01 -0500
+ 2026 14:48:04 -0500
 From: Shahyan Soltani <shahyan.soltani@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alexander Deucher <alexander.deucher@amd.com>, Christian Koenig
  <christian.koenig@amd.com>, Shahyan Soltani <shahyan.soltani@amd.com>
-Subject: [PATCH v2 03/11] drm/amdgpu: move struct amdgpu_uid and helpers into
- separate files
-Date: Mon, 8 Jun 2026 15:47:33 -0400
-Message-ID: <20260608194741.1590055-4-shahyan.soltani@amd.com>
+Subject: [PATCH v2 10/11] drm/amdgpu: include amdgpu_init_level.h only where
+ needed
+Date: Mon, 8 Jun 2026 15:47:40 -0400
+Message-ID: <20260608194741.1590055-11-shahyan.soltani@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260608194741.1590055-1-shahyan.soltani@amd.com>
 References: <20260608194741.1590055-1-shahyan.soltani@amd.com>
@@ -75,29 +74,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F65:EE_|CH3PR12MB7569:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccb9db81-3d74-46e6-7966-08dec596da76
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|SJ2PR12MB8136:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac8b8e98-9e38-4b4b-314a-08dec596df3d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|11063799006|56012099006|6133799003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: XFM14DS5giF29cZiK2AlqVrcfILO6TB1+bnBMDFYhds4e2ezZniZ6dlwgd6GdEckfG4+jjDQ33fBktsh5voh2mxF0SmU3StqrNPUW5MI34FfV2ntcGojQdkMK2HOwqGI2GAQ0AkzszE8e8MkonJoCGdwYfzIJa0XZ4cT/pR+VqiHRDUK/OEubFq7XOkI60jpQCVp2WS6/W9PUJg01tEfnqbKkRQwHG+HTf0HgzrTVJbyxg/jhPEq1HHeGIm6ahcPgqh0Js/Gv4QtAAb+yXsQy5x4RoNybWK65YK96Xt5bIx9Yq5rfQRH+d04ZHoNOn5zEWbagpX22Db6JUkxdRxqCO/giJRZ7WH8NloqX9pUHeHos0SNSbSH4ACq0wIe4n8jT9KYFOSXQaA2+LrUilZ1d9r01CcRhn45AMI4574pHSAJ9+yQZ1/6iQHX3HHebdubLNojCxLYiGgsZ6vS7qqvaBKEBEBmRRULm59z8527k71IhNSytgrdebR+ieezF80kEnyZ1e/9OSsb5NlZ+c3qTNN25+8jK5zHubal+SYA8OXhpOTOtdGjaLUubQ0ezp/qApUBjGHD3To/YQhgee8JCcGduR6OnFGNb9ZmRivh6KIC64jz0JHCJshBvk2br00ANHCtWeji67poN4ykkamCmJ+TT3Bm3kuO+ZEyZ0vrlX9HR9mpccSYjF+/AjCxYc6+op0vJSMXuuy/Zo+exaIa09C9PLBEbb9knXHEi+mjwhM=
+ ARA:13230040|376014|36860700016|82310400026|1800799024|11063799006|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Q85O5r9ykNx6Uxv58JRS1aQFJKiwvgw2WuUDNPxVx9pXVdA35rBCj7R14dr4S5ZlHMD9LeM3OFP/Ts3G2ZP1MWIL5vQDs25PyEYGDRiRDtFZ0+dMwMXNsjVwD92kUKHDSbqyPOAjvMo1l4Z+M4Oa8ntbncWAkjnFM+P+oAH01CxlbuOeL9ZlvHrB6WQsQ8OXmQl4QO9Qk/1klStBHFAKcKbVI5fHPA6M23n0C98Z1Q/PJMz+gAHpVeWe1BD2W/FGP473I4oofF9tPeiUkCs7K65EGtlY/dCK3OEsafsAvkcn3H+IgAAsXPMKAxEnobvREF/JdmR47PKR5Wh8fgKrFdeS3EBkBzTVbg0rrkX316TXkPv9lPSvlygInx/favwrsCX7CUZjUqQV2wlJzPxfaraW/mzI18Tiq1AUKALvF20wIBOJmWSqlogeidsQpLSHJysQIjKzlCcTR42HJ743dKtXWpAYuLm0NUQGzdo2akb4idPLNYx6+TK3ylntg+DklB2CEQFeWHLFm0TG1yDleDH2gw7svjxRIrj5Ag6ABc2fC+IqNW0CsV0cJuBkAgQ5dKrhGJhE8V/vFKQ+BaiB18jTWK+5AL6GQ6oN3JoMA2O50+0tkuLMxu+6OKxF/Jjz2tsqGBuGh/YHUskHMhTyDc3r9qj6WOTL7/MoXKTnemU0QKv9aXHDVeUpEw1IhupqdPRrmcINhFZ+BMSeR5qyE1rXuh348zF+AwVanHLh/74=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003)(3023799007);
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ACSCFkS3lnRj5/TV106dt36QJT+ylhjKV0e8QB09mlaoDzSCJGFr9ZJPCePQ2UXKRPjkg6XcFvmx1VYZBTtVZDaaoLfSI6h0HhksyPD3J47A4jjAQtEAzh1e8vMcN1ruUx/ILu+zMHliwjFwEVEUhFw/rJ20fBQSJMpfWPYYfUMcdjCPDxOuG5kyLrzBBq1QgJGnqSIgMFuDrunC7cHKJk+BjzUknGETf+QR199s6gLxx4Rq9Ce7ZaUrIQne8ec1x+Hg/+c8woIb4/m2SxabYPAo/VWEZFeQaifKIB704cto6z2U26zL1LUs0obkel1tWOqlqqUR1Dsl4YE08CoRnPd5esghpeZa5s+NpIg18HZYpjt7GCsFqJaUW2BdyHQrOELHSPNQ6ALAFuZmmRCbv8nbNp5dnHDksuQTDRgtr/VX3oxM+kVgumIQVtOBLCWp
+X-MS-Exchange-AntiSpam-MessageData-0: V+AKx9SO1g5gF4oFqmDeF+LTdNQiH90YGyygoA/aaGlTZe2wi8cTiZJnCzk1ocC25LXAJgSfHvtSOxwJ6mug6ikePZ6H3bBPPaSpzAiRFmH+FWos24zX0DL6mb9SdXKOK8xejjsW65MzsIBFkqQGciPApX4cxttt57VAMFolwX4aTwh5MjFNMrEug1Mgnsefnq9tCNaJCVy2qAFXeE3hH0YB66qZMXkZKZ8TY9S3Uln+VhTfGyTDGPQHJI2Fe4Gm9flG4bCQ8C1W32vN43fk44yOzZrirZCsXXM4UGjQTd2wZgJAD6aQps+TW9yGg5c9t7j3nGFJ1U/iTjf+6EsqeCEEuvOYvmDUfQxZd23vWX2LcLaUVTPToG1jE0cQ75HAwI8u0FDnhzUu+x7fRA+4a51aRufybvMBKMjEiEHdZvzvUyk9oQcqX7D2ZvAQkcWr
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 19:48:03.3498 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccb9db81-3d74-46e6-7966-08dec596da76
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 19:48:11.3409 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac8b8e98-9e38-4b4b-314a-08dec596df3d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7569
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8136
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,280 +111,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move struct amdgpu_uid and helpers from the monolithic amdgpu.h file into a new amdgpu_uid.h file.
+Remove #include "amdgpu_init_level.h" from amdgpu.h and add forward declaration
+of struct amdgpu_init_level.
 
-Move functions amdgpu_device_set_uid() and amdgpu_device_get_uid() out of
-amdgpu_device.c into new dedicated amdgpu_uid.c file.
-
-Update amdgpu/Makefile to build amdgpu_uid.o
-
-This is part of the ongoing effort to reduce the size of amdgpu.h into their own respective
-separate headers.
+Add #include "amdgpu_init_level.h" into files aldebaran.c, amdgpu_device.c,
+amdgpu_gmc.c, amdgpu_reset.c, gmc_v9_0.c, sienna_cichlid.c, smu_v13_0_10.c,
+soc15.c, amdgpu_pm.c, and smu_v11_0.c.
 
 Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile        |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 22 +------
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 ---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c    | 75 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h    | 50 +++++++++++++++
- 5 files changed, 127 insertions(+), 72 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c         | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h            | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c        | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c      | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c          | 1 +
+ drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c    | 1 +
+ drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c      | 1 +
+ drivers/gpu/drm/amd/amdgpu/soc15.c             | 1 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c             | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 1 +
+ 11 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index e6deb24f73bb..415e73e0a1af 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
- 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
- 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
- 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
--	amdgpu_wb.o
-+	amdgpu_wb.o amdgpu_uid.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+index a7bc65099755..197876021b73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -30,6 +30,7 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_psp.h"
+ #include "amdgpu_xgmi.h"
++#include "amdgpu_init_level.h"
  
- amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
- 
+ static bool aldebaran_is_mode2_default(struct amdgpu_reset_control *reset_ctl)
+ {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 9a714b4b59bc..0f8743254fe6 100644
+index 06e61d66dcf3..a733ebb61300 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -114,6 +114,7 @@
- #include "amdgpu_sa.h"
- #include "amdgpu_wb.h"
+@@ -116,7 +116,6 @@
  #include "amdgpu_ip.h"
-+#include "amdgpu_uid.h"
+ #include "amdgpu_acpi.h"
+ #include "amdgpu_mqd.h"
+-#include "amdgpu_init_level.h"
+ #include "amdgpu_video_codecs.h"
  #if defined(CONFIG_DRM_AMD_ISP)
  #include "amdgpu_isp.h"
- #endif
-@@ -553,21 +554,6 @@ struct amdgpu_mmio_remap {
- 	struct amdgpu_bo *bo;
- };
+@@ -329,6 +328,7 @@ struct amdgpu_reset_context;
+ struct amdgpu_reset_control;
+ struct amdgpu_coredump_info;
+ struct amdgpu_uid;
++struct amdgpu_init_level;
  
--enum amdgpu_uid_type {
--	AMDGPU_UID_TYPE_XCD,
--	AMDGPU_UID_TYPE_AID,
--	AMDGPU_UID_TYPE_SOC,
--	AMDGPU_UID_TYPE_MID,
--	AMDGPU_UID_TYPE_MAX
--};
--
--#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID type */
--
--struct amdgpu_uid {
--	uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
--	struct amdgpu_device *adev;
--};
--
- #define MAX_UMA_OPTION_NAME	28
- #define MAX_UMA_OPTION_ENTRIES	19
- 
-@@ -1530,10 +1516,4 @@ static inline int amdgpu_device_bus_status_check(struct amdgpu_device *adev)
- 
-        return 0;
- }
--
--void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
--			   enum amdgpu_uid_type type, uint8_t inst,
--			   uint64_t uid);
--uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
--			       enum amdgpu_uid_type type, uint8_t inst);
- #endif
+ enum amdgpu_cp_irq {
+ 	AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP = 0,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 15a6a9010fc8..602e7eb1cc5c 100644
+index 20b67897d7ff..e7e60dba1e4d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6872,53 +6872,3 @@ ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset)
- 	size += sysfs_emit_at(buf, size, "\n");
- 	return size;
- }
--
--void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
--			   enum amdgpu_uid_type type, uint8_t inst,
--			   uint64_t uid)
--{
--	if (!uid_info)
--		return;
--
--	if (type >= AMDGPU_UID_TYPE_MAX) {
--		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
--			     type);
--		return;
--	}
--
--	if (inst >= AMDGPU_UID_INST_MAX) {
--		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
--			     inst);
--		return;
--	}
--
--	if (uid_info->uid[type][inst] != 0) {
--		dev_warn_once(
--			uid_info->adev->dev,
--			"Overwriting existing UID %llu for type %d instance %d\n",
--			uid_info->uid[type][inst], type, inst);
--	}
--
--	uid_info->uid[type][inst] = uid;
--}
--
--u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
--			  enum amdgpu_uid_type type, uint8_t inst)
--{
--	if (!uid_info)
--		return 0;
--
--	if (type >= AMDGPU_UID_TYPE_MAX) {
--		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
--			     type);
--		return 0;
--	}
--
--	if (inst >= AMDGPU_UID_INST_MAX) {
--		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
--			     inst);
--		return 0;
--	}
--
--	return uid_info->uid[type][inst];
--}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
-new file mode 100644
-index 000000000000..9b81e8198a73
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
-@@ -0,0 +1,75 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+#include "amdgpu_uid.h"
-+#include <linux/dev_printk.h>
-+#include "amdgpu.h"
-+
-+void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
-+			   enum amdgpu_uid_type type, uint8_t inst,
-+			   uint64_t uid)
-+{
-+	if (!uid_info)
-+		return;
-+
-+	if (type >= AMDGPU_UID_TYPE_MAX) {
-+		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
-+			     type);
-+		return;
-+	}
-+
-+	if (inst >= AMDGPU_UID_INST_MAX) {
-+		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
-+			     inst);
-+		return;
-+	}
-+
-+	if (uid_info->uid[type][inst] != 0) {
-+		dev_warn_once(
-+			uid_info->adev->dev,
-+			"Overwriting existing UID %llu for type %d instance %d\n",
-+			uid_info->uid[type][inst], type, inst);
-+	}
-+
-+	uid_info->uid[type][inst] = uid;
-+}
-+
-+u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
-+			  enum amdgpu_uid_type type, uint8_t inst)
-+{
-+	if (!uid_info)
-+		return 0;
-+
-+	if (type >= AMDGPU_UID_TYPE_MAX) {
-+		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
-+			     type);
-+		return 0;
-+	}
-+
-+	if (inst >= AMDGPU_UID_INST_MAX) {
-+		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
-+			     inst);
-+		return 0;
-+	}
-+
-+	return uid_info->uid[type][inst];
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
-new file mode 100644
-index 000000000000..d92ddcce9f58
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
-@@ -0,0 +1,50 @@
-+/* SPDX-License-Identifier: GPL-2.0 OR MIT
-+ *
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+#ifndef __AMDGPU_UID_H__
-+#define __AMDGPU_UID_H__
-+
-+#include <linux/types.h>
-+
-+#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID type */
-+
-+struct amdgpu_device;
-+
-+enum amdgpu_uid_type {
-+	AMDGPU_UID_TYPE_XCD,
-+	AMDGPU_UID_TYPE_AID,
-+	AMDGPU_UID_TYPE_SOC,
-+	AMDGPU_UID_TYPE_MID,
-+	AMDGPU_UID_TYPE_MAX
-+};
-+
-+struct amdgpu_uid {
-+	uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
-+	struct amdgpu_device *adev;
-+};
-+
-+void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
-+			   enum amdgpu_uid_type type, uint8_t inst,
-+			   uint64_t uid);
-+uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
-+			       enum amdgpu_uid_type type, uint8_t inst);
-+#endif
+@@ -79,6 +79,7 @@
+ #include "amdgpu_virt.h"
+ #include "amdgpu_dev_coredump.h"
+ #include "amdgpu_uid.h"
++#include "amdgpu_init_level.h"
+ 
+ #include <linux/suspend.h>
+ #include <drm/task_barrier.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 13bec8461cde..e55fa66f7daa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -35,6 +35,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_atomfirmware.h"
++#include "amdgpu_init_level.h"
+ 
+ #include <drm/drm_drv.h>
+ #include <drm/ttm/ttm_tt.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index da77e0ef129b..78121e698151 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -25,6 +25,7 @@
+ #include "aldebaran.h"
+ #include "sienna_cichlid.h"
+ #include "smu_v13_0_10.h"
++#include "amdgpu_init_level.h"
+ 
+ static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index ced0f3941863..8b0aaa912a8f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -64,6 +64,7 @@
+ 
+ #include "amdgpu_ras.h"
+ #include "amdgpu_xgmi.h"
++#include "amdgpu_init_level.h"
+ 
+ /* add these here since we already include dce12 headers and these are for DCN */
+ #define mmHUBP0_DCSURF_PRI_VIEWPORT_DIMENSION                                                          0x055d
+diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+index 2594467bdd87..940092d8bd1c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
++++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+@@ -30,6 +30,7 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_psp.h"
+ #include "amdgpu_xgmi.h"
++#include "amdgpu_init_level.h"
+ 
+ static bool sienna_cichlid_is_mode2_default(struct amdgpu_reset_control *reset_ctl)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+index 70569ea906bc..93bc343fdfeb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+@@ -28,6 +28,7 @@
+ #include "amdgpu_ring.h"
+ #include "amdgpu_ras.h"
+ #include "amdgpu_psp.h"
++#include "amdgpu_init_level.h"
+ 
+ static bool smu_v13_0_10_is_mode2_default(struct amdgpu_reset_control *reset_ctl)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 87b398dd0769..49b9d81cf8ca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -77,6 +77,7 @@
+ #include "mxgpu_ai.h"
+ #include "amdgpu_ras.h"
+ #include "amdgpu_xgmi.h"
++#include "amdgpu_init_level.h"
+ #include <uapi/linux/kfd_ioctl.h>
+ 
+ #define mmMP0_MISC_CGTT_CTRL0                                                                   0x01b9
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 0c58d23013f4..2b138c85cf60 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -27,6 +27,7 @@
+ #include "amdgpu_drv.h"
+ #include "amdgpu_pm.h"
+ #include "amdgpu_dpm.h"
++#include "amdgpu_init_level.h"
+ #include "atom.h"
+ #include <linux/pci.h>
+ #include <linux/hwmon.h>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 98e7109bbc95..0ca961177c7c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -37,6 +37,7 @@
+ #include "soc15_common.h"
+ #include "atom.h"
+ #include "amdgpu_ras.h"
++#include "amdgpu_init_level.h"
+ #include "smu_cmn.h"
+ 
+ #include "asic_reg/thm/thm_11_0_2_offset.h"
 -- 
 2.54.0
 
