@@ -4,99 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDC1CD8CAC
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73168CD8CA7
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 07:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0735D10E11D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C97210E11B;
 	Tue,  9 Jun 2026 07:16:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pFxD7YIG";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Tjvb2C1d";
 	dkim-atps=neutral
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAC2B10F883
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 18:25:43 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-68acf0a15b3so6649151a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Jun 2026 11:25:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780943142; cv=none;
- d=google.com; s=arc-20240605;
- b=N3Oi8VKjj7TMzMIVqlflGQrW3qjZWgnDXtJVFZ+bcja3FnH/DlA7mx2QsccLTuING6
- eunM06ByjEea0QTDP0zQnOFr4/0j76Hy2SV0bwSsb29UTe1mj9KJkEb8Gv71lG8maONN
- 3kULG1Cfrc0PlNc1blka2Od0sFNaReN1/Ub8lULn+oMWXH6MErh8MtDxItwXBZORpPdN
- qHHUotdvqNb84J5ufG2EAAvfHdxhWGmvoWrDA73uVO1F7q0ytIUol3OAU5BaWZ7IY0bN
- ioiBOBMvST9bzcPi7Bhekj8s9IwDk3e/MCtwP7zucV46i/WKF3NUBOSWO0cX7VX4P+nu
- SAbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
- fh=KZY3QOO7P1hBPBPR3O4tht2l2C6s7AxiZ+AZlwqTHpQ=;
- b=P6Zm1RPxoAIC1fFWWLSDZcLC3h1SuQzp9g7rWRMw4TFupREdDhEsPPi1m1ur+a4ecA
- /51WB5PJob8yNladiCoivvnG8+WgfVgKMI+DX1+fge6HTjjBYONvZe6bZHq6zdaRaa3S
- G1ozvyfEJdzas61mYVH2Z9bO22S4nk5ni6BCR9a73AWMvY60j3PlO0LZOH0XGnt9bE8i
- qu/Z2tjrHCywE5CP8qb2Hqj5D9/byUE7jIwf0HFMY7YKZz0KoFpgKTwtLPrz7q0O+dgr
- uo1tLYxITIdFQbG6PVHDfJ1mp9klZcdBovxCSBYBQTDXtRdOND1JFqniMefNPmA/cxgo
- lIPg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780943142; x=1781547942; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
- b=pFxD7YIGKzt4rdDAJlJBuD0sPd3KziHZbU+pZzdFtLxTwiABOntgUqs1+/XUc4Uphn
- QpQYHLy+PVz44rMytIRSrU2x/RTO5Xj5XOu/xEmM/xu5pXxKJBrCq/PAch1+rSs+7HTg
- RWmHgzvXiBtUBTvlSWEQAPjXYsUFvXYnhIfmeC1J2RWSusX+XcinAkJglp9/9o+74Soe
- Yg/RF5Zz+b14ttDRn9P1sT6oJyhNNdytqgmBOWIgDfzNqEv4BRUcUQiQY5kANAZhJEkf
- 34S5Cqr15U96oZEq8tVLzFXFXMtLdoPueT8v5iQo1D2N2IpNrwdGdKZFEV+J9D7zTgzE
- 5LwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780943142; x=1781547942;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bsRPENSdbfWpeWzjmLusfxbY/xjbYvZuSQQmkbsz4lc=;
- b=NOiiZNB26+JN6yvvgl8omESYAUCJuMlLfFFd12ElbzpFfDPuNnW7R+K29B+GXXP+ZB
- uHv/RM3ttZQzmMwfwbGakOh4nin5ilYWqXjDocXPZxATbygjz95NPHkUpR0U/dS6zDMk
- 8Wu/nGsjDIWR+hlUiHZztZ9tVabd2uqEWhHm3L3wblXuNyPlNPHrztcmeJOYG2/eJJ96
- C9hapHpKmhvg9LAvmhn5iSrFUXZRTwedwMckO3WMSwYBub8OKg1El4nIb3mm70ZhsADv
- jHE5i2AnnXW8A0LIvG3S35VRnbvm6Zgq6XamB2XxmrEPcXIK8bTsJSxlApfP9LPollWk
- hC1w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9gCu+50npRnUfNtbZGhcTqMqSFKoPOYqA5hEGHfOITSPW9GpPX3N3nPOxUas1x3uZSQIhIOPP5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxsfeqex/qH41vQU8D3KTkz1XtAHXLIz+MxGRtgRJMER3/evLX6
- QbqvyBjjTARQwIVHoGh1EmF9zy01sDM3XWWsj+x6YXiqvYJQeDyoqh8kPo1GyWRVpIRcvtmEu7e
- pMHRxjIXyAlpm8fr+Frt5gjDFgFzuKeo=
-X-Gm-Gg: Acq92OHHQptVlf4ugBrKlkW7NTdrzPNkXLmWpPvLI8Gf2/0Ztr1GPwP5KEViGuUGcji
- 4jYBuA2viWg4PS6fz6txUALJTCr5uFAJMl2U8EqFlBRBSj1cBu7WKEeJfQkFYWkhqQDeErPK6NM
- 33Pnt+6X1mf+Jtmu/hiMyAfE3iSXipysMBV9gQoxp4OxJ1O/r8O7jkHVIUWDg4dMR5JsmIL0O0F
- MSRhv6GBMEXyW+j3hvXRbABZcC703F7O7cQxByoYEc+O3XgxFurHV0kUtTdeW+Zrg08C5jrtQh1
- ItAEskso/yL4DZwrow==
-X-Received: by 2002:a05:6402:27cd:b0:691:affa:38da with SMTP id
- 4fb4d7f45d1cf-691affa3b75mr3213281a12.1.1780943141898; Mon, 08 Jun 2026
- 11:25:41 -0700 (PDT)
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D592F10F3DC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 13:35:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=oss.cyber.gouv.fr; s=default; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SdtSMqQc9/9L4hcYUe8DcymDKslCu6j35bSDbEa+jUk=; b=Tjvb2C1d3qxle08aU/I+4amIZ6
+ sLrjUuu9sXXkGad3Rrn6q8QcwakwcxehKexft/dCvYWExhikne1426f+TpTpSHnYWV2e4P1txR3cs
+ DN5k3ynCTSzEwBcIAC9WTbuIayPVphq2rcDjG5R7RuUoTUOKbuq2bNe38sKHAHWVfm/zQ4H2MPJNb
+ KnQvbIWQxwcdnNqSNfm8kyfJ5IiZV0dEHmzI/NWlg64LdSrHeXjrRN1W3djS7Mc/dXNqE4aWV+8O/
+ yvi2dGWxnNRKe2VNIzmedmBM+tT5vKZeBlyfmwPSWRyXunjXqq46Rc4owBTGlQNA+Uamk5Yn1F7th
+ WzPKFfhQ==;
+Received: from laubervilliers-658-1-215-187.w90-63.abo.wanadoo.fr
+ ([90.63.246.187]:18145 helo=archlinux)
+ by pf-012.whm.fr-par.scw.cloud with esmtpsa (TLS1.3) tls
+ TLS_AES_256_GCM_SHA384 (Exim 4.99.4)
+ (envelope-from <nicolas.bouchinet@oss.cyber.gouv.fr>)
+ id 1wWa8I-00000002voj-3WJo; Mon, 08 Jun 2026 15:35:14 +0200
+Date: Mon, 8 Jun 2026 15:35:12 +0200
+From: Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
+To: "Kamal, Asad" <Asad.Kamal@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, 
+ "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris" <Shiwu.Zhang@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wang,
+ Yang(Kevin)" <KevinYang.Wang@amd.com>, 
+ "StDenis, Tom" <Tom.StDenis@amd.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
+Message-ID: <aibDIZvSA9lPzjNx@archlinux>
+References: <20260603114459.938031-1-asad.kamal@amd.com>
+ <aiaEMl-b5qo6dmL6@archlinux>
+ <DM4PR12MB5038BE603641525F68C9C3018E1C2@DM4PR12MB5038.namprd12.prod.outlook.com>
+ <aialwv31-f-Rt06W@archlinux>
+ <DM4PR12MB5038B0755743FC22E25C80FC8E1C2@DM4PR12MB5038.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-References: <20260526210048.1162477-1-edson.drosdeck@gmail.com>
- <4ebe7f6b-aa32-4441-84db-1b09cc69c075@amd.com>
- <CAMSsBRw16QVwXCWWq0aeoKcqe9soBF9x_un6fGj5A4P+iVCv-Q@mail.gmail.com>
- <d4cfb50b-3b70-4393-9d95-04566767c778@amd.com>
-In-Reply-To: <d4cfb50b-3b70-4393-9d95-04566767c778@amd.com>
-From: edson drosdeck <edson.drosdeck@gmail.com>
-Date: Mon, 8 Jun 2026 15:25:30 -0300
-X-Gm-Features: AVVi8CfXclb6j0YdrCqCKvFp-PCdAED1IRl-uc6SCc1u1i6sh-ACyg87M_5t90I
-Message-ID: <CAMSsBRxR9Ar6p0qyutfMcCmJb7yLUNwE-CRh1JHKa-PZHHzRTg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Avoid using zero AC/DC brightness levels
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, alex.hung@amd.com, Wayne.Lin@amd.com, 
- timur.kristof@gmail.com, superm1@kernel.org, aurabindo.pillai@amd.com, 
- ivan.lipski@amd.com, chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM4PR12MB5038B0755743FC22E25C80FC8E1C2@DM4PR12MB5038.namprd12.prod.outlook.com>
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id:
+ nicolas.bouchinet@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: nicolas.bouchinet@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-Mailman-Approved-At: Tue, 09 Jun 2026 07:16:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,55 +80,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for looking into this.
 
-I tested the proposed change and it fixes the issue on my system. With
-this patch applied,
-the initial brightness level is set correctly during boot instead of
-starting at the minimum level.
+On Mon, Jun 08, 2026 at 11:48:52AM +0000, Kamal, Asad wrote:
+> AMD General
+> 
+> Hi Nicolas,
+> 
+> Agreed that pci_read_config() has no lockdown check, standardized PCI
+> config space reads are not blocked under [integrity]. But amdgpu_regs
+> is not equivalent to config space reads. It provides arbitrary read
+> access to the full GPU MMIO register space via RREG32, which is the
+> same class of access as pci_mmap_resource(), a user-space mapping of
+> the PCI BAR. That function is explicitly blocked at integrity with
+> LOCKDOWN_PCI_ACCESS:
+> 
+> /* drivers/pci/pci-sysfs.c */
+> static int pci_mmap_resource(struct kobject *kobj, ...)
+> {
+>     ret = security_locked_down(LOCKDOWN_PCI_ACCESS);
+>     if (ret)
+>         return ret;
+>     ...
+> }
+> 
+> pci_mmap_resource() is blocked not only because the mapping enables writes, but because it grants direct, unmediated access to the BAR, the same unmediated hardware access that amdgpu_regs provides through a serial interface. The distinction is not read vs. write, it is mediated (config space via kernel abstractions) vs. unmediated (direct BAR/MMIO access).
+> 
+> The /dev/mem precedent reinforces this. open_port() checks LOCKDOWN_DEV_MEM (which is before LOCKDOWN_INTEGRITY_MAX) on open, blocking both reads and writes unconditionally, because raw hardware memory access of any kind bypasses the kernel's protection model:
+> 
+> /* drivers/char/mem.c */
+> static int open_port(struct inode *inode, struct file *filp)
+> {
+>     rc = security_locked_down(LOCKDOWN_DEV_MEM);
+>     if (rc)
+>         return rc;
+>     ...
+> }
+> 
+> RREG32 on an arbitrary register offset is the GPU equivalent of a /dev/mem read of a BAR-mapped region. Blocking it at integrity with LOCKDOWN_PCI_ACCESS is consistent with both of these existing kernel precedents.
+> 
+> We prefer to keep the current approach.
+> 
+> Thanks & Regards
+> Asad
+> 
+> -----Original Message-----
+> From: Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>
+> Sent: Monday, June 8, 2026 4:58 PM
+> To: Kamal, Asad <Asad.Kamal@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; StDenis, Tom <Tom.StDenis@amd.com>
+> Subject: Re: [PATCH v3] drm/amdgpu: Gate debugfs MMIO access on kernel lockdown
+> 
+> [You don't often get email from nicolas.bouchinet@oss.cyber.gouv.fr. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> On Mon, Jun 08, 2026 at 11:03:05AM +0000, Kamal, Asad wrote:
+> > AMD General
+> >
+> > Hi @Nicolas Bouchinet
+> >
+> > Thank you for the review.
+> >
+> > The commit message references v1 behavior and is no longer accurate. Writes are already blocked, the existing debugfs_locked_down() in fs/debugfs/file.c handles writes when FMODE_WRITE is set, the early-return guard fails and security_locked_down(LOCKDOWN_DEBUGFS) blocks the open under [integrity].
 
+I didn't saw that your patch changed that much, sorry for that.
+With the v3 version of your patch, since the debugfs regs files are not
+even created it is indeed correct to use an `integrity` lockdown_reason
+like `LOCKDOWN_PCI_ACCESS`.
 
-Em qua., 3 de jun. de 2026 =C3=A0s 16:23, Mario Limonciello
-<mario.limonciello@amd.com> escreveu:
->
->
->
-> On 5/29/26 14:13, edson drosdeck wrote:
-> > Hi,
-> >
-> > Please find attached the requested ACPI dump and EDID files:
-> >
-> > acpidump.txt
-> > edid.txt
-> >
-> > Thanks for taking a look.
->
-> Sorry for my delay.  I looked through your acpidump and you don't have
-> an ATIF method (which would indicate preferred brightness values for AC
-> and DC).
->
-> I had expected this case is handled by
-> amdgpu_dm_update_backlight_caps(), but it appears that only sets min/max
-> not ac/dc default levels.
->
-> Can you see if this helps?
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 832223c06b3f5..e2831bf48eaab 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5213,6 +5213,8 @@ static void amdgpu_dm_update_backlight_caps(struct
-> amdgpu_display_manager *dm,
->          if (!caps->caps_valid) {
->                  caps->min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIG=
-HT;
->                  caps->max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIG=
-HT;
-> +               caps->ac_level =3D 50;
-> +               caps->dc_level =3D 50;
->                  caps->caps_valid =3D true;
->          }
->   #else
->
->
+Nicolas
