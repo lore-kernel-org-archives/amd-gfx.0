@@ -4,123 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7963CD8C92
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 02:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74054CD8C92
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 03:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C51410EC09;
-	Mon,  8 Jun 2026 02:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10AA310EC6D;
+	Mon,  8 Jun 2026 03:07:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xwN+wAjm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RgJI+BUC";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011041.outbound.protection.outlook.com [52.101.62.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B22F10EC09
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 02:01:32 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010005.outbound.protection.outlook.com
+ [40.93.198.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D7BC10EC6D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 03:07:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T2Lfhw9uoafG3BWUn6Nvd3umBLQw4Tgx2TOux3KXkTobaNYpdSRJgqDqH8Dy7AhzxccFAGpq5tTTjGGAeuaIL6BNh1dmSJrAGhGYx5EQwyUNsjs4pMF73FgT7P+WFSH20Q7IAiC0HszQgKpWuLLkBN4e/ShX0iMrxfTVTgqMCh4taNU4t9iSO4wcX1vLr8n92QqoUeQbg4YA0lLDNod8XYs7GsorzPMK8q9Ma+NrPzzLVVUDNDBnBrAbtUeqqlQ5yJgBK3dzcoCikdV691hak6IVySoCKj9JZk2zDNRIqQqHaZiJ1svxMLHjY5gI0xY/ZY/vlr2fPqxraed58Ud3MQ==
+ b=oebo5NLoJvg04XUMJWapVtRNcNWKknj/OL+H3lYBuygjNM8p+7LNi7tdsU05dVYj7hKzWb0djSnNm4VTA4J8OMcV4BD93MDwZfdv6h0CPcsqBhFKIOh50S4Pq+DwItMvDba4dB7XbTi53LqV+nRKg/90/bnI3jAuacGXl/hOHWcUP5JPgk1ivTodl0hEM1d+h7ftux4MtPZ1nRfhk4Iptu7oGYjRNdmbi6hgZa1Tu/PZeAnVccn4AvIdPwWnSjETq8bphXw6eILYwghpaskZCcb398pYZ2baoCSdfiyfi00V3HdO2W5ftXjWhJA4CQMs/YqQgrnvAt6jO8GQz5rdqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n35eIh2X9sGmstux/gaYrB/OT6NR6XdNQ/KkharD2hU=;
- b=n5X/tP6N02MkC1GAQ85ci5IWW+KjQTKAbiYzE5B1UJ7B2XoQ0YuIJeGe9esX/IOGzBngy+Lf3YmwKHuX7/agjq2LUo2sdCNN6ikNvYIYC1/Mxzp5AdHFCNHdV35A222DtjT+N4TdCNGTt5XkMC9pDIp8hIUUdaPIE1oMqS589DkPlF0YKgBhfydzIaL6GaI1dinE6xKADjY7st3psD+Q55UfndhuuL3/wb3URkBSczkukNbwWMam8H+8TjUSw2aIRExAqOpoMFC9/YqSHCax8eJ8qrzduWWz69GW7YOIH1uBTi3iHxX0CnCcywcuiGxSs39PWUy/Ti5LLl7AmHHFMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=lcCBCx+wWO6SauV7V4xGjWumsbTB1JmWZ9YoohKKDXI=;
+ b=trbhVDDIUPwuU5PAK0HrqZ6fdlY6iJ2GK1q1DmVd0/d34x/yenyP0+ABgsWjIDARZcNg0X2mfP+eNmIKjSaJUcz7fN0SMFw381s4DTTN7jkLXimHLoPkJcWauq6fI1dS9zG3jKQv7WGjwmTZnjKLgbCH7t7mpldepT6ZTxEQPrrYVjx+n15Xvi9qKawB+StS2lAUABl6oHbqXSfB7YiQ3rg5ILHRU/0yc1NfXWn6fOxs80gw5Ls3213eqa62af2uVtYVKyQ2KrdTosNgHD83pco3sY7ENDNi/pq/gOjFzAsE3uAsRiBm663Mmuvg+3wpYA5OHR+ZHGUb+gGsV9ZKfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n35eIh2X9sGmstux/gaYrB/OT6NR6XdNQ/KkharD2hU=;
- b=xwN+wAjmSqc/ZU0ifC4EHCrvow3mLXFeHSxzAfvo/iDtcQZGXpM8PP/rCh+3GOsYHb/yoXzOYUGUBju1mKcWSyy5vWd50UdMw6yZOYn5WskEaFlnF6MMJPSSHRbp3jZkLa2x7K8UmWxsBdvUzc+DIHZ6uR7rLxkW2S8L2X3DzV0=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- SA1PR12MB6704.namprd12.prod.outlook.com (2603:10b6:806:254::6) with
- Microsoft
+ bh=lcCBCx+wWO6SauV7V4xGjWumsbTB1JmWZ9YoohKKDXI=;
+ b=RgJI+BUCiztUW/DFV7F0Mh46JHUwcd41aGywy0CGfGL8IrpgvLJhuzVA3kaRh/ZIUWQ3bBZtFYouxhFtBfTPbW6ZfWO9OOs4HcwnEHxlabnrifz+m2a8+BWAD6bPhYH9er3pwaP1ZDqh/PcKXMcU+A3YzxCMfwht7iPh+BmWeHQ=
+Received: from SJ0PR03CA0032.namprd03.prod.outlook.com (2603:10b6:a03:33e::7)
+ by DS0PR12MB8197.namprd12.prod.outlook.com (2603:10b6:8:f1::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
+ 03:07:35 +0000
+Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::a8) by SJ0PR03CA0032.outlook.office365.com
+ (2603:10b6:a03:33e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.12 via Frontend Transport; Mon, 8
+ Jun 2026 03:07:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.12; Mon, 8 Jun 2026 02:01:24 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727%3]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 02:01:24 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: allocate lockdep mutex on the heap to fix
- stack overflow
-Thread-Topic: [PATCH] drm/amdgpu: allocate lockdep mutex on the heap to fix
- stack overflow
-Thread-Index: AQHc9MuZNEz/5hBmS0+6oP7aIdY+wrYwR+8AgAOf6AA=
-Date: Mon, 8 Jun 2026 02:01:24 +0000
-Message-ID: <DS7PR12MB6005ABDB6A40FC9BCEFD61EFFB1C2@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20260605091322.144703-1-Prike.Liang@amd.com>
- <748a0cfc-528a-43af-9dc7-59d58428962a@amd.com>
-In-Reply-To: <748a0cfc-528a-43af-9dc7-59d58428962a@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-06-08T01:47:28.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|SA1PR12MB6704:EE_
-x-ms-office365-filtering-correlation-id: 360ab059-dd3c-46c0-2f52-08dec501d815
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|11063799006|4143699003|56012099006|6133799003|38070700021|18002099003|22082099003;
-x-microsoft-antispam-message-info: qSGmskPKb/uMVdIwK/du2dyEHOUwOgysJPsesctWMb6DTS5ZYBj8mXp05NVOydjL/Hw5CeKwqTtApYFgyNDVBlnDgY8XIOv1f56GIMWat5xMbdlcvJRWNdJ4ttlgY4V0NeaXCLawa6H76KwT/bnyWKbXcrBrpMae/XWNF8bXvXuLVJdpleA3EEHrmYX835UvBJ4GARtKixOyGHDU3/WYOp2zdGowwLmEZt209IY23s4cV80r2KM6Jduj+Aje86QfSJnuPAkX77MwmFbwQyogPeD+5qH7vpbewe9VhEVr04kam3nOZ3HwOjXNnbG3GEUQPvWHOk1EII7bMUJq6QjUkRiWYJMAtG15eYWmncMQGkeCZBuWaRP0YnvCgPcMZ6v4W0QpGPNXAlMpJIf5FcOEvgDUiKnmTv88pr4K1EF6yl2rd66eIiY+4oDIbraQCJLMEUdoJr2G2WsCbLxzjqBfr+AVUdV5IpqtH9oH5GNeAkHp0G7NbxxYa0Ve3qJjsHIALdspbJo6SlJhqgeotbQvpZ887O0s84Vm0bE5I2AgacBGZ+zRyn7+1YXf7ODXnpRh8XCXatY6XMohp6myqAkmqgJ25rzFDoA9Wcn+j+UG8zZbKptkgL3sXTeo/Qi9+u0sfUgM27+vZ+amGWy/a2uXo3158kvb5DCTdG8wztsX+x76qJlP0mjuWTccfR43HJ+vWUyo0xeiCph4xVldw8z9ozcEaftYS6p3HTWNLba1bC72FHCSw1M5KuCIEJYkcd0V
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(11063799006)(4143699003)(56012099006)(6133799003)(38070700021)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JYMUQgui/Tn4iN2Px/0vEVr1Yi9s9BY03kCswqoDQGvbeFx2G5G8f1CZ5e5A?=
- =?us-ascii?Q?IuvDNCmWn6eYtJ52rTnXpx2X+KihG/9VGpnrDEhijZkEQ0VavusGlY7Fw4t7?=
- =?us-ascii?Q?JWXy/ZDjVv4cnYyGJp5qCm0J3B9qZ1nD6YKR7fUsIXSTTT06omCtPbFG4z4E?=
- =?us-ascii?Q?Xd9AIFhju3RduaArCfqL1Jms3qLDKEdr3UriUaoaxmLg0NIg6ALGErh0Cc9v?=
- =?us-ascii?Q?KqsgrPXj+QE+k1+4vynvF2n2sqWDT6dD79/Qs5ep93bSTsz7v/J2HwqqPbtZ?=
- =?us-ascii?Q?x4sI4WcHkxBWWnVN6mE/cuFbRR3RsLZRRprxqV8ckXFv2aAS4NELD+Sz7Kpl?=
- =?us-ascii?Q?y0q3fUStuI1+ArF7cPtAE3kxHuAVdTD4aqxXEHt5PH7lQmh2AM8xtGAG2LD7?=
- =?us-ascii?Q?RlrJsJRqjazAN+wBqCXbgeAeRqV8hdD1UxUhWXAeEsbV8vesG5qlmNXa+G4T?=
- =?us-ascii?Q?Ijl0K3T7yOayTxGWE3H9CeJmt4qRfuh0UXhghYHq8oOrK87Qleqc/ZhqUWz+?=
- =?us-ascii?Q?kODv5SapYjkVyRVGaHpShsm1t3MaBAIQQr+8sM7O4TrU58AClNgH+z7Ik9be?=
- =?us-ascii?Q?pSOfc+DIPFw0wVdLLGtOup60QdEephIiuFCnXoZOOb9Js2FnLcJlffDKvZJK?=
- =?us-ascii?Q?mFZFSOQZUeqvFPxzCuFErPOtraRO3x34PkIkW4p1RkDzBIpRkXvYHKkhX40L?=
- =?us-ascii?Q?svbGC9hc50aBGsMq3j3meBDWWjEu7e3qKtOM5xW2NWJ1IOJiLz2qf5/HN53E?=
- =?us-ascii?Q?1/jdQYns6/CnWomimqO0BBgkvXUdzKTA/lxT7l5VWDtFhDhT3ZjV8gdwv5Fa?=
- =?us-ascii?Q?/ghfHo+sumR6OfFK2M05i6QRnZXU1aqn3UEtrErMTcLkzQE4npJrnQagwq82?=
- =?us-ascii?Q?yVOOSE1tjHocShShYuiUo1rW+pHo/Y5KXA+xHT62Q1W/YFiHvAqi+YZ2agmi?=
- =?us-ascii?Q?Chb7OtLus5nPn1qylMkfVXCc7Cr8+4FB94R1bdf9+XreiLEtv1W5iUd+rbHZ?=
- =?us-ascii?Q?rB0W6sXiWbx8C/vU5Kiu9j/no+Iw5QAm2Z0babpUdFV+BG9cLEbgMMiD8u6/?=
- =?us-ascii?Q?h8zF/964NJbIzX6DxsLWfOaOB+PVrPaWvj21dBF9dePRGKnXb1yZnk49SmDs?=
- =?us-ascii?Q?whxmPOMzvdg0z9K16Gag6L+1OlJkZ0Fz6993Ov7u0Kz6zyaens//x115Lv6l?=
- =?us-ascii?Q?tY3x0B4MlRY6FQ143pioIee82NFc5Aeau4OkBwQWeThW0BlGRexYukvRxvRd?=
- =?us-ascii?Q?jTrF/BmlZRNai/oar2my9Fuiflz5FAmTx3o2QJvPR3wEOd8VWs7u4bM+VHs/?=
- =?us-ascii?Q?JbHrk+jVl5i/z8Vp0edSCplWKJLnAkn22tIjb5VYdyE4dHXz1VqwxBzqN0uy?=
- =?us-ascii?Q?0fZM2ozWaE5C/Fz2fcOoSlmxe2pJHrLDh7UiC6YZSjDorAKtFBnK+WMdq8f3?=
- =?us-ascii?Q?8Wot14u7bgAjmccXyKmrZL5UkuR9t9QXVVSpb/BkP9C9SMlOaROZiCR0Za3y?=
- =?us-ascii?Q?eDwe5VlQFpFe681aCFa0nFkFl0xj93XvWCUz5lyJRy1wPCKY7/YRteNr6xQG?=
- =?us-ascii?Q?MAKv4yE+im1VqgxZjvtGCzBUFDz7GKQmnpS0IZviS2SqYEtvTu33x7FPo5Am?=
- =?us-ascii?Q?Q7fCema+B/JpdwIkh8D+yzlA2qhIkvV/AyUxYQAHcoXsTVJEdCEgkklPHdZr?=
- =?us-ascii?Q?ms0VK6pxxHWh+LwI+ROQ5BLlvWich3D+0v0VEFdWFPHGDS8O?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 15.21.113.7 via Frontend Transport; Mon, 8 Jun 2026 03:07:34 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 7 Jun
+ 2026 22:07:34 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 7 Jun
+ 2026 22:07:34 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Sun, 7 Jun 2026 22:07:27 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <Jesse.Zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx: defer per-queue helper_end until after MES
+ resume
+Date: Mon, 8 Jun 2026 11:05:48 +0800
+Message-ID: <20260608030726.3396300-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|DS0PR12MB8197:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fffbf06-3910-4dad-9185-08dec50b1693
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|1800799024|11063799006|56012099006|3023799007|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 1P1jdpB7xxiuDmWG9rEW9c3hGfKZ0ans0ceyXBL3CURHqvaJ17bMDdXFHJyMGGZSsUPeFKT1F5BZ0Dr75YZZpjBNn0de+rxGdCCsss0atsSoX8gQOFxUAa2vZ05Yy5DxRwzWiAs11YQrBYbDles9h6VYrcPg+ihF8j9AfSBfv9L0SBf0etf+WbHK9bb7L84SPKoruuDn+yMPqhcCwzQ5OfBkjmeb/qnnhcnFEoKXuT/BGKfZMZsxpxDAnOWtpauwyARMIqnR2/NM8Koa9s+8+CcWTKriJLVjehGLafrUQMIH54+nJkandH5XzQ1XnqzcBviw/+8LYJr4mAvN5Xo3wMj2tP++iwFpXaWABXePg9MqEwu9YWh54fHnGIy2Dy2QF0qyMcqsKzvxP4xQPIZf5B8N5jc5SqeD/hwkl6ovsUh1VzQirbG8B/eS88SVKAuMOhdE7ic16HMS8aw+Kh+i7Xevuj28hF/hmX1/0dlAu/1UxT7Fayx8rGS4JwSUVAvpD6RqtlJGS+IQN53S5Les1YXtZR7aDhlkhGAf3RU4FEc2hmA/tKQhPK0tJBy2Y4q6NriwRuyVpd9Om+aufdWsD1aVMwfOmXtx9NAnXq5ziIWyyEZOc5Ii2lmeruYZz1b8+qRjEJV985VbdzDGTj2LwgF4HhokmG+a2UMT9NjC6Yh/z0vHVVU+Coo8wPUYeWpxxY/0AwjOcg3ET+oKN3N2Xlw3Ui8dx1apbBOrWCur/wM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(11063799006)(56012099006)(3023799007)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 0fkmNe9A7jToET9UkDeIwQWPJztAlBwapZayGiJnqhTmXSZ2LTENm18QjBlX/nWn1Uat1vzo6PIvmkJG/hoo4ROMc+6SHI0PyuNzwIHSlcB/bTbKT8iBRxqrQ2cK6ZA4qELEo4edQN05jxwoBAAAq2dWtpO1+jou0nCyqiyLyX07gFA2PIm4tFZZgoKFOjqueJXMdNI9Xz1+33XF++8ZTSM73H5EgLHoRLsGZ97NShLqgK/DhOoGj8KLo2C/PtwZen7OKatjlsKNNt1Nt46fcod+UbFvK5bM8QoudmkT/YPNUjjRqd5qef9GAWK/BJOuHI/KpYIDI6aaJ5mODzABpIvblG6iJOs1LFS6zF++jqs0rjUi3cNP1Suo2IqR6c9QOayAW4qxV+FC7xnjpfn+1uu1WeF9PBpNx+VxjoYg9m9qra7XFmzxQduEetG8eba0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 360ab059-dd3c-46c0-2f52-08dec501d815
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2026 02:01:24.4014 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JLEfzsV5CkKzs0pcXx11clViapRh8ZKq1bEGHuurQKnEN41SWkg/ijvga+8Uk4NJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6704
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 03:07:34.5918 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fffbf06-3910-4dad-9185-08dec50b1693
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8197
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,244 +114,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
+amdgpu_gfx_reset_mes_compute() runs amdgpu_mes_suspend(adev, 0) to
+quiesce all gangs, resets the offending queue(s), then resumes. The
+existing amdgpu_gfx_mes_reset_queue() called amdgpu_ring_reset_helper_end()
+right after unmap/restore/map of the reset queue, which re-emits backed-up
+commands and rings the doorbell. That doorbell hits a still-suspended CP:
+on the subsequent resume the queue partially wedges -- the first new IB
+after the reset may execute but later submissions stall, which surfaces
+as repeated timeouts on the same ring under concurrent workloads.
 
-Regards,
-      Prike
+Split out amdgpu_gfx_mes_reset_queue_no_end() (backup + MES reset +
+unmap/restore/map only) and defer helper_end. amdgpu_gfx_reset_mes_compute()
+collects the (ring, fence) pair for every queue it resets and runs
+helper_end on each after amdgpu_mes_resume(), so the re-emit doorbells
+land on a running CP. amdgpu_gfx_reset_mes_kcq() now reports the matched
+ring/fence back to the caller for the same reason.
 
-> -----Original Message-----
-> From: Prosyak, Vitaly <Vitaly.Prosyak@amd.com>
-> Sent: Saturday, June 6, 2026 2:26 AM
-> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Prosyak, Vitaly <Vitaly.Prosyak@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: allocate lockdep mutex on the heap to fi=
-x stack
-> overflow
->
->
-> On 2026-06-05 05:13, Prike Liang wrote:
-> > Replace the stack-allocated amdgpu_lockdep mutex with a heap
-> > allocation via kmalloc to fix a stack overflow caused by the large stru=
-ct size.
-> >
-> > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 93
-> > ++++++++++-----------  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h |
-> > 12 +++
-> >  2 files changed, 55 insertions(+), 50 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> > index d5d71fd7c70d..c13bfaa3dfa7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> > @@ -13,6 +13,7 @@
-> >
-> >  #include "amdgpu.h"
-> >  #include "amdgpu_reset.h"
-> > +#include "amdgpu_lockdep.h"
-> >
-> >  #ifdef CONFIG_LOCKDEP
-> >
-> > @@ -84,72 +85,65 @@ void amdgpu_lockdep_set_class(struct amdgpu_device
-> > *adev)  int amdgpu_lockdep_init(void)  {
-> >     struct amdgpu_reset_domain *reset_domain =3D NULL;
-> > -   struct amdgpu_reset_control reset_ctl;
-> > -   struct mutex userq_sch_mutex;
-> > -   struct mutex userq_mutex;
-> > -   struct mutex notifier_lock;
-> > -   struct mutex vram_lock;
-> > -   struct mutex srbm_mutex;
-> > -   struct mutex grbm_idx_mutex;
-> > -   spinlock_t mmio_idx_lock;
-> > +   struct amdgpu_lockdep_dummy_locks *locks;
-> >     unsigned long flags;
-> >
-> > +   locks =3D kzalloc(sizeof(*locks), GFP_KERNEL);
-> > +   if (!locks)
-> > +           return -ENOMEM;
-> > +
-> >     /*
-> >      * Initialize dummy reset domain
-> >      */
-> >     reset_domain =3D amdgpu_reset_create_reset_domain(SINGLE_DEVICE,
-> >                                                     "lockdep_test");
-> > -   if (!reset_domain)
-> > +   if (!reset_domain) {
-> > +           kfree(locks);
-> >             return -ENOMEM;
-> > -
-> > +   }
-> >     /* Initialize dummy locks */
-> > -   mutex_init(&userq_sch_mutex);
-> > -   mutex_init(&userq_mutex);
-> > -   mutex_init(&notifier_lock);
-> > -   mutex_init(&vram_lock);
-> > -   mutex_init(&reset_ctl.reset_lock);
-> > -   mutex_init(&srbm_mutex);
-> > -   mutex_init(&grbm_idx_mutex);
-> > -   spin_lock_init(&mmio_idx_lock);
-> > +   mutex_init(&locks->userq_sch_mutex);
-> > +   mutex_init(&locks->userq_mutex);
-> > +   mutex_init(&locks->notifier_lock);
-> > +   mutex_init(&locks->vram_lock);
-> > +   mutex_init(&locks->reset_lock);
-> > +   mutex_init(&locks->srbm_mutex);
-> > +   mutex_init(&locks->grbm_idx_mutex);
-> > +   spin_lock_init(&locks->mmio_idx_lock);
-> >
-> >     /*
-> >      * Associate dummy locks with the same class keys used for real
-> >      * driver locks. This ensures lockdep connects the ordering learned
-> >      * here with the actual locks used at runtime.
-> >      */
-> > -   lockdep_set_class(&userq_sch_mutex, &amdgpu_userq_sch_mutex_key);
-> > -   lockdep_set_class(&userq_mutex, &amdgpu_userq_mutex_key);
-> > -   lockdep_set_class(&notifier_lock, &amdgpu_notifier_lock_key);
-> > -   lockdep_set_class(&vram_lock, &amdgpu_vram_lock_key);
-> > +   lockdep_set_class(&locks->userq_sch_mutex,
-> &amdgpu_userq_sch_mutex_key);
-> > +   lockdep_set_class(&locks->userq_mutex, &amdgpu_userq_mutex_key);
-> > +   lockdep_set_class(&locks->notifier_lock, &amdgpu_notifier_lock_key)=
-;
-> > +   lockdep_set_class(&locks->vram_lock, &amdgpu_vram_lock_key);
-> >     lockdep_set_class(&reset_domain->sem, &amdgpu_reset_sem_key);
-> > -   lockdep_set_class(&reset_ctl.reset_lock, &amdgpu_reset_lock_key);
-> > -   lockdep_set_class(&srbm_mutex, &amdgpu_srbm_lock_key);
-> > -   lockdep_set_class(&grbm_idx_mutex, &amdgpu_grbm_lock_key);
-> > -   lockdep_set_class(&mmio_idx_lock, &amdgpu_mmio_lock_key);
-> > -
-> > +   lockdep_set_class(&locks->reset_lock, &amdgpu_reset_lock_key);
-> > +   lockdep_set_class(&locks->srbm_mutex, &amdgpu_srbm_lock_key);
-> > +   lockdep_set_class(&locks->grbm_idx_mutex, &amdgpu_grbm_lock_key);
-> > +   lockdep_set_class(&locks->mmio_idx_lock, &amdgpu_mmio_lock_key);
-> >     /*
-> >      * Take locks in the correct order to train lockdep.
-> >      * This establishes the dependency chain.
-> >      */
-> >
-> >     /* Level 1: Global userq scheduler mutex (outermost) */
-> > -   mutex_lock(&userq_sch_mutex);
-> > +   mutex_lock(&locks->userq_sch_mutex);
-> >
-> >     /* Level 2: Per-context userq mutex */
-> > -   mutex_lock(&userq_mutex);
-> > -
-> > +   mutex_lock(&locks->userq_mutex);
-> >     /* Level 3: MMU notifier lock */
-> > -   mutex_lock(&notifier_lock);
-> > -
-> > +   mutex_lock(&locks->notifier_lock);
-> >     /* Level 4: VRAM allocator lock */
-> > -   mutex_lock(&vram_lock);
-> > -
-> > +   mutex_lock(&locks->vram_lock);
-> >     /* Level 5: Reset domain semaphore */
-> >     down_read(&reset_domain->sem);
-> >
-> >     /* Level 6: Reset control lock */
-> > -   mutex_lock(&reset_ctl.reset_lock);
-> > -
-> > +   mutex_lock(&locks->reset_lock);
-> >     /*
-> >      * Mark potential memory reclaim boundary.
-> >      * GPU operations might trigger memory allocation/reclaim.
-> > @@ -157,36 +151,35 @@ int amdgpu_lockdep_init(void)
-> >     fs_reclaim_acquire(GFP_KERNEL);
-> >
-> >     /* Level 7: SRBM register access */
-> > -   mutex_lock(&srbm_mutex);
-> > -
-> > +   mutex_lock(&locks->srbm_mutex);
-> >     /* Level 8: GRBM index access */
-> > -   mutex_lock(&grbm_idx_mutex);
-> > +   mutex_lock(&locks->grbm_idx_mutex);
-> >
-> >     /* Level 9: MMIO index access (innermost lock, spinlock) */
-> > -   spin_lock_irqsave(&mmio_idx_lock, flags);
-> > -
-> > +   spin_lock_irqsave(&locks->mmio_idx_lock, flags);
-> >     /*
-> >      * All locks acquired in order.
-> >      * Lockdep has now learned the valid dependency chain.
-> >      */
-> >
-> >     /* Release in reverse order */
-> > -   spin_unlock_irqrestore(&mmio_idx_lock, flags);
-> > -   mutex_unlock(&grbm_idx_mutex);
-> > -   mutex_unlock(&srbm_mutex);
-> > -
-> > +   spin_unlock_irqrestore(&locks->mmio_idx_lock, flags);
-> > +   mutex_unlock(&locks->grbm_idx_mutex);
-> > +   mutex_unlock(&locks->srbm_mutex);
-> >     fs_reclaim_release(GFP_KERNEL);
-> >
-> > -   mutex_unlock(&reset_ctl.reset_lock);
-> > +   mutex_unlock(&locks->reset_lock);
-> >     up_read(&reset_domain->sem);
-> > -   mutex_unlock(&vram_lock);
-> > -   mutex_unlock(&notifier_lock);
-> > -   mutex_unlock(&userq_mutex);
-> > -   mutex_unlock(&userq_sch_mutex);
-> > +
-> > +   mutex_unlock(&locks->vram_lock);
-> > +   mutex_unlock(&locks->notifier_lock);
-> > +   mutex_unlock(&locks->userq_mutex);
-> > +   mutex_unlock(&locks->userq_sch_mutex);
-> >
-> >     /* Cleanup */
-> >     amdgpu_reset_put_reset_domain(reset_domain);
-> >
-> > +   kfree(locks);
-> >     pr_info("AMDGPU: Lockdep annotations initialized (9 lock
-> > levels)\n");
-> >
-> >     return 0;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-> > index 04adb58665bf..8bff09bd2dbb 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.h
-> > @@ -9,9 +9,21 @@
-> >  #define __AMDGPU_LOCKDEP_H__
-> >
-> >  #include <linux/lockdep.h>
-> > +#include <linux/mutex.h>
-> >
-> >  struct amdgpu_device;
-> >
-> Hi Prike,
->
-> Thanks for the fix -- the heap allocation approach is correct and address=
-es the stack
-> overflow cleanly.
->
-> One minor suggestion: could we move struct amdgpu_lockdep_dummy_locks fro=
-m
-> the header into amdgpu_lockdep.c (inside the #ifdef CONFIG_LOCKDEP block)=
-?
-> Since it is only used locally in amdgpu_lockdep_init(), keeping it in the=
- .c file avoids
-> exposing implementation details in the header interface.
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 68 ++++++++++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  5 ++
+ 2 files changed, 65 insertions(+), 8 deletions(-)
 
-Sure, will push with this update.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index ff5a55f5f3c9..b6202095f256 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1989,10 +1989,10 @@ static ssize_t amdgpu_gfx_get_compute_reset_mask(struct device *dev,
+ 	return amdgpu_show_reset_mask(buf, adev->gfx.compute_supported_reset);
+ }
+ 
+-int amdgpu_gfx_mes_reset_queue(struct amdgpu_ring *ring,
+-			       unsigned int vmid,
+-			       struct amdgpu_fence *timedout_fence,
+-			       bool use_mmio)
++static int amdgpu_gfx_mes_reset_queue_no_end(struct amdgpu_ring *ring,
++					     unsigned int vmid,
++					     struct amdgpu_fence *timedout_fence,
++					     bool use_mmio)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	bool reinit_queue;
+@@ -2026,7 +2026,20 @@ int amdgpu_gfx_mes_reset_queue(struct amdgpu_ring *ring,
+ 			return r;
+ 		}
+ 	}
++	return 0;
++}
+ 
++int amdgpu_gfx_mes_reset_queue(struct amdgpu_ring *ring,
++			       unsigned int vmid,
++			       struct amdgpu_fence *timedout_fence,
++			       bool use_mmio)
++{
++	int r;
++
++	r = amdgpu_gfx_mes_reset_queue_no_end(ring, vmid, timedout_fence,
++					      use_mmio);
++	if (r)
++		return r;
+ 	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
+ }
+ 
+@@ -2216,24 +2229,37 @@ static void amdgpu_gfx_reset_stop_compute_scheds(struct amdgpu_device *adev,
+ 	}
+ }
+ 
++/*
++ * Match the MES-reported hung doorbell against a compute ring and run
++ * the core reset (no helper_end). On hit, the matched ring and its guilty
++ * fence are returned via *out_ring / *out_fence so the caller can defer
++ * helper_end until after MES has resumed all gangs.
++ */
+ static int amdgpu_gfx_reset_mes_kcq(struct amdgpu_device *adev,
+ 				    struct amdgpu_ring *guilty_ring,
+-				    unsigned int db)
++				    unsigned int db,
++				    struct amdgpu_ring **out_ring,
++				    struct amdgpu_fence **out_fence)
+ {
+ 	bool use_mmio = adev->gfx.mec.use_mmio_for_reset;
+ 	struct amdgpu_fence *fence;
+ 	struct amdgpu_ring *ring;
+ 	int i, r;
+ 
++	*out_ring = NULL;
++	*out_fence = NULL;
+ 	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+ 		ring = &adev->gfx.compute_ring[i];
+ 		if (ring == guilty_ring)
+ 			continue;
+ 		if (ring->doorbell_index == db) {
+ 			fence = amdgpu_ring_find_guilty_fence(ring);
+-			r = amdgpu_gfx_mes_reset_queue(ring, 0, fence, use_mmio);
++			r = amdgpu_gfx_mes_reset_queue_no_end(ring, 0, fence,
++							      use_mmio);
+ 			if (r)
+ 				return r;
++			*out_ring = ring;
++			*out_fence = fence;
+ 			break;
+ 		}
+ 	}
+@@ -2254,6 +2280,8 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
+ 	unsigned int num_hung = 0;
+ 	bool use_mmio = adev->gfx.mec.use_mmio_for_reset;
+ 	struct mes_remove_queue_input *queue_input = (struct mes_remove_queue_input *)faulty_queue_input;
++	struct amdgpu_gfx_deferred_entry deferred_end[AMDGPU_MAX_COMPUTE_RINGS + 1];
++	int n_deferred = 0;
+ 
+ 	guard(mutex)(&adev->gfx.mec.reset_mutex);
+ 	/* stop the drm schedulers for all compute queues */
+@@ -2278,9 +2306,13 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
+ fence_reset:
+ 	/* reset the queue this came from if specified */
+ 	if (ring) {
+-		r = amdgpu_gfx_mes_reset_queue(ring, 0, guilty_fence, use_mmio);
++		r = amdgpu_gfx_mes_reset_queue_no_end(ring, 0, guilty_fence,
++						      use_mmio);
+ 		if (r)
+ 			goto out;
++		deferred_end[n_deferred].ring = ring;
++		deferred_end[n_deferred].fence = guilty_fence;
++		n_deferred++;
+ 	}
+ 	if (uq) {
+ 		r = mes_userq_reset(uq);
+@@ -2288,15 +2320,24 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
+ 			goto out;
+ 	}
+ 	for (i = 0; i < num_hung; i++) {
++		struct amdgpu_ring *hr = NULL;
++		struct amdgpu_fence *hf = NULL;
++
+ 		pipe = hqd_info[i].pipe_index;
+ 		queue = hqd_info[i].queue_index;
+ 		queue_type = hqd_info[i].queue_type;
+ 
+ 		/* reset any KCQs */
+ 		r = amdgpu_gfx_reset_mes_kcq(adev, ring,
+-					     adev->gfx.mec.mes_hung_db_array[i]);
++					     adev->gfx.mec.mes_hung_db_array[i],
++					     &hr, &hf);
+ 		if (r)
+ 			goto out;
++		if (hr) {
++			deferred_end[n_deferred].ring = hr;
++			deferred_end[n_deferred].fence = hf;
++			n_deferred++;
++		}
+ 		/* reset any KFD queues */
+ 		r = amdgpu_amdkfd_reset_mes_queue(adev, 0, queue_type, pipe, queue,
+ 						  adev->gfx.mec.mes_hung_db_array[i]);
+@@ -2325,6 +2366,17 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
+ out:
+ 	/* resume all will enable the non-hung queues */
+ 	amdgpu_mes_resume(adev, 0);
++
++	/* Now CP is running again — replay backed-up commands and ring
++	 * doorbells on each reset queue.
++	 */
++	for (i = 0; i < n_deferred; i++) {
++		int er = amdgpu_ring_reset_helper_end(deferred_end[i].ring,
++						      deferred_end[i].fence);
++		if (er && !r)
++			r = er;
++	}
++
+ 	if (!r)
+ 		amdgpu_gfx_reset_start_compute_scheds(adev, ring);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 4003360c7d9a..381fc17274b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -549,6 +549,11 @@ struct amdgpu_gfx {
+ 	bool				disable_uq;
+ };
+ 
++struct amdgpu_gfx_deferred_entry {
++	struct amdgpu_ring	*ring;
++	struct amdgpu_fence	*fence;
++};
++
+ struct amdgpu_gfx_ras_reg_entry {
+ 	struct amdgpu_ras_err_status_reg_entry reg_entry;
+ 	enum amdgpu_gfx_ras_mem_id_type mem_id_type;
+-- 
+2.49.0
 
-> With that change:
->
-> Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> > +struct amdgpu_lockdep_dummy_locks {
-> > +   struct mutex reset_lock;
-> > +   struct mutex userq_sch_mutex;
-> > +   struct mutex userq_mutex;
-> > +   struct mutex notifier_lock;
-> > +   struct mutex vram_lock;
-> > +   struct mutex srbm_mutex;
-> > +   struct mutex grbm_idx_mutex;
-> > +   spinlock_t mmio_idx_lock;
-> > +};
-> > +
-> >  #ifdef CONFIG_LOCKDEP
-> >
-> >  /**
