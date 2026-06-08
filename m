@@ -4,124 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A50CD8C92
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 03:24:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49099CD8C8E
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 07:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B676E10EC74;
-	Mon,  8 Jun 2026 03:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C70E210EDD1;
+	Mon,  8 Jun 2026 07:01:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mB4D38Zi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jUeiL4Qr";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010058.outbound.protection.outlook.com
- [40.93.198.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E17F10EC77
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 03:24:33 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012003.outbound.protection.outlook.com [52.101.43.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2661B10EDD1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 07:01:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rmbKAcMfNn6rT/UJVAe37jBz08AUQbM6mBrCD+GTPI+3wy9AYA63c91mXkp+ExcQz8edylRAJrk/ZGqLTR3epzENYQWxZf7UODkuPFxMSYNQIITHj2emTY9UOLE4oSHXFOxNJW4I13srVvc/wbCl1EzbLqPsOV2Y1lxA7t1CNSwMCT6DNHPtyM2axnBqQ0eqFiLGHX1M+o1yvdVSoC3bY4HemKWmBq4zefuZxve6FspCkz9hLhM9sUflcglflzhXjbmJ2+bjvQCBKDwu9gTm91WDPcVsTw9b31F9KulUUsUt1wwFMWy4hrTp0IG2v0ATsCfIFWtDzGajQja/cemfYw==
+ b=hmUeEwywZxsLDU+l2h0WO46yaQCIcGEfVLl2hbGiVr2V4lIHEwJQV5gwN0l7JVZlKydHmk7CGWQpaHDJd5epLcOKMINg+i8jConw/tmCeIgn0JbHwbkxPkGffXHcUy0wLqOqZQgZUfe2rqULl8+9ypYLBih94d0HW3o8c8VCHnyyZwUgjUfuL7RAVROfTpDQGFafXzTDJyrPnhJar7URwrEkEU9CuB+Imn0kEUj9CexO3rHkcYV4kxLNi8psxM/Hw1tj2vUv9h4V3LPrnrApeD98ygRLXNjre3T8QPFiaSW8ka44N+whofuam5kzxHVSPIDkf+rtWT+U5uWWYpx+Ag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KMtB6eZ8/fF7dU95tSCgeO8HDmSYCAyFxM2I48FYrLI=;
- b=h94bzOQt2zbddbd12BobHdWunguKM2THAnAUabalQtzEeF41GBpXy9vd0ffi23eWGwqTwjJ9FHYCChWkvvswXpya4L4KMmv3COCJFJEHD49b814iRQYbgIleDUi8sXNohDgTMVyyiTy+aZzIsdrXiDLlp24nbXq9S1zqWfEPP0q3ybw3jilCtybvPtiVZmtN6Lu5uoJxbi03JRlbZ7sPtJCAg6ERER8vGG8aKuVjyL3d4xC5m7ojJ7RqBLtWw1A3hr2Y38zHyf8HQb5oc6cvh62yEoSwU3BL2iyxmEe3u6Dyh8qoc6/BNc8k4lA4uFo002S5jrsKnC+hLq4l6J7oCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=m/3l14Chan+FwXr/F6DRacqUh2qlDN+m6izy5H20WtA=;
+ b=UX1FmzQUpT1zPau4nv3SjubLpFgKLUcHxSC9+Ft781osN59rD5fygSxnPA2VCFyyMHehRhDX5TZfU0lwOsVQsgZrKvrSIKy38BIrvW1YN1/d7Ibi2CfaF9rxvmnMVP63sRjSA4h4C5I9QCU/M+JzLB9ygmfW601AN0bptoDwJd49dzmcZY5/H5BROHIPWFSPOljG8QMMDmrpvOOT+l9HGq4n5dvoiZAs553omfKCLLVnqzWlVTvok7n7XibQkiU7UBKXk3qkl5CLaZk2HJkDmrLpHI3fNGb2pHpnivDTMGC4ttGDNl5W0Huq49EiM7Gh+WZt4qQQlom/79dtvihkjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KMtB6eZ8/fF7dU95tSCgeO8HDmSYCAyFxM2I48FYrLI=;
- b=mB4D38ZiPoC0wRQwJkKyRNGWKO6XP2C4RVdivvrowBk7O1oADQcV/WKGUqH7dD8M8SWqGkYJ5sQhoJlPgq6LwbEjQ/L+obVNDblaxKz0Zdv5i6BCQVCATTmpX/DMR1aZxjM86HU+aCVyW3UY99yDHo63W0vwBgUc8WHGiKSox4s=
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by SN7PR12MB8601.namprd12.prod.outlook.com (2603:10b6:806:26e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Mon, 8 Jun 2026
- 03:24:29 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%6]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 03:24:29 +0000
-From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=m/3l14Chan+FwXr/F6DRacqUh2qlDN+m6izy5H20WtA=;
+ b=jUeiL4QrCnsEgQjHKJSjYLN7Bu2BsnvZpSqSb4S2MO/NGBiscbGalDBhx3i4HIZIkRQrr/rMOU/jCc3MCE7H0m4xkEHosu3b6NSeOdPgxYhM/aZJFFnMvKrnkukCutmjyVREB2znge76H6PvxDf/kN2sbfEF7pjIGPFiwt7vL3k=
+Received: from DM6PR17CA0024.namprd17.prod.outlook.com (2603:10b6:5:1b3::37)
+ by LVUPR12MB999159.namprd12.prod.outlook.com (2603:10b6:408:3a4::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Mon, 8 Jun
+ 2026 07:00:58 +0000
+Received: from CH3PEPF00000016.namprd21.prod.outlook.com
+ (2603:10b6:5:1b3:cafe::5b) by DM6PR17CA0024.outlook.office365.com
+ (2603:10b6:5:1b3::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.13 via Frontend Transport; Mon, 8
+ Jun 2026 07:00:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000016.mail.protection.outlook.com (10.167.244.121) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.1 via Frontend Transport; Mon, 8 Jun 2026 07:00:58 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 8 Jun
+ 2026 02:00:56 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <linux-kbuild@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
- <Shiwu.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
-Thread-Topic: [PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
-Thread-Index: AQHc9QLqznVkxftv806NnQmqfVeqlrYz/8zg
-Date: Mon, 8 Jun 2026 03:24:29 +0000
-Message-ID: <IA0PR12MB8208D94B8C68E8301C9A6C71901C2@IA0PR12MB8208.namprd12.prod.outlook.com>
-References: <20260605154920.1314590-1-asad.kamal@amd.com>
-In-Reply-To: <20260605154920.1314590-1-asad.kamal@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-08T03:14:25.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|SN7PR12MB8601:EE_
-x-ms-office365-filtering-correlation-id: 1b1f4924-9913-44f6-315f-08dec50d738d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|11063799006|56012099006|6133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: tkG/kGauixp+GVQZvwJ5n2844iAlfryJzOuBjoeTreLQbVYRE4Tlg84+KH8Y+q0wjc5xzk8TEBZNRKFckFJN/6Dba+VPmLHzWtQLDfozmi236n4SgimlJMkvfrw5CpggjPjGAEmx0fR3lI3WgviYrpkiRZCpUZJc7fMMz0cIPTKSXv6KG+Zu+zGS8e3WuG/aT6js0wYVkAHZpzIigPmXiCIx6vVZBzj3BIqgxhVkYwY6FPCu2b50fpens/QtbLVYKrB4/A/HOzxPwSrPLEwFjNRoTmZte8Q3sITSfAXdKaXf7G2BlbNDRLe+Oe//QCyVn3Y4/MfwAN0zIFoByRx0Q7PZeAPbZcOil5ryls/bST+97eSWEy+LqZOsQBAZMbRHgmAOeOMt6IW8ilvcTf/dNdSZK4EQQwpBUYWAnxKohZQHUYsjRam0NeUwEnNvJugcAVyThh0B4JPWaTV9By2iSqBmxj+U2L7nntBBs2xxgIxaupZ0xpQ+NqfTTmA13+w4hbkaI7mUITYM0Zfvk02l3M6kTwoJvdlY8vKdLlnQR16mVcRylkoonLq+lNvx8tsZx2CQVDQHtWXPXaOHt2RLgd65esavuae6Ezr7bAFswb+rCk9hRjY0RUWHqHnVbbKr7ot+A91ZvUbOFNV65Sb2RIHRu5Ru8g2jqgo3wRYPhZ9E79SGIUxXU3IrRI+iYVSEo8JGqFDLQxA+KZvhG23yuychllKubivxfODezRTpxk1BiQVK6v4Y0H6U9qAqQ/iW
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yG9hA3DF/FTHCPTdCegPl8tfZ+bxfbaIDHqG5Bvy41i32RrI0kRYqQf1tejn?=
- =?us-ascii?Q?HTf25Akkf0v9r9u3q/qAy0VUKV0QBjVRvXRFOUBcKfyWS0Gyap3hozZLBOXD?=
- =?us-ascii?Q?o7qTEV4YV4A10PXr3Mg4y5+F7ypI6DFSy+aNwNu9edsBD85Ogqq3U9tixMIl?=
- =?us-ascii?Q?XGtrmMCg7aosWf5oAPWdPaifftwrKfVtfMya7K+Qy1x8Vq36oA1nE/reVpOp?=
- =?us-ascii?Q?dtXa7v9weBCnwsoDKU1vphXa6OKvRe9V/st0oAilf6y/qqZ1wzZ235YtBYF1?=
- =?us-ascii?Q?9+GLi4e+uf6yzcJ2vBw5s3EzL81gKYtM2f5N1p3fOKlk69lEJkYe4kWFQthe?=
- =?us-ascii?Q?7TqQcYB/K+Xt7sG9v9PegS63dCa/cdT8n8rKi4Qo50ymfoCDsJ9cEJcVDvjO?=
- =?us-ascii?Q?mKNH/Ix/F9KWSRDkwoTJs88vFFTQJC32pHev+I31FLB59zpNc5xsyiVc+CHZ?=
- =?us-ascii?Q?lTi4KkoaBGutKgSo75/WwNwGxgb29rXLB1IDN+k36angBHNhqu3kwDexhAe1?=
- =?us-ascii?Q?CnTcJiZ9aBweo/hdPMbc31BQcfVIyGq5O1hnnwk2Hep5Ss+NQ9sZevhHnl/l?=
- =?us-ascii?Q?+Q6K5Qsh7BK6oo4oXRRqc+oLRBCMYWP+PxhmPFSAWOSPnUPD1N93z1eMfWz7?=
- =?us-ascii?Q?Uu5QtThr/4IcGXFxXVqYD9IrAZ498hr9faFgwC8z//RLzaGxYdaJr3eto2ag?=
- =?us-ascii?Q?GhU+aDlqax56WuGqovhHvIEsgPxtu2V/M5HV1LefCjyoI9hRZ7V7wM+MRIhv?=
- =?us-ascii?Q?b9hVelxf9v1uASX1CrZtjyk1lfxrfEPvj0hq01bH1aHu4Vp740sOjcIVyila?=
- =?us-ascii?Q?BYP6ez65K+RMYXoYDhXEC2n7qd3mzs3RTU6bK5I366ptkFLPFTSfuZRk8yqY?=
- =?us-ascii?Q?g2tXT6izJRN5z9D5QAIzl0uI1HCdN45lzMQZglvjI1uEku1UoxwMlx1q3Kpu?=
- =?us-ascii?Q?HwRddjcVbmg5WpO1JHbITKIRlM3imnvh0t8SSBRQ0oZeDCFwbLkgiAUyS77N?=
- =?us-ascii?Q?u8HXCPTt7Z9p6WPXl+JvVgFkZ2W9GLmKwBvAFEQXnI/jxWoltjferA2TMQyd?=
- =?us-ascii?Q?iPJa9wbhiLPLb6FZpyMXKa0fIz9oL2S9rcsTUvFsf7xokI5ASIhUxihT6hbG?=
- =?us-ascii?Q?Czj9wsXfyH1fDdHra9MI9isqapflJWCfb60CeQUKHujSw8hlO6CJFiLmDiGP?=
- =?us-ascii?Q?bo4CEy6AIr2sTEwcuadh7+iIywxWqr3UJa5BwsdKwvngKk+vdMuAh4wHV7gU?=
- =?us-ascii?Q?1EHeryln++7oM7Ca4rLkriiLOv8Q0CBETcXYZucdS0b8CR1W25YVSgzJj0K+?=
- =?us-ascii?Q?3J1F8mKAVHDFiaIwoN2tjEcbGud01IXpF/G9bcTGlm55J49buLQgEsDRURTL?=
- =?us-ascii?Q?6tBa/9ZIakNEGrQ2iKSclI5aL/RAWO/UAUw7hj7szV9bu+Rpa9jGQvv90hHY?=
- =?us-ascii?Q?F0WtVyZ4S0aZSGhBuUkz1lyd9cZWl7c0BhD8Dyf8lXRJXzHBtvuKDy64XCws?=
- =?us-ascii?Q?wd/B7IAUgvYFvawaq0KwAZ45XNnA9SSHbPowaQIM4e2qqa2jcOpF6wdgEre9?=
- =?us-ascii?Q?4+zNqgbxt+tT+slNmyctVUMaEg1XU+t1F1ob8/eyBzH7x+ghw46PikZ4wFSe?=
- =?us-ascii?Q?gAYRD9zKEiZexbPw6WiMQlwuzevI++P7scR9TVsIe4Ka3SqzyoakyUJdmEy7?=
- =?us-ascii?Q?ADgAXcPhb3RNMGS3qSDOdZDaiR0wYg76TeGhkQfv8i8nKfEa?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+CC: <nathan@kernel.org>, <nsc@kernel.org>
+Subject: [PATCH] kbuild: normalize paths in quiet compile output
+Date: Mon, 8 Jun 2026 15:00:39 +0800
+Message-ID: <20260608070039.4069917-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000016:EE_|LVUPR12MB999159:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf7f7535-3fcf-460e-b95b-08dec52bb16d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|1800799024|18002099003|56012099006|11063799006|3023799007;
+X-Microsoft-Antispam-Message-Info: boNVC69SO4ExiZEKYJ/h+FcfGIEQUJ4QltOn2e7CJwvf1Xtbqboood8bRaqOddFUtOCxNEXEmSOkfZKBf8UQUDSXNfubv2ngxAKL/E/OLjJ0XsRc8ZaxPRe8NdxjsD8Ih0NstAs7ZA6VXnpnQTes6Ylroohkvcjlxozhvfpdu9CQgm8tU4M6Kx0IuEKuMluYgtIQt0/jMbq76Tij9UVB+L+kQoSnl8F/OoPub6cxUhmygaXuEHITfBafrj6SepsSBMI5gFSkGNH7JJ33f9/ziVyfeLzn3koSMyetN7kth/HW+ad618iXGs/Gvzciq8kkJkQNQosWLEkP8PyDA/hNsPifONYN9vQ6KUPb79cewPPfkSMidSmD6OoRM6c4CWjadTWCVZ8hCrm9IR+Mz1AjTK+ZUzro3WPRj29hb5HXnCMHu3ltErJogb7VdilGZvVy/82WeKQU+uogpepaqGxIWb6wFtXbLOaDdYBb588W40nXS+tBJW8PC2fwQAXtkyFYv9XzHx3mJGtDePx0tdtxXpXPVQSoz7LdHrZ0EOx6bCPPYsOTlXrxnOcD7d0GB3ezQeL+ESE7rGpEb0Bq2HL8AN5AB8+CGZ0BN4QnL9DtMGmSwJVDvTiMzmKQNvQKOfSu9G3jQEqeewP0lYqY3mnosNJaTYF91b5dv7XWnJUbMwyIVch78bCJ8ezYVnKFTT0SMqWin6hpiJQz2DDYYU44myvEg3e+IPNUanP2Vf577CU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(18002099003)(56012099006)(11063799006)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: d0xcNzPap6mn0VIZZtXzFsHsn0t0VaZovh1vVb18RjokiG441FBDrlXTVDXkgbw/2ZFcZuDngmQJgSONcEuxudbZWVxTuMjq/1q0ELejk5w4wnB1pVZbBTp3KOq5AGFNetJIqg9xWGsAgGkEnjx6fjYO0YAqsGeOaD30rRiOdBZOv2CQRqvAyIpv8skT/fgAvQJUv744Tj/9TXpYg4xLcT/mf54uiDXg7oq+EIgvA4pidRNhcUWn1Pzf19qIOdZBU4j2RohGeMvIPcJTrjsGcLlAbxigMrfoANymJF/h3n9LZEIyHROJfymY24EbEnFl3pLsUqCcUuZFWklNbH+mue30FLFhjLm5Bumdd4BKmKVU7ZGOtTNvOuC1DG8FrXSpPS0n+SVP1F22Y+bhKlrhLowfIhaaBvNpsnhvhFUFJi84Z27DZkfOjkNxYDwUr2WL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b1f4924-9913-44f6-315f-08dec50d738d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2026 03:24:29.6570 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8xujCtlx4Nl92MZloDy5xJCcQtyalnzXaK7iadeCmT81X5mK4Px6AsVoFC8PWxhCXxQrBu26o7A7JiTa0Gi1AA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8601
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 07:00:58.3895 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf7f7535-3fcf-460e-b95b-08dec52bb16d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000016.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,91 +108,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+Composite objects may contain relative components in their member object
+paths. This can make quiet compile output include noisy dot-dot components,
+for example:
 
-> -----Original Message-----
-> From: Kamal, Asad <Asad.Kamal@amd.com>
-> Sent: Friday, June 5, 2026 9:19 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris
-> <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
-> Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Kamal, Asad
-> <Asad.Kamal@amd.com>; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>
-> Subject: [PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
->
-> The cleaner shader sysfs path allocates a 16-dword (64 byte) IB but incor=
-rectly fills
-> (align_mask + 1) dwords. On GFX rings align_mask is 0xff, so the loop wro=
-te 256
-> dwords into a 64-byte buffer, causing a kernel page fault.
->
-> The IB only needs to be a minimal NOP shell to schedule the job; the clea=
-ner
-> shader itself is emitted on the ring via emit_cleaner_shader().
-> Fill 16 dwords to match the allocation.
->
-> Fixes: d361ad5d2fc0 ("drm/amdgpu: Add sysfs interface for running cleaner
-> shader")
->
-> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index ff5a55f5f3c9..f2c536929446 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1694,7 +1694,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct
-> amdgpu_ring *ring)
->       struct amdgpu_job *job;
->       struct amdgpu_ib *ib;
->       void *owner;
-> -     int i, r;
-> +     int r;
->
->       /* Initialize the scheduler entity */
->       r =3D drm_sched_entity_init(&entity, DRM_SCHED_PRIORITY_NORMAL,
-> @@ -1722,9 +1722,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct
-> amdgpu_ring *ring)
->       job->run_cleaner_shader =3D true;
->
->       ib =3D &job->ibs[0];
-> -     for (i =3D 0; i <=3D ring->funcs->align_mask; ++i)
-> -             ib->ptr[i] =3D ring->funcs->nop;
-> -     ib->length_dw =3D ring->funcs->align_mask + 1;
-> +     memset32(ib->ptr, ring->funcs->nop, 16);
-> +     ib->length_dw =3D 16;
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
 
+Use the existing normalize_path helper for quiet C and assembly compile
+output so the same target is printed as:
 
-The fix correctly limits the NOP IB to the allocated 64-byte (16-dword) siz=
-e and avoids the overflow. As a minor cleanup, it may be worth defining a c=
-onstant for the 16-dwords to avoid magic numbers and keep allocation/fill s=
-ize tied together.
+  CC [M]  drivers/gpu/drm/amd/amdkfd/kfd_module.o
 
-+#define AMDGPU_CLEANER_SHADER_IB_SIZE 64
-+#define AMDGPU_CLEANER_SHADER_IB_DW \
-+       (AMDGPU_CLEANER_SHADER_IB_SIZE / sizeof(u32))
-+
- static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- {
-@@
--       r =3D amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
--                                    64, 0, &job,
-+       r =3D amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
-+                                    AMDGPU_CLEANER_SHADER_IB_SIZE, 0, &job=
-,
-                                     AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
-@@
--       memset32(ib->ptr, ring->funcs->nop, 16);
--       ib->length_dw =3D 16;
-+       memset32(ib->ptr, ring->funcs->nop,
-+                AMDGPU_CLEANER_SHADER_IB_DW);
-+       ib->length_dw =3D AMDGPU_CLEANER_SHADER_IB_DW;
+The actual compile commands still use $@, so object paths, dependency
+tracking and generated files are unchanged.
 
-Thanks,
-Srini
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ scripts/Makefile.lib | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 28a1c08e3b22..7d1589d993a8 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -239,7 +239,7 @@ ifdef CONFIG_LTO_CLANG
+ cmd_ld_single = $(if $(objtool-enabled)$(is-single-obj-m), ; $(LD) $(ld_flags) -r -o $(tmp-target) $@; mv $(tmp-target) $@)
+ endif
+ 
+-quiet_cmd_cc_o_c = CC $(quiet_modtag)  $@
++quiet_cmd_cc_o_c = CC $(quiet_modtag)  $(call normalize_path,$@)
+       cmd_cc_o_c = $(CC) $(c_flags) -c -o $@ $< \
+ 		$(cmd_ld_single) \
+ 		$(cmd_objtool)
+@@ -254,7 +254,7 @@ define rule_cc_o_c
+ 	$(call cmd,warn_shared_object)
+ endef
+ 
+-quiet_cmd_as_o_S = AS $(quiet_modtag)  $@
++quiet_cmd_as_o_S = AS $(quiet_modtag)  $(call normalize_path,$@)
+       cmd_as_o_S = $(CC) $(a_flags) -c -o $@ $< $(cmd_objtool)
+ 
+ define rule_as_o_S
+-- 
+2.47.3
+
