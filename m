@@ -4,45 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DFCACD8C92
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 08:53:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1DB4CD8C92
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 09:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AF110EFA4;
-	Mon,  8 Jun 2026 08:53:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B21410EFEB;
+	Mon,  8 Jun 2026 09:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="USRjuu75";
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="Fbm9JgNj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K5T+YC7D";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89C2E10EFA4
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 08:53:50 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; r=y; 
- h=From:To:Subject:Date:Message-ID; t=1780908828; bh=YKpIGGKqU7nQdiEaG3t4dMi
- XXGHqYRU8jhfJVHK5vao=; b=USRjuu75x2BE/r1QcYJSNyziVVoVFsUZaH5wU7rtI/PtLrJEk9
- 1fjgIsbD5j3iD6eWpVQZUQwyoeLPgxVqznBg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed;
- r=y; 
- h=From:To:Subject:Date:Message-ID; t=1780908828; bh=YKpIGGKqU7nQdiEaG3t4dMi
- XXGHqYRU8jhfJVHK5vao=; b=Fbm9JgNjK23Tk/ultN7+MB8beE1/BHw4ZPfcvKyjZfvWOPVQPT
- HpH+39psZtimsZrcKtI7EGR511f/fL6iDaCn7Q8c5jyu0xejeuGO4iBe17EeAY50p7PV0n4wwGB
- f4NdLSe7XqguyZR8/9/J5ZKEZhhQbL7h5xGdc3K/85s1c2Iiwh5gfPEfmtJ/+1red8voKZmjAn6
- 2HbFFsiAcl9FPviWC0dNSxEwErjACFHL+9XfQUzLAGrwHcj07jvSfXbJWXelZD4qT+CjE7FMpQ2
- YwRY+FgJ2UN26z0wtt7KSnfdoK18OGXc2Urk6cks7LGKluCYFi56fs1Bpdc7IYBYtyQ==;
-Message-ID: <4e1e2a69-7e38-4e0c-a2a3-a81d8efdf031@damsy.net>
-Date: Mon, 8 Jun 2026 10:53:47 +0200
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0B4810ED8E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 06:36:44 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-8423f869421so2955659b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 07 Jun 2026 23:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780900604; x=1781505404; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7oVk9np2C8rowcJJ6cLLZoIRh76RsaPNf2tnKfd50h0=;
+ b=K5T+YC7D7pHquz66+qpB8xbQUyu2YAGG6o5CnOeHCxs8gIA5Nl/WnapFiY5+NPYcT0
+ EvkuJkmsiF+qvndvDkkM57K0xFaQJKFXM4qhm4qjWrvsIuarTJQf/MMLJHR+pSa2KKMR
+ WuydrJFGJll1lQwe85G/sH5EwMHAsfn1ckJUOaa83ODhj2OImWXGLf0tJAczYzClgTsr
+ Ho8hECByp4EwyxEYMlr3TELEGQydpANhYYNNRdozhAyy5XdB6y0cmasjV40RqFl01UJ3
+ a0HDQ4ETu3gnRx04UZvCU8A6D43FRGkcmNSjj7gURiy+WtihsIHbDc4B21qScrRCDIvn
+ aQWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780900604; x=1781505404;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7oVk9np2C8rowcJJ6cLLZoIRh76RsaPNf2tnKfd50h0=;
+ b=nzfvd/h5xqCVGgpS63ZaxELZY3ggWwSxYSgs8mRo+J9o2lGEoueoR7+LX4incGCh6z
+ kxnXVgrTjWw4zSKqYGOAUptk91lP7eiNVOIqr/ZU8CAxC8La3HU1IMiyHGNBnHPUVoyu
+ COKVqDP+M+5hq4Z824EyKesRR1c4/43GNdNCPetjIzLHr1Yn8h+tMsg8NBKZumEA3Oma
+ vuWfnd2QHJIFkAgFqyF08J1AV2EC2bjSUc+3RVqKeucrYOFj8hQ3SLNUop020NtVRVhd
+ rdtEa0xYg3MBmyDLbbycRoUbsoXHfO1sSUUR/gh1ZgN0WCN6cTVkgLaAAgbuMZN5KSxr
+ x1gg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ93vSewyRs9GDqwLfwpniqD+Z9hmt7j2l4czDHTVHCBt0+KkK5G/XR/uXx07vjpdWMLRc37opzy@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwywRH0YjUhbnQzz6/Izgf4VT22gxJetsSCXpuzrxdMisyD10xw
+ dEulw52tt3YRXG+UsNJ6QfIeS5YTefhRLPacKG8lz8wzobK8+F4RbC2j
+X-Gm-Gg: Acq92OGbI5fs5KW7MMEVjEiQOH2JuMptJsLNGwNfYFsQeVqIEzXcS0NaS4WWfoK8yRL
+ Zf+vG9234AXbynDN5XYpifWPAEWyqIfmPezyQ7xfaoJcQKZAwyvvGWQIyTlLmu3/v84SF4QCnxi
+ t1KIrBJbKTa1IMI3krg8rou6OzTobGDKb/Gsv+LRsE1zG/ye07bfiHmNRYTQk+pl5oDAf0CTmQd
+ XQ/IgqPEmHTPmCp3gXy47NMmbrr32IMl4DBQwxcZs5T8NGp6AkxRaC6vgms8sa0KTNdgwddhqWg
+ nU6dLdK3ozaGRa7917seWIiGGRA2pekoCc0AjaTlU1RjUQiYNntBGoMJREQa4D5HGak2US6Zmi2
+ y7HJJ/X9SViWX2zgg58ymvY2X0yNZgSgG4YT9jJMHIukIJAlMpIbjaM1NXTb2URxuBwVWN9Zk17
+ eulRozXCfhOqO3HwjJiivM0N7GK/Fnjhu92dTUqoGizerkdS5teqk8WXgOCTyK/og=
+X-Received: by 2002:a05:6a00:929e:b0:83f:250d:59c with SMTP id
+ d2e1a72fcca58-842b0fa5602mr14958894b3a.39.1780900604162; 
+ Sun, 07 Jun 2026 23:36:44 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:9a2:954d:67fe:d9c2])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-842823512b0sm17743127b3a.15.2026.06.07.23.36.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jun 2026 23:36:43 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] drm/radeon: avoid double free in r600 DPM cleanup
+Date: Mon,  8 Jun 2026 14:36:38 +0800
+Message-ID: <20260608063638.24-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: add userq create and destroy tracepoints
-To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
- Pierre-eric.Pelloux-prayer@amd.com
-References: <20260527122001.69831-1-Prike.Liang@amd.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <20260527122001.69831-1-Prike.Liang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 08 Jun 2026 09:06:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,159 +89,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+r600_parse_extended_power_table() uses manual kfree() calls for some
+early allocation failures, but the freed pointers are left in the
+dynamic power-management state. If device teardown later calls
+r600_free_extended_power_table(), those stale pointers can be freed
+again.
 
+Use the common extended power table cleanup helper for those early
+failure paths as well, and clear each pointer after freeing it so
+repeated cleanup stays safe.
 
-Le 27/05/2026 à 14:20, Prike Liang a écrit :
-> Add ftrace events around user queue creation and destruction to profile
-> queue setup and teardown latency.
-> 
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 58 +++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  9 ++++
->   2 files changed, 67 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> index d13e64a69e25..df98be22f1f5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> @@ -578,6 +578,64 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
->   		      __entry->value)
->   );
->   
-> +DECLARE_EVENT_CLASS(amdgpu_userq_queue,
-> +	    TP_PROTO(struct amdgpu_usermode_queue *queue),
-> +	    TP_ARGS(queue),
-> +	    TP_STRUCT__entry(
-> +			     __field(void *, queue)
-> +			     __field(u64, doorbell_index)
-> +			     __field(int, queue_type)
-> +			     __field(int, state)
-> +			     __field(u32, xcp_id)
-> +			     ),
-> +	    TP_fast_assign(
-> +			   __entry->queue = queue;
-> +			   __entry->doorbell_index = queue->doorbell_index;
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+ drivers/gpu/drm/radeon/r600_dpm.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
+index 83f1ae31cbdbc..9755e717ca8bb 100644
+--- a/drivers/gpu/drm/radeon/r600_dpm.c
++++ b/drivers/gpu/drm/radeon/r600_dpm.c
+@@ -932,7 +932,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
+ 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk,
+ 							       dep_table);
+ 			if (ret) {
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
++				r600_free_extended_power_table(rdev);
+ 				return ret;
+ 			}
+ 		}
+@@ -943,8 +943,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
+ 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk,
+ 							       dep_table);
+ 			if (ret) {
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
+-				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
++				r600_free_extended_power_table(rdev);
+ 				return ret;
+ 			}
+ 		}
+@@ -955,9 +954,7 @@ int r600_parse_extended_power_table(struct radeon_device *rdev)
+ 			ret = r600_parse_clk_voltage_dep_table(&rdev->pm.dpm.dyn_state.mvdd_dependency_on_mclk,
+ 							       dep_table);
+ 			if (ret) {
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk.entries);
+-				kfree(rdev->pm.dpm.dyn_state.vddci_dependency_on_mclk.entries);
+-				kfree(rdev->pm.dpm.dyn_state.vddc_dependency_on_mclk.entries);
++				r600_free_extended_power_table(rdev);
+ 				return ret;
+ 			}
+ 		}
+@@ -1296,17 +1293,29 @@ void r600_free_extended_power_table(struct radeon_device *rdev)
+ 	struct radeon_dpm_dynamic_state *dyn_state = &rdev->pm.dpm.dyn_state;
+ 
+ 	kfree(dyn_state->vddc_dependency_on_sclk.entries);
++	dyn_state->vddc_dependency_on_sclk.entries = NULL;
+ 	kfree(dyn_state->vddci_dependency_on_mclk.entries);
++	dyn_state->vddci_dependency_on_mclk.entries = NULL;
+ 	kfree(dyn_state->vddc_dependency_on_mclk.entries);
++	dyn_state->vddc_dependency_on_mclk.entries = NULL;
+ 	kfree(dyn_state->mvdd_dependency_on_mclk.entries);
++	dyn_state->mvdd_dependency_on_mclk.entries = NULL;
+ 	kfree(dyn_state->cac_leakage_table.entries);
++	dyn_state->cac_leakage_table.entries = NULL;
+ 	kfree(dyn_state->phase_shedding_limits_table.entries);
++	dyn_state->phase_shedding_limits_table.entries = NULL;
+ 	kfree(dyn_state->ppm_table);
++	dyn_state->ppm_table = NULL;
+ 	kfree(dyn_state->cac_tdp_table);
++	dyn_state->cac_tdp_table = NULL;
+ 	kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
++	dyn_state->vce_clock_voltage_dependency_table.entries = NULL;
+ 	kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
++	dyn_state->uvd_clock_voltage_dependency_table.entries = NULL;
+ 	kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
++	dyn_state->samu_clock_voltage_dependency_table.entries = NULL;
+ 	kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
++	dyn_state->acp_clock_voltage_dependency_table.entries = NULL;
+ }
+ 
+ enum radeon_pcie_gen r600_get_pcie_gen_support(struct radeon_device *rdev,
+-- 
+2.51.0
 
-trace_amdgpu_userq_create_start() is called before this field is set.
-
-> +			   __entry->queue_type = queue->queue_type;
-> +			   __entry->state = queue->state;
-> +			   __entry->xcp_id = queue->xcp_id;
-
-this field seems never set for amdgpu_usermode_queue.
-
-Pierre-Eric
-> +			   ),
-> +	    TP_printk("queue=%p, doorbell=%llu, type=%d, state=%d, xcp_id=%u",
-> +		      __entry->queue, __entry->doorbell_index,
-> +		      __entry->queue_type, __entry->state, __entry->xcp_id)
-> +);
-> +DEFINE_EVENT(amdgpu_userq_queue, amdgpu_userq_create_start,
-> +	     TP_PROTO(struct amdgpu_usermode_queue *queue),
-> +	     TP_ARGS(queue));
-> +DEFINE_EVENT(amdgpu_userq_queue, amdgpu_userq_destroy_start,
-> +	     TP_PROTO(struct amdgpu_usermode_queue *queue),
-> +	     TP_ARGS(queue));
-> +DECLARE_EVENT_CLASS(amdgpu_userq_queue_result,
-> +	    TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
-> +	    TP_ARGS(queue, result),
-> +	    TP_STRUCT__entry(
-> +			     __field(void *, queue)
-> +			     __field(u64, doorbell_index)
-> +			     __field(int, queue_type)
-> +			     __field(int, state)
-> +			     __field(u32, xcp_id)
-> +			     __field(int, result)
-> +			     ),
-> +	    TP_fast_assign(
-> +			   __entry->queue = queue;
-> +			   __entry->doorbell_index = queue->doorbell_index;
-> +			   __entry->queue_type = queue->queue_type;
-> +			   __entry->state = queue->state;
-> +			   __entry->xcp_id = queue->xcp_id;
-> +			   __entry->result = result;
-> +			   ),
-> +	    TP_printk("queue=%p, doorbell=%llu, type=%d, state=%d, xcp_id=%u, result=%d",
-> +		      __entry->queue, __entry->doorbell_index,
-> +		      __entry->queue_type, __entry->state,
-> +		      __entry->xcp_id, __entry->result)
-> +);
-> +DEFINE_EVENT(amdgpu_userq_queue_result, amdgpu_userq_create_end,
-> +	     TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
-> +	     TP_ARGS(queue, result));
-> +DEFINE_EVENT(amdgpu_userq_queue_result, amdgpu_userq_destroy_end,
-> +	     TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
-> +	     TP_ARGS(queue, result));
-> +
->   #undef AMDGPU_JOB_GET_TIMELINE_NAME
->   #endif
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 38e310a8694d..9dc6cb579ac7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -33,6 +33,7 @@
->   #include "amdgpu_userq.h"
->   #include "amdgpu_hmm.h"
->   #include "amdgpu_userq_fence.h"
-> +#include "amdgpu_trace.h"
->   
->   u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
->   {
-> @@ -509,6 +510,8 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->   	const struct amdgpu_userq_funcs *uq_funcs = adev->userq_funcs[queue->queue_type];
->   	int r = 0;
->   
-> +	trace_amdgpu_userq_destroy_start(queue);
-> +
->   	cancel_delayed_work_sync(&uq_mgr->resume_work);
->   
->   	/* Cancel any pending hang detection work and cleanup */
-> @@ -538,6 +541,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->   	amdgpu_bo_unpin(queue->wptr_obj.obj);
->   	amdgpu_bo_unreserve(queue->wptr_obj.obj);
->   	amdgpu_bo_unref(&queue->wptr_obj.obj);
-> +	trace_amdgpu_userq_destroy_end(queue, r);
->   	kfree(queue);
->   
->   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> @@ -639,6 +643,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->   	INIT_DELAYED_WORK(&queue->hang_detect_work,
->   			  amdgpu_userq_hang_detect_work);
->   
-> +	trace_amdgpu_userq_create_start(queue);
->   	r = amdgpu_userq_fence_driver_alloc(adev, &queue->fence_drv);
->   	if (r)
->   		goto free_queue;
-> @@ -700,6 +705,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->   		r = amdgpu_userq_map_helper(queue);
->   		if (r) {
->   			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
-> +			trace_amdgpu_userq_create_end(queue, r);
->   			mutex_unlock(&uq_mgr->userq_mutex);
->   			goto erase_doorbell;
->   		}
-> @@ -716,11 +722,13 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->   		 * This drops the last reference which should take care of
->   		 * all cleanup.
->   		 */
-> +		trace_amdgpu_userq_create_end(queue, r);
->   		amdgpu_userq_put(queue);
->   		return r;
->   	}
->   
->   	amdgpu_debugfs_userq_init(filp, queue, qid);
-> +	trace_amdgpu_userq_create_end(queue, 0);
->   	args->out.queue_id = qid;
->   	return 0;
->   
-> @@ -736,6 +744,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->   free_fence_drv:
->   	amdgpu_userq_fence_driver_free(queue);
->   free_queue:
-> +	trace_amdgpu_userq_create_end(queue, r);
->   	kfree(queue);
->   err_pm_runtime:
->   	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
