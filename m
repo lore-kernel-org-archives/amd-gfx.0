@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A76CD98C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E82CD98CE
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77BDC10E7EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5832410E7CA;
 	Wed, 10 Jun 2026 08:41:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JpPnxvtz";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="BE0VBTel";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17A1510E389;
- Tue,  9 Jun 2026 12:44:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781009075; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E283810E438;
+ Tue,  9 Jun 2026 12:46:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781009172; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=IQqrUJv3v73mBlNpnTrq/db8Tl2np3v/pDYtoPFDxNB7KPYxSCKADSOsGwH223l7gVkxBNTv9N+1suxlplYdpYQMd7NmlMaoBwlo1vSKOgflVomX0pPNg1Kq/dEAixVpVd+p+XasTYhzGigYnPaWbT40+xR+ZdNr+YBdrQU1MzY=
+ b=W4UkEXWDoFbHVKHiEHcQQBYXPeLRXLUR+4jx7SPRrqu4ZOjgMTeNwiWy0k0uu835neRxx2DnTdV45OkQ3KCmBfLGLIPeBJrbcBbrhcA5jm/D1XOLqLl7M4yGpcSqke8lVKG2XKs15lfK0cgKiXKSGdWhVh724gJ9kJF3t2FL/G8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781009075;
+ s=zohoarc; t=1781009172;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=IJIoq2lbW6FRY5oyhMQg8Qr0bvZCZUks/wUc5jCEynE=; 
- b=UVJ7Tp+tu/QzVWpLKUEkZtckxhtJP9SKXIg2qMpnNidLLIMT3qFXZJQ27DtX7bOLKJHpgQKAkQ/LarlipJhM+rjUF/tXxQe7jjwQ5zQjw75HDfkaR2sm8s4+frjX82RsBKBpi59LoeIovpdD8HOqQ+VaHLdUA4wQDWvxBMd8v60=
+ bh=0cF5uKMWfi7NxXb4LC2xP8wPestzRKGCV14XnKx612A=; 
+ b=iFm3oiW2LZBArXxSFNwZPsu2UJdVg3rsUexCOT0hUqwyYoQEPmSBlN0CkOxQFee/bJm7x2jaRkAOxtO4OJdf447TtScWFiCJM2ud2UL+QNDE7tQvurDlO1OlfBwQYkTs8DSpZpyBO6pV9FK5gY30JHsPZqcwDDqCQd3wGfMUG6o=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009075; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009172; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=IJIoq2lbW6FRY5oyhMQg8Qr0bvZCZUks/wUc5jCEynE=;
- b=JpPnxvtzJlMslo4mK6q9UX5BH5eBH/A+YoL4tcWudAwXPCW21N4eWzLO0nLvBQny
- m2zKRCG42MB7y8cdJwwqZMcLabI+qRfDeJu9ufwkwDUjeRLoAOCHM1+n+jbCvOyxHEY
- O/X1osE51njsX0PXFmR1G/Ul5p/1Dea+Mekkb/uw=
-Received: by mx.zohomail.com with SMTPS id 178100907436179.35397232750938;
- Tue, 9 Jun 2026 05:44:34 -0700 (PDT)
+ bh=0cF5uKMWfi7NxXb4LC2xP8wPestzRKGCV14XnKx612A=;
+ b=BE0VBTelRzpmqFp7T2DjBmiufMSAfkIQCxlMPu8i9tF1BseIeSsr2DmY/Pl1/dqb
+ wkgHJTOtI/7lncz2rhq8NwRNBVqpMhIi4/eIPajr2hJLUn//ylmIL0NsWKxtK7XkW/b
+ c0aEyGQ2Uz8y3oN9LkSqeS11WDwJWY23PIE1pO1k=
+Received: by mx.zohomail.com with SMTPS id 178100917045970.63023656147607;
+ Tue, 9 Jun 2026 05:46:10 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 09 Jun 2026 14:43:49 +0200
-Subject: [PATCH v17 02/28] drm/display: hdmi-state-helper: Use default case
- for unsupported formats
+Date: Tue, 09 Jun 2026 14:43:59 +0200
+Subject: [PATCH v17 12/28] drm/rockchip: vop2: Add RK3576 to the RG swap
+ special case
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-color-format-v17-2-35739b5782cc@collabora.com>
+Message-Id: <20260609-color-format-v17-12-35739b5782cc@collabora.com>
 References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -74,7 +74,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Wed, 10 Jun 2026 08:41:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,44 +91,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch statements that do not handle all possible values of an
-enumeration will generate a warning during compilation. In preparation
-for adding a COUNT value to the end of the enum, this needs to be dealt
-with.
+Much like RK3588, RK3576 requires an RG swap to be performed for YUV444
+8-bit and YUV444 10-bit bus formats.
 
-Add a default case to sink_supports_format_bpc's DRM_OUTPUT_COLOR_FORMAT
-switch statement, and move the log-and-return unknown pixel format
-handling into it.
+Add its version to the already existing check for RK3588, so that YUV444
+output is correct on this platform.
 
-No functional change.
-
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Fixes: 944757a4cba6 ("drm/rockchip: vop2: Add support for rk3576")
+Reviewed-by: Andy Yan <andyshrk@163.com>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index a331ebdd65af..c68b159f0a7f 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -542,10 +542,11 @@ sink_supports_format_bpc(const struct drm_connector *connector,
- 		drm_dbg_kms(dev, "YUV444 format supported in that configuration.\n");
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 9b261f0c7eec..6230735bbabc 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -337,7 +337,8 @@ static bool vop2_output_uv_swap(u32 bus_format, u32 output_mode)
  
- 		return true;
--	}
- 
--	drm_dbg_kms(dev, "Unsupported pixel format.\n");
--	return false;
-+	default:
-+		drm_dbg_kms(dev, "Unsupported pixel format.\n");
-+		return false;
-+	}
- }
- 
- static enum drm_mode_status
+ static bool vop2_output_rg_swap(struct vop2 *vop2, u32 bus_format)
+ {
+-	if (vop2->version == VOP_VERSION_RK3588) {
++	if (vop2->version == VOP_VERSION_RK3588 ||
++	    vop2->version == VOP_VERSION_RK3576) {
+ 		if (bus_format == MEDIA_BUS_FMT_YUV8_1X24 ||
+ 		    bus_format == MEDIA_BUS_FMT_YUV10_1X30)
+ 			return true;
 
 -- 
 2.54.0
