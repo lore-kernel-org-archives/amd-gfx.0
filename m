@@ -4,60 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8560DCD8C9D
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 00:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685B4CD6E79
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 00:32:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB07A10E00B;
-	Tue,  9 Jun 2026 00:08:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB39D10E01F;
+	Tue,  9 Jun 2026 00:32:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RCzEA1XY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iC0V95KY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE8E10E002;
- Tue,  9 Jun 2026 00:08:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780963727; x=1812499727;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=HjNCLKaSFoUeCYJx8BWxkyPNo9GgvwdwHzcyNfqgvYg=;
- b=RCzEA1XYg/8bEj36dDeUbEOu9pE2Hf7rHg3jyus/oZj6ZF4gdI/k11D8
- prlEQ8p+SJuAQsR7bIJROhGTO4xck70nw9yOZFhOQyR1imdn+yVdPVRtM
- 1JL6YQZ0Ul2VyzyejVJAo2KQXjXaxhuqPmdWxtGY0LzuPhdWJmwKcChO5
- dcAfUH5pfSK5Zlpjt0HI86PI+DcqxU/FToisQaLRrCWIhkOUhCed0BA6r
- +sPdZa4R3azIAfKbkJwn76gYAosN9ilJQGQcB1oAKdLvtlComE71VCd24
- yRk3dUOaMl1WX6kaLi2QLz6LO7nJeE/NrXNA9IyfMGAGxMg1hJ+SUEYeX g==;
-X-CSE-ConnectionGUID: zGYAa2O/Sz2DeithMsi6YA==
-X-CSE-MsgGUID: iiyGtY0HT9CVdpWQwaPDFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81899639"
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="81899639"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 17:08:46 -0700
-X-CSE-ConnectionGUID: NsxhP8phRVi1/a3xO/1q9w==
-X-CSE-MsgGUID: pnERySuGSY+H3GT5PuL8HQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="241254775"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 17:08:44 -0700
-Date: Tue, 9 Jun 2026 02:08:41 +0200 (CEST)
-From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
-To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
-cc: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, Vitaly Prosyak <vitaly.prosyak@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 1/1] drm/amdgpu: check individual moved list instead of
- invalidated
-In-Reply-To: <bb2adbe0-5962-4b33-a245-02a11c8cf64b@amd.com>
-Message-ID: <413a738c-2f24-571a-b3bd-4be2131d2261@intel.com>
-References: <20260512162711.51118-4-christian.koenig@amd.com>
- <20260608122316.3131299-1-michal.grzelak@intel.com>
- <20260608122316.3131299-2-michal.grzelak@intel.com>
- <bb2adbe0-5962-4b33-a245-02a11c8cf64b@amd.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF48910E01F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 00:32:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F0D75601E6;
+ Tue,  9 Jun 2026 00:32:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41ECB1F00893;
+ Tue,  9 Jun 2026 00:32:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780965163;
+ bh=AWqrUcAU/dt3Yzxo/R4IB34ld94Wfxn8b7jvT0dbAR0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=iC0V95KY4ScnH68l4HJawJ7OVP+VZbg+jO22tdeMTc+tE3J2rXsQomUEWBDN97mkP
+ cNGwSbxlEqSjPnipuOzPbdHBkPy2kejeOsMZKFVHOo1gyNc10B+S8vH4vNQ/uI4IY7
+ DHHqh1mDA4+XS8bluWat2bI5d9tUATl8R2oDysK+wIO0mRyE0Q53Vl80ZSK4CPoq4j
+ 5/zhQ0bOM+gOww0m7KM/3CyQAKfYZPq1hq1Jtp2hbr4kSlTf9vxxshGc6nQZM4QBvm
+ 5CS3weUw/0szJ6rN7YhoBh0I2zWai8X1w/WB3zomAMLmvEvZgscNJdNs21/zXpwgLZ
+ kZzpBTNUkdRRA==
+Date: Mon, 8 Jun 2026 17:32:38 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: kernelci-results@groups.io, regressions@lists.linux.dev,
+ kernelci@lists.linux.dev, gus@collabora.com,
+ linux-next@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
+ amd-gfx@lists.freedesktop.org,
+ Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
+ James Lin <pinglei.lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, llvm@lists.linux.dev
+Subject: Re: [REGRESSION] next/master: (build) stack frame size (2088)
+ exceeds limit (2048) in 'dml31_ModeSupport...
+Message-ID: <20260609003238.GA3576576@ax162>
+References: <178059594388.10259.8984887956034576074@330cfa3079ca>
+ <6bdbbc1b-9934-462c-b9aa-afaf0605c2a0@infradead.org>
+ <5f2d4707-ae11-44f3-ad09-1c0580abde91@leemhuis.info>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-669222198-1780963725=:1544314"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5f2d4707-ae11-44f3-ad09-1c0580abde91@leemhuis.info>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,75 +65,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, Jun 08, 2026 at 01:24:32PM +0200, Thorsten Leemhuis wrote:
+> On 6/5/26 06:23, Randy Dunlap wrote:
+> > [adding amd-gfx]
+> 
+> [+Nathan -- I'm also wondering if we should CC the amdgpu maintainers,
+> but lets wait with that for a moment]
 
---8323329-669222198-1780963725=:1544314
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8BIT
+Thanks for the CC. Bringing in more folks based on my bisect below.
 
-On Mon, 8 Jun 2026, Christian König wrote:
-> On 6/8/26 14:23, Michał Grzelak wrote:
->> Checking `invalidated` field causes build to fail since it is absent in
->> struct amdgpu_vm. Replace it with &vm->individual.moved identically
->> as did commit 59720bfd8c6d ("drm/amdgpu: restart the CS if some parts of
->> the VM are still invalidated").
->>
->> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Fixes: 40396ffdf612 ("drm/amdgpu: restart the CS if some parts of the VM are still invalidated")
->> Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
->
-> The field is renamed by a different patch so looks like a rebase/merge issue to me, could be that the Fixes tag needs double checking.
+> Nathan afaics saw this problem a few weeks ago already and filed and
+> issue for tracking: https://github.com/ClangBuiltLinux/linux/issues/2161
+> 
+> To quote from there: ""After LLVM commit 8ac9461e48e0 ("[SLP] Reject
+> 2-element vectorization when vector inst count exceeds scalar",
+> 2026-04-11), I am seeing two new -Wframe-larger-than instances from
+> drivers/gpu/drm/amd/display […]""
+> 
+> Side note: I wonder if that LLVM commit somehow made it to the KernelCI
+> env, or if something in the amdgpu code in -next changed and made the
+> problem worse.
 
-My poor understanding is that commit 40396ffdf612 ("drm/amdgpu: restart
-the CS if some parts of the VM are still invalidated") got introduced
-into drm-tip after amd-drm-fixes-7.1-2026-06-04 got merged into drm-tip
-at commit 2aaaf5931b16 ("Merge tag 'amd-drm-fixes-7.1-2026-06-04' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes") which I
-assume caused this build to fail. Meanwhile the commit should be a
-backport of commit 59720bfd8c6d ("drm/amdgpu: restart the CS if some
-parts of the VM are still invalidated") from amd-drm-next-7.2-2026-06-04
-tag.
+So I think these are two separate but perhaps related issues (i.e., the
+latter of the "side note" comment), as that LLVM commit is only in LLVM
+main (currently 23.0.0) but this instance that KernelCI flags is visible
+with clang-21.
 
-Thus I marked commit 40396ffdf612 ("drm/amdgpu: restart the CS if some
-parts of the VM are still invalidated") in Fixes: tag from drm-tip
-perspective, but I'm not sure if the description above applies nor have
-clue how to properly tag it :(. Could you give any hints on which commit
-should be actually put in Fixes:?
+With clang-22 and a distribution configuration, I see:
 
->
-> But either way Reviewed-by: Christian König <christian.koenig@amd.com>
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:3381:6: warning: stack frame size (2312) exceeds limit (2048) in 'dml30_ModeSupportAndSystemConfigurationFull' [-Wframe-larger-than]
+   3381 | void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 warning generated.
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3800:6: warning: stack frame size (2128) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Wframe-larger-than]
+   3800 | void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 warning generated.
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:3892:6: warning: stack frame size (2136) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Wframe-larger-than]
+   3892 | void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+        |      ^
+  1 warning generated.
 
-Thank you Christian for the review. Assuming Fixes: is corrected, do you
-think this could be applied via drm-misc/drm-misc-fixes? Asking since I
-don't have commit right to any of drm-* repositories.
+My bisect lands on commit faaeeecef94a ("drm/amd/display: Fix type
+mismatches in DML and normalize loop bounds") in -next, which makes
+sense. I have not looked into this super closely but I suspect that
+change makes it easier for LLVM to inline or unroll loops, which can
+result in more stack usage (especially as this code has some functions
+with many tens of parameters). It is rather hard to look at and modify
+this drm/amd/display code so I have not prioritized it...
 
-BR,
-Michał
+I wonder if
 
->
-> Thanks,
-> Christian.
->
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index 548a4f14a9f8..5d8f5848bc0e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -1323,7 +1323,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->>  		e->range = NULL;
->>  	}
->>
->> -	if (r || !list_empty(&vm->invalidated)) {
->> +	if (r || !list_empty(&vm->individual.moved)) {
->>  		r = -EAGAIN;
->>  		mutex_unlock(&p->adev->notifier_lock);
->>  		return r;
->
->
---8323329-669222198-1780963725=:1544314--
+  https://github.com/llvm/llvm-project/issues/115862
+  https://github.com/llvm/llvm-project/issues/143908
+
+are related, even if KASAN is not enabled here.
+
+> > On 6/4/26 10:59 AM, KernelCI bot wrote:
+> >> Hello,
+> >>
+> >> New build issue found on next/master:
+> >>
+> >> ---
+> >>  stack frame size (2088) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than] in drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.o (drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c) [logspec:kbuild,kbuild.compiler.error]
+> >> ---
+> >>
+> >> - dashboard: https://d.kernelci.org/i/maestro:96417cd30041ab8f3153128d0120c6cd70782d99
+> >> - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+> >> - commit HEAD:  b99ae45861eccff1e1d8c7b05a13650be805d437
+> >> - tags: next-20260604
+> >>
+> >> Please include the KernelCI tag when submitting a fix:
+> >>
+> >> Reported-by: kernelci.org bot <bot@kernelci.org>
+> >>
+> >>
+> >> Log excerpt:
+> >> =====================================================
+> >> /tmp/kci/linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3872:6: error: stack frame size (2088) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+> >>  3872 | void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+> >>       |      ^
+> >> 1 error generated.
+> >>
+> >> =====================================================
+> >>
+> >>
+> >> # Builds where the incident occurred:
+> >>
+> >> ## x86_64_defconfig+kselftest+x86-board on (x86_64):
+> >> - compiler: clang-21
+> >> - config: None
+> >> - dashboard: https://d.kernelci.org/build/maestro:6a21abf22cc72b6e94bf3c60
+> >>
+> >>
+> >> #kernelci issue maestro:96417cd30041ab8f3153128d0120c6cd70782d99
+> >>
+> >> --
+> >> This is an experimental report format. Please send feedback in!
+> >> Talk to us at kernelci@lists.linux.dev
+> >>
+> >> Made with love by the KernelCI team - https://kernelci.org
+> >>
+> > 
+> 
+
+-- 
+Cheers,
+Nathan
