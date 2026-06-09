@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8505CD98D1
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD46CD98D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBBC10E80C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7078910E810;
 	Wed, 10 Jun 2026 08:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="YbhaYEab";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NUbZOSwk";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559F510E58C;
- Tue,  9 Jun 2026 12:48:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781009284; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 305C610E487;
+ Tue,  9 Jun 2026 12:46:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781009200; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=gjRXfnKZm3xikr5oiDAZSLghacMxv5io5GS8iooBohhyN0xH1K8e0lUBxTCHieyXIpWAnu+nnRJLMR6w75w36k7GmQdlnuHw6hLoTleN9iWIHftJht9DxiDQufi5lgnO03lBshthUGp1m4I+X/3q47M1t4cf8Vlkx/3YpnDDyIc=
+ b=FRA2s1a1WnxwwETtE6zXUUZRuqPmu1yZ9krfnkwIncUxOcfDrxRvuOVZra6prPM21B/FkQQlx9Ql7Cgqlqj7wQ5aXkJdnHF8erC2B9LTawnPnPrR78M/Vyv+RzC30AKznsq7mzWm1cwWyHYBUeGYXSMl9cs7UPcTeIpAlVQONqg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781009284;
+ s=zohoarc; t=1781009200;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LNMjAyXvm1707Mniw/o230he3eROom6gWDvKkxV6Jg0=; 
- b=PtoMKrteAcmSVue54gHgc+U5SZaIhDwOqMf7BvhLafH8PcXyu4MQOycteUBNccBKzOyQ3gjiveHcEnEJ8NMr8qSH/P0Oio/xAWTPALOgeaSbRObIDmxKvWQt/sUc9Tbxh8zDGj6Skr+SjwGo+/7H5/QsnLWSn19UA7sKdZQ4I/0=
+ bh=Q+B7brSOXhFKHfF0p2ZhjGn8o6we6nqw9IHhgBjHhzw=; 
+ b=S9VSqXN9qjod7jhFAeIB2HUYGqvIJ2hbs0xBvJKjFDFoz6WbQYe8CUnpaa1rHCyZ57o2YM1a1Gis8Cd2mYi6Avk7T4S+hezqJLnmmOZeqcRKFq8BP+iAWWUgRUZkIMQRnRhqss0wAUV2hgzfPdbglfJkjXSTun5EVP5VBzvCNQk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009284; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009200; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=LNMjAyXvm1707Mniw/o230he3eROom6gWDvKkxV6Jg0=;
- b=YbhaYEaby2+DnkHG8zKsJLj05KVTLgzvpLAIly5X9hSlOjGixb0UHdsTtOjA0JDg
- /IWmH82Wkfm9yCnY5ww1OqAeCWwLgmsCFIjVGJZRVGXlzlfPJREHxtdXK39ZRd/74sx
- z5dPR3YGEJ/mT0zb3pP9V8RxRs4EM+ILUT7GPxvE=
-Received: by mx.zohomail.com with SMTPS id 1781009282872329.84846881998135;
- Tue, 9 Jun 2026 05:48:02 -0700 (PDT)
+ bh=Q+B7brSOXhFKHfF0p2ZhjGn8o6we6nqw9IHhgBjHhzw=;
+ b=NUbZOSwkPhG9VTWJIF2B3xrL+lLICm3hLhhhS24IHbrXTWA8+87tZLM7KLcBQQ4N
+ QPVpEsLnjzRAetV2rqFUiBSciKPpQOdaGgFWNasCp43ex8571CvKahqNzXTLYooF6LP
+ 1A8Ra2Zl//bmjLpH8oUfmP7QaS4jzPlyPXQDup3o=
+Received: by mx.zohomail.com with SMTPS id 178100919881040.85612487290996;
+ Tue, 9 Jun 2026 05:46:38 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 09 Jun 2026 14:44:11 +0200
-Subject: [PATCH v17 24/28] drm/connector: Update docs of "colorspace" for
- color format prop
+Date: Tue, 09 Jun 2026 14:44:02 +0200
+Subject: [PATCH v17 15/28] drm/bridge: dw-hdmi-qp: Use common HDMI output
+ bus fmts helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-color-format-v17-24-35739b5782cc@collabora.com>
+Message-Id: <20260609-color-format-v17-15-35739b5782cc@collabora.com>
 References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,7 +73,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Wed, 10 Jun 2026 08:41:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,36 +91,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The colorspace property's documentation states that BT2020_RGB and
-BT2020_YCC are equivalent, and the output format depends on the driver.
+Make use of the common drm_bridge_funcs.atomic_get_output_bus_fmts
+helper for HDMI bridge connectors.
 
-Now that there is a "color format" property that userspace can use to
-explicitly set a format, update the colorspace docs to mention this.
+This allows dw-hdmi-qp HDMI bridges to participate in recursive bus
+format selection in a meaningful way.
 
-The behaviour here is not changed for userspace that doesn't know about
-the color format property yet, as the color format property defaults to
-"AUTO", where the choice of output format is left up to drivers.
-
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 26d7449d0feb..cbb067d02cb9 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2582,7 +2582,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  *		conversion matrix and convert to the appropriate quantization
-  *		range.
-  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
-- *		driver chooses between RGB and YCbCr on its own.
-+ *		driver chooses between RGB and YCbCr based on the color format
-+ *		property.
-  *
-  *	SMPTE_170M_YCC:
-  *	BT709_YCC:
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 1c214a8e6dc2..13fddd5ebc82 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1190,6 +1190,7 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
+ 
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
++	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
 
 -- 
 2.54.0
