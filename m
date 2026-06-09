@@ -4,77 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC2C7CD98D0
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E73CD98D2
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7E610E7F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDC110E7F0;
 	Wed, 10 Jun 2026 08:41:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="VACxzzKt";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="kkYgjhnK";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB4CB10E34D;
- Tue,  9 Jun 2026 12:45:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781009115; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=AwHw88kXQ5vm8laPXwsdQRgms431pVq8+Vml1pm+Zun5e91RcBjjxw2mOVP5g6qlZ3mvkBEwbY5/1BTfsBoZUppbsiLujwwQM/EFpUKU1H8Q7X1iowHfN+qWOFyjt5b7fMLAcLdea+FzRX3lh1tJQM6zZRRoIJuLrLsDK7mbF4I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781009115;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KdbILWejyledK391rHA9edLcNhbp2+kZUgUqx3rHfZI=; 
- b=cTFTnEyBCznhBmvACuO3nIVEAJRVDrqoukHjNI37SV8GuhigG9ua51ikzS8RKcz5UnaszhkBmlEnTQx/KfI8W+bwWTahhXibg39fjf8gnF2MExXoAHx0xsJxhV0i6bTWNK0uvUpqYRFVdFYrUqflAUNEkI+J0B/yZ7r0ZFUVnV8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009115; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=KdbILWejyledK391rHA9edLcNhbp2+kZUgUqx3rHfZI=;
- b=VACxzzKthSdNINnZT+jhn5v6vMYzm+lZOb8+gdtfdtGW0fyp1yxLViopqCJuHRJ7
- PCdkWhKUL4TCm7PZQKb5ZucZk60FfU7pMCZ5TOjbyprkZxItYmBwEzHkGwH0IDw6ul+
- l6NIHXCAqTNYwL96R9f632iWPUSjQQuq7OfsHeEI=
-Received: by mx.zohomail.com with SMTPS id 1781009113118240.95432591872316;
- Tue, 9 Jun 2026 05:45:13 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 09 Jun 2026 14:43:53 +0200
-Subject: [PATCH v17 06/28] drm/bridge: Act on the DRM color format property
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-color-format-v17-6-35739b5782cc@collabora.com>
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D2BE10E4DD
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 15:41:19 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-46013161068so2874466f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jun 2026 08:41:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1781019677; x=1781624477;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=eTQ0z82edx7izZ5M6HvScOeSVrCrfTYfKUwEx3Pk0Ts=;
+ b=kkYgjhnKOrtDAC9kyiy5SqyFc4lP4BlXVNSFwfQ9Gnh2uhe+FUNkyJbd9c52JEsgbA
+ MnOegkdpDSzMQ9asvhdk6ObAwOEadQbUDFpzU1CY7WZ8CDOFmrdMyImVI/xvkWweywb5
+ OdQuGkcwYGOo7D72fIluce8X/qY14oubVVLKxNYz1hCI9JpZqbsJkOp0lwH8gLoGvRR4
+ 6dIWKn3mFGQXLQVykijZu5A9k1pmGecJXmv8UgPPhEaZvVMUMwZruniUmOzNnnT0Igjr
+ hF2/jp0+UVKNfR3cWNRYitalqjefoKDwwinzpFsjhW1kFLhlLtkqH60RlzFkdqutJs/K
+ yEyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781019677; x=1781624477;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eTQ0z82edx7izZ5M6HvScOeSVrCrfTYfKUwEx3Pk0Ts=;
+ b=bNeUZlOIfrQEB2GtTY0lPAO4JRu4t0MVC9czsZDZjSJnDTUawrx0ovB1aE8BFKZK36
+ 9SYcAwq/LVleyvtO0Rd/znx+RTv61jB8Ym/pZrJsOcBnBOiWHFp1cHgXi9ONRuV2vTLm
+ uYzEg4zYWzlbKRZsQF06Q2K/H2Y2HeQPyY9G/6DRKJxt17Nvu1HkmniNOY0o04EfyrL8
+ bRDLGQUxqY1Bxk/Jvy68V9n00C1zKjTZwuEaK9BtxSUEoMC8GdRsHu9ySGZcIJegbMQY
+ sqHgxnrgYqybOn1s/QhLZa1589T0YWwZ72BQArIqP4Kz/4NCUsWhf8bPBEIdJKZcVMut
+ c29Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9m5zT5CK3/JO7+9bVyrUMLFwCveP44untYlh6n5e2KKchaxlYy0cM783Bd3YMm4iFZwtw8Wrgu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyA4qc6D0sc3Ml7+IwP1ogOTgmPHrGVhReTGYSURDzhySOKGue0
+ rB4I0Lpwbnw+DRu7TCHjtOzIdl0BZxGxUDEFmlxo3K7GFeukNe9x5zlNdQyb79wawkg=
+X-Gm-Gg: Acq92OH33xfE+7cA2adRb7XX5IbrF0GnFfVdIBJtFU3ydbXeFfYcPAI2qIPnMOU+I5T
+ ThQHa7Fqu1nRGgQpegtQ4IcLypE+LCWQJ9IJT6dMVc3AV32/1w4YZ5eN8WoQgCa5VmjmPvxpzJm
+ yliPk2U6YGwAXrlZF5UazY1eCmunhbZ4/UlADM0dbDKHK6FpIMtzpdSczmbeUMCRXGZNbus84yU
+ bq9xnYVX4j5GnlV5dE2PS9xlKpSuJ8tRgRjRwR9VGxx1lu+XBycHl/h/0xiwMGnoeF7WcRa6/NP
+ P7/gD5G6zvUiL7+UB0ms/azv/2OZgiyNDYhOsAgAHHRVE9DbGwSaezaTxaP3/0K7VHUMsFo5Vx4
+ Xzty+VfvdOizS23JEF+ZISrMktNNJfPXk6TqcWAYu2Rr2+zVuIusPINysjUX9cjjvIBNTba+wg6
+ TnYZ3ip+C+oKBxMXrEmVYjQOS7fSt0HdNM8ivWbCyJhdH0byMLo753/rWVPP1AQhR+3Q10jmvc/
+ vQDNx1+F7sIa85Tzu9vP8XZ2Q==
+X-Received: by 2002:a05:6000:4810:b0:460:31d1:74de with SMTP id
+ ffacd0b85a97d-46031d17543mr30625012f8f.10.1781019677504; 
+ Tue, 09 Jun 2026 08:41:17 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db045b0dbdd314d8a71f.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:5b0d:bdd3:14d8:a71f])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-4601f2dcad5sm69142618f8f.5.2026.06.09.08.41.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2026 08:41:16 -0700 (PDT)
+Date: Tue, 9 Jun 2026 17:41:15 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Dave Airlie <airlied@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+ Jocelyn Falempe <jfalempe@redhat.com>
+Subject: Re: [PATCH v1 0/3] drm: Drop unused include of <drm/drm_pciids.h>
+Message-ID: <aigzdDNPzW53C_qu@monoceros>
+References: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="svfjk3dijitcjucq"
+Content-Disposition: inline
+In-Reply-To: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
 X-Mailman-Approved-At: Wed, 10 Jun 2026 08:41:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,124 +101,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new DRM color format property allows userspace to request a specific
-color format on a connector. In turn, this fills the connector state's
-color_format member to switch color formats.
 
-Make drm_bridges consider the color_format set in the connector state
-during the atomic bridge check. Call into the connector function to get
-the connector state's connector color format. For bridge connectors
-including an HDMI bridge, this will make use of whatever the HDMI
-implementation set as output formats, and AUTO will never be part of the
-rejection logic.
+--svfjk3dijitcjucq
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 0/3] drm: Drop unused include of <drm/drm_pciids.h>
+MIME-Version: 1.0
 
-Reject any output bus formats that do not correspond to the requested
-color format. DRM_CONNECTOR_COLOR_FORMAT_AUTO is always accepted as a
-matching color format for a bus format, meaning that non-HDMI bridge
-chains will end up picking the first bus format choice that works, as
-has already been the case previously.
+Hello,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/drm_bridge.c | 64 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 63 insertions(+), 1 deletion(-)
+On Thu, Apr 30, 2026 at 12:45:12PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> Hello,
+>=20
+> <drm/drm_pciids.h> is only actually used in the radeon driver but
+> included in several others. This series drops these includes.
+>=20
+> The obvious continuation would be to fold the definition of
+> radeon_PCI_IDS into the only .c file using it. But I post-pone that
+> until
+> https://lore.kernel.org/all/20260430102958.136859-2-u.kleine-koenig@bayli=
+bre.com/
+> is out of the way.
+>=20
+> There are no dependencies between the patches, so I suggest that each
+> maintainer team applies their material to their own tree at their own
+> pace.
+>=20
+> To state the obvious: This is merge window material.
+>=20
+> Best regards
+> Uwe
+>=20
+> Uwe Kleine-K=F6nig (The Capable Hub) (3):
+>   drm/amdgpu: Drop unused include of <drm/drm_pciids.h>
+>   drm/gma500: Drop unused include of <drm/drm_pciids.h>
+>   drm/mgag200: Drop unused include of <drm/drm_pciids.h>
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 9a185032a3bd..9d6fcf986022 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1151,6 +1151,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
- 	return ret;
- }
- 
-+static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_connector_color_format fmt)
-+{
-+	if (fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
-+		return true;
-+
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_FIXED:
-+		return true;
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_RGB121212_1X36:
-+	case MEDIA_BUS_FMT_RGB161616_1X48:
-+		return fmt == DRM_CONNECTOR_COLOR_FORMAT_RGB444;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUV12_1X36:
-+	case MEDIA_BUS_FMT_YUV16_1X48:
-+		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_VYUY8_1X16:
-+	case MEDIA_BUS_FMT_YUYV8_1X16:
-+	case MEDIA_BUS_FMT_YVYU8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_VYUY10_1X20:
-+	case MEDIA_BUS_FMT_YVYU10_1X20:
-+	case MEDIA_BUS_FMT_UYVY12_1X24:
-+	case MEDIA_BUS_FMT_VYUY12_1X24:
-+	case MEDIA_BUS_FMT_YUYV12_1X24:
-+	case MEDIA_BUS_FMT_YVYU12_1X24:
-+		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-+	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-+		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
-+	default:
-+		return false;
-+	}
-+}
-+
- /*
-  * This function is called by &drm_atomic_bridge_chain_check() just before
-  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-@@ -1194,6 +1235,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 	struct drm_encoder *encoder = bridge->encoder;
- 	struct drm_bridge_state *last_bridge_state;
- 	unsigned int i, num_out_bus_fmts = 0;
-+	enum drm_connector_color_format fmt;
- 	u32 *out_bus_fmts;
- 	int ret = 0;
- 
-@@ -1235,11 +1277,31 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
- 	}
- 
-+	/*
-+	 * Instead of directly accessing conn_state.color_format, call into a
-+	 * connector function that allows connector implementations (e.g. for
-+	 * bridge connectors including HDMI bridges, where the HDMI helpers will
-+	 * have already chosen an appropriate output format) to override the
-+	 * selected format.
-+	 */
-+	fmt = drm_connector_get_color_format(conn_state);
-+
- 	for (i = 0; i < num_out_bus_fmts; i++) {
-+		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Skipping bus format 0x%04x as it doesn't match format %d\n",
-+				    out_bus_fmts[i], fmt);
-+			ret = -ENOTSUPP;
-+			continue;
-+		}
- 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
- 					       conn_state, out_bus_fmts[i]);
--		if (ret != -ENOTSUPP)
-+		if (ret != -ENOTSUPP) {
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Found bridge chain ending with bus format 0x%04x\n",
-+				    out_bus_fmts[i]);
- 			break;
-+		}
- 	}
- 
- 	kfree(out_bus_fmts);
+Patches #2 and #3 are currently waiting in next for the merge window.
+Can you please pick #1, too?
 
--- 
-2.54.0
+Best regards
+Uwe
 
+
+--svfjk3dijitcjucq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmooNBcACgkQj4D7WH0S
+/k66Kgf9F8X3amz6xSCSqPrDMUAfsE0yDZryfrIdD04Cwdr/eyrQRmK9SpBEjjbQ
+cwNFLbQlMAXke0LlhXjXCILSp/BuqKUmH0q0GtJrkyaD8Odw9/Dnhlkq2RNaEIJ4
+mEeP3FM+StpommN9gqQnLHa3qL2a9LZCZOpYEi7E4PlPe/5qohqfzsR3/baoSqnp
+ckBO7qMZarO8OjK0n8yyIJ8gemk9LPZn2yA5NIw+qB2Eyi+3Uo/ks6LkKn0DAQw8
+0lRBn3kdnepYx9gWzkV3CqkSQBOQN8NFe36aqLlXTQ+xgoaY4g+bV0EkWXV+PGY4
+7F/irVgVhWjGPuHgDv6NOXCR+Jda/A==
+=BDRz
+-----END PGP SIGNATURE-----
+
+--svfjk3dijitcjucq--
