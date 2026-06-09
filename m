@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12E20CD6E79
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 22:09:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8560DCD8C9D
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 00:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F6210E0B6;
-	Mon,  8 Jun 2026 22:09:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB07A10E00B;
+	Tue,  9 Jun 2026 00:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lq52nAwS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RCzEA1XY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042DB10E0B6
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2026 22:09:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 088156001D;
- Mon,  8 Jun 2026 22:09:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A311F00893;
- Mon,  8 Jun 2026 22:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780956543;
- bh=Vf4KV/Op+GCD+8s2g1BpM2ZXvm3GjRLZVA0QNpLP9II=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Lq52nAwSWBA0ASzi+/c36WvWckTTUheWrAqw5zcVFj1KVuNu8GgVDTsiD7D5q7RqU
- h6ngq9g1+bKSwb8DHU5LnXB8qdfA9HQIGpU7lRibq2Fkjwvl4t1wdDn6doEGTR8Qpt
- TtpB2B1Dp92hAIWi5COy6dcu7Np9w3DGEriEBdTsHHkdITyjHS4t/GKgOwMpE6K27S
- Gdq5RFKMdvAalnTd2OlAw+ejlllhAhswpSDrxLL+/8JD1QO3AR8ld05uSqpEOnIYwa
- /izlvVzXTjtzg9aRodC1J3vBCm/BDI8+EiodVusuV2NDav80s7aiFiJtVqRmFh2KmP
- POI75G7OHQSWQ==
-Date: Mon, 8 Jun 2026 15:08:59 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Yang Wang <kevinyang.wang@amd.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, nsc@kernel.org
-Subject: Re: [PATCH] kbuild: normalize paths in quiet compile output
-Message-ID: <20260608220859.GC2340474@ax162>
-References: <20260608070039.4069917-1-kevinyang.wang@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE8E10E002;
+ Tue,  9 Jun 2026 00:08:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780963727; x=1812499727;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=HjNCLKaSFoUeCYJx8BWxkyPNo9GgvwdwHzcyNfqgvYg=;
+ b=RCzEA1XYg/8bEj36dDeUbEOu9pE2Hf7rHg3jyus/oZj6ZF4gdI/k11D8
+ prlEQ8p+SJuAQsR7bIJROhGTO4xck70nw9yOZFhOQyR1imdn+yVdPVRtM
+ 1JL6YQZ0Ul2VyzyejVJAo2KQXjXaxhuqPmdWxtGY0LzuPhdWJmwKcChO5
+ dcAfUH5pfSK5Zlpjt0HI86PI+DcqxU/FToisQaLRrCWIhkOUhCed0BA6r
+ +sPdZa4R3azIAfKbkJwn76gYAosN9ilJQGQcB1oAKdLvtlComE71VCd24
+ yRk3dUOaMl1WX6kaLi2QLz6LO7nJeE/NrXNA9IyfMGAGxMg1hJ+SUEYeX g==;
+X-CSE-ConnectionGUID: zGYAa2O/Sz2DeithMsi6YA==
+X-CSE-MsgGUID: iiyGtY0HT9CVdpWQwaPDFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81899639"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="81899639"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2026 17:08:46 -0700
+X-CSE-ConnectionGUID: NsxhP8phRVi1/a3xO/1q9w==
+X-CSE-MsgGUID: pnERySuGSY+H3GT5PuL8HQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="241254775"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2026 17:08:44 -0700
+Date: Tue, 9 Jun 2026 02:08:41 +0200 (CEST)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+cc: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, Vitaly Prosyak <vitaly.prosyak@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: check individual moved list instead of
+ invalidated
+In-Reply-To: <bb2adbe0-5962-4b33-a245-02a11c8cf64b@amd.com>
+Message-ID: <413a738c-2f24-571a-b3bd-4be2131d2261@intel.com>
+References: <20260512162711.51118-4-christian.koenig@amd.com>
+ <20260608122316.3131299-1-michal.grzelak@intel.com>
+ <20260608122316.3131299-2-michal.grzelak@intel.com>
+ <bb2adbe0-5962-4b33-a245-02a11c8cf64b@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260608070039.4069917-1-kevinyang.wang@amd.com>
+Content-Type: multipart/mixed; boundary="8323329-669222198-1780963725=:1544314"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,78 +72,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Yang,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Mon, Jun 08, 2026 at 03:00:39PM +0800, Yang Wang wrote:
-> Composite objects may contain relative components in their member object
-> paths. This can make quiet compile output include noisy dot-dot components,
-> for example:
-> 
->   CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
-> 
-> Use the existing normalize_path helper for quiet C and assembly compile
-> output so the same target is printed as:
-> 
->   CC [M]  drivers/gpu/drm/amd/amdkfd/kfd_module.o
-> 
-> The actual compile commands still use $@, so object paths, dependency
-> tracking and generated files are unchanged.
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+--8323329-669222198-1780963725=:1544314
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-While I agree that the dots are ugly, I do not want to take this change
-because it makes it harder to figure out how to build these .o files
-individually. For example:
+On Mon, 8 Jun 2026, Christian König wrote:
+> On 6/8/26 14:23, Michał Grzelak wrote:
+>> Checking `invalidated` field causes build to fail since it is absent in
+>> struct amdgpu_vm. Replace it with &vm->individual.moved identically
+>> as did commit 59720bfd8c6d ("drm/amdgpu: restart the CS if some parts of
+>> the VM are still invalidated").
+>>
+>> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Fixes: 40396ffdf612 ("drm/amdgpu: restart the CS if some parts of the VM are still invalidated")
+>> Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
+>
+> The field is renamed by a different patch so looks like a rebase/merge issue to me, could be that the Fixes tag needs double checking.
 
-  $ make -kj"$(nproc)" ARCH=x86_64 CROSS_COMPILE=x86_64-linux- mrproper allmodconfig drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
-  ...
-    CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
+My poor understanding is that commit 40396ffdf612 ("drm/amdgpu: restart
+the CS if some parts of the VM are still invalidated") got introduced
+into drm-tip after amd-drm-fixes-7.1-2026-06-04 got merged into drm-tip
+at commit 2aaaf5931b16 ("Merge tag 'amd-drm-fixes-7.1-2026-06-04' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes") which I
+assume caused this build to fail. Meanwhile the commit should be a
+backport of commit 59720bfd8c6d ("drm/amdgpu: restart the CS if some
+parts of the VM are still invalidated") from amd-drm-next-7.2-2026-06-04
+tag.
 
-works for building this file individually but the normalized path
-produced by this patch
+Thus I marked commit 40396ffdf612 ("drm/amdgpu: restart the CS if some
+parts of the VM are still invalidated") in Fixes: tag from drm-tip
+perspective, but I'm not sure if the description above applies nor have
+clue how to properly tag it :(. Could you give any hints on which commit
+should be actually put in Fixes:?
 
-  $ make -kj"$(nproc)" ARCH=x86_64 CROSS_COMPILE=x86_64-linux- mrproper allmodconfig drivers/gpu/drm/amd/amdkfd/kfd_module.o
-  ...
-    CC      drivers/gpu/drm/amd/amdkfd/kfd_module.o
-  In file included from drivers/gpu/drm/amd/amdkfd/kfd_module.c:26:
-  drivers/gpu/drm/amd/amdkfd/kfd_priv.h:46:10: fatal error: kgd_kfd_interface.h: No such file or directory
-     46 | #include <kgd_kfd_interface.h>
-        |          ^~~~~~~~~~~~~~~~~~~~~
-  compilation terminated.
-  make[7]: *** [scripts/Makefile.build:289: drivers/gpu/drm/amd/amdkfd/kfd_module.o] Error 1
+>
+> But either way Reviewed-by: Christian König <christian.koenig@amd.com>
 
-does not.
+Thank you Christian for the review. Assuming Fixes: is corrected, do you
+think this could be applied via drm-misc/drm-misc-fixes? Asking since I
+don't have commit right to any of drm-* repositories.
 
-> ---
->  scripts/Makefile.lib | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-> index 28a1c08e3b22..7d1589d993a8 100644
-> --- a/scripts/Makefile.lib
-> +++ b/scripts/Makefile.lib
-> @@ -239,7 +239,7 @@ ifdef CONFIG_LTO_CLANG
->  cmd_ld_single = $(if $(objtool-enabled)$(is-single-obj-m), ; $(LD) $(ld_flags) -r -o $(tmp-target) $@; mv $(tmp-target) $@)
->  endif
->  
-> -quiet_cmd_cc_o_c = CC $(quiet_modtag)  $@
-> +quiet_cmd_cc_o_c = CC $(quiet_modtag)  $(call normalize_path,$@)
->        cmd_cc_o_c = $(CC) $(c_flags) -c -o $@ $< \
->  		$(cmd_ld_single) \
->  		$(cmd_objtool)
-> @@ -254,7 +254,7 @@ define rule_cc_o_c
->  	$(call cmd,warn_shared_object)
->  endef
->  
-> -quiet_cmd_as_o_S = AS $(quiet_modtag)  $@
-> +quiet_cmd_as_o_S = AS $(quiet_modtag)  $(call normalize_path,$@)
->        cmd_as_o_S = $(CC) $(a_flags) -c -o $@ $< $(cmd_objtool)
->  
->  define rule_as_o_S
-> -- 
-> 2.47.3
-> 
+BR,
+Michał
 
--- 
-Cheers,
-Nathan
+>
+> Thanks,
+> Christian.
+>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> index 548a4f14a9f8..5d8f5848bc0e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> @@ -1323,7 +1323,7 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>>  		e->range = NULL;
+>>  	}
+>>
+>> -	if (r || !list_empty(&vm->invalidated)) {
+>> +	if (r || !list_empty(&vm->individual.moved)) {
+>>  		r = -EAGAIN;
+>>  		mutex_unlock(&p->adev->notifier_lock);
+>>  		return r;
+>
+>
+--8323329-669222198-1780963725=:1544314--
