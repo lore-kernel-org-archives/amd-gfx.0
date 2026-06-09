@@ -4,68 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38122CD98D8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A8ACD8CB9
 	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89EBE10E805;
-	Wed, 10 Jun 2026 08:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 710C410E809;
+	Wed, 10 Jun 2026 08:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ckboBTg9";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="hdhpvfk3";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E34BF10E338;
- Tue,  9 Jun 2026 13:53:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781013220;
- bh=L98cR/ByoGK9e175bYrq4L47hW2opnbC3z5psUrV550=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ckboBTg9fcyqrbuG3aksVjfwbRoKQ/Dj5BOYDQ4Wat1Tz2/VcmfxWTHNhmmqH/lNJ
- GmGV0GLMIK1qPDXWpTLMCZ07zVnu0En263ZErGJG7Bpub6yUZ6kUmfCWOUD2ket3UG
- 6S/qoua/fT9gIMEJy95G9pSfZZaVwtzPXEPDQPw/6Wzsi9p6dBv9mI51vjsQWRxXGy
- JoKcLsYLphbtXFX2OpU5uT2qIz9hyHR1NCDFmV1NbBBrKk8AWSZhV8GOP+8hvH5z1v
- c91vc+ZQiZ27nPPU79OKWN5BEEukqGfUIVIKjuy3yzBx8A27h3ebIwzR5KL3eK8kdk
- tH4KOWBXhoMrQ==
-Received: from fluorite (unknown [100.64.0.208])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8F93F17E0433;
- Tue,  9 Jun 2026 15:53:39 +0200 (CEST)
-Date: Tue, 9 Jun 2026 16:53:06 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Ville =?UTF-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com, Derek Foreman
- <derek.foreman@collabora.com>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Message-ID: <20260609165306.67332621@fluorite>
-In-Reply-To: <7ad74724-9233-44ed-9b54-4c88a6a4f255@mailbox.org>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8676926.T7Z3S40VBb@workhorse>
- <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <20260326155305.736b4e64@fluorite>
- <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
- <20260331153805.376486e2@fluorite>
- <d9abba15-382d-4bc1-a58a-71bb8413eeac@mailbox.org>
- <20260331172105.271c677c@fluorite>
- <7ad74724-9233-44ed-9b54-4c88a6a4f255@mailbox.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E55E910E49F;
+ Tue,  9 Jun 2026 12:47:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781009210; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=El5q0jIvUnFkabsGz6ywfruKDA4RiA3i+4/V8uEa1CDHfbJnC4IxCpue8vCfT3eeI/KzxNDrFKXxksUbW6e3N7zr/aTgpTaRI3FS6MEr9Ng+EHGcorF4ExdgxDqOR3UbSNOI47iKZLxWqjDOZLCMFizKvbSykpXFevZMzqybEwc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781009210;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gGVpB3IASMynkptuB4kz7f6PDzq595OY22LNP1SYLO4=; 
+ b=bO82ZgWqe1t78NneDXDXNzH6kA16JWXzc/haw35kTy/ihF8R132oWQVot+2Bo8bxiFON19aKxmeTe+4NfkuGSBUIPo3OaBZra1C+2e2wS+w/qDVGhWabVmTJ/8skt93chIOGy6XTcWuPqtRYiCE1di9nZ5COBau8IhKbhMkjuk8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009210; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=gGVpB3IASMynkptuB4kz7f6PDzq595OY22LNP1SYLO4=;
+ b=hdhpvfk3bICoTi6Sa5/ePidVQVyGuVABk0aLVxnoiUPbxWdxm48YD1dCwV/xtAv0
+ axnPvS2pxfPL2QqqulIvtRHvUJXzR9+epmIo4kQ0bhA9Hr8CsNN7QksxvmS9/F9K3Rx
+ H1MvSoRhjKpLg3VZOVwz3C36Cz+iqoNXiF0rkJco=
+Received: by mx.zohomail.com with SMTPS id 1781009208240106.80041715470281;
+ Tue, 9 Jun 2026 05:46:48 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Tue, 09 Jun 2026 14:44:03 +0200
+Subject: [PATCH v17 16/28] drm/rockchip: dw_hdmi_qp: Implement "color
+ format" DRM property
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/QAc_Qv+y6AjbFFs+expgZaA";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260609-color-format-v17-16-35739b5782cc@collabora.com>
+References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
+In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Wed, 10 Jun 2026 08:41:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,84 +91,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/QAc_Qv+y6AjbFFs+expgZaA
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Switch between requested color formats by setting the right bus formats,
+configuring the VO GRF registers, and setting the right output mode.
 
-On Wed, 1 Apr 2026 09:46:08 +0200
-Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+To do this, the encoder's atomic_check queries the bus format of the
+first bridge, which was determined by the bridge chain recursive format
+selection. Pick the input format if it's !FIXED, otherwise, pick the
+output format.
 
-> On 3/31/26 16:21, Pekka Paalanen wrote:
-> > On Tue, 31 Mar 2026 14:56:22 +0200
-> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote: =20
-> >> On 3/31/26 14:38, Pekka Paalanen wrote: =20
-> >>> On Tue, 31 Mar 2026 10:01:59 +0200
-> >>> Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:   =20
-> >>>> On 3/26/26 14:53, Pekka Paalanen wrote:   =20
-> >>>>> On Tue, 24 Mar 2026 17:44:21 +0100
-> >>>>> Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
-> >>>>>      =20
-> >>>>>> * There's no clear use case.
-> >>>>>>
-> >>>>>> This is generally a requirement for new KMS UAPI.
-> >>>>>>
-> >>>>>> The practical usefulness of the corresponding weston MR is dubious
-> >>>>>> per the concern above.     =20
-> >>>>>
-> >>>>> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc
-> >>>>> rather than RGB 8 bpc is an excellent use case.     =20
-> >>>>
-> >>>> This series and the corresponding Weston MR aren't enough to address
-> >>>> that use case though, are they? All they achieve is logging a
-> >>>> potentially misleading warning.
-> >>>>
-> >>>> It might make sense to combine this series and the Weston MR with
-> >>>> whatever else is needed for that use case.   =20
-> >>>
-> >>> What do you believe is missing?   =20
-> >>
-> >> For the stated use case, e.g. a mechanism to control RGB vs YCbCr? =20
-> >=20
-> > There is no need for that. Currently the driver chooses the color model
-> > and depth on its own. We just want to make sure it's not too low. =20
->=20
-> What can be done when it's too low though?
+The previously unused GRF register color format defines are redone as
+well. Both RK3588 and RK3576 use the same defines; it didn't look like
+this as there was a typo in the previously (unused) definition.
 
-Notify the end user that their system is not performing up to their
-parameters. They may need to consider changing hardware.
+Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 107 ++++++++++++++++++++++---
+ 1 file changed, 98 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f35484715c2d..b77ef92ae954 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -11,6 +11,7 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/hw_bitfield.h>
+ #include <linux/mfd/syscon.h>
++#include <linux/media-bus-format.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/phy/phy.h>
+@@ -44,10 +45,6 @@
+ #define RK3576_8BPC			0x0
+ #define RK3576_10BPC			0x6
+ #define RK3576_COLOR_FORMAT_MASK	GENMASK(7, 4)
+-#define RK3576_RGB			0x9
+-#define RK3576_YUV422			0x1
+-#define RK3576_YUV444			0x2
+-#define RK3576_YUV420			0x3
+ #define RK3576_CECIN_MASK		BIT(3)
+ 
+ #define RK3576_VO0_GRF_SOC_CON14	0x0038
+@@ -75,8 +72,6 @@
+ #define RK3588_8BPC			0x0
+ #define RK3588_10BPC			0x6
+ #define RK3588_COLOR_FORMAT_MASK	GENMASK(3, 0)
+-#define RK3588_RGB			0x0
+-#define RK3588_YUV420			0x3
+ #define RK3588_SCLIN_MASK		BIT(9)
+ #define RK3588_SDAIN_MASK		BIT(10)
+ #define RK3588_MODE_MASK		BIT(11)
+@@ -88,6 +83,11 @@
+ #define HOTPLUG_DEBOUNCE_MS		150
+ #define MAX_HDMI_PORT_NUM		2
+ 
++#define RK_COLOR_FMT_RGB		0x0
++#define RK_COLOR_FMT_YUV422		0x1
++#define RK_COLOR_FMT_YUV444		0x2
++#define RK_COLOR_FMT_YUV420		0x3
++
+ struct rockchip_hdmi_qp {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+@@ -116,6 +116,33 @@ static struct rockchip_hdmi_qp *to_rockchip_hdmi_qp(struct drm_encoder *encoder)
+ 	return container_of(rkencoder, struct rockchip_hdmi_qp, encoder);
+ }
+ 
++/**
++ * dw_hdmi_qp_rockchip_bus_fmt_to_reg - converts a bus format to a GRF reg value
++ * @bus_fmt: One of the MEDIA_BUS_FMT_s allowed by this driver's atomic_check
++ *
++ * Returns: an unshifted value to be written to the COLOR_FORMAT GRF register
++ * on success, or %-EINVAL if the bus format is not supported.
++ */
++static int __pure dw_hdmi_qp_rockchip_bus_fmt_to_reg(u32 bus_fmt)
++{
++	switch (bus_fmt) {
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB101010_1X30:
++		return RK_COLOR_FMT_RGB;
++	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
++		return RK_COLOR_FMT_YUV422;
++	case MEDIA_BUS_FMT_YUV8_1X24:
++	case MEDIA_BUS_FMT_YUV10_1X30:
++		return RK_COLOR_FMT_YUV444;
++	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
++	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
++		return RK_COLOR_FMT_YUV420;
++	}
++
++	return -EINVAL;
++}
++
+ static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
+ {
+ 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
+@@ -131,29 +158,83 @@ static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
+ 		hdmi->ctrl_ops->enc_init(hdmi, to_rockchip_crtc_state(crtc->state));
+ }
+ 
++/**
++ * dw_hdmi_qp_rockchip_get_vop_format - get the bus format VOP should output
++ * @encoder: pointer to a &struct drm_encoder
++ * @conn_state: pointer to the current atomic &struct drm_connector_state
++ *
++ * Determines which bus format the Rockchip video processor should output as
++ * to feed into the bridge chain.
++ *
++ * Returns a MEDIA_BUS_FMT_* on success, or negative errno on error.
++ */
++static int dw_hdmi_qp_rockchip_get_vop_format(struct drm_encoder *encoder,
++					      struct drm_connector_state *conn_state)
++{
++	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
++	struct drm_bridge_state *bstate;
++
++	bridge = drm_bridge_chain_get_first_bridge(encoder);
++	if (!bridge)
++		return -ENODEV;
++
++	bstate = drm_atomic_get_bridge_state(conn_state->state, bridge);
++	if (IS_ERR(bstate))
++		return PTR_ERR(bstate);
++
++	if (bstate->input_bus_cfg.format != MEDIA_BUS_FMT_FIXED)
++		return bstate->input_bus_cfg.format;
++
++	return bstate->output_bus_cfg.format;
++}
++
+ static int
+ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 					 struct drm_crtc_state *crtc_state,
+ 					 struct drm_connector_state *conn_state)
+ {
+-	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
+ 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
++	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
+ 	union phy_configure_opts phy_cfg = {};
++	int ingest_fmt;
+ 	int ret;
+ 
++	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
++	if (ingest_fmt < 0)
++		return -EINVAL;
++
+ 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
+-	    s->output_bpc == conn_state->hdmi.output_bpc)
++	    s->output_bpc == conn_state->hdmi.output_bpc &&
++	    s->bus_format == ingest_fmt)
+ 		return 0;
+ 
++	switch (ingest_fmt) {
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB101010_1X30:
++	case MEDIA_BUS_FMT_YUV8_1X24:
++	case MEDIA_BUS_FMT_YUV10_1X30:
++		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
++		break;
++	case MEDIA_BUS_FMT_UYVY8_1X16:
++		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
++		break;
++	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
++	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
++		s->output_mode = ROCKCHIP_OUT_MODE_YUV420;
++		break;
++	default:
++		return -EINVAL;
++	}
++
+ 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+ 	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
+ 
+ 	ret = phy_configure(hdmi->phy, &phy_cfg);
+ 	if (!ret) {
+ 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+-		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
+ 		s->output_type = DRM_MODE_CONNECTOR_HDMIA;
+ 		s->output_bpc = conn_state->hdmi.output_bpc;
++		s->bus_format = ingest_fmt;
+ 	} else {
+ 		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
+ 	}
+@@ -383,6 +464,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
+ static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
+ 				       struct rockchip_crtc_state *state)
+ {
++	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
+ 	u32 val;
+ 
+ 	if (state->output_bpc == 10)
+@@ -390,12 +472,16 @@ static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
+ 	else
+ 		val = FIELD_PREP_WM16(RK3576_COLOR_DEPTH_MASK, RK3576_8BPC);
+ 
++	if (likely(color >= 0))
++		val |= FIELD_PREP_WM16(RK3576_COLOR_FORMAT_MASK, color);
++
+ 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON8, val);
+ }
+ 
+ static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
+ 				       struct rockchip_crtc_state *state)
+ {
++	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
+ 	u32 val;
+ 
+ 	if (state->output_bpc == 10)
+@@ -403,6 +489,9 @@ static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
+ 	else
+ 		val = FIELD_PREP_WM16(RK3588_COLOR_DEPTH_MASK, RK3588_8BPC);
+ 
++	if (likely(color >= 0))
++		val |= FIELD_PREP_WM16(RK3588_COLOR_FORMAT_MASK, color);
++
+ 	regmap_write(hdmi->vo_regmap,
+ 		     hdmi->port_id ? RK3588_GRF_VO1_CON6 : RK3588_GRF_VO1_CON3,
+ 		     val);
 
-Thanks,
-pq
+-- 
+2.54.0
 
-> The only thing I can see is setting a higher "max bpc" value. If
-> that's acceptable and helps though, why was the lower value set in
-> the first place? (Otherwise the weston MR doesn't log the warning)
->=20
->=20
-> I feel like I'm still missing a piece of the picture for the
-> practical use.
->=20
-
---Sig_/QAc_Qv+y6AjbFFs+expgZaA
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmooGsIACgkQI1/ltBGq
-qqf5EQ/+LHtQAm7P+Dsc4MhTs4n0DBDmz7WmYgtQe22U7nQ4493kVDGqX8O+YFFn
-DemxD/4lsXAVQPi8OEFAGtb/mdJbmJ6g+RV5tBqWtaCxU5LJ+ND8ZAhJnk4WPjOV
-lAgPHZf8X0iavtWm4yVWvKOsSlNI/+AK+FTSQui7qKmv96ghVdIRZz+zR6/+JmD4
-+0rYGSngrpDb63vUzuxXWBpAe8IsicYVghegcHIRbvlHyJ0rc9x/P2LxMKu4Zvbl
-Rd8QUSW+qhzmzay0hsWkJ0bgFRNVGcmXW+KJoOg1381gqhi8I+BEAaKMAuY4kjMv
-5PWBGX/4F73j2MQJzpmDnIDynumxC0jojOS5e7kAaC5tLuEkDgBgRInmgoY3TTVx
-+sO5jVhQeQpkpqXYBZnR2zCYP5Ql/wiQH3B89dkylAQkV1OJVUoDRuKGUjrA2sI5
-phB49sfmUNGX/6XVjAA+NUhD73t2LUtE3u577zFBLoGaoYwJbAAyewmpV3cl4zP9
-llDH80zIVIQy9AUWYKXq0lgpXEdNNVLRK5uqTzh8juvbcA2cAFgeLNSl9D8H18Ud
-Gi1QYLl8BJhWgHpUBWW1qNpgEQI6bk9Awq2gXmeoXNNeCnI3EhPOZXcIATJwuaXy
-cwd/a2UFifd40zNkLfNiUvPUH/GZ8p2KQZr17taGjNsnaAquy40=
-=NrJS
------END PGP SIGNATURE-----
-
---Sig_/QAc_Qv+y6AjbFFs+expgZaA--
