@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1224CD98D0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90D24CD98DF
 	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 154D110E817;
-	Wed, 10 Jun 2026 08:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEBA10E81B;
+	Wed, 10 Jun 2026 08:42:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="g+ufCk/r";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ccaqK+I+";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 848B810E5C8;
- Tue,  9 Jun 2026 12:48:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781009302; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1099310E498;
+ Tue,  9 Jun 2026 12:46:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781009192; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=bYFYz1ujurLHtgRKzmDjEb+gL6uQmQZMHF6zOoLUAuyN3wdr8pvvQfAyWWxaE0Js0jyI6IG4wbRALVoRNChayDDhp8yZDbPcFXAx4SonwLilQVVavSHbFScsyOu+ylH6oB6NowCFwbABl5qu+/BBdhGcWi7CsohLb3bAJyZ1U/M=
+ b=nOIPQLbeDBn1Bt8BAB0/0g1vkcCeToAwa59y5TESDTsh2rPKIUpTBM9Ps2UeeXaTU3ZpT4Zqa2Zmd9MgA7Y1YTUparVhB+9FWE5Ah6De/9/eBCENNg5QHnAFX0xcEnElo0+anKyTwChPVXYXLyRfSQbKzjjuT70wZga19vAvhHo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781009302;
+ s=zohoarc; t=1781009192;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=JozXtiKcx7avKOj7xCK3QtSfIpe/5RCc9M60ZmCKepQ=; 
- b=Y079K/nlVdqtJvnQG6Ozl+Xn4reDShkYOmwyljUKOQYuKhDidaEqkmiqjxrKnoXWVS2c0i1dLLu1S8wbaby4UHv8gpEbSDZ1ycpDuAV8LEuSdSZSGoRs9UHwgTvpYSus7/Gs3iYU0G2KmqPWDz2lJ810cxbVxik15gItTg697Q0=
+ bh=tcD/rsO9xynf7NP8eA8bnOejKKWGyFuEY+zDeq4pxrM=; 
+ b=RJQce/JfNI+71NKsv8zsqknhje6eHbxvOQNxtqxC0QjxWAiag/oYVEpo2HqjOjSKpwukO5wy/xYCzTJVEL/Gm4rXNGpNelEwreyavMYmO9KJsUiXf+urlT8BTg+prSsjVCooyjwNFFMQ6Zr3j+p+P4ifDA+1zL0+5WE1Sg9YJ9I=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009302; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009192; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=JozXtiKcx7avKOj7xCK3QtSfIpe/5RCc9M60ZmCKepQ=;
- b=g+ufCk/rRYPveQUXnSfmyjwEk/NXMmiIeORy7Hs0u24VF8ARHuIMtCCufAyqjEmc
- QxKKzYSupOMdEiBOAe0a1Qr0VIOsFuVrYX951mIUNEFDSIgbye0ZIzOL/s8MSd0CPQs
- 3GpgYpOFOkfkCASnirv2ouyi3DbarRO2cUxQI+Ac=
-Received: by mx.zohomail.com with SMTPS id 1781009301146254.45527484098727;
- Tue, 9 Jun 2026 05:48:21 -0700 (PDT)
+ bh=tcD/rsO9xynf7NP8eA8bnOejKKWGyFuEY+zDeq4pxrM=;
+ b=ccaqK+I+AAsu0wRbnTiDXR81MY2E5iqrml42d/wCYcm3mKAr3CQ3Jj0RYHVF0zbM
+ VoHugWxlkLbSjwCXBaU8gor6qwbLgVhmS+eSD11WYx/aqXPjH7q7ow/6LN0PudjumgL
+ lAbgRjlAzfx/xPen84Zf/X0OIFr0jyTJYc4Rr+uY=
+Received: by mx.zohomail.com with SMTPS id 1781009189380792.875917367303;
+ Tue, 9 Jun 2026 05:46:29 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 09 Jun 2026 14:44:13 +0200
-Subject: [PATCH v17 26/28] drm/i915/dp: Add YCBCR444 handling for sink formats
+Date: Tue, 09 Jun 2026 14:44:01 +0200
+Subject: [PATCH v17 14/28] drm/rockchip: vop2: Set correct output format
+ for RK3576 YUV422
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-color-format-v17-26-35739b5782cc@collabora.com>
+Message-Id: <20260609-color-format-v17-14-35739b5782cc@collabora.com>
 References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,7 +73,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Wed, 10 Jun 2026 08:41:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,58 +91,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In anticipation of userspace being able to explicitly select supported
-sink formats, add handling of the YCBCR444 sink format. The AUTO path
-does not choose this format, but with explicit format selection added to
-the driver, it becomes a possibility.
+For RK3576 to be able to output YUV422 signals, it first needs to be
+able to pick the right output mode in the display controller to do so.
 
-Check for both source and sink support of YCBCR444 in
-intel_dp_sink_format_valid.
+The RK3576 hardware specifies different output formats depending on the
+used display protocol.
 
-Acked-by: Daniel Stone <daniel@fooishbar.org>
+Adjust the written register value based on the SoC and connector, so
+other users of vcstate->output_mode don't have to care about this.
+
+Reviewed-by: Andy Yan <andyshrk@163.com>
+Reviewed-by: Daniel Stone <daniel@fooishbar.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index f01a6eed3839..7c69d3badf9f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1344,6 +1344,16 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 					 8, sink_format, true);
- }
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 3fad79fe2d89..4cce3e336f5b 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1824,6 +1824,22 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
+ 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
+ 		out_mode = ROCKCHIP_OUT_MODE_P888;
++	else if (vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 &&
++		 vop2->version == VOP_VERSION_RK3576)
++		switch (vcstate->output_type) {
++		case DRM_MODE_CONNECTOR_DisplayPort:
++		case DRM_MODE_CONNECTOR_eDP:
++			out_mode = ROCKCHIP_OUT_MODE_YUV422_RK3576_DP;
++			break;
++		case DRM_MODE_CONNECTOR_HDMIA:
++			out_mode = ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI;
++			break;
++		default:
++			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
++				vcstate->output_type);
++			vop2_unlock(vop2);
++			return;
++		}
+ 	else
+ 		out_mode = vcstate->output_mode;
  
-+static bool
-+intel_dp_can_ycbcr444(struct intel_dp *intel_dp)
-+{
-+	if (source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_YCBCR444) &&
-+	    !drm_dp_is_branch(intel_dp->dpcd))
-+		return true;
-+
-+	return false;
-+}
-+
- static enum drm_mode_status
- intel_dp_sink_format_valid(struct intel_connector *connector,
- 			   const struct drm_display_mode *mode,
-@@ -1362,6 +1372,16 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
- 		    !drm_mode_is_420(info, mode))
- 			return MODE_NO_420;
- 
-+		return MODE_OK;
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		if (intel_dp->dfp.min_tmds_clock &&
-+		    !intel_dp_has_hdmi_sink(intel_dp))
-+			return MODE_BAD;
-+		if (!intel_dp_can_ycbcr444(intel_dp))
-+			return MODE_BAD;
-+		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
-+			return MODE_BAD;
-+
- 		return MODE_OK;
- 	case INTEL_OUTPUT_FORMAT_RGB:
- 		return MODE_OK;
 
 -- 
 2.54.0
