@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC91CD8CA8
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 10:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A835ECD8CAA
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 10:55:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE0F810E240;
-	Tue,  9 Jun 2026 10:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4396410E258;
+	Tue,  9 Jun 2026 10:55:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e+WMtx+/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XQwHgxwi";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB7810E240
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 10:44:35 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35DD710E256
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 10:55:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qN/oCprjsaNKr+SrfvHDfBmKoLIlZnojMIUT+1MdJJSrkf7XgiUDgfBrLgirhA1IdCkR229oktP04AszzYyNHkC3h/ytTGoQENOL/hBrxRtenkJXXZgGCHuHDQoZ2PQ5gihc7VcTsQ8OOoLUKUfK13H4Moqsi0gb8MvJA5rGKp52Mt4Fu0avK4QAo84gwHXhBIB1eSavkLcbpdBaHMzu7ZXIgIEVH4TS6ZQ/cVjRzDq6KbC12m/2Z4NHfXVT2WChuC3OrFfHeVYOVAufXcOlXSMnyq6FtvXrjehtTgRW9c4e8YNlIE03lAz5sWmGuxcG68vH4MK7UeR68SoWy3EWLw==
+ b=IAWkmvT5A46IWttcJga0iH/svXLLzVq4y+AOrQu9+UbOq5BD8hfldrc7/WYDNlzkY9h9AIUPJxxrUyqzACA7deDY+NxH6yAMvjJeNXk3iHqd1AfeXGWUqfxHCCbqA0W0sbBEUJKG1Jr8wmkRYAe3NxQkdY35zxWBPIGVGJ5DhqAtanukT0lAKBQpmXutIfXoV5c+dGu8ebYXlIIb8VAQGm+dso5xAfrt8KgLIBIi8PL1GNl1klb4Pr09atDV2s/3qbggDlaU0IlcO56ya7NHGIKXd8UYZ4r8U931eEDXLe16Mb5uyi1jFCghaEoLR1FmBjRSqo5Gj4kyojGcB24iPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bP8u89aXVXS0niz7ecyCO4Wlwdyzfbqcow8icnRa3bk=;
- b=LN0svsWMy9+kxy3Wej5OV+ZHTCZQVJchuCRiPtxJxiv2Ge8hk4ogZQcM21wAfGiK5eJz6KGn7YGma7hbpHBgqMIssbGXr2x1xyRJAsiUGBpby3cHgfbC9ZkBngfkGng4Gt0w67iJD+BjmsBvf352Az1405Ux5m+sHyAVrE2i7EOnpWy48FpK5GQUzWprsJTdC3LfP/dUst9CHCjmdqRLQPCkNMQWWWqPjOATGpM2CYrQaajaz83TSExmy9/vsi2r5AhGmhwSa9ayCY/M1fJo2zfyAbM6lqRf2QliXywTjp++1+B6XQh+8jAph6tLrLdxStleAcUFNR+oirJIY4XGvQ==
+ bh=8tB3gYTgCdO8gvo8PGjpSe2/4yCPqpvfXiCvwvcXqA4=;
+ b=CT9iPJrFnqw3nIBQXRF9Texhe806biJsSBsDZRzeXoqL1JCBh6Rh0DV75+pPFoYHXrul3N4CF1aNjfMwQrRnA9dauAG5jGIP+x9UQo3WbhsMzzoFbLOnoL+GsdLZuWW+Vb5Fyx3Bx+suHQCg64cUWu/0tnR33jMjYkVOKKgZpiupxf5VNlPZxv4RY2sXBUFmEafVrKOVeRhCyBwm90aYhFqXnZvvsx/wD+/FEsJ3Ome6h68bUx1esvA8EqQL7t/MErBpjyiyvaowaQYFNTTRitEptqnLfmJ4uku7YPnpqt7l99iBUsJwZZsRDqupaHNPabV4beOSNG4NCDPj82rZsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bP8u89aXVXS0niz7ecyCO4Wlwdyzfbqcow8icnRa3bk=;
- b=e+WMtx+/9CTkN3wSKY04q7SVrzG2IJ4TOsPrUAK2nXLXKJEpHzZ8igLOaExK6eo8ikpo06JCBKHM1Xm9oJ5edjh3Q7kCze9k4IG/yWR/AqUJtwk+cFFm4tIi7zx00boP6l+ch0BPEO88a9fKQisFXeFqk9JUPlgf5L1iUq/WX6M=
+ bh=8tB3gYTgCdO8gvo8PGjpSe2/4yCPqpvfXiCvwvcXqA4=;
+ b=XQwHgxwil8G/o4AzrA9RQTZY0uIKXjldhgegaewLCsW3hGSjnDlaOSOoeItkiBpW9Xafi7MxyHLLdqzLuhU3F29sa6dPZbmcPzaU3YIg1vZNDRR6tuw6xtf88qwQuw+MJcXlVCe3kWuCGms70cmuIiV6LIuEN9AdfZpiBGLrBWU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7273.namprd12.prod.outlook.com (2603:10b6:806:2ac::21)
+ by SJ2PR12MB8718.namprd12.prod.outlook.com (2603:10b6:a03:540::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Tue, 9 Jun 2026
- 10:44:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
+ 10:55:07 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 9 Jun 2026
- 10:44:31 +0000
-Message-ID: <7db78da9-90fe-40f2-b120-e78e2aff69a4@amd.com>
-Date: Tue, 9 Jun 2026 12:44:28 +0200
+ 10:55:07 +0000
+Message-ID: <d355f1c8-5ca1-41b5-8ba9-6c98417a4acb@amd.com>
+Date: Tue, 9 Jun 2026 12:55:04 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/11] drm/amdgpu: move struct amdgpu_uid and helpers
- into separate files
+Subject: Re: [PATCH v2 04/11] drm/amdgpu: move struct amdgpu_video_codecs and
+ helpers into header file
 To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander Deucher <alexander.deucher@amd.com>
 References: <20260608194741.1590055-1-shahyan.soltani@amd.com>
- <20260608194741.1590055-4-shahyan.soltani@amd.com>
+ <20260608194741.1590055-5-shahyan.soltani@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260608194741.1590055-4-shahyan.soltani@amd.com>
+In-Reply-To: <20260608194741.1590055-5-shahyan.soltani@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0235.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::30) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL0PR05CA0019.namprd05.prod.outlook.com
+ (2603:10b6:208:91::29) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7273:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1643878a-2743-41e8-a5e6-08dec61416bc
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08ef0ca3-09e5-41f4-cef8-08dec61591a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|22082099003|3023799007|18002099003|6133799003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: dEz1n9P1s9FUcj5qrj7QbeU0K1B4uVnPcf9+xpyMrZnWmYlSJPXAHHfggbycfvdPCnFkEWExTc2rIGfmKPBGDEtclzwKtPpoKdD7NMyL5vgK93Mlg3kw9FQTzfx5SF0BD+WHAb7rrr1PlMDSuQMQhxSNTMYi6GSt/4SxQidJgU0puZ3b9oMAJF4ZCXchPW1Nrx5W0U10P1qbAeVpt1ClAFz3jvIHdp61Xk5y0uRY7yqP0hRJf950B0H0pfvb3tNCdwxlTczn+AxnIMkJXtY+mKG7P7rkZAHzrKXDwPUGCrfBmMGMR0BFaa0OEjezFnmTp5wGake6e5UDwRmLlFmuRa2/MzPEDZF+/c5Es9/sxrJ4Yr0BkI/45K6Qmbuk97XzLttA3SdzrTBgmuZRCcNCCTHM+N3kN1iAof58yfaOgIO+x/imuzoDZZGbwW54MTRPNuHbOF0zsseHZY4nW7v1DNImo//JNG+CwAHcSpP4mBFyG+tn65U7cNiNMBmpS3m1LcqJR3sMfmq1Ygjqj5NHtqQNW1utWfETw9wmyiXahnSsBpAzEHA+kWxKyYNdLKISFdvcx2AgeRe4s8/zOkagmlsKDD7Rud7LAyqOIHME1/dnqTquoH0aMERAmjW6XnKuC1eOrmpe+JZtGuxrQ1SElA6oIrz9cSoO5fzZojAG3yKfyJhIk08fbmsx27tRQNyc
+ ARA:13230040|376014|1800799024|366016|3023799007|11063799006|56012099006|4143699003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: t5LuOqjt285gTFqvV2RXoL+5XDuoYZ/g1LldpVz1FiZQaYZ5tI8shmsehFBvjrz80t7nOJcNgPBZhTGLYi+KzZoeNNPDR9Vjyl4zXhRfAahs439ydBbn4nEld7vnGdjYC0gTsnYbzLBTS/LMgkk/zFAH+fnX+XGeaI04EaF8sz+ylisEZj2zM21Fa1DcmROnf2CNV7/t+QRMmf4dXZtQV6xNZXzZU6eyM6w/KYqXQvSwv/dzGuUPongezKMxjJvef4RJ0erHBB5FF5FPMZpClogv03mICrlz3iQlv/4C2FdnDcidN/XmWLiyfJ1Bgz90NbsE2myxBLHo0DZTwaQmwBNOKwMpfITbwAF0ALSs33YqCTIJ7EQAXD97WTkgsjFNwPi9B1pxbMrxvVBJGzQV4oH6LQ+Dzq2SkWDCQD+uDgxzKLqn57WoG22Kdg1R8altgt2Cz80JUX+htG7iGQvliglvhLjYDMONJSX9kU1f06t+hzb6fYdp32nBXboYpQuQ6r4v+5y0erF7/mUoQjrke1eNm4fBhx9I9xG6S2pggRfEZ+sLrSNZZ7fMZc+2jzZ5bx86P+aIdF3iKtWI5OtejzOg2e371og4Ed9TxvcLSHPFGaE8Y9jfoSyNcA5JtQr78Uzd8YwID+Gf1po7uuRACJEBv2S08DEH7UbnpPflnkYisRd3yhV76plKUjoNnDvO
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(3023799007)(18002099003)(6133799003)(4143699003)(11063799006)(56012099006);
+ SFS:(13230040)(376014)(1800799024)(366016)(3023799007)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVdoc2xHLzY4QXpNaVdmWWpaSGpuU1RHaU00SmxsSFlsdjFmV05MNHB1R1BT?=
- =?utf-8?B?cmtzTUd2UUhibFRMMVlwZDJTM1J2SmhCUkRWd1h4eVFySWZkQWlES1NvWDRS?=
- =?utf-8?B?MlJtKzgzUXpqMlRoZ3lEay9jMWFsOUVpbERJR1piNFdVYlVaRGtiMXhTRk1C?=
- =?utf-8?B?MU5yU092UGIzdDNiMEI1c3lkT0I2cUpVbmFMSTJTQStNM09uY3Z5c2xLS0wy?=
- =?utf-8?B?S2ZUOHkxTXE5TTQzR1FnVHVxZFQrWng1YWVkTmp6MWpXVWdLcHlIUFZvd0pY?=
- =?utf-8?B?a05EZ2RvSXZDZlFMRjJXak9mWnFxUXZRL1ZBeHpmM0RyUFYrdk5tMEg2YjVV?=
- =?utf-8?B?TU9qa04vUGZEd2tWRGp2VTMrQnV6Umxxa0dZMHQ5SDQ3bGxPd3k5UE05cTIv?=
- =?utf-8?B?dHd1cTFFNFJ0TXBFWEtkdlRSelhralVVYm84RjRxMGU2VXJrRHlMQ2J2V2Zq?=
- =?utf-8?B?UHp4TjhLaitEeGRnZldIMTJSUnphOHhPT21LK0tQKytIeW1pbkkxVDJwd0ln?=
- =?utf-8?B?VXp6UlJlZy9ZMlVXdWR0ZVAzeDYrbThKemtQYi9icDkyMDJ5T3JJcndrb3hY?=
- =?utf-8?B?SkkvTldzelBtZTRsTGloYW45cGc5UkNwTXcwYWxaVWU5OTN6eW9qMkNlbzcy?=
- =?utf-8?B?MS9pTlNUYy9MU1d6SFJnbm5US09tTi9pNSsxa3ZHejFpS211WVpFcWhtWnNy?=
- =?utf-8?B?SUpKNGNpSVBpckxrWUkzWm92SVhxMmR5YXp2UWRmV2ppNXM4cm15STc4dFdp?=
- =?utf-8?B?TFRXR1dUQ1Zpd1hpenBXd3Iyd1A1TGpuOGh6c2RCMTBLSkxIMi9yOGhZYlc3?=
- =?utf-8?B?ZVdDcjBkREF1YjBtbXp5T1MrSC8yMXNXdUZIRjdOTHFvUDVhUCt6TGVGc0ZG?=
- =?utf-8?B?MDFKVThQRXJMcEt5WWxTcDBUZHRIOGxOakZuUStwS1ptekRYQnZMOGdNQlBj?=
- =?utf-8?B?aGl0YTdxTmw3UmNieVVMYlJ4NEMxb1dvRTF6ZG9FbnRKaCs5dTRQSGgvd2kr?=
- =?utf-8?B?NXVnMlJScVNscjdOdmk3ZHViVUhWMlpDam9BMUVLaUpmc0xrdVBHUW80OEtR?=
- =?utf-8?B?YU5hS3ZqTi9udzFiRXgrUHhSQ01NV25lalhhY292azlkU3g1T09lY2xYWWdD?=
- =?utf-8?B?TE85b1lDVWo4TnFlSjZrc0ZoMUcxaTE5bGFxOU5PbXR0bk1OME9yV2hxOWVV?=
- =?utf-8?B?aGlITlpFTk1LQ1lnejN0L0x2VVV4NFBHa0MzTFNuQkZlS1JMRHBmTkovbjVE?=
- =?utf-8?B?NnpKN1ZaME1yb3dHVFpRdnZlR21YQVdtVUdSVklJek1PWWRYZFZocmNrQllX?=
- =?utf-8?B?U29NdXd3cHFJQ3hHYlFhVnBjQVJFcW9uMmswWXI2a2RsN05URWsvSlJ1c3hp?=
- =?utf-8?B?TmRSUlMwbnNpcEFpMWd4UE5TcnBTZDcwRzVKTnBmNm42Yy9rZEZiZXNaRUJR?=
- =?utf-8?B?VjBTQlhFV0IvM2VEUG5lck4zMmFhaklhZDBWd2kyLzdmZ1lwRlVOSWgwYzdt?=
- =?utf-8?B?d3VUeENLR0RXZGVxejNzVXNPOVZmWHNCbFZaMXpCVlpDVW9EdTdSSkVRamRE?=
- =?utf-8?B?TXYvRGEzMktDOGpkeEFIQUxScWZjR2dZOHphZXVORU9aTTVuU0I5M1BJSFdH?=
- =?utf-8?B?U1F5NWNUL3puWmZLRnl2cTVTQXdrZTdPeW1sVWd4eXp4U1E5dmRqbGcyY0JT?=
- =?utf-8?B?cnhBTHlTQ2lTYlprZnVQQytFalNQek9rS0oyTER4bkVkSHJqVmZmd2x6SU5X?=
- =?utf-8?B?dmtJeVJONWdaNlpHRU45OHYza213NHNzVzhvQTlRZDM2NjZxRlFSL2J4b0FT?=
- =?utf-8?B?VSsyVWpFSitzUWY0L3V5ZlEyVmRGM0NwSjlEYUdkVzYvVUNZaHVLVC8zTURa?=
- =?utf-8?B?T29HOGdrQmo1TW9NaERNaHQvT3cvTWhHQU1UWXhRMXVJL3J5ZEt3RktsN1dM?=
- =?utf-8?B?ZzFQcWhaUUQwZWZyek5tWEsycFdvTVpBRVZoeHNrdjZzN1BQS2ZkVXVMKzJx?=
- =?utf-8?B?MFkzeG5PcVZDWGQ3SmlSWisydWlBL2pIWGw1aG1Xcm1ySFJHeFNHamo0S2Zi?=
- =?utf-8?B?ajFVNVdTWGMrS09OY3Q4U1dHVHVCMkZGdlNhcTdMVzQzS3g0a1FldjZzdGxM?=
- =?utf-8?B?L3FRNEpDWGduRG5DWjRlQUhiZVJLUDI2M2tnZlR4M1BybUpzckluQlB2cElF?=
- =?utf-8?B?S2d3QlJhZWNVRWRpZjAvNTR2SjNSUmtqTmpMWjF3aExvVDZFR2dodERYVUt1?=
- =?utf-8?B?Y284RExpaEtNNTU3NjRIV2NrNitWa043SzhOdHJRNmtJRFNDb24zSFpaZktE?=
- =?utf-8?Q?HukWhWrrV8BofRcbBL?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXhseXZsRmVMeXRnRk1IOUNuY3NwVkdzR2pod296ZDdDWGFnZDdlVnhwbDl2?=
+ =?utf-8?B?SzB1QlE0Z2g3QkFFVlJyNDNsdFl6Qks3Z2tZeGZRdVZYUnJPQjlhYUpPcWJQ?=
+ =?utf-8?B?RWRwdUZrRlhsU1dRbHc0Yk1ySTZOSmJBZG1xM1JnQTZQdjJhSllBdE1NWWZk?=
+ =?utf-8?B?QktiaFA0ZFVWN1ZvYi8xNHFPNWh2OGhnY3NOY2FyK21LWjhOdnRSN0poVUFR?=
+ =?utf-8?B?aEcrRW5lUkMzalRDajVSQU5uOWQzRjlpaXp0K21ZQzljTVlTL3NxdzBzTThm?=
+ =?utf-8?B?SHNLaENBcE9FYXFIaXl1SG1CRC9CYlJxYXh4azhrTFRIQjVOVjdDZEduSEty?=
+ =?utf-8?B?S24yQ1V5ck1odjhKa3ZnT3hxY3NDNUdXR0pCbFQzTktmWTB5eEloTVdVUmoz?=
+ =?utf-8?B?ODMrbDVBR0w5RVlFSCs2Ylptc1pDMk44c1QxK2ZBQVBpa1lBMFhuQ3dBTFdj?=
+ =?utf-8?B?U1ZIRjVwU2dDQ2RpQmxPUWNueXkyQTJwZkdhdCtndHdXVE14N2t6WE5YbEZ0?=
+ =?utf-8?B?VHdFYzBRcTl0Y1Y5UW1jR1U1UWpmNVBtZTRRZG1sRll1TUo5U2M0K0Z2TkRX?=
+ =?utf-8?B?c2JQVWp6TVlNM3ViTFFXaWJmNGFMRDQ4NDVOclJ3WGp0ejYwanhQMmNYZXl5?=
+ =?utf-8?B?QnhXUVk3aWx5c0pzYTJqR2FSUFZNVVJvRzRzM2JUSnhZbmVRSDgyS0FWT0hL?=
+ =?utf-8?B?aWs2eHY0NHAyRi9wQkJyNkZVVStMRVJDUVVQY0dUOGVBU3Y3VHVHZUgrU0VJ?=
+ =?utf-8?B?WENXU0xwTlVpR2M1azVRQzRRL1pONUYyeWVaK2dyK20ydml5dk1OSXJFOFA2?=
+ =?utf-8?B?aTU3Y3ZiMGpZN2laYThYbG5UYkx2bjMydFk4aVpWRWpYK1J0YzNGSmQwa0Jr?=
+ =?utf-8?B?TnBiT3d1b1Z3YW5VM1lTZzd6eXZjaGlRTC95MXhlSnFMdDhTUDZDaWV2Uk9R?=
+ =?utf-8?B?Y1laQjZzNFh2U0xzWEp0WEpqWnhQdk1pVWlqdnlZNXlWNjhBSUtxV2t2ejFK?=
+ =?utf-8?B?eHYwSVN6T2JlK1d5dUJnOUVONmc5anJXaVlObWhITldOMFhSUTZsSHgybUUv?=
+ =?utf-8?B?czk2elBpeS9jN2Vtb0h0czFDQklPU2RkSmVUVXg3UG1yakpsakJKOGVOZWJM?=
+ =?utf-8?B?ZElEMVc3cXdVeStNdW91cFIrbFR5Y1pRMDNGSjdwbXQ4TTQvdENFUU1tT056?=
+ =?utf-8?B?d3JGSXRQaHpJSERGTmJ6SVl4WmlLb1ZXVFVHYUQzRkhTUUw1Qkx3REhmbXVE?=
+ =?utf-8?B?MFZzUytGQjgxOHhGeFpWaEdkOUxGeDJNOWZnMm1GRXdxcHBUaDhqYktXTlZw?=
+ =?utf-8?B?N01mb1Y3eFhvRS9BeVVFZGdEa1FZdnczQlYzZWlxMVo4ZzBhSHVCZmd6ZERz?=
+ =?utf-8?B?MVcrcWJqUFN6WTQ5Vk9OVUt0amZ0SHFhSU01T3JhUlZJdGgydjdITWxHcWtY?=
+ =?utf-8?B?Y3UxU1ZyWHBMRElBYXVldkdrb3R6ODIrUkIxWHNRVGg5cUZNZHk0QzlCVklH?=
+ =?utf-8?B?bmR2dWx4RERNUm44a1ZSbnJHYVlUUDdCZzIwd2h6dmFhWkxaWXB2bnVzVXBx?=
+ =?utf-8?B?b3hXQSs3VC9yRVNqVjA2OW1tYlU0aHpoWFEvSU9UaDEzems5N2xORTRUN2RD?=
+ =?utf-8?B?RzZlRXZ1cWJ1dFo4bFdTTVpJdWNOOEF6L1R0WmVZZVc0eDNVdERhQVdrQ3cy?=
+ =?utf-8?B?bzZ5YWo3WldNd3MyK0swYm9sQWZ2QWV5aFR3YnowRWpwSXBnRUIyODRQVlB6?=
+ =?utf-8?B?c0hlVEFFZ3ZFeE9acjFqajlIZFBLQytKZHVmckJINW1sWGVVWnBoZHg2M1FL?=
+ =?utf-8?B?Wjk2Z3ZvRkF4ZkxDRFhGRE91QjBWZkkxNGR5T0xkNjcrZTZQRmZaUURwWFFz?=
+ =?utf-8?B?MWQrU3pXRTB5aVNnZlBMblNZK1R0UEdnMnk3eTJWSFFQUlQ0UG1Pd2xtMCtU?=
+ =?utf-8?B?dUVYYWRtMTl4aWZDS2VPVkZZd1U0di9QbTZONW9NaWZ1TjE5b1lKWXBaend6?=
+ =?utf-8?B?QkIzOEZEVVNEUXo0NXBvMlVQaGVzM3J3RG14SXl0WlZDamRuNDRzTXMzQndU?=
+ =?utf-8?B?Tk9CWnNSTnh3bWdTS1ZrZ0FTbDFHeFBOYlBTVVRHY0swTVRrV1RFbksyaHZ3?=
+ =?utf-8?B?c2lwYXBoeHp2ZlFvaVJWTWw4aEQvd3UxdnpkR3FiODZkdXBlZWo1Vldoa09p?=
+ =?utf-8?B?THhoM1VDRDhwRDFxdEdMOVNTbjZCVFNLRXBrV2JaOWhIUm5uMlRtaUNlcjI4?=
+ =?utf-8?B?SHpCb2d4cVpkUlhaeS94SE0vWVAxcTdJdVlsYkhUaC9XQ0EzeVhiM0RNV2g1?=
+ =?utf-8?Q?jsGxincRPbkVmVzXuo?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1643878a-2743-41e8-a5e6-08dec61416bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08ef0ca3-09e5-41f4-cef8-08dec61591a7
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 10:44:31.7721 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 10:55:07.5847 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a+XF+MCi3FXKHIDKYCiT+umeZnfWw8nLqeGyEtzPtZFFiVXKXx47R41l75+mhXPW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7273
+X-MS-Exchange-CrossTenant-UserPrincipalName: +2JjxrulhFjpHyt1JAEGj1tF4Za1Gjqo2vTUUH/NZDcHkUcpe66mvn77YK52JCtq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8718
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,238 +136,67 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 6/8/26 21:47, Shahyan Soltani wrote:
-> Move struct amdgpu_uid and helpers from the monolithic amdgpu.h file into a new amdgpu_uid.h file.
-> 
-> Move functions amdgpu_device_set_uid() and amdgpu_device_get_uid() out of
-> amdgpu_device.c into new dedicated amdgpu_uid.c file.
-
-I'm not so familiar with the technical background, could be that it would be better to just move the defines into amdgpu_device.h.
-
-@Alex what's you take on that?
-
-Regards,
-Christian.
-
-> 
-> Update amdgpu/Makefile to build amdgpu_uid.o
+> Move struct amdgpu_video_codec_info, struct amdgpu_video_codecs, and helpers into a new
+> amdgpu_video_codecs.h file.
 > 
 > This is part of the ongoing effort to reduce the size of amdgpu.h into their own respective
 > separate headers.
 > 
 > Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/Makefile        |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 22 +------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 ---------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c    | 75 ++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h    | 50 +++++++++++++++
->  5 files changed, 127 insertions(+), 72 deletions(-)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 21 +--------
+>  .../gpu/drm/amd/amdgpu/amdgpu_video_codecs.h  | 47 +++++++++++++++++++
+>  2 files changed, 48 insertions(+), 20 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index e6deb24f73bb..415e73e0a1af 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
->  	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
->  	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
->  	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
-> -	amdgpu_wb.o
-> +	amdgpu_wb.o amdgpu_uid.o
->  
->  amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
->  
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 9a714b4b59bc..0f8743254fe6 100644
+> index 0f8743254fe6..8fb70731ea58 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -114,6 +114,7 @@
->  #include "amdgpu_sa.h"
+> @@ -115,6 +115,7 @@
 >  #include "amdgpu_wb.h"
 >  #include "amdgpu_ip.h"
-> +#include "amdgpu_uid.h"
+>  #include "amdgpu_uid.h"
+> +#include "amdgpu_video_codecs.h"
 >  #if defined(CONFIG_DRM_AMD_ISP)
 >  #include "amdgpu_isp.h"
 >  #endif
-> @@ -553,21 +554,6 @@ struct amdgpu_mmio_remap {
->  	struct amdgpu_bo *bo;
+> @@ -444,26 +445,6 @@ struct amdgpu_allowed_register_entry {
+>  	bool grbm_indexed;
 >  };
 >  
-> -enum amdgpu_uid_type {
-> -	AMDGPU_UID_TYPE_XCD,
-> -	AMDGPU_UID_TYPE_AID,
-> -	AMDGPU_UID_TYPE_SOC,
-> -	AMDGPU_UID_TYPE_MID,
-> -	AMDGPU_UID_TYPE_MAX
+> -struct amdgpu_video_codec_info {
+> -	u32 codec_type;
+> -	u32 max_width;
+> -	u32 max_height;
+> -	u32 max_pixels_per_frame;
+> -	u32 max_level;
 > -};
 > -
-> -#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID type */
+> -#define codec_info_build(type, width, height, level) \
+> -			 .codec_type = type,\
+> -			 .max_width = width,\
+> -			 .max_height = height,\
+> -			 .max_pixels_per_frame = height * width,\
+> -			 .max_level = level,
 > -
-> -struct amdgpu_uid {
-> -	uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
-> -	struct amdgpu_device *adev;
+> -struct amdgpu_video_codecs {
+> -	const u32 codec_count;
+> -	const struct amdgpu_video_codec_info *codec_array;
 > -};
 > -
->  #define MAX_UMA_OPTION_NAME	28
->  #define MAX_UMA_OPTION_ENTRIES	19
->  
-> @@ -1530,10 +1516,4 @@ static inline int amdgpu_device_bus_status_check(struct amdgpu_device *adev)
->  
->         return 0;
->  }
-> -
-> -void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
-> -			   enum amdgpu_uid_type type, uint8_t inst,
-> -			   uint64_t uid);
-> -uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
-> -			       enum amdgpu_uid_type type, uint8_t inst);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 15a6a9010fc8..602e7eb1cc5c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6872,53 +6872,3 @@ ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset)
->  	size += sysfs_emit_at(buf, size, "\n");
->  	return size;
->  }
-> -
-> -void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
-> -			   enum amdgpu_uid_type type, uint8_t inst,
-> -			   uint64_t uid)
-> -{
-> -	if (!uid_info)
-> -		return;
-> -
-> -	if (type >= AMDGPU_UID_TYPE_MAX) {
-> -		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
-> -			     type);
-> -		return;
-> -	}
-> -
-> -	if (inst >= AMDGPU_UID_INST_MAX) {
-> -		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
-> -			     inst);
-> -		return;
-> -	}
-> -
-> -	if (uid_info->uid[type][inst] != 0) {
-> -		dev_warn_once(
-> -			uid_info->adev->dev,
-> -			"Overwriting existing UID %llu for type %d instance %d\n",
-> -			uid_info->uid[type][inst], type, inst);
-> -	}
-> -
-> -	uid_info->uid[type][inst] = uid;
-> -}
-> -
-> -u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
-> -			  enum amdgpu_uid_type type, uint8_t inst)
-> -{
-> -	if (!uid_info)
-> -		return 0;
-> -
-> -	if (type >= AMDGPU_UID_TYPE_MAX) {
-> -		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
-> -			     type);
-> -		return 0;
-> -	}
-> -
-> -	if (inst >= AMDGPU_UID_INST_MAX) {
-> -		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
-> -			     inst);
-> -		return 0;
-> -	}
-> -
-> -	return uid_info->uid[type][inst];
-> -}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
+>  /*
+>   * ASIC specific functions.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h
 > new file mode 100644
-> index 000000000000..9b81e8198a73
+> index 000000000000..3b2a6cb8632d
 > --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
-> @@ -0,0 +1,75 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +#include "amdgpu_uid.h"
-> +#include <linux/dev_printk.h>
-> +#include "amdgpu.h"
-> +
-> +void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
-> +			   enum amdgpu_uid_type type, uint8_t inst,
-> +			   uint64_t uid)
-> +{
-> +	if (!uid_info)
-> +		return;
-> +
-> +	if (type >= AMDGPU_UID_TYPE_MAX) {
-> +		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
-> +			     type);
-> +		return;
-> +	}
-> +
-> +	if (inst >= AMDGPU_UID_INST_MAX) {
-> +		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
-> +			     inst);
-> +		return;
-> +	}
-> +
-> +	if (uid_info->uid[type][inst] != 0) {
-> +		dev_warn_once(
-> +			uid_info->adev->dev,
-> +			"Overwriting existing UID %llu for type %d instance %d\n",
-> +			uid_info->uid[type][inst], type, inst);
-> +	}
-> +
-> +	uid_info->uid[type][inst] = uid;
-> +}
-> +
-> +u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
-> +			  enum amdgpu_uid_type type, uint8_t inst)
-> +{
-> +	if (!uid_info)
-> +		return 0;
-> +
-> +	if (type >= AMDGPU_UID_TYPE_MAX) {
-> +		dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
-> +			     type);
-> +		return 0;
-> +	}
-> +
-> +	if (inst >= AMDGPU_UID_INST_MAX) {
-> +		dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\n",
-> +			     inst);
-> +		return 0;
-> +	}
-> +
-> +	return uid_info->uid[type][inst];
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
-> new file mode 100644
-> index 000000000000..d92ddcce9f58
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
-> @@ -0,0 +1,50 @@
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h
+> @@ -0,0 +1,47 @@
 > +/* SPDX-License-Identifier: GPL-2.0 OR MIT
 > + *
 > + * Copyright 2026 Advanced Micro Devices, Inc.
@@ -390,32 +219,29 @@ Christian.
 > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 > + * OTHER DEALINGS IN THE SOFTWARE.
 > + */
-> +#ifndef __AMDGPU_UID_H__
-> +#define __AMDGPU_UID_H__
+> +#ifndef __AMDGPU_VIDEO_CODECS_H__
+> +#define __AMDGPU_VIDEO_CODECS_H__
 > +
 > +#include <linux/types.h>
 > +
-> +#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID type */
+> +#define codec_info_build(type, width, height, level) \
+> +			 .codec_type = type,\
+> +			 .max_width = width,\
+> +			 .max_height = height,\
+> +			 .max_pixels_per_frame = height * width,\
+> +			 .max_level = level,
 > +
-> +struct amdgpu_device;
-> +
-> +enum amdgpu_uid_type {
-> +	AMDGPU_UID_TYPE_XCD,
-> +	AMDGPU_UID_TYPE_AID,
-> +	AMDGPU_UID_TYPE_SOC,
-> +	AMDGPU_UID_TYPE_MID,
-> +	AMDGPU_UID_TYPE_MAX
+> +struct amdgpu_video_codec_info {
+> +	u32 codec_type;
+> +	u32 max_width;
+> +	u32 max_height;
+> +	u32 max_pixels_per_frame;
+> +	u32 max_level;
 > +};
 > +
-> +struct amdgpu_uid {
-> +	uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
-> +	struct amdgpu_device *adev;
+> +struct amdgpu_video_codecs {
+> +	const u32 codec_count;
+> +	const struct amdgpu_video_codec_info *codec_array;
 > +};
-> +
-> +void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
-> +			   enum amdgpu_uid_type type, uint8_t inst,
-> +			   uint64_t uid);
-> +uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
-> +			       enum amdgpu_uid_type type, uint8_t inst);
 > +#endif
 
