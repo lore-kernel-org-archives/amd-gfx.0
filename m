@@ -4,53 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685B4CD6E79
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 00:32:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBEEBCD6E79
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 01:28:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB39D10E01F;
-	Tue,  9 Jun 2026 00:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51B6F10E037;
+	Tue,  9 Jun 2026 01:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iC0V95KY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Kp5Wh4mu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF48910E01F
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 00:32:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F0D75601E6;
- Tue,  9 Jun 2026 00:32:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41ECB1F00893;
- Tue,  9 Jun 2026 00:32:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780965163;
- bh=AWqrUcAU/dt3Yzxo/R4IB34ld94Wfxn8b7jvT0dbAR0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=iC0V95KY4ScnH68l4HJawJ7OVP+VZbg+jO22tdeMTc+tE3J2rXsQomUEWBDN97mkP
- cNGwSbxlEqSjPnipuOzPbdHBkPy2kejeOsMZKFVHOo1gyNc10B+S8vH4vNQ/uI4IY7
- DHHqh1mDA4+XS8bluWat2bI5d9tUATl8R2oDysK+wIO0mRyE0Q53Vl80ZSK4CPoq4j
- 5/zhQ0bOM+gOww0m7KM/3CyQAKfYZPq1hq1Jtp2hbr4kSlTf9vxxshGc6nQZM4QBvm
- 5CS3weUw/0szJ6rN7YhoBh0I2zWai8X1w/WB3zomAMLmvEvZgscNJdNs21/zXpwgLZ
- kZzpBTNUkdRRA==
-Date: Mon, 8 Jun 2026 17:32:38 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: kernelci-results@groups.io, regressions@lists.linux.dev,
- kernelci@lists.linux.dev, gus@collabora.com,
- linux-next@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
- amd-gfx@lists.freedesktop.org,
- Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- James Lin <pinglei.lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, llvm@lists.linux.dev
-Subject: Re: [REGRESSION] next/master: (build) stack frame size (2088)
- exceeds limit (2048) in 'dml31_ModeSupport...
-Message-ID: <20260609003238.GA3576576@ax162>
-References: <178059594388.10259.8984887956034576074@330cfa3079ca>
- <6bdbbc1b-9934-462c-b9aa-afaf0605c2a0@infradead.org>
- <5f2d4707-ae11-44f3-ad09-1c0580abde91@leemhuis.info>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012065.outbound.protection.outlook.com [40.107.209.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14BE10E037
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 01:28:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fwV2uky+oMSZPavf95A6kxBmnkUbDudvgq5d5XbgPGSNP/rJvRJHMVNgSlrOvDJzb3Bl8T9HRD1yUiR7LwnpznNkLwdgFkBQZBUAJgHFLJdVmEWdYiTWTuAa/hJJc87Jjey+cuAanuKAT5TLMkkkKZTfAbrs10LuTSrtYH5gY7XwZYM3KkzBYqhAbxt1HQbU4wYddP0EWuda3ud+kUGZpt7gHpKRnvYMd0IFx0GMhifzzM3iQ24a75rtUvfGQe9aXNqWH0okaEzsY1rERG6xECkHISyGkSShoTEJ0DOtPbpJJqhvKbfz346fxF87Ppd4G+5x12d7vB0Y4uaBUoTVUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zKF5JVP1TMnh6S+BvQjRfCOcJKfCaHchTL1MnlCSbjU=;
+ b=g8Jz3+BMS1/dytcAsI7wOuikwPHG0kiOkxKHqaZfUdLoHe74JZH3jbqgj711zn+kgVVg2VzZHJnCsrI4tLtgXmor7nENzv//aqyqYTcOHE6p/AEYbnfsHlfFrUcpVeXF5ihAB3L+6FFz0zvRfe64+y7nKPAjRZ+kXPCno4RAI/t9keP0BsbwXEBND3XmaMvBfhRcxX1xBv1yXrAMYoecHZsrkAuUgigTru5Z327ln3Zqlp5Z/gw78t8pZEka98gsYn4hp8aSIC6YnyfLa+V9QnXGbtdmrGLoAViOT5EgO7cyTbQQdD05abVH0gvA7DopgpnUxMzKmikeWzuANcMW8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zKF5JVP1TMnh6S+BvQjRfCOcJKfCaHchTL1MnlCSbjU=;
+ b=Kp5Wh4muSIZYz92ynyYgBx3qV+04F74C+zs/GMUkQPfd6pvvLY4VU/5tkkxmcuUVtCJ4vdh+az20PzRKdJkx7t5DjLaEBs32oCGLmVRPTJRIgy4449sqLdORWNtr6MxRKimzkTwwIMQvZ31DaJPl2nFWXIWBrJaycFLEaJv15z8=
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
+ PH7PR12MB6905.namprd12.prod.outlook.com (2603:10b6:510:1b7::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Tue, 9 Jun 2026
+ 01:28:41 +0000
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0092.006; Tue, 9 Jun 2026
+ 01:28:41 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: Nathan Chancellor <nathan@kernel.org>
+CC: "linux-kbuild@vger.kernel.org" <linux-kbuild@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "nsc@kernel.org" <nsc@kernel.org>
+Subject: RE: [PATCH] kbuild: normalize paths in quiet compile output
+Thread-Topic: [PATCH] kbuild: normalize paths in quiet compile output
+Thread-Index: AQHc9xSZqJMdlj+mvUiyB+P76+sksrY1OKaAgAA3q5A=
+Date: Tue, 9 Jun 2026 01:28:41 +0000
+Message-ID: <DM6PR12MB29729B9355DAB5D0C7D9C125821D2@DM6PR12MB2972.namprd12.prod.outlook.com>
+References: <20260608070039.4069917-1-kevinyang.wang@amd.com>
+ <20260608220859.GC2340474@ax162>
+In-Reply-To: <20260608220859.GC2340474@ax162>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-09T01:28:13.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|PH7PR12MB6905:EE_
+x-ms-office365-filtering-correlation-id: 976fe3de-8acd-4c3e-9191-08dec5c67064
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700021|3023799007|18002099003|22082099003|4143699003|11063799006|56012099006;
+x-microsoft-antispam-message-info: YUA4pCJz5BQrqddETsPFADgSsqyArxqiJAl+BF0UhO6f3E3e3Mg5Ti8ZzWrnlF8Hg+fhWbaZbXaFz5q9EHlu6cFnGqxt+zCfz27nHdnzTTq7iAm+gZmC0z85LuLhIV41RlWka5cr+GM/fEMCCmf7w2yoF+Xd0yrccvgzeV8HKX68XqZsXMeObJJ1CtqtACDls90102Tjj7r7tm0ztYBR47AuwOHMiKm68J/HSYl0u1pRkJVCxVWvhbCdMtH7/NcLOfiO2p8KSTOuz4bbtYU5cZz3L7BHzczYDCB7SNqSGl9hQNEZl/5Q/eP+nxmJtguIVL6oI1J36pBPxdeClk7RICJjAF4CkDyCbdE5p2r6bOV1+B/uFBFm5Dwof4gOWDD2IAlfREepVKWQ+k2Ot2ZpUjHkKgePgbURvUFsG8Isr+NTdyWNshJJsv6UnN847zS714LBSMpouHsrTWshUQ03DwT60zNinOwbJzvvKd8ezta4pkBxz3m8j6YKpGEuz/yrj+Zus8gSl7gir2i95d/df4rmUwGDNHRVmEwiAxPay8xYJ6GnNYfzzRRQPaluZZHSAMFy4hIlvppemycmri2TZjMyOG1j92z7rsn1BkuIscpkQSU4c7uv/OssWVANWQ48q6KLVDdZ5ttwiwnB+u6WkxB3yc5T4kjSbJR72QkM8BV5DOQ2CnPdEoL6QvS+mF/rlAg3DjRcJX6zPJpjucrtoaS2bQaYzI8LvmiuIyjGzHxIK3sgUSZfMpWgtAnbf1Un
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(3023799007)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?H+7/5xYMr72M0Xoa+Jjgctkvp7IjmJUqmI9XcK24yDimpgnLY4AKotKH0CX1?=
+ =?us-ascii?Q?l5rm4lV4YPoYGilPNqMxZIyVyMv7ukdkQmFd3le6p/G6KMFpqhvCpOZFzWQG?=
+ =?us-ascii?Q?9o04e0R2EO778ZOuMIscvxI6lJ/N4qfQZGa2yzdB+ORyFZ8dVskcq6XGXBr9?=
+ =?us-ascii?Q?gGn6TU02/gDFYZ5l6nlT9evWMKiYWN8gRng6BOb5JNYFUOb2NVl/6rXPXIAT?=
+ =?us-ascii?Q?Ka4islx1xtkoSSHG6WaG1X8iZ36d1pQbdwM3cKUGI+QONCOGR4Hc2PK9Hk0S?=
+ =?us-ascii?Q?cqWg+ZwRRB759xpR5hSr/q+aXQjh+9qF0j0oFCmRf5el3AN8iu4t33Y8pzex?=
+ =?us-ascii?Q?vBs29vnfAUDb5oN7rD6dHTxs8/qOqCKje1zIg9BF4E0ziQP80bFqdcZ7P1Zl?=
+ =?us-ascii?Q?gzAAQNcg0H1idVkXJlb7D9yefMKUqCWczKaQuyMbSTSuAeIv7SsOSiScrK5K?=
+ =?us-ascii?Q?C3H2QQAvFJNN9J6guOXmNslopMUHxvoUSMWZQfgiRRECXbOLr2IvYLaRWE+9?=
+ =?us-ascii?Q?1i3WY7A0c+s2+AmABoIT9n3Y+qdxLdNVLcwdz6ZHKxY3dsjsNq2vpZaLJhjh?=
+ =?us-ascii?Q?EyOPznVtYTfbf3ZkgsQhQBcDPV09QoEdsgwWbx2P98aluM+sGoEwZGoLAD4b?=
+ =?us-ascii?Q?TC0PDj+YREppsE0WjcfB22+TlSf8JrfwyFhKbtKpFKC71v3cHCFpVbO7+wxI?=
+ =?us-ascii?Q?ja9VXpdpaMVPE36QEInhG+tFlvRiZkraIXuEyQvXuAb6MnUoK+iH2qmzyeR/?=
+ =?us-ascii?Q?K9Gk4hUyl+ePxmlNpvnOpZwy5FpjQdiLRR0n4gCqbN1Lom3musAlRFRvT+1U?=
+ =?us-ascii?Q?Jk2f6gg2ei7RjVYnCe/huIl7goZ23XccIZb5VydXTq3exPf6mSH6/YUd+NVJ?=
+ =?us-ascii?Q?I6+ihtLz7aKoPfJpkqbGti9v2GOjHCiOydOS/fkZSJbsM9+4UZRIAiaQLw4O?=
+ =?us-ascii?Q?nuAncMJgG7WJ5LlpQsyyrw0fGixAkXVJjLFo+D9X4jRH1PA0HEsy1Yh5nCaY?=
+ =?us-ascii?Q?gsSfPeWfPiX/xwDOoFld+iL6dHdeucXDiFEZeJTtadt27OCTbSgfNQIHOpI5?=
+ =?us-ascii?Q?SP3jh3ZyenqvvDyTA6ME0cRckvxLw0hz4c/UboBckKAlvFLoXU2/S3eeP1wU?=
+ =?us-ascii?Q?FyYu/tAiYeS/+92hXQEetiAZrnA1ojevkjrEELJvCkWL+mgI1rcB71MqErJI?=
+ =?us-ascii?Q?+sISjDDwM7TvjmUXjig3wR31qacK8kIBbyOmQ2O9sPjgZNjfUF5NBL6k07HL?=
+ =?us-ascii?Q?soAQAu35Bfn004/SHijQlv04N7F262UAqHbDXF0szzJ9LEexlaf3dQxUSbuD?=
+ =?us-ascii?Q?FrxGBWTibyMYCrXvgEOBht2oESTpZH0v26r5TDMzsuWhSpfPvGhBtQ4Svcuy?=
+ =?us-ascii?Q?gXMpraX06p0B2iZa9ah2P1gre7cTsxxqcgk0g088+qyw3mbV/Ht1rugDohee?=
+ =?us-ascii?Q?wz1J4mf82xtrnEgotF6eqWRMVNe/rshbiwGELWff1EAhvmu2AN/phKG3bOe9?=
+ =?us-ascii?Q?WcwibDOd7u0oaRF/k7kRTMQr5S+3fjRXMb7h7A+SpkbyKe01vj2nosd+fdTt?=
+ =?us-ascii?Q?so/jEhPPcA1RkevTWKPZ0nvwB4/cPMo/M/UKZKrfzwTRw5WnUejYMdjhNdSW?=
+ =?us-ascii?Q?gKXMHEqKyMuCjZexVb/RMCH4/SVXjn+oMEq5StD5ft/lUAvKVnyG8+eJaRsP?=
+ =?us-ascii?Q?utN9kU3InuBgSq6oeO4BFQgB/BKoFt/v38+kJrX8TIIkb7NI?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5f2d4707-ae11-44f3-ad09-1c0580abde91@leemhuis.info>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 976fe3de-8acd-4c3e-9191-08dec5c67064
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2026 01:28:41.2986 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dYQcQ6gjeeE2eQxq3+SSDnCYUdKmT3ahsPcev6Pauzq97RQ1d9njDj8uN1nXk85P
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6905
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,110 +134,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 08, 2026 at 01:24:32PM +0200, Thorsten Leemhuis wrote:
-> On 6/5/26 06:23, Randy Dunlap wrote:
-> > [adding amd-gfx]
-> 
-> [+Nathan -- I'm also wondering if we should CC the amdgpu maintainers,
-> but lets wait with that for a moment]
+AMD General
 
-Thanks for the CC. Bringing in more folks based on my bisect below.
+> -----Original Message-----
+> From: Nathan Chancellor <nathan@kernel.org>
+> Sent: Tuesday, June 9, 2026 6:09 AM
+> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+> Cc: linux-kbuild@vger.kernel.org; linux-kernel@vger.kernel.org; amd-
+> gfx@lists.freedesktop.org; nsc@kernel.org
+> Subject: Re: [PATCH] kbuild: normalize paths in quiet compile output
+>
+> Hi Yang,
+>
+> On Mon, Jun 08, 2026 at 03:00:39PM +0800, Yang Wang wrote:
+> > Composite objects may contain relative components in their member
+> > object paths. This can make quiet compile output include noisy dot-dot
+> > components, for example:
+> >
+> >   CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
+> >
+> > Use the existing normalize_path helper for quiet C and assembly
+> > compile output so the same target is printed as:
+> >
+> >   CC [M]  drivers/gpu/drm/amd/amdkfd/kfd_module.o
+> >
+> > The actual compile commands still use $@, so object paths, dependency
+> > tracking and generated files are unchanged.
+> >
+> > Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+>
+> While I agree that the dots are ugly, I do not want to take this change b=
+ecause
+> it makes it harder to figure out how to build these .o files individually=
+. For
+> example:
 
-> Nathan afaics saw this problem a few weeks ago already and filed and
-> issue for tracking: https://github.com/ClangBuiltLinux/linux/issues/2161
-> 
-> To quote from there: ""After LLVM commit 8ac9461e48e0 ("[SLP] Reject
-> 2-element vectorization when vector inst count exceeds scalar",
-> 2026-04-11), I am seeing two new -Wframe-larger-than instances from
-> drivers/gpu/drm/amd/display […]""
-> 
-> Side note: I wonder if that LLVM commit somehow made it to the KernelCI
-> env, or if something in the amdgpu code in -next changed and made the
-> problem worse.
+Got it, thanks for the testing and explanation. I see the problem with dire=
+ct single-file builds now.
 
-So I think these are two separate but perhaps related issues (i.e., the
-latter of the "side note" comment), as that LLVM commit is only in LLVM
-main (currently 23.0.0) but this instance that KernelCI flags is visible
-with clang-21.
-
-With clang-22 and a distribution configuration, I see:
-
-  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c:3381:6: warning: stack frame size (2312) exceeds limit (2048) in 'dml30_ModeSupportAndSystemConfigurationFull' [-Wframe-larger-than]
-   3381 | void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-        |      ^
-  1 warning generated.
-  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3800:6: warning: stack frame size (2128) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Wframe-larger-than]
-   3800 | void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-        |      ^
-  1 warning generated.
-  drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:3892:6: warning: stack frame size (2136) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Wframe-larger-than]
-   3892 | void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-        |      ^
-  1 warning generated.
-
-My bisect lands on commit faaeeecef94a ("drm/amd/display: Fix type
-mismatches in DML and normalize loop bounds") in -next, which makes
-sense. I have not looked into this super closely but I suspect that
-change makes it easier for LLVM to inline or unroll loops, which can
-result in more stack usage (especially as this code has some functions
-with many tens of parameters). It is rather hard to look at and modify
-this drm/amd/display code so I have not prioritized it...
-
-I wonder if
-
-  https://github.com/llvm/llvm-project/issues/115862
-  https://github.com/llvm/llvm-project/issues/143908
-
-are related, even if KASAN is not enabled here.
-
-> > On 6/4/26 10:59 AM, KernelCI bot wrote:
-> >> Hello,
-> >>
-> >> New build issue found on next/master:
-> >>
-> >> ---
-> >>  stack frame size (2088) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than] in drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.o (drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c) [logspec:kbuild,kbuild.compiler.error]
-> >> ---
-> >>
-> >> - dashboard: https://d.kernelci.org/i/maestro:96417cd30041ab8f3153128d0120c6cd70782d99
-> >> - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-> >> - commit HEAD:  b99ae45861eccff1e1d8c7b05a13650be805d437
-> >> - tags: next-20260604
-> >>
-> >> Please include the KernelCI tag when submitting a fix:
-> >>
-> >> Reported-by: kernelci.org bot <bot@kernelci.org>
-> >>
-> >>
-> >> Log excerpt:
-> >> =====================================================
-> >> /tmp/kci/linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c:3872:6: error: stack frame size (2088) exceeds limit (2048) in 'dml31_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
-> >>  3872 | void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
-> >>       |      ^
-> >> 1 error generated.
-> >>
-> >> =====================================================
-> >>
-> >>
-> >> # Builds where the incident occurred:
-> >>
-> >> ## x86_64_defconfig+kselftest+x86-board on (x86_64):
-> >> - compiler: clang-21
-> >> - config: None
-> >> - dashboard: https://d.kernelci.org/build/maestro:6a21abf22cc72b6e94bf3c60
-> >>
-> >>
-> >> #kernelci issue maestro:96417cd30041ab8f3153128d0120c6cd70782d99
-> >>
-> >> --
-> >> This is an experimental report format. Please send feedback in!
-> >> Talk to us at kernelci@lists.linux.dev
-> >>
-> >> Made with love by the KernelCI team - https://kernelci.org
-> >>
-> > 
-> 
-
--- 
-Cheers,
-Nathan
+Best Regards,
+Kevin
+>
+>   $ make -kj"$(nproc)" ARCH=3Dx86_64 CROSS_COMPILE=3Dx86_64-linux-
+> mrproper allmodconfig
+> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
+>   ...
+>     CC [M]  drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_module.o
+>
+> works for building this file individually but the normalized path produce=
+d by
+> this patch
+>
+>   $ make -kj"$(nproc)" ARCH=3Dx86_64 CROSS_COMPILE=3Dx86_64-linux-
+> mrproper allmodconfig drivers/gpu/drm/amd/amdkfd/kfd_module.o
+>   ...
+>     CC      drivers/gpu/drm/amd/amdkfd/kfd_module.o
+>   In file included from drivers/gpu/drm/amd/amdkfd/kfd_module.c:26:
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h:46:10: fatal error:
+> kgd_kfd_interface.h: No such file or directory
+>      46 | #include <kgd_kfd_interface.h>
+>         |          ^~~~~~~~~~~~~~~~~~~~~
+>   compilation terminated.
+>   make[7]: *** [scripts/Makefile.build:289:
+> drivers/gpu/drm/amd/amdkfd/kfd_module.o] Error 1
+>
+> does not.
+>
+> > ---
+> >  scripts/Makefile.lib | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib index
+> > 28a1c08e3b22..7d1589d993a8 100644
+> > --- a/scripts/Makefile.lib
+> > +++ b/scripts/Makefile.lib
+> > @@ -239,7 +239,7 @@ ifdef CONFIG_LTO_CLANG  cmd_ld_single =3D $(if
+> > $(objtool-enabled)$(is-single-obj-m), ; $(LD) $(ld_flags) -r -o
+> > $(tmp-target) $@; mv $(tmp-target) $@)  endif
+> >
+> > -quiet_cmd_cc_o_c =3D CC $(quiet_modtag)  $@
+> > +quiet_cmd_cc_o_c =3D CC $(quiet_modtag)  $(call normalize_path,$@)
+> >        cmd_cc_o_c =3D $(CC) $(c_flags) -c -o $@ $< \
+> >             $(cmd_ld_single) \
+> >             $(cmd_objtool)
+> > @@ -254,7 +254,7 @@ define rule_cc_o_c
+> >     $(call cmd,warn_shared_object)
+> >  endef
+> >
+> > -quiet_cmd_as_o_S =3D AS $(quiet_modtag)  $@
+> > +quiet_cmd_as_o_S =3D AS $(quiet_modtag)  $(call normalize_path,$@)
+> >        cmd_as_o_S =3D $(CC) $(a_flags) -c -o $@ $< $(cmd_objtool)
+> >
+> >  define rule_as_o_S
+> > --
+> > 2.47.3
+> >
+>
+> --
+> Cheers,
+> Nathan
