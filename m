@@ -4,79 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B754BCD98CD
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7628ECD98C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 08:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5FB10E806;
-	Wed, 10 Jun 2026 08:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADA6410E818;
+	Wed, 10 Jun 2026 08:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TZomcdcE";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="I6WceBb+";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F47F10E333;
- Tue,  9 Jun 2026 12:44:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781009067; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ax2QdsygMJVq8ljSE/LXMUg7AOotWgEj00UjZyx2mZUU1RHICmF3z6EgY8d9F7n3XgsLd17cbLR5CvXs6m82SaR5r5umfaEJ+kEMNnJS8VwS5a10A49yzhY07TgLFFTxGwiNglzHVzyM2g6aPKgtkCegmUrvhW5c0jVTa+amxlc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781009067;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=; 
- b=BK2wUO1dMCaDvxOXA1yaEzrqapUcoUrvwHaLcE3DdN+dHjsepS6pL4cxFI3/RE8cF8a/Secjr8B596+t4IMXmj6bR+vByw7lzNMcdHMwMYEgmLqqhKk4wWJ0G+kLK6jbm59TaKbJRFDulpG8rad9hbKlR951avyeMkJdXKi/4/s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009067; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=uMEEZn+x23X3/iGLCH74HTpR0e0r7hhMuh0rntSsrbY=;
- b=TZomcdcEHn96ubSbOeMvkeYBBBtH+3g3zfO4u/BPTuTPJYj/XcMaLFaHM1Ft3R42
- ndddHnPYZgBs/ZFFwSH6BCJqTy2/lOhyfR/uGK+MS8ytttlElPdQUv10PwSV2gcQzDq
- dAXW7G/tVbzLNibP4yzx7CrnVeBlOJdi9kMUKEgk=
-Received: by mx.zohomail.com with SMTPS id 1781009064798756.4329618291858;
- Tue, 9 Jun 2026 05:44:24 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Tue, 09 Jun 2026 14:43:48 +0200
-Subject: [PATCH v17 01/28] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F5BA10E2F0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 15:32:04 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-45ef372c58aso3035968f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jun 2026 08:32:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1781019123; x=1781623923;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y8s7Qwnb7/jxBSgOlg8nCSNxOUU5XDQ7ABL6iYYnpM8=;
+ b=I6WceBb+zMbVDMTx7sVNDyfDMd/8/LN8oSV48iUmUCkNCcbMquaQH9byt/jX7DbTJP
+ +4zbE9NFN9ZSOqx6S4LwGkSfk8NByj65K/QtB8O9Z14US10rzDkrwePryQII/TxqG9ZJ
+ 2Z4VhQJxbiU6woNU+ONdBFcyrjPCNn+KMB4CNRlH1VAeoyoiNIbYhq05+bHYr2fUIiQk
+ 30ptIfG8mC/QONe9FtiGTRffRWYpRPYQ1o54TCZenqAyEqtfJ49+bIm3vpVXGK1mtONZ
+ Vksx9QQm0cXNn9dcP/JO4kDnVhyW6JNYmjdvbdtX0N3tL6WM3g8XYsE86VDymc70meSu
+ uvFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781019123; x=1781623923;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Y8s7Qwnb7/jxBSgOlg8nCSNxOUU5XDQ7ABL6iYYnpM8=;
+ b=AQPXmP/lTh8Hh07yK3DaC5oBAPdCv4VweuS7q0kq4meETTQHQilb+hbBG+6aEPET+9
+ dbm6d9Vxpr62WAeIoWAtW8uSNeJTSvBFUKlckS3DPnd9SRJ574dJPiBoCuQj0s8P5Ej0
+ e/SCwT8ikTiDtaMsigO0LUPIwkM0FaDFtLE0KGeKob/oGgOJCC6CWUQqVkxpn4PHfIM6
+ j6CFTK51np/yjk/N2kOENnc6FYgA6RBsz3DqZpm7MjR85BrjX0EKnQOwHZdITdIZVZax
+ euXy9IH2N10O+Zhy+UDHtRjyEEMQjoi35M54C+H0rCAopjUuwdUc+d1oog71/EMS8gM4
+ 3XPg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8NvtAxmZHF8JO/21kKLa5a6yGwHNlS6aJEJhdeBLHJn6ENnMZC87m9J5YIjt/bsL/Uujz7ptgE@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPIwQnLloarwXKG4o3hnjUJ3vb7hhJ0PIboXIJz7Jc5bnTZv6/
+ Wr21vjh63QFvBFTf06ESFJSHFTKdF3WNjdW6fmeiI5CcuJcOzdBtKWNE0BZ5ZESrk4I=
+X-Gm-Gg: Acq92OERxCFFFe0ZNnH52t3CYjlMi+UkMjSNqZ8wsqcSJTxGa2uvOhEGWVCbV+RBX9d
+ ee7ktnkH/RL8B86xwnDLXtZ8LchQWuaP7rly36nKl7Cf7KbPIt8XRjip7ry8QiVlUIYS1ircora
+ VZKoNrzKd5lA3RLicKjGH3bt1x9tYgHGOB0CdddtwZxVSIOb4oe9ETtVY6ZjT1LzymdZHmVBuzB
+ ZtY0B2jOyoTrK1saDYuSBLBZ4FxjAA8q8BSXde+4r20P81wITJlgQ6y2yUb5VnOhxTQdp1d4v5E
+ etPMa/8QttAz2c70OOeuBroaKOUUhIKZI1iiQgdZmBkWuYLxzfg+DfRi3CAd7sDUSdGPPWy8UDJ
+ KqozsSu68zam0mLxj8E68PeHUTNZ1kFaCNqu3Y9E1/KrcKR0pL7omRWSl3CSvVfQVuvxHKxNnpY
+ uEnd4mEFI3tIdXhtqrjGl+0gKXy9Bs6zVJO6hfpyVvJtgt0aFAcM/x+3eWNejud9j1fxYXAE3qC
+ OWmBqIjxfKdEhpRS7WvRrNN6Q==
+X-Received: by 2002:a05:6000:4609:b0:460:3234:4472 with SMTP id
+ ffacd0b85a97d-460323444d8mr28986691f8f.40.1781019123266; 
+ Tue, 09 Jun 2026 08:32:03 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db045b0dbdd314d8a71f.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:5b0d:bdd3:14d8:a71f])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-4601f344762sm67967138f8f.23.2026.06.09.08.32.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2026 08:32:02 -0700 (PDT)
+Date: Tue, 9 Jun 2026 17:32:00 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Vitaly Prosyak <vitaly.prosyak@amd.com>, 
+ Kees Cook <kees@kernel.org>,
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>, 
+ "Mario Limonciello (AMD)" <superm1@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: Don't use UTS_RELEASE directly
+Message-ID: <aigx2xn-59FmGw63@monoceros>
+References: <20260428144704.1114562-2-u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260609-color-format-v17-1-35739b5782cc@collabora.com>
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="orjnrmynt4uzf4h5"
+Content-Disposition: inline
+In-Reply-To: <20260428144704.1114562-2-u.kleine-koenig@baylibre.com>
 X-Mailman-Approved-At: Wed, 10 Jun 2026 08:41:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,49 +101,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Werner Sembach <wse@tuxedocomputers.com>
 
-Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-force_yuv420_output case.
+--orjnrmynt4uzf4h5
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/amdgpu: Don't use UTS_RELEASE directly
+MIME-Version: 1.0
 
-Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-there is no reason to use RGB when the display
-reports drm_mode_is_420_only() even on a non HDMI connection.
+Hello,
 
-This patch also moves both checks in the same if-case. This  eliminates an
-extra else-if-case.
+On Tue, Apr 28, 2026 at 04:47:03PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
+> uncommitted changes in the source tree or new commits). So when checking
+> if a patch introduces changes to the resulting binary each usage of
+> UTS_RELEASE is source of annoyance.
+>=20
+> Instead of using UTS_RELEASE directly use init_utsname()->release which
+> evaluates to the same string but with that a change of UTS_RELEASE
+> doesn't affect amdgpu_dev_coredump.o.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
+ibre.com>
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Signed-off-by: Andri Yngvason <andri@yngvason.is>
-Tested-by: Andri Yngvason <andri@yngvason.is>
-Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+Is this patch still on someone's radar?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ba7f98a87808..dfe97897127c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6917,12 +6917,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->v_border_top = 0;
- 	timing_out->v_border_bottom = 0;
- 	/* TODO: un-hardcode */
--	if (drm_mode_is_420_only(info, mode_in)
--			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
--		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--	else if (drm_mode_is_420_also(info, mode_in)
--			&& aconnector
--			&& aconnector->force_yuv420_output)
-+	if (drm_mode_is_420_only(info, mode_in) ||
-+	    (aconnector && aconnector->force_yuv420_output &&
-+	     drm_mode_is_420_also(info, mode_in)))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
- 			&& aconnector
+Best regards
+Uwe
 
--- 
-2.54.0
+--orjnrmynt4uzf4h5
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmooMe0ACgkQj4D7WH0S
+/k7C6AgAk5oykrj4mKghFtxQ6MLq7XvvDTtDyq6p1wIJK4mHnUAQbHKuGi0FRi/8
+hmCko49bG+cT/A3VenZlq5ELpaPU0ve5+GsOaiGwUJ9LCSvGRRIst42AVcastH8f
+ev7B6v5WopQxxY2DUrA+k1MiQSkS+23vNy4bnWq7DnR7Ao4+8NXamZbqluIdp4b+
+C0JDIPX+idjM9u5CwJDQyJyluDQiZ2ucc0SplXzocf+qT1+dTKshcYprC4IZa9b9
+Aw+mvPDiVzKZWSPtDpgCOGRZrtX5b5cRPzMLT4+A90OeNO0RvxX+KL81GcQg3tOH
+miEughCuvcVaS4xTYiILVCgK48uPTg==
+=Wrer
+-----END PGP SIGNATURE-----
+
+--orjnrmynt4uzf4h5--
