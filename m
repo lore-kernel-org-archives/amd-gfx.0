@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3838CD8CB9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:49:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC5FCD8CB9
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:49:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7258110E876;
-	Wed, 10 Jun 2026 09:49:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9AB710E877;
+	Wed, 10 Jun 2026 09:49:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="04/91j2R";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Aa2ja88Z";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011023.outbound.protection.outlook.com [52.101.52.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0BB010E876
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:49:18 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013002.outbound.protection.outlook.com
+ [40.93.196.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D95110E877
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:49:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bQrSbA/SSb/TTqbl7ihq566JZKesPE4d2Jo4473GcRFybJkxoYUD8zwWyQYJ0AwDhz20VpfwpmC9GcShBjIhIpGJb9oR4niyxl3LzR5gYMYVDLhHAY8UkblhRuUZmPl0A7fwBiiU+QFkK6SpA2yvEORmULH3EoVGmcHRcEUT46JowVisaGVNlog3m6VmA7BOm6pbF4ba3o8ZE1cm8cDXblJdO0Y/qy+WE768z73qaq8HudVysqBrM94q/YiGYVigFzbGRLUAk9zZu2NUWXlxq8CUU2SNbexMmb+eGMRj9kmO7qA5qDURA/GjpYakPQWLwTPg1p8R/fYX4hvnOF+Grg==
+ b=BRZ9QsZt9dbDVYt57zGEi75H8f5EpUtcibbAkiDZjUh2u752Drb/U8KxuUYrq8h+Ue/5pmzYMVI9/mpbylzNu2W4J1pxiu5qWl0UNAjacB/uJh4EzjMNM4JT8C12bclqwHFkykk6Tb2fUmeAk9+xrax0eruEha+2R1NtGAFZD03oJc+Kq24qjU74uFSCJcWnVxMORD3aK48NdQ3Yfe2Aj3O+CldIhq1wmaSN7BsLgT7d0hOBI1DSSzjBfUnqIzCPu6aWmy2xtMPpnpp/3lfywr7V8WJF0tSandYfPlKmLDfi0UU6rlTJSY09JRWgJdBb/V96hEYl4eRhsbldalyyxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O4iEErztvxZHEWIxAnqCQRbQuWJic8TSdlZ/QE8/DXo=;
- b=OujyaOTpIwfgksonKaEcQ4fxk7nwin27MPFos19VdSw2tR9l/1NQztWpXGXk95UMrAdnCsQX8r3gJ0PpL7q9wMUswyLZ3EbxqgngIS3kbptz72M1SSbyTSO8jXBWCNDA/xi3Sz/ZXVFy0R/8tnRPjQhMS8wt+kRtfVsQUYoD4wBl6kX7umtc2IW5EChBtDAC9nUahwVEUP+s87FTqjAud4H1LjqJCVHq0h+V/e20BDcAQCbNk9M2MVYkD12LMNQY2kTF9IBbz38sYnIpFoavGwhxeYfINpW51gH4fpztZVuSeTrHdtTNlvKH4Ow+fQraDzFCO5Y7dUIagMLwwDq8sQ==
+ bh=wNnnK9eiXBZO7NHRyEYfcTxm8LfUfsEgY1YAZ8lIhIM=;
+ b=ecR+U3ZdW5CnTGij88SS6R14MrTtoGLHjZf16muhn2GYZd65DLTBsIfXUZVJtg8QL9WUZREUrd+BPKz/YSl4mzTf7YBn8IjPNRnjgyHR14wqQ8QxQ5bFqR0t5QS77OHtuQn5mBULNK51ynbrmIaICPux9VZH5H9jOg8g1BUvD0jLL68TWrVhnuZEoGx0/He0FV00y73Lz8TGT5OSbVWzcMtePETVx7VeYGUPat14iO3dXRnyXxzlWcFiQ/9IiM55fLt1uzkg6mUmHFUiehgiNL2T3qbf20XQF6+H3Wzdr5L/HZO+6G3KWZl5JgfgzglI69HYLZmIrVXgR/RoE7KQ9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O4iEErztvxZHEWIxAnqCQRbQuWJic8TSdlZ/QE8/DXo=;
- b=04/91j2RDoiF4zQ7roHw8yEtKyF8756EGwzjaydeGv8K2tlL5iCyR7Xz7JfkEIu4ciMIEmMgR7fOvJuh2jVv0rpHn1vqgaqhHxQ8HimBbJ52/ASfY65vWIRNZP3TVZUDfXMUVnVEoiL8BnJapnJL2FUcPlvSnfqgPkOrXm0wpNs=
-Received: from BN9PR03CA0428.namprd03.prod.outlook.com (2603:10b6:408:113::13)
- by BY1PR12MB8446.namprd12.prod.outlook.com (2603:10b6:a03:52d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 09:49:10 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:408:113:cafe::98) by BN9PR03CA0428.outlook.office365.com
- (2603:10b6:408:113::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.10 via Frontend Transport; Wed,
- 10 Jun 2026 09:49:10 +0000
+ bh=wNnnK9eiXBZO7NHRyEYfcTxm8LfUfsEgY1YAZ8lIhIM=;
+ b=Aa2ja88Z9Zp+ALfL0kVWx/XHjkwFkO+/4R1W0TP2HUVVySlN/TJicAKTxPKz5Ln0YPlrL8JOMN3VTneHwbh5300Ac8CaSn9F9LNDgGd3gX9sdx7Wde5LHXSnOX29hySlLIuRIWunBN7ChGn45p0TygG+sEtCd7Xup2H+KZKx4Co=
+Received: from BY3PR04CA0022.namprd04.prod.outlook.com (2603:10b6:a03:217::27)
+ by CY5PR12MB6431.namprd12.prod.outlook.com (2603:10b6:930:39::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
+ 2026 09:49:20 +0000
+Received: from BY1PEPF0001AE1A.namprd04.prod.outlook.com
+ (2603:10b6:a03:217:cafe::a9) by BY3PR04CA0022.outlook.office365.com
+ (2603:10b6:a03:217::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
+ 10 Jun 2026 09:49:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BY1PEPF0001AE1A.mail.protection.outlook.com (10.167.242.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:49:10 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:49:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:49:09 -0500
+ 2026 04:49:18 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
+ 2026 04:49:18 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 10 Jun 2026 04:49:00 -0500
+ Transport; Wed, 10 Jun 2026 04:49:09 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,11 +71,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "Chenyu Chen" <chen-yu.chen@amd.com>
-Subject: [PATCH 08/32] drm/amd/display: Extract audio code to amdgpu_dm_audio
-Date: Wed, 10 Jun 2026 17:44:52 +0800
-Message-ID: <20260610094639.1965367-9-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Chenyu
+ Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 09/32] drm/amd/display: Extract DMUB code to amdgpu_dm_dmub
+Date: Wed, 10 Jun 2026 17:44:53 +0800
+Message-ID: <20260610094639.1965367-10-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
@@ -79,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|BY1PR12MB8446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 179b86e1-36b8-467c-b6bc-08dec6d58580
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1A:EE_|CY5PR12MB6431:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fc47526-3e68-4ea6-9cf4-08dec6d58bb2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|6133799003|18002099003|22082099003|3023799007|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: i7ItqPfFaEqTDXtBcmc1vLD+SmWK0iQSTTO7aUaYOS6hJ6Fk17ZhVLexs2c54gOFKLcL+obpmnBLYpZXoW7XZwbivHS1oQg/k5QEvsBwZQTTQ2NBfoMtaq9epcDjIQMj6o7IXn6YS201XBlBqMpZVTjo7EAAIdMRWqYrrti3cG8HHZFT/xxNGVNAW5ynx5db3zlM4s0uhdI3XSrE4krCOr+QnuPqoh6fOoKPMCBgkZvxCtGFnaeRWtIyz0eM8Kp4yd77GMnkIib5Ss3S5g+9WDJkhcqeNma1ttavpWYA0UJv49xGSBdDofdnt46S68C8dgH91dBo8sPWKLlZJlrQG9I0eo0+cleXbiwb5PwXwRQQYSo/ON7iKMbLQ2rsA7YG/hAahlQB7xUi9/eL0DEfC6ikVlwv6MB9jN0Rc6VFLRXDj5hvkszt65O7scUz/5V0SV0WHo1UmORbHHalh5XzvqJEJo2Q/TgeHowi8rDUy7X+Rfh/bz3s5o9ZaRegE7MfEv+/PEqxwvyrenF5OkUf/k3Et7mZf0eK4nQ+gBkGex8vrN11eyzGOkcL8If2/U1iexnYCyAk4FS+PAIXJ7MlBJL0ZsDh3FtxPq8SdSrTyZAL+dOe0lgdWlNBTYJO82g6+cEoRMV/00rYycb1xlI/GDKOBrTLudR7d/VVhimuJ9u05TAXvNz/lazgz/imrgRMB+kzAhsWy4l7YhCEou9fjWBzoQIie4F0FHz/xCnoO/w=
+ ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|3023799007|56012099006|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: iBn2v8u0teoKq8WTfBca1zPe2PullMJA3Pq/vktR5+a035gjv/PaembWQJZTo6jwQFrRmQ2Pu5fvHC4hxiDt8LLjVIrCvJtTtDBgt7jiUna9Hw+0aYE8n1gu2PzN1ov0Vf/a/R4EqNGBUTyXe9KlRf4H3+GlJre6cRlUhqdoKENogvnXmUYEkKJ6pTrOlZUtZSw2Z4E3F+sseV04Q87tKS/aazIlK8Yi0u8PJCzOqroe8hHlv+YyeNtOq017/mXMIuWOas6PSnqaD80ZSZNcSNxqjjpUe3LNDWkk82d1bnFYhrqsAAzFf8NnCoiQZhWIE1k350n1t7C7bFOKMMYsjxmnB5AgXgQnRsDEUVQBEE2KoxUHEIPHakFZ+kQWKtomGHDRESnppJR2EK61goYa3xjwaEtiUVMbpyabAPcNsVSN5GriiPHAlr+DKG7ifeLMoGbYfHMLO2h6/zVagsVcoAqfvEC/ksiSVVyKyYLuQpqkfRsUAIM7GbJvcIaHWdI6+2f0Nvs2fcTLrQG2KEsxTTwT454F/wIElc1f86bCo0CI8atwUFMvgLXDDPdVooINh1tRZAfXeONsTlkcwgrpRHYVL1YP6v/6NEQit8TyLyEEOs5Y7dypiSZeZ6WJLxHJXLKO+X1TQLgIUXqoJ+l+Isl2MZi7975/J/Gh7tl8OyFw0w9GHG/Ass5OCti3V6tUK1iednqtTDcYid5lsYYP0Z17bx8WiWoqSB3RFKymYw0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(3023799007)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vWej861joG+b/XBxkVT+9pujGmJraXsnaeG7+5qk3c9nMYLN6cS0wpKUd1YLVKnf4Xo8YLfz97LZ7t7SqBkJhNAj8OqtqVYSewZZs8j1sX6h9KnObaSn5X1zZi84cT83i6sLonhWpZPgacmFG7DlokIBohAKvLVzbfr6EMvGxWZFbnawnInhmUCC8ALGHDeX8485Od1xZvgC62F9DhRrhQmP6veFvIPcLAIW/PNYNgajVS73shCgwl8DYjGmWjXnYtvEnyRVTlrHAgMu46xYj5oudrPvYw+RI3nSCZNIGufloVA2DjgYfdbOu/Wv5bcv6rQG75K9NKnG20Gp87k1JXceN9vfwI+nk5imo4EakuoYfhh6I4b16wZISd/eq9vJ1pq30mdtMXBH19CyBsZfjXZjhExSzZoBJWMUvldR7Z0QrPE4K0gL2C6CcLrNzc5T
+X-MS-Exchange-AntiSpam-MessageData-0: PhY5ELlr0B5oBbg8fplinT20m4gkrCTcqDlONhjTN6H/8vCnWWzf4gk6ufD8GycVS0r6NOzxmkMjbHn/n6SMhXZT1e9RNQssJubYkPGkz3JemHQvrJbb5HA3fCwwVJSyHgDzWU03gc32VHl1XAEMiz2/3UZgjf62jp2XZszRak91vGPEcH6eOyeQanbf9QxW2GSGA1r5r54PljUQufYFjvGBCdbHLW1gA65K09s2ncV3pp9eefKz0/pA0i2eae2d+6M7KF5WO5VBfoVomaVL//mz7rX2QJ6b8++W3eOb/vozCrY7t2loOs3Hclk7MPtXW5wvwWPvUoh42zajndFZBbZuehNVtF8h/xsYRw7ygxERdodyKTwfee1zu8nl5bCRNJxsC6J+gbPeODzofYBD1ECZalPKd5lFuSb4Jv3LuNoYdQLiJWcTD4ZljrRuvWKV
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:49:10.2928 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 179b86e1-36b8-467c-b6bc-08dec6d58580
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:49:20.6225 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fc47526-3e68-4ea6-9cf4-08dec6d58bb2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8446
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6431
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,10 +123,9 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-Move audio component, init/fini, ELD notification,
-fill_audio_info, and commit_audio functions from
-amdgpu_dm.c into a dedicated amdgpu_dm_audio.c file
-with its own header.
+Move DMUB-related functions and firmware defines from amdgpu_dm.c
+into new amdgpu_dm_dmub.c and amdgpu_dm_dmub.h files to reduce
+the size of amdgpu_dm.c and improve code organization.
 
 No functional change intended.
 
@@ -132,347 +136,1062 @@ Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
  .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 268 +---------------
- .../amd/display/amdgpu_dm/amdgpu_dm_audio.c   | 302 ++++++++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_audio.h   |  44 +++
- 4 files changed, 350 insertions(+), 267 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 928 +-----------------
+ .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 925 +++++++++++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_dmub.h    |  68 ++
+ 4 files changed, 1003 insertions(+), 921 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-index 2953c59d85e7..83a7d03a0348 100644
+index 83a7d03a0348..a6408da05583 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-@@ -42,7 +42,8 @@ AMDGPUDM = \
- 	amdgpu_dm_wb.o \
+@@ -43,7 +43,8 @@ AMDGPUDM = \
  	amdgpu_dm_colorop.o \
  	amdgpu_dm_ism.o \
--	amdgpu_dm_backlight.o
-+	amdgpu_dm_backlight.o \
-+	amdgpu_dm_audio.o
+ 	amdgpu_dm_backlight.o \
+-	amdgpu_dm_audio.o
++	amdgpu_dm_audio.o \
++	amdgpu_dm_dmub.o
  
  ifdef CONFIG_DRM_AMD_DC_FP
  AMDGPUDM += dc_fpu.o
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 100e1fb572b1..a07820ba5759 100644
+index a07820ba5759..7090e366f85f 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -67,6 +67,7 @@
- #include "amdgpu_dm_psr.h"
+@@ -68,6 +68,7 @@
  #include "amdgpu_dm_replay.h"
  #include "amdgpu_dm_backlight.h"
-+#include "amdgpu_dm_audio.h"
+ #include "amdgpu_dm_audio.h"
++#include "amdgpu_dm_dmub.h"
  
  #include "ivsrcid/ivsrcid_vislands30.h"
  
-@@ -95,7 +96,6 @@
- #include <drm/drm_mode.h>
- #include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
--#include <drm/drm_audio_component.h>
- #include <drm/drm_colorop.h>
- #include <drm/drm_gem_atomic_helper.h>
+@@ -108,60 +109,9 @@
+ #include "modules/inc/mod_power.h"
+ #include "modules/power/power_helpers.h"
  
-@@ -1107,144 +1107,6 @@ static void amdgpu_dm_fbc_init(struct drm_connector *connector)
+-static_assert(AMDGPU_DMUB_NOTIFICATION_MAX == DMUB_NOTIFICATION_MAX, "AMDGPU_DMUB_NOTIFICATION_MAX mismatch");
+-
+-#define FIRMWARE_RENOIR_DMUB "amdgpu/renoir_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_RENOIR_DMUB);
+-#define FIRMWARE_SIENNA_CICHLID_DMUB "amdgpu/sienna_cichlid_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_SIENNA_CICHLID_DMUB);
+-#define FIRMWARE_NAVY_FLOUNDER_DMUB "amdgpu/navy_flounder_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_NAVY_FLOUNDER_DMUB);
+-#define FIRMWARE_GREEN_SARDINE_DMUB "amdgpu/green_sardine_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_GREEN_SARDINE_DMUB);
+-#define FIRMWARE_VANGOGH_DMUB "amdgpu/vangogh_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_VANGOGH_DMUB);
+-#define FIRMWARE_DIMGREY_CAVEFISH_DMUB "amdgpu/dimgrey_cavefish_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DIMGREY_CAVEFISH_DMUB);
+-#define FIRMWARE_BEIGE_GOBY_DMUB "amdgpu/beige_goby_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_BEIGE_GOBY_DMUB);
+-#define FIRMWARE_YELLOW_CARP_DMUB "amdgpu/yellow_carp_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_YELLOW_CARP_DMUB);
+-#define FIRMWARE_DCN_314_DMUB "amdgpu/dcn_3_1_4_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_314_DMUB);
+-#define FIRMWARE_DCN_315_DMUB "amdgpu/dcn_3_1_5_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_315_DMUB);
+-#define FIRMWARE_DCN316_DMUB "amdgpu/dcn_3_1_6_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN316_DMUB);
+-
+-#define FIRMWARE_DCN_V3_2_0_DMCUB "amdgpu/dcn_3_2_0_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_V3_2_0_DMCUB);
+-#define FIRMWARE_DCN_V3_2_1_DMCUB "amdgpu/dcn_3_2_1_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_V3_2_1_DMCUB);
+-
+-#define FIRMWARE_RAVEN_DMCU		"amdgpu/raven_dmcu.bin"
+ MODULE_FIRMWARE(FIRMWARE_RAVEN_DMCU);
+-
+-#define FIRMWARE_NAVI12_DMCU            "amdgpu/navi12_dmcu.bin"
+ MODULE_FIRMWARE(FIRMWARE_NAVI12_DMCU);
+ 
+-#define FIRMWARE_DCN_35_DMUB "amdgpu/dcn_3_5_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_35_DMUB);
+-
+-#define FIRMWARE_DCN_351_DMUB "amdgpu/dcn_3_5_1_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_351_DMUB);
+-
+-#define FIRMWARE_DCN_36_DMUB "amdgpu/dcn_3_6_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_36_DMUB);
+-
+-#define FIRMWARE_DCN_401_DMUB "amdgpu/dcn_4_0_1_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_401_DMUB);
+-
+-#define FIRMWARE_DCN_42_DMUB "amdgpu/dcn_4_2_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB);
+-
+-#define FIRMWARE_DCN_42B_DMUB "amdgpu/dcn_4_2_1_dmcub.bin"
+-MODULE_FIRMWARE(FIRMWARE_DCN_42B_DMUB);
+-
+ /**
+  * DOC: overview
+  *
+@@ -779,47 +729,6 @@ static void dm_dcn_vertical_interrupt0_high_irq(void *interrupt_params)
+ }
+ #endif /* CONFIG_DRM_AMD_SECURE_DISPLAY */
+ 
+-/**
+- * dmub_aux_setconfig_callback - Callback for AUX or SET_CONFIG command.
+- * @adev: amdgpu_device pointer
+- * @notify: dmub notification structure
+- *
+- * Dmub AUX or SET_CONFIG command completion processing callback
+- * Copies dmub notification to DM which is to be read by AUX command.
+- * issuing thread and also signals the event to wake up the thread.
+- */
+-static void dmub_aux_setconfig_callback(struct amdgpu_device *adev,
+-					struct dmub_notification *notify)
+-{
+-	if (adev->dm.dmub_notify)
+-		memcpy(adev->dm.dmub_notify, notify, sizeof(struct dmub_notification));
+-	if (notify->type == DMUB_NOTIFICATION_AUX_REPLY)
+-		complete(&adev->dm.dmub_aux_transfer_done);
+-}
+-
+-static void dmub_aux_fused_io_callback(struct amdgpu_device *adev,
+-					struct dmub_notification *notify)
+-{
+-	if (!adev || !notify) {
+-		ASSERT(false);
+-		return;
+-	}
+-
+-	const struct dmub_cmd_fused_request *req = &notify->fused_request;
+-	const uint8_t ddc_line = req->u.aux.ddc_line;
+-
+-	if (ddc_line >= ARRAY_SIZE(adev->dm.fused_io)) {
+-		ASSERT(false);
+-		return;
+-	}
+-
+-	struct fused_io_sync *sync = &adev->dm.fused_io[ddc_line];
+-
+-	static_assert(sizeof(*req) <= sizeof(sync->reply_data), "Size mismatch");
+-	memcpy(sync->reply_data, req, sizeof(*req));
+-	complete(&sync->replied);
+-}
+-
+ /**
+  * dmub_hpd_callback - DMUB HPD interrupt processing callback.
+  * @adev: amdgpu_device pointer
+@@ -909,32 +818,6 @@ static void dmub_hpd_sense_callback(struct amdgpu_device *adev,
+ 	drm_dbg_driver(adev_to_drm(adev), "DMUB HPD SENSE callback.\n");
+ }
+ 
+-/**
+- * register_dmub_notify_callback - Sets callback for DMUB notify
+- * @adev: amdgpu_device pointer
+- * @type: Type of dmub notification
+- * @callback: Dmub interrupt callback function
+- * @dmub_int_thread_offload: offload indicator
+- *
+- * API to register a dmub callback handler for a dmub notification
+- * Also sets indicator whether callback processing to be offloaded.
+- * to dmub interrupt handling thread
+- * Return: true if successfully registered, false if there is existing registration
+- */
+-static bool register_dmub_notify_callback(struct amdgpu_device *adev,
+-					  enum dmub_notification_type type,
+-					  dmub_notify_interrupt_callback_t callback,
+-					  bool dmub_int_thread_offload)
+-{
+-	if (callback != NULL && type < ARRAY_SIZE(adev->dm.dmub_thread_offload)) {
+-		adev->dm.dmub_callback[type] = callback;
+-		adev->dm.dmub_thread_offload[type] = dmub_int_thread_offload;
+-	} else
+-		return false;
+-
+-	return true;
+-}
+-
+ static void dm_handle_hpd_work(struct work_struct *work)
+ {
+ 	struct dmub_hpd_work *dmub_hpd_wrk;
+@@ -1107,224 +990,6 @@ static void amdgpu_dm_fbc_init(struct drm_connector *connector)
  
  }
  
--static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
--					  int pipe, bool *enabled,
--					  unsigned char *buf, int max_bytes)
+-static int dm_dmub_hw_init(struct amdgpu_device *adev)
 -{
--	struct drm_device *dev = dev_get_drvdata(kdev);
--	struct amdgpu_device *adev = drm_to_adev(dev);
--	struct drm_connector *connector;
--	struct drm_connector_list_iter conn_iter;
--	struct amdgpu_dm_connector *aconnector;
--	int ret = 0;
+-	const struct dmcub_firmware_header_v1_0 *hdr;
+-	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
+-	struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
+-	const struct firmware *dmub_fw = adev->dm.dmub_fw;
+-	struct dc *dc = adev->dm.dc;
+-	struct dmcu *dmcu = adev->dm.dc->res_pool->dmcu;
+-	struct abm *abm = adev->dm.dc->res_pool->abm;
+-	struct dc_context *ctx = adev->dm.dc->ctx;
+-	struct dmub_srv_hw_params hw_params;
+-	enum dmub_status status;
+-	const unsigned char *fw_inst_const, *fw_bss_data;
+-	u32 i, fw_inst_const_size, fw_bss_data_size;
+-	bool has_hw_support;
 -
--	*enabled = false;
+-	if (!dmub_srv)
+-		/* DMUB isn't supported on the ASIC. */
+-		return 0;
 -
--	mutex_lock(&adev->dm.audio_lock);
+-	if (!fb_info) {
+-		drm_err(adev_to_drm(adev), "No framebuffer info for DMUB service.\n");
+-		return -EINVAL;
+-	}
 -
--	drm_connector_list_iter_begin(dev, &conn_iter);
--	drm_for_each_connector_iter(connector, &conn_iter) {
+-	if (!dmub_fw) {
+-		/* Firmware required for DMUB support. */
+-		drm_err(adev_to_drm(adev), "No firmware provided for DMUB.\n");
+-		return -EINVAL;
+-	}
 -
--		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
--			continue;
+-	/* initialize register offsets for ASICs with runtime initialization available */
+-	if (dmub_srv->hw_funcs.init_reg_offsets)
+-		dmub_srv->hw_funcs.init_reg_offsets(dmub_srv, ctx);
 -
--		aconnector = to_amdgpu_dm_connector(connector);
--		if (aconnector->audio_inst != port)
--			continue;
+-	status = dmub_srv_has_hw_support(dmub_srv, &has_hw_support);
+-	if (status != DMUB_STATUS_OK) {
+-		drm_err(adev_to_drm(adev), "Error checking HW support for DMUB: %d\n", status);
+-		return -EINVAL;
+-	}
 -
--		*enabled = true;
--		mutex_lock(&connector->eld_mutex);
--		ret = drm_eld_size(connector->eld);
--		memcpy(buf, connector->eld, min(max_bytes, ret));
--		mutex_unlock(&connector->eld_mutex);
+-	if (!has_hw_support) {
+-		drm_info(adev_to_drm(adev), "DMUB unsupported on ASIC\n");
+-		return 0;
+-	}
 -
+-	/* Reset DMCUB if it was previously running - before we overwrite its memory. */
+-	status = dmub_srv_hw_reset(dmub_srv);
+-	if (status != DMUB_STATUS_OK)
+-		drm_warn(adev_to_drm(adev), "Error resetting DMUB HW: %d\n", status);
+-
+-	hdr = (const struct dmcub_firmware_header_v1_0 *)dmub_fw->data;
+-
+-	fw_inst_const = dmub_fw->data +
+-			le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+-			PSP_HEADER_BYTES_256;
+-
+-	fw_bss_data = dmub_fw->data +
+-		      le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+-		      le32_to_cpu(hdr->inst_const_bytes);
+-
+-	/* Copy firmware and bios info into FB memory. */
+-	fw_inst_const_size = adev->dm.fw_inst_size;
+-
+-	fw_bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
+-
+-	/* if adev->firmware.load_type == AMDGPU_FW_LOAD_PSP,
+-	 * amdgpu_ucode_init_single_fw will load dmub firmware
+-	 * fw_inst_const part to cw0; otherwise, the firmware back door load
+-	 * will be done by dm_dmub_hw_init
+-	 */
+-	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+-		memcpy(fb_info->fb[DMUB_WINDOW_0_INST_CONST].cpu_addr, fw_inst_const,
+-				fw_inst_const_size);
+-	}
+-
+-	if (fw_bss_data_size)
+-		memcpy(fb_info->fb[DMUB_WINDOW_2_BSS_DATA].cpu_addr,
+-		       fw_bss_data, fw_bss_data_size);
+-
+-	/* Copy firmware bios info into FB memory. */
+-	memcpy(fb_info->fb[DMUB_WINDOW_3_VBIOS].cpu_addr, adev->bios,
+-	       adev->bios_size);
+-
+-	/* Reset regions that need to be reset. */
+-	memset(fb_info->fb[DMUB_WINDOW_4_MAILBOX].cpu_addr, 0,
+-	fb_info->fb[DMUB_WINDOW_4_MAILBOX].size);
+-
+-	memset(fb_info->fb[DMUB_WINDOW_5_TRACEBUFF].cpu_addr, 0,
+-	       fb_info->fb[DMUB_WINDOW_5_TRACEBUFF].size);
+-
+-	memset(fb_info->fb[DMUB_WINDOW_6_FW_STATE].cpu_addr, 0,
+-	       fb_info->fb[DMUB_WINDOW_6_FW_STATE].size);
+-
+-	memset(fb_info->fb[DMUB_WINDOW_SHARED_STATE].cpu_addr, 0,
+-	       fb_info->fb[DMUB_WINDOW_SHARED_STATE].size);
+-
+-	/* Initialize hardware. */
+-	memset(&hw_params, 0, sizeof(hw_params));
+-	hw_params.soc_fb_info.fb_base = adev->gmc.fb_start;
+-	hw_params.soc_fb_info.fb_offset = adev->vm_manager.vram_base_offset;
+-
+-	/* backdoor load firmware and trigger dmub running */
+-	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
+-		hw_params.load_inst_const = true;
+-
+-	if (dmcu)
+-		hw_params.psp_version = dmcu->psp_version;
+-
+-	for (i = 0; i < fb_info->num_fb; ++i)
+-		hw_params.fb[i] = &fb_info->fb[i];
+-
+-	/* Enable usb4 dpia in the FW APU */
+-	if (dc->caps.is_apu &&
+-		dc->res_pool->usb4_dpia_count != 0 &&
+-		!dc->debug.dpia_debug.bits.disable_dpia) {
+-		hw_params.dpia_supported = true;
+-		hw_params.disable_dpia = dc->debug.dpia_debug.bits.disable_dpia;
+-		hw_params.dpia_hpd_int_enable_supported = false;
+-		hw_params.enable_non_transparent_setconfig = dc->config.consolidated_dpia_dp_lt;
+-		hw_params.disable_dpia_bw_allocation = !dc->config.usb4_bw_alloc_support;
+-	}
+-
+-	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-	case IP_VERSION(3, 5, 0):
+-	case IP_VERSION(3, 5, 1):
+-	case IP_VERSION(3, 6, 0):
+-	case IP_VERSION(4, 2, 0):
+-	case IP_VERSION(4, 2, 1):
+-		hw_params.ips_sequential_ono = adev->external_rev_id > 0x10;
+-		hw_params.lower_hbr3_phy_ssc = true;
+-		break;
+-	default:
 -		break;
 -	}
--	drm_connector_list_iter_end(&conn_iter);
 -
--	mutex_unlock(&adev->dm.audio_lock);
+-	status = dmub_srv_hw_init(dmub_srv, &hw_params);
+-	if (status != DMUB_STATUS_OK) {
+-		drm_err(adev_to_drm(adev), "Error initializing DMUB HW: %d\n", status);
+-		return -EINVAL;
+-	}
 -
--	drm_dbg_kms(adev_to_drm(adev), "Get ELD : idx=%d ret=%d en=%d\n", port, ret, *enabled);
+-	/* Wait for firmware load to finish. */
+-	status = dmub_srv_wait_for_auto_load(dmub_srv, 100000);
+-	if (status != DMUB_STATUS_OK)
+-		drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
+-
+-	/* Init DMCU and ABM if available. */
+-	if (dmcu && abm) {
+-		dmcu->funcs->dmcu_init(dmcu);
+-		abm->dmcu_is_running = dmcu->funcs->is_dmcu_initialized(dmcu);
+-	}
+-
+-	if (!adev->dm.dc->ctx->dmub_srv)
+-		adev->dm.dc->ctx->dmub_srv = dc_dmub_srv_create(adev->dm.dc, dmub_srv);
+-	if (!adev->dm.dc->ctx->dmub_srv) {
+-		drm_err(adev_to_drm(adev), "Couldn't allocate DC DMUB server!\n");
+-		return -ENOMEM;
+-	}
+-
+-	drm_info(adev_to_drm(adev), "DMUB hardware initialized: version=0x%08X\n",
+-		 adev->dm.dmcub_fw_version);
+-
+-	/* Keeping sanity checks off if
+-	 * DCN31 >= 4.0.59.0
+-	 * DCN314 >= 8.0.16.0
+-	 * Otherwise, turn on sanity checks
+-	 */
+-	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-	case IP_VERSION(3, 1, 2):
+-	case IP_VERSION(3, 1, 3):
+-		if (adev->dm.dmcub_fw_version &&
+-			adev->dm.dmcub_fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
+-			adev->dm.dmcub_fw_version < DMUB_FW_VERSION(4, 0, 59))
+-				adev->dm.dc->debug.sanity_checks = true;
+-		break;
+-	case IP_VERSION(3, 1, 4):
+-		if (adev->dm.dmcub_fw_version &&
+-			adev->dm.dmcub_fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
+-			adev->dm.dmcub_fw_version < DMUB_FW_VERSION(8, 0, 16))
+-				adev->dm.dc->debug.sanity_checks = true;
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-static void dm_dmub_hw_resume(struct amdgpu_device *adev)
+-{
+-	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
+-	enum dmub_status status;
+-	bool init;
+-	int r;
+-
+-	if (!dmub_srv) {
+-		/* DMUB isn't supported on the ASIC. */
+-		return;
+-	}
+-
+-	status = dmub_srv_is_hw_init(dmub_srv, &init);
+-	if (status != DMUB_STATUS_OK)
+-		drm_warn(adev_to_drm(adev), "DMUB hardware init check failed: %d\n", status);
+-
+-	if (status == DMUB_STATUS_OK && init) {
+-		/* Wait for firmware load to finish. */
+-		status = dmub_srv_wait_for_auto_load(dmub_srv, 100000);
+-		if (status != DMUB_STATUS_OK)
+-			drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
+-	} else {
+-		/* Perform the full hardware initialization. */
+-		r = dm_dmub_hw_init(adev);
+-		if (r)
+-			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+-	}
+-}
+-
+ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_addr_space_config *pa_config)
+ {
+ 	u64 pt_base;
+@@ -1632,119 +1297,6 @@ dm_free_gpu_mem(
+ 
+ }
+ 
+-static enum dmub_status
+-dm_dmub_send_vbios_gpint_command(struct amdgpu_device *adev,
+-				 enum dmub_gpint_command command_code,
+-				 uint16_t param,
+-				 uint32_t timeout_us)
+-{
+-	union dmub_gpint_data_register reg, test;
+-	uint32_t i;
+-
+-	/* Assume that VBIOS DMUB is ready to take commands */
+-
+-	reg.bits.status = 1;
+-	reg.bits.command_code = command_code;
+-	reg.bits.param = param;
+-
+-	cgs_write_register(adev->dm.cgs_device, 0x34c0 + 0x01f8, reg.all);
+-
+-	for (i = 0; i < timeout_us; ++i) {
+-		udelay(1);
+-
+-		/* Check if our GPINT got acked */
+-		reg.bits.status = 0;
+-		test = (union dmub_gpint_data_register)
+-			cgs_read_register(adev->dm.cgs_device, 0x34c0 + 0x01f8);
+-
+-		if (test.all == reg.all)
+-			return DMUB_STATUS_OK;
+-	}
+-
+-	return DMUB_STATUS_TIMEOUT;
+-}
+-
+-static void *dm_dmub_get_vbios_bounding_box(struct amdgpu_device *adev)
+-{
+-	void *bb;
+-	long long addr;
+-	unsigned int bb_size;
+-	int i = 0;
+-	uint16_t chunk;
+-	enum dmub_gpint_command send_addrs[] = {
+-		DMUB_GPINT__SET_BB_ADDR_WORD0,
+-		DMUB_GPINT__SET_BB_ADDR_WORD1,
+-		DMUB_GPINT__SET_BB_ADDR_WORD2,
+-		DMUB_GPINT__SET_BB_ADDR_WORD3,
+-	};
+-	enum dmub_status ret;
+-
+-	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-	case IP_VERSION(4, 0, 1):
+-		bb_size = sizeof(struct dml2_soc_bb);
+-		break;
+-	case IP_VERSION(4, 2, 0):
+-	case IP_VERSION(4, 2, 1):
+-		bb_size = sizeof(struct dml2_soc_bb);
+-		break;
+-	default:
+-		return NULL;
+-	}
+-
+-	bb =  dm_allocate_gpu_mem(adev,
+-				  DC_MEM_ALLOC_TYPE_GART,
+-				  bb_size,
+-				  &addr);
+-	if (!bb)
+-		return NULL;
+-
+-	for (i = 0; i < 4; i++) {
+-		/* Extract 16-bit chunk */
+-		chunk = ((uint64_t) addr >> (i * 16)) & 0xFFFF;
+-		/* Send the chunk */
+-		ret = dm_dmub_send_vbios_gpint_command(adev, send_addrs[i], chunk, 30000);
+-		if (ret != DMUB_STATUS_OK)
+-			goto free_bb;
+-	}
+-
+-	/* Now ask DMUB to copy the bb */
+-	ret = dm_dmub_send_vbios_gpint_command(adev, DMUB_GPINT__BB_COPY, 1, 200000);
+-	if (ret != DMUB_STATUS_OK)
+-		goto free_bb;
+-
+-	return bb;
+-
+-free_bb:
+-	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, (void *) bb);
+-	return NULL;
+-
+-}
+-
+-static enum dmub_ips_disable_type dm_get_default_ips_mode(
+-	struct amdgpu_device *adev)
+-{
+-	enum dmub_ips_disable_type ret = DMUB_IPS_ENABLE;
+-
+-	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-	case IP_VERSION(3, 5, 0):
+-	case IP_VERSION(3, 6, 0):
+-	case IP_VERSION(3, 5, 1):
+-		ret =  DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF;
+-		break;
+-	case IP_VERSION(4, 2, 0):
+-	case IP_VERSION(4, 2, 1):
+-		ret =  DMUB_IPS_ENABLE;
+-		break;
+-	default:
+-		/* ASICs older than DCN35 do not have IPSs */
+-		if (amdgpu_ip_version(adev, DCE_HWIP, 0) < IP_VERSION(3, 5, 0))
+-			ret = DMUB_IPS_DISABLE_ALL;
+-		break;
+-	}
 -
 -	return ret;
 -}
 -
--static const struct drm_audio_component_ops amdgpu_dm_audio_component_ops = {
--	.get_eld = amdgpu_dm_audio_component_get_eld,
--};
--
--static int amdgpu_dm_audio_component_bind(struct device *kdev,
--				       struct device *hda_kdev, void *data)
--{
--	struct drm_device *dev = dev_get_drvdata(kdev);
--	struct amdgpu_device *adev = drm_to_adev(dev);
--	struct drm_audio_component *acomp = data;
--
--	acomp->ops = &amdgpu_dm_audio_component_ops;
--	acomp->dev = kdev;
--	adev->dm.audio_component = acomp;
--
--	return 0;
--}
--
--static void amdgpu_dm_audio_component_unbind(struct device *kdev,
--					  struct device *hda_kdev, void *data)
--{
--	struct amdgpu_device *adev = drm_to_adev(dev_get_drvdata(kdev));
--	struct drm_audio_component *acomp = data;
--
--	acomp->ops = NULL;
--	acomp->dev = NULL;
--	adev->dm.audio_component = NULL;
--}
--
--static const struct component_ops amdgpu_dm_audio_component_bind_ops = {
--	.bind	= amdgpu_dm_audio_component_bind,
--	.unbind	= amdgpu_dm_audio_component_unbind,
--};
--
--static int amdgpu_dm_audio_init(struct amdgpu_device *adev)
--{
--	int i, ret;
--
--	if (!amdgpu_audio)
--		return 0;
--
--	adev->mode_info.audio.enabled = true;
--
--	adev->mode_info.audio.num_pins = adev->dm.dc->res_pool->audio_count;
--
--	for (i = 0; i < adev->mode_info.audio.num_pins; i++) {
--		adev->mode_info.audio.pin[i].channels = -1;
--		adev->mode_info.audio.pin[i].rate = -1;
--		adev->mode_info.audio.pin[i].bits_per_sample = -1;
--		adev->mode_info.audio.pin[i].status_bits = 0;
--		adev->mode_info.audio.pin[i].category_code = 0;
--		adev->mode_info.audio.pin[i].connected = false;
--		adev->mode_info.audio.pin[i].id =
--			adev->dm.dc->res_pool->audios[i]->inst;
--		adev->mode_info.audio.pin[i].offset = 0;
--	}
--
--	ret = component_add(adev->dev, &amdgpu_dm_audio_component_bind_ops);
--	if (ret < 0)
--		return ret;
--
--	adev->dm.audio_registered = true;
--
--	return 0;
--}
--
--static void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
--{
--	if (!amdgpu_audio)
--		return;
--
--	if (!adev->mode_info.audio.enabled)
--		return;
--
--	if (adev->dm.audio_registered) {
--		component_del(adev->dev, &amdgpu_dm_audio_component_bind_ops);
--		adev->dm.audio_registered = false;
--	}
--
--	/* TODO: Disable audio? */
--
--	adev->mode_info.audio.enabled = false;
--}
--
--static  void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
--{
--	struct drm_audio_component *acomp = adev->dm.audio_component;
--
--	if (acomp && acomp->audio_ops && acomp->audio_ops->pin_eld_notify) {
--		drm_dbg_kms(adev_to_drm(adev), "Notify ELD: %d\n", pin);
--
--		acomp->audio_ops->pin_eld_notify(acomp->audio_ops->audio_ptr,
--						 pin, -1);
--	}
--}
--
- static int dm_dmub_hw_init(struct amdgpu_device *adev)
+ static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
  {
- 	const struct dmcub_firmware_header_v1_0 *hdr;
-@@ -6526,51 +6388,6 @@ static void fill_stream_properties_from_drm_display_mode(
- 	stream->content_type = get_output_content_type(connector_state);
+ 	struct mod_power_init_params init_data[MAX_NUM_EDP];
+@@ -2140,8 +1692,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		}
+ 
+ 		amdgpu_dm_outbox_init(adev);
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_AUX_REPLY,
+-			dmub_aux_setconfig_callback, false)) {
++		if (!dm_register_dmub_notify_callback(adev, DMUB_NOTIFICATION_AUX_REPLY,
++			dm_dmub_aux_setconfig_callback, false)) {
+ 			drm_err(adev_to_drm(adev), "fail to register dmub aux callback");
+ 			goto error;
+ 		}
+@@ -2149,8 +1701,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		for (size_t i = 0; i < ARRAY_SIZE(adev->dm.fused_io); i++)
+ 			init_completion(&adev->dm.fused_io[i].replied);
+ 
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_FUSED_IO,
+-			dmub_aux_fused_io_callback, false)) {
++		if (!dm_register_dmub_notify_callback(adev, DMUB_NOTIFICATION_FUSED_IO,
++			dm_dmub_aux_fused_io_callback, false)) {
+ 			drm_err(adev_to_drm(adev), "fail to register dmub fused io callback");
+ 			goto error;
+ 		}
+@@ -2438,225 +1990,6 @@ static int load_dmcu_fw(struct amdgpu_device *adev)
+ 	return 0;
  }
  
--static void fill_audio_info(struct audio_info *audio_info,
--			    const struct drm_connector *drm_connector,
--			    const struct dc_sink *dc_sink)
+-static uint32_t amdgpu_dm_dmub_reg_read(void *ctx, uint32_t address)
 -{
--	int i = 0;
--	int cea_revision = 0;
--	const struct dc_edid_caps *edid_caps = &dc_sink->edid_caps;
+-	struct amdgpu_device *adev = ctx;
 -
--	audio_info->manufacture_id = edid_caps->manufacturer_id;
--	audio_info->product_id = edid_caps->product_id;
+-	return dm_read_reg(adev->dm.dc->ctx, address);
+-}
 -
--	cea_revision = drm_connector->display_info.cea_rev;
+-static void amdgpu_dm_dmub_reg_write(void *ctx, uint32_t address,
+-				     uint32_t value)
+-{
+-	struct amdgpu_device *adev = ctx;
 -
--	strscpy(audio_info->display_name,
--		edid_caps->display_name,
--		AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+-	return dm_write_reg(adev->dm.dc->ctx, address, value);
+-}
 -
--	if (cea_revision >= 3) {
--		audio_info->mode_count = edid_caps->audio_mode_count;
+-static int dm_dmub_sw_init(struct amdgpu_device *adev)
+-{
+-	struct dmub_srv_create_params create_params;
+-	struct dmub_srv_fw_meta_info_params fw_meta_info_params;
+-	struct dmub_srv_region_params region_params;
+-	struct dmub_srv_region_info region_info;
+-	struct dmub_srv_memory_params memory_params;
+-	struct dmub_fw_meta_info fw_info;
+-	struct dmub_srv_fb_info *fb_info;
+-	struct dmub_srv *dmub_srv;
+-	const struct dmcub_firmware_header_v1_0 *hdr;
+-	enum dmub_asic dmub_asic;
+-	enum dmub_status status;
+-	static enum dmub_window_memory_type window_memory_type[DMUB_WINDOW_TOTAL] = {
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_0_INST_CONST
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_1_STACK
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_2_BSS_DATA
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_3_VBIOS
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_4_MAILBOX
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_5_TRACEBUFF
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_6_FW_STATE
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_7_SCRATCH_MEM
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_IB_MEM
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_SHARED_STATE
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_LSDMA_BUFFER
+-		DMUB_WINDOW_MEMORY_TYPE_FB,		//DMUB_WINDOW_CURSOR_OFFLOAD
+-	};
+-	int r;
 -
--		for (i = 0; i < audio_info->mode_count; ++i) {
--			audio_info->modes[i].format_code =
--					(enum audio_format_code)
--					(edid_caps->audio_modes[i].format_code);
--			audio_info->modes[i].channel_count =
--					edid_caps->audio_modes[i].channel_count;
--			audio_info->modes[i].sample_rates.all =
--					edid_caps->audio_modes[i].sample_rate;
--			audio_info->modes[i].sample_size =
--					edid_caps->audio_modes[i].sample_size;
+-	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-	case IP_VERSION(2, 1, 0):
+-		dmub_asic = DMUB_ASIC_DCN21;
+-		break;
+-	case IP_VERSION(3, 0, 0):
+-		dmub_asic = DMUB_ASIC_DCN30;
+-		break;
+-	case IP_VERSION(3, 0, 1):
+-		dmub_asic = DMUB_ASIC_DCN301;
+-		break;
+-	case IP_VERSION(3, 0, 2):
+-		dmub_asic = DMUB_ASIC_DCN302;
+-		break;
+-	case IP_VERSION(3, 0, 3):
+-		dmub_asic = DMUB_ASIC_DCN303;
+-		break;
+-	case IP_VERSION(3, 1, 2):
+-	case IP_VERSION(3, 1, 3):
+-		dmub_asic = (adev->external_rev_id == YELLOW_CARP_B0) ? DMUB_ASIC_DCN31B : DMUB_ASIC_DCN31;
+-		break;
+-	case IP_VERSION(3, 1, 4):
+-		dmub_asic = DMUB_ASIC_DCN314;
+-		break;
+-	case IP_VERSION(3, 1, 5):
+-		dmub_asic = DMUB_ASIC_DCN315;
+-		break;
+-	case IP_VERSION(3, 1, 6):
+-		dmub_asic = DMUB_ASIC_DCN316;
+-		break;
+-	case IP_VERSION(3, 2, 0):
+-		dmub_asic = DMUB_ASIC_DCN32;
+-		break;
+-	case IP_VERSION(3, 2, 1):
+-		dmub_asic = DMUB_ASIC_DCN321;
+-		break;
+-	case IP_VERSION(3, 5, 0):
+-	case IP_VERSION(3, 5, 1):
+-		dmub_asic = DMUB_ASIC_DCN35;
+-		break;
+-	case IP_VERSION(3, 6, 0):
+-		dmub_asic = DMUB_ASIC_DCN36;
+-		break;
+-	case IP_VERSION(4, 0, 1):
+-		dmub_asic = DMUB_ASIC_DCN401;
+-		break;
+-	case IP_VERSION(4, 2, 0):
+-		dmub_asic = DMUB_ASIC_DCN42;
+-		break;
+-	case IP_VERSION(4, 2, 1):
+-		dmub_asic = DMUB_ASIC_DCN42B;
+-		break;
+-	default:
+-		/* ASIC doesn't support DMUB. */
+-		return 0;
+-	}
+-
+-	hdr = (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_fw->data;
+-	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
+-
+-	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =
+-			AMDGPU_UCODE_ID_DMCUB;
+-		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].fw =
+-			adev->dm.dmub_fw;
+-		adev->firmware.fw_size +=
+-			ALIGN(le32_to_cpu(hdr->inst_const_bytes), PAGE_SIZE);
+-
+-		drm_info(adev_to_drm(adev), "Loading DMUB firmware via PSP: version=0x%08X\n",
+-			 adev->dm.dmcub_fw_version);
+-	}
+-
+-
+-	adev->dm.dmub_srv = kzalloc(sizeof(*adev->dm.dmub_srv), GFP_KERNEL);
+-	dmub_srv = adev->dm.dmub_srv;
+-
+-	if (!dmub_srv) {
+-		drm_err(adev_to_drm(adev), "Failed to allocate DMUB service!\n");
+-		return -ENOMEM;
+-	}
+-
+-	memset(&create_params, 0, sizeof(create_params));
+-	create_params.user_ctx = adev;
+-	create_params.funcs.reg_read = amdgpu_dm_dmub_reg_read;
+-	create_params.funcs.reg_write = amdgpu_dm_dmub_reg_write;
+-	create_params.asic = dmub_asic;
+-
+-	/* Create the DMUB service. */
+-	status = dmub_srv_create(dmub_srv, &create_params);
+-	if (status != DMUB_STATUS_OK) {
+-		drm_err(adev_to_drm(adev), "Error creating DMUB service: %d\n", status);
+-		return -EINVAL;
+-	}
+-
+-	/* Extract the FW meta info. */
+-	memset(&fw_meta_info_params, 0, sizeof(fw_meta_info_params));
+-
+-	fw_meta_info_params.inst_const_size = le32_to_cpu(hdr->inst_const_bytes) -
+-					      PSP_HEADER_BYTES_256;
+-	fw_meta_info_params.bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
+-	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
+-					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+-					    PSP_HEADER_BYTES_256;
+-	fw_meta_info_params.fw_bss_data = fw_meta_info_params.bss_data_size ? adev->dm.dmub_fw->data +
+-					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+-					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
+-	fw_meta_info_params.custom_psp_footer_size = 0;
+-
+-	status = dmub_srv_get_fw_meta_info_from_raw_fw(&fw_meta_info_params, &fw_info);
+-	if (status != DMUB_STATUS_OK) {
+-		/* Skip returning early, just log the error. */
+-		drm_err(adev_to_drm(adev), "Error getting DMUB FW meta info: %d\n", status);
+-		// return -EINVAL;
+-	}
+-
+-	/* Calculate the size of all the regions for the DMUB service. */
+-	memset(&region_params, 0, sizeof(region_params));
+-
+-	region_params.inst_const_size = fw_meta_info_params.inst_const_size;
+-	region_params.bss_data_size = fw_meta_info_params.bss_data_size;
+-	region_params.vbios_size = adev->bios_size;
+-	region_params.fw_bss_data = fw_meta_info_params.fw_bss_data;
+-	region_params.fw_inst_const = fw_meta_info_params.fw_inst_const;
+-	region_params.window_memory_type = window_memory_type;
+-	region_params.fw_info = (status == DMUB_STATUS_OK) ? &fw_info : NULL;
+-
+-	status = dmub_srv_calc_region_info(dmub_srv, &region_params,
+-					   &region_info);
+-
+-	if (status != DMUB_STATUS_OK) {
+-		drm_err(adev_to_drm(adev), "Error calculating DMUB region info: %d\n", status);
+-		return -EINVAL;
+-	}
+-
+-	/*
+-	 * Allocate a framebuffer based on the total size of all the regions.
+-	 * TODO: Move this into GART.
+-	 */
+-	r = amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_VRAM |
+-				    AMDGPU_GEM_DOMAIN_GTT,
+-				    &adev->dm.dmub_bo,
+-				    &adev->dm.dmub_bo_gpu_addr,
+-				    &adev->dm.dmub_bo_cpu_addr);
+-	if (r)
+-		return r;
+-
+-	/* Rebase the regions on the framebuffer address. */
+-	memset(&memory_params, 0, sizeof(memory_params));
+-	memory_params.cpu_fb_addr = adev->dm.dmub_bo_cpu_addr;
+-	memory_params.gpu_fb_addr = adev->dm.dmub_bo_gpu_addr;
+-	memory_params.region_info = &region_info;
+-	memory_params.window_memory_type = window_memory_type;
+-
+-	adev->dm.dmub_fb_info =
+-		kzalloc(sizeof(*adev->dm.dmub_fb_info), GFP_KERNEL);
+-	fb_info = adev->dm.dmub_fb_info;
+-
+-	if (!fb_info) {
+-		drm_err(adev_to_drm(adev),
+-			"Failed to allocate framebuffer info for DMUB service!\n");
+-		return -ENOMEM;
+-	}
+-
+-	status = dmub_srv_calc_mem_info(dmub_srv, &memory_params, fb_info);
+-	if (status != DMUB_STATUS_OK) {
+-		drm_err(adev_to_drm(adev), "Error calculating DMUB FB info: %d\n", status);
+-		return -EINVAL;
+-	}
+-
+-	adev->dm.bb_from_dmub = dm_dmub_get_vbios_bounding_box(adev);
+-	adev->dm.fw_inst_size = fw_meta_info_params.inst_const_size;
+-
+-	return 0;
+-}
+-
+ static int dm_sw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -4381,19 +3714,19 @@ static int register_hpd_handlers(struct amdgpu_device *adev)
+ 	int_params.current_polarity = INTERRUPT_POLARITY_DEFAULT;
+ 
+ 	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD,
++		if (!dm_register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD,
+ 			dmub_hpd_callback, true)) {
+ 			drm_err(adev_to_drm(adev), "fail to register dmub hpd callback");
+ 			return -EINVAL;
+ 		}
+ 
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ,
++		if (!dm_register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_IRQ,
+ 			dmub_hpd_callback, true)) {
+ 			drm_err(adev_to_drm(adev), "fail to register dmub hpd callback");
+ 			return -EINVAL;
+ 		}
+ 
+-		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_SENSE_NOTIFY,
++		if (!dm_register_dmub_notify_callback(adev, DMUB_NOTIFICATION_HPD_SENSE_NOTIFY,
+ 			dmub_hpd_sense_callback, true)) {
+ 			drm_err(adev_to_drm(adev), "fail to register dmub hpd sense callback");
+ 			return -EINVAL;
+@@ -5401,78 +4734,6 @@ DEVICE_ATTR_WO(s3_debug);
+ 
+ #endif
+ 
+-static int dm_init_microcode(struct amdgpu_device *adev)
+-{
+-	char *fw_name_dmub;
+-	int r;
+-
+-	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-	case IP_VERSION(2, 1, 0):
+-		fw_name_dmub = FIRMWARE_RENOIR_DMUB;
+-		if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
+-			fw_name_dmub = FIRMWARE_GREEN_SARDINE_DMUB;
+-		break;
+-	case IP_VERSION(3, 0, 0):
+-		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(10, 3, 0))
+-			fw_name_dmub = FIRMWARE_SIENNA_CICHLID_DMUB;
+-		else
+-			fw_name_dmub = FIRMWARE_NAVY_FLOUNDER_DMUB;
+-		break;
+-	case IP_VERSION(3, 0, 1):
+-		fw_name_dmub = FIRMWARE_VANGOGH_DMUB;
+-		break;
+-	case IP_VERSION(3, 0, 2):
+-		fw_name_dmub = FIRMWARE_DIMGREY_CAVEFISH_DMUB;
+-		break;
+-	case IP_VERSION(3, 0, 3):
+-		fw_name_dmub = FIRMWARE_BEIGE_GOBY_DMUB;
+-		break;
+-	case IP_VERSION(3, 1, 2):
+-	case IP_VERSION(3, 1, 3):
+-		fw_name_dmub = FIRMWARE_YELLOW_CARP_DMUB;
+-		break;
+-	case IP_VERSION(3, 1, 4):
+-		fw_name_dmub = FIRMWARE_DCN_314_DMUB;
+-		break;
+-	case IP_VERSION(3, 1, 5):
+-		fw_name_dmub = FIRMWARE_DCN_315_DMUB;
+-		break;
+-	case IP_VERSION(3, 1, 6):
+-		fw_name_dmub = FIRMWARE_DCN316_DMUB;
+-		break;
+-	case IP_VERSION(3, 2, 0):
+-		fw_name_dmub = FIRMWARE_DCN_V3_2_0_DMCUB;
+-		break;
+-	case IP_VERSION(3, 2, 1):
+-		fw_name_dmub = FIRMWARE_DCN_V3_2_1_DMCUB;
+-		break;
+-	case IP_VERSION(3, 5, 0):
+-		fw_name_dmub = FIRMWARE_DCN_35_DMUB;
+-		break;
+-	case IP_VERSION(3, 5, 1):
+-		fw_name_dmub = FIRMWARE_DCN_351_DMUB;
+-		break;
+-	case IP_VERSION(3, 6, 0):
+-		fw_name_dmub = FIRMWARE_DCN_36_DMUB;
+-		break;
+-	case IP_VERSION(4, 0, 1):
+-		fw_name_dmub = FIRMWARE_DCN_401_DMUB;
+-		break;
+-	case IP_VERSION(4, 2, 0):
+-		fw_name_dmub = FIRMWARE_DCN_42_DMUB;
+-		break;
+-	case IP_VERSION(4, 2, 1):
+-		fw_name_dmub = FIRMWARE_DCN_42B_DMUB;
+-		break;
+-	default:
+-		/* ASIC doesn't support DMUB. */
+-		return 0;
+-	}
+-	r = amdgpu_ucode_request(adev, &adev->dm.dmub_fw, AMDGPU_UCODE_REQUIRED,
+-				 "%s", fw_name_dmub);
+-	return r;
+-}
+-
+ static int dm_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -13005,179 +12266,6 @@ uint32_t dm_read_reg_func(const struct dc_context *ctx, uint32_t address,
+ 	return value;
+ }
+ 
+-int amdgpu_dm_process_dmub_aux_transfer_sync(
+-		struct dc_context *ctx,
+-		unsigned int link_index,
+-		struct aux_payload *payload,
+-		enum aux_return_code_type *operation_result)
+-{
+-	struct amdgpu_device *adev = ctx->driver_context;
+-	struct dmub_notification *p_notify = adev->dm.dmub_notify;
+-	int ret = -1;
+-
+-	mutex_lock(&adev->dm.dpia_aux_lock);
+-	if (!dc_process_dmub_aux_transfer_async(ctx->dc, link_index, payload)) {
+-		*operation_result = AUX_RET_ERROR_ENGINE_ACQUIRE;
+-		goto out;
+-	}
+-
+-	if (!wait_for_completion_timeout(&adev->dm.dmub_aux_transfer_done, 10 * HZ)) {
+-		drm_err(adev_to_drm(adev), "wait_for_completion_timeout timeout!");
+-		*operation_result = AUX_RET_ERROR_TIMEOUT;
+-		goto out;
+-	}
+-
+-	if (p_notify->result != AUX_RET_SUCCESS) {
+-		/*
+-		 * Transient states before tunneling is enabled could
+-		 * lead to this error. We can ignore this for now.
+-		 */
+-		if (p_notify->result == AUX_RET_ERROR_PROTOCOL_ERROR) {
+-			drm_warn(adev_to_drm(adev), "DPIA AUX failed on 0x%x(%d), error %d\n",
+-					payload->address, payload->length,
+-					p_notify->result);
+-		}
+-		*operation_result = p_notify->result;
+-		goto out;
+-	}
+-
+-	payload->reply[0] = adev->dm.dmub_notify->aux_reply.command & 0xF;
+-	if (adev->dm.dmub_notify->aux_reply.command & 0xF0)
+-		/* The reply is stored in the top nibble of the command. */
+-		payload->reply[0] = (adev->dm.dmub_notify->aux_reply.command >> 4) & 0xF;
+-
+-	/*write req may receive a byte indicating partially written number as well*/
+-	if (p_notify->aux_reply.length)
+-		memcpy(payload->data, p_notify->aux_reply.data,
+-				p_notify->aux_reply.length);
+-
+-	/* success */
+-	ret = p_notify->aux_reply.length;
+-	*operation_result = p_notify->result;
+-out:
+-	reinit_completion(&adev->dm.dmub_aux_transfer_done);
+-	mutex_unlock(&adev->dm.dpia_aux_lock);
+-	return ret;
+-}
+-
+-static void abort_fused_io(
+-		struct dc_context *ctx,
+-		const struct dmub_cmd_fused_request *request
+-)
+-{
+-	union dmub_rb_cmd command = { 0 };
+-	struct dmub_rb_cmd_fused_io *io = &command.fused_io;
+-
+-	io->header.type = DMUB_CMD__FUSED_IO;
+-	io->header.sub_type = DMUB_CMD__FUSED_IO_ABORT;
+-	io->header.payload_bytes = sizeof(*io) - sizeof(io->header);
+-	io->request = *request;
+-	dm_execute_dmub_cmd(ctx, &command, DM_DMUB_WAIT_TYPE_NO_WAIT);
+-}
+-
+-static bool execute_fused_io(
+-		struct amdgpu_device *dev,
+-		struct dc_context *ctx,
+-		union dmub_rb_cmd *commands,
+-		uint8_t count,
+-		uint32_t timeout_us
+-)
+-{
+-	const uint8_t ddc_line = commands[0].fused_io.request.u.aux.ddc_line;
+-
+-	if (ddc_line >= ARRAY_SIZE(dev->dm.fused_io))
+-		return false;
+-
+-	struct fused_io_sync *sync = &dev->dm.fused_io[ddc_line];
+-	struct dmub_rb_cmd_fused_io *first = &commands[0].fused_io;
+-	const bool result = dm_execute_dmub_cmd_list(ctx, count, commands, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)
+-			&& first->header.ret_status
+-			&& first->request.status == FUSED_REQUEST_STATUS_SUCCESS;
+-
+-	if (!result)
+-		return false;
+-
+-	while (wait_for_completion_timeout(&sync->replied, usecs_to_jiffies(timeout_us))) {
+-		reinit_completion(&sync->replied);
+-
+-		struct dmub_cmd_fused_request *reply = (struct dmub_cmd_fused_request *) sync->reply_data;
+-
+-		static_assert(sizeof(*reply) <= sizeof(sync->reply_data), "Size mismatch");
+-
+-		if (reply->identifier == first->request.identifier) {
+-			first->request = *reply;
+-			return true;
 -		}
 -	}
 -
--	audio_info->flags.all = edid_caps->speaker_flags;
--
--	/* TODO: We only check for the progressive mode, check for interlace mode too */
--	if (drm_connector->latency_present[0]) {
--		audio_info->video_latency = drm_connector->video_latency[0];
--		audio_info->audio_latency = drm_connector->audio_latency[0];
--	}
--
--	/* TODO: For DP, video and audio latency should be calculated from DPCD caps */
--
+-	reinit_completion(&sync->replied);
+-	first->request.status = FUSED_REQUEST_STATUS_TIMEOUT;
+-	abort_fused_io(ctx, &first->request);
+-	return false;
 -}
 -
- static void
- copy_crtc_timing_for_drm_display_mode(const struct drm_display_mode *src_mode,
- 				      struct drm_display_mode *dst_mode)
-@@ -7172,7 +6989,7 @@ create_stream_for_sink(struct drm_connector *connector,
- 
- 	update_stream_scaling_settings(dev, &mode, dm_state, stream);
- 
--	fill_audio_info(
-+	amdgpu_dm_fill_audio_info(
- 		&stream->audio_info,
- 		connector,
- 		sink);
-@@ -9980,87 +9797,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 	kfree(bundle);
- }
- 
--static void amdgpu_dm_commit_audio(struct drm_device *dev,
--				   struct drm_atomic_state *state)
+-bool amdgpu_dm_execute_fused_io(
+-		struct amdgpu_device *dev,
+-		struct dc_link *link,
+-		union dmub_rb_cmd *commands,
+-		uint8_t count,
+-		uint32_t timeout_us)
 -{
--	struct amdgpu_device *adev = drm_to_adev(dev);
--	struct amdgpu_dm_connector *aconnector;
--	struct drm_connector *connector;
--	struct drm_connector_state *old_con_state, *new_con_state;
--	struct drm_crtc_state *new_crtc_state;
--	struct dm_crtc_state *new_dm_crtc_state;
--	const struct dc_stream_status *status;
--	int i, inst;
+-	struct amdgpu_display_manager *dm = &dev->dm;
 -
--	/* Notify device removals. */
--	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
--		if (old_con_state->crtc != new_con_state->crtc) {
--			/* CRTC changes require notification. */
--			goto notify;
--		}
+-	mutex_lock(&dm->dpia_aux_lock);
 -
--		if (!new_con_state->crtc)
--			continue;
+-	const bool result = execute_fused_io(dev, link->ctx, commands, count, timeout_us);
 -
--		new_crtc_state = drm_atomic_get_new_crtc_state(
--			state, new_con_state->crtc);
--
--		if (!new_crtc_state)
--			continue;
--
--		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
--			continue;
--
--notify:
--		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
--			continue;
--
--		aconnector = to_amdgpu_dm_connector(connector);
--
--		mutex_lock(&adev->dm.audio_lock);
--		inst = aconnector->audio_inst;
--		aconnector->audio_inst = -1;
--		mutex_unlock(&adev->dm.audio_lock);
--
--		amdgpu_dm_audio_eld_notify(adev, inst);
--	}
--
--	/* Notify audio device additions. */
--	for_each_new_connector_in_state(state, connector, new_con_state, i) {
--		if (!new_con_state->crtc)
--			continue;
--
--		new_crtc_state = drm_atomic_get_new_crtc_state(
--			state, new_con_state->crtc);
--
--		if (!new_crtc_state)
--			continue;
--
--		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
--			continue;
--
--		new_dm_crtc_state = to_dm_crtc_state(new_crtc_state);
--		if (!new_dm_crtc_state->stream)
--			continue;
--
--		status = dc_stream_get_status(new_dm_crtc_state->stream);
--		if (!status)
--			continue;
--
--		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
--			continue;
--
--		aconnector = to_amdgpu_dm_connector(connector);
--
--		mutex_lock(&adev->dm.audio_lock);
--		inst = status->audio_inst;
--		aconnector->audio_inst = inst;
--		mutex_unlock(&adev->dm.audio_lock);
--
--		amdgpu_dm_audio_eld_notify(adev, inst);
--	}
+-	mutex_unlock(&dm->dpia_aux_lock);
+-	return result;
 -}
 -
- /*
-  * amdgpu_dm_crtc_copy_transient_flags - copy mirrored flags from DRM to DC
-  * @crtc_state: the DRM CRTC state
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+-int amdgpu_dm_process_dmub_set_config_sync(
+-		struct dc_context *ctx,
+-		unsigned int link_index,
+-		struct set_config_cmd_payload *payload,
+-		enum set_config_status *operation_result)
+-{
+-	struct amdgpu_device *adev = ctx->driver_context;
+-	bool is_cmd_complete;
+-	int ret;
+-
+-	mutex_lock(&adev->dm.dpia_aux_lock);
+-	is_cmd_complete = dc_process_dmub_set_config_async(ctx->dc,
+-			link_index, payload, adev->dm.dmub_notify);
+-
+-	if (is_cmd_complete || wait_for_completion_timeout(&adev->dm.dmub_aux_transfer_done, 10 * HZ)) {
+-		ret = 0;
+-		*operation_result = adev->dm.dmub_notify->sc_status;
+-	} else {
+-		drm_err(adev_to_drm(adev), "wait_for_completion_timeout timeout!");
+-		ret = -1;
+-		*operation_result = SET_CONFIG_UNKNOWN_ERROR;
+-	}
+-
+-	if (!is_cmd_complete)
+-		reinit_completion(&adev->dm.dmub_aux_transfer_done);
+-	mutex_unlock(&adev->dm.dpia_aux_lock);
+-	return ret;
+-}
+-
+-bool dm_execute_dmub_cmd(const struct dc_context *ctx, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
+-{
+-	struct amdgpu_device *adev = ctx->driver_context;
+-
+-	guard(spinlock_irqsave)(&adev->dm.dmub_lock);
+-	return dc_dmub_srv_cmd_run(ctx->dmub_srv, cmd, wait_type);
+-}
+-
+-bool dm_execute_dmub_cmd_list(const struct dc_context *ctx, unsigned int count, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
+-{
+-	struct amdgpu_device *adev = ctx->driver_context;
+-
+-	guard(spinlock_irqsave)(&adev->dm.dmub_lock);
+-	return dc_dmub_srv_cmd_run_list(ctx->dmub_srv, count, cmd, wait_type);
+-}
+-
+ void dm_acpi_process_phy_transition_interlock(
+ 	const struct dc_context *ctx,
+ 	struct dm_process_phy_transition_init_params process_phy_transition_init_params)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
 new file mode 100644
-index 000000000000..70b7dbded275
+index 000000000000..54b3b884968b
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-@@ -0,0 +1,302 @@
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+@@ -0,0 +1,925 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
@@ -496,291 +1215,914 @@ index 000000000000..70b7dbded275
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + * Authors: AMD
++ *
 + */
 +
-+#include "amdgpu.h"
-+#include "amdgpu_dm.h"
-+#include "amdgpu_dm_audio.h"
++#include "dm_services_types.h"
 +#include "dc.h"
-+
-+#include <linux/component.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_audio_component.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_eld.h>
-+
 +#include "dc/inc/core_types.h"
++#include "dc/dc_dmub_srv.h"
++#include "dmub/dmub_srv.h"
++#include "dc/inc/hw/dmcu.h"
++#include "dc/inc/hw/abm.h"
++#include "dal_asic_id.h"
 +
-+static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
-+					  int pipe, bool *enabled,
-+					  unsigned char *buf, int max_bytes)
++#include "amdgpu.h"
++#include "amdgpu_display.h"
++#include "amdgpu_ucode.h"
++#include "amdgpu_dm.h"
++#include "amdgpu_dm_dmub.h"
++#include <linux/component.h>
++#include <linux/firmware.h>
++
++static_assert(AMDGPU_DMUB_NOTIFICATION_MAX == DMUB_NOTIFICATION_MAX, "AMDGPU_DMUB_NOTIFICATION_MAX mismatch");
++
++MODULE_FIRMWARE(FIRMWARE_RENOIR_DMUB);
++MODULE_FIRMWARE(FIRMWARE_SIENNA_CICHLID_DMUB);
++MODULE_FIRMWARE(FIRMWARE_NAVY_FLOUNDER_DMUB);
++MODULE_FIRMWARE(FIRMWARE_GREEN_SARDINE_DMUB);
++MODULE_FIRMWARE(FIRMWARE_VANGOGH_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DIMGREY_CAVEFISH_DMUB);
++MODULE_FIRMWARE(FIRMWARE_BEIGE_GOBY_DMUB);
++MODULE_FIRMWARE(FIRMWARE_YELLOW_CARP_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_314_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_315_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN316_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_V3_2_0_DMCUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_V3_2_1_DMCUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_35_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_351_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_36_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_401_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB);
++MODULE_FIRMWARE(FIRMWARE_DCN_42B_DMUB);
++
++/**
++ * dm_dmub_aux_setconfig_callback - Callback for AUX or SET_CONFIG command.
++ * @adev: amdgpu_device pointer
++ * @notify: dmub notification structure
++ *
++ * Dmub AUX or SET_CONFIG command completion processing callback
++ * Copies dmub notification to DM which is to be read by AUX command.
++ * issuing thread and also signals the event to wake up the thread.
++ */
++void dm_dmub_aux_setconfig_callback(struct amdgpu_device *adev,
++				    struct dmub_notification *notify)
 +{
-+	struct drm_device *dev = dev_get_drvdata(kdev);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	struct amdgpu_dm_connector *aconnector;
-+	int ret = 0;
++	if (adev->dm.dmub_notify)
++		memcpy(adev->dm.dmub_notify, notify, sizeof(struct dmub_notification));
++	if (notify->type == DMUB_NOTIFICATION_AUX_REPLY)
++		complete(&adev->dm.dmub_aux_transfer_done);
++}
 +
-+	*enabled = false;
++void dm_dmub_aux_fused_io_callback(struct amdgpu_device *adev,
++				   struct dmub_notification *notify)
++{
++	if (!adev || !notify) {
++		ASSERT(false);
++		return;
++	}
 +
-+	mutex_lock(&adev->dm.audio_lock);
++	const struct dmub_cmd_fused_request *req = &notify->fused_request;
++	const uint8_t ddc_line = req->u.aux.ddc_line;
 +
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
++	if (ddc_line >= ARRAY_SIZE(adev->dm.fused_io)) {
++		ASSERT(false);
++		return;
++	}
 +
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
++	struct fused_io_sync *sync = &adev->dm.fused_io[ddc_line];
 +
-+		aconnector = to_amdgpu_dm_connector(connector);
-+		if (aconnector->audio_inst != port)
-+			continue;
++	static_assert(sizeof(*req) <= sizeof(sync->reply_data), "Size mismatch");
++	memcpy(sync->reply_data, req, sizeof(*req));
++	complete(&sync->replied);
++}
 +
-+		*enabled = true;
-+		mutex_lock(&connector->eld_mutex);
-+		ret = drm_eld_size(connector->eld);
-+		memcpy(buf, connector->eld, min(max_bytes, ret));
-+		mutex_unlock(&connector->eld_mutex);
++/**
++ * dm_register_dmub_notify_callback - Sets callback for DMUB notify
++ * @adev: amdgpu_device pointer
++ * @type: Type of dmub notification
++ * @callback: Dmub interrupt callback function
++ * @dmub_int_thread_offload: offload indicator
++ *
++ * API to register a dmub callback handler for a dmub notification
++ * Also sets indicator whether callback processing to be offloaded.
++ * to dmub interrupt handling thread
++ * Return: true if successfully registered, false if there is existing registration
++ */
++bool dm_register_dmub_notify_callback(struct amdgpu_device *adev,
++				      enum dmub_notification_type type,
++				      dmub_notify_interrupt_callback_t callback,
++				      bool dmub_int_thread_offload)
++{
++	if (callback != NULL && type < ARRAY_SIZE(adev->dm.dmub_thread_offload)) {
++		adev->dm.dmub_callback[type] = callback;
++		adev->dm.dmub_thread_offload[type] = dmub_int_thread_offload;
++	} else
++		return false;
 +
++	return true;
++}
++
++int dm_dmub_hw_init(struct amdgpu_device *adev)
++{
++	const struct dmcub_firmware_header_v1_0 *hdr;
++	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
++	struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
++	const struct firmware *dmub_fw = adev->dm.dmub_fw;
++	struct dc *dc = adev->dm.dc;
++	struct dmcu *dmcu = adev->dm.dc->res_pool->dmcu;
++	struct abm *abm = adev->dm.dc->res_pool->abm;
++	struct dc_context *ctx = adev->dm.dc->ctx;
++	struct dmub_srv_hw_params hw_params;
++	enum dmub_status status;
++	const unsigned char *fw_inst_const, *fw_bss_data;
++	u32 i, fw_inst_const_size, fw_bss_data_size;
++	bool has_hw_support;
++
++	if (!dmub_srv)
++		/* DMUB isn't supported on the ASIC. */
++		return 0;
++
++	if (!fb_info) {
++		drm_err(adev_to_drm(adev), "No framebuffer info for DMUB service.\n");
++		return -EINVAL;
++	}
++
++	if (!dmub_fw) {
++		/* Firmware required for DMUB support. */
++		drm_err(adev_to_drm(adev), "No firmware provided for DMUB.\n");
++		return -EINVAL;
++	}
++
++	/* initialize register offsets for ASICs with runtime initialization available */
++	if (dmub_srv->hw_funcs.init_reg_offsets)
++		dmub_srv->hw_funcs.init_reg_offsets(dmub_srv, ctx);
++
++	status = dmub_srv_has_hw_support(dmub_srv, &has_hw_support);
++	if (status != DMUB_STATUS_OK) {
++		drm_err(adev_to_drm(adev), "Error checking HW support for DMUB: %d\n", status);
++		return -EINVAL;
++	}
++
++	if (!has_hw_support) {
++		drm_info(adev_to_drm(adev), "DMUB unsupported on ASIC\n");
++		return 0;
++	}
++
++	/* Reset DMCUB if it was previously running - before we overwrite its memory. */
++	status = dmub_srv_hw_reset(dmub_srv);
++	if (status != DMUB_STATUS_OK)
++		drm_warn(adev_to_drm(adev), "Error resetting DMUB HW: %d\n", status);
++
++	hdr = (const struct dmcub_firmware_header_v1_0 *)dmub_fw->data;
++
++	fw_inst_const = dmub_fw->data +
++			le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
++			PSP_HEADER_BYTES_256;
++
++	fw_bss_data = dmub_fw->data +
++		      le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
++		      le32_to_cpu(hdr->inst_const_bytes);
++
++	/* Copy firmware and bios info into FB memory. */
++	fw_inst_const_size = adev->dm.fw_inst_size;
++
++	fw_bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
++
++	/* if adev->firmware.load_type == AMDGPU_FW_LOAD_PSP,
++	 * amdgpu_ucode_init_single_fw will load dmub firmware
++	 * fw_inst_const part to cw0; otherwise, the firmware back door load
++	 * will be done by dm_dmub_hw_init
++	 */
++	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
++		memcpy(fb_info->fb[DMUB_WINDOW_0_INST_CONST].cpu_addr, fw_inst_const,
++				fw_inst_const_size);
++	}
++
++	if (fw_bss_data_size)
++		memcpy(fb_info->fb[DMUB_WINDOW_2_BSS_DATA].cpu_addr,
++		       fw_bss_data, fw_bss_data_size);
++
++	/* Copy firmware bios info into FB memory. */
++	memcpy(fb_info->fb[DMUB_WINDOW_3_VBIOS].cpu_addr, adev->bios,
++	       adev->bios_size);
++
++	/* Reset regions that need to be reset. */
++	memset(fb_info->fb[DMUB_WINDOW_4_MAILBOX].cpu_addr, 0,
++	fb_info->fb[DMUB_WINDOW_4_MAILBOX].size);
++
++	memset(fb_info->fb[DMUB_WINDOW_5_TRACEBUFF].cpu_addr, 0,
++	       fb_info->fb[DMUB_WINDOW_5_TRACEBUFF].size);
++
++	memset(fb_info->fb[DMUB_WINDOW_6_FW_STATE].cpu_addr, 0,
++	       fb_info->fb[DMUB_WINDOW_6_FW_STATE].size);
++
++	memset(fb_info->fb[DMUB_WINDOW_SHARED_STATE].cpu_addr, 0,
++	       fb_info->fb[DMUB_WINDOW_SHARED_STATE].size);
++
++	/* Initialize hardware. */
++	memset(&hw_params, 0, sizeof(hw_params));
++	hw_params.soc_fb_info.fb_base = adev->gmc.fb_start;
++	hw_params.soc_fb_info.fb_offset = adev->vm_manager.vram_base_offset;
++
++	/* backdoor load firmware and trigger dmub running */
++	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
++		hw_params.load_inst_const = true;
++
++	if (dmcu)
++		hw_params.psp_version = dmcu->psp_version;
++
++	for (i = 0; i < fb_info->num_fb; ++i)
++		hw_params.fb[i] = &fb_info->fb[i];
++
++	/* Enable usb4 dpia in the FW APU */
++	if (dc->caps.is_apu &&
++		dc->res_pool->usb4_dpia_count != 0 &&
++		!dc->debug.dpia_debug.bits.disable_dpia) {
++		hw_params.dpia_supported = true;
++		hw_params.disable_dpia = dc->debug.dpia_debug.bits.disable_dpia;
++		hw_params.dpia_hpd_int_enable_supported = false;
++		hw_params.enable_non_transparent_setconfig = dc->config.consolidated_dpia_dp_lt;
++		hw_params.disable_dpia_bw_allocation = !dc->config.usb4_bw_alloc_support;
++	}
++
++	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
++	case IP_VERSION(3, 5, 0):
++	case IP_VERSION(3, 5, 1):
++	case IP_VERSION(3, 6, 0):
++	case IP_VERSION(4, 2, 0):
++	case IP_VERSION(4, 2, 1):
++		hw_params.ips_sequential_ono = adev->external_rev_id > 0x10;
++		hw_params.lower_hbr3_phy_ssc = true;
++		break;
++	default:
 +		break;
 +	}
-+	drm_connector_list_iter_end(&conn_iter);
 +
-+	mutex_unlock(&adev->dm.audio_lock);
++	status = dmub_srv_hw_init(dmub_srv, &hw_params);
++	if (status != DMUB_STATUS_OK) {
++		drm_err(adev_to_drm(adev), "Error initializing DMUB HW: %d\n", status);
++		return -EINVAL;
++	}
 +
-+	drm_dbg_kms(adev_to_drm(adev), "Get ELD : idx=%d ret=%d en=%d\n", port, ret, *enabled);
++	/* Wait for firmware load to finish. */
++	status = dmub_srv_wait_for_auto_load(dmub_srv, 100000);
++	if (status != DMUB_STATUS_OK)
++		drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
++
++	/* Init DMCU and ABM if available. */
++	if (dmcu && abm) {
++		dmcu->funcs->dmcu_init(dmcu);
++		abm->dmcu_is_running = dmcu->funcs->is_dmcu_initialized(dmcu);
++	}
++
++	if (!adev->dm.dc->ctx->dmub_srv)
++		adev->dm.dc->ctx->dmub_srv = dc_dmub_srv_create(adev->dm.dc, dmub_srv);
++	if (!adev->dm.dc->ctx->dmub_srv) {
++		drm_err(adev_to_drm(adev), "Couldn't allocate DC DMUB server!\n");
++		return -ENOMEM;
++	}
++
++	drm_info(adev_to_drm(adev), "DMUB hardware initialized: version=0x%08X\n",
++		 adev->dm.dmcub_fw_version);
++
++	/* Keeping sanity checks off if
++	 * DCN31 >= 4.0.59.0
++	 * DCN314 >= 8.0.16.0
++	 * Otherwise, turn on sanity checks
++	 */
++	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
++	case IP_VERSION(3, 1, 2):
++	case IP_VERSION(3, 1, 3):
++		if (adev->dm.dmcub_fw_version &&
++		    adev->dm.dmcub_fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
++		    adev->dm.dmcub_fw_version < DMUB_FW_VERSION(4, 0, 59))
++			adev->dm.dc->debug.sanity_checks = true;
++		break;
++	case IP_VERSION(3, 1, 4):
++		if (adev->dm.dmcub_fw_version &&
++		    adev->dm.dmcub_fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
++		    adev->dm.dmcub_fw_version < DMUB_FW_VERSION(8, 0, 16))
++			adev->dm.dc->debug.sanity_checks = true;
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++void dm_dmub_hw_resume(struct amdgpu_device *adev)
++{
++	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
++	enum dmub_status status;
++	bool init;
++	int r;
++
++	if (!dmub_srv) {
++		/* DMUB isn't supported on the ASIC. */
++		return;
++	}
++
++	status = dmub_srv_is_hw_init(dmub_srv, &init);
++	if (status != DMUB_STATUS_OK)
++		drm_warn(adev_to_drm(adev), "DMUB hardware init check failed: %d\n", status);
++
++	if (status == DMUB_STATUS_OK && init) {
++		/* Wait for firmware load to finish. */
++		status = dmub_srv_wait_for_auto_load(dmub_srv, 100000);
++		if (status != DMUB_STATUS_OK)
++			drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
++	} else {
++		/* Perform the full hardware initialization. */
++		r = dm_dmub_hw_init(adev);
++		if (r)
++			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
++	}
++}
++
++static enum dmub_status
++dm_dmub_send_vbios_gpint_command(struct amdgpu_device *adev,
++				 enum dmub_gpint_command command_code,
++				 uint16_t param,
++				 uint32_t timeout_us)
++{
++	union dmub_gpint_data_register reg, test;
++	uint32_t i;
++
++	/* Assume that VBIOS DMUB is ready to take commands */
++
++	reg.bits.status = 1;
++	reg.bits.command_code = command_code;
++	reg.bits.param = param;
++
++	cgs_write_register(adev->dm.cgs_device, 0x34c0 + 0x01f8, reg.all);
++
++	for (i = 0; i < timeout_us; ++i) {
++		udelay(1);
++
++		/* Check if our GPINT got acked */
++		reg.bits.status = 0;
++		test = (union dmub_gpint_data_register)
++			cgs_read_register(adev->dm.cgs_device, 0x34c0 + 0x01f8);
++
++		if (test.all == reg.all)
++			return DMUB_STATUS_OK;
++	}
++
++	return DMUB_STATUS_TIMEOUT;
++}
++
++static void *dm_dmub_get_vbios_bounding_box(struct amdgpu_device *adev)
++{
++	void *bb;
++	long long addr;
++	unsigned int bb_size;
++	int i = 0;
++	uint16_t chunk;
++	enum dmub_gpint_command send_addrs[] = {
++		DMUB_GPINT__SET_BB_ADDR_WORD0,
++		DMUB_GPINT__SET_BB_ADDR_WORD1,
++		DMUB_GPINT__SET_BB_ADDR_WORD2,
++		DMUB_GPINT__SET_BB_ADDR_WORD3,
++	};
++	enum dmub_status ret;
++
++	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
++	case IP_VERSION(4, 0, 1):
++		bb_size = sizeof(struct dml2_soc_bb);
++		break;
++	case IP_VERSION(4, 2, 0):
++	case IP_VERSION(4, 2, 1):
++		bb_size = sizeof(struct dml2_soc_bb);
++		break;
++	default:
++		return NULL;
++	}
++
++	bb =  dm_allocate_gpu_mem(adev,
++				  DC_MEM_ALLOC_TYPE_GART,
++				  bb_size,
++				  &addr);
++	if (!bb)
++		return NULL;
++
++	for (i = 0; i < 4; i++) {
++		/* Extract 16-bit chunk */
++		chunk = ((uint64_t) addr >> (i * 16)) & 0xFFFF;
++		/* Send the chunk */
++		ret = dm_dmub_send_vbios_gpint_command(adev, send_addrs[i], chunk, 30000);
++		if (ret != DMUB_STATUS_OK)
++			goto free_bb;
++	}
++
++	/* Now ask DMUB to copy the bb */
++	ret = dm_dmub_send_vbios_gpint_command(adev, DMUB_GPINT__BB_COPY, 1, 200000);
++	if (ret != DMUB_STATUS_OK)
++		goto free_bb;
++
++	return bb;
++
++free_bb:
++	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, (void *) bb);
++	return NULL;
++
++}
++
++enum dmub_ips_disable_type dm_get_default_ips_mode(
++	struct amdgpu_device *adev)
++{
++	enum dmub_ips_disable_type ret = DMUB_IPS_ENABLE;
++
++	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
++	case IP_VERSION(3, 5, 0):
++	case IP_VERSION(3, 6, 0):
++	case IP_VERSION(3, 5, 1):
++		ret =  DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF;
++		break;
++	case IP_VERSION(4, 2, 0):
++	case IP_VERSION(4, 2, 1):
++		ret =  DMUB_IPS_ENABLE;
++		break;
++	default:
++		/* ASICs older than DCN35 do not have IPSs */
++		if (amdgpu_ip_version(adev, DCE_HWIP, 0) < IP_VERSION(3, 5, 0))
++			ret = DMUB_IPS_DISABLE_ALL;
++		break;
++	}
 +
 +	return ret;
 +}
 +
-+static const struct drm_audio_component_ops amdgpu_dm_audio_component_ops = {
-+	.get_eld = amdgpu_dm_audio_component_get_eld,
-+};
-+
-+static int amdgpu_dm_audio_component_bind(struct device *kdev,
-+				       struct device *hda_kdev, void *data)
++static uint32_t amdgpu_dm_dmub_reg_read(void *ctx, uint32_t address)
 +{
-+	struct drm_device *dev = dev_get_drvdata(kdev);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct drm_audio_component *acomp = data;
++	struct amdgpu_device *adev = ctx;
 +
-+	acomp->ops = &amdgpu_dm_audio_component_ops;
-+	acomp->dev = kdev;
-+	adev->dm.audio_component = acomp;
-+
-+	return 0;
++	return dm_read_reg(adev->dm.dc->ctx, address);
 +}
 +
-+static void amdgpu_dm_audio_component_unbind(struct device *kdev,
-+					  struct device *hda_kdev, void *data)
++static void amdgpu_dm_dmub_reg_write(void *ctx, uint32_t address,
++				     uint32_t value)
 +{
-+	struct amdgpu_device *adev = drm_to_adev(dev_get_drvdata(kdev));
-+	struct drm_audio_component *acomp = data;
++	struct amdgpu_device *adev = ctx;
 +
-+	acomp->ops = NULL;
-+	acomp->dev = NULL;
-+	adev->dm.audio_component = NULL;
++	return dm_write_reg(adev->dm.dc->ctx, address, value);
 +}
 +
-+static const struct component_ops amdgpu_dm_audio_component_bind_ops = {
-+	.bind	= amdgpu_dm_audio_component_bind,
-+	.unbind	= amdgpu_dm_audio_component_unbind,
-+};
-+
-+int amdgpu_dm_audio_init(struct amdgpu_device *adev)
++int dm_dmub_sw_init(struct amdgpu_device *adev)
 +{
-+	int i, ret;
++	struct dmub_srv_create_params create_params;
++	struct dmub_srv_fw_meta_info_params fw_meta_info_params;
++	struct dmub_srv_region_params region_params;
++	struct dmub_srv_region_info region_info;
++	struct dmub_srv_memory_params memory_params;
++	struct dmub_fw_meta_info fw_info;
++	struct dmub_srv_fb_info *fb_info;
++	struct dmub_srv *dmub_srv;
++	const struct dmcub_firmware_header_v1_0 *hdr;
++	enum dmub_asic dmub_asic;
++	enum dmub_status status;
++	static enum dmub_window_memory_type window_memory_type[DMUB_WINDOW_TOTAL] = {
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_0_INST_CONST */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_1_STACK */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_2_BSS_DATA */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_3_VBIOS */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_4_MAILBOX */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_5_TRACEBUFF */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_6_FW_STATE */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_7_SCRATCH_MEM */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_IB_MEM */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_SHARED_STATE */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_LSDMA_BUFFER */
++		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
++	};
++	int r;
 +
-+	if (!amdgpu_audio)
++	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
++	case IP_VERSION(2, 1, 0):
++		dmub_asic = DMUB_ASIC_DCN21;
++		break;
++	case IP_VERSION(3, 0, 0):
++		dmub_asic = DMUB_ASIC_DCN30;
++		break;
++	case IP_VERSION(3, 0, 1):
++		dmub_asic = DMUB_ASIC_DCN301;
++		break;
++	case IP_VERSION(3, 0, 2):
++		dmub_asic = DMUB_ASIC_DCN302;
++		break;
++	case IP_VERSION(3, 0, 3):
++		dmub_asic = DMUB_ASIC_DCN303;
++		break;
++	case IP_VERSION(3, 1, 2):
++	case IP_VERSION(3, 1, 3):
++		dmub_asic = (adev->external_rev_id == YELLOW_CARP_B0) ? DMUB_ASIC_DCN31B : DMUB_ASIC_DCN31;
++		break;
++	case IP_VERSION(3, 1, 4):
++		dmub_asic = DMUB_ASIC_DCN314;
++		break;
++	case IP_VERSION(3, 1, 5):
++		dmub_asic = DMUB_ASIC_DCN315;
++		break;
++	case IP_VERSION(3, 1, 6):
++		dmub_asic = DMUB_ASIC_DCN316;
++		break;
++	case IP_VERSION(3, 2, 0):
++		dmub_asic = DMUB_ASIC_DCN32;
++		break;
++	case IP_VERSION(3, 2, 1):
++		dmub_asic = DMUB_ASIC_DCN321;
++		break;
++	case IP_VERSION(3, 5, 0):
++	case IP_VERSION(3, 5, 1):
++		dmub_asic = DMUB_ASIC_DCN35;
++		break;
++	case IP_VERSION(3, 6, 0):
++		dmub_asic = DMUB_ASIC_DCN36;
++		break;
++	case IP_VERSION(4, 0, 1):
++		dmub_asic = DMUB_ASIC_DCN401;
++		break;
++	case IP_VERSION(4, 2, 0):
++		dmub_asic = DMUB_ASIC_DCN42;
++		break;
++	case IP_VERSION(4, 2, 1):
++		dmub_asic = DMUB_ASIC_DCN42B;
++		break;
++	default:
++		/* ASIC doesn't support DMUB. */
 +		return 0;
-+
-+	adev->mode_info.audio.enabled = true;
-+
-+	adev->mode_info.audio.num_pins = adev->dm.dc->res_pool->audio_count;
-+
-+	for (i = 0; i < adev->mode_info.audio.num_pins; i++) {
-+		adev->mode_info.audio.pin[i].channels = -1;
-+		adev->mode_info.audio.pin[i].rate = -1;
-+		adev->mode_info.audio.pin[i].bits_per_sample = -1;
-+		adev->mode_info.audio.pin[i].status_bits = 0;
-+		adev->mode_info.audio.pin[i].category_code = 0;
-+		adev->mode_info.audio.pin[i].connected = false;
-+		adev->mode_info.audio.pin[i].id =
-+			adev->dm.dc->res_pool->audios[i]->inst;
-+		adev->mode_info.audio.pin[i].offset = 0;
 +	}
 +
-+	ret = component_add(adev->dev, &amdgpu_dm_audio_component_bind_ops);
-+	if (ret < 0)
-+		return ret;
++	hdr = (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_fw->data;
++	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
 +
-+	adev->dm.audio_registered = true;
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =
++			AMDGPU_UCODE_ID_DMCUB;
++		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].fw =
++			adev->dm.dmub_fw;
++		adev->firmware.fw_size +=
++			ALIGN(le32_to_cpu(hdr->inst_const_bytes), PAGE_SIZE);
++
++		drm_info(adev_to_drm(adev), "Loading DMUB firmware via PSP: version=0x%08X\n",
++			 adev->dm.dmcub_fw_version);
++	}
++
++
++	adev->dm.dmub_srv = kzalloc(sizeof(*adev->dm.dmub_srv), GFP_KERNEL);
++	dmub_srv = adev->dm.dmub_srv;
++
++	if (!dmub_srv) {
++		drm_err(adev_to_drm(adev), "Failed to allocate DMUB service!\n");
++		return -ENOMEM;
++	}
++
++	memset(&create_params, 0, sizeof(create_params));
++	create_params.user_ctx = adev;
++	create_params.funcs.reg_read = amdgpu_dm_dmub_reg_read;
++	create_params.funcs.reg_write = amdgpu_dm_dmub_reg_write;
++	create_params.asic = dmub_asic;
++
++	/* Create the DMUB service. */
++	status = dmub_srv_create(dmub_srv, &create_params);
++	if (status != DMUB_STATUS_OK) {
++		drm_err(adev_to_drm(adev), "Error creating DMUB service: %d\n", status);
++		return -EINVAL;
++	}
++
++	/* Extract the FW meta info. */
++	memset(&fw_meta_info_params, 0, sizeof(fw_meta_info_params));
++
++	fw_meta_info_params.inst_const_size = le32_to_cpu(hdr->inst_const_bytes) -
++					      PSP_HEADER_BYTES_256;
++	fw_meta_info_params.bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
++	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
++					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
++					    PSP_HEADER_BYTES_256;
++	fw_meta_info_params.fw_bss_data = fw_meta_info_params.bss_data_size ? adev->dm.dmub_fw->data +
++					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
++					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
++	fw_meta_info_params.custom_psp_footer_size = 0;
++
++	status = dmub_srv_get_fw_meta_info_from_raw_fw(&fw_meta_info_params, &fw_info);
++	if (status != DMUB_STATUS_OK) {
++		/* Skip returning early, just log the error. */
++		drm_err(adev_to_drm(adev), "Error getting DMUB FW meta info: %d\n", status);
++	}
++
++	/* Calculate the size of all the regions for the DMUB service. */
++	memset(&region_params, 0, sizeof(region_params));
++
++	region_params.inst_const_size = fw_meta_info_params.inst_const_size;
++	region_params.bss_data_size = fw_meta_info_params.bss_data_size;
++	region_params.vbios_size = adev->bios_size;
++	region_params.fw_bss_data = fw_meta_info_params.fw_bss_data;
++	region_params.fw_inst_const = fw_meta_info_params.fw_inst_const;
++	region_params.window_memory_type = window_memory_type;
++	region_params.fw_info = (status == DMUB_STATUS_OK) ? &fw_info : NULL;
++
++	status = dmub_srv_calc_region_info(dmub_srv, &region_params,
++					   &region_info);
++
++	if (status != DMUB_STATUS_OK) {
++		drm_err(adev_to_drm(adev), "Error calculating DMUB region info: %d\n", status);
++		return -EINVAL;
++	}
++
++	/*
++	 * Allocate a framebuffer based on the total size of all the regions.
++	 * TODO: Move this into GART.
++	 */
++	r = amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_VRAM |
++				    AMDGPU_GEM_DOMAIN_GTT,
++				    &adev->dm.dmub_bo,
++				    &adev->dm.dmub_bo_gpu_addr,
++				    &adev->dm.dmub_bo_cpu_addr);
++	if (r)
++		return r;
++
++	/* Rebase the regions on the framebuffer address. */
++	memset(&memory_params, 0, sizeof(memory_params));
++	memory_params.cpu_fb_addr = adev->dm.dmub_bo_cpu_addr;
++	memory_params.gpu_fb_addr = adev->dm.dmub_bo_gpu_addr;
++	memory_params.region_info = &region_info;
++	memory_params.window_memory_type = window_memory_type;
++
++	adev->dm.dmub_fb_info =
++		kzalloc(sizeof(*adev->dm.dmub_fb_info), GFP_KERNEL);
++	fb_info = adev->dm.dmub_fb_info;
++
++	if (!fb_info) {
++		drm_err(adev_to_drm(adev),
++			"Failed to allocate framebuffer info for DMUB service!\n");
++		return -ENOMEM;
++	}
++
++	status = dmub_srv_calc_mem_info(dmub_srv, &memory_params, fb_info);
++	if (status != DMUB_STATUS_OK) {
++		drm_err(adev_to_drm(adev), "Error calculating DMUB FB info: %d\n", status);
++		return -EINVAL;
++	}
++
++	adev->dm.bb_from_dmub = dm_dmub_get_vbios_bounding_box(adev);
++	adev->dm.fw_inst_size = fw_meta_info_params.inst_const_size;
 +
 +	return 0;
 +}
 +
-+void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
++int dm_init_microcode(struct amdgpu_device *adev)
 +{
-+	if (!amdgpu_audio)
-+		return;
++	char *fw_name_dmub;
++	int r;
 +
-+	if (!adev->mode_info.audio.enabled)
-+		return;
-+
-+	if (adev->dm.audio_registered) {
-+		component_del(adev->dev, &amdgpu_dm_audio_component_bind_ops);
-+		adev->dm.audio_registered = false;
++	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
++	case IP_VERSION(2, 1, 0):
++		fw_name_dmub = FIRMWARE_RENOIR_DMUB;
++		if (ASICREV_IS_GREEN_SARDINE(adev->external_rev_id))
++			fw_name_dmub = FIRMWARE_GREEN_SARDINE_DMUB;
++		break;
++	case IP_VERSION(3, 0, 0):
++		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(10, 3, 0))
++			fw_name_dmub = FIRMWARE_SIENNA_CICHLID_DMUB;
++		else
++			fw_name_dmub = FIRMWARE_NAVY_FLOUNDER_DMUB;
++		break;
++	case IP_VERSION(3, 0, 1):
++		fw_name_dmub = FIRMWARE_VANGOGH_DMUB;
++		break;
++	case IP_VERSION(3, 0, 2):
++		fw_name_dmub = FIRMWARE_DIMGREY_CAVEFISH_DMUB;
++		break;
++	case IP_VERSION(3, 0, 3):
++		fw_name_dmub = FIRMWARE_BEIGE_GOBY_DMUB;
++		break;
++	case IP_VERSION(3, 1, 2):
++	case IP_VERSION(3, 1, 3):
++		fw_name_dmub = FIRMWARE_YELLOW_CARP_DMUB;
++		break;
++	case IP_VERSION(3, 1, 4):
++		fw_name_dmub = FIRMWARE_DCN_314_DMUB;
++		break;
++	case IP_VERSION(3, 1, 5):
++		fw_name_dmub = FIRMWARE_DCN_315_DMUB;
++		break;
++	case IP_VERSION(3, 1, 6):
++		fw_name_dmub = FIRMWARE_DCN316_DMUB;
++		break;
++	case IP_VERSION(3, 2, 0):
++		fw_name_dmub = FIRMWARE_DCN_V3_2_0_DMCUB;
++		break;
++	case IP_VERSION(3, 2, 1):
++		fw_name_dmub = FIRMWARE_DCN_V3_2_1_DMCUB;
++		break;
++	case IP_VERSION(3, 5, 0):
++		fw_name_dmub = FIRMWARE_DCN_35_DMUB;
++		break;
++	case IP_VERSION(3, 5, 1):
++		fw_name_dmub = FIRMWARE_DCN_351_DMUB;
++		break;
++	case IP_VERSION(3, 6, 0):
++		fw_name_dmub = FIRMWARE_DCN_36_DMUB;
++		break;
++	case IP_VERSION(4, 0, 1):
++		fw_name_dmub = FIRMWARE_DCN_401_DMUB;
++		break;
++	case IP_VERSION(4, 2, 0):
++		fw_name_dmub = FIRMWARE_DCN_42_DMUB;
++		break;
++	case IP_VERSION(4, 2, 1):
++		fw_name_dmub = FIRMWARE_DCN_42B_DMUB;
++		break;
++	default:
++		/* ASIC doesn't support DMUB. */
++		return 0;
 +	}
-+
-+	/* TODO: Disable audio? */
-+
-+	adev->mode_info.audio.enabled = false;
++	r = amdgpu_ucode_request(adev, &adev->dm.dmub_fw, AMDGPU_UCODE_REQUIRED,
++				 "%s", fw_name_dmub);
++	return r;
 +}
 +
-+static void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
++int amdgpu_dm_process_dmub_aux_transfer_sync(
++		struct dc_context *ctx,
++		unsigned int link_index,
++		struct aux_payload *payload,
++		enum aux_return_code_type *operation_result)
 +{
-+	struct drm_audio_component *acomp = adev->dm.audio_component;
++	struct amdgpu_device *adev = ctx->driver_context;
++	struct dmub_notification *p_notify = adev->dm.dmub_notify;
++	int ret = -1;
 +
-+	if (acomp && acomp->audio_ops && acomp->audio_ops->pin_eld_notify) {
-+		drm_dbg_kms(adev_to_drm(adev), "Notify ELD: %d\n", pin);
-+
-+		acomp->audio_ops->pin_eld_notify(acomp->audio_ops->audio_ptr,
-+						 pin, -1);
++	mutex_lock(&adev->dm.dpia_aux_lock);
++	if (!dc_process_dmub_aux_transfer_async(ctx->dc, link_index, payload)) {
++		*operation_result = AUX_RET_ERROR_ENGINE_ACQUIRE;
++		goto out;
 +	}
++
++	if (!wait_for_completion_timeout(&adev->dm.dmub_aux_transfer_done, 10 * HZ)) {
++		drm_err(adev_to_drm(adev), "wait_for_completion_timeout timeout!");
++		*operation_result = AUX_RET_ERROR_TIMEOUT;
++		goto out;
++	}
++
++	if (p_notify->result != AUX_RET_SUCCESS) {
++		/*
++		 * Transient states before tunneling is enabled could
++		 * lead to this error. We can ignore this for now.
++		 */
++		if (p_notify->result == AUX_RET_ERROR_PROTOCOL_ERROR) {
++			drm_warn(adev_to_drm(adev), "DPIA AUX failed on 0x%x(%d), error %d\n",
++					payload->address, payload->length,
++					p_notify->result);
++		}
++		*operation_result = p_notify->result;
++		goto out;
++	}
++
++	payload->reply[0] = adev->dm.dmub_notify->aux_reply.command & 0xF;
++	if (adev->dm.dmub_notify->aux_reply.command & 0xF0)
++		/* The reply is stored in the top nibble of the command. */
++		payload->reply[0] = (adev->dm.dmub_notify->aux_reply.command >> 4) & 0xF;
++
++	/*write req may receive a byte indicating partially written number as well*/
++	if (p_notify->aux_reply.length)
++		memcpy(payload->data, p_notify->aux_reply.data,
++				p_notify->aux_reply.length);
++
++	/* success */
++	ret = p_notify->aux_reply.length;
++	*operation_result = p_notify->result;
++out:
++	reinit_completion(&adev->dm.dmub_aux_transfer_done);
++	mutex_unlock(&adev->dm.dpia_aux_lock);
++	return ret;
 +}
 +
-+void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
-+		     const struct drm_connector *drm_connector,
-+		     const struct dc_sink *dc_sink)
++static void abort_fused_io(
++		struct dc_context *ctx,
++		const struct dmub_cmd_fused_request *request
++)
 +{
-+	int i = 0;
-+	int cea_revision = 0;
-+	const struct dc_edid_caps *edid_caps = &dc_sink->edid_caps;
++	union dmub_rb_cmd command = { 0 };
++	struct dmub_rb_cmd_fused_io *io = &command.fused_io;
 +
-+	audio_info->manufacture_id = edid_caps->manufacturer_id;
-+	audio_info->product_id = edid_caps->product_id;
++	io->header.type = DMUB_CMD__FUSED_IO;
++	io->header.sub_type = DMUB_CMD__FUSED_IO_ABORT;
++	io->header.payload_bytes = sizeof(*io) - sizeof(io->header);
++	io->request = *request;
++	dm_execute_dmub_cmd(ctx, &command, DM_DMUB_WAIT_TYPE_NO_WAIT);
++}
 +
-+	cea_revision = drm_connector->display_info.cea_rev;
++static bool execute_fused_io(
++		struct amdgpu_device *dev,
++		struct dc_context *ctx,
++		union dmub_rb_cmd *commands,
++		uint8_t count,
++		uint32_t timeout_us
++)
++{
++	const uint8_t ddc_line = commands[0].fused_io.request.u.aux.ddc_line;
 +
-+	strscpy(audio_info->display_name,
-+		edid_caps->display_name,
-+		AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
++	if (ddc_line >= ARRAY_SIZE(dev->dm.fused_io))
++		return false;
 +
-+	if (cea_revision >= 3) {
-+		audio_info->mode_count = edid_caps->audio_mode_count;
++	struct fused_io_sync *sync = &dev->dm.fused_io[ddc_line];
++	struct dmub_rb_cmd_fused_io *first = &commands[0].fused_io;
++	const bool result = dm_execute_dmub_cmd_list(ctx, count, commands, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)
++			&& first->header.ret_status
++			&& first->request.status == FUSED_REQUEST_STATUS_SUCCESS;
 +
-+		for (i = 0; i < audio_info->mode_count; ++i) {
-+			audio_info->modes[i].format_code =
-+					(enum audio_format_code)
-+					(edid_caps->audio_modes[i].format_code);
-+			audio_info->modes[i].channel_count =
-+					edid_caps->audio_modes[i].channel_count;
-+			audio_info->modes[i].sample_rates.all =
-+					edid_caps->audio_modes[i].sample_rate;
-+			audio_info->modes[i].sample_size =
-+					edid_caps->audio_modes[i].sample_size;
++	if (!result)
++		return false;
++
++	while (wait_for_completion_timeout(&sync->replied, usecs_to_jiffies(timeout_us))) {
++		reinit_completion(&sync->replied);
++
++		struct dmub_cmd_fused_request *reply = (struct dmub_cmd_fused_request *) sync->reply_data;
++
++		static_assert(sizeof(*reply) <= sizeof(sync->reply_data), "Size mismatch");
++
++		if (reply->identifier == first->request.identifier) {
++			first->request = *reply;
++			return true;
 +		}
 +	}
 +
-+	audio_info->flags.all = edid_caps->speaker_flags;
-+
-+	/* TODO: We only check for the progressive mode, check for interlace mode too */
-+	if (drm_connector->latency_present[0]) {
-+		audio_info->video_latency = drm_connector->video_latency[0];
-+		audio_info->audio_latency = drm_connector->audio_latency[0];
-+	}
-+
-+	/* TODO: For DP, video and audio latency should be calculated from DPCD caps */
-+
++	reinit_completion(&sync->replied);
++	first->request.status = FUSED_REQUEST_STATUS_TIMEOUT;
++	abort_fused_io(ctx, &first->request);
++	return false;
 +}
 +
-+void amdgpu_dm_commit_audio(struct drm_device *dev,
-+			    struct drm_atomic_state *state)
++bool amdgpu_dm_execute_fused_io(
++		struct amdgpu_device *dev,
++		struct dc_link *link,
++		union dmub_rb_cmd *commands,
++		uint8_t count,
++		uint32_t timeout_us)
 +{
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_dm_connector *aconnector;
-+	struct drm_connector *connector;
-+	struct drm_connector_state *old_con_state, *new_con_state;
-+	struct drm_crtc_state *new_crtc_state;
-+	struct dm_crtc_state *new_dm_crtc_state;
-+	const struct dc_stream_status *status;
-+	int i, inst;
++	struct amdgpu_display_manager *dm = &dev->dm;
 +
-+	/* Notify device removals. */
-+	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
-+		if (old_con_state->crtc != new_con_state->crtc) {
-+			/* CRTC changes require notification. */
-+			goto notify;
-+		}
++	mutex_lock(&dm->dpia_aux_lock);
 +
-+		if (!new_con_state->crtc)
-+			continue;
++	const bool result = execute_fused_io(dev, link->ctx, commands, count, timeout_us);
 +
-+		new_crtc_state = drm_atomic_get_new_crtc_state(
-+			state, new_con_state->crtc);
-+
-+		if (!new_crtc_state)
-+			continue;
-+
-+		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
-+			continue;
-+
-+notify:
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
-+		aconnector = to_amdgpu_dm_connector(connector);
-+
-+		mutex_lock(&adev->dm.audio_lock);
-+		inst = aconnector->audio_inst;
-+		aconnector->audio_inst = -1;
-+		mutex_unlock(&adev->dm.audio_lock);
-+
-+		amdgpu_dm_audio_eld_notify(adev, inst);
-+	}
-+
-+	/* Notify audio device additions. */
-+	for_each_new_connector_in_state(state, connector, new_con_state, i) {
-+		if (!new_con_state->crtc)
-+			continue;
-+
-+		new_crtc_state = drm_atomic_get_new_crtc_state(
-+			state, new_con_state->crtc);
-+
-+		if (!new_crtc_state)
-+			continue;
-+
-+		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
-+			continue;
-+
-+		new_dm_crtc_state = to_dm_crtc_state(new_crtc_state);
-+		if (!new_dm_crtc_state->stream)
-+			continue;
-+
-+		status = dc_stream_get_status(new_dm_crtc_state->stream);
-+		if (!status)
-+			continue;
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
-+		aconnector = to_amdgpu_dm_connector(connector);
-+
-+		mutex_lock(&adev->dm.audio_lock);
-+		inst = status->audio_inst;
-+		aconnector->audio_inst = inst;
-+		mutex_unlock(&adev->dm.audio_lock);
-+
-+		amdgpu_dm_audio_eld_notify(adev, inst);
-+	}
++	mutex_unlock(&dm->dpia_aux_lock);
++	return result;
 +}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
++
++int amdgpu_dm_process_dmub_set_config_sync(
++		struct dc_context *ctx,
++		unsigned int link_index,
++		struct set_config_cmd_payload *payload,
++		enum set_config_status *operation_result)
++{
++	struct amdgpu_device *adev = ctx->driver_context;
++	bool is_cmd_complete;
++	int ret;
++
++	mutex_lock(&adev->dm.dpia_aux_lock);
++	is_cmd_complete = dc_process_dmub_set_config_async(ctx->dc,
++			link_index, payload, adev->dm.dmub_notify);
++
++	if (is_cmd_complete || wait_for_completion_timeout(&adev->dm.dmub_aux_transfer_done, 10 * HZ)) {
++		ret = 0;
++		*operation_result = adev->dm.dmub_notify->sc_status;
++	} else {
++		drm_err(adev_to_drm(adev), "wait_for_completion_timeout timeout!");
++		ret = -1;
++		*operation_result = SET_CONFIG_UNKNOWN_ERROR;
++	}
++
++	if (!is_cmd_complete)
++		reinit_completion(&adev->dm.dmub_aux_transfer_done);
++	mutex_unlock(&adev->dm.dpia_aux_lock);
++	return ret;
++}
++
++bool dm_execute_dmub_cmd(const struct dc_context *ctx, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
++{
++	struct amdgpu_device *adev = ctx->driver_context;
++
++	guard(spinlock_irqsave)(&adev->dm.dmub_lock);
++	return dc_dmub_srv_cmd_run(ctx->dmub_srv, cmd, wait_type);
++}
++
++bool dm_execute_dmub_cmd_list(const struct dc_context *ctx, unsigned int count, union dmub_rb_cmd *cmd, enum dm_dmub_wait_type wait_type)
++{
++	struct amdgpu_device *adev = ctx->driver_context;
++
++	guard(spinlock_irqsave)(&adev->dm.dmub_lock);
++	return dc_dmub_srv_cmd_run_list(ctx->dmub_srv, count, cmd, wait_type);
++}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
 new file mode 100644
-index 000000000000..efd412bba178
+index 000000000000..a4a03e40ec37
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
-@@ -0,0 +1,44 @@
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
+@@ -0,0 +1,68 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
@@ -804,27 +2146,51 @@ index 000000000000..efd412bba178
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + * Authors: AMD
++ *
 + */
 +
-+#ifndef __AMDGPU_DM_AUDIO_H__
-+#define __AMDGPU_DM_AUDIO_H__
++#ifndef AMDGPU_DM_AMDGPU_DM_DMUB_H_
++#define AMDGPU_DM_AMDGPU_DM_DMUB_H_
 +
-+struct amdgpu_device;
-+struct drm_device;
-+struct drm_atomic_state;
-+struct drm_connector;
-+struct audio_info;
-+struct dc_sink;
++#include "amdgpu.h"
 +
-+int amdgpu_dm_audio_init(struct amdgpu_device *adev);
-+void amdgpu_dm_audio_fini(struct amdgpu_device *adev);
-+void amdgpu_dm_commit_audio(struct drm_device *dev,
-+			    struct drm_atomic_state *state);
-+void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
-+		     const struct drm_connector *drm_connector,
-+		     const struct dc_sink *dc_sink);
++void dm_dmub_aux_setconfig_callback(struct amdgpu_device *adev,
++				    struct dmub_notification *notify);
++void dm_dmub_aux_fused_io_callback(struct amdgpu_device *adev,
++				   struct dmub_notification *notify);
++bool dm_register_dmub_notify_callback(struct amdgpu_device *adev,
++				      enum dmub_notification_type type,
++				      dmub_notify_interrupt_callback_t callback,
++				      bool dmub_int_thread_offload);
++int dm_dmub_hw_init(struct amdgpu_device *adev);
++void dm_dmub_hw_resume(struct amdgpu_device *adev);
++enum dmub_ips_disable_type dm_get_default_ips_mode(struct amdgpu_device *adev);
++int dm_dmub_sw_init(struct amdgpu_device *adev);
++int dm_init_microcode(struct amdgpu_device *adev);
 +
-+#endif /* __AMDGPU_DM_AUDIO_H__ */
++#define FIRMWARE_RENOIR_DMUB		"amdgpu/renoir_dmcub.bin"
++#define FIRMWARE_SIENNA_CICHLID_DMUB	"amdgpu/sienna_cichlid_dmcub.bin"
++#define FIRMWARE_NAVY_FLOUNDER_DMUB	"amdgpu/navy_flounder_dmcub.bin"
++#define FIRMWARE_GREEN_SARDINE_DMUB	"amdgpu/green_sardine_dmcub.bin"
++#define FIRMWARE_VANGOGH_DMUB		"amdgpu/vangogh_dmcub.bin"
++#define FIRMWARE_DIMGREY_CAVEFISH_DMUB	"amdgpu/dimgrey_cavefish_dmcub.bin"
++#define FIRMWARE_BEIGE_GOBY_DMUB	"amdgpu/beige_goby_dmcub.bin"
++#define FIRMWARE_YELLOW_CARP_DMUB	"amdgpu/yellow_carp_dmcub.bin"
++#define FIRMWARE_DCN_314_DMUB		"amdgpu/dcn_3_1_4_dmcub.bin"
++#define FIRMWARE_DCN_315_DMUB		"amdgpu/dcn_3_1_5_dmcub.bin"
++#define FIRMWARE_DCN316_DMUB		"amdgpu/dcn_3_1_6_dmcub.bin"
++#define FIRMWARE_DCN_V3_2_0_DMCUB	"amdgpu/dcn_3_2_0_dmcub.bin"
++#define FIRMWARE_DCN_V3_2_1_DMCUB	"amdgpu/dcn_3_2_1_dmcub.bin"
++#define FIRMWARE_DCN_35_DMUB		"amdgpu/dcn_3_5_dmcub.bin"
++#define FIRMWARE_DCN_351_DMUB		"amdgpu/dcn_3_5_1_dmcub.bin"
++#define FIRMWARE_DCN_36_DMUB		"amdgpu/dcn_3_6_dmcub.bin"
++#define FIRMWARE_DCN_401_DMUB		"amdgpu/dcn_4_0_1_dmcub.bin"
++#define FIRMWARE_DCN_42_DMUB		"amdgpu/dcn_4_2_dmcub.bin"
++#define FIRMWARE_DCN_42B_DMUB		"amdgpu/dcn_4_2_1_dmcub.bin"
++#define FIRMWARE_RAVEN_DMCU		"amdgpu/raven_dmcu.bin"
++#define FIRMWARE_NAVI12_DMCU		"amdgpu/navi12_dmcu.bin"
++
++#endif /* AMDGPU_DM_AMDGPU_DM_DMUB_H_ */
 -- 
 2.43.0
 
