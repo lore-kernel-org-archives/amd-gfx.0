@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB6BCD98C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F8FCD8CB9
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:51:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA8E10E88C;
-	Wed, 10 Jun 2026 09:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9143B10E888;
+	Wed, 10 Jun 2026 09:51:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qk2+plSj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VLuLS3m7";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011053.outbound.protection.outlook.com [52.101.62.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0314110E88C
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:51:38 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012015.outbound.protection.outlook.com [40.107.209.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7634610E888
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:51:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J3bElAYvqQd4eO/uHnM8cVUgxUDMM8Oo520eyVc8R/2KrKioAq8xy6Uzja+NkjqZq9/1k+Ywdo3rj01SkIDrzFAE87niDofvxxnfhoyBd5IaZJbDhuSy3d4VisgjoUPu7PiPM2OgcWyrIk2+PL7ieVsdxxYABU6bCEJN83RjxX6aUT1H/A5cX2MM2fETm51kSOnRM6Y5YoPZrTPlLBXU3UaVkY+Qtuf/2o2SUgSPgi9L/GBbY2iDxA3kapC5CzIBCw4iibB08Bmbh+VuOSVxBdGgNn6QxDSe6xMMQG9sEslQ95n1cyJRvESBOKW2fMP3+PGekAZ7Hmr+ahYQ60PlEA==
+ b=qkGeGPBlmc1Tzg12LxisrZNGz8SU5BLK/WzkGj+XP2fz9vMzifdMfms77tEJHWpYvxtf4vbYjp2gTmLXNFh8f7I7BlpDocNJYY6REvtSINzK5nJ8aAhtomlVOV2ry71fPOFwPLNFSNdX/XAK2wVtVdtMHxnMWNrRZ61kkzFW1/SHJPcPLfedR58hqHIeJJi/TpEDLHBukyssufvsIvQaLCB6Wk9TU676vwxiC6KT1y8x9PuZm9y2jUSTdieGrnLdnkUUr/q4TnSxw+46e1US7kTYkpfCMrFoUd6KYryTxNYUW6XTqBGzFmsiH3AIAGRCUByc2To/+3YCcA20rS7auw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xOwfh/Ty4NyRJ+RxqbNHQ4IPzXH1LYqvgG9p/APLZx8=;
- b=OI6zsKMaDiO87JAoPz8TtveHLXiwp8H2X6EqEwrUQvxDhPbQ8PKTK5AXs8ZA5gPLb1RMenIbYxRWmZ9nD1zffGc5lkjFqzAXvxysJ2y4w2syXxIv3t4lBjx346tIZq3UYcGKTb3Qw3n5Ow8ZT/2e9KhDL0eNBAaTNckSUJOG6V4gEoVDUjSWRHE8zlKiBPZzV8KB70z3z+1QaG0Dsq34NQV6jvbagHZOhrYfOitZGEwTEO7eayVmrnhQyboHhzCzHga6JtiPUnBWGX/D1K61hL6WtS5yD0ixiJkf8T2uTY81Rqmspv2FBYTtRMjRyRKMgtahDtqJiBNiydCATsz+Rw==
+ bh=+mxR64BXgY/JuCzLbZ5fv0g5LQvSaHDNoebAxJ1KuK4=;
+ b=KHZYWhmeTjrOvkCpfq413TIfgFEiFTVLatUIpWRU+iQ15HRE964FOk66VrGwLo+3WB12Nc1A+LbJP1kH50bQBoOv+1Mh7ZyUO3w2hmVlaaWp7ntHwEG4Xt1IcwHJlNcL/kChi/u8IghXAjPGTSzT0ZddaKq595p+0hAkDLf7u/tyl6xA+ga1k2SlE+B8jBRMcUiEFhWF9FubhGO2tg/94wMgOCEAuiH8TgphjtQNkA78ZMDtCAKohJoi6176pfP3feXJvYrmQxIYvAMC+3odRlWM4p84emHKnXmz23jOzanZRYeOTaXZVHRdtiY3EuCZXI7maSqABP1iVNKZzMaUgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xOwfh/Ty4NyRJ+RxqbNHQ4IPzXH1LYqvgG9p/APLZx8=;
- b=Qk2+plSj42uUvksukjbrj7KumJWV01JRM1oanSBIXWKqEpHWkjOG3gQEtcc6cnaRVq5OQZmJ/IfNqH+CBwBjoYXHOXgwqQJXWdn7I5q5bwosFbn7rgu/c88XBeTReQyoViASW5rS0pGBYJSGn5XFE4FtHXBkdG010LR/AlPbNuY=
-Received: from BL1PR13CA0114.namprd13.prod.outlook.com (2603:10b6:208:2b9::29)
- by CH1PPF4C9628624.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::60d) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 09:51:31 +0000
-Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
- (2603:10b6:208:2b9:cafe::9e) by BL1PR13CA0114.outlook.office365.com
- (2603:10b6:208:2b9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.10 via Frontend Transport; Wed,
- 10 Jun 2026 09:51:31 +0000
+ bh=+mxR64BXgY/JuCzLbZ5fv0g5LQvSaHDNoebAxJ1KuK4=;
+ b=VLuLS3m7u8yx0J7eKIQRVwmd4j9JRL0DRQjCP8NMtA8WQrfLAyRw7qNcc1T9FqidWx18oPFAEP5cxLHQM9EKlyRIPO4PDTxEgsXN7fyqQYh53K0x0p2DFzHlaZKA07awUbPcEZOWV5WXx+6AUHW+T5f81a8bqL8q0COqiWroyl4=
+Received: from PH8P223CA0023.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::11)
+ by CH1PR12MB9576.namprd12.prod.outlook.com (2603:10b6:610:2ad::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
+ 2026 09:51:40 +0000
+Received: from SN1PEPF000397B0.namprd05.prod.outlook.com
+ (2603:10b6:510:2db:cafe::7b) by PH8P223CA0023.outlook.office365.com
+ (2603:10b6:510:2db::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.12 via Frontend Transport; Wed,
+ 10 Jun 2026 09:51:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF000397B0.mail.protection.outlook.com (10.167.248.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:51:31 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:51:40 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:51:30 -0500
+ 2026 04:51:39 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 10 Jun 2026 04:51:22 -0500
+ Transport; Wed, 10 Jun 2026 04:51:31 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,40 +68,40 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "Chenyu Chen" <chen-yu.chen@amd.com>
-Subject: [PATCH 23/32] drm/amd/display: Add KUnit tests for amdgpu_dm_crtc
-Date: Wed, 10 Jun 2026 17:45:07 +0800
-Message-ID: <20260610094639.1965367-24-chen-yu.chen@amd.com>
+Subject: [PATCH 24/32] drm/amd/display: Add KUnit tests for amdgpu_dm_services
+Date: Wed, 10 Jun 2026 17:45:08 +0800
+Message-ID: <20260610094639.1965367-25-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|CH1PPF4C9628624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ab1ea29-27b4-40e1-3700-08dec6d5d96c
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B0:EE_|CH1PR12MB9576:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84c468ee-d94c-4fb9-d9b8-08dec6d5deca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|18002099003|22082099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: 5mAVkdcAYPHzpEmGdvheTamoB1AQMygw0TZ+lrOJ456e4Bj0zY87GDypTPYGfU+atDW5t6COsYILfBcytMBkYWa32KauRMK5gdGZle6gQw3AniK9+eBIUd409DRCRwFkrK3qX1Gu1TP8ylTzq+sm6AaniBkszP40/gGq02qRMdaOqyPTl/4jQ76thWn5v6FpW0GZibIJeRAVC8NyXLcRTQqukfR/acTaLhNZKyBm3zTYjvkgxLrDjl/9o56B8BJrwf2hz5+2Xd+lPM/gUoOc4RLkUnk3jXrR9j27MbfN7r95vN9CXAQ5GJHYApYjFAF21GJU1DgnF1kTCmCJPzZfrjr6npoTS3f8scaCRkWGhqqDFy1oEN+26GydHLDs1rz+QQ6pYkIWNh00hcsVNfUhrMJTGK/dMxGruF1GjU54JE894RxKMZATpm/evnwmkOa4gBzfaGlszQRdQpYtpC8DROgl7x8rBBBmX52bPycyixYwLjA2Zs/uwBEPvS/9k2VoomHRQWKDyIrAUbfHVvLk6f/oxI0VMnKXF8rO7Lym079t5TiM4q7vGiW/0QU/vrWseP+dkzSIXpzHSBQquNCAMG6/QhVg3FqKUal+F+XQ/Ky7FPow0rLRQky5rxc0ILFGCn1P/mKE/Dyaise+757wwXDrPUIzChycYFLDB2YLV9oad/FjAvyuvINu20tWrTpThZPTJ7frXu+EAnRWAqJuKaP/3Mvh3oxecAKdyF2gZzg=
+ ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|3023799007|18002099003|22082099003|11063799006|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: mUiJCqyvvHbtgfNyr/ErnjzhPyuwXaHFYAgsHO7WMWe+ydqUZntpwGyTIkuY/mCmMrwIHpoyPKBUn+mbrAhjbjqnwg9fV6yvDhbCii4NIozSZN9LnbcM2XYijV9jYGq65puf9TB6azaZ/WC7T2E3Xbp5+gY7NpA9xPuxR4LgGhxN93qvLw5csf6VuVRjjl/rivLb9Mv2lUVGHaN+nhvgRX3ykG4TC0ApqFRhQTTKnWr77bMcsZhh+OGjqeXBUBGUczDFrQbBLpUnES2ilxqQ9Id6wGdunHucHxOXHD5MJ3WJTThw31gokm0dJmD7iDcVb+Zm1t6n5zfbDrjb8YlprjJ3TQCJw+RE/7CCEt2JEFnKp2ZW3b/Oxik9x7FgRcKaW1iEV3DvMQ5BmNmmgmqVzgud9xEgvxYpMfZSoHY10xvdGgwkEELkFqzT03uipqwcqn31tthpWjZm5iCe16o7QsEalDU9i0uXuUCx4xpzin5VvdzF9/X7hz1CkF+fPEQgH+PBinFE5m4SF6/oexfXPGPLsg+6yMfk777HzvEU7Y5RjbuhbDnOPiWLzLpCJyCIKKms5d79MAVNJcYYwo20CtKWfjzUmIlPOxDjkUj34BclRYPLY5y9JQrfj1hE0hKejAtWhGcLeSmx7y6Lams72COBKxYcZFFDDsxDztmQR2/u2OE8pvfrvCsmt9FIPAyUe7MsMiX4C0elklBJ/swQmgU0KSTJWhcQPTH7xg3m+8g=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(3023799007)(18002099003)(22082099003)(11063799006)(6133799003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XW7ZR9zwE93pyBBncxwH7t570zzGo75WO+3lsS4Sl2VOir5EzruNCz116kSaK3EEiLYlSi68hsAQoOO6gYzDEEyar2nMcfxz17CG4tZVT6LUw7Yy0qxT/iKfjNYedWohXMaUsMWxMjt9OYw+kPBlxcRKp75PD6/MTO1VymbwepWZB9xgLTqdfYePC4oxgFuw3suzK0XxjoU09Y2S8I89Co3eDQCoTA0UAKxwBVkMYGI87iRsAB7veWtYZdlwNiPC55BhCCzur/EbiYvpxy8Gxgaq5drdXVHD9pTf4nTtC5uG5ZF7KB5SloUnFxJ+9Cz2L7ew4YZoa9RaKhNMXpwOLUKT4xMYhn76vv/HgCiFeEF4ki9Q6Zo3m49xFrz9TfeDTSog6WUXIoh/RYMSWayOoMxWL/8EVw9BaZUcxjTG4OgKmhK8SU0DPWmwzTWijGUj
+X-MS-Exchange-AntiSpam-MessageData-0: WnZ8dmbWzxiOPt3PX0Y456E78S5iItSChJX9VaxP7Pk9QHZs8kQ/XPoSzbNWKp/na5qLDtwqDH9hj24RUyOczvqyRHylov9qH75fkUlm0m9G0loSrRWoqWteekJQnE43oUTFoGvpVS9XFoanLpUZ4MZcsU5uLu14Dt5x7c3QhdILWTkEnMc1nLKlVg5EzEt8xT5JphJwIOJzGuQfjtxJQ/05hoAsSe8vAj/wPW4G1DiXPY4uzq3fNplyLfXp5vIdjqgCJ7HD6sKC49GBAJ9wVjywPbFg9GHLwTh6zidTO2/W5m1QYLNB+bYNviGiJv119wwXDRaMKmTjpBtOO+lEpEgUX9HnGKtdErs7adkxGIc+40R6ZZEZgwL/88Tlyhldg2AAxO2XqHtN5NoyrUUQdyreYTo3LiW4SYni8GE55834Qlfz67OvpFgtMDlrz+mx
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:51:31.0754 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ab1ea29-27b4-40e1-3700-08dec6d5d96c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:51:40.0714 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84c468ee-d94c-4fb9-d9b8-08dec6d5deca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF4C9628624
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9576
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,18 +118,24 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit coverage for functions in amdgpu_dm_crtc.c:
-- amdgpu_dm_crtc_modeset_required: verify active+needs_modeset
-  combinations (mode_changed, active_changed, connectors_changed)
-- amdgpu_dm_crtc_vrr_active_irq: verify all VRR state enum values
-- amdgpu_dm_crtc_vrr_active: verify all VRR state enum values
-- amdgpu_dm_is_headless: null adev, no connectors, writeback-only,
-  disconnected display, connected display, and mixed connector cases
-- amdgpu_dm_crtc_helper_mode_fixup: verify it accepts the mode
-- amdgpu_dm_crtc_set_vupdate_irq: verify the otg_inst == -1 early
-  return using a DRM mock device
-- idle_create_workqueue: verify the idle workqueue is allocated and
-  initialized in a disabled, non-running state
+Add amdgpu_dm_services_test.c with KUnit coverage for five
+functions in amdgpu_dm_services.c:
+
+- dm_get_elapse_time_in_ns(): four arithmetic cases covering
+  zero delta, positive delta, ULLONG_MAX span, and unsigned
+  wraparound.
+- dm_perf_trace_timestamp(): one case verifying the function
+  dereferences ctx->perf_trace safely (the tracepoint is a
+  no-op without an attached probe).
+- dm_trace_smu_enter(): two cases for the empty stub with NULL
+  ctx and with non-zero parameters.
+- dm_trace_smu_exit(): three cases for the empty stub covering
+  success, failure, and a non-zero response value.
+- dm_query_extended_brightness_caps(): four guard-clause cases
+  (NULL ctx, NULL caps, NULL ctx->driver_context, NULL ctx with
+  LCD2) plus two success cases covering the LCD1 slot with
+  luminance data copy and a non-LCD1 display using the second
+  backlight slot with zero data points.
 
 Assisted-by: Copilot:Claude-Opus-4.8
 
@@ -137,652 +143,382 @@ Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  14 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |   6 +
+ .../display/amdgpu_dm/amdgpu_dm_services.c    |   6 +
  .../drm/amd/display/amdgpu_dm/tests/Makefile  |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 532 ++++++++++++++++++
- 4 files changed, 550 insertions(+), 3 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+ .../amdgpu_dm/tests/amdgpu_dm_services_test.c | 313 ++++++++++++++++++
+ 3 files changed, 320 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index efb19f675b0c..c9916ed0ddc1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -34,6 +34,7 @@
- #include "amdgpu_dm_plane.h"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+index 0fdcf70256cc..6c0464754ed8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+@@ -36,6 +36,7 @@
+ #include "amdgpu_dm_irq.h"
+ #include "amdgpu_pm.h"
  #include "amdgpu_dm_trace.h"
- #include "amdgpu_dm_debugfs.h"
 +#include "amdgpu_dm_kunit_helpers.h"
- #include "modules/inc/mod_power.h"
  
- #define HPD_DETECTION_PERIOD_uS 2000000
-@@ -65,6 +66,7 @@ bool amdgpu_dm_crtc_modeset_required(struct drm_crtc_state *crtc_state,
+ 	unsigned long long
+ 	dm_get_elapse_time_in_ns(struct dc_context *ctx,
+@@ -44,6 +45,7 @@
  {
- 	return crtc_state->active && drm_atomic_crtc_needs_modeset(crtc_state);
+ 	return current_time_stamp - last_time_stamp;
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_modeset_required);
++EXPORT_IF_KUNIT(dm_get_elapse_time_in_ns);
  
- bool amdgpu_dm_crtc_vrr_active_irq(struct amdgpu_crtc *acrtc)
- 
-@@ -74,6 +76,7 @@ bool amdgpu_dm_crtc_vrr_active_irq(struct amdgpu_crtc *acrtc)
- 	       acrtc->dm_irq_params.freesync_config.state ==
- 		       VRR_STATE_ACTIVE_FIXED;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_vrr_active_irq);
- 
- int amdgpu_dm_crtc_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
+ void dm_perf_trace_timestamp(const char *func_name, unsigned int line, struct dc_context *ctx)
  {
-@@ -93,12 +96,14 @@ int amdgpu_dm_crtc_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
- 		      acrtc->crtc_id, enable ? "en" : "dis", rc);
- 	return rc;
+@@ -53,14 +55,17 @@ void dm_perf_trace_timestamp(const char *func_name, unsigned int line, struct dc
+ 				    &ctx->perf_trace->last_entry_write,
+ 				    func_name, line);
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_set_vupdate_irq);
++EXPORT_IF_KUNIT(dm_perf_trace_timestamp);
  
- bool amdgpu_dm_crtc_vrr_active(const struct dm_crtc_state *dm_state)
+ void dm_trace_smu_enter(uint32_t msg_id, uint32_t param_in, unsigned int delay, struct dc_context *ctx)
  {
- 	return dm_state->freesync_config.state == VRR_STATE_ACTIVE_VARIABLE ||
- 	       dm_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_vrr_active);
++EXPORT_IF_KUNIT(dm_trace_smu_enter);
  
- /**
-  * amdgpu_dm_crtc_set_static_screen_optimze() - Toggle static screen optimizations.
-@@ -156,6 +161,7 @@ bool amdgpu_dm_is_headless(struct amdgpu_device *adev)
- 	drm_connector_list_iter_end(&iter);
- 	return is_headless;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_is_headless);
- 
- static void amdgpu_dm_idle_worker(struct work_struct *work)
+ void dm_trace_smu_exit(bool success, uint32_t response, struct dc_context *ctx)
  {
-@@ -207,6 +213,7 @@ struct idle_workqueue *idle_create_workqueue(struct amdgpu_device *adev)
- 
- 	return idle_work;
  }
-+EXPORT_IF_KUNIT(idle_create_workqueue);
++EXPORT_IF_KUNIT(dm_trace_smu_exit);
  
- static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
- {
-@@ -595,12 +602,13 @@ static void amdgpu_dm_crtc_update_crtc_active_planes(struct drm_crtc *crtc,
- 		amdgpu_dm_crtc_count_crtc_active_planes(new_crtc_state);
- }
+ /**** power component interfaces ****/
  
--static bool amdgpu_dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
--				      const struct drm_display_mode *mode,
--				      struct drm_display_mode *adjusted_mode)
-+STATIC_IFN_KUNIT bool amdgpu_dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
-+					       const struct drm_display_mode *mode,
-+					       struct drm_display_mode *adjusted_mode)
- {
+@@ -90,3 +95,4 @@ bool dm_query_extended_brightness_caps(struct dc_context *ctx,
+ 			sizeof(struct dm_bl_data_point) * pCaps->num_data_points);
  	return true;
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_helper_mode_fixup);
- 
- static int amdgpu_dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
- 					      struct drm_atomic_state *state)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-index e9fb52f0e66d..d8b004f613ab 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-@@ -42,6 +42,12 @@ int amdgpu_dm_crtc_set_vupdate_irq(struct drm_crtc *crtc, bool enable);
- 
- bool amdgpu_dm_crtc_vrr_active_irq(struct amdgpu_crtc *acrtc);
- 
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+bool amdgpu_dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
-+				      const struct drm_display_mode *mode,
-+				      struct drm_display_mode *adjusted_mode);
-+#endif
-+
- bool amdgpu_dm_crtc_vrr_active(const struct dm_crtc_state *dm_state);
- 
- int amdgpu_dm_crtc_enable_vblank(struct drm_crtc *crtc);
++EXPORT_IF_KUNIT(dm_query_extended_brightness_caps);
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-index 583604914753..cde8f7748bc5 100644
+index cde8f7748bc5..364b4f3c783f 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-@@ -27,3 +27,4 @@ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_wb_test.o
- obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_mst_types_test.o
+@@ -28,3 +28,4 @@ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_mst_types_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_pp_smu_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_test.o
-+obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_crtc_test.o
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_crtc_test.o
++obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_services_test.o
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c
 new file mode 100644
-index 000000000000..c83bd3e074f1
+index 000000000000..e48bac7fb024
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -0,0 +1,532 @@
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c
+@@ -0,0 +1,313 @@
 +// SPDX-License-Identifier: GPL-2.0 OR MIT
 +/*
-+ * KUnit tests for amdgpu_dm_crtc.c
++ * KUnit tests for amdgpu_dm_services.c
 + *
 + * Copyright 2026 Advanced Micro Devices, Inc.
 + */
 +
 +#include <kunit/test.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_kunit_helpers.h>
 +
 +#include "dc.h"
 +#include "amdgpu.h"
 +#include "amdgpu_mode.h"
 +#include "amdgpu_dm.h"
-+#include "amdgpu_dm_crtc.h"
-+#include "amdgpu_dm_irq_params.h"
++#include "dm_services.h"
++#include "dm_services_types.h"
 +
-+/* Tests for amdgpu_dm_crtc_modeset_required() */
++/* Tests for dm_get_elapse_time_in_ns() */
 +
 +/**
-+ * dm_test_crtc_modeset_required_active_mode_changed - Test Crtc modeset required active mode changed
++ * dm_test_get_elapse_time_zero_delta - Test Get elapse time zero delta
 + * @test: The KUnit test context
 + */
-+static void dm_test_crtc_modeset_required_active_mode_changed(struct kunit *test)
++static void dm_test_get_elapse_time_zero_delta(struct kunit *test)
 +{
-+	struct drm_crtc_state state = {};
++	unsigned long long ts = 1000000ULL;
 +
-+	state.active = true;
-+	state.mode_changed = true;
-+
-+	KUNIT_EXPECT_TRUE(test,
-+			  amdgpu_dm_crtc_modeset_required(&state, NULL, NULL));
++	KUNIT_EXPECT_EQ(test, dm_get_elapse_time_in_ns(NULL, ts, ts), 0ULL);
 +}
 +
 +/**
-+ * dm_test_crtc_modeset_required_active_active_changed - Test Crtc modeset required active active changed
++ * dm_test_get_elapse_time_positive_delta - Test Get elapse time positive delta
 + * @test: The KUnit test context
 + */
-+static void dm_test_crtc_modeset_required_active_active_changed(struct kunit *test)
++static void dm_test_get_elapse_time_positive_delta(struct kunit *test)
 +{
-+	struct drm_crtc_state state = {};
++	unsigned long long current_ts = 5000000ULL;
++	unsigned long long last_ts = 1000000ULL;
 +
-+	state.active = true;
-+	state.active_changed = true;
-+
-+	KUNIT_EXPECT_TRUE(test,
-+			  amdgpu_dm_crtc_modeset_required(&state, NULL, NULL));
++	KUNIT_EXPECT_EQ(test, dm_get_elapse_time_in_ns(NULL, current_ts, last_ts),
++			4000000ULL);
 +}
 +
 +/**
-+ * dm_test_crtc_modeset_required_active_connectors_changed - Test Crtc modeset required active connectors changed
++ * dm_test_get_elapse_time_large_delta - Test Get elapse time large delta
 + * @test: The KUnit test context
 + */
-+static void dm_test_crtc_modeset_required_active_connectors_changed(struct kunit *test)
++static void dm_test_get_elapse_time_large_delta(struct kunit *test)
 +{
-+	struct drm_crtc_state state = {};
++	unsigned long long current_ts = ULLONG_MAX;
++	unsigned long long last_ts = 0ULL;
 +
-+	state.active = true;
-+	state.connectors_changed = true;
-+
-+	KUNIT_EXPECT_TRUE(test,
-+			  amdgpu_dm_crtc_modeset_required(&state, NULL, NULL));
++	KUNIT_EXPECT_EQ(test, dm_get_elapse_time_in_ns(NULL, current_ts, last_ts),
++			ULLONG_MAX);
 +}
 +
 +/**
-+ * dm_test_crtc_modeset_required_inactive - Test Crtc modeset required inactive
++ * dm_test_get_elapse_time_wraparound - Test Get elapse time wraparound
 + * @test: The KUnit test context
 + */
-+static void dm_test_crtc_modeset_required_inactive(struct kunit *test)
++static void dm_test_get_elapse_time_wraparound(struct kunit *test)
 +{
-+	struct drm_crtc_state state = {};
++	/* Unsigned wraparound: result = ULLONG_MAX - last + current + 1 */
++	unsigned long long current_ts = 5ULL;
++	unsigned long long last_ts = ULLONG_MAX - 4ULL;
 +
-+	state.active = false;
-+	state.mode_changed = true;
-+
-+	KUNIT_EXPECT_FALSE(test,
-+			   amdgpu_dm_crtc_modeset_required(&state, NULL, NULL));
++	KUNIT_EXPECT_EQ(test, dm_get_elapse_time_in_ns(NULL, current_ts, last_ts),
++			10ULL);
 +}
++
++/* Tests for dm_perf_trace_timestamp() */
 +
 +/**
-+ * dm_test_crtc_modeset_required_no_changes - Test Crtc modeset required no changes
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_modeset_required_no_changes(struct kunit *test)
-+{
-+	struct drm_crtc_state state = {};
-+
-+	state.active = true;
-+	state.mode_changed = false;
-+	state.active_changed = false;
-+	state.connectors_changed = false;
-+
-+	KUNIT_EXPECT_FALSE(test,
-+			   amdgpu_dm_crtc_modeset_required(&state, NULL, NULL));
-+}
-+
-+/* Tests for amdgpu_dm_crtc_vrr_active_irq() */
-+
-+/**
-+ * dm_test_crtc_vrr_active_irq_variable - Test Crtc vrr active irq variable
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_irq_variable(struct kunit *test)
-+{
-+	struct amdgpu_crtc *acrtc = kunit_kzalloc(test, sizeof(*acrtc),
-+						  GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+
-+	acrtc->dm_irq_params.freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_crtc_vrr_active_irq(acrtc));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_irq_fixed - Test Crtc vrr active irq fixed
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_irq_fixed(struct kunit *test)
-+{
-+	struct amdgpu_crtc *acrtc = kunit_kzalloc(test, sizeof(*acrtc),
-+						  GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+
-+	acrtc->dm_irq_params.freesync_config.state = VRR_STATE_ACTIVE_FIXED;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_crtc_vrr_active_irq(acrtc));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_irq_inactive - Test Crtc vrr active irq inactive
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_irq_inactive(struct kunit *test)
-+{
-+	struct amdgpu_crtc *acrtc = kunit_kzalloc(test, sizeof(*acrtc),
-+						  GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+
-+	acrtc->dm_irq_params.freesync_config.state = VRR_STATE_INACTIVE;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_vrr_active_irq(acrtc));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_irq_disabled - Test Crtc vrr active irq disabled
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_irq_disabled(struct kunit *test)
-+{
-+	struct amdgpu_crtc *acrtc = kunit_kzalloc(test, sizeof(*acrtc),
-+						  GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+
-+	acrtc->dm_irq_params.freesync_config.state = VRR_STATE_DISABLED;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_vrr_active_irq(acrtc));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_irq_unsupported - Test Crtc vrr active irq unsupported
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_irq_unsupported(struct kunit *test)
-+{
-+	struct amdgpu_crtc *acrtc = kunit_kzalloc(test, sizeof(*acrtc),
-+						  GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+
-+	acrtc->dm_irq_params.freesync_config.state = VRR_STATE_UNSUPPORTED;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_vrr_active_irq(acrtc));
-+}
-+
-+/* Tests for amdgpu_dm_crtc_vrr_active() */
-+
-+/**
-+ * dm_test_crtc_vrr_active_variable - Test Crtc vrr active variable
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_variable(struct kunit *test)
-+{
-+	struct dm_crtc_state *dm_state = kunit_kzalloc(test,
-+						       sizeof(*dm_state),
-+						       GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_state);
-+
-+	dm_state->freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_crtc_vrr_active(dm_state));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_fixed - Test Crtc vrr active fixed
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_fixed(struct kunit *test)
-+{
-+	struct dm_crtc_state *dm_state = kunit_kzalloc(test,
-+						       sizeof(*dm_state),
-+						       GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_state);
-+
-+	dm_state->freesync_config.state = VRR_STATE_ACTIVE_FIXED;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_crtc_vrr_active(dm_state));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_inactive - Test Crtc vrr active inactive
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_inactive(struct kunit *test)
-+{
-+	struct dm_crtc_state *dm_state = kunit_kzalloc(test,
-+						       sizeof(*dm_state),
-+						       GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_state);
-+
-+	dm_state->freesync_config.state = VRR_STATE_INACTIVE;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_vrr_active(dm_state));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_disabled - Test Crtc vrr active disabled
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_disabled(struct kunit *test)
-+{
-+	struct dm_crtc_state *dm_state = kunit_kzalloc(test,
-+						       sizeof(*dm_state),
-+						       GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_state);
-+
-+	dm_state->freesync_config.state = VRR_STATE_DISABLED;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_vrr_active(dm_state));
-+}
-+
-+/**
-+ * dm_test_crtc_vrr_active_unsupported - Test Crtc vrr active unsupported
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_vrr_active_unsupported(struct kunit *test)
-+{
-+	struct dm_crtc_state *dm_state = kunit_kzalloc(test,
-+						       sizeof(*dm_state),
-+						       GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_state);
-+
-+	dm_state->freesync_config.state = VRR_STATE_UNSUPPORTED;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_vrr_active(dm_state));
-+}
-+
-+/* Tests for amdgpu_dm_is_headless() */
-+
-+static void dm_test_add_connector(struct drm_device *dev,
-+				  struct drm_connector *connector,
-+				  int connector_type,
-+				  enum drm_connector_status status)
-+{
-+	INIT_LIST_HEAD(&connector->head);
-+	kref_init(&connector->base.refcount);
-+	connector->connector_type = connector_type;
-+	connector->status = status;
-+	list_add_tail(&connector->head, &dev->mode_config.connector_list);
-+}
-+
-+/**
-+ * dm_test_crtc_is_headless_null_adev - Test Crtc is headless null adev
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_is_headless_null_adev(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_headless(NULL));
-+}
-+
-+/**
-+ * dm_test_crtc_is_headless_no_connectors - Test Crtc is headless no connectors
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_is_headless_no_connectors(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	struct drm_device *dev = kunit_kzalloc(test, sizeof(*dev), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	INIT_LIST_HEAD(&dev->mode_config.connector_list);
-+	spin_lock_init(&dev->mode_config.connector_list_lock);
-+	adev->dm.ddev = dev;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_headless(adev));
-+}
-+
-+/**
-+ * dm_test_crtc_is_headless_writeback_only - Test Crtc is headless writeback only
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_is_headless_writeback_only(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	struct drm_device *dev = kunit_kzalloc(test, sizeof(*dev), GFP_KERNEL);
-+	struct drm_connector *wb = kunit_kzalloc(test, sizeof(*wb), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, wb);
-+
-+	INIT_LIST_HEAD(&dev->mode_config.connector_list);
-+	spin_lock_init(&dev->mode_config.connector_list_lock);
-+	adev->dm.ddev = dev;
-+
-+	dm_test_add_connector(dev, wb, DRM_MODE_CONNECTOR_WRITEBACK,
-+			      connector_status_connected);
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_headless(adev));
-+}
-+
-+/**
-+ * dm_test_crtc_is_headless_disconnected_display - Test Crtc is headless disconnected display
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_is_headless_disconnected_display(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	struct drm_device *dev = kunit_kzalloc(test, sizeof(*dev), GFP_KERNEL);
-+	struct drm_connector *display = kunit_kzalloc(test, sizeof(*display), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, display);
-+
-+	INIT_LIST_HEAD(&dev->mode_config.connector_list);
-+	spin_lock_init(&dev->mode_config.connector_list_lock);
-+	adev->dm.ddev = dev;
-+
-+	dm_test_add_connector(dev, display, DRM_MODE_CONNECTOR_HDMIA,
-+			      connector_status_disconnected);
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_headless(adev));
-+}
-+
-+/**
-+ * dm_test_crtc_is_headless_connected_display - Test Crtc is headless connected display
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_is_headless_connected_display(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	struct drm_device *dev = kunit_kzalloc(test, sizeof(*dev), GFP_KERNEL);
-+	struct drm_connector *display = kunit_kzalloc(test, sizeof(*display), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, display);
-+
-+	INIT_LIST_HEAD(&dev->mode_config.connector_list);
-+	spin_lock_init(&dev->mode_config.connector_list_lock);
-+	adev->dm.ddev = dev;
-+
-+	dm_test_add_connector(dev, display, DRM_MODE_CONNECTOR_HDMIA,
-+			      connector_status_connected);
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_headless(adev));
-+}
-+
-+/**
-+ * dm_test_crtc_is_headless_mixed_connectors - Test headless skips WB and finds display
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_is_headless_mixed_connectors(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	struct drm_device *dev = kunit_kzalloc(test, sizeof(*dev), GFP_KERNEL);
-+	struct drm_connector *wb = kunit_kzalloc(test, sizeof(*wb), GFP_KERNEL);
-+	struct drm_connector *display = kunit_kzalloc(test, sizeof(*display), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, wb);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, display);
-+
-+	INIT_LIST_HEAD(&dev->mode_config.connector_list);
-+	spin_lock_init(&dev->mode_config.connector_list_lock);
-+	adev->dm.ddev = dev;
-+
-+	dm_test_add_connector(dev, wb, DRM_MODE_CONNECTOR_WRITEBACK,
-+			      connector_status_connected);
-+	dm_test_add_connector(dev, display, DRM_MODE_CONNECTOR_DisplayPort,
-+			      connector_status_connected);
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_headless(adev));
-+}
-+
-+/* Tests for amdgpu_dm_crtc_helper_mode_fixup() */
-+
-+/**
-+ * dm_test_crtc_helper_mode_fixup_returns_true - Test mode_fixup accepts mode
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_helper_mode_fixup_returns_true(struct kunit *test)
-+{
-+	struct drm_display_mode mode = { 0 };
-+	struct drm_display_mode adjusted_mode = { 0 };
-+
-+	KUNIT_EXPECT_TRUE(test,
-+			  amdgpu_dm_crtc_helper_mode_fixup(NULL, &mode, &adjusted_mode));
-+}
-+
-+/* Tests for amdgpu_dm_crtc_set_vupdate_irq() */
-+
-+/**
-+ * dm_test_crtc_set_vupdate_irq_no_otg - Test vupdate irq with unassigned OTG
++ * dm_test_perf_trace_timestamp_basic - Test Perf trace timestamp basic
 + * @test: The KUnit test context
 + *
-+ * When the CRTC has no OTG instance assigned (otg_inst == -1) the function
-+ * must return 0 immediately without touching the DC interrupt state.
++ * The tracepoint is a no-op without an attached probe, so this verifies the
++ * function dereferences ctx->perf_trace safely and does not crash.
 + */
-+static void dm_test_crtc_set_vupdate_irq_no_otg(struct kunit *test)
++static void dm_test_perf_trace_timestamp_basic(struct kunit *test)
 +{
-+	struct amdgpu_crtc *acrtc;
-+	struct amdgpu_device *adev;
-+	struct drm_device *drm;
-+	struct device *dev;
++	struct dc_context *ctx;
 +
-+	dev = drm_kunit_helper_alloc_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	ctx->perf_trace = kunit_kzalloc(test, sizeof(*ctx->perf_trace), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->perf_trace);
 +
-+	drm = __drm_kunit_helper_alloc_drm_device(test, dev,
-+						   sizeof(*adev),
-+						   offsetof(struct amdgpu_device, ddev),
-+						   DRIVER_MODESET);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
-+	adev = drm_to_adev(drm);
++	ctx->perf_trace->read_count = 10;
++	ctx->perf_trace->write_count = 20;
 +
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+
-+	acrtc->base.dev = drm;
-+	acrtc->otg_inst = -1;
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, true), 0);
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, false), 0);
++	dm_perf_trace_timestamp(__func__, __LINE__, ctx);
 +}
 +
-+/* Tests for idle_create_workqueue() */
++/* Tests for dm_trace_smu_enter() */
 +
 +/**
-+ * dm_test_idle_create_workqueue - Test idle workqueue creation
++ * dm_test_trace_smu_enter_null_ctx - Test Trace smu enter null ctx
 + * @test: The KUnit test context
-+ *
-+ * Verify that idle_create_workqueue() allocates an idle workqueue tied to the
-+ * device's display manager and initializes it in a disabled, non-running state.
 + */
-+static void dm_test_idle_create_workqueue(struct kunit *test)
++static void dm_test_trace_smu_enter_null_ctx(struct kunit *test)
++{
++	/* Empty stub — must not crash with NULL ctx */
++	dm_trace_smu_enter(0, 0, 0, NULL);
++}
++
++/**
++ * dm_test_trace_smu_enter_with_params - Test Trace smu enter with params
++ * @test: The KUnit test context
++ */
++static void dm_test_trace_smu_enter_with_params(struct kunit *test)
++{
++	/* Exercise non-zero msg_id, param_in, and delay */
++	dm_trace_smu_enter(0xFF, 0x12345678, 1000, NULL);
++}
++
++/* Tests for dm_trace_smu_exit() */
++
++/**
++ * dm_test_trace_smu_exit_success_null_ctx - Test Trace smu exit success null ctx
++ * @test: The KUnit test context
++ */
++static void dm_test_trace_smu_exit_success_null_ctx(struct kunit *test)
++{
++	/* Empty stub — must not crash on success path with NULL ctx */
++	dm_trace_smu_exit(true, 0x0, NULL);
++}
++
++/**
++ * dm_test_trace_smu_exit_failure_null_ctx - Test Trace smu exit failure null ctx
++ * @test: The KUnit test context
++ */
++static void dm_test_trace_smu_exit_failure_null_ctx(struct kunit *test)
++{
++	/* Empty stub — must not crash on failure path with NULL ctx */
++	dm_trace_smu_exit(false, 0x0, NULL);
++}
++
++/**
++ * dm_test_trace_smu_exit_with_response - Test Trace smu exit with response
++ * @test: The KUnit test context
++ */
++static void dm_test_trace_smu_exit_with_response(struct kunit *test)
++{
++	/* Exercise non-zero response value */
++	dm_trace_smu_exit(true, 0xDEADBEEF, NULL);
++}
++
++/* Tests for dm_query_extended_brightness_caps() */
++
++/**
++ * dm_test_query_brightness_caps_null_ctx - Test Query brightness caps null ctx
++ * @test: The KUnit test context
++ */
++static void dm_test_query_brightness_caps_null_ctx(struct kunit *test)
++{
++	struct dm_acpi_atif_backlight_caps caps = {};
++
++	KUNIT_EXPECT_FALSE(test,
++			   dm_query_extended_brightness_caps(NULL, AcpiDisplayType_LCD1, &caps));
++}
++
++/**
++ * dm_test_query_brightness_caps_null_caps - Test Query brightness caps null caps
++ * @test: The KUnit test context
++ */
++static void dm_test_query_brightness_caps_null_caps(struct kunit *test)
++{
++	struct dc_context ctx = {};
++
++	ctx.driver_context = (void *)0x1; /* non-NULL sentinel */
++
++	KUNIT_EXPECT_FALSE(test,
++			   dm_query_extended_brightness_caps(&ctx, AcpiDisplayType_LCD1, NULL));
++}
++
++/**
++ * dm_test_query_brightness_caps_null_driver_ctx - Test Query brightness caps null driver ctx
++ * @test: The KUnit test context
++ */
++static void dm_test_query_brightness_caps_null_driver_ctx(struct kunit *test)
++{
++	struct dc_context ctx = {};
++	struct dm_acpi_atif_backlight_caps caps = {};
++
++	ctx.driver_context = NULL;
++
++	KUNIT_EXPECT_FALSE(test,
++			   dm_query_extended_brightness_caps(&ctx, AcpiDisplayType_LCD1, &caps));
++}
++
++/**
++ * dm_test_query_brightness_caps_lcd2_null_ctx - Test Query brightness caps lcd2 null ctx
++ * @test: The KUnit test context
++ */
++static void dm_test_query_brightness_caps_lcd2_null_ctx(struct kunit *test)
++{
++	struct dm_acpi_atif_backlight_caps caps = {};
++
++	KUNIT_EXPECT_FALSE(test,
++			   dm_query_extended_brightness_caps(NULL, AcpiDisplayType_LCD2, &caps));
++}
++
++/**
++ * dm_test_query_brightness_caps_lcd1_success - Test Query brightness caps lcd1 success
++ * @test: The KUnit test context
++ */
++static void dm_test_query_brightness_caps_lcd1_success(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
-+	struct idle_workqueue *idle_work;
++	struct amdgpu_dm_backlight_caps *source_caps;
++	struct dc_context ctx = {};
++	struct dm_acpi_atif_backlight_caps caps = {};
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_NOT_NULL(test, adev);
 +
-+	idle_work = idle_create_workqueue(adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, idle_work);
++	source_caps = &adev->dm.backlight_caps[0];
++	source_caps->caps_valid = true;
++	source_caps->min_input_signal = 12;
++	source_caps->max_input_signal = 240;
++	source_caps->ac_level = 80;
++	source_caps->dc_level = 40;
++	source_caps->data_points = 2;
++	source_caps->luminance_data[0].luminance = 10;
++	source_caps->luminance_data[0].input_signal = 22;
++	source_caps->luminance_data[1].luminance = 90;
++	source_caps->luminance_data[1].input_signal = 200;
++	ctx.driver_context = adev;
 +
-+	KUNIT_EXPECT_PTR_EQ(test, idle_work->dm, &adev->dm);
-+	KUNIT_EXPECT_FALSE(test, idle_work->enable);
-+	KUNIT_EXPECT_FALSE(test, idle_work->running);
-+
-+	kfree(idle_work);
++	KUNIT_EXPECT_TRUE(test,
++			  dm_query_extended_brightness_caps(&ctx, AcpiDisplayType_LCD1, &caps));
++	KUNIT_EXPECT_EQ(test, caps.num_data_points, 2);
++	KUNIT_EXPECT_EQ(test, caps.max_input_signal, 240);
++	KUNIT_EXPECT_EQ(test, caps.min_input_signal, 12);
++	KUNIT_EXPECT_EQ(test, caps.ac_level_percentage, 80);
++	KUNIT_EXPECT_EQ(test, caps.dc_level_percentage, 40);
++	KUNIT_EXPECT_EQ(test, caps.data_points[0].luminance, 10);
++	KUNIT_EXPECT_EQ(test, caps.data_points[0].signal_level, 22);
++	KUNIT_EXPECT_EQ(test, caps.data_points[1].luminance, 90);
++	KUNIT_EXPECT_EQ(test, caps.data_points[1].signal_level, 200);
 +}
 +
-+static struct kunit_case amdgpu_dm_crtc_tests[] = {
-+	/* amdgpu_dm_crtc_modeset_required */
-+	KUNIT_CASE(dm_test_crtc_modeset_required_active_mode_changed),
-+	KUNIT_CASE(dm_test_crtc_modeset_required_active_active_changed),
-+	KUNIT_CASE(dm_test_crtc_modeset_required_active_connectors_changed),
-+	KUNIT_CASE(dm_test_crtc_modeset_required_inactive),
-+	KUNIT_CASE(dm_test_crtc_modeset_required_no_changes),
-+	/* amdgpu_dm_crtc_vrr_active_irq */
-+	KUNIT_CASE(dm_test_crtc_vrr_active_irq_variable),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_irq_fixed),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_irq_inactive),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_irq_disabled),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_irq_unsupported),
-+	/* amdgpu_dm_crtc_vrr_active */
-+	KUNIT_CASE(dm_test_crtc_vrr_active_variable),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_fixed),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_inactive),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_disabled),
-+	KUNIT_CASE(dm_test_crtc_vrr_active_unsupported),
-+	/* amdgpu_dm_is_headless */
-+	KUNIT_CASE(dm_test_crtc_is_headless_null_adev),
-+	KUNIT_CASE(dm_test_crtc_is_headless_no_connectors),
-+	KUNIT_CASE(dm_test_crtc_is_headless_writeback_only),
-+	KUNIT_CASE(dm_test_crtc_is_headless_disconnected_display),
-+	KUNIT_CASE(dm_test_crtc_is_headless_connected_display),
-+	KUNIT_CASE(dm_test_crtc_is_headless_mixed_connectors),
-+	/* amdgpu_dm_crtc_helper_mode_fixup */
-+	KUNIT_CASE(dm_test_crtc_helper_mode_fixup_returns_true),
-+	/* amdgpu_dm_crtc_set_vupdate_irq */
-+	KUNIT_CASE(dm_test_crtc_set_vupdate_irq_no_otg),
-+	/* idle_create_workqueue */
-+	KUNIT_CASE(dm_test_idle_create_workqueue),
++/**
++ * dm_test_query_brightness_caps_non_lcd1_uses_second_slot - Test Query brightness caps non lcd1 uses second slot
++ * @test: The KUnit test context
++ */
++static void dm_test_query_brightness_caps_non_lcd1_uses_second_slot(struct kunit *test)
++{
++	struct amdgpu_device *adev;
++	struct amdgpu_dm_backlight_caps *source_caps;
++	struct dc_context ctx = {};
++	struct dm_acpi_atif_backlight_caps caps = {};
++
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, adev);
++
++	adev->dm.backlight_caps[0].caps_valid = true;
++	adev->dm.backlight_caps[0].min_input_signal = 1;
++	adev->dm.backlight_caps[0].max_input_signal = 2;
++	source_caps = &adev->dm.backlight_caps[1];
++	source_caps->caps_valid = true;
++	source_caps->min_input_signal = 33;
++	source_caps->max_input_signal = 199;
++	source_caps->ac_level = 70;
++	source_caps->dc_level = 30;
++	source_caps->data_points = 0;
++	ctx.driver_context = adev;
++
++	KUNIT_EXPECT_TRUE(test,
++			  dm_query_extended_brightness_caps(&ctx, AcpiDisplayType_DFP1, &caps));
++	KUNIT_EXPECT_EQ(test, caps.num_data_points, 0);
++	KUNIT_EXPECT_EQ(test, caps.max_input_signal, 199);
++	KUNIT_EXPECT_EQ(test, caps.min_input_signal, 33);
++	KUNIT_EXPECT_EQ(test, caps.ac_level_percentage, 70);
++	KUNIT_EXPECT_EQ(test, caps.dc_level_percentage, 30);
++	KUNIT_EXPECT_EQ(test, caps.data_points[0].luminance, 0);
++	KUNIT_EXPECT_EQ(test, caps.data_points[0].signal_level, 0);
++}
++
++static struct kunit_case amdgpu_dm_services_test_cases[] = {
++	/* dm_get_elapse_time_in_ns */
++	KUNIT_CASE(dm_test_get_elapse_time_zero_delta),
++	KUNIT_CASE(dm_test_get_elapse_time_positive_delta),
++	KUNIT_CASE(dm_test_get_elapse_time_large_delta),
++	KUNIT_CASE(dm_test_get_elapse_time_wraparound),
++	/* dm_perf_trace_timestamp */
++	KUNIT_CASE(dm_test_perf_trace_timestamp_basic),
++	/* dm_trace_smu_enter */
++	KUNIT_CASE(dm_test_trace_smu_enter_null_ctx),
++	KUNIT_CASE(dm_test_trace_smu_enter_with_params),
++	/* dm_trace_smu_exit */
++	KUNIT_CASE(dm_test_trace_smu_exit_success_null_ctx),
++	KUNIT_CASE(dm_test_trace_smu_exit_failure_null_ctx),
++	KUNIT_CASE(dm_test_trace_smu_exit_with_response),
++	/* dm_query_extended_brightness_caps */
++	KUNIT_CASE(dm_test_query_brightness_caps_null_ctx),
++	KUNIT_CASE(dm_test_query_brightness_caps_null_caps),
++	KUNIT_CASE(dm_test_query_brightness_caps_null_driver_ctx),
++	KUNIT_CASE(dm_test_query_brightness_caps_lcd2_null_ctx),
++	KUNIT_CASE(dm_test_query_brightness_caps_lcd1_success),
++	KUNIT_CASE(dm_test_query_brightness_caps_non_lcd1_uses_second_slot),
 +	{}
 +};
 +
-+static struct kunit_suite amdgpu_dm_crtc_test_suite = {
-+	.name = "amdgpu_dm_crtc",
-+	.test_cases = amdgpu_dm_crtc_tests,
++static struct kunit_suite amdgpu_dm_services_test_suite = {
++	.name = "amdgpu_dm_services",
++	.test_cases = amdgpu_dm_services_test_cases,
 +};
 +
-+kunit_test_suite(amdgpu_dm_crtc_test_suite);
++kunit_test_suite(amdgpu_dm_services_test_suite);
 +
-+MODULE_AUTHOR("AMD");
-+MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_crtc");
++MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_services");
 +MODULE_LICENSE("Dual MIT/GPL");
 -- 
 2.43.0
