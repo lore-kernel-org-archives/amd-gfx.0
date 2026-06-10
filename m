@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 432EFCD8CB9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:50:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 367DACD98C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D588110E87E;
-	Wed, 10 Jun 2026 09:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C049410E882;
+	Wed, 10 Jun 2026 09:50:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2J/ga2U2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wlZSy1DD";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013047.outbound.protection.outlook.com
- [40.93.201.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE8A710E87E
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:50:09 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011047.outbound.protection.outlook.com [52.101.52.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD66B10E882
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:50:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CtwnRfaP1BB6+uqlJINKovhVN4THEHcQaqgzk8m0Z2hgAmBhzGJcBg4iJ9fjYapFVcC5BmRpRsXWMmivlm3n19O6aCAlMcgBmZMj0iL3PyckldCoPVh2ZuG4QImHeEpc1mdAl53oxAl6LDuyaa9tGutr+JzI3B3F4oKalSp6fDPdf8T/efhwddHQRe3s3UUu4gy3r/p02eF7BHhYKKKCdHtTrKyVWe5Yke5VAahaeuQTIBdlsKD0tVkpCXxzPi7N/V8tiwNpUdJP274KUdENA2IJHwrlHN+SjnskRygPcmUpZNEBN5FTI/ldr5jThgqgIP81D5DiNRuaNeijxRUexw==
+ b=Mo+RMcAnhJstoudDVZ4bOgoGUFY8VPieICqSFbvCsqLHY2ubwSKxy+9ewGubN8qrxzEWGfXmeca/1AwGwO2Vbqu4vE4DDnTgRT2mZktZIQOk2+6HfviqSYZaBMcj2kx6fh6xzP+o7iiVqTb5fCqFAIWY5lShcBlKb0zgOQ5BtqGRrjzzjc5K98hZwej3b30bR6AzAze6CBXAPFLQfKOYOU18QDN+juRBpiYktdQX7jGWvqZsju4bjstuTuQ2ZFT7Y7zZit0ksm/U8hbrLx8issPSMfDJB07LdYxP5peVWN7WtU2QgZspw+PQcT0YIi4QrZBfLea4hybvs62+E0HNLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SChZcUeOsYMz1iUYymGYFwuzEfJCqLzP4NhBUOhyNgE=;
- b=l9R9stIliwuNdctR4s0OVWlCmyQQccYLZJDivMLze5qKl4FR6UdzQZ6oofdlrd29PtOjxz+02U4L1fJrUoMv18AZv39xpq/Wd8XUDBO+/+DJ0OBTbO48qIXSbtEO2MvmplICF5oFNkKDiKePUaPEJ3yHy/udbTOrnRtpX1dulOIyWau5bGXOlyejNHQWILrBT0zdjBVxoa2/Vl/Olm2S6mYwb6NlGsMzsZWhPhP9nJmjmhfDw2YAMCEpuc61KJrYYpmL9FWWMeTDPpSbZ6yxMdRtwDmu8U/VVIoLYnRoGmdS3MPQz4SjWOib+ju5eZ/onhwfaoKDQg8FaYMNp5XtWQ==
+ bh=v3DlMvbx911Zt2LklEMk+m0e2bvZs1ZCnrOEV1Qy1AM=;
+ b=cTC+rk/BWtFZz/kuVa/ZzwLXgKNeu4gBhBdfd+cEO/6Eke0CUf6I7FkurRG2MNJUZ4SfNsMlVFJWjGIxwkY2boDI0JgfD0tM+f9Kt+WRiGssbRxLIlrtzC8pbPbT9v2OiiSrgQe88hDwjNkQzJBW4HVKLO6niRWYcy+0DntVfta2GUJsr13oOrTpF7EDWXJNKSyB24uphGIAzf7xolgniRXH278ClxTjkYfM9lLs+b4q++eW3gMJhBLpcPK0/hFEs+rxp8vo88OA9Ej0arOEr0Xsc2CcjW/5eMs13vIGEMpv4+AppEFyQISuAEFntAi5NeLaOX/MhPNNkXdKVBGAlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SChZcUeOsYMz1iUYymGYFwuzEfJCqLzP4NhBUOhyNgE=;
- b=2J/ga2U2pP5H0mb5wGRkb/4lNed5B/usDdbFgkWjIi0Q6Z5s+9mQHRA6m2ZKBwIQsH05YQH0XPzrXIIHy8oNrz65y4YKQG9Vm3KDfKUb6hb83BG8YZhDY1qiaFLh/QJzn3rx0hkUZp7orya2eUzTRMcuQ0gc/KVAG4c0yRwhPOU=
-Received: from PH8PR02CA0047.namprd02.prod.outlook.com (2603:10b6:510:2da::8)
- by DS7PR12MB8324.namprd12.prod.outlook.com (2603:10b6:8:ec::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.13; Wed, 10 Jun 2026 09:50:06 +0000
-Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
- (2603:10b6:510:2da:cafe::a) by PH8PR02CA0047.outlook.office365.com
- (2603:10b6:510:2da::8) with Microsoft SMTP Server (version=TLS1_3,
+ bh=v3DlMvbx911Zt2LklEMk+m0e2bvZs1ZCnrOEV1Qy1AM=;
+ b=wlZSy1DDgDVaw3wDF0XW+9KFVZ2tMWmBEgzjcqT8OrVeTtGXNHOGDmkgOzy0EyQEMHJah6O6gLg0DhcB3S4dlYySMPyEugTWMXG6df9hhcdpfQD0hTEb6D+nsOGQfL1KWhp0ZomolxtWMXEsn/eGTs1tytzKhi0Kc1OncLTmq9A=
+Received: from MN0PR02CA0006.namprd02.prod.outlook.com (2603:10b6:208:530::24)
+ by SA5PPFDC35F96D4.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8e5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
+ 2026 09:50:16 +0000
+Received: from BL02EPF00021F69.namprd02.prod.outlook.com
+ (2603:10b6:208:530:cafe::49) by MN0PR02CA0006.outlook.office365.com
+ (2603:10b6:208:530::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
- 10 Jun 2026 09:50:05 +0000
+ 10 Jun 2026 09:50:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:50:05 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:50:15 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:50:04 -0500
+ 2026 04:50:14 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:50:04 -0500
+ 2026 04:50:13 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 10 Jun 2026 04:49:56 -0500
+ Transport; Wed, 10 Jun 2026 04:50:05 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,12 +70,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Gabe Teeger <gabe.teeger@amd.com>, Matthew Stewart
- <matthew.stewart2@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 14/32] drm/amd/display: Enable pstate for DCN4 non-emulation
- builds
-Date: Wed, 10 Jun 2026 17:44:58 +0800
-Message-ID: <20260610094639.1965367-15-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Rafal Ostrowski <rafal.ostrowski@amd.com>, "Nicholas
+ Kazlauskas" <nicholas.kazlauskas@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 15/32] drm/amd/display: Refactor surface_update_flags to flat
+ struct with helpers
+Date: Wed, 10 Jun 2026 17:44:59 +0800
+Message-ID: <20260610094639.1965367-16-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
@@ -85,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|DS7PR12MB8324:EE_
-X-MS-Office365-Filtering-Correlation-Id: 776be2b0-badf-44d3-46f5-08dec6d5a65a
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|SA5PPFDC35F96D4:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d86aded-aba4-4301-0978-08dec6d5ac51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: jSJC498g+60XTtdgVVQlVlka1WIFeDzsAKj6hG1P9lzwub9wU96Fwhd6+gKA/DZx9J2GC7dPYDuaITODbwJ7RwJAXrY/gauhHuL5y3TCdU0rdkNhBw+g/rtvXOvS9ezT9+2+7Q5dCyDx/R1LlWIAETenPXnY0JDcWijcUBpgLVJlXGTBF3tSD+pnU/I4qnBo/XusPw0TzKupmcMhOk0aDg010Ekn3MLEYdo+0tffgfLbpsMq988aU9rTUQb1G78PH+QFFJO0NgVcm5pGQ2VD4i9THu44+DPkPZ6sWPNJIcBdS2u+gS4nDIjYorJl0pqSgF/3FnBiF6uSLD6HvK1/EA5cOBiQdFQsWOfhdxLaVe5tMCyK47ZEbe46Z/LJ/wKifInaa5cZdGmATwemgsp8pHpfmtuh3gxQei6BiCrMCq87HykayNgX0yle5A+qDAIYscYAqEYnU/ZD/SaP0P7nmSAcoS2hAJ0ZYpTIjPFmsjaOXh+bSPnaYA58EB/ib8ig/sTFaoBaYSu8kjaHJdqNRRibJDtJ2oeVG80u4OYUG3VhtdR1udvZUlmKbYNI/G0TDLnPi7NNYMwNkE3ISuD11RjtYL84dhg2lWWijQzbWe/BSwF1qyTul8dFPePw38i61myydC2cb71JEEUMEn5X/6Xk8P3Ld9nLyOA1pGlopkAF/nPf1uqGW7szSLe5+CsN6iBDwcBMmiGtvoyJOy2VBJ/ReSGq4mtKcUYAx7wgkKg=
+ ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|20052099010|18002099003|22082099003|6133799003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: NqR+Rd/hk1UdQsWSAnviyuSDInLEtEQ6zMep2jgm/of9wax1LpI7JfkPdD8uf3Uf/XyWV7FMv10ggJQAJJDGUCz1dary0RhtuLahDiadGzEXwCdKYNjfc2ugvtinyVF63Y5SRm0U44Ckqk27KQwvqU5JAlcIvrpl1F/coTvJlgpMaNVlstZXRpCOOYl0spE3aAIysIgVR+W3pMuvOHAgB9OOG+VGNwBhCCoQI8q7Fo4RdlGX2z5J8krrsqy/Tn/c6yVKX3ZIXwPLWQ5K7ZEWZRvT7hhZL0pmERUcJF/tMayAhvKuRm3Y+X51+mp8KGp9CF6zojB633EZCJEXpKvqiXV/PVM9lRgUdxZz5tyX6L6K0hLVAQlTjyLIAcRg66gxqW5fud2+5gKFd+ogEKgXNbH9X2jMANMn+8/AXC1nuviP0igA0dEbyhB88624g9Cq2ZfQ5z6oF+oiQ0BYMzeL3Pllnv4OO6dktIHf15gu/rILEfB48OTM1pOE6zNYRQjyKih9LMoLGAJhNp6rwVRrXzhgahomf5IVLmx0nQVxaY0ZBI+OQDUJmzojroR9+NaDDBg3bc18DiAeo73zPQbzflj98xAt9T7F7bLl4tVwqxCgtrJC4IszV9nfIO2sjLYgbtOMyPxzGVT9NWdtT/LsGHU2HkeX7agnnyYW/wmK0wCVSczvoPHZNst+M2EPXagAShc5YuryUVJ8FtSLla2fgay4SopjuB49THQONAkhDBk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(20052099010)(18002099003)(22082099003)(6133799003)(3023799007)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mu8IqR1Sk7KHEVsFa9WvZa9ET1pRTYo+/1o9/TjSZYCfR2PCmgLbXZoAX3hsFhw7z0QwXckWO6DuotX6mwSduY8uabUlDTg0IGvKEaZimsBBO4E8UhGojy4ADEspfSiKpGIiUjRD5zydYvNFF+WwYWZIR+YDFYuYZQ5gkTa9kGaWNiObuGoFdJA10UmDTHeGB3ns6C6wKcbGRi7SIeeBIgrLhbw1kwAT4He9smxHGSzjA6ewSQ672HKga2f67r70Gos5K8/GbOWF7zz/ie+Sy8b9Sft3wcZ1HjNtNb7dnhgUpGm84VHywEAeOOdn9QDkk2xwfH1uIiih9HHy1pStIQEBQZVp9S9Dyscntq5qebQz7Xs6vc3T/5Tfp99tWaSg+kIACZ0a6/JqH7moK+QmJp68Hxcj2Rtk5+o2mj0Do94icbRvCfZUVZCEQQoL5oJf
+X-MS-Exchange-AntiSpam-MessageData-0: 2gVRpzqDg7lMC3LmVbyTGLJVipaPeV2V7xz4r8GaxV1thT31rkF7nKFnvnMUoKMcW2yUXwqixOke5DrU79un02Uf3dLO2pCJ3PRv578X/7FjLoPIgMkFskrEll2ItxPAGMMQDuKnxt4WRMhYKU40jJcZ0Tmwin8xeX1tWmpCkcTrkiPBRZQBTsIOrA0xgYpn/BWB8Q4i0+3jMtEMmU+A/YSTnZcjBGwtJhVAikF5WzRXHEykPZRqIHt8pAfl/pFTTa4SJURGZ45r8Rmrtf4e5OIeh1A0bZ+HeHiRbAVcZ+/Yia58mXzvqBzwz3R90SfJQnWMqgGj3qoy+CcFGbrHoYAUsl7+LRc2QEs3kVlTkX0XfCE5r4zZS4yZvoeghPPa6fuOShHIWMah3VM3GdFJFGZhhVOwJsv6PpCx+IcwaM3YIV/uUX9lOgxZATQhPyNi
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:50:05.4108 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 776be2b0-badf-44d3-46f5-08dec6d5a65a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:50:15.4133 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d86aded-aba4-4301-0978-08dec6d5ac51
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B4.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8324
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFDC35F96D4
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,36 +121,1437 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Gabe Teeger <gabe.teeger@amd.com>
+From: Rafal Ostrowski <rafal.ostrowski@amd.com>
 
 [Why]
-Pstate was disabled during bring-up to avoid interference. Now that
-bring-up is complete it can be enabled for non-emulation builds.
+The union surface_update_flags type uses a union with a raw
+uint32_t member to allow bulk clear/set/test operations on the
+bitfield. This couples the struct layout to a specific integer
+width, breaks when the number of flag bits exceeds 32, and
+scatters raw-access patterns across many call sites. Replacing
+the union with a plain struct and adding explicit helper
+functions makes the intent clearer and prepares the code for
+future flag-set expansion.
 
 [How]
-Set pstate_enabled to true in debug_defaults_drv for
-non-emulation DCN4 builds.
+Rename union surface_update_flags to struct pipe_update_bits
+and remove the union wrapper, the .bits sub-struct, and the
+.raw member. Add inline helpers in dc.h:
+surface_update_flags_clear(), surface_update_flags_set_full(),
+and surface_update_flags_is_any_set() that operate on the new
+struct via memset/memcmp. Add stream_update_flags_clear() and
+stream_update_flags_set_full() in dc_stream.h for the stream
+update flags union. Update all callers: change the type name,
+replace .bits.field with .field, replace .raw = 0 with the
+clear helper, replace .raw = 0xFFFFFFFF with the set_full
+helper, and replace .raw boolean tests with is_any_set.
 
-Reviewed-by: Matthew Stewart <matthew.stewart2@amd.com>
-Signed-off-by: Gabe Teeger <gabe.teeger@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c    | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 157 +++++++++---------
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  20 +--
+ drivers/gpu/drm/amd/display/dc/dc.h           | 153 ++++++++++++-----
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  29 ++++
+ .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |   2 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   8 +-
+ .../amd/display/dc/hwss/dce60/dce60_hwseq.c   |   8 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  62 +++----
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  56 +++----
+ .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c |   2 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |   4 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  72 ++++----
+ .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |   2 +-
+ 14 files changed, 345 insertions(+), 235 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-index 527d17f29f3b..669bd5eb4c8f 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-@@ -757,7 +757,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.underflow_assert_delay_us = 0xFFFFFFFF,
- 	.dwb_fi_phase = -1, // -1 = disable,
- 	.dmub_command_table = true,
--	.pstate_enabled = false,
-+	.pstate_enabled = true,
- 	.enable_mem_low_power = {
- 		.bits = {
- 			.vga = false,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ebca180847c9..4519c0572963 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2016,8 +2016,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		for (i = 0; i < dc_state->stream_count; i++) {
+ 			dc_state->streams[i]->mode_changed = true;
+ 			for (j = 0; j < dc_state->stream_status[i].plane_count; j++) {
+-				dc_state->stream_status[i].plane_states[j]->update_flags.raw
+-					= 0xffffffff;
++				dc_pipe_update_bits_set_full(&dc_state->stream_status[i].plane_states[j]->update_bits);
+ 			}
+ 		}
+ 
+@@ -6319,7 +6318,7 @@ static int dm_update_plane_state(struct dc *dc,
+ 		/* Tell DC to do a full surface update every time there
+ 		 * is a plane change. Inefficient, but works for now.
+ 		 */
+-		dm_new_plane_state->dc_state->update_flags.bits.full_update = 1;
++		dm_new_plane_state->dc_state->update_bits.full_update = 1;
+ 
+ 		*lock_and_validation_needed = true;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1e7269246cea..379d3c97a521 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2310,7 +2310,7 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 	for (i = 0; i < context->stream_count; i++) {
+ 		uint32_t prev_dsc_changed = context->streams[i]->update_flags.bits.dsc_changed;
+ 
+-		context->streams[i]->update_flags.raw = 0xFFFFFFFF;
++		stream_update_flags_set_full(&context->streams[i]->update_flags);
+ 		context->streams[i]->update_flags.bits.dsc_changed = prev_dsc_changed;
+ 	}
+ 
+@@ -2416,7 +2416,7 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 
+ 	/* Clear update flags that were set earlier to avoid redundant programming */
+ 	for (i = 0; i < context->stream_count; i++) {
+-		context->streams[i]->update_flags.raw = 0x0;
++		stream_update_flags_clear(&context->streams[i]->update_flags);
+ 	}
+ 
+ 	old_state = dc->current_state;
+@@ -2765,7 +2765,7 @@ static bool is_surface_in_context(
+ 
+ static struct surface_update_descriptor get_plane_info_update_type(const struct dc_surface_update *u)
+ {
+-	union surface_update_flags *update_flags = &u->surface->update_flags;
++	struct pipe_update_bits *update_bits = &u->surface->update_bits;
+ 	struct surface_update_descriptor update_type = { UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_NONE };
+ 
+ 	if (!u->plane_info)
+@@ -2775,37 +2775,37 @@ static struct surface_update_descriptor get_plane_info_update_type(const struct
+ 	elevate_update_type(&update_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 
+ 	if (u->plane_info->color_space != u->surface->color_space) {
+-		update_flags->bits.color_space_change = 1;
++		update_bits->color_space_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->plane_info->horizontal_mirror != u->surface->horizontal_mirror) {
+-		update_flags->bits.horizontal_mirror_change = 1;
++		update_bits->horizontal_mirror_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->plane_info->rotation != u->surface->rotation) {
+-		update_flags->bits.rotation_change = 1;
++		update_bits->rotation_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 
+ 	if (u->plane_info->format != u->surface->format) {
+-		update_flags->bits.pixel_format_change = 1;
++		update_bits->pixel_format_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 
+ 	if (u->plane_info->stereo_format != u->surface->stereo_format) {
+-		update_flags->bits.stereo_format_change = 1;
++		update_bits->stereo_format_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 
+ 	if (u->plane_info->per_pixel_alpha != u->surface->per_pixel_alpha) {
+-		update_flags->bits.per_pixel_alpha_change = 1;
++		update_bits->per_pixel_alpha_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->plane_info->global_alpha_value != u->surface->global_alpha_value) {
+-		update_flags->bits.global_alpha_change = 1;
++		update_bits->global_alpha_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+@@ -2817,7 +2817,7 @@ static struct surface_update_descriptor get_plane_info_update_type(const struct
+ 		 * stutter period calculation. Triggering a full update will
+ 		 * recalculate stutter period.
+ 		 */
+-		update_flags->bits.dcc_change = 1;
++		update_bits->dcc_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 
+@@ -2826,25 +2826,25 @@ static struct surface_update_descriptor get_plane_info_update_type(const struct
+ 		/* different bytes per element will require full bandwidth
+ 		 * and DML calculation
+ 		 */
+-		update_flags->bits.bpp_change = 1;
++		update_bits->bpp_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 
+ 	if (u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
+ 			|| u->plane_info->plane_size.chroma_pitch != u->surface->plane_size.chroma_pitch) {
+-		update_flags->bits.plane_size_change = 1;
++		update_bits->plane_size_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	const struct dc_tiling_info *tiling = &u->plane_info->tiling_info;
+ 
+ 	if (memcmp(tiling, &u->surface->tiling_info, sizeof(*tiling)) != 0) {
+-		update_flags->bits.swizzle_change = 1;
++		update_bits->swizzle_change = 1;
+ 
+ 		if (tiling->flags.avoid_full_update_on_tiling_change) {
+ 			elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 		} else {
+-			update_flags->bits.bandwidth_change = 1;
++			update_bits->bandwidth_change = 1;
+ 			elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 		}
+ 	}
+@@ -2854,10 +2854,10 @@ static struct surface_update_descriptor get_plane_info_update_type(const struct
+ }
+ 
+ static struct surface_update_descriptor get_scaling_info_update_type(
+-		const struct dc_check_config *check_config,
+-		const struct dc_surface_update *u)
++	const struct dc_check_config *check_config,
++	const struct dc_surface_update *u)
+ {
+-	union surface_update_flags *update_flags = &u->surface->update_flags;
++	struct pipe_update_bits *update_bits = &u->surface->update_bits;
+ 	struct surface_update_descriptor update_type = { UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_NONE };
+ 
+ 	if (!u->scaling_info)
+@@ -2874,26 +2874,26 @@ static struct surface_update_descriptor get_scaling_info_update_type(
+ 			|| u->scaling_info->clip_rect.height != u->surface->clip_rect.height
+ 			|| u->scaling_info->scaling_quality.integer_scaling !=
+ 					u->surface->scaling_quality.integer_scaling) {
+-		update_flags->bits.scaling_change = 1;
++		update_bits->scaling_change = 1;
+ 		elevate_update_type(&update_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 
+ 		if (u->scaling_info->src_rect.width > u->surface->src_rect.width
+ 				|| u->scaling_info->src_rect.height > u->surface->src_rect.height)
+ 			/* Making src rect bigger requires a bandwidth change */
+-			update_flags->bits.clock_change = 1;
++			update_bits->clock_change = 1;
+ 
+ 		if ((u->scaling_info->dst_rect.width < u->surface->dst_rect.width
+ 			|| u->scaling_info->dst_rect.height < u->surface->dst_rect.height)
+ 				&& (u->scaling_info->dst_rect.width < u->surface->src_rect.width
+ 					|| u->scaling_info->dst_rect.height < u->surface->src_rect.height))
+ 			/* Making dst rect smaller requires a bandwidth change */
+-			update_flags->bits.bandwidth_change = 1;
++			update_bits->bandwidth_change = 1;
+ 
+ 		if (u->scaling_info->src_rect.width > (int)check_config->max_optimizable_video_width &&
+ 			(u->scaling_info->clip_rect.width > u->surface->clip_rect.width ||
+ 			 u->scaling_info->clip_rect.height > u->surface->clip_rect.height))
+ 			 /* Changing clip size of a large surface may result in MPC slice count change */
+-			update_flags->bits.bandwidth_change = 1;
++			update_bits->bandwidth_change = 1;
+ 	}
+ 
+ 	if (u->scaling_info->src_rect.x != u->surface->src_rect.x
+@@ -2903,7 +2903,7 @@ static struct surface_update_descriptor get_scaling_info_update_type(
+ 			|| u->scaling_info->dst_rect.x != u->surface->dst_rect.x
+ 			|| u->scaling_info->dst_rect.y != u->surface->dst_rect.y) {
+ 		elevate_update_type(&update_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+-		update_flags->bits.position_change = 1;
++		update_bits->position_change = 1;
+ 	}
+ 
+ 	return update_type;
+@@ -2914,15 +2914,15 @@ static struct surface_update_descriptor det_surface_update(
+ 		struct dc_surface_update *u)
+ {
+ 	struct surface_update_descriptor overall_type = { UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_NONE };
+-	union surface_update_flags *update_flags = &u->surface->update_flags;
++	struct pipe_update_bits *update_bits = &u->surface->update_bits;
+ 
+ 	if (u->surface->force_full_update) {
+-		update_flags->raw = 0xFFFFFFFF;
++		dc_pipe_update_bits_set_full(update_bits);
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 		return overall_type;
+ 	}
+ 
+-	update_flags->raw = 0; // Reset all flags
++	dc_pipe_update_bits_clear(update_bits);
+ 
+ 	struct surface_update_descriptor inner_type = get_plane_info_update_type(u);
+ 
+@@ -2932,47 +2932,47 @@ static struct surface_update_descriptor det_surface_update(
+ 	elevate_update_type(&overall_type, inner_type.update_type, inner_type.lock_descriptor);
+ 
+ 	if (u->flip_addr) {
+-		update_flags->bits.addr_update = 1;
++		update_bits->addr_update = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 
+ 		if (u->flip_addr->address.tmz_surface != u->surface->address.tmz_surface) {
+-			update_flags->bits.tmz_changed = 1;
++			update_bits->tmz_changed = 1;
+ 			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 		}
+ 	}
+ 	if (u->in_transfer_func) {
+-		update_flags->bits.in_transfer_func_change = 1;
++		update_bits->in_transfer_func_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->input_csc_color_matrix) {
+-		update_flags->bits.input_csc_change = 1;
++		update_bits->input_csc_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->cursor_csc_color_matrix) {
+-		update_flags->bits.cursor_csc_color_matrix_change = 1;
++		update_bits->cursor_csc_color_matrix_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->coeff_reduction_factor) {
+-		update_flags->bits.coeff_reduction_change = 1;
++		update_bits->coeff_reduction_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->gamut_remap_matrix) {
+-		update_flags->bits.gamut_remap_change = 1;
++		update_bits->gamut_remap_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if ((u->cm && u->cm->flags.bits.blend_enable) ||
+ 			(u->gamma && dce_use_lut(u->plane_info ? u->plane_info->format : u->surface->format))) {
+-		update_flags->bits.gamma_change = 1;
++		update_bits->gamma_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+ 	if (u->cm && (u->cm->flags.bits.lut3d_enable || u->cm->flags.bits.shaper_enable)) {
+-		update_flags->bits.lut_3d = 1;
++		update_bits->lut_3d = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+@@ -2990,19 +2990,19 @@ static struct surface_update_descriptor det_surface_update(
+ 	if (u->hdr_mult.value)
+ 		if (u->hdr_mult.value != u->surface->hdr_mult.value) {
+ 			// TODO: Should be fast?
+-			update_flags->bits.hdr_mult = 1;
++			update_bits->hdr_mult = 1;
+ 			elevate_update_type(&overall_type, UPDATE_TYPE_MED, LOCK_DESCRIPTOR_STREAM);
+ 		}
+ 
+ 	if (u->sdr_white_level_nits)
+ 		if (u->sdr_white_level_nits != u->surface->sdr_white_level_nits) {
+ 			// TODO: Should be fast?
+-			update_flags->bits.sdr_white_level_nits = 1;
++			update_bits->sdr_white_level_nits = 1;
+ 			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 		}
+ 
+ 	if (u->cm_hist_control) {
+-		update_flags->bits.cm_hist_change = 1;
++		update_bits->cm_hist_change = 1;
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
+ 	}
+ 
+@@ -3017,7 +3017,7 @@ static struct surface_update_descriptor det_surface_update(
+ 				|| u->cm->flags.bits.blend_enable != u->surface->cm.flags.bits.blend_enable
+ 				|| u->cm->flags.bits.lut3d_enable != u->surface->cm.flags.bits.lut3d_enable
+ 				|| u->cm->flags.bits.lut3d_dma_enable != u->surface->cm.flags.bits.lut3d_dma_enable) {
+-			update_flags->bits.mcm_transfer_function_enable_change = 1;
++			update_bits->mcm_transfer_function_enable_change = 1;
+ 			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 		}
+ 
+@@ -3027,17 +3027,17 @@ static struct surface_update_descriptor det_surface_update(
+ 		}
+ 	}
+ 
+-	if (update_flags->bits.lut_3d &&
++	if (update_bits->lut_3d &&
+ 			!u->surface->cm.flags.bits.lut3d_dma_enable) {
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 
+ 	if (check_config->enable_legacy_fast_update &&
+-			(update_flags->bits.gamma_change ||
+-			update_flags->bits.gamut_remap_change ||
+-			update_flags->bits.input_csc_change ||
+-			update_flags->bits.cm_hist_change ||
+-			update_flags->bits.coeff_reduction_change)) {
++			(update_bits->gamma_change ||
++			update_bits->gamut_remap_change ||
++			update_bits->input_csc_change ||
++			update_bits->cm_hist_change ||
++			update_bits->coeff_reduction_change)) {
+ 		elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
+ 	}
+ 	return overall_type;
+@@ -3062,7 +3062,7 @@ static void force_immediate_gsl_plane_flip(struct dc *dc, struct dc_surface_upda
+ 	if (has_flip_immediate_plane && surface_count > 1) {
+ 		for (i = 0; i < surface_count; i++) {
+ 			if (updates[i].surface->flip_immediate)
+-				updates[i].surface->update_flags.bits.addr_update = 1;
++				updates[i].surface->update_bits.addr_update = 1;
+ 		}
+ 	}
+ }
+@@ -3217,9 +3217,9 @@ struct surface_update_descriptor dc_check_update_surfaces_for_stream(
+ 		struct dc_stream_update *stream_update)
+ {
+ 	if (stream_update)
+-		stream_update->stream->update_flags.raw = 0;
++		stream_update_flags_clear(&stream_update->stream->update_flags);
+ 	for (int i = 0; i < surface_count; i++)
+-		updates[i].surface->update_flags.raw = 0;
++		dc_pipe_update_bits_clear(&updates[i].surface->update_bits);
+ 
+ 	return check_update_surfaces_for_stream(check_config, updates, surface_count, stream_update);
+ }
+@@ -3766,11 +3766,11 @@ static bool update_planes_and_stream_state(struct dc *dc,
+ 	if (update_type == UPDATE_TYPE_FULL) {
+ 		if (stream_update) {
+ 			uint32_t dsc_changed = stream_update->stream->update_flags.bits.dsc_changed;
+-			stream_update->stream->update_flags.raw = 0xFFFFFFFF;
++			stream_update_flags_set_full(&stream_update->stream->update_flags);
+ 			stream_update->stream->update_flags.bits.dsc_changed = dsc_changed;
+ 		}
+ 		for (i = 0; i < surface_count; i++)
+-			srf_updates[i].surface->update_flags.raw = 0xFFFFFFFF;
++			dc_pipe_update_bits_set_full(&srf_updates[i].surface->update_bits);
+ 	}
+ 
+ 	if (update_type >= update_surface_trace_level)
+@@ -3819,7 +3819,7 @@ static bool update_planes_and_stream_state(struct dc *dc,
+ 
+ 		if (update_type != UPDATE_TYPE_MED)
+ 			continue;
+-		if (surface->update_flags.bits.position_change) {
++		if (surface->update_bits.position_change) {
+ 			for (j = 0; j < dc->res_pool->pipe_count; j++) {
+ 				struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[j];
+ 
+@@ -4602,14 +4602,23 @@ static void build_dmub_update_dirty_rect(
+ 	}
+ }
+ 
+-static bool check_address_only_update(union surface_update_flags update_flags)
++/**
++ * dc_check_address_only_update - Check if addr_update is the sole flag set
++ *
++ * @update_bits: The pipe update bits to check
++ *
++ * Determines whether an update contains only an address change with no other
++ * pending updates.
++ *
++ * Return: %true if addr_update is the sole bit set, %false otherwise.
++ */
++bool dc_check_address_only_update(struct pipe_update_bits update_bits)
+ {
+-	union surface_update_flags addr_only_update_flags;
+-	addr_only_update_flags.raw = 0;
+-	addr_only_update_flags.bits.addr_update = 1;
++	struct pipe_update_bits check = update_bits;  /* 1. Copy all flags from input */
+ 
+-	return update_flags.bits.addr_update &&
+-			!(update_flags.raw & ~addr_only_update_flags.raw);
++	check.addr_update = 0;                        /* 2. Zero the addr_update bit in the copy */
++	return update_bits.addr_update &&             /* 3. Check addr_update was set in original */
++			!dc_pipe_update_bits_is_any_set(&check); /* 4. Check no other bits remain in the copy */
+ }
+ 
+ /**
+@@ -4669,7 +4678,7 @@ static void commit_plane_for_stream_offload_fams2_flip(struct dc *dc,
+ 				continue;
+ 
+ 			/* update pipe context for plane */
+-			if (pipe_ctx->plane_state->update_flags.bits.addr_update)
++			if (pipe_ctx->plane_state->update_bits.addr_update)
+ 				dc->hwss.update_plane_addr(dc, pipe_ctx);
+ 		}
+ 	}
+@@ -4707,8 +4716,8 @@ static void commit_planes_for_stream_fast(struct dc *dc,
+ 		should_offload_fams2_flip = true;
+ 		for (i = 0; i < surface_count; i++) {
+ 			if (srf_updates[i].surface &&
+-					srf_updates[i].surface->update_flags.raw &&
+-					!check_address_only_update(srf_updates[i].surface->update_flags)) {
++					dc_pipe_update_bits_is_any_set(&srf_updates[i].surface->update_bits) &&
++					!dc_check_address_only_update(srf_updates[i].surface->update_bits)) {
+ 				/* more than address update, need to acquire FAMS2 lock */
+ 				should_offload_fams2_flip = false;
+ 				break;
+@@ -4799,7 +4808,7 @@ static void commit_planes_for_stream_fast(struct dc *dc,
+ 	 * so no need to clear here.
+ 	 */
+ 	if (top_pipe_to_program->stream)
+-		top_pipe_to_program->stream->update_flags.raw = 0;
++		stream_update_flags_clear(&top_pipe_to_program->stream->update_flags);
+ }
+ 
+ static void commit_planes_for_stream(struct dc *dc,
+@@ -5137,7 +5146,7 @@ static void commit_planes_for_stream(struct dc *dc,
+ 					dc->hwss.program_triplebuffer(
+ 						dc, pipe_ctx, pipe_ctx->plane_state->triplebuffer_flips);
+ 				}
+-				if (pipe_ctx->plane_state->update_flags.bits.addr_update)
++				if (pipe_ctx->plane_state->update_bits.addr_update)
+ 					dc->hwss.update_plane_addr(dc, pipe_ctx);
+ 			}
+ 		}
+@@ -5228,7 +5237,7 @@ static void commit_planes_for_stream(struct dc *dc,
+ 
+ 		if (pipe_ctx->bottom_pipe || pipe_ctx->next_odm_pipe ||
+ 				!pipe_ctx->stream || !should_update_pipe_for_stream(context, pipe_ctx, stream) ||
+-				!pipe_ctx->plane_state->update_flags.bits.addr_update ||
++				!pipe_ctx->plane_state->update_bits.addr_update ||
+ 				pipe_ctx->plane_state->skip_manual_trigger)
+ 			continue;
+ 
+@@ -5667,7 +5676,7 @@ static bool commit_minimal_transition_state(struct dc *dc,
+ 	/* force full surface update */
+ 	for (i = 0; i < dc->current_state->stream_count; i++) {
+ 		for (j = 0; j < (unsigned int)dc->current_state->stream_status[i].plane_count; j++) {
+-			dc->current_state->stream_status[i].plane_states[j]->update_flags.raw = 0xFFFFFFFF;
++			dc_pipe_update_bits_set_full(&dc->current_state->stream_status[i].plane_states[j]->update_bits);
+ 		}
+ 	}
+ 
+@@ -6108,17 +6117,17 @@ static bool update_planes_and_stream_v3(struct dc *dc,
+ 	return true;
+ }
+ 
+-static void clear_update_flags(struct dc_surface_update *srf_updates,
++static void clear_update_bits(struct dc_surface_update *srf_updates,
+ 	int surface_count, struct dc_stream_state *stream)
+ {
+ 	int i;
+ 
+ 	if (stream)
+-		stream->update_flags.raw = 0;
++		stream_update_flags_clear(&stream->update_flags);
+ 
+ 	for (i = 0; i < surface_count; i++)
+ 		if (srf_updates[i].surface)
+-			srf_updates[i].surface->update_flags.raw = 0;
++			dc_pipe_update_bits_clear(&srf_updates[i].surface->update_bits);
+ }
+ 
+ bool dc_update_planes_and_stream(struct dc *dc,
+@@ -6170,7 +6179,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 	}
+ 
+ 	if (ret && dc->ctx->dce_version >= DCN_VERSION_3_2)
+-		clear_update_flags(srf_updates, surface_count, stream);
++		clear_update_bits(srf_updates, surface_count, stream);
+ }
+ 
+ uint8_t dc_get_current_stream_count(struct dc *dc)
+@@ -7920,7 +7929,7 @@ struct dc_update_scratch_space {
+ 	struct dc_stream_state *stream;
+ 	struct dc_stream_update *stream_update;
+ 	bool update_v3;
+-	bool do_clear_update_flags;
++	bool do_clear_update_bits;
+ 	enum surface_update_type update_type;
+ 	struct dc_state *new_context;
+ 	enum update_v3_flow flow;
+@@ -7963,8 +7972,8 @@ static bool update_planes_and_stream_cleanup_v2(
+ 		const struct dc_update_scratch_space *scratch
+ )
+ {
+-	if (scratch->do_clear_update_flags)
+-		clear_update_flags(scratch->surface_updates, scratch->surface_count, scratch->stream);
++	if (scratch->do_clear_update_bits)
++		clear_update_bits(scratch->surface_updates, scratch->surface_count, scratch->stream);
+ 
+ 	return false;
+ }
+@@ -8218,8 +8227,8 @@ static bool update_planes_and_stream_cleanup_v3(
+ 		ASSERT(false);
+ 	}
+ 
+-	if (scratch->do_clear_update_flags)
+-		clear_update_flags(scratch->surface_updates, scratch->surface_count, scratch->stream);
++	if (scratch->do_clear_update_bits)
++		clear_update_bits(scratch->surface_updates, scratch->surface_count, scratch->stream);
+ 
+ 	return false;
+ }
+@@ -8242,7 +8251,7 @@ struct dc_update_scratch_space *dc_update_planes_and_stream_init(
+ 		.stream = stream,
+ 		.stream_update = stream_update,
+ 		.update_v3 = version >= DCN_VERSION_4_01 || version == DCN_VERSION_3_2 || version == DCN_VERSION_3_21,
+-		.do_clear_update_flags = version >= DCN_VERSION_1_0,
++		.do_clear_update_bits = version >= DCN_VERSION_1_0,
+ 	};
+ 
+ 	return scratch;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 88446817a71f..c7c32c0a6b50 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -1028,20 +1028,20 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 		current_mpc_pipe = current_pipe;
+ 		while (current_mpc_pipe) {
+ 			if (current_mpc_pipe->plane_state) {
+-				if (dc->hwss.set_flip_control_gsl && current_mpc_pipe->plane_state->update_flags.raw) {
++				if (dc->hwss.set_flip_control_gsl && dc_pipe_update_bits_is_any_set(&current_mpc_pipe->plane_state->update_bits)) {
+ 					block_sequence[*num_steps].params.set_flip_control_gsl_params.hubp = current_mpc_pipe->plane_res.hubp;
+ 					block_sequence[*num_steps].params.set_flip_control_gsl_params.flip_immediate = current_mpc_pipe->plane_state->flip_immediate;
+ 					block_sequence[*num_steps].func = HUBP_SET_FLIP_CONTROL_GSL;
+ 					(*num_steps)++;
+ 				}
+-				if (dc->hwss.program_triplebuffer && dc->debug.enable_tri_buf && current_mpc_pipe->plane_state->update_flags.raw) {
++				if (dc->hwss.program_triplebuffer && dc->debug.enable_tri_buf && dc_pipe_update_bits_is_any_set(&current_mpc_pipe->plane_state->update_bits)) {
+ 					block_sequence[*num_steps].params.program_triplebuffer_params.dc = dc;
+ 					block_sequence[*num_steps].params.program_triplebuffer_params.pipe_ctx = current_mpc_pipe;
+ 					block_sequence[*num_steps].params.program_triplebuffer_params.enableTripleBuffer = current_mpc_pipe->plane_state->triplebuffer_flips;
+ 					block_sequence[*num_steps].func = HUBP_PROGRAM_TRIPLEBUFFER;
+ 					(*num_steps)++;
+ 				}
+-				if (dc->hwss.update_plane_addr && current_mpc_pipe->plane_state->update_flags.bits.addr_update) {
++				if (dc->hwss.update_plane_addr && current_mpc_pipe->plane_state->update_bits.addr_update) {
+ 					if (resource_is_pipe_type(current_mpc_pipe, OTG_MASTER) &&
+ 							stream_status->mall_stream_config.type == SUBVP_MAIN) {
+ 						block_sequence[*num_steps].params.subvp_save_surf_addr.dc_dmub_srv = dc->ctx->dmub_srv;
+@@ -1057,7 +1057,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 					(*num_steps)++;
+ 				}
+ 
+-				if (hws->funcs.set_input_transfer_func && current_mpc_pipe->plane_state->update_flags.bits.gamma_change) {
++				if (hws->funcs.set_input_transfer_func && current_mpc_pipe->plane_state->update_bits.gamma_change) {
+ 					block_sequence[*num_steps].params.set_input_transfer_func_params.dc = dc;
+ 					block_sequence[*num_steps].params.set_input_transfer_func_params.pipe_ctx = current_mpc_pipe;
+ 					block_sequence[*num_steps].params.set_input_transfer_func_params.plane_state = current_mpc_pipe->plane_state;
+@@ -1066,23 +1066,23 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 				}
+ 
+ 				if (dc->hwss.program_gamut_remap &&
+-						(current_mpc_pipe->plane_state->update_flags.bits.gamut_remap_change ||
++						(current_mpc_pipe->plane_state->update_bits.gamut_remap_change ||
+ 						 current_mpc_pipe->stream->update_flags.bits.gamut_remap)) {
+ 					block_sequence[*num_steps].params.program_gamut_remap_params.pipe_ctx = current_mpc_pipe;
+ 					block_sequence[*num_steps].func = DPP_PROGRAM_GAMUT_REMAP;
+ 					(*num_steps)++;
+ 				}
+-				if (current_mpc_pipe->plane_state->update_flags.bits.input_csc_change) {
++				if (current_mpc_pipe->plane_state->update_bits.input_csc_change) {
+ 					block_sequence[*num_steps].params.setup_dpp_params.pipe_ctx = current_mpc_pipe;
+ 					block_sequence[*num_steps].func = DPP_SETUP_DPP;
+ 					(*num_steps)++;
+ 				}
+-				if (current_mpc_pipe->plane_state->update_flags.bits.coeff_reduction_change) {
++				if (current_mpc_pipe->plane_state->update_bits.coeff_reduction_change) {
+ 					block_sequence[*num_steps].params.program_bias_and_scale_params.pipe_ctx = current_mpc_pipe;
+ 					block_sequence[*num_steps].func = DPP_PROGRAM_BIAS_AND_SCALE;
+ 					(*num_steps)++;
+ 				}
+-				if (current_mpc_pipe->plane_state->update_flags.bits.cm_hist_change) {
++				if (current_mpc_pipe->plane_state->update_bits.cm_hist_change) {
+ 					block_sequence[*num_steps].params.control_cm_hist_params.dpp
+ 						= current_mpc_pipe->plane_res.dpp;
+ 					block_sequence[*num_steps].params.control_cm_hist_params.cm_hist_control
+@@ -1095,7 +1095,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 
+ 				if (current_mpc_pipe->plane_res.dpp &&
+ 						current_mpc_pipe->plane_res.dpp->funcs->set_cursor_matrix &&
+-						current_mpc_pipe->plane_state->update_flags.bits.cursor_csc_color_matrix_change) {
++						current_mpc_pipe->plane_state->update_bits.cursor_csc_color_matrix_change) {
+ 					block_sequence[*num_steps].params.dpp_set_cursor_matrix_params.dpp = current_mpc_pipe->plane_res.dpp;
+ 					block_sequence[*num_steps].params.dpp_set_cursor_matrix_params.color_space = current_mpc_pipe->plane_state->color_space;
+ 					block_sequence[*num_steps].params.dpp_set_cursor_matrix_params.cursor_csc_color_matrix = &current_mpc_pipe->plane_state->cursor_csc_color_matrix;
+@@ -1176,7 +1176,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 		while (current_mpc_pipe) {
+ 			if (!current_mpc_pipe->bottom_pipe && !current_mpc_pipe->next_odm_pipe &&
+ 					current_mpc_pipe->stream && current_mpc_pipe->plane_state &&
+-					current_mpc_pipe->plane_state->update_flags.bits.addr_update &&
++					current_mpc_pipe->plane_state->update_bits.addr_update &&
+ 					!current_mpc_pipe->plane_state->skip_manual_trigger) {
+ 				if (dc->hwss.program_cursor_offload_now) {
+ 					block_sequence[*num_steps].params.program_cursor_update_now_params.dc = dc;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 2a47d7ddf53b..2202c8669bf8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1540,47 +1540,120 @@ struct dc_plane_status {
+ 	struct cm_hist cm_hist;
+ };
+ 
+-union surface_update_flags {
+-
+-	struct {
+-		uint32_t addr_update:1;
+-		/* Medium updates */
+-		uint32_t dcc_change:1;
+-		uint32_t color_space_change:1;
+-		uint32_t horizontal_mirror_change:1;
+-		uint32_t per_pixel_alpha_change:1;
+-		uint32_t global_alpha_change:1;
+-		uint32_t hdr_mult:1;
+-		uint32_t rotation_change:1;
+-		uint32_t swizzle_change:1;
+-		uint32_t scaling_change:1;
+-		uint32_t position_change:1;
+-		uint32_t in_transfer_func_change:1;
+-		uint32_t input_csc_change:1;
+-		uint32_t coeff_reduction_change:1;
+-		uint32_t pixel_format_change:1;
+-		uint32_t plane_size_change:1;
+-		uint32_t gamut_remap_change:1;
+-		uint32_t cursor_csc_color_matrix_change:1;
+-
+-		/* Full updates */
+-		uint32_t new_plane:1;
+-		uint32_t bpp_change:1;
+-		uint32_t gamma_change:1;
+-		uint32_t bandwidth_change:1;
+-		uint32_t clock_change:1;
+-		uint32_t stereo_format_change:1;
+-		uint32_t lut_3d:1;
+-		uint32_t tmz_changed:1;
+-		uint32_t mcm_transfer_function_enable_change:1; /* disable or enable MCM transfer func */
+-		uint32_t full_update:1;
+-		uint32_t sdr_white_level_nits:1;
+-		uint32_t cm_hist_change:1;
+-	} bits;
+-
+-	uint32_t raw;
++struct pipe_update_bits {
++	uint32_t addr_update:1;
++	uint32_t dcc_change:1;
++	uint32_t color_space_change:1;
++	uint32_t horizontal_mirror_change:1;
++	uint32_t per_pixel_alpha_change:1;
++	uint32_t global_alpha_change:1;
++	uint32_t hdr_mult:1;
++	uint32_t rotation_change:1;
++	uint32_t swizzle_change:1;
++	uint32_t scaling_change:1;
++	uint32_t position_change:1;
++	uint32_t in_transfer_func_change:1;
++	uint32_t input_csc_change:1;
++	uint32_t coeff_reduction_change:1;
++	uint32_t pixel_format_change:1;
++	uint32_t plane_size_change:1;
++	uint32_t gamut_remap_change:1;
++	uint32_t cursor_csc_color_matrix_change:1;
++	uint32_t new_plane:1;
++	uint32_t bpp_change:1;
++	uint32_t gamma_change:1;
++	uint32_t bandwidth_change:1;
++	uint32_t clock_change:1;
++	uint32_t stereo_format_change:1;
++	uint32_t lut_3d:1;
++	uint32_t tmz_changed:1;
++	uint32_t mcm_transfer_function_enable_change:1; /* disable or enable MCM transfer func */
++	uint32_t full_update:1;
++	uint32_t sdr_white_level_nits:1;
++	uint32_t cm_hist_change:1;
++	/* NOTE: When adding a new field, also update:
++	 *   - dc_pipe_update_bits_set_full()
++	 *   - dc_pipe_update_bits_is_any_set()
++	 */
+ };
+ 
++static inline void dc_pipe_update_bits_clear(struct pipe_update_bits *flags)
++{
++	/* memset ensures padding bits are zeroed */
++	memset(flags, 0, sizeof(*flags));
++}
++
++static inline void dc_pipe_update_bits_set_full(struct pipe_update_bits *flags)
++{
++	dc_pipe_update_bits_clear(flags);
++	flags->addr_update = 1;
++	flags->dcc_change = 1;
++	flags->color_space_change = 1;
++	flags->horizontal_mirror_change = 1;
++	flags->per_pixel_alpha_change = 1;
++	flags->global_alpha_change = 1;
++	flags->hdr_mult = 1;
++	flags->rotation_change = 1;
++	flags->swizzle_change = 1;
++	flags->scaling_change = 1;
++	flags->position_change = 1;
++	flags->in_transfer_func_change = 1;
++	flags->input_csc_change = 1;
++	flags->coeff_reduction_change = 1;
++	flags->pixel_format_change = 1;
++	flags->plane_size_change = 1;
++	flags->gamut_remap_change = 1;
++	flags->cursor_csc_color_matrix_change = 1;
++	flags->new_plane = 1;
++	flags->bpp_change = 1;
++	flags->gamma_change = 1;
++	flags->bandwidth_change = 1;
++	flags->clock_change = 1;
++	flags->stereo_format_change = 1;
++	flags->lut_3d = 1;
++	flags->tmz_changed = 1;
++	flags->mcm_transfer_function_enable_change = 1;
++	flags->full_update = 1;
++	flags->sdr_white_level_nits = 1;
++	flags->cm_hist_change = 1;
++}
++
++static inline bool dc_pipe_update_bits_is_any_set(const struct pipe_update_bits *flags)
++{
++	return flags->addr_update ||
++		flags->dcc_change ||
++		flags->color_space_change ||
++		flags->horizontal_mirror_change ||
++		flags->per_pixel_alpha_change ||
++		flags->global_alpha_change ||
++		flags->hdr_mult ||
++		flags->rotation_change ||
++		flags->swizzle_change ||
++		flags->scaling_change ||
++		flags->position_change ||
++		flags->in_transfer_func_change ||
++		flags->input_csc_change ||
++		flags->coeff_reduction_change ||
++		flags->pixel_format_change ||
++		flags->plane_size_change ||
++		flags->gamut_remap_change ||
++		flags->cursor_csc_color_matrix_change ||
++		flags->new_plane ||
++		flags->bpp_change ||
++		flags->gamma_change ||
++		flags->bandwidth_change ||
++		flags->clock_change ||
++		flags->stereo_format_change ||
++		flags->lut_3d ||
++		flags->tmz_changed ||
++		flags->mcm_transfer_function_enable_change ||
++		flags->full_update ||
++		flags->sdr_white_level_nits ||
++		flags->cm_hist_change;
++}
++
++bool dc_check_address_only_update(struct pipe_update_bits update_bits);
++
+ #define DC_REMOVE_PLANE_POINTERS 1
+ 
+ struct dc_plane_state {
+@@ -1637,7 +1710,7 @@ struct dc_plane_state {
+ 	bool horizontal_mirror;
+ 	unsigned int layer_index;
+ 
+-	union surface_update_flags update_flags;
++	struct pipe_update_bits update_bits;
+ 	bool flip_int_enabled;
+ 	bool skip_manual_trigger;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 4154cd059562..8b164edc9c51 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -128,6 +128,35 @@ union stream_update_flags {
+ 	uint32_t raw;
+ };
+ 
++static inline void stream_update_flags_clear(union stream_update_flags *flags)
++{
++	flags->raw = 0;
++}
++
++static inline void stream_update_flags_set_full(union stream_update_flags *flags)
++{
++	stream_update_flags_clear(flags);
++	flags->bits.scaling = 1;
++	flags->bits.out_tf = 1;
++	flags->bits.out_csc = 1;
++	flags->bits.abm_level = 1;
++	flags->bits.dpms_off = 1;
++	flags->bits.gamut_remap = 1;
++	flags->bits.wb_update = 1;
++	flags->bits.dsc_changed = 1;
++	flags->bits.mst_bw = 1;
++	flags->bits.crtc_timing_adjust = 1;
++	flags->bits.fams_changed = 1;
++	flags->bits.scaler_sharpener = 1;
++	flags->bits.sharpening_required = 1;
++	flags->bits.cursor_attr = 1;
++	flags->bits.cursor_pos = 1;
++	flags->bits.periodic_interrupt = 1;
++	flags->bits.info_frame = 1;
++	flags->bits.dmdata = 1;
++	flags->bits.dither = 1;
++}
++
+ struct test_pattern {
+ 	enum dp_test_pattern type;
+ 	enum dp_test_pattern_color_space color_space;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+index dcca23d53261..2ad4a2635683 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+@@ -1237,7 +1237,7 @@ bool dcn_validate_bandwidth(
+ 			if (pipe->plane_state) {
+ 				struct pipe_ctx *hsplit_pipe = pipe->bottom_pipe;
+ 
+-				pipe->plane_state->update_flags.bits.full_update = 1;
++				pipe->plane_state->update_bits.full_update = 1;
+ 
+ 				if (v->dpp_per_plane[input_idx] == 2 ||
+ 					((pipe->stream->view_format ==
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 042602c50e35..c9691974bf72 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -3166,12 +3166,12 @@ static void dce110_program_front_end_for_pipe(
+ 				plane_state->rotation);
+ 
+ 	/* Moved programming gamma from dc to hwss */
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update ||
+-			pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change)
++	if (pipe_ctx->plane_state->update_bits.full_update ||
++			pipe_ctx->plane_state->update_bits.in_transfer_func_change ||
++			pipe_ctx->plane_state->update_bits.gamma_change)
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
+ 
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update)
++	if (pipe_ctx->plane_state->update_bits.full_update)
+ 		hws->funcs.set_output_transfer_func(dc, pipe_ctx, pipe_ctx->stream);
+ 
+ 	DC_LOG_SURFACE(
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c
+index a08e9f9eec17..26aa303b8237 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce60/dce60_hwseq.c
+@@ -332,12 +332,12 @@ dce60_program_front_end_for_pipe(
+ 				plane_state->rotation);
+ 
+ 	/* Moved programming gamma from dc to hwss */
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update ||
+-			pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change)
++	if (pipe_ctx->plane_state->update_bits.full_update ||
++			pipe_ctx->plane_state->update_bits.in_transfer_func_change ||
++			pipe_ctx->plane_state->update_bits.gamma_change)
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
+ 
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update)
++	if (pipe_ctx->plane_state->update_bits.full_update)
+ 		hws->funcs.set_output_transfer_func(dc, pipe_ctx, pipe_ctx->stream);
+ 
+ 	DC_LOG_SURFACE(
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index 4a5b2bc0b610..f75a1794ae2a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -2981,7 +2981,7 @@ void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	mpcc_id = hubp->inst;
+ 
+ 	/* If there is no full update, don't need to touch MPC tree*/
+-	if (!pipe_ctx->plane_state->update_flags.bits.full_update) {
++	if (!pipe_ctx->plane_state->update_bits.full_update) {
+ 		mpc->funcs->update_blending(mpc, &blnd_cfg, mpcc_id);
+ 		dc->hwss.update_visual_confirm_color(dc, pipe_ctx, mpcc_id);
+ 		return;
+@@ -3041,7 +3041,7 @@ static void dcn10_update_dchubp_dpp(
+ 	/* If request max dpp clk is lower than current dispclk, no need to
+ 	 * divided by 2
+ 	 */
+-	if (plane_state->update_flags.bits.full_update) {
++	if (plane_state->update_bits.full_update) {
+ 
+ 		/* new calculated dispclk, dppclk are stored in
+ 		 * context->bw_ctx.bw.dcn.clk.dispclk_khz / dppclk_khz. current
+@@ -3096,7 +3096,7 @@ static void dcn10_update_dchubp_dpp(
+ 	 * VTG is within DCHUBBUB which is commond block share by each pipe HUBP.
+ 	 * VTG is 1:1 mapping with OTG. Each pipe HUBP will select which VTG
+ 	 */
+-	if (plane_state->update_flags.bits.full_update) {
++	if (plane_state->update_bits.full_update) {
+ 		hubp->funcs->hubp_vtg_sel(hubp, pipe_ctx->stream_res.tg->inst);
+ 
+ 		hubp->funcs->hubp_setup(
+@@ -3113,26 +3113,26 @@ static void dcn10_update_dchubp_dpp(
+ 
+ 	size.surface_size = pipe_ctx->plane_res.scl_data.viewport;
+ 
+-	if (plane_state->update_flags.bits.full_update ||
+-		plane_state->update_flags.bits.bpp_change)
++	if (plane_state->update_bits.full_update ||
++		plane_state->update_bits.bpp_change)
+ 		dcn10_update_dpp(dpp, plane_state);
+ 
+-	if (plane_state->update_flags.bits.full_update ||
+-		plane_state->update_flags.bits.per_pixel_alpha_change ||
+-		plane_state->update_flags.bits.global_alpha_change)
++	if (plane_state->update_bits.full_update ||
++		plane_state->update_bits.per_pixel_alpha_change ||
++		plane_state->update_bits.global_alpha_change)
+ 		hws->funcs.update_mpcc(dc, pipe_ctx);
+ 
+-	if (plane_state->update_flags.bits.full_update ||
+-		plane_state->update_flags.bits.per_pixel_alpha_change ||
+-		plane_state->update_flags.bits.global_alpha_change ||
+-		plane_state->update_flags.bits.scaling_change ||
+-		plane_state->update_flags.bits.position_change) {
++	if (plane_state->update_bits.full_update ||
++		plane_state->update_bits.per_pixel_alpha_change ||
++		plane_state->update_bits.global_alpha_change ||
++		plane_state->update_bits.scaling_change ||
++		plane_state->update_bits.position_change) {
+ 		update_scaler(pipe_ctx);
+ 	}
+ 
+-	if (plane_state->update_flags.bits.full_update ||
+-		plane_state->update_flags.bits.scaling_change ||
+-		plane_state->update_flags.bits.position_change) {
++	if (plane_state->update_bits.full_update ||
++		plane_state->update_bits.scaling_change ||
++		plane_state->update_bits.position_change) {
+ 		hubp->funcs->mem_program_viewport(
+ 			hubp,
+ 			&pipe_ctx->plane_res.scl_data.viewport,
+@@ -3150,7 +3150,7 @@ static void dcn10_update_dchubp_dpp(
+ 			dc->hwss.set_cursor_sdr_white_level(pipe_ctx);
+ 	}
+ 
+-	if (plane_state->update_flags.bits.full_update) {
++	if (plane_state->update_bits.full_update) {
+ 		/*gamut remap*/
+ 		dc->hwss.program_gamut_remap(pipe_ctx);
+ 
+@@ -3161,15 +3161,15 @@ static void dcn10_update_dchubp_dpp(
+ 				pipe_ctx->stream_res.opp->inst);
+ 	}
+ 
+-	if (plane_state->update_flags.bits.full_update ||
+-		plane_state->update_flags.bits.pixel_format_change ||
+-		plane_state->update_flags.bits.horizontal_mirror_change ||
+-		plane_state->update_flags.bits.rotation_change ||
+-		plane_state->update_flags.bits.swizzle_change ||
+-		plane_state->update_flags.bits.dcc_change ||
+-		plane_state->update_flags.bits.bpp_change ||
+-		plane_state->update_flags.bits.scaling_change ||
+-		plane_state->update_flags.bits.plane_size_change) {
++	if (plane_state->update_bits.full_update ||
++		plane_state->update_bits.pixel_format_change ||
++		plane_state->update_bits.horizontal_mirror_change ||
++		plane_state->update_bits.rotation_change ||
++		plane_state->update_bits.swizzle_change ||
++		plane_state->update_bits.dcc_change ||
++		plane_state->update_bits.bpp_change ||
++		plane_state->update_bits.scaling_change ||
++		plane_state->update_bits.plane_size_change) {
+ 		hubp->funcs->hubp_program_surface_config(
+ 			hubp,
+ 			plane_state->format,
+@@ -3278,16 +3278,16 @@ void dcn10_program_pipe(
+ 		hws->funcs.blank_pixel_data(dc, pipe_ctx, blank);
+ 	}
+ 
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update)
++	if (pipe_ctx->plane_state->update_bits.full_update)
+ 		dcn10_enable_plane(dc, pipe_ctx, context);
+ 
+ 	dcn10_update_dchubp_dpp(dc, pipe_ctx, context);
+ 
+ 	hws->funcs.set_hdr_multiplier(pipe_ctx);
+ 
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update ||
+-			pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change)
++	if (pipe_ctx->plane_state->update_bits.full_update ||
++			pipe_ctx->plane_state->update_bits.in_transfer_func_change ||
++			pipe_ctx->plane_state->update_bits.gamma_change)
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
+ 
+ 	/* dcn10_translate_regamma_to_hw_format takes 750us to finish
+@@ -3296,7 +3296,7 @@ void dcn10_program_pipe(
+ 	 * Always call this for now since it does memcmp inside before
+ 	 * doing heavy calculation and programming
+ 	 */
+-	if (pipe_ctx->plane_state->update_flags.bits.full_update)
++	if (pipe_ctx->plane_state->update_bits.full_update)
+ 		hws->funcs.set_output_transfer_func(dc, pipe_ctx, pipe_ctx->stream);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index 50d039b3fb43..95e5b6a6ba0f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -1733,10 +1733,10 @@ void dcn20_update_dchubp_dpp(
+ 
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 			pipe_ctx->update_flags.bits.plane_changed ||
+-			plane_state->update_flags.bits.bpp_change ||
+-			plane_state->update_flags.bits.input_csc_change ||
+-			plane_state->update_flags.bits.color_space_change ||
+-			plane_state->update_flags.bits.coeff_reduction_change) {
++			plane_state->update_bits.bpp_change ||
++			plane_state->update_bits.input_csc_change ||
++			plane_state->update_bits.color_space_change ||
++			plane_state->update_bits.coeff_reduction_change) {
+ 		struct dc_bias_and_scale bns_params = plane_state->bias_and_scale;
+ 
+ 		// program the input csc
+@@ -1760,16 +1760,16 @@ void dcn20_update_dchubp_dpp(
+ 
+ 	if (pipe_ctx->update_flags.bits.mpcc
+ 			|| pipe_ctx->update_flags.bits.plane_changed
+-			|| plane_state->update_flags.bits.global_alpha_change
+-			|| plane_state->update_flags.bits.per_pixel_alpha_change) {
++			|| plane_state->update_bits.global_alpha_change
++			|| plane_state->update_bits.per_pixel_alpha_change) {
+ 		// MPCC inst is equal to pipe index in practice
+ 		hws->funcs.update_mpcc(dc, pipe_ctx);
+ 	}
+ 
+ 	if (pipe_ctx->update_flags.bits.scaler ||
+-			plane_state->update_flags.bits.scaling_change ||
+-			plane_state->update_flags.bits.position_change ||
+-			plane_state->update_flags.bits.per_pixel_alpha_change ||
++			plane_state->update_bits.scaling_change ||
++			plane_state->update_bits.position_change ||
++			plane_state->update_bits.per_pixel_alpha_change ||
+ 			pipe_ctx->stream->update_flags.bits.scaling) {
+ 		pipe_ctx->plane_res.scl_data.lb_params.alpha_en = pipe_ctx->plane_state->per_pixel_alpha;
+ 		ASSERT(pipe_ctx->plane_res.scl_data.lb_params.depth == LB_PIXEL_DEPTH_36BPP);
+@@ -1779,8 +1779,8 @@ void dcn20_update_dchubp_dpp(
+ 	}
+ 
+ 	if (pipe_ctx->update_flags.bits.viewport ||
+-			(context == dc->current_state && plane_state->update_flags.bits.position_change) ||
+-			(context == dc->current_state && plane_state->update_flags.bits.scaling_change) ||
++			(context == dc->current_state && plane_state->update_bits.position_change) ||
++			(context == dc->current_state && plane_state->update_bits.scaling_change) ||
+ 			(context == dc->current_state && pipe_ctx->stream->update_flags.bits.scaling)) {
+ 
+ 		hubp->funcs->mem_program_viewport(
+@@ -1812,7 +1812,7 @@ void dcn20_update_dchubp_dpp(
+ 	if (pipe_ctx->update_flags.bits.enable || pipe_ctx->update_flags.bits.opp_changed
+ 			|| pipe_ctx->update_flags.bits.plane_changed
+ 			|| pipe_ctx->stream->update_flags.bits.gamut_remap
+-			|| plane_state->update_flags.bits.gamut_remap_change
++			|| plane_state->update_bits.gamut_remap_change
+ 			|| pipe_ctx->stream->update_flags.bits.out_csc) {
+ 		/* dpp/cm gamut remap*/
+ 		dc->hwss.program_gamut_remap(pipe_ctx);
+@@ -1828,14 +1828,14 @@ void dcn20_update_dchubp_dpp(
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 			pipe_ctx->update_flags.bits.plane_changed ||
+ 			pipe_ctx->update_flags.bits.opp_changed ||
+-			plane_state->update_flags.bits.pixel_format_change ||
+-			plane_state->update_flags.bits.horizontal_mirror_change ||
+-			plane_state->update_flags.bits.rotation_change ||
+-			plane_state->update_flags.bits.swizzle_change ||
+-			plane_state->update_flags.bits.dcc_change ||
+-			plane_state->update_flags.bits.bpp_change ||
+-			plane_state->update_flags.bits.scaling_change ||
+-			plane_state->update_flags.bits.plane_size_change) {
++			plane_state->update_bits.pixel_format_change ||
++			plane_state->update_bits.horizontal_mirror_change ||
++			plane_state->update_bits.rotation_change ||
++			plane_state->update_bits.swizzle_change ||
++			plane_state->update_bits.dcc_change ||
++			plane_state->update_bits.bpp_change ||
++			plane_state->update_bits.scaling_change ||
++			plane_state->update_bits.plane_size_change) {
+ 		struct plane_size size = plane_state->plane_size;
+ 
+ 		size.surface_size = pipe_ctx->plane_res.scl_data.viewport;
+@@ -1853,7 +1853,7 @@ void dcn20_update_dchubp_dpp(
+ 
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 		pipe_ctx->update_flags.bits.plane_changed ||
+-		plane_state->update_flags.bits.addr_update) {
++		plane_state->update_bits.addr_update) {
+ 		if (resource_is_pipe_type(pipe_ctx, OTG_MASTER) &&
+ 				pipe_mall_type == SUBVP_MAIN) {
+ 			union block_sequence_params params;
+@@ -1969,18 +1969,18 @@ static void dcn20_program_pipe(
+ 	}
+ 
+ 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.raw ||
+-	    pipe_ctx->plane_state->update_flags.raw ||
++	    dc_pipe_update_bits_is_any_set(&pipe_ctx->plane_state->update_bits) ||
+ 	    pipe_ctx->stream->update_flags.raw))
+ 		dcn20_update_dchubp_dpp(dc, pipe_ctx, context);
+ 
+ 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
+-		pipe_ctx->plane_state->update_flags.bits.hdr_mult))
++		pipe_ctx->plane_state->update_bits.hdr_mult))
+ 		hws->funcs.set_hdr_multiplier(pipe_ctx);
+ 
+ 	if (pipe_ctx->plane_state &&
+-		(pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change ||
+-			pipe_ctx->plane_state->update_flags.bits.lut_3d ||
++		(pipe_ctx->plane_state->update_bits.in_transfer_func_change ||
++			pipe_ctx->plane_state->update_bits.gamma_change ||
++			pipe_ctx->plane_state->update_bits.lut_3d ||
+ 			pipe_ctx->update_flags.bits.enable))
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
+ 
+@@ -2186,7 +2186,7 @@ void dcn20_program_front_end_for_ctx(
+ 		pipe = &context->res_ctx.pipe_ctx[i];
+ 		if (!pipe->top_pipe && !pipe->prev_odm_pipe
+ 			&& pipe->stream && pipe->stream->num_wb_info > 0
+-			&& (pipe->update_flags.raw || (pipe->plane_state && pipe->plane_state->update_flags.raw)
++			&& (pipe->update_flags.raw || (pipe->plane_state && dc_pipe_update_bits_is_any_set(&pipe->plane_state->update_bits))
+ 				|| pipe->stream->update_flags.raw)
+ 			&& hws->funcs.program_all_writeback_pipes_in_tree)
+ 			hws->funcs.program_all_writeback_pipes_in_tree(dc, pipe->stream, context);
+@@ -2998,7 +2998,7 @@ void dcn20_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	mpcc_id = hubp->inst;
+ 
+ 	/* If there is no full update, don't need to touch MPC tree*/
+-	if (!pipe_ctx->plane_state->update_flags.bits.full_update &&
++	if (!pipe_ctx->plane_state->update_bits.full_update &&
+ 		!pipe_ctx->update_flags.bits.mpcc) {
+ 		mpc->funcs->update_blending(mpc, &blnd_cfg, mpcc_id);
+ 		dc->hwss.update_visual_confirm_color(dc, pipe_ctx, mpcc_id);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
+index ce18d75fd991..7b820bdae55b 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
+@@ -485,7 +485,7 @@ void dcn201_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	mpcc_id = dpp_id;
+ 
+ 	/* If there is no full update, don't need to touch MPC tree*/
+-	if (!pipe_ctx->plane_state->update_flags.bits.full_update) {
++	if (!pipe_ctx->plane_state->update_bits.full_update) {
+ 		dc->hwss.update_visual_confirm_color(dc, pipe_ctx, mpcc_id);
+ 		mpc->funcs->update_blending(mpc, &blnd_cfg, mpcc_id);
+ 		return;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index 34cbd90b2283..1340f673ec3b 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -1466,7 +1466,7 @@ void dcn32_update_phantom_vp_position(struct dc *dc,
+ 
+ 		if (pipe->stream && dc_state_get_pipe_subvp_type(context, pipe) == SUBVP_MAIN &&
+ 				dc_state_get_paired_subvp_stream(context, pipe->stream) == phantom_pipe->stream) {
+-			if (pipe->plane_state && pipe->plane_state->update_flags.bits.position_change) {
++			if (pipe->plane_state && pipe->plane_state->update_bits.position_change) {
+ 
+ 				phantom_plane->src_rect.x = pipe->plane_state->src_rect.x;
+ 				phantom_plane->src_rect.y = pipe->plane_state->src_rect.y;
+@@ -1474,7 +1474,7 @@ void dcn32_update_phantom_vp_position(struct dc *dc,
+ 				phantom_plane->dst_rect.x = pipe->plane_state->dst_rect.x;
+ 				phantom_plane->dst_rect.y = pipe->plane_state->dst_rect.y;
+ 
+-				phantom_pipe->plane_state->update_flags.bits.position_change = 1;
++				phantom_pipe->plane_state->update_bits.position_change = 1;
+ 				resource_build_scaling_params(phantom_pipe);
+ 				return;
+ 			}
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 5da81adf02d1..6d3bcc02af1a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -1421,7 +1421,7 @@ void dcn401_wait_for_dcc_meta_propagation(const struct dc *dc,
+ 		if (pipe_ctx->plane_state &&
+ 				pipe_ctx->plane_state->dcc.enable &&
+ 				pipe_ctx->plane_state->flip_immediate &&
+-				pipe_ctx->plane_state->update_flags.bits.addr_update) {
++				pipe_ctx->plane_state->update_bits.addr_update) {
+ 			is_wait_needed = true;
+ 			break;
+ 		}
+@@ -2268,18 +2268,18 @@ void dcn401_program_pipe(
+ 	}
+ 
+ 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.raw ||
+-	    pipe_ctx->plane_state->update_flags.raw ||
++	    dc_pipe_update_bits_is_any_set(&pipe_ctx->plane_state->update_bits) ||
+ 	    pipe_ctx->stream->update_flags.raw))
+ 		dc->hwss.update_dchubp_dpp(dc, pipe_ctx, context);
+ 
+ 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
+-		pipe_ctx->plane_state->update_flags.bits.hdr_mult))
++		pipe_ctx->plane_state->update_bits.hdr_mult))
+ 		hws->funcs.set_hdr_multiplier(pipe_ctx);
+ 
+ 	if (pipe_ctx->plane_state &&
+-		(pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change ||
+-			pipe_ctx->plane_state->update_flags.bits.lut_3d ||
++		(pipe_ctx->plane_state->update_bits.in_transfer_func_change ||
++			pipe_ctx->plane_state->update_bits.gamma_change ||
++			pipe_ctx->plane_state->update_bits.lut_3d ||
+ 			pipe_ctx->update_flags.bits.enable))
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
+ 
+@@ -2338,7 +2338,7 @@ void dcn401_program_pipe(
+ 			pipe_ctx->stream_res.test_pattern_params.offset);
+ 	}
+ 	if (pipe_ctx->plane_state
+-		&& pipe_ctx->plane_state->update_flags.bits.cm_hist_change
++		&& pipe_ctx->plane_state->update_bits.cm_hist_change
+ 		&& hws->funcs.program_cm_hist)
+ 		hws->funcs.program_cm_hist(dc, pipe_ctx, pipe_ctx->plane_state);
+ }
+@@ -2419,7 +2419,7 @@ void dcn401_program_pipe_sequence(
+ 	}
+ 
+ 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.raw ||
+-	    pipe_ctx->plane_state->update_flags.raw ||
++	    dc_pipe_update_bits_is_any_set(&pipe_ctx->plane_state->update_bits) ||
+ 	    pipe_ctx->stream->update_flags.raw)) {
+ 
+ 		if (dc->hwss.update_dchubp_dpp_sequence)
+@@ -2427,15 +2427,15 @@ void dcn401_program_pipe_sequence(
+ 	}
+ 
+ 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
+-		pipe_ctx->plane_state->update_flags.bits.hdr_mult)) {
++		pipe_ctx->plane_state->update_bits.hdr_mult)) {
+ 
+ 		hws->funcs.set_hdr_multiplier_sequence(pipe_ctx, seq_state);
+ 	}
+ 
+ 	if (pipe_ctx->plane_state &&
+-		(pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change ||
+-			pipe_ctx->plane_state->update_flags.bits.lut_3d ||
++		(pipe_ctx->plane_state->update_bits.in_transfer_func_change ||
++			pipe_ctx->plane_state->update_bits.gamma_change ||
++			pipe_ctx->plane_state->update_bits.lut_3d ||
+ 			pipe_ctx->update_flags.bits.enable)) {
+ 
+ 		hwss_add_dpp_set_input_transfer_func(seq_state, dc, pipe_ctx, pipe_ctx->plane_state);
+@@ -2493,7 +2493,7 @@ void dcn401_program_pipe_sequence(
+ 	}
+ 
+ 	if (pipe_ctx->plane_state
+-			&& pipe_ctx->plane_state->update_flags.bits.cm_hist_change
++			&& pipe_ctx->plane_state->update_bits.cm_hist_change
+ 			&& hws->funcs.program_cm_hist) {
+ 
+ 		hwss_add_dpp_program_cm_hist(seq_state, pipe_ctx->plane_res.dpp,
+@@ -2647,7 +2647,7 @@ void dcn401_program_front_end_for_ctx(
+ 		pipe = &context->res_ctx.pipe_ctx[i];
+ 		if (!pipe->top_pipe && !pipe->prev_odm_pipe
+ 			&& pipe->stream && pipe->stream->num_wb_info > 0
+-			&& (pipe->update_flags.raw || (pipe->plane_state && pipe->plane_state->update_flags.raw)
++			&& (pipe->update_flags.raw || (pipe->plane_state && dc_pipe_update_bits_is_any_set(&pipe->plane_state->update_bits))
+ 				|| pipe->stream->update_flags.raw)
+ 			&& hws->funcs.program_all_writeback_pipes_in_tree)
+ 			hws->funcs.program_all_writeback_pipes_in_tree(dc, pipe->stream, context);
+@@ -3733,10 +3733,10 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 	/* Step 7: DPP setup - input CSC and format setup */
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 			pipe_ctx->update_flags.bits.plane_changed ||
+-			plane_state->update_flags.bits.bpp_change ||
+-			plane_state->update_flags.bits.input_csc_change ||
+-			plane_state->update_flags.bits.color_space_change ||
+-			plane_state->update_flags.bits.coeff_reduction_change) {
++			plane_state->update_bits.bpp_change ||
++			plane_state->update_bits.input_csc_change ||
++			plane_state->update_bits.color_space_change ||
++			plane_state->update_bits.coeff_reduction_change) {
+ 		hwss_add_dpp_setup_dpp(seq_state, pipe_ctx);
+ 
+ 		/* Step 8: DPP cursor matrix setup */
+@@ -3753,8 +3753,8 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 	/* Step 10: MPCC updates */
+ 	if (pipe_ctx->update_flags.bits.mpcc ||
+ 	     pipe_ctx->update_flags.bits.plane_changed ||
+-	     plane_state->update_flags.bits.global_alpha_change ||
+-	     plane_state->update_flags.bits.per_pixel_alpha_change) {
++	     plane_state->update_bits.global_alpha_change ||
++	     plane_state->update_bits.per_pixel_alpha_change) {
+ 
+ 		/* Check if update_mpcc_sequence is implemented and prefer it over single MPC_UPDATE_MPCC step */
+ 		if (hws->funcs.update_mpcc_sequence)
+@@ -3763,9 +3763,9 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 
+ 	/* Step 11: DPP scaler setup */
+ 	if (pipe_ctx->update_flags.bits.scaler ||
+-			plane_state->update_flags.bits.scaling_change ||
+-			plane_state->update_flags.bits.position_change ||
+-			plane_state->update_flags.bits.per_pixel_alpha_change ||
++			plane_state->update_bits.scaling_change ||
++			plane_state->update_bits.position_change ||
++			plane_state->update_bits.per_pixel_alpha_change ||
+ 			pipe_ctx->stream->update_flags.bits.scaling) {
+ 		pipe_ctx->plane_res.scl_data.lb_params.alpha_en = pipe_ctx->plane_state->per_pixel_alpha;
+ 		ASSERT(pipe_ctx->plane_res.scl_data.lb_params.depth == LB_PIXEL_DEPTH_36BPP);
+@@ -3774,8 +3774,8 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 
+ 	/* Step 12: HUBP viewport programming */
+ 	if (pipe_ctx->update_flags.bits.viewport ||
+-	     (context == dc->current_state && plane_state->update_flags.bits.position_change) ||
+-	     (context == dc->current_state && plane_state->update_flags.bits.scaling_change) ||
++	     (context == dc->current_state && plane_state->update_bits.position_change) ||
++	     (context == dc->current_state && plane_state->update_bits.scaling_change) ||
+ 	     (context == dc->current_state && pipe_ctx->stream->update_flags.bits.scaling)) {
+ 		hwss_add_hubp_mem_program_viewport(seq_state, hubp,
+ 			&pipe_ctx->plane_res.scl_data.viewport, &pipe_ctx->plane_res.scl_data.viewport_c);
+@@ -3807,7 +3807,7 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 	if (pipe_ctx->update_flags.bits.enable || pipe_ctx->update_flags.bits.opp_changed ||
+ 			pipe_ctx->update_flags.bits.plane_changed ||
+ 			pipe_ctx->stream->update_flags.bits.gamut_remap ||
+-			plane_state->update_flags.bits.gamut_remap_change ||
++			plane_state->update_bits.gamut_remap_change ||
+ 			pipe_ctx->stream->update_flags.bits.out_csc) {
+ 
+ 		/* Gamut remap */
+@@ -3822,14 +3822,14 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 			pipe_ctx->update_flags.bits.plane_changed ||
+ 			pipe_ctx->update_flags.bits.opp_changed ||
+-			plane_state->update_flags.bits.pixel_format_change ||
+-			plane_state->update_flags.bits.horizontal_mirror_change ||
+-			plane_state->update_flags.bits.rotation_change ||
+-			plane_state->update_flags.bits.swizzle_change ||
+-			plane_state->update_flags.bits.dcc_change ||
+-			plane_state->update_flags.bits.bpp_change ||
+-			plane_state->update_flags.bits.scaling_change ||
+-			plane_state->update_flags.bits.plane_size_change) {
++			plane_state->update_bits.pixel_format_change ||
++			plane_state->update_bits.horizontal_mirror_change ||
++			plane_state->update_bits.rotation_change ||
++			plane_state->update_bits.swizzle_change ||
++			plane_state->update_bits.dcc_change ||
++			plane_state->update_bits.bpp_change ||
++			plane_state->update_bits.scaling_change ||
++			plane_state->update_bits.plane_size_change) {
+ 		struct plane_size size = plane_state->plane_size;
+ 
+ 		size.surface_size = pipe_ctx->plane_res.scl_data.viewport;
+@@ -3843,7 +3843,7 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 	/* Step 19: Update plane address (with SubVP support) */
+ 	if (pipe_ctx->update_flags.bits.enable ||
+ 	     pipe_ctx->update_flags.bits.plane_changed ||
+-	     plane_state->update_flags.bits.addr_update) {
++	     plane_state->update_bits.addr_update) {
+ 
+ 		/* SubVP save surface address if needed */
+ 		if (resource_is_pipe_type(pipe_ctx, OTG_MASTER) && pipe_mall_type == SUBVP_MAIN) {
+@@ -3916,7 +3916,7 @@ void dcn401_update_mpcc_sequence(struct dc *dc,
+ 	mpcc_id = hubp->inst;
+ 
+ 	/* Step 1: Update blending if no full update needed */
+-	if (!pipe_ctx->plane_state->update_flags.bits.full_update &&
++	if (!pipe_ctx->plane_state->update_bits.full_update &&
+ 	    !pipe_ctx->update_flags.bits.mpcc) {
+ 
+ 		/* Update blending configuration */
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
+index 9cf8b379cb34..f415473517d4 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
+@@ -355,7 +355,7 @@ void dcn42_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	mpcc_id = hubp->inst;
+ 
+ 	/* If there is no full update, don't need to touch MPC tree*/
+-	if (!pipe_ctx->plane_state->update_flags.bits.full_update &&
++	if (!pipe_ctx->plane_state->update_bits.full_update &&
+ 		!pipe_ctx->update_flags.bits.mpcc) {
+ 		mpc->funcs->update_blending(mpc, &blnd_cfg, mpcc_id);
+ 		dc->hwss.update_visual_confirm_color(dc, pipe_ctx, mpcc_id);
 -- 
 2.43.0
 
