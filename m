@@ -4,95 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C796CD8CB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 14:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56BB9CD8CB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 14:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E375110E561;
-	Wed, 10 Jun 2026 14:48:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5C2810E642;
+	Wed, 10 Jun 2026 14:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gwmD2qlc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YpUiPBqn";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012024.outbound.protection.outlook.com [52.101.53.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3EAA10E561
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 14:48:42 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010013.outbound.protection.outlook.com [52.101.56.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A847210E642
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 14:59:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xkfsUZ3ehIDZaebOdC1SkK0R2Tvk3rGUuDTs3QmLPZbt68uf8UlYwKvST2Q21TblevNC3y2wO8XvwWqEaKBb5akJmbpd/hhjHKeJoLTymiMG0w8HazO1foWaHvdVtjVuU3k8zKksEpdoNCTbuCqafMKJEJnWquR3e4tpaeus1DtOSNjvbWQsAVg2Pknx9x0QpdXjksYIDDg+BNUYHwnjKSofEj9L/wen5xZ1FJDphwi7n4kOmPAJ/lFgvJVkqyCOkNRyYePQZJMimsU4h4wUq72yYyKdWDW2kjgiAlrS9VC29VElT0ZBMxlX1KaOcgI4Er1SJSNNBATnV0m6a08+9Q==
+ b=hIzEnh3BQVgqBflq6RDc6xdUO7a8CevesfBbf58Lgq6L/HyrDK5XQQswStB3eGpsAl/9LBqZ5kMOrkrAdKVdiYDN4amstWOE0pj0D42dCRtEjPQTMfnflHYeH5MOodWOLG/Q6PuzHrtpy+caHHAiw4cWjh80Z0UOLsi61Nw5mVqPtuFY72yAYoi6zIxZf2DaXvmI5vfI+GQYmUj8gCBsrcdQ6N7cRCWiRcOcFVyjt7Gv85xlfQSk5O09tAWsyeeszvg2LXIpm4dj0b9KU6QCW87Fwdskyb39YIXK5ZWJcBfjWgWHrO4IZbV6aCTKmrTCrt/55f2OYsXRrqqdQ4aW0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1deqMKf+57DvhWKIc+h+8H3uTIWHnfjTjinHFUjVeGQ=;
- b=hMjpQtpO0XSGMdoEOisrIZ5ETobmfB/SFyJQUyuhpAnMmIy0b5YeyvJSh0Oed57tsAVNOg6yTD0XczawVyaExvHPBf4KuV75ttDjYd80ytKqGJ1cD/Y/4y7uwEXJ7+q8yODBhCvTpcZGBJUcPMR3ZxGtu+zJ+bORVrTtPCH20Q9SJ2THZ988dli65PgYMnUDHnuMJDNXX4C/HuqNrCpfnjCatfbmhTFbpoZ/Jo1rNO+EmP4cfX3BUblDgqM3j2NFRTJxgy5JhZtLdDyveFGHWnf8VEGFu8rvQX0RMgqBez/fr89TutmOowM0w18hvDJuCuqBlB+Hm1OOPIo4SgRcig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=MWMLrJwwjyYDolrQFagdIc6jesV3C3dPqvTE7ip/3N4=;
+ b=YkexaoBapAt5LMTq7eF/IBGeDYjTVy0lgF/u5+IWKaZ3T3d++UeF9ml8SXgIE8EFWH/lk65rC32sScAxYARp2A7Zhpy6+6X/ilimhbIo6I2eK5UW2/xrNj/iFmuuJa8BD6uqfy0H+1ygLNLTA5QaQJps+Emxm5QCNQZpUkux9UrEuZd0Om7AXVqL+wHwIrcAXD7jh11D3zdRkyZ4CzreGABBFAJzv+pgtiYc1NkEX5fWszjGxQ9PfefKAPwnbq7BMIF4b1JUc7anSpPJpB/NT/a2n9OVEMesthfJ/t3F9Oe0t16HNjR58W680L1dXDcv9naoj7hyqXYYc7RhSd4Yig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1deqMKf+57DvhWKIc+h+8H3uTIWHnfjTjinHFUjVeGQ=;
- b=gwmD2qlclt6OrT9yOCnbU242QYwZiOamcDmShEf1h2qsACACpjXSCY30nGLS94MsIv87aLYfa+JBeQgoNOQNLlx7nLvQsCPSFrcDlzN6REqlsoSgKeqSEjYmuYELAYu+nCcoaCUQuy0rk8emnENBxj68Tj6Ua/8xF7a8Z6un47g=
-Received: from SJ0PR13CA0209.namprd13.prod.outlook.com (2603:10b6:a03:2c3::34)
- by IA1PR12MB6115.namprd12.prod.outlook.com (2603:10b6:208:3e9::9)
+ bh=MWMLrJwwjyYDolrQFagdIc6jesV3C3dPqvTE7ip/3N4=;
+ b=YpUiPBqnkevDor52fo7/uE7wKHq4M9raNs28oHg3EyZKVMecX6ZiqAf7lNKjgRYnTV1JgepluyIdGe7qmLKPP95gAQLOGXNrjFj4scA+Gn2AygpkSScvxJ9fy+X5ovtlgRzSwyh2+7lbdf6ga1PVvxxNS+vti4/wywDEVxr0K8Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by BL3PR12MB6618.namprd12.prod.outlook.com (2603:10b6:208:38d::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
- 2026 14:48:38 +0000
-Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::84) by SJ0PR13CA0209.outlook.office365.com
- (2603:10b6:a03:2c3::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
- 10 Jun 2026 14:48:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 14:48:36 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Wed, 10 Jun 2026 09:48:36 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <harish.kasiviswanathan@amd.com>, Eric Huang <jinhuieric.huang@amd.com>
-Subject: [PATCH v3] drm/amdkfd: add sdma queue counter for gfxv9.4.3
-Date: Wed, 10 Jun 2026 10:48:22 -0400
-Message-ID: <20260610144822.65905-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
+ 2026 14:59:46 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
+ 14:59:45 +0000
+Message-ID: <e590b459-b865-4f8d-983a-347197e99a83@amd.com>
+Date: Wed, 10 Jun 2026 09:59:42 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/amd/pm: smu_v14_0_0: add DCLK and VCLK1/DCLK1
+ metric handlers
+Content-Language: en-US
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, Priya Hosur <Priya.Hosur@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Christian.Koenig@amd.com, Kenneth.Feng@amd.com
+Cc: Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
+References: <20260610120944.124040-1-Priya.Hosur@amd.com>
+ <20260610120944.124040-2-Priya.Hosur@amd.com>
+ <04061de3-10d3-4fa1-b166-5bcf3139037d@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <04061de3-10d3-4fa1-b166-5bcf3139037d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: CH2PR12CA0009.namprd12.prod.outlook.com
+ (2603:10b6:610:57::19) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|IA1PR12MB6115:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56ec08cb-5c7a-4cfc-bb8c-08dec6ff5a77
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|BL3PR12MB6618:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5983d960-9ade-4146-7361-08dec700e8e9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|3023799007|56012099006|11063799006|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info: 0M2a5+EHXdwdu1vqtw2beLXjQdR6EqRy5LgtBaOdAH6xsQhTbQ1BvVZsLF1c8c51UeA1jA0MGsag5AxwzqdwV7F+7c830WbD+8qqu59AvJpd2CoADxlriX5I6Qel5CmvPyMaQ49AZHJgfKFVE/72+rCUSU5YVdskP6aPpbztHs0oC/vMKSecrNq0cv9pURRherAjspBa1tNt6O/U3tPE9JzZkEZj4OuJL2UdNuaXGxroy8Vn0GPzN0A6lPSYluEcjQsNSTTSIM6nTEouy2WR7/B1xkK6ShdLx5cDe4C4SR7/7EGB3ubUDN7Sd5FFfAD6bZ8MGC0Xsbk8oVQyoKGcpYKfddb8ldQ4n2jUbFX8CHvVP0A15hgNPqdGs6VC7bZC9ii9BwoBGxkd1tRrNf8niPYdoxV630BDToFF5yO9UvmXl66p9S8q3MsGXRTS8sdMrFNjY8Swj3vhvmOJ9t/Awvzo62CboGAgq2txBtQ/rMs8BkybUQSe8Uu/9QfrNzmbvqoSBKRaoMYG8aH+zTKgg2L/D8oXsUaUpQbRSopsCMJYqpdHw85VimaEdXjvR3vqoB2g8lCV6wBdtNNxCPm33ZscfNiibX4LuQIxt6kWkXJpaMTspy2RyshwI57TYXk2JqjN7BClXhxbZ4Wm27hZZxu2Lc1Xx0O0wRhWT7lD2QCYCVAtLAR5z/kM9TN7PP0asdYGxZVt6L0+Ih6DBRf0gAyYfp//UHoh7ejJBmEzuWI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(3023799007)(56012099006)(11063799006)(6133799003)(18002099003);
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 8D9VMlmHxPTNi4e2fzEpT4NUzETj3qRmKC+//zu/wYN/wjT+eT/Ln+EOsWHYpO/bnZo3+JHk7naZh9SE411XowZ395Mmx1yrJUzhNCvtw/376IFVVpwWgIDQN7rBxseNGpDFta2I31PhjR0f4yqv2P1p900Fgk9r2qJ9iPIgUQIefAGWYmBrIVPd/ZZrjO/2T52gSiMl7crc/uY2LvFBSX9GKni2SHrjWUcAAz/eomlinTp5NGHwPF1DnC4MHXNpq+67LTrwy7suNdxFHOUvMxj2U6g8qjLf4jZsWMmGsFfmlHMWuOMmlP8ARQsh0nL7AnCyG5o2GBvm5NSc8Rgctysr4kukPhd235ynGJRpTj4c+B+z3WozogdVi+uG4xatVET1Xs/fwV/KLYy/Vcj74jyOBuNAGrPGi1GachM8TzNl+AOHD+i9Ravh7Y3zFY0+L2kwnhfTqbjn6LYGPOOmLRDGFrSMYENTpj/wrGAy+vs43Ferl8Oj1e+iOn1NFBIFrz9jkP+SyOhLi1qZWpKIAybVIogc88A8IQT+WNx7gWpk1joBjebmQ4rcmYuDMFv2cXhaiM06Aif0+2TVseB1gyWkCOuvTIkVorB3EinHpri80SscGvt/tTwglcbNt/43ORz2JB1bB6QI2lPE4F88sSJo/5A8YpE21jvnHZjecTOfkpkuL8bBnKf+0z4uygNY
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4fWFPSyan9COTmaZmgXjJlJzj7LdWJ628NvLqzbqhb1KL0epD1WfpSB8fUmPd6cY3QNzzMG94uj4++CaEc+T5APhOSC+N+j+pcLJ+6j5OqmnhEKGY/hzgoH7+x8FzyImRJ95YovAkuh25PRcUb1BcWO3Wk77dN/dLeGRHXg2PZFmeTKvzNDQwn8ET0M17SMqhISXVOClH+0jUTOWbv9wUtXAMOKkskG97MhQLLZ9Vayg0ngTKVbttjfnUzOet5D4ENpFmQbPsUel/h578yJN/ABNMxLyuT51N8Du6FKkZxrSEN/6FlpENkZEv3pxPxvGJRXxHCR+U0++qZ1rfRwcWAbm+GAYpluykmcnXrsYVBWUuCN48FfIbsh/Ahy78ZgAFfL3Y/UIwBscW+LC01ZstNY9rgQcvuST2l7RAuF113NItZ0Db6zvMKw2jJymLQ4I
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NFRRSmZqY3pFTU80VVRzaFM5TVhURGIyMHl4bFRmeG1WaEFraTM3S09TWVVz?=
+ =?utf-8?B?SmRUTnpaN0NtTk5yUmNxTUpyZlNvV29MOGw3aWkzNmZ1V2lKSkJGYmNTelY1?=
+ =?utf-8?B?Rm9JNHhzM1VPcW04Q3pvb25tT0hLWTRTWnlpYytwTEI3QkJnd05WU08yMGxa?=
+ =?utf-8?B?M0F1NUR0amExbGJxdkx2RVRIb0thbklCcGYvODVncWtYS2hBbDJhNEdNTGQv?=
+ =?utf-8?B?YkU5WGRmYmZ2UUozbll2bmtQN0RtQVRybnplKzBJWHNsQmNDOGNpZzVNcnFy?=
+ =?utf-8?B?R09zVjRPbWFQSWR0WlRGREowRFVoSlFKdHZqYmVGaTVLS3VINmVxMUNMa0Ni?=
+ =?utf-8?B?a2JRVFovUWQxRDQvT3lMTXVBUkN0cWR2QTlab1pTRWZ2RWtmanJYVm1EcVZq?=
+ =?utf-8?B?OGZ0QWI3dmRHL3czc2VDV0lKS0hqRFNwSGFtdkpKc1NXK0ZZR1NqQ3ExZUdB?=
+ =?utf-8?B?TXpDUjByYWlrZWxQRURnSFhxYWNna3pJazViTmhWZnJwQS9zVzFyZE5FdmtP?=
+ =?utf-8?B?NW4yRE9IdzZkNnV2aDZWTWpWNTV6SUdzci9yekUwcEU1azg3aTMwK3hQbnZk?=
+ =?utf-8?B?a1VCRlNGMDBrYjk2clp6bzNLSWxzUTVkTG1HM2JlWU5nSVBueFpydGlxdjNI?=
+ =?utf-8?B?OGMwdTUzM1ZSa2xWd1JlMEhaOWZUWE5MajhXbi9ySmpjaWoyTk5qTlhBVkhO?=
+ =?utf-8?B?STA5MStNQXdLbXdTYnM5eVlCa0pLYVczNnNNSHBNNTExalJJN3dZS0wxeC9h?=
+ =?utf-8?B?UERhbW1QdjBtQmhwbG5OTzZzT2czQ0tBWEhzUm5Ca3NmNkNZelF0RHJYb1JY?=
+ =?utf-8?B?TnJjNWdSRTZPazQ4NGRlWVNkME1RbnVNLzVYNHlUVmJhOWtabjNSR21aTU5h?=
+ =?utf-8?B?Y3JsOEdsWVkwTE03S3E3cDFjazNpbWl3eU1yUGRYZVU0MEtoN1VlNHI1b1V3?=
+ =?utf-8?B?SGhBKzV2dUIvTDNCTlpMdXRNcEM1WjNZVmRTVHNndzhkWjFmY2VnOTJHczFo?=
+ =?utf-8?B?REU5dm1tV1BFa2dmUGV4QlR6aHhVVXB0OVBKbXJFS3VzcEFHejFpclpxdmRn?=
+ =?utf-8?B?a1pZNmlGRnQrUjlWS3RTRzg0K1lyTGpXSFZFQjNQNUtVNHVWSitKU1RyU0NZ?=
+ =?utf-8?B?ek1TNXNFVVpDNEZ3QnBET29HVU9hMmthbHRBNWQ4UFBKV3pNbXk4S1pGZnpN?=
+ =?utf-8?B?TlBnSGRnblFEK0xiUDdUM2FtNWU4akpEKzFqMDg4Zy85dUY3NXFxYUNBWURN?=
+ =?utf-8?B?YzhSRmtqdG0vbXhTaDk5ZGJkTk9mNURTYnJWOVpuSC91eVRpVE0weWF0QUkx?=
+ =?utf-8?B?WXVoc1pwRmdyS0lPRXoxRmRDK053V2t6MDRnb2ljOEtiUFdyNHorYWNENlA5?=
+ =?utf-8?B?b1ZPbG8yRXBnUEVyd2FYcU9vVm12eWJYbU9RM2syenh2QUZuQ3RHYWh1NU9n?=
+ =?utf-8?B?eGxiOE5KYmtZU0pJd2xIWGxIZVcxdFZITGUwUjlySjRUZjBxN3hyZ0lKMGlN?=
+ =?utf-8?B?TzJkR3ptWi9PWHQ4UGkwV1RkYkR4QnNqQVFqMDQ0ZG9ESCtxcVNJKzZLc2pk?=
+ =?utf-8?B?Z04rYkVES1hhb2U4ZlVnZ1hFazlhcmNYaFA0QTNnd0pNenRJcmd6aUJMY0tG?=
+ =?utf-8?B?cjh4R2pYSTNCaVo2TnM5UGNkV1BhQkxzdU9RQk9rdkdKWFVEcloxN25sRDU2?=
+ =?utf-8?B?Rkc3dlNscjNLNW9FN3VldFc5c0U4dnhGbTNNR2dKSkpmaDA1UGZVdTB4L1RY?=
+ =?utf-8?B?NHVSdnJYOE8yTGdZR0RmVWpPcytTcjJnODl3d0hiUEJIeEVxTmlQNmtMSWY3?=
+ =?utf-8?B?UWhKMHZxUzBERWpoZ2ZseWk4bi9sS051UkpTeWZUTDFQbHE2ZEgzMlczbFN3?=
+ =?utf-8?B?VmpTaXFUSFdJeHhoTDFRQkJwV3pyYnhFVjNyai9uMktjd0NRR1djSEFTYkxE?=
+ =?utf-8?B?WVp5YVlmZ2c4cGx3TEN2OWh6OGR5SDMwRWFhMjhrZXZiUkw2cVFLVGpiNWRI?=
+ =?utf-8?B?dFNncUt5cVBzamVaVkQrRlZhcDhONU05d2d3SnRzeDI1R2psVno0OXUrdXJX?=
+ =?utf-8?B?b3N0cTA5ZEdSRkpoYUxpU1BhRFd6RnJFR1lSZVBmblpNcDlWUnM1cE5WclR5?=
+ =?utf-8?B?dkhZVk5HUUp2bEZSWGRuNGFmNGNZdDRnKzdmYUVWQ0JLZ0Z6WHMrc3RjT09X?=
+ =?utf-8?B?SnF6c09NUnJPN0Z1bWdrYWlTTk1KQUtLZVFIbUtLcFVxYkF0K1M2UFJsTHJa?=
+ =?utf-8?B?Y3JqWmtRSnVhTHp6S3FESEx6SVZRMDA0NGVKSVdWN21SalRSb1FheitkOHZH?=
+ =?utf-8?Q?HtV40XrLkrG0xSRQxg?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 14:48:36.8692 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56ec08cb-5c7a-4cfc-bb8c-08dec6ff5a77
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5983d960-9ade-4146-7361-08dec700e8e9
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 14:59:45.7264 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6115
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sxhnK6E0Vk+jpqzLAehuf4ZhF/cG8R5sy8N9WABQaM7dZeRm7utfhl/6PZ8vKvG/Hlo2VRYqR07bFRs15uM6LA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6618
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,235 +138,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-since gfx 9.4.3 HW is calculating accumulated activity counter
-per-queue in register sdmax_rlcx_utilization_hi/lo, CPFW adds it in
-sdma MQD for save/restore, KFD will read it from there. gfx 9.4.2
-will still keep the way to read from memory at rptr+8.
 
-v2: read dynamic counter directly from utilization register
-v3: add CPFW supported version check (Harish)
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   | 67 ++++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 27 ++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 14 +++-
- .../include/asic_reg/sdma/sdma_4_4_2_offset.h |  4 ++
- .../gpu/drm/amd/include/kgd_kfd_interface.h   |  3 +
- drivers/gpu/drm/amd/include/v9_structs.h      |  4 +-
- 6 files changed, 111 insertions(+), 8 deletions(-)
+On 6/10/26 08:29, Lazar, Lijo wrote:
+> 
+> 
+> On 10-Jun-26 5:39 PM, Priya Hosur wrote:
+>> Merge METRICS_AVERAGE_VCLK and METRICS_AVERAGE_DCLK into a single
+>> fall-through case mapping both to VclkFrequency, since SmuMetrics_t
+>> has no DclkFrequency field and DCLK tracks VCLK on VCN. Add
+>> VCLK1/DCLK1 metric handlers returning 0 as the struct has no fields
+>> for these, avoiding UINT_MAX default that causes N/A in amd-smi.
+>>
+>> Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/ 
+>> drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+>> index 2fe006de927a..c977681d8946 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+>> @@ -281,9 +281,13 @@ static int 
+>> smu_v14_0_0_get_smu_metrics_data(struct smu_context *smu,
+>>           *value = metrics->SocclkFrequency;
+>>           break;
+>>       case METRICS_AVERAGE_VCLK:
+>> +    case METRICS_AVERAGE_DCLK:
+>> +        /* No DclkFrequency in SmuMetrics_t; DCLK tracks VCLK on VCN */
+>>           *value = metrics->VclkFrequency;
+>>           break;
+>> -    case METRICS_AVERAGE_DCLK:
+>> +    case METRICS_AVERAGE_VCLK1:
+>> +    case METRICS_AVERAGE_DCLK1:
+>> +        /* No Vclk1/Dclk1 in v14.0.0 SmuMetrics_t; avoid UINT_MAX 
+>> default */
+> 
+> These are clocks for the second VCN instance. If adding them to FW 
+> metrics is not an option, then reporting the value as UINT_MAX is better 
+> as that indicates N/A (not applicable/available).
+> 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-index f46c59118304..a97398e7fc30 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-@@ -584,6 +584,70 @@ static uint32_t kgd_v9_4_3_ptl_ctrl(struct amdgpu_device *adev,
- 			ptl_state, fmt1, fmt2);
- }
- 
-+static int kgd_gfx_v9_4_3_hqd_sdma_get_counter(struct amdgpu_device *adev,
-+					void *mqd, uint32_t num_sdma_queues_per_eng,
-+					uint64_t *val)
-+{
-+	struct v9_sdma_mqd *m = get_sdma_mqd(mqd);
-+	uint32_t sdma_rlc_reg_offset;
-+	uint32_t sdma_rlc_rb_cntl;
-+	uint32_t engine_id, queue_id;
-+	uint32_t engines = adev->sdma.num_instances;
-+	uint32_t sdma_rlcx_rb_base, sdma_rlcx_rb_base_hi;
-+	bool found = false;
-+
-+	if (!m)
-+		return -EINVAL;
-+
-+	if ((amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
-+	     amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4)) &&
-+	    adev->gfx.mec_fw_version < 194) {
-+		pr_warn_once("MEC FW doesn't support SDMA counter!\n");
-+		return -ENOTSUPP;
-+	}
-+
-+	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0) &&
-+	    adev->gfx.mec_fw_version < 44) {
-+		pr_warn_once("MEC FW doesn't support SDMA counter!\n");
-+		return -ENOTSUPP;
-+	}
-+
-+	/* SDMA doesn't support over-subscription, there must be
-+	 * a HQD associated with a MQD, so found must be true in
-+	 * the finding loop.
-+	 */
-+	for (engine_id = 0; engine_id < engines && !found; engine_id++) {
-+		for (queue_id = 0; queue_id < num_sdma_queues_per_eng; queue_id++) {
-+			sdma_rlc_reg_offset = get_sdma_rlc_reg_offset(adev,
-+						engine_id, queue_id);
-+			sdma_rlcx_rb_base = RREG32(sdma_rlc_reg_offset +
-+						regSDMA_RLC0_RB_BASE);
-+			sdma_rlcx_rb_base_hi = RREG32(sdma_rlc_reg_offset +
-+						regSDMA_RLC0_RB_BASE_HI);
-+
-+			if (m->sdmax_rlcx_rb_base == sdma_rlcx_rb_base &&
-+			    m->sdmax_rlcx_rb_base_hi == sdma_rlcx_rb_base_hi) {
-+				found = true;
-+				break;
-+			}
-+		}
-+	}
-+
-+	sdma_rlc_rb_cntl = RREG32(sdma_rlc_reg_offset + regSDMA_RLC0_RB_CNTL);
-+
-+	/* Read sdma activity counter from utilization register
-+	 * if hw queue is enabled, otherwise read from MQD.
-+	 */
-+	if (sdma_rlc_rb_cntl & SDMA_RLC0_RB_CNTL__RB_ENABLE_MASK)
-+		*val = (uint64_t)RREG32(sdma_rlc_reg_offset + regSDMA_RLC0_UTILIZATION_HI) << 32 |
-+			RREG32(sdma_rlc_reg_offset + regSDMA_RLC0_UTILIZATION_LO);
-+	else
-+		*val = (uint64_t)m->sdmax_rlcx_utilization_hi << 32 |
-+			m->sdmax_rlcx_utilization_lo;
-+
-+	return 0;
-+}
-+
- const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_gfx_v9_4_3_set_pasid_vmid_mapping,
-@@ -623,5 +687,6 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
- 	.trigger_pc_sample_trap = kgd_v9_4_3_trigger_pc_sample_trap,
- 	.override_core_cg = kgd_gfx_v9_4_3_override_core_cg,
- 	.setup_stoch_sampling = kgd_v9_4_3_setup_stoch_sampling,
--	.ptl_ctrl = kgd_v9_4_3_ptl_ctrl
-+	.ptl_ctrl = kgd_v9_4_3_ptl_ctrl,
-+	.hqd_sdma_get_counter = kgd_gfx_v9_4_3_hqd_sdma_get_counter
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index b934863312d0..2b9177427058 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1067,8 +1067,17 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
- 	/* Get the SDMA queue stats */
- 	if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
- 	    (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
--		retval = read_sdma_queue_counter((uint64_t __user *)q->properties.read_ptr,
--							&sdma_val);
-+		if ((KFD_GC_VERSION(dqm->dev) <= IP_VERSION(9, 4, 2)))
-+			retval = read_sdma_queue_counter(
-+					(uint64_t __user *)q->properties.read_ptr,
-+					&sdma_val);
-+		else
-+			retval = dqm->dev->kfd2kgd->hqd_sdma_get_counter ?
-+				 dqm->dev->kfd2kgd->hqd_sdma_get_counter(
-+					dqm->dev->adev, q->mqd,
-+					dqm->dev->kfd->device_info.num_sdma_queues_per_engine,
-+					&sdma_val) :
-+				 -ENOTSUPP;
- 		if (retval)
- 			dev_err(dev, "Failed to read SDMA queue counter for queue: %d\n",
- 				q->properties.queue_id);
-@@ -2728,8 +2737,18 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 	/* Get the SDMA queue stats */
- 	if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
- 	    (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
--		retval = read_sdma_queue_counter((uint64_t __user *)q->properties.read_ptr,
--							&sdma_val);
-+		if (KFD_GC_VERSION(dqm->dev) <= IP_VERSION(9, 4, 2))
-+			retval = read_sdma_queue_counter(
-+					(uint64_t __user *)q->properties.read_ptr,
-+					&sdma_val);
-+		else
-+			retval = dqm->dev->kfd2kgd->hqd_sdma_get_counter ?
-+				 dqm->dev->kfd2kgd->hqd_sdma_get_counter(
-+					dqm->dev->adev, q->mqd,
-+					dqm->dev->kfd->device_info.num_sdma_queues_per_engine,
-+					&sdma_val) :
-+				 -ENOTSUPP;
-+
- 		if (retval)
- 			dev_err(dev, "Failed to read SDMA queue counter for queue: %d\n",
- 				q->properties.queue_id);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0be2fd04e6d0..d17f064ea7b9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -95,6 +95,7 @@ struct kfd_sdma_activity_handler_workarea {
- 
- struct temp_sdma_queue_list {
- 	uint64_t __user *rptr;
-+	void *mqd;
- 	uint64_t sdma_val;
- 	unsigned int queue_id;
- 	struct list_head list;
-@@ -165,6 +166,7 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
- 
- 		INIT_LIST_HEAD(&sdma_q->list);
- 		sdma_q->rptr = (uint64_t __user *)q->properties.read_ptr;
-+		sdma_q->mqd = q->mqd;
- 		sdma_q->queue_id = q->properties.queue_id;
- 		list_add_tail(&sdma_q->list, &sdma_q_list.list);
- 	}
-@@ -193,7 +195,17 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
- 
- 	list_for_each_entry(sdma_q, &sdma_q_list.list, list) {
- 		val = 0;
--		ret = read_sdma_queue_counter(sdma_q->rptr, &val);
-+
-+		if ((KFD_GC_VERSION(dqm->dev) <= IP_VERSION(9, 4, 2)))
-+			ret = read_sdma_queue_counter(sdma_q->rptr, &val);
-+		else
-+			ret = dqm->dev->kfd2kgd->hqd_sdma_get_counter ?
-+			      dqm->dev->kfd2kgd->hqd_sdma_get_counter(
-+					dqm->dev->adev,	sdma_q->mqd,
-+					dqm->dev->kfd->device_info.num_sdma_queues_per_engine,
-+					&val) :
-+			      -ENOTSUPP;
-+
- 		if (ret) {
- 			pr_debug("Failed to read SDMA queue active counter for queue id: %d",
- 				 sdma_q->queue_id);
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/sdma/sdma_4_4_2_offset.h b/drivers/gpu/drm/amd/include/asic_reg/sdma/sdma_4_4_2_offset.h
-index ead81aeffd67..11c32e4274fa 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/sdma/sdma_4_4_2_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/sdma/sdma_4_4_2_offset.h
-@@ -493,6 +493,10 @@
- #define regSDMA_RLC0_MIDCMD_DATA10_BASE_IDX                                                             0
- #define regSDMA_RLC0_MIDCMD_CNTL                                                                        0x017b
- #define regSDMA_RLC0_MIDCMD_CNTL_BASE_IDX                                                               0
-+#define regSDMA_RLC0_UTILIZATION_LO                                                                     0x017c
-+#define regSDMA_RLC0_UTILIZATION_LO_BASE_IDX                                                            0
-+#define regSDMA_RLC0_UTILIZATION_HI                                                                     0x017d
-+#define regSDMA_RLC0_UTILIZATION_HI_BASE_IDX                                                            0
- #define regSDMA_RLC1_RB_CNTL                                                                            0x0188
- #define regSDMA_RLC1_RB_CNTL_BASE_IDX                                                                   0
- #define regSDMA_RLC1_RB_BASE                                                                            0x0189
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-index d34c869b182f..2c91242caadc 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -361,6 +361,9 @@ struct kfd2kgd_calls {
- 			     uint32_t *ptl_state,
- 			     enum amdgpu_ptl_fmt *fmt1,
- 			     enum amdgpu_ptl_fmt *fmt2);
-+	int (*hqd_sdma_get_counter)(struct amdgpu_device *adev,
-+				    void *mqd, uint32_t num_sdma_queues_per_eng,
-+				    uint64_t *val);
- };
- 
- #endif	/* KGD_KFD_INTERFACE_H_INCLUDED */
-diff --git a/drivers/gpu/drm/amd/include/v9_structs.h b/drivers/gpu/drm/amd/include/v9_structs.h
-index a2f81b9c38af..e0d387f08576 100644
---- a/drivers/gpu/drm/amd/include/v9_structs.h
-+++ b/drivers/gpu/drm/amd/include/v9_structs.h
-@@ -69,8 +69,8 @@ struct v9_sdma_mqd {
- 	uint32_t sdmax_rlcx_midcmd_cntl;
- 	uint32_t reserved_42;
- 	uint32_t reserved_43;
--	uint32_t reserved_44;
--	uint32_t reserved_45;
-+	uint32_t sdmax_rlcx_utilization_lo;
-+	uint32_t sdmax_rlcx_utilization_hi;
- 	uint32_t reserved_46;
- 	uint32_t reserved_47;
- 	uint32_t reserved_48;
--- 
-2.34.1
+Do the two instances share a common clock?
+
+> Thanks,
+> Lijo>           *value = 0;
+>>           break;
+>>       case METRICS_AVERAGE_UCLK:
+> 
 
