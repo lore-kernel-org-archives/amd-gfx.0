@@ -4,149 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F37CD98CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DE46CD98D2
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C23110EE2B;
-	Thu, 11 Jun 2026 10:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8773C10EE57;
+	Thu, 11 Jun 2026 10:49:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rg8TaMdQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fxr73VTf";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rg8TaMdQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Fxr73VTf";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FdH1ez+B";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D2010EE2B
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 10:41:13 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 084A26AF30;
- Thu, 11 Jun 2026 10:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781174472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uHu7E2XqoT0FsRVls0T7yIylb70qW7C5ilx/tc4d4Ps=;
- b=rg8TaMdQSYQlq/MkRl2DVzsltsld2rbp2dpBErdZldlOkl+HD5q9rBemlQHyqpOF99tYiQ
- VhpQS5f/9WK6rC0AMrPV5N3hD+MOs5Gn7Igz52ACFCM2h2tIvw261+1kdDpw2DltkUdpfh
- OvbCKw0RjYlOapSRsHThd5+5S0jejDs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781174472;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uHu7E2XqoT0FsRVls0T7yIylb70qW7C5ilx/tc4d4Ps=;
- b=Fxr73VTfc2VJNcWPSP6s2r69Fn6rR0HNs0v/SDC7NORvVHAXlfhZ8aAxfKUgNJuwbLslg5
- hRLGCCLbrRP37yCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rg8TaMdQ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Fxr73VTf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781174472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uHu7E2XqoT0FsRVls0T7yIylb70qW7C5ilx/tc4d4Ps=;
- b=rg8TaMdQSYQlq/MkRl2DVzsltsld2rbp2dpBErdZldlOkl+HD5q9rBemlQHyqpOF99tYiQ
- VhpQS5f/9WK6rC0AMrPV5N3hD+MOs5Gn7Igz52ACFCM2h2tIvw261+1kdDpw2DltkUdpfh
- OvbCKw0RjYlOapSRsHThd5+5S0jejDs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781174472;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uHu7E2XqoT0FsRVls0T7yIylb70qW7C5ilx/tc4d4Ps=;
- b=Fxr73VTfc2VJNcWPSP6s2r69Fn6rR0HNs0v/SDC7NORvVHAXlfhZ8aAxfKUgNJuwbLslg5
- hRLGCCLbrRP37yCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3568C779A7;
- Thu, 11 Jun 2026 10:41:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id aR4nC8eQKmpkawAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 11 Jun 2026 10:41:11 +0000
-Message-ID: <45aec54a-ec80-48ed-9bcc-84e7bccc11eb@suse.de>
-Date: Thu, 11 Jun 2026 12:41:10 +0200
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99E8510E9FF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 14:43:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781102625; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=bsanrk9NKy5TxvcGlw6HrsyZhLC4851SlJJcFOpvmv/YIyB0p/Pr1HQOazBGZuJR8HeubVtQ73NV/i6Q6tLHwmB7JG0Yu5LMTP3bistR9PbgQpEUkv/N9TD4W2JbU7IBGUKq+AkF3CIOun9ivkVkPyDDUwULUpw7l+SS7/eakEs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781102625;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=WFetzH6Pm3eLufX//G5V6M8Oo0C4OPBORVC7blwGZ8E=; 
+ b=V13WZWyNROa5V3H3caE/oDngR4oIVrfIwRtM6u+37TlJO8rNc6MRZlwoW5S9EBnZRrIa6nUu3MGqML+Cz8+gbURj3m6cPeS57XIxMrdxvMGGnUUmR9kYSR3xPY8amGW3Gs9MMsupHYEdgTx1lpvZ5fLE703J7mP9HFgoVoaDNRE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781102625; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=WFetzH6Pm3eLufX//G5V6M8Oo0C4OPBORVC7blwGZ8E=;
+ b=FdH1ez+BIFahB6+J3YHy+MB/XQun4Hv+Pw60zrWIEDH97uHyMvZtCojEzsJfo5Lf
+ WSoDHaWr/mNioXDGg5FonlbSm3bnFVsQvz3YS7Hpqg3tmwgEAfZGKyFSXqwCWu0JAoS
+ YEFZidbgRWn0NV63B7/OeLSKweTLvK4GYDLFogI4=
+Received: by mx.zohomail.com with SMTPS id 1781102623251367.4871643782956;
+ Wed, 10 Jun 2026 07:43:43 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: amd-gfx@lists.freedesktop.org, Chenyu Chen <chen-yu.chen@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Ray Wu <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Alex Hung <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>,
+ Chenyu Chen <Chen-Yu.Chen@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Chenyu Chen <chen-yu.chen@amd.com>
+Subject: Re: [PATCH 16/32] drm/amd/display: Add Support for HDMI Compliance
+ Automation
+Date: Wed, 10 Jun 2026 16:43:37 +0200
+Message-ID: <nGLVvJOTS8eSI7IusBrUxw@collabora.com>
+In-Reply-To: <20260610094639.1965367-17-chen-yu.chen@amd.com>
+References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
+ <20260610094639.1965367-17-chen-yu.chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/15] drm/amd/display: Handle struct
- drm_plane_state.ignore_damage_clips
-To: Javier Martinez Canillas <javierm@redhat.com>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, admin@kodeit.net, gargaditya08@proton.me,
- paul@crapouillou.net, jani.nikula@linux.intel.com, mhklkml@zohomail.com,
- zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- dmitry.osipenko@collabora.com, gurchetansingh@chromium.org, olvaffe@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Zack Rusin <zackr@vmware.com>,
- stable@vger.kernel.org
-References: <20260610152505.260172-1-tzimmermann@suse.de>
- <20260610152505.260172-2-tzimmermann@suse.de>
- <87y0gl5qw8.fsf@ocarina.mail-host-address-is-not-set>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <87y0gl5qw8.fsf@ocarina.mail-host-address-is-not-set>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[redhat.com,kernel.org,linux.intel.com,gmail.com,ffwll.ch,kodeit.net,proton.me,crapouillou.net,zohomail.com,broadcom.com,amd.com,igalia.com,intel.com,ursulin.net,collabora.com,chromium.org];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[32]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.de:mid]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 084A26AF30
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,56 +72,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Javier
+On Wednesday, 10 June 2026 11:45:00 Central European Summer Time Chenyu Chen wrote:
+> From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> 
+> Add support to get DUT trained at FRL link rate when working with
+> Teledyne M41h compliance automation.
+> 
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +
+>  .../display/amdgpu_dm/amdgpu_dm_connector.c   |  5 ++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 67 ++++++++++++++++++-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  6 ++
+>  4 files changed, 80 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 2940dd5b7348..ba1e11e144f2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -877,6 +877,9 @@ struct amdgpu_dm_connector {
+>  	unsigned int hdmi_hpd_debounce_delay_ms;
+>  	struct delayed_work hdmi_hpd_debounce_work;
+>  	struct dc_sink *hdmi_prev_sink;
+> +
+> +	/* HDMI compliance automation */
+> +	bool hdmi_comp_auto;
+>  };
+>  
+>  static inline void amdgpu_dm_set_mst_status(uint8_t *status,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index 6ef257622f1a..59091ee32099 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -573,6 +573,11 @@ void amdgpu_dm_update_connector_after_detect(
+>  		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid, true);
+>  		amdgpu_dm_update_connector_ext_caps(aconnector);
+>  		dm_set_panel_type(aconnector);
+> +
+> +		if (aconnector->hdmi_comp_auto) {
+> +			if (sink->sink_signal != SIGNAL_TYPE_HDMI_FRL)
+> +				sink->sink_signal = SIGNAL_TYPE_HDMI_FRL;
+> +		}
+>  	} else {
+>  		hdmi_cec_unset_edid(aconnector);
+>  		drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 096a855a7304..95a56e39f452 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -2982,6 +2982,64 @@ static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
+>  	return size;
+>  }
+>  
+> +/**
+> + * hdmi_automation_enable - Enable/Disable HDMI automation feature
+> + * @f: file structure.
+> + * @buf: userspace buffer. set to '1' to enable; '0' to disable automation feature.
+> + * @size: size of buffer from userpsace.
+> + * @pos: unused.
+> + *
+> + * Return size on success, error code on failure
+> + */
+> +static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
+> +	size_t size, loff_t *pos)
+> +{
+> +	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+> +	char *wr_buf = NULL;
+> +	const uint32_t wr_buf_size = 40;
+> +	int max_param_num = 1;
+> +	uint8_t param_nums = 0;
+> +	long param[2];
+> +	bool hdmi_comp_auto;
+> +
+> +	if (size == 0)
+> +		return -EINVAL;
+> +
+> +	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+> +	if (!wr_buf)
+> +		return -ENOSPC;
+> +
+> +	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+> +					   (long *)param, buf,
+> +					   max_param_num,
+> +					   &param_nums)) {
+> +		kfree(wr_buf);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (param_nums <= 0) {
+> +		kfree(wr_buf);
+> +		DRM_DEBUG_DRIVER("user data not be read\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (param[0]) {
+> +	case 0:
+> +		hdmi_comp_auto = false;
+> +		break;
+> +	case 1:
+> +	default:
+> +		hdmi_comp_auto = true;
+> +		break;
+> +	}
+> +
+> +	/* Persist setting across sink re-detection/hotplug. */
+> +	aconnector->hdmi_comp_auto = hdmi_comp_auto;
+> +
+> +	kfree(wr_buf);
+> +	return size;
+> +}
+> +
+>  DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+> @@ -3099,6 +3157,12 @@ static const struct file_operations dp_mst_link_settings_debugfs_fops = {
+>  	.llseek = default_llseek
+>  };
+>  
+> +static const struct file_operations hdmi_automation_debugfs_fops = {
+> +	.owner = THIS_MODULE,
+> +	.write = hdmi_automation_enable,
+> +	.llseek = default_llseek
+> +};
+> +
 
-Am 11.06.26 um 12:10 schrieb Javier Martinez Canillas:
-> Thomas Zimmermann <tzimmermann@suse.de> writes:
->
-> Hello Thomas,
->
->> The mode-setting pipeline can disabled damage clippings for a commit
->> by setting ignore_damage_clips in struct drm_plane_state. The commit
->> will then do a full display update.
->>
->> Test the flag in DCN code and do a full update in DCN code if it has
->> been set.
->>
->> Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
->> to ignore damage clips") introduced ignore_damage_clips to selectively
->> ignore damage clipping in certain framebuffer changes. This driver does
->> not do that, but DRM's damage iterator will soon rely on the flag.
->> Therefore supporting it here as well make sense for consistency.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
-> I don't think that a Fixes tag is correct here? Your patch series
-> is changing the 'struct drm_plane_state.ignore_damage_clips' and
-> the changes make sense, but definitely isn't a fix in my opinion.
+I really don't understand why this can't just be a DEFINE_DEBUGFS_ATTRIBUTE,
+and then you can replace the overcomplicated hdmi_automation_enable() with
+just simple setter and getter functions that already receive the parameter
+of the right type.
 
-But shouldn't we have added this test in amdgpu and the other drivers as 
-part of commit 35ed38d58257 ? Sure, these drivers don't use 
-ignore_damage_clips, but it's still an inconsistency wrt damage 
-handlers. Hence the Fixes tag. Another problem is that the drivers never 
-did the test for changes to the plane-state src coordinate that the 
-damage iterator does. But that is only fixed later in the series.
->
-> Having said that, the change look good to me.
->
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+>  static const struct {
+>  	char *name;
+>  	const struct file_operations *fops;
+> @@ -3131,7 +3195,8 @@ static const struct {
+>  	const struct file_operations *fops;
+>  } hdmi_debugfs_entries[] = {
+>  		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+> -		{"hdmi_cec_state", &hdmi_cec_state_fops}
+> +		{"hdmi_cec_state", &hdmi_cec_state_fops},
+> +		{"hdmi_automation", &hdmi_automation_debugfs_fops}
+>  };
+>  
+>  /*
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index a2d0bb34e639..6350212b9a66 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -193,6 +193,12 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+>  					__func__, connector->name, edid_caps->frl_dsc_10bpc, edid_caps->frl_dsc_12bpc, \
+>  					edid_caps->frl_dsc_all_bpp, edid_caps->frl_dsc_native_420, edid_caps->frl_dsc_max_slices, \
+>  					edid_caps->frl_dsc_max_frl_rate, edid_caps->frl_dsc_total_chunk_kbytes);
+> +		if (aconnector->hdmi_comp_auto) {
+> +			edid_caps->panel_patch.hdmi_comp_auto = true;
+> +			link->ctx->dc->debug.force_frl_max = true;
+> +			link->ctx->dc->debug.force_frl_dsc = true;
+> +			drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] hdmi_comp_auto --> enabled\n", __func__, connector->name);
+> +		}
+>  	}
+>  
+>  	apply_edid_quirks(link, edid_buf, edid_caps);
+> 
 
-Thanks for reviewing.
 
-Best regards
-Thomas
-
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
 
