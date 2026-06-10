@@ -4,126 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3723CCD8CB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 06:27:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37FDACD8CB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 07:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4B7A10E732;
-	Wed, 10 Jun 2026 06:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AE9110E748;
+	Wed, 10 Jun 2026 07:00:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Icfk38zv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GvutPPjR";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010066.outbound.protection.outlook.com [52.101.46.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0AC210E732;
- Wed, 10 Jun 2026 06:27:36 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A8010E748
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 07:00:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wgx+ycXuFAZaJmoat+huW+W+0g3mir2EvOLn5ibhWL0DixCDIY7cmDaLOi9TNE7pi0qiMIfaH+g0JOdAfkmbickVp64wlRzNn8DerIIGq0k3uVrW7o2qbeMLOQYEzm0BRwBxXdfJpnN5Opui83/m1j0628wFYjE0OmmYR/pOvLiqrlrCLGOH+NzVjHQn/BWOlc4C69ronpa2q/dXT9hYJNK0AB/ipXc0lmCFhsjlSBENkwfoJ9OmS7AY1yc9vd+lzcJKKaYFjvVRMyT/vERqpVeay9mlwgYhGHRShwkKVm86OlEee7ve0mD8N7U8uXbqYoKy2WyCgRa2Vl+9TS6avQ==
+ b=v3461HRvZwlfuOuoImz7m10gwgyxEKwNtoOj4uA3F6iC7NHzqFWD9MuTaR8DvCtOApmbg9Oc4+dlhYwKb5Ptq52uC51NCXOtkU41aDmZq0hfHy1SJU92Jia9kMzLPWmrbV+Apk7I2fb6fn5HYLRNXYagN6xZycjSGCqqqo5tI4DwLI3DmFyeCZmsnQeAOPOuSd8DFE11064i9UQ0PfAvtUrIQNpKK2BJtRbJukyzabooTEIRD16KjydqDf06Hs2WpnxotbVvB4/KP8pJqx+uFIjNgocqSiGSROG120ssz8MKJEEadyYJbhChBQ/vMuwe4hnyXgkjSwjwrG3iPROQgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A8PHOIBbmkYFAYFQerNpGTlsUnYq5TNF7lUBQtioc5I=;
- b=yPd7lLYeimo+44xrd8M4mz/dGLfeQ2jq7kQCJ80n2DbdGiByEZXW5oQ/nQCbnYUcF13/9DE9Xv6WxCDZneEXCFFh+HwFydpUaDnKs+h3Xjl50ZY9cDuB0SECnLxEs/LqomfJTPMaZ1WL8NiJ5RuV9f07P1qljikLea9k4FweoyijYXhnS4fezGNIPIWi9KAe13x33Fl1CrbD4s51zSsqmpIxBdTMSiFmOB/DfllkrpbtwckMcyiEXXFEmzgbPX5kyah+MBFxG+dkI+p1y5E5edlCYriKsI9DmvF46qZoRf9x6Fg/nd8PEJ8EyzKIOzFhXwOPi8Sschq8jWyAIGK8pA==
+ bh=XgUo4GFo6so6oZtc3oCw7iHHgEx7mhOlgiitgeJmoM8=;
+ b=n31DAcThy8HDC95WslKg1t4gzoCzT58YmOtcLb5D+CkQt5uketHppjADolQ16HAUnsHtNDK0pFpB99flVKV+jWQV/rLLNKi+uFDiQrVqVoK493zOOVRN8xWn68YP+It7tbCQJQTCILX+GkIA0754D+PLZpFmsHLmB4vb/AIwwcMsaZg0tv8dyUeOL5ZeXgWGvkINXTqzTsEH6JmUpskl6doLqgNCG0BF7jCx5BMo3B1oXy/EE9A1kPqhM+8q8VV6RxpK1TQuPv+Q70XUBjC2TUs7UIIR/DOQ9xSHgzP8dp+5X5K3juOAc57fuTmdA/Xz/AaWgtM/KN5TNkGJs7QSjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A8PHOIBbmkYFAYFQerNpGTlsUnYq5TNF7lUBQtioc5I=;
- b=Icfk38zvvE4sJQHamqFFV9MqAx7WOZLQ0elPz3mGPbubLky0IbqwzwMa8XNha1PiaoIjQZSjpA2ZhJjrdz234BBsarRWCtSRXVJQEc+JgtYfHkKFxNr3JXSgQZ7Nuq+u0nBm3snbbQB41v5L+nYAhiFyCWtopVZ92zh0QAxt/W8=
+ bh=XgUo4GFo6so6oZtc3oCw7iHHgEx7mhOlgiitgeJmoM8=;
+ b=GvutPPjRM8RjakPQdPvNciM/6dBGIdqRo2LqaIJaOU+JRAuzxbqIEu1A6AOr6r+1HylKwwuJsHzKVxKUlHuH4QyZwQxo7ryeogpTz87dXnVINZzjPXVDkvOylwcp5Tl2q/cL9CA5zpcXcrAiaaaeWYg9WAuDv+cJnRWn64jgWhE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11) by CH3PR12MB9393.namprd12.prod.outlook.com
- (2603:10b6:610:1c5::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 06:27:33 +0000
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8]) by EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8%4]) with mapi id 15.21.0071.011; Wed, 10 Jun 2026
- 06:27:30 +0000
-Message-ID: <4d5ae693-a9a5-4ed3-a881-ffef92145193@amd.com>
-Date: Wed, 10 Jun 2026 11:57:23 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] gpu/buddy: replace dual-tree/force_merge with
- decoupled clear tracker
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20260527112902.3815-1-Arunpravin.PaneerSelvam@amd.com>
- <c9cdcf8a-d531-4e79-a238-97fd39b8c108@intel.com>
- <9b0add60-9bca-44dc-a95d-be289ea2d3c1@amd.com>
-Content-Language: en-US
-In-Reply-To: <9b0add60-9bca-44dc-a95d-be289ea2d3c1@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0148.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:c8::10) To EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11)
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
+ by CH2PR12MB4120.namprd12.prod.outlook.com (2603:10b6:610:7b::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Wed, 10 Jun
+ 2026 07:00:06 +0000
+Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::18c4:be41:febf:7e45]) by SJ2PR12MB8690.namprd12.prod.outlook.com
+ ([fe80::18c4:be41:febf:7e45%3]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
+ 07:00:06 +0000
+Date: Wed, 10 Jun 2026 14:59:47 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Huang Trigger <Trigger.Huang@amd.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after mode2
+Message-ID: <aikLYxMZpzhcBKrf@amd.com>
+References: <20260610055736.951241-1-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260610055736.951241-1-Jiqian.Chen@amd.com>
+X-ClientProxiedBy: TP0P295CA0032.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:4::20) To SJ2PR12MB8690.namprd12.prod.outlook.com
+ (2603:10b6:a03:540::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR12MB999132:EE_|CH3PR12MB9393:EE_
-X-MS-Office365-Filtering-Correlation-Id: 348b2744-b953-483c-d5ae-08dec6b958b0
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|CH2PR12MB4120:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84e1cf71-bcb9-4271-d059-08dec6bde726
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: cYkaLbj+t29LDyGptgijeASHBMOZXM9054CH/y52cbaD3G/RB/z/AhXo9y7xh7vT7uCW3gI+jrIpbIEKO26+Ml7Fy/z82kjppCiY9ITNhKYIA3KMlWIk4eRYnXaUh/9ykax7gpvhOds+M+KqJXNWIY4eCsxdfWSc1K8+RHl4rvj3by7lCDMemN0EJfelvl3RJ7GjPVhO8mjFn9yOKSPQguG3COQ1Ml5RK4cd4HsFTUZKa+ght95awXtCHxzkCI2B3uY1N5K5OlHbDzxJquC8K4vrMnmmXlrPDoLD05sm4SbsQPHlCSuV/A0a2gB7myfo+Td1V/ZHAcZT0SufCfQriekfvQzTSC7tWajvFLW/TPckUUPm9p37TECdRamS26lQdoS9m0xlv1vsKwxl56QekHFBtu3AxI3GnQhsXFt3hXe4VTsdjbrUjR6kLZv+lWSUVkPiBTr+rH6MPwU7t0hd5nsDcIZ7oQE6TnUZt8dr6BumL38qCSPwlpA0/Y5cd1uSkRfD4OZmpj06xTY2/v01sDO+4csv4KcXzenHs6QoC77d8204tanJjhfovtmukACdRd0eteJJlGApKnSRpj/Opx8uSW2Ylk6KHLKxlW6dmS4avuWi+V7UJyhwc+LuOEu+TgyvI2IeTXuPDcBYvtpYTGH3EJd4wmYzMVOfh6FCxutBYJ6dGKFdX4oqCc+HRAX5
+ ARA:13230040|23010399003|1800799024|366016|376014|56012099006|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: jC5Pu32svLgPv1VzREhD587/bdIXI5Z5rznsJWGVSHeu/0tX7GTfi8yDF+NFIYR1Dl1zOFtMwG9pBFIZuWjuUSOcvpbDwEcgXvSx6yza2IUoaVufSm1wFGJDdsum4dJMX4PRGqIp/HX2upxQE3hwHfeQqNC/+/ENtx1mwZaibn1RbiBtYncdt95iC85LJ4ki+g5Ov2w9/abiDMCAlE9CylnqVgmcKQcLHmkhVtnGh9LrR0Tv89wnyEu73PoXUntYW8qTUgaSTF9aG0wdfyvUJQ8lAslpuRZJW28tC4bqYM502rXiW7GnKIOIZ+4YJ8Mr0Z4Xpz283oaJSOIMcmZvlxSah7rhPQM1ZQDRrnQl3W1Ja2a2p20HQ0OtbI9cFk9tprSGP5jooyqjJIUVE7Hi1Xg79MuKgwcbUSuI4ykcjIEkyJZYcygDgDz8FZnLMbDx5mc8UDDteXSKH+8dJwPMFDg57WCFyA0ME7zfvOT1Jj4C8HhYKaXL723Iv5LtBtO0Lfx0G9LxSsvKb5G/5zv1Epe9NEXgVk52KQTyhWM2oM5T98O1ZFqknsi4uHd+67Od+sl3qVW2xpwPL5luWAv7IaQFWkRU0dqBa2fJIIJCpiBAcOlW9+AxwdztriOisIHJmPgb/9U8RIH0gtbEBBn+tulQKklJA09afYi3Rq2ts8d87+a2/ADdYyIjjhg2tbJV
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR12MB999132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB8690.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDI0R2FrRll5dU1VOEdGakZPYUk5UWJJVTF4amZpcFZqd3hoQXB1VVU5bjZi?=
- =?utf-8?B?SGptK2NiNFJLbWJ4WXhaQ0hneXRFUThtOUJjdlJuZnhNM1l5RnY4UkRaTEtU?=
- =?utf-8?B?WklRekNhZklxR1JEcTU5bzBFUWlFSU5rNmhBVXJtU09GQmM2c0JVT1FNNjhO?=
- =?utf-8?B?YkR2NDRRQ0J2M1dNZ2FiaE1vNDllaVdpVE9lRGJWQm90UjltQi8yQXI2VUZa?=
- =?utf-8?B?Q1NsaWJPYm0wakpOOWhmWFJlMm14MmI2ZnVoeWxrQjRtZy9LTi9YYnpxM3Ni?=
- =?utf-8?B?cDVyNkRRMU1Ga2VUV0hsQUpJeThjUWowcWs5aW1Eenp3SVc5WHQvaVVzVUFD?=
- =?utf-8?B?MEFJL2F2ZEp5ZTlBYU9WTy9RUWlyY2w1bGdMYkpiOEdvYTlxUjFBN1NGd3VP?=
- =?utf-8?B?b3pPcURlQUtNVzVUYXZ3TWhkTTFyTHJaU1FiNW96NzE1NGN1RDFHZ3pOSml3?=
- =?utf-8?B?K0h0S0lCUWwybDEycXJ3VTlFaUVFOTRvdVdyZ2VkUWVaemNxMWNSaWJUWUZl?=
- =?utf-8?B?aS9vVTd0elVkOXA2R2xwM1lsSEx1STJEWTRvM3NOUWtaWlFGa1VZL0RYVXNN?=
- =?utf-8?B?emZGNm5IMVMvU2wyWDRyMEt2Mm5JTUZuNEFDUmlzSE1tTklNdmFrVm1GTWVC?=
- =?utf-8?B?U0R1QjJBVVBySHhxN2xjczQ2OWthMUxjUkF6NWJKQVR0Y05wd0J2Q0VJSmtK?=
- =?utf-8?B?Nit0QmdBOWJSb2lIRVFYYzFzQ0F6SThBaVpObUR4Rk1WMk9kYXFqUkJENWc3?=
- =?utf-8?B?cjU0ZDlTaXp5MUNpaEJ2cDJ3WUVOQUVIWFBXaDh2VWhOY3dmdHFCWkx1ekhO?=
- =?utf-8?B?ZEFGOTB0bjVNemplcTZjM1pmZ2ZaY3crRG5ad003SXh6dnNGQWVxbXlsd2Nv?=
- =?utf-8?B?ZFdDT2pzd2JhS0VRMmFhL0R4V216Z0RTYlFDNFliOWIyNHFKcGZyTDNvU3BU?=
- =?utf-8?B?eDZ3NGUwSkQyWko5Q1pqdWJ6RXU1NG16THZYT1NJYnlmQXNuNGplTTgzYko3?=
- =?utf-8?B?MVhUQlhGVjlVYXdTZDZSYXJpN2wwTThVL3ZrWGtIKzlzVU5LYUlNNHZaYm9V?=
- =?utf-8?B?MllmaUZNVzI0T25mT09aR1hJeDIxK0tNbUdyMjVmTVM5OG5OWTVnRkErQVM2?=
- =?utf-8?B?cGRWcmZEUWdPOFVNRkNsdWJ5ZGZ0NTQ1eE1pMzNuenI3WENWeEc3a0gxVGhk?=
- =?utf-8?B?bmJ3cjZQR1FScjFFcTR1bVdXUCtYRloySUlVZXoxQ0ZjeUVPVmJrS2hzVk80?=
- =?utf-8?B?N1ZCWGVFYkM2b2ZldnlFSmVteS9TZnF6dnhlMFBTbUNCS25EelRFM1R3VmtZ?=
- =?utf-8?B?YnZUanNlSkEybDBUUkdtL1htUkNueENPeUhXcVFVV29yZmtaYnhBWVdtWXBV?=
- =?utf-8?B?aytncEFNUG0xV0VtM2tlWXVmNEI2UEUwZzREZ3hielBoM3hlVHkyYXZHSS8v?=
- =?utf-8?B?Z1B0cGdWa3hnQ0pPTjUzU29IL2ZoeUpEd0ZERENhSGUydUo0VFBXTjZTM2RH?=
- =?utf-8?B?Z08xWlFSRFJCRW9qTGptRENOWExqKytQNnRrT0dHSDNKSXcrVWlmeXpvc2Y5?=
- =?utf-8?B?TG5NM2ZiRkZFQXl1OERIT2lGUG5HNytLTHhSdmI1blhYaEQwaHhIUHFQREd6?=
- =?utf-8?B?dldHZ3V5SHNKWVFtVGg0U2hNaVdnK09WaThwUlVZVlhuQlEza2xKNEdGN2Ex?=
- =?utf-8?B?OC8xV2toVWNvV3dGRTJmZndXLzdRUzBpT3pEc2NSTnlLOE9BQ2l6SWQzT0Nm?=
- =?utf-8?B?NUN3WFZkNHZlb09QcitVU281RG9EaTJ5aHRpWGFRRzNYZzRmLzlqTnIzekE1?=
- =?utf-8?B?UFhKeTdGZVFDL0lZcHFIaGdVQlprYlhheDNMK1VGZzUyTTVILzFic242bEZk?=
- =?utf-8?B?a3dIM0U2YVZqMG41Q0JEb3FPNHhObjI1TVlYdm5FMUZ1Y0RzK1h5VHdpdndk?=
- =?utf-8?B?aWQ3U2ZueksrTmR3Wk1KdDNSNWJRaXNLaWhKaEluQkhMeFNDemg3aWtmUGtM?=
- =?utf-8?B?QVlPVkR1cWhNM1ljb3lqc3BBNnp6VXhvOWFhZUN4ellENkNKY0R0NG1MMjYz?=
- =?utf-8?B?TTJRcWRRbkhrVWpqNzNMYnJmdkR6b2cwMEc4OFQ3ekJhaEcxKys0OXNDd3lj?=
- =?utf-8?B?d05XZzEzU0FnUkNPQjNhaEdhNG9sOVZkTXNMRnhYMVplNHdnL09mQXQrTmc3?=
- =?utf-8?B?Ulhqc2tXUjJXRHB0OHNUSVQ3MmhmT2NCNFZDbnNEZ1JhdlRwYXRhZEJKT09W?=
- =?utf-8?B?Uk5wdnZvSmdnZEZmZVU3SnJpNmIxckU5dFZNMDJ0NjFGajIyRXBmZ3hVNDF3?=
- =?utf-8?B?UkNJMnIyU2hZSWg3L1B3TzdQeDh1M0ZkUlYyc2FMc1o5dnAyMlZadz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?JMY2sVMtUJZ0Nr13x8aIGKUqZzcwvljke10lksHqFlE1UZPPAJpPaexx8fqG?=
+ =?us-ascii?Q?G8pwG03D2JIg5QJpoiPmUPIAiUU3hbZDdUiqItEmw8M2+DNJekmFDr0gV8h9?=
+ =?us-ascii?Q?XQ1yba7616hh/uoY8tlpKcREQORMVQ183r3A+TdwqdoWxYB33+M/plhmzfxa?=
+ =?us-ascii?Q?Yx+yCbbJYpev8NKmE0D0M0ySGXe2WQtB3KqaHZIJPUOsRoZ7pV4EeEqgSXsL?=
+ =?us-ascii?Q?99thPlABkYJ2MoAKs9gDX4HxoX7cmKFaV9ZwgHYZRM7NnwW7icnX5xHWChbi?=
+ =?us-ascii?Q?SxkfPSpyiypGuzjGg1ElmqO2kf/Ksz22PA5HCqr7Rs0sP8hA1CKfDRWZi7cJ?=
+ =?us-ascii?Q?NJcDkAwLH348EcSx4pTrtFMCWbfrbGILRWrlLK2EJ0skGhf8CGE/DdDXnjzZ?=
+ =?us-ascii?Q?Lc4XRd7yHAg+73a0w3QSdRSTRo2kODUSTFbvdrO/F68dIjX95ig66uZi1Guy?=
+ =?us-ascii?Q?NGAgRSupHO3mwWZyHMXd/+nfAU8FDP+A3lwBS8pg9eX4UM/wiiPhtEIxmRYr?=
+ =?us-ascii?Q?w58TQDvdKuzzrc7o0qarhWMan/hqQaJSn5ReF2CLH8DNx6sYqT060FPkjVLc?=
+ =?us-ascii?Q?qfZ81B0U26Q6vgwoXi9Lbov8FQ4w+trNN7LhGvvJ6Ne8tw6r+CTOMMNvkFDY?=
+ =?us-ascii?Q?Q5jFaWodMwOp4bTsN4ako+d4d4R4tpmZlEmDciJ9ZHk13NDRtYg/Nx9mdbit?=
+ =?us-ascii?Q?GoLbySCJpzFME0AnPN96w9cpHorIbGfu08bEskQJQbHdbeW/oSZweaEbRsQN?=
+ =?us-ascii?Q?bbflegvkeSbSJI+KryCKz4uG86v41JahQacJrcQzqC4/1XoV/UmeSfQHB1le?=
+ =?us-ascii?Q?4cxtHhMpZu4VISRyl3R4fMbVSYXVERWlEUGfaPdR/ibXIBB3SGcUajYNp6pe?=
+ =?us-ascii?Q?TI67M4cTWF6HYRXTxOIJGQe4bLhWfoY/EOzeY7mJBWTC+63td+jZjjSqvNME?=
+ =?us-ascii?Q?eqLa/YA9W4doIHCF7uPktfTvue34iVSA46goRvZkr04AShpQLxm0arQqMXNu?=
+ =?us-ascii?Q?3glNZg3RUMSEGv/HqX73yqqvGaay11nvNPPYU2UD5GWu3wKLTwQlrV0os4Cn?=
+ =?us-ascii?Q?TKcpKaM+4eIMh299u0cjw5fQLjJc67yDkRDitA6YBQD+QnkoX8dSFTb9b3yO?=
+ =?us-ascii?Q?jvJJuxhjRBkEi6SZqvC6z6U+aDCZ3ObgGBIyg17QlWZUuRshWijLoikKKBWX?=
+ =?us-ascii?Q?UHtuCmSRWavPg6EaDtGIdSOgiMrthXAr+DbfGEKEMwvMKcwdDnFtkM3Mw4ok?=
+ =?us-ascii?Q?yxHa0SNCdPzH3heZIYBHhLdKFMXKYtpyjPRVMdhuND65iT2sXfRPLlXrmxWO?=
+ =?us-ascii?Q?W57Ff3Qd2u82MDErUAaercifAwtGZR8VSXn0vbHvbjaLfI9xa+EmC+GhwpN8?=
+ =?us-ascii?Q?0Xsrz1nq3F//11QjQNzonjxMmh7P1cJ1GYWjeifYvczJATwqEeZUX/vmCYvG?=
+ =?us-ascii?Q?4K8rl4is82C0YxYGE4QClnHyJMu+358HqIuDDHf45Q/9Ch0sOs2ZnbRYYKd9?=
+ =?us-ascii?Q?pl1Zdb7PzOUP25xZ4oFzg4+XXEM2izXzsUYjCZ5F9xkM2MfFSXtdyuxFlONz?=
+ =?us-ascii?Q?BspMufPxcrp8yapLncwSiVXvqdyMC6IYKdLXzGAZGKxI2b7Jr8PG6ZPnXau3?=
+ =?us-ascii?Q?vjIVo4ijy5MjhgaG9heja/pEp4XhcWjYKf10n3JrlJ02bFMmDngjCAZlkutO?=
+ =?us-ascii?Q?lPUYKD7QRsj8JsUOitmFCpHif5shzUaKF2q6iPzMA+V6DoID+Q/M39Y7pNBL?=
+ =?us-ascii?Q?x868fhAaZg=3D=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 348b2744-b953-483c-d5ae-08dec6b958b0
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84e1cf71-bcb9-4271-d059-08dec6bde726
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 06:27:29.8806 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:00:06.4159 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kCpcTTmjVqFt5D5OSto+yis4YhTePyPXePq//9UNrzdjTEK0J+zYlN4sx5tXExgHR5CgOB5DE/9G979350Cfxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9393
+X-MS-Exchange-CrossTenant-UserPrincipalName: eZP6g7mI9uy8pu0dAecvXfQf+QpESKt5cDu8UC98Nzjh5YrFUX5GzCGmMIZibRcq4aYdayo5iDfiOUAlJ0NIew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,150 +124,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+On Wed, Jun 10, 2026 at 01:57:36PM +0800, Jiqian Chen wrote:
+> For Renior APU with gfx9, in some test scenarios with disabling
+> ring_reset, like accessing an unmapped invalid address, it can
+> trigger a gpu job timeout event, then driver uses Mode2 reset
+> to reset GPU, but after Mode2, the CPC and CPF are still stuck,
+> that causes compute Ring tests fail. What's more, the HQDs of
+> MECs are still active, that causes MECs use stale HQDs when MECs
+> are unhalted before driver restore MQDs, then causes compute IB
+> tests fail.
+> 
+> So, add sequences to reset CPC and CPF after Mode2, and de-active
+> HQDs of MECs before unhalting MECs and mapping compute queues.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> Hi all,
+> 
+> My board is Renior APU with gfx9, smu12. I run a testcase that
+> accesses an invalid address to trigger a amdgpu_job_timedout()
+> with disabling ring_reset, so that driver will call mode2 reset
+> directly. After mode2 reset I found compute Ring tests and compute
+> IB tests fail randomly on random compute ring.
+> We checked the scan dump of GPU, we can see the CPC and CPF are
+> still stuck, that may cause Compute Ring tests fail.
+> I added printings in driver codes (gfx_v9_0_cp_resume), and found
+> the HQDs of MECs are still active, that may cause MECs use stale
+> HQDs when MECs are unhalted before mapping compute queues (restore
+> MQDs to HQDs).
+> So, I send this patch to fix above problems.
+> There are two main changes of my patches:
+> One is to reset CPC and CPF before resuming KCQ.
+> Another is to disable HQDs beofre unhalting MECs.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 40 ++++++++++++++++++++++++++-
+>  1 file changed, 39 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 47721d0c3781..dc0978bc312c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3944,7 +3944,8 @@ static int gfx_v9_0_kcq_resume(struct amdgpu_device *adev)
+>  
+>  static int gfx_v9_0_cp_resume(struct amdgpu_device *adev)
+>  {
+> -	int r, i;
+> +	u32 tmp;
+> +	int r, i, j, k;
+>  	struct amdgpu_ring *ring;
+>  
+>  	if (!(adev->flags & AMD_IS_APU))
+> @@ -3967,6 +3968,43 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *adev)
+>  		gfx_v9_0_cp_gfx_enable(adev, false);
+>  	gfx_v9_0_cp_compute_enable(adev, false);
+>  
+> +	if ((adev->flags & AMD_IS_APU) &&
+> +		(adev->apu_flags & AMD_APU_IS_RENOIR) && amdgpu_in_reset(adev)) {
 
-Ping ?
+It should be not only for Renoir, and I think it should be also for all
+gfx9 based APU such as Raven, Picasso, etc.
 
-Regards,
-Arun.
+Could you use AMD_RESET_METHOD_MODE2 of"enum amd_reset_method" as the check
+condition? Because it is the issue of mode2 reset.
 
-On 6/1/2026 4:21 PM, Arunpravin Paneer Selvam wrote:
->
->
-> On 5/29/2026 11:11 PM, Matthew Auld wrote:
->> Hi,
->>
->> On 27/05/2026 12:29, Arunpravin Paneer Selvam wrote:
->>> The current buddy allocator maintains separate clear_tree[] and
->>> dirty_tree[] rbtrees per order, preventing coalescing between cleared
->>> and dirty buddies. Under mixed workloads, this creates a merge barrier:
->>> adjacent buddies frequently end up split across trees, forcing reliance
->>> on __force_merge() during allocation.
->>>
->>> __force_merge() performs an O(N x max_order) scan under the VRAM 
->>> manager
->>> lock, leading to allocation stalls and failures for large contiguous
->>> requests even when sufficient total free memory is available.
->>
->> So is this contig with non power-of-two sizes?
-> Both power-of-two and non-power-of-two contiguous requests are 
-> affected - in either case, the required higher-order block can't form 
-> when its lower-order buddies are separated by clear/dirty state across 
-> the dual trees. But the core issue we are seeing is VRAM fragmentation 
-> caused by massive small allocations (e.g., thousands of 4 KiB–8 KiB 
-> buffers) that end up split across clear and dirty trees, preventing 
-> buddy coalescing. This leads to allocation failures and OOM in later 
-> workloads even when sufficient total free VRAM is available.
->>
->> Do we know if we could force_merge everything in one go or somehow be 
->> more aggressive and do more than needed now, at the first sign of 
->> contention here, instead of doing it piecemeal? Downside would be 
->> losing more of the clear tracking, when this happens, but more 
->> re-merging.
->>
->> Could we have another per-order list, of all blocks that we failed to 
->> merge, when we did the free step? When doing the force merge step, we 
->> maybe don't need to search blindly and can focus instead on the stuff 
->> tracked in those lists? Maybe it doesn't need to be a list, but could 
->> be another rb-tree?
->>
->> We know the size of the total allocation, if we trigger force_merge, 
->> could we try to merge enough in one go for the entire allocation, 
->> instead of restarting the entire thing on the next iteration? Would 
->> that help at all?
->>
->> But I guess these are more for the stalling side, and won't help much 
->> with the contig angle?
-> The memory is highly fragmented into mostly 4 KiB chunks and small 
-> scattered blocks across the dual trees, so although total free memory 
-> exists, it is split into low-order fragments. The workload then 
-> requests very large contiguous allocations (tens of GBs, e.g., ~64 
-> GiB), which fail with OOM because the allocator cannot form 
-> sufficiently large high-order blocks from the fragmented space. We 
-> could go with more aggressive merging or merge-in-one-go approaches, 
-> but this might waste more cleared memory. I think fundamentally the 
-> buddy allocator should be allowed to merge unconditionally - the 
-> single-tree approach with unconditional coalescing would improve the 
-> fragmentation and benefit contiguous allocations along with addressing 
-> the stalling and latency issues.
->>
->> For the extent idea, is there any merit in maybe doing this for all 
->> contig blobs, and not just cleared stuff? Or is the workload you are 
->> seeing only benefit users that want cleared stuff? Wondering if this 
->> would benefit all users that want contig? Like if we hypothetically 
->> kept clear and dirty separate, like we do now, but with an improved 
->> force_merge, and then have extent tracking for all contig blobs and 
->> replace the try_harder stuff? When you do a contig alloc, the 
->> individual clear/dirty is still all there within the range, so you 
->> can skip re-clearing in some cases. I guess downside is overall more 
->> fuzzy contig + clear/free path, but I guess you would never get 
->> allocation failures, when there is sufficient contig space?
-> Yes, extending extent tracking to all contig allocations has merit, 
-> but the core problem remains - with the dual-tree design, we still 
-> need force_merge to undo the clear/dirty split before those extents 
-> can form. In cases like heavy small-allocation workloads (thousands of 
-> 4 KiB buffers) running first, the memory ends up massively fragmented 
-> across both trees. When a very large contiguous allocation (e.g., ~64 
-> GiB) comes in later, the allocator fails with OOM even though 
-> sufficient total free memory exists, because the extent tracker can't 
-> find a contiguous range that was never allowed to merge in the first 
-> place. I think the dirty/clear split is fundamentally the problem - 
-> allowing the buddy allocator to merge unconditionally removes this 
-> barrier, and the clear tracker can then be layered on top as an 
-> optimization without blocking coalescing.
->>
->>>
->>> Solution
->>>
->>> Replace the dual-tree design with:
->>> - A single free_tree[order] rbtree for dirty and mixed free blocks
->>>    (fully cleared free blocks float outside this tree)
->>> - A lightweight out-of-band clear tracker (gpu_clear_tracker)
->>>
->>> Fully cleared free blocks are tracked outside the buddy trees using an
->>> augmented interval rbtree, enabling O(log E) lookup of the largest
->>> cleared extents.
->>>
->>> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
->>> of clear/dirty state. This removes the merge barrier and eliminates the
->>> need for __force_merge().
->>>
->>> Benefits
->>>
->>> - Correct high-order allocations after mixed clear/dirty workloads
->>> - Elimination of O(N x max_order) merge cost from the allocation path
->>> - O(log E) cleared-extent lookup replacing O(N) scans
->>> - Predictable allocation latency under fragmentation
->>> - Reduced complexity with a single tree per order
->>
->> Since there is no separate tracking for dirty stuff, is the 
->> non-cleared alloc path a bit more "fuzzy" now, with it potentially 
->> stealing cleared memory, or is it the same behaviour still?
-> Right, on v4, the dirty and mixed (partially cleared) blocks are 
-> allocated for the non-cleared alloc path, which can end up stealing 
-> cleared memory. On v5, I plan to address this with a three-tier dirty 
-> allocation fallback: dirty → mixed → clear, driven by rbtree augment 
-> bits (subtree_has_dirty, subtree_has_mixed), each pass O(log N). The 
-> split-descent also applies the same preference at every level when 
-> carving a higher-order block, so cleared memory is preserved as much 
-> as possible and only used as a last resort.
-> Thoughts ?
->>
->> For drivers that don't use free tracking, is there some benefit? Are 
->> there any downsides there? I assume that clear tracker is always empty.
-> Correct, for drivers that don't clear memory, the clear tracker is 
-> always empty and they simply allocate from the free_tree[]. Benefits:
->
-> Single tree per order instead of dual trees (fewer rbtree operations)
-> No force_merge path at all (unconditional coalescing at free time)
-> Simpler code path overall
->
-> No real downsides - the clear tracker adds zero overhead when empty, 
-> and the augment bits would simply show all blocks as dirty, so the 
-> walk degenerates to a normal rbtree lookup with no extra cost.
->
-> Regards,
-> Arun.
->
->
+> +		/*
+> +		 * CPC and CPF are still stuck after Mode2 reset, that causes later
+> +		 * compute ring test fail and then loop Mode2 reset infinitely
+> +		 */
+> +		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+> +		tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPC, 1);
+> +		tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPF, 1);
+> +		WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
+> +		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+> +		udelay(50);
+> +
+> +		tmp &= ~(GRBM_SOFT_RESET__SOFT_RESET_CPC_MASK |
+> +				GRBM_SOFT_RESET__SOFT_RESET_CPF_MASK);
+> +		WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
+> +		tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
+> +		udelay(50);
 
+It would be better to use a specific function to implement the register
+programming like clearing CPC/CPF and also HQD_ACTIVE below.
+gfx_v9_0_cp_resume() is high level function.
+
+Thanks,
+Ray
+
+> +
+> +		/*
+> +		 * CP_HQD_ACTIVE survives Mode2 reset. Deactivate every MEC HQD to
+> +		 * prevent MEC use stale HQD when MEC unhalted before restoring MQD.
+> +		 * Otherwise, later compute IB test may fail
+> +		 */
+> +		for (i = 0; i < adev->gfx.mec.num_mec; i++) {
+> +			for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
+> +				for (k = 0; k < adev->gfx.mec.num_queue_per_pipe; k++) {
+> +					mutex_lock(&adev->srbm_mutex);
+> +					soc15_grbm_select(adev, i + 1, j, k, 0, 0);
+> +					WREG32_SOC15_RLC(GC, 0, mmCP_HQD_ACTIVE, 0);
+> +					soc15_grbm_select(adev, 0, 0, 0, 0, 0);
+> +					mutex_unlock(&adev->srbm_mutex);
+> +				}
+> +			}
+> +		}
+> +	}
+> +
+>  	r = gfx_v9_0_kiq_resume(adev);
+>  	if (r)
+>  		return r;
+> -- 
+> 2.39.5
+> 
