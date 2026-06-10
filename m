@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C8ACD98D7
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E964DCD98D6
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC70110EE5C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F72510EE58;
 	Thu, 11 Jun 2026 10:49:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TikirlpU";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="jyo/yFGO";
 	dkim-atps=neutral
-Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com
- [74.125.82.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A10510EC69
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 02:42:51 +0000 (UTC)
-Received: by mail-dy1-f194.google.com with SMTP id
- 5a478bee46e88-304d7f31215so6727164eec.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 19:42:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781145770; x=1781750570; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HZ3tnpLmuxVn6RG46V9wPX6GdF132bX99ersePpQd08=;
- b=TikirlpUrRJBk4acnsjCNhjjr22bB5P1jeoKItQyBS2FKBq402U7dudxhTiqibxb6+
- Dn4cM2ghKCYnZA+Y/gkN2iy/8jhA01GSs/DLD4o2pTUAenhc9QbVug8gLiAfdpGIp7FS
- lwyr+/TLYgCQ3RE/XH93KontZ2EB00po+kNihIuN/I+JgnxIKx925KMBkp4v3eZqp6Fm
- MztJ9kHsCvx2RRNLFOCu3rdr8Z4zI8LyDjaivOIyX82/KM7UBqI9e4ixslPdimAVIdco
- pSJGh8COHFbv+Gs49n2oTcb45xtqsZWNCAjJlzPtC6hiUrgfqLkWAvdowDLN2Wt5waA9
- geig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781145770; x=1781750570;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=HZ3tnpLmuxVn6RG46V9wPX6GdF132bX99ersePpQd08=;
- b=Fbno2TlY1M4ulnfnFrofAsMojC4oujRQ+CcvMSolshEZnLW9XAVdYZKOdPJk3KmKwJ
- uGrEjpcMQ8QKJmU6KyYSI43pEAuYWzoNAlFVwIIFzr/Rz1r78jyzFMEFRPHuHLIYx1eH
- frDr7Xq0oabOpUQqZlUPCA/0kRFyIwyMJwMEokcnmc2Y5Dj8XSU6C0CHZMv4ESCVJxat
- xEKLHtBjKmOfWOWvyEvLT9FgsRJDlGbatDaM4XvFeQ81aCe2GpqnVSXqfpXL9+ddT7Tq
- 0Pv3WntygsYKVc9ZIlDF/5QHIgMA16B1+5oZoBvksvmAarKiSk2+GvRuFPpJAisOX3Ye
- dyFg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9BCfyOKZQjsyW7Lx3UjgDSEqLSf+29NV6DZplFTkgxEWIIVqqcESt1+t1IuL9ffHtXsCOmKKRX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxqHg5PI+ePtxLZXJ4J04LpESI346/cqny5NUlWpvCEMG6kt0VR
- LG8FeWaEHgj4nuLGjcFGNo0k6LBC5+m4m1iFhuM8lkkmnDaAVWr/s3wt
-X-Gm-Gg: Acq92OE3GjprXfxrRywDPNRpJMBaz+nBo6NBImtWUQxdCi/1Mrf+Dn4/J1IGeGX91k0
- Brj2lYBaZl5Q/OlwSqFGJEclX+UdUdi/B5x1CAsKSUNFdP9mc4N62ZYWqS7XPK6L5/zAn36lAFX
- m1RL6QoFSqkGoEYrlIqA0DM//aWt8X+FYyVMyf2uP2Kto4cyu8cVsmXNbLBfao3l01OMbMvuCa2
- iSW7nyHhfqUwyJHvtxaeEyIpfJwqvtewJ16a6J26/rwCU6XV2So3P1QksbiZRKCzoiVijBZFnI1
- ZhUnxNJOAF72lS1P7BKJGFvI5hbFKPBffKj1ArH3G0ixI0w5nKWP6PPFBFSM64B2DhqcrdBERdn
- GXuZlxa3Pnjrbf/cWALBFTQ9G8DJSMQCzPz5HivTbWQZ40/FuCEXA+lUkT7ClNIoRQlDTUx5pkF
- eZ+uLSArZti4NxzMxGfnW3G7uIH/w4vMQ5D4o5BtqJzSc6Y+iOzjhk
-X-Received: by 2002:a05:7300:2306:b0:2d9:a799:3c4f with SMTP id
- 5a478bee46e88-30804ced98cmr649040eec.24.1781145770308; 
- Wed, 10 Jun 2026 19:42:50 -0700 (PDT)
-Received: from andrel-LOQ.. ([2804:1b3:a540:e4c5:8689:633f:71cf:5300])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30806ee1253sm316973eec.27.2026.06.10.19.42.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2026 19:42:49 -0700 (PDT)
-From: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>,
- Enzo Furegatti Spinella <enzo.spinella@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] drm/amdgpu: deduplicate JPEG v5.0 interrupt routine
-Date: Wed, 10 Jun 2026 23:40:52 -0300
-Message-ID: <20260611024211.233876-1-andrebueno.mac@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CADnq5_POUhiOuusWBXgZMLCUhoRutMoH0NaLJgjWqapXd0eRcw@mail.gmail.com>
-References: <CADnq5_POUhiOuusWBXgZMLCUhoRutMoH0NaLJgjWqapXd0eRcw@mail.gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59A3310E483;
+ Wed, 10 Jun 2026 11:43:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781091768; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=gzlZb4bSFV52eLdMUMh9PyeGOrd9EAvWXGBw2jHcFBez9EqYAjtGB/rBytbYZIUK6a12QL1SlCxeqoIPXF+WzqlsBu4n/yAbJwi+RR3V7M43DIuKsOYChbJdSZvXFNf59VpSiTkU1K1NG9Qnao5wVDw+LS7peRgWb4eELJ9H3pw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781091768;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=KzcKfN/o2MeODUvVqRl2cwiGf5DJAZJN2X6vhvr6p0k=; 
+ b=dJ1XCpFp3xrtGi+Xng/mVdtES2/WZzNzmFiiNSAVW0WLpjerZ5mPw4hJmgDxaiCDx2oY1WcDhdhgiDSBwTe+WCe6yc8iMLFSTotK51j39yI5I+WTHP8RqpoOw9PtS+AKiFxdXij/Cb/hasI2G+Nm6IpwGas9uD6xF7iz9dG0lZI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781091768; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=KzcKfN/o2MeODUvVqRl2cwiGf5DJAZJN2X6vhvr6p0k=;
+ b=jyo/yFGOjDLNt4JhkO14FnSIQsSy+FTdAqSukJAOK58KWAD816pk2Arn9Z7jNWXm
+ WdMv4NJl+kvtBgFV37FFKH7qdVcXN7tUe3ggtGdVIHrpwK/bUoTr4UnAzKE2nvbl0G4
+ jX7HgyRw1kEauHhxa6WUd4d+hzfrSqQKD9xSKqgk=
+Received: by mx.zohomail.com with SMTPS id 1781091766388431.86406877104446;
+ Wed, 10 Jun 2026 04:42:46 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH v17 21/28] drm/tests: bridge: Add KUnit tests for bridge
+ chain format selection
+Date: Wed, 10 Jun 2026 13:42:35 +0200
+Message-ID: <gnicb4WkT1S4aQIC2G_naw@collabora.com>
+In-Reply-To: <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
+References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
+ <20260609-color-format-v17-21-35739b5782cc@collabora.com>
+ <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,144 +89,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Both jpeg_v5_0_1.c and jpeg_v5_0_2.c implement identical
-interrupt processing routines. To avoid code duplication,
-make the implementation in jpeg_v5_0_1.c non-static and
-call it directly from jpeg_v5_0_2.c.
+On Wednesday, 10 June 2026 12:32:29 Central European Summer Time Jani Nikul=
+a wrote:
+> On Tue, 09 Jun 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com=
+> wrote:
+> > diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/=
+tests/drm_bridge_test.c
+> > index 64b665580a88..92f142ca6695 100644
+> > --- a/drivers/gpu/drm/tests/drm_bridge_test.c
+> > +++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+> > @@ -2,15 +2,23 @@
+> >  /*
+> >   * Kunit test for drm_bridge functions
+> >   */
+> > +#include <linux/cleanup.h>
+> > +#include <linux/media-bus-format.h>
+> > +
+> >  #include <drm/drm_atomic_state_helper.h>
+> > +#include <drm/drm_atomic_uapi.h>
+> >  #include <drm/drm_bridge.h>
+> >  #include <drm/drm_bridge_connector.h>
+> >  #include <drm/drm_bridge_helper.h>
+> > +#include <drm/drm_edid.h>
+> >  #include <drm/drm_kunit_helpers.h>
+> > +#include <drm/drm_managed.h>
+> > =20
+> >  #include <kunit/device.h>
+> >  #include <kunit/test.h>
+> > =20
+> > +#include "drm_kunit_edid.h"
+>=20
+> So here's the problem with adding *any* arrays into headers: every
+> compilation unit that includes them duplicates all the arrays. It's only
+> really okay for single use.
+>=20
+> And, in this case, most of the included arrays are unused, leading to
+> build failures:
+>=20
+>   CC [M]  drivers/gpu/drm/tests/drm_bridge_test.o
+> In file included from ../drivers/gpu/drm/tests/drm_bridge_test.c:21:
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:958:28: error: =E2=80=98test_ed=
+id_hdmi_4k_rgb_yuv420_dc_max_340mhz=E2=80=99 defined but not used [-Werror=
+=3Dunused-const-variable=3D]
+>   958 | static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_34=
+0mhz[] =3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:726:28: error: =E2=80=98test_ed=
+id_hdmi_1080p_rgb_yuv_dc_max_340mhz=E2=80=99 defined but not used [-Werror=
+=3Dunused-const-variable=3D]
+>   726 | static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_34=
+0mhz[] =3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:612:28: error: =E2=80=98test_ed=
+id_hdmi_1080p_rgb_yuv_dc_max_200mhz=E2=80=99 defined but not used [-Werror=
+=3Dunused-const-variable=3D]
+>   612 | static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_20=
+0mhz[] =3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:498:28: error: =E2=80=98test_ed=
+id_hdmi_1080p_rgb_max_340mhz=E2=80=99 defined but not used [-Werror=3Dunuse=
+d-const-variable=3D]
+>   498 | static const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] =
+=3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:390:28: error: =E2=80=98test_ed=
+id_hdmi_1080p_rgb_max_200mhz_hdr=E2=80=99 defined but not used [-Werror=3Du=
+nused-const-variable=3D]
+>   390 | static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hd=
+r[] =3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:271:28: error: =E2=80=98test_ed=
+id_hdmi_1080p_rgb_max_200mhz=E2=80=99 defined but not used [-Werror=3Dunuse=
+d-const-variable=3D]
+>   271 | static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] =
+=3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:163:28: error: =E2=80=98test_ed=
+id_hdmi_1080p_rgb_max_100mhz=E2=80=99 defined but not used [-Werror=3Dunuse=
+d-const-variable=3D]
+>   163 | static const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] =
+=3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/tests/drm_kunit_edid.h:57:28: error: =E2=80=98test_edi=
+d_dvi_1080p=E2=80=99 defined but not used [-Werror=3Dunused-const-variable=
+=3D]
+>    57 | static const unsigned char test_edid_dvi_1080p[] =3D {
+>       |                            ^~~~~~~~~~~~~~~~~~~
+> cc1: all warnings being treated as errors
+>=20
+> This breaks the build for me, I don't know how it didn't for any of you.
 
-Signed-off-by: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
-Co-developed-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
-Signed-off-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
----
+It broke the build for me in the past[1], but then I couldn't repro
+it anymore when challenged on my fix[2].
 
-v2:
- - Dropped the new jpeg_v5_0_interrupt.c/h files and Makefile changes.
- - Kept the interrupt routine in jpeg_v5_0_1.c but removed the 'static' modifier.
- - Declared the function prototype in jpeg_v5_0_1.h and included it in jpeg_v5_0_2.c to call it directly, as suggested by Alex Deucher.
+>=20
+> Reverting these two fixes it:
+>=20
+> ce1d0139adac ("drm/tests: bridge: Add test for HDMI output bus formats he=
+lper")
+> 082fbc179c01 ("drm/tests: bridge: Add KUnit tests for bridge chain format=
+ selection")
+>=20
+> I think the proper fix would be to move the arrays into a .c file, and
+> only have declarations in the headers. But that needs to happen real
+> soon or the commits need to be reverted.
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h |  8 +++
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c | 63 ++----------------------
- 3 files changed, 12 insertions(+), 61 deletions(-)
+If you don't want __maybe_unused, then sure, I'll move them into a new
+=2Ec file. Though I think the two are roughly equivalent in that I don't
+think anyone is really trying to minimise the size of their KUnit
+binaries.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-index edecbfe66c79..46bcbecd89e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-@@ -755,7 +755,7 @@ static int jpeg_v5_0_1_set_ras_interrupt_state(struct amdgpu_device *adev,
- 
- 
- 
--static int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
-+int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
- 					 struct amdgpu_irq_src *source,
- 					 struct amdgpu_iv_entry *entry)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h
-index a7e58d5fb246..67346faecb47 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h
-@@ -108,4 +108,12 @@ enum amdgpu_jpeg_v5_0_1_sub_block {
- 	AMDGPU_JPEG_V5_0_1_MAX_SUB_BLOCK,
- };
- 
-+struct amdgpu_irq_src;
-+struct amdgpu_iv_entry;
-+struct amdgpu_device;
-+
-+int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
-+					struct amdgpu_irq_src *source,
-+					struct amdgpu_iv_entry *entry);
-+
- #endif /* __JPEG_V5_0_1_H__ */
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-index 285c459379c4..250e7f849037 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-@@ -34,6 +34,8 @@
- #include "vcn/vcn_5_0_0_sh_mask.h"
- #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
- 
-+#include "jpeg_v5_0_1.h"
-+
- static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev);
- static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev);
- static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_block,
-@@ -583,65 +585,6 @@ static int jpeg_v5_0_2_set_interrupt_state(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static int jpeg_v5_0_2_process_interrupt(struct amdgpu_device *adev,
--					 struct amdgpu_irq_src *source,
--					 struct amdgpu_iv_entry *entry)
--{
--	u32 i, inst;
--
--	i = node_id_to_phys_map[entry->node_id];
--	DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
--
--	for (inst = 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
--		if (adev->jpeg.inst[inst].aid_id == i)
--			break;
--
--	if (inst >= adev->jpeg.num_jpeg_inst) {
--		dev_WARN_ONCE(adev->dev, 1,
--			      "Interrupt received for unknown JPEG instance %d",
--			      entry->node_id);
--		return 0;
--	}
--
--	switch (entry->src_id) {
--	case VCN_5_0__SRCID__JPEG_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
--		break;
--	case VCN_5_0__SRCID__JPEG1_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
--		break;
--	case VCN_5_0__SRCID__JPEG2_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
--		break;
--	case VCN_5_0__SRCID__JPEG3_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
--		break;
--	case VCN_5_0__SRCID__JPEG4_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
--		break;
--	case VCN_5_0__SRCID__JPEG5_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
--		break;
--	case VCN_5_0__SRCID__JPEG6_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
--		break;
--	case VCN_5_0__SRCID__JPEG7_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
--		break;
--	case VCN_5_0__SRCID__JPEG8_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
--		break;
--	case VCN_5_0__SRCID__JPEG9_DECODE:
--		amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
--		break;
--	default:
--		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
--			      entry->src_id, entry->src_data[0]);
--		break;
--	}
--
--	return 0;
--}
- 
- static void jpeg_v5_0_2_core_stall_reset(struct amdgpu_ring *ring)
- {
-@@ -749,7 +692,7 @@ static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev)
- 
- static const struct amdgpu_irq_src_funcs jpeg_v5_0_2_irq_funcs = {
- 	.set = jpeg_v5_0_2_set_interrupt_state,
--	.process = jpeg_v5_0_2_process_interrupt,
-+	.process = jpeg_v5_0_1_process_interrupt,
- };
- 
- static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev)
--- 
-2.43.0
+I'll send a patch to move them to a .c
+
+[1]: https://lore.kernel.org/dri-devel/20260121-color-format-v7-20-ef790dae=
+780c@collabora.com/
+[2]: https://lore.kernel.org/dri-devel/20260210-didactic-okapi-of-modernism=
+=2Dff00d9@houat/
+
+Kind regards,
+Nicolas Frattaroli
+
+>=20
+> BR,
+> Jani.
+>=20
+>=20
+>=20
+
+
+
 
