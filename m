@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF29CD98C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:49:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40B3CD98CC
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89F2510E874;
-	Wed, 10 Jun 2026 09:49:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A80F10E875;
+	Wed, 10 Jun 2026 09:49:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RtbPrX0s";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NWmiwlCK";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013051.outbound.protection.outlook.com
- [40.93.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76DFB10E874
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:49:03 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010061.outbound.protection.outlook.com [52.101.85.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3104110E875
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:49:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EXSSfaV5bTNiEBsR0atDKqtxrlYvfTHycDdKwdX4Q4UvcyssMVLBU2P9eNtEtg/kUoz8HcjeHcqEbNI0+xklo68jSYh6TYXLmPQDzNjLEUH2P31JwV4IeQH+SLvHzbKKrPHcRj6cp/EUDUKBj18pJpLzpYB83tWW8C1pXpRtiqYyQjgq8+V+eFsjSUs9D27CKsMe9wl6wQzszZY9ufy7LdVPIOR7zqjoNibeqKV3F080DvRWJ5ysVvBcT6tGbIYwqApjVUjCMJZwaQ/RZ21x3q6RvbH/V4gT5G0Chob3C35kKGWHAypWENLxBiqfABOzZvioBqPd4VMlZNJ62Df9Yw==
+ b=k5rFjki9xpRsfnrlk5a2S2ZrS5EiOfEVyi16eD0jIcQPWH/IxbdC8QUmmxCRg60q/3yk2fyAP1ahcechAVCBIkeU2jMt3+newcJjibQ7fwCTAFHXQRgDVJZrPYMDeQbT7PSaKNjt4uFcHGwbZe8udt061XksgLAe3xHtzilFYXJTlg5JVnJTLaVubCoMuofVSPT3jn8K1ShYMcr8yhB9RPVSYgaMw/Gi0dyjcBI4YLPEQe7niDPf7c83I5KIJ+WRhfj7ptxicqHMTUjokHjb/w0gln654u0oBOgs0cUjuM6wEE3B0umCMGIq/IpW+ZvdSpsNeGFzMXaoD74r68BtzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JgwK0GDLgAhYG/AuV3IENnd3lDS3CRFlo7ifwW1w7t4=;
- b=LP2rOL4qN0TyO0mj61EI1TzzQoWpvTbln+M30OMbOHLBH0MLltMqCM4vr67IVlw8NQPwibLwX+wx2mZWJEaVh6YrvZjkaB1fzc6M/UEMS7/hU8+Z9k3eVS8bRfaCZ4J9fW4WCh0Eko+jaWeFsOkWOvHZ7oyAjC4nAoZ90gA34hyNq1UqpoOME/Wp11fuoYy+HqvRp17I4z9DzlSuPyMT7MMZn7yLVd9+91j/UmHDxK6XFViR+J/FTVGoC+YQJJPiLCnpVTR0sS7R4tBTatit0NePJ4DjpuCqhknf5FZYZDwJKiTQfJCCSBirzpedcfMSq9JCNleQzRwvGU2vFZoYOQ==
+ bh=7DROGuryWY8mRT6ReJb8jjSwU8gD8DaxvTx/NxmXCoo=;
+ b=c0adpFenMHiE80+KpuxDHtHmlf+25Vy7AENSvOQyUep4dYkCzv1DDwYszuaIpni3P/BTmVaAHHGMvbccgkcDuigPf9ip3z6rnCVAnZQ4o3OzogBydzJwImxr6ZlW1ZeYYdNQ/iTvM2an1Ui+zvHfJdbO94i6r/a6MDKZ/yQ8l3FVXI6Ya6BGLYIPCkIUtYjXSJ8/xh6OY4GpUh4QdBBw/nqA3e97ctjHV4zuiu6JwayK2mszKOYEv9CAyU2Zh8npVbOUSmwzJkxZROI6Sl0lRu08CfO9MyCK1Lp/R+K8bYC9yy2vtAkzhJNuHKEu+47Tdr4Ex6cZ9XQtG5rHSqbFEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JgwK0GDLgAhYG/AuV3IENnd3lDS3CRFlo7ifwW1w7t4=;
- b=RtbPrX0sOOKarOJZNMO4GaO5VKmsWL1O/Nu6/wNsq3+2D6cw8d4MjLPrqLTkzrfEfj15pUINCktqsoPVXhvySynxegNpauQEKDcpM0sBS5r2+rFcYbh5KXmRizrmdF+E1cVkOq1aruaTv5IJKqCwBRozU8AxcOEU+AK/F8x94UI=
-Received: from BN0PR02CA0023.namprd02.prod.outlook.com (2603:10b6:408:e4::28)
- by PH7PR12MB5879.namprd12.prod.outlook.com (2603:10b6:510:1d7::5)
+ bh=7DROGuryWY8mRT6ReJb8jjSwU8gD8DaxvTx/NxmXCoo=;
+ b=NWmiwlCKNaB97eGBW0NqlKWSYAldPXpnPD1vGiStQZFHo3b40BlydU8DaCnlHyjumpBadZig4OfHgxH93q+FxFGEkRjoG2whLoML9bIjecoY12+py+F5J0CSNBq+3eJgPu4c8xdHAxR6w8cfI6uI19SN2I3o8IGbPg4jVhHcDko=
+Received: from SJ0PR03CA0018.namprd03.prod.outlook.com (2603:10b6:a03:33a::23)
+ by IA0PR12MB8226.namprd12.prod.outlook.com (2603:10b6:208:403::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.10; Wed, 10 Jun
- 2026 09:48:52 +0000
-Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
- (2603:10b6:408:e4:cafe::2a) by BN0PR02CA0023.outlook.office365.com
- (2603:10b6:408:e4::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
+ 2026 09:49:04 +0000
+Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::4b) by SJ0PR03CA0018.outlook.office365.com
+ (2603:10b6:a03:33a::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
- 10 Jun 2026 09:48:52 +0000
+ 10 Jun 2026 09:49:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:48:52 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:49:03 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:48:51 -0500
+ 2026 04:49:00 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 10 Jun 2026 04:48:42 -0500
+ Transport; Wed, 10 Jun 2026 04:48:51 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,43 +66,43 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Rafal Ostrowski <rafal.ostrowski@amd.com>, "Dillon
- Varone" <dillon.varone@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 06/32] drm/amd/display: Introduce dc_plane_cm and migrate
- surface update color path
-Date: Wed, 10 Jun 2026 17:44:50 +0800
-Message-ID: <20260610094639.1965367-7-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Chenyu Chen" <chen-yu.chen@amd.com>
+Subject: [PATCH 07/32] drm/amd/display: Extract backlight code to
+ amdgpu_dm_backlight
+Date: Wed, 10 Jun 2026 17:44:51 +0800
+Message-ID: <20260610094639.1965367-8-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|PH7PR12MB5879:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8b637a3-24e0-40b8-9158-08dec6d57a9d
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|IA0PR12MB8226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96173df7-7787-4c12-b28d-08dec6d581ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|22082099003|18002099003|11063799006|6133799003|3023799007|56012099006;
-X-Microsoft-Antispam-Message-Info: JZBd8aMpNSArboP4BUpvOYBRnYA5lUFZhl/Oco/fNq80vyvZyVkdyTfiAkxOtXpkKNVGgsP7I/OniAZBpZSAFBVhV54bs/TVgCUvdu0f94gptObruvnpE6k45SjHOmPmBa6xlztlwYAVc4rV16ONYCYXLqLDPgf30LztGkS/SCMawO3SRO+wOEUSisUXfz1mKWj91FwDTbiv/O4BXbI6STSRvF4/zHscuFTspFQLoh2BH/qQcc1VqFu24tkiPnLIB29stF0Vj2t0wtRb3KG20Y8fMmqdxQiFHproCf2VF94paH9znLwJ+tMEqFip1R3o1uPkMOZghfX/96encqDb7qBuz8Faiuyh18r7xFeqeu+7pCEGg+6jneWWkfmyRrhiy740XFUIILZmVL4f92Gw7GqQT3Gg9T23TkiYiy5jGrpsMp7/oZE0nr3W+ApBUKgWKNWTH5r75Ubsjm+WgSG/wSic3sy3N7A+tGz4b3VRDtrg8X4CCwI20FrItZMjqTJ0LvnBGY1eyHuV3qe2PcxFh1TZezNPBQ/cXwEp45RGBAveLhMaHYDEHGapNBeKRKIMCJ6A4Mcb1gOIGXGYcJfRyJ8W1UDlbf3o8Cn13OSBdVX2jhEuBWm7iLOPaq/jvPouQxWhfMykktKUXrOsWWIaHgrU3ctWI8mFGz+T+9EMrlbllUT8VGjT4rOgxw7VlMwUuSP1qcTnlf39tvlU1DayRMJOX4tV9QbtZK1fd7sxGvQ=
+ ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|3023799007|56012099006|11063799006|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: vtyc11C8Nwa6eTkG5yD51kbKD4TblYEdH72iXdT0eKATmQkoQrYTUZAx/joi/5EM2VpleAqHwOyu6+33aUc9H5S6kXmvhEo519H//cHDsPFVjZ3vJFtwgpfzUW1QjXVKVyIW9oDe+R3iDDBT1UC8roxuW2EdaEZZIsaSALzxwhxtH8PCQfj5OqikxYuYE1vLryD3rLKgih4Nl4bFeYOsDADBEorMpHwCChqKO79QgzbZchB0Y3dRHlvgMoDy/2X1xF0WLTLzPpFf7xq8cDwufR7cGssS4jyjG9z91fmb62bNbta3zAR8PjpvYS7Pwj/clRDXnY7wBA6rkn99bn+scWqbYidD8ZhSILm8uhvqCXKU/2zUTMyXSGzYVP/l+7M317Y/lmNDVYEQmgB0CNbnDdAopN+VXdv/2sgSx3VYR5KoDLgCiaiJLePeCStyJ1fnHegP05TiIo+g0CyRPnPE62oE2nVTnzTYLyinQ+epSLAzFct51vtpkxjEo9xNIBqz8DnaXMlNSxW4ScPEbccavi+p71U22PlqX3uNYGx+8WQ4HdTQI8ZoqP983vMcz2GyQFTBmjjkDstvdJn98sh/m4hflrjD9VHnxbrg16SdMBho5Utbq3hVMTBtSJIc1pV/m3J6OCjjT8Gtfr/lrsXUCc30M1Dnv0YkAr+ryfIBQTAX7wWkZ9rYzpJG/tF+VBwmsuLdWXIU+ful4rk6j+F1KsnuJlel69WYUWLhraSS7DU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(22082099003)(18002099003)(11063799006)(6133799003)(3023799007)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(3023799007)(56012099006)(11063799006)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: HSoYACgD+5MRjUyQfC0XA84XCwEQBbBixJqiBBPFdCUgbrWvMt7vh285RH7aADMv4MJh9cu99rATW+P7zoPkz6wwr8ws0fydM37N42A79dpMf5tFB+jrdttXYHCraeny59B5BiKZe6Onr3LWBeWPsinO5qPb3lpQuprkZuzU3njHD9f5oIHWvbXVACBa9vY47GZveO+MjMcrqUlZuHM1dxGkPBbNTOWRXwsmY8M6Ht+xMV91ByI7f5RbwVN0hhcjtTRW2x4d4Et5PlzuRd/SFbzmAojrKlVTJoZjMnYxswy1sQ9YVUax8YRvMFKrqq7bTFJB4R9mLjVQkLVJwicK2bnRuMpDNLZHekjITbjb2tE0gZ6fYGWykTZ811yPodP61czaz+Mrw5ZMYifm8CjOnOeARDwkhsN1PLQBpT4Q+T8SDxCHdbLTM+6f8VIJE8sb
+X-MS-Exchange-AntiSpam-MessageData-0: H00tsRpV4GI2iXrC+gcRs9nzVfmVknalPxOMLL1Th6axvUPQWFF4kEoi1beJ5fFvkDxm1SHhHSpgs6M6wZ+2VuD7Rpaxf9XmlWjTL4yUujta4zHH5JMhcFcyAtauaWi/W9WMJuvXNizHtlbsQbtRQXVyCfDWjGqlEDd4Y4FHnOGoVBK71JNGVPfhuJ0GKLmLWw+EOzb2Ukd6f0bhXlHL0W4NkvaF4CXlmmFrIxt/nGwyYRtniRnIxDm4XgP9q8eenzaaItIcEEcX/Jh8I85SqNXzomSLaz5wLhAH7+GnsdXtX1jpY4+vJMl+65NV44VcEYOr5t08uOsNOQd5yo3rEKk7WpcwHa/obpO+k1NH26ZpapfRyi0PFdIqiAYTjXYv69s0j26RsXVSkYelpPS4IJ8x0MWlue3h8tfaDn/MjNOPWs/ms6nNQsEOknEvyIuZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:48:52.0231 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8b637a3-24e0-40b8-9158-08dec6d57a9d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:49:03.8080 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96173df7-7787-4c12-b28d-08dec6d581ac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBF.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE17.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5879
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8226
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,1907 +117,1462 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rafal Ostrowski <rafal.ostrowski@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[Why]
-Begin convergence with upstream Color Manager refactor
-(fda768acb2a1 "drm/amd/display: Sync dcn42 with DC 3.2.373") by
-consolidating fragmented per-plane CM state (shaper, 3DLUT, blend,
-CM2) into a single dc_plane_cm structure shared by dc_plane_state
-and dc_surface_update. Legacy fields are gated behind TRIM_CM2 so
-that it keeps compatibility with other repositories.
+Move backlight-related functions from amdgpu_dm.c into a new
+amdgpu_dm_backlight.c file to improve code organization and
+reduce the size of the monolithic amdgpu_dm.c.
 
-[How]
-Refactored to use newer structures.
-No functional behavior change intended. Under !TRIM_CM2 the legacy
-fields are still populated for compatibility with other repositories.
+No functional change intended.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.6
+
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  69 ++--
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 130 ++++---
- .../gpu/drm/amd/display/dc/core/dc_surface.c  |  44 ++-
- drivers/gpu/drm/amd/display/dc/dc.h           |  72 +++-
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  66 +++-
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |   2 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  20 +-
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  10 +-
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  29 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 172 +++++-----
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   2 +-
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   | 316 +++++++++---------
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.h   |   5 +-
- .../display/dc/hwss/hw_sequencer_private.h    |   3 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   2 +-
- 16 files changed, 552 insertions(+), 394 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 620 +---------------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 -
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 660 ++++++++++++++++++
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  44 ++
+ .../display/amdgpu_dm/amdgpu_dm_services.c    |   1 +
+ 6 files changed, 710 insertions(+), 619 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+index 54a93e4255b3..2953c59d85e7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
+@@ -41,7 +41,8 @@ AMDGPUDM = \
+ 	amdgpu_dm_quirks.o \
+ 	amdgpu_dm_wb.o \
+ 	amdgpu_dm_colorop.o \
+-	amdgpu_dm_ism.o
++	amdgpu_dm_ism.o \
++	amdgpu_dm_backlight.o
+ 
+ ifdef CONFIG_DRM_AMD_DC_FP
+ AMDGPUDM += dc_fpu.o
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5838c1d77d34..231825249c48 100644
+index 231825249c48..100e1fb572b1 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10317,9 +10317,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
- 			bundle->surface_updates[planes_count].hdr_mult = dc_plane->hdr_mult;
--			bundle->surface_updates[planes_count].func_shaper = &dc_plane->in_shaper_func;
--			bundle->surface_updates[planes_count].lut3d_func = &dc_plane->lut3d_func;
--			bundle->surface_updates[planes_count].blend_tf = &dc_plane->blend_tf;
-+			bundle->surface_updates[planes_count].cm = &dc_plane->cm;
- 		}
+@@ -66,6 +66,7 @@
+ #endif
+ #include "amdgpu_dm_psr.h"
+ #include "amdgpu_dm_replay.h"
++#include "amdgpu_dm_backlight.h"
  
- 		amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index cc03e9adf7a1..a9a741c21663 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1051,26 +1051,28 @@ EXPORT_IF_KUNIT(__drm_3dlut32_to_dc_3dlut);
- /* amdgpu_dm_atomic_lut3d - set DRM 3D LUT to DC stream
-  * @drm_lut3d: user 3D LUT
-  * @drm_lut3d_size: size of 3D LUT
-- * @lut3d: DC 3D LUT
-+ * @cm: DC Color Manager (includes 3D LUT)
-  *
-  * Map user 3D LUT data to DC 3D LUT and all necessary bits to program it
-  * on DCN accordingly.
-  */
- STATIC_IFN_KUNIT void amdgpu_dm_atomic_lut3d(const struct drm_color_lut *drm_lut3d,
- 				     uint32_t drm_lut3d_size,
--				     struct dc_3dlut *lut)
-+				     struct dc_plane_cm *cm)
- {
- 	if (!drm_lut3d_size) {
--		lut->state.bits.initialized = 0;
-+		cm->lut3d_func.state.bits.initialized = 0;
-+		cm->flags.bits.lut3d_enable = 0;
- 	} else {
- 		/* Stride and bit depth are not programmable by API yet.
- 		 * Therefore, only supports 17x17x17 3D LUT (12-bit).
- 		 */
--		lut->lut_3d.use_tetrahedral_9 = false;
--		lut->lut_3d.use_12bits = true;
--		lut->state.bits.initialized = 1;
--		__drm_3dlut_to_dc_3dlut(drm_lut3d, drm_lut3d_size, &lut->lut_3d,
--					lut->lut_3d.use_tetrahedral_9,
-+		cm->lut3d_func.lut_3d.use_tetrahedral_9 = false;
-+		cm->lut3d_func.lut_3d.use_12bits = true;
-+		cm->lut3d_func.state.bits.initialized = 1;
-+		cm->flags.bits.lut3d_enable = 1;
-+		__drm_3dlut_to_dc_3dlut(drm_lut3d, drm_lut3d_size, &cm->lut3d_func.lut_3d,
-+					cm->lut3d_func.lut_3d.use_tetrahedral_9,
- 					MAX_COLOR_3DLUT_BITDEPTH);
- 	}
+ #include "ivsrcid/ivsrcid_vislands30.h"
+ 
+@@ -246,10 +247,6 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
+ 				  enum dc_detect_reason reason);
+ static void handle_hpd_rx_irq(void *param);
+ 
+-static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+-					 int bl_idx,
+-					 u32 user_brightness);
+-
+ static bool
+ is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
+ 				 struct drm_crtc_state *new_crtc_state);
+@@ -4047,74 +4044,6 @@ static void dm_set_panel_type(struct amdgpu_dm_connector *aconnector)
+ 	drm_dbg_kms(aconnector->base.dev, "Panel type: %d\n", link->panel_type);
  }
-@@ -1080,7 +1082,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_shaper_lut(const struct drm_color_lut *sha
- 				       bool has_rom,
- 				       enum dc_transfer_func_predefined tf,
- 				       uint32_t shaper_size,
--				       struct dc_transfer_func *func_shaper)
-+				       struct dc_plane_cm *cm)
- {
- 	int ret = 0;
  
-@@ -1089,10 +1091,13 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_shaper_lut(const struct drm_color_lut *sha
- 		 * If user shaper LUT is set, we assume a linear color space
- 		 * (linearized by degamma 1D LUT or not).
- 		 */
--		__set_tf_distributed_points(func_shaper, tf);
--		ret = __set_output_tf(func_shaper, shaper_lut, shaper_size, has_rom);
-+		__set_tf_distributed_points(&cm->shaper_func, tf);
-+		cm->flags.bits.shaper_enable = 1;
-+
-+		ret = __set_output_tf(&cm->shaper_func, shaper_lut, shaper_size, has_rom);
- 	} else {
--		__set_tf_bypass(func_shaper);
-+		__set_tf_bypass(&cm->shaper_func);
-+		cm->flags.bits.shaper_enable = 0;
- 	}
+-static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+-{
+-	const struct drm_panel_backlight_quirk *panel_backlight_quirk;
+-	struct amdgpu_dm_backlight_caps *caps;
+-	struct drm_connector *conn_base;
+-	struct amdgpu_device *adev;
+-	struct drm_luminance_range_info *luminance_range;
+-	struct drm_device *drm;
+-
+-	if (aconnector->bl_idx == -1 ||
+-	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
+-		return;
+-
+-	conn_base = &aconnector->base;
+-	drm = conn_base->dev;
+-	adev = drm_to_adev(drm);
+-
+-	caps = &adev->dm.backlight_caps[aconnector->bl_idx];
+-	caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
+-	caps->aux_support = false;
+-
+-	if (caps->ext_caps->bits.oled == 1
+-	    /*
+-	     * ||
+-	     * caps->ext_caps->bits.sdr_aux_backlight_control == 1 ||
+-	     * caps->ext_caps->bits.hdr_aux_backlight_control == 1
+-	     */)
+-		caps->aux_support = true;
+-
+-	if (amdgpu_backlight == 0)
+-		caps->aux_support = false;
+-	else if (amdgpu_backlight == 1)
+-		caps->aux_support = true;
+-	if (caps->aux_support)
+-		aconnector->dc_link->backlight_control_type = BACKLIGHT_CONTROL_AMD_AUX;
+-
+-	luminance_range = &conn_base->display_info.luminance_range;
+-
+-	if (luminance_range->max_luminance)
+-		caps->aux_max_input_signal = luminance_range->max_luminance;
+-	else
+-		caps->aux_max_input_signal = 512;
+-
+-	if (luminance_range->min_luminance)
+-		caps->aux_min_input_signal = luminance_range->min_luminance;
+-	else
+-		caps->aux_min_input_signal = 1;
+-
+-	panel_backlight_quirk =
+-		drm_get_panel_backlight_quirk(aconnector->drm_edid);
+-	if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
+-		if (panel_backlight_quirk->min_brightness) {
+-			caps->min_input_signal =
+-				panel_backlight_quirk->min_brightness - 1;
+-			drm_info(drm,
+-				 "Applying panel backlight quirk, min_brightness: %d\n",
+-				 caps->min_input_signal);
+-		}
+-		if (panel_backlight_quirk->brightness_mask) {
+-			drm_info(drm,
+-				 "Applying panel backlight quirk, brightness_mask: 0x%X\n",
+-				 panel_backlight_quirk->brightness_mask);
+-			caps->brightness_mask =
+-				panel_backlight_quirk->brightness_mask;
+-		}
+-	}
+-}
+-
+ DEFINE_FREE(sink_release, struct dc_sink *, if (_T) dc_sink_release(_T))
  
- 	return ret;
-@@ -1103,7 +1108,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_blend_lut(const struct drm_color_lut *blen
- 				       bool has_rom,
- 				       enum dc_transfer_func_predefined tf,
- 				       uint32_t blend_size,
--				       struct dc_transfer_func *func_blend)
-+				       struct dc_plane_cm *cm)
- {
- 	int ret = 0;
- 
-@@ -1115,10 +1120,13 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_blend_lut(const struct drm_color_lut *blen
- 		 * module to fill the parameters that will be translated to HW
- 		 * points.
- 		 */
--		__set_tf_distributed_points(func_blend, tf);
--		ret = __set_input_tf(NULL, func_blend, blend_lut, blend_size);
-+		__set_tf_distributed_points(&cm->blend_func, tf);
-+		cm->flags.bits.blend_enable = 1;
-+
-+		ret = __set_input_tf(NULL, &cm->blend_func, blend_lut, blend_size);
- 	} else {
--		__set_tf_bypass(func_blend);
-+		__set_tf_bypass(&cm->blend_func);
-+		cm->flags.bits.blend_enable = 0;
- 	}
- 
- 	return ret;
-@@ -1635,7 +1643,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
- 	struct drm_atomic_state *state = plane_state->state;
- 	enum dc_transfer_func_predefined default_tf = TRANSFER_FUNCTION_LINEAR;
--	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
-+	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
- 	const struct drm_color_lut32 *shaper_lut;
- 	struct drm_device *dev = colorop->dev;
- 	bool enabled = false;
-@@ -1696,8 +1704,12 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+ void amdgpu_dm_update_connector_after_detect(
+@@ -4240,7 +4169,7 @@ void amdgpu_dm_update_connector_after_detect(
  		}
- 	}
  
--	if (!enabled)
-+	if (!enabled) {
- 		tf->type = TF_TYPE_BYPASS;
-+		dc_plane_state->cm.flags.bits.shaper_enable = 0;
-+	} else {
-+		dc_plane_state->cm.flags.bits.shaper_enable = 1;
-+	}
- 
+ 		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid, true);
+-		update_connector_ext_caps(aconnector);
++		amdgpu_dm_update_connector_ext_caps(aconnector);
+ 		dm_set_panel_type(aconnector);
+ 	} else {
+ 		hdmi_cec_unset_edid(aconnector);
+@@ -5156,420 +5085,6 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
  	return 0;
  }
-@@ -1741,7 +1753,7 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- {
- 	struct drm_colorop *old_colorop;
- 	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
--	struct dc_transfer_func *tf = &dc_plane_state->in_shaper_func;
-+	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
- 	struct drm_atomic_state *state = plane_state->state;
- 	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
- 	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
-@@ -1769,13 +1781,15 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- 		drm_dbg(dev, "3D LUT colorop with ID: %d\n", colorop->base.id);
- 		lut3d = __extract_blob_lut32(colorop_state->data, &lut3d_size);
- 		lut3d_size = lut3d != NULL ? lut3d_size : 0;
--		ret = __set_colorop_3dlut(lut3d, lut3d_size, &dc_plane_state->lut3d_func);
-+		ret = __set_colorop_3dlut(lut3d, lut3d_size, &dc_plane_state->cm.lut3d_func);
- 		if (ret) {
- 			drm_dbg(dev, "3D LUT colorop with ID: %d has LUT size = %d\n",
- 				colorop->base.id, lut3d_size);
- 			return ret;
- 		}
  
-+		dc_plane_state->cm.flags.bits.lut3d_enable = 1;
-+
- 		/* 3D LUT requires shaper. If shaper colorop is bypassed, enable shaper curve
- 		 * with TRANSFER_FUNCTION_LINEAR
- 		 */
-@@ -1785,6 +1799,8 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
- 			tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
- 			ret = __set_output_tf_32(tf, NULL, 0, false);
- 		}
-+	} else {
-+		dc_plane_state->cm.flags.bits.lut3d_enable = 0;
- 	}
- 
- 	return ret;
-@@ -1799,12 +1815,14 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
- 	struct drm_atomic_state *state = plane_state->state;
- 	enum dc_transfer_func_predefined default_tf = TRANSFER_FUNCTION_LINEAR;
--	struct dc_transfer_func *tf = &dc_plane_state->blend_tf;
-+	struct dc_transfer_func *tf = &dc_plane_state->cm.blend_func;
- 	const struct drm_color_lut32 *blend_lut = NULL;
- 	struct drm_device *dev = colorop->dev;
- 	uint32_t blend_size = 0;
- 	int i = 0;
- 
-+	dc_plane_state->cm.flags.bits.blend_enable = 0;
-+
- 	/* 1D Curve - BLND TF */
- 	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-@@ -1821,6 +1839,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		dc_plane_state->cm.flags.bits.blend_enable = 1;
- 		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
- 	}
- 
-@@ -1846,6 +1865,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		dc_plane_state->cm.flags.bits.blend_enable = 1;
- 		blend_lut = __extract_blob_lut32(colorop_state->data, &blend_size);
- 		blend_size = blend_lut != NULL ? blend_size : 0;
- 
-@@ -1876,11 +1896,11 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
- 	lut3d = __extract_blob_lut(dm_plane_state->lut3d, &lut3d_size);
- 	lut3d_size = lut3d != NULL ? lut3d_size : 0;
- 
--	amdgpu_dm_atomic_lut3d(lut3d, lut3d_size, &dc_plane_state->lut3d_func);
-+	amdgpu_dm_atomic_lut3d(lut3d, lut3d_size, &dc_plane_state->cm);
- 	ret = amdgpu_dm_atomic_shaper_lut(shaper_lut, false,
- 					  amdgpu_tf_to_dc_tf(shaper_tf),
- 					  shaper_size,
--					  &dc_plane_state->in_shaper_func);
-+					  &dc_plane_state->cm);
- 	if (ret) {
- 		drm_dbg_kms(plane_state->plane->dev,
- 			    "setting plane %d shaper LUT failed.\n",
-@@ -1895,7 +1915,8 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
- 
- 	ret = amdgpu_dm_atomic_blend_lut(blend_lut, false,
- 					 amdgpu_tf_to_dc_tf(blend_tf),
--					 blend_size, &dc_plane_state->blend_tf);
-+					 blend_size, &dc_plane_state->cm);
-+
- 	if (ret) {
- 		drm_dbg_kms(plane_state->plane->dev,
- 			    "setting plane %d gamma lut failed.\n",
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 0e5227a796f0..1e7269246cea 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2965,16 +2965,28 @@ static struct surface_update_descriptor det_surface_update(
- 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
- 	}
- 
--	if (u->blend_tf || (u->gamma && dce_use_lut(u->plane_info ? u->plane_info->format : u->surface->format))) {
-+	if ((u->cm && u->cm->flags.bits.blend_enable) ||
-+			(u->gamma && dce_use_lut(u->plane_info ? u->plane_info->format : u->surface->format))) {
- 		update_flags->bits.gamma_change = 1;
- 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
- 	}
- 
--	if (u->lut3d_func || u->func_shaper) {
-+	if (u->cm && (u->cm->flags.bits.lut3d_enable || u->cm->flags.bits.shaper_enable)) {
- 		update_flags->bits.lut_3d = 1;
- 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
- 	}
- 
-+	if (u->cm && u->cm->flags.bits.lut3d_dma_enable != u->surface->cm.flags.bits.lut3d_dma_enable &&
-+			u->cm->flags.bits.lut3d_enable && u->surface->cm.flags.bits.lut3d_enable) {
-+		/* Toggling 3DLUT loading between DMA and Host is illegal */
-+		BREAK_TO_DEBUGGER();
-+	}
-+
-+	if (u->cm && u->cm->flags.bits.lut3d_enable && !u->cm->flags.bits.lut3d_dma_enable) {
-+		/* Host loading 3DLUT requires full update but only stream lock  */
-+		elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_STREAM);
-+	}
-+
- 	if (u->hdr_mult.value)
- 		if (u->hdr_mult.value != u->surface->hdr_mult.value) {
- 			// TODO: Should be fast?
-@@ -2993,17 +3005,30 @@ static struct surface_update_descriptor det_surface_update(
- 		update_flags->bits.cm_hist_change = 1;
- 		elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
- 	}
--	if (u->cm2_params) {
--		if (u->cm2_params->component_settings.shaper_3dlut_setting != u->surface->mcm_shaper_3dlut_setting
--				|| u->cm2_params->component_settings.lut1d_enable != u->surface->mcm_lut1d_enable
--				|| u->cm2_params->cm2_luts.lut3d_data.lut3d_src != u->surface->mcm_luts.lut3d_data.lut3d_src) {
-+
-+	if (u->cm) {
-+		const union dc_plane_cm_flags blend_only_flags = {
-+			.bits = {
-+				.blend_enable = 1,
-+			}
-+		};
-+
-+		if (u->cm->flags.bits.shaper_enable != u->surface->cm.flags.bits.shaper_enable
-+				|| u->cm->flags.bits.blend_enable != u->surface->cm.flags.bits.blend_enable
-+				|| u->cm->flags.bits.lut3d_enable != u->surface->cm.flags.bits.lut3d_enable
-+				|| u->cm->flags.bits.lut3d_dma_enable != u->surface->cm.flags.bits.lut3d_dma_enable) {
- 			update_flags->bits.mcm_transfer_function_enable_change = 1;
- 			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
- 		}
-+
-+		if ((u->cm->flags.all != blend_only_flags.all && u->cm->flags.all != 0) ||
-+				(u->surface->cm.flags.all != blend_only_flags.all && u->surface->cm.flags.all != 0)) {
-+			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
-+		}
- 	}
- 
- 	if (update_flags->bits.lut_3d &&
--			u->surface->mcm_luts.lut3d_data.lut3d_src != DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM) {
-+			!u->surface->cm.flags.bits.lut3d_dma_enable) {
- 		elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_GLOBAL);
- 	}
- 
-@@ -3305,24 +3330,55 @@ static void copy_surface_update_to_plane(
- 			sizeof(struct dc_transfer_func_distributed_points));
- 	}
- 
--	if (srf_update->cm2_params) {
--		surface->mcm_shaper_3dlut_setting = srf_update->cm2_params->component_settings.shaper_3dlut_setting;
--		surface->mcm_lut1d_enable = srf_update->cm2_params->component_settings.lut1d_enable;
--		surface->mcm_luts = srf_update->cm2_params->cm2_luts;
+-#define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
+-#define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
+-#define AMDGPU_DM_MIN_SPREAD ((AMDGPU_DM_DEFAULT_MAX_BACKLIGHT - AMDGPU_DM_DEFAULT_MIN_BACKLIGHT) / 2)
+-#define AUX_BL_DEFAULT_TRANSITION_TIME_MS 50
+-
+-void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
+-				     int bl_idx)
+-{
+-	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[bl_idx];
+-
+-	if (caps->caps_valid)
+-		return;
+-
+-#if defined(CONFIG_ACPI)
+-	amdgpu_acpi_get_backlight_caps(caps);
+-
+-	/* validate the firmware value is sane */
+-	if (caps->caps_valid) {
+-		int spread = caps->max_input_signal - caps->min_input_signal;
+-
+-		if (caps->max_input_signal > AMDGPU_DM_DEFAULT_MAX_BACKLIGHT ||
+-		    caps->min_input_signal < 0 ||
+-		    spread > AMDGPU_DM_DEFAULT_MAX_BACKLIGHT ||
+-		    spread < AMDGPU_DM_MIN_SPREAD) {
+-			drm_dbg_kms(adev_to_drm(dm->adev), "DM: Invalid backlight caps: min=%d, max=%d\n",
+-				      caps->min_input_signal, caps->max_input_signal);
+-			caps->caps_valid = false;
+-		}
 -	}
 -
--	if (srf_update->func_shaper) {
--		memcpy(&surface->in_shaper_func, srf_update->func_shaper,
--		sizeof(surface->in_shaper_func));
-+	/* Shaper, 3DLUT, 1DLUT */
-+	if (srf_update->cm) {
-+		struct kref refcount = surface->cm.refcount;
-+
-+		memcpy(&surface->cm, srf_update->cm, sizeof(surface->cm));
-+		surface->cm.refcount = refcount;
-+
-+#ifndef TRIM_CM2
-+		/* Populate mcm_luts from cm for legacy consumers (dml2, hwseq) */
-+		surface->mcm_luts.lut1d_func = &surface->cm.blend_func;
-+		surface->mcm_luts.shaper = &surface->cm.shaper_func;
-+		if (srf_update->cm->flags.bits.lut3d_dma_enable) {
-+			surface->mcm_luts.lut3d_data.lut3d_src = DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.addr = surface->cm.lut3d_dma.addr;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.layout =
-+				(surface->cm.lut3d_dma.swizzle == CM_LUT_3D_SWIZZLE_LINEAR_RGB) ?
-+					DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_RGB :
-+				(surface->cm.lut3d_dma.swizzle == CM_LUT_3D_SWIZZLE_LINEAR_BGR) ?
-+					DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_BGR :
-+					DC_CM2_GPU_MEM_LAYOUT_1D_PACKED_LINEAR;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.format_params.format =
-+				(surface->cm.lut3d_dma.format == CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12MSB) ?
-+					DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12MSB :
-+				(surface->cm.lut3d_dma.format == CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12LSB) ?
-+					DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12LSB :
-+					DC_CM2_GPU_MEM_FORMAT_16161616_FLOAT_FP1_5_10;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.bias =
-+				surface->cm.lut3d_dma.bias;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.scale =
-+				surface->cm.lut3d_dma.scale;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.component_order =
-+				DC_CM2_GPU_MEM_PIXEL_COMPONENT_ORDER_RGBA;
-+			surface->mcm_luts.lut3d_data.gpu_mem_params.size = DC_CM2_GPU_MEM_SIZE_TRANSFORMED;
-+			surface->mcm_luts.lut3d_data.mpc_3dlut_enable = (srf_update->cm->flags.bits.lut3d_enable != 0);
-+		} else {
-+			surface->mcm_luts.lut3d_data.lut3d_src = DC_CM2_TRANSFER_FUNC_SOURCE_SYSMEM;
-+			surface->mcm_luts.lut3d_data.lut3d_func = &surface->cm.lut3d_func;
-+		}
- 
--		if (surface->mcm_shaper_3dlut_setting >= DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER)
--			surface->mcm_luts.shaper = &surface->in_shaper_func;
-+		if (srf_update->cm->flags.bits.shaper_enable &&
-+				srf_update->cm->flags.bits.lut3d_enable)
-+			surface->mcm_shaper_3dlut_setting = DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER_3DLUT;
-+		else if (srf_update->cm->flags.bits.shaper_enable)
-+			surface->mcm_shaper_3dlut_setting = DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER;
-+		else
-+			surface->mcm_shaper_3dlut_setting = DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL;
-+#endif /* TRIM_CM2 */
- 	}
- 
--	if (srf_update->lut3d_func)
--		memcpy(&surface->lut3d_func, srf_update->lut3d_func,
--		sizeof(surface->lut3d_func));
--
- 	if (srf_update->hdr_mult.value)
- 		surface->hdr_mult =
- 				srf_update->hdr_mult;
-@@ -3331,15 +3387,10 @@ static void copy_surface_update_to_plane(
- 		surface->sdr_white_level_nits =
- 				srf_update->sdr_white_level_nits;
- 
--	if (srf_update->blend_tf) {
--		memcpy(&surface->blend_tf, srf_update->blend_tf,
--		sizeof(surface->blend_tf));
--
--		if (surface->mcm_lut1d_enable)
--			surface->mcm_luts.lut1d_func = &surface->blend_tf;
+-	if (!caps->caps_valid) {
+-		caps->min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
+-		caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
+-		caps->caps_valid = true;
 -	}
+-#else
+-	if (caps->aux_support)
+-		return;
 -
--	if (srf_update->cm2_params || srf_update->blend_tf)
-+	if (srf_update->cm &&
-+			(srf_update->cm->flags.bits.blend_enable ||
-+			srf_update->cm->flags.bits.shaper_enable ||
-+			srf_update->cm->flags.bits.lut3d_enable))
- 		surface->lut_bank_a = !surface->lut_bank_a;
- 
- 	if (srf_update->input_csc_color_matrix)
-@@ -5074,11 +5125,9 @@ static void commit_planes_for_stream(struct dc *dc,
- 				if (!should_update_pipe_for_plane(context, pipe_ctx, plane_state))
- 					continue;
- 
--				if (srf_updates[i].cm2_params &&
--						srf_updates[i].cm2_params->cm2_luts.lut3d_data.lut3d_src ==
--								DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM &&
--						srf_updates[i].cm2_params->component_settings.shaper_3dlut_setting ==
--								DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER_3DLUT &&
-+				if (srf_updates[i].cm &&
-+						srf_updates[i].cm->flags.bits.lut3d_enable &&
-+						srf_updates[i].cm->flags.bits.lut3d_dma_enable &&
- 						dc->hwss.trigger_3dlut_dma_load)
- 					dc->hwss.trigger_3dlut_dma_load(dc, pipe_ctx);
- 
-@@ -5793,14 +5842,9 @@ static bool full_update_required(
- 				(srf_updates[i].sdr_white_level_nits &&
- 				srf_updates[i].sdr_white_level_nits != srf_updates->surface->sdr_white_level_nits) ||
- 				srf_updates[i].in_transfer_func ||
--				srf_updates[i].func_shaper ||
--				srf_updates[i].lut3d_func ||
- 				srf_updates[i].surface->force_full_update ||
- 				(srf_updates[i].flip_addr &&
--				srf_updates[i].flip_addr->address.tmz_surface != srf_updates[i].surface->address.tmz_surface) ||
--				(srf_updates[i].cm2_params &&
--				 (srf_updates[i].cm2_params->component_settings.shaper_3dlut_setting != srf_updates[i].surface->mcm_shaper_3dlut_setting ||
--				  srf_updates[i].cm2_params->component_settings.lut1d_enable != srf_updates[i].surface->mcm_lut1d_enable))))
-+				srf_updates[i].flip_addr->address.tmz_surface != srf_updates[i].surface->address.tmz_surface)))
- 			return true;
- 	}
- 
-@@ -7543,7 +7587,7 @@ bool dc_capture_register_software_state(struct dc *dc, struct dc_register_softwa
- 			struct dc_plane_state *plane_state = pipe_ctx->plane_state;
- 
- 			/* MPCC blending tree and mode control - capture actual blend configuration */
--			state->mpc.mpcc_mode[i] = (plane_state->blend_tf.type != TF_TYPE_BYPASS) ? 1 : 0;
-+			state->mpc.mpcc_mode[i] = (plane_state->cm.blend_func.type != TF_TYPE_BYPASS) ? 1 : 0;
- 			state->mpc.mpcc_alpha_blend_mode[i] = plane_state->per_pixel_alpha ? 1 : 0;
- 			state->mpc.mpcc_alpha_multiplied_mode[i] = plane_state->pre_multiplied_alpha ? 1 : 0;
- 			state->mpc.mpcc_blnd_active_overlap_only[i] = 0; /* Default - no overlap restriction */
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-index b03c8fc2f7ce..6e66aacd42b1 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-@@ -45,14 +45,13 @@ void dc_plane_construct(struct dc_context *ctx, struct dc_plane_state *plane_sta
- 
- 	plane_state->in_transfer_func.type = TF_TYPE_BYPASS;
- 
--	plane_state->in_shaper_func.type = TF_TYPE_BYPASS;
+-	caps->min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
+-	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
+-	caps->caps_valid = true;
+-#endif
+-}
 -
--	plane_state->lut3d_func.state.raw = 0;
+-static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+-				unsigned int *min, unsigned int *max)
+-{
+-	if (!caps)
+-		return 0;
 -
--	plane_state->blend_tf.type = TF_TYPE_BYPASS;
+-	if (caps->aux_support) {
+-		// Firmware limits are in nits, DC API wants millinits.
+-		*max = 1000 * caps->aux_max_input_signal;
+-		*min = 1000 * caps->aux_min_input_signal;
+-	} else {
+-		// Firmware limits are 8-bit, PWM control is 16-bit.
+-		*max = 0x101 * caps->max_input_signal;
+-		*min = 0x101 * caps->min_input_signal;
+-	}
+-	return 1;
+-}
 -
- 	plane_state->pre_multiplied_alpha = true;
- 
-+	/* CM */
-+	plane_state->cm.shaper_func.type = TF_TYPE_BYPASS;
-+	plane_state->cm.blend_func.type = TF_TYPE_BYPASS;
-+	plane_state->cm.lut3d_func.state.raw = 0;
-+	plane_state->cm.flags.all = 0;
- }
- 
- void dc_plane_destruct(struct dc_plane_state *plane_state)
-@@ -282,6 +281,39 @@ void dc_3dlut_func_retain(struct dc_3dlut *lut)
- 	kref_get(&lut->refcount);
- }
- 
-+static void dc_plane_cm_free(struct kref *kref)
-+{
-+	struct dc_plane_cm *cm = container_of(kref, struct dc_plane_cm, refcount);
-+
-+	kvfree(cm);
-+}
-+
-+struct dc_plane_cm *dc_plane_cm_create(void)
-+{
-+	struct dc_plane_cm *cm = kvzalloc(sizeof(*cm), GFP_KERNEL);
-+
-+	if (cm == NULL)
-+		goto alloc_fail;
-+
-+	kref_init(&cm->refcount);
-+
-+	return cm;
-+
-+alloc_fail:
-+	return NULL;
-+
-+}
-+
-+void dc_plane_cm_release(struct dc_plane_cm *cm)
-+{
-+	kref_put(&cm->refcount, dc_plane_cm_free);
-+}
-+
-+void dc_plane_cm_retain(struct dc_plane_cm *cm)
-+{
-+	kref_get(&cm->refcount);
-+}
-+
- void dc_plane_force_dcc_and_tiling_disable(struct dc_plane_state *plane_state,
- 					   bool clear_tiling)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index b8ac462a676a..2a47d7ddf53b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1486,6 +1486,47 @@ struct dc_3dlut {
- 	struct fixed31_32 hdr_multiplier;
- 	union dc_3dlut_state state;
- };
-+
-+/* 3DLUT DMA (Fast Load) params */
-+struct dc_3dlut_dma {
-+	struct dc_plane_address addr;
-+	enum dc_cm_lut_swizzle swizzle;
-+	enum dc_cm_lut_pixel_format format;
-+	uint16_t bias; /* FP1.5.10 */
-+	uint16_t scale; /* FP1.5.10 */
-+	enum dc_cm_lut_size size;
-+};
-+
-+/* color manager */
-+union dc_plane_cm_flags {
-+	unsigned int all;
-+	struct {
-+		unsigned int shaper_enable    : 1;
-+		unsigned int lut3d_enable     : 1;
-+		unsigned int blend_enable     : 1;
-+		/* whether legacy (lut3d_func) or DMA is valid */
-+		unsigned int lut3d_dma_enable : 1;
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+		/* RMCM lut to be used instead of MCM */
-+		unsigned int rmcm_enable	 : 1;
-+		unsigned int reserved: 27;
-+#else
-+		unsigned int reserved: 28;
-+#endif
-+	} bits;
-+};
-+
-+struct dc_plane_cm {
-+	struct kref refcount;
-+	struct dc_transfer_func shaper_func;
-+	union {
-+		struct dc_3dlut lut3d_func;
-+		struct dc_3dlut_dma lut3d_dma;
-+	};
-+	struct dc_transfer_func blend_func;
-+	union dc_plane_cm_flags flags;
-+};
-+
- /*
-  * This structure is filled in by dc_surface_get_status and contains
-  * the last requested address and the currently active address so the called
-@@ -1564,14 +1605,22 @@ struct dc_plane_state {
- 	struct fixed31_32 hdr_mult;
- 	struct colorspace_transform gamut_remap_matrix;
- 
-+	enum dc_color_space color_space;
-+
-+#ifndef TRIM_CM2
- 	// TODO: No longer used, remove
- 	struct dc_hdr_static_metadata hdr_static_ctx;
- 
--	enum dc_color_space color_space;
+-/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
+-static inline u32 scale_input_to_fw(int min, int max, u64 input)
+-{
+-	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
+-}
 -
- 	struct dc_3dlut lut3d_func;
- 	struct dc_transfer_func in_shaper_func;
- 	struct dc_transfer_func blend_tf;
-+	enum dc_cm2_shaper_3dlut_setting mcm_shaper_3dlut_setting;
-+	bool mcm_lut1d_enable;
-+	struct dc_cm2_func_luts mcm_luts;
-+#endif /* TRIM_CM2 */
-+	bool lut_bank_a;
-+	enum mpcc_movable_cm_location mcm_location;
-+	struct dc_plane_cm cm;
- 
- 	struct dc_transfer_func *gamcor_tf;
- 	enum surface_pixel_format format;
-@@ -1608,11 +1657,6 @@ struct dc_plane_state {
- 
- 	bool is_statically_allocated;
- 	enum chroma_cositing cositing;
--	enum dc_cm2_shaper_3dlut_setting mcm_shaper_3dlut_setting;
--	bool mcm_lut1d_enable;
--	struct dc_cm2_func_luts mcm_luts;
--	bool lut_bank_a;
--	enum mpcc_movable_cm_location mcm_location;
- 	struct dc_csc_transform cursor_csc_color_matrix;
- 	bool adaptive_sharpness_en;
- 	int adaptive_sharpness_policy;
-@@ -1976,17 +2020,7 @@ struct dc_surface_update {
- 
- 	const struct dc_csc_transform *input_csc_color_matrix;
- 	const struct fixed31_32 *coeff_reduction_factor;
--	const struct dc_transfer_func *func_shaper;
--	const struct dc_3dlut *lut3d_func;
--	const struct dc_transfer_func *blend_tf;
- 	const struct colorspace_transform *gamut_remap_matrix;
+-/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+-static inline u32 scale_fw_to_input(int min, int max, u64 input)
+-{
+-	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
+-}
+-
+-static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+-				      unsigned int min, unsigned int max,
+-				      uint32_t *user_brightness)
+-{
+-	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
+-	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+-	int left, right;
+-
+-	if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
+-		return;
+-
+-	if (!caps->data_points)
+-		return;
+-
 -	/*
--	 * Color Transformations for pre-blend MCM (Shaper, 3DLUT, 1DLUT)
--	 *
--	 * change cm2_params.component_settings: Full update
--	 * change cm2_params.cm2_luts: Fast update
+-	 * Handle the case where brightness is below the first data point
+-	 * Interpolate between (0,0) and (first_signal, first_lum)
 -	 */
--	const struct dc_cm2_parameters *cm2_params;
- 	const struct dc_plane_cm *cm;
- 	const struct dc_csc_transform *cursor_csc_color_matrix;
- 	unsigned int sdr_white_level_nits;
-@@ -2032,6 +2066,10 @@ struct dc_3dlut *dc_create_3dlut_func(void);
- void dc_3dlut_func_release(struct dc_3dlut *lut);
- void dc_3dlut_func_retain(struct dc_3dlut *lut);
- 
-+struct dc_plane_cm *dc_plane_cm_create(void);
-+void dc_plane_cm_release(struct dc_plane_cm *cm);
-+void dc_plane_cm_retain(struct dc_plane_cm *cm);
-+
- void dc_post_update_surfaces_to_stream(
- 		struct dc *dc);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 4ed1efa17270..db6a89d938b6 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -1397,6 +1397,39 @@ enum dc_hpd_enable_select {
- 	HPD_EN_FOR_SECONDARY_EDP_ONLY,
- };
- 
-+enum dc_cm_lut_swizzle {
-+	CM_LUT_3D_SWIZZLE_LINEAR_RGB,
-+	CM_LUT_3D_SWIZZLE_LINEAR_BGR,
-+	CM_LUT_1D_PACKED_LINEAR
-+};
-+
-+enum dc_cm_lut_pixel_format {
-+	CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12MSB,
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+	CM_LUT_PIXEL_FORMAT_BGRA16161616_UNORM_12MSB,
-+#endif
-+	CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12LSB,
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+	CM_LUT_PIXEL_FORMAT_BGRA16161616_UNORM_12LSB,
-+#endif
-+	CM_LUT_PIXEL_FORMAT_RGBA16161616_FLOAT_FP1_5_10,
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+	CM_LUT_PIXEL_FORMAT_BGRA16161616_FLOAT_FP1_5_10
-+#endif
-+};
-+
-+enum dc_cm_lut_size {
-+	CM_LUT_SIZE_NONE,
-+	CM_LUT_SIZE_999,
-+	CM_LUT_SIZE_171717,
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+	CM_LUT_SIZE_333333,
-+	CM_LUT_SIZE_454545,
-+	CM_LUT_SIZE_656565,
-+#endif
-+};
-+
-+#ifndef TRIM_CM2
- enum dc_cm2_shaper_3dlut_setting {
- 	DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL,
- 	DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER,
-@@ -1421,6 +1454,16 @@ enum dc_cm2_gpu_mem_format {
- 	DC_CM2_GPU_MEM_FORMAT_16161616_FLOAT_FP1_5_10
- };
- 
-+enum dc_cm2_gpu_mem_size {
-+	DC_CM2_GPU_MEM_SIZE_171717,
-+	DC_CM2_GPU_MEM_SIZE_333333,
-+	DC_CM2_GPU_MEM_SIZE_454545,
-+	DC_CM2_GPU_MEM_SIZE_656565,
-+	DC_CM2_GPU_MEM_SIZE_TRANSFORMED,
-+};
-+#endif /* TRIM_CM2 */
-+
-+#ifndef TRIM_CM2
- struct dc_cm2_gpu_mem_format_parameters {
- 	enum dc_cm2_gpu_mem_format format;
- 	union {
-@@ -1432,14 +1475,6 @@ struct dc_cm2_gpu_mem_format_parameters {
- 	};
- };
- 
--enum dc_cm2_gpu_mem_size {
--	DC_CM2_GPU_MEM_SIZE_171717,
--	DC_CM2_GPU_MEM_SIZE_333333,
--	DC_CM2_GPU_MEM_SIZE_454545,
--	DC_CM2_GPU_MEM_SIZE_656565,
--	DC_CM2_GPU_MEM_SIZE_TRANSFORMED,
--};
--
- struct dc_cm2_gpu_mem_parameters {
- 	struct dc_plane_address addr;
- 	enum dc_cm2_gpu_mem_layout layout;
-@@ -1448,17 +1483,16 @@ struct dc_cm2_gpu_mem_parameters {
- 	enum dc_cm2_gpu_mem_size  size;
- 	uint16_t bit_depth;
- };
-+#endif /* TRIM_CM2 */
- 
-+#ifndef TRIM_CM2
- enum dc_cm2_transfer_func_source {
- 	DC_CM2_TRANSFER_FUNC_SOURCE_SYSMEM,
- 	DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM
- };
-+#endif /* TRIM_CM2 */
- 
--struct dc_cm2_component_settings {
--	enum dc_cm2_shaper_3dlut_setting shaper_3dlut_setting;
--	bool lut1d_enable;
--};
--
-+#ifndef TRIM_CM2
- /*
-  * All pointers in this struct must remain valid for as long as the 3DLUTs are used
-  */
-@@ -1478,11 +1512,7 @@ struct dc_cm2_func_luts {
- 	} lut3d_data;
- 	const struct dc_transfer_func *lut1d_func;
- };
--
--struct dc_cm2_parameters {
--	struct dc_cm2_component_settings component_settings;
--	struct dc_cm2_func_luts cm2_luts;
--};
-+#endif /* TRIM_CM2 */
- 
- enum mall_stream_type {
- 	SUBVP_NONE, // subvp not in use
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-index 302515128358..9965cf572354 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-@@ -136,7 +136,7 @@ void hubp401_program_3dlut_fl_config(
- 	uint32_t mpc_width = {(cfg->width == 17) ? 0 : 1};
- 	uint32_t width = {cfg->width};
- 
--	if (cfg->layout == DC_CM2_GPU_MEM_LAYOUT_1D_PACKED_LINEAR)
-+	if (cfg->layout == CM_LUT_1D_PACKED_LINEAR)
- 		width = (cfg->width == 17) ? 4916 : 35940;
- 
- 	REG_UPDATE_2(_3DLUT_FL_CONFIG,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index e6a8206f8ce0..50d039b3fb43 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -1066,11 +1066,11 @@ bool dcn20_set_blend_lut(
- 	bool result = true;
- 	const struct pwl_params *blend_lut = NULL;
- 
--	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
--		blend_lut = &plane_state->blend_tf.pwl;
--	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
-+		blend_lut = &plane_state->cm.blend_func.pwl;
-+	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		cm_helper_translate_curve_to_hw_format(plane_state->ctx,
--				&plane_state->blend_tf,
-+				&plane_state->cm.blend_func,
- 				&dpp_base->regamma_params, false);
- 		blend_lut = &dpp_base->regamma_params;
- 	}
-@@ -1086,19 +1086,19 @@ bool dcn20_set_shaper_3dlut(
- 	bool result = true;
- 	const struct pwl_params *shaper_lut = NULL;
- 
--	if (plane_state->in_shaper_func.type == TF_TYPE_HWPWL)
--		shaper_lut = &plane_state->in_shaper_func.pwl;
--	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.shaper_func.type == TF_TYPE_HWPWL)
-+		shaper_lut = &plane_state->cm.shaper_func.pwl;
-+	else if (plane_state->cm.shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		cm_helper_translate_curve_to_hw_format(plane_state->ctx,
--				&plane_state->in_shaper_func,
-+				&plane_state->cm.shaper_func,
- 				&dpp_base->shaper_params, true);
- 		shaper_lut = &dpp_base->shaper_params;
- 	}
- 
- 	result = dpp_base->funcs->dpp_program_shaper_lut(dpp_base, shaper_lut);
--	if (plane_state->lut3d_func.state.bits.initialized == 1)
-+	if (plane_state->cm.lut3d_func.state.bits.initialized == 1)
- 		result = dpp_base->funcs->dpp_program_3dlut(dpp_base,
--								&plane_state->lut3d_func.lut_3d);
-+								&plane_state->cm.lut3d_func.lut_3d);
- 	else
- 		result = dpp_base->funcs->dpp_program_3dlut(dpp_base, NULL);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-index a7c85a2302ab..aed9d06ec538 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-@@ -239,11 +239,13 @@ bool dcn30_set_blend_lut(
- 	bool result = true;
- 	const struct pwl_params *blend_lut = NULL;
- 
--	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
--		blend_lut = &plane_state->blend_tf.pwl;
--	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
-+		blend_lut = &plane_state->cm.blend_func.pwl;
-+	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		result = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--				&plane_state->blend_tf, &dpp_base->regamma_params, false);
-+				&plane_state->cm.blend_func,
-+				&dpp_base->regamma_params,
-+				false);
- 		if (!result)
- 			return result;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index a3242e7521a4..34cbd90b2283 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -490,12 +490,14 @@ bool dcn32_set_mcm_luts(
- 	const struct pwl_params *lut_params = NULL;
- 
- 	// 1D LUT
--	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
--		lut_params = &plane_state->blend_tf.pwl;
--	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
--		result = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--								 &plane_state->blend_tf,
--								 &dpp_base->regamma_params, false);
-+	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
-+		lut_params = &plane_state->cm.blend_func.pwl;
-+	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+		result = cm3_helper_translate_curve_to_hw_format(
-+			plane_state->ctx,
-+			&plane_state->cm.blend_func,
-+			&dpp_base->regamma_params,
-+			false);
- 		if (!result)
- 			return result;
- 
-@@ -505,21 +507,22 @@ bool dcn32_set_mcm_luts(
- 	lut_params = NULL;
- 
- 	// Shaper
--	if (plane_state->in_shaper_func.type == TF_TYPE_HWPWL)
--		lut_params = &plane_state->in_shaper_func.pwl;
--	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.shaper_func.type == TF_TYPE_HWPWL)
-+		lut_params = &plane_state->cm.shaper_func.pwl;
-+	else if (plane_state->cm.shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		// TODO: dpp_base replace
- 		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--							&plane_state->in_shaper_func,
--							&dpp_base->shaper_params, true);
-+			&plane_state->cm.shaper_func,
-+			&dpp_base->shaper_params,
-+			true);
- 		lut_params = rval ? &dpp_base->shaper_params : NULL;
- 	}
- 
- 	mpc->funcs->program_shaper(mpc, lut_params, mpcc_id);
- 
- 	// 3D
--	if (plane_state->lut3d_func.state.bits.initialized == 1)
--		result = mpc->funcs->program_3dlut(mpc, &plane_state->lut3d_func.lut_3d, mpcc_id);
-+	if (plane_state->cm.lut3d_func.state.bits.initialized == 1)
-+		result = mpc->funcs->program_3dlut(mpc, &plane_state->cm.lut3d_func.lut_3d, mpcc_id);
- 	else
- 		result = mpc->funcs->program_3dlut(mpc, NULL, mpcc_id);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 7adba2acfd40..5da81adf02d1 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -410,37 +410,27 @@ static void dcn401_get_mcm_lut_xable_from_pipe_ctx(struct dc *dc, struct pipe_ct
- 		enum MCM_LUT_XABLE *lut3d_xable,
- 		enum MCM_LUT_XABLE *lut1d_xable)
- {
--	enum dc_cm2_shaper_3dlut_setting shaper_3dlut_setting = DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL;
--	bool lut1d_enable = false;
- 	struct mpc *mpc = dc->res_pool->mpc;
- 	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
- 
- 	if (!pipe_ctx->plane_state)
- 		return;
--	shaper_3dlut_setting = pipe_ctx->plane_state->mcm_shaper_3dlut_setting;
--	lut1d_enable = pipe_ctx->plane_state->mcm_lut1d_enable;
-+
- 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
- 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
- 
--	*lut1d_xable = lut1d_enable ? MCM_LUT_ENABLE : MCM_LUT_DISABLE;
--
--	switch (shaper_3dlut_setting) {
--	case DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL:
--		*lut3d_xable = *shaper_xable = MCM_LUT_DISABLE;
--		break;
--	case DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER:
--		*lut3d_xable = MCM_LUT_DISABLE;
--		*shaper_xable = MCM_LUT_ENABLE;
--		break;
--	case DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER_3DLUT:
--		*lut3d_xable = *shaper_xable = MCM_LUT_ENABLE;
--		break;
+-	if (brightness < caps->luminance_data[0].input_signal) {
+-		lum = DIV_ROUND_CLOSEST(caps->luminance_data[0].luminance * brightness,
+-					caps->luminance_data[0].input_signal);
+-		goto scale;
 -	}
-+	*lut1d_xable = pipe_ctx->plane_state->cm.flags.bits.blend_enable ?
-+		MCM_LUT_ENABLE : MCM_LUT_DISABLE;
-+	*shaper_xable = pipe_ctx->plane_state->cm.flags.bits.shaper_enable ?
-+		MCM_LUT_ENABLE : MCM_LUT_DISABLE;
-+	*lut3d_xable = (pipe_ctx->plane_state->cm.flags.bits.shaper_enable &&
-+			pipe_ctx->plane_state->cm.flags.bits.lut3d_enable) ?
-+		MCM_LUT_ENABLE : MCM_LUT_DISABLE;
- }
- 
- void dcn401_populate_mcm_luts(struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
--		struct dc_cm2_func_luts mcm_luts,
-+		const struct dc_plane_cm *cm,
- 		bool lut_bank_a)
- {
- 	struct dpp *dpp_base = pipe_ctx->plane_res.dpp;
-@@ -448,14 +438,17 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 	int mpcc_id = hubp->inst;
- 	struct mpc *mpc = dc->res_pool->mpc;
- 	union mcm_lut_params m_lut_params;
--	enum dc_cm2_transfer_func_source lut3d_src = mcm_luts.lut3d_data.lut3d_src;
-+	const bool lut3d_dma = !!cm->flags.bits.lut3d_dma_enable;
- 	enum hubp_3dlut_fl_format format = 0;
- 	enum hubp_3dlut_fl_mode mode;
--	enum hubp_3dlut_fl_width width = 0;
-+	/* Width was previously hard-coded to TRANSFORMED via local_mcm build,
-+	 * preserve identical behavior.
-+	 */
-+	enum hubp_3dlut_fl_width width = hubp_3dlut_fl_width_transformed;
- 	enum hubp_3dlut_fl_addressing_mode addr_mode;
--	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_y_g = 0;
--	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cb_b = 0;
--	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cr_r = 0;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_y_g;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cb_b;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cr_r;
- 	enum MCM_LUT_XABLE shaper_xable = MCM_LUT_DISABLE;
- 	enum MCM_LUT_XABLE lut3d_xable = MCM_LUT_DISABLE;
- 	enum MCM_LUT_XABLE lut1d_xable = MCM_LUT_DISABLE;
-@@ -464,13 +457,13 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 	dcn401_get_mcm_lut_xable_from_pipe_ctx(dc, pipe_ctx, &shaper_xable, &lut3d_xable, &lut1d_xable);
- 
- 	/* 1D LUT */
--	if (mcm_luts.lut1d_func) {
-+	{
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
--		if (mcm_luts.lut1d_func->type == TF_TYPE_HWPWL)
--			m_lut_params.pwl = &mcm_luts.lut1d_func->pwl;
--		else if (mcm_luts.lut1d_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
-+		if (cm->blend_func.type == TF_TYPE_HWPWL)
-+			m_lut_params.pwl = &cm->blend_func.pwl;
-+		else if (cm->blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 			rval = cm3_helper_translate_curve_to_hw_format(mpc->ctx,
--					mcm_luts.lut1d_func,
-+					&cm->blend_func,
- 					&dpp_base->regamma_params, false);
- 			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
- 		}
-@@ -483,14 +476,14 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 	}
- 
- 	/* Shaper */
--	if (mcm_luts.shaper && mcm_luts.lut3d_data.mpc_3dlut_enable) {
-+	if (cm->flags.bits.lut3d_enable) {
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
--		if (mcm_luts.shaper->type == TF_TYPE_HWPWL)
--			m_lut_params.pwl = &mcm_luts.shaper->pwl;
--		else if (mcm_luts.shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
-+		if (cm->shaper_func.type == TF_TYPE_HWPWL)
-+			m_lut_params.pwl = &cm->shaper_func.pwl;
-+		else if (cm->shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 			ASSERT(false);
- 			rval = cm3_helper_translate_curve_to_hw_format(mpc->ctx,
--					mcm_luts.shaper,
-+					&cm->shaper_func,
- 					&dpp_base->regamma_params, true);
- 			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
- 		}
-@@ -503,42 +496,43 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 	}
- 
- 	/* 3DLUT */
--	switch (lut3d_src) {
--	case DC_CM2_TRANSFER_FUNC_SOURCE_SYSMEM:
-+	if (!lut3d_dma) {
-+		/* SYSMEM (legacy lut3d_func) */
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
- 		if (hubp->funcs->hubp_enable_3dlut_fl)
- 			hubp->funcs->hubp_enable_3dlut_fl(hubp, false);
- 
--		if (mcm_luts.lut3d_data.lut3d_func && mcm_luts.lut3d_data.lut3d_func->state.bits.initialized) {
--			m_lut_params.lut3d = &mcm_luts.lut3d_data.lut3d_func->lut_3d;
-+		if (cm->lut3d_func.state.bits.initialized) {
-+			m_lut_params.lut3d = &cm->lut3d_func.lut_3d;
- 			if (mpc->funcs->populate_lut)
- 				mpc->funcs->populate_lut(mpc, MCM_LUT_3DLUT, m_lut_params, lut_bank_a, mpcc_id);
- 			if (mpc->funcs->program_lut_mode)
- 				mpc->funcs->program_lut_mode(mpc, MCM_LUT_3DLUT, lut3d_xable, lut_bank_a,
- 						mpcc_id);
- 		}
--		break;
--	case DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM:
--		switch (mcm_luts.lut3d_data.gpu_mem_params.size) {
--		case DC_CM2_GPU_MEM_SIZE_333333:
-+	} else {
-+		/* VIDMEM (3DLUT DMA Fast Load) */
-+
-+		/* Select width based on the requested LUT size */
-+		switch (cm->lut3d_dma.size) {
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+		case CM_LUT_SIZE_333333:
- 			if (dc->caps.color.mpc.rmcm_3d_lut_caps.lut_dim_caps.dim_33)
- 				width = hubp_3dlut_fl_width_33;
- 			break;
--		case DC_CM2_GPU_MEM_SIZE_171717:
-+#endif // CONFIG_DRM_AMD_DC_DCN4_2
-+		case CM_LUT_SIZE_171717:
- 			width = hubp_3dlut_fl_width_17;
- 			break;
--		case DC_CM2_GPU_MEM_SIZE_TRANSFORMED:
--			width = hubp_3dlut_fl_width_transformed;
--			break;
- 		default:
--			//TODO: handle default case
-+			/* keep default hubp_3dlut_fl_width_transformed */
- 			break;
- 		}
- 
- 		//check for support
- 		if (mpc->funcs->mcm.is_config_supported &&
- 			!mpc->funcs->mcm.is_config_supported(width))
--			break;
-+			return;
- 
- 		if (mpc->funcs->program_lut_read_write_control)
- 			mpc->funcs->program_lut_read_write_control(mpc, MCM_LUT_3DLUT, lut_bank_a, mpcc_id);
-@@ -546,21 +540,24 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 			mpc->funcs->program_lut_mode(mpc, MCM_LUT_3DLUT, lut3d_xable, lut_bank_a, mpcc_id);
- 
- 		if (hubp->funcs->hubp_program_3dlut_fl_addr)
--			hubp->funcs->hubp_program_3dlut_fl_addr(hubp, mcm_luts.lut3d_data.gpu_mem_params.addr);
-+			hubp->funcs->hubp_program_3dlut_fl_addr(hubp, cm->lut3d_dma.addr);
- 
-+		/* bit_depth was previously zero-initialized in local_mcm,
-+		 * preserve identical behavior.
-+		 */
- 		if (mpc->funcs->mcm.program_bit_depth)
--			mpc->funcs->mcm.program_bit_depth(mpc, mcm_luts.lut3d_data.gpu_mem_params.bit_depth, mpcc_id);
-+			mpc->funcs->mcm.program_bit_depth(mpc, 0, mpcc_id);
- 
--		switch (mcm_luts.lut3d_data.gpu_mem_params.layout) {
--		case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_RGB:
-+		switch (cm->lut3d_dma.swizzle) {
-+		case CM_LUT_3D_SWIZZLE_LINEAR_RGB:
- 			mode = hubp_3dlut_fl_mode_native_1;
- 			addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
- 			break;
--		case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_BGR:
-+		case CM_LUT_3D_SWIZZLE_LINEAR_BGR:
- 			mode = hubp_3dlut_fl_mode_native_2;
- 			addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
- 			break;
--		case DC_CM2_GPU_MEM_LAYOUT_1D_PACKED_LINEAR:
-+		case CM_LUT_1D_PACKED_LINEAR:
- 			mode = hubp_3dlut_fl_mode_transform;
- 			addr_mode = hubp_3dlut_fl_addressing_mode_simple_linear;
- 			break;
-@@ -575,40 +572,38 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 		if (hubp->funcs->hubp_program_3dlut_fl_addressing_mode)
- 			hubp->funcs->hubp_program_3dlut_fl_addressing_mode(hubp, addr_mode);
- 
--		switch (mcm_luts.lut3d_data.gpu_mem_params.format_params.format) {
--		case DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12MSB:
-+		switch (cm->lut3d_dma.format) {
-+		case CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12MSB:
- 			format = hubp_3dlut_fl_format_unorm_12msb_bitslice;
- 			break;
--		case DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12LSB:
-+		case CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12LSB:
- 			format = hubp_3dlut_fl_format_unorm_12lsb_bitslice;
- 			break;
--		case DC_CM2_GPU_MEM_FORMAT_16161616_FLOAT_FP1_5_10:
-+		case CM_LUT_PIXEL_FORMAT_RGBA16161616_FLOAT_FP1_5_10:
- 			format = hubp_3dlut_fl_format_float_fp1_5_10;
- 			break;
-+		default:
-+			break;
- 		}
- 		if (hubp->funcs->hubp_program_3dlut_fl_format)
- 			hubp->funcs->hubp_program_3dlut_fl_format(hubp, format);
- 		if (hubp->funcs->hubp_update_3dlut_fl_bias_scale &&
- 				mpc->funcs->mcm.program_bias_scale) {
- 			mpc->funcs->mcm.program_bias_scale(mpc,
--				mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.bias,
--				mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.scale,
-+				cm->lut3d_dma.bias,
-+				cm->lut3d_dma.scale,
- 				mpcc_id);
- 			hubp->funcs->hubp_update_3dlut_fl_bias_scale(hubp,
--						mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.bias,
--						mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.scale);
-+				cm->lut3d_dma.bias,
-+				cm->lut3d_dma.scale);
- 		}
- 
--		//navi 4x has a bug and r and blue are swapped and need to be worked around here in
--		//TODO: need to make a method for get_xbar per asic OR do the workaround in program_crossbar for 4x
--		switch (mcm_luts.lut3d_data.gpu_mem_params.component_order) {
--		case DC_CM2_GPU_MEM_PIXEL_COMPONENT_ORDER_RGBA:
--		default:
--			crossbar_bit_slice_cr_r = hubp_3dlut_fl_crossbar_bit_slice_0_15;
--			crossbar_bit_slice_y_g = hubp_3dlut_fl_crossbar_bit_slice_16_31;
--			crossbar_bit_slice_cb_b = hubp_3dlut_fl_crossbar_bit_slice_32_47;
--			break;
+-
+-	left = 0;
+-	right = caps->data_points - 1;
+-	while (left <= right) {
+-		int mid = left + (right - left) / 2;
+-		u8 signal = caps->luminance_data[mid].input_signal;
+-
+-		/* Exact match found */
+-		if (signal == brightness) {
+-			lum = caps->luminance_data[mid].luminance;
+-			goto scale;
 -		}
-+		/* component_order was previously hard-coded to RGBA in local_mcm,
-+		 * preserve identical behavior.
-+		 */
-+		crossbar_bit_slice_cr_r = hubp_3dlut_fl_crossbar_bit_slice_0_15;
-+		crossbar_bit_slice_y_g = hubp_3dlut_fl_crossbar_bit_slice_16_31;
-+		crossbar_bit_slice_cb_b = hubp_3dlut_fl_crossbar_bit_slice_32_47;
- 
- 		if (hubp->funcs->hubp_program_3dlut_fl_crossbar)
- 			hubp->funcs->hubp_program_3dlut_fl_crossbar(hubp,
-@@ -634,8 +629,6 @@ void dcn401_populate_mcm_luts(struct dc *dc,
- 				mpc->funcs->program_lut_mode(mpc, MCM_LUT_1DLUT, MCM_LUT_DISABLE, lut_bank_a, mpcc_id);
- 			}
- 		}
--		break;
 -
- 	}
- }
- 
-@@ -660,19 +653,19 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 	const struct pwl_params *lut_params = NULL;
- 	bool rval;
- 
--	if (plane_state->mcm_luts.lut3d_data.lut3d_src == DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM) {
--		dcn401_populate_mcm_luts(dc, pipe_ctx, plane_state->mcm_luts, plane_state->lut_bank_a);
-+	if (plane_state->cm.flags.bits.lut3d_dma_enable) {
-+		dcn401_populate_mcm_luts(dc, pipe_ctx, &plane_state->cm, plane_state->lut_bank_a);
- 		return true;
- 	}
- 
- 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
- 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
- 	// 1D LUT
--	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
--		lut_params = &plane_state->blend_tf.pwl;
--	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
-+		lut_params = &plane_state->cm.blend_func.pwl;
-+	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--							       &plane_state->blend_tf,
-+							       &plane_state->cm.blend_func,
- 							       &dpp_base->regamma_params, false);
- 		lut_params = rval ? &dpp_base->regamma_params : NULL;
- 	}
-@@ -680,12 +673,12 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 	lut_params = NULL;
- 
- 	// Shaper
--	if (plane_state->in_shaper_func.type == TF_TYPE_HWPWL)
--		lut_params = &plane_state->in_shaper_func.pwl;
--	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.shaper_func.type == TF_TYPE_HWPWL)
-+		lut_params = &plane_state->cm.shaper_func.pwl;
-+	else if (plane_state->cm.shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		// TODO: dpp_base replace
- 		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--							       &plane_state->in_shaper_func,
-+							       &plane_state->cm.shaper_func,
- 							       &dpp_base->shaper_params, true);
- 		lut_params = rval ? &dpp_base->shaper_params : NULL;
- 	}
-@@ -693,8 +686,8 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 
- 	// 3D
- 	if (mpc->funcs->program_3dlut) {
--		if (plane_state->lut3d_func.state.bits.initialized == 1)
--			result &= mpc->funcs->program_3dlut(mpc, &plane_state->lut3d_func.lut_3d, mpcc_id);
-+		if (plane_state->cm.lut3d_func.state.bits.initialized == 1)
-+			result &= mpc->funcs->program_3dlut(mpc, &plane_state->cm.lut3d_func.lut_3d, mpcc_id);
- 		else
- 			result &= mpc->funcs->program_3dlut(mpc, NULL, mpcc_id);
- 	}
-@@ -1999,10 +1992,9 @@ void dcn401_perform_3dlut_wa_unlock(struct pipe_ctx *pipe_ctx)
- 
- 	for (odm_pipe = pipe_ctx; odm_pipe != NULL; odm_pipe = odm_pipe->next_odm_pipe) {
- 		for (mpc_pipe = odm_pipe; mpc_pipe != NULL; mpc_pipe = mpc_pipe->bottom_pipe) {
--			if (mpc_pipe->plane_state && mpc_pipe->plane_state->mcm_luts.lut3d_data.lut3d_src
--						== DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM
--					&& mpc_pipe->plane_state->mcm_shaper_3dlut_setting
--						== DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER_3DLUT) {
-+			if (mpc_pipe->plane_state &&
-+					mpc_pipe->plane_state->cm.flags.bits.lut3d_enable &&
-+					mpc_pipe->plane_state->cm.flags.bits.lut3d_dma_enable) {
- 				wa_pipes[wa_pipe_ct++] = mpc_pipe;
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-index f78162ab859b..2afeafc902c7 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-@@ -52,7 +52,7 @@ enum dc_status dcn401_enable_stream_timing(
- void dcn401_enable_stream(struct pipe_ctx *pipe_ctx);
- void dcn401_populate_mcm_luts(struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
--		struct dc_cm2_func_luts mcm_luts,
-+		const struct dc_plane_cm *cm,
- 		bool lut_bank_a);
- void dcn401_setup_hpo_hw_control(const struct dce_hwseq *hws, bool enable);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-index 96e0133880e1..9cf8b379cb34 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-@@ -401,40 +401,33 @@ void dcn42_program_cm_hist(
- }
- 
- static void dc_get_lut_xbar(
--	enum dc_cm2_gpu_mem_pixel_component_order order,
- 	enum hubp_3dlut_fl_crossbar_bit_slice *cr_r,
- 	enum hubp_3dlut_fl_crossbar_bit_slice *y_g,
- 	enum hubp_3dlut_fl_crossbar_bit_slice *cb_b)
- {
--	switch (order) {
--	case DC_CM2_GPU_MEM_PIXEL_COMPONENT_ORDER_RGBA:
--		*cr_r = hubp_3dlut_fl_crossbar_bit_slice_32_47;
--		*y_g = hubp_3dlut_fl_crossbar_bit_slice_16_31;
--		*cb_b =  hubp_3dlut_fl_crossbar_bit_slice_0_15;
--		break;
--	case DC_CM2_GPU_MEM_PIXEL_COMPONENT_ORDER_BGRA:
--		*cr_r = hubp_3dlut_fl_crossbar_bit_slice_0_15;
--		*y_g = hubp_3dlut_fl_crossbar_bit_slice_16_31;
--		*cb_b = hubp_3dlut_fl_crossbar_bit_slice_32_47;
--		break;
+-		if (signal < brightness)
+-			left = mid + 1;
+-		else
+-			right = mid - 1;
 -	}
-+	/* component_order was previously hard-coded to RGBA in local_mcm,
-+	 * preserve identical behavior.
-+	 */
-+	*cr_r = hubp_3dlut_fl_crossbar_bit_slice_32_47;
-+	*y_g = hubp_3dlut_fl_crossbar_bit_slice_16_31;
-+	*cb_b = hubp_3dlut_fl_crossbar_bit_slice_0_15;
- }
- 
- static void dc_get_lut_mode(
--	enum dc_cm2_gpu_mem_layout layout,
-+	enum dc_cm_lut_swizzle swizzle,
- 	enum hubp_3dlut_fl_mode *mode,
- 	enum hubp_3dlut_fl_addressing_mode *addr_mode)
- {
--	switch (layout) {
--	case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_RGB:
-+	switch (swizzle) {
-+	case CM_LUT_3D_SWIZZLE_LINEAR_RGB:
- 		*mode = hubp_3dlut_fl_mode_native_1;
- 		*addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
- 		break;
--	case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_BGR:
-+	case CM_LUT_3D_SWIZZLE_LINEAR_BGR:
- 		*mode = hubp_3dlut_fl_mode_native_2;
- 		*addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
- 		break;
--	case DC_CM2_GPU_MEM_LAYOUT_1D_PACKED_LINEAR:
-+	case CM_LUT_1D_PACKED_LINEAR:
- 		*mode = hubp_3dlut_fl_mode_transform;
- 		*addr_mode = hubp_3dlut_fl_addressing_mode_simple_linear;
- 		break;
-@@ -446,19 +439,22 @@ static void dc_get_lut_mode(
- }
- 
- static void dc_get_lut_format(
--	enum dc_cm2_gpu_mem_format dc_format,
-+	enum dc_cm_lut_pixel_format dc_format,
- 	enum hubp_3dlut_fl_format *format)
- {
- 	switch (dc_format) {
--	case DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12MSB:
-+	case CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12MSB:
- 		*format = hubp_3dlut_fl_format_unorm_12msb_bitslice;
- 		break;
--	case DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12LSB:
-+	case CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12LSB:
- 		*format = hubp_3dlut_fl_format_unorm_12lsb_bitslice;
- 		break;
--	case DC_CM2_GPU_MEM_FORMAT_16161616_FLOAT_FP1_5_10:
-+	case CM_LUT_PIXEL_FORMAT_RGBA16161616_FLOAT_FP1_5_10:
- 		*format = hubp_3dlut_fl_format_float_fp1_5_10;
- 		break;
-+	default:
-+		*format = hubp_3dlut_fl_format_unorm_12msb_bitslice;
-+		break;
- 	}
- }
- 
-@@ -472,16 +468,17 @@ static bool dc_is_rmcm_3dlut_supported(struct hubp *hubp, struct mpc *mpc)
- 	return false;
- }
- 
--static bool is_rmcm_3dlut_fl_supported(struct dc *dc, enum dc_cm2_gpu_mem_size size)
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+static bool is_rmcm_3dlut_fl_supported(struct dc *dc)
- {
-+	/* size was previously hard-coded to TRANSFORMED in local_mcm,
-+	 * which mapped to dim_17. Preserve identical behavior.
-+	 */
- 	if (!dc->caps.color.mpc.rmcm_3d_lut_caps.dma_3d_lut)
- 		return false;
--	if (size == DC_CM2_GPU_MEM_SIZE_171717)
--		return dc->caps.color.mpc.rmcm_3d_lut_caps.lut_dim_caps.dim_17 != 0u;
--	else if (size == DC_CM2_GPU_MEM_SIZE_333333)
--		return dc->caps.color.mpc.rmcm_3d_lut_caps.lut_dim_caps.dim_33 != 0u;
--	return false;
-+	return dc->caps.color.mpc.rmcm_3d_lut_caps.lut_dim_caps.dim_17 != 0u;
- }
-+#endif
- 
- static void dcn42_set_mcm_location_post_blend(struct dc *dc, struct pipe_ctx *pipe_ctx, bool bPostBlend)
- {
-@@ -502,56 +499,45 @@ static void dcn42_get_mcm_lut_xable_from_pipe_ctx(struct dc *dc, struct pipe_ctx
- 		enum MCM_LUT_XABLE *lut3d_xable,
- 		enum MCM_LUT_XABLE *lut1d_xable)
- {
--	enum dc_cm2_shaper_3dlut_setting shaper_3dlut_setting = DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL;
--	bool lut1d_enable = false;
- 	struct mpc *mpc = dc->res_pool->mpc;
- 	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
- 
- 	if (!pipe_ctx->plane_state)
- 		return;
--	shaper_3dlut_setting = pipe_ctx->plane_state->mcm_shaper_3dlut_setting;
--	lut1d_enable = pipe_ctx->plane_state->mcm_lut1d_enable;
-+
- 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
- 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
- 
--	*lut1d_xable = lut1d_enable ? MCM_LUT_ENABLE : MCM_LUT_DISABLE;
 -
--	switch (shaper_3dlut_setting) {
--	case DC_CM2_SHAPER_3DLUT_SETTING_BYPASS_ALL:
--		*lut3d_xable = *shaper_xable = MCM_LUT_DISABLE;
--		break;
--	case DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER:
--		*lut3d_xable = MCM_LUT_DISABLE;
--		*shaper_xable = MCM_LUT_ENABLE;
--		break;
--	case DC_CM2_SHAPER_3DLUT_SETTING_ENABLE_SHAPER_3DLUT:
--		*lut3d_xable = *shaper_xable = MCM_LUT_ENABLE;
--		break;
+-	/* verify bound */
+-	if (left >= caps->data_points)
+-		left = caps->data_points - 1;
+-
+-	/* At this point, left > right */
+-	lower_signal = caps->luminance_data[right].input_signal;
+-	upper_signal = caps->luminance_data[left].input_signal;
+-	lower_lum = caps->luminance_data[right].luminance;
+-	upper_lum = caps->luminance_data[left].luminance;
+-
+-	/* interpolate */
+-	if (right == left || !lower_lum)
+-		lum = upper_lum;
+-	else
+-		lum = lower_lum + DIV_ROUND_CLOSEST((upper_lum - lower_lum) *
+-						    (brightness - lower_signal),
+-						    upper_signal - lower_signal);
+-scale:
+-	*user_brightness = scale_fw_to_input(min, max,
+-					     DIV_ROUND_CLOSEST(lum * brightness, 101));
+-}
+-
+-static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+-					uint32_t brightness)
+-{
+-	unsigned int min, max;
+-
+-	if (!get_brightness_range(caps, &min, &max))
+-		return brightness;
+-
+-	convert_custom_brightness(caps, min, max, &brightness);
+-
+-	// Rescale 0..max to min..max
+-	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+-}
+-
+-static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
+-				      uint32_t brightness)
+-{
+-	unsigned int min, max;
+-
+-	if (!get_brightness_range(caps, &min, &max))
+-		return brightness;
+-
+-	if (brightness < min)
+-		return 0;
+-	// Rescale min..max to 0..max
+-	return DIV_ROUND_CLOSEST_ULL((u64)max * (brightness - min),
+-				 max - min);
+-}
+-
+-static struct dc_stream_state *dm_find_stream_with_link(
+-	struct amdgpu_display_manager *dm,
+-	struct dc_link *link)
+-{
+-	struct dc_state *cur_dc_state = dm->dc->current_state;
+-	struct dc_stream_state *stream = NULL;
+-	int i;
+-
+-	for (i = 0; i < cur_dc_state->stream_count; i++) {
+-		stream = cur_dc_state->streams[i];
+-		if (stream->link == link)
+-			return stream;
 -	}
-+	*lut1d_xable = pipe_ctx->plane_state->cm.flags.bits.blend_enable ?
-+		MCM_LUT_ENABLE : MCM_LUT_DISABLE;
-+	*shaper_xable = pipe_ctx->plane_state->cm.flags.bits.shaper_enable ?
-+		MCM_LUT_ENABLE : MCM_LUT_DISABLE;
-+	*lut3d_xable = (pipe_ctx->plane_state->cm.flags.bits.shaper_enable &&
-+			pipe_ctx->plane_state->cm.flags.bits.lut3d_enable) ?
-+		MCM_LUT_ENABLE : MCM_LUT_DISABLE;
+-
+-	return NULL;
+-}
+-
+-static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+-					 int bl_idx,
+-					 u32 user_brightness)
+-{
+-	struct amdgpu_dm_backlight_caps *caps;
+-	struct dc_link *link;
+-	u32 brightness = 0;
+-	bool rc = false, reallow_idle = false;
+-	struct drm_connector *connector;
+-	struct dc_stream_state *stream;
+-	unsigned int min, max;
+-
+-	list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, head) {
+-		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+-
+-		if (aconnector->bl_idx != bl_idx)
+-			continue;
+-
+-		/* if connector is off, save the brightness for next time it's on */
+-		if (!aconnector->base.encoder) {
+-			dm->brightness[bl_idx] = user_brightness;
+-			dm->actual_brightness[bl_idx] = 0;
+-			return;
+-		}
+-	}
+-
+-	amdgpu_dm_update_backlight_caps(dm, bl_idx);
+-	caps = &dm->backlight_caps[bl_idx];
+-
+-	dm->brightness[bl_idx] = user_brightness;
+-	/* update scratch register */
+-	if (bl_idx == 0)
+-		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
+-	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
+-	link = (struct dc_link *)dm->backlight_link[bl_idx];
+-
+-	/* Apply brightness quirk */
+-	if (caps->brightness_mask)
+-		brightness |= caps->brightness_mask;
+-
+-	if (trace_amdgpu_dm_brightness_enabled()) {
+-		trace_amdgpu_dm_brightness(__builtin_return_address(0),
+-					   user_brightness,
+-					   brightness,
+-					   caps->aux_support,
+-					   power_supply_is_system_supplied() > 0);
+-	}
+-
+-	stream = dm_find_stream_with_link(dm, link);
+-	if (!stream)
+-		return;
+-
+-	mutex_lock(&dm->dc_lock);
+-	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
+-		dc_allow_idle_optimizations(dm->dc, false);
+-		reallow_idle = true;
+-	}
+-
+-	if (caps->aux_support) {
+-		rc = mod_power_set_backlight_nits(dm->power_module, stream, brightness,
+-			AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
+-	} else {
+-		/* power module uses millipercent */
+-		get_brightness_range(caps, &min, &max);
+-		brightness = DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
+-		rc = mod_power_set_backlight_percent(dm->power_module, stream,
+-						     brightness, 0, false);
+-	}
+-
+-	/*
+-	 * Some kms clients create a ramped backlight transition effect
+-	 * by rapidly changing the backlight. Yet we must wait on dmcub
+-	 * fw to exit psr/replay before programming backlight. To
+-	 * prevent lag, keep disable psr/replay and let the next atomic
+-	 * flip clear the event.
+-	 *
+-	 * ToDo: use ISM to handle rapidly backlight change
+-	 *
+-	 * Rapidly backlight change is similar to rapidly cursor events,
+-	 * which is now handled by ISM. ISM can delay the event until system
+-	 * is really idle, so we may use ISM to handle backlight change as well.
+-	 */
+-	amdgpu_dm_psr_set_event(dm, stream, true,
+-		psr_event_hw_programming, true);
+-	amdgpu_dm_replay_set_event(dm, stream, true,
+-		replay_event_hw_programming, true);
+-
+-	if (dm->dc->caps.ips_support && reallow_idle)
+-		dc_allow_idle_optimizations(dm->dc, true);
+-
+-	mutex_unlock(&dm->dc_lock);
+-
+-	if (rc)
+-		dm->actual_brightness[bl_idx] = user_brightness;
+-}
+-
+-static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+-{
+-	struct amdgpu_display_manager *dm = bl_get_data(bd);
+-	int i;
+-
+-	for (i = 0; i < dm->num_of_edps; i++) {
+-		if (bd == dm->backlight_dev[i])
+-			break;
+-	}
+-	if (i >= AMDGPU_DM_MAX_NUM_EDP)
+-		i = 0;
+-	amdgpu_dm_backlight_set_level(dm, i, bd->props.brightness);
+-
+-	return 0;
+-}
+-
+-static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
+-					 int bl_idx)
+-{
+-	int ret;
+-	struct amdgpu_dm_backlight_caps caps;
+-	struct dc_link *link = (struct dc_link *)dm->backlight_link[bl_idx];
+-
+-	amdgpu_dm_update_backlight_caps(dm, bl_idx);
+-	caps = dm->backlight_caps[bl_idx];
+-
+-	if (caps.aux_support) {
+-		u32 avg, peak;
+-
+-		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
+-			return dm->brightness[bl_idx];
+-		return convert_brightness_to_user(&caps, avg);
+-	}
+-
+-	ret = dc_link_get_backlight_level(link);
+-
+-	if (ret == DC_ERROR_UNEXPECTED)
+-		return dm->brightness[bl_idx];
+-
+-	return convert_brightness_to_user(&caps, ret);
+-}
+-
+-static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+-{
+-	struct amdgpu_display_manager *dm = bl_get_data(bd);
+-	int i;
+-
+-	for (i = 0; i < dm->num_of_edps; i++) {
+-		if (bd == dm->backlight_dev[i])
+-			break;
+-	}
+-	if (i >= AMDGPU_DM_MAX_NUM_EDP)
+-		i = 0;
+-	return amdgpu_dm_backlight_get_level(dm, i);
+-}
+-
+-static const struct backlight_ops amdgpu_dm_backlight_ops = {
+-	.options = BL_CORE_SUSPENDRESUME,
+-	.get_brightness = amdgpu_dm_backlight_get_brightness,
+-	.update_status	= amdgpu_dm_backlight_update_status,
+-};
+-
+-static void
+-amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+-{
+-	struct drm_device *drm = aconnector->base.dev;
+-	struct amdgpu_display_manager *dm = &drm_to_adev(drm)->dm;
+-	struct backlight_properties props = { 0 };
+-	struct amdgpu_dm_backlight_caps *caps;
+-	char bl_name[16];
+-	int min, max;
+-	int real_brightness;
+-	int init_brightness;
+-
+-	if (aconnector->bl_idx == -1)
+-		return;
+-
+-	if (!acpi_video_backlight_use_native()) {
+-		drm_info(drm, "Skipping amdgpu DM backlight registration\n");
+-		/* Try registering an ACPI video backlight device instead. */
+-		acpi_video_register_backlight();
+-		return;
+-	}
+-
+-	caps = &dm->backlight_caps[aconnector->bl_idx];
+-	if (get_brightness_range(caps, &min, &max)) {
+-		if (power_supply_is_system_supplied() > 0)
+-			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->ac_level, 100);
+-		else
+-			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->dc_level, 100);
+-		/* min is zero, so max needs to be adjusted */
+-		props.max_brightness = max - min;
+-		drm_dbg(drm, "Backlight caps: min: %d, max: %d, ac %d, dc %d\n", min, max,
+-			caps->ac_level, caps->dc_level);
+-	} else
+-		props.brightness = props.max_brightness = MAX_BACKLIGHT_LEVEL;
+-
+-	init_brightness = props.brightness;
+-
+-	if (caps->data_points && !(amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)) {
+-		drm_info(drm, "Using custom brightness curve\n");
+-		props.scale = BACKLIGHT_SCALE_NON_LINEAR;
+-	} else
+-		props.scale = BACKLIGHT_SCALE_LINEAR;
+-	props.type = BACKLIGHT_RAW;
+-
+-	snprintf(bl_name, sizeof(bl_name), "amdgpu_bl%d",
+-		 drm->primary->index + aconnector->bl_idx);
+-
+-	dm->backlight_dev[aconnector->bl_idx] =
+-		backlight_device_register(bl_name, aconnector->base.kdev, dm,
+-					  &amdgpu_dm_backlight_ops, &props);
+-	dm->brightness[aconnector->bl_idx] = props.brightness;
+-
+-	if (IS_ERR(dm->backlight_dev[aconnector->bl_idx])) {
+-		drm_err(drm, "DM: Backlight registration failed!\n");
+-		dm->backlight_dev[aconnector->bl_idx] = NULL;
+-	} else {
+-		/*
+-		 * dm->brightness[x] can be inconsistent just after startup until
+-		 * ops.get_brightness is called.
+-		 */
+-		real_brightness =
+-			amdgpu_dm_backlight_ops.get_brightness(dm->backlight_dev[aconnector->bl_idx]);
+-
+-		if (real_brightness != init_brightness) {
+-			dm->actual_brightness[aconnector->bl_idx] = real_brightness;
+-			dm->brightness[aconnector->bl_idx] = real_brightness;
+-		}
+-		drm_dbg_driver(drm, "DM: Registered Backlight device: %s\n", bl_name);
+-	}
+-}
+-
+ static int initialize_plane(struct amdgpu_display_manager *dm,
+ 			    struct amdgpu_mode_info *mode_info, int plane_id,
+ 			    enum drm_plane_type plane_type,
+@@ -5611,38 +5126,6 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
  }
  
- static void fl_get_lut_mode(
--	enum dc_cm2_gpu_mem_layout layout,
--	enum dc_cm2_gpu_mem_size   size,
-+	enum dc_cm_lut_swizzle swizzle,
- 	enum hubp_3dlut_fl_mode *mode,
- 	enum hubp_3dlut_fl_addressing_mode *addr_mode,
- 	enum hubp_3dlut_fl_width *width)
- {
-+	/* size was previously hard-coded to TRANSFORMED in local_mcm,
-+	 * preserve identical behavior (transformed width).
-+	 */
- 	*width = hubp_3dlut_fl_width_17;
  
--	if (size == DC_CM2_GPU_MEM_SIZE_333333)
--		*width = hubp_3dlut_fl_width_33;
+-static void setup_backlight_device(struct amdgpu_display_manager *dm,
+-				   struct amdgpu_dm_connector *aconnector)
+-{
+-	struct amdgpu_dm_backlight_caps *caps;
+-	struct dc_link *link = aconnector->dc_link;
+-	int bl_idx = dm->num_of_edps;
 -
--	switch (layout) {
--	case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_RGB:
-+	switch (swizzle) {
-+	case CM_LUT_3D_SWIZZLE_LINEAR_RGB:
- 		*mode = hubp_3dlut_fl_mode_native_1;
- 		*addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
- 		break;
--	case DC_CM2_GPU_MEM_LAYOUT_3D_SWIZZLE_LINEAR_BGR:
-+	case CM_LUT_3D_SWIZZLE_LINEAR_BGR:
- 		*mode = hubp_3dlut_fl_mode_native_2;
- 		*addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
- 		break;
--	case DC_CM2_GPU_MEM_LAYOUT_1D_PACKED_LINEAR:
-+	case CM_LUT_1D_PACKED_LINEAR:
- 		*mode = hubp_3dlut_fl_mode_transform;
- 		*addr_mode = hubp_3dlut_fl_addressing_mode_simple_linear;
- 		break;
-@@ -565,8 +551,7 @@ static void fl_get_lut_mode(
- bool dcn42_program_rmcm_luts(
- 	struct hubp *hubp,
- 	struct pipe_ctx *pipe_ctx,
--	enum dc_cm2_transfer_func_source lut3d_src,
--	struct dc_cm2_func_luts *mcm_luts,
-+	const struct dc_plane_cm *cm,
- 	struct mpc *mpc,
- 	bool lut_bank_a,
- 	int mpcc_id)
-@@ -596,21 +581,24 @@ bool dcn42_program_rmcm_luts(
- 	if (!rmcm_3dlut)
- 		return false;
- 
--	rmcm_3dlut->protection_bits = mcm_luts->lut3d_data.rmcm_tmz;
-+	/* rmcm_tmz was previously zero-initialized in local_mcm,
-+	 * preserve identical behavior.
-+	 */
-+	rmcm_3dlut->protection_bits = 0;
- 
- 	dcn42_get_mcm_lut_xable_from_pipe_ctx(dc, pipe_ctx, &shaper_xable, &lut3d_xable, &lut1d_xable);
- 
- 	/* Shaper */
--	if (mcm_luts->shaper) {
-+	{
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
- 
--		if (mcm_luts->shaper->type == TF_TYPE_HWPWL) {
--			m_lut_params.pwl = &mcm_luts->shaper->pwl;
--		} else if (mcm_luts->shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
-+		if (cm->shaper_func.type == TF_TYPE_HWPWL) {
-+			m_lut_params.pwl = &cm->shaper_func.pwl;
-+		} else if (cm->shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 			ASSERT(false);
- 			cm_helper_translate_curve_to_hw_format(
- 					dc->ctx,
--					mcm_luts->shaper,
-+					&cm->shaper_func,
- 					&dpp_base->shaper_params, true);
- 			m_lut_params.pwl = &dpp_base->shaper_params;
- 		}
-@@ -626,15 +614,16 @@ bool dcn42_program_rmcm_luts(
- 	}
- 
- 	/* 3DLUT */
--	switch (lut3d_src) {
--	case DC_CM2_TRANSFER_FUNC_SOURCE_SYSMEM:
-+	if (!cm->flags.bits.lut3d_dma_enable) {
-+		/* SYSMEM path — no DMA 3DLUT available.
-+		 * Previously this was treated as a no-op for the DMA/VIDMEM
-+		 * programming, preserve identical behavior.
-+		 */
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
--		// Don't know what to do in this case.
--		//case DC_CM2_TRANSFER_FUNC_SOURCE_SYSMEM:
--		break;
--	case DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM:
--		fl_get_lut_mode(mcm_luts->lut3d_data.gpu_mem_params.layout,
--				mcm_luts->lut3d_data.gpu_mem_params.size,
-+	} else {
-+		/* VIDMEM (3DLUT DMA Fast Load) */
-+
-+		fl_get_lut_mode(cm->lut3d_dma.swizzle,
- 				&mode,
- 				&addr_mode,
- 				&width);
-@@ -646,20 +635,19 @@ bool dcn42_program_rmcm_luts(
- 			return false;
- 
- 		// setting native or transformed mode,
--		dc_get_lut_mode(mcm_luts->lut3d_data.gpu_mem_params.layout, &mode, &addr_mode);
-+		dc_get_lut_mode(cm->lut3d_dma.swizzle, &mode, &addr_mode);
- 
- 		//seems to be only for the MCM
--		dc_get_lut_format(mcm_luts->lut3d_data.gpu_mem_params.format_params.format, &format);
-+		dc_get_lut_format(cm->lut3d_dma.format, &format);
- 
- 		dc_get_lut_xbar(
--			mcm_luts->lut3d_data.gpu_mem_params.component_order,
- 			&crossbar_bit_slice_cr_r,
- 			&crossbar_bit_slice_y_g,
- 			&crossbar_bit_slice_cb_b);
- 
- 		fl_config.mode					= mode;
- 		fl_config.enabled				= lut3d_xable != MCM_LUT_DISABLE;
--		fl_config.address				= mcm_luts->lut3d_data.gpu_mem_params.addr;
-+		fl_config.address				= cm->lut3d_dma.addr;
- 		fl_config.format				= format;
- 		fl_config.crossbar_bit_slice_y_g  = crossbar_bit_slice_y_g;
- 		fl_config.crossbar_bit_slice_cb_b = crossbar_bit_slice_cb_b;
-@@ -667,17 +655,20 @@ bool dcn42_program_rmcm_luts(
- 		fl_config.width				    = width;
- 		fl_config.protection_bits		= rmcm_3dlut->protection_bits;
- 		fl_config.addr_mode			    = addr_mode;
--		fl_config.layout                = mcm_luts->lut3d_data.gpu_mem_params.layout;
--		fl_config.bias	= mcm_luts->lut3d_data.gpu_mem_params.format_params.float_params.bias;
--		fl_config.scale	= mcm_luts->lut3d_data.gpu_mem_params.format_params.float_params.scale;
-+		fl_config.layout                = cm->lut3d_dma.swizzle;
-+		fl_config.bias	= cm->lut3d_dma.bias;
-+		fl_config.scale	= cm->lut3d_dma.scale;
- 
- 		mpc_fl_config.enabled			= fl_config.enabled;
- 		mpc_fl_config.width	            = width;
- 		mpc_fl_config.select_lut_bank_a = lut_bank_a;
--		mpc_fl_config.bit_depth		    = mcm_luts->lut3d_data.gpu_mem_params.bit_depth;
-+		/* bit_depth was previously zero-initialized in local_mcm,
-+		 * preserve identical behavior.
-+		 */
-+		mpc_fl_config.bit_depth		    = 0;
- 		mpc_fl_config.hubp_index		= hubp->inst;
--		mpc_fl_config.bias	= mcm_luts->lut3d_data.gpu_mem_params.format_params.float_params.bias;
--		mpc_fl_config.scale	= mcm_luts->lut3d_data.gpu_mem_params.format_params.float_params.scale;
-+		mpc_fl_config.bias	= cm->lut3d_dma.bias;
-+		mpc_fl_config.scale	= cm->lut3d_dma.scale;
- 
- 		//1. power down the block
- 		mpc->funcs->rmcm.power_on_shaper_3dlut(mpc, mpcc_id, false);
-@@ -689,10 +680,6 @@ bool dcn42_program_rmcm_luts(
- 
- 		//3. power on the block
- 		mpc->funcs->rmcm.power_on_shaper_3dlut(mpc, mpcc_id, true);
+-	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
+-	    link->type == dc_connection_none)
+-		return;
 -
--		break;
--	default:
+-	if (dm->num_of_edps >= AMDGPU_DM_MAX_NUM_EDP) {
+-		drm_warn(adev_to_drm(dm->adev), "Too much eDP connections, skipping backlight setup for additional eDPs\n");
+-		return;
+-	}
+-
+-	aconnector->bl_idx = bl_idx;
+-
+-	amdgpu_dm_update_backlight_caps(dm, bl_idx);
+-	dm->backlight_link[bl_idx] = link;
+-	dm->num_of_edps++;
+-
+-	update_connector_ext_caps(aconnector);
+-	caps = &dm->backlight_caps[aconnector->bl_idx];
+-
+-	/* Only offer ABM property when non-OLED and user didn't turn off by module parameter */
+-	if (caps->ext_caps && !caps->ext_caps->bits.oled && amdgpu_dm_abm_level < 0)
+-		drm_object_attach_property(&aconnector->base.base,
+-					   dm->adev->mode_info.abm_level_property,
+-					   ABM_SYSFS_CONTROL);
+-}
+-
+ static void amdgpu_set_panel_orientation(struct drm_connector *connector);
+ 
+ 
+@@ -5883,7 +5366,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 
+ 			if (ret) {
+ 				amdgpu_dm_update_connector_after_detect(aconnector);
+-				setup_backlight_device(dm, aconnector);
++				amdgpu_dm_setup_backlight_device(dm, aconnector);
+ 
+ 				/* Disable PSR if Replay can be enabled */
+ 				if (replay_feature_enabled)
+@@ -7960,103 +7443,6 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
+ 	return ret;
+ }
+ 
+-/**
+- * DOC: panel power savings
+- *
+- * The display manager allows you to set your desired **panel power savings**
+- * level (between 0-4, with 0 representing off), e.g. using the following::
+- *
+- *   # echo 3 > /sys/class/drm/card0-eDP-1/amdgpu/panel_power_savings
+- *
+- * Modifying this value can have implications on color accuracy, so tread
+- * carefully.
+- */
+-
+-static ssize_t panel_power_savings_show(struct device *device,
+-					struct device_attribute *attr,
+-					char *buf)
+-{
+-	struct drm_connector *connector = dev_get_drvdata(device);
+-	struct drm_device *dev = connector->dev;
+-	u8 val;
+-
+-	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+-	val = to_dm_connector_state(connector->state)->abm_level ==
+-		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
+-		to_dm_connector_state(connector->state)->abm_level;
+-	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+-
+-	return sysfs_emit(buf, "%u\n", val);
+-}
+-
+-static ssize_t panel_power_savings_store(struct device *device,
+-					 struct device_attribute *attr,
+-					 const char *buf, size_t count)
+-{
+-	struct drm_connector *connector = dev_get_drvdata(device);
+-	struct drm_device *dev = connector->dev;
+-	long val;
+-	int ret;
+-
+-	ret = kstrtol(buf, 0, &val);
+-
+-	if (ret)
+-		return ret;
+-
+-	if (val < 0 || val > 4)
+-		return -EINVAL;
+-
+-	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+-	if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
+-		ret = -EBUSY;
+-	else
+-		to_dm_connector_state(connector->state)->abm_level = val ?:
+-			ABM_LEVEL_IMMEDIATE_DISABLE;
+-	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+-
+-	if (ret)
+-		return ret;
+-
+-	drm_kms_helper_hotplug_event(dev);
+-
+-	return count;
+-}
+-
+-static DEVICE_ATTR_RW(panel_power_savings);
+-
+-static struct attribute *amdgpu_attrs[] = {
+-	&dev_attr_panel_power_savings.attr,
+-	NULL
+-};
+-
+-static const struct attribute_group amdgpu_group = {
+-	.name = "amdgpu",
+-	.attrs = amdgpu_attrs
+-};
+-
+-static bool
+-amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *amdgpu_dm_connector)
+-{
+-	if (amdgpu_dm_abm_level >= 0)
 -		return false;
- 	}
- 
- 	return true;
-@@ -700,7 +687,7 @@ bool dcn42_program_rmcm_luts(
- 
- void dcn42_populate_mcm_luts(struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
--		struct dc_cm2_func_luts mcm_luts,
-+		const struct dc_plane_cm *cm,
- 		bool lut_bank_a)
+-
+-	if (amdgpu_dm_connector->base.connector_type != DRM_MODE_CONNECTOR_eDP)
+-		return false;
+-
+-	/* check for OLED panels */
+-	if (amdgpu_dm_connector->bl_idx >= 0) {
+-		struct drm_device *drm = amdgpu_dm_connector->base.dev;
+-		struct amdgpu_display_manager *dm = &drm_to_adev(drm)->dm;
+-		struct amdgpu_dm_backlight_caps *caps;
+-
+-		caps = &dm->backlight_caps[amdgpu_dm_connector->bl_idx];
+-		if (caps->aux_support)
+-			return false;
+-	}
+-
+-	return true;
+-}
+-
+ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
  {
- 	struct dpp *dpp_base = pipe_ctx->plane_res.dpp;
-@@ -708,14 +695,17 @@ void dcn42_populate_mcm_luts(struct dc *dc,
- 	int mpcc_id = hubp->inst;
- 	struct mpc *mpc = dc->res_pool->mpc;
- 	union mcm_lut_params m_lut_params;
--	enum dc_cm2_transfer_func_source lut3d_src = mcm_luts.lut3d_data.lut3d_src;
-+	const bool lut3d_dma = !!cm->flags.bits.lut3d_dma_enable;
- 	enum hubp_3dlut_fl_format format = 0;
- 	enum hubp_3dlut_fl_mode mode;
--	enum hubp_3dlut_fl_width width = 0;
-+	/* Width was previously hard-coded to TRANSFORMED via local_mcm build,
-+	 * preserve identical behavior.
-+	 */
-+	enum hubp_3dlut_fl_width width = hubp_3dlut_fl_width_transformed;
- 	enum hubp_3dlut_fl_addressing_mode addr_mode;
--	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_y_g = 0;
--	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cb_b = 0;
--	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cr_r = 0;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_y_g;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cb_b;
-+	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cr_r;
- 	enum MCM_LUT_XABLE shaper_xable = MCM_LUT_DISABLE;
- 	enum MCM_LUT_XABLE lut3d_xable = MCM_LUT_DISABLE;
- 	enum MCM_LUT_XABLE lut1d_xable = MCM_LUT_DISABLE;
-@@ -724,33 +714,35 @@ void dcn42_populate_mcm_luts(struct dc *dc,
- 	dcn42_get_mcm_lut_xable_from_pipe_ctx(dc, pipe_ctx, &shaper_xable, &lut3d_xable, &lut1d_xable);
+ 	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 7d37c1612131..01f614e6da75 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1167,5 +1167,4 @@ int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector);
  
- 	//MCM - setting its location (Before/After) blender
--	//set to post blend (true)
-+	//mpc_mcm_post_blend was previously zero-initialized in local_mcm,
-+	//preserve identical behavior.
- 	dcn42_set_mcm_location_post_blend(
- 		dc,
- 		pipe_ctx,
--		mcm_luts.lut3d_data.mpc_mcm_post_blend);
-+		false);
+ void retrieve_dmi_info(struct amdgpu_display_manager *dm);
  
- 	//RMCM - 3dLUT+Shaper
--	if (mcm_luts.lut3d_data.rmcm_3dlut_enable &&
--		is_rmcm_3dlut_fl_supported(dc, mcm_luts.lut3d_data.gpu_mem_params.size)) {
-+#if defined(CONFIG_DRM_AMD_DC_DCN4_2)
-+	if (cm->flags.bits.rmcm_enable &&
-+		is_rmcm_3dlut_fl_supported(dc)) {
- 		dcn42_program_rmcm_luts(
- 			hubp,
- 			pipe_ctx,
--			lut3d_src,
--			&mcm_luts,
-+			cm,
- 			mpc,
- 			lut_bank_a,
- 			mpcc_id);
- 	}
-+#endif /* CONFIG_DRM_AMD_DC_DCN4_2 */
- 
- 	/* 1D LUT */
--	if (mcm_luts.lut1d_func) {
-+	{
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
--		if (mcm_luts.lut1d_func->type == TF_TYPE_HWPWL)
--			m_lut_params.pwl = &mcm_luts.lut1d_func->pwl;
--		else if (mcm_luts.lut1d_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
-+		if (cm->blend_func.type == TF_TYPE_HWPWL)
-+			m_lut_params.pwl = &cm->blend_func.pwl;
-+		else if (cm->blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 			rval = cm3_helper_translate_curve_to_hw_format(mpc->ctx,
--					mcm_luts.lut1d_func,
-+					&cm->blend_func,
- 					&dpp_base->regamma_params, false);
- 			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
- 		}
-@@ -763,14 +755,14 @@ void dcn42_populate_mcm_luts(struct dc *dc,
- 	}
- 
- 	/* Shaper */
--	if (mcm_luts.shaper && mcm_luts.lut3d_data.mpc_3dlut_enable) {
-+	if (cm->flags.bits.lut3d_enable) {
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
--		if (mcm_luts.shaper->type == TF_TYPE_HWPWL)
--			m_lut_params.pwl = &mcm_luts.shaper->pwl;
--		else if (mcm_luts.shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
-+		if (cm->shaper_func.type == TF_TYPE_HWPWL)
-+			m_lut_params.pwl = &cm->shaper_func.pwl;
-+		else if (cm->shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 			ASSERT(false);
- 			rval = cm3_helper_translate_curve_to_hw_format(mpc->ctx,
--					mcm_luts.shaper,
-+					&cm->shaper_func,
- 					&dpp_base->regamma_params, true);
- 			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
- 		}
-@@ -783,41 +775,27 @@ void dcn42_populate_mcm_luts(struct dc *dc,
- 	}
- 
- 	/* 3DLUT */
--	switch (lut3d_src) {
--	case DC_CM2_TRANSFER_FUNC_SOURCE_SYSMEM:
-+	if (!lut3d_dma) {
-+		/* SYSMEM (legacy lut3d_func) */
- 		memset(&m_lut_params, 0, sizeof(m_lut_params));
- 		if (hubp->funcs->hubp_enable_3dlut_fl)
- 			hubp->funcs->hubp_enable_3dlut_fl(hubp, false);
- 
--		if (mcm_luts.lut3d_data.lut3d_func && mcm_luts.lut3d_data.lut3d_func->state.bits.initialized) {
--			m_lut_params.lut3d = &mcm_luts.lut3d_data.lut3d_func->lut_3d;
-+		if (cm->lut3d_func.state.bits.initialized) {
-+			m_lut_params.lut3d = &cm->lut3d_func.lut_3d;
- 			if (mpc->funcs->populate_lut)
- 				mpc->funcs->populate_lut(mpc, MCM_LUT_3DLUT, m_lut_params, lut_bank_a, mpcc_id);
- 			if (mpc->funcs->program_lut_mode)
- 				mpc->funcs->program_lut_mode(mpc, MCM_LUT_3DLUT, lut3d_xable, lut_bank_a,
- 						mpcc_id);
- 		}
--		break;
--	case DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM:
--		switch (mcm_luts.lut3d_data.gpu_mem_params.size) {
--		case DC_CM2_GPU_MEM_SIZE_333333:
--			width = hubp_3dlut_fl_width_33;
--			break;
--		case DC_CM2_GPU_MEM_SIZE_171717:
--			width = hubp_3dlut_fl_width_17;
--			break;
--		case DC_CM2_GPU_MEM_SIZE_TRANSFORMED:
--			width = hubp_3dlut_fl_width_transformed;
--			break;
--		default:
--			//TODO: Handle default case
--			break;
--		}
-+	} else {
-+		/* VIDMEM (3DLUT DMA Fast Load) */
- 
- 		//check for support
- 		if (mpc->funcs->mcm.is_config_supported &&
- 			!mpc->funcs->mcm.is_config_supported(width))
--			break;
-+			return;
- 
- 		if (mpc->funcs->program_lut_read_write_control)
- 			mpc->funcs->program_lut_read_write_control(mpc, MCM_LUT_3DLUT, lut_bank_a, mpcc_id);
-@@ -825,49 +803,70 @@ void dcn42_populate_mcm_luts(struct dc *dc,
- 			mpc->funcs->program_lut_mode(mpc, MCM_LUT_3DLUT, lut3d_xable, lut_bank_a, mpcc_id);
- 
- 		if (hubp->funcs->hubp_program_3dlut_fl_addr)
--			hubp->funcs->hubp_program_3dlut_fl_addr(hubp, mcm_luts.lut3d_data.gpu_mem_params.addr);
-+			hubp->funcs->hubp_program_3dlut_fl_addr(hubp, cm->lut3d_dma.addr);
- 
-+		/* bit_depth was previously zero-initialized in local_mcm,
-+		 * preserve identical behavior.
-+		 */
- 		if (mpc->funcs->mcm.program_bit_depth)
--			mpc->funcs->mcm.program_bit_depth(mpc, mcm_luts.lut3d_data.gpu_mem_params.bit_depth, mpcc_id);
-+			mpc->funcs->mcm.program_bit_depth(mpc, 0, mpcc_id);
- 
--		dc_get_lut_mode(mcm_luts.lut3d_data.gpu_mem_params.layout, &mode, &addr_mode);
-+		switch (cm->lut3d_dma.swizzle) {
-+		case CM_LUT_3D_SWIZZLE_LINEAR_RGB:
-+			mode = hubp_3dlut_fl_mode_native_1;
-+			addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
-+			break;
-+		case CM_LUT_3D_SWIZZLE_LINEAR_BGR:
-+			mode = hubp_3dlut_fl_mode_native_2;
-+			addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
-+			break;
-+		case CM_LUT_1D_PACKED_LINEAR:
-+			mode = hubp_3dlut_fl_mode_transform;
-+			addr_mode = hubp_3dlut_fl_addressing_mode_simple_linear;
-+			break;
-+		default:
-+			mode = hubp_3dlut_fl_mode_disable;
-+			addr_mode = hubp_3dlut_fl_addressing_mode_sw_linear;
-+			break;
+-void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm, int bl_idx);
+ #endif /* __AMDGPU_DM_H__ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+new file mode 100644
+index 000000000000..3770e8dafdbf
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -0,0 +1,660 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ */
++
++#include "dc.h"
++#include "dc/dc_dmub_srv.h"
++#include "dc/dc_state.h"
++#include "dc/dc_stat.h"
++
++#include "amdgpu.h"
++#include "amdgpu_display.h"
++#include "amdgpu_dm.h"
++#include "amdgpu_dm_backlight.h"
++#include "amdgpu_dm_psr.h"
++#include "amdgpu_dm_replay.h"
++#include "amdgpu_atombios.h"
++
++#include "modules/inc/mod_power.h"
++
++#include <linux/backlight.h>
++#include <linux/power_supply.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_utils.h>
++
++#include <acpi/video.h>
++
++#include "amdgpu_dm_trace.h"
++#include "amd_shared.h"
++
++#define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
++#define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
++#define AMDGPU_DM_MIN_SPREAD ((AMDGPU_DM_DEFAULT_MAX_BACKLIGHT - AMDGPU_DM_DEFAULT_MIN_BACKLIGHT) / 2)
++#define AUX_BL_DEFAULT_TRANSITION_TIME_MS 50
++
++void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
++				     int bl_idx)
++{
++	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[bl_idx];
++
++	if (caps->caps_valid)
++		return;
++
++#if defined(CONFIG_ACPI)
++	amdgpu_acpi_get_backlight_caps(caps);
++
++	/* validate the firmware value is sane */
++	if (caps->caps_valid) {
++		int spread = caps->max_input_signal - caps->min_input_signal;
++
++		if (caps->max_input_signal > AMDGPU_DM_DEFAULT_MAX_BACKLIGHT ||
++		    caps->min_input_signal < 0 ||
++		    spread > AMDGPU_DM_DEFAULT_MAX_BACKLIGHT ||
++		    spread < AMDGPU_DM_MIN_SPREAD) {
++			drm_dbg_kms(adev_to_drm(dm->adev), "DM: Invalid backlight caps: min=%d, max=%d\n",
++				      caps->min_input_signal, caps->max_input_signal);
++			caps->caps_valid = false;
 +		}
- 		if (hubp->funcs->hubp_program_3dlut_fl_mode)
- 			hubp->funcs->hubp_program_3dlut_fl_mode(hubp, mode);
- 
- 		if (hubp->funcs->hubp_program_3dlut_fl_addressing_mode)
- 			hubp->funcs->hubp_program_3dlut_fl_addressing_mode(hubp, addr_mode);
- 
--		switch (mcm_luts.lut3d_data.gpu_mem_params.format_params.format) {
--		case DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12MSB:
-+		switch (cm->lut3d_dma.format) {
-+		case CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12MSB:
- 			format = hubp_3dlut_fl_format_unorm_12msb_bitslice;
- 			break;
--		case DC_CM2_GPU_MEM_FORMAT_16161616_UNORM_12LSB:
-+		case CM_LUT_PIXEL_FORMAT_RGBA16161616_UNORM_12LSB:
- 			format = hubp_3dlut_fl_format_unorm_12lsb_bitslice;
- 			break;
--		case DC_CM2_GPU_MEM_FORMAT_16161616_FLOAT_FP1_5_10:
-+		case CM_LUT_PIXEL_FORMAT_RGBA16161616_FLOAT_FP1_5_10:
- 			format = hubp_3dlut_fl_format_float_fp1_5_10;
- 			break;
-+		default:
++	}
++
++	if (!caps->caps_valid) {
++		caps->min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++		caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++		caps->caps_valid = true;
++	}
++#else
++	if (caps->aux_support)
++		return;
++
++	caps->min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++	caps->caps_valid = true;
++#endif
++}
++
++static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
++				unsigned int *min, unsigned int *max)
++{
++	if (!caps)
++		return 0;
++
++	if (caps->aux_support) {
++		/* Firmware limits are in nits, DC API wants millinits. */
++		*max = 1000 * caps->aux_max_input_signal;
++		*min = 1000 * caps->aux_min_input_signal;
++	} else {
++		/* Firmware limits are 8-bit, PWM control is 16-bit. */
++		*max = 0x101 * caps->max_input_signal;
++		*min = 0x101 * caps->min_input_signal;
++	}
++	return 1;
++}
++
++/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
++static inline u32 scale_input_to_fw(int min, int max, u64 input)
++{
++	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
++}
++
++/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
++static inline u32 scale_fw_to_input(int min, int max, u64 input)
++{
++	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
++}
++
++static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
++				      unsigned int min, unsigned int max,
++				      uint32_t *user_brightness)
++{
++	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
++	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
++	int left, right;
++
++	if (amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)
++		return;
++
++	if (!caps->data_points)
++		return;
++
++	/*
++	 * Handle the case where brightness is below the first data point
++	 * Interpolate between (0,0) and (first_signal, first_lum)
++	 */
++	if (brightness < caps->luminance_data[0].input_signal) {
++		lum = DIV_ROUND_CLOSEST(caps->luminance_data[0].luminance * brightness,
++					caps->luminance_data[0].input_signal);
++		goto scale;
++	}
++
++	left = 0;
++	right = caps->data_points - 1;
++	while (left <= right) {
++		int mid = left + (right - left) / 2;
++		u8 signal = caps->luminance_data[mid].input_signal;
++
++		/* Exact match found */
++		if (signal == brightness) {
++			lum = caps->luminance_data[mid].luminance;
++			goto scale;
++		}
++
++		if (signal < brightness)
++			left = mid + 1;
++		else
++			right = mid - 1;
++	}
++
++	/* verify bound */
++	if (left >= caps->data_points)
++		left = caps->data_points - 1;
++
++	/* At this point, left > right */
++	lower_signal = caps->luminance_data[right].input_signal;
++	upper_signal = caps->luminance_data[left].input_signal;
++	lower_lum = caps->luminance_data[right].luminance;
++	upper_lum = caps->luminance_data[left].luminance;
++
++	/* interpolate */
++	if (right == left || !lower_lum)
++		lum = upper_lum;
++	else
++		lum = lower_lum + DIV_ROUND_CLOSEST((upper_lum - lower_lum) *
++						    (brightness - lower_signal),
++						    upper_signal - lower_signal);
++scale:
++	*user_brightness = scale_fw_to_input(min, max,
++					     DIV_ROUND_CLOSEST(lum * brightness, 101));
++}
++
++static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
++					uint32_t brightness)
++{
++	unsigned int min, max;
++
++	if (!get_brightness_range(caps, &min, &max))
++		return brightness;
++
++	convert_custom_brightness(caps, min, max, &brightness);
++
++	/* Rescale 0..max to min..max */
++	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
++}
++
++static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
++				      uint32_t brightness)
++{
++	unsigned int min, max;
++
++	if (!get_brightness_range(caps, &min, &max))
++		return brightness;
++
++	if (brightness < min)
++		return 0;
++	/* Rescale min..max to 0..max */
++	return DIV_ROUND_CLOSEST_ULL((u64)max * (brightness - min),
++				 max - min);
++}
++
++static struct dc_stream_state *dm_find_stream_with_link(
++	struct amdgpu_display_manager *dm,
++	struct dc_link *link)
++{
++	struct dc_state *cur_dc_state = dm->dc->current_state;
++	struct dc_stream_state *stream = NULL;
++	int i;
++
++	for (i = 0; i < cur_dc_state->stream_count; i++) {
++		stream = cur_dc_state->streams[i];
++		if (stream->link == link)
++			return stream;
++	}
++
++	return NULL;
++}
++
++void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
++				   int bl_idx,
++				   u32 user_brightness)
++{
++	struct amdgpu_dm_backlight_caps *caps;
++	struct dc_link *link;
++	u32 brightness = 0;
++	bool rc = false, reallow_idle = false;
++	struct drm_connector *connector;
++	struct dc_stream_state *stream;
++	unsigned int min, max;
++
++	list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, head) {
++		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
++
++		if (aconnector->bl_idx != bl_idx)
++			continue;
++
++		/* if connector is off, save the brightness for next time it's on */
++		if (!aconnector->base.encoder) {
++			dm->brightness[bl_idx] = user_brightness;
++			dm->actual_brightness[bl_idx] = 0;
++			return;
++		}
++	}
++
++	amdgpu_dm_update_backlight_caps(dm, bl_idx);
++	caps = &dm->backlight_caps[bl_idx];
++
++	dm->brightness[bl_idx] = user_brightness;
++	/* update scratch register */
++	if (bl_idx == 0)
++		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
++	brightness = convert_brightness_from_user(caps, dm->brightness[bl_idx]);
++	link = (struct dc_link *)dm->backlight_link[bl_idx];
++
++	/* Apply brightness quirk */
++	if (caps->brightness_mask)
++		brightness |= caps->brightness_mask;
++
++	if (trace_amdgpu_dm_brightness_enabled()) {
++		trace_amdgpu_dm_brightness(__builtin_return_address(0),
++					   user_brightness,
++					   brightness,
++					   caps->aux_support,
++					   power_supply_is_system_supplied() > 0);
++	}
++
++	stream = dm_find_stream_with_link(dm, link);
++	if (!stream)
++		return;
++
++	mutex_lock(&dm->dc_lock);
++	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
++		dc_allow_idle_optimizations(dm->dc, false);
++		reallow_idle = true;
++	}
++
++	if (caps->aux_support) {
++		rc = mod_power_set_backlight_nits(dm->power_module, stream, brightness,
++			AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
++	} else {
++		/* power module uses millipercent */
++		get_brightness_range(caps, &min, &max);
++		brightness = DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 1000;
++		rc = mod_power_set_backlight_percent(dm->power_module, stream,
++						     brightness, 0, false);
++	}
++
++	/*
++	 * Some kms clients create a ramped backlight transition effect
++	 * by rapidly changing the backlight. Yet we must wait on dmcub
++	 * fw to exit psr/replay before programming backlight. To
++	 * prevent lag, keep disable psr/replay and let the next atomic
++	 * flip clear the event.
++	 *
++	 * ToDo: use ISM to handle rapidly backlight change
++	 *
++	 * Rapidly backlight change is similar to rapidly cursor events,
++	 * which is now handled by ISM. ISM can delay the event until system
++	 * is really idle, so we may use ISM to handle backlight change as well.
++	 */
++	amdgpu_dm_psr_set_event(dm, stream, true,
++		psr_event_hw_programming, true);
++	amdgpu_dm_replay_set_event(dm, stream, true,
++		replay_event_hw_programming, true);
++
++	if (dm->dc->caps.ips_support && reallow_idle)
++		dc_allow_idle_optimizations(dm->dc, true);
++
++	mutex_unlock(&dm->dc_lock);
++
++	if (rc)
++		dm->actual_brightness[bl_idx] = user_brightness;
++}
++
++static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
++{
++	struct amdgpu_display_manager *dm = bl_get_data(bd);
++	int i;
++
++	for (i = 0; i < dm->num_of_edps; i++) {
++		if (bd == dm->backlight_dev[i])
 +			break;
- 		}
- 		if (hubp->funcs->hubp_program_3dlut_fl_format)
- 			hubp->funcs->hubp_program_3dlut_fl_format(hubp, format);
- 		if (hubp->funcs->hubp_update_3dlut_fl_bias_scale &&
- 				mpc->funcs->mcm.program_bias_scale) {
- 			mpc->funcs->mcm.program_bias_scale(mpc,
--				mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.bias,
--				mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.scale,
-+				cm->lut3d_dma.bias,
-+				cm->lut3d_dma.scale,
- 				mpcc_id);
- 			hubp->funcs->hubp_update_3dlut_fl_bias_scale(hubp,
--						mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.bias,
--						mcm_luts.lut3d_data.gpu_mem_params.format_params.float_params.scale);
-+				cm->lut3d_dma.bias,
-+				cm->lut3d_dma.scale);
- 		}
- 
--		//navi 4x has a bug and r and blue are swapped and need to be worked around here in
--		//TODO: need to make a method for get_xbar per asic OR do the workaround in program_crossbar for 4x
--		dc_get_lut_xbar(
--			mcm_luts.lut3d_data.gpu_mem_params.component_order,
--			&crossbar_bit_slice_cr_r,
--			&crossbar_bit_slice_y_g,
--			&crossbar_bit_slice_cb_b);
-+		/* component_order was previously hard-coded to RGBA in local_mcm,
-+		 * preserve identical behavior.
++	}
++	if (i >= AMDGPU_DM_MAX_NUM_EDP)
++		i = 0;
++	amdgpu_dm_backlight_set_level(dm, i, bd->props.brightness);
++
++	return 0;
++}
++
++static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
++					 int bl_idx)
++{
++	int ret;
++	struct amdgpu_dm_backlight_caps caps;
++	struct dc_link *link = (struct dc_link *)dm->backlight_link[bl_idx];
++
++	amdgpu_dm_update_backlight_caps(dm, bl_idx);
++	caps = dm->backlight_caps[bl_idx];
++
++	if (caps.aux_support) {
++		u32 avg, peak;
++
++		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
++			return dm->brightness[bl_idx];
++		return convert_brightness_to_user(&caps, avg);
++	}
++
++	ret = dc_link_get_backlight_level(link);
++
++	if (ret == DC_ERROR_UNEXPECTED)
++		return dm->brightness[bl_idx];
++
++	return convert_brightness_to_user(&caps, ret);
++}
++
++static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
++{
++	struct amdgpu_display_manager *dm = bl_get_data(bd);
++	int i;
++
++	for (i = 0; i < dm->num_of_edps; i++) {
++		if (bd == dm->backlight_dev[i])
++			break;
++	}
++	if (i >= AMDGPU_DM_MAX_NUM_EDP)
++		i = 0;
++	return amdgpu_dm_backlight_get_level(dm, i);
++}
++
++static const struct backlight_ops amdgpu_dm_backlight_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.get_brightness = amdgpu_dm_backlight_get_brightness,
++	.update_status	= amdgpu_dm_backlight_update_status,
++};
++
++void
++amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
++{
++	struct drm_device *drm = aconnector->base.dev;
++	struct amdgpu_display_manager *dm = &drm_to_adev(drm)->dm;
++	struct backlight_properties props = { 0 };
++	struct amdgpu_dm_backlight_caps *caps;
++	char bl_name[16];
++	int min, max;
++	int real_brightness;
++	int init_brightness;
++
++	if (aconnector->bl_idx == -1)
++		return;
++
++	if (!acpi_video_backlight_use_native()) {
++		drm_info(drm, "Skipping amdgpu DM backlight registration\n");
++		/* Try registering an ACPI video backlight device instead. */
++		acpi_video_register_backlight();
++		return;
++	}
++
++	caps = &dm->backlight_caps[aconnector->bl_idx];
++	if (get_brightness_range(caps, &min, &max)) {
++		if (power_supply_is_system_supplied() > 0)
++			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->ac_level, 100);
++		else
++			props.brightness = DIV_ROUND_CLOSEST((max - min) * caps->dc_level, 100);
++		/* min is zero, so max needs to be adjusted */
++		props.max_brightness = max - min;
++		drm_dbg(drm, "Backlight caps: min: %d, max: %d, ac %d, dc %d\n", min, max,
++			caps->ac_level, caps->dc_level);
++	} else
++		props.brightness = props.max_brightness = MAX_BACKLIGHT_LEVEL;
++
++	init_brightness = props.brightness;
++
++	if (caps->data_points && !(amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)) {
++		drm_info(drm, "Using custom brightness curve\n");
++		props.scale = BACKLIGHT_SCALE_NON_LINEAR;
++	} else
++		props.scale = BACKLIGHT_SCALE_LINEAR;
++	props.type = BACKLIGHT_RAW;
++
++	snprintf(bl_name, sizeof(bl_name), "amdgpu_bl%d",
++		 drm->primary->index + aconnector->bl_idx);
++
++	dm->backlight_dev[aconnector->bl_idx] =
++		backlight_device_register(bl_name, aconnector->base.kdev, dm,
++					  &amdgpu_dm_backlight_ops, &props);
++	dm->brightness[aconnector->bl_idx] = props.brightness;
++
++	if (IS_ERR(dm->backlight_dev[aconnector->bl_idx])) {
++		drm_err(drm, "DM: Backlight registration failed!\n");
++		dm->backlight_dev[aconnector->bl_idx] = NULL;
++	} else {
++		/*
++		 * dm->brightness[x] can be inconsistent just after startup until
++		 * ops.get_brightness is called.
 +		 */
-+		crossbar_bit_slice_cr_r = hubp_3dlut_fl_crossbar_bit_slice_0_15;
-+		crossbar_bit_slice_y_g = hubp_3dlut_fl_crossbar_bit_slice_16_31;
-+		crossbar_bit_slice_cb_b = hubp_3dlut_fl_crossbar_bit_slice_32_47;
- 
- 		if (hubp->funcs->hubp_program_3dlut_fl_crossbar)
- 			hubp->funcs->hubp_program_3dlut_fl_crossbar(hubp,
-@@ -893,7 +892,6 @@ void dcn42_populate_mcm_luts(struct dc *dc,
- 				mpc->funcs->program_lut_mode(mpc, MCM_LUT_1DLUT, MCM_LUT_DISABLE, lut_bank_a, mpcc_id);
- 			}
- 		}
--		break;
- 	}
- }
- 
-@@ -908,19 +906,19 @@ bool dcn42_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 	const struct pwl_params *lut_params = NULL;
- 	bool rval;
- 
--	if (plane_state->mcm_luts.lut3d_data.lut3d_src == DC_CM2_TRANSFER_FUNC_SOURCE_VIDMEM) {
--		dcn42_populate_mcm_luts(dc, pipe_ctx, plane_state->mcm_luts, plane_state->lut_bank_a);
-+	if (plane_state->cm.flags.bits.lut3d_dma_enable) {
-+		dcn42_populate_mcm_luts(dc, pipe_ctx, &plane_state->cm, plane_state->lut_bank_a);
- 		return true;
- 	}
- 
- 	mpc->funcs->set_movable_cm_location(mpc, MPCC_MOVABLE_CM_LOCATION_BEFORE, mpcc_id);
- 	pipe_ctx->plane_state->mcm_location = MPCC_MOVABLE_CM_LOCATION_BEFORE;
- 	// 1D LUT
--	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
--		lut_params = &plane_state->blend_tf.pwl;
--	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
-+		lut_params = &plane_state->cm.blend_func.pwl;
-+	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--				&plane_state->blend_tf,
-+				&plane_state->cm.blend_func,
- 				&dpp_base->regamma_params, false);
- 		lut_params = rval ? &dpp_base->regamma_params : NULL;
- 	}
-@@ -928,12 +926,12 @@ bool dcn42_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 	lut_params = NULL;
- 
- 	// Shaper
--	if (plane_state->in_shaper_func.type == TF_TYPE_HWPWL)
--		lut_params = &plane_state->in_shaper_func.pwl;
--	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
-+	if (plane_state->cm.shaper_func.type == TF_TYPE_HWPWL)
-+		lut_params = &plane_state->cm.shaper_func.pwl;
-+	else if (plane_state->cm.shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
- 		// TODO: dpp_base replace
- 		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
--				&plane_state->in_shaper_func,
-+				&plane_state->cm.shaper_func,
- 				&dpp_base->shaper_params, true);
- 		lut_params = rval ? &dpp_base->shaper_params : NULL;
- 	}
-@@ -941,8 +939,8 @@ bool dcn42_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 
- 	// 3D
- 	if (mpc->funcs->program_3dlut) {
--		if (plane_state->lut3d_func.state.bits.initialized == 1)
--			result &= mpc->funcs->program_3dlut(mpc, &plane_state->lut3d_func.lut_3d, mpcc_id);
-+		if (plane_state->cm.lut3d_func.state.bits.initialized == 1)
-+			result &= mpc->funcs->program_3dlut(mpc, &plane_state->cm.lut3d_func.lut_3d, mpcc_id);
- 		else
- 			result &= mpc->funcs->program_3dlut(mpc, NULL, mpcc_id);
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h
-index 0539ee0ffaee..c469e7535114 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h
-@@ -20,14 +20,13 @@ bool dcn42_set_mcm_luts(struct pipe_ctx *pipe_ctx,
- 
- void dcn42_populate_mcm_luts(struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
--		struct dc_cm2_func_luts mcm_luts,
-+		const struct dc_plane_cm *cm,
- 		bool lut_bank_a);
- 
- bool dcn42_program_rmcm_luts(
- 	struct hubp *hubp,
- 	struct pipe_ctx *pipe_ctx,
--	enum dc_cm2_transfer_func_source lut3d_src,
--	struct dc_cm2_func_luts *mcm_luts,
-+	const struct dc_plane_cm *cm,
- 	struct mpc *mpc,
- 	bool lut_bank_a,
- 	int mpcc_id);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
-index 63c6c841c681..b4956893ae9a 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
-@@ -58,6 +58,7 @@ struct dc_state;
- struct dc_stream_status;
- struct dc_writeback_info;
- struct dchub_init_data;
-+struct dc_plane_cm;
- struct dc_static_screen_params;
- struct resource_pool;
- struct resource_context;
-@@ -219,7 +220,7 @@ struct hwseq_private_funcs {
- 			struct dc_state *context);
- 	void (*populate_mcm_luts)(struct dc *dc,
- 			struct pipe_ctx *pipe_ctx,
--			struct dc_cm2_func_luts mcm_luts,
-+			const struct dc_plane_cm *cm,
- 			bool lut_bank_a);
- 	void (*perform_3dlut_wa_unlock)(struct pipe_ctx *pipe_ctx);
- 	void (*wait_for_pipe_update_if_needed)(struct dc *dc, struct pipe_ctx *pipe_ctx, bool is_surface_update_only);
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-index 1c18898aa475..6d6eda0e7e9d 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-@@ -108,7 +108,7 @@ struct hubp_fl_3dlut_config {
- 	uint16_t scale;
- 	struct dc_plane_address address;
- 	enum hubp_3dlut_fl_addressing_mode addr_mode;
--	enum dc_cm2_gpu_mem_layout layout;
-+	enum dc_cm_lut_swizzle layout;
- 	uint8_t protection_bits;
- 	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_y_g;
- 	enum hubp_3dlut_fl_crossbar_bit_slice crossbar_bit_slice_cb_b;
++		real_brightness =
++			amdgpu_dm_backlight_ops.get_brightness(dm->backlight_dev[aconnector->bl_idx]);
++
++		if (real_brightness != init_brightness) {
++			dm->actual_brightness[aconnector->bl_idx] = real_brightness;
++			dm->brightness[aconnector->bl_idx] = real_brightness;
++		}
++		drm_dbg_driver(drm, "DM: Registered Backlight device: %s\n", bl_name);
++	}
++}
++
++void amdgpu_dm_update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
++{
++	const struct drm_panel_backlight_quirk *panel_backlight_quirk;
++	struct amdgpu_dm_backlight_caps *caps;
++	struct drm_connector *conn_base;
++	struct amdgpu_device *adev;
++	struct drm_luminance_range_info *luminance_range;
++	struct drm_device *drm;
++
++	if (aconnector->bl_idx == -1 ||
++	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
++		return;
++
++	conn_base = &aconnector->base;
++	drm = conn_base->dev;
++	adev = drm_to_adev(drm);
++
++	caps = &adev->dm.backlight_caps[aconnector->bl_idx];
++	caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
++	caps->aux_support = false;
++
++	if (caps->ext_caps->bits.oled == 1
++	    /*
++	     * ||
++	     * caps->ext_caps->bits.sdr_aux_backlight_control == 1 ||
++	     * caps->ext_caps->bits.hdr_aux_backlight_control == 1
++	     */)
++		caps->aux_support = true;
++
++	if (amdgpu_backlight == 0)
++		caps->aux_support = false;
++	else if (amdgpu_backlight == 1)
++		caps->aux_support = true;
++	if (caps->aux_support)
++		aconnector->dc_link->backlight_control_type = BACKLIGHT_CONTROL_AMD_AUX;
++
++	luminance_range = &conn_base->display_info.luminance_range;
++
++	if (luminance_range->max_luminance)
++		caps->aux_max_input_signal = luminance_range->max_luminance;
++	else
++		caps->aux_max_input_signal = 512;
++
++	if (luminance_range->min_luminance)
++		caps->aux_min_input_signal = luminance_range->min_luminance;
++	else
++		caps->aux_min_input_signal = 1;
++
++	panel_backlight_quirk =
++		drm_get_panel_backlight_quirk(aconnector->drm_edid);
++	if (!IS_ERR_OR_NULL(panel_backlight_quirk)) {
++		if (panel_backlight_quirk->min_brightness) {
++			caps->min_input_signal =
++				panel_backlight_quirk->min_brightness - 1;
++			drm_info(drm,
++				 "Applying panel backlight quirk, min_brightness: %d\n",
++				 caps->min_input_signal);
++		}
++		if (panel_backlight_quirk->brightness_mask) {
++			drm_info(drm,
++				 "Applying panel backlight quirk, brightness_mask: 0x%X\n",
++				 panel_backlight_quirk->brightness_mask);
++			caps->brightness_mask =
++				panel_backlight_quirk->brightness_mask;
++		}
++	}
++}
++
++void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
++			    struct amdgpu_dm_connector *aconnector)
++{
++	struct amdgpu_dm_backlight_caps *caps;
++	struct dc_link *link = aconnector->dc_link;
++	int bl_idx = dm->num_of_edps;
++
++	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
++	    link->type == dc_connection_none)
++		return;
++
++	if (dm->num_of_edps >= AMDGPU_DM_MAX_NUM_EDP) {
++		drm_warn(adev_to_drm(dm->adev), "Too much eDP connections, skipping backlight setup for additional eDPs\n");
++		return;
++	}
++
++	aconnector->bl_idx = bl_idx;
++
++	amdgpu_dm_update_backlight_caps(dm, bl_idx);
++	dm->backlight_link[bl_idx] = link;
++	dm->num_of_edps++;
++
++	amdgpu_dm_update_connector_ext_caps(aconnector);
++	caps = &dm->backlight_caps[aconnector->bl_idx];
++
++	/* Only offer ABM property when non-OLED and user didn't turn off by module parameter */
++	if (caps->ext_caps && !caps->ext_caps->bits.oled && amdgpu_dm_abm_level < 0)
++		drm_object_attach_property(&aconnector->base.base,
++					   dm->adev->mode_info.abm_level_property,
++					   ABM_SYSFS_CONTROL);
++}
++
++/**
++ * DOC: panel power savings
++ *
++ * The display manager allows you to set your desired **panel power savings**
++ * level (between 0-4, with 0 representing off), e.g. using the following::
++ *
++ *   # echo 3 > /sys/class/drm/card0-eDP-1/amdgpu/panel_power_savings
++ *
++ * Modifying this value can have implications on color accuracy, so tread
++ * carefully.
++ */
++
++static ssize_t panel_power_savings_show(struct device *device,
++					struct device_attribute *attr,
++					char *buf)
++{
++	struct drm_connector *connector = dev_get_drvdata(device);
++	struct drm_device *dev = connector->dev;
++	u8 val;
++
++	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
++	val = to_dm_connector_state(connector->state)->abm_level ==
++		ABM_LEVEL_IMMEDIATE_DISABLE ? 0 :
++		to_dm_connector_state(connector->state)->abm_level;
++	drm_modeset_unlock(&dev->mode_config.connection_mutex);
++
++	return sysfs_emit(buf, "%u\n", val);
++}
++
++static ssize_t panel_power_savings_store(struct device *device,
++					 struct device_attribute *attr,
++					 const char *buf, size_t count)
++{
++	struct drm_connector *connector = dev_get_drvdata(device);
++	struct drm_device *dev = connector->dev;
++	long val;
++	int ret;
++
++	ret = kstrtol(buf, 0, &val);
++
++	if (ret)
++		return ret;
++
++	if (val < 0 || val > 4)
++		return -EINVAL;
++
++	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
++	if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
++		ret = -EBUSY;
++	else
++		to_dm_connector_state(connector->state)->abm_level = val ?:
++			ABM_LEVEL_IMMEDIATE_DISABLE;
++	drm_modeset_unlock(&dev->mode_config.connection_mutex);
++
++	if (ret)
++		return ret;
++
++	drm_kms_helper_hotplug_event(dev);
++
++	return count;
++}
++
++static DEVICE_ATTR_RW(panel_power_savings);
++
++static struct attribute *amdgpu_attrs[] = {
++	&dev_attr_panel_power_savings.attr,
++	NULL
++};
++
++const struct attribute_group amdgpu_group = {
++	.name = "amdgpu",
++	.attrs = amdgpu_attrs
++};
++
++bool
++amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *amdgpu_dm_connector)
++{
++	if (amdgpu_dm_abm_level >= 0)
++		return false;
++
++	if (amdgpu_dm_connector->base.connector_type != DRM_MODE_CONNECTOR_eDP)
++		return false;
++
++	/* check for OLED panels */
++	if (amdgpu_dm_connector->bl_idx >= 0) {
++		struct drm_device *drm = amdgpu_dm_connector->base.dev;
++		struct amdgpu_display_manager *dm = &drm_to_adev(drm)->dm;
++		struct amdgpu_dm_backlight_caps *caps;
++
++		caps = &dm->backlight_caps[amdgpu_dm_connector->bl_idx];
++		if (caps->aux_support)
++			return false;
++	}
++
++	return true;
++}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+new file mode 100644
+index 000000000000..acff23f9feef
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#ifndef __AMDGPU_DM_BACKLIGHT_H__
++#define __AMDGPU_DM_BACKLIGHT_H__
++
++struct amdgpu_display_manager;
++struct amdgpu_dm_connector;
++struct drm_connector;
++struct attribute_group;
++
++void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
++				     int bl_idx);
++void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
++				   int bl_idx, u32 user_brightness);
++void amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector);
++void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
++			    struct amdgpu_dm_connector *aconnector);
++void amdgpu_dm_update_connector_ext_caps(struct amdgpu_dm_connector *aconnector);
++bool amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *aconnector);
++
++extern const struct attribute_group amdgpu_group;
++
++#endif /* __AMDGPU_DM_BACKLIGHT_H__ */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+index 84dcb573d98f..0fdcf70256cc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+@@ -32,6 +32,7 @@
+ #include "dm_services.h"
+ #include "amdgpu.h"
+ #include "amdgpu_dm.h"
++#include "amdgpu_dm_backlight.h"
+ #include "amdgpu_dm_irq.h"
+ #include "amdgpu_pm.h"
+ #include "amdgpu_dm_trace.h"
 -- 
 2.43.0
 
