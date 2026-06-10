@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D13A1CD8CB9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:50:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47025CD98C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7390110E886;
-	Wed, 10 Jun 2026 09:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D306210E87C;
+	Wed, 10 Jun 2026 09:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N7+6t7It";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pkMMFMie";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012055.outbound.protection.outlook.com [40.107.209.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D255F10E886
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:50:52 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF7710E87C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:51:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sH8ogk1j9CBkz0iEwXfJLhr7hD/io3l5ivIlb4qPWkWhnsVBj96HpUzmjgAfR5FavgwKO3EHu2IDtNgVhZin/+PuP1m5pHSXfok7dblkNhrwvUeIc/r3/TQNA3Mn/a/5dKswfuXzmH9h21zUo7dv3CBD4i5y/8KZszpv/OkVz6AYr9dTKU8WUiNAh4VOzg781I5A58HtA1J/93KAHvuTvLA/YyrCALLUK/uXkPei26tSBg+hhs9gA/G+8EVy0cTIAuOzCDb6FhOW2DZzXQl5T59EaqHdES66G5OAxYzeTnRHVAqXqFv/dSKuXgVtcTEzVHTN8RdWIts61rUX9kz87Q==
+ b=gQuPP5GQkGRxP17careIXdpMcoB3OCZUySfzby+QA9D0wrfzIJHSMvI82N78Sc/ufGmsP6NWCwHiI0DHIEJVebWGdx0R4vucz4jUBfeE2A2QjXsnRY/cPLXE1zC99wUb3q6QAg1drdJsOkhzabiVodL+6LRYegkQ5r0jkX/c5I+da4mM5N9f9C9XCW36L6aB1mCOC8i4tttwSAvQlugCEXAI3TRJopssl4xebshoOiqNijRCWLzr2YMJy2ix4hW0RiZUhUyd4QdQNRW29zO/XofM1PiWyDc8bDyXANUKCq7qKsQi6eBEWvglYBQ9252lHHjVwZNdcnMDbCvbOc4KCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LlD8gDwiI+xBJVGdpjbMTwedel63TGW3apgbtwWD/eA=;
- b=kM7Bh0548PIiZ4HS3/tiT+OxcnsCnlGCGbTVj17Q0EQSjV2XBmuDNI/3RAy5vbvz5JXbnZMrGc9GP2qjZlyi1XdjfhJ2RwuCmRLbDknTx2Fg3s1Ee8ImLgA88gRgOoylLE3fYR/JSMvQDwE1yKo03K1zfpjRaF8IyLe7n0CthMeMWctBotrfRuphx0usnG14Dz3KfyvgUcbQG0+fHu+rrRuNVGxq/CjGOR0VLzySxxVhx+4rlZXUm5lXphFoXinCn+d/pjotbnZcWuoCS+u6irS70mg4IsBthawyGi4LgthQlY5hDyYPbl+2A+NBI/+WXxMP2XLyh6/BMAtX71vuFA==
+ bh=lqmcDtnkL7aP+0fxrb4YxMw7cSfFgLJ7dSl5cIaQ2z4=;
+ b=QB9VLKbyh6vNf9MNNVgya6DN6nslzbljEGmpS8E1qrSlUCy5S4GQuPsnd0JgyibgoSFb70YCv2HhJx0vV6kPJ7FsBNgPNG5BqpQtNf9HhxhGVLqqUzn5P/9w7MqFNe6h/+3cZGyZI/akHONzAOQHa3jajBTjoOvM3ZToEDOmHr2NB3hx9WECse/1Y8+KnHdATnt9KAP9iC0HP5nvH7moDNlfQGrbcDRxmBJUULYxay6UUBPUkIfo2LkONy6BZlH1o9yKHc50+tje77vdGJrUvmIss6Xc77N/pgAxxEmjNhXr74R9MGLortaFsF4qGDXD3Iq8fiLFlWbk0q6hM5d+sg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LlD8gDwiI+xBJVGdpjbMTwedel63TGW3apgbtwWD/eA=;
- b=N7+6t7ItmHShkc/KZLXpmae+i7daNmkwTEc3iQz9vp6jbUqKuUckpnEVNI+4GOdMv8Uz2DdtcDTWgtJukQ7uDs50YYuvGsNqXX8rPvadmrSbY5cYMIWcThqgWdKA9oTRDC0NZimMWhfD+odOc2QNVIH9GG+G6OyYXu1Z1txhp20=
-Received: from PH7P220CA0098.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::9)
- by CH2PR12MB4086.namprd12.prod.outlook.com (2603:10b6:610:7c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Wed, 10 Jun
- 2026 09:50:47 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2603:10b6:510:32d:cafe::8e) by PH7P220CA0098.outlook.office365.com
- (2603:10b6:510:32d::9) with Microsoft SMTP Server (version=TLS1_3,
+ bh=lqmcDtnkL7aP+0fxrb4YxMw7cSfFgLJ7dSl5cIaQ2z4=;
+ b=pkMMFMieg6zZHbguXRILax7MSQA54apcfZVRo1C2Q1MJzJTO+vBU5kD32LDa+62zohhwiK3c5uCojCE7glYHuAvsb3MwUXNkiyTsnOjkKDbymr/7zII0u1y5RSxeo+ZLGEV13Ve1DBkG7IR+K7VU0sP2xe8RMaiXOeVoGnrTAls=
+Received: from BL1PR13CA0346.namprd13.prod.outlook.com (2603:10b6:208:2c6::21)
+ by PH0PR12MB999090.namprd12.prod.outlook.com (2603:10b6:510:38c::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Wed, 10 Jun
+ 2026 09:50:55 +0000
+Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::38) by BL1PR13CA0346.outlook.office365.com
+ (2603:10b6:208:2c6::21) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
- 10 Jun 2026 09:50:47 +0000
+ 10 Jun 2026 09:50:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:50:46 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:50:55 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:50:46 -0500
+ 2026 04:50:55 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:50:45 -0500
+ 2026 04:50:54 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 10 Jun 2026 04:50:37 -0500
+ Transport; Wed, 10 Jun 2026 04:50:46 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,40 +72,40 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Chenyu
  Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 18/32] drm/amd/display: Add KUnit tests for amdgpu_dm_backlight
-Date: Wed, 10 Jun 2026 17:45:02 +0800
-Message-ID: <20260610094639.1965367-19-chen-yu.chen@amd.com>
+Subject: [PATCH 19/32] drm/amd/display: Add KUnit tests for amdgpu_dm_audio
+Date: Wed, 10 Jun 2026 17:45:03 +0800
+Message-ID: <20260610094639.1965367-20-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|CH2PR12MB4086:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7a2c6ad-be08-4df3-9bf1-08dec6d5bef6
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|PH0PR12MB999090:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92f92779-7a01-4787-1967-08dec6d5c41c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|56012099006|22082099003|18002099003|11063799006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: JQmJVl6ZNYVt1AlwIA+g6Vqh41zjWqpat//VvSj2LRxO7YBhRYzjFSWidwL+dZcBKwNTyhbF3GDhHLqLmqf75ooYmwnuX0rks639K15ZuNI6A5MmgZ1URfBtZ2Mid7Kn5n8pPhpzyKYa8TB59+4kID4vfTMyWsSw2WiDRPK0ITM7w8EzetpUvXt5GGFz3jsE/0RxZIihA/TBb7AXS2zqglQ4m/vG8UeSFQHoSMsdORuqd6oyUlTANEnjRoTnAP1KA7XYidzrhuZ/vkIstw+7N1oLAHNEuB4IFLQYW4XcIKPAeObaQ7rPccSbbCodj3WywfEoCLvYyu7OSQFALyUpmswZKmV/onH2DiJjA3lHJmY4nVt/RLOqvU73j6VWqxA7AEvS33hWW/Iet994GgyMt2RQBOsfV7blZXC5ZtWhlutX4+WgrmGmAq54sREaTZp+6gyWfic8+/uQUrjIhoXDvydVicc0ho8PDC+VkHJGUxSvfsUqsiftCTI3DFivobBKAl7+XSceULlqc2KQ4KSqbKGSw5g9hvP4FIEqv/GNDf/3XPd3hKV3dPyZBTCPUSp3YdD9QptsLtN5c2srQPYDM7vwkWTDBfc8xqn+bvwzwhDR+ppVGvbqainTuOniH08Lvctjqos/OeU4PkMJk1gHam4Niu+yfRjqBcroJFazUGTJq02/sQvwMqGvZkC/t0/RXH4JVQyV3+ZxLpu7sy5BAmBzeyKXEqig4gDVfs5CsXM=
+ ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|18002099003|22082099003|11063799006|56012099006|5023799004|6133799003;
+X-Microsoft-Antispam-Message-Info: M0bgIyTOjg4dcLXxXWGqOBemfK/6WI9qZ6FHPqEqXvqJKvWw7dVYPaf75HvHeVarkYvzqnXBOJ+8y2ZGDtxdKsnTZ6fWKfFNc62mhgImNNSfqB0+i4H2Yw1mSi9D/utOQ+xgu3fH7M082OH+hhWqRUjAM2nwEA/t9dGqXywMzDTK2q0b4Aw6RtFQcFFChvl5EldQOGipX52HtGFkRLUZsPpkXN/B09Jj9j0Y4A6XLO8IUu2g7aT9JWRVCgUAjUX3pCXx8B4aW2re2aGX3fvP9ZauXr34o7+J4ask0hihukU14HYIVEFovkpsb27/7bdB88SpuqYl3NhssNImZA3zf5L3BxnNhuoUZQmPWtdgM7cg/vbKJe90eNEi8Mb75UZY+3oCM1okElDeQQ5Fw8iH8vDcBbbXVzEb3wSK7ndd5XLS6Z0ARNBWKZtoioi86LGFRdrG+djzS3WlpZGBlD1tfMuvnE6UUDxkz7KlfT78/EbceC6AmaoCAAPPLinBCHvA5bDuaO/Bf//72E82/3weM/ce2drgvuVWYl0R6vHIzpF2IK8n6XCKGb5n9xSbwP8bkFJNmufJfMqPx+AqRiRwRbjAceNg1ld9BTTN3MyEhZRHT185lQpFL5G2IseWyxZMELbaZOjBxqmuDxG9BvnCX/E0/hYllmNwfM7PGkrg+x4KPQi+oghF9CIkqnndtLAW/sPpFTWGEeVkCKrnr7UgsaQEvCt5JQ25JYwLPJdmSB4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(56012099006)(22082099003)(18002099003)(11063799006)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: hSaq+Bh5dgg+Hp8QYslJWrypqvOc+qAjr2vYokS0EnJ6Z167mhs02CKChTEAbX6pUStJh6oyTvki8c8eCb7peuGou+plPi3XMZjolp2JK1lcEB0rZlcpN0vQEqUK+21erwZdhdjQcaQt3BYAfHH8ZWklIv3nSNIOLzpyq3h2obRFKB/iQT3tFxS5CB82iLExKN19p8OeN1PjnX2ssSL796ln1XQSTQxYp8X0Uu+uEApY50UOuhLCMfENKe/refVEZbQdGP/L5Mo8GKwAGs84rdMNrrUHmL99fzN52uMEUgh4nUNFiomA90sNxVJ2cFGYJlGlhXgGzJIqiHoRIf1lhb/mIomcCR6ZNJdULL2/i8reKrQ2Frm3E21g822IDQpElVsNPyeQLrISubQf2Mf57TYqyfKIplke4EbQnIZfRuzcSO/1JpK16dyo3/38r/Pb
+X-MS-Exchange-AntiSpam-MessageData-0: oMhcsHFnDOtZlib8inEbZXyZAc+kTTpd3kUYpqQFzKPwplWHSRq5DgL35T5Xg5NbeN5sndBHaN1lb444FW59kQEn5he6d/lwk2VmnoclpVd8+xDgRv2illLjFx4/hHTart/0BzOwKPYU4XKdrIgUSGTID8b3eURso/MJc0hKOdroQh2+BCW9u2CEhG6s+9nKXKQ4xQizSR6No+YXU2f6xg2iPfmyydo5qfcCd77fOaurivdLazLj49P9RhBGuo/IiPfJrlf/PGhISiB+59tnE18PD9VczOrPHpG8e7QgUjOtW6iXr8GxCr2km0ON8G0sGzGtnTmbmdueUzqxEwjTTDBK65O6VSXVGSp1XstVNlYotKs3l+/EZ38Eg9oTvtD+7kalVn7z4qsrHEcpOJA2/243hXN+/Pu2pwgBZXS3OGKw8Ym4JmMJy41Ah4K5gqjP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:50:46.6742 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7a2c6ad-be08-4df3-9bf1-08dec6d5bef6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:50:55.3261 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92f92779-7a01-4787-1967-08dec6d5c41c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AF.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4086
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999090
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,26 +122,21 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit tests for the backlight helpers in amdgpu_dm_backlight.c.
+Add KUnit tests for amdgpu_dm_audio.c.
 
 Tests cover:
-- amdgpu_dm_update_backlight_caps(): short-circuit on populated caps
-  and default value assignment
-- get_brightness_range(): NULL, PWM-only, and AUX backlight paths
-- convert_brightness_to_user(): minimum clamp, maximum passthrough,
-  and mid-range rescaling
-- convert_brightness_from_user(): linear rescaling, AUX path, and
-  custom-curve mapping
-- convert_custom_brightness(): exact match, below-first, interpolation,
-  above-last, single data point, zero lower luminance, and the
-  debug-mask and no-data-point guards
-- amdgpu_dm_update_connector_ext_caps(): negative bl_idx and non-eDP
-  early returns, OLED defaults, luminance range copy, and the
-  amdgpu_backlight force-AUX/force-PWM overrides
-- amdgpu_dm_should_create_sysfs(): forced ABM, non-eDP, missing
-  backlight index, and AUX vs PWM backlight
-- amdgpu_dm_setup_backlight_device(): non-eDP/LVDS skip, disconnected
-  link skip, eDP-count limit, and the successful eDP setup path
+- amdgpu_dm_audio_init(): early exit when audio is disabled
+- amdgpu_dm_audio_fini(): early exit when audio is not enabled
+- fill_audio_info(): manufacturer and product ID propagation,
+  display name copy, speaker allocation flags, CEA revision
+  gating of audio mode copying (including the zero-mode case),
+  and latency field propagation
+- amdgpu_dm_audio_component_bind()/unbind(): component ops, device,
+  and audio_component pointer are wired up on bind and cleared on
+  unbind
+- amdgpu_dm_audio_eld_notify(): callback is forwarded with the
+  correct port and audio pointer, and the no-op guard paths for a
+  missing component, audio_ops, or pin_eld_notify callback
 
 Assisted-by: Copilot:Claude-Opus-4.8
 
@@ -149,1335 +144,634 @@ Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   |   71 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   18 +
- .../drm/amd/display/amdgpu_dm/tests/Makefile  |    2 +
- .../tests/amdgpu_dm_backlight_test.c          | 1128 +++++++++++++++++
- 4 files changed, 1210 insertions(+), 9 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+ .../amd/display/amdgpu_dm/amdgpu_dm_audio.c   |  27 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_audio.h   |  12 +
+ .../drm/amd/display/amdgpu_dm/tests/Makefile  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_audio_test.c    | 490 ++++++++++++++++++
+ 4 files changed, 527 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 3770e8dafdbf..f101aed75bb3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -47,6 +47,7 @@
- 
- #include "amdgpu_dm_trace.h"
- #include "amd_shared.h"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+index 70b7dbded275..1ae121387297 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+@@ -26,6 +26,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_audio.h"
 +#include "amdgpu_dm_kunit_helpers.h"
+ #include "dc.h"
  
- #define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
- #define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
-@@ -92,9 +93,11 @@ void amdgpu_dm_update_backlight_caps(struct amdgpu_display_manager *dm,
- 	caps->caps_valid = true;
- #endif
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_update_backlight_caps);
+ #include <linux/component.h>
+@@ -83,7 +84,7 @@ static const struct drm_audio_component_ops amdgpu_dm_audio_component_ops = {
+ 	.get_eld = amdgpu_dm_audio_component_get_eld,
+ };
  
--static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
--				unsigned int *min, unsigned int *max)
-+STATIC_IFN_KUNIT
-+int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-+			 unsigned int *min, unsigned int *max)
+-static int amdgpu_dm_audio_component_bind(struct device *kdev,
++STATIC_IFN_KUNIT int amdgpu_dm_audio_component_bind(struct device *kdev,
+ 				       struct device *hda_kdev, void *data)
  {
- 	if (!caps)
- 		return 0;
-@@ -110,6 +113,7 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 	}
- 	return 1;
- }
-+EXPORT_IF_KUNIT(get_brightness_range);
+ 	struct drm_device *dev = dev_get_drvdata(kdev);
+@@ -96,8 +97,9 @@ static int amdgpu_dm_audio_component_bind(struct device *kdev,
  
- /* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
- static inline u32 scale_input_to_fw(int min, int max, u64 input)
-@@ -123,9 +127,10 @@ static inline u32 scale_fw_to_input(int min, int max, u64 input)
- 	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
+ 	return 0;
  }
++EXPORT_IF_KUNIT(amdgpu_dm_audio_component_bind);
  
--static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
--				      unsigned int min, unsigned int max,
--				      uint32_t *user_brightness)
-+STATIC_IFN_KUNIT
-+void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-+			       unsigned int min, unsigned int max,
-+			       uint32_t *user_brightness)
+-static void amdgpu_dm_audio_component_unbind(struct device *kdev,
++STATIC_IFN_KUNIT void amdgpu_dm_audio_component_unbind(struct device *kdev,
+ 					  struct device *hda_kdev, void *data)
  {
- 	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
- 	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
-@@ -187,8 +192,11 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
- 					     DIV_ROUND_CLOSEST(lum * brightness, 101));
+ 	struct amdgpu_device *adev = drm_to_adev(dev_get_drvdata(kdev));
+@@ -107,6 +109,7 @@ static void amdgpu_dm_audio_component_unbind(struct device *kdev,
+ 	acomp->dev = NULL;
+ 	adev->dm.audio_component = NULL;
  }
++EXPORT_IF_KUNIT(amdgpu_dm_audio_component_unbind);
  
--static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
--					uint32_t brightness)
-+EXPORT_IF_KUNIT(convert_custom_brightness);
-+
-+STATIC_IFN_KUNIT
-+u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
-+				uint32_t brightness)
+ static const struct component_ops amdgpu_dm_audio_component_bind_ops = {
+ 	.bind	= amdgpu_dm_audio_component_bind,
+@@ -144,6 +147,7 @@ int amdgpu_dm_audio_init(struct amdgpu_device *adev)
+ 
+ 	return 0;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_audio_init);
+ 
+ void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
  {
- 	unsigned int min, max;
+@@ -162,8 +166,9 @@ void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
  
-@@ -201,8 +209,11 @@ static u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *c
- 	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+ 	adev->mode_info.audio.enabled = false;
  }
++EXPORT_IF_KUNIT(amdgpu_dm_audio_fini);
  
--static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
--				      uint32_t brightness)
-+EXPORT_IF_KUNIT(convert_brightness_from_user);
-+
-+STATIC_IFN_KUNIT
-+u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-+			      uint32_t brightness)
+-static void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
++STATIC_IFN_KUNIT void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
  {
- 	unsigned int min, max;
+ 	struct drm_audio_component *acomp = adev->dm.audio_component;
  
-@@ -215,6 +226,7 @@ static u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *cap
- 	return DIV_ROUND_CLOSEST_ULL((u64)max * (brightness - min),
- 				 max - min);
- }
-+EXPORT_IF_KUNIT(convert_brightness_to_user);
- 
- static struct dc_stream_state *dm_find_stream_with_link(
- 	struct amdgpu_display_manager *dm,
-@@ -529,6 +541,7 @@ void amdgpu_dm_update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		}
+@@ -174,6 +179,7 @@ static void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
+ 						 pin, -1);
  	}
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_update_connector_ext_caps);
++EXPORT_IF_KUNIT(amdgpu_dm_audio_eld_notify);
  
- void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
- 			    struct amdgpu_dm_connector *aconnector)
-@@ -561,6 +574,7 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
- 					   dm->adev->mode_info.abm_level_property,
- 					   ABM_SYSFS_CONTROL);
+ void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
+ 		     const struct drm_connector *drm_connector,
+@@ -219,6 +225,7 @@ void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
+ 	/* TODO: For DP, video and audio latency should be calculated from DPCD caps */
+ 
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_setup_backlight_device);
++EXPORT_IF_KUNIT(amdgpu_dm_fill_audio_info);
  
- /**
-  * DOC: panel power savings
-@@ -658,3 +672,42 @@ amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *amdgpu_dm_connector)
- 
- 	return true;
+ void amdgpu_dm_commit_audio(struct drm_device *dev,
+ 			    struct drm_atomic_state *state)
+@@ -300,3 +307,17 @@ void amdgpu_dm_commit_audio(struct drm_device *dev,
+ 		amdgpu_dm_audio_eld_notify(adev, inst);
+ 	}
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_should_create_sysfs);
 +
 +#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+uint amdgpu_dm_get_dc_debug_mask(void)
++int amdgpu_dm_audio_get_param(void)
 +{
-+	return amdgpu_dc_debug_mask;
++	return amdgpu_audio;
 +}
-+EXPORT_IF_KUNIT(amdgpu_dm_get_dc_debug_mask);
++EXPORT_IF_KUNIT(amdgpu_dm_audio_get_param);
 +
-+void amdgpu_dm_set_dc_debug_mask(uint val)
++void amdgpu_dm_audio_set_param(int val)
 +{
-+	amdgpu_dc_debug_mask = val;
++	amdgpu_audio = val;
 +}
-+EXPORT_IF_KUNIT(amdgpu_dm_set_dc_debug_mask);
-+
-+int amdgpu_dm_get_abm_level_param(void)
-+{
-+	return amdgpu_dm_abm_level;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_get_abm_level_param);
-+
-+void amdgpu_dm_set_abm_level_param(int val)
-+{
-+	amdgpu_dm_abm_level = val;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_set_abm_level_param);
-+
-+int amdgpu_dm_get_backlight_param(void)
-+{
-+	return amdgpu_backlight;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_get_backlight_param);
-+
-+void amdgpu_dm_set_backlight_param(int val)
-+{
-+	amdgpu_backlight = val;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_set_backlight_param);
++EXPORT_IF_KUNIT(amdgpu_dm_audio_set_param);
 +#endif
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index acff23f9feef..5234da6ae484 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -41,4 +41,22 @@ bool amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *aconnector);
- 
- extern const struct attribute_group amdgpu_group;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
+index efd412bba178..48391305c3c2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
+@@ -41,4 +41,16 @@ void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
+ 		     const struct drm_connector *drm_connector,
+ 		     const struct dc_sink *dc_sink);
  
 +#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
-+			 unsigned int *min, unsigned int *max);
-+void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-+			       unsigned int min, unsigned int max,
-+			       uint32_t *user_brightness);
-+u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
-+				 uint32_t brightness);
-+u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
-+			       uint32_t brightness);
-+uint amdgpu_dm_get_dc_debug_mask(void);
-+void amdgpu_dm_set_dc_debug_mask(uint val);
-+int amdgpu_dm_get_abm_level_param(void);
-+void amdgpu_dm_set_abm_level_param(int val);
-+int amdgpu_dm_get_backlight_param(void);
-+void amdgpu_dm_set_backlight_param(int val);
++struct device;
++
++int amdgpu_dm_audio_component_bind(struct device *kdev,
++				   struct device *hda_kdev, void *data);
++void amdgpu_dm_audio_component_unbind(struct device *kdev,
++				      struct device *hda_kdev, void *data);
++void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin);
++int amdgpu_dm_audio_get_param(void);
++void amdgpu_dm_audio_set_param(int val);
 +#endif
 +
- #endif /* __AMDGPU_DM_BACKLIGHT_H__ */
+ #endif /* __AMDGPU_DM_AUDIO_H__ */
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-index 4365d4024f70..ddd9fce66232 100644
+index ddd9fce66232..5bb43b3bc439 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-@@ -8,12 +8,14 @@ ccflags-y += -I$(src)/../../include
- ccflags-y += -I$(src)/../../modules/inc
- ccflags-y += -I$(src)/../../dc
- ccflags-y += -I$(src)/../../../amdgpu
-+ccflags-y += -I$(src)/../../../amdkfd
- ccflags-y += -I$(src)/../../../include
+@@ -13,6 +13,7 @@ ccflags-y += -I$(src)/../../../include
  
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_crc_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_hdcp_test.o
++obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_audio_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_color_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_colorop_test.o
-+obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_backlight_test.o
- obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_psr_test.o
- obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_replay_test.o
- obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_ism_test.o
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_backlight_test.o
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
 new file mode 100644
-index 000000000000..2f4293cfd478
+index 000000000000..79ff5d9b3fa5
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -0,0 +1,1128 @@
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
+@@ -0,0 +1,490 @@
 +// SPDX-License-Identifier: GPL-2.0 OR MIT
 +/*
-+ * KUnit tests for amdgpu_dm_backlight.c
++ * KUnit tests for amdgpu_dm_audio.c
 + *
 + * Copyright 2026 Advanced Micro Devices, Inc.
 + */
 +
 +#include <kunit/test.h>
 +
++#include <drm/drm_audio_component.h>
++
 +#include "dc.h"
 +#include "amdgpu.h"
 +#include "amdgpu_mode.h"
 +#include "amdgpu_dm.h"
-+#include "amdgpu_dm_backlight.h"
-+#include "amd_shared.h"
++#include "amdgpu_dm_audio.h"
 +
-+struct dm_backlight_connector_fixture {
++/* Tests for amdgpu_dm_audio_init() */
++
++/**
++ * dm_test_audio_init_disabled - Test audio init exits when audio is disabled
++ * @test: The KUnit test context
++ */
++static void dm_test_audio_init_disabled(struct kunit *test)
++{
 +	struct amdgpu_device *adev;
-+	struct amdgpu_dm_connector *aconnector;
-+	struct dc_link *link;
-+};
++	int saved_audio = amdgpu_dm_audio_get_param();
 +
-+static struct amdgpu_display_manager *alloc_test_dm(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm;
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dm);
++	amdgpu_dm_audio_set_param(0);
 +
-+	return dm;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_audio_init(adev), 0);
++	KUNIT_EXPECT_FALSE(test, adev->mode_info.audio.enabled);
++	KUNIT_EXPECT_FALSE(test, adev->dm.audio_registered);
++
++	amdgpu_dm_audio_set_param(saved_audio);
 +}
 +
-+static void setup_test_connector(struct kunit *test,
-+				 struct dm_backlight_connector_fixture *fixture,
-+				 int bl_idx, enum signal_type signal)
-+{
-+	fixture->adev = kunit_kzalloc(test, sizeof(*fixture->adev), GFP_KERNEL);
-+	fixture->aconnector = kunit_kzalloc(test, sizeof(*fixture->aconnector), GFP_KERNEL);
-+	fixture->link = kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->aconnector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->link);
-+
-+	fixture->aconnector->bl_idx = bl_idx;
-+	fixture->aconnector->dc_link = fixture->link;
-+	fixture->aconnector->base.dev = &fixture->adev->ddev;
-+	fixture->link->connector_signal = signal;
-+}
-+
-+/* Tests for amdgpu_dm_update_backlight_caps() */
++/* Tests for amdgpu_dm_audio_fini() */
 +
 +/**
-+ * dm_test_backlight_caps_valid_short_circuit - Test Backlight caps valid short circuit
++ * dm_test_audio_fini_without_enabled_audio - Test fini exits when audio is not enabled
 + * @test: The KUnit test context
 + */
-+static void dm_test_backlight_caps_valid_short_circuit(struct kunit *test)
++static void dm_test_audio_fini_without_enabled_audio(struct kunit *test)
 +{
-+	struct amdgpu_display_manager *dm = alloc_test_dm(test);
-+	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[0];
++	struct amdgpu_device *adev;
++	int saved_audio = amdgpu_dm_audio_get_param();
 +
-+	caps->caps_valid = true;
-+	caps->aux_support = false;
-+	caps->min_input_signal = 42;
-+	caps->max_input_signal = 199;
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	amdgpu_dm_update_backlight_caps(dm, 0);
++	amdgpu_dm_audio_set_param(1);
++	adev->mode_info.audio.enabled = false;
++	adev->dm.audio_registered = true;
 +
-+	KUNIT_EXPECT_TRUE(test, caps->caps_valid);
-+	KUNIT_EXPECT_EQ(test, caps->min_input_signal, 42);
-+	KUNIT_EXPECT_EQ(test, caps->max_input_signal, 199);
++	amdgpu_dm_audio_fini(adev);
++
++	KUNIT_EXPECT_FALSE(test, adev->mode_info.audio.enabled);
++	KUNIT_EXPECT_TRUE(test, adev->dm.audio_registered);
++
++	amdgpu_dm_audio_set_param(saved_audio);
 +}
 +
-+#if !defined(CONFIG_ACPI)
++/* Tests for amdgpu_dm_fill_audio_info() */
 +
 +/**
-+ * dm_test_backlight_caps_aux_support_noop - Test Backlight caps aux support noop
++ * dm_test_fill_audio_info_ids_name_flags - Test Fill audio info ids name flags
 + * @test: The KUnit test context
 + */
-+static void dm_test_backlight_caps_aux_support_noop(struct kunit *test)
++static void dm_test_fill_audio_info_ids_name_flags(struct kunit *test)
 +{
-+	struct amdgpu_display_manager *dm = alloc_test_dm(test);
-+	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[0];
++	struct audio_info *audio_info;
++	struct drm_connector *connector;
++	struct dc_sink *dc_sink;
++	const char *name = "DM-AUDIO-PANEL";
 +
-+	caps->caps_valid = false;
-+	caps->aux_support = true;
-+	caps->min_input_signal = 11;
-+	caps->max_input_signal = 222;
++	audio_info = kunit_kzalloc(test, sizeof(*audio_info), GFP_KERNEL);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	dc_sink = kunit_kzalloc(test, sizeof(*dc_sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_info);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_sink);
 +
-+	amdgpu_dm_update_backlight_caps(dm, 0);
++	dc_sink->edid_caps.manufacturer_id = 0x1234;
++	dc_sink->edid_caps.product_id = 0xABCD;
++	dc_sink->edid_caps.speaker_flags = 0x5;
++	strscpy(dc_sink->edid_caps.display_name, name,
++		AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
 +
-+	KUNIT_EXPECT_FALSE(test, caps->caps_valid);
-+	KUNIT_EXPECT_EQ(test, caps->min_input_signal, 11);
-+	KUNIT_EXPECT_EQ(test, caps->max_input_signal, 222);
-+}
++	connector->display_info.cea_rev = 1;
 +
-+/**
-+ * dm_test_backlight_caps_non_aux_sets_defaults - Test Backlight caps non aux sets defaults
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_backlight_caps_non_aux_sets_defaults(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = alloc_test_dm(test);
-+	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[0];
++	amdgpu_dm_fill_audio_info(audio_info, connector, dc_sink);
 +
-+	caps->caps_valid = false;
-+	caps->aux_support = false;
-+	caps->min_input_signal = 0;
-+	caps->max_input_signal = 0;
-+
-+	amdgpu_dm_update_backlight_caps(dm, 0);
-+
-+	KUNIT_EXPECT_TRUE(test, caps->caps_valid);
-+	KUNIT_EXPECT_EQ(test, caps->min_input_signal, 12);
-+	KUNIT_EXPECT_EQ(test, caps->max_input_signal, 255);
-+}
-+#endif
-+
-+/* Tests for get_brightness_range() */
-+
-+/**
-+ * dm_test_brightness_range_null_caps - Test Brightness range null caps
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_range_null_caps(struct kunit *test)
-+{
-+	unsigned int min = 99, max = 99;
-+
-+	KUNIT_EXPECT_EQ(test, get_brightness_range(NULL, &min, &max), 0);
-+	/* min/max should remain untouched */
-+	KUNIT_EXPECT_EQ(test, min, 99U);
-+	KUNIT_EXPECT_EQ(test, max, 99U);
++	KUNIT_EXPECT_EQ(test, audio_info->manufacture_id, 0x1234U);
++	KUNIT_EXPECT_EQ(test, audio_info->product_id, 0xABCDU);
++	KUNIT_EXPECT_EQ(test, audio_info->flags.all, 0x5U);
++	KUNIT_EXPECT_STREQ(test, audio_info->display_name, name);
 +}
 +
 +/**
-+ * dm_test_brightness_range_pwm - Test Brightness range pwm
++ * dm_test_fill_audio_info_cea_lt_3_skips_modes - Test Fill audio info cea lt 3 skips modes
 + * @test: The KUnit test context
 + */
-+static void dm_test_brightness_range_pwm(struct kunit *test)
++static void dm_test_fill_audio_info_cea_lt_3_skips_modes(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
++	struct audio_info *audio_info;
++	struct drm_connector *connector;
++	struct dc_sink *dc_sink;
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
++	audio_info = kunit_kzalloc(test, sizeof(*audio_info), GFP_KERNEL);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	dc_sink = kunit_kzalloc(test, sizeof(*dc_sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_info);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_sink);
 +
-+	KUNIT_EXPECT_EQ(test, get_brightness_range(&caps, &min, &max), 1);
-+	/* 0x101 * 12 = 3084, 0x101 * 255 = 65535 */
-+	KUNIT_EXPECT_EQ(test, min, 0x101U * 12);
-+	KUNIT_EXPECT_EQ(test, max, 0x101U * 255);
++	connector->display_info.cea_rev = 2;
++	dc_sink->edid_caps.audio_mode_count = 2;
++	dc_sink->edid_caps.audio_modes[0].format_code = 1;
++	dc_sink->edid_caps.audio_modes[0].channel_count = 2;
++	dc_sink->edid_caps.audio_modes[0].sample_rate = 0x07;
++	dc_sink->edid_caps.audio_modes[0].sample_size = 16;
++
++	amdgpu_dm_fill_audio_info(audio_info, connector, dc_sink);
++
++	KUNIT_EXPECT_EQ(test, audio_info->mode_count, 0U);
 +}
 +
 +/**
-+ * dm_test_brightness_range_aux - Test Brightness range aux
++ * dm_test_fill_audio_info_cea_ge_3_copies_modes - Test Fill audio info cea ge 3 copies modes
 + * @test: The KUnit test context
 + */
-+static void dm_test_brightness_range_aux(struct kunit *test)
++static void dm_test_fill_audio_info_cea_ge_3_copies_modes(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
++	struct audio_info *audio_info;
++	struct drm_connector *connector;
++	struct dc_sink *dc_sink;
 +
-+	caps.aux_support = true;
-+	caps.aux_min_input_signal = 1;
-+	caps.aux_max_input_signal = 512;
++	audio_info = kunit_kzalloc(test, sizeof(*audio_info), GFP_KERNEL);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	dc_sink = kunit_kzalloc(test, sizeof(*dc_sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_info);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_sink);
 +
-+	KUNIT_EXPECT_EQ(test, get_brightness_range(&caps, &min, &max), 1);
-+	/* millinits: 1000 * value */
-+	KUNIT_EXPECT_EQ(test, min, 1000U);
-+	KUNIT_EXPECT_EQ(test, max, 512000U);
-+}
++	connector->display_info.cea_rev = 3;
++	dc_sink->edid_caps.audio_mode_count = 2;
 +
-+/* Tests for convert_brightness_to_user() */
++	dc_sink->edid_caps.audio_modes[0].format_code = 1;
++	dc_sink->edid_caps.audio_modes[0].channel_count = 2;
++	dc_sink->edid_caps.audio_modes[0].sample_rate = 0x07;
++	dc_sink->edid_caps.audio_modes[0].sample_size = 16;
 +
-+/**
-+ * dm_test_brightness_to_user_null_caps - Test Brightness to user null caps
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_to_user_null_caps(struct kunit *test)
-+{
-+	/*
-+	 * With NULL caps, get_brightness_range fails → passthrough.
-+	 * We simulate this by passing a zeroed caps struct where
-+	 * max_input_signal=0 makes max=0 and the function hits
-+	 * get_brightness_range returning 0 since caps is NULL.
-+	 */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_user(NULL, 42), 42U);
-+}
++	dc_sink->edid_caps.audio_modes[1].format_code = 11;
++	dc_sink->edid_caps.audio_modes[1].channel_count = 6;
++	dc_sink->edid_caps.audio_modes[1].sample_rate = 0x1F;
++	dc_sink->edid_caps.audio_modes[1].sample_size = 24;
 +
-+/**
-+ * dm_test_brightness_to_user_below_min - Test Brightness to user below min
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_to_user_below_min(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
++	amdgpu_dm_fill_audio_info(audio_info, connector, dc_sink);
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
++	KUNIT_EXPECT_EQ(test, audio_info->mode_count, 2U);
 +
-+	/* brightness < min (0x101*12 = 3084), should return 0 */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_user(&caps, 100), 0U);
++	KUNIT_EXPECT_EQ(test, (int)audio_info->modes[0].format_code, 1);
++	KUNIT_EXPECT_EQ(test, audio_info->modes[0].channel_count, 2);
++	KUNIT_EXPECT_EQ(test, audio_info->modes[0].sample_rates.all, 0x07U);
++	KUNIT_EXPECT_EQ(test, audio_info->modes[0].sample_size, 16);
++
++	KUNIT_EXPECT_EQ(test, (int)audio_info->modes[1].format_code, 11);
++	KUNIT_EXPECT_EQ(test, audio_info->modes[1].channel_count, 6);
++	KUNIT_EXPECT_EQ(test, audio_info->modes[1].sample_rates.all, 0x1FU);
++	KUNIT_EXPECT_EQ(test, audio_info->modes[1].sample_size, 24);
 +}
 +
 +/**
-+ * dm_test_brightness_to_user_at_max - Test Brightness to user at max
++ * dm_test_fill_audio_info_latency_present - Test Fill audio info latency present
 + * @test: The KUnit test context
 + */
-+static void dm_test_brightness_to_user_at_max(struct kunit *test)
++static void dm_test_fill_audio_info_latency_present(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
++	struct audio_info *audio_info;
++	struct drm_connector *connector;
++	struct dc_sink *dc_sink;
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
++	audio_info = kunit_kzalloc(test, sizeof(*audio_info), GFP_KERNEL);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	dc_sink = kunit_kzalloc(test, sizeof(*dc_sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_info);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_sink);
 +
-+	get_brightness_range(&caps, &min, &max);
++	connector->display_info.cea_rev = 3;
++	connector->latency_present[0] = true;
++	connector->video_latency[0] = 11;
++	connector->audio_latency[0] = 22;
 +
-+	/* At max → should return max */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_user(&caps, max), max);
++	amdgpu_dm_fill_audio_info(audio_info, connector, dc_sink);
++
++	KUNIT_EXPECT_EQ(test, audio_info->video_latency, 11U);
++	KUNIT_EXPECT_EQ(test, audio_info->audio_latency, 22U);
 +}
 +
 +/**
-+ * dm_test_brightness_to_user_at_min - Test Brightness to user at min
++ * dm_test_fill_audio_info_latency_absent_keeps_zero - Test Fill audio info latency absent keeps zero
 + * @test: The KUnit test context
 + */
-+static void dm_test_brightness_to_user_at_min(struct kunit *test)
++static void dm_test_fill_audio_info_latency_absent_keeps_zero(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
++	struct audio_info *audio_info;
++	struct drm_connector *connector;
++	struct dc_sink *dc_sink;
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
++	audio_info = kunit_kzalloc(test, sizeof(*audio_info), GFP_KERNEL);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	dc_sink = kunit_kzalloc(test, sizeof(*dc_sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_info);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_sink);
 +
-+	get_brightness_range(&caps, &min, &max);
++	connector->display_info.cea_rev = 3;
++	connector->latency_present[0] = false;
++	connector->video_latency[0] = 99;
++	connector->audio_latency[0] = 88;
 +
-+	/* At min → should return 0 */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_to_user(&caps, min), 0U);
++	amdgpu_dm_fill_audio_info(audio_info, connector, dc_sink);
++
++	KUNIT_EXPECT_EQ(test, audio_info->video_latency, 0U);
++	KUNIT_EXPECT_EQ(test, audio_info->audio_latency, 0U);
 +}
 +
 +/**
-+ * dm_test_brightness_to_user_midpoint_pwm - Test Brightness to user midpoint pwm
++ * dm_test_fill_audio_info_cea_ge_3_zero_modes - Test cea >= 3 with zero modes
 + * @test: The KUnit test context
++ *
++ * When cea_rev >= 3 but the sink reports no audio modes, mode_count must be
++ * copied as 0 and no mode entries should be populated.
 + */
-+static void dm_test_brightness_to_user_midpoint_pwm(struct kunit *test)
++static void dm_test_fill_audio_info_cea_ge_3_zero_modes(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max, mid_hw, result;
-+	u64 expected;
++	struct audio_info *audio_info;
++	struct drm_connector *connector;
++	struct dc_sink *dc_sink;
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
++	audio_info = kunit_kzalloc(test, sizeof(*audio_info), GFP_KERNEL);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	dc_sink = kunit_kzalloc(test, sizeof(*dc_sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_info);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_sink);
 +
-+	get_brightness_range(&caps, &min, &max);
++	connector->display_info.cea_rev = 3;
++	dc_sink->edid_caps.audio_mode_count = 0;
 +
-+	/* midpoint of hw range */
-+	mid_hw = min + (max - min) / 2;
-+	/* expected = DIV_ROUND_CLOSEST_ULL((u64)max * (mid_hw - min), max - min) */
-+	expected = DIV_ROUND_CLOSEST_ULL((u64)max * (mid_hw - min), max - min);
-+	result = convert_brightness_to_user(&caps, mid_hw);
++	amdgpu_dm_fill_audio_info(audio_info, connector, dc_sink);
 +
-+	KUNIT_EXPECT_EQ(test, result, (u32)expected);
++	KUNIT_EXPECT_EQ(test, audio_info->mode_count, 0U);
++	KUNIT_EXPECT_EQ(test, (int)audio_info->modes[0].format_code, 0);
 +}
 +
-+/* Tests for convert_brightness_from_user() — no custom curve */
++/* Tests for amdgpu_dm_audio_component_bind()/unbind() */
 +
 +/**
-+ * dm_test_brightness_from_user_null_caps - Test Brightness from user null caps
++ * dm_test_audio_component_bind_sets_fields - Test bind wires up audio component
 + * @test: The KUnit test context
++ *
++ * Binding must publish the DRM audio component ops, record the kernel device,
++ * and store the component pointer in the display manager.
 + */
-+static void dm_test_brightness_from_user_null_caps(struct kunit *test)
++static void dm_test_audio_component_bind_sets_fields(struct kunit *test)
 +{
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(NULL, 100), 100U);
-+}
++	struct amdgpu_device *adev;
++	struct device *kdev;
++	struct drm_audio_component *acomp;
++	int ret;
 +
-+/**
-+ * dm_test_brightness_from_user_zero - Test Brightness from user zero
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_from_user_zero(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	kdev = kunit_kzalloc(test, sizeof(*kdev), GFP_KERNEL);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, kdev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acomp);
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
-+	/* no custom curve */
-+	caps.data_points = 0;
++	dev_set_drvdata(kdev, &adev->ddev);
 +
-+	get_brightness_range(&caps, &min, &max);
++	ret = amdgpu_dm_audio_component_bind(kdev, NULL, acomp);
 +
-+	/* brightness=0 → min + 0 = min */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)min);
-+}
-+
-+/**
-+ * dm_test_brightness_from_user_max - Test Brightness from user max
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_from_user_max(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 0;
-+
-+	get_brightness_range(&caps, &min, &max);
-+
-+	/*
-+	 * brightness=max → min + DIV_ROUND_CLOSEST((max-min)*max, max)
-+	 *               = min + (max - min) = max
-+	 */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)max);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_NOT_NULL(test, acomp->ops);
++	KUNIT_EXPECT_PTR_EQ(test, acomp->dev, kdev);
++	KUNIT_EXPECT_PTR_EQ(test, adev->dm.audio_component, acomp);
 +}
 +
 +/**
-+ * dm_test_brightness_from_user_aux - Test Brightness from user aux
++ * dm_test_audio_component_unbind_clears_fields - Test unbind tears down component
 + * @test: The KUnit test context
++ *
++ * Unbinding must clear the component ops, the kernel device, and the display
++ * manager's stored component pointer.
 + */
-+static void dm_test_brightness_from_user_aux(struct kunit *test)
++static void dm_test_audio_component_unbind_clears_fields(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
++	struct amdgpu_device *adev;
++	struct device *kdev;
++	struct drm_audio_component *acomp;
 +
-+	caps.aux_support = true;
-+	caps.aux_min_input_signal = 1;
-+	caps.aux_max_input_signal = 512;
-+	caps.data_points = 0;
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	kdev = kunit_kzalloc(test, sizeof(*kdev), GFP_KERNEL);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, kdev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acomp);
 +
-+	get_brightness_range(&caps, &min, &max);
++	dev_set_drvdata(kdev, &adev->ddev);
 +
-+	/* brightness=0 → min */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)min);
-+	/* brightness=max → max */
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)max);
++	/* Pretend a prior bind already happened. */
++	acomp->dev = kdev;
++	adev->dm.audio_component = acomp;
++
++	amdgpu_dm_audio_component_unbind(kdev, NULL, acomp);
++
++	KUNIT_EXPECT_NULL(test, acomp->ops);
++	KUNIT_EXPECT_NULL(test, acomp->dev);
++	KUNIT_EXPECT_NULL(test, adev->dm.audio_component);
 +}
 +
-+/* Tests for convert_custom_brightness() */
++/* Tests for amdgpu_dm_audio_eld_notify() */
 +
-+/**
-+ * dm_test_custom_brightness_no_data_points - Test Custom brightness no data points
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_custom_brightness_no_data_points(struct kunit *test)
++static int dm_test_eld_notify_count;
++static int dm_test_eld_notify_port;
++static void *dm_test_eld_notify_ptr;
++
++static void dm_test_pin_eld_notify(void *audio_ptr, int port, int pipe)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness = 128;
-+	uint32_t saved = brightness;
-+
-+	caps.data_points = 0;
-+
-+	convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+
-+	/* No data points → no-op */
-+	KUNIT_EXPECT_EQ(test, brightness, saved);
-+}
-+
-+/**
-+ * dm_test_custom_brightness_debug_mask_disables - Test Custom brightness debug mask disables
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_custom_brightness_debug_mask_disables(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness = 128;
-+	uint32_t saved = brightness;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
-+
-+	caps.data_points = 3;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 10;
-+
-+	/* Set the disable flag */
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+
-+	convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+
-+	/* Should be no-op due to debug mask */
-+	KUNIT_EXPECT_EQ(test, brightness, saved);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
++	dm_test_eld_notify_count++;
++	dm_test_eld_notify_port = port;
++	dm_test_eld_notify_ptr = audio_ptr;
 +}
 +
 +/**
-+ * dm_test_custom_brightness_exact_match - Test Custom brightness exact match
++ * dm_test_eld_notify_invokes_callback - Test ELD notify forwards to hda driver
 + * @test: The KUnit test context
++ *
++ * When a component with a pin_eld_notify callback is registered, the notify
++ * helper must invoke it with the audio pointer and the requested pin.
 + */
-+static void dm_test_custom_brightness_exact_match(struct kunit *test)
++static void dm_test_eld_notify_invokes_callback(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness;
-+	unsigned int min, max;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++	struct amdgpu_device *adev;
++	struct drm_audio_component *acomp;
++	struct drm_audio_component_audio_ops *audio_ops;
++	int marker = 0;
 +
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	audio_ops = kunit_kzalloc(test, sizeof(*audio_ops), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acomp);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_ops);
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 3;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 20;
-+	caps.luminance_data[1].input_signal = 128;
-+	caps.luminance_data[1].luminance = 50;
-+	caps.luminance_data[2].input_signal = 200;
-+	caps.luminance_data[2].luminance = 90;
++	audio_ops->audio_ptr = &marker;
++	audio_ops->pin_eld_notify = dm_test_pin_eld_notify;
++	acomp->audio_ops = audio_ops;
++	adev->dm.audio_component = acomp;
 +
-+	get_brightness_range(&caps, &min, &max);
++	dm_test_eld_notify_count = 0;
++	dm_test_eld_notify_port = -100;
++	dm_test_eld_notify_ptr = NULL;
 +
-+	/*
-+	 * Set brightness so that scale_input_to_fw yields exactly 128.
-+	 * scale_input_to_fw(min, max, x) = DIV_ROUND_CLOSEST(x * 255, max - min)
-+	 * With min=0, max=0x101*255=65535:
-+	 * We need x such that DIV_ROUND_CLOSEST(x * 255, 65535) = 128
-+	 * → x = 128 * 65535 / 255 = 32896
-+	 */
-+	brightness = 32896;
++	amdgpu_dm_audio_eld_notify(adev, 7);
 +
-+	convert_custom_brightness(&caps, min, max, &brightness);
-+
-+	/*
-+	 * Exact match: lum=50, brightness_scaled=128
-+	 * result = scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101))
-+	 *        = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
-+	 *        = scale_fw_to_input(0, 65535, 63)
-+	 *        = 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
-+	 */
-+	KUNIT_EXPECT_TRUE(test, brightness != 32896);
-+	KUNIT_EXPECT_TRUE(test, brightness < 32896);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
++	KUNIT_EXPECT_EQ(test, dm_test_eld_notify_count, 1);
++	KUNIT_EXPECT_EQ(test, dm_test_eld_notify_port, 7);
++	KUNIT_EXPECT_PTR_EQ(test, dm_test_eld_notify_ptr, (void *)&marker);
 +}
 +
 +/**
-+ * dm_test_custom_brightness_below_first - Test Custom brightness below first
++ * dm_test_eld_notify_no_component - Test ELD notify is a no-op without component
 + * @test: The KUnit test context
++ *
++ * With no registered audio component, the notify helper must return without
++ * invoking any callback.
 + */
-+static void dm_test_custom_brightness_below_first(struct kunit *test)
++static void dm_test_eld_notify_no_component(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness;
-+	unsigned int min, max;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++	struct amdgpu_device *adev;
 +
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 2;
-+	caps.luminance_data[0].input_signal = 100;
-+	caps.luminance_data[0].luminance = 40;
-+	caps.luminance_data[1].input_signal = 200;
-+	caps.luminance_data[1].luminance = 80;
++	adev->dm.audio_component = NULL;
 +
-+	get_brightness_range(&caps, &min, &max);
++	dm_test_eld_notify_count = 0;
 +
-+	/*
-+	 * Set brightness low enough that scaled value < 100.
-+	 * scale_input_to_fw(0, 65535, x) = DIV_ROUND_CLOSEST(x*255, 65535)
-+	 * For result=50: x = 50*65535/255 = 12850
-+	 */
-+	brightness = 12850;
++	amdgpu_dm_audio_eld_notify(adev, 3);
 +
-+	convert_custom_brightness(&caps, min, max, &brightness);
-+
-+	/*
-+	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
-+	 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-+	 *      = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
-+	 *      = scale_fw_to_input(0, 65535, 10)
-+	 * The output should be significantly less than input.
-+	 */
-+	KUNIT_EXPECT_TRUE(test, brightness < 12850);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
++	KUNIT_EXPECT_EQ(test, dm_test_eld_notify_count, 0);
 +}
 +
 +/**
-+ * dm_test_custom_brightness_interpolation - Test Custom brightness interpolation
++ * dm_test_eld_notify_null_audio_ops - Test ELD notify is a no-op without audio_ops
 + * @test: The KUnit test context
++ *
++ * A component without audio_ops must not trigger any callback.
 + */
-+static void dm_test_custom_brightness_interpolation(struct kunit *test)
++static void dm_test_eld_notify_null_audio_ops(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness;
-+	unsigned int min, max;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++	struct amdgpu_device *adev;
++	struct drm_audio_component *acomp;
 +
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acomp);
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 2;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 20;
-+	caps.luminance_data[1].input_signal = 200;
-+	caps.luminance_data[1].luminance = 80;
++	acomp->audio_ops = NULL;
++	adev->dm.audio_component = acomp;
 +
-+	get_brightness_range(&caps, &min, &max);
++	dm_test_eld_notify_count = 0;
 +
-+	/*
-+	 * Choose a value between data points 50 and 200.
-+	 * scale_input_to_fw(0, 65535, x) = 125 when x = 125*65535/255 = 32125
-+	 */
-+	brightness = 32125;
++	amdgpu_dm_audio_eld_notify(adev, 3);
 +
-+	convert_custom_brightness(&caps, min, max, &brightness);
-+
-+	/*
-+	 * The function should interpolate between data points and produce
-+	 * a remapped value different from the input.
-+	 */
-+	KUNIT_EXPECT_TRUE(test, brightness != 32125);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
++	KUNIT_EXPECT_EQ(test, dm_test_eld_notify_count, 0);
 +}
 +
 +/**
-+ * dm_test_custom_brightness_above_last - Test Custom brightness above last data point
++ * dm_test_eld_notify_null_callback - Test ELD notify is a no-op without callback
 + * @test: The KUnit test context
++ *
++ * audio_ops present but with a NULL pin_eld_notify must not crash or call
++ * anything.
 + */
-+static void dm_test_custom_brightness_above_last(struct kunit *test)
++static void dm_test_eld_notify_null_callback(struct kunit *test)
 +{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness;
-+	unsigned int min, max;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++	struct amdgpu_device *adev;
++	struct drm_audio_component *acomp;
++	struct drm_audio_component_audio_ops *audio_ops;
 +
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	audio_ops = kunit_kzalloc(test, sizeof(*audio_ops), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acomp);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, audio_ops);
 +
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 2;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 20;
-+	caps.luminance_data[1].input_signal = 150;
-+	caps.luminance_data[1].luminance = 60;
++	audio_ops->pin_eld_notify = NULL;
++	acomp->audio_ops = audio_ops;
++	adev->dm.audio_component = acomp;
 +
-+	get_brightness_range(&caps, &min, &max);
++	dm_test_eld_notify_count = 0;
 +
-+	/*
-+	 * Choose brightness above the last data point (150).
-+	 * scale_input_to_fw(0, 65535, x) = 220 when x = 220*65535/255 = 56533
-+	 * After binary search, left >= data_points, clamped → right==left,
-+	 * so lum = upper_lum = 60.
-+	 */
-+	brightness = 56533;
++	amdgpu_dm_audio_eld_notify(adev, 3);
 +
-+	convert_custom_brightness(&caps, min, max, &brightness);
-+
-+	/* Output should differ from input (remapped via curve) */
-+	KUNIT_EXPECT_TRUE(test, brightness != 56533);
-+	KUNIT_EXPECT_TRUE(test, brightness < 56533);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
++	KUNIT_EXPECT_EQ(test, dm_test_eld_notify_count, 0);
 +}
 +
-+/**
-+ * dm_test_custom_brightness_single_data_point - Test Custom brightness with single data point
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_custom_brightness_single_data_point(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness;
-+	unsigned int min, max;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
-+
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 1;
-+	caps.luminance_data[0].input_signal = 128;
-+	caps.luminance_data[0].luminance = 50;
-+
-+	get_brightness_range(&caps, &min, &max);
-+
-+	/*
-+	 * Brightness below the single data point triggers the
-+	 * "below first" path: lum = DIV_ROUND_CLOSEST(50 * scaled, 128).
-+	 * scale_input_to_fw(0, 65535, x) = 64 when x = 64*65535/255 = 16448
-+	 */
-+	brightness = 16448;
-+
-+	convert_custom_brightness(&caps, min, max, &brightness);
-+
-+	KUNIT_EXPECT_TRUE(test, brightness < 16448);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_custom_brightness_lower_lum_zero - Test Custom brightness with zero lower luminance
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_custom_brightness_lower_lum_zero(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint32_t brightness;
-+	unsigned int min, max;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
-+
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 2;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 0;	/* zero lower luminance */
-+	caps.luminance_data[1].input_signal = 200;
-+	caps.luminance_data[1].luminance = 80;
-+
-+	get_brightness_range(&caps, &min, &max);
-+
-+	/*
-+	 * Choose brightness between data points to trigger interpolation.
-+	 * scale_input_to_fw(0, 65535, x) = 125 when x = 125*65535/255 = 32125
-+	 * With lower_lum == 0, code takes shortcut: lum = upper_lum = 80.
-+	 */
-+	brightness = 32125;
-+
-+	convert_custom_brightness(&caps, min, max, &brightness);
-+
-+	/* Should remap; result should differ from input */
-+	KUNIT_EXPECT_TRUE(test, brightness != 32125);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_brightness_to_user_above_max - Test Brightness to user above max
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_to_user_above_max(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max, result;
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
-+
-+	get_brightness_range(&caps, &min, &max);
-+
-+	/* brightness above max → result > max (linear extrapolation) */
-+	result = convert_brightness_to_user(&caps, max + 1000);
-+
-+	KUNIT_EXPECT_GT(test, result, max);
-+}
-+
-+/**
-+ * dm_test_brightness_from_user_midrange - Test Brightness from user mid-range value
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_from_user_midrange(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
-+	u32 result;
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 0;
-+
-+	get_brightness_range(&caps, &min, &max);
-+
-+	/* Mid-range brightness should map to between min and max */
-+	result = convert_brightness_from_user(&caps, max / 2);
-+
-+	KUNIT_EXPECT_GE(test, result, min);
-+	KUNIT_EXPECT_LE(test, result, max);
-+}
-+
-+/**
-+ * dm_test_brightness_from_user_with_curve - Test Brightness from user with custom curve active
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_from_user_with_curve(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min, max;
-+	u32 with_curve, without_curve;
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
-+
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 255;
-+	caps.data_points = 2;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 20;
-+	caps.luminance_data[1].input_signal = 200;
-+	caps.luminance_data[1].luminance = 80;
-+
-+	get_brightness_range(&caps, &min, &max);
-+
-+	with_curve = convert_brightness_from_user(&caps, max / 2);
-+
-+	/* Now disable the curve and compare */
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+	without_curve = convert_brightness_from_user(&caps, max / 2);
-+
-+	/* Custom curve should produce a different mapping */
-+	KUNIT_EXPECT_NE(test, with_curve, without_curve);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_brightness_range_zero_signals - Test Brightness range with zero min and max signals
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_brightness_range_zero_signals(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	unsigned int min = 99, max = 99;
-+
-+	caps.aux_support = false;
-+	caps.min_input_signal = 0;
-+	caps.max_input_signal = 0;
-+
-+	/* Both signals zero → min=max=0 */
-+	KUNIT_EXPECT_EQ(test, get_brightness_range(&caps, &min, &max), 1);
-+	KUNIT_EXPECT_EQ(test, min, 0U);
-+	KUNIT_EXPECT_EQ(test, max, 0U);
-+}
-+
-+/* Tests for amdgpu_dm_update_connector_ext_caps() */
-+
-+/**
-+ * dm_test_update_connector_ext_caps_negative_bl_idx - Test negative backlight index early return
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_connector_ext_caps_negative_bl_idx(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconnector;
-+
-+	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconnector);
-+
-+	aconnector->bl_idx = -1;
-+
-+	amdgpu_dm_update_connector_ext_caps(aconnector);
-+
-+	KUNIT_SUCCEED(test);
-+}
-+
-+/**
-+ * dm_test_update_connector_ext_caps_non_edp - Test non-eDP connector early return
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_connector_ext_caps_non_edp(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_HDMI_TYPE_A);
-+	fixture.adev->dm.backlight_caps[0].aux_support = true;
-+
-+	amdgpu_dm_update_connector_ext_caps(fixture.aconnector);
-+
-+	KUNIT_EXPECT_TRUE(test, fixture.adev->dm.backlight_caps[0].aux_support);
-+	KUNIT_EXPECT_PTR_EQ(test, fixture.adev->dm.backlight_caps[0].ext_caps, NULL);
-+}
-+
-+/**
-+ * dm_test_update_connector_ext_caps_oled_defaults - Test OLED eDP defaults to AUX backlight
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_connector_ext_caps_oled_defaults(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_backlight = amdgpu_dm_get_backlight_param();
-+
-+	amdgpu_dm_set_backlight_param(-1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+	fixture.link->dpcd_sink_ext_caps.bits.oled = 1;
-+
-+	amdgpu_dm_update_connector_ext_caps(fixture.aconnector);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, fixture.adev->dm.backlight_caps[0].ext_caps,
-+			    &fixture.link->dpcd_sink_ext_caps);
-+	KUNIT_EXPECT_TRUE(test, fixture.adev->dm.backlight_caps[0].aux_support);
-+	KUNIT_EXPECT_EQ(test, fixture.link->backlight_control_type,
-+			BACKLIGHT_CONTROL_AMD_AUX);
-+	KUNIT_EXPECT_EQ(test, fixture.adev->dm.backlight_caps[0].aux_max_input_signal, 512);
-+	KUNIT_EXPECT_EQ(test, fixture.adev->dm.backlight_caps[0].aux_min_input_signal, 1);
-+
-+	amdgpu_dm_set_backlight_param(saved_backlight);
-+}
-+
-+/**
-+ * dm_test_update_connector_ext_caps_luminance_values - Test luminance range copy
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_connector_ext_caps_luminance_values(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_backlight = amdgpu_dm_get_backlight_param();
-+
-+	amdgpu_dm_set_backlight_param(-1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+	fixture.aconnector->base.display_info.luminance_range.min_luminance = 2;
-+	fixture.aconnector->base.display_info.luminance_range.max_luminance = 400;
-+
-+	amdgpu_dm_update_connector_ext_caps(fixture.aconnector);
-+
-+	KUNIT_EXPECT_FALSE(test, fixture.adev->dm.backlight_caps[0].aux_support);
-+	KUNIT_EXPECT_EQ(test, fixture.adev->dm.backlight_caps[0].aux_max_input_signal, 400);
-+	KUNIT_EXPECT_EQ(test, fixture.adev->dm.backlight_caps[0].aux_min_input_signal, 2);
-+
-+	amdgpu_dm_set_backlight_param(saved_backlight);
-+}
-+
-+/**
-+ * dm_test_update_connector_ext_caps_force_aux - Test module parameter forces AUX backlight
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_connector_ext_caps_force_aux(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_backlight = amdgpu_dm_get_backlight_param();
-+
-+	amdgpu_dm_set_backlight_param(1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+
-+	amdgpu_dm_update_connector_ext_caps(fixture.aconnector);
-+
-+	KUNIT_EXPECT_TRUE(test, fixture.adev->dm.backlight_caps[0].aux_support);
-+	KUNIT_EXPECT_EQ(test, fixture.link->backlight_control_type,
-+			BACKLIGHT_CONTROL_AMD_AUX);
-+
-+	amdgpu_dm_set_backlight_param(saved_backlight);
-+}
-+
-+/**
-+ * dm_test_update_connector_ext_caps_force_pwm - Test module parameter forces PWM backlight
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_connector_ext_caps_force_pwm(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_backlight = amdgpu_dm_get_backlight_param();
-+
-+	amdgpu_dm_set_backlight_param(0);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+	fixture.link->dpcd_sink_ext_caps.bits.oled = 1;
-+
-+	amdgpu_dm_update_connector_ext_caps(fixture.aconnector);
-+
-+	KUNIT_EXPECT_FALSE(test, fixture.adev->dm.backlight_caps[0].aux_support);
-+	KUNIT_EXPECT_NE(test, fixture.link->backlight_control_type,
-+			BACKLIGHT_CONTROL_AMD_AUX);
-+
-+	amdgpu_dm_set_backlight_param(saved_backlight);
-+}
-+
-+/* Tests for amdgpu_dm_should_create_sysfs() */
-+
-+/**
-+ * dm_test_should_create_sysfs_abm_forced - Test forced ABM disables sysfs
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_should_create_sysfs_abm_forced(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_abm_level = amdgpu_dm_get_abm_level_param();
-+
-+	amdgpu_dm_set_abm_level_param(1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+	fixture.aconnector->base.connector_type = DRM_MODE_CONNECTOR_eDP;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_should_create_sysfs(fixture.aconnector));
-+
-+	amdgpu_dm_set_abm_level_param(saved_abm_level);
-+}
-+
-+/**
-+ * dm_test_should_create_sysfs_non_edp - Test non-eDP connector disables sysfs
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_should_create_sysfs_non_edp(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_abm_level = amdgpu_dm_get_abm_level_param();
-+
-+	amdgpu_dm_set_abm_level_param(-1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_HDMI_TYPE_A);
-+	fixture.aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_should_create_sysfs(fixture.aconnector));
-+
-+	amdgpu_dm_set_abm_level_param(saved_abm_level);
-+}
-+
-+/**
-+ * dm_test_should_create_sysfs_no_backlight_index - Test eDP without backlight index enables sysfs
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_should_create_sysfs_no_backlight_index(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_abm_level = amdgpu_dm_get_abm_level_param();
-+
-+	amdgpu_dm_set_abm_level_param(-1);
-+	setup_test_connector(test, &fixture, -1, SIGNAL_TYPE_EDP);
-+	fixture.aconnector->base.connector_type = DRM_MODE_CONNECTOR_eDP;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_should_create_sysfs(fixture.aconnector));
-+
-+	amdgpu_dm_set_abm_level_param(saved_abm_level);
-+}
-+
-+/**
-+ * dm_test_should_create_sysfs_aux_backlight - Test AUX backlight disables sysfs
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_should_create_sysfs_aux_backlight(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_abm_level = amdgpu_dm_get_abm_level_param();
-+
-+	amdgpu_dm_set_abm_level_param(-1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+	fixture.aconnector->base.connector_type = DRM_MODE_CONNECTOR_eDP;
-+	fixture.adev->dm.backlight_caps[0].aux_support = true;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_should_create_sysfs(fixture.aconnector));
-+
-+	amdgpu_dm_set_abm_level_param(saved_abm_level);
-+}
-+
-+/**
-+ * dm_test_should_create_sysfs_pwm_backlight - Test PWM backlight enables sysfs
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_should_create_sysfs_pwm_backlight(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	int saved_abm_level = amdgpu_dm_get_abm_level_param();
-+
-+	amdgpu_dm_set_abm_level_param(-1);
-+	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_EDP);
-+	fixture.aconnector->base.connector_type = DRM_MODE_CONNECTOR_eDP;
-+	fixture.adev->dm.backlight_caps[0].aux_support = false;
-+
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_should_create_sysfs(fixture.aconnector));
-+
-+	amdgpu_dm_set_abm_level_param(saved_abm_level);
-+}
-+
-+/* Tests for amdgpu_dm_setup_backlight_device() */
-+
-+/**
-+ * dm_test_setup_backlight_device_non_edp - Test non-eDP/LVDS link is skipped
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_setup_backlight_device_non_edp(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	struct amdgpu_display_manager *dm;
-+
-+	setup_test_connector(test, &fixture, -1, SIGNAL_TYPE_HDMI_TYPE_A);
-+	fixture.link->type = dc_connection_single;
-+	dm = &fixture.adev->dm;
-+	dm->adev = fixture.adev;
-+	dm->num_of_edps = 0;
-+
-+	amdgpu_dm_setup_backlight_device(dm, fixture.aconnector);
-+
-+	/* Non-eDP/LVDS signal → no backlight setup */
-+	KUNIT_EXPECT_EQ(test, dm->num_of_edps, 0);
-+	KUNIT_EXPECT_EQ(test, fixture.aconnector->bl_idx, -1);
-+}
-+
-+/**
-+ * dm_test_setup_backlight_device_connection_none - Test disconnected link is skipped
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_setup_backlight_device_connection_none(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	struct amdgpu_display_manager *dm;
-+
-+	setup_test_connector(test, &fixture, -1, SIGNAL_TYPE_EDP);
-+	fixture.link->type = dc_connection_none;
-+	dm = &fixture.adev->dm;
-+	dm->adev = fixture.adev;
-+	dm->num_of_edps = 0;
-+
-+	amdgpu_dm_setup_backlight_device(dm, fixture.aconnector);
-+
-+	/* Disconnected link → no backlight setup */
-+	KUNIT_EXPECT_EQ(test, dm->num_of_edps, 0);
-+	KUNIT_EXPECT_EQ(test, fixture.aconnector->bl_idx, -1);
-+}
-+
-+/**
-+ * dm_test_setup_backlight_device_max_edps - Test setup is skipped when at eDP limit
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_setup_backlight_device_max_edps(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	struct amdgpu_display_manager *dm;
-+
-+	setup_test_connector(test, &fixture, -1, SIGNAL_TYPE_EDP);
-+	fixture.link->type = dc_connection_single;
-+	dm = &fixture.adev->dm;
-+	dm->adev = fixture.adev;
-+	dm->num_of_edps = AMDGPU_DM_MAX_NUM_EDP;
-+
-+	amdgpu_dm_setup_backlight_device(dm, fixture.aconnector);
-+
-+	/* Already at the eDP limit → no additional setup */
-+	KUNIT_EXPECT_EQ(test, dm->num_of_edps, AMDGPU_DM_MAX_NUM_EDP);
-+	KUNIT_EXPECT_EQ(test, fixture.aconnector->bl_idx, -1);
-+}
-+
-+/**
-+ * dm_test_setup_backlight_device_oled_success - Test successful eDP backlight setup
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_setup_backlight_device_oled_success(struct kunit *test)
-+{
-+	struct dm_backlight_connector_fixture fixture = {};
-+	struct amdgpu_display_manager *dm;
-+	int saved_backlight = amdgpu_dm_get_backlight_param();
-+
-+	amdgpu_dm_set_backlight_param(-1);
-+	setup_test_connector(test, &fixture, -1, SIGNAL_TYPE_EDP);
-+	fixture.link->type = dc_connection_single;
-+	/* OLED panel avoids the ABM property attach path */
-+	fixture.link->dpcd_sink_ext_caps.bits.oled = 1;
-+	dm = &fixture.adev->dm;
-+	dm->adev = fixture.adev;
-+	dm->num_of_edps = 0;
-+
-+	amdgpu_dm_setup_backlight_device(dm, fixture.aconnector);
-+
-+	KUNIT_EXPECT_EQ(test, dm->num_of_edps, 1);
-+	KUNIT_EXPECT_EQ(test, fixture.aconnector->bl_idx, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, (void *)dm->backlight_link[0],
-+			    (void *)fixture.link);
-+	KUNIT_EXPECT_TRUE(test, dm->backlight_caps[0].aux_support);
-+
-+	amdgpu_dm_set_backlight_param(saved_backlight);
-+}
-+
-+static struct kunit_case dm_backlight_test_cases[] = {
-+	KUNIT_CASE(dm_test_backlight_caps_valid_short_circuit),
-+#if !defined(CONFIG_ACPI)
-+	KUNIT_CASE(dm_test_backlight_caps_aux_support_noop),
-+	KUNIT_CASE(dm_test_backlight_caps_non_aux_sets_defaults),
-+#endif
-+	/* get_brightness_range */
-+	KUNIT_CASE(dm_test_brightness_range_null_caps),
-+	KUNIT_CASE(dm_test_brightness_range_pwm),
-+	KUNIT_CASE(dm_test_brightness_range_aux),
-+	/* convert_brightness_to_user */
-+	KUNIT_CASE(dm_test_brightness_to_user_null_caps),
-+	KUNIT_CASE(dm_test_brightness_to_user_below_min),
-+	KUNIT_CASE(dm_test_brightness_to_user_at_max),
-+	KUNIT_CASE(dm_test_brightness_to_user_at_min),
-+	KUNIT_CASE(dm_test_brightness_to_user_midpoint_pwm),
-+	/* convert_brightness_from_user */
-+	KUNIT_CASE(dm_test_brightness_from_user_null_caps),
-+	KUNIT_CASE(dm_test_brightness_from_user_zero),
-+	KUNIT_CASE(dm_test_brightness_from_user_max),
-+	KUNIT_CASE(dm_test_brightness_from_user_aux),
-+	/* convert_custom_brightness */
-+	KUNIT_CASE(dm_test_custom_brightness_no_data_points),
-+	KUNIT_CASE(dm_test_custom_brightness_debug_mask_disables),
-+	KUNIT_CASE(dm_test_custom_brightness_exact_match),
-+	KUNIT_CASE(dm_test_custom_brightness_below_first),
-+	KUNIT_CASE(dm_test_custom_brightness_interpolation),
-+	KUNIT_CASE(dm_test_custom_brightness_above_last),
-+	KUNIT_CASE(dm_test_custom_brightness_single_data_point),
-+	KUNIT_CASE(dm_test_custom_brightness_lower_lum_zero),
-+	KUNIT_CASE(dm_test_brightness_to_user_above_max),
-+	KUNIT_CASE(dm_test_brightness_from_user_midrange),
-+	KUNIT_CASE(dm_test_brightness_from_user_with_curve),
-+	KUNIT_CASE(dm_test_brightness_range_zero_signals),
-+	/* amdgpu_dm_update_connector_ext_caps */
-+	KUNIT_CASE(dm_test_update_connector_ext_caps_negative_bl_idx),
-+	KUNIT_CASE(dm_test_update_connector_ext_caps_non_edp),
-+	KUNIT_CASE(dm_test_update_connector_ext_caps_oled_defaults),
-+	KUNIT_CASE(dm_test_update_connector_ext_caps_luminance_values),
-+	KUNIT_CASE(dm_test_update_connector_ext_caps_force_aux),
-+	KUNIT_CASE(dm_test_update_connector_ext_caps_force_pwm),
-+	/* amdgpu_dm_should_create_sysfs */
-+	KUNIT_CASE(dm_test_should_create_sysfs_abm_forced),
-+	KUNIT_CASE(dm_test_should_create_sysfs_non_edp),
-+	KUNIT_CASE(dm_test_should_create_sysfs_no_backlight_index),
-+	KUNIT_CASE(dm_test_should_create_sysfs_aux_backlight),
-+	KUNIT_CASE(dm_test_should_create_sysfs_pwm_backlight),
-+	/* amdgpu_dm_setup_backlight_device */
-+	KUNIT_CASE(dm_test_setup_backlight_device_non_edp),
-+	KUNIT_CASE(dm_test_setup_backlight_device_connection_none),
-+	KUNIT_CASE(dm_test_setup_backlight_device_max_edps),
-+	KUNIT_CASE(dm_test_setup_backlight_device_oled_success),
++static struct kunit_case dm_audio_test_cases[] = {
++	/* amdgpu_dm_audio_init */
++	KUNIT_CASE(dm_test_audio_init_disabled),
++	/* amdgpu_dm_audio_fini */
++	KUNIT_CASE(dm_test_audio_fini_without_enabled_audio),
++	/* amdgpu_dm_fill_audio_info */
++	KUNIT_CASE(dm_test_fill_audio_info_ids_name_flags),
++	KUNIT_CASE(dm_test_fill_audio_info_cea_lt_3_skips_modes),
++	KUNIT_CASE(dm_test_fill_audio_info_cea_ge_3_copies_modes),
++	KUNIT_CASE(dm_test_fill_audio_info_cea_ge_3_zero_modes),
++	KUNIT_CASE(dm_test_fill_audio_info_latency_present),
++	KUNIT_CASE(dm_test_fill_audio_info_latency_absent_keeps_zero),
++	/* amdgpu_dm_audio_component_bind/unbind */
++	KUNIT_CASE(dm_test_audio_component_bind_sets_fields),
++	KUNIT_CASE(dm_test_audio_component_unbind_clears_fields),
++	/* amdgpu_dm_audio_eld_notify */
++	KUNIT_CASE(dm_test_eld_notify_invokes_callback),
++	KUNIT_CASE(dm_test_eld_notify_no_component),
++	KUNIT_CASE(dm_test_eld_notify_null_audio_ops),
++	KUNIT_CASE(dm_test_eld_notify_null_callback),
 +	{}
 +};
 +
-+static struct kunit_suite dm_backlight_test_suite = {
-+	.name = "amdgpu_dm_backlight",
-+	.test_cases = dm_backlight_test_cases,
++static struct kunit_suite dm_audio_test_suite = {
++	.name = "amdgpu_dm_audio",
++	.test_cases = dm_audio_test_cases,
 +};
 +
-+kunit_test_suite(dm_backlight_test_suite);
++kunit_test_suite(dm_audio_test_suite);
 +
 +MODULE_LICENSE("Dual MIT/GPL");
-+MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_backlight");
++MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_audio");
 +MODULE_AUTHOR("AMD");
 -- 
 2.43.0
