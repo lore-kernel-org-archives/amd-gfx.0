@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51534CD98C7
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E49CD98C7
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 09:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBDAE10E885;
-	Wed, 10 Jun 2026 09:51:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F02010E889;
+	Wed, 10 Jun 2026 09:51:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OTH/rzQh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gAoNf0aa";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011021.outbound.protection.outlook.com [40.107.208.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5410210E885
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:51:10 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8179D10E889
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 09:51:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XV7R6rIVhwXWzPt4Sk9QoX5C7mPB9AUt7lX+5gwByGzCigafjXQXqHl04yUds85YO1YGNw9J+GrPyOEdwVS8/VTs7wJ6VBuPeaAJEth89bFfErvS+u59LYiEOkP22zuL18LFpeKpeCV2aPlbIinfVgwq9DTA081/AraPeZ0c46FdzWRh8WMM2NnElIMBigBdoDCa65uFCBBfs6L7t5HP0r66g9RAzE9GTrzfgZZfjGa+8oV80cQ547oHFR4IY3A9Fq5R70u9U5nebHTKZYQCuWMD5dnP+CMKSLzUr9xNMB3Nr8Dr5yFr/kaWt9ZHxL8XwXAX1U/vrLznPqDZqHEqKQ==
+ b=rj8RWBPITPMHnFIAhDBOZj4UNhg17p8WogLHg6eBWgtZKkMN3mB6eQSAEMhqXVtdNgme3ZtQV1qiXr1Ts4LweKv6qdVR6yKpsmZSTQ8H2+8Mu7iKcL/9XIFgGlv02M+yumTpbdYzcXWnNOfCMBJJ8q0CGnVju/8e8ytox0z4+EyAIOhHWnRNt1D8XC9/KT9bysUgc/edWHIcIAUiDtX8XapwOBdWjjao2aIZ4Y88pmzKILXR7v7Tqy47YGj+JZEgqcmzk8ZXVTiaFVruPhPLv4naV3gBK9ZA6YOKlYnHYekG8KW8cgBt8oFWSOYwcsVglNDu8bqCKpoqja70hVxq9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8eJBRQNYdgwHqUdA2GAgKZ5eX1Pa4OVSRitvZY85F2U=;
- b=OFNlCmG6OrgExBSmR65WZyFsxxaIlVGb0SOrvyjFWXLGwNF9MzkIwdpFyg0urA4L5E3BAUxuL4Ag/tSDMaJGWOrc2A5xX0huhQY8Wxcxk49yYkWZBsgVhESBW4Lo/TFrmAArtCQNYm6RpZYbHjP4Mq3tv/xZUDK0WIJibr2JBLIp8FkZvF7QPehhJ+nyqhgbmGWT3aXxf/eHm/rVyKvyOTk1WlY6oiaTBzjmZQYVcS7eaQI0rmQo1+uPLAvmDeI2UL1ncKg+noWX/MM8TY1Rr1PyBrcDQmXFICkgNf2dG7Y4Ugat3Sxrb38AqbNvn4Fk9clkSf71mhbAoKOnUeolcw==
+ bh=/tdVOPEOWp2TQWQ2szNCmQM4GURh68/mIgr+foLHdFY=;
+ b=oE2IbdLwWyCVFQZUe4zV9j1AAunvb57BJ470V9UHPyjO5ScwRSIBnm/siYh9MkoC0O7z1SY08JSjLPveT3dWFHCarR8bF4dJVKAIvehqlYQMn3FVjvaIGXTde1sgo94Z9tMVMipgn7Ufvw88ehYBe6R5BcABtRPfCmBdx4ykmrC5jT3NhvIZRhjT/Ci9J0ixzTOk3O14lRYueZxNqZ7/Yd0MTQHZD1bRf5XCY6g3WsiNxp8gQc9nO7biK82GeTCBGo7dAHnXWZqUUZeD0rpRYhRpes3ZOwrKL6NiNLiDuL8MzLBABbGMgitYqfoQjXDaBz31otHyD6+BIyC8wsoV+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8eJBRQNYdgwHqUdA2GAgKZ5eX1Pa4OVSRitvZY85F2U=;
- b=OTH/rzQhOLMGNyik/Sm6W6+OPK2QfJTTEGN5qDJrlA4e4CR0SRqn5ddvG8kN75QxzFJSoAdeyEMP458zT1IRH9kVR555XfvTJ8HJg3idvOy0EJx+bWv1BOm5D8S+s4K8G6osWqUz9JguEAbH7oejpbGM7yy/7NPCval2AbZGziw=
-Received: from BL1PR13CA0105.namprd13.prod.outlook.com (2603:10b6:208:2b9::20)
- by SA1PR12MB6972.namprd12.prod.outlook.com (2603:10b6:806:24f::19)
+ bh=/tdVOPEOWp2TQWQ2szNCmQM4GURh68/mIgr+foLHdFY=;
+ b=gAoNf0aaszoAZYj6N6op/XbSomGyvOlWHmnst0GSVlieqoR0ZzCerWV9bY8XrCumBv/Sg5wguhlR4DAclxRbCbjIwLSyp2bmu5QsInP1jBUsb9MsbtZA729pR10f8wOe9atJ/AoY+aFzbKiIE5kluOrFub+G7bL9QgnYZlzdJfA=
+Received: from MN0PR02CA0013.namprd02.prod.outlook.com (2603:10b6:208:530::27)
+ by DS5PPF6BCF148B6.namprd12.prod.outlook.com (2603:10b6:f:fc00::652)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Wed, 10 Jun
- 2026 09:51:04 +0000
-Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
- (2603:10b6:208:2b9:cafe::41) by BL1PR13CA0105.outlook.office365.com
- (2603:10b6:208:2b9::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.11 via Frontend Transport; Wed,
- 10 Jun 2026 09:51:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.11; Wed, 10 Jun
+ 2026 09:51:13 +0000
+Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
+ (2603:10b6:208:530:cafe::78) by MN0PR02CA0013.outlook.office365.com
+ (2603:10b6:208:530::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.12 via Frontend Transport; Wed,
+ 10 Jun 2026 09:51:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
+ BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:51:04 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ 15.21.113.7 via Frontend Transport; Wed, 10 Jun 2026 09:51:13 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
- 2026 04:51:03 -0500
+ 2026 04:51:13 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 10 Jun
+ 2026 04:51:12 -0500
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 10 Jun 2026 04:50:55 -0500
+ Transport; Wed, 10 Jun 2026 04:51:04 -0500
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,42 +70,42 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "Chenyu Chen" <chen-yu.chen@amd.com>
-Subject: [PATCH 20/32] drm/amd/display: Add KUnit tests for amdgpu_dm_dmub
-Date: Wed, 10 Jun 2026 17:45:04 +0800
-Message-ID: <20260610094639.1965367-21-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Chenyu
+ Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 21/32] drm/amd/display: Add KUnit tests for amdgpu_dm_connector
+Date: Wed, 10 Jun 2026 17:45:05 +0800
+Message-ID: <20260610094639.1965367-22-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|SA1PR12MB6972:EE_
-X-MS-Office365-Filtering-Correlation-Id: 312d75ca-51d4-4a2d-4563-08dec6d5c95a
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|DS5PPF6BCF148B6:EE_
+X-MS-Office365-Filtering-Correlation-Id: db1a4712-7b4a-49b3-dae5-08dec6d5ced6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|6133799003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +9wUcLuFCSb8wUcvzFdY3iLsCA6jo9VpR06W4j7/nSQ5O2ec4QQHhJ5iK5a7CbYZUxGSvMEHL3EqQdtFgWyRgpBUqtOVPHy1P36qzbaS7O/eA7kO9A9ie/urJH33Uj3xTZxP9k4qffjJpPpY+6KdkQOz27E+nT9VcMQofBjGhYm2x261kTIyiiesm8Tqg+KuaFucyWIkXVe7U+W+8AzGdHTuP7w/Cg3S3sQt+ujiwzHZazz2VbT06I12pJM0r7+57XR33cM8P96TqHDRjW9td1IerkO7seZ/afnyy5kOsLAJUcBc28rtCaVyG18Tm2aEohPpUN2xvzJID3M46+qIRUBrL0d/HkeX2do8ctK7hA5VW/PvlOUVORfFNtkatJnes7RcJzXKd42n7F1YsrPOKyoEcfwC18dLzqmu47JnbrAENT1izEaTYSDQ6FEj+C218N6K4KmjGpjTOkoU7g+dEzKz1L95OGRIJJpcosRIn29YpRgnY2G/t7+LhSc0PBVliJO98fcNuVEUZzlltA/uU8d6DP4wcj0v5dt8KTVuo2zxnRLaj9NUmNTxtdq8SuNJahwmIWOplQvNcUUVuEk1H9QwK13/C8bk9+jFavxHefVh1TkcO0TgIuFIML3Q+lJaF3MzcyA+fStQ7111sVq7vNvN4rKm4W1+SrBfyquUQ+tJpnAMs1BkCEAhVn6CjtXzFBfkBGwhsqLeDEu5iE7JELRc7aLWOrL6aJ+pO7+4fnw=
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|22082099003|18002099003|6133799003|11063799006|5023799004|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info: y23p8zcJMCUPHUHvaRH6DtOXw5+MVUz6cE+9B6mBQutAPmisUWhmnQgYCFTN8DTY0LGkAXMF2IoNB4QXesgMbAl35n2H2EzXmT9qWVtKi7bYgVnXl1MUwkuMeAdznANAIhyW/7FKU8cImagRccAMtErS2a0GUtW+gJ/QIznZuR27oTnrNP+nI2j9FZVgNhrh0aShWxzJPYjjgfIlUp0Q6xwqAnaFKd4ORvco0wLahx3JXQtuSXYOfSo0VwdPddmweNtEwaTm3vV8CZMfTHrvv0zZIBiCoOH8QFKgW7M0G0xQBBUePmnodsKQyO7PERZiynMzfpHjfjwbvwhjEHlLBpE+HPrmh42B7EjhxRujW32azh9Xs28lJeZp2iG2elYO/AFpTZFbk0Sbspak7CSBrZb0JzkQJ9eG0iuhgZRQdHhno433ItnauDkebdFrhSnrsDP1kSF0zoVZFGMVqNRGZcQGLFxcpdREUVUnGBvLgbDz2XJuuqe5wVfUjPAx/YERQ8BTOU072XyLE4ycq/5hVNaO86QaVPYZQUW+2Aq7IGiD8RxGAw5oj5uNzFyyCwztpqiOTsfV3CD1BkgbkFiYjj5zd6F/W6mEcwtQzn4k7iaBBxA0ewfDWEI1/Bj4TSRkxRs3WJU/J3GFRh8BG13v27u8muHsV9L0n1JgmVnwPZjOkXDC3f+fQQdYwDQwvBjiiCSOCzperGkjW2tTJPa6pYCX2LaYzRU18s/tC0fdxzo=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(22082099003)(18002099003)(6133799003)(11063799006)(5023799004)(56012099006)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sHdcTHSPz0C45BbPlK2+KTx2NEEYIHMHTZMeZ2cK+NFW26sSgqq6nh1vhlDf0dIVw9PxaKD3wIJnSRAdKAAFe6o4qUszr23Q9Up8UOXgBlORZMo3TsRTkLagxhZUsPBnb/vEt/5HldqtcA9ga108fU9wfQ0JJc/JvB/0a06bN5CY1Hhdhywf932b6GsajacpEH/4odEdY/U1XSTCtQUHftnK/gyfiq1FqJCBF2PyQrdrMN7dHBcD5dgAZh9DOG9+FG/QJBGZpKEvs3HR8bUAfQvfyLTRsNEEWWg6VfmIzup2vVyIJftKcthrXcsX75p37gexOYd9PWbQPgBCwoAIYY71/1fTQupzzDClUdI0fcTwo25xp4wF37QZHR6IalLynWIj/3S8xlYCDzXpDkvOzQ8sbWxbl7HrtBB5gK1BYbb3SEEu7Wt7ZUKyKGKhPgTd
+X-MS-Exchange-AntiSpam-MessageData-0: q3IvmauQ0d7CQHEmS88ycffvsBQyME6BNWxsTB4j5nKMVsRT7oAKOhzm4yt/Kj1Xl6GXeALzYW99aZo4LdffxaCRqLLPtXcDxMqcBqu9nibIAWBU1FxVQ6N6c/tkQ0IjAZojDJKCGKIXvjpiQdfh+lYEIq5SqK4hPsXHpl/bRzX/S6fBZQEfz9+RHZ0zCql8die4GArgGwomKlV+vY6mHEXZRnELkUWCcZsS74QYsMPNkNa4Z+WmdwGdc4sIN+OsAp0u1b2eQVTCwzZMviqsTtLbALW2boT5BU5vtwWioW1pS4CVZQMDPamqMeDlqVhsynlvzaI/AY/jKFqhjyiHea7WcuGHtJVwoYHRSjtU8cNCKDfINO0Qpy+kjPltHd04VJs5XOSr6FkKX/k1XsvqlHslmva2hGW+dmlGL3XVj/dE6WGkWP8vLEt4NNDbnAsL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:51:04.1216 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 312d75ca-51d4-4a2d-4563-08dec6d5c95a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:51:13.3254 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db1a4712-7b4a-49b3-dae5-08dec6d5ced6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6972
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF6BCF148B6
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,729 +122,2443 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit tests for amdgpu_dm_dmub.c covering the following
-functions:
+Add KUnit tests for helper functions in amdgpu_dm_connector.c,
+including both pure helper tests and DRM mock-based tests.
 
-- dm_register_dmub_notify_callback(): NULL callback rejection,
-  out-of-range type, valid registration with offload flag
-- dm_dmub_aux_setconfig_callback(): copy and complete on AUX
-  reply, non-AUX skip, NULL dm_notify, SET_CONFIG reply
-- dm_dmub_aux_fused_io_callback(): copy reply and complete,
-  max ddc_line boundary
-- dm_get_default_ips_mode(): IPS mode per DCN version (3.5,
-  3.5.1, 3.6, 4.2), disabled for older ASICs, default enabled
-  for unhandled newer ASICs
-- dm_dmub_hw_init(): early returns for no dmub_srv, no fb_info,
-  no firmware
-- dm_dmub_hw_resume(): no-op when dmub_srv is NULL
-- dm_dmub_sw_init(): returns 0 for unsupported ASIC
-- dm_init_microcode(): returns 0 for unsupported ASIC
+Tests cover:
+- get_subconnector_type(): all dongle types and unknown default
+- get_output_content_type(): all content type mappings and unknown
+  default
+- adjust_colour_depth_from_display_info(): depth reduction from 12bpc
+  to 10bpc, 16bpc no-fallback, YCbCr420 clock halving, and no-fit
+  rejection
+- get_output_color_space(): RGB full/limited, YCbCr default 709/601,
+  BT601/709 with Y_ONLY, OPRGB, BT2020 RGB/YCC paths
+- convert_dc_color_depth_into_bpc(): all depths and undefined default
+- convert_color_depth_from_display_info(): non-Y420 bpc values, Y420
+  default/10/12/16bpc, requested odd bpc rounding, unsupported bpc,
+  and requested_bpc capping
+- to_drm_connector_type(): HDMI, eDP, LVDS, RGB, DP/MST, DVI single
+  and dual link DVII/DVID, virtual, and unknown
+- is_duplicate_mode(): empty list, match, no-match, and same-size
+  different-clock cases
+- amdgpu_dm_get_encoder_crtc_mask(): 1-6 CRTCs and default
+- get_aspect_ratio(): all HDMI picture aspect ratios
+- decide_crtc_timing_for_drm_display_mode(): scale enabled, matching
+  mode, no copy, and no crtc_clock cases
+- amdgpu_dm_connector_funcs_reset(): default fields, eDP ABM level
+  set, and eDP ABM disabled
+- amdgpu_dm_connector_atomic_duplicate_state(): field copy
+  verification
+- amdgpu_dm_fill_hdr_info_packet(): null metadata early return and
+  output zeroing
+- amdgpu_dm_connector_atomic_set_property(): scaling center/aspect/
+  fullscreen/none/unchanged, underscan hborder/vborder/enable, abm
+  sysfs control/level off/level value, and unknown property -EINVAL
+- amdgpu_dm_connector_atomic_get_property(): scaling center/aspect/
+  full/off, underscan borders, abm sysfs allowed/level/disabled, and
+  unknown property -EINVAL
+- amdgpu_dm_get_highest_refresh_rate_mode(): null writeback, cached
+  base mode, and preferred mode selection
+- amdgpu_dm_is_freesync_video_mode(): null mode, match, and no-match
+  cases
 
-Assisted-by: Copilot:Claude-Opus-4.6
+Assisted-by: Copilot:Claude-Opus-4.8
 
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    |   9 +
- .../drm/amd/display/amdgpu_dm/tests/Makefile  |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     | 600 ++++++++++++++++++
- 3 files changed, 610 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   33 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |   15 +
+ .../drm/amd/display/amdgpu_dm/tests/Makefile  |    1 +
+ .../tests/amdgpu_dm_connector_test.c          | 2142 +++++++++++++++++
+ 4 files changed, 2184 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 54b3b884968b..579a435dcefc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -38,6 +38,7 @@
- #include "amdgpu_ucode.h"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 59091ee32099..c9377a9e8e6a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -42,6 +42,7 @@
+ #include "amdgpu_display.h"
  #include "amdgpu_dm.h"
- #include "amdgpu_dm_dmub.h"
+ #include "amdgpu_dm_connector.h"
 +#include "amdgpu_dm_kunit_helpers.h"
- #include <linux/component.h>
- #include <linux/firmware.h>
- 
-@@ -80,6 +81,7 @@ void dm_dmub_aux_setconfig_callback(struct amdgpu_device *adev,
- 	if (notify->type == DMUB_NOTIFICATION_AUX_REPLY)
- 		complete(&adev->dm.dmub_aux_transfer_done);
- }
-+EXPORT_IF_KUNIT(dm_dmub_aux_setconfig_callback);
- 
- void dm_dmub_aux_fused_io_callback(struct amdgpu_device *adev,
- 				   struct dmub_notification *notify)
-@@ -103,6 +105,7 @@ void dm_dmub_aux_fused_io_callback(struct amdgpu_device *adev,
- 	memcpy(sync->reply_data, req, sizeof(*req));
- 	complete(&sync->replied);
- }
-+EXPORT_IF_KUNIT(dm_dmub_aux_fused_io_callback);
- 
- /**
-  * dm_register_dmub_notify_callback - Sets callback for DMUB notify
-@@ -129,6 +132,7 @@ bool dm_register_dmub_notify_callback(struct amdgpu_device *adev,
- 
- 	return true;
- }
-+EXPORT_IF_KUNIT(dm_register_dmub_notify_callback);
- 
- int dm_dmub_hw_init(struct amdgpu_device *adev)
- {
-@@ -318,6 +322,7 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 
- 	return 0;
- }
-+EXPORT_IF_KUNIT(dm_dmub_hw_init);
- 
- void dm_dmub_hw_resume(struct amdgpu_device *adev)
- {
-@@ -347,6 +352,7 @@ void dm_dmub_hw_resume(struct amdgpu_device *adev)
- 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ #include "amdgpu_dm_plane.h"
+ #include "amdgpu_dm_crtc.h"
+ #include "amdgpu_dm_wb.h"
+@@ -188,6 +189,7 @@ int amdgpu_dm_get_encoder_crtc_mask(struct amdgpu_device *adev)
+ 		return 0x3f;
  	}
  }
-+EXPORT_IF_KUNIT(dm_dmub_hw_resume);
++EXPORT_IF_KUNIT(amdgpu_dm_get_encoder_crtc_mask);
  
- static enum dmub_status
- dm_dmub_send_vbios_gpint_command(struct amdgpu_device *adev,
-@@ -460,6 +466,7 @@ enum dmub_ips_disable_type dm_get_default_ips_mode(
+ int amdgpu_dm_encoder_init(struct drm_device *dev,
+ 			   struct amdgpu_encoder *aencoder,
+@@ -213,7 +215,7 @@ int amdgpu_dm_encoder_init(struct drm_device *dev,
+ 	return res;
+ }
+ 
+-static enum drm_mode_subconnector get_subconnector_type(struct dc_link *link)
++STATIC_IFN_KUNIT enum drm_mode_subconnector get_subconnector_type(struct dc_link *link)
+ {
+ 	switch (link->dpcd_caps.dongle_type) {
+ 	case DISPLAY_DONGLE_NONE:
+@@ -231,6 +233,7 @@ static enum drm_mode_subconnector get_subconnector_type(struct dc_link *link)
+ 		return DRM_MODE_SUBCONNECTOR_Unknown;
+ 	}
+ }
++EXPORT_IF_KUNIT(get_subconnector_type);
+ 
+ static void update_subconnector_property(struct amdgpu_dm_connector *aconnector)
+ {
+@@ -662,13 +665,15 @@ amdgpu_dm_convert_color_depth_from_display_info(const struct drm_connector *conn
+ 		return COLOR_DEPTH_UNDEFINED;
+ 	}
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_convert_color_depth_from_display_info);
+ 
+-static enum dc_aspect_ratio
++STATIC_IFN_KUNIT enum dc_aspect_ratio
+ get_aspect_ratio(const struct drm_display_mode *mode_in)
+ {
+ 	/* 1-1 mapping, since both enums follow the HDMI spec. */
+ 	return (enum dc_aspect_ratio) mode_in->picture_aspect_ratio;
+ }
++EXPORT_IF_KUNIT(get_aspect_ratio);
+ 
+ enum dc_color_space
+ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+@@ -728,8 +733,9 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 
+ 	return color_space;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_get_output_color_space);
+ 
+-static enum display_content_type
++STATIC_IFN_KUNIT enum display_content_type
+ get_output_content_type(const struct drm_connector_state *connector_state)
+ {
+ 	switch (connector_state->content_type) {
+@@ -746,8 +752,9 @@ get_output_content_type(const struct drm_connector_state *connector_state)
+ 		return DISPLAY_CONTENT_TYPE_GAME;
+ 	}
+ }
++EXPORT_IF_KUNIT(get_output_content_type);
+ 
+-static bool adjust_colour_depth_from_display_info(
++STATIC_IFN_KUNIT bool adjust_colour_depth_from_display_info(
+ 	struct dc_crtc_timing *timing_out,
+ 	const struct drm_display_info *info)
+ {
+@@ -783,6 +790,7 @@ static bool adjust_colour_depth_from_display_info(
+ 	} while (--depth > COLOR_DEPTH_666);
+ 	return false;
+ }
++EXPORT_IF_KUNIT(adjust_colour_depth_from_display_info);
+ 
+ static void fill_stream_properties_from_drm_display_mode(
+ 	struct dc_stream_state *stream,
+@@ -924,7 +932,7 @@ copy_crtc_timing_for_drm_display_mode(const struct drm_display_mode *src_mode,
+ 	dst_mode->crtc_vtotal = src_mode->crtc_vtotal;
+ }
+ 
+-static void
++STATIC_IFN_KUNIT void
+ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 					const struct drm_display_mode *native_mode,
+ 					bool scale_enabled)
+@@ -939,6 +947,7 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 		/* no scaling nor amdgpu inserted, no need to patch */
+ 	}
+ }
++EXPORT_IF_KUNIT(decide_crtc_timing_for_drm_display_mode);
+ 
+ static struct dc_sink *
+ create_fake_sink(struct drm_device *dev, struct dc_link *link)
+@@ -1044,6 +1053,7 @@ amdgpu_dm_get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+ 	drm_mode_copy(&aconnector->freesync_vid_base, m_pref);
+ 	return m_pref;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_get_highest_refresh_rate_mode);
+ 
+ 
+ bool amdgpu_dm_is_freesync_video_mode(const struct drm_display_mode *mode,
+@@ -1072,6 +1082,7 @@ bool amdgpu_dm_is_freesync_video_mode(const struct drm_display_mode *mode,
+ 	else
+ 		return true;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_is_freesync_video_mode);
+ 
+ #if defined(CONFIG_DRM_AMD_DC_FP)
+ static void update_dsc_caps(struct amdgpu_dm_connector *aconnector,
+@@ -1654,6 +1665,7 @@ int amdgpu_dm_connector_atomic_set_property(struct drm_connector *connector,
  
  	return ret;
  }
-+EXPORT_IF_KUNIT(dm_get_default_ips_mode);
++EXPORT_IF_KUNIT(amdgpu_dm_connector_atomic_set_property);
  
- static uint32_t amdgpu_dm_dmub_reg_read(void *ctx, uint32_t address)
+ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
+ 					    const struct drm_connector_state *state,
+@@ -1703,6 +1715,7 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
+ 
+ 	return ret;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_connector_atomic_get_property);
+ 
+ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
  {
-@@ -678,6 +685,7 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+@@ -1788,6 +1801,7 @@ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+ 		__drm_atomic_helper_connector_reset(connector, &state->base);
+ 	}
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_connector_funcs_reset);
+ 
+ struct drm_connector_state *
+ amdgpu_dm_connector_atomic_duplicate_state(struct drm_connector *connector)
+@@ -1813,6 +1827,7 @@ amdgpu_dm_connector_atomic_duplicate_state(struct drm_connector *connector)
+ 	new_state->pbn = state->pbn;
+ 	return &new_state->base;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_connector_atomic_duplicate_state);
+ 
+ static int
+ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+@@ -2240,6 +2255,7 @@ int amdgpu_dm_fill_hdr_info_packet(const struct drm_connector_state *state,
  
  	return 0;
  }
-+EXPORT_IF_KUNIT(dm_dmub_sw_init);
++EXPORT_IF_KUNIT(amdgpu_dm_fill_hdr_info_packet);
  
- int dm_init_microcode(struct amdgpu_device *adev)
- {
-@@ -750,6 +758,7 @@ int dm_init_microcode(struct amdgpu_device *adev)
- 				 "%s", fw_name_dmub);
- 	return r;
+ static int
+ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
+@@ -2355,8 +2371,9 @@ int amdgpu_dm_convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_
+ 	}
+ 	return 0;
  }
-+EXPORT_IF_KUNIT(dm_init_microcode);
++EXPORT_IF_KUNIT(amdgpu_dm_convert_dc_color_depth_into_bpc);
  
- int amdgpu_dm_process_dmub_aux_transfer_sync(
- 		struct dc_context *ctx,
+-static int to_drm_connector_type(enum signal_type st, uint32_t connector_id)
++STATIC_IFN_KUNIT int to_drm_connector_type(enum signal_type st, uint32_t connector_id)
+ {
+ 	switch (st) {
+ 	case SIGNAL_TYPE_HDMI_TYPE_A:
+@@ -2384,6 +2401,7 @@ static int to_drm_connector_type(enum signal_type st, uint32_t connector_id)
+ 		return DRM_MODE_CONNECTOR_Unknown;
+ 	}
+ }
++EXPORT_IF_KUNIT(to_drm_connector_type);
+ 
+ static struct drm_encoder *amdgpu_dm_connector_to_encoder(struct drm_connector *connector)
+ {
+@@ -2579,7 +2597,7 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
+ 	}
+ }
+ 
+-static bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector,
++STATIC_IFN_KUNIT bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector,
+ 			      struct drm_display_mode *mode)
+ {
+ 	struct drm_display_mode *m;
+@@ -2591,6 +2609,7 @@ static bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector,
+ 
+ 	return false;
+ }
++EXPORT_IF_KUNIT(is_duplicate_mode);
+ 
+ static uint add_fs_modes(struct amdgpu_dm_connector *aconnector)
+ {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+index 0e8e4756cf17..ab6938a0b8ed 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+@@ -34,6 +34,7 @@ struct amdgpu_encoder;
+ struct amdgpu_i2c_adapter;
+ struct dc_crtc_timing;
+ struct dc_link;
++enum signal_type;
+ struct dc_state;
+ struct dc_stream_state;
+ struct ddc_service;
+@@ -144,4 +145,18 @@ int amdgpu_dm_encoder_init(struct drm_device *dev,
+ 			   struct amdgpu_encoder *aencoder,
+ 			   uint32_t link_index);
+ 
++#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
++enum drm_mode_subconnector get_subconnector_type(struct dc_link *link);
++enum display_content_type
++get_output_content_type(const struct drm_connector_state *connector_state);
++bool adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_out,
++					   const struct drm_display_info *info);
++
++int to_drm_connector_type(enum signal_type st, uint32_t connector_id);
++bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector, struct drm_display_mode *mode);
++enum dc_aspect_ratio get_aspect_ratio(const struct drm_display_mode *mode_in);
++void decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
++					     const struct drm_display_mode *native_mode,
++					     bool scale_enabled);
++#endif
+ #endif /* __AMDGPU_DM_CONNECTOR_H__ */
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-index 5bb43b3bc439..4bd8d1fa0fee 100644
+index 4bd8d1fa0fee..422eef0bfe49 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-@@ -17,6 +17,7 @@ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_audio_test.o
+@@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_hdcp_test.o
+ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_audio_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_color_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_colorop_test.o
++obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_connector_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_backlight_test.o
-+obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_dmub_test.o
+ obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_dmub_test.o
  obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_psr_test.o
- obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_replay_test.o
- obj-$(CONFIG_DRM_AMD_DC_KUNIT_TEST) += amdgpu_dm_ism_test.o
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
 new file mode 100644
-index 000000000000..b82dd301a896
+index 000000000000..34e40d2a9d2c
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-@@ -0,0 +1,600 @@
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -0,0 +1,2142 @@
 +// SPDX-License-Identifier: GPL-2.0 OR MIT
 +/*
-+ * KUnit tests for amdgpu_dm_dmub.c
++ * KUnit tests for amdgpu_dm_connector.c
 + *
 + * Copyright 2026 Advanced Micro Devices, Inc.
 + */
 +
 +#include <kunit/test.h>
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_kunit_helpers.h>
++#include <linux/hdmi.h>
 +
 +#include "dc.h"
-+#include "dc/inc/core_types.h"
++#include "amdgpu.h"
 +#include "amdgpu_mode.h"
++#include "amdgpu_display.h"
 +#include "amdgpu_dm.h"
-+#include "dmub/dmub_srv.h"
-+#include "amdgpu_dm_dmub.h"
++#include "amdgpu_dm_connector.h"
++#include "amdgpu_dm_backlight.h"
++#include "include/grph_object_id.h"
 +
-+/* Tests for dm_register_dmub_notify_callback() */
++/* Tests for get_subconnector_type() */
 +
-+static void dummy_callback(struct amdgpu_device *adev,
-+			   struct dmub_notification *notify)
++/**
++ * dm_test_subconnector_type_none - Test Subconnector type none
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_none(struct kunit *test)
 +{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_NONE;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_Native);
 +}
 +
 +/**
-+ * dm_test_register_dmub_notify_callback_null_callback - Test null callback is rejected
++ * dm_test_subconnector_type_vga - Test Subconnector type vga
 + * @test: The KUnit test context
 + */
-+static void dm_test_register_dmub_notify_callback_null_callback(struct kunit *test)
++static void dm_test_subconnector_type_vga(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_VGA_CONVERTER;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_VGA);
++}
++
++/**
++ * dm_test_subconnector_type_dvi_converter - Test Subconnector type dvi converter
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_dvi_converter(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_DVI_CONVERTER;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_DVID);
++}
++
++/**
++ * dm_test_subconnector_type_dvi_dongle - Test Subconnector type dvi dongle
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_dvi_dongle(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_DVI_DONGLE;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_DVID);
++}
++
++/**
++ * dm_test_subconnector_type_hdmi_converter - Test Subconnector type hdmi converter
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_hdmi_converter(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_HDMI_CONVERTER;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_HDMIA);
++}
++
++/**
++ * dm_test_subconnector_type_hdmi_dongle - Test Subconnector type hdmi dongle
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_hdmi_dongle(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_HDMI_DONGLE;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_HDMIA);
++}
++
++/**
++ * dm_test_subconnector_type_mismatched - Test Subconnector type mismatched
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_mismatched(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_HDMI_MISMATCHED_DONGLE;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_Unknown);
++}
++
++/**
++ * dm_test_subconnector_type_default_unknown - Test Subconnector type default unknown
++ * @test: The KUnit test context
++ */
++static void dm_test_subconnector_type_default_unknown(struct kunit *test)
++{
++	struct dc_link link = {};
++
++	link.dpcd_caps.dongle_type = (typeof(link.dpcd_caps.dongle_type))0x7f;
++	KUNIT_EXPECT_EQ(test, (int)get_subconnector_type(&link), (int)DRM_MODE_SUBCONNECTOR_Unknown);
++}
++
++/* Tests for get_output_content_type() */
++
++/**
++ * dm_test_content_type_no_data - Test Content type no data
++ * @test: The KUnit test context
++ */
++static void dm_test_content_type_no_data(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++
++	state.content_type = DRM_MODE_CONTENT_TYPE_NO_DATA;
++	KUNIT_EXPECT_EQ(test, (int)get_output_content_type(&state), (int)DISPLAY_CONTENT_TYPE_NO_DATA);
++}
++
++/**
++ * dm_test_content_type_graphics - Test Content type graphics
++ * @test: The KUnit test context
++ */
++static void dm_test_content_type_graphics(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++
++	state.content_type = DRM_MODE_CONTENT_TYPE_GRAPHICS;
++	KUNIT_EXPECT_EQ(test, (int)get_output_content_type(&state), (int)DISPLAY_CONTENT_TYPE_GRAPHICS);
++}
++
++/**
++ * dm_test_content_type_photo - Test Content type photo
++ * @test: The KUnit test context
++ */
++static void dm_test_content_type_photo(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++
++	state.content_type = DRM_MODE_CONTENT_TYPE_PHOTO;
++	KUNIT_EXPECT_EQ(test, (int)get_output_content_type(&state), (int)DISPLAY_CONTENT_TYPE_PHOTO);
++}
++
++/**
++ * dm_test_content_type_cinema - Test Content type cinema
++ * @test: The KUnit test context
++ */
++static void dm_test_content_type_cinema(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++
++	state.content_type = DRM_MODE_CONTENT_TYPE_CINEMA;
++	KUNIT_EXPECT_EQ(test, (int)get_output_content_type(&state), (int)DISPLAY_CONTENT_TYPE_CINEMA);
++}
++
++/**
++ * dm_test_content_type_game - Test Content type game
++ * @test: The KUnit test context
++ */
++static void dm_test_content_type_game(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++
++	state.content_type = DRM_MODE_CONTENT_TYPE_GAME;
++	KUNIT_EXPECT_EQ(test, (int)get_output_content_type(&state), (int)DISPLAY_CONTENT_TYPE_GAME);
++}
++
++/**
++ * dm_test_content_type_unknown_defaults_no_data - Test unknown content type defaults to no data
++ * @test: The KUnit test context
++ */
++static void dm_test_content_type_unknown_defaults_no_data(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++
++	state.content_type = 0x7f;
++	KUNIT_EXPECT_EQ(test, (int)get_output_content_type(&state),
++			(int)DISPLAY_CONTENT_TYPE_NO_DATA);
++}
++
++/* Tests for adjust_colour_depth_from_display_info() */
++
++/**
++ * dm_test_adjust_colour_depth_fits_at_888 - Test Adjust colour depth fits at 888
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_fits_at_888(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	/* 1080p @ 148500 KHz = 1485000 in 100Hz units */
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_888;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	info.max_tmds_clock = 150000; /* 150 MHz */
++
++	KUNIT_EXPECT_TRUE(test, adjust_colour_depth_from_display_info(&timing, &info));
++	KUNIT_EXPECT_EQ(test, (int)timing.display_color_depth, (int)COLOR_DEPTH_888);
++}
++
++/**
++ * dm_test_adjust_colour_depth_reduces_to_888 - Test Adjust colour depth reduces to 888
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_reduces_to_888(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	/* Request 10bpc but TMDS limit only allows 8bpc */
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_101010;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	/* 10bpc would need 148500*30/24 = 185625 KHz, exceeds limit */
++	info.max_tmds_clock = 160000;
++
++	KUNIT_EXPECT_TRUE(test, adjust_colour_depth_from_display_info(&timing, &info));
++	KUNIT_EXPECT_EQ(test, (int)timing.display_color_depth, (int)COLOR_DEPTH_888);
++}
++
++/**
++ * dm_test_adjust_colour_depth_10bpc_passes - Test Adjust colour depth 10bpc passes
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_10bpc_passes(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_101010;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	/* 10bpc needs 185625 KHz, allow it */
++	info.max_tmds_clock = 200000;
++
++	KUNIT_EXPECT_TRUE(test, adjust_colour_depth_from_display_info(&timing, &info));
++	KUNIT_EXPECT_EQ(test, (int)timing.display_color_depth, (int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_adjust_colour_depth_420_halves_clk - Test Adjust colour depth 420 halves clk
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_420_halves_clk(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	/* 4K @ 594000 KHz = 5940000 in 100Hz units */
++	timing.pix_clk_100hz = 5940000;
++	timing.display_color_depth = COLOR_DEPTH_101010;
++	timing.pixel_encoding = PIXEL_ENCODING_YCBCR420;
++	/* With 420: effective = 594000/2 = 297000, 10bpc = 297000*30/24 = 371250 */
++	info.max_tmds_clock = 400000;
++
++	KUNIT_EXPECT_TRUE(test, adjust_colour_depth_from_display_info(&timing, &info));
++	KUNIT_EXPECT_EQ(test, (int)timing.display_color_depth, (int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_adjust_colour_depth_reduces_12bpc_to_10bpc - Test Adjust colour
++ * depth reduces 12bpc to 10bpc
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_reduces_12bpc_to_10bpc(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_121212;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	info.max_tmds_clock = 190000;
++
++	KUNIT_EXPECT_TRUE(test, adjust_colour_depth_from_display_info(&timing, &info));
++	KUNIT_EXPECT_EQ(test, (int)timing.display_color_depth, (int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_adjust_colour_depth_16bpc_no_fallback - Test Adjust colour depth
++ * 16bpc cannot fall back
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_16bpc_no_fallback(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	/* 16bpc that exceeds limit cannot reduce because the next enum
++	 * value (COLOR_DEPTH_141414) is not a valid HDMI depth.
++	 */
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_161616;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	info.max_tmds_clock = 230000;
++
++	KUNIT_EXPECT_FALSE(test, adjust_colour_depth_from_display_info(&timing, &info));
++}
++
++/**
++ * dm_test_adjust_colour_depth_none_fits - Test Adjust colour depth none fits
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_none_fits(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	/* Even 8bpc doesn't fit */
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_888;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	info.max_tmds_clock = 100000; /* Too low */
++
++	KUNIT_EXPECT_FALSE(test, adjust_colour_depth_from_display_info(&timing, &info));
++}
++
++/**
++ * dm_test_adjust_colour_depth_invalid_depth - Test Adjust colour depth invalid depth
++ * @test: The KUnit test context
++ */
++static void dm_test_adjust_colour_depth_invalid_depth(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_display_info info = {};
++
++	timing.pix_clk_100hz = 1485000;
++	timing.display_color_depth = COLOR_DEPTH_141414;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	info.max_tmds_clock = 400000;
++
++	KUNIT_EXPECT_FALSE(test, adjust_colour_depth_from_display_info(&timing, &info));
++	KUNIT_EXPECT_EQ(test, (int)timing.display_color_depth, (int)COLOR_DEPTH_141414);
++}
++
++/* Tests for amdgpu_dm_get_output_color_space() */
++
++/**
++ * dm_test_output_color_space_default_rgb_full - Test Output color space default rgb full
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_full(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_SRGB);
++}
++
++/**
++ * dm_test_output_color_space_default_rgb_limited - Test Output color space default rgb limited
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_limited(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_SRGB_LIMITED);
++}
++
++/**
++ * dm_test_output_color_space_default_ycbcr709 - Test Output color space default ycbcr709
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_ycbcr709(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.pixel_encoding = PIXEL_ENCODING_YCBCR444;
++	timing.pix_clk_100hz = 300000;
++	timing.flags.Y_ONLY = 0;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_YCBCR709);
++}
++
++/**
++ * dm_test_output_color_space_default_ycbcr601_limited - Test Output color space
++ * default ycbcr601 limited
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_ycbcr601_limited(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.pixel_encoding = PIXEL_ENCODING_YCBCR444;
++	timing.pix_clk_100hz = 270300;
++	timing.flags.Y_ONLY = 1;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_YCBCR601_LIMITED);
++}
++
++/**
++ * dm_test_output_color_space_bt601_y_only - Test Output color space bt601 y only
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt601_y_only(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.flags.Y_ONLY = 1;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT601_YCC;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_YCBCR601_LIMITED);
++}
++
++/**
++ * dm_test_output_color_space_bt601 - Test Output color space bt601
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt601(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.flags.Y_ONLY = 0;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT601_YCC;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_YCBCR601);
++}
++
++/**
++ * dm_test_output_color_space_bt709 - Test Output color space bt709
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt709(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.flags.Y_ONLY = 0;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT709_YCC;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_YCBCR709);
++}
++
++/**
++ * dm_test_output_color_space_bt709_y_only - Test Output color space bt709 y only
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt709_y_only(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.flags.Y_ONLY = 1;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT709_YCC;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_YCBCR709_LIMITED);
++}
++
++/**
++ * dm_test_output_color_space_oprgb - Test Output color space oprgb
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_oprgb(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	state.colorspace = DRM_MODE_COLORIMETRY_OPRGB;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_ADOBERGB);
++}
++
++/**
++ * dm_test_output_color_space_bt2020_rgb - Test Output color space bt2020 rgb
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_rgb(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_2020_RGB_FULLRANGE);
++}
++
++/**
++ * dm_test_output_color_space_bt2020_ycc - Test Output color space bt2020 ycc
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_ycc(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++
++	timing.pixel_encoding = PIXEL_ENCODING_YCBCR422;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_2020_YCBCR_LIMITED);
++}
++
++/* Tests for amdgpu_dm_convert_dc_color_depth_into_bpc() */
++
++/**
++ * dm_test_convert_color_depth_bpc_mappings - Test Convert color depth bpc mappings
++ * @test: The KUnit test context
++ */
++static void dm_test_convert_color_depth_bpc_mappings(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_666), 6);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_888), 8);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_101010), 10);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_121212), 12);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_141414), 14);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_161616), 16);
++}
++
++/**
++ * dm_test_convert_color_depth_bpc_unknown - Test Convert color depth bpc unknown
++ * @test: The KUnit test context
++ */
++static void dm_test_convert_color_depth_bpc_unknown(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_convert_dc_color_depth_into_bpc(COLOR_DEPTH_UNDEFINED), 0);
++}
++
++/* Tests for amdgpu_dm_convert_color_depth_from_display_info() */
++
++/**
++ * dm_test_color_depth_from_info_bpc8 - Test Color depth from info bpc8
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_bpc8(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.bpc = 8;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, false, 0),
++			(int)COLOR_DEPTH_888);
++}
++
++/**
++ * dm_test_color_depth_from_info_bpc10 - Test Color depth from info bpc10
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_bpc10(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.bpc = 10;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, false, 0),
++			(int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_color_depth_from_info_zero_bpc_defaults_888 - Test Color depth from
++ * info zero bpc defaults 888
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_zero_bpc_defaults_888(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.bpc = 0;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, false, 0),
++			(int)COLOR_DEPTH_888);
++}
++
++/**
++ * dm_test_color_depth_from_info_requested_bpc_caps - Test Color depth from info requested bpc caps
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_requested_bpc_caps(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	/* Display supports 12bpc but user requests max 10 */
++	connector->display_info.bpc = 12;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, false, 10),
++			(int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_color_depth_from_info_y420_default - Test Color depth from info y420 default
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_y420_default(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	/* No Y420 DC modes set → 8bpc */
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, true, 0),
++			(int)COLOR_DEPTH_888);
++}
++
++/**
++ * dm_test_color_depth_from_info_y420_10bpc - Test Color depth from info y420 10bpc
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_y420_10bpc(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.hdmi.y420_dc_modes = DRM_EDID_YCBCR420_DC_30;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, true, 0),
++			(int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_color_depth_from_info_y420_12bpc - Test Color depth from info y420 12bpc
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_y420_12bpc(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.hdmi.y420_dc_modes = DRM_EDID_YCBCR420_DC_36;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, true, 0),
++			(int)COLOR_DEPTH_121212);
++}
++
++/**
++ * dm_test_color_depth_from_info_y420_16bpc - Test Color depth from info y420 16bpc
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_y420_16bpc(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.hdmi.y420_dc_modes = DRM_EDID_YCBCR420_DC_48;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, true, 0),
++			(int)COLOR_DEPTH_161616);
++}
++
++/**
++ * dm_test_color_depth_from_info_requested_odd_bpc - Test Color depth from info requested odd bpc
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_requested_odd_bpc(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.bpc = 12;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, false, 11),
++			(int)COLOR_DEPTH_101010);
++}
++
++/**
++ * dm_test_color_depth_from_info_unsupported_bpc - Test Color depth from info unsupported bpc
++ * @test: The KUnit test context
++ */
++static void dm_test_color_depth_from_info_unsupported_bpc(struct kunit *test)
++{
++	struct drm_connector *connector;
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, connector);
++
++	connector->display_info.bpc = 9;
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_convert_color_depth_from_display_info(connector, false, 0),
++			(int)COLOR_DEPTH_UNDEFINED);
++}
++
++/* Tests for to_drm_connector_type() */
++
++/**
++ * dm_test_to_connector_type_hdmi - Test To connector type hdmi
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_hdmi(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_HDMI_TYPE_A, 0),
++			DRM_MODE_CONNECTOR_HDMIA);
++}
++
++/**
++ * dm_test_to_connector_type_edp - Test To connector type edp
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_edp(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_EDP, 0),
++			DRM_MODE_CONNECTOR_eDP);
++}
++
++/**
++ * dm_test_to_connector_type_lvds - Test To connector type lvds
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_lvds(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_LVDS, 0),
++			DRM_MODE_CONNECTOR_LVDS);
++}
++
++/**
++ * dm_test_to_connector_type_rgb - Test To connector type rgb
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_rgb(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_RGB, 0),
++			DRM_MODE_CONNECTOR_VGA);
++}
++
++/**
++ * dm_test_to_connector_type_dp - Test To connector type dp
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_dp(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_DISPLAY_PORT, 0),
++			DRM_MODE_CONNECTOR_DisplayPort);
++}
++
++/**
++ * dm_test_to_connector_type_dp_mst - Test To connector type dp mst
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_dp_mst(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_DISPLAY_PORT_MST, 0),
++			DRM_MODE_CONNECTOR_DisplayPort);
++}
++
++/**
++ * dm_test_to_connector_type_dvi_dvii - Test To connector type dvi dvii
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_dvi_dvii(struct kunit *test)
++{
++	int type = to_drm_connector_type(SIGNAL_TYPE_DVI_SINGLE_LINK, CONNECTOR_ID_SINGLE_LINK_DVII);
++
++	KUNIT_EXPECT_EQ(test, type, DRM_MODE_CONNECTOR_DVII);
++}
++
++/**
++ * dm_test_to_connector_type_dual_link_dvii - Test To connector type dual link dvii
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_dual_link_dvii(struct kunit *test)
++{
++	int type = to_drm_connector_type(SIGNAL_TYPE_DVI_DUAL_LINK, CONNECTOR_ID_DUAL_LINK_DVII);
++
++	KUNIT_EXPECT_EQ(test, type, DRM_MODE_CONNECTOR_DVII);
++}
++
++/**
++ * dm_test_to_connector_type_dvi_dvid - Test To connector type dvi dvid
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_dvi_dvid(struct kunit *test)
++{
++	int type = to_drm_connector_type(SIGNAL_TYPE_DVI_SINGLE_LINK, CONNECTOR_ID_SINGLE_LINK_DVID);
++
++	KUNIT_EXPECT_EQ(test, type, DRM_MODE_CONNECTOR_DVID);
++}
++
++/**
++ * dm_test_to_connector_type_virtual - Test To connector type virtual
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_virtual(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_VIRTUAL, 0),
++			DRM_MODE_CONNECTOR_VIRTUAL);
++}
++
++/**
++ * dm_test_to_connector_type_unknown - Test To connector type unknown
++ * @test: The KUnit test context
++ */
++static void dm_test_to_connector_type_unknown(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, to_drm_connector_type(SIGNAL_TYPE_NONE, 0),
++			DRM_MODE_CONNECTOR_Unknown);
++}
++
++/* Tests for is_duplicate_mode() */
++
++/**
++ * dm_test_is_duplicate_mode_empty_list - Test Is duplicate mode empty list
++ * @test: The KUnit test context
++ */
++static void dm_test_is_duplicate_mode_empty_list(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode mode = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconnector);
++
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	mode.hdisplay = 1920;
++	mode.vdisplay = 1080;
++
++	KUNIT_EXPECT_FALSE(test, is_duplicate_mode(aconnector, &mode));
++}
++
++/**
++ * dm_test_is_duplicate_mode_match - Test Is duplicate mode match
++ * @test: The KUnit test context
++ */
++static void dm_test_is_duplicate_mode_match(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode existing = {};
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconnector);
++
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	existing.hdisplay = 1920;
++	existing.vdisplay = 1080;
++	existing.clock = 148500;
++	list_add_tail(&existing.head, &aconnector->base.probed_modes);
++
++	candidate.hdisplay = 1920;
++	candidate.vdisplay = 1080;
++	candidate.clock = 148500;
++
++	KUNIT_EXPECT_TRUE(test, is_duplicate_mode(aconnector, &candidate));
++}
++
++/**
++ * dm_test_is_duplicate_mode_no_match - Test Is duplicate mode no match
++ * @test: The KUnit test context
++ */
++static void dm_test_is_duplicate_mode_no_match(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode existing = {};
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconnector);
++
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	existing.hdisplay = 1920;
++	existing.vdisplay = 1080;
++	existing.clock = 148500;
++	list_add_tail(&existing.head, &aconnector->base.probed_modes);
++
++	candidate.hdisplay = 2560;
++	candidate.vdisplay = 1440;
++	candidate.clock = 241500;
++
++	KUNIT_EXPECT_FALSE(test, is_duplicate_mode(aconnector, &candidate));
++}
++
++/**
++ * dm_test_is_duplicate_mode_same_size_different_clock - Test Is duplicate mode
++ * same size different clock
++ * @test: The KUnit test context
++ */
++static void dm_test_is_duplicate_mode_same_size_different_clock(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode existing = {};
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconnector);
++
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	existing.hdisplay = 1920;
++	existing.vdisplay = 1080;
++	existing.clock = 148500;
++	list_add_tail(&existing.head, &aconnector->base.probed_modes);
++
++	candidate.hdisplay = 1920;
++	candidate.vdisplay = 1080;
++	candidate.clock = 74250;
++
++	KUNIT_EXPECT_FALSE(test, is_duplicate_mode(aconnector, &candidate));
++}
++
++/* Tests for amdgpu_dm_get_encoder_crtc_mask() */
++
++/**
++ * dm_test_encoder_crtc_mask_1 - Test Encoder crtc mask 1
++ * @test: The KUnit test context
++ */
++static void dm_test_encoder_crtc_mask_1(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	KUNIT_EXPECT_FALSE(test, dm_register_dmub_notify_callback(adev,
-+		DMUB_NOTIFICATION_AUX_REPLY, NULL, false));
++	adev->mode_info.num_crtc = 1;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0x1);
 +}
 +
 +/**
-+ * dm_test_register_dmub_notify_callback_type_out_of_range - Test out-of-range type is rejected
++ * dm_test_encoder_crtc_mask_2 - Test Encoder crtc mask 2
 + * @test: The KUnit test context
 + */
-+static void dm_test_register_dmub_notify_callback_type_out_of_range(struct kunit *test)
++static void dm_test_encoder_crtc_mask_2(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	KUNIT_EXPECT_FALSE(test, dm_register_dmub_notify_callback(adev,
-+		AMDGPU_DMUB_NOTIFICATION_MAX, dummy_callback, false));
++	adev->mode_info.num_crtc = 2;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0x3);
 +}
 +
 +/**
-+ * dm_test_register_dmub_notify_callback_valid - Test Register dmub notify callback valid
++ * dm_test_encoder_crtc_mask_3 - Test Encoder crtc mask 3
 + * @test: The KUnit test context
 + */
-+static void dm_test_register_dmub_notify_callback_valid(struct kunit *test)
++static void dm_test_encoder_crtc_mask_3(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	KUNIT_EXPECT_TRUE(test, dm_register_dmub_notify_callback(adev,
-+		DMUB_NOTIFICATION_AUX_REPLY, dummy_callback, true));
-+
-+	KUNIT_EXPECT_TRUE(test,
-+		adev->dm.dmub_callback[DMUB_NOTIFICATION_AUX_REPLY] == dummy_callback);
-+	KUNIT_EXPECT_TRUE(test,
-+		adev->dm.dmub_thread_offload[DMUB_NOTIFICATION_AUX_REPLY]);
++	adev->mode_info.num_crtc = 3;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0x7);
 +}
 +
 +/**
-+ * dm_test_register_dmub_notify_callback_offload_false - Test registration with offload disabled
++ * dm_test_encoder_crtc_mask_4 - Test Encoder crtc mask 4
 + * @test: The KUnit test context
 + */
-+static void dm_test_register_dmub_notify_callback_offload_false(struct kunit *test)
++static void dm_test_encoder_crtc_mask_4(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	KUNIT_EXPECT_TRUE(test, dm_register_dmub_notify_callback(adev,
-+		DMUB_NOTIFICATION_HPD, dummy_callback, false));
-+
-+	KUNIT_EXPECT_TRUE(test,
-+		adev->dm.dmub_callback[DMUB_NOTIFICATION_HPD] == dummy_callback);
-+	KUNIT_EXPECT_FALSE(test,
-+		adev->dm.dmub_thread_offload[DMUB_NOTIFICATION_HPD]);
-+}
-+
-+/* Tests for dm_dmub_aux_setconfig_callback() */
-+
-+/**
-+ * dm_test_dmub_aux_setconfig_callback_copies_and_completes - Test copy and complete on AUX reply
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_dmub_aux_setconfig_callback_copies_and_completes(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dmub_notification *dm_notify;
-+	struct dmub_notification notify = {};
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	dm_notify = kunit_kzalloc(test, sizeof(*dm_notify), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_notify);
-+
-+	init_completion(&adev->dm.dmub_aux_transfer_done);
-+	adev->dm.dmub_notify = dm_notify;
-+
-+	notify.type = DMUB_NOTIFICATION_AUX_REPLY;
-+	notify.result = AUX_RET_SUCCESS;
-+	notify.aux_reply.command = 0xA5;
-+	notify.aux_reply.length = 3;
-+	notify.aux_reply.data[0] = 0x11;
-+	notify.aux_reply.data[1] = 0x22;
-+	notify.aux_reply.data[2] = 0x33;
-+
-+	dm_dmub_aux_setconfig_callback(adev, &notify);
-+
-+	KUNIT_EXPECT_EQ(test, dm_notify->type, notify.type);
-+	KUNIT_EXPECT_EQ(test, dm_notify->result, notify.result);
-+	KUNIT_EXPECT_EQ(test, dm_notify->aux_reply.command, notify.aux_reply.command);
-+	KUNIT_EXPECT_EQ(test, dm_notify->aux_reply.length, notify.aux_reply.length);
-+	KUNIT_EXPECT_EQ(test, dm_notify->aux_reply.data[0], notify.aux_reply.data[0]);
-+	KUNIT_EXPECT_EQ(test, dm_notify->aux_reply.data[1], notify.aux_reply.data[1]);
-+	KUNIT_EXPECT_EQ(test, dm_notify->aux_reply.data[2], notify.aux_reply.data[2]);
-+	KUNIT_EXPECT_TRUE(test, completion_done(&adev->dm.dmub_aux_transfer_done));
++	adev->mode_info.num_crtc = 4;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0xf);
 +}
 +
 +/**
-+ * dm_test_dmub_aux_setconfig_callback_non_aux_no_complete - Test non-AUX type skips completion
++ * dm_test_encoder_crtc_mask_5 - Test Encoder crtc mask 5
 + * @test: The KUnit test context
 + */
-+static void dm_test_dmub_aux_setconfig_callback_non_aux_no_complete(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dmub_notification *dm_notify;
-+	struct dmub_notification notify = {};
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	dm_notify = kunit_kzalloc(test, sizeof(*dm_notify), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_notify);
-+
-+	init_completion(&adev->dm.dmub_aux_transfer_done);
-+	adev->dm.dmub_notify = dm_notify;
-+
-+	notify.type = DMUB_NOTIFICATION_HPD;
-+	notify.result = AUX_RET_ERROR_TIMEOUT;
-+
-+	dm_dmub_aux_setconfig_callback(adev, &notify);
-+
-+	KUNIT_EXPECT_EQ(test, dm_notify->type, notify.type);
-+	KUNIT_EXPECT_FALSE(test, completion_done(&adev->dm.dmub_aux_transfer_done));
-+}
-+
-+/**
-+ * dm_test_dmub_aux_setconfig_callback_aux_with_null_dm_notify - Test AUX with NULL dm_notify
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_dmub_aux_setconfig_callback_aux_with_null_dm_notify(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dmub_notification notify = {};
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	init_completion(&adev->dm.dmub_aux_transfer_done);
-+	adev->dm.dmub_notify = NULL;
-+
-+	notify.type = DMUB_NOTIFICATION_AUX_REPLY;
-+
-+	dm_dmub_aux_setconfig_callback(adev, &notify);
-+
-+	KUNIT_EXPECT_TRUE(test, completion_done(&adev->dm.dmub_aux_transfer_done));
-+}
-+
-+/**
-+ * dm_test_dmub_aux_setconfig_callback_set_config_reply - Test SET_CONFIG reply copies status
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_dmub_aux_setconfig_callback_set_config_reply(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dmub_notification *dm_notify;
-+	struct dmub_notification notify = {};
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	dm_notify = kunit_kzalloc(test, sizeof(*dm_notify), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_notify);
-+
-+	init_completion(&adev->dm.dmub_aux_transfer_done);
-+	adev->dm.dmub_notify = dm_notify;
-+
-+	notify.type = DMUB_NOTIFICATION_SET_CONFIG_REPLY;
-+	notify.sc_status = SET_CONFIG_RX_TIMEOUT;
-+
-+	dm_dmub_aux_setconfig_callback(adev, &notify);
-+
-+	KUNIT_EXPECT_EQ(test, dm_notify->type, notify.type);
-+	KUNIT_EXPECT_EQ(test, dm_notify->sc_status, notify.sc_status);
-+	KUNIT_EXPECT_FALSE(test, completion_done(&adev->dm.dmub_aux_transfer_done));
-+}
-+
-+/* Tests for dm_dmub_aux_fused_io_callback() */
-+
-+/**
-+ * dm_test_dmub_aux_fused_io_callback_copies_reply_and_completes - Test copy and complete
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_dmub_aux_fused_io_callback_copies_reply_and_completes(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dmub_notification notify = {};
-+	struct dmub_cmd_fused_request *reply;
-+	u32 reply_ddc_line;
-+	u32 notify_ddc_line;
-+	u32 reply_address;
-+	u32 notify_address;
-+	u32 reply_length;
-+	u32 notify_length;
-+	uint8_t ddc_line = 2;
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	init_completion(&adev->dm.fused_io[ddc_line].replied);
-+
-+	notify.fused_request.identifier = 0x34;
-+	notify.fused_request.status = FUSED_REQUEST_STATUS_SUCCESS;
-+	notify.fused_request.u.aux.ddc_line = ddc_line;
-+	notify.fused_request.u.aux.address = 0x50;
-+	notify.fused_request.u.aux.length = 4;
-+
-+	dm_dmub_aux_fused_io_callback(adev, &notify);
-+
-+	KUNIT_EXPECT_TRUE(test, completion_done(&adev->dm.fused_io[ddc_line].replied));
-+
-+	reply = (struct dmub_cmd_fused_request *)adev->dm.fused_io[ddc_line].reply_data;
-+	reply_ddc_line = reply->u.aux.ddc_line;
-+	notify_ddc_line = notify.fused_request.u.aux.ddc_line;
-+	reply_address = reply->u.aux.address;
-+	notify_address = notify.fused_request.u.aux.address;
-+	reply_length = reply->u.aux.length;
-+	notify_length = notify.fused_request.u.aux.length;
-+
-+	KUNIT_EXPECT_EQ(test, reply->identifier, notify.fused_request.identifier);
-+	KUNIT_EXPECT_EQ(test, reply->status, notify.fused_request.status);
-+	KUNIT_EXPECT_EQ(test, reply_ddc_line, notify_ddc_line);
-+	KUNIT_EXPECT_EQ(test, reply_address, notify_address);
-+	KUNIT_EXPECT_EQ(test, reply_length, notify_length);
-+}
-+
-+/**
-+ * dm_test_dmub_aux_fused_io_callback_max_ddc_line - Test Dmub aux fused io callback max ddc line
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_dmub_aux_fused_io_callback_max_ddc_line(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dmub_notification notify = {};
-+	struct dmub_cmd_fused_request *reply;
-+	u32 reply_ddc_line;
-+	u32 notify_ddc_line;
-+	uint8_t ddc_line;
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	ddc_line = ARRAY_SIZE(adev->dm.fused_io) - 1;
-+	init_completion(&adev->dm.fused_io[ddc_line].replied);
-+
-+	notify.fused_request.identifier = 0x56;
-+	notify.fused_request.status = FUSED_REQUEST_STATUS_SUCCESS;
-+	notify.fused_request.u.aux.ddc_line = ddc_line;
-+	notify.fused_request.u.aux.address = 0x50;
-+	notify.fused_request.u.aux.length = 1;
-+
-+	dm_dmub_aux_fused_io_callback(adev, &notify);
-+
-+	KUNIT_EXPECT_TRUE(test, completion_done(&adev->dm.fused_io[ddc_line].replied));
-+
-+	reply = (struct dmub_cmd_fused_request *)adev->dm.fused_io[ddc_line].reply_data;
-+	reply_ddc_line = reply->u.aux.ddc_line;
-+	notify_ddc_line = notify.fused_request.u.aux.ddc_line;
-+
-+	KUNIT_EXPECT_EQ(test, reply->identifier, notify.fused_request.identifier);
-+	KUNIT_EXPECT_EQ(test, reply_ddc_line, notify_ddc_line);
-+}
-+
-+/* Tests for dm_get_default_ips_mode() */
-+
-+/**
-+ * dm_test_get_default_ips_mode_dcn35 - Test Get default ips mode dcn35
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_get_default_ips_mode_dcn35(struct kunit *test)
++static void dm_test_encoder_crtc_mask_5(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 5, 0);
-+
-+	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
-+			DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF);
++	adev->mode_info.num_crtc = 5;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0x1f);
 +}
 +
 +/**
-+ * dm_test_get_default_ips_mode_dcn351 - Test Get default ips mode dcn351
++ * dm_test_encoder_crtc_mask_6 - Test Encoder crtc mask 6
 + * @test: The KUnit test context
 + */
-+static void dm_test_get_default_ips_mode_dcn351(struct kunit *test)
++static void dm_test_encoder_crtc_mask_6(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 5, 1);
-+
-+	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
-+			DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF);
++	adev->mode_info.num_crtc = 6;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0x3f);
 +}
 +
 +/**
-+ * dm_test_get_default_ips_mode_dcn36 - Test Get default ips mode dcn36
++ * dm_test_encoder_crtc_mask_default - Test Encoder crtc mask default
 + * @test: The KUnit test context
 + */
-+static void dm_test_get_default_ips_mode_dcn36(struct kunit *test)
++static void dm_test_encoder_crtc_mask_default(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 6, 0);
++	/* Values > 6 use the default case */
++	adev->mode_info.num_crtc = 8;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_get_encoder_crtc_mask(adev), 0x3f);
++}
 +
-+	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
-+			DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF);
++/* Tests for get_aspect_ratio() */
++
++/**
++ * dm_test_aspect_ratio_no_data - Test Aspect ratio no data
++ * @test: The KUnit test context
++ */
++static void dm_test_aspect_ratio_no_data(struct kunit *test)
++{
++	struct drm_display_mode mode = {};
++
++	mode.picture_aspect_ratio = HDMI_PICTURE_ASPECT_NONE;
++	KUNIT_EXPECT_EQ(test, (int)get_aspect_ratio(&mode), (int)ASPECT_RATIO_NO_DATA);
 +}
 +
 +/**
-+ * dm_test_get_default_ips_mode_dcn42 - Test Get default ips mode dcn42
++ * dm_test_aspect_ratio_4_3 - Test Aspect ratio 4 3
 + * @test: The KUnit test context
 + */
-+static void dm_test_get_default_ips_mode_dcn42(struct kunit *test)
++static void dm_test_aspect_ratio_4_3(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
++	struct drm_display_mode mode = {};
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
-+
-+	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
-+			DMUB_IPS_DISABLE_ALL);
++	mode.picture_aspect_ratio = HDMI_PICTURE_ASPECT_4_3;
++	KUNIT_EXPECT_EQ(test, (int)get_aspect_ratio(&mode), (int)ASPECT_RATIO_4_3);
 +}
 +
 +/**
-+ * dm_test_get_default_ips_mode_older_than_dcn35 - Test Get default ips mode older than dcn35
++ * dm_test_aspect_ratio_16_9 - Test Aspect ratio 16 9
 + * @test: The KUnit test context
 + */
-+static void dm_test_get_default_ips_mode_older_than_dcn35(struct kunit *test)
++static void dm_test_aspect_ratio_16_9(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
++	struct drm_display_mode mode = {};
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 2, 0);
-+
-+	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
-+			DMUB_IPS_DISABLE_ALL);
++	mode.picture_aspect_ratio = HDMI_PICTURE_ASPECT_16_9;
++	KUNIT_EXPECT_EQ(test, (int)get_aspect_ratio(&mode), (int)ASPECT_RATIO_16_9);
 +}
 +
 +/**
-+ * dm_test_get_default_ips_mode_newer_default - Test Get default ips mode newer default
++ * dm_test_aspect_ratio_64_27 - Test Aspect ratio 64 27
 + * @test: The KUnit test context
 + */
-+static void dm_test_get_default_ips_mode_newer_default(struct kunit *test)
++static void dm_test_aspect_ratio_64_27(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
++	struct drm_display_mode mode = {};
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	/* DCN 4.0.1 is >= 3.5 but has no explicit case, returns ENABLE */
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 0, 1);
-+
-+	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
-+			DMUB_IPS_ENABLE);
++	mode.picture_aspect_ratio = HDMI_PICTURE_ASPECT_64_27;
++	KUNIT_EXPECT_EQ(test, (int)get_aspect_ratio(&mode), (int)ASPECT_RATIO_64_27);
 +}
 +
-+/* Tests for dm_dmub_hw_init() */
++/**
++ * dm_test_aspect_ratio_256_135 - Test Aspect ratio 256 135
++ * @test: The KUnit test context
++ */
++static void dm_test_aspect_ratio_256_135(struct kunit *test)
++{
++	struct drm_display_mode mode = {};
++
++	mode.picture_aspect_ratio = HDMI_PICTURE_ASPECT_256_135;
++	KUNIT_EXPECT_EQ(test, (int)get_aspect_ratio(&mode), (int)ASPECT_RATIO_256_135);
++}
++
++/* Tests for decide_crtc_timing_for_drm_display_mode() */
++
++/**
++ * dm_test_decide_crtc_timing_scale_enabled - Test Decide crtc timing scale enabled
++ * @test: The KUnit test context
++ */
++static void dm_test_decide_crtc_timing_scale_enabled(struct kunit *test)
++{
++	struct drm_display_mode drm_mode = {};
++	struct drm_display_mode native_mode = {};
++
++	native_mode.crtc_clock = 148500;
++	native_mode.crtc_hdisplay = 1920;
++	native_mode.crtc_vdisplay = 1080;
++	native_mode.crtc_htotal = 2200;
++	native_mode.crtc_vtotal = 1125;
++	native_mode.crtc_hsync_start = 2008;
++	native_mode.crtc_hsync_end = 2052;
++	native_mode.crtc_vsync_start = 1084;
++	native_mode.crtc_vsync_end = 1089;
++
++	/* Different clock/htotal/vtotal, but scale_enabled forces copy */
++	drm_mode.clock = 74250;
++	drm_mode.htotal = 1650;
++	drm_mode.vtotal = 750;
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, true);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_clock, 148500);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 1080);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_htotal, 2200);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vtotal, 1125);
++}
++
++/**
++ * dm_test_decide_crtc_timing_matching_mode - Test Decide crtc timing matching mode
++ * @test: The KUnit test context
++ */
++static void dm_test_decide_crtc_timing_matching_mode(struct kunit *test)
++{
++	struct drm_display_mode drm_mode = {};
++	struct drm_display_mode native_mode = {};
++
++	native_mode.clock = 148500;
++	native_mode.htotal = 2200;
++	native_mode.vtotal = 1125;
++	native_mode.crtc_clock = 148500;
++	native_mode.crtc_hdisplay = 1920;
++	native_mode.crtc_vdisplay = 1080;
++	native_mode.crtc_htotal = 2200;
++	native_mode.crtc_vtotal = 1125;
++
++	/* Matching clock/htotal/vtotal triggers copy */
++	drm_mode.clock = 148500;
++	drm_mode.htotal = 2200;
++	drm_mode.vtotal = 1125;
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_clock, 148500);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vtotal, 1125);
++}
++
++/**
++ * dm_test_decide_crtc_timing_no_copy - Test Decide crtc timing no copy
++ * @test: The KUnit test context
++ */
++static void dm_test_decide_crtc_timing_no_copy(struct kunit *test)
++{
++	struct drm_display_mode drm_mode = {};
++	struct drm_display_mode native_mode = {};
++
++	native_mode.clock = 148500;
++	native_mode.htotal = 2200;
++	native_mode.vtotal = 1125;
++	native_mode.crtc_clock = 148500;
++	native_mode.crtc_hdisplay = 1920;
++
++	/* Different timings, no scaling → no copy */
++	drm_mode.clock = 74250;
++	drm_mode.htotal = 1650;
++	drm_mode.vtotal = 750;
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_clock, 0);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
++}
++
++/**
++ * dm_test_decide_crtc_timing_no_crtc_clock - Test Decide crtc timing no crtc clock
++ * @test: The KUnit test context
++ */
++static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
++{
++	struct drm_display_mode drm_mode = {};
++	struct drm_display_mode native_mode = {};
++
++	/* Matching timings but native crtc_clock is 0 → no copy */
++	native_mode.clock = 148500;
++	native_mode.htotal = 2200;
++	native_mode.vtotal = 1125;
++	native_mode.crtc_clock = 0;
++	native_mode.crtc_hdisplay = 1920;
++
++	drm_mode.clock = 148500;
++	drm_mode.htotal = 2200;
++	drm_mode.vtotal = 1125;
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_clock, 0);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
++}
++
++/* Tests for amdgpu_dm_connector_funcs_reset() */
++
++static const struct drm_connector_funcs dm_test_connector_funcs = {
++	.reset = amdgpu_dm_connector_funcs_reset,
++	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++/**
++ * dm_test_funcs_reset_sets_defaults - Test funcs_reset sets defaults
++ * @test: The KUnit test context
++ */
++static void dm_test_funcs_reset_sets_defaults(struct kunit *test)
++{
++	struct device *dev;
++	struct drm_device *drm;
++	struct drm_connector *connector;
++	struct dm_connector_state *dm_state;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	drm = __drm_kunit_helper_alloc_drm_device(test, dev,
++						   sizeof(*drm), 0,
++						   DRIVER_MODESET);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, connector);
++
++	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
++			    DRM_MODE_CONNECTOR_DisplayPort, NULL);
++
++	amdgpu_dm_connector_funcs_reset(connector);
++
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++	dm_state = to_dm_connector_state(connector->state);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->scaling, (int)RMX_OFF);
++	KUNIT_EXPECT_FALSE(test, dm_state->underscan_enable);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->underscan_hborder, 0);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->underscan_vborder, 0);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->base.max_requested_bpc, 8);
++	KUNIT_EXPECT_EQ(test, dm_state->vcpi_slots, 0);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->pbn, 0);
++}
++
++/**
++ * dm_test_funcs_reset_edp_abm_level - Test funcs_reset eDP sets ABM
++ * @test: The KUnit test context
++ */
++static void dm_test_funcs_reset_edp_abm_level(struct kunit *test)
++{
++	struct device *dev;
++	struct drm_device *drm;
++	struct drm_connector *connector;
++	struct dm_connector_state *dm_state;
++	int saved_abm_level = amdgpu_dm_get_abm_level_param();
++
++	dev = drm_kunit_helper_alloc_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	drm = __drm_kunit_helper_alloc_drm_device(test, dev,
++						   sizeof(*drm), 0,
++						   DRIVER_MODESET);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, connector);
++
++	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
++			    DRM_MODE_CONNECTOR_eDP, NULL);
++
++	/* Test with abm_level > 0 */
++	amdgpu_dm_set_abm_level_param(3);
++	amdgpu_dm_connector_funcs_reset(connector);
++
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++	dm_state = to_dm_connector_state(connector->state);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->abm_level, 3);
++
++	amdgpu_dm_set_abm_level_param(saved_abm_level);
++}
++
++/**
++ * dm_test_funcs_reset_edp_abm_disabled - Test funcs_reset eDP ABM
++ * disabled
++ * @test: The KUnit test context
++ */
++static void dm_test_funcs_reset_edp_abm_disabled(struct kunit *test)
++{
++	struct device *dev;
++	struct drm_device *drm;
++	struct drm_connector *connector;
++	struct dm_connector_state *dm_state;
++	int saved_abm_level = amdgpu_dm_get_abm_level_param();
++
++	dev = drm_kunit_helper_alloc_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	drm = __drm_kunit_helper_alloc_drm_device(test, dev,
++						   sizeof(*drm), 0,
++						   DRIVER_MODESET);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, connector);
++
++	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
++			    DRM_MODE_CONNECTOR_eDP, NULL);
++
++	/* Test with abm_level <= 0 → immediate disable */
++	amdgpu_dm_set_abm_level_param(-1);
++	amdgpu_dm_connector_funcs_reset(connector);
++
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++	dm_state = to_dm_connector_state(connector->state);
++	KUNIT_EXPECT_EQ(test, (int)dm_state->abm_level,
++			(int)ABM_LEVEL_IMMEDIATE_DISABLE);
++
++	amdgpu_dm_set_abm_level_param(saved_abm_level);
++}
++
++/* Tests for amdgpu_dm_connector_atomic_duplicate_state() */
++
++/**
++ * dm_test_atomic_dup_state_copies_fields - Test atomic_duplicate copies
++ * fields
++ * @test: The KUnit test context
++ */
++static void dm_test_atomic_dup_state_copies_fields(struct kunit *test)
++{
++	struct device *dev;
++	struct drm_device *drm;
++	struct drm_connector *connector;
++	struct dm_connector_state *dm_state;
++	struct dm_connector_state *new_dm_state;
++	struct drm_connector_state *new_state;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	drm = __drm_kunit_helper_alloc_drm_device(test, dev,
++						   sizeof(*drm), 0,
++						   DRIVER_MODESET);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
++
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, connector);
++
++	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
++			    DRM_MODE_CONNECTOR_HDMIA, NULL);
++
++	amdgpu_dm_connector_funcs_reset(connector);
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++
++	/* Modify original state fields */
++	dm_state = to_dm_connector_state(connector->state);
++	dm_state->scaling = RMX_CENTER;
++	dm_state->underscan_enable = true;
++	dm_state->underscan_hborder = 10;
++	dm_state->underscan_vborder = 20;
++	dm_state->freesync_capable = true;
++	dm_state->abm_level = 2;
++	dm_state->vcpi_slots = 4;
++	dm_state->pbn = 1234;
++
++	/* Duplicate */
++	new_state = amdgpu_dm_connector_atomic_duplicate_state(connector);
++	KUNIT_ASSERT_NOT_NULL(test, new_state);
++	new_dm_state = to_dm_connector_state(new_state);
++
++	/* Verify all fields copied */
++	KUNIT_EXPECT_EQ(test, (int)new_dm_state->scaling, (int)RMX_CENTER);
++	KUNIT_EXPECT_TRUE(test, new_dm_state->underscan_enable);
++	KUNIT_EXPECT_EQ(test, (int)new_dm_state->underscan_hborder, 10);
++	KUNIT_EXPECT_EQ(test, (int)new_dm_state->underscan_vborder, 20);
++	KUNIT_EXPECT_TRUE(test, new_dm_state->freesync_capable);
++	KUNIT_EXPECT_EQ(test, (int)new_dm_state->abm_level, 2);
++	KUNIT_EXPECT_EQ(test, new_dm_state->vcpi_slots, 4);
++	KUNIT_EXPECT_EQ(test, (int)new_dm_state->pbn, 1234);
++
++	kfree(new_dm_state);
++}
++
++/* Tests for amdgpu_dm_fill_hdr_info_packet() */
++
++/**
++ * dm_test_fill_hdr_null_metadata - Test fill_hdr returns 0 with no
++ * metadata
++ * @test: The KUnit test context
++ */
++static void dm_test_fill_hdr_null_metadata(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++	struct dc_info_packet out = {};
++
++	/* No hdr_output_metadata → early return 0, out stays zeroed */
++	state.hdr_output_metadata = NULL;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_fill_hdr_info_packet(&state, &out), 0);
++	KUNIT_EXPECT_FALSE(test, out.valid);
++}
++
++/**
++ * dm_test_fill_hdr_zeroes_output - Test fill_hdr zeroes output with no
++ * metadata
++ * @test: The KUnit test context
++ */
++static void dm_test_fill_hdr_zeroes_output(struct kunit *test)
++{
++	struct drm_connector_state state = {};
++	struct dc_info_packet out;
++
++	/* Pre-fill out with nonzero to verify memset(0) */
++	memset(&out, 0xAA, sizeof(out));
++
++	state.hdr_output_metadata = NULL;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_fill_hdr_info_packet(&state, &out), 0);
++	KUNIT_EXPECT_FALSE(test, out.valid);
++	KUNIT_EXPECT_EQ(test, (int)out.hb0, 0);
++	KUNIT_EXPECT_EQ(test, (int)out.hb1, 0);
++	KUNIT_EXPECT_EQ(test, (int)out.hb2, 0);
++	KUNIT_EXPECT_EQ(test, (int)out.hb3, 0);
++}
++
++/* Tests for amdgpu_dm_connector_atomic_set_property() */
 +
 +/*
-+ * Build an amdgpu_device with the minimal dc/res_pool pointers that
-+ * dm_dmub_hw_init() and dm_dmub_hw_resume() dereference before their
-+ * early-return checks.
++ * Build a connector wired to a kunit-allocated amdgpu_device so that
++ * drm_to_adev() resolves correctly, together with old/new dm states and
++ * the set of properties used by the get/set property handlers.
 + */
-+static struct amdgpu_device *dm_test_alloc_adev_with_dc(struct kunit *test)
-+{
++struct dm_test_prop_ctx {
 +	struct amdgpu_device *adev;
-+	struct dc *dc;
-+	struct resource_pool *res_pool;
++	struct drm_connector *connector;
++	struct dm_connector_state *old_state;
++	struct dm_connector_state *new_state;
++	struct drm_property *scaling_prop;
++	struct drm_property *hborder_prop;
++	struct drm_property *vborder_prop;
++	struct drm_property *underscan_prop;
++	struct drm_property *abm_prop;
++};
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++static struct dm_test_prop_ctx *dm_test_prop_ctx_alloc(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx;
 +
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
 +
-+	res_pool = kunit_kzalloc(test, sizeof(*res_pool), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, res_pool);
++	ctx->adev = kunit_kzalloc(test, sizeof(*ctx->adev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->adev);
++	ctx->connector = kunit_kzalloc(test, sizeof(*ctx->connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->connector);
++	ctx->old_state = kunit_kzalloc(test, sizeof(*ctx->old_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_state);
++	ctx->new_state = kunit_kzalloc(test, sizeof(*ctx->new_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_state);
++	ctx->scaling_prop = kunit_kzalloc(test, sizeof(*ctx->scaling_prop), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->scaling_prop);
++	ctx->hborder_prop = kunit_kzalloc(test, sizeof(*ctx->hborder_prop), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->hborder_prop);
++	ctx->vborder_prop = kunit_kzalloc(test, sizeof(*ctx->vborder_prop), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->vborder_prop);
++	ctx->underscan_prop = kunit_kzalloc(test, sizeof(*ctx->underscan_prop), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->underscan_prop);
++	ctx->abm_prop = kunit_kzalloc(test, sizeof(*ctx->abm_prop), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->abm_prop);
 +
-+	dc->res_pool = res_pool;
-+	adev->dm.dc = dc;
++	ctx->connector->dev = &ctx->adev->ddev;
++	ctx->connector->state = &ctx->old_state->base;
 +
-+	return adev;
++	ctx->adev->ddev.mode_config.scaling_mode_property = ctx->scaling_prop;
++	ctx->adev->mode_info.underscan_hborder_property = ctx->hborder_prop;
++	ctx->adev->mode_info.underscan_vborder_property = ctx->vborder_prop;
++	ctx->adev->mode_info.underscan_property = ctx->underscan_prop;
++	ctx->adev->mode_info.abm_level_property = ctx->abm_prop;
++
++	return ctx;
 +}
 +
 +/**
-+ * dm_test_dmub_hw_init_no_dmub_srv - Test hw init returns 0 when DMUB unsupported
++ * dm_test_set_property_scaling_center - Test set scaling property to center
 + * @test: The KUnit test context
-+ *
-+ * When adev->dm.dmub_srv is NULL the ASIC does not support DMUB and
-+ * dm_dmub_hw_init() should return 0 without touching the hardware.
 + */
-+static void dm_test_dmub_hw_init_no_dmub_srv(struct kunit *test)
++static void dm_test_set_property_scaling_center(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
 +
-+	adev->dm.dmub_srv = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), 0);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, DRM_MODE_SCALE_CENTER), 0);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->scaling, (int)RMX_CENTER);
 +}
 +
 +/**
-+ * dm_test_dmub_hw_init_no_fb_info - Test hw init fails without framebuffer info
++ * dm_test_set_property_scaling_aspect - Test set scaling property to aspect
 + * @test: The KUnit test context
-+ *
-+ * With a DMUB service present but no framebuffer info, dm_dmub_hw_init()
-+ * should return -EINVAL.
 + */
-+static void dm_test_dmub_hw_init_no_fb_info(struct kunit *test)
++static void dm_test_set_property_scaling_aspect(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
-+	struct dmub_srv *dmub_srv;
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
 +
-+	dmub_srv = kunit_kzalloc(test, sizeof(*dmub_srv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmub_srv);
-+
-+	adev->dm.dmub_srv = dmub_srv;
-+	adev->dm.dmub_fb_info = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), -EINVAL);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, DRM_MODE_SCALE_ASPECT), 0);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->scaling, (int)RMX_ASPECT);
 +}
 +
 +/**
-+ * dm_test_dmub_hw_init_no_firmware - Test hw init fails without firmware
++ * dm_test_set_property_scaling_fullscreen - Test set scaling property to full
 + * @test: The KUnit test context
-+ *
-+ * With a DMUB service and framebuffer info present but no firmware,
-+ * dm_dmub_hw_init() should return -EINVAL.
 + */
-+static void dm_test_dmub_hw_init_no_firmware(struct kunit *test)
++static void dm_test_set_property_scaling_fullscreen(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
-+	struct dmub_srv *dmub_srv;
-+	struct dmub_srv_fb_info *fb_info;
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
 +
-+	dmub_srv = kunit_kzalloc(test, sizeof(*dmub_srv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmub_srv);
-+
-+	fb_info = kunit_kzalloc(test, sizeof(*fb_info), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fb_info);
-+
-+	adev->dm.dmub_srv = dmub_srv;
-+	adev->dm.dmub_fb_info = fb_info;
-+	adev->dm.dmub_fw = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), -EINVAL);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, DRM_MODE_SCALE_FULLSCREEN), 0);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->scaling, (int)RMX_FULL);
 +}
-+
-+/* Tests for dm_dmub_hw_resume() */
 +
 +/**
-+ * dm_test_dmub_hw_resume_no_dmub_srv - Test hw resume is a no-op when DMUB unsupported
++ * dm_test_set_property_scaling_none - Test set scaling property to none
 + * @test: The KUnit test context
-+ *
-+ * When adev->dm.dmub_srv is NULL, dm_dmub_hw_resume() should return early
-+ * without dereferencing the (absent) DMUB service.
 + */
-+static void dm_test_dmub_hw_resume_no_dmub_srv(struct kunit *test)
++static void dm_test_set_property_scaling_none(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
 +
-+	adev->dm.dmub_srv = NULL;
-+
-+	/* Must not crash. */
-+	dm_dmub_hw_resume(adev);
++	/* old scaling is RMX_CENTER so RMX_OFF is a real change */
++	ctx->old_state->scaling = RMX_CENTER;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, DRM_MODE_SCALE_NONE), 0);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->scaling, (int)RMX_OFF);
 +}
-+
-+/* Tests for dm_dmub_sw_init() */
 +
 +/**
-+ * dm_test_dmub_sw_init_unsupported_asic - Test sw init returns 0 for unsupported ASIC
++ * dm_test_set_property_scaling_unchanged - Test set scaling property unchanged
 + * @test: The KUnit test context
-+ *
-+ * For an IP version with no DMUB support, dm_dmub_sw_init() should return 0
-+ * before attempting to access the firmware.
 + */
-+static void dm_test_dmub_sw_init_unsupported_asic(struct kunit *test)
++static void dm_test_set_property_scaling_unchanged(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(1, 0, 0);
-+
-+	KUNIT_EXPECT_EQ(test, dm_dmub_sw_init(adev), 0);
++	/* old already RMX_OFF, requesting NONE/OFF returns 0 without write */
++	ctx->old_state->scaling = RMX_OFF;
++	ctx->new_state->scaling = RMX_CENTER;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, DRM_MODE_SCALE_NONE), 0);
++	/* new_state untouched because of early return */
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->scaling, (int)RMX_CENTER);
 +}
-+
-+/* Tests for dm_init_microcode() */
 +
 +/**
-+ * dm_test_init_microcode_unsupported_asic - Test microcode init returns 0 for unsupported ASIC
++ * dm_test_set_property_underscan_hborder - Test set underscan hborder
 + * @test: The KUnit test context
-+ *
-+ * For an IP version with no DMUB support, dm_init_microcode() should return 0
-+ * without requesting any firmware.
 + */
-+static void dm_test_init_microcode_unsupported_asic(struct kunit *test)
++static void dm_test_set_property_underscan_hborder(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(1, 0, 0);
-+
-+	KUNIT_EXPECT_EQ(test, dm_init_microcode(adev), 0);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->hborder_prop, 42), 0);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->underscan_hborder, 42);
 +}
 +
-+static struct kunit_case amdgpu_dm_dmub_tests[] = {
-+	/* dm_register_dmub_notify_callback() */
-+	KUNIT_CASE(dm_test_register_dmub_notify_callback_null_callback),
-+	KUNIT_CASE(dm_test_register_dmub_notify_callback_type_out_of_range),
-+	KUNIT_CASE(dm_test_register_dmub_notify_callback_valid),
-+	KUNIT_CASE(dm_test_register_dmub_notify_callback_offload_false),
-+	/* dm_dmub_aux_setconfig_callback() */
-+	KUNIT_CASE(dm_test_dmub_aux_setconfig_callback_copies_and_completes),
-+	KUNIT_CASE(dm_test_dmub_aux_setconfig_callback_non_aux_no_complete),
-+	KUNIT_CASE(dm_test_dmub_aux_setconfig_callback_aux_with_null_dm_notify),
-+	KUNIT_CASE(dm_test_dmub_aux_setconfig_callback_set_config_reply),
-+	/* dm_dmub_aux_fused_io_callback() */
-+	KUNIT_CASE(dm_test_dmub_aux_fused_io_callback_copies_reply_and_completes),
-+	KUNIT_CASE(dm_test_dmub_aux_fused_io_callback_max_ddc_line),
-+	/* dm_get_default_ips_mode() */
-+	KUNIT_CASE(dm_test_get_default_ips_mode_dcn35),
-+	KUNIT_CASE(dm_test_get_default_ips_mode_dcn351),
-+	KUNIT_CASE(dm_test_get_default_ips_mode_dcn36),
-+	KUNIT_CASE(dm_test_get_default_ips_mode_dcn42),
-+	KUNIT_CASE(dm_test_get_default_ips_mode_older_than_dcn35),
-+	KUNIT_CASE(dm_test_get_default_ips_mode_newer_default),
-+	/* dm_dmub_hw_init() */
-+	KUNIT_CASE(dm_test_dmub_hw_init_no_dmub_srv),
-+	KUNIT_CASE(dm_test_dmub_hw_init_no_fb_info),
-+	KUNIT_CASE(dm_test_dmub_hw_init_no_firmware),
-+	/* dm_dmub_hw_resume() */
-+	KUNIT_CASE(dm_test_dmub_hw_resume_no_dmub_srv),
-+	/* dm_dmub_sw_init() */
-+	KUNIT_CASE(dm_test_dmub_sw_init_unsupported_asic),
-+	/* dm_init_microcode() */
-+	KUNIT_CASE(dm_test_init_microcode_unsupported_asic),
++/**
++ * dm_test_set_property_underscan_vborder - Test set underscan vborder
++ * @test: The KUnit test context
++ */
++static void dm_test_set_property_underscan_vborder(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->vborder_prop, 24), 0);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->underscan_vborder, 24);
++}
++
++/**
++ * dm_test_set_property_underscan_enable - Test set underscan enable
++ * @test: The KUnit test context
++ */
++static void dm_test_set_property_underscan_enable(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->underscan_prop, 1), 0);
++	KUNIT_EXPECT_TRUE(test, ctx->new_state->underscan_enable);
++}
++
++/**
++ * dm_test_set_property_abm_sysfs_control - Test set abm sysfs control
++ * @test: The KUnit test context
++ */
++static void dm_test_set_property_abm_sysfs_control(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++
++	ctx->new_state->abm_sysfs_forbidden = true;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->abm_prop, ABM_SYSFS_CONTROL), 0);
++	KUNIT_EXPECT_FALSE(test, ctx->new_state->abm_sysfs_forbidden);
++}
++
++/**
++ * dm_test_set_property_abm_level_off - Test set abm level off
++ * @test: The KUnit test context
++ */
++static void dm_test_set_property_abm_level_off(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->abm_prop, ABM_LEVEL_OFF), 0);
++	KUNIT_EXPECT_TRUE(test, ctx->new_state->abm_sysfs_forbidden);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->abm_level,
++			(int)ABM_LEVEL_IMMEDIATE_DISABLE);
++}
++
++/**
++ * dm_test_set_property_abm_level_value - Test set abm level to a value
++ * @test: The KUnit test context
++ */
++static void dm_test_set_property_abm_level_value(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->abm_prop, 3), 0);
++	KUNIT_EXPECT_TRUE(test, ctx->new_state->abm_sysfs_forbidden);
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_state->abm_level, 3);
++}
++
++/**
++ * dm_test_set_property_unknown - Test set unknown property returns -EINVAL
++ * @test: The KUnit test context
++ */
++static void dm_test_set_property_unknown(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	struct drm_property *other;
++
++	other = kunit_kzalloc(test, sizeof(*other), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, other);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_set_property(
++				ctx->connector, &ctx->new_state->base,
++				other, 0), -EINVAL);
++}
++
++/* Tests for amdgpu_dm_connector_atomic_get_property() */
++
++/**
++ * dm_test_get_property_scaling_center - Test get scaling property center
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_scaling_center(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->scaling = RMX_CENTER;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SCALE_CENTER);
++}
++
++/**
++ * dm_test_get_property_scaling_aspect - Test get scaling property aspect
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_scaling_aspect(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->scaling = RMX_ASPECT;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SCALE_ASPECT);
++}
++
++/**
++ * dm_test_get_property_scaling_full - Test get scaling property fullscreen
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_scaling_full(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->scaling = RMX_FULL;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SCALE_FULLSCREEN);
++}
++
++/**
++ * dm_test_get_property_scaling_off - Test get scaling property off/none
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_scaling_off(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->scaling = RMX_OFF;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->scaling_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, (int)DRM_MODE_SCALE_NONE);
++}
++
++/**
++ * dm_test_get_property_underscan_borders - Test get underscan borders/enable
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_underscan_borders(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->underscan_hborder = 12;
++	ctx->new_state->underscan_vborder = 34;
++	ctx->new_state->underscan_enable = true;
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->hborder_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, 12);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->vborder_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, 34);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->underscan_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, 1);
++}
++
++/**
++ * dm_test_get_property_abm_sysfs_allowed - Test get abm returns sysfs control
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_abm_sysfs_allowed(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->abm_sysfs_forbidden = false;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->abm_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, (int)ABM_SYSFS_CONTROL);
++}
++
++/**
++ * dm_test_get_property_abm_level - Test get abm returns level when forbidden
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_abm_level(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0;
++
++	ctx->new_state->abm_sysfs_forbidden = true;
++	ctx->new_state->abm_level = 2;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->abm_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, 2);
++}
++
++/**
++ * dm_test_get_property_abm_disabled_zero - Test get abm returns 0 when disabled
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_abm_disabled_zero(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	uint64_t val = 0xdead;
++
++	ctx->new_state->abm_sysfs_forbidden = true;
++	ctx->new_state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				ctx->abm_prop, &val), 0);
++	KUNIT_EXPECT_EQ(test, (int)val, 0);
++}
++
++/**
++ * dm_test_get_property_unknown - Test get unknown property returns -EINVAL
++ * @test: The KUnit test context
++ */
++static void dm_test_get_property_unknown(struct kunit *test)
++{
++	struct dm_test_prop_ctx *ctx = dm_test_prop_ctx_alloc(test);
++	struct drm_property *other;
++	uint64_t val = 0;
++
++	other = kunit_kzalloc(test, sizeof(*other), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, other);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_connector_atomic_get_property(
++				ctx->connector, &ctx->new_state->base,
++				other, &val), -EINVAL);
++}
++
++/* Tests for amdgpu_dm_get_highest_refresh_rate_mode() */
++
++/**
++ * dm_test_highest_refresh_writeback_null - Test writeback connector returns NULL
++ * @test: The KUnit test context
++ */
++static void dm_test_highest_refresh_writeback_null(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_WRITEBACK;
++	KUNIT_EXPECT_NULL(test, amdgpu_dm_get_highest_refresh_rate_mode(aconnector, false));
++}
++
++/**
++ * dm_test_highest_refresh_cached_base - Test cached freesync_vid_base is returned
++ * @test: The KUnit test context
++ */
++static void dm_test_highest_refresh_cached_base(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	aconnector->freesync_vid_base.clock = 148500;
++
++	KUNIT_EXPECT_PTR_EQ(test, amdgpu_dm_get_highest_refresh_rate_mode(aconnector, false),
++			    &aconnector->freesync_vid_base);
++}
++
++/**
++ * dm_test_highest_refresh_preferred_mode - Test preferred mode is selected
++ * @test: The KUnit test context
++ */
++static void dm_test_highest_refresh_preferred_mode(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode *mode;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	mode = kunit_kzalloc(test, sizeof(*mode), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	INIT_LIST_HEAD(&aconnector->base.modes);
++
++	mode->type = DRM_MODE_TYPE_PREFERRED;
++	mode->clock = 148500;
++	mode->hdisplay = 1920;
++	mode->vdisplay = 1080;
++	mode->htotal = 2200;
++	mode->vtotal = 1125;
++	list_add_tail(&mode->head, &aconnector->base.modes);
++
++	KUNIT_EXPECT_PTR_EQ(test, amdgpu_dm_get_highest_refresh_rate_mode(aconnector, false),
++			    mode);
++}
++
++/* Tests for amdgpu_dm_is_freesync_video_mode() */
++
++/**
++ * dm_test_is_freesync_video_mode_null_mode - Test NULL mode returns false
++ * @test: The KUnit test context
++ */
++static void dm_test_is_freesync_video_mode_null_mode(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	aconnector->freesync_vid_base.clock = 148500;
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_freesync_video_mode(NULL, aconnector));
++}
++
++/**
++ * dm_test_is_freesync_video_mode_match - Test matching mode returns true
++ * @test: The KUnit test context
++ */
++static void dm_test_is_freesync_video_mode_match(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	/* Cached high mode acts as reference */
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	aconnector->freesync_vid_base.clock = 148500;
++	aconnector->freesync_vid_base.hdisplay = 1920;
++	aconnector->freesync_vid_base.vdisplay = 1080;
++	aconnector->freesync_vid_base.hsync_start = 2008;
++	aconnector->freesync_vid_base.hsync_end = 2052;
++	aconnector->freesync_vid_base.htotal = 2200;
++	aconnector->freesync_vid_base.vsync_start = 1084;
++	aconnector->freesync_vid_base.vsync_end = 1089;
++	aconnector->freesync_vid_base.vtotal = 1125;
++
++	candidate.clock = 148500;
++	candidate.hdisplay = 1920;
++	candidate.vdisplay = 1080;
++	candidate.hsync_start = 2008;
++	candidate.hsync_end = 2052;
++	candidate.htotal = 2200;
++	candidate.vsync_start = 1084;
++	candidate.vsync_end = 1089;
++	candidate.vtotal = 1125;
++
++	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_freesync_video_mode(&candidate, aconnector));
++}
++
++/**
++ * dm_test_is_freesync_video_mode_no_match - Test mismatched mode returns false
++ * @test: The KUnit test context
++ */
++static void dm_test_is_freesync_video_mode_no_match(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	aconnector->freesync_vid_base.clock = 148500;
++	aconnector->freesync_vid_base.hdisplay = 1920;
++	aconnector->freesync_vid_base.vdisplay = 1080;
++	aconnector->freesync_vid_base.htotal = 2200;
++	aconnector->freesync_vid_base.vtotal = 1125;
++
++	/* Different resolution → not a freesync video mode */
++	candidate.clock = 148500;
++	candidate.hdisplay = 1280;
++	candidate.vdisplay = 720;
++	candidate.htotal = 1650;
++	candidate.vtotal = 750;
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_freesync_video_mode(&candidate, aconnector));
++}
++
++static struct kunit_case amdgpu_dm_connector_tests[] = {
++	/* get_subconnector_type */
++	KUNIT_CASE(dm_test_subconnector_type_none),
++	KUNIT_CASE(dm_test_subconnector_type_vga),
++	KUNIT_CASE(dm_test_subconnector_type_dvi_converter),
++	KUNIT_CASE(dm_test_subconnector_type_dvi_dongle),
++	KUNIT_CASE(dm_test_subconnector_type_hdmi_converter),
++	KUNIT_CASE(dm_test_subconnector_type_hdmi_dongle),
++	KUNIT_CASE(dm_test_subconnector_type_mismatched),
++	KUNIT_CASE(dm_test_subconnector_type_default_unknown),
++	/* get_output_content_type */
++	KUNIT_CASE(dm_test_content_type_no_data),
++	KUNIT_CASE(dm_test_content_type_graphics),
++	KUNIT_CASE(dm_test_content_type_photo),
++	KUNIT_CASE(dm_test_content_type_cinema),
++	KUNIT_CASE(dm_test_content_type_game),
++	KUNIT_CASE(dm_test_content_type_unknown_defaults_no_data),
++	/* adjust_colour_depth_from_display_info */
++	KUNIT_CASE(dm_test_adjust_colour_depth_fits_at_888),
++	KUNIT_CASE(dm_test_adjust_colour_depth_reduces_to_888),
++	KUNIT_CASE(dm_test_adjust_colour_depth_10bpc_passes),
++	KUNIT_CASE(dm_test_adjust_colour_depth_420_halves_clk),
++	KUNIT_CASE(dm_test_adjust_colour_depth_reduces_12bpc_to_10bpc),
++	KUNIT_CASE(dm_test_adjust_colour_depth_16bpc_no_fallback),
++	KUNIT_CASE(dm_test_adjust_colour_depth_none_fits),
++	KUNIT_CASE(dm_test_adjust_colour_depth_invalid_depth),
++	/* amdgpu_dm_get_output_color_space */
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_full),
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_limited),
++	KUNIT_CASE(dm_test_output_color_space_default_ycbcr709),
++	KUNIT_CASE(dm_test_output_color_space_default_ycbcr601_limited),
++	KUNIT_CASE(dm_test_output_color_space_bt601_y_only),
++	KUNIT_CASE(dm_test_output_color_space_bt601),
++	KUNIT_CASE(dm_test_output_color_space_bt709),
++	KUNIT_CASE(dm_test_output_color_space_bt709_y_only),
++	KUNIT_CASE(dm_test_output_color_space_oprgb),
++	KUNIT_CASE(dm_test_output_color_space_bt2020_rgb),
++	KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
++	/* Tests for amdgpu_dm_convert_dc_color_depth_into_bpc */
++	KUNIT_CASE(dm_test_convert_color_depth_bpc_mappings),
++	KUNIT_CASE(dm_test_convert_color_depth_bpc_unknown),
++	/* amdgpu_dm_convert_color_depth_from_display_info */
++	KUNIT_CASE(dm_test_color_depth_from_info_bpc8),
++	KUNIT_CASE(dm_test_color_depth_from_info_bpc10),
++	KUNIT_CASE(dm_test_color_depth_from_info_zero_bpc_defaults_888),
++	KUNIT_CASE(dm_test_color_depth_from_info_requested_bpc_caps),
++	KUNIT_CASE(dm_test_color_depth_from_info_y420_default),
++	KUNIT_CASE(dm_test_color_depth_from_info_y420_10bpc),
++	KUNIT_CASE(dm_test_color_depth_from_info_y420_12bpc),
++	KUNIT_CASE(dm_test_color_depth_from_info_y420_16bpc),
++	KUNIT_CASE(dm_test_color_depth_from_info_requested_odd_bpc),
++	KUNIT_CASE(dm_test_color_depth_from_info_unsupported_bpc),
++	/* to_drm_connector_type */
++	KUNIT_CASE(dm_test_to_connector_type_hdmi),
++	KUNIT_CASE(dm_test_to_connector_type_edp),
++	KUNIT_CASE(dm_test_to_connector_type_lvds),
++	KUNIT_CASE(dm_test_to_connector_type_rgb),
++	KUNIT_CASE(dm_test_to_connector_type_dp),
++	KUNIT_CASE(dm_test_to_connector_type_dp_mst),
++	KUNIT_CASE(dm_test_to_connector_type_dvi_dvii),
++	KUNIT_CASE(dm_test_to_connector_type_dual_link_dvii),
++	KUNIT_CASE(dm_test_to_connector_type_dvi_dvid),
++	KUNIT_CASE(dm_test_to_connector_type_virtual),
++	KUNIT_CASE(dm_test_to_connector_type_unknown),
++	/* is_duplicate_mode */
++	KUNIT_CASE(dm_test_is_duplicate_mode_empty_list),
++	KUNIT_CASE(dm_test_is_duplicate_mode_match),
++	KUNIT_CASE(dm_test_is_duplicate_mode_no_match),
++	KUNIT_CASE(dm_test_is_duplicate_mode_same_size_different_clock),
++	/* amdgpu_dm_get_encoder_crtc_mask */
++	KUNIT_CASE(dm_test_encoder_crtc_mask_1),
++	KUNIT_CASE(dm_test_encoder_crtc_mask_2),
++	KUNIT_CASE(dm_test_encoder_crtc_mask_3),
++	KUNIT_CASE(dm_test_encoder_crtc_mask_4),
++	KUNIT_CASE(dm_test_encoder_crtc_mask_5),
++	KUNIT_CASE(dm_test_encoder_crtc_mask_6),
++	KUNIT_CASE(dm_test_encoder_crtc_mask_default),
++	/* get_aspect_ratio */
++	KUNIT_CASE(dm_test_aspect_ratio_no_data),
++	KUNIT_CASE(dm_test_aspect_ratio_4_3),
++	KUNIT_CASE(dm_test_aspect_ratio_16_9),
++	KUNIT_CASE(dm_test_aspect_ratio_64_27),
++	KUNIT_CASE(dm_test_aspect_ratio_256_135),
++	/* decide_crtc_timing_for_drm_display_mode */
++	KUNIT_CASE(dm_test_decide_crtc_timing_scale_enabled),
++	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
++	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
++	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
++	/* amdgpu_dm_connector_funcs_reset */
++	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
++	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
++	KUNIT_CASE(dm_test_funcs_reset_edp_abm_disabled),
++	/* amdgpu_dm_connector_atomic_duplicate_state */
++	KUNIT_CASE(dm_test_atomic_dup_state_copies_fields),
++	/* amdgpu_dm_fill_hdr_info_packet */
++	KUNIT_CASE(dm_test_fill_hdr_null_metadata),
++	KUNIT_CASE(dm_test_fill_hdr_zeroes_output),
++	/* amdgpu_dm_connector_atomic_set_property */
++	KUNIT_CASE(dm_test_set_property_scaling_center),
++	KUNIT_CASE(dm_test_set_property_scaling_aspect),
++	KUNIT_CASE(dm_test_set_property_scaling_fullscreen),
++	KUNIT_CASE(dm_test_set_property_scaling_none),
++	KUNIT_CASE(dm_test_set_property_scaling_unchanged),
++	KUNIT_CASE(dm_test_set_property_underscan_hborder),
++	KUNIT_CASE(dm_test_set_property_underscan_vborder),
++	KUNIT_CASE(dm_test_set_property_underscan_enable),
++	KUNIT_CASE(dm_test_set_property_abm_sysfs_control),
++	KUNIT_CASE(dm_test_set_property_abm_level_off),
++	KUNIT_CASE(dm_test_set_property_abm_level_value),
++	KUNIT_CASE(dm_test_set_property_unknown),
++	/* amdgpu_dm_connector_atomic_get_property */
++	KUNIT_CASE(dm_test_get_property_scaling_center),
++	KUNIT_CASE(dm_test_get_property_scaling_aspect),
++	KUNIT_CASE(dm_test_get_property_scaling_full),
++	KUNIT_CASE(dm_test_get_property_scaling_off),
++	KUNIT_CASE(dm_test_get_property_underscan_borders),
++	KUNIT_CASE(dm_test_get_property_abm_sysfs_allowed),
++	KUNIT_CASE(dm_test_get_property_abm_level),
++	KUNIT_CASE(dm_test_get_property_abm_disabled_zero),
++	KUNIT_CASE(dm_test_get_property_unknown),
++	/* amdgpu_dm_get_highest_refresh_rate_mode */
++	KUNIT_CASE(dm_test_highest_refresh_writeback_null),
++	KUNIT_CASE(dm_test_highest_refresh_cached_base),
++	KUNIT_CASE(dm_test_highest_refresh_preferred_mode),
++	/* amdgpu_dm_is_freesync_video_mode */
++	KUNIT_CASE(dm_test_is_freesync_video_mode_null_mode),
++	KUNIT_CASE(dm_test_is_freesync_video_mode_match),
++	KUNIT_CASE(dm_test_is_freesync_video_mode_no_match),
 +	{}
 +};
 +
-+static struct kunit_suite amdgpu_dm_dmub_test_suite = {
-+	.name = "amdgpu_dm_dmub",
-+	.test_cases = amdgpu_dm_dmub_tests,
++static struct kunit_suite amdgpu_dm_connector_test_suite = {
++	.name = "amdgpu_dm_connector",
++	.test_cases = amdgpu_dm_connector_tests,
 +};
 +
-+kunit_test_suite(amdgpu_dm_dmub_test_suite);
++kunit_test_suite(amdgpu_dm_connector_test_suite);
 +
 +MODULE_AUTHOR("AMD");
-+MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_dmub");
++MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_connector");
 +MODULE_LICENSE("Dual MIT/GPL");
 -- 
 2.43.0
