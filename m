@@ -4,124 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F8ACD8CB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 12:32:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80503CD8CB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 13:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F321410E439;
-	Wed, 10 Jun 2026 12:32:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03B3210E948;
+	Wed, 10 Jun 2026 13:06:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="evqKG+kS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CbrBFi2l";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012007.outbound.protection.outlook.com [52.101.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EFEE10E439
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 12:32:14 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6273310E935;
+ Wed, 10 Jun 2026 13:06:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x61wcpIh/cOAZM8sHQuWtKPRWn3NUaQpEkMq+AiFDkkOJCKgNts2v+nfgWQ+INoAFIk0mabRu/L7R/cD7KF3L3PbzMdOMB2UYpHdrXVvBoEFwSPJAcebpRIImGFtg6WqmPEGvWW/TlNQ40OuJzLClLN6lE/trCBbJvLxTUt4Sebu7DJS9dxhgOEPOnARN5xLU6NsFbL4r6Q3g68fjxObRsczvfU5Od4G6hfEtRYGIEgKEFQ36QbU9xX80ntpCQ088obJatwyXucVRF4oqT2dCEu9erYfxc2QYFDQgO9jmIpjDv52dxDcghzXHF+W/XM5mq2oxPUSW5F7RPpU43wPZQ==
+ b=SoYnEsbkV1HMO+FUHWHiTtV0OVSY8BwhA7Ye2g16V3SPO9JwLBq1WrF/l97uMCzkI+wOJtBrt6N67OdYOXFAtmFetWBCE5q1EwQdsM6DhZxrYhDH8jqH3HEKiooDQacZxNdmsWId+/B36i7i6385BLoNTsm/OSoTrPXc9WgkWL1lc9TxhAogTG8j/Bp3/8d4UFRxZISM2GBULkS1WK75FTl8oWK2tgkUCR/PobpHBqrmt7lyeGg3dTRzsslyjlDpzE8WACzxJlar6c7TExAKGbSKKhAl3coRnwNm1sce3pyXSuxYHgWsipphGaqayhXHjlSXNHsI3/Lg3xZkX2Doag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uncLYIRohUtRMg+LR7XQtr755CDeJLE+z1HToV0wk/0=;
- b=vhGeDSlQi8nmzESR7S3GSMHubd0pwVExDNtkjgmvath9PhtPE4T+7KzE7XhaFhS5PqmfAzgTrvroEB6VeutWZvh5k0xAm2WRcLr7rmAvT2BviOV8RfWQ9HXRWwneB3mw9xfXU3H6bRdU2JcOCgY+UKGs4Sufjr/JzXLJoUHjjPJ78QopU0+fTkefpWFt+EkLIAAcrQGWHWUEge1fmE2Hs17HPmlUhOBHoBXPAo9eY9zN+nA9j4UMtsvkZ7QlSwZC2hPjSnbpT4Am/8P3j14L84iFCITK1P9+/LnUJhplb+rKAUYxlq3Xnwvxy4Bs4m4rko2b0/xilU85fRSz8kbwHQ==
+ bh=y+WhaMjuvhttWgdGKlfCKnrUBuAW2xrNqRst8mU/gkk=;
+ b=nhEiC0NM6a1CZM3TpsVsrNk5h2n+lngWzkM8o7oKJC1bM5o8aQujt070EK4XYUlpPR0oHYPJfzxpRKpse15REk1RUH60uzxPOYEpNG72auQnmwqxnQ9znnPbCtstl8DndRrd9BSt57BYOtQuajDvObeMbWKWlvq+IGdFwNjq1jAKkOXg3YesQ0mO8LbFVQHwbqgHAY3Hia3LJ5QACZjWOe9eouPZwxCke3kZPpAudIF3aHzpm1n1pm9rzMAC/BTXf+O3B20Xa8oTKcJOk6bxzSBgoaPm1VwT+WOriPpqSG9HEFJpeiybOcC4U3BJhURHIhiOHfIdGw7hbJ9KfPIStw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uncLYIRohUtRMg+LR7XQtr755CDeJLE+z1HToV0wk/0=;
- b=evqKG+kSy6nzME+OR+QYpfPgw5jvsk4wl/vQAbaJ5wXtVsb53cYrR+Cnj9xhAXkBojHmLXgucglZYGUlHeobf+avDp2kTAgvEpnJorrR1Hc+9bd/xiDBHcN25XWhI+6l4NA8OX+R6vhY+tqpno56mh6ut1Xyb5eHw8c9UnAuzmA=
+ bh=y+WhaMjuvhttWgdGKlfCKnrUBuAW2xrNqRst8mU/gkk=;
+ b=CbrBFi2l/Eprd45IaEfm8pZ18YO+0rYr1JK5jT5Gs8IiHcx1lPsHkOkNDPnUAJKFZdWqUpiNmwrTvNZZzxSs8BgKp/KouZ4K1+s7i4eZ37uC+q8YMD8KwwqlpRBv9wgZodwqe49o62dbxnzGhBqLphuElmE9pNaXQ+eNCTfAx88=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB8012.namprd12.prod.outlook.com (2603:10b6:a03:4c7::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Wed, 10 Jun
- 2026 12:32:09 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Wed, 10 Jun 2026
- 12:32:09 +0000
-Message-ID: <67c9025d-a1ea-4ba2-a6c1-d1afd53b4c19@amd.com>
-Date: Wed, 10 Jun 2026 14:32:04 +0200
+Received: from EAYPR12MB999132.namprd12.prod.outlook.com
+ (2603:10b6:303:2c2::11) by CH2PR12MB4294.namprd12.prod.outlook.com
+ (2603:10b6:610:a9::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Wed, 10 Jun
+ 2026 13:06:11 +0000
+Received: from EAYPR12MB999132.namprd12.prod.outlook.com
+ ([fe80::7798:60c4:e3f0:d3f8]) by EAYPR12MB999132.namprd12.prod.outlook.com
+ ([fe80::7798:60c4:e3f0:d3f8%4]) with mapi id 15.21.0071.011; Wed, 10 Jun 2026
+ 13:06:11 +0000
+Message-ID: <6ab93f55-0643-4518-9aaa-b12d55f8ccb4@amd.com>
+Date: Wed, 10 Jun 2026 18:36:03 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 5/9] drm/amdgpu: Use queue references for queue-aware
- EVENTFD subscriptions
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260610060402.2769642-1-srinivasan.shanmugam@amd.com>
- <20260610060402.2769642-6-srinivasan.shanmugam@amd.com>
+Subject: Re: [PATCH v4 1/2] gpu/buddy: replace dual-tree/force_merge with
+ decoupled clear tracker
+To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260527112902.3815-1-Arunpravin.PaneerSelvam@amd.com>
+ <c9cdcf8a-d531-4e79-a238-97fd39b8c108@intel.com>
+ <9b0add60-9bca-44dc-a95d-be289ea2d3c1@amd.com>
+ <3ba98ec2-ea1f-4074-b1cc-456fca283ef8@intel.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260610060402.2769642-6-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <3ba98ec2-ea1f-4074-b1cc-456fca283ef8@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR03CA0011.namprd03.prod.outlook.com
- (2603:10b6:208:52f::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: PN4PR01CA0030.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:273::8) To EAYPR12MB999132.namprd12.prod.outlook.com
+ (2603:10b6:303:2c2::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8012:EE_
-X-MS-Office365-Filtering-Correlation-Id: 988eed8c-daf9-4a24-e607-08dec6ec4a37
+X-MS-TrafficTypeDiagnostic: EAYPR12MB999132:EE_|CH2PR12MB4294:EE_
+X-MS-Office365-Filtering-Correlation-Id: 032f56e8-8def-4a6f-b146-08dec6f109fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: wee+NlVubC7piw0LzVzgkJMuF5xfKInZV0y4BEllVS0YWFcLHvyxLEuK7SaKlUuJAvuvOtIFs3M9dAj1ElYuTEi1BZfiR82yeRuyoo7O5LaEkfx2fYE02hmP+VZDdz3vcH7wQpDAyZcRalKpuxw8rv9ZAeBmPFZBz584mwlzePh8CiiHRTtmlClTHCxekBi2N/rvqcT13tkGKN2bTROJuqhOEZ/khzSqdDGziVLtIO91X+EBE6eykUcAMVX6w0XYHNVfrdahFNBW6SxyTDnjsDbBD7Xrd1EeFpW5GZMSfoxNJNMmWBLUYZ3ravOPANVfaa5tNaCGNzTtedt0M8nrW7eS8L4UbuqQoXo2jIB5szpX5M8f1yjCbHdqowIDdevFYmWwbC8koD81w0AQY5eM33/iTOGhFkUiGMbNfwWgzYVWT28LZC65LrakSVPV51W4ydF4pnRKfT6tbGFFweB4Hl9I38YdEIGHhjC7OJBD9Oz0ikdtB2GrF5tZfURRm9NsovLob6gKc8yhDkngbbrMlroL9egLW1OWFXVvN68kwZHuqRuw4plJBeUMfcx9WOhHH1Q7rSG6LWv0sXAMfG6fuPPJ656NNQSAODnW5GGSLEzwqF33sWPuLABTeZegXVjOudmaKdXooIOx/5aZuZRxZgYjQrxfrEs4N90sGhOAUiEWIXDgz602tzSp4X7SfxeD
+ ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|56012099006|4143699003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: TX0zQsf9ebiIlN5Kfp6ohbN/KDBlsbi1/eIgw795JuKINKj5D/og6ztIW4BBDgNRV+BOf3ktG/Nw9thTBQc8D6ixWyFjyl9sR87DGw40brVhhLDQZXK1CXPtg6TeXFxi+juN68UjFklcroQ8o9tscDiQ3NZXtXGVN6N/bIRIKNVTKMHxIJ7ZSyanI307dQCKT0RUURWKBGz+JW3HNIn4d4oskM37PUsHIr8cCpmNfro9uaVUZqGozMKLiBSLXIgYYul1gStt0L72ayCst54ERHyqUxUNnixpBsjFRgIUDWH6EhRvyYsQhe20OnXtnC4lfnLouTBW4atRqSrWensKIXzlEXCjuSMu9PXYb0HFlt4FVO0HUMmhVCJpSYjoOBRPOTGqMag5DeE0YOZwldwEWx/uAJHLjeg0skefMCcoWNHAh5FvzXHvvu8GCP2WgXZdB4lZ8/o2VqvpL0i4w/PHnlazWBILV5GCzuLp96/5zTHzW7ersImGyQZvQKZFGferK7EULEHFO0z2Zl0GcP/ZTiVwNCRL5FNXcfM8zNdxQLA2FwLX/Ml/ICNYLP7A4rM6JJqlpdyx6dw1q/a3NpV53YtIu2sn+Cct4r2FeARBWsMR2Rg2+EFuMRy7Vtpw5CFhG3qLPvreF+qyeXnugrQCrEeEATRj2ATcTm5B6LCWXhr5wZTvW043Cg5Y05xyuTOK
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:EAYPR12MB999132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3dYYlJoOUYzSWdXbWtjalRYVVp4UEZoZUFtd0F5TWVJUDdueFlFbEpaQ1po?=
- =?utf-8?B?UDVURnIxMGlveHBPOHk1NTU1VDlXSlc1NEZ1dGxWKy8yZ3ZYcFlnYXFMS0Nm?=
- =?utf-8?B?YlhCYy9GZVJoOXQwVXFRb2VLZU54bUZoTHkzUGpCeXVrYk92RlE1K3JGWnFD?=
- =?utf-8?B?U3Z2TWoxcnNqTWRrajNOenU3TzB3ZVMzQW9nYWJCMTBYWFlnNFhJUEhaQ3ds?=
- =?utf-8?B?ckZLc0VuNG9ZNW9jU1RyN1lqOUZlWUpaTy84U0JKRUF5ZXFHMXJDYnMyVmF1?=
- =?utf-8?B?NEREeCt4SGp2YnVGRS9wSUg4bWYwQ3ZtajAxUlhiQ0tPSkprUGlocUI4Q2wy?=
- =?utf-8?B?dzFVa3F1dFYwTS9WOWFrdjVidklhNWtOanUwSlNyU0k1eVlhVi9BZnlLMnRk?=
- =?utf-8?B?U1FYcnI3UWNlTDczdkFORWFBdFdPVmlDdWpzZnNmOEtnVDBZb3hrRm83Si95?=
- =?utf-8?B?eW5tR2lrNVBiNUtLZXkvWGVFUUYxb1FVOFNKeG5ZR2dWQk1GNFoyeCtQSENk?=
- =?utf-8?B?SEhQUnkvTG9mOEpYeTVhdnhSYmhoaU5xZUhuUE43bnM1OE1DUkhmNmV2bFc4?=
- =?utf-8?B?TmtmaTJWUWdoZkxsV3JQdXZZM0lMdkk2OFFDOW5ZZGF0R0RpY2JHbkdqWExi?=
- =?utf-8?B?ZEFkd2tnR3pDNFNnMUZxY0ptM0pyUmNWWk15Vy9jV1JlSXhodFh4MU82aFZq?=
- =?utf-8?B?aDBVK09oOW1mY0dHcUVWMktKTldnWWpjNEhDc0ZHTFdlYURib012Zy9Cd2dp?=
- =?utf-8?B?SCt0NUNKRGFIQTZKNGR6c0JVSjlqYmJBMFBiL01oWldicUdZNnl2eGQvSWc3?=
- =?utf-8?B?bWR5aVlUMHBkak51TGU4NEJ5ekxtMStoMFo4a0FkSFl4eG5FSlR6bnlYdml6?=
- =?utf-8?B?MXRzSitIK1UrbEJaUWZlVGxHVjFoRjUyaXlISkZtTU9La2lpWmdnTHZNR3Fv?=
- =?utf-8?B?cW9vT0JpN2ZKa1Jha0pPekRrZkNRMFIvQ1JlZVhaaXRwd1pETFp4QVpoNHZR?=
- =?utf-8?B?dFo5dmJ6dysreFRKN2hTOE9WU012MWhSNlUrV01xWUpLUjJEazl3aWpBK2VP?=
- =?utf-8?B?bVllNzNrNkt0UGRpYWM5NE9Nc1NNZ3lOR0EvU2dnWVFRYm5jVks3SCt2eVRU?=
- =?utf-8?B?VlZKdE5jNzRWR2V0Yk01MTlDenUyWVRXMDlrcWVrMEpqMHdvS3BFZWxJaDJG?=
- =?utf-8?B?Z1o2MlA3TTFPQW1XNEM4Wkp2MFRFLzdTUWhPS1ZtUUhNZCs5eVJvWmxBbjRC?=
- =?utf-8?B?N3k5VEt5a0U1QVN2VTFsdjlWK3g2dFArb2FERkcyR25VRGNDdHlPWUxNakRD?=
- =?utf-8?B?MEdyQ001ek1mbCtqV2srdTdkbkdyeDR6VkxsbG5qZWMrcTRXMFRiTmErNy80?=
- =?utf-8?B?WVgzWGVaUTRxQXhscmNXYXIrVkMyTFM4cXZXSW51ZnVFTm9FaTQ4TjNRSDMz?=
- =?utf-8?B?NHkrTlZGZlVOTlRsUFFmQ0R1dE8wL0NUcDUyR0tDdDE0WEVuNzgzbXJZUU1v?=
- =?utf-8?B?VGJNMUw4NVlCZU4raXZneTNGeVcvNUZYeDZiMWl2MkIySEdSblpVNmgyRDV1?=
- =?utf-8?B?a2I1TEI4cnp1dmk3NzRLVTFjaUhMT2xCd3gxWWhvc2pBV1lEa1E3SWNTVDhh?=
- =?utf-8?B?bXpEdUh0RkUwL1ByQWZDMEVZT2l0T0psUXhLTGRna0F0V0gydVBNQTZhYkty?=
- =?utf-8?B?WlFSNW0rS3c2aldhYXBWZFZsc1dNb0Rwd1FDS1hIaTZDUHAzWnpoeXNSUXRi?=
- =?utf-8?B?eGMrU2FoRVFpemhRb2VKc3dSMFpsaGQ2UzV1bHJya21uT2M2RHVUWXBOMDZF?=
- =?utf-8?B?c05IQkhtcXQ4VXRYL1RVVEFraERVUEprY1ZIRXlUdWhYTEVOeHlSeUQwZUlZ?=
- =?utf-8?B?MHppREFCdTlvbHlUeUtGL0lZREVmTGh2NFpQUlIzMEpQMzhwZm9TVDVlSkd6?=
- =?utf-8?B?dWJIbjFhUElIUWhIdmM2OGpWVUtTMzlGY1FhOG1nbnoxcE1XbWVpOXg1clND?=
- =?utf-8?B?TS83SC9kR1VMZTVMWGp5YWRkcExIY1piQ2c3cS9CVWZRNFl4M3MxVVpMbVVy?=
- =?utf-8?B?dERUMll5eFpQNDFrZ0NZdnlzczRTZ0g5amtERHc5YldBQ2djelJvSjhGcE5X?=
- =?utf-8?B?ZUQxTndQVm1ycFNselQ2QWJaZ1R1dkpJOFVXcGZWTXBLVjgyNW1JeTV3YWsv?=
- =?utf-8?B?c3Q4MDk0TVR4S3R4ejlOY3h1ODk3TWhKeVM5SndVV1V6ZkFpVXMxT2Z5V1By?=
- =?utf-8?B?T3Y2QTI1MlQ0dzd2enZkSElTVS9FU284L2dBTC9URWZpVm1ST0RnRDE3Rysy?=
- =?utf-8?Q?pEPkj1sgLGoBRLLxJm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?enZabDFTUGI4M3RWVjgyUkdtSDJtU2IrclBMWktVenhIWlp2SDMvY2UzVjg3?=
+ =?utf-8?B?NjEzbTVZM2hBaTQ0TW1uRjhCUHVsdjF2V3FSZlU3dldNZUtFS3ljbldJREhq?=
+ =?utf-8?B?UXduMHRBbURqdVdTOCtXd3JwK2IyNFFBdXRadzVVNy83TE9aVjRwQ0N1NUtw?=
+ =?utf-8?B?TDZXUXVpNlRkampvaGVYNllJRnRGVWpLVS9HU1FGbUk0bFZPakZ3QVlDRVJa?=
+ =?utf-8?B?cEZBa3EzSUtydzZSV2VFM1phK3hlazluMGtUZGFHRU0rV2F0V3l2YXdyZjJ3?=
+ =?utf-8?B?cWU0ZmRKWEdPbCtaUklFRHBVVTd5blN3VnBQT3BLdjJjZ1RBbVMwam0rNElq?=
+ =?utf-8?B?K003WXlFbGo3RXRqNU1oVDRPMmVaK2FxckNiR0tvcVpSNzFBSlNiSGtTNC9W?=
+ =?utf-8?B?V2p1TUZBSUlUR05NWGl2ek5BbVVVUFR2Kzl3ZGhSRzN5TFdpcnJWcGNGWGxE?=
+ =?utf-8?B?alFMRksvSzlpczY3ZFZZczh3T1FGWG9EY2tuUWpkVmxGK3FNMFUxMlAvMmI0?=
+ =?utf-8?B?SjRyZ21pY1hzNmJuSUY0Q3pTY3BEcUVJYUFjbnpiREFOZjl3Q3I4dExvdjRK?=
+ =?utf-8?B?SER0QnZkRlNJZWdOMm5rd2NXK0VNWEExNmtCSXRqOGFicmpoU002bHIvUUlh?=
+ =?utf-8?B?cWhWczRaSkFhODZDdVpyU3VWSC94Wlc5ektZaHBSSS85ejQ0Z0pXbGdWRnc0?=
+ =?utf-8?B?VFc2MUhZMjg0b0RjQTdnU243aDkxSFVlRkdxTUMvQUQ5RzJqaE1hTjNWcERZ?=
+ =?utf-8?B?NjhUMnZLRjBmbUFZU2x4K2FUWXJCd0h1aUVEdzB1dmpzL05wMU9iUEdDLy91?=
+ =?utf-8?B?aXl5akZkQjFEK1lmUTlmczVGTGswWGNKVVNVSXROR2JoVUtYVnQvQzFrMExv?=
+ =?utf-8?B?d3E1SUpLcG1lNzNpbTdvNWJiaFQ5aGV4YndncjU0YnFrSW50d3JsOUFWbnpP?=
+ =?utf-8?B?bFl6SmEyVktMc0c1TjdLODMrQzVScFYybStMWnE5c0QvbmFFWmxQZDhDUW1R?=
+ =?utf-8?B?Y2pHQjVWSFErN1ZTT2FwOWpyeGgyV0l4RzNWSFZjQ2VpOWI0ejlzSDVSb3E0?=
+ =?utf-8?B?Uk5HUEkxdnQ1bnNESSs0VC9Td2Zpc2dsWm5kMVRDL3o1Vm50d2preEVnMDc1?=
+ =?utf-8?B?anJqbjJwN2U0SzYydXBoMHFJczQ4WE50SC9HQkVFOE02TTlaZU9hVHdEajFs?=
+ =?utf-8?B?cWdaRTlyM2FleCtWdUV2WjZpdXBEWFkrd0VHZ2Q3UlJaYW9ObElXL1VBTFhV?=
+ =?utf-8?B?TEtqVUUwemY4QjZydExxMVR5R3dqQkRkc0VVMUFVWG45NUFuaDllb3lYTUdh?=
+ =?utf-8?B?anhoZFp3TlhCaG91aHp4YlBJOVlQbC9oT01GNGUrOFJsOTQ4dGRoa3l3WXk1?=
+ =?utf-8?B?TGx0YnhCNU9WY3Vyck5JWWh6MURrK0xCeVM0ajVqNlRwOXkxY0RHUitHU25B?=
+ =?utf-8?B?dGJpcURTL0o1YmN6U1hLeFJUOHZwblQ2ZTI0YStlZEV1ay95bUhMSTZ0Qjda?=
+ =?utf-8?B?TnZWaXN1YWhKOStOTW5TeVFoL3Q0M2p3aTVwQ0J4cjczazdQaVNGdWJxQ2xB?=
+ =?utf-8?B?SVNMU2xhaiszK0NmMGxsVHprWHlic0tzRlUzWWdoMW5sblRueTBwSDNnMFZq?=
+ =?utf-8?B?eTF0dUVLNFluR2RnOUswMjdUWjY2WWk4YkNzMXlPNXBSbnNoYmp6SGxocWJD?=
+ =?utf-8?B?U1lvakdneXA0Z2oxanZQMWY2Qyt0MVNhWTVzZUJvQkxjcFlOL1BudUtTS2Z4?=
+ =?utf-8?B?TlJYdmx3SEtZVm90YW00UnlwWFZuMWt2WFFtdzIyMERaWmRiczZFM0NJQWJL?=
+ =?utf-8?B?ajFvMlR4cXA2OTZoMHVqRFNMVUtoVzFMVmltZkVZbWpNSmVxU2xCWlVOcDFa?=
+ =?utf-8?B?a2pLYWk4VnR3bnY4Y052VHdHWjlWU0VLdi9CQWJDVjlHeHVpQWI0THBVeUFx?=
+ =?utf-8?B?NzZOampyTDFQeUUvZWZaWTRweWYyL1lyb3J6NHFvMzB4RUxsaTRUTk9vamtO?=
+ =?utf-8?B?RG4xQ3JjN1RzRERDU0Q1TWtSRndSNVE0ZE9qVlk0Kzk2WDdVK25CZWNMSk41?=
+ =?utf-8?B?OExZVWRIZDVLL2tKOUVaWUorUUpvS0V6N2VES1IxSklSa0RFanpNM1NCRWVE?=
+ =?utf-8?B?SnR5NHhlK3h4dGs1NHJ2dmtuUUYvdGQ3a1pxWi85SVMvVUhQSUtTRndXblAx?=
+ =?utf-8?B?dXJ2V2xXc0ZMQ0h0RnlGU1N1Rnk4S3FGa0t0b1puRG82bFBqSlRrQmIvSXJV?=
+ =?utf-8?B?cXJUa0htYXNxZlV2cjNqZ21oek5iUmtQV0FNbmRZczB6R2lRSWlqSVpXS3Ar?=
+ =?utf-8?B?QzNraGE4bFRHNG16cW1BcVMwQ0I0TlNsL29oYnpHVHNSRjFDTkl5UT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 988eed8c-daf9-4a24-e607-08dec6ec4a37
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 032f56e8-8def-4a6f-b146-08dec6f109fa
+X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999132.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 12:32:09.5096 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 13:06:11.2995 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zLGKFVeEtRg3YLy+VKr5+X28zWWbhQ/HO51/rsJo454ZW2Tq/DjwKdbA6gbZNwpk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8012
+X-MS-Exchange-CrossTenant-UserPrincipalName: JHPNkMBLL8ETA5X2CrdMcPPYgU5BNsn6oR0XTJXBtkSNCv/KTq81MK2GiXE9zQAeLL/y9UrhLs7cBJ+OE5bHwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4294
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,622 +139,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/10/26 08:03, Srinivasan Shanmugam wrote:
-> Queue-scoped EVENTFD subscriptions originally used queue_id as part of
-> the routing key. However, queue_id is only a UAPI-visible handle and can
-> be reused after a queue is destroyed, making it unsuitable as a stable
-> identifier for internal EVENTFD tracking.
-> 
-> Rework queue-scoped EVENTFD handling to resolve queue_id to the
-> corresponding amdgpu_usermode_queue object during bind and unbind.
-> EVENTFD subscriptions now hold references to the actual queue objects
-> instead of the reusable queue identifiers.
-> 
-> Use the existing user queue refcounting infrastructure to keep queues
-> alive while subscriptions exist, and release those references during
-> unbind, manager teardown, and explicit queue cleanup.
-> 
-> Introduce amdgpu_eventfd_remove_queue() to remove all subscriptions
-> associated with a queue when that queue is being released. This ensures
-> that EVENTFD does not retain stale queue references after queues are
-> removed from the USERQ manager.
-> 
-> Queue-scoped subscriptions are now matched using the queue pointer,
-> while GPU-scoped subscriptions continue to operate without an associated
-> queue.
-> 
-> Also update the EVENTFD infrastructure to:
-> 
-> distinguish queue-scoped and GPU-scoped event types, allow eventfd file
-> descriptor 0 by rejecting only negative values, validate supported event
-> types, and avoid relying on reusable queue identifiers for signaling.
-> 
-> EVENTFD remains notification-only and does not carry event payloads.
-> 
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c | 240 ++++++++++++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h |  19 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  24 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c   |   4 +
->  4 files changed, 209 insertions(+), 78 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
-> index 3a6e08a3d0c1..db743435605f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
-> @@ -24,37 +24,63 @@
->  /*
->   * Render-node eventfd subscription infrastructure.
->   *
-> - * This module provides a simple event notification mechanism for render-node
-> - * clients using Linux eventfd objects.
-> + * EVENTFD is notification-only. It wakes userspace when a GPU event happens.
-> + * Event metadata/details are expected to be consumed separately through the
-> + * corresponding wait/event path.
->   *
-> - * Userspace can bind an eventfd to a userspace-defined event_id. When the
-> - * driver signals that event_id, all eventfds bound to it are notified.
-> - *
-> - * This mechanism is intended to support lightweight GPU event notifications
-> - * without polling from userspace.
-> + * Queue-scoped subscriptions use queue_id only for lookup at bind/unbind time.
-> + * The EVENTFD entry stores a refcounted queue pointer, not the reusable UAPI
-> + * queue_id.
->   */
->  
->  #include <linux/slab.h>
->  #include <linux/err.h>
-> +#include <drm/amdgpu_drm.h>
->  
-> +#include "amdgpu.h"
->  #include "amdgpu_eventfd.h"
-> +#include "amdgpu_userq.h"
->  
->  #define AMDGPU_EVENTFD_MAX_BINDS 4096
->  
-> +static bool amdgpu_eventfd_valid_type(u32 event_type)
-> +{
-> +	switch (event_type) {
-> +	case DRM_AMDGPU_EVENT_TYPE_USERQ_EOP:
-> +	case DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET:
-> +	case DRM_AMDGPU_EVENT_TYPE_MEMORY_EXCEPTION:
-> +	case DRM_AMDGPU_EVENT_TYPE_SCRATCH:
-> +	case DRM_AMDGPU_EVENT_TYPE_GPU_RESET:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static bool amdgpu_eventfd_queue_scoped(u32 event_type)
-> +{
-> +	switch (event_type) {
-> +	case DRM_AMDGPU_EVENT_TYPE_USERQ_EOP:
-> +	case DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET:
-> +	case DRM_AMDGPU_EVENT_TYPE_SCRATCH:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
->  /**
-> - * amdgpu_eventfd_id_alloc - allocate an event id container
-> - * @event_id: userspace-defined event identifier
-> - *
-> - * Each event_id represents a notification category. Multiple eventfds can
-> - * be bound to the same event_id.
-> + * amdgpu_eventfd_id_alloc - allocate an event type container
-> + * @event_type: kernel-defined AMDGPU event type
->   *
-> - * This function allocates the container which stores the list of eventfds
-> - * associated with that event_id.
-> + * Each event_type has one container. For queue-scoped events, individual
-> + * subscriptions inside the container are distinguished by the refcounted
-> + * queue pointer stored in each entry.
->   *
->   * Return:
->   * Pointer to the newly allocated structure or NULL on failure.
->   */
-> -static struct amdgpu_eventfd_id *amdgpu_eventfd_id_alloc(u32 event_id)
-> +static struct amdgpu_eventfd_id *amdgpu_eventfd_id_alloc(u32 event_type)
->  {
->  	struct amdgpu_eventfd_id *id;
->  
-> @@ -62,43 +88,40 @@ static struct amdgpu_eventfd_id *amdgpu_eventfd_id_alloc(u32 event_id)
->  	if (!id)
->  		return NULL;
->  
-> -	id->event_id = event_id;
-> +	id->event_type = event_type;
 
-I think you might want to move renaming event_id to event_type in a separate patch or even into the initial patch.
 
-It creates a lot of extra unecessary noise in this patch.
+On 6/10/2026 2:49 PM, Matthew Auld wrote:
+> On 01/06/2026 11:51, Arunpravin Paneer Selvam wrote:
+>>
+>>
+>> On 5/29/2026 11:11 PM, Matthew Auld wrote:
+>>> Hi,
+>>>
+>>> On 27/05/2026 12:29, Arunpravin Paneer Selvam wrote:
+>>>> The current buddy allocator maintains separate clear_tree[] and
+>>>> dirty_tree[] rbtrees per order, preventing coalescing between cleared
+>>>> and dirty buddies. Under mixed workloads, this creates a merge 
+>>>> barrier:
+>>>> adjacent buddies frequently end up split across trees, forcing 
+>>>> reliance
+>>>> on __force_merge() during allocation.
+>>>>
+>>>> __force_merge() performs an O(N x max_order) scan under the VRAM 
+>>>> manager
+>>>> lock, leading to allocation stalls and failures for large contiguous
+>>>> requests even when sufficient total free memory is available.
+>>>
+>>> So is this contig with non power-of-two sizes?
+>> Both power-of-two and non-power-of-two contiguous requests are 
+>> affected - in either case, the required higher-order block can't form 
+>> when its lower-order buddies are separated by clear/dirty state 
+>> across the dual trees. But the core issue we are seeing is VRAM 
+>> fragmentation caused by massive small allocations (e.g., thousands of 
+>> 4 KiB–8 KiB buffers) that end up split across clear and dirty trees, 
+>> preventing buddy coalescing. This leads to allocation failures and 
+>> OOM in later workloads even when sufficient total free VRAM is 
+>> available.
+>>>
+>>> Do we know if we could force_merge everything in one go or somehow 
+>>> be more aggressive and do more than needed now, at the first sign of 
+>>> contention here, instead of doing it piecemeal? Downside would be 
+>>> losing more of the clear tracking, when this happens, but more re- 
+>>> merging.
+>>>
+>>> Could we have another per-order list, of all blocks that we failed 
+>>> to merge, when we did the free step? When doing the force merge 
+>>> step, we maybe don't need to search blindly and can focus instead on 
+>>> the stuff tracked in those lists? Maybe it doesn't need to be a 
+>>> list, but could be another rb-tree?
+>>>
+>>> We know the size of the total allocation, if we trigger force_merge, 
+>>> could we try to merge enough in one go for the entire allocation, 
+>>> instead of restarting the entire thing on the next iteration? Would 
+>>> that help at all?
+>>>
+>>> But I guess these are more for the stalling side, and won't help 
+>>> much with the contig angle?
+>> The memory is highly fragmented into mostly 4 KiB chunks and small 
+>> scattered blocks across the dual trees, so although total free memory 
+>> exists, it is split into low-order fragments. The workload then 
+>> requests very large contiguous allocations (tens of GBs, e.g., ~64 
+>> GiB), which fail with OOM because the allocator cannot form 
+>> sufficiently large high- order blocks from the fragmented space. We 
+>> could go with more aggressive merging or merge-in-one-go approaches, 
+>> but this might waste more cleared memory. I think fundamentally the 
+>> buddy allocator should be allowed to merge unconditionally - the 
+>> single-tree approach with unconditional coalescing would improve the 
+>> fragmentation and benefit contiguous allocations along with 
+>> addressing the stalling and latency issues.
+>>>
+>>> For the extent idea, is there any merit in maybe doing this for all 
+>>> contig blobs, and not just cleared stuff? Or is the workload you are 
+>>> seeing only benefit users that want cleared stuff? Wondering if this 
+>>> would benefit all users that want contig? Like if we hypothetically 
+>>> kept clear and dirty separate, like we do now, but with an improved 
+>>> force_merge, and then have extent tracking for all contig blobs and 
+>>> replace the try_harder stuff? When you do a contig alloc, the 
+>>> individual clear/dirty is still all there within the range, so you 
+>>> can skip re-clearing in some cases. I guess downside is overall more 
+>>> fuzzy contig + clear/free path, but I guess you would never get 
+>>> allocation failures, when there is sufficient contig space?
+>> Yes, extending extent tracking to all contig allocations has merit, 
+>> but the core problem remains - with the dual-tree design, we still 
+>> need force_merge to undo the clear/dirty split before those extents 
+>> can form. In cases like heavy small-allocation workloads (thousands 
+>> of 4 KiB buffers) running first, the memory ends up massively 
+>> fragmented across both trees. When a very large contiguous allocation 
+>> (e.g., ~64 GiB) comes in later, the allocator fails with OOM even 
+>> though sufficient total free memory exists, because the extent 
+>> tracker can't find a contiguous range that was never allowed to merge 
+>> in the first place. I think the dirty/clear split is fundamentally 
+>> the problem - allowing the buddy allocator to merge unconditionally 
+>> removes this barrier, and the clear tracker can then be layered on 
+>> top as an optimization without blocking coalescing.
+>>>
+>>>>
+>>>> Solution
+>>>>
+>>>> Replace the dual-tree design with:
+>>>> - A single free_tree[order] rbtree for dirty and mixed free blocks
+>>>>    (fully cleared free blocks float outside this tree)
+>>>> - A lightweight out-of-band clear tracker (gpu_clear_tracker)
+>>>>
+>>>> Fully cleared free blocks are tracked outside the buddy trees using an
+>>>> augmented interval rbtree, enabling O(log E) lookup of the largest
+>>>> cleared extents.
+>>>>
+>>>> Buddy coalescing is now unconditional in __gpu_buddy_free(), 
+>>>> regardless
+>>>> of clear/dirty state. This removes the merge barrier and eliminates 
+>>>> the
+>>>> need for __force_merge().
+>>>>
+>>>> Benefits
+>>>>
+>>>> - Correct high-order allocations after mixed clear/dirty workloads
+>>>> - Elimination of O(N x max_order) merge cost from the allocation path
+>>>> - O(log E) cleared-extent lookup replacing O(N) scans
+>>>> - Predictable allocation latency under fragmentation
+>>>> - Reduced complexity with a single tree per order
+>>>
+>>> Since there is no separate tracking for dirty stuff, is the non- 
+>>> cleared alloc path a bit more "fuzzy" now, with it potentially 
+>>> stealing cleared memory, or is it the same behaviour still?
+>> Right, on v4, the dirty and mixed (partially cleared) blocks are 
+>> allocated for the non-cleared alloc path, which can end up stealing 
+>> cleared memory. On v5, I plan to address this with a three-tier dirty 
+>> allocation fallback: dirty → mixed → clear, driven by rbtree augment 
+>> bits (subtree_has_dirty, subtree_has_mixed), each pass O(log N). The 
+>> split-descent also applies the same preference at every level when 
+>> carving a higher-order block, so cleared memory is preserved as much 
+>> as possible and only used as a last resort.
+>> Thoughts ?
+>
+> No objections from me. Do you want me to still look at v4 in depth, or 
+> wait for v5? I only really looked at this from high level.
+I will send the v5. Please review the next version.
 
->  	INIT_HLIST_HEAD(&id->entries);
->  	id->n_entries = 0;
-> +
->  	return id;
->  }
->  
->  /**
-> - * amdgpu_eventfd_id_get_or_create - find or create an event_id entry
-> + * amdgpu_eventfd_id_get_or_create - find or create an event_type entry
->   * @mgr: eventfd manager
-> - * @event_id: event identifier
-> - *
-> - * This helper returns the container associated with the given event_id.
-> - * If it does not exist, it will create one.
-> + * @event_type: kernel-defined AMDGPU event type
->   *
-> - * The function is designed to be callable without holding any locks.
-> - * Memory allocation is done outside the xarray lock to avoid blocking
-> - * inside critical sections.
-> + * This helper returns the container associated with the given event_type.
-> + * If it does not exist, it creates one.
->   *
->   * Return:
-> - * Pointer to the event_id structure or NULL on failure.
-> + * Pointer to the event_type structure or NULL on failure.
->   */
->  static struct amdgpu_eventfd_id *
-> -amdgpu_eventfd_id_get_or_create(struct amdgpu_eventfd_mgr *mgr, u32 event_id)
-> +amdgpu_eventfd_id_get_or_create(struct amdgpu_eventfd_mgr *mgr, u32 event_type)
->  {
->  	struct amdgpu_eventfd_id *id;
->  	struct amdgpu_eventfd_id *new_id;
-> -	XA_STATE(xas, &mgr->ids, event_id);
-> +	XA_STATE(xas, &mgr->ids, event_type);
->  	unsigned long flags;
->  	int r;
->  
->  	xa_lock_irqsave(&mgr->ids, flags);
-> -	id = xa_load(&mgr->ids, event_id);
-> +	id = xa_load(&mgr->ids, event_type);
->  	xa_unlock_irqrestore(&mgr->ids, flags);
->  	if (id)
->  		return id;
->  
-> -	new_id = amdgpu_eventfd_id_alloc(event_id);
-> +	new_id = amdgpu_eventfd_id_alloc(event_type);
->  	if (!new_id)
->  		return NULL;
->  
-> @@ -174,6 +197,7 @@ void amdgpu_eventfd_mgr_fini(struct amdgpu_eventfd_mgr *mgr)
->  
->  		hlist_for_each_entry_safe(e, tmp, &id->entries, hnode) {
->  			hlist_del(&e->hnode);
-> +			amdgpu_userq_put(e->queue);
->  			eventfd_ctx_put(e->ctx);
->  			kfree(e);
->  		}
-> @@ -186,51 +210,61 @@ void amdgpu_eventfd_mgr_fini(struct amdgpu_eventfd_mgr *mgr)
->  }
->  
->  /**
-> - * amdgpu_eventfd_bind - bind eventfd to an event_id
-> + * amdgpu_eventfd_bind - bind eventfd to an EVENTFD subscription
->   * @mgr: eventfd manager
-> - * @event_id: userspace event identifier
-> + * @userq_mgr: user queue manager used to resolve queue_id
-> + * @event_type: kernel-defined AMDGPU event type
-> + * @queue_id: UAPI queue id for queue-scoped events, or 0 for GPU-scoped events
->   * @eventfd: eventfd file descriptor
->   *
-> - * This function allows userspace to subscribe to notifications for a
-> - * specific event_id.
-> - *
-> - * Multiple eventfds can be bound to the same event_id.
-> - *
-> - * Duplicate bindings of the same eventfd are treated as success and do
-> - * not create additional entries.
-> + * For queue-scoped events, queue_id is used only to look up the queue.
-> + * The entry stores the refcounted queue pointer, not queue_id.
->   *
->   * Return:
->   * 0 on success, negative error code on failure.
->   */
-> -int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd)
-> +int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr,
-> +			struct amdgpu_userq_mgr *userq_mgr,
-> +			u32 event_type, u32 queue_id, int eventfd)
->  {
->  	struct amdgpu_eventfd_id *id;
->  	struct amdgpu_eventfd_entry *e, *it;
->  	struct eventfd_ctx *ctx;
-> +	struct amdgpu_usermode_queue *queue = NULL;
->  	unsigned long flags;
->  	bool dup = false;
->  
-> -	if (!mgr || !event_id || eventfd < 0)
-> +	if (!mgr || eventfd < 0 || !amdgpu_eventfd_valid_type(event_type))
->  		return -EINVAL;
->  
-> -	/*
-> -	 * Enforce total bind limit without a separate manager lock.
-> -	 * For duplicate binds, we decrement back before returning success.
-> -	 */
-> +	if (amdgpu_eventfd_queue_scoped(event_type)) {
-> +		if (!userq_mgr || !queue_id)
-> +			return -EINVAL;
-> +
-> +		queue = amdgpu_userq_get(userq_mgr, queue_id);
-> +		if (!queue)
-> +			return -ENOENT;
-> +	} else if (queue_id) {
-> +		return -EINVAL;
-> +	}
-> +
->  	if (atomic_inc_return(&mgr->bind_count) > AMDGPU_EVENTFD_MAX_BINDS) {
->  		atomic_dec(&mgr->bind_count);
-> +		amdgpu_userq_put(queue);
->  		return -ENOSPC;
->  	}
->  
->  	ctx = eventfd_ctx_fdget(eventfd);
->  	if (IS_ERR(ctx)) {
->  		atomic_dec(&mgr->bind_count);
-> +		amdgpu_userq_put(queue);
->  		return PTR_ERR(ctx);
->  	}
->  
-> -	id = amdgpu_eventfd_id_get_or_create(mgr, event_id);
-> +	id = amdgpu_eventfd_id_get_or_create(mgr, event_type);
->  	if (!id) {
->  		eventfd_ctx_put(ctx);
-> +		amdgpu_userq_put(queue);
->  		atomic_dec(&mgr->bind_count);
->  		return -ENOMEM;
->  	}
-> @@ -238,7 +272,7 @@ int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventf
->  	/* check for duplicate binding */
->  	xa_lock_irqsave(&mgr->ids, flags);
->  	hlist_for_each_entry(it, &id->entries, hnode) {
-> -		if (it->ctx == ctx) {
-> +		if (it->ctx == ctx && it->queue == queue) {
->  			dup = true;
->  			break;
->  		}
-> @@ -247,6 +281,7 @@ int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventf
->  
->  	if (dup) {
->  		eventfd_ctx_put(ctx);
-> +		amdgpu_userq_put(queue);
->  		atomic_dec(&mgr->bind_count);
->  		return 0;
->  	}
-> @@ -255,10 +290,13 @@ int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventf
->  	e = kzalloc(sizeof(*e), GFP_KERNEL);
->  	if (!e) {
->  		eventfd_ctx_put(ctx);
-> +		amdgpu_userq_put(queue);
->  		atomic_dec(&mgr->bind_count);
->  		return -ENOMEM;
->  	}
-> +
->  	e->ctx = ctx;
-> +	e->queue = queue;
->  
->  	/*
->  	 * Re-check duplicate under lock to close the race with another bind()
-> @@ -266,7 +304,7 @@ int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventf
->  	 */
->  	xa_lock_irqsave(&mgr->ids, flags);
->  	hlist_for_each_entry(it, &id->entries, hnode) {
-> -		if (it->ctx == ctx) {
-> +		if (it->ctx == ctx && it->queue == queue) {
->  			dup = true;
->  			break;
->  		}
-> @@ -281,6 +319,7 @@ int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventf
->  
->  	if (dup) {
->  		eventfd_ctx_put(ctx);
-> +		amdgpu_userq_put(queue);
->  		kfree(e);
->  		atomic_dec(&mgr->bind_count);
->  		return 0;
-> @@ -290,53 +329,70 @@ int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventf
->  }
->  
->  /**
-> - * amdgpu_eventfd_unbind - remove eventfd binding
-> + * amdgpu_eventfd_unbind - remove EVENTFD binding
->   * @mgr: eventfd manager
-> - * @event_id: event identifier
-> + * @userq_mgr: user queue manager used to resolve queue_id
-> + * @event_type: kernel-defined AMDGPU event type
-> + * @queue_id: UAPI queue id for queue-scoped events, or 0 for GPU-scoped events
->   * @eventfd: eventfd file descriptor
->   *
-> - * Removes an existing binding between an event_id and an eventfd.
-> - *
->   * Return:
->   * 0 if removed, -ENOENT if binding does not exist.
->   */
-> -int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd)
-> +int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr,
-> +			  struct amdgpu_userq_mgr *userq_mgr,
-> +			  u32 event_type, u32 queue_id, int eventfd)
->  {
->  	struct amdgpu_eventfd_id *id;
->  	struct amdgpu_eventfd_entry *e;
->  	struct hlist_node *tmp;
->  	struct eventfd_ctx *ctx;
-> +	struct amdgpu_usermode_queue *queue = NULL;
->  	unsigned long flags;
->  	bool removed = false;
->  
-> -	if (!mgr || !event_id || eventfd < 0)
-> +	if (!mgr || eventfd < 0 || !amdgpu_eventfd_valid_type(event_type))
->  		return -EINVAL;
->  
-> +	if (amdgpu_eventfd_queue_scoped(event_type)) {
-> +		if (!userq_mgr || !queue_id)
-> +			return -EINVAL;
-> +
-> +		queue = amdgpu_userq_get(userq_mgr, queue_id);
-> +		if (!queue)
-> +			return -ENOENT;
-> +	} else if (queue_id) {
-> +		return -EINVAL;
-> +	}
-> +
->  	ctx = eventfd_ctx_fdget(eventfd);
-> -	if (IS_ERR(ctx))
-> +	if (IS_ERR(ctx)) {
-> +		amdgpu_userq_put(queue);
->  		return PTR_ERR(ctx);
-> +	}
->  
->  	xa_lock_irqsave(&mgr->ids, flags);
->  
-> -	id = xa_load(&mgr->ids, event_id);
-> +	id = xa_load(&mgr->ids, event_type);
->  	if (!id)
->  		goto out_unlock;
->  
->  	hlist_for_each_entry_safe(e, tmp, &id->entries, hnode) {
-> -		if (e->ctx != ctx)
-> +		if (e->ctx != ctx || e->queue != queue)
->  			continue;
->  
->  		hlist_del(&e->hnode);
->  		id->n_entries--;
->  		removed = true;
->  
-> +		amdgpu_userq_put(e->queue);
->  		eventfd_ctx_put(e->ctx);
->  		kfree(e);
->  
->  		atomic_dec(&mgr->bind_count);
->  
->  		if (!id->n_entries) {
-> -			__xa_erase(&mgr->ids, event_id);
-> +			__xa_erase(&mgr->ids, event_type);
->  			kfree(id);
->  		}
->  
-> @@ -346,27 +402,75 @@ int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int even
->  out_unlock:
->  	xa_unlock_irqrestore(&mgr->ids, flags);
->  	eventfd_ctx_put(ctx);
-> +	amdgpu_userq_put(queue);
->  
->  	return removed ? 0 : -ENOENT;
->  }
->  
->  /**
-> - * amdgpu_eventfd_signal - notify all eventfds bound to event_id
-> + * amdgpu_eventfd_remove_queue - remove all EVENTFD bindings for a queue
->   * @mgr: eventfd manager
-> - * @event_id: event identifier
-> + * @queue: queue being destroyed/released
->   *
-> - * This function is typically called from interrupt context.
-> + * Remove all subscriptions that hold a reference to @queue.
-> + * This is called when the queue id is released so EVENTFD can drop
-> + * its queue references before the queue is finally destroyed.
-> + */
-> +void amdgpu_eventfd_remove_queue(struct amdgpu_eventfd_mgr *mgr,
-> +				 struct amdgpu_usermode_queue *queue)
-> +{
-> +	struct amdgpu_eventfd_id *id;
-> +	struct amdgpu_eventfd_entry *e;
-> +	struct hlist_node *tmp;
-> +	unsigned long index;
-> +	unsigned long flags;
-> +
-> +	if (!mgr || !queue)
-> +		return;
-> +
-> +	xa_lock_irqsave(&mgr->ids, flags);
-> +
-> +	xa_for_each(&mgr->ids, index, id) {
-> +		hlist_for_each_entry_safe(e, tmp, &id->entries, hnode) {
-> +			if (e->queue != queue)
-> +				continue;
-> +
-> +			hlist_del(&e->hnode);
-> +			id->n_entries--;
-> +
-> +			eventfd_ctx_put(e->ctx);
-> +			amdgpu_userq_put(e->queue);
-> +			kfree(e);
-> +
-> +			atomic_dec(&mgr->bind_count);
-> +		}
-> +
-> +		if (!id->n_entries) {
-> +			__xa_erase(&mgr->ids, index);
-> +			kfree(id);
-> +		}
-> +	}
-> +
-> +	xa_unlock_irqrestore(&mgr->ids, flags);
-> +}
-> +
-> +/**
-> + * amdgpu_eventfd_signal - notify all matching eventfd subscriptions
-> + * @mgr: eventfd manager
-> + * @event_type: kernel-defined AMDGPU event type
-> + * @queue: queue pointer for queue-scoped events, or NULL for GPU-scoped events
->   *
-> - * All eventfds registered for the given event_id will be signaled.
-> - * Userspace processes waiting on those eventfds will wake up.
-> + * This can run from IRQ context. The queue pointer must refer to the actual
-> + * queue object, not the reusable UAPI queue_id.
->   */
-> -void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_id)
-> +void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_type,
-> +			   struct amdgpu_usermode_queue *queue)
->  {
->  	struct amdgpu_eventfd_id *id;
->  	struct amdgpu_eventfd_entry *e;
->  	unsigned long flags;
->  
-> -	if (!mgr || !event_id)
-> +	if (!mgr || !amdgpu_eventfd_valid_type(event_type))
->  		return;
->  
->  	/*
-> @@ -375,10 +479,12 @@ void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_id)
->  	 */
->  	xa_lock_irqsave(&mgr->ids, flags);
->  
-> -	id = xa_load(&mgr->ids, event_id);
-> +	id = xa_load(&mgr->ids, event_type);
->  	if (id) {
-> -		hlist_for_each_entry(e, &id->entries, hnode)
-> -			eventfd_signal(e->ctx);
-> +		hlist_for_each_entry(e, &id->entries, hnode) {
-> +			if (e->queue == queue)
-> +				eventfd_signal(e->ctx);
-> +		}
->  	}
->  
->  	xa_unlock_irqrestore(&mgr->ids, flags);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
-> index 248afb1f2f14..9ea3283e92bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
-> @@ -32,13 +32,17 @@
->  #include <linux/xarray.h>
->  #include <linux/atomic.h>
->  
-> +struct amdgpu_userq_mgr;
-> +struct amdgpu_usermode_queue;
-> +
->  struct amdgpu_eventfd_entry {
->  	struct eventfd_ctx *ctx;
-> +	struct amdgpu_usermode_queue *queue;
->  	struct hlist_node hnode;
->  };
->  
->  struct amdgpu_eventfd_id {
-> -	u32 event_id;
-> +	u32 event_type;
->  	struct hlist_head entries;
->  	u32 n_entries;
->  };
-> @@ -51,9 +55,16 @@ struct amdgpu_eventfd_mgr {
->  void amdgpu_eventfd_mgr_init(struct amdgpu_eventfd_mgr *mgr);
->  void amdgpu_eventfd_mgr_fini(struct amdgpu_eventfd_mgr *mgr);
->  
-> -int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd);
-> -int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr, u32 event_id, int eventfd);
-> +int amdgpu_eventfd_bind(struct amdgpu_eventfd_mgr *mgr,
-> +			struct amdgpu_userq_mgr *userq_mgr,
-> +			u32 event_type, u32 queue_id, int eventfd);
-> +int amdgpu_eventfd_unbind(struct amdgpu_eventfd_mgr *mgr,
-> +			  struct amdgpu_userq_mgr *userq_mgr,
-> +			  u32 event_type, u32 queue_id, int eventfd);
-> +void amdgpu_eventfd_remove_queue(struct amdgpu_eventfd_mgr *mgr,
-> +				 struct amdgpu_usermode_queue *queue);
->  
-> -void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_id);
-> +void amdgpu_eventfd_signal(struct amdgpu_eventfd_mgr *mgr, u32 event_type,
-> +			   struct amdgpu_usermode_queue *queue);
->  
->  #endif /* __AMDGPU_EVENTFD_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index f7c750094393..0db128def289 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -649,22 +649,32 @@ int amdgpu_eventfd_ioctl(struct drm_device *dev, void *data,
->  	if (args->flags || !args->event_type || args->eventfd < 0)
->  		return -EINVAL;
->  
-> -	/*
-> -	 * Queue-scoped subscriptions are enabled by the later queue-reference
-> -	 * routing patch. Until then, keep queue_id zero.
-> -	 */
-> -	if (args->queue_id)
-> +	switch (args->event_type) {
-> +	case DRM_AMDGPU_EVENT_TYPE_USERQ_EOP:
-> +	case DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET:
-> +	case DRM_AMDGPU_EVENT_TYPE_SCRATCH:
-> +		break;
-> +	case DRM_AMDGPU_EVENT_TYPE_MEMORY_EXCEPTION:
-> +		if (args->queue_id)
-> +			return -EINVAL;
-> +		break;
-> +	default:
->  		return -EINVAL;
-> +	}
-
-Doesn't that duplicate the functionality of amdgpu_eventfd_queue_scoped() ?
-
-In general I think it would be cleaner if you convert the queue_id into the queue pointer here.
-
-Same could be done for eventfd.
-
-Regards,
-Christian. 
-
->  
->  	switch (args->op) {
->  	case DRM_AMDGPU_EVENTFD_OP_BIND:
->  		return amdgpu_eventfd_bind(&fpriv->eventfd_mgr,
-> +					   &fpriv->userq_mgr,
->  					   args->event_type,
-> +					   args->queue_id,
->  					   args->eventfd);
->  	case DRM_AMDGPU_EVENTFD_OP_UNBIND:
->  		return amdgpu_eventfd_unbind(&fpriv->eventfd_mgr,
-> -					     args->event_type,
-> -					     args->eventfd);
-> +						 &fpriv->userq_mgr,
-> +						 args->event_type,
-> +						 args->queue_id,
-> +						 args->eventfd);
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 376813e9623f..45981adbd7d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -869,6 +869,8 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->  		if (!queue)
->  			return -ENOENT;
->  
-> +		amdgpu_eventfd_remove_queue(&fpriv->eventfd_mgr, queue);
-> +
->  		amdgpu_userq_put(queue);
->  		break;
->  	}
-> @@ -1229,6 +1231,8 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
->  		if (!queue)
->  			break;
->  
-> +		amdgpu_eventfd_remove_queue(amdgpu_userq_eventfd_mgr(userq_mgr), queue);
-> +
->  		amdgpu_userq_put(queue);
->  	}
->  
+Thanks,
+Arun.
+>
+>>>
+>>> For drivers that don't use free tracking, is there some benefit? Are 
+>>> there any downsides there? I assume that clear tracker is always empty.
+>> Correct, for drivers that don't clear memory, the clear tracker is 
+>> always empty and they simply allocate from the free_tree[]. Benefits:
+>>
+>> Single tree per order instead of dual trees (fewer rbtree operations)
+>> No force_merge path at all (unconditional coalescing at free time)
+>> Simpler code path overall
+>>
+>> No real downsides - the clear tracker adds zero overhead when empty, 
+>> and the augment bits would simply show all blocks as dirty, so the 
+>> walk degenerates to a normal rbtree lookup with no extra cost.
+>>
+>> Regards,
+>> Arun.
+>>
+>>
+>
 
