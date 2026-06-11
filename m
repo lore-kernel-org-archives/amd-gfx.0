@@ -4,125 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8518CD8C9D
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 04:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C790BCD98C6
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 04:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 223A810EC97;
-	Thu, 11 Jun 2026 04:12:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2CF10EC9B;
+	Thu, 11 Jun 2026 04:17:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tPwu7KFM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uVgxazGS";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012055.outbound.protection.outlook.com [52.101.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1370810EC97
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 04:12:02 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012032.outbound.protection.outlook.com [40.107.209.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE9CC10EC9B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 04:17:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EVPOpMInbr2CbcAaGqTrkznlAcDn/hAE4ZuwPACFgErj3lUo6raftUDvaD+qa6scgh9k4g3HVwkiRNV1J7qVxQ0TvOZ1GaqwHm1YXMil5/nIzbVx6mSIr2B0dQiWZRxJyKfhh7+Rj6UTdUrVxFE0xo0RKZsuC5mPY53JKFULiP6bIyqXC8Tv1XIMzJZB6Tkcv2lLlZcgD8csu3FB8YzVq3JNUEv28OQssiUwRiQMBKB627Lyez3yn7NkIj13p62dJhZYtVOD71e80k4v32kdyCZwSyjGZVL1DfzKJXwCiuZvxAoWaUpz8ynTCgVMhkke/MZsKPd9PIG7a2ifk6xCTQ==
+ b=v+y0Ral2KkdKGMqAjzoiB3QENXc1wNcTPAjlkjWkG7VWTnIPoaXoXLKyTt5tsRZKtBFuUtGgsa4qZ9IbSvc7KkgVlYh059C9ZZlfNye37CzR0y6oh/S2PZF4Im8EvWyV9jO22tM3v9DhfO6ZEcQWJ2/27udyU6cxwCGyNFuJkfnDBs6disstjGZWU66PXpTeOBzpLotITyLduLsruOY5kdDR4BcQY0KvrUhyU/0Xje2Qv61uiXPUE6buvrY1OGd23hmfpKfDZ4ZEcRNMrFfJusfiFog/YHPl44grgtYbAHIcAkrcEK5wiexrmONj9EVdx4wHeZgTDcT1RZ4a+/vivA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U7+DS/wE3drlSPoud+prapQCy9gD6+t0bvncLEdvm2A=;
- b=YEWlGjETpx4mDbVWnNji9sr5bXSL4npIxi+/eqLJCttXnXCIfPcpZNpQXPgeTz2cz1944u1cRMHhn28dLox70iBP/Bl/JNFtN5kBo3oOmx6sOe3gU2TigNoEiVJqV+2dJaZrrtTjLbMaKjGrBV6gZgeeZF6+w80TRKQi/UnYzprn56EjqM/BI6TX1q031BTU95UiMhD7pTgRLqA8WIZeYre1TPRY4XLtJO7EPs9Itiryl/+kYmYn5z5VfHrROwp3GHUSKP+NqPx7MYI4cWtbuN+Gwe8LIpodD+TXm4J+VCgbm0sWJycrM4QT6ooSOEURa+V9maqQ5X7XNhSxE1yLgg==
+ bh=97/YlCd728F8MpIthKoQyOOIkQyaOyfX9yl3TNdVCk8=;
+ b=eSSVmEmCcFHOa816stmONPlinXz0mklFOSeQXxglQIJJO/L/uJrZWOPOzNVtQnEXguKC348Uh4gjmXwvxmoOUbmXwE/A56BTfamOhQfumkWRzpRhbWoHUT+ya9/jCjq8Y1IduniiSVkl5jUIqW1jeWeJc8MbPPcrdn+Au+N77VxFvYakGdPIrw2EY/YV18OMdQox4IQboEShN/b0I7dPGt2eZngcKNmiTEPaAdYDwbEIrf1DHtfuEH5DY68KmdSDpUMkilK+PEfRJJEH0sk1ETBnoqJu4/W7bLxkV/lfln74EDsXbob7E/EFP81GRthNoy2l5j+e2ycfVBHTTZGXZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U7+DS/wE3drlSPoud+prapQCy9gD6+t0bvncLEdvm2A=;
- b=tPwu7KFM0MU3YfMjM8JzqixCGGjWPtLtLjvvJSyPAAAVxDZaPYv3svwvIfDRj0I8c+Vwr4Zs7wy84sd8mYc3ChaO5jwGkB9AKMvaXglEKw3ujd+K5gR/qs8vBKCovo+05+Ixe2L0K/nNF+YevUVGbh93PomJc2eL6MLiWoQCmIE=
+ bh=97/YlCd728F8MpIthKoQyOOIkQyaOyfX9yl3TNdVCk8=;
+ b=uVgxazGShnv5j76smVhpMgaZlJ1bvfDcZArS0fopYMD4Uvm8QaJtBQTo3DqO963UkzJvMFrrluKdY3/qvkXjI/YEXfxDw1baoREUmVgQ8uMBddGlKwl0AQAixjCbRhnCI97SLzz1SS5Dwr5AaZUqKXwvKURCuhOMnV/LxQAnMnM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by MW4PR12MB6876.namprd12.prod.outlook.com (2603:10b6:303:208::14)
+ by IA0PR12MB7555.namprd12.prod.outlook.com (2603:10b6:208:43d::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Thu, 11 Jun
- 2026 04:11:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.14; Thu, 11 Jun
+ 2026 04:17:23 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0092.011; Thu, 11 Jun 2026
- 04:11:58 +0000
-Message-ID: <a64c699b-69c1-4314-a0a2-35544c27d851@amd.com>
-Date: Thu, 11 Jun 2026 09:41:51 +0530
+ 04:17:22 +0000
+Message-ID: <6c63f0ef-7cc5-41cb-8b5a-e4fcb21684b7@amd.com>
+Date: Thu, 11 Jun 2026 09:47:16 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/amd/pm: smu_v14_0_0: add DCLK metric handler
- via VCLK fall-through
+Subject: Re: [PATCH v2 4/4] drm/amd/pm: smu_v14_0_0: add closest-match
+ fallback for DPM level marking
 To: Priya Hosur <Priya.Hosur@amd.com>, amd-gfx@lists.freedesktop.org,
  Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
  Mario.Limonciello@amd.com, Kenneth.Feng@amd.com
 Cc: Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
 References: <20260610182333.3922-1-Priya.Hosur@amd.com>
- <20260610182333.3922-2-Priya.Hosur@amd.com>
+ <20260610182333.3922-5-Priya.Hosur@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260610182333.3922-2-Priya.Hosur@amd.com>
+In-Reply-To: <20260610182333.3922-5-Priya.Hosur@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BM1PR01CA0157.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:68::27) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: BM1PR01CA0154.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:68::24) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MW4PR12MB6876:EE_
-X-MS-Office365-Filtering-Correlation-Id: 845e6c34-8750-4859-fd74-08dec76f9480
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA0PR12MB7555:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e82ece6-83d0-4154-29a4-08dec7705605
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|22082099003|18002099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: 7qxiHNgGpMeNGEIhMqOF476MnMloxzS4nehMbQQT8QVGDZpxoB5bEZ/oslBTnjXApmjg0m/fP7NxbytaIFi3eCcsOw0o0r6zOTBMu4+XiYnr5KdP8qWtz0Jh3Xy1X46YXndHXwE9+NUlKhKx3JQRQnImA3AbtcogXcewDiT+ceOKaeK/u5UIjUohN67B1tlOjiQ43DE0BLwaiNSidQKc8UKDcFLRfYZ+tHmYKW4gMAHenZOWe0jHyG7iElA0KysVT2J10lf9OAvQKL/G53UPHxTEB8V4SNj6FalHli6bxdgOaCULA5AbYNuyni1XyoM0Wu6M0aDq9toyJTa4Bd34kgycEtohdxpWykJJOf12ty6mlQ7a67nZa0RT4j7sTWYlk0MOQbjAv8QRomImLsnteLurIddqHcxuIWKUAI2Z0OgImMFoVDOGfOIF0oHqnn4o/zNxpCfwM/itZMB9TiEr/bLegaCqMtP0JrI7COIMpfPasL0BM2zkIANieL9cBj6hbGVlYVZ8uMentB4CodKIWujukrSjdcODdOzfe1RcaBFCuHzj0tPi6rTtRdLJhahKzcmm6MPV06iuMM6c/omUI5Kw42GGgKBsGsXs1+bk89e/Q54aF95zFSEkyYaSSv0BT3gsO9wVUxBdQUf9uap6bGvOO2ajpE3gD98PI9B/C331EBqFemW7yBFWiLgg7xBr
+ ARA:13230040|23010399003|376014|1800799024|366016|22082099003|6133799003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: pxfpMNL1y/jRv0tq/8CieMIVOs8Um9IYXg9QzOOXGw+a985uPIB3nbPIqhzFO4Z2S0HJDZWQSx8ebLPSDK3ZvEK2AHefjFuWz/JVv5yiD50xRHl720a1KJIQwMb96j6999ITsnNICH6H/WDiPjw0V2qh78SgDrnGELZfhFFl6iKeQxeeUAW/dxbBBpMBXlhQizPQsqYmVHPSybblvgvexYnr3Fws3mdp7e94vYAtqUSNmZchGK/GdUU73eel8yYL7CmvcL9fwRBs01C5Tmz1BGQdZ0qT5x4A9+OoXhyDZ8pN3gPo+5y9VqRDRi9qY7b9DfhdQHo/CRuFpwa7ismMPbVWB23uTAVL7IaeZ0LTJVtGS0ZrSeRXuhlftXAG6bKxEFX4y97QtUsdAehsVQt+XZdOp1yPlADUDypR3AfCq8FH89U26qn+w5zg0Ig6YuE2aHjGP9NFbGdyPKCz3iZGxFjG8O0FHDhz7nlUP1v6Kbkr0DIxW7xJPrc1sPkqeDTs5W/DOTtIFSAVaQwNUtIxCmBN2eUeh7d7hSp1RYDcb1ujEBPbNXDmoSFv24aS+l13lZdFNW07weuMBVf+yEeEBQ+1cgDYd6M/J740uYIzFtMN7aFbHB0w1Vo3DstTWQxu+fp05ESc5tOZvs2YR+JEegvFfDG72jW0bZ1M3mvYb3VfurEciB7l4YVWb2nRXxO3
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(6133799003)(18002099003)(56012099006)(11063799006)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzVCdWtucnBLakNma0FhdkQ5YlgxZzhFMnRHWitLZld6NnBjcFlBa1NWOXo4?=
- =?utf-8?B?cDZMYTduMHdHNVEwaUdRNWlLeFIrU05xWnBTa2tCSWJHc2tRdENhSWsyOWky?=
- =?utf-8?B?YTdZOHNnRzhYSDVVdXVRNmQwdmJ1a0xwVTRZYStCaHAxaCtic2NsNXJzUm1Z?=
- =?utf-8?B?RVIvdjIyYWdSRWwrMkgxR29HclYzUG1VNkVnc2EwWEdWZngzUlQ5L1VEK01H?=
- =?utf-8?B?TktTM1JpOEhXbFFRWkExdk1sTVI2MVhLSmNaYjRIcGpPNVc0bUY2di91NDls?=
- =?utf-8?B?b3NLRnZVWHhzaDVPMExla0RlUE9zSW1yMGREMlNnd1RLUmh1bjNOdzAwaVE2?=
- =?utf-8?B?b3BJOGIzTVZzODNidGlqaUUzTXpSRXlyMEJJNk1LQlRqSGJ3WjZDSDVuMmlS?=
- =?utf-8?B?Z05LY21paTBuL1B0Qml6bkh3RDROWW5vbDJPSXpVYTFxWkF0R2NHQXRPRm9P?=
- =?utf-8?B?Q0ppbWI2SjZ0b2hsak9Sa1E5NWlsRWpRUWtjeUZ0cjZPL01CY1pZcnU2NUU4?=
- =?utf-8?B?a3N3VFBnVXc4Y3Q1VGZLcytneGh0bzY2OHIzYVM0QjRwQVphUlk0a1lYTnJJ?=
- =?utf-8?B?S2JPQlNZZGFtcG5SN2E2OTNFQXR3Ym45VmJTR3hHaHQ0YVpvU2NGZHFIczVK?=
- =?utf-8?B?UUtOS1gydFk0enR4a3pxRkNweDZNMUU0MkZraCtLcDZ2ejJXRENlYXE0aFNs?=
- =?utf-8?B?TWwzS2lvWCtuZlNWalI4dmpIcnNQYUFQRTNYWjdzNTQrelFzNXRnQkxPNndZ?=
- =?utf-8?B?S1JRVXM0eHY1amZRY1dKUE9XODJzSGxqSlYweVBnNWNEYVIvaGpvdkNqOFZi?=
- =?utf-8?B?dVZ4ZjlDVTkyTkFKcWVpaWt2NGdIQ0IrdElsbGxrYlNuN3JscGY2S2prREZ6?=
- =?utf-8?B?bVQrTkplcU1rcWFqQzV4WHpzQkwyYmsrTXQrV21ST0FOYnVMSEdwUllTVEhF?=
- =?utf-8?B?TkM3OG9XM0dNdk15UENNcGx6dmNuSUFvYkFiekN0c3VTZTQ4QlMyUzRBRERw?=
- =?utf-8?B?a0FMMFkxWVJ2cE5RL3lWRW9aYUt4RFhzaGFWTHd1ck1GOXVDcENreXVON1ln?=
- =?utf-8?B?UVVKVmJvdkNMV2RLT0RXN2N0RHB3WjVvY2Y2SVl0RHdOTnFVcmNRRUk5RTFK?=
- =?utf-8?B?S2pDR0FkS0R4RjJ3Wmlib0RJQi9FVkYwaExERE5NM002WUpqSXpzSGVmWnVM?=
- =?utf-8?B?RlVsOUw3ekRKeE80OXZKTG1sKzdwNXR3R0JOb0NqZVFsSUozZFZsYW94aEdP?=
- =?utf-8?B?UmJXc1lTU0g1czl1NTZKczF4UlBtc2NlU0hSTXZpU3pqNHorZ0RvWHNoeUxr?=
- =?utf-8?B?dFBERVlTRVFHaWl0RGVOQXhweFZBUFk4bUZpNG1MN2pTL1Rod0FldW1KMHJH?=
- =?utf-8?B?bEg5TVJQWHMwcmJJR215OTJKQTRRK004cnhab3AydWFXSHkvWm1vMnJxVGY3?=
- =?utf-8?B?MWVuNU01REJIdnhxeFdxdlQ0UEk2VTBHaGIvRmpHcWJDalJRTTJIMHhIK2ht?=
- =?utf-8?B?STh1L2dZMG5iSUhGdnFVUnJvYW9GbWE1QjRYV29NY25rdHhJbmdHYWRJVjR5?=
- =?utf-8?B?SGhUNmUxM1ZkYVZIdWZjei9zUldzWnl5UjAxU0R0TmlMd2h3YVo2clRaVi93?=
- =?utf-8?B?cEN6Y1MvV0xLcFRiZFBlNU1NTjJTa09lVlJpUzJHWlJDa2F5WWtoTGc4K0oz?=
- =?utf-8?B?czFDSjAxTjFYKzdmV3h2ZFFQd0lmQ3BaS3hKS3d4Z01GVDdpanFWK25aQmhG?=
- =?utf-8?B?d2Z6N0lHbytDc0xZME9aMG9taEFMamdUSm04UWJ2d25tWUdRcndDNktkSVZK?=
- =?utf-8?B?dXlGVmY5N24zMmxQdXF5eFV0a3RlaUI1NHQ3UFo5OTFLT2xqRXhBZm43Y25V?=
- =?utf-8?B?K3EwTHJtYkRKNmRDdkV1c1ZEdStpSFJ6NGRBSDhkd2s3bC92dE1Td2JGWTBU?=
- =?utf-8?B?azNTeFNQWU8ycStMTmJUY0RrNW53QXh6NWkwWlo3ZDIrTXp2eVZRd0lYLzVR?=
- =?utf-8?B?Z3E2RGQxS3hXbE0vendQcFhRemVueDVFR3liQ3R1Z3craEthdVE1NzRQR1hv?=
- =?utf-8?B?OTFJWGxDU0duNnNvbXV3SGFaWVVjMllnUjZ2dCtOemF4WHJTZkhPZkJpRTVn?=
- =?utf-8?B?bE9pdFpoL3EwWWY5MU9hYlZYY0pZRm8zMU0xMTBVMlNpcnpGUngrRTRoNERj?=
- =?utf-8?B?czJ5cEl1ekpqTUR1ZVJObGJsVG8rSzVVQjNLc2xUSkRFaU5FckxENVNNUkJs?=
- =?utf-8?B?QWVGQVozbHFJb2dJNnl3Wk1TL2ZheGsrYzRXU1hjL0FzNlVYTFJlbk8zdVZp?=
- =?utf-8?B?blR2K1F3ZCs1TllzT25lL09GdGlFd3h5aWdOUWtIUHdRTTRESEd2Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlRGT3FpbnN1c0ovTFdNaTBvcUVDZWlQQXNHYk9YVGFVZTdIWG1URkdvV2hx?=
+ =?utf-8?B?aSt6bzlOTGpXeTZJSG1IREl2eUpXYzZpc1hwWmxHVG9yZCtKUlRlVjhURnR4?=
+ =?utf-8?B?YmpObWxZSG9DZ2U1bndSaWNpaVI2UkhFdHpIS2NINmRmRE5DQWZ6QzNxU25L?=
+ =?utf-8?B?MWlra0hyM1FrQktOY2twbktvVDBYb2UxL3JUSWo5QTdQb0tmK0RCVFlmKzU3?=
+ =?utf-8?B?bVdnWFd0d1gwVjBNVXNFUldTT0pIZ0F2VFBVL3o3UnhRb25lM0dNMXZvNmsv?=
+ =?utf-8?B?M3doRldZd1p4NVhsQWRBSE1hRzZyN1BIWXBjVUhicTBzTXVtZ3lITWVSa21u?=
+ =?utf-8?B?WlFwY2Jkd3pGbUdlaThOQ3JJNnpXeVU4Z2FjY0lLczVJVHI5cW1iWWVmSjZ5?=
+ =?utf-8?B?d0FRVTVRMTVzYk02TFV2K1J1a2I0YTkxdE0vcTJzeVR2N2o1YlN6ekRQdVh2?=
+ =?utf-8?B?MThHWHlWalFIWDFhVmJIUzVXZVA5RHVwaDZqK3hTU0w5dzVQcEMzNmdjWm1q?=
+ =?utf-8?B?a0w0Y0xha0tYdEJBUitTTjJINVg5djZYS3ZHQ3hiRi9EcXF1aC8vM1FVRHlj?=
+ =?utf-8?B?L3drdDhsRFA4bTdrNE92elI0cUlHRWlwbDlFUFRLTWFtdWo4K3NnTDRUNTE5?=
+ =?utf-8?B?RXRjSGNEUjFva0VyQllTYWI3TU1acHdHd3lBbmU4ODdzVkdQN013S29iS0h2?=
+ =?utf-8?B?U2lZbEJqMDN4Y1R5VDdaNEFlaStNODhjcHVZOWF5TjJHOHlZNHFXWW93TEpS?=
+ =?utf-8?B?UWNtbmNCbXRseTR2bEQrV3hhT3dUWVZlQ01KbzFybnRiS2ZHMHJDMnBsYStZ?=
+ =?utf-8?B?M1JNdndVSXFGWkdIbDVrQU5ITi9NSng1SjY2Y3NsSmtDMldBbW5wNVFYbkw3?=
+ =?utf-8?B?L1ZpbzB1SWhuT1RJLzZZOVN1U3VFSiswdGNtV0tGd0RMMjhkRFIwSUpTRzcv?=
+ =?utf-8?B?TnZGcUNxZXVxUTJIaDdhUnZYSEsyTjBaY05lQmRkZTdkSDdNTTF6SFc0Sk9F?=
+ =?utf-8?B?TGk1V3VSbTIwZnF4NjRlenpCTjZVQkFQZW9HMzhZd0RHNkhaSUd0MUdrSndP?=
+ =?utf-8?B?QVhiTGZEUzZIL3M0Ti9DaThORVQ5bWVJUW9OcVA2YzRxait4aS9YeS9RKzhZ?=
+ =?utf-8?B?Y2xWcDdHZ1BnaWtNK2RsUytRN3E1NFFYdUZIUStoOXV2Q2YrREc5M05QcWJQ?=
+ =?utf-8?B?NWJ4ZGUrUTlVRW5iM3ZQME16UFJoZlhMM0k5WWpxZVpvWFJ6Ly9QL1g4YkUz?=
+ =?utf-8?B?QXB1cFdLU1ZpUkN6NzNmMm1SS1hGZE1WQS9zZVcvMWp5aGhOUU41NHRRdUpo?=
+ =?utf-8?B?b3E0a2hUYUZNOWZEMlhYeW96eXJvMUEzQmdNSUsyY2pNQVBqN1krZmtaT3NW?=
+ =?utf-8?B?UFlGVWExSTlLMThjRE9VVUo1MWdNdGM5M3REeHdZbU42bzBUSjVZS1BFUFpH?=
+ =?utf-8?B?WDVGZHF3aXQwSFh6Z3NHbS9HeHA3S3hmekRxSUwwS1VNQXVKSDdyTjJsY0JP?=
+ =?utf-8?B?UmtCL0FUVkRhL3B4OSs0V2l5WEMrakZ3WlZoSnM3VXRXUnNJRFpFTmQxNUtT?=
+ =?utf-8?B?eVJ0REIvVGNLYmxDTTRBY3BQR0wwMFBNV2VkNEhpUDdIRHM2SVU4UTBHWmVu?=
+ =?utf-8?B?dVJkM2xSMWtNb0hsOWRBN0ZnNFQzb3hVUzVISnAranByejJUMTFEdllhUW13?=
+ =?utf-8?B?cGVzTlQ0RXB5N1JXR0xWZHJiL2JBR0dORS9leDlvOUZFM2V2eEVtOVhDTjRZ?=
+ =?utf-8?B?djJxb1d6ZFVDL3B0RlIzZzdRK0l3RXNoL0FoOWNEWWQwWDhzSm1oaEVLSUlM?=
+ =?utf-8?B?dVQxSHRLcUdSdGt4cDZwVTZOcm5ZZFlNY1doZ2IrRVgzdllNdFN1YkcwUER0?=
+ =?utf-8?B?a0tSYzJiMFNacW8vMStRUjE5MzU2SlhQeTh6WXQvTXZxaEFqd01CT2R6TjhV?=
+ =?utf-8?B?RVB1TWFsK3ZxY2t4Yk1WbjN0K2tpSFpmbVowWDdzWUNaMUlZeHVsVVBuR3Q5?=
+ =?utf-8?B?cmJKTmNCR3ZndUIwbkZ6ckw5UlZuTWl2N2lnd2MvUWFWN0dwbnJpU3FOaUN1?=
+ =?utf-8?B?UTJ3VjRHWW5qMmhCQnl5MER2a0tRZFhMMHdacmJmMHp3THJRQnZEY2NmTnBQ?=
+ =?utf-8?B?UVZRZS9Mb3ZQc2xWeW1KUmxoYUthYk9KZ05IMXlDVytsdDlwVS9KalZudzBS?=
+ =?utf-8?B?VWY3TW9taXdtWUdPVTB6dVQ3NkY2WW9TdUE4RXNJSTRxSHFrS3RtSFNLYWw5?=
+ =?utf-8?B?QndTWlU5ekwyT2h5S0RoMEZCbnBvS3BuNzZuNkNQODJuRHUvRzNyWTlNbG44?=
+ =?utf-8?Q?nXVycurk/WFtJPwrOO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 845e6c34-8750-4859-fd74-08dec76f9480
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e82ece6-83d0-4154-29a4-08dec7705605
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 04:11:58.1690 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 04:17:22.8083 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FvA5tbDcrl28myTFhTr2fJ3etWq5iQQXYeBAcrHL1EOnNSnGra8CYC2+VxuNWOK9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6876
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0eQnl2g1kn/QvUg0CbiDq30N/qVcynUGyzFfsSQnDZHy2PL04AjGrg5dIA62YOjq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,37 +140,96 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 10-Jun-26 11:53 PM, Priya Hosur wrote:
-> Merge METRICS_AVERAGE_VCLK and METRICS_AVERAGE_DCLK into a single
-> fall-through case mapping both to VclkFrequency, since SmuMetrics_t
-> has no DclkFrequency field and DCLK tracks VCLK on VCN.
+> Replace the simple exact-match loop in emit_clk_levels with a
+> two-pass approach: the first pass checks whether the current
+> frequency matches any DPM level exactly and also tracks the closest
+> level by absolute frequency difference. The second pass emits the
+> levels, marking the exact match if found, otherwise the closest
+> level.
+> 
+> The SMU reports time-filtered average frequencies that often do not
+> match any DPM table entry exactly. Without this fallback, MCLK,
+> FCLK and other clocks show DPM levels but never display the *
+> marker, breaking userspace tools that rely on it to identify the
+> active frequency.
+> 
+> Also uses reverse DPM index for SMU_MCLK since MemPstateTable
+> stores levels high-to-low.
 > 
 > Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
 > ---
->   drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
+>   .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 53 ++++++++++++++++---
+>   1 file changed, 46 insertions(+), 7 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> index 2fe006de927a..79e0e2fca602 100644
+> index 1be8d1a8da19..c01c71acbe3f 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> @@ -281,10 +281,9 @@ static int smu_v14_0_0_get_smu_metrics_data(struct smu_context *smu,
->   		*value = metrics->SocclkFrequency;
->   		break;
->   	case METRICS_AVERAGE_VCLK:
-> -		*value = metrics->VclkFrequency;
-> -		break;
->   	case METRICS_AVERAGE_DCLK:
-> -		*value = 0;
-> +		/* No DclkFrequency in SmuMetrics_t; DCLK tracks VCLK on VCN */
-> +		*value = metrics->VclkFrequency;
+> @@ -1190,14 +1190,53 @@ static int smu_v14_0_0_emit_clk_levels(struct smu_context *smu,
+>   		if (ret)
+>   			return ret;
+>   
+> -		for (i = 0; i < count; i++) {
+> -			idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
+> -			ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
+> -			if (ret)
+> -				return ret;
+> +		/*
+> +		 * Try exact match first. If the SMU reports a time-averaged
+> +		 * frequency that doesn't match any DPM level exactly, fall
+> +		 * back to marking the closest DPM level.
+> +		 */
+> +		{
+> +			int closest_idx = 0;
+> +			uint32_t closest_diff = U32_MAX;
+> +			uint32_t diff;
+> +			bool exact_match = false;
+> +
+> +			for (i = 0; i < count; i++) {
+> +				idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
+> +				ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
+> +				if (ret)
+> +					return ret;
+> +
+> +				if (cur_value == value) {
+> +					closest_idx = i;
+> +					exact_match = true;
+> +					break;
+> +				}
+> +
+> +				diff = abs((int)cur_value - (int)value);
+> +				if (diff < closest_diff) {
+> +					closest_diff = diff;
+> +					closest_idx = i;
+> +				} else if (diff > closest_diff) {
+> +					break;
+> +				}
+> +			}
+>   
+> -			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, value,
+> -					      cur_value == value ? "*" : "");
+> +			for (i = 0; i < count; i++) {
+> +				idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
+> +				ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
+> +				if (ret)
+> +					return ret;
+> +
+> +				if (exact_match)
 
-The code refers to separate clock tables for DCLK and VCLK. As per this 
-they are identical, but still fetched separately.
+exact_match is redundant now. It only needs closest_idx check.
 
 Thanks,
 Lijo
 
+> +					size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
+> +							      i, value,
+> +							      cur_value == value ? "*" : "");
+> +				else
+> +					size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
+> +							      i, value,
+> +							      i == closest_idx ? "*" : "");
+> +			}
+>   		}
 >   		break;
->   	case METRICS_AVERAGE_UCLK:
->   		*value = metrics->MemclkFrequency;
+>   	case SMU_DCEFCLK:
 
