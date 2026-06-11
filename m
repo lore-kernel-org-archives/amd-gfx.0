@@ -4,81 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 576EACD98E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DC29CD98DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B51CE10F2FF;
-	Fri, 12 Jun 2026 07:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE5A10F308;
+	Fri, 12 Jun 2026 07:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="hfJBe35/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WrtwqVxc";
 	dkim-atps=neutral
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
- [209.85.221.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E2F10F103
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 19:52:35 +0000 (UTC)
-Received: by mail-vk1-f172.google.com with SMTP id
- 71dfb90a1353d-59eb501bcf0so65736e0c.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:52:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1781207554; x=1781812354; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3l+NNrZ8Cf8TmrGRm7OFOPfEcZLnJ3FIk2PyTUdkAU0=;
- b=hfJBe35/Hzp4DTfTgLd1qgezy93rpwmUXvXRBoxR6eQYE7SCM1cmjuGdGxd6NB8YzI
- OnwikbnC7fI9UjiyjjaAHVxsb1or6CkGXGbvQPQybDZnr4+rgyGDrssKqNqJOwRgEqA6
- gb1vU6JrS3uEgy4e+7lRho0Uzm6zHtEker8IBbI4kSJDdU/VwIVEaYackeTmEgaVTaXz
- fEkPLAlWelI+w+lXgQf3YpYCmaJVUCrU2fLCgZSvX63DWuGe/w8zua1iXLeBszW3+jmg
- 2e7ZFSGVJo3zWx2EHNJSEkZ2G05ZaFvJ2UctcqEyHOtLVGPx049WItx096+CE0YfKcrG
- Hjlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781207554; x=1781812354;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3l+NNrZ8Cf8TmrGRm7OFOPfEcZLnJ3FIk2PyTUdkAU0=;
- b=rMHKOztJVFCwAsBNfBmy2H8wh3sclSxuCO0PD7JdxtiG+3gr0llqrrZRtrwwGXyBAq
- rYa67uvfrceGpsybwIZPx2NjTmNjTO1np67JOvBdNX0Nb3mtzsS8KIhz31EacPOlZu/9
- P+H+ytA6mfF6jYGtuYrWDUO7H/WusAoZDPgk5lTU7btC9q+fUoEufg2N8n45L0Q0RKFv
- wrbhncwMmk4fWj6JzTXkmras/w4u7FJD9yhJvPEhQYyFUIJPtOSoYT/0fV8Jj1NbOWEx
- hfMHaQ34pnybJ4JUK9nyFL3xdnHi1tU6t1gqUCvZpyVC4ouPUm6Hkqx1MsepSnUvdXFq
- diBQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8pseoVuzFQ87Lf06aMHEkJCagKj9I0Bhx8NWByUEpsRp9HR4BpMToUj0fDqsmOFeY/5mpC/E4C@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyIW0akERUFfz7s/QgWSWiAJICUXhoDqMjHDCPmvVVjBG6IpqgD
- pPV66TaY8UDZfS2dkNL5nan4yRXsxEybG2zmyHTEvM1AHBntUDPS5a1Ii8qmmltn9Uw=
-X-Gm-Gg: Acq92OGevbGnaBchg/73pJHp5eXZNmHope516DUHVWADfiyLrytjSWvaE0m/GuCqmem
- LuLirXmkHTQAd8X7z/M426wHTPD87gYla4iox8TU0998mpV/2KSKMVMfP7iAB4/3tCWrEn3lMje
- kU5oKGsKoOfg5Dj4JmOCHv7K7AmQxKbDtqwDTyI78qsqnD+sJjCAlGozEo06eDl6EZWoeDDk1Ia
- P+H0/uZAlV7Ly+pIkdPEo+fgoirS+BUQaEuCWMkM3y8BVxskdvf1+Tct9q/HmTfVgwuuwU1GBAU
- V+IAPtlLFc+Wg8garXAijDpyp1AKlnxQ+01+hurPKvmPRJIHrc98XYDBEz5xAcQ1WIn4M356Jv0
- xIBY4EoO5heu4VcuXzJ1UcrMKRB1UtzuJhgvb+mA1FMEWd3WPnWeeSgfUVot3uZPudUi8ycwEXg
- 7RJYYn+OIHqGEabJLtBEp5v6t1bPQfljmk5h7Wzmevzecss9FvLnv0di0vQHlsjocgsv2xndfK6
- 8Js5tMHosQiaePggmW8ur91ZWvCGsRZ6UOmAyHUTbKAoZwQLw==
-X-Received: by 2002:a05:6122:1d03:b0:56e:f071:d4ef with SMTP id
- 71dfb90a1353d-5baffcd4b47mr2444641e0c.8.1781207553995; 
- Thu, 11 Jun 2026 12:52:33 -0700 (PDT)
-Received: from gui-host.Dlink ([186.220.219.98])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.52.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 12:52:33 -0700 (PDT)
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com
-Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH RESEND 5/9] drm/amd/display: convert dcn30 GPIO translation to
- lookup tables
-Date: Thu, 11 Jun 2026 16:49:05 -0300
-Message-ID: <20260611195026.25125-6-guilherme.bozi@usp.br>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
-References: <20260611195026.25125-1-guilherme.bozi@usp.br>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C58810EF68;
+ Thu, 11 Jun 2026 14:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781187805; x=1812723805;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ej3HAAXUlntHN0Gsczu1OOyQyT2RPb7RYHWcce/CQFw=;
+ b=WrtwqVxcLUuzFRBsruQZTQq3dlSONKzY8rYBUgTDf1FTfS8SXFkt/vL0
+ aZyLNAE3kSm4jgs38RVf5fOKdkj5DJ7t3Scrwjfez2b5/ApbqYFW+tkgi
+ x/8pm+xscUyPYe6GLJRBmBzb2SxOcRby18Kb9symMMJNyZr2DqU+jfQIW
+ yzUnvn64GcKYvF0NvPWgT5fqI+SEaWl/+0puvmA3WGkL4WgQfeGDdliL9
+ Zx1S3iK9JV21Fkotw6/PC1S713tPidNoysa2w6tntWnEwZZxq1jysazU0
+ ypemgxt2pAYxSkBpmflvIzeEoWfJ5Ttt2HND4rm8VFcina0L9pjM1r/NV Q==;
+X-CSE-ConnectionGUID: 5amjVM3GTQa9keIY5L1N8A==
+X-CSE-MsgGUID: oCbYRWnvSqy5SsECm4qNcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983433"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983433"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 07:23:25 -0700
+X-CSE-ConnectionGUID: 8bMC2SK5SDyGwzf2IuPMNA==
+X-CSE-MsgGUID: xPfgP4SGTFqJ3U/Po/AjTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574341"
+Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 07:23:21 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v5 4/6] drm/ttm: Hook up a cgroup-aware reclaim callback for
+ the dmem controller
+Date: Thu, 11 Jun 2026 16:22:40 +0200
+Message-ID: <20260611142242.2529-5-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+References: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:59 +0000
+X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,479 +83,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace dcn30 GPIO translation switch statements with the
-generic table-based translation helpers.
+Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
+dmem cgroup pool from a resource manager's LRU until a byte target is
+met.  Add ttm_resource_manager_set_dmem_region() to associate a dmem
+cgroup region with a resource manager; drivers supply their own
+dmem_cgroup_ops with ttm_resource_manager_dmem_reclaim as the reclaim
+function and the manager pointer as reclaim_priv in the dmem_cgroup_init
+to wire up TTM eviction as the reclaim callback.
 
-This simplifies the GPIO mapping logic and reduces duplicated
-translation code.
+The eviction context is interruptible; signals abort the operation and
+propagate back through the write() syscall.
 
-No functional changes intended.
+Introduce a new mode for the bo LRU walker so that sleeping locks
+can be taken. This can be used when the caller doesn't hold any
+previous dma_resv locks, and where it intends to hold at most
+one lock at a time.
 
-Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+Like the rest of the TTM eviction this should sooner than later
+be converted to full WW transactions.
+
+v3:
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
+
+v5:
+- Rebased on the introduction of struct dmem_cgroup_init.
+- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+  the reclaim callback, preventing use-after-free when the manager is
+  torn down while the dmem region outlives it. (Sashiko-bot)
+- Return 0 on any progress (even partial eviction), -ENOSPC only when
+  nothing was freed; fixes callers that expected 0 on partial success.
+- Document that the reclaim callback should return 0 if some progress
+  was made, -ENOSPC if no progress at all, or another error for fatal
+  failures.
+
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 +++++++-----------
- 1 file changed, 153 insertions(+), 279 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c | 50 ++++++++++++++++
+ include/drm/ttm/ttm_bo.h           | 10 ++++
+ include/drm/ttm/ttm_resource.h     |  7 +++
+ 5 files changed, 161 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
-index 49d6250037a9..c4225231f725 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
-@@ -67,131 +67,161 @@
-  * end *********************/
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index bcd76f6bb7f0..db0e38bd8a43 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ {
+ 	struct ttm_bo_evict_walk *evict_walk =
+ 		container_of(walk, typeof(*evict_walk), walk);
++	/* Capture size before eviction in case res is cleared. */
++	s64 bo_size = bo->base.size;
+ 	s64 lret;
  
+ 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
+ 					      evict_walk->try_low, &evict_walk->hit_low))
+ 		return 0;
  
-+static const struct gpio_id_offset_entry gpio_offsets[] = {
-+	/* GENERIC */
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_A),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICB_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_B),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICC_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_C),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICD_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_D),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICE_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_E),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_F),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A__DC_GPIO_GENERICG_A_MASK,
-+		GPIO_ID_GENERIC, GPIO_GENERIC_G),
-+	/* HPD */
-+	GPIO_MASK_ENTRY(DC_GPIO_HPD_A,
-+		DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK,
-+		GPIO_ID_HPD, GPIO_HPD_1),
-+	GPIO_MASK_ENTRY(DC_GPIO_HPD_A,
-+		DC_GPIO_HPD_A__DC_GPIO_HPD2_A_MASK,
-+		GPIO_ID_HPD, GPIO_HPD_2),
-+	GPIO_MASK_ENTRY(DC_GPIO_HPD_A,
-+		DC_GPIO_HPD_A__DC_GPIO_HPD3_A_MASK,
-+		GPIO_ID_HPD, GPIO_HPD_3),
-+	GPIO_MASK_ENTRY(DC_GPIO_HPD_A,
-+		DC_GPIO_HPD_A__DC_GPIO_HPD4_A_MASK,
-+		GPIO_ID_HPD, GPIO_HPD_4),
-+	GPIO_MASK_ENTRY(DC_GPIO_HPD_A,
-+		DC_GPIO_HPD_A__DC_GPIO_HPD5_A_MASK,
-+		GPIO_ID_HPD, GPIO_HPD_5),
-+	GPIO_MASK_ENTRY(DC_GPIO_HPD_A,
-+		DC_GPIO_HPD_A__DC_GPIO_HPD6_A_MASK,
-+		GPIO_ID_HPD, GPIO_HPD_6),
-+	/* GSL */
-+	GPIO_MASK_ENTRY(DC_GPIO_GENLK_A,
-+		DC_GPIO_GENLK_A__DC_GPIO_GENLK_CLK_A_MASK,
-+		GPIO_ID_GSL, GPIO_GSL_GENLOCK_CLOCK),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENLK_A,
-+		DC_GPIO_GENLK_A__DC_GPIO_GENLK_VSYNC_A_MASK,
-+		GPIO_ID_GSL, GPIO_GSL_GENLOCK_VSYNC),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENLK_A,
-+		DC_GPIO_GENLK_A__DC_GPIO_SWAPLOCK_A_A_MASK,
-+		GPIO_ID_GSL, GPIO_GSL_SWAPLOCK_A),
-+	GPIO_MASK_ENTRY(DC_GPIO_GENLK_A,
-+		DC_GPIO_GENLK_A__DC_GPIO_SWAPLOCK_B_A_MASK,
-+		GPIO_ID_GSL, GPIO_GSL_SWAPLOCK_B),
-+};
-+
-+
-+/* DDC */
-+static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
-+	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
-+	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
-+	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
-+	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
-+	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
-+	{ REG(DC_GPIO_DDC6_A), GPIO_DDC_LINE_DDC6 },
-+	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
-+};
-+
-+
-+/*
-+ * GSL is intentionally omitted here.
-+ * id_to_offset() for GSL is not implemented on this ASIC.
++	/*
++	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
++	 * eviction_valuable() callbacks must handle a NULL place, treating it
++	 * as "any placement": the TTM base implementation already does so via
++	 * ttm_resource_intersects().
++	 */
+ 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+ 		return 0;
+ 
+@@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ 		goto out;
+ 
+ 	evict_walk->evicted++;
+-	if (evict_walk->res)
++	if (evict_walk->res) {
+ 		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
+ 					  evict_walk->res, NULL);
+-	if (lret == 0)
+-		return 1;
++		if (lret == 0)
++			return 1;
++	} else {
++		/* Cgroup drain: return bytes freed for byte-denominated progress. */
++		return bo_size;
++	}
+ out:
+ 	/* Errors that should terminate the walk. */
+ 	if (lret == -ENOSPC)
+@@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+ 	return 0;
+ }
+ 
++/**
++ * ttm_bo_evict_cgroup() - Evict buffer objects charged to a specific cgroup.
++ * @bdev: The TTM device.
++ * @man: The resource manager whose LRU to walk.
++ * @limit_pool: The cgroup pool state whose members should be evicted.
++ * @target_bytes: Number of bytes to free.
++ * @ctx: The TTM operation context.
++ *
++ * Walk the LRU of @man and evict buffer objects that are charged to the
++ * cgroup identified by @limit_pool, until at least @target_bytes have been
++ * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
++ * strategy used by ttm_bo_evict_alloc().
++ *
++ * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
++ *         negative error code on fatal error.
 + */
-+static const struct gpio_pin_entry gpio_pins[] = {
-+	/* DDC */
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC6,
-+		DC_GPIO_DDC6_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC6,
-+		DC_GPIO_DDC6_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK),
-+	/* GENERIC */
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_A,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_B,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICB_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_C,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICC_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_D,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICD_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_E,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICE_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_F,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_GENERIC, GPIO_GENERIC_G,
-+		DC_GPIO_GENERIC_A, DC_GPIO_GENERIC_A__DC_GPIO_GENERICG_A_MASK),
-+	/* HPD */
-+	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_1,
-+		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_2,
-+		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD2_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_3,
-+		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD3_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_4,
-+		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD4_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_5,
-+		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD5_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_HPD, GPIO_HPD_6,
-+		DC_GPIO_HPD_A, DC_GPIO_HPD_A__DC_GPIO_HPD6_A_MASK),
-+};
++s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
++			struct ttm_resource_manager *man,
++			struct dmem_cgroup_pool_state *limit_pool,
++			s64 target_bytes,
++			struct ttm_operation_ctx *ctx)
++{
++	struct ttm_bo_evict_walk evict_walk = {
++		.walk = {
++			.ops = &ttm_evict_walk_ops,
++			.arg = { .ctx = ctx },
++		},
++		.limit_pool = limit_pool,
++		/* place, evictor, res left NULL: selects cgroup drain mode */
++	};
++	s64 lret, pass;
 +
++	evict_walk.walk.arg.trylock_only = true;
++	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
++	if (lret < 0 || lret >= target_bytes)
++		return lret;
 +
- static bool offset_to_id(
- 	uint32_t offset,
- 	uint32_t mask,
- 	enum gpio_id *id,
- 	uint32_t *en)
- {
--	switch (offset) {
--	/* GENERIC */
--	case REG(DC_GPIO_GENERIC_A):
--		*id = GPIO_ID_GENERIC;
--		switch (mask) {
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK:
--			*en = GPIO_GENERIC_A;
--			return true;
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICB_A_MASK:
--			*en = GPIO_GENERIC_B;
--			return true;
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICC_A_MASK:
--			*en = GPIO_GENERIC_C;
--			return true;
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICD_A_MASK:
--			*en = GPIO_GENERIC_D;
--			return true;
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICE_A_MASK:
--			*en = GPIO_GENERIC_E;
--			return true;
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK:
--			*en = GPIO_GENERIC_F;
--			return true;
--		case DC_GPIO_GENERIC_A__DC_GPIO_GENERICG_A_MASK:
--			*en = GPIO_GENERIC_G;
--			return true;
--		default:
--			ASSERT_CRITICAL(false);
--			return false;
--		}
--	break;
--	/* HPD */
--	case REG(DC_GPIO_HPD_A):
--		*id = GPIO_ID_HPD;
--		switch (mask) {
--		case DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK:
--			*en = GPIO_HPD_1;
--			return true;
--		case DC_GPIO_HPD_A__DC_GPIO_HPD2_A_MASK:
--			*en = GPIO_HPD_2;
--			return true;
--		case DC_GPIO_HPD_A__DC_GPIO_HPD3_A_MASK:
--			*en = GPIO_HPD_3;
--			return true;
--		case DC_GPIO_HPD_A__DC_GPIO_HPD4_A_MASK:
--			*en = GPIO_HPD_4;
--			return true;
--		case DC_GPIO_HPD_A__DC_GPIO_HPD5_A_MASK:
--			*en = GPIO_HPD_5;
--			return true;
--		case DC_GPIO_HPD_A__DC_GPIO_HPD6_A_MASK:
--			*en = GPIO_HPD_6;
--			return true;
--		default:
--			ASSERT_CRITICAL(false);
--			return false;
--		}
--	break;
--	/* REG(DC_GPIO_GENLK_MASK */
--	case REG(DC_GPIO_GENLK_A):
--		*id = GPIO_ID_GSL;
--		switch (mask) {
--		case DC_GPIO_GENLK_A__DC_GPIO_GENLK_CLK_A_MASK:
--			*en = GPIO_GSL_GENLOCK_CLOCK;
--			return true;
--		case DC_GPIO_GENLK_A__DC_GPIO_GENLK_VSYNC_A_MASK:
--			*en = GPIO_GSL_GENLOCK_VSYNC;
--			return true;
--		case DC_GPIO_GENLK_A__DC_GPIO_SWAPLOCK_A_A_MASK:
--			*en = GPIO_GSL_SWAPLOCK_A;
--			return true;
--		case DC_GPIO_GENLK_A__DC_GPIO_SWAPLOCK_B_A_MASK:
--			*en = GPIO_GSL_SWAPLOCK_B;
--			return true;
--		default:
--			ASSERT_CRITICAL(false);
--			return false;
--		}
--	break;
--	/* DDC */
--	/* we don't care about the GPIO_ID for DDC
--	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
--	 * directly in the create method
--	 */
--	case REG(DC_GPIO_DDC1_A):
--		*en = GPIO_DDC_LINE_DDC1;
--		return true;
--	case REG(DC_GPIO_DDC2_A):
--		*en = GPIO_DDC_LINE_DDC2;
--		return true;
--	case REG(DC_GPIO_DDC3_A):
--		*en = GPIO_DDC_LINE_DDC3;
--		return true;
--	case REG(DC_GPIO_DDC4_A):
--		*en = GPIO_DDC_LINE_DDC4;
--		return true;
--	case REG(DC_GPIO_DDC5_A):
--		*en = GPIO_DDC_LINE_DDC5;
--		return true;
--	case REG(DC_GPIO_DDC6_A):
--		*en = GPIO_DDC_LINE_DDC6;
-+	if (dal_hw_translate_gpio_ddc_offset_to_id(
-+			ddc_offset_map,
-+			ARRAY_SIZE(ddc_offset_map),
-+			offset, en))
- 		return true;
--	case REG(DC_GPIO_DDCVGA_A):
--		*en = GPIO_DDC_LINE_DDC_VGA;
++	/* Second pass: also evict BOs at the low watermark. */
++	if (evict_walk.hit_low) {
++		evict_walk.try_low = true;
++		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
++					      target_bytes - lret);
++		if (pass < 0)
++			return pass;
++		lret += pass;
++		if (lret >= target_bytes)
++			return lret;
++	}
 +
-+	if (dal_hw_translate_gpio_offset_to_id(
-+			gpio_offsets,
-+			ARRAY_SIZE(gpio_offsets),
-+			offset, mask, id, en))
- 		return true;
++	/* Full sleeping-lock pass for remaining target. */
++	evict_walk.try_low = evict_walk.hit_low = false;
++	evict_walk.walk.arg.trylock_only = false;
++
++retry:
++	evict_walk.walk.arg.sleeping_lock = true;
++	do {
++		evict_walk.evicted = 0;
++		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
++					      target_bytes - lret);
++		if (pass < 0) {
++			lret = pass;
++			goto out;
++		}
++		lret += pass;
++	} while (lret < target_bytes && evict_walk.evicted);
++
++	/* One more attempt if we hit the low limit during sleeping-lock pass. */
++	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
++		evict_walk.try_low = true;
++		goto retry;
++	}
++
++out:
++	return lret;
++}
++EXPORT_SYMBOL(ttm_bo_evict_cgroup);
++
+ /**
+  * ttm_bo_pin - Pin the buffer object.
+  * @bo: The buffer object to pin
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index 3e3c201a0222..bd0b23ac2cc4 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
+ 		bo = res->bo;
+ 		if (ttm_lru_walk_trylock(curs, bo))
+ 			bo_locked = true;
+-		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
++		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
++			 arg->trylock_only)
+ 			continue;
  
--/*
-- *	case REG(DC_GPIO_I2CPAD_A): not exit
-- *	case REG(DC_GPIO_PWRSEQ_A):
-- *	case REG(DC_GPIO_PAD_STRENGTH_1):
-- *	case REG(DC_GPIO_PAD_STRENGTH_2):
-- *	case REG(DC_GPIO_DEBUG):
-- */
--	/* UNEXPECTED */
--	default:
--/*	case REG(DC_GPIO_SYNCA_A): not exist */
--		ASSERT_CRITICAL(false);
--		return false;
--	}
-+	ASSERT_CRITICAL(false);
-+	return false;
+ 		if (!ttm_bo_get_unless_zero(bo)) {
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 154d6739256f..ad00723e99ef 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -953,3 +953,53 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
+ #endif
  }
+ EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
++
++/**
++ * ttm_resource_manager_dmem_reclaim() - dmem cgroup reclaim callback for TTM
++ *                                       resource managers.
++ * @pool: The dmem cgroup pool state for the cgroup being reclaimed.
++ * @target_bytes: Number of bytes to try to free.
++ * @priv: The &ttm_resource_manager pointer, passed as @init.reclaim_priv to
++ *        dmem_cgroup_register_region().
++ *
++ * Drivers should use this as the @reclaim member of their own
++ * &struct dmem_cgroup_ops, with the &ttm_resource_manager pointer as
++ * @init.reclaim_priv.
++ *
++ * Return: 0 if some memory was freed, -ENOSPC if nothing was freed, or
++ *         another negative error code on fatal failure.
++ */
++int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
++				      u64 target_bytes, void *priv)
++{
++	struct ttm_resource_manager *man = priv;
++	struct ttm_operation_ctx ctx = { .interruptible = true };
++	s64 freed;
++
++	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
++	if (freed < 0)
++		return freed;
++
++	return freed > 0 ? 0 : -ENOSPC;
++}
++EXPORT_SYMBOL(ttm_resource_manager_dmem_reclaim);
++
++/**
++ * ttm_resource_manager_set_dmem_region() - Associate a dmem cgroup region with a
++ *                                        resource manager.
++ * @man: The resource manager.
++ * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
++ *
++ * When @region is valid, stores it in @man->cg so that TTM can look up the
++ * associated pool during charging and eviction-target selection.
++ * The reclaim callback must be wired up using ttm_resource_manager_dmem_reclaim()
++ * in the driver's own &struct dmem_cgroup_ops, with the manager pointer as
++ * @init.reclaim_priv.
++ */
++void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
++					  struct dmem_cgroup_region *region)
++{
++	if (!IS_ERR_OR_NULL(region))
++		man->cg = region;
++}
++EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8310bc3d55f9..32791c4db2a9 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
+ 	struct ww_acquire_ctx *ticket;
+ 	/** @trylock_only: Only use trylock for locking. */
+ 	bool trylock_only;
++	/**
++	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
++	 * @trylock_only has precedence over this field.
++	 */
++	bool sleeping_lock;
+ };
  
- static bool id_to_offset(
-@@ -199,170 +229,14 @@ static bool id_to_offset(
- 	uint32_t en,
- 	struct gpio_pin_info *info)
- {
--	bool result = true;
--
--	switch (id) {
--	case GPIO_ID_DDC_DATA:
--		info->mask = DC_GPIO_DDC6_A__DC_GPIO_DDC6DATA_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC6:
--			info->offset = REG(DC_GPIO_DDC6_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_DDC_CLOCK:
--		info->mask = DC_GPIO_DDC6_A__DC_GPIO_DDC6CLK_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC6:
--			info->offset = REG(DC_GPIO_DDC6_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_GENERIC:
--		info->offset = REG(DC_GPIO_GENERIC_A);
--		switch (en) {
--		case GPIO_GENERIC_A:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICA_A_MASK;
--		break;
--		case GPIO_GENERIC_B:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICB_A_MASK;
--		break;
--		case GPIO_GENERIC_C:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICC_A_MASK;
--		break;
--		case GPIO_GENERIC_D:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICD_A_MASK;
--		break;
--		case GPIO_GENERIC_E:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICE_A_MASK;
--		break;
--		case GPIO_GENERIC_F:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICF_A_MASK;
--		break;
--		case GPIO_GENERIC_G:
--			info->mask = DC_GPIO_GENERIC_A__DC_GPIO_GENERICG_A_MASK;
--		break;
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_HPD:
--		info->offset = REG(DC_GPIO_HPD_A);
--		switch (en) {
--		case GPIO_HPD_1:
--			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD1_A_MASK;
--		break;
--		case GPIO_HPD_2:
--			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD2_A_MASK;
--		break;
--		case GPIO_HPD_3:
--			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD3_A_MASK;
--		break;
--		case GPIO_HPD_4:
--			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD4_A_MASK;
--		break;
--		case GPIO_HPD_5:
--			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD5_A_MASK;
--		break;
--		case GPIO_HPD_6:
--			info->mask = DC_GPIO_HPD_A__DC_GPIO_HPD6_A_MASK;
--		break;
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_GSL:
--		switch (en) {
--		case GPIO_GSL_GENLOCK_CLOCK:
--				/*not implmented*/
--			ASSERT_CRITICAL(false);
--			result = false;
--		break;
--		case GPIO_GSL_GENLOCK_VSYNC:
--			/*not implmented*/
--			ASSERT_CRITICAL(false);
--			result = false;
--		break;
--		case GPIO_GSL_SWAPLOCK_A:
--			/*not implmented*/
--			ASSERT_CRITICAL(false);
--			result = false;
--		break;
--		case GPIO_GSL_SWAPLOCK_B:
--			/*not implmented*/
--			ASSERT_CRITICAL(false);
--			result = false;
--
--		break;
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_SYNC:
--	case GPIO_ID_VIP_PAD:
--	default:
--		ASSERT_CRITICAL(false);
--		result = false;
--	}
--
--	if (result) {
--		info->offset_y = info->offset + 2;
--		info->offset_en = info->offset + 1;
--		info->offset_mask = info->offset - 1;
--
--		info->mask_y = info->mask;
--		info->mask_en = info->mask;
--		info->mask_mask = info->mask;
--	}
-+	if (dal_hw_translate_id_to_offset(
-+			gpio_pins,
-+			ARRAY_SIZE(gpio_pins),
-+			id, en, info))
-+		return true;
+ /**
+@@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
+ int ttm_bo_evict_first(struct ttm_device *bdev,
+ 		       struct ttm_resource_manager *man,
+ 		       struct ttm_operation_ctx *ctx);
++s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
++			struct ttm_resource_manager *man,
++			struct dmem_cgroup_pool_state *limit_pool,
++			s64 target_bytes,
++			struct ttm_operation_ctx *ctx);
+ int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
+ 		  void *buf, int len, int write);
+ vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index a5d386583fb6..32e485fdce9a 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -39,6 +39,7 @@
  
--	return result;
-+	ASSERT_CRITICAL(false);
-+	return false;
- }
+ struct dentry;
+ struct dmem_cgroup_device;
++struct dmem_cgroup_region;
+ struct drm_printer;
+ struct ttm_device;
+ struct ttm_resource_manager;
+@@ -477,6 +478,12 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
+ 			       struct ttm_device *bdev,
+ 			       uint64_t size);
  
- /* function table */
++void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
++					  struct dmem_cgroup_region *region);
++
++int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
++				      u64 target_bytes, void *priv);
++
+ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 				   struct ttm_resource_manager *man);
+ 
 -- 
-2.47.3
+2.54.0
 
