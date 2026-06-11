@@ -4,120 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C215CD8CB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 07:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9E4CD98CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 07:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C60010ED38;
-	Thu, 11 Jun 2026 07:42:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C46C10ED3A;
+	Thu, 11 Jun 2026 07:44:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RuKQDQde";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cj7u3vsX";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010060.outbound.protection.outlook.com [52.101.56.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6D9010ED38
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 07:42:57 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43C4010ED3A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 07:44:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kboT6R0fU+38zptHrHD5fRX9me7a3tCYccLJDxCza0TiE9oTMCKYYyunNhjuR4PoDZb7SUml9V+xK3J0R5EcpE1cQaKekd/L0ywuAqHxH95iUrTEv0Taz+yY5oqsE0BDlH7doZm15AApXmgWc/4cUjuzsX7AcNMRhWwGk45/9jN2b7l4VinZlirF+YEmAX+gz4IKWBYW35hiBlnKTQB/STT0Lg3sWVmHQe7wNozgjaBIdqJ8TjNlhEnjyee6rQ3Nv8GFo/CDGQ2AqtfAU9xlbYpwCaWCfnCnT+G8tH0Vw3ybbqMOHLtUCD6VhiCJ2UT0UFiLDijdPK5kGo6MtyC3hg==
+ b=MNLgw17tN/wPEdCO19HFeiXhMlfEQwQtFv7YAyyKNw4uAhmxosHO/2YReQ22g8yIZxp+C9jZpViAxQKuVBBjIPfmL94AvdNE5mby4WXaHadzSw//STYPv9rWMriYLsM/1jZ4c7NQqvh7QoaN0ifpuXCBBB6PQ2SBDRIAPNuoRmAJRT3Wo5WrBP/H4QchtfgTLvcGsYFIxFZz25V3RGs63jHvPWlnQbYNcYr10rq0Cj4ZhX0Pg0hHvaGDs+voyKEIfjju4c66yV02dKP0WEBu3BZSoosLZ1VA9Wefa3XQ+bmVVNB1zJG5YDJ052ggyu38DaTIZaTQJwJijCtALX46aw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D02IWw1fT+fgTtwhVFp3TrqVxE25vuBZeu6xESowThs=;
- b=pGMq9Umd6b/BUZ7z9DQlvmTRogNVZ2sjy7T2iJXdYw2h2cvViT6u3jEmkQzBXiJDSQo3JARBAjC/9nw4EkbE0bTBO89YQcSGxzmzwBBgQll4lzuLv22iphVfgLfoThwbAHqYzlpfYReK1aGx2IPP2Chkv/MgLHLqwE3DeHcd/jX4xf9GUOLX4ymQ9dCzoTQrEuLBhWwYnw+fatDRwiNfuh/cMPyYeRErSXRkIKpTbaSqtMFy7rrb7NpEErGEYte1UpBXnWky1qyLm2f2G9ugBSKc3P/5/5mHp1JjoxSStnkFFNll68Ityw/6SloC2O2XXc7fIaEIc2m6J40yfnF4zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Tzl3t5agiDAacAbLqOmDYwATkdL3wM4gq8q1nhmn9sk=;
+ b=p9uZ1IxuJ2qOQuUUxW7vfDtj7320aE61j85B9Q3q0VU/O9V/0iuBBNbKTqA3SVPhdhC81Pc8DAYUTUcIN/gCLr3e27T2sAQ/gCruwmGbEF609uT/tYygR8MXNqE5MqKqyDA1sF6biLEOZNURm+mZeaRpHARaYkxMWnUY44zbaFOU/Hcb/b5McQVxKg3UbRtmLcb9SLd6CWXWOZWxlPR/fkyl24du2XTp3Q72ELF1QuYgX22Q1ASvBq6wcSQ+ufpa9LLdePgHtRAZXtRt5WHJfeMhyHOMQyEuJPY964MH9ucSTPpzFK/kkuf/JDVM5KUzcP/Npp46XekeYFBKPjGN7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D02IWw1fT+fgTtwhVFp3TrqVxE25vuBZeu6xESowThs=;
- b=RuKQDQderEshJ53KYYYja7mJ09VNEvbVsMzDgx2pBcjDgWv+mXgPLeEtEGzGvYlgW/HoTjOf49TPcXL8sFVE1a8NvoT4Fn1dBjrOJUb+zaJFY7Ir4A+gmJIFYIsF+pYNeLUisU1ZGK/pCyljRzpTLjrKMdk/pe1MQuk6rIu1H30=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
- by PH7PR12MB6417.namprd12.prod.outlook.com (2603:10b6:510:1ff::14)
+ bh=Tzl3t5agiDAacAbLqOmDYwATkdL3wM4gq8q1nhmn9sk=;
+ b=cj7u3vsX3HiTFcyLCXY5+AKxqdXWXfcvQxnRzWgy8+RlgDEQVRyvFz4pVT+SjVkwbJG8FYXuOB41bGw5ML8gzdvftUMKy2QiDjtpdXsPILYSFvCtZFaO8c2kF7t6gOpHdtrG++OKQxyablf3j+5bmrSK+UdoOTzuGjPjZAQY1Is=
+Received: from BL1P223CA0044.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::17)
+ by PH7PR12MB7940.namprd12.prod.outlook.com (2603:10b6:510:275::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
- 2026 07:42:54 +0000
-Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
- ([fe80::18c4:be41:febf:7e45]) by SJ2PR12MB8690.namprd12.prod.outlook.com
- ([fe80::18c4:be41:febf:7e45%3]) with mapi id 15.21.0092.011; Thu, 11 Jun 2026
- 07:42:53 +0000
-Date: Thu, 11 Jun 2026 15:42:34 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Huang Trigger <Trigger.Huang@amd.com>
-Subject: Re: [PATCH v2 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after
- mode2
-Message-ID: <aipm6uuVyaImlwZi@amd.com>
-References: <20260611055715.1142135-1-Jiqian.Chen@amd.com>
- <aipVLOVnOxst+zTS@amd.com>
- <fe555f65-8f9f-4a8c-8c9a-a2479d3f8ec4@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fe555f65-8f9f-4a8c-8c9a-a2479d3f8ec4@amd.com>
-X-ClientProxiedBy: KUZPR03CA0012.apcprd03.prod.outlook.com
- (2603:1096:d10:2a::11) To SJ2PR12MB8690.namprd12.prod.outlook.com
- (2603:10b6:a03:540::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Thu, 11 Jun
+ 2026 07:44:46 +0000
+Received: from BL6PEPF00020E5F.namprd04.prod.outlook.com
+ (2603:10b6:208:5b6:cafe::97) by BL1P223CA0044.outlook.office365.com
+ (2603:10b6:208:5b6::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.13 via Frontend Transport; Thu,
+ 11 Jun 2026 07:44:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00020E5F.mail.protection.outlook.com (10.167.249.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 07:44:45 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 11 Jun
+ 2026 02:44:44 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>, "Ce
+ Sun" <cesun102@amd.com>
+Subject: [PATCH v2] drm/amdgpu/ras: Add address sanity check for uniras
+Date: Thu, 11 Jun 2026 15:44:35 +0800
+Message-ID: <fef4383d214d9f82eb2f5426aecf5f3a27e33b6a.1781163712.git.cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|PH7PR12MB6417:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fa2fcfb-2c7a-49a1-f7cc-08dec78d0bd8
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|PH7PR12MB7940:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56ca3cc4-2872-4e31-1fee-08dec78d4ec6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: ik1mI4MZiOV1dZxzCIN3QUUC7ucPp/N3IqeNya1mMEF8RLQR3oIo5xxhorrWcggauZM1GChDE+/VU3l5zo8z8CGk1hFHfVwDF6NLD22np0L6x/QJW4pgEGaUaz8ChK4IO/U0sk/8dPmhAlM/sPDAsU3+e1n5GrmBu8TI67dVowI293rhb+1FkllMhbViuQsfUvcOcUhbXjVNs8kcphqttwJXOijeH41FzYFgtqr/L3vmVbEphisUntJ+Oo6Gh2tiIPPR6F55ewHtKy9aOsJL/DgDIGDD2WL6l6Mmjl2XVW5CxZS/a88hUAyq5yukS7HZPnOZc/LZ87k2fTKmmawQjPenTid80sQVyip37MUXOBDCYLVW0c9CsBnPj2+IenQp90orA1M2MhYaHcB9jD7YRGeuGfqfhUPFcR583GAy1Qk7rXVIHt7mt5dkzFUDlniNGVlkuEWPNNiyhRisSdJ9waSe9kCQ67HZIjZQbZQDlydnOQjfNHBU//AeDipzB2fr3ROBkrnLRiw0LaswlQ6ITgHWG26zn1t8KzMO5AHCVTOCKvSbYg44jsZk9DdI9c7bxI6wmNgaGFs6qDj0j4D8+xoWhk8tg+cpV8K1Xn7qrYndaiEF9vIBm369gmlJoj/eEdfgtMn0EF74QmykauBCkoZH5d+gWnOKgjAauDHQlLmjEM8q0nrwThMBtyPPmF1G
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB8690.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(6133799003);
+ ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: YMCBk7ZklJdUBuL8bOY38C8BwaNavz2I5+OZkYQ8muTqLvLv/qXZ6PngXHOrkV9hV8vVBqRQi9xwtZxmFe86jyLCFl3cDQM3znGxw7pBP0XojTX5/Jtu7P5/BR3h+2Pe6lU9Edj+fb54j8hmIqQyZSxMyNycoh4+3pKIPMim/6O5F+33Ye3Zg6M8udsscq2SPeqsvCrebcMWyWz7aWvUyT0j4m+HCT/SaAHktV/EbZF8sQV7tyosly+S9qcRMljcMVXSi9zmnCy4pkjTuY4zHTF+y3c8Jd2+Tg3PQxaQCDjL7ZMJnAnrmamp3xEE/EPDgyNsXtkoGPkq09KpPwRbeV9DRszg0WilOT8pt3tM49svoAkbihlI4jH515dltqVK2VkDwsmBKEAM9axtEImZiS/kYrqS2h0k91oTZR5WD/oWp0rIvz5i84OjNQtEikt4mcPb5/JrBOYbM2IcywDtKAyAV9O+UvfTC3I98NE79yiXS5IYqgVRLgR6ioxjKn/odzUJjjBaClvJOcxQ8s0VC7EkRy/vQoNIAdWUiRFXKLywC2UmZsWxDOmWNXfNQWAPWk4Su/pqo9tlh5eIhQQIbzgG+kn/bDBgRY9+AewyUOLqToGX3Wj1Z5FjjjmVifgKFwdHFM5d8kK2bbAeJxCftlQtUrS4yMHVYsqgHo6Gmye6EnBgwTAVPm4RPBkez5GwZOGqCIfpL8AZUgXdKIY2NPZPEbahwChrIkQQE+epomc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?s2yLViGh/JXXeOF6brWnv6ZSTVEq6f9NvNfNsm1wY5Qcq6BBEDvwkUk1N1A8?=
- =?us-ascii?Q?tbmA7zZ7pEe8mw8YhVGINWvKNgIv68UNIRE4c/+BLC0n5kZPaaLE5dJpqPdd?=
- =?us-ascii?Q?Ffxvfjsc4AgAE1vs38hOnCMkSTEMjQOpAt1kwVvBBeh3wQmpSLhkFylsaCYW?=
- =?us-ascii?Q?gARztqNDdu+6XUK66XVQc3MMxSSEO/dIRxu6pOhWdbwzpkuyqQ3QsRa3VilI?=
- =?us-ascii?Q?M05uJhGEUhzLFLVu8hglf5dx0+VzYB6RPjYRP4SV+4Lqa8YMIA1EnfUe53hZ?=
- =?us-ascii?Q?CeU3Azsec1LirgdT4j4KJUp+2Hyc+MY6QH/pTJ6JM8rD523myMsaE8nGX4zB?=
- =?us-ascii?Q?LWp66azCREplZOSCGDKPlLFf7vDE5jXZOObEBwcFgxt0m5UUdMfoVysj5loC?=
- =?us-ascii?Q?p28J3h9EUh7tUqynPpS7Pqi0TfSRl3fYDSoMiaNIJrOmSA0ng8AG9C2xIwMm?=
- =?us-ascii?Q?F61UbcjKbau1DCGJ17WGpzc8E3lrep7n1WcyMVwJwasMYgmnHcBkGgm11fTM?=
- =?us-ascii?Q?1AKrtYjW5kTEoCGYGYq1e9nVo7jRF+jc9V0A16buwPIp+USSz64FwLKePivP?=
- =?us-ascii?Q?zbj4wjOkM42fbBNBHR/MDdKFz1qK0mdmS9muf5sadBNsF6d0zi98Ezoa9NJC?=
- =?us-ascii?Q?1o0tYcBusex/Vjy89TRtACjHukqpcVkqw95QfuHdriJjmDxCPWtIIAR473rc?=
- =?us-ascii?Q?hZESCNSl/5YeI/WQS40ZWm++SNvc1jNihJ/KWpX1XNFRdD/Sn6nqQ/KcdgAw?=
- =?us-ascii?Q?/TzbAbi8hXp9UsHnMPS6N2egWAMdV5wXGCFSgJPsVpfJ1KiNpCuWUx14jSsv?=
- =?us-ascii?Q?q2rBsbk6rR/3GPwGO9tLrjqs/KlvxRF3hvD++MiUFcXKPM3Xeiry29IPsy71?=
- =?us-ascii?Q?kn9dGFCDjgDbhiawTAAZozDaZEXEuu+ZSz/eQbYusDpeFNrU28dSRkAPOzgl?=
- =?us-ascii?Q?a0iB+ttWBEBBD5Y83abNXPb8wmAuPR+WzfbSmGmhcuay99qW+XqUpFb8v3c2?=
- =?us-ascii?Q?afhbHTaiN3MML4pIjrvqS+BT7whHYVOW9MJ/rWp3CN1/805HCOI+Rjmtj42r?=
- =?us-ascii?Q?PPj/iqkXMfVhulNhk1n/CAw6yW7Ic8E6wkngVn2+pLyrAIOrEcWANck7cznp?=
- =?us-ascii?Q?U4Md/AXJ73DKa/9wFEQJMPFslTYlB1FbUJktBTP65IuNpOyvczRRiQApcytt?=
- =?us-ascii?Q?+rFnCRhU8b9lL/h9HpVkFwoGtooLc+LymrS8LE/K1WCuh0DFKJlOoce8k0yu?=
- =?us-ascii?Q?FeBkV2INAzaf3FxuAZMXVnFAPyKt/VD6RSkcyAYQJ9XspN8THksQX2FDb130?=
- =?us-ascii?Q?L09Lg04ibRIRvYa0C3fTS7OJM6g7qISfwU8ggGfk7IvJ4mfmFlf2i+uMmdgZ?=
- =?us-ascii?Q?fW55Zb+5sIJz571nAjAKxx3ZIp/KSyT2gLntNSqRgQj9O+0aqX1TDF95dFmI?=
- =?us-ascii?Q?RfeWZ7gcu4hIBHLvPGnLydfaHTIGN2+6qNK/XXrs04cGNXD5icuNqjETbmgD?=
- =?us-ascii?Q?3E3P55LYT74a4R4zO9n83A7ldvqFoytpHcoA/hPi52j1A275sFKZK2ZmdZxA?=
- =?us-ascii?Q?kDEb/bS5Dc/IuBHZTRPdBx8OdTBceLB4M4Bcs5mAI2FLwP3EVeskIY5b/8lv?=
- =?us-ascii?Q?olNrWr/pD5GJgOC264A3OEF0xPe2mDpHWQodIjslhCy1L5QvRZBMh+Czw3Lj?=
- =?us-ascii?Q?uo8ARoOAS1F1SXMz4RVYVlK1TOKbtXoqQZlydHKuAIcqmvnKR9OA9TvoZwSJ?=
- =?us-ascii?Q?7hTo30iM+w=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: 1+baWlgVnROPGvidGjSjLpdO1akRVOoQcdWdZR4nLdhc+WcO1p+BsjFloW3O1GLHc0mOQ2YJPhxY1lMd5EAPdRcQUHnTclKBPKjTRZNdNnYflokf0H5WmFFPO21wSoln2NeAbzT9dB9J8ZB8SSPCx1W/yPjsiqBM3kY36kCUUQm7b1Oujs+DX2JeLIIzuB2plPqJ9TWWMBnfPwhYDfyN0oPI2bzpfeLWcHoDJtqtVgaIw0BT7jF5ZkJE9hTSr6iLrHsP8ahdnyaKoYDK0DV6vot++SWf7MV6iyPNfHZpIt57yzdc+1cF7FnDWn1BraCXbIIU9yonsO6OEYtPLJTCURma28gJ5oQ8mzQJ5nlQrGyiCdY3Lpn0OsH9r5oz/FG1qC5aVvg1LBOJ49i9aBptqv9IvpNOUD4S6iTVc3kWlhDrn4xgoB+/owJyksv5fSwS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fa2fcfb-2c7a-49a1-f7cc-08dec78d0bd8
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 07:42:53.8423 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 07:44:45.8750 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56ca3cc4-2872-4e31-1fee-08dec78d4ec6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y14W50y+uNugMD/9O6w53hScypPGOhMwhC9ScNA27CYgHPOafwJHF+mb0APlJX4eO/vkvwdtFW3vo85thblhEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6417
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E5F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7940
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,139 +108,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 12:39:32PM +0530, Lazar, Lijo wrote:
-> 
-> 
-> On 11-Jun-26 11:56 AM, Huang Rui wrote:
-> > On Thu, Jun 11, 2026 at 01:57:15PM +0800, Jiqian Chen wrote:
-> > > For Renior APU with gfx9, in some test scenarios with disabling
-> > > ring_reset, like accessing an unmapped invalid address, it can
-> > > trigger a gpu job timeout event, then driver uses Mode2 reset
-> > > to reset GPU, but after Mode2 compute Ring test and IB test fail
-> > > randomly. It because the CPC and CPF are still stuck after Mode2,
-> > > that causes compute Ring test fail. What's more, the HQDs of
-> > > MECs are still active, that causes MECs use stale HQDs when MECs
-> > > are unhalted before driver restore MQDs, then causes compute IB
-> > > tests fail.
-> > > 
-> > > So, add sequences to reset CPC and CPF after Mode2, and de-active
-> > > HQDs of MECs before unhalting MECs.
-> > > 
-> > > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> > > ---
-> > > v1->v2 changes:
-> > > * Move my sequences into a new function gfx_v9_0_cp_mode2_clear_state
-> > > * Add reset Mode2 method check to the if condition that call my sequences
-> > > 
-> > > v1:
-> > > Hi all,
-> > > 
-> > > My board is Renior APU with gfx9, smu12. I run a testcase that
-> > > accesses an invalid address to trigger a amdgpu_job_timedout()
-> > > with disabling ring_reset, so that driver will call mode2 reset
-> > > directly. After mode2 reset I found compute Ring tests and compute
-> > > IB tests fail randomly on random compute ring.
-> > > 
-> > > We checked the scan dump of GPU, we can see the CPC and CPF are
-> > > still stuck, that caused Compute Ring tests fail.
-> > > 
-> > > I added printings in driver codes (gfx_v9_0_cp_resume), and found
-> > > the HQDs of MECs are still active, that may cause MECs use stale
-> > > HQDs when MECs are unhalted before mapping compute queues (restoring
-> > > MQDs to HQDs).
-> > > 
-> > > So, I send this patch to fix above problems.
-> > > There are two main changes of my patch:
-> > > One is to reset CPC and CPF before resuming KCQ.
-> > > Another is to disable HQDs beofre unhalting MECs.
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 44 +++++++++++++++++++++++++++
-> > >   1 file changed, 44 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > index 47721d0c3781..d3ef45aa299a 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > > @@ -3942,6 +3942,46 @@ static int gfx_v9_0_kcq_resume(struct amdgpu_device *adev)
-> > >   	return amdgpu_gfx_enable_kcq(adev, 0);
-> > >   }
-> > > +static void gfx_v9_0_cp_mode2_clear_state(struct amdgpu_device *adev)
-> > > +{
-> > > +	u32 tmp;
-> > > +	int i, j, k;
-> > > +
-> > > +	/*
-> > > +	 * CPC and CPF are still stuck after Mode2 reset, that causes later
-> > > +	 * compute ring test fail and then loop Mode2 reset infinitely
-> > > +	 */
-> > > +	tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> > > +	tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPC, 1);
-> > > +	tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPF, 1);
-> > > +	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-> > > +	tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> > > +	udelay(50);
-> > > +
-> > > +	tmp &= ~(GRBM_SOFT_RESET__SOFT_RESET_CPC_MASK |
-> > > +			GRBM_SOFT_RESET__SOFT_RESET_CPF_MASK);
-> > > +	WREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET, tmp);
-> > > +	tmp = RREG32_SOC15(GC, 0, mmGRBM_SOFT_RESET);
-> > > +	udelay(50);
-> > > +
-> > > +	/*
-> > > +	 * CP_HQD_ACTIVE survives Mode2 reset. Deactivate every MEC HQD to
-> > > +	 * prevent MEC use stale HQD when MEC unhalted before restoring MQD.
-> > > +	 * Otherwise, later compute IB test may fail
-> > > +	 */
-> > > +	for (i = 0; i < adev->gfx.mec.num_mec; i++) {
-> > > +		for (j = 0; j < adev->gfx.mec.num_pipe_per_mec; j++) {
-> > > +			for (k = 0; k < adev->gfx.mec.num_queue_per_pipe; k++) {
-> > > +				mutex_lock(&adev->srbm_mutex);
-> > > +				soc15_grbm_select(adev, i + 1, j, k, 0, 0);
-> > > +				WREG32_SOC15_RLC(GC, 0, mmCP_HQD_ACTIVE, 0);
-> > 
-> > I think we don't need to use WREG32_SOC15_RLC here, because SRIOV GPU won't
-> > access this code path.
-> > 
-> > > +				soc15_grbm_select(adev, 0, 0, 0, 0, 0);
-> > > +				mutex_unlock(&adev->srbm_mutex);
-> > > +			}
-> > > +		}
-> > > +	}
-> > > +}
-> > > +
-> > >   static int gfx_v9_0_cp_resume(struct amdgpu_device *adev)
-> > >   {
-> > >   	int r, i;
-> > > @@ -3967,6 +4007,10 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *adev)
-> > >   		gfx_v9_0_cp_gfx_enable(adev, false);
-> > >   	gfx_v9_0_cp_compute_enable(adev, false);
-> > > +	if ((adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev) &&
-> > > +		amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_MODE2)
-> > 
-> > If we constrain the condition to a mode2 reset, does that mean we no longer
-> > need to restrict it to APU?
-> > 
-> 
-> This issue is not reported on aldebaran which also supports mode-2 reset.
-> 
+Add address sanity check for uniras
 
-Nice catch, thanks Lijo. We should still keep APU flag.
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  |  3 ---
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c  | 18 +++++++++++++++
+ drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h     |  3 +++
+ drivers/gpu/drm/amd/ras/rascore/ras.h         |  2 ++
+ drivers/gpu/drm/amd/ras/rascore/ras_core.c    | 10 ++++++++
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c     | 23 +++++++++++++++----
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.h     |  2 ++
+ 7 files changed, 54 insertions(+), 7 deletions(-)
 
-Thanks,
-Ray
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
+index 658bf3fdb66b..bfbfdffbfbe6 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
+@@ -30,9 +30,6 @@
+ #include "amdgpu_ras_mgr.h"
+ #include "amdgpu_virt_ras_cmd.h"
+ 
+-/* inject address is 52 bits */
+-#define	RAS_UMC_INJECT_ADDR_LIMIT	(0x1ULL << 52)
+-
+ #define AMDGPU_RAS_TYPE_RASCORE  0x1
+ #define AMDGPU_RAS_TYPE_AMDGPU   0x2
+ #define AMDGPU_RAS_TYPE_VF       0x3
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
+index 7d728e523604..eb840f0861fe 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
+@@ -266,6 +266,23 @@ static int amdgpu_ras_sys_put_gpu_mem(struct ras_core_context *ras_core,
+ 
+ 	return 0;
+ }
++static int amdgpu_ras_sys_check_address_sanity(struct ras_core_context *ras_core,
++						uint64_t addr)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
++
++	if ((addr >= adev->gmc.mc_vram_size &&
++	    adev->gmc.mc_vram_size) ||
++	    (addr >= RAS_UMC_INJECT_ADDR_LIMIT))
++		return -EINVAL;
++
++	if (addr >= adev->gmc.real_vram_size) {
++		RAS_DEV_WARN(ras_core->dev, "Recorded address out of range: 0x%llx!\n", addr);
++		return -EINVAL;
++	}
++
++	return 0;
++}
+ 
+ const struct ras_sys_func amdgpu_ras_sys_fn = {
+ 	.ras_notifier = amdgpu_ras_sys_event_notifier,
+@@ -277,4 +294,5 @@ const struct ras_sys_func amdgpu_ras_sys_fn = {
+ 	.detect_ras_interrupt = amdgpu_ras_sys_detect_ras_interrupt,
+ 	.get_gpu_mem = amdgpu_ras_sys_get_gpu_mem,
+ 	.put_gpu_mem = amdgpu_ras_sys_put_gpu_mem,
++	.check_address_sanity = amdgpu_ras_sys_check_address_sanity,
+ };
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
+index f34dda7ce87b..2775c7bf41b7 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
+@@ -30,6 +30,9 @@
+ #include <linux/mempool.h>
+ #include "amdgpu.h"
+ 
++/* inject address is 52 bits */
++#define RAS_UMC_INJECT_ADDR_LIMIT       (0x1ULL << 52)
++
+ #define RAS_DEV_ERR(device, fmt, ...)                                               \
+ 	do {                                                                      \
+ 		if (device)                                                             \
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
+index c059fcebaf00..5869bad978b0 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
+@@ -231,6 +231,7 @@ struct ras_sys_func {
+ 		enum gpu_mem_type mem_type, struct gpu_mem_block *gpu_mem);
+ 	int (*put_gpu_mem)(struct ras_core_context *ras_core,
+ 		enum gpu_mem_type mem_type, struct gpu_mem_block *gpu_mem);
++	int (*check_address_sanity)(struct ras_core_context *ras_core, uint64_t addr);
+ };
+ 
+ struct ras_ecc_count {
+@@ -398,4 +399,5 @@ int ras_core_get_device_system_info(struct ras_core_context *ras_core,
+ 		struct device_system_info *dev_info);
+ int ras_core_convert_soc_pa_to_cur_nps_pages(struct ras_core_context *ras_core,
+ 		uint64_t soc_pa, uint64_t *page_pfn, uint32_t max_pages);
++int ras_core_check_address_sanity(struct ras_core_context *ras_core, uint64_t addr);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+index ad6fffaa42de..61d100b074b9 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+@@ -676,3 +676,13 @@ int ras_core_convert_soc_pa_to_cur_nps_pages(struct ras_core_context *ras_core,
+ 
+ 	return count;
+ }
++
++int ras_core_check_address_sanity(struct ras_core_context *ras_core,
++		uint64_t addr)
++{
++	if (ras_core && ras_core->sys_fn &&
++		ras_core->sys_fn->check_address_sanity)
++		return ras_core->sys_fn->check_address_sanity(ras_core, addr);
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+index e5971c3dd7da..f56d37d09044 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+@@ -406,7 +406,7 @@ static int ras_umc_update_eeprom_ram_data(struct ras_core_context *ras_core,
+ 	struct ras_umc *ras_umc = &ras_core->ras_umc;
+ 	struct eeprom_store_record *data = &ras_umc->umc_err_data.ram_data;
+ 	uint64_t page_pfn[16];
+-	int count = 0, j;
++	int count = 0, i, j;
+ 
+ 	if (!data->space_left &&
+ 		ras_umc_realloc_err_data_space(ras_core, data, 256)) {
+@@ -418,10 +418,23 @@ static int ras_umc_update_eeprom_ram_data(struct ras_core_context *ras_core,
+ 					bps, bps->cur_nps, page_pfn, ARRAY_SIZE(page_pfn));
+ 	if (count > 0) {
+ 		for (j = 0; j < count; j++) {
++			if (ras_core_check_address_sanity(ras_core,
++				page_pfn[j] << AMDGPU_GPU_PAGE_SHIFT)) {
++
++				for (i = 0; i < data->count; i++)
++					if (page_pfn[j] == data->bps[i].cur_nps_retired_row_pfn)
++						break;
++				data->bps[data->count].cur_nps_retired_row_pfn = U64_MAX;
++				data->count++;
++				data->space_left--;
++				continue;
++			}
++
+ 			bps->cur_nps_retired_row_pfn = page_pfn[j];
+ 			memcpy(&data->bps[data->count], bps, sizeof(*data->bps));
+ 			data->count++;
+ 			data->space_left--;
++			data->bad_page_num++;
+ 		}
+ 	} else {
+ 		RAS_DEV_ERR(ras_core->dev, "Failed to convert record to nps pages!");
+@@ -521,7 +534,8 @@ static int ras_umc_save_bad_pages(struct ras_core_context *ras_core)
+ {
+ 	struct ras_umc *ras_umc = &ras_core->ras_umc;
+ 	struct eeprom_store_record *data = &ras_umc->umc_err_data.rom_data;
+-	uint32_t eeprom_record_num;
++	struct eeprom_store_record *ram_data = &ras_umc->umc_err_data.ram_data;
++	uint32_t eeprom_record_num, logical_count = 0;
+ 	int save_count;
+ 	int ret = 0;
+ 
+@@ -534,6 +548,7 @@ static int ras_umc_save_bad_pages(struct ras_core_context *ras_core)
+ 		eeprom_record_num = ras_eeprom_get_record_count(ras_core);
+ 	mutex_lock(&ras_umc->umc_lock);
+ 	save_count = data->count - eeprom_record_num;
++	logical_count = ram_data->bad_page_num - ram_data->ras_num_bad_pages;
+ 	/* only new entries are saved */
+ 	if (save_count > 0) {
+ 		if (ras_fw_eeprom_supported(ras_core))
+@@ -547,8 +562,8 @@ static int ras_umc_save_bad_pages(struct ras_core_context *ras_core)
+ 			ret = -EIO;
+ 			goto exit;
+ 		}
+-
+-		RAS_DEV_INFO(ras_core->dev, "Saved %d pages to EEPROM table.\n", save_count);
++		ram_data->ras_num_bad_pages = ram_data->bad_page_num;
++		RAS_DEV_INFO(ras_core->dev, "Saved %d pages to EEPROM table.\n", logical_count);
+ 	}
+ 
+ exit:
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
+index 237525b46b9b..ad12796a048f 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
+@@ -119,6 +119,8 @@ struct eeprom_store_record {
+ 	int count;
+ 	/* the space can place new entries */
+ 	int space_left;
++	int bad_page_num;
++	int ras_num_bad_pages;
+ };
+ 
+ struct ras_umc_err_data {
+-- 
+2.34.1
 
-> Thanks,
-> Lijo
-> 
-> > Thanks,
-> > Ray
-> > 
-> > > +		gfx_v9_0_cp_mode2_clear_state(adev);
-> > > +
-> > >   	r = gfx_v9_0_kiq_resume(adev);
-> > >   	if (r)
-> > >   		return r;
-> > > -- 
-> > > 2.39.5
-> > > 
-> 
