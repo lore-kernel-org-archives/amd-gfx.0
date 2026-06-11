@@ -4,78 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC617CD98DD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E7BCD98D9
 	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD4410F2ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1301410F2E7;
 	Fri, 12 Jun 2026 07:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="JMOQxeVM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="afIBjI2f";
 	dkim-atps=neutral
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A66E10F0DE
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 19:51:34 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-59c2a81ca92so104562e0c.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:51:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1781207493; x=1781812293; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=72nkF1wkrOnPx9OWBQRisWDqaTILiCPcJlAlZTpPq2A=;
- b=JMOQxeVMsfgQkW4OlTUNUNWiIBczG3LYXFcpjSEGQlihv4KhmvOxfW0sQSjm3soQOS
- GgMfftR6R62rM+4au+JaIXjic17x+H5d8z7bFC8INdzJwjTvfFF79j4KIFDyj+gjxS9s
- J9jhqd5mZEwypJnyI+bTr8qMBp6+kGspfZvw+7LCzjuqYGG9drAa+d2nYSLDHz2i9fhk
- BwFn5GhnzXoydbPP/AWyybqWBPTwY759HANGY9jfw6ETRbUcqz+LdF6GD0B6ZywKAfGq
- aTbqJ1sI1u/4g2wpJwUO3WFmQXQDSj3/15orLCS5THyWAAv5bR1euH5b1bR8vTNc5H7M
- X6zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781207493; x=1781812293;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=72nkF1wkrOnPx9OWBQRisWDqaTILiCPcJlAlZTpPq2A=;
- b=lsg9ESVCffBazgfAXjHrhGnGJzb6ofSLUKrO+jix2AZPRI8vB6YTQlBFBrKCCEF6rK
- 1mC/yGzJ4igcR7pVRC1ZJ3hFX8qB8xNLXK46wyR+LX81sl0+VslVZ4MstiwfdDWnpIkr
- O6jxvY7T+DxHW3D+QuuLJe4WAiE5FCU4296OMmakp4LmF1yvLjJMpTw794tYh0APEh79
- jJ0Yui0azy6taTvmTgopl76mSVU3lNaI19B+0wsZlWZp3+mocsfWokNn0QNHml7heAiw
- 2RG2+lDNL3JQCPhH/m1pdKIbAe9zB4mKD5R4BZVw7y//el7P1lsPMkqc/RFFLWgT/Oam
- MvnA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9t/ZReHOJnTjFx9ad7bT6W2NCVTqGQzJvi1xE4yJ+y0OyKHtI2FuZD6qj4eCzWk4G+T7+J8TGa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmQEcDfocm97BwdnJVedv4mpKcu5VFHTQKBbUkPViCCct6wSY3
- XjbWsmHhxgbrGyKDacQv3FqZc2Z8YZ9HK/R0ax0oItRGtBGddZA35I21YRAcieechF4=
-X-Gm-Gg: Acq92OGmLxKU1/GIl5TDFG7oxg2Af1lsHaOHPwi5mOt1TdKUG5YymDc4ZUZbcVtR3Wg
- MjVaDYKXqOHjlLMUvvQOSOzcKBJmf5r0gaOCGmShVGn4gczco/FTgc/I/PAdBGifQio90C8q0Oo
- B0S4gzt/jKgzaR45tamwUO6uCAywi+JuBuneWJTi+NY+HYVWysADd9CJDuamIzQsL04oWL1qPIA
- 0/goQwsMFpPR53qTCGm4sTFzpoLKFxLovwaGPP1+jH93bdi8Y2GWJnf++zsTNFXzrw5vBsEugEr
- 9ZPgx23x24keh6HoYIAt8jEN55WUZfMM2pMMsAcKyzmUonEnY33bnCQ3bfoRbXADh9s8Es3hr1A
- syP0aa6dLgfsKEn/daZpa8u0Z3+xBByofQ6EbO35oNa9g8nHHCYysQq0P+N4xrnjFv1yyxdKNuv
- R4G2VwdJnfHCb8IZB7pVglmbxP+s9WFyvfSNd046RiCxT2W3fetMHFiU+gmNBL6iA39O1jVNc/G
- kd3DJNH7hsFFwazFq5gDOpqw8xA//T8anShTlRnWQzFvxJwCYjnX4DoWC4o
-X-Received: by 2002:a05:6122:3c53:b0:567:4e8a:fb13 with SMTP id
- 71dfb90a1353d-5baffcd3d22mr2941326e0c.8.1781207493222; 
- Thu, 11 Jun 2026 12:51:33 -0700 (PDT)
-Received: from gui-host.Dlink ([186.220.219.98])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.51.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 12:51:32 -0700 (PDT)
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com
-Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH RESEND 1/9] drm/amd/display: add GPIO HW translation helpers
-Date: Thu, 11 Jun 2026 16:49:01 -0300
-Message-ID: <20260611195026.25125-2-guilherme.bozi@usp.br>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
-References: <20260611195026.25125-1-guilherme.bozi@usp.br>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E1510F03F;
+ Thu, 11 Jun 2026 17:33:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781199222; x=1812735222;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Z5tnKsqQw7EiBeSDr2ywtUGax4C0M+Mxkthf6nfbtWw=;
+ b=afIBjI2fZ+5e6PQIyzZe988SmLNRnxvQLoR9C3ht+8O11pqEiszA855B
+ yQcg7S0aXa5DIQNwgW8wm3p6PeJEdgjojzEmuilKfnXBa8rg5KX8wyAQ4
+ XOWNJ2SIu3BevDRzcyzCMtWSe2i6lfKGDUO67y/cY40ImIwf7MnSFjFhD
+ B/NpfUEBMgcjqmnCxrUDe1aCNZKcjUYhlh8C2KqzW2LWze/bPAljQ3z/a
+ HmAtx6S8AkjMZoROXwTImcgCHmyMWizIdwohKQaA+vdL9CjXkKl7LkymW
+ aikJdTs+WBpC1XRTcm39xzn4CdhPPTQq2kaCq9bTcb8s1MD9s5sbtxAlH w==;
+X-CSE-ConnectionGUID: LZq7X70dSOyPZzSmlt6cFA==
+X-CSE-MsgGUID: osp9m96FTAycUG/kPzvRrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81761974"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81761974"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 10:33:41 -0700
+X-CSE-ConnectionGUID: GxumfVM7QL+FVW9FnHpWZw==
+X-CSE-MsgGUID: 1q5hoG8NS+u828BimQLcbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="240214931"
+Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 10:33:35 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>,
+ Maarten Lankhorst <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v6 1/6] drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+Date: Thu, 11 Jun 2026 19:32:56 +0200
+Message-ID: <20260611173301.17473-2-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
+References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,212 +84,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add generic helpers and lookup table types for GPIO hardware
-translation.
+drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
+gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
+returns early and bypasses those initializations.
 
-The new helpers provide reusable conversions between GPIO IDs,
-register offsets and DDC lines, allowing ASIC-specific drivers
-to replace large switch statements with static lookup tables.
+Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
+is called, a failure triggers amdgpu_ttm_fini(), which calls
+amdgpu_vram_mgr_fini(), which then:
 
-No functional changes intended.
+ - Calls list_for_each_entry_safe() on reservations_pending and
+   reserved_pages, whose list_head::next pointers are zero-initialized
+   (NULL). The loop does not recognize them as empty and dereferences NULL.
 
-Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+ - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
+   via for_each_free_tree(). Since mm->free_trees is NULL
+   (never allocated), this dereferences NULL.
+
+Both result in a kernel panic on the module load error path.
+
+Fix by moving drmm_cgroup_register_region() to after the list and buddy
+allocator are fully initialized, so the teardown path is safe to run.
+
+Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
+Cc: Friedrich Vock <friedrich.vock@gmx.de>
+Cc: Maarten Lankhorst <dev@lankhorst.se>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.14+
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- .../drm/amd/display/dc/gpio/hw_translate.c    | 86 +++++++++++++++++++
- .../drm/amd/display/dc/gpio/hw_translate.h    | 21 +++++
- .../gpu/drm/amd/display/include/gpio_types.h  | 48 +++++++++++
- 3 files changed, 155 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
-index 64a5e11fce5c..b58af86dee10 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
-@@ -133,3 +133,89 @@ bool dal_hw_translate_init(
- 		return false;
- 	}
- }
-+
-+bool dal_hw_translate_gpio_offset_to_id(
-+	const struct gpio_id_offset_entry *table,
-+	uint32_t table_size,
-+	uint32_t offset,
-+	uint32_t mask,
-+	enum gpio_id *id,
-+	uint32_t *en)
-+{
-+	uint32_t i;
-+
-+	for (i = 0; i < table_size; i++) {
-+		const struct gpio_id_offset_entry *entry = &table[i];
-+
-+		if (entry->offset != offset)
-+			continue;
-+
-+		if (entry->check_mask && entry->mask != mask)
-+			continue;
-+
-+		*id = entry->id;
-+		*en = entry->en;
-+
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+/* we don't care about the GPIO_ID for DDC
-+ * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
-+ * directly in the create method
-+ */
-+bool dal_hw_translate_gpio_ddc_offset_to_id(
-+	const struct gpio_ddc_offset_entry *table,
-+	uint32_t table_size,
-+	uint32_t offset,
-+	uint32_t *en)
-+{
-+	uint32_t i;
-+
-+	for (i = 0; i < table_size; i++) {
-+		const struct gpio_ddc_offset_entry *entry = &table[i];
-+
-+		if (entry->offset != offset)
-+			continue;
-+
-+		*en = entry->en;
-+
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+bool dal_hw_translate_id_to_offset(
-+	const struct gpio_pin_entry *table,
-+	uint32_t table_size,
-+	enum gpio_id id,
-+	uint32_t en,
-+	struct gpio_pin_info *info)
-+{
-+	uint32_t i;
-+
-+	for (i = 0; i < table_size; i++) {
-+		const struct gpio_pin_entry *entry = &table[i];
-+
-+		if (entry->id != id || entry->en != en)
-+			continue;
-+
-+		info->offset = entry->offset;
-+		info->mask = entry->mask;
-+
-+		info->offset_y = info->offset + 2;
-+		info->offset_en = info->offset + 1;
-+		info->offset_mask = info->offset - 1;
-+
-+		info->mask_y = info->mask;
-+		info->mask_en = info->mask;
-+		info->mask_mask = info->mask;
-+
-+		return true;
-+	}
-+
-+	return false;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h
-index 3a7d89ca1605..339e381f8fde 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.h
-@@ -47,4 +47,25 @@ bool dal_hw_translate_init(
- 	enum dce_version dce_version,
- 	enum dce_environment dce_environment);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 2a241a5b12c4..ac3f71d77140 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ 	struct ttm_resource_manager *man = &mgr->manager;
+ 	int err;
  
-+bool dal_hw_translate_gpio_offset_to_id(
-+	const struct gpio_id_offset_entry *table,
-+	uint32_t table_size,
-+	uint32_t offset,
-+	uint32_t mask,
-+	enum gpio_id *id,
-+	uint32_t *en);
-+
-+bool dal_hw_translate_gpio_ddc_offset_to_id(
-+	const struct gpio_ddc_offset_entry *table,
-+	uint32_t table_size,
-+	uint32_t offset,
-+	uint32_t *en);
-+
-+bool dal_hw_translate_id_to_offset(
-+	const struct gpio_pin_entry *table,
-+	uint32_t table_size,
-+	enum gpio_id id,
-+	uint32_t en,
-+	struct gpio_pin_info *info);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/display/include/gpio_types.h b/drivers/gpu/drm/amd/display/include/gpio_types.h
-index 8dd46ed799e5..afd3fc73a911 100644
---- a/drivers/gpu/drm/amd/display/include/gpio_types.h
-+++ b/drivers/gpu/drm/amd/display/include/gpio_types.h
-@@ -277,6 +277,49 @@ enum gpio_config_type {
- 	GPIO_CONFIG_TYPE_I2C_AUX_DUAL_MODE
- };
+-	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+-	if (IS_ERR(man->cg))
+-		return PTR_ERR(man->cg);
+ 	ttm_resource_manager_init(man, &adev->mman.bdev,
+ 				  adev->gmc.real_vram_size);
  
-+struct gpio_id_offset_entry {
-+	uint32_t offset;
-+	uint32_t mask;
-+
-+	bool check_mask;
-+
-+	enum gpio_id id;
-+	uint32_t en;
-+};
-+
-+#define GPIO_ENTRY(_offset, _id, _en) \
-+	{ \
-+		.offset = REG(_offset), \
-+		.check_mask = false, \
-+		.id = (_id), \
-+		.en = (_en), \
-+	}
-+
-+#define GPIO_MASK_ENTRY(_offset, _mask, _id, _en) \
-+	{ \
-+		.offset = REG(_offset), \
-+		.mask = (_mask), \
-+		.check_mask = true, \
-+		.id = (_id), \
-+		.en = (_en), \
-+	}
-+
-+struct gpio_pin_entry {
-+	enum gpio_id id;
-+	uint32_t en;
-+
-+	uint32_t offset;
-+	uint32_t mask;
-+};
-+
-+#define GPIO_PIN_ENTRY(_id, _en, _offset, _mask) \
-+	{ \
-+		.id = (_id), \
-+		.en = (_en), \
-+		.offset = REG(_offset), \
-+		.mask = (_mask), \
-+	}
-+
- /* DDC configuration */
+@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ 	if (err)
+ 		return err;
  
- enum gpio_ddc_config_type {
-@@ -293,6 +336,11 @@ struct gpio_ddc_config {
- 	bool clock_en_bit_present;
- };
- 
-+struct gpio_ddc_offset_entry {
-+	uint32_t offset;
-+	uint32_t en;
-+};
++	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
++	if (IS_ERR(man->cg))
++		return PTR_ERR(man->cg);
 +
- /* HPD configuration */
- 
- struct gpio_hpd_config {
+ 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+ 	ttm_resource_manager_set_used(man, true);
+ 	return 0;
 -- 
-2.47.3
+2.54.0
 
