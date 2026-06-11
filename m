@@ -4,67 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7A8CD98DA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0866CD98E7
 	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2BA10F30B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 674DB10F30C;
 	Fri, 12 Jun 2026 07:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L+coYNi4";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="zR/vVR3s";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD2D10F004;
- Thu, 11 Jun 2026 17:33:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781199217; x=1812735217;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6He+tBzVj0Eg86MRD+R3GAwd0sEYNSEPvIuXnvHmn1k=;
- b=L+coYNi4ej7dZbLV60fD8mwAr1j8Fd1pI4MCzr7mfzZKfq9S1U0DFmdG
- f3NeW5WFTk9EAXoJtgN5IEot7cGfvEUgMWnR2KafkA3mh5JwJJ4GoJrcs
- WbZkAVMfn8aAcsz+pnT7u18ozu1vyXTAprWuWHYHxVI/MlAj5at++MQrP
- Bnw71xA2zJ0GsRDxgjCFzmSQ/K9FUUMk7QWF7nDD/jLcroS/3XfTUJwUT
- MOHy7QRaBVZ4ihN01phw28CApf9zhctgLYjzaX7eVOPxgYvCyjbntI+yX
- Ycoz0P+YjU2TFJBnZXhLLDw7swhUWGnhvdFCDhJs6i7Sk4Vwfwxa8l5bx g==;
-X-CSE-ConnectionGUID: lwOzZXmlSMC/8zXcQKs7ow==
-X-CSE-MsgGUID: KkpZxjXzRIa3eLTKOgHyWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81761954"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81761954"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 10:33:36 -0700
-X-CSE-ConnectionGUID: qUV7rFJ2RF6bbu4WvKaflQ==
-X-CSE-MsgGUID: fgFhwKR/RoaeICORiqloGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="240214915"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 10:33:31 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v6 0/6] [PATCH v6 0/6] Add reclaim to the dmem cgroup
- controller
-Date: Thu, 11 Jun 2026 19:32:55 +0200
-Message-ID: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
+ [209.85.221.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4557210F118
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 19:53:12 +0000 (UTC)
+Received: by mail-vk1-f182.google.com with SMTP id
+ 71dfb90a1353d-59b074ec7ceso58296e0c.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:53:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1781207591; x=1781812391; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sbId00WAHp2KabBC0vsQBfXuDPvPFs92EuJ0J29qKqs=;
+ b=zR/vVR3s28rokfeO9IwHQGra815A13g/K5JJSmopcW0Homrl0Icp+S/iSbEJaYDakQ
+ +cH6P7/kwWrnIGaUaliiivtkEEAw1swb/qHpWONTLnj0srwrn9MMRukCpvykLf2/rwMt
+ 0dPS7EqEpQwJliIZbGErpqG8PWLqqF0UTCsMAnYB7+bs7BYeaKeJEkLgAXKPHJSR2xHR
+ 97TTucayWq5qWCaLglfA2A+gMOj9He/v0M1NyQrLKUt0H+cOlKx8Z4LfCyvp2L8FHntJ
+ FuMSSWQtURC1KxFE5VCkKXanE3Fkp5rHuo20RnW+eDoF71ObY7liifE45YKe7qihAeUX
+ 9fsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781207591; x=1781812391;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=sbId00WAHp2KabBC0vsQBfXuDPvPFs92EuJ0J29qKqs=;
+ b=EtYhJhrcxHfQcX/JsTH2PbrdMiQ3KpgDfATnNZDSlNTt8VsUTQCrruXa+2Wjx3qtat
+ FHjzi4DqTf/6+8j3MHWnbb1weJ7kGfiuP+YNdyDX13rs9ALmi9TjgValDbL+oIIELlMo
+ +KHx+Is50q9wc7IWsRDh9u4SGBgqg9/xzvbKJxj56KNenZ0syGGfzulNkJt7UwADSFgH
+ E3yNzZh5+V6DeE3n+AN2knbvdmY7n2gr0yyAjiCPP0/QNKjzX6OypCA3tXHF6UvaJbeA
+ FFyUpfMLjgzFdicbMyP2h+LjUghXw2e3PMLz6xkGGkEVU+BI7WJpvkwnE0YgkG5knCfz
+ iSsA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8DCmWJ7Clh+1Syz63xBec0G0G84IKPXWgPfHLY57b/6U7+pP/W9UqC/yXdgYB07CZNQ+0x4bnJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxb4DHMZOT0sayQiaU7+aYqc66HG5XVTP1k6B848L0XTQW6KKWa
+ WwQSCUZ3GBIQ0PYrz7oZntjO2Asad7K3CV1QYZNqqxXSAD9lAX+rp9cJkEyMaf/EYRA=
+X-Gm-Gg: Acq92OHaTe2aLpbZDpars7aRdsvhE8MRsAQ373MU/SmoEUtWDAfY4Mvv6mn6CgXEzRh
+ jQH6ckseCTuHqQyqly+GoXtgHAdKv2f9sYVMA4fRO/S3LxXljOkiKKLJzjeK2MpJ23i+OjJGaKj
+ kkC5lsM6pdb2LGPJq8IY9LY3FlAujTWaKUzRN7WUBzY43PztP2TMFYOVxzk0gM7ixOa85dTxaUH
+ lP7Gb2btPnIJ++ZX96Z0p1ysdHiFIx2XWh967u26NMPI+pu3Ed4A6OlMvqWS0LZsOR85aVcu81W
+ R7he6iD9XMIhS4ia45/Y1Wx9yUSBWJU/buacXvLcRa7OKUOlbxhl9kMRR09jRRfZqkz7yCAlkhn
+ c0Mls2NhsXPASyWG7JAAb3SozeV7JX5lQngmyVXhFFyMzG2TqRltK03JFIy37iVFOwwZaeQD0GB
+ LcHo2+uYB/CuhvC3aUBqqMwieKLFw3oulo33Zj7c0IlmwTJ/igwFTEijeN6V62v+H+7bdhtzF+M
+ qA9r+HqV1sUbe7VnL5ofdcml8Ze/kNd+FpiI0Qv0T3FYoXO+w==
+X-Received: by 2002:a05:6122:21a6:b0:583:5e28:17b1 with SMTP id
+ 71dfb90a1353d-5bb01c400a0mr2865749e0c.12.1781207591262; 
+ Thu, 11 Jun 2026 12:53:11 -0700 (PDT)
+Received: from gui-host.Dlink ([186.220.219.98])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.53.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 12:53:10 -0700 (PDT)
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com
+Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH RESEND 9/9] drm/amd/display: convert dcn42 GPIO translation to
+ lookup tables
+Date: Thu, 11 Jun 2026 16:49:09 -0300
+Message-ID: <20260611195026.25125-10-guilherme.bozi@usp.br>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
+References: <20260611195026.25125-1-guilherme.bozi@usp.br>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,141 +93,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When writing a "max" limit lower than the current usage, the
-existing code silently failed. This series aims to improve
-on that by returning -EBUSY on failure and also attempt
-to synchronously reclaim device memory to push the usage
-under the new max limit to avoid the error.
+Replace dcn42 GPIO translation switch statements with the
+generic table-based translation helpers.
 
-Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
-Patch 2 introduces struct dmem_cgroup_init for extensible region
-      registration.
-Patch 3 implements and documents a reclaim callback interface
-      for the dmem controller.
-Patch 4 implements a TTM reclaim callback.
-Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
-      drivers xe and amdgpu.
+This simplifies the GPIO mapping logic and reduces duplicated
+translation code.
 
-v2:
-- Remove the error propagation that was in a previous series (Maarten)
-- A number of updates in patch 1. See its commit message for
-  details (Maarten)
+No functional changes intended.
 
-v3:
-- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
-  bug where drmm_cgroup_register_region() was called before
-  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
-  failure. (Sashiko-bot)
-- Use an rwsem to protect reclaim callback registration and region
-  unregister against concurrent reclaim invocations. (Sashiko-bot)
-- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
-  in man->cg unconditionally. (Sashiko-bot)
-- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
-  ttm_resource_manager_set_dmem_region().
+Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+---
+ .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++++++-----------
+ 1 file changed, 70 insertions(+), 123 deletions(-)
 
-v4:
-- Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
-  as stolen memory uses a separate TTM manager.
-
-v5:
-- Add patch 2 introducing struct dmem_cgroup_init to make the
-  dmem_cgroup_register_region() API extensible without adding positional
-  arguments in the future.
-- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
-  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
-- Compare usage against the truncated limit stored in cnt.max, not the
-  original u64. (Sashiko-bot)
-- Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
-  the memcg controller; only -ENOSPC (no progress) counts against the
-  budget, other errors abort immediately.
-- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
-  the reclaim callback, preventing use-after-free when the manager is
-  torn down while the dmem region outlives it. (Sashiko-bot)
-- Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
-- Clear the reclaim callback in xe and amdgpu fini paths to prevent
-  use-after-free after driver unbind with open DRM file descriptors.
-  (Sashiko-bot)
-- Register xe fini devres action before drmm_cgroup_register_region()
-  so LIFO teardown runs unregister first, draining callbacks before the
-  manager is destroyed. (Sashiko-bot)
-- Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
-  of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
-  fini is called explicitly during driver unbind before drmm cleanup.
-  (Sashiko-bot)
-- Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
-  prevent TTM reclaim from running after driver unbind.
-
-v6:
-- Move the ops check inside down_read() in set_resource_max(), guarded
-  by region->unregistered, to close a UAF race against
-  dmem_cgroup_unregister_region(). (Sashiko-bot)
-- Fix dmem_cgroup_ops->reclaim docstring: -ENOSPC is retried up to
-  DMEM_MAX_RECLAIM_RETRIES times, not an immediate stop. (Sashiko-bot)
-- Fix mgr->cg_region never being assigned in amdgpu_vram_mgr_init(),
-  causing dmem_cgroup_unregister_region() in fini to silently no-op.
-  (Sashiko-bot)
-- Reorder amdgpu_vram_mgr_fini() to call set_used(false) and
-  evict_all() before dmem_cgroup_unregister_region(), so
-  ttm_resource_free() can uncharge via man->cg during eviction; clear
-  man->cg after unregister. (Sashiko-bot)
-
-User-space tests are at
-https://patchwork.freedesktop.org/series/163935/
-
-Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
-
-Thomas Hellström (6):
-  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-  cgroup/dmem: Introduce struct dmem_cgroup_init for region initialization
-  cgroup/dmem: Add reclaim callback for lowering max below current usage
-  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
-    controller
-  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
-  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  30 ++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |   2 +
- drivers/gpu/drm/drm_drv.c                    |   8 +-
- drivers/gpu/drm/ttm/ttm_bo.c                 |  95 +++++++++++++++++++-
- drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
- drivers/gpu/drm/ttm/ttm_resource.c           |  50 +++++++++++
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  53 +++++++++--
- include/drm/drm_drv.h                        |   4 +-
- include/drm/ttm/ttm_bo.h                     |  10 +++
- include/drm/ttm/ttm_resource.h               |   7 ++
- include/linux/cgroup_dmem.h                  |  38 +++++++-
- kernel/cgroup/dmem.c                         | 129 ++++++++++++++++++++++++---
- 13 files changed, 396 insertions(+), 35 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
+index e7e1d9979876..7b2c4cd42450 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
+@@ -39,62 +39,76 @@
+  * end *********************/
+ 
+ 
++static const struct gpio_id_offset_entry gpio_offsets[] = {
++	/* HPD */
++	GPIO_ENTRY(HPD0_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_1),
++	GPIO_ENTRY(HPD1_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_2),
++	GPIO_ENTRY(HPD2_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_3),
++	GPIO_ENTRY(HPD3_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_4),
++	GPIO_ENTRY(HPD4_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_5),
++};
++
++
++/* DDC */
++static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
++	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
++	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
++	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
++	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
++	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
++	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
++};
++
++
++static const struct gpio_pin_entry gpio_pins[] = {
++	/* DDC */
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
++		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
++		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
++		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
++		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
++		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
++		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
++		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
++		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
++		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
++		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
++		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
++		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++};
++
++
+ static bool offset_to_id(
+ 	uint32_t offset,
+ 	uint32_t mask,
+ 	enum gpio_id *id,
+ 	uint32_t *en)
+ {
+-	(void)mask;
+-	switch (offset) {
+-	/* HPD */
+-	case REG(HPD0_DC_HPD_INT_STATUS):
+-		*id = GPIO_ID_HPD;
+-		*en = GPIO_HPD_1;
+-		return true;
+-	case REG(HPD1_DC_HPD_INT_STATUS):
+-		*id = GPIO_ID_HPD;
+-		*en = GPIO_HPD_2;
++	if (dal_hw_translate_gpio_ddc_offset_to_id(
++			ddc_offset_map,
++			ARRAY_SIZE(ddc_offset_map),
++			offset, en))
+ 		return true;
+-	case REG(HPD2_DC_HPD_INT_STATUS):
+-		*id = GPIO_ID_HPD;
+-		*en = GPIO_HPD_3;
+-		return true;
+-	case REG(HPD3_DC_HPD_INT_STATUS):
+-		*id = GPIO_ID_HPD;
+-		*en = GPIO_HPD_4;
+-		return true;
+-	case REG(HPD4_DC_HPD_INT_STATUS):
+-		*id = GPIO_ID_HPD;
+-		*en = GPIO_HPD_5;
+-		return true;
+-	/* DDC */
+-	/* we don't care about the GPIO_ID for DDC
+-	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
+-	 * directly in the create method
+-	 */
+-	case REG(DC_GPIO_DDC1_A):
+-		*en = GPIO_DDC_LINE_DDC1;
+-		return true;
+-	case REG(DC_GPIO_DDC2_A):
+-		*en = GPIO_DDC_LINE_DDC2;
+-		return true;
+-	case REG(DC_GPIO_DDC3_A):
+-		*en = GPIO_DDC_LINE_DDC3;
+-		return true;
+-	case REG(DC_GPIO_DDC4_A):
+-		*en = GPIO_DDC_LINE_DDC4;
+-		return true;
+-	case REG(DC_GPIO_DDC5_A):
+-		*en = GPIO_DDC_LINE_DDC5;
+-		return true;
+-	case REG(DC_GPIO_DDCVGA_A):
+-		*en = GPIO_DDC_LINE_DDC_VGA;
++
++	if (dal_hw_translate_gpio_offset_to_id(
++			gpio_offsets,
++			ARRAY_SIZE(gpio_offsets),
++			offset, mask, id, en))
+ 		return true;
+-	default:
+-		ASSERT_CRITICAL(false);
+-		return false;
+-	}
++
++	ASSERT_CRITICAL(false);
++	return false;
+ }
+ 
+ 
+@@ -103,81 +117,14 @@ static bool id_to_offset(
+ 	uint32_t en,
+ 	struct gpio_pin_info *info)
+ {
+-	bool result = true;
+-
+-	switch (id) {
+-	case GPIO_ID_DDC_DATA:
+-		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
+-		switch (en) {
+-		case GPIO_DDC_LINE_DDC1:
+-			info->offset = REG(DC_GPIO_DDC1_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC2:
+-			info->offset = REG(DC_GPIO_DDC2_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC3:
+-			info->offset = REG(DC_GPIO_DDC3_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC4:
+-			info->offset = REG(DC_GPIO_DDC4_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC5:
+-			info->offset = REG(DC_GPIO_DDC5_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC_VGA:
+-			info->offset = REG(DC_GPIO_DDCVGA_A);
+-		break;
+-		case GPIO_DDC_LINE_I2C_PAD:
+-		default:
+-			ASSERT_CRITICAL(false);
+-			result = false;
+-		}
+-	break;
+-	case GPIO_ID_DDC_CLOCK:
+-		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
+-		switch (en) {
+-		case GPIO_DDC_LINE_DDC1:
+-			info->offset = REG(DC_GPIO_DDC1_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC2:
+-			info->offset = REG(DC_GPIO_DDC2_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC3:
+-			info->offset = REG(DC_GPIO_DDC3_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC4:
+-			info->offset = REG(DC_GPIO_DDC4_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC5:
+-			info->offset = REG(DC_GPIO_DDC5_A);
+-		break;
+-		case GPIO_DDC_LINE_DDC_VGA:
+-			info->offset = REG(DC_GPIO_DDCVGA_A);
+-		break;
+-		case GPIO_DDC_LINE_I2C_PAD:
+-		default:
+-			ASSERT_CRITICAL(false);
+-			result = false;
+-		}
+-	break;
+-	case GPIO_ID_SYNC:
+-	case GPIO_ID_VIP_PAD:
+-	default:
+-		ASSERT_CRITICAL(false);
+-		result = false;
+-	}
+-
+-	if (result) {
+-		info->offset_y = info->offset + 2;
+-		info->offset_en = info->offset + 1;
+-		info->offset_mask = info->offset - 1;
+-
+-		info->mask_y = info->mask;
+-		info->mask_en = info->mask;
+-		info->mask_mask = info->mask;
+-	}
+-
+-	return result;
++	if (dal_hw_translate_id_to_offset(
++			gpio_pins,
++			ARRAY_SIZE(gpio_pins),
++			id, en, info))
++		return true;
++
++	ASSERT_CRITICAL(false);
++	return false;
+ }
+ 
+ 
 -- 
-2.54.0
-
-Thomas Hellström (6):
-  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-  cgroup/dmem: Introduce struct dmem_cgroup_init for region
-    initialization
-  cgroup/dmem: Add reclaim callback for lowering max below current usage
-  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
-    controller
-  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
-  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  30 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |   2 +
- drivers/gpu/drm/drm_drv.c                    |   8 +-
- drivers/gpu/drm/ttm/ttm_bo.c                 |  95 +++++++++++++-
- drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
- drivers/gpu/drm/ttm/ttm_resource.c           |  50 +++++++
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  53 +++++++-
- include/drm/drm_drv.h                        |   4 +-
- include/drm/ttm/ttm_bo.h                     |  10 ++
- include/drm/ttm/ttm_resource.h               |   7 +
- include/linux/cgroup_dmem.h                  |  38 +++++-
- kernel/cgroup/dmem.c                         | 129 +++++++++++++++++--
- 13 files changed, 396 insertions(+), 35 deletions(-)
-
--- 
-2.54.0
+2.47.3
 
