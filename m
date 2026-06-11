@@ -4,69 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB69BCD98DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B6BCD98DA
 	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5546810F2EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B6E410F2EA;
 	Fri, 12 Jun 2026 07:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n/frx6kh";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="GuJyaSky";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48BF310EFCD;
- Thu, 11 Jun 2026 14:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781187796; x=1812723796;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=j0LFqFDMM+mkQ5KenBd9BFas8ZBxm6v3GaG5SybWrEo=;
- b=n/frx6khlGrzWXgp4orRbQx7PZ0JjRfem+mN2+KbI+V1L1ZJRZ2m886k
- Z6eCa0VKYbIfpxOUcYjKBAkqkqQP6dd6CDiCGRqTESXqglyCKBF8AGNyN
- fte06dM8yWY+UUSpH0KmUWDLF6zVcLfOxgQlgK6Q1kX0NVIqGrXKgjQ5k
- VGNWnTvIMHiQGmtQeuDxcYygQJEMnOeJmhVvO1eWCOGUEaFsggWry74X0
- ffm6MRYWl1+hLpd64YAMeluXCheKOSt6Yj/GGbzsTukejZ/hJTeVpmAGo
- mlhNClg2ngdfH2x16I3iiWj9rtUZvRs9BnkoRkYWB3OjUESpyzu+rEza9 g==;
-X-CSE-ConnectionGUID: pD6K0C7qSq2rBYmouktxvg==
-X-CSE-MsgGUID: nPCgUp9MT9+1hHZTk7xvfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983408"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983408"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:16 -0700
-X-CSE-ConnectionGUID: MfCQDl/ESsWuL32Iao2smg==
-X-CSE-MsgGUID: kBOVxMNeTuWV2+fC2cbhMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574311"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:12 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 2/6] cgroup/dmem: Introduce struct dmem_cgroup_init for
- region initialization
-Date: Thu, 11 Jun 2026 16:22:38 +0200
-Message-ID: <20260611142242.2529-3-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
-References: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3390A10E28C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 19:51:21 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-59d6e44e5c8so107708e0c.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:51:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1781207481; x=1781812281; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=AqexdJuQhvZ4SiuJdYKxfTsj0ya3VX999FM6ttvHo3w=;
+ b=GuJyaSky66coFT+f6bwMNiSkpxaqD4zQ6+JlujatE/JHORU4xVmaaZgbcWrTq0+hsP
+ 0GtHci1Tqu28fm8M4y3/TNFZrasZQ/9RYny05nAtTX1gqqUklcQqpOLi9OY278iY9sta
+ D2KAh/AabOc5ox0w3EkzitEsweqZRht3/19TYGzBZD9TTqvxpOeM1Ts4oD7c95zo64kp
+ InS7QLxDF+2cY+L/yWx22JrKsYq+S955q9ux+U+3o/lzknIYrqL9DvQIXg/dM+dLqe+e
+ ieKI/7rUoaauKGSf8O9BvE495Vb0KacT1gMmByH1cUmGmLX9OxbBo2cxZ/By6HSvRiPv
+ ojfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781207481; x=1781812281;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AqexdJuQhvZ4SiuJdYKxfTsj0ya3VX999FM6ttvHo3w=;
+ b=FOL2JwMsvy3oFcCHt6w4gqAhrLp50NZ9Pg+DaMdCdK7CrI+sWFpoe4L277l/U1EipC
+ /WmghF7vl8BOs537Kp4lXRz6SiEAGDBdGEQrbw3mLtPv3S6qFecbLvAYoGPvMjTIAUht
+ 3FutMoRczVscNKjp5wfZrxHMAV42ONljH4yNTOLri4V8qYFvvVVKsTOZWUXZL7gbdwut
+ FZyXRSx2UCh7B9EhnCM7W5qFCjWWHpcjuupRMy1FuOsHrJ+K33lMXIPC25dsamRtT+sL
+ /XkoJebrQSsfiPHw1genOnyi4oesRkaaKBPceBkug8uz8v7drv5MqAoi0mLvRhbczpCu
+ GRfw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8X4o+adPenFHsCETQFOIDTtMYXdgdmQHBO/JKZuNJ8bz68n0l3ycRSI6UsLZs75rJrHJn+zFi1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzELUQhQodQV9PZ7v9/7SaI3ALbg2R5eifbLfuvC3wKiLgdvZ2l
+ ea4SCUVUYkIm0yWbw99xdr0W0n11nsCDGlNlGYrD16hIkQMKqCv6q44+bOEQMesuu4o=
+X-Gm-Gg: Acq92OGdaAG3G8+N5U56xOktVWbWdMQuTPAAd2LOUsK6g6wqc9QTgmRvyBB1IA7NYFn
+ Ijg3rnmeePdJHpB2y16+Az+EjEOHSEwY6Il6uaZERG8W096gC0nNDKPEnfPsGmXvo4TzCz6ep9N
+ gXaiIlU5gLimn59zG6Qg1RzW02fR5ERrxmZVk9Wr8bL0Hzndd9CG0dpZDDyxR988quUxZgk2VkQ
+ 9i+oizqhPahixiNQbR6oY2LX4bfwj0UwQNIGm5UDIiM8K3DzqvLEGzpX4pqgocd+V7XPSs15v0h
+ ZpztpfRv+hVeh9x0KNZxHqMBuB2lW2qyhSADp904rnAkzcyQuRd0rckgAJ1uO3ZRe+ySi2pgup/
+ cEfgB1G4Fz4ja+VqIifYVdxXmezSZo1AiQeXhdM58s76wayX7PSZff7oB0F9rdEmNPJr1Dmc8+8
+ qjca0SI0mLy09Fhf+GRDl6zL5srFwZ42sKZZ314nKP0eb4DMEi7WCFqO5rgegjWYS8ILBemVfBr
+ LcpQbL73TxjejjOH7qVDHLFGISdcAbcR7kCQLilkn6SggdSbA==
+X-Received: by 2002:a05:6122:2485:b0:56f:6b46:28be with SMTP id
+ 71dfb90a1353d-5bb00d816ffmr2885899e0c.8.1781207480684; 
+ Thu, 11 Jun 2026 12:51:20 -0700 (PDT)
+Received: from gui-host.Dlink ([186.220.219.98])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5bb691bb8a4sm345359e0c.10.2026.06.11.12.51.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 12:51:20 -0700 (PDT)
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com
+Cc: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH RESEND 0/9] drm/amd/display: convert GPIO translation logic to
+ lookup tables
+Date: Thu, 11 Jun 2026 16:49:00 -0300
+Message-ID: <20260611195026.25125-1-guilherme.bozi@usp.br>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,202 +90,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the bare u64 size argument to dmem_cgroup_register_region() and
-drmm_cgroup_register_region() with a const struct dmem_cgroup_init *
-pointer. The struct currently carries only the size field, but using a
-struct makes the API extensible: future callers can supply additional
-initialization parameters without adding more positional arguments.
+This series converts the GPIO HW translation logic used by
+multiple DCN generations from large switch statements to
+static lookup tables with shared helper functions.
 
-Update all in-tree callers (amdgpu, xe) to use a compound-literal
-initializer.
+The new implementation reduces duplicated translation logic
+across generations and makes the GPIO mappings easier to
+maintain and extend.
 
-v5:
-- Commit introduced.
+The series introduces generic GPIO translation helpers first,
+followed by per-generation conversions.
 
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  6 +++++-
- drivers/gpu/drm/drm_drv.c                    |  8 +++++---
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  7 ++++++-
- include/drm/drm_drv.h                        |  4 +++-
- include/linux/cgroup_dmem.h                  | 16 +++++++++++++---
- kernel/cgroup/dmem.c                         | 10 ++++++----
- 6 files changed, 38 insertions(+), 13 deletions(-)
+The following generations were converted:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index ac3f71d77140..08f05c3aed1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -23,6 +23,7 @@
-  */
- 
- #include <linux/dma-mapping.h>
-+#include <linux/cgroup_dmem.h>
- #include <drm/ttm/ttm_range_manager.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_buddy.h>
-@@ -932,7 +933,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
-+					      &(struct dmem_cgroup_init){
-+						.size = adev->gmc.real_vram_size,
-+					      });
- 	if (IS_ERR(man->cg))
- 		return PTR_ERR(man->cg);
- 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 1ff0bf7cba6a..3c570f9393b9 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -960,17 +960,19 @@ static void drmm_cg_unregister_region(struct drm_device *dev, void *arg)
-  * drmm_cgroup_register_region - Register a region of a DRM device to cgroups
-  * @dev: device for region
-  * @region_name: Region name for registering
-- * @size: Size of region in bytes
-+ * @init: Initialization parameters for the region.
-  *
-  * This decreases the ref-count of @dev by one. The device is destroyed if the
-  * ref-count drops to zero.
-  */
--struct dmem_cgroup_region *drmm_cgroup_register_region(struct drm_device *dev, const char *region_name, u64 size)
-+struct dmem_cgroup_region *
-+drmm_cgroup_register_region(struct drm_device *dev, const char *region_name,
-+			    const struct dmem_cgroup_init *init)
- {
- 	struct dmem_cgroup_region *region;
- 	int ret;
- 
--	region = dmem_cgroup_register_region(size, "drm/%s/%s", dev->unique, region_name);
-+	region = dmem_cgroup_register_region(init, "drm/%s/%s", dev->unique, region_name);
- 	if (IS_ERR_OR_NULL(region))
- 		return region;
- 
-diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-index b518f7dec680..308fda4248eb 100644
---- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-+++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-@@ -4,6 +4,8 @@
-  * Copyright (C) 2021-2022 Red Hat
-  */
- 
-+#include <linux/cgroup_dmem.h>
-+
- #include <drm/drm_managed.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_buddy.h>
-@@ -303,7 +305,10 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 	int err;
- 
- 	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
--	man->cg = drmm_cgroup_register_region(&xe->drm, name, size);
-+	man->cg = drmm_cgroup_register_region(&xe->drm, name,
-+					      &(struct dmem_cgroup_init){
-+						.size = size,
-+					      });
- 	if (IS_ERR(man->cg))
- 		return PTR_ERR(man->cg);
- 
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index e09559495c5b..b23830494ed4 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -34,6 +34,7 @@
- 
- #include <drm/drm_device.h>
- 
-+struct dmem_cgroup_init;
- struct dmem_cgroup_region;
- struct drm_fb_helper;
- struct drm_fb_helper_surface_size;
-@@ -433,7 +434,8 @@ void *__devm_drm_dev_alloc(struct device *parent,
- 
- struct dmem_cgroup_region *
- drmm_cgroup_register_region(struct drm_device *dev,
--			    const char *region_name, u64 size);
-+			    const char *region_name,
-+			    const struct dmem_cgroup_init *init);
- 
- /**
-  * devm_drm_dev_alloc - Resource managed allocation of a &drm_device instance
-diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-index dd4869f1d736..d9eab8a2c1ee 100644
---- a/include/linux/cgroup_dmem.h
-+++ b/include/linux/cgroup_dmem.h
-@@ -14,8 +14,18 @@ struct dmem_cgroup_pool_state;
- /* Opaque definition of a cgroup region, used internally */
- struct dmem_cgroup_region;
- 
-+/**
-+ * struct dmem_cgroup_init - Initialization parameters for a dmem cgroup region.
-+ * @size: Size of the region in bytes.
-+ */
-+struct dmem_cgroup_init {
-+	u64 size;
-+};
-+
- #if IS_ENABLED(CONFIG_CGROUP_DMEM)
--struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *name_fmt, ...) __printf(2,3);
-+struct dmem_cgroup_region *
-+dmem_cgroup_register_region(const struct dmem_cgroup_init *init,
-+			    const char *name_fmt, ...) __printf(2, 3);
- void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region);
- int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
- 			   struct dmem_cgroup_pool_state **ret_pool,
-@@ -27,8 +37,8 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 
- void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
- #else
--static inline __printf(2,3) struct dmem_cgroup_region *
--dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
-+static inline __printf(2, 3) struct dmem_cgroup_region *
-+dmem_cgroup_register_region(const struct dmem_cgroup_init *init, const char *name_fmt, ...)
- {
- 	return NULL;
- }
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 6430c7ce1e03..d12c8543f3fe 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -502,7 +502,7 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
- 
- /**
-  * dmem_cgroup_register_region() - Register a regions for dev cgroup.
-- * @size: Size of region to register, in bytes.
-+ * @init: Initialization parameters for the region.
-  * @fmt: Region parameters to register
-  *
-  * This function registers a node in the dmem cgroup with the
-@@ -511,13 +511,15 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
-  *
-  * Return: NULL or a struct on success, PTR_ERR on failure.
-  */
--struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *fmt, ...)
-+struct dmem_cgroup_region *
-+dmem_cgroup_register_region(const struct dmem_cgroup_init *init,
-+			    const char *fmt, ...)
- {
- 	struct dmem_cgroup_region *ret;
- 	char *region_name;
- 	va_list ap;
- 
--	if (!size)
-+	if (!init || !init->size)
- 		return NULL;
- 
- 	va_start(ap, fmt);
-@@ -534,7 +536,7 @@ struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *fmt
- 
- 	INIT_LIST_HEAD(&ret->pools);
- 	ret->name = region_name;
--	ret->size = size;
-+	ret->size = init->size;
- 	kref_init(&ret->ref);
- 
- 	spin_lock(&dmemcg_lock);
+  - dcn10
+  - dcn20
+  - dcn21
+  - dcn30
+  - dcn315
+  - dcn32
+  - dcn401
+  - dcn42
+
+The dce60, dce80, dce110 and dce120 implementations were
+left unchanged for now.
+
+dce60 and dce80 contain special switch-case handling paths
+that currently do not map cleanly to the new table-based
+representation, so they were intentionally excluded from
+this refactor.
+
+No functional changes intended.
+
+v1 resend:
+
+No changes since original submission.
+
+Automated review:
+https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-20260512190019.228440-1-guilherme.bozi@usp.br/
+
+Guilherme Ivo Bozi (9):
+  drm/amd/display: add GPIO HW translation helpers
+  drm/amd/display: convert dcn10 GPIO translation to lookup tables
+  drm/amd/display: convert dcn20 GPIO translation to lookup tables
+  drm/amd/display: convert dcn21 GPIO translation to lookup tables
+  drm/amd/display: convert dcn30 GPIO translation to lookup tables
+  drm/amd/display: convert dcn315 GPIO translation to lookup tables
+  drm/amd/display: convert dcn32 GPIO translation to lookup tables
+  drm/amd/display: convert dcn401 GPIO translation to lookup tables
+  drm/amd/display: convert dcn42 GPIO translation to lookup tables
+
+ .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++-----------
+ .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
+ .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
+ .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
+ .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
+ .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
+ .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
+ .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
+ .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
+ .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
+ .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
+ 11 files changed, 1274 insertions(+), 2035 deletions(-)
+
 -- 
-2.54.0
+2.47.3
 
