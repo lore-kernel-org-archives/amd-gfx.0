@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6205CD8C9D
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 20:06:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39239CD8C9D
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 20:08:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 406C010E292;
-	Thu, 11 Jun 2026 20:06:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C145D10E846;
+	Thu, 11 Jun 2026 20:08:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pRKSzX51";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="macVSr62";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011031.outbound.protection.outlook.com
- [40.93.194.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BCA010E292
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 20:06:28 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010053.outbound.protection.outlook.com [52.101.56.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B31410E846
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 20:08:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U+MppBvRHzYk0m/45iPo+hrquPzYskYtijtbgixhXIXMQEu8Z3g8GYNcpBL+C74S9bC4Sd8F4R+yQwmQeMvNg8ggbP1cs9brZ5GdT0paAhdrB302VeMXckBhJK1imohIA/+6oDq/9Yolwwq/Fpgma/1wzW5ytaqxNkIRSYgaflwGMRPiOZddGlUYzANlydK/m7KWReu04veLlLfKEj05zL6AWp0G7EWgfiNvVxC/sarYdmaSv4jJrYTF7vf7u98j3LyesOl31zyn2IZTVEqHhkD0tqc6HJYyjpDWL0H1u3rMJQ1MlMiGiP+huZhEy6GDAUhnM4xI1cu8EXslc9CM3A==
+ b=Kipu/naVx6KSycpiPoEZPpLcJtKGGwMrcAXU93Dmo0S4t8msW7kwfxffj2AiK69MooilUonfbjYqkTy4XJHqk3uzMRvJoBap5NLlixnd/KxessXXIZTtewssSUSqfGRJPJkamo7TfjDS6DO4uqgCMyGZQ1mYbi0bCHYpOEGkAaFdMWzK00pmTYWfrRfll6LTiAm9Xkojz26NeZmtRb3d+6nb/Gj3w1GgA6765+yUj6WxPTQ7SWXIn/HTFdNwfIC0SEaqRfwZTVz8GoQJVTX7108vtUmI6ufBexkRC88obUtg9VEc/9ky8RDW7YfDUOFXoKuTjnCZw+hoXLZO8pMBfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OboOsZAhOdZUVf/c9koYzYzYbyjvsX5hbh/xaQDOcJ4=;
- b=C5oPbkd4c3Yl07H8RvZF7n6FT4prilX3kvAqozo2qaDoMS/kDtBE8xJv3lmayDyDg74FzGMTBxcsHYcQ0EVuMn2r9ogJW50aMmVFwVWzeOZPZIX83Hqtn45zo0PBAWZ45TQRExrR+uvSyyQ3pfNy0ikjUbFBcYZmnQARxVKSHjFKT6AlKLk/JWhErOL3lTboEq5jxD+Z2nlwHoPEAwTKNmgsjJBiwqrop8idhrcMe0f6NTH7O44iimXj+dfGaXC+J1UAEybmiyDhnCRPeCc9oroLGX5JaNxFEKKvDR5taqNdk4jeRMHrwdQpj0t4fRUj49WcKIA5Q3aNcol/93w2YA==
+ bh=TVolnJ/muBYVOQksSm9mkS5Dm9fNQlkIRc0bMbzumRo=;
+ b=SlaNpPaERohiep7u8RQiAUN92tHae2tKQdsbGo89QY7jzhLNMofTf4Iwdo1Y4Ar7BV/0LDzn/+sMqUPIAMfb4ZNRSRHIykPYB+1F/+edV7uZ52JrWbsw9TT13BNmZNSyCWYwkxdt3IQ0rwsRgsrMZTyf8FbYNlC8SzisHhL6TYRwqhjJKQr/Jor3+6m6UCMeZl0kejhQq1yFQwBdELn1R3Wh9ze4WwUttKNDjxXmvC5J4o6I/qKlxJnLT36+gB39kU5jEsHIlc7ukGWpnCux6Alg/iwqwbO6s0NGrg4MZJhts6HBXG/j2eQR5b/EenV2NuOJWdPGzEsHOhy49dy+gw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OboOsZAhOdZUVf/c9koYzYzYbyjvsX5hbh/xaQDOcJ4=;
- b=pRKSzX51yOMNcJdm31WSUBPsuU+UmHB83TI/LoNxVfyNeB4doR8zhsON5dEHD13oBiKONJ49UkVwMH3R/sF8mSLDqkeF1V8wSfkMSMssSuyyF8N4KWGp94P6ZBHtLNNhnvSmuUXuz/ipesz72Iw508ahlr7Hd1Z0l77LXlAsLgw=
-Received: from DS1P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::11) by
- SJ2PR12MB7865.namprd12.prod.outlook.com (2603:10b6:a03:4cc::9) with
+ bh=TVolnJ/muBYVOQksSm9mkS5Dm9fNQlkIRc0bMbzumRo=;
+ b=macVSr62n+6ijRYJHxjPOfRApQJ/SUc43mhPF/S++yNQIILM7YxcTtUlRsIERlbA/TehfKaiIwUmBA/XyYw2eQTTq7wlt6bexwub7KpaLV/NhG2cCfF3H3EVLlgytlSykW+ec6FabinddnAxSeagaX1qU2UyBdIRW9QNAYDKsxM=
+Received: from DS1PR07CA0024.namprd07.prod.outlook.com (2603:10b6:8:44d::6) by
+ CH2PR12MB4165.namprd12.prod.outlook.com (2603:10b6:610:a4::13) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.13; Thu, 11 Jun 2026 20:06:24 +0000
-Received: from DS3PEPF000099DB.namprd04.prod.outlook.com
- (2603:10b6:8:242:cafe::8d) by DS1P221CA0027.outlook.office365.com
- (2603:10b6:8:242::11) with Microsoft SMTP Server (version=TLS1_3,
+ 15.21.113.13; Thu, 11 Jun 2026 20:08:00 +0000
+Received: from DS3PEPF000099E1.namprd04.prod.outlook.com
+ (2603:10b6:8:44d:cafe::1a) by DS1PR07CA0024.outlook.office365.com
+ (2603:10b6:8:44d::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Thu,
- 11 Jun 2026 20:06:24 +0000
+ 11 Jun 2026 20:08:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,19 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099DB.mail.protection.outlook.com (10.167.17.197) with Microsoft
+ DS3PEPF000099E1.mail.protection.outlook.com (10.167.17.196) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 20:06:23 +0000
+ 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 20:07:59 +0000
 Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Thu, 11 Jun 2026 15:06:23 -0500
+ 15.2.2562.41; Thu, 11 Jun 2026 15:07:58 -0500
 From: Yongqiang Sun <Yongqiang.Sun@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Yongqiang Sun <Yongqiang.Sun@amd.com>
-Subject: [PATCH 1/2] drm/amdkfd: remove obsolete events page mmap support
-Date: Thu, 11 Jun 2026 16:06:10 -0400
-Message-ID: <20260611200610.320178-1-Yongqiang.Sun@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: remove dead kernel-allocated signal page code
+Date: Thu, 11 Jun 2026 16:07:46 -0400
+Message-ID: <20260611200746.320513-1-Yongqiang.Sun@amd.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,29 +70,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DB:EE_|SJ2PR12MB7865:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02af6ba8-7cc7-4714-75dc-08dec7f4e9b7
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E1:EE_|CH2PR12MB4165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85172fc2-4369-4c6d-1e8c-08dec7f5229a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|11063799006|56012099006|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: EFCVtTWZRUqquCsR5RcSPA/L55Xg8ykCwZFJtmgPJ8jSaB2gpYgTWhe9XQg0NL71RoNjKVnPjcuQtgu7DNGi9nHgmLEf5JzA15Vg/pM/W13Hgh6Scpcf24mjcqrAPYQThOBzXa2KrUjzVuxq653EmBFuWKGqlu+AASt+K1TsM37jcoh9eqPeQz7zOOY06YpA/0ECdq27BTB287I+98EOjoppHRy/ugCKeU1MQpSfvkM3Zn7C31+T5bn5gGhGDA7bn5KLj0B3toXzOgAz4c2GL/WpjtiMsF8FdjaQC5k4A+Mx0GVJzdjYGQ1fOvEeVk9iT+CC4nyg6aE6oH5CFY0RACf5plUaTxd5PEobGtMzVuL/Nfg/W8lZX0J+0pJ2sx+OuA6hT678xWmvNdeP2tVitcBUnyBSh/rUAdxs0vGl8xu8IFrK3JaUdemEtI1thBsUo4v2lyNfKf4xL+36vr+wjpkuTN5aM0BBXGR6xKNcZ5RgVXOUIR53T1dpfCeyu+tRGnQ8ydWlF9XS8sJxJc4dfb2ae/Ff0JX+O7E1A81ROm+xePL+ZvrniFpRNDf0wJkv6fCHP5RW0B49X7EGmwZpf226/m4JNOdh32AktK0C6D05vO83bZT+ciBhXBV+WjjeJnAnd4b8KmGLyPpKw/w2A6nGwZaUvUCb1a3wOUSjYixTVtYvIG1LDrFOMI0HPH9wXPxEBMSO5CsGnUqj+dXOt52KS18ly9mNet+bvTMCkT0=
+ ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|18002099003|11063799006|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: kamqiP6uo8nMklkBmBZZ6Z1Qju0btzEm8NBOze0Z6B0peRCiPXhUEqaj2D8G+UbiqjtjmLNKOCVjgukhwMqzeHcnihei3NV0yeVWhY+aOemzuZYgAsxYZs9D29LIdU+mmnj0D2ZLfWTD8rYj1KhJLqG07yC23P8kgXpU5Pn242plpubuHsdckyqUBof40+O1k28oBnzUdvXmfxR8c6xVAwHM7KBNZ2WLTOYlYWL65cd8CU8fM3Tita4G9ySTGnMV+9+VyZdJ33q+u/iuw4HNtULMSxxYahyw/I8ad1bjK4SblqxNY7bpx4ZuvvfX7sXsx5QPUDWfiok1cUbIaIhlJxmGPYOQueZWm1udBj2acOEL4NOG0mpuvgaU/1qOdwtDHloAMzRwdPCdiwhkd6WIU9KTeRIjFOhtT8BWnNmzshEigvoDwCG/SZPIR4nUOcImfDJw5SpD05kyPiHdK1yxazZQUWZ/cX8BgS7iGxCSlgLLBYxl/Z3ghzU5c4PSyCnNY9Z35CQ4zebKiTbZQFORZnf+iAjGdxhjHrgMZOsuKuYtZnKi62TMC6XXIrl0Vvrd3aYCutEuD5oKlz5nHOFueNxKJ36S8wBksaump61z5Nqhsyo8sJLZ4LcXjXsofphzW+fIECfAlNBsWIuHCcKI/GKIst4j9rvYdjyV89JM7p2tPA+rAarkaS98ibPxkx8wz71qZCgPXTAI964bkh+3sz14xff9ko2MvqzKBVG04gI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(11063799006)(56012099006)(18002099003)(6133799003);
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(18002099003)(11063799006)(6133799003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tn20wWzA6Xr8vAmBeuPpK6Au0BjyPs3Ppk1QejhCt9q8V89vGmytUR1Ys+pcrigUxpcw9/VWw66Na1puk8YC1j9eqHhBXcc/Scik3wmwVWk00iyrDpCprcwAL+g6AartuZhFxAE99Yc6Y0kAt7qn8f+YImIrdAaG1ED3PBbHjdQ0r3aDAIlg8JXV1RwPfSHAHwU8tBi4u50i/ulSwGr4Gs0+IGCTmlgmEGC3SlQXimdvvffn6ivXq8GO6TEnRWLrQPrWB/AGJ2HyiSMe0sV23XWlLi8IIlJjpGviDDeCe85pabLVJ/xEDZdjsy9KHYj1eZQ8sXWexl7dxR5YmpCh3XccKUcFc2WElqvFVfW6UZ8OakhrNQvxRJJAO6KS1lPpJalGGVKiWkYfyj05gnxr1JZS5WcSbHuPWU0KD6477PE7zdJj6ubNbwgas7BWcBkA
+X-MS-Exchange-AntiSpam-MessageData-0: u9Ov+G+q/Y7gHiMifYooIDtUcRInpToWJENKSDjxqhpoEsplhPbmdzQc9nsubeS23BXwE+ekcgSrH/3SvikFsIzaGuBTPe/Mm7cTcSYtmq2wxaTZQ+ZQ9uTyIA0m9+TEFGKZsWxqfZ6EGybsclpd5zb6LD8YKEZp0XT5pesnvtTglQfYa9Qt0u8wLq7BPzUCzSJIEdmRwXCNzspjWfsKFymGfclkqrtCOMYrEsbQKCsfzX0fcMgGAZqJWgX7ZePaIxXibSlbGrTRqA/c8rI5r/Pbwvd3CCLHTxMGp/1UbM9VjLmToIFj3fh7quqzMM8fS47OtfYt0Y2Qu0WfvbnyCcHVXsphH3F9fpRT2RrpH8+tjvw0N6GILZVKGaQPsLrxMuujXd0nBImzlbHCUQJNQ4Lwv1SOOG2HqsvvM0jWj+VMAx7aIHryZIUlDvJE11wm
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 20:06:23.9880 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02af6ba8-7cc7-4714-75dc-08dec7f4e9b7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 20:07:59.3828 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85172fc2-4369-4c6d-1e8c-08dec7f5229a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E1.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7865
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,107 +107,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The mmap of the events (signal) page from /dev/kfd via
-KFD_MMAP_TYPE_EVENTS was only needed on APUs using IOMMUv2, which is no
-longer supported by the kernel mode driver. For dGPUs (and modern APUs)
-the events page is allocated in user mode and mapped to the kernel
-through the event_page_offset of the create event IOCTL
-(kfd_kmap_event_page), so the KFD_MMAP_TYPE_EVENTS mmap path is no longer
-functional.
+With the KFD_MMAP_TYPE_EVENTS mmap path gone, a kernel-allocated signal
+page can no longer be exposed to user space, so allocate_signal_page()
+and the related bookkeeping are dead code. The only remaining way to set
+up a signal page is kfd_kmap_event_page()/kfd_event_page_set(), where
+user space allocates the events page as a BO and passes it via the
+event_page_offset of the create event IOCTL.
 
-Remove kfd_event_mmap() and reject KFD_MMAP_TYPE_EVENTS in kfd_mmap,
-similar to the recent removal of KFD_MMAP_TYPE_RESERVED_MEM. This also
-removes a way for user space to abuse KFD_MMAP_TYPE_EVENTS of kfd_mmap.
+Remove allocate_signal_page() and require the signal page to be provided
+by user space. Drop the now unused kfd_signal_page user mapping
+bookkeeping (user_address/need_to_free_pages) and
+kfd_event::user_signal_address.
 
 Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c  | 45 ------------------------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  1 -
- 3 files changed, 2 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 59 +++++--------------------
+ drivers/gpu/drm/amd/amdkfd/kfd_events.h |  3 --
+ 2 files changed, 10 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 349e462f8ee9..c322cec9e216 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3762,7 +3762,8 @@ static int kfd_mmap(struct file *filep, struct vm_area_struct *vma)
- 		return kfd_doorbell_mmap(dev, process, vma);
- 
- 	case KFD_MMAP_TYPE_EVENTS:
--		return kfd_event_mmap(process, vma);
-+		pr_warn("KFD_MMAP_TYPE_EVENTS is no longer supported\n");
-+		return -EINVAL;
- 
- 	case KFD_MMAP_TYPE_RESERVED_MEM:
- 		pr_warn("KFD_MMAP_TYPE_RESERVED_MEM is no longer supported\n");
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 9d717303c8ab..e44f1d1bc516 100644
+index e44f1d1bc516..85e4ad10d619 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1070,51 +1070,6 @@ int kfd_wait_on_events(struct kfd_process *p,
- 	return ret;
+@@ -55,8 +55,6 @@ struct kfd_event_waiter {
+  */
+ struct kfd_signal_page {
+ 	uint64_t *kernel_address;
+-	uint64_t __user *user_address;
+-	bool need_to_free_pages;
+ };
+ 
+ static uint64_t *page_slots(struct kfd_signal_page *page)
+@@ -64,49 +62,19 @@ static uint64_t *page_slots(struct kfd_signal_page *page)
+ 	return page->kernel_address;
  }
  
--int kfd_event_mmap(struct kfd_process *p, struct vm_area_struct *vma)
+-static struct kfd_signal_page *allocate_signal_page(struct kfd_process *p)
 -{
--	unsigned long pfn;
+-	void *backing_store;
 -	struct kfd_signal_page *page;
--	int ret;
 -
--	/* check required size doesn't exceed the allocated size */
--	if (get_order(KFD_SIGNAL_EVENT_LIMIT * 8) <
--			get_order(vma->vm_end - vma->vm_start)) {
--		pr_err("Event page mmap requested illegal size\n");
--		return -EINVAL;
--	}
+-	page = kzalloc(sizeof(*page), GFP_KERNEL);
+-	if (!page)
+-		return NULL;
 -
--	page = p->signal_page;
--	if (!page) {
--		/* Probably KFD bug, but mmap is user-accessible. */
--		pr_debug("Signal page could not be found\n");
--		return -EINVAL;
--	}
+-	backing_store = (void *) __get_free_pages(GFP_KERNEL,
+-					get_order(KFD_SIGNAL_EVENT_LIMIT * 8));
+-	if (!backing_store)
+-		goto fail_alloc_signal_store;
 -
--	pfn = __pa(page->kernel_address);
--	pfn >>= PAGE_SHIFT;
+-	/* Initialize all events to unsignaled */
+-	memset(backing_store, (uint8_t) UNSIGNALED_EVENT_SLOT,
+-	       KFD_SIGNAL_EVENT_LIMIT * 8);
 -
--	vm_flags_set(vma, VM_IO | VM_DONTCOPY | VM_DONTEXPAND | VM_NORESERVE
--		       | VM_DONTDUMP | VM_PFNMAP);
+-	page->kernel_address = backing_store;
+-	page->need_to_free_pages = true;
+-	pr_debug("Allocated new event signal page at %p, for process %p\n",
+-			page, p);
 -
--	pr_debug("Mapping signal page\n");
--	pr_debug("     start user address  == 0x%08lx\n", vma->vm_start);
--	pr_debug("     end user address    == 0x%08lx\n", vma->vm_end);
--	pr_debug("     pfn                 == 0x%016lX\n", pfn);
--	pr_debug("     vm_flags            == 0x%08lX\n", vma->vm_flags);
--	pr_debug("     size                == 0x%08lX\n",
--			vma->vm_end - vma->vm_start);
+-	return page;
 -
--	page->user_address = (uint64_t __user *)vma->vm_start;
--
--	/* mapping the page to user process */
--	ret = remap_pfn_range(vma, vma->vm_start, pfn,
--			vma->vm_end - vma->vm_start, vma->vm_page_prot);
--	if (!ret)
--		p->signal_mapped_size = vma->vm_end - vma->vm_start;
--
--	return ret;
+-fail_alloc_signal_store:
+-	kfree(page);
+-	return NULL;
 -}
 -
- /*
-  * Assumes that p is not going away.
-  */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 3a8bd3eaf12b..13a021b0e6e5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1540,7 +1540,6 @@ extern const struct kfd_device_global_init_class device_global_init_class_cik;
+ static int allocate_event_notification_slot(struct kfd_process *p,
+ 					    struct kfd_event *ev,
+ 					    const int *restore_id)
+ {
+ 	int id;
  
- int kfd_event_init_process(struct kfd_process *p);
- void kfd_event_free_process(struct kfd_process *p);
--int kfd_event_mmap(struct kfd_process *process, struct vm_area_struct *vma);
- int kfd_wait_on_events(struct kfd_process *p,
- 		       uint32_t num_events, void __user *data,
- 		       bool all, uint32_t *user_timeout_ms,
+-	if (!p->signal_page) {
+-		p->signal_page = allocate_signal_page(p);
+-		if (!p->signal_page)
+-			return -ENOMEM;
+-		/* Oldest user mode expects 256 event slots */
+-		p->signal_mapped_size = 256*8;
+-	}
++	/*
++	 * The signal page is allocated in user mode and mapped to the kernel
++	 * via the event_page_offset of the create event IOCTL. Without it no
++	 * signal events can be created.
++	 */
++	if (!p->signal_page)
++		return -ENOMEM;
+ 
+ 	if (restore_id) {
+ 		id = idr_alloc(&p->event_idr, ev, *restore_id, *restore_id + 1,
+@@ -212,10 +180,8 @@ static int create_signal_event(struct file *devkfd, struct kfd_process *p,
+ 
+ 	p->signal_event_count++;
+ 
+-	ev->user_signal_address = &p->signal_page->user_address[ev->event_id];
+-	pr_debug("Signal event number %zu created with id %d, address %p\n",
+-			p->signal_event_count, ev->event_id,
+-			ev->user_signal_address);
++	pr_debug("Signal event number %zu created with id %d\n",
++			p->signal_event_count, ev->event_id);
+ 
+ 	return 0;
+ }
+@@ -303,12 +269,7 @@ static void shutdown_signal_page(struct kfd_process *p)
+ {
+ 	struct kfd_signal_page *page = p->signal_page;
+ 
+-	if (page) {
+-		if (page->need_to_free_pages)
+-			free_pages((unsigned long)page->kernel_address,
+-				   get_order(KFD_SIGNAL_EVENT_LIMIT * 8));
+-		kfree(page);
+-	}
++	kfree(page);
+ }
+ 
+ void kfd_event_free_process(struct kfd_process *p)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
+index 1dc21c13833b..88e3797bfc42 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
+@@ -63,9 +63,6 @@ struct kfd_event {
+ 	spinlock_t lock;
+ 	wait_queue_head_t wq; /* List of event waiters. */
+ 
+-	/* Only for signal events. */
+-	uint64_t __user *user_signal_address;
+-
+ 	/* type specific data */
+ 	union {
+ 		struct kfd_hsa_memory_exception_data memory_exception_data;
 -- 
 2.43.0
 
