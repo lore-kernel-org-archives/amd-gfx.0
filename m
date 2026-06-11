@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74487CD98CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34837CD98CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:12:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF5C410EDEC;
-	Thu, 11 Jun 2026 10:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA70B10EDFD;
+	Thu, 11 Jun 2026 10:12:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="V4wDati0";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="jQH+Awhi";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8172610EDEC
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 10:11:30 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7407310EDFD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 10:12:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781172689;
+ s=mimecast20190719; t=1781172730;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8J03CxoywVvGkdqDT93IzLl+xZxTV2J8FpCDOD6Xyq8=;
- b=V4wDati0cTd3kX5sMPsw3op3tmBPD0gd4A6IfmxwLfYgxXcXdJx89HZu5LWLlBs0Ps1Tr0
- 5uExXAQbYeULw1ta3bFLyJDqOlAareV/IpqtUu1IhNRgb/I4NVnINKIhDKLEiF4o7fYn1+
- vlySgvoppTd5TWK78f9zWAqwIYx3iiA=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=q0r9Bb05wU768Bts6kNipr0zjojivSJzgQogOHI5wH0=;
+ b=jQH+AwhiNYfDNE+fpr4EyyfDzX+dLcde4fPwRfQtPkFv4U4Ir1NylXa63M2xY7sHY9Lsh0
+ 2QjNaTT2VebPP1X4WLmCuDf8Q08O5dzGXjc8KU7LN722trj0LbRBVADxg9kRbg8AOdBkGb
+ FynE6i7WfrFwElLyvj9LvMXWaXI+0/g=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-529-BPLlDdWePIeI4Xi7xBpSEA-1; Thu, 11 Jun 2026 06:11:28 -0400
-X-MC-Unique: BPLlDdWePIeI4Xi7xBpSEA-1
-X-Mimecast-MFC-AGG-ID: BPLlDdWePIeI4Xi7xBpSEA_1781172687
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-45ef697092fso4890463f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 03:11:28 -0700 (PDT)
+ us-mta-638-RNk-DkmpOtOnN0ed2dt2WA-1; Thu, 11 Jun 2026 06:12:09 -0400
+X-MC-Unique: RNk-DkmpOtOnN0ed2dt2WA-1
+X-Mimecast-MFC-AGG-ID: RNk-DkmpOtOnN0ed2dt2WA_1781172728
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-490a060eb84so49692825e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 03:12:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781172687; x=1781777487;
+ d=1e100.net; s=20251104; t=1781172728; x=1781777528;
  h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
  :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=8J03CxoywVvGkdqDT93IzLl+xZxTV2J8FpCDOD6Xyq8=;
- b=fgRh2lIBpKzX1kTAioCQfDxYUxWnKrPsJXst161RKQrqdmtwgCwUDuSGl9uPLgdoq6
- E5thOgQ1MYVhe5AuADP+tiiFlYLMu5DpKP339opjbDskhJQythtVtrBD+t3w4tWPaf7d
- fBhxSa/5dEJ+QEaDIgSsD9niaXhlVfHVHwJi5Rwwtbp0U8kXkaJ7OeVl2FA+x8ww4OOs
- E8ZHb56+iyaJWI2gf/sIM7C4VGQh3ecLjzdVHYhcaUF82Rk2KqQEKpWrEK4/56nv2/rg
- V0S/2jUNwYWWyQtmU9eIwjEjgnQYIhVrhCezFGQ85zGNgY73TNKGfrnkPXXP0Pc5wF4V
- PGTw==
+ bh=q0r9Bb05wU768Bts6kNipr0zjojivSJzgQogOHI5wH0=;
+ b=ieDzD88W4fHPhb6I5gO58xTNSCY3jcLTgs8gIUNyc3kCxE+6aL8OovBG42lxJJH32a
+ x+pGtv7hsKKxkt//Mv/H1ePYweOWBFb+ivWCF7MNsd3TcXnCRKK1OaOpQTUZJ+5OU/HY
+ C/SXmhXw7oH7KquWtI/eAnlm41m2jhdt0g8dvfs2t3L8SBP7Pzt24WVQSldsNL6osJkg
+ pf9ugvA9RbPdWuOsIAtvx7xbHbAx6Rfuka1pIkzyf/YDVA45fAf6a4mQC02oLCnILF3u
+ yrLSouhsykWvS+jzCZs0ejSsgQKDE3pRLi26v6slOM05Ui76GskfXjoKiqFa15jgNZd9
+ 2MYQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/AvBEU6Q/tOewf41z6WY7zD4XCfjwsWDsARcYel+pAcyRRy4sZzons13ldGOoXUo0VZpnLILZx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9Mqw2L56yy45fvXyQR6zDOttc6yfM8BE++rtOgJQ9VtkkvC1l
- A1BC58f/exWoNePlC3hcSjXwb6fnRs+KbyThqkgL5Aaujz1o3mEpbnLir+rU4GgHwXH0hs9cwN0
- +ymMTkqTZL/a2xt+55+xtlFjIadIPcreO6u/2XleVm/FVCI1L2/rryNmkUPKsw8ah4tA=
-X-Gm-Gg: Acq92OE2phL2zGL/HrvafVXURMC+PZext2IxuB1qFXuaH5lvT+Ou/0cfv/nsEY492Sh
- W0ng/0MiqPk99SrOTbMDaVdEx4QVYdhD3uX9mXmZhLsJT318s+1d1InQeVrtDPun9aJsy8WtpM4
- aZSqCgqXwS9HKbU4RqQWFvQ+rJT3SnIDyi0A8x7qT3sTwpWOdL4iuX75z9g0Y8eQay6IxKfSkQh
- WFkYCbN1pYYIwPMkbleL4jcg/jzVZxBVrG3LuunEQEweiW5x0MmNb+xl4PLLRpWYVEm86qxTxvZ
- y0SIdG0CdT5GozJuGeGwT4yqAMm+NJsUH1MQMcyHS124MeobB1X0GGtl50bvKkZaNfa/HeOzVN2
- zO2QfNeQWKTVrl5uMO82PDqc38xY4x1OlnrHriUsfuoE8uBNA8dAC8R8s0JIsGMtI/9bK6WRGa3
- 1VatywEqloDqroBBY=
-X-Received: by 2002:a5d:524f:0:b0:460:3233:bee8 with SMTP id
- ffacd0b85a97d-460677b28camr2150190f8f.40.1781172687243; 
- Thu, 11 Jun 2026 03:11:27 -0700 (PDT)
-X-Received: by 2002:a5d:524f:0:b0:460:3233:bee8 with SMTP id
- ffacd0b85a97d-460677b28camr2150129f8f.40.1781172686816; 
- Thu, 11 Jun 2026 03:11:26 -0700 (PDT)
+ AFNElJ+O49+EkrB+YQCe9bpQ89vT8S1EHjl/tO3QpIHmo0Qui+sizrCKF14KaVNQID5ubr8J6b26WGHT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdFAAJmsmZSOKbJtXFNwpfHmGPXsQ0qgy/SeMLfc5eQBGaKRg5
+ 0IXI6qfoNiE0xn2ecGLwEWO8CNuURQqdVTG3z/5PbDFMx3a21oMpv1JHz+pR6fx6ZdItnjkSkwb
+ VzbKJv2c9J+Dn1PqBxqS9lmf8WJqH4GgJV6gxKtpneYu7d1UMwcG+dits2S+P5ZuZOlU=
+X-Gm-Gg: Acq92OE7gVpnnoKC9A5LtqCqoE88TtW8H/8Hu1iHoHicQCo6iVoGf6sVM92LmCVbpyi
+ +dw85/6d91Bqzi59IRwzCCkgeI8WcvmWnnqiaAQikSxMJT5Da0KxFjGLUmlcF3EG5RQJhD+y4ZQ
+ YCOVbPDtxtjCc0Y5etQ6117P174F+xOc+lc+D+qVgpoEimBV+WUQxK7e+gMAqbLqj7h/JvPhVH5
+ 7Lp8fn9L6oDwE5pPGnF3rz9JAAc487uWshvtkigN6KrHz0T6BSxXmNAIeN2y2Ih7e0pX4U2MZrt
+ uF0lO4BTAL3Gneq/MI3LYE+ePNqW4aRc+nP4pejLYUm8yr6cAEb9RmyESU3HG0FTWqFG91tilIp
+ H6ZwOr1l1Ka2BaNTjGsagjsApBfu2X3RozCQ02k4mgwwpMl/XF0dBQ652OV9oLg2ebzAOLgjPIN
+ DVKOmsEjFwiuEO2zw=
+X-Received: by 2002:a05:600c:a39b:b0:490:c08b:b24b with SMTP id
+ 5b1f17b1804b1-490e5607e3cmr15876045e9.26.1781172728112; 
+ Thu, 11 Jun 2026 03:12:08 -0700 (PDT)
+X-Received: by 2002:a05:600c:a39b:b0:490:c08b:b24b with SMTP id
+ 5b1f17b1804b1-490e5607e3cmr15875655e9.26.1781172727683; 
+ Thu, 11 Jun 2026 03:12:07 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2e4b18sm63288157f8f.10.2026.06.11.03.11.26
+ 5b1f17b1804b1-490e2d09a85sm51975965e9.14.2026.06.11.03.12.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 03:11:26 -0700 (PDT)
+ Thu, 11 Jun 2026 03:12:07 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
@@ -84,17 +84,17 @@ Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- stable@vger.kernel.org, Zack Rusin <zackr@vmware.com>
-Subject: Re: [PATCH v5 02/15] drm/i915/display: Handle struct
+ Zack Rusin <zackr@vmware.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v5 03/15] drm/vboxvideo: Handle struct
  drm_plane_state.ignore_damage_clips
-In-Reply-To: <20260610152505.260172-3-tzimmermann@suse.de>
+In-Reply-To: <20260610152505.260172-4-tzimmermann@suse.de>
 References: <20260610152505.260172-1-tzimmermann@suse.de>
- <20260610152505.260172-3-tzimmermann@suse.de>
-Date: Thu, 11 Jun 2026 12:11:25 +0200
-Message-ID: <87v7bp5quq.fsf@ocarina.mail-host-address-is-not-set>
+ <20260610152505.260172-4-tzimmermann@suse.de>
+Date: Thu, 11 Jun 2026 12:12:06 +0200
+Message-ID: <87se6t5qtl.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: wo7ME4HaNDkKLLqwZWXZme7fW273Cez4-t1tX3-YEDc_1781172687
+X-Mimecast-MFC-PROC-ID: CN-mJPeTA2bJCBan02uf_mqxCPbUeaUbEqjtp3LPO58_1781172728
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -115,21 +115,23 @@ Thomas Zimmermann <tzimmermann@suse.de> writes:
 
 > The mode-setting pipeline can disabled damage clippings for a commit
 > by setting ignore_damage_clips in struct drm_plane_state. The commit
-> will then do a full display update. Commit 35ed38d58257 ("drm: Allow
-> drivers to indicate the damage helpers to ignore damage clips") introduced
-> ignore_damage_clips to selectively ignore damage clipping in certain
-> framebuffer changes.
+> will then do a full display update.
 >
-> The i915 driver does not modify the flag, but DRM's damage iterator
-> will soon rely on it. Calling drm_atomic_helper_check_plane_damage()
-> right before drm_atomic_helper_damage_merged() guarantees that it
-> has the correct state. The i915 driver does not do this elsewhere
-> so far.
+> Test the flag in the primary plane's atomic_update and do a full update
+> if it has been set.
+>
+> Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
+> to ignore damage clips") introduced ignore_damage_clips to selectively
+> ignore damage clipping in certain framebuffer changes. Vboxvideo does not
+> do that, but DRM's damage iterator will soon rely on the flag. Therefore
+> supporting it here as well make sense for consistency.
+>
+> While at it, also replace uint32_t with the preferred u32.
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
 
-Same comment here than for patch #1. I don't think this is a fix.
+And for this one as well.
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
