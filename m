@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4269CD98CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 12:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE394CD98CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 12:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5153D10E77A;
-	Thu, 11 Jun 2026 12:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4341D10EEDF;
+	Thu, 11 Jun 2026 12:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="M3HOw+Pj";
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="hGZ/j2js";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="n6JxLFng";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4F9110E77A
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:15:57 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; r=y; 
- h=From:To:Subject:Date:Message-ID; t=1781180146; bh=vbjEm0taPtS/8PHiYBW0db1
- kzvK1RzaBWNU05OjEN3A=; b=M3HOw+PjB3EALcdcqazYa0zjse1qtSWuADZn8FExbNd4REJvTS
- CE0vobG9n4lg/uH3YZRG6Ab3DaSCq7MfzDAQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed;
- r=y; 
- h=From:To:Subject:Date:Message-ID; t=1781180146; bh=vbjEm0taPtS/8PHiYBW0db1
- kzvK1RzaBWNU05OjEN3A=; b=hGZ/j2jspXkdo+3y4DoOKaCYwRn9bVKK/A7m9qh92fiOmfmYwx
- /2FRcHcB2ZoZqKBLN1YemOLyE/80wQwimmj9lx4rRENUGkrPVR9FVdGC7iF3oOgdpeCUvIQHKkw
- Rw6vYdSEtt6uxnvlwqiSnGGeTdQWkKS886hrwaHAuseQWoufRIqEIvuf8kSsZ2qi+w04BjnLx5b
- 56mLCALVn3MNUnCLlg6sK0U6LW3roD3JoobIN68juMF56VyjK19jd69P+fpJ5VdPAV1RHNRBhDk
- gQUe/2af/5eTLDWxrJ/DTjCHirY3lB3lCdxCH1EL4yfoiZGYUePVKXY2HE/1jsJl9Xg==;
-Message-ID: <8bedfbb4-86d2-43ce-b593-fd93dbb4b10e@damsy.net>
-Date: Thu, 11 Jun 2026 14:15:46 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D4F10EED7;
+ Thu, 11 Jun 2026 12:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=QF2O2BWB5BMzt5cqqJSLCmJHjU/PRJ9tFQfGKB6JtlY=; b=n6JxLFngVMGYa76MmtFMGnfITa
+ iC/+joIz2B6CITS8Yk61//fEk3bbBIa9zSiQqMoiVUgFAk1/4tg1iw58gkP1ZnPVRHyqX/yrbxrke
+ 4hBckoCui6uagQiTqPsf4fn3IHGKV9MBW9SuweS7Aqso9yuLz857JKiP/wGJ6e02d5cVuV6tGRhoa
+ 9pkxtDKybLe+vkSAC4QMWAQwYdgubyyfQNwxqN0TIco5k9CdyBhmmNk65S0AU2eUPi9GCdDOZCSMv
+ s7XmmMsKBsl76XKjPVywXcjvm/icFfRdmIv6quEwTmvfdilDtYE59wGaCVbn/W+1D1bQ4A7A0C5+s
+ oqelVHDA==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wXecO-00G6gH-FH; Thu, 11 Jun 2026 14:34:44 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Subject: [RFC] drm/sched: Replace completion with a flush
+Date: Thu, 11 Jun 2026 13:34:23 +0100
+Message-ID: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amdgpu: add userq job and state transition
- trace events
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Pierre-eric.Pelloux-prayer@amd.com
-References: <20260611083311.191012-1-Prike.Liang@amd.com>
- <20260611083311.191012-3-Prike.Liang@amd.com>
- <8290c672-f85f-4525-acac-094073e3d6a3@amd.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <8290c672-f85f-4525-acac-094073e3d6a3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,333 +61,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Due the scheduler locking design, and the inability to always lock both
+the entity and the run-queue in the consistent order, a completion exists
+which effectively marks the entity as in use from a call path which is not
+able to lock it.
 
+When entity is selected from the run job worker, its completion is marked
+as non-idle all until the code is sure it will not be dereferencing it any
+more, at which point it signals it as idle, releasing the potential
+parallel cleanup path.
 
-Le 11/06/2026 à 11:38, Christian König a écrit :
-> 
-> 
-> On 6/11/26 10:33, Prike Liang wrote:
->> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>
->> Add ftrace events for tracking the userq fence emit, signal
->> and queue state transition.
->>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> Co-developed-by: Prike Liang <Prike.Liang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     | 113 ++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  21 ++++
->>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  12 +-
->>   3 files changed, 143 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> index df98be22f1f5..9f8506f04e9e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> @@ -28,6 +28,8 @@
->>   #include <linux/types.h>
->>   #include <linux/tracepoint.h>
->>   
->> +#include "amdgpu_userq_fence.h"
->> +
->>   #undef TRACE_SYSTEM
->>   #define TRACE_SYSTEM amdgpu
->>   #define TRACE_INCLUDE_FILE amdgpu_trace
->> @@ -636,6 +638,117 @@ DEFINE_EVENT(amdgpu_userq_queue_result, amdgpu_userq_destroy_end,
->>   	     TP_PROTO(struct amdgpu_usermode_queue *queue, int result),
->>   	     TP_ARGS(queue, result));
->>   
->> +TRACE_EVENT(amdgpu_userq_emit_fence,
->> +	    TP_PROTO(struct device *device, struct amdgpu_usermode_queue *queue, struct amdgpu_userq_fence *fence),
->> +	    TP_ARGS(device, queue, fence),
->> +	    TP_STRUCT__entry(
->> +			     __field(u64, fence_context)
->> +			     __field(u64, fence_seqno)
->> +			     __string(dev, dev_name(device))
->> +			     __field(u64, doorbell_index)
->> +			     __field(u64, client_id)
->> +			     __field(u32, queue_type)
->> +			     ),
->> +	    TP_fast_assign(
->> +			   __entry->fence_context = fence->base.context;
->> +			   __entry->fence_seqno = fence->base.seqno;
->> +			   __assign_str(dev);
->> +			   __entry->doorbell_index = queue->doorbell_index;
->> +			   __entry->client_id = queue->userq_mgr->file->client_id;
->> +			   __entry->queue_type = queue->queue_type;
->> +			   ),
->> +	    TP_printk("dev=%s, client_id=%llu, type=%u, doorbell=%llu, fence=%llu:%llu",
->> +		      __get_str(dev), __entry->client_id, __entry->queue_type, __entry->doorbell_index,
->> +		      __entry->fence_context,
->> +		      __entry->fence_seqno)
->> +);
->> +
->> +TRACE_EVENT(amdgpu_userq_run_queue,
->> +	    TP_PROTO(struct device *device,
->> +		     struct amdgpu_usermode_queue *queue),
->> +	    TP_ARGS(device, queue),
->> +	    TP_STRUCT__entry(__field(u64, context)
->> +			     __string(dev, dev_name(device))
->> +			     __field(u64, doorbell_index)
->> +			     __field(u64, client_id)
->> +			     __field(u32, queue_type)
->> +			     ),
->> +	    TP_fast_assign(__assign_str(dev);
->> +			   __entry->doorbell_index = queue->doorbell_index;
->> +			   __entry->queue_type = queue->queue_type;
->> +			   __entry->client_id = queue->userq_mgr->file->client_id;
->> +			   __entry->context = queue->fence_drv->context;
->> +			  ),
->> +	    TP_printk("dev=%s, client_id=%llu, type=%u, doorbell=%llu, context=%llu",
->> +		      __get_str(dev), __entry->client_id, __entry->queue_type,
->> +		      __entry->doorbell_index, __entry->context)
->> +);
->> +
->> +TRACE_EVENT(amdgpu_userq_wait_deps,
->> +	    TP_PROTO(struct device *device, struct amdgpu_usermode_queue *queue, struct amdgpu_userq_fence *dep),
->> +	    TP_ARGS(device, queue, dep),
->> +	    TP_STRUCT__entry(
->> +			     __field(u64, context)
->> +			     __field(u64, dep_context)
->> +			     __field(u64, dep_seqno)
->> +			     __string(dev, dev_name(device))
->> +			     __field(u64, doorbell_index)
->> +			     __field(u64, client_id)
->> +			     __field(u32, queue_type)
->> +			     ),
->> +	    TP_fast_assign(
->> +			   __assign_str(dev);
->> +			   __entry->doorbell_index = queue->doorbell_index;
->> +			   __entry->queue_type = queue->queue_type;
->> +			   __entry->client_id = queue->userq_mgr->file->client_id;
->> +			   __entry->context = queue->fence_drv->context;
->> +			   __entry->dep_context = dep->base.context;
->> +			   __entry->dep_seqno = dep->base.seqno;
->> +			   ),
->> +	    TP_printk("dev=%s, client_id=%llu, type=%u, doorbell=%llu, context=%llu depends on fence=%llu:%llu",
->> +		      __get_str(dev), __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->context,
->> +		      __entry->dep_context,
->> +		      __entry->dep_seqno)
->> +);
->> +
->> +TRACE_EVENT(amdgpu_userq_state_start,
->> +	    TP_PROTO(struct amdgpu_usermode_queue *queue),
->> +	    TP_ARGS(queue),
->> +	    TP_STRUCT__entry(
->> +			     __field(u64, doorbell_index)
->> +			     __field(u64, client_id)
->> +			     __field(u32, queue_type)
->> +			     __field(u32, from)
->> +			     ),
->> +	    TP_fast_assign(
->> +			   __entry->doorbell_index = queue->doorbell_index;
->> +			   __entry->queue_type = queue->queue_type;
->> +			   __entry->client_id = queue->userq_mgr->file->client_id;
->> +			   __entry->from = queue->state;
->> +			   ),
->> +	    TP_printk("client_id=%llu, type=%u, doorbell=%llu, from=%d",
->> +		      __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->from)
->> +);
->> +
->> +TRACE_EVENT(amdgpu_userq_state_changed,
->> +	    TP_PROTO(struct amdgpu_usermode_queue *queue, enum amdgpu_userq_state new_state),
->> +	    TP_ARGS(queue, new_state),
->> +	    TP_STRUCT__entry(
->> +			     __field(u64, doorbell_index)
->> +			     __field(u64, client_id)
->> +			     __field(u32, queue_type)
->> +			     __field(u32, to)
->> +			     ),
->> +	    TP_fast_assign(
->> +			   __entry->doorbell_index = queue->doorbell_index;
->> +			   __entry->queue_type = queue->queue_type;
->> +			   __entry->client_id = queue->userq_mgr->file->client_id;
->> +			   __entry->to = new_state;
->> +			   ),
->> +	    TP_printk("client_id=%llu, type=%u, doorbell=%llu, to=%d",
->> +		      __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->to)
->> +);
->> +
->>   #undef AMDGPU_JOB_GET_TIMELINE_NAME
->>   #endif
->>   
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index 64b9127ef931..ede2263d8458 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -294,11 +294,15 @@ static int amdgpu_userq_preempt_helper(struct amdgpu_usermode_queue *queue)
->>   	int r;
->>   
->>   	if (queue->state == AMDGPU_USERQ_STATE_MAPPED) {
->> +		trace_amdgpu_userq_state_start(queue);
->> +
->>   		r = userq_funcs->preempt(queue);
->>   		if (r) {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
->>   			queue->state = AMDGPU_USERQ_STATE_HUNG;
->>   			return r;
->>   		} else {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_PREEMPTED);
->>   			queue->state = AMDGPU_USERQ_STATE_PREEMPTED;
->>   		}
->>   	}
->> @@ -314,10 +318,14 @@ static int amdgpu_userq_restore_helper(struct amdgpu_usermode_queue *queue)
->>   	int r = 0;
->>   
->>   	if (queue->state == AMDGPU_USERQ_STATE_PREEMPTED) {
->> +		trace_amdgpu_userq_state_start(queue);
->> +
->>   		r = userq_funcs->restore(queue);
->>   		if (r) {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
->>   			queue->state = AMDGPU_USERQ_STATE_HUNG;
->>   		} else {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_MAPPED);
->>   			queue->state = AMDGPU_USERQ_STATE_MAPPED;
->>   		}
->>   	}
->> @@ -335,12 +343,15 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
->>   
->>   	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
->>   	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
->> +		trace_amdgpu_userq_state_start(queue);
->>   
->>   		r = userq_funcs->unmap(queue);
->>   		if (r) {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
->>   			queue->state = AMDGPU_USERQ_STATE_HUNG;
->>   			return r;
->>   		} else {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);
->>   			queue->state = AMDGPU_USERQ_STATE_UNMAPPED;
->>   		}
->>   	}
->> @@ -357,11 +368,15 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
->>   	int r;
->>   
->>   	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
->> +		trace_amdgpu_userq_state_start(queue);
->> +
->>   		r = userq_funcs->map(queue);
->>   		if (r) {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
->>   			queue->state = AMDGPU_USERQ_STATE_HUNG;
->>   			return r;
->>   		} else {
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_MAPPED);
->>   			queue->state = AMDGPU_USERQ_STATE_MAPPED;
->>   		}
->>   	}
->> @@ -900,6 +915,7 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
->>   		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
->>   			drm_file_err(uq_mgr->file,
->>   				     "trying restore queue without va mapping\n");
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_INVALID_VA);
->>   			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
->>   			continue;
->>   		}
->> @@ -1392,12 +1408,14 @@ void amdgpu_userq_pre_reset(struct amdgpu_device *adev)
->>   		if (queue->state != AMDGPU_USERQ_STATE_MAPPED)
->>   			continue;
->>   
->> +		trace_amdgpu_userq_state_start(queue);
->>   		userq_funcs = adev->userq_funcs[queue->queue_type];
->>   		userq_funcs->unmap(queue);
->>   		/* just mark all queues as hung at this point.
->>   		 * if unmap succeeds, we could map again
->>   		 * in amdgpu_userq_post_reset() if vram is not lost
->>   		 */
->> +		trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
->>   		queue->state = AMDGPU_USERQ_STATE_HUNG;
->>   		amdgpu_userq_fence_driver_force_completion(queue);
->>   	}
->> @@ -1416,6 +1434,8 @@ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost)
->>   
->>   	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
->>   		if (queue->state == AMDGPU_USERQ_STATE_HUNG && !vram_lost) {
->> +			trace_amdgpu_userq_state_start(queue);
->> +
->>   			userq_funcs = adev->userq_funcs[queue->queue_type];
->>   			/* Re-map queue */
->>   			r = userq_funcs->map(queue);
->> @@ -1423,6 +1443,7 @@ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost)
->>   				dev_err(adev->dev, "Failed to remap queue %ld\n", queue_id);
->>   				continue;
->>   			}
->> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_MAPPED);
->>   			queue->state = AMDGPU_USERQ_STATE_MAPPED;
->>   		}
->>   	}
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> index c0d68863fa17..95ee133f749e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> @@ -30,7 +30,7 @@
->>   #include <drm/drm_syncobj.h>
->>   
->>   #include "amdgpu.h"
->> -#include "amdgpu_userq_fence.h"
->> +#include "amdgpu_trace.h"
->>   
->>   #define AMDGPU_USERQ_MAX_HANDLES	(1U << 16)
->>   
->> @@ -528,6 +528,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
->>   	/* Create the new fence */
->>   	amdgpu_userq_fence_init(queue, fence, wptr);
->>   
->> +	trace_amdgpu_userq_emit_fence(dev->dev, queue, fence);
->> +
->>   	mutex_unlock(&userq_mgr->userq_mutex);
->>   
->>   	/*
->> @@ -701,7 +703,7 @@ amdgpu_userq_wait_add_fence(struct drm_amdgpu_userq_wait *wait_info,
->>   }
->>   
->>   static int
->> -amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->> +amdgpu_userq_wait_return_fence_info(struct drm_device *dev, struct drm_file *filp,
->>   				    struct drm_amdgpu_userq_wait *wait_info,
->>   				    u32 *syncobj_handles, u64 *timeline_points,
->>   				    u32 *timeline_handles,
->> @@ -835,6 +837,8 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>   		goto free_fences;
->>   	}
->>   
->> +	trace_amdgpu_userq_run_queue(dev->dev, waitq);
-> 
-> That one clearly needs a better name or we can maybe even completely drop it.
-> 
-> The queue doesn't run, what we do here is to start gathering the fences the queue need to wait for.
+We can remove the need for this completion by implementing the identical
+guarantee by simply flushing the run job work from the cleanup path, after
+having removed the entity from the run queue.
 
-Let's remove this tracepoint for now.
+We then know that the entity is no longer reachable by the run queue
+selection logic, so as soon as any pending work is done the cleanup can
+safely proceed. And because we have marked the entity as stopped, we also
+know that the entity cannot re-enter the run queue.
 
-Pierre-Eric
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+---
+"Perfection is achieved, not when there is nothing more to add, but when
+ there is nothing left to take away." - Antoine de Saint-Exupéry
 
+Lets see what Intel's CI says about this, not to mention our new AI
+overlords...
+---
+ drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
+ drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
+ drivers/gpu/drm/scheduler/sched_main.c     |  2 --
+ drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
+ include/drm/gpu_scheduler.h                |  9 --------
+ 5 files changed, 38 insertions(+), 26 deletions(-)
 
-> 
-> Apart from that looks good to me,
-> Christian.
-> 
->> +
->>   	for (i = 0, cnt = 0; i < num_fences; i++) {
->>   		struct amdgpu_userq_fence_driver *fence_drv;
->>   		struct amdgpu_userq_fence *userq_fence;
->> @@ -869,6 +873,8 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>   
->>   		amdgpu_userq_fence_driver_get(fence_drv);
->>   
->> +		trace_amdgpu_userq_wait_deps(dev->dev, waitq, userq_fence);
->> +
->>   		/* Store drm syncobj's gpu va address and value */
->>   		fence_info[cnt].va = fence_drv->va;
->>   		fence_info[cnt].value = fences[i]->seqno;
->> @@ -969,7 +975,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->>   						   gobj_write,
->>   						   gobj_read);
->>   	} else {
->> -		r = amdgpu_userq_wait_return_fence_info(filp, wait_info,
->> +		r = amdgpu_userq_wait_return_fence_info(dev, filp, wait_info,
->>   							syncobj_handles,
->>   							timeline_points,
->>   							timeline_handles,
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index c51101ec70c1..e6f7c2fbefce 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	entity->rq = &sched_list[0]->rq;
+ 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+-	init_completion(&entity->entity_idle);
+-
+-	/* We start in an idle state. */
+-	complete_all(&entity->entity_idle);
+ 
+ 	spin_lock_init(&entity->lock);
+ 	spsc_queue_init(&entity->job_queue);
+@@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+  */
+ void drm_sched_entity_kill(struct drm_sched_entity *entity)
+ {
++	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_job *job;
+ 	struct dma_fence *prev;
+ 
+ 	spin_lock(&entity->lock);
+ 	entity->stopped = true;
+-	drm_sched_rq_remove_entity(entity->rq, entity);
++	sched = drm_sched_rq_remove_entity(entity->rq, entity);
+ 	spin_unlock(&entity->lock);
+ 
+-	/* Make sure this entity is not used by the scheduler at the moment */
+-	wait_for_completion(&entity->entity_idle);
++	/*
++	 * Make sure this entity is not used by the scheduler at the moment.
++	 *
++	 * Scheduler is guaranteed to be stable after the entity was stopped and
++	 * removed from the run-queue.
++	 */
++	if (sched)
++		drm_sched_flush_run_work(sched);
+ 
+-	/* The entity is guaranteed to not be used by the scheduler */
+ 	prev = rcu_dereference_check(entity->last_scheduled, true);
+ 	dma_fence_get(prev);
+ 	while ((job = drm_sched_entity_queue_pop(entity))) {
+@@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 		return;
+ 
+ 	spin_lock(&entity->lock);
++
++	if (entity->stopped) {
++		spin_unlock(&entity->lock);
++		return;
++
++	}
++
+ 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+ 	rq = sched ? &sched->rq : NULL;
+ 	if (rq != entity->rq) {
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index 13ecb771d7a2..80dece3be415 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+ 			 struct drm_sched_entity *entity);
+ void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+ 
++/**
++ * drm_sched_flush_run_work - flush the run-job work
++ * @sched: scheduler instance
++ */
++static inline void drm_sched_flush_run_work(struct drm_gpu_scheduler *sched)
++{
++	flush_work(&sched->work_run_job);
++}
++
+ void drm_sched_rq_init(struct drm_sched_rq *rq);
+ 
+ struct drm_gpu_scheduler *
+ drm_sched_rq_add_entity(struct drm_sched_entity *entity);
+-void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+-				struct drm_sched_entity *entity);
++struct drm_gpu_scheduler *
++drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
++			   struct drm_sched_entity *entity);
+ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
+ 
+ struct drm_sched_entity *
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index d2ca01b31ee4..b90220794a14 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -997,7 +997,6 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 
+ 	sched_job = drm_sched_entity_pop_job(entity);
+ 	if (!sched_job) {
+-		complete_all(&entity->entity_idle);
+ 		drm_sched_run_job_queue(sched);
+ 		return;
+ 	}
+@@ -1013,7 +1012,6 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 	 * refcount has been incremented for the scheduler already.
+ 	 */
+ 	fence = sched->ops->run_job(sched_job);
+-	complete_all(&entity->entity_idle);
+ 	drm_sched_fence_scheduled(s_fence, fence);
+ 
+ 	if (!IS_ERR_OR_NULL(fence)) {
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+index 044546bcb5f8..3b9175e23bf2 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -287,16 +287,20 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity)
+  * @entity: scheduler entity
+  *
+  * Removes a scheduler entity from the run queue.
++ *
++ * Return: DRM scheduler selected to handle this entity or NULL if entity has
++ * already been removed.
+  */
+-void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+-				struct drm_sched_entity *entity)
++struct drm_gpu_scheduler *
++drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
++			   struct drm_sched_entity *entity)
+ {
+ 	struct drm_gpu_scheduler *sched = container_of(rq, typeof(*sched), rq);
+ 
+ 	lockdep_assert_held(&entity->lock);
+ 
+ 	if (list_empty(&entity->list))
+-		return;
++		return NULL;
+ 
+ 	spin_lock(&rq->lock);
+ 
+@@ -306,6 +310,8 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 	drm_sched_rq_remove_tree_locked(entity, rq);
+ 
+ 	spin_unlock(&rq->lock);
++
++	return sched;
+ }
+ 
+ /**
+@@ -372,8 +378,6 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+ 				spin_unlock(&rq->lock);
+ 				return ERR_PTR(-ENOSPC);
+ 			}
+-
+-			reinit_completion(&entity->entity_idle);
+ 			break;
+ 		}
+ 	}
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index d61c19e78182..bde790dd7cc0 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -27,7 +27,6 @@
+ #include <drm/spsc_queue.h>
+ #include <linux/average.h>
+ #include <linux/dma-fence.h>
+-#include <linux/completion.h>
+ #include <linux/xarray.h>
+ #include <linux/workqueue.h>
+ 
+@@ -222,14 +221,6 @@ struct drm_sched_entity {
+ 	 */
+ 	bool 				stopped;
+ 
+-	/**
+-	 * @entity_idle:
+-	 *
+-	 * Signals when entity is not in use, used to sequence entity cleanup in
+-	 * drm_sched_entity_fini().
+-	 */
+-	struct completion		entity_idle;
+-
+ 	/**
+ 	 * @oldest_job_waiting:
+ 	 *
+-- 
+2.54.0
+
