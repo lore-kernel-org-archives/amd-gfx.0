@@ -4,122 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03CD6CD98CE
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 16:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 231DDCD98CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 18:43:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D03B10E0A3;
-	Thu, 11 Jun 2026 16:53:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 982CF10E822;
+	Thu, 11 Jun 2026 18:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3zqwsyGp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A19ybL3x";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011034.outbound.protection.outlook.com
- [40.93.194.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93C3510E0A3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 16:53:23 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011025.outbound.protection.outlook.com [52.101.52.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2691010E822
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 18:43:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oRPoCahBqHS4Bvmk5DzVfmO+V9CAM6tH/bBK42CKy9sZMMVtCSEZhCAPuCAaIh8t0xP9XoRtbzYttBp6CHVDwgr2YKEMtdve1Q7YXIk99k7jjrHgYAaiOHrWYhW27No1uGDppXLMfY7JCgeWm9ncvjAE0Y8iSkhTOKvBdgYYKCZDMAccYAyLoQtNN8cEoUHC4kvlm4yK+gf1AjckWNoNOs/uYdydCXN20BKROhLKE0Z3nFKNd/VPFiFQxMSScrnxjfXOFLjLaCNURzNeL/3XC4LMy1c8qB9/6gLRSHbBWNjtfHS+NYUAMk8l8p8+CEdbhlEX0MticZv+O0jErUc3Kg==
+ b=Rz/9c2gLybEfZWHPHEeawIayEEgimMl0qnHzqR+AdQWzYypXHAJ9AuxMdiRRc9IRq5Pxu4NMInJnfJ0ALahBIx6iSgH9J2DfaDoXxJch/lhfFjNKSJ6xxMxkbNN9oDx39yukLgfDb7jE8lfkLFf7J6b0r+s23G9rCZfDgCyAkq0/vzFQjASn2kz8PS8p0ZIjmvsO96bz/u6xIiZOw9IYj3fWZEY9qdAQYWdWDeLnUebiPJvb40UYizQfeSfM7L6FdUFXR782gHvVBheQYWAxbTwETd6Ke8rZdj3s906F4bTMXzO9UygX21XefKpPn0d+6DLUmAe6C3GGM7SCCNewcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=buEOz1W5kZ/hZ5O08ONk0uPZvFQhUMqX9gas4Y33exA=;
- b=folhj5NtP6Dj+r6jCJ7XaZ9h3Py6igQR+uYtLtG4OrWYmOJLriopwR8UeptrRFuq6juj28m7IxkaZQ2/RpzxAYnhOGUsHhAUo5yO2HIFj4uh6mN/F96bWfzcODpXfj1pgmUx6oChpQPc6hDiBrZ23TlztmAWVh7s3XPCgYzKddmSzijMPKUyVl/9J3wa+XgfsN5EmEgDSIMxfqVnHa8ANGiG7+2sfdePuitYxFuaNxy2tFwkXywSoG3Z36/VHMZTkW1xqpUWkSzT5Bw6b4s5RY1BQ3gumwSDe10kn+6wBQkACxLWrhj9cWjPwB5aoD2Oj2/x6FyZDz/GkZNKS7UitQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=8xq/LOS3aeRS5ca1CJ30r2/8GwLAz0pAGDaaxdaV10E=;
+ b=lO6E/9RqiDmEV29NdBEF/W7jDkVP82s6cOw2ecnT6qVScrNTB87IMCvd5m6xSP3HxkjFgvMEw5Ym8kLr6B24KFEC7iUTqm/WCCpC/FA7++51bP3YlSHCfYYHaSR5s1LPKA97zUoqQYW/nvDJSgw3m7yyER2TEauvivvmTP7CmpKu0f1P6VCGSDOAn4GLMZnPWbXS5FiYePrLPOmHbykr7DHHaGgBNkyS486r5h2+kd9hyn3M0LPZ5emUwTgHkllD9OfrEU6um6SJchYVZNvyIs20JLytRqoUgAed5Hz1ayQV5FP1LWdr1NiBsx/a22gsdsmbohZtfgHGT8EPVenkNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=buEOz1W5kZ/hZ5O08ONk0uPZvFQhUMqX9gas4Y33exA=;
- b=3zqwsyGp7Da4HCxwoRT+5y9oUfRdFqH4hpiKvEqRWVMS0IP5bXauhIX1aDO3JPZvhZJ6iAK1/oUL+A7pqJTjOBmDG7utufhVy9eJ6AUeg6gQIw6GTfgacWHouOBdDX/m+uoteEq/h6EMZ+9I2a11iTT3zoNLZTcsKa9BIi+YFDw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB8432.namprd12.prod.outlook.com (2603:10b6:510:25b::11)
- by DS4PR12MB9794.namprd12.prod.outlook.com (2603:10b6:8:2a7::9) with
+ bh=8xq/LOS3aeRS5ca1CJ30r2/8GwLAz0pAGDaaxdaV10E=;
+ b=A19ybL3xV26qsPge4X5DfTi5uL9epU2J9PfP0yFPjaRetbcTfPGpOfB9comjS+XaDwD5G0GY7S+phjWYH+u/Lq/P2Tak5wFWsU80YtYN7VxCtPAEwRAKkXIydUknN+ci2D3kJ2ZaCadaPZCcYdT/9P4EOuowtjgXaedd0zcS+tk=
+Received: from MW4PR04CA0121.namprd04.prod.outlook.com (2603:10b6:303:84::6)
+ by PH0PR12MB8128.namprd12.prod.outlook.com (2603:10b6:510:294::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
- 2026 16:53:20 +0000
-Received: from PH8PR12MB8432.namprd12.prod.outlook.com
- ([fe80::fe06:fa76:b8a7:9b16]) by PH8PR12MB8432.namprd12.prod.outlook.com
- ([fe80::fe06:fa76:b8a7:9b16%3]) with mapi id 15.21.0092.016; Thu, 11 Jun 2026
- 16:53:20 +0000
-Message-ID: <09f81871-aa4f-40b7-905f-8e5b6d704a4f@amd.com>
-Date: Thu, 11 Jun 2026 12:53:18 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix NULL deref during sysfs teardown
-To: Geoffrey McRae <geoffrey.mcrae@amd.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260611030150.3713054-1-geoffrey.mcrae@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20260611030150.3713054-1-geoffrey.mcrae@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0147.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ac::22) To PH8PR12MB8432.namprd12.prod.outlook.com
- (2603:10b6:510:25b::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
+ 2026 18:43:24 +0000
+Received: from MW1PEPF00016159.namprd21.prod.outlook.com
+ (2603:10b6:303:84:cafe::31) by MW4PR04CA0121.outlook.office365.com
+ (2603:10b6:303:84::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Thu,
+ 11 Jun 2026 18:43:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF00016159.mail.protection.outlook.com (10.167.249.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.1 via Frontend Transport; Thu, 11 Jun 2026 18:43:22 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Thu, 11 Jun 2026 13:43:19 -0500
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <harish.kasiviswanathan@amd.com>, Eric Huang <jinhuieric.huang@amd.com>
+Subject: [PATCH] drm/amdkfd: avoid race condition of mqd when reading sdma
+ counter
+Date: Thu, 11 Jun 2026 14:43:03 -0400
+Message-ID: <20260611184303.141724-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB8432:EE_|DS4PR12MB9794:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1056267-d30b-450f-aaff-08dec7d9f120
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016159:EE_|PH0PR12MB8128:EE_
+X-MS-Office365-Filtering-Correlation-Id: 378e0414-b5a7-40a3-b2a2-08dec7e950c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ZUSGdioCmGiO7fgCYt8W78mwfa0gi0uOsCQ34vMIAn/zPgVFICktNfarAeOw3ueuFmBPkfgkGHMPN8dpqtZ/8/GxaUUD3HYkrue6v5gsOvWbLQ7d/AoLymUZ7z6mjQXEpcjAjSeDE7h5/BJ3OQN2HNifgfY+eRqZ933FWq7S9wOeUEzV/5LlgphAMi488dbZDLLaZLdSY0JWIVDqQcbXzE6n2TKtsMdbdpTP7KCa8nQJN33ulFv0jrR/ySVnT5mPVYofOLe1FI18Mx+/22xrxjKJlP5vUVQPhKDk9CBwNDLdtqu799IHQZc8vNTCdno9IiZNtUnZYJMTKBnomrYkHPM3yGQ8QxksmgOgY3JMgMs0S9Tuno+4TtDWaqdp/9dRsOYBd27VhyUPx8/wcrqUf9IYS7IeVgZ1/bOeOQshd/6UWIXiWBmTJoeI5R/ckxCwo00zcTwhhkenHbEFdcFoRywAoohhjNV7oQpGI4/QBIuNDFrgWIh34D/XwxTZR4Q51SjWEcU6z4u/PPQyzq1LPNx7fJ0jMbHT2gdHl/yKeFZ+d80paXxRt+HehZBqB0oB+Q/1Em/Mj+0N3kFmFy0b6RMVf4QyzFBpzPBmtjqh4Nt/BckxkUBbI0qwNcnc4HErLYKH/2PUdoNtZvYts7ByO3wII+niONantwOb787N53D6m3OsaT6roNk2p24gfYE6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB8432.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: gnrBeZX1mqi/EqZhyWxNrnrgZogfqbTHmq76IUHvbqH4juVTJ0PvnZDSY4gexHsmyLB4PY0m84BGfRL+uGrLDcI7pV4IzvL3pPlKB4K6k5W9ecNcBWyiSd8m/mQqmTlz900nmA3wXHA0N7Obm06Wjk5D5U+4Yh2ATK+OJAWajMM8XjQHGQPkmYP/uRtcPOxdEkYHFIsPhZoUxizJ26VvY/8MP2aCU4/R9JjGe7pPCOaVbplc6AqlxO5berDlKcAmY+GrNqYUpl4Eh46j3EHxTFx0Y/Lf9ULTM9Hhn7hwH2YSin3UETk5IuhRn3q9bxKoMnTZFuj8A9HEYXOJGpp2kxCtecid1RvxesWUkIFDn8vJ9CRdiyfGC1b18BW5LsUW6VdMVg4E9p4jQqHIHYWD/MHsBxcX4cTjIVxEeDM+5L7aif83TbATeL8OlE8+4kzMjAnwGrjHS2uxnwnP8w1B+NtNtsXmqgTXFRmc5VFIXkJsY+nW35MFZlUENcms9f70vEf+IUn5VDi7L0B6kTbtocekvFAfUXGErEDSfbFsSHAEkOAoB0PTnIwg6KVPl9ShOJixKikyBnPfeTsiDwEKwIniglpymRSPBYVXNgoGUobbUsyHUswckW81fYfGz/KWrNp/20a5CUAGE6WuOueBuatpIl5gPrvXqxXQpGRNrtqRNz+oXrLy8aQ/LUXO0eHg/NkJm4QJAle5e9Mr3vpfAOaZ0veYkkbnpO4aYr63qNc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHhwTFY3Qjl5KzkrY3J4R2FMZ3hFbGRNTm83T0NlZ0U2Y0hzZ1FmK3FxbG9o?=
- =?utf-8?B?Nm5nL1RmT3lEOUp6bU9YMnFMbHhLQW83eVRZV05vbU9lOXk4Ry9CU2d1bEVl?=
- =?utf-8?B?WWxKaENHWWJSVFc3OTBZbGs4LzNUWTRlaTViM1BaZ0VvZ3Rzalc0TmY3S0to?=
- =?utf-8?B?aVVKODV6akM0dnQ1alFYdjFFN2FPaWJCY20xZ1FBWlpxdFpYOVNmODhHRG5y?=
- =?utf-8?B?NUdZTytiRTVvbzk3SUZEM0Y0QkNseU41SkZ2dStkZmE1aTQwN09nYmNPckE2?=
- =?utf-8?B?b3Zkb0VWRlJzN1dkbzNjSUxVMFBRS1ZTY0RqdG80Nm50WVdTRW5zV1V2MTJY?=
- =?utf-8?B?YlZyQTNqaktSTnloVm92RFBwR3c5cnFHVnJZQnlLbVlxSXBzTmRsY2JxRkU2?=
- =?utf-8?B?RnJPNGFCMHJwTWg4aFJOSStsendZdHBNdFBDK1dRMWNFakJiUVZXQUwrTjRU?=
- =?utf-8?B?NWw4YUEySkVsRTY5c0lGUzBrNnpiZlVGMzVUVUJiTFZwMVpUZmlzUlJYSHZs?=
- =?utf-8?B?bEt2Qkhkc1d5V0s2cDY0V1duc2UvaERPZjRZdE0wRmsvZC8xWm51Q21FR2px?=
- =?utf-8?B?VXBXak85K3V5SjcwS2RrUTJzL2FFb3pXUnl6UkpCazNScWhtZ081ajVLMy9q?=
- =?utf-8?B?bVc1V3hLbzBJaFNHazhYVm41NDJNUXU5UWhCcEZEOWtyNjhvaHJaRURHMm1M?=
- =?utf-8?B?aXh1VC9sZi9YV3BOTVF5eG9NS2dIVFZlSC92QlRCOFAzd1A2MVhNR2FVeThz?=
- =?utf-8?B?YkZjMTF4ZXVNWlIzMFR1Q1FCWHZKaVNPWkFmVnU0Zm00WUZWY1BnOTZnU0FX?=
- =?utf-8?B?Y1UwR2tDQUJPYkxKb1hTSWRFOHFMb2R6STQ4YmhBWlU2eDB2cEc0YkdrY0hr?=
- =?utf-8?B?VHRaL0Y1WGZ5Q3NZbHBMdHRMakplZUtESkhsN2VrWVBBaTFDeXRRYXZMUUtq?=
- =?utf-8?B?bms1NmRVblhSNmtITlR1QkppTHlsTFZlT2hONy9QTGhhdzVydER6SVMzWHFX?=
- =?utf-8?B?SGhCbkZvUklXUmJYNDgzNTROTmE4ZTdxMW1VZTZ2d3VQNDhsMU0wd3h0TStQ?=
- =?utf-8?B?ODlQWlVZUnNxbGowOG5peW5NTTF0YjZwcDYxdndPUVBKYUg5WUV6Q2lyditH?=
- =?utf-8?B?OUVTQ3V2QUFJdnloOTY5eTdBb1NWd2FMR2VPQ3NIeS8rdHU3ZnExRDVzT1M2?=
- =?utf-8?B?eWQ4K0pkUFJHQnpOcUpKTnVNY3IyQ2w5K1h3SVlqeXMzbXVKd2VSMG5MK3Ax?=
- =?utf-8?B?U1VNaE9lMnJtWWNFME8wREVGWWxILytGRm5HcHNOUkZQSTR0dXB2OERTSFVM?=
- =?utf-8?B?ZFRnMjMrcWV1SFlHQThDZnlQZm05KytTbDJpQjE3ZCtzOUpJY2hZLzM1VllZ?=
- =?utf-8?B?bVpqcFExOEF0TDg2bmtRNzNxcktpZE5JSUxIU3YvYlA5cmpPS1hLSW1iVGFU?=
- =?utf-8?B?M0FhL3YySHpZNEtHMXdQRWEvcmkwN0E4YmxOME1keWRzdmUyaWVpOEszK3da?=
- =?utf-8?B?RkFzVlJWRisza2V1UTRCaXhVRTVQZFNlWkMxYmJQN1NTQWJjWjRISnMrQk5h?=
- =?utf-8?B?amE1ZjBXM2xzOXVkZTRsS0NlYW0xSmdYcTdSUnhxK3ROaUY2RCtLOFRkWndV?=
- =?utf-8?B?YUpLVjQyTFgvU0RUMkk4a0tqZWozWThWUzIyOC9MOGtKN3JjNUJ2d1kwT3cw?=
- =?utf-8?B?cWsvenVINzY1dHhMS0RwVEdRKy90cHhEQnYvblhEbi91UTdPN3pXVW55RHgz?=
- =?utf-8?B?VVNTakQ1VUR2QVdpeHh6WFR4bk51Z1YxdmwyRDA1a2h0aGtvdkFqRUVaaCs3?=
- =?utf-8?B?am1XYTdxa1JVcHNYRUV5Nm1SVDJBVFJFS0F1OURtNnhhcUY3RjQyTzJHZDMr?=
- =?utf-8?B?d1pER1hoNzh4L09uVlc5U01NUkpueGlGTWQ1amk0Y25USCt3V2FEK1pPMmo3?=
- =?utf-8?B?RWorN1FuMUhYd2dRY2UxZk56cmYwZkRJWFdLUDNySmJGVzdqdnM5NW9lYUxm?=
- =?utf-8?B?MGdBak1INkVWSnJpMmFscitYSDNvN1hLLyt5aTBPbFYzZHJuODRMQS9TTHpo?=
- =?utf-8?B?bVJ1aWpQcXpCR3dsTHgyZTlVQktOSFRHZVczYjhXZWVuQklOa2k0bi9qZ1ZM?=
- =?utf-8?B?QjJsYjByZjBBY1hRcEVIL05ubkxwRWxMOG9HcEdVenEvU0IzRGVhcld0dXQr?=
- =?utf-8?B?RmxhT01KaUw3eDR5V2ovTG8zbDZXY1k2cnNzeURrVTFaVXN4aENQVElkbG80?=
- =?utf-8?B?T21kZnp6N3g3azV0NHlYVzlDMEJsQWVqRWZhbUZKWlFCSGdMV3Z2OXFubXUz?=
- =?utf-8?B?UDgrQjdyaWswNzYrSDk4cjFuSE1vaVoweHBqZzVGWStqTEdEbktyUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: SxvSKsVkFoFoLa3CQON5ftQNCPnDbn8vgpF1Ct3QWPTRIfLVKo1sVCcP/Q5rebRi5+qPjIAep1vdjCNMQ9EZteYAoTpB+lnuq8KTTic09WJxBjWMCPmd1jbOyI0MsO3HoGCydjw7LWAuGDQNiwPlNdT5sdC2WnVM0YvYorR80UiIcoBjGScEDWXO6QNPDgLj3enTYqxGce+ZAbZktgM1jVs4K3IhYz6gEoBLFnVVmjj85g1uMLkRikJtaca+gm/jiQZKOuKsuErLaS+fxOXnUQhGN3bn7l6GRolkud1TSvIHOLzigjTuWggFqGLi0r0lp4U7b/SHgeVVIBhJgdNJvXxPPB9QUuK2Yj3ZopKdfIbfwUmAqx1r46HsXQOlJOK3+OkZzxQmbtcQxOoJuLkaaSRvQFqpAA2nGxTvS8D5olynKXzyZzZtNSpLVzyVRPmr
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1056267-d30b-450f-aaff-08dec7d9f120
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB8432.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 16:53:20.4159 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 18:43:22.8238 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 378e0414-b5a7-40a3-b2a2-08dec7e950c4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qHW8CdhvZOSGH2mXrnux5J4ggvRVXAgtgWLTQ3qcpfge+sbEhCjBn2HL/jkZwk1xokXjUu39XrFkePGgLLPNtQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9794
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF00016159.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8128
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,139 +108,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-06-10 23:01, Geoffrey McRae wrote:
-> Move kfd_process_remove_sysfs() earlier in
-> kfd_process_wq_release() so that all sysfs/procfs entries are
-> removed before tearing down PDDs and dropping lead_thread.
-> The per-process sysfs attributes are backed by struct
-> kfd_process_device, and their show/store callbacks dereference
-> PDD fields. Since sysfs removal waits for active callbacks to
-> complete, removing these entries first closes a race where
-> userspace reads sdma_* and stats_* files after PDD teardown.
->
-> This race caused NULL pointer dereferences observed in
-> kfd_sdma_activity_worker and kfd_procfs_stats_show.
->
-> Also harden kfd_process_remove_sysfs() against partially
-> initialized or already-freed objects:
-> - Check kobj_queues before removing PASID and deleting it
-> - Skip NULL pdd entries
-> - Guard kobj_stats and kobj_counters before use
->
-> These checks prevent invalid dereferences during cleanup.
->
-> Fixes: NULL pointer dereference in KFD sysfs/procfs stats paths
-> Change-Id: I405b8fb95d3c5e163dfc45928da54f31546d92cc
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 44 +++++++++++++++---------
->   1 file changed, 28 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index d28ca581cad0..b47e7dac8b2d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1160,28 +1160,36 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
->          if (!p->kobj)
->                  return;
->
-> -       sysfs_remove_file(p->kobj, &p->attr_pasid);
-> -       kobject_del(p->kobj_queues);
-> -       kobject_put(p->kobj_queues);
-> -       p->kobj_queues = NULL;
-> +       if (p->kobj_queues) {
-> +               sysfs_remove_file(p->kobj, &p->attr_pasid);
-> +               kobject_del(p->kobj_queues);
-> +               kobject_put(p->kobj_queues);
-> +               p->kobj_queues = NULL;
-> +       }
->
->          for (i = 0; i < p->n_pdds; i++) {
->                  pdd = p->pdds[i];
-> +               if (!pdd)
-> +                       continue;
+MQD used outside of dpm_lock is unsafe because of the queue
+could be destroyed during the window of dqm_unlock, moving into
+dqm_lock range is the best practice.
 
-I agree with Kent that this is probably overly paranoid since you are 
-fixing the sequence. kfd_create_process_device_data initializes the pdds 
-in such a way that it should be impossible to find a NULL-pointer in 
-this array.
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 32 +++++++++++++-----------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index e0b885b2395a..1cf689cb5e2c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -91,7 +91,6 @@ struct kfd_sdma_activity_handler_workarea {
+ 
+ struct temp_sdma_queue_list {
+ 	uint64_t __user *rptr;
+-	void *mqd;
+ 	uint64_t sdma_val;
+ 	unsigned int queue_id;
+ 	struct list_head list;
+@@ -154,6 +153,22 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
+ 		    (q->properties.type != KFD_QUEUE_TYPE_SDMA_XGMI))
+ 			continue;
+ 
++		if (KFD_GC_VERSION(dqm->dev) > IP_VERSION(9, 4, 2)) {
++			ret = dqm->dev->kfd2kgd->hqd_sdma_get_counter ?
++			      dqm->dev->kfd2kgd->hqd_sdma_get_counter(
++					dqm->dev->adev, q->mqd,
++					dqm->dev->kfd->device_info.num_sdma_queues_per_engine,
++					&val) :
++			      -EOPNOTSUPP;
++
++			if (ret)
++				pr_debug("Failed to read SDMA queue active counter %i\n", ret);
++			else
++				workarea->sdma_activity_counter += val;
++
++			continue;
++		}
++
+ 		sdma_q = kzalloc(sizeof(struct temp_sdma_queue_list), GFP_KERNEL);
+ 		if (!sdma_q) {
+ 			dqm_unlock(dqm);
+@@ -162,7 +177,6 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
+ 
+ 		INIT_LIST_HEAD(&sdma_q->list);
+ 		sdma_q->rptr = (uint64_t __user *)q->properties.read_ptr;
+-		sdma_q->mqd = q->mqd;
+ 		sdma_q->queue_id = q->properties.queue_id;
+ 		list_add_tail(&sdma_q->list, &sdma_q_list.list);
+ 	}
+@@ -173,7 +187,7 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
+ 	 * count
+ 	 */
+ 	if (list_empty(&sdma_q_list.list)) {
+-		workarea->sdma_activity_counter = pdd->sdma_past_activity_counter;
++		workarea->sdma_activity_counter += pdd->sdma_past_activity_counter;
+ 		dqm_unlock(dqm);
+ 		return;
+ 	}
+@@ -191,17 +205,7 @@ static void kfd_sdma_activity_worker(struct work_struct *work)
+ 
+ 	list_for_each_entry(sdma_q, &sdma_q_list.list, list) {
+ 		val = 0;
+-
+-		if (KFD_GC_VERSION(dqm->dev) <= IP_VERSION(9, 4, 2))
+-			ret = read_sdma_queue_counter(sdma_q->rptr, &val);
+-		else
+-			ret = dqm->dev->kfd2kgd->hqd_sdma_get_counter ?
+-			      dqm->dev->kfd2kgd->hqd_sdma_get_counter(
+-					dqm->dev->adev, sdma_q->mqd,
+-					dqm->dev->kfd->device_info.num_sdma_queues_per_engine,
+-					&val) :
+-			      -EOPNOTSUPP;
+-
++		ret = read_sdma_queue_counter(sdma_q->rptr, &val);
+ 		if (ret) {
+ 			pr_debug("Failed to read SDMA queue active counter for queue id: %d",
+ 				 sdma_q->queue_id);
+-- 
+2.34.1
 
->
->                  sysfs_remove_file(p->kobj, &pdd->attr_vram);
->                  sysfs_remove_file(p->kobj, &pdd->attr_sdma);
->
-> -               sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
-> -               if (pdd->dev->kfd2kgd->get_cu_occupancy)
-> -                       sysfs_remove_file(pdd->kobj_stats,
-> -                                         &pdd->attr_cu_occupancy);
-> -               kobject_del(pdd->kobj_stats);
-> -               kobject_put(pdd->kobj_stats);
-> -               pdd->kobj_stats = NULL;
-> +               if (pdd->kobj_stats) {
-> +                       sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
-> +                       if (pdd->dev->kfd2kgd->get_cu_occupancy)
-> +                               sysfs_remove_file(pdd->kobj_stats,
-> +                                                 &pdd->attr_cu_occupancy);
-> +                       kobject_del(pdd->kobj_stats);
-> +                       kobject_put(pdd->kobj_stats);
-> +                       pdd->kobj_stats = NULL;
-> +               }
->          }
->
->          for_each_set_bit(i, p->svms.bitmap_supported, p->n_pdds) {
->                  pdd = p->pdds[i];
-> +               if (!pdd || !pdd->kobj_counters)
-> +                       continue;
-
-Same here. pdd cannot be NULL. Checking pdd->kobj_counters is necessary, 
-though.
-
-
->
->                  sysfs_remove_file(pdd->kobj_counters, &pdd->attr_faults);
->                  sysfs_remove_file(pdd->kobj_counters, &pdd->attr_page_in);
-> @@ -1239,6 +1247,15 @@ static void kfd_process_wq_release(struct work_struct *work)
->
->          kfd_debugfs_remove_process(p);
->
-> +       /*
-> +       * Remove proc/sysfs entries before tearing down PDDs or dropping
-> +       * lead_thread. The per-process sysfs attributes are embedded in
-> +       * struct kfd_process_device and the show callbacks dereference PDD
-> +       * fields. sysfs removal waits for active show/store callbacks, so this
-> +       * closes a race with userspace reading sdma_*/stats_* files.
-
-It's actually worse because kfd_process_remove_sysfs itself is 
-dereferencing pdd pointers. I guess the only reason that doesn't blow up 
-is because kfd_process_destroy_pdds also sets p->n_pdds = 0. So the 
-sysfs cleanup never worked as intended. You may want to update the patch 
-description and this commend with that in mind. Anyway, the patch looks 
-good. With the two nit-picks above fixed, the patch is
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
-> +       */
-> +       kfd_process_remove_sysfs(p);
-> +
->          kfd_process_kunmap_signal_bo(p);
->          kfd_process_free_outstanding_kfd_bos(p);
->          svm_range_list_fini(p);
-> @@ -1252,11 +1269,6 @@ static void kfd_process_wq_release(struct work_struct *work)
->
->          put_task_struct(p->lead_thread);
->
-> -       /* the last step is removing process entries under /sys
-> -        * to indicate the process has been terminated.
-> -        */
-> -       kfd_process_remove_sysfs(p);
-> -
->          kfree(p);
->   }
->
-> --
-> 2.43.0
->
