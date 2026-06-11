@@ -4,77 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E964DCD98D6
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1CE0CD98D2
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 10:59:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F72510EE58;
-	Thu, 11 Jun 2026 10:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25CC10EE7A;
+	Thu, 11 Jun 2026 10:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="jyo/yFGO";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JQZ5RQXx";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59A3310E483;
- Wed, 10 Jun 2026 11:43:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781091768; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=gzlZb4bSFV52eLdMUMh9PyeGOrd9EAvWXGBw2jHcFBez9EqYAjtGB/rBytbYZIUK6a12QL1SlCxeqoIPXF+WzqlsBu4n/yAbJwi+RR3V7M43DIuKsOYChbJdSZvXFNf59VpSiTkU1K1NG9Qnao5wVDw+LS7peRgWb4eELJ9H3pw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781091768;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KzcKfN/o2MeODUvVqRl2cwiGf5DJAZJN2X6vhvr6p0k=; 
- b=dJ1XCpFp3xrtGi+Xng/mVdtES2/WZzNzmFiiNSAVW0WLpjerZ5mPw4hJmgDxaiCDx2oY1WcDhdhgiDSBwTe+WCe6yc8iMLFSTotK51j39yI5I+WTHP8RqpoOw9PtS+AKiFxdXij/Cb/hasI2G+Nm6IpwGas9uD6xF7iz9dG0lZI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781091768; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=KzcKfN/o2MeODUvVqRl2cwiGf5DJAZJN2X6vhvr6p0k=;
- b=jyo/yFGOjDLNt4JhkO14FnSIQsSy+FTdAqSukJAOK58KWAD816pk2Arn9Z7jNWXm
- WdMv4NJl+kvtBgFV37FFKH7qdVcXN7tUe3ggtGdVIHrpwK/bUoTr4UnAzKE2nvbl0G4
- jX7HgyRw1kEauHhxa6WUd4d+hzfrSqQKD9xSKqgk=
-Received: by mx.zohomail.com with SMTPS id 1781091766388431.86406877104446;
- Wed, 10 Jun 2026 04:42:46 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Daniel Stone <daniel@fooishbar.org>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9FE10EE78
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 10:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1781175589;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OE5i5Cs1x/Y1/tYzMUIth7XXWL2BCwQTkDQ8GlOHrbw=;
+ b=JQZ5RQXxJXFjeIuUWy3FD0d3RyH99GGuJxKPjQAaFwJD1Aja9HGPCt9KzxRhnrCcj8d+3L
+ tTbBwgehNPH/95FDLdfXJjMORDGZWhliIp0kcBX5peB4xfu9nefxSe5apBja17v9Gmn6xS
+ X84JZdtj0zl1KaUEgxXupyezT+NqtR8=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-213-4-_AgYrENbyXwlrIlRY9jg-1; Thu, 11 Jun 2026 06:59:48 -0400
+X-MC-Unique: 4-_AgYrENbyXwlrIlRY9jg-1
+X-Mimecast-MFC-AGG-ID: 4-_AgYrENbyXwlrIlRY9jg_1781175587
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-46010bc0f1eso4681349f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 03:59:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781175587; x=1781780387;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=OE5i5Cs1x/Y1/tYzMUIth7XXWL2BCwQTkDQ8GlOHrbw=;
+ b=ICyUNgNFnDCEoQtK4mIeCLD+i0lSFSoc3n3o6B/R+jpJTDXLTjMdi78ODc01AT2ry8
+ ri1tsFeAjAu0cduC4I+xbqGGiHqyIFsQR7HptZaQA2ndtNgQBVlfhwqyHM0jTg39eWGB
+ vrzlilQrxnbV+u/eP9gJIG/7g00xWQxALk+qO68OgpxDf6I0jlSGlBPjqir40hmpm74v
+ xze98phdAr2hrjpxG1IvmnCC6S+JMmBDRebbKCe2DirPyovBTgKioCzEdkInaJ/oupLk
+ v+zbW1+e1KMlxNFerTnmtJioSpLaQvnE021ZLgyRLlnJTpbvoUrqsLQ1CdcRQUDp7O7Z
+ AXcQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/A22dVnFnY0+IP6sVP2t5v35MyKxZKeQb4Y7yHCutuohf1VRoD+oEim0RsPMdhS8bxuxwnORqY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywq4NTSGPRiOZrKOPKQy/TpttchNzgAcWATiLhBeO6izXcy0hSo
+ iSbE1TJRbu61pxqRibyH9YnoNg2kyMpqznZbigDr7LkFem7AEVEqU1mkkYfA3FkZFdCyIHYs+RW
+ O34uxuBE7PLleQgYqzrwvwCURXAGA9iRuBtNQoXzt9N7gwB8Z4BkKwW6wtICJEpYL54w=
+X-Gm-Gg: Acq92OGKenB6AIjsa0ILY198PckDG3QzWAoQlRhGOYKadRYFiN78QwAVHPpar9eyu1F
+ l4sNdPUGM5RngzvpCDbth9/MhzpZDu2s0rmR4i4jtcQRBB81IwUe/k7EbqCetgTTRYxWj3K20Zx
+ SmuswdA60cRyI1v6urd3qtVVjzLCFLB/eRRMbQ4mpYZQzWHB6kqZ1PJKs8lnsqbAP7amhiyc/UQ
+ 5z695Bay3MwbqE2a1fszp43HoN3234Zbp4VhJD0s7m44PFsJTRnqCha4SJSVdm0wADPikyWv1K8
+ 2N3NNKKlf8yYgWeoC4/gEWEEVRmMz4lYm6/5W2xrn1T8+PtfWXWQEM5wGKakdtvncSIMhsHv3IR
+ nO6PR8jjqrlH2qWzRsV37xlUPPgkjD9cYtjs1hAL/y/AC2ne4RmENIGAE5EQRR3DmjbSOstGKXe
+ f4EstP5y/wgkcrmkA=
+X-Received: by 2002:a05:6000:710:b0:460:1c5b:f25f with SMTP id
+ ffacd0b85a97d-460677b1af7mr3240530f8f.20.1781175587111; 
+ Thu, 11 Jun 2026 03:59:47 -0700 (PDT)
+X-Received: by 2002:a05:6000:710:b0:460:1c5b:f25f with SMTP id
+ ffacd0b85a97d-460677b1af7mr3240484f8f.20.1781175586716; 
+ Thu, 11 Jun 2026 03:59:46 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f2dcde3sm81947989f8f.1.2026.06.11.03.59.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 03:59:46 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
+ simona@ffwll.ch, admin@kodeit.net, gargaditya08@proton.me,
+ paul@crapouillou.net, jani.nikula@linux.intel.com, mhklkml@zohomail.com,
+ zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ dmitry.osipenko@collabora.com, gurchetansingh@chromium.org,
+ olvaffe@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v17 21/28] drm/tests: bridge: Add KUnit tests for bridge
- chain format selection
-Date: Wed, 10 Jun 2026 13:42:35 +0200
-Message-ID: <gnicb4WkT1S4aQIC2G_naw@collabora.com>
-In-Reply-To: <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
- <20260609-color-format-v17-21-35739b5782cc@collabora.com>
- <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
+ linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Zack Rusin <zackr@vmware.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v5 01/15] drm/amd/display: Handle struct
+ drm_plane_state.ignore_damage_clips
+In-Reply-To: <45aec54a-ec80-48ed-9bcc-84e7bccc11eb@suse.de>
+References: <20260610152505.260172-1-tzimmermann@suse.de>
+ <20260610152505.260172-2-tzimmermann@suse.de>
+ <87y0gl5qw8.fsf@ocarina.mail-host-address-is-not-set>
+ <45aec54a-ec80-48ed-9bcc-84e7bccc11eb@suse.de>
+Date: Thu, 11 Jun 2026 12:59:44 +0200
+Message-ID: <87mrx15om7.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Thu, 11 Jun 2026 10:49:23 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 3oXlMCR7MvJOPpCv1qlQ3xzPLbL-Ic-2SruZHXDBmso_1781175587
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,136 +113,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, 10 June 2026 12:32:29 Central European Summer Time Jani Nikul=
-a wrote:
-> On Tue, 09 Jun 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com=
-> wrote:
-> > diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/=
-tests/drm_bridge_test.c
-> > index 64b665580a88..92f142ca6695 100644
-> > --- a/drivers/gpu/drm/tests/drm_bridge_test.c
-> > +++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-> > @@ -2,15 +2,23 @@
-> >  /*
-> >   * Kunit test for drm_bridge functions
-> >   */
-> > +#include <linux/cleanup.h>
-> > +#include <linux/media-bus-format.h>
-> > +
-> >  #include <drm/drm_atomic_state_helper.h>
-> > +#include <drm/drm_atomic_uapi.h>
-> >  #include <drm/drm_bridge.h>
-> >  #include <drm/drm_bridge_connector.h>
-> >  #include <drm/drm_bridge_helper.h>
-> > +#include <drm/drm_edid.h>
-> >  #include <drm/drm_kunit_helpers.h>
-> > +#include <drm/drm_managed.h>
-> > =20
-> >  #include <kunit/device.h>
-> >  #include <kunit/test.h>
-> > =20
-> > +#include "drm_kunit_edid.h"
->=20
-> So here's the problem with adding *any* arrays into headers: every
-> compilation unit that includes them duplicates all the arrays. It's only
-> really okay for single use.
->=20
-> And, in this case, most of the included arrays are unused, leading to
-> build failures:
->=20
->   CC [M]  drivers/gpu/drm/tests/drm_bridge_test.o
-> In file included from ../drivers/gpu/drm/tests/drm_bridge_test.c:21:
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:958:28: error: =E2=80=98test_ed=
-id_hdmi_4k_rgb_yuv420_dc_max_340mhz=E2=80=99 defined but not used [-Werror=
-=3Dunused-const-variable=3D]
->   958 | static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_34=
-0mhz[] =3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:726:28: error: =E2=80=98test_ed=
-id_hdmi_1080p_rgb_yuv_dc_max_340mhz=E2=80=99 defined but not used [-Werror=
-=3Dunused-const-variable=3D]
->   726 | static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_34=
-0mhz[] =3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:612:28: error: =E2=80=98test_ed=
-id_hdmi_1080p_rgb_yuv_dc_max_200mhz=E2=80=99 defined but not used [-Werror=
-=3Dunused-const-variable=3D]
->   612 | static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_20=
-0mhz[] =3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:498:28: error: =E2=80=98test_ed=
-id_hdmi_1080p_rgb_max_340mhz=E2=80=99 defined but not used [-Werror=3Dunuse=
-d-const-variable=3D]
->   498 | static const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] =
-=3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:390:28: error: =E2=80=98test_ed=
-id_hdmi_1080p_rgb_max_200mhz_hdr=E2=80=99 defined but not used [-Werror=3Du=
-nused-const-variable=3D]
->   390 | static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hd=
-r[] =3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:271:28: error: =E2=80=98test_ed=
-id_hdmi_1080p_rgb_max_200mhz=E2=80=99 defined but not used [-Werror=3Dunuse=
-d-const-variable=3D]
->   271 | static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] =
-=3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:163:28: error: =E2=80=98test_ed=
-id_hdmi_1080p_rgb_max_100mhz=E2=80=99 defined but not used [-Werror=3Dunuse=
-d-const-variable=3D]
->   163 | static const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] =
-=3D {
->       |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> ../drivers/gpu/drm/tests/drm_kunit_edid.h:57:28: error: =E2=80=98test_edi=
-d_dvi_1080p=E2=80=99 defined but not used [-Werror=3Dunused-const-variable=
-=3D]
->    57 | static const unsigned char test_edid_dvi_1080p[] =3D {
->       |                            ^~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
->=20
-> This breaks the build for me, I don't know how it didn't for any of you.
+Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-It broke the build for me in the past[1], but then I couldn't repro
-it anymore when challenged on my fix[2].
+> Hi Javier
+>
+> Am 11.06.26 um 12:10 schrieb Javier Martinez Canillas:
+>> Thomas Zimmermann <tzimmermann@suse.de> writes:
+>>
+>> Hello Thomas,
+>>
+>>> The mode-setting pipeline can disabled damage clippings for a commit
+>>> by setting ignore_damage_clips in struct drm_plane_state. The commit
+>>> will then do a full display update.
+>>>
+>>> Test the flag in DCN code and do a full update in DCN code if it has
+>>> been set.
+>>>
+>>> Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
+>>> to ignore damage clips") introduced ignore_damage_clips to selectively
+>>> ignore damage clipping in certain framebuffer changes. This driver does
+>>> not do that, but DRM's damage iterator will soon rely on the flag.
+>>> Therefore supporting it here as well make sense for consistency.
+>>>
+>>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+>> I don't think that a Fixes tag is correct here? Your patch series
+>> is changing the 'struct drm_plane_state.ignore_damage_clips' and
+>> the changes make sense, but definitely isn't a fix in my opinion.
+>
+> But shouldn't we have added this test in amdgpu and the other drivers as 
+> part of commit 35ed38d58257 ? Sure, these drivers don't use
+> ignore_damage_clips, but it's still an inconsistency wrt damage
 
->=20
-> Reverting these two fixes it:
->=20
-> ce1d0139adac ("drm/tests: bridge: Add test for HDMI output bus formats he=
-lper")
-> 082fbc179c01 ("drm/tests: bridge: Add KUnit tests for bridge chain format=
- selection")
->=20
-> I think the proper fix would be to move the arrays into a .c file, and
-> only have declarations in the headers. But that needs to happen real
-> soon or the commits need to be reverted.
+I don't think so, since the original scope of ignore_damage_clips was for DRM
+driver of virtual devices (namely virtio-gpu and vmwgfx). These do per-buffer
+uploads instead of per-plane uploads, and so there was a need to force a full
+plane update if the framebuffer attached to the plane was changed.
 
-If you don't want __maybe_unused, then sure, I'll move them into a new
-=2Ec file. Though I think the two are roughly equivalent in that I don't
-think anyone is really trying to minimise the size of their KUnit
-binaries.
+Your series are now extending the scope of ignore_damage_clips to be used by
+core helpers and force a full plane update when doing a modeset. This makes
+sense to me but it wasn't the original intention of the propery and that is
+why I don't think that should be considered a fix.
 
-I'll send a patch to move them to a .c
+The only patch that IMO is really a fix for commit 35ed38d58257 is patch #6.
+Because is true that the plane state ignore_damage_clips was carried over
+when the state was duplicated.
 
-[1]: https://lore.kernel.org/dri-devel/20260121-color-format-v7-20-ef790dae=
-780c@collabora.com/
-[2]: https://lore.kernel.org/dri-devel/20260210-didactic-okapi-of-modernism=
-=2Dff00d9@houat/
+-- 
+Best regards,
 
-Kind regards,
-Nicolas Frattaroli
-
->=20
-> BR,
-> Jani.
->=20
->=20
->=20
-
-
-
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
