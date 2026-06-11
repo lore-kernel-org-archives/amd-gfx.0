@@ -4,70 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B849DCD98DB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0884CD4F2C
 	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494BC10F2EB;
-	Fri, 12 Jun 2026 07:47:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1D2A10F2D7;
+	Fri, 12 Jun 2026 07:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="llPrgSha";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="RNSDhfst";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 375BB10EF9D;
- Thu, 11 Jun 2026 14:23:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781187810; x=1812723810;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=FsvkI3LOasYuprXDVfPJVH1qnNqYfZwMGOjwjiJ3aL0=;
- b=llPrgShaQTkXJC2HcU9eQw1WeMtMWzbqWVJULS+OcNl2qBCuFAgPfP6M
- nUmmr1/OQdo68+rzSE48YB8bRgMQ7H25iv14z5DRZUy04MKVL2pB1n2ML
- FzqCUBeZQ7qL1WB4Jqcqm45B21M8O9OnKAUA3QdOlOb/SKqnb01l1I2a5
- ZHjJRkMC15Kh007nABBSle9566ZX8Om7+5B8Ky5V6hhAAE5DNoO6vgw0g
- +lAC03CSpnkm4ZpHWhWJiGspS/Wv73XdSOma3MqQKGsfUOS4QUE31Xd55
- YJxQ4We/7KOgKmENI8yqhe2ZJDgM6EDEPyLg2pf1owFa82SwRCSIUnAUP g==;
-X-CSE-ConnectionGUID: SP82RI5ISwOLXqbDy3I6FA==
-X-CSE-MsgGUID: +lXQMrhwRXK0EL9kTfrQRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983450"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983450"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:30 -0700
-X-CSE-ConnectionGUID: iEq5kIJUSpuBvxUHauSL0w==
-X-CSE-MsgGUID: eefaeiGmRd+c6DId46Vv1g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574360"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:26 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 5/6] drm/xe: Wire up dmem cgroup reclaim for VRAM manager
-Date: Thu, 11 Jun 2026 16:22:41 +0200
-Message-ID: <20260611142242.2529-6-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
-References: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com
+ [91.218.175.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2809E10E7D9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 15:46:48 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1781192796;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=u7GCCYEoSxjb7Y2ZDYlvbszUi1NrkX983MlXtXjBdxI=;
+ b=RNSDhfstI7pXRieqVHu53yE+qm0gJwNNrPgxgJS1/4AJyEhsp2AcDFeFLQXx72RV8b249i
+ 8KLzljApr93InK7xP1cr2PGrhrIrtY07/R6QeQN8SZQZs8t/9/n0UmFFf0xBJ3na8QMs2S
+ wzOwePQuPw4qR9exhjNiRWFfx528lM0=
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>
+Subject: [PATCH v2] drm/amd/display: Fix mem_type change detection for async
+ flips
+Date: Thu, 11 Jun 2026 08:44:38 -0700
+Message-ID: <20260611154438.571685-1-matthew.schwartz@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:59 +0000
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,113 +56,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Register the VRAM manager with the dmem cgroup reclaim infrastructure
-so that lowering dmem.max below current VRAM usage triggers TTM
-eviction rather than failing with -EBUSY.
+[Why]
+amdgpu_dm_crtc_mem_type_changed() fetches the "old" and "new" plane state
+with two drm_atomic_get_plane_state() calls, which both return the new
+state. It compares a state against itself, so it never detects a mem_type
+change and never rejects the async flip.
 
-v4:
-- Rebased on drm-tip; dropped the XE_PL_STOLEN guard as stolen memory
-  uses a separate TTM manager and never calls __xe_ttm_vram_mgr_init().
+On DCN 3.0.1, this shows up as intermittent corruption when a single DCC
+plane is scanned out with immediate flips under gamescope and its buffer
+moves between the VRAM carveout and GTT.
 
-v5:
-- Rebased on the introduction of struct dmem_cgroup_init.
-- Register the fini drmm action before drmm_cgroup_register_region() so
-  that devres LIFO teardown runs unregister_region() first (draining any
-  in-flight reclaim callbacks via the rwsem) and xe_ttm_vram_mgr_fini()
-  second, ensuring the manager is never accessed by a reclaim callback
-  after teardown. (Sashiko-bot)
-- Wrap the reclaim callback in xe_ttm_vram_mgr_dmem_reclaim() using
-  drm_dev_enter()/drm_dev_exit() to prevent TTM reclaim from running
-  after driver unbind.
+[How]
+Use drm_atomic_get_old_plane_state() and drm_atomic_get_new_plane_state()
+to compare the actual old and new states. These return NULL rather than
+an error pointer for a plane that is not part of the commit, so the
+IS_ERR() check becomes a NULL check that skips those planes, such as an
+unmodified cursor still in the CRTC's plane_mask.
 
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Fixes: 4caacd1671b7 ("drm/amd/display: Do not elevate mem_type change to full update")
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 ---
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c | 54 +++++++++++++++++++++++-----
- 1 file changed, 45 insertions(+), 9 deletions(-)
+Changes in v2:
+- Fix sha sum length in Fixes: tag
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-index 308fda4248eb..b2500344cd57 100644
---- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-+++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-@@ -276,6 +276,28 @@ static const struct ttm_resource_manager_func xe_ttm_vram_mgr_func = {
- 	.debug	= xe_ttm_vram_mgr_debug
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5fc5d5608506..6b5569647fce 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -12549,13 +12549,11 @@ static bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
+ 	struct drm_plane_state *new_plane_state, *old_plane_state;
  
-+static const struct dmem_cgroup_ops xe_ttm_vram_mgr_dmem_ops;
-+
-+static int xe_ttm_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					 u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct xe_device *xe = ttm_to_xe_device(man->bdev);
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&xe->drm, &idx))
-+		return -ENODEV;
-+
-+	ret = ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
-+
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
-+static const struct dmem_cgroup_ops xe_ttm_vram_mgr_dmem_ops = {
-+	.reclaim = xe_ttm_vram_mgr_dmem_reclaim,
-+};
-+
- static void xe_ttm_vram_mgr_fini(struct drm_device *dev, void *arg)
- {
- 	struct xe_device *xe = to_xe_device(dev);
-@@ -301,17 +323,10 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 			   u64 default_page_size)
- {
- 	struct ttm_resource_manager *man = &mgr->manager;
-+	struct dmem_cgroup_region *cg;
- 	const char *name;
- 	int err;
+ 	drm_for_each_plane_mask(plane, dev, crtc_state->plane_mask) {
+-		new_plane_state = drm_atomic_get_plane_state(state, plane);
+-		old_plane_state = drm_atomic_get_plane_state(state, plane);
++		new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++		old_plane_state = drm_atomic_get_old_plane_state(state, plane);
  
--	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
--	man->cg = drmm_cgroup_register_region(&xe->drm, name,
--					      &(struct dmem_cgroup_init){
--						.size = size,
--					      });
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
--
- 	man->func = &xe_ttm_vram_mgr_func;
- 	mgr->mem_type = mem_type;
- 	err = drmm_mutex_init(&xe->drm, &mgr->lock);
-@@ -330,7 +345,28 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 	ttm_set_driver_manager(&xe->ttm, mem_type, &mgr->manager);
- 	ttm_resource_manager_set_used(&mgr->manager, true);
+-		if (IS_ERR(new_plane_state) || IS_ERR(old_plane_state)) {
+-			drm_err(dev, "Failed to get plane state for plane %s\n", plane->name);
+-			return false;
+-		}
++		if (!old_plane_state || !new_plane_state)
++			continue;
  
--	return drmm_add_action_or_reset(&xe->drm, xe_ttm_vram_mgr_fini, mgr);
-+	/*
-+	 * Register the fini action before the cgroup region so that devres
-+	 * LIFO teardown runs unregister_region first (draining any in-flight
-+	 * reclaim callbacks) and the manager fini second.
-+	 */
-+	err = drmm_add_action_or_reset(&xe->drm, xe_ttm_vram_mgr_fini, mgr);
-+	if (err)
-+		return err;
-+
-+	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
-+	cg = drmm_cgroup_register_region(&xe->drm, name,
-+					 &(struct dmem_cgroup_init){
-+						.size = size,
-+						.ops = &xe_ttm_vram_mgr_dmem_ops,
-+						.reclaim_priv = man,
-+					 });
-+	if (IS_ERR(cg))
-+		return PTR_ERR(cg);
-+
-+	ttm_resource_manager_set_dmem_region(man, cg);
-+
-+	return 0;
- }
- 
- /**
+ 		if (old_plane_state->fb && new_plane_state->fb &&
+ 		    get_mem_type(old_plane_state->fb) != get_mem_type(new_plane_state->fb))
 -- 
 2.54.0
 
