@@ -4,125 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2505CCD4F2C
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:34:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C95CD98D6
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152D910E984;
-	Fri, 12 Jun 2026 07:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ABB610F2E8;
+	Fri, 12 Jun 2026 07:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HnQaHBcH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f+anoEcO";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013029.outbound.protection.outlook.com
- [40.93.196.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EACC10F2B7;
- Fri, 12 Jun 2026 07:34:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f3Hei6S26jaXz5BaUJqblIuAAgWFRiAN8ymN0crcTAW7eam5y/W1CPZhKLwIW0LIou0Bi52zK/M+L2i81OvpAzrinv9QIATzyaMOw5R3FUVePBfw2XH9jxyR8uBVd57UpuKysyNBCJJk5BDhe9jm6FeRJBUDodLVvEu97WnyrFBFmFXet1p798aHQERACb8ocYBc2WDMVbIgPmCi0kcUGeKL9Mr5JgD+0gVdZHhU95di0GVrsiFgEs5jUIyReMCEdtr1u6laidQu33AYc6rb4jGiAGEpOsnwfCMBx5WrPcCO51XsYakIt6adrewXk7SoNlGif+Gz/TgU5rZrKrWmjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hrYN6bfyIyFwuKgg16nSfVZbgPU0JZFJKUU0KC1iGSs=;
- b=DwTbASKjpaM7fOyLWzxGO5+BmhnvYjy6rQFYA94TjXh156rVFFCy1QZ27dBlnyfKn004wCN5lqDlx1Tsrei7s2pCiaq4B5VpVgBubxmQByVb5zApKRZZyzYQhsj0oKbnrC/pmz+YNZBJ9saQdThkLddUPDTCRl3aD2LLbnoHWYqvAo9h/a5G0qZqp55bkVe3PCsBrUB/TPl8V2b/A9EdHErXEp7ShrSrpaY7I0xKUAdusMZ5dtSV/CgYiP7af3zHBQrRixX+ANLg3Ch5mW0/PuzsxE/zIJ3oGdtZNifcVwbUu+NBK0afyhxB/PnwaxaiQMKIe12C0+0K08dGOCjkgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hrYN6bfyIyFwuKgg16nSfVZbgPU0JZFJKUU0KC1iGSs=;
- b=HnQaHBcH5MT7SrehPBguYoNl3dijbeOreBlahuoUcPOrZkY1ogY3NahUzSSe4L2/TK3eXSuZfZ2DcKGIIuLU9hRfOOSwWp0qYSAPMGJ6+buT2TCiAuyhpn9mLprgHyHW3L9BwvMEQ4ohQbuaXYhfuDyIovQtfl+PtPrNgnrSs24=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS2PR12MB9751.namprd12.prod.outlook.com (2603:10b6:8:2ad::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 07:34:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Fri, 12 Jun 2026
- 07:34:41 +0000
-Message-ID: <33b42033-a5ae-4fa2-bafa-ea007a29eab1@amd.com>
-Date: Fri, 12 Jun 2026 09:34:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 0/9] drm/amd/display: convert GPIO translation
- logic to lookup tables
-To: Guilherme Ivo Bozi <guilherme.bozi@usp.br>, airlied@gmail.com,
- alexander.deucher@amd.com, harry.wentland@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260611195026.25125-1-guilherme.bozi@usp.br>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260611195026.25125-1-guilherme.bozi@usp.br>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0175.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB5C10EF51;
+ Thu, 11 Jun 2026 14:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781187786; x=1812723786;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=UXxdt4IUKP8xvjJVsf/LNyew/umC4+Tm2mlOnXMpnvo=;
+ b=f+anoEcOb1ElnPkmlx6GJEicotjtrBkpD+YfXA+SO6k3vxN9x54CoANO
+ 0DZ0AVqQwM3KvbV9EzrIYb46ARwMQmHj1CnpICeJ0ZOaBszJtBlbXzuCQ
+ CfJaDUFXZoZQieK25QjCtz4SAToTYTVnNnLHkADT14LOPfyh8k3if5ROg
+ 9ooLKX3g6yfpcDnqdr2BtXWucYxld5UWtVldUo9UADiWWn/ttIL7Bpe7E
+ RYjvttt7r7kWHiZ+DwZrGDaQE2cJQT34evYBZLheDeA2cPv23dq+Riv0F
+ IMrZ3IRn/QgQDWRbBmBZ6IoBbbw8ouw1U5agimcYU6Lq8ZK+v7IfFhQJg w==;
+X-CSE-ConnectionGUID: ha5LQCLyS1mgy+Af1mBX0g==
+X-CSE-MsgGUID: a1tVdqTmR2e7SZsrUP4q4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983374"
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983374"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 07:23:05 -0700
+X-CSE-ConnectionGUID: qf+/glCfT9KDnDvlcai7Rg==
+X-CSE-MsgGUID: 1rG2v9+vRsuge1w/VQwaJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574282"
+Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 07:23:01 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/6] [PATCH v5 0/6] Add reclaim to the dmem cgroup
+ controller
+Date: Thu, 11 Jun 2026 16:22:36 +0200
+Message-ID: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB9751:EE_
-X-MS-Office365-Filtering-Correlation-Id: a726c98d-8d90-4b5f-afb4-08dec85510bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: e2Rfj/gm9E+QYfaOQc5mZcN5hAgQCwDdm84ZI7F01Hij5qE9lSguhK/E+vR1ll3Lbas6Sj7hffqo7T8jIZzWHxRE47TMVEIfPvhckISnp0KEtDs6b1eFleMexqrj1nleUYrlVSgfvDVAet0Vpo2YbJbnKGOe6evouWNkEJuxUx+AEn7XfCcMFif4hAXn8OUFFciLWZXvtd5lRdfaF+c+GSAgkgWaPuzIQHYNwV6OBxRjFPe1xY5NhE+AuOJQ51xVEBOYIb6zh1Niu1FkX2eXObIAgTJUThkpMf4guHlJP1Vm+9KSlCDskHa3vBTNMt++SK+1Od4ylaKeKIHHFSn/Y/mxTolkQYQhueSHQNG1MCEkgPfewFc0U2kCRXFN/PbIBgT2uTZF2DrfxXvwELU7fsTSgoJ91dqUCz3YmdsiSMy0uFlGKkdSKHVYdb0pLlXMoiviOmikjQ3ARno6X1WVFWobJ/dd64RVHO52PAvt8tYxw+3JYDlX5y68RAd9XbgZOOYOaEchEg6MfaXaHRKBlq2NumdbFz6gzcV9iJ3n51UjjuxWW6lUsNZ9GioJHO1NXPOSr0ffARacaISloyMIUh0AUox2dPAE0QIdL8ma2/rbgSdNh/2eaYHDTOWTEIpC4PGc4gpk94ykR4pfbuodyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0hWU0R6Z0R3VVgralJhQVFWcWtEaUlQT1BFeERYS3YrUnlNZEpHZm5uTlNh?=
- =?utf-8?B?K3UrWlZ3NWhackFVMFFrZkdUNlQrNzFKM2YvS3RWWFpNZ2ZBaGFIT3Q2aURk?=
- =?utf-8?B?MGxXMkU1M3pZOFBuSm9LelRmNTloa0JPcVgvWEdzM0V2bG1USTFzWUVJTHcv?=
- =?utf-8?B?WmtQV0pVMDF1dXNiMzZVdFpvcEhYenFzNXk0Qm81Z055TTExRVd6SVhscEtT?=
- =?utf-8?B?Tis4TmZuWDVVKzN3YzVKcGVlbnhJL3plajBpNzRldkgwRXNpWW1ja0xJeVlB?=
- =?utf-8?B?K2doQnRucHhaeFNrc1FSZFBiT0FHSWxBZ1dSR1Ria2dCbUpNUml2c1ZRMzFR?=
- =?utf-8?B?MDR4YlRhZExtUjdyR1pUalhRaU1tUjVTOUtZTGJlUmlTMEY3UWMzOUVpbFND?=
- =?utf-8?B?T00zdkJPZWdRdGJjSEhYRS9UeHNsOFhrbHFxY2g1aXRIdUtqaUhqemtGd2g2?=
- =?utf-8?B?aVRBSGFTTWlIRkg4VXZ0SXJDMUR3YXF3bTFRNUVZUW9Nalh2c1dDemgzdU50?=
- =?utf-8?B?MFpNYlZtd21nUHRiOCsrQjNINEdsNWFnZHI0bmthVlFabTdSMVpUaUx3M0pq?=
- =?utf-8?B?S1p3bHQ3emNZOUhJbUVuMlY0a1FMMUFGek5DUlB5ekJvK243QnNCSmMzcGdw?=
- =?utf-8?B?MHdCdXB4aUtyZXdVZXd5SFI4VmIyeHliYkJiQktQbUNCTitNZWlLNWR2U0xN?=
- =?utf-8?B?UFlsZVlQb1ZXaWpFUHpKelZnK2hqRUlyUFBUR3NOcTlHQnM4ZjNVVjErcXRR?=
- =?utf-8?B?Y25YK3lKdUx3UUVPRlNRMFlGdktEamtxN3F3UzhkN0VHZFZvRCtQWGwyWERE?=
- =?utf-8?B?THhpcHhHOU11QUJIMlpManN3bkV6MmtLZ2RCanlRbVpyRXhuaDFuWEMrayt6?=
- =?utf-8?B?R1d2bTlnMjNPT09kekF2OVNRU0dtNnpJa3cwamIzeHZGeGdLcnF3R254RWZj?=
- =?utf-8?B?VHFQaWx2UlFvYjBDQzlkM01xYWl6NUhReU1CSVhDZFpZeXE1bjVRRThWSGds?=
- =?utf-8?B?eGRuQUxUajc4NmRNS1ZOT1dzc3NQdEgrOHZRVnJaRlRGRFJpSzE0RnBydkc1?=
- =?utf-8?B?eXI1aDVwUDdFNFk0R3p2N3pZVlZpSFFJT1FINU80TmJDZ045aTVWTTQ3bXpN?=
- =?utf-8?B?ZDk4QkpVM1JnMHRHNWFGYmVTYktSVXBtZWtiVzdjOHJ0K3F0VjJJeHhJb0dv?=
- =?utf-8?B?ckxzSjFXOXVuWVNCNjNKK1luSVhwNjIwbEpxeE9nREY5Y2k4dm44Tmp5K1cw?=
- =?utf-8?B?QzZQdDROWm5YYTRoY2lJamlCWmxPeFZpZGNnaHAwOVRaRk5IdUZNNkNYRVFJ?=
- =?utf-8?B?UGxXMkIzeFRkSCtVdlQxSmV5cVYweFZTczNibm9DYkQreGRvdmZGak50ZC9q?=
- =?utf-8?B?dlAvUzBNTFlONERqSlkwTVZBbXpYRFFrMjVOZ2pWUHNzVEU3MzF3VEVjNnlF?=
- =?utf-8?B?dHk0bkFacnhJUzBhWStBZkJMM0dqK3lQQU5Bc2FnN08xdEZGaGdmZy9xaGo2?=
- =?utf-8?B?NEdXNXBzb2N2aHNMVm9NUzBrVEwxbmJvZVk0Mk9HYUUxMGpIMVlETTBFVVFI?=
- =?utf-8?B?WHF5UEVsdDBuaERzWXRhK3AvYkdoSW95bTZMaUxhdlR0WnRXVXNzaWdSbU42?=
- =?utf-8?B?RzVkUjV5NThnbmh4b3hOSjRIUjliYjUzam5ZejFEUllRMUtvLzk3ZU9GOTY5?=
- =?utf-8?B?WkFWaUt0b3pOaFdUOVd1SDNacC9mRmNubXp0NnBoQnRJd0RFQVBFUGEvTUhi?=
- =?utf-8?B?YXYyVXQ3eTAvK3d6N0ViV3RHNm8zdlJGTkFsNkJ1WnVxRHVZblYvaWhMS0tu?=
- =?utf-8?B?Q0VscHF3NGJzcVJ5Vm40N0M0ZXFMeURZZHBjcDRmL1c4enoxeVkzQTVlVytK?=
- =?utf-8?B?cjBEWnIyRVJQcUY2UEF1QzlPV2paMjhzaHhkNzltOVJFRlJGbC9zbkg2UHM1?=
- =?utf-8?B?NmM3aXM4b3RRK1BFNGcrb1dCdkdmVUI4RkpDR3ZabDZHZitITFkwTE54eXFJ?=
- =?utf-8?B?QlJCWXlVUHhGS3c1Nk55RnBJK2lnMWRJK2JwN1l2N1psbkhPSHlWR0xYcEtY?=
- =?utf-8?B?NDlhaExVSXgzSVRCdlBCT3hVODdNNG9OQ3d2NFhtUHRjZEk4TmdjcTZ0clpL?=
- =?utf-8?B?MDk4dzhDYUxNaHFud2M4VWRUU3lZSDd2d3BjMVA2aWhWMFRwODBCcDJSK1dC?=
- =?utf-8?B?bStqQSt1Z0tDUVFDanFKcVVpRlgvSm5DVWpsU1dhdWZ1N0gvK3A4WVVxbWUv?=
- =?utf-8?B?M1EwOEZXM0FEb3cvUVVEOGV0ZGtWczVLTm42eXVreFp4bWRHTitEc01WdlAx?=
- =?utf-8?Q?4t1ZB6D8KtwAYX9LPk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a726c98d-8d90-4b5f-afb4-08dec85510bf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 07:34:41.4895 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g3m+uaI7T4VrXhvd80KrhrysIJoloW2ajk0tABvW8OMXQbmFYShzROIkDna1kUHf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9751
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,76 +81,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/11/26 21:49, Guilherme Ivo Bozi wrote:
-> This series converts the GPIO HW translation logic used by
-> multiple DCN generations from large switch statements to
-> static lookup tables with shared helper functions.
+When writing a "max" limit lower than the current usage, the
+existing code silently failed. This series aims to improve
+on that by returning -EBUSY on failure and also attempt
+to synchronously reclaim device memory to push the usage
+under the new max limit to avoid the error.
 
-Not to block this patch set, but please keep in mind that when some array index comes from userspace to use array_index_nospec() to avoid security problems caused by speculative execution.
+Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+Patch 2 introduces struct dmem_cgroup_init for extensible region
+      registration.
+Patch 3 implements and documents a reclaim callback interface
+      for the dmem controller.
+Patch 4 implements a TTM reclaim callback.
+Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
+      drivers xe and amdgpu.
 
-We already had problems with that in the past when people converted switch statements into an array lockup.
+v2:
+- Remove the error propagation that was in a previous series (Maarten)
+- A number of updates in patch 1. See its commit message for
+  details (Maarten)
 
-Regards,
-Christian.
+v3:
+- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+  bug where drmm_cgroup_register_region() was called before
+  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+  failure. (Sashiko-bot)
+- Use an rwsem to protect reclaim callback registration and region
+  unregister against concurrent reclaim invocations. (Sashiko-bot)
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
 
-> 
-> The new implementation reduces duplicated translation logic
-> across generations and makes the GPIO mappings easier to
-> maintain and extend.
-> 
-> The series introduces generic GPIO translation helpers first,
-> followed by per-generation conversions.
-> 
-> The following generations were converted:
-> 
->   - dcn10
->   - dcn20
->   - dcn21
->   - dcn30
->   - dcn315
->   - dcn32
->   - dcn401
->   - dcn42
-> 
-> The dce60, dce80, dce110 and dce120 implementations were
-> left unchanged for now.
-> 
-> dce60 and dce80 contain special switch-case handling paths
-> that currently do not map cleanly to the new table-based
-> representation, so they were intentionally excluded from
-> this refactor.
-> 
-> No functional changes intended.
-> 
-> v1 resend:
-> 
-> No changes since original submission.
-> 
-> Automated review:
-> https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-20260512190019.228440-1-guilherme.bozi@usp.br/
-> 
-> Guilherme Ivo Bozi (9):
->   drm/amd/display: add GPIO HW translation helpers
->   drm/amd/display: convert dcn10 GPIO translation to lookup tables
->   drm/amd/display: convert dcn20 GPIO translation to lookup tables
->   drm/amd/display: convert dcn21 GPIO translation to lookup tables
->   drm/amd/display: convert dcn30 GPIO translation to lookup tables
->   drm/amd/display: convert dcn315 GPIO translation to lookup tables
->   drm/amd/display: convert dcn32 GPIO translation to lookup tables
->   drm/amd/display: convert dcn401 GPIO translation to lookup tables
->   drm/amd/display: convert dcn42 GPIO translation to lookup tables
-> 
->  .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++-----------
->  .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
->  .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
->  .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
->  .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
->  .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
->  .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
->  .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
->  .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
->  .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
->  .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
->  11 files changed, 1274 insertions(+), 2035 deletions(-)
-> 
+v4:
+- Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
+  as stolen memory uses a separate TTM manager.
+
+v5:
+- Add patch 2 introducing struct dmem_cgroup_init to make the
+  dmem_cgroup_register_region() API extensible without adding positional
+  arguments in the future.
+- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
+  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
+- Compare usage against the truncated limit stored in cnt.max, not the
+  original u64. (Sashiko-bot)
+- Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
+  the memcg controller; only -ENOSPC (no progress) counts against the
+  budget, other errors abort immediately.
+- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+  the reclaim callback, preventing use-after-free when the manager is
+  torn down while the dmem region outlives it. (Sashiko-bot)
+- Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
+- Register xe fini devres action before drmm_cgroup_register_region()
+  so LIFO teardown runs unregister first, draining callbacks before the
+  manager is destroyed. (Sashiko-bot)
+- Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
+  of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
+  fini is called explicitly during driver unbind before drmm cleanup.
+  (Sashiko-bot)
+- Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
+  prevent TTM reclaim from running after driver unbind.
+
+User-space tests are at
+https://patchwork.freedesktop.org/series/163935/
+
+Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
+
+Thomas Hellström (6):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Introduce struct dmem_cgroup_init for region initialization
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  10 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 |  95 ++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           |  37 +++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  19 ++--
+ include/drm/ttm/ttm_bo.h                     |  10 ++
+ include/drm/ttm/ttm_resource.h               |   4 +
+ include/linux/cgroup_dmem.h                  |  24 +++++
+ kernel/cgroup/dmem.c                         | 106 +++++++++++++++++--
+ 10 files changed, 286 insertions(+), 24 deletions(-)
+
+-- 
+2.54.0
+
+Thomas Hellström (6):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Introduce struct dmem_cgroup_init for region
+    initialization
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  28 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |   2 +
+ drivers/gpu/drm/drm_drv.c                    |   8 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 |  95 +++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |   3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           |  50 +++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  53 +++++++-
+ include/drm/drm_drv.h                        |   4 +-
+ include/drm/ttm/ttm_bo.h                     |  10 ++
+ include/drm/ttm/ttm_resource.h               |   7 +
+ include/linux/cgroup_dmem.h                  |  37 +++++-
+ kernel/cgroup/dmem.c                         | 129 +++++++++++++++++--
+ 13 files changed, 393 insertions(+), 35 deletions(-)
+
+-- 
+2.54.0
 
