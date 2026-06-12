@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C556ECD8CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 06:18:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8010ACD8CA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 06:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62E4A10F276;
-	Fri, 12 Jun 2026 06:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1472D10E285;
+	Fri, 12 Jun 2026 06:21:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="no5ryuCF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TbvAMga2";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F9210F276
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:18:44 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490b64c8311so5589445e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 23:18:44 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A1010E0A5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:21:29 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-490a76757e5so3774945e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 23:21:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781245123; x=1781849923; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781245288; x=1781850088; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wsK/yGNKaULZhNqCiwUNCw6nu/Z/eLg38Ix6fcoJKk4=;
- b=no5ryuCFtjppilFGW9u2XXY++pZBJTw+xaQVxGAtU94QPCiu+G/WIy7WcVa+xF26TE
- 0PEsAw8hkANOmUMbdgCVaMnIFDJJlLVb+lDB0uUyxDlwEvcMY8CDUBr0KfO7d+ynwsNH
- dHJM2cJZibzvyXuQ3WBpTBq1byh9aqBEDj4aDxJvjPSymn/TEmbFnvNkfMSgMaDT8oYW
- F3q1NCCAi+pzqkLZnz5aYPXRYGOFsX+GQ6xhSqGVEfcAbYDVIVcUNbgon+YQECiwhYhy
- 5nMKQH9w8y9yY9midJQQV3A0VS+GdUcP6zazD2Ap7W5PPAmLMtHuEwVXebGxgMmDsaAb
- Mb/Q==
+ bh=LZEThEh8ZXdTSiy2sTPL+e6HLtuBJR9I4odkFfxGSrk=;
+ b=TbvAMga2BYVZPseLxe19grXRZmoZaB4q5ZLYa/UNGgGMXv+oNHNpA2qlEKtfsoMCwl
+ hMT5onZhjrLaKfTyq5baiQntabzGHgfoWW3+edPTIIDFMa3f/YpZOH8MutM4uc10mzXa
+ x1h/5FwJDBbUVm6l1a8fJFNstPhxPiKerWK+4ELePgY6eCWOxwCgt8FupvTZn83qa2VW
+ fwLuBe4unXXF8nr1D0yRl3QKvhtjXHE3TgYD/JjEfW+ifytGGlypZvw9tXECHdnxSgmC
+ RHMuiHlzw/ET4pJUWZFdVP9/QvEphYrBCinyf+kM1jsFoD+CToVjd8zP4P7HNAruQSQT
+ FmiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781245123; x=1781849923;
+ d=1e100.net; s=20251104; t=1781245288; x=1781850088;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=wsK/yGNKaULZhNqCiwUNCw6nu/Z/eLg38Ix6fcoJKk4=;
- b=Z351nfMFEhixUW+R25dTQnThT7jk3XT8Dlr9NzEBMh8WSwubOIuG8RzrAW190VF8zx
- 9H3/cWH0HfL62Vpg7Hzam/t/RGMXqlvHQQ1V3WLk02x9dKo+NvvrhQvd/WbYF0S/fqS0
- Uc3n9njGAWIvPN585h/B6w34mOud8fD62dlrPZ/oAmlOEZAedsKE69LEh61ENNiH7ufs
- U0PmVMaG3SPxfymtuoCWLDyZo9jO2RY5wxe9/VnMrN9DUqkROeYwZBD1dJqXPLdCpVH2
- sFjN3llusgJTT+CwiJJO1FT7bVtAxiFa+H053RPMMTYQyI4v8blIcIVFG1vWtDPTl3cO
- hnyA==
-X-Gm-Message-State: AOJu0YwqYwLF27p7xP0LR/PBjwkBzs/KYfReu0mQ7QhS/FYW2dJTXKnQ
- Qtg68RBdbQ1r3qDZ3CSA4gC0TeYihHARC1ydjRom12eUGFXZ9dGMAZ7H
-X-Gm-Gg: Acq92OGuiFBh/hYyU/ObdOSONj29RgmHHl1Hmy3TbWJvDWPH/068WTbUyTUb3Ppbi1D
- UqK0Qp+/r3Y8LGtiZ9sgqjXVU+nJuDBeNiiRo4+uKoU2UEVCMbVLQBLbFzcavonE64CxQDs5bgv
- vHZDjcFt+4qxItMCjkki5/ycDLDAEae6S7Q11UNsUSO4vJGCrfrPMjkYbr74R879txThcHYXkMj
- 0BGs1nTyKt36xv7HcUqKhV/Qf5f2NbBnf89mpslm8S7oRbutDw/yNgnSp4mBHJJHlS93SL7dqAk
- PBjjTRGZrJZCz9HMsldVkYwGjE3AdG4GMceIbZVG0q83GPmF47vcnmoeHXLs6cB+lRd/neH5CuJ
- 6dkkWIfOeGrnhfR7812W9yCcj9sQ94D5TvKNRb/B9qZW5F78iLAwpbA9yOWcug6skzOFhEi4BcO
- FzVl57bVzwLwfAlEZEWmWd3zEFtxZA8cf5U2C1TaApLaHQANxyXklgnHt91boQs6XpW457cx+Fj
- vfnrgHGxCermECHvHMTd/BD1oCSWQ==
-X-Received: by 2002:a05:600c:c3dc:20b0:490:adb6:793d with SMTP id
- 5b1f17b1804b1-490ec4fbd85mr9645115e9.26.1781245123016; 
- Thu, 11 Jun 2026 23:18:43 -0700 (PDT)
+ bh=LZEThEh8ZXdTSiy2sTPL+e6HLtuBJR9I4odkFfxGSrk=;
+ b=RJviZl/zAjZzzKs94/U3Agw5ANDuYtoph/VA0+mRiDfcySiXkUvy/jFdM6MMPGaxGf
+ 3XuptVS2CIQT6tGwjQnTBoHC+CiF9xqT5wdjuiJJeCqRRd8pzbwrrDVwunxO1wVaTaQI
+ 9RGkVjPj7R6eAuPQE9OtT9SCUQKjZ0iFaDu/q8c60K4abPTjNJtfHgj3HcX5vfKOhIou
+ z4ufdnpr5j+6nt93fAchYxoewhMgNSsUOWIMYoJZzZYS38x/x+mc1fekPupCdaoGZD2h
+ 03CcCQkLS4vjEELejsp3mgxy+3X3luzOUkCbBQwfBifgqZKTPX3MpFUpWEMzcRhO1l/m
+ QyrA==
+X-Gm-Message-State: AOJu0YxjNWpIb/m1oQzoR+DY+H0QhEKL5+UOtNNTOAeaWw7m6mGuCsfH
+ fKUkQLCVpcreEZRgWJmrtPngxc7vu8+V833sqBfOMvNXWtEOMDac1Lln
+X-Gm-Gg: Acq92OEQfyqYbQdZFBaGqH7dQaD/Ky36y8KDcWA7orxyhNOjVzBq0IwMnWPMSj9xU3j
+ 7q+h4lvCwsI4c++/ZN0riVLmbHRMRVPGtEusyXgDKa5sGDEr4ywlpch7AiKiW8a5kJg0VvI/THL
+ arIJtr55Zs4bR7oQ7/8bmU/5MJ+3sWwGQJ1OUe66hSLsk5nxyGFKPWzrSuVzTyUQE5QEth5UGQw
+ D7fssNY92KpgQMn8vVQAQiwtCXIebbpWwlDvemhMiiiMmC8c5ofZo/9iaLEkTEwBPwkm/1wLO5C
+ 1gaTGX2Exo/XF6IozZ+E+TqI4MdMUvffPLVTMsA497e+6Nzl/Ofnxs3LKeBOfy/yjGP4Mxk3Mj3
+ LtLEbr9ooAk6JYPYEmJMwMr+ZR4QVL5Lh+UKFYsB30aGqxxpwPNDkWpIpGNjaB9LXu8Y9f0n6Vu
+ G6aWHOMkcQxNymdsH+9k7/s5/8MEn+YWvcsMAf0t3QD+nb+/5VMmYwrXJmrR5yRW3L3Kk6GSmmb
+ EXjrHedi1lxkjI+Q5iNr1Tg/gOwwSK0reMnidkH
+X-Received: by 2002:a05:600c:1d03:b0:490:ec86:ad4e with SMTP id
+ 5b1f17b1804b1-490ec86bf8fmr12319635e9.31.1781245287620; 
+ Thu, 11 Jun 2026 23:21:27 -0700 (PDT)
 Received: from timur-max.localnet
  (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
  [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490ea94f5b0sm26960095e9.1.2026.06.11.23.18.41
+ 5b1f17b1804b1-490ea843d63sm39051865e9.12.2026.06.11.23.21.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 23:18:42 -0700 (PDT)
+ Thu, 11 Jun 2026 23:21:27 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
  Felix.Kuehling@amd.com, Philip.Yang@amd.com, christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 03/13] drm/amdgpu: add gfp_flags to amdgpu_sa_manager
-Date: Fri, 12 Jun 2026 08:18:41 +0200
-Message-ID: <2787510.lGaqSPkdTl@timur-max>
-In-Reply-To: <20260529114031.3714-4-christian.koenig@amd.com>
+Subject: Re: [PATCH 04/13] drm/amdgpu: move job parameter to the end in
+ amdgpu_job_alloc() and *_with_ib()
+Date: Fri, 12 Jun 2026 08:21:25 +0200
+Message-ID: <3692193.dWV9SEqChM@timur-max>
+In-Reply-To: <20260529114031.3714-5-christian.koenig@amd.com>
 References: <20260529114031.3714-1-christian.koenig@amd.com>
- <20260529114031.3714-4-christian.koenig@amd.com>
+ <20260529114031.3714-5-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -90,187 +91,468 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. m=C3=A1jus 29., p=C3=A9ntek 13:24:05 k=C3=B6z=C3=A9p-eur=C3=B3pai =
+On 2026. m=C3=A1jus 29., p=C3=A9ntek 13:24:06 k=C3=B6z=C3=A9p-eur=C3=B3pai =
 ny=C3=A1ri id=C5=91 Christian K=C3=B6nig=20
 wrote:
-> Make sure that we use the emmergency reserves for unrecoverable page
-> faults and GPU resets.
+> Move the job output parameter to be the last parameter in the
+> amdgpu_job_alloc() and amdgpu_job_alloc_with_ib() function signature. This
+> aligns with the common kernel coding convention where output parameters
+> typically come last.
+>=20
+> Co-developed by Claude Sonnet 4.
 >=20
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 23 ++++++++++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c | 18 ++++++++++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h |  3 ++-
->  3 files changed, 34 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c index 334f95f8f339..60e4c3985029
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -356,16 +356,33 @@ int amdgpu_ib_pool_init(struct amdgpu_device *adev)
->  		[AMDGPU_IB_POOL_IMMEDIATE] =3D SZ_128K,
->  		[AMDGPU_IB_POOL_DIRECT] =3D SZ_512K
->  	};
-> +	const gfp_t gfp_flags[AMDGPU_IB_POOL_MAX] =3D {
-> +		/*
-> +		 * For normal page table updates and recoverable page=20
-faults,
-> +		 * further restricted by the VM eviction lock to not=20
-wait for
-> +		 * memory reclaim.
-> +		 */
-> +		[AMDGPU_IB_POOL_DELAYED] =3D GFP_KERNEL,
-> +		/*
-> +		 * For redirecting unrecoverable page faults to the=20
-dummy page
-> +		 * or set the PRT bits. dma_fence submissions might=20
-depend on
-> +		 * that so we need the emmergency resewrves.
-> +		 */
-> +		[AMDGPU_IB_POOL_IMMEDIATE] =3D GFP_ATOMIC,
 
-I know that "retry faults" and "recoverable faults" are different, but both=
- of=20
-these faults can be mitigated, so using the term "unrecoverable" here feels=
-=20
-somewhat confusing to me.
+Looks good. Nice cleanup.
 
-Can you please clarify the comment above as well as the commit message that=
-=20
-this is referring to retry faults?
-
-> +		/*
-> +		 * For IB tests during GPU resets. Only very small and=20
-temporary
-> +		 * allocation to make allow dma_fences to signal.
-> +		 */
-> +		[AMDGPU_IB_POOL_DIRECT] =3D GFP_ATOMIC
-
-Just a small grammatical nitpick but "make" is not necessary in this commen=
-t.
-
-> +	};
->  	int r, i;
->=20
->  	if (adev->ib_pool_ready)
->  		return 0;
->=20
-> -
-
-Looks like this is just removing the spurious newline from the previous=20
-commit.
-
-With that fixed and the comments + commit message clarified:
 Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
->  	for (i =3D 0; i < AMDGPU_IB_POOL_MAX; i++) {
->  		r =3D amdgpu_sa_bo_manager_init(adev, &adev->ib_pools[i],
-> -					      sizes[i], 256,
-> -					     =20
-AMDGPU_GEM_DOMAIN_GTT);
-> +					      sizes[i],=20
-gfp_flags[i]);
->  		if (r)
->  			goto error;
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c index 39070b2a4c04..74124f80601e
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-> @@ -46,11 +46,13 @@
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     | 10 +++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |  8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c    |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 11 ++++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c     |  8 +++++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     | 12 ++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c       | 10 ++++++----
+>  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c       | 10 ++++++----
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c    |  4 ++--
+>  15 files changed, 57 insertions(+), 42 deletions(-)
 >=20
->  int amdgpu_sa_bo_manager_init(struct amdgpu_device *adev,
->  			      struct amdgpu_sa_manager *sa_manager,
-> -			      unsigned int size, u32 suballoc_align,=20
-u32 domain)
-> +			      unsigned int size, gfp_t gfp_flags)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c index
+> 0017d502d169..44751d71b741 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -696,7 +696,7 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *ade=
+v,
+>  		goto err;
+>  	}
+>=20
+> -	ret =3D amdgpu_job_alloc(adev, NULL, NULL, NULL, 1, &job, 0);
+> +	ret =3D amdgpu_job_alloc(adev, NULL, NULL, NULL, 1, 0, &job);
+>  	if (ret)
+>  		goto err;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c index 10d8dcc3a972..fdf01d824d66
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -274,8 +274,8 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+>=20
+>  	for (i =3D 0; i < p->gang_size; ++i) {
+>  		ret =3D amdgpu_job_alloc(p->adev, vm, p->entities[i], vm,
+> -				       num_ibs[i], &p->jobs[i],
+> -				       p->filp->client_id);
+> +				       num_ibs[i], p->filp-
+>client_id,
+> +				       &p->jobs[i]);
+>  		if (ret)
+>  			goto free_all_kdata;
+>  		switch (p->adev->enforce_isolation[fpriv->xcp_id]) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c index 515cc4a2aeb4..54450ac49834
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1669,8 +1669,9 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct
+> amdgpu_ring *ring) owner =3D (void *)(unsigned
+> long)atomic_inc_return(&counter);
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
+> -				     64, 0, &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
+> +				     64, 0,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER,
+> +				     &job);
+>  	if (r)
+>  		goto err;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index 13bec8461cde..181d69770c40
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -761,7 +761,8 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device
+> *adev, uint32_t vmid, r =3D amdgpu_job_alloc_with_ib(ring->adev,
+> &adev->mman.default_entity.base, AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     16 * 4,=20
+AMDGPU_IB_POOL_IMMEDIATE,
+> -				     &job,=20
+AMDGPU_KERNEL_JOB_ID_FLUSH_GPU_TLB);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_FLUSH_GPU_TLB,
+> +				     &job);
+>  	if (r)
+>  		goto error_alloc;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c index 55172c2dcc35..71c1ba735a6b
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -187,8 +187,8 @@ static enum drm_gpu_sched_stat
+> amdgpu_job_timedout(struct drm_sched_job *s_job)
+>=20
+>  int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  		     struct drm_sched_entity *entity, void *owner,
+> -		     unsigned int num_ibs, struct amdgpu_job **job,
+> -		     u64 drm_client_id)
+> +		     unsigned int num_ibs, u64 drm_client_id,
+> +		     struct amdgpu_job **job)
+>  {
+>  	struct amdgpu_fence *af;
+>  	int r;
+> @@ -241,12 +241,12 @@ int amdgpu_job_alloc(struct amdgpu_device *adev,
+> struct amdgpu_vm *vm, int amdgpu_job_alloc_with_ib(struct amdgpu_device
+> *adev,
+>  			     struct drm_sched_entity *entity, void=20
+*owner,
+>  			     size_t size, enum amdgpu_ib_pool_type=20
+pool_type,
+> -			     struct amdgpu_job **job, u64 k_job_id)
+> +			     u64 k_job_id, struct amdgpu_job **job)
 >  {
 >  	int r;
 >=20
-> -	r =3D amdgpu_bo_create_kernel(adev, size, AMDGPU_GPU_PAGE_SIZE,=20
-domain,
-> +	sa_manager->gfp_flags =3D gfp_flags;
-> +	r =3D amdgpu_bo_create_kernel(adev, size, AMDGPU_GPU_PAGE_SIZE,
-> +				    AMDGPU_GEM_DOMAIN_GTT,
->  				    &sa_manager->bo, &sa_manager-
->gpu_addr,
->  				    &sa_manager->cpu_ptr);
->  	if (r) {
-> @@ -59,7 +61,8 @@ int amdgpu_sa_bo_manager_init(struct amdgpu_device *ade=
-v,
->  	}
+> -	r =3D amdgpu_job_alloc(adev, NULL, entity, owner, 1, job,
+> -			     k_job_id);
+> +	r =3D amdgpu_job_alloc(adev, NULL, entity, owner, 1, k_job_id,
+> +			     job);
+>  	if (r)
+>  		return r;
 >=20
->  	memset(sa_manager->cpu_ptr, 0, size);
-> -	drm_suballoc_manager_init(&sa_manager->base, size,=20
-suballoc_align);
-> +	drm_suballoc_manager_init(&sa_manager->base, size, 256);
-> +
->  	return r;
->  }
->=20
-> @@ -73,7 +76,8 @@ void amdgpu_sa_bo_manager_fini(struct amdgpu_device *ad=
-ev,
->=20
->  	drm_suballoc_manager_fini(&sa_manager->base);
->=20
-> -	amdgpu_bo_free_kernel(&sa_manager->bo, &sa_manager->gpu_addr,
-> &sa_manager->cpu_ptr); +	amdgpu_bo_free_kernel(&sa_manager->bo,
-> &sa_manager->gpu_addr,
-> +			      &sa_manager->cpu_ptr);
->  }
->=20
->  int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
-> @@ -81,7 +85,8 @@ int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manag=
-er,
-> unsigned int size)
->  {
->  	struct drm_suballoc *sa =3D drm_suballoc_new(&sa_manager->base,=20
-size,
-> -						  =20
-GFP_KERNEL, false, 0);
-> +						  =20
-sa_manager->gfp_flags,
-> +						   false,=20
-0);
->=20
->  	if (IS_ERR(sa)) {
->  		*sa_bo =3D NULL;
-> @@ -110,6 +115,7 @@ void amdgpu_sa_bo_dump_debug_info(struct
-> amdgpu_sa_manager *sa_manager, {
->  	struct drm_printer p =3D drm_seq_file_printer(m);
->=20
-> -	drm_suballoc_dump_debug_info(&sa_manager->base, &p, sa_manager-
->gpu_addr);
-> +	drm_suballoc_dump_debug_info(&sa_manager->base, &p,
-> +				     sa_manager->gpu_addr);
->  }
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h index 8c85c80fc119..1d1c89348709
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h index 56a88e14a044..6b7cf594714c
 > 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
-> @@ -35,6 +35,7 @@ struct amdgpu_sa_manager {
->  	struct amdgpu_bo		*bo;
->  	uint64_t			gpu_addr;
->  	void				*cpu_ptr;
-> +	gfp_t				gfp_flags;
->  };
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -112,13 +112,13 @@ static inline struct amdgpu_ring
+> *amdgpu_job_ring(struct amdgpu_job *job)
 >=20
->  static inline struct amdgpu_sa_manager *
-> @@ -57,7 +58,7 @@ static inline void *amdgpu_sa_bo_cpu_addr(struct
-> drm_suballoc *sa_bo)
+>  int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  		     struct drm_sched_entity *entity, void *owner,
+> -		     unsigned int num_ibs, struct amdgpu_job **job,
+> -		     u64 drm_client_id);
+> +		     unsigned int num_ibs, u64 drm_client_id,
+> +		     struct amdgpu_job **job);
+>  int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+>  			     struct drm_sched_entity *entity, void=20
+*owner,
+>  			     size_t size, enum amdgpu_ib_pool_type=20
+pool_type,
+> -			     struct amdgpu_job **job,
+> -			     u64 k_job_id);
+> +			     u64 k_job_id,
+> +			     struct amdgpu_job **job);
+>  void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo
+> *gds, struct amdgpu_bo *gws, struct amdgpu_bo *oa);
+>  void amdgpu_job_free_resources(struct amdgpu_job *job);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c index 63ee6ba6a931..988ad86971=
+a8
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> @@ -196,8 +196,9 @@ static int amdgpu_jpeg_dec_set_reg(struct amdgpu_ring
+> *ring, uint32_t handle, int i, r;
 >=20
->  int amdgpu_sa_bo_manager_init(struct amdgpu_device *adev,
->  			      struct amdgpu_sa_manager *sa_manager,
-> -			      unsigned size, u32 align, u32 domain);
-> +			      unsigned size, gfp_t gfp_flags);
->  void amdgpu_sa_bo_manager_fini(struct amdgpu_device *adev,
->  			       struct amdgpu_sa_manager=20
-*sa_manager);
->  int amdgpu_sa_bo_manager_start(struct amdgpu_device *adev,
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw *=20
+4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DIRECT,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index 6c6ab4dd6ea9..cf78d7020494
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -243,8 +243,9 @@ static int amdgpu_ttm_map_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, r =3D amdgpu_job_alloc_with_ib(adev,
+> &entity->base,
+>  				    =20
+AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     num_dw * 4 + num_bytes,
+> -				     AMDGPU_IB_POOL_DELAYED,=20
+&job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER);
+> +				     AMDGPU_IB_POOL_DELAYED,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> @@ -1573,8 +1574,8 @@ static int amdgpu_ttm_access_memory_sdma(struct
+> ttm_buffer_object *bo, r =3D amdgpu_job_alloc_with_ib(adev,
+> &adev->mman.default_entity.base, AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     num_dw * 4,=20
+AMDGPU_IB_POOL_DELAYED,
+> -				     &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA,
+> +				     &job);
+>  	if (r)
+>  		goto out;
+>=20
+> @@ -2428,7 +2429,7 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_dev=
+ice
+> *adev, int r;
+>  	r =3D amdgpu_job_alloc_with_ib(adev, &entity->base,
+>  				    =20
+AMDGPU_FENCE_OWNER_UNDEFINED,
+> -				     num_dw * 4, pool, job,=20
+k_job_id);
+> +				     num_dw * 4, pool, k_job_id,=20
+job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c index 3a3bc0d370fa..7df839634098
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -1137,8 +1137,9 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring
+> *ring, struct amdgpu_bo *bo, r =3D amdgpu_job_alloc_with_ib(ring->adev,
+> &adev->uvd.entity,
+>  				    =20
+AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     64, direct ?=20
+AMDGPU_IB_POOL_DIRECT :
+> -				     AMDGPU_IB_POOL_DELAYED,=20
+&job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DELAYED,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c index efdebd9c0a1f..344a703d03be
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> @@ -473,7 +473,8 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ri=
+ng
+> *ring, uint32_t handle, r =3D amdgpu_job_alloc_with_ib(ring->adev,
+> &ring->adev->vce.entity, AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     ib_size_dw * 4,=20
+AMDGPU_IB_POOL_DIRECT,
+> -				     &job,=20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> @@ -564,8 +565,9 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_r=
+ing
+> *ring, uint32_t handle, AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     ib_size_dw * 4,
+>  				     direct ?=20
+AMDGPU_IB_POOL_DIRECT :
+> -				     AMDGPU_IB_POOL_DELAYED,=20
+&job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DELAYED,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c index 616967519869..6b15415f989c
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -631,7 +631,8 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring
+> *ring,
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     64, AMDGPU_IB_POOL_DIRECT,
+> -				     &job,=20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		goto err;
+>=20
+> @@ -811,7 +812,8 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_r=
+ing
+> *ring,
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     ib_size_dw * 4,=20
+AMDGPU_IB_POOL_DIRECT,
+> -				     &job,=20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		goto err;
+>=20
+> @@ -941,7 +943,8 @@ static int amdgpu_vcn_enc_get_create_msg(struct
+> amdgpu_ring *ring, uint32_t hand
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     ib_size_dw * 4,=20
+AMDGPU_IB_POOL_DIRECT,
+> -				     &job,=20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> @@ -1008,7 +1011,8 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct
+> amdgpu_ring *ring, uint32_t han
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     ib_size_dw * 4,=20
+AMDGPU_IB_POOL_DIRECT,
+> -				     &job,=20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c index
+> 2eb64df6daa9..50cc0779c340 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> @@ -56,7 +56,7 @@ static int amdgpu_vm_sdma_alloc_job(struct
+> amdgpu_vm_update_params *p, ndw =3D min(ndw, AMDGPU_VM_SDMA_MAX_NUM_DW);
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(p->adev, entity,=20
+AMDGPU_FENCE_OWNER_VM,
+> -				     ndw * 4, pool, &p->job,=20
+k_job_id);
+> +				     ndw * 4, pool, k_job_id, &p-
+>job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c index ecd7ead7a60b..16137829fe84
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> @@ -217,8 +217,9 @@ static int uvd_v6_0_enc_get_create_msg(struct
+> amdgpu_ring *ring, uint32_t handle int i, r;
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw *=20
+4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DIRECT,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> @@ -282,8 +283,9 @@ static int uvd_v6_0_enc_get_destroy_msg(struct
+> amdgpu_ring *ring, int i, r;
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw *=20
+4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DIRECT,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c index df2c83348315..46222fc30be6
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> @@ -225,8 +225,9 @@ static int uvd_v7_0_enc_get_create_msg(struct
+> amdgpu_ring *ring, u32 handle, int i, r;
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw *=20
+4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DIRECT,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> @@ -289,8 +290,9 @@ static int uvd_v7_0_enc_get_destroy_msg(struct
+> amdgpu_ring *ring, u32 handle, int i, r;
+>=20
+>  	r =3D amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw *=20
+4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+> +				     AMDGPU_IB_POOL_DIRECT,
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST,
+> +				     &job);
+>  	if (r)
+>  		return r;
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c index 28dc6886c1ff..51ad46c25c=
+5a
+> 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -68,8 +68,8 @@ svm_migrate_gart_map(struct amdgpu_ring *ring,
+>  				    =20
+AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     num_dw * 4 + num_bytes,
+>  				     AMDGPU_IB_POOL_DELAYED,
+> -				     &job,
+> -				    =20
+AMDGPU_KERNEL_JOB_ID_KFD_GART_MAP);
+> +				    =20
+AMDGPU_KERNEL_JOB_ID_KFD_GART_MAP,
+> +				     &job);
+>  	if (r)
+>  		return r;
 
 
 
