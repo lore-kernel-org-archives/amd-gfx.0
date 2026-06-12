@@ -4,124 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCD7CD98CF
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 15:50:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C78D0CD98CF
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 16:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76C6110EA6C;
-	Fri, 12 Jun 2026 15:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 568C410EABA;
+	Fri, 12 Jun 2026 16:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s3D5tixJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XdKbdycA";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010043.outbound.protection.outlook.com
- [40.93.198.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BEAB10EA6C
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 15:50:13 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013003.outbound.protection.outlook.com
+ [40.107.201.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99DA110EABA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 16:44:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h2e5em8K85Y1rSEfYVdlXNo3bnQdLA0+kZ0wvDAcUT1nAl39WrEt+fxJmJldi+1pGdn35VT7uEHTgQlrn0SA8M+ytS3epjOUiuilrfudFryJa4xM05pq76ZfQfgZEq8axGg+BuahxyHSp80yXwQv4+srKhlkx6lbV56Raa9pm6/Bzp+veunQ8djvCKUZU7r2uGR6QaBODRgcYCn7JmQkxujaytYpaRb9hm0fdSLRzu9nieKQsFpA3oYzdu7Ysl/eV79uRPgJ7tYdee6vDnf+16K5bq1FHU0IJ+djTVwKmH/WKvrv1v0kj0TKF6Ynw8QAEegfWYsgfykxvuxJWPIKHg==
+ b=FO9isQLJd7r1AsYuLXbxFRqetzuqlhr3fN1YtdaJYdRJtxgF8vH7N1eNMJ1+UhNiIWB4W/RlI75uVHk+ay4Vc5CEg7ziBq6QAi6+xiR8EwTqBZl3z1oOtOotTmLIy4lrLidDWmQ5+J65HV7NTYLJUFMuZcu8x6bjolJNkmD+3Bh2mQL1HCP4EvUrxUtWuuTt+txIt3YPPnMhZxxTBmtk6/OOQJy5HWiFn80Fkb4LZTtbw5i9S6aeLekhK/V26Qegp6hJvb1jqRyMdODDX6tr5lB1/dnorg1Vu1C2E5R4WHZjdZyGht1kMnt0PaGbAjmbnc1FtP4AY1oH2R7TGQPHFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wkPxGnMtZVx82tZf9L2GNv3jKwDI/lG0eHi1Oz/a9DA=;
- b=XMlsqk2vpjjgD+rVnGm3/Nk6qYUzWybhZjhli2ucb0B2MuikF/1grwgnp9SYsFI8wLjxZCoeH3kemkY+5Sq7oNjIfA8RBegL2QhrAWESVNlnJDtbyRunoMbxnWGfzSGqxOvJm8x68PEPXllR4TsMwEA9MR/Vi8TtaxCYa9aWGcqrV22mUNcDdB0WQPirz8IT4g+ur2xb7HmQeAQZ6M/oX5Q3OxNCqFfhexLG6h2oYI7Bs01Umf9EPTHu5O7Wf/T+RIfmTUozxWY5o6KBTMfvnhitag21l3767gAEEpvaOmtqUqZJnS+CjEEuJCu9gf9h5fY9uV02apP1WMHqLNnc3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ktd16R/jjZRUlga1aHRx2lgxJBgMYwCCqcjkwjgD/zM=;
+ b=QzLCO2cqTMkb+M9Qg1zts3g+9Wte4fL05UulW9rnUPjsQAUmDCErl+JygDWkA/jjgX8RmMrkuA9TzXIWiRoNJGL4hq924ot+vAVhJ//sD6AzHrmw7yZ2yJPxFPCrg/CBvuPi0cpjwGO1xo/ySC8I6WLuwoR3OpCjT5BWz4oQNiSd4SFWvf1UssBp2muxSGiaNqzrpgvkAC8H4TSKOnNgwVEN98kGmFNAdJ6iRU16xCI8ojQCJDhVOrSHLNhDAxENxnQmsx/QU1huU8zNb2y9KkYvs4/qj1bMJQh3MwjdIvq3oks8iIDL7NfWp8WKbbBu1yP3MwGakTWDQRj1CdGwEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wkPxGnMtZVx82tZf9L2GNv3jKwDI/lG0eHi1Oz/a9DA=;
- b=s3D5tixJo5D9cGFXUOaHmB1x576lZo6PJY/MyPhK34GicOaLG+0BvuxF5n6+XykHCAcsFKpoHJvHEhJzpax/bps++lkxIB28BZypvKnuWggcrERqwYPJ+5+cfzjIFTBUhnl0SZXu7MhlIuqvMGO0Cy35H2lHiU4wLVMhtgA5pVA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB8432.namprd12.prod.outlook.com (2603:10b6:510:25b::11)
- by CY8PR12MB7609.namprd12.prod.outlook.com (2603:10b6:930:99::17)
+ bh=ktd16R/jjZRUlga1aHRx2lgxJBgMYwCCqcjkwjgD/zM=;
+ b=XdKbdycAKZx66aNzDLtIuQ5dqq+PuX2DRDayQkL1sRoZsEJ315mPbHMNSJt+/vzGzfTQlEhEhlMstsMUX1E114BVlVCUSQAKGRvPn9bwRyAHi46qKpXhhc20jboidaU78y9dZEWTNJFeEb86iOe4T9fhoZygSRj//bnQoeac5AY=
+Received: from SJ0PR05CA0038.namprd05.prod.outlook.com (2603:10b6:a03:33f::13)
+ by CYYPR12MB8937.namprd12.prod.outlook.com (2603:10b6:930:cb::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.15; Fri, 12 Jun
- 2026 15:50:06 +0000
-Received: from PH8PR12MB8432.namprd12.prod.outlook.com
- ([fe80::fe06:fa76:b8a7:9b16]) by PH8PR12MB8432.namprd12.prod.outlook.com
- ([fe80::fe06:fa76:b8a7:9b16%3]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
- 15:50:06 +0000
-Message-ID: <17821ca1-ffcc-40b4-a355-38e364a84e52@amd.com>
-Date: Fri, 12 Jun 2026 11:50:06 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm/amdkfd: Fix NULL deref during sysfs teardown
-To: Geoffrey McRae <geoffrey.mcrae@amd.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260611030150.3713054-1-geoffrey.mcrae@amd.com>
- <20260612000407.3734265-1-geoffrey.mcrae@amd.com>
- <20260612000407.3734265-2-geoffrey.mcrae@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20260612000407.3734265-2-geoffrey.mcrae@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0138.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::24) To PH8PR12MB8432.namprd12.prod.outlook.com
- (2603:10b6:510:25b::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
+ 2026 16:44:53 +0000
+Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::40) by SJ0PR05CA0038.outlook.office365.com
+ (2603:10b6:a03:33f::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.7 via Frontend Transport; Fri, 12
+ Jun 2026 16:44:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 16:44:52 +0000
+Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
+ 2026 11:44:52 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Export ip_discovery sysfs on probe failure
+Date: Fri, 12 Jun 2026 11:44:43 -0500
+Message-ID: <20260612164443.1002712-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB8432:EE_|CY8PR12MB7609:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5d4de83-03e8-407d-56d7-08dec89a4604
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|CYYPR12MB8937:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9c230f7-4397-4251-3c33-08dec8a1ed16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: C4mOqaokQiXXzgmmgCeZQfd48lVriCA1ncaZAudFo+cb+Kk9OIyTumoDgShlqSgOvspf+5FttjS/8mFkmNDAG/1sLKaNWHyEbonBEoRickflzuNnffbNJgwnm8bbFdRz0y3Y7tqqhvNZCwEAvrXD/agx2mVHRY0/UqVzF5CJfb7zR8F8T5LxZrWpk6VZVi/Xpt1lKZDS7szDtCGiKN6/6TZ5RejDwGnjYRe2/BYqBvWtwAp96HyFFRZmaNR82w9qutHE1zWBtEjQCANEDaNnZH7jNpRjgH8pFm0izDPUbzGTTqH5uLJajZdPsh/qGcG8yI0O2QTAoPvuDVEaInmlTTILY+9lSJfnEykCDyrEznkIy3v9IqegqJvHW6T7k6xxcWbLk/wDOoKl1mWcyTUKeK+isgUZnuG7j/efqF//cH0yxi9bxt2dVXt8VvfOZ4It1YLr8C8DlLEIs5RHquKMPguspd5GM2/QmXOxH4M/JscY4ykRqMhMncHyMghsQrgCFRIBpU29hKYQ92VsndD5KEnev1ui7rH6fiyY5lhe3ERN4zdoduPuPdIHXnfIy3iT+wTl34EbOBDlGe64IWk6S/2dotYV9V5csuH1gq+IslTV0EJWl6iTKtPe4mq3/QXGlJSfr4YhISwsz+ueFApOyxj5N/no9gvzQUOSiwTZVh+VHb6X2KBAVao6ximroK6p
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB8432.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|6133799003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: Nc/ubwfgeZXB5bhtsEjJ8RBNiAfocxBBWg3LwyZe5iNq/swCbo5conV5BN+ZE875OmRRawsWBbSy7wxhQ82wWm6YptnyO74edKwsds5Dh8juQO+NkFvtSPPJhGywZz2oR2WJD0HFazSxdpAjW1XmuAD6+CnXeXHyt/DU4NapKpzI1ezbLKek+XPyFdSz1pyisrynhWvH0jGO/uWqFUrl4ternZaKtuFdQVarSLGaGZnIZROCLi9tFtexfNXAkvqVtNxPOQZLHCoN2mPnevrFx5wWboHnY9GXJZoeEUDCE+WiWAvKHIkN1kgvS3xZHvm1qSNtR0KvIc5a6IaDIWpcuOmamVf5tss6tkd70Qbjyqq3j8PXcSK1k0npDJbEFmALEHdbx+nmqJmu9YUxhmVEsvISZlsrsVsOhh544/JIvzUnsuBTz2HbR4Y4faRvoTnxFMl5J4x+np6U6GpJ1dGESGMhzY/ougfK4qdUCIiUQOVEPpqoKAihOwOl6uLB7xjVnOH8i3uk82fPednnoqt6z5q//ZHvJxV+1adYt6F661GYtmb1SfMCgha0/Bp8tJYz5ZSaHAQWnQFpqprASazmBKvdLCrxW3N9ewgo2ihOUZ52U55UbM0djcRAkC5SPAFDFjqRAKMkvvBMEKVdrd04KB1q+WsKQ2sUonK3JQMgH7tLDh4sii/ZO8r3/RDmN1ZQ4yXqXGjGIsWuvPm0/hH/TKQnXBmRN6kuPWEFTzJ4d+Q=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(6133799003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RTAxSXg4RFdOVXBtaFB5M0tSUGlUM21mTVY1L3R4VURJV1ErV0g1eUxaZkU2?=
- =?utf-8?B?VGJNb2VuTTBrMk1yT0o5T2o2Vm0xZDJzV3RxOFE3QkV5QXVkY2hyS1grbWNs?=
- =?utf-8?B?dE41cDFCTTk4ZlM4amVYVWhzTk1qZzhwb3JDL3laMlBlYnlJeTFxdU9PNk1C?=
- =?utf-8?B?emdheDljWU14WHg4VjhyekpOTU5TT1d4US9hNGFZREdkT0IvSUk2RXhlMHpI?=
- =?utf-8?B?UjhYRUkrc1ZETGF6czBLbkZKQkxSV281OVcvbGR3UWgxeTRlTGxpNW9CN2Rx?=
- =?utf-8?B?aVlEZG4yVzUyUkRRN1cwUjVJTWNaaW1OVHJmMGdZK3lRbGk4NFE4UE9URTV3?=
- =?utf-8?B?U3dDaDJheExOTmtpa09nRCtSc3JKWTI4eXdIazRROU85UGFNNmd2R3BWeVlT?=
- =?utf-8?B?T3BmVWdYakc0OW1PWmNtMkY4SFVrbFpKZ1RRaFc4TXo1cVdpL04yOGtpc0pE?=
- =?utf-8?B?OENJS2VwWm5qNUFDRWFFVlBER3N6a0sremozK005R0FDdHRCZmJLM21sSnVv?=
- =?utf-8?B?enJPRmg0Z0hoeFRtQ0EzK0xteWorNTRrQXgwUi9ueVhZQXV3aTd3bVZPYU1M?=
- =?utf-8?B?Q1h4VDNPczY0bytxTFVHUkZzTWxyU0ZNaGxXUkVCS0dRSzJEZWxUR1ZmbzlN?=
- =?utf-8?B?aWZSU04vOWhlWHdUMm5IaFNHcExWT05sRkVIemlSa0E5UVh3dUhjNDRoYUFM?=
- =?utf-8?B?cEtQdVMvQnB5Ti9CSXBIUTIzcXEvL3AxemE1a2xTM3YwUG1DRXZHSFFsL013?=
- =?utf-8?B?S1dCWldiNFFvREVYTXpJRGlwZmFlajUrWThsUlJVRFhTMEw2ZlZPOXBxOXpZ?=
- =?utf-8?B?YzAvNWFRYWQxc2Q0ZkluYlZBcjJXUFQweWdMU2lBWWR1ZTd2K21iL3RlbWU4?=
- =?utf-8?B?eitTR2puVE1WOTdYVjZYa1doUE52M0pobTZnTEk2Y1orNVFqd1N3cEZEdmJr?=
- =?utf-8?B?NTRoSFZaOHJpeXIyWU1LMWVVSkF1dVlLQnBPMFZac01BS1VDanlyZDgwUUVS?=
- =?utf-8?B?ZEMrcFk4RlR3bXdZd3NMamdpYjlBTGVvSXgrS052WmF6SFRmNi9ORW9CMzV6?=
- =?utf-8?B?Y1JEa1lqR2Fyd0xlb2JPaWtDbXB0bE9TMDNWU0cyVUhJTTAvSXdpVDlXazZq?=
- =?utf-8?B?RGdQL3BwUU1BeSt0L293L1ZLSldMZHZMZXZ6YzQxaVA0R3JhNFRScTc4NDh2?=
- =?utf-8?B?bW4veEJDcE9NcjZYbjQwK0pncWw3YVV5eVA3Q1k3NFdNUDJWUHNYMTZ4dUJU?=
- =?utf-8?B?MEJHNE0ranJWYm5GUlZoM1N3dUhZWU9WMnlaZWcxaHg5OVBhQXc4S0FLSVps?=
- =?utf-8?B?M200RUwveWpEalBKYnF6SFowbjRyaDVONU5CKzBqOU41TTIwZW9vRDkxL3p1?=
- =?utf-8?B?d2FjZGs4SjZqazMyUW82TDAvdkw0RGJ6SXZVUjYrUzA2V051ZDFIaTZhNndy?=
- =?utf-8?B?M1JkTFB6czJVdnExK3A4dGdiR2EvMVJ0dWpmem5NUVRldFlDY1ZZNTlZczFi?=
- =?utf-8?B?MTM3cDFNa2hpSFRGK2JVeDdhUzBVNkV3Qk02STFJejJRS3RCRC9zYUtaSGQy?=
- =?utf-8?B?V09EbmdnQjFCeHA0T0FQWnBHWFYxazh4VjZscERhaHQxSmZDakphaFZmdllu?=
- =?utf-8?B?d1NTUXk1NDZjNnFqNUkyeTUweGpwMkhqTmFHeXR0K3drMkJ5aEh4b1V2U0c2?=
- =?utf-8?B?U2NmYStQczZZNXhvRy9nS0JNQUQ1R2I4b2g0cVY3UjFBbnFoNHFobkdrWWFY?=
- =?utf-8?B?T2VLdy9SWElXRFI2ZXdJellXQjdoOTZkdnhHQUR3eHpTK01QNWM2VHRGSnpn?=
- =?utf-8?B?NEpUR3RNYy9iSWpESE9renBFYVRIYk9pZzhCN0FLR0g1SXhVQmxId3pTRVlY?=
- =?utf-8?B?QjZvTWtNOG9YMjNCb2hKZm9qSkk1QVVpSmpXWG4wS3hMejRwQkVBL0c2SVhM?=
- =?utf-8?B?U0xRTEx0cWdkcWFab1hka0pnZEdFZkowdTJxOHUzZ3BLZm9Kd05zNXQydTgr?=
- =?utf-8?B?K1hyUy9rajdUbHlDRndCU0QvNTIxOE12em1MbDlBckI3bHNta1d1QjNQSEJQ?=
- =?utf-8?B?dTRUelBXb0ZCZ1ZiZk9JMUkvbDdDeUtudlJ2QW5wazdSbzE4eUV3TnhwTWxi?=
- =?utf-8?B?MVp0UmF3TGxtRHloN1FsOHJwWk5YWHM1Q1crOTdXNFNCM2NvWHo5SWJyTk5x?=
- =?utf-8?B?MHU0dFFsYjV3aTRtU3lxNXhBdGwvZ1hNS3QzTEIybDZXR1p2dDBzU1h0Q044?=
- =?utf-8?B?NS9DV2dwWnZvVkdUbDZ3M0ZPNGt0L0FEVDZXU05TZ1ZTeU9HbXZXRk5KZWtC?=
- =?utf-8?B?NnZGQ2ZXbGZ2dFZla0tjNUt0TktWWHRvNUV2TlRxaE9FaTZidmZOQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: LMgtJz4gjQdsVNX696m7Ve0pSDkMlSoyD7uetYad1SeK0bDSL3PYNEKHLG6vv0s2j86uJ0tvrtPqLFLwuEDV/rRqu5JuoC9o0FXcgrijk0O49qk3jPBlXcKQXeHOV9QYJZ8NXeDiIGHZbMy3/2Db+XOlPFhjh0zbIfvdiQW5wWQyu+IKzEA8PMJ/KTwljSHebz7EP1gj85vlSHpvLwqeY1AdvC7Vt7Xl/dEqQ8i8e03yers2mNPtE6hWBS9aK1zT9MgL3ILqBDV33z49qvy0QFxOnwjNqmGP1/OM7Zx763gAievHyo9AWZVmPmvJqno48XG4qIFX54rTub/R5SaPj8DwkEgSfvn7ctO6z/UrD1jT5kBy7E5JE8T07yAWWAp6291oxAXLtFtm0WkdiuUnvVP+IjcbCPYPQBPLzN+9Acmnst5JTpRlG62uw105aUXn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5d4de83-03e8-407d-56d7-08dec89a4604
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB8432.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 15:50:06.0169 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 16:44:52.5483 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9c230f7-4397-4251-3c33-08dec8a1ed16
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rQO0iLCJ5K9RJ/iYlsBmwg6SzavGf1DPMIEgoVQoOYNMqW/29dAdcbCwkrYPafE5QIJUwAEgYXlwYxe/OMT7Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7609
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE18.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8937
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,123 +108,482 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When driver probe fails (missing firmware, unsupported hardware, etc.),
+the entire device is torn down including the ip_discovery sysfs folder,
+preventing users from identifying what hardware is present.
 
-On 2026-06-11 20:04, Geoffrey McRae wrote:
-> Move kfd_process_remove_sysfs() earlier in kfd_process_wq_release() so
-> that all sysfs/procfs entries are removed before tearing down PDDs and
-> dropping lead_thread. The per-process sysfs attributes are backed by
-> struct kfd_process_device, and their show/store callbacks dereference
-> PDD fields. Since sysfs removal waits for active callbacks to complete,
-> removing these entries first closes a race where userspace reads sdma_*
-> and stats_* files after PDD teardown.
->
-> Previously this cleanup ran after kfd_process_destroy_pdds(), which
-> resets p->n_pdds to 0. This ment kfd_process_remove_sysfs() could no
-> longer walk the PDD array, so the per-PDD sysfs cleanup did not run as
-> intended.
->
-> This race caused NULL pointer dereferences observed in
-> kfd_sdma_activity_worker and kfd_procfs_stats_show.
->
-> Also harden kfd_process_remove_sysfs() against partially
-> initialized or already-freed objects:
-> - Check kobj_queues before removing PASID and deleting it
-> - Guard kobj_stats and kobj_counters before use
->
-> These checks prevent invalid dereferences during cleanup.
->
-> Fixes: NULL pointer dereference in KFD sysfs/procfs stats paths
-> Change-Id: I405b8fb95d3c5e163dfc45928da54f31546d92cc
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
+Export ip_discovery sysfs even when probe fails by creating it early
+in the probe flow and tying its lifetime to the PCI device rather than
+the driver. The sysfs folder persists across probe failures and module
+reloads, but is cleaned up on driver unbind.
 
-The v2 updates look good. Thank you!
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+v2:
+ * rebase on amd-staging-drm-next
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 285 +++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   2 +
+ 3 files changed, 257 insertions(+), 35 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 2cfcfa29204a5..49e8ed65d7a88 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -22,6 +22,7 @@
+  */
+ 
+ #include <linux/firmware.h>
++#include <linux/kernfs.h>
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_discovery.h"
+@@ -148,6 +149,26 @@ MODULE_FIRMWARE("amdgpu/aldebaran_ip_discovery.bin");
+ #define mmDRIVER_SCRATCH_1	0x95
+ #define mmDRIVER_SCRATCH_2	0x96
+ 
++struct ip_discovery_top {
++	struct kobject kobj;
++	struct kset die_kset;
++	struct pci_dev *pdev;
++	struct amdgpu_device *adev;
++	uint8_t *discovery_bin;
++	uint32_t bin_size;
++	bool standalone_mode;
++};
++
++/* List to track early-initialized ip_discovery_top entries */
++struct early_ip_discovery {
++	struct list_head list;
++	struct pci_dev *pdev;
++	struct ip_discovery_top *ip_top;
++};
++
++static LIST_HEAD(early_ip_discovery_list);
++static DEFINE_MUTEX(early_ip_discovery_mutex);
++
+ static const char *hw_id_names[HW_ID_MAX] = {
+ 	[MP1_HWID]		= "MP1",
+ 	[MP2_HWID]		= "MP2",
+@@ -542,25 +563,37 @@ static const char *amdgpu_discovery_get_fw_name(struct amdgpu_device *adev)
+ 	}
+ }
+ 
+-static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+-					   struct table_info **info,
+-					   uint16_t table_id)
++static struct table_info *
++amdgpu_discovery_get_table_info_from_bin(uint8_t *discovery_bin,
++					 uint16_t table_id)
+ {
+-	struct binary_header *bhdr =
+-		(struct binary_header *)adev->discovery.bin;
++	struct binary_header *bhdr = (struct binary_header *)discovery_bin;
+ 	struct binary_header_v2 *bhdrv2;
+ 
+ 	switch (bhdr->version_major) {
+ 	case 2:
+-		bhdrv2 = (struct binary_header_v2 *)adev->discovery.bin;
+-		*info = &bhdrv2->table_list[table_id];
+-		break;
++		bhdrv2 = (struct binary_header_v2 *)discovery_bin;
++		return &bhdrv2->table_list[table_id];
+ 	case 1:
+ 	case 0:
+-		*info = &bhdr->table_list[table_id];
+-		break;
++		return &bhdr->table_list[table_id];
+ 	default:
+-		dev_err(adev->dev, "Invalid ip discovery table version %d\n",bhdr->version_major);
++		return NULL;
++	}
++}
++
++static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
++					   struct table_info **info,
++					   uint16_t table_id)
++{
++	struct binary_header *bhdr =
++		(struct binary_header *)adev->discovery.bin;
++
++	*info = amdgpu_discovery_get_table_info_from_bin(adev->discovery.bin,
++							 table_id);
++	if (!*info) {
++		dev_err(adev->dev, "Invalid ip discovery table version %d\n",
++			bhdr->version_major);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -728,7 +761,9 @@ static void amdgpu_discovery_sysfs_fini(struct amdgpu_device *adev);
+ 
+ void amdgpu_discovery_fini(struct amdgpu_device *adev)
+ {
+-	amdgpu_discovery_sysfs_fini(adev);
++	if (adev->discovery.ip_top && !adev->discovery.ip_top->standalone_mode)
++		amdgpu_discovery_sysfs_fini(adev);
++
+ 	kfree(adev->discovery.bin);
+ 	adev->discovery.bin = NULL;
+ }
+@@ -737,15 +772,17 @@ static int amdgpu_discovery_validate_ip(struct amdgpu_device *adev,
+ 					uint8_t instance, uint16_t hw_id)
+ {
+ 	if (instance >= HWIP_MAX_INSTANCE) {
+-		dev_err(adev->dev,
+-			"Unexpected instance_number (%d) from ip discovery blob\n",
+-			instance);
++		if (adev)
++			dev_err(adev->dev,
++				"Unexpected instance_number (%d) from ip discovery blob\n",
++				instance);
+ 		return -EINVAL;
+ 	}
+ 	if (hw_id >= HW_ID_MAX) {
+-		dev_err(adev->dev,
+-			"Unexpected hw_id (%d) from ip discovery blob\n",
+-			hw_id);
++		if (adev)
++			dev_err(adev->dev,
++				"Unexpected hw_id (%d) from ip discovery blob\n",
++				hw_id);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -1111,12 +1148,6 @@ static const struct kobj_type ip_discovery_ktype = {
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ };
+ 
+-struct ip_discovery_top {
+-	struct kobject kobj;    /* ip_discovery/ */
+-	struct kset die_kset;   /* ip_discovery/die/, contains ip_die_entry */
+-	struct amdgpu_device *adev;
+-};
+-
+ static void die_kobj_release(struct kobject *kobj)
+ {
+ 	struct ip_discovery_top *ip_top = container_of(to_kset(kobj),
+@@ -1132,8 +1163,14 @@ static void ip_disc_release(struct kobject *kobj)
+ 						       kobj);
+ 	struct amdgpu_device *adev = ip_top->adev;
+ 
++	/* In standalone mode, discovery_bin is managed by devm and will be
++	 * freed automatically when the PCI device is removed. Do not manually
++	 * free it here to avoid double-free.
++	 */
++
+ 	kfree(ip_top);
+-	adev->discovery.ip_top = NULL;
++	if (adev)
++		adev->discovery.ip_top = NULL;
+ }
+ 
+ static uint8_t amdgpu_discovery_get_harvest_info(struct amdgpu_device *adev,
+@@ -1141,6 +1178,10 @@ static uint8_t amdgpu_discovery_get_harvest_info(struct amdgpu_device *adev,
+ {
+ 	uint8_t harvest = 0;
+ 
++	/* In early init mode (adev == NULL), harvest info is not available */
++	if (!adev)
++		return 0;
++
+ 	/* Until a uniform way is figured, get mask based on hwid */
+ 	switch (hw_id) {
+ 	case VCN_HWID:
+@@ -1169,11 +1210,14 @@ static uint8_t amdgpu_discovery_get_harvest_info(struct amdgpu_device *adev,
+ }
+ 
+ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
++				      struct ip_discovery_top *ip_top,
+ 				      struct ip_die_entry *ip_die_entry,
+ 				      const size_t _ip_offset, const int num_ips,
+ 				      bool reg_base_64)
+ {
+-	uint8_t *discovery_bin = adev->discovery.bin;
++	uint8_t *discovery_bin = ip_top->standalone_mode ?
++				 ip_top->discovery_bin :
++				 adev->discovery.bin;
+ 	int ii, jj, kk, res;
+ 	uint16_t hw_id;
+ 	uint8_t inst;
+@@ -1271,10 +1315,12 @@ static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
++static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev,
++					  struct ip_discovery_top *ip_top)
+ {
+-	struct ip_discovery_top *ip_top = adev->discovery.ip_top;
+-	uint8_t *discovery_bin = adev->discovery.bin;
++	uint8_t *discovery_bin = ip_top->standalone_mode ?
++				 ip_top->discovery_bin :
++				 adev->discovery.bin;
+ 	struct table_info *info;
+ 	struct ip_discovery_header *ihdr;
+ 	struct die_header *dhdr;
+@@ -1283,9 +1329,10 @@ static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
+ 	size_t ip_offset;
+ 	int ii, res;
+ 
+-	res = amdgpu_discovery_get_table_info(adev, &info, IP_DISCOVERY);
+-	if (res)
+-		return res;
++	info = amdgpu_discovery_get_table_info_from_bin(discovery_bin,
++							IP_DISCOVERY);
++	if (!info)
++		return -EINVAL;
+ 	ihdr = (struct ip_discovery_header
+ 			*)(discovery_bin +
+ 			   le16_to_cpu(info->offset));
+@@ -1323,7 +1370,8 @@ static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
+ 			return res;
+ 		}
+ 
+-		amdgpu_discovery_sysfs_ips(adev, ip_die_entry, ip_offset, num_ips, !!ihdr->base_addr_64_bit);
++		amdgpu_discovery_sysfs_ips(adev, ip_top, ip_die_entry, ip_offset,
++					   num_ips, !!ihdr->base_addr_64_bit);
+ 	}
+ 
+ 	return 0;
+@@ -1339,12 +1387,30 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
+ 	if (!discovery_bin)
+ 		return -EINVAL;
+ 
++	/* If early init already created sysfs in standalone mode, skip normal init */
++	if (adev->discovery.ip_top && adev->discovery.ip_top->standalone_mode)
++		return 0;
++
+ 	ip_top = kzalloc(sizeof(*ip_top), GFP_KERNEL);
+ 	if (!ip_top)
+ 		return -ENOMEM;
+ 
+ 	ip_top->adev = adev;
+-	adev->discovery.ip_top = ip_top;
++
++	/* Check if ip_discovery already exists before creating.
++	 * This shouldn't normally happen but handle it gracefully.
++	 */
++	if (adev->dev->kobj.sd) {
++		struct kernfs_node *existing;
++
++		existing = kernfs_find_and_get(adev->dev->kobj.sd, "ip_discovery");
++		if (existing) {
++			kernfs_put(existing);
++			kfree(ip_top);
++			return 0;
++		}
++	}
++
+ 	res = kobject_init_and_add(&ip_top->kobj, &ip_discovery_ktype,
+ 				   &adev->dev->kobj, "ip_discovery");
+ 	if (res) {
+@@ -1352,6 +1418,8 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
+ 		goto Err;
+ 	}
+ 
++	adev->discovery.ip_top = ip_top;
++
+ 	die_kset = &ip_top->die_kset;
+ 	kobject_set_name(&die_kset->kobj, "%s", "die");
+ 	die_kset->kobj.parent = &ip_top->kobj;
+@@ -1366,7 +1434,7 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
+ 		ip_hw_instance_attrs[ii] = &ip_hw_attr[ii].attr;
+ 	ip_hw_instance_attrs[ii] = NULL;
+ 
+-	res = amdgpu_discovery_sysfs_recurse(adev);
++	res = amdgpu_discovery_sysfs_recurse(adev, ip_top);
+ 
+ 	return res;
+ Err:
+@@ -1480,6 +1548,150 @@ void amdgpu_discovery_dump(struct amdgpu_device *adev, struct drm_printer *p)
+ 	spin_unlock(&die_kset->list_lock);
+ }
+ 
++int amdgpu_discovery_sysfs_early_init(struct amdgpu_device *adev, struct pci_dev *pdev)
++{
++	struct ip_discovery_top *ip_top;
++	struct early_ip_discovery *early_entry, *tmp;
++	struct kset *die_kset;
++	uint8_t *discovery_bin;
++	int res, ii;
++
++	if (!adev || !adev->discovery.bin)
++		return -EINVAL;
++
++	if (adev->discovery.ip_top)
++		return 0;
++
++	mutex_lock(&early_ip_discovery_mutex);
++	list_for_each_entry_safe(early_entry, tmp, &early_ip_discovery_list, list) {
++		if (early_entry->pdev == pdev) {
++			adev->discovery.ip_top = early_entry->ip_top;
++			early_entry->ip_top->adev = adev;
++			mutex_unlock(&early_ip_discovery_mutex);
++			return 0;
++		}
++	}
++	mutex_unlock(&early_ip_discovery_mutex);
++
++	discovery_bin = adev->discovery.bin;
++
++	early_entry = kzalloc(sizeof(*early_entry), GFP_KERNEL);
++	if (!early_entry)
++		return -ENOMEM;
++
++	ip_top = kzalloc(sizeof(*ip_top), GFP_KERNEL);
++	if (!ip_top) {
++		kfree(early_entry);
++		return -ENOMEM;
++	}
++
++	ip_top->discovery_bin = devm_kmemdup(&pdev->dev, discovery_bin,
++					     DISCOVERY_TMR_SIZE, GFP_KERNEL);
++	if (!ip_top->discovery_bin) {
++		kfree(ip_top);
++		kfree(early_entry);
++		return -ENOMEM;
++	}
++
++	ip_top->bin_size = DISCOVERY_TMR_SIZE;
++	ip_top->pdev = pdev;
++	ip_top->adev = adev;
++	ip_top->standalone_mode = true;
++
++	/* Check if ip_discovery already exists (from previous probe attempt).
++	 * This can happen if the module was unloaded and reloaded but the
++	 * sysfs persisted (tied to PCI device lifetime).
++	 */
++	if (pdev->dev.kobj.sd) {
++		struct kernfs_node *existing;
++
++		existing = kernfs_find_and_get(pdev->dev.kobj.sd, "ip_discovery");
++		if (existing) {
++			kernfs_put(existing);
++			kfree(ip_top);
++			kfree(early_entry);
++			return 0;
++		}
++	}
++
++	res = kobject_init_and_add(&ip_top->kobj, &ip_discovery_ktype,
++				   &pdev->dev.kobj, "ip_discovery");
++	if (res)
++		goto err_put_kobj;
++
++	adev->discovery.ip_top = ip_top;
++
++	die_kset = &ip_top->die_kset;
++	kobject_set_name(&die_kset->kobj, "%s", "die");
++	die_kset->kobj.parent = &ip_top->kobj;
++	die_kset->kobj.ktype = &die_kobj_ktype;
++	res = kset_register(&ip_top->die_kset);
++	if (res)
++		goto err_put_die_kset;
++
++	for (ii = 0; ii < ARRAY_SIZE(ip_hw_attr); ii++)
++		ip_hw_instance_attrs[ii] = &ip_hw_attr[ii].attr;
++	ip_hw_instance_attrs[ii] = NULL;
++
++	res = amdgpu_discovery_sysfs_recurse(NULL, ip_top);
++	if (res)
++		goto err_put_die_kset;
++
++	early_entry->pdev = pdev;
++	early_entry->ip_top = ip_top;
++	mutex_lock(&early_ip_discovery_mutex);
++	list_add(&early_entry->list, &early_ip_discovery_list);
++	mutex_unlock(&early_ip_discovery_mutex);
++
++	return 0;
++
++err_put_die_kset:
++	kobject_put(&ip_top->die_kset.kobj);
++err_put_kobj:
++	kobject_put(&ip_top->kobj);
++	kfree(early_entry);
++	adev->discovery.ip_top = NULL;
++	return res;
++}
++
++void amdgpu_discovery_sysfs_early_fini(struct pci_dev *pdev)
++{
++	struct early_ip_discovery *entry, *tmp_entry;
++	struct ip_discovery_top *ip_top = NULL;
++	struct list_head *el, *tmp;
++	struct kset *die_kset;
++
++	/* Find the entry in our tracking list */
++	mutex_lock(&early_ip_discovery_mutex);
++	list_for_each_entry_safe(entry, tmp_entry, &early_ip_discovery_list, list) {
++		if (entry->pdev == pdev) {
++			ip_top = entry->ip_top;
++			list_del(&entry->list);
++			kfree(entry);
++			break;
++		}
++	}
++	mutex_unlock(&early_ip_discovery_mutex);
++
++	if (!ip_top)
++		return;
++
++	/* Clean up sysfs hierarchy */
++	die_kset = &ip_top->die_kset;
++
++	spin_lock(&die_kset->list_lock);
++	list_for_each_prev_safe(el, tmp, &die_kset->list) {
++		list_del_init(el);
++		spin_unlock(&die_kset->list_lock);
++		amdgpu_discovery_sysfs_die_free(to_ip_die_entry(list_to_kobj(el)));
++		spin_lock(&die_kset->list_lock);
++	}
++	spin_unlock(&die_kset->list_lock);
++
++	kobject_put(&ip_top->die_kset.kobj);
++	kobject_put(&ip_top->kobj);
++	/* ip_top itself will be freed by kobject_put via ip_disc_release */
++}
+ 
+ /* ================================================== */
+ 
+@@ -1505,6 +1717,9 @@ static int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+ 	r = amdgpu_discovery_init(adev);
+ 	if (r)
+ 		return r;
++
++	amdgpu_discovery_sysfs_early_init(adev, adev->pdev);
++
+ 	discovery_bin = adev->discovery.bin;
+ 	wafl_ver = 0;
+ 	adev->gfx.xcc_mask = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
+index e0010f6a3eda5..edc78184e0f39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
+@@ -53,4 +53,9 @@ int amdgpu_discovery_get_gc_major_minor_version(struct amdgpu_device *adev,
+ 
+ void amdgpu_discovery_dump(struct amdgpu_device *adev, struct drm_printer *p);
+ 
++/* Early sysfs functions for persistent ip_discovery export */
++int amdgpu_discovery_sysfs_early_init(struct amdgpu_device *adev,
++				       struct pci_dev *pdev);
++void amdgpu_discovery_sysfs_early_fini(struct pci_dev *pdev);
++
+ #endif /* __AMDGPU_DISCOVERY__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 503bb64c1e55f..63ca6bcde57ca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2552,6 +2552,8 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 
+ 	amdgpu_driver_unload_kms(dev);
+ 
++	amdgpu_discovery_sysfs_early_fini(pdev);
++
+ 	/*
+ 	 * Flush any in flight DMA operations from device.
+ 	 * Clear the Bus Master Enable bit and then wait on the PCIe Device
+-- 
+2.43.0
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 40 ++++++++++++++----------
->   1 file changed, 24 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index d28ca581cad0..63b80d34c112 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1160,10 +1160,12 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
->   	if (!p->kobj)
->   		return;
->
-> -	sysfs_remove_file(p->kobj, &p->attr_pasid);
-> -	kobject_del(p->kobj_queues);
-> -	kobject_put(p->kobj_queues);
-> -	p->kobj_queues = NULL;
-> +	if (p->kobj_queues) {
-> +		sysfs_remove_file(p->kobj, &p->attr_pasid);
-> +		kobject_del(p->kobj_queues);
-> +		kobject_put(p->kobj_queues);
-> +		p->kobj_queues = NULL;
-> +	}
->
->   	for (i = 0; i < p->n_pdds; i++) {
->   		pdd = p->pdds[i];
-> @@ -1171,17 +1173,21 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
->   		sysfs_remove_file(p->kobj, &pdd->attr_vram);
->   		sysfs_remove_file(p->kobj, &pdd->attr_sdma);
->
-> -		sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
-> -		if (pdd->dev->kfd2kgd->get_cu_occupancy)
-> -			sysfs_remove_file(pdd->kobj_stats,
-> -					  &pdd->attr_cu_occupancy);
-> -		kobject_del(pdd->kobj_stats);
-> -		kobject_put(pdd->kobj_stats);
-> -		pdd->kobj_stats = NULL;
-> +		if (pdd->kobj_stats) {
-> +			sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
-> +			if (pdd->dev->kfd2kgd->get_cu_occupancy)
-> +				sysfs_remove_file(pdd->kobj_stats,
-> +						  &pdd->attr_cu_occupancy);
-> +			kobject_del(pdd->kobj_stats);
-> +			kobject_put(pdd->kobj_stats);
-> +			pdd->kobj_stats = NULL;
-> +		}
->   	}
->
->   	for_each_set_bit(i, p->svms.bitmap_supported, p->n_pdds) {
->   		pdd = p->pdds[i];
-> +		if (!pdd->kobj_counters)
-> +			continue;
->
->   		sysfs_remove_file(pdd->kobj_counters, &pdd->attr_faults);
->   		sysfs_remove_file(pdd->kobj_counters, &pdd->attr_page_in);
-> @@ -1239,6 +1245,13 @@ static void kfd_process_wq_release(struct work_struct *work)
->
->   	kfd_debugfs_remove_process(p);
->
-> +       /*
-> +	* Remove the proc/sysfs entries before destroying PDDs. The removal path
-> +	* walks the PDD array and sysfs callbacks dereference PDD fields, so the
-> +	* backing data must remain valid until sysfs removal has completed.
-> +	*/
-> +	kfd_process_remove_sysfs(p);
-> +
->   	kfd_process_kunmap_signal_bo(p);
->   	kfd_process_free_outstanding_kfd_bos(p);
->   	svm_range_list_fini(p);
-> @@ -1252,11 +1265,6 @@ static void kfd_process_wq_release(struct work_struct *work)
->
->   	put_task_struct(p->lead_thread);
->
-> -	/* the last step is removing process entries under /sys
-> -	 * to indicate the process has been terminated.
-> -	 */
-> -	kfd_process_remove_sysfs(p);
-> -
->   	kfree(p);
->   }
->
-> --
-> 2.43.0
->
