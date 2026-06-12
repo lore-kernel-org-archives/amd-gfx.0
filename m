@@ -4,122 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE79CD8CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 11:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB561CD8CA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 12:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A15E10EA12;
-	Fri, 12 Jun 2026 11:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF79410F495;
+	Fri, 12 Jun 2026 12:02:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xSIr5Waa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NTbJY20f";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010036.outbound.protection.outlook.com [52.101.46.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBD5D10EA12
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 11:49:28 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 963D610F476;
+ Fri, 12 Jun 2026 12:02:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hmcMfxR93ldlhMLU3rOriFiy2cimOUP9bzDLl9MnAdPKUspqev/D15FfyStVjxrm4LHonq8HZrQiGShiFrwWLWP5z7YpPog+MNnIxK/PRZKg03X8Z7mdle6GtTqwFH0AjhUOY4OYx/UQ/AR9KvFmrm8nGmzwDX6tpkq6DeMtB0U5c4bhR1uhOkxx3o0iiIy3GfDcj02eHjHDs1j6zbICs9LORadJkfpsQsoj8yT6ArAyl94Rm0BSXiC0OCQpkML2n6svwAmwujpPa6QmiAlzsv0GPvoMsSWzL7V2uQLZV14Wn9dnEKtqAz5evRTAPyVTCJM8ZENIEAJRkfm8GDoNXw==
+ b=xGHoOv9VGVLautAVfyJe9tCZmweRZK7VHBlT4Z5/G42VhO2OVJwPNzKWYwUu64xrkOT7FhjK77ZzW7HdUtIjvW+GFSbt2SWodbna7mEkktdKkiFkWL9te0ONpBx04ssN+cKr8PsuSPSizSHb3tOVkHX79YatMB5t1CG1SnhsmHJfTCA/Oncf7SyRYiaThcZaVRx8WLUGokBU5VOAGOXhodema2mx5HO0LE5e0TbtTp7L+u5WCHT+pGABdmTA4Y+me+zNA5XSpoutd23djrNeJjHtb6ZuVr01xNCq+qZ8RnfBmGutIPzPqzImvsHRbTEUO+tJH0PAhcBLHKGz7mq1Dg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tpgzVmpyizD645V1i7QhIsbLjaC7w3NFqMU36fO947U=;
- b=s2lfn4Hwex8jdJxUu35NZ9w7ZQk1BrVBNq+wpwXa+ZY/spj+dXD+LDxDAdWGnOnzi/IGhxX26vWCSV2EMSoWzgEw08AShL7Mn0KHwm1v9CI+s9wXyNEheJOzTKchHA9zMN2IBEpVpGwrqjOswe72r0jAISBAHh2TLCH4h8fyheh5q3jg6Yew2BMnqO1gbccWK3JMhLMzU7ZKu6vgad+d8JYW/xrd7ur1ZWy7yn47yS/OdEzYk/xDtb+hdx/YL7hPiz3M9b9QUMj6zonpmOxrRYLc+zz+OIy+1hY1OoHrJ4RITHcTvdvPxvwXxRLyWbUadRHhDhVAGvV25RSVY8jqAQ==
+ bh=LPOV+amv9PZt37DndOE+tctZ/2uG57c833eczIb2r2Y=;
+ b=O7LP663l0o6rjIa49htv8HTNxvsceEv6KYhc77Jh/vwLS6z6cWktyeUgLxhxwCZodllg9dQEJqhJHt/IAHYHrEvXfgRzHY4/QSmUKKdMx7tVS9kGv8PqXOcbLSvGXOg8S//uZRMZobTIJXRDOeNjlQX+VEpGyYJpeJXmVGJ6HTjvT+Wr+gtlxaDDG8IMKbKYpeBv+xSuzR+QfISEFM7YZnNIH7SypY9J/4u3D5WGajJwsZfL7VrHsVPu7JOCT0coQywflbV+tKsmFt3LK/eVnqBYai+sDMHriywd8GUHLXpj4HlDTEnfVuo/SLKJa1cC/j8an2W4WjoIi/l+t0LTxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tpgzVmpyizD645V1i7QhIsbLjaC7w3NFqMU36fO947U=;
- b=xSIr5WaarfPv3HNMhUI/Ji7686tJJUL1Kr8o5F1lDdTcU0Vh/dS078O85Y8ILAbVVkcq+Ec+rfrLUaKoJv0kmgpqoRgLjLMNYzbGwhCiLWRhTCyg5n9DOvIxkMA8TJLTxS0F6bjwhB8pEvYsWcHHMP7E6KyMNuuwXJFBghlUAeM=
+ bh=LPOV+amv9PZt37DndOE+tctZ/2uG57c833eczIb2r2Y=;
+ b=NTbJY20ffSk7UYWfoODPd3QLLkxL/uCN2FYEsD1nXH5K5waYbzW7Uw1FW9w9rZ5Dfcgd7PJ3ATq8/qgdSoUfuRAleBe8E1DNGeDoIcvbN9z3pGZ89rwd85fSbVDhFFz5wAPo9b0LkKt3Zvo764Y9GLAPg5bO2o3A1KBOZDriKPE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8660.namprd12.prod.outlook.com (2603:10b6:610:177::5)
+ by IA0PR12MB8895.namprd12.prod.outlook.com (2603:10b6:208:491::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Fri, 12 Jun
- 2026 11:49:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 12:02:11 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Fri, 12 Jun 2026
- 11:49:26 +0000
-Message-ID: <9001cbcf-299a-4f2f-b634-046d40d0df79@amd.com>
-Date: Fri, 12 Jun 2026 13:49:21 +0200
+ 12:02:11 +0000
+Message-ID: <889e580d-5ecc-4bed-b1b1-a5693692cf79@amd.com>
+Date: Fri, 12 Jun 2026 14:02:03 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add parameter to allow skip specified PCI
- devices
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, hawking.zhang@amd.com
-References: <20260612100321.452007-1-kevinyang.wang@amd.com>
+Subject: Re: [PATCH v8 02/18] drm/amdgpu: add SVM core header and VM
+ integration
+To: Huang Rui <ray.huang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
+ Jenny Liu <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>,
+ Yiru Ma <yiru.ma@amd.com>, Honglei Huang <honghuan@amd.com>
+References: <20260612090928.29682-1-ray.huang@amd.com>
+ <20260612090928.29682-3-ray.huang@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260612100321.452007-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260612090928.29682-3-ray.huang@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0225.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: IA4P220CA0001.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:558::14) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8660:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f1a309d-1848-428d-84a8-08dec878a720
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8895:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0268506-faae-4b65-9340-08dec87a6f66
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|6133799003|3023799007|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: r7FPrBKFrgLqFbxiFT3tMpHHDME7QO42HncV7JQYeAj4hLKjD4jOOXL7Y5lHxPMhTZ9EjPgy508gMJmk4/slydFc8uQHJjzWo97ZFlGxJG2R0/prUXlkjqKmWSSdXRw3SZMXzm0z0P+Jb5C/SD0LqLMFZH9fdcpAWcymYG1nz2uP96RB7jApYBUq+p7GrNzYAtbXZDIkVy4/D3n3knCz9fKV37TwGGrL9aJrY4YT4sZazDrfobbOx1iHE9mbCVtiSVwjcjrZlh49Q0MD09EbAfi8dOcioiLW6mOWL7po3yuR4uvg1hU9UM8VBFZC4aREeMgqKhFNF4818znW8UO/3wmZtxIrBowVha4aztX8LAvACioeNd48NHjy+WAyQ0FRrZny4tVgv1uwTcXbFUTHVJ/l3bwneFnmnyhnmEyLOxJALLuFkdIpufLHyKPquxRt/X2J72MrA3q0/Mq59Bs/RsxhJunkm/rMZQ9UfQpb8LF/M6eSS7sKSu3prFTyvrbpFJxBaut4yehvDCINq22d64klxLrVwz/Xp+rHRcBGXlKgQf8cqu+dKHxGKRUgman7sHrZKDXMuiYutrtXYmgg1DdMCUvO+it82OaDYQngk6uuHmEhwWkE/OqpxzlRVPeuMYep4CtFqs5XWyw6xNTVxBiLmC4dwoIbJME5ChAjOfiFMryD4z/cmeHnVrejCdV8
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|921020|4143699003|56012099006|11063799006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: 61sWBHz5fKBUNL3BXqhbpaY5jfFv4jNd2bPPRWvUg6qa2fDgg7utOf0ZzdIGdnTwWMq8yAfEqdleYtKx5qjBxqXdeyiTBOYFmAd0bnQhGtEbZKyXp7KfmNJdaRtqJHJ1UmM98wOz2XMtx1yhbuFMCBUB2a1cl6/AgS8yiNk783DgXmmsAmANVYOAnLB6lO+zvPK9x1lvxd3X0HbmK+eXEfIADt/jNyzIY131YJ03/aA1LkP6VSRQThiotkB2KggmFpVmI8EC8yRklXCNOFPGnRNXtilAix1eLzl/G3EwdMRZLYKlq8aaH6sGovHckSjCWcwyYaAp44TGlQmPqpGjub2r4pdcKQAZTndpalcCB5gQGHCXFMmH3kS7PWbEbLuzJimrzluLS7Kuvf3W5B9uHgdn34qQhuWsta2Y4Une2nT43HnDq7boFfCF2OTcWPWEMxXf7mmlvnDT1cYm1kCAro2EiPYdL/O7ColR/rpVCRwHu+fdRr4bd3frmKpbQQ28SZEuqkoE/BprhQWCkxmjNlzbXzqLoQ7jigWNCFunmJqZIfxCSPUKVt8muKJlR8Zq5PXPOV6ucfFF1f3eBEX0W6zJN18HzpGPGEdmPW9rY3ptmJGDEyZjYlV2oeHkkr/Q9I7v6H/EtFP1Py9sFp1oUOp1LGLPnJWPpacnDZNXqqhZSIGGhxl9Pbfk2v6IlT79nRMSghufO2nDd4syDqJfV1puug0YXg4sp4jAJXi54X8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(921020)(4143699003)(56012099006)(11063799006)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejJSdFRpS3FnVjAwcXVTTDBkckw3Q0RNdWR6VEs1VGhWeGEvR2hTbXQ1a2tu?=
- =?utf-8?B?MWV1OU9UaUZVM3NFcFB6SnZSN014VjRrSlQ4M1NwK3dESUdkSTdwalVzRTZy?=
- =?utf-8?B?UkpvZm1hOTNqWGZUUTROc2o0QjJ0MjlQL2p2TEFldDVSQ3hXclN2ZkVNc2xY?=
- =?utf-8?B?RmJKR1QyQzUzcGdRTmpOZTZIUnJrWThYWjZTakdUR0Y3V0FrQndjWkloeFVT?=
- =?utf-8?B?TGFQbWhwTWN5blBEYXFPMU5LNkN2Zm5venFVMVpsT3FZcTVpeXdkZ0hrRFRB?=
- =?utf-8?B?S0pkZnJiR3c4TWs4SjFzZ00zOWtodVQzME9HWnVhUkNVc0EreTRuTVN2TzJy?=
- =?utf-8?B?R05YTGJQSjltS1M4NFNtVUsrUUQ0ZVlzR2ZURDNKTzkrZmxIck9YNUphMlRk?=
- =?utf-8?B?SlYzMG9qdlFEQ1M3WTQzWFdUZUVoa1Z5R2dLSnFqLzE3NnRwWTRtR2JaZkdY?=
- =?utf-8?B?STZPS0RnNm93STg2ZWF3dy96L0dYa3hwY3k2MHI2Wnlqa0lrOS83eVUxa3Bp?=
- =?utf-8?B?RlR1ZEhBaDJubG1mR3NYMTkyaDNCK283ckZsc2R5bG03ZU9jODlObWhjLzRP?=
- =?utf-8?B?eWRJNDFYNzUxZjkwaG15bEdQbHdERkYrcFVvMjExSlNlY3hDOEZtaVo4c0hG?=
- =?utf-8?B?Y09hTm52eXYvbUJGQTJZQkJrNzFCeUZmTTVSYkRPcTlCY0dHR2tHUmx1bW1Y?=
- =?utf-8?B?MG5ZcWRLeWQ1c05qTGswSlAxcVpjbG9rbkFDa0Q1c0NnVE95M05ZQTBEWFZv?=
- =?utf-8?B?eVFVREk5L01pWlZYRFZTbFp6K1Z3THd2UlZZUWtBekxnelFxRzRDbDFXUVV2?=
- =?utf-8?B?SVplUEc4NVlOS0JiZlJZZnlqaVIyRk5WeWNEWDVZSkpoeVd1UVpzUEwxM1hN?=
- =?utf-8?B?VGU1czJYanE3dUdlU1VBVXBOdFJmdjc2YUhjZXBtY1NGU2NVeEE5dHp1L05B?=
- =?utf-8?B?T2htQmJXcXNqQlVwQ3lkM2p1Z2t4aEdmbi9EMmtEeG5LLzR3MEpsMUZlZVVz?=
- =?utf-8?B?UkxuRmZWMzRNRWdrMkFQODFHeWd0cE1Zc21GLzNaRUhSNkxnRXd2eVRlNjdQ?=
- =?utf-8?B?VE1ER0FaSE83ZUlJQjREQzQzV0RDbjdEcE9sNDZ1WHlVSldmRlRMSndUR1BE?=
- =?utf-8?B?bE0vZ0laSTdJNTBPaWovNmtyZVk1QWVQek9XbkpoNDFZUTcyZ25FVzJBMklH?=
- =?utf-8?B?YWRyd0play8wYU5UbzJqbzh0c3VTS1N3WFZ6aU5NQ1dFQXhyQzVrNGJzek5u?=
- =?utf-8?B?bjY5YS9yTEJRN3JsVlFsaTd5Y0hnYmxmOWhQSGdQL0ltUnd2WDlEeDV0di9K?=
- =?utf-8?B?UzYrOTZ0V2FnZFp4a0NYajJUT09KcDJiWjBNYVJsVXFUdWpjWmtNV3o4VnBo?=
- =?utf-8?B?Ukw1WmRXeU1iTVE4dGVHYWpjZjVkY2w0K1RWS0JVYUM5QnViQ0Y4clZYVHk5?=
- =?utf-8?B?ZjBzUCt2bW80RTA0ejJFZTVwOWZ0ZEQ0TFA4TVRKRG9jendpUnpGUTRId2JI?=
- =?utf-8?B?VjE5OFlHWkQ1OERUbHprbWw0N1lFTTRFd280UDFLTHpoR1FUdDVhN0tpTzRs?=
- =?utf-8?B?Lzd2bnlCZy9GNmZiVFQ2Q1RSZDVYRTZGNDNCOGhEVU5kaFZQbjQ2QVVGNDlh?=
- =?utf-8?B?bWM0ejg5R3gvRUhxaUpXMlVDZHVjK29ycVNKcFY4OWVBU3NDbGZEQXVjeXVs?=
- =?utf-8?B?KzVsZjh0UGVSSUthYXhGZ09JWW1GZEdIOHd5UGEyRXZiRFlBRWl2TXhIZ1Fm?=
- =?utf-8?B?U2Y3Szl3WXZwY011Yys4SlpmcGxIVnJZZmovV2JjUTUxSVc2ZXN3d0c1b0ZW?=
- =?utf-8?B?UTU4dTdES1poZW9Ra0V3VXVuK2w4SmcvKzIyaXk2NlFxWk0vbU9LbVhPYnkr?=
- =?utf-8?B?b1JWbFRMUnFiT3k5OXE0enNiRWo1Tnc0UWZ1VElBcmJSNlpsSUZpdjZNd3lP?=
- =?utf-8?B?WE9PaTArYzk2enpPdEVJNVVjVUoxWTVQU3YybldsOTJPUUEwSHoyZ1lVMi9h?=
- =?utf-8?B?ZGhGR0JTWDJGRlNCZzVhMWYxWUFFSmMvKzFwK1cxcC9qVXJSZE9YVU9RLzRm?=
- =?utf-8?B?dWNpdDJKY1JSQk5LMm02RlQvZUVkVjh2dVdCZXV4eHpFTlU3bjJsdGpkR0pL?=
- =?utf-8?B?dFlWZ0E3ZmtIVmMybk5WZ3FVRW9UemF3OHFlMzJPdHAxREZYSUROR2RhSzhT?=
- =?utf-8?B?Y21OUllDeWF0MG41ZjgrektpeHp6dFlFQXpmR2hmRjFtSVIxMXQvYnRjbUtQ?=
- =?utf-8?B?SkhYMzVJYmRSV1hDZjJ5cFh3NUQwSEl4b1Z1TkN5M2U5ekRML3VCKzVmaStx?=
- =?utf-8?Q?CJhIrlpupt6wpBC1q5?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azNDWVdTenp1R2J0U00zakptaTVjN2UyS29aamxPNFNOU0hsWXhnVEpCM3Bq?=
+ =?utf-8?B?bEdVbVhIUXZaZkxRVEhIcWNIc2cwdmRYZ2pOdjlhK2xCZG5yWEkrSWYzTFU4?=
+ =?utf-8?B?NERMNDMzSEFkVEgrT0NYODd1blIvUFovL2xMaU1Ma1hZOVJkYWhOd3dmUzBP?=
+ =?utf-8?B?S0x4SWR2RmxwUzBUVUNoWnhxZ3JqZDBkQzNzdkRaaDlvVGFsbDhjQUN5Z1hp?=
+ =?utf-8?B?aEw4enhQNzlpTm1kaWIxNmFuQ09sOGpWRURTNDB2czd5YUpBZERQR0R4WHBZ?=
+ =?utf-8?B?T1RYamFkNlFRWW1namVLR1NGeEdqbjZiTndDM0pWYlZIdkN6Ujc5U3Z3SXFn?=
+ =?utf-8?B?NlJpbWpGbjhTQUFGZzNyU0wwaCticmIwTUlWVzRtc1ViaVRqTmp6SVYyVXVV?=
+ =?utf-8?B?RSs1bENvUEhXaVcwTEhRWmdSOWM5RExSajhVMEg4dERsUTRCc2E0cm5CQ1Ar?=
+ =?utf-8?B?ell6ZG5YUTZDRzB2Q2hlOXBKcm1SSVdGaEZ1RzlJdzErTHg5TEpqZEh1bWhl?=
+ =?utf-8?B?V2FadkdzT2xKSU5UZUJvQzRJcy9xS1pCOW1tNGpnWkV4R29sYStUU2tHTFQz?=
+ =?utf-8?B?TkllNzhVWGsyNWdjNy9CRldRMjRYdHYxbjl0VmNOYmxVUjBjdkgwaS9DV0ZL?=
+ =?utf-8?B?TUl2VGV2NkN6d2ord09SR3lmL3c2ZHpFekwyOGxzcUpTQnlwQ3JaaTI3ZW9k?=
+ =?utf-8?B?eFYvWXcwYVpORG9WQ0VmVnZaS1NlanhyUUlNaC92c3pSTXUxbWVkRHhGMkFs?=
+ =?utf-8?B?djFkYldOMHYwMFdEUXNsanVoNFdIUElEaVgxTFJCbW1WMXdFcXFodkpyV21Q?=
+ =?utf-8?B?dG1INkdHSlVBQlpOc1krbFJSWkwycjgwUG5hQnJVT3ZvSXNDUjh0UWMvNHpZ?=
+ =?utf-8?B?YkhEbW5HRWFDTmVOOWlEWFFnOEo3WDIvSUZ4aStWRlVaSGtneU9Pcnc2Ym9u?=
+ =?utf-8?B?Mytpd2FjZGV6SGs4aCtmRGN5bXNWWlpBdnNMb0pqRzg5S1VGZlE2djN4T2du?=
+ =?utf-8?B?RWk5SjJMNGNsamdZUkNZYzlYc1lLWnEzRkw2aWtGMjZnSjcvd0lHRnlHakpt?=
+ =?utf-8?B?U21JMmxsK05qT24wSzBDblVjWGFZZUxOWEJFbm9HMEdTTzNoVDBNUUlRbnB0?=
+ =?utf-8?B?OGJxUVMzOXM0YXMxTmFYMGdyUFZuZk1kNXF5N1c4RW15Vlhwc1RWNHpuajZn?=
+ =?utf-8?B?eUMzbWMxVXlIVmZsWW9Bb1J2RWtEOGg3Yk9KVFB2OENpWWZzSjdGVFZiQ05C?=
+ =?utf-8?B?cStZWFBwellFbVB4N1RnMmxTL0JZME5IbkdjdEFFZDVQSko0SDc3M2x6dXlQ?=
+ =?utf-8?B?NlYybEE5cDRRbHZWSVdDeUFnaVJsSDk0VTZ1cDFRalNiU1hWNnVNb05MSzJr?=
+ =?utf-8?B?bDdyS1ZYbEdPZnh4eFl4V0RxUXpoaU1vN0E0VHYxYWRGcTFZeXVURTdmQTFH?=
+ =?utf-8?B?eFQ2eUpYMlc1ZjhSR1hPMHlidnZPM3V3dU4yZk82V05sNUhib29Gb1lBVnBo?=
+ =?utf-8?B?Y2dVYmY3Q1gxVVp3NmVmbVZKOUljM3NWejRDRXp0eURDRnFJdW9SK1RwMURH?=
+ =?utf-8?B?YmFoQWFCbUt2V21wQzZHaUtSZjJNc2d5dGhRQ2x5NlFKbWdUYnczc1JGYVlL?=
+ =?utf-8?B?ZGYrb1o0RTQ5Zy9JeXBtWmtSRC9HSFR2WDNaVytDTUdXQ1ZscmpZd295MUkz?=
+ =?utf-8?B?cWdYN3Z2UTZJYXpST0k5TXJDOUtkTGNhMFJqN0RHU2RTVGlXWTc2WU5ZOVVY?=
+ =?utf-8?B?d2dXVEdSakNCalNTV0pFVThsVUhTZWxjL3VCdW1aZ2xici9nMk9tQUNScWVo?=
+ =?utf-8?B?TC9JWUIxUjNZWnFqeDRtcHY4V2VIYXIybjZ2TVV1eXZqRzVhR3ZHNzM4UDBv?=
+ =?utf-8?B?NFBKbWdyU0RicDFyYzhIYUFMS3ZmWXdUSDV6NFUyL2h3T1VWdlhOZWN1ZXpL?=
+ =?utf-8?B?ZkpHKzBnNXQvS0xSSlNYNkhrZVl5R0Fhd3VHRFdHM0JWb25aWGFiM2Ftby9U?=
+ =?utf-8?B?S3g2UjZpNmZVNGEvMnhLaENoM21Ta2VmRXorMVRDdFgvODhlRGFYN3R4SjBv?=
+ =?utf-8?B?WjcyclgwdXhWY0RxN0lVaHBjd0p1L3VVZkkraFlXUFdkOU1NK24xcTRGYWEz?=
+ =?utf-8?B?ZEZzQVAzOExYTFc1TVdKclJ6Y2JWczIwZnlTMmxNcXM2SDExV1k2TXJEM1Bz?=
+ =?utf-8?B?VDUyMlJSL2lFeElPRmVIOGJIRkdiVEQ1Wk9jK1pOaFRNcnpacXpZSzJJV0E5?=
+ =?utf-8?B?QjRteFFIWnJ6anF0NTU2Q2gwdGkxeEdqd01hN0FPSUZQV3YvSlpaeXphTjVE?=
+ =?utf-8?Q?vXsXYwviURuvQ+B0w2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f1a309d-1848-428d-84a8-08dec878a720
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0268506-faae-4b65-9340-08dec87a6f66
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 11:49:26.0060 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:02:11.6300 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AAcdckEs4bVg1M2atfH0wzoAYOjNGIYYKjNg5WvNqz5Qp7WrBJHtZdb98DUE669q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8660
+X-MS-Exchange-CrossTenant-UserPrincipalName: THhaevad7OaW2m9yD/T1qnczv1/dO5+GRjVWPL/6qgQC3h9rnn0PPg4GBrli1jRR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8895
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,258 +145,265 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/12/26 12:03, Yang Wang wrote:
-> Add the disable_pci_ids module parameter to let amdgpu skip selected
-> PCI devices before normal device initialization starts.
+On 6/12/26 11:09, Huang Rui wrote:
+> From: Honglei Huang <honghuan@amd.com>
 > 
-> This is useful on multi-GPU systems where only a subset of devices should
-> be claimed by amdgpu, and for bring-up or debug cases where early probe of
-> specific devices needs to be avoided.
+> Add amdgpu_svm.h with SVM data structures and public API:
+> - enum amdgpu_svm_xnack_mode: OFF, ON and DEFAULT mode
+> - struct amdgpu_svm: core context with drm_gpusvm, kref lifecycle,
+>   attribute tree, rw_semaphore, GC workqueue, xnack state.
+> - struct amdgpu_svm_gc: garbage collector with workqueue and work_struct
+> - Debug/trace macros: AMDGPU_SVM_TRACE, AMDGPU_SVM_WARN, AMDGPU_SVM_ERR
+> - Kmem cache helpers: AMDGPU_SVM_KMEM_CACHE_CREATE/DESTROY
+> - Locking helpers: amdgpu_svm_lock/unlock/assert_locked
+> - Public API declarations (including clean_queue, sync_work)
 > 
-> The parameter accepts a comma-separated list of hex PCI IDs. The device
-> ID is required, while the vendor ID and revision ID are optional:
-> 
->   device ID
->   vendor ID:device ID
->   vendor ID:device ID:revision ID
-> 
-> For example:
->   # cat /proc/cmdline
->   amdgpu.disable_pci_ids=73bf,1002:7550:c0
-> 
-> Kernel log:
-> [ 3327.298156] amdgpu 0000:63:00.0: skipping PCI device [1002:7550] (rev c0) by module parameter
-
-You are re-implementing the functionality of vfio-pci.
-
-Just use vfio-pci.ids=vendor_ID:device_ID for that.
-
-Not sure if vfio-pci supports filtering by revision ID, but that should be easy to add if it doesn't.
-
-Regards,
-Christian.
-
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> Signed-off-by: Honglei Huang <honghuan@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 175 ++++++++++++++++++++++++
->  1 file changed, 175 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h | 196 ++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |   4 +
+>  2 files changed, 200 insertions(+)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 503bb64c1e55..48aded458987 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -35,9 +35,11 @@
->  #include <linux/cc_platform.h>
->  #include <linux/console.h>
->  #include <linux/dynamic_debug.h>
-> +#include <linux/kstrtox.h>
->  #include <linux/module.h>
->  #include <linux/mmu_notifier.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/string.h>
->  #include <linux/suspend.h>
->  #include <linux/vga_switcheroo.h>
->  
-> @@ -183,6 +185,7 @@ uint amdgpu_pg_mask = 0xffffffff;
->  uint amdgpu_sdma_phase_quantum = 32;
->  char *amdgpu_disable_cu;
->  char *amdgpu_virtual_display;
-> +char amdgpu_disable_pci_ids[256];
->  int amdgpu_enforce_isolation = -1;
->  int amdgpu_modeset = -1;
->  
-> @@ -564,6 +567,28 @@ MODULE_PARM_DESC(virtual_display,
->  		 "Enable virtual display feature (the virtual_display will be set like xxxx:xx:xx.x,x;xxxx:xx:xx.x,x)");
->  module_param_named(virtual_display, amdgpu_virtual_display, charp, 0444);
->  
-> +/**
-> + * DOC: disable_pci_ids (string)
-> + * Comma separated list of PCI IDs to skip during probe.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+> new file mode 100644
+> index 0000000000000..9884a1f834d67
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+> @@ -0,0 +1,196 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+> +/*
+> + * Copyright 2026 Advanced Micro Devices, Inc.
 > + *
-> + * This can be useful on multi-GPU systems where only a subset of devices
-> + * should be claimed by amdgpu, or for bring-up and debug cases where early
-> + * probe of specific devices needs to be avoided.
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
 > + *
-> + * The device ID is required. Vendor ID and revision ID are optional. Hex IDs
-> + * with or without a 0x prefix are accepted. Valid formats are:
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
 > + *
-> + * - device ID
-> + * - vendor ID:device ID
-> + * - vendor ID:device ID:revision ID
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
 > + *
-> + * For example: disable_pci_ids=73bf,1002:73df:01.
 > + */
-> +MODULE_PARM_DESC(disable_pci_ids,
-> +		 "Skip probing devices matching PCI ID patterns: device ID, vendor ID:device ID, or vendor ID:device ID:revision ID");
-> +module_param_string(disable_pci_ids, amdgpu_disable_pci_ids,
-> +		    sizeof(amdgpu_disable_pci_ids), 0444);
 > +
->  /**
->   * DOC: lbpw (int)
->   * Override Load Balancing Per Watt (LBPW) support (1 = enable, 0 = disable). The default is -1 (auto, enabled).
-> @@ -2216,6 +2241,149 @@ static const struct amdgpu_asic_type_quirk asic_type_quirks[] = {
->  
->  static const struct drm_driver amdgpu_kms_driver;
->  
-> +struct amdgpu_disabled_pci_id {
-> +	u16 vendor;
-> +	u16 device;
-> +	u8 revision;
-> +	bool has_vendor;
-> +	bool has_revision;
+> +#ifndef __AMDGPU_SVM_H__
+> +#define __AMDGPU_SVM_H__
+> +
+> +#include <drm/amdgpu_drm.h>
+> +#include <drm/drm_gpusvm.h>
+> +#include <linux/atomic.h>
+> +#include <linux/kref.h>
+> +#include <linux/list.h>
+> +#include <linux/printk.h>
+> +#include <linux/rwsem.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/types.h>
+> +#include <linux/workqueue.h>
+> +
+> +struct amdgpu_device;
+> +struct amdgpu_vm;
+> +struct amdgpu_svm_attr_tree;
+> +struct amdgpu_svm_attrs;
+> +struct drm_device;
+> +struct drm_file;
+> +
+> +enum amdgpu_svm_xnack_mode {
+> +	AMDGPU_SVM_XNACK_OFF,
+> +	AMDGPU_SVM_XNACK_ON,
+> +	AMDGPU_SVM_XNACK_DEFAULT,
 > +};
 > +
-> +static int amdgpu_parse_disabled_pci_id_field(const char *str, u16 *id)
-> +{
-> +	if (!strncasecmp(str, "0x", 2))
-> +		str += 2;
+> +#define AMDGPU_SVM_TRACE(fmt, ...) \
+> +	pr_debug("%s: " fmt, __func__, ##__VA_ARGS__)
 > +
-> +	return kstrtou16(str, 16, id);
+> +#define AMDGPU_SVM_WARN(fmt, ...) \
+> +	pr_warn("%s: " fmt, __func__, ##__VA_ARGS__)
+> +
+> +#define AMDGPU_SVM_ERR(fmt, ...) \
+> +	pr_err("%s: " fmt, __func__, ##__VA_ARGS__)
+> +
+
+
+> +#define AMDGPU_SVM_KMEM_CACHE_CREATE(name, type) \
+> +	kmem_cache_create((name), sizeof(type), 0, 0, NULL)
+> +
+> +#define AMDGPU_SVM_KMEM_CACHE_DESTROY(cache) \
+> +	do { \
+> +		if ((cache) != NULL) { \
+> +			kmem_cache_destroy((cache)); \
+> +			(cache) = NULL; \
+> +		} \
+> +	} while (0)
+
+Please completely drop that, this is mid layering.
+
+If the kmem_cache is necessary use the functions directly.
+
+> +
+> +#define amdgpu_svm_assert_in_notifier(svm__) \
+> +	lockdep_assert_held_write(&(svm__)->gpusvm.notifier_lock)
+> +
+> +struct amdgpu_svm_gc {
+> +	struct workqueue_struct *wq;
+> +	struct list_head list;
+> +	struct work_struct work;
+> +};
+> +
+> +struct amdgpu_svm {
+> +	struct drm_gpusvm gpusvm;
+> +	struct kref refcount;
+> +	struct amdgpu_device *adev;
+> +	struct amdgpu_vm *vm;
+> +	struct amdgpu_svm_attr_tree *attr_tree;
+> +	struct rw_semaphore svm_lock;
+> +	spinlock_t work_lock;
+> +	struct amdgpu_svm_gc gc;
+> +	atomic_t exiting;
+> +	uint64_t checkpoint_ts;
+> +	u8 default_granularity;
+> +	bool xnack_enabled;
+> +	void (*flush_tlb)(struct amdgpu_svm *svm);
+
+Why do we have a callback for this here? Amdgpu already has abstraction for flushing TLBs.
+
+> +	void (*invalidate_ranges)(struct amdgpu_svm *svm,
+> +				  struct drm_gpusvm_notifier *notifier,
+> +				  const struct mmu_notifier_range *mmu_range,
+> +				  struct drm_gpusvm_range *first,
+> +				  uint64_t adj_start, uint64_t adj_end);
+> +};
+> +
+> +static inline struct amdgpu_svm *to_amdgpu_svm(struct drm_gpusvm *gpusvm)
+> +{
+> +	return container_of(gpusvm, struct amdgpu_svm, gpusvm);
 > +}
 > +
-> +static int amdgpu_parse_disabled_pci_revision(const char *str, u8 *revision)
+
+
+> +static inline void amdgpu_svm_lock(struct amdgpu_svm *svm)
 > +{
-> +	if (!strncasecmp(str, "0x", 2))
-> +		str += 2;
-> +
-> +	return kstrtou8(str, 16, revision);
+> +	down_write(&svm->svm_lock);
 > +}
 > +
-> +static int amdgpu_parse_disabled_pci_id(const char *str,
-> +					struct amdgpu_disabled_pci_id *id)
+> +static inline void amdgpu_svm_unlock(struct amdgpu_svm *svm)
 > +{
-> +	char pci_id[32], *fields[3], *tmp;
-> +	int count = 0;
-> +
-> +	strscpy(pci_id, str, sizeof(pci_id));
-> +	tmp = pci_id;
-> +
-> +	while (tmp && count < ARRAY_SIZE(fields))
-> +		fields[count++] = strsep(&tmp, ":");
-> +
-> +	if (tmp || !count)
-> +		return -EINVAL;
-> +
-> +	id->has_vendor = false;
-> +	id->has_revision = false;
-> +
-> +	switch (count) {
-> +	case 1:
-> +		if (!fields[0][0])
-> +			return -EINVAL;
-> +
-> +		return amdgpu_parse_disabled_pci_id_field(fields[0],
-> +							  &id->device);
-> +	case 2:
-> +		if (!fields[0][0] || !fields[1][0])
-> +			return -EINVAL;
-> +
-> +		if (amdgpu_parse_disabled_pci_id_field(fields[0],
-> +						       &id->vendor))
-> +			return -EINVAL;
-> +
-> +		if (amdgpu_parse_disabled_pci_id_field(fields[1],
-> +						       &id->device))
-> +			return -EINVAL;
-> +
-> +		id->has_vendor = true;
-> +		return 0;
-> +	case 3:
-> +		if (!fields[0][0] || !fields[1][0] || !fields[2][0])
-> +			return -EINVAL;
-> +
-> +		if (amdgpu_parse_disabled_pci_id_field(fields[0],
-> +						       &id->vendor))
-> +			return -EINVAL;
-> +
-> +		if (amdgpu_parse_disabled_pci_id_field(fields[1],
-> +						       &id->device))
-> +			return -EINVAL;
-> +
-> +		if (amdgpu_parse_disabled_pci_revision(fields[2],
-> +						       &id->revision))
-> +			return -EINVAL;
-> +
-> +		id->has_vendor = true;
-> +		id->has_revision = true;
-> +		return 0;
-> +	default:
-> +		return -EINVAL;
-> +	}
+> +	up_write(&svm->svm_lock);
 > +}
 > +
-> +static bool amdgpu_disabled_pci_id_match(struct pci_dev *pdev,
-> +					 const struct amdgpu_disabled_pci_id *id)
+> +static inline void amdgpu_svm_assert_locked(struct amdgpu_svm *svm)
 > +{
-> +	if (id->device != pdev->device)
-> +		return false;
+> +	lockdep_assert_held_write(&svm->svm_lock);
+> +}
+
+What exactly is that lock protecting?
+
+Christian.
+
 > +
-> +	if (id->has_vendor && id->vendor != pdev->vendor)
-> +		return false;
+> +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+> +int amdgpu_svm_cache_init(void);
+> +void amdgpu_svm_cache_fini(void);
 > +
-> +	if (id->has_revision && id->revision != pdev->revision)
-> +		return false;
+> +int amdgpu_svm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+> +void amdgpu_svm_close(struct amdgpu_vm *vm);
+> +void amdgpu_svm_fini(struct amdgpu_vm *vm);
 > +
-> +	return true;
+> +void amdgpu_svm_put(struct amdgpu_svm *svm);
+> +struct amdgpu_svm *amdgpu_svm_lookup_by_pasid(struct amdgpu_device *adev,
+> +					       uint32_t pasid);
+> +int amdgpu_svm_handle_fault(struct amdgpu_device *adev, uint32_t pasid,
+> +			    uint64_t fault_page, uint64_t ts,
+> +			    bool write_fault);
+> +bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm);
+> +
+> +int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
+> +			 struct drm_file *filp);
+> +void amdgpu_svm_clean_queue(struct amdgpu_svm *svm,
+> +			    struct list_head *work_list);
+> +void amdgpu_svm_sync_work(struct amdgpu_svm *svm);
+> +int amdgpu_svm_garbage_collector(struct amdgpu_svm *svm);
+> +int amdgpu_svm_apply_attr_change(struct amdgpu_svm *svm,
+> +				 const struct amdgpu_svm_attrs *old_attrs,
+> +				 const struct amdgpu_svm_attrs *new_attrs,
+> +				 unsigned long start_page,
+> +				 unsigned long last_page);
+> +bool amdgpu_svm_devmem_possible(struct amdgpu_svm *svm);
+> +#else
+> +static inline int amdgpu_svm_init(struct amdgpu_device *adev,
+> +				  struct amdgpu_vm *vm)
+> +{
+> +	return 0;
 > +}
 > +
-> +static bool amdgpu_device_id_disabled(struct pci_dev *pdev)
+> +static inline int amdgpu_svm_cache_init(void)
 > +{
-> +	const char *ids = amdgpu_disable_pci_ids;
-> +	char id[32];
-> +	struct amdgpu_disabled_pci_id pci_id;
-> +	size_t len;
+> +	return 0;
+> +}
 > +
-> +	while (*ids) {
-> +		ids += strspn(ids, ",; \t\n");
-> +		if (!*ids)
-> +			break;
+> +static inline void amdgpu_svm_cache_fini(void)
+> +{
+> +}
 > +
-> +		len = strcspn(ids, ",; \t\n");
+> +static inline void amdgpu_svm_close(struct amdgpu_vm *vm)
+> +{
+> +}
 > +
-> +		if (len >= sizeof(id)) {
-> +			dev_warn(&pdev->dev,
-> +				 "invalid disabled PCI id '%.*s'\n",
-> +				 (int)len, ids);
-> +			ids += len;
-> +			continue;
-> +		}
+> +static inline void amdgpu_svm_fini(struct amdgpu_vm *vm)
+> +{
+> +}
 > +
-> +		memcpy(id, ids, len);
-> +		id[len] = '\0';
+> +static inline int amdgpu_svm_handle_fault(struct amdgpu_device *adev,
+> +					  uint32_t pasid,
+> +					  uint64_t fault_page,
+> +					  uint64_t ts,
+> +					  bool write_fault)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
 > +
-> +		if (amdgpu_parse_disabled_pci_id(id, &pci_id)) {
-> +			dev_warn(&pdev->dev,
-> +				 "invalid disabled PCI id '%s'\n", id);
-> +			ids += len;
-> +			continue;
-> +		}
-> +
-> +		if (amdgpu_disabled_pci_id_match(pdev, &pci_id))
-> +			return true;
-> +
-> +		ids += len;
-> +	}
-> +
+> +static inline bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm)
+> +{
 > +	return false;
 > +}
 > +
->  static void amdgpu_get_secondary_funcs(struct amdgpu_device *adev)
->  {
->  	struct pci_dev *p = NULL;
-> @@ -2389,6 +2557,13 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->  			return -EINVAL;
->  	}
->  
-> +	if (amdgpu_device_id_disabled(pdev)) {
-> +		dev_info(&pdev->dev,
-> +			 "skipping PCI device [%04x:%04x] (rev %02x) by module parameter\n",
-> +			  pdev->vendor, pdev->device, pdev->revision);
-> +		return -ENODEV;
-> +	}
+> +static inline int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
+> +				       struct drm_file *filp)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +#endif /* CONFIG_DRM_AMDGPU_SVM */
 > +
->  	/* skip devices which are owned by radeon */
->  	for (i = 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++) {
->  		if (amdgpu_unsupported_pciidlist[i] == pdev->device)
+> +#endif /* __AMDGPU_SVM_H__ */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index cc096c005e348..9e6a668e8567e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -43,6 +43,7 @@ struct amdgpu_bo_va;
+>  struct amdgpu_job;
+>  struct amdgpu_bo_list_entry;
+>  struct amdgpu_bo_vm;
+> +struct amdgpu_svm;
+>  
+>  /*
+>   * GPUVM handling
+> @@ -448,6 +449,9 @@ struct amdgpu_vm {
+>  
+>  	/* cached fault info */
+>  	struct amdgpu_vm_fault_info fault_info;
+> +
+> +	/* SVM experimental implementation */
+> +	struct amdgpu_svm *svm;
+>  };
+>  
+>  struct amdgpu_vm_manager {
 
