@@ -4,79 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D603CD98D5
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 06:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E6ECD4F2C
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:15:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B264210F2AA;
-	Fri, 12 Jun 2026 06:58:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9398210E96D;
+	Fri, 12 Jun 2026 07:15:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AD2ut/VJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FGuLZgR/";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB5B10F2A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:58:05 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-45ef5146b56so1092831f8f.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 23:58:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781247484; x=1781852284; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FnEA8fW7RXqhuxuJmXLInNZuiCnfjLI2aPXC346h8ZM=;
- b=AD2ut/VJZgPJ36go4/vNjlcUlgrEIT2cNiglE1pIfCWDl0VUK+Oo0DbboCx4SECBXB
- WgtqO5Boh7vd10+RH/jul70XGrt4D7LJZ146F1kUnXelrlaUOz7SyanqMIfmfqrmeWuD
- qTFqekjJd7N+4Wbt9HaKamlUeELrsM8bUJLFndMW4n0Wr+linrALSr3+ZCKRywldsRUp
- gQZ8PFQGenQ1k/QCNULYzLBmSUEm8f3NsaQptVE4VoEGFfjy18jALUHLbSDMlschAYyl
- Q3iyzH+jG3YHwqYPG4OGIwz6cYqUZCjejh2VCFB4TWtBeuRvo8dF+Z5GokgDWk1Z+eBj
- +Csw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781247484; x=1781852284;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=FnEA8fW7RXqhuxuJmXLInNZuiCnfjLI2aPXC346h8ZM=;
- b=mvIEvyhzCEVIMXazhBCL6dF9h3gSI8h+qadYG0Jyj7n/PwVdiuWSuadxUTA+q6908c
- p3PbK3i+2vsIVTNU4XONQ0nXWxJYCc9SGbGs7lr9m7DQaOMlUpxy9ArA/8M1Lh6HWjyQ
- BfNgxnOrFpEh8H0s/Hlq+qj8X7811EnyWB+2dvUxR6ZT4j20QmBsyhlbWirJH4SJapkf
- XrsrgDfb0FQ6ENbbamgnk9oOcvb1EAGEeZdNzWfp+ZQ7YcCe6A5ZimA2yml51Z0rKLrl
- tpKcs9JQPOccXJs+ihmgiHHs2SLpMxU8Q9O9UyRQLz0tO2wf1S2HfIhll4BWHxivc2Ns
- HTcA==
-X-Gm-Message-State: AOJu0YyWJoCU1O0sebTBQVn7VVrV+vKP2lhRP60AVbWK3u2HeHh/vSdx
- WunewMgJjec9uqOKZxtWcpEeRrIAaWk1+e2Yrc9FDjnZb7nTpl4Vlq4G
-X-Gm-Gg: Acq92OH7pnlXAScSpUEcqwuJq0D16IsuYr/MbOdQsrJIDamGQN17DqzbXCDFqB2fKx0
- ThXybq1gkMDDVJ/BVTpJ6B1bq9xKGSbRZnszRy61ULGRb7Ysbt7dm4MqzlXXJwS6Uee3UMVRuE4
- yCej56HyueTPTN9OG8jrYh3A9a/TPPi+4/WevtKC6gdwcP4cHKuHSdTOcdOU+e2ro+/N9ks/2ur
- 6zCjUH60icIOD0TcOA3kdyMiwBTIv0I0OAPy1PW1MRmF3hHJAmqLZCIjZhpohPTVn1j4LxRG/P7
- xIplcXlsnPceT3DI62t5pVCzz3GjCbIqdDqfApRMwr2xuNJXzTwNLFRilsmJwP874BYgNwrw5Wg
- 2LytKrrDzIpVilABIeBWurQB5QSMh3gyi2m3CeGPsDwDhdoy9/xqS9Ym3eyXBPy/3JQtdu199ef
- IE8+/KEMIqM+d0v/g2N4bZyfkec29Rgm2c0SFx7yF00jFh/hzRzUWZoTu1N/a16nZ/Pf8pj3E6l
- t3IHzl9BfmAtErfA3iEnKeaDunjww==
-X-Received: by 2002:a05:6000:2488:b0:460:21e7:330e with SMTP id
- ffacd0b85a97d-4606cb2a8f0mr2103195f8f.10.1781247484226; 
- Thu, 11 Jun 2026 23:58:04 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
- [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f2c3fcfsm2880010f8f.26.2026.06.11.23.58.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 23:58:03 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
- Felix.Kuehling@amd.com, Philip.Yang@amd.com, christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 07/13] drm/amdgpu: drop immediate updates from
- amdgpu_vm_update_range
-Date: Fri, 12 Jun 2026 08:58:03 +0200
-Message-ID: <3617393.sQuhbGJ8Bu@timur-max>
-In-Reply-To: <20260529114031.3714-8-christian.koenig@amd.com>
-References: <20260529114031.3714-1-christian.koenig@amd.com>
- <20260529114031.3714-8-christian.koenig@amd.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011065.outbound.protection.outlook.com [52.101.52.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18CA110E96D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 07:15:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u16xTyQ/kVGoJzXtCCizgoWbwmH5a2P+F0AG5+/mvpcSAvOy9Igj+kS++NPAnyqzzOeI35Hs7QKvEYwqmGMKD9VE3QWWoVQQjO2qF/GUINNsiTZ7lQlNLSfU1FExnSk6cqhycN7EEYlC0qZGyiWEwO1lPFVFSeLq2YhdzoMx32av24uYdA7VeBCYx3SKMSnehmak1hRN0HIelTFaKKgRSXQowx4rUC6Sxt+FTUS7rnLkEFEPlFDrqYB8b/XLjraCFa8BbGLAX0jLMRaULGBPW5IxXL2awWB5WRQhE/5V3gPZGyJpVS7mxvWPCnH8+PG01KGMmqN9Pjd0w/9bPe65eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NYb0wzxgXabXepPq6DizEWkyQ8gcmicI+jVt8OuWerY=;
+ b=C4H4S66d+aGHoZJw4ut6j+536DL7kZMvTr54xJgkq6uPQuf4PsQQh5vFcfYebbxLIRFqeqT1rShxxu9kdHZtk+WnraallMaqbwZCSDQPxEC4YOLPfl38vhbhZDng89lhkrNO0Yg9kHsXzCS78iBslIRGzEFOV/vx4sSGydDJwdy1RgtlQHoDf/Bd6zSixV86MLQn1QRjMArbm9wC+OrrDe5j2/JU316mxS0R1YjZev32HQP9zCZMIuIO0accrbwDRXQpMy6NpWRUiSck7FWsvCJdHjjs6LfiUIWibcfkV1Gkxr+ZqxKZJKOZkUrHQMtEGRb+HGkQLxqKb9XW3yrukw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NYb0wzxgXabXepPq6DizEWkyQ8gcmicI+jVt8OuWerY=;
+ b=FGuLZgR/UGVOZvmPntV9fx8mdF0szfV9YKGxHAcbqgiN+MAvfaB4+YNFSxD738w7A6L/IvVoQ7fJcnui54JHT9dGFoRhc2JbU3nIz1i6atFbWG89O62HFJkQetWEK4Pjz2bLNWmM75WUgODrJKEdKTpA8RLEIUjlz/1C4K0aQ9w=
+Received: from MW4PR03CA0095.namprd03.prod.outlook.com (2603:10b6:303:b7::10)
+ by DS5PPF8B1E59479.namprd12.prod.outlook.com (2603:10b6:f:fc00::659)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Fri, 12 Jun
+ 2026 07:15:15 +0000
+Received: from SJ1PEPF00001CEA.namprd03.prod.outlook.com
+ (2603:10b6:303:b7:cafe::12) by MW4PR03CA0095.outlook.office365.com
+ (2603:10b6:303:b7::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Fri,
+ 12 Jun 2026 07:15:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CEA.mail.protection.outlook.com (10.167.242.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 07:15:15 +0000
+Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
+ 2026 02:15:13 -0500
+From: Xiang Liu <xiang.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
+ <YiPeng.Chai@amd.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: [PATCH] drm/amd/ras: Sync bad page count on EEPROM update
+Date: Fri, 12 Jun 2026 15:14:26 +0800
+Message-ID: <20260612071426.1615878-1-xiang.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEA:EE_|DS5PPF8B1E59479:EE_
+X-MS-Office365-Filtering-Correlation-Id: df12d0cd-4117-425d-2bd8-08dec85259bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: MzlYKpm9cbRzOffZxO0KEJ3NU7qu2vDqbcvwL7UgRm2LX0cQBEHmROnr6rdbBV8PdclnPRGSXvADvgOUL0Okb8w+txfnkFOkYixvObPAEu1ccqX+osusw7CQXdj2lf96CWAgMKKFHWSGUiPIJBSOYrl4iPMadzbuHp9EmXHb8+v8cZLIGrEmWxr3sT8Yc+fR/CRgVUjp2KT2qhziaOfvlFm6bfa7TsZvtCPACQ/L2t68Aa970MNXmkzH+q05bQIoDKuFMqboURlThw0IraxsDPNAYMEbQkBtzpzaNOcmClvz6J1lvRA/WA/jpexR6/sxTV4DCDwT1p5gvOhjbblNJeUAT0HVQc4QGmyDVUQU6tR06c17RjjainoChd7P0maBtiRnkT0XcrDMeQcvdVCrymfCfPrhlYB5/uXuCocLyVL55aqxLIZtPSWQI2sJ+8AMCA5b7i+MofHg2yR10dAWbEWtOiO/3HScAYpRJSYgJ5js2YgvW7RGXiZybyaeUIt8C8v1rMMh7pIPMMkN8SmBODctwFUQOQQ+WbSJjfKbwQwBYpSOiXv1g6UYmyujhSP0w/0yxXMkBg4/9YBWh/18Po3ZK3vpsAYwmtm5AkFc0+IMPokF7uuJ/BpsqUhhbOne9tI45lD9m/fnce90Vou0oHQQmZ/9UfoPeTe9vYDWKh4kUgL30/9tTUs0bmufbOV93cpRxUFa2Uq7iZItdMXJad76ZyWK7N8TQGKsE2T2aHE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: DgUSY2+j+lTy4c6gJkIX+y49zkyNQkwOlsTNrDqrwAJURC596PVjhNYhZIjJ/Eeng8pCGMiRFAsXQ98ECTZmpJCKIQxv5MKZElN2Ww6wjmORF7rOzFxVKrhAo6O9X3ssDB+Jb89CamqeiZYFPeHTOZ7FQN4YIMlbkyDDL7xB8fEqgqT4naClFY3roOJw9K8Se/qidPsf6bi6XAO2+VReLys6QK/0+FlrSzZ4oBCD80qqfybTw6B+/lXRQ2u79qQNoZ920puwvKDKAaUtRTf2yvA1bFOYdzrh24isJB2aAphIMsU9JElPPVTDN97btWHidLpUVvpcJA9oz3vs/hutQFc6BemVZeqEqUD3DTk8KNCHAP+J2DmY7WWHUaJKiqPnygb5wyHH1C3lRQuEuAioIr38BWPj6vzItOq7jlgYrk4aKN0ua1Z/UfMnwzli2J2X
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 07:15:15.0726 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df12d0cd-4117-425d-2bd8-08dec85259bb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CEA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF8B1E59479
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,310 +108,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. m=C3=A1jus 29., p=C3=A9ntek 13:24:09 k=C3=B6z=C3=A9p-eur=C3=B3pai =
-ny=C3=A1ri id=C5=91 Christian K=C3=B6nig=20
-wrote:
-> That case is handled by amdgpu_vm_update_leaves now.
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+The rascore EEPROM runtime append path updates the saved bad page
+count in memory and EEPROM. Keep the SMU bad page count in sync when
+the EEPROM header is updated so firmware sees the latest count from
+the runtime threshold path.
 
-This commit seems to be doing more than suggested by the (very short) commi=
-t=20
-message. It removes immediate updates not only from amdgpu_vm_update_range(=
-)=20
-but also amdgpu_vm_pt_clear() and amdgpu_vm_pt_create().
+Notify UPDATE_BAD_PAGE_NUM after computing the rascore UMC bad page
+count.
 
-Otherwise the code looks good.
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 21 +++++++++------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    | 16 +++++++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 19 ++++++-------------
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c      |  4 ++--
->  4 files changed, 24 insertions(+), 36 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c index 94632a660b79..edc8b1ca2d3e
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1084,7 +1084,6 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params
-> *params, *
->   * @adev: amdgpu_device pointer to use for commands
->   * @vm: the VM to update the range
-> - * @immediate: immediate submission in a page fault
->   * @unlocked: unlocked invalidation during MM callback
->   * @flush_tlb: trigger tlb invalidation after update completed
->   * @allow_override: change MTYPE for local NUMA nodes
-> @@ -1104,12 +1103,11 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params
-> *params, * 0 for success, negative erro code for failure.
->   */
->  int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm
-> *vm, -			   bool immediate, bool unlocked, bool=20
-flush_tlb,
-> -			   bool allow_override, struct amdgpu_sync=20
-*sync,
-> -			   uint64_t start, uint64_t last, uint64_t=20
-flags,
-> -			   uint64_t offset, uint64_t vram_base,
-> -			   struct ttm_resource *res, dma_addr_t=20
-*pages_addr,
-> -			   struct dma_fence **fence)
-> +			   bool unlocked, bool flush_tlb, bool=20
-allow_override,
-> +			   struct amdgpu_sync *sync, uint64_t start,
-> +			   uint64_t last, uint64_t flags, uint64_t=20
-offset,
-> +			   uint64_t vram_base, struct ttm_resource=20
-*res,
-> +			   dma_addr_t *pages_addr, struct dma_fence=20
-**fence)
->  {
->  	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
->  	struct amdgpu_vm_update_params params;
-> @@ -1139,7 +1137,6 @@ int amdgpu_vm_update_range(struct amdgpu_device *ad=
-ev,
-> struct amdgpu_vm *vm, memset(&params, 0, sizeof(params));
->  	params.adev =3D adev;
->  	params.vm =3D vm;
-> -	params.immediate =3D immediate;
->  	params.pages_addr =3D pages_addr;
->  	params.unlocked =3D unlocked;
->  	params.needs_flush =3D flush_tlb;
-> @@ -1365,7 +1362,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
-> struct amdgpu_bo_va *bo_va,
->=20
->  		trace_amdgpu_vm_bo_update(mapping);
->=20
-> -		r =3D amdgpu_vm_update_range(adev, vm, false, false,=20
-flush_tlb,
-> +		r =3D amdgpu_vm_update_range(adev, vm, false, flush_tlb,
->  					   !uncached, &sync,=20
-mapping->start,
->  					   mapping->last,=20
-update_flags,
->  					   mapping->offset,=20
-vram_base, mem,
-> @@ -1568,7 +1565,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *ade=
-v,
->  			struct amdgpu_bo_va_mapping, list);
->  		list_del(&mapping->list);
->=20
-> -		r =3D amdgpu_vm_update_range(adev, vm, false, false,=20
-true, false,
-> +		r =3D amdgpu_vm_update_range(adev, vm, false, true, false,
->  					   &sync, mapping-
->start, mapping->last,
->  					   0, 0, 0, NULL,=20
-NULL, &f);
->  		amdgpu_vm_free_mapping(adev, vm, mapping, f);
-> @@ -2617,7 +2614,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, stru=
-ct
-> amdgpu_vm *vm, vm->tlb_fence_context =3D dma_fence_context_alloc(1);
->=20
->  	r =3D amdgpu_vm_pt_create(adev, vm, adev->vm_manager.root_level,
-> -				false, &root, xcp_id);
-> +				&root, xcp_id);
->  	if (r)
->  		goto error_free_delayed;
->=20
-> @@ -2633,7 +2630,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, stru=
-ct
-> amdgpu_vm *vm, if (r)
->  		goto error_free_root;
->=20
-> -	r =3D amdgpu_vm_pt_clear(adev, vm, root, false);
-> +	r =3D amdgpu_vm_pt_clear(adev, vm, root);
->  	if (r)
->  		goto error_free_root;
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h index 04b32accfa3f..3e86a2a470f0
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -530,12 +530,11 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device
-> *adev, void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
->  			    struct amdgpu_vm *vm, struct amdgpu_bo=20
-*bo);
->  int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm
-> *vm, -			   bool immediate, bool unlocked, bool=20
-flush_tlb,
-> -			   bool allow_override, struct amdgpu_sync=20
-*sync,
-> -			   uint64_t start, uint64_t last, uint64_t=20
-flags,
-> -			   uint64_t offset, uint64_t vram_base,
-> -			   struct ttm_resource *res, dma_addr_t=20
-*pages_addr,
-> -			   struct dma_fence **fence);
-> +			   bool unlocked, bool flush_tlb, bool=20
-allow_override,
-> +			   struct amdgpu_sync *sync, uint64_t start,
-> +			   uint64_t last, uint64_t flags, uint64_t=20
-offset,
-> +			   uint64_t vram_base, struct ttm_resource=20
-*res,
-> +			   dma_addr_t *pages_addr, struct dma_fence=20
-**fence);
->  int amdgpu_vm_bo_update(struct amdgpu_device *adev,
->  			struct amdgpu_bo_va *bo_va,
->  			bool clear);
-> @@ -602,10 +601,9 @@ void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
->  			  struct amdgpu_mem_stats=20
-stats[__AMDGPU_PL_NUM]);
->=20
->  int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -		       struct amdgpu_bo_vm *vmbo, bool immediate);
-> +		       struct amdgpu_bo_vm *vmbo);
->  int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -			int level, bool immediate, struct=20
-amdgpu_bo_vm **vmbo,
-> -			int32_t xcp_id);
-> +			int level, struct amdgpu_bo_vm **vmbo,=20
-int32_t xcp_id);
->  void amdgpu_vm_pt_free_root(struct amdgpu_device *adev, struct amdgpu_vm
-> *vm);
->=20
->  int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c index
-> 9766b6b9aecc..6f5415d5a1bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -351,7 +351,6 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device
-> *adev, * @adev: amdgpu_device pointer
->   * @vm: VM to clear BO from
->   * @vmbo: BO to clear
-> - * @immediate: use an immediate update
->   *
->   * Root PD needs to be reserved when calling this.
->   *
-> @@ -359,7 +358,7 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device
-> *adev, * 0 on success, errno otherwise.
->   */
->  int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -		       struct amdgpu_bo_vm *vmbo, bool immediate)
-> +		       struct amdgpu_bo_vm *vmbo)
->  {
->  	unsigned int level =3D adev->vm_manager.root_level;
->  	struct ttm_operation_ctx ctx =3D { true, false };
-> @@ -396,7 +395,6 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
-> struct amdgpu_vm *vm, memset(&params, 0, sizeof(params));
->  	params.adev =3D adev;
->  	params.vm =3D vm;
-> -	params.immediate =3D immediate;
->=20
->  	r =3D vm->update_funcs->prepare(&params, NULL,
->  				     =20
-AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
-> @@ -434,13 +432,11 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev,
-> struct amdgpu_vm *vm, * @adev: amdgpu_device pointer
->   * @vm: requesting vm
->   * @level: the page table level
-> - * @immediate: use a immediate update
->   * @vmbo: pointer to the buffer object pointer
->   * @xcp_id: GPU partition id
->   */
->  int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -			int level, bool immediate, struct=20
-amdgpu_bo_vm **vmbo,
-> -			int32_t xcp_id)
-> +			int level, struct amdgpu_bo_vm **vmbo,=20
-int32_t xcp_id)
->  {
->  	struct amdgpu_bo_param bp;
->  	unsigned int num_entries;
-> @@ -470,7 +466,6 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev,
-> struct amdgpu_vm *vm, bp.flags |=3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->=20
->  	bp.type =3D ttm_bo_type_kernel;
-> -	bp.no_wait_gpu =3D immediate;
->  	bp.xcp_id_plus1 =3D xcp_id + 1;
->=20
->  	if (vm->root.bo)
-> @@ -485,7 +480,6 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev,
-> struct amdgpu_vm *vm, * @adev: amdgpu_device pointer
->   * @vm: VM to allocate page tables for
->   * @cursor: Which page table to allocate
-> - * @immediate: use an immediate update
->   *
->   * Make sure a specific page table or directory is allocated.
->   *
-> @@ -495,8 +489,7 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev,
-> struct amdgpu_vm *vm, */
->  static int amdgpu_vm_pt_alloc(struct amdgpu_device *adev,
->  			      struct amdgpu_vm *vm,
-> -			      struct amdgpu_vm_pt_cursor *cursor,
-> -			      bool immediate)
-> +			      struct amdgpu_vm_pt_cursor *cursor)
->  {
->  	struct amdgpu_vm_bo_base *entry =3D cursor->entry;
->  	struct amdgpu_bo *pt_bo;
-> @@ -507,7 +500,7 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_device
-> *adev, return 0;
->=20
->  	amdgpu_vm_eviction_unlock(vm);
-> -	r =3D amdgpu_vm_pt_create(adev, vm, cursor->level, immediate, &pt,
-> +	r =3D amdgpu_vm_pt_create(adev, vm, cursor->level, &pt,
->  				vm->root.bo->xcp_id);
->  	amdgpu_vm_eviction_lock(vm);
->  	if (r)
-> @@ -519,7 +512,7 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_device
-> *adev, pt_bo =3D &pt->bo;
->  	pt_bo->parent =3D amdgpu_bo_ref(cursor->parent->bo);
->  	amdgpu_vm_bo_base_init(entry, vm, pt_bo);
-> -	r =3D amdgpu_vm_pt_clear(adev, vm, pt, immediate);
-> +	r =3D amdgpu_vm_pt_clear(adev, vm, pt);
->  	if (r)
->  		goto error_free_pt;
->=20
-> @@ -813,7 +806,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_par=
-ams
-> *params, * address range are actually allocated
->  			 */
->  			r =3D amdgpu_vm_pt_alloc(params->adev, params-
->vm,
-> -					       &cursor,=20
-params->immediate);
-> +					       &cursor);
->  			if (r)
->  				return r;
->  		}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c index 72cfb4a6ab3e..37b5166e9a14
-> 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1372,7 +1372,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev,
-> struct amdgpu_vm *vm, return -EINVAL;
->  	}
->=20
-> -	return amdgpu_vm_update_range(adev, vm, false, true, true, false,=20
-NULL,
-> gpu_start, +	return amdgpu_vm_update_range(adev, vm, true, true,=20
-false,
-> NULL, gpu_start, gpu_end, init_pte_value, 0, 0, NULL, NULL,
->  				      fence);
->  }
-> @@ -1489,7 +1489,7 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd,
-> struct svm_range *prange, (last_domain =3D=3D SVM_RANGE_VRAM_DOMAIN) ? 1 =
-: 0,
->  			 pte_flags);
->=20
-> -		r =3D amdgpu_vm_update_range(adev, vm, false, false,=20
-flush_tlb, true,
-> +		r =3D amdgpu_vm_update_range(adev, vm, false, flush_tlb,=20
-true,
->  					   NULL, gpu_start,=20
-gpu_end,
->  					   pte_flags,
->  					   (last_start -=20
-prange->start) << PAGE_SHIFT,
-
-
-
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
+index 3a0ea036c9be..62d1a319c08c 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
+@@ -746,6 +746,9 @@ static int ras_eeprom_update_header(struct ras_eeprom_control *control)
+ 	int res;
+ 
+ 	bad_page_count = ras_umc_get_badpage_count(ras_core);
++	ras_core_event_notify(ras_core, RAS_EVENT_ID__UPDATE_BAD_PAGE_NUM,
++			      &bad_page_count);
++
+ 	/* Modify the header if it exceeds.
+ 	 */
+ 	if (threshold_config != 0 &&
+-- 
+2.34.1
 
