@@ -4,78 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D329CD98CE
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:37:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4469ECD8CA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:56:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 830C410EA18;
-	Fri, 12 Jun 2026 13:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF1910F53C;
+	Fri, 12 Jun 2026 13:56:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SQS1KGrW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IlgLuP5e";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EbdrtNtF";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA36F10EA18
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:37:36 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-45ef616daf6so1011896f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:37:36 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94FE010EA54
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:25 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65CCj6Vp2160816
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=lj9iP4K0GcPnNCW95XMo8tVN
+ jOPr4RfYCBOREwlPyGg=; b=IlgLuP5epKG7Z5khBWGVWey9TcvkzndL34gn+BRL
+ wbvqAp7hbNbX81s1YbPiX7vmpFIfJH+h7VAPVJq4p8ifKI3T5XT8RBMqYSMstXHS
+ ZChjsp16KOYilHe2GvI93MdroXzY/O0MsPLRyw1uUu8BkyiSBOubv5PValHc2rCu
+ aD30yxKF5QIbdvvvpgXVXFGP+Kb6MblChW4vCdglMMF8cogrY5+BgQ+BHTAvedsI
+ e+QC6dyVvfIPdXUD0PWalBxRuJ1SMovpDQW7z3K5saTUUgq4JePSDhT1ohia1Dtx
+ SQm2OOijXfcwoGbdikDVHlcXCHeKI1orwQMKGk7bPczKBQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er014m1ae-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:24 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-915b6b63056so213077885a.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781271455; x=1781876255; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vE8aWVHh1qr+zpGueDWqMsWW3pHMlD0JWqKerG4rz6o=;
- b=SQS1KGrWwcBXiuenqVeLOATr1okxMNPyT7ZFqC2LJM/yK+PQbioppaZaw0g8sNcCpW
- ERoo9ZPocdC00NaYZ+tLTfTKfnBxuvx+9G12DTd7vfOfmrumY0F3SEKKaNywjPG82/8L
- emO7ITlw7ADxYAvwDYrvnY3VgyMn9RtQLqM23PIM919udNdbLFsVztL76eZOZg366KAD
- TiBqDx+UJlE2JvWnYwzUXk2S0/oTsG0YOyASW9uzQjJC0G6SFGw4yKB/jeyscG5aY5j6
- 5D/uHzA9P9Wpxw5ai/jWB3w4OU1FWB2xvBO8PmST6qOvAHv8GubF+jh2XBxMxg8FQLqI
- z+Zg==
+ d=oss.qualcomm.com; s=google; t=1781272584; x=1781877384;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=lj9iP4K0GcPnNCW95XMo8tVNjOPr4RfYCBOREwlPyGg=;
+ b=EbdrtNtFm0TsMcLV2uvuNYaUj8YKbJboAI68HhqQqb3RJytJxbFJoq/WLAM5KLtVGe
+ ExQ4hXcXrczvLl1Bn646fdSkbKkBAVfeaULSad+R/Gr4e+AKvEKGuCc/6bkSUWxZVjZG
+ Zv1e8tAV27CemYEZXR0LXWQGcPBkGhLm5Yv+OJ/dZ0yZxpeMjoTD5o0RcOZErr0mylJp
+ qmsPhsC4hmOxusXOtWsoVtWJb/FJdaCSglOailYzK+yTbYVHTZVGuPLUH8iaeWL0AcIb
+ z1awzj7mK5lkRpkULM2z7BuayMT/hIp8lS5G/MuNX3Og9a0qO6yvuFzmzAT47OdhuqCW
+ TYjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781271455; x=1781876255;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vE8aWVHh1qr+zpGueDWqMsWW3pHMlD0JWqKerG4rz6o=;
- b=eaRwQtQXHFhO4NFcd1gz0gFxyry4C5qxzdxpI4UhMaLmcqooMBr8DjrDtNsZuGLBNb
- as2cfDpKbEFv4KUx/orrglYsTBek6vi8skLoTMaef8nxkdwJdDC8MZu5AWtolEFe/y/V
- Iv75TmU0zTvBEd72GWM/MMldCo2gZTllQEQr54NXmMOyOrN9uUiBQxZmsbP0tsSyheaY
- q7g8OPoUembd7YS5xXHkdKRbFAlKEP3OSSk3WxHcMbt4wH+r0nxfAqU8KP0DXT0Su6Xp
- hECwD2xBnl43BRMJnF65POYHbDtnYDtkLyTc3BAxY6PNRJZSXEsxqiXt0sIq6x2RMLJP
- 0rwA==
-X-Gm-Message-State: AOJu0YzRFRrfdB5Mh/vI2B8xXdhQOeSbtIpelxosyQrvJ+1nK65Ki6YZ
- f6FI/dFgKy6FgUpMTKDjelQ+8VScYUEGEOCLr0A2+cQ4PTnd4T+59nfE
-X-Gm-Gg: Acq92OEobvfsd+E+gCX4EIoXZhb1JT6krVO1Am8lRQs8azdyhedjW2lAHw22mR4KoW7
- CCPAxgq/wSLMKanx20gpdpXuPFcM5QJEvspH/CjnlzisjgF05o2/9U7ZWRheD7wbiJaHX1rra2Y
- ykhlvDvP3em5LRSceqnKjv2ukpfzfh0Ufo6dwLdn3FYorkbN1/PmsoCcKWsFo04A+77422ztrJk
- IY0E9FQYXa+8Mg2EMZn9xAjfAT/V5lnRneme9f2O4W+gsYSQPDOEAvW2CXigwIBAsXyS53H3R9q
- eVaM3OifyHnnfOUhxufOc7lpDgRS97JVTAtNanxLX71nY71vKg/fz33zlCcUelosdBiDuDsficj
- GIQ29GW6Cpvhd7JXAal/fJ4t4x7g1KDazTLwGWOFvtYf5vL6epe8jrUlIfCvH8m2dR8sz+NjE/Z
- DAGEyg6ameLcsy1y5GZnSv5RXkmFes08xxS6zw0VNQRHfZFKPTyAkkxQ25DYlo4hStX/yTJA==
-X-Received: by 2002:a05:600c:468d:b0:490:9588:bdae with SMTP id
- 5b1f17b1804b1-490ec4ee664mr43806615e9.18.1781271454951; 
- Fri, 12 Jun 2026 06:37:34 -0700 (PDT)
-Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
- [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490e2ca1a43sm159472805e9.8.2026.06.12.06.37.33
+ d=1e100.net; s=20251104; t=1781272584; x=1781877384;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lj9iP4K0GcPnNCW95XMo8tVNjOPr4RfYCBOREwlPyGg=;
+ b=lTmhDbcwA+bZB2nk4EIE+fNtab4OMHv4xqX4MZXo2dnzmtYX9qUSkJJyJdYFjUp6mT
+ 0C3KtSKId9pyWk2AlKGIvBWI1S1lN9bFsu8c2X9AXExPSOvKfps951jHBGaLkr163IRD
+ z4O5+lcCN+LaJRShgaTi1TOrzjWbdIG1GYz17PHj6EAXP95Ng4lg+GiHE5Bib9VyP1kf
+ p7boCjiSRfP3IEPThqov5dv3uQA0rwgiArb/DoHCj2aYj9uUybl6OdjWY0/DAbTUkCla
+ o61SSNak1vCGG1E62csfPHEtXKiCSyG62W9gXak0XP+DvgKJXsvT7+nE/xpO2HhzvkOp
+ QZpg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+65nwl8+wzIGf3HNmFgAXeJ4geVwkGPCh2GF6kIPYd/wd4Ns0H5DU0uvOu+RnXEfzTuONtElVw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx54fNum3FSnq5Tu0m4TlVZcNg8/wHRF5mYM/CedjcZEc+Ubp1z
+ HMrGaiyzxiFOwrfZzmk2wU8HrlE5eSYPL8ISGJOgomxC7+CTh4fM/aAtKzuXjplCu7RIcAozehh
+ LbuHZM2bsr06RwDKT8xOB2GxYWtuv6AEE/GUXZb6qYjDza9T/vqAffYq8VbCoQV4bQD8W
+X-Gm-Gg: Acq92OFJpCk1x6cEpJ1MUFK2r/SMc2C5zyi7vIm15F6YYW8CpHfOj/MmPcBybF5rJ0p
+ cGhvCzuY/CKhMOiWsIb0ms4scoEkhBfEPbScy7h/wuvnlatZLAPLIDEb+9E6pIhdiKFE10sDxN0
+ BnlxUlnI/QRperm1cMtMsT9q+pjt0MngPG6LXlM9pCpj6bqI8BkvC5bHKFtMf3vu1afnEsQJio1
+ ENLrfC0E15vlWmrnMeZpcdilZCSGLZhWxRqSGB1IBmF97ZU/MDPcMx1ntpyHmuw3eai9zPW4RUo
+ Syz/Ts8YyzHS8eu63XXYOcKukbZE5MJ9T98wtwr+NU6eZpMN4K/Cr1jx/FT48cFR79jNnSrwIbe
+ 51nEzi2vcCATCpr1G0px+EXiPRT2vY972MYf19RAsrjt5zjHGxiBLi1BEnYsF/zL6oPMThvyBZZ
+ +nHtujEr8B6Ud3+mxcNdzJcz0RBkKOSiiHih8=
+X-Received: by 2002:a05:620a:2411:10b0:915:75ba:179e with SMTP id
+ af79cd13be357-9161bc9f023mr286844185a.30.1781272583857; 
+ Fri, 12 Jun 2026 06:56:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:2411:10b0:915:75ba:179e with SMTP id
+ af79cd13be357-9161bc9f023mr286837985a.30.1781272583368; 
+ Fri, 12 Jun 2026 06:56:23 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5ad2e1b4869sm563523e87.75.2026.06.12.06.56.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 06:37:34 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Huang Rui <ray.huang@amd.com>,
- Huang Trigger <Trigger.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-Subject: Re: [PATCH v3 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after
- mode2
-Date: Fri, 12 Jun 2026 15:37:33 +0200
-Message-ID: <4951358.vXUDI8C0e8@timur-hyperion>
-In-Reply-To: <20260612092654.1632603-1-Jiqian.Chen@amd.com>
-References: <20260612092654.1632603-1-Jiqian.Chen@amd.com>
+ Fri, 12 Jun 2026 06:56:22 -0700 (PDT)
+Date: Fri, 12 Jun 2026 16:56:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] drm/amd/display: use
+ drmm_writeback_connector_init()
+Message-ID: <kkfb5lvudgo3curnoakp3qre7pofaobaxynz7qhrn6jy2ll55f@clhfe664z5ci>
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
+ <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
+X-Proofpoint-GUID: JWzCLiNdSqoQepSSOL4g--PyFERBy8qc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDEyNyBTYWx0ZWRfX/C0/aQbirlZB
+ 4qV/RYQab9P8yNcQo5PSt5zQs7js3+XdJXhzbXxIkkkJR/Whj+c3sis6s4cuM+SkNdeM0O4/Lyg
+ pkN4S+LsgLReUQwQceysT9DX51euJvM=
+X-Authority-Analysis: v=2.4 cv=Qp9uG1yd c=1 sm=1 tr=0 ts=6a2c1009 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=P-IC7800AAAA:8
+ a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=t-2y4xJzw7g1bk7x_BQA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDEyNyBTYWx0ZWRfX66AKZzbnHdXl
+ l+UGF/I0nCVSIhmowtYPOT2XJEgz44ETH6O7VKbcwwemlPTHvnh861EPrNBU343oVCFdxOkU0j/
+ 6guZaJ5A8EiYThLErxwhHBAySbsOI1Aw78GgPO32CqTUhfowmUBlUEbBAwXau4JhcoePaQB1DcI
+ QJDAEGXgcpWvPF9V+B3K7MkvfO+TEC/7fdSeO2IqxFHZjOMW/Qj4cklC3ciCjKuq1X54mBoFKjs
+ TumurpLq6MohQlOwlUBCvi/zXgTwiSMWLqsSLuOwjZcGPoqWRsFmguleNrwQpiTmr+M/ufyc6np
+ zta0wVcXeU9Gp7M58UBC0WCQikZ6IgRBiTMFCaKFwCXBUxnqvd0qra6m3ZHR9jTdSX/euezv6Cu
+ dqaoUtt5/PuLB6TtYnFoNDBJW8vJrju1/Dt2Njbz8XIgsMgb4sBbSP0neuHnsSp6N/YH9hw8wVa
+ Q0kAUI7t8X2q6XOkf6A==
+X-Proofpoint-ORIG-GUID: JWzCLiNdSqoQepSSOL4g--PyFERBy8qc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-12_01,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606120127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,137 +171,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Friday, June 12, 2026 11:26:54=E2=80=AFAM Central European Summer Time J=
-iqian Chen=20
-wrote:
-> For Renior APU with gfx9, in some test scenarios with disabling
-> ring_reset, like accessing an unmapped invalid address, it can
-> trigger a gpu job timeout event, then driver uses Mode2 reset
-> to reset GPU, but after Mode2 compute Ring test and IB test fail
-> randomly. It because the HQDs of MECs are always active before or
-> after Mode2, that causes MECs use stale HQDs when MECs are unhalted
-> before driver restore MQDs, and causes CPC and CPF are still stuck
-> after Mode2, then causes compute Ring and IB tests fail.
->=20
-> So, add sequences to deactivate HQDs of MECs in suspend IP function
-> of the resetting process.
->=20
-> v2: Move all sequences into a new function gfx_v9_0_cp_mode2_clear_state
-> (Ray Huang) To check reset Mode2 method in the if condition (Ray Huang)
-> v3: Move all sequences before Mode2 instead of after Mode2 (Timur Krist=
-=C3=B3f)
->=20
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+On Tue, May 26, 2026 at 12:46:30PM -0600, Alex Hung wrote:
+> Will allocating wbcon with drmm_kzalloc before calling
+> amdgpu_dm_wb_connector_init be more memory-safe as below?
 
-Looks good, thank you!
+Sorry, it took me a while. Yes, it seems to be a correct idea. I'll
+implement it slightly differently.
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> 
+> 
+> @@ -5790,7 +5791,8 @@ static int amdgpu_dm_initialize_drm_device(struct
+> amdgpu_device *adev)
+>  		link = dc_get_link_at_index(dm->dc, i);
+> 
+>  		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
+> -			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
+> +			struct amdgpu_dm_wb_connector *wbcon =
+> +				drmm_kzalloc(adev_to_drm(adev), sizeof(*wbcon), GFP_KERNEL);
+> 
+>  			if (!wbcon) {
+>  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback
+> connector\n");
+> @@ -5799,7 +5801,6 @@ static int amdgpu_dm_initialize_drm_device(struct
+> amdgpu_device *adev)
+> 
+>  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
+>  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback
+> connector\n");
+> -				kfree(wbcon);
+>  				continue;
+>  			}
+> 
+> On 5/4/26 18:24, Dmitry Baryshkov wrote:
+> > The driver uses drm_writeback_connector_init() instead of its drmm
+> > counterpart, but it doesn't perform the job queue cleanup (neither
+> > manually nor by calling drm_writeback_connector_cleanup()). On the
+> > contrary, the drmm_writeback_connector_init() function ensures the
+> > proper cleanup of the job queue.
+> > 
+> > Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> > drmm_writeback_connector_init() in order to initialize writeback
+> > connector instance.
+> > 
+> > Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> > Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
+> >   2 files changed, 14 insertions(+), 6 deletions(-)
 
-> ---
-> v2->v3 changes:
-> * Move all sequencess before Mode2 instead of after Mode2, and add a new
->   function gfx_v9_0_deactivate_kcq_hqd to do the disable compute HQDs
->   sequences.
->   Then the resetting CPC and CPF are not needed since we have already
->   move all sequences before Mode2 and they are not stuck
->=20
-> v1->v2 changes:
-> * Move my sequences into a new function gfx_v9_0_cp_mode2_clear_state
-> * Add reset Mode2 method check to the if condition that call my sequences
->=20
-> v1:
-> Hi all,
->=20
-> My board is Renior APU with gfx9, smu12. I run a testcase that
-> accesses an invalid address to trigger a amdgpu_job_timedout()
-> with disabling ring_reset, so that driver will call mode2 reset
-> directly. After mode2 reset I found compute Ring tests and compute
-> IB tests fail randomly on random compute ring.
->=20
-> We checked the scan dump of GPU, we can see the CPC and CPF are
-> still stuck, that caused Compute Ring tests fail.
->=20
-> I added printings in driver codes (gfx_v9_0_cp_resume), and found
-> the HQDs of MECs are still active, that may cause MECs use stale
-> HQDs when MECs are unhalted before mapping compute queues (restoring
-> MQDs to HQDs).
->=20
-> So, I send this patch to fix above problems.
-> There are two main changes of my patch:
-> One is to reset CPC and CPF before resuming KCQ.
-> Another is to disable HQDs beofre unhalting MECs.
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 37 +++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c index 90bbddb45730..0c01701488e7
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4071,6 +4071,39 @@ static int gfx_v9_0_hw_init(struct amdgpu_ip_block
-> *ip_block) return r;
->  }
->=20
-> +static void gfx_v9_0_deactivate_kcq_hqd(struct amdgpu_device *adev)
-> +{
-> +	for (int i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> +		u32 tmp;
-> +		struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
-> +
-> +		mutex_lock(&adev->srbm_mutex);
-> +		soc15_grbm_select(adev, ring->me, ring->pipe, ring-
->queue, 0, 0);
-> +		tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE);
-> +		/* disable the queue if it's active */
-> +		if (tmp & CP_HQD_ACTIVE__ACTIVE_MASK) {
-> +			int j;
-> +
-> +			WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST,=20
-1);
-> +			for (j =3D 0; j < adev->usec_timeout; j++) {
-> +				tmp =3D RREG32_SOC15(GC, 0,=20
-mmCP_HQD_ACTIVE);
-> +				if (!(tmp &=20
-CP_HQD_ACTIVE__ACTIVE_MASK))
-> +					break;
-> +				udelay(1);
-> +			}
-> +			if (j =3D=3D AMDGPU_MAX_USEC_TIMEOUT) {
-> +				DRM_DEBUG("comp_%u_%u_%u dequeue=20
-request failed.\n",
-> +						=09
-ring->me, ring->pipe, ring->queue);
-> +				/* Manual disable if dequeue=20
-request times out */
-> +				WREG32_SOC15(GC, 0,=20
-mmCP_HQD_ACTIVE, 0);
-> +			}
-> +			WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST,=20
-0);
-> +		}
-> +		soc15_grbm_select(adev, 0, 0, 0, 0, 0);
-> +		mutex_unlock(&adev->srbm_mutex);
-> +	}
-> +}
-> +
->  static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
->  {
->  	struct amdgpu_device *adev =3D ip_block->adev;
-> @@ -4095,6 +4128,10 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block
-> *ip_block) return 0;
->  	}
->=20
-> +	if ((adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev) &&
-> +		amdgpu_asic_reset_method(adev) =3D=3D=20
-AMD_RESET_METHOD_MODE2)
-> +		gfx_v9_0_deactivate_kcq_hqd(adev);
-> +
->  	/* Use deinitialize sequence from CAIL when unbinding device from=20
-driver,
->  	 * otherwise KIQ is hanging when binding back
->  	 */
-
-
-
-
+-- 
+With best wishes
+Dmitry
