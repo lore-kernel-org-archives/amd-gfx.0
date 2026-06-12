@@ -4,105 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3389CD8CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 10:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 990E9CD8CA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 10:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8E110F430;
-	Fri, 12 Jun 2026 10:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A90510E9CB;
+	Fri, 12 Jun 2026 10:57:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uhysDhuZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y1071e/Z";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6194F10F420
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 10:44:40 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012050.outbound.protection.outlook.com [52.101.43.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99ADC10E9CB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 10:57:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CnACx8BqS/TT6zUVxcpLlYWuUtBM71oK3OzqE9JiO3XssKwHpbp4QsNYJGWYKKBCam5o6komLgIQN//ilyJTlGS8gweDrWaW+XNolXuqQy5YGO8LkwK9b/RC/4XGpAOXfwt3dum00gbSY0FEnyRoV7/hs3Gx1PkhBG5u1fBD46EJYtvRQZLwXEHTznXU776jJPt0D6C5JYi+wWDy19KOtwn9Fai+2TSc0uMVK7kJ+WVTJOyzic3nX6XlzOFCAv1pb345eptQuL/+zIVjZwUPs2XsmT8oqXs2XWqSUjA1Nre6aMcl1JJpERjmdM7zSamPRuJ34liRT+z7/3qGtLTYZA==
+ b=QOzgxkL0Wgf8Wsgsl1KJzbRoMaK/OQtbZe4Zsi++14lTlRnWKOj75iyHQwH8TP+ya9YkY024nZI6JmV0fgIE4IWBrUnpU/pVQWDeYeYW2s3ZrA0Ft1N9++W4h7T4N4nl6WLRBUOP0DgljYqlotAsa7Z1vCAomlg3HfnsS2wMA2cJ25OlGN/Ep6rfzItaCqkaupR4zgFFVF0Jxpfa+eJ4bm5i6ecB+iGIPHrIjGiVoCrCP8r7/kZQcZNDcrRdcIdRK/V7+bXAzLBkwp24wOV6MFgCgSKGBbYYOR7gMCV0ukfL2b/fqpwWSptBZY4lFK3ojGo4A/v5MpgUSKSOHk/CAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yhvhyOVg/s4iN2WzaJGLhLEJkWsLDH2eKAeRcTykKhQ=;
- b=It02Fu3E+bVQWxdzxpuIJ6C/TvMMD2Sf8nVStJLkmyyEmbjyExK1tNl0GaXt1/XpKgXV4u/lVaqz4N0myNCvw4fHiKmctOkREH4x3EYhwuq0EIcxz2j7ItLkb2ZaDIZLcVfPRLtoiVFYMIlXtBoDcTQloOiRT1xXmUNl/KjTyNw7eE9judmJsNNeIWZnyURkdP7HN2pNnuIQpIqjCalZN28OwG9okGzrkpMceDSl3Tx3ZS4+I66NX8+iU9rk1eRYCDR212lEBTq5YZ2sWGZcx07x92s/XKbrvco5kiOs5aNrHWoPqdqh2QO4qkr7fxr63yCTph7QMx+OwWfLF8qo/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=S/84inqhqm9iS7524Lo9qdiNGFafwGbi4Yg3waZcXkY=;
+ b=BHQjcCo2KERMROxZGOxxTeso+6+XS9Vv7EC/5MuVSfArB/lehfWuldvBD/YCGnQ2n/lORjKN9b+M47J6wTBvpeACk8oChHWnwPuA1Mk2TR+k5aL4h+aYzSG7OWkvTnYTd0Rf83+fhOhDUUa/ugylbijiDzgTAmfJRInB7Ro/BtO6GGj5HcyQb5jblesbW5Pjh1bAIR0yPASRyPPuRTo8x4zBvyNKfGBucN7MOjngoDhkyZb5DsVsaipLLMCqC8jlLsin9QFe1bUPpZEgEIj2a94kdyv+WmwW2miK8FTmgkE1UhzAol36bf7m4cnnxweKjho/DR/r4msoke8Kh2kfRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yhvhyOVg/s4iN2WzaJGLhLEJkWsLDH2eKAeRcTykKhQ=;
- b=uhysDhuZ1kWytmVdLPpxYm/9elG/aHbe12PzrThzCMmDd+jdTrmw0ER2UI36TulQE93HAo8x2jytO+ST3p4zxpKe49IiG58PVHDr4dErSlPv2VDxPGLzBCRsrPUeYrbe8k0EFpt25+lJnfGPMJzimIYy57vDSl35VDUt+DUlfh8=
-Received: from BN9P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::11)
- by DS0PR12MB7584.namprd12.prod.outlook.com (2603:10b6:8:13b::13) with
+ bh=S/84inqhqm9iS7524Lo9qdiNGFafwGbi4Yg3waZcXkY=;
+ b=y1071e/ZkEIVeB5rv19V2cplSzwgdfx3JfoDXxQr1AiGfDQuk+YdngYP0IFGn/d19x2vi93+EFXtVMStJMIKgDr13aevbVWyXSQKduF/58bDRRKe2cZmxaoqch0mJ6OKmbvZry7anotvLAfX3Qy8FM49jJvO3KINDVZvo095O/o=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by CY8PR12MB7265.namprd12.prod.outlook.com (2603:10b6:930:57::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 10:44:34 +0000
-Received: from BN2PEPF000044A0.namprd02.prod.outlook.com
- (2603:10b6:408:10c:cafe::5f) by BN9P222CA0006.outlook.office365.com
- (2603:10b6:408:10c::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Fri,
- 12 Jun 2026 10:44:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A0.mail.protection.outlook.com (10.167.243.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 10:44:33 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
- 2026 05:44:33 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
- 2026 05:44:32 -0500
-Received: from rtg-MAPLE.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 12 Jun 2026 05:44:25 -0500
-From: Priya Hosur <Priya.Hosur@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Lijo.Lazar@amd.com>,
- <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Mario.Limonciello@amd.com>, <Kenneth.Feng@amd.com>
-CC: <Pratik.Vishwakarma@amd.com>, <Veerabadhran.Gopalakrishnan@amd.com>,
- <Priya.Hosur@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-Subject: [PATCH v4 4/4] drm/amd/pm: smu_v14_0_0: add closest-match fallback
- for DPM level marking
-Date: Fri, 12 Jun 2026 16:14:08 +0530
-Message-ID: <20260612104408.9596-5-Priya.Hosur@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260612104408.9596-1-Priya.Hosur@amd.com>
-References: <20260612104408.9596-1-Priya.Hosur@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|DS0PR12MB7584:EE_
-X-MS-Office365-Filtering-Correlation-Id: b299fd6d-303f-43fb-6863-08dec86f971e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|18002099003|22082099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: AJObUelNl85ECOn8E028likfqBmFIdaxiPatat5+3Pra0rBYEiWF06xXGo7gLdE9paJjcx7pOzRYkVfb5gmNY/yrWkaD+0PFK5yf57yZRXE/nvvTkh2RJanm3YlBLg/iBiuyZod/A7poPgz2rGssODGIt1kDpuLnLPA6+YAQmUmdrhH1vx4YyariF0M78RpFRKk5AaNHKecjnpX0dQ2oUB2F5uydgwY16Wv5NqlP7wVLmht5n1K3xPIG4K4TnM+rXmHHiKLZt7wNbvgbMP5kAbZVwJkZ4MygtM6N9M5O2hPrWMZGOOjxezDMDgcxGLxQX1OZ2KiujO3p59tYcKJZpBgLCRvAXftOgrf8OQwSje3k7bbKGnLHXVpX52mABuBvIi0XVpJHYW+7WtuAel4nPXlvdNisavWtvX2FoiTxnuWdGIt1A+mLhOrpN0PyTN/Bvo/cFl+nTuTsnH566FJZVUZaqku9MzjI9Ep1ZvF8mncJonw2WmSg5PcrNLl02jMhEn2nNWf19VqzPJ5OOqwvej4NDhJMZCvriirL27v+BalgrjAcZMo86XJ3W7nCTcddM6NEnwdjBxgFWDtWOW6MvqCMXZsXwFA02rH+qIlDwdTPtPA3DBu+N7L4RRtwtv4k7fEPPbsAcKcAUPFJPYvUemvGPYIuMXL26Y6EldopnBsdF21sIucMvyvG8WqIJSYxbVJMLRswF6jsspW/NZugj6dxvRXZFT8v7qhQO73v8+o=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Fri, 12 Jun
+ 2026 10:57:31 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0113.011; Fri, 12 Jun 2026
+ 10:57:31 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: add parameter to allow skip specified PCI
+ devices
+Thread-Topic: [PATCH] drm/amdgpu: add parameter to allow skip specified PCI
+ devices
+Thread-Index: AQHc+lK947cM+MGGZ0Wo3aO9AiwbZ7Y6vtsQ
+Date: Fri, 12 Jun 2026 10:57:31 +0000
+Message-ID: <BN9PR12MB52578E5939277F7E22EBD08AFC182@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20260612100321.452007-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260612100321.452007-1-kevinyang.wang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-12T10:53:50.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|CY8PR12MB7265:EE_
+x-ms-office365-filtering-correlation-id: c456301f-3c38-488c-53d6-08dec871669d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|366016|38070700021|18002099003|22082099003|6133799003|3023799007|11063799006|56012099006;
+x-microsoft-antispam-message-info: 13nc8OQilBgY7EuAAfuF0xccTQWv8TF3khQ1QSQE5N7g5Kvhw5xRHTBhqKyjdJJW2hhrGUFv8ePFqTtBI0Y1tXwiwWtSSIggeDC8N4GFY9IoDQY/F7UpE1agzJBltaqm9ogDns7GQHVQjb/zx3Q1/QYBXOCgaNBAAi+xgTudJPM04py4QGlpgMnYmzFV9iz0Vz2kfey6Tjsd5tyqEVjZjDcrWUfLDuH9++rbUh2FiSqeIplf/jKbhgPEkXaJ2jpXc8JXLdFQcmruENDXjpWs8DkBM6kErhGtdzfAklHqyUcRc1+XwZIXzi7REIkNa54DqRr11Kt1f/zsd6wsMEPLO4qdDs6NGawTk6Trgsmog0GnZPqnG7fOvk2PVbTFp6b1z34FGG15u3ZjpkQ4NVenLXp4hLAmf9TtuPAM5zjb1SulryrjPGX441mzA+E6I4OdipKk6NOdTqEA1m2eh4xHFb33N6jZO6Rdc7DE1IBd2+n7w7hKtwYQYinzmvim2oZMv60tVzWqeS57aQ2A4SMR9Q07DZcpL4rfG7IVXf4fDBWIsJP7Y2t6riQKbZD71eXA+LqRUNi1D0JgDL6FcLEpLSHvB+o4xBLdnEEvFHnEdNaOWBbd6yJc5j/JrKjZY3AtsssobMoS9nRx9kWicBtEwYb0GmOK9NlKlHnQ+0MODs9jyUlk0+WXcM0snoSPQ5W42yiFq6t6nlzGhPwtt6wN49A2PJXZdr5im37MAHHmIMVCM/1Xf/Mb0mlDCsqGpNNm
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(38070700021)(18002099003)(22082099003)(6133799003)(3023799007)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tuKy7kndwLwqSQB4w01J21vHdGJtRylbcL/SJlGPyZP2ipPP3jR9CO709JejDo2SX80LusU0+GtlAswVnVfJfeEI/OLzH2D42OKcLYStm16EoI/PUX1xnPNrtnqz38mf5CBufzzSYMivn3oyaFcxSkPWVImZxjC1q6ntqlggXBltuu7VzzEWB1l6E5I9CzboFi6hkCCX2WBf2PTlU/ODv9oMZvNOlInOF62C2Ona1nXqW4To/nfg1ZTs5B7Z72rigoWagyDAjh59NCa6NjVaJ7aF436J9aBEWc6b+P/yrFdgXM2gDu9V/VJv0QvCk15KkuUjG8dSupwvJo4k2xehazqgHXbyrsH+OCJoyEE77aGQio4i83J/i5SHnZ37wyCH6zIk2mfGEgAjOVrsqKVElUT708Ta+5RpgoD9Q8SnfRJujMRuSV3KAK+8Eh2Gr0ml
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JLoeOeziuR+0rQzp+E5Pls2UjXi/GjkLO9mfdgvqYurgNIUw4Ia19qRUeMMW?=
+ =?us-ascii?Q?5i38xuYFOFCbZumEgwXWyCllBuAvNq7PVV/ly+j/E+HVe8F1rLzgc3yd2nEH?=
+ =?us-ascii?Q?hUpyNNvPWX5SFxN2TveI2u1WbhjBC2EYBFXfP+dT1nE/IpK0AeFNOURBIP7l?=
+ =?us-ascii?Q?HgbOS1tD35Zta3I+v4e7P10SAohbjA097FuH7IRp4boxXU3AgN+L2sBAM+08?=
+ =?us-ascii?Q?GFN8u5i2ZqUw071S7HVXga3UxHJMZIpHV3teEW1kpW7IXd7zBWvzwS2DtVb1?=
+ =?us-ascii?Q?4aKBXhsdftZ9HeE6woOYN8PJu1dAM+X2d/+9llx5Zz76Yf2S5/FHnNamekjB?=
+ =?us-ascii?Q?ROyxN+rniLFmONcrtWC42XvHC4wHOHS9titkvStHz6kCSrKs+1TolPydiwQ9?=
+ =?us-ascii?Q?B+VV5t5THifl+SOjIZPrjadQD5ZuDpGKsbngXVeaT3Vgay651uXrwfCV7V6S?=
+ =?us-ascii?Q?uHw+z8/GjLHI92zZiAr5DtmeEJH8K3+9rfCUiHYdeVMblxp7xL7TzxGlH2Fs?=
+ =?us-ascii?Q?ij9bjFtDXbrfZXXoG0qG/rffqix9ryt8NLvo0hp8w0XLIzMBsmyNv0zZHwrT?=
+ =?us-ascii?Q?Msbd16Sc5ti0i+sKH+4uXyhMo4Vzc3kTtLJR1ywD2DwzwTVHP6/jTGu8SVxL?=
+ =?us-ascii?Q?/00bDctsuv83CxVGI4AMwacAfk+rfpBZSzVDdcGQ6YwmqFEoxIy48x5N7PL+?=
+ =?us-ascii?Q?yg8kxtzZ4Fxx9kYSTns3KGImt44avXZQE1C+RSJQv/aSRzjbzwI6PNzCpOMZ?=
+ =?us-ascii?Q?/pYZ9CChAj5jhIgRlsPxDfj5m3vTEonCpcFJMz9cazvDEzwLeWeI7O+gv1by?=
+ =?us-ascii?Q?l+ItbjHC2uh/PBZWdGkouXbG+nXP6rL9YJVRWXYx93QjaA5g7P44rH7p/S64?=
+ =?us-ascii?Q?ZCfUE+HJfpZsvMcdEdzQDquR2MGszsQoKjeJHJIWDN7i+/4k6Ndn2b+LOQuV?=
+ =?us-ascii?Q?e3/nzFEN1lJ7kuHTWxXxeibuaJGC1QQL58RVdTzbeo1qik3n3gE7cdEEOKii?=
+ =?us-ascii?Q?nkV5VadzwzAExc92/RTd6xwdG5bz60i9CpXPH41rsF4SvfHb9IHhUSHvnRaO?=
+ =?us-ascii?Q?0n4r8j+Tvo5eUhmTFTPCawgA5OSuoy/d7L5h3ewYv5aarKGcXrdltV3ifz4k?=
+ =?us-ascii?Q?XWFZpP8Iv5y7UbL/OeOl3gJUb63CpIUCp3XhvalGqXyI49fbn6W15Jl95fcA?=
+ =?us-ascii?Q?92w4W48KRo55OkvyFr0UbrcAsXuaxXI5iUSzr4wSl3+m0RGtu10L4J/WPO1r?=
+ =?us-ascii?Q?zHol401/OOnk7Ix/5HfWmx+pXDPZMfRikU74fX+KgcJzx5F83e92VbYbWszk?=
+ =?us-ascii?Q?88Bw9OhkXlCFgwqgypwRxY64dUw8/X/xBIB9uVJ3CGC4RxC8Jlm5cEGAqSYM?=
+ =?us-ascii?Q?RdQME5U9iQzFPoNmY1A2YEKnKYJg8tHQO5ikPKFIsklQJakBVs86BvmIh9st?=
+ =?us-ascii?Q?tq3WOBY5lZ/h40aPcGiqn9jJPuTHN9e7yTA9LPiayX7PXb8bi/q11HgE2dP3?=
+ =?us-ascii?Q?JeM8BPxYao85hlUMhaEaMzZN2jEMNACxNcTAgNqhEhyGoaXd/DdCfWe5an21?=
+ =?us-ascii?Q?N6yGbcgF4TfTGxGgg3wlvhXVijAKCOEEZsoRfATX6KeWgz9QWMFTu7JSk26b?=
+ =?us-ascii?Q?zDKu9lDSeXbgvjyQpVJHEtO6+OpSp4Hck1PJJ7bbs3HwnBB2cWDjRGUkyj/V?=
+ =?us-ascii?Q?7JSiEtakMHfsgXkyp3ztknkbjQ6cq0vejmPO1c4gpYXomRrE?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 10:44:33.5031 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b299fd6d-303f-43fb-6863-08dec86f971e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7584
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c456301f-3c38-488c-53d6-08dec871669d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 10:57:31.1443 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /CrfZQridD7k70cB+0uufu4DQBekA2BvdUxHDo39nXWYvdTKDt9N5eY8qH82YbEltsAfLzTcQA/ifWacCAzo+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,86 +134,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the simple exact-match loop in emit_clk_levels with a
-two-pass approach: the first pass checks whether the current
-frequency matches any DPM level exactly and also tracks the closest
-level by absolute frequency difference. The second pass emits the
-levels, marking the exact match if found, otherwise the closest
-level.
+AMD General
 
-The SMU reports time-filtered average frequencies that often do not
-match any DPM table entry exactly. Without this fallback, MCLK,
-FCLK and other clocks show DPM levels but never display the *
-marker, breaking userspace tools that rely on it to identify the
-active frequency.
+pci-stub can provide the same functionality and is a common solution for al=
+l PCI devices. We probably do not need to add an amdgpu specific parameter =
+for this.
 
-Also uses reverse DPM index for SMU_MCLK since MemPstateTable
-stores levels high-to-low.
+Regards,
+Hawking
 
-Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+-----Original Message-----
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Friday, June 12, 2026 6:03 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: add parameter to allow skip specified PCI devi=
+ces
+
+Add the disable_pci_ids module parameter to let amdgpu skip selected PCI de=
+vices before normal device initialization starts.
+
+This is useful on multi-GPU systems where only a subset of devices should b=
+e claimed by amdgpu, and for bring-up or debug cases where early probe of s=
+pecific devices needs to be avoided.
+
+The parameter accepts a comma-separated list of hex PCI IDs. The device ID =
+is required, while the vendor ID and revision ID are optional:
+
+  device ID
+  vendor ID:device ID
+  vendor ID:device ID:revision ID
+
+For example:
+  # cat /proc/cmdline
+  amdgpu.disable_pci_ids=3D73bf,1002:7550:c0
+
+Kernel log:
+[ 3327.298156] amdgpu 0000:63:00.0: skipping PCI device [1002:7550] (rev c0=
+) by module parameter
+
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 46 ++++++++++++++++---
- 1 file changed, 39 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 175 ++++++++++++++++++++++++
+ 1 file changed, 175 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-index 206bfa906ad6..45b0baeb194c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-@@ -1218,14 +1218,46 @@ static int smu_v14_0_0_emit_clk_levels(struct smu_context *smu,
- 		if (ret)
- 			return ret;
- 
--		for (i = 0; i < count; i++) {
--			idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
--			ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
--			if (ret)
--				return ret;
-+		/*
-+		 * Try exact match first. If the SMU reports a time-averaged
-+		 * frequency that doesn't match any DPM level exactly, fall
-+		 * back to marking the closest DPM level.
-+		 */
-+		{
-+			int closest_idx = 0;
-+			uint32_t closest_diff = U32_MAX;
-+			uint32_t diff;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 503bb64c1e55..48aded458987 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -35,9 +35,11 @@
+ #include <linux/cc_platform.h>
+ #include <linux/console.h>
+ #include <linux/dynamic_debug.h>
++#include <linux/kstrtox.h>
+ #include <linux/module.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/pm_runtime.h>
++#include <linux/string.h>
+ #include <linux/suspend.h>
+ #include <linux/vga_switcheroo.h>
+
+@@ -183,6 +185,7 @@ uint amdgpu_pg_mask =3D 0xffffffff;  uint amdgpu_sdma_p=
+hase_quantum =3D 32;  char *amdgpu_disable_cu;  char *amdgpu_virtual_displa=
+y;
++char amdgpu_disable_pci_ids[256];
+ int amdgpu_enforce_isolation =3D -1;
+ int amdgpu_modeset =3D -1;
+
+@@ -564,6 +567,28 @@ MODULE_PARM_DESC(virtual_display,
+                 "Enable virtual display feature (the virtual_display will =
+be set like xxxx:xx:xx.x,x;xxxx:xx:xx.x,x)");  module_param_named(virtual_d=
+isplay, amdgpu_virtual_display, charp, 0444);
+
++/**
++ * DOC: disable_pci_ids (string)
++ * Comma separated list of PCI IDs to skip during probe.
++ *
++ * This can be useful on multi-GPU systems where only a subset of
++devices
++ * should be claimed by amdgpu, or for bring-up and debug cases where
++early
++ * probe of specific devices needs to be avoided.
++ *
++ * The device ID is required. Vendor ID and revision ID are optional.
++Hex IDs
++ * with or without a 0x prefix are accepted. Valid formats are:
++ *
++ * - device ID
++ * - vendor ID:device ID
++ * - vendor ID:device ID:revision ID
++ *
++ * For example: disable_pci_ids=3D73bf,1002:73df:01.
++ */
++MODULE_PARM_DESC(disable_pci_ids,
++                "Skip probing devices matching PCI ID patterns: device ID,=
+ vendor
++ID:device ID, or vendor ID:device ID:revision ID"); module_param_string(di=
+sable_pci_ids, amdgpu_disable_pci_ids,
++                   sizeof(amdgpu_disable_pci_ids), 0444);
 +
-+			for (i = 0; i < count; i++) {
-+				idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
-+				ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
-+				if (ret)
-+					return ret;
+ /**
+  * DOC: lbpw (int)
+  * Override Load Balancing Per Watt (LBPW) support (1 =3D enable, 0 =3D di=
+sable). The default is -1 (auto, enabled).
+@@ -2216,6 +2241,149 @@ static const struct amdgpu_asic_type_quirk asic_typ=
+e_quirks[] =3D {
+
+ static const struct drm_driver amdgpu_kms_driver;
+
++struct amdgpu_disabled_pci_id {
++       u16 vendor;
++       u16 device;
++       u8 revision;
++       bool has_vendor;
++       bool has_revision;
++};
 +
-+				if (cur_value == value) {
-+					closest_idx = i;
-+					break;
-+				}
- 
--			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, value,
--					      cur_value == value ? "*" : "");
-+				diff = abs((int)cur_value - (int)value);
-+				if (diff < closest_diff) {
-+					closest_diff = diff;
-+					closest_idx = i;
-+				} else if (diff > closest_diff) {
-+					break;
-+				}
-+			}
++static int amdgpu_parse_disabled_pci_id_field(const char *str, u16 *id)
++{
++       if (!strncasecmp(str, "0x", 2))
++               str +=3D 2;
 +
-+			for (i = 0; i < count; i++) {
-+				idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
-+				ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
-+				if (ret)
-+					return ret;
++       return kstrtou16(str, 16, id);
++}
 +
-+				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
-+						      i, value,
-+						      i == closest_idx ? "*" : "");
-+			}
- 		}
- 		break;
- 	case SMU_DCEFCLK:
--- 
-2.43.0
++static int amdgpu_parse_disabled_pci_revision(const char *str, u8
++*revision) {
++       if (!strncasecmp(str, "0x", 2))
++               str +=3D 2;
++
++       return kstrtou8(str, 16, revision);
++}
++
++static int amdgpu_parse_disabled_pci_id(const char *str,
++                                       struct amdgpu_disabled_pci_id *id) =
+{
++       char pci_id[32], *fields[3], *tmp;
++       int count =3D 0;
++
++       strscpy(pci_id, str, sizeof(pci_id));
++       tmp =3D pci_id;
++
++       while (tmp && count < ARRAY_SIZE(fields))
++               fields[count++] =3D strsep(&tmp, ":");
++
++       if (tmp || !count)
++               return -EINVAL;
++
++       id->has_vendor =3D false;
++       id->has_revision =3D false;
++
++       switch (count) {
++       case 1:
++               if (!fields[0][0])
++                       return -EINVAL;
++
++               return amdgpu_parse_disabled_pci_id_field(fields[0],
++                                                         &id->device);
++       case 2:
++               if (!fields[0][0] || !fields[1][0])
++                       return -EINVAL;
++
++               if (amdgpu_parse_disabled_pci_id_field(fields[0],
++                                                      &id->vendor))
++                       return -EINVAL;
++
++               if (amdgpu_parse_disabled_pci_id_field(fields[1],
++                                                      &id->device))
++                       return -EINVAL;
++
++               id->has_vendor =3D true;
++               return 0;
++       case 3:
++               if (!fields[0][0] || !fields[1][0] || !fields[2][0])
++                       return -EINVAL;
++
++               if (amdgpu_parse_disabled_pci_id_field(fields[0],
++                                                      &id->vendor))
++                       return -EINVAL;
++
++               if (amdgpu_parse_disabled_pci_id_field(fields[1],
++                                                      &id->device))
++                       return -EINVAL;
++
++               if (amdgpu_parse_disabled_pci_revision(fields[2],
++                                                      &id->revision))
++                       return -EINVAL;
++
++               id->has_vendor =3D true;
++               id->has_revision =3D true;
++               return 0;
++       default:
++               return -EINVAL;
++       }
++}
++
++static bool amdgpu_disabled_pci_id_match(struct pci_dev *pdev,
++                                        const struct amdgpu_disabled_pci_i=
+d *id) {
++       if (id->device !=3D pdev->device)
++               return false;
++
++       if (id->has_vendor && id->vendor !=3D pdev->vendor)
++               return false;
++
++       if (id->has_revision && id->revision !=3D pdev->revision)
++               return false;
++
++       return true;
++}
++
++static bool amdgpu_device_id_disabled(struct pci_dev *pdev) {
++       const char *ids =3D amdgpu_disable_pci_ids;
++       char id[32];
++       struct amdgpu_disabled_pci_id pci_id;
++       size_t len;
++
++       while (*ids) {
++               ids +=3D strspn(ids, ",; \t\n");
++               if (!*ids)
++                       break;
++
++               len =3D strcspn(ids, ",; \t\n");
++
++               if (len >=3D sizeof(id)) {
++                       dev_warn(&pdev->dev,
++                                "invalid disabled PCI id '%.*s'\n",
++                                (int)len, ids);
++                       ids +=3D len;
++                       continue;
++               }
++
++               memcpy(id, ids, len);
++               id[len] =3D '\0';
++
++               if (amdgpu_parse_disabled_pci_id(id, &pci_id)) {
++                       dev_warn(&pdev->dev,
++                                "invalid disabled PCI id '%s'\n", id);
++                       ids +=3D len;
++                       continue;
++               }
++
++               if (amdgpu_disabled_pci_id_match(pdev, &pci_id))
++                       return true;
++
++               ids +=3D len;
++       }
++
++       return false;
++}
++
+ static void amdgpu_get_secondary_funcs(struct amdgpu_device *adev)  {
+        struct pci_dev *p =3D NULL;
+@@ -2389,6 +2557,13 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+                        return -EINVAL;
+        }
+
++       if (amdgpu_device_id_disabled(pdev)) {
++               dev_info(&pdev->dev,
++                        "skipping PCI device [%04x:%04x] (rev %02x) by mod=
+ule parameter\n",
++                         pdev->vendor, pdev->device, pdev->revision);
++               return -ENODEV;
++       }
++
+        /* skip devices which are owned by radeon */
+        for (i =3D 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++) {
+                if (amdgpu_unsupported_pciidlist[i] =3D=3D pdev->device)
+--
+2.47.3
 
