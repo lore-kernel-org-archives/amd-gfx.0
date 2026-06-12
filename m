@@ -4,71 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E49CD98D9
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20BA3CD4F2C
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 07:48:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F5A010F309;
-	Fri, 12 Jun 2026 07:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4B7E10F310;
+	Fri, 12 Jun 2026 07:48:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gUedNku2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U+qaMuAo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19EC410EF69;
- Thu, 11 Jun 2026 14:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781187801; x=1812723801;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=W27qChgvDLql5BpUhT0nO9KfLhglRJ9yb9bYJIXVJn4=;
- b=gUedNku2qn7tgVyB3O3vmeqgfsKrqjStskjw+N4DXjxMFjTpi5GJW6gk
- Ej3+jpJLR9RWiv82HckLwH7HgXHJ56QCqFP96LH2POw5+vDkqogZKLhPC
- 30Dpmwm/eRtDGyFRW8LAMEMJTdtvJAwBV2RZaCotapMV60iQ5ooNo40N5
- VwjzyNRNpRjhRvHNpY8udqQTiSkJ01hVc9FmM336cGIJhY9RhOT6IpIGq
- DRv+/C6nbgMU81bFI0OmKlaoj8jpRt/zuuc0XZzBYkGByOZ06Qh7ed+5J
- 2Et9Vl+HXGuRQ46ObwLcVvG8s/MltC/Ee88KQeYQPNaq84zWzZJn854SJ A==;
-X-CSE-ConnectionGUID: DWUeiP+YQpaxXnZ5i+ORGw==
-X-CSE-MsgGUID: 2sdXg1PfSfCna1ow1UjzAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81983421"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="81983421"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:20 -0700
-X-CSE-ConnectionGUID: 5ZA10f8qSa+9Rf+0NoD1cg==
-X-CSE-MsgGUID: iEPbzckGRPKP1EuEH5EeCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="284574326"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.169])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 07:23:16 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 3/6] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-Date: Thu, 11 Jun 2026 16:22:39 +0200
-Message-ID: <20260611142242.2529-4-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
-References: <20260611142242.2529-1-thomas.hellstrom@linux.intel.com>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C274810F310
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 07:48:47 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-490b915ded5so5714005e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 00:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781250526; x=1781855326; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jsSpYYN9fCJTIX2eacScZiY08CAYt7mz+jYWybXIw4o=;
+ b=U+qaMuAoeCweDamAtAkTSKNNDsbs/6GhJbdarnnJwW0+YnNER60/wA0zdzm77IBDk0
+ 7qeOEE29MlNrsYksKaB+DeK4dpzz294AfkktNlMf7XUyn8e/B8yTYYoa19bS8ZaX470m
+ gy3YdEZTsFiqz/dFEWLUM1tHOsaIxPh7CZz0b3dXHahIb1G49AlgHhiPOLx7VozDoveL
+ M6beryvzg3ZaDGOIMnR6ux4YltTjTxVufUD2e+SZExQX5LvfZseQglAa+mevD5Lo6Efo
+ 9ebKESWETO9lumnRHoKtPTWjsN43Z7a8w4lNDiWbXI19cuy5vBXSx3843JYNGyrHAn5X
+ G70Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781250526; x=1781855326;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=jsSpYYN9fCJTIX2eacScZiY08CAYt7mz+jYWybXIw4o=;
+ b=daDm3+HE70NFNKfoaS6i9Mre2iDiducF7FADiNaK3t2FEpwFFsLpnXe+r0Ap817Mfz
+ qutKvv9VxNZjllP1tVqCr1kT46gWrl0tecZoCgcc1J5cnReo7kput/gv3ubS2Hl2xeRr
+ k9UFlXdUkvBiz7LAZnr/NUA6/xSoqnDvDtscv/vdH4wkiV1W+qHDXdJy2250YqCne34G
+ c8e0GlyIu8qTPQLQXr6bTeDz6aKFGwJ8eiO7gQblKnTTmUE7oqSMp5xYTxM4pcQV6c3C
+ AeenAXYa3+ASAx2v9d5jBN+mpxeR6ijZxZwc6UoBpq4WGwhMmmfSE3kDiKHykPd8UTDe
+ YfXA==
+X-Gm-Message-State: AOJu0YzGSZLF/Oy56DIKGRNPQU2nhDiexUM2taqQ+cnIKceFXG77yuc/
+ ZOvJdAL3BY6JpNqnGmK8jvFKt5nSz7UIs6ER+zNhc86PTEK+ZeidYbDr
+X-Gm-Gg: Acq92OEANQoXFmqWdKHdahohAFWmG6ANoOc3kHrrRtJDMvH55ybJHbMTEGu2hzP9qA8
+ K2LtRGsfxEbIoHFwjvnse9T9zSUCW2MKcgMKGmxi7LiZkBDZx2aWFebnWERoRgpk3eLfRspR9n3
+ S8r4h+s+P18SH0x6sSc/gjcE3lyHZA1B3MdS+14K3AZQ49PIPRfo3je9vUNhzZyjmaHvWR7EOMS
+ Cnib+W3fPVRwFAownywaDTHDRWO7tok9M3SgZQ+Zng1XOrje26sTwdwT5p/NsUylREvao7coKjZ
+ nI71n3tFTY4QUUTaEFISjlHm4P4le1QnO4T/+hrwkVD8wntPZKQ0UjV6qUi3AGJAdMl0kpD3JgU
+ fne1FtTRL5UfgJssVwCza2wkj+5t9mckvMA0mx4WNx7bmlEPwMHBy8P3XJlhuWid3PA66dOG/0Z
+ UghqI6ICvuiQ+LUGPJso+adAiw/ub2EkQ1cYUE5Z1+2fDWXzES651snKji+lPAD5bUj7QOZZCLh
+ F/hQfA80zCQYyVwYE/c38swNFWMpRD7TY4uOCPq
+X-Received: by 2002:a5d:5f82:0:b0:45e:ed7f:1d9 with SMTP id
+ ffacd0b85a97d-4606dba7bf9mr2237500f8f.17.1781250526209; 
+ Fri, 12 Jun 2026 00:48:46 -0700 (PDT)
+Received: from timur-max.localnet
+ (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
+ [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f26f23fsm3236866f8f.9.2026.06.12.00.48.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jun 2026 00:48:45 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, "Huang, Ray" <Ray.Huang@amd.com>, 
+ "Huang, Trigger" <Trigger.Huang@amd.com>
+Subject: Re: [PATCH v2 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after
+ mode2
+Date: Fri, 12 Jun 2026 09:48:45 +0200
+Message-ID: <2014755.b9uPGUboIS@timur-max>
+In-Reply-To: <BL1PR12MB5849F914400E06407D2C9451E7182@BL1PR12MB5849.namprd12.prod.outlook.com>
+References: <20260611055715.1142135-1-Jiqian.Chen@amd.com>
+ <3694190.dWV9SEqChM@timur-hyperion>
+ <BL1PR12MB5849F914400E06407D2C9451E7182@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 12 Jun 2026 07:46:58 +0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,297 +96,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an optional reclaim callback to struct dmem_cgroup_region. When
-dmem.max is set below the current usage of a cgroup pool, the new limit
-is applied immediately (so that concurrent allocations are throttled
-while reclaim is in progress) and then the driver is asked to evict
-memory to bring usage back below the limit.
+Hi Jiqian,
 
-Reclaim is attempted up to a bounded number of times. No error is
-returned to userspace if usage remains above the limit after reclaim,
-and a pending signal will abort the reclaim loop early. This matches
-the behavior of memory.max in the memory cgroup controller.
+> > Indeed I've seen similar issues on other GPUs, as I've been looking into 
+> > improving GPU recovery.
+> > 
+> > Instead of forcing the HQD_ACTIVE to zero, I suggest to deactivate the HQD
+> >  before reset. We should introduce a gfx_v9_0_deactivate_hqd() function
+> > similar to what gfx_v8_0_deactivate_hqd() is doing, and call that from
+> > somewhere in gfx_v9_0_hw_fini() when disabling the compute queues.
+> 
+> Make sense, that look like a more suitable place, I will try to move my
+> sequences into gfx_v9_0_hw_fini() in next version.
+ 
+Sounds good.
 
-Also honor O_NONBLOCK so that if that flag is set during the
-max value write, no reclaim is initiated. The idea is to avoid
-charging the reclaim cost to the writer of the max value.
+> > In fact, it looks like it already deactivates HQD, but only for the KIQ
+> > and  only when it isn't in reset or suspend. That looks wrong to me and
+> > I think it should do that for all compute queues (in addition to the KIQ)
+> > either unconditionally or before a mode2 reset.
+> 
+> So, you think the if condition checks are not needed?
+> 	if ((adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev) &&
+> 			amdgpu_asic_reset_method(adev) == 
+AMD_RESET_METHOD_MODE2)
+> Since I only reproduced and verified when mode2 on APU, I think keeping this
+> check would be better.
 
-v2:
-- Write max before reclaim is attempted (Maarten)
-- Let signals abort the reclaim without error (Maarten)
-- If a new max value is written with the O_NONBLOCK flag,
-  reclaim is not attempted (Maarten)
-- Extract region from the pool parameter rather than
-  passing it explicitly to set_resource_xxx().
+Yes, I think the checks may not be needed or need to be adjusted.
+Additionally, the same sequence needs to be repeated for every compute ring.
 
-v3:
-- Use an rwsem to protect reclaim callback registration and
-  region unregister against concurrent reclaim invocations,
-  ensuring reclaim_priv is visible when the callback is
-  invoked. (Sashiko-bot)
+> > I don't have a Renoir APU yet but if you need help, I can try to see if I
+> > can  reproduce something like this on a Vega 10 dGPU.
+> 
+> It seems Vega 10 dGPU uses Moed1 or BACO reset. I am not sure if it has the
+> same issue. When you "see similar issues on other GPUs", are they all APUs?
+> What's the gfx version? And what reset method they use. If they are not, I
+> may find a same hardware as your to verify my changes. I tried other APU
+> with gfx10, there is no this issue.
 
-v5:
-- Rebased on the introduction of struct dmem_cgroup_init.
-- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
-  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
-- Compare usage against the truncated limit value stored in cnt.max,
-  not the original u64. (Sashiko-bot)
-- Use a DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
-  the memcg controller's MAX_RECLAIM_RETRIES. Only -ENOSPC (no progress)
-  counts against the retry budget; other errors terminate the loop
-  immediately.
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- include/linux/cgroup_dmem.h |  21 +++++++
- kernel/cgroup/dmem.c        | 119 +++++++++++++++++++++++++++++++++---
- 2 files changed, 130 insertions(+), 10 deletions(-)
+You are correct that dGPUs don't use mode2 reset. I saw a similar issue while 
+working on a patch series to improve GFX IP block soft reset on GFX8. I am 
+testing that on a Carrizo APU as well as Fiji and Polaris 10 dGPUs.
 
-diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-index d9eab8a2c1ee..d705e94d8784 100644
---- a/include/linux/cgroup_dmem.h
-+++ b/include/linux/cgroup_dmem.h
-@@ -14,12 +14,33 @@ struct dmem_cgroup_pool_state;
- /* Opaque definition of a cgroup region, used internally */
- struct dmem_cgroup_region;
- 
-+/**
-+ * struct dmem_cgroup_ops - Operations for a dmem cgroup region.
-+ * @reclaim: Optional callback invoked when dmem.max is set below the current
-+ *           usage of a pool. The driver should attempt to free at least
-+ *           @target_bytes from @pool. May be called multiple times if usage
-+ *           remains above the limit after returning.
-+ *
-+ *           Return: 0 if some progress was made (even if less than
-+ *           @target_bytes was freed), -ENOSPC if no progress could be made,
-+ *           or another negative error code if a fatal error occurred.
-+ *           Any non-zero return stops further reclaim attempts.
-+ */
-+struct dmem_cgroup_ops {
-+	int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-+		       u64 target_bytes, void *priv);
-+};
-+
- /**
-  * struct dmem_cgroup_init - Initialization parameters for a dmem cgroup region.
-  * @size: Size of the region in bytes.
-+ * @ops: Optional operations for this region. May be NULL.
-+ * @reclaim_priv: Opaque pointer passed to @ops->reclaim. May be NULL.
-  */
- struct dmem_cgroup_init {
- 	u64 size;
-+	const struct dmem_cgroup_ops *ops;
-+	void *reclaim_priv;
- };
- 
- #if IS_ENABLED(CONFIG_CGROUP_DMEM)
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index d12c8543f3fe..da99d133182c 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -18,6 +18,13 @@
- #include <linux/rculist.h>
- #include <linux/slab.h>
- 
-+/*
-+ * Number of reclaim attempts before giving up when lowering dmem.max
-+ * below current usage. Mirrors memcg's MAX_RECLAIM_RETRIES; unify the
-+ * two in a follow-up instead of duplicating the constant.
-+ */
-+#define DMEM_MAX_RECLAIM_RETRIES 16
-+
- struct dmem_cgroup_region {
- 	/**
- 	 * @ref: References keeping the region alive.
-@@ -51,6 +58,24 @@ struct dmem_cgroup_region {
- 	 * No new pools should be added to the region afterwards.
- 	 */
- 	bool unregistered;
-+
-+	/**
-+	 * @ops: Optional operations, set from dmem_cgroup_init at registration.
-+	 */
-+	const struct dmem_cgroup_ops *ops;
-+
-+	/** @reclaim_priv: Private data passed to @ops->reclaim. */
-+	void *reclaim_priv;
-+
-+	/**
-+	 * @unregister_sem: Serialises reclaim callbacks against unregistration.
-+	 *
-+	 * Readers (reclaim) hold the read side for the duration of a callback
-+	 * invocation.  dmem_cgroup_unregister_region() takes the write side to
-+	 * drain any in-flight callbacks before returning, so callers may safely
-+	 * free @reclaim_priv once unregister returns.
-+	 */
-+	struct rw_semaphore unregister_sem;
- };
- 
- struct dmemcg_state {
-@@ -145,21 +170,71 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
- }
- 
- static void
--set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
- {
- 	page_counter_set_min(&pool->cnt, val);
- }
- 
- static void
--set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
- {
- 	page_counter_set_low(&pool->cnt, val);
- }
- 
- static void
--set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-+set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
- {
--	page_counter_set_max(&pool->cnt, val);
-+	struct dmem_cgroup_region *region = pool->region;
-+	unsigned long limit = (unsigned long)val;
-+
-+	/*
-+	 * Always update the limit, even if usage currently exceeds it.
-+	 * Concurrent allocations will be throttled against the new limit
-+	 * while reclaim is in progress.
-+	 */
-+	xchg(&pool->cnt.max, limit);
-+
-+	if (nonblock)
-+		return;
-+
-+	/*
-+	 * Hold the read side for the duration of the reclaim loop so that
-+	 * dmem_cgroup_unregister_region() cannot return (and the caller
-+	 * cannot free reclaim_priv) while a callback is in progress.
-+	 *
-+	 * The ops check must happen inside the lock.  A caller may have
-+	 * observed ops != NULL before dmem_cgroup_unregister_region()
-+	 * acquired the write side; rechecking under down_read() is safe
-+	 * because region->unregistered is set while the write side is
-+	 * held, so any down_read() that succeeds after up_write() will
-+	 * see unregistered = true and skip the loop.
-+	 */
-+	down_read(&region->unregister_sem);
-+	if (!region->unregistered && region->ops && region->ops->reclaim) {
-+		for (int retries = DMEM_MAX_RECLAIM_RETRIES; ; ) {
-+			u64 usage = page_counter_read(&pool->cnt);
-+			int ret;
-+
-+			if (usage <= limit)
-+				break;
-+
-+			if (signal_pending(current))
-+				break;
-+
-+			ret = region->ops->reclaim(pool, usage - limit, region->reclaim_priv);
-+
-+			/*
-+			 * Mirror memcg's retry strategy: only count -ENOSPC (no
-+			 * progress) against the retry budget; any other error is
-+			 * fatal and terminates the loop immediately.
-+			 */
-+			if (ret && (ret != -ENOSPC || !retries--))
-+				break;
-+
-+			cond_resched();
-+		}
-+	}
-+	up_read(&region->unregister_sem);
- }
- 
- static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
-@@ -189,9 +264,14 @@ static u64 get_resource_peak(struct dmem_cgroup_pool_state *pool)
- 
- static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
- {
--	set_resource_min(rpool, 0);
--	set_resource_low(rpool, 0);
--	set_resource_max(rpool, PAGE_COUNTER_MAX);
-+	set_resource_min(rpool, 0, false);
-+	set_resource_low(rpool, 0, false);
-+	/*
-+	 * Use nonblock=true: we are raising the limit to PAGE_COUNTER_MAX so
-+	 * reclaim is pointless, and dmemcs_offline() holds rcu_read_lock()
-+	 * which forbids sleeping.
-+	 */
-+	set_resource_max(rpool, PAGE_COUNTER_MAX, true);
- }
- 
- static void dmemcs_offline(struct cgroup_subsys_state *css)
-@@ -468,7 +548,10 @@ static void dmemcg_free_region(struct kref *ref)
-  * dmem_cgroup_unregister_region() - Unregister a previously registered region.
-  * @region: The region to unregister.
-  *
-- * This function undoes dmem_cgroup_register_region.
-+ * This function undoes dmem_cgroup_register_region.  It drains any
-+ * in-flight reclaim callbacks before returning, so the caller may safely
-+ * free the resources pointed to by @init.reclaim_priv once this function
-+ * returns.
-  */
- void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region)
- {
-@@ -477,6 +560,15 @@ void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region)
- 	if (!region)
- 		return;
- 
-+	/*
-+	 * Acquire the write side to drain any in-flight reclaim callbacks.
-+	 * After up_write() below, set_resource_max() will observe
-+	 * region->unregistered = true under its own down_read() and skip
-+	 * the reclaim loop, so reclaim_priv is safe to free once this
-+	 * function returns.
-+	 */
-+	down_write(&region->unregister_sem);
-+
- 	spin_lock(&dmemcg_lock);
- 
- 	/* Remove from global region list */
-@@ -496,6 +588,8 @@ void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region)
- 	region->unregistered = true;
- 	spin_unlock(&dmemcg_lock);
- 
-+	up_write(&region->unregister_sem);
-+
- 	kref_put(&region->ref, dmemcg_free_region);
- }
- EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
-@@ -537,7 +631,10 @@ dmem_cgroup_register_region(const struct dmem_cgroup_init *init,
- 	INIT_LIST_HEAD(&ret->pools);
- 	ret->name = region_name;
- 	ret->size = init->size;
-+	ret->ops = init->ops;
-+	ret->reclaim_priv = init->reclaim_priv;
- 	kref_init(&ret->ref);
-+	init_rwsem(&ret->unregister_sem);
- 
- 	spin_lock(&dmemcg_lock);
- 	list_add_tail_rcu(&ret->region_node, &dmem_cgroup_regions);
-@@ -733,9 +830,10 @@ static int dmemcg_parse_limit(char *options, u64 *new_limit)
- 
- static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 				 char *buf, size_t nbytes, loff_t off,
--				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
-+				 void (*apply)(struct dmem_cgroup_pool_state *, u64, bool))
- {
- 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
-+	bool nonblock = of->file->f_flags & O_NONBLOCK;
- 	int err = 0;
- 
- 	while (buf && !err) {
-@@ -780,7 +878,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- 		}
- 
- 		/* And commit */
--		apply(pool, new_limit);
-+		apply(pool, new_limit, nonblock);
-+
- 		dmemcg_pool_put(pool);
- 
- out_put:
--- 
-2.54.0
+The problem I saw is very similar to yours: compute rings fail to resume after 
+the reset and are "stuck". I managed to solve that by making sure the HQD is 
+deactivated before the reset and ensuring that the MQD is cleaned up after the 
+reset.
+
+Best regards,
+Timur
+
+
+
+
+
+
+
 
