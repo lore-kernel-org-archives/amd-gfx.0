@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22616CD8CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 09:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48302CD8CA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 10:01:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAEFF10F3B5;
-	Fri, 12 Jun 2026 09:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8EA910F417;
+	Fri, 12 Jun 2026 10:01:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="akvf+mf5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B6/ghQ9l";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012020.outbound.protection.outlook.com
- [40.93.195.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4725E10F3B5
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 09:27:22 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25EEF10F40B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 10:01:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TLKbWoQ+/gvznSayZ5ttNTqLf6b/GVhWGBvympCzbk9VvhmDImhdiTpfjCyZKWPFSuW6sP/oEr7CO9TV/FlZrW+ibr2VB3L/Yi8lwE0yqbW5hf79SJrq/Ew9wRjr/EuDsxIzv4sgrJhaLi47swiC/oVERfxgs3LBIUaN6q4fBAg0QFUhaxAPCZBgYa1H4MsxSSOS9CoeajMc0XxrmxL3zqTigJFDhogxry1P6q+FnBgl/tU5bQ+CUaNHcXWFTzZTRGC5DpNZHUhN2YrqwoobhitY1G1/jvvU7uf0mCFcP4S1nKqmLUAi5EVAsjVT1r/ipKF9kNGIlio1mmAkm59TJQ==
+ b=SI6T6/drJE9fcVjKEVWeIoZJQA+aPFC7dBqsIeeTfJVkhsUR05O2nllNSCIU393Por7+LcyvbubUKy3qZ48XMg5b5VIFR3Q8vm6FoJ8WBeiqwzsmWdMbEqmEwHUHTRSGSLOhyqNfFZcLyah/tKLbP26jpz11NuaJzasJSOSbp4JKSxiGvWW9Gv1NOudBjOu+tYEZ0Nf/NYS3ZXfg/wQ6fXhxt7yTheP87KllWme/OyvZSC6VM1gkzww4tB7i7aXml88XvwDFTrVwCPXTaTIBengxcADCftczh2esl+BNV6BuWP728LpkykNMAFLH1P3wkqwCqwxmqCXOhTwCYcKv+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PjRfHurCkjRhTFzkJcbw/NqW90Pbtr7zMSBVnbA8BiQ=;
- b=kd9bEBw+bDhxCNUy1EH2GyU8jtDWqgz6E7gzOiotzHrdb9dLAp2RNCkUnx3ZA6/rB0LM5MKHKTrpS1qHa0pnm1Qh6+CMaA0S8dtS8KwdKHgx8VgPME37h/WilxWZr65EpxCqRVA0Ux6knJ5h5fUfzj8Lh4uIwUYvtgAHMli2Vcb5n2UyD318UVqi+jCl+AOLQ1uzgYq/pD7cSBvkQpQ9HKZUllDT5Lt07EeVo/xRdBPfwnEkTnaM/K6JdoGCzLmXY8ZsYvEMIJ4cX3YldhOk0crFYxmuoNP/ifMbvKtNlWKxdJTdGyRi2SWvnWaooJTBcpHm/LTkVQKhSnW6ODc7xQ==
+ bh=ir+AFc92Q0i6OePONvCZgEP2GvYYj98P/C5GO5Y6UU4=;
+ b=QRBADVOSdWtc6PwqknUANSSfaPxmV8PduulgduULViMiyQxErZ5XSZBsvy//157lHBNKDCNyQcnR+qsfepO5vzDsmpj/jI7KT8sec/fm98aE6F/P1gabTMzqpBw8UaqlSwFQ8/fcJ634b6pvpXiW2lTkt92Af3+TJWcFhCKLQB38kIWQGtVYPygHv9asSAEApVl7fYixuc0LgTNl4K6aRl3WGSHaTREei++3yOFrWWeJygH42Z9THO6JE6uLsyqYkoQSSkgIajSZFXkZnUFUKVf6U04i0I7KtQw0aTlqlXEij2vSaaBndWMtQkScKIItp3SXKmxaIdLMxzlRYKONmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PjRfHurCkjRhTFzkJcbw/NqW90Pbtr7zMSBVnbA8BiQ=;
- b=akvf+mf5rviYf36ROSA0A1UEzVMHT1a9uaRqK7lcbKRg/TX5ycMletZWjn/Z/gnFVjvTHT0dWA1JEU3QG2MR6oD7Ncwn590J7P46Dc6Cwq0o0os7nEEQ55lQZnKdJ4xaXAjnaT05vbgSScG3uftFt9D9tsH/CxXNcS/RisEqOLc=
-Received: from SJ0PR05CA0095.namprd05.prod.outlook.com (2603:10b6:a03:334::10)
- by DM4PR12MB5961.namprd12.prod.outlook.com (2603:10b6:8:68::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ir+AFc92Q0i6OePONvCZgEP2GvYYj98P/C5GO5Y6UU4=;
+ b=B6/ghQ9lH6dCPzy8HXd3yJBNqtH+NO8zD5Pzi6SEkvrPkvv320XIzUv3JfMeg5UTTTB7wwlEbsxW728+IDRS65kF0XP13E2ynw5biv9DCD95c2xtUlaw0817pJXVHzrEWkEGMzazTFt9CxdBg9H3Rsl3YO2jUW5vMb0ZMrlEC5o=
+Received: from BL1P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::25)
+ by IA1PR12MB7711.namprd12.prod.outlook.com (2603:10b6:208:421::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 09:27:16 +0000
-Received: from MWH0EPF000C6193.namprd02.prod.outlook.com
- (2603:10b6:a03:334:cafe::3d) by SJ0PR05CA0095.outlook.office365.com
- (2603:10b6:a03:334::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.9 via Frontend Transport; Fri, 12
- Jun 2026 09:27:16 +0000
+ 2026 10:01:18 +0000
+Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::40) by BL1P221CA0029.outlook.office365.com
+ (2603:10b6:208:2c5::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.10 via Frontend Transport; Fri,
+ 12 Jun 2026 10:01:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,55 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6193.mail.protection.outlook.com (10.167.249.107) with Microsoft
+ BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 09:27:15 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 10:01:17 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
- 2026 04:27:13 -0500
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Huang Rui <ray.huang@amd.com>,
- Huang Trigger <Trigger.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-Subject: [PATCH v3 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after mode2
-Date: Fri, 12 Jun 2026 17:26:54 +0800
-Message-ID: <20260612092654.1632603-1-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.39.5
+ 2026 05:01:17 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 12 Jun 2026 05:01:11 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <Jesse.Zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu/fence: handle NULL guilty fence in reemit path
+Date: Fri, 12 Jun 2026 18:01:07 +0800
+Message-ID: <20260612100110.1708530-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6193:EE_|DM4PR12MB5961:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0969350-0c3f-4b0d-237b-08dec864cad3
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|IA1PR12MB7711:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bdbc195-1cc9-438f-d247-08dec8698beb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|11063799006|56012099006|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: O7O+0zLAD7EVNV1q6zsv/8F5CfZ6ccVgrw9qjn26ulh/KMqheSEtEVNkVKXlppoqXi9LpwcLfBvOpVpQ+6a3Cj6O8O+310u41PhUyxAbRkca0wGh6xXWZyvzG8dV287mazRQ9yVwfwOnZ2xtCJb9jvKVrR3ljIFmcy3U7bIeYBoY9uqUQazgAN8AgP/m3XxN0gWSn7ohnFSxrQT6Xx396zoJsZHNxGNW2AiCOYQu9Q48l3KSG6cY6QUIVaRW4w2DsKwLObFnUsawXkmOA3rM8YRpd/hdFKf3+cpzq+Rv95MGY3KeJZ7LGw79QPeAXwGf8LhWtmoAAokJyGc4ZGVAK2NIRGWFPtz/300NM/VI8kv1lwNxHaCM1fIqid5PjJ4RYv5z8bbWFQ3wi9zrFeDQrJx0ha9O7DnZn6clLnEwb6mZ19iuT/s83JXRBLxyNwspMNakA1KfzJGzyil6n6TkhsaGkPz6nnvSSOGDaTdm+tvUkLHMTrH2ZEbjwBnqJexELc/sULk2V6YjBLj2SeCttZ8CrUrZTdWjE0btMQ408dv9exhjCiQ3tnnR2jHZt6NclT9RBUkgLaxxI37/cFnwtFkR3Xrz8SzmUtWm7+ec7Bh+g/qOmIRkIJURo2bETLeS/I6S9+MF3YgEdwJ6RZQQSn7wNYucZJxBrSG41xqFISQfAxijPxCgQfkKyKg6myq2SOCsl9TzGHD8PusJXNhhLyxQJQ14b5SE+1FArOxSSdQ=
+ ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|18002099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: hYZ7oWWaCTSepgzggERYYLXPkK10AyigJfSrNqykxe7iPDVrSSItm4UE1IE+lGC89J2HUV9QAdEYRzWKbtfNehY/MC7wvmz4VzSf+N6PH/OwlZ3X4wGl479+Rll8m3xveDav26yuNYm5J9hMXWXl0mLLkdpVytCp+GZVgtBhQY/zuLS7EUlO/6ZuDIiL75nh5/E/Vc8ivQmfLh7SKv045Q5+564zF93RZuRNG0fvbgnIL9vQjVDFnvP4engXWcjPT3Yoa5rvN/+pshS59ULIMzjnUjxVA4GkukC/6Vg70kEqx+l26LC7Gy/e1LzOqbWRe6dXSDHYg6HiGpd5wX09jnODSDCfk8+AtWZVrfAwSFqdFFSXQy3FUQRvT0u+z5R4Ri1h8IzMBixIdt3CYb0OgbVzh+lCBx8Cq0l/qro3iZw3lessM5CB+XRttPe9C1o5aXRWpp8yAPg6Q9Zef71+ULmsBhjW5sjrfq404nNhg+HHvmMBYozc2DswgiH16ZzhFuf2Hzmf6xQHcqDKPhoeBxL3Rr19ngDOt/U2pcGCE2m/voZ98DQOhtQtiJjvetWg8FwNsakkhkSu7Vv4IqjVTTbGrmRpBmY5Kuzb6T9UKZT7wd99sie8TR7R2nyPXc++vkyX574Nb/wrpP4QjaZBEP8O7/MYa5ZbD6UQAwlGiFnJfcCBxe74qw7r06GUh/Gk+jbB7csRz4WSGL1tZjiS2krj43OvS6B0CGLmWByPicI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(11063799006)(56012099006)(18002099003)(6133799003);
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(18002099003)(6133799003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sHPrbzYjZmNdV9aPXCrhB0WbxkdM7YWZwiLfeFlnPUWwVUPE8UXtIOU89TL0UdRmE9wBL4FlAeWlWA48Z2Ad6AZkY0s0PlW+a0r9UxHyp6A/aR64vp5W5QDY5KL52MG387pd9gbHB/EfwuV8bNmq00xfdGysf1IokxV+44y6IOZXWlIdP6+VP+JE8ZGUwpfNGPicRhfXjZyhhKFd8LULiZQU2H7sPG13cYlLh6KQi2TFbh14T++1D252QH9nOjWQowdMES+khSNK7PwaWu0JkJ6n9at7T0D3eT3L5q96OABvxwOiaG95zS8y5aY5Z6iBs4IzoREhcGUcQ7lgKK+VqFu7crNLLVZekw7uZ/kCFkw7njyH0t0Nl+pw6tIVthdSm6GGEDelFc/x0AcCZ75tKomLc1l5nly+lBqjuhr7N4Vgg0NdJAxNtTgYpidQUEc4
+X-MS-Exchange-AntiSpam-MessageData-0: sI+OCijJKI9FmazEseHYdaHbX6AqOh4d/73kY/Qug22ZHb13BPD1HcwVEhRo/t45QjIgVSZ3upugkb6DSvnda9IvtrgmW+7iCS8H/56C7TJp9mPrpiraQ2/ypV8e8u4pGhQIB8STfloKf2/32h18LWhe5mmjySouNKHrIdFJ9wkT0qPHe1ZW3M32mJR4aPx+eiO38qx9an5hQHP180SwqldXxw/eYoYXHSs4OYgfP6SAzrovqJu8OS3EpGgWKvLNfnFFgirv9ndtPoVWf3B0RZhBoi756KtQQ2lOenDV5esP3ZSTrTb1J8rSDKRsmLR8RWcZSfsqrXg3c7j7Supjf6QLZYFamlUnmDHElL6nuYgM4KkSG36jCotpvy3cK1S6a5+Ct0Oe4bwW9yJBuWO3WH1LZ8pUDQBJOVxrSJdvoWCP3vZtfCgynSCEJwbRl6a+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 09:27:15.6977 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0969350-0c3f-4b0d-237b-08dec864cad3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 10:01:17.7429 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bdbc195-1cc9-438f-d247-08dec8698beb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6193.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB73.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5961
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7711
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,115 +108,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For Renior APU with gfx9, in some test scenarios with disabling
-ring_reset, like accessing an unmapped invalid address, it can
-trigger a gpu job timeout event, then driver uses Mode2 reset
-to reset GPU, but after Mode2 compute Ring test and IB test fail
-randomly. It because the HQDs of MECs are always active before or
-after Mode2, that causes MECs use stale HQDs when MECs are unhalted
-before driver restore MQDs, and causes CPC and CPF are still stuck
-after Mode2, then causes compute Ring and IB tests fail.
+amdgpu_ring_set_fence_errors_and_reemit() unconditionally dereferenced
+guilty_fence when ring_backup_entries_to_copy is zero, which can happen
+when queue reset runs without a tracked guilty fence.
 
-So, add sequences to deactivate HQDs of MECs in suspend IP function
-of the resetting process.
+Pass NULL safely to amdgpu_fence_driver_force_completion() when no
+guilty fence is available, avoiding a NULL pointer dereference while
+keeping reset/recovery flow unchanged.
 
-v2: Move all sequences into a new function gfx_v9_0_cp_mode2_clear_state (Ray Huang)
-    To check reset Mode2 method in the if condition (Ray Huang)
-v3: Move all sequences before Mode2 instead of after Mode2 (Timur Kristóf)
-
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
-v2->v3 changes:
-* Move all sequencess before Mode2 instead of after Mode2, and add a new
-  function gfx_v9_0_deactivate_kcq_hqd to do the disable compute HQDs
-  sequences.
-  Then the resetting CPC and CPF are not needed since we have already
-  move all sequences before Mode2 and they are not stuck
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-v1->v2 changes:
-* Move my sequences into a new function gfx_v9_0_cp_mode2_clear_state
-* Add reset Mode2 method check to the if condition that call my sequences
-
-v1:
-Hi all,
-
-My board is Renior APU with gfx9, smu12. I run a testcase that
-accesses an invalid address to trigger a amdgpu_job_timedout()
-with disabling ring_reset, so that driver will call mode2 reset
-directly. After mode2 reset I found compute Ring tests and compute
-IB tests fail randomly on random compute ring.
-
-We checked the scan dump of GPU, we can see the CPC and CPF are
-still stuck, that caused Compute Ring tests fail.
-
-I added printings in driver codes (gfx_v9_0_cp_resume), and found
-the HQDs of MECs are still active, that may cause MECs use stale
-HQDs when MECs are unhalted before mapping compute queues (restoring
-MQDs to HQDs).
-
-So, I send this patch to fix above problems.
-There are two main changes of my patch:
-One is to reset CPC and CPF before resuming KCQ.
-Another is to disable HQDs beofre unhalting MECs.
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 37 +++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 90bbddb45730..0c01701488e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4071,6 +4071,39 @@ static int gfx_v9_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	return r;
- }
- 
-+static void gfx_v9_0_deactivate_kcq_hqd(struct amdgpu_device *adev)
-+{
-+	for (int i = 0; i < adev->gfx.num_compute_rings; i++) {
-+		u32 tmp;
-+		struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
-+
-+		mutex_lock(&adev->srbm_mutex);
-+		soc15_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0, 0);
-+		tmp = RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE);
-+		/* disable the queue if it's active */
-+		if (tmp & CP_HQD_ACTIVE__ACTIVE_MASK) {
-+			int j;
-+
-+			WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);
-+			for (j = 0; j < adev->usec_timeout; j++) {
-+				tmp = RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE);
-+				if (!(tmp & CP_HQD_ACTIVE__ACTIVE_MASK))
-+					break;
-+				udelay(1);
-+			}
-+			if (j == AMDGPU_MAX_USEC_TIMEOUT) {
-+				DRM_DEBUG("comp_%u_%u_%u dequeue request failed.\n",
-+							ring->me, ring->pipe, ring->queue);
-+				/* Manual disable if dequeue request times out */
-+				WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, 0);
-+			}
-+			WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 0);
-+		}
-+		soc15_grbm_select(adev, 0, 0, 0, 0, 0);
-+		mutex_unlock(&adev->srbm_mutex);
-+	}
-+}
-+
- static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -4095,6 +4128,10 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
- 		return 0;
- 	}
- 
-+	if ((adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev) &&
-+		amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_MODE2)
-+		gfx_v9_0_deactivate_kcq_hqd(adev);
-+
- 	/* Use deinitialize sequence from CAIL when unbinding device from driver,
- 	 * otherwise KIQ is hanging when binding back
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 3043ad041bb4..ff1a82a4cdac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -733,7 +733,8 @@ void amdgpu_ring_set_fence_errors_and_reemit(struct amdgpu_ring *ring,
+ 	 * we are skipping it on purpose.
  	 */
+ 	if (!ring->ring_backup_entries_to_copy) {
+-		amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
++		amdgpu_fence_driver_force_completion(ring,
++			guilty_fence ? &guilty_fence->base : NULL);
+ 		return;
+ 	}
+ 	ring->reemit = true;
 -- 
-2.39.5
+2.49.0
 
