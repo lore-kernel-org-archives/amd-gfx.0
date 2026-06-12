@@ -4,159 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4469ECD8CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDAACD8CA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 14:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFF1910F53C;
-	Fri, 12 Jun 2026 13:56:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C47110EA15;
+	Fri, 12 Jun 2026 14:10:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IlgLuP5e";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EbdrtNtF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="am5zcz/L";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94FE010EA54
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:25 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65CCj6Vp2160816
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=lj9iP4K0GcPnNCW95XMo8tVN
- jOPr4RfYCBOREwlPyGg=; b=IlgLuP5epKG7Z5khBWGVWey9TcvkzndL34gn+BRL
- wbvqAp7hbNbX81s1YbPiX7vmpFIfJH+h7VAPVJq4p8ifKI3T5XT8RBMqYSMstXHS
- ZChjsp16KOYilHe2GvI93MdroXzY/O0MsPLRyw1uUu8BkyiSBOubv5PValHc2rCu
- aD30yxKF5QIbdvvvpgXVXFGP+Kb6MblChW4vCdglMMF8cogrY5+BgQ+BHTAvedsI
- e+QC6dyVvfIPdXUD0PWalBxRuJ1SMovpDQW7z3K5saTUUgq4JePSDhT1ohia1Dtx
- SQm2OOijXfcwoGbdikDVHlcXCHeKI1orwQMKGk7bPczKBQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er014m1ae-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:24 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-915b6b63056so213077885a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:56:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781272584; x=1781877384;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=lj9iP4K0GcPnNCW95XMo8tVNjOPr4RfYCBOREwlPyGg=;
- b=EbdrtNtFm0TsMcLV2uvuNYaUj8YKbJboAI68HhqQqb3RJytJxbFJoq/WLAM5KLtVGe
- ExQ4hXcXrczvLl1Bn646fdSkbKkBAVfeaULSad+R/Gr4e+AKvEKGuCc/6bkSUWxZVjZG
- Zv1e8tAV27CemYEZXR0LXWQGcPBkGhLm5Yv+OJ/dZ0yZxpeMjoTD5o0RcOZErr0mylJp
- qmsPhsC4hmOxusXOtWsoVtWJb/FJdaCSglOailYzK+yTbYVHTZVGuPLUH8iaeWL0AcIb
- z1awzj7mK5lkRpkULM2z7BuayMT/hIp8lS5G/MuNX3Og9a0qO6yvuFzmzAT47OdhuqCW
- TYjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781272584; x=1781877384;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lj9iP4K0GcPnNCW95XMo8tVNjOPr4RfYCBOREwlPyGg=;
- b=lTmhDbcwA+bZB2nk4EIE+fNtab4OMHv4xqX4MZXo2dnzmtYX9qUSkJJyJdYFjUp6mT
- 0C3KtSKId9pyWk2AlKGIvBWI1S1lN9bFsu8c2X9AXExPSOvKfps951jHBGaLkr163IRD
- z4O5+lcCN+LaJRShgaTi1TOrzjWbdIG1GYz17PHj6EAXP95Ng4lg+GiHE5Bib9VyP1kf
- p7boCjiSRfP3IEPThqov5dv3uQA0rwgiArb/DoHCj2aYj9uUybl6OdjWY0/DAbTUkCla
- o61SSNak1vCGG1E62csfPHEtXKiCSyG62W9gXak0XP+DvgKJXsvT7+nE/xpO2HhzvkOp
- QZpg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+65nwl8+wzIGf3HNmFgAXeJ4geVwkGPCh2GF6kIPYd/wd4Ns0H5DU0uvOu+RnXEfzTuONtElVw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx54fNum3FSnq5Tu0m4TlVZcNg8/wHRF5mYM/CedjcZEc+Ubp1z
- HMrGaiyzxiFOwrfZzmk2wU8HrlE5eSYPL8ISGJOgomxC7+CTh4fM/aAtKzuXjplCu7RIcAozehh
- LbuHZM2bsr06RwDKT8xOB2GxYWtuv6AEE/GUXZb6qYjDza9T/vqAffYq8VbCoQV4bQD8W
-X-Gm-Gg: Acq92OFJpCk1x6cEpJ1MUFK2r/SMc2C5zyi7vIm15F6YYW8CpHfOj/MmPcBybF5rJ0p
- cGhvCzuY/CKhMOiWsIb0ms4scoEkhBfEPbScy7h/wuvnlatZLAPLIDEb+9E6pIhdiKFE10sDxN0
- BnlxUlnI/QRperm1cMtMsT9q+pjt0MngPG6LXlM9pCpj6bqI8BkvC5bHKFtMf3vu1afnEsQJio1
- ENLrfC0E15vlWmrnMeZpcdilZCSGLZhWxRqSGB1IBmF97ZU/MDPcMx1ntpyHmuw3eai9zPW4RUo
- Syz/Ts8YyzHS8eu63XXYOcKukbZE5MJ9T98wtwr+NU6eZpMN4K/Cr1jx/FT48cFR79jNnSrwIbe
- 51nEzi2vcCATCpr1G0px+EXiPRT2vY972MYf19RAsrjt5zjHGxiBLi1BEnYsF/zL6oPMThvyBZZ
- +nHtujEr8B6Ud3+mxcNdzJcz0RBkKOSiiHih8=
-X-Received: by 2002:a05:620a:2411:10b0:915:75ba:179e with SMTP id
- af79cd13be357-9161bc9f023mr286844185a.30.1781272583857; 
- Fri, 12 Jun 2026 06:56:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:2411:10b0:915:75ba:179e with SMTP id
- af79cd13be357-9161bc9f023mr286837985a.30.1781272583368; 
- Fri, 12 Jun 2026 06:56:23 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ad2e1b4869sm563523e87.75.2026.06.12.06.56.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 06:56:22 -0700 (PDT)
-Date: Fri, 12 Jun 2026 16:56:19 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Alex Hung <alex.hung@amd.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 2/8] drm/amd/display: use
- drmm_writeback_connector_init()
-Message-ID: <kkfb5lvudgo3curnoakp3qre7pofaobaxynz7qhrn6jy2ll55f@clhfe664z5ci>
-References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
- <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
- <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013022.outbound.protection.outlook.com
+ [40.93.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAAA710EA15
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 14:10:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y+LdERQP8txiwElNkyGZ5uEmmX299EXLmnbyobPotU8iarVR8vwHRjFy3R4cVKn+Q1cbaSkNvdSVKz/PdoQGcrCZzD+C6h1Sxr/hGyMjAWUFZwmg+2yaWSNe8LsDyHp4y0Ru3FeRzH5q4WwmhGLywt41+K1JMBHQsTByp+RMABDfYTf3LwOIoDJNoEvhfwe6VmfPdtvTbazuMWtH95FM+25SVOyyvO2GxqILBe0UrEnT/qmpKgtaYcuuHDbz2vnl4Zb2F8a12gbXZSYgh5Oaz95hSGo3US1oirt9wInkigzm159gLJiAOoFdmS1ubhiuKBpcCRWe4EA2V7cqx4Z3Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DSrVJtg94IPOfwrLC/1sN+3tJ2lQDRNsEyVyGIZWN/M=;
+ b=ue2XAzThxDlbxgmuZUglnGjl4wRhS/WxBJLxwaQFOZpyM8QbneBC68z84fliT8e2daXfSm9JLE7vzmgQNUcWx+Gx9Rm+6IA+alTM0GgeT7JQtNG6oza761ItfG+TESNX0AtAH4Bb3SbW4CBILy81w4e3CtnAlfSiV1gbpzpZf7WBM6iz+ghTxbwQt8cyDNZR+id49thbFlUe6xPmABzOC6jffpIDZ59n5oN+YxAs846X2pel8p9or+K72rDEbXi33HqCBn07FtViMsx0K/xgcUZAURSJ/mARJfFmkYXMgg8x1ZfcZg+0z6ZOkNmhKz9Zw1MFidRjCnl5asJ8onMM6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DSrVJtg94IPOfwrLC/1sN+3tJ2lQDRNsEyVyGIZWN/M=;
+ b=am5zcz/LtblOVrCO2aWEVAvvhFEV+3t/IPcwpvccbyGZl/mhJf/szTZLpMxMKd1es1icGWlhb7lxba+nZtEjgEu4RSwTbqQF614SqnFksmAB2sU6vzu8JUQespo7fJrEvuTLlmkMZ3ihQV3Rk/CGT/yw268OkZjoe3guXZ+egFE=
+Received: from MW4P222CA0018.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::23)
+ by DS0PR12MB999080.namprd12.prod.outlook.com (2603:10b6:8:2fe::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
+ 2026 14:10:29 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:303:114:cafe::17) by MW4P222CA0018.outlook.office365.com
+ (2603:10b6:303:114::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Fri,
+ 12 Jun 2026 14:10:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Fri, 12 Jun 2026 14:10:28 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
+ 2026 09:10:28 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 12 Jun
+ 2026 09:10:27 -0500
+Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 12 Jun 2026 09:10:27 -0500
+From: <IVAN.LIPSKI@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, James Lin <PingLei.Lin@amd.com>
+Subject: [PATCH] drm/amd/display: Add IN_FORMATS_ASYNC support for planes
+Date: Fri, 12 Jun 2026 10:10:25 -0400
+Message-ID: <20260612141025.3049776-1-IVAN.LIPSKI@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
-X-Proofpoint-GUID: JWzCLiNdSqoQepSSOL4g--PyFERBy8qc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDEyNyBTYWx0ZWRfX/C0/aQbirlZB
- 4qV/RYQab9P8yNcQo5PSt5zQs7js3+XdJXhzbXxIkkkJR/Whj+c3sis6s4cuM+SkNdeM0O4/Lyg
- pkN4S+LsgLReUQwQceysT9DX51euJvM=
-X-Authority-Analysis: v=2.4 cv=Qp9uG1yd c=1 sm=1 tr=0 ts=6a2c1009 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=P-IC7800AAAA:8
- a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=t-2y4xJzw7g1bk7x_BQA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDEyNyBTYWx0ZWRfX66AKZzbnHdXl
- l+UGF/I0nCVSIhmowtYPOT2XJEgz44ETH6O7VKbcwwemlPTHvnh861EPrNBU343oVCFdxOkU0j/
- 6guZaJ5A8EiYThLErxwhHBAySbsOI1Aw78GgPO32CqTUhfowmUBlUEbBAwXau4JhcoePaQB1DcI
- QJDAEGXgcpWvPF9V+B3K7MkvfO+TEC/7fdSeO2IqxFHZjOMW/Qj4cklC3ciCjKuq1X54mBoFKjs
- TumurpLq6MohQlOwlUBCvi/zXgTwiSMWLqsSLuOwjZcGPoqWRsFmguleNrwQpiTmr+M/ufyc6np
- zta0wVcXeU9Gp7M58UBC0WCQikZ6IgRBiTMFCaKFwCXBUxnqvd0qra6m3ZHR9jTdSX/euezv6Cu
- dqaoUtt5/PuLB6TtYnFoNDBJW8vJrju1/Dt2Njbz8XIgsMgb4sBbSP0neuHnsSp6N/YH9hw8wVa
- Q0kAUI7t8X2q6XOkf6A==
-X-Proofpoint-ORIG-GUID: JWzCLiNdSqoQepSSOL4g--PyFERBy8qc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606120127
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|DS0PR12MB999080:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad6456de-1fdb-49c5-5b42-08dec88c5b8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|6133799003|18002099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: zN4GycfojbwcXorlWfjioqM7m8ok/X3kQGZ8WLdlgFPl0AoM4DDkUGiWoW7KDn4bzhVl8itvC3YjJr3v36m9Gm2PVO23K134Yyy2L0ZQYg/+PLsviQCcWdsUm7DVnhmSyVY6DoqZYcGdhEsmRdvCIDN7DtXMFjIPBfdDjG8EKagv3UJS2YRsq0xalMhX+KLPIyCjfXz3SAf+pqoxIOKMak4FzWdF76xVHmQJ0NcE7qJvKiNA6uvwB6ubrpcpqs5SnvN8kEhSe3OX4d2KyOYajxl35Y8JdHmcmoNqc2VxP+cLIR36CvKfAdWWfdUR0BDDc/08Edq8kbU0uI+U2DAGvMMbLm7p3bnOAy5zJlCJ5B+21zZggR0W9WZPA6Phogr0Z3tNxL7c7c/CD3SVEywCwXiTcxvBMCj+stsQ1yxuTktVx/mItjAo9OOuRRYtg/EUD6wPZXR2Vgq/5RaK+X9DQh8jyfAV4SyiUuTi7eKXEUsmMP+OJZyTIxYNvNVsmQClEDnoxfaXj/doHMjSBskoxgYM5i4pzIXDY14gnjmw7Da982ta72R31XJWmHb01/JC9W39GdQefp61mBbgJjIhDtXDL2MTRsmA+W62bfqwuDxoITZybtfJyxP4MSgVqCXfuevJdHkh3VL1CU6HWVV3rZj17g13EAwUT1eO1EBpjOLYWpp9JVF3ENB07KqC+oOPvlVt4IbXO6UUgTusgVD11clnewehNlepGPZmBnlugkg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(6133799003)(18002099003)(3023799007)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: pSwIluCf6UPN8qZm9oUdDlPaFNe8Ug7ZtZGfx1dnW1eGaUvUHFj+bH4cHirp+YK1MkTGSCEmSaTB41ZZ4g9WhtqNbwefiNxRijPqtxfKNHX0jaxyUWqjShSn0qO/g+Dmjk1nzSg1PUzuxDEgwE2Mly3GFszk3MTaiLzDXLk19PS0PIHp4VBQf0rZdNTPTPwwNHEX3XLiqHQygxaIDIReRMjKyOVj6BFpRl0yXazk9bk8GSu2XMHLDA3yXtaYUuwNrAq4CKzYJCONhhyJuPo8WDixHi+en6g4GYV7X7Jf0fSThQ56wgAt+vVHGYsCbqAF7H6bb0QfLSfKtmB4jNDhEdndKtPKZIZVGfdqLaeXHK8wYsgtByLgZKdO3WnvG8cwND8lGhWR7cGcci5TWtBIzky4k31qbuDoeJfLtrZ4wixNGbS5K6ACR7p0ehjTAQA9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 14:10:28.8606 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad6456de-1fdb-49c5-5b42-08dec88c5b8a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999080
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,56 +114,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 26, 2026 at 12:46:30PM -0600, Alex Hung wrote:
-> Will allocating wbcon with drmm_kzalloc before calling
-> amdgpu_dm_wb_connector_init be more memory-safe as below?
+From: Ivan Lipski <ivan.lipski@amd.com>
 
-Sorry, it took me a while. Yes, it seems to be a correct idea. I'll
-implement it slightly differently.
+[Why]
+The DRM core exposes an IN_FORMATS_ASYNC plane property describing the
+set of format/modifier pairs that are valid for asynchronous (immediate)
+page flips. amdgpu already advertises async page flip support via
+mode_config.async_page_flip = true, but never implemented the
+.format_mod_supported_async plane callback, so the IN_FORMATS_ASYNC
+property was not created.
 
-> 
-> 
-> @@ -5790,7 +5791,8 @@ static int amdgpu_dm_initialize_drm_device(struct
-> amdgpu_device *adev)
->  		link = dc_get_link_at_index(dm->dc, i);
-> 
->  		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
-> -			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
-> +			struct amdgpu_dm_wb_connector *wbcon =
-> +				drmm_kzalloc(adev_to_drm(adev), sizeof(*wbcon), GFP_KERNEL);
-> 
->  			if (!wbcon) {
->  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback
-> connector\n");
-> @@ -5799,7 +5801,6 @@ static int amdgpu_dm_initialize_drm_device(struct
-> amdgpu_device *adev)
-> 
->  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
->  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback
-> connector\n");
-> -				kfree(wbcon);
->  				continue;
->  			}
-> 
-> On 5/4/26 18:24, Dmitry Baryshkov wrote:
-> > The driver uses drm_writeback_connector_init() instead of its drmm
-> > counterpart, but it doesn't perform the job queue cleanup (neither
-> > manually nor by calling drm_writeback_connector_cleanup()). On the
-> > contrary, the drmm_writeback_connector_init() function ensures the
-> > proper cleanup of the job queue.
-> > 
-> > Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> > drmm_writeback_connector_init() in order to initialize writeback
-> > connector instance.
-> > 
-> > Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> > Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
-> >   2 files changed, 14 insertions(+), 6 deletions(-)
+This inconsistency (advertising async flips while exposing IN_FORMATS but
+no IN_FORMATS_ASYNC) causes userspace, such as igt-gpu-tools, to emit a
+repeated warning during plane initialization, which in turn demotes many
+otherwise passing KMS subtests to a WARN result.
 
+[How]
+Wire up .format_mod_supported_async to the existing
+amdgpu_dm_plane_format_mod_supported callback so the async format list is
+populated. amdgpu does not restrict async flips at the format/modifier
+level: the async flip constraints are enforced at atomic check and commit
+time and only require a fast update (no change to FB pitch, DCC state,
+rotation or memory type) between the old and new buffers. Therefore the
+set of formats/modifiers valid for async flips is identical to the
+regular IN_FORMATS set, and the same callback can be reused.
+
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: James Lin <PingLei.Lin@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 23a9faa2ea89..b122bdd3ea6a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1859,6 +1859,7 @@ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.atomic_duplicate_state = amdgpu_dm_plane_drm_plane_duplicate_state,
+ 	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
+ 	.format_mod_supported = amdgpu_dm_plane_format_mod_supported,
++	.format_mod_supported_async = amdgpu_dm_plane_format_mod_supported,
+ #ifdef AMD_PRIVATE_COLOR
+ 	.atomic_set_property = dm_atomic_plane_set_property,
+ 	.atomic_get_property = dm_atomic_plane_get_property,
 -- 
-With best wishes
-Dmitry
+2.43.0
+
