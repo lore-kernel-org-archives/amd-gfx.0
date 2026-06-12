@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3840CD8CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 06:13:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBCACD98CE
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 06:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9705010F25C;
-	Fri, 12 Jun 2026 06:13:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD99410F26A;
+	Fri, 12 Jun 2026 06:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iRgpm88V";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HPgNyCc8";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C2910F25C
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:12:59 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-490b12270b3so3109145e9.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 23:12:59 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A706E10F26A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 06:13:05 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-490b915ded5so4710035e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 23:13:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781244778; x=1781849578; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781244784; x=1781849584; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OaWvmKmPSHAFcJiVhL7ND9FjnEUCmZcGgWc1yvYx4rw=;
- b=iRgpm88VWP81dM6gRAO6Afix8W5mQhLGUZV5ak9oZ94VbumGrfdYaAs0gnoaDGWLvD
- GlaqVupHSk6A6DJP2diC1x6ItnE13VTlcCL77XTQa8z1TvEwXu8bhYgQPgDd+qODi5YP
- CRpn5dbd+kFeJizuQ3IxH4eMrqE8t7IjTXXK+POkfIJTa/LnUD/PYpQUOltIXEpSNmT5
- qjqCWKz18lpj9XTrCvCJOvOaBMIqugTvE2gMFzpTcquIwIQXBeYxDYpfX6iACdaZZCBl
- Rb2A01stAWgRTrdv+VeMvdsyHoG15pKAw1uNCzXj3RxDx50HsCzRxAu8OzXRUskP8vMN
- A0qQ==
+ bh=6uekIXxGYkdBnXHeisqWDfwfiR9h2WjXl4zHuu+8QjU=;
+ b=HPgNyCc84bgAJqGhKmAQY3p6EzXuiptJpJRoeufRXlllXNEBTyCg4w5iM/tw7Q3dWF
+ d3JaqPohZgt9Z35a/oSOAZRcos0uNNNlAbKgBULVN+Ci6LukLuleEEmQXOZMSlTBR2It
+ 6gvRgYh7RhWegPvS/FSvRLFkQAKK3JlVj3dxoiJ1yAyk8E3O63NS9yVc3mOwW4rhSJAN
+ ggBWxyGUi2e+9XoeI7KPmeLYAaga5gT5y7vZ1shhDU6oGd8k5C9URXjXVdYOCMcRPbNF
+ TSTZ0hyQSbrZG7A+jZhhUYJvRNKCPbyQXagFk265PHpXdrILzn01l4IAWUDYn3Bkz1us
+ u+lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781244778; x=1781849578;
+ d=1e100.net; s=20251104; t=1781244784; x=1781849584;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=OaWvmKmPSHAFcJiVhL7ND9FjnEUCmZcGgWc1yvYx4rw=;
- b=JUudZEQClc3Tq+E4R1yFfTBbQGk4nmlIIKYtZbS4qFWMC9I8bGZe9C3kDjm0RH3CoN
- c4OUqfHvq32WLGw7u3jL7yLA3MzVhqN/Aq2uZNdUgIPfs/lPpe68KFuPi1Xa12xgQWhk
- AuSRxlIKkqu2nOnK1xQnFlc62LTY67vNo8FV1VcML5KJybRd08Ao3WLo9gHqo+hfJ+5H
- D4GCW+2kkOi8jptSbyHcjuAElwc6228hZQbiAiPC4U7swHpCE6Bs+N7shQ02l2145319
- /izCR09hjI2MkdxhwGLmXtOf8wDH3KRkaejGS22fyyNcBXzlVJRFt65nws5QQ5GRtMON
- N0VQ==
-X-Gm-Message-State: AOJu0YwJaySOaHWNW6Hf4qp2WCqH1jtZ3RYEGZZ0czhzLoHHljJvXFZG
- 3dbKyu1Y0WHkA8o5Ua6Y9J+lc2IhJNBNNUk7OZARxUUrFgfLOprZq+35
-X-Gm-Gg: Acq92OEV3rF5gL8yF23jHNlaz0aKn1oSGrzSyuVE/sf2+vwFlTpzg2xhs9WNkOQn+0d
- vM5UHW36vgcJL7Ye/GzabpzAphUbUh0MG4ICkqdnfvwfOp6c6WIKwlkbaFwJtFElu/H26skSgIt
- M0nBpULGWV/SvpqEBt6TMkvK3r4cSB0qeg1sqL+dPq34BMyolO9g6M1JT12fdKiavoAn7zJ9r4Z
- TmbdRdcR0ZoNa6ohf/U1+Pa9HGHylXNoQiX3z4wDebE+Vxsngi19lJMR5cyQ3EqmweLUrWi256I
- Jc9nxHixUt1vvzXHNZp/9EjqBJQUbNidF29mf57PAeiU7SJIfjHzxYWQAxW8YJsixfPDn6Vbf7V
- I4l8DhoT6ZaYB1fKwlJN8LHLUYywfMuxZgXoVeynDovTS8AGu7oexxQlACm5K6fH4xRofrzY1EE
- 9SxAd+WDbCWCVmBwVqqPZM8QjsFs61yuZX/+tDQflHyTGpoJwuUVu7qFNgzH/xRBf9xmDS9l5uA
- r7hv1oMA1ud+BjL4T5BWxPY83odWw==
-X-Received: by 2002:a05:600d:8443:20b0:490:601f:d776 with SMTP id
- 5b1f17b1804b1-490ec4c5bc4mr8896845e9.3.1781244777787; 
- Thu, 11 Jun 2026 23:12:57 -0700 (PDT)
+ bh=6uekIXxGYkdBnXHeisqWDfwfiR9h2WjXl4zHuu+8QjU=;
+ b=lURejfkBstgM7zlxWJqsAdlT8MCJvtzRB3Umutfc6O5Omw1y1O51gcCeFGlT2sysl6
+ WZDeNva0PTChql16CqVcO9CBMFIBS7rMCZ9WQI7wlm8atvEJgOm9tIGx5zKPc3c6wfIG
+ LithdY7o0Dy+DVDWHRUpxbeDyGAX+kuZlAVW6Uf1F5Q2dhdPP/AZcmg1+7Y0QXJLNDZe
+ LT3gfcW8bThKm5pSGoGXp8HeiPPk16KstkXZSzmP8L6S/KdQyvTTVo6AkTxwcc2tbpPK
+ LLYP8AZqcX/9AyJ2GMVNVwgi22nxxVaJoKZXxRkD7Bw0TgigWlhXPgABs56VImYfQWOY
+ Ukeg==
+X-Gm-Message-State: AOJu0YxOlfK+ZAs7k6KXuIp+6O3+FCPhZjGA+jy7JMlqt6Hyf91yIU/Z
+ btQ0pDlvZKM8iIomoFUYbA1yZjICAZeAsd2s5iacZsFrCNpbUeH93Hbz
+X-Gm-Gg: Acq92OHtt72PSGwnlmcYrs1BdMyTkMQoyXcrs2FgwHBtukUjrxXERYj3E8gWvxVMHe2
+ sb84IuS6pbgCoj1/1KHAwdmHNDnh8q5NLwHkCUOmcr5jm9MI0vzki9M6cBYGu8kIrFv1sfAx8gW
+ f1O0aKNjplE9B922TYcPXZe9GZyvBo6VQSp/lYzFb5TXRsaLrGrAsdc0ujoTBYHIHn+XITrTr1p
+ kgdKqZ8+ZbSsmeEH6OsU/pF6ByHb8xl9wbzvA5KupjVVswYnSvT/opZD7bv4+vkxv472nxy/PRD
+ AdiEOtxMiByLIQg6Am67PH1rScmd7n3dRbKb1TDTeaUOPvcz2QLpjkNwaLw6F1QH/zsrv/w7Vfd
+ VKpl6EU7B5AYK5r8padi1/pOWtVr7Fw9O5NajrBTYgLySlFFrQa/sgk2sJgAfxh8CKVc2Mkbny6
+ BEMOopDM1oUD1Z1DwWhynJWWIbejHCKqvI/t1GC46FzSjMMcy/fieATq/M+NwYu7s6sc2BNX5lz
+ 0kf9xPM0AEg+GIlBfPgz9RY+29rOQ==
+X-Received: by 2002:a05:600c:1d15:b0:490:a2fd:e1e5 with SMTP id
+ 5b1f17b1804b1-490ec504c92mr12887945e9.17.1781244784018; 
+ Thu, 11 Jun 2026 23:13:04 -0700 (PDT)
 Received: from timur-max.localnet
  (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
  [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f263923sm2757414f8f.2.2026.06.11.23.12.56
+ 5b1f17b1804b1-490e2ca1a43sm128071305e9.8.2026.06.11.23.13.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 23:12:57 -0700 (PDT)
+ Thu, 11 Jun 2026 23:13:03 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: natalie.vock@gmx.de, honghuan@amd.com, Alexander.Deucher@amd.com,
  Felix.Kuehling@amd.com, Philip.Yang@amd.com, christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 01/13] drm/amdgpu: move suballoc defines into own header
-Date: Fri, 12 Jun 2026 08:12:56 +0200
-Message-ID: <4884437.vXUDI8C0e8@timur-max>
-In-Reply-To: <20260529114031.3714-2-christian.koenig@amd.com>
+Subject: Re: [PATCH 02/13] drm/amdgpu: give different sizes for each SA pool
+ type
+Date: Fri, 12 Jun 2026 08:13:02 +0200
+Message-ID: <2796234.vuYhMxLoTh@timur-max>
+In-Reply-To: <20260529114031.3714-3-christian.koenig@amd.com>
 References: <20260529114031.3714-1-christian.koenig@amd.com>
- <20260529114031.3714-2-christian.koenig@amd.com>
+ <20260529114031.3714-3-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -90,224 +91,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. m=C3=A1jus 29., p=C3=A9ntek 13:24:03 k=C3=B6z=C3=A9p-eur=C3=B3pai =
+On 2026. m=C3=A1jus 29., p=C3=A9ntek 13:24:04 k=C3=B6z=C3=A9p-eur=C3=B3pai =
 ny=C3=A1ri id=C5=91 Christian K=C3=B6nig=20
 wrote:
-> Just some code cleanup, while at it remove outdated comment.
+> The IMMEDIATE (page fault) and DIRECT (reset) pool should be used only
+> very rarely and by a single thread.
 >=20
-> No functional change.
+> Saves roughly 1.25MiB of memory and GART space for each amdgpu device.
 >=20
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 8 +++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 2 --
+>  2 files changed, 7 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c index f1ed4a436f5b..334f95f8f339
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -351,14 +351,20 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring,
+> unsigned int num_ibs, */
+>  int amdgpu_ib_pool_init(struct amdgpu_device *adev)
+>  {
+> +	const int sizes[AMDGPU_IB_POOL_MAX] =3D {
+> +		[AMDGPU_IB_POOL_DELAYED] =3D SZ_1M,
+> +		[AMDGPU_IB_POOL_IMMEDIATE] =3D SZ_128K,
+> +		[AMDGPU_IB_POOL_DIRECT] =3D SZ_512K
+> +	};
+>  	int r, i;
+>=20
+>  	if (adev->ib_pool_ready)
+>  		return 0;
+>=20
+> +
 
-Looks good, makes good sense.
+There is a spurious newline here.
 
+Otherwise the patch makes good sense.
 Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 32 +--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 40 -----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h     | 77 ++++++++++++++++++++++
->  3 files changed, 78 insertions(+), 71 deletions(-)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h index 5d7bfa59424a..4b6c9d9e6773
+>  	for (i =3D 0; i < AMDGPU_IB_POOL_MAX; i++) {
+>  		r =3D amdgpu_sa_bo_manager_init(adev, &adev->ib_pools[i],
+> -					     =20
+AMDGPU_IB_POOL_SIZE, 256,
+> +					      sizes[i], 256,
+>  					     =20
+AMDGPU_GEM_DOMAIN_GTT);
+>  		if (r)
+>  			goto error;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h index 8f28b3bd7010..1a063a0a42=
+80
 > 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -112,6 +112,7 @@
->  #include "amdgpu_userq.h"
->  #include "amdgpu_eviction_fence.h"
->  #include "amdgpu_ip.h"
-> +#include "amdgpu_sa.h"
->  #if defined(CONFIG_DRM_AMD_ISP)
->  #include "amdgpu_isp.h"
->  #endif
-> @@ -386,37 +387,6 @@ struct amdgpu_clock {
->  	uint32_t max_pixel_clock;
->  };
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -68,8 +68,6 @@ enum amdgpu_ring_priority_level {
 >=20
-> -/* sub-allocation manager, it has to be protected by another lock.
-> - * By conception this is an helper for other part of the driver
-> - * like the indirect buffer or semaphore, which both have their
-> - * locking.
-> - *
-> - * Principe is simple, we keep a list of sub allocation in offset
-> - * order (first entry has offset =3D=3D 0, last entry has the highest
-> - * offset).
-> - *
-> - * When allocating new object we first check if there is room at
-> - * the end total_size - (last_object_offset + last_object_size) >=3D
-> - * alloc_size. If so we allocate new object there.
-> - *
-> - * When there is not enough room at the end, we start waiting for
-> - * each sub object until we reach object_offset+object_size >=3D
-> - * alloc_size, this object then become the sub object we return.
-> - *
-> - * Alignment can't be bigger than page size.
-> - *
-> - * Hole are not considered for allocation to keep things simple.
-> - * Assumption is that there won't be hole (all object on same
-> - * alignment).
-> - */
-> -
-> -struct amdgpu_sa_manager {
-> -	struct drm_suballoc_manager	base;
-> -	struct amdgpu_bo		*bo;
-> -	uint64_t			gpu_addr;
-> -	void				*cpu_ptr;
-> -};
-> -
->  /*
->   * IRQS.
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h index
-> 4d68732d6223..ff11a0903499 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -312,46 +312,6 @@ uint32_t amdgpu_bo_mem_stats_placement(struct amdgpu=
-_bo
-> *bo); uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
-> uint32_t domain);
+>  #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
 >=20
-> -/*
-> - * sub allocation
-> - */
-> -static inline struct amdgpu_sa_manager *
-> -to_amdgpu_sa_manager(struct drm_suballoc_manager *manager)
-> -{
-> -	return container_of(manager, struct amdgpu_sa_manager, base);
-> -}
+> -#define AMDGPU_IB_POOL_SIZE	(1024 * 1024)
 > -
-> -static inline uint64_t amdgpu_sa_bo_gpu_addr(struct drm_suballoc *sa_bo)
-> -{
-> -	return to_amdgpu_sa_manager(sa_bo->manager)->gpu_addr +
-> -		drm_suballoc_soffset(sa_bo);
-> -}
-> -
-> -static inline void *amdgpu_sa_bo_cpu_addr(struct drm_suballoc *sa_bo)
-> -{
-> -	return to_amdgpu_sa_manager(sa_bo->manager)->cpu_ptr +
-> -		drm_suballoc_soffset(sa_bo);
-> -}
-> -
-> -int amdgpu_sa_bo_manager_init(struct amdgpu_device *adev,
-> -				     struct amdgpu_sa_manager=20
-*sa_manager,
-> -				     unsigned size, u32 align,=20
-u32 domain);
-> -void amdgpu_sa_bo_manager_fini(struct amdgpu_device *adev,
-> -				      struct amdgpu_sa_manager=20
-*sa_manager);
-> -int amdgpu_sa_bo_manager_start(struct amdgpu_device *adev,
-> -				      struct amdgpu_sa_manager=20
-*sa_manager);
-> -int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
-> -		     struct drm_suballoc **sa_bo,
-> -		     unsigned int size);
-> -void amdgpu_sa_bo_free(struct drm_suballoc **sa_bo,
-> -		       struct dma_fence *fence);
-> -#if defined(CONFIG_DEBUG_FS)
-> -void amdgpu_sa_bo_dump_debug_info(struct amdgpu_sa_manager *sa_manager,
-> -					 struct seq_file *m);
-> -u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *=
-m);
-> -#endif
-> -void amdgpu_debugfs_sa_init(struct amdgpu_device *adev);
-> -
->  bool amdgpu_bo_support_uswc(u64 bo_flags);
->=20
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h new file mode 100644
-> index 000000000000..8c85c80fc119
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.h
-> @@ -0,0 +1,77 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the
-> "Software"), + * to deal in the Software without restriction, including
-> without limitation + * the rights to use, copy, modify, merge, publish,
-> distribute, sublicense, + * and/or sell copies of the Software, and to
-> permit persons to whom the + * Software is furnished to do so, subject to
-> the following conditions: + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed
-> in + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS
-> OR + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY, + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT=
-=2E=20
-> IN NO EVENT SHALL + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR
-> ANY CLAIM, DAMAGES OR + * OTHER LIABILITY, WHETHER IN AN ACTION OF
-> CONTRACT, TORT OR OTHERWISE, + * ARISING FROM, OUT OF OR IN CONNECTION WI=
-TH
-> THE SOFTWARE OR THE USE OR + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef AMDGPU_SA_H_
-> +#define AMDGPU_SA_H_
-> +
-> +#include <drm/drm_suballoc.h>
-> +
-> +struct amdgpu_device;
-> +struct amdgpu_bo;
-> +
-> +struct amdgpu_sa_manager {
-> +	struct drm_suballoc_manager	base;
-> +	struct amdgpu_bo		*bo;
-> +	uint64_t			gpu_addr;
-> +	void				*cpu_ptr;
-> +};
-> +
-> +static inline struct amdgpu_sa_manager *
-> +to_amdgpu_sa_manager(struct drm_suballoc_manager *manager)
-> +{
-> +	return container_of(manager, struct amdgpu_sa_manager, base);
-> +}
-> +
-> +static inline uint64_t amdgpu_sa_bo_gpu_addr(struct drm_suballoc *sa_bo)
-> +{
-> +	return to_amdgpu_sa_manager(sa_bo->manager)->gpu_addr +
-> +		drm_suballoc_soffset(sa_bo);
-> +}
-> +
-> +static inline void *amdgpu_sa_bo_cpu_addr(struct drm_suballoc *sa_bo)
-> +{
-> +	return to_amdgpu_sa_manager(sa_bo->manager)->cpu_ptr +
-> +		drm_suballoc_soffset(sa_bo);
-> +}
-> +
-> +int amdgpu_sa_bo_manager_init(struct amdgpu_device *adev,
-> +			      struct amdgpu_sa_manager *sa_manager,
-> +			      unsigned size, u32 align, u32 domain);
-> +void amdgpu_sa_bo_manager_fini(struct amdgpu_device *adev,
-> +			       struct amdgpu_sa_manager *sa_manager);
-> +int amdgpu_sa_bo_manager_start(struct amdgpu_device *adev,
-> +			       struct amdgpu_sa_manager *sa_manager);
-> +int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
-> +		     struct drm_suballoc **sa_bo,
-> +		     unsigned int size);
-> +void amdgpu_sa_bo_free(struct drm_suballoc **sa_bo,
-> +		       struct dma_fence *fence);
-> +#if defined(CONFIG_DEBUG_FS)
-> +void amdgpu_sa_bo_dump_debug_info(struct amdgpu_sa_manager *sa_manager,
-> +				  struct seq_file *m);
-> +u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *=
-m);
-> +#endif
-> +void amdgpu_debugfs_sa_init(struct amdgpu_device *adev);
-> +
-> +#endif
+>  enum amdgpu_ring_type {
+>  	AMDGPU_RING_TYPE_GFX		=3D AMDGPU_HW_IP_GFX,
+>  	AMDGPU_RING_TYPE_COMPUTE	=3D AMDGPU_HW_IP_COMPUTE,
+
 
 
 
