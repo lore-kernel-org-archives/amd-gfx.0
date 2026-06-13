@@ -4,161 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60BB6CD98D2
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 18:30:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D598CD98CF
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jun 2026 01:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F420710F647;
-	Fri, 12 Jun 2026 18:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08CC010E915;
+	Sat, 13 Jun 2026 01:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kVZGJZ3B";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VGdjlpdd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XpUawxyN";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0D9410F64C
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 18:30:55 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65CGTEd4020308
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 18:30:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NXtGNwSbn+23h3fU54/tQRScTCRPWnaT0vFvr7Sg540=; b=kVZGJZ3B4K+cuLTh
- etACClER7Ykn+bsfS/JR//XpLDhYKlAQx0U7vr3ZodJtVrrOUjyt0r2p0PBNm275
- upsRU/dTJAlN8XvwxOjMs4r3v8iFLni1tY60wQueiS3dj1gaY6fjzWnPJr9kS1yx
- VQ7IJCdEY3P9Ak5VZTznpuvYgrIg0uSJOBvx4dsPqRMckHf/CBIeUN1yF3S0aZ0/
- dTCDt1+NsbNt7qnAC2DiBDPmAx+SQjedamokeR36s+Iznj5XrmZFcGQoRPXs/Nh7
- rTypSTH4AetIJoPDXl+xCvCRhljuMscXrQRWp2591WehC7AsHSBNLZN6xg1AZejZ
- nVY1wQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er2r7429p-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 18:30:54 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-9159bc52211so181450385a.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 11:30:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781289054; x=1781893854;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=NXtGNwSbn+23h3fU54/tQRScTCRPWnaT0vFvr7Sg540=;
- b=VGdjlpddxwdfjxm2GJunOmvPiWUaXDMSa94ust76gE/mNMfuy0QVYCv+5h8U0BYOB+
- Z/+laHR4G4znu3F5Fk3wl+kbn1NPvhWRvOgDr6UNboVRRdXCvQpcgpC2e1b+2TeNz8YA
- 5bO/nYtMJpftnCaea8D87V6yfge8MiXLiiS3PlG7ruWRt0BWGv8efdszKZcXQ9IkqJ/X
- 1WfzUmIVpJ0aqqC+zqRyyQazswMXE9Bp+RSZH4p2HJMQqe0eGxZj23iSsgi/4EhPv3Zb
- RD6HvDxt+ywgKp3NkGEt8I8sR8Ab5HmkqDC347WaiXlK1RTQzk1ZBJ9PafRmGzWfjhJO
- acgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781289054; x=1781893854;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=NXtGNwSbn+23h3fU54/tQRScTCRPWnaT0vFvr7Sg540=;
- b=L8RRY/4R5P6nhMw/axpda/w4xpmH5tGYcZsV3a/69p+vUiTU/qWJqDh3Q4q08tdWYk
- +yx93lrByAlVqfXEEefq0mrv32pvKNm71X+a0CXTdFLYCJYG39i7o4eTlGA5ht13cXXY
- gRn0gI+0SdqPztg6nKj2majdvRrTv8ZZMODCAMJpMA6h8m5F67QpBgRL4ThWYFOzkO45
- 8Ssz4DdUu/S6I6Gp+pmyx6TxAxOQjn/3sTREN36Qq2D0EEtmnPjkkVkxYNLglOuDCQdV
- 9g+BGE+Q9+CLkOxgRwkAWlZ62RTNoFRXOx8pm6bD9g/mhRa9T2v6aYPwa3r6aMRIkXRD
- vuBw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8yv5QdIqte0raNLwRuspdS3mV6780QcFFlpSgpGDOCYYFsX5DzPCNGJ71fRkHgYB7dA7Tib8cG@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHgGWohJD/vnWdj4ZiQk4xlOnhmTkoxzO5lJe1ebvmkGVB19yN
- XJXRmqxCZ0jzspQuw3PLEzAKnxBghJ9R1MOWCigEkm0ytduUZxFmTXrLxN28wylWVplJIczKsNl
- /GCV7pUR7Z5AGc7+4qOu9qZB6Vb9QMbMCQGdOtMvMMdS2ZvtYt7nfs0FIbilliJvrKYtR
-X-Gm-Gg: Acq92OEZG1wRPAb9HZ4I1FqG/V/HYe2JtZ8Nrm1rpLtZwZh1mGpqTRoGWRC0AmJ2Da8
- pVvHR+wy84xUExV3v/hyMW9ZQUu5ae9rZaLLyXReU27SR3KeQ2nKID4f1CgRnWnOeAqEVk9Ey6V
- m/gjtBZK8sSbtzFEZc1bPJ0veZVvH77XU7A1rnqAHrrnCcDdykyX57VLrWwv394LdGiNBP8tplH
- UukpaSHCJGsAwL0XhkbglEhFz4fEWR9QG7oQ8c40VLv27fJqtW68ht9FSZL5o3h+TuKujMZoP9m
- skNjtV5KqLmFnOkXgbYTLc1Zv9O3erd7sqU1Ym0N+i2KQJ7lFwm9tulZQsy14uliaH93dbGXIw1
- wDARHB46MJl1eCOWxLzKnKO210YdDYA+7RTkCNv0dtfd2800djQtGXQM321djxZipCJoaNTrYAB
- Ldxjwg+zKcMFcwqLfCKezrCncPabL+Fx+DeUk=
-X-Received: by 2002:a05:620a:414a:b0:915:6e30:5bd8 with SMTP id
- af79cd13be357-917ee4d8cf8mr137813885a.11.1781289039658; 
- Fri, 12 Jun 2026 11:30:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:414a:b0:915:6e30:5bd8 with SMTP id
- af79cd13be357-917ee4d8cf8mr137549085a.11.1781289026842; 
- Fri, 12 Jun 2026 11:30:26 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ad2e161fefsm742173e87.8.2026.06.12.11.30.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 11:30:25 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 12 Jun 2026 21:30:14 +0300
-Subject: [PATCH v6 4/9] drm/komeda: use drmm_writeback_connector_init()
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011065.outbound.protection.outlook.com [52.101.52.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCCD710E915
+ for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2026 01:15:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iSpmw+3YDCqDTweckrIlaHWFEG7+D3fIhXddGKw+BCoOKdEKIe0dzqa1NSh/pjFLJLz/fI7wlYYvo2F+IbDQgag+TAaCPX7ASalHt+ohnx5XA42brvEddMKqewuhIxoyXe/e517incPjaLuJbn+M9ej+v3qwkTEWUlG3drDvm9qFhRON2ANlj4GFEm6UU9289LD9gvSVD9Q8MPXJw9rqDORISjwpUZCeVE2wYSpqNvHlrKkPxVckr9UEK0VHX8MeHg7ST2dpeC7nf1dMH4mmi5TqWLtk+cjmsoIOFmZrdMfw4mvcMeKK0do1hKtDSCYEoOZkr7BehbdD3j7mPyJiFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m3cexWUlnbQ0TiuyxZKEYOkY6BEoAJkCOxvI2JkV6rM=;
+ b=EMlUuoPIgprQpUPfQizQp3onNBj0cudbyKBvzE2PnFXH5Y6epGsVLUf2b8RXI4aaMtojysWy9p7/KkizW99pEtHDq+PnwyRaLQW8zfbNEa0UfV77Iq0LSEvwmZOEbSmfcjwmbx8UOid3NUFUNwRpN7co0IRzeJiFFVucFRXfvIei9xlc6SqF8wl96mOhhbpm2zEUfcqE+g6RXBuiVgMs83hYKOORWkJFSjlOqEEP499dvi1qF+ePJl1TyJzuhLyithsLXZFGEOLQ7kVJy1X3lRjnLHcdM5H8pi+uTNHSwbeoL9OEPASB1iJfaO19ADsMj1q5dXR/1LHrFdezjnXpjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m3cexWUlnbQ0TiuyxZKEYOkY6BEoAJkCOxvI2JkV6rM=;
+ b=XpUawxyNspn5c9m+0UebPoUuJ4Pq5DTxTJUGWXkTYI8NbJ579J10ZUZxOoIVg+AUlmVv1OJgXfU6CDDpBR8OVE34jKe8ni+6dJi8by8Nian23UAYiQzH2ZOCqIVO4gsXMSsLTbWItjAyrkGdzwZd0IPtBRWUfwkPskUaKX9eGJk=
+Received: from PH7PR02CA0009.namprd02.prod.outlook.com (2603:10b6:510:33d::11)
+ by CH3PR12MB8510.namprd12.prod.outlook.com (2603:10b6:610:15b::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.15; Sat, 13 Jun
+ 2026 01:15:32 +0000
+Received: from SN1PEPF0002BA4C.namprd03.prod.outlook.com
+ (2603:10b6:510:33d:cafe::24) by PH7PR02CA0009.outlook.office365.com
+ (2603:10b6:510:33d::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Sat,
+ 13 Jun 2026 01:15:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4C.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.7 via Frontend Transport; Sat, 13 Jun 2026 01:15:31 +0000
+Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Fri, 12 Jun 2026 20:15:31 -0500
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Subject: [PATCH] drm/amdkfd: drop struct kfd_signal_page wrapper
+Date: Fri, 12 Jun 2026 21:15:19 -0400
+Message-ID: <20260613011519.659866-1-Yongqiang.Sun@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-wb-drop-encoder-v6-4-9f3a54f81310@oss.qualcomm.com>
-References: <20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com>
-In-Reply-To: <20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3297;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=hqraoBIhgsoA7488mFgE7E5Wa+zzdm/qHLJb+mlG/5g=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqLFA2aShkfQ4NWcs8hWSV/gJ8/87+hOs9SkyEQ
- I647fJsaOCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaixQNgAKCRCLPIo+Aiko
- 1aFGB/4lYLlcCC0eN4Dl4Jj27Lj0v182O24ArgNCoUv/0lOXuJBUpHJ3WQrRTWPQcktsb4msHdS
- zQM5LWwNwm4uSqkhlqE8zgwSBltp3eRPz8A3hJpAcBZxj3bRYxN0FZLq9qDHFYILD4kQ0TrIays
- BKCEWiDMd/NyT41rG/kuQQBqUR/Hqp/JKvvU0eeNHFnPo1wzO9+icOgiyChs7hnsgbacL15lz0f
- MXhI/HoKocbLvZ8gyux6T31biXcta4EaVpVdHwuVD5Q1+mGV2KQUGmkxI4dwALTAXTOzdIVqRXm
- AXQuEmxUAF0prLO9MqS6VTDsAd8tbX7KWWlBDVcTLRTAr0q5
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: oaeT2dtqdBwAkInHwtqV4Yv5t2Q7ilVh
-X-Authority-Analysis: v=2.4 cv=RJGD2Yi+ c=1 sm=1 tr=0 ts=6a2c505e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=QyXUC8HyAAAA:8
- a=P-IC7800AAAA:8 a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=gYs8AAvg_5cFonjPjrYA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=d3PnA9EDa4IxuAV0gXij:22
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: oaeT2dtqdBwAkInHwtqV4Yv5t2Q7ilVh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDE3MyBTYWx0ZWRfX8wKMx/lB84Yr
- R4XTTkkadQD71aWcPZkkvE1Vv5AmH80iLS1cUX01a1OSYsqOWYg1Q5q/9KNNxYH2x7gMR2mACrC
- 5Z1Q2Cd4bP7+RmnotO58jtHBXeLWl+iOOnI80F0lgiZUu+upoXs3hn9yjAh9XFmahkUjBroNX9Q
- qh/VBbWsUDtxPW8d1oQBI+J5SChncrVuGA4kePtmemqnC4nScG0Awg/B2p9oMAYGJrMVC3W8AlX
- ljaQqLQ5uzeVcXFsGvaA1IMCJrRb3tayxM4vlO1KwzqtnZv0/Q/kkRQ+hkr/CsJRPUqgmVbzXHX
- ndPFscp59gsxNFdO6NJ/ED2cJ+XIW5feWZBoRxErGshs8df7pXgFZBDhk8xZGoVOnWOSX6gvehP
- kp8KFG6a/ktVWUPRBaDwuIE+MlFRZItP4nL31R/QSmBU2Cp8SdYNGDgKc+A54gdNUetR4+VeWqH
- GICMqMIdF65BBfPCLfw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDE3MyBTYWx0ZWRfX3/Lmi3YsuwMg
- QWB99EUV4dVYhXCB54g2nC4nL2oYIY+uaySeJDjBrdLGLOAbWlXda4gBgiIhez+Fj4zMtkeyL3T
- cJeWaZHiwIR3sJkDF1hHfC4OVD5KWQA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-12_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606120173
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|CH3PR12MB8510:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23c9bc2b-067c-40a9-1908-08dec8e9439b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|3023799007|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 1TJRGYQ50G/9PoXW2KP1pz/bkhQMVjeX1SgG96wtYtI0FW6NwIsOCHO9jjuOq1b6SfzCn+otU3XlUPlCTlB3XX9DBe7NWBxBwc1LyJRhcJQ4nEoySNYmkywFDMjiPPgSvgZHTVq78i8sy2XTZw8XiTn7w1tbGSFDsIP92jKqYlPEslx7kF+CPL2eyuDEfBmITb5QJG6c/LEuQyWDqJ/fvaLXwY6ApEEIoavLspSEIDw8AXXtSC9fSDNN7+oKmV2+1C+digQENoyEL507zXCSG650yIqIMf0r+vtNZzZTl9Yeyz7pytMAhVEurZiWP8lgE/WRINr6FBb8q1Xd2wE8P9i+GhguU/yA4i8v4+IuzVNgQLrUSllRyM++XxYQymJsKPdNXwvFKFIRjpP6kAmWcDqQmTdPRFhkWt/QqNKxSMX3iCTF4xok26sXsXZwJwK6YJWydDYQR8OeZArtLmpIH1WiGvMV208Csf+wHJ6lxT4gN5zGMH/IiJhUGtgSC8T9Iox/V0dYEHW7TQq1kdJwwf4rE6MPgf6/e5uISxsuJ6T9oak7fNNyhE41pk8rMAzRR6PzukulyqBACXjNRcmf4rlQBfm7r4DLkm+UR+ZAJeolsRal8yHvB5hCOxdevaalZV7nB9MLHnYFFFxkcQd9PcYDbFIbOhSU7DtJFnG2F8My9GyEZp/WeB6m0/OO10BZNHomN3vM5ltpbw4adKB2+bP2ssgj0StrzIDwpt9hzEU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(3023799007)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wHY1V3qRFvSKjlY3kCcfEnLM40Wf6k+7MYpE9Pqqp+slOs1HM/aTNEhEkITxNY3x+IbXjJIDmUg5zlp2x30XeKDfxfiGjAjU2xkVBfDaQpuzeFBnwxhY7xaTPO74uPxvuh2aW8fWH8il/0v3UIB+jLtvzfjv+XiuO6OcYOSdpWxuXJ7KSyQjLlSe2lbz1qplYCAdBzN840Pnqi3GISdf7X7ZbcYUC1uqJv8cl4YkFlphKvmGDvyXn/2gOn8e07S9FqUmhgq8jkUVrMZlynog5rAt5TXSExWJtelFiWAMETTMXyWwb52gfpCxU+c3/nZtLWGVu5S98SnJ3Jxn/RDWr0p5swT4Os4EVJv+ivhgo8o/3IlKLlUbcnNIMmFPGfq/4so9lluVyEzVU/W8bME6/KMvhyjCbcEt7lxhGdDCphpfp1C6s1T9/xZjSya/BeaH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2026 01:15:31.9716 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23c9bc2b-067c-40a9-1908-08dec8e9439b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8510
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,97 +107,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The driver uses drm_writeback_connector_init() instead of its drmm
-counterpart, but it doesn't perform the job queue cleanup (neither
-manually nor by calling drm_writeback_connector_cleanup()). On the
-contrary, the drmm_writeback_connector_init() function ensures the
-proper cleanup of the job queue.
+struct kfd_signal_page now only wraps a single uint64_t *kernel_address
+pointer. Drop the wrapper struct (and the page_slots() helper) and store
+the signal page pointer directly in kfd_process::signal_page.
 
-Use drmm_plain_encoder_alloc() to allocate simple encoder and
-drmm_writeback_connector_init() in order to initialize writeback
-connector instance.
+Since the signal page is the GTT BO mapping provided by user mode and is
+not owned by the events code, no separate allocation/free is needed for
+it, so shutdown_signal_page() goes away as well.
 
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+No functional change intended.
+
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
 ---
- .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++++++++----------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 48 ++++---------------------
+ drivers/gpu/drm/amd/amdkfd/kfd_events.h |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  9 ++++-
+ 3 files changed, 14 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-index 41cc3e080dc9..bcc53d4015f1 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-@@ -5,6 +5,7 @@
-  *
-  */
- #include <drm/drm_framebuffer.h>
-+#include <drm/drm_managed.h>
- #include "komeda_dev.h"
- #include "komeda_kms.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 85e4ad10d619..3ffe9a52f3e1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -46,22 +46,6 @@ struct kfd_event_waiter {
+ 	bool event_age_enabled;  /* set to true when last_event_age is non-zero */
+ };
  
-@@ -121,17 +122,10 @@ komeda_wb_connector_fill_modes(struct drm_connector *connector,
- 	return 0;
- }
- 
--static void komeda_wb_connector_destroy(struct drm_connector *connector)
+-/*
+- * Each signal event needs a 64-bit signal slot where the signaler will write
+- * a 1 before sending an interrupt. (This is needed because some interrupts
+- * do not contain enough spare data bits to identify an event.)
+- * We get whole pages and map them to the process VA.
+- * Individual signal events use their event_id as slot index.
+- */
+-struct kfd_signal_page {
+-	uint64_t *kernel_address;
+-};
+-
+-static uint64_t *page_slots(struct kfd_signal_page *page)
 -{
--	drm_connector_cleanup(connector);
--	kfree(to_kconn(to_wb_conn(connector)));
+-	return page->kernel_address;
 -}
 -
- static const struct drm_connector_funcs komeda_wb_connector_funcs = {
- 	.reset			= drm_atomic_helper_connector_reset,
- 	.detect			= komeda_wb_connector_detect,
- 	.fill_modes		= komeda_wb_connector_fill_modes,
--	.destroy		= komeda_wb_connector_destroy,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- };
-@@ -143,13 +137,15 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
- 	struct komeda_wb_connector *kwb_conn;
- 	struct drm_writeback_connector *wb_conn;
- 	struct drm_display_info *info;
-+	struct drm_encoder *encoder;
-+
- 	u32 *formats, n_formats = 0;
- 	int err;
+ static int allocate_event_notification_slot(struct kfd_process *p,
+ 					    struct kfd_event *ev,
+ 					    const int *restore_id)
+@@ -93,7 +77,7 @@ static int allocate_event_notification_slot(struct kfd_process *p,
+ 		return id;
  
- 	if (!kcrtc->master->wb_layer)
- 		return 0;
+ 	ev->event_id = id;
+-	page_slots(p->signal_page)[id] = UNSIGNALED_EVENT_SLOT;
++	p->signal_page[id] = UNSIGNALED_EVENT_SLOT;
  
--	kwb_conn = kzalloc_obj(*kwb_conn);
-+	kwb_conn = drmm_kzalloc(&kms->base, sizeof(*kwb_conn), GFP_KERNEL);
- 	if (!kwb_conn)
- 		return -ENOMEM;
+ 	return 0;
+ }
+@@ -139,7 +123,7 @@ static struct kfd_event *lookup_signaled_event_by_partial_id(
+ 	 */
+ 	if (bits > 31 || (1U << bits) >= KFD_SIGNAL_EVENT_LIMIT) {
+ 		if (signal_mailbox_updated &&
+-		    page_slots(p->signal_page)[id] == UNSIGNALED_EVENT_SLOT)
++		    p->signal_page[id] == UNSIGNALED_EVENT_SLOT)
+ 			return NULL;
  
-@@ -165,11 +161,19 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
- 		return -ENOMEM;
+ 		return idr_find(&p->event_idr, id);
+@@ -149,7 +133,7 @@ static struct kfd_event *lookup_signaled_event_by_partial_id(
+ 	 * and find the first one that has signaled.
+ 	 */
+ 	for (ev = NULL; id < KFD_SIGNAL_EVENT_LIMIT && !ev; id += 1U << bits) {
+-		if (page_slots(p->signal_page)[id] == UNSIGNALED_EVENT_SLOT)
++		if (p->signal_page[id] == UNSIGNALED_EVENT_SLOT)
+ 			continue;
+ 
+ 		ev = idr_find(&p->event_idr, id);
+@@ -261,21 +245,9 @@ static void destroy_events(struct kfd_process *p)
+ 	mutex_destroy(&p->event_mutex);
+ }
+ 
+-/*
+- * We assume that the process is being destroyed and there is no need to
+- * unmap the pages or keep bookkeeping data in order.
+- */
+-static void shutdown_signal_page(struct kfd_process *p)
+-{
+-	struct kfd_signal_page *page = p->signal_page;
+-
+-	kfree(page);
+-}
+-
+ void kfd_event_free_process(struct kfd_process *p)
+ {
+ 	destroy_events(p);
+-	shutdown_signal_page(p);
+ }
+ 
+ static bool event_can_be_gpu_signaled(const struct kfd_event *ev)
+@@ -292,8 +264,6 @@ static bool event_can_be_cpu_signaled(const struct kfd_event *ev)
+ static int kfd_event_page_set(struct kfd_process *p, void *kernel_address,
+ 		       uint64_t size, uint64_t user_handle)
+ {
+-	struct kfd_signal_page *page;
+-
+ 	if (p->signal_page)
+ 		return -EBUSY;
+ 
+@@ -303,17 +273,11 @@ static int kfd_event_page_set(struct kfd_process *p, void *kernel_address,
+ 		return -EINVAL;
  	}
  
--	err = drm_writeback_connector_init(&kms->base, wb_conn,
--					   &komeda_wb_connector_funcs,
--					   &komeda_wb_encoder_helper_funcs,
--					   formats, n_formats,
--					   BIT(drm_crtc_index(&kcrtc->base)));
-+	encoder = drmm_plain_encoder_alloc(&kms->base, NULL,
-+					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-+	if (IS_ERR(encoder))
-+		return PTR_ERR(encoder);
-+
-+	drm_encoder_helper_add(encoder, &komeda_wb_encoder_helper_funcs);
-+
-+	encoder->possible_crtcs = drm_crtc_mask(&kcrtc->base);
-+
-+	err = drmm_writeback_connector_init(&kms->base, wb_conn,
-+					    &komeda_wb_connector_funcs,
-+					    encoder,
-+					    formats, n_formats);
- 	komeda_put_fourcc_list(formats);
- 	if (err) {
- 		kfree(kwb_conn);
-
+-	page = kzalloc(sizeof(*page), GFP_KERNEL);
+-	if (!page)
+-		return -ENOMEM;
+-
+ 	/* Initialize all events to unsignaled */
+ 	memset(kernel_address, (uint8_t) UNSIGNALED_EVENT_SLOT,
+ 	       KFD_SIGNAL_EVENT_LIMIT * 8);
+ 
+-	page->kernel_address = kernel_address;
+-
+-	p->signal_page = page;
++	p->signal_page = kernel_address;
+ 	p->signal_mapped_size = size;
+ 	p->signal_handle = user_handle;
+ 	return 0;
+@@ -680,7 +644,7 @@ int kfd_reset_event(struct kfd_process *p, uint32_t event_id)
+ 
+ static void acknowledge_signal(struct kfd_process *p, struct kfd_event *ev)
+ {
+-	WRITE_ONCE(page_slots(p->signal_page)[ev->event_id], UNSIGNALED_EVENT_SLOT);
++	WRITE_ONCE(p->signal_page[ev->event_id], UNSIGNALED_EVENT_SLOT);
+ }
+ 
+ static void set_event_from_interrupt(struct kfd_process *p,
+@@ -723,7 +687,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
+ 		 * in the interrupt payload was invalid and do an
+ 		 * exhaustive search of signaled events.
+ 		 */
+-		uint64_t *slots = page_slots(p->signal_page);
++		uint64_t *slots = p->signal_page;
+ 		uint32_t id;
+ 
+ 		if (valid_id_bits)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
+index 88e3797bfc42..827a2c7d7721 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.h
+@@ -49,7 +49,6 @@
+ #define UNSIGNALED_EVENT_SLOT ((uint64_t)-1)
+ 
+ struct kfd_event_waiter;
+-struct signal_page;
+ 
+ struct kfd_event {
+ 	u32 event_id;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 13a021b0e6e5..28a0b014d703 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -953,7 +953,14 @@ struct kfd_process {
+ 	struct idr event_idr;
+ 	/* Event page */
+ 	u64 signal_handle;
+-	struct kfd_signal_page *signal_page;
++	/*
++	 * Each signal event needs a 64-bit signal slot where the signaler will
++	 * write a 1 before sending an interrupt. (This is needed because some
++	 * interrupts do not contain enough spare data bits to identify an
++	 * event.) The signal page is allocated in user mode and mapped to the
++	 * kernel; individual signal events use their event_id as slot index.
++	 */
++	uint64_t *signal_page;
+ 	size_t signal_mapped_size;
+ 	size_t signal_event_count;
+ 	bool signal_event_limit_reached;
 -- 
-2.47.3
+2.43.0
 
