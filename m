@@ -4,93 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0595ACD98CF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 15:42:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B6FBCD98CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 15:44:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BCE110E520;
-	Mon, 15 Jun 2026 15:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82A7410E517;
+	Mon, 15 Jun 2026 15:44:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DN7NMKFn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r6xqrbQu";
 	dkim-atps=neutral
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53FB010E4AF
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 15:42:35 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-304f8e80b7eso272268eec.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 08:42:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781538154; cv=none;
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBF210E42D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 15:44:20 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-1364ff8099cso101961c88.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 08:44:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781538259; cv=none;
  d=google.com; s=arc-20240605;
- b=hoAJLEF0TnAqMtM3tm0AJWQJjJ4kOz0c2F4ebPRKG85klBom/G5EwxC6XpRqLvZJkI
- xis6E7bCI6iTCiXXLC1fLqSMIsNEb6cb66NnxHzv3Gj2ib6OKLi1oodEzXU+ye/VlsjE
- dP4ivG0qdvsZs6qzAeDWHcmJ2KfazwdbUZxZYlrPG66w6dgdEQ1poTHQy95KLp6S4qER
- 3yulCpy3LNCt3gs4A48KXFcPTHmubO95JQ8IPFLsGxfzVuJIuYJGGPkLBXz81FWJJGJx
- uFu4De9/MWkcJVbK2h3JlHC2YT+bWI71eSFIGr4RoCNYkuh7/lgmlSBgDSl9Xr1JCXOj
- 6m1A==
+ b=CJukdGEoYTcDk7EgNojlqTS+yemItf50lqLAVx9WKYxZ3ek4lRT4gQGChHHumedzxM
+ h6mrV9FxNTPgKKy414/FRoB01jYNogtvYuqyiha4fcG6tDCxhQ0rYCT7ZN1C9NQkjF8V
+ MplFH5sPl0Z+7QFuCS38xdx84vyxgjRr9U1zzD+ItMfiCKnQnJCPfkIstmNJypHZovEE
+ GrAHqgxgSyObZ3BiqebBjsYUQA+hJO5aYOeeiT3KKv6tV9SjIkgnKMeyvNyHmaJsy3hS
+ y+Rh+xJBUr+QUFnAH13iA7dkO1vwSvH94ZyhFppgBJ9bgSFELj9Obxc1xVIibEBuUd6S
+ 1C1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=HB5OTOAis4aNREHBYkXcEkOC2lkh0rrUy7H3L0anj/A=;
- fh=JMovUKso387tvChwt/7uOKEYUMRv9JjMKmD+VuzEEAI=;
- b=A42MoE+KM6ix27pKnZTT+qWWoMMB4JAIhh5DAgMZqXMQzbw/N2CnK8PLVjAQb46Gy6
- Pt4L7YE5UsbhnLU8Rmq2rRa5ICaZfO4RBclMJON4lA+9q7mniEeY/zxhmWc+DUwcAEa8
- MtIhBMj5Zc6KB9Y4AFJIEy14sC24z+JdP2VZEABRd5xCx6BX/bt8unQ6gflfhwX0dqBi
- +7mFHQ2P6BQf1J+6c+en8L+UktktkckEvDyBygI3jaHOnx3CXhrOd+Q7lZHv1yniLfOe
- XhexFeckJ+td1Z4D8/GmihrOHirAOH3GyHqv6yTaSTIAGO64iMdQmRHpz1pCC2fa38ir
- pQ/A==; darn=lists.freedesktop.org
+ bh=zUgKZj5aLyEFq+7q5dOeM6059lCwbRiMMKWyZ7+3FDs=;
+ fh=/jXuF6kkEzGc76I89MWDwYajZhHhstOH8SMMdzCQivY=;
+ b=J+3V1V3ZSxE96EsqEC/S9HZIkmxjZrsWwtYJGc6JDhwSZiuzpDzn+tq/bMwqmDCXab
+ yA8XhRfHzyaP2wt1iUnILkfg+l4f4UmmhcjMX6ioIi7OVdd3sTwByQqJ37MQal7Zft4E
+ JqXBpqJ/XbckUHYmi3kqhrZgqEMwSHw1+Ii6cJ0XltaS65Eju1y7Ws9G/aV45z9VcTvb
+ KcrwdiDlqNtrFgaUbiGLSEoAfmy34qWgA5Q1YaQ9kQ9nh2lJzoiEqixPpNYeQfSnaWvx
+ JI24ypnryCSpSb1ZjX/miQrQW4OC9oaHmTpYtyWySq8xZVOXjxUkyVlqiPOGsT9Rz3/M
+ rZyg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781538154; x=1782142954; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781538259; x=1782143059; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HB5OTOAis4aNREHBYkXcEkOC2lkh0rrUy7H3L0anj/A=;
- b=DN7NMKFnyz+nxGGmjOz1tIdXF3uSbj3NHTINwNlzeJfeKbJ9orusRqvtRiBpjIbDw4
- Grv7OTgUWJtp1aG1U8qED2b1cSJ541Y80AGLahMvV4wcHibqnZL5rZue4uQYAOgadaDK
- lJfA/nkcyF4lW7o/OhBe9D8+EPzoza44TSPRgo6oO/l8m5sARwBBFysIb5KekJrI1NXg
- THSNNvyxK1I3gXTu+hSoimUFzsk66ZIovpHH09A40dFq1KM0S3ieIzOnr4vRhqth1JOc
- vdidoB4/6ic6i3SiwaqZggQUQP+CCFYAd9gXZQzwITwWQjAtjAGM2ov7lctq6M0OeTSN
- JxwA==
+ bh=zUgKZj5aLyEFq+7q5dOeM6059lCwbRiMMKWyZ7+3FDs=;
+ b=r6xqrbQunqas1perv8K8paRlWffeRtJNLZr2oZyhMV43gomkoZNZzsK/CSdj6poAxu
+ 5AdcWtM2z+PntZzsi5PjRJIYsI+oxAsev7ml/yg18DCLHKHRou4cDOlltGF0inT3WVFQ
+ 2acKZue4SxZeqbesEm4Ycy44p5CfdRdRqoeC+97IZB/Hv84ajYJLeCbmBNiGzz8ESlXz
+ UFPpw4kHQuWVTcElZFMcQqi97Rm8rrAS9Sw671bzw/Wc4qfMni4BlIScq3vChb/zLKq/
+ 9CqbrvSzULO9IS6zpryucRRKq3iF8gQFKYGGqLYZESZQX4Eqml6CH4ZCMNzlaeP387j3
+ tKEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781538154; x=1782142954;
+ d=1e100.net; s=20251104; t=1781538259; x=1782143059;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=HB5OTOAis4aNREHBYkXcEkOC2lkh0rrUy7H3L0anj/A=;
- b=KX0lpwpk+0PsQKcvKg7oACBe+WByqeuEa0lO3V++D4YCmENkZjwjIBofJjrzH1S1hG
- DTSBcj45Wj/urrbRYMoYN2P9Mcicf6lyvapqI+H1whD4QyMJDK2DN9p6+22jDevcgelY
- JCw4GXVO213lPBy+5TQPb/4deXFDpjDyogsVQSdWMJJr6NckZKFizm3NiqF7vTfEpWoW
- VmS84itH/ct0m2/n+kjqDx/z5JP7JK/A6EBl1p4paura09bGfFXlJlLk2bI2kfqyCpTt
- wTAjUK+1Enie8nff1ckEQixSANife8tA1sGDlWCcyR1tn4dK30BOLu+fXvY8BUvZsXcP
- UF/A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8L1DZSZ3ACQ50rl79NqgYyZYOo7QG0eGfXS+kqp1k9SjsZIL21aZRlvKtKU+upCvrHQiyyBXXz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygEXhbJHuSfwMz0UKdQECvafTAiPgviWzNahtH2Z1DIWdg+MvX
- q5ZR0eB3LiDc3x2E0SvuVbGVqnponNgxIRIydN3tHHo6j0W+n0rrBtQLwDkbPPU6PZQLGOxdh4g
- zmxXaJumJmWg5LYW7krX1z3ek9o9fWxY=
-X-Gm-Gg: Acq92OHmPUNB5gZwtG1nDVyxywyCJ49u5bDbbRITuG0BFWHJmdPvkYy7mg7uYBWYHnL
- r9Kke/eBXt5FHchsa/5v8wyN4/IaQkiO8vVUlSswD32oXXOdCopCzK3yvpy/PGOQydDYSF1pwjJ
- m2VX2twfGW7VlWJ8WKU4GMVjcGrn2Vj1XlQWtzq3lMJLOQNggxg7vHqJamHA/cJms+Preze7WnS
- jtnH0wzxq2JcakamS/X17D9OfMvQbGgY32FPqW+dQwYXQfUyiT4V0BQ+puYJRFLhR6+ybMRwimL
- kRkTuJfTLO7hp3JZyXUDiIgtRpSJwnbyvqoCi6hBaQ55n+2mn24gRbZRtLtlL28/hVXabMMaUZV
- pn105
-X-Received: by 2002:a05:7022:68a0:b0:137:ef27:e297 with SMTP id
- a92af1059eb24-139724e2eaamr2051152c88.3.1781538154433; Mon, 15 Jun 2026
- 08:42:34 -0700 (PDT)
+ bh=zUgKZj5aLyEFq+7q5dOeM6059lCwbRiMMKWyZ7+3FDs=;
+ b=OgB7vf8dF3XMiOm035itbmh2I5raVeOI19Yu7qTLKQUSI/BvYfRbSWErdmwqNr0xBm
+ ZMLqUgeMNiZxXlVTPtaONRcHss994CdlSJ/SPExj6rloG0AOFGmSwG+I/It0IBK3/cdE
+ mQlwKqsdNPDUhlVic5ANAPE0E+71/uJQUmOPtithOECyf1yctg0wl4xuhiudsy9CwjJv
+ TVQ3g/UmTTYVZZ+Bmi2iMVEefT52V9ap0zkD5Frvkhn0bSGQiYgKEmT1cPwn6WEOZwy2
+ 6dXdqw0FDHab2Cozl4O507Nl0oRymTgyxJBrTvnpXD7Gaypl01sXVLvVEtZwR1g2zRei
+ tAMA==
+X-Gm-Message-State: AOJu0Ywu5Ku+xqd6zSpQqtEmHk49/Y6Qs5OahNcSnJalli6C2t0kp0si
+ 10Etvs+JP9aiVFNdpbMTCMDqO2fVpKJJ1HUiwAlRGCuMuHmwvPGZS7Sl8ooreUyTM8iacJrs2EH
+ /MIeiGE2hwEqOVw3Ao+nalQQdtRVNFrBKWQ==
+X-Gm-Gg: Acq92OGb2jIXn4okxPVvVkCM6SWZ9/WPvD4zsLZULRIWtXSAOvFD5LufNoddOFp1Tqv
+ XkwXDrsovIY7BmE0ww49TACzv5Bmg6hO/JjNTz2Y5DWWdQcT6MfX6lz9utJ9p7Jlu1rLAXyKR4w
+ vZMguQLBZXl3rifJNL5wTI7pBo5AvoFVCGBa7cxT+1zpBfybfRrjlBS9wVGDThFXoLqIfvdlz6j
+ Hjd7YWNL0jALY0WN+yvJAzgDFg+nvavmfZxUoRLKhyRPvj+YLgeV88oKie5LtoBSJzkaRj1iRLn
+ 3Rr7kdOgWVzQFFhyBdwnNpN8FxamfV8tsi7hJN1OLV9upDKfrENMYCFSFxzrOzLpl5Qw+g==
+X-Received: by 2002:a05:7022:fd07:b0:137:f2f4:ff76 with SMTP id
+ a92af1059eb24-1384bb850a6mr3103470c88.3.1781538259209; Mon, 15 Jun 2026
+ 08:44:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260610083245.1057241-1-pavel.ondracka@gmail.com>
- <f0041fae-2703-480b-be9a-51a1df964a01@amd.com>
-In-Reply-To: <f0041fae-2703-480b-be9a-51a1df964a01@amd.com>
+References: <20260612164443.1002712-1-mario.limonciello@amd.com>
+In-Reply-To: <20260612164443.1002712-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jun 2026 11:42:21 -0400
-X-Gm-Features: AVVi8CfkqX2jHXjaMSoirH3Cv4qa5toEnvBVc9Ay0ocL4YvWUTf4hiVAjEFqETY
-Message-ID: <CADnq5_MxrcO7GX+jGQbkuaF40QipnkxSq_+P1cbDmanO2K05uA@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix r100_copy_blit for large BOs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: =?UTF-8?Q?Pavel_Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- alexander.deucher@amd.com, stable@vger.kernel.org
+Date: Mon, 15 Jun 2026 11:44:06 -0400
+X-Gm-Features: AVVi8CfujQ7l97DaMlzYktcCHnf8JzyJeXr-_ouvUyW8KzFhr6Qjj1IduGcu3Ks
+Message-ID: <CADnq5_Okvy21gCx-WvtDdgrQiDsh8MefExBnZ19SM0YMgkA6MA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Export ip_discovery sysfs on probe failure
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -107,102 +100,543 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Fri, Jun 12, 2026 at 1:39=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> When driver probe fails (missing firmware, unsupported hardware, etc.),
+> the entire device is torn down including the ip_discovery sysfs folder,
+> preventing users from identifying what hardware is present.
+>
+> Export ip_discovery sysfs even when probe fails by creating it early
+> in the probe flow and tying its lifetime to the PCI device rather than
+> the driver. The sysfs folder persists across probe failures and module
+> reloads, but is cleaned up on driver unbind.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-On Wed, Jun 10, 2026 at 5:24=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+> v2:
+>  * rebase on amd-staging-drm-next
 >
-> On 6/10/26 10:32, Pavel Ondra=C4=8Dka wrote:
-> >
-> > r100_copy_blit() copies BOs as 1024-pixel-wide ARGB8888 blits, so one
-> > GPU page becomes one blit row. Large copies are split into chunks of at
-> > most 8191 rows.
-> >
-> > The kernel register header names the packet coordinate dwords SRC_Y_X
-> > and DST_Y_X. In the BITBLT_MULTI description in
-> > R5xx_Acceleration_v1.5.pdf docs, these correspond to [SRC_X1 | SRC_Y1]
-> > and [DST_X1 | DST_Y1], which are signed 13-bit coordinates in the
-> > -8192..8191 range. The old code kept SRC/DST_PITCH_OFFSET at the BO bas=
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 285 +++++++++++++++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |   5 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   2 +
+>  3 files changed, 257 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index 2cfcfa29204a5..49e8ed65d7a88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -22,6 +22,7 @@
+>   */
+>
+>  #include <linux/firmware.h>
+> +#include <linux/kernfs.h>
+>
+>  #include "amdgpu.h"
+>  #include "amdgpu_discovery.h"
+> @@ -148,6 +149,26 @@ MODULE_FIRMWARE("amdgpu/aldebaran_ip_discovery.bin")=
+;
+>  #define mmDRIVER_SCRATCH_1     0x95
+>  #define mmDRIVER_SCRATCH_2     0x96
+>
+> +struct ip_discovery_top {
+> +       struct kobject kobj;
+> +       struct kset die_kset;
+> +       struct pci_dev *pdev;
+> +       struct amdgpu_device *adev;
+> +       uint8_t *discovery_bin;
+> +       uint32_t bin_size;
+> +       bool standalone_mode;
+> +};
+> +
+> +/* List to track early-initialized ip_discovery_top entries */
+> +struct early_ip_discovery {
+> +       struct list_head list;
+> +       struct pci_dev *pdev;
+> +       struct ip_discovery_top *ip_top;
+> +};
+> +
+> +static LIST_HEAD(early_ip_discovery_list);
+> +static DEFINE_MUTEX(early_ip_discovery_mutex);
+> +
+>  static const char *hw_id_names[HW_ID_MAX] =3D {
+>         [MP1_HWID]              =3D "MP1",
+>         [MP2_HWID]              =3D "MP2",
+> @@ -542,25 +563,37 @@ static const char *amdgpu_discovery_get_fw_name(str=
+uct amdgpu_device *adev)
+>         }
+>  }
+>
+> -static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+> -                                          struct table_info **info,
+> -                                          uint16_t table_id)
+> +static struct table_info *
+> +amdgpu_discovery_get_table_info_from_bin(uint8_t *discovery_bin,
+> +                                        uint16_t table_id)
+>  {
+> -       struct binary_header *bhdr =3D
+> -               (struct binary_header *)adev->discovery.bin;
+> +       struct binary_header *bhdr =3D (struct binary_header *)discovery_=
+bin;
+>         struct binary_header_v2 *bhdrv2;
+>
+>         switch (bhdr->version_major) {
+>         case 2:
+> -               bhdrv2 =3D (struct binary_header_v2 *)adev->discovery.bin=
+;
+> -               *info =3D &bhdrv2->table_list[table_id];
+> -               break;
+> +               bhdrv2 =3D (struct binary_header_v2 *)discovery_bin;
+> +               return &bhdrv2->table_list[table_id];
+>         case 1:
+>         case 0:
+> -               *info =3D &bhdr->table_list[table_id];
+> -               break;
+> +               return &bhdr->table_list[table_id];
+>         default:
+> -               dev_err(adev->dev, "Invalid ip discovery table version %d=
+\n",bhdr->version_major);
+> +               return NULL;
+> +       }
+> +}
+> +
+> +static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+> +                                          struct table_info **info,
+> +                                          uint16_t table_id)
+> +{
+> +       struct binary_header *bhdr =3D
+> +               (struct binary_header *)adev->discovery.bin;
+> +
+> +       *info =3D amdgpu_discovery_get_table_info_from_bin(adev->discover=
+y.bin,
+> +                                                        table_id);
+> +       if (!*info) {
+> +               dev_err(adev->dev, "Invalid ip discovery table version %d=
+\n",
+> +                       bhdr->version_major);
+>                 return -EINVAL;
+>         }
+>
+> @@ -728,7 +761,9 @@ static void amdgpu_discovery_sysfs_fini(struct amdgpu=
+_device *adev);
+>
+>  void amdgpu_discovery_fini(struct amdgpu_device *adev)
+>  {
+> -       amdgpu_discovery_sysfs_fini(adev);
+> +       if (adev->discovery.ip_top && !adev->discovery.ip_top->standalone=
+_mode)
+> +               amdgpu_discovery_sysfs_fini(adev);
+> +
+>         kfree(adev->discovery.bin);
+>         adev->discovery.bin =3D NULL;
+>  }
+> @@ -737,15 +772,17 @@ static int amdgpu_discovery_validate_ip(struct amdg=
+pu_device *adev,
+>                                         uint8_t instance, uint16_t hw_id)
+>  {
+>         if (instance >=3D HWIP_MAX_INSTANCE) {
+> -               dev_err(adev->dev,
+> -                       "Unexpected instance_number (%d) from ip discover=
+y blob\n",
+> -                       instance);
+> +               if (adev)
+> +                       dev_err(adev->dev,
+> +                               "Unexpected instance_number (%d) from ip =
+discovery blob\n",
+> +                               instance);
+>                 return -EINVAL;
+>         }
+>         if (hw_id >=3D HW_ID_MAX) {
+> -               dev_err(adev->dev,
+> -                       "Unexpected hw_id (%d) from ip discovery blob\n",
+> -                       hw_id);
+> +               if (adev)
+> +                       dev_err(adev->dev,
+> +                               "Unexpected hw_id (%d) from ip discovery =
+blob\n",
+> +                               hw_id);
+>                 return -EINVAL;
+>         }
+>
+> @@ -1111,12 +1148,6 @@ static const struct kobj_type ip_discovery_ktype =
+=3D {
+>         .sysfs_ops =3D &kobj_sysfs_ops,
+>  };
+>
+> -struct ip_discovery_top {
+> -       struct kobject kobj;    /* ip_discovery/ */
+> -       struct kset die_kset;   /* ip_discovery/die/, contains ip_die_ent=
+ry */
+> -       struct amdgpu_device *adev;
+> -};
+> -
+>  static void die_kobj_release(struct kobject *kobj)
+>  {
+>         struct ip_discovery_top *ip_top =3D container_of(to_kset(kobj),
+> @@ -1132,8 +1163,14 @@ static void ip_disc_release(struct kobject *kobj)
+>                                                        kobj);
+>         struct amdgpu_device *adev =3D ip_top->adev;
+>
+> +       /* In standalone mode, discovery_bin is managed by devm and will =
+be
+> +        * freed automatically when the PCI device is removed. Do not man=
+ually
+> +        * free it here to avoid double-free.
+> +        */
+> +
+>         kfree(ip_top);
+> -       adev->discovery.ip_top =3D NULL;
+> +       if (adev)
+> +               adev->discovery.ip_top =3D NULL;
+>  }
+>
+>  static uint8_t amdgpu_discovery_get_harvest_info(struct amdgpu_device *a=
+dev,
+> @@ -1141,6 +1178,10 @@ static uint8_t amdgpu_discovery_get_harvest_info(s=
+truct amdgpu_device *adev,
+>  {
+>         uint8_t harvest =3D 0;
+>
+> +       /* In early init mode (adev =3D=3D NULL), harvest info is not ava=
+ilable */
+> +       if (!adev)
+> +               return 0;
+> +
+>         /* Until a uniform way is figured, get mask based on hwid */
+>         switch (hw_id) {
+>         case VCN_HWID:
+> @@ -1169,11 +1210,14 @@ static uint8_t amdgpu_discovery_get_harvest_info(=
+struct amdgpu_device *adev,
+>  }
+>
+>  static int amdgpu_discovery_sysfs_ips(struct amdgpu_device *adev,
+> +                                     struct ip_discovery_top *ip_top,
+>                                       struct ip_die_entry *ip_die_entry,
+>                                       const size_t _ip_offset, const int =
+num_ips,
+>                                       bool reg_base_64)
+>  {
+> -       uint8_t *discovery_bin =3D adev->discovery.bin;
+> +       uint8_t *discovery_bin =3D ip_top->standalone_mode ?
+> +                                ip_top->discovery_bin :
+> +                                adev->discovery.bin;
+>         int ii, jj, kk, res;
+>         uint16_t hw_id;
+>         uint8_t inst;
+> @@ -1271,10 +1315,12 @@ static int amdgpu_discovery_sysfs_ips(struct amdg=
+pu_device *adev,
+>         return 0;
+>  }
+>
+> -static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
+> +static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev,
+> +                                         struct ip_discovery_top *ip_top=
+)
+>  {
+> -       struct ip_discovery_top *ip_top =3D adev->discovery.ip_top;
+> -       uint8_t *discovery_bin =3D adev->discovery.bin;
+> +       uint8_t *discovery_bin =3D ip_top->standalone_mode ?
+> +                                ip_top->discovery_bin :
+> +                                adev->discovery.bin;
+>         struct table_info *info;
+>         struct ip_discovery_header *ihdr;
+>         struct die_header *dhdr;
+> @@ -1283,9 +1329,10 @@ static int amdgpu_discovery_sysfs_recurse(struct a=
+mdgpu_device *adev)
+>         size_t ip_offset;
+>         int ii, res;
+>
+> -       res =3D amdgpu_discovery_get_table_info(adev, &info, IP_DISCOVERY=
+);
+> -       if (res)
+> -               return res;
+> +       info =3D amdgpu_discovery_get_table_info_from_bin(discovery_bin,
+> +                                                       IP_DISCOVERY);
+> +       if (!info)
+> +               return -EINVAL;
+>         ihdr =3D (struct ip_discovery_header
+>                         *)(discovery_bin +
+>                            le16_to_cpu(info->offset));
+> @@ -1323,7 +1370,8 @@ static int amdgpu_discovery_sysfs_recurse(struct am=
+dgpu_device *adev)
+>                         return res;
+>                 }
+>
+> -               amdgpu_discovery_sysfs_ips(adev, ip_die_entry, ip_offset,=
+ num_ips, !!ihdr->base_addr_64_bit);
+> +               amdgpu_discovery_sysfs_ips(adev, ip_top, ip_die_entry, ip=
+_offset,
+> +                                          num_ips, !!ihdr->base_addr_64_=
+bit);
+>         }
+>
+>         return 0;
+> @@ -1339,12 +1387,30 @@ static int amdgpu_discovery_sysfs_init(struct amd=
+gpu_device *adev)
+>         if (!discovery_bin)
+>                 return -EINVAL;
+>
+> +       /* If early init already created sysfs in standalone mode, skip n=
+ormal init */
+> +       if (adev->discovery.ip_top && adev->discovery.ip_top->standalone_=
+mode)
+> +               return 0;
+> +
+>         ip_top =3D kzalloc(sizeof(*ip_top), GFP_KERNEL);
+>         if (!ip_top)
+>                 return -ENOMEM;
+>
+>         ip_top->adev =3D adev;
+> -       adev->discovery.ip_top =3D ip_top;
+> +
+> +       /* Check if ip_discovery already exists before creating.
+> +        * This shouldn't normally happen but handle it gracefully.
+> +        */
+> +       if (adev->dev->kobj.sd) {
+> +               struct kernfs_node *existing;
+> +
+> +               existing =3D kernfs_find_and_get(adev->dev->kobj.sd, "ip_=
+discovery");
+> +               if (existing) {
+> +                       kernfs_put(existing);
+> +                       kfree(ip_top);
+> +                       return 0;
+> +               }
+> +       }
+> +
+>         res =3D kobject_init_and_add(&ip_top->kobj, &ip_discovery_ktype,
+>                                    &adev->dev->kobj, "ip_discovery");
+>         if (res) {
+> @@ -1352,6 +1418,8 @@ static int amdgpu_discovery_sysfs_init(struct amdgp=
+u_device *adev)
+>                 goto Err;
+>         }
+>
+> +       adev->discovery.ip_top =3D ip_top;
+> +
+>         die_kset =3D &ip_top->die_kset;
+>         kobject_set_name(&die_kset->kobj, "%s", "die");
+>         die_kset->kobj.parent =3D &ip_top->kobj;
+> @@ -1366,7 +1434,7 @@ static int amdgpu_discovery_sysfs_init(struct amdgp=
+u_device *adev)
+>                 ip_hw_instance_attrs[ii] =3D &ip_hw_attr[ii].attr;
+>         ip_hw_instance_attrs[ii] =3D NULL;
+>
+> -       res =3D amdgpu_discovery_sysfs_recurse(adev);
+> +       res =3D amdgpu_discovery_sysfs_recurse(adev, ip_top);
+>
+>         return res;
+>  Err:
+> @@ -1480,6 +1548,150 @@ void amdgpu_discovery_dump(struct amdgpu_device *=
+adev, struct drm_printer *p)
+>         spin_unlock(&die_kset->list_lock);
+>  }
+>
+> +int amdgpu_discovery_sysfs_early_init(struct amdgpu_device *adev, struct=
+ pci_dev *pdev)
+> +{
+> +       struct ip_discovery_top *ip_top;
+> +       struct early_ip_discovery *early_entry, *tmp;
+> +       struct kset *die_kset;
+> +       uint8_t *discovery_bin;
+> +       int res, ii;
+> +
+> +       if (!adev || !adev->discovery.bin)
+> +               return -EINVAL;
+> +
+> +       if (adev->discovery.ip_top)
+> +               return 0;
+> +
+> +       mutex_lock(&early_ip_discovery_mutex);
+> +       list_for_each_entry_safe(early_entry, tmp, &early_ip_discovery_li=
+st, list) {
+> +               if (early_entry->pdev =3D=3D pdev) {
+> +                       adev->discovery.ip_top =3D early_entry->ip_top;
+> +                       early_entry->ip_top->adev =3D adev;
+> +                       mutex_unlock(&early_ip_discovery_mutex);
+> +                       return 0;
+> +               }
+> +       }
+> +       mutex_unlock(&early_ip_discovery_mutex);
+> +
+> +       discovery_bin =3D adev->discovery.bin;
+> +
+> +       early_entry =3D kzalloc(sizeof(*early_entry), GFP_KERNEL);
+> +       if (!early_entry)
+> +               return -ENOMEM;
+> +
+> +       ip_top =3D kzalloc(sizeof(*ip_top), GFP_KERNEL);
+> +       if (!ip_top) {
+> +               kfree(early_entry);
+> +               return -ENOMEM;
+> +       }
+> +
+> +       ip_top->discovery_bin =3D devm_kmemdup(&pdev->dev, discovery_bin,
+> +                                            DISCOVERY_TMR_SIZE, GFP_KERN=
+EL);
+> +       if (!ip_top->discovery_bin) {
+> +               kfree(ip_top);
+> +               kfree(early_entry);
+> +               return -ENOMEM;
+> +       }
+> +
+> +       ip_top->bin_size =3D DISCOVERY_TMR_SIZE;
+> +       ip_top->pdev =3D pdev;
+> +       ip_top->adev =3D adev;
+> +       ip_top->standalone_mode =3D true;
+> +
+> +       /* Check if ip_discovery already exists (from previous probe atte=
+mpt).
+> +        * This can happen if the module was unloaded and reloaded but th=
 e
-> > and used SRC_Y_X/DST_Y_X as the chunk address, so large BO moves could
-> > exceed that coordinate range.
-> >
-> > Compute per-chunk SRC/DST_PITCH_OFFSET bases and emit zero source and
-> > destination coordinates. r100_copy_blit() already packs
-> > SRC/DST_PITCH_OFFSET as pitch plus base offset, so large chunk addresse=
-s
-> > belong there rather than in the coordinate fields.
-> >
-> > This fixes Prison Architect corruption with 4096x4096 mipped textures
-> > after they are evicted to GTT under memory pressure on RV530.
+> +        * sysfs persisted (tied to PCI device lifetime).
+> +        */
+> +       if (pdev->dev.kobj.sd) {
+> +               struct kernfs_node *existing;
+> +
+> +               existing =3D kernfs_find_and_get(pdev->dev.kobj.sd, "ip_d=
+iscovery");
+> +               if (existing) {
+> +                       kernfs_put(existing);
+> +                       kfree(ip_top);
+> +                       kfree(early_entry);
+> +                       return 0;
+> +               }
+> +       }
+> +
+> +       res =3D kobject_init_and_add(&ip_top->kobj, &ip_discovery_ktype,
+> +                                  &pdev->dev.kobj, "ip_discovery");
+> +       if (res)
+> +               goto err_put_kobj;
+> +
+> +       adev->discovery.ip_top =3D ip_top;
+> +
+> +       die_kset =3D &ip_top->die_kset;
+> +       kobject_set_name(&die_kset->kobj, "%s", "die");
+> +       die_kset->kobj.parent =3D &ip_top->kobj;
+> +       die_kset->kobj.ktype =3D &die_kobj_ktype;
+> +       res =3D kset_register(&ip_top->die_kset);
+> +       if (res)
+> +               goto err_put_die_kset;
+> +
+> +       for (ii =3D 0; ii < ARRAY_SIZE(ip_hw_attr); ii++)
+> +               ip_hw_instance_attrs[ii] =3D &ip_hw_attr[ii].attr;
+> +       ip_hw_instance_attrs[ii] =3D NULL;
+> +
+> +       res =3D amdgpu_discovery_sysfs_recurse(NULL, ip_top);
+> +       if (res)
+> +               goto err_put_die_kset;
+> +
+> +       early_entry->pdev =3D pdev;
+> +       early_entry->ip_top =3D ip_top;
+> +       mutex_lock(&early_ip_discovery_mutex);
+> +       list_add(&early_entry->list, &early_ip_discovery_list);
+> +       mutex_unlock(&early_ip_discovery_mutex);
+> +
+> +       return 0;
+> +
+> +err_put_die_kset:
+> +       kobject_put(&ip_top->die_kset.kobj);
+> +err_put_kobj:
+> +       kobject_put(&ip_top->kobj);
+> +       kfree(early_entry);
+> +       adev->discovery.ip_top =3D NULL;
+> +       return res;
+> +}
+> +
+> +void amdgpu_discovery_sysfs_early_fini(struct pci_dev *pdev)
+> +{
+> +       struct early_ip_discovery *entry, *tmp_entry;
+> +       struct ip_discovery_top *ip_top =3D NULL;
+> +       struct list_head *el, *tmp;
+> +       struct kset *die_kset;
+> +
+> +       /* Find the entry in our tracking list */
+> +       mutex_lock(&early_ip_discovery_mutex);
+> +       list_for_each_entry_safe(entry, tmp_entry, &early_ip_discovery_li=
+st, list) {
+> +               if (entry->pdev =3D=3D pdev) {
+> +                       ip_top =3D entry->ip_top;
+> +                       list_del(&entry->list);
+> +                       kfree(entry);
+> +                       break;
+> +               }
+> +       }
+> +       mutex_unlock(&early_ip_discovery_mutex);
+> +
+> +       if (!ip_top)
+> +               return;
+> +
+> +       /* Clean up sysfs hierarchy */
+> +       die_kset =3D &ip_top->die_kset;
+> +
+> +       spin_lock(&die_kset->list_lock);
+> +       list_for_each_prev_safe(el, tmp, &die_kset->list) {
+> +               list_del_init(el);
+> +               spin_unlock(&die_kset->list_lock);
+> +               amdgpu_discovery_sysfs_die_free(to_ip_die_entry(list_to_k=
+obj(el)));
+> +               spin_lock(&die_kset->list_lock);
+> +       }
+> +       spin_unlock(&die_kset->list_lock);
+> +
+> +       kobject_put(&ip_top->die_kset.kobj);
+> +       kobject_put(&ip_top->kobj);
+> +       /* ip_top itself will be freed by kobject_put via ip_disc_release=
+ */
+> +}
 >
-> Wow, impressive piece of work.
+>  /* =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D */
 >
-> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/6716
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Pavel Ondra=C4=8Dka <pavel.ondracka@gmail.com>
+> @@ -1505,6 +1717,9 @@ static int amdgpu_discovery_reg_base_init(struct am=
+dgpu_device *adev)
+>         r =3D amdgpu_discovery_init(adev);
+>         if (r)
+>                 return r;
+> +
+> +       amdgpu_discovery_sysfs_early_init(adev, adev->pdev);
+> +
+>         discovery_bin =3D adev->discovery.bin;
+>         wafl_ver =3D 0;
+>         adev->gfx.xcc_mask =3D 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.h
+> index e0010f6a3eda5..edc78184e0f39 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
+> @@ -53,4 +53,9 @@ int amdgpu_discovery_get_gc_major_minor_version(struct =
+amdgpu_device *adev,
 >
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>  void amdgpu_discovery_dump(struct amdgpu_device *adev, struct drm_printe=
+r *p);
 >
-> Thanks a lot for digging into this,
-> Christian.
+> +/* Early sysfs functions for persistent ip_discovery export */
+> +int amdgpu_discovery_sysfs_early_init(struct amdgpu_device *adev,
+> +                                      struct pci_dev *pdev);
+> +void amdgpu_discovery_sysfs_early_fini(struct pci_dev *pdev);
+> +
+>  #endif /* __AMDGPU_DISCOVERY__ */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 503bb64c1e55f..63ca6bcde57ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2552,6 +2552,8 @@ amdgpu_pci_remove(struct pci_dev *pdev)
 >
-> > ---
-> >  drivers/gpu/drm/radeon/r100.c | 13 +++++++++----
-> >  1 file changed, 9 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r10=
-0.c
-> > index 3ac1a79b6f13..533215d6e9cb 100644
-> > --- a/drivers/gpu/drm/radeon/r100.c
-> > +++ b/drivers/gpu/drm/radeon/r100.c
-> > @@ -906,6 +906,7 @@ struct radeon_fence *r100_copy_blit(struct radeon_d=
-evice *rdev,
-> >  {
-> >         struct radeon_ring *ring =3D &rdev->ring[RADEON_RING_TYPE_GFX_I=
-NDEX];
-> >         struct radeon_fence *fence;
-> > +       uint64_t cur_src_offset, cur_dst_offset;
-> >         uint32_t cur_pages;
-> >         uint32_t stride_bytes =3D RADEON_GPU_PAGE_SIZE;
-> >         uint32_t pitch;
-> > @@ -934,6 +935,10 @@ struct radeon_fence *r100_copy_blit(struct radeon_=
-device *rdev,
-> >                         cur_pages =3D 8191;
-> >                 }
-> >                 num_gpu_pages -=3D cur_pages;
-> > +               cur_src_offset =3D src_offset +
-> > +                       (uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
-> > +               cur_dst_offset =3D dst_offset +
-> > +                       (uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
-> >
-> >                 /* pages are in Y direction - height
-> >                    page width in X direction - width */
-> > @@ -950,13 +955,13 @@ struct radeon_fence *r100_copy_blit(struct radeon=
-_device *rdev,
-> >                                   RADEON_DP_SRC_SOURCE_MEMORY |
-> >                                   RADEON_GMC_CLR_CMP_CNTL_DIS |
-> >                                   RADEON_GMC_WR_MSK_DIS);
-> > -               radeon_ring_write(ring, (pitch << 22) | (src_offset >> =
-10));
-> > -               radeon_ring_write(ring, (pitch << 22) | (dst_offset >> =
-10));
-> > +               radeon_ring_write(ring, (pitch << 22) | (cur_src_offset=
- >> 10));
-> > +               radeon_ring_write(ring, (pitch << 22) | (cur_dst_offset=
- >> 10));
-> >                 radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
-> >                 radeon_ring_write(ring, 0);
-> >                 radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
-> > -               radeon_ring_write(ring, num_gpu_pages);
-> > -               radeon_ring_write(ring, num_gpu_pages);
-> > +               radeon_ring_write(ring, 0);
-> > +               radeon_ring_write(ring, 0);
-> >                 radeon_ring_write(ring, cur_pages | (stride_pixels << 1=
-6));
-> >         }
-> >         radeon_ring_write(ring, PACKET0(RADEON_DSTCACHE_CTLSTAT, 0));
-> > --
-> > 2.52.0
-> >
+>         amdgpu_driver_unload_kms(dev);
+>
+> +       amdgpu_discovery_sysfs_early_fini(pdev);
+> +
+>         /*
+>          * Flush any in flight DMA operations from device.
+>          * Clear the Bus Master Enable bit and then wait on the PCIe Devi=
+ce
+> --
+> 2.43.0
 >
