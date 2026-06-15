@@ -4,96 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 566F5CD98C5
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 13:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AFC8CD98CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 14:02:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA3D310E436;
-	Mon, 15 Jun 2026 13:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B35FB10E06B;
+	Mon, 15 Jun 2026 14:02:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b6y8JQBs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eQyKNOHp";
 	dkim-atps=neutral
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
- [209.85.221.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D2CA10E436
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 13:54:31 +0000 (UTC)
-Received: by mail-vk1-f174.google.com with SMTP id
- 71dfb90a1353d-59ebc9135edso120285e0c.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 06:54:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781531670; cv=none;
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7982E10E06B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 14:01:59 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-306f1213aadso292876eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 07:01:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781532119; cv=none;
  d=google.com; s=arc-20240605;
- b=KME0v78PD/QQmro8pg0+sA6Ywl2j0+vNFa6rg67Qv1fv4J0TGRbNottXiVJA3LFgH4
- ion5pz3dbAxID1wiNIy60Y6aDngJhUv7D5KQAbfUpfgOf/EgZKmSS0reDiz4MszI+Rh7
- mNTI5WWQfgktqQbplUGkCa0KkNH/QKnCpKZdl1E1x/83WpHeG0PlVHgyWXBxNkriJ0jj
- Rc9s392Duy8h2+My6SFnO1QoSrF9mzBP318TafRMoMcg+M8dMKf0uZYxIrFd88Z085az
- TXEzmj/Hr8b2iat+e8eW3jAxvupW6sw0MojWnKnk9xkIvOBVSLrHUfw+5t6Tii6YhTlN
- 0KmQ==
+ b=cgJkb7r5ypybdm2GfYeKelJr6tyJ2UVznGDZ74E/hWQIZZ+AhshhpQyVtyPiM7HNxQ
+ xNDuHVRynaIl7kcgGMrLiItAEztirz+wflMzkysCg1OOtPNJmEaUO350dsplbTNSCHpD
+ KgtynzYzHsJHp///6IfoLJm1VK1UEWD4vU5MnVbxg0eEVzJvEFSLd/MdQvYzmGPtPqlD
+ epybgg7oLgXXycI4B8B4J0F5I8UiwMuvEMsoTg3mcklrffN0oKEJVz2RTdBQiBQpunaV
+ c2T8nN6zAswFn/oC542jvvFpzc2i/GMyQTR4sbdjGTvojv3+I0sW28mlZDOxgnBvJ5Zf
+ L8kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=20u8IcsIKSPRT/ptwVuz0JdY/Ou6LJfrAtPgq31H6r8=;
- fh=wmrUFF5CAH2Kir5OCD0KmqRLkRC9GgHOreJOcDjH8mM=;
- b=NUv/CjLBKL1AwRwYpyjpwlL/cO7uuRN+knUbY1k1nw95qFR952cFzHsvoo9Kv5xGRx
- LZshKMjih2EICGlpZZh/nJIa2dPcgZQmwanUO0NmRZ+YdJ5qtVbEup4ZnDBHLe19Yw9W
- 2HFVwiFK/z9Q5lH1hdwyfuIA6TELT4JFexS419nmz4pjulHkjyOJm/wePdOs85oPPomC
- 9zZD080FH5AjCIZG0ITvNwXvHrYx1L0gm0w14/jGxA3sYHclCvIp3MkT38j9lksouVxJ
- kzP3NBs7ESnatObA5iZ023JX4GsEtPtBGWuiVVASVyuAocfJJZmtsoRNBr2TQwM3EFIR
- 4Drw==; darn=lists.freedesktop.org
+ bh=hGWPV6O98ELzCRUl47OrdL737TmXEFUIflcCizDApvc=;
+ fh=/jXuF6kkEzGc76I89MWDwYajZhHhstOH8SMMdzCQivY=;
+ b=L4g/Q+uNykiZpsvGXlDvw0aJKsqRPuuPXRVwa5Xs3v2DDJq4HMjEFwpcK72Sy14tZO
+ o8A4DiOLIfSHX0m5h28I5Edt7sYSrNAAuiLW+1FtxdRvU0EDlkBvD+Tu93e7JHg9tdJH
+ jEXgXqaWvwJE8MJwlBwB7jLTQQL/6W7TBe2SvLLobfPNz5XdFgdwTCi9XBdo9xoUa+7c
+ gaBXdMJIOBnSNoOb5bm4Yr8/Aw2PFE73rYhyZKRzE1jhyRrSQHTucQcTPpgSzeqOhS1W
+ ihAWUYlhRVXAesymPjLL1jW588Flr/bTxfDDdDf33lSUHBNrjmRMb+NwGghYLRw2jSQ6
+ mHSQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781531670; x=1782136470; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781532119; x=1782136919; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=20u8IcsIKSPRT/ptwVuz0JdY/Ou6LJfrAtPgq31H6r8=;
- b=b6y8JQBsS5gFw0Oa4M/PUB6EYnBAuu+J+ZEkTu0m5Kf0zPPDLzAPGMIN3ah1WQKt2v
- 2/7p6FCzDRdccmdmbyU/Bl546UQmPpxUpDmoQ0+RF/3yikIaF2VBvH0gzdHPsQMFgRu5
- OWEW1ul9VGLH4zNFSirNstyBM4Y79F8UyAw5m9SGINpsiAtbj8jcRKG3zaW+ap9i488z
- uZ+RVC15pd1XYnRQZxXYrsAjwyydSbkI1wu+sYKpp+BLue2aP5346ddsXWDWW3vXkIwj
- EIt1JmmnaX3LQVTAtC4zqkZwlqPd8m2lX/7EEMxaZDhuD9IXzbW6ScD12swqQZAyhjJ9
- /uug==
+ bh=hGWPV6O98ELzCRUl47OrdL737TmXEFUIflcCizDApvc=;
+ b=eQyKNOHpviIWSyHErySvZrjhNIwnrX8BBGkvsfpwcWZZksRydK7vgVTvjQVrbdtXsn
+ m3j2587wswkjxOHII3m3rzcpI29vjsnCiRL9/ALNJU1osYw/p1LR9hO0JDIqL5rqgikO
+ sYZBccabt5vEGQInUgIOVGCfG2tBRghL+qJQjlO6W/wauskgnv8svMXdayFctNIT8DPp
+ R37SL+VXtbP4xtLdh6jJ2XinMC+gw4kTcvYco4Yh5mBXXQfUkDMSXArQF8c6CcvPnfIN
+ Lfm2Gi5CVTXMSzcyOdHW/nBvScSZ831WPW8IsTIR9P7FoWDaRGxqPKRxAxhwTvE7YZSf
+ 5jxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781531670; x=1782136470;
+ d=1e100.net; s=20251104; t=1781532119; x=1782136919;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=20u8IcsIKSPRT/ptwVuz0JdY/Ou6LJfrAtPgq31H6r8=;
- b=mB0pTsAF5F/FhUQCvOKjO26nnfeJXkh1+gPberPj2XDlPMGpNIdE6JcdJLg+YNS3Bo
- XjgfYG0kos9MlHImO6g/tFlEcPk+pask6Mcte8Z+AW+nK9FhgKLCVJAG3iEE9PzyxelB
- etS1BM1UzOaP/dprQ3t2/G+9wiZMU/Y+7e2wOuObAuFftLwd1Ow2ZEwkL66PDJuIwi1r
- 5KeFOw3ZXbHAr877GuMPi6LcHzKOPLcYa4avdR2zWtoNMZMKXIkY4hra5ALbVUaZiqbD
- cBXel3qe3i7yhi8kL+b1kwL0ClBWQHtGuPHEgoi8mM7mCtWXPp5/o2z4+Ddw039bYGyy
- mdNg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Znw6Gvvi07JWTOxxals03REe23fIUx25SSaJhMFwhTMTL3tBGryiTN2Yo1noiB60jNJB1mH6h@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhAqwVLMRZdyEqALulc6uCY/OWcqzfadwzmUxVX6XRH+jnM01C
- 6enj9lYtEEMifKW9SBsf5vweRNfKN7qBpHvPsARPiiSFkFT0PIqcwMb7oUZcjBkjMe79IQelm1S
- gIlo/IJ7TkKsDs/q/V/H0ZMlg8kR7E1U=
-X-Gm-Gg: Acq92OFRbUfITS83+/MjOHvxhbJmc+xwo0d4RngaLEgGeBXkNb8JlJZQUMKFSQwDgoO
- OP/Df9suB2I5QI2wpDbwY5S+UXlWf/swWLJRZhhu1mKebiEhwe7+vZsJap+En65bklFZylV6pUz
- 8SYyAjlkJ2uymmeyOKSy1ovf8UXdKfNoNf8rNULXuyEZirkt87jCx4jG3r8T/Xs68jX0QU+63Uy
- zoIM6RLfTVJOwXvBBIGer0yWGejBIWe6byWigk8aIIaNqTFRx9t1BSALeoDm26pBUwEomsippni
- jpPu48hE8uKOICAbqvdkRrV+Bc+ZHH8tz35AWNhC0WjY7gkZK/PD8FFZIH4V+jKsHzvkhA==
-X-Received: by 2002:a05:6102:5121:b0:605:53ef:d53f with SMTP id
- ada2fe7eead31-71e88ae95c7mr2022720137.2.1781531669932; Mon, 15 Jun 2026
- 06:54:29 -0700 (PDT)
+ bh=hGWPV6O98ELzCRUl47OrdL737TmXEFUIflcCizDApvc=;
+ b=WojH3sHH3gBC3tY4Sd9fttb01wy3mEP4cEtzYW/e1vtxhES6GRqppN0tokKgCxGKyi
+ LwB3XrYHtTh7b1SZxmUOckNKE4xJBmMDSyEOnleLYnbTyOq0rxwzd0Gt5ibvIP4B5+jk
+ s6IP/7Oeb3ALapzK3k6J4WtWx9HReQsifhm0hNW5fCZaUK76+lO/5FoOtAFUs2Onwes9
+ FhVfW4ch/BYwATRWKcUF12ZlUjPb+viKidxeLA6L59pu+q6KJTNVWch7ZGgOg0zTyVwA
+ adzEuXbOMhoAGFb/qhins2xsFDTyl5cW9DLMGjz9grnKR/v3jqAPWVw6yX/n/gkdQ1AT
+ ewFw==
+X-Gm-Message-State: AOJu0YyWHqUjH/WK2JeIY4lADHL2Vh6gub2Vepwg1xpqBX3lpVDNd/3U
+ UxuvoKPh1D8113YR8jER5IsH1mXAunkRIobdeWHLa6mIn5MxBPsiMHooEPpd5efz/GzUZ5ZrzR+
+ sFgXvpnnGNG5Jwwq01ucd46u1eK3GX/4=
+X-Gm-Gg: Acq92OEog8eFpH3Mornc7rtXGHzyf5EIfoRQBVv1/q4b5UV5Hu3nJhWYSAmvdi1zqwj
+ /w3qdBSuLWoIsFknrv/wcnyqsPuQHs1yeqRryQ53WtF+Lab6du2797meqe6mgBW7teml0aEkFhf
+ Z0HEhareHw6KKgj+16ITUYnHWO9UVS1/H3Upp7E9H6zqXZhvuB5qLGiCvOw7SWIyk2wvfPxgUxW
+ nmicxMlQlAldoNNw1K/OdlriScBw00DIptwgsTKRYzkwBTSA9qUbUUtSNSHYdwSlIyBd32Gn9L0
+ feP936bet6vrkLTJX1R2N7ohqn9n/3stNwX5q8LMjcuilRaOeSS/dNRCLSRWpskwLDR03Q==
+X-Received: by 2002:a05:7022:38f:b0:134:d037:aca3 with SMTP id
+ a92af1059eb24-1384bb9ada0mr2909001c88.3.1781532118212; Mon, 15 Jun 2026
+ 07:01:58 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260612092654.1632603-1-Jiqian.Chen@amd.com>
-In-Reply-To: <20260612092654.1632603-1-Jiqian.Chen@amd.com>
+References: <20260613020724.1131374-1-mario.limonciello@amd.com>
+In-Reply-To: <20260613020724.1131374-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jun 2026 09:54:17 -0400
-X-Gm-Features: AVVi8CfnFZYO5Hd7oJy5kzsa5knWo6A7-OgaUbbbKBzf7hRHhgCPtkjfqQHR3dM
-Message-ID: <CADnq5_Puhk0vEsYkM3uUs+n5i_a0eMFx=0NPwm5WKfEaYDabWg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after
- mode2
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Huang Rui <ray.huang@amd.com>, Huang Trigger <Trigger.Huang@amd.com>
+Date: Mon, 15 Jun 2026 10:01:45 -0400
+X-Gm-Features: AVVi8CdtiUKqULCem4YnAk_JhhtEN1iVgT0roym1AOUIBFIsQhrinM6ESfM2ez8
+Message-ID: <CADnq5_Mvwpuom_YCTsCaNyhsfZeoj4_NDrHmzd7-gM9vHhqhsw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: validate CP_GFX_SHADOW chunk size in CS pass1
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,138 +101,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 5:44=E2=80=AFAM Jiqian Chen <Jiqian.Chen@amd.com> w=
-rote:
+On Sat, Jun 13, 2026 at 8:24=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> For Renior APU with gfx9, in some test scenarios with disabling
-> ring_reset, like accessing an unmapped invalid address, it can
-> trigger a gpu job timeout event, then driver uses Mode2 reset
-> to reset GPU, but after Mode2 compute Ring test and IB test fail
-> randomly. It because the HQDs of MECs are always active before or
-> after Mode2, that causes MECs use stale HQDs when MECs are unhalted
-> before driver restore MQDs, and causes CPC and CPF are still stuck
-> after Mode2, then causes compute Ring and IB tests fail.
+> Add a minimum-length check for the AMDGPU_CHUNK_ID_CP_GFX_SHADOW chunk in
+> amdgpu_cs_pass1(), matching the gate already present for the IB, FENCE an=
+d
+> BO_HANDLES chunk types.
 >
-> So, add sequences to deactivate HQDs of MECs in suspend IP function
-> of the resetting process.
+> The CP_GFX_SHADOW case previously shared a bare break with the dependency
+> and syncobj chunk types, which do not dereference a fixed-size struct. Wh=
+en
+> userspace submits this chunk with length_dw =3D=3D 0, vmemdup_array_user(=
+) is
+> called with size 0 and returns ZERO_SIZE_PTR, which passes the IS_ERR()
+> check. amdgpu_cs_p2_shadow() then dereferences chunk->kdata as a struct
+> drm_amdgpu_cs_chunk_cp_gfx_shadow (reading shadow->flags), faulting on th=
+e
+> ZERO_SIZE_PTR and causing a NULL-pointer dereference.
 >
-> v2: Move all sequences into a new function gfx_v9_0_cp_mode2_clear_state =
-(Ray Huang)
->     To check reset Mode2 method in the if condition (Ray Huang)
-> v3: Move all sequences before Mode2 instead of after Mode2 (Timur Krist=
-=C3=B3f)
+> This is reachable by an unprivileged process in the render group. Reject
+> undersized chunks with -EINVAL during pass1 so the bad submission is
+> rejected before pass2 ever dereferences the data.
 >
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+
+Fixes: ac9287055ff1 ("drm/amdgpu: add gfx shadow CS IOCTL support")
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
-> v2->v3 changes:
-> * Move all sequencess before Mode2 instead of after Mode2, and add a new
->   function gfx_v9_0_deactivate_kcq_hqd to do the disable compute HQDs
->   sequences.
->   Then the resetting CPC and CPF are not needed since we have already
->   move all sequences before Mode2 and they are not stuck
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> v1->v2 changes:
-> * Move my sequences into a new function gfx_v9_0_cp_mode2_clear_state
-> * Add reset Mode2 method check to the if condition that call my sequences
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index 0416827b4bb45..d63fbc7c568de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -248,13 +248,17 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser =
+*p,
+>                                 goto free_partial_kdata;
+>                         break;
 >
-> v1:
-> Hi all,
->
-> My board is Renior APU with gfx9, smu12. I run a testcase that
-> accesses an invalid address to trigger a amdgpu_job_timedout()
-> with disabling ring_reset, so that driver will call mode2 reset
-> directly. After mode2 reset I found compute Ring tests and compute
-> IB tests fail randomly on random compute ring.
->
-> We checked the scan dump of GPU, we can see the CPC and CPF are
-> still stuck, that caused Compute Ring tests fail.
->
-> I added printings in driver codes (gfx_v9_0_cp_resume), and found
-> the HQDs of MECs are still active, that may cause MECs use stale
-> HQDs when MECs are unhalted before mapping compute queues (restoring
-> MQDs to HQDs).
->
-> So, I send this patch to fix above problems.
-> There are two main changes of my patch:
-> One is to reset CPC and CPF before resuming KCQ.
-> Another is to disable HQDs beofre unhalting MECs.
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 37 +++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index 90bbddb45730..0c01701488e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4071,6 +4071,39 @@ static int gfx_v9_0_hw_init(struct amdgpu_ip_block=
- *ip_block)
->         return r;
->  }
->
-> +static void gfx_v9_0_deactivate_kcq_hqd(struct amdgpu_device *adev)
-> +{
-
-Should probably also add amdgpu_gfx_rlc_enter_safe_mode() here.
-
-> +       for (int i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> +               u32 tmp;
-> +               struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+> +               case AMDGPU_CHUNK_ID_CP_GFX_SHADOW:
+> +                       if (size < sizeof(struct drm_amdgpu_cs_chunk_cp_g=
+fx_shadow))
+> +                               goto free_partial_kdata;
+> +                       break;
 > +
-> +               mutex_lock(&adev->srbm_mutex);
-> +               soc15_grbm_select(adev, ring->me, ring->pipe, ring->queue=
-, 0, 0);
-> +               tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE);
-> +               /* disable the queue if it's active */
-> +               if (tmp & CP_HQD_ACTIVE__ACTIVE_MASK) {
-> +                       int j;
-> +
-> +                       WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);
-> +                       for (j =3D 0; j < adev->usec_timeout; j++) {
-> +                               tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_ACTI=
-VE);
-> +                               if (!(tmp & CP_HQD_ACTIVE__ACTIVE_MASK))
-> +                                       break;
-> +                               udelay(1);
-> +                       }
-> +                       if (j =3D=3D AMDGPU_MAX_USEC_TIMEOUT) {
-> +                               DRM_DEBUG("comp_%u_%u_%u dequeue request =
-failed.\n",
-> +                                                       ring->me, ring->p=
-ipe, ring->queue);
-> +                               /* Manual disable if dequeue request time=
-s out */
-> +                               WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, 0);
-> +                       }
-> +                       WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 0);
-> +               }
-> +               soc15_grbm_select(adev, 0, 0, 0, 0, 0);
-> +               mutex_unlock(&adev->srbm_mutex);
-> +       }
-
-and amdgpu_gfx_rlc_exit_safe_mode() here.
-
-Alex
-
-> +}
-> +
->  static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
->  {
->         struct amdgpu_device *adev =3D ip_block->adev;
-> @@ -4095,6 +4128,10 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block=
- *ip_block)
->                 return 0;
->         }
+>                 case AMDGPU_CHUNK_ID_DEPENDENCIES:
+>                 case AMDGPU_CHUNK_ID_SYNCOBJ_IN:
+>                 case AMDGPU_CHUNK_ID_SYNCOBJ_OUT:
+>                 case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
+>                 case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT:
+>                 case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:
+> -               case AMDGPU_CHUNK_ID_CP_GFX_SHADOW:
+>                         break;
 >
-> +       if ((adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev) &&
-> +               amdgpu_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_MO=
-DE2)
-> +               gfx_v9_0_deactivate_kcq_hqd(adev);
-> +
->         /* Use deinitialize sequence from CAIL when unbinding device from=
- driver,
->          * otherwise KIQ is hanging when binding back
->          */
+>                 default:
 > --
-> 2.39.5
+> 2.43.0
 >
