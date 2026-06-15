@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3C2CD98CF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 14:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA1FCD98DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 14:44:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC2F210E385;
-	Mon, 15 Jun 2026 14:32:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94DD210E4DF;
+	Mon, 15 Jun 2026 14:44:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Aww+vG10";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Knbq5g11";
 	dkim-atps=neutral
 Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
  [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6FB210E385
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 14:32:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1584B10E4E6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 14:44:25 +0000 (UTC)
 Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-691c5776f35so5471682a12.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 07:32:26 -0700 (PDT)
+ 4fb4d7f45d1cf-687ed9aabb3so6292660a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 07:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1781533945; x=1782138745; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1781534663; x=1782139463; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=1zBy4KBsoDr53mdfpAO79sZEDsEyooVRZmtn+x1iGNo=;
- b=Aww+vG10pbK06dK2OmGvJF+jGiPzYok5cwgoKHKBbs5S6VO1YDl8elQI9k6j4D/oDA
- 05Fe8fO2MlFl0+aU7xdDn9Hwzm9iJFq6oBbT7BSm4Nksxlnm8EydJWJ9pvwebh/4n1As
- oo1GmhAm7y9043h2qeGu3aU8NVWWrz9uYRoR1nlNpuEMwnkrwBkna0C5/5t1LMPnJafN
- bQ+db4xQ6vnKy6cXgcyrEc5JuPbDD62miCSoTBQHKJy7zgFO1i8MLoFYdKvKvMw++Rlu
- 6T8O9bZl066mOuvry0oYU8dfer2ZKl9M1LoGfyhLWMXILD03wfdIxMDkzfO/BeIjDLsu
- 6jpA==
+ bh=8KWl6b27RDPIoIJvaxVRCHtc/DjgyRIf4BmLnNVlfeE=;
+ b=Knbq5g11uqZj+GgQzN46IVEwmXWOPiIxdOxfVLUaXGJpu1TH11Pjhp9UMJS2vmz25y
+ SiuBpgl2tuqXMKdaoCTvyYhb7Mc0ozHNjIfhImN/kPqWqcGIqQr6lEavDBQiAW1kzWNC
+ JvCZ2SRw4zMERPgxGASyQD+9Mp1Gb2FtB76mXf8No0m1iHjqbfnmJhoxJd0TD9jtsvfi
+ kzxoLTXWphvMv5gJE+mDgKFSegv4gLoZxA02SCzxtazn5DUJB0foNGoM2OIxNLrVqvs0
+ cfxq8AsIf9G6+W96Pq0T5Sxgy9r8kA8IDhyKu4BIg/rtt/eOBS/EIGY3Bvv1vso86vMl
+ VX3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781533945; x=1782138745;
+ d=1e100.net; s=20251104; t=1781534663; x=1782139463;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=1zBy4KBsoDr53mdfpAO79sZEDsEyooVRZmtn+x1iGNo=;
- b=T2/4NizTP2t8X+zQGpIKTpNky38BGvXan6OXlExUqEN95ELK8zawB5jmqBZO7b1Kxy
- X1htCdZ+XdjiUgpgfb/MOsarz73g2P7fDkmSRFTJiigsXiZsS0mlLYE6rusj9OyPK40c
- 5VhidZ1YXoDvs9tWN6GLyjakKYbZ11q2ycgxwjIdUTavZkvZII7wuXfyP+QjrSI9UbTN
- 6mom7zDSbHU6jhoNKLSC7dsNfaI3SRlXaGfGTL8veOuas4g0hpNhwKK0PtzeYXF6FB9u
- 9sJ+1Ehz7gAdpnPkD9/BFW1pzJmVttDbb1oIz+N6PgjDT5reXAsMLFn40a9OazPJk3Xh
- adSw==
+ bh=8KWl6b27RDPIoIJvaxVRCHtc/DjgyRIf4BmLnNVlfeE=;
+ b=b9FFF81K1cu3rmtufACnjVm+WMiibNaaAEJm0/+eFBlEWRbG2SkoRq3LDrKS1Q3VF4
+ xMpayVG6XlvNyQOKGbdHmu6MuGmplU/OVC7HIW8GUHaCbpHhpuZ3bPLM2hkCS9e/A8Oj
+ IyIyxHPreOSOo2ij5OWC/m90y19UyPokWPQKiQPXJJq7H8ZzUxVATkINVukzE8XPH275
+ j/mTBMYutKMiXJx3u47DXoLfbhqz97Fbhh1c4zeH9cezRmaM1gbwVWSsujWzuriMkGir
+ at4r8P9VIdWPMR3DcO9W8gMTRd14OtwrdTllKHOfIJ6t/iQFvh4nomDmyvt3KS7Hv3cI
+ Yk7A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+HcykdES80eeO+OPCO1V68dfKDtmSieasgAjR2eQRkoYG9/lnMZZi6TDNf/qP6g7Hvmofi1ljz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywmje9QgEh4haONdtaGKdsmAQ5mPd+VevxXDiEnttna6884uI1p
- mbNrCWJxKQh4Xmph01AMFtco8J//ASkZRb+XFGVcdhSQx70SfNagmjS4Jz0Kw8EW+yIB3bdFkcq
- poi3pNzU=
-X-Gm-Gg: Acq92OH7wUCc987TqCDwgg/1VaT7caexOpZ05nMCFzY9NAl2N9RzgXWSuKNFMInmtLp
- zCsTQ9vAvnwJXGdON0O+YztA5vlkhUg1jC5SUChw83+SIQl6Izs0V12BQaA03QVUvKyH/qGcLxY
- bcYmXw7s0uNxnH97C6nqszCs64X01G/MpAdq2jTqTnjgvIMDAeIlvxRFYk/KPbjq45e1rfmci9/
- M6wE6x5SA+JaziV+/7aLozasqjC4tsuBBoND1z+eO2y4hY22/wIeh65SH5mBuDxmHgT27AKpbIJ
- uVnLf3ozScMQOkJHCpkoSLUZ1XopbWgYAc9zDyMyhCrcWDhsLfUWPDiuEJMwcE27Gv/TaFyDwi1
- E2LKJ46PIJhEoqdpXvG80smyn2QlPjLGwEOYCQ/hGQPVHeq/UQ0fTq07+WmWDIDikS1l9LJKoXn
- mgpn+6ediERL5mO5eEjb6Tw94G+uDeqdNIk15vb89zzX4e
-X-Received: by 2002:a05:6402:5201:b0:68d:9272:d0a8 with SMTP id
- 4fb4d7f45d1cf-693c6b9fd10mr4204133a12.13.1781533944880; 
- Mon, 15 Jun 2026 07:32:24 -0700 (PDT)
+ AFNElJ/xp6sXjBYDS8jDSKw+rP9Hb56DwP99XA75/Y8oGrlvxCQwmzw21Mizb6YYm1r/XeSxOQGFYhY7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwR79PMJqQemdnWs79hnqt9NeXVgt5Ytzk+ivVob7sOx+H6rAOf
+ 7MnFQLZl5NtWm+ChtVPcCDwA8ni7tf9Z8ZLgkYEK5sErJ8iOdyPKE3vH2KMjvUYFDrM=
+X-Gm-Gg: Acq92OGaYp7/kumk4XWrPYYcvmKIncUnEPVCEcXKBAvcj8O3k2hgtP3gcTBGpWKm86h
+ pMTflbeddCywkkBvdXJ5NA+92wUcACumiRJ2F/5XWHg+e/LhG125q72dM3rHHoVA96I2uSUg1Yg
+ R5LFAc25lGTunELIE4sDfz1lRBgcu/dLtWFT2c93mT0UIC9Towhi0NseA2g9QCt0tUp++ynrBaA
+ zjAo0lQryPeYD4OwVfmyvDWX6Ec0/ecI9kYae4pRtr6kMcx3oAjAAJCgv0hO2g7Zst3JjLywZQA
+ mfQ1BMMc8GfF6KwuEcq/b4i33NqnG3YMNLvHx1ipaOdMEjvRbksrKB/iBj/Pou+jfcZR0VsX3sT
+ 8SaSWDDD7JRocTDtkpOW9OKdU+XZ/N3Q9wxiTlsiUJMDgHjrWZKlqmTgjglNex6PVsMVCz/ZBvK
+ vQkyX/1j4W0fTt4RZcWQq/GuleNPpBzvl214NW/K2mbLPDpvNduYJpt5U=
+X-Received: by 2002:a05:6402:26d1:b0:68b:d82b:fbd with SMTP id
+ 4fb4d7f45d1cf-693c6a7bc5amr4808182a12.24.1781534663593; 
+ Mon, 15 Jun 2026 07:44:23 -0700 (PDT)
 Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6937919b4c4sm3561257a12.6.2026.06.15.07.32.23
+ 4fb4d7f45d1cf-693791de4a6sm3530030a12.9.2026.06.15.07.44.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 07:32:24 -0700 (PDT)
-Message-ID: <fc23a624-650b-40b3-8de2-07d4a44ff603@ursulin.net>
-Date: Mon, 15 Jun 2026 15:32:23 +0100
+ Mon, 15 Jun 2026 07:44:22 -0700 (PDT)
+Message-ID: <828817bb-8d69-429f-b206-7c9858eeca72@ursulin.net>
+Date: Mon, 15 Jun 2026 15:44:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] drm/amdgpu/gmc: Don't compare page fault timestamps
- with other interrupts
+Subject: Re: [PATCH 4/7] drm/amdgpu/ih: Add retry_cam_ack IH function pointer
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
@@ -77,10 +75,10 @@ To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Amir Shetaia <Amir.Shetaia@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
  <maraeo@gmail.com>
 References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <20260525114507.24566-4-timur.kristof@gmail.com>
+ <20260525114507.24566-5-timur.kristof@gmail.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260525114507.24566-4-timur.kristof@gmail.com>
+In-Reply-To: <20260525114507.24566-5-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -99,63 +97,105 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 25/05/2026 12:45, Timur Kristóf wrote:
-> Different interrupts may have different timestamp sources,
-> which shouldn't be compared.
+> Instead of writing the doorbell in amdgpu_gmc_handle_retry_fault()
+> directly, add an IH function pointer which can be defined in
+> a different way for different IH versions.
 > 
-> If we compare the timestamps of retry faults to timestamps
-> of other interrupts, it may result in all retry fault
-> interrupts being filtered out, because of the different
-> time stamp source.
+> This is to allow implementing the filter CAM without a doorbell.
 > 
-> This issue was observed on Strix Halo.
-> Solved by storing the timestamp of the last page fault interrupt.
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 1 +
+>   drivers/gpu/drm/amd/amdgpu/ih_v7_0.c    | 6 ++++++
+>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 8 +++++++-
+>   4 files changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 52258f1341c2..d790b7619ccd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -565,7 +565,7 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
+>   
+>   		ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+>   					     addr, entry->timestamp, write_fault);
+> -		WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> +		adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
 
-This one may require access to AMD docs to review. For example I am 
-immediately curious as to how many different clock sources on a single 
-IH there are, how does that relate to the timestamp_src field, and if 
-there are indeed multiple clock domains should the patch perhaps be 
-generalized to something like 
-ih->processed_timestamp[entry->timestamp_src] or something?
+How does not map which IP generations can end up calling it? Presumably 
+your selection of ih_v7_0 and vega20_ih.c is an insightful one, but for 
+me I see amdgpu_gmc_handle_retry_fault() is called from 
+gmc_v9_0_process_interrupt, gmc_v10_0_process_interrupt, 
+gmc_v11_0_process_interrupt and gmc_v12_0_process_interrupt(). Is there 
+a map somewhere which shows which GMC versions go with which IH blocks?
 
 Regards,
 
 Tvrtko
 
-> 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 5 ++++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +
->   2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 13bec8461cde..52258f1341c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -437,9 +437,12 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev,
->   	uint32_t hash;
+>   		if (ret)
+>   			return 1;
+>   	} else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> index 444437c30088..e6e34f6e86f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> @@ -97,6 +97,7 @@ struct amdgpu_ih_funcs {
+>   	const char *(*node_id_to_die_name)(struct amdgpu_device *adev,
+>   					   unsigned int node_id,
+>   					   char *buf, size_t size);
+> +	void (*retry_cam_ack)(struct amdgpu_device *adev, u32 cam_index);
+>   };
 >   
->   	/* Stale retry fault if timestamp goes backward */
-> -	if (amdgpu_ih_ts_after(timestamp, ih->processed_timestamp))
-> +	if (timestamp == adev->gmc.processed_fault_timestamp ||
-> +		amdgpu_ih_ts_after(timestamp, adev->gmc.processed_fault_timestamp))
->   		return true;
+>   #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> index 6de9e87e04e1..c2431f4c2671 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> @@ -289,6 +289,11 @@ static uint32_t ih_v7_0_setup_retry_doorbell(u32 doorbell_index)
+>   	return val;
+>   }
 >   
-> +	adev->gmc.processed_fault_timestamp = MAX(timestamp, adev->gmc.processed_fault_timestamp);
+> +static void ih_v7_0_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
+> +{
+> +	WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> +}
 > +
->   	/* If we don't have space left in the ring buffer return immediately */
->   	stamp = max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
->   		AMDGPU_GMC_FAULT_TIMEOUT;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 676e3aaa1f27..77eb15380284 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -361,6 +361,7 @@ struct amdgpu_gmc {
+>   #define regIH_RING1_CLIENT_CFG_INDEX_V7_1             0x122
+>   #define regIH_RING1_CLIENT_CFG_INDEX_V7_1_BASE_IDX    0
+>   #define regIH_RING1_CLIENT_CFG_DATA_V7_1              0x123
+> @@ -858,6 +863,7 @@ static const struct amdgpu_ih_funcs ih_v7_0_funcs = {
+>   	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+>   	.set_rptr = ih_v7_0_set_rptr,
+>   	.node_id_to_die_name = ih_v7_0_node_id_to_die_name,
+> +	.retry_cam_ack = ih_v7_0_retry_cam_ack,
+>   };
 >   
->   	u64 noretry_flags;
->   	u64 init_pte_flags;
-> +	u64 processed_fault_timestamp;
+>   static void ih_v7_0_set_interrupt_funcs(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index 85846fd08ce4..30a82fff3ff7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -293,6 +293,11 @@ static uint32_t vega20_setup_retry_doorbell(u32 doorbell_index)
+>   	return val;
+>   }
 >   
->   	bool flush_tlb_needs_extra_type_0;
->   	bool flush_tlb_needs_extra_type_2;
+> +static void vega20_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
+> +{
+> +	WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> +}
+> +
+>   /**
+>    * vega20_ih_irq_init - init and enable the interrupt ring
+>    *
+> @@ -738,7 +743,8 @@ static const struct amdgpu_ih_funcs vega20_ih_funcs = {
+>   	.get_wptr = vega20_ih_get_wptr,
+>   	.decode_iv = amdgpu_ih_decode_iv_helper,
+>   	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+> -	.set_rptr = vega20_ih_set_rptr
+> +	.set_rptr = vega20_ih_set_rptr,
+> +	.retry_cam_ack = vega20_retry_cam_ack,
+>   };
+>   
+>   static void vega20_ih_set_interrupt_funcs(struct amdgpu_device *adev)
 
