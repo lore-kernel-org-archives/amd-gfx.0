@@ -4,79 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E53CD98CF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 15:32:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0595ACD98CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 15:42:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3AA010E512;
-	Mon, 15 Jun 2026 15:32:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BCE110E520;
+	Mon, 15 Jun 2026 15:42:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mo+jWhOf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DN7NMKFn";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1592610E512
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 15:32:29 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490a76757e5so25278355e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 08:32:28 -0700 (PDT)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53FB010E4AF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 15:42:35 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-304f8e80b7eso272268eec.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 08:42:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781538154; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hoAJLEF0TnAqMtM3tm0AJWQJjJ4kOz0c2F4ebPRKG85klBom/G5EwxC6XpRqLvZJkI
+ xis6E7bCI6iTCiXXLC1fLqSMIsNEb6cb66NnxHzv3Gj2ib6OKLi1oodEzXU+ye/VlsjE
+ dP4ivG0qdvsZs6qzAeDWHcmJ2KfazwdbUZxZYlrPG66w6dgdEQ1poTHQy95KLp6S4qER
+ 3yulCpy3LNCt3gs4A48KXFcPTHmubO95JQ8IPFLsGxfzVuJIuYJGGPkLBXz81FWJJGJx
+ uFu4De9/MWkcJVbK2h3JlHC2YT+bWI71eSFIGr4RoCNYkuh7/lgmlSBgDSl9Xr1JCXOj
+ 6m1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=HB5OTOAis4aNREHBYkXcEkOC2lkh0rrUy7H3L0anj/A=;
+ fh=JMovUKso387tvChwt/7uOKEYUMRv9JjMKmD+VuzEEAI=;
+ b=A42MoE+KM6ix27pKnZTT+qWWoMMB4JAIhh5DAgMZqXMQzbw/N2CnK8PLVjAQb46Gy6
+ Pt4L7YE5UsbhnLU8Rmq2rRa5ICaZfO4RBclMJON4lA+9q7mniEeY/zxhmWc+DUwcAEa8
+ MtIhBMj5Zc6KB9Y4AFJIEy14sC24z+JdP2VZEABRd5xCx6BX/bt8unQ6gflfhwX0dqBi
+ +7mFHQ2P6BQf1J+6c+en8L+UktktkckEvDyBygI3jaHOnx3CXhrOd+Q7lZHv1yniLfOe
+ XhexFeckJ+td1Z4D8/GmihrOHirAOH3GyHqv6yTaSTIAGO64iMdQmRHpz1pCC2fa38ir
+ pQ/A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781537547; x=1782142347; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5//rp2z4Q/FmecMoArAMs/mP5JhixUvPBzynevurrKM=;
- b=Mo+jWhOfuFfpOzUSay7BpvAMuh8tPJzXfdgz2O0KMN5t/Y8/7WDt+Hyms/ZfbanB5l
- Kz9LDBUHU5oxb1Hqlr2PR1jFJJH8DFFxbiXOFH4Rx29jUPTpKeMakPpP8VW056jL+jhD
- LQFJNptnYmPoJN6lvqyRHvRel3+b6+aAj2RPDhlq+KkVpbI6LoVFELqHtvfCiDYjgdw9
- Fv+fUqDpoVFtXibrNMIcuuMGpHS3Oszv+5o10m+6qmw73bQdWzexLDIkyU2eThY6+qdc
- Zm8i+LaOc4I2LgiDUPTQAhNOJaIPFseZgKJZJ0LmcaUHnvDe8d+LWhiY6XdkeIg6AjtV
- EBCA==
+ d=gmail.com; s=20251104; t=1781538154; x=1782142954; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HB5OTOAis4aNREHBYkXcEkOC2lkh0rrUy7H3L0anj/A=;
+ b=DN7NMKFnyz+nxGGmjOz1tIdXF3uSbj3NHTINwNlzeJfeKbJ9orusRqvtRiBpjIbDw4
+ Grv7OTgUWJtp1aG1U8qED2b1cSJ541Y80AGLahMvV4wcHibqnZL5rZue4uQYAOgadaDK
+ lJfA/nkcyF4lW7o/OhBe9D8+EPzoza44TSPRgo6oO/l8m5sARwBBFysIb5KekJrI1NXg
+ THSNNvyxK1I3gXTu+hSoimUFzsk66ZIovpHH09A40dFq1KM0S3ieIzOnr4vRhqth1JOc
+ vdidoB4/6ic6i3SiwaqZggQUQP+CCFYAd9gXZQzwITwWQjAtjAGM2ov7lctq6M0OeTSN
+ JxwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781537547; x=1782142347;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=5//rp2z4Q/FmecMoArAMs/mP5JhixUvPBzynevurrKM=;
- b=WY5t3idC3X+FQHWJEtMxmFIvPo+wMrI0zUGXbgcLM7PQvjLsB8YbQmIGh4kdHOozmz
- WWEjGYn0/9YeZDhBsWlq0EWGBoQxPDmZWG/9T3g1nWORyLc7aRVXfPfiyXAKXxDbYI2N
- bbMytCp23am11o1OX5dWAeZJ2054tFNezJWQminYj/AJWzPrjJXrzaEPB8s5A4pTRzl/
- 8l05Ja4QhDE7mLMyyJNsHJQlioPqIsA6v5DVkqS+bwJQj8maxvUv3+CoiZgTvyGDbiAA
- aTnRJVUOrWfdZKLbEqTQJdkvlRSoKaMsKKJidlT53l8BnTZ+17Wfy7nDzkH1+qtVC0mD
- 2mlA==
-X-Gm-Message-State: AOJu0YweiomIfPVsgO/8afZ5dg4Cg8BMxc/kW4h2z9R6sx6ev4d5Fxq8
- W3rhNIIe+tfLXlqPTjQba2bgWUJO1YkKJajz3wcSwcAmFSnyO7loAQ984E3lZw==
-X-Gm-Gg: Acq92OE9j8BQv5w0GvVRoumwFSNKpuo2rjVPdUVXzQQoxJE7b0ALIdC0D8GJINnrlfu
- Ftn3LoCdx/aEho3qTLrNl8sx4y/skXbjfedFXwMkrQG+KtvNzHSUYy/0FsV6aSF31Jibnaz7aVN
- yhtlDCOkz1JPdHg9X8jGpnZWczHnLqz0dqtQNDaFwaoavNVa3PgU54qxtM+5sMesa/JsXadSA9s
- fodbFC9YOPYlIpLyRl0TJREr40BHGQrGlejxBVGCFQR+Fh4sWcz6gclCLy8NT4aRIqD9RdeYezc
- RbMDPQNK3Kn7l0wz47S0Qwe2WYFv+ybW9oSc7cNtu8mnNLavm61W7ww1aB4SZTvop1CTVm2Ad7Z
- pALSphrrMIkoEZuUndqhVaNPUXPZcpHBO4TVzcx0jn5QzpOnTR5YED5WF96tqqY+YhwTOPxcIyb
- y3jKXTMGP2PL3fHx1sb33wsUZpT091lR2savQxDy4x3s0ocrDD/b8yL13C29GXhZe7XaBaYg==
-X-Received: by 2002:a05:600c:348b:b0:490:e5c1:b89e with SMTP id
- 5b1f17b1804b1-49220061e38mr142497135e9.10.1781537547283; 
- Mon, 15 Jun 2026 08:32:27 -0700 (PDT)
-Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
- [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa682d5sm535545e9.14.2026.06.15.08.32.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 08:32:26 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 3/7] drm/amdgpu/gmc: Don't compare page fault timestamps
- with other interrupts
-Date: Mon, 15 Jun 2026 17:32:25 +0200
-Message-ID: <10078559.eNJFYEL58v@timur-hyperion>
-In-Reply-To: <0b18193b-9f2d-4ea9-8db3-08579325ab0c@ursulin.net>
-References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <2805750.vuYhMxLoTh@timur-hyperion>
- <0b18193b-9f2d-4ea9-8db3-08579325ab0c@ursulin.net>
+ d=1e100.net; s=20251104; t=1781538154; x=1782142954;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HB5OTOAis4aNREHBYkXcEkOC2lkh0rrUy7H3L0anj/A=;
+ b=KX0lpwpk+0PsQKcvKg7oACBe+WByqeuEa0lO3V++D4YCmENkZjwjIBofJjrzH1S1hG
+ DTSBcj45Wj/urrbRYMoYN2P9Mcicf6lyvapqI+H1whD4QyMJDK2DN9p6+22jDevcgelY
+ JCw4GXVO213lPBy+5TQPb/4deXFDpjDyogsVQSdWMJJr6NckZKFizm3NiqF7vTfEpWoW
+ VmS84itH/ct0m2/n+kjqDx/z5JP7JK/A6EBl1p4paura09bGfFXlJlLk2bI2kfqyCpTt
+ wTAjUK+1Enie8nff1ckEQixSANife8tA1sGDlWCcyR1tn4dK30BOLu+fXvY8BUvZsXcP
+ UF/A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8L1DZSZ3ACQ50rl79NqgYyZYOo7QG0eGfXS+kqp1k9SjsZIL21aZRlvKtKU+upCvrHQiyyBXXz@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YygEXhbJHuSfwMz0UKdQECvafTAiPgviWzNahtH2Z1DIWdg+MvX
+ q5ZR0eB3LiDc3x2E0SvuVbGVqnponNgxIRIydN3tHHo6j0W+n0rrBtQLwDkbPPU6PZQLGOxdh4g
+ zmxXaJumJmWg5LYW7krX1z3ek9o9fWxY=
+X-Gm-Gg: Acq92OHmPUNB5gZwtG1nDVyxywyCJ49u5bDbbRITuG0BFWHJmdPvkYy7mg7uYBWYHnL
+ r9Kke/eBXt5FHchsa/5v8wyN4/IaQkiO8vVUlSswD32oXXOdCopCzK3yvpy/PGOQydDYSF1pwjJ
+ m2VX2twfGW7VlWJ8WKU4GMVjcGrn2Vj1XlQWtzq3lMJLOQNggxg7vHqJamHA/cJms+Preze7WnS
+ jtnH0wzxq2JcakamS/X17D9OfMvQbGgY32FPqW+dQwYXQfUyiT4V0BQ+puYJRFLhR6+ybMRwimL
+ kRkTuJfTLO7hp3JZyXUDiIgtRpSJwnbyvqoCi6hBaQ55n+2mn24gRbZRtLtlL28/hVXabMMaUZV
+ pn105
+X-Received: by 2002:a05:7022:68a0:b0:137:ef27:e297 with SMTP id
+ a92af1059eb24-139724e2eaamr2051152c88.3.1781538154433; Mon, 15 Jun 2026
+ 08:42:34 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260610083245.1057241-1-pavel.ondracka@gmail.com>
+ <f0041fae-2703-480b-be9a-51a1df964a01@amd.com>
+In-Reply-To: <f0041fae-2703-480b-be9a-51a1df964a01@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2026 11:42:21 -0400
+X-Gm-Features: AVVi8CfkqX2jHXjaMSoirH3Cv4qa5toEnvBVc9Ay0ocL4YvWUTf4hiVAjEFqETY
+Message-ID: <CADnq5_MxrcO7GX+jGQbkuaF40QipnkxSq_+P1cbDmanO2K05uA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix r100_copy_blit for large BOs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?Q?Pavel_Ondra=C4=8Dka?= <pavel.ondracka@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ alexander.deucher@amd.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,165 +107,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, June 15, 2026 5:23:52=E2=80=AFPM Central European Summer Time Tv=
-rtko=20
-Ursulin wrote:
-> On 15/06/2026 15:52, Timur Krist=C3=B3f wrote:
-> > On Monday, June 15, 2026 4:32:23=E2=80=AFPM Central European Summer Tim=
-e Tvrtko
-> >=20
-> > Ursulin wrote:
-> >> On 25/05/2026 12:45, Timur Krist=C3=B3f wrote:
-> >>> Different interrupts may have different timestamp sources,
-> >>> which shouldn't be compared.
-> >>>=20
-> >>> If we compare the timestamps of retry faults to timestamps
-> >>> of other interrupts, it may result in all retry fault
-> >>> interrupts being filtered out, because of the different
-> >>> time stamp source.
-> >>>=20
-> >>> This issue was observed on Strix Halo.
-> >>> Solved by storing the timestamp of the last page fault interrupt.
-> >=20
-> > Hi,
-> >=20
-> >> This one may require access to AMD docs to review. For example I am
-> >> immediately curious as to how many different clock sources on a single
-> >> IH there are
-> >=20
-> > As far as I know there are various timestamp sources in the GPU and some
-> > interrupts use different ones. I am not aware of any documentation on t=
-his
-> > topic, unfortunately.
-> >=20
-> >> how does that relate to the timestamp_src field
-> >=20
-> > The timestamp_src field is set differently when the timestamp source is
-> > different. So, it could happen that we accidentally filter out all page
-> > faults when we shouldn't.
-> >=20
-> >> and if there are indeed multiple clock domains should the patch perhaps
-> >> be
-> >> generalized to something like
-> >> ih->processed_timestamp[entry->timestamp_src] or something?
-> >=20
-> > For the context of this patch, I think it doesn't matter how many
-> > different
-> > kinds of time stamps there are. What's important is that we just should=
-n't
-> > compare timestamps of page faults with time stamps of other interrupts.
->=20
-> True, thank you!
->=20
-> Another question is why the backward timestamp check is needed only for
-> fault interrupts? I do not see it elsewhere.
+Applied.  Thanks!
 
-Correct, this is only used for retry fault interrupts and only when they ar=
-e=20
-dispatched to the soft IH ring.
-
-The reason this was added is because when retry faults are enabled and the =
-GPU=20
-hits a VM fault, it keeps spamming the CPU with many interrupts for the sam=
-e=20
-fault until the fault is resolved. The CPU needs to filter out the faults w=
-hich=20
-it is already handling, otherwise we would end up handling the same fault=20
-multiple times.
-
-(As a side note, I should also probably look into how to reduce the frequen=
-cy=20
-of how often these interrupts are repeated.)
-
->=20
-> Let me also ask two more things below.
->=20
-> > As far as I see the timestamp doesn't really matter for other interrupts
-> > as we only use it to filter out page faults and nothing else.
-> >=20
-> > Hope this helps,
-> > Timur
-> >=20
-> >>> ---
-> >>>=20
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 5 ++++-
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +
-> >>>    2 files changed, 5 insertions(+), 1 deletion(-)
-> >>>=20
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
-> >>> 13bec8461cde..52258f1341c2 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>> @@ -437,9 +437,12 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_devi=
-ce
-> >>> *adev,>
-> >>>=20
-> >>>    	uint32_t hash;
-> >>>    =09
-> >>>    	/* Stale retry fault if timestamp goes backward */
-> >>>=20
-> >>> -	if (amdgpu_ih_ts_after(timestamp, ih->processed_timestamp))
-> >>> +	if (timestamp =3D=3D adev->gmc.processed_fault_timestamp ||
-> >>> +		amdgpu_ih_ts_after(timestamp, adev-
-> >>=20
-> >> gmc.processed_fault_timestamp))
->=20
-> First thing is whether you are confident the equality check is either
-> safe or required?
-
-I don't see why it wouldn't be safe. But maybe it isn't required.
-What do you suggest instead?
-
-> For example can two blocks fault with the same timestamp on different
-> addresses?
-
-They might. But keep in mind that the GFX block just keeps spamming the=20
-interrupts until the fault is handled. So, if we filter one out by mistake,=
- we=20
-know we will just receive the same fault again very soon.
-
-> Or from a different angle, is the clock granularity good enough to not
-> coalesce two separate faults to a single timestamp?
-
-I am not sure about that.
-
->=20
-> >>>    		return true;
-> >>>=20
-> >>> +	adev->gmc.processed_fault_timestamp =3D MAX(timestamp,
-> >>> adev->gmc.processed_fault_timestamp); +
->=20
-> Doesn't a plain assign work here? The if above has already verified new
-> timestamp is larger than the old.
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> >>>    	/* If we don't have space left in the ring buffer return
-> >=20
-> > immediately */
-> >=20
-> >>>    	stamp =3D max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
-> >>>    =09
-> >>>    		AMDGPU_GMC_FAULT_TIMEOUT;
-> >>>=20
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h index
-> >>> 676e3aaa1f27..77eb15380284 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> >>> @@ -361,6 +361,7 @@ struct amdgpu_gmc {
-> >>>=20
-> >>>    	u64 noretry_flags;
-> >>>    	u64 init_pte_flags;
-> >>>=20
-> >>> +	u64 processed_fault_timestamp;
-> >>>=20
-> >>>    	bool flush_tlb_needs_extra_type_0;
-> >>>    	bool flush_tlb_needs_extra_type_2;
-
-
-
-
+On Wed, Jun 10, 2026 at 5:24=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 6/10/26 10:32, Pavel Ondra=C4=8Dka wrote:
+> >
+> > r100_copy_blit() copies BOs as 1024-pixel-wide ARGB8888 blits, so one
+> > GPU page becomes one blit row. Large copies are split into chunks of at
+> > most 8191 rows.
+> >
+> > The kernel register header names the packet coordinate dwords SRC_Y_X
+> > and DST_Y_X. In the BITBLT_MULTI description in
+> > R5xx_Acceleration_v1.5.pdf docs, these correspond to [SRC_X1 | SRC_Y1]
+> > and [DST_X1 | DST_Y1], which are signed 13-bit coordinates in the
+> > -8192..8191 range. The old code kept SRC/DST_PITCH_OFFSET at the BO bas=
+e
+> > and used SRC_Y_X/DST_Y_X as the chunk address, so large BO moves could
+> > exceed that coordinate range.
+> >
+> > Compute per-chunk SRC/DST_PITCH_OFFSET bases and emit zero source and
+> > destination coordinates. r100_copy_blit() already packs
+> > SRC/DST_PITCH_OFFSET as pitch plus base offset, so large chunk addresse=
+s
+> > belong there rather than in the coordinate fields.
+> >
+> > This fixes Prison Architect corruption with 4096x4096 mipped textures
+> > after they are evicted to GTT under memory pressure on RV530.
+>
+> Wow, impressive piece of work.
+>
+> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/6716
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Pavel Ondra=C4=8Dka <pavel.ondracka@gmail.com>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Thanks a lot for digging into this,
+> Christian.
+>
+> > ---
+> >  drivers/gpu/drm/radeon/r100.c | 13 +++++++++----
+> >  1 file changed, 9 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r10=
+0.c
+> > index 3ac1a79b6f13..533215d6e9cb 100644
+> > --- a/drivers/gpu/drm/radeon/r100.c
+> > +++ b/drivers/gpu/drm/radeon/r100.c
+> > @@ -906,6 +906,7 @@ struct radeon_fence *r100_copy_blit(struct radeon_d=
+evice *rdev,
+> >  {
+> >         struct radeon_ring *ring =3D &rdev->ring[RADEON_RING_TYPE_GFX_I=
+NDEX];
+> >         struct radeon_fence *fence;
+> > +       uint64_t cur_src_offset, cur_dst_offset;
+> >         uint32_t cur_pages;
+> >         uint32_t stride_bytes =3D RADEON_GPU_PAGE_SIZE;
+> >         uint32_t pitch;
+> > @@ -934,6 +935,10 @@ struct radeon_fence *r100_copy_blit(struct radeon_=
+device *rdev,
+> >                         cur_pages =3D 8191;
+> >                 }
+> >                 num_gpu_pages -=3D cur_pages;
+> > +               cur_src_offset =3D src_offset +
+> > +                       (uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
+> > +               cur_dst_offset =3D dst_offset +
+> > +                       (uint64_t)num_gpu_pages * RADEON_GPU_PAGE_SIZE;
+> >
+> >                 /* pages are in Y direction - height
+> >                    page width in X direction - width */
+> > @@ -950,13 +955,13 @@ struct radeon_fence *r100_copy_blit(struct radeon=
+_device *rdev,
+> >                                   RADEON_DP_SRC_SOURCE_MEMORY |
+> >                                   RADEON_GMC_CLR_CMP_CNTL_DIS |
+> >                                   RADEON_GMC_WR_MSK_DIS);
+> > -               radeon_ring_write(ring, (pitch << 22) | (src_offset >> =
+10));
+> > -               radeon_ring_write(ring, (pitch << 22) | (dst_offset >> =
+10));
+> > +               radeon_ring_write(ring, (pitch << 22) | (cur_src_offset=
+ >> 10));
+> > +               radeon_ring_write(ring, (pitch << 22) | (cur_dst_offset=
+ >> 10));
+> >                 radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
+> >                 radeon_ring_write(ring, 0);
+> >                 radeon_ring_write(ring, (0x1fff) | (0x1fff << 16));
+> > -               radeon_ring_write(ring, num_gpu_pages);
+> > -               radeon_ring_write(ring, num_gpu_pages);
+> > +               radeon_ring_write(ring, 0);
+> > +               radeon_ring_write(ring, 0);
+> >                 radeon_ring_write(ring, cur_pages | (stride_pixels << 1=
+6));
+> >         }
+> >         radeon_ring_write(ring, PACKET0(RADEON_DSTCACHE_CTLSTAT, 0));
+> > --
+> > 2.52.0
+> >
+>
