@@ -4,99 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA6A8CD98DA
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 17:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EF5CD98DA
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 18:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE8310E511;
-	Mon, 15 Jun 2026 17:54:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC0410E569;
+	Mon, 15 Jun 2026 18:09:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A9v93ZkL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OymfvPub";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6A2810E569
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 17:54:06 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-304d3d3d8f8so438709eec.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 10:54:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781546046; cv=none;
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDFE010E569
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 18:09:52 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-306f1213aadso325107eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 11:09:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781546992; cv=none;
  d=google.com; s=arc-20240605;
- b=N74gOHYsT9djSFr/K9N4z7M11VcjRvgIGfGY3f771eLdjetiFccuegob2QYqHd52if
- nVE5TteuUS8N7MpPSdWWvq+thR1yGtD4FJp7oamHEaIctScgSb591YA+HlHOqjEm9oA8
- 1XAjyVFljvklqOZaCtEMlUrCC4kN7F3jRoE0WnWEHggdXBs2wTWh6oIlMOTiVUZW1xSF
- VX3XpLUukjaHekzWmZaZ9tbtwm58vDLA0f4l1G9WQqmlt7HIgc/tYIqszYllLxVqzCXn
- 0TtbmK3nWRXXAp7+LGk1CRibH7zkp6nrMin83jvRUJ0dfd//KvhMGKBbhjYEjG+zu86t
- gvzA==
+ b=Y0GZLDAQhCW2rNzVm7qlXfXBH//iTd96I8ajXTmt/saP1NuFSsBZXXxACP0oCVS2ty
+ DcFoJ5pzIWxSTeeWiFJ/GRAEqQAErVfzOWgk++Z0iOalHZyZheLCrjpjwqQbYOX9TyaP
+ xQGm/2zlCHo6cplmO/UW84qnXw+LQYmZ3WnGLibZ2CjE/9cOqfSLBMpJtzDdFfM8mSxQ
+ mAt38Rm/UCeaHNEs/pW6bb2TjFG48+wVRVUfEGZtnLGNbMpJD7EoqyIV8cinwJPnFzrd
+ J5DJhOPi2VLSKrgwHkMbdmgN3adbE7DCcfkI/rFyjrNrtFX8dFwSzwcHHGuOn7Jd/wbg
+ nE0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=9Rqy3CrWBr5mXZd21QMPU6BJ30DbF1dOpUcQYTCdhx0=;
- fh=8NZK/li2IV6I8S/rS1JLlv99vfsCN11tCzFwSSRu8c4=;
- b=iQLljBUWF7JqyVmQlbb8ICUBXm58Uxk7yrsTXwezQ3/7kPzp0ceMdC6Rxzu2g6bs3j
- O9quZlDD2W9eJa0ILnnJqkRyx9R7P6bal0I8y0VcJ/mp82PIiTX2IqaxF5BRsoCuXx3B
- 7pINP7UDc9hpRXzK+dXr9q/Zng1hsNN6Tu7zAv/LJXLduu//rn52Jjb/RozEpvku8aEs
- TJ9iRjPDz7cpXePlZ5KI/gqsE9jxcR5F/p6Q95kz4i42iiqWUVs5GzZA+6SiVje3C26T
- nsVp7j9CscBbihxrurxcMWDw1+JUIY0ybxxTiK3+uLfGMu3D/zUdLnMtXyoZzRQDy64B
- zlvQ==; darn=lists.freedesktop.org
+ bh=eHZFXT8A0K9xNDtUJk1t/I9VTM1oh8bKg7wxG564NaQ=;
+ fh=/jXuF6kkEzGc76I89MWDwYajZhHhstOH8SMMdzCQivY=;
+ b=L5C9wM6VmyPVSj+yxGOQo9RJVe/yxJV6KY/1uDh8z8gZXAcpM9GsxuJGkR8W6jKrLB
+ eNU3TIO60rRcYSKEMbKVN0aXQHmbE5W8GO69lN8UbvopQCMjTNoX8KZDQQrtjT1ygkVS
+ z5oI5anHsjl+nE76h4TmkHL1yywSimXfA0bA2RmMcRQlyPYjeIrbpvXc4exaTIondz+T
+ RLsmymN3LwAs39QT0IFJvUZOfwlo239ZMgqEgsGMdJweoS91nKlFxT3ym2ZvSOoOLtwJ
+ foVhpfKg82cNACNKdPedvtDVgbDL5OijO3TOhP6+Zf4Sq9/BJrgPbQG0uyqF6lXFkNOW
+ D/9A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781546046; x=1782150846; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781546992; x=1782151792; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9Rqy3CrWBr5mXZd21QMPU6BJ30DbF1dOpUcQYTCdhx0=;
- b=A9v93ZkL1JXCrZLCLp+kilr4+5swFWxF5esqbMSYTea+4n+eQ4TY9056FTUt4Aztgq
- jButYOx+1rbOEX1aAP9F6eMEwju6xf0eiotmgS9Qg7LteWoCgVyolNSHxfkGRHh/tVnB
- tSyAXssnGL9mXO5j1/8qcrzekvoAb2VK9y/F/HACHuY1GFoj/a5i01qWy/MAz379D8ij
- K5L4FXAaDwnKdu8tAT7w3lkfCsDHF1R17OpgQoEZRAvEEt8ktB+1GaFay0KdO+0033aG
- 0XFw43mk/dHd/XsTXvP2Ai/5yJaAvB/8ahwyRkLGx0ItIFGjeRpXiZGj8eRCJHMWLBlI
- gZSA==
+ bh=eHZFXT8A0K9xNDtUJk1t/I9VTM1oh8bKg7wxG564NaQ=;
+ b=OymfvPuboj5+UTl4zF/YbYmH8CvDC+NU7+5VN0n2d5M4r+OI3ORQ5rMmATsfa0ckDa
+ lL6P8y0sarH586AlcH9ZL93Z4jeAJGZUtF8/t98djxslHkFHhEl0nfjk2ZIXe7b1aWm7
+ ym9w/DZTzJCM2yRvgct7OgzWEJEYJPYI+YfXZWGEXJPjlAvdMxaVOsndKFyMIr8m1Gon
+ zVBKd905wwxgjnxKhNwALFVDcWPDpRQ5L+PjH15f7wPZI92FzW1JkXkh2fqt16rT4KhP
+ zVypJ5p/xQvVr5Kv7PUyo9A2m1ln+5Jg5LIYIjzwkhllsXwdd5dK1Roh20GCLwmc93hY
+ ou2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781546046; x=1782150846;
+ d=1e100.net; s=20251104; t=1781546992; x=1782151792;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9Rqy3CrWBr5mXZd21QMPU6BJ30DbF1dOpUcQYTCdhx0=;
- b=aEYpJivDFDrH1Ue1hE9huIuXEyKAUAh7bft0C6WKjo1jhxZPRxmZBvciV7tqDrY/Ed
- Ll/7ukbnYNAiA1C7Rt339R8T/NeP9uNfF792LTLUOZVcFoMfVtDCcqEFHvITtejLBT5M
- /KOoQuXBCTapHJXilKlIdHIbYjja7mguzOEVmoPh8fikc2s5HcfZBK7QfitjVvYtk6+5
- M5cXujKumnfuRlY6ZIAq2GfyLYpzSd1ubNaL2cUPNND5FbtsOiM2KHmJf3oA+h7J1v1N
- /l6y9X4GJs+oLz9wwm/vZ92tG/tiAZcDL61AYHj6kjva5xeLTp+Bj+Qnk/Sv/OunFjCU
- KJZg==
-X-Gm-Message-State: AOJu0YzUWbt6BDF2TbvyL1dTDZ41oPbWI7vdF+JC2Z9WWt0/pEeuN4t0
- tLzY2OeA4rqj7b50IJ4C/ULV5kDOVr1FaExWLmDBihIhhPca2bhf38gsPUnpl6oY7gVwiI+/SnA
- Kij0KK3GPzlmNhb2C0ZRmGNjW9+J+QRI=
-X-Gm-Gg: Acq92OFhhIKY2UVkTApHkZPFh6oAeRfV5BJF8nL3eP42ACrGDkx+7RKH5xrfkieiJrd
- iELN6Xyvm/E0pVqg2hWeP1qiLoiQMoMZarY7rz7V7a2U3/bK2aIiyLOTenyxt5ykUUSd8tPDmyn
- YoHa5w520VT+RLqb0BnVRVAzjvsiOk9w5HyhOC7WKVewYd2ckP9KMm5/OiZZxJJlF+iqvQ8PIpg
- 9IiovYa/ZyuDkAxKBkmc97xS2xSB/CckwxV5asNBNQuzuPnsWakoiBUpe+uP5EhNXeYJNTzTdvg
- Bx5XYpeGyAgA73bS+UdOXgxxZOMAbcA3lw5R5QLnaC9St1xWfMMvDNmRciBMngXGpxwZdvyHy1h
- kjerC
-X-Received: by 2002:a05:7300:2d07:b0:304:cec4:dbdb with SMTP id
- 5a478bee46e88-3082008977cmr3599528eec.4.1781546045858; Mon, 15 Jun 2026
- 10:54:05 -0700 (PDT)
+ bh=eHZFXT8A0K9xNDtUJk1t/I9VTM1oh8bKg7wxG564NaQ=;
+ b=hlLNsYShQrs8KdV4UvekH4EJLqBrdCm7wZEEax2+JB7G11Bfg872flwDZNEGT5lg/2
+ LVc7uYk7qd9DxGVv67oStUGzMoWQ8h/eFl/qEhzaz0q5VPAZox++TP8ANXp30VL+qI+j
+ 3vP7vmPFI7RgvVqctIZbaj4kZrTG41wTX7J/ueTfSfMRC8S4iH+I0u/o4+uRFhPyBUy7
+ yx/2Go6HlRoDUHE1PzS0cOZeFmSthdZ3v+nMolKjBuwqLwLcTotK9Y9wihz3AaDkEETL
+ OqxnpYQWQoF2/WZCT+tLiDqT9AQ+vcpG0ZBUbkddXhmjMVmFT6ga2JH68F3uO85O3dGC
+ 343A==
+X-Gm-Message-State: AOJu0YxsWRib+gb90KFllU2VbvG4ol+N+knH3KDeHN5e4x0jHYgYRbaK
+ GjuOj3dx2qNAWKEXXWof78xJpgoNfnA3ZQY8EVAlsEA8rRKG0CigC1jKpbXlfQCJAqyFEhhbhpu
+ C97fa/h5QVnLsH39iByBjtupIvpqXmkS5WQ==
+X-Gm-Gg: Acq92OH7JaiaYopL1wNrn6BnNibRJzxXZ4SddZwDv6R+hO9EkPP/WXipTuQwr3KUr1Y
+ MDP6B3MSxgHmQZPccBo1Pm/MrrLHGuZz+mkyGWgkUQx8IavIurMR5FJsMzn+oioKi3UX9vGo80a
+ kNRlhfUx7+QrAHcx5PxXHRcPiI0XZUe32KA7XnO4liMbLpr+TX5pT2YU+ZazGBksXVR6rDeuBem
+ y9lbBpRWcvxEGg9hE6cppR9lAg9KTbaqt8wRt0zHqWycGUrXG2ReDAuPPvxY3f6h1/ZzQQXDHw1
+ wY5inSVH9gt4LCge4Cpzt43OimvfenKAYudybLW6X7NQgf5+aWxa3e/hOtxmEufo0ONP79ZciGQ
+ EXGS+
+X-Received: by 2002:a05:7022:38f:b0:134:d037:aca3 with SMTP id
+ a92af1059eb24-1384bb9ada0mr3131113c88.3.1781546991947; Mon, 15 Jun 2026
+ 11:09:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
- <da65ea0b-81bd-4109-89cd-f4a5120edba0@web.de>
-In-Reply-To: <da65ea0b-81bd-4109-89cd-f4a5120edba0@web.de>
+References: <20260613021153.1136397-1-mario.limonciello@amd.com>
+In-Reply-To: <20260613021153.1136397-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jun 2026 13:53:52 -0400
-X-Gm-Features: AVVi8CdqwiWNBPSphn3J7yyMq6FkhbfPshSymt8PKr3c0v0L9dqT3Suxzi8nKmw
-Message-ID: <CADnq5_P0WSMb1ALbKO-mqRWa+Et3Qe+04um_r0B-cDdxiYo0nA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: Use seq_putc() in three functions
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
- Leo Li <sunpeng.li@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, Rong Zhang <i@rong.moe>,
- Simona Vetter <simona@ffwll.ch>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Tom Chung <chiahsuan.chung@amd.com>, LKML <linux-kernel@vger.kernel.org>
+Date: Mon, 15 Jun 2026 14:09:40 -0400
+X-Gm-Features: AVVi8CdoZIiwh6GR-WdNnlXWFAHF5y2008ROQMu3RQ6tVW9x_gJd1ZwNoQk1LXc
+Message-ID: <CADnq5_O-w46SSK+ESizm29b_yQa942jw3O+FdfwPJ-AgdqFkWg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: check amdgpu_vm_bo_find() result in
+ GET_MAPPING_INFO
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -113,62 +103,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied patches 2 and 3.  Thanks!
+On Fri, Jun 12, 2026 at 10:12=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> The AMDGPU_GEM_OP_GET_MAPPING_INFO path of amdgpu_gem_op_ioctl() looks
+> up the bo_va for the buffer object in the caller's VM via
+> amdgpu_vm_bo_find(), but uses the returned pointer without checking it.
+>
+> amdgpu_vm_bo_find() returns NULL when the BO has no bo_va in that VM,
+> which is the normal case for a BO that has never been mapped. The result
+> is fed straight into amdgpu_vm_bo_va_for_each_valid_mapping(), which
+> expands to list_for_each_entry(mapping, &(bo_va)->valids, list) and
+> dereferences bo_va, causing a NULL pointer dereference.
+>
+> This is reachable by any process able to issue the ioctl (render group)
+> simply by requesting mapping info for an unmapped BO.
+>
+> Return -ENOENT when no bo_va is found, jumping to out_exec so the
+> drm_exec context and GEM object reference are released.
+>
+> Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioct=
+l")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Alex
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Fri, Jun 5, 2026 at 8:09=E2=80=AFAM Markus Elfring <Markus.Elfring@web.d=
-e> wrote:
->
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Fri, 5 Jun 2026 12:44:01 +0200
->
-> Single characters should occasionally be put into a sequence.
-> Thus use the corresponding function =E2=80=9Cseq_putc=E2=80=9D.
->
-> The source code was transformed by using the Coccinelle software.
->
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 885e9b7bc27a..e45fa6e97fc6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -606,7 +606,7 @@ static int dp_lttpr_status_show(struct seq_file *m, v=
-oid *unused)
->                 break;
->         }
->
-> -       seq_puts(m, "\n");
-> +       seq_putc(m, '\n');
->         return 0;
->  }
->
-> @@ -1081,7 +1081,7 @@ static int psr_capability_show(struct seq_file *m, =
-void *data)
->                    str_yes_no(link->psr_settings.psr_feature_enabled));
->         if (link->psr_settings.psr_version)
->                 seq_printf(m, " [0x%02x]", link->psr_settings.psr_version=
-);
-> -       seq_puts(m, "\n");
-> +       seq_putc(m, '\n');
->
->         return 0;
->  }
-> @@ -1266,7 +1266,7 @@ static int hdcp_sink_capability_show(struct seq_fil=
-e *m, void *data)
->         if (!hdcp_cap && !hdcp2_cap)
->                 seq_printf(m, "%s ", "None");
->
-> -       seq_puts(m, "\n");
-> +       seq_putc(m, '\n');
->
->         return 0;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index 22ec4eb6e17f8..28f89ae8ca745 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -1094,6 +1094,11 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
+id *data,
+>                  * If that number is larger than the size of the array, t=
+he ioctl must
+>                  * be retried.
+>                  */
+> +               if (!bo_va) {
+> +                       r =3D -ENOENT;
+> +                       goto out_exec;
+> +               }
+> +
+>                 if (args->num_entries > INT_MAX / sizeof(*vm_entries)) {
+>                         r =3D -EINVAL;
+>                         goto out_exec;
 > --
-> 2.54.0
+> 2.43.0
 >
