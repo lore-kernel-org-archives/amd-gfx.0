@@ -4,98 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D6D1CD98DA
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 16:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71542CD98DA
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 16:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D56E10E53D;
-	Mon, 15 Jun 2026 16:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E138610E1AC;
+	Mon, 15 Jun 2026 16:13:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kyH64PaC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eVZYzjTV";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1F8310E53A
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 16:07:28 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-137dd3b29d5so202520c88.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 09:07:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781539648; cv=none;
- d=google.com; s=arc-20240605;
- b=OSHNZfPgw9nZc+fNap/wXf259usksPi9h8cBaB/9+sBGC+frRQB92P+0R+kZc+SePE
- L7LCKIMi81kT5fsmzT5oh5AEVVoh1wOjRSVNFsLDsjjpxhXdGYD40BObMhkkpvoNy/Xq
- ySdp8ItY+SUWRGrSzYLJT9f3GOu7ZweZhSZY4m7SN7CVJi2lkeN8GlDoc922kcV7a/FF
- rWugVo0ZxANR0HfTc9w6OgvbAvBSOZombHd0cDLwedEXqk3sbIXRMMj6+l7M2Y4VplhT
- VspPtyrn3Yik+860TijDIUHr3n+NeQhKDR2CoG3wu6Raz5xVvqtvOfG0/iVXFAOrtPz5
- zSdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=mQhB2xvbV4B2oYmCAIBExO3PWOsuBM4dJiFzqvFFcao=;
- fh=nCorh5oJ2iPsJGViR65qEXiqcJQoMVwAmIQbZssYGuw=;
- b=XKs9FS46c0NUtdRTkvNAjFPwnQgzbxRVgjQPjJUM9KhLsYhgGOAq2cXjZongMadnrT
- jy6WOfUpaCLo6loHSrhBbnL2LYgXwah7NsqtX/iEuNcUSFzD0co4LofRnQSGzq1nWxfA
- 82QQtXGnVaRZ/O6DQSJi1MMzpaAx6lxagehUNfopU/2eGvO3P3W1dBK+9kG19lQXl9gh
- ZPcZi4R56BjC9Wvc/8/RwMu7KVYVo7dMjXyRy0DWiIDrgOiFPj/ms808Ks5NgAPwSWrA
- 8qhn51PFhAewZAUrsz360SgE+F5tLGmPuPQleM/Uc98MU/xnlXiwoKuWNyJgD+9DuR3d
- udTg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781539648; x=1782144448; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mQhB2xvbV4B2oYmCAIBExO3PWOsuBM4dJiFzqvFFcao=;
- b=kyH64PaC9KCrCZShRGAECKvCNDHd5rX7BbU6gtILU54gNRl4PrmpeOK0S6W3dfu38Z
- +NK1XML4YY9OCP9puzggTuTqSLAyQM4CtGWQpiKWuh+QvNwob60Wq2vGzERwpXgvPdZK
- f5IbgoktGxlwPkHEIWRWsnHNIjXxdyy0vfcAC24C46zQ63A/rHtXTlT2zYCbGWcwGV0s
- 4Q1nyWJPUrREO2eNSlH8X8W4YnrUEzYNeS0o4BxW/JKLHQ4D+/TbpkpeZzGsrMWI561b
- m/nlxeEmFb2qTbq5lkJ+PwvPEe+3xcmApI7oM/PSOtW5BP7OEMiyatw7lfCv6/LP7qQa
- eL7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781539648; x=1782144448;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=mQhB2xvbV4B2oYmCAIBExO3PWOsuBM4dJiFzqvFFcao=;
- b=Eyro5WA5hyhRHF8AH1W6+PoL41a7jzf+bbnIjhPubogeDT58V6iarKfUIHa2R7DLZf
- HV9lI33WYixus3rQqpn3DelAXrkUxaiT4N1T8Dj9fPLs035vyG5XVG+8ZUo3WHL0FKCN
- 13rPgmN546pIok12imVMSQVHadSiu4e+GcWLL9pdxgUI40kPToQyUYJ6J2LA5aXUt+KY
- 1paIMJFJ3LRwCmNX0t24F/lrZjsSiecJXf0N32hoFc+Phdd5IFSJSFAnjJg0xfjdap0e
- pKie9RmL2usXnMufQv3nPReAd3FOlWhUML4eA2yS9/YTS1FctDAlVFJ6HSrWm8XA/gqY
- oWOw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8jbtY1xm8ucpu/Kyfh/zRItC0ZRuaMilPUQrskK3ciTvfzrM86doftIB9cSs1aMHOjkuQgx7x9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyCUuPmuMYbN8m1VeECr8Y2o2zXMYhVTjZ5xmC5bv3ALoymzSxM
- yFWCKar91DwEOI+jmrXUrZOud2MncPWs7egusB/X3l/eUjDFZ4BF8dicGPivuqvrmjnCOCRu2nE
- lcq4cxBH2uD+L5wx4sQKrd65ir0+tCsM=
-X-Gm-Gg: Acq92OHjStI0f6MOxEfM7I0J6BCFg+v0GIxoFOL2fhlrVjv6K4X7TcfdQknFUqHa5+N
- 9FquA9NU+6ST53IxUcfVsTskgU11PLU0L+eWWM63x3msv9pNPi2ok3opnXsPhAiGjUG0QJx3S7b
- qnr9W4c7utRK6VSBZvTDCTYtfOQmargzpRyG3gwbcmvv5YXEMKyLJ33pMMgW36SMlwNHTlqZ6Xq
- mzSsSI/Zu7b2iwlNSMc43RIkDuSoGBCvzM1TCotSU73A6RirQxgLFJ9M6dphi8sGUYTFjre0j5t
- e4Wv0d3z/oPfGXrfQmn8WLF8RWXxT07y1yTTRlh4hXU6TB5mbAM30scNyoqlhd5BbahLwQ==
-X-Received: by 2002:a05:7022:688a:b0:138:63d:e43e with SMTP id
- a92af1059eb24-1384bb7c5e9mr3260964c88.4.1781539647815; Mon, 15 Jun 2026
- 09:07:27 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012062.outbound.protection.outlook.com [40.107.209.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE2E10E1AC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 16:13:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sRngAONfnywACG2c1yKtdEGFmpV89KPZfF+HwOKfYQit2/yOlLleM8pp1oJfaJNnpHiC7ZEGTDV9ozEapbFOSoTvC1NLGYNoDJWGcbak8gG0ja+QZlLZL8zIps/AzKN5CQkteDBW8M/RMnqIm+it+CfNQn3j5bW7y5Ta+cyWK3TykGP0Ih57M3NjB2/n7mFgDvL73WoPlznu2W2BJ/CWMNtZsjnuwnVF7M5H1ekMAhwZM05jqq0bWFIA2Ud8vvNbG093ThFFXQzDQPHSZpxI23ZTjc6iSIIfIPK5DuE1NNMltvzLP8zIYMZEGOmzgg9z+Q8z11DD7PZHsdAF0edFWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JqSf0rhtkDAjtof+tozy5qHdy7lmU6pu6vWN5nx1cOU=;
+ b=aalVm/MJ6xiCPpHY13c4Ontds7coo+dXxMgEhGe76mFXpWI13tD2WSV2OpDHszhy2zjK+nAKMeEIzHxCI7nrsqkbn8niPv3oSJt9uzxIselazqMXv76ZCVCg6hUr/yoOWReDV8vIqOtZqOPKqZ23PRrvx269Ufkc62nu8znazDGblzlvUbhiTTeI6bg5cj0FrLMDvrcWqtIecsR5QzckkDyKYSFozMj4S7muFTVjiVCayDrSFZQrwwx6dI05WUn0qq+Prs0gRjYCp3rq/2RLA4SpmCALzTR8SBa8giLuVzsT13gFHh0VGQ88z7/27oe8/WhbJSmkQj4uqcyfe4zsjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JqSf0rhtkDAjtof+tozy5qHdy7lmU6pu6vWN5nx1cOU=;
+ b=eVZYzjTVFpZoIMh2e4SReHaa8OuzpmJ8tpXzA6j8GtftR4wTm20BQfIm3Ft4SxRpq4z57Nr6oiSsGkiLwlIU6NCA6SbnSNvZgE6LvpYuRItBm8SoSpcvuIMtRSj16ZWwywlgY2eTM2nfqNeJBQx2SO4UqZQq9HIxBAVIPBwxxJ4=
+Received: from SJ0PR13CA0051.namprd13.prod.outlook.com (2603:10b6:a03:2c2::26)
+ by IA0PR12MB8279.namprd12.prod.outlook.com (2603:10b6:208:40c::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 16:12:58 +0000
+Received: from MWH0EPF000A6734.namprd04.prod.outlook.com
+ (2603:10b6:a03:2c2:cafe::2e) by SJ0PR13CA0051.outlook.office365.com
+ (2603:10b6:a03:2c2::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Mon,
+ 15 Jun 2026 16:12:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000A6734.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Mon, 15 Jun 2026 16:12:57 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 15 Jun
+ 2026 11:12:46 -0500
+Received: from amberlin-dev.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 15 Jun
+ 2026 09:10:07 -0700
+From: Amber Lin <Amber.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <kent.russell@amd.com>
+CC: Amber Lin <Amber.Lin@amd.com>
+Subject: [PATCH] drm/amdkfd: Limit queue reset support on gfx9
+Date: Mon, 15 Jun 2026 12:09:48 -0400
+Message-ID: <20260615160948.4246-1-Amber.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260611195026.25125-1-guilherme.bozi@usp.br>
- <33b42033-a5ae-4fa2-bafa-ea007a29eab1@amd.com>
- <CAJgF-xtvOSwB4S8Xw1JwkyWQVEMEMfpmVyTxAKaESi0s9XoRkQ@mail.gmail.com>
-In-Reply-To: <CAJgF-xtvOSwB4S8Xw1JwkyWQVEMEMfpmVyTxAKaESi0s9XoRkQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jun 2026 12:07:16 -0400
-X-Gm-Features: AVVi8CcvJ_LxWBys5pApzXEYFZorrvkQUcYRsoAaDlW4-qZk0SaOyWk-HOsPs8Y
-Message-ID: <CADnq5_MA582cy9t69EaA+h42DHNhUoR-i9c3nUo=C4YRe1nJtw@mail.gmail.com>
-Subject: Re: [PATCH RESEND 0/9] drm/amd/display: convert GPIO translation
- logic to lookup tables
-To: Guilherme Ivo Bozi <guilherme.bozi@usp.br>,
- "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, 
- "Wentland, Harry" <Harry.Wentland@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- airlied@gmail.com, alexander.deucher@amd.com, simona@ffwll.ch, 
- siqueira@igalia.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6734:EE_|IA0PR12MB8279:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a9a25e0-f542-49c1-64ad-08decaf8f6cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|56012099006|11063799006|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: V2AwtF3CfwEy19MLs3rWayOzHp9nLynX4sPO+215TKx+h3z4jFmGU2N6cWmx89Fwom/zrOR40HWK5jeDvmPgoDh+c6hYwjRP0g7CgGwFTrLnhuAF3enFAAjdlNci89gzDtzYR2wUZR2QUsCKRJgJ4WI5yQT1v3Zhwy9zMn+PVh+uKR3ui4HQVozmiSXeJ+WwVHvocTXTaeo3RvyM4fq6Qk7Bwit0fgwJ/3YKKQfUMWtWpG9mkMknx62Vx4+SWLKIJrl41xXeVaLr0D6Cljf9o0wvw3Whcmq/4ZQZ9Yb884Y6tOhUhLMkrIkpa24/nQgecYREXnS7oYROAbXbdvoe8vTXnCm14WpPwSvmvkBgSTNMwYtdWy+efeAcVZ8znJJfADH4YhLD6s96WQxILWOnqphWDVW8pdbkTLbZ/0zYItyfe0WEPCreaIybTX99DAfNd0hoSjgyE9HbViEUHu2rMQDyM2AqjfoRzA647h/Xf8/GGFBuzlOZsKsA/4rbwDjX+t2k5BvHBKP9zCt43iBI1f8yZ0X8UVanBzCr7XAdE2z+YKsiMX1xs1umoiwZiW+DOpqblK9R/EunCq95o5YHQYJMSWyao097EC8ibBqXzrlsm2B/XG2AslUtvcRzfL1PnQGdhUXwqD8VSgJf00v/7qpacderOh+I/EVhM1PCOacMsfkrSuPBGlQFmXnu1y1G2PmMnKPHf84ZGs4e5mF64PKcL+QBUnhQiT6qhXUvO3c=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(56012099006)(11063799006)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YcGxEm07TOjFbxylXjYsc2oTjtrsruTYuGYQjqNasSiSdt7buTv2NYKpjIcXraM2mVTkjQcgYwiJXdCzf9r7oz806ZsdfiTbjSDxHIRC18QSBgkVhKLJBdpVMCXFZzWueGj0QOjL3CJSJ9qUjzWha5/ZcOUe3gHdskkUbg2P1t9aZWdZBzvbn/d4v0xAJsdyEBtcaGFbX8xvfxiBWYcJT4uHT9qMgACdkHLGMeasWHOabtMJLuwpEG0jyP0fI6V05V6hUhCrxDZHqEnbQbcEAkQnaKS9dcHgwhcDuvkAzZQ+4rHxjDr9wn2NwuN0ShRS0gpxicriD+QF3AcobyLK1Nj/r2QSEfu/kB5fCSW2gioWtDLJjADG6QFyKDk+xWecNRjHASzit+VSNAKDs/iBmTGx06GL5f2nFyl596bGhIXf3O8ogREt5gdNu4TKShk1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 16:12:57.3117 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a9a25e0-f542-49c1-64ad-08decaf8f6cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6734.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,110 +111,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 3:39=E2=80=AFPM Guilherme Ivo Bozi
-<guilherme.bozi@usp.br> wrote:
->
-> On Fri, Jun 12, 2026 at 4:34=E2=80=AFAM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> >
-> > On 6/11/26 21:49, Guilherme Ivo Bozi wrote:
-> > > This series converts the GPIO HW translation logic used by
-> > > multiple DCN generations from large switch statements to
-> > > static lookup tables with shared helper functions.
-> >
-> > Not to block this patch set, but please keep in mind that when some arr=
-ay index comes from userspace to use array_index_nospec() to avoid security=
- problems caused by speculative execution.
-> >
->
-> Thanks for the feedback. I reviewed the relevant GPIO and DDC paths.
-> In all cases, the offsets and indices are derived from DC BIOS tables
-> or internal DC GPIO service mappings, not userspace-controlled input.
->
+For gfx9, queue reset is supported on gfx 9.4.3 and above.
 
-I don't have a strong opinion on this.  @Leo (Sunpeng) Li , @Wentland,
-Harry , do you have an opinion?  It doesn't seem like it really makes
-much of a difference either way for code readability, etc.
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 7688156d476a..4249d6f3a59b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2013,7 +2013,8 @@ static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
+ 			dev->node_props.capability |=
+ 				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
+ 
+-		if (!amdgpu_sriov_vf(dev->gpu->adev))
++		if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(9, 4, 3) &&
++		    !amdgpu_sriov_vf(dev->gpu->adev))
+ 			dev->node_props.capability |= HSA_CAP_PER_QUEUE_RESET_SUPPORTED;
+ 
+ 	} else {
+-- 
+2.43.0
 
-> If you still prefer additional hardening for consistency, I can send a
-> v2 with array_index_nospec().
->
-> > We already had problems with that in the past when people converted swi=
-tch statements into an array lockup.
-> >
->
-> I=E2=80=99ll keep this in mind for other paths where array indices may be
-> influenced by userspace.
->
-> Kind regards,
-> Guilherme Ivo
->
->
-> > Regards,
-> > Christian.
-> >
-> > >
-> > > The new implementation reduces duplicated translation logic
-> > > across generations and makes the GPIO mappings easier to
-> > > maintain and extend.
-> > >
-> > > The series introduces generic GPIO translation helpers first,
-> > > followed by per-generation conversions.
-> > >
-> > > The following generations were converted:
-> > >
-> > >   - dcn10
-> > >   - dcn20
-> > >   - dcn21
-> > >   - dcn30
-> > >   - dcn315
-> > >   - dcn32
-> > >   - dcn401
-> > >   - dcn42
-> > >
-> > > The dce60, dce80, dce110 and dce120 implementations were
-> > > left unchanged for now.
-> > >
-> > > dce60 and dce80 contain special switch-case handling paths
-> > > that currently do not map cleanly to the new table-based
-> > > representation, so they were intentionally excluded from
-> > > this refactor.
-> > >
-> > > No functional changes intended.
-> > >
-> > > v1 resend:
-> > >
-> > > No changes since original submission.
-> > >
-> > > Automated review:
-> > > https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-202=
-60512190019.228440-1-guilherme.bozi@usp.br/
-> > >
-> > > Guilherme Ivo Bozi (9):
-> > >   drm/amd/display: add GPIO HW translation helpers
-> > >   drm/amd/display: convert dcn10 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn20 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn21 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn30 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn315 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn32 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn401 GPIO translation to lookup tables
-> > >   drm/amd/display: convert dcn42 GPIO translation to lookup tables
-> > >
-> > >  .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++---------=
---
-> > >  .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
-> > >  .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
-> > >  .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
-> > >  .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
-> > >  .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
-> > >  .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
-> > >  .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
-> > >  .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
-> > >  .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
-> > >  .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
-> > >  11 files changed, 1274 insertions(+), 2035 deletions(-)
-> > >
-> >
