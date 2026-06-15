@@ -4,86 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D8BCD98CF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 15:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D6D1CD98DA
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 16:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0331010E526;
-	Mon, 15 Jun 2026 15:48:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D56E10E53D;
+	Mon, 15 Jun 2026 16:07:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="vV5/srHL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kyH64PaC";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B02A10E526
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 15:48:32 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490b613a17bso32036995e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 08:48:32 -0700 (PDT)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F8310E53A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 16:07:28 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-137dd3b29d5so202520c88.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 09:07:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781539648; cv=none;
+ d=google.com; s=arc-20240605;
+ b=OSHNZfPgw9nZc+fNap/wXf259usksPi9h8cBaB/9+sBGC+frRQB92P+0R+kZc+SePE
+ L7LCKIMi81kT5fsmzT5oh5AEVVoh1wOjRSVNFsLDsjjpxhXdGYD40BObMhkkpvoNy/Xq
+ ySdp8ItY+SUWRGrSzYLJT9f3GOu7ZweZhSZY4m7SN7CVJi2lkeN8GlDoc922kcV7a/FF
+ rWugVo0ZxANR0HfTc9w6OgvbAvBSOZombHd0cDLwedEXqk3sbIXRMMj6+l7M2Y4VplhT
+ VspPtyrn3Yik+860TijDIUHr3n+NeQhKDR2CoG3wu6Raz5xVvqtvOfG0/iVXFAOrtPz5
+ zSdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mQhB2xvbV4B2oYmCAIBExO3PWOsuBM4dJiFzqvFFcao=;
+ fh=nCorh5oJ2iPsJGViR65qEXiqcJQoMVwAmIQbZssYGuw=;
+ b=XKs9FS46c0NUtdRTkvNAjFPwnQgzbxRVgjQPjJUM9KhLsYhgGOAq2cXjZongMadnrT
+ jy6WOfUpaCLo6loHSrhBbnL2LYgXwah7NsqtX/iEuNcUSFzD0co4LofRnQSGzq1nWxfA
+ 82QQtXGnVaRZ/O6DQSJi1MMzpaAx6lxagehUNfopU/2eGvO3P3W1dBK+9kG19lQXl9gh
+ ZPcZi4R56BjC9Wvc/8/RwMu7KVYVo7dMjXyRy0DWiIDrgOiFPj/ms808Ks5NgAPwSWrA
+ 8qhn51PFhAewZAUrsz360SgE+F5tLGmPuPQleM/Uc98MU/xnlXiwoKuWNyJgD+9DuR3d
+ udTg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1781538511; x=1782143311; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=IitncnWmL4jmyadiRBuM5hwogrltjhCKyVH/ZMoybAQ=;
- b=vV5/srHLhX+v2S4WAysmQIPaiLWNW+e6LR4GC6IWDYnCE+Wq5wK0RBUZQdHohgRUxQ
- 1PBTTQMxyobFrMCKrOg9cazbdO2PILF8exUPaZE11REBxn7g+NV1yckohnVDLZOeLN4c
- OHPlVmFNhAUApn5HCDEWBwLZhSzhUpkbKEtYM7AyrJyXxiCAh/W3aCXzdf+kvo6c21Rc
- IZ1KPqs9NW4rO2zg3BNXXGbHrE6UrZjJGvzBJQAyarw6bOBlzMUe6NjBxyQsNl8g9unJ
- Pmn3UO2KgZZu4eEQGjaJ2oZP/UArhijxwCau0pY9SqrqHtw7GVGF9DH3VG253e3zgVZK
- q2jQ==
+ d=gmail.com; s=20251104; t=1781539648; x=1782144448; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mQhB2xvbV4B2oYmCAIBExO3PWOsuBM4dJiFzqvFFcao=;
+ b=kyH64PaC9KCrCZShRGAECKvCNDHd5rX7BbU6gtILU54gNRl4PrmpeOK0S6W3dfu38Z
+ +NK1XML4YY9OCP9puzggTuTqSLAyQM4CtGWQpiKWuh+QvNwob60Wq2vGzERwpXgvPdZK
+ f5IbgoktGxlwPkHEIWRWsnHNIjXxdyy0vfcAC24C46zQ63A/rHtXTlT2zYCbGWcwGV0s
+ 4Q1nyWJPUrREO2eNSlH8X8W4YnrUEzYNeS0o4BxW/JKLHQ4D+/TbpkpeZzGsrMWI561b
+ m/nlxeEmFb2qTbq5lkJ+PwvPEe+3xcmApI7oM/PSOtW5BP7OEMiyatw7lfCv6/LP7qQa
+ eL7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781538511; x=1782143311;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IitncnWmL4jmyadiRBuM5hwogrltjhCKyVH/ZMoybAQ=;
- b=lyxEtWF3jVIsGsWjGmOmwzem4LHgkovctMdBk+ZkfifoHnvWAr2gPMEvhVfRnOE2Q7
- feYHVMiuayRUsN6xt4VvD+SrQb/LavrgsgPBf9WAc1RV0JaUpDWQrnDIS+PlszBhQ4R+
- QCxNuh4ashKgr6EE1QZLoeZAXmKW9ILiYDPcs5Nb4afhfjd0KOQSA1DLaGPhkauC2b+c
- OwRZRSXMoU7xHw5w2eXgNiQTkZtBrUgpjS+0qjg4Rc2XLHprh03CfsKjfwfzkKLwFmXu
- Jy70iCQcXmaJHb4iH0LXcHh9koyIbhK9hLB8Y+ZwIkyyNLMrnNTaguBaEIXS0igPgfWa
- KQcQ==
+ d=1e100.net; s=20251104; t=1781539648; x=1782144448;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mQhB2xvbV4B2oYmCAIBExO3PWOsuBM4dJiFzqvFFcao=;
+ b=Eyro5WA5hyhRHF8AH1W6+PoL41a7jzf+bbnIjhPubogeDT58V6iarKfUIHa2R7DLZf
+ HV9lI33WYixus3rQqpn3DelAXrkUxaiT4N1T8Dj9fPLs035vyG5XVG+8ZUo3WHL0FKCN
+ 13rPgmN546pIok12imVMSQVHadSiu4e+GcWLL9pdxgUI40kPToQyUYJ6J2LA5aXUt+KY
+ 1paIMJFJ3LRwCmNX0t24F/lrZjsSiecJXf0N32hoFc+Phdd5IFSJSFAnjJg0xfjdap0e
+ pKie9RmL2usXnMufQv3nPReAd3FOlWhUML4eA2yS9/YTS1FctDAlVFJ6HSrWm8XA/gqY
+ oWOw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+c9T+EfHhijtn7OFU8ndms+E6XrT2YEsx1FWerw5oY4hsVx2kV7b3OrSpTn743HhjJhunQxlQs@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYQPFxCKTTrIphmjGcCTHbInttc8NfQ+gec4MwgOOlH52F0vql
- KYRQXgFTYrwm7iznRijF7uxLL9uruk6GJ5+nf3cvt9pUwU2UT1bwWWRY8LsYJMjYU8s=
-X-Gm-Gg: Acq92OHCunnT5xYgstkdVOkrfVGUgVHTfweGuJaoR0xq6ORbJgRMd/tZQ6bH7/Zqdeb
- InlGvM7ImW5WuyeKpwrPDYWW+d25H0QMltn5f8P975KdB9fdyzhLiPYZYHKn+i7a4h/Hoig1gSd
- x7nDZtPdQF+72UjmBkualP/0/JE5+hDI5mtf4gjGJy4sZgRuK+AL1463Wvc+/Oje/FYoGmZviXv
- 7gh36SCN8d+C4ENvm7Wr1FBvAyHo0pFnqD1z2HOYGvD2/J1R6Fs3zr8C/vo73W+tk+A9Ux4nMxu
- OkhTaQheJ6zJe50PPc2ADCnpnL+e75/tfeSQ/goTMkG+QePmOozMT2keXiVtFXZlgC0mkZjC3ti
- pg+z5s6CA/+1uZRRV6YtzZlI0IQhh1huPUX+E5zC/e3oIovDsCrqIKmW8aFGUvVkvIbnPeVO9bF
- ugMa4QFs02RJC5PB+IAfN+iB84LohPXUlMGU/ajrCXLzCM
-X-Received: by 2002:a05:600c:c0d1:10b0:490:b9c3:6c69 with SMTP id
- 5b1f17b1804b1-490ec50f80cmr150202305e9.30.1781538510875; 
- Mon, 15 Jun 2026 08:48:30 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa5b079sm1860125e9.12.2026.06.15.08.48.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 08:48:29 -0700 (PDT)
-Message-ID: <c3f7ba5b-ce84-4626-b772-1e7d656aac93@ursulin.net>
-Date: Mon, 15 Jun 2026 16:48:27 +0100
+ AFNElJ8jbtY1xm8ucpu/Kyfh/zRItC0ZRuaMilPUQrskK3ciTvfzrM86doftIB9cSs1aMHOjkuQgx7x9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCUuPmuMYbN8m1VeECr8Y2o2zXMYhVTjZ5xmC5bv3ALoymzSxM
+ yFWCKar91DwEOI+jmrXUrZOud2MncPWs7egusB/X3l/eUjDFZ4BF8dicGPivuqvrmjnCOCRu2nE
+ lcq4cxBH2uD+L5wx4sQKrd65ir0+tCsM=
+X-Gm-Gg: Acq92OHjStI0f6MOxEfM7I0J6BCFg+v0GIxoFOL2fhlrVjv6K4X7TcfdQknFUqHa5+N
+ 9FquA9NU+6ST53IxUcfVsTskgU11PLU0L+eWWM63x3msv9pNPi2ok3opnXsPhAiGjUG0QJx3S7b
+ qnr9W4c7utRK6VSBZvTDCTYtfOQmargzpRyG3gwbcmvv5YXEMKyLJ33pMMgW36SMlwNHTlqZ6Xq
+ mzSsSI/Zu7b2iwlNSMc43RIkDuSoGBCvzM1TCotSU73A6RirQxgLFJ9M6dphi8sGUYTFjre0j5t
+ e4Wv0d3z/oPfGXrfQmn8WLF8RWXxT07y1yTTRlh4hXU6TB5mbAM30scNyoqlhd5BbahLwQ==
+X-Received: by 2002:a05:7022:688a:b0:138:63d:e43e with SMTP id
+ a92af1059eb24-1384bb7c5e9mr3260964c88.4.1781539647815; Mon, 15 Jun 2026
+ 09:07:27 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] drm/amdgpu/gmc: Don't compare page fault timestamps
- with other interrupts
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <maraeo@gmail.com>
-References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <2805750.vuYhMxLoTh@timur-hyperion>
- <0b18193b-9f2d-4ea9-8db3-08579325ab0c@ursulin.net>
- <10078559.eNJFYEL58v@timur-hyperion>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <10078559.eNJFYEL58v@timur-hyperion>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260611195026.25125-1-guilherme.bozi@usp.br>
+ <33b42033-a5ae-4fa2-bafa-ea007a29eab1@amd.com>
+ <CAJgF-xtvOSwB4S8Xw1JwkyWQVEMEMfpmVyTxAKaESi0s9XoRkQ@mail.gmail.com>
+In-Reply-To: <CAJgF-xtvOSwB4S8Xw1JwkyWQVEMEMfpmVyTxAKaESi0s9XoRkQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2026 12:07:16 -0400
+X-Gm-Features: AVVi8CcvJ_LxWBys5pApzXEYFZorrvkQUcYRsoAaDlW4-qZk0SaOyWk-HOsPs8Y
+Message-ID: <CADnq5_MA582cy9t69EaA+h42DHNhUoR-i9c3nUo=C4YRe1nJtw@mail.gmail.com>
+Subject: Re: [PATCH RESEND 0/9] drm/amd/display: convert GPIO translation
+ logic to lookup tables
+To: Guilherme Ivo Bozi <guilherme.bozi@usp.br>,
+ "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, 
+ "Wentland, Harry" <Harry.Wentland@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ airlied@gmail.com, alexander.deucher@amd.com, simona@ffwll.ch, 
+ siqueira@igalia.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,175 +110,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, Jun 12, 2026 at 3:39=E2=80=AFPM Guilherme Ivo Bozi
+<guilherme.bozi@usp.br> wrote:
+>
+> On Fri, Jun 12, 2026 at 4:34=E2=80=AFAM Christian K=C3=B6nig
+> <christian.koenig@amd.com> wrote:
+> >
+> > On 6/11/26 21:49, Guilherme Ivo Bozi wrote:
+> > > This series converts the GPIO HW translation logic used by
+> > > multiple DCN generations from large switch statements to
+> > > static lookup tables with shared helper functions.
+> >
+> > Not to block this patch set, but please keep in mind that when some arr=
+ay index comes from userspace to use array_index_nospec() to avoid security=
+ problems caused by speculative execution.
+> >
+>
+> Thanks for the feedback. I reviewed the relevant GPIO and DDC paths.
+> In all cases, the offsets and indices are derived from DC BIOS tables
+> or internal DC GPIO service mappings, not userspace-controlled input.
+>
 
-On 15/06/2026 16:32, Timur Kristóf wrote:
-> On Monday, June 15, 2026 5:23:52 PM Central European Summer Time Tvrtko
-> Ursulin wrote:
->> On 15/06/2026 15:52, Timur Kristóf wrote:
->>> On Monday, June 15, 2026 4:32:23 PM Central European Summer Time Tvrtko
->>>
->>> Ursulin wrote:
->>>> On 25/05/2026 12:45, Timur Kristóf wrote:
->>>>> Different interrupts may have different timestamp sources,
->>>>> which shouldn't be compared.
->>>>>
->>>>> If we compare the timestamps of retry faults to timestamps
->>>>> of other interrupts, it may result in all retry fault
->>>>> interrupts being filtered out, because of the different
->>>>> time stamp source.
->>>>>
->>>>> This issue was observed on Strix Halo.
->>>>> Solved by storing the timestamp of the last page fault interrupt.
->>>
->>> Hi,
->>>
->>>> This one may require access to AMD docs to review. For example I am
->>>> immediately curious as to how many different clock sources on a single
->>>> IH there are
->>>
->>> As far as I know there are various timestamp sources in the GPU and some
->>> interrupts use different ones. I am not aware of any documentation on this
->>> topic, unfortunately.
->>>
->>>> how does that relate to the timestamp_src field
->>>
->>> The timestamp_src field is set differently when the timestamp source is
->>> different. So, it could happen that we accidentally filter out all page
->>> faults when we shouldn't.
->>>
->>>> and if there are indeed multiple clock domains should the patch perhaps
->>>> be
->>>> generalized to something like
->>>> ih->processed_timestamp[entry->timestamp_src] or something?
->>>
->>> For the context of this patch, I think it doesn't matter how many
->>> different
->>> kinds of time stamps there are. What's important is that we just shouldn't
->>> compare timestamps of page faults with time stamps of other interrupts.
->>
->> True, thank you!
->>
->> Another question is why the backward timestamp check is needed only for
->> fault interrupts? I do not see it elsewhere.
-> 
-> Correct, this is only used for retry fault interrupts and only when they are
-> dispatched to the soft IH ring.
-> 
-> The reason this was added is because when retry faults are enabled and the GPU
-> hits a VM fault, it keeps spamming the CPU with many interrupts for the same
-> fault until the fault is resolved. The CPU needs to filter out the faults which
-> it is already handling, otherwise we would end up handling the same fault
-> multiple times.
+I don't have a strong opinion on this.  @Leo (Sunpeng) Li , @Wentland,
+Harry , do you have an opinion?  It doesn't seem like it really makes
+much of a difference either way for code readability, etc.
 
-Got it, thank you!
+Alex
 
-> (As a side note, I should also probably look into how to reduce the frequency
-> of how often these interrupts are repeated.)
-> 
->>
->> Let me also ask two more things below.
->>
->>> As far as I see the timestamp doesn't really matter for other interrupts
->>> as we only use it to filter out page faults and nothing else.
->>>
->>> Hope this helps,
->>> Timur
->>>
->>>>> ---
->>>>>
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 5 ++++-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +
->>>>>     2 files changed, 5 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
->>>>> 13bec8461cde..52258f1341c2 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> @@ -437,9 +437,12 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device
->>>>> *adev,>
->>>>>
->>>>>     	uint32_t hash;
->>>>>     	
->>>>>     	/* Stale retry fault if timestamp goes backward */
->>>>>
->>>>> -	if (amdgpu_ih_ts_after(timestamp, ih->processed_timestamp))
->>>>> +	if (timestamp == adev->gmc.processed_fault_timestamp ||
->>>>> +		amdgpu_ih_ts_after(timestamp, adev-
->>>>
->>>> gmc.processed_fault_timestamp))
->>
->> First thing is whether you are confident the equality check is either
->> safe or required?
-> 
-> I don't see why it wouldn't be safe. But maybe it isn't required.
-> What do you suggest instead?
-
-Safe as is whether it has potential to swallow a legitimate unseen faults.
-
-Looking at amdgpu_gmc_filter_faults() a bit lower down, it does appear 
-to filter out repeated faults on the same address. Would it be safe to 
-rely on that instead of the timestamp equality check?
-
-I appreciate that may cause a transient interrupt handling storm if the 
-clock granularity is poor, but maybe that is better than losing a fault.
-
->> For example can two blocks fault with the same timestamp on different
->> addresses?
-> 
-> They might. But keep in mind that the GFX block just keeps spamming the
-> interrupts until the fault is handled. So, if we filter one out by mistake, we
-> know we will just receive the same fault again very soon.
-> 
->> Or from a different angle, is the clock granularity good enough to not
->> coalesce two separate faults to a single timestamp?
-> 
-> I am not sure about that.
-
-I guess if the equality filter can be removed then this concern also 
-goes away.
-
-Regards,
-
-Tvrtko
-
->>
->>>>>     		return true;
->>>>>
->>>>> +	adev->gmc.processed_fault_timestamp = MAX(timestamp,
->>>>> adev->gmc.processed_fault_timestamp); +
->>
->> Doesn't a plain assign work here? The if above has already verified new
->> timestamp is larger than the old.
->>
->> Regards,
->>
->> Tvrtko
->>
->>>>>     	/* If we don't have space left in the ring buffer return
->>>
->>> immediately */
->>>
->>>>>     	stamp = max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
->>>>>     	
->>>>>     		AMDGPU_GMC_FAULT_TIMEOUT;
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h index
->>>>> 676e3aaa1f27..77eb15380284 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>>> @@ -361,6 +361,7 @@ struct amdgpu_gmc {
->>>>>
->>>>>     	u64 noretry_flags;
->>>>>     	u64 init_pte_flags;
->>>>>
->>>>> +	u64 processed_fault_timestamp;
->>>>>
->>>>>     	bool flush_tlb_needs_extra_type_0;
->>>>>     	bool flush_tlb_needs_extra_type_2;
-> 
-> 
-> 
-> 
-
+> If you still prefer additional hardening for consistency, I can send a
+> v2 with array_index_nospec().
+>
+> > We already had problems with that in the past when people converted swi=
+tch statements into an array lockup.
+> >
+>
+> I=E2=80=99ll keep this in mind for other paths where array indices may be
+> influenced by userspace.
+>
+> Kind regards,
+> Guilherme Ivo
+>
+>
+> > Regards,
+> > Christian.
+> >
+> > >
+> > > The new implementation reduces duplicated translation logic
+> > > across generations and makes the GPIO mappings easier to
+> > > maintain and extend.
+> > >
+> > > The series introduces generic GPIO translation helpers first,
+> > > followed by per-generation conversions.
+> > >
+> > > The following generations were converted:
+> > >
+> > >   - dcn10
+> > >   - dcn20
+> > >   - dcn21
+> > >   - dcn30
+> > >   - dcn315
+> > >   - dcn32
+> > >   - dcn401
+> > >   - dcn42
+> > >
+> > > The dce60, dce80, dce110 and dce120 implementations were
+> > > left unchanged for now.
+> > >
+> > > dce60 and dce80 contain special switch-case handling paths
+> > > that currently do not map cleanly to the new table-based
+> > > representation, so they were intentionally excluded from
+> > > this refactor.
+> > >
+> > > No functional changes intended.
+> > >
+> > > v1 resend:
+> > >
+> > > No changes since original submission.
+> > >
+> > > Automated review:
+> > > https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-202=
+60512190019.228440-1-guilherme.bozi@usp.br/
+> > >
+> > > Guilherme Ivo Bozi (9):
+> > >   drm/amd/display: add GPIO HW translation helpers
+> > >   drm/amd/display: convert dcn10 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn20 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn21 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn30 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn315 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn32 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn401 GPIO translation to lookup tables
+> > >   drm/amd/display: convert dcn42 GPIO translation to lookup tables
+> > >
+> > >  .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++---------=
+--
+> > >  .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
+> > >  .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
+> > >  .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
+> > >  .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
+> > >  .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
+> > >  .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
+> > >  .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
+> > >  .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
+> > >  .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
+> > >  .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
+> > >  11 files changed, 1274 insertions(+), 2035 deletions(-)
+> > >
+> >
