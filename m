@@ -4,79 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D841DCD98C5
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 14:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BCAECD98C5
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 14:59:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72F0310E489;
-	Mon, 15 Jun 2026 14:52:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F21AF10E4D0;
+	Mon, 15 Jun 2026 14:59:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b18YyQ91";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NC4/CzHu";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB7210E489
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 14:52:06 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-490b12270b3so21521625e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 07:52:05 -0700 (PDT)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6944D10E4D7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 14:59:30 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-304cf9a02f9so203528eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 07:59:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781535570; cv=none;
+ d=google.com; s=arc-20240605;
+ b=CJxG7hsh6iWgpGFQJaWe3VjUIh1XZ8JFtfFyflJA7Yh536nfcN2ZO2aqoYEnA/Axof
+ JnJqkgFzkEivl8X+dPNRy18LjKlwugwDeHKyECmC0SRQkYZ65zuxV/KUstuNv040BCyo
+ /LF19OE+S3+gNMxTZ3aTt9AmH/VPQjz7IjJCS7MmgQqyXFi/xFIcNQZ8TS3eAmV45/Jg
+ 3gztbRjbXVpugiAwd8K4B8aTpY1xEEI0Eyn+p5PPW9yslGuyJWq2Qcxqbg51UxDt+5S0
+ fPyO7vSi3M4Plcwf8NwtyaeoOh+Mu/ElTUK+d2NrOU46q+dN/yXfHjtQLbBBL6wJD8zX
+ nw7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=seU9lJSpoj7b36nU9J3WfkpYoqgZYKZylfk9jL0IY4o=;
+ fh=tHaW2Dnoj02vwIx2N49MV9LA78qZTpeHLM8fBIf8vts=;
+ b=DyYmi3xko03lZ2/UtgX6/chjlcdJ//wBPKuUY3UEO6PM/KRZK4pi+3cB/3GO4tgBHB
+ ClMMVJoSMTDrck3RTsEFtAQ26Xesczn5hzpGZ3Rpw33oQwEeWZBYAmFw1iSeEYYYkpQB
+ RuOZh64H9VKYBObWn2dLhF1DuQKyQMytyGyZqeLf+vDenvCwB7Ed87gCNblrMycduHKm
+ gA/ORRb6BQAMDgMa2NypjhO8TYKAyzx64WdJ9btMk95jn3JtyuEEpPMQX4ANnN3EvfZe
+ P7sN+dMpDEIhlnkL98imiLulQ2ayfuOllNJzNQegTt+PdLRS2obb0YrKtvKM8a3yjVsb
+ iPSg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781535124; x=1782139924; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=exHhcFF/T+GHzMHcDp8a1aw064BuGqQL548i1ys01oU=;
- b=b18YyQ91mRKI/M1A6bzst/N6ixesvbNIy6hstvyyYJCXkThjEMS47u2ASHu8+okzjm
- tzkzgDrdtyy3r51dsjX+Ub3mZfsO3uDMCsAg/K9KmWsKidfrWkKXHwzLxWmTh8js8MuQ
- nTRy06gTDFnhvIUXDh6SL10KoP6Kd64fCIOiI1U1HLyI3m6kjxcHSYpeRtToQi26+8Nq
- vspLR4Spm+eAMZyzmm0WopK0Os9Cgp8TWng5VkDWUFYlnnMHRv41a2+LmMySKs1CR/KQ
- aqclwpIPi1BeQ3ZZsmk1LplUbXl0ot18f8xf7wSiE+o+PiiEbfJTTcI5IxulGkJi2ibe
- IX2Q==
+ d=gmail.com; s=20251104; t=1781535570; x=1782140370; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=seU9lJSpoj7b36nU9J3WfkpYoqgZYKZylfk9jL0IY4o=;
+ b=NC4/CzHuzGV+Ce60dBSDRHTMBUyHCBM6ek16dstX0XXQNmbU9Sxa8ANm6/WsYm7Qxg
+ r5jtMVztel/5l+d+NXyd4iqitaONkW5yVWV0cK+lzXi2JdT9TcKFgKbAZN1YT23u2zUZ
+ lRfjqyldwDbmgwWvj0B7CEC8HCB4ddgo8ksqW29NqiEYvsf0sH03F+ychhDhOUIGvzFb
+ /S5zTll31F9Q/TKBcxGmxbRh5De7uTUvCgQ1VFIpaPEpM+u3oiRKHs6YlSXhRpqZWd23
+ RnP61En6Jbla7vxm5GmB/TqTNnhKn52wnMoHnndy1T5u+3LCiNZFQJAYpQU3sNYHMrCM
+ pD4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781535124; x=1782139924;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=exHhcFF/T+GHzMHcDp8a1aw064BuGqQL548i1ys01oU=;
- b=G6JcQWW5SKoBgHX1cf04xLKsBvoJl30irzYvQYp5q939UrdRxs16LVYYDwJ71SWc+/
- R5uu+0NLcW5j2jqoYd84XzmaYQzopfzFIxitsVPAdsulIXfm+iuuxTTXq7+Eqqccez1K
- 5jt34Vw83AW+S8IiugZsqcOqGmZBxvlN+amQCsmoLEZtbCCuKFxLqtJV/IJr5ZHgVYbj
- 6Bqa6TrlEerMWJ8RB5KuaF1JbzqP0dVBZ7V1dM/fI1hkl4BP4J9wroNF/MSp5zvhFlU9
- 0glFgiNjX//vli3MSPwi0ka1J6O1JhK02wd9CUgaX56hkB4XgpNQI3WQzBP19Oz3PdC8
- idDA==
-X-Gm-Message-State: AOJu0YwLQpjs4xj7gjUMKuwEPk9YZ8j0eebWSN5lPVn6RRusf/LABlHe
- smVjGnj3Q0YRKlWshHZjqQ4Nz0GZ1v051ZqNMyDv10/a6Z5aOt6/w2+jbqGWRA==
-X-Gm-Gg: Acq92OGPncAOmEv6LMkaeGvLSOO3M7ZGCaoFmdc2t33ePnmEL/OHXmcM6O7UN7FIBJk
- e6o8sbmlFDS0F2PfSg1tyYZMfFOZiVBdDVDlPh60RMKcCBBYLTxBn+cPy/2SfV7QN9nVQrpEDbi
- BDhHR4cv06OJwGXrYCZLLmv5xKPy0noCdMj1AkTHshKsiGGbujYBhtW7r27wAp8dSGb35iAtZEr
- EARkT+EYudiAsKJDoAV0ugPrqrZ12BlGaD3U30e76DkVXHDyWLAymDUwE4kUWBtSHS86vYeOVmv
- YwAmdUIR0UITY/chPv4OygIhouBLcUmsFNFtKpYYqdTKH/lyFhNrEZIPzCAO7kjek6cdR1H28eQ
- Ig0USY+sB30Tv9onmaVPS713/TYiMrbHTxG2GOzwBGbotsJu5/0PDc3TQACAUxILZP8ZzvwlJiu
- 5Jw9ZZOCXeZCMe4sS+t5BEgNYhGu8l3ZTIdrjyo167T2XsBdwlHwN/HeioEgJKw6XnqBZU0g==
-X-Received: by 2002:a05:600c:4685:b0:490:e190:3b50 with SMTP id
- 5b1f17b1804b1-490ec4d4f7cmr226399955e9.9.1781535124118; 
- Mon, 15 Jun 2026 07:52:04 -0700 (PDT)
-Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
- [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49220207efesm223415765e9.0.2026.06.15.07.52.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 07:52:03 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 3/7] drm/amdgpu/gmc: Don't compare page fault timestamps
- with other interrupts
-Date: Mon, 15 Jun 2026 16:52:02 +0200
-Message-ID: <2805750.vuYhMxLoTh@timur-hyperion>
-In-Reply-To: <fc23a624-650b-40b3-8de2-07d4a44ff603@ursulin.net>
-References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <20260525114507.24566-4-timur.kristof@gmail.com>
- <fc23a624-650b-40b3-8de2-07d4a44ff603@ursulin.net>
+ d=1e100.net; s=20251104; t=1781535570; x=1782140370;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=seU9lJSpoj7b36nU9J3WfkpYoqgZYKZylfk9jL0IY4o=;
+ b=VomXXecOO3DR8rl0mvYcLeeBwq0uexOfSQ96vqkFEegEw6Osg1jjJ3Q67OeVourTiV
+ TA1pPEjqP/WW941tgK8rDutu9gMtS4zxhnEPakRjM8xDYnc2uFTL1BcuQJVMbjSTIptV
+ rVQGAqiAk4bs3hMQlTfPdBmdKh08zt8hyVqQJEhXXSOTPjwYP7VT6eHrYHyXYodY40Qk
+ aUJmkQZMIEPms/f2LmTAjyDg3SI7NLTTf+fJPdqZqhYgn6nbb24bJDYUpYivh2Q+DnYs
+ W79DgnBgmHkv4j22vmHL8C/tIhqQQ64WienYygcx9ke+SMEK48vLHcISY+O0TzplDNoC
+ 73UQ==
+X-Gm-Message-State: AOJu0YwehefFBBKT7Athl2wtm/kvZalI/J6WfzQZL0J/qYb4g0J9C0q2
+ zRjVytd9zZHGVHmbnDxKg3VDjSw5N+G4e2keU9Ry6GnEzZyJgtI2wCge7A4KDf4YcWt8TlEAvX7
+ dntUH0n92vHkrw3NEbfU1q2qYq12+1vc=
+X-Gm-Gg: Acq92OFiXpz4mwQ/1bpQS8yFpMUFLU4Em3mtbsPqEc7eZopRJ8rN1mFGZRF4diIyzHX
+ MqiVDHebXNwr/YeNIMCT8g1aqoYJHJbtQpMZXuJonW2V5Kbz03cPcdFB6VGYy7ItT+Elh/DyCed
+ 8dGvWfU+ILaIH1SFD+1CrF6e2G50OaP4TfdzHCCyeKdrfq9YU1tOOTy6eQx5rHLejTP0NPBbVyV
+ au7FVWaRgwz0Aaej9eAQA9GdtyIzZhGaqYt8+ImeDC9XvD9EpayEQfTQqb2pSbk2PzFtTCK3zBc
+ 0E3PkogJKRa26KfaG1VzRtJSK0CTbH9yyXCERiagytCfjIvjfYPXLbTTCvOFDYeQYsewyg==
+X-Received: by 2002:a05:7301:fa10:b0:2f0:ddce:8468 with SMTP id
+ 5a478bee46e88-308200e51a3mr3523187eec.8.1781535569630; Mon, 15 Jun 2026
+ 07:59:29 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260608185234.503799-1-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20260608185234.503799-1-Harish.Kasiviswanathan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2026 10:59:17 -0400
+X-Gm-Features: AVVi8CeM9Lqg1HPnNnpDFDFi0U_NoUCPpDF9upBC87DC09U5OXBtBkXv56NzmlY
+Message-ID: <CADnq5_POg5ZdksW1Qp+uDNKt-R2njSL04A8gMKPtELiJ8Xo0Cg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix kfd_is_locked under VF
+To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,105 +101,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, June 15, 2026 4:32:23=E2=80=AFPM Central European Summer Time Tv=
-rtko=20
-Ursulin wrote:
-> On 25/05/2026 12:45, Timur Krist=C3=B3f wrote:
-> > Different interrupts may have different timestamp sources,
-> > which shouldn't be compared.
-> >=20
-> > If we compare the timestamps of retry faults to timestamps
-> > of other interrupts, it may result in all retry fault
-> > interrupts being filtered out, because of the different
-> > time stamp source.
-> >=20
-> > This issue was observed on Strix Halo.
-> > Solved by storing the timestamp of the last page fault interrupt.
->=20
+On Mon, Jun 8, 2026 at 3:09=E2=80=AFPM Harish Kasiviswanathan
+<Harish.Kasiviswanathan@amd.com> wrote:
+>
+> kfd_is_locked remains locked, if the guilty job fence signals during the
+> reset sequence. In this scenario, hw_reset is skipped and
+> amdgpu_device_reset_sriov() which calls amdgpu_amdkfd_post_reset()
+> doesn't get called.
+>
+> In bare metal, amdgpu_device_gpu_resume() calls amdgpu_amdkfd_post_reset(=
+)
+>
+> Call amdgpu_amdkfd_post_reset() under this condition
+>
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-Hi,
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-> This one may require access to AMD docs to review. For example I am
-> immediately curious as to how many different clock sources on a single
-> IH there are
-
-As far as I know there are various timestamp sources in the GPU and some=20
-interrupts use different ones. I am not aware of any documentation on this=
-=20
-topic, unfortunately.
-
-> how does that relate to the timestamp_src field
-
-The timestamp_src field is set differently when the timestamp source is=20
-different. So, it could happen that we accidentally filter out all page fau=
-lts=20
-when we shouldn't.
-
-> and if there are indeed multiple clock domains should the patch perhaps be
-> generalized to something like
-> ih->processed_timestamp[entry->timestamp_src] or something?
-
-=46or the context of this patch, I think it doesn't matter how many differe=
-nt=20
-kinds of time stamps there are. What's important is that we just shouldn't=
-=20
-compare timestamps of page faults with time stamps of other interrupts.
-
-As far as I see the timestamp doesn't really matter for other interrupts as=
- we=20
-only use it to filter out page faults and nothing else.
-
-Hope this helps,
-Timur
-
-> > ---
-> >=20
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 5 ++++-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 1 +
-> >   2 files changed, 5 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
-> > 13bec8461cde..52258f1341c2 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -437,9 +437,12 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device
-> > *adev,>=20
-> >   	uint32_t hash;
-> >   =09
-> >   	/* Stale retry fault if timestamp goes backward */
-> >=20
-> > -	if (amdgpu_ih_ts_after(timestamp, ih->processed_timestamp))
-> > +	if (timestamp =3D=3D adev->gmc.processed_fault_timestamp ||
-> > +		amdgpu_ih_ts_after(timestamp, adev-
->gmc.processed_fault_timestamp))
-> >=20
-> >   		return true;
-> >=20
-> > +	adev->gmc.processed_fault_timestamp =3D MAX(timestamp,
-> > adev->gmc.processed_fault_timestamp); +
-> >=20
-> >   	/* If we don't have space left in the ring buffer return=20
-immediately */
-> >   	stamp =3D max(timestamp, AMDGPU_GMC_FAULT_TIMEOUT + 1) -
-> >   =09
-> >   		AMDGPU_GMC_FAULT_TIMEOUT;
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h index
-> > 676e3aaa1f27..77eb15380284 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> > @@ -361,6 +361,7 @@ struct amdgpu_gmc {
-> >=20
-> >   	u64 noretry_flags;
-> >   	u64 init_pte_flags;
-> >=20
-> > +	u64 processed_fault_timestamp;
-> >=20
-> >   	bool flush_tlb_needs_extra_type_0;
-> >   	bool flush_tlb_needs_extra_type_2;
-
-
-
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index dc8c650fc341..cefe1e5dd946 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5888,6 +5888,16 @@ int amdgpu_device_gpu_recover(struct amdgpu_device=
+ *adev,
+>         if (r)
+>                 goto reset_unlock;
+>  skip_hw_reset:
+> +       /*
+> +        * For VF, gpu_resume skips amdgpu_amdkfd_post_reset (normally do=
+ne
+> +        * inside amdgpu_device_reset_sriov during actual HW reset). Sinc=
+e HW
+> +        * reset was skipped, we must unlock KFD here to undo the kfd_loc=
+ked++
+> +        * from pre_reset, otherwise KFD stays locked permanently and new
+> +        * process creation fails with "KFD is locked".
+> +        */
+> +       if (job_signaled && amdgpu_sriov_vf(adev))
+> +               amdgpu_amdkfd_post_reset(adev);
+> +
+>         r =3D amdgpu_device_sched_resume(&device_list, reset_context, job=
+_signaled);
+>         if (r)
+>                 goto reset_unlock;
+> --
+> 2.43.0
+>
