@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93797CD98E4
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 13:43:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 800CDCD98E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 13:50:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 160F410E764;
-	Tue, 16 Jun 2026 13:43:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AEA310E7AD;
+	Tue, 16 Jun 2026 13:50:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CyfOQyY6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jQJvhuWA";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC4010E764
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 13:43:03 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-30bc5fa5a2aso8666eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 06:43:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781617383; cv=none;
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE2E810E7AD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 13:50:52 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-137e836ccc8so326554c88.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 06:50:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781617852; cv=none;
  d=google.com; s=arc-20240605;
- b=UdLY0JYKclzBgYReugnbkZG5ulEfO2eXFhzmuAqojFshiO/u3wI7AhGk4/nHlHwYhg
- 3RdkMKY61UE/5VdpSmAI6ra9rth4lgeW1/nntF8r8Q2lMLb05MiwSU/no3dCgt0BsQKr
- Ax5cZitIj+wjxYMml3tHIgeAXwmHDmz6/SEcE6X2y8HAVAzDRHENw2PNHcwAcC40RnXo
- QdRK8EtBKUL+mEZ2VFFF5xKdBFA87QqNFC34Q8XpuT2fl5F0SahO6eHIrS+LMgqJuFum
- 50h0/XzY06ixC7+jIlmKUJOUkk/3IPcD7ITKa4CRxR/vSKlS4YEoAykqpYb49fI+CAf+
- Mskw==
+ b=Q8Wz5E0Cla72AoYeY+5a04nUpXFrpPfe3zTFSBOI6gKtqYsxgoN35WC/wT2GmU91j8
+ LiKlCo8aDnLOqrXjBU4JMyYir0+V9n7PBdgAOmWT4nfjhLEETDoVyTz15wHe0ztHfKzm
+ PIdhaNp9G25G9RSfSoOoALGQpPR1/dlGflt5TFrjauKdcZQNBA1Cf6F4n9vWP+ERa9p6
+ AO4gliFv9RR3XrE3TgAKTr9JeRa8SP+WiPMyDu3IM/3sPvC0lt9ElFY0XaeeOvAPv4XC
+ PHdoIQxqNxdkK8OwWtPfw8FQ08zYvkDwiX9akl+AOCkrGFAP/k9B6FMdMk+UXAGPs2yv
+ bRnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=W+TMpqhNDrpSCOhtOJFDgnIMfyVz3H0yI9bEvZGS9fw=;
- fh=yHxlWXEhn0nj8ExjjCZ00lp6iGF4IYVz6T7vzOX3+Hg=;
- b=b1epcFnJi1WZ0nsEFXepOd1zkv/by3LG76XvLN3HOVQQSw4o+gGvLX0gWzaCg+Fa/d
- C3+OzhqRqe8f32WkxaNFIH1E5iIG6UCug8yEEzu5FzCMkkZe3UthYwSKztcerMCM4M29
- pKO5vMGzbMyiU6LRLUuyyIqIX8C+gWyFIf1MeQE8kV5zSwVju+GfhxB3DQ+urylw3GML
- Cg8HgEalt9NpUJA+CEdGA1yrXH4xZSwd9x7c+WvlfxjELpgNA9uinX1e6u1+MzOe89oY
- t57FhkvHR7MRcrgwswWs82B14hmHs5nZOLpH+shxwvTJwgIjxivvDxcB7wEve5R6ABrY
- X3dQ==; darn=lists.freedesktop.org
+ bh=rp02vzQBlNh4tQQ5N5fldDzYa63S1rGKHL0oepA25Os=;
+ fh=gVf6fvsABP0ByoUtmYjsDXKLAu0ixkCuRN36w5o5Dig=;
+ b=l1qQTDIjYJBT/HTDjbpkEsHYfr7YOMqcOqgN2Do9E90y9KhLPZOQHyWZWhdp5bagF7
+ 5FynaXbwU1YyqLBillEBoVqp239oiJ+k7XK/yRdmpBDuUn7UdpShYa06k3y0Hl5k4jMD
+ 2avLG2rGIPDvzxPiGSIOA21LXdZgeUkEifME24pmU6kIeXuU4UjMsY5XJowfQHTsc/Dc
+ rmzsjFigRuEl18ZLjp6IXAepV9XGGVL5dq1yU/nvrl10zBl9DgPmOhZzuxczjPDKRQpi
+ 4xC7HQ24fcsmxsBQqGnH8yWBWxqmuuGN8XplQDE1/Xag68d5ZOOQcXVPNGNKgLY9v4iw
+ hUdg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781617383; x=1782222183; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781617852; x=1782222652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=W+TMpqhNDrpSCOhtOJFDgnIMfyVz3H0yI9bEvZGS9fw=;
- b=CyfOQyY6W9rBsXIoDjINZ5SR5q3f/Ov/oYY7obyM2Vo9k2q2WaGsdD0IiCy57Rupyb
- l//5dZkp9aDFopMfYOxpn57CMjyNMLNl3PJXJ+QbhkNKSLvo0VnHIRUY6rlj6WGlTpO8
- kpUdyFMdAy8NWy1HKcaL/PprIK+3r/oaaRT7V69pQQa3/jLnUSctGRY/L3wmgYXZDo82
- YlP0DvAUcZCiw2quAvwPUbVSHm5JFoD2SoP3J830it8FmScxl4180swblp6vFZgGwcVU
- Pv6Dgv/U12nVZ5gvhUmEFyMnYtsR2UAum/IlTZP0raJiB5vusAJJoJN1H4s7YZICFliI
- PcWg==
+ bh=rp02vzQBlNh4tQQ5N5fldDzYa63S1rGKHL0oepA25Os=;
+ b=jQJvhuWA0jJDmeB5UytMmrUwy2jakqWmdUM1u+5Iwak/urGqoYvJtWU3CiMThKIKn6
+ f03r7kx/5P/3mf7iSxjxYj2CiDX68N5XUwoxiv5s9ZqHnnYu4iqTEejo7bsiTImCOk94
+ mNa57r+FQkKPsxviVgUCtOr4bTLVykQ+2WBMM8BjVzLM3CwQhwknWav8jDAk0KJej0Jd
+ mG+ZkEGhCCkB+nmJvu5KQvMWTVIN2OqGHGRjf0B2153ukMSrkDrv1U1YNYJYkhkrOLhq
+ nTJ38SMYNpV/lVonEvNMJHCq1Rhun7vCXhKaOb7kb9DRyz2HWLr8ux57AcZ+FbhAHvZT
+ qisQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781617383; x=1782222183;
+ d=1e100.net; s=20251104; t=1781617852; x=1782222652;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=W+TMpqhNDrpSCOhtOJFDgnIMfyVz3H0yI9bEvZGS9fw=;
- b=XuXsK2WsvKdET+pZ1XsOGkNT5r/BnAZhBx2wKCqguTAyoPnC4966VqCuE7mJDIfY9w
- K/Ljj2JHM8IXsUWqzaG65+LLN4l/xKCRxauYovwWhzUJDuSRkInv/yYTB8fYEoa55pb+
- t/KtrK05bJ8ZpiiYljaVYU8qLQUpjjkRjQBdLUZ0nSaO1NAAqXh3dj9CuExv5+W1Ro7E
- 3Bfh5fnor9jLZDd/strFHu3wJZVRxJcFiCQMtqS2OtOoAuoIRLPLbTA+xvEoHlfp/shA
- 5MQr84G8L13AA7IG1L6ThirndXm0Ta/eoLtNybf+bmiE30fm6n+jB6O/Nd6F+MAMjt+4
- n4BQ==
+ bh=rp02vzQBlNh4tQQ5N5fldDzYa63S1rGKHL0oepA25Os=;
+ b=mHctPGxbjQlrh8UATh+vP6KMQukDWXTEdVLttCMo4HWp4lZMK+blJUrYAa61w0fBUc
+ InWjK080JtjngtYAgPNUD5s+GHraD8TeeI/74A/c3sOYX4s8rMzXz9bkg118ZqeRzgHJ
+ N/obgLcmYcPmd2qq6Dz2oBcDKj3wBeTyWQRbYOQtUnwe+i7NwLM7IxcUFw9ZtLm3FdCw
+ eDVHmU2FJIAghACrJ8G7W0JmWiLvocOEVF/GVu0fv6+HtCQwJVMqgJuz8FuImv8VVP0f
+ n9CXu4+3grso79VIV0okTkX0DeNdONyd/suTWi+wHC3ksvPPEdlbW7+4D5tnrHzy/l6+
+ JWmg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/cfwrSh2ljy514gHh1luFmnuHVuqr2jbTu1mKC9w5jJYeyX2IrYLnDts6R9a0dgSeBx34EZT/4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvmOtp9HHgNt3OVPc+OQ+ItI6It9wIzSVwz/fW4ZZThejQ1jd2
- GybxDSaxMzK858Ls9vD+3wim59Qb+nrAIZEbNDAkR8j1UBfXTnE9BrBhz4bVElIC6zz0qGZO6PH
- mrdC2B8y2d26HHFkjlfYDMpp0TIh9eFk=
-X-Gm-Gg: Acq92OFsj/WPGd26WJYJL3puir9ibyUgNEjQCvzwgB/08JhNJyTCRLCN7tJfcx4+3z2
- LYBalLIu0tugvT6+A52FWoiT7f6dCWF1O6Whv6WYhU13/BWIO3AlKvVQP11R+WJigCF7QA4QfJk
- bkx3oaikEKddicTwI7LBy1psodmh5M8edC7XEXAw/z6a3wT4ZFlKbBxOnTpHyvWf8rjoTk2od/3
- XqFDFIkBBAlYyNlklkiydSl/gH6ImXRcC3HU9x3VuMeam4UKfE13iwDuwrfWTH7u7cQqwa5QdDS
- P+uoQNaeBo7cm634IV7cHUFdW5PcumpuojCMWn3u2rgTCBT1Z1SB6qn99ULJbfVhu0EoYQ==
-X-Received: by 2002:a05:7023:a4b:20b0:136:bbe5:395e with SMTP id
- a92af1059eb24-1384bbb1e89mr2789479c88.5.1781617382781; Tue, 16 Jun 2026
- 06:43:02 -0700 (PDT)
+ AFNElJ+wXFQGnaNWVB+7qP1usSY0MNdoF9RS5Ia/VbA0MSqZoCjMFNfzaGSDn3Zx2+f140iBizLM4hLf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzM3q95aGh4TQKf9aiN0+cEizEm7Y7Cn+VrlWCZ3WmxEVjaBj+n
+ hFzslyGDE6qDUqKcw8bamSMqlvWuNEu69Qn6ubs6Tl9mpRM8MbNjiZWC5XQ7Ka85PUbdmFw6oBd
+ XuZpb6HE6A/BYzSv6xyfpB3eO6+DIKSLnng==
+X-Gm-Gg: Acq92OEa/JsLZnESw/djxSVL1BK5bbpOLPrcpp3hGa+KmzAEPig/OBz4OcW/jZItyBF
+ 71+C+YjDo85vtRZctExJtjKhuX0p2wUxDTNutQ2d3+CO5FAVynk9PMzU3RMB7A72y4W0F+tsLdU
+ xsoW2eZNjq53IBDTcFATIiw3hE4OaYNLb1a9h9KCQYnyO4lTe1TWJwYVz2aQzqF1TB0qRDj4mFY
+ 1GDpaXSp0MW1fZYFlDNneUTIWo4EQig+ett4dv/XD6IEbje5Dbws6oV4HWSYJoUexUKj8wkCWB0
+ kvm/oGtdf5W6yjhtHUUabjCdRTcRLf4MQ0QTCjEr+F6Q+JL7dq1d8srAmz2kr75I2xUxmg==
+X-Received: by 2002:a05:7022:e984:b0:138:43e8:c6bc with SMTP id
+ a92af1059eb24-1384bb7e833mr5720137c88.3.1781617852013; Tue, 16 Jun 2026
+ 06:50:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260616125040.9977-1-pierre-eric.pelloux-prayer@amd.com>
- <20260616125040.9977-2-pierre-eric.pelloux-prayer@amd.com>
-In-Reply-To: <20260616125040.9977-2-pierre-eric.pelloux-prayer@amd.com>
+References: <20260616062505.1982738-1-Jiqian.Chen@amd.com>
+In-Reply-To: <20260616062505.1982738-1-Jiqian.Chen@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 09:42:51 -0400
-X-Gm-Features: AVVi8CfrK6K4H74bKw2lBz35LtUNNuuxNHtfu6wvLCZb4TbU4zW6J4w_SYn2FJU
-Message-ID: <CADnq5_NgGCDKXLRmyu1_TCQkUfEUDnj0n1X2-Gg6Bg1Ya+o37Q@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] drm/amdgpu: delay ttm buffer func enablement on
- xgmi
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Date: Tue, 16 Jun 2026 09:50:38 -0400
+X-Gm-Features: AVVi8CeCejbtWD-R40U_9swuDDGE2eJf1CxzyP7fHDcNyqXQr178hHiK9s87Wkc
+Message-ID: <CADnq5_M=fN2z+Q2Yhw6k=YCS7edVsqyK+Wy0DoLssnQ9xSQ6PA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/1] drm/amdgpu/gfx9: Fix Ring and IB test fail after
+ mode2
+To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Huang Rui <ray.huang@amd.com>, Huang Trigger <Trigger.Huang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -109,60 +109,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 8:51=E2=80=AFAM Pierre-Eric Pelloux-Prayer
-<pierre-eric.pelloux-prayer@amd.com> wrote:
+On Tue, Jun 16, 2026 at 2:34=E2=80=AFAM Jiqian Chen <Jiqian.Chen@amd.com> w=
+rote:
 >
-> When amdgpu_init_minimal_xgmi is used, SDMA engines init
-> is delayed so amdgpu_ttm_enable_buffer_funcs must be
-> called later.
+> For Renior APU with gfx9, in some test scenarios with disabling
+> ring_reset, like accessing an unmapped invalid address, it can
+> trigger a gpu job timeout event, then driver uses Mode2 reset
+> to reset GPU, but after Mode2 compute Ring test and IB test fail
+> randomly. It because the HQDs of MECs are always active before or
+> after Mode2, that causes MECs use stale HQDs when MECs are unhalted
+> before driver restore MQDs, and causes CPC and CPF are still stuck
+> after Mode2, then causes compute Ring and IB tests fail.
 >
-> Without this, the check for num_buffer_funcs_scheds will
-> fail and using ttm buffer funcs later will fail.
+> So, add sequences to deactivate HQDs of MECs in suspend IP function
+> of the resetting process.
 >
-> Fixes: 3a5da695c8d1 ("drm/amdgpu: only use working sdma schedulers for tt=
-m")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
-.com>
+> v2: Move all sequences into a new function gfx_v9_0_cp_mode2_clear_state =
+(Ray Huang)
+>     To check reset Mode2 method in the if condition (Ray Huang)
+> v3: Move all sequences before Mode2 instead of after Mode2 (Timur Krist=
+=C3=B3f)
+> v4: Call amdgpu_gfx_rlc_enter/exit_safe_mode int the begin and end of
+>     gfx_v9_0_deactivate_kcq_hqd (Alex Deucher)
+>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Reviewed-by: Huang Rui <ray.huang@amd.com>
+> Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 2 ++
->  2 files changed, 4 insertions(+), 1 deletion(-)
+> v3->v4 changes:
+> * Call amdgpu_gfx_rlc_enter/exit_safe_mode() int the begin and end of
+>   gfx_v9_0_deactivate_kcq_hqd()
+> * Add RB of Ray and Timur
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 57e10afb4714..2e8954fa5c40 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2479,7 +2479,8 @@ static int amdgpu_device_ip_init(struct amdgpu_devi=
-ce *adev)
->         if (r)
->                 goto init_failed;
+> v2->v3 changes:
+> * Move all sequencess before Mode2 instead of after Mode2, and add a new
+>   function gfx_v9_0_deactivate_kcq_hqd to do the disable compute HQDs
+>   sequences.
+>   Then the resetting CPC and CPF are not needed since we have already
+>   move all sequences before Mode2 and they are not stuck
 >
-> -       amdgpu_ttm_enable_buffer_funcs(adev);
-> +       if (amdgpu_ip_member_of_hwini(adev, AMD_IP_BLOCK_TYPE_SDMA))
-> +               amdgpu_ttm_enable_buffer_funcs(adev);
+> v1->v2 changes:
+> * Move my sequences into a new function gfx_v9_0_cp_mode2_clear_state
+> * Add reset Mode2 method check to the if condition that call my sequences
 >
->         /* Don't init kfd if whole hive need to be reset during init */
->         if (adev->init_lvl->level !=3D AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_xgmi.c
-> index faac80a8a6eb..c0dca209335e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -1663,6 +1663,8 @@ static void amdgpu_xgmi_reset_on_init_work(struct w=
-ork_struct *work)
->                 if (r && r !=3D -EHWPOISON)
->                         dev_err(tmp_adev->dev,
->                                 "error during bad page data initializatio=
-n");
-> +
-> +               amdgpu_ttm_enable_buffer_funcs(tmp_adev);
->         }
+> v1:
+> Hi all,
+>
+> My board is Renior APU with gfx9, smu12. I run a testcase that
+> accesses an invalid address to trigger a amdgpu_job_timedout()
+> with disabling ring_reset, so that driver will call mode2 reset
+> directly. After mode2 reset I found compute Ring tests and compute
+> IB tests fail randomly on random compute ring.
+>
+> We checked the scan dump of GPU, we can see the CPC and CPF are
+> still stuck, that caused Compute Ring tests fail.
+>
+> I added printings in driver codes (gfx_v9_0_cp_resume), and found
+> the HQDs of MECs are still active, that may cause MECs use stale
+> HQDs when MECs are unhalted before mapping compute queues (restoring
+> MQDs to HQDs).
+>
+> So, I send this patch to fix above problems.
+> There are two main changes of my patch:
+> One is to reset CPC and CPF before resuming KCQ.
+> Another is to disable HQDs beofre unhalting MECs.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 39 +++++++++++++++++++++++++++
+>  1 file changed, 39 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index 90bbddb45730..7704100eae10 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -4071,6 +4071,41 @@ static int gfx_v9_0_hw_init(struct amdgpu_ip_block=
+ *ip_block)
+>         return r;
 >  }
 >
+> +static void gfx_v9_0_deactivate_kcq_hqd(struct amdgpu_device *adev)
+> +{
+> +       amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+> +       for (int i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+> +               u32 tmp;
+> +               struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+> +
+> +               mutex_lock(&adev->srbm_mutex);
+> +               soc15_grbm_select(adev, ring->me, ring->pipe, ring->queue=
+, 0, 0);
+> +               tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE);
+> +               /* disable the queue if it's active */
+> +               if (tmp & CP_HQD_ACTIVE__ACTIVE_MASK) {
+> +                       int j;
+> +
+> +                       WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);
+> +                       for (j =3D 0; j < adev->usec_timeout; j++) {
+> +                               tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_ACTI=
+VE);
+> +                               if (!(tmp & CP_HQD_ACTIVE__ACTIVE_MASK))
+> +                                       break;
+> +                               udelay(1);
+> +                       }
+> +                       if (j =3D=3D AMDGPU_MAX_USEC_TIMEOUT) {
+> +                               DRM_DEBUG("comp_%u_%u_%u dequeue request =
+failed.\n",
+> +                                                       ring->me, ring->p=
+ipe, ring->queue);
+> +                               /* Manual disable if dequeue request time=
+s out */
+> +                               WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, 0);
+> +                       }
+> +                       WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 0);
+> +               }
+> +               soc15_grbm_select(adev, 0, 0, 0, 0, 0);
+> +               mutex_unlock(&adev->srbm_mutex);
+> +       }
+> +       amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
+> +}
+> +
+>  static int gfx_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+> @@ -4095,6 +4130,10 @@ static int gfx_v9_0_hw_fini(struct amdgpu_ip_block=
+ *ip_block)
+>                 return 0;
+>         }
+>
+> +       if ((adev->flags & AMD_IS_APU) && amdgpu_in_reset(adev) &&
+> +               amdgpu_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_MO=
+DE2)
+> +               gfx_v9_0_deactivate_kcq_hqd(adev);
+> +
+>         /* Use deinitialize sequence from CAIL when unbinding device from=
+ driver,
+>          * otherwise KIQ is hanging when binding back
+>          */
 > --
-> 2.43.0
+> 2.39.5
 >
