@@ -4,74 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7422CD98E7
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF5FCD98DA
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:50:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7194310EB85;
-	Tue, 16 Jun 2026 12:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A22C10EB7B;
+	Tue, 16 Jun 2026 12:50:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="AMhZzWEL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BohMP7Bi";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3B1510E7B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 02:12:18 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-59ebde7d704so1365927e0c.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2026 19:12:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1781575937; x=1782180737; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1/I+pZwMOrzhrEepnB/LVQxD8E3WFxc/6DwgKc4sW9c=;
- b=AMhZzWELwHT6DhSc+nggUqqDUbeSU9NYjpkNYAW/NYZTqdE/8HJVbJ8AuUS2HalIAJ
- alvqzLUqyLC10/f96sd8WBrkVhoIqjXkkKv55K0asxr104QjnAuRlkfrEOeiWCGGgdyD
- 4FWkU3IoTi9QOm+Mb0du5JTp8SlU61lkbdcZLaKayxSoRy2pLyCn8lAJZ+gh1SPyw8HZ
- iOC26baZUzbFRDx0aVycEoiybDy/+LyMjVG5DZuU7SryNq0gIt3KKtxh2Q2pq65gqmpQ
- NAy/shEnDm0yZgbE4IvI7MRMZFmEQJvCOt0v5EAxBgu/uNjnAROM/xdZPJi7/cmYr8bu
- XgRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781575937; x=1782180737;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1/I+pZwMOrzhrEepnB/LVQxD8E3WFxc/6DwgKc4sW9c=;
- b=gB5ARZ2aZk/1xO9jJz9Dqre8+zsyN83IuVXhQgB26biVLg/vdSFiGGlEdbmkGA+XpV
- oMKcNAG/V/C/YJAusNmPRI7uMk1aBohDBALzQnUdFub/2d1txaBtkqt963XUh6wfkVgl
- wt9zkFNoTTP6IZ+nibO6Lj+VF24u5TStaSaePfxZaOSEz1s4PV0w55b4hhWEdMeRjLq5
- lg0/x3/DkxOs4KoWqIDQQSmuW1Cvq87qpz8BzEEImkLc/GPDntBw5+2NPyeO05YB/l1H
- xm/bWE1cUGiVhmLJjfz+WDB+5vnPLsbJD9eBJCi1b59SWBDPf91Y7lrR9IYGcYX2ytNd
- S1Jg==
-X-Gm-Message-State: AOJu0Yx4K8ruvXWoIwmZJ67Bfb283zmpsQBPC9W+2GanyL1tIInAvGIW
- nIQyj0RaUnnhRz6eWOEOZqWOQW5dg6HLQvHFdBywI9Gn4uC9YjLheaGVCsTe9PzMkb+pVbEX4QC
- XuOdK
-X-Gm-Gg: Acq92OF9aPAOjkuEGK/ll8GtzKVvMHVE3Nl5SDb0pJYel/Ix46ePa67eFq3BjjZkWhx
- 8mjx5MSO13Olcvs3pWl0GONIxD6W46Q0xi1gpkUuMFkTeYAooRydA9HExOC3YiFtupUCEC2UuPI
- BGoqu3Sm64FKdBTudSEfxmiqeX0TQby9Az1S1SLxnePa9df/plZiK1046B1uY90K3p/GRrdcsl0
- fxz9NVB3lbBGQeKWxgRDMhXjT93+L+4tf/kv63decKewYgtsDnL0AY1MmquZs3Njcdx5CCOsJZ1
- QuS+Wsz8O6+onB2amYCiiBOOBxvE3/KbtbeBGh6v3c9gr4hMrznv7qYbFw9E+txusT8vt56INsK
- A8PWE6Hyb1gsLwn/2fpBQ9XzkQqRLknZ8qoAxI0babLPU4idNpLAYZgjraDhyLY6gdbApTZOdLT
- bWLXYO2qQHpVPCX68OerzucSr359ZbAJ7KxYmRH5D9DCNHeXCHDDLsRveGIuRqVeht7AHIkqpBf
- 24B8o8jBUWFmMAHEg==
-X-Received: by 2002:a05:6122:32c5:b0:56e:f071:d4ef with SMTP id
- 71dfb90a1353d-5bbadf16a2fmr898972e0c.8.1781575937306; 
- Mon, 15 Jun 2026 19:12:17 -0700 (PDT)
-Received: from voyager.. ([179.119.39.86]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb900138e8sm5514855e0c.6.2026.06.15.19.12.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 19:12:16 -0700 (PDT)
-From: Tiago Dourado <tiagodourado@usp.br>
-To: amd-gfx@lists.freedesktop.org
-Cc: luiz.f.f.fernandes@usp.br,
-	Tiago Dourado <tiagodourado@usp.br>
-Subject: [PATCH RESEND 0/2] drm/amdgpu/jpeg: deduplicate process_interrupt
- across JPEG versions
-Date: Mon, 15 Jun 2026 23:08:29 -0300
-Message-ID: <20260616020942.18980-1-tiagodourado@usp.br>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012027.outbound.protection.outlook.com
+ [40.107.200.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E92310EB75
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:50:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ADFWw0WICityRvL8kWcZyBO6LGWB4uQz/kdNxeCjajQJ3fCvpq/bqu+ZeW93joAYENVGNEaU88SgN84U4C7q1vdH6QYSd21Yjy7umXTG960BXOS9oLLBk3comYZp0KgP8xcy7082+RCl86FeRW4IgQMvW1eFCfTpvsnCesl/IqKoHqTzb5PX4rVryEv4JLgBJsffwQG69gsh2X6IBePF+Zza9pEvysRKqpMuERTkD2yrV7WxTglT+u5wVgpartsW9yrP67DcS5Es17PcrgmfWBeR5+7AmRKR2WqgpuqRee1LHS1edw9WqwCGogQ8wEangIOOEYcchUsqj9z8Z0tVUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O9EiWC0xtpX7KEBLVJ2FFeNmjtiRHvR0KJbp+/idhqs=;
+ b=mS055VEOFmNj1v8VtZZXi2Sp5UL7w0X/SAFHqToiao9F9bZwsi6kH/ArimfInUrqDdj8wrbnwXL7SjgY5/O1qR5Vh2g3ofBZAcAvTDSstwghe2Y8tLaXZI+tNZPpct+Mm4BYxZ35gUgA9dhWd0FqYxHCAJM3kgaRie6ZyJe/8CnQf+jxXLtq6VrRzp7ADmvxJXggFzoxnVnlFj8a9VZZPYN1cwgqjEn+Xiys96KdrycyebT3X1XpT36V6MEiXb1zoHKpJavNgxM9TYoPjAUre7PCDkKWhFGU2lJlq4lIWBn7TIYDyuoCbg9eH3yLDEd7ixCrirOlltndj+iY9bbJLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O9EiWC0xtpX7KEBLVJ2FFeNmjtiRHvR0KJbp+/idhqs=;
+ b=BohMP7BigV5k79Celh2OMEdDjCE7gJ4n4Nqfz7SEM2E2X/FtObwdYXkj/nFLyQxZux8MX2U4y6pk1N8YqQCDQFS87j1lJREhlvKbxUisajRMJeDlQqmQl3GWakTwp2jIn+58qgNC3nCK1nPP21thN1x/yZg/b2z9lCshuhpQJGI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DSSPR12MB999213.namprd12.prod.outlook.com (2603:10b6:8:378::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 12:50:14 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 16 Jun 2026
+ 12:50:14 +0000
+Message-ID: <81d038ae-36bd-4026-a086-f52d0ee5ee9b@amd.com>
+Date: Tue, 16 Jun 2026 14:50:10 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] drm/amdgpu: Signal QUEUE_RESET EVENTFD notifications
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260612055226.2879270-1-srinivasan.shanmugam@amd.com>
+ <20260612055226.2879270-3-srinivasan.shanmugam@amd.com>
+ <205b3f8f-8381-4c7a-80b0-e13e56165c6b@amd.com>
+ <IA0PR12MB82083E2008437898E247926790E52@IA0PR12MB8208.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <IA0PR12MB82083E2008437898E247926790E52@IA0PR12MB8208.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 16 Jun 2026 12:49:33 +0000
+X-ClientProxiedBy: FR4P281CA0430.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DSSPR12MB999213:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1332ed0a-27a8-40cc-1df1-08decba5cf59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|56012099006|4143699003|3023799007|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 7H9lEABtjXUxDQVPqzEHrwXQaV2w6xSGvemxx0KUImpcpFYQi0dsmtRXvJJyQcRlS+I3bOXYvdKYV/LdG/emtcuq+1Db9mZ0ozFRlsdYbz8wC4Yz5T+9W5A+WZdepZfijQfc7DCnegpmMcIHvv8aE9AV87K5zC8u3N3FH9xifgKwY/80+wRazBO6mSCMkz8PARBK+ZOzyvBNZvpd5OQs3j/e4reXT6NufSOfFLZJaDf81bJ9r7p+gka5+SyUIrDA3srz8CHE6ZZoEYTccA2A8+5P6sPVAib3iObhsif9KkX+LqUx/DG2MTUQLHm/f+LwqlZHQWo4k770z2Fxxy+H0RQfhiiHEmOhV2Q+fryT/+y0fPMAdHtYEUyZX4cf1iXmWkpEQr2hBRNmMA2GsO0CRL26NBx6hN3Zjq3uHZZ6Em0WdXVR7iiN5p0+BGdyB9rGli8EfMbri5qPDtrx+bss9oi2CCo+Zn2tUptpi5/6YIOThJC3ItKZEPgJlriQHd2AFtqApd/hk24sS4cL3kMxeU2xBegE9MMRToRR7x6MQgFsmJmq52uNxzgXSVUlqvO8wTFa2ZzTMK1Pajl8s6c/yRHLd7sD1wWQKULd6BZI/w6+6oZ+aAaOqbWKdlDaR/8MIyuRLkV6rNP+FPwzsDe/YHU6nSN/q6WiUxib+FXdpPSvbvg3TM3amRQOXOgmGvzc
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(4143699003)(3023799007)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXlLd0EyK0YwbkRCV21lcXc3N3Q0QWpMNEVDYlNPSy9DVjN4eUkxVmZsTWVJ?=
+ =?utf-8?B?cnNOMDJvYU9weFIxZDRSc24xVUh6a2Z0R3JSMG5wRklabEplYjU5TEYxK2pk?=
+ =?utf-8?B?eWJ0L0QrdVE2czdSWWozNGJjSkUvSzl1anprZ2lpZmVOdW1COTJjTmhUdXJF?=
+ =?utf-8?B?UmM1d1ZaTEJzV1B5dHJXOTBSSnB5Skt1ckxiK0lIbFhxTytXWWJEQXZoWlZl?=
+ =?utf-8?B?SElmd1NJYmErQTlCZ0dhMG9rQ1J4S1dZNTA5VmNCL2l5Vm5VU2ZEL0p2alFk?=
+ =?utf-8?B?YXJYVm5wdUZkWFJkUGJvQWordlE5VDBnYmFhWnI5Nno2MStSOXRXOGNEeGxv?=
+ =?utf-8?B?a0ppT1NmSm1jZCt1bnN4bVVTdS8zV0RHcC9HM0k2UkkvbTh6eU51Sk1wSVI0?=
+ =?utf-8?B?KzN0ckZNajYyR3V2RnFaZm9ZRlp5eXZyMENEcTREWmZZVlZ2ZlhkejUvWFhO?=
+ =?utf-8?B?MEJnV3RoK3RPK1hLdXVpaFg2dnRodllQYWJMRUFuem5GSEM4aHUzdGprTEJJ?=
+ =?utf-8?B?NDZDMDJqa29sRUNia2J5NXdqUnZ1QWc5d1BjdmRTYVMxT09Kb0phUVREK290?=
+ =?utf-8?B?WldxMzhQc1FwaUZrbzBCVjZGOURtZXBxM09lN1VuampUZzE2UkNuY3UvbzFG?=
+ =?utf-8?B?aFVzYlIxWDNid05CZlZiR0JWU3MwZTJ0ajN0WEhZRnpxNG10UEpUbzRkVHN4?=
+ =?utf-8?B?NlRCZmhNTE03Qi83d05ocW9mdGpEVVRJMlE1RUhjZkFtOWdPR1BDR1ZmMnBa?=
+ =?utf-8?B?ZkQ4R2lETVBoUERYQ3dkdUM5K1o2NUxmbmVuUll3Vk1mTzlLYklTVit1RmQ3?=
+ =?utf-8?B?YlVXTEFKdW5mMWN0NlB1Q3FINWFUWmdsR0o2dkNQTmdFakZyT1hEaWViV1pQ?=
+ =?utf-8?B?ck0wOVd0SGJHUXJEN2MyWExJY0RIamNnZ2Y1d210bGNwNFFZdnNpeldwVm53?=
+ =?utf-8?B?L3dXbHIrdzlqbzBnSW9pajQ0SzZwMHhrUTFHS0d2alExWlVvemtzWFk0VDQ3?=
+ =?utf-8?B?bEx4MEJlQms3NkhhUGdaUHdKM3B1dGxpbGdDcTBHUk1nL29QczFheTRaa1FI?=
+ =?utf-8?B?Z0Jhb0k2NjhUVHE1bWpSeitURW4xY1NtUk1ZYjVBSEIzSXIyRVhCbmZSMnlL?=
+ =?utf-8?B?YzlKV3F6aVIzbXRXYTNmaEJrVkJxTTc2ZU1JcGZyY0ZXQjNvbEZqdHVhS1dR?=
+ =?utf-8?B?b0g5eklrck5iK2lKTkMzY1Y5NEJNUnpwNDR4cjlXZXordzQvRThFanpwT2Zy?=
+ =?utf-8?B?UTJRVjNVb051V1BJMFVPbm1Ub0JBZWhmcFczWWVGQ2VmUG9NREo2a0Q2aits?=
+ =?utf-8?B?VnU1WkJoRFVBekk3R0JJSUcwY0NBNGdmYlZCL3oyQWxwR3BpM1ZtckVaK1pQ?=
+ =?utf-8?B?NjFiTC81bk5DMjFWbk1lVlZSMzVZQmpiV0NWaS8zc0NhMWw2VzdXYTc0M1N6?=
+ =?utf-8?B?Ny9zT1JEZHBOMHJjNmtDTngyb0tQUFk0czNJM0dDNVJ4bUkrMlkyOWtEbUZu?=
+ =?utf-8?B?YXU5QkcvYk5zSkFGQkozQzJEU2NzUkxTVTZvK2JDcFY1ajJiL0YyNEd5MUpa?=
+ =?utf-8?B?ai93Q3RHYmw4M21EOEIzcmhQWDgvMzJjZ0xCU3d3b1ZiZlh5c1FCSWxvb28r?=
+ =?utf-8?B?UmZjL3BLTmljMkEzVUluVDJjaXpUbmFpTXNxYWFFL1ZzNVk0Wk9ENzZBS0RD?=
+ =?utf-8?B?SlhrZGxSV0RIVmo2NWcxTENVY0lRc3k1RDJuQzdiQzdHVHBXaHRvd08xaitK?=
+ =?utf-8?B?aEpWeXBEME9RNDlhYVpZSHNMeVIwNkE4YWZmZ01RU093SjJ3a3F4L3E2bnk2?=
+ =?utf-8?B?aktoeTlCTzB3L3ZSUTZRSHZUa2djQU1zZ1NLb2JvNDgrQzlRZVhkL044Nzl3?=
+ =?utf-8?B?NEc0dUEySllBZGJ0RmdUT1Z0cVhSWVBrZ2hncE1hZTJBWkpuUS9WMDIrY05k?=
+ =?utf-8?B?VDdINjA3Z1QzdUJCUGI0M29ucnRVRVBHMFk4NktGM3NSMGpSZmtaMU9OZ1RR?=
+ =?utf-8?B?Nlc4NS9QbUxhTTJkbUhVREJkY3grZE1rQU4zeVVhRXhBdVFZMVNRN24wWHZR?=
+ =?utf-8?B?Zi9aR25QcUFVWGIxa1duU1ZuVis4b1ZKTlNyZWV2SHNRaDh4S0FWeFBXTXhE?=
+ =?utf-8?B?bmx0VkZnYmtQOVo2QS83UDVEcXJiNUVoMVhXUDJWUjJpazRCVmZGMGhMRUxj?=
+ =?utf-8?B?QjVmMzFnbFU5RlZUa0J4Ry9TQ2FuSkkxUExqS3hUU3FtS1RwY1FhZ3RDU3Qv?=
+ =?utf-8?B?N3FMbG13VWxnRzBDTFQyRWRwRHdzWTZPZE9CVndXYnpMVFFhOWFNZEtydUdK?=
+ =?utf-8?Q?ZYJxOxi8ckLngmmNv3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1332ed0a-27a8-40cc-1df1-08decba5cf59
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 12:50:14.3503 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vnyKKTF1NxAewP145l4mRv0GPVaV4p9v6zm0Q2bgecaJltPJbKki8vO9PFCghOJ4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR12MB999213
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,20 +138,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The JPEG versions v3_0 and v5_3_0 have process_interrupt implementations identical to their predecessor versions (v2_0, v5_0_0 respectively). This patchset removes these duplicates by exporting the original functions and reusing them via macro aliases.
 
-Tiago Dourado (2):
-  drm/amdgpu/jpeg: deduplicate jpeg_v3_0 process_interrupt
-  drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0 process_interrupt
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h   |  4 ++++
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   | 21 ++-------------------
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h |  4 ++++
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 22 +++-------------------
- 6 files changed, 15 insertions(+), 40 deletions(-)
+On 6/16/26 13:30, SHANMUGAM, SRINIVASAN wrote:
+> AMD General
+> 
+> Hi Christian,
+> 
+>> -----Original Message-----
+>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>> Sent: Tuesday, June 16, 2026 2:28 PM
+>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+>> Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH 2/5] drm/amdgpu: Signal QUEUE_RESET EVENTFD
+>> notifications
+>>
+>>
+>>
+>> On 6/12/26 07:52, Srinivasan Shanmugam wrote:
+>>> Signal QUEUE_RESET EVENTFD subscriptions when hung user queues are
+>>> detected.
+>>>
+>>> The queue reset path already identifies the affected user queues. Use
+>>> those queue objects to wake up the matching EVENTFD subscribers.
+>>>
+>>> EVENTFD remains notification-only.
+>>>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 9 +++++++++
+>>>  1 file changed, 9 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> index e9189f07c6dc..ee8dbd70e1c8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>> @@ -238,7 +238,16 @@ static int mes_userq_detect_and_reset(struct
+>> amdgpu_device *adev,
+>>>                     if (queue->queue_type == queue_type) {
+>>>                             for (i = 0; i < hung_db_num; i++) {
+>>>                                     if (queue->doorbell_index == db_array[i]) {
+>>
+>> That code is extremely questionable to begin with.
+>>
+>> My suggestion is to clean that up first and add a function in amdgpu_userq.c which
+>> gets the doorbell index and does the necessary handling.
+>>
+>> E.g. actually lock the doorbell XA, lookup the queue and then do the right handling.
+> 
+> Just one clarification pls regarding the QUEUE_RESET feedback.
+> 
+> Would you prefer the new helper in amdgpu_userq.c to only perform the doorbell_index -> queue lookup and return the queue, with the caller handling the reset/eventfd logic?
 
--- 
-2.43.0
+No the handling of the reset logic should be full in amdgpu_userq.c
+
+> 
+> Or should the helper encapsulate the full handling for a hung doorbell (queue state updates, force completion, EVENTFD signaling, etc.)?
+
+Yes, exactly that.
+
+Thanks,
+Christian.
+
+> 
+> Thanks,
+> Srini
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+> 
 
