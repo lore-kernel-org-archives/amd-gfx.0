@@ -4,101 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F05CD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 15:13:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F12CD98E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 15:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2898210EC53;
-	Tue, 16 Jun 2026 15:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD5110E595;
+	Tue, 16 Jun 2026 15:23:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RE5FYIjP";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="n7LOGgqy";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011026.outbound.protection.outlook.com [52.101.57.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 440F910EC5E
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 15:13:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cLDcaCpSinBIRyKHCOi5W4Ow5Aafk2qXJlqmXQrcOCkxTbQFpvVpaNXUiDx4lH57FApNNXoM2jIuF+714cj28yFYoNtY9SD53WfEHkf2mHd3XlfD0ve2PzzwCK6Ap/Lokw7HpD4cblTVRB56GjLu0kxgpTamIG6B1/Ceu3BvED0X2GZ++cyGRtn8YTnl+4E5Wd4AEkWk+nfkQK4/UrZBrh3vGz9xY7ZoJfH3YXy98dT6bLkSJA2TsY0N2McfqNT1yPRpB5eeVRFQw7g0ucpDMIPNKeSNaHMGG8uKVpuHObVU98lBdapfDaweRkAMPopGoECdXuXsa93mrD+kVo4Prg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0pNcbmb82qzJGR3B0mGE6je5JnAFuVgbv+8Wn4grb5Q=;
- b=NtDXfPShbCD5SWLU6t5TtuzNz2aKT8iI4KBhZXxhFRcFLnivbn46AC/rkSbQLNZNyuAj8sUYW0rp6ySDYLsndUI56qWtdQZEenZsUTQgcI19EsbQfYUiicLJ6VBDuXSMsHlBWRB2LFItr4lT3aIeJAgl92fhNyMqXNZNic7tB6QJkDZCRR4dzL+I4PDEpEx+P4aQ+gL7dF3Zz1xLOpLlA1Uj0crOOxuY54lVnrljwx2RJdZJxNxrC0sdq2KTJo8ESNmTwPuTRMOSm+wGtETPJ8IxPv1Yhf+AhFOJz4aLmON+4z88xOBtuuKUM0tTLAQnUV224KsXHdBH0hRmX4CZKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0pNcbmb82qzJGR3B0mGE6je5JnAFuVgbv+8Wn4grb5Q=;
- b=RE5FYIjPF5H2c8Scacmz4SRYV8hETDUHy8YPUZCH70P+BnO74x9m4QqO6amB69qAkKyzd87z4VuC7Q726z2yTjP+wE0vaxIuHbkweVMbHWAo+V/NlN7VB4OZMxzucRCN3++upPYMJh4Zjg/IW+zxkeU85d2rh900yUS8tI6qCdU=
-Received: from PH7P220CA0071.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::33)
- by DS7PR12MB8418.namprd12.prod.outlook.com (2603:10b6:8:e9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 15:13:26 +0000
-Received: from CY4PEPF0000EDD0.namprd03.prod.outlook.com
- (2603:10b6:510:32c:cafe::62) by PH7P220CA0071.outlook.office365.com
- (2603:10b6:510:32c::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
- 16 Jun 2026 15:13:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EDD0.mail.protection.outlook.com (10.167.241.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 15:13:21 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
- 2026 10:13:15 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
- 2026 10:13:15 -0500
-Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41
- via Frontend Transport; Tue, 16 Jun 2026 10:13:14 -0500
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Philip.Yang@amd.com>, Xiaogang Chen
- <xiaogang.chen@amd.com>, Gerhard Schwanzer <geschw@pm.me>
-Subject: [PATCH] drm/amdkfd: Use last + 1 of vm range to check 2MB huge page
- alignment
-Date: Tue, 16 Jun 2026 10:12:53 -0500
-Message-ID: <20260616151253.303003-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-Greylist: delayed 22347 seconds by postgrey-1.36 at gabe;
+ Tue, 16 Jun 2026 15:23:37 UTC
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch
+ [79.135.106.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0483710E595
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 15:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1781623415; x=1781882615;
+ bh=ZiSGzLFLLQon9GbxRQF1ztUhVOP73mQj8rFsjiRIRgM=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=n7LOGgqyDN81rmga4TUmR2NAKJW/QWyEVUF/41yIUxu4mteld678FicepJvObZyCw
+ qEtxXM+iJJOGbZiLMuI5ZRsLahcAtrvFzPsvKIpn6rAy4KHCo9pE2R/4eB18VuEeJC
+ QrHMBeErWKevBt3D9vYWkjBzKjbaaDQSaWvBT4oeVVl+3L3Ejjexj3mR8nHON9mTky
+ 8tNwhpj4MAlC51SdXopJOjF3wRxzWezkiTOOJhQfBWkA0aydSOM2Jin+ZOqnt7KDm6
+ iYuPg7GHAeYiq4VbqPBWlSDhKGpTf3gKKiexe8yPzShWyOnU5MB5Y/H367K4x2JeXK
+ RcSc/3Bp4aiAw==
+Date: Tue, 16 Jun 2026 15:23:30 +0000
+To: Xiaogang Chen <xiaogang.chen@amd.com>
+From: Gerhard Schwanzer <geschw@pm.me>
+Cc: amd-gfx@lists.freedesktop.org,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Use last + 1 of vm range to check 2MB huge
+ page alignment
+Message-ID: <20260616152320.60210-1-geschw@pm.me>
+In-Reply-To: <20260616150713.301236-1-xiaogang.chen@amd.com>
+References: <20260616150713.301236-1-xiaogang.chen@amd.com>
+Feedback-ID: 110185885:user:proton
+X-Pm-Message-ID: 4a6618b2fa0d9b824aaf4ede69440316816a8af5
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD0:EE_|DS7PR12MB8418:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca11e9cd-537d-4f0e-8cd4-08decbb9cdfa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: Zo1hoYB8ERvrDlDa4oqxMtpkMSN7M+RlyNwXwsVbNaaFShbuXqyhkVHzcyXfCeEtl4eXqIOZYK1F7IWtpyojosk7J3uG3VG2MGMHCIT8D3XZOPJy4SX1LmLfZo0hOUVMUEbrWw2I26yH2uo+LGXr/Wd/6OD6+fsFK+HBYsBObuMkP0uEHF5l07dnztJZAIvqnskCXlg/32mwzG4Y9ZpdzvcfeBGQ4B6XOkzyesJfpt/YuclszZSbk6YGz4qB8nYBDa8yHh2K7h5TQIkjqU1ESsZrp7Mwe6RktSMwohKDejdXOzRbSZkyxTcXcn4OBHQVDf+ZNd7wwXwb0mKktbVDgQ25acrfpjjx0XSX93xKoG0C/+2DEy24RKdkbc0GxDvnN8oTUFX/xLM+ojsQsjCJx/3fZg7iXu+Po22ofrpcUOw/jpVU9cx6DmarVlmquJcVRf8L1Cxa3RN97wwUe4doXJ9jbE9X85wWnU1ZmwFRs0TZF82An2coRprFNJ2wKGivKukNAYBypHrkEYh0WdpRR0IdCpuMpy3gjVnNaEntClZpB63NgzR90MdEJ5GtCevg4TG1NCCTwDVYiuhJB6maVJGnVjv4gnrQk1OMkZlGB2n3eKys0hL5qPU8Ch29wa6G6gTc/rEH2zHIElfv2mnmlZXLP+Uf8799Odq/OEXTmOru2T4myqTlIIKpho+UVKrQJ6FOHqxYMrsNuSHRG6VYW5JNIKtRo9sYAfxPr05osE4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CHy1Xo05PIMZ4b3Z6nKv1LfDeeNjY0ecITdSO1huQZ7WCoQZ/Qfwg+frV6z69nASUpy5IJVwbUbffBUgJQnY/HEcRlcOaaFHJdJ+JCGiR4h1XM9x0i8RCrwG00UC2i0PcnEz8hUZO7+ra0cObJkqLwQgIULUVtjxF6ItS0iM+B3NJPBaXlgKK30Eztsm9xZJoPAnerzV8kMsTrX+uMNwWpTdZMQ+vg77le7qfHUj1133KVnoGOpedDfbUAJ6GkiH9w8pcmUDbxnR+DOGyuO7AgMm7QppPJ7jyb7awFjg5m74VZPp/oalGpAMzsi1fSqLiWHKyEgDfQkGts6Zv7opZ8nxdw+oCe51B8BUdqx2SdnxmWqCH7mYaD9NE4IzEl/7SAe5jeq14H6mtXQev21rwtVK18eda3MkI7s7o0/Pj4QNLkDfIgvmSB4D4qgu0nN3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 15:13:21.7660 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca11e9cd-537d-4f0e-8cd4-08decbb9cdfa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8418
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,53 +60,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+Hi Xiaogang,
 
-The last byte of svm range is included. Should use last + 1 to check
-2MB alignment for possible huge page mapping.
+thanks for sending this.
 
-Fixes: 448ee45353ef("drm/amdkfd: Use huge page size to check split svm
-range alignment")
+The last + 1 change to last_align_down matches the reproduced split-tail
+failure and fixes the inclusive-last issue there. I think the head-side
+condition still uses the inclusive end of the generated head range in
+places where the exclusive split boundary is needed.
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
-Tested-by: Gerhard Schwanzer <geschw@pm.me>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+In svm_range_split_head() the call is:
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 25b3ecf85f30..20ccdc4dde6b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1144,7 +1144,7 @@ static int
- svm_range_split_tail(struct svm_range *prange, uint64_t new_last,
- 		     struct list_head *insert_list, struct list_head *remap_list)
- {
--	unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
-+	unsigned long last_align_down = ALIGN_DOWN(prange->last + 1, 512);
- 	unsigned long start_align = ALIGN(prange->start, 512);
- 	bool huge_page_mapping = last_align_down > start_align;
- 	struct svm_range *tail = NULL;
-@@ -1168,7 +1168,7 @@ static int
- svm_range_split_head(struct svm_range *prange, uint64_t new_start,
- 		     struct list_head *insert_list, struct list_head *remap_list)
- {
--	unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
-+	unsigned long last_align_down = ALIGN_DOWN(prange->last + 1, 512);
- 	unsigned long start_align = ALIGN(prange->start, 512);
- 	bool huge_page_mapping = last_align_down > start_align;
- 	struct svm_range *head = NULL;
-@@ -1181,8 +1181,8 @@ svm_range_split_head(struct svm_range *prange, uint64_t new_start,
- 
- 	list_add(&head->list, insert_list);
- 
--	if (huge_page_mapping && head->last + 1 > start_align &&
--	    head->last + 1 < last_align_down && (!IS_ALIGNED(head->last, 512)))
-+	if (huge_page_mapping && head->last > start_align &&
-+	    head->last < last_align_down && (!IS_ALIGNED(head->last, 512)))
- 		list_add(&head->update_list, remap_list);
- 
- 	return 0;
--- 
-2.34.1
+=09r =3D svm_range_split(prange, new_start, prange->last, &head);
+
+This is case 2 in svm_range_split(): the generated range is
+[old_start, new_start - 1], where old_start is the original prange start.
+So for the head range:
+
+=09head->last + 1 =3D=3D new_start
+
+and new_start is the split boundary that should be checked for 2MB
+alignment. That would make the head-side condition:
+
+=09if (huge_page_mapping && new_start > start_align &&
+=09    new_start < last_align_down && !IS_ALIGNED(new_start, 512))
+=09=09list_add(&head->update_list, remap_list);
+
+With an original page range [0, 1023], start_align is 0 and
+last_align_down is 1024 after the last + 1 change.
+
+For new_start =3D 512, the generated head is [0, 511]. The split boundary
+is 512-page aligned, so this condition should not add the head to
+remap_list, but checking !IS_ALIGNED(head->last, 512) checks 511 and
+evaluates true.
+
+For new_start =3D 513, the generated head is [0, 512]. The split boundary
+is not 512-page aligned, so this condition should add the head to
+remap_list, but checking !IS_ALIGNED(head->last, 512) checks 512 and
+evaluates false.
+
+This is the head-side issue Philip pointed out in the review of the
+original change:
+
+https://lore.kernel.org/all/32ce2b72-aa16-4202-9f99-92e3cd4408bc@amd.com/
+
+I posted a v2 that keeps your tail-side last + 1 fix and uses new_start
+for the head-side split-boundary checks:
+
+https://lore.kernel.org/all/20260616105553.13062-1-geschw@pm.me/
+
+Thanks,
+Gerhard
 
