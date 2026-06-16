@@ -4,81 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96B5DCD98DA
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB6FCD98DA
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B4B10EA94;
-	Tue, 16 Jun 2026 12:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA70010E277;
+	Tue, 16 Jun 2026 12:16:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="b6tmG1al";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="tl8eMbHi";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A72510EA94
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:08:26 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-bef1e6423e7so474562466b.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 05:08:26 -0700 (PDT)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91DCE10E78C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:16:38 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-beeba001887so604410666b.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 05:16:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1781611705; x=1782216505; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1781612197; x=1782216997; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=iWtK1UuaH6SentuRqvDDNx2oPv8jl3cZJjeeiAH2uMg=;
- b=b6tmG1alwHws7sWgwWWAGtnDzooU3RNMrVCWyCg24lerNWRcrIAZc1z4ZOeapcS+qb
- uMghe3jzH8sASHJKfqdguIY4hpO9ax3Why0DkR7oYFgXflNMHybDF5EgXQy3BMJolKXh
- Bj9mPuW1i4TzOvS9yV4Fj2gSV0tNVlNA5mZX5k7ceVTx0wigWHCM42HmFS0RGmBA+qWe
- PUrBxWD1SWYJJszIostb7e+MbfowhLSrxI92DpFxCq1qo0R4emMPfTSVKI0HDZti/HJy
- cRYRhBYXzxgD04dfyrK1ZTf9IK73i+YcYXZls5xT8I+yF332gjjKGjQNshSd/2/BpJfx
- YesA==
+ bh=bx9y/uWxvEmwAQubomITARfrNFmmuiV9OcDl8elwdRI=;
+ b=tl8eMbHiedA+uDrx20ZsS16yWFUQWK5sgzvwX9MX4ds/jauKPNWvNdevMMlE0VnUba
+ fgAxQNo3z0qNGt1Ev4vKB6Ge3jAo7MRIOSnRUtWbsUm+WdGEZcbOq8oZ7ABvq3hNU7FN
+ mf1Nn1XQEqjGfeZXJCC6FT0wVYRCA+awbJkPlv++4eQYSNCsXa6E5iFF7SpQxhPFVBYK
+ 7OdDCqzYxM5DRi7vo/n2NV7zTB1i0P5AqTX59QyabCGE0YL8isCk2Lr+6Qud799+FseZ
+ 0R5+9Q/B5jobw0T8Wd9Ne0whWHdOYrm913RfvwwuvFH1Z9iVw21Xe+vTkagpXmIPTfiB
+ Ks9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781611705; x=1782216505;
+ d=1e100.net; s=20251104; t=1781612197; x=1782216997;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=iWtK1UuaH6SentuRqvDDNx2oPv8jl3cZJjeeiAH2uMg=;
- b=LbdotWTpz+1nsDNy/iiYXFiXPGPrrDGUJh4wZpPoi8JbqtECxeKSGA/4gyF4Y0XjBC
- 9kGbg4erN24+xH3VPdsQAUyQeD+nKUsrhaUK63HSP6leKVjNVjBauz+sEF2QMVlCMDJT
- WYlWAIybZHHaD4fq9kUokjA2nGSlbdNvHv4B6HOo8K2Zz+9pxNBjHbp1OO7jVmYFTWLG
- a0Yb1GvcVpTaKyn2Ow06M3KzzaiBYqjDjUqfckgbygQ81wygEjpdOtVrVHwo3z7kcWac
- kqyeQ4QD2Q7XYO7sZoFlEfJykWsf1AeiRYcLfjWydmdyDn9TWbRjHhHAYo8h75pO34/v
- f3uQ==
+ bh=bx9y/uWxvEmwAQubomITARfrNFmmuiV9OcDl8elwdRI=;
+ b=nmMc3QURhksc2a7sDFr0Rf5YSQmER3q8byTPohoBUIr2ObwvrV66HjEIDmk1xtc39Q
+ nLhyWw8BH3nWZLjs3hlGAhg8+Hyy0/bcBV6L1gXX/Oy5gGKyqilVTuJbatPsllwuTCAr
+ yaaqVA3ka25X2Q0RZdZAcgNJhw+4xEKChf9nk+c1tbA9vNp25yBIMjemnPiEXnY4FClN
+ Uheg5T5fxqSbjpDaWfN8V7IbQGSN7h8NHw1fBwPsoC+ieDAHBsLyeSsqUXBoLz9K4Mou
+ tme8xKYdx8zbyDb2V5+CERU4m7PfwDsccKyV8BcbAYRgprFRbCpLwnj63UEkHX1fNnu5
+ /Bbg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/KMDOdLmOPFvgF9csyaVblyDseBdDKss6Yivd9gIwy29E9AS+WFu1GEf5K0l6iHg87VL+46Dfh@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxV/oXp2zKo/z5nPyDMcm+r3WWHo/vEqggyCmFBfSbvOZeYY3eU
- b7C4lirbmyRt0+r5K5R+pOklgTP2Md0nJ1PcuRmV6WmhTIB/FLtg/Ri3JqNe9ZMApNI=
-X-Gm-Gg: Acq92OHqGBDKRzKR7mlkRtN0Hu9wSGXw6TcXzD9axHlqviX3BQCofOaqT28Rc5dw8L8
- 9ahtQtrfQlgrZ9joUk/qJmSHXaB6JsvFH4Een+lPwJKzw2R6NCrpTPV8XYVcC2vtlo66t0f5Jhf
- rkZdUKkshvmK4WDnI27wuUe0ZoCNJksxwbIVYyLyLuTu/HOu9DdFh533qI8tajrlqDPVtw+ur7a
- i5W6QdCCRLw0q5MLK00fGHLVOfaonHrKrnjnafH2+ORVCkjea+I8814Ly0U0ZvCBN5XgnMtE2Mo
- Oa4v6fo6qasqOhJgf78ACYWMF+QdRNo6gbnh5bgxBtRj/UcRK3q1FMfYHg5T6tAWN24/NbmIfkS
- DgAzh7O3SAz1vyWoDjkf8jvO61IbHKkRR/5KUmJn+/96JkYtQu+n+W8UwxdlK/29O6W0POc+22e
- jltviWvv/fFNI1vjFqTsuIYBVZ6oMwuXAnRBsEdAHkcHpi6rNubOlH5lw=
-X-Received: by 2002:a17:907:1c1e:b0:bed:e575:d54d with SMTP id
- a640c23a62f3a-c043d6bffa1mr166246866b.42.1781611704947; 
- Tue, 16 Jun 2026 05:08:24 -0700 (PDT)
+ AFNElJ8Zi6WRC7Wr+7S44PEQbxOC69FWkB4LllAbOT/xfS1IJvnsIqzG+PTYkTEcflocjbzuhh41ql/S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz8rfAARIfGRSRClw3J/ZaFo75qhBXJIVoD6NsoJETy3YcDHo2Z
+ nxaxaKXhAjU/azdAq1KhJEH6bM/82pQ9chEttNcRQ7NYhzZsWrmftJy//kHVvnrG520=
+X-Gm-Gg: Acq92OGsqIjoSWMpnawyQFADbfr2B+W8wg4IFlicaPPsWZE0fbtM2XnsyyDHZrxCV/I
+ v+14/JygaBFW2f3NnVU/wyrCP7lTZF8+dFlMcz16ztKoVBTHIVVvAeB4x6AX/V9VDtKgVEKox8y
+ gFW30Nd/AOaYAoyarLdmYDh1CrwZWYqtkgn/zi11M4Z+xs2WRrSRBhA1yGDCDR9ozJceIb9gzDj
+ 643i/KR8nQ8sZ7vg6tlueYAJ021yAFSRqFA9Hn5OcZtPtkdDczlJ7hmd78YmBfhEuNymDArrQsR
+ yaweymrW/8gyKTLKU0oSp/I6llT0yv0k9EP3hP1yAt9GpOmSSxcoyfwR1lcrHfqc9sGExVWLQ0v
+ W8OutYqau/UdBtI7SErM3t2/MuWyvnqa3sgWRl2FXhhdPd9zoDVmiPqKSv40eXZKkzWI/glVEtG
+ P/eyl4ZblqGYKUYfum3Toj9uLxDaptKHuUfAgqvp2KgFtxcLb/PXDXmkw=
+X-Received: by 2002:a17:907:72c5:b0:bf0:2253:ad67 with SMTP id
+ a640c23a62f3a-bff4c9eaa4amr771375266b.46.1781612196734; 
+ Tue, 16 Jun 2026 05:16:36 -0700 (PDT)
 Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfe7cc615b7sm579221566b.48.2026.06.16.05.08.24
+ a640c23a62f3a-bfdb4423439sm639963666b.2.2026.06.16.05.16.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 05:08:24 -0700 (PDT)
-Message-ID: <ae08836c-95b6-42a1-8173-108c5b4b5925@ursulin.net>
-Date: Tue, 16 Jun 2026 13:08:23 +0100
+ Tue, 16 Jun 2026 05:16:36 -0700 (PDT)
+Message-ID: <4296af8f-8001-4a98-b942-3a2840296b7e@ursulin.net>
+Date: Tue, 16 Jun 2026 13:16:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: Use system unbound workqueue for soft IH
- ring
+Subject: Re: [PATCH 6/7] drm/amdgpu/gfxhub: Respect noretry flag for retry
+ faults on GFX12.1
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <maraeo@gmail.com>, Natalie Vock <natalie.vock@gmx.de>,
- Melissa Wen <mwen@igalia.com>, amir.shetaia@amd.com
-References: <20260513170849.27061-1-timur.kristof@gmail.com>
- <20260513170849.27061-4-timur.kristof@gmail.com>
+ christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Amir Shetaia <Amir.Shetaia@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
+ <maraeo@gmail.com>
+References: <20260525114507.24566-1-timur.kristof@gmail.com>
+ <20260525114507.24566-7-timur.kristof@gmail.com>
+ <25f69c76-8140-4573-8d3e-9aa8071ee715@ursulin.net>
+ <4660473.UPlyArG6xL@timur-hyperion>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260513170849.27061-4-timur.kristof@gmail.com>
+In-Reply-To: <4660473.UPlyArG6xL@timur-hyperion>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -96,44 +99,103 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 13/05/2026 18:08, Timur Kristóf wrote:
-> Allow the kernel to dispatch the soft IH work on other CPUs.
+On 16/06/2026 12:57, Timur Kristóf wrote:
+> On Tuesday, June 16, 2026 10:09:53 AM Central European Summer Time Tvrtko
+> Ursulin wrote:
+>> On 25/05/2026 12:45, Timur Kristóf wrote:
+>>> When retry faults are disabled (amdgpu.noretry=1),
+>>> the ENABLE_RETRY_FAULT_INTERRUPT bit should be programmed to 0.
+>>>
+>>> Note that retry faults are enabled by default on GFX12.1
+>>> so this just fixes the case when they are explicitly disabled.
+>>>
+>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>>> ---
+>>>
+>>>    drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
+>>> b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c index
+>>> 4c2fd1e6616e..d2edfe037da8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
+>>> @@ -243,7 +243,7 @@ static void
+>>> gfxhub_v12_1_xcc_init_system_aperture_regs(struct amdgpu_device *ade>
+>>>    		tmp = REG_SET_FIELD(tmp,
+> GCVM_L2_PROTECTION_FAULT_CNTL2,
+>>>    		
+>>>    				
+> ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
+>>>    		
+>>>    		tmp = REG_SET_FIELD(tmp,
+> GCVM_L2_PROTECTION_FAULT_CNTL2,
+>>>
+>>> -				    ENABLE_RETRY_FAULT_INTERRUPT,
+> 0x1);
+>>> +				    ENABLE_RETRY_FAULT_INTERRUPT,
+> !adev->gmc.noretry);
+>>>
+>>>    		WREG32_SOC15(GC, GET_INST(GC, i),
+>>>    		
+>>>    			     regGCVM_L2_PROTECTION_FAULT_CNTL2,
+> tmp);
+>>>    	
+>>>    	}
+>>
+>> If I look at 6f894c92490b ("drm/amdgpu: Enable retry faults for GFX
+>> 12.1") which added this code, it also touched
+>> gfxhub_v12_1_xcc_setup_vmid_config():
+>>
+>>       tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
+>>                           RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
+>> -                       !amdgpu_noretry);
+>> +                       1);
+>>
+>> Should that be changed as well?
+>>
 > 
-> Otherwise it can happen that the soft IH ring fills up
-> before it actually starts processing anything, which
-> can easily happen with retry page faults, in which case
-> the CP repeatedly spams the CPU with a lot of interrupts.
+> I personally don't have a GFX12.1 GPU so I have no way to verify how that
+> works, which is why I try to avoid changing it unless it's pretty obvious that
+> the upstream code is wrong.
 > 
-> This significantly improves retry page fault handling on
-> GPUs that don't have the filter CAM and must rely on
-> software based filtering.
-> 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index 82bc6d657e5a..515fc32051c8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -549,7 +549,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
->   			 unsigned int num_dw)
->   {
->   	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
-> -	schedule_work(&adev->irq.ih_soft_work);
-> +	queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
->   }
->   
->   /**
+> Can you elaborate on what you are suggesting exactly?
 
-Look good to me.
+I'm asking. :)
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+commit 6f894c92490be1bb27492a82544b4b1e4ad20915
+Author: Mukul Joshi <mukul.joshi@amd.com>
+Date:   Wed Mar 26 22:06:39 2025 -0400
 
-Maybe later we can consider a high priority driver specific worker or 
-something but for now moving away from default system percpu sounds like 
-it addresses the problem statement.
+     drm/amdgpu: Enable retry faults for GFX 12.1
+
+Made these three changes:
+
+gfxhub_v12_1_xcc_init_system_aperture_regs:
++                       tmp = REG_SET_FIELD(tmp, 
+GCVM_L2_PROTECTION_FAULT_CNTL2,
++ 
+ENABLE_RETRY_FAULT_INTERRUPT, 0x1);
+
+
+gfxhub_v12_1_xcc_setup_vmid_config:
+-                                           !amdgpu_noretry);
++                                           1);
+
+
+mmhub_v4_2_0_mid_init_system_aperture_regs:
++               tmp = REG_SET_FIELD(tmp, MMVM_L2_PROTECTION_FAULT_CNTL2,
++                                   ENABLE_RETRY_FAULT_INTERRUPT, 0x1);
+
+
+The claim from that one was that it is enabling retry faults on gfx 
+12.1. If that is correct, and we look at your patch which wants respect 
+the noretry modparam, but only changes one of those three.
+
+So question is are you confident it is only that one you need to change 
+to make it respect the modparam? I don't know to be clear, those are 
+just things I spot while reading you patch and the relevant history 
+trying to familiarise myself with this area.
 
 Regards,
 
