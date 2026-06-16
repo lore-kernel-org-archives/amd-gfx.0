@@ -4,97 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B8FCD98E4
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F194ACD98E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 20:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7406510E816;
-	Tue, 16 Jun 2026 18:54:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 640C310EACB;
+	Tue, 16 Jun 2026 20:05:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E4zUtX11";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="em9uVuUl";
 	dkim-atps=neutral
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBFF10E816
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 18:54:47 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-306f1213aadso443336eec.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 11:54:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781636086; cv=none;
- d=google.com; s=arc-20240605;
- b=R82tkawUshn3kGieGSrVHMYmkfUM/I9tMV26MxvOwRMweMqViA0Oelc2jEiMZWGcs3
- AveJYdHtWTEKZF+rJuTYFsUewoCeVXeIeTPc0BqG924jk4EqfBRo6iuEu35CEDl+SicC
- YfC0eRuwm2q+RmQMxmaq8Me1fkOWoXcjnBJ2uLbRgi0G2t2+lQ/fpudRZtOjxFRQWuzB
- dZFitZv7TR2vYau3IKt7ypFAdlL6wrkiMy/GunJMyB3TV+a72hYACC+KtwdwoEWfEoLl
- 87RqZtXKPiechiRhka8HBK+zPh/buA63JtcaDmeRIpfI5tBYhnIn+Qn41MNQGaVqql06
- Lp9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=MCOSiee7KXjPkCFlHhQFxxSs4KWMyl8PnWZ0V0RhntI=;
- fh=6Rq3UneHV95hylUZYAnHyFMBUQ6GQHaf5Xr7W5qpcz0=;
- b=aBWEPKVsdOPO0PCTPeFXCCSHLs5QbkT6Q5qIWyQuPRSP/aGlLnMzP+w4/hRu7vYJPP
- DjY96rSVfdff/b1Kndi7Y08KzzDVVuo8kkCmI004W74YpT3ngWyG8sbMx/G1Xx4xV8HR
- tAxsTP16NwQgfs3P9Yj2nSJx0UX+kLjJC0Ii+OdRkWmzgf8SYERRWIH9vn6xWRhQkVpU
- l5KSz4spSYbejerQfzA5JJruCZiKv6U0dgSsrM5U4RrUzMAKvRNC2yVl+qN8afXjBDbF
- YcyH6hskmaR9htKys38X+lojH96VUl/tW25biE4gdLqXsjKkacR9s6ctY1sgwN23JAkL
- nhcA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781636086; x=1782240886; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MCOSiee7KXjPkCFlHhQFxxSs4KWMyl8PnWZ0V0RhntI=;
- b=E4zUtX116r2HCAnMRtuDa194DXt6ERShHziDcL80/+Nhtec3UGGlRNiBSKs+SJpxc4
- F6e1Bu2FIjEd9puuZcSxgy3Pbwpt16pTLmCH1Fba+PMUhpyP3Te3loZngE1nJLBEVBSg
- xeAdRiVdFIyGmuvU90yM9fczcInpuuRiah7H3vSij7r1jgmJNDphguWjwiWoG2imxz7Z
- n5pg4dW+ejJ9XKOrOYzaCS+btllL8ZPR4WRkKyyEr84n5ItyoXfUJOYhWwpQFNTHMGIP
- cXvqAArdAHBE+ECNOK49pRVA2MqKnWK93EGR1PHAw7k+yYb25ByBDXToQv9Jvm0C+oAK
- YcCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781636086; x=1782240886;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=MCOSiee7KXjPkCFlHhQFxxSs4KWMyl8PnWZ0V0RhntI=;
- b=FHkxNwk57UdzQglZW/19CZykMJpBPW2ZxWmFmzzZERgokgubCoaRsPW4LMiPK/sgHM
- RtNvI/N/t9Z/d67JKmghf3fKz8So1bX1MSuPWC7LxsC+TJrYOm0zKB871z/6N9075G46
- nXJxI3HK4t8neYgbMe1wvMiH74LqXkIMTvPBm2m/hB4m9m/v1SoA/T4mmWfZ/5YQLiV1
- uWzFKkyfwH4at/FM5YNQuaTJLGLeWWxG5weYIHkG8/rZT7e+hhwc1sX5sOREK6riK3rF
- hafvU5PxbASjAPK/gvYDgm96xTngXYUbs3u1qFeIyHi9mMWsBqMOWxN3KCY2+PCIVeD6
- WL8g==
-X-Gm-Message-State: AOJu0Yy1yvgI6nUymr60uc9FI5QckeTwiSfhscxgKKbZjMCNSVmWae9m
- 6ywVmPulXcF3Y2Js6rZw9/cn4l6jTUMXA72rJVYUI9Oc/lEhmL9qP2mjmE+vQ3XMLL+9v1qBJew
- nQuw0nTgSoe6X0LcRBv6qtj86bvot1Cw=
-X-Gm-Gg: Acq92OFsJsfo3xkcpSToY1YJXbiZt2vZyV0+K9hA41R+FTlcpZjS5itcI/AbC70MGeJ
- Kf3kBm8S3yV9IOezkBOO+lZKrDlpUsItpM3fRSxTjquhw5XSAxhdO9bzCLNfesUScG8rmtNWN5j
- JwwnxPcsnYxldL0SIkc7730HftJ1qRMxYgeTEdUzRlzD1iuartuDdTNXKmYunj432akCcR+7xfB
- E7shwH6KPVUxuN1sjuwdNccTlIPmkYFUppgn6xEeNaQ05bRMD6XRBZFChxknCVUYs/skIUPRJaH
- XklwBZRZjQUPsxO6BSxDdQDgFIL29WVty0f7geRXKZTbH5miU66kWy65UIY5VDTr0G5ahw==
-X-Received: by 2002:a05:7022:6981:b0:138:3432:4f6 with SMTP id
- a92af1059eb24-1398f6c603emr40953c88.6.1781636086410; Tue, 16 Jun 2026
- 11:54:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260616091050.110064-1-geschw@pm.me>
- <20260616105553.13062-1-geschw@pm.me>
-In-Reply-To: <20260616105553.13062-1-geschw@pm.me>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 14:54:35 -0400
-X-Gm-Features: AVVi8CcMitJrUy-JihCbkDqEzdH6bqLbZvkER3aP95k0NiRN5BGB7OhOK604isU
-Message-ID: <CADnq5_PV0BF9RkrG7ZN-OBOr2YQ=TdtvknkuDpBnwqswLNiZBg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdkfd: Use exclusive bounds for SVM split
- alignment checks
-To: Gerhard Schwanzer <geschw@pm.me>
-Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Xiaogang Chen <xiaogang.chen@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- regressions@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9B4E10ED16
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 20:05:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CH1PvFWGmxSKRLbOgCnbTpX8ayxT2scyfI8tjPosvxQtS1p+Wcs1jiUCoy7THrs6XV5SVfP+BoSMpgt6FtByZUOwhhyMsbRRGPQbPEGU9YK2q1STMDoEti+R+UmGGYLG+zYjHaQ2lsLDZICiLR/cU5/c6r02mdtwXl9eKhHMXw4KbGG2YamDuq+G1sWJe2Apif6X08W2MWC8MGvWogjXeV+5j2xAk94ENc5NcdAfXhzsx8d3LWNx5NKHt2JxeDYdJ+xigSB9a64sgl7T9px61tfDImV5qHoguF6pkrcbgrTHo98fYwkYRy9b5mChh57kfy0R0Z7RcRSbRDOsf9FSPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6kIdcD11jj4AzuZC/taowa2kcwmirbNzVj6Qgs0ihNo=;
+ b=fOecQgJafi+TKGx10CM8T24iiUQu9PrF8cPU9Y7c3FSmdYrPPVhcxydoiIaaH80/zzs57c6OHw5fbNJL05PXiLL4Ff3690RE2pudLpwmXQsmKH0wkHjrmYH1xmWmggrBAifRiQU6EHZaRJ8iiSNsymFDVhPldIJ7RSepcwbU3JB/OsdY1/MOOsn/nR6tcyaVR8CVIaLElF01yYrseCQZYkwKp4v8ly2STq5wgX02a7ZLpDnR1EXwMiNNgQtjJbR/4wMno2ibC8u8aoXW+AjMEJLX4siP5nCuwk7KAlLJMWH9Onu/MvoBCt7bmm3Z26jrebSuvvb6cqrDFwp6CJaVCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6kIdcD11jj4AzuZC/taowa2kcwmirbNzVj6Qgs0ihNo=;
+ b=em9uVuUlaknZqnG3Kctp/aelR7X/Tv7KxlW2DJypAZhRC5zdWg4/kaJQGupwtDASRKz75s8WVS/gtjexL1+wFBYkCHkpRwz4eFMhHfdgb0GngpD8fcEmn/XMsKXVCpdhzSetKbGbw3fmMWXwBVLJ3lY83dZGn6OrjhRfBHMaqcM=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by SA1PR12MB8987.namprd12.prod.outlook.com (2603:10b6:806:386::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 20:05:12 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0%5]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
+ 20:05:12 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 9/9] drm/amdgpu/gmc9: make all vmids available to KFD if
+ KQs are disabled
+Thread-Topic: [PATCH 9/9] drm/amdgpu/gmc9: make all vmids available to KFD if
+ KQs are disabled
+Thread-Index: AQHc/QxcV1Q7OHIi10WRzluvIUeiprZBnK4w
+Date: Tue, 16 Jun 2026 20:05:12 +0000
+Message-ID: <BL1PR12MB5898E909166085FA5B3D511085E52@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20260615211654.676386-1-alexander.deucher@amd.com>
+ <20260615211654.676386-9-alexander.deucher@amd.com>
+In-Reply-To: <20260615211654.676386-9-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-16T20:04:50.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|SA1PR12MB8987:EE_
+x-ms-office365-filtering-correlation-id: e309c7ec-2448-45dc-dfb9-08decbe29312
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|56012099006|4143699003|11063799006|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info: TE0hroBLUfuYnGq1/zvFiZ/SwjwwlStRRi3YcOEIEQic9Ru5sEFO43KME0H1qA0ze6dM1pwqR6MMj7au6Zjg9UL0rF78i/wLZHtxzdHs4nwL2oreBt3TtYgymWZgWtTXnNyTtBKT8CcbIUfi2f3upGytkSVKh4Sc3G67KwAhJq4jMurpDriHOe8+7bJ3k95qKaNMByUmnqN/iqQy5r0j5bUTSk8r/gHJPBSf+e8wje1nZqal54KeCqTWvkTnMXW/dwNsnTDC8eurhnvGLVcM9DZzOhsnMgHJ+w7cuLfRqkU4ZZ4Wnp26alqXenu76ReoAsR0SJWrGDQtsrx0qDxQGq1R0c2jEYVDc0Bl3+JaZTp4hDOb97BriUtAmxkd0LRAtrTTCOeIoXEOz/LE8T5NH5xgmiVQ7Adq7tcmydFLXky69ijwg3xfHsCNgWScux7abPZKuk/mGGvATGshEcpp0LlJdpou+UEr7LnrwsrVhRzm2sqzJEfp4phy2/0/y7GuAzfAcnDYa9C/NuOMskzsE1wI87u+Hpoy3V0UV/xVN0IWwTR/ZyVJ2eN5ntXTbsgXoFituCR40ukZ9UFMfaKEj6NcitupNxQ1fAvfIB7c0mlQahncBDdTnV82ezgd4WPoUhGgaAO1TJT9AvY2BXEAJXUaX1MkYgNBXjumEnwLbmHR4rcWqgqPaeBn7h7axpsxvz4oWObsxOfpwTVORfadW5KygMY/gZmmxDH1JN4FLEPgdu3soZ0jgRrP0Yo8EJag
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(4143699003)(11063799006)(38070700021)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?aasebDGCuMxxQFpYyv8+LZ3vZKq34FIfJEpIOYv5KieZ3/zRN7au8scmcSjq?=
+ =?us-ascii?Q?ahMsK+cjIa3Xzxt+qXPIBIAwTClD8/Ss5MAG/j0Ksr/pkGs4dTwr/CQt+KXO?=
+ =?us-ascii?Q?dao94JuoMMvDnE8SNk6DimjsJEJU1N8i0Y9MGhRBuUDLoX5r9SQWHIh1/MbM?=
+ =?us-ascii?Q?YohZNIF9N5FR9Fg/ntdm9Hof08qsJ/piM0dC4wOzUw1oivpUma0EVJcEqVQO?=
+ =?us-ascii?Q?Q4KqvcRTADhG1yG8yGOHCauVwo1yIWQVhLMPSTySEXBNjZGDm4Pwf+YcR9ln?=
+ =?us-ascii?Q?ArqFkOMqPEJG7kxbIqc2VvP7pUQ75QYH/qv2uoCqLBU1m2Qa5ulut0LGxvkd?=
+ =?us-ascii?Q?XAf7/su+OhVnmAjnuUY6C8A2zjthFtZo9+U5NG5ewaqN8ziTFGJSUOShbriV?=
+ =?us-ascii?Q?c/Tjrms7zxDfKB5RGJpadCFo+tw+5nAFW4OylDvB5zAeTMkTux6ARvwOmxUd?=
+ =?us-ascii?Q?JC/g1vIGZtEjFPo47OgyeYvT0PvAXgguDvQfzdpjD4YhZ3CJFQWnaylMZRsz?=
+ =?us-ascii?Q?PBilgMlQ2Zqv1UsbYclu+ZsRGecYUbuvXAfKSyWHmnzJhhdy+H45BIXzDege?=
+ =?us-ascii?Q?yO+vP2dmcHjZ0d5yhlulAjKMySQhoK9RsvTh1F11x3UxjQY7l0wPcevPMXgz?=
+ =?us-ascii?Q?1n/EkdlM6BzNWDslxAllIzB43FlUtPXnSB+4nX5yGbPyirJAx6Cc8rrFP5yw?=
+ =?us-ascii?Q?wuPmfpQ5ZSVmSKoCUg60sEGilPlvyab/9/AJ3tT5uqYmnRi2fNTj+uAsyNTp?=
+ =?us-ascii?Q?3ZJ5ThtHIwqgkIiowVIBogloc54AkXrR0dPvqSkxvtRe2EEBIigrwwEmWG0i?=
+ =?us-ascii?Q?lpZiSDa0ZVWu/rdoB0qa71XORCBUIumR1Ip7K6kyA0pmdc35D95Cq/7zTvgo?=
+ =?us-ascii?Q?R1ko4ddsGCP6n2+CCn2B9pLg7evltvoS3w6ZbYoXsgwTlNBB3d6ZL/tHTn67?=
+ =?us-ascii?Q?+RSvb26zJAzNvNMYQBnnr9AKqfcEI6vhj3FW98AXpPaoYwDIR5Kj5Xak6+Ql?=
+ =?us-ascii?Q?932qMT8i9InHSI+EKCghcnm4aUG9AOpBTZVWYvOnSoKl/lWrBZTrU1K9EXk/?=
+ =?us-ascii?Q?2SKZDZrbTg054I5bUYMjbbByFEsa09J3tvhAJF1Y0t0wXV1aK8OSxN3JoaZ7?=
+ =?us-ascii?Q?merKGF3NG7zCa2ZVT65HW8eHQ47moh/V0GpO/Jiu/NwVsQKWvxpzRl89OOwo?=
+ =?us-ascii?Q?eKs+GBujKQDJ21LVvIWIoGll31c0Y+TetdfyERo7KVflgxPr7WJcCsEK2kjz?=
+ =?us-ascii?Q?xEMoTlb8Us/Pd+jAs9CD5dUTkZdq3alajdhZN5w2nTWvbKjgZwdVXeDL0ZiG?=
+ =?us-ascii?Q?KE/FIj+pKl9fr9HlngPeQdpYpasQKakEMXWX13n9DMAMoAJQp90fVhn+s2ZC?=
+ =?us-ascii?Q?KTM7uRPmZVQbVBDRaLvP0zbIKO9l0Iza4y1oUKQgruwSOE5J3Xv0bYgBb8Jl?=
+ =?us-ascii?Q?6e3nyPEPGOkO8j2jOpjwL54xa5Nk4QjSIzClzSLfYsyHUZ+ihptaHvGbtdS/?=
+ =?us-ascii?Q?oXUsQhYz6RAD5OqcymnCo8KFH43tuY2Mz2AXqI8hlv1jwAk6CGGcFLAc51xe?=
+ =?us-ascii?Q?pQHqoG1Pkz9reLS1lg6yPWJJnBGeuM3LuATe7dPGqQ4izSgDPvm99GBPSYdG?=
+ =?us-ascii?Q?389d3hCzeOBGcuv92dhVhb1vxzpuco9P7xYZ0S893EgO7tAKHupD1BReCZXR?=
+ =?us-ascii?Q?jyypNQuXZ8/hgjWpNu4/JEnhencR+dmZz3uBIo2+SnagVhBk?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e309c7ec-2448-45dc-dfb9-08decbe29312
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2026 20:05:12.3345 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rhgKkMvmYzKoCb06V08E/vQ90AD16vrTC1piEOVgq2vdLmp/Jnvh1yM6bnwO3m6UemS7AK/TPF59kkyOlJcWOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8987
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,110 +134,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 6:56=E2=80=AFAM Gerhard Schwanzer <geschw@pm.me> wr=
-ote:
->
-> SVM ranges use inclusive page indices: prange->last is the last page in
-> the range. The split-remap logic introduced by commit 448ee45353ef
-> ("drm/amdkfd: Use huge page size to check split svm range alignment")
-> uses ALIGN_DOWN(prange->last, 512) to determine whether the original
-> range can contain a 2MB huge-page mapping.
->
-> That aligns the last page itself down. Thus a range ending one page
-> before the next 2MB boundary is classified as if the final 2MB block did
-> not exist. When such a range is split inside that final block, the
-> split head or tail can be left off the remap list even though it was
-> derived from an original range that may have PMD mappings.
->
-> Use prange->last + 1 as the exclusive upper bound when computing the
-> original range's last 2MB-aligned boundary. Then use the actual split
-> boundary for the head and tail alignment checks: tail->start for a tail
-> split, and new_start for a head split. new_start is equivalent to
-> head->last + 1 and directly names the exclusive end of the split head.
->
-> Using head->last for the head-side check can both remap a head that ends
-> exactly one page before a 2MB boundary and miss a head whose split
-> boundary is one page after such a boundary. Philip Yang pointed out in
-> the review of the original change that this condition should use
-> head->last + 1 or new_start.
->
-> Xiaogang Chen identified the inclusive-last cause and posted the
-> candidate fix in the regression thread. With the culprit change active
-> and the local revert not applied, the unchanged C/HSA reproducer
-> completes 10/10 runs with this change on an RX 7600 XT.
->
-> Fixes: 448ee45353ef ("drm/amdkfd: Use huge page size to check split svm r=
-ange alignment")
-> Cc: stable@vger.kernel.org
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
-> Link: https://lore.kernel.org/stable/IA1PR12MB85172F7FE9157C092EDA46A0E31=
-12@IA1PR12MB8517.namprd12.prod.outlook.com/
-> Link: https://lore.kernel.org/all/32ce2b72-aa16-4202-9f99-92e3cd4408bc@am=
-d.com/
-> Suggested-by: Xiaogang Chen <xiaogang.chen@amd.com>
-> Signed-off-by: Gerhard Schwanzer <geschw@pm.me>
+AMD General
 
-Sorry, I missed this patch earlier.
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Series is
 
-Applied.  thanks.
+Reviewed-by: Kent Russell <kent.russell@amd.com>
 
-Alex
 
+
+> -----Original Message-----
+> From: Alex Deucher <alexander.deucher@amd.com>
+> Sent: June 15, 2026 5:17 PM
+> To: amd-gfx@lists.freedesktop.org; Russell, Kent <Kent.Russell@amd.com>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 9/9] drm/amdgpu/gmc9: make all vmids available to KFD if =
+KQs
+> are disabled
+>
+> If the user has disabled kernel queues, then make all vmids
+> available to HWS.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
-> Changes in v2:
-> - Use new_start for the head-side split-boundary checks, matching Philip
->   Yang's original v4 review guidance and avoiding aligned-head false
->   positives / unaligned-head false negatives.
-> - Keep the tail-side last + 1 exclusive-bound fix from Xiaogang's public
->   candidate, which fixes the reproduced RX 7600 XT SDMA0 fault.
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
 >
->  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 8a5c44810ba1e..5166055c6692c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -2025,11 +2025,19 @@ static int gmc_v9_0_sw_init(struct
+> amdgpu_ip_block *ip_block)
+>        * The first KFD VMID is 8 for GPUs with graphics, 3 for
+>        * compute-only GPUs. On compute-only GPUs that leaves 2 VMIDs
+>        * for video processing.
+> +      *
+> +      * If kernel queues are disabled, allow KFD to use all vmids.
+>        */
+> -     adev->vm_manager.first_kfd_vmid =3D
+> -             (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4=
+, 1)
+> ||
+> -              amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4=
+, 2)
+> ||
+> -              amdgpu_is_multi_aid(adev)) ?
+> +     if (adev->gfx.disable_kq &&
+> +         adev->jpeg.disable_kq &&
+> +         adev->vcn.disable_kq &&
+> +         adev->sdma.no_user_submission)
+> +             adev->vm_manager.first_kfd_vmid =3D 1;
+> +     else
+> +             adev->vm_manager.first_kfd_vmid =3D
+> +                     (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D
+> IP_VERSION(9, 4, 1) ||
+> +                      amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D
+> IP_VERSION(9, 4, 2) ||
+> +                      amdgpu_is_multi_aid(adev)) ?
+>                       3 :
+>                       8;
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_svm.c
-> index 72cfb4a..59b15d5 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1144,7 +1144,7 @@ static int
->  svm_range_split_tail(struct svm_range *prange, uint64_t new_last,
->                      struct list_head *insert_list, struct list_head *rem=
-ap_list)
->  {
-> -       unsigned long last_align_down =3D ALIGN_DOWN(prange->last, 512);
-> +       unsigned long last_align_down =3D ALIGN_DOWN(prange->last + 1, 51=
-2);
->         unsigned long start_align =3D ALIGN(prange->start, 512);
->         bool huge_page_mapping =3D last_align_down > start_align;
->         struct svm_range *tail =3D NULL;
-> @@ -1168,7 +1168,7 @@ static int
->  svm_range_split_head(struct svm_range *prange, uint64_t new_start,
->                      struct list_head *insert_list, struct list_head *rem=
-ap_list)
->  {
-> -       unsigned long last_align_down =3D ALIGN_DOWN(prange->last, 512);
-> +       unsigned long last_align_down =3D ALIGN_DOWN(prange->last + 1, 51=
-2);
->         unsigned long start_align =3D ALIGN(prange->start, 512);
->         bool huge_page_mapping =3D last_align_down > start_align;
->         struct svm_range *head =3D NULL;
-> @@ -1181,8 +1181,8 @@ svm_range_split_head(struct svm_range *prange, uint=
-64_t new_start,
->
->         list_add(&head->list, insert_list);
->
-> -       if (huge_page_mapping && head->last + 1 > start_align &&
-> -           head->last + 1 < last_align_down && (!IS_ALIGNED(head->last, =
-512)))
-> +       if (huge_page_mapping && new_start > start_align &&
-> +           new_start < last_align_down && !IS_ALIGNED(new_start, 512))
->                 list_add(&head->update_list, remap_list);
->
->         return 0;
->
-> base-commit: 2c7d5b0a5ec0fc713a7f350806553643e87e6f43
 > --
 > 2.54.0
->
->
+
