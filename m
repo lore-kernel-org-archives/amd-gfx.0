@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97C3BCD98D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31231CD98E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32FA810E553;
-	Tue, 16 Jun 2026 21:46:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C350C10E8A9;
+	Tue, 16 Jun 2026 21:48:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="InCrSFRL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IMx8UvlW";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F08110E553
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:46:52 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-3042a99f0ceso648319eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:46:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781646411; cv=none;
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91E5F10E8A9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:48:29 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-137eb8e3491so139589c88.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:48:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781646509; cv=none;
  d=google.com; s=arc-20240605;
- b=K109CMyrNq+d5cP8/Le+9NLCbKC04M8gAUstFMsiOXZpB/CXrdIpus0m9DqP1Wg7+Y
- 1AhszjeROjUVdMO+Yx4Yc68IzIcOiN2FU9jHwJVc50HOYfVUueq3przfdpPDfuAQ3JnP
- fvTsEevLoN/fYb2Fu3yeFJ2YUxolesr8dbI+vk771nIkfOdCKzU2aJjxvEjQmAEYmsgT
- 6yPDSg1T6NzkzPAZwBFQjZyOFkr/9aySdCQ4YzHChenxYjJw07wiVcJid13AdRzk91Z2
- Se5/5nZhKQIPdh1eWSEWFnd999KCsYSC4XRR5fDBkJoZ7nQQy/lqsfxdQXzsf9AG96WX
- Sosw==
+ b=aVUzC3TsF971AogQDCmopwLTLEfBmcVesQkpqyUqrfih+4jTpipJNBhilDJ6MfXw1s
+ Apzu+/6E2BAXC88P6I1WFZtsJBoLFXeyDKComImxwcH50DqbGXjBmRMqKQk8ebXYqpqC
+ dODgEH9DdKYDHvSq1dh2SwvCACfP6xlAHewq4x9xNzJgCtUPPoztPd/QtqQeGi2Tvh/X
+ AbjX92UQX1TAY16GGYaE+9Jv2qkMW4WcsCTskaLR6gWFKY9KpJ1nQMJKJuktxWKt2lQE
+ 9NodqPnQG+RwKvb0yQ1TNFFAMAn4KwMPNrZnmXTLpNKfUvYrkEr5HrIhiP7Gwz9luZ+B
+ dHug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=9DPdDj+va0DHTclU/f7fJ4Eao9RAXa/o0/2XqSn83k0=;
+ bh=3V33M2HouqBtPeJQ9c9v0cXZqPY8hz8+j7dLcVfKjJ4=;
  fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=UXhZvnatbrIbMHkUIOnxIDjrsmIHcxMjgdlmGSPLRGnEvEG46ekcCHeuksdvWIE9Hm
- IorXaPdK9rhzUoe3/OCCf5lx6gABfuVHtpL+A5qiCieqyJjIZZrtdHUcDO1j/GEjIHVn
- kdwbEPlg5YvplivBYipBLAIZ5RIshFRHKc9VOi17JJueGIqsP05grEimm6tg9/J87Dd6
- b+GclJzAC1rGvYVCTIaPP+txItfLg9mDQcnNB/Y9Mhi4Bn2Mql4O4PeNOLyh1PSTY9PT
- mIdmvamVVDVih33J8tQcDcUqDPMy44pikifLjdMzmwN2ea5VcaAc0hyWpT+Gw5LGjU9P
- dWuQ==; darn=lists.freedesktop.org
+ b=IdlVMFqVXicWhbfyd/TvDKjiWA0KU1oOFWIZgTOKd1nYdsTDBzs8vtNLIzK4WR9zur
+ +5diZhip5AwurT4jVDq17nUWH0eqnfdGh9MXRCV+Tjou60lzKWCrS9tAVNtmXE0+ebRN
+ oyq9ERSBRTc+tkXZu+19W9mDIdzvqAeaqdTCCcccblvbD2RKIeS1zWoTss0/o167klFo
+ m1bMLwDO6F2k4PjjB1zwUDuxTFPsSIJ9+jZQVArzPalds5vHiXO/ahR7Yy/aTyNMSCHS
+ lYr4WdFhv0e/IHD7zyh6Qwi8fYYT+BHayV4oKTM/uOZqArS7OVj6ZtZdN/ZeyPEFiM9q
+ Ku3w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781646411; x=1782251211; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781646509; x=1782251309; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9DPdDj+va0DHTclU/f7fJ4Eao9RAXa/o0/2XqSn83k0=;
- b=InCrSFRLRTnGQVdt1Swu8JL8gDR0XT20J5anQz+wg6xQ0VsPREvRh+65eBho3BwF3f
- E9RvMuBHk5FcBxxe+dD2QjnlmzKcI8FHOZpsRIznWS07nV/sbkEhJvQ5kok5ach9OsxT
- EnQMnv9qe1zD5fJfnm3r1SYqhIc0WKfZnug+WMj0fqqX9mSXPeddHOrch665V0i6Ypl1
- mPZXx1m8thiY5+sspfR/pOgT79hepcPGITqf2IQtuJCSqcYUy92fAXrYrPH3A93yAOti
- TQdoNKtfSif/K2Xuj842RAasyeSXB2h8QTHuFDzn9vj0dj/AXpv3MYJYrcUMh38GW2TT
- mHeQ==
+ bh=3V33M2HouqBtPeJQ9c9v0cXZqPY8hz8+j7dLcVfKjJ4=;
+ b=IMx8UvlW4iLECVvwKxGDJIwWC/0EFPJJeG5cmZPiUc39FGTkqzX6YJJVGL6L6OdfxQ
+ rtP5DXLKs7pmGIH+7W1BWlxtxuLSg3GtVlRP/4vuNzSl0G4ozseRtaKfa9JDCiLc3ohZ
+ SW0+IeG/rVK616iCVgIdIu5wjrD9CsNuMxg8+uoUP7BEHWDg9yV8EL0zIr5FgaUNPI9n
+ xATIDQClgUTLiV7FCX5htOcHG4pWoYNdO3LZFg4Vw+fh2h4DVJpOfw79R9tpzYcxWDSV
+ OyW4QbiBQpxt7OA8SlBsECjXX26LkgPz0evyrGfzW781E2cAUWnb2RF3rfuZszMQrO7V
+ 9O+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781646411; x=1782251211;
+ d=1e100.net; s=20251104; t=1781646509; x=1782251309;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9DPdDj+va0DHTclU/f7fJ4Eao9RAXa/o0/2XqSn83k0=;
- b=OwyY9yL/1jVxyFpdZo/usa/RxSMB019XndXhk+rRP/0zA7q+by1s/05Nf94qVimHRp
- piKUR1rzVdhQwUwpvrcw8oVdkSmGHXZu0On+7a/cP4YGbt7Ldzuy9jUASMdQeKbxxm9L
- 9OBEDpq33UjmGYVQtTdaR5aHZ1fdVieGXLAx3AnqBKJie0q2VqRblRAu8dD0RBjzUHca
- vE7x8Dpn9IdM4RRxbuwTGahcs0qltEJV49Ir1wI2KHyNqBQ6US9hRSeUPAVLj96+YDIr
- Y5cV7fOFl9b9Vvb5wTEsj1Iad7vqcu0PVUu0o86e2chROVyi8G+Q9wSEydns1HxQDWr9
- QsOQ==
-X-Gm-Message-State: AOJu0YyPlp1PVaEm2aAxk5NLnjAdD2JYTXULezt1Vkw0sslB7OWzvqdK
- //LFZ4Wg0dLZ4vK9Cu4du0LuzICRjQu3MWPJNcHnvWbLf04Bu2eRP1g2IOv91ZCmAd7B5H3LtlR
- iCSI0MXSkrD289R2s3kKp8b/RS3tkBPU=
-X-Gm-Gg: Acq92OEOXpUpurMKC/VxhCX+Rb3n/1x3u9Bg61cCgfCRApmKrwUxcmfL33kbAlrihAY
- QvUyXzgtygULDAUK+MP74lSZ1soWlK331b4//FweNAWLX7pnQjpNrewcG9bVs6byb78hT2+s/Vg
- ey85axutfZEHtpl2gXIpwuG/sk35zu+2Su/acafNSNNPO2Nf+gDSmgiMnIuYPkCZxTHpVGz4j0s
- Zih4aiRCePBDegbYvXVXYysM/V9gSeE7qFeUFtBxfG0BoZdbPeJGRUfL35TkL86PgbILkxMEymS
- ohNGFBvQPjxaGdhyZpT4dEaUg0NtJj98EiM7C+UAj7MCUYlWZlQzQEJzzM2swEthVIBf7w==
-X-Received: by 2002:a05:7301:19a2:b0:307:2877:b2b6 with SMTP id
- 5a478bee46e88-30bc9f41490mr304354eec.3.1781646411190; Tue, 16 Jun 2026
- 14:46:51 -0700 (PDT)
+ bh=3V33M2HouqBtPeJQ9c9v0cXZqPY8hz8+j7dLcVfKjJ4=;
+ b=MeDAz7bJuOzCcUV5R2X9CPOooD3vGSa0XswZTgspCYQAO0ByDrx7RH5hevh2g3xTVY
+ LAVXMPigW8SLDD79QZqbeAb/YIeU5Z/PP7fH9Fz1MIClnj85pR9x39BtCn4vZ5V9herG
+ tourbOSDP4SVRKcmMHsSdTc0tHvL/naySnHcEFUcW0utTdiUwF4vtnmh1B9BVZGVeIcd
+ uplflqfdDgNBomWbiDoI43A8SRyEczETe2NOfcz3YBhNmhLTb19n++Mhp9K6cNxajn7y
+ quOKIa7K6vmujbWURv/IOE6COlz1sxbk8dYa5FTdsJYBWWOGwnCbDRk4pRGfFPvMFjRv
+ Gvqw==
+X-Gm-Message-State: AOJu0Yx7+nc+1UyCsgAXCLkNo2nELwe0XCuxrvKy+svXPH+4pL5e67wM
+ IgzG4oJV3McfQd/NBp1ZJY/QryVZanYAmvzwUXy/SXY3enzRlcuqm3U39d85+S2sDUIsPJpMkWi
+ fyo2AXIkOQ0PKvtVIvnssr3ESUMfMSp4=
+X-Gm-Gg: Acq92OGQo4svk/drMAENqla2lkcwB7XthIcm5Ze71lV9HfQA9iH5+uRDzHg95xYUHHS
+ 1T29feiDbQznb8Ebdegf49nMWJ5m01XFikx2mli8ladOrjBtHwcs8KmUw2U+YcYDuDuz23Hr6im
+ nhKRJTYAZuJz43Tm5gz3mpfQpRMDGSI1tE8iId5QbPDnwaiQe3XdVzvizpjVoF3Ud+eDZO1+ei0
+ MPZB+RPehoHu1DI4z0pRduWFqqaZ3ijPD708cLJpmvywou4RXoI0K3BcocVV7gSs/YQA98cxZD1
+ JHcOEWZGXlDuNn17maOV75T3opX+NaE8IjEkpOinDXXMm7aLbDxQfQ9op6abRtuz7HK40g==
+X-Received: by 2002:a05:7023:b06:b0:137:d966:d890 with SMTP id
+ a92af1059eb24-1398f6ce9f3mr184043c88.7.1781646508706; Tue, 16 Jun 2026
+ 14:48:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260611035747.548780-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260611035747.548780-1-Jesse.Zhang@amd.com>
+ <20260611035747.548780-2-Jesse.Zhang@amd.com>
+In-Reply-To: <20260611035747.548780-2-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 17:46:39 -0400
-X-Gm-Features: AVVi8Cdka8wLmqK-naPUhUUA6jrXgm6eiweOUSRt4M0qbKZy3G2ez3henpbGczA
-Message-ID: <CADnq5_OjqsxVGNAn6YkSaZg9WygBCJXoKnQLW=bKQ0a5yfE5yg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] drm/amdgpu/userq: add reset helper and identify
- guilty user queue
+Date: Tue, 16 Jun 2026 17:48:17 -0400
+X-Gm-Features: AVVi8Cea56Muv1HIdGlJsnZ3oC4CWNY4XqmvhNAtR3G14LalIef7aXTQHb2WgJs
+Message-ID: <CADnq5_NfxwDAP7B6wjpo7EOMOXW1ajO7LFAeVtwvrRAP=1jozQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/7] drm/amdgpu/gfx11: handle error interrupts for
+ userqs
 To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -103,17 +103,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 12:34=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> =
+On Wed, Jun 10, 2026 at 11:58=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> =
 wrote:
 >
 > From: Alex Deucher <alexander.deucher@amd.com>
 
-Feel free to take over the authorship of this patch.  You've done most
-of the work.
+Once again, feel free to take ownership of these.  You did most of the work=
+.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 >
-> If we get an interrupt for a bad user queue (bad opcode, etc.), add
-> a helper to handle the reset for user queues.
+> Call the new userq reset helper, and dispatch KQs first by ring_id
+> before falling back to the user-queue lookup.
 >
 > v2: squash in fixes
 >
@@ -121,136 +122,83 @@ of the work.
 > Co-developed-by: Jesse Zhang <jesse.zhang@amd.com>
 > Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 40 +++++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h | 12 +++++++
->  2 files changed, 49 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 32 ++++++++++++++++++--------
+>  1 file changed, 23 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index de6848b4fd67..231ffb29fe5e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -140,9 +140,14 @@ static void amdgpu_userq_hang_detect_work(struct wor=
-k_struct *work)
->                                                  AMDGPU_RESET_TYPE_PER_QU=
-EUE)) {
->                 int r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 0bd9d8a21f5e..c49a31a3789c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6681,22 +6681,29 @@ static int gfx_v11_0_set_priv_inst_fault_state(st=
+ruct amdgpu_device *adev,
+>  static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
+>                                         struct amdgpu_iv_entry *entry)
+>  {
+> -       u8 me_id, pipe_id, queue_id;
+> -       struct amdgpu_ring *ring;
+> -       int i;
+> -
+> -       me_id =3D (entry->ring_id & 0x0c) >> 2;
+> -       pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> -       queue_id =3D (entry->ring_id & 0x70) >> 4;
+> +       u32 doorbell_offset =3D entry->src_data[0] & AMDGPU_CTXID0_DOORBE=
+LL_ID_MASK;
 >
-> -               if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE)
-> -                       r =3D amdgpu_gfx_reset_mes_compute(adev, NULL, NU=
-LL, NULL, NULL, NULL);
-> -               else
-> +               if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
-> +                       struct amdgpu_usermode_queue *guilty_uq;
+> +       /*
+> +        * Try KQ first by ring_id (HW slot is authoritative). The
+> +        * KMD compute_hqd_mask contract guarantees KCQ and user queues
+> +        * never share a HW slot.
+> +        */
+>         if (!adev->gfx.disable_kq) {
+> +               u8 me_id =3D (entry->ring_id & 0x0c) >> 2;
+> +               u8 pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> +               u8 queue_id =3D (entry->ring_id & 0x70) >> 4;
+> +               struct amdgpu_ring *ring;
+> +               int i;
 > +
-> +                       /* IRQ-side WRITE_ONCE(guilty,true) hand-off via =
-xchg */
-> +                       guilty_uq =3D xchg(&queue->guilty, false) ? queue=
- : NULL;
-> +                       r =3D amdgpu_gfx_reset_mes_compute(adev, NULL, NU=
-LL,
-> +                                                        guilty_uq, NULL,=
- NULL);
-> +               } else
->                         r =3D userq_funcs->reset(queue);
->                 if (r)
->                         gpu_reset =3D true;
-> @@ -671,6 +676,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
-amdgpu_userq *args)
+>                 switch (me_id) {
+>                 case 0:
+>                         for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
+>                                 ring =3D &adev->gfx.gfx_ring[i];
+>                                 if (ring->me =3D=3D me_id && ring->pipe =
+=3D=3D pipe_id &&
+> -                                   ring->queue =3D=3D queue_id)
+> +                                   ring->queue =3D=3D queue_id) {
+>                                         drm_sched_fault(&ring->sched);
+> +                                       return;
+> +                               }
+>                         }
+>                         break;
+>                 case 1:
+> @@ -6704,8 +6711,10 @@ static void gfx_v11_0_handle_priv_fault(struct amd=
+gpu_device *adev,
+>                         for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
++) {
+>                                 ring =3D &adev->gfx.compute_ring[i];
+>                                 if (ring->me =3D=3D me_id && ring->pipe =
+=3D=3D pipe_id &&
+> -                                   ring->queue =3D=3D queue_id)
+> +                                   ring->queue =3D=3D queue_id) {
+>                                         drm_sched_fault(&ring->sched);
+> +                                       return;
+> +                               }
+>                         }
+>                         break;
+>                 default:
+> @@ -6713,6 +6722,11 @@ static void gfx_v11_0_handle_priv_fault(struct amd=
+gpu_device *adev,
+>                         break;
+>                 }
 >         }
->
->         queue->doorbell_index =3D index;
-> +       queue->doorbell_offset =3D (u32)args->in.doorbell_offset;
->         r =3D uq_funcs->mqd_create(queue, &args->in);
->         if (r) {
->                 drm_file_err(uq_mgr->file, "Failed to create Queue\n");
-> @@ -1111,6 +1117,34 @@ static void amdgpu_userq_restore_worker(struct wor=
-k_struct *work)
->         dma_fence_put(ev_fence);
+> +
+> +       /* No KQ matched: HW slot is a MES-scheduled user queue. */
+> +       if (adev->enable_mes && doorbell_offset)
+> +               amdgpu_userq_process_reset_irq(adev, entry->pasid,
+> +                                              doorbell_offset);
 >  }
 >
-> +void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev,
-> +                                   u32 pasid, u32 doorbell_offset)
-> +{
-> +       struct xarray *xa =3D &adev->userq_doorbell_xa;
-> +       struct amdgpu_usermode_queue *queue;
-> +       unsigned long flags, idx;
-> +
-> +       /*
-> +        * CP priv-fault payload is (pasid, src_data[0] & 0x3ff) =E2=80=
-=94 the same
-> +        * per-process doorbell encoding KFD extracts via
-> +        * KFD_CTXID0_DOORBELL_ID_MASK. Find the offending queue by the
-> +        * (vm->pasid, doorbell_offset) pair, mark it guilty and fire
-> +        * hang_detect immediately (queue_delayed_work() would no-op if t=
-he
-> +        * work is already armed at submit time).
-> +        */
-> +       xa_lock_irqsave(xa, flags);
-> +       xa_for_each(xa, idx, queue) {
-> +               if (queue->vm && queue->vm->pasid =3D=3D pasid &&
-> +                   queue->doorbell_offset =3D=3D doorbell_offset) {
-> +                       WRITE_ONCE(queue->guilty, true);
-> +                       mod_delayed_work(adev->reset_domain->wq,
-> +                                        &queue->hang_detect_work, 0);
-
-Why wouldn't we use queue_delayed_work()?  If we get multiple
-interrupts we want to queue resets for all of them.  Additionally why
-do we need the extra guilty tracking?
-
-Alex
-
-> +                       break;
-> +               }
-> +       }
-> +       xa_unlock_irqrestore(xa, flags);
-> +}
-> +
->  static int
->  amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index 9df1b78407f5..a55d57e2c169 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -53,6 +53,7 @@ struct amdgpu_usermode_queue {
->         enum amdgpu_userq_state state;
->         uint64_t                doorbell_handle;
->         uint64_t                doorbell_index;
-> +       u32                     doorbell_offset;
->         uint64_t                flags;
->         struct amdgpu_mqd_prop  *userq_prop;
->         struct amdgpu_userq_mgr *userq_mgr;
-> @@ -86,6 +87,7 @@ struct amdgpu_usermode_queue {
->          * Delayed work which runs when userq_fences time out.
->          */
->         struct delayed_work     hang_detect_work;
-> +       bool                    guilty;
->         struct kref             refcount;
->
->         union {
-> @@ -176,6 +178,16 @@ int amdgpu_userq_post_reset(struct amdgpu_device *ad=
-ev, bool vram_lost);
->  void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *q=
-ueue);
->  void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 door=
-bell);
->
-> +/*
-> + * CP packs the per-process doorbell_id of the queue in
-> + * CTXID0[9:0] on priv-fault (same encoding KFD uses via
-> + * KFD_CTXID0_DOORBELL_ID_MASK)
-> + */
-> +#define AMDGPU_CTXID0_DOORBELL_ID_MASK 0x3ff
-> +
-> +void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev,
-> +                                   u32 pasid, u32 doorbell_offset);
-> +
->  int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
->                                    struct amdgpu_usermode_queue *queue,
->                                    u64 addr, u64 expected_size, u64 *va_o=
-ut);
+>  static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
 > --
 > 2.49.0
 >
