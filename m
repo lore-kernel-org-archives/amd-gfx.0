@@ -4,89 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03857CD98EE
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4373CD98E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:51:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 959ED10EB1E;
-	Tue, 16 Jun 2026 18:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2D410E7ED;
+	Tue, 16 Jun 2026 18:51:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F1Vt4HS5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sZ4BuJOI";
 	dkim-atps=neutral
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC16410EB27
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 18:48:30 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-304f9bc869aso540874eec.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 11:48:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781635710; cv=none;
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A8B10E7ED
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 18:51:53 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-306f1213aadso443056eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 11:51:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781635912; cv=none;
  d=google.com; s=arc-20240605;
- b=bD3REqZPkr7pN++OrpwkViQL1Zq6j2aQF0OLq7nwoRIh6C5yqWBOLGFdkf+VC0VKn4
- Q00d9YaKmxpGOChb8+nxFd/yillYMxKoBVOmP6CnMphPGEWc2tlZ2JworlYQWQ/+kxE5
- f9JBJ2Fvbz4sO9tOgMx5EpOHnp2ZWWCDF5FsLbaxQMdIzPJOEy3Y0BhW0BTkhX8uyODv
- kK3K6kbB4jiM+o7518VSa3AyN2yYNm4f1JoUQB02cJxHPXb04+TqO7li87qllnuK1q8L
- NcGeGnVryXyVoUpoPuA1eAAS4H/Uw44o34ykxidz1MPLb7iqjVKZU2QgrCQmW2MBcXUH
- tLNQ==
+ b=gWmlmdrqs7tD0rTEigIjlvY+fkn05KiW89ZEc5WjNE8coH+q7D4B+f30kSP7pqmsCg
+ XmtFHh6CwnU5sZb/9A/az/A3scAGmP+AH13QLKpgTrB535a0ajYWGOQ3WHoEf0uAbj1v
+ ggbERnLFvrUdqtPzqU7/iM6a3NsZXJDfQ+bMoBt+MOAb8b08qWb6jE5Rd4th5XelwQmC
+ NCdYsj6+zGI8j3oqAH6/vtHIi8gETFJuiTQyPRqO8VoI6nFz8Jcw5qOyTMnTZ2XEPrlD
+ HifRQ/9EHBrtVx8zWuANedVRR5P1zXEnriUTFUPCLh3e/34W+GOyM3hD4LyOjnYA3As4
+ fMPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=lJyakZk+4rBtsSsPqmavjlV9sufmp2nAyf+b53qnqLo=;
- fh=7yzT6K2nKUYDPXB1vsqv95xGzPCmGn5VMOMiP0a1Wtc=;
- b=ikOl9P9KRk1wmc3wY9VwjwjnQZvQO0vMwUBx3fZ62eWmaNDUELDnX1927iWy9zVD8g
- 0aNkY5ZrDMHZgi2z6V6rdb7vNGN7u3AxOVxG2iGD2sNaCeEzqD/UwakNv5H09xDMxe+w
- aJdUIKq4I8pQPhrbKkSqbuXG8IH/QHhDZBLd/HRlci3n2pI3KeHx7Kf40Uro1lgctfUq
- XDsIGAugtc/guSCNjt99X9pdDtBbPHC7lSXKmr7pdQcFowXXLTpPzHel8epr+y64eLOJ
- Jwovdw7+LcKgjJTZ6ceN2MF/NWw7pECkGBd7uv0jfiU6e8Lvtig102fDAqp9sqqudwMc
- q13Q==; darn=lists.freedesktop.org
+ bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
+ fh=8NZK/li2IV6I8S/rS1JLlv99vfsCN11tCzFwSSRu8c4=;
+ b=kzFDLJGB/+kavuEcs9TnVrxCpwNdrJfXbpR/mj14XBrW+qx9Y6gJ1YyzDsJ7g0Nzft
+ wIIGHTV8JD5H7j7OwiY5kfpBI+3XQYV0tKxhURSVjcznZilt6zlhKvBg1boHXtc/XDWS
+ edysHil4znSl/rSDrp6lN2jhiq5umGSb69p8jWRMEO3mk7QGKAEVfk/PEHk/LxCWIY19
+ LoK6PNUuBRZVAcfmENDdFjZgm1UXGlhkKWUPpYVHDYhpSwUkz8AxTuw+GZ5iBNlVOnJm
+ M6NmzxT1kJ9E1lQkV38AqJJ4dh28kXd7CbvYRhf4bvojH819II7nsSsZUOod6bHlCySb
+ O3Pg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781635710; x=1782240510; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781635912; x=1782240712; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lJyakZk+4rBtsSsPqmavjlV9sufmp2nAyf+b53qnqLo=;
- b=F1Vt4HS5dbhwnU6E1RRjcvUGg2BMlfk0IPKrRj2OLDxhadEX7TuMoskiQ4CRgfglpB
- gk2fMym3+NMKkTrBcMZTigNOg8qzNisbX3TyhgiY6dk4uLasJhjv7exCJr8gSEGYC5q+
- eXmrubVqq4NC9A2d3wWdrTruZvxQR912MZZas70yG3njldw+OeDp6lR68768xDhnqotO
- N0r0ia2URLPyoiz+yftTGCOtaCqu0WjV8GD5yup2pzvL/tGvRFd34ZM4wHMMcCm/ZUup
- Xr0j4MOVcwA50dqcQlyrOh16KQ7waYztMvPsfCjufTKglm/gYNb1t4UpsMq/iukxQyrp
- TdEg==
+ bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
+ b=sZ4BuJOIRfRaU6AZFHTsC/XDxviprJhubhgqmb/DpxXWCzPFV7QGFAWqMqeIZJLhYY
+ WhLowUflXYp+5rAxZejAbZeYFv7DEOucKw4YJCh6E9qWNwwkdj63z04q0bh1d8uXxv+k
+ L8wPeCFzekwSDee1eZ9WDRI5Oo5Zd+2ksiBSRElbdGmPq33Gd4awv3cfbdgv7B4iq5yZ
+ IUZi7vVQIx8m9awpcQbG+d6DgKSDeuewSKU1qiqwWkzzVz/iwP2ra4m6LD9pxYpgCuIW
+ mT90pQTkK0HxNwzhiUb1qgGu8gB4d8zhoCu/ORAT1YP1GjtRpW+lFLMQzubSSHbWeDEo
+ kb6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781635710; x=1782240510;
+ d=1e100.net; s=20251104; t=1781635912; x=1782240712;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=lJyakZk+4rBtsSsPqmavjlV9sufmp2nAyf+b53qnqLo=;
- b=Pk4VW24r+89OdCDswyFyTGiIrMc4Vzg51r+L4H6LOikGH0ii4jMphNEo8vb/ZHlQrF
- R+Q9XQ0tnXOz27OiAgarkfP9NVX5QoNkpB+QeDW17Umew4GGAaV/eIw7Uh7I6rCLA4wR
- INbILPixx4ot8IIsf/PhZRm02rVRKT5B+TJFyqQunnvBO1H4TGcaMO2/u6yf0wmJwmBi
- EzvL53zVvIvSz4rY9s4/YIdLxbIPF7leZDeL/C7HYPZW5vbpve4buBtza2JnbdSliryt
- y6qdsqu1+HJkNr5v4YiWgg7O5G2mAu6cFVQZpOG6HxOOawF7Zi0gQPDKQ3qKvDF9n2gI
- m7Lg==
-X-Gm-Message-State: AOJu0Yz/fSCL3RssSravdjyz/eVDQUey90dUE5L31ueLECl6qjjB8W7G
- lLHoOsw3+9BkpeUHHAc9d79VMOTHBe9Y36HMk6B4cisXynFwSLcHuiqlBjuJ8cXANjbn6YovNHl
- cuK0D0ckwxXeUVarWc/wMKaqqms+K4/ZmMg==
-X-Gm-Gg: Acq92OErbHtraUGMfWH9n+VJ/AWs1XMpNl59San9sJl2PP4RB6Zzb9gn2z2UZ/dxm46
- m6+xhhuNbeDMa3gPozXn/qVhHivKAKzfLgOfVMa6OIftub4+LVL4sWorgRksOzYfo5up16WDAiB
- uWZWvyEbynsKLvjkEBokUh2gU2aBxW6hh9X/VbP90TUrnnjuvf8ZqKQG1qc3fiFpJ5nHnvVxo1j
- 5+KoLbQ/safVXLTqKY4yg1neN5Lkg12aOANoJIyqvRPYDuqRLkUVaydnXXXpXOLWzWEPc6fVIl2
- Zsc89rVFCK25NnOBLBCCdA1a+rqSfOW8bo24RNQBtwIFdJyimnk8tM61Vd9HwSNwVw6LkA==
-X-Received: by 2002:a05:7022:690:b0:135:1b09:db43 with SMTP id
- a92af1059eb24-1398f6dd968mr27695c88.6.1781635709924; Tue, 16 Jun 2026
- 11:48:29 -0700 (PDT)
+ bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
+ b=BYcjCc/EIUG3RhfQ4wuEGKzdKCAQpAEy/tMlJxPKsuVlzSHHx9OW3ouGFz+ITo2wo6
+ oBabBxFeLe880+6VhSREvq5oaL/vgkYKSuZA7br6cBs42GZpWRExz84dtMnH+l656yr1
+ SwmoOk855vUEcMJM67CN1wMWV1S/P5HJFYw+QbRHdXBFe3RyYHqOAXn8a7HNo1x33a6d
+ XAzyUhqEJ4vJvAosbJVWC4QHxvvQVOZBuwCwpmzOitsjhNDP0Ry3MupgSBj2Kppni1dx
+ QhryKUu6dPsC61hr1h2FQjhiojX5wX5TAUPeR8DJQxmLgzinTC8d05RYpEhlYQ8og88b
+ XAMg==
+X-Gm-Message-State: AOJu0YyrKtmz6hsIpAKVlRH092eANqekxxyTKJsqqn4iQekLd2tSC/9V
+ gnDTtqb42xq05KW+rMit90t1ls+UImRDAxH9MZ6A/DxPkWZ27iXENrYiBpAFo3NQge7BQNrOtqX
+ do9/jMf8sgIkxHEyuinh9gcOl5MHTELE=
+X-Gm-Gg: Acq92OGisr9SJI9B9wWQqVGgCiyPZSLqmXY/jRDBkku/QiH8OQsjQIw76ENOht93zyY
+ yEz4ONwq8WEnnhbcjSiwoM+UGUlfblJ8GfctGEI/NpIs/QO9Pqmwq8D5eJ7wehkqocB2pQevhij
+ L/LpEMS/kHb4yueaA9oSmY7y2XAsqfahVjC/P3zRGeEbsIZvCbonn0EXBO/v1Io+tXmkv/kENaj
+ vCAcNZWd4dQoiN9p0r8ARx7qvwkK2pQONEhnJgZIrCrG+43YmXSXfKyeKZ47Yfb1sH6SJFRu3O5
+ IHfnxeCrBHnKwEuj7DOVdQqTwtLulpLdoqmFO6htCMq0JPlHjh3KuqJwk2L1cy8MpLUjL7B5Vd8
+ vp89a
+X-Received: by 2002:a05:7022:110:b0:136:d029:451 with SMTP id
+ a92af1059eb24-1398f6ab309mr34977c88.4.1781635912245; Tue, 16 Jun 2026
+ 11:51:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260616020942.18980-1-tiagodourado@usp.br>
- <20260616020942.18980-3-tiagodourado@usp.br>
-In-Reply-To: <20260616020942.18980-3-tiagodourado@usp.br>
+References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
+ <e2023393-da68-4775-9f55-16363191328a@web.de>
+ <CADnq5_P6aSFKefO+f3aofhfNh7kELEQWxid4EWgwAUr2saEh8Q@mail.gmail.com>
+ <1ed4140f-83b6-4393-a67d-ed321b72ecb2@web.de>
+In-Reply-To: <1ed4140f-83b6-4393-a67d-ed321b72ecb2@web.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 14:48:17 -0400
-X-Gm-Features: AVVi8CeTNVHawe2kePEq7a7xErRZiFlzQLoQ4aX8UYN5FUOtpdCBQNMjtI814fA
-Message-ID: <CADnq5_MTY1Sa_GgEDfO256mBzT4KQhTX9jj2_NfJCZEuZrrWHQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND 2/2] drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0
- process_interrupt
-To: Tiago Dourado <tiagodourado@usp.br>
-Cc: amd-gfx@lists.freedesktop.org, luiz.f.f.fernandes@usp.br
+Date: Tue, 16 Jun 2026 14:51:40 -0400
+X-Gm-Features: AVVi8CefSVV3ctlIm4JKXFEe2ToHhWyUVnA3pqitzvirCD1F3rsg-SVQpZJKAs4
+Message-ID: <CADnq5_PSRrvhUvzkZQGiA=U7kyyowXjO+GC_bPP95jg_OzpOUA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amd/display: Simplify data output in
+ psr_capability_show()
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
+ Leo Li <sunpeng.li@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Rong Zhang <i@rong.moe>,
+ Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Tom Chung <chiahsuan.chung@amd.com>, LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -103,103 +116,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 8:59=E2=80=AFAM Tiago Dourado <tiagodourado@usp.br>=
- wrote:
+On Tue, Jun 16, 2026 at 3:19=E2=80=AFAM Markus Elfring <Markus.Elfring@web.=
+de> wrote:
 >
-> The jpeg_v5_3_0_process_interrupt function is identical to
-> jpeg_v5_0_0_process_interrupt. Remove the duplicate implementation
-> in jpeg_v5_3_0 and reuse the jpeg_v5_0_0 version via a macro alias.
-> Export jpeg_v5_0_0_process_interrupt through jpeg_v5_0_0.h to allow
-> cross-version reuse.
+> >> Move the specification for a line break from a seq_puts() call
+> >> to a seq_printf() call.
+> >>
+> >> The source code was transformed by using the Coccinelle software.
+> >>
+> >> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+> >> ---
+> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 4 ++--
+> >>  1 file changed, 2 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c=
+ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> >> index 4b09a740f205..6e6f391b640e 100644
+> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> >> @@ -1076,9 +1076,9 @@ static int psr_capability_show(struct seq_file *=
+m, void *data)
+> >>         seq_printf(m, "Sink support: %s", str_yes_no(link->dpcd_caps.p=
+sr_info.psr_version !=3D 0));
+> >>         if (link->dpcd_caps.psr_info.psr_version)
+> >>                 seq_printf(m, " [0x%02x]", link->dpcd_caps.psr_info.ps=
+r_version);
+> >> -       seq_puts(m, "\n");
+> >
+> > Why not just convert this to seq_putc() and drop the rest?  It seems
+> > more logical from a code structure perspective.
 >
-> Signed-off-by: Tiago Dourado <tiagodourado@usp.br>
-> Co-developed-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
-> Signed-off-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
-> ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h |  4 ++++
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 22 +++-------------------
->  3 files changed, 8 insertions(+), 20 deletions(-)
+> I obviously propose to omit a function call at this source code place
+> because an intended line break output can be achieved also with the subse=
+quent function call.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_0_0.c
-> index 46bf15dce..4575d1f9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> @@ -625,7 +625,7 @@ static int jpeg_v5_0_0_set_interrupt_state(struct amd=
-gpu_device *adev,
->         return 0;
->  }
->
-> -static int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
-> +int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
->                                       struct amdgpu_irq_src *source,
->                                       struct amdgpu_iv_entry *entry)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_0_0.h
-> index 5abb96159..4eeb0c147 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
-> @@ -32,4 +32,8 @@
->
->  extern const struct amdgpu_ip_block_version jpeg_v5_0_0_ip_block;
->
-> +int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
-> +                                 struct amdgpu_irq_src *source,
-> +                                 struct amdgpu_iv_entry *entry);
-> +
->  #endif /* __JPEG_V5_0_0_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_3_0.c
-> index 1821dced9..92aaf5dea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> @@ -32,8 +32,11 @@
->  #include "vcn/vcn_5_3_0_offset.h"
->  #include "vcn/vcn_5_3_0_sh_mask.h"
->  #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
-> +#include "jpeg_v5_0_0.h"
->  #include "jpeg_v5_3_0.h"
->
-> +#define jpeg_v5_3_0_process_interrupt jpeg_v5_0_0_process_interrupt
+> Do you insist to preserve a similar statement here?
 
-Same comment as patch 1.
+I think the code reads more cleanly that way, but it's not a big deal
+either way.
 
 Alex
 
-> +
->  static void jpeg_v5_3_0_set_dec_ring_funcs(struct amdgpu_device *adev);
->  static void jpeg_v5_3_0_set_irq_funcs(struct amdgpu_device *adev);
->  static int jpeg_v5_3_0_set_powergating_state(struct amdgpu_ip_block *ip_=
-block,
-> @@ -608,25 +611,6 @@ static int jpeg_v5_3_0_set_interrupt_state(struct am=
-dgpu_device *adev,
->         return 0;
->  }
 >
-> -static int jpeg_v5_3_0_process_interrupt(struct amdgpu_device *adev,
-> -                                     struct amdgpu_irq_src *source,
-> -                                     struct amdgpu_iv_entry *entry)
-> -{
-> -       DRM_DEBUG("IH: JPEG TRAP\n");
-> -
-> -       switch (entry->src_id) {
-> -       case VCN_5_0__SRCID__JPEG_DECODE:
-> -               amdgpu_fence_process(adev->jpeg.inst->ring_dec);
-> -               break;
-> -       default:
-> -               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
-> -                         entry->src_id, entry->src_data[0]);
-> -               break;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
->  static int jpeg_v5_3_0_ring_reset(struct amdgpu_ring *ring,
->                                   unsigned int vmid,
->                                   struct amdgpu_fence *timedout_fence)
-> --
-> 2.43.0
 >
+> >>
+> >> -       seq_printf(m, "Driver support: %s", str_yes_no(link->psr_setti=
+ngs.psr_feature_enabled));
+> >> +       seq_printf(m, "\nDriver support: %s",
+> >> +                  str_yes_no(link->psr_settings.psr_feature_enabled))=
+;
+> >>         if (link->psr_settings.psr_version)
+> >>                 seq_printf(m, " [0x%02x]", link->psr_settings.psr_vers=
+ion);
+> >>         seq_puts(m, "\n");
+>
+> Regards,
+> Markus
