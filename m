@@ -4,85 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A9D6CD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 14:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E79CD98E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 14:27:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A47D210E923;
-	Tue, 16 Jun 2026 14:23:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8C110EB18;
+	Tue, 16 Jun 2026 14:27:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U/nEpsfi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mWy3E1uL";
 	dkim-atps=neutral
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1DE810E923
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:23:17 +0000 (UTC)
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-1365eb2a773so216200c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 07:23:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781619797; cv=none;
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EEA610EBEB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:27:19 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-13644e164cbso141706c88.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 07:27:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781620039; cv=none;
  d=google.com; s=arc-20240605;
- b=CRxz0hkLKqAGF6yzRD4E0aZj/562ugQAE+wJ7Gpr6xrdUvt4/Va26etJBCXdDj+nRi
- a/QYL2ZGPAiBLRinOCY7r9/aTNZnCuHQWiE1hJadagnR5z7cYD0RhWCj6WwStkzii0J5
- +/2uunwDxklgY88OBwNOHMNOTW+FPouSM8/jhdKxjNCRvAi/xoiUu6I0ieQ4gsRotfkP
- BfKF+1uWNDO4sN9lAEQhQSO37ktaUsIXsdbRF5SKOZ04lwAgavAgSJFQEf1ocD38k114
- Pd6Flg5ASGCrsQBceciTejXZ7XVX5nYlWz1eaGAlmsIQBu9R1iOlHdf5mTUQ0FVpv6wa
- ru/g==
+ b=WnqoL9AS2alHTphAl2Hdxk3oTwSEDRMLtFKmxJNlhzQevYxp2B10OM1+I7lgRwGeqf
+ 0xgARxg4cArmKuWn+SOa30G59ho503md3agQMpZTFau6bH/XKQOzNxAKdNb6gnNbC/o1
+ 4jYmzpvgd/NzfAOmZ7A5A/DLYz02HK/lcb7FYmpIhHAyDfOOZhgPlRrlx7h+LgvRV0Mq
+ VFlIMb84TeD4+GCJYcg+ojM45LQcIEZ3s1ABEi+jbApsQc2TK56IWwhbrLHhdegDf3Ta
+ Hwx0C2evOwJ95gLQ9UeczZdl2h83HlzLH06WGRDd1G11MhfiuTVSTB4QlShDWcrckhdZ
+ VRCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=4f9tRXvbOVsDavyKjWkhWFw6RYsEvRmvgoZHRD2XqWc=;
+ bh=1+oFeeOuxVc5Sw4qP2HvLrjZpmPoenX0pvkLapx6U2Y=;
  fh=ZALIDHo8pLRdkfs24V7vMF67xNVOyg3fIMVdLwiGvIo=;
- b=ICqHNFcYUwdhwcmslervqI1ZIlzGMaukayzksDFYQhQQm4BLQ1QuzaYNEkQQaJzJfb
- 6X8oOci0YKllh32OQcgAP2hiD/Dbt6Wu8gF+sPnK6yIn462tyZYEWqC7s2NbS2EijrZl
- XuUa1lryuY7DwRqNazZzWV3ebewNMBSbgl6WfFwH0xaqyqVT+fc7/zqvcNsw77ZX0GQz
- ZlCEHAp5aqSRYcUhwZRhbXWnqa/EwHQl3FbcWByq+0CXUDzM2WeEToav2ESco45gtGkL
- 2H9d2q0hTPOsnpp4G3g1qXjWFgIEjyYlw2E27e6Qwtt6t4cLJoW2WJroueH1B4iATBTX
- ts8g==; darn=lists.freedesktop.org
+ b=Dq9sXacSKCaPtQ6O4Dj2F8FipCgq09Cm6Xs6FlR2b2J/MbnPRlD9iEOQD9M5CV1LDO
+ w0r8EoMtNGsOHrQbk8twFEi1OVnCxr3FRUDfyzXVlldglwns/B0MuADZlXp4zkjeR4tz
+ Rvu7OB7PB3s8A1FhYhqFwVpYGv9EaMtpQnuxEBvPv5C9zDDOM3g5q9aO7lB4ANbNWN3e
+ ZKZJKj5KBuA0ILeIRm5VKcsLYOAMm3JHs2lcwFyrujr1nWhhXgQTOUN2k6aRFyNYJBd3
+ Nc5hrUVIBX3nGDkBMn0qBmS2BtL2ULJlpBOMu85/zQa4hYBPYe3Qyl8yP45PWII0k6XV
+ CYwA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781619797; x=1782224597; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781620039; x=1782224839; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4f9tRXvbOVsDavyKjWkhWFw6RYsEvRmvgoZHRD2XqWc=;
- b=U/nEpsfiKyKngEhYAf/Gk9h6o9HP426xanCfEHSrpMK6hIyWg0ghIEMV7LJ1hM0PgU
- +a4y+8BTqqQs/+iYvG9Ylw2w6575KH0UHurEWXvEA08/M+VosQB6eKOXM+2usxRie8rc
- +idxdNy7g2O2362G7slqlgdi6YNQJCYplgbq/y9DHTzV6IDOLMD01Z+4iJiL9lbTdTUF
- ub0N0ClSGfTqzumPVSGDEiD6LLiVhwSQ57u83ap2Es6oPbgz1tUAQHXFaOJtACbhrUXx
- FOJ84xF4Nr8LKDcLrlQfu+rHLPzreSc0rtSPLcP/yhmrwAhqPTAY3a38+JxF9GLufWVF
- 2+Ig==
+ bh=1+oFeeOuxVc5Sw4qP2HvLrjZpmPoenX0pvkLapx6U2Y=;
+ b=mWy3E1uLCI8Cx4k0UTU2RYyBPEGJqjZcvsSeRWyT56hTHNJN8LKu6mGU1zchci0YCc
+ 9t4BvX7vSodTBZkmQMeQxvVrFTG1x9Y+PH1S8uXN15K14RnVIgvT3paXqdqBZVo1NmGJ
+ 4OUjKTAp8189uvNWfRHsEVtVgAZReC570vLALq9x3vbXaFiUW24t3Q8I6NJ4Yd8q7Hwe
+ LL9lhRVaSWxXFTUXRiYeiLB4/Ugdjthp/4pC8HlgVe0H0/Xp3+Oy80wsYnxGNPVPwinL
+ cP5NN53CrflTD+nCqwQkOjWZ/v3s1QujQJ+HOjKM+CO0hlBtMVO7Xhf6RTKuvz6sE4RS
+ 2rig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781619797; x=1782224597;
+ d=1e100.net; s=20251104; t=1781620039; x=1782224839;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4f9tRXvbOVsDavyKjWkhWFw6RYsEvRmvgoZHRD2XqWc=;
- b=CI+Ew7j57j+GP2awZ6RZ87NhQ14Ac8wqfKvZxoDmaI5lTW47rRToPCNnVmxVpZOILl
- P18mTs2RDMitJe97F5yG+q45/w/rxtBZTH29AJOVhT9IdN/EeRWnl/mwefRzbtiZac74
- rP5YjBukA612EqSUDAhHeBX9mJ1t0GwtHszrPeiTtHZXAdoKJIJ30qbVHdTPMrz57gvH
- fAsE3MeHrxbxvrNMVSnvwKxCwfJHB471U2QuM6lZkNnAY9lmOpHaX/UmtbnYlRVZFuAP
- T0APbb+90m1M51h2EfP/uyWZ9sO9GB9xIH+TF53COgv6VW2LzY0j9GdwKPkH4JlGE2mU
- 3kcQ==
-X-Gm-Message-State: AOJu0Yy/nfpxm12PpxnCCphpiUq8oB5SeOnW9VJZKToLTaVWLiamz0AP
- EO5nfLsqLWZA/mXWrmlHxRr4MNU0n0AiLJK/pCPqObMl6wooCfQOBbwdz4JOtVeKmPadak9V8DM
- 3qYVHFl0DjGr6ra748GlAaiHLvplBAYM=
-X-Gm-Gg: Acq92OFTZmFKLgExy9StK9Uve1L7tBu2rm3vp0zNGeU5vE6lp5g7lSEYC7NMSx16jxb
- hsposex0OtSXfD4hfEhuJqsY1izOfPveoDsNzcR1dncX4xoiAMsTM9xbo7Klqa9rDBKaZWonJKZ
- r8YZGgFHgR6RdAMPLv1/GHPLqvReo3CXxV/JJqgD+UmOiLpQlOOPnSZInRBXQFmbqgsSTzmi8qa
- ZghBBX0kxomwmvvUQ5renX/+C2u833XvOwUurcgILpg9dKqmqmXKY4RQNmuyzw+F91jWMtLtpEI
- rBReutVhrCLpgIhD2W70C+3rVH9vAwjeBkP77NLpqViIRSS1s5GHh8r/b9OYbsJRDs5Ucp2u81M
- q9pi3
-X-Received: by 2002:a05:7022:123:b0:138:5ef:f34 with SMTP id
- a92af1059eb24-1384baf9623mr4947929c88.1.1781619796889; Tue, 16 Jun 2026
- 07:23:16 -0700 (PDT)
+ bh=1+oFeeOuxVc5Sw4qP2HvLrjZpmPoenX0pvkLapx6U2Y=;
+ b=bNYSOsnMcuO8H8l1Zm6Zpi2HZlHt46RWHqspuat8QRmlC8NPTd/WZ0qxfwfQd3/KM2
+ GfBasrfnZU0CCXG5FpbK4tHT62oGYujtl9UZkrSR0dkXQcc+MIZaJtTDWkayQEXOTzbH
+ 6q75JKfVnhKBdZCLV6pOTErdJyCMo2oa1MOTCzh0KVakQl5bNlwXeAi5JYeLvOwuEPF9
+ 4UXHKXvOEZpkaAcNQfVXXuTgUUSHH3SCGYKSkd6VnIGiPuIpVya8X6sAsPaXZE0o8/JB
+ ksd5YpKubWCNgm1iJ5YQBZmZZLSimV31QMxhxKip+II5XSJFmkHkBTWVhWkAquXSADpa
+ +l3A==
+X-Gm-Message-State: AOJu0YzbZXhQ2wjn0syekR+DuzqqlTW00m1SvIIXSzLPdIONq/T8LQ9c
+ +eoqKLB4cJl1Wt0BzRRLpNNc9+bIf3niug3MCCzI4Iks3gYvz3czzhvzrNCFK5g8V90fguL6zzN
+ BJZfQooR3sg1DKJXJF3w0Gma/MfjJSHk=
+X-Gm-Gg: Acq92OGwFkkj7zlgX6+d5cORV5idx1HghFXsJlrJuFMeQyXrb7f52uUSBmKjp4GszSi
+ W5CfSteUTmuIBpl+usoM1K7gC/Wy+WNT0QmXliZTYjjyXZ2Vku7bDu0tEku/EvXttr0BMD7yEA8
+ VF+0vXOVPVlzPbMt2fOwvQF43jBjvGr9UWjo7zdni52FQCCCYyK5JikSTHVfT8kPzoFDsOeZZ1t
+ 8Jzyj1Wb8a+dXmcFgnSrv6rKgOqfnfE7BMhy/NuyMFavq9QgNLJx8CWLm4Smqg4uGD8cVxseTa2
+ C1ugKGIn4d+S3D3YvD5SeViDQB8WcnB4abUe0xdtcn48NTk/A7GVRLr3iDEkDstuStMKdA==
+X-Received: by 2002:a05:7022:f99:b0:137:fdce:fec2 with SMTP id
+ a92af1059eb24-1384bb6ec69mr4180663c88.4.1781620038568; Tue, 16 Jun 2026
+ 07:27:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260601140828.27779-1-tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260601140828.27779-1-tvrtko.ursulin@igalia.com>
+References: <20260529093436.82149-1-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260529093436.82149-1-tvrtko.ursulin@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 10:23:04 -0400
-X-Gm-Features: AVVi8CeVtunHVOFoUMGs9tjc-wlR825IJ2gCCCo9ow256wAn9z08B1IbeE4sXfU
-Message-ID: <CADnq5_Om02nCVZNpbe51CdWyO6WfiSPWcCfx90bfrdQTL71cPA@mail.gmail.com>
-Subject: Re: [PATCH 0/7] Grab bag of context handling stuff
+Date: Tue, 16 Jun 2026 10:27:06 -0400
+X-Gm-Features: AVVi8CcObXEno-KdBG0LcF585XeNKSYKiFlt-Wtov9AGjlnaEtEBA5DpSvJK-MA
+Message-ID: <CADnq5_Pixo5NX8UCLOZ+oX4V3d7yRhfzT4RLcS4vNOr=_FGoxw@mail.gmail.com>
+Subject: Re: [PATCH 0/4] BO list handling cleanups
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
@@ -102,39 +101,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 1, 2026 at 10:08=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
->
-> In some semblance of order, the series starts with a fix and then continu=
-es with
-> some old cleanup patches, and a couple of new ones.
->
-> Only lightly tested so giving it a spin in AMD's CI would be essential.
-
-Applied the series.  We'll see what the CI says.
-
-Thanks!
+Applied.  Thanks!
 
 Alex
 
+On Fri, May 29, 2026 at 5:34=E2=80=AFAM Tvrtko Ursulin
+<tvrtko.ursulin@igalia.com> wrote:
 >
-> First patch probably deserves immediate attention and if no mistakes or
-> regressions are present can be merged before the rest.
+> Resurrecting some old cleanup patches which have fallen through the crack=
+s.
 >
-> Tvrtko Ursulin (7):
->   drm/amdgpu: Fix context pstate override handling
->   drm/amdgpu: Remove arbitrary number of contexts limitation
->   drm/amdgpu: Consolidate ctx put
->   drm/amdgpu: Remove live context error log and skip
->   drm/amdgpu: Simplify amdgpu_ctx_get_stable_pstate()
->   drm/amdgpu: Convert context manager to xarray
->   drm/amdgpu: Clarify odd behaviour of AMDGPU_CTX_OP_GET_STABLE_PSTATE
+> Series needed a gentle rebase but they have all even been reviewed.
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 278 ++++++++--------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |  14 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c |   8 +-
->  4 files changed, 117 insertions(+), 184 deletions(-)
+> I *think* the reason they haven't been merged was that before I have been
+> "bundling" them with the context handling XArray conversion and the combi=
+ned
+> series was failing the internal (AMD) CI. So maybe try separate now in at=
+tempt
+> to isolate the problem.
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Tvrtko Ursulin (4):
+>   drm/amdgpu: Drop support for variable struct drm_amdgpu_bo_list_entry
+>     size
+>   drm/amdgpu: Remove the bo list mutex
+>   drm/amdgpu: Replace idr with xarray in amdgpu_bo_list
+>   drm/amdgpu: Remove output parameter in bo list handling
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 169 ++++++++------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  22 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  67 ++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  11 +-
+>  5 files changed, 109 insertions(+), 164 deletions(-)
 >
 > --
 > 2.54.0
