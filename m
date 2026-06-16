@@ -4,76 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B25CD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 11:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3A7CD98E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 897E410EA8B;
-	Tue, 16 Jun 2026 11:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D71D10EA99;
+	Tue, 16 Jun 2026 12:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RmgbmKGK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="huFe+n1s";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF94010EA8B
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 11:57:36 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490b9318997so32213835e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 04:57:36 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F0B410EA99
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:04:21 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-490acbb0f89so28987325e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 05:04:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781611055; x=1782215855; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781611460; x=1782216260; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hG25+YkVhmGIa5zKTu9sjz+XLZJi78ZJD1a88jKsFSo=;
- b=RmgbmKGKihIux2zgGAfgIgNpmo9I2TaASxhj/QcpWY4Ejt6UEzCoODdey1e28/eayW
- q66qsuHUP3BKEM3kqtqnUXf3HCDgkPPdJka2FQ1efDv6QOV78Lh+e7jTys8YU3IvtKOV
- KgWTvNHVFeX8VV8Hvod8ObkTWPLjRySfi+Xsensskfcj/8vcXtU/g8ju6Rr1EHZu6xJW
- QPqb+mGCFautOSMuc6VjGYM7bEZpBhaY47xBgtkn0uha2exnR5SUxSVgxynqC6py0QR1
- hW4V2a5bOZyk/bWv6Cmjos4RJlnWNoAZlmGKZttnbpizeBP6ciiB/lPPXSrXk2ROvrYW
- vt9g==
+ :reply-to; bh=1KVrjICdeM3mIrPellFipuZEyPBQmzEzyZHZTHXsA+0=;
+ b=huFe+n1sXeAgDI4mGgy/M6Drl7arAdA3aXG7VBV/1sMKJP5n03tlDrI6XUg5pce4rX
+ Mj8auVYJlc40lDPwTQVOKF+T+Li5WWVhiZEQ/biQey+P8T2GkLTQp86ZRMLBw4/yZ1b/
+ cKjJVQDVG5uBDt1l51qOHkRu/PgyIe9DIdU/UnUHnw4TqckzDq4hBY5dH74CSjcyMVAW
+ QXXh2Ip6IG13LJzajvaiAIJBoQN3fHk8AFQS0o+zk0ulP6LO81ULwgOFfHduock0MG14
+ 2oak3XwpN2Elpq91NbpKBmpifW2AY6cgBVDNrCSh5OnO1lD9V02F/I+y6reY061k4MVn
+ iGoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781611055; x=1782215855;
+ d=1e100.net; s=20251104; t=1781611460; x=1782216260;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=hG25+YkVhmGIa5zKTu9sjz+XLZJi78ZJD1a88jKsFSo=;
- b=Sk64QpCRCLrz0+tbqbbqMgURjoO7o9H+5T6dmm3VtiOVFAzwNkx49gadQH57D2iMWO
- YF/uAYdZ7SBGSgy22moRb0D3AxGQPwsE3k2nhRcdb9RcGJEpwEEK/TutqXghwFH1AS/X
- NPRCEAAKLpbdjP3sQopdiIhJ+guS0roAp+JqEbzoi74wvN7PqqlI2EX/fm5BWqevv9Ho
- yEISJ1/K517EH0XwATXNQE/tCvHP7NFkvsTbcLwW97DHyzWzvcIfJsjfllh8Z0WIsR7J
- E6W7zjOK3F49//seuwPEyMVEg6VQcAm7+Wk68FLROH+8z0dhzXNq398lFzs0nSLodCRE
- elKg==
-X-Gm-Message-State: AOJu0Yy72T+rit4LhXdYYZSfoKHvcoKJuNcwKXZkL3s/CgJSXp0ePW7t
- E6ZTI1TPqx8QqSrRaaSVoYePfci/sLDpYAD6Oav+iCEdmq/4qmSx8juCIBC7lw==
-X-Gm-Gg: Acq92OFSXYqB0rPfKDup6MSISqztXlT62+Uabq8G1sBBnJQHjgLqWcJILJm7OK2/bQW
- N9sIzB3gLyMApAGLLpH2mSQmYqsqdroqQoq4pmPyRG73BGpADrKh+2KIAwtV9kSGmW4fm9LaT5n
- Pi1dRKnKCLgvrQVOIK3glQMkVv5XorJRsyNlfxIzsGjiHai7CI3aajzDjyr07syusvgSc60qSGO
- FfedIts2iqVTtVYuDC50HFGzn2IFVEodVHZLc2XN0QsLwdmSaq+RySVtV6tocce7Qt5qnC1Lb3n
- 4I8F36X5Q2ocFIJawYz53H8rs/Lw8Ws+EeWO3FMOSJ9d81qHhsCzPk/gnGD+vZpxoraITVbdkJ4
- rmjZhyvseznh7RnfHkdCYDazZQEEP2+0LJRSlteGh/1rNO8FO/lX9RFCliLiwC7nn1HHlelrSZg
- pwk9oOUh6wehZVivXwuLTlmU0+521koWC27BI3kDB7L3L5hdbZrsvEdZbBZaWtIoKKIEEqAg==
-X-Received: by 2002:a05:600c:1d04:b0:490:b58a:e6ff with SMTP id
- 5b1f17b1804b1-4922011dfe2mr170172135e9.22.1781611055174; 
- Tue, 16 Jun 2026 04:57:35 -0700 (PDT)
+ bh=1KVrjICdeM3mIrPellFipuZEyPBQmzEzyZHZTHXsA+0=;
+ b=QR6PkxpJT63WM65V1Ed51eoQPvc7YAwe+wkUtd2+52pTTXfomO5Tz/hC7nHm4ryCA3
+ jJTezIskCXf50aUkjtMrOGaa1KdVFFkc9hE8NdM0KwUh16R6U7nsfI2wOPRYhw6dg8v1
+ 9vThPsYbyYjyb2JFqB2Z7lXc/kaTs5msjv8+p9yqTCjtvcwGb3HsyreribBGbGjuyhWe
+ e9dGVcJp5yKOG8lfWyZIlGc1+r+xEW086kbQ5eJVWzLZy8nP3SqbF+AWqBAXyU4Uhsvi
+ FdA974hyNE+WmLX4vtBeGWoSQpOXmahIuEjDukJs20xkLG4GuolHl566DNJdn9WmNxZ/
+ yxag==
+X-Gm-Message-State: AOJu0Yx1gK+HRNjTMTCzelkYnjyEno1bOlpr4udgsrBBlfUtnNRj53hX
+ mMxOKagvLZXx8NnLroEnuu1Y/rpxO69c9Ej79b4DNcMoPLkzZ0iAmlXHiEv4mA==
+X-Gm-Gg: Acq92OF62cvUnGpynmkhm8h6Gw18kpOKpcZVCndD0hX0/WNodR0nUgP/T0ain8gklnR
+ FzxxP0dkHyApt2ZF9RDzxgigf/mSWPWgCeWJb6WEKZBGa3GJ2EKFfx0A0TF4f5bGDp8Sy+3A+6k
+ HINDaUsfwCGTGPwCERdX1W7HH8svc5O+Mfetv6m6fG+ZJLwkjcvvljC+y56nvbBPCgF3K9eNGin
+ 4TZoqqilQ8pesNB/wwDaliO503lmJLtHx/ClOcifqN5WTow3qG1p/WcKuz64VFOJcWCl16oZd9I
+ euq9Wd5mTHe/5rkaNbPePzNgfXXWUKBPXv1UJKaxQ++g0ulLuYCO70yKBG+VT4AEBj71D8nIEgC
+ Vj0fyxvnIBYMDe5xk4TEFsZDlmgKDp6laF7BP1dULOzBKwGCsFbXTDd37AGtt6VXBeXjp+ADK/4
+ hjq9b11iZ2iDzfXmRlKazTO8bw7bDCLCRcjwKjOn7jOphgWI/8SEhFe6xrNXkK/p4RIg0jLg==
+X-Received: by 2002:a05:600c:5246:b0:490:a296:fdad with SMTP id
+ 5b1f17b1804b1-4922011df3emr192234225e9.24.1781611458158; 
+ Tue, 16 Jun 2026 05:04:18 -0700 (PDT)
 Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa890d8sm82651265e9.10.2026.06.16.04.57.34
+ 5b1f17b1804b1-490ea95c512sm239188195e9.2.2026.06.16.05.04.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2026 04:57:34 -0700 (PDT)
+ Tue, 16 Jun 2026 05:04:16 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 6/7] drm/amdgpu/gfxhub: Respect noretry flag for retry
- faults on GFX12.1
-Date: Tue, 16 Jun 2026 13:57:33 +0200
-Message-ID: <4660473.UPlyArG6xL@timur-hyperion>
-In-Reply-To: <25f69c76-8140-4573-8d3e-9aa8071ee715@ursulin.net>
-References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <20260525114507.24566-7-timur.kristof@gmail.com>
- <25f69c76-8140-4573-8d3e-9aa8071ee715@ursulin.net>
+ christian.koenig@amd.com, Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
+ amir.shetaia@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH 2/3] amdgpu/ih: Don't perturb HW registers when accessing
+ soft IH ring
+Date: Tue, 16 Jun 2026 14:04:15 +0200
+Message-ID: <5402227.Qq0lBPeGtt@timur-hyperion>
+In-Reply-To: <6f5c367e-b234-491b-81e2-d928cd54050d@ursulin.net>
+References: <20260513170849.27061-1-timur.kristof@gmail.com>
+ <20260513170849.27061-3-timur.kristof@gmail.com>
+ <6f5c367e-b234-491b-81e2-d928cd54050d@ursulin.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -91,70 +89,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, June 16, 2026 10:09:53=E2=80=AFAM Central European Summer Time =
-Tvrtko=20
+On Tuesday, June 16, 2026 1:39:56=E2=80=AFPM Central European Summer Time T=
+vrtko=20
 Ursulin wrote:
-> On 25/05/2026 12:45, Timur Krist=C3=B3f wrote:
-> > When retry faults are disabled (amdgpu.noretry=3D1),
-> > the ENABLE_RETRY_FAULT_INTERRUPT bit should be programmed to 0.
-> >=20
-> > Note that retry faults are enabled by default on GFX12.1
-> > so this just fixes the case when they are explicitly disabled.
+> On 13/05/2026 18:08, Timur Krist=C3=B3f wrote:
+> > The soft IH ring is implemented entirely in software.
+> > We shouldn't read (or write) and HW registers when accessing it.
 > >=20
 > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > > ---
 > >=20
-> >   drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 7 +++++++
+> >   drivers/gpu/drm/amd/amdgpu/ih_v6_1.c   | 7 +++++++
+> >   drivers/gpu/drm/amd/amdgpu/ih_v7_0.c   | 7 +++++++
+> >   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 4 ++++
+> >   4 files changed, 25 insertions(+)
 > >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> > b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c index
-> > 4c2fd1e6616e..d2edfe037da8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> > @@ -243,7 +243,7 @@ static void
-> > gfxhub_v12_1_xcc_init_system_aperture_regs(struct amdgpu_device *ade>=20
-> >   		tmp =3D REG_SET_FIELD(tmp,=20
-GCVM_L2_PROTECTION_FAULT_CNTL2,
-> >   	=09
-> >   				   =20
-ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> >   	=09
-> >   		tmp =3D REG_SET_FIELD(tmp,=20
-GCVM_L2_PROTECTION_FAULT_CNTL2,
-> >=20
-> > -				    ENABLE_RETRY_FAULT_INTERRUPT,=20
-0x1);
-> > +				    ENABLE_RETRY_FAULT_INTERRUPT,=20
-!adev->gmc.noretry);
-> >=20
-> >   		WREG32_SOC15(GC, GET_INST(GC, i),
-> >   	=09
-> >   			     regGCVM_L2_PROTECTION_FAULT_CNTL2,=20
-tmp);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c index 333e9c30c091..65e5d21753f9
+> > 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> > @@ -439,6 +439,10 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device
+> > *adev,>=20
+> >   	struct amdgpu_ih_regs *ih_regs;
 > >   =09
-> >   	}
+> >   	wptr =3D le32_to_cpu(*ih->wptr_cpu);
+> >=20
+> > +
+> > +	if (ih =3D=3D &adev->irq.ih_soft)
+> > +		goto out;
+> > +
 >=20
-> If I look at 6f894c92490b ("drm/amdgpu: Enable retry faults for GFX
-> 12.1") which added this code, it also touched
-> gfxhub_v12_1_xcc_setup_vmid_config():
+> Would it be feasible to move amdgpu_ih_funcs from device global into the
+> IH rings themselves? Then we could have soft IH ops and it would be very
+> clean.
 >=20
->      tmp =3D REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
->                          RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
-> -                       !amdgpu_noretry);
-> +                       1);
->=20
-> Should that be changed as well?
->=20
+> Possibly also cleanup all the protoptyes to operate only on ih and not
+> the adev + ih pair.
 
-I personally don't have a GFX12.1 GPU so I have no way to verify how that=20
-works, which is why I try to avoid changing it unless it's pretty obvious t=
-hat=20
-the upstream code is wrong.
+Sure, we can do that in the future. The reason I chose not to do that is=20
+because that feels like an extremely intrusive refactor across all GPU=20
+generations with a high chance of introducing regressions and not much valu=
+e=20
+to end users.
 
-Can you elaborate on what you are suggesting exactly?
+=46or now I would like to just focus on making the current code work well w=
+ith=20
+minimal refactoring, ie. just get the current soft IH ring implementation t=
+o=20
+work reliably with retry faults.
+
+In the meantime if you have a good idea how to refactor this code to make i=
+t=20
+cleaner without breaking it, I'm happy to listen and we can make a plan how=
+ to=20
+do that in a future series.
 
 Thanks,
 Timur
+
+
+
+
+>=20
+> >   	ih_regs =3D &ih->ih_regs;
+> >   =09
+> >   	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> >=20
+> > @@ -514,6 +518,9 @@ static void ih_v6_0_set_rptr(struct amdgpu_device
+> > *adev,>=20
+> >   {
+> >  =20
+> >   	struct amdgpu_ih_regs *ih_regs;
+> >=20
+> > +	if (ih =3D=3D &adev->irq.ih_soft)
+> > +		return;
+> > +
+> >=20
+> >   	if (ih->use_doorbell) {
+> >   =09
+> >   		/* XXX check if swapping is necessary on BE */
+> >   		*ih->rptr_cpu =3D ih->rptr;
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> > b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c index 699c274d357e..9dbc20131410
+> > 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> > @@ -410,6 +410,10 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device
+> > *adev,>=20
+> >   	struct amdgpu_ih_regs *ih_regs;
+> >   =09
+> >   	wptr =3D le32_to_cpu(*ih->wptr_cpu);
+> >=20
+> > +
+> > +	if (ih =3D=3D &adev->irq.ih_soft)
+> > +		goto out;
+> > +
+> >=20
+> >   	ih_regs =3D &ih->ih_regs;
+> >   =09
+> >   	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> >=20
+> > @@ -481,6 +485,9 @@ static void ih_v6_1_irq_rearm(struct amdgpu_device
+> > *adev,>=20
+> >   static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
+> >  =20
+> >   			       struct amdgpu_ih_ring *ih)
+> >  =20
+> >   {
+> >=20
+> > +	if (ih =3D=3D &adev->irq.ih_soft)
+> > +		return;
+> > +
+> >=20
+> >   	struct amdgpu_ih_regs *ih_regs;
+> >   =09
+> >   	if (ih->use_doorbell) {
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c index 6de9e87e04e1..bd332e8cc5bf
+> > 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> > @@ -457,6 +457,10 @@ static u32 ih_v7_0_get_wptr(struct amdgpu_device
+> > *adev,>=20
+> >   	struct amdgpu_ih_regs *ih_regs;
+> >   =09
+> >   	wptr =3D le32_to_cpu(*ih->wptr_cpu);
+> >=20
+> > +
+> > +	if (ih =3D=3D &adev->irq.ih_soft)
+> > +		goto out;
+> > +
+> >=20
+> >   	ih_regs =3D &ih->ih_regs;
+> >   =09
+> >   	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> >=20
+> > @@ -527,6 +531,9 @@ static void ih_v7_0_set_rptr(struct amdgpu_device
+> > *adev,>=20
+> >   {
+> >  =20
+> >   	struct amdgpu_ih_regs *ih_regs;
+> >=20
+> > +	if (ih =3D=3D &adev->irq.ih_soft)
+> > +		return;
+> > +
+> >=20
+> >   	if (ih->use_doorbell) {
+> >   =09
+> >   		/* XXX check if swapping is necessary on BE */
+> >   		*ih->rptr_cpu =3D ih->rptr;
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> > b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c index 4cd325149b63..e7ed37bb48=
+e0
+> > 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> > @@ -417,6 +417,10 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device
+> > *adev,>=20
+> >   		 */
+> >   	=09
+> >   		wptr =3D le32_to_cpu(*ih->wptr_cpu);
+> >=20
+> > +		if (ih =3D=3D &adev->irq.ih_soft)
+> > +			goto out;
+> > +
+> > +
+> >=20
+> >   		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> >   	=09
+> >   			goto out;
+> >   =09
+> >   	}
+
+
 
 
