@@ -4,91 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85317CD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 14:28:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12184CD98E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 14:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6F710EBBD;
-	Tue, 16 Jun 2026 14:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F92910EBB4;
+	Tue, 16 Jun 2026 14:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GlSElKEo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sukjkZDt";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B62F810EBB4
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:28:48 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-304d3d3d8f8so563229eec.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 07:28:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781620128; cv=none;
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D02A110EBB4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:29:42 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-304d3d3d8f8so563400eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 07:29:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781620182; cv=none;
  d=google.com; s=arc-20240605;
- b=ddoA9sX2tqkP6q4uWMG/UeSz9fsCHvjoDEMBTL7f7q6UK4qy7nV4QJOR0dRf0th51Y
- EnW8rrzWrah6Fjt+pq0Y8+xP/pGz0WbgrNly8zI3ojVY0vjIPadx4r94gs9AaeDwkYAU
- ECCURd/cpyURPHBfuZbJ26uLy/XyR9wKMYLTrlTQBTCS00iY093utCvpNKYl9N0mNaTG
- 7eVMsiX6VjmQdBSUvlzVOYF0mPExggTHfKJzEgEX7SHqTpcy1zOH6xkoCc3/8/7uBx/3
- UeCv43a5WbeKjtji0qUrXbuyridXmJ/O6n5pz3J9aC1uEzZmXQ+1R6R5GB68Quu9bx3D
- y4Bw==
+ b=CTOgiYwEEFXM+a9Xepq+B22tNCNUjZDS4Gzh+eyYj3QfMZZDkyuTXYxpNjedHP1tUa
+ YuwG7sL22vio65X3z0sALD23/ixIRxL2SHktCRLNCKCE9tG7nvZ+L2wkhdY69bSLhigJ
+ +mxwGuXSpBLCJ9QwO54t1hTLvWr27Wx2QMmOHVUWHK4D+FXN0M6NEKWjYMR4mIy297p1
+ hMkk6UZNxeh0tHNg8Zy4kzI4mbZYQjtBcTG7xp6QhgPn/CFp0sAUI4V5snq0x/3nfVCq
+ kTTSD7LaGUivLD8/Mn2YAUWwWO3SfT9cH3j0eyj2KZChjGutllCuvAjyNkyrU1ciWK8F
+ EwUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=tNcpKjQIioKLG/9mijNmVIVi+z+GgihXbkrqtpce2Tg=;
- fh=aEvEHziuJC6FtiwCs/vqsQJsysQ/Awf1x88pXW6cTtI=;
- b=Mgt6BFcp9bk1ckpFosniIRHLqoO+Tm47g7Nyx2d2DgyzAOB1Ty8umGBae8Ebo6MP+W
- pS8mvhzUiQs+pHuKEo7BNJo6N0rc+62DPjK+OAg0dsIo4CiuIB1X8sKWuP21OrQBipD8
- 00ga142pEa0qjk2adPVa01fhZnJlwcgxk+zvO11JdDY5FCYigrFguUa8A26U/KCNOpcd
- eRhnRMMA2WHXxDq7IuFOaTom/QEvzcsTZMAukeatCiqU/EDffhQSrvnwthOu+YchgFZz
- J4boZvK2JKGJREPJ2K9QJJ09Egu2u3uekfJeJ2BQE66PrxZdgwAJavGvGmjfegm0zkS8
- ctFQ==; darn=lists.freedesktop.org
+ bh=vfJJneV1qILopKt6f5xWlrSyWb8ZZ42PxwlpIru+T3w=;
+ fh=b2zUEOVqwzNRSKvBZVdnjUzPMV9XcOolFj7HTymr1H8=;
+ b=a3i9mzOsfrIEyR9FGGyYk2PdfeWL+dLrtkec9iS6qfYNLm5TABD6nVOzuBsfvRKZoT
+ YgWSbfNCvswlQY2XMrQiIvhBA/yu0RsAmug9XiceOgA4KlSf4/6Bvuh9ICS543LpZgwK
+ jbAwBPush+vLv5zihagxFjhzpxiN4yD6Q1XARRJtDTF8idFPiQbu7EfQ4Jkw35VuDvql
+ Hm0uEZEg0juRgKxJivEQgf2xprwumVIoDl8FhtFh135UEvaCuTkjS+nwhmgGSoGBtkZ9
+ F1z0J11TxhP5GykC1jHhyEMT2YFzYnKx1DPm/tjg6JhJwbADKrb8BShEi/t8OeZmsDi2
+ e59w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781620128; x=1782224928; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781620182; x=1782224982; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tNcpKjQIioKLG/9mijNmVIVi+z+GgihXbkrqtpce2Tg=;
- b=GlSElKEoAa0EASq+4J3vQRSRSRX6THJNzHZy5v/veBVzDaZIWxJwSMN1YWDo78VkN3
- bBHyUAUZCiq9q/ftvRbY+DqQdPdOj6qZUZ5O7/JXhquQeCDJTttAtUAU0dD57KCQLex1
- rGr3CQK2BjvvSLbiEjgFiUlaBYtO6UWhzSYpy8ov6l7qrT3uj9F0CoaKuN4OFeinK6kH
- I/0UotPhqzozcA7RwiICYjQIGVAoW1IepIBiIwqwXsKANHClRwT8ptuI3mS+GqzHDBUg
- cKKtvG4YkEBUefVZNHNGx52TqMNlgdxcyzqr5cqXTD7jaUl3bwnSIE00JXDjepAZ4nay
- ielw==
+ bh=vfJJneV1qILopKt6f5xWlrSyWb8ZZ42PxwlpIru+T3w=;
+ b=sukjkZDtpl8drNEzeFlgS2dgoj6kKIRivwK9EeODatqww9TvIE8g6dhcGeMMRq8x5Z
+ ukm4QZJt9edjeKBm5lnX1MStQK3mTGHjzVTTXJerCnKQ71OUVctZEnnupmz0cY2KuLiG
+ rt5cYmpK2g1N6hAjCC0BdcCNUldEW4xkppkA+m2pcpb9jvRPc0SxPFZiUXSFAshi9v2o
+ TXQemj/NQlh4F16qu0b9FYUpY+HuWYCwVohMCF/+wzgXxMWpu3xzDBkYKu/Dxew2mHpX
+ 2BUc2SmRebC1QF/b7OoiwILAh1EeAzZS9JVf1LIFkNuVrc6uBiyhg4O+MvwabttWx5vj
+ SjuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781620128; x=1782224928;
+ d=1e100.net; s=20251104; t=1781620182; x=1782224982;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=tNcpKjQIioKLG/9mijNmVIVi+z+GgihXbkrqtpce2Tg=;
- b=OpsVPbvkl+HZTualbITT1Sdg1L4Mx3R9HZyIsfPFkvUPazh9OEdJxCNwpeR3AxzAsj
- rxfJsUeD2dUTE4nTpqaFVmXGu/YDdJKKSApJwxrbTPX5spfD9zWx7lKCNafN/dew8DiM
- Pu7t33YObF60MgWReE+wCz7M/CBj7pUVtPlwxt+BMnr1mLrqW3EOXDpffA1+avBwMNeq
- oF8/kyX/iv2kUelAHs+v1nqp/yl9YzNFdjDtEUF+XeTHgD24ULpR/xydlDaOoa/atiCS
- Erzg3DQ5paDJ01O6Chhb/3VyQemdnWK3RnMajo3kfjCQICjBjyEFSG7+cwiJnkuwAuIo
- l0aQ==
-X-Gm-Message-State: AOJu0YzPrrVtAP1Okrnvnl6bmBz48JJ52PmLIKl6ONxSZk2WhRdmUDfD
- KAszx+rblMSvKotdhTKJkT6WuPqmKRpTfaemmOmmPdDKCDXr9l34drhEgAwD3uk+P2GcBMQf1v9
- aILj1AMLErsxok3sX9zuGYew9bGlneFw=
-X-Gm-Gg: Acq92OHVh44T93ZCBiiz3iKzfMCLSkROCCl9lvtKHTYrGHmo5XkyAoq0ZfI/B41H8I6
- aCIZ+F29KA5lNWsOzMDkjJJnoTn4Eg7bYg8h1LS9CJY0POqKe/MWjsvrxqcPrMG2rrC9HZJVmKP
- Nkknauo/yQhEIAPYk143J6w3bbcDMSLeut2mymdVXGdVq6k5bX97aDgJeTlRu8R6paYNQZTMWJE
- aLnV+DFVw2/x6k92qW/xLb2sRX2aa+DmH06y7Cj0vursPawdNBFZfRMoQ20QQtkgFgjTSO9n7fh
- 56+hWkQ4VD3ZgNBgcA5TEevnf7kvSuDiTiJgs/HOGJCYOw36fRoy/TvYXafU6r+Rj+/qpLZ5G8j
- g7K/o
-X-Received: by 2002:a05:7301:9f11:b0:304:2af3:5fef with SMTP id
- 5a478bee46e88-308200e33a4mr5050837eec.8.1781620127929; Tue, 16 Jun 2026
- 07:28:47 -0700 (PDT)
+ bh=vfJJneV1qILopKt6f5xWlrSyWb8ZZ42PxwlpIru+T3w=;
+ b=RrJV/S371VF1Fde+3lB7ECffAc2Y+Nul/f2qKgH/gn4NkvuF6A9RXNH0l9osUTgPV8
+ e1X7PTtn98RS4aXeY0YBO4JJz+yQJnI3wi5TrGOZ5PsVzGK7wnhjc5g5ahQRydG9nurA
+ xn+HcniLUs3tdeKLoo1rH217dmqIufppGgT6xSaqJbhoOBC6OKwBbIdOovf2FCCpbXKc
+ 8Ka85oDcndVdVonLWtriWwXhwS3nTlVdZNC66wMcs+SuGaelLxkS4EI9dYfEvJ0Zgjs6
+ pT8V7F0wJIEBFEmL40w36Wn7QNy/8MLDXwKOjzxgiknKSjfWAHnqsET8678jaEqTkjrq
+ lkHg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8IkXQtIcu2+Fe9CjHuk9Wt+qGkagpD7nyCwEsWU6xdrx1yMwc5SzBFVNR/T1qRKD00bDD3wYPP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwcXZgnMK4qmx/41aZOz8Sys4C14cPoAVjx+REftmqJqAg0HKSW
+ F9tU3YiZ6YYB0ZUCNPgV00wRm0NBfmkSxE2Vujs+NTELJ9Uyy/jvcAyE7rZmmYaAXhg2T+na/lr
+ 1tYK2/iN1KAAZ/7qRSjknCHCxwmw+Ya8=
+X-Gm-Gg: Acq92OGPAB0GpssEcC5g50ZPwvjDws5NJnBPG4DJo63+yUFhO604MqXsbdZu8ggAG2I
+ vDZIQ5RuxaNJbpoY2vx3P0/+BpQDGmnpuYHc9eZCnRajDDMaq/nLuFZIa7Tpt0r5Fe1Fl9o/GR1
+ 2B/XZRg4U33zNQXC9vEndKj/+0Q1wD132NzqXT9elehZEpAthQ+FnHtYToGQ40ogMoJhy3U2GH2
+ Jon36V07jf8wftjaGkSI66ahATyS+UDHqfpEALFr5v48FZaCuSb9eqER4sxVb9o/gZgXA4Us85i
+ M3dQfJI70keAo2I9UJLfful2Qk9gsdjCB+NaP0+rnK0318GDc7Ttqs7jcV1eVV4xycgFng==
+X-Received: by 2002:a05:7300:641a:b0:304:1d92:42ab with SMTP id
+ 5a478bee46e88-3081ff5f11fmr4963849eec.2.1781620182010; Tue, 16 Jun 2026
+ 07:29:42 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260513170849.27061-1-timur.kristof@gmail.com>
- <20260513170849.27061-2-timur.kristof@gmail.com>
-In-Reply-To: <20260513170849.27061-2-timur.kristof@gmail.com>
+ <20260513170849.27061-4-timur.kristof@gmail.com>
+ <ae08836c-95b6-42a1-8173-108c5b4b5925@ursulin.net>
+In-Reply-To: <ae08836c-95b6-42a1-8173-108c5b4b5925@ursulin.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 10:28:35 -0400
-X-Gm-Features: AVVi8Ccu1BGDX9Rp9rAqw3IvhIBY_E7j7XzWS0DxaysSjIAZhi-WRCLSYjV2U5E
-Message-ID: <CADnq5_OhUE7=Egktmxj-4YxzaoYh3YRfZ23UytP5iDSw+zJ5pw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] amdgpu/ih6.1: Fix minor version
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- christian.koenig@amd.com,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
+Date: Tue, 16 Jun 2026 10:29:30 -0400
+X-Gm-Features: AVVi8CfGTbw16bkPB21PY2ShKerlWB9of_zSgHLa-Rl-yER9a55QDZjvt5ovvcE
+Message-ID: <CADnq5_OZbTwce-xioZmsy6isWPp2ZKh+vCvUuD0JiABteesRyA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Use system unbound workqueue for soft IH
+ ring
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ christian.koenig@amd.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
  Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
  amir.shetaia@amd.com
 Content-Type: text/plain; charset="UTF-8"
@@ -109,31 +112,53 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, May 13, 2026 at 1:08=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
+On Tue, Jun 16, 2026 at 8:19=E2=80=AFAM Tvrtko Ursulin <tursulin@ursulin.ne=
+t> wrote:
 >
-> Report the correct version of IH v6.1 (previously it showed v6.0).
 >
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On 13/05/2026 18:08, Timur Krist=C3=B3f wrote:
+> > Allow the kernel to dispatch the soft IH work on other CPUs.
+> >
+> > Otherwise it can happen that the soft IH ring fills up
+> > before it actually starts processing anything, which
+> > can easily happen with retry page faults, in which case
+> > the CP repeatedly spams the CPU with a lot of interrupts.
+> >
+> > This significantly improves retry page fault handling on
+> > GPUs that don't have the filter CAM and must rely on
+> > software based filtering.
+> >
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_irq.c
+> > index 82bc6d657e5a..515fc32051c8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > @@ -549,7 +549,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev=
+,
+> >                        unsigned int num_dw)
+> >   {
+> >       amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, n=
+um_dw);
+> > -     schedule_work(&adev->irq.ih_soft_work);
+> > +     queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
+> >   }
+> >
+> >   /**
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/ih_v6_1.c
-> index 95b3f4e55ec3..699c274d357e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> @@ -790,7 +790,7 @@ static void ih_v6_1_set_interrupt_funcs(struct amdgpu=
-_device *adev)
->  const struct amdgpu_ip_block_version ih_v6_1_ip_block =3D {
->         .type =3D AMD_IP_BLOCK_TYPE_IH,
->         .major =3D 6,
-> -       .minor =3D 0,
-> +       .minor =3D 1,
->         .rev =3D 0,
->         .funcs =3D &ih_v6_1_ip_funcs,
->  };
-> --
-> 2.54.0
+> Look good to me.
+>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>
+> Maybe later we can consider a high priority driver specific worker or
+> something but for now moving away from default system percpu sounds like
+> it addresses the problem statement.
+>
+> Regards,
+>
+> Tvrtko
 >
