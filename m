@@ -4,85 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F3DCCD98D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:51:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD88BCD98D2
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:51:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB5C10ED3E;
-	Tue, 16 Jun 2026 21:51:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD1510ED12;
+	Tue, 16 Jun 2026 21:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="St2PxIkt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VP1m0gx8";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E53010ED54
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:51:16 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1365eb2a773so238591c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:51:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781646676; cv=none;
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6116110ED12
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:51:45 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-304f9bc869aso562026eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:51:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781646705; cv=none;
  d=google.com; s=arc-20240605;
- b=DGc5T6zGnJj4Xf402fSaKt6Pti1CldmwzxNlw0bXNlAsGifqWU3UafmzyShx1MSEvR
- vBeNvMDCjq+byFhMTEBsa42lLyPOGnrRN+UtR9IZnCZGj2mXUtU7UjoeFSivV8dLrsOV
- POgz1E8pZZQTiABlcS7iEaaA2sY6EfS/TlYtw3XQKSMwgdYSuepTYFv6EBCacmmsAs3t
- U/fXauTsuh/cf5pE7J57vflZSBHgq0A3DMKtUx8zHssrzQvj5PyYPN9cQEuTohqaal4Z
- y/o8bxk4tHj/xCGzhvr3qDsds1EZz4nEbVUArHWZFxQ/8puUj1wlFJOMNnV8SISzqfhm
- Heiw==
+ b=Q3NvPBJpB0jQX321R2PRiWQBrI6/BFRzFEEALRCcvnYuG4dADpApVSFCZm2QDHzPBx
+ Axd3MAK7+6zSjfCrG9n/RL/5c69QGh25h8w91IMW9swJ7VfoHfKZwiK2le72+99tGS+N
+ 1gE3APalp+G+086Q+HQkIbfS21xaa644QISnH3syNfQ0YPM412Ia2Y1wK2FL7G4tP9sq
+ 3GxVovC+7WogKBHE10evqOnsojiGG9p4e4sFWKty1fulN+ThvXUyJE9EOJz15aZSgw8u
+ rEBEBMv4TBJXmeY2BMxh8wqSx7KqoePYZ2Z0uONsXqlirpeATozpj6YG89iy9DRQ8YGp
+ wn8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=qzYIGU7JhghujTXYz8WeWEjQ9HHY7xjnmn+gc95SIK8=;
+ bh=LU5Z2vvo3M8Bpnq5T9r1IB15bIlIeTbMSCSpx/TfUGE=;
  fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=OVX7iD7R6eff5rKlOITp9BhzybCRxBGjsK4Qh5dzMQVzlbz7mIfPsE09e9ULmDqjok
- lZnCc1ildVYkNpLNWhBom9lJmfiVlbyieLg6MuGGAOic2BjWezA4xkyYraSr1KrX5Bkr
- 9Yb3NUYQ1UJcUt3+KAAStkmDjtclYBQK6wFloTwxPQGjpBB/lLlrqHOy1js/IXCGSGl1
- 7bwqyxah79BLb7Z1Bg7oR0X75b72tTQ9YtawqTl/VhDGk79NxUOmoqS+ZUC6XuLwQPyN
- DIHoRz0ZfGmvuuSyU89cAw4iV8+QPlBU9hIB8Ckqf7bYbFIlDI2SaPbZWFzhNCuwycwE
- i5tA==; darn=lists.freedesktop.org
+ b=AEJyuUvl6Fxfq4nPWt19G3rpexfgLxMLI9yT/YyHtNfrJN1m0jAfSbT9SqZdKN0lI2
+ GNOUjralbDtER5qXmV1puEnNnTgaZIxa5j4jiTZz+tEsYY5kcGhhrA1sEHSnO/+QQ11P
+ 9TodSmx44gbD83pml0nMc2qMP1yzaWEB1xY7rTkRbnoDUqIegnUSWUVRSWGg4l5iBpgg
+ ofqHxqvo7KGc9GSjyc68vWjO61u48VyX+hnPLcyYVAkKqh7w49Dhemx5sE1KCs4Je8Ah
+ b7qNs1l0JGYnHi9/ZTbfUmFtU+6I1xuRHlrhS1M0uZSMef4GQ/+gn+FWnOJorM+pBWrH
+ Cuyg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781646676; x=1782251476; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781646705; x=1782251505; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qzYIGU7JhghujTXYz8WeWEjQ9HHY7xjnmn+gc95SIK8=;
- b=St2PxIktwsm0saua3l23mskfq5P3HsqktZsn0eShyiDjakUOc9HD1bo9uqsOLHS+Ay
- gzItLMULkClXuiPjsKkjr6RmDSqwc93KQr9N1jkCPilVSvsLvI/1Mi3sCpjLqb1GXyjT
- BKQGGEII0QxoVozsiT4rm39Qpwnz8xFCaTzFjVvIxenXm2fRXvTPtNB/3hS1xAT4d/VY
- v9miFPf4KUneHO1iABdqXwJNfuzmFs56qKMWEez/JWGWtRw9Z6mkVMAxG8GmxUC1nYQ+
- aDix0B+IL6djplLbDQU0YcKZ6ASCsVa3razQr9ixVC/bYhq1HzDuPU/mE3glvr4X8W2B
- XyVQ==
+ bh=LU5Z2vvo3M8Bpnq5T9r1IB15bIlIeTbMSCSpx/TfUGE=;
+ b=VP1m0gx8zI1t6DVKfQM+fZyjhJCOlGo4qOwNAV/hXaMqNT9yKQ9E9Xo2UgCkfJcPbT
+ yALhGZJGKdujg4r5puTJV9BmoSurN8vUJwsrnpjD6QQh/+8hycCwYq0WugkWXSvA8KVG
+ uEfmrO7MYmO1HGoDUlJgu2cqF8HmAC7mgFC+CZinrBLb9cyqucwlelu8KYJOg7ekQJiZ
+ jLHYWLpMRLug3Xo1DXCqiLHb7ir0LkIG6oNrYmNG4bqkP+MMXND8f4t4V8dDV7y4xwYc
+ OJZIod/qz85com5ARz9lki+QCUesVKfQl67jaTIeDvoltStTh8MuwH7GgxS7rDmLrRfQ
+ RNVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781646676; x=1782251476;
+ d=1e100.net; s=20251104; t=1781646705; x=1782251505;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=qzYIGU7JhghujTXYz8WeWEjQ9HHY7xjnmn+gc95SIK8=;
- b=l4LriwNyV44lAyrHZay6si0ptLuhknfVbIznul/xEDoPUNq33cFq59JPF9EgSyU4Bd
- yoa+6Rd9jxLRQFHvJzegp4ncbfXLw8UxAu0/MaJKxWPnzhutJy8uv5DXm8bq7M6GPkyK
- RJ82pnyiPNhJr/DVTq/+Pwzv6UtKRsPGmCQgFlFEVmzp9nPHLsVmULSXLR2HoiQKKF/Q
- CHACc7Nn9PVdHIEixoZz76m2RN01PmzOTbGHBhl5Zlffvi2Bt4C8KeTWB0Zg9ga+WEy4
- cnDepdb01YhPrhYxsIfGYPUJI8XMoLzvMNlOonV6poP8JQaTjutCaeJ6f+Fud5LCIg+R
- 2OSw==
-X-Gm-Message-State: AOJu0YwBxsRddaA4oE7Hezg6QY4t6uDHv5xuLG7ABBc5oVIhVbVdl783
- +W4+lAs/mqAQisiswfVmPlOSUj60zQuo4aOVAZypCU/AhuQWEPBNnXxUQPg7K2XbnMdu5HyjJna
- Sefq9w0QL0E2olMfjQVinwj/7Q/1yNNI=
-X-Gm-Gg: Acq92OEDxyWKDw1hV+COtzEA8vnwxYydcN/P88N4iI95vJg0n4TKyYwaELqE1iyawvi
- VOks+fU8AT31a7ZSmOz/ziA9QHTsBljSlY+32dDWwpuKupBoIDh3GPllfeaCGA23on5CEbfX1Je
- x8msCzhghiDyxyygai6R59puaVnYqXsx1rzInvU9vCgrGAVvJsbpDPm7oJ0Cl69dqHt+gC6xXiO
- LEKp2Y1BnIwp5q+6nZ/UddIDC6HaM45PndzsmET/Ri7rwdwoxTrTeqgtc2DkZdqQUmLIcEtHlW3
- o8OXMW1HJ14g2uRL9CMdVXTS4LXx9lRXmZ8qFS6EubUbY111ttjBsd6f4WP4OtNMyVNhvA==
-X-Received: by 2002:a05:7022:120:b0:138:43e8:c6bc with SMTP id
- a92af1059eb24-1398f704b21mr175669c88.3.1781646676167; Tue, 16 Jun 2026
- 14:51:16 -0700 (PDT)
+ bh=LU5Z2vvo3M8Bpnq5T9r1IB15bIlIeTbMSCSpx/TfUGE=;
+ b=YY4Pco2L1K154sXXkmP1QoVQGyDwrShf9DkClr4VaoVzZmvpGXit4IMYHUfPZsgQYd
+ KQuHbXAriYx6tAoPGxvOEDnyCvIG8Za9HazqzljhHMN1M/QfOJ66MvZT8oM8t05J5Ov7
+ +7rQahv+7ke2IcqDpip63KRPlVtAiJ5TEu87twjCfmKwgQ7k9oOUg5a1MCXVmHU1hz3f
+ CLOVuYYgSUOYqRULRN8toiJTsYQAHwa3bY2FIcSn5gltu5qOoV9yHvkUdhzZQdCubY3C
+ kIZHc1uVvs33uNwyUDo6alaHOUuf5/ZMEdZVnS48r/mn8eAf/kKnu4bK3q7P64JNnkAm
+ IRig==
+X-Gm-Message-State: AOJu0YzIwV+S65xvpRZ64kFKKZQsyv0cCC1Hbo1lgNK4/UCPROyeDKPm
+ 8b0lJMiNoR7S0cqjO8hN1JZLQqHMk6Y8dWTJMKEU68BSIwVhujlvOurt/O3eRLcgxzXZk2QmVyc
+ zmxwhg2xN62h4DdUONlKt1aSN1PpaP34=
+X-Gm-Gg: Acq92OHX7lh7/07ylMIOCLif2F/A7BzoWIXiyobIsQG5dsN/7sAm0+CAAEGp6RWU7qE
+ UDTPNCr8AHrNKEn6wXGfHV7SsbFgYuN7xHxkFFaUFqQn2P5oRG96CTfKFY7wqfcqXI/TmTwxm2w
+ s93fvdvArQAyMchGNQakvRAekqiQZ5bT9SM3/tuWS5xl3CyQ0U2b+P+Q5BjJBIkk5TpDLh76pVJ
+ WHEn2wm5gKIWQymAauCTVIiUA1W2tZ7dU1Gyo9mXXqBUROt+4x/G8PjERAhP+t3c3jr7LD8YRKd
+ 7grM8KsvfRYYG1kktVw1QRrPG1R/bTyRXA8nTWs8CvN8bex7yOfu/JskA6KUpGNd/ZIWwg==
+X-Received: by 2002:a05:7022:6b98:b0:12d:c389:ae54 with SMTP id
+ a92af1059eb24-1398f630734mr205639c88.2.1781646704615; Tue, 16 Jun 2026
+ 14:51:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260611035747.548780-1-Jesse.Zhang@amd.com>
- <20260611035747.548780-6-Jesse.Zhang@amd.com>
-In-Reply-To: <20260611035747.548780-6-Jesse.Zhang@amd.com>
+ <20260611035747.548780-7-Jesse.Zhang@amd.com>
+In-Reply-To: <20260611035747.548780-7-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 17:51:03 -0400
-X-Gm-Features: AVVi8Cclr61RFgQfvC9aPeOm0O4W7oddvh0daIcIvVa__AAeN8o6VvbAdk9OeSc
-Message-ID: <CADnq5_MM-iWJEo_wJPu0DufNgohDgbk2DHw81CVp9t001rodMQ@mail.gmail.com>
-Subject: Re: [PATCH v2 6/7] drm/amdgpu/gfx11: try KQ first in EOP IRQ
+Date: Tue, 16 Jun 2026 17:51:31 -0400
+X-Gm-Features: AVVi8CeL9_iksydEsfoTmiPB1cmeZEn0AENqMDW_AaE8WEN5ai6i72Kqt58nX4E
+Message-ID: <CADnq5_M6Hf4zxcQcVKZSkNY3rbwp6GCTZJd3a=SXdMWSXQ3W1w@mail.gmail.com>
+Subject: Re: [PATCH v2 7/7] drm/amdgpu/gfx12: try KQ first in EOP IRQ
 To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -102,31 +103,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 12:04=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> =
+On Wed, Jun 10, 2026 at 11:58=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> =
 wrote:
 >
-> KQ EOPs were misrouted into the userq fence path when enable_mes
+> KCQ EOPs were misrouted into the userq fence path when enable_mes
 > is true. Try KQ by ring_id first (KCQ and UQ never share a HW
 > slot); fall back to amdgpu_userq_process_fence_irq() on miss.
 >
 > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 
-I think you can squash 4 and 6 into one patch.  With that fixed:
+I think you can squash 5 and 7 into one patch.  With that fixed:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 Alex
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 30 ++++++++++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 30 ++++++++++++++++----------
 >  1 file changed, 19 insertions(+), 11 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 208f9ffed60a..a3294cf96992 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6515,31 +6515,32 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device=
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index d9b1fc29e9d8..c5fbfc6d8338 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -4843,31 +4843,32 @@ static int gfx_v12_0_eop_irq(struct amdgpu_device=
  *adev,
 >                              struct amdgpu_iv_entry *entry)
 >  {
@@ -174,7 +175,7 @@ e_irq().
 >                         }
 >                         break;
 >                 case 1:
-> @@ -6552,13 +6553,20 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device=
+> @@ -4880,13 +4881,20 @@ static int gfx_v12_0_eop_irq(struct amdgpu_device=
  *adev,
 >                                  */
 >                                 if ((ring->me =3D=3D me_id) &&
