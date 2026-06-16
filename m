@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62906CD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03857CD98EE
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:48:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E332310EAFB;
-	Tue, 16 Jun 2026 18:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 959ED10EB1E;
+	Tue, 16 Jun 2026 18:48:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GQ2BhXJR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F1Vt4HS5";
 	dkim-atps=neutral
 Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
  [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD0810EAFB
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 18:47:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC16410EB27
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 18:48:30 +0000 (UTC)
 Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-304e86ecebfso380367eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 11:47:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781635661; cv=none;
+ 5a478bee46e88-304f9bc869aso540874eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 11:48:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781635710; cv=none;
  d=google.com; s=arc-20240605;
- b=KVEVrEvaF/iDaGLG7eb9u5ipQacBnXeE8tEB5V+GfRtCCzFNAbfZszJ303BaHfEtRg
- NE2wwxbSSkPXTlt0sY9/Sn8b8C5PiXKAqs2E4pYvk0/LMZiwcOwtF8YQ3FqN9zX2rmDA
- QWskHwr5zCqTs0wMntAwuLsWxLAaSpXHYVR3eZqbd57mcWFbbZF5+ine9wFwtRg2T0Pk
- UqXGDvlb3TsJHfCXkuyv2b8nNIJAzwehfbTAnGOcWnIkBafLUPzsShDlAcFhaCNGekRR
- dRkNY43p2fwUwILfv4pjLMqY1EM5jURlfZt8o+enz/8RZ5TAMNnHqeaqPT2QeUFPY/Pu
- e/rg==
+ b=bD3REqZPkr7pN++OrpwkViQL1Zq6j2aQF0OLq7nwoRIh6C5yqWBOLGFdkf+VC0VKn4
+ Q00d9YaKmxpGOChb8+nxFd/yillYMxKoBVOmP6CnMphPGEWc2tlZ2JworlYQWQ/+kxE5
+ f9JBJ2Fvbz4sO9tOgMx5EpOHnp2ZWWCDF5FsLbaxQMdIzPJOEy3Y0BhW0BTkhX8uyODv
+ kK3K6kbB4jiM+o7518VSa3AyN2yYNm4f1JoUQB02cJxHPXb04+TqO7li87qllnuK1q8L
+ NcGeGnVryXyVoUpoPuA1eAAS4H/Uw44o34ykxidz1MPLb7iqjVKZU2QgrCQmW2MBcXUH
+ tLNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=chbf1Yf1+THO4a0FQzb5teKZS8AtuQg4HLPK2dstmcg=;
+ bh=lJyakZk+4rBtsSsPqmavjlV9sufmp2nAyf+b53qnqLo=;
  fh=7yzT6K2nKUYDPXB1vsqv95xGzPCmGn5VMOMiP0a1Wtc=;
- b=FlMCCt/xcz6GsR5ZT4RwcnwCzAYNbaNKDfgLF0RK4x/9F3QyLVKnDw6uc8DKeggppe
- SgIpW1sZbv5NExMAN6gVBsdQrn2PS6XJmwmU7ht74w/gDpMTO/Hi1ezpWAyQriT5/4cq
- lJc5fpCgdIotg/wfg27vGZSP7NAriJLJd+JEMSpq+dHZyh5fuKUFDcQus9BGYadGeKlS
- YCojT+R1qg7wTstKPVgaAZe4Ihr3ARq+7EB86GoGcBDcsOc5nzxbry1yHksRPDfKxbCH
- 63ZLqJCg0ZENV7khj2NJw0XasGDybwZJksyDZZEasfTyNzHGJpa+q5ETtlnKIcmqQ/ot
- jXgw==; darn=lists.freedesktop.org
+ b=ikOl9P9KRk1wmc3wY9VwjwjnQZvQO0vMwUBx3fZ62eWmaNDUELDnX1927iWy9zVD8g
+ 0aNkY5ZrDMHZgi2z6V6rdb7vNGN7u3AxOVxG2iGD2sNaCeEzqD/UwakNv5H09xDMxe+w
+ aJdUIKq4I8pQPhrbKkSqbuXG8IH/QHhDZBLd/HRlci3n2pI3KeHx7Kf40Uro1lgctfUq
+ XDsIGAugtc/guSCNjt99X9pdDtBbPHC7lSXKmr7pdQcFowXXLTpPzHel8epr+y64eLOJ
+ Jwovdw7+LcKgjJTZ6ceN2MF/NWw7pECkGBd7uv0jfiU6e8Lvtig102fDAqp9sqqudwMc
+ q13Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781635661; x=1782240461; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781635710; x=1782240510; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=chbf1Yf1+THO4a0FQzb5teKZS8AtuQg4HLPK2dstmcg=;
- b=GQ2BhXJRRgdhGJ7x/PqXILMmFwIJKV7mkvRUmYlYLIGQtQzG9mxj231s63qgCJrxDn
- ANLrgcRthtDIq38AysmX/pOC/CxOMKztPCEzt5etlTDgmqqmY4tMC6EXsNfGKDpM434m
- 7CCGL0PfBUdI8T22cK4Or+M3b1D6S8guvTQVcxi6ejgUk2pGZ10+rF038PY4NpR0yt1E
- 3NcXdpUIM7lkVsbqV/kCdoY4jm4mDyeTpjSpUpWAG8CB1KXn9Q0/c+fSkBbB4KqEdl/3
- 0nehAcjBk6qn/b+1ITxc/dUTOcKoGMWR8b7j9zmvEZ66EFLvV3f2pAWzMv3gDibHQ8bQ
- a5wQ==
+ bh=lJyakZk+4rBtsSsPqmavjlV9sufmp2nAyf+b53qnqLo=;
+ b=F1Vt4HS5dbhwnU6E1RRjcvUGg2BMlfk0IPKrRj2OLDxhadEX7TuMoskiQ4CRgfglpB
+ gk2fMym3+NMKkTrBcMZTigNOg8qzNisbX3TyhgiY6dk4uLasJhjv7exCJr8gSEGYC5q+
+ eXmrubVqq4NC9A2d3wWdrTruZvxQR912MZZas70yG3njldw+OeDp6lR68768xDhnqotO
+ N0r0ia2URLPyoiz+yftTGCOtaCqu0WjV8GD5yup2pzvL/tGvRFd34ZM4wHMMcCm/ZUup
+ Xr0j4MOVcwA50dqcQlyrOh16KQ7waYztMvPsfCjufTKglm/gYNb1t4UpsMq/iukxQyrp
+ TdEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781635661; x=1782240461;
+ d=1e100.net; s=20251104; t=1781635710; x=1782240510;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=chbf1Yf1+THO4a0FQzb5teKZS8AtuQg4HLPK2dstmcg=;
- b=K1Sm0syx+tuNPC2KwcnS1AOhi0ICxI+9HGfb2eOhZL/SHhPGtkhO26yqDX5QpIFrvK
- ONxuiluegiqMdezQKlAD08b5p72jXWCgCg+6G0JShS3mrAboB6vbpuxsRg0dwlnNkK1b
- fs2U7L4okYIj/mDRB8P0qNXGNw4Dj83UenLbWeWHBr4kEMzmW+Ul2279FVu8VyeprkSJ
- FVj40WW3r+5JUwwiSzRkRcfQjCYeBG/Gjde1+Ib+ijxI/N3EHkMz7iXXDnXYUaGLhvo9
- HXnY2mVGMN3fYHZaJ2BPm3Zhz8JV6CqZWdLOmUPu0LvxVuZKBY+QwvwadyO7s5vubuMW
- aVgQ==
-X-Gm-Message-State: AOJu0Yyu502+vjLyLAxoTZeSCI1NZAeVFcz+pXGNW1jYWCrMMemRpvoV
- jAepnaP1Ojr2c4kJo6Y5H5zvV5sz94Zx/JNw5l/uHa0j05d0j5JKuSzwMXVEicQfjbPUnvWsubJ
- 0lpa79bQ4y+mPtBrXWiJSOUaS3dvPNdTzXPiw
-X-Gm-Gg: Acq92OHAa2GsSswowwwTctZqrxj10IjB+3D0bLMmYQvqnaCoY4ZkKnbpy52083XWTFr
- RQDpN2I7qhij1FhhwsGvk/ZKHi3NW/I+Ex7JlwDU3DUpRdUqLZjVRJo04Gar/vOg6ZuL7kVRKQb
- 4iWUirT+lkjl1dz8QKeZ+I7D3o8W9h7ekUi53Q6SoF7RN7WoTvSQ1E8b+YrLiGrUpbVPdl2S/YN
- Nwo996gGipaya9VdjJZ2V8sqeYUvEFaLSfuaVBRnNgz1CmTkuLslMNv/hEaVNStqMkZmQf/ol2P
- Cymd2ujjtB68sDiLEe4go4+mLttAC7P7agaeaqykLcFxbusOeNjVDv1homGZyLNXRxraAA==
-X-Received: by 2002:a05:7022:ec18:b0:138:4a23:a1dc with SMTP id
- a92af1059eb24-1398f739c1bmr31509c88.7.1781635661004; Tue, 16 Jun 2026
- 11:47:41 -0700 (PDT)
+ bh=lJyakZk+4rBtsSsPqmavjlV9sufmp2nAyf+b53qnqLo=;
+ b=Pk4VW24r+89OdCDswyFyTGiIrMc4Vzg51r+L4H6LOikGH0ii4jMphNEo8vb/ZHlQrF
+ R+Q9XQ0tnXOz27OiAgarkfP9NVX5QoNkpB+QeDW17Umew4GGAaV/eIw7Uh7I6rCLA4wR
+ INbILPixx4ot8IIsf/PhZRm02rVRKT5B+TJFyqQunnvBO1H4TGcaMO2/u6yf0wmJwmBi
+ EzvL53zVvIvSz4rY9s4/YIdLxbIPF7leZDeL/C7HYPZW5vbpve4buBtza2JnbdSliryt
+ y6qdsqu1+HJkNr5v4YiWgg7O5G2mAu6cFVQZpOG6HxOOawF7Zi0gQPDKQ3qKvDF9n2gI
+ m7Lg==
+X-Gm-Message-State: AOJu0Yz/fSCL3RssSravdjyz/eVDQUey90dUE5L31ueLECl6qjjB8W7G
+ lLHoOsw3+9BkpeUHHAc9d79VMOTHBe9Y36HMk6B4cisXynFwSLcHuiqlBjuJ8cXANjbn6YovNHl
+ cuK0D0ckwxXeUVarWc/wMKaqqms+K4/ZmMg==
+X-Gm-Gg: Acq92OErbHtraUGMfWH9n+VJ/AWs1XMpNl59San9sJl2PP4RB6Zzb9gn2z2UZ/dxm46
+ m6+xhhuNbeDMa3gPozXn/qVhHivKAKzfLgOfVMa6OIftub4+LVL4sWorgRksOzYfo5up16WDAiB
+ uWZWvyEbynsKLvjkEBokUh2gU2aBxW6hh9X/VbP90TUrnnjuvf8ZqKQG1qc3fiFpJ5nHnvVxo1j
+ 5+KoLbQ/safVXLTqKY4yg1neN5Lkg12aOANoJIyqvRPYDuqRLkUVaydnXXXpXOLWzWEPc6fVIl2
+ Zsc89rVFCK25NnOBLBCCdA1a+rqSfOW8bo24RNQBtwIFdJyimnk8tM61Vd9HwSNwVw6LkA==
+X-Received: by 2002:a05:7022:690:b0:135:1b09:db43 with SMTP id
+ a92af1059eb24-1398f6dd968mr27695c88.6.1781635709924; Tue, 16 Jun 2026
+ 11:48:29 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260616020942.18980-1-tiagodourado@usp.br>
- <20260616020942.18980-2-tiagodourado@usp.br>
-In-Reply-To: <20260616020942.18980-2-tiagodourado@usp.br>
+ <20260616020942.18980-3-tiagodourado@usp.br>
+In-Reply-To: <20260616020942.18980-3-tiagodourado@usp.br>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 14:47:29 -0400
-X-Gm-Features: AVVi8CdCSyDNtVXCRy1iTMhBBSdi6BLG-KR_3PKYWSVK_tovzz4kO60vlTFiviM
-Message-ID: <CADnq5_NiugifcE_p_sQ+X0xG+MGkCOn3Ac7DycFWJYk-D8aMcQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND 1/2] drm/amdgpu/jpeg: deduplicate jpeg_v3_0
+Date: Tue, 16 Jun 2026 14:48:17 -0400
+X-Gm-Features: AVVi8CeTNVHawe2kePEq7a7xErRZiFlzQLoQ4aX8UYN5FUOtpdCBQNMjtI814fA
+Message-ID: <CADnq5_MTY1Sa_GgEDfO256mBzT4KQhTX9jj2_NfJCZEuZrrWHQ@mail.gmail.com>
+Subject: Re: [PATCH RESEND 2/2] drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0
  process_interrupt
 To: Tiago Dourado <tiagodourado@usp.br>
 Cc: amd-gfx@lists.freedesktop.org, luiz.f.f.fernandes@usp.br
@@ -106,91 +106,90 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Tue, Jun 16, 2026 at 8:59=E2=80=AFAM Tiago Dourado <tiagodourado@usp.br>=
  wrote:
 >
-> The jpeg_v3_0_process_interrupt function is identical to
-> jpeg_v2_0_process_interrupt. Remove the duplicate implementation
-> in jpeg_v3_0 and reuse the jpeg_v2_0 version via a macro alias.
-> Export jpeg_v2_0_process_interrupt through jpeg_v2_0.h to allow
+> The jpeg_v5_3_0_process_interrupt function is identical to
+> jpeg_v5_0_0_process_interrupt. Remove the duplicate implementation
+> in jpeg_v5_3_0 and reuse the jpeg_v5_0_0 version via a macro alias.
+> Export jpeg_v5_0_0_process_interrupt through jpeg_v5_0_0.h to allow
 > cross-version reuse.
 >
 > Signed-off-by: Tiago Dourado <tiagodourado@usp.br>
 > Co-developed-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
 > Signed-off-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h |  4 ++++
->  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 21 ++-------------------
->  3 files changed, 7 insertions(+), 20 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h |  4 ++++
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 22 +++-------------------
+>  3 files changed, 8 insertions(+), 20 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v2_0.c
-> index 9fe8d10ab..9006fc57e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> @@ -747,7 +747,7 @@ static int jpeg_v2_0_set_interrupt_state(struct amdgp=
-u_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_0.c
+> index 46bf15dce..4575d1f9d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> @@ -625,7 +625,7 @@ static int jpeg_v5_0_0_set_interrupt_state(struct amd=
+gpu_device *adev,
 >         return 0;
 >  }
 >
-> -static int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
-> +int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
+> -static int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
+> +int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
 >                                       struct amdgpu_irq_src *source,
 >                                       struct amdgpu_iv_entry *entry)
 >  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v2_0.h
-> index 654e43e83..4f400fb47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h
-> @@ -58,6 +58,10 @@ void jpeg_v2_0_dec_ring_emit_vm_flush(struct amdgpu_ri=
-ng *ring,
->  void jpeg_v2_0_dec_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg=
-, uint32_t val);
->  void jpeg_v2_0_dec_ring_nop(struct amdgpu_ring *ring, uint32_t count);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_0.h
+> index 5abb96159..4eeb0c147 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
+> @@ -32,4 +32,8 @@
 >
-> +int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
-> +                               struct amdgpu_irq_src *source,
-> +                               struct amdgpu_iv_entry *entry);
+>  extern const struct amdgpu_ip_block_version jpeg_v5_0_0_ip_block;
+>
+> +int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
+> +                                 struct amdgpu_irq_src *source,
+> +                                 struct amdgpu_iv_entry *entry);
 > +
->  extern const struct amdgpu_ip_block_version jpeg_v2_0_ip_block;
+>  #endif /* __JPEG_V5_0_0_H__ */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_3_0.c
+> index 1821dced9..92aaf5dea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> @@ -32,8 +32,11 @@
+>  #include "vcn/vcn_5_3_0_offset.h"
+>  #include "vcn/vcn_5_3_0_sh_mask.h"
+>  #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+> +#include "jpeg_v5_0_0.h"
+>  #include "jpeg_v5_3_0.h"
 >
->  #endif /* __JPEG_V2_0_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd=
-/amdgpu/jpeg_v3_0.c
-> index 98f5e0622..5010dafc2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> @@ -34,6 +34,8 @@
->
->  #define mmUVD_JPEG_PITCH_INTERNAL_OFFSET       0x401f
->
-> +#define jpeg_v3_0_process_interrupt jpeg_v2_0_process_interrupt
+> +#define jpeg_v5_3_0_process_interrupt jpeg_v5_0_0_process_interrupt
 
-No need for this.  Just assign jpeg_v2_0_process_interrupt directly in
-jpeg_v3_0_irq_funcs.
+Same comment as patch 1.
 
 Alex
 
 > +
->  static const struct amdgpu_hwip_reg_entry jpeg_reg_list_3_0[] =3D {
->         SOC15_REG_ENTRY_STR(JPEG, 0, mmUVD_JPEG_POWER_STATUS),
->         SOC15_REG_ENTRY_STR(JPEG, 0, mmUVD_JPEG_INT_STAT),
-> @@ -539,25 +541,6 @@ static int jpeg_v3_0_set_interrupt_state(struct amdg=
-pu_device *adev,
+>  static void jpeg_v5_3_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+>  static void jpeg_v5_3_0_set_irq_funcs(struct amdgpu_device *adev);
+>  static int jpeg_v5_3_0_set_powergating_state(struct amdgpu_ip_block *ip_=
+block,
+> @@ -608,25 +611,6 @@ static int jpeg_v5_3_0_set_interrupt_state(struct am=
+dgpu_device *adev,
 >         return 0;
 >  }
 >
-> -static int jpeg_v3_0_process_interrupt(struct amdgpu_device *adev,
+> -static int jpeg_v5_3_0_process_interrupt(struct amdgpu_device *adev,
 > -                                     struct amdgpu_irq_src *source,
 > -                                     struct amdgpu_iv_entry *entry)
 > -{
 > -       DRM_DEBUG("IH: JPEG TRAP\n");
 > -
 > -       switch (entry->src_id) {
-> -       case VCN_2_0__SRCID__JPEG_DECODE:
+> -       case VCN_5_0__SRCID__JPEG_DECODE:
 > -               amdgpu_fence_process(adev->jpeg.inst->ring_dec);
 > -               break;
 > -       default:
-> -               DRM_ERROR("Unhandled interrupt: %d %d\n",
+> -               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
 > -                         entry->src_id, entry->src_data[0]);
 > -               break;
 > -       }
@@ -198,9 +197,9 @@ pu_device *adev,
 > -       return 0;
 > -}
 > -
->  static int jpeg_v3_0_ring_reset(struct amdgpu_ring *ring,
->                                 unsigned int vmid,
->                                 struct amdgpu_fence *timedout_fence)
+>  static int jpeg_v5_3_0_ring_reset(struct amdgpu_ring *ring,
+>                                   unsigned int vmid,
+>                                   struct amdgpu_fence *timedout_fence)
 > --
 > 2.43.0
 >
