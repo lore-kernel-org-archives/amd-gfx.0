@@ -4,88 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A2A8CD98D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F3DCCD98D2
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 038C910EB5B;
-	Tue, 16 Jun 2026 21:48:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB5C10ED3E;
+	Tue, 16 Jun 2026 21:51:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LsAk5xS4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="St2PxIkt";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E7EF10EB5B
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:48:50 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-30bc0b90dd2so82856eec.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:48:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781646530; cv=none;
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E53010ED54
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:51:16 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-1365eb2a773so238591c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:51:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781646676; cv=none;
  d=google.com; s=arc-20240605;
- b=benroLJiM1ZQIixbYBSaEV6PiiQzZPhxJ08nKE9gh8oav/GcvFM/9D7OmoNg+08nvC
- ST6bTCDnVYg4Dbovjf3FKWKylQo63cAYThEEwPFE3Lwi7UBt5ZFYYrxvy81seEtwHLz/
- RlDE/4g9skcxVE9hP55byFKoT0PuMr1b7A/1s50zjBTMzoZX6/qCoiYBPi9ZNnitqnL2
- NQPuuErgJk5J8wLgn6s5+ikzv4Lq/RXWJbe10sM5ck5U28bT6cOFJ+/qewI2PNl7UZaM
- aP9L2acaV+ETBc9/ZDU2Db4g3Ig3MEd2W0zt3JEQ/SoQ6sSUQSWCWmT2pz2QJkS/AWJq
- r/kA==
+ b=DGc5T6zGnJj4Xf402fSaKt6Pti1CldmwzxNlw0bXNlAsGifqWU3UafmzyShx1MSEvR
+ vBeNvMDCjq+byFhMTEBsa42lLyPOGnrRN+UtR9IZnCZGj2mXUtU7UjoeFSivV8dLrsOV
+ POgz1E8pZZQTiABlcS7iEaaA2sY6EfS/TlYtw3XQKSMwgdYSuepTYFv6EBCacmmsAs3t
+ U/fXauTsuh/cf5pE7J57vflZSBHgq0A3DMKtUx8zHssrzQvj5PyYPN9cQEuTohqaal4Z
+ y/o8bxk4tHj/xCGzhvr3qDsds1EZz4nEbVUArHWZFxQ/8puUj1wlFJOMNnV8SISzqfhm
+ Heiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=IVgQUmJZQJUHNJ22HV+TnP7tzdXJl/lubIR7+Ljou7s=;
+ bh=qzYIGU7JhghujTXYz8WeWEjQ9HHY7xjnmn+gc95SIK8=;
  fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=P+CLwGau38dt94WS7rIj1ywqD7N+aO3sPYwiv3PDmlzDm/QmLvbh4F7imUCVEjET8f
- PPNRzque74S4GJt4O7tjKa7jtJnT9gTJ+18SkNaNkSYv07Dx1QJ5T+j7IHIjesJPI49d
- jOPbjuTY9bKIxoliC5s4YdiV5wVrrbEB/9FNMwz0oyA/YV1xGr7mQ3lsPTEuYS4VR2Np
- nLmJig0qZ7F4Th85oEFcEpi+dDFgpgoA89m1K7ZAwJ/jvzkEEyX5WvRI+9HnkbhfdN/6
- CzEM/x2F8CE7CvOz96AIj3UrDPc3LUiWA6o42g/yKMinDE72r8Da6jJQuE6iChtFjYNl
- Sn8w==; darn=lists.freedesktop.org
+ b=OVX7iD7R6eff5rKlOITp9BhzybCRxBGjsK4Qh5dzMQVzlbz7mIfPsE09e9ULmDqjok
+ lZnCc1ildVYkNpLNWhBom9lJmfiVlbyieLg6MuGGAOic2BjWezA4xkyYraSr1KrX5Bkr
+ 9Yb3NUYQ1UJcUt3+KAAStkmDjtclYBQK6wFloTwxPQGjpBB/lLlrqHOy1js/IXCGSGl1
+ 7bwqyxah79BLb7Z1Bg7oR0X75b72tTQ9YtawqTl/VhDGk79NxUOmoqS+ZUC6XuLwQPyN
+ DIHoRz0ZfGmvuuSyU89cAw4iV8+QPlBU9hIB8Ckqf7bYbFIlDI2SaPbZWFzhNCuwycwE
+ i5tA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781646530; x=1782251330; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781646676; x=1782251476; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IVgQUmJZQJUHNJ22HV+TnP7tzdXJl/lubIR7+Ljou7s=;
- b=LsAk5xS4NPUwJlJJdlj4ffxZQHrXZZIWqtlM5OBcdQc5DrPu3HP+AOMGx/MgT7K4j2
- O+FGO1i5vBV8IZIdTz3oHp36UWFn8r7NxsLihqk3Kkm6eq80t63fyb9my2ArkX+9ZtfM
- lcf/qOOBrghfHjF2Tx0nsMr6veGGWCAAGx3K8WWpi1shaFatpmRjm9I2c8mZ2LzdYtpD
- WK0dGW/AGbrlbkB9O/AZfGhEbcS2bNHARTqpvs2oUuhkIFChuqQerOyRi+NnzRy1hyDa
- 3ppejm6avewR0yBBp6BZrT0YVLGLaTlDxFlDwBUKMNqW2AwB7gANb7jiTH/sX6VIlweq
- rfFg==
+ bh=qzYIGU7JhghujTXYz8WeWEjQ9HHY7xjnmn+gc95SIK8=;
+ b=St2PxIktwsm0saua3l23mskfq5P3HsqktZsn0eShyiDjakUOc9HD1bo9uqsOLHS+Ay
+ gzItLMULkClXuiPjsKkjr6RmDSqwc93KQr9N1jkCPilVSvsLvI/1Mi3sCpjLqb1GXyjT
+ BKQGGEII0QxoVozsiT4rm39Qpwnz8xFCaTzFjVvIxenXm2fRXvTPtNB/3hS1xAT4d/VY
+ v9miFPf4KUneHO1iABdqXwJNfuzmFs56qKMWEez/JWGWtRw9Z6mkVMAxG8GmxUC1nYQ+
+ aDix0B+IL6djplLbDQU0YcKZ6ASCsVa3razQr9ixVC/bYhq1HzDuPU/mE3glvr4X8W2B
+ XyVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781646530; x=1782251330;
+ d=1e100.net; s=20251104; t=1781646676; x=1782251476;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=IVgQUmJZQJUHNJ22HV+TnP7tzdXJl/lubIR7+Ljou7s=;
- b=Dw8t/yDcU0z6mfbAF16Mq/rfrchR3wz7PAzjaHZYrAh+XFQx0d90idALEDk8zFpx5/
- M7FDRv5kZnlc+Mkr1WTrX146jj+AA9Sr4o5fYQnQhCQ4FxXg+2ebp7u0rkiNSIFRIqnb
- DZD6P6EOyAcyfw/D6SlQVssLZFTGcZ/iNqVZgwbOZb6tOHN3Kf0nws120+HPPpOYcCBU
- MDSVioLPsya/mggDYip49Jp71WbAn2d0OPZDZw9jg5NWbIiJskEHlGQ3m3uGa1SaDfcq
- OyPjtQle3sRDXj5cwT4Cmgq7h03kNOuBnITHPQVI+QKLxycRSq5ejhDJmBrW2xOlvoYd
- dubQ==
-X-Gm-Message-State: AOJu0Yy3Yujzz9okD1KK3vQ3lhNPzAsHSHPla9sOtad3NI2ZD8ZK/cnz
- N9F1dQjyIFaLfdL0sD3j0SoweTSKVUOe00R3GnvyIQz3gykWGCIXfMYSp+HeillZP2dIxbRiGdz
- wnbLRmvm2YgjcJrycQ2ioaTnylRrI0NM=
-X-Gm-Gg: Acq92OGUcpw/EdOyTro9qzcpE8051DWUu3mduUrswPiRD2V5TBtm3wy6d0wnO7MPYM5
- qooQpSM8YNv36VhhH6Qiwr23gr7vErouKsVgXU23C8Qy03E1TukMgL8WuIMXs5WQm9A3aerkuJZ
- G6v6B0Hu0flm05uIhTDe+6d1GQKMRFxLj+Ah2W+IbjH9U1F5XhZ86EVigWr6GtQhWrimRi3Pytb
- tbyAJx2OXyLGjomQpnheIeBNz/SkBj56Re1Xuh57HZhU7KKVcaVSu0LfxBMvwvwWONrXqv2P+nj
- tbPyhdmMWORWED+Saxq/mz4agUiAx/dvFx5Q90qDgUYixx6N1o780ktuM86zfW7ONVfozplb9g4
- SCNJ+
-X-Received: by 2002:a05:7022:ef12:b0:138:2790:149b with SMTP id
- a92af1059eb24-1398f738756mr154299c88.7.1781646529729; Tue, 16 Jun 2026
- 14:48:49 -0700 (PDT)
+ bh=qzYIGU7JhghujTXYz8WeWEjQ9HHY7xjnmn+gc95SIK8=;
+ b=l4LriwNyV44lAyrHZay6si0ptLuhknfVbIznul/xEDoPUNq33cFq59JPF9EgSyU4Bd
+ yoa+6Rd9jxLRQFHvJzegp4ncbfXLw8UxAu0/MaJKxWPnzhutJy8uv5DXm8bq7M6GPkyK
+ RJ82pnyiPNhJr/DVTq/+Pwzv6UtKRsPGmCQgFlFEVmzp9nPHLsVmULSXLR2HoiQKKF/Q
+ CHACc7Nn9PVdHIEixoZz76m2RN01PmzOTbGHBhl5Zlffvi2Bt4C8KeTWB0Zg9ga+WEy4
+ cnDepdb01YhPrhYxsIfGYPUJI8XMoLzvMNlOonV6poP8JQaTjutCaeJ6f+Fud5LCIg+R
+ 2OSw==
+X-Gm-Message-State: AOJu0YwBxsRddaA4oE7Hezg6QY4t6uDHv5xuLG7ABBc5oVIhVbVdl783
+ +W4+lAs/mqAQisiswfVmPlOSUj60zQuo4aOVAZypCU/AhuQWEPBNnXxUQPg7K2XbnMdu5HyjJna
+ Sefq9w0QL0E2olMfjQVinwj/7Q/1yNNI=
+X-Gm-Gg: Acq92OEDxyWKDw1hV+COtzEA8vnwxYydcN/P88N4iI95vJg0n4TKyYwaELqE1iyawvi
+ VOks+fU8AT31a7ZSmOz/ziA9QHTsBljSlY+32dDWwpuKupBoIDh3GPllfeaCGA23on5CEbfX1Je
+ x8msCzhghiDyxyygai6R59puaVnYqXsx1rzInvU9vCgrGAVvJsbpDPm7oJ0Cl69dqHt+gC6xXiO
+ LEKp2Y1BnIwp5q+6nZ/UddIDC6HaM45PndzsmET/Ri7rwdwoxTrTeqgtc2DkZdqQUmLIcEtHlW3
+ o8OXMW1HJ14g2uRL9CMdVXTS4LXx9lRXmZ8qFS6EubUbY111ttjBsd6f4WP4OtNMyVNhvA==
+X-Received: by 2002:a05:7022:120:b0:138:43e8:c6bc with SMTP id
+ a92af1059eb24-1398f704b21mr175669c88.3.1781646676167; Tue, 16 Jun 2026
+ 14:51:16 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260611035747.548780-1-Jesse.Zhang@amd.com>
- <20260611035747.548780-3-Jesse.Zhang@amd.com>
-In-Reply-To: <20260611035747.548780-3-Jesse.Zhang@amd.com>
+ <20260611035747.548780-6-Jesse.Zhang@amd.com>
+In-Reply-To: <20260611035747.548780-6-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 17:48:38 -0400
-X-Gm-Features: AVVi8CcSqshFWl0qTeRP5LBxKnYkXFF_BM22fCYtv-akmEVMJf-4jLcWYzJqT3U
-Message-ID: <CADnq5_OWccQZe+3XcqBYsieniPtq-utR8fa-_4ijsAVMOj05vg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/7] drm/amdgpu/gfx12: handle error interrupts for
- userqs
+Date: Tue, 16 Jun 2026 17:51:03 -0400
+X-Gm-Features: AVVi8Cclr61RFgQfvC9aPeOm0O4W7oddvh0daIcIvVa__AAeN8o6VvbAdk9OeSc
+Message-ID: <CADnq5_MM-iWJEo_wJPu0DufNgohDgbk2DHw81CVp9t001rodMQ@mail.gmail.com>
+Subject: Re: [PATCH v2 6/7] drm/amdgpu/gfx11: try KQ first in EOP IRQ
 To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian Koenig <christian.koenig@amd.com>
@@ -105,105 +102,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 11:58=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> =
+On Thu, Jun 11, 2026 at 12:04=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> =
 wrote:
 >
-> From: Alex Deucher <alexander.deucher@amd.com>
+> KQ EOPs were misrouted into the userq fence path when enable_mes
+> is true. Try KQ by ring_id first (KCQ and UQ never share a HW
+> slot); fall back to amdgpu_userq_process_fence_irq() on miss.
+>
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 
-Once again, feel free to take ownership of these.  You did most of the work=
-.
+I think you can squash 4 and 6 into one patch.  With that fixed:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+Alex
 
->
-> Call the new userq reset helper, and dispatch KQs first by ring_id
-> before falling back to the user-queue lookup.
->
-> v2: squash in fixes
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Co-developed-by: Jesse Zhang <jesse.zhang@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 33 +++++++++++++++++++-------
->  1 file changed, 24 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 30 ++++++++++++++++----------
+>  1 file changed, 19 insertions(+), 11 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index 380ba062134e..cb4d84c5f52b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -5009,22 +5009,30 @@ static int gfx_v12_0_set_priv_inst_fault_state(st=
-ruct amdgpu_device *adev,
->  static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
->                                         struct amdgpu_iv_entry *entry)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 208f9ffed60a..a3294cf96992 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6515,31 +6515,32 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device=
+ *adev,
+>                              struct amdgpu_iv_entry *entry)
 >  {
+>         u32 doorbell_offset =3D entry->src_data[0];
 > -       u8 me_id, pipe_id, queue_id;
 > -       struct amdgpu_ring *ring;
 > -       int i;
-> -
-> -       me_id =3D (entry->ring_id & 0x0c) >> 2;
-> -       pipe_id =3D (entry->ring_id & 0x03) >> 0;
-> -       queue_id =3D (entry->ring_id & 0x70) >> 4;
-> +       u32 doorbell_offset =3D entry->src_data[0] & AMDGPU_CTXID0_DOORBE=
-LL_ID_MASK;
 >
-> +       /*
-> +        * Try KQ first by ring_id; UQ as fallback. KCQ and UQ never shar=
-e
-> +        * a HW slot (compute_hqd_mask contract).
-> +        */
->         if (!adev->gfx.disable_kq) {
-> +               u8 me_id, pipe_id, queue_id;
+>         DRM_DEBUG("IH: CP EOP\n");
+>
+> -       if (adev->enable_mes && doorbell_offset) {
+> -               amdgpu_userq_process_fence_irq(adev, doorbell_offset);
+> -       } else {
+> -               me_id =3D (entry->ring_id & 0x0c) >> 2;
+> -               pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> -               queue_id =3D (entry->ring_id & 0x70) >> 4;
+> +       if (!adev->gfx.disable_kq) {
+> +               u8 me_id =3D (entry->ring_id & 0x0c) >> 2;
+> +               u8 pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> +               u8 queue_id =3D (entry->ring_id & 0x70) >> 4;
 > +               struct amdgpu_ring *ring;
 > +               int i;
-> +
-> +               me_id =3D (entry->ring_id & 0x0c) >> 2;
-> +               pipe_id =3D (entry->ring_id & 0x03) >> 0;
-> +               queue_id =3D (entry->ring_id & 0x70) >> 4;
-> +
+>
 >                 switch (me_id) {
 >                 case 0:
+>                         /*
+>                          * MES splits gfx HQDs per (me,pipe): KGQ owns qu=
+eue=3D0,
+>                          * userq gfx owns queue>=3D1 (see amdgpu_mes_get_=
+hqd_mask).
+> +                        * Require a strict (me,pipe,queue) match so user=
+q gfx
+> +                        * EOPs fall through to amdgpu_userq_process_fenc=
+e_irq().
+>                          */
 >                         for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
 >                                 ring =3D &adev->gfx.gfx_ring[i];
->                                 if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> -                                   ring->queue =3D=3D queue_id)
-> +                                   ring->queue =3D=3D queue_id) {
->                                         drm_sched_fault(&ring->sched);
-> +                                       return;
+>                                 if ((ring->me =3D=3D me_id) &&
+>                                     (ring->pipe =3D=3D pipe_id) &&
+> -                                   (ring->queue =3D=3D queue_id))
+> +                                   (ring->queue =3D=3D queue_id)) {
+>                                         amdgpu_fence_process(ring);
+> +                                       return 0;
 > +                               }
 >                         }
 >                         break;
 >                 case 1:
-> @@ -5032,8 +5040,10 @@ static void gfx_v12_0_handle_priv_fault(struct amd=
-gpu_device *adev,
->                         for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
-+) {
->                                 ring =3D &adev->gfx.compute_ring[i];
->                                 if (ring->me =3D=3D me_id && ring->pipe =
-=3D=3D pipe_id &&
-> -                                   ring->queue =3D=3D queue_id)
-> +                                   ring->queue =3D=3D queue_id) {
->                                         drm_sched_fault(&ring->sched);
-> +                                       return;
+> @@ -6552,13 +6553,20 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device=
+ *adev,
+>                                  */
+>                                 if ((ring->me =3D=3D me_id) &&
+>                                     (ring->pipe =3D=3D pipe_id) &&
+> -                                   (ring->queue =3D=3D queue_id))
+> +                                   (ring->queue =3D=3D queue_id)) {
+>                                         amdgpu_fence_process(ring);
+> +                                       return 0;
 > +                               }
 >                         }
 >                         break;
->                 default:
-> @@ -5041,6 +5051,11 @@ static void gfx_v12_0_handle_priv_fault(struct amd=
-gpu_device *adev,
->                         break;
+> +               default:
+> +                       break;
 >                 }
 >         }
-> +
-> +       /* No KQ matched: HW slot is a MES-scheduled user queue. */
+>
 > +       if (adev->enable_mes && doorbell_offset)
-> +               amdgpu_userq_process_reset_irq(adev, entry->pasid,
-> +                                              doorbell_offset);
+> +               amdgpu_userq_process_fence_irq(adev, doorbell_offset);
+> +
+>         return 0;
 >  }
 >
->  static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
 > --
 > 2.49.0
 >
