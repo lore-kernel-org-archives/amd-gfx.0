@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 689CFCD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 09:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F3ACD98CF
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 09:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01AB810E981;
-	Tue, 16 Jun 2026 09:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB4CC10E983;
+	Tue, 16 Jun 2026 09:18:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bDErNdH7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DWV9/pNC";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013031.outbound.protection.outlook.com
- [40.93.201.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB18010E981
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 09:17:55 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011047.outbound.protection.outlook.com [40.107.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDCF010E988
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 09:17:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xvrrYWc1MwOsR9T5SfjADPK1NGlcu8IvBBWlN3SSOwZkVvIFC0l1OwaUA36xXsReju8+HzfuTVVRCq6BM5qbCl7QQPAXtZ/Vxj2PWAKJ6dYItvuuWuJUWZtBXvR3xCHpm1cY5mqtm18qKYTh38CL8FYefeh3N9IjZUqZsu2R24Q1jUuzUMpsD1s/IqOpxgHPe2vJ9TMZ1ve9Z2dYPdo9rlPxGurR1rlrK4pj0kH2xzJpIHgsgiUQxBEi2OQRe8DWg0vcAQwZ3i+cZwbEncGwYKSzWVUAmPwEu+MulwrHr41bQmWU/I5hi9IGs+31CiYAhtC3KyUbEF485sS+kPmB4w==
+ b=ou4FWJMyI7O5hLjrV7pd9srXF6EADTjYOxOHUihx+WrSe6K5DQJO1pa2vPi5a2Po6/7BkKyX6yoRSwakHCqIFYjkTEblseKMmEjL73aSZSyFqYJ36KZjD65ga7rCrRjlLFZNZTsS6cQp0UdRR02aT2+e/SOr5SD22NK+Q1tYrFdswmvwHvYKLrxfvC1g1oW6W1YLWc8ivKmGScrvPElZQmrnj6vrDxOI0qOTYnWiPlR5L3UEwb9WHiUQK/wa7i391h1KXvHr6/gzgI/ItJxHI3T0x+osDrQc6d91GsVBXgAwql01HgHrViKrR6WSk4egmaSt7Al/k7RPVCP7gG1YYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/HlV7clsavtkUG91LVjFLEbbazeEJNj/CIq4N7XdKHA=;
- b=ow+qU7mPFIlrghXi93ph2Crv4iv15dDeB2fCNhXbyALETqt/KyzV4z6nM34sAWpmrn+M1nCoO7gO2VWS1Z/5VT+PHNBNtLWugFaO6ePViYhZyfTjn8o7HLgoUj3eTS9H5dDJk2RHOUB/K0HuPZDndEQ8InLXpRjPQFsW/+R5sovKBDCBlbTlz9Hzn6BYPKDQZiWeVo2ZEzASYT3sZ0TeoXAdJM3gJ8zdN9rQllVLhRkH1hIbuJOPm5NgsF6UWxLQxb4WPOk/rt1d8QAPK1wo1DRCjagNm5CUxVQzKFHpldKCNwKm5A7EIEnOivA88G5xb+ztYQ3FAzlBfCfOj2iy8A==
+ bh=p8XXgSZZMxzC9TX4+PFlejGMK22cLrFxKZMRfScQyLA=;
+ b=lLV5kWRbNEy+TTrTUnM2iQWUsvpsRor3fVQ2EKkiH2amgKKe/mCVoDR7FgjVFi6jHemGBB6ejHD+5PI8kqqlCFDajRPSAhDmFkXuQEYI96jJGlxnr8wbRDWsY7GOka1Y2Dhm8u8GsYsJn0/nb34H5yps72twaxJtmpFULZxkUfcSnGjJI1k92j+BZ3sp2lv7oFuSQC3jaqe1+IK4iUZQ6SYUlrUVvWFLGFTeDcwTfrviE/mVS1wWoG4PtZWNL0KaeKBGHuMAFvGWgATMkMcmo/I3DpROP4IDQ/zw6gEF9iF2WBOhr2T0CbC37KInBw0LuYC7rcoL+6ZmUD/BxX9dxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/HlV7clsavtkUG91LVjFLEbbazeEJNj/CIq4N7XdKHA=;
- b=bDErNdH7hZupIYtz0RP2qNFJAcoIR+VgRDvNBbO1NX+bq/8eB0T3ZfETCjk7gm82JRrSjJEkFiJiSMwkADUKp63RNtvCceVgcfCwTHA8TRxMF/hLy2bT0DI/WtRGzXm9GS42QpvkAegyzS3Dq2dAinAnQQEhNFkQ/n7ENslrGJo=
-Received: from BY3PR05CA0051.namprd05.prod.outlook.com (2603:10b6:a03:39b::26)
- by SN7PR12MB7023.namprd12.prod.outlook.com (2603:10b6:806:260::16)
+ bh=p8XXgSZZMxzC9TX4+PFlejGMK22cLrFxKZMRfScQyLA=;
+ b=DWV9/pNCuZweCx0zoN1Sbm3mcrIDv8JaMpyXetT3fUGBO595xcgaUDEUNJIEhaERORpU62darODCejwOTtpC2QUCT4QFcdiCQsYHkoVmnPpUHjRIG49Sx7r/Wj97hwdi8pw83WDbLBFPNLGjUdF64dfPQXZTShSmCu2HOd+nTig=
+Received: from CH2PR15CA0005.namprd15.prod.outlook.com (2603:10b6:610:51::15)
+ by PH0PR12MB8049.namprd12.prod.outlook.com (2603:10b6:510:28f::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 09:17:46 +0000
-Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
- (2603:10b6:a03:39b:cafe::7) by BY3PR05CA0051.outlook.office365.com
- (2603:10b6:a03:39b::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Tue,
- 16 Jun 2026 09:17:46 +0000
+ 2026 09:17:56 +0000
+Received: from CH2PEPF00000142.namprd02.prod.outlook.com
+ (2603:10b6:610:51:cafe::4a) by CH2PR15CA0005.outlook.office365.com
+ (2603:10b6:610:51::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
+ 16 Jun 2026 09:17:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 09:17:45 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 09:17:56 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
- 2026 04:17:45 -0500
+ 2026 04:17:56 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
- 2026 04:17:44 -0500
+ 2026 04:17:55 -0500
 Received: from rtg-MAPLE.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 16 Jun 2026 04:17:42 -0500
+ Transport; Tue, 16 Jun 2026 04:17:48 -0500
 From: Priya Hosur <Priya.Hosur@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Lijo.Lazar@amd.com>,
  <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
  <Mario.Limonciello@amd.com>, <Kenneth.Feng@amd.com>
 CC: <Pratik.Vishwakarma@amd.com>, <Veerabadhran.Gopalakrishnan@amd.com>,
- <Priya.Hosur@amd.com>
-Subject: [PATCH v5 2/4] drm/amd/pm: add IP_VERSION(11, 5,
- 1) to vclk/dclk DPM sysfs whitelists
-Date: Tue, 16 Jun 2026 14:47:29 +0530
-Message-ID: <20260616091731.3722-3-Priya.Hosur@amd.com>
+ <Priya.Hosur@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
+Subject: [PATCH v5 4/4] drm/amd/pm: smu_v14_0_0: use find_clk_level() for DPM
+ level marking
+Date: Tue, 16 Jun 2026 14:47:31 +0530
+Message-ID: <20260616091731.3722-5-Priya.Hosur@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260616091731.3722-1-Priya.Hosur@amd.com>
 References: <20260616091731.3722-1-Priya.Hosur@amd.com>
@@ -81,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|SN7PR12MB7023:EE_
-X-MS-Office365-Filtering-Correlation-Id: 692c7275-e11b-48b4-e84c-08decb8820d1
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|PH0PR12MB8049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c2dd651-9e92-46a4-430f-08decb882702
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|22082099003|56012099006|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info: SpD/yKgm69gIyxMfID0Ctgr1qCuxkIuNpgC/XnO9osM9zzMamdBee+71zv1LlmtPcsvSi41ct2DN6veYS0JKOgxyW6ThdpY3cSg9NB++54IhfK7XZI9p2zGy+RjpezlsFsdhPKAxAX2no/UGDjSJNE5nRsZjW6k7FRRlZfK0t2ieXBFpXR92RbbocfgIVUA57de2XGBjbl+LaEQykhQCLeQEgVHKM2xgG6XVZ00/96IgqpH+Lgvu5stsOQO8gQOT8wmvN2UzmXBKUTh/kqDotqECu5xRG1WifzfJgu2+jMsXux4I8iaPIIGgr58JwJAoqGQNSlNEIXJZR0EnGGi0zdcdhq12myqpwnecjjsiTaC6o/fG/EKJ+FK92X5kW1Ag3wLjFkg2uQY1v12DYrOPZDTCqatjcvec9RSw4xMSY0Tyv9T41txavGhDf45OGN4SuCT+SQp4WIwuepbJ2xBgmD4fet8M6KFkjL8zus7ct2LziIFYAJzjRAylEgZ+4vmcyDu8oo/kYfKEdoAfXzUg5yqjE/sFj1O/AIQfEGDc1MAngMdt6t7e/NXrAVQYxY08m42GDJLdvqkB8EyPMZnksM9GLdnVSYmcXDC+x6XLPsbF8dgMp27qmAAlIGvYiX6lstP7PIteJ6hD5URNpgrnMvhJxRrbdzcsnm73ppqv0CGP7rJfsb+5plDcC+aWS7KCDqkxqH8MzT0eM7I32/ald0Qma5qOctHJmi6rA+Bdq+8=
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|6133799003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 1ysxmgDiQ0ANd0dOXjJrFi05shWSORhCp9Jfx7XmaZn/RjxdLwubrWEUVQDOuCVlvbG43YdIvYQTP7yIZ/bOMJyxYAlGeqvHUJLBwS5mqIN0A8pv/FdjtPWd8ZfgqNZUFJMZ+68iLde+bgom/gdDdG0gs+IwEEa0EsRUy4rbZ7exBrvNeDg8dZ6kwM0yM1gWixM12hWuN1tC4lXqZvKKytUyVoqgsS9wB0FRF8JfAVSTHrWqHIvvDCImB20LzTJBwZj8Q6rFrExhi8xPR7QatA+4vkIrAgRE2m8RKZeeo+bMgclaiyku39PtaVj8qMqix0zh1SecxdrDs1g0AsYAcoDX/PDSbSF61+rGxbpjKgH/MGGD58gBYthmgWbDJ+3GaAHKqX+IQR46EQXRvio4NodOaMTb71XLUNtbCOHiHqPMwLF8evhocURO+wybBVJAJ10Y5e9zjDW3wznHWaFSAOEJUA0PFHzhA6wtLLCz9hwhtpu8abVHCTuEV5URJ3Uv8+vATkNQD+2vQ6fK+g8np9boBpI382VFCzJcP7ZDEwL5pXdYjmI4iwQJJE1tBj1x/yNjFi/edY0fghmeOsdt6uPH65HajwhPEfyShzarRqUNCSVtiCYAo8kWC61spjlSm6d0eO8O0eELkfl6bQepGuk+p08HWJGWzEu3f5iQx9F3gMdlbPzHbZ7W9f/hE5CIG8P/JILZOXTelorDZ0McsX9TDiG4OoaNxSlz3iz6EXg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(6133799003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OeG9YiqcdUpDn5ydQtrXGEiQUtLdwmr20viNAjlqwDDp5SFPA6QjP9VvznboIYTTGT4+FrHTY4CH+pw+S4rYQkWVXQNLwpaQpm3WSfePYicPK1AFWFoa0kHhXNuTPsyfZ1TPuarNpEBCh4JWrF+NFKRJSLWClxbp+6VZmcgrRJ4mRu1jvZacnzrvjcCPRAj65kFjiXdDxVE+Z76rZRQwSN7lSI1RXBD37epIWGVzxbHn3rsY9nNY1wRDgmjZlBwAPSAjsnQvvaIbeb8iklxRurmhzsDjQjgxkIy86pspx+1SOuSJ0s/L01/EZ6ocfdsz/KnXq4CXMMpUZ5HUcW1JyP792dKIQRB+AAIXOb6nuN31RgiyO6Q0t0XpHeioW0nKTyN+hM15TpeIrajv41pMnYnVWKJ83ujwf5IfRFE+oAuJPoYe3oZJbI+LKUecWVQ+
+X-MS-Exchange-AntiSpam-MessageData-0: Ee12ThnBl+TOVmAqEQ7M4h7giNeOmRyUd/M7GEI0gOv6ybJWPJaXdf3PblralEBCpF7XJ0kQkfL3Tzg1yaX/XqUFVu3h45FnWeGVw4aVHPW+z//y6kM2vvF4/t25AVBWilEed4c+wj4isPT/5L8xjgpWDrOwjRLr3eDa37w+9r/zxBQvoqddZA6+crcqaGbIGyA5M3pKSdTh7pcG49qjjcioPRQCcX+vxg6kJ8HKvekp2PpwhGCkh3AMcqHgIeGV6OnLqTRDzInCxbXbkKBfiVqs9/gBlBIwjHHn62OsG4ah1mc5bmvfJUrAKFbOgY7qCMea5tCT/n91bWtIe9b1tOriEdysa0tspWTxiQgc8CpXSb799RNHIEk6FCkvFz+C86ozjBxCo8xyCvRCOix/yiUqZPLvD4AMMtFp4sRqwCmn8yaRvluaSrsqL9sRoAzM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 09:17:45.8580 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 692c7275-e11b-48b4-e84c-08decb8820d1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 09:17:56.3295 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c2dd651-9e92-46a4-430f-08decb882702
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE19.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7023
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8049
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,60 +117,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add IP_VERSION(11,5,1) to pp_dpm_vclk and pp_dpm_dclk visibility
-whitelists so these sysfs entries are exposed on Strix Halo (GC
-11.5.1). Add IP_VERSION(11,5,1) to pp_dpm_vclk1 and pp_dpm_dclk1
-whitelists with the existing num_vcn_inst >= 2 guard since Strix
-Halo has two VCN instances.
+Replace the simple exact-match loop in emit_clk_levels with a call
+to smu_v14_0_0_find_clk_level() introduced in patch 1.  The helper
+already handles both exact and closest-match semantics.
 
-Without this, amd-smi reports N/A for VCLK0, VCLK1, DCLK0 and
-DCLK1 clocks.
+Build a stack-local frequency table from the DPM levels (using
+reverse index for SMU_MCLK since MemPstateTable stores levels
+high-to-low), then call the helper once to find the active level.
+
+The SMU reports time-filtered average frequencies that often do not
+match any DPM table entry exactly.  Without closest-match fallback,
+MCLK, FCLK and other clocks show DPM levels but never display the
+* marker, breaking userspace tools that rely on it to identify the
+active frequency.
 
 Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 29 ++++++++++++++-----
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index dfebe67c164d..305852f5b153 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -2027,6 +2027,7 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
- 		      gc_ver == IP_VERSION(11, 0, 1) ||
- 		      gc_ver == IP_VERSION(11, 0, 4) ||
- 		      gc_ver == IP_VERSION(11, 5, 0) ||
-+		      gc_ver == IP_VERSION(11, 5, 1) ||
- 		      gc_ver == IP_VERSION(11, 0, 2) ||
- 		      gc_ver == IP_VERSION(11, 0, 3) ||
- 		      amdgpu_is_multi_aid(adev)))
-@@ -2035,7 +2036,8 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
- 		if (!((gc_ver == IP_VERSION(10, 3, 1) ||
- 		       gc_ver == IP_VERSION(10, 3, 0) ||
- 		       gc_ver == IP_VERSION(11, 0, 2) ||
--		       gc_ver == IP_VERSION(11, 0, 3)) && adev->vcn.num_vcn_inst >= 2))
-+		       gc_ver == IP_VERSION(11, 0, 3) ||
-+		       gc_ver == IP_VERSION(11, 5, 1)) && adev->vcn.num_vcn_inst >= 2))
- 			*states = ATTR_STATE_UNSUPPORTED;
- 	} else if (DEVICE_ATTR_IS(pp_dpm_dclk)) {
- 		if (!(gc_ver == IP_VERSION(10, 3, 1) ||
-@@ -2048,6 +2050,7 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
- 		      gc_ver == IP_VERSION(11, 0, 1) ||
- 		      gc_ver == IP_VERSION(11, 0, 4) ||
- 		      gc_ver == IP_VERSION(11, 5, 0) ||
-+		      gc_ver == IP_VERSION(11, 5, 1) ||
- 		      gc_ver == IP_VERSION(11, 0, 2) ||
- 		      gc_ver == IP_VERSION(11, 0, 3) ||
- 		      amdgpu_is_multi_aid(adev)))
-@@ -2056,7 +2059,8 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
- 		if (!((gc_ver == IP_VERSION(10, 3, 1) ||
- 		       gc_ver == IP_VERSION(10, 3, 0) ||
- 		       gc_ver == IP_VERSION(11, 0, 2) ||
--		       gc_ver == IP_VERSION(11, 0, 3)) && adev->vcn.num_vcn_inst >= 2))
-+		       gc_ver == IP_VERSION(11, 0, 3) ||
-+		       gc_ver == IP_VERSION(11, 5, 1)) && adev->vcn.num_vcn_inst >= 2))
- 			*states = ATTR_STATE_UNSUPPORTED;
- 	} else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
- 		if (amdgpu_is_multi_aid(adev))
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index f273b95928c9..9efeaedbe317 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -1243,14 +1243,29 @@ static int smu_v14_0_0_emit_clk_levels(struct smu_context *smu,
+ 		if (ret)
+ 			return ret;
+ 
+-		for (i = 0; i < count; i++) {
+-			idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
+-			ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &value);
+-			if (ret)
+-				return ret;
++		/*
++		 * Build a frequency table and use find_clk_level() to
++		 * locate the closest DPM level.  The SMU often reports
++		 * time-averaged frequencies that do not match any DPM
++		 * entry exactly.
++		 */
++		{
++			uint32_t freqs[NUM_SOCCLK_DPM_LEVELS];
++			int active;
++
++			for (i = 0; i < count; i++) {
++				idx = (clk_type == SMU_MCLK) ? (count - i - 1) : i;
++				ret = smu_v14_0_common_get_dpm_freq_by_index(smu, clk_type, idx, &freqs[i]);
++				if (ret)
++					return ret;
++			}
++
++			active = smu_v14_0_0_find_clk_level(freqs, count, cur_value);
+ 
+-			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, value,
+-					      cur_value == value ? "*" : "");
++			for (i = 0; i < count; i++)
++				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n",
++						      i, freqs[i],
++						      i == active ? "*" : "");
+ 		}
+ 		break;
+ 	case SMU_DCEFCLK:
 -- 
 2.43.0
 
