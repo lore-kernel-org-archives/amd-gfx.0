@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6A31CD98EE
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 07:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 983B6CD98F2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 07:14:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3299A10EE52;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2701010EE4F;
 	Wed, 17 Jun 2026 07:14:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linke.cx header.i=@linke.cx header.b="G36PtcGg";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iy5W1n4Q";
 	dkim-atps=neutral
-X-Greylist: delayed 484 seconds by postgrey-1.36 at gabe;
- Wed, 17 Jun 2026 06:32:27 UTC
-Received: from mail.linke.cx (mail.linke.cx [49.13.16.253])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4A110EE12;
- Wed, 17 Jun 2026 06:32:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CA6A242877; Wed, 17 Jun 2026 08:24:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linke.cx; s=dkim;
- t=1781677460; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding; bh=pnIdiK+fTeeawdLBxJqzYPrNcQXD7qCLhhUpI1B19pQ=;
- b=G36PtcGg3PqXRsZlmpaRiss9lLU3oIf2DvxDdHMT4vz+lfleR5fTbhAPtxN7c6ywJEunL/
- MldiwMEJrWf43S51Fs1I6bQxeXPyyzSsvFAJP5C0DC45xSrKWB+wha4azhJxiLH921xDNP
- v14vutKbpuw/ezDhOYaRpQYgFW3UyDEC9SdR7QZIWee1ekwRwmy36nkNa3n258Hudlj/mf
- tGS2hM/mBIeZUI7xY8nDVl3u1LjECXmq5VeIeiH5vW1VU1V8ReUyCX8sKePzKnGk17tToo
- WDTCx0TQl+O7MRgKQOjWDK7fxm2T680wuOBuDZULairJlSIvPQCsqrSuOnbuEg==
-From: Jakob Linke <jakob@linke.cx>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Lijo Lazar <lijo.lazar@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/soc24: reset dGPU if suspend got aborted
-Date: Wed, 17 Jun 2026 08:24:15 +0200
-Message-ID: <20260617062415.19898-1-jakob@linke.cx>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C30A10E7C1;
+ Tue, 16 Jun 2026 16:44:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C964B40A5F;
+ Tue, 16 Jun 2026 16:44:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C513E1F000E9;
+ Tue, 16 Jun 2026 16:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1781628284;
+ bh=velsIa0PoEapjjZMVGg+B0C8V6ciU6jf50FEvGQwZhw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=iy5W1n4QpS+5ks7z4q481STMzvCcoOtd/PSQD4f0o7yTryqfxYB6wWsR3xBEMYPpv
+ l0upfmgddaNhDCmoaWWXVGHREUUge62Nbw3badcAvXsRYmkdTBcM4EkhlIffLOVGqW
+ 1eB3RQkYbBRBAZeM39FtOYm6byZkbJ/sRCF+dpy8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Wenshan Lan <jetlan9@163.com>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 066/452] drm, fbcon,
+ vga_switcheroo: Avoid race condition in fbcon setup
+Date: Tue, 16 Jun 2026 20:24:53 +0530
+Message-ID: <20260616145121.406910500@linuxfoundation.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
+References: <20260616145117.796205997@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 X-Mailman-Approved-At: Wed, 17 Jun 2026 07:14:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,77 +63,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For SOC24 ASICs (RDNA4 / Navi 4x dGPUs) re-enabling PM features fails if an
-S3 suspend got aborted, the same issue already handled for SOC21 and SOC15:
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-  commit df3c7dc5c58b ("drm/amdgpu: Reset dGPU if suspend got aborted")
-  commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case of suspend abort")
+------------------
 
-The aborted resume fails with:
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-  amdgpu: SMU: No response msg_reg: 6 resp_reg: 0
-  amdgpu: Failed to enable requested dpm features!
-  amdgpu: resume of IP block <smu> failed -62
+[ Upstream commit eb76d0f5553575599561010f24c277cc5b31d003 ]
 
-Apply the same workaround for soc24: detect the aborted-suspend state at
-resume via the sign-of-life register and reset the device before re-init.
+Protect vga_switcheroo_client_fb_set() with console lock. Avoids OOB
+access in fbcon_remap_all(). Without holding the console lock the call
+races with switching outputs.
 
-This is a workaround till a proper solution is finalized.
+VGA switcheroo calls fbcon_remap_all() when switching clients. The fbcon
+function uses struct fb_info.node, which is set by register_framebuffer().
+As the fb-helper code currently sets up VGA switcheroo before registering
+the framebuffer, the value of node is -1 and therefore not a legal value.
+For example, fbcon uses the value within set_con2fb_map() [1] as an index
+into an array.
 
-Fixes: 98b912c50e44 ("drm/amdgpu: Add soc24 common ip block (v2)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jakob Linke <jakob@linke.cx>
+Moving vga_switcheroo_client_fb_set() after register_framebuffer() can
+result in VGA switching that does not switch fbcon correctly.
+
+Therefore move vga_switcheroo_client_fb_set() under fbcon_fb_registered(),
+which already holds the console lock. Fbdev calls fbcon_fb_registered()
+from within register_framebuffer(). Serializes the helper with VGA
+switcheroo's call to fbcon_remap_all().
+
+Although vga_switcheroo_client_fb_set() takes an instance of struct fb_info
+as parameter, it really only needs the contained fbcon state. Moving the
+call to fbcon initialization is therefore cleaner than before. Only amdgpu,
+i915, nouveau and radeon support vga_switcheroo. For all other drivers,
+this change does nothing.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://elixir.bootlin.com/linux/v6.17/source/drivers/video/fbdev/core/fbcon.c#L2942 # [1]
+Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v2.6.34+
+Link: https://patch.msgid.link/20251105161549.98836-1-tzimmermann@suse.de
+[ Minor context conflict resolved. ]
+Signed-off-by: Wenshan Lan <jetlan9@163.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Tested on Navi 44 (RX 9060 XT): recovers the deep->s2idle fallback and pure
-s2idle resumes that otherwise fail with "resume of IP block <smu> failed -62".
-It did not recover every case: one resume still failed under sustained rapid
-s2idle cycling, so like the SOC21/SOC15 versions this is a mitigation, not a
-complete fix. Single suspends in normal use recover.
+ drivers/gpu/drm/drm_fb_helper.c  | 14 --------------
+ drivers/video/fbdev/core/fbcon.c |  9 +++++++++
+ 2 files changed, 9 insertions(+), 14 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/soc24.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index ecb6c3fcfbd1..a970d8a76302 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -521,8 +521,36 @@ static int soc24_common_suspend(struct amdgpu_ip_block *ip_block)
- 	return soc24_common_hw_fini(ip_block);
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index eee7b56d441f71..9691c93f19a0dd 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -30,9 +30,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/console.h>
+-#include <linux/pci.h>
+ #include <linux/sysrq.h>
+-#include <linux/vga_switcheroo.h>
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_drv.h>
+@@ -575,11 +573,6 @@ EXPORT_SYMBOL(drm_fb_helper_release_info);
+  */
+ void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
+ {
+-	struct fb_info *info = fb_helper->info;
+-	struct device *dev = info->device;
+-
+-	if (dev_is_pci(dev))
+-		vga_switcheroo_client_fb_set(to_pci_dev(dev), NULL);
+ 	unregister_framebuffer(fb_helper->info);
+ }
+ EXPORT_SYMBOL(drm_fb_helper_unregister_info);
+@@ -1673,7 +1666,6 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ {
+ 	struct drm_client_dev *client = &fb_helper->client;
+ 	struct drm_fb_helper_surface_size sizes;
+-	struct fb_info *info;
+ 	int ret;
+ 
+ 	ret = drm_fb_helper_find_sizes(fb_helper, &sizes);
+@@ -1691,12 +1683,6 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ 
+ 	strcpy(fb_helper->fb->comm, "[fbcon]");
+ 
+-	info = fb_helper->info;
+-
+-	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
+-	if (dev_is_pci(info->device))
+-		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
+-
+ 	return 0;
  }
  
-+static bool soc24_need_reset_on_resume(struct amdgpu_device *adev)
-+{
-+	u32 sol_reg1, sol_reg2;
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 703c4e851612c8..d1ac4e45eea68e 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -64,6 +64,7 @@
+ #include <linux/console.h>
+ #include <linux/string.h>
+ #include <linux/kd.h>
++#include <linux/pci.h>
+ #include <linux/slab.h>
+ #include <linux/fb.h>
+ #include <linux/fbcon.h>
+@@ -75,6 +76,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/crc32.h> /* For counting font checksums */
+ #include <linux/uaccess.h>
++#include <linux/vga_switcheroo.h>
+ #include <asm/irq.h>
+ 
+ #include "fbcon.h"
+@@ -2914,6 +2916,9 @@ void fbcon_fb_unregistered(struct fb_info *info)
+ 
+ 	console_lock();
+ 
++	if (info->device && dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), NULL);
 +
-+	/* Will reset for the following suspend abort cases.
-+	 * 1) Only reset dGPU side.
-+	 * 2) S3 suspend got aborted and TOS is active.
-+	 *    As for dGPU suspend abort cases the SOL value
-+	 *    will be kept as zero at this resume point.
-+	 */
-+	if (!(adev->flags & AMD_IS_APU) && adev->in_s3) {
-+		sol_reg1 = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81);
-+		msleep(100);
-+		sol_reg2 = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81);
+ 	fbcon_registered_fb[info->node] = NULL;
+ 	fbcon_num_registered_fb--;
+ 
+@@ -3047,6 +3052,10 @@ static int do_fb_registered(struct fb_info *info)
+ 		}
+ 	}
+ 
++	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. */
++	if (info->device && dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
 +
-+		return (sol_reg1 != sol_reg2);
-+	}
-+
-+	return false;
-+}
-+
- static int soc24_common_resume(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	if (soc24_need_reset_on_resume(adev)) {
-+		dev_info(adev->dev, "S3 suspend aborted, resetting...");
-+		soc24_asic_reset(adev);
-+	}
-+
- 	return soc24_common_hw_init(ip_block);
+ 	return ret;
  }
  
 -- 
-2.54.0
+2.53.0
+
+
 
