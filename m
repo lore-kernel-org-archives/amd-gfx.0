@@ -4,85 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31231CD98E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A2A8CD98D2
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C350C10E8A9;
-	Tue, 16 Jun 2026 21:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 038C910EB5B;
+	Tue, 16 Jun 2026 21:48:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IMx8UvlW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LsAk5xS4";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91E5F10E8A9
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:48:29 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-137eb8e3491so139589c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:48:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781646509; cv=none;
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E7EF10EB5B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 21:48:50 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-30bc0b90dd2so82856eec.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 14:48:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781646530; cv=none;
  d=google.com; s=arc-20240605;
- b=aVUzC3TsF971AogQDCmopwLTLEfBmcVesQkpqyUqrfih+4jTpipJNBhilDJ6MfXw1s
- Apzu+/6E2BAXC88P6I1WFZtsJBoLFXeyDKComImxwcH50DqbGXjBmRMqKQk8ebXYqpqC
- dODgEH9DdKYDHvSq1dh2SwvCACfP6xlAHewq4x9xNzJgCtUPPoztPd/QtqQeGi2Tvh/X
- AbjX92UQX1TAY16GGYaE+9Jv2qkMW4WcsCTskaLR6gWFKY9KpJ1nQMJKJuktxWKt2lQE
- 9NodqPnQG+RwKvb0yQ1TNFFAMAn4KwMPNrZnmXTLpNKfUvYrkEr5HrIhiP7Gwz9luZ+B
- dHug==
+ b=benroLJiM1ZQIixbYBSaEV6PiiQzZPhxJ08nKE9gh8oav/GcvFM/9D7OmoNg+08nvC
+ ST6bTCDnVYg4Dbovjf3FKWKylQo63cAYThEEwPFE3Lwi7UBt5ZFYYrxvy81seEtwHLz/
+ RlDE/4g9skcxVE9hP55byFKoT0PuMr1b7A/1s50zjBTMzoZX6/qCoiYBPi9ZNnitqnL2
+ NQPuuErgJk5J8wLgn6s5+ikzv4Lq/RXWJbe10sM5ck5U28bT6cOFJ+/qewI2PNl7UZaM
+ aP9L2acaV+ETBc9/ZDU2Db4g3Ig3MEd2W0zt3JEQ/SoQ6sSUQSWCWmT2pz2QJkS/AWJq
+ r/kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=3V33M2HouqBtPeJQ9c9v0cXZqPY8hz8+j7dLcVfKjJ4=;
+ bh=IVgQUmJZQJUHNJ22HV+TnP7tzdXJl/lubIR7+Ljou7s=;
  fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=IdlVMFqVXicWhbfyd/TvDKjiWA0KU1oOFWIZgTOKd1nYdsTDBzs8vtNLIzK4WR9zur
- +5diZhip5AwurT4jVDq17nUWH0eqnfdGh9MXRCV+Tjou60lzKWCrS9tAVNtmXE0+ebRN
- oyq9ERSBRTc+tkXZu+19W9mDIdzvqAeaqdTCCcccblvbD2RKIeS1zWoTss0/o167klFo
- m1bMLwDO6F2k4PjjB1zwUDuxTFPsSIJ9+jZQVArzPalds5vHiXO/ahR7Yy/aTyNMSCHS
- lYr4WdFhv0e/IHD7zyh6Qwi8fYYT+BHayV4oKTM/uOZqArS7OVj6ZtZdN/ZeyPEFiM9q
- Ku3w==; darn=lists.freedesktop.org
+ b=P+CLwGau38dt94WS7rIj1ywqD7N+aO3sPYwiv3PDmlzDm/QmLvbh4F7imUCVEjET8f
+ PPNRzque74S4GJt4O7tjKa7jtJnT9gTJ+18SkNaNkSYv07Dx1QJ5T+j7IHIjesJPI49d
+ jOPbjuTY9bKIxoliC5s4YdiV5wVrrbEB/9FNMwz0oyA/YV1xGr7mQ3lsPTEuYS4VR2Np
+ nLmJig0qZ7F4Th85oEFcEpi+dDFgpgoA89m1K7ZAwJ/jvzkEEyX5WvRI+9HnkbhfdN/6
+ CzEM/x2F8CE7CvOz96AIj3UrDPc3LUiWA6o42g/yKMinDE72r8Da6jJQuE6iChtFjYNl
+ Sn8w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781646509; x=1782251309; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781646530; x=1782251330; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3V33M2HouqBtPeJQ9c9v0cXZqPY8hz8+j7dLcVfKjJ4=;
- b=IMx8UvlW4iLECVvwKxGDJIwWC/0EFPJJeG5cmZPiUc39FGTkqzX6YJJVGL6L6OdfxQ
- rtP5DXLKs7pmGIH+7W1BWlxtxuLSg3GtVlRP/4vuNzSl0G4ozseRtaKfa9JDCiLc3ohZ
- SW0+IeG/rVK616iCVgIdIu5wjrD9CsNuMxg8+uoUP7BEHWDg9yV8EL0zIr5FgaUNPI9n
- xATIDQClgUTLiV7FCX5htOcHG4pWoYNdO3LZFg4Vw+fh2h4DVJpOfw79R9tpzYcxWDSV
- OyW4QbiBQpxt7OA8SlBsECjXX26LkgPz0evyrGfzW781E2cAUWnb2RF3rfuZszMQrO7V
- 9O+g==
+ bh=IVgQUmJZQJUHNJ22HV+TnP7tzdXJl/lubIR7+Ljou7s=;
+ b=LsAk5xS4NPUwJlJJdlj4ffxZQHrXZZIWqtlM5OBcdQc5DrPu3HP+AOMGx/MgT7K4j2
+ O+FGO1i5vBV8IZIdTz3oHp36UWFn8r7NxsLihqk3Kkm6eq80t63fyb9my2ArkX+9ZtfM
+ lcf/qOOBrghfHjF2Tx0nsMr6veGGWCAAGx3K8WWpi1shaFatpmRjm9I2c8mZ2LzdYtpD
+ WK0dGW/AGbrlbkB9O/AZfGhEbcS2bNHARTqpvs2oUuhkIFChuqQerOyRi+NnzRy1hyDa
+ 3ppejm6avewR0yBBp6BZrT0YVLGLaTlDxFlDwBUKMNqW2AwB7gANb7jiTH/sX6VIlweq
+ rfFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781646509; x=1782251309;
+ d=1e100.net; s=20251104; t=1781646530; x=1782251330;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3V33M2HouqBtPeJQ9c9v0cXZqPY8hz8+j7dLcVfKjJ4=;
- b=MeDAz7bJuOzCcUV5R2X9CPOooD3vGSa0XswZTgspCYQAO0ByDrx7RH5hevh2g3xTVY
- LAVXMPigW8SLDD79QZqbeAb/YIeU5Z/PP7fH9Fz1MIClnj85pR9x39BtCn4vZ5V9herG
- tourbOSDP4SVRKcmMHsSdTc0tHvL/naySnHcEFUcW0utTdiUwF4vtnmh1B9BVZGVeIcd
- uplflqfdDgNBomWbiDoI43A8SRyEczETe2NOfcz3YBhNmhLTb19n++Mhp9K6cNxajn7y
- quOKIa7K6vmujbWURv/IOE6COlz1sxbk8dYa5FTdsJYBWWOGwnCbDRk4pRGfFPvMFjRv
- Gvqw==
-X-Gm-Message-State: AOJu0Yx7+nc+1UyCsgAXCLkNo2nELwe0XCuxrvKy+svXPH+4pL5e67wM
- IgzG4oJV3McfQd/NBp1ZJY/QryVZanYAmvzwUXy/SXY3enzRlcuqm3U39d85+S2sDUIsPJpMkWi
- fyo2AXIkOQ0PKvtVIvnssr3ESUMfMSp4=
-X-Gm-Gg: Acq92OGQo4svk/drMAENqla2lkcwB7XthIcm5Ze71lV9HfQA9iH5+uRDzHg95xYUHHS
- 1T29feiDbQznb8Ebdegf49nMWJ5m01XFikx2mli8ladOrjBtHwcs8KmUw2U+YcYDuDuz23Hr6im
- nhKRJTYAZuJz43Tm5gz3mpfQpRMDGSI1tE8iId5QbPDnwaiQe3XdVzvizpjVoF3Ud+eDZO1+ei0
- MPZB+RPehoHu1DI4z0pRduWFqqaZ3ijPD708cLJpmvywou4RXoI0K3BcocVV7gSs/YQA98cxZD1
- JHcOEWZGXlDuNn17maOV75T3opX+NaE8IjEkpOinDXXMm7aLbDxQfQ9op6abRtuz7HK40g==
-X-Received: by 2002:a05:7023:b06:b0:137:d966:d890 with SMTP id
- a92af1059eb24-1398f6ce9f3mr184043c88.7.1781646508706; Tue, 16 Jun 2026
- 14:48:28 -0700 (PDT)
+ bh=IVgQUmJZQJUHNJ22HV+TnP7tzdXJl/lubIR7+Ljou7s=;
+ b=Dw8t/yDcU0z6mfbAF16Mq/rfrchR3wz7PAzjaHZYrAh+XFQx0d90idALEDk8zFpx5/
+ M7FDRv5kZnlc+Mkr1WTrX146jj+AA9Sr4o5fYQnQhCQ4FxXg+2ebp7u0rkiNSIFRIqnb
+ DZD6P6EOyAcyfw/D6SlQVssLZFTGcZ/iNqVZgwbOZb6tOHN3Kf0nws120+HPPpOYcCBU
+ MDSVioLPsya/mggDYip49Jp71WbAn2d0OPZDZw9jg5NWbIiJskEHlGQ3m3uGa1SaDfcq
+ OyPjtQle3sRDXj5cwT4Cmgq7h03kNOuBnITHPQVI+QKLxycRSq5ejhDJmBrW2xOlvoYd
+ dubQ==
+X-Gm-Message-State: AOJu0Yy3Yujzz9okD1KK3vQ3lhNPzAsHSHPla9sOtad3NI2ZD8ZK/cnz
+ N9F1dQjyIFaLfdL0sD3j0SoweTSKVUOe00R3GnvyIQz3gykWGCIXfMYSp+HeillZP2dIxbRiGdz
+ wnbLRmvm2YgjcJrycQ2ioaTnylRrI0NM=
+X-Gm-Gg: Acq92OGUcpw/EdOyTro9qzcpE8051DWUu3mduUrswPiRD2V5TBtm3wy6d0wnO7MPYM5
+ qooQpSM8YNv36VhhH6Qiwr23gr7vErouKsVgXU23C8Qy03E1TukMgL8WuIMXs5WQm9A3aerkuJZ
+ G6v6B0Hu0flm05uIhTDe+6d1GQKMRFxLj+Ah2W+IbjH9U1F5XhZ86EVigWr6GtQhWrimRi3Pytb
+ tbyAJx2OXyLGjomQpnheIeBNz/SkBj56Re1Xuh57HZhU7KKVcaVSu0LfxBMvwvwWONrXqv2P+nj
+ tbPyhdmMWORWED+Saxq/mz4agUiAx/dvFx5Q90qDgUYixx6N1o780ktuM86zfW7ONVfozplb9g4
+ SCNJ+
+X-Received: by 2002:a05:7022:ef12:b0:138:2790:149b with SMTP id
+ a92af1059eb24-1398f738756mr154299c88.7.1781646529729; Tue, 16 Jun 2026
+ 14:48:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260611035747.548780-1-Jesse.Zhang@amd.com>
- <20260611035747.548780-2-Jesse.Zhang@amd.com>
-In-Reply-To: <20260611035747.548780-2-Jesse.Zhang@amd.com>
+ <20260611035747.548780-3-Jesse.Zhang@amd.com>
+In-Reply-To: <20260611035747.548780-3-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 17:48:17 -0400
-X-Gm-Features: AVVi8Cea56Muv1HIdGlJsnZ3oC4CWNY4XqmvhNAtR3G14LalIef7aXTQHb2WgJs
-Message-ID: <CADnq5_NfxwDAP7B6wjpo7EOMOXW1ajO7LFAeVtwvrRAP=1jozQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/7] drm/amdgpu/gfx11: handle error interrupts for
+Date: Tue, 16 Jun 2026 17:48:38 -0400
+X-Gm-Features: AVVi8CcSqshFWl0qTeRP5LBxKnYkXFF_BM22fCYtv-akmEVMJf-4jLcWYzJqT3U
+Message-ID: <CADnq5_OWccQZe+3XcqBYsieniPtq-utR8fa-_4ijsAVMOj05vg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/7] drm/amdgpu/gfx12: handle error interrupts for
  userqs
 To: Jesse Zhang <Jesse.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
@@ -112,6 +114,7 @@ Once again, feel free to take ownership of these.  You did most of the work=
 .
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+
 >
 > Call the new userq reset helper, and dispatch KQs first by ring_id
 > before falling back to the user-queue lookup.
@@ -122,17 +125,17 @@ Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 > Co-developed-by: Jesse Zhang <jesse.zhang@amd.com>
 > Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 32 ++++++++++++++++++--------
->  1 file changed, 23 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 33 +++++++++++++++++++-------
+>  1 file changed, 24 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 0bd9d8a21f5e..c49a31a3789c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6681,22 +6681,29 @@ static int gfx_v11_0_set_priv_inst_fault_state(st=
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index 380ba062134e..cb4d84c5f52b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -5009,22 +5009,30 @@ static int gfx_v12_0_set_priv_inst_fault_state(st=
 ruct amdgpu_device *adev,
->  static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
+>  static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
 >                                         struct amdgpu_iv_entry *entry)
 >  {
 > -       u8 me_id, pipe_id, queue_id;
@@ -146,16 +149,18 @@ ruct amdgpu_device *adev,
 LL_ID_MASK;
 >
 > +       /*
-> +        * Try KQ first by ring_id (HW slot is authoritative). The
-> +        * KMD compute_hqd_mask contract guarantees KCQ and user queues
-> +        * never share a HW slot.
+> +        * Try KQ first by ring_id; UQ as fallback. KCQ and UQ never shar=
+e
+> +        * a HW slot (compute_hqd_mask contract).
 > +        */
 >         if (!adev->gfx.disable_kq) {
-> +               u8 me_id =3D (entry->ring_id & 0x0c) >> 2;
-> +               u8 pipe_id =3D (entry->ring_id & 0x03) >> 0;
-> +               u8 queue_id =3D (entry->ring_id & 0x70) >> 4;
+> +               u8 me_id, pipe_id, queue_id;
 > +               struct amdgpu_ring *ring;
 > +               int i;
+> +
+> +               me_id =3D (entry->ring_id & 0x0c) >> 2;
+> +               pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> +               queue_id =3D (entry->ring_id & 0x70) >> 4;
 > +
 >                 switch (me_id) {
 >                 case 0:
@@ -171,7 +176,7 @@ LL_ID_MASK;
 >                         }
 >                         break;
 >                 case 1:
-> @@ -6704,8 +6711,10 @@ static void gfx_v11_0_handle_priv_fault(struct amd=
+> @@ -5032,8 +5040,10 @@ static void gfx_v12_0_handle_priv_fault(struct amd=
 gpu_device *adev,
 >                         for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
 +) {
@@ -186,7 +191,7 @@ gpu_device *adev,
 >                         }
 >                         break;
 >                 default:
-> @@ -6713,6 +6722,11 @@ static void gfx_v11_0_handle_priv_fault(struct amd=
+> @@ -5041,6 +5051,11 @@ static void gfx_v12_0_handle_priv_fault(struct amd=
 gpu_device *adev,
 >                         break;
 >                 }
@@ -198,7 +203,7 @@ gpu_device *adev,
 > +                                              doorbell_offset);
 >  }
 >
->  static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
+>  static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
 > --
 > 2.49.0
 >
