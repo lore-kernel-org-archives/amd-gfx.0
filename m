@@ -4,86 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB6FCD98DA
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25C42CD98E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA70010E277;
-	Tue, 16 Jun 2026 12:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A729410E1A7;
+	Tue, 16 Jun 2026 12:36:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="tl8eMbHi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cW2Omw3Z";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91DCE10E78C
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:16:38 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-beeba001887so604410666b.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 05:16:38 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F57F10E1A7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:36:44 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-490c0c92cffso29425605e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 05:36:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1781612197; x=1782216997; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bx9y/uWxvEmwAQubomITARfrNFmmuiV9OcDl8elwdRI=;
- b=tl8eMbHiedA+uDrx20ZsS16yWFUQWK5sgzvwX9MX4ds/jauKPNWvNdevMMlE0VnUba
- fgAxQNo3z0qNGt1Ev4vKB6Ge3jAo7MRIOSnRUtWbsUm+WdGEZcbOq8oZ7ABvq3hNU7FN
- mf1Nn1XQEqjGfeZXJCC6FT0wVYRCA+awbJkPlv++4eQYSNCsXa6E5iFF7SpQxhPFVBYK
- 7OdDCqzYxM5DRi7vo/n2NV7zTB1i0P5AqTX59QyabCGE0YL8isCk2Lr+6Qud799+FseZ
- 0R5+9Q/B5jobw0T8Wd9Ne0whWHdOYrm913RfvwwuvFH1Z9iVw21Xe+vTkagpXmIPTfiB
- Ks9g==
+ d=gmail.com; s=20251104; t=1781613403; x=1782218203; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=7coB9SVCzlKfWuUiPm3B/YiPKFZVYDid1aZwPdjE2oU=;
+ b=cW2Omw3Z11K+Gjh5OFq4BubYG+oCxzD4l0wAN4dCz3wAlQqEX3rIDWqpS9Xq6mbIXB
+ mxV8Db/1QuLOQmteHUYAk47ufjYRiITCrlB7wdoytaogVb2dtDX520if+n/u3chID0bD
+ WKeeh1IPK3jFUROC+ySEpPnSjWJ6I+1eDwph/n/yL4iiKOtf6fIaLGgiD42iWv0baLuP
+ PMZCyaStR8dhu2GLaq4lKykBdfxhaCSdN+bP2+9BuA7/HqEus9UQ6jcaYI1cUhcASFLx
+ LQw62FE4nvPL9gj0rUUKVSlVxnYWMdDc95US7sGzcqfTsJTn7J8C4u+N0Gs2cSYYVRNQ
+ VbuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781612197; x=1782216997;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bx9y/uWxvEmwAQubomITARfrNFmmuiV9OcDl8elwdRI=;
- b=nmMc3QURhksc2a7sDFr0Rf5YSQmER3q8byTPohoBUIr2ObwvrV66HjEIDmk1xtc39Q
- nLhyWw8BH3nWZLjs3hlGAhg8+Hyy0/bcBV6L1gXX/Oy5gGKyqilVTuJbatPsllwuTCAr
- yaaqVA3ka25X2Q0RZdZAcgNJhw+4xEKChf9nk+c1tbA9vNp25yBIMjemnPiEXnY4FClN
- Uheg5T5fxqSbjpDaWfN8V7IbQGSN7h8NHw1fBwPsoC+ieDAHBsLyeSsqUXBoLz9K4Mou
- tme8xKYdx8zbyDb2V5+CERU4m7PfwDsccKyV8BcbAYRgprFRbCpLwnj63UEkHX1fNnu5
- /Bbg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Zi6WRC7Wr+7S44PEQbxOC69FWkB4LllAbOT/xfS1IJvnsIqzG+PTYkTEcflocjbzuhh41ql/S@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8rfAARIfGRSRClw3J/ZaFo75qhBXJIVoD6NsoJETy3YcDHo2Z
- nxaxaKXhAjU/azdAq1KhJEH6bM/82pQ9chEttNcRQ7NYhzZsWrmftJy//kHVvnrG520=
-X-Gm-Gg: Acq92OGsqIjoSWMpnawyQFADbfr2B+W8wg4IFlicaPPsWZE0fbtM2XnsyyDHZrxCV/I
- v+14/JygaBFW2f3NnVU/wyrCP7lTZF8+dFlMcz16ztKoVBTHIVVvAeB4x6AX/V9VDtKgVEKox8y
- gFW30Nd/AOaYAoyarLdmYDh1CrwZWYqtkgn/zi11M4Z+xs2WRrSRBhA1yGDCDR9ozJceIb9gzDj
- 643i/KR8nQ8sZ7vg6tlueYAJ021yAFSRqFA9Hn5OcZtPtkdDczlJ7hmd78YmBfhEuNymDArrQsR
- yaweymrW/8gyKTLKU0oSp/I6llT0yv0k9EP3hP1yAt9GpOmSSxcoyfwR1lcrHfqc9sGExVWLQ0v
- W8OutYqau/UdBtI7SErM3t2/MuWyvnqa3sgWRl2FXhhdPd9zoDVmiPqKSv40eXZKkzWI/glVEtG
- P/eyl4ZblqGYKUYfum3Toj9uLxDaptKHuUfAgqvp2KgFtxcLb/PXDXmkw=
-X-Received: by 2002:a17:907:72c5:b0:bf0:2253:ad67 with SMTP id
- a640c23a62f3a-bff4c9eaa4amr771375266b.46.1781612196734; 
- Tue, 16 Jun 2026 05:16:36 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfdb4423439sm639963666b.2.2026.06.16.05.16.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 05:16:36 -0700 (PDT)
-Message-ID: <4296af8f-8001-4a98-b942-3a2840296b7e@ursulin.net>
-Date: Tue, 16 Jun 2026 13:16:35 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] drm/amdgpu/gfxhub: Respect noretry flag for retry
- faults on GFX12.1
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ d=1e100.net; s=20251104; t=1781613403; x=1782218203;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=7coB9SVCzlKfWuUiPm3B/YiPKFZVYDid1aZwPdjE2oU=;
+ b=MiGs61WjLsWdzm0zyA2DQZ/YFyLxkwyMAtkS+WnM9DPtVuqS2vJqb8tWxRbTjXd7eO
+ N7i2SsBEyt73mURtupdOJd/NQ4RhyGO0/WPE9yFmhbMISnpic8wAc0mwPdEy8ATNJ7ew
+ RphPO0nP7+cQhkcY0g7qwhYHePDuooIWcNOcSBjFXDKUtUlH0Gn8d9mzw8r5LbEC2GQg
+ IFCsK0TIj2t9OIZUuWPp1T3myGCm3w/Pyv6kewEEU5cziYxyhYan0R0axbWWN7s64eL7
+ Ww4JZcSYEweQg7ER/XjSjuYwDxAPYRyvgDF10HrrXCuRmlYRJ7ASZB1YgrNOuRBTX1tz
+ 2jpg==
+X-Gm-Message-State: AOJu0Ywlc0Lnrq3Yd7vgq72VuNLNQgX2JUCCQ9T6IiQeD1F/MGEzKfFV
+ eedF8WFDd2k4X2ak2Gmlnhj9sSP3bbx6aVhyJMzAwa8Zgxbl8fHUGr7eJXklEQ==
+X-Gm-Gg: Acq92OFXnPCu2/D4UWbuLMsGwZewdJlQ3VugA5deVd8fv5Tc1IenJq79xakqfBVBYLo
+ fpx925q+Gt3yLTAn7SV2EIscPRAjwuNOdFhZF5vFECe01n1GRbU/arq82RIVH2VfsOEIF55Y9hs
+ tNEoYuMbXkLwJSxtZhRZutXpTGxlExpbzNcd5CC6iRTBMYjudhILFNrt5OCYAEAQJ7JIeEwYaOV
+ LFWt3p1uRnrB8Umg4BXphJ9Er9vGoLhTzIx+oSHXtI9osplSZDPNs9+VNajJgsgap5Jm1vwXD0C
+ ULkzmw/iNVUuMRL9E0vEfVzjMD7aKPe6/2A6GJASqPmtI/anS3JIAjplG/3lkTHQrkGGfgQYC+F
+ pv4ELqpxoY6s95TAXfGf+0xtv13fgf1O9pB5Ml1asT/4NFWGnLslKVMU6YGGM4Jze2l/HEa6Uxh
+ UGR6Sgt3LP7TYzA36iZNvbkaPZ0vnJcJEc8dh/Y5c2D32Na884sscjXWIUIGb2c0VQGcFOtA==
+X-Received: by 2002:a05:600c:83c3:b0:492:2f5b:7ed4 with SMTP id
+ 5b1f17b1804b1-4922ffc97f5mr49021125e9.36.1781613402957; 
+ Tue, 16 Jun 2026 05:36:42 -0700 (PDT)
+Received: from timur-hyperion.localnet (54001290.dsl.pool.telekom.hu.
+ [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49230a45b30sm55382835e9.2.2026.06.16.05.36.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jun 2026 05:36:42 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Amir Shetaia <Amir.Shetaia@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <maraeo@gmail.com>
+ Amir Shetaia <Amir.Shetaia@amd.com>,
+ Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Subject: Re: [PATCH 6/7] drm/amdgpu/gfxhub: Respect noretry flag for retry
+ faults on GFX12.1
+Date: Tue, 16 Jun 2026 14:36:41 +0200
+Message-ID: <3036224.DJkKcVGEfx@timur-hyperion>
+In-Reply-To: <4296af8f-8001-4a98-b942-3a2840296b7e@ursulin.net>
 References: <20260525114507.24566-1-timur.kristof@gmail.com>
- <20260525114507.24566-7-timur.kristof@gmail.com>
- <25f69c76-8140-4573-8d3e-9aa8071ee715@ursulin.net>
  <4660473.UPlyArG6xL@timur-hyperion>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <4660473.UPlyArG6xL@timur-hyperion>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <4296af8f-8001-4a98-b942-3a2840296b7e@ursulin.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,106 +91,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 16/06/2026 12:57, Timur Kristóf wrote:
-> On Tuesday, June 16, 2026 10:09:53 AM Central European Summer Time Tvrtko
-> Ursulin wrote:
->> On 25/05/2026 12:45, Timur Kristóf wrote:
->>> When retry faults are disabled (amdgpu.noretry=1),
->>> the ENABLE_RETRY_FAULT_INTERRUPT bit should be programmed to 0.
->>>
->>> Note that retry faults are enabled by default on GFX12.1
->>> so this just fixes the case when they are explicitly disabled.
->>>
->>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->>> ---
->>>
->>>    drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
->>> b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c index
->>> 4c2fd1e6616e..d2edfe037da8 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
->>> @@ -243,7 +243,7 @@ static void
->>> gfxhub_v12_1_xcc_init_system_aperture_regs(struct amdgpu_device *ade>
->>>    		tmp = REG_SET_FIELD(tmp,
+On Tuesday, June 16, 2026 2:16:35=E2=80=AFPM Central European Summer Time T=
+vrtko=20
+Ursulin wrote:
+> On 16/06/2026 12:57, Timur Krist=C3=B3f wrote:
+> > On Tuesday, June 16, 2026 10:09:53=E2=80=AFAM Central European Summer T=
+ime Tvrtko
+> >=20
+> > Ursulin wrote:
+> >> On 25/05/2026 12:45, Timur Krist=C3=B3f wrote:
+> >>> When retry faults are disabled (amdgpu.noretry=3D1),
+> >>> the ENABLE_RETRY_FAULT_INTERRUPT bit should be programmed to 0.
+> >>>=20
+> >>> Note that retry faults are enabled by default on GFX12.1
+> >>> so this just fixes the case when they are explicitly disabled.
+> >>>=20
+> >>> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> >>> ---
+> >>>=20
+> >>>    drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 2 +-
+> >>>    1 file changed, 1 insertion(+), 1 deletion(-)
+> >>>=20
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c index
+> >>> 4c2fd1e6616e..d2edfe037da8 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
+> >>> @@ -243,7 +243,7 @@ static void
+> >>> gfxhub_v12_1_xcc_init_system_aperture_regs(struct amdgpu_device *ade>
+> >>>=20
+> >>>    		tmp =3D REG_SET_FIELD(tmp,
+> >=20
+> > GCVM_L2_PROTECTION_FAULT_CNTL2,
+> >=20
+> >=20
+> > ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
+> >=20
+> >>>    		tmp =3D REG_SET_FIELD(tmp,
+> >=20
+> > GCVM_L2_PROTECTION_FAULT_CNTL2,
+> >=20
+> >>> -				    ENABLE_RETRY_FAULT_INTERRUPT,
+> >=20
+> > 0x1);
+> >=20
+> >>> +				    ENABLE_RETRY_FAULT_INTERRUPT,
+> >=20
+> > !adev->gmc.noretry);
+> >=20
+> >>>    		WREG32_SOC15(GC, GET_INST(GC, i),
+> >>>    	=09
+> >>>    			     regGCVM_L2_PROTECTION_FAULT_CNTL2,
+> >=20
+> > tmp);
+> >=20
+> >>>    	}
+> >>=20
+> >> If I look at 6f894c92490b ("drm/amdgpu: Enable retry faults for GFX
+> >> 12.1") which added this code, it also touched
+> >>=20
+> >> gfxhub_v12_1_xcc_setup_vmid_config():
+> >>       tmp =3D REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
+> >>      =20
+> >>                           RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
+> >>=20
+> >> -                       !amdgpu_noretry);
+> >> +                       1);
+> >>=20
+> >> Should that be changed as well?
+> >=20
+> > I personally don't have a GFX12.1 GPU so I have no way to verify how th=
+at
+> > works, which is why I try to avoid changing it unless it's pretty obvio=
+us
+> > that the upstream code is wrong.
+> >=20
+> > Can you elaborate on what you are suggesting exactly?
+>=20
+> I'm asking. :)
+>=20
+> commit 6f894c92490be1bb27492a82544b4b1e4ad20915
+> Author: Mukul Joshi <mukul.joshi@amd.com>
+> Date:   Wed Mar 26 22:06:39 2025 -0400
+>=20
+>      drm/amdgpu: Enable retry faults for GFX 12.1
+>=20
+> Made these three changes:
+>=20
+> gfxhub_v12_1_xcc_init_system_aperture_regs:
+> +                       tmp =3D REG_SET_FIELD(tmp,
 > GCVM_L2_PROTECTION_FAULT_CNTL2,
->>>    		
->>>    				
-> ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
->>>    		
->>>    		tmp = REG_SET_FIELD(tmp,
-> GCVM_L2_PROTECTION_FAULT_CNTL2,
->>>
->>> -				    ENABLE_RETRY_FAULT_INTERRUPT,
-> 0x1);
->>> +				    ENABLE_RETRY_FAULT_INTERRUPT,
-> !adev->gmc.noretry);
->>>
->>>    		WREG32_SOC15(GC, GET_INST(GC, i),
->>>    		
->>>    			     regGCVM_L2_PROTECTION_FAULT_CNTL2,
-> tmp);
->>>    	
->>>    	}
->>
->> If I look at 6f894c92490b ("drm/amdgpu: Enable retry faults for GFX
->> 12.1") which added this code, it also touched
->> gfxhub_v12_1_xcc_setup_vmid_config():
->>
->>       tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
->>                           RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
->> -                       !amdgpu_noretry);
->> +                       1);
->>
->> Should that be changed as well?
->>
-> 
-> I personally don't have a GFX12.1 GPU so I have no way to verify how that
-> works, which is why I try to avoid changing it unless it's pretty obvious that
-> the upstream code is wrong.
-> 
-> Can you elaborate on what you are suggesting exactly?
+> +
+> ENABLE_RETRY_FAULT_INTERRUPT, 0x1);
+>=20
+>=20
+> gfxhub_v12_1_xcc_setup_vmid_config:
+> -                                           !amdgpu_noretry);
+> +                                           1);
+>=20
+>=20
+> mmhub_v4_2_0_mid_init_system_aperture_regs:
+> +               tmp =3D REG_SET_FIELD(tmp, MMVM_L2_PROTECTION_FAULT_CNTL2,
+> +                                   ENABLE_RETRY_FAULT_INTERRUPT, 0x1);
+>=20
+>=20
+> The claim from that one was that it is enabling retry faults on gfx
+> 12.1. If that is correct, and we look at your patch which wants respect
+> the noretry modparam, but only changes one of those three.
+>=20
+> So question is are you confident it is only that one you need to change
+> to make it respect the modparam? I don't know to be clear, those are
+> just things I spot while reading you patch and the relevant history
+> trying to familiarise myself with this area.
 
-I'm asking. :)
+I think I see what you mean.
+Indeed it would make sense to change the patch to use the gmc->noretry flag=
+=20
+there as well. Will add that to the next version.
 
-commit 6f894c92490be1bb27492a82544b4b1e4ad20915
-Author: Mukul Joshi <mukul.joshi@amd.com>
-Date:   Wed Mar 26 22:06:39 2025 -0400
-
-     drm/amdgpu: Enable retry faults for GFX 12.1
-
-Made these three changes:
-
-gfxhub_v12_1_xcc_init_system_aperture_regs:
-+                       tmp = REG_SET_FIELD(tmp, 
-GCVM_L2_PROTECTION_FAULT_CNTL2,
-+ 
-ENABLE_RETRY_FAULT_INTERRUPT, 0x1);
+Thanks,
+Timur
 
 
-gfxhub_v12_1_xcc_setup_vmid_config:
--                                           !amdgpu_noretry);
-+                                           1);
 
 
-mmhub_v4_2_0_mid_init_system_aperture_regs:
-+               tmp = REG_SET_FIELD(tmp, MMVM_L2_PROTECTION_FAULT_CNTL2,
-+                                   ENABLE_RETRY_FAULT_INTERRUPT, 0x1);
-
-
-The claim from that one was that it is enabling retry faults on gfx 
-12.1. If that is correct, and we look at your patch which wants respect 
-the noretry modparam, but only changes one of those three.
-
-So question is are you confident it is only that one you need to change 
-to make it respect the modparam? I don't know to be clear, those are 
-just things I spot while reading you patch and the relevant history 
-trying to familiarise myself with this area.
-
-Regards,
-
-Tvrtko
 
