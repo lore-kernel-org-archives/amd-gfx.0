@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 983B6CD98F2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 07:14:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD49CD98F0
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 07:14:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2701010EE4F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B0010EE55;
 	Wed, 17 Jun 2026 07:14:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iy5W1n4Q";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C30A10E7C1;
- Tue, 16 Jun 2026 16:44:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C964B40A5F;
- Tue, 16 Jun 2026 16:44:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C513E1F000E9;
- Tue, 16 Jun 2026 16:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1781628284;
- bh=velsIa0PoEapjjZMVGg+B0C8V6ciU6jf50FEvGQwZhw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=iy5W1n4QpS+5ks7z4q481STMzvCcoOtd/PSQD4f0o7yTryqfxYB6wWsR3xBEMYPpv
- l0upfmgddaNhDCmoaWWXVGHREUUge62Nbw3badcAvXsRYmkdTBcM4EkhlIffLOVGqW
- 1eB3RQkYbBRBAZeM39FtOYm6byZkbJ/sRCF+dpy8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Wenshan Lan <jetlan9@163.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 066/452] drm, fbcon,
- vga_switcheroo: Avoid race condition in fbcon setup
-Date: Tue, 16 Jun 2026 20:24:53 +0530
-Message-ID: <20260616145121.406910500@linuxfoundation.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260616145117.796205997@linuxfoundation.org>
-References: <20260616145117.796205997@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4F010E042;
+ Tue, 16 Jun 2026 15:35:17 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowAD3Z+subTFqAR3GEw--.19654S2;
+ Tue, 16 Jun 2026 23:35:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: lijo.lazar@amd.com, aurabindo.pillai@amd.com, superm1@kernel.org,
+ xiaogang.chen@amd.com, chongli2@amd.com,
+ pierre-eric.pelloux-prayer@amd.com, Victor.Zhao@amd.com,
+ Jesse.Zhang@amd.com, lang.yu@amd.com, vulab@iscas.ac.cn, Jack.Xiao@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] drm/amdgpu: fix fence reference leak in
+ amdgpu_gfx_run_cleaner_shader_job
+Date: Tue, 16 Jun 2026 15:35:06 +0000
+Message-Id: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAD3Z+subTFqAR3GEw--.19654S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr13AFWUur43Cr45Ar18Krg_yoW8AF4xpF
+ s3Kry3tr48Za17K347A3Wjqa409w13XFy8WrnFya4I93Z8JFn8Jr15JayFqF1kurWkCa17
+ Kryqg3y5X3Z0kF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUFdgAUUUUU=
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoAA2oxZbUPKgABsg
 X-Mailman-Approved-At: Wed, 17 Jun 2026 07:14:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,148 +65,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
+dma_fence with an elevated reference count. The function correctly
+releases this reference on the success path after dma_fence_wait().
+However, if dma_fence_wait() fails (though with infinite timeout and
+non-interruptible it never does), the code jumps to the error label
+without calling dma_fence_put(), resulting in a reference leak.
 
-------------------
+Fix the potential leak by adding dma_fence_put(f) before the goto err
+when dma_fence_wait() returns an error.
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
-
-[ Upstream commit eb76d0f5553575599561010f24c277cc5b31d003 ]
-
-Protect vga_switcheroo_client_fb_set() with console lock. Avoids OOB
-access in fbcon_remap_all(). Without holding the console lock the call
-races with switching outputs.
-
-VGA switcheroo calls fbcon_remap_all() when switching clients. The fbcon
-function uses struct fb_info.node, which is set by register_framebuffer().
-As the fb-helper code currently sets up VGA switcheroo before registering
-the framebuffer, the value of node is -1 and therefore not a legal value.
-For example, fbcon uses the value within set_con2fb_map() [1] as an index
-into an array.
-
-Moving vga_switcheroo_client_fb_set() after register_framebuffer() can
-result in VGA switching that does not switch fbcon correctly.
-
-Therefore move vga_switcheroo_client_fb_set() under fbcon_fb_registered(),
-which already holds the console lock. Fbdev calls fbcon_fb_registered()
-from within register_framebuffer(). Serializes the helper with VGA
-switcheroo's call to fbcon_remap_all().
-
-Although vga_switcheroo_client_fb_set() takes an instance of struct fb_info
-as parameter, it really only needs the contained fbcon state. Moving the
-call to fbcon initialization is therefore cleaner than before. Only amdgpu,
-i915, nouveau and radeon support vga_switcheroo. For all other drivers,
-this change does nothing.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://elixir.bootlin.com/linux/v6.17/source/drivers/video/fbdev/core/fbcon.c#L2942 # [1]
-Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v2.6.34+
-Link: https://patch.msgid.link/20251105161549.98836-1-tzimmermann@suse.de
-[ Minor context conflict resolved. ]
-Signed-off-by: Wenshan Lan <jetlan9@163.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/drm_fb_helper.c  | 14 --------------
- drivers/video/fbdev/core/fbcon.c |  9 +++++++++
- 2 files changed, 9 insertions(+), 14 deletions(-)
+v2: Also cleanup the scheduler entity and simplify error handling paths.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index eee7b56d441f71..9691c93f19a0dd 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -30,9 +30,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/console.h>
--#include <linux/pci.h>
- #include <linux/sysrq.h>
--#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -575,11 +573,6 @@ EXPORT_SYMBOL(drm_fb_helper_release_info);
-  */
- void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
- {
--	struct fb_info *info = fb_helper->info;
--	struct device *dev = info->device;
--
--	if (dev_is_pci(dev))
--		vga_switcheroo_client_fb_set(to_pci_dev(dev), NULL);
- 	unregister_framebuffer(fb_helper->info);
- }
- EXPORT_SYMBOL(drm_fb_helper_unregister_info);
-@@ -1673,7 +1666,6 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
- {
- 	struct drm_client_dev *client = &fb_helper->client;
- 	struct drm_fb_helper_surface_size sizes;
--	struct fb_info *info;
- 	int ret;
- 
- 	ret = drm_fb_helper_find_sizes(fb_helper, &sizes);
-@@ -1691,12 +1683,6 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
- 
- 	strcpy(fb_helper->fb->comm, "[fbcon]");
- 
--	info = fb_helper->info;
--
--	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
--	if (dev_is_pci(info->device))
--		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
--
- 	return 0;
- }
- 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 703c4e851612c8..d1ac4e45eea68e 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -64,6 +64,7 @@
- #include <linux/console.h>
- #include <linux/string.h>
- #include <linux/kd.h>
-+#include <linux/pci.h>
- #include <linux/slab.h>
- #include <linux/fb.h>
- #include <linux/fbcon.h>
-@@ -75,6 +76,7 @@
- #include <linux/interrupt.h>
- #include <linux/crc32.h> /* For counting font checksums */
- #include <linux/uaccess.h>
-+#include <linux/vga_switcheroo.h>
- #include <asm/irq.h>
- 
- #include "fbcon.h"
-@@ -2914,6 +2916,9 @@ void fbcon_fb_unregistered(struct fb_info *info)
- 
- 	console_lock();
- 
-+	if (info->device && dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), NULL);
-+
- 	fbcon_registered_fb[info->node] = NULL;
- 	fbcon_num_registered_fb--;
- 
-@@ -3047,6 +3052,10 @@ static int do_fb_registered(struct fb_info *info)
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index b8ca876694ff..be13ce6ce377 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1658,7 +1658,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 				  &sched, 1, NULL);
+ 	if (r) {
+ 		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
+-		goto err;
++		return r;
  	}
  
-+	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. */
-+	if (info->device && dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
-+
- 	return ret;
+ 	/*
+@@ -1686,16 +1686,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	f = amdgpu_job_submit(job);
+ 
+ 	r = dma_fence_wait(f, false);
+-	if (r)
+-		goto err;
++	goto err;
+ 
+ 	dma_fence_put(f);
+ 
++err:
+ 	/* Clean up the scheduler entity */
+ 	drm_sched_entity_destroy(&entity);
+-	return 0;
+-
+-err:
+ 	return r;
  }
  
 -- 
-2.53.0
-
-
+2.34.1
 
