@@ -4,128 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45F3CD98DA
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45422CD98E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:53:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4196C10EB95;
-	Tue, 16 Jun 2026 12:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48AB10EB8A;
+	Tue, 16 Jun 2026 12:53:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B9H60W2O";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="njaOuifu";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 735C110EB95
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:52:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SznsIM0UzGbwPv92SwhOgP0GuGl87URf1zbN93eJfdQCgopreySCpeETvghlXcRPn+8WZFXmuplGTlUKWIpE7q4NlzFxg/q6UhqQ5WmrIOH+qbyHn4zA9B8tjtMJwH3TnRqE+6adAbepLbw5/RQHk3NaJ7kgefQXEIpEWzp+ebalcu/bkBqe6U/ifCgMxzZhMfdBy1JYoEGj6hAhgiaYIADdyYMySXF42T1nOZZBJWBAd3O/3/K0WGybd5i6SA2HvpNMuyNd9YZftMH3S4GD3V0e0YrRBys+xgtUXzv5j6OEQkc4lmBwDKHz2VlnanqNYma2ZB2LEB+Ma6BVsmY/IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ZmVFYUxPf3TqRrPwvI/R8wCNbdEBEm7irmBtMvbICY=;
- b=dq++4S1w84L2fOf/zYI6tSfPXTJkcDOnnd4185EaQ9N4EPeqeC7s7ZO4WPk/BTBWctR300XtXq8MRmGlwN4+HF1HSoJbMUCNMRtRW1S3VZGh8doSOybbZbMS/g4YtTlsAr/9Kffzsoe2I3G8ycw6XwHi6GzrzH2PrhQMi5x+7iViPE8bzk59EKr91FVTcHqmqivX/YiAQbMrvdTJBqCOBsFTh6hb2er1CLCn8lKbDhW1m/lxWrXzazmTwSaks+YMT5pMMktAUVv6XgKOfBJXIJ9ABeJncQQsrph4r6WiwCnZXU5G6JpaqnSz0U9d3dcqg4FxaxhqBLjXnEz8rNBmnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ZmVFYUxPf3TqRrPwvI/R8wCNbdEBEm7irmBtMvbICY=;
- b=B9H60W2O7lUlxNPAAkaJ4zUsTV4XD/c4oM4vp/ALsPIco9ADOfipn6p9VOEUrKR/KGdUDjLorVaUYUZaKVpyOyex3RKTRO5sQLxq3jmMeF6b9EDJvT4nXolxjmm9bjNf5e4ecOLE6wXoRUC3yLttukpHJVosy9tqzvfQsWIQr6c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB9520.namprd12.prod.outlook.com (2603:10b6:610:280::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 12:52:36 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 16 Jun 2026
- 12:52:36 +0000
-Message-ID: <e7200156-6942-465f-aa9e-ea41921c5a51@amd.com>
-Date: Tue, 16 Jun 2026 14:52:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] amdgpu/ih: Don't perturb HW registers when accessing
- soft IH ring
-To: Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
- amir.shetaia@amd.com
-References: <20260513170849.27061-1-timur.kristof@gmail.com>
- <20260513170849.27061-3-timur.kristof@gmail.com>
- <6f5c367e-b234-491b-81e2-d928cd54050d@ursulin.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6f5c367e-b234-491b-81e2-d928cd54050d@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0171.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE9B10EB8A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 12:53:18 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-307b668e1f5so351626eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2026 05:53:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781614398; cv=none;
+ d=google.com; s=arc-20240605;
+ b=kJyEmVP+6bSUaO0bUzoi5yKSmj+/3LYNpkiOa5rlxjUjVrTn1rwFaUb2hb7q83XrTx
+ WduwnpalNZBU0LAuqfHG1IdEhIRbnI7/8zYUEoauBt+ImKeqLZvvx9KuDPvcNpc9NvJD
+ 8ZXdUoZBrxS/RUhHMohyxxOng/EGRhaWqWQOVRhn2HmlXhjvjyRl7bP/x7pynWciVWFc
+ 2dtPpqdyfL8XFSWpR2gmQZSzaF2Vhzih5jptgb1rBumssVdd7g9lu9mAP0pULj2GNIB+
+ cjDc9cqF+RH0e63uEZCmaxJdq5dzE4lLIGv38qGmUu795zES3tuwpTGynXUc/GDv3viB
+ i6Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=DgG30hfLxdPj3h4xHvfE9KWaPfBimim29sljpeweFao=;
+ fh=hu6edWbrNIbeIZ0Tkzb9Dvke4+sCsh4tKagiLtEFVz0=;
+ b=JkLAIMoce34PZEhbGrTgXKgq2RzGW4m4fQqb6ys9CkYHLvZS5tTTIoPM/qNhZdSkvK
+ L6bNN9goB1UtGRN6i7hlVKnypCffoqplGJLYoDpqprE0HF25yc54XU1faV/pcYuHJygu
+ MmOxmpz/NoN5Rhy3gpict6aCj300aYczyK3jnNY7LcziVDJW+FEo/YYgM26B97JzKLYB
+ +ghTrHxi+YVZ4XTfUB7RstJP63QfHE65OSFD/azov02FFHNRH8wm1a/r0dCQgcpk+vh0
+ XMA90In57FZsuecZ+AfDvZ3qa90rRQNO28+bLS4zAn6di5fKI8cmbuShHDK0t/OXl1jh
+ +geA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781614398; x=1782219198; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DgG30hfLxdPj3h4xHvfE9KWaPfBimim29sljpeweFao=;
+ b=njaOuifuREppzneuYrOQ9V4iKPdunerMNQY4ouCcBsMOu+TsmJTh/mUkC76Pl/6EYa
+ ihppsZa8Z2TGj1WzXJPacf3DDWpepVCJrCbFs6HZgCNx4M9uOE+RAgqjRHjTzTQ3wMSz
+ 3C+KdpPYngyeFkpWD0AiI/jcaNTywPtBaBk8Yz1xHc5LlbIVm4npoC6h5CI/lCgGslBa
+ oJhB0x6Y4oUpz8yP3wW+10sSrpOossZeqYu90XBOMiZ3daPmeRn1TFNkDIOEJKuxKFlT
+ Lxjs0NDXKaby32Vzey3gdvMGyKP6ueQULxHIdQEJTNJzse2TuVs6OjmuOLSZaKVd2z5Z
+ x7KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781614398; x=1782219198;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DgG30hfLxdPj3h4xHvfE9KWaPfBimim29sljpeweFao=;
+ b=BASdyCfBBhPU1JKUUmC1IlBXAH4RNQ3qoKfiVXicoHyT3jci8/KtcDAgCD7c+oFr/O
+ tGICScrthYbEIcaPqpJBLYRk26a6BsIkYiVMF0m1iww3spSeTTG34xBFoUX4uKtGwqXo
+ +T8TP8BaAkn5Vp0p5h9LQYceVU4IqQxw1C0TkYuSEgN68bIgAKvbk7nnDqdxOCMeAnE+
+ lBJaPJsZSJQWuwsP/nKXyc1pM6GIR9MlcODICSuPZW1ojOXJpH9bnWbJgyDAbOhQonF9
+ EwcrYVSo6tHvbvG19an58MEvLemJJFxoJOxZpf7h+93YnO1cyZVQmM8GtNhW3UGfvucb
+ siJQ==
+X-Gm-Message-State: AOJu0YxIktQLIcrhTcD0N3YBY69GrdXDZ+LJ6ZIVhSQyM33UmUqClmbs
+ dbev9QMCQvq8PtMtmYZA1MMli/SNBrsS0xdhHryL6teJz8doPjRxj1LI2JGWGDDYRpW/ii7dsE7
+ VQ+S0Ll94siHqHEC8dRvQoYIHo4D46fM=
+X-Gm-Gg: Acq92OGY6tbuaVBghw1qfB1Blf/yuJGrK9XUrLLM3XxSGRfyCo4bkC8ynDQLCcWa6SO
+ zbmXd+UBBfeM2ayfA5K+EVow2VLq9lPob4BrQTB0bz5HAh1QDYnJdvvKMWkHJQ93bP2ac6ZNBDv
+ TjaoMTeSkCmyCVePvlKrVlZzde+vBH6szu8/OlnuUi0fbwvJPsWP6xc18E8kOeNB8nrNZOjOGHL
+ dKBg2NcpGq+fbO9rsLiEgtqa6+5iOiYOS1xiALfYDVtb4Xxsst+a7ayA9svIANjLX4MVpdyy6/+
+ Al9j84/q3ui9X2eNnhbkzMrefrcF0BXhhx3QF43QKT8C0PxwdYNffkjMOs7SfvFArZ32gw==
+X-Received: by 2002:a05:7301:7c12:b0:2d5:9438:2a02 with SMTP id
+ 5a478bee46e88-3081ff33588mr4688011eec.1.1781614397277; Tue, 16 Jun 2026
+ 05:53:17 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB9520:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59abc5a6-652e-4dcd-f0fe-08decba623ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 324dvKDluB7XHR4gppLxWl9tsv9BXD2oJBB6jodUeSe+okf3PLpBrKJrteD4eYYCWWNgZXkQVzR0rz397yMCZETCtaj0wLlBVnDhJhRpF7bY9CZ9OlSthSfWoNiJEJwyffLv65jOZtjGeT+WIhsfWgLAWvBcCtjFh2vKElJDjL3hMiwBX3qXfp0LvSTV5fD3shyBVAODHHPM2AkxS2bGtIApWVEvApvD1qpLjCPdl/jv+FCfKV6t1XonYxz8hgdUWOO3UMpzdhB5VrSpQH4d5EUYMlLVuywTZBokUHIIB2VAZy2A3sP8Pyne6eSSc/OFhW7FW1v2j8pkFUiI+mjvDK5YC9kACGjTxeRBtOB4skAexKgSI3GD6BSfbuBuv4PAbR0fw7S1olab5KLqaptxipw20VGICge9A6uwGEcnG27EeI69xvWNOKuzJzt9e3FLUJS466Co/EjZJgwqQwPuTO+r9rPlGanXjk9Hf1Z0/Wr2SmleggynL10jO8277A5G8HZefEF3FLNVMkaH86O7Uhq7IC22qM1Bvavr+EEswq+GaLIGsPoKO6j3rDdllR8vJRp9gFGFH6c/pTxKJuVjmMOdWqOe2Fhp36bi7sW5xHQRNZ7W3abtJl0he4q5g2UkbCjJwNEfoeqMI03pXx9EnkigqxlK3yNS1e6lxl1fMJ99fu0NNw2F4Gy8nEb8rsSB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnlYbGtzazhncTFodE1yZUxpM1p5NmIyRG81NEVvQ1NlaXZmZHowZ0pCRGRO?=
- =?utf-8?B?VDZPZmVNaWp3VWdQUWxKT2JHS2FtVlplQUVPdnlZRTVtdmJqb0xDejVaVkZD?=
- =?utf-8?B?WExKVVdKWjhicjlqL3BBZTBvblNYcitQNGIwclEvNjEyWS93clJ4eFRjdzlV?=
- =?utf-8?B?bE0wc3E2V0lnekRUb1FkRVR6MjBzM1RVbkE4OVcwL2h6QnJGZTR3aUNhRENo?=
- =?utf-8?B?TG55N2ZtVk15YjhpYk9ySnYxcEpnOEFub2k2RjNzSmpPRUtIYzRjdjNjL1Ax?=
- =?utf-8?B?dFFxKzl5bmdVSHhUcjlNTzlHUXh0OTJlN3ZoNlFGK0VqU0JyN3VWa3VwRUtQ?=
- =?utf-8?B?cmJ4Y2ZKbUNmZ3BQTnoreWt0cWlpck16c0g5bkUzRkVLT04zY1QwL2syUlp3?=
- =?utf-8?B?dkRQSTB6SzhGMmJ3cDFsRmVoWnY5REh5NWxmdnVUUExKclk0SmpSMWJUeGVk?=
- =?utf-8?B?cmladzFyWS96ZHRwU1dTbitLZDcxRG1lT2dlWkNJU0FYWUd3aW1mV2ZQNDhH?=
- =?utf-8?B?eGtETjY3VWxwU1d4OTkrVStGQ2RYOXpoQ0ozWXFYb1I4QVM3STZLUHJ2ejFv?=
- =?utf-8?B?OHV4N2IwMlN5UnJBOFJSUWhHYnpmbnB3TEx5WU9tOS8wb3VraVRvUUV6Ukx4?=
- =?utf-8?B?STNuZzJ6UWJRVEcveFRha3ExSjNnWnRnblJOem5OUW92ckFDbTFLTTgyNmVl?=
- =?utf-8?B?anp0WllVcURUUzFIbTdENXMwWFNEYjcxRmJteDRENTVJTkQ3YTMrNHFOQXM3?=
- =?utf-8?B?SEJrN21PVDRMZGxpb2JIVi9WZDgzTmdZZlVhTURLZE9XV0lHRHFxenlRMHVZ?=
- =?utf-8?B?VmNUbWdRWjMzcDhqM0FxeWtxcEtLcHFIRE9SckNqL1V1TnNjNW5jdiswbDha?=
- =?utf-8?B?T3pKZWpPdGNGdEtxN2dkZDQ4ZHExZlU4QVlnUTMwNzhmOVZvOGpKeWpKdnlO?=
- =?utf-8?B?anNQTG5XbGtFcHRRVHlnY2Q5NkJ5bUlrMWk0MS9NeHZEM0l4aXRJVnNjYmVO?=
- =?utf-8?B?K2VhNVRMSTh5VGNYSFF1b1ZBeGp0L1ZWRmV4TlVnTHNCQyswUGhGbHB3cWd1?=
- =?utf-8?B?dG1MNUVWM2FtcWVDYTJZUTBBOW90ZDI1cGtldElGQ0JTbW9wRHpoTlErdE1y?=
- =?utf-8?B?VjViQ3FRYXRWdGFLOGMvSEluV2U2RWtiM3FsaUFhMlZlZkUvZi9JWVpXU0NZ?=
- =?utf-8?B?NE53M3c4SWI2RTE3bHQ2S2pXMFhaQytoNHBEakxiV1ZvSEE2am1Ec0tlMFlV?=
- =?utf-8?B?MU5SZUlOV3phSW16bGFaV0pBZ1IxZCtyRVJLTlVvOGVhMnFROEtuQ0dZOXpP?=
- =?utf-8?B?VUdNUGdMTWlkS3ZjYk0wSFdhM2NBdjBWUytYamVxci9qbnJCbUhVeWpIZVlH?=
- =?utf-8?B?cmtlRm96a2dOUEIrUkk1SENyanppSG9pTU1JSGQ2c3lHbUNVVmc5SFh1OFp1?=
- =?utf-8?B?WFd2NytJaisvY2hlK0djbmlMT09aS1k5RXBsTjNrUkV4eGRzcEErcEZudG1h?=
- =?utf-8?B?VFBkRmg3VndPemdIcEtFUUFxV1l1R1lzN1FVRXNlRzNFbVBoeXRFeWRGenZv?=
- =?utf-8?B?cmtSZnBvLzVTWStpeGNSNDc5NjJHZUhzUXVVV2lBNjhlU1MraklmVXRPQW9H?=
- =?utf-8?B?SS9Rb2pCRTFibEhTN2c0RjFzTmlKekJqeU90QXlZS3puS0ErYWlHUmxyOTJG?=
- =?utf-8?B?QkxoSlJ3aGNPTGEzWEs0ZkFGUkpVa2V2Q3crL2hLREpVWjgvVyt1ZXRITmpz?=
- =?utf-8?B?WEhHcDhkMnNrdzIvY2RvZVJ4QTlicHZOeEhpd2xyVEttYTM2OUd0YjdaY2dq?=
- =?utf-8?B?amNpTHdnMkFOOFM5M3hFWU9EZVJUY0FORjg5dVpYaE0rMmx6N2NHSytmMFds?=
- =?utf-8?B?anBvSTdBQ2dmYWVFZ3ppeTUzYnB2UWNpTHUweU9QOERhY1lha0YrUjc5NEpC?=
- =?utf-8?B?QWZPMGNVVFZqRkdjZ3dsS1UxVFFrUXVMUEpoZG9HQkxUcXFlbmZVMWswMFph?=
- =?utf-8?B?ZHdhcEh0Z2VFM2x1d2JwSzhlZjRZVmpSWmFMZDBlRVhsS0lpMktQMTBtenpl?=
- =?utf-8?B?aFRwTDRBcUNyZS9OcVk5VEU5c1lEa1g2V3FmMXEzOG55b0FEUitXM1MrWUJQ?=
- =?utf-8?B?WDdTZkRNSXhlRE5uZFBiM1UzM3Vva09hNG80bkJIQ3VQWUE0LzZWV2FHOG1U?=
- =?utf-8?B?Y2tLcDVIZ0N2eEJCNC9JajN0S2Z4QkNDRC9zdVJwZWp1TWdPcldhclFkQkw0?=
- =?utf-8?B?UjY4L1JSVkM2TGM3Q2dsTUd6VjNML2RZMjNXU0NsVzd0Yk1MbytXWG1vU3Vp?=
- =?utf-8?Q?dRA08EVLGnv/XtXZ1A?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59abc5a6-652e-4dcd-f0fe-08decba623ed
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 12:52:36.3003 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q4KqfRRE95/yLMLnSx0ECBlqdQr46iTIOdTJXhvDJH6/Tz0ygT14F3ZzEKCaUwmU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9520
+References: <20260616052808.354123-1-lijo.lazar@amd.com>
+In-Reply-To: <20260616052808.354123-1-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 16 Jun 2026 08:53:04 -0400
+X-Gm-Features: AVVi8CdtFAKW-dJLnB8xj4Z1RyUuoyPnsXkMo9zg3IbVLkFJUuHyKukKwbiBruk
+Message-ID: <CADnq5_P=rn9BKCMUVUBxfnTh8JM4VKFLZdzd5gX9kgkKyxySGA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: bounds check ATOM IIO table parsing
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com, candice.li@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,116 +102,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/16/26 13:39, Tvrtko Ursulin wrote:
-> 
-> On 13/05/2026 18:08, Timur Kristóf wrote:
->> The soft IH ring is implemented entirely in software.
->> We shouldn't read (or write) and HW registers when accessing it.
->>
->> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 7 +++++++
->>   drivers/gpu/drm/amd/amdgpu/ih_v6_1.c   | 7 +++++++
->>   drivers/gpu/drm/amd/amdgpu/ih_v7_0.c   | 7 +++++++
->>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 4 ++++
->>   4 files changed, 25 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->> index 333e9c30c091..65e5d21753f9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
->> @@ -439,6 +439,10 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev,
->>       struct amdgpu_ih_regs *ih_regs;
->>         wptr = le32_to_cpu(*ih->wptr_cpu);
->> +
->> +    if (ih == &adev->irq.ih_soft)
->> +        goto out;
->> +
-> 
-> Would it be feasible to move amdgpu_ih_funcs from device global into the IH rings themselves? Then we could have soft IH ops and it would be very clean.
+On Tue, Jun 16, 2026 at 1:28=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
+>
+> atom_index_iio() parsed the IIO bytecode without bounds checks, allowing
+> out-of-bounds reads on a malformed VBIOS. Pass the BIOS size into
+> amdgpu_atom_parse() and bound the parse loops by it.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> Assisted-by: Claude Code
 
-I've thought about that multiple times as well but never had the time to actually do it.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-So feel free to implement the idea.
-
-Thanks,
-Christian.
-
-> 
-> Possibly also cleanup all the protoptyes to operate only on ih and not the adev + ih pair.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>       ih_regs = &ih->ih_regs;
->>         if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
->> @@ -514,6 +518,9 @@ static void ih_v6_0_set_rptr(struct amdgpu_device *adev,
->>   {
->>       struct amdgpu_ih_regs *ih_regs;
->>   +    if (ih == &adev->irq.ih_soft)
->> +        return;
->> +
->>       if (ih->use_doorbell) {
->>           /* XXX check if swapping is necessary on BE */
->>           *ih->rptr_cpu = ih->rptr;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->> index 699c274d357e..9dbc20131410 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
->> @@ -410,6 +410,10 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev,
->>       struct amdgpu_ih_regs *ih_regs;
->>         wptr = le32_to_cpu(*ih->wptr_cpu);
->> +
->> +    if (ih == &adev->irq.ih_soft)
->> +        goto out;
->> +
->>       ih_regs = &ih->ih_regs;
->>         if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
->> @@ -481,6 +485,9 @@ static void ih_v6_1_irq_rearm(struct amdgpu_device *adev,
->>   static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
->>                      struct amdgpu_ih_ring *ih)
->>   {
->> +    if (ih == &adev->irq.ih_soft)
->> +        return;
->> +
->>       struct amdgpu_ih_regs *ih_regs;
->>         if (ih->use_doorbell) {
->> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
->> index 6de9e87e04e1..bd332e8cc5bf 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
->> @@ -457,6 +457,10 @@ static u32 ih_v7_0_get_wptr(struct amdgpu_device *adev,
->>       struct amdgpu_ih_regs *ih_regs;
->>         wptr = le32_to_cpu(*ih->wptr_cpu);
->> +
->> +    if (ih == &adev->irq.ih_soft)
->> +        goto out;
->> +
->>       ih_regs = &ih->ih_regs;
->>         if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
->> @@ -527,6 +531,9 @@ static void ih_v7_0_set_rptr(struct amdgpu_device *adev,
->>   {
->>       struct amdgpu_ih_regs *ih_regs;
->>   +    if (ih == &adev->irq.ih_soft)
->> +        return;
->> +
->>       if (ih->use_doorbell) {
->>           /* XXX check if swapping is necessary on BE */
->>           *ih->rptr_cpu = ih->rptr;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->> index 4cd325149b63..e7ed37bb48e0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
->> @@ -417,6 +417,10 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
->>            */
->>           wptr = le32_to_cpu(*ih->wptr_cpu);
->>   +        if (ih == &adev->irq.ih_soft)
->> +            goto out;
->> +
->> +
->>           if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
->>               goto out;
->>       }
-> 
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/atom.c            | 21 +++++++++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/atom.h            |  3 ++-
+>  3 files changed, 19 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_atombios.c
+> index ca65e6ebdb25..a0c740bce310 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> @@ -1923,7 +1923,7 @@ int amdgpu_atombios_init(struct amdgpu_device *adev=
+)
+>         atom_card_info->pll_read =3D cail_pll_read;
+>         atom_card_info->pll_write =3D cail_pll_write;
+>
+> -       adev->mode_info.atom_context =3D amdgpu_atom_parse(atom_card_info=
+, adev->bios);
+> +       adev->mode_info.atom_context =3D amdgpu_atom_parse(atom_card_info=
+, adev->bios, adev->bios_size);
+>         if (!adev->mode_info.atom_context) {
+>                 amdgpu_atombios_fini(adev);
+>                 return -ENOMEM;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
+pu/atom.c
+> index a40ce7555f28..941941cc1759 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> @@ -1327,11 +1327,21 @@ static void atom_index_iio(struct atom_context *c=
+tx, int base)
+>         ctx->iio =3D kzalloc(2 * 256, GFP_KERNEL);
+>         if (!ctx->iio)
+>                 return;
+> -       while (CU8(base) =3D=3D ATOM_IIO_START) {
+> -               ctx->iio[CU8(base + 1)] =3D base + 2;
+> +       while (base + 1 < ctx->bios_size && CU8(base) =3D=3D ATOM_IIO_STA=
+RT) {
+> +               uint8_t index =3D CU8(base + 1);
+> +
+> +               ctx->iio[index] =3D base + 2;
+>                 base +=3D 2;
+> -               while (CU8(base) !=3D ATOM_IIO_END)
+> -                       base +=3D atom_iio_len[CU8(base)];
+> +               while (base < ctx->bios_size && CU8(base) !=3D ATOM_IIO_E=
+ND) {
+> +                       uint8_t op =3D CU8(base);
+> +
+> +                       if (op >=3D ARRAY_SIZE(atom_iio_len)) {
+> +                               /* Malformed table: mark method undefined=
+ */
+> +                               ctx->iio[index] =3D 0;
+> +                               return;
+> +                       }
+> +                       base +=3D atom_iio_len[op];
+> +               }
+>                 base +=3D 3;
+>         }
+>  }
+> @@ -1553,7 +1563,7 @@ static inline void atom_print_vbios_info(struct ato=
+m_context *ctx)
+>                 drm_info(ctx->card->dev, "ATOM BIOS: %s\n", vbios_info);
+>  }
+>
+> -struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bio=
+s)
+> +struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bio=
+s, uint32_t bios_size)
+>  {
+>         int base;
+>         struct atom_context *ctx =3D
+> @@ -1567,6 +1577,7 @@ struct atom_context *amdgpu_atom_parse(struct card_=
+info *card, void *bios)
+>
+>         ctx->card =3D card;
+>         ctx->bios =3D bios;
+> +       ctx->bios_size =3D bios_size;
+>
+>         if (CU16(0) !=3D ATOM_BIOS_MAGIC) {
+>                 pr_info("Invalid BIOS magic\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdg=
+pu/atom.h
+> index bb3d9eb7eb6b..4687c019cbe3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atom.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/atom.h
+> @@ -133,6 +133,7 @@ struct atom_context {
+>         struct card_info *card;
+>         struct mutex mutex;
+>         void *bios;
+> +       uint32_t bios_size;
+>         uint32_t cmd_table, data_table;
+>         uint16_t *iio;
+>
+> @@ -160,7 +161,7 @@ struct atom_context {
+>
+>  extern int amdgpu_atom_debug;
+>
+> -struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bio=
+s);
+> +struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bio=
+s, uint32_t bios_size);
+>  int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint3=
+2_t *params, int params_size);
+>  int amdgpu_atom_asic_init(struct atom_context *ctx);
+>  void amdgpu_atom_destroy(struct atom_context *ctx);
+> --
+> 2.49.0
+>
