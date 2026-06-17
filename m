@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AF67CD98F8
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC31CD98F6
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82C4610F0DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1BF10F0D7;
 	Wed, 17 Jun 2026 19:14:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FnomFT0f";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qw1kWVao";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3554D10F0DB
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:14:44 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4921eed3fa2so570725e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 12:14:44 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4DDE10F0CE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:14:37 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-490ac357c55so604225e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 12:14:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781723683; x=1782328483; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781723676; x=1782328476; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LE5bBgmES7rwaSOezENZK+CxpRoTyve64ifUIPh/IjE=;
- b=FnomFT0f5Y+R7FHEciI3pdBuE0ytHuHB4Hy0Kx24nu6z52wHHeWb7u0GxNgOv4aTm7
- GHrxykUT6kRsMSIJ+RgMJN2ux5Tu5fjdPA2A+CvxI8SgUGx5/J5BFGyFwc8qmfCNzNcF
- j6CBmblFMwjg8U44EJ0hQI1DTDeX1Asp3i7nXf8SzP4iAwlTKbf5bg5PjWRTo1fkQy9g
- lS7op++epaqFOYCHc5htb8r9JWvh4jtEIdHmfb4rlaEQqlmtJAJYlME4O30pW5fQyQRX
- zzXvcPELgN+A1IS2pGH6dpBvA57miyWgjC/G8r2ah5j7LApunVpAsymdWUMWpfVu5tl3
- xLeQ==
+ bh=k5HyQxm+4k6rJid+mBeVbuXvKhOhocHQvv+UBU4JFhY=;
+ b=qw1kWVaoo6vKjhp/RemBrmv3ooHPPn/zNmMGqe7iuI+2CC2vx8yi63nAQQSoGufps6
+ hMZV61iY5VBUM3/X7PFK6njLSxNZbymc69Zyixb6LPu52f7rkwM4rV3vwAmFP+32pjhF
+ +l8cXykEdhYUl3z/hdHhbazVRxOkjgeQLdi4tPETMxIcPkATtow8w46z1zkz5G6wygtX
+ obgq5F5wMctapnYqY3qu+E9uOelE+ZBNbj7huq6XXzgGIf6y6z4HvctDdRZMJ/heN9vK
+ 3D9xFMIW87ErK9Ao4dczoPRQNuOVZeHDyp4ps+9cYixzQ20yNa7NgYB8TdT2kFkE3JaN
+ wQug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781723683; x=1782328483;
+ d=1e100.net; s=20251104; t=1781723676; x=1782328476;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=LE5bBgmES7rwaSOezENZK+CxpRoTyve64ifUIPh/IjE=;
- b=V+lHHXfMzjGjkUIM3G5ezvLoQpdwP+cJswUkUoCr0Ok5TlnlRfxYfiwCw5aOB5PHdP
- XEDgyRVosuJtJqjZWhGCKEm0b/EwNBH6sV4/U59cAfeXNgIrh0BsAeJLbzUH6MZ261k4
- AKkWAQctxfr7JT3GyOFKf/K43Z28sAKHaC5hWA3bQexsSHO+Hfj+J+gbI9T5QUaNEDzL
- MqqDPhjosbbSwvXsj96r6j27l9Kv2FVVLoyEZQ22iyCQNd+slEFQSlzW/FAWaxMIfmlr
- K0bKAIyvbgnGrGxHCC2mTrCo04aprBEW2/2lj/f8prKlMAkt5cg5pVbs3had7M6RErbu
- q+lw==
-X-Gm-Message-State: AOJu0Yx0rVwIBUBkeQAAfqkLUcU9zVFBaKHNjauz+ZtxGe6yxVsUno9Q
- Rc+oboXIqyNINyVuHI56599jncoZNAMw+JjZBHHWQeQvDE4TgKLwrsYFKZIjMg==
-X-Gm-Gg: Acq92OHPvxJxk/EYzVwn77f1GCw1LT6sGyrN35F6snP/8mNCTE+cTiu9o9RJfeopV9x
- h+YD4m69PnKPnaKVmDtaAXDTePQl1z3AAlSsQArSPnS2upusck1DyS0lWBbabVPMvEzzNpFDjqQ
- bgTnw/Bf4FtzHWnpxFdsyS/5jsSw9wiiEftRZw0+3EPli9MnFpH0vMS0ecQqbRNfNVx+YRzgkC0
- MEhpZN1gYPDt76lGyo4BtoKR80/ncQSY8o5oH7CcFW3FfWCXZ74QqPcJFog+Ny/df9KyuRYTYq9
- vrFkigub8PS71h3NaLg1ECQs2iTiACF9I1BHxbb/kXyZbAd17ogqHS8ox+lo5i9dgCsr6I8eBaL
- ZYGn4Cf7fs3wAo2PMLTMxkILE+tIbdOkfwRnQ61N4tbE3BicL1OHxcDaS7VylP7CnDHkZ2Mimqb
- DqbeE441HkW7G1JBA4LRhEFKHsfXzSdGU375XKn18R/htr63lp22GfPw==
-X-Received: by 2002:a05:600c:3148:b0:490:b5d0:598e with SMTP id
- 5b1f17b1804b1-4923412f0e7mr76768045e9.21.1781723682574; 
- Wed, 17 Jun 2026 12:14:42 -0700 (PDT)
+ bh=k5HyQxm+4k6rJid+mBeVbuXvKhOhocHQvv+UBU4JFhY=;
+ b=Kzo0QT2cUwQ8nP8voUEflAnX27hz499ND9ngg4GJG6qsoE543JDlEpNZJkZGw0/7HO
+ 7PLZNN3w7NpkKGYSaSM+jZJZZV2khYSkXkeyQpdPpdYHB3y2VMG4zqlvRaD6j6fm7fIX
+ H84NnFrQbsXuhtDAsHTcB9j1FdqT89gHrWDVBjjAz/21CSQ2BbnlbbqFST8iolT/jXaZ
+ 1MXcyV0Aq+k8fpPgc6352/l1pBJqjB2iOZT1dM+jHPb9K3Ojf3c8+Dp0nnDuIS58duoD
+ hKIvFP/0UMniKypZL/1FZCA5lrqcTBPkgLGU6sQ70aTySco9KzO/y3OqdMZAsjBGEaRQ
+ XhzQ==
+X-Gm-Message-State: AOJu0YzhbY7S76gQ0Xn5SbFAtbIz+odB9KyFnw84Kwg+cjdRDZmgPzlS
+ XPXZKnmz8hkdcBpUQarLLOPwKiERfgXsNNZ/oCUFyzCbJvhBS6JSxR8JLLLgpQ==
+X-Gm-Gg: Acq92OH0sQRTJWbrzoCMGq+TxaCXLwvEdPB/YGKaAq5xnuYSrHteypOBCVqwUyO1VW9
+ lTrchNjSUO+JJnTbQmGBt2xCJ3aRl76806LDeoRnGttkymeZf/RoRFZACuXbKD4978Niaufrd6G
+ 9mx9VYistvlqhtcsq1QVoI+DEhoVjtkrV7V6efNGrP8Q6lXIX9uiq2yUqcx6jg1jDi7LLN2leR3
+ 5jVz4Nfwd6hKBhcZy7kp3LBp7RkVRUZ2Eoa7xOCAp1kY9buQQEW9d0a/VfZWMLT3ZAaaGGxC9hi
+ t5KmicvEL5F1fm5uNqdQHcQsRSzxxH5OIK8DwTr8QDG+ska1fKsMUmJFN99fA9IYmWrLyy08pbe
+ mlKPxWRdELhwiCMkSG0UkgwMtfyzB9dlgf/PMbDd8/MPpqNkYn56Gd/Qe+UsvqyLCbvQhjyqaQl
+ pQ8pquIKsFTfSNHUlN4cvz8eyWYziEUlvuY8He/eS+kIiMIgVFSj9N9A==
+X-Received: by 2002:a05:600c:3317:b0:492:1e36:552c with SMTP id
+ 5b1f17b1804b1-492333e3b6amr61820545e9.37.1781723675942; 
+ Wed, 17 Jun 2026 12:14:35 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa96f0esm204686325e9.12.2026.06.17.12.14.41
+ 5b1f17b1804b1-4922fa96f0esm204686325e9.12.2026.06.17.12.14.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 12:14:42 -0700 (PDT)
+ Wed, 17 Jun 2026 12:14:35 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
@@ -68,10 +68,9 @@ To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Lazar Lijo <lijo.lazar@amd.com>, Martin Roukala <martin.roukala@mupuf.org>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 09/17] drm/amdgpu/fence: add helper to extract the guilty
- fence (v2)
-Date: Wed, 17 Jun 2026 21:14:20 +0200
-Message-ID: <20260617191428.1784083-10-timur.kristof@gmail.com>
+Subject: [PATCH 03/17] drm/amdgpu: Delete GMC 8 soft reset
+Date: Wed, 17 Jun 2026 21:14:14 +0200
+Message-ID: <20260617191428.1784083-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617191428.1784083-1-timur.kristof@gmail.com>
 References: <20260617191428.1784083-1-timur.kristof@gmail.com>
@@ -92,77 +91,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+We should only reset the memory controller during ASIC reset
+and only when it's absolutely necessary. Otherwise, resetting
+the memory controller typically just breaks everything and
+on dGPUs may also clear the contents of VRAM (it's unclear if
+it really does, but it's likely).
 
-Add a helper to extract the first amdgpu_fence which has
-not yet signalled and is thus guilty or at least collateral
-damage.
+Specifically for GMC 8, the memory controller is reset as part
+of the ASIC reset and otherwise should be left alone.
 
-v2 by Timur Kristóf:
-- Don't clear ring_backup_entries_to_copy
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 30 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  2 ++
- 2 files changed, 32 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 125 ------------------------
+ 2 files changed, 126 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 8a54da1267b4..ecf7991b2a54 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -832,6 +832,36 @@ void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
- 	} while (last_seq != seq);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 676e3aaa1f27..f3f42f773171 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -285,7 +285,6 @@ struct amdgpu_gmc {
+ 	struct amdgpu_irq_src	vm_fault;
+ 	uint32_t		vram_type;
+ 	uint8_t			vram_vendor;
+-	uint32_t                srbm_soft_reset;
+ 	bool			prt_warning;
+ 	uint32_t		sdpif_register;
+ 	/* apertures */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 1d3ddffd5a11..37f7777e82d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -167,44 +167,6 @@ static void gmc_v8_0_init_golden_registers(struct amdgpu_device *adev)
+ 	}
  }
  
-+struct amdgpu_fence *
-+amdgpu_ring_find_guilty_fence(struct amdgpu_ring *ring)
-+{
-+	struct dma_fence *unprocessed;
-+	struct dma_fence __rcu **ptr;
-+	struct amdgpu_fence *fence;
-+	u32 seq, last_seq;
-+
-+	last_seq = amdgpu_fence_read(ring) & ring->fence_drv.num_fences_mask;
-+	seq = ring->fence_drv.sync_seq & ring->fence_drv.num_fences_mask;
-+
-+	do {
-+		last_seq++;
-+		last_seq &= ring->fence_drv.num_fences_mask;
-+
-+		ptr = &ring->fence_drv.fences[last_seq];
-+		rcu_read_lock();
-+		unprocessed = rcu_dereference(*ptr);
-+
-+		if (unprocessed && !dma_fence_is_signaled(unprocessed)) {
-+			fence = container_of(unprocessed, struct amdgpu_fence, base);
-+			rcu_read_unlock();
-+			return fence;
-+		}
-+		rcu_read_unlock();
-+	} while (last_seq != seq);
-+
-+	return NULL;
-+}
-+
- /*
-  * Common fence implementation
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 9276a3bb69de..71cd9bb12f75 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -589,6 +589,8 @@ int amdgpu_ib_ring_tests(struct amdgpu_device *adev);
- bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring);
- void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
- 					     struct amdgpu_fence *guilty_fence);
-+struct amdgpu_fence *
-+amdgpu_ring_find_guilty_fence(struct amdgpu_ring *ring);
- void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
- 				    struct amdgpu_fence *guilty_fence);
- int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+-static void gmc_v8_0_mc_stop(struct amdgpu_device *adev)
+-{
+-	u32 blackout;
+-	struct amdgpu_ip_block *ip_block;
+-
+-	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GMC);
+-	if (!ip_block)
+-		return;
+-
+-	gmc_v8_0_wait_for_idle(ip_block);
+-
+-	blackout = RREG32(mmMC_SHARED_BLACKOUT_CNTL);
+-	if (REG_GET_FIELD(blackout, MC_SHARED_BLACKOUT_CNTL, BLACKOUT_MODE) != 1) {
+-		/* Block CPU access */
+-		WREG32(mmBIF_FB_EN, 0);
+-		/* blackout the MC */
+-		blackout = REG_SET_FIELD(blackout,
+-					 MC_SHARED_BLACKOUT_CNTL, BLACKOUT_MODE, 1);
+-		WREG32(mmMC_SHARED_BLACKOUT_CNTL, blackout);
+-	}
+-	/* wait for the MC to settle */
+-	udelay(100);
+-}
+-
+-static void gmc_v8_0_mc_resume(struct amdgpu_device *adev)
+-{
+-	u32 tmp;
+-
+-	/* unblackout the MC */
+-	tmp = RREG32(mmMC_SHARED_BLACKOUT_CNTL);
+-	tmp = REG_SET_FIELD(tmp, MC_SHARED_BLACKOUT_CNTL, BLACKOUT_MODE, 0);
+-	WREG32(mmMC_SHARED_BLACKOUT_CNTL, tmp);
+-	/* allow CPU access */
+-	tmp = REG_SET_FIELD(0, BIF_FB_EN, FB_READ_EN, 1);
+-	tmp = REG_SET_FIELD(tmp, BIF_FB_EN, FB_WRITE_EN, 1);
+-	WREG32(mmBIF_FB_EN, tmp);
+-}
+-
+ /**
+  * gmc_v8_0_init_microcode - load ucode images from disk
+  *
+@@ -1293,89 +1255,6 @@ static int gmc_v8_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 
+ }
+ 
+-static bool gmc_v8_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	u32 srbm_soft_reset = 0;
+-	struct amdgpu_device *adev = ip_block->adev;
+-	u32 tmp = RREG32(mmSRBM_STATUS);
+-
+-	if (tmp & SRBM_STATUS__VMC_BUSY_MASK)
+-		srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset,
+-						SRBM_SOFT_RESET, SOFT_RESET_VMC, 1);
+-
+-	if (tmp & (SRBM_STATUS__MCB_BUSY_MASK | SRBM_STATUS__MCB_NON_DISPLAY_BUSY_MASK |
+-		   SRBM_STATUS__MCC_BUSY_MASK | SRBM_STATUS__MCD_BUSY_MASK)) {
+-		if (!(adev->flags & AMD_IS_APU))
+-			srbm_soft_reset = REG_SET_FIELD(srbm_soft_reset,
+-							SRBM_SOFT_RESET, SOFT_RESET_MC, 1);
+-	}
+-
+-	if (srbm_soft_reset) {
+-		adev->gmc.srbm_soft_reset = srbm_soft_reset;
+-		return true;
+-	}
+-
+-	adev->gmc.srbm_soft_reset = 0;
+-
+-	return false;
+-}
+-
+-static int gmc_v8_0_pre_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	struct amdgpu_device *adev = ip_block->adev;
+-
+-	if (!adev->gmc.srbm_soft_reset)
+-		return 0;
+-
+-	gmc_v8_0_mc_stop(adev);
+-	if (gmc_v8_0_wait_for_idle(ip_block))
+-		dev_warn(adev->dev, "Wait for GMC idle timed out !\n");
+-
+-	return 0;
+-}
+-
+-static int gmc_v8_0_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	struct amdgpu_device *adev = ip_block->adev;
+-	u32 srbm_soft_reset;
+-
+-	if (!adev->gmc.srbm_soft_reset)
+-		return 0;
+-	srbm_soft_reset = adev->gmc.srbm_soft_reset;
+-
+-	if (srbm_soft_reset) {
+-		u32 tmp;
+-
+-		tmp = RREG32(mmSRBM_SOFT_RESET);
+-		tmp |= srbm_soft_reset;
+-		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
+-		WREG32(mmSRBM_SOFT_RESET, tmp);
+-		tmp = RREG32(mmSRBM_SOFT_RESET);
+-
+-		udelay(50);
+-
+-		tmp &= ~srbm_soft_reset;
+-		WREG32(mmSRBM_SOFT_RESET, tmp);
+-		tmp = RREG32(mmSRBM_SOFT_RESET);
+-
+-		/* Wait a little for things to settle down */
+-		udelay(50);
+-	}
+-
+-	return 0;
+-}
+-
+-static int gmc_v8_0_post_soft_reset(struct amdgpu_ip_block *ip_block)
+-{
+-	struct amdgpu_device *adev = ip_block->adev;
+-
+-	if (!adev->gmc.srbm_soft_reset)
+-		return 0;
+-
+-	gmc_v8_0_mc_resume(adev);
+-	return 0;
+-}
+-
+ static int gmc_v8_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
+ 					     struct amdgpu_irq_src *src,
+ 					     unsigned int type,
+@@ -1715,10 +1594,6 @@ static const struct amd_ip_funcs gmc_v8_0_ip_funcs = {
+ 	.resume = gmc_v8_0_resume,
+ 	.is_idle = gmc_v8_0_is_idle,
+ 	.wait_for_idle = gmc_v8_0_wait_for_idle,
+-	.check_soft_reset = gmc_v8_0_check_soft_reset,
+-	.pre_soft_reset = gmc_v8_0_pre_soft_reset,
+-	.soft_reset = gmc_v8_0_soft_reset,
+-	.post_soft_reset = gmc_v8_0_post_soft_reset,
+ 	.set_clockgating_state = gmc_v8_0_set_clockgating_state,
+ 	.set_powergating_state = gmc_v8_0_set_powergating_state,
+ 	.get_clockgating_state = gmc_v8_0_get_clockgating_state,
 -- 
 2.54.0
 
