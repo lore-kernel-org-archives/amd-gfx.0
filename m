@@ -4,125 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97CC1CD98E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 08:57:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C58ECD98EE
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 09:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3453D10EED5;
-	Wed, 17 Jun 2026 08:57:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A063110EEE4;
+	Wed, 17 Jun 2026 09:04:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iNEQXayL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YHNgnVhd";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013056.outbound.protection.outlook.com
- [40.93.201.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9AD310EED5;
- Wed, 17 Jun 2026 08:57:24 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010013.outbound.protection.outlook.com
+ [40.93.198.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6F810EEED
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 09:04:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vQ0OjVSE/LNO9mEd/Vf+3E2JnlSa/8WH1zDANy8GaoGqDyGa4f0X5V/vd6ufU3FW7zLvLCA0hm2tpZ4NSpGJNjy0SEGkNX85ellxlkUXZ5erQgtID9Bl8hjIeWY+Gs1SjsujRFuLR68duTEXZm4Fv99h3y2Ca4wYHqqr/kW/zF0ueZ/6y/JkECKzCicR+0ZVaKlnTHRpzBj8La8MDqU9aR30gXjRG69Fx2/kNI1E1sZ3+LhmiGQKIwQUKNoHf/p8dhMICcVmYyRPyrUunHmGwS5wbpRgKCj0iFRBnlkwQfU2AiChGzRlye/++F2lWmTM8RyyTLm1XpQmmDVEuQxZjQ==
+ b=ogsBgSa6eOV5G+RQ2/LxARD+PGBTm2bTQXtwB18hf27dSU+a9LyVopztVmvqTRFgbgRtmU0R1R47LsUWYXKzI3H2f2eozfOUm8CVAkiAd4MmVnFul3nzQbCeX3KUKuTuD4GPEQdXTZgPgAJC0bKeD7l3VZL1uoWwBvz9dLSkarI6BCq2aB6/2YPq7aqCMZK1ZAI95IO27IdFt7rj5MRc6UliYhApOp2PZPWHn7MiF6HTtiMd3L69Dfzx2Cl3NqB9nFMGzb4cqoNLWRlvshWb3YpG3Xhli2/gRk8VwHX0Uc0IZBEy4Ft2VftS3vIHJ44pN7yJ8kPmoqIUraOD6ZPXyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mZhmx+jueioJnZXJMZHg0TgRu3Um63UlCwaSdLw5sgY=;
- b=CIuE424ngMEI+/ENBNG0mzB2USzcx+Mva62EWt41B1NOioySAXUhez2aTTH0XkYP3JjycZSPzcqe0Y2jaMBjaSKbf8pjZ6luX8p0JtL2GUEdecYj8/qf1/NgEaIZeBEWA7Nc+6d4m6js9ljpHyK9lffxzU660oYj4LewevmULVRPV5+D+71LKTmK3vCZgo4fkj0RK59+xV4GcXpsasqqwUQG2qVCkg3jaA0SOAfMWupCyjSzn4qmk5wfcgNRJgNs2RXZGPNAINewrN31ZjnttsC2qj3WRDPCDKISpjXNuTx2cuY69C2Joeh/O/48A92LU/LWQfOYsRwzKrRAyc0OLg==
+ bh=61C2Wul1BtIAwFU6ncr6qK4wxB/sbGIKeV7pFJXiv6I=;
+ b=xCBGc1W2uUq9XE5qVKkRgg4PNoiz9Aena6xNDMYowPpQgMjHHl8NSH3zmPFYmdvfPMrYZgwO9kTWgfVPgShmqZf3B46/sk+lZUh02JsaBQsLOBSJjvVvAgQJqR2nRW3sccbUiVIy3oXqWVSbEP2r3HQInykuh08EGDrWeNf5xObf72dwEHCRNKIZIeWtq+IWvS0XdVn8tJ55fXYLgX58+YJbaD+9kzxnBdaKnAQfFPnUuaZlLPu3+xWweNhzBwbNDH/Ko/ETTj3R0PB5wucvWwUZmoqr99HU4f0pSSlJwN8oZPhKnawuqgPKgpQghl4wBW6ZCSFanyoxYQ+smbsPhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mZhmx+jueioJnZXJMZHg0TgRu3Um63UlCwaSdLw5sgY=;
- b=iNEQXayLWKb0Pz9TUn3LcoiXDDO+YounA6xNawcMWfaDtu00XSn4eokQpeLKfyCCT32WzUBO2dlsqfyVwyrQZQ2dui9cscDhCB969OtiSvzRfXKNYrizQ9y8jhlqyeFImkn84EKXaNqJXutrjAldbk0JLFsJ85VTERPEI89f8gI=
+ bh=61C2Wul1BtIAwFU6ncr6qK4wxB/sbGIKeV7pFJXiv6I=;
+ b=YHNgnVhdDrXhSgSoTUa70F7C/H8PdxYHewsL6eotyChyBiq9tZ+QXopfl06DUszCV6NWAZ2Tdm//9a0JigWFhP6iig4unDqTqtB5IxwDMIvh8ISEyOjz7L+/pBGEBCAYFLX7M3F6rZjrwebCzdj5nEIl5jJMZaFn8lPInCurPvs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SJ2PR12MB9191.namprd12.prod.outlook.com (2603:10b6:a03:55a::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 08:57:21 +0000
+ 2026 09:04:37 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 08:57:21 +0000
-Message-ID: <98f5937a-52ec-4234-8fa9-fd0f47d2e70c@amd.com>
-Date: Wed, 17 Jun 2026 10:57:16 +0200
+ 09:04:37 +0000
+Message-ID: <d99db6a1-335e-447f-b909-4df3e6e75a07@amd.com>
+Date: Wed, 17 Jun 2026 11:04:33 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add filelist_mutex to lockdep lock ordering
- annotations
-To: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Simona Vetter
- <simona@ffwll.ch>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-References: <20260617011804.106764-1-vitaly.prosyak@amd.com>
+Subject: Re: [PATCH 5/5] drm/amdgpu: Signal GPU_RESET EVENTFD notifications
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260612055226.2879270-1-srinivasan.shanmugam@amd.com>
+ <20260612055226.2879270-6-srinivasan.shanmugam@amd.com>
+ <4872460d-f5bc-4031-93e3-63650ec04479@amd.com>
+ <IA0PR12MB8208AD2E2E8B8363030D514990E42@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <c2825801-31a3-4e92-8136-ed0e379f1471@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260617011804.106764-1-vitaly.prosyak@amd.com>
+In-Reply-To: <c2825801-31a3-4e92-8136-ed0e379f1471@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0170.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0221.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB9191:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d9978a4-d2d0-4232-e3bc-08decc4e70fc
+X-MS-Office365-Filtering-Correlation-Id: 7a0f9398-396f-4a65-ff99-08decc4f74d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|56012099006|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info: DVum+SwJQUCF8uBYrK2sOBurJbdEUqpnAtrK5bfVBtPfjet3Pfp5kNlwOJEheG/DGm68HwZkZRS7B/p14i0uW1iM6NJUh2QMrzzNiSr8tlIcL0/qYzD1/6Pf2ykuqjVmkaEmXkCqnN/6wJC+zD96PDqCfLkjsXXffjguqx34XX4FW2g9CM0RD8ZIk7d0xIcqkW/xuuUKoNxDquGK8806/gL5wFHF+g+iRhXk31YoofcCv+e8rtXZtHAOFDakrkpl8LKxMmHqqrhJvWKCZBBnrF+jJY/uZas1blrUxLsy1hsAGe5mOgxMCgHzkUU2qZmimOi+dJeKyH9FJ31lW5n9Au2A+wTNOtAk0t0SUg6S+vXELOGWYrb5zv+PlIuMxh0ACMlADNwifqy1cQWhZieQktFpqeeHKwT9LyGDhIRUW+qFsta2eLUyC0Fjo31RCvAJCOgm5/hpOC5XSjb6Gah3kTLWl6Jx00Y5qUAoeRDTEngPWMsJZ+sjFaXzN0v5ojRXynOf9C9i6jNZVAZ6iIvkgwb1KSG0R/dX3pOUCDqJvFCg7eC/iiSjVKNd/pTcBMFjcFS8BhxyAeLXYLXH0kmWSQMHGicXyd+Wgc6dV3HsQ7tciPJOPJPeVDTGOm2rMzyMMt1UlyqbYZCrAx4pS1P9Lx2Upbpc0nDgUUlF3Xl35hHE0VwGtgLghBOKiVVLkNKH
+ ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: cV7A1NJ62mmBt39juVov2fpDEHTmC0Ml/f8WOdOfg0OdLWyOkuQywKReUMZ8zNkTSnXQZZefT7BU3oDK8iACl7qxFYkmdUP44vKJs5rzyvA76fVtVH+DMv5iX1aKps6VxH4H0KOth1dhK9CTBA44Bhi3h9el4bEytU8ccOimstj10Y0MnMHIsNN9YwDfD3FI4ELCxSoBF0J0N+SPbFaLw38LDTLJ9CqLWG7hH9Zo4exMC2grjdy8aiXCVZzWNUbAD5YOSzqxxQW6tNIBo6FmXkhsoEyCK8oEqJTR0iclExlECt3Tw5FapUeOVJb0akeayInTYT5eP96efWf/rB/enf0dykts/JEQVsuGjhJ+zEbfLvjLN2nrV/X0AteviupMuS8BPO052zwn3GXWkzCETA9IHYKlSdfOWN1xxeiLnkqTvPMSkz/TmBlPoWQVn6gDZVHqyuPXoojweBnkQhThn6YxHyq0IMBYrUBGmweZXO6sYwqIUYe7+0hwzGvGbi+Nc6os/kDS84reqstGuYJ2IOHdOP/sP3mGdqssd3gfs5T5qsE6c680/P6JEiKYknRc5vV6EKt9CHkGeWmwVlo9K6x1S9qROu8qTJdmmlgOAyZg/YtfhDd5zDb1h9dWGq54Q+F/5pXU1r4zMUj2p+jzpw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(6133799003)(11063799006);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDNabUdORys0d014b216YlZ4bi9TRTd1ejlIYVE5UmJzR255YytmSWFpckdk?=
- =?utf-8?B?L0NLVUJPNkkzTHo2VDN6ZkhqQUZqcXhDSllmQ3pna1NqdGx3eFA2MzdDaFpK?=
- =?utf-8?B?UERDWjFha1R1L2lhSjhuRjhhSjhMdFp6T3kxajEydWJ0TUw2b3JsR3ZVcnRM?=
- =?utf-8?B?RjlMSEZFYVl6WGlvOFRVZEtBL2Zmb3l6ZzJOYTUxaEF0K1pLQW5XNTg4b2xr?=
- =?utf-8?B?b0dhQnN0d0VBQ1dsci8wNzlzOWZIQVd5Q3EybTB3S010KzEzN1NjeFdLaS9x?=
- =?utf-8?B?NW1pOXdmZVNLQzFmd0R6Q3VQYlZFSk9hZ2VDdThGd2dnbzJMNWQ1RGRXV1VC?=
- =?utf-8?B?Zi82ZEhUQmhwRlZuWlB6eEVzM2lQZm1iOUlocEVPQStUdGdrYlhlbnYwZ2JN?=
- =?utf-8?B?b2theEJwNjRtQ3ZIMVZWUUxJZXg4NEVqY1ZJaWkrNnE4cjEyRXlsRC8yZDNC?=
- =?utf-8?B?SHNaUUxaSmZ6N3EvWmdrMWJwQTd4Ky9wVGhLNXRQQjdQSnR3TWllRkE5SFZr?=
- =?utf-8?B?V2RQdTFOTjZUWjZ4aGdTYi9VUTV5Smh4aWk0NHRtb2hKVXJMQmttR2I1MzVL?=
- =?utf-8?B?UTRuVWQ2MmtwY29SWktDQ3hUckRoaHNmaEJJanE0VFpUWHNOT05sUktlSUxI?=
- =?utf-8?B?OUE2TmRRMG1kd0kyeDhrWEdQaTJyNkoyNTVmZTdDenA0T0RER1V3ejRMN0hV?=
- =?utf-8?B?aEU0eG1GU2psRndkMUlicFN5SDN6K0gvcEVwSTNQUUVyTXVLdnB5clhDYkQ0?=
- =?utf-8?B?K0JLTk0waVJibDgrTmZUQnFWUHdtK2UyTjRQT1hsdmlhNG9GM1JieXdIRzlI?=
- =?utf-8?B?N0hZSk5xS2dsbmczdFZBc09sQWJrb3JscDVVWElYd3owdE4zdDBmdHJTak1H?=
- =?utf-8?B?R1c3amlOYStpSG9FZ21IWnNHUkhoVm85OXdrRU5BSUxxY3RzeWV0RVNHVXdx?=
- =?utf-8?B?Wmk1aTNSQi9ZSlZUYkIwNjRxWWp5QmNrd1dFR0Fad1VFRlVuYjl4OHd1OVBn?=
- =?utf-8?B?dHZlbkFzWUlyd2M0UlNEZGhEbGlZVHJEK3dPcVllOWFUaXRCalplUHkra2l1?=
- =?utf-8?B?RUtHZFEyNHlpQ3M0RHh1NXNadjFLSHduUDNOOWd5U2lySjIxS3p3aUVxWVFP?=
- =?utf-8?B?VnR4bFNMdy9ZbGRDUXo2aW94eGxYTVc3Vkx3RzBWSVJ4cEJCRE9sSlJZV0cz?=
- =?utf-8?B?Z3JqL0luVTcraTQ5aUNkcTVuMXdJQll6aXhpZEgrYzhvTVF0RzFaR2daTlY3?=
- =?utf-8?B?NEdYTHJZKzlsVjBnNmlYckdvTW9JbithNXJNRGdyMnl3OGo2NmlWY1NGeldr?=
- =?utf-8?B?TVFNZHNRaGRRNVlGMG5xTGxJSGFwaDNHQVo3WUN6akpRYTF2VVlNTXd4RWJj?=
- =?utf-8?B?TE9tSWw1bWlRalJyVldlbFlHSTZhbmp1SXVWdkFHQVB0YmhFRm1TckVDM3ZN?=
- =?utf-8?B?Q3NTSFAwdWxtTUdrUHlQTEJucnMwcUVZOU1nU3NCWnVQSDhROERMakMveUti?=
- =?utf-8?B?RkJzWEhFenp3bEtZa2t4WkxMM0RzYytYVk1YaHNyZncvSkFQc21zWjh0cS82?=
- =?utf-8?B?azFvVWlrZElWbllSNXZaUmpZeHRTaVZNT2VXVlNwZGpvQlQ2cWJQd05vNU9z?=
- =?utf-8?B?ZEJkY211TDMvcWxXUlRKRnlGN1lhZGZXOGl2ZXkyOExPdmhrcVpZUXNQVXd6?=
- =?utf-8?B?Z1A1MDBvR1ZUUUg3S0tqdXJjSEE4MEV6c2V3M1RzM0E3L0pXbk9VL0ZnYUpm?=
- =?utf-8?B?b3IvbUtsM3NvRHdhNUJlNUtZdHI5LzhVZUNsdjQrNXNvWmlsaE1yQmIweUZN?=
- =?utf-8?B?Z0RydmQ0ZUIzbmtoZHdrd0F0WHZaQWJndytLN3dXUURUMjlrTDBBc2Q4Z1N0?=
- =?utf-8?B?Q04vSkF3UVNqOExGVXV1RkVmTXRCb21COHBZS1pZd2x2aFg5UjVhNW51Vzdq?=
- =?utf-8?B?YUp2d2p2TmhmRFQ4WDViNkdlakgwbUNHazlHVGJQcXA3aUU5aUlhSXBCN003?=
- =?utf-8?B?dEFsQ25ncjhiMDF1VndLbjRGNmtqci9TUy9uOTliQ1ljTjhnN211SE5KQnFQ?=
- =?utf-8?B?ZVd5cFh3cTI5T0tDZnBYNHQzZ2YwZTVjOEEvQisrbVFEbjhHMkZlRjh6WUQx?=
- =?utf-8?B?RXVQUXFGV25lWmZSZEVCQThTU1AxWDg5ZkZLWE1CT0dTVEkxU29hd2ZKZi96?=
- =?utf-8?B?dG5mMVUvLy9hZ1VoSkxkZ1J5MGYvR05TWjNHdFY2c0JYV1ppNUt4U044c2tJ?=
- =?utf-8?B?MS9EckxZYUsvZFdNRGdIcHJOUGk0NnFYWklFcExzeXNSUE1GQzlKOS95VmZx?=
- =?utf-8?Q?zU7UXurG9KL2P8G5s1?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW9iTDEwRUl3QlVQMUhlN0dzN09mUUxJMmRXeTVSRkJxRXNjREw5Q3l3a1pw?=
+ =?utf-8?B?VExuTDhlSGQyaWtyOHR4Wm9ZYTdmNitsNDlzbzNyekxzMytoQlhubk1QSzI0?=
+ =?utf-8?B?MDNnZ1Uzc25LVTZ6bTd4Sk0zZ0p1Lzd3VWRIaHF0Y0Y0S0FaeFZVd2tvSWZP?=
+ =?utf-8?B?VDRpS21jRGtKekw0YzJEMWhobGpJTm1uV1E1Z0toa3J3VnNqM05aSjFKNFM2?=
+ =?utf-8?B?c0wrQ1habzF5dUk1TnJoeENkTzdaUy9tZ0E1b3FEa09TdWZKUzg5cnlqVlgy?=
+ =?utf-8?B?YjR3aVdFUXNFZlFsckY3SDZ3RkI1SStwNnJZVjBIaTVEZzF4dGFNcjNKbHMx?=
+ =?utf-8?B?S1g4WGt4MGZBWXdQZEtzcnNzTlllOVVXMnVWZjgxa0pCR2V2V3pISFNhajVH?=
+ =?utf-8?B?SnRZT25aSkJFaE5ZQ2tkS0F3YmJ4R3IvRFM5K3JXdXhjVCtkZ2RFRFQ0c21w?=
+ =?utf-8?B?bHZSTkZScUdDMXJNNkx5bWpSQStpbHY0OFpnVzRJZ3ZBYk9nZXhlL1JlZ3Q0?=
+ =?utf-8?B?VS9EKzd1T0FZRTRUaHArQmY4dk1udUZNNExBQmdVWjQrTzZqWkF1dzk2Nmk1?=
+ =?utf-8?B?UVFsd2psWE5OV3lTNVJieXlCWnJjYU9SMTFJdzdkOGkxN2NqbXN0bGFRN2Z2?=
+ =?utf-8?B?ZXF1dU5LbmVzcjdHVE56VkdOMjFrRVpJMzg2SDg3LzVEZVVORFdhZjMwMnA5?=
+ =?utf-8?B?LzlUdFRpQVlxeUxHUk1SbDlxcjlXbWltVTMrUENZdlJNNkxRZFdJdllRekl6?=
+ =?utf-8?B?YUNtdjBRZGVCM2puODhOeCtlRmdLS3BoNC9RM2psaXFwSWZrdWovZDdnbElO?=
+ =?utf-8?B?TU01THVvdEhudWRCUnFkbmN4cVFzWElnOGQ1aFgzOUR6M1BBVkUwV0lJaGhY?=
+ =?utf-8?B?NjhrdHZQRi9mZkpzS21TY0pzWDBqSkZlVDEzTng0L0drVG5tR09ERTBPMUpl?=
+ =?utf-8?B?Zk0wZG00ZGk4LzdZTnJKc0RWd0hZS2JlcGRXRHV3WDRFWk44bXVMQkdVNEdX?=
+ =?utf-8?B?Q0JVYnlkQzRsbUdjdUM1b2pkL2Jhc1Y4a3QwVmxiQ1M5dmZ4a3RmZEdNaG5B?=
+ =?utf-8?B?eXNSYjFGNEJ2SzFjSzI2K2Z2S3ZMeHo5alQzQmhwYTQrY1dmT0c0Y1pIU3VI?=
+ =?utf-8?B?UmV1alVoWVpNNFJvT3pvVXdFSlovTmo3M0Z2OGwyeS9lNUp4Z1B6RDRQc1VM?=
+ =?utf-8?B?eUdiVW85ODYyNEJUdXlrMjVKQkRuNUZHMy9ucDBzN0NvMElReUFZZ08zSFBC?=
+ =?utf-8?B?UlB1NDBQeHVuVnJGek9tUEpSV0tiUEF2OExIdG1ibFpGTzhWYUdWbjBEM2VX?=
+ =?utf-8?B?ZHNYMXkrelJrUGk3NnlmZlRoaUtjRDc0disrblR4cVIvOC9KcFhSRkxIL3p6?=
+ =?utf-8?B?WVU3ZFM2bmdycFkxNEwwM05ZRjZDWVoweU9kNFlFM1Z3WmVpTnNlWTVpcThD?=
+ =?utf-8?B?M0F1K2ZqYkFySTlBS3NtL1ROUUFCN1VZSWdLSVBlQUx5dWtYdWl6dHRyT1oz?=
+ =?utf-8?B?Y1F1TlkvM1JHbVl6U2lWVTUrNWpRYWJEa2thMTFoa1hzUml1N0NTSjJpeEtZ?=
+ =?utf-8?B?QmpWZTZ2cWVjM3ZyZ3VrcWZNemE0TEhqTXZZQjJBS0xFSDFqVVBuSnhWTVpL?=
+ =?utf-8?B?RmhSR09WaFUxa2ZQRVB2bkpLa1RpL2NtNHU1eThXU2hBbTJ0bmFMYVpHSXpJ?=
+ =?utf-8?B?QVlUREp3anRiTnJ3MFVvUkg2MVNzZFhUSi9xK2ZYZEw2eW5aQnN6UmFrQVFC?=
+ =?utf-8?B?aU1zdFFLTUtHRDZUZzZQQzRuQTUxYW01bnh2OEhjR3pRcXhReG8xaTJ4UEdW?=
+ =?utf-8?B?ZThhRXhGaHVJdUIyczBvVzNoVkZvcGUyL3F5eWJqbC9kcnFmYU5YNjFmaEN4?=
+ =?utf-8?B?TWVodHBKcFpvQllOZUdDdVhIVEZUZzZxTDFGdVNseWUwbFJ3UDNLTkJpRklE?=
+ =?utf-8?B?b2NHYm05Sm5zeHpsT3k2UDBxTmN5UlRhSkZHUVN4QkZWbzhjeTZCVzNINGtS?=
+ =?utf-8?B?WHk2aUJDSVpYZTVGZldZdGhaaEZyOU53c1ZlMlcyTkZFdVZTeFZaTkE3Y0lG?=
+ =?utf-8?B?T001Um8reC9XanVWcEdZM1B0V3hqNnBlZmxFbUNVUktmbGgrSkNXYVgwRG40?=
+ =?utf-8?B?eVdJZ1c4TnF2c01zaXZvbzBUbFh5OGc3dFAvWldvVW15UzJoTDEzdGFER1Fm?=
+ =?utf-8?B?cWExbHdvbGp0VWNYT0lQdFNyVmcvU0NwQ1dxcUtzRHllQUVYQjNIUjRYNEkx?=
+ =?utf-8?B?T2drQThyN3NiSERLUExhS0pPdFJySk5pcFZIZ252SUZBY0VSTnZkY05QSmtM?=
+ =?utf-8?Q?UQv0ypeXu2eTziC+Rs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d9978a4-d2d0-4232-e3bc-08decc4e70fc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a0f9398-396f-4a65-ff99-08decc4f74d7
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 08:57:21.0285 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 09:04:37.1357 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8GkpMSoZ60sd33is85CmU0FnSFYpIjSsIuEhp4GVsOF+lPRJeVCjzgTLesXkmgJE
+X-MS-Exchange-CrossTenant-UserPrincipalName: pyE7A6UCRath5VMvoGx79w32bF2/pDhg2TPb4j+jhADT76FhXnBdCo0P50857kf+
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9191
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,166 +140,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/17/26 03:15, vitaly.prosyak@amd.com wrote:
-> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+On 6/17/26 08:22, Lazar, Lijo wrote:
+> On 17-Jun-26 11:29 AM, SHANMUGAM, SRINIVASAN wrote:
+>> AMD General
+>>
+>>> -----Original Message-----
+>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>> Sent: Wednesday, June 17, 2026 10:38 AM
+>>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+>>> Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+>>> <Alexander.Deucher@amd.com>
+>>> Cc: amd-gfx@lists.freedesktop.org
+>>> Subject: Re: [PATCH 5/5] drm/amdgpu: Signal GPU_RESET EVENTFD
+>>> notifications
+>>>
+>>>
+>>>
+>>> On 12-Jun-26 11:22 AM, Srinivasan Shanmugam wrote:
+>>>> Signal GPU_RESET EVENTFD subscriptions from the GPU recovery path.
+>>>>
+>>>> The GPU recovery flow already determines when a device reset has
+>>>> completed successfully. Use that point to wake up matching EVENTFD
+>>>> subscribers.
+>>>>
+>>>
+>>> It seems beneficial to send an event before and after the reset, rather than only on
+>>> successful completion of a reset.
+>>>
+>>>> GPU_RESET is a device-scoped event, so no queue object is used.  All
+>>>> processes that subscribed to GPU_RESET on the device are notified.
+>>>>
+>>
+>> My original intention was to notify userspace that GPU recovery had completed and the device was usable again, which is why I only signaled on successful completion.
+>>
+>> One thing I'm trying to understand is what userspace is expected to do with a reset-begin notification. For the other events in this series, EVENTFD is only used as a wakeup mechanism and WAIT_EVENT provides the associated details.
+>>
+>> Do you have a particular userspace use case in mind where observing both reset begin and reset end would be beneficial?
 > 
-> Add ddev->filelist_mutex as level 7 in the lockdep hierarchy, between
-> reset_lock (level 6) and srbm_mutex (now level 8). This teaches lockdep
-> the correct ordering for filelist_mutex relative to other amdgpu locks.
+> This is an existing one -
 > 
-> The ordering evidence comes from the GPU reset path: gpu_recover() holds
-> reset_domain->sem (write) and calls amdgpu_device_eventfd_signal_gpu_reset()
-> which acquires filelist_mutex to iterate the DRM file list and signal
-> eventfds. This places filelist_mutex inner to reset_domain->sem.
+> https://elixir.bootlin.com/linux/v7.1/source/include/uapi/linux/kfd_ioctl.h#L536
+> 
+> Presently, it serves as an SMI event. Other processes may choose to halt submissions from their side, and resume after a reset (though this is still asynchronous).
 
-Yeah I'm not sure if that is correct or not. That's why I asked.
+We have rejected exactly that approach in the past because it makes the whole handling quite unreliable. This has been proposed before and was then later removed as buggy.
 
-> 
-> Existing filelist_mutex users (amdgpu_gem_force_release, debugfs vm_info)
-> do not hold any reset locks, so this ordering is consistent with all
-> current call paths.
-> 
-> Updated hierarchy (10 lock levels):
->  1. userq_sch_mutex     - Global userq scheduler
->  2. userq_mutex         - Per-context userq
->  3. notifier_lock       - MMU notifier
->  4. vram_lock           - VRAM allocator
->  5. reset_domain->sem   - GPU reset synchronization
->  6. reset_lock          - Reset control
->  7. filelist_mutex      - DRM file list iteration (NEW)
->  8. srbm_mutex          - SRBM register access
->  9. grbm_idx_mutex      - GRBM index access
-> 10. mmio_idx_lock       - MMIO index (spinlock, innermost)
-> 
-> Requested-by: Christian König <christian.koenig@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 29 ++++++++++++++++-----
->  1 file changed, 22 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> index 61450af539a6..b251350b1fb2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> @@ -18,6 +18,7 @@
->  
->  struct amdgpu_lockdep_dummy_locks {
->  	struct mutex reset_lock;
-> +	struct mutex filelist_mutex;
->  	struct mutex userq_sch_mutex;
->  	struct mutex userq_mutex;
->  	struct mutex notifier_lock;
-> @@ -34,6 +35,7 @@ static struct lock_class_key amdgpu_notifier_lock_key;
->  static struct lock_class_key amdgpu_vram_lock_key;
->  static struct lock_class_key amdgpu_reset_sem_key;
->  static struct lock_class_key amdgpu_reset_lock_key;
-> +static struct lock_class_key amdgpu_filelist_mutex_key;
->  static struct lock_class_key amdgpu_srbm_lock_key;
->  static struct lock_class_key amdgpu_grbm_lock_key;
->  static struct lock_class_key amdgpu_mmio_lock_key;
-> @@ -57,6 +59,9 @@ void amdgpu_lockdep_set_class(struct amdgpu_device *adev)
->  	if (adev->reset_domain)
->  		lockdep_set_class(&adev->reset_domain->sem,
->  				  &amdgpu_reset_sem_key);
-> +
-> +	lockdep_set_class(&adev_to_drm(adev)->filelist_mutex,
-> +			  &amdgpu_filelist_mutex_key);
-
-I'm not sure if we can do this.
-
-Could be that I'm wrong but modifying the lockdep class of a DRM mutex is potentially a bit problematic.
-
-Adding a few people on CC for opinions/input.
+As far as I can see notification before the reset doesn't have much value since you can't block the reset.
 
 Regards,
 Christian.
- 
 
->  }
->  
->  /**
-> @@ -74,9 +79,10 @@ void amdgpu_lockdep_set_class(struct amdgpu_device *adev)
->   * 4. vram_lock           - VRAM allocator lock
->   * 5. reset_domain->sem   - GPU reset synchronization
->   * 6. reset_lock          - Reset control lock
-> - * 7. srbm_mutex          - SRBM register access
-> - * 8. grbm_idx_mutex      - GRBM index access
-> - * 9. mmio_idx_lock       - MMIO index access (spinlock)
-> + * 7. filelist_mutex      - DRM file list iteration (ddev->filelist_mutex)
-> + * 8. srbm_mutex          - SRBM register access
-> + * 9. grbm_idx_mutex      - GRBM index access
-> + * 10. mmio_idx_lock      - MMIO index access (spinlock)
->   *
->   * Evidence:
->   * - userq_sch_mutex -> userq_mutex: amdgpu_gfx_kfd_sch_ctrl() calls
-> @@ -88,6 +94,9 @@ void amdgpu_lockdep_set_class(struct amdgpu_device *adev)
->   *   must be outer to reset_domain->sem
->   * - vram_lock -> reset_domain->sem: VRAM management paths may need to
->   *   wait for ongoing reset to complete
-> + * - reset_domain->sem -> filelist_mutex: GPU reset path
-> + *   (amdgpu_device_gpu_recover) holds reset_domain->sem and calls
-> + *   amdgpu_device_eventfd_signal_gpu_reset() which takes filelist_mutex
->   *
->   * Note: mmap_lock ordering relative to GPU locks is already taught
->   * by dma-resv (drivers/dma-buf/dma-resv.c).
-> @@ -117,6 +126,7 @@ int amdgpu_lockdep_init(void)
->  	mutex_init(&locks->notifier_lock);
->  	mutex_init(&locks->vram_lock);
->  	mutex_init(&locks->reset_lock);
-> +	mutex_init(&locks->filelist_mutex);
->  	mutex_init(&locks->srbm_mutex);
->  	mutex_init(&locks->grbm_idx_mutex);
->  	spin_lock_init(&locks->mmio_idx_lock);
-> @@ -132,6 +142,7 @@ int amdgpu_lockdep_init(void)
->  	lockdep_set_class(&locks->vram_lock, &amdgpu_vram_lock_key);
->  	lockdep_set_class(&reset_domain->sem, &amdgpu_reset_sem_key);
->  	lockdep_set_class(&locks->reset_lock, &amdgpu_reset_lock_key);
-> +	lockdep_set_class(&locks->filelist_mutex, &amdgpu_filelist_mutex_key);
->  	lockdep_set_class(&locks->srbm_mutex, &amdgpu_srbm_lock_key);
->  	lockdep_set_class(&locks->grbm_idx_mutex, &amdgpu_grbm_lock_key);
->  	lockdep_set_class(&locks->mmio_idx_lock, &amdgpu_mmio_lock_key);
-> @@ -154,18 +165,21 @@ int amdgpu_lockdep_init(void)
->  
->  	/* Level 6: Reset control lock */
->  	mutex_lock(&locks->reset_lock);
-> +
-> +	/* Level 7: DRM file list mutex */
-> +	mutex_lock(&locks->filelist_mutex);
->  	/*
->  	 * Mark potential memory reclaim boundary.
->  	 * GPU operations might trigger memory allocation/reclaim.
->  	 */
->  	fs_reclaim_acquire(GFP_KERNEL);
->  
-> -	/* Level 7: SRBM register access */
-> +	/* Level 8: SRBM register access */
->  	mutex_lock(&locks->srbm_mutex);
-> -	/* Level 8: GRBM index access */
-> +	/* Level 9: GRBM index access */
->  	mutex_lock(&locks->grbm_idx_mutex);
->  
-> -	/* Level 9: MMIO index access (innermost lock, spinlock) */
-> +	/* Level 10: MMIO index access (innermost lock, spinlock) */
->  	spin_lock_irqsave(&locks->mmio_idx_lock, flags);
->  	/*
->  	 * All locks acquired in order.
-> @@ -178,6 +192,7 @@ int amdgpu_lockdep_init(void)
->  	mutex_unlock(&locks->srbm_mutex);
->  	fs_reclaim_release(GFP_KERNEL);
->  
-> +	mutex_unlock(&locks->filelist_mutex);
->  	mutex_unlock(&locks->reset_lock);
->  	up_read(&reset_domain->sem);
->  
-> @@ -190,7 +205,7 @@ int amdgpu_lockdep_init(void)
->  	amdgpu_reset_put_reset_domain(reset_domain);
->  
->  	kfree(locks);
-> -	pr_info("AMDGPU: Lockdep annotations initialized (9 lock levels)\n");
-> +	pr_info("AMDGPU: Lockdep annotations initialized (10 lock levels)\n");
->  
->  	return 0;
->  }
+> 
+> Thanks,
+> Lijo
+> 
+>>
+>> Hi @Koenig, Christian/@Deucher, Alexander: Any opinions onto this please?
+>>
+>> Thanks!,
+>> Srini
+> 
 
