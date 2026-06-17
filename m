@@ -4,80 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507EACD98F2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC86CD98F2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:27:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5D8910F0E1;
-	Wed, 17 Jun 2026 19:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3E610EB0E;
+	Wed, 17 Jun 2026 19:27:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mQA99Oo3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KdPblrc+";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F39B10F0DE
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:14:55 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4922244f7c7so604275e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 12:14:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781723693; x=1782328493; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yuTGuYVt8fllS4J4qN2aqHiPNgNYSV9TGnIeSi2gAkc=;
- b=mQA99Oo3zppAMVH2WS6VaChjSSF94M6fSMRWbxrelbOYSumjsMBwkYIbsY3i1dCTBJ
- hk/SyD1D6p+kVPjxZllpdrgKoNFoOfd49SYw4akTRKsseUSjIuRbAYJrVZRYVjRsH//1
- ZGFmyDYBsBbqMfIWU94dcRP4UeHHn4GSkXFd6Z3c2CNVGHHuNXTyjfhXsaziBNyhe9gr
- wEH/USN/vzbE8KYOMKjY5KCq99CvoqlZPo280HUC/9pn6RqSlLFqlyYQjnOCyv3n/BMA
- BpGnIv/Yw1y9qtKDZy9X0QUiNtVi0wSDrHUFUsdinFvfiFahWYUI9PKotM2Re6RbII9Y
- iMIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781723693; x=1782328493;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yuTGuYVt8fllS4J4qN2aqHiPNgNYSV9TGnIeSi2gAkc=;
- b=T05sihMeJ+EXci4ANojnQYf9TW7TkzB2q7OhNQEYDO8IQTWVS4tZShA0ceGSjx1EaT
- UpUhZKhNDJMD+rYdWw30P6iA1H8BEsptCgUl7nP6k717dPvkehNIIA1coSzRTnmTIDTT
- GQVO5NOgpRCTtA8WhU5g2BWjOeoExXWkCVNjzNrGh0L/AM5W73ts0BSsKXx22YYvLHHf
- Nk7K4N/+1+NOpv/o466VoCkEp/cFd1ZhR42yu14mGVxGaxgTlbGETEVXYMWIJCtq405p
- GyUPUwxnqjSVVXlzVnFH7lr4VQS9VJ4FfUjD88OE3k5FX5VYkwbvgHxaGX07mnlr4j3L
- TB0g==
-X-Gm-Message-State: AOJu0YwX1L0hbY6WJuMyZpW3ox7T+uuQ9+PKgQbefW0EubGO27TrcTD0
- e+sOK96AZOXVKh1e3Ha86G2GzoybBI35Yf4chjXtg7Li3JNvW3HePR05QZ8ogQ==
-X-Gm-Gg: Acq92OH5w9CLQOEBddFpTh6eNSkUqZmAdGQdaLK91QyMqvjVgED93epxAVl20/U3OfE
- tPcglTR9acDj5notGWOp2/4G/ftNoyZCJB8RQkxpUa8ZCYPHLyoNGFnxdBdygPM3zhrkwHEOpnX
- enzrhRAx9t1582abF70Kfk2ApRMfpMKjsM6gosXQqCTuihQno0C1dJ8QGuVB/dbpxiDwucapuYy
- d/bAGq5yKsXyc1+qlEY3yGo/T3CQJWT36xybvpYY4T18vOgovTZLKRgYg0W+8uOIXnuf76CoInF
- aHmbjoSkNtEVsMQwAYbF2l9F5syH1v9/OPruAKtDl0L/oEv1JkRKTSgsaYJsaoW15d5wZ2C89mZ
- szXO7DjqnWlUIjnZYSeGf5EtySQguXeFKYqDC4SteuOo3EI1Rz2i5f5Bp0ygA31mpaTDTkVn/z6
- 483UOCXc3M9Hq0wQzoIrSdhIQhSbMbbcMuoOkocBVk//R8mjZxbxV46g==
-X-Received: by 2002:a05:600c:8010:b0:490:bad9:de43 with SMTP id
- 5b1f17b1804b1-492381a5b88mr12752385e9.0.1781723693567; 
- Wed, 17 Jun 2026 12:14:53 -0700 (PDT)
-Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
- [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa96f0esm204686325e9.12.2026.06.17.12.14.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 12:14:53 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Lazar Lijo <lijo.lazar@amd.com>, Martin Roukala <martin.roukala@mupuf.org>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 17/17] drm/amdgpu/gfx8: Enable IP block soft reset as a GPU
- recovery method
-Date: Wed, 17 Jun 2026 21:14:28 +0200
-Message-ID: <20260617191428.1784083-18-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260617191428.1784083-1-timur.kristof@gmail.com>
-References: <20260617191428.1784083-1-timur.kristof@gmail.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010055.outbound.protection.outlook.com [52.101.61.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B616D10EB0E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:27:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qAru4QGwENE7I4SISqm5vzBZX3fLB1s6u3ArWF5DKy+t3L4aZoNlkax51/GfpKJncf3tilefq901QhUXGV5nPBoREaMS8T2JXF8Qm9RxG7NsLiYuoT8aIj4/4phzD72DGFzJ1nYYy2VWGpMELf/3qIaLGSlzfl+PGaXw2z+OgjWDHmtmBUaVDM0n5NAQw8g1M+aVXrusBc5JyXboAUBlVvAs6M1/BnI1Tp8KeRfVipLRvMbmzXgkisnTaxB8zLvBlYadZ5D2+OVkGqWuIB42CwX3CPvXiG6idgS7PhBIvyPVtWSAuOJlV+B3qQ9BdxkrtwY0A93Huft+LzESf1R9vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0IZqJsMcYup5T1J63x3YC2DOjiq0C8Ef0QY5zpeczAk=;
+ b=XKcGjDxFe4Vju86BJ8VaQ6WWk8Md8BiBinq9kq5lynBs7uzUNG9m17Yj8kr2EXkh3TuPg9Eh6mkI+ikPbNtlKWdJI89mtcRZWEMC3W0KvcbiPc65iTGc3gRtu31r9gIfqj7h1KlJnZ7RKQ9B5mY8C6xd7ehXyy/LBc35f1UhvABZjiWgxS4bE73T50556JIo7K0i4hQNF2QTMH3QVJw3nVmMvhzvnyQeEsrhGN+8+ehgx0R9Ek4lFIUF6y3StBxw5QdHpPFkV2hCBrHryGLR++rCEPU/kmdj0ehuwfRsET0GyxKt+5kzSZu8Y4r02PSxs5xuPVCnQzwY0LS5IEiR1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=mailbox.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0IZqJsMcYup5T1J63x3YC2DOjiq0C8Ef0QY5zpeczAk=;
+ b=KdPblrc+AR4d2O26ygaRp0zzUG1mPKafbFoa89pLeZohHF5AylX8t915wvggtG9+Oovz24sMdcru2Az6B6J5wA936klS5820tbzWHjj3RxNFp++P5cLc615fQkhJpGgj6TZHD4IHVIMumQw5ETtbQn48kWLQ2Evi7BeoYwgJPCQ=
+Received: from PH8P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::29)
+ by SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Wed, 17 Jun
+ 2026 19:27:47 +0000
+Received: from CY4PEPF0000E9DC.namprd05.prod.outlook.com
+ (2603:10b6:510:345:cafe::25) by PH8P220CA0023.outlook.office365.com
+ (2603:10b6:510:345::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Wed,
+ 17 Jun 2026 19:27:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DC.mail.protection.outlook.com (10.167.241.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 19:27:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 17 Jun
+ 2026 14:27:45 -0500
+Received: from [10.254.92.203] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 17 Jun 2026 14:27:45 -0500
+Message-ID: <7bf196dd-c43a-44b5-91e2-ee7ab40fd6f5@amd.com>
+Date: Wed, 17 Jun 2026 15:27:39 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drm/amd/display: check GRPH_FLIP status before
+ sending event
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
+ <wiagn233@outlook.com>, <sysdadmin@m1k.cloud>, <timur.kristof@gmail.com>,
+ <xaver.hugl@kde.org>, <mario.kleiner.de@gmail.com>, <stable@vger.kernel.org>, 
+ <amd-gfx@lists.freedesktop.org>
+References: <20260616201828.389985-1-sunpeng.li@amd.com>
+ <20260616201828.389985-3-sunpeng.li@amd.com>
+ <a74f1233-d63f-4bcb-a379-3c9a6332cfb4@mailbox.org>
+ <75732f3e-8ffd-4cac-b205-8f6cf705daab@mailbox.org>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <75732f3e-8ffd-4cac-b205-8f6cf705daab@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DC:EE_|SN7PR12MB7835:EE_
+X-MS-Office365-Filtering-Correlation-Id: b511e141-78ac-4d0f-dc26-08decca682c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|32650700020|376014|23010399003|82310400026|42112799006|1800799024|56012099006|11063799006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info: nW5VicAudmPKc7FFfRNQU+rFAES0eoxlc5oYjsxp7UZV3d+9Pih0WoecgvgSw5gA3/6UGiuW7vwRbvHBT3AbOnKPVyZ49ZKm/ixBrOvP3ykOE222576cIfWLJQnNG/btMeLinn8vvT8+VeyW/zlVmSowcXScpk0RjlZ2wzP2IaVKSbLuAmpesBt7XzGAqi7qAWUscm5a5YeajFy1NTd+KpZ4xr1/vIWvnFZytgNFQ7mLqXQtAxh+LrYT9rAl7giIp5WfJ3Cfc4kgVJufHKLo5Db6eh+qwhJPxtjWVo1qqTtxKC/7mnQk0KsnS6UAoOdpQwEwPtZkvuB3ZkhHlvFuc0gHXmQTV4CI8chYz/QW30+Lc8g2mIT90kKJVu33K7BM/x1Ke8BaSygX7ewcMTBof1NNbWohlyfn9PU3my+Djz+QkpBGzj9oB5sxE7VNK4bZb33QZtlE/vjdrxcYZ8po0W28MYh+om4F9BGjIjwvw95vylvR+tTn8fae7IGROCOBIvf+Tr/j/6mcXtEK4GmdQsM1XT9p4gdaypv5YDvJ3rWADs17ohmPufmwmENcNmzIeJdJ38E0JLrIHi39o8kEq30ikk6U5piAFZce6r9KVgs7mvHHHYBlrsxdSLG+MRJj3nLig4vougeD7mfAXkAsS5ooycXEVwkBphoFQMSsL+uox2NoJg0O8fEVjFdmX+KothvfiPqeR04NyUrEDWsGh6e/mcmFqvoR4gw5qR+9Gss=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(32650700020)(376014)(23010399003)(82310400026)(42112799006)(1800799024)(56012099006)(11063799006)(18002099003)(22082099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: FKahdwBIVI3avTxEoDJvhxFG6427/UCTParYR8egpcmgmDs52sAIVYxXF7AkLI6zBjdqclIsxKi0FLdAeXzjMfpV1EUjctvYAU0k5DEGhMjLLbcyujBFvorOcpONNo73rak/+SO0KiID9GnbjTwoSGLoaa1SDrrtPHCuFNc3l6sUEIY22rWdz3zyFyH4uP7e/6brdOt28KEEFNC4G49Nf/9W49kyNfB+zRHgGKflV5HJF6MRxkVSwabuyMdYWIKXuVbIuznadjbclSxigepAXl64HHfl/4hIhNr4cg0VNksA5hauCwbDOkhTbkjvcXsiMiRl5922wmTfq77ZUnPvQiqwJsKVDOimpuh7wLBbV+diRDlOEGeMAxjq82UqtPLnFPf/xL2kLnNtmvDGBhRq2cqTvjZ69Ts+n3iC0Cfb+OX43VxSp6Srw7RuLJXyxQTg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 19:27:46.3007 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b511e141-78ac-4d0f-dc26-08decca682c6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7835
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,47 +117,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable IP block soft reset as a GPU recovery method for GFX8
-graphics and compute rings.
+Hi Michel, thanks for the review!
 
-Tested with the "hard_reset_cp_wait" test case from the
-Hang Test Suite created by Natalie Vock and Konstantin Seurer.
-This Vulkan testcase waits for an event that never occurs,
-effectively a WAIT_REG_MEM packet that intentionally hangs.
-IP block soft reset can resolve that hang and allow
-the rest of the system to move on and keep functioning
-without needing a full ASIC reset.
+On 2026-06-17 04:56, Michel Dänzer wrote:
+> On 6/17/26 10:07, Michel Dänzer wrote:
+>> On 6/16/26 22:18, sunpeng.li@amd.com wrote:
+>>>
+>>> * Add a flip_programmed completion. Arm it (reinit_completion) under
+>>>   event_lock together with prepare_flip_isr(), and signal it
+>>>   (complete_all) right after update_planes_and_stream_adapter() programs
+>>>   the flip. It starts in the "completed" state at crtc init.
+>>
+>> Is the completion really necessary? Wouldn't moving the acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED assignment after the flip programming suffice?
 
-Tested on the following chips:
+I think this would create a window between HW programming and arming acrtc->event and pflip_status, where HW latch (VUPDATE_NO_LOCK) can fire and run the handler:
 
-Polaris 10 (Radeon RX 570)
-Polaris 11 (Radeon RX 560)
-Polaris 12 (Radeon RX 550)
-Fiji (Radeon R9 Nano)
-Tonga (Radeon R9 380X)
-Carrizo (A8-9600)
+    Thread A:        Thread B:
+    PROGRAM(flip_n)
+                     LATCH(flip_n)
+                     vupdate_no_lock_handler(flip_n) # no event armed; skip sending
+    ARM(flip_n)
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Ah, but the flip_programmed completion has the same issue...
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index e5b25d6b8268..54c974a72f84 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -2035,6 +2035,11 @@ static int gfx_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	adev->gfx.compute_supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
- 
-+	if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_ip_block_soft_reset) {
-+		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+		adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.54.0
+    Thread A:                 Thread B:
+    INIT_(flip_programmed)
+    ARM(flip_n)
+    PROGRAM(flip_n)
+                              LATCH(flip_n)
+                              vupdate_no_lock_handler(flip_n) # flip_programmed not complete; skip sending
+    COMPLETE(flip_programmed)
+
+> 
+> Or even just moving the unlocking of event_lock after the flip programming.
+> 
+
+I initially thought about doing so. But the possibility of update_planes_and_stream_adapter() sleeping made me think otherwise.
+
+I suppose the worst case scenario with arming acrtc->event/pflip_status after programming is we deliver the event a frame later than it needs to be (which is also the case with the current patch), thus stalling the next commit via flip_done, and making userspace think it missed the programming deadline. That is, if the exact scenario above happens.
+
+If it sounds good to you, I'll roll that into v2 as well.
+
+> 
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 00f7a3b445ebf..571198c46c0c2 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -4384,17 +4384,17 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>>>  		 * from 0 -> n planes we have to skip a hardware generated event
+>>>  		 * and rely on sending it from software.
+>>>  		 */
+>>> +		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+>>>  		if (acrtc_attach->base.state->event &&
+>>>  		    acrtc_state->active_planes > 0) {
+>>>  			drm_crtc_vblank_get(pcrtc);
+>>>  
+>>> -			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+>>> -
+>>>  			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
+>>> +			/* Arm flip completion handling and event delivery */
+>>> +			reinit_completion(&acrtc_attach->dm_irq_params.flip_programmed);
+>>>  			prepare_flip_isr(acrtc_attach);
+>>> -
+>>> -			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>>>  		}
+>>> +		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>>>  
+>>>  		if (acrtc_state->stream) {
+>>>  			if (acrtc_state->freesync_vrr_info_changed)
+>> 
+>> Pulling event_lock out of the if block doesn't make any difference (other than locking it unnecessarily when the block isn't entered 🙂, does it?
+
+FWIU the crtc_state->event pointer itself should be guarded under event_lock, since it can be NULL'd concurrently.
+
+- Leo
 
