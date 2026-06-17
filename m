@@ -4,121 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D034CD98E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 10:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6605CD98E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 10:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D0410EF8A;
-	Wed, 17 Jun 2026 10:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36A0410EF8F;
+	Wed, 17 Jun 2026 10:36:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hiI7NHa5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Byjg7XPN";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011047.outbound.protection.outlook.com [52.101.57.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFE610EF8A
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 10:31:11 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010030.outbound.protection.outlook.com [52.101.85.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1184410EF8F;
+ Wed, 17 Jun 2026 10:36:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LJTGYS4j1iR9MDyx30fxhgx3zjJDrsukvejAIaPYEM2gorAI7FGlCr7GJEAgsKO4tNolTJd5x7FHbzwoSaJPqae1HJzMmQLFqQe8SQ3+5MT8RzI6hyQGPjHO7K+4Op0Xz7gQ8LFBH+2vquHbeZYhcD3gVfipBRw2bS77GYBFkNKKcX/AghnCUJEK3Qz+Pn+CLtjYafBtcK4b2oc/C9E6YoTxvk7UNJ3n5N2zx5SUbohYdVpTwCNGNRMz1iyhEDwTQGd5d9QoKDxxr+aF8lye5SLhEp7mrn+qQPkDEUPU3JlUJm3WkkQDuwSULHEDOrZxMTi/94GLa2OQK8iaD9eYXg==
+ b=mpwDRmqvI6I/yIJRfjMUw7T8auzEI9DTLsUCXWLDewBTsUW4jtj49wEoFyuWbXEDCJsxbsxLjq9bO9+vt567EA7qfCQQg9hVHnoZCFgVzXAqDwD9gpSrAMO3yNR8GtUfRNhVVULQmvrTGBc1AB+uWZOQOjA0OkIEwD7EBwrihu+fH55ablMECKHVVtF4gJ20pQbXpBs11U7vgfPq31ESOl+Ozap9i7//LUyQVLySpkwhkKF08x0P9GjqsSAMK3vVklhqAL1tntRKK07WB3pKp/DCueuYM/FIMY5buDMFihH0izldyLS6gh8PKhfZGAUngPBlg5407/sGLHECjuQpeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j88eh/nYIZSYaXm7sx6KhGe6lJ0FGEmh9wucHkSWxr4=;
- b=yFxw6Gk2PtHO+ybaqUlafCt/xrXrSwAqwAsnoABCkBD+q43L84bW5KW7HhuWtSuhB5SWzov65IzKsnIiS7jBGU3u8JsL9eIG9mKRDZzQoSBkFVmYkqRRfjCq05t9n+nrod/ZcNPVh6MSfLTTYv3gPfVmwaE6uFPAs2aRK0H8MUfJlU0OfPl8JTBRmkyDN/9UDodNAXWhMroCG/2tNNmlfcyqa/8DkWqvV15MvaMPFy6l2BfgTbM3JsR2UCmHRfiwDtXhUD4ZWBaLJdtx4gu+ReJ+ZBznrKXnSB4Fwixd3xVnghMfQTfExbonY5EqTEdSfH1o4OCTO41ecRogG4KLfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=fYATN/5I9BgbfQbthBO/khrv3Ud3EJM4XMPG5sh0D50=;
+ b=UsoQEcSAei44k1gaJGpW5xEF07/pcHW3+lbbohHqTGHTn1AQXEVOlBWi0O3nuSjePhFnaRM/A+J0OreMzYGfqWCzFxC8LMTYxr8HMrID3nofWN3Cjea9h3cEcAj/lJIJElxGy5BDzon4h5pH4fjWvLOn15MzGBEbF4KaKN07Ok6nHqdzlQlnnxqxkl/D90M1ndjRUGnsU4rjAzBeDiiXfzwVqQ4mQIqg3DoQDeutVyz4EZZNM+6j1Ce3UjJHnY6hqxnQbUTL3p3rRFqUEda4ybuRTNAo7KgfGLR5qCpgk7mfm+cJu0IenpQzj6wY7kgRqoCtD5b+CQHDbGHVJouhUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j88eh/nYIZSYaXm7sx6KhGe6lJ0FGEmh9wucHkSWxr4=;
- b=hiI7NHa5BVUQEsCZqnAnz21ndA0br0ZWLC/XuTVdsrg30xeyHXibO7b5VWe9Ec7a/OsTVdzV6BOc13LmAPiYhTVA6w3wTcy310OVovRP4vlSsN6yE+uEWvArfEXye/DmEFzOiWOtn5VN7qzzf0jlwkPgKndJ+Cie+Z7O/EKYMqk=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- PH7PR12MB6954.namprd12.prod.outlook.com (2603:10b6:510:1b7::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Wed, 17 Jun
- 2026 10:31:04 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0113.013; Wed, 17 Jun 2026
- 10:31:04 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, "Li,
- Candice" <Candice.Li@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Guard reads in pcie state readout
-Thread-Topic: [PATCH] drm/amdgpu: Guard reads in pcie state readout
-Thread-Index: AQHc/jywAeJi6fCJa0epbW8c3vw/lLZCipmQ
-Date: Wed, 17 Jun 2026 10:31:04 +0000
-Message-ID: <DM6PR12MB2972C8561FA2EE6A75DD1A1982E42@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260617093518.753118-1-lijo.lazar@amd.com>
-In-Reply-To: <20260617093518.753118-1-lijo.lazar@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-17T10:24:53.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|PH7PR12MB6954:EE_
-x-ms-office365-filtering-correlation-id: 982a53ea-f6d8-4264-20da-08decc5b88ed
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|11063799006|56012099006|6133799003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: XOf+GUnpY3BPn5r0ypjx8otD5ZO5F+rTbnr33Wz2wnHUXPTMbs7wz5hd6+uMjBKbeCA4M0rqftVVocwtY4MWvELcCYf4cVsy79Lx24uoyPWtcN/6LCs1mq6HY+kwGbxMsmDKN9C5k/OVT1wGcRmgCQsaWWMqZeTPAVzPbvmDY79JGmRw8dCvCqu+z/Tht5PaUdOyzAE87sAsRrRp/dkgE2TFVH/iFrbHpchO7lsdmjIUwxl6LbgIXaT+7AP91Us3GIIfH7dlr92xfp5HVmIlIrLOquZv/iQLA/tZnpdqciwBZkpJirt1fe1Ajd1LmPIulnU8/+wsyxfisPzkpZ2OBQlXIkFmrZ+v63KsM7rwfU/LuyULShpjhvYN814faskT8Og+2NL5a6ok6c+P07NjuIg8htk7sBnXTn6lABX7n5olhRg6+wgRcXxo3AsDsigeMC2Av4hPHyfP2ymonOWbT12HAornQ4IWHKpEckjhY2U48n7AwFlExnAkBWNgIbZ03+CsitNxaGlfDdHNDHO22cblfy5ZmBZfG4GaDYHYDUaJ5gPVxaejEOi0QrCM8I4p8VGmaUBZEB86bvk6yS/LZe3Q0FWrJy22LM9lbtHFc5s9h/VQzRx0oq/2j01xQw6QVjPZ01MCfhxbW1zGyRdIOxvC32RF/ix3db6/KSmttEsTXbjELz2njwF6m/WIywwx8ehIkiuFf1NKKITNfJkV7JyzzpicvlBMaEObCH6VzMMqYAJ+zu3CpFaCP4vvSZdl
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fKDRUn0oazYa78n0wfQBinf8t+hcKm1sEPOVNM/SEP2zM4yO0odZkV6qrBwA?=
- =?us-ascii?Q?EcY935VdDso+qM7/6x+ZWYIHBBQXMI4+23QdOBAxW/lCyNY/AMyVX0fQgcyS?=
- =?us-ascii?Q?suDSJPwiLRNIaJpEDA1O150cLs28kAiwbHBu4++/8+H/cuPpVI34ykAXMw2r?=
- =?us-ascii?Q?28/g6JmSQGuwyjviyGAP2Ylibz5UrsCuTMIJKgdBDsYuYKyk5bW+fNDEqWlm?=
- =?us-ascii?Q?zjFk4TtiH5t5jfP+DmIJD61KYj3JoLGdDF5e7uQOy2ESca6E+udU4Yd5smiy?=
- =?us-ascii?Q?De6IEUnJhNfXrBzUSgK2mpV9J+q9EvvJiM4sClhJDmxr14xuJcuTDoKoyYVZ?=
- =?us-ascii?Q?yjX7Jh99fy7msMfoiM5/D9HW/H+Y78n4S2VKI5q7u7JJuQ1dtzI1zpsGucox?=
- =?us-ascii?Q?4AteuHVFIdZndi6ojs/3e+kod+ScLpm+Ts2Gdd0M9KVQCkzCukxbss7FAonk?=
- =?us-ascii?Q?g5PJDESt5qmWjUZi6a7fbfdmpf1HIlt7mr3K6YhkrsH/O0WH7YgeyRzoe4vt?=
- =?us-ascii?Q?oi7b/zWhkZZeu79tMWth5/rpil5h9fVTrgPQgAZAFZOmpNuOmUoK1b+8AlkT?=
- =?us-ascii?Q?nogK03X7ue0XHydfBMioCPFlRK3lccyaPHjf/DDibXXxycPZw8aHKFk/FZHX?=
- =?us-ascii?Q?Bc6NTQilQ7RNq/r/DConA8uzI3asiWly7yEGWTZDeR2TpskZ/XDznyptNCTk?=
- =?us-ascii?Q?81npcCOJz/RpjVFdbaP7/GGJtJaXoMJqjC4Yy3RwW99l3ACfuKZn2GqRXDd3?=
- =?us-ascii?Q?VZjjZ7uuLU1A7T28x9R/hwqwKCe4brNc/u43YQyIuuJ3iyOxOOqFZz+/lPmJ?=
- =?us-ascii?Q?/TssZJLB6Wck7pCW/fvNFHdjE8lsHqLB7qU6pppkdGWCkvwCwXpa/4pYdXyS?=
- =?us-ascii?Q?ZuvRwpeyhMQmp9dfm7C/LY6RZZYaoZOXPedbbDdWmpwvTpZhOmNvD1PVECwA?=
- =?us-ascii?Q?a+T0aVrIMqLYliJ2ZhWSIq2VfJ4WkWhjyxbOMFHrD4bMMHN3ziS4jPOtnFwo?=
- =?us-ascii?Q?RaUcjIXmx3SpebS8g3YSWlJ7vTriWBZsabLDO7HUGWPxfoF4hc/AsDaUClbk?=
- =?us-ascii?Q?hGjOyvjKItufV/vv0GTH3Jwl5bEtS4Lp9N29p5hu+EjZmMALoWUXwiTXdIHt?=
- =?us-ascii?Q?Bx+yaUQAowDhbSMh5H5Li0ZHKjzM4vDON8NBI1PT17iAxoYTcUtg59mZ/V8H?=
- =?us-ascii?Q?RsfIYCnFv1eCO9kyde27hdDbl7QrBpfNmcpmpgFKF+n3wsqo5ysFXXETVBNf?=
- =?us-ascii?Q?FtadZh5VmDyhiJ+EZPLbjfsVrOI6YJF56F/FEsBuXv83r8ipEj7u0WcOi8JT?=
- =?us-ascii?Q?gMtAeahIONDy5HcgZ3ioiQFnPxhXZ2egpmYuOJPugwfeZFsSHvs3AQNkJu7R?=
- =?us-ascii?Q?m/aMlmfEoKvubFHJlQpAOHWoSfxeQDtQnMX9RP92gmVP+uYIHC1QW1NKm+Ei?=
- =?us-ascii?Q?qm/6dSERrjRxUja8fminDf46csBsi8+TerqAtUK8Xo9WQPMS1LCfkDqBbQhM?=
- =?us-ascii?Q?ZzPtDCRtuJ08HDxW0UuXGvRNGMCoYbKyked/SgggLh1mX6c88KOijkfMunUf?=
- =?us-ascii?Q?YjGodI3P2fhmZQZHIm5koNP6+WaN8v2ufyTy2kTz2OfWnuTKP5pzBpMCZ0Jw?=
- =?us-ascii?Q?eX72hTljsN8/5NOWv+xMTVt/6aMUCADGxsjJM2TIukW229ZxHS2PnY+kCaJE?=
- =?us-ascii?Q?IpdbUqV1b0fC6plNiG3lhhLfhzEYTCufpzVq3DIl+VRD17E2?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=fYATN/5I9BgbfQbthBO/khrv3Ud3EJM4XMPG5sh0D50=;
+ b=Byjg7XPNUORjDCQJazSGSNN6YiVnExZcfhneZUOUZ7Xv66NFvgSWDDhvLnEsA1ThU/x2HCx7JcwW1ovVzo42XenNd9065/UvrpDv1dMBTY1wcqU5FqZ8XAUc1DZK2sTNORtUQEW+lm5jz0Z45w5YDW7fH4epM4/ZZas70BDOqNo=
+Received: from BL1PR13CA0293.namprd13.prod.outlook.com (2603:10b6:208:2bc::28)
+ by PH7PR12MB5808.namprd12.prod.outlook.com (2603:10b6:510:1d4::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 10:36:25 +0000
+Received: from BL02EPF0001A104.namprd05.prod.outlook.com
+ (2603:10b6:208:2bc:cafe::68) by BL1PR13CA0293.outlook.office365.com
+ (2603:10b6:208:2bc::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Wed,
+ 17 Jun 2026 10:36:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 10:36:23 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 17 Jun
+ 2026 05:36:19 -0500
+From: Honglei Huang <honglei1.huang@amd.com>
+To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>
+CC: <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
+ <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>,
+ <Jenny-Jing.Liu@amd.com>, <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>,
+ <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>,
+ <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <honghuan@amd.com>
+Subject: [PATCH v2 0/5] drm/gpusvm: split MM and device state across
+ gpusvm/range/pages
+Date: Wed, 17 Jun 2026 18:35:57 +0800
+Message-ID: <20260617103602.1491609-1-honglei1.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|PH7PR12MB5808:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad5161e0-e372-40ed-16c9-08decc5c4769
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|22122799003|11063799006|56012099006|18002099003|3023799007|13003099007;
+X-Microsoft-Antispam-Message-Info: jVo8rfi8fIm1go4Uf8PRazpDEaNtkTZW741ghXwJ0qqTHLlaMU+oQErAC4pB4KpDiOwteHQ1p4Er7xr4uXqIpSo+2T3xrznXzA/M6I3H7GLAoCzV0aXVX/AI3xFqwki4k3wJ+2HllR25byDV99GzlxHv8gl8G3+wfaTdR4niTyAvxF42V92cL9ONocBdOxo7F/1/mGzRqMPoNHX4/m2+iLFGFdKvPQ/WuEAp1Xh4hO80PpVUtl1pJ07todN2sdTqH4xAxXAY278tEhEbWyCZ1/zBxq20Iz5lNYTv4RFkuM1oWAmkMcxgg8LVsXKERPwolN6l/R0rrTl//zQyvb8IaKDLljJ9FiY8KSqdAY+thIC6zWL6Ea9D7HkGk+O3PApM9AoCim+i0wYXD13G7sT4zW8ow8QLM1qlJxQlAm4Ot68UQIIXZod1oHbD4x89MEy0N/td0BU1TVSVtYDbp9VpSWP1fWwrs2YnMQ0bVquOQMSTJtrFIzn3hjHpwlc2J40jNF+PJfU7Sjw9iNkoh1QENb2/XIOd7QqsNfxgxneOc5C0gNzGKKbg8Gzjq8BmFi0GYM1mrnI4aRR0Vz0JkZlSWekvoCnzh+lrLYTEMLdnl7sDG1pBONPSEYcxI1FnwOGrn+SGrKr6jWuroNMEFOUYMXQfgzmOVtxlQeCU3+dgH4gjZdYL68e6EvUyOhfAbHbU
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(22122799003)(11063799006)(56012099006)(18002099003)(3023799007)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: hXR2DWDuuhTtmOlcWZ7G2RytSgDBJF+oJhlCYnwRjAY/GQf4mzzxbkN3ZN0DlGbFQMH8une5MTzBHbmor64/hd7QDcVYDwbzsrJ+Yid+CNC3nrdstLkp9vaFFDvNl1kFOqR7b7GcGJxpLoNiyI/PTWtl3w52jPgpwtRtM99TpuEO3sIintT/iIHT8mIqy4e6hzZVvPexSuM6Akoluh65zFZU6drnzCADKRUWRvbQS39C7DMnsR0kxF8xCgcOW2HDR4j54BzzR/s+aqejaTgmSxMSDRcNc6iHoufdSGPGouOaURQimyZaV7NGuzJQPutk7TglY8AGz6226kVZZeHrm7qlrQNf4IyZBspnUYG4rYjNsAMn/wv4Hd8p/RqDG+CoKmc7uD4zmbHnESxkhtVYn2orqkiprSVxFZz49opC5BKBYxHX2I3WYaPizq8G58pe
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 982a53ea-f6d8-4264-20da-08decc5b88ed
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2026 10:31:04.4008 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: a/6n2ELAv9Y4ToFVIZdP3Wjk5AvpBiMOofAE/GBKyeuwiyQBuxOdYpib7+B4IZ2l
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6954
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 10:36:23.8733 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad5161e0-e372-40ed-16c9-08decc5c4769
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A104.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5808
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,144 +115,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+From: Honglei Huang <honghuan@amd.com>
 
-The original intent of this function is to collect the real hardware PCIe s=
-tate from the AMD GPU's internal upstream/downstream switch ports.
+The intent of this series is to make drm_gpusvm more flexible and give
+drivers more freedom over how they assemble the MM related and device
+side operations. It implements the direction Matt suggested in [1]:
+Mirror MR in gitlab: [4]
 
-However, under QEMU/VFIO passthrough, the guest-visible PCIe topology and P=
-CI config space is virtualized.
-QEMU/VFIO can intercept, emulate, or selectively forward PCI config accesse=
-s, so the upstream bridge information seen by the guest does not necessaril=
-y represent the real hardware topology or state.
+  - Move struct drm_gpusvm_pages out of struct drm_gpusvm_range.
+  - Embed a struct drm_device in struct drm_gpusvm_pages and drive all
+    DMA through it.
+  - Drop struct drm_device from struct drm_gpusvm.
+  - Have the driver's range structure embed one or more struct
+    drm_gpusvm_pages in addition to struct drm_gpusvm_range.
+  - Drop the range-based helpers (drm_gpusvm_range_pages_valid,
+    drm_gpusvm_range_get_pages, drm_gpusvm_range_unmap_pages) and update
+    drivers to use the drm_gpusvm_pages helpers instead.
 
-Therefore, in a VFIO guest this function no longer has practical meaning fo=
-r retrieving real HW PCIe state.
-At most, it reads the virtual/emulated PCIe state exposed by QEMU/VFIO, whi=
-ch may not reflect the physical device (which depend on the implementation =
-of QEMU/VFIO & kernel VFIO Driver source code)
+In essence the series does only two abstractions, plus the xe
+adaptation that follows from them:
 
-So, I suggest that it is better to hide these interfaces under PT or SRIOV =
-mode.
+  - range vs pages: split drm_gpusvm_range (MM / VA range state) from
+    drm_gpusvm_pages (device physical related), so the two sides can
+    have independent lifetimes and ownership.
+  - drm_gpusvm vs drm_device: make drm_gpusvm pure MM level and push
+    the device side down onto drm_gpusvm_pages, which is where DMA
+    actually happens.
+  - xe is updated to fit the modifications, no functional change
+    intended.
 
-Best Regards,
-Kevin
+V2:
+  - Followed in Matt's v0 review fixups [2]:
+     - keep unmapped flag in pages structures.
+     - add pages_count to drm_gpusvm_range_set_unmapped() set pages unmapped flag.
+       let frame work can check unmapped status in drm_gpusvm_get_pages().
+  - Add drm_gpusvm_init_pages to init the drm_device and sequence number.
+  - Remove drm_device from drm_gpusvm_get_pages() parameters.
+  - Reworked the DOC: overview and usage examples to describe the new
+    model: struct drm_gpusvm_pages, the 1:1 / N:1 driver layouts, and
+    examples that operate on a driver embedded pages object by the
+    drm_gpusvm_pages helpers and etc.
+  - remove WARN_ON_ONCE in __drm_gpusvm_unmap_pages.
+  - Dropped RFC.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo L=
-azar
-> Sent: Wednesday, June 17, 2026 17:35
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Li,
-> Candice <Candice.Li@amd.com>
-> Subject: [PATCH] drm/amdgpu: Guard reads in pcie state readout
->
-> Internal US/DS switch may not be exposed in passthrough. Guard the upstre=
-am port
-> reads to avoid a NULL dereference.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 59 +++++++++++++++-------
->  1 file changed, 42 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> index 72ea37dbfea8..5f1389901504 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> @@ -589,6 +589,29 @@ static struct aqua_reg_list pcie_reg_addrs[] =3D {
->       { smreg_0x1A380088, 6, DW_ADDR_INCR },  };
->
-> +/*
-> + * Return the GPU's internal US switch port, or NULL if it is not
-> +visible
-> + * (e.g. passthrough) or the EP is parented under an unrelated bridge.
-> + */
-> +static struct pci_dev *aqua_vanjaram_get_us_pdev(struct amdgpu_device
-> +*adev) {
-> +     struct pci_dev *ds_pdev, *us_pdev;
-> +
-> +     ds_pdev =3D pci_upstream_bridge(adev->pdev);
-> +     if (!ds_pdev || ds_pdev->vendor !=3D PCI_VENDOR_ID_ATI ||
-> +         pci_pcie_type(ds_pdev) !=3D PCI_EXP_TYPE_DOWNSTREAM)
-> +             return NULL;
-> +
-> +     us_pdev =3D pci_upstream_bridge(ds_pdev);
-> +     if (!us_pdev ||
-> +         (us_pdev->vendor !=3D PCI_VENDOR_ID_ATI &&
-> +          us_pdev->vendor !=3D PCI_VENDOR_ID_AMD) ||
-> +         pci_pcie_type(us_pdev) !=3D PCI_EXP_TYPE_UPSTREAM)
-> +             return NULL;
-> +
-> +     return us_pdev;
-> +}
-> +
->  static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->                                            void *buf, size_t max_size)
->  {
-> @@ -596,7 +619,7 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct
-> amdgpu_device *adev,
->       uint32_t start_addr, incrx, num_regs, szbuf;
->       struct amdgpu_regs_pcie_v1_0 *pcie_regs;
->       struct amdgpu_smn_reg_data *reg_data;
-> -     struct pci_dev *us_pdev, *ds_pdev;
-> +     struct pci_dev *us_pdev;
->       int aer_cap, r, n;
->
->       if (!buf || !max_size)
-> @@ -628,25 +651,27 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct
-> amdgpu_device *adev,
->               }
->       }
->
-> -     ds_pdev =3D pci_upstream_bridge(adev->pdev);
-> -     us_pdev =3D pci_upstream_bridge(ds_pdev);
-> +     us_pdev =3D aqua_vanjaram_get_us_pdev(adev);
-> +     if (us_pdev) {
-> +             pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
-> +                                       &pcie_regs->device_status);
-> +             pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
-> +                                       &pcie_regs->link_status);
-> +
-> +             aer_cap =3D pci_find_ext_capability(us_pdev,
-> PCI_EXT_CAP_ID_ERR);
-> +             if (aer_cap) {
-> +                     pci_read_config_dword(us_pdev,
-> +                                           aer_cap + PCI_ERR_COR_STATUS,
-> +                                           &pcie_regs->pcie_corr_err_sta=
-tus);
-> +                     pci_read_config_dword(us_pdev,
-> +                                           aer_cap + PCI_ERR_UNCOR_STATU=
-S,
-> +                                           &pcie_regs->pcie_uncorr_err_s=
-tatus);
-> +             }
->
-> -     pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
-> -                               &pcie_regs->device_status);
-> -     pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
-> -                               &pcie_regs->link_status);
-> -
-> -     aer_cap =3D pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
-> -     if (aer_cap) {
-> -             pci_read_config_dword(us_pdev, aer_cap +
-> PCI_ERR_COR_STATUS,
-> -                                   &pcie_regs->pcie_corr_err_status);
-> -             pci_read_config_dword(us_pdev, aer_cap +
-> PCI_ERR_UNCOR_STATUS,
-> -                                   &pcie_regs->pcie_uncorr_err_status);
-> +             pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
-> +                                   &pcie_regs->sub_bus_number_latency);
->       }
->
-> -     pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
-> -                           &pcie_regs->sub_bus_number_latency);
-> -
->       pcie_reg_state->common_header.structure_size =3D szbuf;
->       pcie_reg_state->common_header.format_revision =3D 1;
->       pcie_reg_state->common_header.content_revision =3D 0;
-> --
-> 2.49.0
+Follow-up (not in this series):
+
+  - modify drm_gpusvm_get_pages() to support one time hmm range fault
+    and multi drm device dma mapping.
+  - Add no dma device support for drm_gpusvm_get_pages().
+
+tests:
+AMDGPU:
+  based on amdgpu adaptation patch in [3], but still SVM:DRM = 1:1,
+  1:n is on going needs many modifications and testings.
+
+  Tested on gfx943 (MI300X) and gfx906 (MI60) with XNACK on/off:
+  - KFD test: 95%+ passed.
+  - ROCR test: all passed.
+  - HIP catch test: gfx943 (MI300X): 99% passed.
+                    gfx906 (MI60): 99% passed.
+INTEL XE:
+  Waiting for the xe driver git lab CI result: [4]
+
+links:
+[1] https://lore.kernel.org/amd-gfx/acRgr7QwdULsn6G2@gsse-cloud1/#:~:text=I%20think%20roughly,drm_gpusvm_pages%0A%20%20helpers%20instead.
+[2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
+[3] https://lore.kernel.org/amd-gfx/20260603065030.2554403-1-honglei1.huang@amd.com/
+[4] https://gitlab.freedesktop.org/drm/xe/kernel/-/merge_requests/360
+
+Honglei Huang (5):
+  drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
+  drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
+  drm/xe: have xe_svm_range embed one drm_gpusvm_pages
+  drm/gpusvm: move struct drm_gpusvm_pages out of struct
+    drm_gpusvm_range
+  drm/gpusvm: let the drm_gpusvm core context purely MM level
+
+ drivers/gpu/drm/drm_gpusvm.c    | 221 ++++++++++++++++++--------------
+ drivers/gpu/drm/xe/xe_pt.c      |   2 +-
+ drivers/gpu/drm/xe/xe_svm.c     |  37 ++++--
+ drivers/gpu/drm/xe/xe_svm.h     |   8 +-
+ drivers/gpu/drm/xe/xe_userptr.c |   3 +-
+ include/drm/drm_gpusvm.h        |  66 +++++++---
+ 6 files changed, 199 insertions(+), 138 deletions(-)
+
+-- 
+2.34.1
 
