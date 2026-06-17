@@ -4,95 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A48CCD98E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 18:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15C3BCD98E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B1410EAE4;
-	Wed, 17 Jun 2026 18:46:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C1110F0CA;
+	Wed, 17 Jun 2026 19:14:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NSd5Egm3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bEJluO6l";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012039.outbound.protection.outlook.com [52.101.48.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80B4710EAE4
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 18:46:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d5Zncnqvwx1s2NxqwgkFuj+2ymNo7ksBv24O7/bmbXZ9R6oOWBeC+DHxe/ypBxcbWnthmmMVN/IzmMN8fMHa78em8FvvCDUqWhwDFFlJrlBga/c3Pc+L86RVSDdPLhF630zjpV7Av4OGaBMj0gl+qtzE98E62HP6rSyLdYk0v42v33QYhQFPIO3PKN4v39CQ49XqYPeogQOMiXy0df6RTShk0tAqlsnQuOhx/QqcB+x8iYuQj0J6zvK8Il8WE3fdgrUwfTr9jaGJtxJPclgEegBz1VedVdkA7p+Ch0QU+h6+iMTZmt0ZA0UAhz4+LIpLntTzeTqAYtOFF7bgzFkk7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T5kbPksL6TAle62jL0QtGwWimfoZ/7s2IlR8zZUjggA=;
- b=cMu8ZNyOiWBUFuyZTJpovOXOjOCrUYvc2ApTGn5TnonY33Aj1EjyjKE37PrevzsBkfC/d+rvWauedIhEcFtptpxhMj7ic7nzXnuDXTFP/EjrW8dWu+Sn/kRnubf8YuGi1IsCxA/TLbRlx5aGCOSo6/w8npVIYgNc6vhKV1ymNDdoV326JsLzFntDPiM4bd+29eYxXhvOYbmFE9uB5Bj61C9KsWf4wb3RtWFv94jn62Z9YvSnmaysnCqCe0XjDhuSrY469H393nGFbq6m/JHh6L/7ual0lwLRSJXxRynNFzip5zSaF/edty0E7x0HHRNxO2HmGLJUFBFY+ND4k8uJbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T5kbPksL6TAle62jL0QtGwWimfoZ/7s2IlR8zZUjggA=;
- b=NSd5Egm3RT+Dq04RDCDLtKPkwsStZHGB3FSxvTwKa1a5QzTJfNaLlb0869T7+HFEN05POboD6po2p6kiCCAPtpF02e0KXawequKSKyi8NZoZuVrZyJd4LRcYJwyzI5ff7g3TTNXtpkYn0eBrqSHgSNsdcJN4b/oMhOGka3/oEjE=
-Received: from BN9P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::19)
- by LV0PR12MB999070.namprd12.prod.outlook.com (2603:10b6:408:32a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Wed, 17 Jun
- 2026 18:46:16 +0000
-Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
- (2603:10b6:408:13e:cafe::24) by BN9P220CA0014.outlook.office365.com
- (2603:10b6:408:13e::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Wed,
- 17 Jun 2026 18:46:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.0 via Frontend Transport; Wed, 17 Jun 2026 18:46:15 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Wed, 17 Jun 2026 13:46:13 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Eric Huang <jinhuieric.huang@amd.com>
-Subject: [PATCH] drm/amdkfd: add overflow check in svm_range_is_valid
-Date: Wed, 17 Jun 2026 14:45:58 -0400
-Message-ID: <20260617184558.249687-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF5610F0C4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:14:34 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so569905e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 12:14:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781723673; x=1782328473; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4l+SrwpdOtDEyq2VQi6XZMItQ3lVpMzkuVdwCu3ZbPU=;
+ b=bEJluO6lSqgVvBSaGO8F22bJibFDAz9DSbcfTCx/w3z/YzqNR28o7nvwJrniIfDQCa
+ RUsCCtdLykQ4HjYDH3ZCnLZfOcVaoGQfVTuM9pjvE0uRhirotj8GJIEbE6A6lmmdCYSb
+ wae1h6IcianYtom83Y6BLzbnlQa+jn3NQTJlD0h1yE5KZ4ELMTVjWsWlSSCEfSU6bE/H
+ I1K0IVE6iQJrCuXF+nhqqtqXidHFtr1d6y7ZcH89F9RkJWJ9MlwpJ0CQGZbChbFIuI/o
+ rAgQeFbCSOzzqnJvrQ9BS/BNQPYbQZTgmr/juDYuHZpt3SwozQOOdMLsQYQp3PsHbyf5
+ XQWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781723673; x=1782328473;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4l+SrwpdOtDEyq2VQi6XZMItQ3lVpMzkuVdwCu3ZbPU=;
+ b=KkJfUEXTmFsuNcJZQVc0upAHiqLQOdeJOWk+rHZ4NlZoU1dMDhKi/gkiylnKMfBfAM
+ 8cjxVvJW1+TUxpa6Oafwk1Fqvc2Hj+JlikmrZ17AhF1k4hRhLoYFamo5ty3jbaSUvMqD
+ 5fUbvdn0OdTzQ2TxFDf94TzSllVUFujxI5D/i1/MiTTJXchLlyso+sgsDNtKwnmkfYCh
+ ONWK/sJuxYLHH7Xtbg/SKpJB8C++9NSdeyNJuihStOVzD/SgIefQwZLGO/qIOlGH19B0
+ ovn7kK1g/mwyk12lqTuKtIDa+XfzMrdF5IXs4/OYAId1VpyJr6VTC9F6Vc4U+d84zd22
+ DH0Q==
+X-Gm-Message-State: AOJu0YxzLWY/TC4kmOM16GfPP550W+cN5VW38yY/WGwUi1YLTh9ztgGU
+ spge9rhkgHl2rxRiHBOJNbq9ljsQ7kk7Y3vNREE4Lh/lEnWtCfJFJikuCgTGQg==
+X-Gm-Gg: Acq92OFn41my/WNkWGAYe5qwbWqtEl25mnnrREVsVs5wJ+1XUTLSLHcH54qiEJbXoNC
+ rcGF+5zN1wzicWmH/Dp9FSfThd2H7N1YbAerey75sFwTHqy+xK9J5WjXMLH1HMGpbcbcXORhSyM
+ 1k4iGEmcBI/zEhKN3VJEXKErOEZP78wc5NoZwRjaQUwEnBB0FkrEy5gAylKM/AJaCZp0o3aptwG
+ ZC2pRLd0a+O6SUwOJjyCZDVlBsDKgT4Zr1qsEClpf29uM3g4eb15ErtiShfNYNHn8HYr7QEGloG
+ EKO2ZmfyfgiJ9oyF/0BfilL7MzfwGIOAUgsjoLBnGmFvUoEjT0Ro6YZyPrlTMcy/px22kErLVnd
+ J4fmWWVqctk3SIF5nZQE4SDwMh8xH+8GaR25/NF9+4q+llmUgBr3FhbI8EEd44UCxHDqK5txt7p
+ S290TOA0RwTq798D3NbzGfwBp/mx1pmkbjmXd8F8uKxjcvQUWS1FXLzw==
+X-Received: by 2002:a7b:c34a:0:b0:490:e60b:5fb5 with SMTP id
+ 5b1f17b1804b1-492341421femr50406615e9.34.1781723672924; 
+ Wed, 17 Jun 2026 12:14:32 -0700 (PDT)
+Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
+ [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4922fa96f0esm204686325e9.12.2026.06.17.12.14.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jun 2026 12:14:31 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Lazar Lijo <lijo.lazar@amd.com>, Martin Roukala <martin.roukala@mupuf.org>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 00/17] drm/amdgpu: Rework IP block soft reset on GFX8
+Date: Wed, 17 Jun 2026 21:14:11 +0200
+Message-ID: <20260617191428.1784083-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|LV0PR12MB999070:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3da97ee-ed59-4ca4-6afc-08decca0b61e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: ZHgxIiO8OYXH48lQDAcViqLpE+vuU9Ev3se80NT46ehn9Gh7NdUondqPCCx0Lit68SZwdjMi9qmA9qgIUNS+2ebZvMqTbPadCWIs1o8Yapu8bGuZW0Wjnzm0+bgWPH3Tyv55uZDTZb6KVBDJubRF5HiOR+VTatJ/chT6tPgieio0alpkMbWtRKUDZuht7FNvh+jIFqioYuDTZAjcS2KOzxoV107Il79mZo2Hm9TC6AakhAm+0klhclaQSWHzx7WtZqQ5UnTV8IS+/GWOa9GrITQSzB+6Dd815nrRFhO8Lb73k5Q/PGl0PIGipefUhtIZG5QbxsQeu/oFe//RFahFUfa57HV0g/XrehUtwCQsSAHcIld2PJtcSkymfkFzYPEKd6ZjAcjAYTqWhcI3oY3mYTVt9V+B6/1qm3nNbuBLRtNO5FX9tlaq1NGLasl8eCwK68crfn/r6SRnpqMbg/E0Bjvf3lr4+6EwyJ4m52wQgMDD80jXmQRsxJufoBGgfvb5pyH6fn2E4tp2B7AG6lBGgQj/pzO8iwIJz+ocsUtjTMd0aYJgZbBam+JmKIIgoTN4wSlvQlbfL6JEIGU9/+QMyNExpC8C8raEhJ0ng2avV7cxFteDF9CMe61sWxxcbSPp4TWTY7SKzUCExYD17ZNVesOnc/GoCoL5uLYYJneMbEHUXDW2KqZ9vyrIAu6j0QTp1R+bU8GSUPfe+Py6XCVzA1pOabQSquQtgb43u6aPyYU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: A7fDmyittRoo2nde8SlVWiCmOJnjdsFmnCt6NSgOfFtZUN0VVcELh0dvKrnAQGnVG3emrct4h6zGmT7Cgw8LmChPS+GaxVko+Y7PX68+rxLEREBO1Xev5JOEFy22d1mjN51tZFrPHyFZxqvhMB92JC17Ao6NsV5xQgC77HKkiuxoqyje301y5T1Xba/UiEJnIaAug05Obzn1F1HNwa+XMpKBqv8NNuL8d15clQVMKzPbZ00HbkiGwC5aGQi0daOgbXRfQpPQnEufegbbfY1oWBcq4tWOQFgk4LfpGgd6WzWsiT6QPW3TwmhJXCtLaIs58xrzE3xkZkOfYm1xQjVb8OsyV9/4hqQY3ivhKSPbPhF9IBTdEj/+w2gX29jl+1Y1GUUyXLknPLqCJwuXhPwrPZxe97izwxlp1mbov+VyW46oQK3Ro60hounnZ6ptFGnU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 18:46:15.5072 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3da97ee-ed59-4ca4-6afc-08decca0b61e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B374.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,28 +88,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-to prevent svm range to be overflow.
+IP block soft reset is a way to reset just one IP block
+in a GPU without resetting the whole GPU or losing the
+contents of VRAM. Currently this is implemented for various
+IP blocks, but actually only used on Carrizo and Stoney
+as part of the ASIC reset code, and it fails.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Let's rework that.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ffecd818e611..ad4325d25e7c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -3473,7 +3473,9 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
- 	unsigned long start_unchg = start;
- 
- 	start <<= PAGE_SHIFT;
--	end = start + (size << PAGE_SHIFT);
-+	if (check_add_overflow(start, size << PAGE_SHIFT, &end))
-+		return -EOVERFLOW;
-+
- 	do {
- 		vma = vma_lookup(p->mm, start);
- 		if (!vma || (vma->vm_flags & device_vma))
+Delete the defunct code from the ASIC reset code path.
+Also delete check_soft_reset() and pre/post_soft_reset()
+which were quite useless and redundant (see the commit
+messages for details).
+
+Add IP block soft reset as a GPU recovery method instead.
+This works similarly to ring reset, but will affect all
+rings that belong to the IP block. For example, a GFX
+IP block soft reset will affect all graphics and compute
+rings. It is called when a job is timed out. Attempt
+to minimize the effect on non-guilty jobs, then back
+up the contents of all affected rings, perform the HW
+specific soft reset, then restore the rings.
+For this, I am also including some patches from Alex
+which were written for pipe reset and solve some
+problems also for IP block soft reset.
+
+Finally, let's fix up the soft reset implementation
+on GFX8 to make sure it works on every GFX8 chip.
+Specifically, fix an issue with compute rings hanging
+after the reset, and fix an issue with increased power
+consumption after the reset, among others.
+With those issues gone, enable the new GPU recovery
+method on GFX8.
+
+Tested with the "hard_reset_cp_wait" test case from the
+Hang Test Suite created by Natalie Vock and Konstantin Seurer.
+This Vulkan testcase waits for an event that never occurs,
+effectively a WAIT_REG_MEM packet that intentionally hangs.
+IP block soft reset can resolve that hang and allow
+the rest of the system to move on and keep functioning
+without needing a full ASIC reset.
+
+Tested on the following chips:
+
+Polaris 10 (Radeon RX 570)
+Polaris 11 (Radeon RX 560)
+Polaris 12 (Radeon RX 550)
+Fiji (Radeon R9 Nano)
+Tonga (Radeon R9 380X)
+Carrizo (A8-9600)
+
+Alex Deucher (4):
+  drm/amdgpu: don't reemit if there is nothing to reemit
+  drm/amdgpu: track guilty fence for queue reset
+  drm/amdgpu/fence: add helper to extract the guilty fence (v2)
+  drm/amdgpu: amdgpu_ring_set_fence_errors_and_reemit() handle NULL
+    fence
+
+Timur Kristóf (13):
+  drm/amdgpu: Clarify name of soft recovery to avoid confusion
+  drm/amdgpu: Clean up defunct soft reset from ASIC reset code path
+  drm/amdgpu: Delete GMC 8 soft reset
+  drm/amdgpu: Delete soft reset code from legacy display driver
+  drm/amdgpu: Delete check_soft_reset() from amd_ip_funcs
+  drm/amdgpu: Delete pre/post_soft_reset() from amd_ip_funcs
+  drm/amdgpu: Add IP block soft reset as a GPU recovery method
+  drm/amdgpu/gfx8: Stop CP and RLC during reset
+  drm/amdgpu/gfx8: Return error when testing all rings
+  drm/amdgpu/gfx8: Support COND_EXEC on compute rings
+  drm/amdgpu/gfx8: Adjust EDC GPR workaround
+  drm/amdgpu/gfx8: Fixup IP block soft reset
+  drm/amdgpu/gfx8: Enable IP block soft reset as a GPU recovery method
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 179 +-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  54 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c        | 154 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h        |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      | 171 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |   8 +
+ drivers/gpu/drm/amd/amdgpu/cik.c              |   7 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  66 ------
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  57 -----
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  57 -----
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  36 +--
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         | 224 +++++-------------
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 125 ----------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      |   3 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      |   3 -
+ drivers/gpu/drm/amd/amdgpu/nv.c               |   6 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |  62 -----
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  18 --
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |  18 --
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        |  18 --
+ drivers/gpu/drm/amd/amdgpu/si.c               |   7 -
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |   9 -
+ drivers/gpu/drm/amd/amdgpu/soc21.c            |  12 -
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |  11 -
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         |  10 -
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |  40 ----
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  45 ----
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |  69 ------
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c       |   3 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c       |   3 -
+ drivers/gpu/drm/amd/amdgpu/vi.c               |  22 --
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 -
+ drivers/gpu/drm/amd/include/amd_shared.h      |   3 -
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   1 -
+ 39 files changed, 487 insertions(+), 1058 deletions(-)
+
 -- 
-2.34.1
+2.54.0
 
