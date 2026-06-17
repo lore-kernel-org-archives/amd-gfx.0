@@ -4,53 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37116CD98E2
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 13:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88640CD98E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 14:12:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8BFD10EA06;
-	Wed, 17 Jun 2026 13:45:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2BD10EA48;
+	Wed, 17 Jun 2026 14:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="cj96wZ+7";
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="uEIE0U+u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iLbwZgiG";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDF0710EA06
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 13:45:41 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; r=y; 
- h=From:To:Subject:Date:Message-ID; t=1781703938; bh=HeGNJOmo8KEarrPjWiaHIv5
- MiTqcwKdtANPH9jARSdw=; b=cj96wZ+7ns9kEvMH3BZ5X3mGYyPBVk6eq0nlxXLJIP/TJ0USZH
- ZDtoj7btFB7C1Lae82f7dRJKbHhZEGQZgwAQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed;
- r=y; 
- h=From:To:Subject:Date:Message-ID; t=1781703938; bh=HeGNJOmo8KEarrPjWiaHIv5
- MiTqcwKdtANPH9jARSdw=; b=uEIE0U+u/WQsHwBycCxA0Q5UEgHSIgca3oJwUh4HwDAYxBTiW5
- zG7obW5zv6z9YX1JjeAh5YYcPUo47tKuzICeL0d4fAls9fhdBom6j9WaFeosc0yhvBjHn6fZWm8
- SlLjRkYvFYGztItGC4/v9WwMJcskBl/YvKGf9vBCkbXxz6/2pf7Jbs39e9nl7R3ntB3XiwXaodN
- BhdBURHROIEdu2I1//xvBYGbaZXjPdC9e+AzZCMuQtRqKJ8GcAJAgVOA1PzSNHNrtJ9hof0oE1H
- /yqXz2hvZcG3+hocEroMH/SAJIfA6F+XWOakvRCmvA20ngej3ZzXzllJmZ5ybNJPJSA==;
-Message-ID: <de08e4f5-dad1-441c-9397-48f7991f41ec@damsy.net>
-Date: Wed, 17 Jun 2026 15:45:38 +0200
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08F6110EA48
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 14:12:27 +0000 (UTC)
+Received: by mail-dl1-f41.google.com with SMTP id
+ a92af1059eb24-137e836ccc8so399102c88.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 07:12:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781705546; cv=none;
+ d=google.com; s=arc-20240605;
+ b=NqK6g8avQ6PztL/zLkU/+EEtj1DS7TSig/KhuKY6fkrhwlq1A4mP72wVahS69XvIuE
+ /sSedBppHJ3ej6etJ1OfDUTDAH1bpK9xN8nJM2nYQDyN2FhikkXMGjEgv6KA2a0nONXn
+ Em+2tn+zlD49EcoK1pn1Op0P0NvBWh9cJHAhG6PXKCimt6q+4FXckz3z85DZ3z5NeiAA
+ quVGZao0Qhz4JFHbPvWFp2bxhMD6CNO6FhfsBK6oXo16RzUU9dZ9/Myz/DUxPoBhKF19
+ Iht3mmworYtEs94s6pulbRY2XjrJfGLxodPHeULs56fR4EQbgBqFzQBeXrS43Z7+X7p2
+ xaLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=1kjTu2DufNhbme/iNHYhKVdb66u/pn74Nr3TS+YKtBI=;
+ fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
+ b=OysibNBs61sZlEXupS/noZBpq4cps6tZUx2Gu154+wPL2Iak9jrPdENIYF7bm96aOT
+ 1Bqy5P8I/POI+ia7Ms9vh9oWS+1wMNuyoCFcbcNppTmJQOYOi35pYk6iStMQEmQ7+KE2
+ 3tfTL7TAWzzboGwr4iS9L88uyrjir5p1i+VsWNAp3xIM0k9LDEt39+SJrAdPtWMVd0ku
+ ZoBCZxvPGSbylyx9j9DXCOJF0HFagkMaPV/18YnJ1ZKbQvHkSzs2yUzYzu5D/+fTgDSo
+ 05iu9wpeccH4DWFy6F2ArKt/QyJwy3so/dMAlInBuhvT9eBFsBN0Abox3TGsLXgGYEzU
+ Tz7Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781705546; x=1782310346; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1kjTu2DufNhbme/iNHYhKVdb66u/pn74Nr3TS+YKtBI=;
+ b=iLbwZgiGC5M53cmesl5h4aaBWowhiPpkUQO5LErb9iiwMVbHBdEuMaN6ubcy8DEwL/
+ t6p+aYujsR1+G4YvwEIKGXT+aR+CH+hDz78ZN2IHY/5rROCbBpwZD2cfWNKRBrg7ncdv
+ XYgoMSANVggbmMVpuQvYJk0OdZ22gG4gq68uA3anu+hYPyoS9Sf22GJ0UT2CemGigg/R
+ T0pCLRCkhtfl2qZ/QIBGBW3mj+jkS/uTm7HN/WJ5FaWU4w7rt/EUZLGts7gvQ6CmBmmi
+ an0Nxc4sqyudC8DwIy4GujOVNKILOi6n+q/Jxgcj/HZdoEdA/7HjvmODA1SJ5/O57SkO
+ /EGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781705546; x=1782310346;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=1kjTu2DufNhbme/iNHYhKVdb66u/pn74Nr3TS+YKtBI=;
+ b=KOqRUsyNuv7oi+DymT+Fb+8M1oFyXQhfbUPaWGJPWD5nYw2aFOdFzOzS00SRA3v73x
+ kJP6VYAzNDrZp+GFFBkVCt5dWRpTI0zEfB0redIf+j3B2A5eFuNr0pBpL39OU68ID+hf
+ jvbjAEA+kJRNrUkujrwRjmYeQ92jLQUU6SiNZotva+UAMAiI3cQlSRWpjNpdmQK+3cnK
+ cVE/C4PtAITEM4PU1Nx33jRcJfAsMCokLO1JYSoTN5OUf+g+ig6zab0yR5w15OS7c7DQ
+ Xs+7/ucvFL9EN7WD3WEtiRDGIYi6n9ghp8tGMwGG7MTx4YRcPijQUlbLqAd7iStqCgwx
+ K/4A==
+X-Gm-Message-State: AOJu0Yx2/5YzyGumA0upJYua2xqtvgdyXyQZktDw9Poihd+LP/jnHIDa
+ V1A7sdnsA2Nu1xzkNvvTu0ynPbvBvjNP1N7VufdzztIAbskjVRh0M8s3RIxZF07ubI/JZqpaFap
+ XQZa+4EFr5MY/hYoaWKUZhB13PD3ZRAU=
+X-Gm-Gg: Acq92OH6tgsyuzBAbOfZO3pxIxV6T78CaolMs1wTw8dNVaxjbEphs40vXhyDzuZ/Fdh
+ 4O5eTi5kPA7HIQ6Xe98WV8IJKu2oPHREHZUQsJOy0SKCbN5jV1q8pJUAEg64Za9Yx7FrNuc++j0
+ d3ENKma4KkSxdXyJxx3a5faS4XjLfMgo5X6lMfkhwJjRtgibUKBUKRUanJ9GoNc3cYDxQtB6rZQ
+ tM/kxrEYfiujK5or1fqZDj6FCGuK/G0q07KfgtTp4l7f+fgrkg44/qYgsepz/WfyQRlnyQx5avc
+ Hz31sKwS0FBz4kDmEHYNcFyrGNrePRaYnmVO+Djqu2nV9EVyhhsWJanGyuzNGP5NAA3YbQ==
+X-Received: by 2002:a05:701b:4550:10b0:139:90ab:36ac with SMTP id
+ a92af1059eb24-13990ab3962mr362738c88.7.1781705545839; Wed, 17 Jun 2026
+ 07:12:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] drm/amdgpu: delay ttm buffer func enablement on
- xgmi
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260616125040.9977-1-pierre-eric.pelloux-prayer@amd.com>
- <20260616125040.9977-2-pierre-eric.pelloux-prayer@amd.com>
- <SA0PR12MB7091079B864676A8379E6B7997E52@SA0PR12MB7091.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <SA0PR12MB7091079B864676A8379E6B7997E52@SA0PR12MB7091.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260615235645.737189-1-alexander.deucher@amd.com>
+In-Reply-To: <20260615235645.737189-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Jun 2026 10:12:11 -0400
+X-Gm-Features: AVVi8CfTKw5pUy_sRdHM7uodPVNXTlxvPcvbBHXPm-eG27poy3Yjh0W9EKRF4-s
+Message-ID: <CADnq5_NnQbH_poF4L-8PLD6unByMV6DLT_oyWwggGVTzetJs1A@mail.gmail.com>
+Subject: Re: [PATCH 01/43] drm/amdgpu/gfx8: replace BUG_ON() with WARN_ON()
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,67 +100,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Ping on this series?
 
-
-Le 16/06/2026 à 16:41, Lazar, Lijo a écrit :
-> Public
-> 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Pierre-Eric Pelloux-Prayer
-> Sent: Tuesday, June 16, 2026 6:21 PM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Pelloux-Prayer, Pierre-Eric <Pierre-eric.Pelloux-prayer@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH v1 2/2] drm/amdgpu: delay ttm buffer func enablement on xgmi
-> 
-> When amdgpu_init_minimal_xgmi is used, SDMA engines init is delayed so amdgpu_ttm_enable_buffer_funcs must be called later.
-> 
-> Without this, the check for num_buffer_funcs_scheds will fail and using ttm buffer funcs later will fail.
-> 
-> Fixes: 3a5da695c8d1 ("drm/amdgpu: only use working sdma schedulers for ttm")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+On Mon, Jun 15, 2026 at 8:34=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> There's no need to crash the kernel for these cases.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   | 2 ++
->   2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 57e10afb4714..2e8954fa5c40 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2479,7 +2479,8 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
->          if (r)
->                  goto init_failed;
-> 
-> -       amdgpu_ttm_enable_buffer_funcs(adev);
-> +       if (amdgpu_ip_member_of_hwini(adev, AMD_IP_BLOCK_TYPE_SDMA))
-> +               amdgpu_ttm_enable_buffer_funcs(adev);
-> 
->          /* Don't init kfd if whole hive need to be reset during init */
->          if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) { diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index faac80a8a6eb..c0dca209335e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -1663,6 +1663,8 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
->                  if (r && r != -EHWPOISON)
->                          dev_err(tmp_adev->dev,
->                                  "error during bad page data initialization");
-> +
-> +               amdgpu_ttm_enable_buffer_funcs(tmp_adev);
-> 
-> <lijo> This gets enabled in the resume path after xgmi reset. It is not needed here.
-
-Good point. I've modified the patch in v2.
-
-Thanks,
-Pierre-Eric
-
-
-> 
-> Thanks,
-> Lijo
-> 
->          }
->   }
-> 
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v8_0.c
+> index 130196859ff3f..70ba81e6b4d43 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -6256,9 +6256,6 @@ static void gfx_v8_0_ring_emit_fence_compute(struct=
+ amdgpu_ring *ring,
+>  static void gfx_v8_0_ring_emit_fence_kiq(struct amdgpu_ring *ring, u64 a=
+ddr,
+>                                          u64 seq, unsigned int flags)
+>  {
+> -       /* we only allocate 32bit for each seq wb address */
+> -       BUG_ON(flags & AMDGPU_FENCE_FLAG_64BIT);
+> -
+>         /* write fence seq to the "addr" */
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
+>         amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
 > --
-> 2.43.0
+> 2.54.0
+>
