@@ -4,125 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547B9CD98F0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 09:13:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B412DCD98E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 09:35:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C90DF10EEF8;
-	Wed, 17 Jun 2026 09:13:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4486E10EF44;
+	Wed, 17 Jun 2026 09:35:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TRnD2csL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rzj5DzdC";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010044.outbound.protection.outlook.com [52.101.56.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63AD10EEF8;
- Wed, 17 Jun 2026 09:13:44 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013047.outbound.protection.outlook.com
+ [40.93.196.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23D3110EF43
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 09:35:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GgduAV74/Si03mmuFe7j32qZFjvXppVDzAIg/OwWLw9g+jdrqsFbnYpGEhP5OK0UDOSEa3EybYoROgCZHtnl3pp1XnhjnEwAk3TwuTX01Z70FYO96Vx2u23dTlQ+HZQeBEw/lcRGLR2cE1k+XLtx8zDxBKb5D4pO++sgzY15A6qUk26UbTxL7l4QfpaypwqVRh/aZYbe64un2rWmfriE2TjVunj3jZEP3qXxnPldLCgYOdxLWHgG3InB48dt/HtdVICBcU0D3nowhX7zVSRl82GtD0zc5SnGv6FZf9ndJc+/6+03khd4CiSUCMfqAkt3f2q7hmgPdhwvkPhxEwX97g==
+ b=ZKLVbpue7f+5FHUFR5P2eIIVa7FV5wev1NX7SGwY8hK+2IR7UL36gYtava6qXvpNy5fLoWPmD7Qk8MuGKAYLVryOvm6Op16TBSa1MnrN81otyQ5kpDOLtm8QghfdSGIC6s3sHh2Cbs3uesSBJCje3rj7sc9D//gZ92rbq9gRAser3P+UjdI9z/xvSQYK+IxHApgBWgfuztnrdO8d3qrmg1KdVYQlllEhQqxHZ76XiaFC/gfVybbcHLn2azsd971+Eb1oH6YhTeY5lNXljEu+PYBsoInDLCtbRmM8FQl2HchhUU8+AYsrj59NGxXHKJy5bJF5Gok6Z2KRSicyW65OCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Iv4kVLCV4+j8AFUOUKySUn93Ew5atQ4TcRpRrOxobrA=;
- b=tVufTN7Jy0YUwlf/WSK4eg4f3ohYNG8PkW3T7sjIwxUOEBE/8oi9J/V9+Qa5uNEhU56GMJTSJu9dTxsnJamA6Ywdh/t+geTPgJnp6QKudGEMVKqb3IpA1GtRcVutlYTBVolXO1+9GXyXH49NOXoH0spCPga1Q807cOjZni1VkIUbMt6vWJQA46F4692UU62NTSIUf3U+B8QtObe4olKR7JKOrqqdImV+71Wc/hNeKdrN9GvuP4/RD+G0eygc8UC6Gsz3fp23L2F84iTzDAMTDXGMKkNr09q3qImVducnhZuGQYeO4NWWrFP8iYnROWtt1rmGbD0u71jiX0K8KaQClg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=wCCL7Vh7anZ9trV5kLl6HjhbHuyoDQ7fDdrnNusfc/0=;
+ b=LTvmOmqSOWF8jDH88xdAPBfd8sso2wNCSJHG9Uv5uso7b+eTQMfbbhivdXYPlahsXk2+3pfbBUtrSTuHTIFWX1u+D4uqlboiVixxQVcLuuNMah8P0/QHRD9TTLmmCqbc1npN1PIkpkIm668qupnLi/z1R2ejLB/WwNXxBDpmcUa80nSb61WIrv+C8VTse0XS90q2QGyO1qw7YQJFk3I7z7YpyJWFzYvfIwd3rIzAE5H+fSADVHlXqVegmkm6FtNi2hg3dX0I8PSJOTMkR6XLUDzaRvUJeDNUqz1Vr0bGLrfhDayGG5ZOv9bp20pUM9t+cs1D3hq5F5+7bH0fCdgSnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Iv4kVLCV4+j8AFUOUKySUn93Ew5atQ4TcRpRrOxobrA=;
- b=TRnD2csLCVXDmfCjwmdZh0XadJTI9++V/LUVjw8nl8gR94vNnGKoEpc6ToEXWcnxgaqR9tbMe6qY3iDq0EoE8TstRwPo4qx/1r4ux7Z1VCJ+8/ivcmFy8P4bO0ronLv4ceFJfH5UaA3S7VQCzGhoub8oP8sqHY2BXifIJnjsm5E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 09:13:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 09:13:41 +0000
-Message-ID: <cc1dc9ee-e21d-49ea-968a-14a97bdc5afa@amd.com>
-Date: Wed, 17 Jun 2026 11:13:36 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm/sched: Replace completion with a flush
-To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
- <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0396.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cf::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=wCCL7Vh7anZ9trV5kLl6HjhbHuyoDQ7fDdrnNusfc/0=;
+ b=Rzj5DzdCuU5UQ0C13tNADXXfUrg6iITaVISO1+f0w/Q+tjsY2KpKgDgeK6X4yZbiacKLcrMXmzksLnJd9StKwklySYhrMQwar4cHhjxLXfKyx0a8mtv5dj6hnpZmcif4UEXmaTUIJTyHmQik5jYuhdsyxyVDXGfDfehaxgVNIRQ=
+Received: from CY5P221CA0030.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:b::36) by
+ DS4PR12MB9562.namprd12.prod.outlook.com (2603:10b6:8:27e::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.18; Wed, 17 Jun 2026 09:35:36 +0000
+Received: from CH3PEPF00000009.namprd04.prod.outlook.com
+ (2603:10b6:930:b:cafe::83) by CY5P221CA0030.outlook.office365.com
+ (2603:10b6:930:b::36) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Wed,
+ 17 Jun 2026 09:35:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 09:35:36 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 17 Jun
+ 2026 04:35:34 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
+ <Asad.Kamal@amd.com>, <candice.li@amd.com>
+Subject: [PATCH] drm/amdgpu: Guard reads in pcie state readout
+Date: Wed, 17 Jun 2026 15:05:18 +0530
+Message-ID: <20260617093518.753118-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6716:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03107834-bed3-457f-04cf-08decc50b958
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|DS4PR12MB9562:EE_
+X-MS-Office365-Filtering-Correlation-Id: 796abf6e-1047-4fb0-e413-08decc53c933
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|5023799004|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: EUE0CD7+qdAk60Z42Kaf4+C7KNe2ReAn4jJHGLacRpBNppgBm+2xSDh18/2LisdJwJvblkF8Fr31o830SQRI1v5skIZlpUNlrJnZao1kD/45zwSs7pzlUmTXPs8Ex0dReL+HxZ29snavON9pMsRfNwqTYusTPldCKBBst6Mwldgepel/T3iHqEDy51EYaNGJXB1xuy9QIPkbGXnDdVEZjUTohLrnn+wiOvGwFD36/pzCVMeph9yqdjapEwBsgsu9YXM4JT5jrKBKAvts/uNYYUO2C7FavDqYUMlYdnDwpS627/+a1eKtzHHSXbSjNQ9qZr29yu2Cy/zSrb0X4zTbEjOZII+4Ocz8vuIMehxpiOI9E+HYkUbtAq24r7b0vCuVAcYQKLEKB24yNT9aNvd7qcGoEBR4/sFnfyIgG+NV1BK2Xx5q2r0hM1ZmnFWB+cP3IniytU3IOZLTxVkj7BmvyXGoas+Jh4LuBjDXRNoZPr+dTiHDOYrOwZ7UjK+uYFRod2IhTU8JZYbzLC8oBdrZXfBvcO45fijHVh3pXUjxw8b2ViVl6DA/V7I33r5SkgGRKajCBzKukW/yzZR6iUB+FltL3ueFoCoOtZwQ4cQKGlTfGqFfND6ZslsobAAYgA7CHwBr5QxNT8JS0V0SaVl9D9m2yQ+DrKK92KjL6CU068MqIfTej6pucsfZhn0fOp9U
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(5023799004)(4143699003)(11063799006)(56012099006);
+ ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|56012099006|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info: qnRsmXFGeugFrz3PqAWm2rtH03IOBDABetkYm7E/2oACSjKt+P89TRnjBXmMI06JjGygNOtieTQhh2LxbI6ZN+Dxf9SrxLn8zSyKfhyaYhcPSAUmX763yqwjGj/rk2c26+6v0/ffrQtN8/yr3blmxO279hjJfOcve3TAm0VaHeT69H7rdCwoi5+TTi0rsfz0JK0kZvPHbMh3OKzOdM31fOQ6Gmz6E7phyPVVZ0RVlb8lz0lJrXLViWXa7K1pV6cQ323E4nwvlCV+H086z2XcX2Z/nHaoEgL0fmd2N21vDzJAE6Uf61jaG1SLMdbMtt2TtcoKN/v0Ak+7+UBX6ROpeOQoYPeEcbNptunxTvrbRLviK/nNpjXFam+lqOoimc4NCpG74l/nyCGcUxyUa6XYpYlMXf50Lmtp27SGc877gFbTMbRd5k+BRLOiKPKh/Q96pJMTN4D2CkqyiR8cSa35E9oI5cw7M+4iAWHND+Jnx3Vlip9BQN9l60KqQ46TR6pcXQ2+t3NSYL2YQc9OULifdkJiSDqSRIWR67SW0ANpTx/uxef0DRAQnDBqKw+kGNRz4Nt00+buGg+Zxp0j/5r6o83BV80JxWxGnh2cOlpYxJJpc212/0dn6pQv5ZHmUdQ14fCNoTSFUCT4fn61Ot94owttPe0cdCjyq+lc1AIGeAQd0mR2BZ2qgBF+eGnpGfI1f7qbTcmTbF6xUOaCz68JVXP34hv1+HnYACbGdFUOTdU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(56012099006)(6133799003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjZjVEIvSWs3L1JTcGl0VEllYnlqVW5jTnc2dkRib21jYURTWVFWdW84ZkQx?=
- =?utf-8?B?TC9oV1RLVGhqdjlyRERDa2hIN1QrN1o0NVdMQTloUlZ0YjQvNUFrUlNiTlZZ?=
- =?utf-8?B?c2c0ZEU2dk5oOUVvR1RHRFA5bld5emRGSzhCd3NhVDl0b2xlS1FpdTNuYkN6?=
- =?utf-8?B?T0xvTU1PdFRBVXlqaFhrSlNFUTdzOUtRUld3WE52WmJ6Ynp5THM5TVpTKzlT?=
- =?utf-8?B?K2FxQ3JTUysrZElxaVFIOVI5c2wyYzNOWlh3WTF6VFFXS1pJTDVWS0pUb0ND?=
- =?utf-8?B?VVJtWklKbCsxcjk5Tm4zYnE1OEtNeVQ3d0M5S2dKSU9NbVNDWGFDN1BGZ1hS?=
- =?utf-8?B?RTFCUnNBMHFiWVNJNEJIVzl1R0FTVkFtRnliZjZCMExBQWFXZWNBL211dDUw?=
- =?utf-8?B?Q0NZOStnWjR5cDhzaFRWOVJkN1FieElQSjdVd1dmaWpFVVhlbC9PdFllUnJo?=
- =?utf-8?B?M0ZoNTU2NWk3V1lTNm5jaUx6a043bFZ6blQvTy83bWNiRG5xaGdicW1xMEIy?=
- =?utf-8?B?Sjlaa0ZhNGdCYTYyQjdhL3drS2RuMExydk5mZDVlTUxSdjMwV2Y3aEIzQXFy?=
- =?utf-8?B?cVZ4cEw0UkRkTmZmK1kvYXRhNDQ2bExGT2FNN292RDVVZmY4NmJtbG9CTW4v?=
- =?utf-8?B?NDBuZ2FUVGw4YTBmVVAydThKK2RKdWt1Z0VZZktvUlV5d1dKdHZzTm9pUjAz?=
- =?utf-8?B?VzVnYmRJcjdxS2VhelArQUZXWU54TXc4L0QyTXdkN1VFMHJqR0VUQWxzUlJ4?=
- =?utf-8?B?NXlBVms5MGhOZVB0L0V2cUlneWQ2a1ZPRmVPaWNIcVdxMzJQUUxKcDU1K3hu?=
- =?utf-8?B?NmJrY0luY1JTbnBmeEpzMkVaUG9xajdlSFFMdHdDK24xTjVDRE9pa3BMaFhP?=
- =?utf-8?B?eWtiRnFGeHFMTnh3eUt5SjFWOUE3Y2w2Ni8waGtheU5QVHBhY1FHbkRGQnRt?=
- =?utf-8?B?RGJHYTZnSE5Yck5rZnNEWjA1cmpZdmxWTVRqNVJKQ2x1ejY0V3JaS1gwS3Y4?=
- =?utf-8?B?QmJ4eENiaWE5NHhjZ3doNWNMUVFRVFhoZ1ZPeTBPTHRBYUNtL3NMVHRRZnc1?=
- =?utf-8?B?SzRjaWhuVmZDam0zYTU0dXlwQU1saGE2QzNNNzVNcllkNVcrYlBUa1dhenJZ?=
- =?utf-8?B?VmN0cXpqUDBoNU84SExtTHlac3QvaUZDRTNvM3NoOGZaWm05cGFtckFZdndZ?=
- =?utf-8?B?NlYzeDRKUUVDdy9NQUJiK2VTTXROMGJYUjBCNjMzMm9pZUdPeHRVaEc0Zm1J?=
- =?utf-8?B?djZwYUFCdkppZW92TWpNTmZwbHVBdGwwVVNFTVBPM244WjloeGw0ZndsRXB3?=
- =?utf-8?B?cjhuT2xMUmFYUFJzYURxUzJpdmpxV1NtTmxBbFN3VGNpQ21zY3RyRHZBa2tP?=
- =?utf-8?B?alRsNXZlaEFIcGlKZjRkMktqUmRyVDNVRGVKUEpkV1NQSzd4U0xyWlhJMHY1?=
- =?utf-8?B?L0s2Y0QvY1JQaHIvWEtBdVRoZXJCaytOMGxXVFpETXVjVUdBWE1sQ1lxRk16?=
- =?utf-8?B?NUpBUHpEOGx6M01Fdy9nQ1NHQ3JYckRPTzYxS0E1bGZqNDJBWUlDUkYweWlw?=
- =?utf-8?B?T0JHZUIzZTdoRTVOcWdBRUllWEJQY1dmUWhDWFBWNFdWWnpZWVZNL0NXdjB0?=
- =?utf-8?B?MStFakEvbXZpQ2dRVHY0dmVmeTA3c25OSTNacllwaUtSQnFYNmVyMzJaRm1U?=
- =?utf-8?B?emhHSWNHMlVxUTN6NjczcDlUS1A0bDZMZ3Y3WGZLSjM2Q2pGc1BTVHlIbDBX?=
- =?utf-8?B?bWpmQ1E4SmlxN2tIdWlET0VESDN6UnBibHBsQlQvOURoendQaGZaa0w2K3Yy?=
- =?utf-8?B?OHM0RXNpbjRYSmpVTWNQdWdwdGluZm53ME40SVQ4amNwc2E0bDYzMmt0Y0hk?=
- =?utf-8?B?RlZVai8vTnIycm1VYm41YWMyemNONmZJdjlFL0xLVEx5RENLVFFFWHlnb05Y?=
- =?utf-8?B?TFFONWVudVQ4RmJkWHpUTUQxQkowZzNHeGFmRHkwd3B5eTZxVmI2WXhmWGt4?=
- =?utf-8?B?d0kyR1FJcnBKWmdQeU1hZEFvYTBVWG5lTVFvT3NHUnZFVitLakltckFLd0sw?=
- =?utf-8?B?K2IwUzhxS284RHRyVFZNSS9GbUo4VFlHT0YvK3J5bCtIUjhmOUEyeWNYSG8z?=
- =?utf-8?B?L0xxeVdCMjlVRDRLU1A5UFMvK0FBdjlZTDJYTlJZK3J0YkZzRU85dU41blVB?=
- =?utf-8?B?RHRoSFhraUlYNFdZMHdRK2ZNUzdSVlVxMmdXeWhRdnpLRHFkMUM4bjU5R1FI?=
- =?utf-8?B?M3pnN1VjNnpiSzk0V0ViV28vWjRGczRweXM5RUtUU2FHRUdxc24yZUxRWjhM?=
- =?utf-8?Q?9fL4X67cKM6ZflufcM?=
+X-MS-Exchange-AntiSpam-MessageData-0: hyNv4WWdhawK5n2BeZ164lfKEkHGUI8so0Rf/cW77N5uuGx1Wn688j8iL5JSUHKquW9ivfUcZRp7b1ChfGNmiz1gD7rlbWT3aKfofpRS4wHO+teUftimaZ8OGkRqWdxUuGzRj0pIQtpCccVuiGoB/mtsNfCKn3ROI3w00WqU/5ILuc6gqW0RJFpDg6JXtaP/ttIQFTaXAqXCorZ5Ck/CEnU7+mekBYI0CsgHIWUWun46KUGWaVkkp4FEX8jv0Yf9TZYAhBSHeMtkWIPIHswon6LYFXpSd1nfJ/L3gM+xW8+f0oNYJ/XDcUBlQZnPTsQMS3hsOoLQdimOmpnfwINrTiKbQXecAzDHtiRbTonTw0ugS5Ii0uFs5/c+5SJbKne4rNVNkEVynvOq5QsDq4o+vAQADEpqyqBXWV7XuUx5oIpQrdpgkoLIhulHYPZMAR8R
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03107834-bed3-457f-04cf-08decc50b958
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 09:13:41.3540 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 09:35:36.2820 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 796abf6e-1047-4fb0-e413-08decc53c933
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A3NF/+zfw+mKhRZbaG546Zvw1dztpQ3OXCZk0BT4fo+Egdh6FsHW0EX7YLa1wB63
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9562
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,147 +109,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/17/26 10:38, Philipp Stanner wrote:
-> On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
->> Due the scheduler locking design, and the inability to always lock both
->> the entity and the run-queue in the consistent order, a completion exists
->> which effectively marks the entity as in use from a call path which is not
->> able to lock it.
->>
->> When entity is selected from the run job worker, its completion is marked
->> as non-idle all until the code is sure it will not be dereferencing it any
->> more, at which point it signals it as idle, releasing the potential
->> parallel cleanup path.
->>
->> We can remove the need for this completion by implementing the identical
->> guarantee by simply flushing the run job work from the cleanup path, after
->> having removed the entity from the run queue.
+Internal US/DS switch may not be exposed in passthrough. Guard the
+upstream port reads to avoid a NULL dereference.
 
-Oh, yes please.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 59 +++++++++++++++-------
+ 1 file changed, 42 insertions(+), 17 deletions(-)
 
->> We then know that the entity is no longer reachable by the run queue
->> selection logic, so as soon as any pending work is done the cleanup can
->> safely proceed. And because we have marked the entity as stopped, we also
->> know that the entity cannot re-enter the run queue.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: amd-gfx@lists.freedesktop.org
->> Cc: intel-xe@lists.freedesktop.org
->> ---
->> "Perfection is achieved, not when there is nothing more to add, but when
->>  there is nothing left to take away." - Antoine de Saint-Exupéry
-> 
-> 
-> Hmm, alright, so the basic trick just seems to be that the workqueue
-> implementation already can ensure the synchronization which we manually
-> implemented so far through the completion.
-> 
-> 
-> It's a bit more LOC, and doesn't solve a bug. However, I kind of like
-> the idea because it removes a redundant mechanism. Would be cool to
-> hear some other opinions, though.
-
-At least of hand it looks cleaner to me.
-
-And just for the record: This was also the original design the scheduler had before people started to "optimize" it.
-
-Cheers,
-Christian.
-
-> 
-> A comment below
-> 
->>
->> Lets see what Intel's CI says about this, not to mention our new AI
->> overlords...
->> ---
->>  drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
->>  drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
->>  drivers/gpu/drm/scheduler/sched_main.c     |  2 --
->>  drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
->>  include/drm/gpu_scheduler.h                |  9 --------
->>  5 files changed, 38 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index c51101ec70c1..e6f7c2fbefce 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>  	entity->rq = &sched_list[0]->rq;
->>  	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->>  	RB_CLEAR_NODE(&entity->rb_tree_node);
->> -	init_completion(&entity->entity_idle);
->> -
->> -	/* We start in an idle state. */
->> -	complete_all(&entity->entity_idle);
->>  
->>  	spin_lock_init(&entity->lock);
->>  	spsc_queue_init(&entity->job_queue);
->> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
->>   */
->>  void drm_sched_entity_kill(struct drm_sched_entity *entity)
->>  {
->> +	struct drm_gpu_scheduler *sched;
->>  	struct drm_sched_job *job;
->>  	struct dma_fence *prev;
->>  
->>  	spin_lock(&entity->lock);
->>  	entity->stopped = true;
->> -	drm_sched_rq_remove_entity(entity->rq, entity);
->> +	sched = drm_sched_rq_remove_entity(entity->rq, entity);
->>  	spin_unlock(&entity->lock);
->>  
->> -	/* Make sure this entity is not used by the scheduler at the moment */
->> -	wait_for_completion(&entity->entity_idle);
->> +	/*
->> +	 * Make sure this entity is not used by the scheduler at the moment.
->> +	 *
->> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
->> +	 * removed from the run-queue.
->> +	 */
->> +	if (sched)
->> +		drm_sched_flush_run_work(sched);
->>  
->> -	/* The entity is guaranteed to not be used by the scheduler */
->>  	prev = rcu_dereference_check(entity->last_scheduled, true);
->>  	dma_fence_get(prev);
->>  	while ((job = drm_sched_entity_queue_pop(entity))) {
->> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->>  		return;
->>  
->>  	spin_lock(&entity->lock);
->> +
->> +	if (entity->stopped) {
->> +		spin_unlock(&entity->lock);
->> +		return;
->> +
->> +	}
-> 
-> Seems unrelated? Why wasn't this needed semantically before?
-> 
->> +
->>  	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
->>  	rq = sched ? &sched->rq : NULL;
->>  	if (rq != entity->rq) {
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index 13ecb771d7a2..80dece3be415 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
->>  			 struct drm_sched_entity *entity);
->>  void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
->>  
->> +/**
->> + * drm_sched_flush_run_work - flush the run-job work
-> 
-> In v1, you'd probably want to document what this function typically
-> will be used for :)
-> 
-> 
-> Greetings,
-> P.
+diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+index 72ea37dbfea8..5f1389901504 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
++++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+@@ -589,6 +589,29 @@ static struct aqua_reg_list pcie_reg_addrs[] = {
+ 	{ smreg_0x1A380088, 6, DW_ADDR_INCR },
+ };
+ 
++/*
++ * Return the GPU's internal US switch port, or NULL if it is not visible
++ * (e.g. passthrough) or the EP is parented under an unrelated bridge.
++ */
++static struct pci_dev *aqua_vanjaram_get_us_pdev(struct amdgpu_device *adev)
++{
++	struct pci_dev *ds_pdev, *us_pdev;
++
++	ds_pdev = pci_upstream_bridge(adev->pdev);
++	if (!ds_pdev || ds_pdev->vendor != PCI_VENDOR_ID_ATI ||
++	    pci_pcie_type(ds_pdev) != PCI_EXP_TYPE_DOWNSTREAM)
++		return NULL;
++
++	us_pdev = pci_upstream_bridge(ds_pdev);
++	if (!us_pdev ||
++	    (us_pdev->vendor != PCI_VENDOR_ID_ATI &&
++	     us_pdev->vendor != PCI_VENDOR_ID_AMD) ||
++	    pci_pcie_type(us_pdev) != PCI_EXP_TYPE_UPSTREAM)
++		return NULL;
++
++	return us_pdev;
++}
++
+ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+ 					     void *buf, size_t max_size)
+ {
+@@ -596,7 +619,7 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+ 	uint32_t start_addr, incrx, num_regs, szbuf;
+ 	struct amdgpu_regs_pcie_v1_0 *pcie_regs;
+ 	struct amdgpu_smn_reg_data *reg_data;
+-	struct pci_dev *us_pdev, *ds_pdev;
++	struct pci_dev *us_pdev;
+ 	int aer_cap, r, n;
+ 
+ 	if (!buf || !max_size)
+@@ -628,25 +651,27 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+ 		}
+ 	}
+ 
+-	ds_pdev = pci_upstream_bridge(adev->pdev);
+-	us_pdev = pci_upstream_bridge(ds_pdev);
++	us_pdev = aqua_vanjaram_get_us_pdev(adev);
++	if (us_pdev) {
++		pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
++					  &pcie_regs->device_status);
++		pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
++					  &pcie_regs->link_status);
++
++		aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
++		if (aer_cap) {
++			pci_read_config_dword(us_pdev,
++					      aer_cap + PCI_ERR_COR_STATUS,
++					      &pcie_regs->pcie_corr_err_status);
++			pci_read_config_dword(us_pdev,
++					      aer_cap + PCI_ERR_UNCOR_STATUS,
++					      &pcie_regs->pcie_uncorr_err_status);
++		}
+ 
+-	pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
+-				  &pcie_regs->device_status);
+-	pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
+-				  &pcie_regs->link_status);
+-
+-	aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
+-	if (aer_cap) {
+-		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_COR_STATUS,
+-				      &pcie_regs->pcie_corr_err_status);
+-		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_UNCOR_STATUS,
+-				      &pcie_regs->pcie_uncorr_err_status);
++		pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
++				      &pcie_regs->sub_bus_number_latency);
+ 	}
+ 
+-	pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
+-			      &pcie_regs->sub_bus_number_latency);
+-
+ 	pcie_reg_state->common_header.structure_size = szbuf;
+ 	pcie_reg_state->common_header.format_revision = 1;
+ 	pcie_reg_state->common_header.content_revision = 0;
+-- 
+2.49.0
 
