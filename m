@@ -4,128 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C58ECD98EE
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 09:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547B9CD98F0
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 09:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A063110EEE4;
-	Wed, 17 Jun 2026 09:04:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C90DF10EEF8;
+	Wed, 17 Jun 2026 09:13:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YHNgnVhd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TRnD2csL";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010013.outbound.protection.outlook.com
- [40.93.198.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC6F810EEED
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 09:04:40 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010044.outbound.protection.outlook.com [52.101.56.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63AD10EEF8;
+ Wed, 17 Jun 2026 09:13:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ogsBgSa6eOV5G+RQ2/LxARD+PGBTm2bTQXtwB18hf27dSU+a9LyVopztVmvqTRFgbgRtmU0R1R47LsUWYXKzI3H2f2eozfOUm8CVAkiAd4MmVnFul3nzQbCeX3KUKuTuD4GPEQdXTZgPgAJC0bKeD7l3VZL1uoWwBvz9dLSkarI6BCq2aB6/2YPq7aqCMZK1ZAI95IO27IdFt7rj5MRc6UliYhApOp2PZPWHn7MiF6HTtiMd3L69Dfzx2Cl3NqB9nFMGzb4cqoNLWRlvshWb3YpG3Xhli2/gRk8VwHX0Uc0IZBEy4Ft2VftS3vIHJ44pN7yJ8kPmoqIUraOD6ZPXyQ==
+ b=GgduAV74/Si03mmuFe7j32qZFjvXppVDzAIg/OwWLw9g+jdrqsFbnYpGEhP5OK0UDOSEa3EybYoROgCZHtnl3pp1XnhjnEwAk3TwuTX01Z70FYO96Vx2u23dTlQ+HZQeBEw/lcRGLR2cE1k+XLtx8zDxBKb5D4pO++sgzY15A6qUk26UbTxL7l4QfpaypwqVRh/aZYbe64un2rWmfriE2TjVunj3jZEP3qXxnPldLCgYOdxLWHgG3InB48dt/HtdVICBcU0D3nowhX7zVSRl82GtD0zc5SnGv6FZf9ndJc+/6+03khd4CiSUCMfqAkt3f2q7hmgPdhwvkPhxEwX97g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=61C2Wul1BtIAwFU6ncr6qK4wxB/sbGIKeV7pFJXiv6I=;
- b=xCBGc1W2uUq9XE5qVKkRgg4PNoiz9Aena6xNDMYowPpQgMjHHl8NSH3zmPFYmdvfPMrYZgwO9kTWgfVPgShmqZf3B46/sk+lZUh02JsaBQsLOBSJjvVvAgQJqR2nRW3sccbUiVIy3oXqWVSbEP2r3HQInykuh08EGDrWeNf5xObf72dwEHCRNKIZIeWtq+IWvS0XdVn8tJ55fXYLgX58+YJbaD+9kzxnBdaKnAQfFPnUuaZlLPu3+xWweNhzBwbNDH/Ko/ETTj3R0PB5wucvWwUZmoqr99HU4f0pSSlJwN8oZPhKnawuqgPKgpQghl4wBW6ZCSFanyoxYQ+smbsPhw==
+ bh=Iv4kVLCV4+j8AFUOUKySUn93Ew5atQ4TcRpRrOxobrA=;
+ b=tVufTN7Jy0YUwlf/WSK4eg4f3ohYNG8PkW3T7sjIwxUOEBE/8oi9J/V9+Qa5uNEhU56GMJTSJu9dTxsnJamA6Ywdh/t+geTPgJnp6QKudGEMVKqb3IpA1GtRcVutlYTBVolXO1+9GXyXH49NOXoH0spCPga1Q807cOjZni1VkIUbMt6vWJQA46F4692UU62NTSIUf3U+B8QtObe4olKR7JKOrqqdImV+71Wc/hNeKdrN9GvuP4/RD+G0eygc8UC6Gsz3fp23L2F84iTzDAMTDXGMKkNr09q3qImVducnhZuGQYeO4NWWrFP8iYnROWtt1rmGbD0u71jiX0K8KaQClg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=61C2Wul1BtIAwFU6ncr6qK4wxB/sbGIKeV7pFJXiv6I=;
- b=YHNgnVhdDrXhSgSoTUa70F7C/H8PdxYHewsL6eotyChyBiq9tZ+QXopfl06DUszCV6NWAZ2Tdm//9a0JigWFhP6iig4unDqTqtB5IxwDMIvh8ISEyOjz7L+/pBGEBCAYFLX7M3F6rZjrwebCzdj5nEIl5jJMZaFn8lPInCurPvs=
+ bh=Iv4kVLCV4+j8AFUOUKySUn93Ew5atQ4TcRpRrOxobrA=;
+ b=TRnD2csLCVXDmfCjwmdZh0XadJTI9++V/LUVjw8nl8gR94vNnGKoEpc6ToEXWcnxgaqR9tbMe6qY3iDq0EoE8TstRwPo4qx/1r4ux7Z1VCJ+8/ivcmFy8P4bO0ronLv4ceFJfH5UaA3S7VQCzGhoub8oP8sqHY2BXifIJnjsm5E=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB9191.namprd12.prod.outlook.com (2603:10b6:a03:55a::8)
+ by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 09:04:37 +0000
+ 2026 09:13:41 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 09:04:37 +0000
-Message-ID: <d99db6a1-335e-447f-b909-4df3e6e75a07@amd.com>
-Date: Wed, 17 Jun 2026 11:04:33 +0200
+ 09:13:41 +0000
+Message-ID: <cc1dc9ee-e21d-49ea-968a-14a97bdc5afa@amd.com>
+Date: Wed, 17 Jun 2026 11:13:36 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] drm/amdgpu: Signal GPU_RESET EVENTFD notifications
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260612055226.2879270-1-srinivasan.shanmugam@amd.com>
- <20260612055226.2879270-6-srinivasan.shanmugam@amd.com>
- <4872460d-f5bc-4031-93e3-63650ec04479@amd.com>
- <IA0PR12MB8208AD2E2E8B8363030D514990E42@IA0PR12MB8208.namprd12.prod.outlook.com>
- <c2825801-31a3-4e92-8136-ed0e379f1471@amd.com>
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c2825801-31a3-4e92-8136-ed0e379f1471@amd.com>
+In-Reply-To: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0221.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0396.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::10) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB9191:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a0f9398-396f-4a65-ff99-08decc4f74d7
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03107834-bed3-457f-04cf-08decc50b958
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: cV7A1NJ62mmBt39juVov2fpDEHTmC0Ml/f8WOdOfg0OdLWyOkuQywKReUMZ8zNkTSnXQZZefT7BU3oDK8iACl7qxFYkmdUP44vKJs5rzyvA76fVtVH+DMv5iX1aKps6VxH4H0KOth1dhK9CTBA44Bhi3h9el4bEytU8ccOimstj10Y0MnMHIsNN9YwDfD3FI4ELCxSoBF0J0N+SPbFaLw38LDTLJ9CqLWG7hH9Zo4exMC2grjdy8aiXCVZzWNUbAD5YOSzqxxQW6tNIBo6FmXkhsoEyCK8oEqJTR0iclExlECt3Tw5FapUeOVJb0akeayInTYT5eP96efWf/rB/enf0dykts/JEQVsuGjhJ+zEbfLvjLN2nrV/X0AteviupMuS8BPO052zwn3GXWkzCETA9IHYKlSdfOWN1xxeiLnkqTvPMSkz/TmBlPoWQVn6gDZVHqyuPXoojweBnkQhThn6YxHyq0IMBYrUBGmweZXO6sYwqIUYe7+0hwzGvGbi+Nc6os/kDS84reqstGuYJ2IOHdOP/sP3mGdqssd3gfs5T5qsE6c680/P6JEiKYknRc5vV6EKt9CHkGeWmwVlo9K6x1S9qROu8qTJdmmlgOAyZg/YtfhDd5zDb1h9dWGq54Q+F/5pXU1r4zMUj2p+jzpw==
+ ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|5023799004|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: EUE0CD7+qdAk60Z42Kaf4+C7KNe2ReAn4jJHGLacRpBNppgBm+2xSDh18/2LisdJwJvblkF8Fr31o830SQRI1v5skIZlpUNlrJnZao1kD/45zwSs7pzlUmTXPs8Ex0dReL+HxZ29snavON9pMsRfNwqTYusTPldCKBBst6Mwldgepel/T3iHqEDy51EYaNGJXB1xuy9QIPkbGXnDdVEZjUTohLrnn+wiOvGwFD36/pzCVMeph9yqdjapEwBsgsu9YXM4JT5jrKBKAvts/uNYYUO2C7FavDqYUMlYdnDwpS627/+a1eKtzHHSXbSjNQ9qZr29yu2Cy/zSrb0X4zTbEjOZII+4Ocz8vuIMehxpiOI9E+HYkUbtAq24r7b0vCuVAcYQKLEKB24yNT9aNvd7qcGoEBR4/sFnfyIgG+NV1BK2Xx5q2r0hM1ZmnFWB+cP3IniytU3IOZLTxVkj7BmvyXGoas+Jh4LuBjDXRNoZPr+dTiHDOYrOwZ7UjK+uYFRod2IhTU8JZYbzLC8oBdrZXfBvcO45fijHVh3pXUjxw8b2ViVl6DA/V7I33r5SkgGRKajCBzKukW/yzZR6iUB+FltL3ueFoCoOtZwQ4cQKGlTfGqFfND6ZslsobAAYgA7CHwBr5QxNT8JS0V0SaVl9D9m2yQ+DrKK92KjL6CU068MqIfTej6pucsfZhn0fOp9U
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(5023799004)(4143699003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW9iTDEwRUl3QlVQMUhlN0dzN09mUUxJMmRXeTVSRkJxRXNjREw5Q3l3a1pw?=
- =?utf-8?B?VExuTDhlSGQyaWtyOHR4Wm9ZYTdmNitsNDlzbzNyekxzMytoQlhubk1QSzI0?=
- =?utf-8?B?MDNnZ1Uzc25LVTZ6bTd4Sk0zZ0p1Lzd3VWRIaHF0Y0Y0S0FaeFZVd2tvSWZP?=
- =?utf-8?B?VDRpS21jRGtKekw0YzJEMWhobGpJTm1uV1E1Z0toa3J3VnNqM05aSjFKNFM2?=
- =?utf-8?B?c0wrQ1habzF5dUk1TnJoeENkTzdaUy9tZ0E1b3FEa09TdWZKUzg5cnlqVlgy?=
- =?utf-8?B?YjR3aVdFUXNFZlFsckY3SDZ3RkI1SStwNnJZVjBIaTVEZzF4dGFNcjNKbHMx?=
- =?utf-8?B?S1g4WGt4MGZBWXdQZEtzcnNzTlllOVVXMnVWZjgxa0pCR2V2V3pISFNhajVH?=
- =?utf-8?B?SnRZT25aSkJFaE5ZQ2tkS0F3YmJ4R3IvRFM5K3JXdXhjVCtkZ2RFRFQ0c21w?=
- =?utf-8?B?bHZSTkZScUdDMXJNNkx5bWpSQStpbHY0OFpnVzRJZ3ZBYk9nZXhlL1JlZ3Q0?=
- =?utf-8?B?VS9EKzd1T0FZRTRUaHArQmY4dk1udUZNNExBQmdVWjQrTzZqWkF1dzk2Nmk1?=
- =?utf-8?B?UVFsd2psWE5OV3lTNVJieXlCWnJjYU9SMTFJdzdkOGkxN2NqbXN0bGFRN2Z2?=
- =?utf-8?B?ZXF1dU5LbmVzcjdHVE56VkdOMjFrRVpJMzg2SDg3LzVEZVVORFdhZjMwMnA5?=
- =?utf-8?B?LzlUdFRpQVlxeUxHUk1SbDlxcjlXbWltVTMrUENZdlJNNkxRZFdJdllRekl6?=
- =?utf-8?B?YUNtdjBRZGVCM2puODhOeCtlRmdLS3BoNC9RM2psaXFwSWZrdWovZDdnbElO?=
- =?utf-8?B?TU01THVvdEhudWRCUnFkbmN4cVFzWElnOGQ1aFgzOUR6M1BBVkUwV0lJaGhY?=
- =?utf-8?B?NjhrdHZQRi9mZkpzS21TY0pzWDBqSkZlVDEzTng0L0drVG5tR09ERTBPMUpl?=
- =?utf-8?B?Zk0wZG00ZGk4LzdZTnJKc0RWd0hZS2JlcGRXRHV3WDRFWk44bXVMQkdVNEdX?=
- =?utf-8?B?Q0JVYnlkQzRsbUdjdUM1b2pkL2Jhc1Y4a3QwVmxiQ1M5dmZ4a3RmZEdNaG5B?=
- =?utf-8?B?eXNSYjFGNEJ2SzFjSzI2K2Z2S3ZMeHo5alQzQmhwYTQrY1dmT0c0Y1pIU3VI?=
- =?utf-8?B?UmV1alVoWVpNNFJvT3pvVXdFSlovTmo3M0Z2OGwyeS9lNUp4Z1B6RDRQc1VM?=
- =?utf-8?B?eUdiVW85ODYyNEJUdXlrMjVKQkRuNUZHMy9ucDBzN0NvMElReUFZZ08zSFBC?=
- =?utf-8?B?UlB1NDBQeHVuVnJGek9tUEpSV0tiUEF2OExIdG1ibFpGTzhWYUdWbjBEM2VX?=
- =?utf-8?B?ZHNYMXkrelJrUGk3NnlmZlRoaUtjRDc0disrblR4cVIvOC9KcFhSRkxIL3p6?=
- =?utf-8?B?WVU3ZFM2bmdycFkxNEwwM05ZRjZDWVoweU9kNFlFM1Z3WmVpTnNlWTVpcThD?=
- =?utf-8?B?M0F1K2ZqYkFySTlBS3NtL1ROUUFCN1VZSWdLSVBlQUx5dWtYdWl6dHRyT1oz?=
- =?utf-8?B?Y1F1TlkvM1JHbVl6U2lWVTUrNWpRYWJEa2thMTFoa1hzUml1N0NTSjJpeEtZ?=
- =?utf-8?B?QmpWZTZ2cWVjM3ZyZ3VrcWZNemE0TEhqTXZZQjJBS0xFSDFqVVBuSnhWTVpL?=
- =?utf-8?B?RmhSR09WaFUxa2ZQRVB2bkpLa1RpL2NtNHU1eThXU2hBbTJ0bmFMYVpHSXpJ?=
- =?utf-8?B?QVlUREp3anRiTnJ3MFVvUkg2MVNzZFhUSi9xK2ZYZEw2eW5aQnN6UmFrQVFC?=
- =?utf-8?B?aU1zdFFLTUtHRDZUZzZQQzRuQTUxYW01bnh2OEhjR3pRcXhReG8xaTJ4UEdW?=
- =?utf-8?B?ZThhRXhGaHVJdUIyczBvVzNoVkZvcGUyL3F5eWJqbC9kcnFmYU5YNjFmaEN4?=
- =?utf-8?B?TWVodHBKcFpvQllOZUdDdVhIVEZUZzZxTDFGdVNseWUwbFJ3UDNLTkJpRklE?=
- =?utf-8?B?b2NHYm05Sm5zeHpsT3k2UDBxTmN5UlRhSkZHUVN4QkZWbzhjeTZCVzNINGtS?=
- =?utf-8?B?WHk2aUJDSVpYZTVGZldZdGhaaEZyOU53c1ZlMlcyTkZFdVZTeFZaTkE3Y0lG?=
- =?utf-8?B?T001Um8reC9XanVWcEdZM1B0V3hqNnBlZmxFbUNVUktmbGgrSkNXYVgwRG40?=
- =?utf-8?B?eVdJZ1c4TnF2c01zaXZvbzBUbFh5OGc3dFAvWldvVW15UzJoTDEzdGFER1Fm?=
- =?utf-8?B?cWExbHdvbGp0VWNYT0lQdFNyVmcvU0NwQ1dxcUtzRHllQUVYQjNIUjRYNEkx?=
- =?utf-8?B?T2drQThyN3NiSERLUExhS0pPdFJySk5pcFZIZ252SUZBY0VSTnZkY05QSmtM?=
- =?utf-8?Q?UQv0ypeXu2eTziC+Rs?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjZjVEIvSWs3L1JTcGl0VEllYnlqVW5jTnc2dkRib21jYURTWVFWdW84ZkQx?=
+ =?utf-8?B?TC9oV1RLVGhqdjlyRERDa2hIN1QrN1o0NVdMQTloUlZ0YjQvNUFrUlNiTlZZ?=
+ =?utf-8?B?c2c0ZEU2dk5oOUVvR1RHRFA5bld5emRGSzhCd3NhVDl0b2xlS1FpdTNuYkN6?=
+ =?utf-8?B?T0xvTU1PdFRBVXlqaFhrSlNFUTdzOUtRUld3WE52WmJ6Ynp5THM5TVpTKzlT?=
+ =?utf-8?B?K2FxQ3JTUysrZElxaVFIOVI5c2wyYzNOWlh3WTF6VFFXS1pJTDVWS0pUb0ND?=
+ =?utf-8?B?VVJtWklKbCsxcjk5Tm4zYnE1OEtNeVQ3d0M5S2dKSU9NbVNDWGFDN1BGZ1hS?=
+ =?utf-8?B?RTFCUnNBMHFiWVNJNEJIVzl1R0FTVkFtRnliZjZCMExBQWFXZWNBL211dDUw?=
+ =?utf-8?B?Q0NZOStnWjR5cDhzaFRWOVJkN1FieElQSjdVd1dmaWpFVVhlbC9PdFllUnJo?=
+ =?utf-8?B?M0ZoNTU2NWk3V1lTNm5jaUx6a043bFZ6blQvTy83bWNiRG5xaGdicW1xMEIy?=
+ =?utf-8?B?Sjlaa0ZhNGdCYTYyQjdhL3drS2RuMExydk5mZDVlTUxSdjMwV2Y3aEIzQXFy?=
+ =?utf-8?B?cVZ4cEw0UkRkTmZmK1kvYXRhNDQ2bExGT2FNN292RDVVZmY4NmJtbG9CTW4v?=
+ =?utf-8?B?NDBuZ2FUVGw4YTBmVVAydThKK2RKdWt1Z0VZZktvUlV5d1dKdHZzTm9pUjAz?=
+ =?utf-8?B?VzVnYmRJcjdxS2VhelArQUZXWU54TXc4L0QyTXdkN1VFMHJqR0VUQWxzUlJ4?=
+ =?utf-8?B?NXlBVms5MGhOZVB0L0V2cUlneWQ2a1ZPRmVPaWNIcVdxMzJQUUxKcDU1K3hu?=
+ =?utf-8?B?NmJrY0luY1JTbnBmeEpzMkVaUG9xajdlSFFMdHdDK24xTjVDRE9pa3BMaFhP?=
+ =?utf-8?B?eWtiRnFGeHFMTnh3eUt5SjFWOUE3Y2w2Ni8waGtheU5QVHBhY1FHbkRGQnRt?=
+ =?utf-8?B?RGJHYTZnSE5Yck5rZnNEWjA1cmpZdmxWTVRqNVJKQ2x1ejY0V3JaS1gwS3Y4?=
+ =?utf-8?B?QmJ4eENiaWE5NHhjZ3doNWNMUVFRVFhoZ1ZPeTBPTHRBYUNtL3NMVHRRZnc1?=
+ =?utf-8?B?SzRjaWhuVmZDam0zYTU0dXlwQU1saGE2QzNNNzVNcllkNVcrYlBUa1dhenJZ?=
+ =?utf-8?B?VmN0cXpqUDBoNU84SExtTHlac3QvaUZDRTNvM3NoOGZaWm05cGFtckFZdndZ?=
+ =?utf-8?B?NlYzeDRKUUVDdy9NQUJiK2VTTXROMGJYUjBCNjMzMm9pZUdPeHRVaEc0Zm1J?=
+ =?utf-8?B?djZwYUFCdkppZW92TWpNTmZwbHVBdGwwVVNFTVBPM244WjloeGw0ZndsRXB3?=
+ =?utf-8?B?cjhuT2xMUmFYUFJzYURxUzJpdmpxV1NtTmxBbFN3VGNpQ21zY3RyRHZBa2tP?=
+ =?utf-8?B?alRsNXZlaEFIcGlKZjRkMktqUmRyVDNVRGVKUEpkV1NQSzd4U0xyWlhJMHY1?=
+ =?utf-8?B?L0s2Y0QvY1JQaHIvWEtBdVRoZXJCaytOMGxXVFpETXVjVUdBWE1sQ1lxRk16?=
+ =?utf-8?B?NUpBUHpEOGx6M01Fdy9nQ1NHQ3JYckRPTzYxS0E1bGZqNDJBWUlDUkYweWlw?=
+ =?utf-8?B?T0JHZUIzZTdoRTVOcWdBRUllWEJQY1dmUWhDWFBWNFdWWnpZWVZNL0NXdjB0?=
+ =?utf-8?B?MStFakEvbXZpQ2dRVHY0dmVmeTA3c25OSTNacllwaUtSQnFYNmVyMzJaRm1U?=
+ =?utf-8?B?emhHSWNHMlVxUTN6NjczcDlUS1A0bDZMZ3Y3WGZLSjM2Q2pGc1BTVHlIbDBX?=
+ =?utf-8?B?bWpmQ1E4SmlxN2tIdWlET0VESDN6UnBibHBsQlQvOURoendQaGZaa0w2K3Yy?=
+ =?utf-8?B?OHM0RXNpbjRYSmpVTWNQdWdwdGluZm53ME40SVQ4amNwc2E0bDYzMmt0Y0hk?=
+ =?utf-8?B?RlZVai8vTnIycm1VYm41YWMyemNONmZJdjlFL0xLVEx5RENLVFFFWHlnb05Y?=
+ =?utf-8?B?TFFONWVudVQ4RmJkWHpUTUQxQkowZzNHeGFmRHkwd3B5eTZxVmI2WXhmWGt4?=
+ =?utf-8?B?d0kyR1FJcnBKWmdQeU1hZEFvYTBVWG5lTVFvT3NHUnZFVitLakltckFLd0sw?=
+ =?utf-8?B?K2IwUzhxS284RHRyVFZNSS9GbUo4VFlHT0YvK3J5bCtIUjhmOUEyeWNYSG8z?=
+ =?utf-8?B?L0xxeVdCMjlVRDRLU1A5UFMvK0FBdjlZTDJYTlJZK3J0YkZzRU85dU41blVB?=
+ =?utf-8?B?RHRoSFhraUlYNFdZMHdRK2ZNUzdSVlVxMmdXeWhRdnpLRHFkMUM4bjU5R1FI?=
+ =?utf-8?B?M3pnN1VjNnpiSzk0V0ViV28vWjRGczRweXM5RUtUU2FHRUdxc24yZUxRWjhM?=
+ =?utf-8?Q?9fL4X67cKM6ZflufcM?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a0f9398-396f-4a65-ff99-08decc4f74d7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03107834-bed3-457f-04cf-08decc50b958
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 09:04:37.1357 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 09:13:41.3540 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pyE7A6UCRath5VMvoGx79w32bF2/pDhg2TPb4j+jhADT76FhXnBdCo0P50857kf+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9191
+X-MS-Exchange-CrossTenant-UserPrincipalName: A3NF/+zfw+mKhRZbaG546Zvw1dztpQ3OXCZk0BT4fo+Egdh6FsHW0EX7YLa1wB63
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,64 +137,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/17/26 08:22, Lazar, Lijo wrote:
-> On 17-Jun-26 11:29 AM, SHANMUGAM, SRINIVASAN wrote:
->> AMD General
+On 6/17/26 10:38, Philipp Stanner wrote:
+> On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
+>> Due the scheduler locking design, and the inability to always lock both
+>> the entity and the run-queue in the consistent order, a completion exists
+>> which effectively marks the entity as in use from a call path which is not
+>> able to lock it.
 >>
->>> -----Original Message-----
->>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>> Sent: Wednesday, June 17, 2026 10:38 AM
->>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->>> Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->>> <Alexander.Deucher@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org
->>> Subject: Re: [PATCH 5/5] drm/amdgpu: Signal GPU_RESET EVENTFD
->>> notifications
->>>
->>>
->>>
->>> On 12-Jun-26 11:22 AM, Srinivasan Shanmugam wrote:
->>>> Signal GPU_RESET EVENTFD subscriptions from the GPU recovery path.
->>>>
->>>> The GPU recovery flow already determines when a device reset has
->>>> completed successfully. Use that point to wake up matching EVENTFD
->>>> subscribers.
->>>>
->>>
->>> It seems beneficial to send an event before and after the reset, rather than only on
->>> successful completion of a reset.
->>>
->>>> GPU_RESET is a device-scoped event, so no queue object is used.  All
->>>> processes that subscribed to GPU_RESET on the device are notified.
->>>>
+>> When entity is selected from the run job worker, its completion is marked
+>> as non-idle all until the code is sure it will not be dereferencing it any
+>> more, at which point it signals it as idle, releasing the potential
+>> parallel cleanup path.
 >>
->> My original intention was to notify userspace that GPU recovery had completed and the device was usable again, which is why I only signaled on successful completion.
->>
->> One thing I'm trying to understand is what userspace is expected to do with a reset-begin notification. For the other events in this series, EVENTFD is only used as a wakeup mechanism and WAIT_EVENT provides the associated details.
->>
->> Do you have a particular userspace use case in mind where observing both reset begin and reset end would be beneficial?
-> 
-> This is an existing one -
-> 
-> https://elixir.bootlin.com/linux/v7.1/source/include/uapi/linux/kfd_ioctl.h#L536
-> 
-> Presently, it serves as an SMI event. Other processes may choose to halt submissions from their side, and resume after a reset (though this is still asynchronous).
+>> We can remove the need for this completion by implementing the identical
+>> guarantee by simply flushing the run job work from the cleanup path, after
+>> having removed the entity from the run queue.
 
-We have rejected exactly that approach in the past because it makes the whole handling quite unreliable. This has been proposed before and was then later removed as buggy.
+Oh, yes please.
 
-As far as I can see notification before the reset doesn't have much value since you can't block the reset.
+>> We then know that the entity is no longer reachable by the run queue
+>> selection logic, so as soon as any pending work is done the cleanup can
+>> safely proceed. And because we have marked the entity as stopped, we also
+>> know that the entity cannot re-enter the run queue.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Cc: intel-xe@lists.freedesktop.org
+>> ---
+>> "Perfection is achieved, not when there is nothing more to add, but when
+>>  there is nothing left to take away." - Antoine de Saint-Exupéry
+> 
+> 
+> Hmm, alright, so the basic trick just seems to be that the workqueue
+> implementation already can ensure the synchronization which we manually
+> implemented so far through the completion.
+> 
+> 
+> It's a bit more LOC, and doesn't solve a bug. However, I kind of like
+> the idea because it removes a redundant mechanism. Would be cool to
+> hear some other opinions, though.
 
-Regards,
+At least of hand it looks cleaner to me.
+
+And just for the record: This was also the original design the scheduler had before people started to "optimize" it.
+
+Cheers,
 Christian.
 
 > 
-> Thanks,
-> Lijo
+> A comment below
 > 
 >>
->> Hi @Koenig, Christian/@Deucher, Alexander: Any opinions onto this please?
+>> Lets see what Intel's CI says about this, not to mention our new AI
+>> overlords...
+>> ---
+>>  drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
+>>  drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
+>>  drivers/gpu/drm/scheduler/sched_main.c     |  2 --
+>>  drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
+>>  include/drm/gpu_scheduler.h                |  9 --------
+>>  5 files changed, 38 insertions(+), 26 deletions(-)
 >>
->> Thanks!,
->> Srini
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index c51101ec70c1..e6f7c2fbefce 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>  	entity->rq = &sched_list[0]->rq;
+>>  	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+>>  	RB_CLEAR_NODE(&entity->rb_tree_node);
+>> -	init_completion(&entity->entity_idle);
+>> -
+>> -	/* We start in an idle state. */
+>> -	complete_all(&entity->entity_idle);
+>>  
+>>  	spin_lock_init(&entity->lock);
+>>  	spsc_queue_init(&entity->job_queue);
+>> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+>>   */
+>>  void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>>  {
+>> +	struct drm_gpu_scheduler *sched;
+>>  	struct drm_sched_job *job;
+>>  	struct dma_fence *prev;
+>>  
+>>  	spin_lock(&entity->lock);
+>>  	entity->stopped = true;
+>> -	drm_sched_rq_remove_entity(entity->rq, entity);
+>> +	sched = drm_sched_rq_remove_entity(entity->rq, entity);
+>>  	spin_unlock(&entity->lock);
+>>  
+>> -	/* Make sure this entity is not used by the scheduler at the moment */
+>> -	wait_for_completion(&entity->entity_idle);
+>> +	/*
+>> +	 * Make sure this entity is not used by the scheduler at the moment.
+>> +	 *
+>> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
+>> +	 * removed from the run-queue.
+>> +	 */
+>> +	if (sched)
+>> +		drm_sched_flush_run_work(sched);
+>>  
+>> -	/* The entity is guaranteed to not be used by the scheduler */
+>>  	prev = rcu_dereference_check(entity->last_scheduled, true);
+>>  	dma_fence_get(prev);
+>>  	while ((job = drm_sched_entity_queue_pop(entity))) {
+>> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>>  		return;
+>>  
+>>  	spin_lock(&entity->lock);
+>> +
+>> +	if (entity->stopped) {
+>> +		spin_unlock(&entity->lock);
+>> +		return;
+>> +
+>> +	}
 > 
+> Seems unrelated? Why wasn't this needed semantically before?
+> 
+>> +
+>>  	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+>>  	rq = sched ? &sched->rq : NULL;
+>>  	if (rq != entity->rq) {
+>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>> index 13ecb771d7a2..80dece3be415 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+>>  			 struct drm_sched_entity *entity);
+>>  void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+>>  
+>> +/**
+>> + * drm_sched_flush_run_work - flush the run-job work
+> 
+> In v1, you'd probably want to document what this function typically
+> will be used for :)
+> 
+> 
+> Greetings,
+> P.
 
