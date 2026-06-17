@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F64ECD98F7
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:14:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507EACD98F2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 19:14:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26A010F0E7;
-	Wed, 17 Jun 2026 19:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5D8910F0E1;
+	Wed, 17 Jun 2026 19:14:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpjw2D/M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mQA99Oo3";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2420310F0DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:14:51 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-490be29c1c5so438525e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 12:14:51 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F39B10F0DE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 19:14:55 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4922244f7c7so604275e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 12:14:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781723690; x=1782328490; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781723693; x=1782328493; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aYPAYtgMN+0/jLfYSFLrY2oWVEXuKHjJb7SX18RgFfg=;
- b=kpjw2D/MikdgUB7vPsKFiQpu8c0yZQtwbiYFIkU3B8i2gkANdN+d8p4IXeFun+xCxD
- e6AyaHRPPZ+HbPznONUqWY50etZiH7Haz6vW8LDkor7ZUtBk6+6ECe/GDavu/qFmJcEo
- Z+GwIYci2EDwyL3y8+TMcBU8uSg6MI64PbChVb1n7KGyuioIpS3Q6Vjuw7U8Q2RIkR6I
- UMm+0/K/ZcO+I+dBqiE+1ZT18SM4XvZ1EkgJuq3ci5KvKYajClwCgYN5CCBay+O3rw4L
- 35ATRMFnrZx3ENDASWtP/Dxpk2jJltKsi/BPebU4VKmuuOWGSz5qDFO+121l2BQJkW/c
- EpuQ==
+ bh=yuTGuYVt8fllS4J4qN2aqHiPNgNYSV9TGnIeSi2gAkc=;
+ b=mQA99Oo3zppAMVH2WS6VaChjSSF94M6fSMRWbxrelbOYSumjsMBwkYIbsY3i1dCTBJ
+ hk/SyD1D6p+kVPjxZllpdrgKoNFoOfd49SYw4akTRKsseUSjIuRbAYJrVZRYVjRsH//1
+ ZGFmyDYBsBbqMfIWU94dcRP4UeHHn4GSkXFd6Z3c2CNVGHHuNXTyjfhXsaziBNyhe9gr
+ wEH/USN/vzbE8KYOMKjY5KCq99CvoqlZPo280HUC/9pn6RqSlLFqlyYQjnOCyv3n/BMA
+ BpGnIv/Yw1y9qtKDZy9X0QUiNtVi0wSDrHUFUsdinFvfiFahWYUI9PKotM2Re6RbII9Y
+ iMIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781723690; x=1782328490;
+ d=1e100.net; s=20251104; t=1781723693; x=1782328493;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=aYPAYtgMN+0/jLfYSFLrY2oWVEXuKHjJb7SX18RgFfg=;
- b=ScMY5YwmiONBccg0PPgkJMGzpy+UuUeVlx2dLZaeLyqRGknafjtifK96eYRCRvDtQC
- TEB1SB2cJ06ENd6BQ9Sa2PjwVZZMWze1yef6OFcUZA/893zXWfjGcT8j+u1BP87uGZF9
- NJjFsyFZvf3vtLCNKYtaPMdJVTSz4FU5SNgcNymj2o7Bp014k0RV+rU0VZR66suKBUnZ
- QSPH9hYzkgfUf56UCiuCxT0S9nyOyww/mFj5dMrsuEhsdONUdTxtCtwx+bZsoVHcJecJ
- soH3tr4nghkCGDc2IrrfSDv3anr9DgifwC6WM4noJAZLaH5n4AX0bpwI2h031/vGK/0U
- OcgA==
-X-Gm-Message-State: AOJu0Yy7k9z4X0tUrvE8DBvRT/UNNvbAQIO2cH8NuCgJrwCKnZ2RAT4K
- Cq8h00Ytx9CA1yTXI2zHpuBvvBlc+z3H0dzZyArqPteqIM26YJLra1VjiGOpdg==
-X-Gm-Gg: Acq92OFiS8hWhxAmBIa56+kdCe1JMO8pjT1xmboSo9BIikPx3MCEfMKLl+9Fg5f5wo4
- iMrkRcuwwsi0wEd0N7+gJImNtywYKQ2Oe/Ch2NSUSSQRoXB5tHCAGKU62IwvpnU7RQHl4NwbaNI
- PZNwumLcW138rMhhEcIK+tWXUsW2qwA+KSt9SbI8AjNBp8okMpDjePfQg7/WVUkgHOCaZZ67OW+
- +MNfMgTvY16nGMNz/JS8vOOajFAx4bqciy9uT8Mbq7FlX26AGopuP4Sqeupr0715kOVn6u2iNaF
- b4Keq572+HxWfuma03g1z8QE4MzZhTCTKop0R0Ie13zbYr47+pYm46K8ljl8FPERFnpqtM9BcxL
- on+qm6eSCRQxxKhEEWQ1eC+2dxE2y6z2ENeFkQQSx9WPNJcBRu7iKhiR7/c2Mr2V9+ANYoSlm55
- ivnELoA3sp10si0KiOicowun34PdeFs81Dbq+f1Q76N/mCyWR8LmjOxM+nPQLL5VEn
-X-Received: by 2002:a05:600c:a30c:b0:488:b187:3c with SMTP id
- 5b1f17b1804b1-492333bf7bamr82194005e9.14.1781723689653; 
- Wed, 17 Jun 2026 12:14:49 -0700 (PDT)
+ bh=yuTGuYVt8fllS4J4qN2aqHiPNgNYSV9TGnIeSi2gAkc=;
+ b=T05sihMeJ+EXci4ANojnQYf9TW7TkzB2q7OhNQEYDO8IQTWVS4tZShA0ceGSjx1EaT
+ UpUhZKhNDJMD+rYdWw30P6iA1H8BEsptCgUl7nP6k717dPvkehNIIA1coSzRTnmTIDTT
+ GQVO5NOgpRCTtA8WhU5g2BWjOeoExXWkCVNjzNrGh0L/AM5W73ts0BSsKXx22YYvLHHf
+ Nk7K4N/+1+NOpv/o466VoCkEp/cFd1ZhR42yu14mGVxGaxgTlbGETEVXYMWIJCtq405p
+ GyUPUwxnqjSVVXlzVnFH7lr4VQS9VJ4FfUjD88OE3k5FX5VYkwbvgHxaGX07mnlr4j3L
+ TB0g==
+X-Gm-Message-State: AOJu0YwX1L0hbY6WJuMyZpW3ox7T+uuQ9+PKgQbefW0EubGO27TrcTD0
+ e+sOK96AZOXVKh1e3Ha86G2GzoybBI35Yf4chjXtg7Li3JNvW3HePR05QZ8ogQ==
+X-Gm-Gg: Acq92OH5w9CLQOEBddFpTh6eNSkUqZmAdGQdaLK91QyMqvjVgED93epxAVl20/U3OfE
+ tPcglTR9acDj5notGWOp2/4G/ftNoyZCJB8RQkxpUa8ZCYPHLyoNGFnxdBdygPM3zhrkwHEOpnX
+ enzrhRAx9t1582abF70Kfk2ApRMfpMKjsM6gosXQqCTuihQno0C1dJ8QGuVB/dbpxiDwucapuYy
+ d/bAGq5yKsXyc1+qlEY3yGo/T3CQJWT36xybvpYY4T18vOgovTZLKRgYg0W+8uOIXnuf76CoInF
+ aHmbjoSkNtEVsMQwAYbF2l9F5syH1v9/OPruAKtDl0L/oEv1JkRKTSgsaYJsaoW15d5wZ2C89mZ
+ szXO7DjqnWlUIjnZYSeGf5EtySQguXeFKYqDC4SteuOo3EI1Rz2i5f5Bp0ygA31mpaTDTkVn/z6
+ 483UOCXc3M9Hq0wQzoIrSdhIQhSbMbbcMuoOkocBVk//R8mjZxbxV46g==
+X-Received: by 2002:a05:600c:8010:b0:490:bad9:de43 with SMTP id
+ 5b1f17b1804b1-492381a5b88mr12752385e9.0.1781723693567; 
+ Wed, 17 Jun 2026 12:14:53 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001290.dsl.pool.telekom.hu.
  [84.0.18.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa96f0esm204686325e9.12.2026.06.17.12.14.48
+ 5b1f17b1804b1-4922fa96f0esm204686325e9.12.2026.06.17.12.14.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 12:14:49 -0700 (PDT)
+ Wed, 17 Jun 2026 12:14:53 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Natalie Vock <natalie.vock@gmx.de>,
@@ -68,9 +68,10 @@ To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Lazar Lijo <lijo.lazar@amd.com>, Martin Roukala <martin.roukala@mupuf.org>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 15/17] drm/amdgpu/gfx8: Adjust EDC GPR workaround
-Date: Wed, 17 Jun 2026 21:14:26 +0200
-Message-ID: <20260617191428.1784083-16-timur.kristof@gmail.com>
+Subject: [PATCH 17/17] drm/amdgpu/gfx8: Enable IP block soft reset as a GPU
+ recovery method
+Date: Wed, 17 Jun 2026 21:14:28 +0200
+Message-ID: <20260617191428.1784083-18-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617191428.1784083-1-timur.kristof@gmail.com>
 References: <20260617191428.1784083-1-timur.kristof@gmail.com>
@@ -91,38 +92,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the compute queue is unavailable to run the IB,
-return -EBUSY instead of silently failing.
+Enable IP block soft reset as a GPU recovery method for GFX8
+graphics and compute rings.
 
-Make sure the IB is always executed during reset:
-Set preempt condition (may be cleared during reset),
-and flush HDP cache so the GPU sees the updated value.
+Tested with the "hard_reset_cp_wait" test case from the
+Hang Test Suite created by Natalie Vock and Konstantin Seurer.
+This Vulkan testcase waits for an event that never occurs,
+effectively a WAIT_REG_MEM packet that intentionally hangs.
+IP block soft reset can resolve that hang and allow
+the rest of the system to move on and keep functioning
+without needing a full ASIC reset.
+
+Tested on the following chips:
+
+Polaris 10 (Radeon RX 570)
+Polaris 11 (Radeon RX 560)
+Polaris 12 (Radeon RX 550)
+Fiji (Radeon R9 Nano)
+Tonga (Radeon R9 380X)
+Carrizo (A8-9600)
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 3c181628d87e..1366d6070481 100644
+index e5b25d6b8268..54c974a72f84 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1487,7 +1487,14 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+@@ -2035,6 +2035,11 @@ static int gfx_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->gfx.compute_supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
  
- 	/* bail if the compute ring is not ready */
- 	if (!ring->sched.ready)
--		return 0;
-+		return -EBUSY;
-+
-+	if (amdgpu_in_reset(adev)) {
-+		/* Set preempt condition to execute IB */
-+		amdgpu_ring_set_preempt_cond_exec(ring, true);
-+		/* Flush HDP cache so the GPU can see the updated COND_EXEC value */
-+		amdgpu_device_flush_hdp(adev, NULL);
++	if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_ip_block_soft_reset) {
++		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
++		adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
 +	}
++
+ 	return 0;
+ }
  
- 	tmp = RREG32(mmGB_EDC_MODE);
- 	WREG32(mmGB_EDC_MODE, 0);
 -- 
 2.54.0
 
