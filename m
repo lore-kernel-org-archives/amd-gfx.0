@@ -4,104 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44061CD98E4
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 14:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A40BCD98E2
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 14:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F16310EFF7;
-	Wed, 17 Jun 2026 14:33:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B88E610EFFA;
+	Wed, 17 Jun 2026 14:39:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WMhqYj72";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OufI4x3o";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE09010EFF3
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 14:33:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QqLW34rC61Oke65Gaf1WQRmpPBji/E+o1Kwj1jxpiiXY5HIIQfSaHwMCe2yNGJHvwDivsazsZizm2vA5VNEGqaGq3tOmvQMzyEmIZXOYjR33M8agLgOJJtow1AUZMp+Z20F7+QOvSaOpZMbh5BrBNhOWzj+7Kj0e//ZjrLVXs2D78+BpJ0ivsoE+I63zKqKAofxjrn4zbsFIecocB5+ZTWgBv4JsDy4qTQLmxsvtZtkfC4ZB/ZMyWN95mMbMQFMqKe4JMdwR0sermcQ1zvsy+Ur+JSyAyjuAwIpH4XDQvLfwCoe1Y+MtF7KRGgVhhIsZIYOXov3M+EEGjQBXfBnlIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ae1lU8zxBa7qc074AanXBu10Nf7Erx+VioWicCch78I=;
- b=oo9eBjArdnkOI8W7NeSW2VV7g4I56Vq8k/Rfjs59NmS4YMv2957I6QHJbXbFLdWkZ4M+o6bcO14ESuViapyeSgj09hNUSN/EQ3TR3QECjIYiJhk4lqvtTEWDP8Q5IHB/ZKUfu/HHD++qoAxBD9oXR/WlvIL7VY0YG9ZZ72G+AES/882hpYP39SDnmYJIE5tEARtczJJlnNVYMI/CZfRCsuMKHKo0tazp3zQxk07LGkEn6XmbjulMAJii/vfnTMiXfnDO/P0qGyxeHDvwbLAY3Q+stQDm/fcQux+J3ZrmHokoZnlCGzMf8H2B44NZkYKZN3neZVnGNvlZXs/FOolMQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ae1lU8zxBa7qc074AanXBu10Nf7Erx+VioWicCch78I=;
- b=WMhqYj72ItnmhizlVZPfGn8kpGIIQLpoJdTVIsFQCJF+NXkCFulXcbOaeTwQAqS0D5/osZDUh3lwPdXvtXp2GIoV0Tq6bPAwKxWJBCW77j+3CoJObb595HFw3q8FOFUHdgFMUOuI+OK5z5AEjXO7dBzGd57Yda5ygVBkkctAUtM=
-Received: from SA9P223CA0020.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::25)
- by SA1PR12MB8722.namprd12.prod.outlook.com (2603:10b6:806:373::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 14:32:53 +0000
-Received: from SN1PEPF00036F40.namprd05.prod.outlook.com
- (2603:10b6:806:26:cafe::7) by SA9P223CA0020.outlook.office365.com
- (2603:10b6:806:26::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Wed,
- 17 Jun 2026 14:32:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF00036F40.mail.protection.outlook.com (10.167.248.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 14:32:53 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 17 Jun
- 2026 09:32:52 -0500
-Received: from [10.254.92.203] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 17 Jun 2026 09:32:52 -0500
-Message-ID: <cbeaa22b-530b-4fb7-bfe1-813d127d3595@amd.com>
-Date: Wed, 17 Jun 2026 10:32:51 -0400
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3483410EFDF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 14:39:55 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-304f9bc869aso650816eec.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2026 07:39:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781707194; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Ba4OAS3biErvF/Az9/J7S9OIm4rWmoSVhAdseOjRhyr/5n4q18ER+qfgIFMPOOPrGl
+ igM+Vq4p3US9Vs7Gnag2y2teE62IppEiZ860sp9McADQy+36VsGJCov3JvS5r0znVXzq
+ jGBGD1f6w1EZ1dsgMr5ri/76b2NyGVmb06Oz144rkdE8Rv/FcNo41cxiPwhVWTnccyXV
+ m4EEXMHbgwPY3i5Z5RiDGC0xS1306EqeJ1N6PKlwJUXrZoZoYz5vwH96u990y8dqIrjy
+ 41KSH6w9mf7uVa+T0a+q6Y+tvdKPXkUbDAvFfU4Z9YiqjFXRNlB5FeIcRx7+bPM22zK2
+ dlZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=H+dC1Ehi3qgIqIz5guL69Mk1/vs8Hz96N955RLbsg+I=;
+ fh=AQMfZ5MqvW2+mn1ew9/jeZcRc1OyYV1VRLlUCXMxOCw=;
+ b=cS1foHhTPQBOSUlTlxDf2iPwbJqUvXU1d61LYuTyb5GLESh3g4I+o2rMjpzttbnDE+
+ C28qL74Ja+Qb5geuGW1naCjbBJt8nxnD8Eno42Wat7VEPlG61xmag6rgJSa48XpL+XQk
+ +jKUQwzEQeNn8+LnxFNr//x6CglNQOQwIDl0lfJGPZohnPlXsAxC8AkHgKIf0iSweMhh
+ raNQ1tGT0XrwowrIwW/Gm1s4u6447azbFwr0qPWdh/FKxf5nfUe2pCaHIMaDZJDuMov8
+ ZzVsA+OJZKYAQsuOrLPgJH/bBXtqZkZefcnyPWwfZdTmGLG1+O9LvZD0kJ9LSPy3Dhw3
+ onIA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781707194; x=1782311994; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=H+dC1Ehi3qgIqIz5guL69Mk1/vs8Hz96N955RLbsg+I=;
+ b=OufI4x3ogDh2D1nCdYoPcJnC8urZoC0WQ7KJyobmEGIDFsU/f0adXIo03Q3CL783tZ
+ Kst10F/V9c0dD7jvyR/kNOnkiUGolIozxcjjULf6IffOC+riFrnTOPDNAKQtEMpV2zoF
+ 6tpU8k9vCfvEmlKGwdTr+By9Wq6uxQGKH085Mga9YV1kagHUCA+/7wE9dnO7hqbpKwDE
+ pGrszkd+Ve0e/YIIxwQjp/1+sV1M6CeXxNOAtWpBf3K3g5rS5VYjiHAoUQyzmkNbox+z
+ tx4FQqzJd2a7bkhTmbTKdVDiizU8roEdl4F64QJWwGYxrn3B5HvFMbWA4izEHWUGkl1H
+ C0ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781707194; x=1782311994;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=H+dC1Ehi3qgIqIz5guL69Mk1/vs8Hz96N955RLbsg+I=;
+ b=jKA3rvY9AJn6VTfsgVrxznI5a/sFMrrXom4K/kzLbhgzWwapYlRcTAxhWOHw4WlzX5
+ yEicR+lVyOYIHCoBSPvFLnRbowPnWEs5I4B4+seyuGhXUgduPMwTy6UOb3nqXBh8NRDJ
+ Ak+T1BXsa62lGidyh6up9PGWYQ8FitmcGwFL5HvvrSBJQpEFdNFvw28QDZdccJwzJWvQ
+ RV2xr8RLzXXgi1Qwsac+deSvAggyDPq6BkFcmXuCR8BzKM1q0JP29ZQpyMdlx6jUtchx
+ 0WjDtTRabAOZOKLwSVf4ommQt4TYteEXr2PP04vOFF3C/4iOm++LRmvqzIZ1EU/5LBGZ
+ oHaA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/Xc85UBXsTlYo6eThLyq3zdhXRYwT7UEGREn1WCDL6NWswjH2oCHA+lOrTehvkZM6HmCVdPM+s@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZQtJpr/a7pYkkg5MwM0i/1vn4lF6O7EVn18ekJM2fxh814iaX
+ s45IzhNRUW/Rzt9CoveklzWVDke14bMoVQFsfP1wpTwwcp9mOix4fcSXC3mMOoQpSw5JOBTjWpi
+ KjyhRF81p9r9vK33tGVvtzWMFUZrPzAE=
+X-Gm-Gg: Acq92OGt8sBuUhM2cnCJXv29v3LtCe3EGCZZQa3z4Eq8oJrBIs91F+RGc962HyYRGxK
+ wjVtXAusjmgID3hWOTWh8AoWQ5CVRdLo1M0vkhAKlskeshydzv9dOx4ZD/JwuYayCHU6m4kD5qk
+ 9Nuh3h76S8pybjSLxrrN76WxuHDTAIJ9tvuDBYVcXKXJARZpUvx/p3areRrqDrkDoEiamf51vpU
+ khAzTBRJQVnOhHLRJdOLRbDwo6LaqKdMkfcyvrcWeUnkZKV8UWYyiKjaZuntnAUGNnu5QrIvoSF
+ YF1rtHxDqHc7O+cOrHQvUU22L7zHlpj9sVQBczqqGMUy0FNnLd4L/gx8cYc=
+X-Received: by 2002:a05:7022:622:b0:137:ec1a:f405 with SMTP id
+ a92af1059eb24-1398f56699bmr778964c88.0.1781707194261; Wed, 17 Jun 2026
+ 07:39:54 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amd/display: consolidate DCN vblank/flip handling
- onto vupdate_no_lock
-To: Matthew Schwartz <matthew.schwartz@linux.dev>,
- <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
- <wiagn233@outlook.com>, <sysdadmin@m1k.cloud>, <timur.kristof@gmail.com>,
- <xaver.hugl@kde.org>, <mario.kleiner.de@gmail.com>
-References: <20260616201828.389985-1-sunpeng.li@amd.com>
- <20260616201828.389985-2-sunpeng.li@amd.com>
- <3ad7d4a1-093b-45ac-b3b2-5df5bbb0fde8@linux.dev>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <3ad7d4a1-093b-45ac-b3b2-5df5bbb0fde8@linux.dev>
+References: <20260617062415.19898-1-jakob@linke.cx>
+In-Reply-To: <20260617062415.19898-1-jakob@linke.cx>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Jun 2026 10:39:42 -0400
+X-Gm-Features: AVVi8CeQey_avyCfLu9CoekmKwKkOtyI7rDns3sTfvSTRzhpVqyMectcpzvhhsE
+Message-ID: <CADnq5_Mmf50-psbJH5NzPYu_VboOf=MKFK7oCiGo6bKg=p0EpQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/soc24: reset dGPU if suspend got aborted
+To: Jakob Linke <jakob@linke.cx>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F40:EE_|SA1PR12MB8722:EE_
-X-MS-Office365-Filtering-Correlation-Id: dde088db-59c5-49c3-96d2-08decc7d5100
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|42112799006|32650700020|82310400026|1800799024|36860700016|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: PxNwNq9prTQkYIQpmaPnKoCVXyKgwYXHoxBdQeLEDALMB5YnKSmJCrWSO38AkHkDt0eI/LxC2t/bFOUfJvywj8YTeh6UVIyYaIHH7Bza/qIp7ivAMeaHyumfSY8OJO7F/p1nztnKD3SRJxYIoQT6skrPwEH/yZoYHdsR4wFr3jjL921VvlreFOYJrijAoyXI3ZwDY/KpN+QbmSjuPPmt8TDal4K0K972uInCDH3T+BIu6VCfAmLdQudu35Kgs2+cAr7RHFsmCRSLdjrlB28n81pViy+7zt34b/8fZClh88ZMP8AWJnvZMgI5YlQjen7E3SaAmhCcpyzGZvAWjn9XW4ASSYflX+GKYH4GXJyPG2mI3d7CnU/H4NKtvZ112NZuT4OeN+GAGfaHekInmlZnRA3bmkEAzjCuPeNu4PCvIs3Bvws+pTNwo0jtZnB4XLfZgIEb56mL10KKxepNKoM6+gM3vF3Nx/8oQUf9fcCBTTqPqe5lP/bRVEdnd2miIlSDvSpZQkvTQtOiSyDeAgikq6XnBwMIv7JNPtb+0AVjVmJnALRLtju1pVuZgvYx4UyTM2HkLjt8xMSEki0ObkebGU6gUFrAdF4HcKNT8UZUqrWSWZNaMdUX9wNrJwF07Z/5A3qgAvH4SLSi4ZKsARdIpuQ5hRDgNWyyLxAuFUzwTVeIHbXEzqnZkMbh/3Gf3kl36Koo96yoQaagwmoR2FsyJcw02qIi9jKFCIDSY8WPkp8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(42112799006)(32650700020)(82310400026)(1800799024)(36860700016)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zIIhQURFGeQmeos1tLGLf/TLMvFCKOoo1Wg3oYl98GOshPlKTzP9FBgsCKaLuKI49hey92+u8rxYPw90gTBTbZhCqz5h9OVfZOvkrcnIerU5ZuJbWZqsCwoOUfPEw1ayRiwm+1N/G/48KsBYwPz1pxjDWtKFSa/F5gBZ/cfRLrnhAwuVFQDjD37hhNZ3VlYWWGHGFU+e3eybQ6ladV/Y03SJ7OcOZo+9w8ZS4q+SXwWyu2BwoUH1WJJ8j6fD8+/VyPgpT3cEdSMSn0omW2odgXTdNKMPjvHGTysK7q0QkT07EJCC5yoKt6DQ+LiuGLwB2diLaiL0fIUre677GDRDKrx/mawyigil1UPfBOUIdrJ+OsDAWw/oQNqlT2SwX+rwtIVKHh+M+6cQ+0GEdqYIE5KJtpoQIgeg+72uuA3AxCKpj1CGtZzi/SvsUJPMpTLJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 14:32:53.4757 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dde088db-59c5-49c3-96d2-08decc7d5100
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F40.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8722
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,89 +106,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
+Alex
 
-On 2026-06-17 00:35, Matthew Schwartz wrote:
-> On 6/16/26 1:18 PM, sunpeng.li@amd.com wrote:
-> 
-> [...]
-> 
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->> index c9916ed0ddc14..8a6b732cf80c8 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->> @@ -281,7 +281,14 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
->>  			drm_crtc_vblank_restore(crtc);
->>  	}
->>  
->> -	if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
->> +	/*
->> +	 * On DCN, VUPDATE_NO_LOCK is the single OTG interrupt used to deliver
->> +	 * vblank and pageflip completion events, so enable it whenever vblank
->> +	 * is enabled. On DCE, vupdate is only needed in VRR mode.
->> +	 */
->> +	if (amdgpu_ip_version(adev, DCE_HWIP, 0) != 0) {
->> +		rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, enable);
->> +	} else if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
-> 
-> Hi Leo (dropping Stable),
-> 
-> This arms VUPDATE_NO_LOCK on all of DCN, but amdgpu_dm_handle_vrr_transition() still disables it when switching from VRR active -> inactive. This causes a new flip_done timed out event when a compositor like gamescope disables VRR while it's already active.
-
-Good catch, I wonder why the kms_vrr IGT tests did not catch this...
-I'll roll your fix into v2 with your signed-off-by and co-authored-by.
-
-Thanks,
-Leo
-
-> 
-> I had to fix it up with something like:
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e09c0eb9f865..ee337ca816cf 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10085,8 +10085,16 @@ static void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
->  					    struct dm_crtc_state *old_state,
->  					    struct dm_crtc_state *new_state)
+On Wed, Jun 17, 2026 at 3:54=E2=80=AFAM Jakob Linke <jakob@linke.cx> wrote:
+>
+> For SOC24 ASICs (RDNA4 / Navi 4x dGPUs) re-enabling PM features fails if =
+an
+> S3 suspend got aborted, the same issue already handled for SOC21 and SOC1=
+5:
+>
+>   commit df3c7dc5c58b ("drm/amdgpu: Reset dGPU if suspend got aborted")
+>   commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case =
+of suspend abort")
+>
+> The aborted resume fails with:
+>
+>   amdgpu: SMU: No response msg_reg: 6 resp_reg: 0
+>   amdgpu: Failed to enable requested dpm features!
+>   amdgpu: resume of IP block <smu> failed -62
+>
+> Apply the same workaround for soc24: detect the aborted-suspend state at
+> resume via the sign-of-life register and reset the device before re-init.
+>
+> This is a workaround till a proper solution is finalized.
+>
+> Fixes: 98b912c50e44 ("drm/amdgpu: Add soc24 common ip block (v2)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jakob Linke <jakob@linke.cx>
+> ---
+> Tested on Navi 44 (RX 9060 XT): recovers the deep->s2idle fallback and pu=
+re
+> s2idle resumes that otherwise fail with "resume of IP block <smu> failed =
+-62".
+> It did not recover every case: one resume still failed under sustained ra=
+pid
+> s2idle cycling, so like the SOC21/SOC15 versions this is a mitigation, no=
+t a
+> complete fix. Single suspends in normal use recover.
+>
+>  drivers/gpu/drm/amd/amdgpu/soc24.c | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amd=
+gpu/soc24.c
+> index ecb6c3fcfbd1..a970d8a76302 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> @@ -521,8 +521,36 @@ static int soc24_common_suspend(struct amdgpu_ip_blo=
+ck *ip_block)
+>         return soc24_common_hw_fini(ip_block);
+>  }
+>
+> +static bool soc24_need_reset_on_resume(struct amdgpu_device *adev)
+> +{
+> +       u32 sol_reg1, sol_reg2;
+> +
+> +       /* Will reset for the following suspend abort cases.
+> +        * 1) Only reset dGPU side.
+> +        * 2) S3 suspend got aborted and TOS is active.
+> +        *    As for dGPU suspend abort cases the SOL value
+> +        *    will be kept as zero at this resume point.
+> +        */
+> +       if (!(adev->flags & AMD_IS_APU) && adev->in_s3) {
+> +               sol_reg1 =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81)=
+;
+> +               msleep(100);
+> +               sol_reg2 =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81)=
+;
+> +
+> +               return (sol_reg1 !=3D sol_reg2);
+> +       }
+> +
+> +       return false;
+> +}
+> +
+>  static int soc24_common_resume(struct amdgpu_ip_block *ip_block)
 >  {
-> +	struct amdgpu_device *adev = dm->adev;
->  	bool old_vrr_active = amdgpu_dm_crtc_vrr_active(old_state);
->  	bool new_vrr_active = amdgpu_dm_crtc_vrr_active(new_state);
-> +	/*
-> +	 * On DCN, VUPDATE_NO_LOCK is the sole vblank and pageflip completion
-> +	 * source and amdgpu_dm_crtc_set_vblank() keeps it armed whenever
-> +	 * vblank is enabled, so it must not be toggled with the VRR state.
-> +	 * Only DCE gates vupdate on VRR.
-> +	 */
-> +	bool vrr_gates_vupdate = amdgpu_ip_version(adev, DCE_HWIP, 0) == 0;
->  
->  	if (!old_vrr_active && new_vrr_active) {
->  		/* Transition VRR inactive -> active:
-> @@ -10097,7 +10105,8 @@ static void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
->  		 * We also need vupdate irq for the actual core vblank handling
->  		 * at end of vblank.
->  		 */
-> -		WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, true) != 0);
-> +		if (vrr_gates_vupdate)
-> +			WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, true) != 0);
->  		WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) != 0);
->  		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=%u VRR off->on: Get vblank ref\n",
->  				 __func__, new_state->base.crtc->base.id);
-> @@ -10113,7 +10122,8 @@ static void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
->  		/* Transition VRR active -> inactive:
->  		 * Allow vblank irq disable again for fixed refresh rate.
->  		 */
-> -		WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, false) != 0);
-> +		if (vrr_gates_vupdate)
-> +			WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, false) != 0);
->  		drm_crtc_vblank_put(new_state->base.crtc);
->  		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=%u VRR on->off: Drop vblank ref\n",
->  				 __func__, new_state->base.crtc->base.id);
-> 
-> Feel free to fold some version of this into the next version if it makes sense, or pick it up with my s-o-b.
-> 
-> Thanks,
-> Matthew
-> 
-
+> +       struct amdgpu_device *adev =3D ip_block->adev;
+> +
+> +       if (soc24_need_reset_on_resume(adev)) {
+> +               dev_info(adev->dev, "S3 suspend aborted, resetting...");
+> +               soc24_asic_reset(adev);
+> +       }
+> +
+>         return soc24_common_hw_init(ip_block);
+>  }
+>
+> --
+> 2.54.0
+>
