@@ -4,102 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38779CD98F3
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 12:48:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F2BCD98ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 13:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A198310F2D3;
-	Thu, 18 Jun 2026 12:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C937210F2CD;
+	Thu, 18 Jun 2026 13:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KMoJLLIH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R5h49Wjy";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013002.outbound.protection.outlook.com
- [40.93.201.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6004910F2D0;
- Thu, 18 Jun 2026 12:48:47 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011013.outbound.protection.outlook.com [40.107.208.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB87B10EDE0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 13:19:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rPUiWcYx26172xUxC3HJHA8ZkAQRQFPoDd5E9wzKUDrPAYihzQYplra6xbs3/kTxvY77GsgW75L4lrEgOyB9vAmn/Ml3Cpwmstlf1VD5JvKfSf547jKQyAANig8qw9GpZZH4aa8G6sKhI2vy3LII4LyHjKHGE3ari6RzynqIFIZu/KTw8xCM8mKQAOhw8K2D2idBHghFLn/YMa6v+gFdyk4OyZ32uu04lw+AGCk9V6+o5wFE96NR5WyskieB8vyCwpj+Ft4Z1Uy5w8AsS4/B11AlBaw3MZUeHNbsA+tqzzpDm8jwjYLTHW//RgwxuFooXF2z0BMAcnW6k5Xs3bSxUQ==
+ b=DQ+1DUi5jRaxfahnO7Ew2onLus9xh0RLY3KVE78luoah6nRcaWjbxSI9PtfclCQwBIYfe9RA6Z5g8w2hbJqUVdG8yH/DPY3xDNY9dbpdbTC3lYXqT5D9qU6OXJYuFRgYfNlxvMljNAZP/MDyEuYUnqdY/nhoiEwk06mNJfpO4xdUrmwmY6qJG0IlB4kvCiniVjrHanhJv3aAiq3Q5RIX+BEonXZVp6MYRUpibRjAnuL1cyVWhJmryh0/b6QVzy+0sf0sT8PRu0Ph066GXkSmPKSglImltzGCSGHrEEMb19WX9XMxl7grcNjfgIQ/g4SWVjPzu2XKp23ZSHN62qjXHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=htx3joIIIkWmWt1xbrlHuV5szXDaHPexdKwo2ESHm/4=;
- b=cTUm7LjFH3LycydHUoBH0Erkq6WUJFjpwI/SXRb5wwp/NrK8WL/pm2jcKzijGOEQtNjZtX6AT74k2zh8VUjFxU+er/KBgSlxg4zDtoHISTQzol7B+Jhrs/DbIKQXXbHZ09D7RKc3jlAkR6sm66azXhQi26SDGywf5g7TfJAa7PRBNIgNFoT0ni4vEgSVjNGrR0fvr9oPHdjxpdsIC0je3BBluKs1o3uk4TvgnQFq6YhpN/zYJbFZz/g6oCKsCJJxrVgpzrzJhCZRi3C8j9wlJRC5H2sVDxwYnXjKVVE1XshDd4m6QZSLU9mR2Mr64N/88ds6TbgZmLXmlIlo+QwdSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=zZ1cfCJjdc5M1gcyy4dzRbwdOEu7Dx3fw7vpqSWXVUA=;
+ b=sGJ1NkN8Ww5staszwL5AxQAaRhMVBqdjf+AhxeNwHtpb/BDr+JVMB1wrvHPDH/Q+QIV0YqHA9/xsla83+6Jgp8PkNKPoJYHsQrMuMkvTAwFnLnWjZP49oVN3QFsTmXvp0N4NskmSZQ+wB36+swpxGF3F8NW7fKMzVJOuHlcGKCeOqVDj2d5OyOmJdq6WwGStCyszxgQN8kFlVgMNWhGM1wt4AbjG91AIWn5y4JWag0njEd8EoPuh/3Qo3cp0Mr5I9RE7MRqz0/4kJK6PEK/qjwV44GscZcXIfCMyiUKHqM9E9xmVtaIWtoR8lO313GXc1rKwYmej2/YEJNaS2GaRlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=htx3joIIIkWmWt1xbrlHuV5szXDaHPexdKwo2ESHm/4=;
- b=KMoJLLIHEQGs1wZ/VGS/cB0EI/6IDNM9nPTVYEHp2vUd49IOTEQbnUGUgakF4y37K2BXpHAsrBsda/gOLw6x4o3t7E1l+ATRzbmwjbAAv5lglaJ41h/LQDb4HqgMSm1+D0UUINJap1JjOrPSyvDJEePKGCJd+trfiztc7MVcXd4=
-Received: from DS1PR05CA0006.namprd05.prod.outlook.com (2603:10b6:8:457::15)
- by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.19; Thu, 18 Jun
- 2026 12:48:42 +0000
-Received: from DS1PEPF00017091.namprd03.prod.outlook.com
- (2603:10b6:8:457:cafe::2) by DS1PR05CA0006.outlook.office365.com
- (2603:10b6:8:457::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Thu,
- 18 Jun 2026 12:48:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 12:48:42 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
- 2026 07:48:39 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot be
- honoured
-Date: Thu, 18 Jun 2026 18:17:55 +0530
-Message-ID: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=zZ1cfCJjdc5M1gcyy4dzRbwdOEu7Dx3fw7vpqSWXVUA=;
+ b=R5h49Wjy8aEgBPeVBvL8yiXjmIp62U9g7cdbYpUCzPxdC53x/N0Ubqg52/0Tg6uFSRF5imQNhduJaBwFBDcmLsLASNj3N1p49p03hwRhyRtKsnEEDH3ADoTEgcKECWZbG4Amjsf8abJDhUe4uOHSeztzpaVFnRADPR2RuGj6Gbo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
+ by IA1PR12MB9498.namprd12.prod.outlook.com (2603:10b6:208:594::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Thu, 18 Jun
+ 2026 13:19:01 +0000
+Received: from SA3PR12MB7782.namprd12.prod.outlook.com
+ ([fe80::a9df:115c:2208:56f3]) by SA3PR12MB7782.namprd12.prod.outlook.com
+ ([fe80::a9df:115c:2208:56f3%5]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
+ 13:19:01 +0000
+Content-Type: multipart/alternative;
+ boundary="------------0RG0s1mwowjTTiQvJEhyqfGn"
+Message-ID: <151c36e3-ead9-42c4-8bc8-1585a7871f38@amd.com>
+Date: Thu, 18 Jun 2026 18:48:55 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdgpu: amdgpu_userq_restore_all return errors on failed
+ bo reservation
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Ray.Huang@amd.com
+References: <20260618105158.93562-1-lingshan.zhu@amd.com>
+ <d2a07581-dae9-45ff-909f-a87795e0b472@amd.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <d2a07581-dae9-45ff-909f-a87795e0b472@amd.com>
+X-ClientProxiedBy: MA0PR01CA0090.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ae::19) To SA3PR12MB7782.namprd12.prod.outlook.com
+ (2603:10b6:806:31c::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|MN0PR12MB6343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29e92cc2-48c8-4327-72b5-08decd37ed79
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7782:EE_|IA1PR12MB9498:EE_
+X-MS-Office365-Filtering-Correlation-Id: cff89443-d1a3-41d4-54f5-08decd3c2981
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: CGaMCzYzD0FNze89BnvEqQv3A4+yOn71luNjz2NPJyYlxyfN0c5NV437IGCeN277q0FPmy/3S0Qt6caDxgXZmtgI8M0qbg9F8J7oDo81vuXLNL0+UzXnYAwgPjF0FhpAXt0wRQBTurE/NQf3LqMsQ/ktcUqFb2KGuZ9wpbGy8Y1JH4NwabzVxrUDYahxWXx3ibFsIjaVBYqsIYkDWcC5WINn3Hn2gtdfJCl7b5U+5AeP8A+qw9Wn8x24fY5Ocm4edwe1Hy9GjZEixvuymJcZ8lcAshtDuAq88v0Rx1yAgCwmosgLxI9n1yGZiuaW2f01WbfYK7jx5/AGoPrWZXNSdHxqndV1sc505TGXdwLIWIT6CD1oD0HJDKrbAJ3Dy+AW34AJlBQa7K36stNv+jN17ZTCjZ2/nB2GQn/meKz7aiUneNweo/DuGeRagNeJaSBabuwrU+6/J/W4HcHoROyJfn01LvPhOXsJ0tBab1voPM4z1iZaSIPL9l8aFMSsoeIZdiIVllQYRJbWQgblWOU5yDl9Z3LoAIlTNt4+c7XlVzrZzzxL4Vyic0uAQ1S9n1pozJEQdHGOIqAhpz+/NJF506s0vZ0euik6ETyPnccFhRFJmXcWcJ9hAwwqLZxUxnVNGe3kGtrJZ12tvEbOsUesyYEInfziOrfQav/KZ3qrppwufAe/wYrJsfa2+ZK8aRcTUL0OQyJBnl+EfLGSFjdpLZ56it7IHwE77Z3mZTyRqqs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(18002099003)(56012099006)(11063799006);
+ ARA:13230040|376014|23010399003|1800799024|366016|56012099006|4143699003|11063799006|22082099003|18002099003|8096899003;
+X-Microsoft-Antispam-Message-Info: EqqlPKipwnqe3nCxJsdWwaK/efM3yDyJlE7hie9NfLrYPEsv081ESrQ2Htz/sE+JTTwHzbIDEAeolFpXx+PC/At7/xD63NmC3iMQdIGb/UXl8c4Y9/MKoDze3B1z7AMmK73uZwziK9+o3rBm/tlrViwAOQS3RmfKvYBUOYR1SBUWtNQ9EiIBHypSAAYFZd2rX6i+M5tHhkkhsD4LlDIaHYt9lS1O/oBDWq5yQtJbGyEE1EcGk5pJY1v7iWiNcvirS6HJwkWGdLd3aYm/1Ug6fyBdw6k8a6mpqSGDuQkFte/pksE2QP+1nrAUllpLxcYUJ2jJVb8ggxgmtGAEopp6XTH9/oY+H05w+pud87W2w9dT9pm047Ii5x1agXjZcGkxwWTJso+vfMFWKP/+nWM2lI5qxLXV8pPWUg6JlqicKM41CPNf5aNDwjIFNc4qLlsN8q02JgXFZxash74gtkRJQeqIFyZ5Xy17lpdg/bjRXfCSiTa0n8sbNUrTMS2Hjz6ffITv3vtCvHx427kbdlisjVkJCNparM+I3D2rMSkD+3O9ucjpFIQa3EOsi30uHOIk8b9+5MepZMGcJLwEcAaM/Ke9Rqj5q12QeUCbhINmx5zA5An0DzlRaXQOo5YCB70je/ONG/KXbiGghRZvLdEtgwNvTb/xjQBVRY/fr+GIh8jjUJWVajVcCAeT8GR7uKCd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB7782.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tWIiSUhuYq8aMT5o5CFtTklS1ycRWyX6AMPSU5SK/ZPECGgtj4eRtmEF70oAXxUwS3SwFu2yl/JugkMKQqSipJ3E/lG6V8x6SMHNSFQNsa6kiIbwk1IpCBhcxk5mDXcHNXutdn61uv9a3rnUXxq8MUejA8pcYqLS8milOleGidykpIy9yShAqbXlb1gwo4hwSgYD+rYRa2ijLCz77D5g961ImWhXIn+KZgS5wZfMysCtWIv6ySV8rAWbSLhGc3ErfDja7c9r2bbGiH0zOEC9zGYdd0P0roebe8wYwDA+S4eRXxxi8RM7CEeqt6j1guNVDFChoxioBQiubbVkqdLOwnmnoRo9g7lJTUeio8acU+A3msP4b68eIdxTAUCdsi8xee273OCN+L/BhsLRboRSz0cdl2orepJwM+j22OrTodch6gMMH+qLIanHB15gVi7y
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2M1RlQ4T2NEb2JLR1Zuc1ZHZENBem93RG83Mzl5dnVvSHFyTkJWQkpjcVNt?=
+ =?utf-8?B?em5SQmFHdVF5elJJVjlNRnZSdy9ZeGVOZU9RdXo4blF6cFp4aGRjaEJyaGNm?=
+ =?utf-8?B?ZlFTeVhkbGVUTzAxYUxvQlFOMkJ4dHdTNXYzMGg4Q0FGSUZ5VmZYdnE1UTlD?=
+ =?utf-8?B?U3N0WUFZVHRZaHplaitGdGI2NTlyZ3YwWk1GbmFlY2lDRlorbjYwZVNJaDhr?=
+ =?utf-8?B?V3lzUy9tYldPVzdrMHpCRmcvTGFFYnY4bXpMZnVWOEJieFFaeWhUSUlJVWUx?=
+ =?utf-8?B?VnkzTnJTQzJXZ0tiNEs1dExCcjh0ajRhR1R4TzlnbjJzeW1aOUVsQmoxZWNv?=
+ =?utf-8?B?NnloeG9tbjdqMjZrQVlPaXVlajIzVXo0TjRyTC9IdUdDYVVldXM1Rm0xOXFK?=
+ =?utf-8?B?Y2hJaEdzYitGaVZoUkJSR0JyZCsvVEw5bVZ5TmUvMDVjN2xsZDJOZGpGdFl0?=
+ =?utf-8?B?Tit3bEM1WlJFZ1ZyVVlpNkJmTFJzUVJveEdhaE9SeDd3WWdhZDliV2NQVEdR?=
+ =?utf-8?B?UTdxbFdQM1Q5dFRKRTRNeXZCZHlURS9DSnU1OVdqcEIxQ1NtTTBOMGJYZW9m?=
+ =?utf-8?B?aFNGTGsrOXBkY0VyM3hBZ2NvZVZXb1plVEdhVWdyczhHRDQvS1FhSWVsc0RX?=
+ =?utf-8?B?c2ZRbzRjSDhXMEQ3dFFhSHMrYlFLTzBzenE2TGFQYWZ2Vm9ZMFFodjlWbjBK?=
+ =?utf-8?B?MmpWVmU0dGI4dGdZY1Q0a3Y5MTI0N0xHVkxXbWZnMkErNzZjSytvYm9lMnd2?=
+ =?utf-8?B?RzYwcDZMZE9rQTdWVHNtdnVnN1MxdXJLd1ZiVDdYTk84MURvVTlLRE5GNlAw?=
+ =?utf-8?B?aXNsV1dtdkliMkJvNWJScmFBWFlUVjZsSGUwcllPOXJmS0d1b242cjlBQmF4?=
+ =?utf-8?B?QUlpRWg1dURVY0cwRGFHS1lBMmFDOE1KTkROYWU2LzR0MStLTXVTa240b2hz?=
+ =?utf-8?B?dkJsWW91V2lzRzlGYVltSWdqRVAyZkkzd2dxV1RvT2N2TnQ2QmtTYkNwdzh1?=
+ =?utf-8?B?eG5kRGl4bXpWZlVzVEx2UGxKVno0a242aXF4aDBZdWl1UlF5cStvMnJmRFFO?=
+ =?utf-8?B?Y1BmbmNFdzg0ZXJwbXNiY2hSM0ZoY0pzbDRkd0xEYWh2eEhvWXJMSnJyenU1?=
+ =?utf-8?B?Q3ljckFRcndrMUdoQWxmYmdteGw0eGcxaHNCZS8xQ3BlSHNZZ2NoR2RCM1pH?=
+ =?utf-8?B?RzQ3UXJrM2ZmbnFOK0I5UG9lQ3pqWmQ5eHM4aVpnSkRwMHFSbEwrZXlaTGhX?=
+ =?utf-8?B?Vm5xR3k3YXp3ZzR1ZEk5N2gybURQOFhtTEdqa0lmOXpDTTBBSTRLWDlkRTVT?=
+ =?utf-8?B?TXZpallheU5ZWWlWNHR1bzA4eHB4L3V1U0g0SDErVjZGMDh3MzVpOW9Pd3VM?=
+ =?utf-8?B?cm9PY3NVNDNVUnFHOEZpcUF2LzM3OVJvdVhES05TbE43VDFXYUdzUVpnNFVI?=
+ =?utf-8?B?aUNwN3ArSnZwSDliR0YzUTN0OVJrelpUdVFkbFZRb2pxQmovWGJMbVEyR2li?=
+ =?utf-8?B?V0tYanZrMXdQQW9nT2J5NGd4Q3ozZ2dKOGxEaGdFdEt1U2xzWmgvSUI2amdi?=
+ =?utf-8?B?ZGJHMXF0RkRoWXJWZCsxRE14a003M0w0M3dzdHpMR1RUdFAyMW50czJjTnNF?=
+ =?utf-8?B?NGFGc2lIdWVOWTEybDZ1aHpJY0dSdkZYUStudllkRkFpQ1czeGU5cjJwdnl2?=
+ =?utf-8?B?aHBCVUU3WXBKeWpaRU14TXlZZUNHYThETjZaU3JBNExBR1QrRnczMDI4a0Zi?=
+ =?utf-8?B?Tk51bE5CUTlNMEhkbGVwQ0d1cm11NDdveWFVME9jNlY3ek80djgwWmxlQStM?=
+ =?utf-8?B?ODZZNzMrdUhqYitVeGNzLzIvNFh0eUNLZXhyWThGdDBnaTVudTlBS2krWXFy?=
+ =?utf-8?B?eDQwYTd6TDdaWnRGdGRHbDVNOEFEUS8ydFhaeWFHUVovbUI3dXdNWDJ5Q0lX?=
+ =?utf-8?B?QXgwRU5WVEk5S25XZVh2QnQ4S3dQaHZwWDRjYnJ0cWJjSHV2VlR1allmUWtr?=
+ =?utf-8?B?VmFCdERET1pWaERLRkphamwralNOZy94eUk3NXpSbUE1M2pRZ21DWTR2ZHVi?=
+ =?utf-8?B?SWxKQUM4Ny9XZzdyMG8xYVY2NWc4QTJrWUdDNyt1QWRiY0dEVmxnK1lWSG04?=
+ =?utf-8?B?Q1VrZSs4RnpuWVJuUmE0bUZyVTFNQndYRytLS3BOT2NjdGdjais2YXJDVUxK?=
+ =?utf-8?B?Y1FFVmVPSkhRM2oxckFxd1R5ZlBUcTRHWE96RFpMV3FFVTZ2SGozWkc1a2pL?=
+ =?utf-8?B?K2tIRlFSRHhnWkhPcnlBNjJZQWJtVW93SU9mNW1SN1llSWw2bTMyTTlyUngw?=
+ =?utf-8?B?OHJjME8rNU84WGVUeE90UStJbHdaOThnaXFTVXR0b3JOTzNGTWNiUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 12:48:42.3795 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e92cc2-48c8-4327-72b5-08decd37ed79
+X-MS-Exchange-CrossTenant-Network-Message-Id: cff89443-d1a3-41d4-54f5-08decd3c2981
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7782.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 13:19:01.5168 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017091.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZKJIIjBV1cI5dsTShkdMZjM7zW36ZV12NFtSy/pa9s84+2n8s6Y6CP3+bAetT/bfosmILYyU0WSPftMv0nzUvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9498
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,96 +137,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The try_harder contiguous fallback could return a range whose start
-offset did not match the caller's min_block_size. Check each candidate
-against the requested alignment and reject the allocation when no
-candidate satisfies it, instead of handing back a misaligned range.
+--------------0RG0s1mwowjTTiQvJEhyqfGn
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
-Cc: John Olender <john.olender@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+On 18-06-2026 06:12 pm, Christian König wrote:
+> On 6/18/26 12:51, Zhu Lingshan wrote:
+>> In amdgpu_userq_restore_all(), when failed to reserve
+>> a bo, it should return a meaningful error code other than
+>> "false" that means SUCCESS, which is wrong.
+>>
+>> The caller should not ignore the return code of
+>> amdgpu_userq_restore_all as well
+>>
+>> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 10 ++++++----
+>>   1 file changed, 6 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> index 95b680fc88c5..8b14870afbf5 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> @@ -894,9 +894,9 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+>>   	unsigned long queue_id;
+>>   	int ret = 0, r;
+>>   
+>> -
+>> -	if (amdgpu_bo_reserve(vm->root.bo, false))
+>> -		return false;
+>> +	r = amdgpu_bo_reserve(vm->root.bo, false);
+>> +	if (r)
+>> +		return r;
+> Good catch, but that amdgpu_bo_reserve() is called here is a bug in the first place.
+I think i probably missed that. There is no return value check for 
+amdgpu_userq_restore_all and this cant fail. We should wait 
+uninterruptible here i.e change false->true and drop the if condition.
+>
+> The call to amdgpu_userq_vm_validate() must be moved into amdgpu_userq_vm_validate(), right before we call drm_exec_fini() and the manual call to amdgpu_bo_reserve() here dropped.
+>
+> Otherwise we have a small windows where we drop the BO locks before starting the queues which could make the VM invalid again and cause all kind of issues.
+
+we need to maintain order of locking First reserve root bo and then take 
+mutex else we had mutex deadlocks.... this is why we have added root bo 
+locking first before taking mutex in next line.
+
+Regards
+
+Sunil Khatri
+
+>
+> Regards,
+> Christian.
+>
+>>   
+>>   	mutex_lock(&uq_mgr->userq_mutex);
+>>   	/* Resume all the queues for this process */
+>> @@ -1133,7 +1133,9 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
+>>   		goto put_fence;
+>>   	}
+>>   
+>> -	amdgpu_userq_restore_all(uq_mgr);
+>> +	ret = amdgpu_userq_restore_all(uq_mgr);
+>> +	if (ret)
+>> +		drm_file_err(uq_mgr->file, "Failed to restore user queues, ret=%d\n", ret);
+>>   
+>>   put_fence:
+>>   	dma_fence_put(ev_fence);
+--------------0RG0s1mwowjTTiQvJEhyqfGn
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 18-06-2026 06:12 pm, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:d2a07581-dae9-45ff-909f-a87795e0b472@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 6/18/26 12:51, Zhu Lingshan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">In amdgpu_userq_restore_all(), when failed to reserve
+a bo, it should return a meaningful error code other than
+&quot;false&quot; that means SUCCESS, which is wrong.
+
+The caller should not ignore the return code of
+amdgpu_userq_restore_all as well
+
+Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
 ---
- drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dc81fe0301ce..28ed3250ac57 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 	struct gpu_buddy_block *block;
- 	unsigned int tree, order;
- 	LIST_HEAD(blocks_lhs);
--	unsigned long pages;
- 	u64 modify_size;
- 	int err;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 95b680fc88c5..8b14870afbf5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -894,9 +894,9 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+ 	unsigned long queue_id;
+ 	int ret = 0, r;
  
- 	modify_size = rounddown_pow_of_two(size);
--	pages = modify_size >> ilog2(mm->chunk_size);
--	order = fls(pages) - 1;
-+	order = ilog2(modify_size) - ilog2(mm->chunk_size);
- 	if (order == 0)
- 		return -ENOSPC;
- 
-@@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 		while (iter) {
- 			block = rbtree_get_free_block(iter);
- 
--			/* Allocate blocks traversing RHS */
- 			rhs_offset = gpu_buddy_block_offset(block);
-+
-+			/* Allocate blocks traversing RHS */
- 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
- 						       &filled, blocks);
--			if (!err || err != -ENOSPC)
-+			if (err && err != -ENOSPC)
- 				return err;
-+			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-+				return 0;
-+			if (!err)
-+				goto next;
- 
--			lhs_size = max((size - filled), min_block_size);
--			if (!IS_ALIGNED(lhs_size, min_block_size))
--				lhs_size = round_up(lhs_size, min_block_size);
-+			lhs_size = round_up(max((size - filled), min_block_size),
-+					    min_block_size);
-+
-+			if (lhs_size > rhs_offset)
-+				goto next;
- 
- 			/* Allocate blocks traversing LHS */
--			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
-+			lhs_offset = rhs_offset - lhs_size;
-+
-+			if (!IS_ALIGNED(lhs_offset, min_block_size))
-+				goto next;
-+
- 			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
- 						       NULL, &blocks_lhs);
- 			if (!err) {
- 				list_splice(&blocks_lhs, blocks);
- 				return 0;
--			} else if (err != -ENOSPC) {
-+			}
-+			if (err != -ENOSPC) {
- 				gpu_buddy_free_list_internal(mm, blocks);
- 				return err;
- 			}
--			/* Free blocks for the next iteration */
-+next:
- 			gpu_buddy_free_list_internal(mm, blocks);
 -
- 			iter = rb_prev(iter);
- 		}
+-	if (amdgpu_bo_reserve(vm-&gt;root.bo, false))
+-		return false;
++	r = amdgpu_bo_reserve(vm-&gt;root.bo, false);
++	if (r)
++		return r;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Good catch, but that amdgpu_bo_reserve() is called here is a bug in the first place.</pre>
+    </blockquote>
+    I think i probably missed that. There is no return value check for&nbsp;<span style="white-space: pre-wrap">amdgpu_userq_restore_all and this cant fail. We should wait uninterruptible here i.e change false-&gt;true and drop the if condition.
+
+</span>
+    <blockquote type="cite" cite="mid:d2a07581-dae9-45ff-909f-a87795e0b472@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+The call to amdgpu_userq_vm_validate() must be moved into amdgpu_userq_vm_validate(), right before we call drm_exec_fini() and the manual call to amdgpu_bo_reserve() here dropped.
+
+Otherwise we have a small windows where we drop the BO locks before starting the queues which could make the VM invalid again and cause all kind of issues.</pre>
+    </blockquote>
+    <p>we need to maintain order of locking First reserve root bo and
+      then take mutex else we had mutex deadlocks.... this is why we
+      have added root bo locking first before taking mutex in next line.</p>
+    <p>Regards</p>
+    <p>Sunil Khatri</p>
+    <blockquote type="cite" cite="mid:d2a07581-dae9-45ff-909f-a87795e0b472@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Regards,
+Christian.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 
+ 	mutex_lock(&amp;uq_mgr-&gt;userq_mutex);
+ 	/* Resume all the queues for this process */
+@@ -1133,7 +1133,9 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
+ 		goto put_fence;
  	}
+ 
+-	amdgpu_userq_restore_all(uq_mgr);
++	ret = amdgpu_userq_restore_all(uq_mgr);
++	if (ret)
++		drm_file_err(uq_mgr-&gt;file, &quot;Failed to restore user queues, ret=%d\n&quot;, ret);
+ 
+ put_fence:
+ 	dma_fence_put(ev_fence);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
--- 
-2.34.1
-
+--------------0RG0s1mwowjTTiQvJEhyqfGn--
