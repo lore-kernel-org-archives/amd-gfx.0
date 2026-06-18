@@ -4,126 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC602CD98F6
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 14:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DF48CD98F2
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 15:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 550DE10E076;
-	Thu, 18 Jun 2026 14:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDEAD10E187;
+	Thu, 18 Jun 2026 15:44:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nKiKTNxs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2R5AIxeM";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010050.outbound.protection.outlook.com [52.101.61.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F9FE10E076
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 14:52:17 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011050.outbound.protection.outlook.com [52.101.57.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D200910E187
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 15:44:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P+mwJX/ObBQLC51Yh3ZOWiFdEZgipg22mM1BsJJ9fvfb4ak4qTHdbDSdGAXivDD/IgLwoYlUhWpu+YclS61cGjfCdoZTZCJMCVMmKtVS+vNA8Khzoq7Lq91ePWEluPrbE6h1yHqsJChjpGkcOQiOpSV6Y5Qn0tRLxL3YBFO1uDfR1VEUs0sX8bna2sImFVACb/ofiky0S1lhGnFr/aWZbdiyPRAcTB4mZejcGoKdzZ5F5ouM3SwxefxxFPMjXWJg2Fl50hnS+DN4zElkk0JRWVdfKci2RMcVHik+5sLXYaGw/T8En733k8cp68O7Uj0GJCbAJn7gerr27p87+kEhwQ==
+ b=ciI0+kJe+D/w/vmW4gdaCb4OAy/WV+/Dvdms5e0RtcSGUsbopu9+YlKfSrYEdER1OZdWvE+93D6l2YfToNiRqI5C7Xd0Sl0bxcsgEdviRFfDQlz9MRQVovxGdXyXlX2cHo97oeQLSVqfQxc2ekCzBsv0I7UF2Z+Ojr5j4F/8RlKZS5FlEKd7o3ZfHodvX49tphdcxvmZ7zVT5bNvbRMwbAY22nYe3LAebnq2YTeAXsvCEmGwl0B67UNHpaChwyuZEmzzR+839T4yifiiVgOO0qjQbAymetx/G2gW0qzVdrPq9anz+FRLS8n7wEFMqt+mTzrd9pGnzE7ARLCHC6AR0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZIzoqDsMsU5z6pab1TLMOynca2mVq4XkX/jt9H5i0OM=;
- b=VhWW7LtpAoi+72xIUPoXpJ4QxLCd8fxgmatNwcMJt6zrKI6nIlFzmgRayi6NYHXztqt5/GibbNsAeixaHX/O3xxNPxRN+QR24IRzfRxiPR1K38C/ArKIxQq96zaleszUXPCwOvXBkgOQ/WmN9tfAMhsw5O78lwqEjXC7lZPv3jOQGmkG41nnO4AsnOYtXby7GGephGH+2kmbmBeLirsjRoM0DfrIrKbI+KMhbhiNOIrpijCHgGrA8gqVo5UbSnw5VXliU3Qra4Kld3f9oX7vW+ORyWvQke5U9jzWhVKW/CfKwtE9o2sFJ6CKwemo8MPq8rOfoVZZcTVTo9v8IdUuNw==
+ bh=VhxQy7derP9K9A9gKfjus9GTiGmGit6gh8xn/keZ50w=;
+ b=QVRhNWe2UOK1JSMlzI4K+b4R8lPYZryYFMU/Il320k5tqKaBPAQ3XrPTkTcdc/7aKW9zBSc71c5rOu1uuaIBGLg1UyoQXAWwL6WdDRCWpSN93pzIy87mt0z5ExZ6F4njxT6d0EXzqwvljyHPczG2pakBJ3+CLvi+irK7lAUuvEWrw36hgpMjGtnFVPrU9iwYaufnAnDuD1eghcufATQtW57jZpxeXhyaKnlSed2gJo/KHsAT1mjEh7FObF/mQGyHXVcvlomoHpXAEdQ0SkMZd7CMWw6cX7aRNjC/4SleGAUHZ+7xqNdkvopPnXObX19RlPUR6nOUgWf9ydspYHhnEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZIzoqDsMsU5z6pab1TLMOynca2mVq4XkX/jt9H5i0OM=;
- b=nKiKTNxs7m3soYbg11nMH7/MmFgV8Tzrpit3sserYlY/IKUttzHNWwVY2n+FI4mhLJmr9L8UMQCzH4hxCb/KIuP0K4D6eHh0BG3vNtdNbB3owR6mlZayudv0V2bim9fofUwIUGrfKxd01ST3y5rC1XOVKaBEOGR5cUm6FKToDx4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d5) by DS0PR12MB7898.namprd12.prod.outlook.com
- (2603:10b6:8:14c::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 14:52:13 +0000
-Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- ([fe80::3f27:84ef:8979:ce50]) by SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- ([fe80::3f27:84ef:8979:ce50%5]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
- 14:52:13 +0000
-Message-ID: <ef3e6975-bce8-40d5-ba82-7062bd0d122f@amd.com>
-Date: Thu, 18 Jun 2026 10:52:15 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] drm/amdkfd: use pasid to drop non KFD irqs in v12
- for sq intr
-To: Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260618121109.2794537-1-sunil.khatri@amd.com>
- <20260618121109.2794537-2-sunil.khatri@amd.com>
+ bh=VhxQy7derP9K9A9gKfjus9GTiGmGit6gh8xn/keZ50w=;
+ b=2R5AIxeM5aBSNU3rXtQta5vKKqAu2gqjN7dWiG7CHid+PbYCesTN5URFwSkiq5OVKJb/HjQ3XTxD2E707LWg2wXlammkVjmQ9xqo/kBuN74FcdGLOvUX/JpE1CJhVP/HcEpFbZbY5zzm+9RLa5HXJzHVw9S0q6x+49MBA9tHpA0=
+Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
+ by MW4PR12MB6780.namprd12.prod.outlook.com (2603:10b6:303:20e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Thu, 18 Jun
+ 2026 15:44:28 +0000
+Received: from IA1PR12MB8517.namprd12.prod.outlook.com
+ ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
+ ([fe80::c47e:c884:f06:1525%4]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
+ 15:44:28 +0000
+From: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>
+To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdkfd: Guard m->cp_hqd_eop_control setting by
+ q->eop_ring_buffer_size
+Thread-Topic: [PATCH v2] drm/amdkfd: Guard m->cp_hqd_eop_control setting by
+ q->eop_ring_buffer_size
+Thread-Index: AQHc/d7DGZdBTixohEGR2kxurIIOzbZEduHQ
+Date: Thu, 18 Jun 2026 15:44:28 +0000
+Message-ID: <IA1PR12MB851768A7DDA25A7F75A5A77BE3E32@IA1PR12MB8517.namprd12.prod.outlook.com>
+References: <20260616222303.466318-1-xiaogang.chen@amd.com>
+In-Reply-To: <20260616222303.466318-1-xiaogang.chen@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20260618121109.2794537-2-sunil.khatri@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0027.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::6) To SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d5)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA5PPF8ECEC29A9:EE_|DS0PR12MB7898:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1927b96a-54c2-4e3b-2c7c-08decd492e45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|11063799006|56012099006|5023799004|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: lc461WDt+KRcYCz2g1t0Pp84gMtWxBTKYBPRP2EY/H98u0pOGbPNSDXHsKgZNymwpeq+N5HC6YZWFRQwjVr2cZWjk0s6jc0sGAdfv3YE33D+Biy6+j43h+VqArZTbSioSd3wp0690ykeqUX0NOgn9WNWromonopVHt3xnuyuhPC1Lzo4MhOgp3w0O0qHmw+q/a8auky7uQ8D8LRtWtQrdgrlZst1vUAo+hngRGbUb2a7leu4wBqzChoq+cFktDIWN4GfzOcZ9lwmRK6Lcnm/SXp9B8cOElUNyxibWxwmnDzb6hqbkIt4lfay6ou0ZOEsZ1T6L/wnhqExkNGs3xZ92ZVOKr3AuECMK9RUIwYLiRXCJXHtMlyM9HeRZ4CGRWWjT4I2cIxH6fvOB5px8cUm9fhW2SmvUL8lMorl9uK5SVTNIE8kwqPvsplWn5HThWT6A5BSlUUSWZk/9MgI8Bwuyq3swcRNDj6bd/AFtIc4MzSh/D5YhhR53f7eL6yOtdxmwW+7EbZGyfFOowT7c5TNFUfxL4rIYc3Wt9ouou2D49pgFSXUGzCxUPMM5LZrmzshx+Nt7W1Np3GzkUkn4/fyeOtTllNmUwC0YIUqKGO6fOhXUzulg7zp+8cM2MOBwq4X70L3vktSeXFKGWGlCe+LyaboXiTCfvB2EwKHWbhYmbZLkZuc1URUPin9aDV2Hn3A
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA5PPF8ECEC29A9.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(5023799004)(4143699003)(6133799003)(22082099003)(18002099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-18T15:44:12.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB8517:EE_|MW4PR12MB6780:EE_
+x-ms-office365-filtering-correlation-id: 715f9542-a713-478e-27db-08decd507b94
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: LyK2hjc6nE5QKhgaZowTNuttrbbsEhfMvV/tjvwIwKaiGX6nzTJ3uCzuRlRy4cBOxlpTOVm3ai3z/M5j9h3d10ZGmp/tdxqrEeHpaonDTWoxyak9qz3VNS70QgEWKNlR8NdlH9/5yApz5jaSIFD4ldUgs6xDwohTLtHPaq2ZcQkJtySPnZuMbpyUrIPaPpwsbs9K4lkgQQR2ZdIn839JYVpQEO43S/jisCX3Oid2EmfJ7Mc3B1CCN2HFg30q+2c5ylf/YARZTiKbDXVcgkZFSKORD4eH4+HXL83w/bhrMrNDCMS1+AxsgM3XGYpxR8N8IiN96xbVEmvj6FWnmt90tmrRF1PtKwzfsxIF6ffkTobBAJLyRcDA9uOoLdsAX0xLr1+pN5vnpJyTpbCb+HTPI+kzD+9A7rKVk+zYIajIvv+orLzMRBeGcT3MH09v2yOC8898VjjK9zAYMjOUKCZce+031vUILOlQq/CwPe99et+S36Z/7sSGWIMk3s+UQMbhoTny1shZY/+mvUR7Z1D66yLfhyuETzUCQHrpfGMZO/oq1aGYmNr3R/XSEjPYn5QaV+m5RcmqZbaJkOyzpnK1m9GyJSubFSg4Nf1fJVQCHATWst/Ppx47EcL/1mlvJbWKbk5UuuqjGR0An3hWXV+4rr3whaq1t+XvMQ2kRHBmCr1g3fQCEzjKxJ1c93U7au7sv6nL7k3ZqXwN37EwkEvBVYuHlUyAbo20XmN+Fm2BwWherMDdvhLxYPd+inJ7HlN4
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SStmZWR5WU9qUktuUHpYbWE1M3paYi9RNWZheU1tR2RiTndQY2VqbGlEckRw?=
- =?utf-8?B?OUtSRUNMS0pPOXJvSGQreGdIalJmbUNQM0hiTTF1aUM4aXZJT0Ixd0pyMlhK?=
- =?utf-8?B?eUlaUXE0dDFoQzA5bEJldWVxN3FGY1VPemE3d2hWNmo0NjFlaFE0aTl2VC9E?=
- =?utf-8?B?ZzIvaU1ZdkU0cHZuNlZIendGTVJIalB1TWt2TlRlTFp4a3FUU3lBUi9qakI5?=
- =?utf-8?B?SGFiMlkrVVRVamhlaEdrQkR3aTF6dDRrLzVVZjVqQnFsYkJDR1RKaU5MK0pQ?=
- =?utf-8?B?R2NwODBFZXZZa3VoUk5OVXNmQmx6NzV6cTB1dHlCVGVQSHMzYXZNL2k5M0VC?=
- =?utf-8?B?RnZPMWJ6UDE3TXR0bHlESHJnNW1DN1lJdk0xK1A1VnBTQTVESmpEZ2ZGZWhB?=
- =?utf-8?B?VDlCSmdDeHVPWTNZSGtiV2laU2UvV3U4WjRiZ0E3ZzhrNlNOUHZVS3hWY2RF?=
- =?utf-8?B?L3lnSVFEZkhydWszVzVvK0NtWG5YYkhuMlRlMmVrWFJCQlYzM08wV0JhaDZy?=
- =?utf-8?B?RDQxRHI1VDkrVEEvdzJLUkIyS0RjUk8wZ0RoTStsOG9ZYnRPNDZyWXN6VUVt?=
- =?utf-8?B?c3dvNjlrUWtNV2Rta3pOSWdQMUxWY2Q2UmxlWGJ5WUZEUFNjTXVRVVhIK3Bm?=
- =?utf-8?B?b3FrWWg2czdKMFEwbktBdDRuOFlrSzBTbU9EdGdwUzd5R2xKKzE1cHo1WTVj?=
- =?utf-8?B?WDRSbnFDN2ZsbG1QblQwRnpRT1VuVEdWTitsTnlDeEZ6YkYwYXNaS0x0Z2pr?=
- =?utf-8?B?YmhDRDFFS2JqclBoM0RsMHFzaUJKbGxxQll5ZlpHNmUzQ0Q2YytpVXQybUlB?=
- =?utf-8?B?L2VkNDFqQlVVSjhET2piWEFOQ0NHaUVjV0FMMUpSODdabC95SmhnWVU0NDZ5?=
- =?utf-8?B?WkM4MGJST1VJcGlKLzhQSGNLM0l0azBmdkw2dHFmZnpTZTRhaXZDSDdmRFpq?=
- =?utf-8?B?YzBvWXkrOXhKbzdqdEFoanIxbTdUcTRjTWswaW41djUra2xyVWtORGxFRklM?=
- =?utf-8?B?QzRsZEs5Q1FlYW04WDJFU0ROWUJiS0hkcVRXeVRsZmdPcGRBbE1xR1hRV0Jq?=
- =?utf-8?B?V2dhR25kNGptRFdUbUpmaDQ1L3ZjUHpLaW9NcnU5eDdQbkdhanRXZzYwVjVX?=
- =?utf-8?B?YitIQy9lSUJ5b0N5bVdLeTZBMHFoYVliMmk1dzRvQUJ4REl3bHFKZ3BrcitV?=
- =?utf-8?B?WXlUUnZQeGNvVWNUeUIxZzYxekFIaVR1eFRsUVhjWEtlSGc2TkllZUY4aCtY?=
- =?utf-8?B?MXNtTXJGTkloV2tXek1QVGpKTkk3TXZJZGhmWE8vQjNhanlNQitWaWtlRzRm?=
- =?utf-8?B?c0NZeWFiYW45UlR1c0wzZmFsQjJ3QWUySi9vOVltN2F0NjYrbzVYdVBtSllM?=
- =?utf-8?B?VXd4bHZQMmMzV3lhNXpKUENjSWFTVlhzRzB4TkFUSzBwcWZYSTBLbzBTL29Y?=
- =?utf-8?B?b2tjeURqZklTaDFKdFlZYjNXd2ZsakdvRzZTTnVtYXlWSnBwV3pOaVJOSnJV?=
- =?utf-8?B?dmljamt1dkhvdEdMNThCb1B2QTBybks3Qk9WRGlGSXVmeUY0eEZUZ0JITEVD?=
- =?utf-8?B?TWtQQ2hldUFZckpnSU81YngyNEFYNjJYZHYzeDZ2SUZLVkw4NFFTbFFLcGtV?=
- =?utf-8?B?cXBkUG1UU0lQMFVoRTJIK0Q3di9pWDFFRTBtNWowc2UyelNJa2diVEdtcnVC?=
- =?utf-8?B?T2FGRFVkbEZCbk9jNHgvRHMycVhTZkcyOURzdXNKMi9nZjNVU0w5aXhTWG9h?=
- =?utf-8?B?WkRMUENQWUMwT1JuRjRUZjF1QUM3QWY3ODJxN3BmdXdEZ28zdlJublNrejNx?=
- =?utf-8?B?RXhZRUo0K3ZzU2NyY2ZmSHRKdHZpSnRjbkkxQWpsSVdBNUFwL1YxeFA4aVQ3?=
- =?utf-8?B?VUtrTld1NE85dXVqOHlrVnB5cS9WemxxeHdCTTZPWkxOSW9oMFVmRHdoWE5X?=
- =?utf-8?B?UWVzMnVab2E0UXRJemxTemgvNzFGd0RRWGRRNjJBVXdsOCs5dFIyNXhqWjQy?=
- =?utf-8?B?TjJHTVRmWEw2QytFbVVDRnJJZjRpbTU3SEsvd1E4NStuS2g4YW9XN3FCZGJE?=
- =?utf-8?B?eFM1bjFacmRFY1dsN3FiVVhjMDlVTU5BSUZEbGUzNFFoZ0ZYQkd5NTZlM2Vn?=
- =?utf-8?B?c3FYakVNSUdPSVNDdlhRVk5pSy84L1RjeWMyeFdwTlZDTExMeGRLTGRON0dn?=
- =?utf-8?B?ZFh2UlVhbXRkT1oweG1WY0I0bHJSVHhaYnFJbWFEbTBMSWF5SlRmL1JvOVNV?=
- =?utf-8?B?VGV4NjA0ZGpjUUZVVFVlVytTa2dyZXl6T1ZpSjdzcjFoa2F1QVkyOWJKRCtQ?=
- =?utf-8?B?YThMa2phRzBZUm8wT2pOYTBNblBaQlk5M3VsV2FmOUIrQmlHcXlvUT09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KXKM1eZD/GTDW2m1zXP+JytFP6aCxPeR4aXFNaClRggfButNa1P/yE8bswni?=
+ =?us-ascii?Q?3XmE3p4ClL1s2QIpC8N65Sh7rkdhWaHp3qfT8nFbcB/DFkP4kaRnBf9BxufB?=
+ =?us-ascii?Q?jPM0Kwqe/+tqIy/yyqIeszUktiy7cIiCDmZ0iFsa/q9hWiI7DoNro6ZaN8Iz?=
+ =?us-ascii?Q?PO4IWkmaGm1bx0IFJW0Lb/bGm7glWfCLWgHsURdBcXOfkT7HuMOBQQtMq/Az?=
+ =?us-ascii?Q?v/fTRrXP5vqjBBhV7foSkbLW3m1PCPh8obuKfDs6ADewWNcsyiWIKhwoxnEJ?=
+ =?us-ascii?Q?y1mNG/YnVHD5cOY8qh6rludvhvqaWDsPnKCZYUiwuJbocNPu9zKohHhQ+FsI?=
+ =?us-ascii?Q?3/Z9ELds8BkWsfGjZmPm3nC48ODmzo1zlmLCyf0ZzcQtyx6g2+TP5yXYmMNd?=
+ =?us-ascii?Q?s4wqnBXW8HNRpW7suJb1b21y2BFl6mQRuDPJN3s3ptv7Yk2FrkC3AtFsgP3s?=
+ =?us-ascii?Q?tOdwRbRT1k34ye5UHeki8N/9qymOva8ZraO+aYTqXTVWQ7+Uh0o/33s/sFLj?=
+ =?us-ascii?Q?xyJacNKPsk2YOPot4KN/7INECt7POZ+Is2zo10opM33b+VZvvXmT2vPhn3YI?=
+ =?us-ascii?Q?HDGi5RbLrgZT4sQ1490Eux+PxnfUf7BvTVPq2uroBItRtvgO6nhk3K4Hpkk+?=
+ =?us-ascii?Q?t89qVONGjsNc7mYMHwgXIDN/m55a0h5x8q2NYteKRvl+okLUXh5B8TZu5213?=
+ =?us-ascii?Q?iJIVMtu35p5xYaDIwTI7OD4X9Qva2o1BemSZ6MfPPC7Meyqzta5QxcddagnE?=
+ =?us-ascii?Q?UBEoe7okntAg4tpaZyA8CYd9vRSlYYgPppeQR0fK61A+PS/THhJAUpzyh7cK?=
+ =?us-ascii?Q?hIqXmhmeoR5fVsSLtq+MXhuxv9p2lXBRzZGWc1xrSIFHbTs7bqFBNvU4ZHnC?=
+ =?us-ascii?Q?jdpIr1eleLPTMx1FpGpNyMFIJUmmg4/KHpqvW60xSkZ3wI3HBm4ShRMToIyh?=
+ =?us-ascii?Q?xNAWDrR/qU0RCGUhKFulhsFp4EX4jEeUz1mS8HTlVxMc/EC4jSVBp6SKEk/4?=
+ =?us-ascii?Q?2DzghEaRel3lmxWAiNt4KCI5xloNJY974MqX3sLZ9bfYBPEL9DgyiyVrZXsw?=
+ =?us-ascii?Q?IWTXsFMaOK0GxhCapvOtKbzgGranKoPDHr0KURETLbI7VjzDYxhCSO5YYauU?=
+ =?us-ascii?Q?Uu5vbXH9qoYekf9qILoKVpZ24AbUoxFstgI6nL7FyljpSybU7U6KtLnAKBPe?=
+ =?us-ascii?Q?e8dDOrkk7roD+RlDfl4jUKA8kry5nhGAM3kDuG3Yft5OOhR7JsTw8XQbhHzM?=
+ =?us-ascii?Q?eW74Tv+ajx0K6sjCl3STdD2ca8Ys97D9AopJ/yBpOaqhG8rpeR9iEkkm2frW?=
+ =?us-ascii?Q?Z58kPfW6X4ZUqomuK2NUnhOR7s7g22T55c9ucOSYMfiCKNM50F6zrW2LBrZm?=
+ =?us-ascii?Q?PK5yDReCeGA0b51aqAXDZDVVrUkYmqmvMfj/WR6+DNkR6komTXWb33/b0JPa?=
+ =?us-ascii?Q?ZJCNJhDoXAXI8FqdTLDezutVaMnlNd3H3XG8NdSX392gEH2DBm+uiUblsUW/?=
+ =?us-ascii?Q?4Qh6brD9JKLHVspP5R6EP7o/gdx96fbnuFLeHO//dQD1w49lBCVCzwWTpbEo?=
+ =?us-ascii?Q?x+53TQum0Oz4l4TPS1xv/IBxdR8sE2SkkLVXWxfDrxLHV/3wBTeYaINNwhEh?=
+ =?us-ascii?Q?cyRkADjWJtFRe4kztD7HfXKwsWw72UHmUVmo5lthHJs5/iqJpSUtHLVEmWp3?=
+ =?us-ascii?Q?H67LXxTWP09Qeg1b/LJFI7/1Zbo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1927b96a-54c2-4e3b-2c7c-08decd492e45
-X-MS-Exchange-CrossTenant-AuthSource: SA5PPF8ECEC29A9.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 14:52:12.9498 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J1KgWoee4xgrdC2QQbzQwfqY6DFGX3mD1JU7Pt+4krl7lOca7pLBLDk5RAToQOvsiDHQLYe5AO1JObtCgrYx0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7898
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 715f9542-a713-478e-27db-08decd507b94
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 15:44:28.6918 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VnzVJf8Y/Py01D510GDeiHa020GSgjPL9xi0znB5q+UmhO7JGOdx8wpqAVPFm+Mb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6780
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,57 +132,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-06-18 08:11, Sunil Khatri wrote:
-> With KGD userqueues the VMID's could overlap for userqueues
-> and KFD queues and due to which SQ interrupts of KGD process
-> are routed to KFD interrupt handlers.
->
-> To avoid Noise of SQ interrupt for KGD user queues use the pasid
-> id's to identify the non KFD processes and return without any
-> interrupt processing in WQ.
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+AMD General
 
-The patch series looks reasonable. But now every interrupt needs to look 
-up the process from pasid twice. It's not very efficient because that 
-lookup is currently a linear search. A bike-shedding suggestion:
+ping
 
-Keep the kfd_process reference for the whole interrupt handling function 
-and pass it to the different signaling functions instead of the pasid so 
-they don't need to repeat the lookup.
+-----Original Message-----
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+Sent: Tuesday, June 16, 2026 5:23 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chen, Xiaogang <Xiaogang.Chen@amd.com>
+Subject: [PATCH v2] drm/amdkfd: Guard m->cp_hqd_eop_control setting by q->e=
+op_ring_buffer_size
 
-Regards,
-   Felix
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
+To prevent getting incorrect m->cp_hqd_eop_control value.
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-> index 0da7e1db55c9..e02f63c0c845 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
-> @@ -296,6 +296,7 @@ static bool event_interrupt_isr_v12_1(struct kfd_node *node,
->   static void event_interrupt_wq_v12_1(struct kfd_node *node,
->   					const uint32_t *ih_ring_entry)
->   {
-> +	struct kfd_process *p;
->   	uint16_t source_id, client_id, ring_id, pasid, vmid;
->   	uint32_t context_id0, context_id1;
->   	uint8_t sq_int_enc, sq_int_priv, sq_int_errtype;
-> @@ -310,6 +311,14 @@ static void event_interrupt_wq_v12_1(struct kfd_node *node,
->   	context_id0 = SOC15_CONTEXT_ID0_FROM_IH_ENTRY(ih_ring_entry);
->   	context_id1 = SOC15_CONTEXT_ID1_FROM_IH_ENTRY(ih_ring_entry);
->   
-> +	if (source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG) {
-> +		p = kfd_lookup_process_by_pasid(pasid, NULL);
-> +		if (!p)
-> +			return;
-> +
-> +		kfd_unref_process(p);
-> +	}
-> +
->   	/* VMC, UTCL2 */
->   	if (client_id == SOC21_IH_CLIENTID_VMC ||
->   	    client_id == SOC21_IH_CLIENTID_UTCL2) {
+Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   | 4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   | 4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   | 4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    | 4 ++--
+ 5 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu=
+/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index 82f194ea2a21..5f8bf87f475e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -203,8 +203,8 @@ static void update_mqd(struct mqd_manager *mm, void *mq=
+d,
+         * more than (EOP entry count - 1) so a queue size of 0x800 dwords
+         * is safe, giving a maximum field value of 0xA.
+         */
+-       m->cp_hqd_eop_control =3D min(0xA,
+-               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+);
++       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
++               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+) : 0;
+        m->cp_hqd_eop_base_addr_lo =3D
+                        lower_32_bits(q->eop_ring_buffer_address >> 8);
+        m->cp_hqd_eop_base_addr_hi =3D
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu=
+/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index dff016c9c65c..7506a1410385 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -241,8 +241,8 @@ static void update_mqd(struct mqd_manager *mm, void *mq=
+d,
+         * more than (EOP entry count - 1) so a queue size of 0x800 dwords
+         * is safe, giving a maximum field value of 0xA.
+         */
+-       m->cp_hqd_eop_control =3D min(0xA,
+-               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+);
++       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
++               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+) : 0;
+        m->cp_hqd_eop_base_addr_lo =3D
+                        lower_32_bits(q->eop_ring_buffer_address >> 8);
+        m->cp_hqd_eop_base_addr_hi =3D
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu=
+/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+index 51dde2c86eb3..f1f923eb0ea5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+@@ -216,8 +216,8 @@ static void update_mqd(struct mqd_manager *mm, void *mq=
+d,
+         * more than (EOP entry count - 1) so a queue size of 0x800 dwords
+         * is safe, giving a maximum field value of 0xA.
+         */
+-       m->cp_hqd_eop_control =3D min(0xA,
+-               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+);
++       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
++               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+) : 0;
+        m->cp_hqd_eop_base_addr_lo =3D
+                        lower_32_bits(q->eop_ring_buffer_address >> 8);
+        m->cp_hqd_eop_base_addr_hi =3D
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+index 9014912ed82c..a6fff8032dce 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+@@ -294,8 +294,8 @@ static void update_mqd(struct mqd_manager *mm, void *mq=
+d,
+         * more than (EOP entry count - 1) so a queue size of 0x800 dwords
+         * is safe, giving a maximum field value of 0xA.
+         */
+-       m->cp_hqd_eop_control =3D min(0xA,
+-               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+);
++       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
++               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 - 1=
+) : 0;
+        m->cp_hqd_eop_base_addr_lo =3D
+                        lower_32_bits(q->eop_ring_buffer_address >> 8);
+        m->cp_hqd_eop_base_addr_hi =3D
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index b3c3833b6874..14b4240de6f0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -214,8 +214,8 @@ static void __update_mqd(struct mqd_manager *mm, void *=
+mqd,
+         * more than (EOP entry count - 1) so a queue size of 0x800 dwords
+         * is safe, giving a maximum field value of 0xA.
+         */
+-       m->cp_hqd_eop_control |=3D min(0xA,
+-               order_base_2(q->eop_ring_buffer_size / 4) - 1);
++       m->cp_hqd_eop_control |=3D q->eop_ring_buffer_size ? min(0xA,
++               order_base_2(q->eop_ring_buffer_size / 4) - 1) : 0;
+        m->cp_hqd_eop_base_addr_lo =3D
+                        lower_32_bits(q->eop_ring_buffer_address >> 8);
+        m->cp_hqd_eop_base_addr_hi =3D
+--
+2.34.1
+
