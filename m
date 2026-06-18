@@ -4,125 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D8DCD98F6
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 04:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E10CD98F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 04:44:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C2A10EBEE;
-	Thu, 18 Jun 2026 04:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C6310EBED;
+	Thu, 18 Jun 2026 04:44:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vbrC2xRj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kpk4lTZ/";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C42310EBD9
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 04:24:31 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013022.outbound.protection.outlook.com
+ [40.107.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5958110EBED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 04:44:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J5qch/ccqahMHiq00n+2zyUgWatSJm305pkE805b+o7ORjUzNBJzVI4T0AvRdDEs5Ml3V5GoK+nmy0rLKqyjDWDYYDUrSM9oQJD9UIoVRS6pWT4JIDuTOFvsBEt2fDb12WvarWvPRxgeZ4Ei5qjsGIpkuDTG00XxuAZ8LR+/9aCJ+Vb99f4Dkz8gTdGpoiltB77ChXdNrYMhJVmlJJgDHXB/mj9fAJz3be8T353EDBoZJeIwggwlXCbFXFrbgGIGYng/KHN6kOViOE6Ee128fgQPwKxZVpj2hiH1hglDahVxeMffD0agDFTuJvTobw+uKkHwnh1Kmlxm774c3q10Eg==
+ b=IDU7Cm9QCgvhReXbYqc0CYPkqlVWLQTfWdxytJcPjDw8wbcj7S6nlCcUXE1io3yh4FBau6tG2GHdvtEWtrTmdFcuGY6rijV89s2XXuQ9bzGue+eogzg62Bgj8dGoQ7t37cbR0PNPa8JBs5EiuXz939qZiXdQ4VyxwODdcryO17Bf/gE1QiAGttfzX3PkXrpDFs4MtSiuuHtETEP2KmAi84Vs/Vmrot3VAcYJ4iUkaDTauq/KxmGGdhZSlQAooVcHUsULEYiCAtxTlPrJw9NIKbDPStqV+Ypol/eFW90qEwAY89kz6WtmjfIkh9MrDJIhwApkXRl29kzeERHFV8f8PQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nJtxHzjYdzokft0wKdjQji3vQ3173Du1kLO7OdJBDkE=;
- b=fz3hYfATxZAqu4pKiHB8zUwqx1pySat6ZJazdpEPOXpm39mjZum/nlhTimANGNE7iOPpZzE8vxOgdvw6fB+pV+HMkf84WJdB3dY+P6fwHvq7R+UgMQR0gGxNQR2ySYSEJBHgwL7FvNVEQ8OqdAUhn7o2PGvHFjG1xLSMrazzR/zWCPlIG9LRF7VOQC0CL3EsUwDjc7Bm/2wQk+X+bFuiLi183LVExE4RLbI8OccqsWLoB1BzoDbyFIyP9ToTBIIS703J6mAZSOQl4mT7eZHsKG4N45O63gnGxe+jJyIloafB1GEQDV2oUt3FCteYWXakv9FvjfQs81EHztYmFOUvGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=FZg7AQm5K3Qc//4YzlLBOUnAX9ecTCFJRB1Pi0Q73Dg=;
+ b=X6K2Bu1brabE75nUP/yFECMBO928AtW5YJ+7uEadiSEjmJS2j2Id2zz6X9otOu9M3v9r3IQYr/or3xOEWmMnB8+nzrSBwv6W8NkLnpO41khulK50qZ2nioeQqDDlYl2Yxv4rtKK/7VOtwNGEDvqp2cASrhhclx5xa6fhHCqY9kmSBDAIPsII+nwAO8iXe2G7cXC+zwRhliCUR1FmZshvHJX7lpBSihl9tj5uCtIpudSIX9fBlQ9HSqa8PGwSaQGGwSQNLw9WSIimTeFbMjSyPG6Z3256Ft67kyyc8ZaKjaLi4uwUBwmiIvQ9DmZEr45BVm5N9e/hCFimAwQv6pl8kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nJtxHzjYdzokft0wKdjQji3vQ3173Du1kLO7OdJBDkE=;
- b=vbrC2xRjIgDnfGSEBvElcQtLFMUgx86axVt0ETgtevJKSjOex9ERTGKDtgJYmVyXd0sV6fxbucKwJD1eyfFKo8/40GTZZPNtym7uUqZDgkkTAJ6/cGPZFrD2u/8psyRpkeE6C4CvtJ1UJz4BLTmCNNZUol8jyI6WHRcnApK6HTc=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by MW4PR12MB7440.namprd12.prod.outlook.com (2603:10b6:303:223::22)
+ bh=FZg7AQm5K3Qc//4YzlLBOUnAX9ecTCFJRB1Pi0Q73Dg=;
+ b=kpk4lTZ/4glBDVTBc1OBO3c/Hmdbl5pzO1cx89yc/Z86FTrjqvccBR7uJgSs7g6bUqo3sUP693tgjeW/KxWGVE8fnOZCkWajYB9GdDnu55Ot//2XOoUWSv3G4FA1/Xxu+5906zUbA3r9Gn2NN4TAZA1RJWA9DrAkKLVtfhYkjiA=
+Received: from BN9PR03CA0976.namprd03.prod.outlook.com (2603:10b6:408:109::21)
+ by MN0PR12MB5812.namprd12.prod.outlook.com (2603:10b6:208:378::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Thu, 18 Jun
- 2026 04:24:28 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac%5]) with mapi id 15.21.0113.013; Thu, 18 Jun 2026
- 04:24:28 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig, 
- Christian" <Christian.Koenig@amd.com>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, "Chai, Thomas"
- <YiPeng.Chai@amd.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: allocate a per-process CSA to isolate
- scheduler state
-Thread-Topic: [PATCH 4/4] drm/amdgpu: allocate a per-process CSA to isolate
- scheduler state
-Thread-Index: AQHc/lgUpGyb4NXlr0GvrJkzQKGSyLZDt1vR
-Date: Thu, 18 Jun 2026 04:24:27 +0000
-Message-ID: <CY5PR12MB63451701C0B12F8AEF15CF08FAE32@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20260617125121.1838486-1-xiang.liu@amd.com>
- <20260617125121.1838486-4-xiang.liu@amd.com>
-In-Reply-To: <20260617125121.1838486-4-xiang.liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: Christian.Koenig@amd.com
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-18T04:24:27.237Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|MW4PR12MB7440:EE_
-x-ms-office365-filtering-correlation-id: f6636cec-2f36-4adb-b8ca-08deccf17c6e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003|8096899003|38070700021;
-x-microsoft-antispam-message-info: W0E/RNLZB6D/9pcu6OAx+P833m+Mr07Z1lWSw5Vz4mwYWi0jG21MKa2lkt99QQWRe/ZV7yBfZSOmKnlPf4VEj+vW8sHWOxnLVI9v1WwsluT4QbAyfAYP2EExTF2E5BtVU6qeO+WWsi5IcT/brtJ/2oXBQpE5MLfNy1Q9+dsa2mg9ACXet5DMScCoRxpY3xShz+NCuXZM9LNo029d3iU3J7gqudPmEnclyjABF5JQqcQn1/O73vcDl1DdHHNfImxXhYKyCHH74dWLoRionarKhyXp2CUzzmq05Kr7p+4uX0EwcpTPbXg/qFViBWToOfwAd+8U5UBmXks0CXNykGOpHonURY/nFrY1/g1RVmlWLN+8jV8Gqp3Nw1APKtQ3wJ3rkn7YbH82XUXcBzN9PzJlXBkB0yjeGmGDmof6FmKgODe4ovYz+OiDIhw3ttHqrZ59L9KqQARJQr6Ud5OVHFkstpwQ8jdnxMusvluWTTFlCRGeGbmc8gBwQnxg/tQT5N5vQjeGSWeIqsOv3Qe09BNSzJV9Qdn2YEzsXK+NFKoXijGOK6ndwjbsDINLanDEHoB4s8MxNU52Eg6xJKVYwuA0DWI5mh2KQVyW7D9oT3NdhKaw4R/iaLvcC7jBpSFqQKjCA6ICmaH5NsKpCaePkXGw2GyJVF3HZL5/RuoK1DuTr9ldGr43q9EqKxztOm14HHtuLfSempAp9xFWuOaLDejnuNaL4sU/Cz7aj5zsO+SNOJy8sBJpeS64OA5JnY+cWxb+
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(8096899003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jL94zcXD1qkY1gs/XLAAEsGOyhsNrrznMucU5BRrMDh91hJ3bn6A7K6YpeCe?=
- =?us-ascii?Q?WyWILR6z6ePSxoqDkWMXaQugDjyRY+uTrYRSNtfnT4AE3Qtt18pDV0yYDPm5?=
- =?us-ascii?Q?4iZ0uS+0R+Ucz0FNpJMOrPSvTpVCQwjds23RbiquO09qgujYJoeM9ijYdaXM?=
- =?us-ascii?Q?BmxIFaQXLKSxNZHFmpz1UFObwysejvRcHgyNbPZzcoNgxFmmRcMpqhprVd78?=
- =?us-ascii?Q?hrdjfOv6Wh0xptW9IztY4ulKa3/Jn+cD+G29ZVjoas7Y896O7FzwoRfHGTng?=
- =?us-ascii?Q?ZWpsdkfiFmCQeznNwvjXGHKio5SUgFbhL6c3YtkjvD9XZCciZGdwq0UrG10f?=
- =?us-ascii?Q?93r7yw4FwKxieBp6VwFLrvVOkYGtEbDXxrJOHouHbO/LGyqjeP9CTTLsP8RJ?=
- =?us-ascii?Q?4CwKXC5IFI45+eFX0zXYnXhdhB5faPLk2DWLM77qvWpkwLOgAFZlpkGvQ63m?=
- =?us-ascii?Q?QjmxGzdD2/zKa85ca5TBqe9d/Tndjc1fWWK/WxQFEd/OIPjUDTV7xiocbZ2W?=
- =?us-ascii?Q?6VHCz2mNWIiDF7mHKf5YQ+7iB0B6Kh06BVYyNtuaJ+U/EsenYihrLxUFC3TV?=
- =?us-ascii?Q?A/kL7wZ4CJlK/HtjFWZMeZZoxwTWVYUI9vy8IuuWRslWuE7yLV5VCTc5FgwM?=
- =?us-ascii?Q?h4U2wiUa0KNVFr3hGTWmezWsMQ5IGtJRvA2vzXXzxGwYpBru8Td0p93nrbwU?=
- =?us-ascii?Q?dUl/uKy75cjSz93JEWOcFgntiiY+64cjOZ12zG4DUl9B5XOkrb5XhW8+px76?=
- =?us-ascii?Q?TrjRR2pNt6HB6BKIaTCiYT7DU7acOorsdTMF8+DvwCgkO4NfpcsZ6nFrND0L?=
- =?us-ascii?Q?ET/RQ7zplExQ9mg8u5vMvvXtlwOaRWeidR/dZpM7HxKxbUY1M6WtwzNJ7CTQ?=
- =?us-ascii?Q?Hb2IXHA6FwC3F0KWaFZ4J6dTH6oik+PPaPLNIwgYAW4IycRBKmadgTYvr/dn?=
- =?us-ascii?Q?KR+1JasnNKBTtjtKdyjy5bRBOnG5Y1ANjErY7p1hqLqYNbGuBPKDcd4qIs+x?=
- =?us-ascii?Q?8I2k9tHiMTQnrlxujwIAl4I3KmrkwWC6CSsgbn7wGXjYTHMXyBwqDR33FYj4?=
- =?us-ascii?Q?Ys6Fj3Z1y367CgtdzVzaerfsHGfvbpxQ8awumsZlAP1g5kdSMPf7cNjKW3xm?=
- =?us-ascii?Q?+eXsq8Swq7/g99wY5QboQuJOhWkyPtjdc6ANE0O2OautAzuG4Prp6xRWXx0r?=
- =?us-ascii?Q?t+hcMiI2qvpWRjRgBBigAUYG3kHMZf2xX8LRBrY4CbxW0Wbtb+HNTPGwoRWi?=
- =?us-ascii?Q?WOiFs6/z3yDl7kYqQlB4u3geLDQWq0SU0MOIbS7hHZB7bC37QzPE7Rtyy0oO?=
- =?us-ascii?Q?rs3FfCB9llYPaPNG8vGLGPa0LqvWqPZp58tkR6fVDzblh27j9cNR4aXwlH9M?=
- =?us-ascii?Q?MK08Po+6q7wOETdRYVgvPDPlJKprQRcyvSeeHPRiZMWnheMrGOeGeiC+Jjjj?=
- =?us-ascii?Q?O1Zmj8Rmp2cNmW4PrGPjdcsc6eQDw6kbar3rgbff8MIzL2OZux2KU5FatTlF?=
- =?us-ascii?Q?06ISBNVGKz6IGpqS8JpXDZ5rOe9Jkd/1prYga+SYqNY2SF8l7txqe6QcSqYs?=
- =?us-ascii?Q?Q3VP2rbZs2LHQ8f9fv0ftmL1B+y2BUbcQXa2C3Bl5+iFm/7ujnI2Kab34Xg8?=
- =?us-ascii?Q?pVF8Dn/hq31mLw7X8jqb2qFskhuYjIq/VEd5VzsGs9GMScXwim7emWvpSrU4?=
- =?us-ascii?Q?HPPH9EMKYc9NBfLHBvwDaJo1ByJU7CzT7+G/egCBUfYPDX2S?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB63451701C0B12F8AEF15CF08FAE32CY5PR12MB6345namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
+ 2026 04:44:18 +0000
+Received: from BN1PEPF00004684.namprd03.prod.outlook.com
+ (2603:10b6:408:109:cafe::aa) by BN9PR03CA0976.outlook.office365.com
+ (2603:10b6:408:109::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Thu,
+ 18 Jun 2026 04:44:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 04:44:18 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 17 Jun
+ 2026 23:44:18 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 17 Jun 2026 23:44:06 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <Jesse.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH v3 1/5] drm/amdgpu/userq: add reset helper and identify guilty
+ user queue
+Date: Thu, 18 Jun 2026 12:43:36 +0800
+Message-ID: <20260618044405.1724370-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|MN0PR12MB5812:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8228b59-ed80-4d91-29ee-08deccf44215
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 4XHSOA2guMGK9WJDd/6dg2TO+IsfyDS6hjdbLQJlAxqL5Uds+oswDFpMbqOS5pPxHVX9pFKKiXZlRC1CgxhqFTK+4Y4brmynp5FDkTe5YhKRpZHdYnkC6bcemOzU3XVAGLp8OqRmTI19rpcz3elX2QpWhfWRkkgmHrkN1NuzZc2JvtSMtduri6wNi/2XYe46Mr7m4R4/R8OjkUu4M+0ClIkRT0rGuvtTPv1tlXLPvF3yL1JCkYipNnc2EY8t3sMyMANa1VQBXsc4h29tDtLhjqrtc2fUmDBRHWPeA4ZlcvZ5YUyWBhtF4E7PMJ+ByOOZQ8xTxunQkYablS1tZCBF49oUxFeBM/GwnuW5Kz2QWYW017fvQNZfjE6L0J0UWxGTimOPPs/GvpQvMfeW5hIeEkL2CHRR+6JCLKRBLJ4ASZmv/frgkHShYqeJUCoaLcxd9Lw4JoMNZgto9O6OYVs/Sq5fnTlvWp4DVcrg1XuhOVrw79lMydp6zKXkSBv7/zlPaEuUe7qtHnAuix32JolOrA+n0svsNIH7Vs8irBQyckMiYNPuFxLkRcdoit08pRv0wHGMlGDiWW2pts4woHpUF4wzavYJpyGuJOXcilNf9tfjgspsIh+O27+eJMxi/FZvqihxFw5WUTVgBYLvm1lBe/kT7tDKndn8tet9YzXjuBtZI1A1QBZC/p+BGJ46tahiNJWwD/lp0JAPQX1rgy1ZeGzoaQjXlCacOiMiuuVZdbc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: rKT4O5w9GQvIyglMJHr53J6NO3EDyx+W2xIeP76/hsonTXxns2kste2kdZ4Du+LMQaLqBHHGTwO2PzjkD2ZcBGNNicclWw+0CWB+BhPebdUudbqdfxogVC61Vpr7ux3nWCESGptW9oDZDzMGp+DREc0VDOWTN042VqE/UMF+Ymn6VN4k+Fg+40gGX3viNnD6/bxNUUlV3oBijBI1n1qxKjRBvyQjBWUg487Y0RNX9hk1iBLDF02Ql7JacVvWn06U0pQyzMdJO3t6m5fJwFDzfvh+ES0TCB6CBukz2seaKkoDIqj05c4+T/wPJiYBfHZzDntpQdmU8DU5OUliOgo3oYaZWKCbWkBLStubh8ANab6CLzpCZxLtD4k9bD1DRQs9SQClgpXdTba88tR93jJuv18zUyxMMrXl+uVO6b9KhGAYwnDg/PUOPG1ks2ES/INQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6636cec-2f36-4adb-b8ca-08deccf17c6e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 04:24:27.9919 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y+EwVdeAU5OMaK20sCYB5+NgJfEaQ5PpF5XpxV+tV++At4LB2Jhu79D/EhupSaerzBHHyBzQhlH26EPMBTfuqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7440
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 04:44:18.5531 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8228b59-ed80-4d91-29ee-08deccf44215
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004684.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5812
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,372 +111,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB63451701C0B12F8AEF15CF08FAE32CY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+If we get an interrupt for a bad user queue (bad opcode, etc.), add
+a helper to handle the reset for user queues.
 
-AMD General
+v2: squash in fixes
+v3:
+ - schedule the reset via amdgpu_userq_start_hang_detect_work() instead
+   of open-coding mod_delayed_work()
+ - drop the per-queue guilty flag; always reset the queue the hang
+   detect work belongs to, matching the non-compute reset path
 
-Hi @Koenig, Christian<mailto:Christian.Koenig@amd.com>
-
-Could you help take a look at this patch series, thanks.
-
-Best Regards,
-
-Liu, Xiang
-
-________________________________
-From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Sent: Wednesday, June 17, 2026 8:51 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
-Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu: allocate a per-process CSA to isolate sche=
-duler state
-
-A single device-global CSA (adev->virt.csa_obj) was mapped into every
-render client's GPUVM at the same fixed virtual address. The CSA is
-GPU-writeable and holds CP preemption/resume (CE/DE) metadata that the
-kernel and CP firmware consume to save and restore gfx queue state, so a
-shared buffer lets one client overwrite the scheduler state relied upon
-for another client's queue. Under SR-IOV this is a cross-tenant
-scheduler-state integrity issue.
-
-Allocate a private CSA per amdgpu_fpriv in amdgpu_driver_open_kms() and
-map that into the process GPUVM instead of the global object, and free
-it in amdgpu_driver_postclose_kms(). Publish its kernel mapping through
-vm->csa_cpu_addr so the preemption resume path reads back this process's
-own saved state. One client can no longer observe or corrupt another
-client's CSA.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Co-developed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 27 ++++++++++++++++++++++---
- 2 files changed, 26 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 22 +++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h | 11 +++++++++++
+ 2 files changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 59670aee0fd6f..50ac52f2e0565 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -448,6 +448,8 @@ struct amdgpu_fpriv {
-         struct amdgpu_vm        vm;
-         struct amdgpu_bo_va     *prt_va;
-         struct amdgpu_bo_va     *csa_va;
-+       struct amdgpu_bo        *csa_obj;
-+       void                    *csa_cpu_addr;
-         struct amdgpu_bo_va     *seq64_va;
-         struct mutex            bo_list_lock;
-         struct idr              bo_list_handles;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_kms.c
-index 2e1284b7887c3..e0fc16bc7ef23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1529,10 +1529,28 @@ int amdgpu_driver_open_kms(struct drm_device *dev, =
-struct drm_file *file_priv)
-         if (adev->gfx.mcbp) {
-                 uint64_t csa_addr =3D amdgpu_csa_vaddr(adev) & AMDGPU_GMC_=
-HOLE_MASK;
-
--               r =3D amdgpu_map_static_csa(adev, &fpriv->vm, adev->virt.cs=
-a_obj,
--                                               &fpriv->csa_va, csa_addr, A=
-MDGPU_CSA_SIZE);
-+               /* Allocate a per-process CSA. The CSA holds CP preemption/=
-resume
-+                * (CE/DE) metadata that the kernel and CP firmware rely on=
-. A
-+                * single device-global CSA mapped writable into every GPUV=
-M would
-+                * let one client corrupt another client's (or the kernel's=
-) saved
-+                * scheduler state, so give each process its own isolated c=
-opy.
-+                */
-+               r =3D amdgpu_allocate_static_csa(adev, &fpriv->csa_obj,
-+                                              AMDGPU_GEM_DOMAIN_VRAM |
-+                                              AMDGPU_GEM_DOMAIN_GTT,
-+                                              AMDGPU_CSA_SIZE,
-+                                              &fpriv->csa_cpu_addr);
-                 if (r)
-                         goto error_vm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index d434dd77e421..032989249940 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -141,7 +141,8 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
+ 		int r;
+ 
+ 		if (queue->queue_type == AMDGPU_HW_IP_COMPUTE)
+-			r = amdgpu_gfx_reset_mes_compute(adev, NULL, NULL, NULL, NULL, NULL);
++			r = amdgpu_gfx_reset_mes_compute(adev, NULL, NULL,
++							 queue, NULL, NULL);
+ 		else
+ 			r = userq_funcs->reset(queue);
+ 		if (r)
+@@ -671,6 +672,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	}
+ 
+ 	queue->doorbell_index = index;
++	queue->doorbell_offset = (u32)args->in.doorbell_offset;
+ 	r = uq_funcs->mqd_create(queue, &args->in);
+ 	if (r) {
+ 		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
+@@ -1112,6 +1114,24 @@ static void amdgpu_userq_restore_worker(struct work_struct *work)
+ 	dma_fence_put(ev_fence);
+ }
+ 
++void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev,
++				    u32 pasid, u32 doorbell_offset)
++{
++	struct xarray *xa = &adev->userq_doorbell_xa;
++	struct amdgpu_usermode_queue *queue;
++	unsigned long flags, idx;
 +
-+               r =3D amdgpu_map_static_csa(adev, &fpriv->vm, fpriv->csa_ob=
-j,
-+                                               &fpriv->csa_va, csa_addr, A=
-MDGPU_CSA_SIZE);
-+               if (r) {
-+                       amdgpu_free_static_csa(&fpriv->csa_obj);
-+                       fpriv->csa_cpu_addr =3D NULL;
-+                       goto error_vm;
-+               }
-+               fpriv->vm.csa_cpu_addr =3D fpriv->csa_cpu_addr;
-         }
++	xa_lock_irqsave(xa, flags);
++	xa_for_each(xa, idx, queue) {
++		if (queue->vm && queue->vm->pasid == pasid &&
++		    queue->doorbell_offset == doorbell_offset) {
++			amdgpu_userq_start_hang_detect_work(queue);
++			break;
++		}
++	}
++	xa_unlock_irqrestore(xa, flags);
++}
++
+ static int
+ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 7a5f8ed794b8..61e5f8a06eb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -53,6 +53,7 @@ struct amdgpu_usermode_queue {
+ 	enum amdgpu_userq_state state;
+ 	uint64_t		doorbell_handle;
+ 	uint64_t		doorbell_index;
++	u32			doorbell_offset;
+ 	uint64_t		flags;
+ 	struct amdgpu_mqd_prop	*userq_prop;
+ 	struct amdgpu_userq_mgr *userq_mgr;
+@@ -178,6 +179,16 @@ int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost);
+ void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *queue);
+ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell);
+ 
++/*
++ * CP packs the per-process doorbell_id of the queue in
++ * CTXID0[9:0] on priv-fault (same encoding KFD uses via
++ * KFD_CTXID0_DOORBELL_ID_MASK)
++ */
++#define AMDGPU_CTXID0_DOORBELL_ID_MASK	0x3ff
++
++void amdgpu_userq_process_reset_irq(struct amdgpu_device *adev,
++				    u32 pasid, u32 doorbell_offset);
++
+ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 				   struct amdgpu_usermode_queue *queue,
+ 				   u64 addr, u64 expected_size, u64 *va_out);
+-- 
+2.49.0
 
-         r =3D amdgpu_seq64_map(adev, &fpriv->vm, &fpriv->seq64_va);
-@@ -1604,9 +1622,12 @@ void amdgpu_driver_postclose_kms(struct drm_device *=
-dev,
-         if (fpriv->csa_va) {
-                 uint64_t csa_addr =3D amdgpu_csa_vaddr(adev) & AMDGPU_GMC_=
-HOLE_MASK;
-
--               WARN_ON(amdgpu_unmap_static_csa(adev, &fpriv->vm, adev->vir=
-t.csa_obj,
-+               WARN_ON(amdgpu_unmap_static_csa(adev, &fpriv->vm, fpriv->cs=
-a_obj,
-                                                 fpriv->csa_va, csa_addr));
-                 fpriv->csa_va =3D NULL;
-+               fpriv->vm.csa_cpu_addr =3D NULL;
-+               amdgpu_free_static_csa(&fpriv->csa_obj);
-+               fpriv->csa_cpu_addr =3D NULL;
-         }
-
-         amdgpu_seq64_unmap(adev, fpriv);
---
-2.34.1
-
-
---_000_CY5PR12MB63451701C0B12F8AEF15CF08FAE32CY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
-s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-Hi <a href=3D"mailto:Christian.Koenig@amd.com" id=3D"OWAAM298959" class=3D"=
-tWKOu mention ms-bgc-nlr ms-fcl-b">
-@Koenig, Christian</a></div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
-s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
-s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-Could you help take a look at this patch series, thanks.</div>
-<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
-ckground-color: white; margin-top: 1em; margin-bottom: 1em;">
-<span style=3D"font-family: Calibri, sans-serif; font-size: 11pt; color: bl=
-ack;">Best Regards,</span></p>
-<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
-ckground-color: white; margin-top: 1em; margin-bottom: 1em;">
-<span style=3D"font-family: Calibri, sans-serif; font-size: 11pt; color: rg=
-b(36, 36, 36);">Liu, Xiang</span></p>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
-s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Xiang(Dean) &lt;=
-Xiang.Liu@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, June 17, 2026 8:51 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
-.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Chai, Thoma=
-s &lt;YiPeng.Chai@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<b=
-r>
-<b>Subject:</b> [PATCH 4/4] drm/amdgpu: allocate a per-process CSA to isola=
-te scheduler state</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">A single device-global CSA (adev-&gt;virt.csa_obj)=
- was mapped into every<br>
-render client's GPUVM at the same fixed virtual address. The CSA is<br>
-GPU-writeable and holds CP preemption/resume (CE/DE) metadata that the<br>
-kernel and CP firmware consume to save and restore gfx queue state, so a<br=
->
-shared buffer lets one client overwrite the scheduler state relied upon<br>
-for another client's queue. Under SR-IOV this is a cross-tenant<br>
-scheduler-state integrity issue.<br>
-<br>
-Allocate a private CSA per amdgpu_fpriv in amdgpu_driver_open_kms() and<br>
-map that into the process GPUVM instead of the global object, and free<br>
-it in amdgpu_driver_postclose_kms(). Publish its kernel mapping through<br>
-vm-&gt;csa_cpu_addr so the preemption resume path reads back this process's=
-<br>
-own saved state. One client can no longer observe or corrupt another<br>
-client's CSA.<br>
-<br>
-Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2=
- ++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 27 ++++++++++++++++++++++--=
--<br>
-&nbsp;2 files changed, 26 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index 59670aee0fd6f..50ac52f2e0565 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -448,6 +448,8 @@ struct amdgpu_fpriv {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va&nbsp;&=
-nbsp;&nbsp;&nbsp; *prt_va;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va&nbsp;&=
-nbsp;&nbsp;&nbsp; *csa_va;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *csa_obj;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; *csa_cpu_addr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va&nbsp;&=
-nbsp;&nbsp;&nbsp; *seq64_va;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_list_lock;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct idr&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_list_hand=
-les;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_kms.c<br>
-index 2e1284b7887c3..e0fc16bc7ef23 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-@@ -1529,10 +1529,28 @@ int amdgpu_driver_open_kms(struct drm_device *dev, =
-struct drm_file *file_priv)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mcbp) {<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint64_t csa_addr =3D amdgpu_csa_vaddr(adev) &amp; AM=
-DGPU_GMC_HOLE_MASK;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_map_static_csa(adev, &amp;fpriv-&gt;vm, adev-&gt;vi=
-rt.csa_obj,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;fpriv-&gt;csa_va,=
- csa_addr, AMDGPU_CSA_SIZE);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* Allocate a per-process CSA. The CSA holds CP preemption/resum=
-e<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * (CE/DE) metadata that the kernel and CP firmware rely on=
-. A<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * single device-global CSA mapped writable into every GPUV=
-M would<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * let one client corrupt another client's (or the kernel's=
-) saved<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * scheduler state, so give each process its own isolated c=
-opy.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_allocate_static_csa(adev, &amp;fpriv-&gt;csa_obj,<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM |<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_CSA_SIZE,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;fpriv-&gt;csa_cpu_addr)=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto =
-error_vm;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; r =3D amdgpu_map_static_csa(adev, &amp;fpriv-&gt;vm, fpriv-&gt;c=
-sa_obj,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;fpriv-&gt;csa_va,=
- csa_addr, AMDGPU_CSA_SIZE);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (r) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_free_stat=
-ic_csa(&amp;fpriv-&gt;csa_obj);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fpriv-&gt;csa_cp=
-u_addr =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_vm;<b=
-r>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; fpriv-&gt;vm.csa_cpu_addr =3D fpriv-&gt;csa_cpu_addr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_seq64_map(ade=
-v, &amp;fpriv-&gt;vm, &amp;fpriv-&gt;seq64_va);<br>
-@@ -1604,9 +1622,12 @@ void amdgpu_driver_postclose_kms(struct drm_device *=
-dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fpriv-&gt;csa_va) {<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint64_t csa_addr =3D amdgpu_csa_vaddr(adev) &amp; AM=
-DGPU_GMC_HOLE_MASK;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WARN_ON(amdgpu_unmap_static_csa(adev, &amp;fpriv-&gt;vm, adev-&g=
-t;virt.csa_obj,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WARN_ON(amdgpu_unmap_static_csa(adev, &amp;fpriv-&gt;vm, fpriv-&=
-gt;csa_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fpriv-&gt;c=
-sa_va, csa_addr));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; fpriv-&gt;csa_va =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; fpriv-&gt;vm.csa_cpu_addr =3D NULL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_free_static_csa(&amp;fpriv-&gt;csa_obj);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; fpriv-&gt;csa_cpu_addr =3D NULL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_seq64_unmap(adev, f=
-priv);<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY5PR12MB63451701C0B12F8AEF15CF08FAE32CY5PR12MB6345namp_--
