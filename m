@@ -4,123 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97ADACD98DE
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 06:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C7DCD98ED
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 06:32:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3109910EC6C;
-	Thu, 18 Jun 2026 06:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9637010EC4A;
+	Thu, 18 Jun 2026 06:32:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ukDuqtaP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y7AYxThO";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011018.outbound.protection.outlook.com [52.101.52.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C4110EC6C
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 06:11:05 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011046.outbound.protection.outlook.com [52.101.57.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA30510EC4A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Jun 2026 06:32:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gQI9Cm52yKUvr3NeeLr2AOv4RzZnuvnitfdMQMJEp/FcpZQxFvbeF1UoZqrr8uk9rZOwaRfffTUxL9k/24wd+EEHvtkz7b8Le5YKagH6QwbgBi7Fy1+U0QTIdwSghe2zcvZ01KXL5rImxDQpxBfWp21Dqz9+jOdqa06dbQLO170hqeLQgP31XjbIXXz6TH6LMCdHhmElActqkZo2sPCw/F0NflbsAeKShQnAUiFw6zRYDM207i4gZO4nWuEzwwineYpZAXkiT8eznt5wEXToABA5MPkphf96rzt6MiOjXQnS/X4M3bzqN4nvz+Vg79Ssfq3NrU21BvszIC+ERp5L1w==
+ b=KgPjT1kNPj53B58vTh8e0d7f8JYFz4GL2xOgJ0B9vYiZ6An3xaLWH0Zm5PF/hf2RnWK0Qrz98w8f8oK9apHJaeYdXcJIpDKu/ROxw2oBF4EEAsxmRu26EnW3abdrAKp4OiMg+caCmrF2vCIc8Jvm5Zt4yen5i3n0/NTfLDXtQfzwQ9hTmApX/EioYfTSJsRWrYx5PdZNw4xB+si54LEd2QkQogqamzcRGBt7aURiaova0BRV42+gwHkdKmrE+FaXj5O5hxs3OYGIwcyi9mJ7h1ZKp1gqie+GMukzeE/J0VHXCzuHmWLeQHlYvhQYKzKCEWHlihDimjbJggL0Skni0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7T5+LQw1giDcDCm8qQeoa2zeddDEdtgzw0HiWtFy/7I=;
- b=wqHpQbMaIXH+lI8L99IohJItdxCWPVLl/tmBRAZDJBL/3GN8aY/xPDcLVHNS6e2SU1a3pmeXGEWb/ZPmTP7uEQDvPSTU2Prki0s4fI1rH9A1ZXgSgCtu4hthxAP2Ig4SLXOT4R9ICr6HDaGrNOG9htBug9Q1ZMR1VJYPAovfNt3NcSkg1E8IYQfdZL/n2sm5UQ9N30JiToCuGKjWC5a3hVDXynMRvhYJrishL7cnd1wa6r4OoR4ThvD8aKm3CjmIj5GiAFOqpl4GKcCUN4upw/V6XpL0IedwXBosXzh0WPzqDrSLbRWbGlY3IAMF6dZ0bW6nzfPYkwxOlFqtAjteaA==
+ bh=0wVVme0wpKxYcMpta9GSkSC+H1MOhz0uX9KILgTMtlg=;
+ b=GWZr2ZzmCBnn264Lvxvs5lWGfApwLo/mtmncSBTTjXc0E9MCzK/iEGNIH2v9966D6n0U2VmK2drlyM8PazQPjVMl96I/yN1S5ce9Vs2YvUQbxBSTABI/lblZ+haVRde1mjxsd025yfO0hFzUKi31myMV50P6SEp8iqhplqk4t9upJu4kLEbnIcmnhtMnmOhiAaBhSGytuvZACWNLMBNrh6VWQyI8SPBJu4fmBZRK11FRc+JiQ2M/zb/TPEVLo1V60JOPx50Kcoq/NIkdEfHlW7CfZialh4Ngf7SYlwosV5GP/k0Bk2w6y18wGgBtKNl+ywprJGQmGcVAU5h2kZwqtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7T5+LQw1giDcDCm8qQeoa2zeddDEdtgzw0HiWtFy/7I=;
- b=ukDuqtaPymzEP+7tiJ6Ka9pBTpZjTbUHWOaB4VoOYX5bo8EFjOzJM4IMRqRXr7j1DSzCUTfKryTlsM+fn0+hsQrcww6P5OUw4wVOV6LdKz2UA440Mes6weKS48SikEEA/aZCT6ljg22bTIkfROH0tf3rZB2zJ/pLeP1mjpOmo1E=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DS4PR12MB9635.namprd12.prod.outlook.com (2603:10b6:8:281::16) with
+ bh=0wVVme0wpKxYcMpta9GSkSC+H1MOhz0uX9KILgTMtlg=;
+ b=Y7AYxThOMsshwsB2wXix/HgR0Frr92DxIQd1ImbH4yM6HmOPW0aM/B8shQxEA5BPZKnXjhXFe+WxCgXeEWN+k+PdY9VBxmqmP2oyH4i7AjqFgusH79GrDlzCUbqJD3CxgZRJWOwfrgBDae3uClZ/fRdKSXcmXWaeZYiPzbadOqM=
+Received: from DM4PR12MB5038.namprd12.prod.outlook.com (2603:10b6:5:389::18)
+ by LV0PR12MB999093.namprd12.prod.outlook.com (2603:10b6:408:32e::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Thu, 18 Jun
- 2026 06:11:01 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 06:11:01 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang,
- Morris" <Shiwu.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-Subject: RE: [PATCH v2] drm/amdgpu: validate XCP topology counts before
- division
-Thread-Topic: [PATCH v2] drm/amdgpu: validate XCP topology counts before
- division
-Thread-Index: AQHc/uF4Ij4ZVQHe+U23kOpWqWlZu7ZD1JYQ
-Date: Thu, 18 Jun 2026 06:11:01 +0000
-Message-ID: <BN9PR12MB52574EB044016CA7931D668FFCE32@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20260618051205.3130057-1-asad.kamal@amd.com>
-In-Reply-To: <20260618051205.3130057-1-asad.kamal@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
+ 2026 06:32:10 +0000
+Received: from DM4PR12MB5038.namprd12.prod.outlook.com
+ ([fe80::3c29:3d93:2028:85c4]) by DM4PR12MB5038.namprd12.prod.outlook.com
+ ([fe80::3c29:3d93:2028:85c4%6]) with mapi id 15.21.0139.011; Thu, 18 Jun 2026
+ 06:32:10 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>,
+ "zdenek.koprivik@post.cz" <zdenek.koprivik@post.cz>
+Subject: RE: [PATCH] drm/amd/pm: fix amdgpu_pm_info power display units
+Thread-Topic: [PATCH] drm/amd/pm: fix amdgpu_pm_info power display units
+Thread-Index: AQHc/uJjAdDwS6E55kWAWv7rX29nl7ZD2o3A
+Date: Thu, 18 Jun 2026 06:32:10 +0000
+Message-ID: <DM4PR12MB503885BAABACF5B95AC425DA8EE32@DM4PR12MB5038.namprd12.prod.outlook.com>
+References: <20260618052135.2334397-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260618052135.2334397-1-kevinyang.wang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-18T06:10:34.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-18T06:31:57.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DS4PR12MB9635:EE_
-x-ms-office365-filtering-correlation-id: b65496f8-96f7-485d-7421-08decd005f46
+x-ms-traffictypediagnostic: DM4PR12MB5038:EE_|LV0PR12MB999093:EE_
+x-ms-office365-filtering-correlation-id: 9b64f423-3115-46fa-67bf-08decd035374
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|56012099006|11063799006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: RNLZPcHmYcC6g57qilyKmmovufGlvg1qqxNJ8D3PYINqwM7X7U17sUXQ9jz02MFMM6gAFb9zssWfj9hnfqD6eypnuIR8RhUIdJ9L/T4haaUY4Tmg6B/sgn9hjUzcoxZ6hjoRFzB15x9oGACwtjG7LYG8XsLD4BZw94NXO3BENFxCyc5gtAlmxFgKt4WOnghG78lbCBLuSOplQJlJsvoGd1ld6sEPVdcTAklcPD78by/KfNZrjT2p272hxcTA+C4kbCnKlliMOTBRjIbmHE7LSnE6iYXm/3XZPcIc/E7Qi1LzhR1cdvsjn5o+/Rj0SO2LlUZfrcUdibiPOoW2cFItI9EG0Ft3BYMN10YeWFY9RM/ikb0J1jWH+N/JhjMKgYkA1kViFeGMsrg2q3vkPnqwiDa1yhNjxJJXVd1JtVW2n0IlbUUcNaSnhzCsVLAGYyFUj5du9t+u4lBwAPjJxBnBd1UxssBGDF1ddkEKWD253TGACCbpEpm36Wld1wiHBYLvnme5aPSANEp+5IAwyf+Gzxztlq/CP/N53TJVRauVk1Nxm6s8YoSnqNIBD657SP2mPr0x7KWpbP7LY/AjMZdt8DWptnApR7CiGwYuxuFVKfBa4EqzJ2fORRuorb0MILKUl9z1jfylDReNXAcOTY5V5Il5k/6ixzfe31U/iBjQgQicE1OSb/OcAXh42G/rgT2f0zdlsrtLLT7sQPTt84SgJoeUoGThPg6/PJ+uV6EOng34Kg+ppdjLgPttEt7dgMAk
+ ARA:13230040|366016|23010399003|376014|1800799024|56012099006|3023799007|11063799006|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info: k9LZ7IlQb1kZIEkS9TespOtPfwWlF2lsFeMdFaaZjdgl7YZD3XaTbobvx6a4BzCoYpm/YrF2qfaZftQbOUHHyfPk+qSmzbmB3l6yaOaWdZWHXEZ396q8m54w+gkDT5jLqQIvIWVA2fbQFo7fLwsbKfthRTvS2bCyjifn96CbvDZJFD+jOQyRRR0V/xBIVNe49bgrNCBJNh/6mNaavzKJu5L+D2VdoFzJjaBpsnicwckrwngqkoS3kDf98npLhecTTCuKjOiPA1eCDO6yuNSa1pGXbwul7o7sCj/w2Y2eOZ3rbHwvySj1woiB9ZU+ep8zOB0mh2VA9wHYGwzPauhyTC6GNVj0GEjKzoxeOTuS3wzUxO5Q5HqI2n5tqmfud3nCMXs/L8WE3zpJvDudmL9g3AD3HJLiQ/1jJAJNlGkCOu78zBdTeX1FKxLpBlclZKkfItk0ZkZt3OILa9Qe177SEDEAndBnw1wCaBF92gYsqG6k0JUzOBfVfaTsO+/sOy9KhXXNVLK6sEvPutTTZWl+8KVNX+2lPDlYNdI9iEUm3lNfPpzE8xfVJvYbdbp4DTUkM7pCjtL5YwkeDMax2WPlfBMUgJgAVv6BKSUmNkpSk9ISDDCwz1263ankzOzzDmI1koaUXIkaEHRNE+SMog7F0V1CS7ynJTUlnX5/IqFUW4FuiZl3fM0nKcqjOMgYOHoL0PVsTJ4Ol3oYIRRPALL2S0nfIMih0W1yxvgndZZr3jx2qN2DxeP/AE82S8N9Hv2T
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(11063799006)(18002099003)(22082099003)(38070700021);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5038.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(3023799007)(11063799006)(38070700021)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fQjKo2jqKZi1hQlvf8rpvlVO8Isck4RjSHsXx8S9SjOc/2FSKfoq6Cak35FD?=
- =?us-ascii?Q?6VY5gs23LZJkhGnIpuYG8/Hi5ePrZisTcfWeH4EGepHneN6AUBJc9XI/x0vw?=
- =?us-ascii?Q?aZ4tR/WL9A1eIIrpOaqFFg+7j1bPtONepfNqyKJnz1/YdwkLQzslAHz7Pqax?=
- =?us-ascii?Q?3SB3BhR+Ww9/icEoxd/0qs3y6KqUyuSGrJPzb6FDAw7h/Z2oqMh9uZ30edsH?=
- =?us-ascii?Q?EQxSi0SbxrJIUsdjhPClTbAhEi7pLxsZMUEGROQ+qwP7QLUghOJS2HF5ojWm?=
- =?us-ascii?Q?3TNxnAJWltmC+9s3IBVhHZIEoON5j91+NYWZ0vJNcKuZRrCVAeevxd4Vr1+s?=
- =?us-ascii?Q?x0c5rkR3z0coYk+vDqvMtn0GIRjOBsrs0uKFq+WdLxnYBc1HBhRuBbFIxe3r?=
- =?us-ascii?Q?4IWQL7JE6qy8A8Bg3DOoL8VMb98ziJOabwBl6QPjgBZb+LtRcKqggezGmSQk?=
- =?us-ascii?Q?6LwSHUrVHVA2wjmRdyODGCckJZu8R90Zmaas+U+gvlVEJKAbArQQjMvqmam+?=
- =?us-ascii?Q?iP1QjVz8hKCEVq+fXND+x3ZkPrhkIOJHf7nGBWSb3V79atnVtKD1xOJfMM13?=
- =?us-ascii?Q?sxbMgQri8hwaSCYxyRjM7Ac3vpf7fLbGedTmADrPvKGVkijCiOtGmaIS48gU?=
- =?us-ascii?Q?qXkyu3rnXhUiWZSvONk/XlhPFNAyIFwZLS3Jk1qldOciK9T8AZxl4lz0QUcZ?=
- =?us-ascii?Q?jcnhD7pxpddtoeAHDMijbYMB7aeEoFyzvZ/UtEVjeN6ByXT/2277FoqLGOnE?=
- =?us-ascii?Q?dcKbDf3AQBFfTqzn6razZkfuePWT5MnuILcg+CBC9KbSt9eiRzcNyPEAkPFk?=
- =?us-ascii?Q?amzAAvHYKwnMBfScKv3WQXmIS1TWrla5tEEUgs1qglInO2c2zN9td5OMjorU?=
- =?us-ascii?Q?I+ClacIwj+sRsGLv6bQyD+P2ci7m8j22gnZeT8x5OeRQ8rrrh12NggECFb/U?=
- =?us-ascii?Q?HKcOQpdXatLyo+cFp6lyRLcwMo9QQayQsGVFpBIvOfZ80QzzCT0PSsT0TOwt?=
- =?us-ascii?Q?ATwpdw+mbAfZuoKddBvloSamXe2alEKSguvtMr5JFKQmN1hMtlue0Nr2G+Fb?=
- =?us-ascii?Q?p0QhBVA1+ZpS1w47CHWzvPgSvMAZdFPZuwuEgnRc+6jdnxGDMcshh7aCfam8?=
- =?us-ascii?Q?swKv0vE7eJi52+Xl6vOrJnDpSjhxixsmI+yye3kA2NFHjaj5ngxW1XOqyADb?=
- =?us-ascii?Q?Npojrim3Zm1/oWK17t3YiTLdCzVEc3Rwa8TJVoWviJKQqRQEWdB6RUPjjYaU?=
- =?us-ascii?Q?Wd5PU+rtkLOyCAEmTdMUKQuXsVRdpxkwIrvAQ3Qr6uBS1eBN3RTbbiLzHQ+k?=
- =?us-ascii?Q?YznRV6i2k+pm+gfpxjA2fnSGzTGf91mNDrMT+tt6/I7VOIe9zXcSgaK8I78j?=
- =?us-ascii?Q?cKBIVWEC8G2wjTkOYjaEWIO6k5y324AUHAxmr1ES0CqBoMBrXgbIY38BmQwc?=
- =?us-ascii?Q?gcjExWyBIkOqN7QiCHjOfd5e9UwgWkvWyotE6s28NfTUh/8OifKXCuCDkrsY?=
- =?us-ascii?Q?4Jg9UwN1Zze7Vv0mcOsJ+cJhFu3ocbergx7htuYrjJhe8djEyrvT+MKG2EWo?=
- =?us-ascii?Q?BanNVNwh4k1T6VVV8215n/d3Klld5RU1YMydw4f4GICkU02b7VyG17hqRsFS?=
- =?us-ascii?Q?oYqNfcygO7wVnFPP6uAuTNhJ+p0P8bBQqWVZ3JANScyyRJ6zel6A/VeSo6oI?=
- =?us-ascii?Q?ySWUfqZcPVkGFsZN+tdIefDHez281R8/fDLboNMfR91i+rlt?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?e74MWn0gnskhgTbc7VG0w9hNVUCVfa2PiE7OpyLHaEU7mpLoIU4n6Dt9PXe6?=
+ =?us-ascii?Q?29BaJ0CSW5lIhU6ecIiDQhvCYvxmRQkEey26JubCAzYL1yqsIh8v8zsF9gPJ?=
+ =?us-ascii?Q?fTCkQfrv+TBukme68iTJ2zkx4O4HvWtlYQTY3nqxTMWdSn9FB/Bn3TkgtEyy?=
+ =?us-ascii?Q?ymYQNILKR3kPVZ8yNPDwY6D9ORh7tsBJvIOzppMNcOiLlvm2KtOQzoeMNESA?=
+ =?us-ascii?Q?dj93PKJMJxl8uk9e3hJKWGXuCp+pIamzqvlehmzzd9uO9xUMaG1QHtpfjqcu?=
+ =?us-ascii?Q?qBV++PprU+B97C8UVHuMCqqLiMVxUWQJ0xG9L2w94PVkVimygzuSSazT8VSe?=
+ =?us-ascii?Q?JKns2TRlTkmRBYA6zUYMJ5a0pQVWBrJMMpC3wPx/m9q4e4d9sOCYtJrhrEAh?=
+ =?us-ascii?Q?+irqiriMXsMf/w3Aq0TtuA+rKzsfqRFVqJvwWK4plvLUOnf+RFvl6EhEC9Ea?=
+ =?us-ascii?Q?SN/K68FXjqlVjUTN2Kb7j76zQBB1GN0LJvC4bVj+aeqD4++ssjIh2RTNJs4V?=
+ =?us-ascii?Q?ctNXNB6AGt/XU5ZkwdFRCw/peF4cKYhY2hwLNHVTrod1kZ1yk6UmfdG2ccqk?=
+ =?us-ascii?Q?1/QQ84B1/uW1LgR+eO+L9RnD5xNdfqjpzvPglkE3EWoZpvNclkcpLk34o/sd?=
+ =?us-ascii?Q?c+rXNlcyAuQcTkDXHMCN5LulPGgZBzqSMN0+B5UPQSxSsQ1nrKAfDwTmhPF8?=
+ =?us-ascii?Q?R9wleB+gv6R6ZbwhHX+bsfp96PMNhMAfa2fiyklNjn5D9FyasmIcqEz63//X?=
+ =?us-ascii?Q?yT+JjrUCddHl5i6T5U46TSBSfMPNUBM2IN8USmwv1ft2vwEn6BpJNKPWJCZ1?=
+ =?us-ascii?Q?4PdW3Q3TVrh6LXv8Te6WNQFjNOnL2niVItpDKpRSKqc7e/banypPd4xyDA80?=
+ =?us-ascii?Q?+UAMuQOpMnve6IIgaDnPHe80zgms/T0zy0JbtAl4ho06Egy9vnmBX8/ltrPd?=
+ =?us-ascii?Q?5OQBdHxYxdzQMsmNxx9ds81kaP/C2Mmqfa7q/krr7pO4vO8VR+BTLiTmPcsQ?=
+ =?us-ascii?Q?v1jZEIdE5mT8srAR1bE9IESqpchtMKy8v9kvzw7AYu/c1oxRerAHubdx1hvE?=
+ =?us-ascii?Q?oFFOTxSVmt6D6GdX0Fyh6xBGlmQOA7RtiYOhvBpgvqw2Y35ilYSyg4iUbwiI?=
+ =?us-ascii?Q?7RNeSSk3F3xUWsI6NTtEufa2o4pn+KRGkVCir1ChsL+1L0uBGcHw5XSOMgab?=
+ =?us-ascii?Q?AxzRsUZ/NziVtt6yxspaeNhMLP3nnwHmcbDxd2m8a6k8LmvI9FLS31Y1QJDe?=
+ =?us-ascii?Q?9v/7VIbmYw0LxuETh8tFJa4IlKTBZSTCJjh62H/bUz+jm7cxuVxvR6pXZzM/?=
+ =?us-ascii?Q?VTHz7IzAJzCj/Z0Msio0JMIi5cejE8a+9IAY8uU05gP5unnVyHptbuzeqIKG?=
+ =?us-ascii?Q?6UG1UehPOgIBGgEXiSmBmlAFk7jICf5dfni+D21EWJXXkHtWS86GVhAgXdoq?=
+ =?us-ascii?Q?h4c8hnGR/M1iApRBS+X73/GYvLpiKiBcfKtomdteMmW91lyZ8PwpvEfiQM7z?=
+ =?us-ascii?Q?sX1DdWrbSXeEhX788GbNLyPL5rZs5bS8nhdqJALbt9CLagl4pFNQNGFRgDQq?=
+ =?us-ascii?Q?d87nh4+Z2hKoRUrnLKZGHWKCXjAt403vAyFLPj/ED04RnBRoGWTGf2YdYvVl?=
+ =?us-ascii?Q?uVRtknclXsCbaUzMR9wbifceF8OtzFa/ud7LycewRaYAKkM7sbKY3YAQdkuj?=
+ =?us-ascii?Q?Eb0Ik+24uctI5dp/ckvExOmVcnGaKJdxl/BXTwflzmgbXQ7P?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b65496f8-96f7-485d-7421-08decd005f46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 06:11:01.5233 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5038.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b64f423-3115-46fa-67bf-08decd035374
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 06:32:10.1764 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sUoQMFzxQ6CoeGKLK/OLQGk/BQhpeN11D+fm8UaIS5IsdH0q1LYFxz1h1hbHhe7iKhwOulz/R3b86VTDsEmMKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9635
+X-MS-Exchange-CrossTenant-userprincipalname: TpB1DVVuXQOwGI81z+C4btpcflFe1wEzLgMh5SG35kES1LUWbJnLespLRrB1pRedbVGLvJ5vl0kO483XOtdbVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999093
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,53 +135,133 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 
-Regards,
-Hawking
+Thanks & Regards
+Asad
+
 -----Original Message-----
-From: Kamal, Asad <Asad.Kamal@amd.com>
-Sent: Thursday, June 18, 2026 1:12 PM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yang Wan=
+g
+Sent: Thursday, June 18, 2026 10:52 AM
 To: amd-gfx@lists.freedesktop.org
-Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com=
->; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.com>; Deucher, Al=
-exander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.=
-com>; Kamal, Asad <Asad.Kamal@amd.com>
-Subject: [PATCH v2] drm/amdgpu: validate XCP topology counts before divisio=
-n
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; zdenek.koprivik@post=
+.cz
+Subject: [PATCH] drm/amd/pm: fix amdgpu_pm_info power display units
 
-In aqua_vanjaram_get_xcp_res_info(), max_res[i] can be zero.
-When res_lt_xcp is true the code divides num_xcp by max_res[i], causing a d=
-ivide fault.
+amdgpu_pm_info displayed power sensor readings with the wrong fractional un=
+it.
+It treated the low byte of the raw sensor value as the decimal part of watt=
+s, while that field represents milliwatts in the decoded value. As a result=
+, debugfs could report misleading SoC power when the remainder was not alre=
+ady a two-digit centiwatt value.
 
-Skip the loop body for absent resources.
+Example with query =3D 0x00000354:
 
-v2: Remove redundant checks (Lijo)
+  raw field        value
+  ---------------------
+  query >> 8       3 W
+  query & 0xff     84 mW
+  decoded power    3084 mW
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+  output           value
+  ---------------------
+  before           3.84 W
+  after            3.08 W
+
+Fixes: f0b8f65b4825 ("drm/amd/amdgpu: fix the GPU power print error in pm i=
+nfo")
+
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/a=
-md/amdgpu/aqua_vanjaram.c
-index 72ea37dbfea8..1c11cc280599 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -273,8 +273,10 @@ static int aqua_vanjaram_get_xcp_res_info(struct amdgp=
-u_xcp_mgr *xcp_mgr,
-        xcp_cfg->num_res =3D ARRAY_SIZE(max_res);
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index f69bb77ecbfe..719b743adc37 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -41,6 +41,8 @@
 
-        for (i =3D 0; i < xcp_cfg->num_res; i++) {
--               res_lt_xcp =3D max_res[i] < num_xcp;
-                xcp_cfg->xcp_res[i].id =3D i;
-+               if (!max_res[i])
-+                       continue;
-+               res_lt_xcp =3D max_res[i] < num_xcp;
-                xcp_cfg->xcp_res[i].num_inst =3D
-                        res_lt_xcp ? 1 : max_res[i] / num_xcp;
-                xcp_cfg->xcp_res[i].num_inst =3D
+ #define DEVICE_ATTR_IS(_name)          (attr_id =3D=3D device_attr_id__##_=
+name)
+
++#define power_2_mwatt(power)   (((power) >> 8) * 1000 + ((power) & 0xff))
++
+ struct od_attribute {
+        struct kobj_attribute   attribute;
+        struct list_head        entry;
+@@ -3354,7 +3356,6 @@ static int amdgpu_hwmon_get_power(struct device *dev,
+                                  enum amd_pp_sensors sensor)
+ {
+        struct amdgpu_device *adev =3D dev_get_drvdata(dev);
+-       unsigned int uw;
+        u32 query =3D 0;
+        int r;
+
+@@ -3363,9 +3364,7 @@ static int amdgpu_hwmon_get_power(struct device *dev,
+                return r;
+
+        /* convert to microwatts */
+-       uw =3D (query >> 8) * 1000000 + (query & 0xff) * 1000;
+-
+-       return uw;
++       return power_2_mwatt(query) * 1000;
+ }
+
+ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev, @@ -4908,7 =
++4907,7 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct =
+amdgpu_device *a  {
+        uint32_t mp1_ver =3D amdgpu_ip_version(adev, MP1_HWIP, 0);
+        uint32_t gc_ver =3D amdgpu_ip_version(adev, GC_HWIP, 0);
+-       uint32_t value;
++       uint32_t value, mwatt, centiwatt;
+        uint64_t value64 =3D 0;
+        uint32_t query =3D 0;
+        int size;
+@@ -4933,17 +4932,21 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_fil=
+e *m, struct amdgpu_device *a
+                seq_printf(m, "\t%u mV (VDDNB)\n", value);
+        size =3D sizeof(uint32_t);
+        if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (=
+void *)&query, &size)) {
++               mwatt =3D power_2_mwatt(query);
++               centiwatt =3D DIV_ROUND_CLOSEST(mwatt, 10);
+                if (adev->flags & AMD_IS_APU)
+-                       seq_printf(m, "\t%u.%02u W (average SoC including C=
+PU)\n", query >> 8, query & 0xff);
++                       seq_printf(m, "\t%u.%02u W (average SoC including C=
+PU)\n", centiwatt
++/ 100, centiwatt % 100);
+                else
+-                       seq_printf(m, "\t%u.%02u W (average SoC)\n", query =
+>> 8, query & 0xff);
++                       seq_printf(m, "\t%u.%02u W (average SoC)\n", centiw=
+att / 100,
++centiwatt % 100);
+        }
+        size =3D sizeof(uint32_t);
+        if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER,=
+ (void *)&query, &size)) {
++               mwatt =3D power_2_mwatt(query);
++               centiwatt =3D DIV_ROUND_CLOSEST(mwatt, 10);
+                if (adev->flags & AMD_IS_APU)
+-                       seq_printf(m, "\t%u.%02u W (current SoC including C=
+PU)\n", query >> 8, query & 0xff);
++                       seq_printf(m, "\t%u.%02u W (current SoC including C=
+PU)\n", centiwatt
++/ 100, centiwatt % 100);
+                else
+-                       seq_printf(m, "\t%u.%02u W (current SoC)\n", query =
+>> 8, query & 0xff);
++                       seq_printf(m, "\t%u.%02u W (current SoC)\n", centiw=
+att / 100,
++centiwatt % 100);
+        }
+        size =3D sizeof(value);
+        seq_printf(m, "\n");
 --
-2.46.0
+2.47.3
 
