@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D07B4CDB466
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E5ABCD98F6
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBDA10F5F4;
-	Fri, 19 Jun 2026 13:32:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5A3110F5F9;
+	Fri, 19 Jun 2026 13:32:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zXrqVeFs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v7otBp2S";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012038.outbound.protection.outlook.com [40.107.209.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88EFC10F5EB
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D205C10F5F0
  for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Oj0i0Lmm9Nmnhdy7d+3U00AhViBEwFCoUNCeDQ00NqfRjJkOlxRialtPhed19nNUWG62ytTyeeExH1HFzIStIUi21AGKS0UTcfQ/Iv3baPpsrCyaE2FePnI52pOY3NAppfr+DbdtOpudbB4evN+7Drj7uIKNq3fYhh047dBwJAOyDNrQREfPXhlUEbaw2FnUmKxre7kLxJjZ+47s+lpDUiy6fBT8kOQb4bssr9LW7N2Gl7cfHFAI3e+XxtPO28TkDuCC+oYu3/cibfqZeeezT+DmsCtYKpZL7LHm2CeAqcsWjx/3OnrYLPn69BlvpF8SrRkf69p5TKFHjlpAIEnnPw==
+ b=Ev5pjkoH0cUYFfvGKTwLDGIaVhv0g8/SaxbnbjLptOMY9KUTGrSB5lYvtJEUl7X/73zv8xXJuN/43umoCmeTwS5y3QKCRQVL0nbbJy02YZRT9JBJSRGj6CkERU5zZLFX1NZiQZ4CKqrxpj89pr8X+eXklXe4NE8NZRJthgPOD/mIXXJJHjBv5EGydazfjTaGyGmX0pahPuiq4fgF5qgePkeu79VuXIhrXL3gQ8GrLyNhXw/7/jaK+pXU6OG9jq483uHJw4/Yyxs0231RHlWLvl5AEGDGJRaiwNhzHiUSlPaPzgRZp3j4QFi6I7po1Fs2GEEDLWcGu15r/0m3XVfNSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AjPdsIMAlwFSNuI+jCaPKuMgz8E4J3S2arGeKVSMQ6I=;
- b=uvH9PHjAFu5GroU8TvK1ihzXAaowK7bYUBKvpbB58R1EqC4Bzunmr3X/b33VBpaLXZy6Ml4Ap0iB6j1jbAc37f83Lj8w1vrsbK3qn9FTKt9djZGAz97rqBY2qgrVm/FJD4yg99WD7BxZ1nwyw3XhpovR+dV9NqBDiTVaqaa/U1VZcExE+owitehf5oZq3ZAQUTOju9DrUgFxtBvIhc1SKkZEjeVPhbJt7a7Aby36VfzlYYrkBtuJ+kNxFUrBgbiszTCtqIrPV4yrnPyFFMoHiRMNrCbo+vF80fPYO5ISZRiEy1gPyVJyoY7ELY5PjoJ/r1lDQkKq/9aN8VGLhO5QgQ==
+ bh=0yihFa/ZtF7kIfsHqALjsDAF+922DTeZi0lx3Syk2pU=;
+ b=qRG931JykqyIRHjYIk7/XdchdF4LwNEicoShFD9PvPjxjWtHYp9HbVN5slWltwUQk9FwEpGMHfL0HDe018kf5TUo9uojjHyZquzaHSBkGm289ducJwT+X4PFUH9zFuVWShz1NME8A0ENn8MedZs8gQtWX+aPtPoJF9Z/9hAJ9UJ03+suk8uY6uLeFg6oKWpgl2fH55+3zyhxE1p8rVc1F3DaLX4gEdsFsQtg58l40hk4EpK38BPb/OpjwT9SAnXtbq5nJPoP8ZC+odeqIZkbQtFpfrSxFjRADx31T+mf7EDPC6xF/7F6Big0iSWZYuZnK/sdqjNa5dXK2GFW+zpC3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AjPdsIMAlwFSNuI+jCaPKuMgz8E4J3S2arGeKVSMQ6I=;
- b=zXrqVeFsitSJlL/jFIgF8FNH34XKXJT4kfUYE9N+5yRIC06fjYVITdpKloJ+mtqF2GR8LeqxTY9aM76/GhlhEjBquCcPKercTR45Ki9siSPUnZUTXBH/x0bRkRgPjv5Kzgk0ONTuTdAjcH0Xh3fvUGMR/uhJsIf35KcEfjSpZK8=
-Received: from BN9PR03CA0859.namprd03.prod.outlook.com (2603:10b6:408:13d::24)
- by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18)
+ bh=0yihFa/ZtF7kIfsHqALjsDAF+922DTeZi0lx3Syk2pU=;
+ b=v7otBp2SzpcMIEUzN23LsaMwYF6xKaVjRr5zdnbqINP2tuaKLGo+koIfyk7XUtW7TvYCC5z6k9P3ueGXOU+hLPSS5/u93JoSVtTbtxvqpcybsRxNKfeYLOWMEjrnBPRsy+qvxiCwhRGZUSWABkb9/ygBVOrvi7vVj6sWHse+WgY=
+Received: from BN9PR03CA0845.namprd03.prod.outlook.com (2603:10b6:408:13d::10)
+ by CH3PR12MB9249.namprd12.prod.outlook.com (2603:10b6:610:1bc::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Fri, 19 Jun
  2026 13:32:39 +0000
 Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
- (2603:10b6:408:13d:cafe::a5) by BN9PR03CA0859.outlook.office365.com
- (2603:10b6:408:13d::24) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:13d:cafe::ad) by BN9PR03CA0845.outlook.office365.com
+ (2603:10b6:408:13d::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
  19 Jun 2026 13:32:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -54,7 +54,7 @@ Received: from satlexmb07.amd.com (165.204.84.17) by
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:36 -0500
+ 2026 08:32:35 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, George Zhang
+ <Chen-Yu.Chen@amd.com>, Taimur Hassan <Syed.Hassan@amd.com>, George Zhang
  <george.zhang@amd.com>
-Subject: [PATCH 24/24] drm/amd/display: Remove redundant IPS mode case for DCN
- 4.2
-Date: Fri, 19 Jun 2026 09:21:39 -0400
-Message-ID: <20260619133154.116746-25-george.zhang@amd.com>
+Subject: [PATCH 23/24] drm/amd/display: Promote DC to 3.2.387
+Date: Fri, 19 Jun 2026 09:21:38 -0400
+Message-ID: <20260619133154.116746-24-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -80,29 +79,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|CH3PR12MB7641:EE_
-X-MS-Office365-Filtering-Correlation-Id: d85f7d25-7078-4b78-9007-08dece073bed
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|CH3PR12MB9249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25dc9994-a6be-4ec6-49fe-08dece073b83
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|56012099006|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: GLJRYICoUHjWWe4AY1uE5xV7/RxNj+3qV07Oycwf9wQ1CA/6gKOzEwISXiFDPcprQcrBUDIFl1cywpadt1LPMykDtEyr/iv76m1Cb4Epl8ZzecY5CiN93/L0LeoQ4r5JDWpH9fPyQDnVyla9YA0OiTt4BZRFBEw0q1MSKrwWH3rUw0kDcGksT5oUooc2A0xLxiLlvc3f7UTfCK8g4iJ3hrPzwGm+/FeGWfgaPiLSGulmmTT7nTzqkyHjsiZPSNMhXsDTp4kYCLFRIR/sMcbBdrNJN5GeILrbqwFlYcx8KglfVlKOfhcp0OdHIgd5Mtj39ZQzsjwNVecJzOKP/JPCEVb34GnB5gA6oxNchefCeY0Qs+0ckSTMBXfu1sAEO+O9/MMKoZJ6BSKq7Skwuh92oEQCSRie8wfbjteExt7twnHZILmjsQrCWna/HUgCLmFB7EC3gIzJTFH7S69XXKVrbGWfjoMGw5aYmMy7ctB5nx70Vh1CdKX1srLr1nnxZEhMtu/advwnfl47PEti/UWAupixi88ogRR6gvCtxtHqInncjG3D5Vy0SdeRzlWvqa1XmgFAYsggi77LyzG+yUKipw9LzDHjSfqp9ck8ONE5p1GuPVm2PdQdAaNERpwYCHuutFPNFzDnM3DtjBvb+rgUVgTWJSd/AFsbKhKcKWQ97hdjuq8aZshNvoFSNSfrLYHmtZXwuF/R8OwZmRfo3vyROQ==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: 3yAn7yTsMjihIOLKrkUJ8I9E14DL770Ry0mzlAjjl8E+sHdZ/n4ZCGA+Zp4P0t0cBO63cTMHc+7uKu0NutsQRADtTkWFmNUf/JUEaRhUChbm78hpcFU4yHnVZzXnMdtF33l1fNITAzAu9CcGSpMkFRlHhHA0/b1f6c/hECbV0yPReG/mtFO0GJqWNu2wGZkuRnTdcVF9yVIFJX6pzA/DZg/FkcDIGrhLMJnjLMfx8Uyd/qd4xS8qH7CgDfGOPFyt2bVOJOeV6hRBmO01ZwhzQF5qb6XQoF4S7w4zuk0qZkQ/hdn4EnmXMtXVdBTcfRbhYMmVu9RyRZTrZ6OX/j10oJBAXtvqg50WpVB3VtJBygcMc2jiPPXBkblQ/BGwUltNprIyRFkssyIsj+Y6OSnXwtGzJ+OY2yjJqGdbotB7JOrVFbUdIoL4HIyZH+ggEo1/huBblCEvcXVtTMRJntk114Wnmvin/okArDeSU+9WObt0L8HT+7O9zXy+aFhlCbPQw/Sd8/+Pa8J62lrzOLVlYjRggmZs/dCZCXo2et+Kce00R4uaLiHtUSIhapqCy4ldWX9ZCk/yI4KJ0wrNTz2b1VrNu9Sh8I8AA1k2CnVx1HRu5n5N6Z/z/k0H8BvMgYBOoy1tIct0LNgOAvR3Kc3LsthoTkGIQJ+FPHXOsh10oGAVDmXFSwpikXh5I69USNVLaRiN0PsF+cHvnn2wxSBWtw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Co6rguHBJANtbralYaMDCrcChjKGCy/tqpSv/JsR6261iiTjlSpQKs4tsPISo6VUYiEJjfqrcIWNJtHSn6Tenuh/gjbvqkGEcszNWaO2VJfJRISdWuOTJsOwAyl3kWWchP/S8VYcU9udP1eo3wf8Qcz+jpg67t2GSyzdzWDhLdg1fxnhyPxC5uPW4xVzOgY2rNZk54qKMya8rKMo/FK6SI3VLb78xmSfoNhLNE+xVE0bPZfYnCN6i3SQTOE9BIXelKXp88DTm7CmqcFD/tVMfCiNhfSoqA3b36gEnCo6afkHfGgomqwEaluST3iE+OUgQLUWIuUGnpvw0GK8n6zkqFDOZyZ+43mbKphVzSCdbRXu+Qh7BTmcSUo7jgQWkt8tg8a28BYAQrjdcgUzmGnjWijwd1hQFPYCz0f1rhC9zbZhAHhNCf6vzAm2TEDygVi8
+X-MS-Exchange-AntiSpam-MessageData-0: umUhD3jANeVkUtCzTylnsgx6VruAPQdbDBTn+A+hH4ogVktj0bcdBGgh75jArjXUzkYa4/IkDAugj2kiOONu8j+V3i/LfnrPBIE4C2huz0oLKUFcOVoVDDZtgbBYG8wGCcz7pm4z8zZdc+uQk1felMXUBfg1x+e2z/fkuJOhibUlDCpKhe6Oeclio3zoco+xc6Zkm2bNhFlsgaaHNdolUmti4i6GRz77CyHFZM/R5cchoAoEULYqNzdlF7LPvF3F83Y9haMx/hloOYsgDSf+X6B+VchM6SBmrLjko+9w9iODV4PvyA4pw6Xkm5Mw6gooLauQi5Hvsejag93edQ0YgFTqEmWtyHTA9arWUvgemSlskF3bdJm2KzYSgTLLFeOmUR/PDgEZeHhzrgVTos6QkmBbKWpHsKZs8ngZqADoR8BOwRvFmH7Er4bxXxdzGtju
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:39.8310 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d85f7d25-7078-4b78-9007-08dece073bed
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:39.1329 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25dc9994-a6be-4ec6-49fe-08dece073b83
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBC.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,74 +116,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Taimur Hassan <Syed.Hassan@amd.com>
 
-[WHAT]
-Remove the redundant IP_VERSION(4, 2, 0) case from
-dm_get_default_ips_mode() since it only reassigns the same
-DMUB_IPS_ENABLE value already set at initialization.
+This DC patchset brings improvements in multiple areas. In summary, we have:
 
-Also remove the corresponding KUnit test.
+* Fixes on DCN42, cursor, and others;
+* Improvements on DPM, DCN4, DCC, and others;
+* Code cleanup.
 
-Reviewed-by: Chenyu Chen <chen-yu.chen@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  4 ----
- .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c      | 18 ------------------
- 2 files changed, 22 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 579a435dcefc..4f5dd2158417 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -453,10 +453,6 @@ enum dmub_ips_disable_type dm_get_default_ips_mode(
- 	case IP_VERSION(3, 5, 1):
- 		ret =  DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF;
- 		break;
--	case IP_VERSION(4, 2, 0):
--	case IP_VERSION(4, 2, 1):
--		ret =  DMUB_IPS_ENABLE;
--		break;
- 	default:
- 		/* ASICs older than DCN35 do not have IPSs */
- 		if (amdgpu_ip_version(adev, DCE_HWIP, 0) < IP_VERSION(3, 5, 0))
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-index b82dd301a896..bf90ccfbf431 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-@@ -350,23 +350,6 @@ static void dm_test_get_default_ips_mode_dcn36(struct kunit *test)
- 			DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index c628bf8778c9..0e115b1aac5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -65,7 +65,7 @@ struct dcn_dsc_reg_state;
+ struct dcn_optc_reg_state;
+ struct dcn_dccg_reg_state;
 
--/**
-- * dm_test_get_default_ips_mode_dcn42 - Test Get default ips mode dcn42
-- * @test: The KUnit test context
-- */
--static void dm_test_get_default_ips_mode_dcn42(struct kunit *test)
--{
--	struct amdgpu_device *adev;
--
--	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
--
--	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
--
--	KUNIT_EXPECT_EQ(test, dm_get_default_ips_mode(adev),
--			DMUB_IPS_DISABLE_ALL);
--}
--
+-#define DC_VER "3.2.386"
++#define DC_VER "3.2.387"
+
  /**
-  * dm_test_get_default_ips_mode_older_than_dcn35 - Test Get default ips mode older than dcn35
-  * @test: The KUnit test context
-@@ -572,7 +555,6 @@ static struct kunit_case amdgpu_dm_dmub_tests[] = {
- 	KUNIT_CASE(dm_test_get_default_ips_mode_dcn35),
- 	KUNIT_CASE(dm_test_get_default_ips_mode_dcn351),
- 	KUNIT_CASE(dm_test_get_default_ips_mode_dcn36),
--	KUNIT_CASE(dm_test_get_default_ips_mode_dcn42),
- 	KUNIT_CASE(dm_test_get_default_ips_mode_older_than_dcn35),
- 	KUNIT_CASE(dm_test_get_default_ips_mode_newer_default),
- 	/* dm_dmub_hw_init() */
+  * MAX_SURFACES - representative of the upper bound of surfaces that can be piped to a single CRTC
 --
 2.54.0
 
