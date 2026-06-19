@@ -4,89 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9882CD98F2
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 19:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CADCCD98F2
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 19:25:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 489C610E0FE;
-	Fri, 19 Jun 2026 19:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E33FA10E0F4;
+	Fri, 19 Jun 2026 19:25:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sNl1cBeX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JmTNVPxl";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 034FD10E0FE
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 19:03:29 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-30bf69bcb8dso214793eec.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 12:03:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781895809; cv=none;
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE5E10E04B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 19:25:20 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-137e836ccc8so147131c88.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781897120; cv=none;
  d=google.com; s=arc-20240605;
- b=AXmAFcQWrhGb5qqJbm0z6DNoQZZPsKWXNU/00orXDJ+lSwoZx51OZrXCgmYrYU+Do6
- KOswHxcxlK5daXHaPxHUmEGbMfJXY6y10YbJEAX2YkTG0d+bu0Ny97RVD/sgLtyCY01B
- qn0qA48BNDKzufqsKNdNwLYFuPUMty0GWo1OZmUGZskZaw8L4Lh/iLIQcvn95a1rWuFk
- mzYyJ0tcDn9fGIQa8Vgidqo8sq3t5wt85Qy5fbQePHg6ntbeaAGnL5/GFQQxE4SQA2wv
- iIxxN0op2HyNTYsL1WiWOZoz/KeuN2+2JnHD/3w9h/5MHqLpBMnjWoSIIrHvCIFblO59
- Z60A==
+ b=OvwA5k4bAIUL9WLmpH1VAchhYc+bEUGGpRwoOI56/KOs5l1R17ZBdufO0VcXG0GqJS
+ HTEpf6gkML+ZlbrGT5j+xxcILvHCaK7L3HPRlOGFhVkR+jyC8Ufnmj4yXQZHq3La4nRJ
+ SWi9S0hG8tCgWPJcvcQHn3W74kKLKDYPZHpEQBylUo7l/Kzc+JHJsonsj85m4RHFlZL1
+ cGlPG7As7cCKUGHCuMF2hKiUeqLY5oOwJi+ZAQXVkDyqBjbw1jA0Tlavr05LB57zX+tb
+ 0pst7yJkdues2zt7TymZ3Zl2flYhXZTnUbgLOfjM5TPJj0aXKi0zrGJ7R1MuCgjhGGMe
+ MvVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=aH9Tuchiwo5nemq4b44VQ6izZf8xGODHNJChDeCrE5g=;
- fh=FPgF+aPKHmzparW/4Z4ZiSi2RZsA+mZxVRA/kpLE/JY=;
- b=h6GM4ltCFju/XaaKB9GmDoObOvsklaSOxs0wmpIi2+8m7FKoYlEHOUf++NqFG9APRB
- pgpvfv9tvJfDsqsEHH08T3t/CTU8i2KfHLIv/MGE4yuvhNvzrP/Eqr8oT15WjgXJDInE
- wpR7YPLgIzTQrduifQbhytIbymw5TND/eXHr4k5SPXXLUCndSCRCPBuuL0riHobTXefy
- GwO0bxaJ6pyKiHLutR8cQNhrxVRj8p0T4NwSirjumMZkoXbFK2K3uJdvp0mQV7jQB+Ep
- WwdeKfzPD9V8MI+LBasHkqtH171t4475RL6O4WHeKeVpMlou8lL5yAvc9Sqrvftqk8BH
- 4sNw==; darn=lists.freedesktop.org
+ bh=fByWRBOxrMvT/M8kORmV85w81Ldzx78mb/KtZbdgxvw=;
+ fh=XzVWXv3p8P1Lr43bDTeBz/bNpjcuLsaYL9GQuk4gQB4=;
+ b=D5BGtO/okqw16xdAc714DRMcJ5W3auBzxTg8thjhVGm4u+cjxHAnWv9Ktg2D9/cPPN
+ /L8h9Q4QOf5NL6A+XlqearMfckyBLXPHeODzWHp465TfUN/0FXGVCLshameUC3NFu080
+ xIX3RVmSPh29JrPj5j4LizDVA8FQUrJ4C1TwabhVOgSEBJ7cjWMFU2I+H8qAV9beu7kH
+ lts0DM8oQ3TsqcFqL7bTU7WKjYs0popchsffqsB2+Obj4x/OXivXII3KWsf2SkV8SKKb
+ Aar40rzEx6DIHP5uJxrq5USybQ79BaYZ5PhKkfZavuLmrRBjhjqIdgkB/AJZe++wLNMX
+ WjeA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781895809; x=1782500609; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781897120; x=1782501920; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aH9Tuchiwo5nemq4b44VQ6izZf8xGODHNJChDeCrE5g=;
- b=sNl1cBeXlz6KkoY3+i5DB29Bdj1vZwYSFCsdgvz90QJ5QDBG+ArjmWKAd845ukWJJi
- s+zQrhnH0wBXKUJMg9nYCBSTPd05YdORPEGXQxeV2dlEZ0PAyAI1CFop6gwoxwO8asMr
- zmKpJY/fTw0LJqFYApLs/c/cuj7irwrNgRHrtCwBm7DTSKghv9d1I/OFZz8A1k4lgWSO
- ZC5agpy5aMr/PzgAzY87WUC3TKXAsfeJcYKQFTUgpGIZgxX+9bCc1hN1TI476OzEB9i1
- YDZtrISXnAV9LBerxhW9cMOXkqvuei4DYL4gYqQ2qvc00e2pYbx9djr6oRtq33ewTdts
- KOfg==
+ bh=fByWRBOxrMvT/M8kORmV85w81Ldzx78mb/KtZbdgxvw=;
+ b=JmTNVPxlwS2YgRe0y+ZRtG0oxYpdcPJG5mS5hnVDJyetELkyub6cAM8W5sycihLyX+
+ GLRnduDMF3Kj8hdv7B+veBMcP/0v94Ynv21hLZ+FEzyTpBQwQN48hquYz84JD093FALi
+ 2xfQlzIRLLSDjcn+IIimbgxHwwV0pdEfmNNrewJAiH8BJRaev6+x4Z0kauSFnDqrNUvW
+ Xyi5AHCc3hbbjSK9bZ9A8vSimuLGGhfcK3NVUbE9Dj+kT4deoqMQRSfl69AsuUgupkmu
+ pvhGwviVRgePdN3jZqQpc/9bAvv6rDDWGxuBsb6S/BCjqMBFhVKp6iBNkmgFyI20V0Is
+ Q6Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781895809; x=1782500609;
+ d=1e100.net; s=20251104; t=1781897120; x=1782501920;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=aH9Tuchiwo5nemq4b44VQ6izZf8xGODHNJChDeCrE5g=;
- b=UzSMf7TX5q9Ze54kn9HzULuKWlP24NDmFKZXJZGvsulroSsNsTUg/u3gztqqmRZILU
- DnroFYNaVHbk1XAmeCn2WlcZctsl2PwMx5ot2HYRvvJ8C5kw2Ib0NURTKvzU5mH4+x89
- DxJH1giYzR1VoY6qvdowYFx5H9h4zX5wBn2OovA42Ti02WdvYWJslocNDqY1N6W3CjZq
- 1N/8kEXRCXy1PnKloMPLVkbK8Ta45PSaMMGO65ZVXHnP1esQ+td+3N7bo69FGVpHa3jM
- NmAvgvkm9LDlpifwfLL5dArEdSyw7XcOTGjxxzUvxruPNpq9PgRnx/EtPmmmjgnYiKZu
- GWKg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9PrUS1ufa/23plwmBX5dG0SRZYO+CPmXHBxupqprroY8cCszxMxTd84pRxxw9eKfjqdgwEVKLq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRGgso3fUzng9rnz4BmScFTDTHSGwmEGkgIxG8IIuyIVdaUuVI
- cfxpJHYNpGl4I6WAp4b7BL01fbV+u7WJ1tCkc6DW0FS4MjPQj5WHIyT9Wa03I2iM+ViWxOZ+Cxa
- RvRwTQ18iUP9a48dvR0ruXxwl7ZHe654STg==
-X-Gm-Gg: AfdE7ckqfx6Gm8dZr52keRv3517zrLPNuozTvzhWstosuRK2NorssDn7q91Ix6tUk28
- UtKYo0v/vqfR32KLjuSpm08XS3VzIJI0/uPXIHxaedNWD5jT5D8IGMUFI2jk1MBYrLqVj1g/tUk
- 8tI+yEvvID9xvBXkaxng8NciwGjEQdr1QotS0ZWNzU+37LB32e1ZKxVyAMggYlZ0SsQzsh13mQy
- KIzXFZbXNbdR95eeT42t4F+Kl5ardrOP4DJpsCfjkMH+YSY3K5gogGwKDhvKToawt1juQuzfn05
- T5T8xhzww/Ihe1+9Q41NCTH+9IVXLmvxidIEFJ5Irey8aBh3vk5vneiiA9w=
-X-Received: by 2002:a05:7022:110d:b0:12d:c389:ae54 with SMTP id
- a92af1059eb24-139a20c956emr1048831c88.2.1781895809062; Fri, 19 Jun 2026
- 12:03:29 -0700 (PDT)
+ bh=fByWRBOxrMvT/M8kORmV85w81Ldzx78mb/KtZbdgxvw=;
+ b=pFlgThMLuO4DiOBqnLQWoAmrXWjIcbh7tC1sbSZti2c8ATaN47fpMOi0X9mNefY31y
+ U5X01kVNiqQ7++5aqLGHct5yWI4qnOJG53B54BricVqTda1FCnn4E+lRH0wgr6H2rMvr
+ cpkpVNAfRcIlRt7QXVkX9f6DqYNifaf/5Dq2df1AuzVTPtdy30qtvjYcqJWgrrhTk6Og
+ iudljj/UA4imjoJdw9fprkOo3vfgCVqVP77W7mepjy95MR2gIwVvAhdxyQfWdU9DITpu
+ hbwD2wpth1Z8mrkU/QoeS+nL5BAi40gPL738rGb+fEEwCGqwQsftAJJsrWixsJt/zVSu
+ lr5g==
+X-Gm-Message-State: AOJu0YxcyxvzRw871xcIL8fkdj8Cal9aaomFgzbX5TqGhHMiDMiHsOQV
+ 8gd3dhZ/eOVBE6b/uzYO7EqA102B+4nG+64kqyTFJxLUyarQ6TDubd0PrgKCUCw4JEO2UZmIgvK
+ FE3Cr9yTM14u9xxpIkjDEkcg6mRT9M8I=
+X-Gm-Gg: AfdE7ckhxeg2t0d0Q8jG+BG7G7kKSPoT7Z4NaJlbT3rKnoBrP82ZcLbyZCbSk0upLQV
+ 3CSQ6WqP9fUdxFD1OTrZF+TYgyJDYOlSKQ5ogrM6l9f9rJuwPp1agfWq4uvDaaibGgt7ipHaHUQ
+ jOhr7lV/LWXepajn4N4eU0+PfVscUyPGjPeoGVwKq7Bs95E9f0VtEMvi3v3hvcJDFw346RQvCsa
+ LBPgjg5JHoA7LMxLbqKgVwW9rv7CjrvsiX4XZB5yJlSTI163XP/ss5wcJywagslStqB9s3ERhf2
+ RaAnxs+0XFXr+I+oKr/+hQF2/Zry2NcwnY9WL/A7Bz6ehpf8LGNeUqkUEem2GYDJZ4o0cQ==
+X-Received: by 2002:a05:7022:68d:b0:138:5ef:f34 with SMTP id
+ a92af1059eb24-139aa5c5a33mr366797c88.1.1781897119843; Fri, 19 Jun 2026
+ 12:25:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <1b83ac6f-1018-3dee-c029-1b2ed78a8460@feralsw.com>
-In-Reply-To: <1b83ac6f-1018-3dee-c029-1b2ed78a8460@feralsw.com>
+References: <20260616222303.466318-1-xiaogang.chen@amd.com>
+In-Reply-To: <20260616222303.466318-1-xiaogang.chen@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 Jun 2026 15:03:17 -0400
-X-Gm-Features: AVVi8CevisgOi0ZqIoy8gQ_YegmcH69NGAYJIIBYzq7F0daalK69QYUtgOcR-LQ
-Message-ID: <CADnq5_OOHvP+AfZND5zNsB1zvAjWSfnkyJ8OSAGfCwO8njeJwA@mail.gmail.com>
-Subject: Re: [PATCH] Support some Barco AMD based graphics adapters
-To: mjacob@feralsw.com
-Cc: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, feralmatt@pm.me
+Date: Fri, 19 Jun 2026 15:25:08 -0400
+X-Gm-Features: AVVi8CetPOpy71sB9lTsmhvVw3tNY6tDmw0_Er4cYMTOKvELawSSqNH2N0mH6yY
+Message-ID: <CADnq5_OmdGi5Dpk5HjtraMYch0NTnB6PZJi9AsTwVybsw+pFag@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdkfd: Guard m->cp_hqd_eop_control setting by
+ q->eop_ring_buffer_size
+To: "Xiaogang.Chen" <xiaogang.chen@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -103,63 +101,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Jun 16, 2026 at 6:34=E2=80=AFPM Xiaogang.Chen <xiaogang.chen@amd.co=
+m> wrote:
+>
+> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>
+> To prevent getting incorrect m->cp_hqd_eop_control value.
 
-On Fri, Jun 19, 2026 at 2:46=E2=80=AFPM Matthew Jacob <mjacob@feralsw.com> =
-wrote:
+Would be clearer to say avoid wraparound if the value is 0.  Either way:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 >
-> These adapters typically are only supported by Barco on the Windows
-> platform. However, with these changes in the linux driver, multiple
-> monitor support should work correctly.
->
-> Signed-off-by: Matthew Jacob <mjacob@feralsw.com>
+> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++++
->   1 file changed, 4 insertions(+)
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   | 4 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   | 4 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   | 4 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 4 ++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    | 4 ++--
+>  5 files changed, 10 insertions(+), 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 60debd543e44..e3ba168795cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1926,6 +1926,7 @@ static const struct pci_device_id pciidlist[] =3D {
->         {0x1002, 0x6646, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_I=
-S_MOBILITY},
->         {0x1002, 0x6647, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_I=
-S_MOBILITY},
->         {0x1002, 0x6649, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
-> +       {0x1002, 0x664D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE}, // =
-Barco MXRT-5600
->         {0x1002, 0x6650, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
->         {0x1002, 0x6651, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
->         {0x1002, 0x6658, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
-> @@ -1995,6 +1996,7 @@ static const struct pci_device_id pciidlist[] =3D {
->         {0x1002, 0x6930, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
->         {0x1002, 0x6938, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
->         {0x1002, 0x6939, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
-> +       {0x1002, 0x693B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA}, // Ba=
-rco MXRT-7600
->         /* fiji */
->         {0x1002, 0x7300, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
->         {0x1002, 0x730F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
-> @@ -2023,6 +2025,7 @@ static const struct pci_device_id pciidlist[] =3D {
->         {0x1002, 0x67C4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->         {0x1002, 0x67C7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->         {0x1002, 0x67D0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
-> +       {0x1002, 0x67D4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10}, /=
-/ Tentative Barco MXRT-8750
->         {0x1002, 0x67DF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->         {0x1002, 0x67C8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->         {0x1002, 0x67C9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
-> @@ -2036,6 +2039,7 @@ static const struct pci_device_id pciidlist[] =3D {
->         {0x1002, 0x6985, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->         {0x1002, 0x6986, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->         {0x1002, 0x6987, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
-> +       {0x1002, 0x698F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12}, /=
-/ Tentative Barco MXRT-4700
->         {0x1002, 0x6995, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->         {0x1002, 0x6997, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->         {0x1002, 0x699F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> index 82f194ea2a21..5f8bf87f475e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> @@ -203,8 +203,8 @@ static void update_mqd(struct mqd_manager *mm, void *=
+mqd,
+>          * more than (EOP entry count - 1) so a queue size of 0x800 dword=
+s
+>          * is safe, giving a maximum field value of 0xA.
+>          */
+> -       m->cp_hqd_eop_control =3D min(0xA,
+> -               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1);
+> +       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
+> +               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1) : 0;
+>         m->cp_hqd_eop_base_addr_lo =3D
+>                         lower_32_bits(q->eop_ring_buffer_address >> 8);
+>         m->cp_hqd_eop_base_addr_hi =3D
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> index dff016c9c65c..7506a1410385 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> @@ -241,8 +241,8 @@ static void update_mqd(struct mqd_manager *mm, void *=
+mqd,
+>          * more than (EOP entry count - 1) so a queue size of 0x800 dword=
+s
+>          * is safe, giving a maximum field value of 0xA.
+>          */
+> -       m->cp_hqd_eop_control =3D min(0xA,
+> -               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1);
+> +       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
+> +               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1) : 0;
+>         m->cp_hqd_eop_base_addr_lo =3D
+>                         lower_32_bits(q->eop_ring_buffer_address >> 8);
+>         m->cp_hqd_eop_base_addr_hi =3D
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+> index 51dde2c86eb3..f1f923eb0ea5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+> @@ -216,8 +216,8 @@ static void update_mqd(struct mqd_manager *mm, void *=
+mqd,
+>          * more than (EOP entry count - 1) so a queue size of 0x800 dword=
+s
+>          * is safe, giving a maximum field value of 0xA.
+>          */
+> -       m->cp_hqd_eop_control =3D min(0xA,
+> -               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1);
+> +       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
+> +               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1) : 0;
+>         m->cp_hqd_eop_base_addr_lo =3D
+>                         lower_32_bits(q->eop_ring_buffer_address >> 8);
+>         m->cp_hqd_eop_base_addr_hi =3D
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers=
+/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+> index 9014912ed82c..a6fff8032dce 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+> @@ -294,8 +294,8 @@ static void update_mqd(struct mqd_manager *mm, void *=
+mqd,
+>          * more than (EOP entry count - 1) so a queue size of 0x800 dword=
+s
+>          * is safe, giving a maximum field value of 0xA.
+>          */
+> -       m->cp_hqd_eop_control =3D min(0xA,
+> -               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1);
+> +       m->cp_hqd_eop_control =3D q->eop_ring_buffer_size ? min(0xA,
+> +               ffs(q->eop_ring_buffer_size / sizeof(unsigned int)) - 1 -=
+ 1) : 0;
+>         m->cp_hqd_eop_base_addr_lo =3D
+>                         lower_32_bits(q->eop_ring_buffer_address >> 8);
+>         m->cp_hqd_eop_base_addr_hi =3D
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> index b3c3833b6874..14b4240de6f0 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> @@ -214,8 +214,8 @@ static void __update_mqd(struct mqd_manager *mm, void=
+ *mqd,
+>          * more than (EOP entry count - 1) so a queue size of 0x800 dword=
+s
+>          * is safe, giving a maximum field value of 0xA.
+>          */
+> -       m->cp_hqd_eop_control |=3D min(0xA,
+> -               order_base_2(q->eop_ring_buffer_size / 4) - 1);
+> +       m->cp_hqd_eop_control |=3D q->eop_ring_buffer_size ? min(0xA,
+> +               order_base_2(q->eop_ring_buffer_size / 4) - 1) : 0;
+>         m->cp_hqd_eop_base_addr_lo =3D
+>                         lower_32_bits(q->eop_ring_buffer_address >> 8);
+>         m->cp_hqd_eop_base_addr_hi =3D
 > --
-> 2.47.3
+> 2.34.1
 >
