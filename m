@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D905CD98F2
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C768CD98F6
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED90010F5D9;
-	Fri, 19 Jun 2026 13:32:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06BBF10F5E1;
+	Fri, 19 Jun 2026 13:32:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BihlBI4a";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BHHJRWdf";
 	dkim-atps=neutral
 Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011036.outbound.protection.outlook.com [40.107.208.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B83D10F5DE
+ (mail-westus3azon11011027.outbound.protection.outlook.com [40.107.208.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374DE10F5DE
  for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AWmv0N/+GOjssKM1MKWO7FNgCVxnBSytMcJgGloYmuCNdyRMSjZUhDc0ZTjwXhWdX7OOAWhKZcHGCIUZSVdUXfAIo0m4AKbiKCuxO7D4tFty+AWnHqQtBreLOKrD3W/3k4I/8DFcX32NgOVZk6vmlJef8rPGZtPdzT00BoeykebSctFl372VKTqt7tqp7wcLYvYc41lyltAzFAemHAc6bYVPIAJxW7dbXGtL4poqLXsgmkABg6+YycAk1IJMnvZVuRakdRCFFCVRswjQBDOZd10U5AK+l9rxt8g9DucZUttfwOsYPOAbmTLE6iET56d0K7H7Y3lVUlokEStJS7+Ftg==
+ b=pDRPH141oN7vtjAMuKXAr5wGuYAv7oTRRp07BDOnsvS13o5xaTrhYbeaIMOCrKOVZ2VZR68YzpgduYTUEwd9unz37ysUdQOkN3g2pulxMRDNKwuI/tADobPoIdoVD9ZlpYX1d1fsjp+xBS6v5qbBRppowhLdvs9wZKG3BtKnExcbEJKYMgtjXV6fpa91ikzrBVEb4DGkmWyiEVAL+SIt4uOso9QSDdMZGlOpM+7rR6IEKyYCjGYLnT11r3o3EUjOdWq1AljwVZhFY+c5CDHwYrB3JWsL9s9w1EhfqU+jm3Bf7MKiR0Bz6HyJL6gnnrsxmU7jZw2SJkGRbXm+jyyzsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AWDIl9oqGf9pETdaRf1RlkjBdewcFnoy3KUfyA2JRDY=;
- b=cK+3ppmISbQV/cPR66vFgE81MrhiDVMntqMIb20cLWK+bXIgNTottsrOD+6mMoYhs82k+p2eDwPxPJRp4FMu5mMVSAaLjYLoNcoMWQ+PlO5/ALkEYy65P0G3kTb8Fw7aiJRzkRkIZce8DUiktRejfnjVFWbDLYznh2CAefr3K/4dYlF96k/C6tPxTrd6RrG9g1z9gv8mBal3HwsyZfIrs62HE4Alo2MYebbYn/T0jbqs2ulp2u9kfDkSVCMMLpzWS6s0o+RaN8lwAg6HBkmeZRRuwbghQkCiS2P8yEgO2zzrObY0AmVebk02TBd3fh1L4iEpRwyBrlqU0ieJXL37Ow==
+ bh=QIkYvDwXIQ8gDhZh0UDk2dGd0AMb/o3za0zyd0cBl+4=;
+ b=dyY+K2OtkJ3GIELc4eIOFPREi/ynDnIHXKMACrq3xV5J68yliCqQjQ95vt7zt7m/Ee2uiS9sUnDB7r6zHo41tsaq8ahtUJQNKRR8uALiJNlBAu9a2dhLLf6pzEG48JGUUPIOJetDFCxBDHg37p98vj0UvS8AQGPgjVBLXBmUSUId08/fnVKJSJb8/8VyFoqBNyScDYlKjDz28IhD2FryM/yzcvqRHL4PyFPfetMe9rLHrWaf+1+n2rBo+z32AQ1K5zWOuYsmbXcoWsa8qM5w7uwu8B8+Uv2c1ZYRjoEyJ19ByWxNjr1XA7fAZiHL6E2VooEJ61y8kOupwERSwIHwWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AWDIl9oqGf9pETdaRf1RlkjBdewcFnoy3KUfyA2JRDY=;
- b=BihlBI4aRhTUZPr2uSP0glo2fvPc7V5mD/hyOv200Lc7XvHxPGK3ItNBqdq2ZuRiftHYvgBscaBUT/3vNZzY656NgCWW2nMrmLhycpuLymstmnLAecGcqpkuLHz9BfEJpiBYFa8zbXg0/N6onJytnNVd/7r8L8cfrKs+jMiSRJE=
-Received: from BN9PR03CA0346.namprd03.prod.outlook.com (2603:10b6:408:f6::21)
- by CH2PR12MB4245.namprd12.prod.outlook.com (2603:10b6:610:af::15)
+ bh=QIkYvDwXIQ8gDhZh0UDk2dGd0AMb/o3za0zyd0cBl+4=;
+ b=BHHJRWdfrVZbYsF8AD9q7ue+Lf0Sbmzv9g7MAuU+y4j4iMTJD537nDYY+OSYAJDfhCh4USTaOJkx6fzQc34c3csGq542OvntAqqNpcPu1s9I9McU6vaT4GPoxjrthm9vTQ5xbZD1kNofgkR4avAgxfz+amQUMvELlXbdDlk8N5g=
+Received: from BLAPR03CA0108.namprd03.prod.outlook.com (2603:10b6:208:32a::23)
+ by PH7PR12MB5806.namprd12.prod.outlook.com (2603:10b6:510:1d2::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
- 2026 13:32:25 +0000
-Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
- (2603:10b6:408:f6:cafe::6c) by BN9PR03CA0346.outlook.office365.com
- (2603:10b6:408:f6::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Fri,
- 19 Jun 2026 13:32:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Fri, 19 Jun
+ 2026 13:32:23 +0000
+Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
+ (2603:10b6:208:32a:cafe::55) by BLAPR03CA0108.outlook.office365.com
+ (2603:10b6:208:32a::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Fri,
+ 19 Jun 2026 13:32:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
+ BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:24 +0000
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:23 +0000
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:23 -0500
+ 2026 08:32:22 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Matthew Stewart <Matthew.Stewart2@amd.com>, "Ovidiu
- (Ovi) Bunea" <ovidiu.bunea@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 07/24] drm/amd/display: Fix DCN42 null registers & register
- masks
-Date: Fri, 19 Jun 2026 09:21:22 -0400
-Message-ID: <20260619133154.116746-8-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Michael Strauss <michael.strauss@amd.com>, "George
+ Shen" <george.shen@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 05/24] drm/amd/display: Add 12bpc Color Ramp Support
+Date: Fri, 19 Jun 2026 09:21:20 -0400
+Message-ID: <20260619133154.116746-6-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -80,29 +79,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|CH2PR12MB4245:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8dacb3ae-f248-420b-f2a5-08dece0732e4
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|PH7PR12MB5806:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ff56168-f92e-4cc3-d2df-08dece0731fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: j/4FkNlmrv+DAw7GBXNoM7w9TRcvu4SlY9PDgZlJFKrQ5YEwW5V+fkzSDSPVEK2C1LD6DkbBtTWOnvNDe/ylSJI1m6vsPV3G0mM812gIGofGxHE9WSO8liIlbbhJG0mBREIrUSaoD7hKXhya9b8x3l+ufnAbgSfBaM8M1FvFWFR4bMfxHiIkeqwkQ6rNf6e6LGc/zYHMU1RR/kP0/8u+cypNQLc1vv7PWEzaoIawfHEj8EuMfNCqswXYw8ldGhiJicDOJQlcvv1I7v6oUPJYMUAx1qv9+Ez2h96+t4p9Hy0av2QRoYSeI22bhLoO/RHnnuPyssd7Omw78C/v47imddHmHMZ9QVAFhV/6Z2YcPu87NOWqsaGtOb0JYe1gs+zzvPDxkOX5lEQfAM4G3K2OqZzqHD6ZsvxMVlzDNDJyKQBu4wBeq757+5QhpEUPvvyqP87ufteF7OeBtDwI6qyRWnWWfQTWS14zY7VbcFo/JIcOA4Qe4NKwCZ4l3/XPJkpkmoaxvkc1WTS6lHt1mno4wqtAkIAjxzYkuIEqwbbKe/z/WSUEM3IdSrM7iqjoRvzlPE4kE33gVSDfhcwgRUMk/PjfvqBDxnATDgAbNCxt5RUEEJkumFe+TSnCbLwY3sdqy4tAaXI3aaMpAeMDCgGcGyKvDVpRFKyPezpUxq/ycQdYpWSRj3dWZi3BVP7IlVaYLuk9iV2gDm/nTQ5NcZ9FwA==
+ ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: QB449Z0oPbjg+DtMaBec1QPobGcVNZ5uyNO16nSwCwD2C5pnA9Y1FCChviqnBaF0vOnDFCcTSYhntJHyS0emgrmw6dZRdIdKzhk59htTtUor0r3py95I2ErzJV9Ehil9DLcmv9ScoURu8Gyh/QiKyQt7/NrL+wL6QP4IDSA8/tUCLLS9y08RrXsO5XAGRohC/7+Q8PZRgy5VXZ0RwIf6uFhNEvR7kAIqcFSu0Xtsk1SGuwPBXNCVu2RQgho19wajZk0TE3j3Doje8giZpx8oZczu4kAm+5/tqFrXoZnav20VEftc+9v00+z45Fe8+IWHtIGWwpD2DVr9CACX7bQda6fQslkMEiyBig9j12yAJpTqL9F9jLz1xHHlgfwVKZOexasyVCIvK21VAjWuOdnW1evyK3eH3IAEO447kZibvShszDbRDv3WvA6pFgP3HOGaPCzbZZrGlUHg8lHHoDFEtxXZydxBMxZYV4k72jrW6VaE/Hhjih3+ZqUSIbakXKuiv9VU8WdvlRFZhQM32nXL/n5ZyjjrGC8ZDTueR2tCHg8P+WZYC5RYl09dWn5khr0/euOE7rlSZ4FcEnVHa7SRXKJlv2l7y4kh6F+7LPqFFd7G41Y9hAve71JlXjOVK87r/VcKT6uxmMz5q4YSeYFdmno5rShpvZoXaDheQOTY0vAjOP7dEoIW8FyyUltX9HgvEUwAksaeBWpMK00r3rSFUg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(56012099006)(18002099003)(22082099003)(11063799006);
+ SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YhPx4CALD8pM84Yf3LbsOkg2voR2VrhyJHfelIoYPCwqblHat9Lm+Y2hnzwnP8NrjGUHk6r7gLbl95KxoWprGMBCURk0nwBNoSDmJiSJzCbhT/fiWtqrIj+Hz/CNjimVTOpA4/CUNLJPAeDaFHt6+tWv7wb+Cwt6ibd5/ztJwgK2fbv7ip/n7312dX2qJ88iysy0dG6GZeybGNAZf0h6brX8Tt3tk+tt/58FV/MSoEv1RYqs9zXUjqLQSEMo18r5y/f7F2s2mClGYsR3U8kbFQYeC37WXt7l1B8MtcqiWX8mKpjkkFTvrZLODoDMvi8sfNvJ/Xb2j/JjQ3dJmsrKxVI6ltpLdX9ViMpazBKTOZQ2B31JCYqlhx18mVFiMxTAreneqMJqSL9dCjqHS33RH/PDK0nafzMFJ9IBV7u9iqblvysO9Oz+BVMsMvfdvql5
+X-MS-Exchange-AntiSpam-MessageData-0: M2ESs+jTZX/oXEsvAeMHcXziG6JgHOpaLdCkDQqCaeZ0mgfRaRnXo0u+Em7may+NnminYy/CCxHPzGHDqCtbWKZYdbVTuF1qgZ8K+dji8tSHkbr2hgo0JiLUGOkUIHgXsyuwKsDAlubyY0l2ygGvVsSFFcrFzmoevq6iWxTv6mNAv7cEZY0B2Cudd/P2+2LLbeJA7NfC7XgdskrGaVNRrU3RKli9UyLk4ZUV5Em4RkZx/o0/CAq+TFOlsY1Kk/Bg7QiIkKE7FnrNydE+X5AeL8tdemEmt7niQkO9xAqwSX37KfhS1o27ywNZCyI/UhEzhqyxP9Bvk1Mboxrq5pl1AUanO6h7OllRfbHOYSIbprLCJ7rohFCCySr/mWdCJP/a9hnwj8fUOf/lVfMZurLknMwbVOZwyUGj4i1g5JY/47fCVVXHno8f6wvwUNlKnPwO
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:24.6713 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8dacb3ae-f248-420b-f2a5-08dece0732e4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:23.1353 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff56168-f92e-4cc3-d2df-08dece0731fa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4245
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5806
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,47 +116,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Stewart <Matthew.Stewart2@amd.com>
+From: Michael Strauss <michael.strauss@amd.com>
 
-[why]
+[WHY]
+12bpc color ramp pattern was never implemented.
 
-The register lists used on DCN42 variants are different. Some reused
-codepaths are trying to access registers not used.
+[HOW]
+Add correct DPG_RAMP_CONTROL programming to match DP color ramp spec.
 
-[how]
-
-Add DISPCLK_FREQ_CHANGECNTL, HUBPREQ_DEBUG, and HDMISTREAMCLK_CNTL to
-the register lists.
-
-Reviewed-by: Ovidiu (Ovi) Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Matthew Stewart <Matthew.Stewart2@amd.com>
+Reviewed-by: George Shen <george.shen@amd.com>
+Signed-off-by: Michael Strauss <michael.strauss@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  | 33 ++++++++++++++-----
+ 1 file changed, 25 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h
-index 2076565b1caa..d45e3af77aad 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h
-@@ -46,6 +46,7 @@
- 	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_STATE, mask_sh),\
- 	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DCCG_FIFO_ERRDET_OVR_EN, mask_sh),\
- 	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, DISPCLK_CHG_FWD_CORR_DISABLE, mask_sh),\
-+	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, RESYNC_FIFO_LEVEL_ADJUST_EN, mask_sh),\
- 	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_PHASE, mask_sh),\
- 	DCCG_SF(DPPCLK0_DTO_PARAM, DPPCLK0_DTO_MODULO, mask_sh),\
- 	DCCG_SF(HDMICHARCLK0_CLOCK_CNTL, HDMICHARCLK0_EN, mask_sh),\
-@@ -239,8 +240,7 @@
- 	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_SRC_SEL, mask_sh),\
- 	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_CLOCK_ENABLE, mask_sh),\
- 	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_FE_EN, mask_sh),\
--	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_FE_SRC_SEL, mask_sh),\
--	DCCG_SF(DISPCLK_FREQ_CHANGE_CNTL, RESYNC_FIFO_LEVEL_ADJUST_EN, mask_sh)
-+	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_FE_SRC_SEL, mask_sh)
+diff --git a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
+index 83730bbe26a8..50b6973ef123 100644
+--- a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
++++ b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
+@@ -149,6 +149,9 @@ void opp2_set_disp_pattern_generator(
+ 		case TEST_PATTERN_COLOR_FORMAT_BPC_10:
+ 			dst_bpc = 10;
+ 		break;
++		case TEST_PATTERN_COLOR_FORMAT_BPC_12:
++			dst_bpc = 12;
++		break;
+ 		default:
+ 			dst_bpc = 8;
+ 		break;
+@@ -192,22 +195,25 @@ void opp2_set_disp_pattern_generator(
 
-
- void dccg42_otg_add_pixel(struct dccg *dccg,
+ 	case CONTROLLER_DP_TEST_PATTERN_COLORRAMP:
+ 	{
+-		mode = (bit_depth ==
+-			TEST_PATTERN_COLOR_FORMAT_BPC_10 ?
+-			TEST_PATTERN_MODE_DUALRAMP_RGB :
+-			TEST_PATTERN_MODE_SINGLERAMP_RGB);
+-
+ 		switch (bit_depth) {
+ 		case TEST_PATTERN_COLOR_FORMAT_BPC_6:
++			mode = TEST_PATTERN_MODE_SINGLERAMP_RGB;
+ 			dst_bpc = 6;
+ 		break;
+ 		case TEST_PATTERN_COLOR_FORMAT_BPC_8:
++			mode = TEST_PATTERN_MODE_SINGLERAMP_RGB;
+ 			dst_bpc = 8;
+ 		break;
+ 		case TEST_PATTERN_COLOR_FORMAT_BPC_10:
++			mode = TEST_PATTERN_MODE_DUALRAMP_RGB;
+ 			dst_bpc = 10;
+ 		break;
++		case TEST_PATTERN_COLOR_FORMAT_BPC_12:
++			mode = TEST_PATTERN_MODE_DUALRAMP_RGB;
++			dst_bpc = 12;
++		break;
+ 		default:
++			mode = TEST_PATTERN_MODE_SINGLERAMP_RGB;
+ 			dst_bpc = 8;
+ 		break;
+ 		}
+@@ -244,9 +250,20 @@ void opp2_set_disp_pattern_generator(
+ 		case TEST_PATTERN_COLOR_FORMAT_BPC_10:
+ 		{
+ 			REG_SET_3(DPG_RAMP_CONTROL, 0,
+-				DPG_RAMP0_OFFSET, 384 << 6,
+-				DPG_INC0, inc_base,
+-				DPG_INC1, inc_base + 2);
++				DPG_RAMP0_OFFSET, 384 << inc_base, // 384 start point
++				DPG_INC0, inc_base, // step size of 1
++				DPG_INC1, inc_base + 2); // step size of 4 (1 << 2)
++			REG_UPDATE_2(DPG_CONTROL,
++				DPG_VRES, 5,
++				DPG_HRES, 8);
++		}
++		break;
++		case TEST_PATTERN_COLOR_FORMAT_BPC_12:
++		{
++			REG_SET_3(DPG_RAMP_CONTROL, 0,
++				DPG_RAMP0_OFFSET, 1920 << inc_base, // 1920 start point
++				DPG_INC0, inc_base, // step size of 1
++				DPG_INC1, inc_base + 4); // step size of 16 (1 << 4)
+ 			REG_UPDATE_2(DPG_CONTROL,
+ 				DPG_VRES, 5,
+ 				DPG_HRES, 8);
 --
 2.54.0
 
