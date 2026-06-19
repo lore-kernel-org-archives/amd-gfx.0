@@ -4,92 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0519CD98F2
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 18:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E57ECD98F2
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 18:17:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A07D10F6CB;
-	Fri, 19 Jun 2026 18:15:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0482310E0E3;
+	Fri, 19 Jun 2026 18:17:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G47KPXIU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iXOHtU/x";
 	dkim-atps=neutral
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
- [209.85.221.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1225210E0E9
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 18:15:17 +0000 (UTC)
-Received: by mail-vk1-f180.google.com with SMTP id
- 71dfb90a1353d-59eb57ea1e1so125505e0c.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 11:15:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781892916; cv=none;
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com
+ [209.85.222.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07E210E0E3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 18:17:36 +0000 (UTC)
+Received: by mail-ua1-f50.google.com with SMTP id
+ a1e0cc1a2514c-966cfdee844so59225241.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 11:17:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781893056; cv=none;
  d=google.com; s=arc-20240605;
- b=KnNrmxe9sJkjqbqvS5QBnKyZhLEzbr4nTWeA+nzIPhWKEj4fivAUt7zgpw8bOC4EBZ
- SHMOyviXT1Fr8dAnG0E5dN2xJlrdu2ZrJgSEhN5xLsObbGk33otiCVuhpRGzacAtJuBm
- 80dCv3OGt9hj7AA9gP/TCc+zPsi+/JwVnhWiXjfIZelB93RQYIIJKGMIssHV8Z7wk0sI
- GONroC98ImxqadZrZYPDYsgiRg21fhRmFu4EZlsLj5EfLDqtmxuDN2RjOU6ATVRCC3fT
- mJDZHC7dVdODSKm3Cw24xkyWhpI99i3zWjhw7nuehWoHX8tu0IsBdzDM6Df7Gc4CU6a2
- m2dQ==
+ b=OMA7hYzh7FiMDDv/IazoUK0Nj0wnSdZIH48XZrQkDFshvZAacQblMpkCSBnP1dhRUu
+ 8jBODevRtyuTed7W/1fBmF35MMyCBMqlYUJAkZPxs0T86e0K+on837hf+wlSWOwELeQZ
+ 78TCsl3jY4tRVJtRItfsavdCTM4yLPQ3sgFp0pyVzvt4Ppk/CGpTuIOxJVw22d5V+6JA
+ WwjS2nIShaeNOXuCx0P5H2hKIPsCNDkOy4N+brBlioj4x+sEzUrbMBnRCxEs0NtZqk1+
+ sZeU2vEpnZqLLNEv6Q2qBcoAzPM+owvDxkv6C9/USMEMJRQsBuc8BEGzS361kwBLWV5X
+ iqDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=dXCHkr/buYhbFjbuGOxsQCc9tZxaLEjgHz9PgjJKgGc=;
- fh=bQ24ny33UkgbCNdbjc6GiOnoH/A89V6RQXM2qW5bGvM=;
- b=XV7sPYiq7DdXzaflfx/t/RFWW2gyNisnsvV2YIAj+BU+9+hW7vYSji5Wn68BU6iQ9e
- R4nqDjtBx/sdOK0VoichlGO6VDpp/OVkVQMvyyok6EtG/wJRv+cML7OplOQfh1nba8rw
- UUAhAmPagUnOvTR/PJrFFxI2rNac6asLg9+4YKNceO/8Q/PhXaC2wiClqM5xKVu3GRIV
- semq1c25lG1x1oi+vVZvTvz0dzNXFGV8b+3rTcu1scPvrTuuYRQArNwPbKTXHAsE4a43
- 3I7DA2LHzLLnCcdBTT8+cPrr9jrrYLmb8WfC2AMqRdN8Ba00HH8vL1jDKcLD/7ZC4h9A
- dXqQ==; darn=lists.freedesktop.org
+ bh=T5wKHnl8LLAvf7smihy8fH6AHuXSVm/l4Z6zkQtcLaU=;
+ fh=xc1U0xMT5rabAMPWWDaq6mFqxuOonDxjEGsAiioZB1c=;
+ b=JRKvbfMxwy8QM5+fVAgChLWatoHACIYeO41OQyKVvavgaHzYqgtC8pwq1baJnBF63s
+ CMvL6WsKtrH4pOlfd0PJrkQ907LejjcT+tWR6RPlPG80pDcXBFFbvpHFWv2hv11YHyOr
+ bfnUd6AjnRry0QjLbxF7IlQGWyYlLWkE/3V4ht7Q0qJQXavieIPnKbKMy9WFagMvqP9j
+ TWfMtyBXa6pdvnLp5RbBLGBZF5ssC+SK5SmmyM2kLA4yBZchjKOi5s++vFz0OGPQWZAe
+ XszOf/HBfTD6NYeTJO2pJ4LMUu1JI9MHzFwo0vO4+Kwa5kRXHzNJdmBOw77SFk6RYCLA
+ gBnw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781892916; x=1782497716; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781893056; x=1782497856; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dXCHkr/buYhbFjbuGOxsQCc9tZxaLEjgHz9PgjJKgGc=;
- b=G47KPXIUtnlqmHBHQWs+NoFqooABMjhzg4+FW6EME4CO0cksxKhtItz0+TpyTutdT4
- aFUAOtFHFreBUnb1D7bRbp8diJHUJlx9uxEWUGBhK4gpSQwH7GcfuzoI5szCq29NWPH9
- +WHM2oPnqrB4Rj94gFQxnLuRjcqbDMKgkUeQYuDTQ02eBucEU9qtubdnzsYRA5Xc2kcd
- 5X10bmObzykUfP8Y0PBDdim9ZWtOowwCQFdOMsVBwPqsGADfw5a/hkMc2nvBoSQYKJR1
- lgU3fB1q/2SEzjT44sA9liA3tTDdNxV5mrP/63uz6j9fIhnMnCgA0lPMp2vEX1qg5QnM
- TsfQ==
+ bh=T5wKHnl8LLAvf7smihy8fH6AHuXSVm/l4Z6zkQtcLaU=;
+ b=iXOHtU/xmeYhY7FKNC6LPeLN773WvLTlAuNvGtJj36aG2A7pQZLa+W/2bA4jhlhHGt
+ dSPcWSvmn5GkLSGxyS1n7SWI0i3K8NuvWsQU7npJ6b0vwi75Wly5BQdb7fwmOOBNEzDG
+ bSZpbrvlR+zonoOkTL1rzSRt+CBZZuI9FnoVFpyXHg6zz0uVrcGgQsuYO5TgPAR1HVfM
+ v7nnIspjZUFYRJF0d62xeG7iqFG6YSGkDcV6o9AqgQO73IL7rryagR/ZYZfIweEgT0qX
+ 9jEYLhzXHFwvn6MpqorPZghG/IplpK0zaI2fyYqWUv4R8crm2oDmcP0PkzoO6gA+j+Su
+ RRsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781892916; x=1782497716;
+ d=1e100.net; s=20251104; t=1781893056; x=1782497856;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=dXCHkr/buYhbFjbuGOxsQCc9tZxaLEjgHz9PgjJKgGc=;
- b=qKx8cefSvCq6+DErKpWhfVSPuymps5GXftvC5xVTZCBfJwiWjxGeb50m8oy9RryHYl
- DgmC9TQRJ0I2qjIBtSL8zhcN6ksSX1br+3jFGjYtUGURiRl6zBomqdXlR0m5RpxXa3mN
- A7KXnc9hSY4s29fv4xMsakLT1pBjm+84VmItg433xgh1AeAjn2XY1zMgoXKGs8GwqbIr
- 2OAfMXvaQuG5Aen40a30VZmW6t8qUzqULF+DVRp81CdpJb8//q9SqPWPMYikOkV3Q17d
- KX9avrAXnRx67U1NGgWjMKDNEPpnb5FhTz4CYMml30hhCOnsa+iEbKpaQOKfmYcp4I+D
- s22A==
+ bh=T5wKHnl8LLAvf7smihy8fH6AHuXSVm/l4Z6zkQtcLaU=;
+ b=myllwEHeE9KmiFU5IXd65+cWL2L8dZp6MZmZOqVVcCNqTFw/YtAc2ZyDocLLD3fHeb
+ dZOo5ZBEnv2VWuNgtetPrJY7hltqeyNob3xwhCOeuq6aD3akZi1IWEXSUDZ4EN0N/CWg
+ kl2R6GC2Eb0U2DNoWnc1Eep2hC7KdQI+4yuASfcfFgN7rEaTr595vaXYMo1Gk2FT3yhr
+ 1t4ASFECUgg4N8ytNk8Kow4+fXzThQcJ86yEV+D/TC5xP0gifj9H3O2gfxMSW+sbk5Df
+ uTadtWHUnPkUCcp1ScXFiaIRzGzW3SP6Tbigna2T6HH694FCvpl+pebzXVggI+h0Yp5o
+ G1DA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/gbUUebeqnd7FEY0Ij9rCjlA5yFsWZpGDfEnwdXDjozfXtfwWYnYSKtnoXpu18onnx19lMvY5p@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZjlwbP3hDh1urOz9xBLLHgD9vDUtC485aLIngHQv7wXg8knUj
- OWS2/euX5RRK5iI6e2kRt+iFYCgrjwiPct/8ohejpHA7fH+ZWV5jN/LxkF/1xqdp9dHBtHzSStq
- r6mvmZ6Qv6Geyl4D90VSkGs4gzfNSuX0=
-X-Gm-Gg: AfdE7ck/Py/DHg+09L3kP18PNQbOw396cklovr0e0MDe5oVji3SCMbY2UJNae9AoUPV
- bsaWQR/kdKR9Z/APzPLxyiUa1ioPQj1xB8aGnia1/uS+mc1iNU8oIbJz+/IsasMBrOGyTM+LggF
- y3vqZn6XPVjqtV0mwvJO716HuokJnNgt82MlW1a2UgbofA9iCyCT5glMfrJ3X9mBdlbxo2lUWnK
- huW6ZSALwi2x4tweDXdGkZSVB+M4cNtIoqrgs4TxDWaF+qv5otFgKxGuhYrAg5VwcIN7mYeeH8V
- e2EFDW5+wjsEw+3bSXyL0OyW4/SrUw5jvz6GL9NWk2d2/zcYBiWQ43mBWk8=
-X-Received: by 2002:a05:6102:2910:b0:60f:77ad:4bed with SMTP id
- ada2fe7eead31-72a0522b667mr1183972137.7.1781892915745; Fri, 19 Jun 2026
- 11:15:15 -0700 (PDT)
+ AFNElJ8wJgF8zCqYb2rWr/TvvnPFm4t8aUm0yTNZ3/qB05ErptlxzsbH5m5swH98r/a9w2M9khrafFka@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1RIyWncUkOBfoGG5BOziviBEWgWWg+efes6lg+y6GdKgjUl5o
+ MYr/OuD9R49KffdvzaYtwAmHhjdYM0IH/xpDDHHf3Qg3pEAgSu7bo1QBpnqs0la5+kucimENZfo
+ Mkp8BXejFptbS40JtpTmoFwSFUuz/hdU=
+X-Gm-Gg: AfdE7cmeL6bJFpp1T97DxuhSsZQ4zafgUkoOlYBYGM2bSbkURfuWrxvGbwevaRLTf8z
+ iDDvKAsu2ALowkvfgyGk7Y6ev5jYLQ/PTrUcOap+3/MYVVGYIuaOCBGaKkmG8xWCqrCBUD0pU2g
+ gzFGV75NnPuL0A9aWAexl6uPkGnmRCFH8PnuGOd7q1ecezLT30SbAPBO0C+FZHbprB5fA7Ga9XW
+ QFRa301PZk4U3DjDpIi3YN2/LrYuS1cbRc0hV1GShKPg3fGf/qy4XfehEqY0OgHu+v1CfH/Fn1n
+ 29ad9bps8UBja6OvgYjGAr01+w/67N9UldhiQPixT8/Ev5hkVRs0WdQoOxjZ4IvmkxjFRw==
+X-Received: by 2002:a05:6102:3e2a:b0:633:3bf6:977c with SMTP id
+ ada2fe7eead31-72b1402325fmr496697137.1.1781893055578; Fri, 19 Jun 2026
+ 11:17:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <kb82H17fFzuBQ-ZxQz8SJqF6DPycZtYEc7XvSWxR0nww24pZJTnkYUU_d8bbJpqC34uGL7IhIPFznw4nMYtzozBZCxxTWBgjjA3gTdR49Fc=@pm.me>
-In-Reply-To: <kb82H17fFzuBQ-ZxQz8SJqF6DPycZtYEc7XvSWxR0nww24pZJTnkYUU_d8bbJpqC34uGL7IhIPFznw4nMYtzozBZCxxTWBgjjA3gTdR49Fc=@pm.me>
+References: <20260619171733.2976352-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260619171733.2976352-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 Jun 2026 14:15:03 -0400
-X-Gm-Features: AVVi8CcszhTy_CieaRCNsTgj0FgI5-NvsoCo3Sc5CZGJL8eWvZ0DhI0VF4mcEyE
-Message-ID: <CADnq5_M+A0C6cQmkwG3Kt_AOQEgxB9+iGaq8E8p-XPnKakMLpg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: support a couple of extra BARCO graphics
- adapters
-To: feralmatt@pm.me
-Cc: Christian Koenig <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Date: Fri, 19 Jun 2026 14:17:23 -0400
+X-Gm-Features: AVVi8CfAwOeCU7vT83ez3VssHgsWlM2OxGR66px5uvo8lPUIFGyHPgChZY_glZw
+Message-ID: <CADnq5_MhbBpkV6dyZsWrTTyhQNWBqU8FpQyFgkByzdtOf7MNHQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Reduce stack usage in IP block soft reset
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,25 +105,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 19, 2026 at 1:54=E2=80=AFPM Matthew Jacob <feralmatt@pm.me> wro=
-te:
+On Fri, Jun 19, 2026 at 1:54=E2=80=AFPM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
+> amdgpu_device_ip_soft_reset() allocates an array of AMDGPU_MAX_RINGS
+> ring pointers on the stack. On 64-bit builds this consumes around 1280
+> bytes and triggers:
 >
+> warning: stack frame size (1304) exceeds limit (1024)
 >
-> BARCO produces its own adapters using AMD chipsets. Mostly they are used =
-on Windows platforms for radiology PACS review workstations. They don't wan=
-t to spend resources to support Linux. Working with them unofficially joint=
-ly with Kaiser who is experimenting with Linux as an alternate platform I g=
-ot some patches to support some of the cards that Kaiser has in its fleets =
-in several regions. Neither Kaiser nor BARCO have any objection to inclusio=
-n of these changes in Linux.
+> Move the temporary ring pointer array to heap allocation to reduce stack
+> usage.
 >
-> Changes attached.
+> Fixes: a6319ac34a13 ("drm/amdgpu: Add IP block soft reset as a GPU recove=
+ry method")
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ip.c
+> index 65505bc50399..eeb9383b1010 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> @@ -524,7 +524,7 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring *g=
+uilty_ring,
+>                                 struct amdgpu_fence *guilty_fence)
+>  {
+>         struct amdgpu_device *adev =3D guilty_ring->adev;
+> -       struct amdgpu_ring *rings[AMDGPU_MAX_RINGS];
+> +       struct amdgpu_ring **rings;
+>         struct amdgpu_ip_block *ip_block;
+>         enum amd_ip_block_type ip_type;
+>         u32 num_rings, ring_type_mask;
+> @@ -539,6 +539,10 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring *=
+guilty_ring,
+>                 return -EOPNOTSUPP;
+>         }
+>
+> +       rings =3D kcalloc(AMDGPU_MAX_RINGS, sizeof(*rings), GFP_KERNEL);
 
-So you can retain authorship, can you send this as a proper git patch
-with your signed-off-by?
-
-Thanks,
+We can't allocate memory in the reset path otherwise we could
+deadlock, this needs to be pre-allocated if you use the heap.
 
 Alex
+
+> +       if (!rings)
+> +               return -ENOMEM;
+> +
+>         dev_err(adev->dev, "Starting %s IP block soft reset\n",
+>                 ip_block->version->funcs->name);
+>
+> @@ -546,20 +550,25 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring =
+*guilty_ring,
+>         amdgpu_filter_rings(adev, ring_type_mask, rings, &num_rings);
+>
+>         amdgpu_device_lock_reset_domain(adev->reset_domain);
+> -       amdgpu_multi_ring_reset_helper_begin(rings, num_rings, guilty_rin=
+g, guilty_fence);
+> +       amdgpu_multi_ring_reset_helper_begin(rings, num_rings, guilty_rin=
+g,
+> +                                            guilty_fence);
+>
+>         r =3D ip_block->version->funcs->soft_reset(ip_block);
+>
+> -       r =3D amdgpu_multi_ring_reset_helper_end(rings, num_rings, guilty=
+_ring, r);
+> +       r =3D amdgpu_multi_ring_reset_helper_end(rings, num_rings, guilty=
+_ring,
+> +                                              r);
+>         amdgpu_device_unlock_reset_domain(adev->reset_domain);
+>
+>         if (r) {
+>                 dev_err(adev->dev, "Failed %s IP block soft reset: %d\n",
+>                         ip_block->version->funcs->name, r);
+> -               return r;
+> +               goto out_free;
+>         }
+>
+>         dev_err(adev->dev, "Successful %s IP block soft reset\n",
+>                 ip_block->version->funcs->name);
+> -       return 0;
+> +
+> +out_free:
+> +       kfree(rings);
+> +       return r;
+>  }
+> --
+> 2.34.1
+>
