@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F425CDB46D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D8CECDB46F
 	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEB310F5EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1CC210F5EF;
 	Fri, 19 Jun 2026 13:32:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="felrA2Gy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JWZBs6wd";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013006.outbound.protection.outlook.com
- [40.93.196.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3105610F5D6
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:28 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8689710F5E6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vT/EXQh6nZfx2yc76yy7iCVZfY/SZcVsvjS6+TGD228zXyWZPHh9aoL0T7KSzkFB7PYfKFudlvxvseMXcS6q+FpON21yqaACpamBGSSwVoGe9fufhBDQZ3oeBA01ivfNMWmWlwAJoOkImO3BGEkLDDTFAy+K/4si6mbcOld+Ol8IBikcW2XTnFv2zes46OIYMc3i/g8etGeyHDRpvkqhlqNZCUAucBOEcBVOoyd/z6mecJdN6w+X9Ei90iqykd34soTes/xgszyKRSB6huGp+cqVjtuH4gQfY7mBxtQtYkeD3iX84AtCtGJ49FHrGglP7vhayr+wIrNS1ijyboTrtg==
+ b=l1MBfCOEKvid9zIDajHFHrsniwEPfSEOqvzQiILyiNH0D7R4yJx2V63QAS+OJl3j9Jf9/IsBc41BGX/WQKah+Mn2kqPtLfLPl3oYtDNWFx2cjC3SkCWJ95F8NkTBqnXPIrqderyxTuNm1qaM2/zoTkTRMcB/lS9NmFdrlsTxoLZC5l2RJJKMsr9XKVCmtLkwSh5uva0TihFs3EuIepDnqmxopEXXkrl5GtfcNQxURijKLvjTRzkviu38ZKL/oq6Tl7yCLvpeeS0l0ujlYNn+nzmo/ETVWpEBAVht3tmZ3AFl4aXqs9pRNK+OoJhLmNfwxdOcat/4R+d3bh4dWqa7Cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8PGVHeRypSIeIAsIPJ0+LhEpvmZnni16hMEqY5J927Y=;
- b=xAzZ22wkED35IWuQg6oEzv5m/hnzTGxDGIPzrsiyV2Pb0tu4/DJY2M3vK832W+Y1MT1YENWriiGvKjfn/JgEWLuVghMWDKIga+KqxAD6BKFlkIrFo+2StFctp+DdqeQZ5VIBeJKfJtXK85bJlIKoTYKadMw0AW0qDXL5lQhu9+5s2N9mmzsphJwdiA+JfCYwpkmyF6X06pb+vBDeYR0QKEQp1mOZBBjI8+olwIif4mNUh/VjeqyzPfY0kHHswXOGkp/SGzdGYFDWpRuR0C2uZvpgM5uXov3EYG+aUhqAhm0q2s0jqvzJ/s8o4oSsPFVbW9boZq8zH7KPhiI8/eivVQ==
+ bh=BT3dgWWHYl3XPQ+mkOwe4QVRaoVn8oV51HVu5plBsKY=;
+ b=xSbWFxBEnvwaLGEURWf8FRghldX9ZG/9DxH5DdZ0hpVRQ1s1Iwjzk94eNB5F0A2myFaiYGp5DuhL3nbwoRgKw6udFyPdcY9gbS1Ev0jl4UCwk5PW+gWpd4qoLQuwT5BRQanW7r4JED8TAmZ66q53gPJ1DT+5aLn7L8ddahTkpRUoeXIaHNnktc074HMje0MuDYQyszZp1gpAH36LIwuQfSYsIj5BlXBDL/R0e9jD7X0qA2Mqpui4JpPgV+pOR5U1rDiW1wrJWH/7lZgPtBQl/eFun9U2Z5In/T7ei6Rky7pTGp5+NeWm3nzPLYy3TO3bZvoa7GLNUAIOX7lXVzn+Sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8PGVHeRypSIeIAsIPJ0+LhEpvmZnni16hMEqY5J927Y=;
- b=felrA2GyQ6TT1WfWO9IGTNZhhDceygFrcoBbHDBR4rF4DNLZ1BJWitiB+J3ckU2207OgUGgyxJ/jnZ8u9d/+4NvnNZ255W1A6tuZAV6WmZzpvnnDiX9JZSMN+fABl1yOYFdOX1MyczespyJOvHoz4f24VsQNYQOkj9zSgi6hU/Q=
-Received: from BN0PR03CA0020.namprd03.prod.outlook.com (2603:10b6:408:e6::25)
- by PH0PR12MB8173.namprd12.prod.outlook.com (2603:10b6:510:296::14)
+ bh=BT3dgWWHYl3XPQ+mkOwe4QVRaoVn8oV51HVu5plBsKY=;
+ b=JWZBs6wdUUW3esVkwiD5nexBj9097mFGz7evuo9HOlo6cL517UIAIfuugWyszCDHtX05l0tpJ2gRR1Bcvebp9vwiav5pfzraGgVBr2Cgmgm3n/QqQI0IY2rysC4vTDk2M6H0r/PpW/3a59NFAKx2fs53eutGwYj440JVIMkFPaU=
+Received: from BN0PR03CA0014.namprd03.prod.outlook.com (2603:10b6:408:e6::19)
+ by DSWPR12MB999127.namprd12.prod.outlook.com (2603:10b6:8:36c::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Fri, 19 Jun
- 2026 13:32:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Fri, 19 Jun
+ 2026 13:32:28 +0000
 Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:408:e6:cafe::95) by BN0PR03CA0020.outlook.office365.com
- (2603:10b6:408:e6::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Fri,
- 19 Jun 2026 13:32:24 +0000
+ (2603:10b6:408:e6:cafe::2a) by BN0PR03CA0014.outlook.office365.com
+ (2603:10b6:408:e6::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
+ 19 Jun 2026 13:32:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:23 +0000
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:27 +0000
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:23 -0500
+ 2026 08:32:26 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, "Relja (Reggie) Vojvodic" <relja.vojvodic@amd.com>,
- George Zhang <george.zhang@amd.com>
-Subject: [PATCH 06/24] drm/amd/display: Reintroduce "Force validation link
- training on all ASICs"
-Date: Fri, 19 Jun 2026 09:21:21 -0400
-Message-ID: <20260619133154.116746-7-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 11/24] drm/amd/display: split TF/LUT colorop state lookups
+ into separate upfront phases
+Date: Fri, 19 Jun 2026 09:21:26 -0400
+Message-ID: <20260619133154.116746-12-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -81,29 +79,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|PH0PR12MB8173:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0403ce08-0344-4c0c-f29e-08dece073274
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|DSWPR12MB999127:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc50a245-3789-44be-e905-08dece0734db
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|56012099006|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: clWwcz/Vp0O7lusOO4+Q3C0D07DoXuw5m5u06swq0OcDNTNxTjx8Olxx52IIWzwjIfJHPshFXtGDnvmSZ3QGZHGc4z5Nvx3LmrjrpRMlAY7Y9bBoRWVn9Dz+EkVxkFNREmNYe5HsJ53ILhWQn3Mc7qB3MAj0k9xzUNE+MFalpMpx8hp66ll7O5SkyOuItbo+CvP6IbQXGoaS3y+EmnoN4t12I8ztkVVdvgMc3nOW2cfliEM7GfXZER2oPMy4f/IvbyJgjUW7Gf8c2OZbjiWbLuBSdk6Qj4pocT7VI1YtoEeJRnZbsIzXTmDWgtoBBE844LwfI+hBuH4dQeAwv51J2zJA23hK8z4GUndsarApfEelxBv+ACUog0CdBt14S2TrG25ncwsMzMExevt1qbM8kQnDminfUMbUVi85oRrtnf/HKVrFGkxlWujG7dUHXyjv3VBvoLqf2zO5SeamW6j8qcInk5IfweZjva8e4kqzl58Xlb2zDAoyDK47Nfa2P46cMfBiL9QN6buN7JFWfwhTJjVjSZTvrArFHQEn+DHB4anbgVLpdL1fm+rfQD76Lb0gU7IM//+sLk7eX063hfyA7F1nP6H2tYEI+3T1jWLRaeSP0wl2Qwia0rhhl40qHaV8mgXEhPfBBpOZPFkZfSfqQi2IM85NuddsvxglyuCO3enne4Bj6D5b8is6Rwv5KO+S/DLjmlm+bnNV+v5+nMY7Vg==
+ ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|3023799007|22082099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: h14OHI3XcNqSTi1cPrCHvNhmEVW6dY4vO16ahXg3SggpaXDutFNl6IHuDCj+gyYQVbaTu3fFJH20230roCBRUc7Rw++wOdQtiRQcGqdFtVPGxnHq9Bu8knsyVGAkEOvIdhK0wJ3sjlhUi0aL54EtKc5OqIOkKhSzT/nYBglwsgb3VO+qNJgRZ5FT8mMTxh8XcoDu+uRVp4pLzqbkH8Lc/CC45JEAhT5gTdCZiRQX6NA06O+O6mujJKMUBQI0HUc+BzRpi1VGWg+45TUQmBkqck47CgOPDZ6BAvipGA6zvmH+TlTXuYsWypWXik7mGJhFGpe2mscxX12UQW16fLNZj1QQiZTT2MTFza6TY0/eRGO1y3S53f728V2Udh4Z8gcfzDwOMc+iV6MpewIx98o/l1aW4QZrFBcn5JDk3mKcQja+Zmm2iJeH2kTW9WsvdZ3RkhEuOfqjx7Qzeo/NU3g1wGrH2lwDGYzIT/oK0wngmiaT8gioCjGtpcbNUBfrLvMpEvI6oxkiCJ+YMzfev2m3lqO3y1jLc38ORCq0zaG7MP8h7wr+W7Xsx87BOaujaT0kp+gqn6b989U39jabGhTMCs6WwL9agFXKdkJH9dy+7bcBtc6jPNjUZCWhgxOrKHEedePo62zROsr0RtOOFD46kEn0/JtVOE5teLD6UbIe/MDT7iD4e05aW6/Qdk29BENc84KzTRF8DWMn7cn9H8Y7WQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(3023799007)(22082099003)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Z+hwjIEfWQcKg3B1O2m1YIB5SmGlO64IhEeRrvTXy8pzrNtGYbvqw/u3fqGD60YVxAaUAWF7O4bXG08kKFUkXQbN7NmItC7AuZ8Du1uZYYmYXn3rqte+U4d+2gglSBPhP+x8D+ilmO67dUHxhCef5KE2Rr7Sm3palhZku4SAxJsjvzlupCP2XJ3/OasYDfi6bipE5YnfoijZrhFaqVcOp/Bd/vbg+2150ANzgzTrRKn/IgiASKg7J82Me+z94606PMdSC60TLCQk4HjaEJuloJ2MCaJR0mCGkvUUHbCRUqPsKejKcWnk6seaxCroaiVmsjwo51jlAW/IZP5EEvkCn7W8DhjhhC0MG30v1f/oaKjzKV+aPDbJfVTTMwUEu3rYqU+Jw/PcV9WgiGFuWfv/VHJ6n4E6ZlAHHuCLIHnxJ8YgZFRNKlqEVDT+pmNmrKgJ
+X-MS-Exchange-AntiSpam-MessageData-0: fwYTTDGkVLQBBjPO0MYvqBhBJgyDFuTRCe8YHT+IrlhNKelYCVUOMACvItZ0s8zwOJ45C9tJ54U11uPOQYfCOBrMdx3JreoIQy5hFIjyst+3nZxZE/zZJ5L+TK2wyFkPdd3X1CxEqSt5Ki6kB24Z6mrSfMRZ/O3lj5/GvqLVEHf2h+XdweckKYA2JcYZIN7dLY03vdMtR2s3CouiYUACODOrm/yGagtL8YnEUuSTrxsu/NwqaIRuXpifZMX/XCfzYeMZtdMXoH3Pr3k+B0THU8DQ+0Jukk5zlgX3cLyEumWh9VAefZf/kPmTlCtJlhjbcu4Wo53ANY6Cw5OcepYlOYB55PRJx7W5+8h4EzJLz6VmLivJXzlUB4ODfyX81BNUJFPMFD33ntuCk5iMuOlg3ZSj/SSda8Kg+6crrhvmC8YF8fHc3dqCeiOfXoPTSGAQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:23.9381 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0403ce08-0344-4c0c-f29e-08dece073274
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:27.9668 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc50a245-3789-44be-e905-08dece0734db
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8173
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,205 +116,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[Why & How]
-'skip_frl_pretraining' was introduced and enabled along w/ HDMI 2.1
-initial upstream, but is causing HDMI validation link training to be s
-kipped on short hotplugs and compliance issues.
+In __set_dm_plane_colorop_shaper and __set_dm_plane_colorop_blend the
+single colorop_state variable was reused sequentially: first to capture
+the TF state, then (after mutating the colorop pointer) to capture the
+LUT state.
 
-Remove this behaviour to force link training on all hotplugs for all
-ASICs.
+Split into separate tf_state / lut_state pointers and introduce a
+dedicated lut_colorop local. Resolve both pointers upfront before any
+computation begins. This separates the concern of "find the states" from
+"use the states" and makes the code easier to follow.
 
-Reviewed-by: Relja (Reggie) Vojvodic <relja.vojvodic@amd.com>
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+No functional change.
+
+Assisted-by: Copilot:claude-opus-4.8
+
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                             | 1 -
- drivers/gpu/drm/amd/display/dc/dc_types.h                       | 1 +
- drivers/gpu/drm/amd/display/dc/link/link_detection.c            | 2 +-
- drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c  | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c    | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c    | 1 -
- drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c  | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c    | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c    | 1 -
- drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c  | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c    | 1 -
- drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c  | 1 -
- .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c    | 1 -
- drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c  | 1 -
- 14 files changed, 2 insertions(+), 13 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 94 ++++++++++---------
+ 1 file changed, 48 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 2de0f9cf8264..b21fdea5fca3 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -591,7 +591,6 @@ struct dc_config {
- 	bool enable_mipi_converter_optimization;
- 	bool enable_frl;
- 	bool force_hdmi21_frl_enc_enable;
--	bool skip_frl_pretraining;
- 	bool use_default_clock_table;
- 	bool force_bios_enable_lttpr;
- 	uint8_t force_bios_fixed_vs;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index db6a89d938b6..90dd1ae7e953 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -183,6 +183,7 @@ struct dc_panel_patch {
- 	unsigned int force_frl;
- 	unsigned int vsdb_rcc_wa;
- 	unsigned int delay_hdmi_link_training;
-+	unsigned int skip_frl_pre_training;
- 	unsigned int skip_avmute;
- 	unsigned int skip_audio_sab_check;
- 	unsigned int mst_start_top_delay;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index a3212fd151d1..24b191d39777 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -933,7 +933,7 @@ static bool should_verify_link_capability_destructively(struct dc_link *link,
- 		destrictive = true;
- 		if (is_hdmi_frl_in_use(link)) {
- 			destrictive = false;
--		} else if (link->dc->config.skip_frl_pretraining) {
-+		} else if (link->local_sink->edid_caps.panel_patch.skip_frl_pre_training) {
- 			for (i = 0; i < MAX_PIPES; i++) {
- 				if (pipes[i].stream != NULL &&
- 					pipes[i].stream->link == link) {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-index 70eacb0edfd9..ec74538472ee 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
-@@ -2483,7 +2483,6 @@ static bool dcn30_resource_construct(
- 	dc->caps.post_blend_color_processing = true;
- 	dc->caps.force_dp_tps4_for_cp2520 = true;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.extended_aux_timeout_support = true;
- 	dc->caps.dmcub_support = true;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 724b7729f342..affcd090c9b7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1640,8 +1640,10 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+ 			      struct drm_colorop *colorop)
+ {
+ 	struct drm_colorop *old_colorop;
+-	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
++	struct drm_colorop_state *new_colorop_state;
++	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
+ 	struct drm_atomic_state *state = plane_state->state;
++	struct drm_colorop *lut_colorop;
+ 	enum dc_transfer_func_predefined default_tf = TRANSFER_FUNCTION_LINEAR;
+ 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
+ 	const struct drm_color_lut32 *shaper_lut;
+@@ -1650,53 +1652,52 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+ 	u32 shaper_size;
+ 	int i = 0, ret = 0;
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
-index caeb001dd7de..106f04efed1f 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
-@@ -1378,7 +1378,6 @@ static bool dcn302_resource_construct(
- 	dc->caps.post_blend_color_processing = true;
- 	dc->caps.force_dp_tps4_for_cp2520 = true;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.extended_aux_timeout_support = true;
- 	dc->caps.dmcub_support = true;
- 	dc->caps.max_v_total = (1 << 15) - 1;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
-index 58c314237ce6..f41926eb0761 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
-@@ -1322,7 +1322,6 @@ static bool dcn303_resource_construct(
- 	dc->caps.post_blend_color_processing = true;
- 	dc->caps.force_dp_tps4_for_cp2520 = true;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.extended_aux_timeout_support = true;
- 	dc->caps.dmcub_support = true;
- 	dc->caps.max_v_total = (1 << 15) - 1;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-index 15730fe1b9db..97c2cd7045b5 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
-@@ -2081,7 +2081,6 @@ static bool dcn31_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
- 	dc->caps.edp_dsc_support = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-index 0f800f586e08..4e283e4c238c 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-@@ -2057,7 +2057,6 @@ static bool dcn315_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
- 	dc->caps.edp_dsc_support = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-index efbc2a506046..0c8b37520ec3 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-@@ -1931,7 +1931,6 @@ static bool dcn316_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
- 	dc->caps.edp_dsc_support = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index e03dc966e121..697463622a10 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -2409,7 +2409,6 @@ static bool dcn32_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
- 	dc->caps.edp_dsc_support = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-index 65f445f38cfb..6ebab0f185c9 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-@@ -1901,7 +1901,6 @@ static bool dcn321_resource_construct(
- 	dc->caps.post_blend_color_processing = true;
- 	dc->caps.force_dp_tps4_for_cp2520 = true;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
- 	dc->caps.edp_dsc_support = true;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index baf00942b8f3..c94136bf2dcf 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -2031,7 +2031,6 @@ static bool dcn35_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
+-	/* 1D Curve - SHAPER TF */
++	/* 1D Curve - SHAPER TF: find state */
+ 	old_colorop = colorop;
+ 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+ 		if (new_colorop_state->colorop == old_colorop &&
+ 		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_shaper_tfs)) {
+-			colorop_state = new_colorop_state;
++			tf_state = new_colorop_state;
+ 			break;
+ 		}
+ 	}
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 75a0a3dc3052..42c8c01efb0b 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -2004,7 +2004,6 @@ static bool dcn351_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
+-	if (colorop_state && !colorop_state->bypass) {
+-		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", colorop->base.id);
+-		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+-		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+-		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+-		ret = __set_output_tf(tf, 0, 0, false);
+-		if (ret)
+-			return ret;
+-		enabled = true;
+-	}
+-
+-	/* 1D LUT - SHAPER LUT */
+-	colorop = old_colorop->next;
+-	if (!colorop) {
++	/* 1D LUT - SHAPER LUT: find state */
++	lut_colorop = old_colorop->next;
++	if (!lut_colorop) {
+ 		drm_dbg(dev, "no Shaper LUT colorop found\n");
+ 		return -EINVAL;
+ 	}
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-index 8e84abdff57a..b7afba548fd4 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -2001,7 +2001,6 @@ static bool dcn36_resource_construct(
- 	if (dc->config.forceHBR2CP2520)
- 		dc->caps.force_dp_tps4_for_cp2520 = false;
- 	dc->caps.hdmi_hpo = true;
--	dc->config.skip_frl_pretraining = true;
- 	dc->caps.dp_hpo = true;
- 	dc->caps.dp_hdmi21_pcon_support = true;
+-	old_colorop = colorop;
+ 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+-		if (new_colorop_state->colorop == old_colorop &&
++		if (new_colorop_state->colorop == lut_colorop &&
+ 		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
+-			colorop_state = new_colorop_state;
++			lut_state = new_colorop_state;
+ 			break;
+ 		}
+ 	}
+
+-	if (colorop_state && !colorop_state->bypass) {
+-		drm_dbg(dev, "Shaper LUT colorop with ID: %d\n", colorop->base.id);
++	if (tf_state && !tf_state->bypass) {
++		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", old_colorop->base.id);
++		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
++		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
++		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
++		ret = __set_output_tf(tf, 0, 0, false);
++		if (ret)
++			return ret;
++		enabled = true;
++	}
++
++	if (lut_state && !lut_state->bypass) {
++		drm_dbg(dev, "Shaper LUT colorop with ID: %d\n", lut_colorop->base.id);
+ 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+ 		tf->tf = default_tf;
+ 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+-		shaper_lut = __extract_blob_lut32(colorop_state->data, &shaper_size);
++		shaper_lut = __extract_blob_lut32(lut_state->data, &shaper_size);
+ 		shaper_size = shaper_lut != NULL ? shaper_size : 0;
+
+ 		/* Custom LUT size must be the same as supported size */
+-		if (shaper_size == colorop->size) {
++		if (shaper_size == lut_colorop->size) {
+ 			ret = __set_output_tf_32(tf, shaper_lut, shaper_size, false);
+ 			if (ret)
+ 				return ret;
+@@ -1812,8 +1813,10 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
+ 			     struct drm_colorop *colorop)
+ {
+ 	struct drm_colorop *old_colorop;
+-	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
++	struct drm_colorop_state *new_colorop_state;
++	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
+ 	struct drm_atomic_state *state = plane_state->state;
++	struct drm_colorop *lut_colorop;
+ 	enum dc_transfer_func_predefined default_tf = TRANSFER_FUNCTION_LINEAR;
+ 	struct dc_transfer_func *tf = &dc_plane_state->cm.blend_func;
+ 	const struct drm_color_lut32 *blend_lut = NULL;
+@@ -1823,52 +1826,51 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
+
+ 	dc_plane_state->cm.flags.bits.blend_enable = 0;
+
+-	/* 1D Curve - BLND TF */
++	/* 1D Curve - BLND TF: find state */
+ 	old_colorop = colorop;
+ 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+ 		if (new_colorop_state->colorop == old_colorop &&
+ 		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_blnd_tfs)) {
+-			colorop_state = new_colorop_state;
++			tf_state = new_colorop_state;
+ 			break;
+ 		}
+ 	}
+
+-	if (colorop_state && !colorop_state->bypass) {
+-		drm_dbg(dev, "Blend TF colorop with ID: %d\n", colorop->base.id);
+-		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+-		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+-		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+-		dc_plane_state->cm.flags.bits.blend_enable = 1;
+-		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
+-	}
+-
+-	/* 1D Curve - BLND LUT */
+-	colorop = old_colorop->next;
+-	if (!colorop) {
++	/* 1D LUT - BLND LUT: find state */
++	lut_colorop = old_colorop->next;
++	if (!lut_colorop) {
+ 		drm_dbg(dev, "no Blend LUT colorop found\n");
+ 		return -EINVAL;
+ 	}
+
+-	old_colorop = colorop;
+ 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+-		if (new_colorop_state->colorop == old_colorop &&
++		if (new_colorop_state->colorop == lut_colorop &&
+ 		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
+-			colorop_state = new_colorop_state;
++			lut_state = new_colorop_state;
+ 			break;
+ 		}
+ 	}
+
+-	if (colorop_state && !colorop_state->bypass) {
+-		drm_dbg(dev, "Blend LUT colorop with ID: %d\n", colorop->base.id);
++	if (tf_state && !tf_state->bypass) {
++		drm_dbg(dev, "Blend TF colorop with ID: %d\n", old_colorop->base.id);
++		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
++		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
++		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
++		dc_plane_state->cm.flags.bits.blend_enable = 1;
++		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
++	}
++
++	if (lut_state && !lut_state->bypass) {
++		drm_dbg(dev, "Blend LUT colorop with ID: %d\n", lut_colorop->base.id);
+ 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
+ 		tf->tf = default_tf;
+ 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+ 		dc_plane_state->cm.flags.bits.blend_enable = 1;
+-		blend_lut = __extract_blob_lut32(colorop_state->data, &blend_size);
++		blend_lut = __extract_blob_lut32(lut_state->data, &blend_size);
+ 		blend_size = blend_lut != NULL ? blend_size : 0;
+
+ 		/* Custom LUT size must be the same as supported size */
+-		if (blend_size == colorop->size)
++		if (blend_size == lut_colorop->size)
+ 			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
+ 	}
 
 --
 2.54.0
