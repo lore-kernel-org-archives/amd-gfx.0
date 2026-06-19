@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C768CD98F6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EAD4CD4F26
 	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06BBF10F5E1;
-	Fri, 19 Jun 2026 13:32:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9488310F5DE;
+	Fri, 19 Jun 2026 13:32:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BHHJRWdf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gVtEx+Yx";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011027.outbound.protection.outlook.com [40.107.208.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 374DE10F5DE
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012044.outbound.protection.outlook.com [52.101.53.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DFA310F5D9
  for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pDRPH141oN7vtjAMuKXAr5wGuYAv7oTRRp07BDOnsvS13o5xaTrhYbeaIMOCrKOVZ2VZR68YzpgduYTUEwd9unz37ysUdQOkN3g2pulxMRDNKwuI/tADobPoIdoVD9ZlpYX1d1fsjp+xBS6v5qbBRppowhLdvs9wZKG3BtKnExcbEJKYMgtjXV6fpa91ikzrBVEb4DGkmWyiEVAL+SIt4uOso9QSDdMZGlOpM+7rR6IEKyYCjGYLnT11r3o3EUjOdWq1AljwVZhFY+c5CDHwYrB3JWsL9s9w1EhfqU+jm3Bf7MKiR0Bz6HyJL6gnnrsxmU7jZw2SJkGRbXm+jyyzsA==
+ b=B3gySwfvFBfvdJzkflflsFjQnxaghwZbNI+JcWEMhHZt9TdPW515pVaEXpk4ACGvow4P7hHOzEB13Y4QW5PLdGgLJub1wwe/wp6S7js/Hb7uWliUtMasHeg7WnK8Q+SoaAMpHaIJCGcJb0TAlIBOO+Pb7GPdNkvDs6gT67vL9QPwhArmq3z6T/4+iKk4u8uros68f1wItTSevFLcSUarqeNjPkSjkvfkEFIJnyktzsb8DlPlTJ+gWEtvUTqTL1qZS5s3CuOtMJ5rXY3FikLQe/jcH2Vz9p1/G0l+SvsUIqnJdktHNJJBQY2jCfa+wqAfhGltVjxTIazVgSR1L1NV1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QIkYvDwXIQ8gDhZh0UDk2dGd0AMb/o3za0zyd0cBl+4=;
- b=dyY+K2OtkJ3GIELc4eIOFPREi/ynDnIHXKMACrq3xV5J68yliCqQjQ95vt7zt7m/Ee2uiS9sUnDB7r6zHo41tsaq8ahtUJQNKRR8uALiJNlBAu9a2dhLLf6pzEG48JGUUPIOJetDFCxBDHg37p98vj0UvS8AQGPgjVBLXBmUSUId08/fnVKJSJb8/8VyFoqBNyScDYlKjDz28IhD2FryM/yzcvqRHL4PyFPfetMe9rLHrWaf+1+n2rBo+z32AQ1K5zWOuYsmbXcoWsa8qM5w7uwu8B8+Uv2c1ZYRjoEyJ19ByWxNjr1XA7fAZiHL6E2VooEJ61y8kOupwERSwIHwWw==
+ bh=97v49TMkURYz5LvXpCBlrErsM+r42YIXTp0DdzXUVS8=;
+ b=N1BKa39iR/ChqhAey/b+qNst79SkepmRFHOUWVyUFMb1/UOPegqo8XS12NGSCuXJkwjwpXpVfAhnVJqIUpXJku7uTz8t+AIMVUAZFmDbgnt8KiUqrkvqJvCsRQk5bhUIesNpGx19ls1v1EcqbgxmiYHpLzGC3R9LbzgYzI17qfeUmAv14kF8OSVNgEYXr9gNG4zd/hsTiapGBtO+jXS6nQqd547SGSleF+OUeTnYnlNNvISIDwPKTaie11FoMH4xQx+YGJMdCb+z7b9E58+cvUvwzdreyL5tR9RgDs+rTjRC9NCPUt2NTv0vKVLbflgLN7WI1osyOD7riH8+WHtRrw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QIkYvDwXIQ8gDhZh0UDk2dGd0AMb/o3za0zyd0cBl+4=;
- b=BHHJRWdfrVZbYsF8AD9q7ue+Lf0Sbmzv9g7MAuU+y4j4iMTJD537nDYY+OSYAJDfhCh4USTaOJkx6fzQc34c3csGq542OvntAqqNpcPu1s9I9McU6vaT4GPoxjrthm9vTQ5xbZD1kNofgkR4avAgxfz+amQUMvELlXbdDlk8N5g=
-Received: from BLAPR03CA0108.namprd03.prod.outlook.com (2603:10b6:208:32a::23)
- by PH7PR12MB5806.namprd12.prod.outlook.com (2603:10b6:510:1d2::10)
+ bh=97v49TMkURYz5LvXpCBlrErsM+r42YIXTp0DdzXUVS8=;
+ b=gVtEx+YxIflsSmBtG6uuwPCqPl+wExXtwi66WLgA4umkgdH2iVHSyNQ9ughBsMvlusbgxPMm5iiWXsrylXN47biN7p1E0Xe4ZGQcwIzJZ/1v9WmMtgfhuSRn7+4yX270nxilKS4mnHNYXIUliAF4mX2NgnWqTNOpgp2jZAZd2Rg=
+Received: from BN0PR03CA0022.namprd03.prod.outlook.com (2603:10b6:408:e6::27)
+ by SA1PR12MB8093.namprd12.prod.outlook.com (2603:10b6:806:335::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Fri, 19 Jun
- 2026 13:32:23 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:208:32a:cafe::55) by BLAPR03CA0108.outlook.office365.com
- (2603:10b6:208:32a::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Fri,
- 19 Jun 2026 13:32:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Fri, 19 Jun
+ 2026 13:32:26 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:408:e6:cafe::4f) by BN0PR03CA0022.outlook.office365.com
+ (2603:10b6:408:e6::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
+ 19 Jun 2026 13:32:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:23 +0000
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:26 +0000
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:22 -0500
+ 2026 08:32:25 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Michael Strauss <michael.strauss@amd.com>, "George
- Shen" <george.shen@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 05/24] drm/amd/display: Add 12bpc Color Ramp Support
-Date: Fri, 19 Jun 2026 09:21:20 -0400
-Message-ID: <20260619133154.116746-6-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Matthew Stewart <Matthew.Stewart2@amd.com>, "Ovidiu
+ (Ovi) Bunea" <ovidiu.bunea@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 09/24] drm/amd/display: Remove DCCG registers not needed in
+ DCN42
+Date: Fri, 19 Jun 2026 09:21:24 -0400
+Message-ID: <20260619133154.116746-10-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -79,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|PH7PR12MB5806:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ff56168-f92e-4cc3-d2df-08dece0731fa
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|SA1PR12MB8093:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50e821ff-5f17-44dd-6898-08dece0733ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: QB449Z0oPbjg+DtMaBec1QPobGcVNZ5uyNO16nSwCwD2C5pnA9Y1FCChviqnBaF0vOnDFCcTSYhntJHyS0emgrmw6dZRdIdKzhk59htTtUor0r3py95I2ErzJV9Ehil9DLcmv9ScoURu8Gyh/QiKyQt7/NrL+wL6QP4IDSA8/tUCLLS9y08RrXsO5XAGRohC/7+Q8PZRgy5VXZ0RwIf6uFhNEvR7kAIqcFSu0Xtsk1SGuwPBXNCVu2RQgho19wajZk0TE3j3Doje8giZpx8oZczu4kAm+5/tqFrXoZnav20VEftc+9v00+z45Fe8+IWHtIGWwpD2DVr9CACX7bQda6fQslkMEiyBig9j12yAJpTqL9F9jLz1xHHlgfwVKZOexasyVCIvK21VAjWuOdnW1evyK3eH3IAEO447kZibvShszDbRDv3WvA6pFgP3HOGaPCzbZZrGlUHg8lHHoDFEtxXZydxBMxZYV4k72jrW6VaE/Hhjih3+ZqUSIbakXKuiv9VU8WdvlRFZhQM32nXL/n5ZyjjrGC8ZDTueR2tCHg8P+WZYC5RYl09dWn5khr0/euOE7rlSZ4FcEnVHa7SRXKJlv2l7y4kh6F+7LPqFFd7G41Y9hAve71JlXjOVK87r/VcKT6uxmMz5q4YSeYFdmno5rShpvZoXaDheQOTY0vAjOP7dEoIW8FyyUltX9HgvEUwAksaeBWpMK00r3rSFUg==
+ ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: g2EnJKHgkRVO8CMMnOjDFacobvFznbbKRjKUb9jSAb+9FcC+ngpFmqX1BAh3Bce96LD/S42zlskQpHNQ6YGIDYRUwbNNp8oTTAPXEXG6Ke49aBwqXESkqW6QupsSenFiGNu+fjFgtJ2bZrzsiiNj0TDVSzfYYp+8F3+hox29NfUlUEhpNWGWyc0PMY7FlFlYDmobblvnImMEoHTFsRL1vO9BpMh/+tWO9U95ozlW/xFfN+RBt38CqvmjZkVLxmkjUUVkLN9noVzvjFZwUYNo5QCVndkD6J+Nx1l1mcUPiaWMTkyI1weAqtGcZZFM1LBqqebSgfxphXxwtuc9solW8PtkQPvRK3rpNf9XXrS/4xvDRCFYoj5A3ghKd0cqw/+yo/8MfFg0Vi8zFIa6Wmo9f40CZOAAb5OCHd7xO/spbjlKNOJimby9ByRB0kOj/LkSHN712xZEtwn5w04eg42emeMJHjoL40gpG7WgpbZNtP3auzHPDMFPTeMGGNf5Hc9YkHGV4xuPNxaTnSjJtW0dpoznVGF81+KfdkFAmR35/cRnmyl7yPFA7/D/hedY7pY07xOtbiQI/+aa7Nm7xpr+HUiZghqBtP7vwU3QaXeHLY7MMpM9IdxgASqiSwFVNo4SJy8ipQtbirQnH6LciXtq42ieqX5IW/LamCgOJ3NECu+UDhgiRf30J+Qb+piZ+fPD4IWH4hjrMKuBdGmxNKTcTA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(22082099003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: M2ESs+jTZX/oXEsvAeMHcXziG6JgHOpaLdCkDQqCaeZ0mgfRaRnXo0u+Em7may+NnminYy/CCxHPzGHDqCtbWKZYdbVTuF1qgZ8K+dji8tSHkbr2hgo0JiLUGOkUIHgXsyuwKsDAlubyY0l2ygGvVsSFFcrFzmoevq6iWxTv6mNAv7cEZY0B2Cudd/P2+2LLbeJA7NfC7XgdskrGaVNRrU3RKli9UyLk4ZUV5Em4RkZx/o0/CAq+TFOlsY1Kk/Bg7QiIkKE7FnrNydE+X5AeL8tdemEmt7niQkO9xAqwSX37KfhS1o27ywNZCyI/UhEzhqyxP9Bvk1Mboxrq5pl1AUanO6h7OllRfbHOYSIbprLCJ7rohFCCySr/mWdCJP/a9hnwj8fUOf/lVfMZurLknMwbVOZwyUGj4i1g5JY/47fCVVXHno8f6wvwUNlKnPwO
+X-MS-Exchange-AntiSpam-MessageData-0: zR2YXocYSG9xgaX4Ovzr5lkKb169LAIZzmR9v8E1jKzDqOinQlhq3aRGi8pg/wloSmwrT2uG9FZxvOux+1/TG6C5hWGuHdm76VaW7KvLTNgGT2iDN4vEAjMJ6CSNHorfqrYwhp7CKCqBwlpeYdtUUjbyk1JcNwWXNvO9MUpgi5fuHpnCFaP8YkJgiBZPgd5Rxj/+yrhahnC+e2GQZKcSUa+F8HpjToHA08PkiBnNmw0jN8dBy6eStKP7GbDb9FtaCa7Ew2tZU53D5qwH7MtxF5GlXrkvvIBM0nLOw/KTsIb+1aiUCkTcTowrnCaP6sqC5A6wuWx/BkCnQWne7UPgdPXl3J3IHuQZJvwx+01aIriiBdStOQ4d9YJgg67Km3bV0ool1RSBaG75nP8OZAvp+j5QlMYds46u6vuOUy4m3WbCVTd83VP65O71FGfaxbSy
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:23.1353 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff56168-f92e-4cc3-d2df-08dece0731fa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:26.2025 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50e821ff-5f17-44dd-6898-08dece0733ce
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5806
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8093
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,90 +117,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Matthew Stewart <Matthew.Stewart2@amd.com>
 
-[WHY]
-12bpc color ramp pattern was never implemented.
+[why]
 
-[HOW]
-Add correct DPG_RAMP_CONTROL programming to match DP color ramp spec.
+Some resources that exist in the DCN block are not needed and shouldn't
+be used.
 
-Reviewed-by: George Shen <george.shen@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+[how]
+
+Remove defines from register lists.
+
+Reviewed-by: Ovidiu (Ovi) Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Matthew Stewart <Matthew.Stewart2@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  | 33 ++++++++++++++-----
- 1 file changed, 25 insertions(+), 8 deletions(-)
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.h    | 62 +++++++++----------
+ 1 file changed, 30 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
-index 83730bbe26a8..50b6973ef123 100644
---- a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
-+++ b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
-@@ -149,6 +149,9 @@ void opp2_set_disp_pattern_generator(
- 		case TEST_PATTERN_COLOR_FORMAT_BPC_10:
- 			dst_bpc = 10;
- 		break;
-+		case TEST_PATTERN_COLOR_FORMAT_BPC_12:
-+			dst_bpc = 12;
-+		break;
- 		default:
- 			dst_bpc = 8;
- 		break;
-@@ -192,22 +195,25 @@ void opp2_set_disp_pattern_generator(
+diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h
+index d45e3af77aad..a2b17ed11bdb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h
++++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.h
+@@ -57,34 +57,24 @@
+ 	DCCG_SF(PHYBSYMCLK_CLOCK_CNTL, PHYBSYMCLK_SRC_SEL, mask_sh),\
+ 	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_EN, mask_sh),\
+ 	DCCG_SF(PHYCSYMCLK_CLOCK_CNTL, PHYCSYMCLK_SRC_SEL, mask_sh),\
+-	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_EN, mask_sh),\
+-	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_SRC_SEL, mask_sh),\
+ 	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK0_EN, mask_sh),\
+ 	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK1_EN, mask_sh),\
+ 	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK2_EN, mask_sh),\
+-	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK3_EN, mask_sh),\
+ 	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK0_SRC_SEL, mask_sh),\
+ 	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK1_SRC_SEL, mask_sh),\
+ 	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK2_SRC_SEL, mask_sh),\
+-	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK3_SRC_SEL, mask_sh),\
+ 	DCCG_SF(HDMISTREAMCLK_CNTL, HDMISTREAMCLK0_EN, mask_sh),\
+ 	DCCG_SF(HDMISTREAMCLK_CNTL, HDMISTREAMCLK0_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE0_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE1_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE2_SRC_SEL, mask_sh),\
+-	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE0_EN, mask_sh),\
+ 	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE1_EN, mask_sh),\
+ 	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE2_EN, mask_sh),\
+-	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_EN, mask_sh),\
+ 	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE0_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE1_SRC_SEL, mask_sh),\
+-	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE2_SRC_SEL, mask_sh),\
+-	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE3_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE0_EN, mask_sh),\
+ 	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE1_EN, mask_sh),\
+-	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE2_EN, mask_sh),\
+-	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE3_EN, mask_sh),\
+ 	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 0, mask_sh),\
+ 	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 1, mask_sh),\
+ 	DCCG_SFII(OTG, PIXEL_RATE_CNTL, PIPE, DTO_SRC_SEL, 2, mask_sh),\
+@@ -122,7 +112,6 @@
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYASYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYBSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYCSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYDSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GLOBAL_FGCG_REP_CNTL, DCCG_GLOBAL_FGCG_REP_DIS, mask_sh),\
+ 	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DP_DTO, ENABLE, 0, mask_sh),\
+ 	DCCG_SFII(OTG, PIXEL_RATE_CNTL, DP_DTO, ENABLE, 1, mask_sh),\
+@@ -135,7 +124,6 @@
+ 	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK0_EN, mask_sh),\
+ 	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK1_EN, mask_sh),\
+ 	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK2_EN, mask_sh),\
+-	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK3_EN, mask_sh),\
+ 	DCCG_SF(DSCCLK0_DTO_PARAM, DSCCLK0_DTO_PHASE, mask_sh),\
+ 	DCCG_SF(DSCCLK0_DTO_PARAM, DSCCLK0_DTO_MODULO, mask_sh),\
+ 	DCCG_SF(DSCCLK1_DTO_PARAM, DSCCLK1_DTO_PHASE, mask_sh),\
+@@ -148,36 +136,26 @@
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKA_FE_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKB_FE_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKC_FE_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKD_FE_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKA_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKB_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKC_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKD_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYASYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYBSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYCSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYDSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_SE0_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_SE1_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_SE2_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_SE3_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE0_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE1_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE2_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE3_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE0_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE1_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE2_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE3_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE0_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE1_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE2_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE3_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, HDMICHARCLK0_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, PHYA_REFCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, PHYB_REFCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, PHYC_REFCLK_ROOT_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, PHYD_REFCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DTBCLK_P0_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DTBCLK_P1_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DTBCLK_P2_GATE_DISABLE, mask_sh),\
+@@ -185,19 +163,15 @@
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKA_FE_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKB_FE_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKC_FE_ROOT_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKD_FE_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKA_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKB_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKC_ROOT_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKD_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK0_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK1_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK2_ROOT_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK3_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK0_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK1_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK2_GATE_DISABLE, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK3_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL6, DSCCLK0_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL6, DSCCLK1_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL6, DSCCLK2_ROOT_GATE_DISABLE, mask_sh),\
+@@ -209,26 +183,38 @@
+ 	DCCG_SF(SYMCLKA_CLOCK_ENABLE, SYMCLKA_CLOCK_ENABLE, mask_sh),\
+ 	DCCG_SF(SYMCLKB_CLOCK_ENABLE, SYMCLKB_CLOCK_ENABLE, mask_sh),\
+ 	DCCG_SF(SYMCLKC_CLOCK_ENABLE, SYMCLKC_CLOCK_ENABLE, mask_sh),\
+-	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_CLOCK_ENABLE, mask_sh),\
+ 	DCCG_SF(SYMCLKA_CLOCK_ENABLE, SYMCLKA_FE_EN, mask_sh),\
+ 	DCCG_SF(SYMCLKB_CLOCK_ENABLE, SYMCLKB_FE_EN, mask_sh),\
+ 	DCCG_SF(SYMCLKC_CLOCK_ENABLE, SYMCLKC_FE_EN, mask_sh),\
+-	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_FE_EN, mask_sh),\
+ 	DCCG_SF(SYMCLKA_CLOCK_ENABLE, SYMCLKA_FE_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLKB_CLOCK_ENABLE, SYMCLKB_FE_SRC_SEL, mask_sh),\
+-	DCCG_SF(SYMCLKC_CLOCK_ENABLE, SYMCLKC_FE_SRC_SEL, mask_sh),\
+-	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_FE_SRC_SEL, mask_sh)
++	DCCG_SF(SYMCLKC_CLOCK_ENABLE, SYMCLKC_FE_SRC_SEL, mask_sh)
 
- 	case CONTROLLER_DP_TEST_PATTERN_COLORRAMP:
- 	{
--		mode = (bit_depth ==
--			TEST_PATTERN_COLOR_FORMAT_BPC_10 ?
--			TEST_PATTERN_MODE_DUALRAMP_RGB :
--			TEST_PATTERN_MODE_SINGLERAMP_RGB);
--
- 		switch (bit_depth) {
- 		case TEST_PATTERN_COLOR_FORMAT_BPC_6:
-+			mode = TEST_PATTERN_MODE_SINGLERAMP_RGB;
- 			dst_bpc = 6;
- 		break;
- 		case TEST_PATTERN_COLOR_FORMAT_BPC_8:
-+			mode = TEST_PATTERN_MODE_SINGLERAMP_RGB;
- 			dst_bpc = 8;
- 		break;
- 		case TEST_PATTERN_COLOR_FORMAT_BPC_10:
-+			mode = TEST_PATTERN_MODE_DUALRAMP_RGB;
- 			dst_bpc = 10;
- 		break;
-+		case TEST_PATTERN_COLOR_FORMAT_BPC_12:
-+			mode = TEST_PATTERN_MODE_DUALRAMP_RGB;
-+			dst_bpc = 12;
-+		break;
- 		default:
-+			mode = TEST_PATTERN_MODE_SINGLERAMP_RGB;
- 			dst_bpc = 8;
- 		break;
- 		}
-@@ -244,9 +250,20 @@ void opp2_set_disp_pattern_generator(
- 		case TEST_PATTERN_COLOR_FORMAT_BPC_10:
- 		{
- 			REG_SET_3(DPG_RAMP_CONTROL, 0,
--				DPG_RAMP0_OFFSET, 384 << 6,
--				DPG_INC0, inc_base,
--				DPG_INC1, inc_base + 2);
-+				DPG_RAMP0_OFFSET, 384 << inc_base, // 384 start point
-+				DPG_INC0, inc_base, // step size of 1
-+				DPG_INC1, inc_base + 2); // step size of 4 (1 << 2)
-+			REG_UPDATE_2(DPG_CONTROL,
-+				DPG_VRES, 5,
-+				DPG_HRES, 8);
-+		}
-+		break;
-+		case TEST_PATTERN_COLOR_FORMAT_BPC_12:
-+		{
-+			REG_SET_3(DPG_RAMP_CONTROL, 0,
-+				DPG_RAMP0_OFFSET, 1920 << inc_base, // 1920 start point
-+				DPG_INC0, inc_base, // step size of 1
-+				DPG_INC1, inc_base + 4); // step size of 16 (1 << 4)
- 			REG_UPDATE_2(DPG_CONTROL,
- 				DPG_VRES, 5,
- 				DPG_HRES, 8);
+ #define DCCG_MASK_SH_LIST_DCN42(mask_sh) \
+ 	DCCG_MASK_SH_LIST_DCN42_COMMON(mask_sh),\
++	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_EN, mask_sh),\
++	DCCG_SF(PHYDSYMCLK_CLOCK_CNTL, PHYDSYMCLK_SRC_SEL, mask_sh),\
+ 	DCCG_SF(PHYESYMCLK_CLOCK_CNTL, PHYESYMCLK_EN, mask_sh),\
+ 	DCCG_SF(PHYESYMCLK_CLOCK_CNTL, PHYESYMCLK_SRC_SEL, mask_sh),\
+ 	DCCG_SF(HDMISTREAMCLK0_DTO_PARAM, HDMISTREAMCLK0_DTO_PHASE, mask_sh),\
+ 	DCCG_SF(HDMISTREAMCLK0_DTO_PARAM, HDMISTREAMCLK0_DTO_MODULO, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYDSYMCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYESYMCLK_ROOT_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKD_FE_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, SYMCLKD_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DSCCLK3_DTO_PARAM, DSCCLK3_DTO_PHASE, mask_sh),\
+ 	DCCG_SF(DSCCLK3_DTO_PARAM, DSCCLK3_DTO_MODULO, mask_sh),\
+-	DCCG_SF(DCCG_GATE_DISABLE_CNTL2, PHYESYMCLK_ROOT_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_SE3_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE2_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE3_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE3_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE2_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE3_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKD_FE_ROOT_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKD_ROOT_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK3_ROOT_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, DPSTREAMCLK3_GATE_DISABLE, mask_sh),\
++	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, PHYD_REFCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL4, PHYE_REFCLK_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKE_FE_ROOT_GATE_DISABLE, mask_sh),\
+ 	DCCG_SF(DCCG_GATE_DISABLE_CNTL5, SYMCLKE_ROOT_GATE_DISABLE, mask_sh),\
+@@ -237,10 +223,22 @@
+ 	DCCG_SF(SYMCLKB_CLOCK_ENABLE, SYMCLKB_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLKC_CLOCK_ENABLE, SYMCLKC_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_CLOCK_ENABLE, mask_sh),\
++	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_FE_EN, mask_sh),\
++	DCCG_SF(SYMCLKD_CLOCK_ENABLE, SYMCLKD_FE_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_SRC_SEL, mask_sh),\
+ 	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_CLOCK_ENABLE, mask_sh),\
+ 	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_FE_EN, mask_sh),\
+-	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_FE_SRC_SEL, mask_sh)
++	DCCG_SF(SYMCLKE_CLOCK_ENABLE, SYMCLKE_FE_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_SE_CNTL, SYMCLK32_SE3_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE2_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE3_SRC_SEL, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE2_EN, mask_sh),\
++	DCCG_SF(SYMCLK32_LE_CNTL, SYMCLK32_LE3_EN, mask_sh),\
++	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK3_EN, mask_sh),\
++	DCCG_SF(DPSTREAMCLK_CNTL, DPSTREAMCLK3_SRC_SEL, mask_sh),\
++	DCCG_SF(DSCCLK_DTO_CTRL, DSCCLK3_EN, mask_sh)
+
+
+ void dccg42_otg_add_pixel(struct dccg *dccg,
 --
 2.54.0
 
