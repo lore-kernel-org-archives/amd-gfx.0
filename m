@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D8CECDB46F
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372F3CD98F2
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1CC210F5EF;
-	Fri, 19 Jun 2026 13:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C35A010F5EC;
+	Fri, 19 Jun 2026 13:32:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JWZBs6wd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Dc6Zue4F";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8689710F5E6
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:35 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012014.outbound.protection.outlook.com
+ [40.93.195.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6750610F5EC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l1MBfCOEKvid9zIDajHFHrsniwEPfSEOqvzQiILyiNH0D7R4yJx2V63QAS+OJl3j9Jf9/IsBc41BGX/WQKah+Mn2kqPtLfLPl3oYtDNWFx2cjC3SkCWJ95F8NkTBqnXPIrqderyxTuNm1qaM2/zoTkTRMcB/lS9NmFdrlsTxoLZC5l2RJJKMsr9XKVCmtLkwSh5uva0TihFs3EuIepDnqmxopEXXkrl5GtfcNQxURijKLvjTRzkviu38ZKL/oq6Tl7yCLvpeeS0l0ujlYNn+nzmo/ETVWpEBAVht3tmZ3AFl4aXqs9pRNK+OoJhLmNfwxdOcat/4R+d3bh4dWqa7Cg==
+ b=pkF7fZ78dIk4kFjvOwiVhJYrLQalpE6rFSNTS6U2XmzGU2K9M4Uvs878eki5IZHoZqMZURHXLGKdxfgIOu0uIvLSbsh3JdCbdbIR7olA/peiC5GkP/yld54mvGhlxqdSFVBPgnIobmZCeoLOMWklfpbJO8YJQB7P49yq8WcZ+2ZsQCs0tLNUeOil1sf6n3C1BVFP/1Cu4ZpAtfa0qqztF7jP0QdO5ocpEplfmqDQ1CgTV0J84zLEJ8ERnocYp4B2eiu3MTyglhE7z0kUB6AA2qGEPy5dYq5rN3asE64iIaFej1Ot8peYu1etbbub4FglJvfQkzZU5nigRGZs9yFJvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BT3dgWWHYl3XPQ+mkOwe4QVRaoVn8oV51HVu5plBsKY=;
- b=xSbWFxBEnvwaLGEURWf8FRghldX9ZG/9DxH5DdZ0hpVRQ1s1Iwjzk94eNB5F0A2myFaiYGp5DuhL3nbwoRgKw6udFyPdcY9gbS1Ev0jl4UCwk5PW+gWpd4qoLQuwT5BRQanW7r4JED8TAmZ66q53gPJ1DT+5aLn7L8ddahTkpRUoeXIaHNnktc074HMje0MuDYQyszZp1gpAH36LIwuQfSYsIj5BlXBDL/R0e9jD7X0qA2Mqpui4JpPgV+pOR5U1rDiW1wrJWH/7lZgPtBQl/eFun9U2Z5In/T7ei6Rky7pTGp5+NeWm3nzPLYy3TO3bZvoa7GLNUAIOX7lXVzn+Sw==
+ bh=7wqIPl5THUVSmwydFCX9eqncjDANdQp8UlfZKhoS3P8=;
+ b=pe48kCzh4mG9gKJijPLDpZtcYMjyX2G1edwpO54JgBPChNgSttDLDsWLUoYz5dwZBRrDK2uMOHeSmGsAOFANWC6CaZ4TAzy3R8lHIyymyfD9kSxwo+zVCsvZ9zvqKfYmZIdvi2sU14rZPXl0rGWQXBXgexFjT37fcWCDGTy+uikV7LD1bTWucwiMn5dO5K4HlNOaUuUlPRgNpU+q1hDHc19mFDQDyy6YiSInkMMqKcLF7uG8LaP23L+YqKJzP+3Ioy4RnXfgfvUum3cOTwPcbRjrCDufws77DgGnFZlAnR9ZYOKyaeYErKd9i1Y3/c5eG9R/t1VEHDzg//hQJZg6Rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BT3dgWWHYl3XPQ+mkOwe4QVRaoVn8oV51HVu5plBsKY=;
- b=JWZBs6wdUUW3esVkwiD5nexBj9097mFGz7evuo9HOlo6cL517UIAIfuugWyszCDHtX05l0tpJ2gRR1Bcvebp9vwiav5pfzraGgVBr2Cgmgm3n/QqQI0IY2rysC4vTDk2M6H0r/PpW/3a59NFAKx2fs53eutGwYj440JVIMkFPaU=
-Received: from BN0PR03CA0014.namprd03.prod.outlook.com (2603:10b6:408:e6::19)
- by DSWPR12MB999127.namprd12.prod.outlook.com (2603:10b6:8:36c::7)
+ bh=7wqIPl5THUVSmwydFCX9eqncjDANdQp8UlfZKhoS3P8=;
+ b=Dc6Zue4FFtFWVe3AYpf0MqHWDs9BtWDYvqWPy0ENBgygWhjuYKdpDeokgoaNm0p9EQq6iyIZYtRXUhFPUTdWrPkdT9lceF8FeT8Hxl9b+c+yWIqtizAyM56Ka/3DO1DRN8WUhGwkPOK5QaQGKDmQLKopp3kI6K5kejz4XRtvnkM=
+Received: from BN0PR03CA0029.namprd03.prod.outlook.com (2603:10b6:408:e6::34)
+ by IA0PR12MB8352.namprd12.prod.outlook.com (2603:10b6:208:3dd::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Fri, 19 Jun
- 2026 13:32:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 13:32:37 +0000
 Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:408:e6:cafe::2a) by BN0PR03CA0014.outlook.office365.com
- (2603:10b6:408:e6::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
- 19 Jun 2026 13:32:27 +0000
+ (2603:10b6:408:e6:cafe::6c) by BN0PR03CA0029.outlook.office365.com
+ (2603:10b6:408:e6::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Fri,
+ 19 Jun 2026 13:32:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:27 +0000
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:37 +0000
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:26 -0500
+ 2026 08:32:34 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +64,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 11/24] drm/amd/display: split TF/LUT colorop state lookups
- into separate upfront phases
-Date: Fri, 19 Jun 2026 09:21:26 -0400
-Message-ID: <20260619133154.116746-12-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Taimur Hassan <Syed.Hassan@amd.com>, George Zhang
+ <george.zhang@amd.com>
+Subject: [PATCH 22/24] drm/amd/display: [FW Promotion] Release 0.1.64.0
+Date: Fri, 19 Jun 2026 09:21:37 -0400
+Message-ID: <20260619133154.116746-23-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -79,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|DSWPR12MB999127:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc50a245-3789-44be-e905-08dece0734db
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|IA0PR12MB8352:EE_
+X-MS-Office365-Filtering-Correlation-Id: a28c36dd-e721-4d78-f32e-08dece073ab9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|3023799007|22082099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: h14OHI3XcNqSTi1cPrCHvNhmEVW6dY4vO16ahXg3SggpaXDutFNl6IHuDCj+gyYQVbaTu3fFJH20230roCBRUc7Rw++wOdQtiRQcGqdFtVPGxnHq9Bu8knsyVGAkEOvIdhK0wJ3sjlhUi0aL54EtKc5OqIOkKhSzT/nYBglwsgb3VO+qNJgRZ5FT8mMTxh8XcoDu+uRVp4pLzqbkH8Lc/CC45JEAhT5gTdCZiRQX6NA06O+O6mujJKMUBQI0HUc+BzRpi1VGWg+45TUQmBkqck47CgOPDZ6BAvipGA6zvmH+TlTXuYsWypWXik7mGJhFGpe2mscxX12UQW16fLNZj1QQiZTT2MTFza6TY0/eRGO1y3S53f728V2Udh4Z8gcfzDwOMc+iV6MpewIx98o/l1aW4QZrFBcn5JDk3mKcQja+Zmm2iJeH2kTW9WsvdZ3RkhEuOfqjx7Qzeo/NU3g1wGrH2lwDGYzIT/oK0wngmiaT8gioCjGtpcbNUBfrLvMpEvI6oxkiCJ+YMzfev2m3lqO3y1jLc38ORCq0zaG7MP8h7wr+W7Xsx87BOaujaT0kp+gqn6b989U39jabGhTMCs6WwL9agFXKdkJH9dy+7bcBtc6jPNjUZCWhgxOrKHEedePo62zROsr0RtOOFD46kEn0/JtVOE5teLD6UbIe/MDT7iD4e05aW6/Qdk29BENc84KzTRF8DWMn7cn9H8Y7WQ==
+ ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|18002099003|22082099003|3023799007|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: U6iUljWDPeZVA5Q6iN5o8cJj1gxenFv3kMGHO1R+5R1iPgp049hYuElpeHNhJnzgF9l9IQ4ZMrR51CTGwahvJ5g72Ii5wMerF/P4hzkYiK+l7uVh7A27wmT999JmpwZ8Vnjc6Xlvb0JdAgJVXStRA4ICs6f+Xn9jSgUqIPdZATOzxmbqk2gLvhOQYJ25VwsBfi5cu4M2Lo+w9zrwE6fJAxhbAlU5P4eocTtksByJL4i9mY1FV4QwNMTnHdF3/TldDX6VNrM4Ci0JhW5eYDLeC5vFKy3depiLn7K2qSKIjbNVZYYrJuaYFImXV506FSBrrIfeJHlmitwVKM+8y67LvnEvT8Gy/1xFaRg8TZ1uD7azj/oJiypxn6yi/XNYA9mfmBYTEyMUuF6P8mYymSV3jYaKiAmJq/Qr5uF64lWTZa5Ug+sTu8CtScC3e5NeqUV98fqECrxnrvNz1jikyoaeJKZWu71WHCC+TicYpaExKOsVBd7b+Y2BU8VhbQtXgumNZjrZ/ql+YF9cq4f3AeUTMb4USuXNvZ2m0G1XHZwi20dXVanU/XF+BWJiclDp2oiVHCUtnQS+YOQ889GlrGaMyHpTERcynVMMkyC4NaP833ZldasXSRXy8sesvF2TM97mDfn6uI2mAUHK8dkCIcqc6sTe3dJlvzBFMK8NXNOqAfLaBCL+am4ZoVV6x26MM/vp5bJ7IeYMO7Z58jjwThtsOg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(3023799007)(22082099003)(56012099006)(11063799006)(18002099003);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fwYTTDGkVLQBBjPO0MYvqBhBJgyDFuTRCe8YHT+IrlhNKelYCVUOMACvItZ0s8zwOJ45C9tJ54U11uPOQYfCOBrMdx3JreoIQy5hFIjyst+3nZxZE/zZJ5L+TK2wyFkPdd3X1CxEqSt5Ki6kB24Z6mrSfMRZ/O3lj5/GvqLVEHf2h+XdweckKYA2JcYZIN7dLY03vdMtR2s3CouiYUACODOrm/yGagtL8YnEUuSTrxsu/NwqaIRuXpifZMX/XCfzYeMZtdMXoH3Pr3k+B0THU8DQ+0Jukk5zlgX3cLyEumWh9VAefZf/kPmTlCtJlhjbcu4Wo53ANY6Cw5OcepYlOYB55PRJx7W5+8h4EzJLz6VmLivJXzlUB4ODfyX81BNUJFPMFD33ntuCk5iMuOlg3ZSj/SSda8Kg+6crrhvmC8YF8fHc3dqCeiOfXoPTSGAQ
+X-MS-Exchange-AntiSpam-MessageData-0: eWuS2IZnKuLg+iRb9nwDsEA+dVJkA7XWmb9cUcQGcXeuYaPaVi7YCB5kvhxqJJkasd6D7l+rvRoIbpWMt45KZS/TltTcMWJoWO2DKSOS7bF48J8wTzDu3ZNX4twDzWLZiEZdKQXsv3LFpRI0v2Z/BjA+5+fI/bkU3RfgIi0ZprxqDOqnABjKRO0xD8nR2aH9B6fQFxa1qXtVGwExgKlEB5hvCt+aaTVP8XBk6pnjibSasEoY0f0GBYl3Ifax8RI6RbjzI1KxNOX3seatA1+LZFA4Tyb286aGVsuAHKAGklqosvEKYV0CMbJCoJeUkNbXTbuYzg2M3X7KXWGCab9uvDf33/DQ0wQrNJqG47sLK6CsEl3fAz91CeMIl4fJ3qhcKHpb0WcDqrG9cAnGSAAkMSFdDNGMg5og7IzzgRlCjty3MUA3IWXbKBZLhz5+nuIJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:27.9668 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc50a245-3789-44be-e905-08dece0734db
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:37.8087 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a28c36dd-e721-4d78-f32e-08dece073ab9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999127
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,206 +117,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+From: Taimur Hassan <Syed.Hassan@amd.com>
 
-In __set_dm_plane_colorop_shaper and __set_dm_plane_colorop_blend the
-single colorop_state variable was reused sequentially: first to capture
-the TF state, then (after mutating the colorop pointer) to capture the
-LUT state.
-
-Split into separate tf_state / lut_state pointers and introduce a
-dedicated lut_colorop local. Resolve both pointers upfront before any
-computation begins. This separates the concern of "find the states" from
-"use the states" and makes the code easier to follow.
-
-No functional change.
-
-Assisted-by: Copilot:claude-opus-4.8
-
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 94 ++++++++++---------
- 1 file changed, 48 insertions(+), 46 deletions(-)
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 111 +++++++++++++++++-
+ 1 file changed, 109 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 724b7729f342..affcd090c9b7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1640,8 +1640,10 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 			      struct drm_colorop *colorop)
- {
- 	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *new_colorop_state;
-+	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
- 	struct drm_atomic_state *state = plane_state->state;
-+	struct drm_colorop *lut_colorop;
- 	enum dc_transfer_func_predefined default_tf = TRANSFER_FUNCTION_LINEAR;
- 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
- 	const struct drm_color_lut32 *shaper_lut;
-@@ -1650,53 +1652,52 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 	u32 shaper_size;
- 	int i = 0, ret = 0;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 57f30be6bc9c..fb249328c4b2 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -246,14 +246,14 @@
+  * OS/FW agnostic memcpy
+  */
+ #ifndef dmub_memcpy
+-#define dmub_memcpy(dest, source, bytes) memcpy((dest), (source), (bytes))
++#define dmub_memcpy(dest, source, bytes) (void)memcpy((dest), (source), (bytes))
+ #endif
 
--	/* 1D Curve - SHAPER TF */
-+	/* 1D Curve - SHAPER TF: find state */
- 	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
- 		if (new_colorop_state->colorop == old_colorop &&
- 		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_shaper_tfs)) {
--			colorop_state = new_colorop_state;
-+			tf_state = new_colorop_state;
- 			break;
- 		}
- 	}
+ /**
+  * OS/FW agnostic memset
+  */
+ #ifndef dmub_memset
+-#define dmub_memset(dest, val, bytes) memset((dest), (val), (bytes))
++#define dmub_memset(dest, val, bytes) (void)memset((dest), (val), (bytes))
+ #endif
 
--	if (colorop_state && !colorop_state->bypass) {
--		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", colorop->base.id);
--		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
--		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
--		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
--		ret = __set_output_tf(tf, 0, 0, false);
--		if (ret)
--			return ret;
--		enabled = true;
--	}
--
--	/* 1D LUT - SHAPER LUT */
--	colorop = old_colorop->next;
--	if (!colorop) {
-+	/* 1D LUT - SHAPER LUT: find state */
-+	lut_colorop = old_colorop->next;
-+	if (!lut_colorop) {
- 		drm_dbg(dev, "no Shaper LUT colorop found\n");
- 		return -EINVAL;
- 	}
+ /**
+@@ -1702,6 +1702,17 @@ enum dmub_gpint_command {
+ 	 * ARGS: 1 - Power off
+ 	 */
+ 	DMUB_GPINT__PANEL_POWER_OFF_SEQ = 138,
++	/**
++	 * DESC: Gets panel polarity bias.
++	 * ARGS: 0 - Get panel polarity bias
++	 */
++	DMUB_GPINT__PANEL_POLARITY_GET_BIAS = 139,
++	/**
++	 * DESC: Enables panel polarity.
++	 * ARGS: 0 - Disable panel polarity
++	 *       1 - Enable panel polarity
++	 */
++	DMUB_GPINT__PANEL_POLARITY_DEBUG_ENABLE = 140,
+ };
 
--	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
-+		if (new_colorop_state->colorop == lut_colorop &&
- 		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
--			colorop_state = new_colorop_state;
-+			lut_state = new_colorop_state;
- 			break;
- 		}
- 	}
+ /**
+@@ -1956,6 +1967,11 @@ enum dmub_cmd_type {
+ 	 */
+ 	DMUB_CMD__BOOT_TIME_CRC = 96,
 
--	if (colorop_state && !colorop_state->bypass) {
--		drm_dbg(dev, "Shaper LUT colorop with ID: %d\n", colorop->base.id);
-+	if (tf_state && !tf_state->bypass) {
-+		drm_dbg(dev, "Shaper TF colorop with ID: %d\n", old_colorop->base.id);
-+		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-+		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
-+		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		ret = __set_output_tf(tf, 0, 0, false);
-+		if (ret)
-+			return ret;
-+		enabled = true;
-+	}
++	/**
++	 * Command type use for all Panel Polarity commands.
++	 */
++	DMUB_CMD__PANEL_POLARITY = 97,
 +
-+	if (lut_state && !lut_state->bypass) {
-+		drm_dbg(dev, "Shaper LUT colorop with ID: %d\n", lut_colorop->base.id);
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
--		shaper_lut = __extract_blob_lut32(colorop_state->data, &shaper_size);
-+		shaper_lut = __extract_blob_lut32(lut_state->data, &shaper_size);
- 		shaper_size = shaper_lut != NULL ? shaper_size : 0;
+ 	/**
+ 	 * Command type use for VBIOS shared commands.
+ 	 */
+@@ -4365,6 +4381,15 @@ enum dmub_cmd_replay_type {
+ 	DMUB_CMD__REPLAY_SET_GENERAL_CMD = 16,
+ };
 
- 		/* Custom LUT size must be the same as supported size */
--		if (shaper_size == colorop->size) {
-+		if (shaper_size == lut_colorop->size) {
- 			ret = __set_output_tf_32(tf, shaper_lut, shaper_size, false);
- 			if (ret)
- 				return ret;
-@@ -1812,8 +1813,10 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 			     struct drm_colorop *colorop)
- {
- 	struct drm_colorop *old_colorop;
--	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
-+	struct drm_colorop_state *new_colorop_state;
-+	struct drm_colorop_state *tf_state = NULL, *lut_state = NULL;
- 	struct drm_atomic_state *state = plane_state->state;
-+	struct drm_colorop *lut_colorop;
- 	enum dc_transfer_func_predefined default_tf = TRANSFER_FUNCTION_LINEAR;
- 	struct dc_transfer_func *tf = &dc_plane_state->cm.blend_func;
- 	const struct drm_color_lut32 *blend_lut = NULL;
-@@ -1823,52 +1826,51 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
-
- 	dc_plane_state->cm.flags.bits.blend_enable = 0;
-
--	/* 1D Curve - BLND TF */
-+	/* 1D Curve - BLND TF: find state */
- 	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
- 		if (new_colorop_state->colorop == old_colorop &&
- 		    (BIT(new_colorop_state->curve_1d_type) & amdgpu_dm_supported_blnd_tfs)) {
--			colorop_state = new_colorop_state;
-+			tf_state = new_colorop_state;
- 			break;
- 		}
- 	}
-
--	if (colorop_state && !colorop_state->bypass) {
--		drm_dbg(dev, "Blend TF colorop with ID: %d\n", colorop->base.id);
--		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
--		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
--		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
--		dc_plane_state->cm.flags.bits.blend_enable = 1;
--		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
--	}
--
--	/* 1D Curve - BLND LUT */
--	colorop = old_colorop->next;
--	if (!colorop) {
-+	/* 1D LUT - BLND LUT: find state */
-+	lut_colorop = old_colorop->next;
-+	if (!lut_colorop) {
- 		drm_dbg(dev, "no Blend LUT colorop found\n");
- 		return -EINVAL;
- 	}
-
--	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
--		if (new_colorop_state->colorop == old_colorop &&
-+		if (new_colorop_state->colorop == lut_colorop &&
- 		    new_colorop_state->colorop->type == DRM_COLOROP_1D_LUT) {
--			colorop_state = new_colorop_state;
-+			lut_state = new_colorop_state;
- 			break;
- 		}
- 	}
-
--	if (colorop_state && !colorop_state->bypass) {
--		drm_dbg(dev, "Blend LUT colorop with ID: %d\n", colorop->base.id);
-+	if (tf_state && !tf_state->bypass) {
-+		drm_dbg(dev, "Blend TF colorop with ID: %d\n", old_colorop->base.id);
-+		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
-+		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
-+		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		dc_plane_state->cm.flags.bits.blend_enable = 1;
-+		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+	}
++/*
++ * Panel Polarity sub-types
++ */
++enum dmub_cmd_panel_polarity_type {
++	DMUB_CMD__PANEL_POLARITY_ENABLE = 0,
++	DMUB_CMD__PANEL_POLARITY_GET_BIAS = 1,
++	DMUB_CMD__PANEL_POLARITY_RESET = 2,
++};
 +
-+	if (lut_state && !lut_state->bypass) {
-+		drm_dbg(dev, "Blend LUT colorop with ID: %d\n", lut_colorop->base.id);
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
- 		dc_plane_state->cm.flags.bits.blend_enable = 1;
--		blend_lut = __extract_blob_lut32(colorop_state->data, &blend_size);
-+		blend_lut = __extract_blob_lut32(lut_state->data, &blend_size);
- 		blend_size = blend_lut != NULL ? blend_size : 0;
+ /*
+  * Panel Replay sub-types
+  */
+@@ -7031,6 +7056,80 @@ struct dmub_cmd_pr_enable_data {
+ 	uint8_t pad[2];
+ };
 
- 		/* Custom LUT size must be the same as supported size */
--		if (blend_size == colorop->size)
-+		if (blend_size == lut_colorop->size)
- 			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
- 	}
++struct dmub_cmd_panel_polarity_enable_data {
++	/**
++	 * Panel Polarity enable or disable.
++	 */
++	uint8_t enable;
++	/**
++	 * OTG instance
++	 */
++	uint8_t otg_inst;
++	/**
++	 * @pad: Align structure to 4 byte boundary.
++	 */
++	uint8_t pad[2];
++};
++
++struct dmub_cmd_panel_polarity_reset_data {
++	/**
++	 * OTG instance
++	 */
++	uint8_t otg_inst;
++	/**
++	 * @pad: Align structure to 4 byte boundary.
++	 */
++	uint8_t pad[3];
++};
++
++struct dmub_cmd_panel_polarity_get_bias_input {
++	/**
++	 * OTG instance
++	 */
++	uint8_t otg_inst;
++	uint8_t pad[3];
++};
++
++struct dmub_cmd_panel_polarity_get_bias_output {
++	/**
++	 * Accumulated Polarity Bias
++	 */
++	int32_t accumulated_bias;
++};
++
++struct dmub_rb_cmd_panel_polarity_enable {
++	/**
++	 * Command header.
++	 */
++	struct dmub_cmd_header header;
++
++	struct dmub_cmd_panel_polarity_enable_data data;
++};
++
++
++struct dmub_rb_cmd_panel_polarity_get_bias {
++	/**
++	 * Command header.
++	 */
++	struct dmub_cmd_header header;
++
++	union dmub_cmd_panel_polarity_get_bias_data {
++		struct dmub_cmd_panel_polarity_get_bias_input input; /**< Input */
++		struct dmub_cmd_panel_polarity_get_bias_output output; /**< Output */
++		uint32_t output_raw; /**< Raw data output */
++	} data;
++};
++
++struct dmub_rb_cmd_panel_polarity_reset {
++	/**
++	 * Command header.
++	 */
++	struct dmub_cmd_header header;
++
++	struct dmub_cmd_panel_polarity_reset_data data;
++};
++
++
+ /**
+  * Definition of a DMUB_CMD__PR_ENABLE command.
+  * Panel Replay enable/disable is controlled using action in data.
+@@ -7646,6 +7745,7 @@ union dmub_rb_cmd {
+ 	struct dmub_rb_cmd_pr_update_state pr_update_state;
 
+ 	struct dmub_rb_cmd_pr_general_cmd pr_general_cmd;
++
+ 	/**
+ 	 * Definition of a DMUB_CMD__IHC command.
+ 	 */
+@@ -7654,6 +7754,13 @@ union dmub_rb_cmd {
+ 	 * Definition of a DMUB_CMD__BOOT_TIME_CRC_INIT command.
+ 	 */
+ 	struct dmub_rb_cmd_boot_time_crc_init boot_time_crc_init;
++
++	/**
++	 * Definition of a DMUB_CMD__PANEL_POLARITY_ENABLE command.
++	 */
++	struct dmub_rb_cmd_panel_polarity_enable panel_polarity_enable;
++	struct dmub_rb_cmd_panel_polarity_get_bias panel_polarity_get_bias;
++	struct dmub_rb_cmd_panel_polarity_reset panel_polarity_reset;
+ };
+
+ /**
 --
 2.54.0
 
