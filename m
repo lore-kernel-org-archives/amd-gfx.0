@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60421CDB46D
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49EBCCD4F26
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAE8D10F5EB;
-	Fri, 19 Jun 2026 13:32:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C85AD10F5F3;
+	Fri, 19 Jun 2026 13:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gL3SCCQN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S1/L5Qlt";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013039.outbound.protection.outlook.com
- [40.93.196.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5F410F5EC
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:40 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012045.outbound.protection.outlook.com
+ [40.107.200.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D749D10F5EB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KJrr0k5xDu7YjNNZVq+bEd4OuADnYrEHEBamco+k311A/TyBwPmV0HGmcQ1zH5aITZZWtBd5HBxOULZ5hBdPub75+EYY59vpN5hh2F/SuCXqrHAL4xEKW1cg/LTeHxwOtDfDGk58QkcnFKxG1/joyprCPFwZb+TRB9hAjZCZQdX9+PLux4Dw9IRqKlKHKS7woal8g+1euH35YJaHfUp1AGdR17HHVb23VutVpC2CbMTL/x/oFSUIuYrrnQzHvAgHMh9sRFjASNrxgoEr6C+XtIn56At4ArglNPXMrNsxSv2isxEXPjy87arVT8SjjYyW45LlT2KYnLiVr4SNPjBjrQ==
+ b=bB0ykIkTUff+X0NCjfC+pTlIF0Y21HxDXBgwzrD7KBo2iCMpKFX8s7Wj1j94gjBLqoJfrjWdcjnoBR39tiVByID2VQ3WpsRekmkwSM1BwmB31OCUFaKf8HDthlXNv1l6oyNhOmWNWTsbJylL720ZIKBFQof8pI5AmDpVNJk8whERWCorRZ63nZz+IboT3gRZ8+CaXO2mrgzSqcLfyo9/rlzQkjNfCnbuPOIaLZq30UF4/KympIBVsBoH160SBi0U+TbMV041VQKkjLhR5AP0n+/QfOSWWwKRUmqfrgVatHfbRY1k6wWMv3Te8gWeubx5WYBW2Bz8DUNz6vlkWknTLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rqs4LHB6htDadtNeGG7IK1YVQxwuiDXqICHrs5sP+8s=;
- b=pwliuXM96oDGb56c0DBUHYcnfASdMh0fRJArI2Edqc8UGq2oF4INa2xrV8Xad2CBJwSwfMSqM9eR7dIGl0jCmr+2l6wPsaRfJCTcwR8ROlQMwR858qB/6vHzKaUFBpEqS4j6Bk4SGoO6dCac01GaR1CHbCQwBjEXhiwsQsoh4LYUm8RxkIlJvJ/lvWAXNLyE/4l7y4HeJRI1KFw+z0CAV5PapIhaTZh+npO6Brnuh+ZSt31/qSzM2ulNUVLMsHJNnlzYepuk7j+uPMrrIpy8KtLVcVzCa5D7CvFO9vEWvzRT/fpk9wvuW6W44zwaoMbpa85zPpd8PI2RhumE9Zg4TA==
+ bh=lgWiC3iHpvXvKoQZOPn6RAnbDVRqZNxiv9+2PapdNsw=;
+ b=XltXaG3FSiE9Ep5EHTUq6taHNtHcjKWIHNQptahVFaH9HMdYk3enrPu/SsvYfA5KNjrUS4OHQiPHJnWbxc3W6jbd6WcCDtlOWdkAZShhzySuRg4+PsAXGHVc8dHf85abEOeA3CZ7XzDbWHgM9pgoNDyjinRkomVuI4KyFeDtgb0dWDKFghVU3WKv13/TRWfoLVxSAc7Kdh3KQxGwVEceYbHLfPIYIpw2fUnp3ioFaVBnLpqPW/ljEn8qDTFAd60Tqb/PjNRbdHCYTHHBzjBCpJOGeFjN9/Z5EKmmI74mgGX+4ESKlfh1S2DUoD2lqi4en7nIiDFoiRupSwieEA178g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rqs4LHB6htDadtNeGG7IK1YVQxwuiDXqICHrs5sP+8s=;
- b=gL3SCCQNDA8MEnA9CPi77CazoBVG7M74W05oXppREFXcnWxHFGShffiEMYeb/KQfWNtUymUoY0v+GR/nZNgAuJn8Vp8huI7X40tdB3YLMoAU5sOrCEZH6Cte5tmhb/SKge0AM082uSKVb63pdTZv2yEJgzIExpdWDZCBWQ/2GP0=
-Received: from BN9PR03CA0853.namprd03.prod.outlook.com (2603:10b6:408:13d::18)
- by IA1PR12MB6649.namprd12.prod.outlook.com (2603:10b6:208:3a2::6)
+ bh=lgWiC3iHpvXvKoQZOPn6RAnbDVRqZNxiv9+2PapdNsw=;
+ b=S1/L5QltibdnkKC1z9XYWCbD2IYefkKG0w/JSCYYoMOH/2uQD9g/0FW9NCch/ERqOrWZxWE5PUQrFRtGODlLXfQwDd93BL4VhrPhsSPOEU+A9ORo+IhHhwRmdVZxddGqHcxf3FIVPvFvLDp7odgLZFve/eyGsuEz+dpb1m4SgfA=
+Received: from BLAPR03CA0105.namprd03.prod.outlook.com (2603:10b6:208:32a::20)
+ by DS5PPFA3734E4BA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65c)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Fri, 19 Jun
- 2026 13:32:33 +0000
-Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
- (2603:10b6:408:13d:cafe::4c) by BN9PR03CA0853.outlook.office365.com
- (2603:10b6:408:13d::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.14 via Frontend Transport; Fri,
- 19 Jun 2026 13:32:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.12; Fri, 19 Jun
+ 2026 13:32:36 +0000
+Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
+ (2603:10b6:208:32a:cafe::62) by BLAPR03CA0105.outlook.office365.com
+ (2603:10b6:208:32a::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Fri,
+ 19 Jun 2026 13:32:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
+ BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:33 +0000
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:36 +0000
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:30 -0500
+ 2026 08:32:33 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +64,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Rafal Ostrowski
- <rafal.ostrowski@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 16/24] drm/amd/display: Update LSDMA commands to explicitly
- handle DCC fields
-Date: Fri, 19 Jun 2026 09:21:31 -0400
-Message-ID: <20260619133154.116746-17-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Leo Chen <leo.chen@amd.com>, "Ovidiu (Ovi) Bunea"
+ <ovidiu.bunea@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 20/24] drm/amd/display: Refactor Driver PG's skip PG logic
+Date: Fri, 19 Jun 2026 09:21:35 -0400
+Message-ID: <20260619133154.116746-21-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -81,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|IA1PR12MB6649:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7e89349-819b-4f10-0f40-08dece073833
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DS5PPFA3734E4BA:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd064756-26fc-4ba4-723b-08dece0739af
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|22082099003|18002099003|3023799007|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 4Pesh3+qkrohgu2pJaexKh3xTzVDWV4KbxlxsS9ai9qvOLHT7qfs1Acdv1qtqIVtVQK6z8m1dbR4oFdU9ncofkvGrfjqeaQ88AseDqsRVIfZkmAMPIfT+ey+AuvaaafuMTLGRBjK4ZJ6o74+3o1glgm0qu+ach+gaUTZq1JCa+cPB918sWbFbRgjT3UIH3BJa5CNs/v4aNordAdlrQBKkIiYHi2P0q3D+VftmqxZhK/xXqv99qZskdpDAmwd7oei/CP27L2Tqviz7lpNmZe116ypDXdwayEDA3c1FwZZEYgb/NVnHNDIMlmnthyoP/xA5q4L3ZvtMnR1IQdySvjqsJy4XlruvQAYV6FgAv1gJusBo2DsjZ20D2RhZCTB/vn3Ezbw84P1BhyemO1y8ukjoYMtnutEVH2AOdXmRQpP3iAfCVizYKJ5sfIwEnDjAnsjXHW+M0cznfRJhTl6LEh8TN4SY653bGPm6s7Qsd4/mE3+54Y7a60iBXay4vQpuL/okQfz8FmNS6g11R9Cy6LmCJWOlOFYh/RC8k/cjFJn5DroxQgNLQoy0DALDdpg7/5KxVb4ecV2IQIHspS3xH0mFRo5GdrOYiJObEvdbpUaTzW3jNt4/Wbbioyk8J/eV4ZNXk9uGYxhNQj1bDhd8ZbYuwGHd8YHYH+vjEL80fYfeaeC/b+8exn696EmyCZwrfor7D1dCg0PQKPp4fQpMAqsEg==
+ ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: JEhqIDhVPCit/BL35SSoqNdGqf30MWrOfFpazqiXK64UJjzRdzNJCnTfur42FlubOqILQmAVGGkdkqjX19ARVT4ou9ECGGZ59eNGAWAz0UvrT+0Np3vjqTIPuzv8SIBQoduBHU3QXQuUQ3GP9pCdz2Pu6VT1iC3zT9WUDKcijnysMMAbjo91k1kbBwHM1zoJX7GMNL4OghuOvGImAdk3GPI1q0yG9umiNCX/lz7VbjELs3pE6GjzTKuLZ4QcEOnLYhbfJd9lOUJe+lkRp2Go62I3/5ibg+ZYGEKM58HibNh2il8gffz4w96r7bov2LHgMtU72YDq6Y7v+Lbhttxc+e4KKaVm7qpZ0RsGmLHcl/scuvBpqJdJX/+7ug++x/m/e4/k2+Z7PTiwi7PVag+342J4sdvsv0kg54PVV70rn2rc4H5z4aH/pc1QVcp35DAZ6zZA6sV1xq6vBs4Jc2otQ5F/eljC74SFrRs7V3+guUB+juebnZURNzw1RJz9ldohnBpgcjywJMOLXbKuxZ4nIIZssF6sau8Fq3+TjadqDLkNYBUvajWZKXDdgNKmZzMZVoGpZZF69w17WoDYZ8InunHrNYwtn4qt0DY7iqBGJpGNog2N07JwdvojPpQwc0qHdUnjIK+xdmkBqnXHTGrrJmHmIbOuaQuXYYAK4qYeUaxGDsb7AxJiZ6WDI49acWCYK5LaCwoKpdjEUdTWog4GiQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(3023799007)(6133799003)(56012099006)(11063799006);
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Q9/k/WRm8V6XzSs6R/kwzSJIerkL/3ru8O8+XfYgSc6mebJcXJKIrX9MVZV+QBED6JSgbWhU5Jy2XWRSrH5J5SmpaujBtIMuO5E+VWM+9QwLo86co8ZCV4Rfc3bvUR2iudOi+r9JyK+1l9xI6zfiGeIbCZzfYllt/tmHoMZAI4C8pPs8JxsLHboMbLUsyXgM6qeoT4sk7Wf/fxkD3s0eTRcO9q+pUnr/zVcRoR3TTfbS+P4yJXrYFKw80sp9GW16JJRltakKxv0bUwViRzJUOBZxoa/HOF62b29wPMYCanXvtgsDHdjPA/hos5xZU3ANMJcwgVThISI6HfmALSa7V7fYnVXrMeJXYeGo2ndzc+Jr+mvspf7DjVFRjGOktdjwber/uhX7ZGPCsKaV3wHsz3TsWBIH22FVG3q6AZxgBNAFmcEBonGZ5WB3X5TFVrTV
+X-MS-Exchange-AntiSpam-MessageData-0: ANMG8/eaBv5k4rQbx0BKLe3ZIu1+V998kH0lx5nQXITnJtiz+iEVCCJge7ar23zX7dXacZxu8athkKWCQaYE9SGueJfhNujN0rlilprXGcT+dRVmn0DfJ3MiYY29kkUXPMvuaqk5feQ7D0i6RoTJaUvX/NhBSehUcgRsHApsEstB5vm+KFB2ZHEovRb7yOddDjVT0/x+66LbBK2HQlFvuUz83ja0/qr+cbFa9XUuxacrEyV/+d4AN6HILVuNEYvcSIqi+4ft54cnTaR5N1W2J4rmCRaYUxXSbtHg62W7SbxFibOxEbrKq8NzCcRPyJyWYO61WJPK/n1zM3PXHrX7u3EErKPkUh8fkDmU2wsLFREyW6gWJBvft/XtpwrKb41AcUy5w4IpvqVU45Iebrzyc32P6dEkXmvDcq8wd0BADUXn7qPYq3kCW/8hNLbNPnUW
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:33.5729 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7e89349-819b-4f10-0f40-08dece073833
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:36.0657 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd064756-26fc-4ba4-723b-08dece0739af
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6649
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFA3734E4BA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,131 +117,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Leo Chen <leo.chen@amd.com>
 
-[Description]
-- Previously linear copy commands for LSDMA assumed no DCC
-- Update so that there is explicit assignment for DCC related fields
-	- Caller can 0 out the fields if DCC is not used
-- For linear copy command don't subtract 1 from the count - this will
-  be done at a lower layer
+[Why & How]
+When driver allows idle optimization, no HW state should be modified further
+by DC. Refactor the skip PG logic in pg_cntl in DCN42.
 
-Reviewed-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Ovidiu (Ovi) Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Leo Chen <leo.chen@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 29 ++++++++++++-----
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h | 34 +++++++++++++++++---
- 2 files changed, 51 insertions(+), 12 deletions(-)
+ .../amd/display/dc/pg/dcn42/dcn42_pg_cntl.c   | 150 +++++++-----------
+ 1 file changed, 60 insertions(+), 90 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 66836b38d0e1..3fe30c8769d3 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -2125,9 +2125,7 @@ bool dmub_lsdma_init(struct dc_dmub_srv *dc_dmub_srv)
+diff --git a/drivers/gpu/drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c b/drivers/gpu/drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c
+index 2fc17dc510df..78b33b2dbae8 100644
+--- a/drivers/gpu/drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c
++++ b/drivers/gpu/drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c
+@@ -61,6 +61,21 @@ static void pg_cntl42_restore_global_fgcg_rep(struct pg_cntl *pg_cntl,
+ 	REG_UPDATE(AZ_CLOCK_CNTL, AZ_GLOBAL_FGCG_REP_DIS, state->az_rep_fgcg);
+ }
 
- bool dmub_lsdma_send_linear_copy_command(
- 	struct dc_dmub_srv *dc_dmub_srv,
--	uint64_t src_addr,
--	uint64_t dst_addr,
--	uint32_t count
-+	struct lsdma_linear_copy_params copy_data
- )
++static bool should_skip_pg_control(bool dc_in_idle_opt, bool power_on, bool block_enabled)
++{
++	if (dc_in_idle_opt)
++		return true;
++
++	if (power_on && block_enabled)
++		return true;
++
++	if (!power_on && !block_enabled)
++		return true;
++
++	return false;
++}
++
++
+ static bool pg_cntl42_dsc_pg_status(struct pg_cntl *pg_cntl, unsigned int dsc_inst)
  {
- 	struct dc_context *dc_ctx = dc_dmub_srv->ctx;
-@@ -2142,11 +2140,20 @@ bool dmub_lsdma_send_linear_copy_command(
- 	cmd.cmd_common.header.sub_type = DMUB_CMD__LSDMA_LINEAR_COPY;
- 	wait_type                      = DM_DMUB_WAIT_TYPE_NO_WAIT;
+ 	struct dcn_pg_cntl *pg_cntl_dcn = TO_DCN_PG_CNTL(pg_cntl);
+@@ -94,23 +109,14 @@ void pg_cntl42_dsc_pg_control(struct pg_cntl *pg_cntl, unsigned int dsc_inst, bo
+ 	uint32_t pwr_status = power_on ? 0 : 2;
+ 	uint32_t org_ip_request_cntl = 0;
+ 	struct dcn42_global_fgcg_rep_state fgcg_rep_state = {0};
+-	bool block_enabled;
+-
+-    bool skip_pg = pg_cntl->ctx->dc->debug.ignore_pg ||
+-			pg_cntl->ctx->dc->debug.disable_dsc_power_gate ||
+-			pg_cntl->ctx->dc->idle_optimizations_allowed;
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg || pg_cntl->ctx->dc->debug.disable_dsc_power_gate;
 
--	lsdma_data->u.linear_copy_data.count   = count - 1; // LSDMA controller expects bytes to copy -1
--	lsdma_data->u.linear_copy_data.src_lo  = src_addr & 0xFFFFFFFF;
--	lsdma_data->u.linear_copy_data.src_hi  = (src_addr >> 32) & 0xFFFFFFFF;
--	lsdma_data->u.linear_copy_data.dst_lo  = dst_addr & 0xFFFFFFFF;
--	lsdma_data->u.linear_copy_data.dst_hi  = (dst_addr >> 32) & 0xFFFFFFFF;
-+	lsdma_data->u.linear_copy_data.count   = copy_data.count;
-+	lsdma_data->u.linear_copy_data.src_lo  = copy_data.src_lo;
-+	lsdma_data->u.linear_copy_data.src_hi  = copy_data.src_hi;
-+	lsdma_data->u.linear_copy_data.dst_lo  = copy_data.dst_lo;
-+	lsdma_data->u.linear_copy_data.dst_hi  = copy_data.dst_hi;
-+	lsdma_data->u.linear_copy_data.tmz     = copy_data.tmz;
-+	lsdma_data->u.linear_copy_data.data_format = copy_data.data_format;
-+	lsdma_data->u.linear_copy_data.num_type = copy_data.num_type;
-+	lsdma_data->u.linear_copy_data.read_compress = copy_data.read_compress;
-+	lsdma_data->u.linear_copy_data.write_compress = copy_data.write_compress;
-+	lsdma_data->u.linear_copy_data.max_com = copy_data.max_com;
-+	lsdma_data->u.linear_copy_data.max_uncom = copy_data.max_uncom;
-+	lsdma_data->u.linear_copy_data.cache_policy_src = copy_data.cache_policy_src;
-+	lsdma_data->u.linear_copy_data.cache_policy_dst = copy_data.cache_policy_dst;
+-	if (skip_pg && !power_on)
++	if (block_pg_disabled && !power_on)
+ 		return;
 
- 	result = dc_wake_and_execute_dmub_cmd(dc_ctx, &cmd, wait_type);
+-	block_enabled = pg_cntl42_dsc_pg_status(pg_cntl, dsc_inst);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
++	bool block_enabled = pg_cntl42_dsc_pg_status(pg_cntl, dsc_inst);
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
++		return;
 
-@@ -2191,6 +2198,12 @@ bool dmub_lsdma_send_linear_sub_window_copy_command(
- 	lsdma_data->u.linear_sub_window_copy_data.rect_y           = copy_data.rect_y;
- 	lsdma_data->u.linear_sub_window_copy_data.src_cache_policy = copy_data.src_cache_policy;
- 	lsdma_data->u.linear_sub_window_copy_data.dst_cache_policy = copy_data.dst_cache_policy;
-+	lsdma_data->u.linear_sub_window_copy_data.data_format      = copy_data.data_format;
-+	lsdma_data->u.linear_sub_window_copy_data.num_type         = copy_data.num_type;
-+	lsdma_data->u.linear_sub_window_copy_data.read_compress    = copy_data.read_compress;
-+	lsdma_data->u.linear_sub_window_copy_data.write_compress   = copy_data.write_compress;
-+	lsdma_data->u.linear_sub_window_copy_data.max_com          = copy_data.max_com;
-+	lsdma_data->u.linear_sub_window_copy_data.max_uncom        = copy_data.max_uncom;
+ 	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
+ 	if (org_ip_request_cntl == 0)
+@@ -201,23 +207,16 @@ void pg_cntl42_hubp_dpp_pg_control(struct pg_cntl *pg_cntl, unsigned int hubp_dp
+ 	uint32_t pwr_status = power_on ? 0 : 2;
+ 	uint32_t org_ip_request_cntl;
+ 	struct dcn42_global_fgcg_rep_state fgcg_rep_state = {0};
+-	bool block_enabled;
+-	bool skip_pg = pg_cntl->ctx->dc->debug.ignore_pg ||
+-		       pg_cntl->ctx->dc->debug.disable_hubp_power_gate ||
+-		       pg_cntl->ctx->dc->debug.disable_dpp_power_gate ||
+-		       pg_cntl->ctx->dc->idle_optimizations_allowed;
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg ||
++			pg_cntl->ctx->dc->debug.disable_hubp_power_gate ||
++			pg_cntl->ctx->dc->debug.disable_dpp_power_gate;
 
- 	result = dc_wake_and_execute_dmub_cmd(dc_ctx, &cmd, wait_type);
+-	if (skip_pg && !power_on)
++	if (block_pg_disabled && !power_on)
+ 		return;
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index 5d399e6a8345..8bdaac0b0f98 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -203,11 +203,31 @@ void dc_dmub_srv_fams2_passthrough_flip(
- 		int surface_count);
+-	block_enabled = pg_cntl42_hubp_dpp_pg_status(pg_cntl, hubp_dpp_inst);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
++	bool block_enabled = pg_cntl42_hubp_dpp_pg_status(pg_cntl, hubp_dpp_inst);
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
++		return;
 
- bool dmub_lsdma_init(struct dc_dmub_srv *dc_dmub_srv);
+ 	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
+ 	if (org_ip_request_cntl == 0)
+@@ -283,22 +282,17 @@ void pg_cntl42_hpo_pg_control(struct pg_cntl *pg_cntl, bool power_on)
+ 	uint32_t org_ip_request_cntl;
+ 	uint32_t power_forceon;
+ 	struct dcn42_global_fgcg_rep_state fgcg_rep_state = {0};
+-	bool block_enabled;
+
+-	bool skip_pg = pg_cntl->ctx->dc->debug.ignore_pg ||
+-			pg_cntl->ctx->dc->debug.disable_hpo_power_gate ||
+-			pg_cntl->ctx->dc->idle_optimizations_allowed;
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg ||
++			pg_cntl->ctx->dc->debug.disable_hpo_power_gate;
+
+-	if (skip_pg && !power_on)
++	if (block_pg_disabled && !power_on)
++		return;
 +
-+struct lsdma_linear_copy_params {
-+	uint32_t src_lo;
-+	uint32_t src_hi;
++	bool block_enabled = pg_cntl42_hpo_pg_status(pg_cntl);
 +
-+	uint32_t dst_lo;
-+	uint32_t dst_hi;
-+
-+	uint32_t count            : 30;
-+	uint32_t read_compress    : 2;
-+
-+	uint32_t tmz              : 4;
-+	uint32_t cache_policy_src : 3;
-+	uint32_t cache_policy_dst : 3;
-+	uint32_t data_format      : 6;
-+	uint32_t num_type         : 3;
-+	uint32_t write_compress   : 2;
-+	uint32_t max_com          : 2;
-+	uint32_t max_uncom        : 1;
-+	uint32_t reserved0        : 8;
-+};
-+
- bool dmub_lsdma_send_linear_copy_command(
- 	struct dc_dmub_srv *dc_dmub_srv,
--	uint64_t src_addr,
--	uint64_t dst_addr,
--	uint32_t count);
-+	struct lsdma_linear_copy_params copy_data);
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
+ 		return;
+-	block_enabled = pg_cntl42_hpo_pg_status(pg_cntl);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
 
- struct lsdma_linear_sub_window_copy_params {
- 	uint32_t src_lo;
-@@ -235,7 +255,13 @@ struct lsdma_linear_sub_window_copy_params {
- 	uint32_t element_size     : 3;
- 	uint32_t src_cache_policy : 3;
- 	uint32_t dst_cache_policy : 3;
--	uint32_t padding          : 19;
-+	uint32_t data_format      : 6;
-+	uint32_t num_type         : 3;
-+	uint32_t read_compress    : 2;
-+	uint32_t write_compress   : 2;
-+	uint32_t max_com          : 2;
-+	uint32_t max_uncom        : 1;
-+	uint32_t reserved0        : 3;
- };
+ 	REG_GET(DOMAIN25_PG_CONFIG, DOMAIN_POWER_FORCEON, &power_forceon);
+ 	if (power_forceon)
+@@ -337,23 +331,17 @@ void pg_cntl42_io_clk_pg_control(struct pg_cntl *pg_cntl, bool power_on)
+ 	uint32_t pwr_status = power_on ? 0 : 2;
+ 	uint32_t org_ip_request_cntl;
+ 	uint32_t power_forceon;
+-	bool block_enabled;
 
- bool dmub_lsdma_send_linear_sub_window_copy_command(
+-	bool skip_pg = pg_cntl->ctx->dc->debug.ignore_pg ||
+-			pg_cntl->ctx->dc->idle_optimizations_allowed ||
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg ||
+ 			pg_cntl->ctx->dc->debug.disable_io_clk_power_gate;
+
+-	if (skip_pg && !power_on)
++	if (block_pg_disabled && !power_on)
+ 		return;
+
+-	block_enabled = pg_cntl42_io_clk_status(pg_cntl);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
++	bool block_enabled = pg_cntl42_io_clk_status(pg_cntl);
++
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
++		return;
+
+ 	REG_GET(DOMAIN22_PG_CONFIG, DOMAIN_POWER_FORCEON, &power_forceon);
+ 	if (power_forceon)
+@@ -435,24 +423,16 @@ void pg_cntl42_mem_pg_control(struct pg_cntl *pg_cntl, bool power_on)
+ 	uint32_t pwr_status = power_on ? 0 : 2;
+ 	uint32_t org_ip_request_cntl;
+ 	uint32_t power_forceon;
+-	bool block_enabled;
+
+-	bool skip_pg = pg_cntl->ctx->dc->debug.ignore_pg ||
+-			pg_cntl->ctx->dc->idle_optimizations_allowed ||
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg ||
+ 			pg_cntl->ctx->dc->debug.disable_mem_power_gate;
+
+-	if (skip_pg && !power_on)
++	if (block_pg_disabled && !power_on)
+ 		return;
+
+-	block_enabled = pg_cntl42_mem_status(pg_cntl);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
+-
++	bool block_enabled = pg_cntl42_mem_status(pg_cntl);
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
++		return;
+ 	REG_GET(DOMAIN23_PG_CONFIG, DOMAIN_POWER_FORCEON, &power_forceon);
+ 	if (power_forceon)
+ 		return;
+@@ -490,22 +470,16 @@ void pg_cntl42_dio_pg_control(struct pg_cntl *pg_cntl, bool power_on)
+ 	uint32_t pwr_status = power_on ? 0 : 2;
+ 	uint32_t org_ip_request_cntl;
+ 	struct dcn42_global_fgcg_rep_state fgcg_rep_state = {0};
+-	bool block_enabled;
+
+-	bool skip_pg = pg_cntl->ctx->dc->debug.ignore_pg ||
+-			pg_cntl->ctx->dc->idle_optimizations_allowed ||
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg ||
+ 			pg_cntl->ctx->dc->debug.disable_dio_power_gate;
+-	if (skip_pg && !power_on)
++
++	if (block_pg_disabled && !power_on)
+ 		return;
+
+-	block_enabled = pg_cntl42_dio_pg_status(pg_cntl);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
++	bool block_enabled = pg_cntl42_dio_pg_status(pg_cntl);
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
++		return;
+
+ 	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
+ 	if (org_ip_request_cntl == 0)
+@@ -531,23 +505,19 @@ void pg_cntl42_plane_otg_pg_control(struct pg_cntl *pg_cntl, bool power_on)
+ 	uint32_t pwr_status = power_on ? 0 : 2;
+ 	uint32_t org_ip_request_cntl;
+ 	unsigned int i;
+-	bool block_enabled;
+ 	bool all_mpcc_disabled = true, all_opp_disabled = true;
+ 	bool all_optc_disabled = true, all_stream_disabled = true;
+
+-	if (pg_cntl->ctx->dc->debug.ignore_pg ||
+-		pg_cntl->ctx->dc->debug.disable_optc_power_gate ||
+-		pg_cntl->ctx->dc->idle_optimizations_allowed)
++	bool block_pg_disabled = pg_cntl->ctx->dc->debug.ignore_pg ||
++			pg_cntl->ctx->dc->debug.disable_optc_power_gate;
++
++	if (block_pg_disabled && !power_on)
+ 		return;
+
+-	block_enabled = pg_cntl42_plane_otg_status(pg_cntl);
+-	if (power_on) {
+-		if (block_enabled)
+-			return;
+-	} else {
+-		if (!block_enabled)
+-			return;
+-	}
++	bool block_enabled = pg_cntl42_plane_otg_status(pg_cntl);
++
++	if (should_skip_pg_control(pg_cntl->ctx->dc->idle_optimizations_allowed, power_on, block_enabled))
++		return;
+
+ 	for (i = 0; i < pg_cntl->ctx->dc->res_pool->pipe_count; i++) {
+ 		struct pipe_ctx *pipe_ctx = &pg_cntl->ctx->dc->current_state->res_ctx.pipe_ctx[i];
 --
 2.54.0
 
