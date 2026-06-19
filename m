@@ -4,96 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FDECDB466
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 Jun 2026 08:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4192DCDB46F
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 Jun 2026 08:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B287B10E1B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBE0110E1B2;
 	Sat, 20 Jun 2026 08:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LEsnoo5i";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eqD6WQuC";
 	dkim-atps=neutral
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
- [209.85.222.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7040510E158
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Jun 2026 05:39:38 +0000 (UTC)
-Received: by mail-ua1-f46.google.com with SMTP id
- a1e0cc1a2514c-966db0b76daso2321552241.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 22:39:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781933977; cv=none;
- d=google.com; s=arc-20240605;
- b=UKylGrOcQsIIbYNqxWJAfkitDRwdiHQWtqdeoXzMsG5EiWCO+KTfd+xuvgZCrhREpp
- ov2V/W9AmpgorTg6Rnu0G7LOzRcAT7HM81NMROG6l+1ARt2FYuzg07+GJSptmgMd+0j/
- QPiTj0HNzSL/Gb2dIRHzaAsXp+2MIK/IymmWsaa1E1d6rkTUR6G5sMthtBglH7JYbO4I
- Qz0zSy3w7jARJvSj48mDWZneo1hryVToaQpGsZ50N05OxrnGy5rE7XX2qjbI/J33ltFA
- MSeYuSuaWHysb6L/KoIyGeiQeTN5H7O/NKtyfNqFdyr4oSLroOdFmTgdLHRHH9m8SsmT
- WhAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=4APW9WchUIjck1WXvCdDznMYknRjl/S7x9r5ba9yacU=;
- fh=w59f4Ryu2jo8YxLxJsSj7jf/5UZE5ebtMoKdn4pP8gE=;
- b=kOme4XxrJMyK3+xuuoLej6R7HkzdtiZE+avoYH9VX3BSiD/cP3TMIf26O7+dXb58RA
- SOzzhkWEVzCh0MRE1HwP3C64VNCSweS/qDWKE3JyGsybLreO/74DtiDU65ZZUV6xZIxO
- tTQuJTrMa/bfMSzzr/TkZ89mFWspTht6RIBWrDteYl7DtJHB7AoozTw80p/ltXSlj+KZ
- bwy8yRAiwUEm0UfjxqKa1e/szwX1yoW0wteS/nWaQc+peeN4Hd07xlY1gf4YgPXE+pvf
- fyLkyWFnQJXmfTzq3GvXFKUIix+LaASgLwmfOSJ3h0dussfezFmenYTMij3y8LPPX8ME
- YebA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781933977; x=1782538777; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4APW9WchUIjck1WXvCdDznMYknRjl/S7x9r5ba9yacU=;
- b=LEsnoo5iFdh0kWyHKf7HU8CksVATCuYRj8YVVT9Pwq/LjKesWtopKRlZvG9Hy8+fq0
- sAVYWeCDFcrI1QB3Pnd4gbnDgCG7+sSOa6hTxy1LbTpFQZ+ss9vYFnAqwk3bfyn0vkjf
- ot7/H9I+btuLGF4hBjkSWsdW2OGsJ3CVjKOcGf5/bOWOjkR2uvu62WdmVacj2nQczwxZ
- g72jYE3+UhmSnlfLuMjBdEuFr2q7tr4Nn6lpzHO30/aiPRkzJ0HsCna6Krt1BMWh37xc
- m6ucH9uPm0WTrAlps/6mXLsCvpSuxKZbQ74FZC8rWk9cmOcWrA4R5wz2JciAsouQ/ZLM
- Uqgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781933977; x=1782538777;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4APW9WchUIjck1WXvCdDznMYknRjl/S7x9r5ba9yacU=;
- b=tKuquOGv3qoyFZajKJMnuJmAK9gZkUUuzDi+tuPrfT/hrOOy3Dpw/4s/8oy4xsxlyE
- Yy2vSh4ZUS5QeV/Q3vrMKKjBXjxmgTDP/nhP1926Wc36C5y3wjKr+3tYQW0LDX1jXaGk
- djIkcr+/sbgsa/NcQutJBuDU9wAwNY7IMCsHtpnVrSaMR05FJU3XeIOx/CCthRWg3Zq4
- mqmec0Uv1OPIHPtKuC4m4kB/heBqGmggtIvxbUh402BtaIcvxMFQF/vvf+6tw0CzsJng
- xgmloFQrFwFTNsHrX0UPz+R+rkcRU4/eLTTMpgYifeUgy+c1f+A7FyLEUIDVdTZrxf+V
- ZtFQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/qqEJKCD0sOK64yIgxlINiwO/Y08+Zn0Y8YLRivx02OSjMk13MhU9Sd2r+GzZ0gCOdSV7mYhNB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5F7jDVmIi0AFsDowvLx2AInfXOHZ9VU8Dtvh1wNI3i8EFAovX
- QLuEIAC0HYn4uCmbT/4dBpN8AMqdkZzoWAiIonfn45S+e5SCwZF4gUOfg1BZ8uYX/BYcc8s9FEd
- ks7MGS3nfaOJgXN1tjo4t0vCxAM0X0ho=
-X-Gm-Gg: AfdE7ckIFNbUmWQ0+lz0jv7DZ6rSf5ZsJZC2YT2j3+5kXYGmBgeiCWY8BQXKxme2KJK
- mXvpt9Fu8Ez0HTDCFiduJVv332QZWpiT+4Vl8R+8m0YQLkB04FLtCKIRKI1eMWBZz0PqGc9s4s+
- hjy9E0HGlnqzAW4TPi5dfyBZWoroyFDyasdxDnLgIbyi1tT4Se1nJMqEAm0k6cj5p0oepIsDzmT
- flIUYUMXpo1OWKQLYe3YIHPjbvdHEd+s2jS1sjTUZlgJITAlg/mvned0c+hAms85BvHXvLzerhc
-X-Received: by 2002:a05:6102:17c5:b0:6cd:23a8:3a31 with SMTP id
- ada2fe7eead31-72a26e045f4mr1781055137.1.1781933977271; Fri, 19 Jun 2026
- 22:39:37 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 634FA10E0C6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 16:57:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=eNgQCvSsoI1Sx7xFawjITb2f7T6ee77P38xxBoF8f2Q=; b=eqD6WQuCn8zHcceaZqJxPc0hqR
+ WZ5WUv+ZL+9HO3A115Bd3Eb+ZP5pe1eJUuWZneon8XCCDERaobnzDEP60RDnBZXp+50+1GI39rf3m
+ kLCYRbe2bjZFaUNXcvR36dWvYXe1ljaR4R+GmNGaUEB3i7O2s5SYtzuAuLqNwpG60KWHCzVGy0Yu0
+ zHfY4FJTUzPy4CbJrR0kwxOd/tKyvlol+55K79ddjb/kGPDycdKtjwAT6ju1A7dH7ntN0cw+ZPiL/
+ rCzCAgOuM7hiGSfCiR9a45RI7IipYNZ4Jln+LLockx/uYwooL9pi6OiphVG4das431EIVmQQ2l8le
+ V8En+3vw==;
+Received: from [37.209.163.134] (helo=[172.16.30.123])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wacXK-002bZd-Eq; Fri, 19 Jun 2026 18:57:46 +0200
+Message-ID: <55a72da8-e81c-43e7-bb9c-6f0e070cbae8@igalia.com>
+Date: Fri, 19 Jun 2026 18:57:45 +0200
 MIME-Version: 1.0
-References: <20260617193335.1662613-1-ruoyuw560@gmail.com>
- <cee10e27-1bf9-47de-9d72-4f2c7ac606ef@amd.com>
- <PH7PR12MB8796700AA79490AF65E12D64B0E32@PH7PR12MB8796.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB8796700AA79490AF65E12D64B0E32@PH7PR12MB8796.namprd12.prod.outlook.com>
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-Date: Sat, 20 Jun 2026 13:39:23 +0800
-X-Gm-Features: AVVi8CfYD_GAaQEP05j_5Lp7OoC_f0RZTesbVzNHdBDTKSPBat01vDG37k3SiEs
-Message-ID: <CAK_7xqxJMr+CgjKDbsWUGsbPt3U_xA_rE_CH__F7bmPW5AxJ0A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error record loop
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000ba82dc0654a8d5dd"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: Choose SOC15 RLC register read write
+ functions at init time
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20260424125003.52366-1-tvrtko.ursulin@igalia.com>
+ <8693b119-f870-43eb-ac8d-f4c69419693e@igalia.com>
+ <CADnq5_Pga5tgYgnf3gbnL10uCf9pRvv87=U1TYprgPR_c9NFeg@mail.gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@igalia.com>
+In-Reply-To: <CADnq5_Pga5tgYgnf3gbnL10uCf9pRvv87=U1TYprgPR_c9NFeg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 20 Jun 2026 08:50:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,196 +64,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000ba82dc0654a8d5dd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Tao,
+On 16/06/2026 16:01, Alex Deucher wrote:
+> On Tue, Jun 9, 2026 at 11:06 AM Tvrtko Ursulin
+> <tvrtko.ursulin@igalia.com> wrote:
+>>
+>> + Alex - wondering you you are interested in this type of a thing or I
+>> should drop it? Unless I am missing something (could be, it was long
+>> time ago when I first wrote it), it is a nice .text saving of pointless
+>> conditionals.
+> Yes, sorry for the delay.  This just fell off my radar.  I've applied
+> the series.
 
-Thanks for taking a look.
+Thank you!
 
-I will initialize ret to -EINVAL in v3 to keep the behavior
-aligned with the original logic.
+Were you just brave by pulling all three of my series, or they actually 
+passed internal CI this time? :)
 
-Thanks Christian for the Ack as well.
+Anyway, I am around to fix any fallout, if there will be, and if reverts 
+will not be a more suitable course of action.
 
-Thanks,
-Ruoyu Wang
+Regards,
 
-On Thu, Jun 18, 2026 at 7:02=E2=80=AFPM Zhou1, Tao <Tao.Zhou1@amd.com> wrot=
-e:
+Tvrtko
+>> Regards,
+>>
+>> Tvrtko
+>>
+>> On 24/04/2026 13:50, Tvrtko Ursulin wrote:
+>>> Currently on every RLC register read the driver checks for three different
+>>> conditions to decide which of the two register read/write functions to
+>>> call.
+>>>
+>>> As these register operations are macros, which is required for register
+>>> name expansion to work, the result is a significant explosion of generated
+>>> (redundant) code which the compiler cannot optimise away.
+>>>
+>>> We however know that all of the three conditional are static and can
+>>> therefore move the decision to driver init time. All that we need to do is
+>>> define a new vfunc table for the SOC12 RLC read/write functions and just
+>>> use them directly.
+>>>
+>>> Bloat-o-meter agrees the driver size savings are significant:
+>>>
+>>> add/remove: 11/35 grow/shrink: 82/1117 up/down: 53024/-450922 (-397898)
+>>> ...
+>>> Total: Before=10293928, After=9896030, chg -3.87%
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c    | 39 ++++++++++++++++++++++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h    | 10 ++++++
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     |  2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |  2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     |  2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/soc15_common.h  |  8 ++---
+>>>    10 files changed, 64 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index 30ce2e85a506..bd1b0e9ee220 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -3745,6 +3745,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>>>        mutex_init(&adev->gfx.workload_profile_mutex);
+>>>        mutex_init(&adev->vcn.workload_profile_mutex);
+>>>
+>>> +     amdgpu_early_init_rlc_reg_funcs(adev);
+>>>        amdgpu_device_init_apu_flags(adev);
+>>>
+>>>        r = amdgpu_device_check_arguments(adev);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+>>> index 572a60e1b3cb..002fae3c380e 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+>>> @@ -583,3 +583,42 @@ int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
+>>>                amdgpu_gfx_rlc_init_microcode_v2_5(adev);
+>>>        return 0;
+>>>    }
+>>> +
+>>> +static const struct amdgpu_rlc_reg_funcs amdgpu_sriov_rlc_reg_funcs = {
+>>> +     .rreg32 = amdgpu_sriov_rreg,
+>>> +     .wreg32 = amdgpu_sriov_wreg,
+>>> +};
+>>> +
+>>> +static u32
+>>> +amdgpu_rlc_rreg(struct amdgpu_device *adev, u32 reg, u32 acc_flags, u32 hwip,
+>>> +             u32 xcc_id)
+>>> +{
+>>> +     return amdgpu_device_rreg(adev, reg, 0);
+>>> +}
+>>> +
+>>> +static void
+>>> +amdgpu_rlc_wreg(struct amdgpu_device *adev, u32 reg, u32 value, u32 acc_flags,
+>>> +             u32 hwip, u32 xcc_id)
+>>> +{
+>>> +     amdgpu_device_wreg(adev, reg, value, 0);
+>>> +}
+>>> +
+>>> +static const struct amdgpu_rlc_reg_funcs amdgpu_rlc_reg_funcs = {
+>>> +     .rreg32 = amdgpu_rlc_rreg,
+>>> +     .wreg32 = amdgpu_rlc_wreg,
+>>> +};
+>>> +
+>>> +void amdgpu_early_init_rlc_reg_funcs(struct amdgpu_device *adev)
+>>> +{
+>>> +     adev->gfx.rlc.reg_funcs = &amdgpu_rlc_reg_funcs;
+>>> +}
+>>> +
+>>> +void amdgpu_init_rlc_reg_funcs(struct amdgpu_device *adev)
+>>> +{
+>>> +     if (amdgpu_sriov_vf(adev) &&
+>>> +         adev->gfx.rlc.funcs &&
+>>> +         adev->gfx.rlc.rlcg_reg_access_supported)
+>>> +             adev->gfx.rlc.reg_funcs = &amdgpu_sriov_rlc_reg_funcs;
+>>> +     else
+>>> +             adev->gfx.rlc.reg_funcs = &amdgpu_rlc_reg_funcs;
+>>> +}
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+>>> index e535534237a1..959d60c90dcd 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+>>> @@ -262,6 +262,11 @@ struct amdgpu_rlc_funcs {
+>>>        bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t reg);
+>>>    };
+>>>
+>>> +struct amdgpu_rlc_reg_funcs {
+>>> +     u32  (*rreg32)(struct amdgpu_device *adev, u32 reg, u32 acc_flags, u32 hwip, u32 xcc_id);
+>>> +     void (*wreg32)(struct amdgpu_device *adev, u32 reg, u32 val, u32 acc_flags, u32 hwip, u32 xcc_id);
+>>> +};
+>>> +
+>>>    struct amdgpu_rlcg_reg_access_ctrl {
+>>>        uint32_t scratch_reg0;
+>>>        uint32_t scratch_reg1;
+>>> @@ -303,6 +308,7 @@ struct amdgpu_rlc {
+>>>        /* safe mode for updating CG/PG state */
+>>>        bool in_safe_mode[AMDGPU_MAX_RLC_INSTANCES];
+>>>        const struct amdgpu_rlc_funcs *funcs;
+>>> +     const struct amdgpu_rlc_reg_funcs *reg_funcs;
+>>>
+>>>        /* for firmware data */
+>>>        u32 save_and_restore_offset;
+>>> @@ -374,4 +380,8 @@ void amdgpu_gfx_rlc_fini(struct amdgpu_device *adev);
+>>>    int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
+>>>                                  uint16_t version_major,
+>>>                                  uint16_t version_minor);
+>>> +
+>>> +void amdgpu_early_init_rlc_reg_funcs(struct amdgpu_device *adev);
+>>> +void amdgpu_init_rlc_reg_funcs(struct amdgpu_device *adev);
+>>> +
+>>>    #endif
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> index 8b60299b73ef..4bfdd55be7f9 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>>> @@ -7829,6 +7829,8 @@ static int gfx_v10_0_early_init(struct amdgpu_ip_block *ip_block)
+>>>        /* init rlcg reg access ctrl */
+>>>        gfx_v10_0_init_rlcg_reg_access_ctrl(adev);
+>>>
+>>> +     amdgpu_init_rlc_reg_funcs(adev);
+>>> +
+>>>        return gfx_v10_0_init_microcode(adev);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> index 8c82e90f871b..8b9a9d944641 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>>> @@ -5341,6 +5341,8 @@ static int gfx_v11_0_early_init(struct amdgpu_ip_block *ip_block)
+>>>
+>>>        gfx_v11_0_init_rlcg_reg_access_ctrl(adev);
+>>>
+>>> +     amdgpu_init_rlc_reg_funcs(adev);
+>>> +
+>>>        return gfx_v11_0_init_microcode(adev);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+>>> index 65c33823a688..a5034e39a8e9 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+>>> @@ -3912,6 +3912,8 @@ static int gfx_v12_0_early_init(struct amdgpu_ip_block *ip_block)
+>>>
+>>>        gfx_v12_0_init_rlcg_reg_access_ctrl(adev);
+>>>
+>>> +     amdgpu_init_rlc_reg_funcs(adev);
+>>> +
+>>>        return gfx_v12_0_init_microcode(adev);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+>>> index 68fd3c04134d..13de1b356e9d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+>>> @@ -2915,6 +2915,8 @@ static int gfx_v12_1_early_init(struct amdgpu_ip_block *ip_block)
+>>>
+>>>        gfx_v12_1_init_rlcg_reg_access_ctrl(adev);
+>>>
+>>> +     amdgpu_init_rlc_reg_funcs(adev);
+>>> +
+>>>        return gfx_v12_1_init_microcode(adev);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>>> index 95be105671ec..100b5ee44fef 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>>> @@ -4816,6 +4816,8 @@ static int gfx_v9_0_early_init(struct amdgpu_ip_block *ip_block)
+>>>        /* init rlcg reg access ctrl */
+>>>        gfx_v9_0_init_rlcg_reg_access_ctrl(adev);
+>>>
+>>> +     amdgpu_init_rlc_reg_funcs(adev);
+>>> +
+>>>        return gfx_v9_0_init_microcode(adev);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+>>> index ad4d442e7345..2e17fc1157fd 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+>>> @@ -2525,6 +2525,8 @@ static int gfx_v9_4_3_early_init(struct amdgpu_ip_block *ip_block)
+>>>        /* init rlcg reg access ctrl */
+>>>        gfx_v9_4_3_init_rlcg_reg_access_ctrl(adev);
+>>>
+>>> +     amdgpu_init_rlc_reg_funcs(adev);
+>>> +
+>>>        return gfx_v9_4_3_init_microcode(adev);
+>>>    }
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+>>> index a7b5a95ebebb..a04f61b22379 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+>>> @@ -38,14 +38,10 @@
+>>>        (adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + (reg)+(offset))
+>>>
+>>>    #define __WREG32_SOC15_RLC__(reg, value, flag, hwip, inst) \
+>>> -     ((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs && adev->gfx.rlc.rlcg_reg_access_supported) ? \
+>>> -      amdgpu_sriov_wreg(adev, reg, value, flag, hwip, inst) : \
+>>> -      WREG32(reg, value))
+>>> +     adev->gfx.rlc.reg_funcs->wreg32(adev, reg, value, flag, hwip, inst)
+>>>
+>>>    #define __RREG32_SOC15_RLC__(reg, flag, hwip, inst) \
+>>> -     ((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs && adev->gfx.rlc.rlcg_reg_access_supported) ? \
+>>> -      amdgpu_sriov_rreg(adev, reg, flag, hwip, inst) : \
+>>> -      RREG32(reg))
+>>> +     adev->gfx.rlc.reg_funcs->rreg32(adev, reg, flag, hwip, inst)
+>>>
+>>>    #define WREG32_FIELD15(ip, idx, reg, field, val)    \
+>>>         __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg,   \
 
-> AMD General
->
-> [Tao] In order to align with the original logic, I prefer to "ret =3D
-> -EINVAL"
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Christian
-> > K=C3=B6nig
-> > Sent: Thursday, June 18, 2026 3:37 PM
-> > To: Ruoyu Wang <ruoyuw560@gmail.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; David Airlie <airlied@gmail.com>; Simona
-> Vetter
-> > <simona@ffwll.ch>; amd-gfx@lists.freedesktop.org;
-> dri-devel@lists.freedesktop.org;
-> > linux-kernel@vger.kernel.org; Zhang, Hawking <Hawking.Zhang@amd.com>;
-> Lazar,
-> > Lijo <Lijo.Lazar@amd.com>
-> > Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error
-> record loop
-> >
-> > On 6/17/26 21:33, Ruoyu Wang wrote:
-> > > umc_v12_0_fill_error_record() returns ret after walking the pages
-> > > reported by amdgpu_umc_lookup_bad_pages_in_a_row(). That helper can
-> > > return zero entries, leaving the loop skipped and ret uninitialized.
-> > >
-> > > Set ret to 0 immediately before the loop so the zero-page path report=
-s
-> > > a deterministic status instead of returning stack data.
-> > >
-> > > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
-> >
-> > Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >
-> > Someone more familiar with ras should take a look as well, could be tha=
-t
-> returning -
-> > ENOENT is more appropriate here.
-> >
-> > > ---
-> > > v2:
-> > > - Set ret immediately before the loop instead of initializing it in t=
-he
-> > >   declaration, as suggested by Christian.
-> > > - Avoid describing the zero-entry case as an allocation-failure fix.
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > index 14092150336a5..4842340d9d65f 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > @@ -690,6 +690,7 @@ static int umc_v12_0_fill_error_record(struct
-> > amdgpu_device *adev,
-> > >         count =3D amdgpu_umc_lookup_bad_pages_in_a_row(adev,
-> > >                                 ecc_err->pa_pfn <<
-> AMDGPU_GPU_PAGE_SHIFT,
-> > >                                 page_pfn, ARRAY_SIZE(page_pfn));
-> > > +       ret =3D 0;
-> > >
-> > >         for (i =3D 0; i < count; i++) {
-> > >                 ret =3D amdgpu_umc_fill_error_record(err_data,
-> > > --
-> > > 2.51.0
->
->
-
---000000000000ba82dc0654a8d5dd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p class=3D"gmail-isSelectedEnd">Hi Tao,</p><p class=3D"gm=
-ail-isSelectedEnd">Thanks for taking a look.</p><p class=3D"gmail-isSelecte=
-dEnd">I will initialize ret to -EINVAL in v3 to keep the behavior<br>aligne=
-d with the original logic.</p><p class=3D"gmail-isSelectedEnd">Thanks Chris=
-tian for the Ack as well.</p><p>Thanks,<br>Ruoyu Wang</p></div><br><div cla=
-ss=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_at=
-tr">On Thu, Jun 18, 2026 at 7:02=E2=80=AFPM Zhou1, Tao &lt;<a href=3D"mailt=
-o:Tao.Zhou1@amd.com">Tao.Zhou1@amd.com</a>&gt; wrote:<br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">AMD General<br>
-<br>
-[Tao] In order to align with the original logic, I prefer to &quot;ret =3D =
--EINVAL&quot;<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.=
-org" target=3D"_blank">amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Beh=
-alf Of Christian<br>
-&gt; K=C3=B6nig<br>
-&gt; Sent: Thursday, June 18, 2026 3:37 PM<br>
-&gt; To: Ruoyu Wang &lt;<a href=3D"mailto:ruoyuw560@gmail.com" target=3D"_b=
-lank">ruoyuw560@gmail.com</a>&gt;; Deucher, Alexander<br>
-&gt; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank">Ale=
-xander.Deucher@amd.com</a>&gt;; David Airlie &lt;<a href=3D"mailto:airlied@=
-gmail.com" target=3D"_blank">airlied@gmail.com</a>&gt;; Simona Vetter<br>
-&gt; &lt;<a href=3D"mailto:simona@ffwll.ch" target=3D"_blank">simona@ffwll.=
-ch</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_bla=
-nk">amd-gfx@lists.freedesktop.org</a>; <a href=3D"mailto:dri-devel@lists.fr=
-eedesktop.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a>;<br>
-&gt; <a href=3D"mailto:linux-kernel@vger.kernel.org" target=3D"_blank">linu=
-x-kernel@vger.kernel.org</a>; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.=
-Zhang@amd.com" target=3D"_blank">Hawking.Zhang@amd.com</a>&gt;; Lazar,<br>
-&gt; Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com" target=3D"_blank">Lijo.=
-Lazar@amd.com</a>&gt;<br>
-&gt; Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error re=
-cord loop<br>
-&gt;<br>
-&gt; On 6/17/26 21:33, Ruoyu Wang wrote:<br>
-&gt; &gt; umc_v12_0_fill_error_record() returns ret after walking the pages=
-<br>
-&gt; &gt; reported by amdgpu_umc_lookup_bad_pages_in_a_row(). That helper c=
-an<br>
-&gt; &gt; return zero entries, leaving the loop skipped and ret uninitializ=
-ed.<br>
-&gt; &gt;<br>
-&gt; &gt; Set ret to 0 immediately before the loop so the zero-page path re=
-ports<br>
-&gt; &gt; a deterministic status instead of returning stack data.<br>
-&gt; &gt;<br>
-&gt; &gt; Suggested-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christia=
-n.koenig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-&gt; &gt; Signed-off-by: Ruoyu Wang &lt;<a href=3D"mailto:ruoyuw560@gmail.c=
-om" target=3D"_blank">ruoyuw560@gmail.com</a>&gt;<br>
-&gt;<br>
-&gt; Acked-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-&gt;<br>
-&gt; Someone more familiar with ras should take a look as well, could be th=
-at returning -<br>
-&gt; ENOENT is more appropriate here.<br>
-&gt;<br>
-&gt; &gt; ---<br>
-&gt; &gt; v2:<br>
-&gt; &gt; - Set ret immediately before the loop instead of initializing it =
-in the<br>
-&gt; &gt;=C2=A0 =C2=A0declaration, as suggested by Christian.<br>
-&gt; &gt; - Avoid describing the zero-entry case as an allocation-failure f=
-ix.<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 1 +<br>
-&gt; &gt;=C2=A0 1 file changed, 1 insertion(+)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; index 14092150336a5..4842340d9d65f 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; @@ -690,6 +690,7 @@ static int umc_v12_0_fill_error_record(struct=
-<br>
-&gt; amdgpu_device *adev,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0count =3D amdgpu_umc_lookup_bad_=
-pages_in_a_row(adev,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ecc_err-&gt;pa_pfn &lt;=
-&lt; AMDGPU_GPU_PAGE_SHIFT,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0page_pfn, ARRAY_SIZE(pa=
-ge_pfn));<br>
-&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D 0;<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; count; i++)=
- {<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =
-=3D amdgpu_umc_fill_error_record(err_data,<br>
-&gt; &gt; --<br>
-&gt; &gt; 2.51.0<br>
-<br>
-</blockquote></div>
-
---000000000000ba82dc0654a8d5dd--
