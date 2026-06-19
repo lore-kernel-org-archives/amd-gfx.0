@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF983CDB466
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB18ECD98F2
 	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:32:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44CCA10F5D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D15C10F5D3;
 	Fri, 19 Jun 2026 13:32:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OU5UkiUx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zL4YyBu9";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012040.outbound.protection.outlook.com [52.101.48.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B208910F5E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:33 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011061.outbound.protection.outlook.com [52.101.52.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4553E10F5DE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:32:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vlLvIJpEzygP4T0yEa81yvmGzKupOfGrI+xgpHdunoUJWauOyoqObGKStZS9RDNV+mXUuG+S8t6jaa25l5OYDGQo9lUC2OOdXpjIQTX8iXDXwQ9MRMCn+/GAoBsv1sYa2x2/+BldEKHABHBogFIifJLc+M00LSWAdgnlbiSDoc50UC/zTychQPk5suUy9u/T7j8e758YcBQ+P3Qxe1jmr2BxbwApmPCuIOZKBQqrjT+HftDBvjZQkvj5Oic3mnAF0RaaI8YW+LjTVdXcsiDvvKhzmqZQp1+43EZALnFuoB/kHD/PKT8KzPOec1hIeBD2q9cZASsZ5y5bbusWknWhCA==
+ b=I+EEP4fJlXur+MYy6sIdV4QWijZ0ulX6MgU7AFU78CwwA6pBVnsAffHGQC5XsuBHfM5XgqhZa86RRXTjKYiUOfAhh45pm+vE78gDX5N62qC/KO4TRCxmYFFIKrq05A8AP4H10VP59Ch4qZFg8X2iI0qbDG9SEzePuy0RLR4K8t9ouBWECFrY/zRPJrruqJ5F38aQnBooY0cM77kanW5QoSDX6CTlKWYjhZPPnXBisKhcaRpfsrRK2akL2kZQ45Jpq4GoYVrBJwkqlAzGLl4RS+FqixuckC8oz7v0cqxl/LSRkNTehcBulcVKfJQmWHMpiC9L0a/RomHG5uhlZPRFFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gByG/teILZ+9kF+1MwyMMX0/5LZE9WaPjelbzuDqUTk=;
- b=hLuI2EX5ioqkYKLMGHEbZ+xjsFwUkSFPqTtfZTAFX1qk1ro3NKcQScqcdN6Ux3Brjm3kQg700u6dRGoNlna9B4ctGhm1fYP1LtF0MZ1smauPZifvt6zvtB3vFzwsn6q6oF4zEgp0FQQJfX54Y+G8DOtBkxO+3slXRWfbFVGJ0nsELpRqnJ3Ywf83gKaoxA7+YY/UitOkMXY2lXILgLSacq0ljijmBdsTlaVOi774lWvzDXlao8IU3q3NwhYcs6mtjPoxTUKr0TbHw9ZwZcpxdGY6KEuhTkwgD1CECyT9jaX+SwpG0v0Kqnu5uXVw/T5Dg541gUnQceBV/wQDUW2jhg==
+ bh=kmVMjAjuxEdwdGB+GWD2Gi0+BzZJv5tQys/tGcjqec0=;
+ b=ZNMyWEAfrczvL9KpQbWT6x3VMfmrVA3Qdwvkb40T1Spqe3fGW5j3uvzf3UC6tX//jb11srT6gdkINv4ww7clHlsQPfs385kOvhxk/4t5dOpUJfdI1J7UnLWDPh/VX1k+YvmNFe3H8NmkL9424A++npxllkJJzgMAmrqenxt2t0u2a+IcK2mcMCUf4W9cMkvh3pVIbqrO3sL3W8Uc1gYskliKiiovQ6VtJCtO3q7Jar9iY/xeDKxv3J4KhOFb5MzzOnbYvFta4tMgykQKzT3kOOlC//gqLpONO77ZepWyWKow+PX2npbTuaQmiqRfXxfePXX0gZ9TwU/XNvWCPhtI1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gByG/teILZ+9kF+1MwyMMX0/5LZE9WaPjelbzuDqUTk=;
- b=OU5UkiUx3TpueTEIFdu5JwsK17H/NadJWH0yFpWr+5MEsAW8aHjSn7Zzp3gFc0jMV3bxxJxC5A9WkfwwUik7GMMCrVAzRWssQFHciVeKvDLEQYHrzqUUdDsZsDvUrzBlVE/DChAJ+qVkpFfzHQ2p/Ecx8gRrvmSu/GokIFGwCOg=
-Received: from BN0PR03CA0014.namprd03.prod.outlook.com (2603:10b6:408:e6::19)
- by PH8PR12MB6843.namprd12.prod.outlook.com (2603:10b6:510:1ca::14)
+ bh=kmVMjAjuxEdwdGB+GWD2Gi0+BzZJv5tQys/tGcjqec0=;
+ b=zL4YyBu9GhxDhbJl/X7/QE8BlssvkroVif38GvV1R2YTSfDLmoH2ZQ5E8Xkou98ob8FmRZCADleFpUIJUFi809s7a0lBK8aXNZlsisKSjFAYXDOTSuaLdghUbodVYIS7avIHK3fxHjGiwPtd57mAwzdCo1P+3d7yL996r9TFR78=
+Received: from BN9PR03CA0843.namprd03.prod.outlook.com (2603:10b6:408:13d::8)
+ by MW6PR12MB8757.namprd12.prod.outlook.com (2603:10b6:303:239::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Fri, 19 Jun
- 2026 13:32:29 +0000
-Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:408:e6:cafe::16) by BN0PR03CA0014.outlook.office365.com
- (2603:10b6:408:e6::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 13:32:22 +0000
+Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
+ (2603:10b6:408:13d:cafe::a7) by BN9PR03CA0843.outlook.office365.com
+ (2603:10b6:408:13d::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
- 19 Jun 2026 13:32:29 +0000
+ 19 Jun 2026 13:32:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:29 +0000
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 13:32:22 +0000
 Received: from georzhanmkm (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
- 2026 08:32:28 -0500
+ 2026 08:32:21 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Chandana G B <Chandana.GB@amd.com>, Chen-Yu Chen
- <chen-yu.chen@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 14/24] drm/amd/display: Fix intermittently CRC open failure
- during active rendering
-Date: Fri, 19 Jun 2026 09:21:29 -0400
-Message-ID: <20260619133154.116746-15-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Lohita Mudimela <lohita.mudimela@amd.com>, "Josip
+ Pavic" <josip.pavic@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 04/24] drm/amd/display: Integrate power_helpers.c
+ functionality into power.c.
+Date: Fri, 19 Jun 2026 09:21:19 -0400
+Message-ID: <20260619133154.116746-5-george.zhang@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260619133154.116746-1-george.zhang@amd.com>
 References: <20260619133154.116746-1-george.zhang@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|PH8PR12MB6843:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba0144ff-dabd-4406-6c5d-08dece0735e4
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|MW6PR12MB8757:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9532dc7-2a01-4d36-ba59-08dece07317d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 732q7nQVoB6vzgBWAPott4boqYoHHmPqIvdvyjH/sMEZaArJHOdtKI3H+JLFvNDQzLEsciZDn4gCohvDpKRpynknGIa0pY2oqekhj8Ia5NgZbq9Q7lkd/aqhJKQINttP68Vd0fp5w/IOshHnqt2HGnr5q6Bftt6LO6uEycFwDS/AWard+agPK9zEX/ngv7guV5ygDpmSwOP3R58YT6G47eK+IkZLgQ7dbJowZeaGKybw+dl7GiaWgXUqwpgN2PXA9ZRsP/yADlHaf3PE9/eRBdp3DSIzael1PtZq1iUa/EsC4tE7eliMtwkGJh8+L21qc9qVNTrVRXRD0JrKP+6kW1JeGURtKj9DzmNSWQsqKM2kA2kr8qWAtrKqiYRBLkE4MzGB06M9DnXZxeS4UGUP8K2P9uWLXEcyOolZUuFaQ+UFizWkfOZ6NxgTRPbs//CueE8ZQeqt5lT6w2oam4su0GVBLS4w4fU5xP9rnPE40zVJBBpjlb6gXVYMWNnmphY1eprkJtNeYT0+bw6Av/pfG9unQPI7j0h3xZi7wV6AlDSjLXPtf+lW9XlhXiEVMqLuM8PQa4QvBJ9/e1BI7LqUOVIQli4Q83rF1Cw946OS8S7f3z4Zpx+efsHcLs3MTxFZ//ztUYzFwtRrnLVHVM7RcGxm1fT4h7hdUu0b84E3uMKqZUHRI6UCMwJ9h6R0u15YsR4fbZnksj1rC03s2iiWuA==
+ ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|56012099006|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: hgGKnTN30Zv7vHFnFN4AU7dsZBJyWmIGcIRO+Ea0fbWeKt8yBnVwXkiRlTBbwIrpmBJk2OwVlVVd0ZG7kyT09/zpbSslz2KJ3b96CPIs3aud/G7VgMKhDUIA0XD9grk0ozh5v6hCxbTzbNqDAhqEQ3lNRxvbkhs/3DC8TAcYmkLJIM4G0dafm4KMo+zsU46OjxDgQ3NDWCL3er71Wbt7q/XmTmO9Ne8ug4EXnHrUuimAUqMVWDp1uKSr4OXBN7Svq2y3OFBWcoLbbOHjV03TyyUnaO7/WCd65CdbQQBFDpCA92Z+/ztH9EcYhU5XnUVWaQpW0lt6F+2RrxLVWYnkBEBvU7U7ssAUrDt9TdTXeQtNJ1rnrBWXktcMnXSxcTWJMq84nHclsbB2ENNLCWOg5Nn5dxtF9MGl05STfC9oBrkGf7On/PpRpeymMl0YbP/55IX2FdPfefEX8cy/1mlzXTjmYdoFrTRmhnGu0yRNxlNNGSvqV6PZ0Z0w3CnxPigC3e0RVEA8GV6W/mdgZKhMKpPL5lycPrHEQQoR318qJHYFS0mScujXalJK+FlY//7jD5RjMfbmMv8cQ9EGvy+NxNtdNMPn+yShuJ/gn4Nh/ZH6bw7cZT9vX8jXyqRdvyYZ9AAgcsYDv9eavemS2M9nrp0R1pIGAli94gr2QaHgUSVr32g+p/HS2S1ZhbAYC3HcbkFVx7xRr4AquXZ3+VJ3uA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rWl5dRI95lNGuUtlvr0JPF/BnPK54a5/YJ7l6ouVrrKbDMo61DXnMfGoCK/maWLQ5Cy8rW4UM1lf5HIiVC/CRGwcV5lqLOUElYTjcS1ra+b1OKPb0K4TAYITvmMwVdF7+/bUju44jLc7HVSUpIIfQCs6IOzqwRaKwFz0RTT0qDOdnpf2OeDyEDxp39spf3vO5lscyIggWXE39T96ND4Rb3a5pB1k5SDYwrkfaHPhj6cd7faIWa2FQcfwBE6k69THVa/ceTzpOHUt739ZLgeyB2Wac0rU8CgQx2Grv2UVlZ7/Nz4sqqhWZlsheJSWHPyCjld0Uo9lqnxolwN2Zt8rK4EpFPhpw6e/QkQpcxk075I+VkcB2rTmGFwWqskooqzbaIloVT1yHS0NeUyj322+EC4Wu/YZQX1gZ4xvdWc2k5xwANJyj+XVBUuYUEmWR9qZ
+X-MS-Exchange-AntiSpam-MessageData-0: vO6S+RV1J2deIIaRirmLYbowXsUmbtzqK/ax/etuvkZIRVr9wXpaDux1DoiRXRWRA0bYIVjtxqKUm+KkNkQDVWZ5Iix4HpQhi0WWk95X9TUNVtyLEnQybd8jklCDxD7xStMPXslSkAvi0lJvHGbH3lBJDc674tG7OU3hH1H+hnY3kvJxVFIdetTJrHVsm+HLtJm+gFhSnoAbbtuJw2q1OCOJvG+mndznrWQSLa1yULkZkjWCQWO4qK2UNxIxWu0vQ8CLokUxbjtCmQ6EL6lRts2NN479fjJ5QmPDiML6XB9nXl9tfRTDPyB4YXYB5aO+uaAia7xwmDvTJIaUWs06i3UC7A5hYvBA/2K1ZTxgIpn3nKNcvBkIPvoTSeZViGLDzM6JntnOHAc7kP2xM3zLw+DKQ+7o/+Pxzz6BIjD+7WJxyrkVNQBo6rKxDvLG+zGQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:29.7011 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba0144ff-dabd-4406-6c5d-08dece0735e4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:32:22.3207 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9532dc7-2a01-4d36-ba59-08dece07317d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBC.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6843
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8757
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,42 +117,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chandana G B <Chandana.GB@amd.com>
+From: Lohita Mudimela <lohita.mudimela@amd.com>
 
 [Why]
-Opening the CRC data file during active rendering can fail with -EINVAL.
-
-Closing the CRC data file with ctrl+C (which will send SIGINT to the kernel
-and if the wait thread in sleep, kernel will send the -ERESTARTSYS to the
-wait_for_completion_interruptible_timeout)
-resulting in intermittently getting -ERESTARTSYS. which will just do the
-clean up without releasing the vblank reference causing -EINVAL while opening
-the crc data file in the next iteration
+Reduces file fragmentation in the power module by consolidating
+power_helpers.c . The helper file contained minimal
+functionality (single utility function and shared includes) that
+didn't warrant a separate compilation unit, leading to increased
+build complexity and maintenance overhead.
 
 [How]
-Ignoring the ERESTARTSYS as this is a return value for the
-wait_for_completion_interruptible_timeout()
+Consolidated power_helpers.c content into the internal module
+implementation. Moved macro outside
+platform-specific conditional block for wider availability.
 
-Reviewed-by: Chen-Yu Chen <chen-yu.chen@amd.com>
-Signed-off-by: Chandana G B <Chandana.GB@amd.com>
+Reviewed-by: Josip Pavic <josip.pavic@amd.com>
+Signed-off-by: Lohita Mudimela <lohita.mudimela@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/display/modules/power/Makefile    |  2 +-
+ .../gpu/drm/amd/display/modules/power/power.c |  5 +++
+ .../amd/display/modules/power/power_helpers.c | 39 -------------------
+ 3 files changed, 6 insertions(+), 40 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/modules/power/power_helpers.c
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 7b0604e9216a..47fd849c58a1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -681,7 +681,7 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 		 */
- 		ret = wait_for_completion_interruptible_timeout(
- 			&commit->hw_done, 10 * HZ);
--		if (ret < 0)
-+		if (ret < 0 && ret != -ERESTARTSYS)
- 			goto cleanup;
+diff --git a/drivers/gpu/drm/amd/display/modules/power/Makefile b/drivers/gpu/drm/amd/display/modules/power/Makefile
+index 3000f392bdbc..0746f671eb4d 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/Makefile
++++ b/drivers/gpu/drm/amd/display/modules/power/Makefile
+@@ -23,7 +23,7 @@
+ # Makefile for the 'power' sub-module of DAL.
+ #
 
- 		if (ret == 0) {
+-MOD_POWER = power_helpers.o power.o power_abm.o power_psr.o power_replay.o
++MOD_POWER = power.o power_abm.o power_psr.o power_replay.o
+
+ AMD_DAL_MOD_POWER = $(addprefix $(AMDDALPATH)/modules/power/,$(MOD_POWER))
+ #$(info ************  DAL POWER MODULE MAKEFILE ************)
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
+index 5659a38b3366..af6b162a337d 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power.c
+@@ -501,3 +501,8 @@ bool mod_power_notify_mode_change(struct mod_power *mod_power,
+
+ 	return true;
+ }
++
++bool mod_power_only_edp(const struct dc_state *context, const struct dc_stream_state *stream)
++{
++	return context && context->stream_count == 1 && dc_is_embedded_signal(stream->signal);
++}
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+deleted file mode 100644
+index bf0c5901b4ee..000000000000
+--- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
++++ /dev/null
+@@ -1,39 +0,0 @@
+-/* Copyright 2018 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
+-
+-#include "power_helpers.h"
+-#include "dc/inc/hw/dmcu.h"
+-#include "dc/inc/hw/abm.h"
+-#include "dc.h"
+-#include "core_types.h"
+-#include "dmub_cmd.h"
+-
+-#define DIV_ROUNDUP(a, b) (((a)+((b)/2))/(b))
+-#define bswap16_based_on_endian(big_endian, value) \
+-	((big_endian) ? cpu_to_be16(value) : cpu_to_le16(value))
+-
+-bool mod_power_only_edp(const struct dc_state *context, const struct dc_stream_state *stream)
+-{
+-	return context && context->stream_count == 1 && dc_is_embedded_signal(stream->signal);
+-}
 --
 2.54.0
 
