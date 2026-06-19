@@ -4,122 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219E2CD4F26
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:20:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B187ECD4F26
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 13:30:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB1A410E085;
-	Fri, 19 Jun 2026 13:20:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D77D10E088;
+	Fri, 19 Jun 2026 13:30:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5Qsgq3s2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MxiYJK4E";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011021.outbound.protection.outlook.com [40.107.208.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFBA610E085
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:20:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HK20+VWC7wWxdjfMDRFDMaq9vVwkQmJKI1ln9YDo/XqbyfLShkWo3VxF/dr1S6088YhLre8N2BNYPoRhxs2/NpTK4zMU91tmdX2CoUIrU3WLtCBldiQfvvRYXx7Y+IIm/Wq5RSCrazKVtgIT3ykeCeqBgZXXkSRHfLzDtXzdkydhBO0ToRP9OgvlvDTa2xOcc/NVespgJ0bH1N05XpIlPttD/KTnojs/hH2M28vM8WkBB2TXj7bubuyq+r0FARHpafxfLWixNisjVZOQE80/jOjloUZet3iHUj9syWsQnTNI5WQw/ePrBT84G/ktkUu/ubX1wJGtebiarWJ2f2I0vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=88eJkR9ZeI8ydsjMbeKq4XiTsfuLIIYdGCodwIQN2kM=;
- b=iYkEGjHoJoXaaFnnBzuc3Zv+wxLSSKE5ov0i77azHVHf/96DtGaQahgCbizAl9nPvdlEVghmP9jf312ucOfgXuz1bQl6qQu3CDIUPDw3zBcYVicTbVXmdhks70rV7A+xjELp9Kx+W/GLLk5beOR9ZYgfvs9Jx4AbZGsVUxj7Bbifmg7JkjCYv3sTxdJiYfeF+KTP+cBoAn5nhE/0hjj7d2/IQX4xhE9oaMeD+aGIY+aIvPyDmMnznmYWr7epS+adxQoutCM86qt7Wy135t+5XobWCeeaYLpu4vCRfyfVkKGUtndJrM/mZCoOaAPITb9MWOcuAp7DG+MevEspTJ+aXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=88eJkR9ZeI8ydsjMbeKq4XiTsfuLIIYdGCodwIQN2kM=;
- b=5Qsgq3s2wqiXj7bULFauXK58sWk98P4E+/h7xaLN88WhNDPl0F2VteD3rvNT4RIxkxeysu+RyuEeRODZy2LMYXw3IuswuQWUkVdXjOQrNY5IQ8qwbA/4Wc6lnCTewjHWTmIkJlvk36np8wGqmsqbZ6wmUoz7PFKNlsD8YUFAxqo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SJ2PR12MB7845.namprd12.prod.outlook.com (2603:10b6:a03:4ce::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Fri, 19 Jun
- 2026 13:20:17 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0139.009; Fri, 19 Jun 2026
- 13:20:17 +0000
-Message-ID: <a123025c-c748-4f8d-8ddb-e19ceafc1e27@amd.com>
-Date: Fri, 19 Jun 2026 18:50:11 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Guard reads in pcie state readout
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Asad.Kamal@amd.com,
- candice.li@amd.com
-References: <20260617093518.753118-1-lijo.lazar@amd.com>
-Content-Language: en-US
-In-Reply-To: <20260617093518.753118-1-lijo.lazar@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0270.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f2::8) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
+ [209.85.221.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0581410E088
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 13:30:17 +0000 (UTC)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-59ebc9135edso67066e0c.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 06:30:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781875816; cv=none;
+ d=google.com; s=arc-20240605;
+ b=au/SWYUO42IluBfJidpI/2pMg+SHKVbhK774UebKdf5srx7BGX40D0hBjs740OeF0G
+ GWytzn4S15+nHH50EhgbHAeNJ2n6wg61Pr21hAldI25Rc+U22bHDtUXnQPVWb4GONNWP
+ 32eE/r4T92eHWNGIBl1oeRsTqoKIBQ6+v7Ti5YHEgZsayP8vZIyP72R+wqz5y83rP6ec
+ pCAId2J9R96zTIaFPrtNalGCI2mkGINQpAGqZgSxD+CIbrWLJq2SrDrdpgWiOldM+erg
+ qverbr87LhR149Tux5MX3gwDpwgNFBMYfyWG14eIrBFz0+fSXoxPZbvYIbfTqwY/Z+dw
+ ZPRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+BAkjpfWQowdjBsNdaaNxgIzUMsqo46Arsowlr/gjUc=;
+ fh=zhfJp64LGfjTDkTFiBkkrx4gm132SO5yqXuHnDwZggY=;
+ b=D5u+6BOfzfcHVVMFI03U05GNMfm39uF5I1Tkq8pd9gmV5g07O2lp4Tcu2KpkmyBokV
+ 1eUZjtuqMGqMPdvVxVD1iWZ3NDsx/fUbKmYX1RcAixdhT4ZzjfKByG0yLHypuQtm+3h4
+ MPXIYmKzo3zMAwakS1QtUbVW5wLxSNK/FLDU7s3ZUcrxJXCr4P9bNzDTFbBaiAAShhlg
+ Uv8Xf9TzZ1QdxsEtUjydXQ9LOzUrAYiLGCWIdMuWXEd8idzPZzmOZ69Il4JWwnO1s5vX
+ VBpoBOXKysYduIdBcyuOh0Dqvm2vP7d+33YCtzG2M5L/5bPv7aOmBtcjPerS0EFA1Pk4
+ cihQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781875816; x=1782480616; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+BAkjpfWQowdjBsNdaaNxgIzUMsqo46Arsowlr/gjUc=;
+ b=MxiYJK4E7LO7WpPp+VcNsM/B3/oOCBcjOnezmaYE51fH+k/lCSGQRQhFZE4BrnijNI
+ Op6j3PKx0ISp1E53ASi8r82/CGPVWnIi+sVwgqBUfJVmdR58M7/ijfZg+xvyTpXMq5dr
+ 6rOJUo599cnlx+4a0XY6ExI7lC4YyQY2lPKVJRFCIIf8e84Qh5JyBvY408JqOV0gdp3b
+ mrKvXX0X5O65kH08pGVXF3cEt1rW5ucNoRpoc1hTt+Y4dR9moL9ajd2r4XMIwTVDVhhc
+ SBPTKuz91J05VaIah9LJCSWbc7CtL7qaRBpS0oHVfUZN59gH2H8DnL7SDYpJx6zvPOBw
+ UhDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781875816; x=1782480616;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+BAkjpfWQowdjBsNdaaNxgIzUMsqo46Arsowlr/gjUc=;
+ b=Nlbw0J/Y+D0bEQG4CO8ZYqgTs18rYKDnPC9HeXdGhiz7zvbG0J46TFyT+D147WwYBc
+ yuG23O1iQF2bu37LFz/RLZgP9Q5ibu47/n8KWiJMMk4R7GnkXICkdzSSCBKRAJnvn4i8
+ 51IPYH0HS6tsoTZIGx3rVuwt6sHL4/bRkNep7nicEBx6mfUbBc2xYviv0DGS7lvsNpSV
+ 086lj9XaLy4tbd4X7oQCazwHXCmc5FA4JkflUYAz4Jb9+e6/bDrYqKzbn9bvj0G0NoJY
+ +YmQmbCeBkuAMR18FteokCi9G6Lu5iSRwymhIRleB3CVARLJnkv919IqHxBedMSwWEn9
+ Knjw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8MEdaFyBfF4FCq3Vj05DP53KPi0W5ar8xLDTnmwi3ig6Iyu/G8D6UL0po4V2SZPSIqc672D3rj@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3rQmyZCnel9t4U7X2vVLCMTFVQNflcmDlc8OGAI0aTAM6nUtg
+ rHLa+SKeNZ9jwvKFmhx6lsA+KU1y76S2U4x6TqfzeqcIYCUIieSOWjq3sQUH5X/4aZZWD5Ih24b
+ haU3TroBWCAPcJJnONhKKNWGQZfLtM+Q=
+X-Gm-Gg: AfdE7cnEK+iPzQlwaiQYoMxh9JjLJh14+DfyXJ/v9SRzoBin6ffjVb1Ho8KgPq9usOe
+ w9n/3S61t3Q3CdeAb8/FT/oGJjvT7iYIOiPJfv4hOTp0+DCE0g+9W6k6F94L3Mm1u8IfFeyTsdV
+ mmPsVBUERGJUrbu5gAVg7ITH7sO13ZdCsIYdE/1UtZVPQ7zucCPz/8v4INIjHsfmyheMHvOjOnu
+ axbD+w6OAG7XtffH9x8Oddkanx6BUkQccaAkBTOuh4xFJFo5jw+hRNV6S7+5GIqUrlNaXxNHQTj
+ n10KjncmJrs3JQCV01jodQuWp0ZgGbSf6FxWEHuvoziV+dHrCtGEbsk+Wwg=
+X-Received: by 2002:a05:6102:1620:b0:674:84bf:8e0a with SMTP id
+ ada2fe7eead31-72b16d7a278mr196403137.7.1781875815754; Fri, 19 Jun 2026
+ 06:30:15 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ2PR12MB7845:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3334add1-73c2-4c1e-9ee8-08dece058125
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|18002099003|22082099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: YuvTvY6T9cUt4OI4yxe4bBH4WypLWdo3xU6E0hEThEzatXzSCmv4h6IRFVJj5hqR4BNUbc/abvHKEeCgFAn7XfdQE7kaZOs6fG73dNtFWq0ig3FHvXU5HSA43/dvRtLoEaar6REVPhyT58IQ7L2Xv1ToPfVdgFRDlOIzu+9s+GDNSUXvFEDnlsIKP94uxIKwIIO6b0ztER4JYkUIbPXnCXE2zM+JXBHq5ig79x8rL0HLXy6G58EybiHM4CmIxegwWDRVCgRbbVlsL4PyrXvMIr8ddfXsaVSv9vTcLScgeTZW/Ni8/Tdvzim+U4uGncfL5EklEUbAqVHcU1pfQSIv879jhgeoWSp3nXT/TX8NbPiMYv9sU+/JGludMz+ZRI/GZ9zFlbHjcArqZZTtwlr1tMO65JM8W+OIxxVrEeQv1y96WPButwrpaJhVihQYszROOlxz/GGPYl8Ll4WGRv7uYUUtgWhBnCGOyeIQ2tKpTBBmABmFiGiIZMX+d4ga8ZQX7mh4pQgKhannu0jBjOaKH/eGJCqHgxKdEpIfbZH9etf9vVgq2uin+Kcj8vlOnIQZf+60RhrISE5r+RaNxa4nDN6YmZTLZuMUwQe+9yZg+xLwGiM1IJKZYAieJ1MiU+uYA+MBGA+06bTz3nONMejdeSKiUJO66gIeI7n5osNTLKg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dUlnSVY2dUVpTzBHV3hPeDQzRW9oN1RCZWhDWFM4QjRyb2l3QW14SmdVdDZN?=
- =?utf-8?B?VU12MU0xb2JsR1NiM05scmZEelpOVjNvbXFTV3l4ZFJGRVVXM0xRUGdkUEw4?=
- =?utf-8?B?Q3I4VU1WVmRMdkcwSkF3NXM0d1ZWV2cvcmMxeXFVby9QWm5Mb1FieDBVQzhi?=
- =?utf-8?B?SU9ncVE5Nm5IZkIzY0hkMTZiNTNYUzk3cXBXMXdDSnIyb3JzOUU5dm9yY1pa?=
- =?utf-8?B?VVpSd1hZKzhRWE9ZWi9PclFvdTFQMzAyaXBDOXVzdm5WRnEvckYwK3o1SlNr?=
- =?utf-8?B?N3orMVVkRWlxRElSOVkzYU95NjNUTW9BUnBjcnpTSUE1R3o2NjFaYkxLOTYr?=
- =?utf-8?B?SlN6NlRFWWRNajlROHR6RnM0VmF4WE9FT0VGaE5UUDBENnl4cjJuS2FCNWc4?=
- =?utf-8?B?RFVoakxsNFFSVkxSbXlTSUJ0Q0xqSWNscGc4b1o2alVlb0RIc0JlRi9YeS91?=
- =?utf-8?B?WWZTK2tBdG9PSXh3eDhSMTYxY3Q2UFhlRDdCQ3dXVUJtaE44Q044a1JFdUlv?=
- =?utf-8?B?OHNqUERCd1o1Tlh2dWNLOVQ0N2hzVjVNMUJYQ3dtQUF2VkFETDZPdnoxSnhs?=
- =?utf-8?B?MnFqd0UxeVJ0d2VJalBEQUQyS2JicjJvVTFwQXZXRGxJVGtja1g0Mms3Mmxk?=
- =?utf-8?B?ei9PV25lVG8reXNsN25JK29WRDdMZjRSZzhkdXBFZ0hYa0htN3MreVNUNlRZ?=
- =?utf-8?B?dkZGcnc1OThtQWN6cEh5UkVlYWVtd0IxNTFpUW90b2JVUU1GRE0wVmJIUTBP?=
- =?utf-8?B?UlN2aE9obHBwazFkUUVTcVpsRVpKaXdmVlJuNWJOY3ZEQ3N4QmY4YWpDTTcr?=
- =?utf-8?B?aHRpK1NSTmd4aCtCYVNobGtNNFpxbmpCM0NVd1NaYVVmMGZ6eXlqc2JDUjlS?=
- =?utf-8?B?V1h0SmZwcFVuL1FUMFdQazFxK1M5NTRTQ1Y1U3ZIa2xxVVNZRTVjOS9BRmU1?=
- =?utf-8?B?NmlUSmNLS0lHNzQzcG0vS3BGZTlhcUIvVXBZQXdpZXVWSEVHazc3T1pNUGNY?=
- =?utf-8?B?R1h3aG14M2d2d3YzVllOMEZMVWx0d05EQ3k0cnNiYmZVUjJVMkNjUDdLSGt6?=
- =?utf-8?B?RnBWWHduUk14Tmc4dHNoSWFpQVQrYzZJdXE2a29JU0RkRXVBNEFHdFNGaGdL?=
- =?utf-8?B?SDFLaXFzelh6d3pVakowVDFHWDFsV2tiY1FnU2tHaHB3STBPSEk1ckUzcUEr?=
- =?utf-8?B?cGRpOXVjM2F2UW0zTW5FemVDZGR1dWEyaEorQXJ0a3M1QW8zdkhINGF4RGx2?=
- =?utf-8?B?b2I4dmZ2cFhWcitYeXBMTVZyTXlaNUxkSmEvQ1RBUldPbkZuakxqckNHZ3J5?=
- =?utf-8?B?UU41Rlh4QVk5aTJhQmxYY2w0TkpIUUhtREMyai8wUXYrRGJrZmRjZGZ2SWFw?=
- =?utf-8?B?eXBlbVlKYzhKVzI4eVlNd2xUWnZhcXdlb1lMTEhPVXhVYUlXbGhEbDJsYTgr?=
- =?utf-8?B?VEwwUVZDQlJqNWtwaDA2dDBWZEw2eEtwOTIzaGUxUE5xRTFmUDVzdHRjM0VE?=
- =?utf-8?B?Z3ZSR284UE8vSDN1RWpvV2VOaEg0N2ZzdkxKamFoNVRJaXQ3dG1zSURUazhs?=
- =?utf-8?B?Ty9EQys4UFdOejVVdUo0a204RU15bHcrc2QxRUVaZTVMRmw1MG5BbVQzZGs5?=
- =?utf-8?B?S3k3dzRHWHJ6U3pXdHltZTNUT2pYdWsyWTVnK0xmN0RnbWFXL0M2SDJJZVpn?=
- =?utf-8?B?TlVCL2VQcmR4dmRnTzgyNEs5Mi9iWjhBcHJGT29KSXZEZDNkWDJRUmRPSHEw?=
- =?utf-8?B?ajVNVjZCQzMzN01BY28vRlJvaUN6NGN4ejJBZmtoRTh3T3JncHQweWUyejJx?=
- =?utf-8?B?RW5mL0dvMEtvR2ZUckZqZDlzQVNqSStKMFoyVUc0THl5T0w5YnpraFZwRzBt?=
- =?utf-8?B?YllTZllSSzdzelRsa3VGdkV2Unh3cExLazZBL3N6S0NYbW9tZ0dwNkZIL0ov?=
- =?utf-8?B?Uk9KK0d6NFM5ZXo4L0pWTCtoM05lV1NjbXBLbmN5K3VGYW1WaitQNEo3Nm5p?=
- =?utf-8?B?NEVyWTdkd296QjgrYWVnMUliZUNkV1N5bldhejIvbS96YitvU25Ob2M2K0Js?=
- =?utf-8?B?bmhNVW5hRWJHb0UrZnJUZUdaL0R3K3M5ZmRYMFdRdEFYSGhXVERVTVA0RnRs?=
- =?utf-8?B?NU5QUE91M2txR2pSL0VTUklLK0NHVW1KTHN6MmUrRzVhdW9YeEoxS3pmMDB0?=
- =?utf-8?B?NWozM3N6aVMzanhmNUhQdDJWZzRMVG45SFlLT3VhUGJsVjlEZVFEeVF2VkZy?=
- =?utf-8?B?MFBGc1FwM25zRUsxS09WUmRwZjVqUnR0dW13SUdLQnIwZGFuVjdqNElQQ1JL?=
- =?utf-8?B?NTB1QmQ1TDdSSlh4S3QrSDhjV2NRdGh1ZGJjeW8zUTd4YS9JaElrZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3334add1-73c2-4c1e-9ee8-08dece058125
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:20:17.1558 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AxoFq90gMtIalyMl87c3n55jUsPriMndlHJf4gjZYya7ZU3UjaFyfAAQgssYCS/2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7845
+References: <20260519030624.51613-1-leorize+oss@disroot.org>
+ <20260519030624.51613-2-leorize+oss@disroot.org>
+ <CADnq5_MrUaLRP70hwb5YGawjfft9qUaH4h_t4TQ17AEgAwj3ww@mail.gmail.com>
+ <1f24aee4-8588-4d54-ba5a-cc5e9c002a54@disroot.org>
+In-Reply-To: <1f24aee4-8588-4d54-ba5a-cc5e9c002a54@disroot.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Jun 2026 09:30:02 -0400
+X-Gm-Features: AVVi8CeVOSc_6Z1h6askeKyU8KcBbZJ7fycBobyYUlTtvuSIqWN8dX11pHGRATM
+Message-ID: <CADnq5_NHskZySwM3pt9yPkAGRmS6JHGnh=TyKv4==dkL+9wR=w@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amd/display: set MSA MISC1 bit 6 when using VSC
+ SDP for DCE 11.x
+To: Leorize <leorize+oss@disroot.org>
+Cc: "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ linux-kernel@vger.kernel.org, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,102 +113,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<ping>
+Applied.  Thanks!
 
-On 17-Jun-26 3:05 PM, Lijo Lazar wrote:
-> Internal US/DS switch may not be exposed in passthrough. Guard the
-> upstream port reads to avoid a NULL dereference.
-> 
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 59 +++++++++++++++-------
->   1 file changed, 42 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> index 72ea37dbfea8..5f1389901504 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-> @@ -589,6 +589,29 @@ static struct aqua_reg_list pcie_reg_addrs[] = {
->   	{ smreg_0x1A380088, 6, DW_ADDR_INCR },
->   };
->   
-> +/*
-> + * Return the GPU's internal US switch port, or NULL if it is not visible
-> + * (e.g. passthrough) or the EP is parented under an unrelated bridge.
-> + */
-> +static struct pci_dev *aqua_vanjaram_get_us_pdev(struct amdgpu_device *adev)
-> +{
-> +	struct pci_dev *ds_pdev, *us_pdev;
-> +
-> +	ds_pdev = pci_upstream_bridge(adev->pdev);
-> +	if (!ds_pdev || ds_pdev->vendor != PCI_VENDOR_ID_ATI ||
-> +	    pci_pcie_type(ds_pdev) != PCI_EXP_TYPE_DOWNSTREAM)
-> +		return NULL;
-> +
-> +	us_pdev = pci_upstream_bridge(ds_pdev);
-> +	if (!us_pdev ||
-> +	    (us_pdev->vendor != PCI_VENDOR_ID_ATI &&
-> +	     us_pdev->vendor != PCI_VENDOR_ID_AMD) ||
-> +	    pci_pcie_type(us_pdev) != PCI_EXP_TYPE_UPSTREAM)
-> +		return NULL;
-> +
-> +	return us_pdev;
-> +}
-> +
->   static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->   					     void *buf, size_t max_size)
->   {
-> @@ -596,7 +619,7 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->   	uint32_t start_addr, incrx, num_regs, szbuf;
->   	struct amdgpu_regs_pcie_v1_0 *pcie_regs;
->   	struct amdgpu_smn_reg_data *reg_data;
-> -	struct pci_dev *us_pdev, *ds_pdev;
-> +	struct pci_dev *us_pdev;
->   	int aer_cap, r, n;
->   
->   	if (!buf || !max_size)
-> @@ -628,25 +651,27 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
->   		}
->   	}
->   
-> -	ds_pdev = pci_upstream_bridge(adev->pdev);
-> -	us_pdev = pci_upstream_bridge(ds_pdev);
-> +	us_pdev = aqua_vanjaram_get_us_pdev(adev);
-> +	if (us_pdev) {
-> +		pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
-> +					  &pcie_regs->device_status);
-> +		pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
-> +					  &pcie_regs->link_status);
-> +
-> +		aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
-> +		if (aer_cap) {
-> +			pci_read_config_dword(us_pdev,
-> +					      aer_cap + PCI_ERR_COR_STATUS,
-> +					      &pcie_regs->pcie_corr_err_status);
-> +			pci_read_config_dword(us_pdev,
-> +					      aer_cap + PCI_ERR_UNCOR_STATUS,
-> +					      &pcie_regs->pcie_uncorr_err_status);
-> +		}
->   
-> -	pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
-> -				  &pcie_regs->device_status);
-> -	pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
-> -				  &pcie_regs->link_status);
-> -
-> -	aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
-> -	if (aer_cap) {
-> -		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_COR_STATUS,
-> -				      &pcie_regs->pcie_corr_err_status);
-> -		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_UNCOR_STATUS,
-> -				      &pcie_regs->pcie_uncorr_err_status);
-> +		pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
-> +				      &pcie_regs->sub_bus_number_latency);
->   	}
->   
-> -	pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
-> -			      &pcie_regs->sub_bus_number_latency);
-> -
->   	pcie_reg_state->common_header.structure_size = szbuf;
->   	pcie_reg_state->common_header.format_revision = 1;
->   	pcie_reg_state->common_header.content_revision = 0;
+Alex
 
+On Thu, Jun 18, 2026 at 10:03=E2=80=AFPM Leorize <leorize+oss@disroot.org> =
+wrote:
+>
+> Friendly ping. Should I resend this patch?
+>
+> On 5/26/26 7:52 AM, Alex Deucher wrote:
+> > @Leo (Sunpeng) Li
+> > , @Wentland, Harry
+> >
+> > Can you take a look at this?
+> >
+> > On Tue, May 19, 2026 at 3:19=E2=80=AFAM Leorize <leorize+oss@disroot.or=
+g> wrote:
+> >> When BT.2020 colorimetry is selected, the driver sends information usi=
+ng
+> >> VSC SDP but does not set "ignore MSA colorimetry" bit on older GPUs wi=
+th
+> >> DCE-based IPs. This causes certain sinks to prefer colorimetry
+> >> information in DP MSA, resulting in terrible color rendering ("dull"
+> >> colors) when HDR is enabled.
+> >>
+> >> This commit wires up the MISC1 bit 6 for GPUs with DCE 11.x based IPs =
+to
+> >> correctly configure sinks to ignore colorimetry information in MSA,
+> >> resolving the color rendering issue.
+> >>
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4849
+> >> Assisted-by: oh-my-pi:GPT-5.5
+> >> Signed-off-by: Leorize <leorize+oss@disroot.org>
+> >> ---
+> >>  .../drm/amd/display/dc/dce/dce_stream_encoder.c   | 15 ++++++++++++++=
+-
+> >>  .../drm/amd/display/dc/dce/dce_stream_encoder.h   |  3 ++-
+> >>  2 files changed, 16 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b=
+/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> >> index ed407e779c12..2c3a20d35fe9 100644
+> >> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> >> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+> >> @@ -271,7 +271,6 @@ static void dce110_stream_encoder_dp_set_stream_at=
+tribute(
+> >>         bool use_vsc_sdp_for_colorimetry,
+> >>         uint32_t enable_sdp_splitting)
+> >>  {
+> >> -       (void)use_vsc_sdp_for_colorimetry;
+> >>         (void)enable_sdp_splitting;
+> >>         uint32_t h_active_start;
+> >>         uint32_t v_active_start;
+> >> @@ -334,6 +333,16 @@ static void dce110_stream_encoder_dp_set_stream_a=
+ttribute(
+> >>         if (REG(DP_MSA_MISC))
+> >>                 misc1 =3D REG_READ(DP_MSA_MISC);
+> >>
+> >> +       /* For YCbCr420 and BT2020 Colorimetry Formats, VSC SDP shall =
+be used.
+> >> +        * When MISC1, bit 6, is Set to 1, a Source device uses a VSC =
+SDP to indicate the
+> >> +        * Pixel Encoding/Colorimetry Format and that a Sink device sh=
+all ignore MISC1, bit 7,
+> >> +        * and MISC0, bits 7:1 (MISC1, bit 7, and MISC0, bits 7:1, bec=
+ome "don't care").
+> >> +        */
+> >> +       if (use_vsc_sdp_for_colorimetry)
+> >> +               misc1 =3D misc1 | 0x40;
+> >> +       else
+> >> +               misc1 =3D misc1 & ~0x40;
+> >> +
+> >>         /* set color depth */
+> >>
+> >>         switch (hw_crtc_timing.display_color_depth) {
+> >> @@ -499,6 +508,10 @@ static void dce110_stream_encoder_dp_set_stream_a=
+ttribute(
+> >>                                 hw_crtc_timing.h_addressable + hw_crtc=
+_timing.h_border_right,
+> >>                                 DP_MSA_VHEIGHT, hw_crtc_timing.v_borde=
+r_top +
+> >>                                 hw_crtc_timing.v_addressable + hw_crtc=
+_timing.v_border_bottom);
+> >> +       } else {
+> >> +               /* DCE-only path */
+> >> +               if (REG(DP_MSA_MISC))
+> >> +                       REG_WRITE(DP_MSA_MISC, misc1);   /* MSA_MISC1 =
+*/
+> >>         }
+> >>  }
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h b=
+/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+> >> index 342c0afe6a94..88d6044904d1 100644
+> >> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+> >> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.h
+> >> @@ -96,7 +96,8 @@
+> >>
+> >>  #define SE_COMMON_REG_LIST(id)\
+> >>         SE_COMMON_REG_LIST_DCE_BASE(id), \
+> >> -       SRI(AFMT_CNTL, DIG, id)
+> >> +       SRI(AFMT_CNTL, DIG, id), \
+> >> +       SRI(DP_MSA_MISC, DP, id)
+> >>
+> >>  #define SE_DCN_REG_LIST(id)\
+> >>         SE_COMMON_REG_LIST_BASE(id),\
+> >> --
+> >> 2.54.0
+> >>
