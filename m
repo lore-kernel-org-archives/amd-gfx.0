@@ -4,56 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A99CD4F26
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 10:55:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85084CD98F6
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 12:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B74310F52A;
-	Fri, 19 Jun 2026 10:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9BA910F550;
+	Fri, 19 Jun 2026 12:18:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gZ82MfrW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TtUji9cJ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D98710E067;
- Fri, 19 Jun 2026 10:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=qr1NrmRo7P6MsvymuHxT1HILaxUPKp/Cz3MQaTaSZ2E=; b=gZ82MfrWosU1TyFrww2RyIBMwF
- ritxzGvlvPiwOafow16hnKxVVr42rl5Fg5ePEo2pfimS3M7fu3cl3vWYApXsuzw8STYSG8Z1RWxlm
- Pzgow7iZhWHYypfax4ySfHCZHnw1/7Yy94wPWhQMg4u8UIuPrfbJrdjQIWEsM3ctMZVIiwD2L8BaO
- jHacBoCS3ti3oWyk2Si0mJGJ5HL29ZnwV+hEXpVICtvvPEX7My6upFW+pyueAbmEsrc9xBLhcTx3A
- F6HAVjXVU63AKhPPmD8h69YX9LtFGVm/MXdESqGUkhBzjm8QZ0T4ihcb8sZ6sgnN/LWhZo8B01nj4
- UtSzlGXQ==;
-Received: from [77.26.202.28] (helo=[10.0.21.106])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1waWs4-002UH8-Eb; Fri, 19 Jun 2026 12:54:48 +0200
-Message-ID: <a6759f05-f372-4775-ae2f-e9af60ab89dc@igalia.com>
-Date: Fri, 19 Jun 2026 12:54:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] better LUT segmentation for EOTFs
-To: Harry Wentland <harry.wentland@amd.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com
-Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
- "Dr . David Alan Gilbert" <linux@treblig.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Hung
- <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B481110F550
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 12:18:28 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-39977ab0562so21099161fa.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Jun 2026 05:18:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781871507; x=1782476307; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dLZ+pCnD0P0yEjXHP7s+d0OIOgshDvs2k5lhyVXVghQ=;
+ b=TtUji9cJqns1GVmodR3q+XjhI/mpybhPXKxTQBaT5s3lX9Vz+aMhA4LRylJph1w6cz
+ yoJpF3UjL8SZlUWiazRvDvENqNDXBXjJwR/uarKYqw5Mo5Nt1KgRl/THBv86BFIA0glE
+ Tmsc4WR8c562yQuyy5LFhClZ7rwV3mBX6UiGlofZGTqyko91iuif9ldzV1xz/DStB0yC
+ MSToQV6ZXUDEuMd37lqiZbemaPf69mHcMPZPJ7q0DG/WhipqkB3CSKqFBhs6M/ck9orv
+ gc8ZY/1tSatOfLOQguyfAvV4O6qa7zULp62bb4yh7vT6dnKy3k3A9U9ajQtkBffMu5dT
+ 2rJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781871507; x=1782476307;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=dLZ+pCnD0P0yEjXHP7s+d0OIOgshDvs2k5lhyVXVghQ=;
+ b=M7Vjigrwnvyh0UJopiAGhvIIiOfdfhHzRi48H6R0Bq25FNT7Xl+h39w7aHCikgw809
+ DqxEAM6xexwe7toX8gXzT2IiSUcMM2djJqsm/Cs+kJbmETPPHcexQB09VIuw38wRQ/xL
+ 8PGxrTRCxNlzRue2xTbIVGqiyRCyLrz/ysVZBfloTu0IER0DgenHXuUStKiOqIhjVKaN
+ JQ/wkV6E87k7q7s417sGJ8aRDt3iVyIz/zaJYMJK+JOOb7Eg9Ue/7dLeEFTwhcTIjn7N
+ 8IF0V2ksWmlMsyxY8QiniD5e2BKXWWMQOx10Ij92/1s4eEFzQt8Vzqo7T36sxVV2bgQ/
+ 8gnQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9F1oQGAasO+hhZQXkj1kGYNz9zBbOZhXZLUeHGF87lx8FC1o5Nr6qJ3YbI8it6B8TCtOt383D9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxku2dJ2kbxT0fMmOuTD07AJX3tP7hxaRnopezFNtW6+NfL9I+f
+ C2uYSUwRx/Ae7J+PGCzQRjkwZ1DEdmXlKRVYkIwOiZETOabmE2/joeSA
+X-Gm-Gg: AfdE7clKrQ7GUyoAvddYVYmLcMxHZIT43raLPBOKibjDDw5EDXzhV1caXtFcRYyhLmK
+ Cg2+dcNULDAFsLcL6mSN40xC6hGMXjWv0ucjtRSQ4IbxuQLv2PPECAK1fIJUPuLNXdybR6Ui7EI
+ 7o6tRkvYP2LkHpHoPr7I5U4ZdGAleWGh/i+d8uAVbKsHghuQap2KoGUnn8b2nQ1qu4mQvrpIsVn
+ 9y9+AmlE93l/pCKywgRB1/urKcwH7U/rxJUTxY1QAUyX1jfIGPWHPa3YRhi62V8Sowwhqxp+V0O
+ gi7Wg0wakH+jzqtfcuSzbcT9tlib4z30CADv1+jfoVUt8egIitpWbVhux93XuND+ESNQTkMvETH
+ HMjudRbZ06jk1bn2ZSAFWz7O55hEmaUZXl601pSMeFAdOR0J2IXotam616ur3gvTL5t7FIFmgJn
+ DdqGjhd7M+Z/30sNN6iZ/udw==
+X-Received: by 2002:a05:651c:211f:b0:399:1fbd:8f2f with SMTP id
+ 38308e7fff4ca-3998bd06f64mr8439831fa.9.1781871506548; 
+ Fri, 19 Jun 2026 05:18:26 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3998beca743sm4598331fa.5.2026.06.19.05.18.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jun 2026 05:18:24 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20260506191606.15022-1-mwen@igalia.com>
- <2a48f435-10d9-4e6e-8979-bfd61451a93e@igalia.com>
- <7934974e-adf1-4507-98ab-708095cce491@amd.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <7934974e-adf1-4507-98ab-708095cce491@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: do not enter fs_reclaim under notifier_lock
+ in lockdep training
+Date: Fri, 19 Jun 2026 17:18:18 +0500
+Message-ID: <20260619121819.189293-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cbc54f68-b0bd-40ad-b5e7-ed8157128417@amd.com>
+References: <cbc54f68-b0bd-40ad-b5e7-ed8157128417@amd.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,120 +92,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Makes sense, thanks. I won't respin this one then.
 
+Vitaly, for the reorder, here is a deterministic reproducer so you can confirm
+the splat on your side without a round-trip. It arms an mmu_interval_notifier
+via GEM_USERPTR over anonymous memory, then forces reclaim of that exact range
+with madvise(MADV_PAGEOUT), so amdgpu_hmm_invalidate_gfx() takes notifier_lock
+under fs_reclaim in the calling thread. Needs CONFIG_PROVE_LOCKING and a fresh
+boot; build/run notes are in the header. Happy to give Tested-by once you post.
 
-On 31/05/2026 19:15, Harry Wentland wrote:
-> On 2026-05-21 10:50, Melissa Wen wrote:
->>
->>
->> On 06/05/2026 21:11, Melissa Wen wrote:
->>> Hi,
->>>
->>> With an external HDR monitor, we can see gradient banding around the 
->>> sun
->>> in the intro of Ori and the Will of the Wisps game on 
->>> steamOS/Gamescope.
->>> Gamescope uses AMD predefined transfer functions for degamma,
->>> shaper/pre-3D-LUT and blend/post-3D-LUT plus CRTC regamma, however, 
->>> only
->>> degamma block has hardware curves. Shaper, blend, regamma predefined 
->>> TFs
->>> are software-computed by AMD color module into PWL LUTs. In 
->>> addition, we
->>> cannot use hardware curves on PRE_DEGAM with subsampled format, so 
->>> that,
->>> predefined TFs are also translated to LUTs in this situation, using
->>> GAMCOR block instead. For this translation, the driver originally used
->>> the same helper for EOTFs and inverse EOTFs, even though they differ in
->>> input domain, number of regions and number of TF points per region.
->>
->> Hello,
->>
->> Can someone review this series - and merge it, if everything is okay?
->>
->
-> Series is
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+// SPDX-License-Identifier: MIT
+/*
+ * amdgpu-notifier-reclaim-repro.c
+ *
+ * Deterministic reproducer for the false circular-locking-dependency splat
+ * produced by drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c.
+ *
+ * amdgpu_lockdep_init() (run at module load) calls fs_reclaim_acquire()
+ * while holding the dummy notifier_lock, teaching lockdep that it is legal
+ * to enter reclaim with the MMU-notifier lock held. The real notifier lock
+ * is taken in amdgpu_hmm_invalidate_gfx(), which mm/ calls from inside
+ * reclaim, so the reverse edge fs_reclaim -> mmu_notifier -> notifier_lock
+ * is mandatory. The cycle is closed the first time reclaim unmaps a page
+ * covered by an amdgpu userptr interval notifier.
+ *
+ * This program installs such a notifier (GEM_USERPTR) over anonymous memory
+ * and then forces synchronous reclaim of that exact range with
+ * MADV_PAGEOUT, which runs try_to_unmap()->invalidate_range_start() with
+ * fs_reclaim held in the calling thread, closing the loop on demand.
+ *
+ * Requirements:
+ *   - kernel built with CONFIG_PROVE_LOCKING (lockdep)
+ *   - amdgpu loaded; run from a FRESH boot (the first lockdep splat of any
+ *     kind calls debug_locks_off() and silences all later reports)
+ *
+ * Build:  cc -O2 -o repro amdgpu-notifier-reclaim-repro.c
+ * Run:    ./repro                 # picks the first amdgpu render node
+ *         ./repro /dev/dri/renderD129
+ * Watch:  sudo dmesg -w
+ */
 
-Hey Harry,
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
 
-Thanks for reviewing.
-Was this series applied to AMD's branch?
+/* --- minimal amdgpu uapi (self-contained, no libdrm needed) ----------- */
+#ifndef DRM_IOCTL_BASE
+#define DRM_IOCTL_BASE 'd'
+#endif
+#define DRM_COMMAND_BASE 0x40
+#define DRM_AMDGPU_GEM_USERPTR 0x11
 
-Melissa
+struct drm_amdgpu_gem_userptr {
+	uint64_t addr;
+	uint64_t size;
+	uint32_t flags;
+	uint32_t handle;
+};
 
->
-> Harry
->
->> Thanks,
->>
->> Melissa
->>
->>>
->>> Baring this in mind, patch 1 maps degamma predefined curves as LUT 
->>> using
->>> GAMCOR block for AMD driver-specific property that are still in use by
->>> current gamescope. This was inspired by a similar patch from Harry for
->>> colorop [1]. Patch 2 reverts commit 8b89acc0b2ba ("drm/amd/display:
->>> Remove unused cm3_helper_translate_curve_to_degamma_hw_format") to
->>> reintroduce cm3_helper_translate_curve_to_degamma_hw_format() and patch
->>> 3 wire it up for encoded -> linear-light LUTs (degamma/blend). With 16
->>> samples per region across 12 regions for blend LUT (where hardware
->>> fixed-function curves are not available and predefined TFs are
->>> software-computed into LUTs), banding becomes almost imperceptible.
->>>
->>> Patch 4 and 5 increase precision in the brightest half, where PQ/SRGB
->>> EOTFs are steeper, by enabling up to 256 samples per region and halving
->>> the per-region point count across 9 regions (128 in [0.5, 1], 64 in
->>> [0.25, 0.5], …). This better matches the shape of PQ/SRGB EOTFs.
->>> Although patches 4 and 5 seem conceptually correct to me, I couldn't 
->>> see
->>> clear improvement in the bright end with or without them.
->>>
->>> This series targets DCN3+ hw families. With this series:
->>> - degamma and blend LUTs use
->>>    cm3_helper_translate_curve_to_degamma_hw_format(): encoded input,
->>>    non-zero end slope, up to 256 points linearly interpolated between
->>>    adjacent TF pts, fitting [0,1] encoded input range.
->>> - shaper and regamma LUTs continue using
->>>    cm3_helper_translate_curve_to_hw_format(): linear-light input, zero
->>>    end slope, 16 points per region across 32 regions.
->>>
->>> [1] https://lore.kernel.org/dri-devel/20260330153451.99472-8- 
->>> harry.wentland@amd.com/
->>>
->>> [v1] https://lore.kernel.org/dri-devel/20260414220237.184289-1- 
->>> mwen@igalia.com/
->>> Changes:
->>> - new patch for GAMCOR usage in case of degamma predefined TF with 
->>> subsampled formats
->>> - fix misleading information regarding degamma hw curves (Kruno)
->>> - clarify LUT segmentation choice using 8-bit sRGB as a reference 
->>> (Kruno)
->>>
->>> Best Regards,
->>>
->>> Melissa
->>>
->>> Melissa Wen (5):
->>>    drm/amd/display: use GAMCOR for degamma private props in subsampled
->>>      format
->>>    Revert "drm/amd/display: Remove unused
->>>      cm3_helper_translate_curve_to_degamma_hw_format"
->>>    drm/amd/display: use a separate helper to translate degamma curves
->>>    drm/amd/display: support up to 256 samples per region in 
->>> degamma/blend
->>>      LUT
->>>    drm/amd/display: use halving distribution for PQ/sRGB linearizing 
->>> LUT
->>>
->>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  16 +-
->>>   .../amd/display/dc/dcn30/dcn30_cm_common.c    | 184 
->>> ++++++++++++++++++
->>>   .../display/dc/dwb/dcn30/dcn30_cm_common.h    |   4 +
->>>   .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  10 +-
->>>   4 files changed, 204 insertions(+), 10 deletions(-)
->>>
->>
->
+#define DRM_IOCTL_AMDGPU_GEM_USERPTR \
+	_IOWR(DRM_IOCTL_BASE, DRM_COMMAND_BASE + DRM_AMDGPU_GEM_USERPTR, \
+	      struct drm_amdgpu_gem_userptr)
 
+#define AMDGPU_GEM_USERPTR_READONLY (1 << 0)
+#define AMDGPU_GEM_USERPTR_ANONONLY (1 << 1)
+#define AMDGPU_GEM_USERPTR_VALIDATE (1 << 2)
+#define AMDGPU_GEM_USERPTR_REGISTER (1 << 3)
+
+#ifndef MADV_PAGEOUT
+#define MADV_PAGEOUT 21
+#endif
+
+/* ------------------------------------------------------------ */
+
+#define BUF_SIZE (64ull * 1024 * 1024) /* 64 MiB, page aligned by mmap */
+
+static int open_amdgpu_render(const char *forced)
+{
+	if (forced) {
+		int fd = open(forced, O_RDWR | O_CLOEXEC);
+		if (fd < 0)
+			perror(forced);
+		return fd;
+	}
+
+	/* try renderD128..renderD143 and keep the first that accepts GEM_USERPTR */
+	for (int i = 128; i < 144; i++) {
+		char path[64];
+		snprintf(path, sizeof(path), "/dev/dri/renderD%d", i);
+		int fd = open(path, O_RDWR | O_CLOEXEC);
+		if (fd < 0)
+			continue;
+
+		/* probe: a zero-size userptr returns -EINVAL on amdgpu but
+		 * -ENOTTY/-ENODEV on a non-amdgpu driver, which lets us tell
+		 * the nodes apart without pulling in libdrm version ioctls. */
+		struct drm_amdgpu_gem_userptr probe = { 0 };
+		errno = 0;
+		ioctl(fd, DRM_IOCTL_AMDGPU_GEM_USERPTR, &probe);
+		if (errno == ENOTTY || errno == ENODEV || errno == EOPNOTSUPP) {
+			close(fd);
+			continue;
+		}
+		fprintf(stderr, "using %s\n", path);
+		return fd;
+	}
+	fprintf(stderr, "no amdgpu render node found under /dev/dri\n");
+	return -1;
+}
+
+int main(int argc, char **argv)
+{
+	int fd = open_amdgpu_render(argc > 1 ? argv[1] : NULL);
+	if (fd < 0)
+		return 1;
+
+	/* anonymous, private, page-aligned region for the userptr */
+	void *buf = mmap(NULL, BUF_SIZE, PROT_READ | PROT_WRITE,
+			 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (buf == MAP_FAILED) {
+		perror("mmap");
+		return 1;
+	}
+	memset(buf, 0xa5, BUF_SIZE); /* fault every page in */
+
+	/* REGISTER installs the mmu_interval_notifier (amdgpu_hmm_register());
+	 * VALIDATE additionally faults the pages via hmm_range_fault() and
+	 * binds them into GTT. ANONONLY matches our MAP_ANONYMOUS region. */
+	struct drm_amdgpu_gem_userptr up = {
+		.addr  = (uint64_t)(uintptr_t)buf,
+		.size  = BUF_SIZE,
+		.flags = AMDGPU_GEM_USERPTR_ANONONLY |
+			 AMDGPU_GEM_USERPTR_REGISTER |
+			 AMDGPU_GEM_USERPTR_VALIDATE,
+	};
+	if (ioctl(fd, DRM_IOCTL_AMDGPU_GEM_USERPTR, &up)) {
+		perror("GEM_USERPTR (VALIDATE)");
+		/* retry without VALIDATE: the notifier is still registered, the
+		 * pages are present from the memset, MADV_PAGEOUT still works */
+		up.flags = AMDGPU_GEM_USERPTR_ANONONLY |
+			   AMDGPU_GEM_USERPTR_REGISTER;
+		if (ioctl(fd, DRM_IOCTL_AMDGPU_GEM_USERPTR, &up)) {
+			perror("GEM_USERPTR (REGISTER)");
+			return 1;
+		}
+	}
+	fprintf(stderr, "userptr handle=%u, interval notifier armed over %p..%p\n",
+		up.handle, buf, (char *)buf + BUF_SIZE);
+
+	/* Force synchronous reclaim of the notifier-covered range. MADV_PAGEOUT
+	 * runs shrink_folio_list()->try_to_unmap()->invalidate_range_start()
+	 * with fs_reclaim held in THIS thread, so amdgpu_hmm_invalidate_gfx()
+	 * takes notifier_lock under fs_reclaim and lockdep closes the cycle.
+	 *
+	 * A few iterations (re-touching in between) cover the race where pages
+	 * are already paged out on the first pass. */
+	for (int it = 0; it < 8; it++) {
+		if (madvise(buf, BUF_SIZE, MADV_PAGEOUT))
+			perror("madvise(MADV_PAGEOUT)");
+		usleep(50 * 1000);
+		memset(buf, 0xa5, BUF_SIZE); /* fault back in for the next pass */
+	}
+
+	fprintf(stderr,
+		"done: check dmesg for "
+		"\"possible circular locking dependency\" / amdgpu_hmm_invalidate_gfx\n");
+
+	munmap(buf, BUF_SIZE);
+	close(fd);
+	return 0;
+}
