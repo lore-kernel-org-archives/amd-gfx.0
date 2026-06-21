@@ -4,89 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2B85CD98F0
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Jun 2026 04:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F67CDB466
+	for <amd-gfx@archiver.kernel.org>; Sun, 21 Jun 2026 07:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA6B10E2FC;
-	Sun, 21 Jun 2026 04:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2669A10E31B;
+	Sun, 21 Jun 2026 07:39:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kode54.net header.i=@kode54.net header.b="i4sQ3m9M";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="YbNNinOr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fg62XwXN";
 	dkim-atps=neutral
-Received: from fhigh-a4-smtp.messagingengine.com
- (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5759310E2FC
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 04:45:49 +0000 (UTC)
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 990BE140008F;
- Sun, 21 Jun 2026 00:45:48 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Sun, 21 Jun 2026 00:45:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kode54.net; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1782017148; x=1782103548; bh=VFL8rhOy/T
- ygG710KVmqIvfTJ0NcfSfLHkpUR/8EIdg=; b=i4sQ3m9MMy1eoCfcx+9tN1yduZ
- puARCDzePk+633ENy1GcYa8vUo29wZ+jyPEthsQf7cTb5XYp0XrmNvKnhcQjMMNR
- /ugl5EeJM6Nni78Xy/BfwAruUP0fx32oOPpbRbNtFlcueUkx3e1f585SWpEUjMge
- LHpln/jIJJl+5A0gf5VZ46Quh8yNf09ki0YLVmZT9b27C0UJvVirCmunvutKkqnC
- O2Jym58g66XFbXy/M6WiSGhG3Gx6x9I6FYgpzqyhuJfgLdZGXPOW5jQon1JeNekB
- bptKOTIbo5Ts+8mjfIdeHQFFkB94B4BzmT/z+ZlivJA223AAN65nk4rY/Q1A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1782017148; x=1782103548; bh=VFL8rhOy/TygG710KVmqIvfTJ0NcfSfLHkp
- UR/8EIdg=; b=YbNNinOrtCAV0jDRZ26aFqzkPPodqMr7cpwdTCCJFeV2Cq47m/O
- Jf7VhXOvPN5vkuSIHcwGJOhTzFX+/GprwVQ4DSPi3SZj/kKb/WFrr5wn/NR2MPtn
- Z8lcx1QQmLiKl15ddpLtC4Qv4VmncOHghseyz5XGz4/I8tNO45isz2pbFMceeAdU
- XHeSEvlQOyD985SuBcstrvXNriNmusiDZlG07wSbKrrduerkrNY5sYKiP75oeRnw
- Pv8J8/aH89jQwv0DdRs3yTIj/dZdl2XRmu+mYm1XoFg4Ijgtea+beazXia/hjZCV
- 5xgRHX5HV8wvfyzlNanLpj28omRwde8ajRw==
-X-ME-Sender: <xms:e2w3akrp4V_d3OHNmEqfNcluEd2dxb1uAXoHFYUO4lOBAJquNwRA9Q>
- <xme:e2w3anO3zH7xY9MYkmyzXRBTpJVHZr1hOlH9n0-JBUy_T5F95a1BSQntC4FnAgIO1
- IDB48jTOTHIRHzU3h1xguDK9kDp2f0wIKDUj5MokkvvYghcb1FQZSwT>
-X-ME-Received: <xmr:e2w3atqmpTVnBPVkIM75C7dMjitB_-jPKbZTPWF87OLZXjVmtmlSa0iFakE>
-X-ME-Proxy-Cause: dmFkZTEupPvtXITDtuGeFeHmNzzZGDonF/i6nB6KyS7wh3CbobJ+yupfsEW0YexyAT38RC
- E97q/cBODiS3I8Sd2nzT3+qnPJgtlGTI/un+hzE4G556On9JiVUDdniVb71ajdczQuUQKy
- HJTOzOEGZMmyHX/9kCqxAX4aQ1rnP6qsKUW8a6NptutR2bKnVAEwL/0wOUMF2p/SAY6NC1
- hVLCv8v2+EJgi+lZvl+38RIvEBRDR9Oa7RZsUE75gb3o6dwMCsa9zNkbudd5aPgGjbuyCt
- m11demwlCtOpizHYhxmb4HU7K3fkYbwtlrIammOZji6AYbzWt0b+R5ClNGspBhg1AGunhw
- iQXSnPGFxkioKoYNvSaksTA2YvgRlAtVnDIqD7SyyFKw+Ef7miv4ooKV1zFE3FaxRj6F8L
- X/1VJ84Sv65ZgIPFQxpGlHwyO4+QvrMoAxKClY9Xh/YKl5WnVxKBcCwbWuJhNt9RBrmKsM
- aLR9lxlqV7lfPIgOSxkMdmcBPS/FYd4Cc+RYbXifXv+RwCFJBNpEyr1Y0O3N+iwVCEqCHI
- JNlKfXYLceFQcZVE7IMNDkz5/4KKB0Sh1TBL7xy1/SiU41HuTl12Wq3j5oTxBowrSsd9x+
- 3KR2uUldRwWbETySSCp2elnsQlmRq8SsZFqSrbRwkJXxho09OLpHMNWTBZug
-X-ME-Proxy: <xmx:e2w3aivo3Lg_Ml9c_IalfvISjZ2YQwoat7XfZHbLwVujoN9l8J5Ycw>
- <xmx:e2w3ak1UZ9wU36oWWH1r2gIwv665J8V1Wjy2mCJrHe2hzf8wrlIqMQ>
- <xmx:e2w3alGKugN58eXBmdXNOOFZ1n6Y2nM_7vpZgpYHFY0pG9j1RBfatQ>
- <xmx:e2w3ansTHoNfnglRarXda1tp2A6sE9S_PfQVlpFOEt8ixz_aC9Z8bA>
- <xmx:fGw3alzwj-itWAttqb3wgJskbAKv5MySY-hD3C8qNpgc6qM4CM0EWqJ2>
-Feedback-ID: i9ec6488d:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 21 Jun 2026 00:45:47 -0400 (EDT)
-From: Christopher Snowhill <chris@kode54.net>
-To: Leo Li <sunpeng.li@amd.com>
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, Harry.Wentland@amd.com,
- mario.limonciello@amd.com, wiagn233@outlook.com, sysdadmin@m1k.cloud,
- timur.kristof@gmail.com, xaver.hugl@kde.org, mario.kleiner.de@gmail.com
-Subject: Re: [PATCH 1/3] drm/amd/display: consolidate DCN vblank/flip handling
- onto vupdate_no_lock
-Message-ID: <178201714645.462317.668789820541080671@copycat>
-User-Agent: Dodo
-Date: Sat, 20 Jun 2026 21:45:46 -0700
-In-Reply-To: <178201192189.342393.2311541158926687068@copycat>
-References: <20260616201828.389985-1-sunpeng.li@amd.com>
- <20260616201828.389985-2-sunpeng.li@amd.com>
- <3ad7d4a1-093b-45ac-b3b2-5df5bbb0fde8@linux.dev>
- <cbeaa22b-530b-4fb7-bfe1-813d127d3595@amd.com>
- <178201017016.57979.9123750843778970394@copycat>
- <178201192189.342393.2311541158926687068@copycat>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012027.outbound.protection.outlook.com [40.107.209.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31D8510E31B;
+ Sun, 21 Jun 2026 07:39:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fHCnLhaJRZT0l7dIH+UDwxPwD46KHfjhNbmR/+MDTSHhz05Z8U/ua3B16QlZDIpRyXvF9ZxP5LD0w7WZoFSEGA6yaVHygT/lR/TbYpMxu6242uaJ/8U3CHT0VTlmqtDItpdlJJXJ6FS3CT79PYFZGukDtG9YGeC3UO5bp+Y4WCpXV+U4jb5ifwAhT5YUtRfamx1DNSEn3kOAHNgH921IpdcglHaX1pCM0h5vSKguAVRp0u7y4Nqtl0q8Df2egxBMkjDfmekJNA6oRAEtZ5dJtlLVopwWDpkfDRyRlLFPefzhpX92QXUS+o64AxvOcUskra79BFZU2865pyRNaFx9JA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cp0LchYyspW81wbnfdTTTlK3u1bSbQEzszC0MJ96Oaw=;
+ b=UjinRX6STi9l3W1/TsWa8jv35VGWztJzrcHVK1Qpz5Qgkj315KvlCsm89NBFHfGSvVztmUfYy4LRDSbs8Esc5SLrhQ25cY07FbcGM1nJLByDxVJGyfPI5uMnbaCrLoJlk1rynB5zTdi9Qq8NKlNW5utD9hHpD3cLC50mHlMxgCy7gglvs/0Hgt4TCd/I2EJzLRwcygXmbDBAn8yc6LZ2MDl3kH1My8m4objV2Da9A+X0Bb1NJHhopj2jwa02mIEZjGyTnhs4fSuPfLohI0O1NkzEDuLjRS6BXkRtKy1knGHuiEdUtmRt7Or7MABhm8yCpEKkcxmspxUaVqwZDQTGlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cp0LchYyspW81wbnfdTTTlK3u1bSbQEzszC0MJ96Oaw=;
+ b=fg62XwXNxhWTGElfxJSEfLgrvLB/fQ8njTTtzS+Y70BqEDXBgmPx+dMx7fKIYUl5xSmYYJa3Z+elovAPSS+CQv4WqLjbAD9ChTEWXKlGRjX0cGSUaQlUuY/2ASZHY1s6+82fLs9zuuLwswl+VfxQDnNL7cU6evB6/bN8Xsp4JAk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DM4PR12MB6400.namprd12.prod.outlook.com (2603:10b6:8:b9::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.18; Sun, 21 Jun 2026 07:39:38 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0139.009; Sun, 21 Jun 2026
+ 07:39:37 +0000
+Message-ID: <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
+Date: Sun, 21 Jun 2026 00:39:35 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
+ modeset
+Content-Language: en-US
+To: Salvatore Bonaccorso <carnil@debian.org>, Jaak Ristioja
+ <jaak@ristioja.ee>, Dianne Skoll <dianne@skoll.ca>,
+ Chris Park <chris.park@amd.com>, Matthew Stewart <matthew.stewart2@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: 1139950@bugs.debian.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
+ <178198613176.3658222.16247101620976737948@eldamar.lan>
+ <ajcLuO0YZCoPN7Xw@eldamar.lan>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <ajcLuO0YZCoPN7Xw@eldamar.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PH8PR20CA0013.namprd20.prod.outlook.com
+ (2603:10b6:510:23c::27) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature";
- micalg="pgp-sha512"; boundary="===============2250668937904870351=="
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM4PR12MB6400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88d276e9-8320-48e3-fd4b-08decf683f22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|4143699003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: BoL1hyrDIiVdXpvH8O3+d9wFidZhMncCBu6xzNCYdzbUQZylunXv9w4dwT0LuFOMF+3IU9D/enwB5JAPvzseLmXLXJ6WgJCSC3NGfmQgJR5oZEQv/ZIx7blLVSfU3RVLoJDqZh3YwX4MGAnueI0j6xfFdB6VYg4uJOv6mPHzxqKRN0tIWLpRVphSVRCDmD2eBJ0Yd5UipPduaZFdWeHvk5Z/gTYLL4/lYY8eb2JcFzerCsYrrTxh3KwcD+u0INfUjkxcdmncqFUTQR/uXl7eR0FcScpY9wOaMMmhq/R3WVtLdi3NyBjSE0FQ44jcIyVpFeQ5iQxiff/rYimqtvOlpymTvdgL2fOH6GHiRy4IqEumWxamMzEocIxMBMMn4e4GB+pJuEQfcTxOVCBHWSMVoRcZUOz3XQG24mRRYo8LXz5cVizD5X4AUVmPFeGXk/PiL7eJd/KPXb3S1yTSVCGjpLk2R6r4W7NlfdBK1p3VTehe8dPXX5z8QnWAXitZk+Ucnn33fC8SyIsqVmpkfxIPEKZZusAfMEnlXtUO5Qy5zEGaMSgDha1hXwZasqaL0heKzglDX4kLhIYtU9C5qJQQExXvsLIjRzQCI9+eYevQfv5ljsPkLg/BzyVVqPybADJY9o4lxQ+h2I7ad5KbvzJAgh6Qa4EtSm6H4gI5MqIx6Q1gbUPltxXDJyJFpWwiSnrgzaEvfMW0oPlChJz1QIbxyw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVBqOCtNVUkxM3dFZDBaWnIvaTJYSzVKeStUQmhWaElNZVZDOXlGU3Viakxz?=
+ =?utf-8?B?Lyt2K09xRU4xaXBSclVuRnFOb2lYTjBPNE9QS3ZwNVNlRDMzZG94eFNNUWdO?=
+ =?utf-8?B?TlVkVTlRSjNGR2lOQTNoL1dJKzFybVJjeHphYndWRllhaWozbkJDSjNpQWVh?=
+ =?utf-8?B?ejVkT29SS0UvN0NWdkxHWDRudytJUC9TeGlvZm9aTmhabzdRZ2tzVExxVDB1?=
+ =?utf-8?B?U1MrNFJicW5xOExhY08yeVFQZDFxSlFRYWY5cENnQkM1d2R0RkpiSWd2MTdr?=
+ =?utf-8?B?ZEUrN2dhVURPUi9KTFBvV25rTXNSRHVGemNwdkdlRS83NXFBamtCbE5BZncv?=
+ =?utf-8?B?eHA0QndxWGJiVHRlU3c3TkdTMG9BZFA1NXBlTzdndmxHbEFHUnBleWZVMGpN?=
+ =?utf-8?B?emJUNlRWZXlKZTdGc0IwTXhvOExoTDZ0ZXhHQlJyZDZJZkJ3WU9JMXRjS3Fx?=
+ =?utf-8?B?WHhSOXU1bzMrVkZLZm9qa2ttdjYvVlZQa01DdnNpVWl1elliVElEaGpMbWRK?=
+ =?utf-8?B?dWVjRTJjT2RlNWZkU2dsZlZwWWp3MkhKVys1UFFGZ2FWOVd4eUhyeWdkditm?=
+ =?utf-8?B?M1duM1FJUm51ZStRNEs5bngyb21aSlg1QXNIWFdTclFLT2FtNlFFUDBOU0Fs?=
+ =?utf-8?B?MEFMYW9yVU1xT0lDWFdzYnpZeWlRbnRkdldHOExoVHh6Rm00MVJkK0hRQjJl?=
+ =?utf-8?B?WlVySG8rdDFLR0FmaFp3eTRTYnpvN2dHbXhWZGN1amYrSUkxWldTYldTN1k5?=
+ =?utf-8?B?SFdPVmI2V0VDc0dpdVlVQUg5YmVNVEpmMDFPOTRpdW80NkUyd0MyZThOeTlq?=
+ =?utf-8?B?dDAvZTNUNUJZa1g4WEJqdXM1TW9JVzQ0MXM3Y09WL2NRV2RFZXFyQW1wVm5H?=
+ =?utf-8?B?R3FibEpscE5KSjdnNk1nWDhXN1ZNYnBwbGNURFMzOHpacmljQzJJRXlwRXY2?=
+ =?utf-8?B?NE9KR1k1aWN5TmFpaTF1R3dNdnhtd2V0MnR0RkpLcmlIdk1JbW5wK2RCdHh5?=
+ =?utf-8?B?ZHV1VkxVNmdIcFhGTUpDL2RrbU9KWm1YTDhqbHJlTzZLVnA3SXZEblRRY0JJ?=
+ =?utf-8?B?eStUY0trbzNsT1A0R3pjdzdPOUpnUFRzZ3pGRVhCVkNyNHMwZVpuR012d3Y4?=
+ =?utf-8?B?Smg4VFp1d0JxZDlFSkVzS1hRUnFvMmN0SGlkSjA4eUs5SEhLbFZCRDJteXVp?=
+ =?utf-8?B?TUVHL2FpZ1NtMFEybXBuWEVtN2wrR1YyczBZMFN3cEx4M0I5TVJLTmhFOUNj?=
+ =?utf-8?B?TlRQTi9kMldFRlZ6MzllUDh5MXUwWXdGZFcxRmNsdnRRaW52R0VnQzczSE1j?=
+ =?utf-8?B?ZythY3d2RVhiOXNMYUp4SGdkTUYycEo3cVd5dXQ2Y2wzdVNvV2RzclRSTW9W?=
+ =?utf-8?B?U01NcndJMWVteVBjVFFJdkorNStnNFo2bWI4VU9kNVBkU25yUWFpczFJYWNm?=
+ =?utf-8?B?ODN4andjUlRiYWRvR3ZOMFdGZUNSSXJJYTlvNXhuWHBHMExHc0M4TlpBakN4?=
+ =?utf-8?B?OGozUkZHb1ovYnpmYWhPR2E3NWxsOGRwWXZINFVOUUg1Y3o2aWVrRHpTWlMv?=
+ =?utf-8?B?bVZhWEVJdmtkdGU5MEp5TjNzWERnRzhsZTN6TXAxTVpYVWt6RmQxVnZWanBY?=
+ =?utf-8?B?bCtIajBkKzN1dG1Yc0VqaVJzcm9HbkRjZVMyRWZmVkVPbmR5NHVGck9Eb2lj?=
+ =?utf-8?B?UHl2SXZ6NUxWVDF0M1RIOHh3Qkw0TXhsUFE2dXlxaXNXY1czNUMvYkYzNWIz?=
+ =?utf-8?B?ZDI2TG52cUhEZEZSSDFZZlBRcUJXbFBMWWFNZXVlN0ZNcGtKS09yaVpOVlBO?=
+ =?utf-8?B?Zms3MVdHRXBEQkl2SHdWTTk5S0RiZmQ3QXJTOU1KdFlNU2JzVGxObmJnaFZH?=
+ =?utf-8?B?OHEwYmN0TU10bVMzNU45UllBTmtycloyS09ETlNIMkNQMWN1b2V5eDFObGQr?=
+ =?utf-8?B?am45TWMwU1Zrb3pzUDhJK3U1UGF0ZVMyano3YnpLWG1NWGx6S292UkhoL2Vk?=
+ =?utf-8?B?alEybUVoWTRDTm14RnhBWkFMeFlUOVRjVTc0bVNwaW5pWDFXU201MGFsbzRJ?=
+ =?utf-8?B?K2VvUnFJUjFieU5RL0tPSDZXVm80alE3UXlpYUxBMlNsUDduRDh5UEI4RHd1?=
+ =?utf-8?B?b3dLSTBLUy81cnBVTFRwZFdRYlplUVZLdXg4TDRVTno4SlRVcUxFWkV0cDZL?=
+ =?utf-8?B?Z2J3RWNTYkRVYXU2eGN3SEdFcmxOU0hjWEpwdnpMYTgyeVJnSnFIS1pYNnBD?=
+ =?utf-8?B?aGFid25ScHVDMStYYjhIUmVxckVDWXNOamVnaURNUDlqWjE2Vnk3Vks5VWx3?=
+ =?utf-8?B?cy9RSlI2OEwrUmgrOHljWlRuSnJtN0M5YVEvNVN0aFY0RHFCakttdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88d276e9-8320-48e3-fd4b-08decf683f22
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2026 07:39:37.8022 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xlp9SxJnpLkkX3r2Hm/Osavd4FYLcac3bNB+Fmke49IstOkCb6nHB7QMsJt8WptnIXxf1emqmXYlBssxIZpwzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6400
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,222 +147,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2250668937904870351==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+There have been other bandwith related changes.
+Would you mind please trying to reproduce on more recent mainline 
+release, IE 7.1.y?
+
+Also; can you please check both your cable and dongle?  I wonder if one 
+of them is not compatible with HDMI 1.3?  Are they marketed as 
+"Standard" or "High Speed"?
 
 
-
-On Sat 20 Jun 2026 08:18:41 PM , Christopher Snowhill wrote:
->=20
->=20
-> On Sat 20 Jun 2026 07:49:30 PM , Christopher Snowhill wrote:
-> >=20
-> >=20
-> > On Wed 17 Jun 2026 10:32:51 AM , Leo Li wrote:
-> > >=20
-> > >=20
-> > > On 2026-06-17 00:35, Matthew Schwartz wrote:
-> > > > On 6/16/26 1:18 PM, sunpeng.li@amd.com wrote:
-> > > >=20
-> > > > [...]
-> > > >=20
-> > > >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > >> index c9916ed0ddc14..8a6b732cf80c8 100644
-> > > >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > > >> @@ -281,7 +281,14 @@ static inline int amdgpu_dm_crtc_set_vblank(str=
-uct drm_crtc *crtc, bool enable)
-> > > >>  			drm_crtc_vblank_restore(crtc);
-> > > >>  	}
-> > > >> =20
-> > > >> -	if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
-> > > >> +	/*
-> > > >> +	 * On DCN, VUPDATE_NO_LOCK is the single OTG interrupt used to del=
-iver
-> > > >> +	 * vblank and pageflip completion events, so enable it whenever vb=
-lank
-> > > >> +	 * is enabled. On DCE, vupdate is only needed in VRR mode.
-> > > >> +	 */
-> > > >> +	if (amdgpu_ip_version(adev, DCE_HWIP, 0) !=3D 0) {
-> > > >> +		rc =3D amdgpu_dm_crtc_set_vupdate_irq(crtc, enable);
-> > > >> +	} else if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
-> > > >=20
-> > > > Hi Leo (dropping Stable),
-> > > >=20
-> > > > This arms VUPDATE_NO_LOCK on all of DCN, but amdgpu_dm_handle_vrr_tra=
-nsition() still disables it when switching from VRR active -> inactive. This =
-causes a new flip_done timed out event when a compositor like gamescope disab=
-les VRR while it's already active.
-> > >=20
-> > > Good catch, I wonder why the kms_vrr IGT tests did not catch this...
-> > > I'll roll your fix into v2 with your signed-off-by and co-authored-by.
-> > >=20
-> > > Thanks,
-> > > Leo
-> >=20
-> > The Stable backport is also needed for 7.1.1. I tested it specifically
-> > there, and ran into the same exact VRR transition issue, unknowingly.
-> > Except in this case, it was with LabWC, configured with VRR set to
-> > fullscreen only, so it was disabling it immediately on configure. Oh
-> > well. I'm building 7.1.1 with the backport and this workaround rolled
-> > into it now, and will report back if there are any further issues.
-> >=20
-> > -Christopher
->=20
-> Dang, looks like I don't get a free pass with this patch, since the
-> function in question doesn't plumb that state directly in 7.1.1.
-
-Looks like I can do some backporting too. Here's a free backport of the
-same patch series to 7.1.1:
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c198a0b..da7ed11 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9851,8 +9851,16 @@ static void update_stream_irq_parameters(
- static void amdgpu_dm_handle_vrr_transition(struct dm_crtc_state *old_state,
-                                            struct dm_crtc_state *new_state)
- {
-+       struct amdgpu_device *adev =3D drm_to_adev(new_state->base.crtc->dev);
-        bool old_vrr_active =3D amdgpu_dm_crtc_vrr_active(old_state);
-        bool new_vrr_active =3D amdgpu_dm_crtc_vrr_active(new_state);
-+       /*
-+        * On DCN, VUPDATE_NO_LOCK is the sole vblank and pageflip completion
-+        * source and amdgpu_dm_crtc_set_vblank() keeps it armed whenever
-+        * vblank is enabled, so it must not be toggled with the VRR state.
-+        * Only DCE gates vupdate on VRR.
-+        */
-+       bool vrr_gates_vupdate =3D amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=
-=3D 0;
-
-        if (!old_vrr_active && new_vrr_active) {
-                /* Transition VRR inactive -> active:
-@@ -9863,7 +9871,8 @@ static void amdgpu_dm_handle_vrr_transition(struct
-dm_crtc_state *old_state,
-                 * We also need vupdate irq for the actual core vblank
-handling
-                 * at end of vblank.
-                 */
--               WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc,
-true) !=3D 0);
-+               if (vrr_gates_vupdate)
-+
-WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, true) !=3D 0);
-                WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) !=3D 0);
-                drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=3D%u VRR
-off->on: Get vblank ref\n",
-                                 __func__, new_state->base.crtc->base.id);
-@@ -9871,7 +9880,8 @@ static void amdgpu_dm_handle_vrr_transition(struct
-dm_crtc_state *old_state,
-                /* Transition VRR active -> inactive:
-                 * Allow vblank irq disable again for fixed refresh rate.
-                 */
--               WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc,
-false) !=3D 0);
-+               if (vrr_gates_vupdate)
-+
-WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, false) !=3D 0);
-                drm_crtc_vblank_put(new_state->base.crtc);
-                drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=3D%u VRR
-on->off: Drop vblank ref\n",
-                                 __func__, new_state->base.crtc->base.id);
-
-
-Cool, only one line changed. And no need to plumb the function
-parameter.
-
->=20
-> >=20
-> > >=20
-> > > >=20
-> > > > I had to fix it up with something like:
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > index e09c0eb9f865..ee337ca816cf 100644
-> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > @@ -10085,8 +10085,16 @@ static void amdgpu_dm_handle_vrr_transition(=
-struct amdgpu_display_manager *dm,
-> > > >  					    struct dm_crtc_state *old_state,
-> > > >  					    struct dm_crtc_state *new_state)
-> > > >  {
-> > > > +	struct amdgpu_device *adev =3D dm->adev;
-> > > >  	bool old_vrr_active =3D amdgpu_dm_crtc_vrr_active(old_state);
-> > > >  	bool new_vrr_active =3D amdgpu_dm_crtc_vrr_active(new_state);
-> > > > +	/*
-> > > > +	 * On DCN, VUPDATE_NO_LOCK is the sole vblank and pageflip completi=
-on
-> > > > +	 * source and amdgpu_dm_crtc_set_vblank() keeps it armed whenever
-> > > > +	 * vblank is enabled, so it must not be toggled with the VRR state.
-> > > > +	 * Only DCE gates vupdate on VRR.
-> > > > +	 */
-> > > > +	bool vrr_gates_vupdate =3D amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=
-=3D 0;
-> > > > =20
-> > > >  	if (!old_vrr_active && new_vrr_active) {
-> > > >  		/* Transition VRR inactive -> active:
-> > > > @@ -10097,7 +10105,8 @@ static void amdgpu_dm_handle_vrr_transition(s=
-truct amdgpu_display_manager *dm,
-> > > >  		 * We also need vupdate irq for the actual core vblank handling
-> > > >  		 * at end of vblank.
-> > > >  		 */
-> > > > -		WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, true)=
- !=3D 0);
-> > > > +		if (vrr_gates_vupdate)
-> > > > +			WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, true=
-) !=3D 0);
-> > > >  		WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) !=3D 0);
-> > > >  		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=3D%u VRR off->=
-on: Get vblank ref\n",
-> > > >  				 __func__, new_state->base.crtc->base.id);
-> > > > @@ -10113,7 +10122,8 @@ static void amdgpu_dm_handle_vrr_transition(s=
-truct amdgpu_display_manager *dm,
-> > > >  		/* Transition VRR active -> inactive:
-> > > >  		 * Allow vblank irq disable again for fixed refresh rate.
-> > > >  		 */
-> > > > -		WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, false=
-) !=3D 0);
-> > > > +		if (vrr_gates_vupdate)
-> > > > +			WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, fals=
-e) !=3D 0);
-> > > >  		drm_crtc_vblank_put(new_state->base.crtc);
-> > > >  		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=3D%u VRR on->o=
-ff: Drop vblank ref\n",
-> > > >  				 __func__, new_state->base.crtc->base.id);
-> > > >=20
-> > > > Feel free to fold some version of this into the next version if it ma=
-kes sense, or pick it up with my s-o-b.
-> > > >=20
-> > > > Thanks,
-> > > > Matthew
-> > > >=20
-> > >=20
-
---===============2250668937904870351==
-Content-Type: application/pgp-signature
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="signature.asc"
-MIME-Version: 1.0
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEdiLr51NrDwQ29PFjjWyYR59K3nEFAmo3bHoACgkQjWyYR59K
-3nHmyg//eQaecyfK4uGpVyPR9B8lKp0Mv6cVstVpjK7r4qcftZJzXerAbtHlXfa1
-UZXgBCAwmTzmgEFWqZPYUAKjWzo5sHksW9yAijWDsYxId6KsRuUpBC1m5BZI1VQm
-JA49lbsREa6261Cxgv0sOFpiGb1wpyvWCwX3LErcE1fJi747BObGBpnxg5EwBElP
-LAHRTerfUtQ4bJKWR79TxCKkCFbalyfPB/G035ZQTlrn40hFp4rKSPhMN7DRt3LQ
-g+3wBdlWkV2A8kG4VBsw8NZr5xNHHvprWX0SBndHDi8RqpijEUcFX0a4R0pVH0nm
-PyIZC+bt3ZlM9elkVBKZqk0TrwD3WW3DhO+vYsqLK9cUa6csA1oApL9l/Y4ahb1W
-MvjUNfFvNMUTuIkR66r3bX7P0WqxaIJQTqRARwGoy7kI4mg6LQFBPjGhQvPR//zU
-JCGWlLaIHuipvCx2dFEx7qPH2r22cNV7/A1Kq+Frt0vo1qZLO5AJwwkaxE8cPkeX
-+Ba0xJy0Tt4WxljmxWyHDnkkCFqdfxKjQSKqbMQCjHqp6RJKQIgBJk3TUMa2mjeS
-g5Ics2jeqRc9wYHLB6iXcKaRckScW9NbG9wE9bzGkId6aMyorAhVJAFtWfqo93gl
-aZYwygQKutkCIGKqs/pzJTTRL71/ubrVLeabmAvWW6jaHLDhhJE=
-=yVKU
------END PGP SIGNATURE-----
-
---===============2250668937904870351==--
