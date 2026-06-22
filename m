@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93976CDB470
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 12:08:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB076CDB471
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 12:08:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2390E10E667;
-	Mon, 22 Jun 2026 12:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F6B110E66B;
+	Mon, 22 Jun 2026 12:08:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Tr7CNCcZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W8oa3xnu";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB24910E66E
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 12:08:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F198810E66B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 12:08:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,23 +22,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=aucy4g0Tib8sxLxzHhL2VOjhM5SlAAg0MrNNxLiHle8=; b=Tr7CNCcZ54VtHSq62zKXFXZxLU
- lJWLWtYhADUkXBxL/kExP6fucKlIpY12fv5Th9q9umiqYkG/uAdEyRNcXx/NpU2MJpGmeKOI5r/sC
- hU63SN7K2+yAYZfjsH3VRO6OT8sxPYta+Qy2/tXvhtloxAMMfY3zHxu0e3pf9xWCRu/Q9RzmBr7cv
- qKIF1D6SHmc1colgLzHG62AKlk+fHzDVltYyoSnivZfWFw5f8aIR6CVi7HjvnNuF8gKauvPpAKOxH
- hhKzaNa/ru+EZtMUaXNgFohlGjdFXOL7Q1C80pVpzXPX00OaQOaf1em5qBYDR/WfjbaYl46Druk64
- rMfGqfGQ==;
+ bh=HI/LT9GjqjWSzSWlnrtv/aE3tQx3gE8LUoPI4FJshnU=; b=W8oa3xnudN6W4YMzZhW1aqu0JM
+ gJ1qIPeIW9lqNj8T00XW+ek/SpIe4rajvCEdceiQuCjvND/W3koqBuquGN3URx+qc3gaoSxl/AQPP
+ 1ZAafwbHAgtTjBR4Rnc56QuzuNxi0I7dLAroppASutJAM9aWcVNKR4nkVx39P6QUtSjaWRl9GZo8Y
+ oTksljQ0FieOHn61A0tOB4isUsBUCJHsRoe3gcNTOoCykdXbthyFK7smB9nGHEcTOujGxjNQFOSz2
+ +Bze50N2AQctn4bNkjWnLGcFyERWEtiZhKuz92OIW3c40xWuj7JpltcCH2Ejb7VjsFj/Hz1n2JhiB
+ ioDEhjVg==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wbdSP-003iz0-Qe; Mon, 22 Jun 2026 14:08:53 +0200
+ id 1wbdST-003izV-2Y; Mon, 22 Jun 2026 14:08:57 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 03/16] drm/amdgpu: More compact UVD 6 IB emission
-Date: Mon, 22 Jun 2026 13:08:22 +0100
-Message-ID: <20260622120835.52473-4-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 07/16] drm/amdgpu: More compact GFX 9.4.2 IB emission
+Date: Mon, 22 Jun 2026 13:08:26 +0100
+Message-ID: <20260622120835.52473-8-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260622120835.52473-1-tvrtko.ursulin@igalia.com>
 References: <20260622120835.52473-1-tvrtko.ursulin@igalia.com>
@@ -59,127 +59,94 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Avoid constant register reloads while emitting IBs by using a local write
-pointer and only updating the size at the end of each helper.uvd 6
+pointer and only updating the size at the end of each helper.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 72 ++++++++++++++-------------
- 1 file changed, 38 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 51 +++++++++++++------------
+ 1 file changed, 26 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index ecd7ead7a60b..d922d80d7257 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -214,7 +214,8 @@ static int uvd_v6_0_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t handle
- 	struct amdgpu_ib *ib;
- 	struct dma_fence *f = NULL;
- 	uint64_t addr;
--	int i, r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index 8058ea91ecaf..884c091f40ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -354,6 +354,7 @@ static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
+ 	int r, i;
+ 	uint32_t total_size, shader_offset;
+ 	u64 gpu_addr;
 +	u32 *ptr;
-+	int r;
  
- 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
- 				     AMDGPU_IB_POOL_DIRECT, &job,
-@@ -223,27 +224,28 @@ static int uvd_v6_0_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t handle
- 		return r;
+ 	total_size = (regs_size * 3 + 4 + 5 + 5) * 4;
+ 	total_size = ALIGN(total_size, 256);
+@@ -370,43 +371,43 @@ static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
+ 	}
  
- 	ib = &job->ibs[0];
-+	ptr = ib->ptr;
- 	addr = amdgpu_bo_gpu_offset(bo);
+ 	/* load the compute shaders */
+-	for (i = 0; i < shader_size/sizeof(u32); i++)
+-		ib->ptr[i + (shader_offset / 4)] = shader_ptr[i];
++	memcpy(&ib->ptr[shader_offset / sizeof(u32)], shader_ptr, shader_size);
  
+-	/* init the ib length to 0 */
 -	ib->length_dw = 0;
--	ib->ptr[ib->length_dw++] = 0x00000018;
--	ib->ptr[ib->length_dw++] = 0x00000001; /* session info */
--	ib->ptr[ib->length_dw++] = handle;
--	ib->ptr[ib->length_dw++] = 0x00010000;
--	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
--	ib->ptr[ib->length_dw++] = addr;
-+	*ptr++ = 0x00000018;
-+	*ptr++ = 0x00000001; /* session info */
-+	*ptr++ = handle;
-+	*ptr++ = 0x00010000;
-+	*ptr++ = upper_32_bits(addr);
-+	*ptr++ = addr;
- 
--	ib->ptr[ib->length_dw++] = 0x00000014;
--	ib->ptr[ib->length_dw++] = 0x00000002; /* task info */
--	ib->ptr[ib->length_dw++] = 0x0000001c;
--	ib->ptr[ib->length_dw++] = 0x00000001;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	*ptr++ = 0x00000014;
-+	*ptr++ = 0x00000002; /* task info */
-+	*ptr++ = 0x0000001c;
-+	*ptr++ = 0x00000001;
-+	*ptr++ = 0x00000000;
- 
--	ib->ptr[ib->length_dw++] = 0x00000008;
--	ib->ptr[ib->length_dw++] = 0x08000001; /* op initialize */
-+	*ptr++ = 0x00000008;
-+	*ptr++ = 0x08000001; /* op initialize */
- 
--	for (i = ib->length_dw; i < ib_size_dw; ++i)
--		ib->ptr[i] = 0x0;
-+	ib->length_dw = ptr - ib->ptr;
-+
-+	memset32(ptr, 0, ib_size_dw - ib->length_dw);
- 
- 	r = amdgpu_job_submit_direct(job, ring, &f);
- 	if (r)
-@@ -279,7 +281,8 @@ static int uvd_v6_0_enc_get_destroy_msg(struct amdgpu_ring *ring,
- 	struct amdgpu_ib *ib;
- 	struct dma_fence *f = NULL;
- 	uint64_t addr;
--	int i, r;
-+	u32 *ptr;
-+	int r;
- 
- 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
- 				     AMDGPU_IB_POOL_DIRECT, &job,
-@@ -288,27 +291,28 @@ static int uvd_v6_0_enc_get_destroy_msg(struct amdgpu_ring *ring,
- 		return r;
- 
- 	ib = &job->ibs[0];
 +	ptr = ib->ptr;
- 	addr = amdgpu_bo_gpu_offset(bo);
  
--	ib->length_dw = 0;
--	ib->ptr[ib->length_dw++] = 0x00000018;
--	ib->ptr[ib->length_dw++] = 0x00000001; /* session info */
--	ib->ptr[ib->length_dw++] = handle;
--	ib->ptr[ib->length_dw++] = 0x00010000;
--	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
--	ib->ptr[ib->length_dw++] = addr;
-+	*ptr++ = 0x00000018;
-+	*ptr++ = 0x00000001; /* session info */
-+	*ptr++ = handle;
-+	*ptr++ = 0x00010000;
-+	*ptr++ = upper_32_bits(addr);
-+	*ptr++ = addr;
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < regs_size; i++) {
+-		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(init_regs[i])
+-								- PACKET3_SET_SH_REG_START;
+-		ib->ptr[ib->length_dw++] = init_regs[i].reg_value;
++		*ptr++ = PACKET3(PACKET3_SET_SH_REG, 1);
++		*ptr++ = SOC15_REG_ENTRY_OFFSET(init_regs[i]) -
++			 PACKET3_SET_SH_REG_START;
++		*ptr++ = init_regs[i].reg_value;
+ 	}
  
--	ib->ptr[ib->length_dw++] = 0x00000014;
--	ib->ptr[ib->length_dw++] = 0x00000002; /* task info */
--	ib->ptr[ib->length_dw++] = 0x0000001c;
--	ib->ptr[ib->length_dw++] = 0x00000001;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	*ptr++ = 0x00000014;
-+	*ptr++ = 0x00000002; /* task info */
-+	*ptr++ = 0x0000001c;
-+	*ptr++ = 0x00000001;
-+	*ptr++ = 0x00000000;
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+ 	gpu_addr = (ib->gpu_addr + (u64)shader_offset) >> 8;
+-	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_PGM_LO)
+-							- PACKET3_SET_SH_REG_START;
+-	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
+-	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
++	*ptr++ = PACKET3(PACKET3_SET_SH_REG, 2);
++	*ptr++ = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_PGM_LO)
++		 - PACKET3_SET_SH_REG_START;
++	*ptr++ = lower_32_bits(gpu_addr);
++	*ptr++ = upper_32_bits(gpu_addr);
  
--	ib->ptr[ib->length_dw++] = 0x00000008;
--	ib->ptr[ib->length_dw++] = 0x08000002; /* op close session */
-+	*ptr++ = 0x00000008;
-+	*ptr++ = 0x08000002; /* op close session */
+ 	/* write the wb buffer address */
+-	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 3);
+-	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_USER_DATA_0)
+-							- PACKET3_SET_SH_REG_START;
+-	ib->ptr[ib->length_dw++] = lower_32_bits(wb_gpu_addr);
+-	ib->ptr[ib->length_dw++] = upper_32_bits(wb_gpu_addr);
+-	ib->ptr[ib->length_dw++] = pattern;
++	*ptr++ = PACKET3(PACKET3_SET_SH_REG, 3);
++	*ptr++ = SOC15_REG_OFFSET(GC, 0, regCOMPUTE_USER_DATA_0) -
++		 PACKET3_SET_SH_REG_START;
++	*ptr++ = lower_32_bits(wb_gpu_addr);
++	*ptr++ = upper_32_bits(wb_gpu_addr);
++	*ptr++ = pattern;
  
--	for (i = ib->length_dw; i < ib_size_dw; ++i)
--		ib->ptr[i] = 0x0;
-+	ib->length_dw = ptr - ib->ptr;
+ 	/* write dispatch packet */
+-	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib->ptr[ib->length_dw++] = compute_dim_x; /* x */
+-	ib->ptr[ib->length_dw++] = 1; /* y */
+-	ib->ptr[ib->length_dw++] = 1; /* z */
+-	ib->ptr[ib->length_dw++] =
+-		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
++	*ptr++ = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	*ptr++ = compute_dim_x; /* x */
++	*ptr++ = 1; /* y */
++	*ptr++ = 1; /* z */
++	*ptr++ = REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN,
++			       1);
 +
-+	memset32(ptr, 0, ib_size_dw - ib->length_dw);
++	ib->length_dw = ptr - ib->ptr;
  
- 	r = amdgpu_job_submit_direct(job, ring, &f);
- 	if (r)
+ 	/* shedule the ib on the ring */
+ 	r = amdgpu_ib_schedule(ring, 1, ib, NULL, fence_ptr);
 -- 
 2.54.0
 
