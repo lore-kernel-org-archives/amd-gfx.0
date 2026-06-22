@@ -4,99 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4B3CDB46B
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 04:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 078D9CD98F6
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 04:47:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E067B10E48E;
-	Mon, 22 Jun 2026 04:43:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F1110E493;
+	Mon, 22 Jun 2026 04:47:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YvJhxp4z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hg+MtQwM";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012003.outbound.protection.outlook.com
- [40.93.195.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F81310E491
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 04:43:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mI1lyKTLcjrUh+5Hq2MC5qgPaBOsKD5Pnngohk7dwJYklX8qv277eHFbFB4wL37kR8xM0Q3gF0ohcdMNiekobJ7n7dI7RMBJfg3I14yYVOmg687mZ9WaiGr/7DxRt0xUCYHvDcU6/rQ4VNM1y7k/YVGK/V06FTFHWjiHkQHbAIdqOjfQzGBAcyr0osOxqayl16ObDY6XmQod+HvRdILLVHQE95aalXzv0htGwj1j7M9IGp+FwawrXpwJ/JGOGP4wdTsijGg/bMNM4bXYKGx7DFqvRJ6m+DXPBWMcE6DZ2+ocbyagTBVGGLxx/TdHG4+RrDnuGvD/zuVCMYPrsYzceQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J5qqz1+kflxFfXBUYbuOBbG8a7/1NDWka+M646PgGho=;
- b=P3scaX5doWyRr/B2jSRISGUDK9TB0QUufu+TkURc5FNtgdwy0fS+rOmcef7THG2olcYNNwqGI8j5J1v34gZctq1OxfmWu4iyFFX1oI6zZbx5rT6XuF0O+U7UcdI90Ga/wjWXDZ9qF1NgISjgkvHeC6IyL4gy4mWglW4vSmTvGw4iFAAj/PZqvsOV3375vhE5BQEvwmuuVRiP39S/hzJdZiQCTIVKkIb6J4PQN2lXG2Ca/+W/2+g6X2wv7eEA7CNCtI2qGOy6d9RH8emRAgI/yROpg8xm5PrkmOX89p171ddnTmJdXUT/jrQ/kqB6Ce+zpAlijY9SFovESmvj3xBtsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J5qqz1+kflxFfXBUYbuOBbG8a7/1NDWka+M646PgGho=;
- b=YvJhxp4zIWsOKMtO+Agu3ceFZ43RQ+eOZPNW+DN48IBYWwtlMTqCOrRNp4evnvmf5eYDQlzkcatLcBmF8QsJFhTX3enJlEX5rJOuRTONfCRe+iOhLkYvot8f3zTOuaTCGBPgw873mDXBdQ/OWoIJw5YhDCeFz/Kn9M88VjXpn1M=
-Received: from CH2PR20CA0029.namprd20.prod.outlook.com (2603:10b6:610:58::39)
- by PH7PR12MB7115.namprd12.prod.outlook.com (2603:10b6:510:1ee::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Mon, 22 Jun
- 2026 04:43:32 +0000
-Received: from CH2PEPF0000009C.namprd02.prod.outlook.com
- (2603:10b6:610:58:cafe::8f) by CH2PR20CA0029.outlook.office365.com
- (2603:10b6:610:58::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.19 via Frontend Transport; Mon,
- 22 Jun 2026 04:43:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009C.mail.protection.outlook.com (10.167.244.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 04:43:31 +0000
-Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 21 Jun
- 2026 23:43:28 -0500
-From: Ce Sun <cesun102@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>, "Ce
- Sun" <cesun102@amd.com>
-Subject: [PATCH v1 48/48] drm/amd/pm: retire legacy MCMP1_* macros
-Date: Mon, 22 Jun 2026 12:40:37 +0800
-Message-ID: <13e43cf250ef3d8895f39fc09f0393cc14dd445a.1782103074.git.cesun102@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1782103073.git.cesun102@amd.com>
-References: <cover.1782103073.git.cesun102@amd.com>
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7896410E491
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 04:47:01 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-91ae31bbaa9so359197285a.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 21:47:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782103620; cv=none;
+ d=google.com; s=arc-20240605;
+ b=VIOACbEZbzVNXIporcf+WM6ywVqv7z1lTYrr4cbWogYnZEzhqzbY/Tk8w+QcoGouCa
+ o7T/BIZ0J26Ll7RFM76CClXz6XNzSFT5KgxepWJDDelGIOOV7dpq5jEtXpI5eYUBj3X1
+ wjnJy4rXfxVeBCV5VfPZShtAjpSe0qWuDyvsRrW4Q/Cfr4GEuebB1ZBekyl64jEwii+I
+ Mt0/777MO6qnT7PTj4cILkK/dNDP6zHKGiVM43H0D/cV4oQpCD8UEGN0QxNNED9U5suG
+ 0MyRJMHzeRK7UmrV07na4rjO5LSQK5U4obh6M2sy62NZVED4Ah2HaJYfgTPPn+hCvZU2
+ nq5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=8g3hqqz068tHp9tVo2PYj7hm9aO3fiSU+NWoJElXV4Y=;
+ fh=CYcjSQC70NYevaflXaGiGHemJt27Zp7lga7WMI+/NmY=;
+ b=E40EAEE9DvbRy6mAUkFLi27IEaU9vVbEx67Zx6OOP9lvoIPLGgTFTn5PncdeZZcyYo
+ DDtWfWUvbKW94irYA8PPiV93awvNICyEtzAqA+HoOwtomwF2wd71vAyTnwpw6ApyGmjd
+ AOHgJLf30jZ+Mlv/9ktfz+jWqlSSdy1nQLk8pOVSNsXD88/up2ui1IOW0DxnrNTAPvxD
+ 87kDcNpP+hdtVOsVnVKEug5YeQKAQZejy+uIqi9Uo8tZ1kqZTOylsjHmCMT+1Vphg6ZR
+ KLZnTnfVtKHKGtZXTaXlsuRW3LuIwDth/h2q5xCboCcgJQ0nRs1yh/Wmk6WfVNoGIO1l
+ z7lw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782103620; x=1782708420; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=8g3hqqz068tHp9tVo2PYj7hm9aO3fiSU+NWoJElXV4Y=;
+ b=Hg+MtQwMLFmyJLhZz8/NSF1mz5OQ9WWwD0KIiIG9tV5X/6Sv02ylIp5LgZnsP6kXBa
+ yyT0hlm63U550paNVQStwxn+Ooxj2wNKv0yW4fIf9lIFA2kj8C6oR9Q6OGbaUrZhEB3i
+ FZruh8Te7Z33JYycO/dFlOdcQDQqNY/FOLE1NHrkJNS0YrOctRds/3kOu2b1Kg4O/hh0
+ kl3hcEYbmxoa5qDKQDcOJbcnpefSIJ3FF8eD6842HPaks+H5v3RMLCdxN4K/6HF4qjxX
+ EGmE4gKriKv6lcIE6bfMZoQPS4ugIlZ5nuAK/eGWG5+rlbNLlHAd7kzGkUcFmoC2RYJY
+ hRbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782103620; x=1782708420;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8g3hqqz068tHp9tVo2PYj7hm9aO3fiSU+NWoJElXV4Y=;
+ b=Ir1fFOWVmSHJBoK06QKJCCLdwyOhGMSqus0AVo0cjD3q0cm5/Kdk3R0mCz5V3/y8dM
+ ScKOnK1HGcbG1Uo0e30pd6QvwdvKIsTTDYGtML/l9H/4CGd7AsoAjepfhO6ni2epWue7
+ gPFEawateayKF22V7Yvs21d8UOja6+LTpFTlnjhHt+f9E7OwuOEKw72rttrg1E+e9uRl
+ /8UFxjYElyjJWYwMLG+MZTF7JP+FiY5sF1mIBOXxJuOWGmriigsQjZsgphzxX9sWozuR
+ ZiscQN9DPuCioVWPmo7/WK4WIz0OLVnOObqIIrnGQcOTgkmYElo9sY7bHihwJj4gq94x
+ 8llA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/i2jTAY6ofdY2bfFf2jgCr9p6GDXF3SfEjKBHAAJjluBbE2AxwVvOFEi+Zpu0AZ4bXsgRaduuL@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrJ1LChSxHQiaxGMUaeDM5JwAWLx4HvEn9UnJ9U2AkWl19Oi4d
+ q8JkZ9VXYoow1LW5xuwRy1/bVICo3LGlLwNWFRHeyFNaUlfNCdvBDkAmtuFFMI9ZulzoweBY1VN
+ VWpht48cqeBaIrIVnR/TqWN2Nr4zocPw=
+X-Gm-Gg: AfdE7cmuiUYDnrSbieLxe0DDIJDPOV6L50iQTvh3WV65QV2DHpcKtaww+0VijgU3CJw
+ XEIJvIV1ElHvsEuMUpU1hc1NltISSmFlXUJWd1Wk2RJQuruXTNgC6Lj1zKf/myG03TMHLSkfE3Q
+ HD/6nSIQIMcJoVbd0LPa4NfWeGjy+5TZepoWHWPeMUSqbJc3l557kazWeXwf8po7D+PM4F/djdz
+ HUMIP3eCqq2e91FB88O1e8CD9XV4P7RFiDHhbZdzHmdFqumr5rnyv4m2WLhrXnMsQFJ42W9M4sa
+ MmNZ50D0U1d26NdN3cQudDmLmJ5tVAh9dfZoLXHRbzgFvL3WKfgCkw+3ww==
+X-Received: by 2002:a05:620a:290c:b0:915:b9f6:71a2 with SMTP id
+ af79cd13be357-920d4fec71amr1839799585a.48.1782103620280; Sun, 21 Jun 2026
+ 21:47:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009C:EE_|PH7PR12MB7115:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea6dbfe8-a5c7-40f7-2161-08ded018cfe3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|22082099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: 3BRC6umxVxvJ8XISo294exMlg+VBFFH/omjWCanUsmcRTEooCPxt2IXs1CqYL2gskFp7e9CLizv6JGEQtr0p4VG9a8WuWWxvG/vNP0qYu9Ge747rG+TLVErn4uFXkv7jVenS1xHA0t/HNfEB87aVJgnKxkuwYZQqLsVHUtWlZ3cs+DXhrZJccZIygyj4D1ZqNs7P22pwik4itEtAlOWSbUColJ5f38oWDUTuewHhkNLnHlh5tKqNYdneFz92oa53nn7ggNz5rcxPJdvTcyGhi4Z9V/si45VPkeXCX5TqcIqn78MRkL01Vd7yIHNCyvY4uaJmpoTC4DX4THHELw9/D1MCbqdZeeXBtxEgNp/cbXr4j5/c7mbROyenq4uyTvkZ0i7c5dz+qftld63c83t9jEhQqaUEQP4iWTvvgDHhJ6Xb7bAGXSwdUHwL4qgpceUthLn3BZOhCgGz3HMykNWKoFJSUoVe7Llcn9sMRq62mZsDdCXSwPnC7+8QEE8e+4x6QT1ze8PeHuRb5yQRjviSPHrIjnoNmzl7UU9ezBa2TDRaY/7DLxJzzWm4NdwNNmG4rWOSDVDHU4ISfWXmGXZektUwk5OGWRX4mYt53s7GuqKWRq6+nXfJLWZWJX6YgtRdDdR844RttVvBPz/asOQzl7srAWwcAQPBQwiecdRdmiKkKve1JJz01Mmj0pB0w9jckwZf67FVDXM4OH3gwAB2hg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(22082099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: aE9WDLhggeRilOTpKbKqQkqWEP7zwkUb6iChwc5yhIiI2HLzHEExD/ys9iD3ZIOdtAixjL7ZLn8axblMzHd5P9o4EXdakczo4bUZW/i/WMv068s5NfG3Xq9EZEr1K+BuaSXMfQyYsPPWF7kSN8M15V0GEOvDjHCHRT5inctghzkrcubomIcEK2x954dNpkIZILHewm626Fearrc5T+/o2+fyEm1YVMM3clgRHnA+sFxo1eSsBJ12/g7ZLK81PyeRMQ0DJi46H1iYU1qkPPikcGufvYXuP2e99LCh7oLhQm+hI0yvTeZwcMemZPm2yuFxoE/nqaHCfR1P1SiYgBDzcHOqOJlAK5P8t1C0rxXBzrP0YayercV3P/HvlbeGRJXFrmgTBnzqFVvb0iD5QRJeS0es7TUIJHa6yRuiAcTykQH7mq/CL6573TH1dO1mdBFw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 04:43:31.8200 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea6dbfe8-a5c7-40f7-2161-08ded018cfe3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7115
+From: Dave Airlie <airlied@gmail.com>
+Date: Mon, 22 Jun 2026 14:46:48 +1000
+X-Gm-Features: AVVi8Ce2wb8elBNaTluaukjjB1Q3YO-s0ZlkjhsbMmTV2qjA0IBiwLBBoyLdiMk
+Message-ID: <CAPM=9txxjsBdQA6HBmUgkT31bNzMizkEzqksA5GJq=n9j+txOA@mail.gmail.com>
+Subject: kfd conflict in drm-tip needs proper solution
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Yongqiang Sun <Yongqiang.Sun@amd.com>, 
+ Andrew Martin <andrew.martin@amd.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,51 +100,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove legacy MCMP1_* macros
+I merged branches this morning and hit a conflict between
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
----
- .../include/asic_reg/mp/mp_13_0_6_sh_mask.h   | 29 -------------------
- 1 file changed, 29 deletions(-)
+commit 1142738572ef3fcf8b169f1c48d94b4a71cc2d97
+Author: Andrew Martin <andrew.martin@amd.com>
+Date:   Thu May 28 10:32:52 2026 -0400
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
-index 2684e396f548..9d237924a59c 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
-@@ -670,33 +670,4 @@
- #define MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK                                                           0x00000001L
- #define MP1_FIRMWARE_FLAGS__RESERVED_MASK                                                                     0xFFFFFFFEL
- 
--//MCMP1_IPIDT0
--#define MCMP1_IPIDT0__InstanceIdLo__SHIFT                                                                     0x0
--#define MCMP1_IPIDT0__HardwareID__SHIFT                                                                       0x20
--#define MCMP1_IPIDT0__InstanceIdHi__SHIFT                                                                     0x2c
--#define MCMP1_IPIDT0__McaType__SHIFT                                                                          0x30
--
--#define MCMP1_IPIDT0__InstanceIdLo_MASK                                                                       0x00000000FFFFFFFFL
--#define MCMP1_IPIDT0__HardwareID_MASK                                                                         0x00000FFF00000000L
--#define MCMP1_IPIDT0__InstanceIdHi_MASK                                                                       0x0000F00000000000L
--#define MCMP1_IPIDT0__McaType_MASK                                                                            0xFFFF000000000000L
--
--//MCMP1_STATUST0
--#define MCMP1_STATUST0__ErrorCode__SHIFT                                                                      0x0
--#define MCMP1_STATUST0__ErrorCodeExt__SHIFT                                                                   0x10
--#define MCMP1_STATUST0__PCC__SHIFT                                                                            0x39
--#define MCMP1_STATUST0__UC__SHIFT                                                                             0x3d
--#define MCMP1_STATUST0__Val__SHIFT                                                                            0x3f
--
--#define MCMP1_STATUST0__ErrorCode_MASK                                                                        0x000000000000FFFFL
--#define MCMP1_STATUST0__ErrorCodeExt_MASK                                                                     0x00000000003F0000L
--#define MCMP1_STATUST0__PCC_MASK                                                                              0x0200000000000000L
--#define MCMP1_STATUST0__UC_MASK                                                                               0x2000000000000000L
--#define MCMP1_STATUST0__Val_MASK                                                                              0x8000000000000000L
--
--//MCMP1_MISC0T0
--#define MCMP1_MISC0T0__ErrCnt__SHIFT                                                                          0x20
--
--#define MCMP1_MISC0T0__ErrCnt_MASK                                                                            0x00000FFF00000000L
--
- #endif
--- 
-2.34.1
+    drm/amdkfd: Fix SMI event PID reporting for containers
 
+and
+
+3b347d011773d147b62f84ec60a7824629148be2
+Author: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Date:   Wed May 27 09:50:47 2026 -0400
+
+    drm/amdkfd: fix SMI event cross-process information leak
+
+In drm-tip right now I've had to effectively revert the latter as it
+is not possible to pass a pid/tgid to kfd_smi_event_add anymore.
+
+Please figure this out so we can resolve it in drm-tip properly.
+
+Thanks,
+Dave.
