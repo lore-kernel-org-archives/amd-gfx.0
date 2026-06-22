@@ -4,120 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A8DDCDB46B
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E75DCDB466
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1FB310E2CF;
-	Mon, 22 Jun 2026 08:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE9B788CE4;
+	Mon, 22 Jun 2026 08:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bVQ2GB+I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BrUiU6OS";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012060.outbound.protection.outlook.com [52.101.53.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D53110E2CF
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:42:35 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012062.outbound.protection.outlook.com
+ [40.93.195.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 721B688CE4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:45:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TjfbpVuoQbZ+vSUCeuJQ5D5szvkgUZ5shuIG6vE9Ma8DP0K+IIAOwgt+QOSG/DS572c4F80htoPHnBdHhFQ5Kuq16Zu+K5Ltc2nyEpg2RW3IAy6bIYvF0cakmN5B4r23OAUHDd15/gkj2wU1GMq0ZACf+iQHv7/Kcz+HcnlMbDq/+IHC+lLGTDlYwnTIq1zl73QOmzpnpTR/+9SFw91mkXGPp1iM3OT8GaXn3M9m+iIOs//99oxrgBJgEo2T5tUbHF+hNxT+fTXwGKoy6XckcIbuqW69kB1keCup7oJSmx2Pf0iXICzbCFoLzXDQZ/cyvcUAlSqrDxAmeaiBGa1ZbQ==
+ b=ZrpINPD3hBxMn6YlVZNA1j77a2PTXFaCUpsPEUgyzYK3fVoxHUt+h3dbkqey3LH41wHmkWU/9TaWplYpvYpcILoEbJq0SXskb0lIkmSirIqrEu43j57Ch1YwJC2+vI+DWYzAg42NXChlhz8XWbXbK/9P22QDaqfAwCKY2bjSV3Pbx9BQLexDAVwWqstMoKeMNX72VLiYBri+x2c5NshWQA3mFkz484gUmvrMbOsf77GtXjtLi9Bl5jwM7SQQYDlqtBS7ZhZwFxS2OXvjZqvHboVWYBdTMWR0FYVeHaIC7m9iwKyMWZ8R3ADZHAhw+cj0dE1NoCxo3cjYEOTFPih95A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=648YKcO2z3ld8gRNmwHWI6Ke3M/xseluunmS8Wfe7ZA=;
- b=brNUbOQAFzaoPoDIm+RIwJyaB4a3aI2mVV8DpAfsYsAuQHiYGXHzTOmv5306//yzv4V4EP+rY13+5y7U6n0aN5di074IEG2lT8NWGu6LhAzOzYlV3SDgsaMIzQqCzyQWC1ZmurRZwR4MhYZeaxseKjXAeuBJGBxB7l/MzuPMLvOXgI2u4lH0ABMzG7g6dNLTlsUHWBofG+pwn7l0te/QQm/TrnE26GiM16bhYBZpNIfFGFvAPwu08o79ddLdbRlI8RE0V7OQFT8uzJ7CVn3/VAP+fZyglhlXxts3FALQPUo8U/LZPnQoX5hmBBDnjxMQFIk6WHYQvBqGHQIXvhXYJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=TAN6sgzmHC9/7C8FWadaiSQi3mJQ7ZmSq3pp5rfv7MA=;
+ b=GSEj/2PeiNxI0Lc6K2d/ihS+iKGx91bPrVRxKJnK41hOaYzK6PuyQkjRmRlorWpdwyUmeUM6HiNo1IBjuXd7rRVl8YmD5TFKdQ0I84SGyp6y0F0NunCiZmbp/O7ime7bkSlcO8CuixgTp4y+5nRYGrBukNtC72yBIxCbcsyqeOCnvVDnbZdbt2lgPmG4PbVoFK3YsqFm1mhYamrFUHzMAtycUerxZpU4mbonVOUvJPl87FoD+bsPr/UlpZc7Jb5QTr0PNqYXIijqpOamB6kWO+KXD1qYFcC3VFG9RGPZGYf8La5QUddWGj3FRzJ3Hhl4owvrlgCUPZAjW0PiEQ8iMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=648YKcO2z3ld8gRNmwHWI6Ke3M/xseluunmS8Wfe7ZA=;
- b=bVQ2GB+Ie1RsUtFhU1ntAK5664wImo5XXBCs6EC1qTQjUKjB7NsqeSl7qZ1vnaIqggQ1KgYRv89tKny9MTCFP+NRgwm1gjTV5Uvjf5p1TxaxANCWgbbOIT2/ebAyOO/a+s3x1DU016Nw5rFZ2yowuNTEQVW7FlfN2bgbnbVazds=
-Received: from SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
- by SJ0PR12MB6687.namprd12.prod.outlook.com (2603:10b6:a03:47a::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=TAN6sgzmHC9/7C8FWadaiSQi3mJQ7ZmSq3pp5rfv7MA=;
+ b=BrUiU6OSiCSOHP6vg5SILfKVF7wr64FRhVnv8BQRAFXP1vBRv47O54hFME7csbWFmGxNqwYWrlosEiwmB9LVJyLSzd9neVNHHxh2/84U+47YP66frErDB10HZjwyH0yM+vi5cg/5EzzC5X+UcKYp6hzXxGBPh8yBYPAXO3N+prw=
+Received: from DS7PR06CA0039.namprd06.prod.outlook.com (2603:10b6:8:54::7) by
+ CH3PR12MB7762.namprd12.prod.outlook.com (2603:10b6:610:151::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 08:42:30 +0000
-Received: from SJ0PR12MB6967.namprd12.prod.outlook.com
- ([fe80::9e49:aeba:9265:f46e]) by SJ0PR12MB6967.namprd12.prod.outlook.com
- ([fe80::9e49:aeba:9265:f46e%3]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 08:42:29 +0000
-From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Chai, Thomas"
- <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: Re: [PATCH v1 48/48] drm/amd/pm: retire legacy MCMP1_* macros
-Thread-Topic: [PATCH v1 48/48] drm/amd/pm: retire legacy MCMP1_* macros
-Thread-Index: AQHdAgGzQRV0hYkt5k6I6fzisIXWdbZKQN3Z
-Date: Mon, 22 Jun 2026 08:42:29 +0000
-Message-ID: <SJ0PR12MB69678D5BFD92680160C0B3B69DEF2@SJ0PR12MB6967.namprd12.prod.outlook.com>
-References: <cover.1782103073.git.cesun102@amd.com>
- <13e43cf250ef3d8895f39fc09f0393cc14dd445a.1782103074.git.cesun102@amd.com>
-In-Reply-To: <13e43cf250ef3d8895f39fc09f0393cc14dd445a.1782103074.git.cesun102@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-22T08:42:29.121Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB6967:EE_|SJ0PR12MB6687:EE_
-x-ms-office365-filtering-correlation-id: 482b7aa2-8e86-4bcc-e639-08ded03a31f9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|38070700021|8096899003|18002099003|22082099003|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info: j5Ht57LOV5bWHhvN7j773yTjoB/re4C95g5KI5JLiyYoRPm+N85IUXLl05C9idyQxoXmmPFRcKCxdNAUAcpr72Sy6Ns6JJ5p6TqSEURMFSaHLmS2oMUaewUsYh0G00Y+y6oJYNA9mVTF+QZRPTA9qf7FwOkUBIOXhUAg6ptLVq67CCqcyiHwDsut1kPCrxeS9xz7Lfz6XrsddyFzm+vxiC4SapWAWmOCfPR6Q7gC6nPmMcc/r+7uEe6zyuMKTrbwpAKcmZKpecdRe96Q0jVoO1Mzlhl3x/RlYNwmyjaEOYxlDp6vI0K4orkckKmfFZ16OkERkmL/ONg3ig7Fvpagm4CFccnSyMMzPzPCNhrnlTEQnTR9R/aRUvNjbPkB8TkQ68qdWDKInD+xi0vNsOQoG9yiKV/U8mpec+I/fD8T1Xb6FPo1pzCt4zPZxiTon5r0tSu5pjNcoZKjrX65MKbSpvMAOhcBB6d7u/JGeD8QUfNbP0NNuJGS8XGure14zTRc4d8cbD3TKjNwYSo0iKGXeZ6nRqjW3TBEtzpf0QcEMOLjPgkeRvg6sKpiD0r3eChapCA/LByok0MUouUhLSNGK7hnQCpxWctMcQDXyjGBcOJUG2HO1Bb4OjPc6uCQChqXm4fctKLTWD7GD9K0nymGuBe9NUJFIi6EaFC9TmvpJBugzXRA77ejR9dn/peCnxA855ejR1ZjeKt1EP3O+saU9WIewIfNnoaaZFMeUXWektc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB6967.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(8096899003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5owtia/CkvJy4HRD3RcbMNmgiqIu4HbV/VsyoUWejMY8vbTAtCCXbkSG/muM?=
- =?us-ascii?Q?6oEaMBHW0McwCzQrvuVNL052rblbDpcsPXgLIRt+T4XI5TxqMQpBu0uU3OR1?=
- =?us-ascii?Q?2EptjcAiXQ1tt1D9x4z2Rqc7TQTbbkTur+C25lLuks+JgHGkhGm8E7dliNWN?=
- =?us-ascii?Q?G9CSvbplHf+Vwiwub0wUQEi8hDHB0sKMFwHIRiKeTW7T7C/xQrMZZfq0pjNX?=
- =?us-ascii?Q?67QNIdYtFOKccjvclQ4mhkzKWACM+2NO8kDmqqhmAHTecwDx7DtFWSMxuBWI?=
- =?us-ascii?Q?2WL34Z8oyGyQcgZRRNuSTEsc+D6e5pox+RZIy/czc/kZl1qYaqGY8tBkHIUN?=
- =?us-ascii?Q?EvwCkV5cz4na90QPToNYgkpC6K3V5S7I9/bq2S5RLs+xKGfPQSDECKD3yQDr?=
- =?us-ascii?Q?CtmWwetWFN4oaF3tNhI3A1fLDehGjLAJ7J4MBF0Zh/4P4VUPK0TN+Nbt4TJZ?=
- =?us-ascii?Q?EyU3wUswz5vAU0+yWuCBP5Q1VT6FKju6GlD69BVnYGJvObarjoaxSRurRIl+?=
- =?us-ascii?Q?0cJehF9YM2YzzJ0pKPHjIRJNUCycx2WEb4LosKGFQzqSbz+ZCZTXId7JoCBl?=
- =?us-ascii?Q?8zka5soXA0lGPtrwmLSYpPKZ28yVJspR8U1TIr26lhPfgSpcuRG/5eQp6HCy?=
- =?us-ascii?Q?GJJGrkZDYaCx7ZkqKDRwsFl33cgjeeHI5UUDrIrnRT7aE7iQWBcjeus8M8+x?=
- =?us-ascii?Q?JgEA7aZ8zkykjfBTd81heKzrhkn0wwIqIGAfAUGKsBnHkbW4GhSyDj6KJnUm?=
- =?us-ascii?Q?HNtnubPX4fSjtWxNPITYjmwLjs1XhfhcGgZBx31J0zTfxQcMB568PtX5jlJ5?=
- =?us-ascii?Q?8vK1RjAI3x5pCPOc6ZKZPlj5Zkko98QYDLNNE6OuL6aroe1IMQ7JMvUsgiPA?=
- =?us-ascii?Q?pUZF1a3aaTF6qTlhR7GCon8Uy82cbqlSFvggR2A467scTvZejoXWHpBElXxq?=
- =?us-ascii?Q?dj+71o7Dflv29TK2Jd0bu+aLC1yvuvFHFHBnx+mQ68RL9LFa8X6kkKK3TF+g?=
- =?us-ascii?Q?d0qmjdUCj9nJYLmCqyErL2s30VP2pKb44XIwBv2mfUAwwm/Ril03Uy/ronB7?=
- =?us-ascii?Q?//Z8OflkJnEeDghtMgASt2hMWjc8i8h0tyYfhKxTBKMjW2NzapewantWSOcO?=
- =?us-ascii?Q?XWiU/3laDbscWHxwqzckZ1oWRrINMXkxMUL952nauKHphlcR82lqZ02/c5hs?=
- =?us-ascii?Q?JjvMl81zdy+Hlp5797A8euwxlNZtM9SKhpKTvM8+efgGgL1fGwrb3qduvA8m?=
- =?us-ascii?Q?xVwSK6kQJtgEbie9FVWBPdCy6Dq1em6KHt5EmPRm9eOdLB0836/hNQe9hWdc?=
- =?us-ascii?Q?EtvGkVVSg6lMxm0n7l9dzKVIOmXZg8jCP7On5jLlz3b+nRbN7C+4+UZj4Jxn?=
- =?us-ascii?Q?UaGXh3SCQj8OXGIWdWHVlCCu173ZES6iNi5De9XI1h6h1ha9ZZl/lwlu6Wrm?=
- =?us-ascii?Q?ZtJbCSPybHIx0D/fTmD7LBjYU06zzFH7t1ktno9abxXiANbMd29ceBzbgJEQ?=
- =?us-ascii?Q?p+fn8oxcSWOtrumuEfXQLUM/XtRBI00BYxNKUWusUVitSiYqvKe2JSh6wfbg?=
- =?us-ascii?Q?LQpAwU/XF4kiABczqLX4AH7xAW4PguyI8LOTqeM1iPo1qkOz+VC0xDjyNQ3R?=
- =?us-ascii?Q?C4572aoqbnoMn1ttc5BKrg1+raep54WOcWGREwNRdGlCIjnS+7ok0FyDVqwz?=
- =?us-ascii?Q?ySo1nkh/nuR+jEY1ynyjfamkL3DsoCxC8QxXnXwMkenI9NW2?=
-Content-Type: multipart/alternative;
- boundary="_000_SJ0PR12MB69678D5BFD92680160C0B3B69DEF2SJ0PR12MB6967namp_"
+ 2026 08:45:15 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:8:54:cafe::30) by DS7PR06CA0039.outlook.office365.com
+ (2603:10b6:8:54::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
+ 22 Jun 2026 08:45:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 08:45:14 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
+ 2026 03:45:09 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
+ <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH v2 01/48] drm/amdgpu: Retire legacy page retirement RAS code
+Date: Mon, 22 Jun 2026 16:44:03 +0800
+Message-ID: <594f7cbae0387b60f8af49505b57c1a5a604db2f.1782117608.git.cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|CH3PR12MB7762:EE_
+X-MS-Office365-Filtering-Correlation-Id: abd29f3f-1227-4c97-43ef-08ded03a9442
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|6133799003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: dND6DcG6G/Cas7bDt1bk0m9aG8wxfDdOvRpGu0CVd5tWzCR4je7BeQVGw3Os+UP8AKioCsoL4n3SFpbxRaUtRpks5iWj/Zl1zIklyUNJcJNUNyy6lEXGXbWzI4sQfaPM6v8gMo516LqaQopdsqaFPwQmYMIJNCMji+YpiLqRRqDcHy+OUjtApYg9UCP2gWCUzN56E86nVbg0Ip+dnwYmi/4F+oAdaMPPkcV3nkb2znrxwiF/wyY6lUCEqNlRzCEgwKivnHQT0TCHn6RucSkRVroyI3ixKEiIVOY2ZcZQ5CVoyYpwszJsmQYQomFsE5RdvO1mfgTDPlQv43PEm7ErMfzCfnpkuCMqTaLEsbS1XcUgtZjw3t5BkVjt2QbrHHoXArOQ7pwBS2GWmMBdKF+nwjpPs8qpPUsOgurWORBgxqoEzcyCTbXxXQcuFa9wrSszZU+UdzrRstL7mMVeYGzUyplfzB6sHAhEBg2nWRf0ElGx6U2RTKI4V5lOws1OVfhVLstcdbxskZlc+4xqwdEPjG1J/3sgXczmV8+G8ONQzYX7TNsJei6Fxe8sQ3+ygrPsS0wl2O6QVDVhlo1jONfCfToyEwLGBEBru3A4OXFw65bcIXfNnqknz5ZGSg7G1+S4qLr9mI4EoWDoFUtCBMW33XYvnMps/dBvdPfIgy9GBT2umYRO1BL4aGMba8UdW2MGQqxh84L8hqy0ldpkjT7XKw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /gkWlpL/I7RhPeiftOVeWUuj6yxCUP3FtzmqqfBSmmNVUm6/FN5qX07iCLadb1mpIJKG4WaSqk8F2PBCfTI6lkRbEetsBeF8jsFrCoeFJdrWAC7lvW9ubBxt2J2cPmEZDvO1k6WK/vuRa6f1JECa4/Rvv8luD8q+dIQZg73BQH9zkgVvg/xtXqgJd8FwLinPdNTiX9DBbtakSM2DctqPH05ir6gGtAGli8SR8KZQZjGWTU3KJfNHFpm5AiH3ZZWO4etGM6iJOSd+Iu9bCNWqm0ksA30qBHFKW86CIuCOjdlqeqCUSZPfDVnq3VrgBASn/XQU6M358vT252vqlOklmoZ12SXiivFf1e4RuU0B1G6fBFtPGOgOtsSLAqwXruiQSPvBy1WW1jKEu2eE9PmswWgAAlj3/MZntkskmrOVBPNSqwNBQdnnDw8wBLusMobY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6967.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 482b7aa2-8e86-4bcc-e639-08ded03a31f9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2026 08:42:29.7394 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: h28vzsclMNgkxLV5VoZdwpO7HuEVSduWUPf4WDfjh4gIyfderC+2i0D4C2ltZZQ6FfTIw+RKmFsj+VO5x3CuQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6687
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:45:14.6373 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: abd29f3f-1227-4c97-43ef-08ded03a9442
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,351 +109,509 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ0PR12MB69678D5BFD92680160C0B3B69DEF2SJ0PR12MB6967namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-AMD General
-
-Hi all,
-
-Sorry that there are issues in this patch-12 set. Please ignore this v1 sub=
-mission. I will fix the problem and resend the updated v2 patches shortly.
-
-
-Regards,
-Sun,Ce
-________________________________
-From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Sent: Monday, June 22, 2026 12:40 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
-om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH v1 48/48] drm/amd/pm: retire legacy MCMP1_* macros
-
-Remove legacy MCMP1_* macros
+Remove the deprecated legacy RAS code path for page retirement
 
 Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- .../include/asic_reg/mp/mp_13_0_6_sh_mask.h   | 29 -------------------
- 1 file changed, 29 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 304 +-----------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  23 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c |  13 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  |  17 --
+ 4 files changed, 2 insertions(+), 355 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h b/=
-drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
-index 2684e396f548..9d237924a59c 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
-@@ -670,33 +670,4 @@
- #define MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK                       =
-                                    0x00000001L
- #define MP1_FIRMWARE_FLAGS__RESERVED_MASK                                 =
-                                    0xFFFFFFFEL
-
--//MCMP1_IPIDT0
--#define MCMP1_IPIDT0__InstanceIdLo__SHIFT                                 =
-                                    0x0
--#define MCMP1_IPIDT0__HardwareID__SHIFT                                   =
-                                    0x20
--#define MCMP1_IPIDT0__InstanceIdHi__SHIFT                                 =
-                                    0x2c
--#define MCMP1_IPIDT0__McaType__SHIFT                                      =
-                                    0x30
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 8a49ae4c0132..8095f284d531 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -128,12 +128,6 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+ /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
+ #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
+ 
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC  10
 -
--#define MCMP1_IPIDT0__InstanceIdLo_MASK                                   =
-                                    0x00000000FFFFFFFFL
--#define MCMP1_IPIDT0__HardwareID_MASK                                     =
-                                    0x00000FFF00000000L
--#define MCMP1_IPIDT0__InstanceIdHi_MASK                                   =
-                                    0x0000F00000000000L
--#define MCMP1_IPIDT0__McaType_MASK                                        =
-                                    0xFFFF000000000000L
+-#define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
 -
--//MCMP1_STATUST0
--#define MCMP1_STATUST0__ErrorCode__SHIFT                                  =
-                                    0x0
--#define MCMP1_STATUST0__ErrorCodeExt__SHIFT                               =
-                                    0x10
--#define MCMP1_STATUST0__PCC__SHIFT                                        =
-                                    0x39
--#define MCMP1_STATUST0__UC__SHIFT                                         =
-                                    0x3d
--#define MCMP1_STATUST0__Val__SHIFT                                        =
-                                    0x3f
+-#define MAX_FLUSH_RETIRE_DWORK_TIMES  100
 -
--#define MCMP1_STATUST0__ErrorCode_MASK                                    =
-                                    0x000000000000FFFFL
--#define MCMP1_STATUST0__ErrorCodeExt_MASK                                 =
-                                    0x00000000003F0000L
--#define MCMP1_STATUST0__PCC_MASK                                          =
-                                    0x0200000000000000L
--#define MCMP1_STATUST0__UC_MASK                                           =
-                                    0x2000000000000000L
--#define MCMP1_STATUST0__Val_MASK                                          =
-                                    0x8000000000000000L
+ #define BYPASS_ALLOCATED_ADDRESS        0x0
+ #define BYPASS_INITIALIZATION_ADDRESS   0x1
+ 
+@@ -2489,14 +2483,6 @@ static void amdgpu_ras_interrupt_poison_creation_handler(struct ras_manager *obj
+ 	event_id = amdgpu_ras_acquire_event_id(adev, type);
+ 	RAS_EVENT_LOG(adev, event_id, "Poison is created\n");
+ 
+-	if (amdgpu_ip_version(obj->adev, UMC_HWIP, 0) >= IP_VERSION(12, 0, 0)) {
+-		struct amdgpu_ras *con = amdgpu_ras_get_context(obj->adev);
 -
--//MCMP1_MISC0T0
--#define MCMP1_MISC0T0__ErrCnt__SHIFT                                      =
-                                    0x20
+-		atomic_inc(&con->page_retirement_req_cnt);
+-		atomic_inc(&con->poison_creation_count);
 -
--#define MCMP1_MISC0T0__ErrCnt_MASK                                        =
-                                    0x00000FFF00000000L
+-		wake_up(&con->page_retirement_wq);
+-	}
+ }
+ 
+ static void amdgpu_ras_interrupt_umc_handler(struct ras_manager *obj,
+@@ -3550,38 +3536,6 @@ static void amdgpu_ras_validate_threshold(struct amdgpu_device *adev,
+ 	}
+ }
+ 
+-int amdgpu_ras_put_poison_req(struct amdgpu_device *adev,
+-		enum amdgpu_ras_block block, uint16_t pasid,
+-		pasid_notify pasid_fn, void *data, uint32_t reset)
+-{
+-	int ret = 0;
+-	struct ras_poison_msg poison_msg;
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
 -
- #endif
---
+-	memset(&poison_msg, 0, sizeof(poison_msg));
+-	poison_msg.block = block;
+-	poison_msg.pasid = pasid;
+-	poison_msg.reset = reset;
+-	poison_msg.pasid_fn = pasid_fn;
+-	poison_msg.data = data;
+-
+-	ret = kfifo_put(&con->poison_fifo, poison_msg);
+-	if (!ret) {
+-		dev_err(adev->dev, "Poison message fifo is full!\n");
+-		return -ENOSPC;
+-	}
+-
+-	return 0;
+-}
+-
+-static int amdgpu_ras_get_poison_req(struct amdgpu_device *adev,
+-		struct ras_poison_msg *poison_msg)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-
+-	return kfifo_get(&con->poison_fifo, poison_msg);
+-}
+-
+ static void amdgpu_ras_ecc_log_init(struct ras_ecc_log_info *ecc_log)
+ {
+ 	mutex_init(&ecc_log->lock);
+@@ -3611,232 +3565,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
+ 	ecc_log->consumption_q_count = 0;
+ }
+ 
+-static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *con,
+-				uint32_t delayed_ms)
+-{
+-	int ret;
+-
+-	mutex_lock(&con->umc_ecc_log.lock);
+-	ret = radix_tree_tagged(&con->umc_ecc_log.de_page_tree,
+-			UMC_ECC_NEW_DETECTED_TAG);
+-	mutex_unlock(&con->umc_ecc_log.lock);
+-
+-	if (ret)
+-		schedule_delayed_work(&con->page_retirement_dwork,
+-			msecs_to_jiffies(delayed_ms));
+-
+-	return ret ? true : false;
+-}
+-
+-static void amdgpu_ras_do_page_retirement(struct work_struct *work)
+-{
+-	struct amdgpu_ras *con = container_of(work, struct amdgpu_ras,
+-					      page_retirement_dwork.work);
+-	struct amdgpu_device *adev = con->adev;
+-	struct ras_err_data err_data;
+-
+-	/* If gpu reset is ongoing, delay retiring the bad pages */
+-	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) {
+-		amdgpu_ras_schedule_retirement_dwork(con,
+-				AMDGPU_RAS_RETIRE_PAGE_INTERVAL * 3);
+-		return;
+-	}
+-
+-	amdgpu_ras_error_data_init(&err_data);
+-
+-	amdgpu_umc_handle_bad_pages(adev, &err_data);
+-
+-	amdgpu_ras_error_data_fini(&err_data);
+-
+-	amdgpu_ras_schedule_retirement_dwork(con,
+-			AMDGPU_RAS_RETIRE_PAGE_INTERVAL);
+-}
+-
+-static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
+-				uint32_t poison_creation_count)
+-{
+-	int ret = 0;
+-	struct ras_ecc_log_info *ecc_log;
+-	struct ras_query_if info;
+-	u32 timeout = MAX_UMC_POISON_POLLING_TIME_ASYNC;
+-	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+-	u64 de_queried_count;
+-	u64 consumption_q_count;
+-	enum ras_event_type type = RAS_EVENT_TYPE_POISON_CREATION;
+-
+-	memset(&info, 0, sizeof(info));
+-	info.head.block = AMDGPU_RAS_BLOCK__UMC;
+-
+-	ecc_log = &ras->umc_ecc_log;
+-	ecc_log->de_queried_count = 0;
+-	ecc_log->consumption_q_count = 0;
+-
+-	do {
+-		ret = amdgpu_ras_query_error_status_with_event(adev, &info, type);
+-		if (ret)
+-			return ret;
+-
+-		de_queried_count = ecc_log->de_queried_count;
+-		consumption_q_count = ecc_log->consumption_q_count;
+-
+-		if (de_queried_count && consumption_q_count)
+-			break;
+-
+-		msleep(100);
+-	} while (--timeout);
+-
+-	if (de_queried_count)
+-		schedule_delayed_work(&ras->page_retirement_dwork, 0);
+-
+-	if (amdgpu_ras_is_rma(adev) && atomic_cmpxchg(&ras->rma_in_recovery, 0, 1) == 0)
+-		amdgpu_ras_reset_gpu(adev);
+-
+-	return 0;
+-}
+-
+-static void amdgpu_ras_clear_poison_fifo(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	struct ras_poison_msg msg;
+-	int ret;
+-
+-	do {
+-		ret = kfifo_get(&con->poison_fifo, &msg);
+-	} while (ret);
+-}
+-
+-static int amdgpu_ras_poison_consumption_handler(struct amdgpu_device *adev,
+-			uint32_t msg_count, uint32_t *gpu_reset)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	uint32_t reset_flags = 0, reset = 0;
+-	struct ras_poison_msg msg;
+-	int ret, i;
+-
+-	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
+-
+-	for (i = 0; i < msg_count; i++) {
+-		ret = amdgpu_ras_get_poison_req(adev, &msg);
+-		if (!ret)
+-			continue;
+-
+-		if (msg.pasid_fn)
+-			msg.pasid_fn(adev, msg.pasid, msg.data);
+-
+-		reset_flags |= msg.reset;
+-	}
+-
+-	/*
+-	 * Try to ensure poison creation handler is completed first
+-	 * to set rma if bad page exceed threshold.
+-	 */
+-	flush_delayed_work(&con->page_retirement_dwork);
+-
+-	/* for RMA, amdgpu_ras_poison_creation_handler will trigger gpu reset */
+-	if (reset_flags && !amdgpu_ras_is_rma(adev)) {
+-		if (reset_flags & AMDGPU_RAS_GPU_RESET_MODE1_RESET)
+-			reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+-		else if (reset_flags & AMDGPU_RAS_GPU_RESET_MODE2_RESET)
+-			reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
+-		else
+-			reset = reset_flags;
+-
+-		con->gpu_reset_flags |= reset;
+-		amdgpu_ras_reset_gpu(adev);
+-
+-		*gpu_reset = reset;
+-
+-		/* Wait for gpu recovery to complete */
+-		flush_work(&con->recovery_work);
+-	}
+-
+-	return 0;
+-}
+-
+-static int amdgpu_ras_page_retirement_thread(void *param)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)param;
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	uint32_t poison_creation_count, msg_count;
+-	uint32_t gpu_reset;
+-	int ret;
+-
+-	while (!kthread_should_stop()) {
+-
+-		wait_event_interruptible(con->page_retirement_wq,
+-				kthread_should_stop() ||
+-				atomic_read(&con->page_retirement_req_cnt));
+-
+-		if (kthread_should_stop())
+-			break;
+-
+-		mutex_lock(&con->poison_lock);
+-		gpu_reset = 0;
+-
+-		do {
+-			poison_creation_count = atomic_read(&con->poison_creation_count);
+-			ret = amdgpu_ras_poison_creation_handler(adev, poison_creation_count);
+-			if (ret == -EIO)
+-				break;
+-
+-			if (poison_creation_count) {
+-				atomic_sub(poison_creation_count, &con->poison_creation_count);
+-				atomic_sub(poison_creation_count, &con->page_retirement_req_cnt);
+-			}
+-		} while (atomic_read(&con->poison_creation_count) &&
+-			!atomic_read(&con->poison_consumption_count));
+-
+-		if (ret != -EIO) {
+-			msg_count = kfifo_len(&con->poison_fifo);
+-			if (msg_count) {
+-				ret = amdgpu_ras_poison_consumption_handler(adev,
+-						msg_count, &gpu_reset);
+-				if ((ret != -EIO) &&
+-				    (gpu_reset != AMDGPU_RAS_GPU_RESET_MODE1_RESET))
+-					atomic_sub(msg_count, &con->page_retirement_req_cnt);
+-			}
+-		}
+-
+-		if ((ret == -EIO) || (gpu_reset == AMDGPU_RAS_GPU_RESET_MODE1_RESET)) {
+-			/* gpu mode-1 reset is ongoing or just completed ras mode-1 reset */
+-			/* Clear poison creation request */
+-			atomic_set(&con->poison_creation_count, 0);
+-			atomic_set(&con->poison_consumption_count, 0);
+-
+-			/* Clear poison fifo */
+-			amdgpu_ras_clear_poison_fifo(adev);
+-
+-			/* Clear all poison requests */
+-			atomic_set(&con->page_retirement_req_cnt, 0);
+-
+-			if (ret == -EIO) {
+-				/* Wait for mode-1 reset to complete */
+-				down_read(&adev->reset_domain->sem);
+-				up_read(&adev->reset_domain->sem);
+-			}
+-
+-			/* Wake up work to save bad pages to eeprom */
+-			schedule_delayed_work(&con->page_retirement_dwork, 0);
+-		} else if (gpu_reset) {
+-			/* gpu just completed mode-2 reset or other reset */
+-			/* Clear poison consumption messages cached in fifo */
+-			msg_count = kfifo_len(&con->poison_fifo);
+-			if (msg_count) {
+-				amdgpu_ras_clear_poison_fifo(adev);
+-				atomic_sub(msg_count, &con->page_retirement_req_cnt);
+-			}
+-
+-			atomic_set(&con->poison_consumption_count, 0);
+-
+-			/* Wake up work to save bad pages to eeprom */
+-			schedule_delayed_work(&con->page_retirement_dwork, 0);
+-		}
+-		mutex_unlock(&con->poison_lock);
+-	}
+-
+-	return 0;
+-}
+-
+ int amdgpu_ras_init_badpage_info(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+@@ -3917,10 +3645,8 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev, bool init_bp_info)
+ 	}
+ 
+ 	mutex_init(&con->recovery_lock);
+-	mutex_init(&con->poison_lock);
+ 	INIT_WORK(&con->recovery_work, amdgpu_ras_do_recovery);
+ 	atomic_set(&con->in_recovery, 0);
+-	atomic_set(&con->rma_in_recovery, 0);
+ 	con->eeprom_control.bad_channel_bitmap = 0;
+ 
+ 	max_eeprom_records_count = amdgpu_ras_eeprom_max_record_count(&con->eeprom_control);
+@@ -3933,20 +3659,8 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev, bool init_bp_info)
+ 	}
+ 
+ 	mutex_init(&con->page_rsv_lock);
+-	INIT_KFIFO(con->poison_fifo);
+ 	mutex_init(&con->page_retirement_lock);
+-	init_waitqueue_head(&con->page_retirement_wq);
+-	atomic_set(&con->page_retirement_req_cnt, 0);
+-	atomic_set(&con->poison_creation_count, 0);
+-	atomic_set(&con->poison_consumption_count, 0);
+-	con->page_retirement_thread =
+-		kthread_run(amdgpu_ras_page_retirement_thread, adev, "umc_page_retirement");
+-	if (IS_ERR(con->page_retirement_thread)) {
+-		con->page_retirement_thread = NULL;
+-		dev_warn(adev->dev, "Failed to create umc_page_retirement thread!!!\n");
+-	}
+-
+-	INIT_DELAYED_WORK(&con->page_retirement_dwork, amdgpu_ras_do_page_retirement);
++
+ 	amdgpu_ras_ecc_log_init(&con->umc_ecc_log);
+ #ifdef CONFIG_X86_MCE_AMD
+ 	if ((adev->asic_type == CHIP_ALDEBARAN) &&
+@@ -3978,31 +3692,15 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_err_handler_data *data = con->eh_data;
+-	int max_flush_timeout = MAX_FLUSH_RETIRE_DWORK_TIMES;
+-	bool ret;
+ 
+ 	/* recovery_init failed to init it, fini is useless */
+ 	if (!data)
+ 		return 0;
+ 
+-	/* Save all cached bad pages to eeprom */
+-	do {
+-		flush_delayed_work(&con->page_retirement_dwork);
+-		ret = amdgpu_ras_schedule_retirement_dwork(con, 0);
+-	} while (ret && max_flush_timeout--);
+-
+-	if (con->page_retirement_thread)
+-		kthread_stop(con->page_retirement_thread);
+-
+-	atomic_set(&con->page_retirement_req_cnt, 0);
+-	atomic_set(&con->poison_creation_count, 0);
+-
+ 	mutex_destroy(&con->page_rsv_lock);
+ 
+ 	cancel_work_sync(&con->recovery_work);
+ 
+-	cancel_delayed_work_sync(&con->page_retirement_dwork);
+-
+ 	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
+ 
+ 	mutex_lock(&con->recovery_lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index a86ab65aa2f0..1629a242d58e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -466,14 +466,6 @@ struct ras_query_context {
+ typedef int (*pasid_notify)(struct amdgpu_device *adev,
+ 		uint16_t pasid, void *data);
+ 
+-struct ras_poison_msg {
+-	enum amdgpu_ras_block block;
+-	uint16_t pasid;
+-	uint32_t reset;
+-	pasid_notify pasid_fn;
+-	void *data;
+-};
+-
+ struct ras_err_pages {
+ 	uint32_t count;
+ 	uint64_t *pfn;
+@@ -549,7 +541,6 @@ struct amdgpu_ras {
+ 	/* gpu recovery */
+ 	struct work_struct recovery_work;
+ 	atomic_t in_recovery;
+-	atomic_t rma_in_recovery;
+ 	struct amdgpu_device *adev;
+ 	/* error handler data */
+ 	struct ras_err_handler_data *eh_data;
+@@ -587,16 +578,9 @@ struct amdgpu_ras {
+ 	/* Record special requirements of gpu reset caller */
+ 	uint32_t  gpu_reset_flags;
+ 
+-	struct task_struct *page_retirement_thread;
+-	wait_queue_head_t page_retirement_wq;
+ 	struct mutex page_retirement_lock;
+-	atomic_t page_retirement_req_cnt;
+-	atomic_t poison_creation_count;
+-	atomic_t poison_consumption_count;
+ 	struct mutex page_rsv_lock;
+-	DECLARE_KFIFO(poison_fifo, struct ras_poison_msg, 128);
+ 	struct ras_ecc_log_info  umc_ecc_log;
+-	struct delayed_work page_retirement_dwork;
+ 
+ 	/* ras errors detected */
+ 	unsigned long ras_err_state;
+@@ -615,9 +599,6 @@ struct amdgpu_ras {
+ 	struct list_head critical_region_head;
+ 	struct mutex critical_region_lock;
+ 
+-	/* Protect poison injection */
+-	struct mutex poison_lock;
+-
+ 	/* Disable/Enable uniras switch */
+ 	bool uniras_enabled;
+ 	const struct ras_smu_drv *ras_smu_drv;
+@@ -1029,10 +1010,6 @@ int amdgpu_ras_reserve_page(struct amdgpu_device *adev, uint64_t pfn);
+ int amdgpu_ras_add_critical_region(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+ bool amdgpu_ras_check_critical_address(struct amdgpu_device *adev, uint64_t addr);
+ 
+-int amdgpu_ras_put_poison_req(struct amdgpu_device *adev,
+-		enum amdgpu_ras_block block, uint16_t pasid,
+-		pasid_notify pasid_fn, void *data, uint32_t reset);
+-
+ bool amdgpu_ras_in_recovery(struct amdgpu_device *adev);
+ 
+ __printf(3, 4)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index a250109edb63..f22d07e9c29c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -276,7 +276,7 @@ int amdgpu_umc_pasid_poison_handler(struct amdgpu_device *adev,
+ 			}
+ 
+ 			amdgpu_ras_error_data_fini(&err_data);
+-		} else if (amdgpu_uniras_enabled(adev)) {
++		} else {
+ 			struct ras_ih_info ih_info = {0};
+ 
+ 			ih_info.block = block;
+@@ -285,17 +285,6 @@ int amdgpu_umc_pasid_poison_handler(struct amdgpu_device *adev,
+ 			ih_info.pasid_fn = pasid_fn;
+ 			ih_info.data = data;
+ 			amdgpu_ras_mgr_handle_consumer_interrupt(adev, &ih_info);
+-		} else {
+-			struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-			int ret;
+-
+-			ret = amdgpu_ras_put_poison_req(adev,
+-				block, pasid, pasid_fn, data, reset);
+-			if (!ret) {
+-				atomic_inc(&con->page_retirement_req_cnt);
+-				atomic_inc(&con->poison_consumption_count);
+-				wake_up(&con->page_retirement_wq);
+-			}
+ 		}
+ 	} else {
+ 		if (adev->virt.ops && adev->virt.ops->ras_poison_handler)
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index a6df6a778f50..749c1f845ac6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -656,23 +656,6 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
+ 	for (i = 0; i < count; i++)
+ 		amdgpu_ras_reserve_page(adev, page_pfn[i]);
+ 
+-	/* The problem case is as follows:
+-	 * 1. GPU A triggers a gpu ras reset, and GPU A drives
+-	 *    GPU B to also perform a gpu ras reset.
+-	 * 2. After gpu B ras reset started, gpu B queried a DE
+-	 *    data. Since the DE data was queried in the ras reset
+-	 *    thread instead of the page retirement thread, bad
+-	 *    page retirement work would not be triggered. Then
+-	 *    even if all gpu resets are completed, the bad pages
+-	 *    will be cached in RAM until GPU B's bad page retirement
+-	 *    work is triggered again and then saved to eeprom.
+-	 * Trigger delayed work to save the bad pages to eeprom in time
+-	 * after gpu ras reset is completed.
+-	 */
+-	if (amdgpu_ras_in_recovery(adev))
+-		schedule_delayed_work(&con->page_retirement_dwork,
+-			msecs_to_jiffies(DELAYED_TIME_FOR_GPU_RESET));
+-
+ 	return 0;
+ }
+ 
+-- 
 2.34.1
 
-
---_000_SJ0PR12MB69678D5BFD92680160C0B3B69DEF2SJ0PR12MB6967namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Hi all, </div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Sorry that there are issues in this patch-12 set. Please ignore this v1 sub=
-mission. I will fix the problem and resend the updated v2 patches shortly.
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Regards, </div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Sun,Ce</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sun, Ce(Overlord) &lt=
-;Ce.Sun@amd.com&gt;<br>
-<b>Sent:</b> Monday, June 22, 2026 12:40 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chai, Thomas &lt;Y=
-iPeng.Chai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Sun, Ce(Overl=
-ord) &lt;Ce.Sun@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v1 48/48] drm/amd/pm: retire legacy MCMP1_* macros</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Remove legacy MCMP1_* macros<br>
-<br>
-Signed-off-by: Ce Sun &lt;cesun102@amd.com&gt;<br>
----<br>
-&nbsp;.../include/asic_reg/mp/mp_13_0_6_sh_mask.h&nbsp;&nbsp; | 29 --------=
------------<br>
-&nbsp;1 file changed, 29 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h b/=
-drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h<br>
-index 2684e396f548..9d237924a59c 100644<br>
---- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h<br>
-+++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h<br>
-@@ -670,33 +670,4 @@<br>
-&nbsp;#define MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000001L<br>
-&nbsp;#define MP1_FIRMWARE_FLAGS__RESERVED_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; 0xFFFFFFFEL<br>
-&nbsp;<br>
--//MCMP1_IPIDT0<br>
--#define MCMP1_IPIDT0__InstanceIdLo__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- 0x0<br>
--#define MCMP1_IPIDT0__HardwareID__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; 0x20<br>
--#define MCMP1_IPIDT0__InstanceIdHi__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- 0x2c<br>
--#define MCMP1_IPIDT0__McaType__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; 0x30<br>
--<br>
--#define MCMP1_IPIDT0__InstanceIdLo_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; 0x00000000FFFFFFFFL<br>
--#define MCMP1_IPIDT0__HardwareID_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; 0x00000FFF00000000L<br>
--#define MCMP1_IPIDT0__InstanceIdHi_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; 0x0000F00000000000L<br>
--#define MCMP1_IPIDT0__McaType_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0xFFFF000000000000L<br>
--<br>
--//MCMP1_STATUST0<br>
--#define MCMP1_STATUST0__ErrorCode__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; 0x0<br>
--#define MCMP1_STATUST0__ErrorCodeExt__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x10<br>
--#define MCMP1_STATUST0__PCC__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x39<br>
--#define MCMP1_STATUST0__UC__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x3d<br>
--#define MCMP1_STATUST0__Val__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x3f<br>
--<br>
--#define MCMP1_STATUST0__ErrorCode_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; 0x000000000000FFFFL<br>
--#define MCMP1_STATUST0__ErrorCodeExt_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- 0x00000000003F0000L<br>
--#define MCMP1_STATUST0__PCC_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0200000000000000L<br>
--#define MCMP1_STATUST0__UC_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x2000000000000000L<br>
--#define MCMP1_STATUST0__Val_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x8000000000000000L<br>
--<br>
--//MCMP1_MISC0T0<br>
--#define MCMP1_MISC0T0__ErrCnt__SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; 0x20<br>
--<br>
--#define MCMP1_MISC0T0__ErrCnt_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000FFF00000000L<br>
--<br>
-&nbsp;#endif<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SJ0PR12MB69678D5BFD92680160C0B3B69DEF2SJ0PR12MB6967namp_--
