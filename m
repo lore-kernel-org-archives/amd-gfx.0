@@ -4,122 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6A0DCDB46B
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48435CDB46B
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B18A10E53E;
-	Mon, 22 Jun 2026 08:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8BFE10E51F;
+	Mon, 22 Jun 2026 08:22:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zJmEleEN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="II3Qs6uh";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013016.outbound.protection.outlook.com
- [40.93.196.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4992910E53B
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:22:27 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012050.outbound.protection.outlook.com [52.101.48.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7460E10E2C9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:22:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X5DuuwfKw5qd+DHvbIWlw74ZnuZ3dPcRf37W/8RRqNvRmvPp0QE1KJ/cJrLjajnANpqtT/rUFyw3GYuGKFiPLVNFWf1mXvT8VA04hTn4RlegkybmabUXbMQyJdBbUwUr4u95KRZnw8+o+YfIhQcG5ED8Iox7hW1W5gqk4cZmGztCxHuYxl7E9wnAVw1gbK46pEWxfU9JgzJUTL7WcqtFq3/DcKCQP6KizdNYKkjIOpL3gYMydERsxz0WgYqczVibprb1ZqgXyjVXIUM/d3cjOOg9ewrVtsFLWnEXi85Yy0MpbCa+GGzmTNoNwa0UJDUAfyJymasWfLFC4ARCT7m2GA==
+ b=caBcte39Ex/GcPyT2t5VZLWaWIOzGYjY548d2ztdPi6rvqQRDKP+pzQpaSg4VIbszLIvcTZUaMqVMIUAJdckYXvwO8h5k5plwnN4o1uo3iO2QnJAmtgMvNH2r9sG2mJKR5p1/s/A6XHHIfyCiH3KnPyURmlvhPLdPRu1/ys6zvhj7MOIoIQPH6LK50bAhNbsySmM4B4OJl248GzR+8rEM9aEqpzgHD8joOKxuW2TWcRX9UbzDYaLKbhHPPfIZfZ4YIlOnCV0Afxy6cpTHYy7/ozpoat1gIlc1romCvlvSWGUtEs04h+puYhzTVVZFpLCsZcYTGZkah0Ny2SKbG2xNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2zCeBJ8zoQPaxjq1Tv7Qmy9svBdcBPms2rjrnrHMEVo=;
- b=dJPwBXwBOyJchpAOrqU9xAvO+uLmSrOdUcq7wFpY8AoMRXOErpSOo2Yx1lw0e3lydLVHGmy4CaQtkO5ZjUWfB/Q0wfxIPCnCvi93LZoIiBTEN2W5S6enR5BugNAAsl/68rUeUw0BLfKzlj4Q3gM9fiwBJEKBqKlFCxK6TT4BR1iGIphv1uDVDWJgHYbOjsXL9My05EAkPI3XsWystJqfMxwWn3APJldGDmcGGd+TuH/4U2wyVOm3dBEis5rgUkvN/lk+0gJUWEe++C20l0dboVlV+1H/Y25ex43jr4gvLoBHCMlUCyn4VXNJQw5wf5mfBlsaJas/POkKKIJ08ezwLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=7xkUFSPUKPXJGtTRe7kXJgX9i5cWMWjYmUSLhADyp+w=;
+ b=vV+Woim+UjlZKgvMIcjr7WWjmV28e0fe18+onV0uImJ6UDGpboxN7xIoI8L82puV8AvhDz6qD/sezk5f+jr8Q/ka3Ljw2c2Q+oWh3U4/O6PIyhP7cYgmhDP+S/VvuQl3sxo8JpZZjEXy5JKc51qLidkz/psQdyPQHjxo7n6PGMWFOdh28xPQBtJz/CEHtarT1tj6f31No9mpCCHD4PI/fysfcyhbs5+UMgpnsJH25Y4U6doDzTpgzxtHYGMjIpl9H4d9yFUu4+jWDMDQPXWl21gtiMpCR9ZlS1yIIZxWvnr5C2D1qOhai5uashVMSACjsDwxMFf0JdnU40J/ZVFdUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2zCeBJ8zoQPaxjq1Tv7Qmy9svBdcBPms2rjrnrHMEVo=;
- b=zJmEleENKcx9iUUxGnZ255vd+dpv8hUytOyWyEfcmtf6mpiyK9p4gRTTQh2/ovynwbuHD5F3wuii1Noh4rABrfgsDFNEgiUSQQ4nQ8qSk6v96pZumiKpOO4rOtOOhVdf95lGJzh+ZVCGZKUIFLVMIaor0q4x6aA9yKVFXlHCKLE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6864.namprd12.prod.outlook.com (2603:10b6:806:263::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Mon, 22 Jun
- 2026 08:22:22 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Mon, 22 Jun 2026
- 08:22:22 +0000
-Message-ID: <10397a2a-88cf-4070-aced-291e24785a8d@amd.com>
-Date: Mon, 22 Jun 2026 10:22:17 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Support some Barco AMD based graphics adapters
-To: Matthew Jacob <mjacob@feralsw.com>, alexdeucher@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, feralmatt@pm.me
-References: <1b83ac6f-1018-3dee-c029-1b2ed78a8460@feralsw.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <1b83ac6f-1018-3dee-c029-1b2ed78a8460@feralsw.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0430.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=7xkUFSPUKPXJGtTRe7kXJgX9i5cWMWjYmUSLhADyp+w=;
+ b=II3Qs6uhNg76ChG1VfD5tEPTYIzUGV22GTV1chkBuZRWmMl6EA0SoWGA0JfDZ9KOfywsHxFVOlXalAPG2rr5gX8oQcyRfDCBTty7wiSQkL9P5kO7W4Ab9/3Frp3uIXkaFxMUaniLYnSHyg/VkHhuSvpVV5IL7NjiJRJoGwlIe1E=
+Received: from DS1PR04CA0021.namprd04.prod.outlook.com (2603:10b6:8:243::16)
+ by MN2PR12MB4357.namprd12.prod.outlook.com (2603:10b6:208:262::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 08:22:52 +0000
+Received: from DS1PEPF00017098.namprd05.prod.outlook.com
+ (2603:10b6:8:243:cafe::1f) by DS1PR04CA0021.outlook.office365.com
+ (2603:10b6:8:243::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
+ 22 Jun 2026 08:22:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017098.mail.protection.outlook.com (10.167.18.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 08:22:52 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
+ 2026 03:22:50 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>, "Ce
+ Sun" <cesun102@amd.com>
+Subject: [PATCH v2 1/2] drm/amd/ras: add set_debug_mode function for uniras
+Date: Mon, 22 Jun 2026 16:22:40 +0800
+Message-ID: <6396c0ca408e0d8806a0f06467def1d69bf0bb75.1782116341.git.cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6864:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7022854-f7f6-4b6a-5e57-08ded037620f
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|MN2PR12MB4357:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b6bf5bb-0802-4896-75f5-08ded037740b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: RK4f4iGVRC5a4I79ljvvRw4Z9bymY+VFfTup4a8zgPtrSGj8xIqJG5eoE4BubsVUPIgqd+wzib2iQ2DsmQaeMZf17aa0phjsVxrVWUP5rs6hk31JXH1mgMasVV8RVCTg6+YNtkdj6RtEGKgEQjKb/2ZcNNgn3csAqNvToFlQZ7T5wzeHFAROYoDmiKiGBZdna5cSZi2yW8Uu7NDXUQcZVxy8Di+aboC2bPw4ozv2m1EMD9LpHQBaeyn2IDBm0WlKktKWLH2/xQ1JhHH4L5PRIjCw4qLLpuDOAFWUtq2iIQ1gF9xV6PuGwbm/00HvSont9pl7RdGSXUF818Q71bpRDCVSzUjkFCIsyC10arLxKgelNoss4i1xZUDY5mGUS6GRPyeyaVZRzou3iBY3SgZxzR/+r2dfquJqLnFwKNQtpHgKXj26KZuitCpluaeZXkY8Ttx4qMWVlKtNSkx+8wbT99R1yxHbI4Aion+xeUGHGD5Fn2X7+L+vbqEUS3en6ecQkRJJ9q/AH1hO3/shlTcGvp0hbpyg0sfxV4Sy/8QP9Vkx8FornbgcD9YkPw5VToVwMKKGqDVOuIAtL0nl2x2qV2k0g6ccvNxdrXLhTKxUNElHoPNV+C8mYL/45OD7F0v1D63b31snND6OjNWzVVhpO58KsA1NANlKpH6um7FFLwM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(11063799006)(56012099006)(18002099003)(22082099003);
+ ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|11063799006|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: ck+IG7p76Rf41m398aWw9XUOWQoGIyz90D6s5L9fGDAWmKGo2bQ1WCWiuEUVHKOXckO7F69DbKywxAWP9X95OMa2fhpJz1ugJFd4t1JiUoUGs9UYc7VdfUj8nQ/9yH5zzT/oUanGVMPxeTmKGlSCOeHI3jB8DOBXcMgf9BXn+TQ4tn5YaxJCaTkzpaBSbu3QZmvFKb2kZR5YvfXazXDW0esS3R2RXGQzJgH13f/aX/EsDKySImgu1NqFoKNwPSQpny31yY2MQrDTkRXW070K5rRJX9zvKmYgv+Mv5jvC6z/uua6PE/kcqnW2n5QbucCcKZ00uRInfxaKb/In6MrwEfMY9Rqtx9wF42rc9cRnxbi7WcUHrhLnhadA8sQfHhZJITfswBhOORfmO1bOK5yh0lrxb5h15LhjTPAqND1XKBosBfcux2T+lp+dWTp8KNKoR9pZHWNzmDwhB57vHbdu5GXoItjRE0nHFmv2ANeGfmhsrJ0+TqOzpEnvx5K/NzZwxnI/pFJdWqFVOTrkCGJ4KM+dgHad7Gq3ZGmG8N0hDGVYXjODNuB/8HdiGvzHQ6mzI2dsNOxfh12AGD8Q7SLzstEQ1obNeGpI6o1ZRwrCYMly3UxoiuIvB2ag6PdLVzdjqVG5ux7uFF8SyO6OfQjsYqhLfJ5bEUIUfZs6BFJ6lUKsWUBElQzPiNVcIWPA6gavlT842guiiyvFoNonGXqxzw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(6133799003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTI5N0xmMGlUcmpYbU5LTHVja2xvTmZ0ajZMK1lrTE5INFRmMVkxTEtlaEFu?=
- =?utf-8?B?K1dRODVMbTkrRW1XNlhNQXU5Y1ZZYXMrdzFpRFRkdzhUV3hma1BCazJheHZQ?=
- =?utf-8?B?RHJLSk92NFpuNmRReDg2bnY5MzdHSjVlVU4raWpQOVpqOUIrUWgrQzhJUlhP?=
- =?utf-8?B?NVZ3Qnp3eVVLaHVEbTAyUVEyM3l3NGkvbElIZlFJalBzUHl0QjkxL2FERU5U?=
- =?utf-8?B?a2J4Mk9qbjU1eFBGMWw5RHJmU1RtSm91SC9LZWI0VGduUElHcUo5Zm52SFov?=
- =?utf-8?B?WFdHR202blNaSGExWW82ZmJNbVBLNXFEdHhQeU9CTXN6SDhrSlltWU9TeXlz?=
- =?utf-8?B?RHA4ZDNpeW9xV3ZWeDVGRHltVU0zS1Y3VHZGSzBmYmZ3cll5TjRmc0Vrelk1?=
- =?utf-8?B?c3R3dGVQalYyR1k0YUs3M1BNMUpTd0psdTVESDdZeTJ4eHpTcmxKNlAvY3Ns?=
- =?utf-8?B?ZEFkS0FwbEF0VDVVbmw3QjZPZHRTNlYvckFDdW9VKzBzTTZ1QVlhZWFPazUy?=
- =?utf-8?B?cHJWU0tjTEo4K3MxZEpnMk9qRTZjVk9vTkNqK09Gd05wTXhJRGtybnQxUGxa?=
- =?utf-8?B?YkN0SnBRcWJ1V1MwcWloZTJRUnROOTZCSDhuNk82UjlEOWFLTlNoZlV3VGNB?=
- =?utf-8?B?ZXJEUTJIU2Zza2JkR3Ziekw0Snp6VndpbWlFeDlNcTZLS0RrL3dqdHNiSitl?=
- =?utf-8?B?NVZOaExmeE1VeTQ4b2IvRnZTVW5lK1hNZmFJOVZSNmEzaVM4bmNxcjRHK3VZ?=
- =?utf-8?B?SWNqellKWVk4MnZHdlZsajN4bnJpd1R2WURScktCcnJHVGQyVGR0L0cyWWxu?=
- =?utf-8?B?bjY5RU1oVEo1ZUdPbU1qTjRWMU9HUFdzSGhsNERCK1R0cEo3aDlCOFRDMVEw?=
- =?utf-8?B?V0pRWnFCK2pSMXRPbUxsV29ackptcEUzaWxiaDc3UU1UbE9jMDY4enNVaUk5?=
- =?utf-8?B?dmdFNURvakVsZjMvV25razN6NGR6MURPakxadEdkdFo5UExIVkNnZ24zVjJo?=
- =?utf-8?B?YTY1b2xtR1gwN3M0ZjRhYkNwb0VmY253cGVPd2x5a1UxVGFiUkZTZUFTbGRX?=
- =?utf-8?B?RGNPRGFpYU5Gc3Nqb083MkVsWkpjeFl1R0xTZzZlc3EyTUU1ekhLc1YwZTEy?=
- =?utf-8?B?TkxiUFhOdnRGNDVCWWcrU0R6MGplR3JHQ1BWVFhtTTZlV3FkVjl5a3NRRjhp?=
- =?utf-8?B?R1V0UldZTVVXazFLV3J0OFdIRUZVOVkzRGUxS2Nzc0dneUFRQ0JRSlZjL1dI?=
- =?utf-8?B?QjBxejIvM1N6UjlVejgvRkJrTmEvTi9jblNKMklXd3dXL0xkVWRqS0RRdHBi?=
- =?utf-8?B?aTlnR3d0MmFnL3dKczlqVVkrS1F3ekw5a0JlQVhkWEhiZnh5YThVc1lxdWV1?=
- =?utf-8?B?cWhLRVMyeDZNRkdNeVZwWDc1NHBVU1U3MnlBV1BRc1M4VlR1MS9uSGRIUzJV?=
- =?utf-8?B?UjF0dUhkMlB4MHBMVWs3L1pBNGVCWFVuQU5RMkNsaVRWYUgyNHV4QVdyTTAz?=
- =?utf-8?B?aEZPY05EMnllM0FxN21ISm1oNXpIZnVXWDUzZDhUNHVmLzN4eUF0MG13ZHFz?=
- =?utf-8?B?SWR4UElncitxTWkxV2hlbzJiclIrVG83RmJnSDlDRzlPYWM1c2JwTzRiV1lN?=
- =?utf-8?B?elhvMVhteDVPeC92NC9nSUxacFpEaVdJd3M5MTcxYlRlUVh6bVdZWi9wSG5q?=
- =?utf-8?B?N3V2ZGdyTDdXeGVsWHZPbVl4NWNPcVJIZzRtME9jcU1hUERDeVJLN0hxZVVE?=
- =?utf-8?B?VjZDL0ZLRi9LVWdONHpnb2lFaXlEZXhOUkUwZENWc2hIOWhISzA0RkswMG5q?=
- =?utf-8?B?cFI1TWZYeFFEMEswREZXQ3BueTZHT2YyMjJDamxtc3NPeGRSNDhTb2VSL0o4?=
- =?utf-8?B?ajBMQmxzdEFqSW1sZ2NIaE1lb2VoNStLdDREN2NRMm1SUnMxaXhnTEdKQkpx?=
- =?utf-8?B?UEdTZjB0WVpWNmdLc0hhRWVFeHJtOWJISXp3c0NyWWU5VXNKWk52S1J1TnRa?=
- =?utf-8?B?dTdraS9IZ0FpeWFNaUJEMk1yZkV5NjJQbklOR3BjVllvaUlQMlNEb1JHZWlm?=
- =?utf-8?B?cStFUXFudStPOWY2Z2ZOaW53dDIrek5ZNk5TUVFWTmM2eEtlZ09CR1RBcyti?=
- =?utf-8?B?azZaNSt6TnM2RU1mOHBOVUtmWmFXN1FLa1BFTkd1NjFQOW1aN1NsR3dpa1BB?=
- =?utf-8?B?Q1dxcDYxRURDRXM3LzlWRnh4dDV4Z3hBTkM0RytKTGdqN1JNTG1Ea0RCZndK?=
- =?utf-8?B?eDFsVG1naXhVRHl2V2F6cDFjVUhJa3ZXSEVOVklZcHQxeUh5SmdKM2t0VWVy?=
- =?utf-8?Q?s2f1s324PmtZxL+ar1?=
+X-MS-Exchange-AntiSpam-MessageData-0: /vQji+ghmqavkkqfdZpSXtM69EPmLbemZiSw4uTiGw2Y0y5aM7rO8ETDljG3z2mgGO72DlB5lN/bR4rl2L6Gqur4YaHa2RQB/x6Fqjgzue8hQtQXe+6uvtaeAe5zKmOYshSjrocoQEzDPOlqExLkX5gFq/0p1kPqs6J8bk1fId+pZ+W7P88O43sEgWth1RfUZL0xbEu6sj21My2iiOE6b8emuuUbemz8o7+W1szOjZwpOMO/4Qge0VYmWhA93iUb3iM9J0lyt51panCCgL1eP71Wn4aK4btgfhC2cUyU/H5deatzmVxYZVGcwT+xlsrXVxwPWzjPBEHSmPJxWnAdGjBXjpETxWsQB0hnYfWkXRSPBLHET1IxUlUr6GaieJc3/ygPE5xZAbH8uR69rCsqCUDLf/a47BkSOThxSpXbMC8Tex4rQ6SsdwTbtmfBwVxc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7022854-f7f6-4b6a-5e57-08ded037620f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:22:22.2870 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:22:52.1298 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b6bf5bb-0802-4896-75f5-08ded037740b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5eDLPefhCqTEV6iZxFRZAD5U6RdHZWIN2oKi8Kn2p2PfEyazw8y4wgdZ8st7xu3K
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6864
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017098.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4357
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,64 +108,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/19/26 20:45, Matthew Jacob wrote:
-> 
-> These adapters typically are only supported by Barco on the Windows
-> platform. However, with these changes in the linux driver, multiple
-> monitor support should work correctly.
-> 
-> Signed-off-by: Matthew Jacob <mjacob@feralsw.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 60debd543e44..e3ba168795cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1926,6 +1926,7 @@ static const struct pci_device_id pciidlist[] = {
->        {0x1002, 0x6646, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
->        {0x1002, 0x6647, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
->        {0x1002, 0x6649, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
-> +       {0x1002, 0x664D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE}, // Barco MXRT-5600
+add set_debug_mode function for uniras
 
-Please no // style comments in kernel code.
+v2:
+1.Add validation for mp1->ip_func and mp1->ip_func->set_debug_mode
+2.Return -ENOTSUPP error code if the callback is missing
 
-Apart from that looks good to me, but I'm wondering if we shouldn't print a warning or similar.
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 10 ++++++++++
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h  |  1 +
+ .../amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c    | 14 ++++++++++++++
+ drivers/gpu/drm/amd/ras/rascore/ras.h         |  3 +++
+ drivers/gpu/drm/amd/ras/rascore/ras_core.c    |  5 +++++
+ drivers/gpu/drm/amd/ras/rascore/ras_mp1.c     | 19 ++++++++++++++++++-
+ drivers/gpu/drm/amd/ras/rascore/ras_mp1.h     |  3 +++
+ .../gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c   | 13 +++++++++++++
+ 8 files changed, 67 insertions(+), 1 deletion(-)
 
-It could be that those boards have non standard VBIOS changes and cause problems on Linux.
-
-Regards,
-Christian.
-
->        {0x1002, 0x6650, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
->        {0x1002, 0x6651, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
->        {0x1002, 0x6658, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
-> @@ -1995,6 +1996,7 @@ static const struct pci_device_id pciidlist[] = {
->        {0x1002, 0x6930, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
->        {0x1002, 0x6938, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
->        {0x1002, 0x6939, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
-> +       {0x1002, 0x693B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA}, // Barco MXRT-7600
->        /* fiji */
->        {0x1002, 0x7300, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
->        {0x1002, 0x730F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
-> @@ -2023,6 +2025,7 @@ static const struct pci_device_id pciidlist[] = {
->        {0x1002, 0x67C4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->        {0x1002, 0x67C7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->        {0x1002, 0x67D0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
-> +       {0x1002, 0x67D4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10}, // Tentative Barco MXRT-8750
->        {0x1002, 0x67DF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->        {0x1002, 0x67C8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
->        {0x1002, 0x67C9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
-> @@ -2036,6 +2039,7 @@ static const struct pci_device_id pciidlist[] = {
->        {0x1002, 0x6985, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->        {0x1002, 0x6986, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->        {0x1002, 0x6987, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
-> +       {0x1002, 0x698F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12}, // Tentative Barco MXRT-4700
->        {0x1002, 0x6995, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->        {0x1002, 0x6997, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
->        {0x1002, 0x699F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
-> -- 
-> 2.47.3
-> 
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index f627a97797ed..2ce7b88544c3 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -773,3 +773,13 @@ int amdgpu_ras_mgr_lookup_bad_pages_in_a_row(struct amdgpu_device *adev,
+ 	return ras_core_convert_soc_pa_to_cur_nps_pages(ras_mgr->ras_core,
+ 			addr, nps_page_addr, max_page_count);
+ }
++
++int amdgpu_ras_mgr_set_debug_mode(struct amdgpu_device *adev, bool enable)
++{
++	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
++
++	if (!ras_mgr || !ras_mgr->ras_core || !ras_mgr->ras_is_ready)
++		return false;
++
++	return ras_core_set_debug_mode(ras_mgr->ras_core, enable);
++}
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+index 4f44a917d48b..a757ec15125e 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+@@ -84,4 +84,5 @@ int amdgpu_ras_mgr_pre_reset(struct amdgpu_device *adev);
+ int amdgpu_ras_mgr_post_reset(struct amdgpu_device *adev);
+ int amdgpu_ras_mgr_lookup_bad_pages_in_a_row(struct amdgpu_device *adev,
+ 		uint64_t addr, uint64_t *nps_page_addr, uint32_t max_page_count);
++int amdgpu_ras_mgr_set_debug_mode(struct amdgpu_device *adev, bool enable);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+index 2098f24d4940..ee59184f7eee 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+@@ -24,6 +24,7 @@
+ #include "amdgpu_smu.h"
+ #include "amdgpu_reset.h"
+ #include "amdgpu_ras_mp1_v13_0.h"
++#include "smu13_driver_if_v13_0_6.h"
+ 
+ #define RAS_MP1_MSG_QueryValidMcaCeCount  0x3A
+ #define RAS_MP1_MSG_McaBankCeDumpDW       0x3B
+@@ -131,10 +132,23 @@ static int mp1_v13_0_get_ras_enabled_mask(struct ras_core_context *ras_core,
+ 	return ret;
+ }
+ 
++static int mp1_v13_0_set_debug_mode(struct ras_core_context *ras_core, bool enable)
++{
++	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
++	int ret;
++	u32 smu_msg = SMU_MSG_ClearMcaOnRead;
++
++	ret = amdgpu_smu_ras_send_msg(adev, smu_msg,
++				      enable ? 0 : ClearMcaOnRead_UE_FLAG_MASK | ClearMcaOnRead_CE_POLL_MASK,
++				      NULL);
++	return ret;
++}
++
+ const struct ras_mp1_sys_func amdgpu_ras_mp1_sys_func_v13_0 = {
+ 	.mp1_get_valid_bank_count = mp1_v13_0_get_valid_bank_count,
+ 	.mp1_dump_valid_bank = mp1_v13_0_dump_valid_bank,
+ 	.mp1_send_eeprom_msg = mp1_v13_0_eeprom_send_msg,
+ 	.mp1_get_ras_enabled_mask = mp1_v13_0_get_ras_enabled_mask,
++	.mp1_set_debug_mode = mp1_v13_0_set_debug_mode,
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
+index 5869bad978b0..371d1061d8f4 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
+@@ -167,6 +167,7 @@ struct ras_mp1_sys_func {
+ 			enum ras_fw_eeprom_cmd index, uint32_t param, uint32_t *read_arg);
+ 	int (*mp1_get_ras_enabled_mask)(struct ras_core_context *ras_core,
+ 			uint64_t *enabled_mask);
++	int (*mp1_set_debug_mode)(struct ras_core_context *ras_core, bool enable);
+ };
+ 
+ struct ras_eeprom_sys_func {
+@@ -400,4 +401,6 @@ int ras_core_get_device_system_info(struct ras_core_context *ras_core,
+ int ras_core_convert_soc_pa_to_cur_nps_pages(struct ras_core_context *ras_core,
+ 		uint64_t soc_pa, uint64_t *page_pfn, uint32_t max_pages);
+ int ras_core_check_address_sanity(struct ras_core_context *ras_core, uint64_t addr);
++
++int ras_core_set_debug_mode(struct ras_core_context *ras_core,bool enable);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+index 61d100b074b9..08e17a83ad5b 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+@@ -151,6 +151,11 @@ bool ras_core_gpu_is_rma(struct ras_core_context *ras_core)
+ 	return ras_core->is_rma;
+ }
+ 
++int ras_core_set_debug_mode(struct ras_core_context *ras_core, bool enable)
++{
++	return ras_mp1_set_debug_mode(ras_core, enable);
++}
++
+ static int ras_core_seqno_fifo_write(struct ras_core_context *ras_core,
+ 		enum ras_seqno_fifo fifo_type, uint64_t seqno)
+ {
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.c b/drivers/gpu/drm/amd/ras/rascore/ras_mp1.c
+index f3321df85021..1fd807e50370 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_mp1.c
+@@ -59,9 +59,20 @@ int ras_mp1_dump_bank(struct ras_core_context *ras_core,
+ 	return mp1->ip_func->dump_valid_bank(ras_core, type, idx, reg_idx, val);
+ }
+ 
++int ras_mp1_set_debug_mode(struct ras_core_context *ras_core,bool enable)
++{
++	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
++
++	if (!mp1->ip_func || !mp1->ip_func->set_debug_mode)
++		return -EOPNOTSUPP;
++
++	return mp1->ip_func->set_debug_mode(ras_core, enable);
++}
++
+ int ras_mp1_hw_init(struct ras_core_context *ras_core)
+ {
+ 	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
++	int ret = 0;
+ 
+ 	mp1->mp1_ip_version = ras_core->config->mp1_ip_version;
+ 	mp1->sys_func = ras_core->config->mp1_cfg.mp1_sys_fn;
+@@ -71,8 +82,14 @@ int ras_mp1_hw_init(struct ras_core_context *ras_core)
+ 	}
+ 
+ 	mp1->ip_func = ras_mp1_get_ip_funcs(ras_core, mp1->mp1_ip_version);
++	if (!mp1->ip_func)
++		return -EINVAL;
++
++	ret = ras_mp1_set_debug_mode(ras_core, false);
++	if (ret)
++		return -EINVAL;
+ 
+-	return mp1->ip_func ? RAS_CORE_OK : -EINVAL;
++	return ret;
+ }
+ 
+ int ras_mp1_hw_fini(struct ras_core_context *ras_core)
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.h b/drivers/gpu/drm/amd/ras/rascore/ras_mp1.h
+index de1d08286f41..0b618f6b8b9e 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_mp1.h
+@@ -31,6 +31,7 @@ struct ras_mp1_ip_func {
+ 			enum ras_err_type type, u32 *count);
+ 	int (*dump_valid_bank)(struct ras_core_context *ras_core,
+ 		enum ras_err_type type, u32 idx, u32 reg_idx, u64 *val);
++	int (*set_debug_mode)(struct ras_core_context *ras_core,bool enable);
+ };
+ 
+ struct ras_mp1 {
+@@ -47,4 +48,6 @@ int ras_mp1_get_bank_count(struct ras_core_context *ras_core,
+ 
+ int ras_mp1_dump_bank(struct ras_core_context *ras_core,
+ 		u32 ecc_type, u32 idx, u32 reg_idx, u64 *val);
++
++int ras_mp1_set_debug_mode(struct ras_core_context *ras_core,bool enable);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c
+index 310d39fc816b..1fcfc1995ad3 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c
+@@ -99,7 +99,20 @@ static int mp1_v13_0_dump_bank(struct ras_core_context *ras_core,
+ 	return sys_func->mp1_dump_valid_bank(ras_core, msg, idx, reg_idx, val);
+ }
+ 
++static int mp1_v13_0_set_debug_mode(struct ras_core_context *ras_core, bool enable)
++{
++	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
++	const struct ras_mp1_sys_func *sys_func = mp1->sys_func;
++
++	if (!sys_func || !sys_func->mp1_set_debug_mode)
++		return -RAS_CORE_NOT_SUPPORTED;
++
++	return sys_func->mp1_set_debug_mode(ras_core, enable);
++}
++
++
+ const struct ras_mp1_ip_func mp1_ras_func_v13_0 = {
+ 	.get_valid_bank_count = mp1_v13_0_get_bank_count,
+ 	.dump_valid_bank = mp1_v13_0_dump_bank,
++	.set_debug_mode = mp1_v13_0_set_debug_mode,
+ };
+-- 
+2.34.1
 
