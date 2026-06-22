@@ -4,48 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F358BCDB471
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C6C5CD4F26
 	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 688CC10E9D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF3A10E9D2;
 	Tue, 23 Jun 2026 08:07:16 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6743F10E263;
- Mon, 22 Jun 2026 14:23:12 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.74.238])
- by APP-01 (Coremail) with SMTP id qwCowADHa9RMRTlqc07AAg--.26720S2;
- Mon, 22 Jun 2026 22:23:10 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH v2] drm/amdgpu: fix cleaner shader IB size and entity cleanup
-Date: Mon, 22 Jun 2026 22:23:05 +0800
-Message-Id: <20260622142305.45791-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=ristioja.ee header.i=@ristioja.ee header.b="Aeg2Q2mh";
+	dkim-atps=neutral
+Received: from mx1.heh.ee (heh.ee [213.35.143.160])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B187410E2A3;
+ Mon, 22 Jun 2026 17:46:30 +0000 (UTC)
+Received: by mx1.heh.ee (Hehee) id 34581111EE0;
+ Mon, 22 Jun 2026 20:46:27 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ristioja.ee; s=mail;
+ t=1782150387; bh=GJ+dJ48hAsXJ+yZvg31moPKWUIg2iQCxpClyhh8ghyo=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=Aeg2Q2mh6TmGzecTcl0b/EEZh4Zz7X+9ibc2awBKtZEn8+cvv48udJpnOHnLZh/pZ
+ 6i2IA0IEUhuQtOiUzGqc94m91SUeGDQOv6s2dHCOuJv4q6ooVOt3d1JhGnQJcFEiqm
+ Y/BaLDzQ+XCzRIUi8ibwEd5S7fPwyPMb/35MdRV0=
+Message-ID: <6cf6be99-76c3-43b3-854f-96cae180318c@ristioja.ee>
+Date: Mon, 22 Jun 2026 20:46:44 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
+ modeset
+From: Jaak Ristioja <jaak@ristioja.ee>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Salvatore Bonaccorso <carnil@debian.org>, Dianne Skoll <dianne@skoll.ca>,
+ Chris Park <chris.park@amd.com>, Matthew Stewart <matthew.stewart2@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: 1139950@bugs.debian.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
+ <178198613176.3658222.16247101620976737948@eldamar.lan>
+ <ajcLuO0YZCoPN7Xw@eldamar.lan> <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
+ <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
+Content-Language: et-EE
+Autocrypt: addr=jaak@ristioja.ee; keydata=
+ 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
+In-Reply-To: <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADHa9RMRTlqc07AAg--.26720S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxur1fJFW3WF43ZrWfJr15XFb_yoW5Wr18pF
- 4Fqr45Jr4UZ3W3Kw1UZ3WDWrn0q3s7Xa4fWr429w109an8XFn5Wa47GFy0grykurW8CFW2
- g34qq3y7W3ZFyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
- 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
- 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
- WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
- IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
- U==
-X-Originating-IP: [117.182.74.238]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYGA2o5ItJfpgABsU
 X-Mailman-Approved-At: Tue, 23 Jun 2026 08:07:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,85 +109,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix two issues in amdgpu_gfx_run_cleaner_shader_job():
+On 2026.06.22 16:52, Jaak Ristioja wrote:
+> Issue also seems to occurs with 7.1.1 (`dmesg -f kern` output attached).
+> 
+> The DisplayPort to HDMI dongle does not have markings on the body to 
+> identify the exact model, but by the looks of it I think it might be a 
+> Vention HBKB0, which seems to be marketed as "1080p@60", "DP male to 
+> HDMI female", "classic" (as opposed to "4K"). According to some 
+> materials, the chip inside is a MXP3361.
+> 
+> The text on the HDMI cable reads "ULTRA HIGH SPEED HDMI™ CABLE - 
+> WWW.HAMA.COM - HAMA GMBH & CO KG 86652 MONHEIM/GERMANY - 82623".
 
-1. IB buffer overflow: The indirect buffer is hardcoded to 64 bytes,
-   but the initialization loop writes up to (align_mask + 1) dwords.
-   On modern GFX rings with align_mask = 0xff, this writes 1024 bytes,
-   overflowing the 64-byte allocation and corrupting memory.
+Reverting commit fee50077656 ("drm/amd/display: Bump the HDMI clock to 
+340MHz") on top of v7.1.1 appears to resolve the issue, as I am now able 
+to get a picture.
 
-2. Scheduler entity leak: The drm_sched_entity is not cleaned up on
-   the error path after amdgpu_job_alloc_with_ib() fails.
 
-Fix by:
-- Dynamically calculating IB size based on ring->funcs->align_mask
-- Adding drm_sched_entity_destroy() to the error path
-
-Cc: stable@vger.kernel.org
-Fixes: d361ad5d2fc0 ("drm/amdgpu: Add sysfs interface for running cleaner shader")
-Fixes: 256576ed6895 ("drm/amdgpu: give each kernel job a unique id")
-Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b8ca876694ff..b50ec1a5c645 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1651,6 +1651,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
- 	void *owner;
-+	unsigned int ib_size;
- 	int i, r;
- 
- 	/* Initialize the scheduler entity */
-@@ -1658,7 +1659,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 				  &sched, 1, NULL);
- 	if (r) {
- 		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
--		goto err;
-+		return r;
- 	}
- 
- 	/*
-@@ -1668,8 +1669,15 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	 */
- 	owner = (void *)(unsigned long)atomic_inc_return(&counter);
- 
-+	/*
-+	 * Allocate IB with enough space for align_mask + 1 dwords.
-+	 * The initialization loop below writes exactly this many dwords.
-+	 * Each dword is 4 bytes.
-+	 */
-+	ib_size = (ring->funcs->align_mask + 1) * sizeof(uint32_t);
-+
- 	r = amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
--				     64, 0, &job,
-+				     ib_size, 0, &job,
- 				     AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
- 	if (r)
- 		goto err;
-@@ -1686,8 +1694,6 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	f = amdgpu_job_submit(job);
- 
- 	r = dma_fence_wait(f, false);
--	if (r)
--		goto err;
- 
- 	dma_fence_put(f);
- 
-@@ -1696,6 +1702,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	return 0;
- 
- err:
-+	/* Clean up the scheduler entity */
-+	drm_sched_entity_destroy(&entity);
- 	return r;
- }
- 
--- 
-2.39.5 (Apple Git-154)
-
+PS: My previous e-mail with the attached dmesg-7.1.1.txt.xz file was 
+bounced from @amd.com addresses: Diagnostic-Code: smtp;550 5.0.350 One 
+or more of the attachments in your email is of a file type that is NOT 
+allowed by the recipient's organization.
