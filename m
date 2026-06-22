@@ -4,16 +4,16 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A39CDB47B
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 12:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C8F4CDB46F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 12:09:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 596E010E672;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2A7D10E673;
 	Mon, 22 Jun 2026 12:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HNvhnKEU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IRFccw3T";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA6A10E667
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E527F10E66B
  for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 12:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -22,23 +22,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=W+bm4kejcK4fkcqJtKtO60EWwbNIhKiH8mf2kIdNF5g=; b=HNvhnKEUGzLSglSRbgiEZJejIE
- geZkHgL3qCgnu8+6ll0sUq7wvWeVF9n3ZDMitoV3xVzybRuMFW8k1y0bg6MSUg+cQkaMbi6mLHF72
- 3E34rCJzflsazQ4hurm6fujPQV2pXe8VRzf3DVj1WsEUmNKnOTpmpszkOTdIS5dYot0qxJbgKiIbw
- dL1SxECuei+RpQzzfyapdPtzbSoCygFkE+vK2/E+t+mGfl1Nx4+2AeCyV6g07r9+0+9cTU5WI0Iwu
- pMpCvyJ3uOaOtdt3sfPQiPU7d4KKLIki12VCpRLyhIk5i7dCk0cPn78o7eaXpNhNPn/HuOVAU/9EF
- 5JXEawhg==;
+ bh=NaKtP86E+RyYzDvWnQwYbAxfa1OTbVnQZ+9vpMeVmYc=; b=IRFccw3Tx/hPOwaF3Fw0KZIuxI
+ Gka/UHJtSsY4WGufe9669zI/XFivVanXlFltybbvFuuP+9BHA2JXlNT4yIaMeXl3AoKoLTNNbOPDA
+ 9rimR4Hf1SULdPrgzDV1kSMHRKhWiXZLdYOCVAlJq7DZCPSV5iOBIDhEXr+jgGtkdG4yYd6MySbku
+ L3LSlGPTcl9HM5L6LpijuGfWlKbz+lgvADvjeooJ0fD88N0TFvnPJdILywWtsn3L8Ve3HLRXn9krC
+ XRzQQ4gWgFA9Ex/jQNwlFK5hQGHZTy73eymcTWGJUj72q2BI8YDdfxX52XynfaCA4mUsDbnbIylvq
+ P1PGHwfQ==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wbdSO-003iys-6i; Mon, 22 Jun 2026 14:08:52 +0200
+ id 1wbdSP-003iyw-16; Mon, 22 Jun 2026 14:08:53 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 01/16] drm/amdgpu: More compact VCE IB emission
-Date: Mon, 22 Jun 2026 13:08:20 +0100
-Message-ID: <20260622120835.52473-2-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 02/16] drm/amdgpu: More compact VCN IB emission
+Date: Mon, 22 Jun 2026 13:08:21 +0100
+Message-ID: <20260622120835.52473-3-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260622120835.52473-1-tvrtko.ursulin@igalia.com>
 References: <20260622120835.52473-1-tvrtko.ursulin@igalia.com>
@@ -63,153 +63,239 @@ pointer and only updating the size at the end of each helper.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 96 +++++++++++++------------
- 1 file changed, 50 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 134 +++++++++++++-----------
+ 1 file changed, 75 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index efdebd9c0a1f..2854c2e465b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -468,7 +468,8 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	struct amdgpu_ib ib_msg;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index e4d435d4a629..04ebbda51214 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -624,9 +624,12 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
+ {
+ 	u64 addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
+ 	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_vcn_reg *internal = &adev->vcn.inst[ring->me].internal;
++	uint32_t nop = PACKET0(internal->nop, 0);
  	struct dma_fence *f = NULL;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
++	uint32_t *ptr;
+ 	int i, r;
+ 
+ 	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+@@ -636,15 +639,16 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
+ 		goto err;
+ 
+ 	ib = &job->ibs[0];
+-	ib->ptr[0] = PACKET0(adev->vcn.inst[ring->me].internal.data0, 0);
+-	ib->ptr[1] = addr;
+-	ib->ptr[2] = PACKET0(adev->vcn.inst[ring->me].internal.data1, 0);
+-	ib->ptr[3] = addr >> 32;
+-	ib->ptr[4] = PACKET0(adev->vcn.inst[ring->me].internal.cmd, 0);
+-	ib->ptr[5] = 0;
++	ptr = ib->ptr;
++	*ptr++ = PACKET0(internal->data0, 0);
++	*ptr++ = addr;
++	*ptr++ = PACKET0(internal->data1, 0);
++	*ptr++ = addr >> 32;
++	*ptr++ = PACKET0(internal->cmd, 0);
++	*ptr++ = 0;
+ 	for (i = 6; i < 16; i += 2) {
+-		ib->ptr[i] = PACKET0(adev->vcn.inst[ring->me].internal.nop, 0);
+-		ib->ptr[i+1] = 0;
++		*ptr++ = nop;
++		*ptr++ = 0;
+ 	}
+ 	ib->length_dw = 16;
+ 
+@@ -764,17 +768,20 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ static uint32_t *amdgpu_vcn_unified_ring_ib_header(struct amdgpu_ib *ib,
+ 						uint32_t ib_pack_in_dw, bool enc)
+ {
++	u32 *ptr = &ib->ptr[ib->length_dw];
+ 	uint32_t *ib_checksum;
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000010; /* single queue checksum */
+-	ib->ptr[ib->length_dw++] = 0x30000002;
+-	ib_checksum = &ib->ptr[ib->length_dw++];
+-	ib->ptr[ib->length_dw++] = ib_pack_in_dw;
++	*ptr++ = 0x00000010; /* single queue checksum */
++	*ptr++ = 0x30000002;
++	ib_checksum = ptr++;
++	*ptr++ = ib_pack_in_dw;
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000010; /* engine info */
+-	ib->ptr[ib->length_dw++] = 0x30000001;
+-	ib->ptr[ib->length_dw++] = enc ? 0x2 : 0x3;
+-	ib->ptr[ib->length_dw++] = ib_pack_in_dw * sizeof(uint32_t);
++	*ptr++ = 0x00000010; /* engine info */
++	*ptr++ = 0x30000001;
++	*ptr++ = enc ? 0x2 : 0x3;
++	*ptr++ = ib_pack_in_dw * sizeof(uint32_t);
++
++	ib->length_dw = ptr - ib->ptr;
+ 
+ 	return ib_checksum;
+ }
+@@ -804,7 +811,8 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
+ 	uint32_t *ib_checksum;
+ 	uint32_t ib_pack_in_dw;
+-	int i, r;
++	u32 *ptr;
++	int r;
+ 
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		ib_size_dw += 8;
+@@ -825,18 +833,20 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, ib_pack_in_dw, false);
+ 	}
+ 
+-	ib->ptr[ib->length_dw++] = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
+-	ib->ptr[ib->length_dw++] = cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
+-	decode_buffer = (struct amdgpu_vcn_decode_buffer *)&(ib->ptr[ib->length_dw]);
+-	ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
++	ptr = &ib->ptr[ib->length_dw];
++
++	*ptr++ = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
++	*ptr++ = cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
++	decode_buffer = (struct amdgpu_vcn_decode_buffer *)ptr;
++	ib->length_dw = ptr - ib->ptr +
++			sizeof(struct amdgpu_vcn_decode_buffer) / 4;
+ 	memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
+ 
+ 	decode_buffer->valid_buf_flag |= cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
+ 	decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
+ 	decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
+ 
+-	for (i = ib->length_dw; i < ib_size_dw; ++i)
+-		ib->ptr[i] = 0x0;
++	memset32(ptr, 0, ib_size_dw - ib->length_dw);
+ 
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, ib_pack_in_dw);
+@@ -934,7 +944,8 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 	struct dma_fence *f = NULL;
+ 	uint32_t *ib_checksum = NULL;
  	uint64_t addr;
 -	int i, r;
 +	u32 *ptr;
 +	int r;
  
- 	r = amdgpu_job_alloc_with_ib(ring->adev, &ring->adev->vce.entity,
- 				     AMDGPU_FENCE_OWNER_UNDEFINED,
-@@ -486,45 +487,46 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
- 		goto err;
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		ib_size_dw += 8;
+@@ -946,31 +957,33 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 		return r;
  
  	ib = &job->ibs[0];
-+	ptr = ib->ptr;
- 	/* let addr point to page boundary */
- 	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg.gpu_addr);
+-	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
+-
+ 	ib->length_dw = 0;
++	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
  
- 	/* stitch together an VCE create msg */
--	ib->length_dw = 0;
--	ib->ptr[ib->length_dw++] = 0x0000000c; /* len */
--	ib->ptr[ib->length_dw++] = 0x00000001; /* session cmd */
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 0x11, true);
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000018;
+-	ib->ptr[ib->length_dw++] = 0x00000001; /* session info */
 -	ib->ptr[ib->length_dw++] = handle;
-+	*ptr++ = 0x0000000c; /* len */
-+	*ptr++ = 0x00000001; /* session cmd */
-+	*ptr++ = handle;
- 
- 	if ((ring->adev->vce.fw_version >> 24) >= 52)
--		ib->ptr[ib->length_dw++] = 0x00000040; /* len */
-+		*ptr++ = 0x00000040; /* len */
- 	else
--		ib->ptr[ib->length_dw++] = 0x00000030; /* len */
--	ib->ptr[ib->length_dw++] = 0x01000001; /* create cmd */
--	ib->ptr[ib->length_dw++] = 0x00000000;
--	ib->ptr[ib->length_dw++] = 0x00000042;
--	ib->ptr[ib->length_dw++] = 0x0000000a;
--	ib->ptr[ib->length_dw++] = 0x00000001;
--	ib->ptr[ib->length_dw++] = 0x00000080;
--	ib->ptr[ib->length_dw++] = 0x00000060;
--	ib->ptr[ib->length_dw++] = 0x00000100;
--	ib->ptr[ib->length_dw++] = 0x00000100;
--	ib->ptr[ib->length_dw++] = 0x0000000c;
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+		*ptr++ = 0x00000030; /* len */
-+	*ptr++ = 0x01000001; /* create cmd */
-+	*ptr++ = 0x00000000;
-+	*ptr++ = 0x00000042;
-+	*ptr++ = 0x0000000a;
-+	*ptr++ = 0x00000001;
-+	*ptr++ = 0x00000080;
-+	*ptr++ = 0x00000060;
-+	*ptr++ = 0x00000100;
-+	*ptr++ = 0x00000100;
-+	*ptr++ = 0x0000000c;
-+	*ptr++ = 0x00000000;
- 	if ((ring->adev->vce.fw_version >> 24) >= 52) {
--		ib->ptr[ib->length_dw++] = 0x00000000;
--		ib->ptr[ib->length_dw++] = 0x00000000;
--		ib->ptr[ib->length_dw++] = 0x00000000;
--		ib->ptr[ib->length_dw++] = 0x00000000;
-+		*ptr++ = 0x00000000;
-+		*ptr++ = 0x00000000;
-+		*ptr++ = 0x00000000;
-+		*ptr++ = 0x00000000;
- 	}
- 
--	ib->ptr[ib->length_dw++] = 0x00000014; /* len */
--	ib->ptr[ib->length_dw++] = 0x05000005; /* feedback buffer */
 -	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
 -	ib->ptr[ib->length_dw++] = addr;
--	ib->ptr[ib->length_dw++] = 0x00000001;
-+	*ptr++ = 0x00000014; /* len */
-+	*ptr++ = 0x05000005; /* feedback buffer */
+-	ib->ptr[ib->length_dw++] = 0x00000000;
++	ptr = &ib->ptr[ib->length_dw];
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000014;
+-	ib->ptr[ib->length_dw++] = 0x00000002; /* task info */
+-	ib->ptr[ib->length_dw++] = 0x0000001c;
+-	ib->ptr[ib->length_dw++] = 0x00000000;
+-	ib->ptr[ib->length_dw++] = 0x00000000;
++	*ptr++ = 0x00000018;
++	*ptr++ = 0x00000001; /* session info */
++	*ptr++ = handle;
 +	*ptr++ = upper_32_bits(addr);
 +	*ptr++ = addr;
-+	*ptr++ = 0x00000001;
++	*ptr++ = 0x00000000;
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000008;
+-	ib->ptr[ib->length_dw++] = 0x08000001; /* op initialize */
++	*ptr++ = 0x00000014;
++	*ptr++ = 0x00000002; /* task info */
++	*ptr++ = 0x0000001c;
++	*ptr++ = 0x00000000;
++	*ptr++ = 0x00000000;
  
 -	for (i = ib->length_dw; i < ib_size_dw; ++i)
 -		ib->ptr[i] = 0x0;
++	*ptr++ = 0x00000008;
++	*ptr++ = 0x08000001; /* op initialize */
++
 +	ib->length_dw = ptr - ib->ptr;
 +
 +	memset32(ptr, 0, ib_size_dw - ib->length_dw);
  
- 	r = amdgpu_job_submit_direct(job, ring, &f);
- 	amdgpu_ib_free(&ib_msg, f);
-@@ -558,7 +560,8 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
+@@ -1001,7 +1014,8 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
  	struct dma_fence *f = NULL;
+ 	uint32_t *ib_checksum = NULL;
+ 	uint64_t addr;
 -	int i, r;
 +	u32 *ptr;
 +	int r;
  
- 	r = amdgpu_job_alloc_with_ib(ring->adev, &ring->adev->vce.entity,
- 				     AMDGPU_FENCE_OWNER_UNDEFINED,
-@@ -570,27 +573,28 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		ib_size_dw += 8;
+@@ -1013,31 +1027,33 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
  		return r;
  
  	ib = &job->ibs[0];
-+	ptr = ib->ptr;
+-	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
+-
+ 	ib->length_dw = 0;
++	addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
  
- 	/* stitch together an VCE destroy msg */
--	ib->length_dw = 0;
--	ib->ptr[ib->length_dw++] = 0x0000000c; /* len */
--	ib->ptr[ib->length_dw++] = 0x00000001; /* session cmd */
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		ib_checksum = amdgpu_vcn_unified_ring_ib_header(ib, 0x11, true);
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000018;
+-	ib->ptr[ib->length_dw++] = 0x00000001;
 -	ib->ptr[ib->length_dw++] = handle;
-+	*ptr++ = 0x0000000c; /* len */
-+	*ptr++ = 0x00000001; /* session cmd */
+-	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
+-	ib->ptr[ib->length_dw++] = addr;
+-	ib->ptr[ib->length_dw++] = 0x00000000;
++	ptr = &ib->ptr[ib->length_dw];
+ 
+-	ib->ptr[ib->length_dw++] = 0x00000014;
+-	ib->ptr[ib->length_dw++] = 0x00000002;
+-	ib->ptr[ib->length_dw++] = 0x0000001c;
+-	ib->ptr[ib->length_dw++] = 0x00000000;
+-	ib->ptr[ib->length_dw++] = 0x00000000;
++	*ptr++ = 0x00000018;
++	*ptr++ = 0x00000001;
 +	*ptr++ = handle;
- 
--	ib->ptr[ib->length_dw++] = 0x00000020; /* len */
--	ib->ptr[ib->length_dw++] = 0x00000002; /* task info */
--	ib->ptr[ib->length_dw++] = 0xffffffff; /* next task info, set to 0xffffffff if no */
--	ib->ptr[ib->length_dw++] = 0x00000001; /* destroy session */
--	ib->ptr[ib->length_dw++] = 0x00000000;
--	ib->ptr[ib->length_dw++] = 0x00000000;
--	ib->ptr[ib->length_dw++] = 0xffffffff; /* feedback is not needed, set to 0xffffffff and firmware will not output feedback */
--	ib->ptr[ib->length_dw++] = 0x00000000;
-+	*ptr++ = 0x00000020; /* len */
-+	*ptr++ = 0x00000002; /* task info */
-+	*ptr++ = 0xffffffff; /* next task info, set to 0xffffffff if no */
-+	*ptr++ = 0x00000001; /* destroy session */
-+	*ptr++ = 0x00000000;
-+	*ptr++ = 0x00000000;
-+	*ptr++ = 0xffffffff; /* feedback is not needed, set to 0xffffffff and firmware will not output feedback */
++	*ptr++ = upper_32_bits(addr);
++	*ptr++ = addr;
 +	*ptr++ = 0x00000000;
  
--	ib->ptr[ib->length_dw++] = 0x00000008; /* len */
--	ib->ptr[ib->length_dw++] = 0x02000001; /* destroy cmd */
-+	*ptr++ = 0x00000008; /* len */
-+	*ptr++ = 0x02000001; /* destroy cmd */
+-	ib->ptr[ib->length_dw++] = 0x00000008;
+-	ib->ptr[ib->length_dw++] = 0x08000002; /* op close session */
++	*ptr++ = 0x00000014;
++	*ptr++ = 0x00000002;
++	*ptr++ = 0x0000001c;
++	*ptr++ = 0x00000000;
++	*ptr++ = 0x00000000;
  
 -	for (i = ib->length_dw; i < ib_size_dw; ++i)
 -		ib->ptr[i] = 0x0;
++	*ptr++ = 0x00000008;
++	*ptr++ = 0x08000002; /* op close session */
++
 +	ib->length_dw = ptr - ib->ptr;
 +
 +	memset32(ptr, 0, ib_size_dw - ib->length_dw);
  
- 	if (direct)
- 		r = amdgpu_job_submit_direct(job, ring, &f);
+ 	if (adev->vcn.inst[ring->me].using_unified_queue)
+ 		amdgpu_vcn_unified_ring_ib_checksum(&ib_checksum, 0x11);
 -- 
 2.54.0
 
