@@ -4,99 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15C1CD98F6
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 04:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7238CDB46B
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 07:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 819C410E496;
-	Mon, 22 Jun 2026 04:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2C210E4F0;
+	Mon, 22 Jun 2026 07:27:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gjuEjlRH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CvjxVwo/";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010023.outbound.protection.outlook.com [52.101.85.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A35E10E496
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 04:50:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RF71keojvw+LnDf5JNUmm0351DT33bSSMgaIkzfuUnJPURh1sghfGgz70NdvNnozurC5ZuW4xhsETmhQe9RbHnMMzZbF5nSSSqMKLu4cnILP0Adi/oEZtTARgKrWOKKMsOsSqZbTdvBJ3wTG6EBdQ3OLnMdtU2v/Fdmq4pIecQndro3GW8Qo/jxpg+4wHeYofwKrQBsghC6IR8jRjkfh2FX6PjHdYkvfntlhjJhZ8AHmyC+QED7j4O2FDsH4dM9LHqCX8casWgCRUT9WK3aiOtbOGpqYxBTO2RUbr9YcrGUzeELaqETIi+Ib9OIPxTxcOZsnlJ3Ly/6MsnZA221D0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eTFLFN1H6fHYCO2lmM8xDeEzdOLXJvdW4VmUAqSOtZU=;
- b=YBxVw8CNah6H+GIQ10j8z+sU5MmyM46FOszfPdkMufqUX2e0sb/HnUc+Ox7vqpPZ7U9dT2X5joNEBYy0lQPUXA9UreVtZ1JcCOU9Xr+zqC/tN0ITZqqQrxD+tUYYeYV3DgbzZgEoOYjjCVvIT+CfB6NRzNMNwuQI2bROH+++KUtzV5dgFszIk2UG57q7Bo0e2M1t9Y+i0TEFPvXi7oNpQkW565V3zjSGKxHcj0JzKb3KFRvIVlc8fMf9iClH5krTsPkvx8XdWNJOcrcti6fD/StY7yKaxXVwPW4/fN4A9S0j/OJkrvFTuZjD0D4pFrlDXIFrMf3f9E9ZWdtYjdkBMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eTFLFN1H6fHYCO2lmM8xDeEzdOLXJvdW4VmUAqSOtZU=;
- b=gjuEjlRHebUWILkIshZk/atKj+XpfDfu6f9guBEjc4ufP1wnm9R0960GVOiRww60Ckrj4PMvzhQ59gSO0RM3o16hFQEPCPKdOj2iBgWXcBpbWleVCDhlKJ7lD/THaSGFM3th1skfvgFmnL8kuMyeQ9jFja4rMWO0GxCPGCnH1Ho=
-Received: from BN9PR03CA0642.namprd03.prod.outlook.com (2603:10b6:408:13b::17)
- by BL1PR12MB5804.namprd12.prod.outlook.com (2603:10b6:208:394::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Mon, 22 Jun
- 2026 04:50:54 +0000
-Received: from BN2PEPF000044A3.namprd02.prod.outlook.com
- (2603:10b6:408:13b:cafe::a1) by BN9PR03CA0642.outlook.office365.com
- (2603:10b6:408:13b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.19 via Frontend Transport; Mon,
- 22 Jun 2026 04:50:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A3.mail.protection.outlook.com (10.167.243.154) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 04:50:54 +0000
-Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 21 Jun
- 2026 23:50:49 -0500
-From: Ce Sun <cesun102@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>, "Ce
- Sun" <cesun102@amd.com>
-Subject: [PATCH v1 2/2] drm/amdgpu: re-set ClearMcaOnRead CE/UE in late init
- for uniras
-Date: Mon, 22 Jun 2026 12:50:41 +0800
-Message-ID: <bd577524ff26f6c9c2d934b321bfee56187ca1f5.1782103766.git.cesun102@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1782103766.git.cesun102@amd.com>
-References: <cover.1782103766.git.cesun102@amd.com>
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C2010E4F0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 07:27:00 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id
+ 46e09a7af769-7e92cb77209so2091873a34.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 00:27:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782113220; cv=none;
+ d=google.com; s=arc-20240605;
+ b=OyBrq7HKXCqUWNbAr4xJ5zpH0ZtqeUX8dluKM16PGqxjIVgu3JpoVzIz5SA2k7EAgs
+ nUE8lHE9oHoEFhuOv/4CaNXcRVH0tIcNmxksT1nhtamvdEzKHF/N/PJY9QPa/+S9rRSK
+ nIpMBz8k3RfkWJQIkLOx4qGu5J7jirF3YVmio9PsCv/8VemuWneprCayzamKa29iSe76
+ AiCJb3vFsPULxTJ4PwLymeG4MfY6LXukQcSEjH21Aa+4SJa1JS/UND5FiFurFdA27mOV
+ EI6sK6kx3qJ8RQKT1KmkCgmTKFX142VKuXe62D6ihEm72meC3NMShcGQ68HO06scqBYp
+ VCgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=b7FQ1aR5OdpNqu3r0SBRqrV7xGbQqLLo0aQcbDX73CQ=;
+ fh=iYv/3yi8WuLe+NLVxQ/LqDQuoNcCBqSo1OPLwfIw798=;
+ b=LJJjZGEK0Juja0Hapa6gzEz97/4mU5+uXAhszv2mzDV4kbB4Ktqsift5vOyqgd0/hd
+ U5RDA3wq1c4xZUcJiki6AtG/LExUP+oh0/0iQF5IHd0HSXq7fiwCplpuMbufDn1ZD5Fy
+ g9ipkPeAb9sBbUuYDscDGOcQ6MsY/hBktbV+ifHjjpwBM0Ajz5GVjIwo2zf56TmlYYrT
+ wUI4DIyycWQwYWWjsksWcTEyfYxIQbrbatttlPEnkPSDsUi02fKB20CUXSdQ4n2HuD5E
+ jP4ZagpPGLS727WcriLFPiODSMt4kxGH8qkNbAqi41/QH3EgJr/a7AABGiCQrnDd1zeW
+ qiJg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782113220; x=1782718020; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=b7FQ1aR5OdpNqu3r0SBRqrV7xGbQqLLo0aQcbDX73CQ=;
+ b=CvjxVwo/5XXEcli1YY4aOz/xNYBp9gbfqt7lIRcxyjiD+1IysO2KhB8yH7Xfc3n1cO
+ bRow0ONNc9N/vdySOjKYf7agwaAmmOeugOc642TGM+3P7r1itqhia8xgbzLgg5Duvecl
+ vu4bWAhQgFFeU2jHCYGXqUCFlEcCLAxFaGEfwqc8Do+5tRClzVCNjdw4gjZesP1zBlhH
+ 8WXed2GcdYLX4V0j7X8MfKxm4dvIUSfqreCh7jBfsUH9XIQOL9B9Ga/AcMfHkJIZZCP4
+ jGpV+BjL8+eQcopj/LAHAYk0Qlays34Sr1yrLUpVJVd63m9MJ9UQXVYbhsVlwpWwFItP
+ EvaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782113220; x=1782718020;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=b7FQ1aR5OdpNqu3r0SBRqrV7xGbQqLLo0aQcbDX73CQ=;
+ b=UOypededsaEiU2zW3xRZ7DrjtN3FinxSZ8LfOcB3ALhRIiLLuT5PMtP592s5zRXF03
+ VCX5zNHaa0OaJ2JJaV7uxhdpsMQkbGBiG6xxWuq6Waz/PxYJQPtajQ4HcAdFSJHq8pnL
+ ny+UjId/mCL8EErZTVHSgha2xCWssar0DOaF7QOC4n6PNL/F63Q6gRx9Vd2s/Ys3YDvB
+ zNSGcLygH6W+TbF7lzLG0WgDgc6d7WVSFw++4X7ed/qRtE7xkw6cP+8Pa4ej3k8zn53j
+ /0XHHVnvtm69f/YA534aA2NQ8q17zbUnk3vwSsZFsgTtutsLqGcVHPru9e7CwxO8YTmV
+ x3gA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+m3aU2qQH6FWBEiGWLMn4fwmXXbwFt13C87WBpZNCMAkgQV8SysQbBITtvibxfM7scc81PpIwQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzM+om4Rn3FDY+FS2k5jNPvoaUsUVm9VvijZ66JdAjE1Z31+EWo
+ 7wtVKeuFCBDavdyQkmwAslYPFTnpwMVOx1fv53vXMXECTgaX6Wu2aD0BrffmbtE2mFaZ5wyPOHq
+ H9SVmV53Fb2g8694z/D6PBYTK6jSUMcI=
+X-Gm-Gg: AfdE7cnVfzsmhxKgIKKp2h9KQfoaW4J8YwbhlGTKm9FdQFu6gGdDYHPReNH7GO6Is0v
+ CdMCzJT/trNWRtYdRBBfH1I2pD/lK7AW1QFNMuWDMk/4vczd9Gn8BUrsI+LIrsub52fPXImnIS7
+ H63ClWQkP9+cyzsyNLhsLDyLa/LWuTBXlE54q5tkVHoW8MU1j4n6HWtgQFjVfG1w16c/DH2QamG
+ BniA2ELCwDXiJIyqYgeT7S0qwacoccv7h9Vsn0Wb3PL59r01hPzJ81TyR/ew+yhq4nrl07Tvuk=
+X-Received: by 2002:a05:6830:3493:b0:7e1:f7e9:327e with SMTP id
+ 46e09a7af769-7e9323e5412mr11396887a34.22.1782113219802; Mon, 22 Jun 2026
+ 00:26:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A3:EE_|BL1PR12MB5804:EE_
-X-MS-Office365-Filtering-Correlation-Id: 539c3b6f-5831-47a3-9446-08ded019d79e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|56012099006|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 8FtOih7o+mbeXZzxPSnx/RBA31MqNEQ2G9uDb07+IPsFHyek2GktpVo8GGI+m+iICC2M8GHVv7yKCnxcMpqtWMptAPlUrRwSdWYEy4tNHi9SfSyDl4qnHDgFCQUHXp2HK2FAvTv+75q3RBhqY1NdCQACpsh9HKK6ds3GRazkDDhuw0uCvieeHKPmTkrzVD46Dy9lawpJeNqIlF0OzMfVQM9SnNSiaWcJY4EJ0s1BngxNbNGZt647ZGrtO8tpnvwEY631k7gV25/MD2Zx7jTcbvfw+8QN51wUVWfl/ZE+kgKpHnl+BCAhcolZQvE3q0TjVP2ES6J1CPCp0xlZrrPgk2YQ6TjR433wQ5Czw46ZyWi8LEesXqmugtf157EGLNPDKI8BT+RD/Y+vR3lmxl7YC1LKue2wBy6Mb6I7hu6K+yO8cZLd0IVdWdIsmKhY9yXsJpEKAvbM0iuNmKXXOcLdrJ+RjURXlx7N5ywRtJzCOvMcVCzO3ER/0fY0HBct44mvPzRn1x5IwWgecQUyKUbt3k7ylQKbSOC3CdlHPnvxDxo0ob6tF2blT6H/BLVGVcsNcQVXKz5sfjKwfwPWZNxEu3CqSpGu5m3tQwSFOFYNBWSfsQB7aCZgmc6Jp3g1r4kmfBm23+gk8kOWjDWvDGb+7PbC1ABvw7QuLvLzpHXtXZDSFT479O9538X8DYZNxJlodqA/lD1umqfceXllJmCn3g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /4FVaM3PVaJedM25+Cr6yXneo79YTxElWoXvAdqvz6eGV4xaP5uZfGoc2DQ22y4urDeDw8VMlHFI/TPscF2pEYNFKNTu4nBNReEXU6yRe6orbss9jiEm4m/Jr/AN5oSzYpJjjp9LKsuL2oX0SgTfIQ36kGUNItVbaP7hcZcN2EkPsQfVMSX81ZyE2Lt0IprD+Pz16C5of1wVFx7gr7G4gEn6MpGQXqNXPqeA4zkwm6Tt9HYjjPGkToSOgPyYHWPB+hobmo4sXzrxzP+gpi8F/ehLQi1rC5uC/RU34Bslm4rB4xv1+rNlPsp8T0GRxmKGY2tt3Xk+WtIWOwv1TyRAbu+dr06JBVkBGEbSAaxE4GeOABfJXuj7VTNPFv40rhfH/tvWhmWe+rfPWh5v3IcnjCLdGElglo8M54sgiztFP07d6bzPLn3XIAow5axoyUm6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 04:50:54.3043 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 539c3b6f-5831-47a3-9446-08ded019d79e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A3.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5804
+References: <CABXGCsOuCXr4R+WW60KNuWNS2MqzE9w6iv-t_ykbwmhqDSABAQ@mail.gmail.com>
+ <c084c555-e4f4-48a6-9fad-175932acda01@gmx.de>
+In-Reply-To: <c084c555-e4f4-48a6-9fad-175932acda01@gmx.de>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Mon, 22 Jun 2026 12:26:48 +0500
+X-Gm-Features: AVVi8CdL5HCS6SzL7JevAxlu8t7MCcOBjE3b4wSUAQVcGGIU9Sqd3fb5ZlnE_Hw
+Message-ID: <CABXGCsNAEapxA3gZis6XCg_KWxzRGsxiwR9-A7Dh-+iDNGpaNQ@mail.gmail.com>
+Subject: Re: [REGRESSION 7.2] drm/amdgpu: ~275 SDMA jobs per sparse VA bind
+ since 4cdbba5a (RE Requiem 90->4 fps)
+To: Natalie Vock <natalie.vock@gmx.de>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
+ Linux regressions mailing list <regressions@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,28 +108,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Re-set the ClearMcaOnRead flags for UE and CE errors during RAS late init
-to maintain correct MCA error handling behavior
+On Mon, Jun 22, 2026 at 10:44=E2=80=AFAM Natalie Vock <natalie.vock@gmx.de>=
+ wrote:
+>
+> On 6/21/26 22:55, Mikhail Gavrilov wrote:
+> > Hi Christian, Alex,
+> >
+> > git bisect points to
+> >
+> >    4cdbba5a16aa ("drm/amdgpu: restructure VM state machine v4")
+> >
+> > as the first bad commit (its parent tests fine) for a severe
+> > interactivity regression.
+> >
+> > It was merged during the current 7.2 merge window; it is not in any
+> > released kernel yet and will first appear in 7.2-rc1.
+> >
+> > Symptom: Resident Evil Requiem (re9.exe under VKD3D-Proton, RADV, RX
+> > 7900 XTX / Navi31, gfx11) drops from ~90 to 3-4 fps the instant the
+> > camera moves; still scenes are fine. The previous bisect point
+> > d352990bcaab is smooth.
+>
+> I already fixed this in a patchset[1] that should be on its way - seems
+> like it didn't make it into rc1 at least?
+>
+> Christian, Alex, can you make sure that the first patch from that set,
+> "drm/amdgpu: Only set bo->moved when the BO was actually moved", is
+> included in a -fixes PR for 7.2?
+>
+> For the record, I intentionally did not include a Fixes: tag in this
+> patchset, because the commit was not merged anywhere but
+> amd-staging-drm-next at the point of writing, and the same commits in
+> amd-staging-drm-next and upstream have different SHAs. AFAIU, this also
+> prevents me from telling regzbot that a proper fix is underway for now.
+> Not sure if there's a workaround for this?
+>
+> Best,
+> Natalie
+>
+> [1]
+> https://lore.kernel.org/amd-gfx/20260529153051.973261-1-natalie.vock@gmx.=
+de/
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +++
- 1 file changed, 3 insertions(+)
+Thanks, Natalie. I applied that first patch ("drm/amdgpu: Only set
+bo->moved when the BO was actually moved") on top of ef0c9f75a195 and
+the regression is gone -- camera movement is back to ~90 fps.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 465f82c660f2..953a35ec93fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3903,6 +3903,9 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
- 	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_ras_telemetry_en(adev))
- 		return 0;
- 
-+	if (amdgpu_uniras_enabled(adev))
-+		amdgpu_ras_mgr_set_debug_mode(adev, false);
-+
- 	list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
- 		obj = node->ras_obj;
- 		if (!obj) {
--- 
-2.34.1
+Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 
+Re regzbot: since I opened the regression, I can link your fix from
+here without a Fixes: tag or a matching SHA -- monitor just takes the
+thread URL:
+
+#regzbot monitor:
+https://lore.kernel.org/amd-gfx/20260529153051.973261-1-natalie.vock@gmx.de=
+/
+
+Later, once the fix lands upstream, the entry can be closed with a
+regzbot "fixed-by" on that commit's SHA.
+
+--=20
+Thanks,
+Mikhail.
