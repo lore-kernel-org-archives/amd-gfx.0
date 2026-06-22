@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75923CDB46B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D912CDB477
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7BB10E574;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBB710E581;
 	Mon, 22 Jun 2026 08:45:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L11vFBml";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oD0X4EAf";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010057.outbound.protection.outlook.com [52.101.85.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A23A10E564
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:45:55 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012022.outbound.protection.outlook.com [52.101.48.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA5C10E570
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:45:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BipY5faJgsg4cIWV60hA/BlqRXV/p79JknstALMb8rUfcoZuamZbZJqc6uG15LNqIMtnJF3Pp4sWVLo0J+PxEkNKzq+GBmVNujGhupOe6cqg0RZN8T1ud/I3h1DSSGRa5r6OMSqwt59ntm0/S8rIP4VsUjEU/bVa0jUhbCp+TDvaK+7/8SuYa3HCjMcS9W/EQ4Z3JUcsP0XOSi4KozwuY3vY88LF3xSVhRE9EpeWpMZte4AU1GRpCLAp9VOjZKIDE2cDrLVk53TbgyXJwOTf+0RH0SoiVqzwacD78F1ZDuk/693QbienVR5ekbB9tWt4cTzQtuMG2tFSUqiavKoO5w==
+ b=g9TYbMJbJQNPv7T4dYzWr2Bq6ZyIFaEX6OAQetYrmjrd9LPb1z4S5NUUQfvdzO/LzKTzvii2n09Aoco3UNF+ZFmaWyd/d/8p9kicDuitLgEyuiGa8zur+2fN4fcswxRhRsURhYo5ul4FRWk1r/koKOYIMtwTRBY7x99wlyytXUCq1XkZ0MqFszFnB4X5iOjFWmEKx3/Aun+BeEY91tVptapNET1lW9DGf6QjGBE3Y+a6/khW63fNg7szDTW3oWXAjVejKpkHWkVz6GrXGnCV8Dd2fhYgtrkyTnfVTvUaJrKWn9AJ4RbxB3vuFi1jkq151CtCC++sKrqZkYtTH1yk2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OBMdWhEcXABJdZaWwLvpPe5e4AlI17V5gkutM8jFrJU=;
- b=GlGl0ikiMIesjS5VCORPUVrxprxVfPi7BP8/YQkALPUwxmP5kKbGjP4vQyHVIAiRhifO41TnpG6GjzJJeLuQHbYx/PyEhUxHceEnOtbLYj73gZIk8tq9tGPkTF+affXZLHccsVUSZW+fpg90RXX34JNPU9IZgAKn95Aw7NGoNS59922/Cd4Eppwq3oI1ghP4SWZjSHQ5vW1AYPgh8VBNfWvxAWsPF7jQd/APtUB2Oy1Gv5QjvaaiGZVXMFWyh4A4lDJocMKO9zXFeSoWSHKaaxTdlYQ0oWazae3W43J+HHypI+PAnkAB6B6z1rKeMAerAKMnyZ+0eUx7sAKuPsl1PQ==
+ bh=6H5VrX0uG4PsWfRCNB8VBW8ujW0nmiTJCrL7pO4QPRQ=;
+ b=gbauu27GbQFnrZJuNGKVv/wE7r7jq+JaKyxp6gRPHn33XDiJhlVuf03EeAUBPkhGXDP8QveTA2iR2U0djdxdyPxOzs7YjCFQoebMTTP1C0eA9rhENa8z06RJtsIQi3kXDhrXfhjnjaLSvWhRtF9RcgqH7R187Q4p3ANjHynSswI9DMZ94tIlvUKCOECzMIZUTFyHkxzLUtB7OhPT2gjsC99/6N/UMmZ8E8iHb3YluCuWGJ4i/N4ylzi0KT4CMq3wF4lsNnDA97R5JjD67Dr3vKCMeJjD9o/fp+vMMDYQnhVdR9FuSb3CUweT7yDi2IIoVL0/harHtzGlGevLR7l+cQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OBMdWhEcXABJdZaWwLvpPe5e4AlI17V5gkutM8jFrJU=;
- b=L11vFBmlpDEXyzuGZkynmZ56YTgTYWlclUcI42CO4Eg6+LvmPt/JuB0XaSKYMTXzcNtLOrbjtRRXVg1XQx/VYVMgHfxrB6it+JbL/AQP4SgWKSNB5gf6HCk1Tu5iGVUN3kRaMHEGuDrYtV9WOwaRRUmHVfFNU4iw26sNYp8ECzY=
-Received: from DS7PR06CA0045.namprd06.prod.outlook.com (2603:10b6:8:54::26) by
- MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 08:45:50 +0000
+ bh=6H5VrX0uG4PsWfRCNB8VBW8ujW0nmiTJCrL7pO4QPRQ=;
+ b=oD0X4EAfIvSeDzm/RPasObw60ZUxzVsN2Zl0wWS8oEygOfELEM4RnIBT8/48RNw5hyHH9DfyZwvFkOFD/Sx2jBrpfmpJSce1E3XuimHSF2j9T4njLLiFOLeQRrt28qDCo6DXz+/V7qVxZb4+9s1n4LxqRfPnT3krvtzYyKh/4Lo=
+Received: from DS7PR06CA0035.namprd06.prod.outlook.com (2603:10b6:8:54::9) by
+ DS0PR12MB8814.namprd12.prod.outlook.com (2603:10b6:8:14e::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.18; Mon, 22 Jun 2026 08:45:52 +0000
 Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
- (2603:10b6:8:54:cafe::1e) by DS7PR06CA0045.outlook.office365.com
- (2603:10b6:8:54::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
- 22 Jun 2026 08:45:50 +0000
+ (2603:10b6:8:54:cafe::a6) by DS7PR06CA0035.outlook.office365.com
+ (2603:10b6:8:54::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.19 via Frontend Transport; Mon,
+ 22 Jun 2026 08:45:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 08:45:50 +0000
+ 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 08:45:52 +0000
 Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
- 2026 03:45:46 -0500
+ 2026 03:45:50 -0500
 From: Ce Sun <cesun102@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
  <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
-Subject: [PATCH v2 20/48] drm/amdgpu: retire legacy RAS reset/query operations
- for mmhub v1_8
-Date: Mon, 22 Jun 2026 16:44:22 +0800
-Message-ID: <138d8856db316adf62a8091e59424291c37fc621.1782117608.git.cesun102@amd.com>
+Subject: [PATCH v2 22/48] drm/amdgpu: retire legacy RAS reset/query operations
+ for jpeg v4.0.3
+Date: Mon, 22 Jun 2026 16:44:24 +0800
+Message-ID: <29e5f5eca018c7611a61bf745e74f50b1a50a001.1782117608.git.cesun102@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <594f7cbae0387b60f8af49505b57c1a5a604db2f.1782117608.git.cesun102@amd.com>
 References: <594f7cbae0387b60f8af49505b57c1a5a604db2f.1782117608.git.cesun102@amd.com>
@@ -74,29 +74,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|MN2PR12MB4470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 347d33be-de8f-49e0-6f86-08ded03aa981
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|DS0PR12MB8814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 500a7eab-5c68-423f-6186-08ded03aaae6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: zRclAvD1oPe/6qo/lAGyGXfzjjENJF5iT6tnnIl+2mZApZwngbKKV/OAYloPf+qMb+Yme+DqtjavAYISuSL56GyXpOXYJZkmf3GiGILMXNfUMdwroRqENjvmSEgDD5j2/LyAv+8k7TvgqOBqjP8aoa+lPsW6PSSTOQ1rV+nbd9KN7xXUjyZSHaxwYbhbq0iRXV9hLX3lJm3Zt5zn8UMDVU/kvmjvJnTV4Z9mxMMzasA+G/NvDOM9mxgjcGST+cUno14tKdhGP4HZLu3oqk4OEv+mV4JIHsmyU8v3dJpC/w1SlIsup8CnX2JckNURB2kXhfyOTmt4DcshnqqqwZpbg4gIO/T+LSyLrq5v/hgc+UY4A+ngSaccKbLlobtI6zhJXMQ8PRXb8FpA2jFY2ClgSgaoDPgDTM8zuGt5DcZxv/uxOtDXV3yWwFYyhRvYvqBASowDaqsODFt13WISf4jOqjnlCAHxpaRZNAI9VzDs1e/AiGGxbNiZ8EqvaHKCL8WZPvjTB463sYz5YrMjqei0QHGYbdtXQ13NNLlVAtuli4ixjd9W+my4eS/vWAFGzhkcKKs66sX0ynKhlPjrmgiw60sXueZjGynvnRTfudXA1rwP8edRxPSEi17Um7K3hau9ttFtWBIRppyQCYcMYOg5agV9MxqCeC8jV14OXmVPmLo6fnAWPt/JqnFRIeiPrHiWXY3fgKlLKehgHlWaPxno1A==
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: NRBYat+cNR/M4ckRLIC5MP7T83kxcRjvECMcrE6pWZZ33ARMDH9kXoR14o/xhlJmDcvR1/9avCOx16LjZaohD/mBrXzDCiNrAvbMciE5iG/ZFCLPcO2fkKo2i6lq4idb7rmu0jK8C92xJbxBmyL/QoLKY2k3H8m8JVy9/qoEQdvGr1c7EmKeVtuj3X2JIY8ZhaD5OF+oZ44WwwtkMEvZ88UQdxb6WzFW5tQAjQH9DZZ8A3SoFzp+rugHB0/WvCFwIxvYtyvhOIMYyyNBrg9dRPQwLgaxSt1r/B6jWsO85jp5T8P/lZCJm3U2AtVr91PzkLmhcSnw0jTnAk3up2wftVNYc+MU/VUYTBJZ43mZwZXvwBPHdqQ4Sx+6tFPgOmWYM9rAa1WASizStqsxvPSFX4vECE0rANuAB5m9OkiKiuyA1lY9VFY9FNAXghJvMl5ZLm7C+fPAbGkuqZHC0qqH7Az0CXtf7LXcPJiCJPn7zu9uNFN2rYK8Jgpj8Bc2ZR16/U/K0AYnqL9FGOfvkrXsMHVa+pqYS4d/Dv/gtTlU7W1184/ZnYSyJeaLJoy40XMmPMWyufgRc+WAZul7Nm+0AU9DucNPQv1vVhiXPQOTwHPcx6Sezwtod2c49D6XouLC7fJ1GIoOB1AVVvv8j5HGmbjahVNK3iK909m+2zUeO+BKaF8HRIvnPD26k5LFiQ/X3T3pB1xBfzUi64PgsrshEw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(22082099003)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(18002099003)(22082099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: f+S981jD4k9nm6LgRF0r8U23CcIM3yTe1LtQQDrdDrKeGq4T5K6KeK0ObzB5Q/1ieWENA7z5vH/q/36N3hpDDPN4S1KYau53dklqRSKPu6ao4XsDoFlr357e4xqTtN/AZo6nmKEJB/9EMJ/fY6+xRIPBg6QyTgFG43+30sB3CGvOclaP9QpwdGq/SI2vDDl/2J4kQMPm0Ix3poxAtfRg/vilZLU4gLa70MJGN0p1DkrD/uGU1Z8WIAV5ZyQ/AUiFTohDmujN5nwhJ56adS18+MTCWAaMpH0tpbz7oewicNUAmbQYGzHlOfdnygF6Xf8hlgJDELMBrSICSv7Z0oKQc5xDQDLqETv0N0W2iXR9dVPdO5CcfJXhvLxIleA/cyIhRJ7/JojGARrbS/Zuil7/q3gi/kVIxY5MPQ+EBI/zAt54pQLECQKdcgC42eaiCIkl
+X-MS-Exchange-AntiSpam-MessageData-0: cxBcgI40lLDysCoRG6yFuMHOfSHvN8kP6JE050sX/ufzGxgOHu4TgCSx3HSVwpvok+4bh+CPLVAPT4cT1uh4ZNeetTzFQqC1+ctN/5kuFkV2y7Sc1KlEMxByJi9LM7v4uEeJuMaZCLGPDAVp7RdDu5corq3ggUoro4DbEjj+j+KVQA7U4x1AXPvES5ePTZ9aSbVInBW0CtSXlK78uC8n0HVYiuFnwjh3mz5rAbdFe5JPOzP0+OXgmuOLf4kGSBp5fN3tksEH+rwcbKHo2M6E12LHAmukoJM1UTj7/+e6Ks3e4626nJ6t6XmuIM+W457WVVb5/71cHmlvXxctSP598AdO6fLvmUG5gK29dyi4JuDw0MhILDqUj0wGeJlvXmYrD8JEtT58L/DL+/HAbupmhuuZw6yVfmhZplBnjR0K/M5IMMzWv9D6lXlOoiudp4lC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:45:50.2834 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 347d33be-de8f-49e0-6f86-08ded03aa981
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:45:52.6216 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 500a7eab-5c68-423f-6186-08ded03aaae6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8814
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,206 +111,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-retire legacy RAS reset/query operations for mmhub v1_8
+retire legacy RAS reset/query operations for jpeg v4.0.3
 
 Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h |  23 ----
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c   | 139 +---------------------
- 2 files changed, 1 insertion(+), 161 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 88 ------------------------
+ 1 file changed, 88 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h
-index 6b8214650e5d..c5120ba51e24 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.h
-@@ -21,29 +21,6 @@
- #ifndef __AMDGPU_MMHUB_H__
- #define __AMDGPU_MMHUB_H__
- 
--enum amdgpu_mmhub_ras_memory_id {
--	AMDGPU_MMHUB_WGMI_PAGEMEM = 0,
--	AMDGPU_MMHUB_RGMI_PAGEMEM = 1,
--	AMDGPU_MMHUB_WDRAM_PAGEMEM = 2,
--	AMDGPU_MMHUB_RDRAM_PAGEMEM = 3,
--	AMDGPU_MMHUB_WIO_CMDMEM = 4,
--	AMDGPU_MMHUB_RIO_CMDMEM = 5,
--	AMDGPU_MMHUB_WGMI_CMDMEM = 6,
--	AMDGPU_MMHUB_RGMI_CMDMEM = 7,
--	AMDGPU_MMHUB_WDRAM_CMDMEM = 8,
--	AMDGPU_MMHUB_RDRAM_CMDMEM = 9,
--	AMDGPU_MMHUB_MAM_DMEM0 = 10,
--	AMDGPU_MMHUB_MAM_DMEM1 = 11,
--	AMDGPU_MMHUB_MAM_DMEM2 = 12,
--	AMDGPU_MMHUB_MAM_DMEM3 = 13,
--	AMDGPU_MMHUB_WRET_TAGMEM = 19,
--	AMDGPU_MMHUB_RRET_TAGMEM = 20,
--	AMDGPU_MMHUB_WIO_DATAMEM = 21,
--	AMDGPU_MMHUB_WGMI_DATAMEM = 22,
--	AMDGPU_MMHUB_WDRAM_DATAMEM = 23,
--	AMDGPU_MMHUB_MEMORY_BLOCK_LAST,
--};
--
- struct amdgpu_mmhub_ras {
- 	struct amdgpu_ras_block_object ras_block;
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-index 2a6a5ac4f374..47d07cd25fc4 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -29,7 +29,6 @@
- 
- #include "soc15_common.h"
- #include "soc15.h"
--#include "amdgpu_ras.h"
- #include "amdgpu_psp.h"
- 
- #define regVM_L2_CNTL3_DEFAULT	0x80100007
-@@ -636,144 +635,8 @@ const struct amdgpu_mmhub_funcs mmhub_v1_8_funcs = {
- 	.get_clockgating = mmhub_v1_8_get_clockgating,
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index 8438e13d96a4..9993aee8b63a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -1313,92 +1313,6 @@ const struct amdgpu_ip_block_version jpeg_v4_0_3_ip_block = {
+ 	.funcs = &jpeg_v4_0_3_ip_funcs,
  };
  
--static const struct amdgpu_ras_err_status_reg_entry mmhub_v1_8_ce_reg_list[] = {
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA0_CE_ERR_STATUS_LO, regMMEA0_CE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA0"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA1_CE_ERR_STATUS_LO, regMMEA1_CE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA1"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA2_CE_ERR_STATUS_LO, regMMEA2_CE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA2"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA3_CE_ERR_STATUS_LO, regMMEA3_CE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA3"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA4_CE_ERR_STATUS_LO, regMMEA4_CE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA4"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMM_CANE_CE_ERR_STATUS_LO, regMM_CANE_CE_ERR_STATUS_HI),
--	1, 0, "MM_CANE"},
+-static const struct amdgpu_ras_err_status_reg_entry jpeg_v4_0_3_ue_reg_list[] = {
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG0S, regVCN_UE_ERR_STATUS_HI_JPEG0S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG0S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG0D, regVCN_UE_ERR_STATUS_HI_JPEG0D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG0D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG1S, regVCN_UE_ERR_STATUS_HI_JPEG1S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG1S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG1D, regVCN_UE_ERR_STATUS_HI_JPEG1D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG1D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG2S, regVCN_UE_ERR_STATUS_HI_JPEG2S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG2S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG2D, regVCN_UE_ERR_STATUS_HI_JPEG2D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG2D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG3S, regVCN_UE_ERR_STATUS_HI_JPEG3S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG3S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG3D, regVCN_UE_ERR_STATUS_HI_JPEG3D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG3D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG4S, regVCN_UE_ERR_STATUS_HI_JPEG4S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG4S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG4D, regVCN_UE_ERR_STATUS_HI_JPEG4D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG4D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG5S, regVCN_UE_ERR_STATUS_HI_JPEG5S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG5S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG5D, regVCN_UE_ERR_STATUS_HI_JPEG5D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG5D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG6S, regVCN_UE_ERR_STATUS_HI_JPEG6S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG6S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG6D, regVCN_UE_ERR_STATUS_HI_JPEG6D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG6D"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG7S, regVCN_UE_ERR_STATUS_HI_JPEG7S),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG7S"},
+-	{AMDGPU_RAS_REG_ENTRY(JPEG, 0, regVCN_UE_ERR_STATUS_LO_JPEG7D, regVCN_UE_ERR_STATUS_HI_JPEG7D),
+-	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "JPEG7D"},
 -};
 -
--static const struct amdgpu_ras_err_status_reg_entry mmhub_v1_8_ue_reg_list[] = {
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA0_UE_ERR_STATUS_LO, regMMEA0_UE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA0"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA1_UE_ERR_STATUS_LO, regMMEA1_UE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA1"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA2_UE_ERR_STATUS_LO, regMMEA2_UE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA2"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA3_UE_ERR_STATUS_LO, regMMEA3_UE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA3"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMMEA4_UE_ERR_STATUS_LO, regMMEA4_UE_ERR_STATUS_HI),
--	1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "MMEA4"},
--	{AMDGPU_RAS_REG_ENTRY(MMHUB, 0, regMM_CANE_UE_ERR_STATUS_LO, regMM_CANE_UE_ERR_STATUS_HI),
--	1, 0, "MM_CANE"},
--};
--
--static const struct amdgpu_ras_memory_id_entry mmhub_v1_8_ras_memory_list[] = {
--	{AMDGPU_MMHUB_WGMI_PAGEMEM, "MMEA_WGMI_PAGEMEM"},
--	{AMDGPU_MMHUB_RGMI_PAGEMEM, "MMEA_RGMI_PAGEMEM"},
--	{AMDGPU_MMHUB_WDRAM_PAGEMEM, "MMEA_WDRAM_PAGEMEM"},
--	{AMDGPU_MMHUB_RDRAM_PAGEMEM, "MMEA_RDRAM_PAGEMEM"},
--	{AMDGPU_MMHUB_WIO_CMDMEM, "MMEA_WIO_CMDMEM"},
--	{AMDGPU_MMHUB_RIO_CMDMEM, "MMEA_RIO_CMDMEM"},
--	{AMDGPU_MMHUB_WGMI_CMDMEM, "MMEA_WGMI_CMDMEM"},
--	{AMDGPU_MMHUB_RGMI_CMDMEM, "MMEA_RGMI_CMDMEM"},
--	{AMDGPU_MMHUB_WDRAM_CMDMEM, "MMEA_WDRAM_CMDMEM"},
--	{AMDGPU_MMHUB_RDRAM_CMDMEM, "MMEA_RDRAM_CMDMEM"},
--	{AMDGPU_MMHUB_MAM_DMEM0, "MMEA_MAM_DMEM0"},
--	{AMDGPU_MMHUB_MAM_DMEM1, "MMEA_MAM_DMEM1"},
--	{AMDGPU_MMHUB_MAM_DMEM2, "MMEA_MAM_DMEM2"},
--	{AMDGPU_MMHUB_MAM_DMEM3, "MMEA_MAM_DMEM3"},
--	{AMDGPU_MMHUB_WRET_TAGMEM, "MMEA_WRET_TAGMEM"},
--	{AMDGPU_MMHUB_RRET_TAGMEM, "MMEA_RRET_TAGMEM"},
--	{AMDGPU_MMHUB_WIO_DATAMEM, "MMEA_WIO_DATAMEM"},
--	{AMDGPU_MMHUB_WGMI_DATAMEM, "MMEA_WGMI_DATAMEM"},
--	{AMDGPU_MMHUB_WDRAM_DATAMEM, "MMEA_WDRAM_DATAMEM"},
--};
--
--static void mmhub_v1_8_inst_query_ras_error_count(struct amdgpu_device *adev,
--						  uint32_t mmhub_inst,
--						  void *ras_err_status)
+-static void jpeg_v4_0_3_inst_query_ras_error_count(struct amdgpu_device *adev,
+-						   uint32_t jpeg_inst,
+-						   void *ras_err_status)
 -{
 -	struct ras_err_data *err_data = (struct ras_err_data *)ras_err_status;
--	unsigned long ue_count = 0, ce_count = 0;
 -
--	/* NOTE: mmhub is converted by aid_mask and the range is 0-3,
--	 * which can be used as die ID directly */
--	struct amdgpu_smuio_mcm_config_info mcm_info = {
--		.socket_id = adev->smuio.funcs->get_socket_id(adev),
--		.die_id = mmhub_inst,
--	};
--
+-	/* jpeg v4_0_3 only support uncorrectable errors */
 -	amdgpu_ras_inst_query_ras_error_count(adev,
--					mmhub_v1_8_ce_reg_list,
--					ARRAY_SIZE(mmhub_v1_8_ce_reg_list),
--					mmhub_v1_8_ras_memory_list,
--					ARRAY_SIZE(mmhub_v1_8_ras_memory_list),
--					mmhub_inst,
--					AMDGPU_RAS_ERROR__SINGLE_CORRECTABLE,
--					&ce_count);
--	amdgpu_ras_inst_query_ras_error_count(adev,
--					mmhub_v1_8_ue_reg_list,
--					ARRAY_SIZE(mmhub_v1_8_ue_reg_list),
--					mmhub_v1_8_ras_memory_list,
--					ARRAY_SIZE(mmhub_v1_8_ras_memory_list),
--					mmhub_inst,
--					AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
--					&ue_count);
--
--	amdgpu_ras_error_statistic_ce_count(err_data, &mcm_info, ce_count);
--	amdgpu_ras_error_statistic_ue_count(err_data, &mcm_info, ue_count);
+-			jpeg_v4_0_3_ue_reg_list,
+-			ARRAY_SIZE(jpeg_v4_0_3_ue_reg_list),
+-			NULL, 0, GET_INST(VCN, jpeg_inst),
+-			AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
+-			&err_data->ue_count);
 -}
 -
--static void mmhub_v1_8_query_ras_error_count(struct amdgpu_device *adev,
--					     void *ras_err_status)
+-static void jpeg_v4_0_3_query_ras_error_count(struct amdgpu_device *adev,
+-					      void *ras_err_status)
 -{
--	uint32_t inst_mask;
 -	uint32_t i;
 -
--	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__MMHUB)) {
--		dev_warn(adev->dev, "MMHUB RAS is not supported\n");
+-	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__JPEG)) {
+-		dev_warn(adev->dev, "JPEG RAS is not supported\n");
 -		return;
 -	}
 -
--	inst_mask = adev->aid_mask;
--	for_each_inst(i, inst_mask)
--		mmhub_v1_8_inst_query_ras_error_count(adev, i, ras_err_status);
+-	for (i = 0; i < adev->jpeg.num_jpeg_inst; i++)
+-		jpeg_v4_0_3_inst_query_ras_error_count(adev, i, ras_err_status);
 -}
 -
--static void mmhub_v1_8_inst_reset_ras_error_count(struct amdgpu_device *adev,
--						  uint32_t mmhub_inst)
+-static void jpeg_v4_0_3_inst_reset_ras_error_count(struct amdgpu_device *adev,
+-						   uint32_t jpeg_inst)
 -{
 -	amdgpu_ras_inst_reset_ras_error_count(adev,
--					mmhub_v1_8_ce_reg_list,
--					ARRAY_SIZE(mmhub_v1_8_ce_reg_list),
--					mmhub_inst);
--	amdgpu_ras_inst_reset_ras_error_count(adev,
--					mmhub_v1_8_ue_reg_list,
--					ARRAY_SIZE(mmhub_v1_8_ue_reg_list),
--					mmhub_inst);
+-			jpeg_v4_0_3_ue_reg_list,
+-			ARRAY_SIZE(jpeg_v4_0_3_ue_reg_list),
+-			GET_INST(VCN, jpeg_inst));
 -}
 -
--static void mmhub_v1_8_reset_ras_error_count(struct amdgpu_device *adev)
+-static void jpeg_v4_0_3_reset_ras_error_count(struct amdgpu_device *adev)
 -{
--	uint32_t inst_mask;
 -	uint32_t i;
 -
--	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__MMHUB)) {
--		dev_warn(adev->dev, "MMHUB RAS is not supported\n");
+-	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__JPEG)) {
+-		dev_warn(adev->dev, "JPEG RAS is not supported\n");
 -		return;
 -	}
 -
--	inst_mask = adev->aid_mask;
--	for_each_inst(i, inst_mask)
--		mmhub_v1_8_inst_reset_ras_error_count(adev, i);
+-	for (i = 0; i < adev->jpeg.num_jpeg_inst; i++)
+-		jpeg_v4_0_3_inst_reset_ras_error_count(adev, i);
 -}
 -
--static const struct amdgpu_ras_block_hw_ops mmhub_v1_8_ras_hw_ops = {
--	.query_ras_error_count = mmhub_v1_8_query_ras_error_count,
--	.reset_ras_error_count = mmhub_v1_8_reset_ras_error_count,
--};
--
- struct amdgpu_mmhub_ras mmhub_v1_8_ras = {
- 	.ras_block = {
--		.hw_ops = &mmhub_v1_8_ras_hw_ops,
-+		.hw_ops = NULL,
- 	},
+ static uint32_t jpeg_v4_0_3_query_poison_by_instance(struct amdgpu_device *adev,
+ 		uint32_t instance, uint32_t sub_block)
+ {
+@@ -1437,8 +1351,6 @@ static bool jpeg_v4_0_3_query_ras_poison_status(struct amdgpu_device *adev)
+ }
+ 
+ static const struct amdgpu_ras_block_hw_ops jpeg_v4_0_3_ras_hw_ops = {
+-	.query_ras_error_count = jpeg_v4_0_3_query_ras_error_count,
+-	.reset_ras_error_count = jpeg_v4_0_3_reset_ras_error_count,
+ 	.query_poison_status = jpeg_v4_0_3_query_ras_poison_status,
  };
+ 
 -- 
 2.34.1
 
