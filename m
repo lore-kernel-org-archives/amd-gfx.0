@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47314CDB476
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F35CCDB466
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 08:45:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C13DB10E550;
-	Mon, 22 Jun 2026 08:45:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1954410E553;
+	Mon, 22 Jun 2026 08:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dLvirae9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wfbeCCAm";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011067.outbound.protection.outlook.com [52.101.52.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4150210E54E
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:45:23 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013011.outbound.protection.outlook.com
+ [40.93.196.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FEE610E551
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 08:45:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kh8m4qjo4aUYS6bGHo9GLU9ltKztJWoY/4xrxxJXQkzy6XOsPJB+nR2QTzf4oSH54FvcfywurBIVnMQOLAMj43CfFqkrfRJxwIV1MLi0s7AEFr3WhXfIBLDJgg+6QK710FqbztoLWt5hQrkIrSGLhy3sJlo9QQ5VDD/HCPl2M6ZOkjk5V+L+YJKt+9kD6c/OUhO257ei+/fzkjHXnVTw+dvFF1MJWRVdMzTgbMB+8mjCWLuUGeBI6Kth32x0OSh2JIhJU3Cyw2R9hBf7UNn7JFzh2VreaWjJniXVpB3MjcXOwpXdxWTY5lo/vpOMyUTTRH+S7irqxrPWHpDaMcRXxw==
+ b=MY3d/ckkBW1ZMd5Ec0i9M2Am3Em7MlC6g9NNKgi1FtbZPYwqBqv1yXvCJXWVCioVLodCAFNj8AfOeo4YBs0xroHoZnEcLbW2PRGSD44c7X8r0E17UQQKOdNWSqkFUasgQR2nTglh5h6iAxrbd4/z9P9clwebGA+fA7Yj3OTG78y/2YmgJiPX6K8wdt+SIV27F5d3ms/28UsdkxNSmhjFqcZ7pGjUoqpR5khKaKmhbqRmvL+kFvO6PjuuMWqyvI3woDkglAji4oarZDQx0yoym5YowoNUA46RLwsPBUQrEpuujMerOMXrPA5yO5s2YzKLlvp4kadl+ncRzOs8dqOpTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jwgalVNfFeT9KdTD+uzm/EFxatUa/fQXPo8JVl3LLFM=;
- b=II6kH3vzkeJCrn+Ylk2FT4eNxsjo8ZVVbablAJEC1MUy+SfEIf7CKxLGmqWUxV7d8heTW+51VnTtDe/CyuGclIdB88T277KX53vaZ4JHgHU97p7sDM1/2anse8hs6WzvTZHgdEp48S4/Tkv4nTJu3IbUxaawf1lRmADt0yF9ULbuaefm2T1smT9VynaW1SVlR7cgCSPfny7f7t1uNYlXZJOAbcb5L+O+eOGkTwFQqpPJND8WAtN7ZbLkicW8Ywtpv8kg92o1cGyvIZ80sapHjpCv2oOmpjOi1101oiiwteWj+wNHQdR7XM20bIlA+70sHfrl6v0KzZXJt3TJ+7lyqg==
+ bh=5BWElpiMy147FRVdUfJVAL7KsjECB+zX4RQClIIS8Nk=;
+ b=cPKtrTB44mE4mZ6pM5SCH4cPAm0J7jk0H2mPLLpIjsDMCmbSMX5oRBI+0TeUm4MAHVyF+kTTOEEmisG2ZI1vb93azqYaCtgy5RYCIO2Q0hHqpsOCE6DuNFUklg5NzL+/aV+4cz0vLLUN1ZzTvqfpu+Gth/Kt3RZ/P+fuGSKRo/PwYt+0GKQP/KXJk5W8Ucr8TkR0HZTu9B2BatRmEHIHKmRRXrGK59MYKZk8GjmclOGuGT90AKR8naHlI/1Ei8q8210R8kDcU/t8o20kdkqz3/ZYl4zgbJ6leOHpXOiO+raCviIoJFRpw1nA7/L9jx+peWq1p3kwO6bRC9Z8+4rueQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jwgalVNfFeT9KdTD+uzm/EFxatUa/fQXPo8JVl3LLFM=;
- b=dLvirae9aoZ9mD4vbkHjVbNrCh3GbJ2flVUHnOp2pDlyESWrmO6xO4v8W1B3bllxaZzj79DI+eZ/QRo2p/H/6ATs3P3TE8Fthh10Fdfq+GusTndIzK/QeHq5XniPajt6vUGn2enKSMMsmKSQL3kyD1YBIAB9x30Eynm6gc1SMf4=
-Received: from DS7PR03CA0257.namprd03.prod.outlook.com (2603:10b6:5:3b3::22)
- by DS2PR12MB9664.namprd12.prod.outlook.com (2603:10b6:8:27b::10) with
+ bh=5BWElpiMy147FRVdUfJVAL7KsjECB+zX4RQClIIS8Nk=;
+ b=wfbeCCAmRz3p87tLfWzBXz/XlR/wzfgHE2TcVFFJGR0fP6VOikdQV5kq8K7zFSabr8sgq7ZA/v+sQb1HmRSlkW6a1Rv+D+XHriF8D4WtdPbAXllDA5YtDRaPs9u1e2q+KuH5Zr/z3zifzUk2RpXoIAAC49qc3dLTcn+sYevMiVg=
+Received: from DS7PR06CA0049.namprd06.prod.outlook.com (2603:10b6:8:54::35) by
+ PH8PR12MB7376.namprd12.prod.outlook.com (2603:10b6:510:214::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Mon, 22 Jun
- 2026 08:45:19 +0000
-Received: from CY4PEPF0000E9DA.namprd05.prod.outlook.com
- (2603:10b6:5:3b3:cafe::98) by DS7PR03CA0257.outlook.office365.com
- (2603:10b6:5:3b3::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.19 via Frontend Transport; Mon,
- 22 Jun 2026 08:45:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Mon, 22 Jun
+ 2026 08:45:22 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:8:54:cafe::a8) by DS7PR06CA0049.outlook.office365.com
+ (2603:10b6:8:54::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
+ 22 Jun 2026 08:45:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000E9DA.mail.protection.outlook.com (10.167.241.73) with Microsoft
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 08:45:18 +0000
+ 15.21.159.10 via Frontend Transport; Mon, 22 Jun 2026 08:45:21 +0000
 Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
- 2026 03:45:13 -0500
+ 2026 03:45:19 -0500
 From: Ce Sun <cesun102@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
  <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
-Subject: [PATCH v2 03/48] drm/amdgpu: retire ACA support for jpeg v4.0.3
-Date: Mon, 22 Jun 2026 16:44:05 +0800
-Message-ID: <ba6d28ae558230b3c9dbf438b68ae7582e9f1754.1782117608.git.cesun102@amd.com>
+Subject: [PATCH v2 06/48] drm/amdgpu: retire ACA support for vcn v4.0.3
+Date: Mon, 22 Jun 2026 16:44:08 +0800
+Message-ID: <a9fa5afee390fc1052ef5f6c56f1a901ca4bcb39.1782117608.git.cesun102@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <594f7cbae0387b60f8af49505b57c1a5a604db2f.1782117608.git.cesun102@amd.com>
 References: <594f7cbae0387b60f8af49505b57c1a5a604db2f.1782117608.git.cesun102@amd.com>
@@ -73,29 +74,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DA:EE_|DS2PR12MB9664:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cad9630-9598-4058-58e4-08ded03a96d3
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|PH8PR12MB7376:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b64ecc5-6c4e-45a1-e137-08ded03a9865
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MtbyZbldZxId/u5qaGoIkoEPuVxL+MikZDTlb1SMWhNTZ7OtYOvpklQgfkgp5B+RyYZg13LY63SXkFZgK4CTF7uInA6br6yYGljq57wWBFtRpLWOm8EaoxXYLAJaaZ3Sir0KZE6uIwt8Vh3nkDcMtXJAbGKiMVfr8NijDy1CwT60L3KA8CZY8wgKqZW1lRAXG4Uj1gAyxd+A4nx+W6JUAxzzSXE6ThQA3R9i1ZSbrZeFNUaEkACjumY22xN5833FgOyUzzj6FloEjOHe6xYthzmcOWcB2/Te2QDKs7bPLfqk0Mj+JQ7nAjJl2y4XQMA5IhrlVMlo+ymk7NGr08XLxfe+WzN28ULxtPdiQiUhPUiOYO4/G2Ar3ez+/d2hu09LyrK9aZ2eaowpkcLELk6MAnIGFmKL66TV6aSIcvtyLQlJqOvixgOuuo1K+nf8zENW3R33fFCAKWdM4xQSYq0BBvSOvgdM9mPn+du/odiXqKKybVRtxOay+eqWLRP0dNey521e37hnsUX//xuBvKyelsrBqDMJGKYd5iAjU6IQxx31CItJ6TRaTgJFcAeyXjSL5M5R1M01Y5Go5/SEsFIEfnOPtNBghc4S/NEgjz8UBTbV2MMmB+ZbyGnpv83YQSsqjwzwBSMnPaJ+L3h66FoxSGDWXQwkFYtw+Q5zGDEXwkkCKpy8YOqeLY/5BO38sSXaqYxzIVTbBc9oGMpi7DToTQ==
+ ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CKa30HVRh14bZHPR7+hsoNFDFcmu0gD/faFYo6fQ8AyLd2Sx0yyNujex7piqN+duqlS9wid4R2MA0kR6LzGnrSy1OqGh9ri3BzqL1Ud4+2D3g+4F+VYZ4KzMr7CLBvjUtfYkWRnvJL4nvH8q16HLPANwqn6tY9+LgqKx9MHdHrqQkaCj1DlTYXeF0Y6JZDrP2J+D0ocy54zTUuezVFWtU45SJ73Mr4lt2T9Zz3uBKwulQAdpPmeNeO7kCGEvK9hKgcPbDat36kokB6Hppm/zSVHDr8jt+hFEJHoBir4ROdwK2FD0lZgYSs1KhYFpNDzhxkF/EeL6+crdXGxiSXDLTBdNbBW4hvuMe9Cp65OM2LGCTEUwz/IgpmQSnhOAGVm0zXdxlJfmG8k6JzPxPOyy3UO0JVl5FmKFmqSNYWgJN2uD3eUSqfl52M86jb1aN7o4ujI7ew1DR/Ta0wzWllItm7LkZ63XIC5K7JvhMDtszwXBvuT8XjVpDyG9sj1OpmOhxkvIyklUFqNoGpvE68rJxibQJxW+4QbX6iisab2CAk3QsmlkDab+pL4qOKIVywr0KXjd0PT+MDuG9ALGu6c2UNP/NSOlHJl/Z+btqr1MYcMkPagzCXkmM35+pGpf6wDpUMsj8jw96v+4SH7tv1728dsXhVCB7G1vH5tbYwU+ps90+JLU80phvU/pLbdvnR4GQr1qdG+dNZCAJiV0YbHq8Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vLROSHHNYf1HypBCxQ3CiSlgvYltTVR9Yw6gJRED/3L4u4YHpBh+h0wZPWrrPnYiVGsIIAHdbEqfSBcSZFgNRHo9uH36UtNbGWgHY62sreEigS1IJQBhqJs3PD6i0YL9nxHZGQTAV3QYcbSZjEPNfKnbC/0DD62TyNZyBBSnEhLK9Y/jbRFBvH/2FrDYyZuAgMmt7NuoxEymWfODwSsD62hgOJho3TVPSt28NyBdYnRJaqxO/c8jKrUMy275NeL7ttXedyoSBnAelOxihlQHSGDHrkIaB5sSc8BERiIBu1jWHkcqIAJMCOcvT+cuMaQTulhhXN3vel1q4SkAr5li6f6shGo/hyaWR7+ieHqXA4o0DShccehurnDRaqJHFmnQohZ1VVGkzzgxRLMqesr3jFhfJ4lNAgN9Rv3ywgy+zn18WbnCM6rLiW3B3hWeMXkf
+X-MS-Exchange-AntiSpam-MessageData-0: zMBXz7JvdiNZA5Hpy6Qtv4hyLWhuHzb6q8cX7eIp4Wg6PjVSHJHxc09bNw9A93bKZFTfR7ER+MDVWD0ffYiOOUIlWxkBpurtg3yd/NcQ4hxrkj/jBU/Fk3PIRt4eQQ1uY9cnVzVXPbgJLAO+5OB8UQ75wgmZqLRWpaZyjgbM6RYtzO6dtNaRc7cXYeaDN4oXO7DFsK91s2Xw1Dq2OHuAVLPFRijpXTBpi4DQr/ivBjTNt+WsaJ10Q1I5cuWtewpKj45F3eWhRHZl2+dwrWWrliRCpZaBRh9QLVrsTCpX/73+2Y5ZdGxLpJs/DzToE0cDdfs3P64kNy1ilPg/a96siNhkf/Z1E1n3g8ZSfo6MOyT0DaPwXdFepOzBozcaxLiZpa5ymePyFpNJHYgDaGz43afR4NS/BtVGf8O9umx4fNrO4oRV2OtelDANPWuSQjaQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:45:18.9897 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cad9630-9598-4058-58e4-08ded03a96d3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:45:21.5741 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b64ecc5-6c4e-45a1-e137-08ded03a9865
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9664
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7376
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,22 +111,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Retire ACA support for jpeg v4.0.3
+Retire ACA support for vcn v4.0.3
 
 Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 95 ------------------------
- 1 file changed, 95 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 94 -------------------------
+ 1 file changed, 94 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index b0bdb449538e..8438e13d96a4 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -1442,104 +1442,9 @@ static const struct amdgpu_ras_block_hw_ops jpeg_v4_0_3_ras_hw_ops = {
- 	.query_poison_status = jpeg_v4_0_3_query_ras_poison_status,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 3c3f3d1a040d..728946911f00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -2163,103 +2163,9 @@ static const struct amdgpu_ras_block_hw_ops vcn_v4_0_3_ras_hw_ops = {
+ 	.query_poison_status = vcn_v4_0_3_query_poison_status,
  };
  
--static int jpeg_v4_0_3_aca_bank_parser(struct aca_handle *handle, struct aca_bank *bank,
+-static int vcn_v4_0_3_aca_bank_parser(struct aca_handle *handle, struct aca_bank *bank,
 -				      enum aca_smu_type type, void *data)
 -{
 -	struct aca_bank_info info;
@@ -156,12 +157,11 @@ index b0bdb449538e..8438e13d96a4 100644
 -}
 -
 -/* reference to smu driver if header file */
--static int jpeg_v4_0_3_err_codes[] = {
--	16, 17, 18, 19, 20, 21, 22, 23, /* JPEG[0-7][S|D] */
--	24, 25, 26, 27, 28, 29, 30, 31
+-static int vcn_v4_0_3_err_codes[] = {
+-	14, 15, /* VCN */
 -};
 -
--static bool jpeg_v4_0_3_aca_bank_is_valid(struct aca_handle *handle, struct aca_bank *bank,
+-static bool vcn_v4_0_3_aca_bank_is_valid(struct aca_handle *handle, struct aca_bank *bank,
 -					 enum aca_smu_type type, void *data)
 -{
 -	u32 instlo;
@@ -173,25 +173,25 @@ index b0bdb449538e..8438e13d96a4 100644
 -		return false;
 -
 -	if (aca_bank_check_error_codes(handle->adev, bank,
--				       jpeg_v4_0_3_err_codes,
--				       ARRAY_SIZE(jpeg_v4_0_3_err_codes)))
+-				       vcn_v4_0_3_err_codes,
+-				       ARRAY_SIZE(vcn_v4_0_3_err_codes)))
 -		return false;
 -
 -	return true;
 -}
 -
--static const struct aca_bank_ops jpeg_v4_0_3_aca_bank_ops = {
--	.aca_bank_parser = jpeg_v4_0_3_aca_bank_parser,
--	.aca_bank_is_valid = jpeg_v4_0_3_aca_bank_is_valid,
+-static const struct aca_bank_ops vcn_v4_0_3_aca_bank_ops = {
+-	.aca_bank_parser = vcn_v4_0_3_aca_bank_parser,
+-	.aca_bank_is_valid = vcn_v4_0_3_aca_bank_is_valid,
 -};
 -
--static const struct aca_info jpeg_v4_0_3_aca_info = {
+-static const struct aca_info vcn_v4_0_3_aca_info = {
 -	.hwip = ACA_HWIP_TYPE_SMU,
 -	.mask = ACA_ERROR_UE_MASK,
--	.bank_ops = &jpeg_v4_0_3_aca_bank_ops,
+-	.bank_ops = &vcn_v4_0_3_aca_bank_ops,
 -};
 -
--static int jpeg_v4_0_3_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block)
+-static int vcn_v4_0_3_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block)
 -{
 -	int r;
 -
@@ -200,14 +200,14 @@ index b0bdb449538e..8438e13d96a4 100644
 -		return r;
 -
 -	if (amdgpu_ras_is_supported(adev, ras_block->block) &&
--		adev->jpeg.inst->ras_poison_irq.funcs) {
--		r = amdgpu_irq_get(adev, &adev->jpeg.inst->ras_poison_irq, 0);
+-		adev->vcn.inst->ras_poison_irq.funcs) {
+-		r = amdgpu_irq_get(adev, &adev->vcn.inst->ras_poison_irq, 0);
 -		if (r)
 -			goto late_fini;
 -	}
 -
--	r = amdgpu_ras_bind_aca(adev, AMDGPU_RAS_BLOCK__JPEG,
--				&jpeg_v4_0_3_aca_info, NULL);
+-	r = amdgpu_ras_bind_aca(adev, AMDGPU_RAS_BLOCK__VCN,
+-				&vcn_v4_0_3_aca_info, NULL);
 -	if (r)
 -		goto late_fini;
 -
@@ -219,10 +219,10 @@ index b0bdb449538e..8438e13d96a4 100644
 -	return r;
 -}
 -
- static struct amdgpu_jpeg_ras jpeg_v4_0_3_ras = {
+ static struct amdgpu_vcn_ras vcn_v4_0_3_ras = {
  	.ras_block = {
- 		.hw_ops = &jpeg_v4_0_3_ras_hw_ops,
--		.ras_late_init = jpeg_v4_0_3_ras_late_init,
+ 		.hw_ops = &vcn_v4_0_3_ras_hw_ops,
+-		.ras_late_init = vcn_v4_0_3_ras_late_init,
  	},
  };
  
