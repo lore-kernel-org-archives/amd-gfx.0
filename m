@@ -4,95 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B591ECDB46F
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 09:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A1D0CD98F2
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 11:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50635890BE;
-	Mon, 22 Jun 2026 09:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC5B510E626;
+	Mon, 22 Jun 2026 11:09:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J2dd/pcR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nDwCWH5K";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010009.outbound.protection.outlook.com [52.101.61.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87D7A890BE
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 09:54:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dOIGBsbrLtiwVOQM9SKL6VGkMFw6ajL8vfr+X/wVIQ/bB9AqQs8pcaEae55jULAm90NRsisWW1yFyj33945QzKYErdM/P58FCCJlgBYEBUucxuPRXFT3tvL7tsxUC0ugy/TcPrjjisXRtuSV3z8lYB+z/ujsuCdRKWgbkxb1h+ZtovMLLSVU3ypmZxIwlbWhMXJ4TD3avE88W906IrIY8zre8X2w4rsoSVZSMrHU9iLMlyIL6CJzW0KrSBPl7nsoQYdkLvDlDdRIQTLSUbADWsKSO9KBfikKhTM1wEgsieJt47/s2VN4PbritD+01LXXEALeoBhfFe0YyFtHdCoIIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uSj6HbsjwmqPsTSK0bgDp5xqNZA0XOia08stWx667ik=;
- b=fSWDOjPq+jd+oP7CFcl5f4Nl69JTqXa206L61YzEwr4p2cLgXmP+UKqrrNkBPrbxiZwr2orBAc03fKCC0ipJEYqxHZ/GJuMhb7YesMRJWDD/WWCoK6voeJ12vnT0QtgNRDLPWG6CopgDlGLvVnDsISjxAkaOcXkZrxj5jpdzWWBkmQ1Q/iB7qmmQiKGfE8LPmU2zNVO895iJsIu1NkaT2LulccYk/79LHtcfvdy09gav0JvF4hkNN3cb4pxTc0w8/J/36xTHttnW2BVgw9K8zKe/GlU4Q2rQPOOoUl7dTFOu+axPqVhIVriTdUmGwoxOiB1XCAN6TdSUL0FpBZCcBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uSj6HbsjwmqPsTSK0bgDp5xqNZA0XOia08stWx667ik=;
- b=J2dd/pcR2Wds7gIis4Dbj4XB3/LJjobNyQx1mzXH5wMhi3wfwBY4fJqAitUCHf68oHGPjtTpqe8bFtFtXoWNVjmN3y1FLVed0+/xIk6bBWG0Q9PwbyFrf+laU3vtu4VaBqFswzOtDzSCT40qK9Ql0srjuVbpUlTR2f8bQvrh4z0=
-Received: from BN9PR03CA0592.namprd03.prod.outlook.com (2603:10b6:408:10d::27)
- by DS2PR12MB9774.namprd12.prod.outlook.com (2603:10b6:8:270::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 09:54:38 +0000
-Received: from BN3PEPF0000B06D.namprd21.prod.outlook.com
- (2603:10b6:408:10d:cafe::a8) by BN9PR03CA0592.outlook.office365.com
- (2603:10b6:408:10d::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
- 22 Jun 2026 09:54:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B06D.mail.protection.outlook.com (10.167.243.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.0 via Frontend Transport; Mon, 22 Jun 2026 09:54:37 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
- 2026 04:54:36 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: bounds check VBIOS name extraction
-Date: Mon, 22 Jun 2026 15:24:04 +0530
-Message-ID: <20260622095404.1317549-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73C4110E626
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 11:09:24 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-490bc6a7958so39502765e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 04:09:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782126563; x=1782731363; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mnFRwyog2vTpmK7RSbZ3I519uJGLK8n4WMSRCaUqNSE=;
+ b=nDwCWH5KLNKZpUtAj7PqQLpkNBBT9et+eXkqwv8t3PiazXQTDqE6uw3Hs9ia/Gbh8u
+ UYP8d6MJ7+UV/5S/akoVWZHFEI/TSGvhxYbaf7/IRZd1/lFxCKFZxu0+rPxov4Dl7dKV
+ sxypN4WPlWDl0oKX2iQqmaMZWJ5v6E7avBNTZAZVw0hTCECvCAKkGvgHWN0U4uKu40a7
+ aTrGKB5KOEuErlgXq2vSyZdSI4umGBM1o69YoRjW6WpK/ZGk5d2x9v+On+KBVG1LVXlq
+ mjsApncynXItrixNs2y1ue5xKikotgWQWS+WeFeBxO5D04hQCDlRcaG/vAgaF7D+g1fL
+ souA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782126563; x=1782731363;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mnFRwyog2vTpmK7RSbZ3I519uJGLK8n4WMSRCaUqNSE=;
+ b=acDeI3uW1O44i53Ey/YDO+GKdbmjbmf8GcoFV/Q6qKHHMR+6DaeXlvmpRKhJ4M9gdJ
+ sLXw7CRdxa0941PNmZdfFvw7usrb9/ORXFZTqGJe4nol4fk1/c3VzUmKERhNukxZ2czh
+ EO+kQUMXDhDRNB+/jjAMt3q2lnzvtLXbOXynfN7Q5Rlq0mbpwvpB1sheZMcrKBcBaaWB
+ wVToxwLZYY76pGwcpqPQ0Il6ycjLiKvtTToqWwlyKTr36MXkh4QpsMqpSqXHCvce71kS
+ 0tmVd3ZwRBF2jn03OArY5gsyu3dN9RC5ZGwgYDOVEQST3DfvY6egt6DknVxjXSKy35L4
+ n09Q==
+X-Gm-Message-State: AOJu0Yxt706zTmNsSQjNLjtd6GcibknZwA1TQXNwQY4zmbrUI9+eEBR1
+ 5d+ObYcybb51TZM8nWKyNZwK158RxBYeAZdjLuKbMlN00B42IWT+IR3vLslPrQ==
+X-Gm-Gg: AfdE7cm4S2jtBkLLxzLzz3x4UaeoCoWN42FBL//vDnQQ7HRDUFNNX5k3qTtFglRGRHe
+ wiO7eU/bDTvUqfy06hyQw7IHye9bOScFLT5QCOWIIKBA8sXys+pMdRQ1jfCBJqwMYL4EXBKATuj
+ EMlLeh+6tOl54Hy36tZvDdS9f9jv74vL6ZxOy3Tv1U8fuuovxwrO1Qa7/T6IJWt0dHagPG7dFdK
+ EEzQbVEuxITRsxJk6MTwiOgC4qDWNbt8fM90ZDMT+dRTvZZqinAiT9tIm00JqTs5zQrXFofIVhC
+ j36O/xIgwi8SIz7f8sqV2f48NfOazWS2Lfn6CVhE0Gh31xl8Mw5QlpZiNIhdBtA74oYqi/pJ8kd
+ Yk50GQ8BgD4VDBhOMFRbSqJaTXUlglG15PKm+R1NVHAWM59ZLjVu7d4079JgrAHSlYVECHzuPfN
+ euTSNRc5H/+QiozVMqS2Eao8awqYSdXptqAkh+CSHdcUJLjSW5SaEQ2SFCWeg4yFisq/i2J8Oxr
+ pMuJUFwr28bC3EvXFNXkS0vwxHd8g==
+X-Received: by 2002:a05:600c:24b:b0:490:bf3d:c7de with SMTP id
+ 5b1f17b1804b1-49240a38c14mr134902725e9.10.1782126562607; 
+ Mon, 22 Jun 2026 04:09:22 -0700 (PDT)
+Received: from timur-max.localnet
+ (20014C4E24F13B00B65759E31FE89790.dsl.pool.telekom.hu.
+ [2001:4c4e:24f1:3b00:b657:59e3:1fe8:9790])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-466648c5413sm26440531f8f.11.2026.06.22.04.09.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jun 2026 04:09:22 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Reduce stack usage in IP block soft reset
+Date: Mon, 22 Jun 2026 13:07:58 +0200
+Message-ID: <27422769.1r3eYUQgxm@timur-max>
+In-Reply-To: <IA0PR12MB8208536DAC79A742DB687A7B90EF2@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20260619171733.2976352-1-srinivasan.shanmugam@amd.com>
+ <IA0PR12MB82087A22BE651E5AE05C3B6390EF2@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <IA0PR12MB8208536DAC79A742DB687A7B90EF2@IA0PR12MB8208.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06D:EE_|DS2PR12MB9774:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc83d509-1be2-4738-609c-08ded04445b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: eC/7NkI45OB/i7xyg9/Zl7Z1zly0qPr9E3rq7LUvZZ/TjhPZoKoPMSg6Us1h0kgGrDrp3kZDp7oF/gPS6rKEkzE3iD2DSRbhyOtcd0E+dySH2GZlNF5Sbge8pNJ4Ca/HLSKqN1Jf7wPWTr2E18bGxNn0KU9WhSFkv2IJ7Gy85MD5CTYHssxDbogverDz/5OFWH6U0TNT1z5wosJqP69RdsbyIqNn6zZtuxrWR2a/wRoyxv3/glqqO7PAzPsaNrK7XT7LeeK07L+Xj0Uho+ONikNlhRhMAFf3o/y4nDV/jnS+95aKIbESqZwjYEwt7ggjcuDZS7xO2ZJrZA/+R6h7lhInLXWQuNN/+2+nnY9Woet5Gp8DNLd4dAOvp9bucQhaFDw1ZawT4AQ/JaouBaCfK489/5B/6i6OAN6pYmT01cDDwc4pCvmEgLMye9lQAcswoBgfdE6Y4NAVrIWX+kIpUBHKhEglOlMpVL4IOiTMyGcuEytmKfjqz2THW5Xoz6MRxGNOpPdTcvDyp51ykbTGlBvJbT0IpuUV8h1d9INw6vtHosnZoY4BKcTtenIoJv5v/zK8jiKQ75J6vq4s6FKUubUftHOIdqh+PIaR5uOrUbCjO5+g/C1Mg0lTUhGtble4LtJpLGpZu2oBhN7gdwRH+ngdeMtuOHCSw6HGfWbvDun9bMkXc8dbu1Q6bDFPvC23BENnrxeFztjepzU5BxbTOg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(56012099006)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kGf+YIyWEEJa7moAOJp8Z3m7zR05aU5sYOvDslLUiKi8Xg7uvwuihYLQDiriMqqxsPL9ftlbQ91on9fjfz59krRM+yoE5OJCCRzQpt/IeC3TkM4EaIc92hXu69hAeteIjN4tRot6eA9XB7LPJSQj2NguHV1hoUGfFS12xpb0wwTjN1DBxRhvpnKwoejR6+kVazAzTHbl44xFsMBxatbAUDQ2tzs/tXCGquwzR8Qy2Tc3jse/KJes9dGllPlndMaf2IH5a3ptMoSQjFWYmZcxUjMqSiqxnCAmr04b4Tl6Ps6PzoT4rsqALKPHGO5esVNGfhHe737A3ITAqc0dR5nhE+OJ0Vk44p9Vv1De5o9ucCjSt0H8cfU8L//B113MBB9JK2gafvJWR7wEEs3EY5MS/oF/Ks0CMqcGqKy5ZBR+xznC4o6zAU5sHnISixjAyBbg
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 09:54:37.8924 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc83d509-1be2-4738-609c-08ded04445b9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9774
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,86 +92,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bound atom_get_vbios_name() by the BIOS size to avoid out-of-bounds reads.
+On 2026. j=C3=BAnius 22., h=C3=A9tf=C5=91 11:10:40 k=C3=B6z=C3=A9p-eur=C3=
+=B3pai ny=C3=A1ri id=C5=91 SHANMUGAM,=20
+SRINIVASAN wrote:
+>=20
+> I took another look at the implementation. The temporary array is
+> currently only used to collect the subset of affected rings and pass
+> them to the multi-ring reset helpers.
+>=20
+> amdgpu_filter_rings() simply copies matching entries from
+> adev->rings[] into a temporary array, and the helpers only iterate
+> over that array.
+>=20
+> From what I can see, adev->rings[] appears to be a stable device ring
+> list, so it seems possible to eliminate the intermediate array
+> entirely and have the helpers iterate directly over adev->rings[]
+> while applying the same ring_type_mask filter.
+>=20
+> Hi Timur, was the temporary array intended to provide snapshot semantics
+> for the affected rings, or was it mainly introduced for convenience?
+>=20
+> If there is no snapshot requirement, I'll respin the patch by removing
+> the temporary array altogether.
+>=20
+> Regards,
+> Srini
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/atom.c | 34 ++++++++++++++++++++-----------
- 1 file changed, 22 insertions(+), 12 deletions(-)
+Hi Srini,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index d4a652d2b453..ebb4ac279393 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1358,6 +1358,7 @@ static void atom_index_iio(struct atom_context *ctx, int base)
- static void atom_get_vbios_name(struct atom_context *ctx)
- {
- 	unsigned char *p_rom;
-+	unsigned char *p_end;
- 	unsigned char str_num;
- 	unsigned short off_to_vbios_str;
- 	unsigned char *c_ptr;
-@@ -1368,39 +1369,48 @@ static void atom_get_vbios_name(struct atom_context *ctx)
- 	char *back;
- 
- 	p_rom = ctx->bios;
-+	p_end = p_rom + ctx->bios_size;
-+
-+	if (p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START + 1 >= p_end)
-+		goto no_name;
- 
- 	str_num = *(p_rom + OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS);
--	if (str_num != 0) {
--		off_to_vbios_str =
--			*(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START);
-+	if (!str_num)
-+		goto no_name;
- 
--		c_ptr = (unsigned char *)(p_rom + off_to_vbios_str);
--	} else {
--		/* do not know where to find name */
--		memcpy(ctx->name, na, 7);
--		ctx->name[7] = 0;
--		return;
--	}
-+	off_to_vbios_str =
-+		*(unsigned short *)(p_rom + OFFSET_TO_GET_ATOMBIOS_STRING_START);
-+
-+	c_ptr = (unsigned char *)(p_rom + off_to_vbios_str);
-+	if (c_ptr >= p_end)
-+		goto no_name;
- 
- 	/*
- 	 * skip the atombios strings, usually 4
- 	 * 1st is P/N, 2nd is ASIC, 3rd is PCI type, 4th is Memory type
- 	 */
- 	for (i = 0; i < str_num; i++) {
--		while (*c_ptr != 0)
-+		while (c_ptr < p_end && *c_ptr != 0)
- 			c_ptr++;
- 		c_ptr++;
- 	}
- 
- 	/* skip the following 2 chars: 0x0D 0x0A */
- 	c_ptr += 2;
-+	if (c_ptr >= p_end)
-+		goto no_name;
- 
--	name_size = strnlen(c_ptr, STRLEN_LONG - 1);
-+	name_size = strnlen(c_ptr, min(STRLEN_LONG - 1, (int)(p_end - c_ptr)));
- 	memcpy(ctx->name, c_ptr, name_size);
- 	back = ctx->name + name_size;
- 	while ((*--back) == ' ')
- 		;
- 	*(back + 1) = '\0';
-+	return;
-+
-+no_name:
-+	/* do not know where to find name */
-+	strscpy(ctx->name, na, sizeof(ctx->name));
- }
- 
- static void atom_get_vbios_date(struct atom_context *ctx)
--- 
-2.49.0
+I'm sorry for the trouble, I haven't seen this warning.
+Please give me a moment, I can send a fix later today.
+
+Thanks & best regards,
+Timur
+
+
+
 
