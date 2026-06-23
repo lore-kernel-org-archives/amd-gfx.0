@@ -4,132 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8E2FCDB471
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 18:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C6BCCDB471
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 19:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3482E10EC4A;
-	Tue, 23 Jun 2026 18:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1C8E10EC5B;
+	Tue, 23 Jun 2026 19:40:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z2FxbtVX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aVX3xTs9";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011039.outbound.protection.outlook.com [40.107.208.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9C9910EC4A;
- Tue, 23 Jun 2026 18:46:49 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012038.outbound.protection.outlook.com [40.107.209.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC9C10EC5B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 19:40:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BXKrR57hUlfxc3oRWhuOgrmIn/IhuCbILOGAo4jW9WHvMi9c7nnZC3XQsHTltNbwxyQ86hC7AcUduGF2yD50Oix1uNsk8vXxRkwTy3dNEAqna5+4YNP8nxicrwoPOr0c/8+WxhdMaaYDNHqFLdk4wByEJmEvZk8bN9cfAGO8S2RTn0u30XFLeMFHK8k9rCiIy0aWsvESAJMQB7eZ1Gq4y7Orzvdw2my4H6hjuwKyBEKcrvbrRUiW4OVNf7ORexeksIce/2EmUNB1tWMn6lrTGFeCrEQaiA1MCy4PReU7I7m/SIXPDeoUL35sO7l+X+h3YaGv2/UPmcOgyujrs8TCuA==
+ b=RqDy5IPTur6PZmb4H2lv5GeSoaYacnRjJ0nh8JhjBd3dZp2G0irk8iGNjrGcxSRgulKzjg1per2TuPXVwDrosnO0fsAs8wR+tk8ANuTAd7QKSj0HB+QDj6yq7rbhlda5ZYHKD95rqSxDRZPm+2X8PI3LdZRjHScZuMHPuoVLbyrwzGLnHpkCD3gvSXOePZmTG9WNQsMoGGzmyG5KPSAO2+7PQ9KSMldhNj7Rwnm1Ku+K8+g8Wq3IPN0wrySWdECwVbVLWwsMCzjJo3J5Dzf6Eq5AIKqvsKnVjYHyHP6PtW+S5bCNP4StCltVWMqIsUEzYaWTqPgG6LMmL50uKs7gqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VdMHL0YiAW9dyk2JKEVbBScsGdR02rBm94cBBkNZqgs=;
- b=edPZ/bSrWkEIYii7ksFr2nWnaNWQdNMxiasO4hhex3DsLtDKtt2VWuZezwdqHMo/UHzP50ytadYU4WMRVrYe7gUQXPmIhEcKL1NUn69R9XSMz9j0DPSbWGcBjbO+2l1vPGj2NK4KHEMXIQAjzcaCMW78n/KMJ84TyDmkt2sQwrKE1uZ0OHcV2ihqau4jXyVTXejxrZw0OIG6unfosc4ZIt2c88vpxcSNqfaJCXm1YkVTR/Mf5K6Lug1D/S1fl0g1lZBGaarlaLXtZGTjWoYXQ48SVluVsH1GvOO3a8yM/fDuPmqGFQV0zHIImlze0Z9zhF4SIcAidzpRmUlG81ti8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=3xdzcAhEcwciTGlrm103G0vAJF54Tz5HVbfwT1bvfjw=;
+ b=s7wKr0Ez7Rf8PxqVi912d1SOOWbXMfMS+/IJVLrZDi9ekS/JY06Ybm81hcb1i23FBP4ay8mBx3wVSkEUkpkUrB9s8/wybeU6wmMcZccnpNq7vXu3u7wSKO0IxFbONpJSMpRpxnVMDwlaE/cFtg84nnGQ6IhlD0Ea+fx/fWgT0UGZuuEUCNzOGGc77IqozSK2mn8iz9CHmnSi/nnoZ6vBASkWCrtXLxgGjG4VizXkUAolh65wd3ZP2RC8qoBLBxQUVAVwS6GIJsQOHDyl1QHXtO5FqtqZLapT3fX31Wkk+xh1HlAa+cKeFh7GpvuQsozlv6bOXgH8RlS9SH4262gYgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VdMHL0YiAW9dyk2JKEVbBScsGdR02rBm94cBBkNZqgs=;
- b=z2FxbtVXDK2M5qKpwTHX5kd+PV4cBD2b+5utmT8ACq3f2TIfRv9ooornnjIs5gAE22bdfRdCmbKiagtvr3M3Egusi9k1XMwVKtmN7VjGEtAp1gexgF5m55pafiCiN1VZLNIXmEV1ZukHgRcr2aXYagUIO5FG1+KO9/nerdegGKM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by CY5PR12MB6527.namprd12.prod.outlook.com (2603:10b6:930:30::13)
+ bh=3xdzcAhEcwciTGlrm103G0vAJF54Tz5HVbfwT1bvfjw=;
+ b=aVX3xTs9T2fMb4da3+yMR6kSbgwjIQhvowP5xLBYnI6ldTSlCUtUPrT0ZiMipH3IiCZ3CTVz0HpfiDhks9eKJpjdaxwGwrp53+1yBzw45LixGx5bXJMpx0z3LQt5lh13R51BYBB7xkPXg7UplLpv+kRQaiOj/Q/Qkmb5xh3P3YM=
+Received: from SN7PR04CA0221.namprd04.prod.outlook.com (2603:10b6:806:127::16)
+ by CH3PR12MB8073.namprd12.prod.outlook.com (2603:10b6:610:126::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Tue, 23 Jun
- 2026 18:46:44 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
- 18:46:43 +0000
-Message-ID: <599664a9-f91d-453d-a76b-9698510f1a5f@amd.com>
-Date: Tue, 23 Jun 2026 14:46:37 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] better LUT segmentation for EOTFs
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com
-Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
- "Dr . David Alan Gilbert" <linux@treblig.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Hung
- <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20260506191606.15022-1-mwen@igalia.com>
- <2a48f435-10d9-4e6e-8979-bfd61451a93e@igalia.com>
- <7934974e-adf1-4507-98ab-708095cce491@amd.com>
- <a6759f05-f372-4775-ae2f-e9af60ab89dc@igalia.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <a6759f05-f372-4775-ae2f-e9af60ab89dc@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0123.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::26) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+ 2026 19:40:03 +0000
+Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
+ (2603:10b6:806:127:cafe::4e) by SN7PR04CA0221.outlook.office365.com
+ (2603:10b6:806:127::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Tue,
+ 23 Jun 2026 19:40:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 19:40:02 +0000
+Received: from 0yonsun-linux-dev.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Tue, 23 Jun 2026 14:40:00 -0500
+From: Yongqiang Sun <Yongqiang.Sun@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Subject: [PATCH] drm/amdkfd: bound v9 CRIU control stack restore to allocated
+ MQD region
+Date: Tue, 23 Jun 2026 15:39:49 -0400
+Message-ID: <20260623193949.4184400-1-Yongqiang.Sun@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CY5PR12MB6527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63677c61-0a86-419e-d6a8-08ded157c556
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|CH3PR12MB8073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1428c495-0db0-40a1-763b-08ded15f3801
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|3023799007|11063799006|4143699003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: v5gF4JwLdaA65enjQ/Jk5wO/MvPb/ajCqEvclMIIWpeK5f7aVgSxBdDjcQnxnPxNeNRf9WMDafHCecqI8l2614yS+qsRs+7bKHbalk7efUKG8l2fvy1PxkxXZEBhhP4H5n4s4HvlL7hDL5yP5bBJ0oUBpMj6ZNpUo5wy6lMa2tFTTbTIOhzTyIEdT2GrgO67ogsoy2sBjV+BSnWJf3UOyKEvM62oOiQMwPjlVLgf56yQYaUyeqG2GowUPvAfRRro4T27P49ioqQMLDvTJOv7KQkekLGoF/I0u1lvNsc+vYoYh7Hx7LSKTXM8gkq8BgtLJxwJd1t1zFNGYA+DjJGyvB3R9rrMQUmAA3qF/dTp39MqLCGaiop1o8VJIY+Qpd22JX7j8b2c3KCQ5itRHlneXMVBvUEFyIh/QpZi2pVDuEPJoSLGYjtxWvK+H5vvVUOWhtbXpbB6D8oeIM7U5LiQu4EGWhj+ewg2jiJDfPRzO15oYXQwqGf0ANTACuwyD2YVbFMglpUkU8ykDueORV18YF+MxQo+oa0SHYtmSRxR69vsTQ/Hom2exujXQOPA1Qw8Q8hr4CAoVUtfQ9Sp+w1u1hr90UnDVGP8cU+kZuqefZZ/XHquCOzPW/s+8hRXzzVC4nf1IitPOBJxXWgZQtmpmwOcjW034jhoauQEIfCkXew=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(3023799007)(11063799006)(4143699003)(18002099003)(22082099003)(6133799003);
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|56012099006|6133799003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: vL9PC3xFwbl+H1SIktlaTC7rhmMr0FhnjMgTHuCUZJiHPbPTqZsy5G+y+CIYPN5Br2jnI44feBTQJyDVejAvMR6rc013m2SN8Jdoccvr7UXlu5p3Lz9qZHOQY+wuqIpjcuyzGOdE5OQ3VXFqwfRXqMICgFmgks9xwQlqSekce2cyfMz4DZvvrv2S+hy8hLfnDP04IUT4DqefP08AklD34PiQ6I1jiP/Iwg78aZwViRQUyg3M8qRTkvtQyfdpNMmC5cQUvWbsupWjqz1T2dweIYY8JS1jQ4//PL+v6QRNqyXTvkyL0jucjJ0PHmzTrLf+h7M/Ts/H2lS1rS2EPVea5jYGh4Enc56pUzNEYtTqtDxzwINIuu1+g218GNyfirQT4nwZQD1FW38ZQ+Fn1X5Vqvm46+/gE/hJVF3nFUahlFKDoVT7eqC1yifXY/AhBwOXFhFApwJ+2Xw6FM8TkwXGoUvbN8mS32G0W8nCjBL8P8wDQizkrD2Te1rYRlphhAJHTIjXwAUB5xNVIC+op6LyrOdjgMqK8Dafcc5/ehiwgmL+sAs+Vd1g84KDsIeIxbyriWvn953mp03j1Ar/13ZGW62EwszME/q3vknCwUS+aKJdRCvKv23kXPCHTMdi2kdA0mwTR68bBMJnztwl7Lq4Y9fAgNgM6sbnFDTSjLsCLlmwfvfkhj27QbVeDWqDISwD1tgMjXQbUYuXOzIf1L5U4Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(56012099006)(6133799003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEdPdlFKeEJHTnNsNko3eExPdGdQS1RDeU84M0NaNUNYTWN3V3I5bGZuNVBv?=
- =?utf-8?B?RzVSaVplM1VTQjAvRXgxVHFrR2xxcURYM3pObWxUejUrU204dlpNSmswN25z?=
- =?utf-8?B?L3ZxaXI4QkdSWUp0d2U0VWIvYWpZKzZNTDN4NWxuNWc2THQwN2EwTXpWUUhx?=
- =?utf-8?B?cmNQNDJBbnphZndqQjIrL1pUeE5FUk1XQkVMVzdHK1ArMHBqdGVpYUprRXZB?=
- =?utf-8?B?N09TUGZ3bjRibGFDZzJQaFRLN3JlMG1PV3NudFRMREhqcnpJT05pMmtUbUZN?=
- =?utf-8?B?Z1FnejhPRStyZWxFTVhNZEZFOTdXbnlEcXdWL0hQM3ZtZGNNVitXVHUwT3M2?=
- =?utf-8?B?dnR0RFJSTWlmTEtyWk1HT2MvaXJuVVhDQXZZL1B3ZVVKc01ReWNFaUUyRkkw?=
- =?utf-8?B?eG1VY1ovRnVsMkgxc0RNUWZxa1Vrc29wdXFMY2pLM3d5czdwY1VrOEZqODN3?=
- =?utf-8?B?a2pSRnNIZkx3NEptMVpySm5rRTcwNlRJSjhtTVhnVkZYWC91L21LMDdhTkZ2?=
- =?utf-8?B?L1VENUZ3eVE0WVdROUtsa2E2Z3dGOVBLM1k0YWV2NGRpblovckdWQlkyUDBD?=
- =?utf-8?B?ajROTGxPa01Vb1lIVkhNNTYrcmZiNjNPYWkwa292K2RnUVVNdXZqZkFKYkY1?=
- =?utf-8?B?WE95MEF0RkIyS0lNdUFoeDlMRk04SmJOenNkZThub2RHdUtoUWpxN2Jiek9r?=
- =?utf-8?B?L3lxcHhMVUdqV0ZKWENxOE52RTdPa3dPSW9DWjluUi9NOExOT1NpNDlJUnBr?=
- =?utf-8?B?UkFZUHJNbGphWmhITG9jOGhHRUxXWTRFUGM3aWxSeUxlOEp6aEVVOEtyVUlL?=
- =?utf-8?B?am16bXVJY3FZV2pqajFOVFNNRGxzN3puR1Z0dUNXUWhOTUNGR3RSVDRRUnZQ?=
- =?utf-8?B?TVdqb3hrWXdnaHZoTzRtd1pVMUc5bmN5ZHJTMUFZU01KNGlCbUgxWW5Xc3d3?=
- =?utf-8?B?cXd3UE5DNlVOL2lMT1FDS2MvV0lma2psc2tzb3hybFNUL1pnanNieUV5S0p0?=
- =?utf-8?B?SjFwdkM4bEhWdUpyQnJsTUh3UXdqbno2Z0N0dkdWUmFuam51cVE2MzFpcmhF?=
- =?utf-8?B?VGFLTkkvY3JEcG94RnRtSjZhTGpxbGNMcWtZam5jaEpMRWJLOG9yNUJiRWFY?=
- =?utf-8?B?cG9VU2puc0VFS3ZaWTgxMEpaQ0haUTJsUlova0x3dWx3VVA4b21iODNxWHNo?=
- =?utf-8?B?WVZrUEZUTnFOeUU0RUNpcTgyWXVSTFZJQXY4ck1ZZG1kUGJQQ0lGNWdQV3FL?=
- =?utf-8?B?VG14U1NLbWdDNkhQdVIyQ1NTdUU4TmZ2OFpuSDNVU0V4Q2cvM2RrS1RNWldt?=
- =?utf-8?B?NDBIMWNKU2VYbjNWUEI2cXQzbC9Cb3JqSEVlbzY5UVdudnhLN002eVhZaVpH?=
- =?utf-8?B?ZnF2VVVJaUZQTU52Rlc5d2xaRFAxZGRwNEprdlBINUFnMEx2YnAvKzdHMk1j?=
- =?utf-8?B?VVJqT05Da1ZPejAva2JmRFhrK1NHUk5UbDZMbHhJem5oLzY4T2RjQndIMkE4?=
- =?utf-8?B?VzNxL2haVEYyN0s3ak54Ull1emdKT2tQL3J2QW9VQWY4REJ4eSt5Q1lFQU5J?=
- =?utf-8?B?ODlTa1YrSjRmbHZXSGpxQXNrWWFieXc4UWdSV3ZuSDRTUHd2VlVhSW90V204?=
- =?utf-8?B?Ukh6YmRNU2NIRHJQMTJxNExQaDEzWlFHS01ONUhpbEx1TWpGTUNyM0lDNy9S?=
- =?utf-8?B?K1RQTit5NWxsRGxTNkxKYXZFaXhsV1J5WHFpbFFFU1k4UHM3bkZjK05yRis4?=
- =?utf-8?B?dmkvTVNxRVl2dHNEODVwMk05TSsxdjBpdWNwL2tYZDdVeko4NlQ4UWJCNU1j?=
- =?utf-8?B?VVdDYlV2cFVZSkZTUzQ1NjhuU0ZiSmpvM3IxYWNYRGVkQ3lDUWNZNHJESis2?=
- =?utf-8?B?NGVSUUcyVlVSdG5wREpLSFM4T3RwYUNmTnBiZ1dMNVF1ZzMwOHBWeWFLc3FY?=
- =?utf-8?B?VmJhbFlTYTZkbW5YSmtDYVh6NlBHa1RLSmJXUWhvYkN2YVFHYWNuOG94eVIx?=
- =?utf-8?B?VFpadXo0eTQ0cDIrcUJ2OFQvbHI1Z3R1aC9PRjFJRTRpaVFRSXdERG02cmlq?=
- =?utf-8?B?dHVBRmFwb1lkOEwrUFJFWkVTa0FYVDF2eWttaldCSjJUSWJFTlc0WkE1REdu?=
- =?utf-8?B?VGtEdUkxUDNqR1lwT05zNGwrQWF3UytIOE5KYzRzdkVkQXNqVFFRc213Y002?=
- =?utf-8?B?KzdPcERZajEvODdxMWl6Zm4vVko1dDdjb2d6WUptYTh2SjFCOFErNDFNSkps?=
- =?utf-8?B?NDJHZ2FTelNzTW9nLzNKV0tmUndtVlZQekN4MTZ1SWNZeTdLNGtKQ1Nwb0dh?=
- =?utf-8?B?Z3hoTlE2K3dXNmJIeGpkK25JTmhmNGVldmdxcVhrUHp3c0hTQ09KZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: JM4kiqYgfvL8dbzVnYxt4fqLgEI5obZ/9s6v1v6XPdTIXmqT/KLwj8JaOSYoP08NyPVzC42D6wodnPH5gBSryoH0PuCP0nzx3c4PrzvBSFT/Gq4D983Rlr9jCFidyer1ZCEw5tqAXZ45LbK7KH+TyUjHwqgsx7ga2tTFMUKHTkYtuN9LhqjzpUrMvA5O8Oa9EINE6W9z5aaLxBSSqfLoqZeOA/QlPf6/WZFvehGWBhcLDUD3tUSfr8ugHMnN7RMgOWi+EXdB4XNLzqnFSTgqILVf5I78Rrc7Bo8mBW1Go8srAJTM+wiNP6DQkj7UypZaZaNSlwG/6Enrjccn4sZ+5lINadJbV2NXmVWsAJNhiSMYg5QZZf3uQlmBIkGfP4NHISlLp1ldkr13HrhRwh4PH8Xxi4P4VmR2rnACL76w97NcrNOOWQRVH52BN/y88Vj1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63677c61-0a86-419e-d6a8-08ded157c556
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 18:46:43.8319 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 19:40:02.4218 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1428c495-0db0-40a1-763b-08ded15f3801
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pkn/06o1+T38/mBtrjijG0H+nsm3Qc5tIzmAh8JCupyMo/8ksyEbggsj6BScePm4HtcG+EFKan+X3sklAccG+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6527
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8073
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,112 +108,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-06-19 06:54, Melissa Wen wrote:
-> 
-> 
-> On 31/05/2026 19:15, Harry Wentland wrote:
->> On 2026-05-21 10:50, Melissa Wen wrote:
->>>
->>>
->>> On 06/05/2026 21:11, Melissa Wen wrote:
->>>> Hi,
->>>>
->>>> With an external HDR monitor, we can see gradient banding around the sun
->>>> in the intro of Ori and the Will of the Wisps game on steamOS/Gamescope.
->>>> Gamescope uses AMD predefined transfer functions for degamma,
->>>> shaper/pre-3D-LUT and blend/post-3D-LUT plus CRTC regamma, however, only
->>>> degamma block has hardware curves. Shaper, blend, regamma predefined TFs
->>>> are software-computed by AMD color module into PWL LUTs. In addition, we
->>>> cannot use hardware curves on PRE_DEGAM with subsampled format, so that,
->>>> predefined TFs are also translated to LUTs in this situation, using
->>>> GAMCOR block instead. For this translation, the driver originally used
->>>> the same helper for EOTFs and inverse EOTFs, even though they differ in
->>>> input domain, number of regions and number of TF points per region.
->>>
->>> Hello,
->>>
->>> Can someone review this series - and merge it, if everything is okay?
->>>
->>
->> Series is
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> 
-> Hey Harry,
-> 
-> Thanks for reviewing.
-> Was this series applied to AMD's branch?
-> 
+During CRIU restore, restore_mqd() copies the MQD control stack using a
+size derived from the untrusted, user-supplied q_data->ctl_stack_size. On
+multi-XCC GFX9.4.3 parts the divisor used to size the MQD allocation can
+differ from the one used for the copy, so the memcpy at the fixed
++AMDGPU_GPU_PAGE_SIZE offset can write attacker-controlled bytes past the
+TTM/BO-backed MQD buffer into adjacent kernel memory, allowing local
+privilege escalation (requires CAP_CHECKPOINT_RESTORE and /dev/kfd).
 
-Queued th v3 for merge. Should make it in by tomorrow after going through our CI.
+Clamp the control stack copy in restore_mqd() to qp->ctl_stack_size, the
+page-aligned region allocate_mqd() actually reserves, and reject oversized
+q_data->ctl_stack_size early in kfd_criu_restore_queue() by bounding the
+per-XCC size to the node's advertised control stack size.
 
-Harry
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+---
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 16 +++++++++++-
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 26 +++++++++++++++++++
+ 2 files changed, 41 insertions(+), 1 deletion(-)
 
-> Melissa
-> 
->>
->> Harry
->>
->>> Thanks,
->>>
->>> Melissa
->>>
->>>>
->>>> Baring this in mind, patch 1 maps degamma predefined curves as LUT using
->>>> GAMCOR block for AMD driver-specific property that are still in use by
->>>> current gamescope. This was inspired by a similar patch from Harry for
->>>> colorop [1]. Patch 2 reverts commit 8b89acc0b2ba ("drm/amd/display:
->>>> Remove unused cm3_helper_translate_curve_to_degamma_hw_format") to
->>>> reintroduce cm3_helper_translate_curve_to_degamma_hw_format() and patch
->>>> 3 wire it up for encoded -> linear-light LUTs (degamma/blend). With 16
->>>> samples per region across 12 regions for blend LUT (where hardware
->>>> fixed-function curves are not available and predefined TFs are
->>>> software-computed into LUTs), banding becomes almost imperceptible.
->>>>
->>>> Patch 4 and 5 increase precision in the brightest half, where PQ/SRGB
->>>> EOTFs are steeper, by enabling up to 256 samples per region and halving
->>>> the per-region point count across 9 regions (128 in [0.5, 1], 64 in
->>>> [0.25, 0.5], …). This better matches the shape of PQ/SRGB EOTFs.
->>>> Although patches 4 and 5 seem conceptually correct to me, I couldn't see
->>>> clear improvement in the bright end with or without them.
->>>>
->>>> This series targets DCN3+ hw families. With this series:
->>>> - degamma and blend LUTs use
->>>>    cm3_helper_translate_curve_to_degamma_hw_format(): encoded input,
->>>>    non-zero end slope, up to 256 points linearly interpolated between
->>>>    adjacent TF pts, fitting [0,1] encoded input range.
->>>> - shaper and regamma LUTs continue using
->>>>    cm3_helper_translate_curve_to_hw_format(): linear-light input, zero
->>>>    end slope, 16 points per region across 32 regions.
->>>>
->>>> [1] https://lore.kernel.org/dri-devel/20260330153451.99472-8- harry.wentland@amd.com/
->>>>
->>>> [v1] https://lore.kernel.org/dri-devel/20260414220237.184289-1- mwen@igalia.com/
->>>> Changes:
->>>> - new patch for GAMCOR usage in case of degamma predefined TF with subsampled formats
->>>> - fix misleading information regarding degamma hw curves (Kruno)
->>>> - clarify LUT segmentation choice using 8-bit sRGB as a reference (Kruno)
->>>>
->>>> Best Regards,
->>>>
->>>> Melissa
->>>>
->>>> Melissa Wen (5):
->>>>    drm/amd/display: use GAMCOR for degamma private props in subsampled
->>>>      format
->>>>    Revert "drm/amd/display: Remove unused
->>>>      cm3_helper_translate_curve_to_degamma_hw_format"
->>>>    drm/amd/display: use a separate helper to translate degamma curves
->>>>    drm/amd/display: support up to 256 samples per region in degamma/blend
->>>>      LUT
->>>>    drm/amd/display: use halving distribution for PQ/sRGB linearizing LUT
->>>>
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  16 +-
->>>>   .../amd/display/dc/dcn30/dcn30_cm_common.c    | 184 ++++++++++++++++++
->>>>   .../display/dc/dwb/dcn30/dcn30_cm_common.h    |   4 +
->>>>   .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  10 +-
->>>>   4 files changed, 204 insertions(+), 10 deletions(-)
->>>>
->>>
->>
-> 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index ce379ab17916..9117fbae0a1a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -453,8 +453,22 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
+ 	if (gart_addr)
+ 		*gart_addr = addr;
+ 
+-	/* Control stack is located one page after MQD. */
++	/*
++	 * Control stack is located one page after the MQD. allocate_mqd()
++	 * sized this region from qp->ctl_stack_size (page aligned). On the
++	 * CRIU restore path ctl_stack_size is derived from the untrusted,
++	 * user-supplied q_data->ctl_stack_size and, on multi-XCC parts, from
++	 * a divisor that may not match the one used to size the allocation.
++	 * Bound the copy to the allocated region so a malicious checkpoint
++	 * cannot write past the MQD buffer object into adjacent kernel
++	 * (TTM/GTT) memory.
++	 */
+ 	ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
++	if (ctl_stack_size > qp->ctl_stack_size) {
++		pr_err_ratelimited("ctl_stack_size 0x%x exceeds allocated 0x%x, clamping\n",
++				   ctl_stack_size, qp->ctl_stack_size);
++		ctl_stack_size = qp->ctl_stack_size;
++	}
+ 	memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
+ 
+ 	m->cp_hqd_pq_doorbell_control =
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 071f956f183c..7c4f89cf283c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -27,6 +27,7 @@
+ #include "kfd_device_queue_manager.h"
+ #include "kfd_priv.h"
+ #include "kfd_kernel_queue.h"
++#include "kfd_topology.h"
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_reset.h"
+ 
+@@ -984,7 +985,9 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ {
+ 	uint8_t *mqd, *ctl_stack, *q_extra_data = NULL;
+ 	struct kfd_criu_queue_priv_data *q_data;
++	struct kfd_topology_device *topo_dev;
+ 	struct kfd_process_device *pdd;
++	uint32_t max_ctl_stack_size, num_xcc;
+ 	uint64_t q_extra_data_size;
+ 	struct queue_properties qp;
+ 	unsigned int queue_id;
+@@ -1032,6 +1035,29 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 		goto exit;
+ 	}
+ 
++	/*
++	 * q_data->ctl_stack_size is user-supplied and is consumed across all
++	 * XCCs of the node when restoring the MQD control stack. Reject sizes
++	 * that could not have come from a valid checkpoint before sizing any
++	 * allocation or copy, so a bogus value can never drive an
++	 * out-of-bounds control stack write during MQD restore.
++	 */
++	num_xcc = NUM_XCC(pdd->dev->xcc_mask);
++	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
++	if (!num_xcc || !topo_dev) {
++		ret = -EINVAL;
++		goto exit;
++	}
++	max_ctl_stack_size = ALIGN(topo_dev->node_props.ctl_stack_size, PAGE_SIZE);
++	if (q_data->type == KFD_QUEUE_TYPE_COMPUTE &&
++	    q_data->ctl_stack_size > (uint64_t)max_ctl_stack_size * num_xcc) {
++		pr_err("CRIU restore ctl_stack_size 0x%x exceeds max 0x%llx\n",
++		       q_data->ctl_stack_size,
++		       (uint64_t)max_ctl_stack_size * num_xcc);
++		ret = -EINVAL;
++		goto exit;
++	}
++
+ 	/*
+ 	 * data stored in this order:
+ 	 * mqd[xcc0], mqd[xcc1],..., ctl_stack[xcc0], ctl_stack[xcc1]...
+-- 
+2.43.0
 
