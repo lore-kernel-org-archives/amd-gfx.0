@@ -4,103 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7E7CDB480
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 18:32:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8E2FCDB471
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 18:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67FA610EC45;
-	Tue, 23 Jun 2026 18:32:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3482E10EC4A;
+	Tue, 23 Jun 2026 18:46:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K598KBEv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z2FxbtVX";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013013.outbound.protection.outlook.com
- [40.107.201.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF3610EC69;
- Tue, 23 Jun 2026 18:32:25 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011039.outbound.protection.outlook.com [40.107.208.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C9910EC4A;
+ Tue, 23 Jun 2026 18:46:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K/gz8+xdaxT5ZXPBPjQvaZgO0s+0CU0oKqGD++kcdLHMg+OZxUUd5fVDw8GHSgTdvKBjcPujS6JubWD/IzCY3Iv3b7MdXgNMHAI1lxHBu+bK2BGJT6Xe4ZjwuMDtLiUnMW/2MYHNOkjOy+K8r/nK+MKoBgligTVwLMAqGw3YZn/qDG4YMXvGfdDBlCgbkISyD1pYDVjQvi6wXTY1uZNXcAAcH/oSTjMUpHwj/Y6d03Q3e0hQWHcc4hl8o1tDB9YwDLBxAooTyotvO6a/9AeDETW53rai3AvGQFvqwms73hYF3UdqraVu/KSdDKP80E1UFUESUuSgUnIsu59H1xE5RQ==
+ b=BXKrR57hUlfxc3oRWhuOgrmIn/IhuCbILOGAo4jW9WHvMi9c7nnZC3XQsHTltNbwxyQ86hC7AcUduGF2yD50Oix1uNsk8vXxRkwTy3dNEAqna5+4YNP8nxicrwoPOr0c/8+WxhdMaaYDNHqFLdk4wByEJmEvZk8bN9cfAGO8S2RTn0u30XFLeMFHK8k9rCiIy0aWsvESAJMQB7eZ1Gq4y7Orzvdw2my4H6hjuwKyBEKcrvbrRUiW4OVNf7ORexeksIce/2EmUNB1tWMn6lrTGFeCrEQaiA1MCy4PReU7I7m/SIXPDeoUL35sO7l+X+h3YaGv2/UPmcOgyujrs8TCuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p3yyZvcq5UIOHvgkqByrcZGsQIo9wt4W9amv42BDU0M=;
- b=X1TfRkuDs7pxFh8klFa3Dnn1ExKlsCubiWx+sypg4EbrXUtbfQGVMoOEp+nUJdD/JPcJ+ZpX7QCPOodd3UMR1rlQ38l4Q4i9PtFRh/hhD/8G9uTJ7J3DHrDw+W1ogH7FFsFI7uK983oqvSgeCgqJMPdgxAnP2LDP9WXwUSTdjHLbPg5zFTcE5LZOnL9H3jQxHBlsz1Ifo5MLReFh0tyB2NjKgxCRY5WWQFQvqTUaov+KMhZ/PP5ozdJ4Fooc2jkRdi3xyd/mLk2OwmazuUDxMQbew2ePtCnhkBVYT4q62ZXiHv0yLmMJD/B+tY2JJ332LStVUmPmB3zSKczl+srjOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=VdMHL0YiAW9dyk2JKEVbBScsGdR02rBm94cBBkNZqgs=;
+ b=edPZ/bSrWkEIYii7ksFr2nWnaNWQdNMxiasO4hhex3DsLtDKtt2VWuZezwdqHMo/UHzP50ytadYU4WMRVrYe7gUQXPmIhEcKL1NUn69R9XSMz9j0DPSbWGcBjbO+2l1vPGj2NK4KHEMXIQAjzcaCMW78n/KMJ84TyDmkt2sQwrKE1uZ0OHcV2ihqau4jXyVTXejxrZw0OIG6unfosc4ZIt2c88vpxcSNqfaJCXm1YkVTR/Mf5K6Lug1D/S1fl0g1lZBGaarlaLXtZGTjWoYXQ48SVluVsH1GvOO3a8yM/fDuPmqGFQV0zHIImlze0Z9zhF4SIcAidzpRmUlG81ti8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p3yyZvcq5UIOHvgkqByrcZGsQIo9wt4W9amv42BDU0M=;
- b=K598KBEvkYXESAZRL0o093aSHK498m/L6ECVdvT0tV1RuKeTHcK0vM4kyp0SD3F48AQdEDmC/38XKw/eu/z/+0MSZgYBIs8JacW93gYTp1VcO62E+tm/YSRtU9Ye8KvPdeQ/AsnqR92H8UdK5fgW3pK+EcRe8OpqVY14I11kFH0=
-Received: from MN2PR15CA0053.namprd15.prod.outlook.com (2603:10b6:208:237::22)
- by DM6PR12MB4370.namprd12.prod.outlook.com (2603:10b6:5:2aa::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=VdMHL0YiAW9dyk2JKEVbBScsGdR02rBm94cBBkNZqgs=;
+ b=z2FxbtVXDK2M5qKpwTHX5kd+PV4cBD2b+5utmT8ACq3f2TIfRv9ooornnjIs5gAE22bdfRdCmbKiagtvr3M3Egusi9k1XMwVKtmN7VjGEtAp1gexgF5m55pafiCiN1VZLNIXmEV1ZukHgRcr2aXYagUIO5FG1+KO9/nerdegGKM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by CY5PR12MB6527.namprd12.prod.outlook.com (2603:10b6:930:30::13)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Tue, 23 Jun
- 2026 18:32:21 +0000
-Received: from BN3PEPF0000B070.namprd21.prod.outlook.com
- (2603:10b6:208:237:cafe::a2) by MN2PR15CA0053.outlook.office365.com
- (2603:10b6:208:237::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Tue,
- 23 Jun 2026 18:32:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B070.mail.protection.outlook.com (10.167.243.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.0 via Frontend Transport; Tue, 23 Jun 2026 18:32:21 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
- 2026 13:32:03 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
- 2026 11:31:58 -0700
-Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 23 Jun 2026 13:31:57 -0500
+ 2026 18:46:44 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
+ 18:46:43 +0000
+Message-ID: <599664a9-f91d-453d-a76b-9698510f1a5f@amd.com>
+Date: Tue, 23 Jun 2026 14:46:37 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] better LUT segmentation for EOTFs
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ "Dr . David Alan Gilbert" <linux@treblig.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20260506191606.15022-1-mwen@igalia.com>
+ <2a48f435-10d9-4e6e-8979-bfd61451a93e@igalia.com>
+ <7934974e-adf1-4507-98ab-708095cce491@amd.com>
+ <a6759f05-f372-4775-ae2f-e9af60ab89dc@igalia.com>
+Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 2/2] drm/amd/display: Add support for 2.4 and 2.6 Gamma and
- its Inverse
-Date: Tue, 23 Jun 2026 14:31:55 -0400
-Message-ID: <20260623183155.212394-3-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260623183155.212394-1-harry.wentland@amd.com>
-References: <20260623183155.212394-1-harry.wentland@amd.com>
-MIME-Version: 1.0
+In-Reply-To: <a6759f05-f372-4775-ae2f-e9af60ab89dc@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT4PR01CA0123.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d5::26) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B070:EE_|DM6PR12MB4370:EE_
-X-MS-Office365-Filtering-Correlation-Id: b86029b7-d991-46a5-2776-08ded155c343
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CY5PR12MB6527:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63677c61-0a86-419e-d6a8-08ded157c556
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|11063799006|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: BIBjoLyEtjb/nfmN3Al+gbY9x5L+8hRzq1vWVE2GlKr7Avv+aEtSnNzRrJx0liqzcVGhhAHwXVJaTRd6kUI9ayI9u1fEnuCdN/zUF+OU59L2P1r9x0spUiPHE1Y1w9apEkWBk+H45A+7oz+cKj4d8Pd/FRSCQHhdV/uqqUii9VKrM8U/Lu4DOt2ltqviTzFqyP7LdQLtqOnOXtj/hkH14FVjOV/Kb80qVYgZdeM4+Zv9G3E9ghTOYFhCbzXuYShge53/umhR/TWplnhL2KwHVQgfr/BHiFRBuO+LwfRBjywy095Byh6i3guhu9kaObykYfRdR6gnWCN9MqVZNTFl2m+3FrXhIHE9XvLY/YED0irmAXgT7rHPd6oxfRBW8JZ+eFf8pGdSN77GiXKBozOqGBFl1AbhVGATCo4o9SH/O+mUTpv5cOre0x1+rzSRmV9KegZXBSyYB0eOawkVGCu6+SFJHAw8406RuBnBzfqVn5ftU4J8bvIZ7TCwkeCUW9jiccSKrmkNBs2D/bqEQpEaTJKZDN3CwQMIhj2cyjy5fHE7d96LtMHq7vso8V6hQyGzv/mgGZjDAcUZn0Xv/M7LjeMOCSGTRD0tiUy+bvVcy/sxEn+IzjP/i86wuTJmMaQoOb6Dv4KpFnLmkcOPX+orHRLRzMu5tJR91zfKJ9oC9gATpTXUi9AI6lx0lhEPjUdZB6k09yXEu4+Xu+WvbvzJmA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);
+ ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|3023799007|11063799006|4143699003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: v5gF4JwLdaA65enjQ/Jk5wO/MvPb/ajCqEvclMIIWpeK5f7aVgSxBdDjcQnxnPxNeNRf9WMDafHCecqI8l2614yS+qsRs+7bKHbalk7efUKG8l2fvy1PxkxXZEBhhP4H5n4s4HvlL7hDL5yP5bBJ0oUBpMj6ZNpUo5wy6lMa2tFTTbTIOhzTyIEdT2GrgO67ogsoy2sBjV+BSnWJf3UOyKEvM62oOiQMwPjlVLgf56yQYaUyeqG2GowUPvAfRRro4T27P49ioqQMLDvTJOv7KQkekLGoF/I0u1lvNsc+vYoYh7Hx7LSKTXM8gkq8BgtLJxwJd1t1zFNGYA+DjJGyvB3R9rrMQUmAA3qF/dTp39MqLCGaiop1o8VJIY+Qpd22JX7j8b2c3KCQ5itRHlneXMVBvUEFyIh/QpZi2pVDuEPJoSLGYjtxWvK+H5vvVUOWhtbXpbB6D8oeIM7U5LiQu4EGWhj+ewg2jiJDfPRzO15oYXQwqGf0ANTACuwyD2YVbFMglpUkU8ykDueORV18YF+MxQo+oa0SHYtmSRxR69vsTQ/Hom2exujXQOPA1Qw8Q8hr4CAoVUtfQ9Sp+w1u1hr90UnDVGP8cU+kZuqefZZ/XHquCOzPW/s+8hRXzzVC4nf1IitPOBJxXWgZQtmpmwOcjW034jhoauQEIfCkXew=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(3023799007)(11063799006)(4143699003)(18002099003)(22082099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4PfgrF7+8MztGKRXMC5DFjStXaUGHAXIjhLIeICsoNw+xEfOWMzlHNjfpsYSfEz4WFU5LndJunsILQpsEhduXHVkqmalzXlZ1+kK6u4BBHSJUNzdGlsyFYcsfN5eY5PqwWzAFEijJsfYmJKpIEBBNPNqlIr3J0LdIYoAPfyrzGdEIfCUJmQYpWnUu9CG/fjjN7OywiMY4rS3OwhKJoNYiYImreFna9FNjCyVVp/q0gPO8KTtuV4IMyWgQoJBvpHiu4TuAEOWO16ScrNSdwDEYNKy72BbqUYyYh5EprXO1kxG+Yb9bH0KrMOHVTO7JgC0jeFnogSt+5k7HFDQoo6IqQoZSRLJf375iQtEDs77BYyh+FEerYRcxJI7R18NrPuoGTExkHqHXY04OErkSHJPAQbGd+7w6Z+rdRyyKhLdr4f0Ug8ClSeffkL7aHNOwMUg
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEdPdlFKeEJHTnNsNko3eExPdGdQS1RDeU84M0NaNUNYTWN3V3I5bGZuNVBv?=
+ =?utf-8?B?RzVSaVplM1VTQjAvRXgxVHFrR2xxcURYM3pObWxUejUrU204dlpNSmswN25z?=
+ =?utf-8?B?L3ZxaXI4QkdSWUp0d2U0VWIvYWpZKzZNTDN4NWxuNWc2THQwN2EwTXpWUUhx?=
+ =?utf-8?B?cmNQNDJBbnphZndqQjIrL1pUeE5FUk1XQkVMVzdHK1ArMHBqdGVpYUprRXZB?=
+ =?utf-8?B?N09TUGZ3bjRibGFDZzJQaFRLN3JlMG1PV3NudFRMREhqcnpJT05pMmtUbUZN?=
+ =?utf-8?B?Z1FnejhPRStyZWxFTVhNZEZFOTdXbnlEcXdWL0hQM3ZtZGNNVitXVHUwT3M2?=
+ =?utf-8?B?dnR0RFJSTWlmTEtyWk1HT2MvaXJuVVhDQXZZL1B3ZVVKc01ReWNFaUUyRkkw?=
+ =?utf-8?B?eG1VY1ovRnVsMkgxc0RNUWZxa1Vrc29wdXFMY2pLM3d5czdwY1VrOEZqODN3?=
+ =?utf-8?B?a2pSRnNIZkx3NEptMVpySm5rRTcwNlRJSjhtTVhnVkZYWC91L21LMDdhTkZ2?=
+ =?utf-8?B?L1VENUZ3eVE0WVdROUtsa2E2Z3dGOVBLM1k0YWV2NGRpblovckdWQlkyUDBD?=
+ =?utf-8?B?ajROTGxPa01Vb1lIVkhNNTYrcmZiNjNPYWkwa292K2RnUVVNdXZqZkFKYkY1?=
+ =?utf-8?B?WE95MEF0RkIyS0lNdUFoeDlMRk04SmJOenNkZThub2RHdUtoUWpxN2Jiek9r?=
+ =?utf-8?B?L3lxcHhMVUdqV0ZKWENxOE52RTdPa3dPSW9DWjluUi9NOExOT1NpNDlJUnBr?=
+ =?utf-8?B?UkFZUHJNbGphWmhITG9jOGhHRUxXWTRFUGM3aWxSeUxlOEp6aEVVOEtyVUlL?=
+ =?utf-8?B?am16bXVJY3FZV2pqajFOVFNNRGxzN3puR1Z0dUNXUWhOTUNGR3RSVDRRUnZQ?=
+ =?utf-8?B?TVdqb3hrWXdnaHZoTzRtd1pVMUc5bmN5ZHJTMUFZU01KNGlCbUgxWW5Xc3d3?=
+ =?utf-8?B?cXd3UE5DNlVOL2lMT1FDS2MvV0lma2psc2tzb3hybFNUL1pnanNieUV5S0p0?=
+ =?utf-8?B?SjFwdkM4bEhWdUpyQnJsTUh3UXdqbno2Z0N0dkdWUmFuam51cVE2MzFpcmhF?=
+ =?utf-8?B?VGFLTkkvY3JEcG94RnRtSjZhTGpxbGNMcWtZam5jaEpMRWJLOG9yNUJiRWFY?=
+ =?utf-8?B?cG9VU2puc0VFS3ZaWTgxMEpaQ0haUTJsUlova0x3dWx3VVA4b21iODNxWHNo?=
+ =?utf-8?B?WVZrUEZUTnFOeUU0RUNpcTgyWXVSTFZJQXY4ck1ZZG1kUGJQQ0lGNWdQV3FL?=
+ =?utf-8?B?VG14U1NLbWdDNkhQdVIyQ1NTdUU4TmZ2OFpuSDNVU0V4Q2cvM2RrS1RNWldt?=
+ =?utf-8?B?NDBIMWNKU2VYbjNWUEI2cXQzbC9Cb3JqSEVlbzY5UVdudnhLN002eVhZaVpH?=
+ =?utf-8?B?ZnF2VVVJaUZQTU52Rlc5d2xaRFAxZGRwNEprdlBINUFnMEx2YnAvKzdHMk1j?=
+ =?utf-8?B?VVJqT05Da1ZPejAva2JmRFhrK1NHUk5UbDZMbHhJem5oLzY4T2RjQndIMkE4?=
+ =?utf-8?B?VzNxL2haVEYyN0s3ak54Ull1emdKT2tQL3J2QW9VQWY4REJ4eSt5Q1lFQU5J?=
+ =?utf-8?B?ODlTa1YrSjRmbHZXSGpxQXNrWWFieXc4UWdSV3ZuSDRTUHd2VlVhSW90V204?=
+ =?utf-8?B?Ukh6YmRNU2NIRHJQMTJxNExQaDEzWlFHS01ONUhpbEx1TWpGTUNyM0lDNy9S?=
+ =?utf-8?B?K1RQTit5NWxsRGxTNkxKYXZFaXhsV1J5WHFpbFFFU1k4UHM3bkZjK05yRis4?=
+ =?utf-8?B?dmkvTVNxRVl2dHNEODVwMk05TSsxdjBpdWNwL2tYZDdVeko4NlQ4UWJCNU1j?=
+ =?utf-8?B?VVdDYlV2cFVZSkZTUzQ1NjhuU0ZiSmpvM3IxYWNYRGVkQ3lDUWNZNHJESis2?=
+ =?utf-8?B?NGVSUUcyVlVSdG5wREpLSFM4T3RwYUNmTnBiZ1dMNVF1ZzMwOHBWeWFLc3FY?=
+ =?utf-8?B?VmJhbFlTYTZkbW5YSmtDYVh6NlBHa1RLSmJXUWhvYkN2YVFHYWNuOG94eVIx?=
+ =?utf-8?B?VFpadXo0eTQ0cDIrcUJ2OFQvbHI1Z3R1aC9PRjFJRTRpaVFRSXdERG02cmlq?=
+ =?utf-8?B?dHVBRmFwb1lkOEwrUFJFWkVTa0FYVDF2eWttaldCSjJUSWJFTlc0WkE1REdu?=
+ =?utf-8?B?VGtEdUkxUDNqR1lwT05zNGwrQWF3UytIOE5KYzRzdkVkQXNqVFFRc213Y002?=
+ =?utf-8?B?KzdPcERZajEvODdxMWl6Zm4vVko1dDdjb2d6WUptYTh2SjFCOFErNDFNSkps?=
+ =?utf-8?B?NDJHZ2FTelNzTW9nLzNKV0tmUndtVlZQekN4MTZ1SWNZeTdLNGtKQ1Nwb0dh?=
+ =?utf-8?B?Z3hoTlE2K3dXNmJIeGpkK25JTmhmNGVldmdxcVhrUHp3c0hTQ09KZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 18:32:21.1154 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b86029b7-d991-46a5-2776-08ded155c343
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63677c61-0a86-419e-d6a8-08ded157c556
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 18:46:43.8319 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B070.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4370
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pkn/06o1+T38/mBtrjijG0H+nsm3Qc5tIzmAh8JCupyMo/8ksyEbggsj6BScePm4HtcG+EFKan+X3sklAccG+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6527
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,68 +144,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Wire up the newly defined Gamma 2.4 and Gamma 2.6 curve types in the
-amdgpu DM color pipeline. Map them to the corresponding DC transfer
-functions and advertise them in the supported degamma, shaper, and
-blend transfer function masks.
+On 2026-06-19 06:54, Melissa Wen wrote:
+> 
+> 
+> On 31/05/2026 19:15, Harry Wentland wrote:
+>> On 2026-05-21 10:50, Melissa Wen wrote:
+>>>
+>>>
+>>> On 06/05/2026 21:11, Melissa Wen wrote:
+>>>> Hi,
+>>>>
+>>>> With an external HDR monitor, we can see gradient banding around the sun
+>>>> in the intro of Ori and the Will of the Wisps game on steamOS/Gamescope.
+>>>> Gamescope uses AMD predefined transfer functions for degamma,
+>>>> shaper/pre-3D-LUT and blend/post-3D-LUT plus CRTC regamma, however, only
+>>>> degamma block has hardware curves. Shaper, blend, regamma predefined TFs
+>>>> are software-computed by AMD color module into PWL LUTs. In addition, we
+>>>> cannot use hardware curves on PRE_DEGAM with subsampled format, so that,
+>>>> predefined TFs are also translated to LUTs in this situation, using
+>>>> GAMCOR block instead. For this translation, the driver originally used
+>>>> the same helper for EOTFs and inverse EOTFs, even though they differ in
+>>>> input domain, number of regions and number of TF points per region.
+>>>
+>>> Hello,
+>>>
+>>> Can someone review this series - and merge it, if everything is okay?
+>>>
+>>
+>> Series is
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> Hey Harry,
+> 
+> Thanks for reviewing.
+> Was this series applied to AMD's branch?
+> 
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Assisted-by: Copilot:claude-opus-4.8
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  |  6 ++++++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c    | 12 +++++++++---
- 2 files changed, 15 insertions(+), 3 deletions(-)
+Queued th v3 for merge. Should make it in by tomorrow after going through our CI.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index fa6883ae4dfb..2ace173b06e3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -896,6 +896,12 @@ amdgpu_colorop_tf_to_dc_tf(enum drm_colorop_curve_1d_type tf)
- 	case DRM_COLOROP_1D_CURVE_GAMMA22:
- 	case DRM_COLOROP_1D_CURVE_GAMMA22_INV:
- 		return TRANSFER_FUNCTION_GAMMA22;
-+	case DRM_COLOROP_1D_CURVE_GAMMA24:
-+	case DRM_COLOROP_1D_CURVE_GAMMA24_INV:
-+		return TRANSFER_FUNCTION_GAMMA24;
-+	case DRM_COLOROP_1D_CURVE_GAMMA26:
-+	case DRM_COLOROP_1D_CURVE_GAMMA26_INV:
-+		return TRANSFER_FUNCTION_GAMMA26;
- 	default:
- 		return TRANSFER_FUNCTION_LINEAR;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index 7ee051cb3c05..081a92959d90 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -37,19 +37,25 @@ const u64 amdgpu_dm_supported_degam_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
--	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
- 
- const u64 amdgpu_dm_supported_shaper_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
--	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV) |
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA24_INV) |
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA26_INV);
- 
- const u64 amdgpu_dm_supported_blnd_tfs =
- 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
--	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
-+	BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
- 
- #define MAX_COLOR_PIPELINE_OPS 10
- 
--- 
-2.54.0
+Harry
+
+> Melissa
+> 
+>>
+>> Harry
+>>
+>>> Thanks,
+>>>
+>>> Melissa
+>>>
+>>>>
+>>>> Baring this in mind, patch 1 maps degamma predefined curves as LUT using
+>>>> GAMCOR block for AMD driver-specific property that are still in use by
+>>>> current gamescope. This was inspired by a similar patch from Harry for
+>>>> colorop [1]. Patch 2 reverts commit 8b89acc0b2ba ("drm/amd/display:
+>>>> Remove unused cm3_helper_translate_curve_to_degamma_hw_format") to
+>>>> reintroduce cm3_helper_translate_curve_to_degamma_hw_format() and patch
+>>>> 3 wire it up for encoded -> linear-light LUTs (degamma/blend). With 16
+>>>> samples per region across 12 regions for blend LUT (where hardware
+>>>> fixed-function curves are not available and predefined TFs are
+>>>> software-computed into LUTs), banding becomes almost imperceptible.
+>>>>
+>>>> Patch 4 and 5 increase precision in the brightest half, where PQ/SRGB
+>>>> EOTFs are steeper, by enabling up to 256 samples per region and halving
+>>>> the per-region point count across 9 regions (128 in [0.5, 1], 64 in
+>>>> [0.25, 0.5], …). This better matches the shape of PQ/SRGB EOTFs.
+>>>> Although patches 4 and 5 seem conceptually correct to me, I couldn't see
+>>>> clear improvement in the bright end with or without them.
+>>>>
+>>>> This series targets DCN3+ hw families. With this series:
+>>>> - degamma and blend LUTs use
+>>>>    cm3_helper_translate_curve_to_degamma_hw_format(): encoded input,
+>>>>    non-zero end slope, up to 256 points linearly interpolated between
+>>>>    adjacent TF pts, fitting [0,1] encoded input range.
+>>>> - shaper and regamma LUTs continue using
+>>>>    cm3_helper_translate_curve_to_hw_format(): linear-light input, zero
+>>>>    end slope, 16 points per region across 32 regions.
+>>>>
+>>>> [1] https://lore.kernel.org/dri-devel/20260330153451.99472-8- harry.wentland@amd.com/
+>>>>
+>>>> [v1] https://lore.kernel.org/dri-devel/20260414220237.184289-1- mwen@igalia.com/
+>>>> Changes:
+>>>> - new patch for GAMCOR usage in case of degamma predefined TF with subsampled formats
+>>>> - fix misleading information regarding degamma hw curves (Kruno)
+>>>> - clarify LUT segmentation choice using 8-bit sRGB as a reference (Kruno)
+>>>>
+>>>> Best Regards,
+>>>>
+>>>> Melissa
+>>>>
+>>>> Melissa Wen (5):
+>>>>    drm/amd/display: use GAMCOR for degamma private props in subsampled
+>>>>      format
+>>>>    Revert "drm/amd/display: Remove unused
+>>>>      cm3_helper_translate_curve_to_degamma_hw_format"
+>>>>    drm/amd/display: use a separate helper to translate degamma curves
+>>>>    drm/amd/display: support up to 256 samples per region in degamma/blend
+>>>>      LUT
+>>>>    drm/amd/display: use halving distribution for PQ/sRGB linearizing LUT
+>>>>
+>>>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  16 +-
+>>>>   .../amd/display/dc/dcn30/dcn30_cm_common.c    | 184 ++++++++++++++++++
+>>>>   .../display/dc/dwb/dcn30/dcn30_cm_common.h    |   4 +
+>>>>   .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  10 +-
+>>>>   4 files changed, 204 insertions(+), 10 deletions(-)
+>>>>
+>>>
+>>
+> 
 
