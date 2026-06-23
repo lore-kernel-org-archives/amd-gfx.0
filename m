@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA204CDB47F
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 16:01:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30C06CDB479
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 16:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB9D10EBD1;
-	Tue, 23 Jun 2026 16:01:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8FFA10EBDB;
+	Tue, 23 Jun 2026 16:01:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HA4dhCuc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SVgiYRT9";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1921610EBDB
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 16:01:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E910510EBB8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 16:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=E69dOhbDhHYohz8t0cvbyS/yN26OMOECjWvN+URAYhg=; b=HA4dhCucRFV/58+eIHydTfjUTF
- qZumVX8G3mhGnB9A0K8/aZEP5Hbk62kD3uOk0IBBO/xvXle98vIr5gqaeLzy3QVe9PqT2CLfDkZfR
- nEw6lzmksZFRRQ9nzcESxVkASz7ekFsSLTYF9w01ZBK4JikmkDeclWyrMw4dGZLcMFx6eR8/bRDL0
- VR4IvevDI6y7WxBY5jlt2h6TqfiZSVOQfu24dwFSjgm3obXSo7hWweCDG4Lv95P9uHD3bo9xayqG7
- gFKKuTffA3K2zvwmKlBfMURfgqKnCB9FM6nOFn9Ol5WNJ456OvsgXdENbeRHJ8fFtL7vD1ckJELB6
- t7YhGAtA==;
+ bh=fCOPBymXFkeicbyc26jhcEU+1nLRYu2DvZSx6Tnr9rI=; b=SVgiYRT9GR2dx0Kbq2kUlL0ZLy
+ USZPN9yCAk+MsXvPWE93Ylho7fTQpBeTAM1NRnaTYm++9kKjAUsXAVhLL0a0c6As5N+s3o8snbrcv
+ 93l0rWIhMQRr0sNbZhI6glQHK52aYg5BdQDOa5I1Vb/EfjDBaObxeJY0B3Phaf5XXQmHSAh4eAIz4
+ wmo2Eu2lWFx2e9H+h6b3qaP8dQtboZillFfgHeNJlDBlRKakTndPAalq9DcKLOV7eXBajcoU3t+sk
+ 2iVTjXW0LHV80IStEqZ/S1kVUt8rNFEu7iCM9qJZbSJRjGGvbpo85Aj2tOS8r6/cBnghhzsO6jQEb
+ BQTrcfsQ==;
 Received: from 5.red-79-144-94.dynamicip.rima-tde.net ([79.144.94.5]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wc3Yn-004FI4-Ds; Tue, 23 Jun 2026 18:01:13 +0200
+ id 1wc3Yr-004FI4-2g; Tue, 23 Jun 2026 18:01:17 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
@@ -44,12 +44,14 @@ Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
  pekka.paalanen@collabora.com, Xaver Hugl <xaver.hugl@kde.org>,
  robert.mader@posteo.de, amd-gfx@lists.freedesktop.org,
  kernel-dev@igalia.com
-Subject: [PATCH v3 0/5] drm/amd/display: better LUT segmentation for EOTFs
-Date: Tue, 23 Jun 2026 17:58:56 +0200
-Message-ID: <20260623160112.1636801-1-mwen@igalia.com>
+Subject: [PATCH v3 5/5] drm/amd/display: use halving distribution for PQ/sRGB
+ linearizing LUT
+Date: Tue, 23 Jun 2026 17:59:01 +0200
+Message-ID: <20260623160112.1636801-6-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260623160112.1636801-1-mwen@igalia.com>
+References: <20260623160112.1636801-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,80 +67,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With an external HDR monitor, we can see gradient banding around the sun
-in the intro of Ori and the Will of the Wisps game on steamOS/Gamescope.
-Gamescope uses AMD predefined transfer functions for degamma,
-shaper/pre-3D-LUT and blend/post-3D-LUT plus CRTC regamma, however, only
-degamma block has hardware curves. Shaper, blend, regamma predefined TFs
-are software-computed by AMD color module into PWL LUTs. In addition, we
-cannot use hardware curves on PRE_DEGAM with subsampled format, so that,
-predefined TFs are also translated to LUTs in this situation, using
-GAMCOR block instead. In this translation, the driver originally used
-the same helper for EOTFs and inverse EOTFs, even though they differ in
-input domain, number of regions and number of TF points per region.
+When linearizing, the input is an encoded signal bounded to [0,1] and
+PQ/sRGB EOTFs are steepest near 1, requiring more precision near the
+bright end.
 
-Baring this in mind, patch 1 maps degamma predefined curves as LUT using
-GAMCOR block for AMD driver-specific property that are still in use by
-current gamescope. This was inspired by a similar patch from Harry for
-colorop [1]. Patch 2 reverts commit 8b89acc0b2ba ("drm/amd/display:
-Remove unused cm3_helper_translate_curve_to_degamma_hw_format") to
-reintroduce cm3_helper_translate_curve_to_degamma_hw_format() and patch
-3 wire it up for encoded -> linear-light LUTs (degamma/blend). With 16
-samples per region across 12 regions for blend LUT (where hardware
-fixed-function curves are not available and predefined TFs are
-software-computed into LUTs), banding becomes almost imperceptible.
+Take the 8-bit sRGB case as a reference: 256 possible inputs and 256 HW
+LUT points line up, so the LUT acts as plain indexing. Float
+representations don't land perfectly, but LERP-ing between two HW
+entries, when input is within a small epsilon of one of them, doesn't
+materially change the result.
 
-Patch 4 and 5 increase precision in the brightest half, where PQ/SRGB
-EOTFs are steeper, by enabling up to 256 samples per region and halving
-the per-region point count across 9 regions (128 in [0.5, 1], 64 in
-[0.25, 0.5], …). This better matches the shape of PQ/SRGB EOTFs.
-Although patches 4 and 5 seem conceptually correct to me, I couldn't see
-clear improvement in the bright end with or without them.
+Replace the uniform 12-region distribution (16 points each,
+192 total, range [2^-12, 1]) with a 9-region halving distribution for
+the PQ/sRGB pre-defined EOTF: 128 points in the top region [0.5, 1], 64
+in the next, 32 in the next, and so on, down to 1 point in each of the
+two darkest regions. Total samples grow from 192 to 256, with uniform
+1/256 spacing across [0, 1]. The dark tail below 2^-9 is no longer
+sampled separately, which is acceptable for PQ/sRGB.
 
-This series targets DCN3+ hw families. With this series:
-- degamma and blend LUTs use
-  cm3_helper_translate_curve_to_degamma_hw_format(): encoded input,
-  non-zero end slope, up to 256 points linearly interpolated between
-  adjacent TF pts, fitting [0,1] encoded input range;
-- shaper and regamma LUTs continue using
-  cm3_helper_translate_curve_to_hw_format(): linear-light input, zero
-  end slope, 16 points per region across 32 regions;
-- in the AMD-specific path, GAMCOR block is used for subsampled format
-  instead of PRE_DEGAM.
+Suggested-by: Krunoslav Kovac <Krunoslav.Kovac@amd.com>
+Tested-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    | 33 ++++++++++++++-----
+ 1 file changed, 24 insertions(+), 9 deletions(-)
 
-[1] https://lore.kernel.org/dri-devel/20260330153451.99472-8-harry.wentland@amd.com/
-
-[v1] https://lore.kernel.org/dri-devel/20260414220237.184289-1-mwen@igalia.com/
-Changes:
-- new patch for GAMCOR usage in case of degamma predefined TF with subsampled formats
-- fix misleading information regarding degamma hw curves (Kruno)
-- clarify LUT segmentation choice using 8-bit sRGB as a reference (Kruno)
-
-[v2] https://lore.kernel.org/dri-devel/20260506191606.15022-1-mwen@igalia.com/
-Changes:
-- rebase on top of asdn
-- add t-b and r-b tags
-
-Best Regards,
-
-Melissa
-
-Melissa Wen (5):
-  drm/amd/display: use GAMCOR for degamma private props in subsampled
-    format
-  Revert "drm/amd/display: Remove unused
-    cm3_helper_translate_curve_to_degamma_hw_format"
-  drm/amd/display: use a separate helper to translate degamma curves
-  drm/amd/display: support up to 256 samples per region in degamma/blend
-    LUT
-  drm/amd/display: use halving distribution for PQ/sRGB linearizing LUT
-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  16 +-
- .../amd/display/dc/dcn30/dcn30_cm_common.c    | 184 ++++++++++++++++++
- .../display/dc/dwb/dcn30/dcn30_cm_common.h    |   4 +
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  11 +-
- 4 files changed, 204 insertions(+), 11 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+index 70b7bc3494a2..66fe7f313ea3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+@@ -303,8 +303,6 @@ bool cm3_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+ 	return true;
+ }
+ 
+-#define NUM_DEGAMMA_REGIONS    12
+-
+ /* Linear interpolation of tf_pts entries, where (i >> 4) is the integer tf_pts
+  * index, (i & 0xf) is the 1/16 sub-position.
+  */
+@@ -345,17 +343,34 @@ bool cm3_helper_translate_curve_to_degamma_hw_format(
+ 	memset(lut_params, 0, sizeof(struct pwl_params));
+ 	memset(seg_distr, 0, sizeof(seg_distr));
+ 
+-	region_start = -NUM_DEGAMMA_REGIONS;
+-	region_end   = 0;
++	if (output_tf->tf == TRANSFER_FUNCTION_PQ ||
++	    output_tf->tf == TRANSFER_FUNCTION_SRGB) {
++		/* 9 segments
++		 * segments are from 2^-9 to 0
++		 */
++		const uint8_t SEG_COUNT = 9;
++		seg_distr[0] = 0; // Since we only have one point in darkest region
++		for (k = 1; k < SEG_COUNT; k++)
++			seg_distr[k] = k - 1; // 2^(k-1) points per region; halves as k decreases
+ 
++		region_start = -SEG_COUNT;
++		region_end = 0;
++	} else {
++		/* 12 segments
++		 * segments are from 2^-12 to 2^0
++		 * There are less than 256 points, for optimization
++		 */
++		const uint8_t SEG_COUNT = 12;
++
++		for (i = 0; i < SEG_COUNT; i++)
++			seg_distr[i] = 4;
++
++		region_start = -SEG_COUNT;
++		region_end = 0;
++	}
+ 
+ 	for (i = region_end - region_start; i < MAX_REGIONS_NUMBER ; i++)
+ 		seg_distr[i] = -1;
+-	/* 12 segments
+-	 * segments are from 2^-12 to 0
+-	 */
+-	for (i = 0; i < NUM_DEGAMMA_REGIONS ; i++)
+-		seg_distr[i] = 4;
+ 
+ 	for (k = 0; k < MAX_REGIONS_NUMBER; k++) {
+ 		if (seg_distr[k] != -1)
 -- 
 2.53.0
 
