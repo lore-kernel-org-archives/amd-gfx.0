@@ -4,96 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E44B8CD4F26
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 04:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90D70CD4F26
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 04:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D52610E933;
-	Tue, 23 Jun 2026 04:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC3610E931;
+	Tue, 23 Jun 2026 04:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wCEV7Gdq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vioxm26u";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011042.outbound.protection.outlook.com [52.101.62.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD03610E933
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 04:26:28 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010021.outbound.protection.outlook.com [52.101.61.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095CC10E931
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 04:34:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hho+Qx7s1P6G+ryU/hcXAGfiObFN8KEEe450JjbSL/u7DDwsVUPbNNJy8z9+JDuz9tll+i9tuFDiMiSlneE7ZzuLQ82icLU410yRLnFmgctkTYQKLA65Z8eLUZo1e1hr9PBDZmcbzrz8qq5J8fNuDrIvu5HNHNJlxttgCQTqRa06JQ0IfPuQuJZYx62dX06c5VP7rCDTrQR8aTzW/RodDaXHORj2HPAzPDZdo+aDpJqJoANlEEedrRHzNFdOF9G+VieEN1ZRyKj504Rqk4FzhWoiaf65yx2F8Llnpj7Lh4+5VXWniocmlhnaWhQCJkaCDjgcuzkuCOR55y1LkXOqTg==
+ b=WgyBCC0TYAm20fOd5wPo/qzOLEYJYRJEGmzdcBFKFRsZvIbmvubFe0EiP4BgciPJ6ZA6iN+KgtnWydhQLSfvbh9z803bVxW94ZIdAA+p+r2OexvVNTqC2q9FdQWCNqJPcN7SFE3qg07XXYOaFhYigp7wcQ1Ykmec5yH3KW5aa0WPt7Cyg3+GjDJXOwQdVVxYxPE3xle81itXxfKY9f+qAba4IU8M2BlrftzyTiJCL/y7dpMijtDwzPZwqb+SKTnZbVur11R8XGtWQFgNhJnyh8zE9dJxmBkEDcX4uQdDHCLMiJPIDz4l6SoNAPiSnObvSLNo6RQqvHJyqR+6RKAcwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DWCyWkvGYW+w5MideKgp0iM8jdxKFnZvRVe79rCwRv4=;
- b=bf1o3rB5/eaI2ILcZujPi/V7kTTAi/0LdERc6c8jVnMldOb0/e6HkzgtqUF6C59jDwHjnMFUcvwqYQKCO6o5iK/yiQDyf4O/AeU4QpxL9lNn+O0iwJJRbKxYKOePnYc6b4UvrL9k2BW4qWayRjObFOJMI3eZWT1V2QCQ59DS/I2cuf24cTzsBnJTcZUv4fvB7kbVrrN83EqUWpx6D80i1pJrfsJ3d2Hy0EtMvdtx6dCnMnz7OCFfuy6QTI+t9K+GJrIT3JkxBA4QVX2uHmUMpb/6FNN+uJ2E7oyeBurXSF+eSjhTABoqs0z7doBQ2AbzpBVSXkkd0r6SKguHd4e+fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=ws3So9JB0T0aymezmxpmsI4yoLKbkeBsL1RbdnMtaFI=;
+ b=uksodNlNCyGbQstL66fSszE/rOhchu7lf3/uR/ZF1KSAXeqeQ5DcspOZRPskGydZYZ4XdjjCTeV4X19oV6ZfwebsWz6AsrkJ/i/FpNO+p0FkCTV5Q3MnWxXToUp0HQui8CH86kT650Ih8W+LDbeMti+14WF71ZzxNHnm0qFMTE2klfMO/x+LXkjUSJeAMiwDSED3MuUwjtoPVZ38GBOXnPuH5RuGgX7CIBX+badtb17iSy74KhTot6I5m6AKFeEol1D76zRnhnChxCP6aoETkPdC1ZDfVcawjk9rO/+Oqdmfsf9DOoe/T9dFzLjr5ZTvpA0GsgDGbofEDwnBRhPVZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DWCyWkvGYW+w5MideKgp0iM8jdxKFnZvRVe79rCwRv4=;
- b=wCEV7Gdqh1+/leAg4CL0L58Yo0pdru37u7ARicGD5r64Ge5U6z9X4Sooa1NDKQ/poOmi6NY2RZPSUMkjpHsKH9ApCTg5MLNkdrP0Ztt6yWhntm5gZANlDxbUl/8Urmwu7VK166Cx5nqM5o6KzUMnTjbWUcpX752IcYHB38PbpOc=
-Received: from SJ0PR05CA0039.namprd05.prod.outlook.com (2603:10b6:a03:33f::14)
- by IA0PR12MB8895.namprd12.prod.outlook.com (2603:10b6:208:491::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 04:26:24 +0000
-Received: from MW1PEPF00016159.namprd21.prod.outlook.com
- (2603:10b6:a03:33f:cafe::a3) by SJ0PR05CA0039.outlook.office365.com
- (2603:10b6:a03:33f::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.8 via Frontend Transport; Tue, 23
- Jun 2026 04:26:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF00016159.mail.protection.outlook.com (10.167.249.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.0 via Frontend Transport; Tue, 23 Jun 2026 04:26:23 +0000
-Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
- 2026 23:26:20 -0500
-From: Xiang Liu <xiang.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
- <YiPeng.Chai@amd.com>, Xiang Liu <xiang.liu@amd.com>
-Subject: [PATCH] drm/amd/pm: Guard VBIOS AC timing table walk
-Date: Tue, 23 Jun 2026 12:26:01 +0800
-Message-ID: <20260623042601.562748-1-xiang.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00016159:EE_|IA0PR12MB8895:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffdba11c-fe24-4b34-3a42-08ded0df951a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: oMBmJjx2XGpJdhKTr0zsdwTqaEA9BzTs2ZXH9MQDU4rGxxDcVaeTMA04NxeS427pLRV+VYEdiWvaEzFdOV+n8IuQh16eVfLASKdZDikZmefyy4cZw6NM4hus/DHuMMoqU4nGxqlGwlq7n6943PZgqsU1h2hxgC//TivunbObDhCDe8BBgMgQZbA2vUCw8DP2XCW2rtyawfve2jbmkzNkhNxW9Wk1lhmZxqQCAwCL8e9w3+X6Gy1Ypt+IkKAwCTbtLE8Bf8gRUEvSJ9JefBsleHx2lXs0V+M4HVl4sTI1dDJrQs2NzqWg0jNtz/S7PxYJtuosQxjr8U5WRC/E3Impo+oMcD1liCvHinyrqTS6fahadjIWRQZXrRLPkfPTDlml5YYniBJlQtJdtVcmLwNiorpxYlf/Ll+hLEh4ymOLO4ApnFa9deQkpNK+Zy9PFWLWCOWDPjXrpUt/aWGpdS8P9ULi4lD858/FG/fYAmefWSiopSezZdR+ydWMTKo5fiJOW6B8QRr5j5sTopHUW4nqbDZdOxEa1Wy0adraVCAcoRt/ebAujNcvzOejNETnkIq9AH0D1LmT/da2Y1vDhxQnCJg7BDYcPASU+8RZFlPHRjKjZumwsIQjZxe/UfA20nOTfl0nfluObrDyf8eUMmt4b562LpkGcJoE8LHaygAXEFGB9jcC3cmhWejxMPrY9CK6
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(18002099003)(56012099006)(11063799006);
+ bh=ws3So9JB0T0aymezmxpmsI4yoLKbkeBsL1RbdnMtaFI=;
+ b=vioxm26ufFLMsMR92yuc3QzF3sLRMkAQeDW6RpfoUdPucqIN66q5rzjTYUwrPmmzzHJOtNo10GXljjVKMNtdqZU+Hn9pFQ0vC45dUijGxNe41W6HGmgzcnoXq1lTEGGrgpgKGnzRyA+ypZQhWBI4ZHbQwqV+QBnveokDGRlKFGc=
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by DM4PR12MB6350.namprd12.prod.outlook.com (2603:10b6:8:a3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Tue, 23 Jun
+ 2026 04:34:25 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%5]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
+ 04:34:25 +0000
+From: "Zhu, Lingshan" <Lingshan.Zhu@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
+ Ray" <Ray.Huang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: split amdgpu_bo_create_reserved into create
+ and map helpers
+Thread-Topic: [PATCH] drm/amdgpu: split amdgpu_bo_create_reserved into create
+ and map helpers
+Thread-Index: AQHc/iY9numL1Kfvl0mNWMfkSpb0j7ZLls/A
+Date: Tue, 23 Jun 2026 04:34:25 +0000
+Message-ID: <CH2PR12MB9457099AA2A66864571315CD8CEE2@CH2PR12MB9457.namprd12.prod.outlook.com>
+References: <20260617065442.16432-1-lingshan.zhu@amd.com>
+In-Reply-To: <20260617065442.16432-1-lingshan.zhu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-23T04:34:18.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH2PR12MB9457:EE_|DM4PR12MB6350:EE_
+x-ms-office365-filtering-correlation-id: 7767d7c8-9c8f-4570-6b03-08ded0e0b4ba
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|22082099003|11063799006|56012099006|18002099003;
+x-microsoft-antispam-message-info: A+iJkVpRXnZaHWjFZj/fCWyMQB1KF+giDr9bPS38EK5OwT6Jaf7U1NE5P6ZrOiAmcy8Ems39bZ+sWtDr8a1hWLVItV+WNzueTP1kaboSIpyKJdLNlghRh43DHSrP2FBvkj6LphqhFYJ5wxe/kCGiH7UsZGHGO9uD7SjHT+XWt3Y7Q957qDz+ZtnBRSrO1IjAIdGdTuhAECOuUVR9mjIhHXVY3oOwIjNOo7MSyTUc6r7mSp0r47frRJ9Y56NjflDZYJc09m9y8D6jw+ZAX+54VZ6Hj9V2AJkmSV00yhan0NinWtpxnpxO4RVOzahs/veTKhGz+Mp3N/wE5XolaMSJjREsPmXtiG3hF0jdt1LlZDyhSN72IPGUg7HF6VSK+cYMZww2FwyIEwtD7wbfpvmcvKFDktnHyaqJBms+sq7asXLubcjzZTi3gR4BCv7pZfHJzPy72TgomJT/sLna16GNTQqKJkRVh/4sLcEcG25XN6FAHQLeZyCQFlrHXZ0D39/es6SBgs/NeCegQQT10WXb2sPykiikmQlWzJ8TMD4X7fejZLEU5OfjlzFN5e8/m+hLi3ym9gyEUoqrjaQPbtQiZpQEpGqXBpeiozC6ExOlja+/aQZg5yt9okNh9mxDNjtkYqxcURGBxRKCdo+XyTVTtdVNeuJ09ZkLBhOVokuhPJe9J2CD+2JmI+mypw4YUvcYkANNDc2aG6jzjRjuVKZauSVQpZleratcm8i+PRFO334=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(22082099003)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bOdTZ50KraaExggcQcvq17yh/Mpvcc1G7CRXPsU5uDzNWxCrXTDTaOKkY9hpfOOZq787rFeopo8R3y4Hm6UDq6jRbstyzWP6WzbQatyHcRPGBwII4OrKbEq4mIdev3Yfl5TXNppUZTHPRA4bLpjAcOH4jEn7iqYJR+Gh2f0Czg+s+K/RQx8fpBhAFE/KmEVS7DGWPq7B/xFUffkD48LjD+mw2nuKts479omMIcD8Hjw9P7qHEhl+bRoUJv5B6oN28j49UmhnOXpWsCmoYZL+Nxp2KkCIv9IHQLyC4DGt7BR0xmBIVaFQLuj8iaf1dRp+62dG9smNMRZJMsp7QjP3fRBbjpK5rQxmpT+MRr7bCU71vaywVsRcEs870AjTgQ3ES+EBEkMoSiy8eefJuzadoiTc35rtvxb8lkuI5D9/8spYgpGPLbGIiJDWkrGINQEr
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LODp3/v+glq1iZUClo9gkqTsHTMfXSJBabIIcDavMmem9LEpJ6Moels9psRG?=
+ =?us-ascii?Q?c6VDaAC6bP6lpu5q6ds5YNbL59KFlVCYxtJ2RRcmUnzAu+Yrl61fSEUJJ78Z?=
+ =?us-ascii?Q?EIiyXzQn9IJD1WThicbF6Kq7f9YMXzTQ5BiqxbbIWbiQDG64NFJxaPpkN/c4?=
+ =?us-ascii?Q?CRSwzJwNqmI202I38kiZv85eJ1zgWmV/m0zHVjrXjuZFz8vNs64FFEUfwm7+?=
+ =?us-ascii?Q?IxIiaHk8JPSksTgxAcc3ShSJ8KA2LipSfRsirFXAYtCKE6qcsNG7XlWFn+KL?=
+ =?us-ascii?Q?RJ5yDm/thbvOcR6RboJule7iygmLnzJoJbhmjX0jgA+iKJPS+PY0hLajS/bg?=
+ =?us-ascii?Q?2VuIrSefBkcwbN+NGd5T6ZTpNWdb/ub4mXeK083RQcXFNvQsPV9Nl+E4XopJ?=
+ =?us-ascii?Q?KorydDDIUI0BTQIqJGDTVsz0Fu4CXnM76r9M85P1w5iSJdZb2+iiLGAFxSg3?=
+ =?us-ascii?Q?AZ5JpvY4joy4aFLMPITCKRnOtDGvlEKmOyKmr5ssU/pHEY00tBgfaCgaqNgR?=
+ =?us-ascii?Q?R697MJJHmTq1kyMaAQrz4EodmDdBYCgGv/Rp4vDZvyoMJaj9zd2hFc2aL9rL?=
+ =?us-ascii?Q?qW6hGJNwGcyrcsg43jaf1aNhjGF5Nz7lXDZEG2vfNLEX66gbuBBBDt9x0Ny0?=
+ =?us-ascii?Q?SaXPFltuWW6zDUDXzWQTC4iX7MHdHgdEyct940EfCWg+Wg1FsuNbK/qOeiTp?=
+ =?us-ascii?Q?JSPZ23xx5CRXjFdU4Df681huH63HM1fPG10B0jF45CSL5OdUahd1mfg7zDUs?=
+ =?us-ascii?Q?JgjRhonMI9ZKHZS0hGPjwSDpqy3x6Z2xlC66Ukl+b1AitYixPBsnf7mX1hfR?=
+ =?us-ascii?Q?KxQ+FSIvy/E/ZCB9LhdGemE0SrZROf4YMdAicti0cT7Gr4CbwwjPG3VzqRY7?=
+ =?us-ascii?Q?pYGguvX8nYv3Wd6ANeAJs6y6435hXwZGDCtVmds5tKMtrrzp6JnZukAtUwo/?=
+ =?us-ascii?Q?lrpfjyWExbCcXDjB2XpzJehiTjm1zB7FbGCu7lU+XUhf1BuvW6QB30X41LZq?=
+ =?us-ascii?Q?27zZX3Tok2mOCxG8SQ0RrFiTlxxI6Sx2JSYr8UZh2qdcyexArfGR8PgOYO2l?=
+ =?us-ascii?Q?IpUqcGCoMq90ByRYw3K9OPujMT3RJ0jUaQ7fk0173IUIT+x8cx1HdT2A/kPk?=
+ =?us-ascii?Q?pc7WqsGw0W0G4xH1+skZFWhHsfZXCIfgIm15Crrr6/r2OSiW/J7/pKTz1zE1?=
+ =?us-ascii?Q?dPSbLIoeKLfjX3c64G3TMzYQ7/KRJ0filXwOGiQm5ijTlXTDnrlJ1+Oe0uJt?=
+ =?us-ascii?Q?P6K/9nty8OnxLZXlHwQjU0+mbCK3nBeZ+PmzLJiJmdvvp65EEkaOGTUUXFJt?=
+ =?us-ascii?Q?NBkLZbUVVu5DrPN7ZrUV8Yaw3tb3xJe1BFRINVK7zcgPjuFPsgxFHg3C+RaQ?=
+ =?us-ascii?Q?tSLv5UQUs9mLCW3NC82C+LV8nzD2i6C8zmWeKv/FKc3FNkty6xEn5reGCrc4?=
+ =?us-ascii?Q?Ur9O95YulLaHErCK7ij2QTHjwtlJSfFdsgfwRNoiRzQRFrILii9KiJJ2frGp?=
+ =?us-ascii?Q?wZo8/LKGZNyDvvMnied9fKzliHRqRcnnlzwwojDWjNoIoPbF538cXlWpKi3i?=
+ =?us-ascii?Q?7hZX4/NTYNFzBZ2FBaLN4P3sG9K3xrbNVXxxWdUcDYl0yrvyQ2X7OthaOP9J?=
+ =?us-ascii?Q?UraY1ipNhH73lXa6zsGI2MqpDW/wc/Y1oGwVibEJV0Oa9rvhwyWIAT70Wl22?=
+ =?us-ascii?Q?a4e3MzHI4YS7jL1/APxcFWz2OHE583MWjqX+INV3xsJ0yrcj?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 04:26:23.0173 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffdba11c-fe24-4b34-3a42-08ded0df951a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF00016159.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8895
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7767d7c8-9c8f-4570-6b03-08ded0e0b4ba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 04:34:25.6271 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EcIVhCFB7+aw7Iw/wjNVoa1lzZXar/AsVvb7cE/sV5zTBHvwXOktTAVubzyZGHhKRWzBqwLgWnBYvMViK7uirQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6350
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,125 +134,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reject AC timing blocks with a stride smaller than a dword before walking
-VBIOS data. A zero stride can otherwise keep reg_data pinned on a
-nonmatching MEM_ID forever.
+AMD General
 
-Also bound the data-block and END marker reads by the returned VRAM_Info
-table size so malformed index/data sizes do not push the timing walk past
-the table.
+ping
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+-----Original Message-----
+From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
+Sent: Wednesday, June 17, 2026 2:55 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org; Huang, Ray <Ray.Huang@amd.com>; Zhu, Lin=
+gshan <Lingshan.Zhu@amd.com>
+Subject: [PATCH] drm/amdgpu: split amdgpu_bo_create_reserved into create an=
+d map helpers
+
+amdgpu_bo_create_reserved() only allocates a new BO when *bo_ptr (struct am=
+dgpu_bo **bo_ptr as input parameter) is NULL, it simply skips creation when=
+ *bo_ptr is non-NULL.
+But it unconditionally reserves, pins, gart allocates and maps the BO after=
+wards.
+
+When the same non-NULL BO pointer is passed in again, for example firmware =
+buffers that live in adev and are re-loaded on every resume / cp_resume / s=
+tart under AMDGPU_FW_LOAD_DIRECT, amdgpu_bo_pin() just increases pin_count =
+unconditionally, however the matching teardown only unpins once, so pin_cou=
+nt never drops to zero, so TTM is not able to move, swap or evict a BO, cau=
+sing BO leaks.
+
+Ideally the BO should only be pinned once at creation. So this commit split=
+s current amdgpu_bo_create_reserved() into two helpers:
+
+ - amdgpu_bo_create_pinned(): create + reserve + pin + alloc_gart and
+   return the BO unreserved. It requires *bo_ptr =3D=3D NULL on entry,
+   so only pins the BO once.
+
+ - amdgpu_bo_get_access(): reserve + map gpu/cpu addr + unreserve.
+   This function is idempotent and is safe to call multiple times
+   on an existing pinned BO, for example, on every resume path.
+
+amdgpu_bo_create_reserved() now calls amdgpu_bo_create_pinned() only when *=
+bo_ptr is NULL, then calls amdgpu_bo_get_access() for CPU/GPU address mappi=
+ng, and reserves the BO before returning.
+Repeated calls no longer take additional pin references.
+
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/ppatomctrl.c   | 28 +++++++++++++++----
- 1 file changed, 22 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 175 +++++++++++++++++----
+ 1 file changed, 143 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index ce166a7f8e420..85bf1527c6f44 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -46,16 +46,22 @@ union voltage_object_info {
- static int atomctrl_retrieve_ac_timing(
- 		uint8_t index,
- 		ATOM_INIT_REG_BLOCK *reg_block,
-+		u8 *table_end,
- 		pp_atomctrl_mc_reg_table *table)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.c
+index 4dd7c712b8c3..dd0a59137028 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -217,57 +217,53 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo=
+ *abo, u32 domain)  }
+
+ /**
+- * amdgpu_bo_create_reserved - create reserved BO for kernel use
++ * amdgpu_bo_create_pinned - create and pin a BO for kernel use
+  *
+  * @adev: amdgpu device object
+  * @size: size for the new BO
+  * @align: alignment for the new BO
+  * @domain: where to place it
+- * @bo_ptr: used to initialize BOs in structures
+- * @gpu_addr: GPU addr of the pinned BO
+- * @cpu_addr: optional CPU address mapping
++ * @bo_ptr: used to return the newly created BO, must point to NULL on
++ entry
++ * @cpu_access: true if the BO needs to be CPU accessible
+  *
+- * Allocates and pins a BO for kernel internal use, and returns it still
+- * reserved.
++ * Allocates and pins a BO for kernel internal use, and returns it
++ unreserved
+  *
+- * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.
++ * Note: *bo_ptr must be NULL on entry, this helper always creates
++ * a new BO and never reuses an existing one,
++ * so it never pins the same BO twice.
+  *
+  * Returns:
+  * 0 on success, negative error code otherwise.
+  */
+-int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
+-                             unsigned long size, int align,
+-                             u32 domain, struct amdgpu_bo **bo_ptr,
+-                             u64 *gpu_addr, void **cpu_addr)
++static int amdgpu_bo_create_pinned(struct amdgpu_device *adev,
++                                  unsigned long size, int align,
++                                  u32 domain, struct amdgpu_bo **bo_ptr,
++                                  bool cpu_access)
  {
- 	uint32_t i, j;
-+	u16 stride = le16_to_cpu(reg_block->usRegDataBlkSize);
- 	uint8_t tmem_id;
- 	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
- 		((uint8_t *)reg_block + (2 * sizeof(uint16_t)) + le16_to_cpu(reg_block->usRegIndexTblSize));
- 
- 	uint8_t num_ranges = 0;
- 
--	while (*(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
-+	if (stride < sizeof(uint32_t))
-+		return -EINVAL;
+        struct amdgpu_bo_param bp;
+-       bool free =3D false;
+        int r;
+
+-       if (!size) {
+-               amdgpu_bo_unref(bo_ptr);
+-               return 0;
+-       }
++       if (WARN_ON(!bo_ptr || *bo_ptr))
++               return -EINVAL;
 +
-+	while ((uint8_t *)reg_data + sizeof(uint32_t) <= table_end &&
-+	       *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
- 			num_ranges < VBIOS_MAX_AC_TIMING_ENTRIES) {
- 		tmem_id = (uint8_t)((*(uint32_t *)reg_data & MEM_ID_MASK) >> MEM_ID_SHIFT);
- 
-@@ -67,6 +73,10 @@ static int atomctrl_retrieve_ac_timing(
- 			for (i = 0, j = 1; i < table->last; i++) {
- 				if ((table->mc_reg_address[i].uc_pre_reg_data &
- 							LOW_NIBBLE_MASK) == DATA_FROM_TABLE) {
-+					if ((uint8_t *)reg_data +
-+					    (j + 1) * sizeof(uint32_t) > table_end)
-+						return -EINVAL;
++       if (WARN_ON(!size))
++               return -EINVAL;
+
+        memset(&bp, 0, sizeof(bp));
+        bp.size =3D size;
+        bp.byte_align =3D align;
+        bp.domain =3D domain;
+-       bp.flags =3D cpu_addr ? AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED
++       bp.flags =3D cpu_access ? AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED
+                : AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+        bp.flags |=3D AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+        bp.type =3D ttm_bo_type_kernel;
+        bp.resv =3D NULL;
+        bp.bo_ptr_size =3D sizeof(struct amdgpu_bo);
+
+-       if (!*bo_ptr) {
+-               r =3D amdgpu_bo_create(adev, &bp, bo_ptr);
+-               if (r) {
+-                       dev_err(adev->dev, "(%d) failed to allocate kernel =
+bo\n",
+-                               r);
+-                       return r;
+-               }
+-               free =3D true;
++       r =3D amdgpu_bo_create(adev, &bp, bo_ptr);
++       if (r) {
++               dev_err(adev->dev, "(%d) failed to allocate kernel bo\n", r=
+);
++               return r;
+        }
+
+        r =3D amdgpu_bo_reserve(*bo_ptr, false); @@ -288,27 +284,142 @@ int=
+ amdgpu_bo_create_reserved(struct amdgpu_device *adev,
+                goto error_unpin;
+        }
+
++       amdgpu_bo_unreserve(*bo_ptr);
++       return 0;
 +
- 					table->mc_reg_table_entry[num_ranges].mc_data[i] =
- 						(uint32_t)*((uint32_t *)reg_data + j);
- 					j++;
-@@ -81,11 +91,13 @@ static int atomctrl_retrieve_ac_timing(
- 		}
- 
- 		reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
--			((uint8_t *)reg_data + le16_to_cpu(reg_block->usRegDataBlkSize)) ;
-+			((uint8_t *)reg_data + stride);
- 	}
- 
--	PP_ASSERT_WITH_CODE((*(uint32_t *)reg_data == END_OF_REG_DATA_BLOCK),
--			"Invalid VramInfo table.", return -1);
-+	if ((uint8_t *)reg_data + sizeof(uint32_t) > table_end ||
-+	    *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK)
-+		return -EINVAL;
++error_unpin:
++       amdgpu_bo_unpin(*bo_ptr);
++error_unreserve:
++       amdgpu_bo_unreserve(*bo_ptr);
++error_free:
++       amdgpu_bo_unref(bo_ptr);
++       return r;
++}
 +
- 	table->num_entries = num_ranges;
- 
- 	return 0;
-@@ -136,6 +148,7 @@ int atomctrl_initialize_mc_reg_table(
- {
- 	ATOM_VRAM_INFO_HEADER_V2_1 *vram_info;
- 	ATOM_INIT_REG_BLOCK *reg_block;
-+	u8 *table_end;
- 	int result = 0;
- 	u8 frev, crev;
- 	u16 size;
-@@ -157,6 +170,7 @@ int atomctrl_initialize_mc_reg_table(
- 	}
- 
- 	if (0 == result) {
-+		table_end = (uint8_t *)vram_info + size;
- 		reg_block = (ATOM_INIT_REG_BLOCK *)
- 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
- 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-@@ -164,7 +178,7 @@ int atomctrl_initialize_mc_reg_table(
- 
- 	if (0 == result) {
- 		result = atomctrl_retrieve_ac_timing(module_index,
--					reg_block, table);
-+					reg_block, table_end, table);
- 	}
- 
- 	return result;
-@@ -177,6 +191,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
- {
- 	ATOM_VRAM_INFO_HEADER_V2_2 *vram_info;
- 	ATOM_INIT_REG_BLOCK *reg_block;
-+	u8 *table_end;
- 	int result = 0;
- 	u8 frev, crev;
- 	u16 size;
-@@ -198,6 +213,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
- 	}
- 
- 	if (0 == result) {
-+		table_end = (uint8_t *)vram_info + size;
- 		reg_block = (ATOM_INIT_REG_BLOCK *)
- 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
- 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-@@ -205,7 +221,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
- 
- 	if (0 == result) {
- 		result = atomctrl_retrieve_ac_timing(module_index,
--					reg_block, table);
-+					reg_block, table_end, table);
- 	}
- 
- 	return result;
--- 
-2.34.1
++/**
++ * amdgpu_bo_get_access - get CPU/GPU access to a BO
++ *
++ * @bo: the input BO, must be pinned
++ * @gpu_addr: optional, returns the GPU address of the BO
++ * @cpu_addr: optional, returns the CPU address of the BO
++ *
++ * Note: *bo must be already pinned!
++ *
++ * Returns:
++ * 0 on success, negative error code otherwise.
++ */
++static int amdgpu_bo_get_access(struct amdgpu_bo *bo, u64 *gpu_addr,
++                               void **cpu_addr)
++{
++       struct amdgpu_device *adev;
++       int r;
++
++       if (WARN_ON(!bo))
++               return -EINVAL;
++
++       adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
++
++       r =3D amdgpu_bo_reserve(bo, false);
++       if (r) {
++               dev_err(adev->dev, "(%d) failed to reserve kernel bo\n", r)=
+;
++               return r;
++       }
++
++       /*
++        * The BO must already be pinned. A GPU or CPU address of an
++        * unpinned BO would become meaningless because TTM
++        * may then move or evict it at any time.
++        */
++       if (WARN_ON_ONCE(!bo->tbo.pin_count)) {
++               r =3D -EINVAL;
++               goto error_unreserve;
++       }
++
+        if (gpu_addr)
+-               *gpu_addr =3D amdgpu_bo_gpu_offset(*bo_ptr);
++               *gpu_addr =3D amdgpu_bo_gpu_offset(bo);
+
+        if (cpu_addr) {
+-               r =3D amdgpu_bo_kmap(*bo_ptr, cpu_addr);
++               r =3D amdgpu_bo_kmap(bo, cpu_addr);
+                if (r) {
+                        dev_err(adev->dev, "(%d) kernel bo map failed\n", r=
+);
+-                       goto error_unpin;
++                       goto error_unreserve;
+                }
+        }
+
++       amdgpu_bo_unreserve(bo);
+        return 0;
+
+-error_unpin:
+-       amdgpu_bo_unpin(*bo_ptr);
+ error_unreserve:
+-       amdgpu_bo_unreserve(*bo_ptr);
++       amdgpu_bo_unreserve(bo);
++       return r;
++}
++
++/**
++ * amdgpu_bo_create_reserved - create reserved BO for kernel use
++ *
++ * @adev: amdgpu device object
++ * @size: size for the new BO
++ * @align: alignment for the new BO
++ * @domain: where to place it
++ * @bo_ptr: used to initialize BOs in structures
++ * @gpu_addr: GPU addr of the pinned BO
++ * @cpu_addr: optional CPU address mapping
++ *
++ * Allocates and pins a BO for kernel internal use, and returns it
++still
++ * reserved.
++ *
++ * Note: For bo_ptr new BO is only created if bo_ptr points to NULL. An
++ * existing BO is only re-accessed (get CPU/GPU mapping) and not pinned
++again,
++ * so repeated calls with the same BO do not leak pin references.
++ *
++ * Returns:
++ * 0 on success, negative error code otherwise.
++ */
++int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
++                             unsigned long size, int align,
++                             u32 domain, struct amdgpu_bo **bo_ptr,
++                             u64 *gpu_addr, void **cpu_addr) {
++       bool created =3D false;
++       int r;
++
++       if (WARN_ON(!bo_ptr))
++               return -EINVAL;
++
++       if (!size) {
++               amdgpu_bo_unref(bo_ptr);
++               return 0;
++       }
++
++       if (!*bo_ptr) {
++               r =3D amdgpu_bo_create_pinned(adev, size, align, domain, bo=
+_ptr,
++                                           !!cpu_addr);
++               if (r)
++                       return r;
++               created =3D true;
++       }
++
++       r =3D amdgpu_bo_get_access(*bo_ptr, gpu_addr, cpu_addr);
++       if (r)
++               goto error_free;
++
++       r =3D amdgpu_bo_reserve(*bo_ptr, false);
++       if (r) {
++               dev_err(adev->dev, "(%d) failed to reserve kernel bo\n", r)=
+;
++               goto error_free;
++       }
++
++       return 0;
+
+ error_free:
+-       if (free)
++       if (created) {
++               if (amdgpu_bo_reserve(*bo_ptr, true) =3D=3D 0) {
++                       amdgpu_bo_kunmap(*bo_ptr);
++                       amdgpu_bo_unpin(*bo_ptr);
++                       amdgpu_bo_unreserve(*bo_ptr);
++               }
+                amdgpu_bo_unref(bo_ptr);
++       }
+
+        return r;
+ }
+--
+2.54.0
 
