@@ -4,121 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 074A8CD98F2
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 11:45:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 668EDCD98F2
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 12:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9853A10EACC;
-	Tue, 23 Jun 2026 11:45:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBB2710E94E;
+	Tue, 23 Jun 2026 12:07:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QAKRb+TA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y26XnE44";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010069.outbound.protection.outlook.com [52.101.46.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEF3A10EACC
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 11:45:03 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4784310E94E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 12:07:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CVNz7yHorLmlFb0dpQvEJ6gRmPZV8xR7DOCPuiGa+1pTm7K2dtMYXzmHyjtaQmoRS4SZZe2Ak/hWqMv6GKPmAFh+wHL7H01YJJkzOjP0L+ZZGTD/NEdieKocG6G6+IVtax2Qly057X65jrtCIFhBXyXOuzJu3N0aMlnfFSkfoaJT2KgipuMiN/qSFCMrbrQwym/xqIat07t8E78yK1+iFVAymZG1QC7dHLLxjIcucF9rCDcMARHXilW0fTCELhxrB0ghTdCWcK7tj3xal4FITnkiMzKefdOGdVcuD9gz10GKLoeOZxFvMsc5McG1ulBTMvpxGWwoUIwD6qrXv05PEA==
+ b=KM641el4S2fDd2Xk4BGfpgH4k2t1UHDp2zTtwqI3cMmqFDtB3nEaum1WJzue0u+gose0djav8Kk/nx5jovE04tMA+nbqaChh+7Mk7of/HrwpBYzjc+D+ih3xizwWWIPDseAkHJdgzYDq0c2XG+0wVqDmuqeajnmXMZzqxFi2NzXFmcRgWyZ1mSz+Y22Wy2wqsnlask2xi8era+cSfGJAp9ITO5mfg8yjSvyfahsnmMZeqfI4DukRafHMoyjX09nAxyefB2w7j7PiJYu95XJYot+Jz73yawr6Z4TqWwAvGR23lBuQzEzxXezF6NM4eeQSuKb13858ub8kXghKUV9KnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=crLAZdreQke6/QSk8bp/JUnmKLMyKJiFq4ejF0nu6uk=;
- b=gAemiZK6ry2TH8G6op+P93fdbexzS84wvs2+e+bMP2rMd9RqV4b9kUDdrMukNxLVje4TvnwQ7T3vZNUT4glY0wCOgqbxM74nRtRAxbUy6MOAGzdX1mtOwLhRNPx2U6nYYyaBR2FCF3TnoOp7H8qyFDQovcllYazmT8mdJ1JsHnZVKqFCv7RHnRnIBnPBqVs9/YuU+Sd+Aml/CDcq+5Q/mf8VN2Y2yXq/B72bn38XBn6fpWJM7QQajXEOJyyn6hi6biLUbnwx4zmKYfPuNm5xG/XizT73S6RIxyxiEZoxhhFgFE/BeLlVzuMhrOVI44QdNkJN0MhxvZW5bxQxtJqI6Q==
+ bh=BdYYlmHX/rmjQAk2j/UHtonzG6lEk8F1Kh1Eawunfac=;
+ b=RiylWlG4ohysLFMUq3s9UyLs+xyurV59ICtS7rDOd39s6go9PEgn2mWKYvd8/iJ6wDIuTVzVB+3xTymJZdxZV3Qss9PY6dapRerWYQ0mfXvBDgppVnSBBdWHckrRQ0B8Fvp7cAsEhI0P3hhUSjMEatBD1dLFH+JPVT10ocrsDGgCpHOhOizfGOtdkSYc9R1INgF2MCLqIR9jOhlWrOGFfVs6jdGkDJFP73+ElT5v4yFUdn3PBMzWfWzYYxn3Eam76xjR76DVnSQ28YMy8vT9raFbH8PA66RusNcAOLITYgFa+TkgcSBSdIMEP06PJpRUf6PyBazoLEF8RH5X+dFkXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=crLAZdreQke6/QSk8bp/JUnmKLMyKJiFq4ejF0nu6uk=;
- b=QAKRb+TAaRCvNgvehUAEaSeTgOGRPcZUW9ae2UMm2MxV1WcXOv2vq0+EcJ6u17seLvZXhMGrSLYpLy8Glmlt/CkHBDzbvYPTbAQtqJYnu5IxocHembYwNrr53m6VWXv8UV+bjwhd/nAUDPaNokwAuzsm0qVh6rt5ZFRMWOWHXck=
+ bh=BdYYlmHX/rmjQAk2j/UHtonzG6lEk8F1Kh1Eawunfac=;
+ b=y26XnE44MH6Z6u8UTaIM2LypneTq6bgBAW2uZlYSwJkWMNtESzy3zLRXFG8ISpXAlJk7V43x5e/uzSlXuEAUDh/eSWoyf0XC9qBMuCVNPFHpjfMBQEQQnq/ZLu0lyxVrNxLmxpuNJj9bKC17KVH+llskuKL75xbC36tbWLXNhJo=
 Received: from DM4PR12MB5038.namprd12.prod.outlook.com (2603:10b6:5:389::18)
- by MN0PR12MB6077.namprd12.prod.outlook.com (2603:10b6:208:3cb::9) with
+ by SJ0PR12MB5663.namprd12.prod.outlook.com (2603:10b6:a03:42a::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Tue, 23 Jun
- 2026 11:44:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Tue, 23 Jun
+ 2026 12:07:33 +0000
 Received: from DM4PR12MB5038.namprd12.prod.outlook.com
  ([fe80::3c29:3d93:2028:85c4]) by DM4PR12MB5038.namprd12.prod.outlook.com
  ([fe80::3c29:3d93:2028:85c4%6]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
- 11:44:56 +0000
+ 12:07:32 +0000
 From: "Kamal, Asad" <Asad.Kamal@amd.com>
 To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Subject: RE: [PATCH 2/3] drm/amd/pm: Validate Tonga PPTable subtable bounds
-Thread-Topic: [PATCH 2/3] drm/amd/pm: Validate Tonga PPTable subtable bounds
-Thread-Index: AQHdAvpkWyvawSe+1U6BAtzZ2H8xPrZMBJNQ
-Date: Tue, 23 Jun 2026 11:44:56 +0000
-Message-ID: <DM4PR12MB5038B755AF672E57D7E0B7968EEE2@DM4PR12MB5038.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 3/3] drm/amd/pm: Validate remaining legacy PPLIB table
+ bounds
+Thread-Topic: [PATCH 3/3] drm/amd/pm: Validate remaining legacy PPLIB table
+ bounds
+Thread-Index: AQHdAvpkHmsvQsPlO06GhpHINm3IibZMCpPg
+Date: Tue, 23 Jun 2026 12:07:32 +0000
+Message-ID: <DM4PR12MB503855884BCB6FA0F0FF851F8EEE2@DM4PR12MB5038.namprd12.prod.outlook.com>
 References: <20260623102319.413960-1-kevinyang.wang@amd.com>
- <20260623102319.413960-2-kevinyang.wang@amd.com>
-In-Reply-To: <20260623102319.413960-2-kevinyang.wang@amd.com>
+ <20260623102319.413960-3-kevinyang.wang@amd.com>
+In-Reply-To: <20260623102319.413960-3-kevinyang.wang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-23T11:41:43.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-23T12:03:12.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5038:EE_|MN0PR12MB6077:EE_
-x-ms-office365-filtering-correlation-id: 9cfeaebb-358f-482b-adad-08ded11cd8fe
+x-ms-traffictypediagnostic: DM4PR12MB5038:EE_|SJ0PR12MB5663:EE_
+x-ms-office365-filtering-correlation-id: 09d5ba57-76a5-4f79-9c58-08ded120017f
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|56012099006|3023799007|11063799006|4143699003|38070700021|18002099003|22082099003;
-x-microsoft-antispam-message-info: sbUCjP9P4fZwA6lEo1xcNBXJ4vQmr1Kls/QWwoctfgpq5GqL3reMoTUCfnc+qO0ZdEWMjuDOcrJyvy6WG/UbgRr0ifU4VnVQi74mtELFPTjhaIcYCEMA4DdhouYdNAi4weaF3+cJMMr2Dz7zCYzVvNKc8X3+5gZCJWHjThgSAEwXr/6GYiLLRVvRl0vOiJQ2XJlzRhStAQ0RT7hCIrOe7NFUfjV+fwCS0fq3YosfpRP6+ulkBPGPg5Z9HOlKswSfcrfH988AODq4AKjskHRHMpBFgAicGj8Zd0ec5FY1GrgcsnJtYFmZUBV0MvxRT3UHf8PIdr1FCw4/J4WTAUksyjQldndQtNL63Pqpu93AKoKKRVuK8unchjDqg4Uc93PZTMUV1otdbw04VQDE4V7eoILJpfOPzzTZ/PlewMyVuPg3WIQTT5LmSVNc30JvW77L6zRik/0NtfKichBWlTCBxjDJjMuuH0IOq3W66+krZPGChUy5HwJFic+X9eAfospBg4Wnk1uTL6aeE5Lfh4CT9r0aLlQWD3WpWIh0BL4Sgr7okMxWD/VibFCDW5utOYlzQidDrjkBahJKvubMfHBwt1mOUe3tOfMZWmx/aGE3y/r4j120kfwtC6cDPLIsv15ESgBvz0ZBIC9AxS6HIAyCPX2fp5MXd3RDhaGYa5IyMS/cMcAisu/w8X1kVylUX/0BBZkFHVd1hNor0XLmmyWAXg==
+ ARA:13230040|23010399003|376014|366016|1800799024|3023799007|6133799003|56012099006|22082099003|4143699003|11063799006|18002099003|38070700021;
+x-microsoft-antispam-message-info: kbudpfyA+DvKSBJUoLqUunWdiSKRh83Aek9OToaXB2qIMBdm8Zn0hYzR5VeeHwQJD1cKhgmzzzCLBjT6VcCq1U5tLL1POv9HOkoBMu3rfgu658MSaFCHYp6dLri8Hp00ymUhQUfpHsf1Kju6A2Cn8jIHDXifuJgkKz6cibXgAueZoDXc+AuH82uuOPfYGUIj+wg81fKuisqRO2YLNYx2HaPtMWrnwM+dCQPYH9r/Sr/ELAcshZucUb4rcCjBABRf7lmn2iLqX8U0q36I89JV7D4Eee1YrrijNbqL6S30VKXrw6FacnJEOcofZMwTy71TUxQjVWOo7YPoxe8ay2yyl8LmxUAZMmOYSqmn6tmMqo2/awKkWTKXDl5HjlKFaLHwSl3hIFxpfmL+b9hADVOp6fABtHI9a2cbSpt41pGeqsmiprJokIu+XTmMxExHnnumWWBxSud3eDuHkDg8bW423+wcTnGy+vIcX78AO75iFdfYhQZIVHepb/nHQZtWvgkMtk5gtf4/mv2MGvN/okqnBkQsuknJEgirOp6D5Mnj7OfpQ8Rod8ZoGyLKPRsHWmYf4VGXvhV6isA7pQtCMf9ctVGptgKCJZQu04yRVHK+dZT0IiiCd8fRbrKfVOTMJvEScYNDGMpMrJj/+3lG2HHqQBIX2A7i/Eh+ftO4lz5pAsK8bzXj+6FjCMzmDFqqY9BKNGkXIxpFI0xQ2m4sa7H5rY+bhxwlpoo0Yp79UtuQCzU=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5038.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(56012099006)(3023799007)(11063799006)(4143699003)(38070700021)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(3023799007)(6133799003)(56012099006)(22082099003)(4143699003)(11063799006)(18002099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tfLRm5KmKYil6DhYu2Npy48/8DgNRjWMQk98KAJbPe9RGp1CpobRmerrVqcp?=
- =?us-ascii?Q?QNMw9UqJtyINjChCtNOoIpBTsOvYr6oz8r4L0oNQYlztiiGChgp5vOPNdEvk?=
- =?us-ascii?Q?OJQ5MM5zeX24vJdllocp7c+Kpncz9QBRgKNVGVu0P3Cdge9mEgTEhIS6EM2r?=
- =?us-ascii?Q?/x3ohJkuvdoBcZ86afZbJlGU4qXc7KRnuVnmh/RM6O3xXxvOH3Y73YF4+gSs?=
- =?us-ascii?Q?Lvz2V930acQ1me3CnNcPHYy/p9AnUo3SGizuxlQHdu54jRfOK3uxe/MCN21y?=
- =?us-ascii?Q?LWhRiM5qeAwCAD/4CJLh4m6jrLTUoR+NryK0d0Gda3iNQQFNpsWI3TO8As+M?=
- =?us-ascii?Q?T7gFjDXLKbeFHifiIXAl/do5RIdTA6bvrpRgYLmDfHzp7QTc5GK2nvQmu+oZ?=
- =?us-ascii?Q?YLLJgvT5Si9I3UKLEtOmbuVbaxxVVLtPCFiC0DoVY0xiV9m6ftGIyJ2fcQRu?=
- =?us-ascii?Q?Bw5WQM1FephAfQvkKJ0Angq9+ojoL4+Kp17CsekRlaePvK/raqH4NRf5oB9m?=
- =?us-ascii?Q?VTEeTvvkbHb9XBUg66XfBNs3y1eJ/M7948RanzTjAMDiCFJvbfeUJoyfg4on?=
- =?us-ascii?Q?Oe3CufHM5IvNCJ8Zj7CSUed1YvjAHa3SL73H6SlSlh1Wq4YF5P7jW+58BmQ6?=
- =?us-ascii?Q?CA7AFU2PMdusHg9E3CjiUf8XjgA2PP47TP251YVubk30aZd3W4QH+oP9iv5j?=
- =?us-ascii?Q?Tsip4+b+S9EsZcOJ5nnik6tFFocDaKC+kNN3jCDE7CbK1AUF2VKJvZMkv5oP?=
- =?us-ascii?Q?VNOwPGT1L81yKbULVAF9AsCXJxQ7Uhtc6zop1En+jbVviMAV8RaozYNLwn8A?=
- =?us-ascii?Q?buQ8V4oyfHHfy4ipA8tTQMAOT3x6RP4z4lPpIXP4W7ch6424idiROTPQqpUF?=
- =?us-ascii?Q?iZwaSxIYZYnIlGrY4sWv/mR+1lj0EZ4ZcbRwy5ESJCMhWL45AjezGsAnTuTF?=
- =?us-ascii?Q?AJJawJ9GbrxaofRwSPvGbhHGjq0Sp/8/Ew7tuvT+4VusBODDlUaKbFS8cFT7?=
- =?us-ascii?Q?rY31qNrkSn85gb8Xra3wQATBiUqMRYyKdtLNarCa9c5ZZf0wyLs3MNfkwXMZ?=
- =?us-ascii?Q?3aj+5dgMkTrFazlzCKO4L2LNpXmKvzAFggN0kwkpdQUlcifw9QhtiMwN0z1G?=
- =?us-ascii?Q?YEmvVAfa5LgfTEKJ1jiwFZbWLfaqzTGGcm3oXEukOyu+g7FNvqQdAl2QBsIJ?=
- =?us-ascii?Q?gk3TgBhSPBXk9TfJa+DM8WcgPHVVbfOai8zVfsg7iFBSpoBgdcddBx6e3THx?=
- =?us-ascii?Q?FggGiN6HcQirQSbo9Thlve6VjX1eZYqYbDcCoF+xs8ys8b8pOfk+sy3XYcd/?=
- =?us-ascii?Q?5Eh0Ou8VcECnnH+lhmXA/cTO43hcdk4oe1lTPrl/7HiZHJl0FCiivUvzQ8rf?=
- =?us-ascii?Q?77+dREETNC7/QD6inRIXDPUENqkA7giNaF/1M2VB0R0yX+PPFaR8u1vpV6d4?=
- =?us-ascii?Q?8tQVMmG4eE+ZuywluipAkkE+fOTXCQkJEHoqbH16vlnf/Os/BRQBnOrDGUi1?=
- =?us-ascii?Q?KTMNg7EqnrwV/hDgWvcZx44NeT6U3Xrsc52VcEy64nsfuvcaceJ+tTmh9kxp?=
- =?us-ascii?Q?FHjXrQ5Yj3cdi3ZRagfzne0vdh+uWkkzxg13KYN2hyLUrftASnJ7EOrdd/cS?=
- =?us-ascii?Q?fucoPBAsfOpP+37yZF/e+KhAsISjk53GYTXFM0KAxCkdfZqW8hgsBAYLaQAx?=
- =?us-ascii?Q?DXoCQP+lQrI6txpKKayVf7IfTRXuh/t2ym4j4t5EOsESz5L/?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fYOjnNIwC5iCLK6DPPk86l3Q67vqX2Bz2lYTAFgaI9l6aTme8F3zHpKxSSOv?=
+ =?us-ascii?Q?DGvhe+dZrQcUqK347MhDDbRUnp2yKukKl+8vyKTF5qb1bIvDmR1CYzs/PcTf?=
+ =?us-ascii?Q?iPoFaLPdRDnX84DpG9X9girqUiOcut0kobQ0U5+Pefy8GfVuf67ipJjTXt32?=
+ =?us-ascii?Q?Ng6nL6b+3TB1Ej0fTyXEMenZg292qtotY9UgB6kMvEZrXZDFz5svFIHP8/T8?=
+ =?us-ascii?Q?eoELK5xXe2T2MemU24iUS4Eqrkz4zLCF8LqFmLK/OLC13lvarbQA6iGJRk37?=
+ =?us-ascii?Q?A1VTJfISG8s7BBXkbsdtNHLPDRd8c+78C5fKtnU9+yLVGcXDe0OelfqvL2oC?=
+ =?us-ascii?Q?TX89FmcpNKa2Yy/wP6DGmd7SwcRS/gLEc2fxfZhuEzIv5qcRaJ/YzlyKOYSR?=
+ =?us-ascii?Q?pdMhZ7AtFzJdn5EFq53p5AlZC1cbz5PA9FtG3t8AK3X2cafYXi87LaI3zES7?=
+ =?us-ascii?Q?bVeh2vEw9yLLDSDSDHSKXdtHUC+LDzTmtNGM1NSNe2kDNZaUFjJs2soVlvRn?=
+ =?us-ascii?Q?vM0JkPSG3hNlPso0RaFOiMDlFLiZRpbNioJ8y2+qx5ut+KHHvWR7MxBuJt8g?=
+ =?us-ascii?Q?3vRoe2bbrwE0Oni2R8YFbf2K8b4iwjUMwxyyLot1sOhgQZjHarBkhrn+VegX?=
+ =?us-ascii?Q?CQu4aLj9RkeieHZxhTunZuIdD4UyM0IyCTS8hzANUqDevQlarosD419zPPm5?=
+ =?us-ascii?Q?vAUIDIVjfrsdSdfBhlTd76lrcDnimcVohWoyicKOFqWlJYTGU7pf2bGltrqp?=
+ =?us-ascii?Q?pw5Idk6/EIzomop+MP96duDwGXykpr0kRAX88unjfmOnklCqpuy6cCgvGC8Q?=
+ =?us-ascii?Q?+X+mIrnimK/FJLh1X31sH4BKhLSchCiOsQ53uXvHRXDZfbcvxC3NyvCqICE3?=
+ =?us-ascii?Q?jiDHoSTxhEOT6PWu9rxu3vC+qyfJUzVwlZtH5LDcnp5wrJwIFz/vbI+Olbll?=
+ =?us-ascii?Q?84nnhauTe8EWHF3cGBTBRCa5OnPufSwZ2R6N2YPBDq2K6nVKF65SYqDlhWvy?=
+ =?us-ascii?Q?IWI3ncQiMOUzDHi5wlu+riYNGDLwy7l614cbPBBzYMzOl8BXyua8DBeyra0O?=
+ =?us-ascii?Q?Bdf9HpHIv+AJqR70L7UG8OjqpnUnlAz3zVa51meUjcJuY32eKBlKveSLtavj?=
+ =?us-ascii?Q?j+eg/WbdjtJf1uC43IU4RSOXm8+iU5ERY2AjXhWpMHwsEyNaPsZGUVlO2sac?=
+ =?us-ascii?Q?pWcsILgoMNwO5bni/FwuborUJsMFWclu7WX1Vl+wbMJdkuMqyruCrz23eSP9?=
+ =?us-ascii?Q?mHzF8lolw/rdYDHWvnDPItIhOpu8HMrxWd1FQNrxAQuw4vTW2lc1XfdAd76E?=
+ =?us-ascii?Q?B4NYVpSbNEH/abwlha2GdR0r3Y237JbLQp3xkiZ555CukQNONlMZpjxKV58j?=
+ =?us-ascii?Q?3xHDDhd9p4pvFiz5SUqrkgorIz9YzPY91lPwJXys86+mWgUUTAD4pz3aL7cn?=
+ =?us-ascii?Q?S8YFeQaVrJx7/amnQcpIwi1kJIsB4mj/NrXLmBKRgUxxxoFj7jPrJdTmossF?=
+ =?us-ascii?Q?levG+SCVPaPYoZiLKb8zDGaih432M3C7ZPMgaqSu2MJ1R98hvtG4vPouoWso?=
+ =?us-ascii?Q?bHIW6nFrzFa7mnyzoqdJQGa4ccuN4xBZHkZVcuKiKNemrf4rWyfYc1s6yL2Z?=
+ =?us-ascii?Q?us8btGs9YS4iCr4nE877pntsKIMYYbIkjdJKEnc/GPEo7TI/ogRvJw0A6wQ1?=
+ =?us-ascii?Q?C7MC4U+QypOZ6cWyp2M0xNTr8otQX1Neslk4Wcc1e4CtwFtZ?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5038.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cfeaebb-358f-482b-adad-08ded11cd8fe
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 11:44:56.2934 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09d5ba57-76a5-4f79-9c58-08ded120017f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 12:07:32.6414 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gHETX0ui+Ezn4mb4T9iqDAvbtVrCjYT52V9lUmxQgQ2930korAHmHBJ+8OI42SwaHGVSxfgI3XrmmGnUn8pJBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6077
+X-MS-Exchange-CrossTenant-userprincipalname: +zPK+tY/efI4zdnmNv2wlKcOYbg+TrnRmmJgRxr1Z1xIoEFoMEGGy6sptvDXGtKpMjyV+7kx5Xbk59QyviWwjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5663
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,47 +144,42 @@ Sent: Tuesday, June 23, 2026 3:53 PM
 To: amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
 .Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH 2/3] drm/amd/pm: Validate Tonga PPTable subtable bounds
+Subject: [PATCH 3/3] drm/amd/pm: Validate remaining legacy PPLIB table boun=
+ds
 
-Tonga PPTable parsing also relies on VBIOS offsets, revision fields and ent=
-ry counts for several subtables. Malformed data can cause out-of-bounds rea=
-ds, while voltage lookup tables can overrun their fixed-size destination ar=
-rays.
+The legacy PPLIB parser still had paths that consumed VBIOS offsets, entry =
+counts and clock-info indices before proving the referenced data fit within=
+ soft_pp_table_size. Malformed tables can trigger out-of-bounds reads while=
+ parsing clock-voltage, CAC, fan, PPM and phase-shedding data.
 
-Add common bounds helpers and validate fixed subtables, dynamic entry array=
-s and revision-specific layouts before consuming voltage lookup, dependency=
-, PCIE, power-tune, hard-limit, thermal, fan, GPIO, PPM and VCE state data.
+Add shared bounds checks for the remaining fixed and variable-length legacy=
+ subtables. Also validate UVD/VCE clock-info indices before indexing their =
+clock-info arrays.
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- .../powerplay/hwmgr/process_pptables_v1_0.c   | 604 +++++++++++++++---
- 1 file changed, 519 insertions(+), 85 deletions(-)
+ .../amd/pm/powerplay/hwmgr/processpptables.c  | 427 ++++++++++++++----
+ 1 file changed, 338 insertions(+), 89 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c=
- b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
-index 94c1e2c10370..831f5e240105 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/process_pptables_v1_0.c
-@@ -150,6 +150,368 @@ static const void *get_powerplay_table(struct pp_hwmg=
-r *hwmgr)
-        return table_address;
- }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/dri=
+vers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+index b2e1123844ec..678c31abe4c4 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+@@ -55,6 +55,159 @@ static bool pp_table_has_space(struct pp_hwmgr *hwmgr, =
+size_t offset,
+        return offset <=3D table_size && size <=3D table_size - offset;  }
 
-+static bool tonga_pp_table_has_space(struct pp_hwmgr *hwmgr, size_t offset=
-,
-+                                    size_t size)
++static int get_pplib_subtable(struct pp_hwmgr *hwmgr,
++                             const ATOM_PPLIB_POWERPLAYTABLE *powerplay_ta=
+ble,
++                             u16 table_offset, size_t table_size,
++                             const void **table)
 +{
-+       size_t table_size =3D hwmgr->soft_pp_table_size;
-+
-+       return offset <=3D table_size && size <=3D table_size - offset; }
-+
-+static int get_tonga_subtable(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               u16 table_offset, size_t table_size, const void **table) {
 +       PP_ASSERT_WITH_CODE((table_offset !=3D 0),
 +                           "Invalid PowerPlay Table!", return -1);
-+       PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
-+                                                     table_size)),
++       PP_ASSERT_WITH_CODE((pp_table_has_space(hwmgr, table_offset,
++                                               table_size)),
 +                           "Invalid PowerPlay Table!", return -1);
 +
 +       *table =3D (const void *)(((unsigned long)powerplay_table) +
@@ -191,783 +188,768 @@ r *hwmgr)
 +       return 0;
 +}
 +
-+static int validate_tonga_table_entries(struct pp_hwmgr *hwmgr,
-+               u16 table_offset, size_t entries_offset,
-+               u8 num_entries, size_t entry_size)
-+{
++static int validate_pplib_table_entries(struct pp_hwmgr *hwmgr,
++                                       u16 table_offset, size_t entries_of=
+fset,
++                                       u8 num_entries, size_t entry_size) =
+{
 +       size_t table_size;
 +
 +       PP_ASSERT_WITH_CODE((num_entries !=3D 0),
 +                           "Invalid PowerPlay Table!", return -1);
 +
 +       table_size =3D entries_offset + num_entries * entry_size;
-+       PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
-+                                                     table_size)),
++       PP_ASSERT_WITH_CODE((pp_table_has_space(hwmgr, table_offset,
++                                               table_size)),
 +                           "Invalid PowerPlay Table!", return -1);
 +
 +       return 0;
 +}
 +
-+static int get_tonga_voltage_lookup_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               u16 table_offset, uint32_t max_levels,
-+               const ATOM_Tonga_Voltage_Lookup_Table **lookup_table) {
-+       const ATOM_Tonga_Voltage_Lookup_Table *table;
++static int validate_pplib_optional_table_entries(struct pp_hwmgr *hwmgr,
++                                       u16 table_offset, size_t entries_of=
+fset,
++                                       u8 num_entries, size_t entry_size) =
+{
 +       size_t table_size;
-+       int ret;
 +
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*table), (const void **)&table);
-+       if (ret)
-+               return ret;
-+
-+       PP_ASSERT_WITH_CODE((table->ucNumEntries !=3D 0 &&
-+                            table->ucNumEntries <=3D max_levels),
++       table_size =3D entries_offset + num_entries * entry_size;
++       PP_ASSERT_WITH_CODE((pp_table_has_space(hwmgr, table_offset,
++                                               table_size)),
 +                           "Invalid PowerPlay Table!", return -1);
 +
-+       table_size =3D offsetof(ATOM_Tonga_Voltage_Lookup_Table, entries) +
-+               table->ucNumEntries * sizeof(ATOM_Tonga_Voltage_Lookup_Reco=
-rd);
-+       PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
-+                                                     table_size)),
-+                           "Invalid PowerPlay Table!", return -1);
-+
-+       *lookup_table =3D table;
-+
 +       return 0;
 +}
 +
-+static int get_tonga_mclk_dependency_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_MCLK_Dependency_Table **mclk_dep_table) {
-+       const ATOM_Tonga_MCLK_Dependency_Table *table;
-+       u16 table_offset;
++static int get_pplib_clock_voltage_dependency_table(struct pp_hwmgr *hwmgr=
+,
++                       const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table,
++                       u16 table_offset,
++                       const ATOM_PPLIB_Clock_Voltage_Dependency_Table **t=
+able) {
++       const ATOM_PPLIB_Clock_Voltage_Dependency_Table *dep_table;
 +       int ret;
 +
-+       table_offset =3D le16_to_cpu(powerplay_table->usMclkDependencyTable=
-Offset);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*table), (const void **)&table);
++       ret =3D get_pplib_subtable(hwmgr, powerplay_table, table_offset,
++                                sizeof(*dep_table), (const void **)&dep_ta=
+ble);
 +       if (ret)
 +               return ret;
 +
-+       ret =3D validate_tonga_table_entries(hwmgr, table_offset,
-+                                          offsetof(ATOM_Tonga_MCLK_Depende=
-ncy_Table,
++       ret =3D validate_pplib_table_entries(hwmgr, table_offset,
++                                          offsetof(ATOM_PPLIB_Clock_Voltag=
+e_Dependency_Table,
 +                                                   entries),
-+                                          table->ucNumEntries,
-+                                          sizeof(ATOM_Tonga_MCLK_Dependenc=
-y_Record));
++                                          dep_table->ucNumEntries,
++                                          sizeof(ATOM_PPLIB_Clock_Voltage_=
+Dependency_Record));
 +       if (ret)
 +               return ret;
 +
-+       *mclk_dep_table =3D table;
++       *table =3D dep_table;
 +
 +       return 0;
 +}
 +
-+static int get_tonga_mm_dependency_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_MM_Dependency_Table **mm_dep_table) {
-+       const ATOM_Tonga_MM_Dependency_Table *table;
-+       u16 table_offset;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usMMDependencyTableOf=
-fset);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*table), (const void **)&table);
-+       if (ret)
-+               return ret;
-+
-+       ret =3D validate_tonga_table_entries(hwmgr, table_offset,
-+                                          offsetof(ATOM_Tonga_MM_Dependenc=
-y_Table,
-+                                                   entries),
-+                                          table->ucNumEntries,
-+                                          sizeof(ATOM_Tonga_MM_Dependency_=
-Record));
-+       if (ret)
-+               return ret;
-+
-+       *mm_dep_table =3D table;
-+
-+       return 0;
-+}
-+
-+static int get_tonga_sclk_dependency_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const PPTable_Generic_SubTable_Header **sclk_dep_table) {
-+       const PPTable_Generic_SubTable_Header *header;
-+       u16 table_offset;
-+       size_t entries_offset;
-+       size_t entry_size;
-+       u8 num_entries;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usSclkDependencyTable=
-Offset);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*header), (const void **)&header);
-+       if (ret)
-+               return ret;
-+
-+       if (header->ucRevId < 1) {
-+               const ATOM_Tonga_SCLK_Dependency_Table *table =3D
-+                       (const ATOM_Tonga_SCLK_Dependency_Table *)header;
-+
-+               entries_offset =3D offsetof(ATOM_Tonga_SCLK_Dependency_Tabl=
-e, entries);
-+               entry_size =3D sizeof(ATOM_Tonga_SCLK_Dependency_Record);
-+               num_entries =3D table->ucNumEntries;
-+       } else {
-+               const ATOM_Polaris_SCLK_Dependency_Table *table =3D
-+                       (const ATOM_Polaris_SCLK_Dependency_Table *)header;
-+
-+               entries_offset =3D offsetof(ATOM_Polaris_SCLK_Dependency_Ta=
-ble, entries);
-+               entry_size =3D sizeof(ATOM_Polaris_SCLK_Dependency_Record);
-+               num_entries =3D table->ucNumEntries;
-+       }
-+
-+       ret =3D validate_tonga_table_entries(hwmgr, table_offset, entries_o=
-ffset,
-+                                          num_entries, entry_size);
-+       if (ret)
-+               return ret;
-+
-+       *sclk_dep_table =3D header;
-+
-+       return 0;
-+}
-+
-+static int get_tonga_pcie_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const PPTable_Generic_SubTable_Header **pcie_table) {
-+       const PPTable_Generic_SubTable_Header *header;
-+       u16 table_offset;
-+       size_t entries_offset;
-+       size_t entry_size;
-+       u8 num_entries;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usPCIETableOffset);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*header), (const void **)&header);
-+       if (ret)
-+               return ret;
-+
-+       if (header->ucRevId < 1) {
-+               const ATOM_Tonga_PCIE_Table *table =3D
-+                       (const ATOM_Tonga_PCIE_Table *)header;
-+
-+               entries_offset =3D offsetof(ATOM_Tonga_PCIE_Table, entries)=
-;
-+               entry_size =3D sizeof(ATOM_Tonga_PCIE_Record);
-+               num_entries =3D table->ucNumEntries;
-+       } else {
-+               const ATOM_Polaris10_PCIE_Table *table =3D
-+                       (const ATOM_Polaris10_PCIE_Table *)header;
-+
-+               entries_offset =3D offsetof(ATOM_Polaris10_PCIE_Table, entr=
-ies);
-+               entry_size =3D sizeof(ATOM_Polaris10_PCIE_Record);
-+               num_entries =3D table->ucNumEntries;
-+       }
-+
-+       ret =3D validate_tonga_table_entries(hwmgr, table_offset, entries_o=
-ffset,
-+                                          num_entries, entry_size);
-+       if (ret)
-+               return ret;
-+
-+       *pcie_table =3D header;
-+
-+       return 0;
-+}
-+
-+static int get_tonga_hard_limit_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_Hard_Limit_Table **hard_limit_table) {
-+       const ATOM_Tonga_Hard_Limit_Table *table;
-+       u16 table_offset;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usHardLimitTableOffse=
-t);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*table), (const void **)&table);
-+       if (ret)
-+               return ret;
-+
-+       ret =3D validate_tonga_table_entries(hwmgr, table_offset,
-+                                          offsetof(ATOM_Tonga_Hard_Limit_T=
-able,
-+                                                   entries),
-+                                          table->ucNumEntries,
-+                                          sizeof(ATOM_Tonga_Hard_Limit_Rec=
-ord));
-+       if (ret)
-+               return ret;
-+
-+       *hard_limit_table =3D table;
-+
-+       return 0;
-+}
-+
-+static int get_tonga_thermal_controller_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_Thermal_Controller **thermal_controller) {
-+       u16 table_offset;
-+
-+       table_offset =3D
-+le16_to_cpu(powerplay_table->usThermalControllerOffset);
-+
-+       return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                 sizeof(**thermal_controller),
-+                                 (const void **)thermal_controller); }
-+
-+static int get_tonga_fan_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const PPTable_Generic_SubTable_Header **fan_table) {
-+       const PPTable_Generic_SubTable_Header *header;
-+       u16 table_offset;
-+       size_t table_size;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usFanTableOffset);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*header), (const void **)&header);
-+       if (ret)
-+               return ret;
-+
-+       if (header->ucRevId < 8)
-+               table_size =3D sizeof(ATOM_Tonga_Fan_Table);
-+       else if (header->ucRevId =3D=3D 8)
-+               table_size =3D sizeof(ATOM_Fiji_Fan_Table);
-+       else
-+               table_size =3D sizeof(ATOM_Polaris_Fan_Table);
-+
-+       PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
-+                                                     table_size)),
-+                           "Invalid PowerPlay Table!", return -1);
-+
-+       *fan_table =3D header;
-+
-+       return 0;
-+}
-+
-+static int get_tonga_power_tune_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const PPTable_Generic_SubTable_Header **power_tune_table) {
-+       const PPTable_Generic_SubTable_Header *header;
-+       u16 table_offset;
-+       size_t table_size;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usPowerTuneTableOffse=
-t);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*header), (const void **)&header);
-+       if (ret)
-+               return ret;
-+
-+       if (header->ucRevId < 3)
-+               table_size =3D sizeof(ATOM_Tonga_PowerTune_Table);
-+       else if (header->ucRevId < 4)
-+               table_size =3D sizeof(ATOM_Fiji_PowerTune_Table);
-+       else
-+               table_size =3D sizeof(ATOM_Polaris_PowerTune_Table);
-+
-+       PP_ASSERT_WITH_CODE((tonga_pp_table_has_space(hwmgr, table_offset,
-+                                                     table_size)),
-+                           "Invalid PowerPlay Table!", return -1);
-+
-+       *power_tune_table =3D header;
-+
-+       return 0;
-+}
-+
-+static int get_tonga_ppm_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_PPM_Table **ppm_table) {
-+       u16 table_offset;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usPPMTableOffset);
-+
-+       return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                 sizeof(**ppm_table), (const void **)ppm_t=
-able); }
-+
-+static int get_tonga_gpio_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_GPIO_Table **gpio_table) {
-+       u16 table_offset;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usGPIOTableOffset);
-+
-+       return get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                 sizeof(**gpio_table), (const void **)gpio=
-_table); }
-+
-+static int get_tonga_vce_state_table(struct pp_hwmgr *hwmgr,
-+               const ATOM_Tonga_POWERPLAYTABLE *powerplay_table,
-+               const ATOM_Tonga_VCE_State_Table **vce_state_table) {
-+       const ATOM_Tonga_VCE_State_Table *table;
-+       u16 table_offset;
-+       int ret;
-+
-+       table_offset =3D le16_to_cpu(powerplay_table->usVCEStateTableOffset=
-);
-+       ret =3D get_tonga_subtable(hwmgr, powerplay_table, table_offset,
-+                                sizeof(*table), (const void **)&table);
-+       if (ret)
-+               return ret;
-+
-+       ret =3D validate_tonga_table_entries(hwmgr, table_offset,
-+                                          offsetof(ATOM_Tonga_VCE_State_Ta=
-ble,
-+                                                   entries),
-+                                          table->ucNumEntries,
-+                                          sizeof(ATOM_Tonga_VCE_State_Reco=
-rd));
-+       if (ret)
-+               return ret;
-+
-+       *vce_state_table =3D table;
-+
-+       return 0;
-+}
-+
- static int get_vddc_lookup_table(
-                struct pp_hwmgr *hwmgr,
-                phm_ppt_v1_voltage_lookup_table **lookup_table,
-@@ -198,7 +560,7 @@ static int get_vddc_lookup_table(
-  */
- static int get_platform_power_management_table(
-                struct pp_hwmgr *hwmgr,
--               ATOM_Tonga_PPM_Table *atom_ppm_table)
-+               const ATOM_Tonga_PPM_Table *atom_ppm_table)
++static int get_pplib_clock_voltage_limit_table(struct pp_hwmgr *hwmgr,
++                       const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table,
++                       u16 table_offset,
++                       const ATOM_PPLIB_Clock_Voltage_Limit_Table **table)=
  {
-        struct phm_ppm_table *ptr =3D kzalloc(sizeof(*ptr), GFP_KERNEL);
-        struct phm_ppt_v1_information *pp_table_information =3D @@ -246,7 +=
-608,7 @@ static int init_dpm_2_parameters(  {
-        int result =3D 0;
-        struct phm_ppt_v1_information *pp_table_information =3D (struct phm=
-_ppt_v1_information *)(hwmgr->pptable);
--       ATOM_Tonga_PPM_Table *atom_ppm_table;
-+       const ATOM_Tonga_PPM_Table *atom_ppm_table;
-        uint32_t disable_ppm =3D 0;
-        uint32_t disable_power_control =3D 0;
-
-@@ -275,30 +637,37 @@ static int init_dpm_2_parameters(
-        }
-
-        if (0 !=3D powerplay_table->usVddcLookupTableOffset) {
--               const ATOM_Tonga_Voltage_Lookup_Table *pVddcCACTable =3D
--                       (ATOM_Tonga_Voltage_Lookup_Table *)(((unsigned long=
-)powerplay_table) +
--                       le16_to_cpu(powerplay_table->usVddcLookupTableOffse=
-t));
--
--               result =3D get_vddc_lookup_table(hwmgr,
--                       &pp_table_information->vddc_lookup_table, pVddcCACT=
-able, 16);
-+               const ATOM_Tonga_Voltage_Lookup_Table *pVddcCACTable;
++       const ATOM_PPLIB_Clock_Voltage_Limit_Table *limit_table;
++       int ret;
 +
-+               result =3D get_tonga_voltage_lookup_table(hwmgr, powerplay_=
-table,
-+                               le16_to_cpu(powerplay_table->usVddcLookupTa=
-bleOffset),
-+                               16, &pVddcCACTable);
-+               if (!result)
-+                       result =3D get_vddc_lookup_table(hwmgr,
-+                               &pp_table_information->vddc_lookup_table,
-+                               pVddcCACTable, 16);
-        }
++       ret =3D get_pplib_subtable(hwmgr, powerplay_table, table_offset,
++                                sizeof(*limit_table),
++                                (const void **)&limit_table);
++       if (ret)
++               return ret;
++
++       ret =3D validate_pplib_table_entries(hwmgr, table_offset,
++                                          offsetof(ATOM_PPLIB_Clock_Voltag=
+e_Limit_Table,
++                                                   entries),
++                                          limit_table->ucNumEntries,
++                                          sizeof(ATOM_PPLIB_Clock_Voltage_=
+Limit_Record));
++       if (ret)
++               return ret;
++
++       *table =3D limit_table;
++
++       return 0;
++}
++
++static int get_pplib_cac_leakage_table(struct pp_hwmgr *hwmgr,
++                       const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table,
++                       u16 table_offset,
++                       const ATOM_PPLIB_CAC_Leakage_Table **table) {
++       const ATOM_PPLIB_CAC_Leakage_Table *leakage_table;
++       int ret;
++
++       ret =3D get_pplib_subtable(hwmgr, powerplay_table, table_offset,
++                                sizeof(*leakage_table),
++                                (const void **)&leakage_table);
++       if (ret)
++               return ret;
++
++       ret =3D validate_pplib_optional_table_entries(hwmgr, table_offset,
++                                          offsetof(ATOM_PPLIB_CAC_Leakage_=
+Table,
++                                                   entries),
++                                          leakage_table->ucNumEntries,
++                                          sizeof(ATOM_PPLIB_CAC_Leakage_Re=
+cord));
++       if (ret)
++               return ret;
++
++       *table =3D leakage_table;
++
++       return 0;
++}
++
++static int get_pplib_phase_shedding_table(struct pp_hwmgr *hwmgr,
++                       const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table,
++                       u16 table_offset,
++                       const ATOM_PPLIB_PhaseSheddingLimits_Table **table)=
+ {
++       const ATOM_PPLIB_PhaseSheddingLimits_Table *phase_table;
++       int ret;
++
++       ret =3D get_pplib_subtable(hwmgr, powerplay_table, table_offset,
++                                sizeof(*phase_table), (const void **)&phas=
+e_table);
++       if (ret)
++               return ret;
++
++       ret =3D validate_pplib_optional_table_entries(hwmgr, table_offset,
++                                          offsetof(ATOM_PPLIB_PhaseSheddin=
+gLimits_Table,
++                                                   entries),
++                                          phase_table->ucNumEntries,
++                                          sizeof(ATOM_PPLIB_PhaseSheddingL=
+imits_Record));
++       if (ret)
++               return ret;
++
++       *table =3D phase_table;
++
++       return 0;
++}
++
+ static const ATOM_PPLIB_EXTENDEDHEADER *  get_extended_header(struct pp_hw=
+mgr *hwmgr,
+                    const ATOM_PPLIB_POWERPLAYTABLE *powerplay_table, @@ -1=
+143,14 +1296,36 @@ static int init_thermal_controller(
+         if (powerplay_table->usTableSize >=3D sizeof(ATOM_PPLIB_POWERPLAYT=
+ABLE3)) {
+                const ATOM_PPLIB_POWERPLAYTABLE3 *powerplay_table3 =3D
+                        (const ATOM_PPLIB_POWERPLAYTABLE3 *)powerplay_table=
+;
++               u16 fan_table_offset;
 
--       if (0 !=3D powerplay_table->usVddgfxLookupTableOffset) {
--               const ATOM_Tonga_Voltage_Lookup_Table *pVddgfxCACTable =3D
--                       (ATOM_Tonga_Voltage_Lookup_Table *)(((unsigned long=
-)powerplay_table) +
--                       le16_to_cpu(powerplay_table->usVddgfxLookupTableOff=
-set));
-+       if (!result && 0 !=3D powerplay_table->usVddgfxLookupTableOffset) {
-+               const ATOM_Tonga_Voltage_Lookup_Table *pVddgfxCACTable;
+                if (0 =3D=3D le16_to_cpu(powerplay_table3->usFanTableOffset=
+)) {
+                        hwmgr->thermal_controller.use_hw_fan_control =3D 1;
+                        return 0;
+                } else {
+-                       const ATOM_PPLIB_FANTABLE *fan_table =3D
+-                               (const ATOM_PPLIB_FANTABLE *)(((unsigned lo=
+ng)powerplay_table) +
+-                                                             le16_to_cpu(p=
+owerplay_table3->usFanTableOffset));
++                       const ATOM_PPLIB_FANTABLE *fan_table;
++                       size_t fan_table_size;
++
++                       fan_table_offset =3D le16_to_cpu(powerplay_table3->=
+usFanTableOffset);
++                       if (!pp_table_has_space(hwmgr, fan_table_offset,
++                                               sizeof(*fan_table)))
++                               return -EINVAL;
++
++                       fan_table =3D (const ATOM_PPLIB_FANTABLE *)
++                               (((unsigned long)powerplay_table) + fan_tab=
+le_offset);
++                       if (fan_table->ucFanTableFormat >=3D 7)
++                               fan_table_size =3D sizeof(ATOM_PPLIB_FANTAB=
+LE5);
++                       else if (fan_table->ucFanTableFormat >=3D 6)
++                               fan_table_size =3D sizeof(ATOM_PPLIB_FANTAB=
+LE4);
++                       else if (fan_table->ucFanTableFormat >=3D 3)
++                               fan_table_size =3D sizeof(ATOM_PPLIB_FANTAB=
+LE3);
++                       else if (fan_table->ucFanTableFormat >=3D 2)
++                               fan_table_size =3D sizeof(ATOM_PPLIB_FANTAB=
+LE2);
++                       else
++                               fan_table_size =3D sizeof(ATOM_PPLIB_FANTAB=
+LE);
++
++                       if (!pp_table_has_space(hwmgr, fan_table_offset,
++                                               fan_table_size))
++                               return -EINVAL;
 
--               result =3D get_vddc_lookup_table(hwmgr,
--                       &pp_table_information->vddgfx_lookup_table, pVddgfx=
-CACTable, 16);
-+               result =3D get_tonga_voltage_lookup_table(hwmgr, powerplay_=
-table,
-+                               le16_to_cpu(powerplay_table->usVddgfxLookup=
-TableOffset),
-+                               16, &pVddgfxCACTable);
-+               if (!result)
-+                       result =3D get_vddc_lookup_table(hwmgr,
-+                               &pp_table_information->vddgfx_lookup_table,
-+                               pVddgfxCACTable, 16);
-        }
+                        if (1 <=3D fan_table->ucFanTableFormat) {
+                                hwmgr->thermal_controller.advanceFanControl=
+Parameters.ucTHyst =3D @@ -1176,16 +1351,14 @@ static int init_thermal_cont=
+roller(
 
-        disable_ppm =3D 0;
-        if (0 =3D=3D disable_ppm) {
--               atom_ppm_table =3D (ATOM_Tonga_PPM_Table *)
--                       (((unsigned long)powerplay_table) + le16_to_cpu(pow=
-erplay_table->usPPMTableOffset));
--
-                if (0 !=3D powerplay_table->usPPMTableOffset) {
--                       if (get_platform_power_management_table(hwmgr, atom=
-_ppm_table) =3D=3D 0) {
-+                       result =3D get_tonga_ppm_table(hwmgr, powerplay_tab=
-le,
-+                                                    &atom_ppm_table);
-Will this not cause regression, earlier result was not touched, now if PPM =
-table fails bounds validation, result is set to -1 which may cause pp_table=
-s_v1_0_initialize() to bail out entirely
-+                       if (!result &&
-+                           get_platform_power_management_table(hwmgr,
-+                                                              atom_ppm_tab=
-le) =3D=3D 0) {
+                        if (2 <=3D fan_table->ucFanTableFormat) {
+                                const ATOM_PPLIB_FANTABLE2 *fan_table2 =3D
+-                                       (const ATOM_PPLIB_FANTABLE2 *)(((un=
+signed long)powerplay_table) +
+-                                                                      le16=
+_to_cpu(powerplay_table3->usFanTableOffset));
++                                       (const ATOM_PPLIB_FANTABLE2 *)fan_t=
+able;
+                                hwmgr->thermal_controller.advanceFanControl=
+Parameters.usTMax =3D
+                                        le16_to_cpu(fan_table2->usTMax);
+                        }
+
+                        if (3 <=3D fan_table->ucFanTableFormat) {
+                                const ATOM_PPLIB_FANTABLE3 *fan_table3 =3D
+-                                       (const ATOM_PPLIB_FANTABLE3 *) (((u=
+nsigned long)powerplay_table) +
+-                                                                       le1=
+6_to_cpu(powerplay_table3->usFanTableOffset));
++                                       (const ATOM_PPLIB_FANTABLE3 *)fan_t=
+able;
+
+                                hwmgr->thermal_controller.advanceFanControl=
+Parameters.ucFanControlMode =3D
+                                        fan_table3->ucFanControlMode;
+@@ -1206,8 +1379,7 @@ static int init_thermal_controller(
+
+                        if (6 <=3D fan_table->ucFanTableFormat) {
+                                const ATOM_PPLIB_FANTABLE4 *fan_table4 =3D
+-                                       (const ATOM_PPLIB_FANTABLE4 *)(((un=
+signed long)powerplay_table) +
+-                                                                      le16=
+_to_cpu(powerplay_table3->usFanTableOffset));
++                                       (const ATOM_PPLIB_FANTABLE4 *)fan_t=
+able;
+
                                 phm_cap_set(hwmgr->platform_descriptor.plat=
 formCaps,
-                                        PHM_PlatformCaps_EnablePlatformPowe=
-rManagement);
-                        }
-@@ -792,28 +1161,13 @@ static int init_clock_voltage_dependency(
-        int result =3D 0;
-        struct phm_ppt_v1_information *pp_table_information =3D
-                (struct phm_ppt_v1_information *)(hwmgr->pptable);
--
--       const ATOM_Tonga_MM_Dependency_Table *mm_dependency_table =3D
--               (const ATOM_Tonga_MM_Dependency_Table *)(((unsigned long) p=
-owerplay_table) +
--               le16_to_cpu(powerplay_table->usMMDependencyTableOffset));
--       const PPTable_Generic_SubTable_Header *pPowerTuneTable =3D
--               (const PPTable_Generic_SubTable_Header *)(((unsigned long) =
-powerplay_table) +
--               le16_to_cpu(powerplay_table->usPowerTuneTableOffset));
--       const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table =3D
--               (const ATOM_Tonga_MCLK_Dependency_Table *)(((unsigned long)=
- powerplay_table) +
--               le16_to_cpu(powerplay_table->usMclkDependencyTableOffset));
--       const PPTable_Generic_SubTable_Header *sclk_dep_table =3D
--               (const PPTable_Generic_SubTable_Header *)(((unsigned long) =
-powerplay_table) +
--               le16_to_cpu(powerplay_table->usSclkDependencyTableOffset));
--       const ATOM_Tonga_Hard_Limit_Table *pHardLimits =3D
--               (const ATOM_Tonga_Hard_Limit_Table *)(((unsigned long) powe=
-rplay_table) +
--               le16_to_cpu(powerplay_table->usHardLimitTableOffset));
--       const PPTable_Generic_SubTable_Header *pcie_table =3D
--               (const PPTable_Generic_SubTable_Header *)(((unsigned long) =
-powerplay_table) +
--               le16_to_cpu(powerplay_table->usPCIETableOffset));
--       const ATOM_Tonga_GPIO_Table *gpio_table =3D
--               (const ATOM_Tonga_GPIO_Table *)(((unsigned long) powerplay_=
-table) +
--               le16_to_cpu(powerplay_table->usGPIOTableOffset));
-+       const ATOM_Tonga_MM_Dependency_Table *mm_dependency_table;
-+       const PPTable_Generic_SubTable_Header *pPowerTuneTable;
-+       const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table;
-+       const PPTable_Generic_SubTable_Header *sclk_dep_table;
-+       const ATOM_Tonga_Hard_Limit_Table *pHardLimits;
-+       const PPTable_Generic_SubTable_Header *pcie_table;
-+       const ATOM_Tonga_GPIO_Table *gpio_table;
+                                            PHM_PlatformCaps_FanSpeedInTabl=
+eIsRPM);
+@@ -1218,8 +1390,7 @@ static int init_thermal_controller(
 
-        pp_table_information->vdd_dep_on_sclk =3D NULL;
-        pp_table_information->vdd_dep_on_mclk =3D NULL; @@ -821,29 +1175,58=
- @@ static int init_clock_voltage_dependency(
-        pp_table_information->pcie_table =3D NULL;
-        pp_table_information->gpio_table =3D NULL;
+                        if (7 <=3D fan_table->ucFanTableFormat) {
+                                const ATOM_PPLIB_FANTABLE5 *fan_table5 =3D
+-                                       (const ATOM_PPLIB_FANTABLE5 *)(((un=
+signed long)powerplay_table) +
+-                                                                      le16=
+_to_cpu(powerplay_table3->usFanTableOffset));
++                                       (const ATOM_PPLIB_FANTABLE5 *)fan_t=
+able;
 
--       if (powerplay_table->usMMDependencyTableOffset !=3D 0)
--               result =3D get_mm_clock_voltage_table(hwmgr,
--               &pp_table_information->mm_dep_table, mm_dependency_table);
-+       if (powerplay_table->usMMDependencyTableOffset !=3D 0) {
-+               result =3D get_tonga_mm_dependency_table(hwmgr, powerplay_t=
-able,
-+                                                      &mm_dependency_table=
-);
-+               if (!result)
-+                       result =3D get_mm_clock_voltage_table(hwmgr,
-+                               &pp_table_information->mm_dep_table,
-+                               mm_dependency_table);
-+       }
+                                if (0x67A2 =3D=3D adev->pdev->device ||
+                                    0x67A9 =3D=3D adev->pdev->device || @@ =
+-1351,8 +1522,14 @@ static int get_uvd_clock_voltage_limit_table(struct pp_=
+hwmgr *hwmgr,
+        uvd_table->count =3D table->numEntries;
 
--       if (result =3D=3D 0 && powerplay_table->usPowerTuneTableOffset !=3D=
- 0)
--               result =3D get_cac_tdp_table(hwmgr,
--               &pp_table_information->cac_dtp_table, pPowerTuneTable);
-+       if (result =3D=3D 0 && powerplay_table->usPowerTuneTableOffset !=3D=
- 0) {
-+               result =3D get_tonga_power_tune_table(hwmgr, powerplay_tabl=
-e,
-+                                                   &pPowerTuneTable);
-+               if (!result)
-+                       result =3D get_cac_tdp_table(hwmgr,
-+                               &pp_table_information->cac_dtp_table,
-+                               pPowerTuneTable);
-+       }
-
--       if (result =3D=3D 0 && powerplay_table->usSclkDependencyTableOffset=
- !=3D 0)
--               result =3D get_sclk_voltage_dependency_table(hwmgr,
--               &pp_table_information->vdd_dep_on_sclk, sclk_dep_table);
-+       if (result =3D=3D 0 && powerplay_table->usSclkDependencyTableOffset=
- !=3D 0) {
-+               result =3D get_tonga_sclk_dependency_table(hwmgr, powerplay=
-_table,
-+                                                        &sclk_dep_table);
-+               if (!result)
-+                       result =3D get_sclk_voltage_dependency_table(hwmgr,
-+                               &pp_table_information->vdd_dep_on_sclk,
-+                               sclk_dep_table);
-+       }
-
--       if (result =3D=3D 0 && powerplay_table->usMclkDependencyTableOffset=
- !=3D 0)
--               result =3D get_mclk_voltage_dependency_table(hwmgr,
--               &pp_table_information->vdd_dep_on_mclk, mclk_dep_table);
-+       if (result =3D=3D 0 && powerplay_table->usMclkDependencyTableOffset=
- !=3D 0) {
-+               result =3D get_tonga_mclk_dependency_table(hwmgr, powerplay=
-_table,
-+                                                        &mclk_dep_table);
-+               if (!result)
-+                       result =3D get_mclk_voltage_dependency_table(hwmgr,
-+                               &pp_table_information->vdd_dep_on_mclk,
-+                               mclk_dep_table);
-+       }
-
--       if (result =3D=3D 0 && powerplay_table->usPCIETableOffset !=3D 0)
--               result =3D get_pcie_table(hwmgr,
--               &pp_table_information->pcie_table, pcie_table);
-+       if (result =3D=3D 0 && powerplay_table->usPCIETableOffset !=3D 0) {
-+               result =3D get_tonga_pcie_table(hwmgr, powerplay_table,
-+                                             &pcie_table);
-+               if (!result)
-+                       result =3D get_pcie_table(hwmgr,
-+                               &pp_table_information->pcie_table, pcie_tab=
-le);
-+       }
-
--       if (result =3D=3D 0 && powerplay_table->usHardLimitTableOffset !=3D=
- 0)
--               result =3D get_hard_limits(hwmgr,
--               &pp_table_information->max_clock_voltage_on_dc, pHardLimits=
-);
-+       if (result =3D=3D 0 && powerplay_table->usHardLimitTableOffset !=3D=
- 0) {
-+               result =3D get_tonga_hard_limit_table(hwmgr, powerplay_tabl=
-e,
-+                                                   &pHardLimits);
-+               if (!result)
-+                       result =3D get_hard_limits(hwmgr,
-+                               &pp_table_information->max_clock_voltage_on=
-_dc,
-+                               pHardLimits);
-+       }
-
-        hwmgr->dyn_state.max_clock_voltage_on_dc.sclk =3D
-                pp_table_information->max_clock_voltage_on_dc.sclk;
-@@ -864,9 +1247,13 @@ static int init_clock_voltage_dependency(
-                result =3D get_valid_clk(hwmgr, &pp_table_information->vali=
-d_sclk_values,
-                pp_table_information->vdd_dep_on_sclk);
-
--       if (!result && gpio_table)
--               result =3D get_gpio_table(hwmgr, &pp_table_information->gpi=
-o_table,
--                               gpio_table);
-+       if (!result && powerplay_table->usGPIOTableOffset) {
-+               result =3D get_tonga_gpio_table(hwmgr, powerplay_table,
-+                                             &gpio_table);
-+               if (!result)
-+                       result =3D get_gpio_table(hwmgr,
-+                               &pp_table_information->gpio_table, gpio_tab=
-le);
-+       }
-
-        return result;
- }
-@@ -911,14 +1298,17 @@ static int init_thermal_controller(
-                )
- {
-        const PPTable_Generic_SubTable_Header *fan_table;
--       ATOM_Tonga_Thermal_Controller *thermal_controller;
-+       const ATOM_Tonga_Thermal_Controller *thermal_controller;
-+       int ret;
-
--       thermal_controller =3D (ATOM_Tonga_Thermal_Controller *)
--               (((unsigned long)powerplay_table) +
--               le16_to_cpu(powerplay_table->usThermalControllerOffset));
-        PP_ASSERT_WITH_CODE((0 !=3D powerplay_table->usThermalControllerOff=
-set),
-                "Thermal controller table not set!", return -1);
-
-+       ret =3D get_tonga_thermal_controller_table(hwmgr, powerplay_table,
-+                                                &thermal_controller);
-+       if (ret)
-+               return ret;
+        for (i =3D 0; i < table->numEntries; i++) {
+-               const UVDClockInfo *entry =3D
+-                       &array->entries[table->entries[i].ucUVDClockInfoInd=
+ex];
++               const UVDClockInfo *entry;
 +
-        hwmgr->thermal_controller.ucType =3D thermal_controller->ucType;
-        hwmgr->thermal_controller.ucI2cLine =3D thermal_controller->ucI2cLi=
-ne;
-        hwmgr->thermal_controller.ucI2cAddress =3D thermal_controller->ucI2=
-cAddress; @@ -946,12 +1336,13 @@ static int init_thermal_controller(
-                return 0;
++               if (table->entries[i].ucUVDClockInfoIndex >=3D array->ucNum=
+Entries) {
++                       kfree(uvd_table);
++                       return -EINVAL;
++               }
++
++               entry =3D &array->entries[table->entries[i].ucUVDClockInfoI=
+ndex];
+                uvd_table->entries[i].v =3D (unsigned long)le16_to_cpu(tabl=
+e->entries[i].usVoltage);
+                uvd_table->entries[i].vclk =3D ((unsigned long)entry->ucVCl=
+kHigh << 16)
+                                         | le16_to_cpu(entry->usVClkLow);
+@@ -1380,7 +1557,14 @@ static int get_vce_clock_voltage_limit_table(struct =
+pp_hwmgr *hwmgr,
+
+        vce_table->count =3D table->numEntries;
+        for (i =3D 0; i < table->numEntries; i++) {
+-               const VCEClockInfo *entry =3D &array->entries[table->entrie=
+s[i].ucVCEClockInfoIndex];
++               const VCEClockInfo *entry;
++
++               if (table->entries[i].ucVCEClockInfoIndex >=3D array->ucNum=
+Entries) {
++                       kfree(vce_table);
++                       return -EINVAL;
++               }
++
++               entry =3D &array->entries[table->entries[i].ucVCEClockInfoI=
+ndex];
+
+                vce_table->entries[i].v =3D (unsigned long)le16_to_cpu(tabl=
+e->entries[i].usVoltage);
+                vce_table->entries[i].evclk =3D ((unsigned long)entry->ucEV=
+ClkHigh << 16) @@ -1474,12 +1658,20 @@ static int init_clock_voltage_depend=
+ency(struct pp_hwmgr *hwmgr,
+                const VCEClockInfoArray *array =3D (const VCEClockInfoArray=
+ *)
+                                (((unsigned long) powerplay_table) +
+                                vce_clock_info_array_offset);
+-               const ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table *table =3D
+-                               (const ATOM_PPLIB_VCE_Clock_Voltage_Limit_T=
+able *)
+-                               (((unsigned long) powerplay_table) + table_=
+offset);
+-               result =3D get_vce_clock_voltage_limit_table(hwmgr,
+-                               &hwmgr->dyn_state.vce_clock_voltage_depende=
+ncy_table,
+-                               table, array);
++               const ATOM_PPLIB_VCE_Clock_Voltage_Limit_Table *table;
++
++               result =3D get_pplib_subtable(hwmgr, powerplay_table, table=
+_offset,
++                               sizeof(*table), (const void **)&table);
++               if (!result)
++                       result =3D validate_pplib_optional_table_entries(hw=
+mgr, table_offset,
++                               offsetof(ATOM_PPLIB_VCE_Clock_Voltage_Limit=
+_Table,
++                                        entries),
++                               table->numEntries,
++                               sizeof(ATOM_PPLIB_VCE_Clock_Voltage_Limit_R=
+ecord));
++               if (!result)
++                       result =3D get_vce_clock_voltage_limit_table(hwmgr,
++                                       &hwmgr->dyn_state.vce_clock_voltage=
+_dependency_table,
++                                       table, array);
         }
 
--       fan_table =3D (const PPTable_Generic_SubTable_Header *)
--               (((unsigned long)powerplay_table) +
--               le16_to_cpu(powerplay_table->usFanTableOffset));
--
-        PP_ASSERT_WITH_CODE((0 !=3D powerplay_table->usFanTableOffset),
-                "Fan table not set!", return -1);
+        uvd_clock_info_array_offset =3D get_uvd_clock_info_array_offset(hwm=
+gr, powerplay_table); @@ -1489,40 +1681,78 @@ static int init_clock_voltage=
+_dependency(struct pp_hwmgr *hwmgr,
+                const UVDClockInfoArray *array =3D (const UVDClockInfoArray=
+ *)
+                                (((unsigned long) powerplay_table) +
+                                uvd_clock_info_array_offset);
+-               const ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table *ptable =3D
+-                               (const ATOM_PPLIB_UVD_Clock_Voltage_Limit_T=
+able *)
+-                               (((unsigned long) powerplay_table) + table_=
+offset);
+-               result =3D get_uvd_clock_voltage_limit_table(hwmgr,
+-                               &hwmgr->dyn_state.uvd_clock_voltage_depende=
+ncy_table, ptable, array);
++               const ATOM_PPLIB_UVD_Clock_Voltage_Limit_Table *ptable;
 +
-+       ret =3D get_tonga_fan_table(hwmgr, powerplay_table, &fan_table);
-+       if (ret)
-+               return ret;
-+
-        PP_ASSERT_WITH_CODE((0 < fan_table->ucRevId),
-                "Unsupported fan table format!", return -1);
++               result =3D get_pplib_subtable(hwmgr, powerplay_table, table=
+_offset,
++                               sizeof(*ptable), (const void **)&ptable);
++               if (!result)
++                       result =3D validate_pplib_optional_table_entries(hw=
+mgr, table_offset,
++                               offsetof(ATOM_PPLIB_UVD_Clock_Voltage_Limit=
+_Table,
++                                        entries),
++                               ptable->numEntries,
++                               sizeof(ATOM_PPLIB_UVD_Clock_Voltage_Limit_R=
+ecord));
++               if (!result)
++                       result =3D get_uvd_clock_voltage_limit_table(hwmgr,
++                                       &hwmgr->dyn_state.uvd_clock_voltage=
+_dependency_table,
++                                       ptable, array);
+        }
 
-@@ -1313,13 +1704,15 @@ static int ppt_get_num_of_vce_state_table_entries_v=
-1_0(struct pp_hwmgr *hwmgr)  {
-        const ATOM_Tonga_POWERPLAYTABLE *pp_table =3D get_powerplay_table(h=
-wmgr);
-        const ATOM_Tonga_VCE_State_Table *vce_state_table;
-+       int ret;
-
-
-        if (pp_table =3D=3D NULL)
-                return 0;
-
--       vce_state_table =3D (void *)pp_table +
--                       le16_to_cpu(pp_table->usVCEStateTableOffset);
-+       ret =3D get_tonga_vce_state_table(hwmgr, pp_table, &vce_state_table=
+        table_offset =3D get_samu_clock_voltage_limit_table_offset(hwmgr,
+                                                            powerplay_table=
 );
-+       if (ret)
-+               return 0;
 
-        return vce_state_table->ucNumEntries;
- }
-@@ -1328,18 +1721,39 @@ static int ppt_get_vce_state_table_entry_v1_0(struc=
-t pp_hwmgr *hwmgr, uint32_t i
-                struct amd_vce_state *vce_state, void **clock_info, uint32_=
-t *flag)  {
-        const ATOM_Tonga_VCE_State_Record *vce_state_record;
--       ATOM_Tonga_SCLK_Dependency_Record *sclk_dep_record;
-+       ATOM_Tonga_SCLK_Dependency_Record *sclk_dep_record =3D NULL;
-+       ATOM_Polaris_SCLK_Dependency_Record *polaris_sclk_dep_record =3D NU=
-LL;
-        ATOM_Tonga_MCLK_Dependency_Record *mclk_dep_record;
-        ATOM_Tonga_MM_Dependency_Record *mm_dep_record;
-        const ATOM_Tonga_POWERPLAYTABLE *pptable =3D get_powerplay_table(hw=
-mgr);
--       const ATOM_Tonga_VCE_State_Table *vce_state_table =3D (ATOM_Tonga_V=
-CE_State_Table *)(((unsigned long)pptable)
--                                                         + le16_to_cpu(ppt=
-able->usVCEStateTableOffset));
--       const ATOM_Tonga_SCLK_Dependency_Table *sclk_dep_table =3D (ATOM_To=
-nga_SCLK_Dependency_Table *)(((unsigned long)pptable)
--                                                         + le16_to_cpu(ppt=
-able->usSclkDependencyTableOffset));
--       const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table =3D (ATOM_To=
-nga_MCLK_Dependency_Table *)(((unsigned long)pptable)
--                                                         + le16_to_cpu(ppt=
-able->usMclkDependencyTableOffset));
--       const ATOM_Tonga_MM_Dependency_Table *mm_dep_table =3D (ATOM_Tonga_=
-MM_Dependency_Table *)(((unsigned long)pptable)
--                                                         + le16_to_cpu(ppt=
-able->usMMDependencyTableOffset));
-+       const ATOM_Tonga_VCE_State_Table *vce_state_table;
-+       const PPTable_Generic_SubTable_Header *sclk_dep_table_header;
-+       const ATOM_Tonga_SCLK_Dependency_Table *sclk_dep_table;
-+       const ATOM_Tonga_MCLK_Dependency_Table *mclk_dep_table;
-+       const ATOM_Tonga_MM_Dependency_Table *mm_dep_table;
-+       int ret;
+        if (table_offset > 0) {
+-               const ATOM_PPLIB_SAMClk_Voltage_Limit_Table *ptable =3D
+-                               (const ATOM_PPLIB_SAMClk_Voltage_Limit_Tabl=
+e *)
+-                               (((unsigned long) powerplay_table) + table_=
+offset);
+-               result =3D get_samu_clock_voltage_limit_table(hwmgr,
+-                               &hwmgr->dyn_state.samu_clock_voltage_depend=
+ency_table, ptable);
++               const ATOM_PPLIB_SAMClk_Voltage_Limit_Table *ptable;
 +
-+       if (!pptable)
-+               return -EINVAL;
++               result =3D get_pplib_subtable(hwmgr, powerplay_table, table=
+_offset,
++                               sizeof(*ptable), (const void **)&ptable);
++               if (!result)
++                       result =3D validate_pplib_optional_table_entries(hw=
+mgr, table_offset,
++                               offsetof(ATOM_PPLIB_SAMClk_Voltage_Limit_Ta=
+ble,
++                                        entries),
++                               ptable->numEntries,
++                               sizeof(ATOM_PPLIB_SAMClk_Voltage_Limit_Reco=
+rd));
++               if (!result)
++                       result =3D get_samu_clock_voltage_limit_table(hwmgr=
+,
++                                       &hwmgr->dyn_state.samu_clock_voltag=
+e_dependency_table,
++                                       ptable);
+        }
+
+        table_offset =3D get_acp_clock_voltage_limit_table_offset(hwmgr,
+                                                             powerplay_tabl=
+e);
+
+        if (table_offset > 0) {
+-               const ATOM_PPLIB_ACPClk_Voltage_Limit_Table *ptable =3D
+-                               (const ATOM_PPLIB_ACPClk_Voltage_Limit_Tabl=
+e *)
+-                               (((unsigned long) powerplay_table) + table_=
+offset);
+-               result =3D get_acp_clock_voltage_limit_table(hwmgr,
+-                               &hwmgr->dyn_state.acp_clock_voltage_depende=
+ncy_table, ptable);
++               const ATOM_PPLIB_ACPClk_Voltage_Limit_Table *ptable;
 +
-+       ret =3D get_tonga_vce_state_table(hwmgr, pptable, &vce_state_table)=
-;
-+       if (ret)
-+               return ret;
++               result =3D get_pplib_subtable(hwmgr, powerplay_table, table=
+_offset,
++                               sizeof(*ptable), (const void **)&ptable);
++               if (!result)
++                       result =3D validate_pplib_optional_table_entries(hw=
+mgr, table_offset,
++                               offsetof(ATOM_PPLIB_ACPClk_Voltage_Limit_Ta=
+ble,
++                                        entries),
++                               ptable->numEntries,
++                               sizeof(ATOM_PPLIB_ACPClk_Voltage_Limit_Reco=
+rd));
++               if (!result)
++                       result =3D get_acp_clock_voltage_limit_table(hwmgr,
++                                       &hwmgr->dyn_state.acp_clock_voltage=
+_dependency_table,
++                                       ptable);
+        }
+
+        table_offset =3D get_cacp_tdp_table_offset(hwmgr, powerplay_table);
+        if (table_offset > 0) {
+-               UCHAR rev_id =3D *(UCHAR *)(((unsigned long)powerplay_table=
+) + table_offset);
++               const void *tune_table;
++               UCHAR rev_id;
+
+-               if (rev_id > 0) {
++               if (!pp_table_has_space(hwmgr, table_offset, sizeof(rev_id)=
+))
++                       return -EINVAL;
 +
-+       ret =3D get_tonga_sclk_dependency_table(hwmgr, pptable,
-+                                             &sclk_dep_table_header);
-+       if (ret)
-+               return ret;
-+       sclk_dep_table =3D (const ATOM_Tonga_SCLK_Dependency_Table *)
-+               sclk_dep_table_header;
++               rev_id =3D *(UCHAR *)(((unsigned long)powerplay_table) + ta=
+ble_offset);
++               result =3D get_pplib_subtable(hwmgr, powerplay_table, table=
+_offset,
++                               (rev_id > 0) ?
++                               sizeof(ATOM_PPLIB_POWERTUNE_Table_V1) :
++                               sizeof(ATOM_PPLIB_POWERTUNE_Table),
++                               (const void **)&tune_table);
+AK: A non zero result will cause SCLK/MCLK/VDDCI/MVDD table to skip. Is it =
+Ok? Was it same in earlier code?
 +
-+       ret =3D get_tonga_mclk_dependency_table(hwmgr, pptable, &mclk_dep_t=
++               if (!result && rev_id > 0) {
+                        const ATOM_PPLIB_POWERTUNE_Table_V1 *tune_table =3D
+                                (const ATOM_PPLIB_POWERTUNE_Table_V1 *)
+                                (((unsigned long) powerplay_table) + table_=
+offset); @@ -1531,7 +1761,7 @@ static int init_clock_voltage_dependency(str=
+uct pp_hwmgr *hwmgr,
+                                le16_to_cpu(tune_table->usMaximumPowerDeliv=
+eryLimit));
+                        hwmgr->dyn_state.cac_dtp_table->usDefaultTargetOper=
+atingTemp =3D
+                                le16_to_cpu(tune_table->usTjMax);
+-               } else {
++               } else if (!result) {
+                        const ATOM_PPLIB_POWERTUNE_Table *tune_table =3D
+                                (const ATOM_PPLIB_POWERTUNE_Table *)
+                                (((unsigned long) powerplay_table) + table_=
+offset); @@ -1546,35 +1776,44 @@ static int init_clock_voltage_dependency(s=
+truct pp_hwmgr *hwmgr,
+                const ATOM_PPLIB_POWERPLAYTABLE4 *powerplay_table4 =3D
+                                (const ATOM_PPLIB_POWERPLAYTABLE4 *)powerpl=
+ay_table;
+                if (0 !=3D powerplay_table4->usVddcDependencyOnSCLKOffset) =
+{
+-                       table =3D (ATOM_PPLIB_Clock_Voltage_Dependency_Tabl=
+e *)
+-                               (((unsigned long) powerplay_table4) +
+-                                le16_to_cpu(powerplay_table4->usVddcDepend=
+encyOnSCLKOffset));
+-                       result =3D get_clock_voltage_dependency_table(hwmgr=
+,
+-                               &hwmgr->dyn_state.vddc_dependency_on_sclk, =
+table);
++                       result =3D get_pplib_clock_voltage_dependency_table=
+(hwmgr,
++                               powerplay_table,
++                               le16_to_cpu(powerplay_table4->usVddcDepende=
+ncyOnSCLKOffset),
++                               (const ATOM_PPLIB_Clock_Voltage_Dependency_=
+Table **)&table);
++                       if (!result)
++                               result =3D get_clock_voltage_dependency_tab=
+le(hwmgr,
++                                       &hwmgr->dyn_state.vddc_dependency_o=
+n_sclk, table);
+                }
+
+                if (result =3D=3D 0 && (0 !=3D powerplay_table4->usVddciDep=
+endencyOnMCLKOffset)) {
+-                       table =3D (ATOM_PPLIB_Clock_Voltage_Dependency_Tabl=
+e *)
+-                               (((unsigned long) powerplay_table4) +
+-                                le16_to_cpu(powerplay_table4->usVddciDepen=
+dencyOnMCLKOffset));
+-                       result =3D get_clock_voltage_dependency_table(hwmgr=
+,
+-                               &hwmgr->dyn_state.vddci_dependency_on_mclk,=
+ table);
++                       result =3D get_pplib_clock_voltage_dependency_table=
+(hwmgr,
++                               powerplay_table,
++                               le16_to_cpu(powerplay_table4->usVddciDepend=
+encyOnMCLKOffset),
++                               (const ATOM_PPLIB_Clock_Voltage_Dependency_=
+Table **)&table);
++                       if (!result)
++                               result =3D get_clock_voltage_dependency_tab=
+le(hwmgr,
++                                       &hwmgr->dyn_state.vddci_dependency_=
+on_mclk, table);
+                }
+
+                if (result =3D=3D 0 && (0 !=3D powerplay_table4->usVddcDepe=
+ndencyOnMCLKOffset)) {
+-                       table =3D (ATOM_PPLIB_Clock_Voltage_Dependency_Tabl=
+e *)
+-                               (((unsigned long) powerplay_table4) +
+-                                le16_to_cpu(powerplay_table4->usVddcDepend=
+encyOnMCLKOffset));
+-                       result =3D get_clock_voltage_dependency_table(hwmgr=
+,
+-                               &hwmgr->dyn_state.vddc_dependency_on_mclk, =
+table);
++                       result =3D get_pplib_clock_voltage_dependency_table=
+(hwmgr,
++                               powerplay_table,
++                               le16_to_cpu(powerplay_table4->usVddcDepende=
+ncyOnMCLKOffset),
++                               (const ATOM_PPLIB_Clock_Voltage_Dependency_=
+Table **)&table);
++                       if (!result)
++                               result =3D get_clock_voltage_dependency_tab=
+le(hwmgr,
++                                       &hwmgr->dyn_state.vddc_dependency_o=
+n_mclk, table);
+                }
+
+                if (result =3D=3D 0 && (0 !=3D powerplay_table4->usMaxClock=
+VoltageOnDCOffset)) {
+-                       limit_table =3D (ATOM_PPLIB_Clock_Voltage_Limit_Tab=
+le *)
+-                               (((unsigned long) powerplay_table4) +
+-                                le16_to_cpu(powerplay_table4->usMaxClockVo=
+ltageOnDCOffset));
+-                       result =3D get_clock_voltage_limit(hwmgr,
+-                               &hwmgr->dyn_state.max_clock_voltage_on_dc, =
+limit_table);
++                       result =3D get_pplib_clock_voltage_limit_table(hwmg=
+r,
++                               powerplay_table,
++                               le16_to_cpu(powerplay_table4->usMaxClockVol=
+tageOnDCOffset),
++                               (const ATOM_PPLIB_Clock_Voltage_Limit_Table=
+ **)&limit_table);
++                       if (!result)
++                               result =3D get_clock_voltage_limit(hwmgr,
++                                       &hwmgr->dyn_state.max_clock_voltage=
+_on_dc,
++                                       limit_table);
+                }
+
+                if (result =3D=3D 0 && (NULL !=3D hwmgr->dyn_state.vddc_dep=
+endency_on_mclk) && @@ -1589,11 +1828,14 @@ static int init_clock_voltage_d=
+ependency(struct pp_hwmgr *hwmgr,
+                                hwmgr->dyn_state.vddc_dependency_on_sclk);
+
+                if (result =3D=3D 0 && (0 !=3D powerplay_table4->usMvddDepe=
+ndencyOnMCLKOffset)) {
+-                       table =3D (ATOM_PPLIB_Clock_Voltage_Dependency_Tabl=
+e *)
+-                               (((unsigned long) powerplay_table4) +
+-                                le16_to_cpu(powerplay_table4->usMvddDepend=
+encyOnMCLKOffset));
+-                       result =3D get_clock_voltage_dependency_table(hwmgr=
+,
+-                               &hwmgr->dyn_state.mvdd_dependency_on_mclk, =
+table);
++                       result =3D get_pplib_clock_voltage_dependency_table=
+(hwmgr,
++                               powerplay_table,
++                               le16_to_cpu(powerplay_table4->usMvddDepende=
+ncyOnMCLKOffset),
++                               (const ATOM_PPLIB_Clock_Voltage_Dependency_=
+Table **)&table);
++                       if (!result)
++                               result =3D get_clock_voltage_dependency_tab=
+le(hwmgr,
++                                       &hwmgr->dyn_state.mvdd_dependency_o=
+n_mclk,
++                                       table);
+                }
+        }
+
+@@ -1601,10 +1843,13 @@ static int init_clock_voltage_dependency(struct pp_=
+hwmgr *hwmgr,
+                                                                powerplay_t=
 able);
-+       if (ret)
-+               return ret;
-+
-+       ret =3D get_tonga_mm_dependency_table(hwmgr, pptable, &mm_dep_table=
+
+        if (table_offset > 0) {
+-               table =3D (ATOM_PPLIB_Clock_Voltage_Dependency_Table *)
+-                       (((unsigned long) powerplay_table) + table_offset);
+-               result =3D get_clock_voltage_dependency_table(hwmgr,
+-                       &hwmgr->dyn_state.vdd_gfx_dependency_on_sclk, table=
 );
-+       if (ret)
-+               return ret;
++               result =3D get_pplib_clock_voltage_dependency_table(hwmgr,
++                       powerplay_table, table_offset,
++                       (const ATOM_PPLIB_Clock_Voltage_Dependency_Table **=
+)&table);
++               if (!result)
++                       result =3D get_clock_voltage_dependency_table(hwmgr=
+,
++                               &hwmgr->dyn_state.vdd_gfx_dependency_on_scl=
+k,
++                               table);
+        }
 
-        PP_ASSERT_WITH_CODE((i < vce_state_table->ucNumEntries),
-                         "Requested state entry ID is out of range!", @@ -1=
-348,10 +1762,27 @@ static int ppt_get_vce_state_table_entry_v1_0(struct pp_=
-hwmgr *hwmgr, uint32_t i
-        vce_state_record =3D GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
-                                        ATOM_Tonga_VCE_State_Record,
-                                        entries, vce_state_table, i);
--       sclk_dep_record =3D GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
--                                       ATOM_Tonga_SCLK_Dependency_Record,
--                                       entries, sclk_dep_table,
--                                       vce_state_record->ucSCLKIndex);
-+       PP_ASSERT_WITH_CODE((vce_state_record->ucSCLKIndex <
-+                            sclk_dep_table->ucNumEntries),
-+                           "Invalid PowerPlay Table!", return -EINVAL);
-+       PP_ASSERT_WITH_CODE((vce_state_record->ucVCEClockIndex <
-+                            mm_dep_table->ucNumEntries),
-+                           "Invalid PowerPlay Table!", return -EINVAL);
-+       PP_ASSERT_WITH_CODE((mclk_dep_table->ucNumEntries !=3D 0),
-+                           "Invalid PowerPlay Table!", return -EINVAL);
+        return result;
+@@ -1676,12 +1921,6 @@ static int init_dpm2_parameters(struct pp_hwmgr *hwm=
+gr,
+            sizeof(ATOM_PPLIB_POWERPLAYTABLE5)) {
+                const  ATOM_PPLIB_POWERPLAYTABLE5 *ptable5 =3D
+                                (const ATOM_PPLIB_POWERPLAYTABLE5 *)powerpl=
+ay_table;
+-               const  ATOM_PPLIB_POWERPLAYTABLE4 *ptable4 =3D
+-                               (const ATOM_PPLIB_POWERPLAYTABLE4 *)
+-                               (&ptable5->basicTable4);
+-               const  ATOM_PPLIB_POWERPLAYTABLE3 *ptable3 =3D
+-                               (const ATOM_PPLIB_POWERPLAYTABLE3 *)
+-                               (&ptable4->basicTable3);
+                const  ATOM_PPLIB_EXTENDEDHEADER  *extended_header;
+                uint16_t table_offset;
+                ATOM_PPLIB_PPM_Table *atom_ppm_table; @@ -1711,28 +1950,34 =
+@@ static int init_dpm2_parameters(struct pp_hwmgr *hwmgr,
+                hwmgr->dyn_state.cac_leakage_table =3D NULL;
+
+                if (0 !=3D ptable5->usCACLeakageTableOffset) {
+-                       const ATOM_PPLIB_CAC_Leakage_Table *pCAC_leakage_ta=
+ble =3D
+-                               (ATOM_PPLIB_CAC_Leakage_Table *)(((unsigned=
+ long)ptable5) +
+-                               le16_to_cpu(ptable5->usCACLeakageTableOffse=
+t));
+-                       result =3D get_cac_leakage_table(hwmgr,
+-                               &hwmgr->dyn_state.cac_leakage_table, pCAC_l=
+eakage_table);
++                       const ATOM_PPLIB_CAC_Leakage_Table *pCAC_leakage_ta=
+ble;
 +
-+       if (sclk_dep_table_header->ucRevId < 1)
-+               sclk_dep_record =3D GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
-+                                               ATOM_Tonga_SCLK_Dependency_=
-Record,
-+                                               entries, sclk_dep_table,
-+                                               vce_state_record->ucSCLKInd=
-ex);
-+       else
-+               polaris_sclk_dep_record =3D GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
-+                                               ATOM_Polaris_SCLK_Dependenc=
-y_Record,
-+                                               entries,
-+                                               (ATOM_Polaris_SCLK_Dependen=
-cy_Table *)
-+                                               sclk_dep_table_header,
-+                                               vce_state_record->ucSCLKInd=
-ex);
-        mm_dep_record =3D GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
-                                        ATOM_Tonga_MM_Dependency_Record,
-                                        entries, mm_dep_table,
-@@ -1360,7 +1791,10 @@ static int ppt_get_vce_state_table_entry_v1_0(struct=
- pp_hwmgr *hwmgr, uint32_t i
++                       result =3D get_pplib_cac_leakage_table(hwmgr, power=
+play_table,
++                               le16_to_cpu(ptable5->usCACLeakageTableOffse=
+t),
++                               &pCAC_leakage_table);
++                       if (!result)
++                               result =3D get_cac_leakage_table(hwmgr,
++                                       &hwmgr->dyn_state.cac_leakage_table=
+,
++                                       pCAC_leakage_table);
+                }
 
-        vce_state->evclk =3D le32_to_cpu(mm_dep_record->ulEClk);
-        vce_state->ecclk =3D le32_to_cpu(mm_dep_record->ulEClk);
--       vce_state->sclk =3D le32_to_cpu(sclk_dep_record->ulSclk);
-+       if (sclk_dep_record)
-+               vce_state->sclk =3D le32_to_cpu(sclk_dep_record->ulSclk);
-+       else
-+               vce_state->sclk =3D le32_to_cpu(polaris_sclk_dep_record->ul=
-Sclk);
+                hwmgr->platform_descriptor.LoadLineSlope =3D le16_to_cpu(pt=
+able5->usLoadLineSlope);
 
-        if (vce_state_record->ucMCLKIndex >=3D mclk_dep_table->ucNumEntries=
-)
-                mclk_dep_record =3D GET_FLEXIBLE_ARRAY_MEMBER_ADDR(
+                hwmgr->dyn_state.ppm_parameter_table =3D NULL;
+
+-               if (0 !=3D ptable3->usExtendendedHeaderOffset) {
+-                       extended_header =3D (const ATOM_PPLIB_EXTENDEDHEADE=
+R *)
+-                                       (((unsigned long)powerplay_table) +
+-                                       le16_to_cpu(ptable3->usExtendendedH=
+eaderOffset));
++               extended_header =3D get_extended_header(hwmgr, powerplay_ta=
+ble,
++                                                     SIZE_OF_ATOM_PPLIB_EX=
+TENDEDHEADER_V5);
++               if (extended_header) {
+                        if ((extended_header->usPPMTableOffset > 0) &&
+                                le16_to_cpu(extended_header->usSize) >=3D
+                                    SIZE_OF_ATOM_PPLIB_EXTENDEDHEADER_V5) {
+                                table_offset =3D le16_to_cpu(extended_heade=
+r->usPPMTableOffset);
+-                               atom_ppm_table =3D (ATOM_PPLIB_PPM_Table *)
+-                                       (((unsigned long)powerplay_table) +=
+ table_offset);
+-                               if (0 =3D=3D get_platform_power_management_=
+table(hwmgr, atom_ppm_table))
++                               result =3D get_pplib_subtable(hwmgr, powerp=
+lay_table,
++                                       table_offset, sizeof(*atom_ppm_tabl=
+e),
++                                       (const void **)&atom_ppm_table);
+AK: Same as patch 2 may be causing regression, previous failure was silent =
+and does not affected result
+
+Thanks & Regards
+Asad
++                               if (!result &&
++                                   !get_platform_power_management_table(hw=
+mgr,
++                                                                        at=
+om_ppm_table))
+                                        phm_cap_set(hwmgr->platform_descrip=
+tor.platformCaps,
+                                                PHM_PlatformCaps_EnablePlat=
+formPowerManagement);
+                        }
+@@ -1750,13 +1995,17 @@ static int init_phase_shedding_table(struct pp_hwmg=
+r *hwmgr,
+                                (const ATOM_PPLIB_POWERPLAYTABLE4 *)powerpl=
+ay_table;
+
+                if (0 !=3D powerplay_table4->usVddcPhaseShedLimitsTableOffs=
+et) {
+-                       const ATOM_PPLIB_PhaseSheddingLimits_Table *ptable =
+=3D
+-                               (ATOM_PPLIB_PhaseSheddingLimits_Table *)
+-                               (((unsigned long)powerplay_table4) +
+-                               le16_to_cpu(powerplay_table4->usVddcPhaseSh=
+edLimitsTableOffset));
++                       const ATOM_PPLIB_PhaseSheddingLimits_Table *ptable;
+                        struct phm_phase_shedding_limits_table *table;
+                        unsigned long i;
++                       int result;
+
++                       result =3D get_pplib_phase_shedding_table(hwmgr,
++                               powerplay_table,
++                               le16_to_cpu(powerplay_table4->usVddcPhaseSh=
+edLimitsTableOffset),
++                               &ptable);
++                       if (result)
++                               return result;
+
+                        table =3D kzalloc(struct_size(table, entries, ptabl=
+e->ucNumEntries),
+                                        GFP_KERNEL);
 --
 2.47.3
 
