@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47FB9CDB471
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 08:13:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038F9CDB470
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 08:13:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E0F10E9E8;
-	Tue, 23 Jun 2026 08:13:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B17110E9F2;
+	Tue, 23 Jun 2026 08:13:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fY4qgNMd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TsQlktVk";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012058.outbound.protection.outlook.com
- [40.93.195.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75D6710E9E8
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 08:13:24 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012027.outbound.protection.outlook.com
+ [40.107.200.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E5210E9F2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 08:13:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VfIjbHndOJ4CIV9pwhVv9ciUwrH6r+95Zwno1nOQoGj8moXPPxei8yw4zsQGmUVhDos5mATx6815uZW8FqvubVAINnBa0X79N7nGSZkBnK8x16WYrs6+ii1q7il9+lC11yEXquCTLGdZ8ozKyMhxI7Zsq0jcJuU6Lho3guBL/ZPl3uUl56BdM3w3bcPn10M0Hvrz/xgDrs5cftmglnE3vfbPE5fCKZ86/iJE6M3YP3aUTKvlIqjFpjpj+7BIoyo/vJ6OM4wn0Ucy7Esbgq2vVCR+7DnX2jZTWKx7Jq76+W/H3CoTC00xiOVgpVsNX+gQPxMh1nDjsFR/lbHJArYhnA==
+ b=IjKQW5h2IDX6v3LPhaD9JgbE7KMDrb35Yz14mOYtM7SOwPWw714EWR2gF2rQxGsh0+eZYG9lkdqyqa5YIC/TqpTnLH52Jv57lMGD1BN1oPwdXDhBRjzQDESM4QFNo4/hoKMwjSrvdABuHWxUMPMjCZvXtWOmcPmFPYhyfBQKQBob9C8sGfoncfpcEd672yNZiOnMm8lihH/FSU6V9/4OWs4I9OUfsXV+lYxpTom5mZaqW9sOnyo7BA2m2WY43NROpWWqxHDYFWOlkxreICfWDwalG7nyjZgYhefPQaJntdiOAuu6PQYPIgtrAYJ7W1R1hpWk8gVl0DaPAEKLDORpTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=apzw3pztjbjWt7pTqhSon72WGZgpVuFyQtncKYhxM3Q=;
- b=X2uI5WO/cgQs04cYc4DSMdfMRZd9yu2zoRy3aEUqrQ9vFYjeEhNscT8stpD4b+L7pu+jtP1j+FgnNEEC4JbDqI0/xqYQ8TkPjefMmB6zZtooAkSUqLn0Ihn4Kbd2kWV7pCzW3PYALwqv/66dwDw2SCA3BgeEcUnBbmccu7zA5LyGtqmVQZBnf7IukXXua9XwiJUpSjP7gQQkTpRYiHqKaeBTuHMXnoRROkX5yJ1/OxxWaMklD02RUU5rhCjE/QtqGkodGRkHu3ic7L5+QuF6+ZSJ5Mubq+cJxg5HJeGWMsOCE63IIGe5CDyNnyPK7C9WY6/25S9UhoSIsFhJySBZhg==
+ bh=45lLux5ZJPRb5B/9STrrerhivqQ745n+xzDYfYyB8yg=;
+ b=ojBkjJLWLcN86OyqMD73H0+kn78HrSBOIvqhOZKieTrxqp8ZIceL6oSpAoEY8gjnPde4O0n3+zRE4PHe4jUKBFCBoIN1BMRX98KQphs7pzIVNiBpIdXdfis5o+2ZwUSi26ozuZUTxDQVHAHktJJg3wvm6xnAU9U4Dr/gVr71TCtPCxSb4DL98EqY/i/FIeL2s/gms2jxiKZXIH/NkBCECXpjbNe49Tcp4SITdPnOXMjvkZl74ItiqqKluCXjKp/8lNexLG/It0ltTqfI2SejKtywsGZhP8L6o4TvPq4eiZrrSjO60R1I01L8x14om8FGITHmdh9dGzzz0df143SMdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=apzw3pztjbjWt7pTqhSon72WGZgpVuFyQtncKYhxM3Q=;
- b=fY4qgNMdKvCqY6ayiFNkynAAizcYsGRkhao11B6ulAwPQQ0gJzZ1MwSobI5930fNWoavAB5ptGF77qthE03mRrA2LSFYzqD60zpVuHBb1EhJg3KoMYAlSVoFTENziBViKmU1leDA7SEKblC+amnQlucBhHCw4AtaUEF+h0xHajI=
-Received: from BN0PR04CA0110.namprd04.prod.outlook.com (2603:10b6:408:ec::25)
- by SA1PR12MB9545.namprd12.prod.outlook.com (2603:10b6:806:45b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 08:13:20 +0000
+ bh=45lLux5ZJPRb5B/9STrrerhivqQ745n+xzDYfYyB8yg=;
+ b=TsQlktVkmugiY/LLse9wfKu+4X7qZOXBYGzYVdoyaDw4U2v2EZ5cnRh6buLxzoXB+KJ9Qi+7e60lAQ35tPTbZegwi75iRDSWGr4zqKE6bITl28vtB/zoIzGxJB/NP1acB40Xb5z6zFLkIlGF/tcGRAouC/daeuGaeN2QaQOGJXg=
+Received: from BN0PR04CA0091.namprd04.prod.outlook.com (2603:10b6:408:ec::6)
+ by SA1PR12MB7149.namprd12.prod.outlook.com (2603:10b6:806:29c::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Tue, 23 Jun
+ 2026 08:13:22 +0000
 Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
- (2603:10b6:408:ec:cafe::18) by BN0PR04CA0110.outlook.office365.com
- (2603:10b6:408:ec::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Tue,
- 23 Jun 2026 08:13:20 +0000
+ (2603:10b6:408:ec:cafe::80) by BN0PR04CA0091.outlook.office365.com
+ (2603:10b6:408:ec::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12 via Frontend Transport; Tue,
+ 23 Jun 2026 08:13:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,19 +51,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 08:13:20 +0000
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 08:13:22 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Tue, 23 Jun 2026 03:13:18 -0500
+ 15.2.2562.41; Tue, 23 Jun 2026 03:13:20 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
  <srinivasan.shanmugam@amd.com>
-Subject: [RFC PATCH 1/3] drm/amdgpu: Add PASID fpriv lookup manager
-Date: Tue, 23 Jun 2026 13:42:59 +0530
-Message-ID: <20260623081301.3046023-2-srinivasan.shanmugam@amd.com>
+Subject: [RFC PATCH 2/3] drm/amdgpu: Register DRM fpriv PASID ownership
+Date: Tue, 23 Jun 2026 13:43:00 +0530
+Message-ID: <20260623081301.3046023-3-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260623081301.3046023-1-srinivasan.shanmugam@amd.com>
 References: <20260623081301.3046023-1-srinivasan.shanmugam@amd.com>
@@ -75,29 +75,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|SA1PR12MB9545:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8dcb7a19-8cce-4b09-3eab-08ded0ff49e3
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|SA1PR12MB7149:EE_
+X-MS-Office365-Filtering-Correlation-Id: c108b26a-176d-4295-9cdb-08ded0ff4ae4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: jSSBcBI3WsdqqYyk3tU51ulb7iCGmnT7LdHvLuCctz4fo4hdQtrmyNQyA9UAFy1CpcoluV0/jd80SGEy2o7U4w1SDDlMSh7MKe/KGLVXpeQIzs1VBaKKmWQHSq7DCaJ/Fk+fkBcVkIqjZZlLIMa1lRaKQn4yzvxB6/vtn6OdSOO6y/9THGXjWJsYW+jTzrdonzKsh5fkWPWS7YpRPuPu6QXJj6HKeFBIfsU0rtovQXa0JHfsX/vJZrJJz0WGsu7nx5NcKErAO+3/khhFgVSofdDSvOO3ds0S5SExVEhTpmY4w5ZFahIbdVzLnkwtJ23gyWK8/PShVsgZomtvpxaBG4AMN3XNWzzraN1w079mD85X6RPuoG3UeeBfm5MbaB7/07RBj1gJaOdIahL1niPUfPiMerhaVHqsXOmb3OtUVrphIf2Y39rWpqntsGHSuH74v+Mvd4+KoGMItNM+MT0kD/8nd3nRs2AOQASo0zG18E/I4Nv0Rbr/nNGCIh8mNHR44p5qK/z4PvulSu0PneCmuNCp4+/XAsE5lW0kUpi+2YixkAswty1y8/eLt7BNYn8RPdv7NKwkpACQxUqNquNBWcGKelANXi5oSnWEN7OudUDbWbz/jU+1sBMABwD0UJF6raeRgty4X+dlBHiUoE35d8hQqvR0/pwP9Sa/PqUvrp4TklyOvrelRgHSHYzAwVaUt+a+XqLWCzsRsnxxGhQg4Q==
+ ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: n4VKx0LkhIyel4Cml1N3JBpLat2UHz0yioJTzL1pZOdLIM8IPW281rmszyUc+A4elo8sbFsXlkb0wnr4U+ZUNS05K3M4/opMylAhS/CzCry+66+Q+08hl9We5uoHJFimJpbxujWEBcxJb586USJ0NWeenCcY5aMtsiiCSeZoNvNPmZINVo1vSEtKjxLbFXYc7Air2/VJSZQt/9VnIecNnZs021uhAqp4YanP9z/C22/6CEu0a7N6m2THC01qED4ubR0jCYFxQVvw5mZ/3DiQfrIN0H0Q4fdcnrirKIh6/WJi0aUzN3SZEX+WCCM43wnvDyVdH3xKBXR4rXxIJ7oWCtVkDd7zgMu7Qe39EljxdS+t2kya64ICPl98FDdCJmIO1cuJW3usnKaxW1y4/rcdHEkHOPfV5rnCsZ1yNyk6wNh7nOGOPFuMJECCyWK0NQ9ppa3mGzQIrWSC6GQF2mnJFpNg3MlkcQ9t637N5M+vfEJMSx3CUz0X3aDfxmrx6/OXiOR/pwrkdNpWs1nA6apeVIM0Y6pWqHhVogERKIFNTpxZER7oAEGv9ct4XY+YLT+89PW6XSj0Rz6z3w8AYDLkj+zVawf4WzMwkKZFOueAHhqZb3VEZpCBEpziJnmENCxmd9dafpiK1fXlx8SnHi4n/I8gTPZelXMVq2mBoV3A7OWCy6OriVhirmc2qhmB4CelPhStHvNRPCXBBYxck8N/Nw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(18002099003)(22082099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zRNgMhDd5YVp9BXDzvdYeP4N3JwyMHFI1bFeCKobd7SLxUoGfQqGl63EIU3KhV13ltdmGbpnA9tgRcOMo51UPMsDH8zgvLlJZigHHYLZT9JPSicXYkuKaOobhSsjQDNXIZ99hW4R2k3rTOPyYqIrVHTDMjOX8dpkCFoOlpBd61wcCfuIgMn9NbEUM+TCl5kH8fb6XK0K3YJlUCxm3cpLV8L1OFPERKK87qP5Q4GxbZowVFFsFlg/2yj8zR6mu/yu8TDaHeB+6iGjdcR+RnycGADllAeoztI19pLgCrpxf9GL+HssgGC7uhp1WwJOsFY0wxe29r9efOGrgviDivUoqyFIq1sI4WNPqPtG5jszUoUsh18rjRLN/0qVrGdMXYF6uYVDbYXKFEGPHAPmg/P4xqQPWiryihYwVfEpE3Rh9NCzOmBMmp5AsRBplFhXaypa
+X-MS-Exchange-AntiSpam-MessageData-0: 15zzIprkfQYBgB6uJJqPTmnq+6x3mH7y8dcO7hq+8K3QWqYmYZV0PX4Vo1/ooyik33lFeOmfsLhPiCOvsMOMPvV6H8EGILzKV6x46bWp8JcdVBo+JJFjm8rTUtygdAwiTD+GE4OMRimd/cnE4r7W3fe9K9gT/+XsxGSG2ZJluoKNiBY/imrRA0KcdDBV/A5pEqf7yR0FO7RmCPV9dUZn6/0yzhaHU8jYo6Q6+pWx9uJhivTzT+AIapv0Hmc1ZJs6LP/tFsaqzl0uTc1zGXLS7RqcvJr8NkCHeC7B/W4Ucuyh1n8jvPczR5F/nv3hJNNdR/VLxHc2vOwrQ90/C0FqHQCdd1eD/k1cqrk25qgmAHilLGd6RT5QnqjkX3oTpzJRTQBmJi/Vc2AU/P7dDJTnwf5p+aKT4h21DObF4v9XoeXjgi9z+1yUQT7NN1uhPw1H
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 08:13:20.7636 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8dcb7a19-8cce-4b09-3eab-08ded0ff49e3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 08:13:22.4532 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c108b26a-176d-4295-9cdb-08ded0ff4ae4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC1.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9545
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7149
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,89 +112,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Current VM fault handling resolves PASIDs through VM state:
+Register DRM file-private owned PASIDs in the RFC PASID fpriv lookup
+table.
 
-	PASID -> VM
-
-That is sufficient for VM fault handling, but process-scoped event
-delivery paths need a different semantic mapping:
+This establishes:
 
 	PASID -> amdgpu_fpriv
 
-Although both mappings are indexed by PASID, they serve different
-purposes:
+for DRM file-private PASIDs.
 
-	vm_manager.pasids
-		PASID -> VM fault handling
+Registration is done after the eventfd and context managers are
+initialized because future process-scoped event delivery is expected to
+route through:
 
-	vm_manager.pasid_fprivs
-		PASID -> process-scoped DRM file-private owner
-
-Add a PASID fpriv xarray beside the existing PASID to VM xarray.
+	PASID -> fpriv -> eventfd_mgr
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 13 +++++++++++++
- 2 files changed, 18 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 12 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 41 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  6 ++++
+ 3 files changed, 59 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index cacdc99b3ad6..333d6b5239bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1542,6 +1542,16 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	amdgpu_evf_mgr_init(&fpriv->evf_mgr);
+ 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
+ 
++	/*
++	 * Publish PASID ownership only after fpriv-owned
++	 * event state exists.
++	 */
++	r = amdgpu_pasid_fpriv_register(adev,
++					fpriv->vm.pasid,
++					fpriv);
++	if (r)
++		goto error_vm;
++
+ 	file_priv->driver_priv = fpriv;
+ 	goto out_suspend;
+ 
+@@ -1584,6 +1594,8 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 
+ 	pm_runtime_get_sync(dev->dev);
+ 
++	amdgpu_pasid_fpriv_unregister(adev, fpriv->vm.pasid);
++
+ 	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_UVD) != NULL)
+ 		amdgpu_uvd_free_handles(adev, file_priv);
+ 	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_VCE) != NULL)
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 450bd9dc6bc0..3141ae1383b0 100644
+index 3141ae1383b0..5f1b285b8445 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2869,6 +2869,8 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
- #endif
- 
- 	xa_init_flags(&adev->vm_manager.pasids, XA_FLAGS_LOCK_IRQ);
-+	xa_init_flags(&adev->vm_manager.pasid_fprivs,
-+		      XA_FLAGS_LOCK_IRQ);
+@@ -2892,6 +2892,47 @@ void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
+ 	amdgpu_pasid_mgr_cleanup();
  }
  
- /**
-@@ -2881,7 +2883,10 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
- void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
- {
- 	WARN_ON(!xa_empty(&adev->vm_manager.pasids));
-+	WARN_ON(!xa_empty(&adev->vm_manager.pasid_fprivs));
++/**
++ * amdgpu_pasid_fpriv_register - register PASID ownership
++ * @adev: amdgpu device
++ * @pasid: PASID to register
++ * @fpriv: DRM file-private owner
++ *
++ * Register the DRM file-private owner associated with @pasid.
++ *
++ * This RFC mapping is intended for process-scoped event delivery
++ * paths such as EVENTFD and WAIT_EVENT.
++ *
++ * Returns:
++ * 0 on success, negative error code on failure.
++ */
++int amdgpu_pasid_fpriv_register(struct amdgpu_device *adev,
++				u32 pasid,
++				struct amdgpu_fpriv *fpriv)
++{
++	if (!pasid || !fpriv)
++		return -EINVAL;
 +
- 	xa_destroy(&adev->vm_manager.pasids);
-+	xa_destroy(&adev->vm_manager.pasid_fprivs);
- 
- 	amdgpu_vmid_mgr_fini(adev);
- 	amdgpu_pasid_mgr_cleanup();
++	return xa_insert(&adev->vm_manager.pasid_fprivs,
++			 pasid, fpriv, GFP_KERNEL);
++}
++
++/**
++ * amdgpu_pasid_fpriv_unregister - unregister PASID ownership
++ * @adev: amdgpu device
++ * @pasid: PASID to unregister
++ *
++ * Remove the DRM file-private owner associated with @pasid.
++ */
++void amdgpu_pasid_fpriv_unregister(struct amdgpu_device *adev,
++				   u32 pasid)
++{
++	if (!pasid)
++		return;
++
++	xa_erase(&adev->vm_manager.pasid_fprivs, pasid);
++}
++
+ /**
+  * amdgpu_vm_ioctl - Manages VMID reservation for vm hubs.
+  *
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 4d96bb8c2c6d..5318e833bd97 100644
+index 5318e833bd97..333bf14cce6e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -450,6 +450,8 @@ struct amdgpu_vm {
- 	struct amdgpu_vm_fault_info fault_info;
- };
+@@ -513,6 +513,12 @@ extern const struct amdgpu_vm_update_funcs amdgpu_vm_sdma_funcs;
+ void amdgpu_vm_manager_init(struct amdgpu_device *adev);
+ void amdgpu_vm_manager_fini(struct amdgpu_device *adev);
  
-+struct amdgpu_fpriv;
++int amdgpu_pasid_fpriv_register(struct amdgpu_device *adev,
++				u32 pasid,
++				struct amdgpu_fpriv *fpriv);
++void amdgpu_pasid_fpriv_unregister(struct amdgpu_device *adev,
++				   u32 pasid);
 +
- struct amdgpu_vm_manager {
- 	/* Handling of VMIDs */
- 	struct amdgpu_vmid_mgr			id_mgr[AMDGPU_MAX_VMHUBS];
-@@ -484,6 +486,17 @@ struct amdgpu_vm_manager {
- 	 * look up VM of a page fault
- 	 */
- 	struct xarray				pasids;
-+
-+	/*
-+	 * PASID to DRM file-private mapping.
-+	 *
-+	 * This is separate from @pasids. @pasids answers which VM
-+	 * should be used for VM fault handling, while @pasid_fprivs
-+	 * answers which DRM file-private owner should receive
-+	 * process-scoped events.
-+	 */
-+	struct xarray pasid_fprivs;
-+
- 	/* Global registration of recent page fault information */
- 	struct amdgpu_vm_fault_info	fault_info;
- };
+ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
+ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id, uint32_t pasid);
+ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
 -- 
 2.34.1
 
