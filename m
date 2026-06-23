@@ -4,77 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 644F2CDE00C
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 07:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A188FCDE006
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 07:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDEB710EDEF;
-	Wed, 24 Jun 2026 07:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97C4710EDE4;
+	Wed, 24 Jun 2026 07:49:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CHHAnC94";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="YTL7tJty";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7E0410ECB3
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 20:51:58 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-462bb734793so204607f8f.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 13:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782247917; x=1782852717; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9SC1AtVhjOjxzS1y9gPK3P2jYP/byS52mid5bQ4SEQA=;
- b=CHHAnC94hxuLK1FKgbAyCgUwm40qNlIcqeODFbVTB5f08RIjxYhqyxEAR04DM6wvHs
- QHzD3HGBDb4d422+ItuCvNbMdnzzDIFPZDrTCaEn5TOBYvXaf36ltinjcySw2ClLLplH
- XRLygueW6Gq8qsZTqPPN1MIfea0YmDDC/x5Lj+Yy57ZPlmo6M5bJUmvJXH6zdEpcoYiv
- HVQ5lotylqBsfxBKdzEiR0/kgKWBrnzxsfUUTFXlptOvbHAqUqORSdJ5Gs7BjOeS+vOD
- r87eMC/rOxQMNtT/b7/df7g+uw/gT7o9P3X+IN+ojqiLhJYRVA8xiX72Cxrhx0pqx8xn
- 9W/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782247917; x=1782852717;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9SC1AtVhjOjxzS1y9gPK3P2jYP/byS52mid5bQ4SEQA=;
- b=G3JX2C62Cu+kLhMLVDEE10MYp5jZEswblAU0u2ukb5tbZJ7Uh6LMS4JWeqQb+hJTPc
- GXlA2DKNUo0nDjJ3Y8YF0uRKHvIB/ll0JZW++4HTHW7ri1ZFYMjj/wxcUOISSEM1r6du
- 6WPf4DkkgYquXnNud8OqDXxAXnzcGyqFgbRv6nKuyRRBDXUsE+gwXQ9PGmi9r+foSkkQ
- HKV9wxLpzNYzlXtalApmTX9HXt3/a70S/qFNYVypZraH5IsbWlYUxMGIV6IvdNZYgrsK
- FXEhudYYFTQRItu1woLtyKTavx6zjLy5LCXlspXvFNQLyhKC7MA1hj+kxekVcxqQA1VW
- 4ikA==
-X-Gm-Message-State: AOJu0Yxhlykdua2vn1sK1oc8A8B7Kc8DPMy8zWvBVKeGDfQPiZHvFFh/
- xtQzxzjqr8BHwDfnV0njV9SrAq/Q38fsl6UxBiq6VzGw+gnOdVBIYgI1
-X-Gm-Gg: AfdE7cmi/kZCkIi2fjoZDQdyMtC4yEU+il2oD+k8z1mzw7TL9ZZALO6FDCs2qSJ1/SA
- FPsVdNy/l9QvusCZ3d/5trmqUCxKLIhGt7dI5SBiXqYIWoEQajjqW5nchKq6I8BnxuENFlSgKRh
- VVhJcmnusij6TZfpt3NkTvL5PijDe8ARhGiNTaqx7lCBNyx0RDhvxF7YFOzwcayLe/MW5Fdunvq
- tM2Crp2zofPE3jkiEPdBZbJ4ikLNb71isP9N1KHpVNHcD2pyr1wv+iG8ovdYfWg+jAKbwMfAZiY
- LWrCz5K8aXCnPgHIBwUUK548hNYjS0cHF6oZItL5qjNPnOoj1BvtERJDSReqhgSoxEAV9X39VgH
- tQzTRI59uMQCLDvcjD4r12CwJEjibf8RG7xT5L4JdUsqIeYH3DQ3PLqFp1XBk2YZUmBDwBLlDZx
- 4wZ3+/RqF8lYoTZG1VIkZ5
-X-Received: by 2002:a05:600c:500d:b0:492:37b7:6080 with SMTP id
- 5b1f17b1804b1-49249083ccamr249984305e9.7.1782247917299; 
- Tue, 23 Jun 2026 13:51:57 -0700 (PDT)
-Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-492494497ffsm332579255e9.11.2026.06.23.13.51.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 13:51:56 -0700 (PDT)
-From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Tue, 23 Jun 2026 22:51:44 +0200
-Subject: [PATCH] drm/amdgpu_vkms: vkms: Remove dependency on DRM simple helpers
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADFA110EA16;
+ Tue, 23 Jun 2026 08:48:42 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gkzHq4Fnhz9v78;
+ Tue, 23 Jun 2026 10:48:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1782204519; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pWD3kXy7FvABniqLASAYr3Ar2q381R1F4yLWK1E99wE=;
+ b=YTL7tJty+RcTyAY2LQcXaJ5APm2LXSo32vd2hGyvdizLazpzO++yDPdUQzOPRZaGSJezAV
+ GVKnhXS1uZJnnp9vet+NC2VncdCU4c1/VMECnKaZHNyc6n9UcTQzYeTBG4GHPaltMah4yv
+ tDv7pBP/ulkgG5SpuGEiut0TNnR8Y/AiO8P5HsdZUlI2+aqmePcoIPdLuPx3uKDmfCbg8I
+ DCuE6v9+EHKb2NYdZaJ+ztlX97RD97kPscOiA+EPTGTv6/GSCYtmZLfdWEmKPCuDqHM5ji
+ ZXw06OSL6/WNSTWi5NBfbTS5ndFFYXFhqaV6FC7d99M/2/t4t7KuTJH9WOOx8A==
+Message-ID: <e9b876bea7a2ef33d5e4ca103721135400c875be.camel@mailbox.org>
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost	 <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Date: Tue, 23 Jun 2026 10:48:34 +0200
+In-Reply-To: <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+ <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-amd_simple-v1-1-874f9df6bcf1@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN/xOmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDMyNj3cTclPjizNyCnFRdQ7NEQ3PLNFPDNBNjJaCGgqLUtMwKsGHRsbW
- 1ADuLw4JcAAAA
-X-Change-ID: 20260623-amd_simple-16a179f51f43
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Diogo Silva <diogompaissilva@gmail.com>
-X-Mailer: b4 0.14.3
+X-MBO-RS-ID: 160ee2143d28db947d8
+X-MBO-RS-META: irs6qozanikhp3peidcjecktyaca5zn4
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,60 +65,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Simple KMS helper are deprecated since they only add an intermediate
-layer between drivers and the atomic modesetting.
-This patch removes the dependency on drm simple helpers from the
-amdgpu_vkms DRM driver.
+On Tue, 2026-06-23 at 08:19 +0100, Tvrtko Ursulin wrote:
+> On 17/06/2026 09:38, Philipp Stanner wrote:
+> > > +	/*
+> > > +	 * Make sure this entity is not used by the scheduler at the moment=
+.
+> > > +	 *
+> > > +	 * Scheduler is guaranteed to be stable after the entity was stoppe=
+d and
+> > > +	 * removed from the run-queue.
+> > > +	 */
+> > > +	if (sched)
+> > > +		drm_sched_flush_run_work(sched);
+> > > =C2=A0=20
+> > > -	/* The entity is guaranteed to not be used by the scheduler */
+> > > =C2=A0=C2=A0	prev =3D rcu_dereference_check(entity->last_scheduled, t=
+rue);
+> > > =C2=A0=C2=A0	dma_fence_get(prev);
+> > > =C2=A0=C2=A0	while ((job =3D drm_sched_entity_queue_pop(entity))) {
+> > > @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched=
+_entity *entity)
+> > > =C2=A0=C2=A0		return;
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0	spin_lock(&entity->lock);
+> > > +
+> > > +	if (entity->stopped) {
+> > > +		spin_unlock(&entity->lock);
+> > > +		return;
+> > > +
+> > > +	}
+> >=20
+> > Seems unrelated? Why wasn't this needed semantically before?
+>=20
+> It solidifies the guarantee drm_sched_entity_kill() expects that the=20
+> scheduler assigned to an entity cannot change after entity has been stopp=
+ed.
 
-Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+That in general I like a lot, of course. As you probably know my
+"dream" for drm_sched is to get rid of as much lockless magic as
+possible, shown by the entries I've added to Documentation/gpu/todo.rst
+(on drm-misc-next).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 170adaf7e76a..14382d218747 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -1,8 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0+
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_encoder.h>
- #include <drm/drm_edid.h>
--#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_helper.h>
-@@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(struct drm_device *dev,
- 	return plane;
- }
- 
-+static const struct drm_encoder_funcs amdgpu_vkms_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- static int amdgpu_vkms_output_init(struct drm_device *dev, struct
- 				   amdgpu_vkms_output *output, int index)
- {
-@@ -342,7 +346,8 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
- 
- 	drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_funcs);
- 
--	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
-+	ret = drm_encoder_init(dev, encoder, &amdgpu_vkms_encoder_funcs,
-+			       DRM_MODE_ENCODER_VIRTUAL, NULL);
- 	if (ret) {
- 		DRM_ERROR("Failed to init encoder\n");
- 		goto err_encoder;
+>=20
+> There we have this sequence:
+>=20
+> =C2=A0=C2=A0 spin_lock(&entity->lock);
+> =C2=A0=C2=A0 entity->stopped =3D true;
+> =C2=A0=C2=A0 sched =3D drm_sched_rq_remove_entity(entity->rq, entity);
+> =C2=A0=C2=A0 spin_unlock(&entity->lock);
+>=20
+> =C2=A0=C2=A0 if (sched)
+> =C2=A0=C2=A0=C2=A0	drm_sched_flush_run_work(sched);
+>=20
+> That is, without that check, in theory, an evil driver could race=20
+> drm_sched_entity_select_rq() (via drm_sched_job_arm()) and=20
+> drm_sched_entity_kill(). I am not sure if any driver can actually do=20
+> that at the moment but it felt sensible to express it in code.
 
----
-base-commit: e2a6e04d045a56c6dc61e1eb9e2a6d7cf86512cd
-change-id: 20260623-amd_simple-16a179f51f43
+The devil is in the "at the moment".
 
-Best regards,
--- 
-Diogo Silva <diogompaissilva@gmail.com>
+AFAICS and as your explanation sounds, this is an existing problem that
+is unrelated to the Flush RFC. So I suppose that this should be a
+separate patch (independent from this one) which precisely focusses on
+this robustness work.
 
+A dedicated patch probably should then be concerned about the 'stopped'
+bool's synchronization in general and should investigate the lockless
+check in drm_sched_entity_is_idle(), too. The memory barrier there
+seems only concerned about the list=E2=80=A6
+
+
+>=20
+> > > +
+> > > =C2=A0=C2=A0	sched =3D drm_sched_pick_best(entity->sched_list, entity=
+->num_sched_list);
+> > > =C2=A0=C2=A0	rq =3D sched ? &sched->rq : NULL;
+> > > =C2=A0=C2=A0	if (rq !=3D entity->rq) {
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu=
+/drm/scheduler/sched_internal.h
+> > > index 13ecb771d7a2..80dece3be415 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_internal.h
+> > > +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+> > > @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler=
+ *sched,
+> > > =C2=A0=C2=A0			 struct drm_sched_entity *entity);
+> > > =C2=A0=C2=A0void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+> > > =C2=A0=20
+> > > +/**
+> > > + * drm_sched_flush_run_work - flush the run-job work
+> >=20
+> > In v1, you'd probably want to document what this function typically
+> > will be used for :)
+>=20
+> Well its in the scheduler _internal_ header and I am not sure what to
+> write which will add real value.
+>=20
+> "Only used to make sure a stopped entity is not in use by the scheduler=
+=20
+> workers."
+
+I think the magic word that provides value to newbies trying to get
+familiar with our complex code base is "synchronization".
+
+"A synchronization helper used to make sure that no scheduler worker
+does access this entity anymore."
+
+
+Kind greetings,
+Philipp
