@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B013CCDE008
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A966DCDE007
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 07:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7D110EDEA;
-	Wed, 24 Jun 2026 07:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F20110EDE2;
+	Wed, 24 Jun 2026 07:49:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="V0/CDEZk";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="G6z1fzDs";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDCE610EC2E;
- Tue, 23 Jun 2026 17:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=rExIrn+CwI3H6PMuvZ/8l032+n7O7ou0ZKl7vHP3/Ao=; b=V0/CDEZkgfjqkuWKvYNPBQnyiT
- mwuijZPoNfgkvWDZaprsRBufwsElDBm/FxoIjx43KF5K+db79egA+ZoY21uDdnmLy8lE0cv3xd34r
- nRrbHmpelQFPa6Ii25ACmc3RjaxqBrXhwgrKE4XJg/052Lla+Pe4LBY29IV3U9pRAWP6OjhDanW8B
- LPekD9cZPG4BPBgtnHuC9bOxr6Vha2+y8DO7Vx615LpYnAyVZO9g5zbBmJ0PAMH6Yk+r/Lp0SRy9G
- 4lQwfupmFQyQmzC5vBZuLxw/2rLLvpPJ9xxF95EBK7PIz8tnIrXiDZWGzm4hPLVuNRcLKMZgFx6AP
- af002NSg==;
-Received: from 179-125-64-254-dinamico.pombonet.net.br ([179.125.64.254]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wc5Bl-004HK4-42; Tue, 23 Jun 2026 19:45:33 +0200
-Date: Tue, 23 Jun 2026 14:45:23 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
- manager
-Message-ID: <ajrGM2Ij_LssrvhT@quatroqueijos.cascardo.eti.br>
-References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
- <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1BB810EB9D;
+ Tue, 23 Jun 2026 14:48:16 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gl7Gj5QJyz9tRh;
+ Tue, 23 Jun 2026 16:48:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1782226093; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=A8j5nWKs6mMPZZTh957WrapzoB3bpv7u3GINWsJiiDM=;
+ b=G6z1fzDsXK2fDgrCCxPdlvhRstrtzjj0wJGidvlrNAtz+S5DYoo/bHrFq20QjjV1WNBNGS
+ hTVyOQiq83uRn+ldcuqdzhAOyoQb7AlMt58xLH3efKwAvP0b5L7Ogr8ptpPItEWZWCniq/
+ Iv0KcCTtYpJu+wpvrRICEzF+8J4jyZY9us2avZNa+8J57gDy6pvbBLQz9J/z+PaAnmx1v1
+ c7aZ7w24Mrpvpx5Mgjhu+Pcq9czVO6wHsGNT49EJEYT+D16oHn2dMStKrNvCG2a7ou/40m
+ fDERGJcTvhX/ZtDOYKKuqaVvj7bXlOXV+w8+i5HEzcx4oUa+f/4VGyNVvAIz+w==
+Message-ID: <ddd953feb2a326ce77851405252a8010c3b23235.camel@mailbox.org>
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost	 <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Date: Tue, 23 Jun 2026 16:48:10 +0200
+In-Reply-To: <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+ <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
+ <e9b876bea7a2ef33d5e4ca103721135400c875be.camel@mailbox.org>
+ <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+X-MBO-RS-META: cqahuxwfdidhgi3zrmjxt5hybn1pt5rd
+X-MBO-RS-ID: 9b88dd388e103c9be98
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,166 +68,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 07:33:01PM +0200, Thomas Hellström wrote:
-> Register the VRAM manager with the dmem cgroup reclaim infrastructure
-> so that lowering dmem.max below current VRAM usage triggers TTM
-> eviction rather than failing with -EBUSY.
-> 
-> Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
-> as the TTM reclaim path passes a NULL place in cgroup drain mode.
-> 
-> v3:
-> - Rebased on fix for uninitialized list and buddy allocator on the
->   drmm_cgroup_register_region() error path.
-> 
-> v5:
-> - Rebased on the introduction of struct dmem_cgroup_init.
-> - Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
->   use-after-free if cgroup reclaim is triggered after driver unbind
->   while userspace holds an open DRM file descriptor. (Sashiko-bot)
-> - Switch from drmm_cgroup_register_region() to the raw
->   dmem_cgroup_register_region() and store the region in
->   amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
->   in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
->   to drain in-flight reclaim callbacks, and clear man->cg afterwards.
->   This is required because amdgpu's vram manager fini is called
->   explicitly during driver unbind, which may precede the DRM device
->   release and thus precede any drmm-based cleanup. (Sashiko-bot)
-> 
-> v6:
-> - Fix mgr->cg_region never being assigned, so
->   dmem_cgroup_unregister_region() in fini silently no-ops on NULL
->   and leaks the region. (Sashiko-bot)
-> - Reorder fini to call set_used(false) and evict_all() before
->   dmem_cgroup_unregister_region(), so ttm_resource_free() can
->   uncharge via man->cg during eviction; clear man->cg after
->   unregister. (Sashiko-bot)
-> 
-> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+On Tue, 2026-06-23 at 15:05 +0100, Tvrtko Ursulin wrote:
+> > > There we have this sequence:
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 spin_lock(&entity->lock);
+> > > =C2=A0=C2=A0=C2=A0 entity->stopped =3D true;
+> > > =C2=A0=C2=A0=C2=A0 sched =3D drm_sched_rq_remove_entity(entity->rq, e=
+ntity);
+> > > =C2=A0=C2=A0=C2=A0 spin_unlock(&entity->lock);
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 if (sched)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0	drm_sched_flush_run_work(sched);
+> > >=20
+> > > That is, without that check, in theory, an evil driver could race
+> > > drm_sched_entity_select_rq() (via drm_sched_job_arm()) and
+> > > drm_sched_entity_kill(). I am not sure if any driver can actually do
+> > > that at the moment but it felt sensible to express it in code.
+> >=20
+> > The devil is in the "at the moment".
+> >=20
+> > AFAICS and as your explanation sounds, this is an existing problem that
+> > is unrelated to the Flush RFC. So I suppose that this should be a
+> > separate patch (independent from this one) which precisely focusses on
+> > this robustness work.
+>=20
+> Catch is, and why I thought it is justified to do this it in this patch,=
+=20
+> is because before completion was in the entity so whats happening with=
+=20
+> entity->rq->sched after entity is stopped was irrelevant. With this=20
+> patch is it relevant on paper so I considered it prudent to express that=
+=20
+> in the code as well as the comment.
 
-Hi, Thomas.
-
-I needed the following fixup for this. Otherwise, it regresses on the dmem
-region name.
-
-Regards.
-Cascardo
+I'm not sure if I can fully follow, but it seems that the stopped
+boolean + spinlock now protects the scheduler pointer?
 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 2250bab0970d..d93bb88e8b25 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -942,7 +942,8 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 					     .size = adev->gmc.real_vram_size,
- 					     .ops = &amdgpu_vram_mgr_dmem_ops,
- 					     .reclaim_priv = man,
--					 }, "vram");
-+					 }, "drm/%s/vram",
-+					    adev_to_drm(adev)->unique);
- 	if (IS_ERR(cg))
- 		return PTR_ERR(cg);
- 
+IDK, I don't feel comfortable right now.. New docu says
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 31 ++++++++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  2 ++
->  3 files changed, 28 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 2740de94e93c..8cbcd33f51a5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1488,7 +1488,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->  	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
->  				DMA_RESV_USAGE_BOOKKEEP, f) {
->  		if (amdkfd_fence_check_mm(f, current->mm) &&
-> -		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
-> +		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
->  			return false;
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 08f05c3aed1d..2250bab0970d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -906,6 +906,10 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
->  	.debug	= amdgpu_vram_mgr_debug
->  };
->  
-> +static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops = {
-> +	.reclaim = ttm_resource_manager_dmem_reclaim,
-> +};
-> +
->  /**
->   * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
->   *
-> @@ -917,6 +921,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  {
->  	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
->  	struct ttm_resource_manager *man = &mgr->manager;
-> +	struct dmem_cgroup_region *cg;
->  	int err;
->  
->  	ttm_resource_manager_init(man, &adev->mman.bdev,
-> @@ -933,12 +938,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  	if (err)
->  		return err;
->  
-> -	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
-> -					      &(struct dmem_cgroup_init){
-> -						.size = adev->gmc.real_vram_size,
-> -					      });
-> -	if (IS_ERR(man->cg))
-> -		return PTR_ERR(man->cg);
-> +	cg = dmem_cgroup_register_region(&(struct dmem_cgroup_init){
-> +					     .size = adev->gmc.real_vram_size,
-> +					     .ops = &amdgpu_vram_mgr_dmem_ops,
-> +					     .reclaim_priv = man,
-> +					 }, "vram");
-> +	if (IS_ERR(cg))
-> +		return PTR_ERR(cg);
-> +
-> +	mgr->cg_region = cg;
-> +	ttm_resource_manager_set_dmem_region(man, cg);
->  
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->  	ttm_resource_manager_set_used(man, true);
-> @@ -966,6 +975,16 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->  	if (ret)
->  		return;
->  
-> +	/*
-> +	 * Drain any in-flight dmem cgroup reclaim callbacks and remove the
-> +	 * region from the global list.  This must happen after evict_all()
-> +	 * so that ttm_resource_free() can still uncharge via man->cg while
-> +	 * BOs are being evicted.
-> +	 */
-> +	dmem_cgroup_unregister_region(mgr->cg_region);
-> +	mgr->cg_region = NULL;
-> +	man->cg = NULL;
-> +
->  	mutex_lock(&mgr->lock);
->  	list_for_each_entry_safe(rsv, temp, &mgr->reservations_pending, blocks)
->  		kfree(rsv);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> index 429a21a2e9b2..07103cddb335 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> @@ -36,6 +36,8 @@ struct amdgpu_vram_mgr {
->  	atomic64_t vis_usage;
->  	u64 default_page_size;
->  	struct list_head allocated_vres_list;
-> +	/** @cg_region: dmem cgroup region for VRAM; unregistered in fini. */
-> +	struct dmem_cgroup_region *cg_region;
->  };
->  
->  struct amdgpu_vres_task {
-> -- 
-> 2.54.0
-> 
+drm_sched_rq_add_entity(struct drm_sched_entity *entity)
+  * @entity: scheduler entity
+  *
+  * Removes a scheduler entity from the run queue.
++ *
++ * Return: DRM scheduler selected to handle this entity or NULL if entity =
+has
++ * already been removed.
+  */
+
+
+Isn't a removed entity by definition stopped since drm_sched can't
+access it anymore? Or do we have race there, too?
+
+If so, then stopped and entity->rq->sched =3D=3D NULL represent the same
+state. IOW, the locked bool must be redundant with something.
+
+Right?
+
+>=20
+> Acceptable or unacceptable?
+
+In any case such changes should, wherever possible, be a separate
+patch. For the fact alone that the distinct commit message and
+especially the position / order of the patch within the series helps
+the reviewer greatly in understanding what that particular change
+enables and thus why it's necessary.
+
+
+P.
