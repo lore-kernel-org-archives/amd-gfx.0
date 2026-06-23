@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC354CDE00A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6895CDE005
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 07:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1A0610EDEB;
-	Wed, 24 Jun 2026 07:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29DF510EDED;
+	Wed, 24 Jun 2026 07:49:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dtqVGPWa";
+	dkim=pass (2048-bit key; unprotected) header.d=lwn.net header.i=@lwn.net header.b="huK9ID60";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 730E510EC27;
- Tue, 23 Jun 2026 17:43:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=4YTsZIaFwU6ZukbX4Jr8mkIV/CwaU7Ymxm/ypzFkYPM=; b=dtqVGPWaEkWVbOj2EfkebuanDW
- 0IcmKQnsJW9plnJBrOYoAOmaGaWkAdyYBqX/uw+bR6qHuXFETuktb71a6o/h+VZstPaefua9lFh7y
- RJD9oyHyctcjfE+DsEV/wensmp3Ynb9RsACcEGbYKQrj2ho+86qjKq+hxHlds9EvndqbxQKh4Wsk0
- VKpOyVrljrU4Ih5h/KJyHN13r7iBhd01RsGD7NKRkjg7tzj8QzXtFHEOecoTBjNlN+P3m6pcOlSRx
- 3jxiTVKCj/n8ZrBcvO8z+G2833EMura81RST+ZqBO1IzLZPNHHA0CGEF5l07AwE8VlL1x/w7Te0P8
- tDAmPHSA==;
-Received: from 179-125-64-254-dinamico.pombonet.net.br ([179.125.64.254]
- helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wc5A8-004HEi-0u; Tue, 23 Jun 2026 19:43:52 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH i-g-t 4/7] lib/xe: Introduce dmem driver and implement Xe
- support
-Date: Tue, 23 Jun 2026 14:43:16 -0300
-Message-ID: <20260623174319.4138648-5-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260623174319.4138648-1-cascardo@igalia.com>
-References: <20260623174319.4138648-1-cascardo@igalia.com>
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BC0E10ECAC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 20:45:59 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 6FD2B40E41
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+ t=1782247558; bh=LDTLqmTXBPMLO0qpm18u5Tg9s29oRuwyqp30isIBHpU=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=huK9ID60sCex0CWxwfOUIPMfRApaz4cJZGeb2xLoh3AdLipi64vOi+fgH0Hxi6gL0
+ neiPj8ktuCDg2+VDRhvinFrncnAznxgUw+3v4hW4xgLZqlmQhCpJ9R9nB3p5Kvb8Xz
+ lNe6ML/HyBCmPL8fLn1I4rwyp9256XmQmz+IMCN7ZeqGpKEsbUhM2NLWO+sK0ZVjr5
+ DyFKe+eYszRwGE26IxPHtqY5cO8wBs7atQSC/szStucIc4m2iNcFP4VC4cltw9+tUV
+ XDtxEeYWBQOMC64WHCEwmazWlZnZUjSil11iI5D/G2+Sm1W83E2DcePx8VpTEqlRAJ
+ iZsoFjjkE/7WQ==
+Received: from localhost (unknown [IPv6:2601:280:4600:27b::1fe])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by ms.lwn.net (Postfix) with ESMTPSA id 6FD2B40E41;
+ Tue, 23 Jun 2026 20:45:58 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
+ <skhan@linuxfoundation.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2] kdoc: xforms: ignore special static/inline macros
+In-Reply-To: <20260612234458.1084156-1-rdunlap@infradead.org>
+References: <20260612234458.1084156-1-rdunlap@infradead.org>
+Date: Tue, 23 Jun 2026 14:45:57 -0600
+Message-ID: <871pdxasu2.fsf@trenco.lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,230 +62,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to be reuse the same dmem tests with multiple drivers, we need to
-abstract a few operations. That includes getting the region name, and
-allocating and releasing VRAM. As there is some initialization also when
-multiple allocations are done, also provide init and deinit functions.
+Randy Dunlap <rdunlap@infradead.org> writes:
 
-The Xe implementation is based on the original operations from
-xe_cgroups.c written by Thomas Hellström.
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c contains 7 (for
+> now) functions that use STATIC_IFN_KUNIT or INLINE_IFN_KUNIT macros for
+> function qualifiers (static or not, inline or not).
+>
+> These cause parse warnings from kernel-doc:
+> Invalid C declaration: Expected identifier in nested name, got keyword:
+>   struct [error at 29]
+> STATIC_IFN_KUNIT const struct drm_color_lut * __extract_blob_lut (const
+>   struct drm_property_blob *blob, uint32_t *size)
+>
+> Handle these in kernel-doc to prevent multiple warnings.
+>
+> Fixes: 647d1fd04652 ("drm/amd/display: Add KUnit test for color helpers")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> v2: drop an unsubmitted patch so that this one applies with no problem
+>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Ivan Lipski <ivan.lipski@amd.com>
+> Cc: Dan Wheeler <daniel.wheeler@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+>
+>  tools/lib/python/kdoc/xforms_lists.py |    2 ++
+>  1 file changed, 2 insertions(+)
+>
+> --- linext-2026-0610.orig/tools/lib/python/kdoc/xforms_lists.py
+> +++ linext-2026-0610/tools/lib/python/kdoc/xforms_lists.py
+> @@ -102,6 +102,8 @@ class CTransforms:
+>          (CMatch("__no_context_analysis"), ""),
+>          (CMatch("__attribute_const__"), ""),
+>          (CMatch("__attribute__"), ""),
+> +        (CMatch("STATIC_IFN_KUNIT"), ""),
+> +        (CMatch("INLINE_IFN_KUNIT"), ""),
+>=20=20
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- lib/igt_dmem_driver.h |  24 +++++++
- lib/meson.build       |   1 +
- lib/xe/xe_dmem.c      | 159 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 184 insertions(+)
- create mode 100644 lib/igt_dmem_driver.h
- create mode 100644 lib/xe/xe_dmem.c
+Applied, thanks.
 
-diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
-new file mode 100644
-index 000000000000..2f4a4673ab16
---- /dev/null
-+++ b/lib/igt_dmem_driver.h
-@@ -0,0 +1,24 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-+ */
-+
-+#ifndef __IGT_DMEM_DRIVER_H__
-+#define __IGT_DMEM_DRIVER_H__
-+
-+#include <stdlib.h>
-+
-+struct igt_dmem_driver {
-+	const char *name;
-+	char * (*get_region_name)(int fd);
-+	int (*init)(void **ctx, int fd, int max_bo);
-+	void (*deinit)(void *ctx);
-+	int (*allocate_vram)(void *ctx, int n_bo, size_t len);
-+	void (*free_vram)(void *ctx, int n_bo);
-+};
-+
-+extern const struct igt_dmem_driver xe_dmem_driver;
-+
-+#endif
-diff --git a/lib/meson.build b/lib/meson.build
-index 3aaebc5b1948..cd7a3805accb 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -125,6 +125,7 @@ lib_sources = [
- 	'igt_msm.c',
- 	'igt_dsc.c',
- 	'igt_hook.c',
-+	'xe/xe_dmem.c',
- 	'xe/xe_gt.c',
- 	'xe/xe_ioctl.c',
- 	'xe/xe_legacy.c',
-diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
-new file mode 100644
-index 000000000000..b979dfa7f4cf
---- /dev/null
-+++ b/lib/xe/xe_dmem.c
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-+ */
-+
-+#include <errno.h>
-+
-+#include "igt.h"
-+#include "igt_cgroup.h"
-+#include "igt_dmem_driver.h"
-+#include "xe_drm.h"
-+#include "xe/xe_ioctl.h"
-+#include "xe/xe_query.h"
-+
-+static char * xe_dmem_get_region_name(int fd)
-+{
-+	uint64_t vram_region = 0;
-+	uint64_t region;
-+	char *cg_region;
-+
-+	/* Find first VRAM region */
-+	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
-+		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
-+			vram_region = region;
-+			break;
-+		}
-+	}
-+	if (!vram_region)
-+		return NULL;
-+
-+	cg_region = xe_cgroup_region_name(fd, vram_region);
-+
-+	return cg_region;
-+}
-+
-+struct xe_bo {
-+	uint32_t handle;
-+	uint64_t addr;
-+	size_t len;
-+};
-+
-+struct xe_dmem_ctx {
-+	int fd;
-+	uint32_t vm;
-+	struct xe_bo *bos;
-+	uint64_t addr;
-+	uint64_t vram_region;
-+	int max_bo;
-+};
-+
-+#define BIND_BASE		0x100000000ULL	/* 4 GiB VA base */
-+
-+static int xe_dmem_init(void **ctx, int fd, int max_bo)
-+{
-+	struct xe_dmem_ctx *xe_ctx;
-+	uint64_t region;
-+
-+	xe_ctx = malloc(sizeof(*xe_ctx));
-+	if (!xe_ctx)
-+		return -ENOMEM;
-+
-+	xe_ctx->bos = calloc(max_bo, sizeof(xe_ctx->bos[0]));
-+	if (!xe_ctx->bos)
-+		goto out;
-+	memset(xe_ctx->bos, 0, max_bo * sizeof(xe_ctx->bos[0]));
-+	xe_ctx->max_bo = max_bo;
-+
-+	xe_ctx->vram_region = 0;
-+	/* Find first VRAM region */
-+	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
-+		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
-+			xe_ctx->vram_region = region;
-+			break;
-+		}
-+	}
-+	if (!xe_ctx->vram_region)
-+		goto out;
-+
-+	xe_ctx->addr = BIND_BASE;
-+	xe_ctx->fd = fd;
-+
-+	xe_ctx->vm = xe_vm_create(fd, DRM_XE_VM_CREATE_FLAG_LR_MODE, 0);
-+
-+	*ctx = xe_ctx;
-+
-+	return 0;
-+
-+out:
-+	if (xe_ctx->bos)
-+		free(xe_ctx->bos);
-+	free(xe_ctx);
-+
-+	return -ENOMEM;
-+}
-+
-+static void xe_dmem_deinit(void *ctx)
-+{
-+	struct xe_dmem_ctx *xe_ctx = ctx;
-+
-+	xe_vm_destroy(xe_ctx->fd, xe_ctx->vm);
-+	free(xe_ctx->bos);
-+	free(xe_ctx);
-+}
-+
-+static int xe_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
-+{
-+	struct xe_dmem_ctx *xe_ctx = ctx;
-+	uint32_t handle;
-+	int err;
-+
-+	if (n_bo >= xe_ctx->max_bo)
-+		return -ENOMEM;
-+
-+	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region,
-+			     DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING,
-+			     NULL, &handle);
-+	if (err)
-+		goto out;
-+
-+	err = __xe_vm_bind_lr_sync(xe_ctx->fd, xe_ctx->vm, handle, 0,
-+				   xe_ctx->addr, len, 0);
-+	if (err)
-+		goto out;
-+
-+	xe_ctx->bos[n_bo].handle = handle;
-+	xe_ctx->bos[n_bo].len = len;
-+	xe_ctx->bos[n_bo].addr = xe_ctx->addr;
-+
-+	xe_ctx->addr += len;
-+
-+out:
-+	return err;
-+}
-+
-+static void xe_dmem_free_vram(void *ctx, int n_bo)
-+{
-+	struct xe_dmem_ctx *xe_ctx = ctx;
-+	size_t len;
-+	if (n_bo >= xe_ctx->max_bo)
-+		return;
-+	len = xe_ctx->bos[n_bo].len;
-+	if (len) {
-+		uint64_t addr = xe_ctx->bos[n_bo].addr;
-+		xe_vm_unbind_lr_sync(xe_ctx->fd, xe_ctx->vm, 0, addr, len);
-+		gem_close(xe_ctx->fd, xe_ctx->bos[n_bo].handle);
-+		xe_ctx->bos[n_bo].len = 0;
-+	}
-+}
-+
-+const struct igt_dmem_driver xe_dmem_driver = {
-+	.name = "xe",
-+	.get_region_name = xe_dmem_get_region_name,
-+	.init = xe_dmem_init,
-+	.deinit = xe_dmem_deinit,
-+	.allocate_vram = xe_dmem_allocate_vram,
-+	.free_vram = xe_dmem_free_vram,
-+};
--- 
-2.47.3
-
+jon
