@@ -4,58 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A966DCDE007
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CC2CDE001
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 07:49:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F20110EDE2;
-	Wed, 24 Jun 2026 07:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2285710EDE8;
+	Wed, 24 Jun 2026 07:49:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="G6z1fzDs";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ItjX+I8J";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BB810EB9D;
- Tue, 23 Jun 2026 14:48:16 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gl7Gj5QJyz9tRh;
- Tue, 23 Jun 2026 16:48:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1782226093; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=A8j5nWKs6mMPZZTh957WrapzoB3bpv7u3GINWsJiiDM=;
- b=G6z1fzDsXK2fDgrCCxPdlvhRstrtzjj0wJGidvlrNAtz+S5DYoo/bHrFq20QjjV1WNBNGS
- hTVyOQiq83uRn+ldcuqdzhAOyoQb7AlMt58xLH3efKwAvP0b5L7Ogr8ptpPItEWZWCniq/
- Iv0KcCTtYpJu+wpvrRICEzF+8J4jyZY9us2avZNa+8J57gDy6pvbBLQz9J/z+PaAnmx1v1
- c7aZ7w24Mrpvpx5Mgjhu+Pcq9czVO6wHsGNT49EJEYT+D16oHn2dMStKrNvCG2a7ou/40m
- fDERGJcTvhX/ZtDOYKKuqaVvj7bXlOXV+w8+i5HEzcx4oUa+f/4VGyNVvAIz+w==
-Message-ID: <ddd953feb2a326ce77851405252a8010c3b23235.camel@mailbox.org>
-Subject: Re: [RFC] drm/sched: Replace completion with a flush
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Date: Tue, 23 Jun 2026 16:48:10 +0200
-In-Reply-To: <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
-References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
- <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
- <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
- <e9b876bea7a2ef33d5e4ca103721135400c875be.camel@mailbox.org>
- <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5ED10E1F5;
+ Tue, 23 Jun 2026 17:43:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=a5Ly8geR1oWprQ4p41w/ISJHm3yE4aBgqiuOQnF2jfY=; b=ItjX+I8JgOR4L4+aK2jMH1WigB
+ ucnCBu9+QPQHFfIuoWPfqaNg5PzCw+yDRz9Y0j/j8V62upD2Uv6WLH/MMVr+RZLEZ3CX3mgM23bHZ
+ BUK5sbEJxZjZYFIuyKu4Zq9gGJ90cJIkK3aYBplIZBUmn+NwhHKfmU2OK4wfLu2eDobd9QIOtn/b8
+ IjlqCGkWTItVpwqmVLjr14ISQ9hrnbmA2gGHPySH6jJ8ClFKWp7wyRrogAqV3ujxHhpDc3plSj6VU
+ cggC2RSrlE3kGcZ6H7E2/S/nib/R6NkokSayaUAzyJnSGaMi0XqLXqrmRfDQNh7wkBDjjyRXqOpT4
+ DePmqqMw==;
+Received: from 179-125-64-254-dinamico.pombonet.net.br ([179.125.64.254]
+ helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wc59o-004HEi-TG; Tue, 23 Jun 2026 19:43:33 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Subject: [PATCH i-g-t 0/7] add dmem_cgroups test
+Date: Tue, 23 Jun 2026 14:43:12 -0300
+Message-ID: <20260623174319.4138648-1-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-X-MBO-RS-META: cqahuxwfdidhgi3zrmjxt5hybn1pt5rd
-X-MBO-RS-ID: 9b88dd388e103c9be98
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:49:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,76 +64,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-06-23 at 15:05 +0100, Tvrtko Ursulin wrote:
-> > > There we have this sequence:
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0 spin_lock(&entity->lock);
-> > > =C2=A0=C2=A0=C2=A0 entity->stopped =3D true;
-> > > =C2=A0=C2=A0=C2=A0 sched =3D drm_sched_rq_remove_entity(entity->rq, e=
-ntity);
-> > > =C2=A0=C2=A0=C2=A0 spin_unlock(&entity->lock);
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0 if (sched)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0	drm_sched_flush_run_work(sched);
-> > >=20
-> > > That is, without that check, in theory, an evil driver could race
-> > > drm_sched_entity_select_rq() (via drm_sched_job_arm()) and
-> > > drm_sched_entity_kill(). I am not sure if any driver can actually do
-> > > that at the moment but it felt sensible to express it in code.
-> >=20
-> > The devil is in the "at the moment".
-> >=20
-> > AFAICS and as your explanation sounds, this is an existing problem that
-> > is unrelated to the Flush RFC. So I suppose that this should be a
-> > separate patch (independent from this one) which precisely focusses on
-> > this robustness work.
->=20
-> Catch is, and why I thought it is justified to do this it in this patch,=
-=20
-> is because before completion was in the entity so whats happening with=
-=20
-> entity->rq->sched after entity is stopped was irrelevant. With this=20
-> patch is it relevant on paper so I considered it prudent to express that=
-=20
-> in the code as well as the comment.
+This patchset is based on the work of Thomas Hellström at [1] and a
+followup I have submitted at [2].
 
-I'm not sure if I can fully follow, but it seems that the stopped
-boolean + spinlock now protects the scheduler pointer?
+With this version, I reverted the order in which to apply the patchsets, as
+this one adds the infrastructure and the drivers mechanisms, and a test for
+dmem.current and its behavior around dmem.max that is currently supported
+in the kernel.
 
+As for the new dmem.max eviction behavior, introduced by [3], it has been
+pushed to a branch at [4]. If preferred, I can submit the two patches
+independently.
 
-IDK, I don't feel comfortable right now.. New docu says
+I have run the tests, including the ones that test dmem.max eviction
+behavior on a system with a 1GiB VRAM amdgpu card. I have not been able to
+run it on a Xe system so far. I would appreciate if people can do it. I
+have applied the patchset at [3] on top of current linux origin/master [5],
+with a fixup for the amdgpu driver.
 
-drm_sched_rq_add_entity(struct drm_sched_entity *entity)
-  * @entity: scheduler entity
-  *
-  * Removes a scheduler entity from the run queue.
-+ *
-+ * Return: DRM scheduler selected to handle this entity or NULL if entity =
-has
-+ * already been removed.
-  */
+Now, for the changes since v1 [2]:
+- Changed the test name from drv_dmem_cgroups to dmem_cgroups.
+- Have system includes before igt ones.
+- Documented the current SUBTEST.
+- Changed free_vram driver hook to only release a given BO. This allows for
+  the eviction trigger by a new allocation added by write_eviction_nonblock
+  subtest.
+- Changed allocate_vram to keep more state necessary for releasing a single BO.
+- Added a global free_vram helper to free all allocated VRAM.
 
+Compared to v3 of [1]:
+- I have kept wait_for_usage_drop as release can be lazy and we test for it
+  on test_current SUBTEST, but had USAGE_DROP_TIMEOUT_MS be a little
+  longer.
+- Changed BO_SIZE and EVICT_STEP to allow for more than two eviction steps
+  on a 1GiB VRAM system.
+- Reduced USAGE_SLACK to avoid false positives, but still allow for some
+  page table accounting.
 
-Isn't a removed entity by definition stopped since drm_sched can't
-access it anymore? Or do we have race there, too?
+[1] https://patchwork.freedesktop.org/series/163935/#rev3
+[2] https://patchwork.freedesktop.org/series/166496/
+[3] https://lore.kernel.org/dri-devel/20260611173301.17473-1-thomas.hellstrom@linux.intel.com/
+[4] https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads
+[5] 502d801f0ab0 ("Merge tag 'erofs-for-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs")
 
-If so, then stopped and entity->rq->sched =3D=3D NULL represent the same
-state. IOW, the locked bool must be redundant with something.
+Thadeu Lima de Souza Cascardo (4):
+  lib/xe: Introduce dmem driver and implement Xe support
+  lib/amdgpu: add amdgpu_cgroup_region_name
+  lib/amdgpu: add amdgpu support to igt_dmem_driver
+  tests/dmem_cgroups: add test for dmem.current
 
-Right?
+Thomas Hellström (3):
+  lib/igt_cgroup: add cgroup v2 and dmem controller helpers
+  tests/cgroup_dmem: add dmem cgroup controller test
+  lib/xe: add xe_cgroup_region_name() helper
 
->=20
-> Acceptable or unacceptable?
+ lib/amdgpu/amd_dmem.c   |  99 +++++++
+ lib/amdgpu/amd_memory.c |  25 ++
+ lib/amdgpu/amd_memory.h |   2 +
+ lib/igt.h               |   1 +
+ lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
+ lib/igt_cgroup.h        |  56 ++++
+ lib/igt_dmem_driver.h   |  25 ++
+ lib/meson.build         |   3 +
+ lib/xe/xe_dmem.c        | 159 ++++++++++
+ lib/xe/xe_query.c       |  32 ++
+ lib/xe/xe_query.h       |   2 +
+ tests/cgroup_dmem.c     |  92 ++++++
+ tests/dmem_cgroups.c    | 241 +++++++++++++++
+ tests/meson.build       |   2 +
+ 14 files changed, 1377 insertions(+)
+ create mode 100644 lib/amdgpu/amd_dmem.c
+ create mode 100644 lib/igt_cgroup.c
+ create mode 100644 lib/igt_cgroup.h
+ create mode 100644 lib/igt_dmem_driver.h
+ create mode 100644 lib/xe/xe_dmem.c
+ create mode 100644 tests/cgroup_dmem.c
+ create mode 100644 tests/dmem_cgroups.c
 
-In any case such changes should, wherever possible, be a separate
-patch. For the fact alone that the distinct commit message and
-especially the position / order of the patch within the series helps
-the reviewer greatly in understanding what that particular change
-enables and thus why it's necessary.
+-- 
+2.47.3
 
-
-P.
