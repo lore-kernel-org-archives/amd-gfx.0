@@ -4,51 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1AECCDB470
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 07:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF32BCD4F26
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 07:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2828E10E98E;
-	Tue, 23 Jun 2026 07:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F53310E995;
+	Tue, 23 Jun 2026 07:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rj4Gq6m3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="il3bD/Mg";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C7010E982;
- Tue, 23 Jun 2026 07:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ET7OgFlHrJ+3KEdV0J1uiTWDRciWlbKIl2vMbcrMF8I=; b=rj4Gq6m3d1xd3Jrd2o573sU7gn
- 5flzufiBtzjvqCVo2cgPTTJzKDyOP0qwxshdlvPIUeUn2QcO0c8l+5tWoUwgbjn6Ft+TdpTgtJunK
- c1uXsIHnGMMhMBTzIzAK4N9k5dt5iXp3xrtScjqwMViTp/kzm2tmUuc05knmnNuUB+kqg5PyEzAxR
- QkvYStbI4B0dGqOQK0mSu8d5XZq/rK1jnb5+Ns5LjaZhTjO3Ci9mDH53eoLQrGcbGCUzmHfGQCvjY
- WXZxbFkF1V5G8/ZlksBPaFSheBAD7gWv1dtuKuBzP+keZ4BfUMLAUy4joriA8/cDDzXJZhPVsVx/5
- 6FFmex9w==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wbvQ8-0044WG-2V; Tue, 23 Jun 2026 09:19:44 +0200
-Message-ID: <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
-Date: Tue, 23 Jun 2026 08:19:43 +0100
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010000.outbound.protection.outlook.com [52.101.85.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E6D610E995
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 07:24:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jbXF+EEFsPARM6U+OUHejG4il21YmKIrLq9nKUY8bCMnJzvu2zLb13VHXA3xy3OMHoRWQZdVOUILQOatRtXcjFgRMoBGvORY36AIrF+ulRxkmiTNgydsom9FlMgQXbN1jCAFAkeaY3CjTydx+O4EFqRRxmH5n91fOO475EdLLCJyBaI+kdeQrUSfNK0jpCbAcyTyBkNEv1H3QKMcKltaJhHTBsrqvv0yunIXYc7idOc9jPNr77Vz79IIcDOjYJE/kWM2SX/CAHzp5Ocr2h0d7y2X7l9gvNY81DEg1RFkGgKP2n1EcdpeU/umHTNwyBRf8UdEx8Bq+3/bHSSFsD6uJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rJHA7iAysHc8RKx97Vzx2WRw979dcduQBKkl7ib2ewY=;
+ b=t8UhxDJeyPyGJxWrfLttkzG2nRN8HxfJ0jp9fRZPYmw9NQOJpUIU6a1EQhUEClSXgL5SPuKQ8rWlPL18Hvs7njovFPmCnSCIjPXGet5chAAGtrAeUSDhJ7Uv1Pg7Sw4Kzb4Tug+fzIvd2J4iZOgqwCphUl9tY+whu8dnQOMWj9feenfhilZptyl+TcpmMRzMt2A2TpRIuYQD1H+QmHdgeMCvvac7CmnqmXnu9nDy9f2F+9yXcCJ0lv5+YMSSJ7bQa702wua8tDRSpa/P3C5ULaT1zwlL5mRG0lLSZTbtw/mhrWYIU3EuX45IHBX/XNupU62Oj/0befPO+7LXpZx0xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rJHA7iAysHc8RKx97Vzx2WRw979dcduQBKkl7ib2ewY=;
+ b=il3bD/MgmZsMVy8lYQM4+P/zKBc9cG4fL1bALnNt5kn5Ad6fdd0dy1ss+UK3nsoxYEK1bD/+svIfOelrc2fcQxn4noHS0PeEO8+cJ0rzkCT1LSlrWoWmkvgDDiCM4NoMMaLzVloqKGzjhJVIiSFjan4PkJ71AsQHI/pXAaNSgvs=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by IA1PR12MB8465.namprd12.prod.outlook.com (2603:10b6:208:457::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
+ 2026 07:24:29 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::716d:8670:35b1:27a9]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::716d:8670:35b1:27a9%5]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
+ 07:24:29 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Chai, Thomas"
+ <YiPeng.Chai@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: fix resource leak on ACP reset timeout
+Thread-Topic: [PATCH 2/2] drm/amdgpu: fix resource leak on ACP reset timeout
+Thread-Index: AQHdAlo+o7mTQfmSJk+P1y4cjFU9Q7ZLvZlg
+Date: Tue, 23 Jun 2026 07:24:29 +0000
+Message-ID: <PH7PR12MB87969859D0E1BBA75AE67101B0EE2@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <5db799323a211d12937f69a1ba28d3c740bf2569.1782141279.git.cesun102@amd.com>
+ <8df8e57e7a17f131ab9065b4671780378fbaeb08.1782141279.git.cesun102@amd.com>
+In-Reply-To: <8df8e57e7a17f131ab9065b4671780378fbaeb08.1782141279.git.cesun102@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-23T07:23:13.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|IA1PR12MB8465:EE_
+x-ms-office365-filtering-correlation-id: 4a0e3298-aeba-4d22-1d93-08ded0f87683
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|11063799006|56012099006|4143699003|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info: qccULKZPyuMwOkUb8AR55YgnochF2PWxEBYO5rFDess3ockXBmLJzsLXA7Ae5pWwGXkinLHgwb9W/6X/rfPCtXyQWuB6A3j4puQKbTdTYG+GxgJVbq0PMvui1E2EEa/A4uYq2BIBetkdOxwXwKHKxn8DvgZS569D1bKztow9X4ItOArpf39A2InY06uOenxHcApEDp1MYYpC/HidPEjWOgxCI9Jlk19w1NJSFkWby/REl4Z+WB4SDYW3lCO7w7m318rlAVU5Cadvbjl4SoAwtNe4a7IZELW1cfUryb+lWCN7/wLZhlm0unhYKhBE7GjL4gfUBzXC9iTduGbVYy2oPvRaO0KeNxbc5lcdZm8W41ebfEMcb7vgW4UcdPNHxcaAAEYY2/9yWcshjBFG5fe9hg6iF+kFJuqkQuRbgb4AVinl6vMyezMAR7JIV7PR2y64YbpDToautu5VAKzSAnv/y1pxxCY3BK2+VpICv/ulTI8syhex+nwbZsNFaGx+KbPO40hiBZ7uuApjlhhgUV7vwcnd7NIEmvmDTKQS2sE7UZt421wSOku0AxOnKGkn9+e9QzCDI/5Ow773c3mXJV8CZc0jSwcRSF0C7jWkv44D1RRl5GW9Kkc/TD+kp5TF6g+amkYfhtrFUk0BQ/YUlvfx4L8VzpPQlgCvgx7fuO/AatPOcKP+ERU4wJuWSTsowcsEcu4iFjYvhRDHeubaHXMokfhDUUn9lHY5OjbtGSM8uF4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(56012099006)(4143699003)(38070700021)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?K+P23I0mYpzdo8Cj9xDjRucTovHqkenX1T7MYWTNlpX8Snu8Y9VYOHGrNxbN?=
+ =?us-ascii?Q?mRoAQIWvysFduvMho/VpjKa4fFRuMKoEocxjIDlyoJek0eSP53io23HT5FCX?=
+ =?us-ascii?Q?jAwzZ3wMm1WEHGBnXs1gNnMiAcRKvW1rPC8sboBI3L6Ej7B5cRdG6DvCsR4X?=
+ =?us-ascii?Q?V7PXwD/byA7Pz6dm8l6xISnt9r8nG+5qFVGuQMpei+A7DIYY/Kbhq30RJomm?=
+ =?us-ascii?Q?W7i2tuZlcCMA7xVqgy8q/Vvy9j6BTyGlf6y4+no+5itaU/ItlW32ygsuUcTU?=
+ =?us-ascii?Q?52iHsckUbomx5VJyoVhdZ/Y1jBfHVwJraSIdKwsSHMZf4qTmRth7kQSVZ1WK?=
+ =?us-ascii?Q?SVkFCXczpVhl39c+TyuqDrchSa4oQJc57LcKyyMeG6uJRjdzrHInyojhcJTY?=
+ =?us-ascii?Q?QwNCcLHWP4Std6fp1RNKe+FZFERKsj3y5xNsr+lP42EjVXmeMgvRh5j/GTR9?=
+ =?us-ascii?Q?Ss3SSCXwY6OpPznqJ7afl5X6+rrS8qmle3ygzSqnM/Zo1/sG4J/JHgjDuSKP?=
+ =?us-ascii?Q?wMOFz5RsSrO6viqHbJ1ugS5XLzzJ+00K8KKWTB/enAvlrXW5FOVQXTkiYLiy?=
+ =?us-ascii?Q?slfpp+PIX2XNaeadVJYCCnOPsd0nHL+LcPs+eW80ZleMuWgAbc/4yMESty0S?=
+ =?us-ascii?Q?l+JGCxIkKyQh9OR96nVFJsIjtXSWtET0y59MxcIY1Gh2HSvkX0rnWqpGoocB?=
+ =?us-ascii?Q?/IhwJtJeLWqdFgEdCkQALnrOJ1Ci59KjqvB0/0gj8YxpT/+nWAldL5XTCIFs?=
+ =?us-ascii?Q?0T8jaBXW4/IHGgtZkiJdNC6aja5urYQjBjUrYsSv3600bDrdgiMEkmdm9XGp?=
+ =?us-ascii?Q?mHcfeI8ZjcWQ713A5rOqUOQNRfENTDYFDdIfI4TVIjIiQzvbrcyHPkvXUjAH?=
+ =?us-ascii?Q?IyOfBFgYqpMtBuqWbhBDq4T8W5Kselk0wKu5E5fWFOLdI2QLHWD5W6me3w3t?=
+ =?us-ascii?Q?rXcPXjU2Ho5h0lFUZz1lxWEX5zHb8SZrenRgz42V8kBu3udw2jHZun6PHFSb?=
+ =?us-ascii?Q?GKD1/Q8xMGHcNPLx15iLHDUsBqFFqqYkdM8dqaiKGQWp3nqkZQbDCOO8jDd0?=
+ =?us-ascii?Q?6MkllsoCKU/MnXiuYf0rkVifgVp2HwuJv+OTTZ1wZTetyQ/lzpVjkFUNgMux?=
+ =?us-ascii?Q?qHEW8rxI86uxJe3U0T9GbmR7Brd9wJLWgib6k6FPGJikIjmRZsfUvnNuSbsk?=
+ =?us-ascii?Q?AMQpThZqQ9rmCyWAsBCFlFzR7IQsnH4dBeaD1Ek1Z/u8xoN2RgquAP2kaaXL?=
+ =?us-ascii?Q?9ylEQ+pwr3ZzFw29X43gaAPQyFz3voPe7ssWR7MPL3xuoff3HsfRpAijJjf7?=
+ =?us-ascii?Q?F14lVIOobZpg42n5k1gLOJXKGyEQifyY5U+EVGbfziriBgWA/eKwP5j6Bzck?=
+ =?us-ascii?Q?YJszxYkpRSsZY+sQcBU7j+7C/Fh1hCzwtaKH2ayixK2g19jZaUngKhZMDIsn?=
+ =?us-ascii?Q?Vt14YBaFwCw9TWn8CeHutD2rpuAzF37/ATObu5WtEh8g2gx6zaiviiylswv1?=
+ =?us-ascii?Q?aZ9zR8a0/1U7nBaJmwyOIrAuo0LjYNbIP7odTb67RT1AFMm3nWxFrhJaat2R?=
+ =?us-ascii?Q?vTczXSvZ+m/hnn39a/e9bDbqZoE9fqGbwmsM7DW9/Xg2R3PdmJAOaId8Vgx/?=
+ =?us-ascii?Q?HKKRB+6jGiTk004oGntTWyk3QzmfcY8Dq4QOHJUoA1vfWhd3VsLhNHzel52q?=
+ =?us-ascii?Q?AK1ypccMO9TLpuZJ2fC67rDI0jPqtG061rwQk2g35KLwVFzW?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm/sched: Replace completion with a flush
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
- <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a0e3298-aeba-4d22-1d93-08ded0f87683
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 07:24:29.1395 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VAcfXFWL1PnrXy29SFMnXw8TssI1slpfC85BUqXMJpvEJKzkx5JZzGd5jZw6ynVS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8465
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,164 +133,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD General
 
-On 17/06/2026 09:38, Philipp Stanner wrote:
-> On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
->> Due the scheduler locking design, and the inability to always lock both
->> the entity and the run-queue in the consistent order, a completion exists
->> which effectively marks the entity as in use from a call path which is not
->> able to lock it.
->>
->> When entity is selected from the run job worker, its completion is marked
->> as non-idle all until the code is sure it will not be dereferencing it any
->> more, at which point it signals it as idle, releasing the potential
->> parallel cleanup path.
->>
->> We can remove the need for this completion by implementing the identical
->> guarantee by simply flushing the run job work from the cleanup path, after
->> having removed the entity from the run queue.
->>
->> We then know that the entity is no longer reachable by the run queue
->> selection logic, so as soon as any pending work is done the cleanup can
->> safely proceed. And because we have marked the entity as stopped, we also
->> know that the entity cannot re-enter the run queue.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: amd-gfx@lists.freedesktop.org
->> Cc: intel-xe@lists.freedesktop.org
->> ---
->> "Perfection is achieved, not when there is nothing more to add, but when
->>   there is nothing left to take away." - Antoine de Saint-Exupéry
-> 
-> 
-> Hmm, alright, so the basic trick just seems to be that the workqueue
-> implementation already can ensure the synchronization which we manually
-> implemented so far through the completion.
-> 
-> 
-> It's a bit more LOC, and doesn't solve a bug. However, I kind of like
-> the idea because it removes a redundant mechanism. Would be cool to
-> hear some other opinions, though.
-> 
-> A comment below
-> 
->>
->> Lets see what Intel's CI says about this, not to mention our new AI
->> overlords...
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
->>   drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
->>   drivers/gpu/drm/scheduler/sched_main.c     |  2 --
->>   drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
->>   include/drm/gpu_scheduler.h                |  9 --------
->>   5 files changed, 38 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index c51101ec70c1..e6f7c2fbefce 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   	entity->rq = &sched_list[0]->rq;
->>   	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->>   	RB_CLEAR_NODE(&entity->rb_tree_node);
->> -	init_completion(&entity->entity_idle);
->> -
->> -	/* We start in an idle state. */
->> -	complete_all(&entity->entity_idle);
->>   
->>   	spin_lock_init(&entity->lock);
->>   	spsc_queue_init(&entity->job_queue);
->> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
->>    */
->>   void drm_sched_entity_kill(struct drm_sched_entity *entity)
->>   {
->> +	struct drm_gpu_scheduler *sched;
->>   	struct drm_sched_job *job;
->>   	struct dma_fence *prev;
->>   
->>   	spin_lock(&entity->lock);
->>   	entity->stopped = true;
->> -	drm_sched_rq_remove_entity(entity->rq, entity);
->> +	sched = drm_sched_rq_remove_entity(entity->rq, entity);
->>   	spin_unlock(&entity->lock);
->>   
->> -	/* Make sure this entity is not used by the scheduler at the moment */
->> -	wait_for_completion(&entity->entity_idle);
->> +	/*
->> +	 * Make sure this entity is not used by the scheduler at the moment.
->> +	 *
->> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
->> +	 * removed from the run-queue.
->> +	 */
->> +	if (sched)
->> +		drm_sched_flush_run_work(sched);
->>   
->> -	/* The entity is guaranteed to not be used by the scheduler */
->>   	prev = rcu_dereference_check(entity->last_scheduled, true);
->>   	dma_fence_get(prev);
->>   	while ((job = drm_sched_entity_queue_pop(entity))) {
->> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->>   		return;
->>   
->>   	spin_lock(&entity->lock);
->> +
->> +	if (entity->stopped) {
->> +		spin_unlock(&entity->lock);
->> +		return;
->> +
->> +	}
-> 
-> Seems unrelated? Why wasn't this needed semantically before?
+> -----Original Message-----
+> From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+> Sent: Monday, June 22, 2026 11:17 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas
+> <YiPeng.Chai@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley
+> <Stanley.Yang@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: fix resource leak on ACP reset timeout
+>
+> When ACP soft reset poll times out, original code returns early without
+> cleanup, leaking MFD child devices, genpd links and all ACP heap allocati=
+ons.
+>
+> Replace direct early return with goto out to force run all cleanup logic
+> regardless of reset success, preserve timeout error code for caller.
+>
+> Signed-off-by: Ce Sun <cesun102@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> index b0db0834bfff..1bb931d1d2c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> @@ -510,6 +510,7 @@ static int acp_hw_fini(struct amdgpu_ip_block
+> *ip_block)
+>       u32 val =3D 0;
+>       u32 count =3D 0;
+>       struct amdgpu_device *adev =3D ip_block->adev;
+> +     int ret =3D 0;
 
-It solidifies the guarantee drm_sched_entity_kill() expects that the 
-scheduler assigned to an entity cannot change after entity has been stopped.
+[Tao] where's return ret?
 
-There we have this sequence:
-
-   spin_lock(&entity->lock);
-   entity->stopped = true;
-   sched = drm_sched_rq_remove_entity(entity->rq, entity);
-   spin_unlock(&entity->lock);
-
-   if (sched)
-   	drm_sched_flush_run_work(sched);
-
-That is, without that check, in theory, an evil driver could race 
-drm_sched_entity_select_rq() (via drm_sched_job_arm()) and 
-drm_sched_entity_kill(). I am not sure if any driver can actually do 
-that at the moment but it felt sensible to express it in code.
-
->> +
->>   	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
->>   	rq = sched ? &sched->rq : NULL;
->>   	if (rq != entity->rq) {
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index 13ecb771d7a2..80dece3be415 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
->>   			 struct drm_sched_entity *entity);
->>   void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
->>   
->> +/**
->> + * drm_sched_flush_run_work - flush the run-job work
-> 
-> In v1, you'd probably want to document what this function typically
-> will be used for :)
-
-Well its in the scheduler _internal_ header and I am not sure what to 
-write which will add real value.
-
-"Only used to make sure a stopped entity is not in use by the scheduler 
-workers."
-
-Good enough?
-
-Regards,
-
-Tvrtko
+>
+>       /* return early if no ACP */
+>       if (!adev->acp.acp_genpd) {
+> @@ -531,7 +532,8 @@ static int acp_hw_fini(struct amdgpu_ip_block
+> *ip_block)
+>                       break;
+>               if (--count =3D=3D 0) {
+>                       dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+> -                     return -ETIMEDOUT;
+> +                     ret =3D -ETIMEDOUT;
+> +                     goto out;
+>               }
+>               udelay(100);
+>       }
+> @@ -552,7 +554,7 @@ static int acp_hw_fini(struct amdgpu_ip_block
+> *ip_block)
+>               }
+>               udelay(100);
+>       }
+> -
+> +out:
+>       device_for_each_child(adev->acp.parent, NULL,
+>                             acp_genpd_remove_device);
+>
+> --
+> 2.34.1
 
