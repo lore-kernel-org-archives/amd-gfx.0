@@ -4,85 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DF4CDB47F
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 15:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22070CDE001
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 15:53:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D187410E096;
-	Wed, 24 Jun 2026 15:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 324EA10EF9E;
+	Wed, 24 Jun 2026 15:53:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="gL1vubPV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="17ltFgkW";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7073F10E096
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 15:52:34 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-45fd464d51fso753309f8f.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 08:52:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1782316353; x=1782921153; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=F9f4nYUvDKjRFE4M/8PFMIViAjPbEFHyasU1OoAkZRI=;
- b=gL1vubPVcbVTkvwq1kxH5QjyPTPEDi8bx4MQMZCiglzWDUEA5tkN4JZKH0IGSl+NDS
- dy/fSI+djQpLJWw3mnl30uEpLPJ2cCfNJVHoEUieeMmCy4Iuzm6/Xx/C10R9fuSZ5waX
- zreTvQB8PHFkOJo0aljIv7GS0iLZTUENGCRPxs5XpSNk+mtRhXQ6ZSrS/ahAhxA1cwsg
- CLTAsBcv7sLUi/c+nezEBj0tXLNJ8AqWKsMS/lDDOZpyJCyOObV1OiGl0w7Y8q+JXCcL
- +A86E3+JFPksWnQ9hHw68RJ732yoOMHZ/z9Yw8L7O5GAdQozVnxJzf8BPeTVRiLKlbrq
- Xb9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782316353; x=1782921153;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=F9f4nYUvDKjRFE4M/8PFMIViAjPbEFHyasU1OoAkZRI=;
- b=bRygZ8Mij60xYpGPd0igFfDh7zYr4dNTqUqvSY83pInJwdoJnR8mbJHboThOMrJ1TD
- CLES9pXev54yG312NOIlFQPu4JXrxkTTgyVwnmNgEv4iI/QoTWv9ny35utwuI395E8au
- 30VNtqc4tVUPO8w55QRMBW/hr8PJbaWC5xWgGDA2IkUpps44rxpenjKwdI4X+kgqVmKk
- doyAsM4JMvvZ0jxT1/VoatBMkVAOZOhzhJUo6UPS2Oj2o91Bo5Vx1rATzheNyWqHYPom
- RrpVDo/eFuDCyICGawJrW8mVP3eRyznzasNx+/mKI2uKQNtppSBzQo+jtTDYxbd6DN3N
- Vkhw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqKb7DlPddP8r+RGwGUL5kYUtW59gLBybP5TetO6a0ijAdL3qaRJvB0F5w4YT1Ood8lOtAkNcjk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyERHYCADj1jyYF5eP+92lvcpKEbl8rij/nOJIrHuf0m0YmLh3Q
- 5ucj5PXxVj60Q65ziYfDNaYc/f7dxyBDn9Aks+1diBjCjLeirjc6rF/5eYbwV1kcolo=
-X-Gm-Gg: AfdE7cmiVGOtn2ulrjx6LJUQ0T7v2aXjNIN5p9I9fvuLfl4utxqxHJVepfkJw7hPbBp
- ou1vO0ekmy+1yOCqGh0p54HKb3sGxEWCor6hsfv8TLg9UO1WQzTyJ3qmie7bdup/mijYKec0Zru
- BrDnClnKoGZ+GFboKdcVXYY+bZrajJi9NehRMTbGawWjr+guXY2ycSLNLNnYx8yxVEAnWeyYXf9
- v+efeEXTmgQ5NBYkCLSX/ifCTrFZeQsCgUzJtrXQ0HTT7eM9DbleKCIJD0oHjs+LCHGkGsYfrD9
- Hc7oJIatraTEZmdNv0xUEipSBXCI3r73GJ0akK2KqR1wBxe55tqxXR+XRaiWDoMfftGBXWYIsU9
- DFa0KWiDIMriX218EVOxFDnhf7rPJslDlqzgAWTG9cknen92DYoJC8Ih229WPpBkj0ftEp9Q0Jc
- E3T2mSKw3BvJl9oYAV1TZeP1Dwxc8iAQL0qA==
-X-Received: by 2002:a05:6000:402b:b0:460:65bc:780f with SMTP id
- ffacd0b85a97d-46c08999604mr6788582f8f.13.1782316352633; 
- Wed, 24 Jun 2026 08:52:32 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46c225b2988sm7388172f8f.25.2026.06.24.08.52.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jun 2026 08:52:32 -0700 (PDT)
-Message-ID: <51f1d604-f1e2-436a-92cd-f218bf064316@ursulin.net>
-Date: Wed, 24 Jun 2026 16:52:31 +0100
-MIME-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010010.outbound.protection.outlook.com [52.101.56.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC6510EF96;
+ Wed, 24 Jun 2026 15:52:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v7qpBOsmzTD680+Xu2Q2MvncrgSKg8QcyVq/k4vYcxRBlZ22pNgfPWhlM9lYMKkmmk0wmOWNtB/AEmfsPZisMDTAn+YimYBWuBDDUYMXBj+9ADW4Ylp+V2RMEnE5ndE2HUlNpTpk3FvHv+2tkyl3ifrN0ZDeZmnMLil3WqBS13kUJjqbEGZ9cDcXMSQtC+0bbWSyHUai3SF7yH/s63eWzo0yS/JpnWjobBuEfm9nAhWDKlgveP8nd8XkjvusaNg5oxMq//2B44jev5rc1vnQi5GJaNycMInJqiG6cxVZU8hi5HYYxMwsOTZwdhRuf6FTJm9v3dK/MURB1JqrdNpdAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G0EdsKF06k6a/jCcGHMzn1bjX9EOJMvuw0+4DUxjRjM=;
+ b=u797wfWOx2q1Cky6IwU/gHfZl98vy6klWr4dkQ7ORY7XiR9wdRKSRBI4lM+i98RtFzufLGtCEhaS6ydX8ArVSH1g9WJjmDj8Lu2U6D+DU3kqq2cFwO7EPajc8YO9Cu7aGDr5920ob+S73Ac6gZkSPQs1eFIIAvX7/yGjYFqilG/N2Sehe3PJTirQ8qAvGOf994WqwyWaJLXuicZ/An7OG0dvA6O5g/mpKe9QSu+glHCFg0uZPS+vIwh2hkKUiK+T5W2Spzzm79vZbWON+oqLwSzD4DDh1RVPRHGkMlI1NzZJ9aHZrt9whdphxACGUAG/Mdyv3ZxyrrIs0RsEgxI1yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G0EdsKF06k6a/jCcGHMzn1bjX9EOJMvuw0+4DUxjRjM=;
+ b=17ltFgkWhXj+WbyyzRAoMTFSZZE3pDdlUjMA2+4GLwszbiZt65UcpDWEkAOTwmZwbqaR+u5eScz+PW5IjXrKf4iUtzYpwt4SPSqA00KNv95CG3bD7fYAZWNTgYjQk5NLR1Pj1NGPi8jylauZAYXIwE04yh+8XFccAlOckvvbnUo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB7780.namprd12.prod.outlook.com (2603:10b6:8:152::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Wed, 24 Jun
+ 2026 15:52:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 15:52:52 +0000
+Message-ID: <9b96d6a5-7c3c-4bd5-8785-76c9642bc933@amd.com>
+Date: Wed, 24 Jun 2026 17:52:47 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] drm/amdgpu: ACK the retry CAM after VM update finishes
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <20260529103059.21470-1-timur.kristof@gmail.com>
- <2746166.fDdHjke4Dd@timur-max>
- <50b62ba1-c709-4f9e-818d-956bc431c89b@ursulin.net>
- <2343144.t9SDvczpPo@timur-max>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <2343144.t9SDvczpPo@timur-max>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [RFC PATCH] drm/amd/display: Pin native scanout to VRAM on
+ large-carveout APUs
+To: Harry Wentland <harry.wentland@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>, Melissa Wen
+ <mwen@igalia.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, natalie.vock@gmx.de
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
+References: <20260616071037.26718-1-matthew.schwartz@linux.dev>
+ <334d4642-a7ce-4d04-ab14-6b95653e6f86@amd.com>
+ <09a37c38-3f99-40bf-9a87-f88298ce349a@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <09a37c38-3f99-40bf-9a87-f88298ce349a@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0103.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cb::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB7780:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfa8a2f4-18f1-490d-2d61-08ded208a62d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: iqMfZU8CD5lac+6+03VU1ukHa/t/r68e4BDchJi7bFCz0uHGRSlwuPck+CMw9ucnjfan+eNUpbLwocrRGa55Bm5H7vCm49Meuhcg1SabGteID+wQHA0Ds2V7Ls51FzLmGTG/KUGDeOdqFPJIFU24LvT+icg6bHaxnfu+Ia6iB0BT82Y0RzaHSlEmMWC952MwWL2PKfDqI/WFl3Znb1yPaWSNMHAm0TT4RsKtscrZhwrOQ6n3jOGl23QSdM96uPCndmSs1Aw58/4KBdaYfRWbZZ0Pv4zwRXxJhiQrsy0RY3pvkCTrIeb+vmrerS83uLEQLWuuJ8PFcaK10UD/zGTilvAcVuYKksEaKF0YKqzlnKjsu/askd5HiBKJ9dqqZJTebMFIqWAlFzUQ8BqhgdcofGgXunWvumu61oRPvQQFaOROXAlKTFsdnwAtcM2FoskmepkwQ13xFdy+3Rx+Fvb9hNHLuNsTHlPyQaerJCmDsJHKgqr8Z+Wqkld5nxIp6At9sUZ1ZCjb7mp4NLRjI93xadfTZt1r0sgw1aysL6/rB7t4Da3YSYF546p87cuCj4pBgHOhfjd1TUUdzC/haUHCLXtoahf+PIcvBw0M+tb4EXL5adwFeTfN3j488rcJ+uZv6watA6SAStehDCF+fUj+B4eTvXUH6o8IiiLdMtVg82E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alM5SVE2L3JpQStmdEs0WnJHSEUvbTg3aWRqVExCVm5WRG5aSGhKd25RbUtS?=
+ =?utf-8?B?ZEJHRzk5dzlXT1ZQV29WMC9NUk9iMDhBMzBqNUhaTGh6dStqSldkQzB1Vjcr?=
+ =?utf-8?B?V2xJR1BoRGppQmFkNlFuQmhJVzdxMHJrNTFhQXpiRy9PRmkzdm5hWlg0eUNs?=
+ =?utf-8?B?OGRNdlUvVXdSdjZwYnlMK2NKZkMvRzJ5aENxclFGMnB2ODJpRjAwUGt6NjBY?=
+ =?utf-8?B?bFI5SW53SlFMMFUvTXRSNDlUSW8xUmVHaWRUR1hGbUxmNmxrN0c1dmRLWXZW?=
+ =?utf-8?B?eTM1U1pKTnZvaXc0bkE4dkVEUGFkNEllL2xFWjNLMDJiUlVtQ3hHb1g4NGZa?=
+ =?utf-8?B?YUpreHNHYW9PYUhwYmxQYnBOUWxENEVvaHhVTVJkRFJIZXlYeDRnUkZSVmoy?=
+ =?utf-8?B?V0xHSVIxSUFrRVA4Y2pvMlN6cHFOQ2cwVEc1WU5mQ0QyYS8xTStXUkZXZWlJ?=
+ =?utf-8?B?azVmcWN2OGlDVTEvdkZZR1FXRVdnSytNL2NaV21VOG5Wb3MyR3dHbWtiY2hL?=
+ =?utf-8?B?Z2xlOUw3cC8vQnpWTzFSMHlZRHd3MzV1WDBmV2R3U1N3dHNscFd3U3F6WEEy?=
+ =?utf-8?B?alVoQ2N5RUZkUUluNldnSG1SNXVBa0J3K0M2RXg5aFpOWS9icmRETXYweFNN?=
+ =?utf-8?B?R0k2blVRaDBMeVhUOHd4QzZlVEJOWFlCTEFkSi9qRzYvekhCQ3hWcmhRNSsv?=
+ =?utf-8?B?TkhhVkhtZ01ZREtHUVRFNkMwWTFGaDdFMDRQK09jakhlOE5ydk5VdFR4bGVU?=
+ =?utf-8?B?R2xEVVFjY01KYzBZa0VEcENYaFFoakc4ZW10UXhDWTBvSEthR0RhbklmWVQz?=
+ =?utf-8?B?NzRqK25pZENzT1hoSEFWS05yQ0k0YnlZU0xDMXZHV2lyNTlDaHRtTWl5REpP?=
+ =?utf-8?B?NTAzL29BSDdEQW80dUhPK3RxYnpkTCtMRk0xdUg1V1pjdmZWUWZkeHc4Q0tu?=
+ =?utf-8?B?Qzh5WFF3OUw4SE1ibXpidE1aTkFuMENiMnVWUmlPYmhPMzN4Ri8zVkdOZll2?=
+ =?utf-8?B?R0JXc1NoRTdyZHlTQkZNdTNNYUhuVGZBdENnQUVxdEJXZXhZanVIKzZ4SGxj?=
+ =?utf-8?B?YUJjbmRlSTN2VHg2MHB4RHNQLzh5aXpkOVlkQ2dqbTl1VmdaODQ1MTFiNndM?=
+ =?utf-8?B?cWRLK3BrTSs1WFlDa1Yzb3Z1R3VVRUdSMU1LVk94TzBmR2RCbkttZmIyV1dH?=
+ =?utf-8?B?b2o2MHBtVENDSDdxalBoL1dTYnVzMlBOSkRMTm9Ja2ZUU3kzSmQwRU1DZi9L?=
+ =?utf-8?B?T3U0b0xMeFdnV0UvZ250SWtIVmxZYXFYV3JBZW5JRXZISVdiYmQ4d00rZVhi?=
+ =?utf-8?B?TWFTeFY2a2NzRHcrcGt5cWZUNms3dEZSZlBoQkpvOUFvYVU2MUt5TXF4MjJz?=
+ =?utf-8?B?MnkyaWN4MURNV1Zkd1FYOGJ5eE9nalloaFNWbGdyRmZWendCR2M3NS9VUkNZ?=
+ =?utf-8?B?MWdtOXZhMDhUWFdraWZkQnRpekV0WGUzaXUvQ0xGNlpZZldsL2tIWG5zajd1?=
+ =?utf-8?B?cnJrZEQyWGlJa3JFbnJFNUo0YUxkV1FWQjU3UzN0akpkZk1vNEJoV3h6YWJh?=
+ =?utf-8?B?R0tBTmdobU42NnF3MkUrbzFGQnpzamtyL2FpKzhGT0xnamxPcjRwYkFEcXA4?=
+ =?utf-8?B?L3VsemR6MEdJRUUvZXd2ZkpvczRLVEU5VWM4cy81MXI4NGpaSWF2WGRMMGwx?=
+ =?utf-8?B?VjYzV2ZLcXE4YUN2ZThwcjRvRUJaWHdOd1B4akpJcFJrSWVOSWMvUGVEajV6?=
+ =?utf-8?B?S0hvcFl3QVdlRTF2eDNLeHg3Q2NubktxRUpHc04zaUgwUitka2d4dFdiVzVQ?=
+ =?utf-8?B?YkVQK0MrUTI2a0RBVm0wdE1Bdm1vNTdEbkxaaGZPdEVpd29rRUlCZ3ZNdVdn?=
+ =?utf-8?B?OHlrZ243VEZvUUlXd3FBUGRiOUIwSSswMkFEL2h1ZmJISWJWTDZrYVRoZGxY?=
+ =?utf-8?B?andqTGtmVElKdkVZeDFabHhiR2VCUlRuVkpjbnp5ZUlmdGZUUnBmM0hBRnhU?=
+ =?utf-8?B?NTJ4dHk5S0NQVWNvRDVmTGw0b2lpbEtGempZMEFySm95bXFjc0wyZzJoMnBz?=
+ =?utf-8?B?MzBXUEN1ZUY4Z3BGUThSbWhldVFNcEQvZ0kxRjErQWVUL0Yxb2FuRzhZTlAr?=
+ =?utf-8?B?UHNpdkhGSU9aaUlmT29lS09jT2ExZVNsU2FmYU1JeTQ1STYvdkRKL202N1NB?=
+ =?utf-8?B?c2pBSlhSVDU5ZUxzVUIxN1l4RXdHS0p5VzJUU3VrYVh6aDhKM2FVaklQZGxZ?=
+ =?utf-8?B?aFVFQnhuTVliUUZKZk1FMXpsR0dtSU1WT0svcXlDbGdXM3ZqNFFMczlpK3VV?=
+ =?utf-8?Q?j5fFYxIx8YC7P2PqYO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfa8a2f4-18f1-490d-2d61-08ded208a62d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 15:52:52.4644 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qfgvAnCMf2N+aJioFWc0KF8dZe+YOjj7MwDTOOkyGBkprteSYuLr+/oZJjGip9GI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7780
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,320 +141,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 24/06/2026 16:42, Timur Kristóf wrote:
-> On 2026. június 24., szerda 17:14:59 közép-európai nyári idő Tvrtko Ursulin
-> wrote:
->> On 24/06/2026 15:52, Timur Kristóf wrote:
->>> On 2026. június 24., szerda 16:31:20 közép-európai nyári idő Tvrtko
->>> Ursulin
->>>
->>> wrote:
->>>> On 29/05/2026 11:30, Timur Kristóf wrote:
->>>>> Add a fence callback to the VM update and ACK the retry CAM
->>>>> after the VM update is finished. Previously, we would ACK it
->>>>> immediately after calling amdgpu_vm_handle_fault() which
->>>>> caused a race condition that was likely to trigger the same
->>>>> interrupt again, causing the same fault to be handled
->>>>> multiple times.
->>>>>
->>>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->>>>> ---
->>>>>
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     | 28
->>>>>     +++++++++++++++++++--
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  8 ++++++
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c |  2 +-
->>>>>     4 files changed, 36 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
->>>>> 26aea960e2759..21c8d87477448 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> @@ -545,6 +545,16 @@ void amdgpu_gmc_filter_faults_remove(struct
->>>>> amdgpu_device *adev, uint64_t addr,>
->>>>>
->>>>>     	} while (fault->timestamp < tmp);
->>>>>     
->>>>>     }
->>>>>
->>>>> +static void amdgpu_gmc_retry_fault_handled(struct dma_fence *fence,
->>>>> +					   struct dma_fence_cb
->>>
->>> *cb)
->>>
->>>>> +{
->>>>> +	struct amdgpu_fence_cb *afc = container_of(cb, struct
->>>
->>> amdgpu_fence_cb,
->>>
->>>>> cb); +	struct amdgpu_device *adev = afc->adev;
->>>>> +
->>>>> +	/* CAM index is the array index of the current callback struct */
->>>>> +	adev->irq.ih_funcs->retry_cam_ack(adev, afc - &adev-
->>>>
->>>> gmc.retry_cb[0]);
->>>>
->>>> Is the "afc - &adev->gmc.retry_cb[0]" part correct? It will be the index
->>>> of the array element, while ->retry_cam_ack() expects the content of
->>>> that element, no?
->>>
->>> Like the comment says, the CAM index is the array index.
->>> We just need the CAM index in order to tell the CAM to ACK the current
->>> entry. The contents of the array are just there to make
->>> dma_fence_add_callback() work with this callback function.
+On 6/24/26 17:30, Harry Wentland wrote:
+> On 2026-06-16 03:31, Christian König wrote:
+>> On 6/16/26 09:10, Matthew Schwartz wrote:
+>>> Native scanout buffers on APUs are pinned with the VRAM|GTT domain, so
+>>> under VRAM carveout pressure a swapchain can end up split across VRAM and
+>>> GTT. The scanout buffer's memory type then changes from one flip to the
+>>> next, and amdgpu_dm_crtc_mem_type_changed() rejects an async page flip
+>>> across the change. The result is repeated async page flip failures,
+>>> observed as choppy updates under carveout pressure, until the buffers
+>>> reconverge to a single domain.
 >>
->> Ah you are right, I got confused. But it is also a bit bad, and I mean
->> not just the array sizing dilema from lower in the email. But since the
->> cam_index comes from the hardware and then below we blindly do:
+>> That's intentional behavior.
 >>
->> 	if (dma_fence_add_callback(fence, &adev-
->> gmc.retry_cb[cam_index].cb,
->> amdgpu_gmc_retry_fault_handled))
->>
->> Should hardware manage to send two faults with the same cam_index when
->> the previous one hasn't been handled
+>>> Pin native scanout buffers in VRAM only so the swapchain stays in one
+>>> memory domain. Restrict this to APUs whose carveout is larger than
 > 
-> The retry CAM exists to filter page fault interrupts and prevent sending
-> multiple interrupts for the same fault. It won't send and interrupt with the
-> same cam_index until we ACK the previous one.
+> Above you mention that under VRAM pressure a swapchain can end up split
+> across VRAM and GTT. Wouldn't restricting the swapchain to VRAM now mean
+> that in those cases you fail to allocate the swapchain entirely?
 
-Okay, but at least kernel needs to be defensive and check to avoid a crash.
+Yes, exactly that.
 
->> that is the very same callback is
->> already installed and unsignaled (expect the unexpected), we have just
->> upgraded the hardware bug to a kernel crash.
->>
->> If I now understand it right, you want to "remember" the cam_index
->> received so callback knows what to handle. Hmm.. Allocating memory does
->> seem allowed if I follow correctly that amdgpu_vm_handle_fault() is
->> calling dma_resv_reserve_fences(). So unless I am missing something
->> perhaps kmalloc of struct amdgpu_fence_cb would be fine after all?
-> 
-> It may be fine, but I'd very much prefer to avoid it if possible.
+My educated guess is that the display server then falls back to using a copy instead of a flip and that helps saving memory somehow (e.g. less scanout buffers alocated concurrently).
 
-One option is to not free the callback struct upon handling it, but 
-stash it somewhere so the following interrupt can simply take it. You 
-can coordinate using cmpxchg for example.
-
-So on the interrupt arriving the flow would be:
-
-if "grab previously stashed unused callback via cmpxchg"
-else
-	"allocate a new one"
-
-On signalling:
-
-cmpxchg to store the executed callback into the slot and free what was 
-in the slot, if anything.
-
-Slot possibly goes into struct gmc.
-
-If you want to optimise for multiple parallel cam indices you would need 
-multiple slots. Maybe hash the index read from hardware to limit the 
-number of slots placeholds to less than 1024 that you mentioned. Depends 
-how many parallel interrupts you want to handle on the fast path (no 
-allocations).
-
-And free the used slot(s) on driver exit of course.
+Would it somehow be possible to get DC to dynamically switch between VRAM and GTT?
 
 Regards,
+Christian
 
-Tvrtko
-
->> And
->> if so you should also probably rename it to a less generic name along
->> the lines of amgpud_retry_fault_cb or so. Workable?
 > 
-> I'm OK to rename it for sure.
+> Harry
 > 
-> Timur
-> 
+>>> AMDGPU_SG_THRESHOLD, so small-carveout parts keep their existing VRAM|GTT
+>>> placement, and fall back to GTT when the buffer does not fit in VRAM, so
+>>> the flip still succeeds and the swapchain stays in one domain. Imported
+>>> buffers may only be pinnable in GTT, so leave those on the default
+>>> domains.
 >>
->>>>> +}
->>>>> +
->>>>>
->>>>>     int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
->>>>>     
->>>>>     				  struct amdgpu_iv_entry *entry,
->>>>>     				  u64 addr,
->>>>>
->>>>> @@ -552,6 +562,7 @@ int amdgpu_gmc_handle_retry_fault(struct
->>>>> amdgpu_device
->>>>> *adev,>
->>>>>
->>>>>     				  u32 node_id,
->>>>>     				  bool write_fault)
->>>>>     
->>>>>     {
->>>>>
->>>>> +	struct dma_fence *fence = NULL;
->>>>>
->>>>>     	int ret;
->>>>>     	
->>>>>     	if (adev->irq.retry_cam_enabled) {
->>>>>
->>>>> @@ -564,8 +575,21 @@ int amdgpu_gmc_handle_retry_fault(struct
->>>>> amdgpu_device *adev,>
->>>>>
->>>>>     		}
->>>>>     		
->>>>>     		ret = amdgpu_vm_handle_fault(adev, entry->pasid,
+>> The display guys need to take a closer look at that, but it sounds like what we used to have before and that caused problems.
+>>
+>> We somehow need to change the DC stuff to allow switching between VRAM and GTT frame buffers to fully fix this.
+>>
+>> Regards,
+>> Christian.
+>>
 >>>
->>> entry->vmid, node_id,
+>>> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+>>> ---
+>>> Hi,
 >>>
->>>>> -					     addr, entry-
->>>>
->>>> timestamp, write_fault, NULL);
->>>>
->>>>> -		adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
->>>>> +					     addr, entry-
->>>>
->>>> timestamp, write_fault, &fence);
->>>>
->>>>> +
->>>>> +		/* If the update is already done, ACK now, otherwise
+>>> This came up while testing my kernel patch to fix mem_type detection for
+>>> async flips here: https://lore.kernel.org/amd-gfx/20260611154438.571685-1-matthew.schwartz@linux.dev/
 >>>
->>> when it's done. */
+>>> I found a new issue where splitting a swapchain between VRAM and GTT
+>>> causes a noticeable stutter in gameplay if gamescope is using direct
+>>> scanout and tearing is enabled while a game is already running.
 >>>
->>>>> +		if (fence) {
->>>>> +			adev->gmc.retry_cb[cam_index].adev = adev;
->>>>
->>>> Why is 16 retry_cb elements enough? I see in the code cam_index extraced
->>>> from the IV entry with a mask such as 0x3ff.
+>>> Once a swapchain is split across the VRAM carveout and GTT, the scanout
+>>> buffer's mem_type changes from one flip to the next, so
+>>> amdgpu_dm_crtc_mem_type_changed() rejects the async flip. Under direct
+>>> scanout with tearing that rejection recurs every time the displayed buffer
+>>> crosses domains, which is what surfaces as the choppiness. 
 >>>
->>> I think this came up in a conversation after I had already submitted the
->>> patch. The maximum amount of CAM entries are specified by the
->>> IH_RETRY_INT_CAM_CNTL.CAM_SIZE field.  The content of the field will need
->>> to be interpreted as something like this:
->>> ((CAM_SIZE + 1) * 64) = (15 + 1) * 64 = 1024
+>>> With this patch, I can enable tearing on top of an already-disabled frame
+>>> limit mid-game and no longer reproduce the choppiness.
 >>>
->>> It is a good question whether we actually want to statically allocate that
->>> many items. We should very much avoid doing dynamic allocation in the page
->>> fault handler. I'm open to suggestions on how to move forward with this.
+>>> amdgpu_gem_info confirms the swapchain converges to a single domain
+>>> instead of splitting across VRAM and GTT.
 >>>
->>>>> +
->>>>> +			if (dma_fence_add_callback(fence, &adev-
->>>>
->>>> gmc.retry_cb[cam_index].cb,
->>>>
->>>>> +
+>>> Before:
+>>> 0x00000f81:      3981312 byte GTT exported as ino:275 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC     write fence:drm_sched gfx_0.0.0 seq 88248 signalled
+>>> 0x00000f82:      3981312 byte GTT exported as ino:276 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC     write fence:drm_sched gfx_0.0.0 seq 88224 signalled
+>>> 0x00000f83:      3981312 byte VRAM VISIBLE pin count 1 exported as ino:277 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC        write fence:drm_sched gfx_0.0.0 seq 88236 signalled
 >>>
->>> amdgpu_gmc_retry_fault_handled))
+>>> After:
+>>> 0x00000f82:      3981312 byte VRAM VISIBLE pin count 1 exported as ino:548 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC        write fence:drm_sched gfx_0.0.0 seq 822258 signalled
+>>> 0x00000f83:      3981312 byte VRAM VISIBLE exported as ino:549 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC    write fence:drm_sched gfx_0.0.0 seq 822255 signalled
+>>> 0x00000f84:      3981312 byte VRAM VISIBLE exported as ino:550 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC    write fence:drm_sched gfx_0.0.0 seq 822261 signalled
 >>>
->>>>> +				adev->irq.ih_funcs-
->>>>
->>>> retry_cam_ack(adev, cam_index);
->>>>
->>>>> +
->>>>> +			dma_fence_put(fence);
->>>>> +		} else {
->>>>> +			adev->irq.ih_funcs->retry_cam_ack(adev,
+>>> Does this seem like the correct approach to take for fixing the observed
+>>> issue? I wanted to start with an RFC to make sure I didn't overlook
+>>> anything obvious or miss any better methods of fixing this.
 >>>
->>> cam_index);
+>>> Thanks,
+>>> Matt
+>>> ---
+>>>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 29 +++++++++++++++++--
+>>>  1 file changed, 26 insertions(+), 3 deletions(-)
 >>>
->>>>> +		}
->>>>> +
->>>>>
->>>>>     		if (ret)
->>>>>     		
->>>>>     			return 1;
->>>>>     	
->>>>>     	} else {
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h index
->>>>> 77eb153802845..3bfb06e011a86 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>>>> @@ -27,6 +27,7 @@
->>>>>
->>>>>     #define __AMDGPU_GMC_H__
->>>>>     
->>>>>     #include <linux/types.h>
->>>>>
->>>>> +#include <linux/dma-fence.h>
->>>>>
->>>>>     #include "amdgpu_irq.h"
->>>>>     #include "amdgpu_xgmi.h"
->>>>>
->>>>> @@ -214,6 +215,11 @@ struct amdgpu_gmc_memrange {
->>>>>
->>>>>     	int nid_mask;
->>>>>     
->>>>>     };
->>>>>
->>>>> +struct amdgpu_fence_cb {
->>>>> +	struct amdgpu_device *adev;
->>>>> +	struct dma_fence_cb cb;
->>>>> +};
->>>>> +
->>>>>
->>>>>     enum amdgpu_gart_placement {
->>>>>     
->>>>>     	AMDGPU_GART_PLACEMENT_BEST_FIT = 0,
->>>>>     	AMDGPU_GART_PLACEMENT_HIGH,
->>>>>
->>>>> @@ -305,6 +311,8 @@ struct amdgpu_gmc {
->>>>>
->>>>>     	} fault_hash[AMDGPU_GMC_FAULT_HASH_SIZE];
->>>>>     	uint64_t		last_fault:AMDGPU_GMC_FAULT_RING_ORDER;
->>>>>
->>>>> +	struct amdgpu_fence_cb retry_cb[16];
->>>>> +
->>>>>
->>>>>     	bool tmz_enabled;
->>>>>     	bool is_app_apu;
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c index
->>>>> 8c3ba7213eb22..f5e9b97e92a8c 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> @@ -3035,7 +3035,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device
->>>>> *adev, u32 pasid,>
->>>>>
->>>>>     	r = amdgpu_vm_update_pdes(adev, vm, true);
->>>>>
->>>>> -	*fence = vm->last_update;
->>>>> +	*fence = dma_fence_get(vm->last_update);
->>>>
->>>> Ah! But passing over since you said you are dropping that patch anyway.
->>>
->>> That line should have gone to the previous patch and was added to this one
->>> by mistake.
->>>
->>>>>     error_unlock:
->>>>>     	amdgpu_bo_unreserve(root);
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c index
->>>>> 2eb64df6daa94..6e28f0e435bf5 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
->>>>> @@ -132,7 +132,7 @@ static int amdgpu_vm_sdma_commit(struct
->>>>> amdgpu_vm_update_params *p,>
->>>>>
->>>>>     				   DMA_RESV_USAGE_BOOKKEEP);
->>>>>     	
->>>>>     	}
->>>>>
->>>>> -	if (fence && !p->immediate) {
->>>>> +	if (fence) {
->>>>
->>>> Is this deliberate and if so what it is about? Commit message should
->>>> explain it as well.
->>>
->>> The reason it is changed is because previously it wouldn't return a fence
->>> in immediate mode. This line also should have gone to the previous patch
->>> and was added to this one by mistake.
->>>
->>> Thanks & best regards,
->>> Timur
-> 
-> 
-> 
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>> index 23a9faa2ea89..b99f938e58ec 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>> @@ -932,6 +932,7 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>>>  	struct amdgpu_bo *rbo;
+>>>  	struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
+>>>  	uint32_t domain;
+>>> +	bool pin_vram_only;
+>>>  	int r;
+>>>  
+>>>  	if (!new_state->fb) {
+>>> @@ -958,13 +959,35 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>>>  	if (r)
+>>>  		goto error_unlock;
+>>>  
+>>> -	if (plane->type != DRM_PLANE_TYPE_CURSOR)
+>>> -		domain = amdgpu_display_supported_domains(adev, rbo->flags);
+>>> -	else
+>>> +	/*
+>>> +	 * Pin native scanout in VRAM on APUs so a swapchain stays in one
+>>> +	 * memory domain. A VRAM/GTT split changes its mem_type between flips
+>>> +	 * and amdgpu_dm_crtc_mem_type_changed() rejects the async flip. Skip
+>>> +	 * small carveouts that may not fit, and imported buffers.
+>>> +	 */
+>>> +	pin_vram_only = plane->type != DRM_PLANE_TYPE_CURSOR &&
+>>> +			(adev->flags & AMD_IS_APU) &&
+>>> +			!rbo->tbo.base.import_attach &&
+>>> +			adev->gmc.real_vram_size > AMDGPU_SG_THRESHOLD;
+>>> +
+>>> +	if (plane->type == DRM_PLANE_TYPE_CURSOR || pin_vram_only)
+>>>  		domain = AMDGPU_GEM_DOMAIN_VRAM;
+>>> +	else
+>>> +		domain = amdgpu_display_supported_domains(adev, rbo->flags);
+>>>  
+>>>  	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
+>>>  	r = amdgpu_bo_pin(rbo, domain);
+>>> +	if (r == -ENOMEM && pin_vram_only) {
+>>> +		/*
+>>> +		 * VRAM could not fit the buffer. Fall back to GTT where
+>>> +		 * allowed so the swapchain stays in one domain.
+>>> +		 */
+>>> +		domain = amdgpu_display_supported_domains(adev, rbo->flags);
+>>> +		if (domain & AMDGPU_GEM_DOMAIN_GTT) {
+>>> +			domain = AMDGPU_GEM_DOMAIN_GTT;
+>>> +			r = amdgpu_bo_pin(rbo, domain);
+>>> +		}
+>>> +	}
+>>>  	if (unlikely(r != 0)) {
+>>>  		if (r != -ERESTARTSYS)
+>>>  			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+>>
 > 
 
