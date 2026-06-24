@@ -4,147 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D695BCDE002
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 17:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71BF5CDB47F
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 17:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC6010EFE3;
-	Wed, 24 Jun 2026 17:15:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8DA10E0D4;
+	Wed, 24 Jun 2026 17:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kWG68TTm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KhmgHG6a";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012015.outbound.protection.outlook.com [52.101.48.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7BC610E0BE;
- Wed, 24 Jun 2026 17:15:56 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012028.outbound.protection.outlook.com
+ [40.107.200.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4915610E0D1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 17:33:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nSCxeYUA96U4R39kFzqtydq8kM3rWx1GYLOV8nSWSWmlfHuf2uuNiYPp9MFwUUmhAJBrZIzVR3rkhfMzIG2y5zhAyU6D+vSTHWznnwWjb4+on8Cngieoxp0Ksll5jzArWS528bwf1B8Rsi3U3EbLBPduOsTDiwYu7k+yz7S9VhDBgH0g2WGPRFpep23sW4pDl8gu1xbWx7zcRYz5adbE4rUUixqCS8roWftwwZQZ59s9j/tkhrgikhQ+ZecW8/cPbQI66VcYr6P0qmOxtP8mRBtuilfhxxenYmIgnp74YDWK4AtarO/pvG5YYi92oh1fnulrqJ3yarpSIQJjpBNIUA==
+ b=tn91FbvrubnqmMxQEydnuLvCKOOOX3Wk5LVJM06fXpA3q5EEL41uoBggyxTe4lXldOoiZ+40Hg21nEXO/8Kduo9ya+67ToMl3eUiY2I1CEFImCF+/Z/8+F+02M9rneQRo4M96QLvsVVOVL3wz5oeDBwmqBVtu1ioSM02wrQE5VDaCtilWaM7xRkFeGDy428PXHrDGOSVckIyLaqUxbHkcWvJNkaKLGuq6qfLPkbYfiUOMZ4KPgAVubkSngquepLHrUTzNQikrjcmdgFqw0tqs+KAhUzvu0i0ybanAI4YzI0kZOPZspA9ny83JUo276QCBBIEuTveEi6Q6/0vfhv/4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DSIqwCOmKvuJgP+W+1Ip5bdDln++co+nhjJC4ATyz34=;
- b=Zx2Byzik0swi8PbBrG3JwQIK1TLcdiAUCFWlJdJ/UaZ7eGSPhmDR3n/GQT5pxDZYirUWPqe4eZm9ggQqlYGNj0N73wp2D7VuyoGYwTGNQ6M7xpQo7ORwrTqrfvwOcsjeqHiAzHMRuGMCps/K/Zbi0cfNiN6bnLba4mqy/6W9rfgBMzikmfOMPGwarV+SWU5zPlw6U5pujioJY4/8FiRkJeKqbZYSu0xzAo//2YAQ68/k95LZpRe39L6aGEoifJOUc8pvPCRgNt2M8C2GFDeeXunCdVMlpC10gfiNymFr9N0C/pdyGhpY1GkbJD8/KN/qg9G7vjhHalQhOqYkDwqbzg==
+ bh=CqKkO857d3KD68T6zORa1r4vD2ZqGxMZFPGVoETaN9w=;
+ b=Rk+gHzKKigtQEamvbYIqsdv6V8tw6H6O6oQn0uHRIRyHkRUWmLIQBWJxJxMasM/bfFq4GRbcJp320yh2eUXPniua8RTw36qtG1emRUy3XhXxFRSsF30bKviasJJR5tbAhC7FnANLzSrM9Y5ZFvypmsfU1HBUhEXw5+rQp4RZHNljC/E1VywMBX7J0OViuqGxpIkWc0RNGl0pbRZA+i3Fkca3v0cw2dHgYXc/ZON8qA9BbpTUu0EgPlh5W27RWsdumDCVS9JM55wFiCa8KCuQLcRJHlC5Uzl4t408EcB8r2Bqfh5JNMyshiTGSFHNngrdIhbJU1fkkiW3N3lmCzIWyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DSIqwCOmKvuJgP+W+1Ip5bdDln++co+nhjJC4ATyz34=;
- b=kWG68TTmKrmfX8gm87FD60+Zreg8p8oy5zLpd+O9fDrst3ycM2Ct918Au47ZIPkgnE/i/JLMve40LI87d+vyR2nCiOMEZ4POppwxOn3w8pF4zljyuLmFB3SGs6k0W9sP7LVmFzRYwo2ZHwcxlHNNIyyXd0YF5Qf+0yxXM/QhNZA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Wed, 24 Jun
- 2026 17:15:49 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
- 17:15:49 +0000
-Message-ID: <cbe3b560-bd25-441e-ba52-32c917880102@amd.com>
-Date: Wed, 24 Jun 2026 13:15:38 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 01/28] drm/amd/display: Remove unnecessary
- SIGNAL_TYPE_HDMI_TYPE_A check
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Daniel Stone <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org,
- Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
- <20260609-color-format-v17-1-35739b5782cc@collabora.com>
+ bh=CqKkO857d3KD68T6zORa1r4vD2ZqGxMZFPGVoETaN9w=;
+ b=KhmgHG6aASjDYJAFqXZ7kHndP12H5QK3MhXVpp0o8TuyuWRvhZcZRSWEi1Bu1QUt6PrAyfQDfI/881NVHwPvskbEVcZ2AUEPy2tcWULBwe0Q2/I09yJdYrr2FHSK420SzX79MfEiaRcdIrgWlfgvXahAwTJXj45XN4Zn1mTWq4w=
+Received: from MN2PR12MB2863.namprd12.prod.outlook.com (2603:10b6:208:103::12)
+ by DM6PR12MB4420.namprd12.prod.outlook.com (2603:10b6:5:2a7::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Wed, 24 Jun
+ 2026 17:33:14 +0000
+Received: from MN2PR12MB2863.namprd12.prod.outlook.com
+ ([fe80::f402:b1b8:c6bd:24b2]) by MN2PR12MB2863.namprd12.prod.outlook.com
+ ([fe80::f402:b1b8:c6bd:24b2%5]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 17:33:13 +0000
+From: "Soltani, Shahyan" <Shahyan.Soltani@amd.com>
+To: "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH v3 4/8] drm/amdgpu: move struct amdgpu_mqd and helpers
+ into header file
+Thread-Topic: [PATCH v3 4/8] drm/amdgpu: move struct amdgpu_mqd and helpers
+ into header file
+Thread-Index: AQHdAoFvQ1Y/xVIBpUKViJZtWZafL7ZL2XcAgAHUGgCAAAMtAIAARQ08
+Date: Wed, 24 Jun 2026 17:33:13 +0000
+Message-ID: <MN2PR12MB2863D13DB0659F43F1BCD689F5ED2@MN2PR12MB2863.namprd12.prod.outlook.com>
+References: <20260622195729.181216-1-shahyan.soltani@amd.com>
+ <20260622195729.181216-5-shahyan.soltani@amd.com>
+ <8f135ee0-7d1d-4af2-aa89-36fb2265a66d@amd.com>
+ <aa6d3b80-fff5-4cb3-a613-c67804edcc5f@amd.com>
+ <efdcaa38-edcd-4ff4-b9ae-7b9fa28574c7@amd.com>
+In-Reply-To: <efdcaa38-edcd-4ff4-b9ae-7b9fa28574c7@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260609-color-format-v17-1-35739b5782cc@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0008.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::23) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|MN2PR12MB4223:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5755d2fd-7d55-4b6c-b7c1-08ded2143c99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|23010399003|366016|376014|3023799007|4143699003|56012099006|22082099003|18002099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: dtqJ4pYnfN3v7nM+BblRoj8FVRKvrfwNCemZena2/F6nC+M4aBiGWgXA86SfCGt0iRVdl2oIGzyUTqL4CeEvpiltIHl4LO/vMi3bC/rP+HXuCfry5AdA+SMR+kWuYnwY4nPFtikxypSRSS9vQetslua4wL9uXK00aH0qeiISB1QtjktY+1mUSdwFmt9UIxN5s0xuqivs8RiCh4UjOC457X3N7EL0JPTElryvG08pxNW9XtmeKoqsOGq8+vtkHyPu1EslVr9YBYejrh1NPTk8ZA72cFyBSrzldMK7NhfV0Bmpl7cmpEL+lFVAZKUJoJvByMnZ0tn5M4ywZ0o2AuLUvSv4hBMEGlr/tVJul3VbqUnYtoeKGh+TE9WeEv6y62SKBZDkTXjvxgHPEXrsTni3bcai2KhO3jsXwyP3OxzDBODIPutkFiWxiHkyFAUl3POBDOmNOnm/n7mQXEIo1Lac+6v1LDXVSa4l3lL3wtEUSIn3yiG28TiibD8y5lok2z5zXu9Nu7N7iKja+4oZM0IGzDFBaeF+OJHCDy+NfxmPCZ4Mn2KKsAXlbjLoQXj4alWtrD+a1H3EEzTokH2Dm8j46VNyHgLTeicd6icbCtCH/bSqNti16tVqwAYyycWiYwf8J6J8bgsaKO2Herygp5+eDF5szRu5w5xToRZ52e8uhh+LO+/phd2g8w9UMmMWYU2K0nHEgTytHreRbdF9v8sXvw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(23010399003)(366016)(376014)(3023799007)(4143699003)(56012099006)(22082099003)(18002099003)(11063799006)(921020);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-24T17:33:13.215Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR12MB2863:EE_|DM6PR12MB4420:EE_
+x-ms-office365-filtering-correlation-id: 75d3c5d1-b9b2-4731-57f2-08ded216ab45
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|56012099006|11063799006|5023799004|4143699003|6133799003|18002099003|22082099003|8096899003|38070700021;
+x-microsoft-antispam-message-info: aQyjtylRm/V7Yxk871MVnIWArHo3/k2Zs57E1kmNd2NMt5VgHyaSJootnVuKbi4FbAy6Z0s1dnnbewoDL4Tm0SfF4p8+8TznxCjio/ogQPl9B3d/Oy6YFlKB3qQZ993yGgZwf0wmMu2B8B8SOsu3D2+HnKG/g/rwnVhTDG7puChEYGNxTQYOp3DNQdSyga/XiWhVduqau6/gqjcTP5sYglfLix6/Jlag7qK86yKtp3f3/201tr9YJwCQAI7Mk2I2vLymRaqP4r/qUpC6H72OhSftPGsV3WWFgXnkhJnSG6kMtsTPg1s1RKVRiAg8crKKPkgmkHlhQX8bIbK4diWBJTo63l8vB/Wc59s14RDUUA++QzrPwopSWYzVbzwYER65zOptfsBfIj7mRvZMEhXv/C7ftSAabjUwWdOqjlgSMIZDzQjnSCuIqfsfp43jsFjlfEr7pV2/CMQkA+pwTeZTOlNZ3QvDj9VmvcYCIZPWAGJ6aIY6ByrviM0FpkiuvNALYNBQnqha2g4IM8UZq6HMSxTIVnf7FVwpixQCSy/E+MxLevNBcwgBzMyVTSifUcVqxgR99xUtO34bIuY5AsPCojl7IE+lkP5TLVsdQfn52WA/PikBBhAguUXMRVXZzGYvvj9TcPfhaHajdXNTaKNjADjuP7Duz+JI06uFt3PxWN1xHCe/+pTBsWQEFg4kVQv/49cswwQKTsYuGFDKlOu/NbMQMIIZHPJcSvHciZK6fGM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2863.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(11063799006)(5023799004)(4143699003)(6133799003)(18002099003)(22082099003)(8096899003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUNVNFQwZk9pY2RWcnVhQ0gvZ2RockRJdzEzdEI1MUF5RW1EblhMY1JyTFFl?=
- =?utf-8?B?V0tBdlJVWDRTeU5OZGxKSkVGTjVvVzYvRzhhVVRXd3NTZEl2RVI4b2d0djQx?=
- =?utf-8?B?MkNBaHZlaHFCNUNzTnJDNXp4aXhhL0Q5MFl3UGZGTGZwdnNpZnUyeCtNdUdI?=
- =?utf-8?B?ZUl3V1VKQnEzRzFPVnU5SUhtNDJ5T1R0NDdMMHg1d0NHc3F1OU9QczJiT0I1?=
- =?utf-8?B?OUxMS01wZWNleXNMQm93Z1RkRHVjalgzRjFzc3Zrd0xVc21BQW9BaGpqeis0?=
- =?utf-8?B?ODRZa0VHeHVvQTRNZUZINHRnTVg3bkM4NWdVbXY5cmlWeVBOQUJ1ckZVSzBO?=
- =?utf-8?B?anlpTU0rVXFhMjhCTVV1VGtSRURDV1VCa0JxdkJ2NFNxTjljbnZIbktZYkhP?=
- =?utf-8?B?dlRBU3VIS2ZqWVhLblpQS1dlTnVoajFvZW9zRGdOdWQ2ZGdHNE9PV3NXRU9E?=
- =?utf-8?B?S25qdkVrZVl5VUY5cTFSN1A1d3ZDZ080ZXFwL05RdW5oTUFrenZrRDBlVjBZ?=
- =?utf-8?B?bHdHdXk0bUVlWmpPUnZiOUpsU1dnNXVZTHczc3NTV0RlUVppOXlFaFNITzQ1?=
- =?utf-8?B?a2owU3lsaTRscWZmYllZbm05OER5UGtmQ2xiT3E2RkxDS3A5cCtzUXl3Mm45?=
- =?utf-8?B?NDRxRHJtNlI0R3lmQlYzNjhMUG9iVGZnSnVUSVlTaXZ5UGl2cVQ1RG41bHJN?=
- =?utf-8?B?VnZIcjAyT3VXYnZUa2EyUVRpU1VTaVBNWWwrZlI4Tks5MDc0dVJlcjIwY1Vu?=
- =?utf-8?B?UTdDeXhHL2RDUGRCODN4bU5FUDYrYUd4cktrb1d1SjFkam5BdDFtQ0pIYlhp?=
- =?utf-8?B?b2hmdGx6eEIzTmJwNDVhOTU3cndvN244UFpzU1U0Q2J3eXF3MlVWU1hYQ3VH?=
- =?utf-8?B?VS8zZWRCOFFnYUtiNzZGMFdGRHBNeXVwV3JKOEt6b2VPdnl3WmZCV3ZXbHYw?=
- =?utf-8?B?d1VNeE9IR2pYajVodWM1ejlsUXVwM2JWbHhLRUtvRnVYNTkwdUlqTHQ1RDJo?=
- =?utf-8?B?UjlVSWxBL1VVdXNUU1dGNWUzTXIyZURhL21pcTJMNmpoY2lZU3k0SkJTZGs2?=
- =?utf-8?B?d2RjUWM4bFl6bHFCSXltTXFxVEd0cjhYdklaa2puMllQOS9GdzI4QkRDOUZX?=
- =?utf-8?B?SVBLS0drZEV4VlJFNDlTRUZBN1FiZldYL3ZzNys0cTRCbEVKSHhIc3R1a2Yr?=
- =?utf-8?B?Tjc2aXBuWXI0dkVRNEd6RUNGR05pTjRGaGV1RDAvTzIvYmN0aVRRZ1pqSHNm?=
- =?utf-8?B?SkVlWGthNjFma0FaZlpQWkFTaXN4ckp3QmcyeUY2Y0p0dEM2V3lMU2w4V05W?=
- =?utf-8?B?dlU0MEhlYjFlQnhKcDBCUkdWUmcrc2JsYklJT1JMeE5BU1pvSm9FbUE4RS9H?=
- =?utf-8?B?Tm5JL2RkQlJZTFdWVmdnQ2RQN1lhMDJVRWZ3NDcyTTVyUUlhTnc4THBia3hW?=
- =?utf-8?B?VlREbit6SytHOFQ3U3VnRXREaW9hN3FKcll4TE9zaXNkeXN6NzYwT2E1L2RT?=
- =?utf-8?B?R1plOGpad0x2S00vaE5JUXhRYzlvOER4aFRCVnpEQWlTUUg4QUo1SDVqYWJJ?=
- =?utf-8?B?L21Gc3BManpUKzc5d1pMQWJqOG1XdXAxRldhMUJ5K2dEM1JJM0F0emJydHR5?=
- =?utf-8?B?aE1tTVhsbGltZ3NaZDNkcUprNHVIN204N2xya25mMFB0TGJpdm9vQkhld0xr?=
- =?utf-8?B?ZHNRaXNzcEQrY1h2b2VNYnI3YTNSdm8zVVJCQm10YTBZbmxGQUxObjNoUzk2?=
- =?utf-8?B?bHdmY3ZKTXFFazRseVZzcXFpY3h1ckhFakZmdDFUTXc0NHVLTDVrMDJqNU5U?=
- =?utf-8?B?SU9kMmNNMHo2ZU94NnFhWEJ6MWQzVTFxU2l2T2VsZml1dmttOWY3anU1L05E?=
- =?utf-8?B?bGVFVldEUTludU1NQlVhdUZVaDg3bWVpZllCbkRRMmtsTFoyU1hlVkNjcHlE?=
- =?utf-8?B?eG9hM01USUl0NWJjelRKSUNXRDBlTFVlTUZIWjNIZGhXQ1R3cVk0eHJTdGNH?=
- =?utf-8?B?dTE3Y3ZVb1NYS280a1FxemdicDdGbUpKSTByakNESXNpWEdValEwV2pJWVh4?=
- =?utf-8?B?dUxNZTAydkpmTWREMWxLeE5NNTh3Um00ZmJlTUNxUVZVUVBpZURmM29Lc2hQ?=
- =?utf-8?B?SlQzcVA3c1BaRXJFM0MwWXhRenNhb1EzaDRCYlNNVCtUWTF0Ri83TDNkY1N1?=
- =?utf-8?B?NW5qa20rL1lHcG44ejJvbVA1VWlHT0dGeXl2eko3V1VQVTdldUovK2NiSFF0?=
- =?utf-8?B?UUpVaWl0UlFFTjhJcHRrcDJHdjNLZGdlaFg3L2tBc1pjWlV1NkljVFdybmly?=
- =?utf-8?B?OTFUSit1aUFPeW0rUEFoS3lBcVM1Sm9wTjJQTGxKNm9LUkpKZUdXZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?NUyJFveuZwe6jy2dh5xxlRsMJaU/S5WLIq3YuWRkiNmn7ijiMN6D+yCTzi?=
+ =?iso-8859-1?Q?oVsX+xe1ScWBfgs5VRc65MSxHbMT6pGPpKWYA8zVAUt8MS3N7vbW6cj2j/?=
+ =?iso-8859-1?Q?YABok1Ex1mop8UIPwhnb2SWVx+UIepIOJrUOS9RIyHX0ZdFZDmrmHQJPHS?=
+ =?iso-8859-1?Q?FktbksLpipWiQH+H5nrqWrj444YLx9z+6bkicp9lUJWnONvuHCCEEibghv?=
+ =?iso-8859-1?Q?GYnV5erIyPey5nZ+UYWBHQB9k/BnSaIlgKh3laOsKlsLdgT384yaPC+PaC?=
+ =?iso-8859-1?Q?LspLMXYwx/kQUT8liP6S+Xs4TVTi3A/LwLu+a45sHO4vpyrSuqCN8CB05j?=
+ =?iso-8859-1?Q?zFzkgomT83iadocxEfbREkrQuvZXy8Qbqpm3o8XSa44IxN5neHHDX+Mba5?=
+ =?iso-8859-1?Q?U6XUQPnXzbGqRx2etJI6JhXkNR4J5xF16hYnTTVBkbbAujiTemG2LeM1HC?=
+ =?iso-8859-1?Q?Zc+uiibMx6elJb3+InqWm28ZbRlZF5XkXFJY70Ul5BXROyKAn+S0D1m6Kd?=
+ =?iso-8859-1?Q?ZnavWMJ3Qc5VsiXsbUjMnWwYGw4+Fr12Ng7sk/VnQV9+90Dy10VoDIUvQ+?=
+ =?iso-8859-1?Q?0QNqN21+nnW44NTkzhePFMdiztE1lYHhrlNM1p5NNM9xV4Y/PKu1oWTPSs?=
+ =?iso-8859-1?Q?dyFyP12oFY6TFcs9Kc5iYJ6Wstc/nFjCdy+WDp5h1bZ2YUey5a2l08gant?=
+ =?iso-8859-1?Q?dZc5roEi9M7ZEjUFbkDOqGYeowYsuIMuN4vfmyTvRHiJ/AVcXPTGuPX+cl?=
+ =?iso-8859-1?Q?2aphqirG+Z+nhtyf5DKHCTq5H49sawQ122q2gi1+t9Iqpn1bOYuF2T3mOv?=
+ =?iso-8859-1?Q?yPh3a6i8YyM9AmF5hmxR34Tx6gPM5vU2DBljEcbifemiQMQrQhLXOW0kPL?=
+ =?iso-8859-1?Q?SzGXxLwNmlwtOLD/7ig3f+G/frCnehhOvgvbNfOIX5AB+0V1IGa1rjyGcV?=
+ =?iso-8859-1?Q?H6ue3VXWjo1ZUpwKBC3bPQ5qbG4I6XNMuhug4lUHt4j/P1uDMUuIDA5UDb?=
+ =?iso-8859-1?Q?Tt00b60LAXthSUGL8jVyIB4oAcYR1oKErUKkON0K5iC3RMvuLSbeIGe6mn?=
+ =?iso-8859-1?Q?44shiCvVImHJyxX4ZhpoSzXVE8LDhpPxIWJys4rT66Dm1+VtfZuFn67Ej3?=
+ =?iso-8859-1?Q?AmutXTO/qQDI7lnmFZEd9+blpwqoUmiTGf2B+0vXUsTs2gjFqKsHS+vsR6?=
+ =?iso-8859-1?Q?xaw1P01MF96puQdzVsEw7Ml6H2i97gfjwGSdSrtLMRrLTA7AG1jtijpvEh?=
+ =?iso-8859-1?Q?b4EhadmdbQKhMTpUonEirmKX0vn8rha/KuW4rSfD8rWYpK30iyfvitpLKe?=
+ =?iso-8859-1?Q?K7queEdEERdbZhEAOtnZUbDzYhaKc37dGzjH834zHIwM+hUfY5NVVk084u?=
+ =?iso-8859-1?Q?Kty+u9lAUmbaudxsEeVyf+QeIuJSTWigU/0JD6Du7Bm8LY5+UhiYqxyb38?=
+ =?iso-8859-1?Q?0OC+U2Pf+GmHfRA5QqBWf5mW8+vJckFMXLu3hGPkQ6ZDUCSopIPNIe6GRy?=
+ =?iso-8859-1?Q?oCuXvm/hP9Yv0ezegVITnIzZdq2WBKDyBN02YuV1a+Mh6pZ7WB7wUAvMmb?=
+ =?iso-8859-1?Q?Iab7PQQ1eOJ4K/JI/IoyncsycMYng8zTs/fzuCTmtLp0JfaVbOo2BE82kf?=
+ =?iso-8859-1?Q?fZzCO1Xy5btBrFG87urLKKx6Hirl2/f29XOJN/31lPg2vQxlTfmgk4QtP8?=
+ =?iso-8859-1?Q?OTlew69U5tvncDcHMc15kNK6XrqIxgVpZ/oQRvOmqPEygJxsNkfcbrnoUd?=
+ =?iso-8859-1?Q?lH0rzPe6JU4xw+QLtP+cqh7+TuQGJNcrvqhzf0lwFxG/YS?=
+Content-Type: multipart/alternative;
+ boundary="_000_MN2PR12MB2863D13DB0659F43F1BCD689F5ED2MN2PR12MB2863namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5755d2fd-7d55-4b6c-b7c1-08ded2143c99
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 17:15:49.4179 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Urs+l2SRmQOapufWqaWwFEu4gq65a43x9lhLlTfI68V6TvfYNR8wI95d0qXn3mPiyjjEiDQybTIz1bp9o3OZBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2863.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75d3c5d1-b9b2-4731-57f2-08ded216ab45
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 17:33:13.7158 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: us6e536UAt4ADE8g4AN17pjtluUx/GpzGtWB3lA/PjYUs1jg3n12YuZHrmF1Gacj2BxpUn17CqRtevydj1rnDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,53 +140,560 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-06-09 08:43, Nicolas Frattaroli wrote:
-> From: Werner Sembach <wse@tuxedocomputers.com>
-> 
-> Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
-> drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
-> force_yuv420_output case.
-> 
-> Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
-> there is no reason to use RGB when the display
-> reports drm_mode_is_420_only() even on a non HDMI connection.
-> 
-> This patch also moves both checks in the same if-case. This  eliminates an
-> extra else-if-case.
-> 
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> Signed-off-by: Andri Yngvason <andri@yngvason.is>
-> Tested-by: Andri Yngvason <andri@yngvason.is>
-> Reviewed-by: Daniel Stone <daniel@fooishbar.org>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+--_000_MN2PR12MB2863D13DB0659F43F1BCD689F5ED2MN2PR12MB2863namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+AMD General
 
-Harry
+> I remember one thing, if you moved them from amdgpu.h and again added it
+> via include "amdgpu_mes.h", there seems to be less benefit of it as its
+> always there in amdgpu.h. Just check if there is a possibility if that
+> include could be removed totally and include amdgpu_mes.h explicitly
+> only where its needed.
+>
+> Regards
+> Sunil khatri
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index ba7f98a87808..dfe97897127c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6917,12 +6917,9 @@ static void fill_stream_properties_from_drm_display_mode(
->  	timing_out->v_border_top = 0;
->  	timing_out->v_border_bottom = 0;
->  	/* TODO: un-hardcode */
-> -	if (drm_mode_is_420_only(info, mode_in)
-> -			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
-> -		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-> -	else if (drm_mode_is_420_also(info, mode_in)
-> -			&& aconnector
-> -			&& aconnector->force_yuv420_output)
-> +	if (drm_mode_is_420_only(info, mode_in) ||
-> +	    (aconnector && aconnector->force_yuv420_output &&
-> +	     drm_mode_is_420_also(info, mode_in)))
->  		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
->  	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
->  			&& aconnector
-> 
+Hi Sunil,
 
+I looked into removing amdgpu_mes.h as you asked, however struct
+amdgpu_device needs these by value:
+
+struct amdgpu_mes mes;
+struct amdgpu_mqd mqds[AMDGPU_HW_IP_NUM];
+
+Because of this amdgpu.h needs the complete definition so as far as I know =
+I'm
+unable to drop the include here and use something like a forward declaratio=
+n.
+
+Thanks,
+Shahyan
+________________________________
+From: Khatri, Sunil <Sunil.Khatri@amd.com>
+Sent: Wednesday, June 24, 2026 9:10 AM
+To: Koenig, Christian <Christian.Koenig@amd.com>; Soltani, Shahyan <Shahyan=
+.Soltani@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop=
+.org>; Khatri, Sunil <Sunil.Khatri@amd.com>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH v3 4/8] drm/amdgpu: move struct amdgpu_mqd and helpers =
+into header file
+
+
+On 24-06-2026 06:29 pm, Khatri, Sunil wrote:
+>
+> On 23-06-2026 02:34 pm, Christian K=F6nig wrote:
+>> On 6/22/26 21:57, Shahyan Soltani wrote:
+>>> Move struct amdgpu_mqd_prop, struct amdgpu_mqd, and helpers from the
+>>> monolithic amdgpu.h
+>>> into existing amdgpu_mes.h file.
+>>>
+>>> This is part of the ongoing effort to reduce the size of amdgpu.h
+>>> into their own respective
+>>> separate headers.
+>>>
+>>> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+>> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
+>>
+>> @Sunil can you take a look at that as well? Just to keep you updated
+>> on all userqueue stuff.
+> LGTM,
+> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+>
+> Regards
+> Sunil Khatri
+>>
+>> Thanks,
+>> Christian.
+>>
+>>> ---
+>>> Following v2's feedback struct amdgpu_mqd and helpers were moved into
+>>> the existing amdgpu_mes.h instead of creating a new amdgpu_mqh.h file
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 48
+>>> +------------------------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 46 ++++++++++++++++++++++++
+>>>   2 files changed, 47 insertions(+), 47 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index 61608acc0393..ca86cef62f44 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -96,7 +96,6 @@
+>>>   #include "amdgpu_doorbell.h"
+>>>   #include "amdgpu_amdkfd.h"
+>>>   #include "amdgpu_discovery.h"
+>>> -#include "amdgpu_mes.h"
+>>>   #include "amdgpu_umc.h"
+>>>   #include "amdgpu_mmhub.h"
+>>>   #include "amdgpu_gfxhub.h"
+>>> @@ -115,6 +114,7 @@
+>>>   #include "amdgpu_eviction_fence.h"
+>>>   #include "amdgpu_wb.h"
+>>>   #include "amdgpu_ip.h"
+>>> +#include "amdgpu_mes.h"
+I remember one thing, if you moved them from amdgpu.h and again added it
+via include "amdgpu_mes.h", there seems to be less benefit of it as its
+always there in amdgpu.h. Just check if there is a possibility if that
+include could be removed totally and include amdgpu_mes.h explicitly
+only where its needed.
+
+Regards
+Sunil khatri
+>>>   #include "amdgpu_sa.h"
+>>>   #include "amdgpu_uid.h"
+>>>   #include "amdgpu_video_codecs.h"
+>>> @@ -609,44 +609,6 @@ struct amd_powerplay {
+>>>                         (rid =3D=3D 0x01) || \
+>>>                         (rid =3D=3D 0x10))))
+>>>   -enum amdgpu_mqd_update_flag {
+>>> -       AMDGPU_UPDATE_FLAG_DBG_WA_ENABLE =3D 1,
+>>> -       AMDGPU_UPDATE_FLAG_DBG_WA_DISABLE =3D 2,
+>>> -       AMDGPU_UPDATE_FLAG_IS_GWS =3D 4, /* quirk for gfx9 IP */
+>>> -};
+>>> -
+>>> -struct amdgpu_mqd_prop {
+>>> -    uint64_t mqd_gpu_addr;
+>>> -    uint64_t hqd_base_gpu_addr;
+>>> -    uint64_t rptr_gpu_addr;
+>>> -    uint64_t wptr_gpu_addr;
+>>> -    uint32_t queue_size;
+>>> -    bool use_doorbell;
+>>> -    uint32_t doorbell_index;
+>>> -    uint64_t eop_gpu_addr;
+>>> -    uint32_t hqd_pipe_priority;
+>>> -    uint32_t hqd_queue_priority;
+>>> -    uint32_t mqd_stride_size;
+>>> -    bool allow_tunneling;
+>>> -    bool hqd_active;
+>>> -    uint64_t shadow_addr;
+>>> -    uint64_t gds_bkup_addr;
+>>> -    uint64_t csa_addr;
+>>> -    uint64_t fence_address;
+>>> -    bool tmz_queue;
+>>> -    bool kernel_queue;
+>>> -    uint32_t *cu_mask;
+>>> -    uint32_t cu_mask_count;
+>>> -    uint32_t cu_flags;
+>>> -    bool is_user_cu_masked;
+>>> -};
+>>> -
+>>> -struct amdgpu_mqd {
+>>> -    unsigned mqd_size;
+>>> -    int (*init_mqd)(struct amdgpu_device *adev, void *mqd,
+>>> -            struct amdgpu_mqd_prop *p);
+>>> -};
+>>> -
+>>>   struct amdgpu_pcie_reset_ctx {
+>>>       bool in_link_reset;
+>>>       bool occurs_dpc;
+>>> @@ -1034,14 +996,6 @@ struct amdgpu_device {
+>>>       struct amdgpu_kfd_dev        kfd;
+>>>   };
+>>>   -/*
+>>> - * MES FW uses address(mqd_addr + sizeof(struct mqd) +
+>>> 3*sizeof(uint32_t))
+>>> - * as fence address and writes a 32 bit fence value to this address.
+>>> - * Driver needs to allocate at least 4 DWs extra memory in addition to
+>>> - * sizeof(struct mqd). Add 8 DWs and align to AMDGPU_GPU_PAGE_SIZE
+>>> for safety.
+>>> - */
+>>> -#define AMDGPU_MQD_SIZE_ALIGN(mqd_size)
+>>> AMDGPU_GPU_PAGE_ALIGN(((mqd_size) + 32))
+>>> -
+>>>   static inline uint32_t amdgpu_ip_version(const struct
+>>> amdgpu_device *adev,
+>>>                        uint8_t ip, uint8_t inst)
+>>>   {
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> index 5255360353f4..7b4cfb5c8f83 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> @@ -438,6 +438,52 @@ struct amdgpu_mes_funcs {
+>>>                     struct mes_inv_tlbs_pasid_input *input);
+>>>   };
+>>>   +enum amdgpu_mqd_update_flag {
+>>> +    AMDGPU_UPDATE_FLAG_DBG_WA_ENABLE =3D 1,
+>>> +    AMDGPU_UPDATE_FLAG_DBG_WA_DISABLE =3D 2,
+>>> +    AMDGPU_UPDATE_FLAG_IS_GWS =3D 4, /* quirk for gfx9 IP */
+>>> +};
+>>> +
+>>> +struct amdgpu_mqd_prop {
+>>> +    uint64_t mqd_gpu_addr;
+>>> +    uint64_t hqd_base_gpu_addr;
+>>> +    uint64_t rptr_gpu_addr;
+>>> +    uint64_t wptr_gpu_addr;
+>>> +    uint32_t queue_size;
+>>> +    bool use_doorbell;
+>>> +    uint32_t doorbell_index;
+>>> +    uint64_t eop_gpu_addr;
+>>> +    uint32_t hqd_pipe_priority;
+>>> +    uint32_t hqd_queue_priority;
+>>> +    uint32_t mqd_stride_size;
+>>> +    bool allow_tunneling;
+>>> +    bool hqd_active;
+>>> +    uint64_t shadow_addr;
+>>> +    uint64_t gds_bkup_addr;
+>>> +    uint64_t csa_addr;
+>>> +    uint64_t fence_address;
+>>> +    bool tmz_queue;
+>>> +    bool kernel_queue;
+>>> +    uint32_t *cu_mask;
+>>> +    uint32_t cu_mask_count;
+>>> +    uint32_t cu_flags;
+>>> +    bool is_user_cu_masked;
+>>> +};
+>>> +
+>>> +struct amdgpu_mqd {
+>>> +    unsigned mqd_size;
+>>> +    int (*init_mqd)(struct amdgpu_device *adev, void *mqd,
+>>> +            struct amdgpu_mqd_prop *p);
+>>> +};
+>>> +
+>>> +/*
+>>> + * MES FW uses address(mqd_addr + sizeof(struct mqd) +
+>>> 3*sizeof(uint32_t))
+>>> + * as fence address and writes a 32 bit fence value to this address.
+>>> + * Driver needs to allocate at least 4 DWs extra memory in addition to
+>>> + * sizeof(struct mqd). Add 8 DWs and align to AMDGPU_GPU_PAGE_SIZE
+>>> for safety.
+>>> + */
+>>> +#define AMDGPU_MQD_SIZE_ALIGN(mqd_size)
+>>> AMDGPU_GPU_PAGE_ALIGN(((mqd_size) + 32))
+>>> +
+>>>   #define amdgpu_mes_kiq_hw_init(adev, xcc_id) \
+>>>       (adev)->mes.kiq_hw_init((adev), (xcc_id))
+>>>   #define amdgpu_mes_kiq_hw_fini(adev, xcc_id) \
+
+--_000_MN2PR12MB2863D13DB0659F43F1BCD689F5ED2MN2PR12MB2863namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&gt; I remember one thing, if you moved them from amdgpu.h and again added =
+it<br>
+&gt; via include &quot;amdgpu_mes.h&quot;, there seems to be less benefit o=
+f it as its<br>
+&gt; always there in amdgpu.h. Just check if there is a possibility if that=
+<br>
+&gt; include could be removed totally and include amdgpu_mes.h explicitly<b=
+r>
+&gt; only where its needed.<br>
+&gt;&nbsp;<br>
+&gt;&nbsp;Regards<br>
+&gt;&nbsp;Sunil khatri</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Hi Sunil,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+I looked into removing amdgpu_mes.h as you asked, however struct</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+amdgpu_device needs these by value:</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+struct amdgpu_mes mes;</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+struct amdgpu_mqd mqds[AMDGPU_HW_IP_NUM];</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Because of this amdgpu.h needs the complete definition so as far as I know =
+I'm</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+unable to drop the include here and use something like a forward declaratio=
+n.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Thanks,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Shahyan</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Khatri, Sunil &lt;Sun=
+il.Khatri@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, June 24, 2026 9:10 AM<br>
+<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Soltani, Sha=
+hyan &lt;Shahyan.Soltani@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd=
+-gfx@lists.freedesktop.org&gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;<=
+br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v3 4/8] drm/amdgpu: move struct amdgpu_mqd and h=
+elpers into header file</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+On 24-06-2026 06:29 pm, Khatri, Sunil wrote:<br>
+&gt;<br>
+&gt; On 23-06-2026 02:34 pm, Christian K=F6nig wrote:<br>
+&gt;&gt; On 6/22/26 21:57, Shahyan Soltani wrote:<br>
+&gt;&gt;&gt; Move struct amdgpu_mqd_prop, struct amdgpu_mqd, and helpers fr=
+om the <br>
+&gt;&gt;&gt; monolithic amdgpu.h<br>
+&gt;&gt;&gt; into existing amdgpu_mes.h file.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; This is part of the ongoing effort to reduce the size of amdgp=
+u.h <br>
+&gt;&gt;&gt; into their own respective<br>
+&gt;&gt;&gt; separate headers.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Shahyan Soltani &lt;shahyan.soltani@amd.com&gt;=
+<br>
+&gt;&gt; Reviewed-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br=
+>
+&gt;&gt;<br>
+&gt;&gt; @Sunil can you take a look at that as well? Just to keep you updat=
+ed <br>
+&gt;&gt; on all userqueue stuff.<br>
+&gt; LGTM,<br>
+&gt; Reviewed-by: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
+&gt;<br>
+&gt; Regards<br>
+&gt; Sunil Khatri<br>
+&gt;&gt;<br>
+&gt;&gt; Thanks,<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt; Following v2's feedback struct amdgpu_mqd and helpers were mov=
+ed into<br>
+&gt;&gt;&gt; the existing amdgpu_mes.h instead of creating a new amdgpu_mqh=
+.h file<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&n=
+bsp; | 48 <br>
+&gt;&gt;&gt; +------------------------<br>
+&gt;&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 46 ++++++++++=
+++++++++++++++<br>
+&gt;&gt;&gt; &nbsp; 2 files changed, 47 insertions(+), 47 deletions(-)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; index 61608acc0393..ca86cef62f44 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; @@ -96,7 +96,6 @@<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_doorbell.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_discovery.h&quot;<br>
+&gt;&gt;&gt; -#include &quot;amdgpu_mes.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_umc.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_mmhub.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_gfxhub.h&quot;<br>
+&gt;&gt;&gt; @@ -115,6 +114,7 @@<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_eviction_fence.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_wb.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_ip.h&quot;<br>
+&gt;&gt;&gt; +#include &quot;amdgpu_mes.h&quot;<br>
+I remember one thing, if you moved them from amdgpu.h and again added it <b=
+r>
+via include &quot;amdgpu_mes.h&quot;, there seems to be less benefit of it =
+as its <br>
+always there in amdgpu.h. Just check if there is a possibility if that <br>
+include could be removed totally and include amdgpu_mes.h explicitly <br>
+only where its needed.<br>
+<br>
+Regards<br>
+Sunil khatri<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_sa.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_uid.h&quot;<br>
+&gt;&gt;&gt; &nbsp; #include &quot;amdgpu_video_codecs.h&quot;<br>
+&gt;&gt;&gt; @@ -609,44 +609,6 @@ struct amd_powerplay {<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; (rid =3D=3D 0x01) || \<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; (rid =3D=3D 0x10))))<br>
+&gt;&gt;&gt; &nbsp; -enum amdgpu_mqd_update_flag {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UPDATE_FLAG_DBG_W=
+A_ENABLE =3D 1,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UPDATE_FLAG_DBG_W=
+A_DISABLE =3D 2,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UPDATE_FLAG_IS_GW=
+S =3D 4, /* quirk for gfx9 IP */<br>
+&gt;&gt;&gt; -};<br>
+&gt;&gt;&gt; -<br>
+&gt;&gt;&gt; -struct amdgpu_mqd_prop {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t mqd_gpu_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t hqd_base_gpu_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t rptr_gpu_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t wptr_gpu_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t queue_size;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; bool use_doorbell;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t doorbell_index;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t eop_gpu_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t hqd_pipe_priority;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t hqd_queue_priority;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t mqd_stride_size;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; bool allow_tunneling;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; bool hqd_active;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t shadow_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t gds_bkup_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t csa_addr;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint64_t fence_address;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; bool tmz_queue;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; bool kernel_queue;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t *cu_mask;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t cu_mask_count;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; uint32_t cu_flags;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; bool is_user_cu_masked;<br>
+&gt;&gt;&gt; -};<br>
+&gt;&gt;&gt; -<br>
+&gt;&gt;&gt; -struct amdgpu_mqd {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; unsigned mqd_size;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp; int (*init_mqd)(struct amdgpu_device *adev=
+, void *mqd,<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; struct amdgpu_mqd_prop *p);<br>
+&gt;&gt;&gt; -};<br>
+&gt;&gt;&gt; -<br>
+&gt;&gt;&gt; &nbsp; struct amdgpu_pcie_reset_ctx {<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool in_link_reset;<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool occurs_dpc;<br>
+&gt;&gt;&gt; @@ -1034,14 +996,6 @@ struct amdgpu_device {<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_kfd_dev&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd;<br>
+&gt;&gt;&gt; &nbsp; };<br>
+&gt;&gt;&gt; &nbsp; -/*<br>
+&gt;&gt;&gt; - * MES FW uses address(mqd_addr + sizeof(struct mqd) + <br>
+&gt;&gt;&gt; 3*sizeof(uint32_t))<br>
+&gt;&gt;&gt; - * as fence address and writes a 32 bit fence value to this a=
+ddress.<br>
+&gt;&gt;&gt; - * Driver needs to allocate at least 4 DWs extra memory in ad=
+dition to<br>
+&gt;&gt;&gt; - * sizeof(struct mqd). Add 8 DWs and align to AMDGPU_GPU_PAGE=
+_SIZE <br>
+&gt;&gt;&gt; for safety.<br>
+&gt;&gt;&gt; - */<br>
+&gt;&gt;&gt; -#define AMDGPU_MQD_SIZE_ALIGN(mqd_size) <br>
+&gt;&gt;&gt; AMDGPU_GPU_PAGE_ALIGN(((mqd_size) + 32))<br>
+&gt;&gt;&gt; -<br>
+&gt;&gt;&gt; &nbsp; static inline uint32_t amdgpu_ip_version(const struct <=
+br>
+&gt;&gt;&gt; amdgpu_device *adev,<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
+8_t ip, uint8_t inst)<br>
+&gt;&gt;&gt; &nbsp; {<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h <br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
+&gt;&gt;&gt; index 5255360353f4..7b4cfb5c8f83 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
+&gt;&gt;&gt; @@ -438,6 +438,52 @@ struct amdgpu_mes_funcs {<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mes_inv_tlbs_pa=
+sid_input *input);<br>
+&gt;&gt;&gt; &nbsp; };<br>
+&gt;&gt;&gt; &nbsp; +enum amdgpu_mqd_update_flag {<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; AMDGPU_UPDATE_FLAG_DBG_WA_ENABLE =3D 1,<br=
+>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; AMDGPU_UPDATE_FLAG_DBG_WA_DISABLE =3D 2,<b=
+r>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; AMDGPU_UPDATE_FLAG_IS_GWS =3D 4, /* quirk =
+for gfx9 IP */<br>
+&gt;&gt;&gt; +};<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; +struct amdgpu_mqd_prop {<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t mqd_gpu_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t hqd_base_gpu_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t rptr_gpu_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t wptr_gpu_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t queue_size;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; bool use_doorbell;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t doorbell_index;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t eop_gpu_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t hqd_pipe_priority;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t hqd_queue_priority;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t mqd_stride_size;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; bool allow_tunneling;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; bool hqd_active;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t shadow_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t gds_bkup_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t csa_addr;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint64_t fence_address;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; bool tmz_queue;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; bool kernel_queue;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t *cu_mask;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t cu_mask_count;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; uint32_t cu_flags;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; bool is_user_cu_masked;<br>
+&gt;&gt;&gt; +};<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; +struct amdgpu_mqd {<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; unsigned mqd_size;<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; int (*init_mqd)(struct amdgpu_device *adev=
+, void *mqd,<br>
+&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; struct amdgpu_mqd_prop *p);<br>
+&gt;&gt;&gt; +};<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; +/*<br>
+&gt;&gt;&gt; + * MES FW uses address(mqd_addr + sizeof(struct mqd) + <br>
+&gt;&gt;&gt; 3*sizeof(uint32_t))<br>
+&gt;&gt;&gt; + * as fence address and writes a 32 bit fence value to this a=
+ddress.<br>
+&gt;&gt;&gt; + * Driver needs to allocate at least 4 DWs extra memory in ad=
+dition to<br>
+&gt;&gt;&gt; + * sizeof(struct mqd). Add 8 DWs and align to AMDGPU_GPU_PAGE=
+_SIZE <br>
+&gt;&gt;&gt; for safety.<br>
+&gt;&gt;&gt; + */<br>
+&gt;&gt;&gt; +#define AMDGPU_MQD_SIZE_ALIGN(mqd_size) <br>
+&gt;&gt;&gt; AMDGPU_GPU_PAGE_ALIGN(((mqd_size) + 32))<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; &nbsp; #define amdgpu_mes_kiq_hw_init(adev, xcc_id) \<br>
+&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev)-&gt;mes.kiq_hw_init((ade=
+v), (xcc_id))<br>
+&gt;&gt;&gt; &nbsp; #define amdgpu_mes_kiq_hw_fini(adev, xcc_id) \<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MN2PR12MB2863D13DB0659F43F1BCD689F5ED2MN2PR12MB2863namp_--
