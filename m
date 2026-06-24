@@ -4,125 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7315CDE002
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 15:01:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C236CDB479
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 15:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5483710EF78;
-	Wed, 24 Jun 2026 15:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B877310EF61;
+	Wed, 24 Jun 2026 15:04:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dhPAaGou";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g42x9ruA";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E619110EF78
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 15:01:00 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011048.outbound.protection.outlook.com [52.101.62.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C774E10EF61
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 15:04:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nl3A0ciQix6qfAk7kSUv9zUZkczlai5Xifre/BPyxmWiL1LmZuYa2x9I1uemR+nd5RWyszwU1V3Ram3ZDdHYW/4eNAL/w0PPRAMj+7GEfnRNtY2y7TyT4ESxdbxk/m4QnW7snZcP1UhSUiDaTxpfk1enX0ShXbPaUopIVKaa3MsZy+vXtlffnItOGJZoj4xsGBTaTi8H1ysetlqD7lEHvOlKnshPTS9505cbd9CxgXHglqZ6IIgem+fACKtKM/l5D2oP8Owf0Lyxkk71kjVq1wguM0DB7+68jawwsci2I343S/kkJRlutoMo44iQeu1c3q+xijsGCDJ7RN0psf4Riw==
+ b=nAZA8V1P3leKgzfkKqJIxE0tk5JAWAgHIijsQ/9JsPt96Kn8S1nMY33yQwSrUdVA2HrKdpxfrTjYcVkAmmpp3cNrumbTE13CXGdtLVAf93445/jcNDKIoDUvUgfodPif10Qg2RnJGBU+0pBcE90PITw+dTI74z9LW3NW1udmLe5GCsdes/W7iCbhVdA9aUZgl+ZEz4Lyr4A45LwWOSp4uhcryvgWBvGfSU1NKA0Dg4c0xfnwXg6Tg/WpUjirvO6QwuF31VZ/3hsn7MukE1vzuRYBhZI11EVqgw04F+RCDqMpmGbNDQxUHoKc2BqA7SDmBuA0h6NpaqSSvUzJ1qAtmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LzeRj/6BVSvEqxSWmfBrT96OdiHzP5wbyOl2pJrFyAU=;
- b=sLj0iEIZB4RkQT+kke1v8/u2GCVyEC9LIzaABoJLNOcEFQnOuIIR4eEbkEElTXpVmgrShrylvJBp+vryZOZfN3bvcHYaxEnXQey8juEYSsbaq60uOZw5PlBmUTzIKzCuien+GsNvy1Kj3T8TgnqjmW0G7jezBl7PRkpVSJCog3to6QB5BSM9xTrzjQOB1olvmECOv3V6uVy/C6/OAUoBF0UBrhKQlRllHawDKMqSq0UGBnFNDhSWdyBVHRDVExm3CnjW+VBBwQmxuV/2b9DAsunQ8TABjEURVi0kexOWvqqHPC9rRuux/L1XOq6MQU12RQ6iogt40HHiHageZ1EkQg==
+ bh=/BhdIzcT5Dz9FjLgSOV/BqBUXBOnKnce5U1NqA74HSc=;
+ b=MAnnmTd/8W7gpqWmNWGfGfEIoyAStCkc5mUjieFaP/rRSFC577Rdf70rkuV7cSqXU9FNlAEh1xjv0a9ibdTCcdSckNlTPwt4fH8H8exY7YnVkCm1YziBQgu3PC0SCxBQAs8Ya46OMwO7tcmgJcnfNBRZIubB+B9nGcK9hpLeK1V3FVbHQc7by+rM3gzhO5KKpX5Gi/9zTQQ4zkC4I7G5pRDLiYO401mcIxhq7J6JjN2yVq3DukznffmGahRr3x1jHOx322Vx1UcE9Jto45H+enWCN8hwmzWbNMMl/5D+94Lie6oBWFSdcX6NAKryxQJerp/jM48aMix04H360ClukA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LzeRj/6BVSvEqxSWmfBrT96OdiHzP5wbyOl2pJrFyAU=;
- b=dhPAaGou4CMnlHwGbstKvs5EuAQhOUdCEw38D2XA51sklomWFgbGjyE7rL6m/5OCht6est+As5N16PQXjSpD01Af2kdU0/UX1BJtaDpLMCYTeO5dybIQNmRQXVTy04dJKPyB7ZUaMBxxr2O9EN5OCVyaOT/r1Hk81ljyqMmgo58=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by MW4PR12MB7285.namprd12.prod.outlook.com (2603:10b6:303:22e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Wed, 24 Jun
- 2026 15:00:48 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.21.0159.014; Wed, 24 Jun 2026
- 15:00:48 +0000
-Content-Type: multipart/alternative;
- boundary="------------xajgAF50bCEfDJXLNqeAxgbE"
-Message-ID: <d8ddd8b5-bddb-408b-89cd-e9409650eea5@amd.com>
-Date: Wed, 24 Jun 2026 11:00:46 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: move DGPU TBA/TMA from system to
- device memory
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: philip.yang@amd.com, Hawking.Zhang@amd.com, Bob.Zhou@amd.com,
- Harish.Kasiviswanathan@amd.com, jamesz@amd.com,
- Vladimir Indic <vladimir.indic@amd.com>
-References: <20260624142727.1946258-1-James.Zhu@amd.com>
- <20260624142727.1946258-2-James.Zhu@amd.com>
+ bh=/BhdIzcT5Dz9FjLgSOV/BqBUXBOnKnce5U1NqA74HSc=;
+ b=g42x9ruAoFq2MU7UDU3y3XDqXfTxlxQU1u1ej+KjWMT8QCQQxv9/UMC8z4sGWTfpDUiMfa5InyWENKBfAlP8UN7/PfpqyPwNwhVp5DruGFaiTDougFThcLGSEMbX2KbZ8vrAlR98/P8STFLc9M6jmSLuO+OotI0kmgz89AfmHz0=
+Received: from MN2PR12MB2863.namprd12.prod.outlook.com (2603:10b6:208:103::12)
+ by BY5PR12MB4258.namprd12.prod.outlook.com (2603:10b6:a03:20d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Wed, 24 Jun
+ 2026 15:04:34 +0000
+Received: from MN2PR12MB2863.namprd12.prod.outlook.com
+ ([fe80::f402:b1b8:c6bd:24b2]) by MN2PR12MB2863.namprd12.prod.outlook.com
+ ([fe80::f402:b1b8:c6bd:24b2%5]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 15:04:34 +0000
+From: "Soltani, Shahyan" <Shahyan.Soltani@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH v3 2/8] drm/amdgpu: move struct amdgpu_uid and helpers
+ into separate files
+Thread-Topic: [PATCH v3 2/8] drm/amdgpu: move struct amdgpu_uid and helpers
+ into separate files
+Thread-Index: AQHdAoFvI7VR3tami0GKINuhSv6MObZL1xMAgAHky88=
+Date: Wed, 24 Jun 2026 15:04:34 +0000
+Message-ID: <MN2PR12MB2863DB9ED30979697CE966B6F5ED2@MN2PR12MB2863.namprd12.prod.outlook.com>
+References: <20260622195729.181216-1-shahyan.soltani@amd.com>
+ <20260622195729.181216-3-shahyan.soltani@amd.com>
+ <3bfbcf70-1af8-4795-a62f-8f0002e633f9@amd.com>
+In-Reply-To: <3bfbcf70-1af8-4795-a62f-8f0002e633f9@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260624142727.1946258-2-James.Zhu@amd.com>
-X-ClientProxiedBy: YT4PR01CA0041.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fe::18) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|MW4PR12MB7285:EE_
-X-MS-Office365-Filtering-Correlation-Id: 085e0709-c811-44fa-59a9-08ded2015fcf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|4143699003|8096899003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: CSbTcbyHjFstDU69KGYAxrkE8psQT6iVI9jkbMTXXyA4iKjkR36Y4ybz2z4H8NjjS8RPTCYM0AN9viZR7Yb78F38Gm2EjEMO6oiVA4u9uAligd4Dheyo/Y3VZR85kPsX9mgt0xxH1AxVaqLcQL1bA5blh/wnU3XerZMT5nlYYoetbolxAjMf+Rqj2icnXOy+WL3Nzjfyy+mX19CcgmMd86i1Jx0pTa+IW9sO5nbbWpasRVwakGAZkNaEeTyi5G2YRRKrmA442O6H8p7oxFiCrB++HOldeXa86oIdVT2w3WvfPAOTfa+guoxzeqK/qhodLiLfrF2wEf+TRgOMJoSWdI4SfcLBTc4moXUHmm6PRN59z5faqQj4cBU7O0BEil2Rq8URiSPqC03QOSfSXcX+0IfWJvOC8A7Ofe/IBIbUGlFjW2pnKzjDrX4pi9rj5Fll5q/iqA+vNwWU9NNQgCNBBScAwraxMN4XbxubhpvoWNlFzbKfllCVG7dUzZuxXHQOMv9QGaTHQ7fcgYipDf4Pk0HBag8xdp3fHgOK78qcO7rK4UGSMnzKMZ+haVQc72izdi+ndoMLBPOQRfQUysqrbYJiYokSEsWiWYGa2/ZEmLTVPN10I1oPbt7ROkK02X1eqX3dhAvM3zXat+J/nnM9lfR6eXTVvu/jzrAQQ7tFv3o=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(4143699003)(8096899003)(56012099006)(11063799006)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-24T15:04:34.196Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR12MB2863:EE_|BY5PR12MB4258:EE_
+x-ms-office365-filtering-correlation-id: 5686f02c-a203-4138-3d74-08ded201e709
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|56012099006|11063799006|4143699003|18002099003|22082099003|6133799003|3023799007|8096899003|38070700021;
+x-microsoft-antispam-message-info: RZbYfUOmPg+PSL40i5nvYc3KTG0W7GP4pfMb71x1e57FLZlXzFXp+hMsc0B1mUGNOj1ei+is84elX8S6Xzt3MUMgISLZH4djDK/u/m5gNFivUmlBi70ozKN1km3XkXMalpIwDWHbM97LW+XCId96FOc8hcxTAJG4o13Op72ODKM1TqWOjLncL8hB5rNSFe6sS0R7FzSbQS1If9Ud1lmYF80pWG/KTN+SKbicjp2JlACseFzKHnrZf/dGt1ogEGiZOqkBeti4hYv8UjjtMWc86EMMRs646fdTgNfbQvQ1IAOgGtAU+qSVpZTWzWu6L0EWy2G+aEZ0lqYucjLu1nm89AIyYTiK+VT5uo9MWSQipB11O3Sa2L1tKfY1HTULydgW/yY+Rw/arCpaVdWQTTJupyLKA6ziMA7knBn9mdNhPEjvlytyxaP7zU3tOdrMRYDiON76O+xGaSkbQNOUJCaUnl6pMTegINjs9z92IjaVmuaetBYQp/XB117Nt87o5oxRp0bjsMpjcrR6xlaC+gBSAmMYqGaT6tGsEyI5ilCcUoaW9tARSLXb1Ju+dN7O/NMGmvXEsrRnlKob9egPD26fsyQSbZCQU/I/4Hlwbfgk46F+X6r9QQsbLqBlP+6xq0mvpfhktMByVFfGD4Z+scxeqVeVnfJaQs2oPpapdOnN6ZRWbobLtWnzK8QynHzHkwdILudXquIV6y1hVVzFjY8D/bQpBxCovP3jwyVlUsLdBcg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2863.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(6133799003)(3023799007)(8096899003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T3VUcTlacWJ5MjgzYU9WdmlCZTVyUXhHcS9oUFVUTmxIV2ZJMlVTVHhEVllO?=
- =?utf-8?B?ZjBCYXJqNnFNWXNaZ3BTNUhQbUxnMmgvOVlOcjVjd09QQlVUaU1GaHhOY3Vl?=
- =?utf-8?B?NmhuRmo4TllKekNBQWRnVU1pSTlMWFQ5MlM0MzB4bytLT3luZVFNOW1aR0ls?=
- =?utf-8?B?N2NNNFdPRnMvR1lma0dBUG11VCtFTVA1by9acDZJSzBzeGNjdnV6T0dIWGcv?=
- =?utf-8?B?b3VPZUlnd0wzeTRsdEFJejd5SDFRczd3S1I4clVaZmFtR3N6WDhOMURRVmNk?=
- =?utf-8?B?WlBla2hSUlh1Nm5RWWE2L0lyNnBxcndjUi9KZlU0dUtzTUlTQnpoeHJ0UjRz?=
- =?utf-8?B?aXoxUnZkMTVwSGU0dTdnYXlmV3Q2MnFaL1QwN3Z1bGJaOUpZTnN2VlFsQ082?=
- =?utf-8?B?TStTMEltQ1ZScERzc3dodU1UdlE5bGJobG5NTzQraFROMG1rNjlLc3c0czdC?=
- =?utf-8?B?VWhjQ2p5dTNjcWtVb05tbC9ZN3cvRU5TVm5wOHA4NnhRYk1uWUJ3LzFXb3RV?=
- =?utf-8?B?b0VGOFUza2toTk43Y0dkQzNaZzdJaTExeEprNUZaN3FUdm5xeXpNNC9FdmZN?=
- =?utf-8?B?R3hjTHdYTDRnblMxaUZCSVlhL0RJemlpNnYvWEZBSDFYNzVybVYyWDJ5Z0tw?=
- =?utf-8?B?aHdMUFJmTFV3TWhTTk9KTnIranRuNnFpcjdDMWQ0MlA3eFI0WFRVZlh1eDI4?=
- =?utf-8?B?TmFLUGloK0tXU0FveEpZcHRyQk9QTERxNVRXbkM2TXU4NkxrRnRhZWtnUTZE?=
- =?utf-8?B?YXF1R3R0K3J5RTIrWGF5Y0oyZ0FJcndTamJYMTdXQTNyYVJWaGtoODBmUXhw?=
- =?utf-8?B?NUN6eWhkbG1ZOWdkWHk4OW4wWUltU1VQMW92c2xKbTBWNDJ1a0tlR2h0Zzk5?=
- =?utf-8?B?SVVaQUpTMVQvOC82a01McmVWSzB1SDI1VHhxN2xtSExMR3RBK3dJVWtnVUxy?=
- =?utf-8?B?Y2hkVVJXTVNmcGEzN1gzMVZack8rSzBkcENnQ2YwUXRnY2hzRzhqdHBqVnpy?=
- =?utf-8?B?QlBXUXdLeWVJSEZQdEQrMWZybUhQdkFObS8yRGhKUExpaTYvenFqTGNlenBV?=
- =?utf-8?B?Ynh2enVEWVpHZmh0NGdwUGEwc2lqcll6eGFUYisvRk5tWXY4WGFSTFoyczJz?=
- =?utf-8?B?ZkNVb1dJVjh4OGdCOEhCM09tVjlBQ05RZG9rdUsrbDdYOGMzazBLeTRNT2lp?=
- =?utf-8?B?QVh3SlBVNFZzd0QyLzdCemVsaVMyYS9tVUNZbjFkZmRVcG85K1JTckppQUta?=
- =?utf-8?B?dmZaN2F3UlNGa1lhMGhucFE3d2dsakd5K3hKTWhzUzB3K2srYWJJZTZsS05U?=
- =?utf-8?B?SjRtcTBNQmJCYVluVHFzTm93SEl6aHF4WTg0WkU3UEU1Zm5mVDd1NHMwOXRC?=
- =?utf-8?B?cE1lajFOODZqbW1hRUdzWDEvZ2oweG9ueDIyQzEyL3pMYlRib2lQQ0FOcnFx?=
- =?utf-8?B?NXlNaDNpemxxc1BpNXE0RXlLMCsxUWx5WFk3K041Q0c5SGpTMzRVdG9OTlBW?=
- =?utf-8?B?emgwTVJGUnBES3N5R0VQNFVYN3NKZ0ZvbG5KenhZUzlOcENaQVNkWkFOWFdV?=
- =?utf-8?B?YVRZSmVzdjJVVUhlNmxuaTJ0bFc3dW9GZlMvQ0QrMlF0a0NnSlhhdlEzTi9u?=
- =?utf-8?B?b2xRRmlZS0V4NFovUGRBSnMzM29VS2ZmOVVGdkRCK09ZNlFWTnREMWRXSHVJ?=
- =?utf-8?B?QUoxOEVoR1lnbjd3ay95SmZ6M0pNdzljZGF0MlNkSGh0eHlyZ0hpZ2gvSnRn?=
- =?utf-8?B?elZiNy83Y0Q1L1VIZmxRd0pvUGNxYWN0eEZlWktQbERCM2prN3hUU3NySDZX?=
- =?utf-8?B?Q1RBbUhnc3JPdlp4TE5xd2htUFBtMDJrZDFtQXo4N3BzNlpsaGVNMXZpMFpj?=
- =?utf-8?B?Z0lRYnRqTXJyNHFiZm9pRjFtbzBuWDluMnJVYTRGc0VKMmRKTTN3L0tHemhk?=
- =?utf-8?B?Q1lrcW5la1lxWTU4VHNKYUdYU3VTYy81V1Z3Q1VaSmsxenp2Z1I0Q3RvMFJC?=
- =?utf-8?B?QUdBbHlVVzBrQmV0eHdwb0p6dGVOZmhyY3AvVVQ0R1pRV2RxcFdseVdxdjB6?=
- =?utf-8?B?QjRtd2xULzhuODdMTkpOMGp6NG5iQm14Tk1FNU9KZU4wY09rWXMrWnk0UmV6?=
- =?utf-8?B?Vmo4KzhHK3c1RWNoSmZoejJ1R3JUWGlPcnh3ZDBzdktYN1RJV1ArUlNWb1d2?=
- =?utf-8?B?ZlByRGZXVTdicUliYUZKOWFJOFo0bG81WmpDS3ptcVo0N2Fsc01oZmV4ampi?=
- =?utf-8?B?cm1Wczc1K3hlQzQ1VmRPSDB6ZkpwNE9VUVN4cTQxc2VkWmhIeDFZaTI5NElF?=
- =?utf-8?Q?24ZfUOtMlCISkTv/8K?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?g+xm0MQSDCRJN70naHScVwyKLMBGb4PvibP6U6BzR5M2IWt4kYsK69TjtLhB?=
+ =?us-ascii?Q?DLPV8QS+L2WRRJAsKD4YHFnEK1Lr98pmK7pWy/A44jBTPnLE+CtBAVJMMk5u?=
+ =?us-ascii?Q?YuiI1eC0ZZVKB5svV7qYwH6Q7/5LhiAzEXXHsvjv/qbbyT3F1mZAXbehuZD2?=
+ =?us-ascii?Q?DKJN4MBVRPqu4RuRLnDIu4U/cJxF90riHubpFM5aHu+6CT7rvHJH6Nx8rtKp?=
+ =?us-ascii?Q?xu1IHxBKCdtHP1RQMwt1snk5BCnKq3FLqWOo+2B68rZHD3w7+Sqn6x0VC/Ym?=
+ =?us-ascii?Q?bt8+syCAn1oY2QiWNPHomZ18ggjAKfrwUVlv2VsxZfLohJSgR893/TZLafFm?=
+ =?us-ascii?Q?MgaeVNlSJPWFpPToEIXlvifGaHovE+HpiM4CdGFtM9u53IWlsb3pqIRjrsSx?=
+ =?us-ascii?Q?ntfA/qrZgZAgQWCiPHG3W4rGQl/zVd9iOyReeD1sTLWeF1MLSVnSA/ol5+5u?=
+ =?us-ascii?Q?FOVbrgtDXlq6XXx4NtF9KrOKBSp8Rks6P2HNILOyTgr+6sZ8iZq1DH6FIrEq?=
+ =?us-ascii?Q?6bEn7CNHaVdtbgw/UouPaskhwRhZd6Lnh1w5+yBanONbndT89bJtXkuAzzts?=
+ =?us-ascii?Q?IiPrvkQEtBHAUL679NVWlCkQ+gutcxwDMTCyb3DyjodKZ/1iKDn8vNan1vIb?=
+ =?us-ascii?Q?zZyerFIaJczlSlSVj7xXKCMRJFjHr0Jzj0sAMz/7bpMMDfF4YAxYNoMKYuYT?=
+ =?us-ascii?Q?BWhoHUYlFAbYKbyrTwodqQWPUdHXKyhd88lsKtxxWKwgeTgZKAZ0z+fx4TeP?=
+ =?us-ascii?Q?ZA5GCfiF2qtkCXBameMUGdhMpItGyfEkW4jOXvYiHBQcLT28esO7U5IXR7U/?=
+ =?us-ascii?Q?ghVIe6TyS6GO914qvJPZeBIHVymjcJfIkP32zKMkvAKUIbDA0m8/vMoZ7UHj?=
+ =?us-ascii?Q?Ubu+TwQuAcWKjpSquv4LjdlmyW00M8yEKeeXE/DlmdC7g8ojruSgdvfmhu/1?=
+ =?us-ascii?Q?epgW/8kG0PBlfwkPVFaRzVQNrctW04N5nVrvsFDHj0X9cQYhiCF/v5/3mgiW?=
+ =?us-ascii?Q?c6OxnizzCCKhUL0/m834NMRu+5sDL5wcCCVZSuXPeUEOXTOxv4J8rHbzPyev?=
+ =?us-ascii?Q?nEOB88MIr+MeUjTYg2KMIUbUVLhd+Im0it0oY9zScyayU91+AaoJ6VPHevf6?=
+ =?us-ascii?Q?wNRKnshaFXDj8aOlfZmMnJdlACKj4gJ7R4LIEiXTxHz14sZlvGhWNX0NLzPD?=
+ =?us-ascii?Q?kDWhWguf53DwnAJU+CuI8EX7qyun1/FV1tdwDRE46qzhRk86vkSl5ewU/qRe?=
+ =?us-ascii?Q?+/SV24GsMLgOTUk9tOoA9nzU5bFucwkNQ21ohWGRCX5ynKdZo/kYG7/5zFV9?=
+ =?us-ascii?Q?8LdKiic4EsgG9Fzrq1emxSBVZNq0fEzg7dnOHSLycPSmh+NlrfTmtmH8LCIc?=
+ =?us-ascii?Q?MrZzYA8yGQA2C19pZAMaBRnNdKah2GSe2DoFbgtRAAMC9ADV3VEnDimCwdAS?=
+ =?us-ascii?Q?AgajXiuIFsJsxG/qP/p5TlA0icf2SY5TDZOIAu25q5zEBSjqj0P5IUVNOD0U?=
+ =?us-ascii?Q?1O5XiUr0un3Fq8jxGuHzPSN1JRxlhPnp2F/uxgvPuHdj1/SbOyL9EklIh4iM?=
+ =?us-ascii?Q?nCVaFSMlHOZIM10crRqsCl4Az/cLz0TxVWWTBpBS6aJKiDFl/TTSdqlHaftE?=
+ =?us-ascii?Q?PTDdf86wNL7rDyWjFeOpWN5sRLQGkUqbCINCVVvGfERRWOA+lfDcXlREuYh+?=
+ =?us-ascii?Q?ZQFaz6jb2UOPiwIHGWUUKJH6WW/U1oQ8XuNyvrFFVQg6QGxH?=
+Content-Type: multipart/alternative;
+ boundary="_000_MN2PR12MB2863DB9ED30979697CE966B6F5ED2MN2PR12MB2863namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 085e0709-c811-44fa-59a9-08ded2015fcf
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 15:00:48.1022 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NOJRyJahi6Te8v4bowX3ZPHxDRhJqwvPfvkMsVggM8LM/s/J/D3BuuShdv+g3jfl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7285
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2863.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5686f02c-a203-4138-3d74-08ded201e709
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 15:04:34.5519 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: o9nfufwW93zAvFeLkg995YpVry39BN+4/A9S0bXodfDFQCG5ZVdm7dlw3b9RoqQoqKNLB3pdgbllLda07gKFEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,148 +135,892 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------xajgAF50bCEfDJXLNqeAxgbE
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--_000_MN2PR12MB2863DB9ED30979697CE966B6F5ED2MN2PR12MB2863namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+AMD General
 
-
-On 2026-06-24 10:27, James Zhu wrote:
-> for GFX9.4.2 and above.
+On 6/23/2026 04:55, Christian Koenig wrote:
+> I think we should really just move the defines in a new file called amdgp=
+u_device.h.
 >
-> -v2: keep APU with GTT allocation
+> The uid is something device specific and it is a bit overkill to have a s=
+eparate C file for it.
+
+Hi Christian,
+
+I made a amdgpu_device.h file in v1 of the patch however I was asked by Ale=
+x to drop it
+to keep core structures within amdgpu.h.
+
+I'm not entirely sure if it would be better to create amdgpu_device.h file =
+with only the uid
+struct and helpers or keep it within amdgpu.h (dropping this patch). Any cl=
+arification on the
+this matter will be greatly appreciated.
+
+Thanks,
+Shahyan.
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Tuesday, June 23, 2026 4:55 AM
+To: Soltani, Shahyan <Shahyan.Soltani@amd.com>; amd-gfx@lists.freedesktop.o=
+rg <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH v3 2/8] drm/amdgpu: move struct amdgpu_uid and helpers =
+into separate files
+
+On 6/22/26 21:57, Shahyan Soltani wrote:
+> Move struct amdgpu_uid and helpers from the monolithic amdgpu.h file into=
+ a new amdgpu_uid.h file.
 >
-> Signed-off-by: James Zhu<James.Zhu@amd.com>
-> Reviewed-by: Vladimir Indic<vladimir.indic@amd.com>
-> Reviewed-by: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com>
+> Move functions amdgpu_device_set_uid() and amdgpu_device_get_uid() out of
+> amdgpu_device.c into new dedicated amdgpu_uid.c file.
+>
+> Update amdgpu/Makefile to build amdgpu_uid.o
+>
+> This is part of the ongoing effort to reduce the size of amdgpu.h into th=
+eir own respective
+> separate headers.
+>
+> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 17 ++++++++++++++---
->   1 file changed, 14 insertions(+), 3 deletions(-)
+> This patch and patch 7 can be dropped if moving amdgpu_uid out of
+> amdgpu.h is not desirable.
+
+I think we should really just move the defines in a new file called amdgpu_=
+device.h.
+
+The uid is something device specific and it is a bit overkill to have a sep=
+arate C file for it.
+
+Regards,
+Christian.
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile        |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 22 +------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 ---------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c    | 75 ++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h    | 50 +++++++++++++++
+>  5 files changed, 127 insertions(+), 72 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 21a90fc3adff..a69e278f7aee 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -776,6 +776,12 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
->   	}
->   
->   	if (kptr) {
-> +		uint32_t domain;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
+dgpu/Makefile
+> index 10dc7cfd607e..ab5fdbb5e4b4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -72,7 +72,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_reg_access.o amdgp=
+u_doorbell_mgr.o amdgpu_kms
+>        amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu=
+_lockdep.o \
+>        amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_=
+dev_coredump.o \
+>        amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_=
+ip.o \
+> -     amdgpu_wb.o
+> +     amdgpu_wb.o amdgpu_uid.o
+>
+>  amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 4ffcc0cc6404..fe951a901d20 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -116,6 +116,7 @@
+>  #include "amdgpu_wb.h"
+>  #include "amdgpu_ip.h"
+>  #include "amdgpu_sa.h"
+> +#include "amdgpu_uid.h"
+>  #if defined(CONFIG_DRM_AMD_ISP)
+>  #include "amdgpu_isp.h"
+>  #endif
+> @@ -551,21 +552,6 @@ struct amdgpu_mmio_remap {
+>        struct amdgpu_bo *bo;
+>  };
+>
+> -enum amdgpu_uid_type {
+> -     AMDGPU_UID_TYPE_XCD,
+> -     AMDGPU_UID_TYPE_AID,
+> -     AMDGPU_UID_TYPE_SOC,
+> -     AMDGPU_UID_TYPE_MID,
+> -     AMDGPU_UID_TYPE_MAX
+> -};
+> -
+> -#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID ty=
+pe */
+> -
+> -struct amdgpu_uid {
+> -     uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
+> -     struct amdgpu_device *adev;
+> -};
+> -
+>  #define MAX_UMA_OPTION_NAME  28
+>  #define MAX_UMA_OPTION_ENTRIES       19
+>
+> @@ -1530,10 +1516,4 @@ static inline int amdgpu_device_bus_status_check(s=
+truct amdgpu_device *adev)
+>
+>         return 0;
+>  }
+> -
+> -void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+> -                        enum amdgpu_uid_type type, uint8_t inst,
+> -                        uint64_t uid);
+> -uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+> -                            enum amdgpu_uid_type type, uint8_t inst);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index d6931e1184d0..8d55658ecb31 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6717,53 +6717,3 @@ ssize_t amdgpu_show_reset_mask(char *buf, uint32_t=
+ supported_reset)
+>        size +=3D sysfs_emit_at(buf, size, "\n");
+>        return size;
+>  }
+> -
+> -void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+> -                        enum amdgpu_uid_type type, uint8_t inst,
+> -                        uint64_t uid)
+> -{
+> -     if (!uid_info)
+> -             return;
+> -
+> -     if (type >=3D AMDGPU_UID_TYPE_MAX) {
+> -             dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
+> -                          type);
+> -             return;
+> -     }
+> -
+> -     if (inst >=3D AMDGPU_UID_INST_MAX) {
+> -             dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\=
+n",
+> -                          inst);
+> -             return;
+> -     }
+> -
+> -     if (uid_info->uid[type][inst] !=3D 0) {
+> -             dev_warn_once(
+> -                     uid_info->adev->dev,
+> -                     "Overwriting existing UID %llu for type %d instance=
+ %d\n",
+> -                     uid_info->uid[type][inst], type, inst);
+> -     }
+> -
+> -     uid_info->uid[type][inst] =3D uid;
+> -}
+> -
+> -u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+> -                       enum amdgpu_uid_type type, uint8_t inst)
+> -{
+> -     if (!uid_info)
+> -             return 0;
+> -
+> -     if (type >=3D AMDGPU_UID_TYPE_MAX) {
+> -             dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
+> -                          type);
+> -             return 0;
+> -     }
+> -
+> -     if (inst >=3D AMDGPU_UID_INST_MAX) {
+> -             dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\=
+n",
+> -                          inst);
+> -             return 0;
+> -     }
+> -
+> -     return uid_info->uid[type][inst];
+> -}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uid.c
+> new file mode 100644
+> index 000000000000..6cf6b3f12271
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c
+> @@ -0,0 +1,75 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright 2026 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +#include "amdgpu_uid.h"
+> +#include <linux/dev_printk.h>
+> +#include "amdgpu.h"
 > +
-> +		if (flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT)
-> +			domain = AMDGPU_GEM_DOMAIN_GTT;
-> +		else
-> +			domain = AMDGPU_GEM_DOMAIN_VRAM;
->   		err = amdgpu_amdkfd_gpuvm_map_bo_to_kernel(
->   				(struct kgd_mem *)*mem, kptr, NULL, domain);
->   		if (err) {
-> @@ -1489,8 +1495,7 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
->   {
->   	struct kfd_node *dev = pdd->dev;
->   	struct qcm_process_device *qpd = &pdd->qpd;
-> -	uint32_t flags = KFD_IOC_ALLOC_MEM_FLAGS_GTT
-> -			| KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
-> +	uint32_t flags = KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
->   			| KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
->   	struct kgd_mem *mem;
->   	void *kaddr;
-> @@ -1499,7 +1504,13 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
->   	if (!dev->kfd->cwsr_enabled || qpd->cwsr_kaddr || !qpd->cwsr_base)
->   		return 0;
->   
-> -	/* cwsr_base is only set for dGPU */
-> +	if (KFD_GC_VERSION(dev) >= IP_VERSION(9, 4, 2) &&
-> +	    !(dev->adev->flags & AMD_IS_APU))
-use !adev->apu_prefer_gtt
-
-With this fixed, this patch is Reviewed-by: Philip Yang 
-<philip.yang@amd.com>
-> +		flags |= KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
-> +	else
-> +		flags |= KFD_IOC_ALLOC_MEM_FLAGS_GTT;
+> +void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+> +                        enum amdgpu_uid_type type, uint8_t inst,
+> +                        uint64_t uid)
+> +{
+> +     if (!uid_info)
+> +             return;
 > +
-> +	/* Allocate CWSR TBA/TMA buffers */
->   	ret = kfd_process_alloc_gpuvm(pdd, qpd->cwsr_base,
->   				      KFD_CWSR_TBA_TMA_SIZE, flags, &mem, &kaddr);
->   	if (ret)
+> +     if (type >=3D AMDGPU_UID_TYPE_MAX) {
+> +             dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
+> +                          type);
+> +             return;
+> +     }
+> +
+> +     if (inst >=3D AMDGPU_UID_INST_MAX) {
+> +             dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\=
+n",
+> +                          inst);
+> +             return;
+> +     }
+> +
+> +     if (uid_info->uid[type][inst] !=3D 0) {
+> +             dev_warn_once(
+> +                     uid_info->adev->dev,
+> +                     "Overwriting existing UID %llu for type %d instance=
+ %d\n",
+> +                     uid_info->uid[type][inst], type, inst);
+> +     }
+> +
+> +     uid_info->uid[type][inst] =3D uid;
+> +}
+> +
+> +u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+> +                       enum amdgpu_uid_type type, uint8_t inst)
+> +{
+> +     if (!uid_info)
+> +             return 0;
+> +
+> +     if (type >=3D AMDGPU_UID_TYPE_MAX) {
+> +             dev_err_once(uid_info->adev->dev, "Invalid UID type %d\n",
+> +                          type);
+> +             return 0;
+> +     }
+> +
+> +     if (inst >=3D AMDGPU_UID_INST_MAX) {
+> +             dev_err_once(uid_info->adev->dev, "Invalid UID instance %d\=
+n",
+> +                          inst);
+> +             return 0;
+> +     }
+> +
+> +     return uid_info->uid[type][inst];
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uid.h
+> new file mode 100644
+> index 000000000000..d92ddcce9f58
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h
+> @@ -0,0 +1,50 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR MIT
+> + *
+> + * Copyright 2026 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +#ifndef __AMDGPU_UID_H__
+> +#define __AMDGPU_UID_H__
+> +
+> +#include <linux/types.h>
+> +
+> +#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID ty=
+pe */
+> +
+> +struct amdgpu_device;
+> +
+> +enum amdgpu_uid_type {
+> +     AMDGPU_UID_TYPE_XCD,
+> +     AMDGPU_UID_TYPE_AID,
+> +     AMDGPU_UID_TYPE_SOC,
+> +     AMDGPU_UID_TYPE_MID,
+> +     AMDGPU_UID_TYPE_MAX
+> +};
+> +
+> +struct amdgpu_uid {
+> +     uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID_INST_MAX];
+> +     struct amdgpu_device *adev;
+> +};
+> +
+> +void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+> +                        enum amdgpu_uid_type type, uint8_t inst,
+> +                        uint64_t uid);
+> +uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+> +                            enum amdgpu_uid_type type, uint8_t inst);
+> +#endif
 
---------------xajgAF50bCEfDJXLNqeAxgbE
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-06-24 10:27, James Zhu wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260624142727.1946258-2-James.Zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">for GFX9.4.2 and above.
+--_000_MN2PR12MB2863DB9ED30979697CE966B6F5ED2MN2PR12MB2863namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
--v2: keep APU with GTT allocation
-
-Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
-Reviewed-by: Vladimir Indic <a class="moz-txt-link-rfc2396E" href="mailto:vladimir.indic@amd.com">&lt;vladimir.indic@amd.com&gt;</a>
-Reviewed-by: Harish Kasiviswanathan <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 21a90fc3adff..a69e278f7aee 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -776,6 +776,12 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
- 	}
- 
- 	if (kptr) {
-+		uint32_t domain;
-+
-+		if (flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_GTT)
-+			domain = AMDGPU_GEM_DOMAIN_GTT;
-+		else
-+			domain = AMDGPU_GEM_DOMAIN_VRAM;
- 		err = amdgpu_amdkfd_gpuvm_map_bo_to_kernel(
- 				(struct kgd_mem *)*mem, kptr, NULL, domain);
- 		if (err) {
-@@ -1489,8 +1495,7 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
- {
- 	struct kfd_node *dev = pdd-&gt;dev;
- 	struct qcm_process_device *qpd = &amp;pdd-&gt;qpd;
--	uint32_t flags = KFD_IOC_ALLOC_MEM_FLAGS_GTT
--			| KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
-+	uint32_t flags = KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
- 			| KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
- 	struct kgd_mem *mem;
- 	void *kaddr;
-@@ -1499,7 +1504,13 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
- 	if (!dev-&gt;kfd-&gt;cwsr_enabled || qpd-&gt;cwsr_kaddr || !qpd-&gt;cwsr_base)
- 		return 0;
- 
--	/* cwsr_base is only set for dGPU */
-+	if (KFD_GC_VERSION(dev) &gt;= IP_VERSION(9, 4, 2) &amp;&amp;
-+	    !(dev-&gt;adev-&gt;flags &amp; AMD_IS_APU))</pre>
-    </blockquote>
-    use !adev-&gt;apu_prefer_gtt<br>
-    <br>
-    With this fixed, this patch is Reviewed-by: Philip Yang
-    <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a>
-    <blockquote type="cite" cite="mid:20260624142727.1946258-2-James.Zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+		flags |= KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
-+	else
-+		flags |= KFD_IOC_ALLOC_MEM_FLAGS_GTT;
-+
-+	/* Allocate CWSR TBA/TMA buffers */
- 	ret = kfd_process_alloc_gpuvm(pdd, qpd-&gt;cwsr_base,
- 				      KFD_CWSR_TBA_TMA_SIZE, flags, &amp;mem, &amp;kaddr);
- 	if (ret)
-</pre>
-    </blockquote>
-    <br>
-  </body>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);"></s=
+pan>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+On 6/23/2026 04:55, Christian Koenig wrote:</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&gt; I think we should really just move the defines in a new file called am=
+dgpu_device.h.<br>
+&gt;<br>
+&gt; The uid is something device specific and it is a bit overkill to have =
+a separate C file for it.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Hi Christian,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+I made a amdgpu_device.h file in v1 of the patch however I was asked by Ale=
+x to drop it</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+to keep core structures within amdgpu.h.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+I'm not entirely sure if it would be better to create amdgpu_device.h file =
+with only the uid</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+struct and helpers or keep it within amdgpu.h (dropping this patch). Any cl=
+arification on the</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+this matter will be greatly appreciated.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Thanks,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Shahyan.</div>
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);"></s=
+pan>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, June 23, 2026 4:55 AM<br>
+<b>To:</b> Soltani, Shahyan &lt;Shahyan.Soltani@amd.com&gt;; amd-gfx@lists.=
+freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v3 2/8] drm/amdgpu: move struct amdgpu_uid and h=
+elpers into separate files</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 6/22/26 21:57, Shahyan Soltani wrote:<br>
+&gt; Move struct amdgpu_uid and helpers from the monolithic amdgpu.h file i=
+nto a new amdgpu_uid.h file.<br>
+&gt; <br>
+&gt; Move functions amdgpu_device_set_uid() and amdgpu_device_get_uid() out=
+ of<br>
+&gt; amdgpu_device.c into new dedicated amdgpu_uid.c file.<br>
+&gt; <br>
+&gt; Update amdgpu/Makefile to build amdgpu_uid.o<br>
+&gt; <br>
+&gt; This is part of the ongoing effort to reduce the size of amdgpu.h into=
+ their own respective<br>
+&gt; separate headers.<br>
+&gt; <br>
+&gt; Signed-off-by: Shahyan Soltani &lt;shahyan.soltani@amd.com&gt;<br>
+&gt; <br>
+&gt; ---<br>
+&gt; This patch and patch 7 can be dropped if moving amdgpu_uid out of <br>
+&gt; amdgpu.h is not desirable.<br>
+<br>
+I think we should really just move the defines in a new file called amdgpu_=
+device.h.<br>
+<br>
+The uid is something device specific and it is a bit overkill to have a sep=
+arate C file for it.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/Makefile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 2 +-<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; | 22 +------<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 ---------------<=
+br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c&nbsp;&nbsp;&nbsp; | 75 +=
++++++++++++++++++++++<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h&nbsp;&nbsp;&nbsp; | 50 +=
+++++++++++++++<br>
+&gt;&nbsp; 5 files changed, 127 insertions(+), 72 deletions(-)<br>
+&gt;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c<br>
+&gt;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd=
+/amdgpu/Makefile<br>
+&gt; index 10dc7cfd607e..ab5fdbb5e4b4 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/Makefile<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/Makefile<br>
+&gt; @@ -72,7 +72,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_reg_access.o am=
+dgpu_doorbell_mgr.o amdgpu_kms<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_eeprom.o amdgpu_mca.o=
+ amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_mux.o amdgpu_xcp=
+.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_cper.o amdgpu_userq_f=
+ence.o amdgpu_eviction_fence.o amdgpu_ip.o \<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_wb.o<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_wb.o amdgpu_uid.o<br>
+&gt;&nbsp; <br>
+&gt;&nbsp; amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o<br>
+&gt;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu.h<br>
+&gt; index 4ffcc0cc6404..fe951a901d20 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt; @@ -116,6 +116,7 @@<br>
+&gt;&nbsp; #include &quot;amdgpu_wb.h&quot;<br>
+&gt;&nbsp; #include &quot;amdgpu_ip.h&quot;<br>
+&gt;&nbsp; #include &quot;amdgpu_sa.h&quot;<br>
+&gt; +#include &quot;amdgpu_uid.h&quot;<br>
+&gt;&nbsp; #if defined(CONFIG_DRM_AMD_ISP)<br>
+&gt;&nbsp; #include &quot;amdgpu_isp.h&quot;<br>
+&gt;&nbsp; #endif<br>
+&gt; @@ -551,21 +552,6 @@ struct amdgpu_mmio_remap {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo;<br>
+&gt;&nbsp; };<br>
+&gt;&nbsp; <br>
+&gt; -enum amdgpu_uid_type {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_XCD,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_AID,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_SOC,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_MID,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_MAX<br>
+&gt; -};<br>
+&gt; -<br>
+&gt; -#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID=
+ type */<br>
+&gt; -<br>
+&gt; -struct amdgpu_uid {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID=
+_INST_MAX];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev;<br>
+&gt; -};<br>
+&gt; -<br>
+&gt;&nbsp; #define MAX_UMA_OPTION_NAME&nbsp; 28<br>
+&gt;&nbsp; #define MAX_UMA_OPTION_ENTRIES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; 19<br>
+&gt;&nbsp; <br>
+&gt; @@ -1530,10 +1516,4 @@ static inline int amdgpu_device_bus_status_chec=
+k(struct amdgpu_device *adev)<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; -<br>
+&gt; -void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum =
+amdgpu_uid_type type, uint8_t inst,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint6=
+4_t uid);<br>
+&gt; -uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; enum amdgpu_uid_type type, uint8_t inst);<br>
+&gt;&nbsp; #endif<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; index d6931e1184d0..8d55658ecb31 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; @@ -6717,53 +6717,3 @@ ssize_t amdgpu_show_reset_mask(char *buf, uint3=
+2_t supported_reset)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size +=3D sysfs_emit_at(buf,=
+ size, &quot;\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&gt;&nbsp; }<br>
+&gt; -<br>
+&gt; -void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum =
+amdgpu_uid_type type, uint8_t inst,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint6=
+4_t uid)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!uid_info)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (type &gt;=3D AMDGPU_UID_TYPE_MAX) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID type %d\n&quo=
+t;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; type);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (inst &gt;=3D AMDGPU_UID_INST_MAX) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID instance %d\n=
+&quot;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; inst);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (uid_info-&gt;uid[type][inst] !=3D 0) {<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_warn_once(<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uid_info-&gt;adev-&gt;d=
+ev,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Overwriting exist=
+ing UID %llu for type %d instance %d\n&quot;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uid_info-&gt;uid[type][=
+inst], type, inst);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uid_info-&gt;uid[type][inst] =3D uid;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amdgpu=
+_uid_type type, uint8_t inst)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!uid_info)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (type &gt;=3D AMDGPU_UID_TYPE_MAX) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID type %d\n&quo=
+t;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; type);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (inst &gt;=3D AMDGPU_UID_INST_MAX) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID instance %d\n=
+&quot;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; inst);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return uid_info-&gt;uid[type][inst];<br>
+&gt; -}<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_uid.c<br>
+&gt; new file mode 100644<br>
+&gt; index 000000000000..6cf6b3f12271<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.c<br>
+&gt; @@ -0,0 +1,75 @@<br>
+&gt; +// SPDX-License-Identifier: GPL-2.0 OR MIT<br>
+&gt; +/*<br>
+&gt; + * Copyright 2026 Advanced Micro Devices, Inc.<br>
+&gt; + *<br>
+&gt; + * Permission is hereby granted, free of charge, to any person obtain=
+ing a<br>
+&gt; + * copy of this software and associated documentation files (the &quo=
+t;Software&quot;),<br>
+&gt; + * to deal in the Software without restriction, including without lim=
+itation<br>
+&gt; + * the rights to use, copy, modify, merge, publish, distribute, subli=
+cense,<br>
+&gt; + * and/or sell copies of the Software, and to permit persons to whom =
+the<br>
+&gt; + * Software is furnished to do so, subject to the following condition=
+s:<br>
+&gt; + *<br>
+&gt; + * The above copyright notice and this permission notice shall be inc=
+luded in<br>
+&gt; + * all copies or substantial portions of the Software.<br>
+&gt; + *<br>
+&gt; + * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF AN=
+Y KIND, EXPRESS OR<br>
+&gt; + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTAB=
+ILITY,<br>
+&gt; + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO =
+EVENT SHALL<br>
+&gt; + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMA=
+GES OR<br>
+&gt; + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWI=
+SE,<br>
+&gt; + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE=
+ OR<br>
+&gt; + * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt; + */<br>
+&gt; +#include &quot;amdgpu_uid.h&quot;<br>
+&gt; +#include &lt;linux/dev_printk.h&gt;<br>
+&gt; +#include &quot;amdgpu.h&quot;<br>
+&gt; +<br>
+&gt; +void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum =
+amdgpu_uid_type type, uint8_t inst,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint6=
+4_t uid)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!uid_info)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (type &gt;=3D AMDGPU_UID_TYPE_MAX) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID type %d\n&quo=
+t;,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; type);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (inst &gt;=3D AMDGPU_UID_INST_MAX) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID instance %d\n=
+&quot;,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; inst);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (uid_info-&gt;uid[type][inst] !=3D 0) {<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_warn_once(<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uid_info-&gt;adev-&gt;d=
+ev,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Overwriting exist=
+ing UID %llu for type %d instance %d\n&quot;,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uid_info-&gt;uid[type][=
+inst], type, inst);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uid_info-&gt;uid[type][inst] =3D uid;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amdgpu=
+_uid_type type, uint8_t inst)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!uid_info)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (type &gt;=3D AMDGPU_UID_TYPE_MAX) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID type %d\n&quo=
+t;,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; type);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (inst &gt;=3D AMDGPU_UID_INST_MAX) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err_once(uid_info-&gt;adev-&gt;dev, &quot;Invalid UID instance %d\n=
+&quot;,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; inst);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return uid_info-&gt;uid[type][inst];<br>
+&gt; +}<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_uid.h<br>
+&gt; new file mode 100644<br>
+&gt; index 000000000000..d92ddcce9f58<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uid.h<br>
+&gt; @@ -0,0 +1,50 @@<br>
+&gt; +/* SPDX-License-Identifier: GPL-2.0 OR MIT<br>
+&gt; + *<br>
+&gt; + * Copyright 2026 Advanced Micro Devices, Inc.<br>
+&gt; + *<br>
+&gt; + * Permission is hereby granted, free of charge, to any person obtain=
+ing a<br>
+&gt; + * copy of this software and associated documentation files (the &quo=
+t;Software&quot;),<br>
+&gt; + * to deal in the Software without restriction, including without lim=
+itation<br>
+&gt; + * the rights to use, copy, modify, merge, publish, distribute, subli=
+cense,<br>
+&gt; + * and/or sell copies of the Software, and to permit persons to whom =
+the<br>
+&gt; + * Software is furnished to do so, subject to the following condition=
+s:<br>
+&gt; + *<br>
+&gt; + * The above copyright notice and this permission notice shall be inc=
+luded in<br>
+&gt; + * all copies or substantial portions of the Software.<br>
+&gt; + *<br>
+&gt; + * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF AN=
+Y KIND, EXPRESS OR<br>
+&gt; + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTAB=
+ILITY,<br>
+&gt; + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO =
+EVENT SHALL<br>
+&gt; + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMA=
+GES OR<br>
+&gt; + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWI=
+SE,<br>
+&gt; + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE=
+ OR<br>
+&gt; + * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt; + */<br>
+&gt; +#ifndef __AMDGPU_UID_H__<br>
+&gt; +#define __AMDGPU_UID_H__<br>
+&gt; +<br>
+&gt; +#include &lt;linux/types.h&gt;<br>
+&gt; +<br>
+&gt; +#define AMDGPU_UID_INST_MAX 8 /* max number of instances for each UID=
+ type */<br>
+&gt; +<br>
+&gt; +struct amdgpu_device;<br>
+&gt; +<br>
+&gt; +enum amdgpu_uid_type {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_XCD,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_AID,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_SOC,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_MID,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UID_TYPE_MAX<br>
+&gt; +};<br>
+&gt; +<br>
+&gt; +struct amdgpu_uid {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint64_t uid[AMDGPU_UID_TYPE_MAX][AMDGPU_UID=
+_INST_MAX];<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev;<br>
+&gt; +};<br>
+&gt; +<br>
+&gt; +void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum =
+amdgpu_uid_type type, uint8_t inst,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint6=
+4_t uid);<br>
+&gt; +uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; enum amdgpu_uid_type type, uint8_t inst);<br>
+&gt; +#endif<br>
+<br>
+</div>
+</span></font></div>
+</body>
 </html>
 
---------------xajgAF50bCEfDJXLNqeAxgbE--
+--_000_MN2PR12MB2863DB9ED30979697CE966B6F5ED2MN2PR12MB2863namp_--
