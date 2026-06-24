@@ -4,120 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9105FCDB479
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 06:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9A75CDE000
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 06:43:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17B4910E036;
-	Wed, 24 Jun 2026 06:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 532C410E050;
+	Wed, 24 Jun 2026 06:43:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j7Lq+Ddx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l8s4aetS";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010041.outbound.protection.outlook.com [52.101.85.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4589C10E036
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 06:22:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hxdtm5FLoML6Ri1uO9PLdVOO0AfHrq/bg4/BQerA/CREcj3B7Y3CYo/rgX1eddpQhxWEjnIiu9Nc9SqG28CEqGGekhpKmjMN7LatP2l87/zM3DIXQSDppNuz8tdkRbQI0TMv0SAh8DQTVEvRdKdUvLKZ/BngLljddtXsgOVbbaFGP6PKNw+u3l6pZC3J905ZSXt5kh433BRppawHS5qzVirIWuyECn7d2UEYAgpYKLQb7a7Almmt+DrmKphAoConmHlodkhmrvLgGO5FHRpgISlhr8uWYdMNNpBrioRsrju0RgcDkV6fBy4V4PG3TNawve7CiQY7zBQ+t4CyGQtBFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6a1KoJw6/YtYUCKUvsF1DuEtmzj2Z/4bs3Hk/yo/KHc=;
- b=IH1tiK0irUNiCl4i4qjVfQyH0RudUXCFGUqMZf0MD3vJA14nKqr5Khma5Dp0NNp6ul0yGpEnMQHw/y5LqE6dcrAjgN/HnY7PWlTrMGLfaPVj/Me1Kid1ZwCAFWJwYUGFSLNM7d5DmL/eLRl+/bRHOQdrK2s8urjrOoanjH6O2FZ2AKvGHTczRpaKRK7/9zwXspo9ekOpWGe97xcAzAbLDo17U+1A6VVPGkFkbyClLrC2J/A2BRVJ1ls6q8OjtcS2t341Jyy7XBWDyNcypMT1f17CKrV/hRHlvjBaHchcjZYrM9jyegz5Hyz+VUyIdZtFn+fvPqMtOZIUDBWww5ORyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6a1KoJw6/YtYUCKUvsF1DuEtmzj2Z/4bs3Hk/yo/KHc=;
- b=j7Lq+DdxyAORa7hRrZXD4ztMLKxnpgg8hEqR+7mbxPTjdRZcB1R5C35QuCF3ciHJxFNnOtt0UR3oLPvRxINZMQqvZxGvuu7qq6ixCFWNVfZznv99BwD0qoWkiHTHwug8kegGdq8dMAOqh7swipDhFQaU0xQFccX5sfmbi7jruT0=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by SA1PR12MB9247.namprd12.prod.outlook.com (2603:10b6:806:3af::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Wed, 24 Jun
- 2026 06:22:06 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%7]) with mapi id 15.21.0159.007; Wed, 24 Jun 2026
- 06:22:06 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
-Thread-Topic: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
-Thread-Index: AQHdA5+x4+PPjqs4MUmZ3QoCHZ9dl7ZNPEdw
-Date: Wed, 24 Jun 2026 06:22:06 +0000
-Message-ID: <MW4PR12MB68039E18FBAF1C3C136EC1F98EED2@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260624060653.992690-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260624060653.992690-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-24T06:21:59.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|SA1PR12MB9247:EE_
-x-ms-office365-filtering-correlation-id: 597a35ab-9e80-42ab-01e0-08ded1b8ea2e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|56012099006|11063799006|6133799003|22082099003|38070700021|18002099003;
-x-microsoft-antispam-message-info: 93WyzpVQFIyp6fyaO56L0ymXz5GDR1NHz+fou+sUITVmM4LvHAZ/gMBvSQ6J09LpB37NHpHKHWS1VAb9dKIRE0G8et+zNlLvAxGbtf2PVJkK/pqRonJyN7+N2Z0J/NV0SlNVfpnCA/u52nB624CgdVygXJm1alOwe2zTYPRNUbrZwLxxr0pNuV5XZpPcDhaubSzluiHphbFLlFC0BMq6vuXcMPX0rrf7+j+hBqSPy90QtpIJyB92RbKYjF+ZrZAEHrIPOgsl7r1vWtbtrHQoDIKaXLZfQrswFxMpf4+2pY9/WBoV21dJvFO0wJo75fzWwtXk+GktiKP8rXtRY/w6fQAQCTmVOaPC1/UjUnc1GLJ203AXYsMK54t5Xr2WkoBxADqgBndR3uDVLQVtQgoCYK0KJig4+S/TG8YHxTotzCvVvawQQEIV23bHLo9kROzHJQyWeFk7R09RdlreiqKckYY/bpAoBxxPil1xsm0dcliU7PjCu9QLIsyQQxMop12dKZsbxpovXCGelbHveNmxrqoJXGE4i+42lUy/gIKy73z4UALRvG7oMY+jexFJBcwP0KH3Cc8OGdL4KzHLSzV9JWWvKlgDQlZtqQJ/q4EDTUPd79xbZ41kFs8CPNpFL40J+VjKlGyZM8dXS4V4aviEBPRu4Pt8J7DbwN2EqCUEH4ElruAZrGIvph49g8dc9OAp8v1hhsO4KUwB1ZwOQEaRFA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(56012099006)(11063799006)(6133799003)(22082099003)(38070700021)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?I5eH6DBbjSXzQXbcH6F6vHJE+O6OXfQU9zZecw++UUVD1UHnk6OSJnpbt27t?=
- =?us-ascii?Q?JMTBepOwHkC0cTIrdxTVdz2I/P239qGC965iq0OQKAWcL2AUGXB6Tytpbp1R?=
- =?us-ascii?Q?BMu+z3Z4qdNnVjw4bF9/LJYvOS9OYvKKdd6ut48GNEel3P0JavorAofFa7bg?=
- =?us-ascii?Q?dN1Qui3P1Eic0W3+48P3YPujszlti8vw+36yjl28l9ZtseXlP1D2p2h2APa2?=
- =?us-ascii?Q?yt6oDM7jbewKwjrEqPlh45Z+PhlZwhXhyxxEgeKV3ISOWbHjVJuRYoou6yBr?=
- =?us-ascii?Q?7ebTkwuvdPDsooZY/vXX/lmsQeKwGPggS7ZFbzXjFOZ+sEKHCRMlQh8fzd4U?=
- =?us-ascii?Q?QDVxSITOdX0c/z4uhlL5I4NCtC3i+Ub0t0iz0nRKmTFHJhDy2HTAnLTccaec?=
- =?us-ascii?Q?+MwLYfWqKxG2LAMi75V2CJWs+3AXjvSJATpYGtBOrw93YH5A9ZdncxJRqz3F?=
- =?us-ascii?Q?GbrIhecdJDk14rxUzCt6vWH830eD4KdPKkCcklJ9c/CekqUBujX1CeRGZhPh?=
- =?us-ascii?Q?KZVtbbXq2bHa21DUfpAG32JYqMEmA7Qn/4R8a7REdPu/RfHhjgtBpb6L1SG6?=
- =?us-ascii?Q?Z10lKcJSn9V3V0hf1j9wUeA8vjDur+LCjJ63TgF21/3AEBtRxrrb+uE/a4/6?=
- =?us-ascii?Q?3MV+6dPwxVfYB7wUTCHYka86z86JKGX5rmylshtjlEGkxg+7XP7euVQQNmmP?=
- =?us-ascii?Q?3Oolny1DE8OwXRA0ek7d3g6/KulkZaCSrpVlDBqE0FlSlh31nnCLm99hKXNI?=
- =?us-ascii?Q?cBLESTEsy2V9u5YkGEHXcsiqGMuT8Hx7zu2uBn+f+0kDkWy/CZ3PinjMkuAQ?=
- =?us-ascii?Q?4zIz3WhlCfgY5W/96GKNXwvkMOCCDv+D+hknziibtHwojM/AwZcvhXvu2UN5?=
- =?us-ascii?Q?4FTAJEAFPqkjfHuXQh8C534HtyfqSm/d7y8EGhCZMnNEuUdhvBaz3CHQuNgi?=
- =?us-ascii?Q?6as1MiWyQ0/FVbfvYaSWEqR26+6LL3DJG6Yrwrkr9AmEyj+28cTMNZZVAKXj?=
- =?us-ascii?Q?CdnubmwRHVZEWn2d1LlUCqVIvcnucm0h2m/acS0tXkEKduvjrG4Jv9V4g6LQ?=
- =?us-ascii?Q?VZ/RRqNVbSJyfyq1PUutnU1A8OxcO+CLTSciCFWVz9/9vs17OB7xHZGQpeNu?=
- =?us-ascii?Q?ahCYH/bTDNBeF9innWOuXZ9PQpNTsn1jpMu1f/7K/a8BL8JHvRjgQ4Xg7eq6?=
- =?us-ascii?Q?zM0I18y9Q9bFDftWJMz6vxzHJBMcfiUJSAIMbHvW4+9xJK2eKxx65X1SSXg4?=
- =?us-ascii?Q?EvKUuZhkfPoedQPAsczhBUCK9YjnDksyCOydT0gKmTFTQ1pqmRVVyLOv6r2d?=
- =?us-ascii?Q?Z4yEYJxQt78azfnd+BcIDNXFywGniMs38HrzllwkibSC80bBChF+XCwFTzJ8?=
- =?us-ascii?Q?BhU92h9AW59/f/j5gOYVjGzya0XUwnUoKTxhLvFd8+qcEjGKN1JeE0I4MKMh?=
- =?us-ascii?Q?pcSsg17e7u0PJD3sXmJoV7qiThhsJu7W354fQi6dDEBV6rtl4wFAO8PEpXw5?=
- =?us-ascii?Q?89OQdmX3UQ3k3VxRqpv2dBhOvOy6/ORGHtX7ahEmUiMXMz2ORJxcbvWKXju8?=
- =?us-ascii?Q?4Ps0W9qK7SwLqW279+jX9JkR6KOLrMGh/J/EGOtYSm8VIb/9EGQHmkyVOq1E?=
- =?us-ascii?Q?CkcfvG6d/GjnnUnP8mzCZM096ohFT2ktl4R7toPlImg8mjEymGohCI16D1v4?=
- =?us-ascii?Q?iuOyEzDSNQEkhGlzhoTYg1tW3WBzlBX2QGBv3wdHVr6K+Dnu?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 597a35ab-9e80-42ab-01e0-08ded1b8ea2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 06:22:06.6044 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gBiYYH3NPNk7vqDYdHJTZl/hLmzqvLs7AabPRBA8+YpSg+1ImeDRJ4yBx7WYXvxZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9247
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8E110E050
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 06:43:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782283414; x=1813819414;
+ h=date:from:to:cc:subject:message-id;
+ bh=S66rB3G/Ir4h7R1MR1yYlN5jdw1782v1j22LxL+eeto=;
+ b=l8s4aetScNMg2I3knyva0v/jHHPpoCtEZFD5K7PBTLXI8GnnXTc1MZA+
+ X7ei0NQkEleKj3RzMpELVI0XUttor2z7OsPQZZWPLzroTEWC0zCmjmytG
+ pxGLCBhVXQSEKSuSmX3tNkHISq6cA3UieZUVMlpmkS2BlvgKmDLrlki6e
+ 0uQGNYjRCuAK0GM+EdKDfUP2fpuaNAyCtYITgx3qEElYlHIrPTlVKvILY
+ 8Y9wVwT8x6U5Cv7ivFes/BPWJUMRgKh7oDlwiZVd85BWLwxJlpv8TMXC1
+ FjD8KGX2IT7WZxwiJZ66S2wlo7VbduUlNTsHejO25juOXowP9c2+/f7LC A==;
+X-CSE-ConnectionGUID: wmpcBXPkQ6ashvWl15qo6A==
+X-CSE-MsgGUID: X1DzBEAYRg+LrJ4pjf0hrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="93395448"
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="93395448"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 23:43:33 -0700
+X-CSE-ConnectionGUID: tNThZ1yXTxaz/GlK+t9ABQ==
+X-CSE-MsgGUID: CaV2eLCeTeyBwpGXrV8Dxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="287876518"
+Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
+ by orviesa001.jf.intel.com with ESMTP; 23 Jun 2026 23:43:30 -0700
+Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wcHKa-000000003Ad-0Rsw;
+ Wed, 24 Jun 2026 06:43:28 +0000
+Date: Wed, 24 Jun 2026 14:42:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, Mark Brown <broonie@kernel.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 4e5dfb7c84012007c3c7061126491bbc92d71bf1
+Message-ID: <202606241414.J3MBjGDP-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,264 +66,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 4e5dfb7c84012007c3c7061126491bbc92d71bf1  Add linux-next specific files for 20260623
 
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Error/Warning (recently discovered and may have been fixed):
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Wednesday, June 24, 2026 2:07 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
+    https://lore.kernel.org/oe-kbuild-all/202606240749.ZFFiISB2-lkp@intel.com
+    https://lore.kernel.org/oe-kbuild-all/202606240753.kYjobJVl-lkp@intel.com
+    https://lore.kernel.org/oe-kbuild-all/202606241110.iUga5vVw-lkp@intel.com
+    https://lore.kernel.org/oe-kbuild-all/202606241320.9gDd2s75-lkp@intel.com
+    https://lore.kernel.org/oe-kbuild-all/202606241431.L9VUbAKp-lkp@intel.com
 
-struct pptable_funcs still carries callback slots that no longer have call =
-paths, drop the following unused callback slots:
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c:120:1: warning: the frame size of 1384 bytes is larger than 1280 bytes [-Wframe-larger-than=]
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c:120:1: warning: the frame size of 1388 bytes is larger than 1280 bytes [-Wframe-larger-than=]
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c:120:1: warning: the frame size of 1424 bytes is larger than 1280 bytes [-Wframe-larger-than=]
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c:120:1: warning: the frame size of 1696 bytes is larger than 1280 bytes [-Wframe-larger-than=]
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c:120:1: warning: the frame size of 1696 bytes is larger than 1536 bytes [-Wframe-larger-than=]
+    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.o: error: objtool: amdgpu_vm_handle_fault+0x97: sibling call from callable instruction with modified stack frame
+    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.o: warning: objtool: amdgpu_vm_handle_fault+0x12d: sibling call from callable instruction with modified stack frame
+    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.o: warning: objtool: amdgpu_vm_handle_fault+0x140: sibling call from callable instruction with modified stack frame
 
-- baco_get_state()
-- baco_set_state()
-- set_power_state()
-- get_clock_by_type_with_voltage()
-- set_azalia_d3_pme()
+Error/Warning ids grouped by kconfigs:
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 29 -------------------  dr=
-ivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  |  2 --  drivers/gpu/drm/amd/pm=
-/swsmu/inc/smu_v13_0.h  |  2 --  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_pp=
-t.c |  1 -
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 -
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 -
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  5 ----
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  1 -
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  9 ------
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 --
- 11 files changed, 54 deletions(-)
+recent_errors
+|-- arc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- csky-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- i386-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- i386-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- loongarch-defconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vm.o:warning:objtool:amdgpu_vm_handle_fault:sibling-call-from-callable-instruction-with-modified-stack-frame
+|-- microblaze-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- mips-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- openrisc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
+|-- powerpc64-randconfig-r052-20260624
+|   `-- drivers-firmware-imx-se_ctrl.c:WARNING:invalid-free-of-devm_-allocated-data
+|-- sparc-randconfig-r133-20260624
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-..-..-..-amdgpu-amdgv_sriovmsg.h:sparse:sparse:static-assertion-failed:amd_sriov_msg_vf2pf_info-must-be-KB
+|-- x86_64-randconfig-003-20260622
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vm.o:warning:objtool:amdgpu_vm_handle_fault:sibling-call-from-callable-instruction-with-modified-stack-frame
+|-- x86_64-randconfig-072-20250919
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_vm.o:error:objtool:amdgpu_vm_handle_fault:sibling-call-from-callable-instruction-with-modified-stack-frame
+`-- xtensa-allyesconfig
+    `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-tests-amdgpu_dm_connector_test.c:warning:the-frame-size-of-bytes-is-larger-than-bytes
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
-m/amd/pm/swsmu/inc/amdgpu_smu.h
-index d76e0b005308..38a8249570a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -849,8 +849,6 @@ struct pptable_funcs {
-         */
-        int (*set_default_dpm_table)(struct smu_context *smu);
+elapsed time: 941m
 
--       int (*set_power_state)(struct smu_context *smu);
--
-        /**
-         * @populate_umd_state_clk: Populate the UMD power state table with
-         *                          defaults.
-@@ -903,16 +901,6 @@ struct pptable_funcs {
-                                              struct
-                                              pp_clock_levels_with_latency
-                                              *clocks);
--       /**
--        * @get_clock_by_type_with_voltage: Get the speed and voltage of a =
-clock
--        *                                  domain.
--        */
--       int (*get_clock_by_type_with_voltage)(struct smu_context *smu,
--                                             enum amd_pp_clock_type type,
--                                             struct
--                                             pp_clock_levels_with_voltage
--                                             *clocks);
--
-        /**
-         * @get_power_profile_mode: Print all power profile modes to
-         *                          buffer. Star current mode.
-@@ -1354,11 +1342,6 @@ struct pptable_funcs {
-         */
-        int (*register_irq_handler)(struct smu_context *smu);
+configs tested: 278
+configs skipped: 4
 
--       /**
--        * @set_azalia_d3_pme: Wake the audio decode engine from d3 sleep.
--        */
--       int (*set_azalia_d3_pme)(struct smu_context *smu);
--
-        /**
-         * @get_max_sustainable_clocks_by_dc: Get a copy of the max sustain=
-able
-         *                                    clock speeds table.
-@@ -1375,18 +1358,6 @@ struct pptable_funcs {
-         */
-        int (*get_bamaco_support)(struct smu_context *smu);
+tested configs:
+alpha                             allnoconfig    gcc-16.1.0
+alpha                            allyesconfig    gcc-16.1.0
+alpha                               defconfig    gcc-16.1.0
+arc                              allmodconfig    clang-23
+arc                              allmodconfig    gcc-16.1.0
+arc                               allnoconfig    gcc-16.1.0
+arc                              allyesconfig    clang-23
+arc                              allyesconfig    gcc-16.1.0
+arc                                 defconfig    gcc-16.1.0
+arc                   randconfig-001-20260624    gcc-15.2.0
+arc                   randconfig-001-20260624    gcc-9.5.0
+arc                   randconfig-002-20260624    gcc-15.2.0
+arm                               allnoconfig    clang-17
+arm                               allnoconfig    gcc-16.1.0
+arm                              allyesconfig    clang-23
+arm                              allyesconfig    gcc-16.1.0
+arm                                 defconfig    clang-23
+arm                                 defconfig    gcc-16.1.0
+arm                   randconfig-001-20260624    clang-19
+arm                   randconfig-001-20260624    gcc-15.2.0
+arm                   randconfig-002-20260624    gcc-15.2.0
+arm                   randconfig-002-20260624    gcc-8.5.0
+arm                   randconfig-003-20260624    gcc-15.2.0
+arm                   randconfig-004-20260624    clang-17
+arm                   randconfig-004-20260624    gcc-15.2.0
+arm                           sama5_defconfig    gcc-16.1.0
+arm64                            allmodconfig    clang-23
+arm64                             allnoconfig    gcc-16.1.0
+arm64                               defconfig    gcc-16.1.0
+arm64                 randconfig-001-20260624    clang-21
+arm64                 randconfig-002-20260624    clang-21
+arm64                 randconfig-002-20260624    gcc-15.2.0
+arm64                 randconfig-003-20260624    clang-21
+arm64                 randconfig-003-20260624    clang-23
+arm64                 randconfig-004-20260624    clang-21
+arm64                 randconfig-004-20260624    clang-23
+csky                             allmodconfig    gcc-16.1.0
+csky                              allnoconfig    gcc-16.1.0
+csky                                defconfig    gcc-16.1.0
+csky                  randconfig-001-20260624    clang-21
+csky                  randconfig-001-20260624    gcc-16.1.0
+csky                  randconfig-002-20260624    clang-21
+csky                  randconfig-002-20260624    gcc-9.5.0
+hexagon                          allmodconfig    clang-23
+hexagon                          allmodconfig    gcc-16.1.0
+hexagon                           allnoconfig    clang-23
+hexagon                           allnoconfig    gcc-16.1.0
+hexagon                             defconfig    clang-23
+hexagon                             defconfig    gcc-16.1.0
+hexagon                        randconfig-001    gcc-11.5.0
+hexagon               randconfig-001-20260624    clang-20
+hexagon               randconfig-001-20260624    gcc-11.5.0
+hexagon                        randconfig-002    gcc-11.5.0
+hexagon               randconfig-002-20260624    clang-23
+hexagon               randconfig-002-20260624    gcc-11.5.0
+i386                             allmodconfig    clang-22
+i386                              allnoconfig    gcc-14
+i386                              allnoconfig    gcc-16.1.0
+i386                             allyesconfig    clang-22
+i386                             allyesconfig    gcc-14
+i386                 buildonly-randconfig-001    gcc-12
+i386        buildonly-randconfig-001-20260624    gcc-12
+i386        buildonly-randconfig-001-20260624    gcc-14
+i386                 buildonly-randconfig-002    gcc-12
+i386        buildonly-randconfig-002-20260624    gcc-12
+i386        buildonly-randconfig-002-20260624    gcc-14
+i386                 buildonly-randconfig-003    gcc-12
+i386        buildonly-randconfig-003-20260624    gcc-12
+i386                 buildonly-randconfig-004    gcc-12
+i386        buildonly-randconfig-004-20260624    gcc-12
+i386        buildonly-randconfig-004-20260624    gcc-14
+i386                 buildonly-randconfig-005    gcc-12
+i386        buildonly-randconfig-005-20260624    gcc-12
+i386        buildonly-randconfig-005-20260624    gcc-14
+i386                 buildonly-randconfig-006    gcc-12
+i386        buildonly-randconfig-006-20260624    gcc-12
+i386        buildonly-randconfig-006-20260624    gcc-14
+i386                                defconfig    clang-22
+i386                                defconfig    gcc-16.1.0
+i386                  randconfig-001-20260624    clang-22
+i386                  randconfig-001-20260624    gcc-14
+i386                  randconfig-002-20260624    clang-22
+i386                  randconfig-002-20260624    gcc-14
+i386                  randconfig-003-20260624    clang-22
+i386                  randconfig-003-20260624    gcc-14
+i386                  randconfig-004-20260624    clang-22
+i386                  randconfig-004-20260624    gcc-12
+i386                  randconfig-005-20260624    clang-22
+i386                  randconfig-006-20260624    clang-22
+i386                  randconfig-007-20260624    clang-22
+i386                  randconfig-007-20260624    gcc-14
+i386                  randconfig-011-20260624    clang-22
+i386                  randconfig-012-20260624    clang-22
+i386                  randconfig-012-20260624    gcc-14
+i386                  randconfig-013-20260624    clang-22
+i386                  randconfig-014-20260624    clang-22
+i386                  randconfig-015-20260624    clang-22
+i386                  randconfig-015-20260624    gcc-14
+i386                  randconfig-016-20260624    clang-22
+i386                  randconfig-017-20260624    clang-22
+loongarch                        allmodconfig    clang-19
+loongarch                        allmodconfig    clang-23
+loongarch                         allnoconfig    clang-20
+loongarch                         allnoconfig    gcc-16.1.0
+loongarch                           defconfig    clang-23
+loongarch                      randconfig-001    gcc-11.5.0
+loongarch             randconfig-001-20260624    gcc-11.5.0
+loongarch             randconfig-001-20260624    gcc-16.1.0
+loongarch                      randconfig-002    gcc-11.5.0
+loongarch             randconfig-002-20260624    gcc-11.5.0
+loongarch             randconfig-002-20260624    gcc-15.2.0
+m68k                             allmodconfig    gcc-16.1.0
+m68k                              allnoconfig    gcc-16.1.0
+m68k                             allyesconfig    clang-23
+m68k                             allyesconfig    gcc-16.1.0
+m68k                                defconfig    clang-23
+m68k                                defconfig    gcc-16.1.0
+microblaze                        allnoconfig    gcc-16.1.0
+microblaze                       allyesconfig    gcc-16.1.0
+microblaze                          defconfig    clang-23
+microblaze                          defconfig    gcc-16.1.0
+mips                             allmodconfig    gcc-16.1.0
+mips                              allnoconfig    gcc-16.1.0
+mips                             allyesconfig    gcc-16.1.0
+nios2                            allmodconfig    clang-20
+nios2                            allmodconfig    gcc-11.5.0
+nios2                             allnoconfig    clang-23
+nios2                             allnoconfig    gcc-11.5.0
+nios2                               defconfig    clang-23
+nios2                               defconfig    gcc-11.5.0
+nios2                          randconfig-001    gcc-11.5.0
+nios2                 randconfig-001-20260624    gcc-11.5.0
+nios2                 randconfig-001-20260624    gcc-9.5.0
+nios2                          randconfig-002    gcc-11.5.0
+nios2                 randconfig-002-20260624    gcc-11.5.0
+openrisc                         allmodconfig    clang-20
+openrisc                         allmodconfig    gcc-16.1.0
+openrisc                          allnoconfig    clang-23
+openrisc                          allnoconfig    gcc-16.1.0
+openrisc                            defconfig    gcc-16.1.0
+parisc                           allmodconfig    gcc-16.1.0
+parisc                            allnoconfig    clang-23
+parisc                            allnoconfig    gcc-16.1.0
+parisc                           allyesconfig    clang-17
+parisc                           allyesconfig    gcc-16.1.0
+parisc                              defconfig    gcc-16.1.0
+parisc                randconfig-001-20260624    gcc-16.1.0
+parisc                randconfig-002-20260624    gcc-14.3.0
+parisc                randconfig-002-20260624    gcc-16.1.0
+parisc64                            defconfig    clang-23
+parisc64                            defconfig    gcc-16.1.0
+powerpc                          allmodconfig    gcc-16.1.0
+powerpc                           allnoconfig    clang-23
+powerpc                           allnoconfig    gcc-16.1.0
+powerpc                     asp8347_defconfig    clang-23
+powerpc               randconfig-001-20260624    clang-17
+powerpc               randconfig-001-20260624    gcc-16.1.0
+powerpc               randconfig-002-20260624    gcc-16.1.0
+powerpc               randconfig-002-20260624    gcc-8.5.0
+powerpc64             randconfig-001-20260624    gcc-16.1.0
+powerpc64             randconfig-001-20260624    gcc-8.5.0
+powerpc64             randconfig-002-20260624    gcc-11.5.0
+powerpc64             randconfig-002-20260624    gcc-16.1.0
+riscv                            allmodconfig    clang-23
+riscv                             allnoconfig    clang-23
+riscv                             allnoconfig    gcc-16.1.0
+riscv                            allyesconfig    clang-23
+riscv                               defconfig    clang-23
+riscv                               defconfig    gcc-16.1.0
+riscv                 randconfig-001-20260624    clang-18
+riscv                 randconfig-001-20260624    gcc-13.4.0
+riscv                 randconfig-002-20260624    clang-18
+s390                             allmodconfig    clang-17
+s390                             allmodconfig    clang-23
+s390                              allnoconfig    clang-23
+s390                             allyesconfig    gcc-16.1.0
+s390                                defconfig    clang-18
+s390                                defconfig    gcc-16.1.0
+s390                  randconfig-001-20260624    clang-18
+s390                  randconfig-001-20260624    gcc-8.5.0
+s390                  randconfig-002-20260624    clang-18
+s390                  randconfig-002-20260624    gcc-10.5.0
+sh                               allmodconfig    gcc-16.1.0
+sh                                allnoconfig    clang-23
+sh                                allnoconfig    gcc-16.1.0
+sh                               allyesconfig    clang-17
+sh                               allyesconfig    gcc-16.1.0
+sh                                  defconfig    gcc-14
+sh                                  defconfig    gcc-16.1.0
+sh                    randconfig-001-20260624    clang-18
+sh                    randconfig-001-20260624    gcc-15.2.0
+sh                    randconfig-002-20260624    clang-18
+sh                    randconfig-002-20260624    gcc-9.5.0
+sparc                             allnoconfig    clang-23
+sparc                             allnoconfig    gcc-16.1.0
+sparc                               defconfig    gcc-16.1.0
+sparc                 randconfig-001-20260624    gcc-14.3.0
+sparc                 randconfig-001-20260624    gcc-8.5.0
+sparc                 randconfig-002-20260624    gcc-14.3.0
+sparc                 randconfig-002-20260624    gcc-8.5.0
+sparc64                          allmodconfig    clang-20
+sparc64                             defconfig    clang-23
+sparc64                             defconfig    gcc-14
+sparc64               randconfig-001-20260624    clang-20
+sparc64               randconfig-001-20260624    gcc-14.3.0
+sparc64               randconfig-002-20260624    clang-20
+sparc64               randconfig-002-20260624    gcc-14.3.0
+um                               allmodconfig    clang-17
+um                                allnoconfig    clang-17
+um                                allnoconfig    clang-23
+um                               allyesconfig    gcc-14
+um                               allyesconfig    gcc-16.1.0
+um                                  defconfig    clang-23
+um                                  defconfig    gcc-14
+um                             i386_defconfig    gcc-14
+um                    randconfig-001-20260624    clang-23
+um                    randconfig-001-20260624    gcc-14.3.0
+um                    randconfig-002-20260624    clang-17
+um                    randconfig-002-20260624    gcc-14.3.0
+um                           x86_64_defconfig    clang-23
+um                           x86_64_defconfig    gcc-14
+x86_64                           allmodconfig    clang-22
+x86_64                            allnoconfig    clang-22
+x86_64                            allnoconfig    clang-23
+x86_64                           allyesconfig    clang-22
+x86_64      buildonly-randconfig-001-20260624    clang-22
+x86_64      buildonly-randconfig-001-20260624    gcc-14
+x86_64      buildonly-randconfig-002-20260624    clang-22
+x86_64      buildonly-randconfig-003-20260624    clang-22
+x86_64      buildonly-randconfig-003-20260624    gcc-14
+x86_64      buildonly-randconfig-004-20260624    clang-22
+x86_64      buildonly-randconfig-005-20260624    clang-22
+x86_64      buildonly-randconfig-005-20260624    gcc-14
+x86_64      buildonly-randconfig-006-20260624    clang-22
+x86_64      buildonly-randconfig-006-20260624    gcc-14
+x86_64                              defconfig    gcc-14
+x86_64                                  kexec    clang-22
+x86_64                randconfig-001-20260624    clang-22
+x86_64                randconfig-002-20260624    clang-22
+x86_64                randconfig-003-20260624    clang-22
+x86_64                randconfig-004-20260624    clang-22
+x86_64                randconfig-004-20260624    gcc-14
+x86_64                randconfig-005-20260624    clang-22
+x86_64                randconfig-006-20260624    clang-22
+x86_64                randconfig-006-20260624    gcc-14
+x86_64                randconfig-011-20260624    gcc-14
+x86_64                randconfig-012-20260624    gcc-14
+x86_64                randconfig-013-20260624    gcc-12
+x86_64                randconfig-013-20260624    gcc-14
+x86_64                randconfig-014-20260624    gcc-14
+x86_64                randconfig-015-20260624    gcc-14
+x86_64                randconfig-016-20260624    gcc-14
+x86_64                randconfig-071-20260624    gcc-14
+x86_64                randconfig-072-20260624    clang-22
+x86_64                randconfig-072-20260624    gcc-14
+x86_64                randconfig-073-20260624    gcc-14
+x86_64                randconfig-074-20260624    clang-22
+x86_64                randconfig-074-20260624    gcc-14
+x86_64                randconfig-075-20260624    gcc-14
+x86_64                randconfig-076-20260624    clang-22
+x86_64                randconfig-076-20260624    gcc-14
+x86_64                               rhel-9.4    clang-22
+x86_64                               rhel-9.4    gcc-14
+x86_64                           rhel-9.4-bpf    gcc-14
+x86_64                          rhel-9.4-func    clang-22
+x86_64                          rhel-9.4-func    gcc-14
+x86_64                    rhel-9.4-kselftests    clang-22
+x86_64                    rhel-9.4-kselftests    gcc-14
+x86_64                         rhel-9.4-kunit    gcc-14
+x86_64                           rhel-9.4-ltp    gcc-14
+x86_64                          rhel-9.4-rust    clang-22
+xtensa                            allnoconfig    clang-23
+xtensa                            allnoconfig    gcc-16.1.0
+xtensa                           allyesconfig    clang-20
+xtensa                           allyesconfig    gcc-16.1.0
+xtensa                randconfig-001-20260624    gcc-14.3.0
+xtensa                randconfig-002-20260624    gcc-14.3.0
+xtensa                randconfig-002-20260624    gcc-16.1.0
 
--       /**
--        * @baco_get_state: Get the current BACO state.
--        *
--        * Return: Current BACO state.
--        */
--       enum smu_baco_state (*baco_get_state)(struct smu_context *smu);
--
--       /**
--        * @baco_set_state: Enter/exit BACO.
--        */
--       int (*baco_set_state)(struct smu_context *smu, enum smu_baco_state =
-state);
--
-        /**
-         * @baco_enter: Enter BACO.
-         */
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_v11_0.h
-index dd94e8a9e218..c0accee9a9c8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-@@ -199,8 +199,6 @@ int smu_v11_0_gfx_off_control(struct smu_context *smu, =
-bool enable);
-
- int smu_v11_0_register_irq_handler(struct smu_context *smu);
-
--int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu);
--
- int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
-                struct pp_smu_nv_clock_table *max_clocks);
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm=
-/amd/pm/swsmu/inc/smu_v13_0.h
-index 68f4de5f800c..7f21f867d73c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-@@ -180,8 +180,6 @@ int smu_v13_0_gfx_off_control(struct smu_context *smu, =
-bool enable);
-
- int smu_v13_0_register_irq_handler(struct smu_context *smu);
-
--int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu);
--
- int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
-                                               struct pp_smu_nv_clock_table=
- *max_clocks);
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 051a0008aa10..99abfddff856 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -1934,7 +1934,6 @@ static const struct pptable_funcs arcturus_ppt_funcs =
-=3D {
-        .set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
-        .gfx_off_control =3D smu_v11_0_gfx_off_control,
-        .register_irq_handler =3D smu_v11_0_register_irq_handler,
--       .set_azalia_d3_pme =3D smu_v11_0_set_azalia_d3_pme,
-        .get_max_sustainable_clocks_by_dc =3D smu_v11_0_get_max_sustainable=
-_clocks_by_dc,
-        .get_bamaco_support =3D smu_v11_0_get_bamaco_support,
-        .baco_enter =3D smu_v11_0_baco_enter,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 2f2a5953dbbc..52c23bd3b201 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -3340,7 +3340,6 @@ static const struct pptable_funcs navi10_ppt_funcs =
-=3D {
-        .set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
-        .gfx_off_control =3D smu_v11_0_gfx_off_control,
-        .register_irq_handler =3D smu_v11_0_register_irq_handler,
--       .set_azalia_d3_pme =3D smu_v11_0_set_azalia_d3_pme,
-        .get_max_sustainable_clocks_by_dc =3D smu_v11_0_get_max_sustainable=
-_clocks_by_dc,
-        .get_bamaco_support =3D smu_v11_0_get_bamaco_support,
-        .baco_enter =3D navi10_baco_enter,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
-ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 70897c70db32..e5370267fda3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -3146,7 +3146,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_=
-funcs =3D {
-        .set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
-        .gfx_off_control =3D smu_v11_0_gfx_off_control,
-        .register_irq_handler =3D smu_v11_0_register_irq_handler,
--       .set_azalia_d3_pme =3D smu_v11_0_set_azalia_d3_pme,
-        .get_max_sustainable_clocks_by_dc =3D smu_v11_0_get_max_sustainable=
-_clocks_by_dc,
-        .get_bamaco_support =3D smu_v11_0_get_bamaco_support,
-        .baco_enter =3D sienna_cichlid_baco_enter, diff --git a/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sm=
-u_v11_0.c
-index ac8f84f1e30e..f5155a4dc5a2 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -1417,11 +1417,6 @@ int smu_v11_0_get_max_sustainable_clocks_by_dc(struc=
-t smu_context *smu,
-        return 0;
- }
-
--int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu) -{
--       return smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
--}
--
- int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
-                                      enum smu_baco_seq baco_seq)
- {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 0349dba2503a..e5d319cda52b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -1444,7 +1444,6 @@ static int renoir_get_enabled_mask(struct smu_context=
- *smu,  }
-
- static const struct pptable_funcs renoir_ppt_funcs =3D {
--       .set_power_state =3D NULL,
-        .emit_clk_levels =3D renoir_emit_clk_levels,
-        .get_current_power_state =3D renoir_get_current_power_state,
-        .dpm_set_vcn_enable =3D renoir_dpm_set_vcn_enable, diff --git a/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/sw=
-smu/smu13/aldebaran_ppt.c
-index 3a19f0ffcf3c..7c0d4e40b9b6 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -2005,7 +2005,6 @@ static const struct pptable_funcs aldebaran_ppt_funcs=
- =3D {
-        .disable_thermal_alert =3D smu_v13_0_disable_thermal_alert,
-        .set_xgmi_pstate =3D smu_v13_0_set_xgmi_pstate,
-        .register_irq_handler =3D smu_v13_0_register_irq_handler,
--       .set_azalia_d3_pme =3D smu_v13_0_set_azalia_d3_pme,
-        .get_max_sustainable_clocks_by_dc =3D smu_v13_0_get_max_sustainable=
-_clocks_by_dc,
-        .get_bamaco_support =3D aldebaran_get_bamaco_support,
-        .get_dpm_ultimate_freq =3D aldebaran_get_dpm_ultimate_freq, diff --=
-git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/=
-pm/swsmu/smu13/smu_v13_0.c
-index d511f03354a6..67d20213ad07 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -1321,15 +1321,6 @@ int smu_v13_0_get_max_sustainable_clocks_by_dc(struc=
-t smu_context *smu,
-        return 0;
- }
-
--int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu) -{
--       int ret =3D 0;
--
--       ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
--
--       return ret;
--}
--
- static int smu_v13_0_wait_for_reset_complete(struct smu_context *smu,
-                                             uint64_t event_arg)
- {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 9c09b2640a0c..edc5140f6ab6 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -2891,8 +2891,6 @@ static const struct pptable_funcs smu_v14_0_2_ppt_fun=
-cs =3D {
-        .deep_sleep_control =3D smu_v14_0_deep_sleep_control,
-        .gfx_ulv_control =3D smu_v14_0_gfx_ulv_control,
-        .get_bamaco_support =3D smu_v14_0_get_bamaco_support,
--       .baco_get_state =3D smu_v14_0_baco_get_state,
--       .baco_set_state =3D smu_v14_0_baco_set_state,
-        .baco_enter =3D smu_v14_0_2_baco_enter,
-        .baco_exit =3D smu_v14_0_2_baco_exit,
-        .mode1_reset_is_support =3D smu_v14_0_2_is_mode1_reset_supported,
 --
-2.47.3
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
