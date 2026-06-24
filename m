@@ -4,121 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16B6ACDB470
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 06:14:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9105FCDB479
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 06:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A653010E035;
-	Wed, 24 Jun 2026 06:14:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B4910E036;
+	Wed, 24 Jun 2026 06:22:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="exE9CAsq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j7Lq+Ddx";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010039.outbound.protection.outlook.com [52.101.46.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA4510E035
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 06:14:15 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010041.outbound.protection.outlook.com [52.101.85.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4589C10E036
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 06:22:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dmJvSuRnkHZ92glzEQGwvp5O+Kr9/V1ZkyUG2C22v3g9VxWjeFBmCXqvR2t8trIXufoEsb2HJQsXd0HWGSYa8sRQZ4jH4Qpu+5tV8o+jrcllNMfwAowGfZCakvV4Uaxf7TKSCBsIs3xgouB86D3Fv4YbcmtaHU51PzoBr8ChjELsYx0iwY7ye+B5BJAfROG9dwyM0N54kzIL0b6+0HrSVBdxo5XTZZt5zs6CSNZgfHJTkiuZm6YagKqKVAJX5NHk+I/KjSs8vuM8d1qAB2B6oPCopc1Mplbn8wqjMFbMGe1N674Kr1wBzYBiH8Duu4dR7gp+0jkPc8Us4CueegM75A==
+ b=Hxdtm5FLoML6Ri1uO9PLdVOO0AfHrq/bg4/BQerA/CREcj3B7Y3CYo/rgX1eddpQhxWEjnIiu9Nc9SqG28CEqGGekhpKmjMN7LatP2l87/zM3DIXQSDppNuz8tdkRbQI0TMv0SAh8DQTVEvRdKdUvLKZ/BngLljddtXsgOVbbaFGP6PKNw+u3l6pZC3J905ZSXt5kh433BRppawHS5qzVirIWuyECn7d2UEYAgpYKLQb7a7Almmt+DrmKphAoConmHlodkhmrvLgGO5FHRpgISlhr8uWYdMNNpBrioRsrju0RgcDkV6fBy4V4PG3TNawve7CiQY7zBQ+t4CyGQtBFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xcT6aX8nqjbjliL7Wa7xPcDwwjNksvO24CjKCuILgrk=;
- b=QCeapsX/xJZmer8tyaGjLgLu+jdSK0hAwnY3f9umxkGG2lxb4bltCGVizP38lkUh3qQebKkAgk+pbHzFpUuvto61LXpLrEbRldxFMyPu1jr8fgsElSDRz8bhnm8uMBtp7o399dG/ExHlX8p2sfHlvKeR9vHT8qzUdMBiEDvFmu1seS34zztq3c4Vyh0wCKZRzHLn0gd4lRwVyOBjZ44Tm+cb2NT8v0D1ZiejhVDTFGSFcSyc91QwjFQOaI6VyANunPm0HAkoMlvjI+5RYwxzBIGAYo9QvRFmSD7A/f+VMVfn7SHkR2aihN8y0Q/McYcIIPmWkm0k4nSFCip/tyqkVg==
+ bh=6a1KoJw6/YtYUCKUvsF1DuEtmzj2Z/4bs3Hk/yo/KHc=;
+ b=IH1tiK0irUNiCl4i4qjVfQyH0RudUXCFGUqMZf0MD3vJA14nKqr5Khma5Dp0NNp6ul0yGpEnMQHw/y5LqE6dcrAjgN/HnY7PWlTrMGLfaPVj/Me1Kid1ZwCAFWJwYUGFSLNM7d5DmL/eLRl+/bRHOQdrK2s8urjrOoanjH6O2FZ2AKvGHTczRpaKRK7/9zwXspo9ekOpWGe97xcAzAbLDo17U+1A6VVPGkFkbyClLrC2J/A2BRVJ1ls6q8OjtcS2t341Jyy7XBWDyNcypMT1f17CKrV/hRHlvjBaHchcjZYrM9jyegz5Hyz+VUyIdZtFn+fvPqMtOZIUDBWww5ORyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xcT6aX8nqjbjliL7Wa7xPcDwwjNksvO24CjKCuILgrk=;
- b=exE9CAsqjhtzYycN1IIbrpeEVU47B8zYPISJGnDzPjw7zXpjkErIUKbWMpJaqfHxFLb7pw0Jk1AotcMLaUnubBAENVGk+amysmAPP0pigLuays4Txea0MtpcYIvz8/7IhiVjWPL0QnG4nH5rBKwT+SKQAAiTkJcUwqUOAL9302E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CY8PR12MB8364.namprd12.prod.outlook.com (2603:10b6:930:7f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Wed, 24 Jun
- 2026 06:14:11 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.21.0159.012; Wed, 24 Jun 2026
- 06:14:11 +0000
-Message-ID: <fb663452-4bfd-4f4f-b019-3b126e773615@amd.com>
-Date: Wed, 24 Jun 2026 11:44:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+ bh=6a1KoJw6/YtYUCKUvsF1DuEtmzj2Z/4bs3Hk/yo/KHc=;
+ b=j7Lq+DdxyAORa7hRrZXD4ztMLKxnpgg8hEqR+7mbxPTjdRZcB1R5C35QuCF3ciHJxFNnOtt0UR3oLPvRxINZMQqvZxGvuu7qq6ixCFWNVfZznv99BwD0qoWkiHTHwug8kegGdq8dMAOqh7swipDhFQaU0xQFccX5sfmbi7jruT0=
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
+ by SA1PR12MB9247.namprd12.prod.outlook.com (2603:10b6:806:3af::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Wed, 24 Jun
+ 2026 06:22:06 +0000
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd%7]) with mapi id 15.21.0159.007; Wed, 24 Jun 2026
+ 06:22:06 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
+Thread-Topic: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
+Thread-Index: AQHdA5+x4+PPjqs4MUmZ3QoCHZ9dl7ZNPEdw
+Date: Wed, 24 Jun 2026 06:22:06 +0000
+Message-ID: <MW4PR12MB68039E18FBAF1C3C136EC1F98EED2@MW4PR12MB6803.namprd12.prod.outlook.com>
 References: <20260624060653.992690-1-kevinyang.wang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
 In-Reply-To: <20260624060653.992690-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0032.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:26f::13) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CY8PR12MB8364:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6692a4f2-dea8-40e7-9b82-08ded1b7cec5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|22082099003|18002099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: /e7oVjM7LWn8+5QzJZX3e+JFSfsLE13MQyFiR3I15uitLmUGf6FVaJOHhlRBH3NuyTuhmH0MGDduIqDLLkA0r9rqnJNRGCjmFM3Qz16Vc1aLKjeJG8/35dhoiURkoM6IMTg5DPX2K+K+8958wLipgantX7nddZhpmt6ao0xsVWy2BJRJ5CfXfPdLflEsa8wBc5BzuAm1Mt/1iMSTi2MLNUDqn46BEM3bXGO59wEea9lwJDbJQuvba5XL16h40NTocV0C2NWG4PAnokrVltxVvS/t9e7RsG+mN/wZBDNb9MEiX7ncs7dibQg9eY7r6JZa/X/+lo1uw9Dno4Ru9AcLVgQUeSCA5/mIHlNDV9AFy63WFYByx0Boqfm7/A6Ao+UwK+7w/Af8/WQnsb/5QrEYWRNEsUczbe6VhAul5UWdTFprzsR5MoQ4lZR/qT+jpAlCP4Md3oCMrijFCodGrfg1Hd+E0VwxnJumBWVSnpHn03orVjIHDpXXVEIyhmVQ2kw1PU6bjQOD00yNbM5LfDcui93daMjRmDqhYrYlSXy5AgLRHs62v/mK7/kDp60CPMcHhPVAGllSNESoG9m0BnMRi14/WhczwXbGLGENocT6yqHQFdgi2VBkCoVAHDYSFHZ/9AQh+A+6F5S31nQu6H6YrYwmGg+ajt7vvmLsIMk2kBE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003);
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-24T06:21:59.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|SA1PR12MB9247:EE_
+x-ms-office365-filtering-correlation-id: 597a35ab-9e80-42ab-01e0-08ded1b8ea2e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|56012099006|11063799006|6133799003|22082099003|38070700021|18002099003;
+x-microsoft-antispam-message-info: 93WyzpVQFIyp6fyaO56L0ymXz5GDR1NHz+fou+sUITVmM4LvHAZ/gMBvSQ6J09LpB37NHpHKHWS1VAb9dKIRE0G8et+zNlLvAxGbtf2PVJkK/pqRonJyN7+N2Z0J/NV0SlNVfpnCA/u52nB624CgdVygXJm1alOwe2zTYPRNUbrZwLxxr0pNuV5XZpPcDhaubSzluiHphbFLlFC0BMq6vuXcMPX0rrf7+j+hBqSPy90QtpIJyB92RbKYjF+ZrZAEHrIPOgsl7r1vWtbtrHQoDIKaXLZfQrswFxMpf4+2pY9/WBoV21dJvFO0wJo75fzWwtXk+GktiKP8rXtRY/w6fQAQCTmVOaPC1/UjUnc1GLJ203AXYsMK54t5Xr2WkoBxADqgBndR3uDVLQVtQgoCYK0KJig4+S/TG8YHxTotzCvVvawQQEIV23bHLo9kROzHJQyWeFk7R09RdlreiqKckYY/bpAoBxxPil1xsm0dcliU7PjCu9QLIsyQQxMop12dKZsbxpovXCGelbHveNmxrqoJXGE4i+42lUy/gIKy73z4UALRvG7oMY+jexFJBcwP0KH3Cc8OGdL4KzHLSzV9JWWvKlgDQlZtqQJ/q4EDTUPd79xbZ41kFs8CPNpFL40J+VjKlGyZM8dXS4V4aviEBPRu4Pt8J7DbwN2EqCUEH4ElruAZrGIvph49g8dc9OAp8v1hhsO4KUwB1ZwOQEaRFA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(56012099006)(11063799006)(6133799003)(22082099003)(38070700021)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUp2dmFhbWVhRC9FN3hqdTlmbklFeENTTWsrSURncVZsT1lsTW8vN2hGOXlR?=
- =?utf-8?B?dXlmS3dVazV1cGk4QUo3OXJvaCt4K0k5bitZWHpxSjQ0MFlJY3kzeUN2ajg1?=
- =?utf-8?B?MWE4TlVCK0pKR1NrVjZMZ0k4dmZTVDZiS1pzNWhURU8ra0t3ZTIvMkd4bVFY?=
- =?utf-8?B?L2xJenhQbFdDdzZTQk44UHp0TFE0Ny9QNCtrbHhxOUFJeTNIMmlTR0ZPcVJa?=
- =?utf-8?B?NkkzOHRPTW51QVoyRmpUYzBKR1NpTGJhWXo2RDVEZERrODhaemVONElobzhr?=
- =?utf-8?B?YUNaaElkbmxONEFZOE1VcWYvS2NLdEp5Q2N3THdhdWg2NGEzeUVnREpHK21T?=
- =?utf-8?B?VktuZFdwMmQ5OS85TzZYUG9vRmJlOXRkcXN1aS9WNzVsL3AySUVFRGx1SjlM?=
- =?utf-8?B?L2svbnVsRXd3eUk4Q0RnQ3FPbXdVYnMzWWp2b09FRTJvZi9YbnVTVE9Ba09n?=
- =?utf-8?B?aU9zdXhyM0xrd05nRVpLdWZ2KzI4dmtlM1V3a3FXMXFvTzMvZHREVlUrMDR2?=
- =?utf-8?B?aURwNmhwM3VJU0FnOG8yQVh4ZlMzMjB1cW9hQVVNZjJzQkQzTktHN0RrVWd5?=
- =?utf-8?B?T2diUVRuMDIvMzBUSmg5dzd0M3pBQmdPQUx0Smk3Nlk3VDR5OStBYXJJbFRJ?=
- =?utf-8?B?SXAxNFpnem12OTRFMm8xanR4MDNwNVZmTXpwQ3JyQnROUXlNeWZSOTcrVjVY?=
- =?utf-8?B?VTJRRWJYelV5UEtOZmttMnN0cFNVZDZuRzJ0YlJMMVZhR0t3dy9VVUhEb1dB?=
- =?utf-8?B?T1lXU1llRUFmSGZpL29QQW5DeDJRNW1Vci9kYzlEa1grZnA2S0czMGlVS0Zr?=
- =?utf-8?B?b2MxeGMyNGR2YUl2K0JZL2pOekJyQTN3TDJzTy8wbnFMYXBvMUMrRkpMdnRu?=
- =?utf-8?B?V1BSVGFnQXZocHJSOExBOGt3MVJoR3UzMXlVYkovOFpQWmpPbUxJdEg2OTlm?=
- =?utf-8?B?L1JKL0JnbG04d2lycmN3cEZaTnpaOGJ1bEVhMGRrVi8wYUhIeVo4Rm5lUlZ1?=
- =?utf-8?B?TWdXWGxRdE96VjBNa011S0U5WlAvKzRQdzZDclZGVlFoZmJRZS84YWE2R1By?=
- =?utf-8?B?ZDdFWjEzNUdhSmp1OW5ZTkpxTDRSeHZYYkVacmp5SjBzRkZxemw3VzVkTmg1?=
- =?utf-8?B?VnR6YnBwUTkxMURnaGNGQlk1OWtvR0M2QVdnK0Uzb21DZWlUckFZb1h4ZkhF?=
- =?utf-8?B?bjA3bTVRd2pYVHZUSWlvKytOL0hHQXorRkRvdWhkRHFzc041NDRDRmV0Rk1U?=
- =?utf-8?B?K1FMMit4cWxqUkYrQ0FaeWMvdnZWV3B1cUxCaTQxTkJ2L0NBVUdKMlZtMkth?=
- =?utf-8?B?RXRFaGNia0pUbmpQa3J6MW1pR083d0JaS20ycHp5UVQwcThBTEZpNnhnNE1Z?=
- =?utf-8?B?RmN5Y2pRVzQwQjFtMzhBVGFLYS9mNVdXRERINGZpeTZ0dzZGOEZRajdTZU9l?=
- =?utf-8?B?SXFoSG5mU0VxYWZpVWNCb242THRzK0trYmJLYlByZEFFaGNzTVFVVEhtZnNH?=
- =?utf-8?B?dFVRbHpBWlkzN01VSXRGTlRoamUyVytxOUFJRlhGVXlwOWxFekswNHB6aUp5?=
- =?utf-8?B?b0hKMkNtVVZTdk1IK1ZFWmtTN2FyblhzZU9rRlFXV3hWMXd5a2YwSXJFR3pI?=
- =?utf-8?B?bmc1THVaYnlLbHd5bEdTdkFrbGlXM3pTT254Q1FqY01VV0FoTmQ2dFhkcDJR?=
- =?utf-8?B?OVVrZ3dqYVhNU2VmWS9ZYm5ZNWpaeXJHcWxqZDhEbU82L3lxVkcydytNQVRJ?=
- =?utf-8?B?UG5EN09XUGt4ZlVWTTdneFg2ZHd4RGo4eWxsbTZhZ3lVV0szdVNOaDRpRGwv?=
- =?utf-8?B?Nkw5bTRQOU12aGNVRmdHdGY0WjM1N3RsbjAyOUREMTJmM1dqZy9FcUUvY1c5?=
- =?utf-8?B?Ym81VXhKS1BuVUh1Z1E5Y2lkVkpqUUFVMzNWWnE3Mmx2UTJ3aDhaUG1IME81?=
- =?utf-8?B?SXFQY0kwUXVpL2dld1h2ZVFZSVYzcmVYcGRNZlk5TTFVUkZPOWZ4YnNuRmNs?=
- =?utf-8?B?ZlFkWkxqNUZxbDEwclZFaXJVdXcySCtDeUJtWWlHZUV4TTduaEdOamRULzd3?=
- =?utf-8?B?SkZydWJGektSbjFUQVFaclc3cVFBemJBVGVMaGNaUHhQVHBsbTFhOEZCdlhl?=
- =?utf-8?B?VDlLK21DckswVTlaUldueWJUcnZFd21DRkNSVUhHSy9BZHVrcWZDY1RZWnEw?=
- =?utf-8?B?YURtVU9tbUJTK0c1alZNRHp2MVBCQmswWlRvaDB2eVVTb3FWRjFQZ2EvaS9w?=
- =?utf-8?B?SG9udVpIU1drWnUrb2hRT1YvK1d4R0hWQVJBQmp6TDZRckNrTFdmRlRhcjg0?=
- =?utf-8?Q?Qyeb4I2nuO769xmaIg?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?I5eH6DBbjSXzQXbcH6F6vHJE+O6OXfQU9zZecw++UUVD1UHnk6OSJnpbt27t?=
+ =?us-ascii?Q?JMTBepOwHkC0cTIrdxTVdz2I/P239qGC965iq0OQKAWcL2AUGXB6Tytpbp1R?=
+ =?us-ascii?Q?BMu+z3Z4qdNnVjw4bF9/LJYvOS9OYvKKdd6ut48GNEel3P0JavorAofFa7bg?=
+ =?us-ascii?Q?dN1Qui3P1Eic0W3+48P3YPujszlti8vw+36yjl28l9ZtseXlP1D2p2h2APa2?=
+ =?us-ascii?Q?yt6oDM7jbewKwjrEqPlh45Z+PhlZwhXhyxxEgeKV3ISOWbHjVJuRYoou6yBr?=
+ =?us-ascii?Q?7ebTkwuvdPDsooZY/vXX/lmsQeKwGPggS7ZFbzXjFOZ+sEKHCRMlQh8fzd4U?=
+ =?us-ascii?Q?QDVxSITOdX0c/z4uhlL5I4NCtC3i+Ub0t0iz0nRKmTFHJhDy2HTAnLTccaec?=
+ =?us-ascii?Q?+MwLYfWqKxG2LAMi75V2CJWs+3AXjvSJATpYGtBOrw93YH5A9ZdncxJRqz3F?=
+ =?us-ascii?Q?GbrIhecdJDk14rxUzCt6vWH830eD4KdPKkCcklJ9c/CekqUBujX1CeRGZhPh?=
+ =?us-ascii?Q?KZVtbbXq2bHa21DUfpAG32JYqMEmA7Qn/4R8a7REdPu/RfHhjgtBpb6L1SG6?=
+ =?us-ascii?Q?Z10lKcJSn9V3V0hf1j9wUeA8vjDur+LCjJ63TgF21/3AEBtRxrrb+uE/a4/6?=
+ =?us-ascii?Q?3MV+6dPwxVfYB7wUTCHYka86z86JKGX5rmylshtjlEGkxg+7XP7euVQQNmmP?=
+ =?us-ascii?Q?3Oolny1DE8OwXRA0ek7d3g6/KulkZaCSrpVlDBqE0FlSlh31nnCLm99hKXNI?=
+ =?us-ascii?Q?cBLESTEsy2V9u5YkGEHXcsiqGMuT8Hx7zu2uBn+f+0kDkWy/CZ3PinjMkuAQ?=
+ =?us-ascii?Q?4zIz3WhlCfgY5W/96GKNXwvkMOCCDv+D+hknziibtHwojM/AwZcvhXvu2UN5?=
+ =?us-ascii?Q?4FTAJEAFPqkjfHuXQh8C534HtyfqSm/d7y8EGhCZMnNEuUdhvBaz3CHQuNgi?=
+ =?us-ascii?Q?6as1MiWyQ0/FVbfvYaSWEqR26+6LL3DJG6Yrwrkr9AmEyj+28cTMNZZVAKXj?=
+ =?us-ascii?Q?CdnubmwRHVZEWn2d1LlUCqVIvcnucm0h2m/acS0tXkEKduvjrG4Jv9V4g6LQ?=
+ =?us-ascii?Q?VZ/RRqNVbSJyfyq1PUutnU1A8OxcO+CLTSciCFWVz9/9vs17OB7xHZGQpeNu?=
+ =?us-ascii?Q?ahCYH/bTDNBeF9innWOuXZ9PQpNTsn1jpMu1f/7K/a8BL8JHvRjgQ4Xg7eq6?=
+ =?us-ascii?Q?zM0I18y9Q9bFDftWJMz6vxzHJBMcfiUJSAIMbHvW4+9xJK2eKxx65X1SSXg4?=
+ =?us-ascii?Q?EvKUuZhkfPoedQPAsczhBUCK9YjnDksyCOydT0gKmTFTQ1pqmRVVyLOv6r2d?=
+ =?us-ascii?Q?Z4yEYJxQt78azfnd+BcIDNXFywGniMs38HrzllwkibSC80bBChF+XCwFTzJ8?=
+ =?us-ascii?Q?BhU92h9AW59/f/j5gOYVjGzya0XUwnUoKTxhLvFd8+qcEjGKN1JeE0I4MKMh?=
+ =?us-ascii?Q?pcSsg17e7u0PJD3sXmJoV7qiThhsJu7W354fQi6dDEBV6rtl4wFAO8PEpXw5?=
+ =?us-ascii?Q?89OQdmX3UQ3k3VxRqpv2dBhOvOy6/ORGHtX7ahEmUiMXMz2ORJxcbvWKXju8?=
+ =?us-ascii?Q?4Ps0W9qK7SwLqW279+jX9JkR6KOLrMGh/J/EGOtYSm8VIb/9EGQHmkyVOq1E?=
+ =?us-ascii?Q?CkcfvG6d/GjnnUnP8mzCZM096ohFT2ktl4R7toPlImg8mjEymGohCI16D1v4?=
+ =?us-ascii?Q?iuOyEzDSNQEkhGlzhoTYg1tW3WBzlBX2QGBv3wdHVr6K+Dnu?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6692a4f2-dea8-40e7-9b82-08ded1b7cec5
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 06:14:11.2985 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rgGRxDGuujGI1WyoBlEPzkLutEJptIcf/2DMXVbWWVRVJLfCFXlYFpEnKjv5PAun
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8364
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 597a35ab-9e80-42ab-01e0-08ded1b8ea2e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 06:22:06.6044 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gBiYYH3NPNk7vqDYdHJTZl/hLmzqvLs7AabPRBA8+YpSg+1ImeDRJ4yBx7WYXvxZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9247
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,233 +132,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD General
 
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
-On 24-Jun-26 11:36 AM, Yang Wang wrote:
-> struct pptable_funcs still carries callback slots that no longer have
-> call paths, drop the following unused callback slots:
-> 
-> - baco_get_state()
-> - baco_set_state()
-> - set_power_state()
-> - get_clock_by_type_with_voltage()
-> - set_azalia_d3_pme()
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+-----Original Message-----
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Wednesday, June 24, 2026 2:07 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+struct pptable_funcs still carries callback slots that no longer have call =
+paths, drop the following unused callback slots:
 
-Thanks,
-Lijo
+- baco_get_state()
+- baco_set_state()
+- set_power_state()
+- get_clock_by_type_with_voltage()
+- set_azalia_d3_pme()
 
-> ---
->   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 29 -------------------
->   drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  |  2 --
->   drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 --
->   .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 -
->   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 -
->   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 -
->   .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  5 ----
->   .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  1 -
->   .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
->   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  9 ------
->   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 --
->   11 files changed, 54 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index d76e0b005308..38a8249570a9 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -849,8 +849,6 @@ struct pptable_funcs {
->   	 */
->   	int (*set_default_dpm_table)(struct smu_context *smu);
->   
-> -	int (*set_power_state)(struct smu_context *smu);
-> -
->   	/**
->   	 * @populate_umd_state_clk: Populate the UMD power state table with
->   	 *                          defaults.
-> @@ -903,16 +901,6 @@ struct pptable_funcs {
->   					      struct
->   					      pp_clock_levels_with_latency
->   					      *clocks);
-> -	/**
-> -	 * @get_clock_by_type_with_voltage: Get the speed and voltage of a clock
-> -	 *                                  domain.
-> -	 */
-> -	int (*get_clock_by_type_with_voltage)(struct smu_context *smu,
-> -					      enum amd_pp_clock_type type,
-> -					      struct
-> -					      pp_clock_levels_with_voltage
-> -					      *clocks);
-> -
->   	/**
->   	 * @get_power_profile_mode: Print all power profile modes to
->   	 *                          buffer. Star current mode.
-> @@ -1354,11 +1342,6 @@ struct pptable_funcs {
->   	 */
->   	int (*register_irq_handler)(struct smu_context *smu);
->   
-> -	/**
-> -	 * @set_azalia_d3_pme: Wake the audio decode engine from d3 sleep.
-> -	 */
-> -	int (*set_azalia_d3_pme)(struct smu_context *smu);
-> -
->   	/**
->   	 * @get_max_sustainable_clocks_by_dc: Get a copy of the max sustainable
->   	 *                                    clock speeds table.
-> @@ -1375,18 +1358,6 @@ struct pptable_funcs {
->   	 */
->   	int (*get_bamaco_support)(struct smu_context *smu);
->   
-> -	/**
-> -	 * @baco_get_state: Get the current BACO state.
-> -	 *
-> -	 * Return: Current BACO state.
-> -	 */
-> -	enum smu_baco_state (*baco_get_state)(struct smu_context *smu);
-> -
-> -	/**
-> -	 * @baco_set_state: Enter/exit BACO.
-> -	 */
-> -	int (*baco_set_state)(struct smu_context *smu, enum smu_baco_state state);
-> -
->   	/**
->   	 * @baco_enter: Enter BACO.
->   	 */
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-> index dd94e8a9e218..c0accee9a9c8 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-> @@ -199,8 +199,6 @@ int smu_v11_0_gfx_off_control(struct smu_context *smu, bool enable);
->   
->   int smu_v11_0_register_irq_handler(struct smu_context *smu);
->   
-> -int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu);
-> -
->   int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
->   		struct pp_smu_nv_clock_table *max_clocks);
->   
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> index 68f4de5f800c..7f21f867d73c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> @@ -180,8 +180,6 @@ int smu_v13_0_gfx_off_control(struct smu_context *smu, bool enable);
->   
->   int smu_v13_0_register_irq_handler(struct smu_context *smu);
->   
-> -int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu);
-> -
->   int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
->   					       struct pp_smu_nv_clock_table *max_clocks);
->   
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 051a0008aa10..99abfddff856 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -1934,7 +1934,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
->   	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
->   	.gfx_off_control = smu_v11_0_gfx_off_control,
->   	.register_irq_handler = smu_v11_0_register_irq_handler,
-> -	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
->   	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
->   	.get_bamaco_support = smu_v11_0_get_bamaco_support,
->   	.baco_enter = smu_v11_0_baco_enter,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 2f2a5953dbbc..52c23bd3b201 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -3340,7 +3340,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
->   	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
->   	.gfx_off_control = smu_v11_0_gfx_off_control,
->   	.register_irq_handler = smu_v11_0_register_irq_handler,
-> -	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
->   	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
->   	.get_bamaco_support = smu_v11_0_get_bamaco_support,
->   	.baco_enter = navi10_baco_enter,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 70897c70db32..e5370267fda3 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -3146,7 +3146,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
->   	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
->   	.gfx_off_control = smu_v11_0_gfx_off_control,
->   	.register_irq_handler = smu_v11_0_register_irq_handler,
-> -	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
->   	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
->   	.get_bamaco_support = smu_v11_0_get_bamaco_support,
->   	.baco_enter = sienna_cichlid_baco_enter,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index ac8f84f1e30e..f5155a4dc5a2 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -1417,11 +1417,6 @@ int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
->   	return 0;
->   }
->   
-> -int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu)
-> -{
-> -	return smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
-> -}
-> -
->   int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
->   				      enum smu_baco_seq baco_seq)
->   {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> index 0349dba2503a..e5d319cda52b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> @@ -1444,7 +1444,6 @@ static int renoir_get_enabled_mask(struct smu_context *smu,
->   }
->   
->   static const struct pptable_funcs renoir_ppt_funcs = {
-> -	.set_power_state = NULL,
->   	.emit_clk_levels = renoir_emit_clk_levels,
->   	.get_current_power_state = renoir_get_current_power_state,
->   	.dpm_set_vcn_enable = renoir_dpm_set_vcn_enable,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index 3a19f0ffcf3c..7c0d4e40b9b6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -2005,7 +2005,6 @@ static const struct pptable_funcs aldebaran_ppt_funcs = {
->   	.disable_thermal_alert = smu_v13_0_disable_thermal_alert,
->   	.set_xgmi_pstate = smu_v13_0_set_xgmi_pstate,
->   	.register_irq_handler = smu_v13_0_register_irq_handler,
-> -	.set_azalia_d3_pme = smu_v13_0_set_azalia_d3_pme,
->   	.get_max_sustainable_clocks_by_dc = smu_v13_0_get_max_sustainable_clocks_by_dc,
->   	.get_bamaco_support = aldebaran_get_bamaco_support,
->   	.get_dpm_ultimate_freq = aldebaran_get_dpm_ultimate_freq,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index d511f03354a6..67d20213ad07 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -1321,15 +1321,6 @@ int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
->   	return 0;
->   }
->   
-> -int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu)
-> -{
-> -	int ret = 0;
-> -
-> -	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
-> -
-> -	return ret;
-> -}
-> -
->   static int smu_v13_0_wait_for_reset_complete(struct smu_context *smu,
->   					     uint64_t event_arg)
->   {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 9c09b2640a0c..edc5140f6ab6 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -2891,8 +2891,6 @@ static const struct pptable_funcs smu_v14_0_2_ppt_funcs = {
->   	.deep_sleep_control = smu_v14_0_deep_sleep_control,
->   	.gfx_ulv_control = smu_v14_0_gfx_ulv_control,
->   	.get_bamaco_support = smu_v14_0_get_bamaco_support,
-> -	.baco_get_state = smu_v14_0_baco_get_state,
-> -	.baco_set_state = smu_v14_0_baco_set_state,
->   	.baco_enter = smu_v14_0_2_baco_enter,
->   	.baco_exit = smu_v14_0_2_baco_exit,
->   	.mode1_reset_is_support = smu_v14_0_2_is_mode1_reset_supported,
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 29 -------------------  dr=
+ivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  |  2 --  drivers/gpu/drm/amd/pm=
+/swsmu/inc/smu_v13_0.h  |  2 --  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_pp=
+t.c |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 -
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  5 ----
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  1 -
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  9 ------
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 --
+ 11 files changed, 54 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
+m/amd/pm/swsmu/inc/amdgpu_smu.h
+index d76e0b005308..38a8249570a9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -849,8 +849,6 @@ struct pptable_funcs {
+         */
+        int (*set_default_dpm_table)(struct smu_context *smu);
+
+-       int (*set_power_state)(struct smu_context *smu);
+-
+        /**
+         * @populate_umd_state_clk: Populate the UMD power state table with
+         *                          defaults.
+@@ -903,16 +901,6 @@ struct pptable_funcs {
+                                              struct
+                                              pp_clock_levels_with_latency
+                                              *clocks);
+-       /**
+-        * @get_clock_by_type_with_voltage: Get the speed and voltage of a =
+clock
+-        *                                  domain.
+-        */
+-       int (*get_clock_by_type_with_voltage)(struct smu_context *smu,
+-                                             enum amd_pp_clock_type type,
+-                                             struct
+-                                             pp_clock_levels_with_voltage
+-                                             *clocks);
+-
+        /**
+         * @get_power_profile_mode: Print all power profile modes to
+         *                          buffer. Star current mode.
+@@ -1354,11 +1342,6 @@ struct pptable_funcs {
+         */
+        int (*register_irq_handler)(struct smu_context *smu);
+
+-       /**
+-        * @set_azalia_d3_pme: Wake the audio decode engine from d3 sleep.
+-        */
+-       int (*set_azalia_d3_pme)(struct smu_context *smu);
+-
+        /**
+         * @get_max_sustainable_clocks_by_dc: Get a copy of the max sustain=
+able
+         *                                    clock speeds table.
+@@ -1375,18 +1358,6 @@ struct pptable_funcs {
+         */
+        int (*get_bamaco_support)(struct smu_context *smu);
+
+-       /**
+-        * @baco_get_state: Get the current BACO state.
+-        *
+-        * Return: Current BACO state.
+-        */
+-       enum smu_baco_state (*baco_get_state)(struct smu_context *smu);
+-
+-       /**
+-        * @baco_set_state: Enter/exit BACO.
+-        */
+-       int (*baco_set_state)(struct smu_context *smu, enum smu_baco_state =
+state);
+-
+        /**
+         * @baco_enter: Enter BACO.
+         */
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm=
+/amd/pm/swsmu/inc/smu_v11_0.h
+index dd94e8a9e218..c0accee9a9c8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+@@ -199,8 +199,6 @@ int smu_v11_0_gfx_off_control(struct smu_context *smu, =
+bool enable);
+
+ int smu_v11_0_register_irq_handler(struct smu_context *smu);
+
+-int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu);
+-
+ int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
+                struct pp_smu_nv_clock_table *max_clocks);
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm=
+/amd/pm/swsmu/inc/smu_v13_0.h
+index 68f4de5f800c..7f21f867d73c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+@@ -180,8 +180,6 @@ int smu_v13_0_gfx_off_control(struct smu_context *smu, =
+bool enable);
+
+ int smu_v13_0_register_irq_handler(struct smu_context *smu);
+
+-int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu);
+-
+ int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
+                                               struct pp_smu_nv_clock_table=
+ *max_clocks);
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 051a0008aa10..99abfddff856 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1934,7 +1934,6 @@ static const struct pptable_funcs arcturus_ppt_funcs =
+=3D {
+        .set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
+        .gfx_off_control =3D smu_v11_0_gfx_off_control,
+        .register_irq_handler =3D smu_v11_0_register_irq_handler,
+-       .set_azalia_d3_pme =3D smu_v11_0_set_azalia_d3_pme,
+        .get_max_sustainable_clocks_by_dc =3D smu_v11_0_get_max_sustainable=
+_clocks_by_dc,
+        .get_bamaco_support =3D smu_v11_0_get_bamaco_support,
+        .baco_enter =3D smu_v11_0_baco_enter,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/=
+drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 2f2a5953dbbc..52c23bd3b201 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -3340,7 +3340,6 @@ static const struct pptable_funcs navi10_ppt_funcs =
+=3D {
+        .set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
+        .gfx_off_control =3D smu_v11_0_gfx_off_control,
+        .register_irq_handler =3D smu_v11_0_register_irq_handler,
+-       .set_azalia_d3_pme =3D smu_v11_0_set_azalia_d3_pme,
+        .get_max_sustainable_clocks_by_dc =3D smu_v11_0_get_max_sustainable=
+_clocks_by_dc,
+        .get_bamaco_support =3D smu_v11_0_get_bamaco_support,
+        .baco_enter =3D navi10_baco_enter,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
+ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 70897c70db32..e5370267fda3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -3146,7 +3146,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_=
+funcs =3D {
+        .set_xgmi_pstate =3D smu_v11_0_set_xgmi_pstate,
+        .gfx_off_control =3D smu_v11_0_gfx_off_control,
+        .register_irq_handler =3D smu_v11_0_register_irq_handler,
+-       .set_azalia_d3_pme =3D smu_v11_0_set_azalia_d3_pme,
+        .get_max_sustainable_clocks_by_dc =3D smu_v11_0_get_max_sustainable=
+_clocks_by_dc,
+        .get_bamaco_support =3D smu_v11_0_get_bamaco_support,
+        .baco_enter =3D sienna_cichlid_baco_enter, diff --git a/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sm=
+u_v11_0.c
+index ac8f84f1e30e..f5155a4dc5a2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -1417,11 +1417,6 @@ int smu_v11_0_get_max_sustainable_clocks_by_dc(struc=
+t smu_context *smu,
+        return 0;
+ }
+
+-int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu) -{
+-       return smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
+-}
+-
+ int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
+                                      enum smu_baco_seq baco_seq)
+ {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/=
+drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 0349dba2503a..e5d319cda52b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -1444,7 +1444,6 @@ static int renoir_get_enabled_mask(struct smu_context=
+ *smu,  }
+
+ static const struct pptable_funcs renoir_ppt_funcs =3D {
+-       .set_power_state =3D NULL,
+        .emit_clk_levels =3D renoir_emit_clk_levels,
+        .get_current_power_state =3D renoir_get_current_power_state,
+        .dpm_set_vcn_enable =3D renoir_dpm_set_vcn_enable, diff --git a/dri=
+vers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/sw=
+smu/smu13/aldebaran_ppt.c
+index 3a19f0ffcf3c..7c0d4e40b9b6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -2005,7 +2005,6 @@ static const struct pptable_funcs aldebaran_ppt_funcs=
+ =3D {
+        .disable_thermal_alert =3D smu_v13_0_disable_thermal_alert,
+        .set_xgmi_pstate =3D smu_v13_0_set_xgmi_pstate,
+        .register_irq_handler =3D smu_v13_0_register_irq_handler,
+-       .set_azalia_d3_pme =3D smu_v13_0_set_azalia_d3_pme,
+        .get_max_sustainable_clocks_by_dc =3D smu_v13_0_get_max_sustainable=
+_clocks_by_dc,
+        .get_bamaco_support =3D aldebaran_get_bamaco_support,
+        .get_dpm_ultimate_freq =3D aldebaran_get_dpm_ultimate_freq, diff --=
+git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/=
+pm/swsmu/smu13/smu_v13_0.c
+index d511f03354a6..67d20213ad07 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -1321,15 +1321,6 @@ int smu_v13_0_get_max_sustainable_clocks_by_dc(struc=
+t smu_context *smu,
+        return 0;
+ }
+
+-int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu) -{
+-       int ret =3D 0;
+-
+-       ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
+-
+-       return ret;
+-}
+-
+ static int smu_v13_0_wait_for_reset_complete(struct smu_context *smu,
+                                             uint64_t event_arg)
+ {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 9c09b2640a0c..edc5140f6ab6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -2891,8 +2891,6 @@ static const struct pptable_funcs smu_v14_0_2_ppt_fun=
+cs =3D {
+        .deep_sleep_control =3D smu_v14_0_deep_sleep_control,
+        .gfx_ulv_control =3D smu_v14_0_gfx_ulv_control,
+        .get_bamaco_support =3D smu_v14_0_get_bamaco_support,
+-       .baco_get_state =3D smu_v14_0_baco_get_state,
+-       .baco_set_state =3D smu_v14_0_baco_set_state,
+        .baco_enter =3D smu_v14_0_2_baco_enter,
+        .baco_exit =3D smu_v14_0_2_baco_exit,
+        .mode1_reset_is_support =3D smu_v14_0_2_is_mode1_reset_supported,
+--
+2.47.3
 
