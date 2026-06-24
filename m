@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C2F0CDB481
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 14:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9C4CDB481
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 14:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98D1110EF66;
-	Wed, 24 Jun 2026 14:56:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1FDE10EF68;
+	Wed, 24 Jun 2026 14:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="hl59fMXU";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="xR6KFFZv";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F5010EF66
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 14:56:45 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4926046fbc5so11725005e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 07:56:45 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6FE210EF68
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 14:59:38 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490c0c92cffso8512525e9.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 07:59:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1782313004; x=1782917804; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1782313177; x=1782917977; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=1Utbd97cFZQctTuvakWxUdGz04SinxXRjd36a0NJWbA=;
- b=hl59fMXUcjrIoczO6VSw43wdEqDGrsYzjlt1+yIchM2QThKcQA1u6NEZIeWyFhek+0
- E2SXD3NDqj2bIlGgBlMjT5lXg+IwoypIU+SIVxRZ80eMqDJMgdGenC99gee3RtGUf+3R
- v8XTthO4nKjde61CrHT1I6um6Mo7KUBjZ14IYIAgzZ9gD2DH5T9OByRFpY8OUShJZz95
- NtVQXAtPAxxNV9oFRfE5s/yw0JOlAYUsBLEpwnPuFB03jh/KzK+Sp9GnEBSflJbmbTn+
- Vdd8eEnbxb6sgJYp3p1z07lDdHpBkopbjQuDLYYnhvRmRrtdk/WeAXmMvrBJEZHE66HY
- VAOA==
+ bh=z/vKDsvl2bvipRpJp2GwzaynpfnK9rCzBVTBrKl5sOQ=;
+ b=xR6KFFZvXmf7IwvR/V58YQFTl38fk49/DhHQcCgz8Rt67DGhmU4VlBV9FDqp2/UGTn
+ STnfVDfMpXNT/jwQ0QUHLzX/3M9Oru9uVyLF/mrw028k5KMHnZNduu7ivp3Owi4RwZqs
+ l0vaFHwCyrxjjSd42znm0xJt4Ts1FTeAojT5OD7aoXpLDsatSDYmQ19qhAhD8ZR/kb+3
+ zxaLCDGDlQOiAFifDSqkCtYPjs2bpLEre64dVod062vL7CGzmHYkNeXErBXZIKz8hYie
+ JJYicpMvhR6cCegXZAOTyc1zcGY/WBiephotkp8Snc9Q/cpAOts9/NV9KYH9Dbst8JBb
+ djBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782313004; x=1782917804;
+ d=1e100.net; s=20251104; t=1782313177; x=1782917977;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=1Utbd97cFZQctTuvakWxUdGz04SinxXRjd36a0NJWbA=;
- b=eTRf8efFoEO4VWR3/uB3ZhjugRbZTlv5ub2nMI3r41SXPtPduSsXQ9s3MhKUC6bF/l
- n9yRx1UJ19zjn85JzCeGEK84Co4WsjjWbV9038j9/YXtPD6EdbYBtdr8y1eh5Ag1cU92
- ivSIqR/j1xe+IjlSDNLjK3aQlXuyiCHU+n6J59eQ62JTroXoGdHLReUdNFl4P/JxTITK
- BMRZHX2pccuKExtViBjMFf9/7OW1zKpr6BX246Mtpbikdhr5zwumZC3ugUwNxD2daoo3
- at6UdQkkceY1YGOAHfVlswhFGlDI+uiGKK1tNzEkVELejWMAWd7POT2VzLqVvS8ZaHws
- AHyQ==
+ bh=z/vKDsvl2bvipRpJp2GwzaynpfnK9rCzBVTBrKl5sOQ=;
+ b=h9CoL6vTxJUnCQWf+MnSx/IElubOKCOWLjoouSMcBr+muWR494lzkp1MmszcPUGF/B
+ pkzt+l8vQh8681Bvxe5OQC51+z4IyqNh2kE1ObsSx+OrGPEJ8AwVnfOOODKjlv3yRmsG
+ XVBnDHxPZd/jUlHpyG41amW70EUnF01RG+a8JugCVVVwaTJNwf8Emtd/owPHbMBed6fM
+ t6Ij0U6vLLfJOpcWY31tsubABJBcBTkCIWYnZlp+aIVFYyOeOzoh6D4Fn0swe/bn03KS
+ jcYxRbLpXRDgko0/VAN1T8L5SYM12GEFY37tyxz7FVGEoZLERl6CD4fjbd0UYv2CHhET
+ JE/A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9iVY8APYjW3uan0VW5i0LSPeWdEKPQXIsy/0k6Efwm2bK8pp53A2Q8rl0uuz6fKIVWCmAMFGsw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbJq7K+m01wmfOg2vZoE0XStYJIT09KArL2ybi9Ff4cXeSD5MH
- dIKaOEMoXXqg8INVZpBbSdY0fF7cEg2qw4rRHbfokd7QDVFtk6E6N9PZ8zkWqj+SWgY=
-X-Gm-Gg: AfdE7clNwZQ9kWaXWekyxVJURrRsYcQlASoYUFv/AC725C7+AOkuufjc1/b+TkVOvC9
- 6CG1ghVfMgfObwfxLPzgoYNnYZpXhzBNIYFHmjrzJH9vo9Ad2WP24uPvZtrluywwMI2AFKnCVLy
- DUJs1+It1DBPuva0YQ+xV/iukspas7u8C0v1hhsUE6gY6NhgGt0qBHWLe0iu/apxeszIxP0wZQO
- rP7ccAaUUtt/4z8b16C4dUHHUFRHSsjYMZRnyqhh8ab+KwmGkWxofv73VamU3u8exfXmc9P/VSS
- Sk2zPXXYV41jdaAfi0FxGTncq2y9W8MjdSa+QRNafDb07I1qmBd1Ym8ZKOHMIyaKCAv7Yd57CAo
- Co01Kaw6kgRNHmPQi8gIMDCru6u2FG0NxEeZJua+bTKEKItinLwcy8g7f6s19sWtzohgZVHno3e
- c9g6wetMgZvX1rBkjre6LyUN8iaF3LviqOPw==
-X-Received: by 2002:a05:600c:138e:b0:490:e19b:9632 with SMTP id
- 5b1f17b1804b1-492632b93e5mr11027955e9.17.1782313003548; 
- Wed, 24 Jun 2026 07:56:43 -0700 (PDT)
+ AFNElJ/awNV817diPgpJuJ9YqtH5p25up+wYImVskmzTBuVKLtREMg89amiTpud1KXEwwO4Ruc5mnsYn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4ONizULsLcT9RIibuc6+/2yK19iNMIym+9iIaoMx9QyGLJZuF
+ vkwDSV4tD9Nti8D5gQt59iccZ4z13vo5WmdR7PC8mp5/eSEVhF5zGJVEOZZ7DdRZmnw=
+X-Gm-Gg: AfdE7cloDs5VX27ET9JQQfl4zcVrjTKoiK0Q1NGy9MRyk4gs9zn8zY9o09f15hCbIPA
+ of2N2PGwwb0rtqdJw89pwsvVhVLEmKy0Oh6iX85r8kn4p3SArA8HzAHVRWAYieOIm6mQqA94O1e
+ p6tFfg+W88lfFFl3tzikpZ32hnRz/HZaJx41GAhcD/Wl1JOANp2AjtkXAY8N1N70KzJ+gmSdRCb
+ Q8CB/HFS0kSVNXgny00qnBjoWhr51eGRDCNjzekjH/suTWNGTIKkldllvL8aEU3QXLXmNmUDJ2a
+ m2VKgxbAFcTfI91ISAGFAkcjnXnCv7QPc3RXYaO4dkAunlv92yfbAZZv+GaqRCHRgjgjY7hgf5g
+ LPlgaSXx3kQv/KU49OFvyLlxj1yR9zmH7X8/ale5K26tW75TL88lNL5mFBeWo3IJLA1Z1JysmOP
+ lRFvnd18SHsE4JwqE/MQFFCRwVilSb4+jqpg==
+X-Received: by 2002:a05:600c:4e09:b0:492:564f:5603 with SMTP id
+ 5b1f17b1804b1-4926084b963mr57507955e9.14.1782313177005; 
+ Wed, 24 Jun 2026 07:59:37 -0700 (PDT)
 Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4924944faa8sm369469105e9.13.2026.06.24.07.56.42
+ ffacd0b85a97d-46c2279bc77sm6607335f8f.32.2026.06.24.07.59.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jun 2026 07:56:43 -0700 (PDT)
-Message-ID: <5961213c-b559-4655-8589-e46b42821ac6@ursulin.net>
-Date: Wed, 24 Jun 2026 15:56:42 +0100
+ Wed, 24 Jun 2026 07:59:36 -0700 (PDT)
+Message-ID: <9143d988-08d1-4013-887d-d7dc5bb550fa@ursulin.net>
+Date: Wed, 24 Jun 2026 15:59:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] drm/amdgpu/vm: Use init PTE flags, and NOALLOC in
- amdgpu_vm_handle_fault()
+Subject: Re: [PATCH 7/7] drm/amdgpu/gmc12: Pass cam_index to retry fault
+ handler
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -76,10 +76,10 @@ To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
  Mario Limonciello <mario.limonciello@amd.com>
 References: <20260529103059.21470-1-timur.kristof@gmail.com>
- <20260529103059.21470-7-timur.kristof@gmail.com>
+ <20260529103059.21470-8-timur.kristof@gmail.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260529103059.21470-7-timur.kristof@gmail.com>
+In-Reply-To: <20260529103059.21470-8-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -98,39 +98,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 29/05/2026 11:30, Timur Kristóf wrote:
-> These flags seem to be necessary for retry faults to work.
+> This is necessary if we want to make use of the filter CAM.
 > 
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 ++++-
+>   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 5 ++++-
 >   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index f5e9b97e92a8c..80c07abc81565 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -3002,7 +3002,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> index 7bbf5f848ce1b..90568d8ea0cf6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -99,6 +99,7 @@ static int gmc_v12_0_process_interrupt(struct amdgpu_device *adev,
+>   	bool write_fault = !!(entry->src_data[1] &
+>   			      AMDGPU_GMC9_FAULT_SOURCE_DATA_WRITE);
+>   	uint32_t status = 0;
+> +	uint32_t cam_index;
+>   	u64 addr;
 >   
->   	addr /= AMDGPU_GPU_PAGE_SIZE;
-> -	flags = AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
-> +	flags = adev->gmc.init_pte_flags |
-> +		AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
->   		AMDGPU_PTE_SYSTEM;
+>   	addr = (u64)entry->src_data[0] << 12;
+> @@ -110,7 +111,9 @@ static int gmc_v12_0_process_interrupt(struct amdgpu_device *adev,
+>   		hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
 >   
->   	if (is_compute_context) {
-> @@ -3017,6 +3018,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   		flags |= AMDGPU_PTE_EXECUTABLE | AMDGPU_PTE_READABLE |
->   			AMDGPU_PTE_WRITEABLE;
->   
-> +		if (adev->family >= AMDGPU_FAMILY_NV)
-> +			flags |= AMDGPU_PTE_NOALLOC;
->   	} else {
->   		/* Let the hw retry silently on the PTE */
->   		value = 0;
+>   	if (retry_fault) {
+> -		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
+> +		cam_index = entry->src_data[2] & 0x3ff;
+> +
+> +		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, cam_index, 0,
+>   							write_fault);
+>   		/* Returning 1 here also prevents sending the IV to the KFD */
+>   		if (ret == 1)
 
-Same as the previous one - I'm afraid someone from AMD will need to r-b 
-this one too.
+Looks the same as gmc_v9 so I feel more confident to give r-b.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+The only tweak I would potentially do is move the cam_index local into 
+the local scope of the if branch. Any apply kernel coding style of 
+leaving a blank line between the declaration block and code.
 
 Regards,
 
