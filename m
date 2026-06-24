@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F6B5CDB479
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 14:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85136CDB481
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 14:37:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5FD410E0BD;
-	Wed, 24 Jun 2026 14:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2370110EDFD;
+	Wed, 24 Jun 2026 14:37:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="l43ulMEB";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="avz78yyw";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9A2010E0B5
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 14:31:24 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49222fb062bso11258185e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 07:31:24 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73AD210EDFD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 14:37:14 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-46019edc13dso699688f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 07:37:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1782311483; x=1782916283; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1782311833; x=1782916633; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=S3N5ziAax0EuTJ7RdIkG97OXnrHVRSVVAWCOteuigsM=;
- b=l43ulMEBFZB8yT4rhb4l1eb/Y8trhhmjNNn1PJSpmrbhav6jCIki/3d0rgOdbSxKCW
- k7NcyCp2lghBWf0lKpKGK6/3dFvAQfSXOnJvbV1VuflgrnYiYBqnqzaQJWWpCPySBK1H
- 9BSqTqP0aZIpXq5qxwaWAybpVxEeoigOK5IzfxTXi6SXQzXV9utUt7DtZhARIdt8akYH
- lJbE1mE4U0HmuYNlURuMuuNaHTF3JtfFTSzgz4EAAKh1HFIIqmHOQDE3GTcXXjvrj+cS
- mj41VQ5/Atg4iCh79WKbHr235XVHb8/Ap6y10qjxl1FQ1pdqCyf94XWFiY3Ap+dg6Int
- ByDg==
+ bh=QrAXaHE3DukTi8OlP88Uh54oA+6j4WB41yVoiEiKTMg=;
+ b=avz78yywTyLn5GsPqUfZEhM2qT7r0SqN/wPLQI2EY5epYk+Msj8L8jOGsYXh4HHCQv
+ qBk55wCXbTGLkunjk/5fTBRPGJINsmxVVhElTqdUKYTs/7NEM1fXysIao/qo4fJ4ojms
+ omHdEiWk66MtDrXVjJUALybfPpr5wo6jWTzYq3n9qqrbKFGQLqeFAPxSSw8ZvkV+60K7
+ FPnXikOBcKB1BDTUUQ7gomt1J+1O2dlgk3mWkNqJ8S8PffpELt3JKsYyftYtWJzIcKwh
+ wMU3676WWmjtxJoAhDo2/gZH8kLLXXQddiPMm1yrqdNO8EWT7ziibRRcA2BRMZQ/FgWd
+ mvBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782311483; x=1782916283;
+ d=1e100.net; s=20251104; t=1782311833; x=1782916633;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=S3N5ziAax0EuTJ7RdIkG97OXnrHVRSVVAWCOteuigsM=;
- b=Azm2Ka6KfwwgS6ebDAd657wKG9j3DuETsuuq0ljNKGnfGoq78PgAEjUHfc34hffQ6v
- otpAVWnWU/h/HYDsDdBmXhQxw4YRO2fhcCGn5TIdllD4Je5r2vwIXYFAq0kIHRupjRHQ
- wRM8G2LNbCwMUR5Vbkd3hAHn+4MHe1M/ubXGXXjpWqhX3gPnhJIgrA/yWh/9o1AxbrZl
- LvuAqRUhyiumQ9DtlO/BBUqvOlf4yTUMapMAbnRdLXgA6BBWHLhjx7ss5nSuH7VNV0lf
- hMGXqYvfRYru8Ff7Q4NIR66hV3e6gmPmBGDeJjlmtKs9UPm6Kq6NGJsL52zo5E3hlZHy
- /Xuw==
+ bh=QrAXaHE3DukTi8OlP88Uh54oA+6j4WB41yVoiEiKTMg=;
+ b=sWxnbNQO3xJUwY5XEPJnaEA56zmDMLCYEaT2axlNIFr2wIZdYNEn68wna8caZ7IpeF
+ KFIRTHC5GZ7TKXnQpT90Ai88IFhbjOLp/LjPPpfv61je8z1YMKIlhxV6FUogyVw4RDw5
+ 8K9jGP7R0xzTHiSIZlhZcJrWv7BbV+7sAsrtyIfKEn7A/5QbG4OxHId4Tc9UjEJAMaV/
+ lfJ+0pQYtJr7V4yVSYE0gQ6RnjE/4LlUwczKIYNY+RLWvWasRD5QjkIo0UL+pR0aQdTW
+ xaDdEXyiRgIcm0WW+hZvDfx+2uKOnOUaZy7GL4DfJacQ2bsSpOxLO2usY3nAPuFY/qB2
+ /l4w==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+FGGZBRMef3nkJKeeYt9d6/6fdznN84BitTkHCwkgE2xhWziF1ZprHnPxtZSCVHk42XxkkS5Wx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxgp5NtIHFEV5ZHZJ8nPdqJzO+iZ8aZstGLGkYD0jTpTNMQFfG3
- bwUkwzhMhQ/9yMydsslT9dNjY4iAFFOg1O4jHjNkFnecw4+k7BXUAJTXkc7Vnb2NsTA=
-X-Gm-Gg: AfdE7cmlzdkpBNjWHtqbnSf/gNg0gzpb2cK6YFsoOiG5p0QNuR1TvPwGpYeKPsknzWU
- lvF93p/3nqh4hlFwnbjEhutwRmGSMk0AjZclx5fTpob6r+0rS26qR0tTXFQmZNs4wfmCQg+b2DI
- 4nlWbqEEhRlewL4N+PIMAsnnc6jCMWL4y+4Pr2PpPKzEamiX2y/PJWaOUBUtqDR4Js6UIlCxneL
- qqxuLeTi/mQFl8sEinibVoDOQrEgZkLWfLzJX6O+fJfIfsH+EYmSzNKh5CJRyWFYfDDVZkp3mDw
- 8bAtIXjUFLz1/BRsXwMZfJWMTBBEcBYkqhig5TmJGc1cmrdo+2I5nNpPEgF9G7iN7VgzpdBrf9q
- YIMFT44dSnRYLkkz0vXC4jtdXHglhpedtTCyxaId0bwyx0Qi87YcmWnix6Tlz4ajl/3ad8D8JRP
- 99ETFsRgo05OiwNQHwvOnGHGjzVkCg8913Gw==
-X-Received: by 2002:a05:600c:a07:b0:492:59e4:f3fb with SMTP id
- 5b1f17b1804b1-4926084a269mr52685855e9.3.1782311483141; 
- Wed, 24 Jun 2026 07:31:23 -0700 (PDT)
+ AHgh+RpIlPHliaa3iH5kv+eC33Rr6ZDepMcpE53Kg4NLucSJQSOwa7lI9PJhBatW2gArE8U7Yl6N+9Jo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7jCZHrN3Cm3NFm1+a9Z49Qz7Piq92DQwoV94oIbsrRnb2s+c8
+ 46J3dVVZ4iPKQ8WR7lqdCk/Di7XYpHW4ursmekQIlnvpyUWfaaDyMg6PmXMW6rvXf5k=
+X-Gm-Gg: AfdE7cnUcek6N0OmnVF3DQCKTeN6pxxdkDqYlqAIkCn4Fy8y8nDKvZcF09i5LR6h/bO
+ 3DIIoLVTrFe2MgojiBZzzZCUYcoez+/q3V+DtJQpIysvsjOOrel5dwl9rhKqGv43KKMk0FTJKPH
+ 8J3MAjhPgtRoKcIJFNaddauh8Skt91fLmgenFV/xQ67s4VXS3AfLo5unIPorDKN5YwC0/WV/CcD
+ 4e1yTc1C2xn7bKvtNl9rHIlCFgjubQg6Ilq+t7P0Pmcmd+ktPu46WF4yZRiUqTGVHPRVxGH/8Mc
+ tUmhD6OfLsKA6XtssWqoKd7k/r3//hNJBbmcNNNu272nnbt7G7iiRu8Tq1GP7VAEXBs4JVuOTnL
+ ZsjvaDg+h33vx7prgv9akPjcfCMO164FFvKhclSXyQvXhoex9Xde7OXKHiCtwyXew0YdxjrXeBp
+ 7gjmWiPwR4KGc21++jN3OmvKBlFjHHqLLfGA==
+X-Received: by 2002:a5d:4a84:0:b0:45e:ec27:b4b0 with SMTP id
+ ffacd0b85a97d-46ad96ba3c7mr8504886f8f.18.1782311832645; 
+ Wed, 24 Jun 2026 07:37:12 -0700 (PDT)
 Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-492494497ffsm393604635e9.11.2026.06.24.07.31.21
+ ffacd0b85a97d-46c1e840f34sm7519525f8f.2.2026.06.24.07.37.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jun 2026 07:31:21 -0700 (PDT)
-Message-ID: <55bb616f-343f-4189-8ef8-e9f20429cdbb@ursulin.net>
-Date: Wed, 24 Jun 2026 15:31:20 +0100
+ Wed, 24 Jun 2026 07:37:12 -0700 (PDT)
+Message-ID: <6297d359-2d4e-4961-a645-a2a241aba823@ursulin.net>
+Date: Wed, 24 Jun 2026 15:37:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] drm/amdgpu: ACK the retry CAM after VM update finishes
+Subject: Re: [PATCH 4/7] drm/amdgpu/ih7.0: Use IH_SW_RING_SIZE for soft IH
+ ring instead of PAGE_SIZE
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -75,10 +76,10 @@ To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
  Mario Limonciello <mario.limonciello@amd.com>
 References: <20260529103059.21470-1-timur.kristof@gmail.com>
- <20260529103059.21470-3-timur.kristof@gmail.com>
+ <20260529103059.21470-5-timur.kristof@gmail.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260529103059.21470-3-timur.kristof@gmail.com>
+In-Reply-To: <20260529103059.21470-5-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -97,149 +98,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 29/05/2026 11:30, Timur Kristóf wrote:
-> Add a fence callback to the VM update and ACK the retry CAM
-> after the VM update is finished. Previously, we would ACK it
-> immediately after calling amdgpu_vm_handle_fault() which
-> caused a race condition that was likely to trigger the same
-> interrupt again, causing the same fault to be handled
-> multiple times.
+> When there are a lot of retry faults happening, the soft IH ring
+> can fill up really quickly and possibly overflow. PAGE_SIZE was
+> too small, use IH_SW_RING_SIZE to match what other GPU generations
+> are doing.
 > 
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     | 28 +++++++++++++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  8 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c |  2 +-
->   4 files changed, 36 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 26aea960e2759..21c8d87477448 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -545,6 +545,16 @@ void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
->   	} while (fault->timestamp < tmp);
->   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> index 4e6d14facf93a..ec0919fa82540 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> @@ -587,7 +587,6 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   	int r;
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	bool use_bus_addr;
+> -	unsigned int sw_ring_size;
 >   
-> +static void amdgpu_gmc_retry_fault_handled(struct dma_fence *fence,
-> +					   struct dma_fence_cb *cb)
-> +{
-> +	struct amdgpu_fence_cb *afc = container_of(cb, struct amdgpu_fence_cb, cb);
-> +	struct amdgpu_device *adev = afc->adev;
-> +
-> +	/* CAM index is the array index of the current callback struct */
-> +	adev->irq.ih_funcs->retry_cam_ack(adev, afc - &adev->gmc.retry_cb[0]);
+>   	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_IH, 0,
+>   			      &adev->irq.self_irq);
+> @@ -619,9 +618,7 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   	/* initialize ih control register offset */
+>   	ih_v7_0_init_register_offset(adev);
+>   
+> -	sw_ring_size = (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0)) ?
+> -			IH_SW_RING_SIZE : PAGE_SIZE;
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, sw_ring_size, true);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+>   	if (r)
+>   		return r;
+>   
 
-Is the "afc - &adev->gmc.retry_cb[0]" part correct? It will be the index 
-of the array element, while ->retry_cam_ack() expects the content of 
-that element, no?
+Looks plausible to me.
 
-> +}
-> +
->   int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
->   				  struct amdgpu_iv_entry *entry,
->   				  u64 addr,
-> @@ -552,6 +562,7 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
->   				  u32 node_id,
->   				  bool write_fault)
->   {
-> +	struct dma_fence *fence = NULL;
->   	int ret;
->   
->   	if (adev->irq.retry_cam_enabled) {
-> @@ -564,8 +575,21 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
->   		}
->   
->   		ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
-> -					     addr, entry->timestamp, write_fault, NULL);
-> -		adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
-> +					     addr, entry->timestamp, write_fault, &fence);
-> +
-> +		/* If the update is already done, ACK now, otherwise when it's done. */
-> +		if (fence) {
-> +			adev->gmc.retry_cb[cam_index].adev = adev;
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Why is 16 retry_cb elements enough? I see in the code cam_index extraced 
-from the IV entry with a mask such as 0x3ff.
-> +
-> +			if (dma_fence_add_callback(fence, &adev->gmc.retry_cb[cam_index].cb,
-> +						   amdgpu_gmc_retry_fault_handled))
-> +				adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
-> +
-> +			dma_fence_put(fence);
-> +		} else {
-> +			adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
-> +		}
-> +
->   		if (ret)
->   			return 1;
->   	} else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 77eb153802845..3bfb06e011a86 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -27,6 +27,7 @@
->   #define __AMDGPU_GMC_H__
->   
->   #include <linux/types.h>
-> +#include <linux/dma-fence.h>
->   
->   #include "amdgpu_irq.h"
->   #include "amdgpu_xgmi.h"
-> @@ -214,6 +215,11 @@ struct amdgpu_gmc_memrange {
->   	int nid_mask;
->   };
->   
-> +struct amdgpu_fence_cb {
-> +	struct amdgpu_device *adev;
-> +	struct dma_fence_cb cb;
-> +};
-> +
->   enum amdgpu_gart_placement {
->   	AMDGPU_GART_PLACEMENT_BEST_FIT = 0,
->   	AMDGPU_GART_PLACEMENT_HIGH,
-> @@ -305,6 +311,8 @@ struct amdgpu_gmc {
->   	} fault_hash[AMDGPU_GMC_FAULT_HASH_SIZE];
->   	uint64_t		last_fault:AMDGPU_GMC_FAULT_RING_ORDER;
->   
-> +	struct amdgpu_fence_cb retry_cb[16];
-> +
->   	bool tmz_enabled;
->   	bool is_app_apu;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 8c3ba7213eb22..f5e9b97e92a8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -3035,7 +3035,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   
->   	r = amdgpu_vm_update_pdes(adev, vm, true);
->   
-> -	*fence = vm->last_update;
-> +	*fence = dma_fence_get(vm->last_update);
-
-Ah! But passing over since you said you are dropping that patch anyway.
-
->   error_unlock:
->   	amdgpu_bo_unreserve(root);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> index 2eb64df6daa94..6e28f0e435bf5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> @@ -132,7 +132,7 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
->   				   DMA_RESV_USAGE_BOOKKEEP);
->   	}
->   
-> -	if (fence && !p->immediate) {
-> +	if (fence) {
-
-Is this deliberate and if so what it is about? Commit message should 
-explain it as well.
+The only other which uses PAGE_SIZE for the soft IH ring is ih_v6_1.c so 
+maybe that one needs tweaking too?
 
 Regards,
 
 Tvrtko
-
->   		/*
->   		 * Most hw generations now have a separate queue for page table
->   		 * updates, but when the queue is shared with userspace we need
 
