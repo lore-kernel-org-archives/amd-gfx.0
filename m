@@ -4,93 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B204DCDE009
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 683E7CDE002
 	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A01610F144;
-	Thu, 25 Jun 2026 07:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B58BB10F153;
+	Thu, 25 Jun 2026 07:03:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SU4QdkFM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YwQYtC4+";
 	dkim-atps=neutral
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D44DA10F014
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 19:11:38 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-c0c41ff84a6so229742566b.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 12:11:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782328297; cv=none;
- d=google.com; s=arc-20240605;
- b=N5x2GmqTlhuFTH0OrHJAPlHwUj7jaALoY7K8UB76/RPjXXA2JalFNOFue3rdp7h+tJ
- 9kk8NY7KAE9vA9y7LHowZmqdUrJeq4byxHUQJOtZapLMdFgkQaEKvFgdnFKmevyFvkFP
- fUnTs7m6MwfmKl+sn/2oyoPYKauW1ltaiNRfoYKlyZ6BRS86mDlOrmv8iARX9zw+udpQ
- PbHwMcMo8ORsKvIPCj7yNN1J0W3/km+lM0NxTOIwlMOsQE+fZSsZcYpf+8mS9Kxg/7/R
- oy9dNihF7AbDD9u4Jn3+1YvNgJOU0FWdJAZPQhfRgbi15jvKQDYwmWOO6V+NJ339Mrye
- ntVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=DRZlMNeqeOXmhfrFdEkWOyTOPJY3Aueu6qa43DQrvIA=;
- fh=kkyWXs/SyB2nWsTNelRVpetDjnWw9OXADfzVMNQSVDM=;
- b=iEIOiYbTahmn25V34X9hzfVaoxC0w5P1DPIuzHr9NAEN7ejI1HppsHthHhbU2Z8MAc
- Fn+/oqU74NebTApwPYBG+GPpec6QTx800OEM5EIxLny9QTgmJukR2p0vSX6TSYU8cBeB
- QIiFBkigHS9cboo5DtXvW9tq8zbWgbsAkwUn1U760gfKwmYvDa7SxlLQK5OaKz52JhBv
- QrACrE8emKxt9hsHgfUZ8SjHnBYYBIyJ8yqEFfVmRAL1dt7P0W3aaKhJr2dcRLfivU11
- EKg6RMFYG2sWndturgA1o2/ku4C4M3EuprY/RBpdbQWJ168O6tI5cmYd+I+z4oJRf1I1
- +13A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4DF610EFFE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 18:35:42 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-84537d04408so192575b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 11:35:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782328297; x=1782933097; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DRZlMNeqeOXmhfrFdEkWOyTOPJY3Aueu6qa43DQrvIA=;
- b=SU4QdkFMV5gcJ2ZQkWX696E9PUEfvSklmw4wcmKqUe95Q7MdTJ9mIg5DVlR/MEuDxl
- QgSxSvRVKNpthrHpWWMqwl2IyvDoxaT6/OoFhFw9pnrOCXhROhtYveGVWew41hPwn/PX
- Rl6UCyJz1jfYQ2O9QEFKYWn2AUblFETheMg0xbqJBbeyDJNreT9CmUkNcxZPixaqwyEg
- nIxxAHvCtbKErWXsb5PPGL5WXXCqlkQb4MaOY8jC/ZFOSx46FOew5rmuqgTwXhgS+dpw
- 4d0z9viH8miYWP/+2AXXH5lNITjDNq0WOpVkB2qvF5rgGRREFQnq92lrkBayM8B57nLb
- YVdQ==
+ d=gmail.com; s=20251104; t=1782326142; x=1782930942; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CkQrwyqUtbEBwCw+6J77RIBxcGN7JfNHmCCOvnM/ljo=;
+ b=YwQYtC4+wGcGnHcsR+qZjXN4BzjmaZth6W3sS2G8hoJ3ovuxzabd8KbRmxMAt7tGZR
+ cq5z4kTqjyGYYNH013k8cbm1yRDNBdN+/zIhI4cLcS+hD4h9EOCA2wH3HCUjC7El+Oiv
+ iKywFtBiVUoNULZGJ6fp6AIlEb4B4Yuf9UyHMCPu4Y78YYUIL7KcgkopZ6C3+fG03HWx
+ Z/ykcXWpcSscmm/5/4CK7IMaASA73iBNiGYDI4uw/1pOYnWvP5kk0VC8QxIQPfB+L3ch
+ pvMhrBlvIcKOrMMaa1edWAoMDStssfuUoxATW9Re3fs8Zo33yOsAYzSLDwNJpdmQniZZ
+ jLSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782328297; x=1782933097;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1782326142; x=1782930942;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DRZlMNeqeOXmhfrFdEkWOyTOPJY3Aueu6qa43DQrvIA=;
- b=Kw30VHqIG6lCVhlOXjR2Y70i1sK05HsKgflG6MpGjmNpseJ7zXF2ZEX8GUrdYn+yQi
- Q1Wq4+/QsTQJzfSzMNWGdBc97VoporHjBTShMK2kEBby0RwT/sx4Ek61sSg5NBiNspwk
- MLQ5oywcjTYvyOBjpDmSOVEW4wtfs9Xn5uQTNKyk8R/JWDyhydJ+v4amv4Wp0oB+QWgt
- qZpBMJTabh82rwASXoEmOvUjs92+yCsEBE1y0200zcpYcgYyGjUarrMolrIYjLsCyxBh
- mU+EiSMtfhVewEb0VjK4ruYjCD6U8pxlgx3oh/e8PffBUKDig/bu4ztTpghnPtFRK3gh
- gMWQ==
+ bh=CkQrwyqUtbEBwCw+6J77RIBxcGN7JfNHmCCOvnM/ljo=;
+ b=MgAdazxXUVWF9G/xFBVhf/JyiYQcCGHoAqrJpsl+Cu9kx7ySLj5Mnpb6uR/M8x1yK9
+ nu3hfx7sNYDuCFNRSnOa+M5Fq3r7EaOLJJe9nSZScp0WIDzXTb3S9Wrb7Rhfvo5FaV37
+ hYlFIWcpobf6QvigbtGX36rYZIWIp1fZHqUSW2+i5CTvRqlIOVqmWL4OaHbBRdg6XxFd
+ W3H/51M4SVum5Lgs7+Ifrz6P3m5aVwr/TyROqAaseIPZD5hNN+yC6pOw6pLszCp5kkOv
+ zmR37NCPSAoPta+jhJu9jrMBdboOaO5cax5Zl8EYVKXjamWJtJM6Ul7onbzLtrzIH0Vw
+ +GAw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/3j68jbA393YO1MTVKxzPkaF7U918m1PACp4FL9Cg2vPSp4lyQd1wGr6dAhbmp6OtbZFoL+yC/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUijRrngRns/xUzuPVTBCfK2w0T2xgccV8V3hILCalyH+v0eQ0
- h/5Si1oJHi0gX1+KkYL0Ml/47IRKfOrx3Ljayf2aBrFuab4cFo4F948YETUpwqxoZz8EubPVPSN
- C4mG7VZd/WI73CpsUy/yNpjrdpdNtOYgp6Q==
-X-Gm-Gg: AfdE7ckAEa1cHN6SkS1Cis2j7NMoCN4yP00RWj/jy6YkLRceRlIvdoJ+qY5nC97PmZ0
- N66UdaXHXsIqN/77b+UKtr/9HJBQH2fevBJozfSjcRxWSbhuYGGpdq2IJ2WkzOwRLRCnu1geT3G
- H15P+dqyJRI490xw8RYnd+N/mBC+lYuCrx2O0nMYvXs9eE8qJ2w06/LApFlUr8zea+6g8+hs7XG
- JzWEppWUcHI0HaV7GqjLfQvSTavcrj2wU006A4nJI3kk4Lo1FXAOCVzVNMwR3F5tR+qmM4URjb+
- 1sNulz9Ld92QejRqPQ3TUqZlsUFXNQ==
-X-Received: by 2002:a17:907:6092:b0:bd8:6ac6:d722 with SMTP id
- a640c23a62f3a-c119e444c81mr277136066b.24.1782328297041; Wed, 24 Jun 2026
- 12:11:37 -0700 (PDT)
+ AHgh+RpSudXI/rNCL0YnpcfJa/jf77zbB3MmPiQSOZUzeAyu8x2e9ZWvkNZOWlzyUgDjpXBy7KLbJvLq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXlzeoUy6Bib9KcXZksV4rIEi4KDGm4vgCYsBcZAzDZlyQmu2h
+ uGsDqW3HIrrNRB7XqJ523fi27zk1unDRSpSjufc27b8RD3ZbWm36n9f1
+X-Gm-Gg: AfdE7ckDrDODmghOB54vN2Ia4LFgjR0xEyq1T0KBvo1jsLZ8plypJBLzDPLbJOthNFQ
+ pyGIgoEe4oyrvDBevSAoRbXnbeTbx9DSXBd+/gYrwjL/uruK1xx7Y1IamgZ1ovRfwbkCn1ZAv5k
+ 0mVBIs7zy88zhsTEVP3K98rWdymS9Ujn60PgR4esmz/bDUCCfurtBPTEvVwERsgzpWAd0G9d9Ci
+ gtnUfODNlV3ey8YkewKo5Jup0lXQT5zAMznplFQEF4bih+vBvuMzoXMiDi/nv+N6xhKWjQULkrz
+ i+B+2544nzxN7LbJsJM/B1TkyNFBaSwqx3vOy+17+fjkgKrKzppalwD9NRgsH9aJ4PYQD5NTJvs
+ eCErPXx3evJ69JHZnn5qEv9qt5rgdAPy5V1jZ0b363EWNL8gzgtwqhV1Tk1/jt71ohSwjJLY/Gy
+ gSs1n/ALw80jzXdssh
+X-Received: by 2002:a17:903:b0e:b0:2c4:397:dd7a with SMTP id
+ d9443c01a7336-2c7bf1a5354mr52776825ad.4.1782326142285; 
+ Wed, 24 Jun 2026 11:35:42 -0700 (PDT)
+Received: from kali ([2402:e280:3d7c:a2:536a:b505:93f5:9d5d])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c7f63b2bd7sm3348575ad.48.2026.06.24.11.35.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2026 11:35:41 -0700 (PDT)
+From: Pavitra Jha <jhapavitra98@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Pavitra Jha <jhapavitra98@gmail.com>
+Subject: [PATCH] drm/amdgpu/discovery: fix OOB read via unchecked die_offset
+ in IP discovery parsing
+Date: Wed, 24 Jun 2026 14:34:09 -0400
+Message-ID: <20260624183409.1079288-1-jhapavitra98@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260619045904.5872-1-charleslmunger@gmail.com>
- <BL1PR12MB514432F894701A3CBAD341E9F7E22@BL1PR12MB5144.namprd12.prod.outlook.com>
- <436f03eb-0b19-4eb6-b884-c45a79a067e7@amd.com>
-In-Reply-To: <436f03eb-0b19-4eb6-b884-c45a79a067e7@amd.com>
-From: Charles Munger <charleslmunger@gmail.com>
-Date: Wed, 24 Jun 2026 12:11:27 -0700
-X-Gm-Features: AVVi8CcEGjymuWq3uJuO3En_gQCm00HiBrgDU0ZGxpWsN3GrOfsE7_3YrPFYjqY
-Message-ID: <CACf9n8Sdu5KxKAn75SwCDpjzd+Sg-p0UFnok6BqSoOTxhQPnEA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add Paradetech OUI to VRR compat list
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, 
- "Hung, Alex" <Alex.Hung@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>
-Content-Type: multipart/alternative; boundary="00000000000004b1f3065504a5b7"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 25 Jun 2026 07:03:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,197 +90,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000004b1f3065504a5b7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Three call sites in amdgpu_discovery.c dereference firmware-controlled
+die_offset values without validating them against adev->discovery.size:
 
-Yes, and that's what I tested it with.
+  amdgpu_discovery_read_harvest_bit_per_ip() line 776-777
+  amdgpu_discovery_sysfs_init()              line 1298-1299
+  amdgpu_discovery_reg_base_init()           line 1524-1525
 
-On Wed, Jun 24, 2026, 11:54=E2=80=AFAM Harry Wentland <harry.wentland@amd.c=
-om>
-wrote:
+In all three sites the pattern is:
 
->
->
-> On 2026-06-19 12:17, Deucher, Alexander wrote:
-> > Public
-> >
-> > Adding a few display folks to review.
-> >
-> > Thanks,
-> >
-> > Alex
-> >
-> >> -----Original Message-----
-> >> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> >> Charles Munger
-> >> Sent: Friday, June 19, 2026 12:59 AM
-> >> To: amd-gfx@lists.freedesktop.org
-> >> Cc: Charles Munger <charleslmunger@gmail.com>
-> >> Subject: [PATCH] drm/amdgpu: Add Paradetech OUI to VRR compat list
-> >>
-> >> There's at least two firmware versions on the CalDigit DP20-HDMI21
-> adapter,
-> >> which is powered by the ParadeTech PS196G chip. The first version has =
-a
-> bug
-> >> where it incorrectly neglects to set the DOWN_STREAM_PORT_PRESENT fiel=
-d
-> >> in the DPCD:
-> >>
-> >> $ sudo dpcd_reg read --offset=3D0x2205 --count=3D1 --device=3D0
-> >> 0x2205:  00
-> >> $ sudo dpcd_reg read --offset=3D0x0005 --count=3D1 --device=3D0
-> >> 0x0005:  00
-> >>
-> >> The newer one fixes this, and with this patch correctly negotiates VRR=
-.
-> >>
-> >> [~]$ sudo dpcd_reg read --offset=3D0x5 --count=3D1 --device=3D2
-> >> 0x0005:  1d
-> >> [~]$ sudo dpcd_reg read --offset=3D0x2205 --count=3D1 --device=3D2
-> >> 0x2205:  1d
-> >>
-> >> So if you're using a Paradetech adapter and it doesn't negotiate VRR,
-> check
-> >> that it has a firmware that produces the correct DPCD.
-> >>
-> >> Signed-off-by: Charles Munger <charleslmunger@gmail.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
-> >>  1 file changed, 1 insertion(+)
-> >>
-> >> diff --git
-> >> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> >> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> >> index 6c827e6703a0..f463495d1c87 100644
-> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> >> @@ -1410,6 +1410,7 @@ bool dm_helpers_is_vrr_pcon_allowed(const
->
-> Looks like this is based on the "drm/amd: VRR fixes, HDMI Gaming Features=
-"
-> series, not directly on amd-staging-drm-next. I'll have to take another
-> closer look at that series.
->
-> Harry
->
-> >> struct dc_link *link, const struct drm
-> >>       case DP_BRANCH_DEVICE_ID_00E04C:
-> >>       case DP_BRANCH_DEVICE_ID_90CC24:
-> >>       case DP_BRANCH_DEVICE_ID_2B02F0:
-> >> +     case DP_BRANCH_DEVICE_ID_001CF8:
-> >>               return true;
-> >>       }
-> >>
-> >> --
-> >> 2.54.0
-> >
->
->
+  die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
+  dhdr = (struct die_header *)(discovery_bin + die_offset);
 
---00000000000004b1f3065504a5b7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+die_offset is a firmware-controlled u16 (max 65535). The discovery
+binary is allocated as adev->discovery.size bytes (DISCOVERY_TMR_SIZE
+= 10240 by default). No bounds check exists between the le16_to_cpu()
+call and the pointer cast, so a crafted blob with die_offset >= 10240
+produces a pointer past the end of the allocation. The subsequent reads
+of dhdr->die_id and dhdr->num_ips are then slab-out-of-bounds reads.
 
-<div dir=3D"auto">Yes, and that&#39;s what I tested it with.</div><br><div =
-class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Wed, Jun 24, 2026, 11:54=E2=80=AFAM Harry Wentland &lt;<a href=3D=
-"mailto:harry.wentland@amd.com">harry.wentland@amd.com</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
-On 2026-06-19 12:17, Deucher, Alexander wrote:<br>
-&gt; Public<br>
-&gt; <br>
-&gt; Adding a few display folks to review.<br>
-&gt; <br>
-&gt; Thanks,<br>
-&gt; <br>
-&gt; Alex<br>
-&gt; <br>
-&gt;&gt; -----Original Message-----<br>
-&gt;&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesk=
-top.org" target=3D"_blank" rel=3D"noreferrer">amd-gfx-bounces@lists.freedes=
-ktop.org</a>&gt; On Behalf Of<br>
-&gt;&gt; Charles Munger<br>
-&gt;&gt; Sent: Friday, June 19, 2026 12:59 AM<br>
-&gt;&gt; To: <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_bl=
-ank" rel=3D"noreferrer">amd-gfx@lists.freedesktop.org</a><br>
-&gt;&gt; Cc: Charles Munger &lt;<a href=3D"mailto:charleslmunger@gmail.com"=
- target=3D"_blank" rel=3D"noreferrer">charleslmunger@gmail.com</a>&gt;<br>
-&gt;&gt; Subject: [PATCH] drm/amdgpu: Add Paradetech OUI to VRR compat list=
-<br>
-&gt;&gt;<br>
-&gt;&gt; There&#39;s at least two firmware versions on the CalDigit DP20-HD=
-MI21 adapter,<br>
-&gt;&gt; which is powered by the ParadeTech PS196G chip. The first version =
-has a bug<br>
-&gt;&gt; where it incorrectly neglects to set the DOWN_STREAM_PORT_PRESENT =
-field<br>
-&gt;&gt; in the DPCD:<br>
-&gt;&gt;<br>
-&gt;&gt; $ sudo dpcd_reg read --offset=3D0x2205 --count=3D1 --device=3D0<br=
->
-&gt;&gt; 0x2205:=C2=A0 00<br>
-&gt;&gt; $ sudo dpcd_reg read --offset=3D0x0005 --count=3D1 --device=3D0<br=
->
-&gt;&gt; 0x0005:=C2=A0 00<br>
-&gt;&gt;<br>
-&gt;&gt; The newer one fixes this, and with this patch correctly negotiates=
- VRR.<br>
-&gt;&gt;<br>
-&gt;&gt; [~]$ sudo dpcd_reg read --offset=3D0x5 --count=3D1 --device=3D2<br=
->
-&gt;&gt; 0x0005:=C2=A0 1d<br>
-&gt;&gt; [~]$ sudo dpcd_reg read --offset=3D0x2205 --count=3D1 --device=3D2=
-<br>
-&gt;&gt; 0x2205:=C2=A0 1d<br>
-&gt;&gt;<br>
-&gt;&gt; So if you&#39;re using a Paradetech adapter and it doesn&#39;t neg=
-otiate VRR, check<br>
-&gt;&gt; that it has a firmware that produces the correct DPCD.<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Charles Munger &lt;<a href=3D"mailto:charleslmunger=
-@gmail.com" target=3D"_blank" rel=3D"noreferrer">charleslmunger@gmail.com</=
-a>&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;=C2=A0 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | =
-1 +<br>
-&gt;&gt;=C2=A0 1 file changed, 1 insertion(+)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git<br>
-&gt;&gt; a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c<br>
-&gt;&gt; index 6c827e6703a0..f463495d1c87 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c<br=
->
-&gt;&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c<br=
->
-&gt;&gt; @@ -1410,6 +1410,7 @@ bool dm_helpers_is_vrr_pcon_allowed(const<br=
->
-<br>
-Looks like this is based on the &quot;drm/amd: VRR fixes, HDMI Gaming Featu=
-res&quot;<br>
-series, not directly on amd-staging-drm-next. I&#39;ll have to take another=
-<br>
-closer look at that series.<br>
-<br>
-Harry<br>
-<br>
-&gt;&gt; struct dc_link *link, const struct drm<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0case DP_BRANCH_DEVICE_ID_00E04C:<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0case DP_BRANCH_DEVICE_ID_90CC24:<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0case DP_BRANCH_DEVICE_ID_2B02F0:<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0case DP_BRANCH_DEVICE_ID_001CF8:<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return true;=
-<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;&gt;<br>
-&gt;&gt; --<br>
-&gt;&gt; 2.54.0<br>
-&gt; <br>
-<br>
-</blockquote></div>
+The ip_offset advancement inside the inner loop also uses
+struct_size(ip, base_address, ip->num_base_address) where
+num_base_address is firmware-controlled, enabling unbounded advancement
+past the allocation on each iteration.
 
---00000000000004b1f3065504a5b7--
+ASAN report (kernel 7.1.0+, QEMU/x86_64, nokaslr, slub_debug=FZPUA):
+
+==================================================================
+BUG: KASAN: slab-out-of-bounds in poc_init+0x453/0x1000 [amd_oob_harness]
+Read of size 2 at addr ffff88800318a801 by task insmod/22
+
+CPU: 0 UID: 0 PID: 22 Comm: insmod Tainted: G           O        7.1.0+ #26 PREEMPTLAZY
+Tainted: [O]=OOT_MODULE
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x2b/0x40
+ print_report+0x14f/0x4d0
+ ? wake_up_klogd_work_func+0x70/0x70
+ ? poc_exit+0xfc0/0xfc0 [amd_oob_harness]
+ kasan_report+0xd4/0x100
+ ? poc_init+0x453/0x1000 [amd_oob_harness]
+ ? poc_init+0x453/0x1000 [amd_oob_harness]
+ poc_init+0x453/0x1000 [amd_oob_harness]
+ ? poc_exit+0xfc0/0xfc0 [amd_oob_harness]
+ ? poc_exit+0xfc0/0xfc0 [amd_oob_harness]
+ do_one_initcall+0xb0/0x230
+ ? initcall_blacklisted+0x150/0x150
+ ? kasan_unpoison+0x40/0x60
+ do_init_module+0x263/0x810
+ ? kasan_save_free_info+0x37/0x50
+ ? free_module+0x300/0x300
+ ? kfree+0xf1/0x390
+ load_module+0x3e12/0x51e0
+ ? sysvec_apic_timer_interrupt+0xa/0x80
+ ? asm_sysvec_apic_timer_interrupt+0x16/0x20
+ ? module_frob_arch_sections+0x20/0x20
+ ? kernel_read_file+0x4d9/0x790
+ ? kernel_read_file+0x36c/0x790
+ init_module_from_file+0x136/0x150
+ ? __do_sys_init_module+0x180/0x180
+ ? do_sys_openat2+0xeb/0x140
+ ? fdget+0x64/0x200
+ __x64_sys_finit_module+0x39f/0x7a0
+ ? __x64_sys_init_module+0xc0/0xc0
+ ? __x64_sys_open+0x180/0x180
+ do_syscall_64+0x56/0x3f0
+ entry_SYSCALL_64_after_hwframe+0x4b/0x53
+RIP: 0033:0x4d1259
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffb68052f8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00000000004d1259
+RDX: 0000000000000000 RSI: 000000000a529cf0 RDI: 0000000000000003
+RBP: 000000000a529cf0 R08: 0000000000000007 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 000000000a528dd0
+R13: 0000000000000003 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3188
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x4000000000000040(head|zone=1)
+page_type: f8(unknown)
+raw: 4000000000000040 0000000000000000 dead000000000122 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000f8000000 0000000000000000
+head: 4000000000000040 0000000000000000 dead000000000122 0000000000000000
+head: 0000000000000000 0000000000000000 00000000f8000000 0000000000000000
+head: 4000000000000002 ffffea00000c6201 00000000ffffffff 00000000ffffffff
+head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88800318a700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff88800318a780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff88800318a800: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+                   ^
+ ffff88800318a880: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+ ffff88800318a900: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+==================================================================
+BUG: KASAN: slab-out-of-bounds in poc_init+0x4b3/0x1000 [amd_oob_harness]
+Read of size 2 at addr ffff88800318a803 by task insmod/22
+
+CPU: 0 UID: 0 PID: 22 Comm: insmod Tainted: G    B      O        7.1.0+ #26 PREEMPTLAZY
+Tainted: [B]=BAD_PAGE, [O]=OOT_MODULE
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x2b/0x40
+ print_report+0x14f/0x4d0
+ ? add_taint+0x50/0x70
+ kasan_report+0xd4/0x100
+ ? poc_init+0x4b3/0x1000 [amd_oob_harness]
+ ? poc_init+0x4b3/0x1000 [amd_oob_harness]
+ poc_init+0x4b3/0x1000 [amd_oob_harness]
+ ? poc_exit+0xfc0/0xfc0 [amd_oob_harness]
+ ? poc_exit+0xfc0/0xfc0 [amd_oob_harness]
+ do_one_initcall+0xb0/0x230
+ ? initcall_blacklisted+0x150/0x150
+ ? kasan_unpoison+0x40/0x60
+ do_init_module+0x263/0x810
+ ? kasan_save_free_info+0x37/0x50
+ ? free_module+0x300/0x300
+ ? kfree+0xf1/0x390
+ load_module+0x3e12/0x51e0
+ ? sysvec_apic_timer_interrupt+0xa/0x80
+ ? asm_sysvec_apic_timer_interrupt+0x16/0x20
+ ? module_frob_arch_sections+0x20/0x20
+ ? kernel_read_file+0x4d9/0x790
+ ? kernel_read_file+0x36c/0x790
+ init_module_from_file+0x136/0x150
+ ? __do_sys_init_module+0x180/0x180
+ ? do_sys_openat2+0xeb/0x140
+ ? fdget+0x64/0x200
+ __x64_sys_finit_module+0x39f/0x7a0
+ ? __x64_sys_init_module+0xc0/0xc0
+ ? __x64_sys_open+0x180/0x180
+ do_syscall_64+0x56/0x3f0
+ entry_SYSCALL_64_after_hwframe+0x4b/0x53
+RIP: 0033:0x4d1259
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffb68052f8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00000000007ffff0 RDI: 0000000000000003
+RBP: 000000000a529cf0 R08: 0000000000000007 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 000000000a528dd0
+R13: 0000000000000003 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3188
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x4000000000000040(head|zone=1)
+page_type: f8(unknown)
+raw: 4000000000000040 0000000000000000 dead000000000122 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000f8000000 0000000000000000
+head: 4000000000000040 0000000000000000 dead000000000122 0000000000000000
+head: 0000000000000000 0000000000000000 00000000f8000000 0000000000000000
+head: 4000000000000002 ffffea00000c6201 00000000ffffffff 00000000ffffffff
+head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88800318a700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff88800318a780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff88800318a800: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+                   ^
+ ffff88800318a880: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+ ffff88800318a900: fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe fe
+==================================================================
+
+Fix by adding a bounds check on die_offset against adev->discovery.size
+before the pointer cast in all three sites.
+
+Fixes: d0c647a6aae2 ("drm/amdgpu/discovery: support new discovery binary header")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index be5069642..41ca01e2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -774,6 +774,11 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(struct amdgpu_device *adev,
+ 	/* scan harvest bit of all IP data structures */
+ 	for (i = 0; i < num_dies; i++) {
+ 		die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
++		if (die_offset + sizeof(*dhdr) > adev->discovery.size) {
++			dev_err(adev->dev, "invalid die_offset %u in harvest table\n",
++				die_offset);
++			return;
++		}
+ 		dhdr = (struct die_header *)(discovery_bin + die_offset);
+ 		num_ips = le16_to_cpu(dhdr->num_ips);
+ 		ip_offset = die_offset + sizeof(*dhdr);
+@@ -1296,6 +1301,11 @@ static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev)
+ 		struct ip_die_entry *ip_die_entry;
+ 
+ 		die_offset = le16_to_cpu(ihdr->die_info[ii].die_offset);
++		if (die_offset + sizeof(*dhdr) > adev->discovery.size) {
++			dev_err(adev->dev, "invalid die_offset %u in sysfs init\n",
++				die_offset);
++			return -EINVAL;
++		}
+ 		dhdr = (struct die_header *)(discovery_bin + die_offset);
+ 		num_ips = le16_to_cpu(dhdr->num_ips);
+ 		ip_offset = die_offset + sizeof(*dhdr);
+@@ -1522,6 +1532,11 @@ static int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i < num_dies; i++) {
+ 		die_offset = le16_to_cpu(ihdr->die_info[i].die_offset);
++		if (die_offset + sizeof(*dhdr) > adev->discovery.size) {
++			dev_err(adev->dev, "invalid die_offset %u in reg base init\n",
++				die_offset);
++			return -EINVAL;
++		}
+ 		dhdr = (struct die_header *)(discovery_bin + die_offset);
+ 		num_ips = le16_to_cpu(dhdr->num_ips);
+ 		ip_offset = die_offset + sizeof(*dhdr);
+-- 
+2.53.0
+
