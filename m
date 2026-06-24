@@ -4,123 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48AF7CDB470
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 05:18:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C61B6CDB470
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 06:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A1710E029;
-	Wed, 24 Jun 2026 05:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D2D310E021;
+	Wed, 24 Jun 2026 06:07:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZNH6DRes";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="efdvWaY/";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011047.outbound.protection.outlook.com [52.101.52.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C53210E029
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 05:18:40 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012031.outbound.protection.outlook.com [52.101.53.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A197610E021
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 06:07:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PTgdl1AFevILM6Nh8chCY/Fhy4vR3Qf08ix1jkvNYqNy/ZGWZcglLO+iQISklseiewWfD6SHHOyWdRUtCe8DVgl2Noq3dZIhbKhzpkK1im1HpCxec1qylpns7LiEe7it1tRhNmyEZiK99/cW0q+j/DQMOtfiXGXXEynptN45zXWPGHxWauKZmoFHparPOXwESQ8ibGd36zRfGU+9pRKF12vnNRggnweQrzyJqqFVR13HlqG81ribNkVsZtI13hUIxJRecjMGDfBQvtGqiumgD10PDl48mGj60R6us7xz+WonWX9JjW9/aSZO9EAmfme5ZwcBLjqwKCfr5ZSogunjyg==
+ b=BVb9ioey21RltgFY72yCB94qcJDVfXzj+2ZWk+ympIWRnxqv5+6CYhrjL7Lvk4+SdBXdkE+EM+OcEqjFqvvaFVn50dpIQdFxmqXqzNAxINRB1LLBiKVwxBtgKFYEGEnIlJE6Ku+qGCdXfHWB5nHXNAnVaOcHPN4W51ON8tu4i1nanREG2zPnB7pdtNer/m75DV4fczqXnwNnvWLr+wQYvofSOD4nIsmr3BriHerpDcY0GXPmZXM6fm/g2CdgSzUXKBod7jcMyK3++ZjcdKBOyeMHkFQrNsCvXgVHkRjSKPoMpGDJG2NYbJLATbZIMd2m2iDPrKJc2Ccy6pEgEvpOhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CLQprZxCN4kLZ54McYbmiQ5pcnhh4IwmEXlpHTsIkpI=;
- b=M1tVx6PWCZ/jILJFQS1pf/owPp2qwGeAHLmEGg3wZvfhE+AaY+XDnRfmLiMaa8GVsOG2VXXIhxHCP5PRRjD42qVKVmiBvx/RuWQT2pNlLVB51XLbClYRY3tPLA7kza4A0gDsyW9UB6t9wNK33k59pD4mXbRN7eDcX0AHbCx87MV2wXEKJWNlnNNbSNCmA3itBwql0co0qnLz7HBj3df92j/2zH9BnUELwbNIDbzain6h2ZWLi345cXl/71GbzJ8DfyOLS54jSI/e3epbYs9aE0W5B2hQG6sp7Vqp/ig0c/dRSKR/uvT8nk0S1+QRFEeo/JOqhGx7Ozom5CE1yqVHmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=DGvfyInMneX7Ehx5cQd9GLv8QdMHNK5xm3gFZX7eTv0=;
+ b=L11hq0rqMM5MSsa/PXV9A8Gbenmt674xdfzHdsTslqEcB27QabcX4o+pI8VCZ6aX2rbX4p2gZ7V/OiB7c0MooicymkgdHmeWEMjW8OlKPjzvbiNALzlDHBz0lVMruSh8HRKsFWnCiD9gWwqVkM+tNLQAqAlJmA4IDCfFALRGsBtJBB77onFQyBSoJTV8PNUc2LUjxGNc/D9RelkJDMmA8YhLKsZ3T2BcS7Zj3kl1iVWpWRymoD4DV9Ppxz2HzIWJNJd14zna8ZeiNipnVUvAnrtFrr2OHsNc3LSzf/UH2gUjTc5tZM2wn7sMnsIV21OWmKvi8t+UEx6PoikE29kvFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CLQprZxCN4kLZ54McYbmiQ5pcnhh4IwmEXlpHTsIkpI=;
- b=ZNH6DResH6oeqvYJEx22xMmaW/gzr3DoL13M3ne+IKXbf5l3RJ9jJ61j+D7hFyV7s0f7ERcie6EKa2+u8rgVxPylIiqloAgNbgrSUpt88Jdwv5EQ4d8i/oC1l1/N9J+vS74oMUTwwTBacQxu4IYK42eLAryHSFEha/45BqENm4Q=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- PH7PR12MB7842.namprd12.prod.outlook.com (2603:10b6:510:27a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
- 2026 05:18:35 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
- 05:18:35 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
- <Shiwu.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amd/powerplay: fix VoltageObjectInfo zero-stride loop
- and OOB read
-Thread-Topic: [PATCH] drm/amd/powerplay: fix VoltageObjectInfo zero-stride
- loop and OOB read
-Thread-Index: AQHdA5TPYM+f0bZTBEaf3kf/yqa/LrZNKorA
-Date: Wed, 24 Jun 2026 05:18:34 +0000
-Message-ID: <DM6PR12MB2972EED5F48A879A3DD71B9E82ED2@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260624044857.101938-1-asad.kamal@amd.com>
-In-Reply-To: <20260624044857.101938-1-asad.kamal@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-24T05:18:11.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|PH7PR12MB7842:EE_
-x-ms-office365-filtering-correlation-id: 84b04b6d-dd8a-4b14-6527-08ded1b00a3f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|38070700021|18002099003|22082099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: /aEcuMr3g2RPcXOQFoQxGOcslYwkZseQNhltIhtOahIJYPD3Y0RRalRojQO0MgAmz7dqqtOlib3dfywjdOf+HtTCK7vkoyv4vTA1p5m362uDcI1Odu+eIz/mdg1RZc/z/+TD/O0JISS8wtqWm9h10u3U9O13JNKrX33qVuOnXmXNEdJsDfSOHBLy0fyHmphbKiHmGMRXSsSutk+vtwMGlou5AglDFxcRchk3juwL8mTjCBtI3zofXUwybqoVxvP7c/0Ndj2VBcF2DhOOckYdoRWVXfb/F9/RLwikXr+tqKzw5M+FiUFOsK584bVhk4E2D+VJIgRpiitKkPKOd1iOYI5cSAhyMTbMugGk95MMQScF/qtekzuNbFvXv+Lx/Z8QInCOX1vRVdnxy7nKEWN6ZyRyvPjNriF3J4uVzX9ZG47O8vG+aXqmuw+SQ2Kdohr7B14ppwmwUlwiKSs3i+RFzq3WOIGn7lv9VNo4sdkGTMB3tna/oaeLGgyuY58ftlRzWQ4xwkTWE6wFNX9dvAwQP9WVtOHyToL7BEOoqgReHTXf3GNlZR8XWAeWPdgHKSnoKIx5zT9VLS9IhSMYvrZ9lLq0ffj4UIyRYi9SVpfVdsSxwNb36aFIGvW8OJvb5v9kJhSkys8YTMRxypNolRicOfFejO1jI9fbYYjbL52U4dSbG1T1LuGyLN2CxTXxE8RS1UR2+xpeZ4kjahvEmAja9x0Pejbi+wPQ8VGgeezc+d4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(38070700021)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VdAPw5iwmB1UIwald7Oywd3aT/W2gvIeqMeM1fSoewdxeKl9EH1waqnnarGG?=
- =?us-ascii?Q?MxHTbJ5t0Swydc9NkN5dQUi/oMV4DX45CH9bupkFDdXxlpODlXqMirEC5fu1?=
- =?us-ascii?Q?qt3JaVDZuP8INrtB02vctfavGKxnDOiwBNKEBOxsaSkQ6TkAx/NFLyU+0PBQ?=
- =?us-ascii?Q?a+GuIgsz7GAvdOynbiKwcdcn1OVzZSruHXllnACAt4mW4wFwbZA2hj8wvBaz?=
- =?us-ascii?Q?N04e00L48pKwCyN9JNV1gGX7JREgpZeUxGFqn4K23nYbVsp2RDvuMdMYB8qF?=
- =?us-ascii?Q?U3cSnS40c+oqvUA9yJ02isACoGq30DmighXU7vafa6KQVK1Cr5T7JZO8Y55z?=
- =?us-ascii?Q?G1veX2F8V1eilzGETQglK8mEXlU8dLKK6Buk+L+uiuT7c/jyZ5SUH6IFk5HK?=
- =?us-ascii?Q?1PBrKcRIeRDoDBeHgovqHaZnbA8lD4sxZ+3aXCK7iztAkBsu3HQUY+x0xgmg?=
- =?us-ascii?Q?/SIOp6YUsukdKa5wr01T9zb6HjXhjKEf/xY6RPXS/3vytShnjCy1BkfAncZ/?=
- =?us-ascii?Q?jZPD6YsAngTcjdAUIKB9U9ztCpCsirkpelyyWq97Vk9+EgC+LQrP6V54pSA0?=
- =?us-ascii?Q?Zwskf1fmsZO9lMdWfig8rSc/2oysw0lsFZ6E3+enna3xkXNe+9OyhmisReWJ?=
- =?us-ascii?Q?WRluKHpfDz+vtppIElHsNtlf3BeIYaNc1pJCetgRhjTvBBxTK/0C69yjmojZ?=
- =?us-ascii?Q?QK64F8xaVpxjHa3mc8WzMr/ZxmBvp9Y6V5Q/5THZF/7oRaJDAm09W3010BBK?=
- =?us-ascii?Q?6WNUOfT8BLLn622rNlR2NcXMCUYkGMMB/w8uVrqsXbFyNDzdlKwCg7nAg0Te?=
- =?us-ascii?Q?rR6b3fKMZPE0ybDvIrMauhjruJZtV8MCFdj019wzRivnQLwACVeIafldHqD/?=
- =?us-ascii?Q?pb2QpT5OU9W1ovj0Lrocj18ivhUt5jhxVO1COmqFmWOK0oiiecpRm4ap4XpX?=
- =?us-ascii?Q?Fr3NGC3NsgZHrxSrRGCkjDoXeAqVZtAK0ZB2x5LOUIr0KUzxlKrJ9HUjFtmk?=
- =?us-ascii?Q?XL+T0CtbIdZONBQO12XLXUY+E+KNWkczaUYQfIpelepg/wu0JzVw62ji0rGs?=
- =?us-ascii?Q?vbozuGfZSQ9CKN2zeAyXpQlKbbhbaTGJQk4gvjAYsi/RsVwOUvF5B72DBbar?=
- =?us-ascii?Q?QdQngoq8/uEY5YbfiTl9iV12M2gMlG5L8O75A7tEeUeTlkhGJAAwFa+aW8Tx?=
- =?us-ascii?Q?8e9bIPWZlpcSbEd2kFHZYlonAYOgA20LzJiB+vCX7HSbEqLLELriABSROZpY?=
- =?us-ascii?Q?InxpegL4vhSbl63RwJciDJhzXLmYRCzu9p+F7OTtvmrZlbqC5UjfmPszhIxb?=
- =?us-ascii?Q?hBxyG2lZ87wlGMv8b0v4a9zFTwej17R+vTnc3F9/m8YwjQ7+qTVhQOFuP4eZ?=
- =?us-ascii?Q?JqNhSPXuCrjRzbEufUEOntrYlUN0XHjO4sYPYkpyUIKd+GipPzbGbO2e4dpV?=
- =?us-ascii?Q?+AfTzsVVwWnWzLgkJtIFCbwYgr9gDKnXs72UHMd9UMT9A4dbEsc4QV+LoGKa?=
- =?us-ascii?Q?0bISmpFscn+l5Fn6fgAj7RwFjp/mbEwK43He7xuo+da+qpJLTbi95gKHsuvq?=
- =?us-ascii?Q?O26Me/alIJhpKK84Mx1w0XRfKpVeoP8nxY2cQzoZjovU1su7nWgqhpQu78Uz?=
- =?us-ascii?Q?GOXg8wtGEH/rPvJPC8KJd9l01KJCL5rKmDBxDeXM8nbQlrhqUptPxaBhXOxu?=
- =?us-ascii?Q?l52OS/wfpYkZ5UuijwDWOsMc9K7CKLnQLg/mpEPYQ+E+63X1?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=DGvfyInMneX7Ehx5cQd9GLv8QdMHNK5xm3gFZX7eTv0=;
+ b=efdvWaY/hgmRW5fO2pLvXQHVmmTxkwmVfnymbF/DtEGwmVPawR6Yb6ULhWVVhGgdPK/wtfnkPaEMv1t1SlB7JoM6Yy5wwAQHYhwRLU2jQTXI2sYSeWaTwIeuy39/FU95x/F4d0FntcvhI1ElM5mpDAvmAmfcO4Kgv6eOZgki8Ac=
+Received: from SN7P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::26)
+ by CY5PR12MB6036.namprd12.prod.outlook.com (2603:10b6:930:2c::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Wed, 24 Jun
+ 2026 06:07:06 +0000
+Received: from SA2PEPF0000150A.namprd04.prod.outlook.com
+ (2603:10b6:806:124:cafe::6e) by SN7P222CA0012.outlook.office365.com
+ (2603:10b6:806:124::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12 via Frontend Transport; Wed,
+ 24 Jun 2026 06:07:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF0000150A.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 06:07:05 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
+ 2026 01:07:03 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: drop unused smu pptable callbacks
+Date: Wed, 24 Jun 2026 14:06:53 +0800
+Message-ID: <20260624060653.992690-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF0000150A:EE_|CY5PR12MB6036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5218ee1a-c8af-4af2-25c1-08ded1b6d115
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|6133799003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: H5SZZ6HqNjXFARNghU8cNDKWKP07zwU7CFEnwPVr00/chPeCpaslv2XC3uvCulvmdUYdXIdArAH0Rpk4QSk6w3SONNgaAYPDuLpcqOQJszv8V4N2f9x9e9TZ3FjvYu/0cfd53+bu/E3j3Mfko0kZDc69XBVsTuDDzLpojqNOAcRzkm/sEGcv09wiEq2fFtpwFjn5lbwUD1gN2sd1AhACiXK6ww2i5lvaQeskYJt2DfiS7E687dgR+nX2qmwvbvd5k3XQKJBqc6vv1TB5YBsqqcQhTMmfLLdNHK8TC7OXZ0ne1yXZaEdkSwrgmBdq6UZ9HGk+9e05YahMRjU0EYziLKbi1fXimyaXaHmwO7fK6UkTeuB5gLXIJ8/BFiZe71KSeZVmtJfFbrGy2LTXOUC2vINTe/Jqc56KjTtx69+c72LPgzLr661irUy2gROwu9oNEnOb7e8NLrynk1aGCFH/9LDSPu9LzV8OBkIdHNLxMGH3xELjHJtPJOIJwz/0tZLRGfvH3fLE/zRaMl/9owivGyhsdP7urciMmn9fIAjlLRXg4SBenK9DpShgqL6jAzsxxvvrRHS7U91+v1AUOk3IVfPp+ZEurRbdSf2YM38YMv2zzDPGusvmSZKOQZTulBFJa/YioKN9acFzfsy4UQmLTtlOkNPM5by70Wi1OmTJLmyhogCpMCszegUiZAzZQCeZ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(6133799003)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: cUJeIzngjRloOl3kD8yYpLOWrlArWl9UyYwH2L//Qxh1tXDN+xcSq8amXjGUZ8tEZA2R7Q6Mdr3SEG1sI0ON1O7rt8TmAUNwLsHVB98oPuuJmgqoWgBVdVu0fh9DkA1nlDFshW48dP1pJ+Lkpd3xyaxzZgAX9oNtckDzyNzO3DYDSWZIyMn7uyF47a49b3vzSMGdv8/C806if4yRjIRjb01VuUJCQ22CSOymfdhNgyPn6TfQsdW9e4KyT+ggXKskIz8G4RX6XvTv0XhmgYxt0f8pKvPcDjgQDuYGttybw/BAmjmjYQBuDyx3hbg4MwLpRu2FWGOOxdqdG/ECyRY6radHVRxLYXR56r+P4mg4JcBQ+tjYzFm5TyV5K0jwH0wPxuf56da+/2vqyjdacxOd2CoxylZIotkDMzObLaX8CSp9oqLFOfxa9lMpMX31Aqn4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84b04b6d-dd8a-4b14-6527-08ded1b00a3f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 05:18:34.9344 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q5DePKbaC2eB64x8hW1x7nz0wMnS008+KAuYtl7afz+yhOJH0fx5hiEIgyTG4vWo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7842
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 06:07:05.4656 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5218ee1a-c8af-4af2-25c1-08ded1b6d115
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF0000150A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6036
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,119 +108,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+struct pptable_funcs still carries callback slots that no longer have
+call paths, drop the following unused callback slots:
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+- baco_get_state()
+- baco_set_state()
+- set_power_state()
+- get_clock_by_type_with_voltage()
+- set_azalia_d3_pme()
 
-Best Regards,
-Kevin
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 29 -------------------
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  |  2 --
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  2 --
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 -
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  5 ----
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  1 -
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  9 ------
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 --
+ 11 files changed, 54 deletions(-)
 
-> -----Original Message-----
-> From: Kamal, Asad <Asad.Kamal@amd.com>
-> Sent: Wednesday, June 24, 2026 12:49
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris
-> <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>;
-> Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Kamal, Asad
-> <Asad.Kamal@amd.com>
-> Subject: [PATCH] drm/amd/powerplay: fix VoltageObjectInfo zero-stride loo=
-p and
-> OOB read
->
-> Reject voltage objects whose usSize is smaller than the header or would a=
-dvance
-> the cursor past the table end, preventing an infinite loop or heap OOB re=
-ad when the
-> VBIOS supplies a malformed VoltageObjectInfo table.
->
-> Fixes: c82baa281843 ("drm/amd/powerplay: add Tonga dpm support (v3)")
-> Fixes: 0d2c7569e196 ("drm/amdgpu: add new atomfirmware based helpers for
-> powerplay")
->
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c   | 10 ++++++++--
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomfwctrl.c | 11 ++++++++---
->  2 files changed, 16 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> index ce166a7f8e42..1fff7567bca2 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-> @@ -268,15 +268,21 @@ static const ATOM_VOLTAGE_OBJECT_V3
-> *atomctrl_lookup_voltage_type_v3(
->       unsigned int offset =3D offsetof(ATOM_VOLTAGE_OBJECT_INFO_V3_1,
-> asVoltageObj[0]);
->       uint8_t *start =3D (uint8_t *)voltage_object_info_table;
->
-> -     while (offset < size) {
-> +     while (offset + sizeof(ATOM_VOLTAGE_OBJECT_HEADER_V3) <=3D size) {
->               const ATOM_VOLTAGE_OBJECT_V3 *voltage_object =3D
->                       (const ATOM_VOLTAGE_OBJECT_V3 *)(start + offset);
-> +             u16 obj_size;
-> +
-> +             obj_size =3D le16_to_cpu(voltage_object-
-> >asGpioVoltageObj.sHeader.usSize);
-> +             if (obj_size < sizeof(voltage_object->asGpioVoltageObj.sHea=
-der) ||
-> +                 offset + obj_size > size)
-> +                     break;
->
->               if (voltage_type =3D=3D voltage_object-
-> >asGpioVoltageObj.sHeader.ucVoltageType &&
->                       voltage_mode =3D=3D voltage_object-
-> >asGpioVoltageObj.sHeader.ucVoltageMode)
->                       return voltage_object;
->
-> -             offset +=3D le16_to_cpu(voltage_object-
-> >asGpioVoltageObj.sHeader.usSize);
-> +             offset +=3D obj_size;
->       }
->
->       return NULL;
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomfwctrl.c
-> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomfwctrl.c
-> index 6120f14caab0..69aee8661d1e 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomfwctrl.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomfwctrl.c
-> @@ -36,16 +36,21 @@ static const union atom_voltage_object_v4
-> *pp_atomfwctrl_lookup_voltage_type_v4(
->                       offsetof(struct atom_voltage_objects_info_v4_1,
-> voltage_object[0]);
->       unsigned long start =3D (unsigned long)voltage_object_info_table;
->
-> -     while (offset < size) {
-> +     while (offset + sizeof(struct atom_voltage_object_header_v4) <=3D s=
-ize)
-> +{
->               const union atom_voltage_object_v4 *voltage_object =3D
->                       (const union atom_voltage_object_v4 *)(start + offs=
-et);
-> +             u16 obj_size;
-> +
-> +             obj_size =3D le16_to_cpu(voltage_object-
-> >gpio_voltage_obj.header.object_size);
-> +             if (obj_size < sizeof(voltage_object->gpio_voltage_obj.head=
-er) ||
-> +                 offset + obj_size > size)
-> +                     break;
->
->               if (voltage_type =3D=3D voltage_object-
-> >gpio_voltage_obj.header.voltage_type &&
->                   voltage_mode =3D=3D voltage_object-
-> >gpio_voltage_obj.header.voltage_mode)
->                       return voltage_object;
->
-> -             offset +=3D le16_to_cpu(voltage_object-
-> >gpio_voltage_obj.header.object_size);
-> -
-> +             offset +=3D obj_size;
->       }
->
->       return NULL;
-> --
-> 2.46.0
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index d76e0b005308..38a8249570a9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -849,8 +849,6 @@ struct pptable_funcs {
+ 	 */
+ 	int (*set_default_dpm_table)(struct smu_context *smu);
+ 
+-	int (*set_power_state)(struct smu_context *smu);
+-
+ 	/**
+ 	 * @populate_umd_state_clk: Populate the UMD power state table with
+ 	 *                          defaults.
+@@ -903,16 +901,6 @@ struct pptable_funcs {
+ 					      struct
+ 					      pp_clock_levels_with_latency
+ 					      *clocks);
+-	/**
+-	 * @get_clock_by_type_with_voltage: Get the speed and voltage of a clock
+-	 *                                  domain.
+-	 */
+-	int (*get_clock_by_type_with_voltage)(struct smu_context *smu,
+-					      enum amd_pp_clock_type type,
+-					      struct
+-					      pp_clock_levels_with_voltage
+-					      *clocks);
+-
+ 	/**
+ 	 * @get_power_profile_mode: Print all power profile modes to
+ 	 *                          buffer. Star current mode.
+@@ -1354,11 +1342,6 @@ struct pptable_funcs {
+ 	 */
+ 	int (*register_irq_handler)(struct smu_context *smu);
+ 
+-	/**
+-	 * @set_azalia_d3_pme: Wake the audio decode engine from d3 sleep.
+-	 */
+-	int (*set_azalia_d3_pme)(struct smu_context *smu);
+-
+ 	/**
+ 	 * @get_max_sustainable_clocks_by_dc: Get a copy of the max sustainable
+ 	 *                                    clock speeds table.
+@@ -1375,18 +1358,6 @@ struct pptable_funcs {
+ 	 */
+ 	int (*get_bamaco_support)(struct smu_context *smu);
+ 
+-	/**
+-	 * @baco_get_state: Get the current BACO state.
+-	 *
+-	 * Return: Current BACO state.
+-	 */
+-	enum smu_baco_state (*baco_get_state)(struct smu_context *smu);
+-
+-	/**
+-	 * @baco_set_state: Enter/exit BACO.
+-	 */
+-	int (*baco_set_state)(struct smu_context *smu, enum smu_baco_state state);
+-
+ 	/**
+ 	 * @baco_enter: Enter BACO.
+ 	 */
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+index dd94e8a9e218..c0accee9a9c8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+@@ -199,8 +199,6 @@ int smu_v11_0_gfx_off_control(struct smu_context *smu, bool enable);
+ 
+ int smu_v11_0_register_irq_handler(struct smu_context *smu);
+ 
+-int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu);
+-
+ int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
+ 		struct pp_smu_nv_clock_table *max_clocks);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+index 68f4de5f800c..7f21f867d73c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+@@ -180,8 +180,6 @@ int smu_v13_0_gfx_off_control(struct smu_context *smu, bool enable);
+ 
+ int smu_v13_0_register_irq_handler(struct smu_context *smu);
+ 
+-int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu);
+-
+ int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
+ 					       struct pp_smu_nv_clock_table *max_clocks);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 051a0008aa10..99abfddff856 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1934,7 +1934,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+ 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
+ 	.gfx_off_control = smu_v11_0_gfx_off_control,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+-	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
+ 	.get_bamaco_support = smu_v11_0_get_bamaco_support,
+ 	.baco_enter = smu_v11_0_baco_enter,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 2f2a5953dbbc..52c23bd3b201 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -3340,7 +3340,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
+ 	.gfx_off_control = smu_v11_0_gfx_off_control,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+-	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
+ 	.get_bamaco_support = smu_v11_0_get_bamaco_support,
+ 	.baco_enter = navi10_baco_enter,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 70897c70db32..e5370267fda3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -3146,7 +3146,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.set_xgmi_pstate = smu_v11_0_set_xgmi_pstate,
+ 	.gfx_off_control = smu_v11_0_gfx_off_control,
+ 	.register_irq_handler = smu_v11_0_register_irq_handler,
+-	.set_azalia_d3_pme = smu_v11_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v11_0_get_max_sustainable_clocks_by_dc,
+ 	.get_bamaco_support = smu_v11_0_get_bamaco_support,
+ 	.baco_enter = sienna_cichlid_baco_enter,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index ac8f84f1e30e..f5155a4dc5a2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -1417,11 +1417,6 @@ int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
+ 	return 0;
+ }
+ 
+-int smu_v11_0_set_azalia_d3_pme(struct smu_context *smu)
+-{
+-	return smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
+-}
+-
+ int smu_v11_0_baco_set_armd3_sequence(struct smu_context *smu,
+ 				      enum smu_baco_seq baco_seq)
+ {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 0349dba2503a..e5d319cda52b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -1444,7 +1444,6 @@ static int renoir_get_enabled_mask(struct smu_context *smu,
+ }
+ 
+ static const struct pptable_funcs renoir_ppt_funcs = {
+-	.set_power_state = NULL,
+ 	.emit_clk_levels = renoir_emit_clk_levels,
+ 	.get_current_power_state = renoir_get_current_power_state,
+ 	.dpm_set_vcn_enable = renoir_dpm_set_vcn_enable,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 3a19f0ffcf3c..7c0d4e40b9b6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -2005,7 +2005,6 @@ static const struct pptable_funcs aldebaran_ppt_funcs = {
+ 	.disable_thermal_alert = smu_v13_0_disable_thermal_alert,
+ 	.set_xgmi_pstate = smu_v13_0_set_xgmi_pstate,
+ 	.register_irq_handler = smu_v13_0_register_irq_handler,
+-	.set_azalia_d3_pme = smu_v13_0_set_azalia_d3_pme,
+ 	.get_max_sustainable_clocks_by_dc = smu_v13_0_get_max_sustainable_clocks_by_dc,
+ 	.get_bamaco_support = aldebaran_get_bamaco_support,
+ 	.get_dpm_ultimate_freq = aldebaran_get_dpm_ultimate_freq,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index d511f03354a6..67d20213ad07 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -1321,15 +1321,6 @@ int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
+ 	return 0;
+ }
+ 
+-int smu_v13_0_set_azalia_d3_pme(struct smu_context *smu)
+-{
+-	int ret = 0;
+-
+-	ret = smu_cmn_send_smc_msg(smu, SMU_MSG_BacoAudioD3PME, NULL);
+-
+-	return ret;
+-}
+-
+ static int smu_v13_0_wait_for_reset_complete(struct smu_context *smu,
+ 					     uint64_t event_arg)
+ {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 9c09b2640a0c..edc5140f6ab6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -2891,8 +2891,6 @@ static const struct pptable_funcs smu_v14_0_2_ppt_funcs = {
+ 	.deep_sleep_control = smu_v14_0_deep_sleep_control,
+ 	.gfx_ulv_control = smu_v14_0_gfx_ulv_control,
+ 	.get_bamaco_support = smu_v14_0_get_bamaco_support,
+-	.baco_get_state = smu_v14_0_baco_get_state,
+-	.baco_set_state = smu_v14_0_baco_set_state,
+ 	.baco_enter = smu_v14_0_2_baco_enter,
+ 	.baco_exit = smu_v14_0_2_baco_exit,
+ 	.mode1_reset_is_support = smu_v14_0_2_is_mode1_reset_supported,
+-- 
+2.47.3
 
