@@ -4,106 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FB3FCDE00A
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 16:58:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D695BCDE002
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 17:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9DE10EFD7;
-	Wed, 24 Jun 2026 16:58:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC6010EFE3;
+	Wed, 24 Jun 2026 17:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IFXj/TDY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kWG68TTm";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010037.outbound.protection.outlook.com [52.101.56.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4084110EFF6;
- Wed, 24 Jun 2026 16:58:53 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012015.outbound.protection.outlook.com [52.101.48.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7BC610E0BE;
+ Wed, 24 Jun 2026 17:15:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SwKwjWhJjHPSep3J0kKIWNt6+hSdmOk24b4U7ru4Ek2hgxtaQKHNezYalG1/+iX/ZeyWDtvPoJ3arbokEIPVU6zRvYVm5OFuPFsllfz93CQE1+tLp5rAG2NnoW3akLFrSKnxzG8RhmbgRQxNT/xFgRuGPA62GZ7YSkjA8ZRC+Oax6Pop0FDYdKi02AfTQ+8Gt0cNlCDCWrMc6iK6F9v5DyYauyHY1y75MKPLTQ86bBhRHKq7LiDaB8QljzsUFnHrWiGnxBYge1+RqKoISIDmASY6/kYz1jjOgtoG/j/3sD9bJ+au1wOxu9B1B94wlMH2fwNObCRUaA10Be+LFS+PfQ==
+ b=nSCxeYUA96U4R39kFzqtydq8kM3rWx1GYLOV8nSWSWmlfHuf2uuNiYPp9MFwUUmhAJBrZIzVR3rkhfMzIG2y5zhAyU6D+vSTHWznnwWjb4+on8Cngieoxp0Ksll5jzArWS528bwf1B8Rsi3U3EbLBPduOsTDiwYu7k+yz7S9VhDBgH0g2WGPRFpep23sW4pDl8gu1xbWx7zcRYz5adbE4rUUixqCS8roWftwwZQZ59s9j/tkhrgikhQ+ZecW8/cPbQI66VcYr6P0qmOxtP8mRBtuilfhxxenYmIgnp74YDWK4AtarO/pvG5YYi92oh1fnulrqJ3yarpSIQJjpBNIUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gnBLMMW8Wdr3ubqJ7D1oGwy7MEXRL29HqjIJjs9ohJ0=;
- b=I852K/QVGKFYTT3fLiU88LUPUjkJc/FlS/a8Vti8IoK29cXJ9ONzStIQ1N/1PD0cAkRhlwdKTd1pw/JvvcH/Tc0LJtqwyQwA2o9kUnnXL56aEkEFvrPdqmn9A9RxbW6f3rmDK1urb39561gimZK4vz2P163+adf8Fdt6WcwoSbDM6e36emH9zpfydngavQTAXVfK9Wj/JYQfE80yVOy7y9G/9fsHOrDh/aUattKcsv6SfxR05tihjQn+sp6HRq4nnm61QcB7cBsWua00FyAOGmCKAVXN1A63oP2qw8w75TQ8W/ObOedqAAJrAa4mryKWikgZYXsMReyPVJd8LWBauw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=DSIqwCOmKvuJgP+W+1Ip5bdDln++co+nhjJC4ATyz34=;
+ b=Zx2Byzik0swi8PbBrG3JwQIK1TLcdiAUCFWlJdJ/UaZ7eGSPhmDR3n/GQT5pxDZYirUWPqe4eZm9ggQqlYGNj0N73wp2D7VuyoGYwTGNQ6M7xpQo7ORwrTqrfvwOcsjeqHiAzHMRuGMCps/K/Zbi0cfNiN6bnLba4mqy/6W9rfgBMzikmfOMPGwarV+SWU5zPlw6U5pujioJY4/8FiRkJeKqbZYSu0xzAo//2YAQ68/k95LZpRe39L6aGEoifJOUc8pvPCRgNt2M8C2GFDeeXunCdVMlpC10gfiNymFr9N0C/pdyGhpY1GkbJD8/KN/qg9G7vjhHalQhOqYkDwqbzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gnBLMMW8Wdr3ubqJ7D1oGwy7MEXRL29HqjIJjs9ohJ0=;
- b=IFXj/TDYxnX8jJcKBkLdDeLEBXO3ICi0k+ktY7Fh+XwMuRxLu8ApwXnEAME2jA76g+uFa1W+mT8sHBcssq1uokwk/ycRB2ulF7UOqkXbqwMg5ACbV7T5L45RCNoLmXcznQ4FfSLru0eAELVfrgQDrPVUSl1u1ODnBXIiw8MrjR4=
-Received: from CY5PR19CA0066.namprd19.prod.outlook.com (2603:10b6:930:69::12)
- by DM4PR12MB6424.namprd12.prod.outlook.com (2603:10b6:8:be::16) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=DSIqwCOmKvuJgP+W+1Ip5bdDln++co+nhjJC4ATyz34=;
+ b=kWG68TTmKrmfX8gm87FD60+Zreg8p8oy5zLpd+O9fDrst3ycM2Ct918Au47ZIPkgnE/i/JLMve40LI87d+vyR2nCiOMEZ4POppwxOn3w8pF4zljyuLmFB3SGs6k0W9sP7LVmFzRYwo2ZHwcxlHNNIyyXd0YF5Qf+0yxXM/QhNZA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Wed, 24 Jun
- 2026 16:58:27 +0000
-Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
- (2603:10b6:930:69:cafe::24) by CY5PR19CA0066.outlook.office365.com
- (2603:10b6:930:69::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.14 via Frontend Transport; Wed,
- 24 Jun 2026 16:58:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Wed, 24 Jun 2026 16:58:27 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
- 2026 11:58:24 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>
-CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, "Mario Limonciello (AMD)"
- <superm1@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v6 04/10] DRM: Add support for client indicating support for
- luminance
-Date: Wed, 24 Jun 2026 09:57:44 -0700
-Message-ID: <20260624165751.2014759-5-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260624165751.2014759-1-mario.limonciello@amd.com>
-References: <20260624165751.2014759-1-mario.limonciello@amd.com>
+ 2026 17:15:49 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 17:15:49 +0000
+Message-ID: <cbe3b560-bd25-441e-ba52-32c917880102@amd.com>
+Date: Wed, 24 Jun 2026 13:15:38 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 01/28] drm/amd/display: Remove unnecessary
+ SIGNAL_TYPE_HDMI_TYPE_A check
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Daniel Stone <daniel@fooishbar.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ Werner Sembach <wse@tuxedocomputers.com>, Andri Yngvason <andri@yngvason.is>
+References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
+ <20260609-color-format-v17-1-35739b5782cc@collabora.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260609-color-format-v17-1-35739b5782cc@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0008.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::23) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|DM4PR12MB6424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 421c0d46-6b47-45cd-0dee-08ded211cf9e
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|MN2PR12MB4223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5755d2fd-7d55-4b6c-b7c1-08ded2143c99
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|7416014|3023799007|6133799003|5023799004|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ZTUsgSu8Ahog9n0TpLdx/epzl+FqwccheNZZBF1PvxsZ/3Sib0Oxb1OzcdGv8lntxgf3hDdbrd/ncfDxxmRo2nWU1C5L+/guiiVpQyjW7zYnaIvSKS2Y734gJdmYhYYv3PoPyplCvjYsA/XXMASAoLU2vKH71zp9K8FgvsBis296pILTXP7v56E3tTnQHnzBR4Co8L/KSiDzVedgc9/uF9UXJPh6EVOmftCG6NImu7+GGhwvoYLW+sCdIgVEiuW3GwKOB0xdpck7tJ453PEEPsBVK2H+e4sB1vUqQkEjhxRojjOkGIb20Qn1rF9np57O68nSK1OCvRDkKQqS2+R3nCwOydloAX9r9sO9IWJ/pW89FWV7eDzww+/H4O6r4CaglJ46Uh3nyY9QJmawNVQB5y73v3g7JWOADm1+9kWh1AP18LKb1PUuiZ5vRV6+kp+Boa3F5PiMhVb0igV8WtSKuZYiZEThKYdxdPdX1U7NCRjcXh1K7rwqWiUT7mqz80SjJ/FD6DLz0PtcyaupSdjRMLiFAN5o4fAovYY/2rbO7T8P9HgrpbWufSEbTtJN16nNubhKWJB4axDJuo4O//TdcvaOeAO8iDLlJ3FjzHaZfWzRAM6+E3gkzaSlHvAtfw0fQm9JhCZsbDX8mr8h07aNlEBxXG0xmx+oGSkPc8cn2Qc11RBwlMr/XEW1gH1JPGCAKpAuEjosWA22yRMGtmzXRA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(7416014)(3023799007)(6133799003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);
+ ARA:13230040|1800799024|7416014|23010399003|366016|376014|3023799007|4143699003|56012099006|22082099003|18002099003|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: dtqJ4pYnfN3v7nM+BblRoj8FVRKvrfwNCemZena2/F6nC+M4aBiGWgXA86SfCGt0iRVdl2oIGzyUTqL4CeEvpiltIHl4LO/vMi3bC/rP+HXuCfry5AdA+SMR+kWuYnwY4nPFtikxypSRSS9vQetslua4wL9uXK00aH0qeiISB1QtjktY+1mUSdwFmt9UIxN5s0xuqivs8RiCh4UjOC457X3N7EL0JPTElryvG08pxNW9XtmeKoqsOGq8+vtkHyPu1EslVr9YBYejrh1NPTk8ZA72cFyBSrzldMK7NhfV0Bmpl7cmpEL+lFVAZKUJoJvByMnZ0tn5M4ywZ0o2AuLUvSv4hBMEGlr/tVJul3VbqUnYtoeKGh+TE9WeEv6y62SKBZDkTXjvxgHPEXrsTni3bcai2KhO3jsXwyP3OxzDBODIPutkFiWxiHkyFAUl3POBDOmNOnm/n7mQXEIo1Lac+6v1LDXVSa4l3lL3wtEUSIn3yiG28TiibD8y5lok2z5zXu9Nu7N7iKja+4oZM0IGzDFBaeF+OJHCDy+NfxmPCZ4Mn2KKsAXlbjLoQXj4alWtrD+a1H3EEzTokH2Dm8j46VNyHgLTeicd6icbCtCH/bSqNti16tVqwAYyycWiYwf8J6J8bgsaKO2Herygp5+eDF5szRu5w5xToRZ52e8uhh+LO+/phd2g8w9UMmMWYU2K0nHEgTytHreRbdF9v8sXvw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(23010399003)(366016)(376014)(3023799007)(4143699003)(56012099006)(22082099003)(18002099003)(11063799006)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Sdt7pldEuqAAeFMcuVBSK3c9WiuZnMN5iSl0Ru5kP8zioYHW4PiHMpQiTRZiXmCJsNtwoScsBpos5a1+ivF4+GZcIiB0+opj6JbCcQ0pTwYfc+gaXu0hAvw8BM84mABJWgWQbTY/QCVamVUsDvhIyAYm9sDujsjKFhsxHJajlQQGVWY1rc9wVBsE67/yk0y/DJhEIqjrh5GpsDOVGW7vsV4WOe81TPyUgKSmUb5a3V9pu2/1NLG5cbagxjdDQrG5hPuyGfzayHf863Bfm7qiKSxEV9qhiWdA4+jUOX3dw9KuKhZ9O9yynPFQS7/rRqviXi6W6wELoDmlgvh0ucrOh9nVjmu4ksGf2TzFG/ibc9gceHsxyn1RYCuHSZpFqSiCKA5G5GQmKEKh15NNVXAJMeGx4hjFJxnN5zjr5tyCS/wsxdr1OW+PMc7Uy3xOo6ab
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUNVNFQwZk9pY2RWcnVhQ0gvZ2RockRJdzEzdEI1MUF5RW1EblhMY1JyTFFl?=
+ =?utf-8?B?V0tBdlJVWDRTeU5OZGxKSkVGTjVvVzYvRzhhVVRXd3NTZEl2RVI4b2d0djQx?=
+ =?utf-8?B?MkNBaHZlaHFCNUNzTnJDNXp4aXhhL0Q5MFl3UGZGTGZwdnNpZnUyeCtNdUdI?=
+ =?utf-8?B?ZUl3V1VKQnEzRzFPVnU5SUhtNDJ5T1R0NDdMMHg1d0NHc3F1OU9QczJiT0I1?=
+ =?utf-8?B?OUxMS01wZWNleXNMQm93Z1RkRHVjalgzRjFzc3Zrd0xVc21BQW9BaGpqeis0?=
+ =?utf-8?B?ODRZa0VHeHVvQTRNZUZINHRnTVg3bkM4NWdVbXY5cmlWeVBOQUJ1ckZVSzBO?=
+ =?utf-8?B?anlpTU0rVXFhMjhCTVV1VGtSRURDV1VCa0JxdkJ2NFNxTjljbnZIbktZYkhP?=
+ =?utf-8?B?dlRBU3VIS2ZqWVhLblpQS1dlTnVoajFvZW9zRGdOdWQ2ZGdHNE9PV3NXRU9E?=
+ =?utf-8?B?S25qdkVrZVl5VUY5cTFSN1A1d3ZDZ080ZXFwL05RdW5oTUFrenZrRDBlVjBZ?=
+ =?utf-8?B?bHdHdXk0bUVlWmpPUnZiOUpsU1dnNXVZTHczc3NTV0RlUVppOXlFaFNITzQ1?=
+ =?utf-8?B?a2owU3lsaTRscWZmYllZbm05OER5UGtmQ2xiT3E2RkxDS3A5cCtzUXl3Mm45?=
+ =?utf-8?B?NDRxRHJtNlI0R3lmQlYzNjhMUG9iVGZnSnVUSVlTaXZ5UGl2cVQ1RG41bHJN?=
+ =?utf-8?B?VnZIcjAyT3VXYnZUa2EyUVRpU1VTaVBNWWwrZlI4Tks5MDc0dVJlcjIwY1Vu?=
+ =?utf-8?B?UTdDeXhHL2RDUGRCODN4bU5FUDYrYUd4cktrb1d1SjFkam5BdDFtQ0pIYlhp?=
+ =?utf-8?B?b2hmdGx6eEIzTmJwNDVhOTU3cndvN244UFpzU1U0Q2J3eXF3MlVWU1hYQ3VH?=
+ =?utf-8?B?VS8zZWRCOFFnYUtiNzZGMFdGRHBNeXVwV3JKOEt6b2VPdnl3WmZCV3ZXbHYw?=
+ =?utf-8?B?d1VNeE9IR2pYajVodWM1ejlsUXVwM2JWbHhLRUtvRnVYNTkwdUlqTHQ1RDJo?=
+ =?utf-8?B?UjlVSWxBL1VVdXNUU1dGNWUzTXIyZURhL21pcTJMNmpoY2lZU3k0SkJTZGs2?=
+ =?utf-8?B?d2RjUWM4bFl6bHFCSXltTXFxVEd0cjhYdklaa2puMllQOS9GdzI4QkRDOUZX?=
+ =?utf-8?B?SVBLS0drZEV4VlJFNDlTRUZBN1FiZldYL3ZzNys0cTRCbEVKSHhIc3R1a2Yr?=
+ =?utf-8?B?Tjc2aXBuWXI0dkVRNEd6RUNGR05pTjRGaGV1RDAvTzIvYmN0aVRRZ1pqSHNm?=
+ =?utf-8?B?SkVlWGthNjFma0FaZlpQWkFTaXN4ckp3QmcyeUY2Y0p0dEM2V3lMU2w4V05W?=
+ =?utf-8?B?dlU0MEhlYjFlQnhKcDBCUkdWUmcrc2JsYklJT1JMeE5BU1pvSm9FbUE4RS9H?=
+ =?utf-8?B?Tm5JL2RkQlJZTFdWVmdnQ2RQN1lhMDJVRWZ3NDcyTTVyUUlhTnc4THBia3hW?=
+ =?utf-8?B?VlREbit6SytHOFQ3U3VnRXREaW9hN3FKcll4TE9zaXNkeXN6NzYwT2E1L2RT?=
+ =?utf-8?B?R1plOGpad0x2S00vaE5JUXhRYzlvOER4aFRCVnpEQWlTUUg4QUo1SDVqYWJJ?=
+ =?utf-8?B?L21Gc3BManpUKzc5d1pMQWJqOG1XdXAxRldhMUJ5K2dEM1JJM0F0emJydHR5?=
+ =?utf-8?B?aE1tTVhsbGltZ3NaZDNkcUprNHVIN204N2xya25mMFB0TGJpdm9vQkhld0xr?=
+ =?utf-8?B?ZHNRaXNzcEQrY1h2b2VNYnI3YTNSdm8zVVJCQm10YTBZbmxGQUxObjNoUzk2?=
+ =?utf-8?B?bHdmY3ZKTXFFazRseVZzcXFpY3h1ckhFakZmdDFUTXc0NHVLTDVrMDJqNU5U?=
+ =?utf-8?B?SU9kMmNNMHo2ZU94NnFhWEJ6MWQzVTFxU2l2T2VsZml1dmttOWY3anU1L05E?=
+ =?utf-8?B?bGVFVldEUTludU1NQlVhdUZVaDg3bWVpZllCbkRRMmtsTFoyU1hlVkNjcHlE?=
+ =?utf-8?B?eG9hM01USUl0NWJjelRKSUNXRDBlTFVlTUZIWjNIZGhXQ1R3cVk0eHJTdGNH?=
+ =?utf-8?B?dTE3Y3ZVb1NYS280a1FxemdicDdGbUpKSTByakNESXNpWEdValEwV2pJWVh4?=
+ =?utf-8?B?dUxNZTAydkpmTWREMWxLeE5NNTh3Um00ZmJlTUNxUVZVUVBpZURmM29Lc2hQ?=
+ =?utf-8?B?SlQzcVA3c1BaRXJFM0MwWXhRenNhb1EzaDRCYlNNVCtUWTF0Ri83TDNkY1N1?=
+ =?utf-8?B?NW5qa20rL1lHcG44ejJvbVA1VWlHT0dGeXl2eko3V1VQVTdldUovK2NiSFF0?=
+ =?utf-8?B?UUpVaWl0UlFFTjhJcHRrcDJHdjNLZGdlaFg3L2tBc1pjWlV1NkljVFdybmly?=
+ =?utf-8?B?OTFUSit1aUFPeW0rUEFoS3lBcVM1Sm9wTjJQTGxKNm9LUkpKZUdXZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 16:58:27.2157 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 421c0d46-6b47-45cd-0dee-08ded211cf9e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5755d2fd-7d55-4b6c-b7c1-08ded2143c99
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 17:15:49.4179 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A346.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6424
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Urs+l2SRmQOapufWqaWwFEu4gq65a43x9lhLlTfI68V6TvfYNR8wI95d0qXn3mPiyjjEiDQybTIz1bp9o3OZBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,610 +159,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+On 2026-06-09 08:43, Nicolas Frattaroli wrote:
+> From: Werner Sembach <wse@tuxedocomputers.com>
+> 
+> Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
+> drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
+> force_yuv420_output case.
+> 
+> Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
+> there is no reason to use RGB when the display
+> reports drm_mode_is_420_only() even on a non HDMI connection.
+> 
+> This patch also moves both checks in the same if-case. This  eliminates an
+> extra else-if-case.
+> 
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Signed-off-by: Andri Yngvason <andri@yngvason.is>
+> Tested-by: Andri Yngvason <andri@yngvason.is>
+> Reviewed-by: Daniel Stone <daniel@fooishbar.org>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-The legacy backlight control interface can only be disabled when both
-the client and driver has connector support that the luminance can be
-set during a modeset. Add capability for the client to register.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-When a luminance-aware client sets DRM_CLIENT_CAP_LUMINANCE, each
-DRM-connected backlight on the device is marked as taken over. Writes
-to the legacy /sys/class/backlight/<dev>/brightness attribute then
-return -EBUSY until the last luminance-aware client clears the cap or
-closes its DRM file. The takeover follows the active backlight_device
-when drm_backlight_link() retargets the link.
+Harry
 
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # SM8150-HDK
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- drivers/gpu/drm/drm_atomic_helper.c |  7 +++
- drivers/gpu/drm/drm_atomic_uapi.c   | 59 +++++++++++++++++++-
- drivers/gpu/drm/drm_backlight.c     | 86 +++++++++++++++++++++++++++--
- drivers/gpu/drm/drm_connector.c     | 51 +++++++++++++++++
- drivers/gpu/drm/drm_file.c          |  5 ++
- drivers/gpu/drm/drm_ioctl.c         | 15 +++++
- drivers/gpu/drm/drm_property.c      |  6 ++
- drivers/video/backlight/backlight.c |  7 +++
- include/drm/drm_backlight.h         |  2 +-
- include/drm/drm_connector.h         |  5 ++
- include/drm/drm_file.h              |  8 +++
- include/linux/backlight.h           | 15 +++++
- include/uapi/drm/drm.h              | 22 ++++++++
- 13 files changed, 280 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 51f39edc31edc..17492ff6c5579 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_backlight.h>
- #include <drm/drm_blend.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_colorop.h>
-@@ -1224,6 +1225,8 @@ drm_atomic_helper_commit_encoder_bridge_disable(struct drm_device *dev,
- 		 * it away), so we won't call disable hooks twice.
- 		 */
- 		bridge = drm_bridge_chain_get_first_bridge(encoder);
-+		if (connector->backlight)
-+			drm_backlight_set_luminance(connector->backlight, 0);
- 		drm_atomic_bridge_chain_disable(bridge, state);
- 		drm_bridge_put(bridge);
- 
-@@ -1738,6 +1741,10 @@ drm_atomic_helper_commit_encoder_bridge_enable(struct drm_device *dev, struct dr
- 
- 		drm_atomic_bridge_chain_enable(bridge, state);
- 		drm_bridge_put(bridge);
-+
-+		if (connector->backlight && connector->state)
-+			drm_backlight_set_luminance(connector->backlight,
-+						    connector->state->luminance);
- 	}
- }
- EXPORT_SYMBOL(drm_atomic_helper_commit_encoder_bridge_enable);
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 6441b55cc2740..ebf434bbd963b 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -30,6 +30,8 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_backlight.h>
-+#include <drm/drm_connector.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_print.h>
- #include <drm/drm_drv.h>
-@@ -935,6 +937,14 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->privacy_screen_sw_state = val;
- 	} else if (property == connector->broadcast_rgb_property) {
- 		state->hdmi.broadcast_rgb = val;
-+	} else if (property == config->luminance_property) {
-+		state->luminance = val;
-+		/* Update hardware backlight only when DPMS is ON.
-+		 * Property value is always updated to remember the user's
-+		 * desired brightness.
-+		 */
-+		if (connector->dpms == DRM_MODE_DPMS_ON)
-+			drm_backlight_set_luminance(connector->backlight, val);
- 	} else if (connector->funcs->atomic_set_property) {
- 		return connector->funcs->atomic_set_property(connector,
- 				state, property, val);
-@@ -1020,6 +1030,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->privacy_screen_sw_state;
- 	} else if (property == connector->broadcast_rgb_property) {
- 		*val = state->hdmi.broadcast_rgb;
-+	} else if (property == config->luminance_property) {
-+		*val = state->luminance;
- 	} else if (connector->funcs->atomic_get_property) {
- 		return connector->funcs->atomic_get_property(connector,
- 				state, property, val);
-@@ -1104,6 +1116,31 @@ static struct drm_pending_vblank_event *create_vblank_event(
- 	return e;
- }
- 
-+static void drm_atomic_connector_set_backlight(struct drm_connector *connector,
-+						       unsigned int luminance)
-+{
-+	if (!connector->backlight)
-+		return;
-+
-+	drm_backlight_set_luminance(connector->backlight, luminance);
-+}
-+
-+static void drm_atomic_crtc_set_backlight(struct drm_crtc *crtc, bool active)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+
-+	drm_connector_list_iter_begin(crtc->dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->state || connector->state->crtc != crtc)
-+			continue;
-+
-+		drm_atomic_connector_set_backlight(connector,
-+						  active ? connector->state->luminance : 0);
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+}
-+
- int drm_atomic_connector_commit_dpms(struct drm_atomic_commit *state,
- 				     struct drm_connector *connector,
- 				     int mode)
-@@ -1126,9 +1163,29 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_commit *state,
- 	if (connector->dpms == mode)
- 		goto out;
- 
-+	crtc = connector->state ? connector->state->crtc : NULL;
-+
-+	/* Handle backlight brightness coordination with DPMS state changes */
-+	if (old_mode != DRM_MODE_DPMS_OFF && mode == DRM_MODE_DPMS_OFF) {
-+		/* DPMS ON -> OFF: dim all connectors driven by this CRTC. */
-+		if (crtc)
-+			drm_atomic_crtc_set_backlight(crtc, false);
-+		else
-+			drm_atomic_connector_set_backlight(connector, 0);
-+	}
-+
- 	connector->dpms = mode;
- 
--	crtc = connector->state->crtc;
-+	/* DPMS OFF -> ON: restore brightness to property value */
-+	if (old_mode == DRM_MODE_DPMS_OFF && mode == DRM_MODE_DPMS_ON &&
-+	    connector->state) {
-+		if (crtc)
-+			drm_atomic_crtc_set_backlight(crtc, true);
-+		else
-+			drm_atomic_connector_set_backlight(connector,
-+						  connector->state->luminance);
-+	}
-+
- 	if (!crtc)
- 		goto out;
- 	ret = drm_atomic_add_affected_connectors(state, crtc);
-diff --git a/drivers/gpu/drm/drm_backlight.c b/drivers/gpu/drm/drm_backlight.c
-index b1ec470be86ca..2cddf209d5088 100644
---- a/drivers/gpu/drm/drm_backlight.c
-+++ b/drivers/gpu/drm/drm_backlight.c
-@@ -71,6 +71,7 @@ static bool __drm_backlight_is_registered(struct drm_backlight *b)
- /* caller must hold @drm_backlight_lock */
- static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
- {
-+	struct drm_connector *connector = b->connector;
- 	unsigned int max, set;
- 
- 	lockdep_assert_held(&drm_backlight_lock);
-@@ -85,6 +86,15 @@ static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
- 	set = v;
- 	if (set >= max)
- 		set = max;
-+
-+	/* Update the atomic state directly.
-+	 * For atomic drivers, the luminance value is stored in
-+	 * connector->state->luminance, not in the legacy property array.
-+	 * We update it unconditionally to reflect the hardware state,
-+	 * regardless of DPMS.
-+	 */
-+	if (connector->state)
-+		connector->state->luminance = set;
- }
- 
- /**
-@@ -100,18 +110,22 @@ static void __drm_backlight_update_prop_range(struct drm_backlight *b)
- 	struct drm_device *dev = b->connector->dev;
- 	struct drm_property *prop = dev->mode_config.luminance_property;
- 	unsigned int max = 0;
-+	bool can_disable = false;
- 
- 	lockdep_assert_held(&drm_backlight_lock);
- 
--	if (b->link && b->link->props.max_brightness > 0)
-+	if (b->link && b->link->props.max_brightness > 0) {
- 		max = b->link->props.max_brightness;
-+		can_disable = b->link->props.can_disable;
-+	}
- 
- 	/* Update property range to match hardware capabilities.
- 	 * Range of 0-0 indicates no backing device.
--	 * Range of 1-max for normal operation (0 reserved for display off).
-+	 * Range of 1-max for normal operation.
-+	 * Range of 0-max means that the display would turn off at 0
- 	 */
- 	if (prop->values[1] != max) {
--		prop->values[0] = max ? 1 : 0;
-+		prop->values[0] = max ? (can_disable ? 0 : 1) : 0;
- 		prop->values[1] = max;
- 	}
- }
-@@ -123,6 +137,16 @@ static bool __drm_backlight_link(struct drm_backlight *b,
- 	if (bd == b->link)
- 		return false;
- 
-+	/* Transfer any DRM legacy-sysfs takeover from the old link to the
-+	 * new one so the inhibit follows the active backlight_device.
-+	 */
-+	if (b->luminance_clients) {
-+		if (b->link)
-+			atomic_sub(b->luminance_clients, &b->link->drm_takeover);
-+		if (bd)
-+			atomic_add(b->luminance_clients, &bd->drm_takeover);
-+	}
-+
- 	backlight_device_unref(b->link);
- 	b->link = bd;
- 	backlight_device_ref(b->link);
-@@ -177,6 +201,7 @@ void drm_backlight_free(struct drm_connector *connector)
- 
- 	WARN_ON(__drm_backlight_is_registered(b));
- 	WARN_ON(b->link);
-+	WARN_ON(b->luminance_clients);
- 
- 	kfree(b);
- 	connector->backlight = NULL;
-@@ -228,11 +253,18 @@ EXPORT_SYMBOL(drm_backlight_unregister);
-  */
- void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd)
- {
-+	static const char * const ep[] = { "BACKLIGHT=1", NULL };
-+	bool send_uevent = false;
-+
- 	if (!b)
- 		return;
- 
- 	guard(spinlock)(&drm_backlight_lock);
--	__drm_backlight_link(b, bd);
-+	send_uevent = __drm_backlight_link(b, bd);
-+
-+	if (send_uevent)
-+		kobject_uevent_env(&b->connector->kdev->kobj, KOBJ_CHANGE,
-+				   (char **)ep);
- }
- EXPORT_SYMBOL(drm_backlight_link);
- 
-@@ -269,6 +301,11 @@ void drm_backlight_inhibit_legacy(struct drm_backlight *b)
- {
- 	if (!b)
- 		return;
-+
-+	guard(spinlock)(&drm_backlight_lock);
-+	b->luminance_clients++;
-+	if (b->link)
-+		atomic_inc(&b->link->drm_takeover);
- }
- EXPORT_SYMBOL(drm_backlight_inhibit_legacy);
- 
-@@ -283,6 +320,13 @@ void drm_backlight_uninhibit_legacy(struct drm_backlight *b)
- {
- 	if (!b)
- 		return;
-+
-+	guard(spinlock)(&drm_backlight_lock);
-+	if (WARN_ON(b->luminance_clients == 0))
-+		return;
-+	b->luminance_clients--;
-+	if (b->link)
-+		atomic_dec(&b->link->drm_takeover);
- }
- EXPORT_SYMBOL(drm_backlight_uninhibit_legacy);
- 
-@@ -324,8 +368,38 @@ EXPORT_SYMBOL(drm_backlight_uninhibit_legacy_all);
- 
- void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value)
- {
--	guard(spinlock)(&drm_backlight_lock);
--	__drm_backlight_real_changed(b, value);
-+	struct backlight_device *bd = NULL;
-+	unsigned int set = 0;
-+	unsigned long flags;
-+	unsigned int max = 0;
-+
-+	spin_lock_irqsave(&drm_backlight_lock, flags);
-+	if (b && b->link) {
-+		struct backlight_device *link = b->link;
-+
-+		max = b->link->props.max_brightness;
-+
-+		if (max == 0)
-+			goto out;
-+
-+		set = min(value, max);
-+		if (set == link->props.brightness)
-+			goto out;
-+
-+		bd = link;
-+		backlight_device_ref(bd);
-+	}
-+out:
-+	spin_unlock_irqrestore(&drm_backlight_lock, flags);
-+
-+	if (bd) {
-+		int rc = backlight_set_brightness(bd, set, BACKLIGHT_UPDATE_DRM);
-+
-+		WARN_ON(rc);
-+		if (rc)
-+			backlight_set_brightness(bd, max, BACKLIGHT_UPDATE_DRM);
-+		backlight_device_unref(bd);
-+	}
- }
- EXPORT_SYMBOL(drm_backlight_set_luminance);
- 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 128d431f0d6b0..70afe3d579f38 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1512,6 +1512,57 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
-  * 	Summarizing: Only set "DPMS" when the connector is known to be enabled,
-  * 	assume that a successful SETCONFIG call also sets "DPMS" to on, and
-  * 	never read back the value of "DPMS" because it can be incorrect.
-+ * LUMINANCE:
-+ * 	Atomic property for controlling the backlight brightness level of the
-+ * 	connector's display. This property provides unified access to the display
-+ * 	backlight, replacing the legacy sysfs interface for brightness control.
-+ *
-+ * 	The property value is an unsigned integer representing the brightness level.
-+ * 	The valid range is dynamically determined by the capabilities of the
-+ * 	connected backlight hardware and is exposed through the property's minimum
-+ * 	and maximum values:
-+ *
-+ * 	- Range 0-0: No backlight device is available for this connector.
-+ * 	- Range 1-N: Normal operation. Values from 1 to N (max_brightness) are
-+ * 	  valid brightness levels, where 1 is the minimum visible brightness and
-+ * 	  N is the maximum brightness the hardware supports.
-+ * 	- Value 0: Special value to turn off the display backlight completely.
-+ * 	  This value is accepted even when the normal range starts at 1.
-+ *
-+ * 	The range may change during runtime if a new backlight device is linked
-+ * 	or unlinked. The kernel will send a change uevent when this occurs.
-+ *
-+ * 	Setting LUMINANCE to 0 turns off the backlight, which may turn off the
-+ * 	display completely depending on the hardware. Setting it to any value
-+ * 	from 1 to N adjusts the brightness accordingly. Reading this property
-+ * 	returns the current brightness level that was last set (or the hardware's
-+ * 	current state for drivers that support reading actual brightness).
-+ *
-+ * 	For atomic drivers, the luminance value is stored in
-+ * 	&drm_connector_state.luminance. The actual hardware update only occurs
-+ * 	when the connector is active (DPMS is ON). When DPMS transitions to OFF,
-+ * 	the kernel automatically sets luminance to 0 to turn off the backlight.
-+ * 	When DPMS transitions back to ON, the kernel restores the previously
-+ * 	set luminance value.
-+ *
-+ * 	This property is only available on connectors that have an associated
-+ * 	backlight device.  The property is created by calling drm_backlight_alloc()
-+ * 	during connector initialization.
-+ *
-+ * 	Client Capability:
-+ * 		User-space must set the DRM_CLIENT_CAP_LUMINANCE client capability
-+ * 		to 1 before using this property. When this capability is enabled,
-+ * 		the legacy sysfs backlight interface is inhibited to prevent
-+ * 		conflicts between multiple clients trying to control the same
-+ * 		backlight. This ensures that only luminance-aware clients control
-+ * 		the backlight through the DRM atomic interface.
-+ *
-+ * 		Legacy clients that do not set this capability will not see the
-+ * 		LUMINANCE property and should continue using the sysfs interface
-+ * 		(if available).
-+ *
-+ * 	Note: This property can be set through MODE_ATOMIC ioctl as part of the
-+ * 	atomic state.
-  * panel_type:
-  * 	Immutable enum property to indicate the type of connected panel.
-  * 	Possible values are "unknown" (default) and "OLED".
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index ec820686b3021..4d2520de7614c 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -41,6 +41,7 @@
- #include <linux/slab.h>
- #include <linux/vga_switcheroo.h>
- 
-+#include <drm/drm_backlight.h>
- #include <drm/drm_client_event.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -252,6 +253,10 @@ void drm_file_free(struct drm_file *file)
- 	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
- 		drm_fb_release(file);
- 		drm_property_destroy_user_blobs(dev, file);
-+		if (file->supports_luminance_control) {
-+			drm_backlight_uninhibit_legacy_all(dev);
-+			file->supports_luminance_control = false;
-+		}
- 	}
- 
- 	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index ff193155129e7..fdae36b13300a 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -28,12 +28,14 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- 
-+#include "drm/drm.h"
- #include <linux/export.h>
- #include <linux/nospec.h>
- #include <linux/pci.h>
- #include <linux/uaccess.h>
- 
- #include <drm/drm_auth.h>
-+#include <drm/drm_backlight.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-@@ -380,6 +382,19 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 			return -EINVAL;
- 		file_priv->plane_color_pipeline = req->value;
- 		break;
-+	case DRM_CLIENT_CAP_LUMINANCE:
-+		if (!file_priv->atomic)
-+			return -EINVAL;
-+		if (req->value > 1)
-+			return -EINVAL;
-+		if (req->value == file_priv->supports_luminance_control)
-+			break;
-+		if (req->value)
-+			drm_backlight_inhibit_legacy_all(dev);
-+		else
-+			drm_backlight_uninhibit_legacy_all(dev);
-+		file_priv->supports_luminance_control = req->value;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-index f38f2c5437e68..4475896c963b4 100644
---- a/drivers/gpu/drm/drm_property.c
-+++ b/drivers/gpu/drm/drm_property.c
-@@ -952,6 +952,12 @@ bool drm_property_change_valid_get(struct drm_property *property,
- 	*ref = NULL;
- 
- 	if (drm_property_type_is(property, DRM_MODE_PROP_RANGE)) {
-+		/* Special case for luminance property: allow 0 to turn off display
-+		 * even when the normal range starts at 1.
-+		 */
-+		if (property == property->dev->mode_config.luminance_property &&
-+		    value == 0 && property->values[1] > 0)
-+			return true;
- 		if (value < property->values[0] || value > property->values[1])
- 			return false;
- 		return true;
-diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
-index 13954c2220b7e..40cfc2296445c 100644
---- a/drivers/video/backlight/backlight.c
-+++ b/drivers/video/backlight/backlight.c
-@@ -217,6 +217,13 @@ static ssize_t brightness_store(struct device *dev,
- 	struct backlight_device *bd = to_backlight_device(dev);
- 	unsigned long brightness;
- 
-+	/* A luminance-aware DRM client has taken over this backlight; the
-+	 * legacy sysfs interface is disabled until the last such client
-+	 * goes away.
-+	 */
-+	if (atomic_read(&bd->drm_takeover) > 0)
-+		return -EBUSY;
-+
- 	rc = kstrtoul(buf, 0, &brightness);
- 	if (rc)
- 		return rc;
-diff --git a/include/drm/drm_backlight.h b/include/drm/drm_backlight.h
-index e0e09e38f7c06..2af48be3aa372 100644
---- a/include/drm/drm_backlight.h
-+++ b/include/drm/drm_backlight.h
-@@ -43,9 +43,9 @@ void drm_backlight_unregister(struct drm_backlight *b);
- 
- void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd);
- struct backlight_device *drm_backlight_get_device(struct drm_backlight *b);
--void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
- void drm_backlight_inhibit_legacy(struct drm_backlight *b);
- void drm_backlight_uninhibit_legacy(struct drm_backlight *b);
- void drm_backlight_inhibit_legacy_all(struct drm_device *dev);
- void drm_backlight_uninhibit_legacy_all(struct drm_device *dev);
-+void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
- #endif /* __DRM_BACKLIGHT_H__ */
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index d78ac1068d12e..5e32b6063d228 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1209,6 +1209,11 @@ struct drm_connector_state {
- 	 * @drm_atomic_helper_connector_hdmi_check().
- 	 */
- 	struct drm_connector_hdmi_state hdmi;
-+
-+	/**
-+	 * @luminance: Luminance for the connector
-+	 */
-+	unsigned int luminance;
- };
- 
- struct drm_connector_hdmi_audio_funcs {
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 6ee70ad65e1fd..0bb1e53f36bec 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -248,6 +248,14 @@ struct drm_file {
- 	 */
- 	bool supports_virtualized_cursor_plane;
- 
-+	/**
-+	 * @supports_luminance_control:
-+	 *
-+	 * This client is capable of setting the luminance for connectors.
-+	 *
-+	 */
-+	bool supports_luminance_control;
-+
- 	/**
- 	 * @master:
- 	 *
-diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-index 26a7281d179c1..b03737ee8dacd 100644
---- a/include/linux/backlight.h
-+++ b/include/linux/backlight.h
-@@ -197,6 +197,13 @@ struct backlight_properties {
- 	 */
- 	int brightness;
- 
-+	/**
-+	 * @can_disable: Minimum brightness would turn off the panel.
-+	 *
-+	 * Setting minimum brightness turns off the panel.
-+	 */
-+	bool can_disable;
-+
- 	/**
- 	 * @max_brightness: The maximum brightness value.
- 	 *
-@@ -314,6 +321,14 @@ struct backlight_device {
- 	 * @use_count: The number of unblanked displays.
- 	 */
- 	int use_count;
-+
-+	/**
-+	 * @drm_takeover: Number of luminance-aware DRM clients that have
-+	 * taken over brightness control of this device. When non-zero,
-+	 * writes to the legacy sysfs ``brightness`` attribute return
-+	 * ``-EBUSY``. Managed by the DRM backlight helpers.
-+	 */
-+	atomic_t drm_takeover;
- };
- 
- /* Forward declaration for backlight_update_status */
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index bc7ef7684099b..a3141d46d7d66 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -903,6 +903,28 @@ struct drm_get_cap {
-  */
- #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
- 
-+/**
-+ * DRM_CLIENT_CAP_LUMINANCE
-+ *
-+ * If set to 1, the client declares support for the LUMINANCE connector property
-+ * and will control backlight brightness through the DRM atomic interface. This
-+ * enables the kernel to expose the LUMINANCE property on connectors that have
-+ * an associated backlight device.
-+ *
-+ * When this capability is enabled:
-+ *  - The LUMINANCE property becomes visible on supported connectors
-+ *  - Legacy sysfs writes to /sys/class/backlight/{*}/brightness will return
-+ *    -EBUSY to prevent conflicts with DRM-based brightness control
-+ *  - The client should include luminance values as part of atomic commits
-+ *  - Brightness changes are synchronized with display power state (DPMS)
-+ *
-+ * The LUMINANCE property accepts values from 0 to max_brightness, where 0 turns
-+ * off the backlight, and 1 to max_brightness control the brightness level.
-+ *
-+ * This capability is supported starting in kernel 7.2.
-+ */
-+#define DRM_CLIENT_CAP_LUMINANCE		8
-+
- /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
- struct drm_set_client_cap {
- 	__u64 capability;
--- 
-2.43.0
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ba7f98a87808..dfe97897127c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6917,12 +6917,9 @@ static void fill_stream_properties_from_drm_display_mode(
+>  	timing_out->v_border_top = 0;
+>  	timing_out->v_border_bottom = 0;
+>  	/* TODO: un-hardcode */
+> -	if (drm_mode_is_420_only(info, mode_in)
+> -			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+> -		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+> -	else if (drm_mode_is_420_also(info, mode_in)
+> -			&& aconnector
+> -			&& aconnector->force_yuv420_output)
+> +	if (drm_mode_is_420_only(info, mode_in) ||
+> +	    (aconnector && aconnector->force_yuv420_output &&
+> +	     drm_mode_is_420_also(info, mode_in)))
+>  		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+>  	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
+>  			&& aconnector
+> 
 
