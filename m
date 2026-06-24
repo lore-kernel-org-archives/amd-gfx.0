@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F69FCDB47F
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A084ACDE009
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA3410F08F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8F810F08E;
 	Wed, 24 Jun 2026 18:09:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TkONSKaC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="osT0JNtv";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013052.outbound.protection.outlook.com
- [40.93.201.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 652BD10F087
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 18:09:22 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013026.outbound.protection.outlook.com
+ [40.93.196.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65B4E10F086
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 18:09:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GxeeG5IvP/IZ4bwQ9wkVB4nWFqFCSezNutPp8ushCDc3pTvkWYV6Dzj/Ex+p9LFE89HwE44daCM4nTNLx43jfjKmmLmky9656xBCq2w9JDjyfUHeY12gI1u1pz6Rf5kbatqjLLB6+TV68xxwpKdEu0fIJSsQtTBmr6sZBSDGmwqsgK+3pJsAI/XeTJXXwvtaRj4saE2FD2zhJ4qs8NeBpNyc67X8+t/Eaj9WtWUx8ckJSTLvfF6eqVXzHMhSnY1M5WQfATQ0rqtGvdMduCd1AilBnCYiRUaFxVIH2jpWTWpZcIHburF4DfnsKfZ+sR6ldzKELkcOfdsvHMc6pPY1ww==
+ b=gjb51eC1Iy07dFczMbRV1o5Ga0bFjojA8g6ToPR/P74GJRtEyswCljLubqAMB9FpYVKAkHGKhavA1YqX53cL9Kxi/Kf0O+eBUJW7wFOORkRdGDR0llt7lDNAfgnBvHzViEezC9nuTSf2sTH6k9bxVjbGPLk2HcGi07+OKCNrZQdIQ8n3/VACOJY6rXaKZooh7/qdmQVZ7MgjGXT1hCkBupG4PHqDwFolC12cyWtBYjNgt7/Oq3p3saC9Qv7AFt7CS4MaAM25gxiRaO7T8n7EpkXiV1AWVJmlKZHp6L+QRN3GAW8tbZEVrbd46SBXyPE5cDJMrxh04kEGnbxWUjjE+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AfQfe4XKrHW0gX+Jd+9njMtZz7K+5p72O0Lt3qeYfR4=;
- b=Dyoe0JaZGEaTafbhbQhTnXZdGC8fXXyA9uUZIX2nOjUSIEjDC7xAZsBqUuZcgD9sgvIL4vRUaw7Uq9k5s2IjO3UVZo0vv8oXnu9RKUjCfTbRAWREcJOJvneAJduz6Bb/rW23MIQVJu7Sg26jZYSw/1XyLlwJsOwBHUlkcQOhPYwl1AbOmujAflsS3BMH4TqcPRI+ZEBUD0admkhPeqRqgrw18rrH6EFvGFlFHuMfYxenefoI1hg6R5wnA+m2ntMqrfaWfxQfojMnG2ezOFYwbddt8GEF7edArmTdx8ytNIj6yfrAj6DHTrVqroBrHJlGjcAIORoJ0lvuf9c10AccMA==
+ bh=yXMG4p0Qa8p60V6seOUhNNWMu6UL+y8SFNpNHQKwahY=;
+ b=DhHjLalocdWobzbNgZapvQFVs13vYOrFgTxQeeYL/6lfQywTusKicat0Hc3F3jee1fjkVmN7EdO67hXGV3LEUlgVp1793PNUgYJddZ6P+nwucBHocA3qcwB7evlfI7rbCQAWo/vpY9mhfej0MX44NEzVi41HEbJDFZx3poJRGm2vcFs95aQ1/W9Q4DwVi9dskrvA+NlakRphUzVuA60W7tuJeHDcqPjg9BwENSvJdzlgeo06zmq1WkLfUhIFRf43CdQZR55HNU3MmxhJk+sy6ABTKSI0oNiTkqkhWOjIDSllfF7zZycblRC0Zr5YvfcgF2nsNwq1RX6ujhfpHL3GLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AfQfe4XKrHW0gX+Jd+9njMtZz7K+5p72O0Lt3qeYfR4=;
- b=TkONSKaC1or48kG6/vuC4nEy5XxnbZO3MrqRQUywr780TyFyw0lPocH3j28PLMXG/SB7g6INCjXrVExwwUtDkYuqHOmsRwhEbnRqlfYATC4ros2CLzXQPQXimsN9nZ0FD1EOylAuESlF7DdWfVhFoqOOKbAvkEDN3aEAqjxntWM=
-Received: from SJ0PR03CA0013.namprd03.prod.outlook.com (2603:10b6:a03:33a::18)
- by CY8PR12MB7683.namprd12.prod.outlook.com (2603:10b6:930:86::5) with
+ bh=yXMG4p0Qa8p60V6seOUhNNWMu6UL+y8SFNpNHQKwahY=;
+ b=osT0JNtvUT3Cz5mWxyjuYz5zeVFiRLaWRTpzN7TIdUfYr+PBZ9ol7uukR2TKhJIEDMhN5O6oVucwiV8fkDGaPrtKbAVLrxb21IyLxL1KHjKbimY208A359qmLCrrpc9QuZgkf9sqAegbfC1lp2+3ST+xXWv/aLcv/9BdkDpKC7U=
+Received: from SJ0PR03CA0006.namprd03.prod.outlook.com (2603:10b6:a03:33a::11)
+ by DS0PR12MB9446.namprd12.prod.outlook.com (2603:10b6:8:192::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
- 2026 18:09:16 +0000
+ 2026 18:09:20 +0000
 Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
- (2603:10b6:a03:33a:cafe::36) by SJ0PR03CA0013.outlook.office365.com
- (2603:10b6:a03:33a::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12 via Frontend Transport; Wed,
- 24 Jun 2026 18:09:15 +0000
+ (2603:10b6:a03:33a:cafe::8a) by SJ0PR03CA0006.outlook.office365.com
+ (2603:10b6:a03:33a::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.14 via Frontend Transport; Wed,
+ 24 Jun 2026 18:09:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 18:09:15 +0000
+ 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 18:09:20 +0000
 Received: from MKMGEORZHAN02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
- 2026 13:09:12 -0500
+ 2026 13:09:17 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +64,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Chen-Yu Chen <chen-yu.chen@amd.com>, George Zhang
- <george.zhang@amd.com>
-Subject: [PATCH 07/28] drm/amd/display: Simplify DMUB notify registration
-Date: Wed, 24 Jun 2026 14:03:05 -0400
-Message-ID: <20260624180829.4775-8-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Peichen Huang <PeiChen.Huang@amd.com>, Cruise Hung
+ <cruise.hung@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 10/28] drm/amd/display: correct encoder minimal creation
+Date: Wed, 24 Jun 2026 14:03:08 -0400
+Message-ID: <20260624180829.4775-11-george.zhang@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180829.4775-1-george.zhang@amd.com>
 References: <20260624180829.4775-1-george.zhang@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|CY8PR12MB7683:EE_
-X-MS-Office365-Filtering-Correlation-Id: b31a4a21-c556-46f5-ac9d-08ded21bb38b
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|DS0PR12MB9446:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46b93903-a93c-46f9-d7df-08ded21bb6ae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: apxK6i7Yh4hPKyb8rWeQylhZ8c8ILI2D0DuVNcoo4/CPJ4UZN+38W7KDtYX4vI2sRqe52KguKZ2cGlkEQbYyRHHJAUwSZ7ddnyzbM/MYoBaDwKtQXel4ZWN/JIzqBvJnkKk2dSY0oocnoekYCaqhtrzBs7hUbQTk1a26KRQk9/2cc75Di4h7l7u+WFjiR6g0rlN+XLFZscrYoShb7C7KY0EFuHyU/Sy1jyoaxR2XQXYHH4sSnQVQ6bcVOpCCOtV6SLhO08QL/hNuac8DvhOQKdmB3GUfL0+XTI49Y9Ca30/kK1UR4Z+83iuzJ46UEYkaqsjD2MPe9NVcMJ0p7yz2tLUga2sxUY2MI3uKDb/qUxni5PPNT6On1oSFTLsf0DOVC536MbyFyCMkxZkw0Sm/0u4GnFefe6tZN7u5Hfn9gyCPGNywMzgVvZpuFDBuCOOSK8DuPXW2uymMzd70Xj0i4o8fa+iVNVteopJZvu21cNN8sfbA/ngHFyQLPkfVXmOLWM7tur/jaJ3cMkBbXSPCW+WIMcNn5yAICTdXa9gurtx9ICoxxzDfhtwPdkya3Z6s5a5YRI/7DE7wzf7hbI+MlJpCvnQm6EtNaBujFe1aWJvcwDkdBNjD1oZBQ4tRVW7k7z088SX3W/FvRVJg0Y7NTlF+u9C4WFruYXW/gTjUSuSY3DxWoXztRo7NEExnurlnrKc1K1bNRLLWW6NgvGJ5GQ==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|3023799007|11063799006|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: op2DpdfStCO68OzoEiTclDBH2wbkh0O80lx6C6ed5yT4o4TSo2/zbFF3kFuvoHVBsA7X8pLrJO7Jx4P8TNIeBetFnz/tyQdv8ZQRS9C/Vudpqro39F8GBFqjESu7eGwxlc6G7nhS9pYiZN7UMDrWnK/VjbvHwnzDHqpZqU7auDOb0hryXjh5wbP5tjvhlgRqESf7DCqPrdfJ8TTiJYBwfGS3qPDLk0bmTVFOUVUAj5ZovA1x6ZECAG0rDmWA8hUqanFHBQkBT/nKd+t/vt27lcZrckdA0d3S1EhoKk+QcB9CeruJbokmDsRJPbjSoyrYtqgQNAkTXV/nlRpVbugxlRHFlaA2tLan0HQMpx7jxNEid8nAuMT2mzlFfcurlpr55PZxlT5S4HT4lfm5CiMZa9fEMWE4CPEYcgXs6Eb+0HTUDPlbCwPmOFmwCRNzgzlkxPcLdWpxAkarGPcCgequP8suNNZkK9Ds2g+SKFcvjKHXB46jREfJ5ia7daUuwAuU23Rp5vrctgQv+UBmd5yvS+/JJLu7p5xsmzkRqJ86b7Uou1z8M+47OLIn2I6GzILi98RqZ+En/woMya3Ob1q2PRG1jCFtu3idqQQjx1qhBNbtz/0Ag4LJLQuEiuR7dyChdB/xf45jorTEh/tPHoqQefjhwkEDAH/zd8mtk1cAIqKF/QFDxY+Wy1HRFGCjO5tUVSDFZSFQCiBSdmF3uRHbyQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(3023799007)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: g1BFAVJY27WuI39j/s0KiK5PokzivxFbv9mlJ6VsMXr3C6JnnN1TT7n4ez2ygLvtgRzYGgWCBFXFcGhEmxNGHLInFCnGNx7DKJJ04FYQmVoNjzMqEFXCnvrDoTZDLxXbShhTUjnO9KDvzTVsOkesOZaobuYoLIBeAYaIt2eDtoAdwjLLM4B/M19Sv2MMJuyH3TIFnT4bbGsC2Ra7zd8qd2xIE7kMq6kcVfsIZZVMKXKmMnb7MbWj+rd2IO5yp4QkuwLPS5Arp56y5EYYb0UfQARkliTvYMcfAVQGYOVhn7Kyej0NJdmUXT4wT5PhMkeuggGrzT8t+w3nmAr1YoD2zbZL/KoV7znUajXNrjXfBIgVOdfB5vY7dl3OASvFgKibqm0neyUEtD9GuoF5lQ5RmskZVHtla7Hxnnr8ixkqaYJQ9cXSaT2gDedT0R996qWH
+X-MS-Exchange-AntiSpam-MessageData-0: xxQrdw2TNW0etpJA07h6Xk89ii9/gkJmj8VpI5sE3fNtAeNT6I8y09yjlPwAyoK+sgCDbDkYBJknH26pSjiy02k6b1mxpH7FxcPcTYzKdH1wCs8kDzjU9VWvCAhYosiJpN0YL6m2XQeQdf5lznYjRrRbmhwO3JQ4OyD3mb9nS/5a5FNagXSlLc/yoA1EAbruKwFGLRhh+2plyZrZEhaRm6Nzwmu0+9JbkFcGdHdOoP+tBSWZx5MQivbi291ADH1IQslRGPccKzHGw7HOxnrBCa/Pm+LQ41o4p/8o3D2cQPxYbw0bd7MyDF8fqpqLlARDWssmyh6glz717aEVY1Wny0pgMH/4tq6+UqrszM++2+OPGz1QXhad5f667H7U/zX+CpYn9ItjH1spxESfxGM+xGv7I1guhxx82q6w4dbsg920GkAgSTiITqDeN3lbrCwG
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 18:09:15.0063 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b31a4a21-c556-46f5-ac9d-08ded21bb38b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 18:09:20.2668 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46b93903-a93c-46f9-d7df-08ded21bb6ae
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7683
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9446
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,42 +117,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Peichen Huang <PeiChen.Huang@amd.com>
 
-[WHAT]
-Use an early guard for invalid DMUB notify callback registration inputs.
-This keeps the same accepted and rejected cases while removing the
-redundant else block.
+[WHY]
+shift and mask are not correctly initilized in create_minimal functions.
 
-Assisted-by: Copilot:GPT-5
-Reviewed-by: Chen-Yu Chen <chen-yu.chen@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+[HOW]
+Correct initialize necessary variables.
+
+Reviewed-by: Cruise Hung <cruise.hung@amd.com>
+Signed-off-by: Peichen Huang <PeiChen.Huang@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c | 4 ++++
+ .../gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h | 2 ++
+ .../gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c    | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c  | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c  | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c  | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c    | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c  | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c    | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c    | 4 +++-
+ .../gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c  | 4 +++-
+ 11 files changed, 33 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 4f5dd2158417..97cb2a09153d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -124,12 +124,12 @@ bool dm_register_dmub_notify_callback(struct amdgpu_device *adev,
- 				      dmub_notify_interrupt_callback_t callback,
- 				      bool dmub_int_thread_offload)
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
+index bcb791d74189..f57f3ba68a02 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
+@@ -516,6 +516,8 @@ void dcn31_link_encoder_construct_minimal(
+ 	struct dc_context *ctx,
+ 	const struct encoder_feature_support *enc_features,
+ 	const struct dcn10_link_enc_registers *link_regs,
++	const struct dcn10_link_enc_shift *link_shift,
++	const struct dcn10_link_enc_mask *link_mask,
+ 	enum engine_id eng_id)
  {
--	if (callback != NULL && type < ARRAY_SIZE(adev->dm.dmub_thread_offload)) {
--		adev->dm.dmub_callback[type] = callback;
--		adev->dm.dmub_thread_offload[type] = dmub_int_thread_offload;
--	} else
-+	if (!callback || type >= ARRAY_SIZE(adev->dm.dmub_thread_offload))
- 		return false;
+ 	struct dcn10_link_encoder *enc10 = &enc20->enc10;
+@@ -529,6 +531,8 @@ void dcn31_link_encoder_construct_minimal(
+ 	enc10->base.features = *enc_features;
+ 	enc10->base.transmitter = TRANSMITTER_UNKNOWN;
+ 	enc10->link_regs = link_regs;
++	enc10->link_shift = link_shift;
++	enc10->link_mask = link_mask;
  
-+	adev->dm.dmub_callback[type] = callback;
-+	adev->dm.dmub_thread_offload[type] = dmub_int_thread_offload;
-+
- 	return true;
- }
- EXPORT_IF_KUNIT(dm_register_dmub_notify_callback);
+ 	enc10->base.output_signals =
+ 		SIGNAL_TYPE_DISPLAY_PORT |
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h
+index 3cf587527991..88ab9684e207 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.h
+@@ -246,6 +246,8 @@ void dcn31_link_encoder_construct_minimal(
+ 	struct dc_context *ctx,
+ 	const struct encoder_feature_support *enc_features,
+ 	const struct dcn10_link_enc_registers *link_regs,
++	const struct dcn10_link_enc_shift *link_shift,
++	const struct dcn10_link_enc_mask *link_mask,
+ 	enum engine_id eng_id);
+ 
+ void dcn31_link_encoder_set_dio_phy_mux(
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+index 97c2cd7045b5..e6d7da830440 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+@@ -1191,7 +1191,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1203,6 +1203,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+index fbfedfca211f..ef2038efbfc2 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+@@ -1248,7 +1248,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1260,6 +1260,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+index 4e283e4c238c..dbf9cb934c76 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+@@ -1190,7 +1190,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1202,6 +1202,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+index 0c8b37520ec3..3a776959767c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+@@ -1183,7 +1183,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1195,6 +1195,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index c94136bf2dcf..800a030990bd 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -1189,7 +1189,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1201,6 +1201,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 42c8c01efb0b..8e276c333dbe 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -1169,7 +1169,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1181,6 +1181,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+index b7afba548fd4..e2368a5c1eed 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+@@ -1176,7 +1176,7 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if (((unsigned int)eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if (((unsigned int)eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1188,6 +1188,8 @@ static struct link_encoder *dcn31_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+index 44728894dceb..c999db12d0a5 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
+@@ -1882,7 +1882,7 @@ static struct link_encoder *dcn42_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if ((unsigned int)(eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if ((unsigned int)(eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1894,6 +1894,8 @@ static struct link_encoder *dcn42_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+index 669bd5eb4c8f..60cbaf4f6fdf 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+@@ -1824,7 +1824,7 @@ static struct link_encoder *dcn42b_link_enc_create_minimal(
+ {
+ 	struct dcn20_link_encoder *enc20;
+ 
+-	if ((unsigned int)(eng_id - ENGINE_ID_DIGA) > ctx->dc->res_pool->res_cap->num_dig_link_enc)
++	if ((unsigned int)(eng_id - ENGINE_ID_DIGA) >= ctx->dc->res_pool->res_cap->num_dig_link_enc)
+ 		return NULL;
+ 
+ 	enc20 = kzalloc(sizeof(struct dcn20_link_encoder), GFP_KERNEL);
+@@ -1836,6 +1836,8 @@ static struct link_encoder *dcn42b_link_enc_create_minimal(
+ 			ctx,
+ 			&link_enc_feature,
+ 			&link_enc_regs[eng_id - ENGINE_ID_DIGA],
++			&le_shift,
++			&le_mask,
+ 			eng_id);
+ 
+ 	return &enc20->enc10.base;
 -- 
 2.53.0
 
