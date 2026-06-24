@@ -4,123 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D2FCDE002
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 15:14:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 467E0CDE003
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 15:15:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D625F10E09E;
-	Wed, 24 Jun 2026 15:14:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C982110EF8B;
+	Wed, 24 Jun 2026 15:15:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ONjUj9Pm";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="JrormuXq";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80A4610E0A0
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 15:14:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YvQMZBWTpKRUXjEQ2/mUXTnPtToyo8hA7c+Zde5THehCnaPUcOnAgdv483dj9ST9tdoMR/aTu6+haDg2qTuvszPW+06SAchZH0hFjIA2lscsxE2Nek1gpkBKpSiNX016r+y5UbNADOe7SWC6NRzCY48lXgX8Ahnsy5WFXjAb5SRkBkK07UJW+aIyaZ9c70Y8Rj70wfkXmx/pvHER6dYr+5aP1RzMloGuJFajQuZEq0ozvk1ACBsZi6ccvQeLIa05Q+7fW6AkdSWvvbEaCPDCxMHrJPmT72DSiOmWt1Qul9ZnkuvCy08LHpRq1H7tOlmSjqke3yefLIYx+tHSy7/+CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dLI8Ce1SyDKYb5LzV1n+rzqRpXvHEQrQ7QVcnHWyArY=;
- b=MOCoFT1Q8QpzY41cspTPNo9zEdNcmmQFb4+Z3g3TRNTBFyesjNYFPbpt0wXvH7/vlMlttprAv0t1A3U/WXDLPAtnA6CHzZHXehbN2EgJG8oFnsFGLmdTBchzQz2mANUZvMujy/N96A+XyY5DeSX2AMgp88QEHQBwJDmM2Qn/DxzPpCtsST19EzHGThhYL9c62nGFuT5LQcKs/V9rhRKuczRpCPYFCPImGjgA6zSCU1azJOjxmSbxTmkw9rUHEOOBckc1wJ5/nptIfwE3EwuJSueHtIZzq7Cwmm0diSPaVADRWVa6BPJVsGNtI8pjDZKAMxlaOQJjgZzcFUbRankJtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dLI8Ce1SyDKYb5LzV1n+rzqRpXvHEQrQ7QVcnHWyArY=;
- b=ONjUj9Pm++fJOlDklETFsH1epzu44QDJPeuYuTPLPAQ7AqIoHs0X6KLAOGNM9y7WsjbeOqWZWYTfUN8MIbV9odPXd4fn31lICc7dC7DfRhklVggqqyb/yXhlFT+8j7PkTM9sk82RaYBTYjbMjwA6Xtb9Ki5N9lru4x0WfUDAQsM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CH3PR12MB7618.namprd12.prod.outlook.com (2603:10b6:610:14c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Wed, 24 Jun
- 2026 15:14:04 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.21.0159.014; Wed, 24 Jun 2026
- 15:14:04 +0000
-Content-Type: multipart/alternative;
- boundary="------------kqfaLqTpK01Pia5bduDDIgnB"
-Message-ID: <1022cda1-2649-4914-a742-d692436c3ac2@amd.com>
-Date: Wed, 24 Jun 2026 11:14:02 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/amdkfd: support kfd map bo to kernel
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: philip.yang@amd.com, Hawking.Zhang@amd.com, Bob.Zhou@amd.com,
- Harish.Kasiviswanathan@amd.com, jamesz@amd.com,
- Vladimir Indic <vladimir.indic@amd.com>
-References: <20260624142727.1946258-1-James.Zhu@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260624142727.1946258-1-James.Zhu@amd.com>
-X-ClientProxiedBy: YQZPR01CA0007.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::25) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 072E410EF8B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 15:15:03 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490ace40f4bso11843835e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 08:15:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1782314101; x=1782918901; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=YtURglbfLV4XbGOwQoKjLfQal1ocgll1cKsA/m9+c4Y=;
+ b=JrormuXqO7XiikegK8FWl7veJ3Hioqh7qf/I9lZJpmOpoLLHKADyXrs1s5UsdNsdoj
+ cOi2lLqlBOTM/Cw6WaBrg7njg7T99TJgiCkNc3UVNHCqoYBb4h5LdOiH1f/O7wvH4g7J
+ yxkSkjiIQtZPB6aUWkquV0/QfBsbYLcR+Q3JuKw2cVy1cW2Z+X3oVYy3wgX/tXKu+lqS
+ hb9lRQMMAXZoNy+nDLJArj6BqKDYU8vE0Nx4kNxBDJ5X4A6WgxJDelki8Cf00E+uaSoZ
+ MSmXH+cmm3419jkDrHp2gMJXgoAWtJpaFUw3PP0nqnr8Fy5W8zu1WyNUMwK/JuFFvZu0
+ NSsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782314101; x=1782918901;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YtURglbfLV4XbGOwQoKjLfQal1ocgll1cKsA/m9+c4Y=;
+ b=Ye4DJWwR8ttnXiEKCDlSv3WCORvcDEDGLc2K47AkU6DK2U0B8gHOKOUcvCMgLRWnH9
+ s5BLvyc0QVjtCD47dUn5gPRwjTrQNYVTpnpTYrH7iOPw1oIWs5Oq+MYuYVXfbLgY5jwr
+ x3cOn/eWRyYP5XCGAN3uG7iEVjsjQ6RxMnT8euOrCtQjsjkC8QqoK2H63TSQlYgea/mz
+ /1lnOeJSHQq0Qh3ELcaxrQrnXHPkuAgrN1ScZhryx/sYKeZo9oMKSXO0jCspKUK0Fwwc
+ FBgyRJAqOrOjvOrMOnffIOjHZzqM1wrfKDMh4YQwTtX8WeEjvfDwj4oumuAXg1lxi5vQ
+ i3Vg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/pSQA17lefQfwpwilidtS3Ftq6bC95JRlqbmijyNZ772DjokSR/SZm6o/2tU9DbJU5MC5kUdff@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3OHPsemT4fI/pbXSLUAz6RaZiX1I5Mu+8qN1sTS3WQzwuLwSn
+ kdnHamfdeeLxI4z2PkaD0vg/9I4WO1Z1U6AmJTrCO91isUdneiHhLYexX0HxSHgQHpU=
+X-Gm-Gg: AfdE7cl35ZaDnIuIpeTX0Eix42VEWOEX2x1Uk/syEVOzKSWQwtDehv6PUY1UcmklUYd
+ Kdeb+VhmBSDmztKPrJSEmIAEmsnAkvFZahjtOszFelY49zkVXXvyoknKoyzlNhr8ZW1zAgFSE0e
+ IC8AT7Ax6lQM3DcO9FiMR6iELefcbKWZNu2XovBOAhP0+xmr8yTk7FoixeMVfR9saofmOX6EtpL
+ VcFa+0SH2DOXspUWi5+TKAU03zNAAF1P0mcbbcRYIJC59s9PG4DpOxpVZEfR1jZ0S2pFWAMqiZ2
+ GMZ83ZYXstbyd8xGpb1L2S02ntkal7hdOy0dyOKPzbauHUxN+72FN/1atCuBQS8scfHmWHpZ3EP
+ qvgkJBWkUOEEgGdLhPNPK/v+7wH4DYCBbF/4aVDgUF2Sw9KG5leIT5jiSt2yH7pv9zsozb+zwSY
+ +OWgEnyDNHp8l1p5f8hvx68ZLBXYVagqRM20XVU8FiCu2s
+X-Received: by 2002:a05:600c:350a:b0:490:b473:8f78 with SMTP id
+ 5b1f17b1804b1-49260873705mr56697925e9.17.1782314101040; 
+ Wed, 24 Jun 2026 08:15:01 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4926105821esm41168645e9.1.2026.06.24.08.15.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Jun 2026 08:15:00 -0700 (PDT)
+Message-ID: <50b62ba1-c709-4f9e-818d-956bc431c89b@ursulin.net>
+Date: Wed, 24 Jun 2026 16:14:59 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CH3PR12MB7618:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa2c21d0-3a14-40ca-117b-08ded2033a7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|22082099003|18002099003|8096899003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 6EdIR+7Yyud0Gf7ZgHgSSyhLTEeb/3QNRWyC7D1ccIpw4fij36HuS6ZK21vwV/Zx2jMzCXimvUW6rGg+FBggPQdKg0Kn1shf3BTIB05jYp6fNJmvnxiBTtHycOjDB5NEF1qYAF6LeNNdW6ueZIAPd7IgElUo3C6I5vIynyIWyO7mEii6O5zuMuWGxnxBrwBBzTleP8BAznh+os58LAEvSWXO1Nv9q/OdtGWvAqjPWrqoXrL3z61umAki3tCPawmk0KuiqIfYMfGNcHyML09SbURXoDVJjMlJleu5txqTrtYY1g8xSCMUaUgmLG3kRdOZ+ab+/ODHW/Bl0hAANplnjVf33iQ/Ryf5wybTbBdNhIDA4vFbdH+6gjYIMFmfoSTWFow9CfCAY9U7fPDvytb4LY6bQh/82vHTxccY52PDE6X4RtLrbOY/znIZ4HK1OESl5FWlECmSykMx/PaeF+NM0ZjmhA8NFv14+tz1zq6bK0nYiS3WcmCeuw+14hMJJ/tEVUcwtmgR5lAKzms0/XgRWDfpfGnzZbyfuVt5oP148JoIbT5ZWPiZcc/Noru/gNSvafnx/w1fFPYk/pFmdH9Z8vEXpaiS5/vUbJtihZyvqM2kJhOP9x6rY3/KgYWjUcUPJq8jNDSV939Yh3/+WjMu4VIjbdZXt7J+5QAZzCP/IBI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(22082099003)(18002099003)(8096899003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHMxZHZHRHN4MEY3cmtsdHBYOGFESHJvYkp6YmVqSTRxQmdFUjBEdWJJUEt5?=
- =?utf-8?B?MGZ2VG5TYXFxTW9yRFEyTWVvQzFkZE9RZWhpZ3dhYW9RNG55a1JlNC9mbnR1?=
- =?utf-8?B?dmY4ZW1EVWY4WkJ4a2JOZWVXanFNU2xEYjkvbmpwZU84aEFOZDF6bXhXcW1X?=
- =?utf-8?B?c0NDM0JFL2doRTJmbW55WGZLcEhuOWgzeGtMY1Q0dWhHOFI3U2dLcUFHTkJz?=
- =?utf-8?B?Q1FFcURab0R2RzdhYmxaOE5ieWU0WnZjSXJGV05pSGk5WFZaOUhJTDJRNkUv?=
- =?utf-8?B?dDFHbzliZG15cWs5VHd2NThqY2VNaEhkV3lQUCtJUnpUV2RYKytvNnBvNVF5?=
- =?utf-8?B?cFFkV1NKR1gwOTZ3TEFTZzg4OUZOVk1Kd25kOSt6WW1WL2NaaWZYVUFjY1Q5?=
- =?utf-8?B?UUl5ZmhZT3pLMkVuazUrWGtkb1dXVFBrd2FpTFEwQm9adG5sVlEzUy9sM05x?=
- =?utf-8?B?bEVvUGRIaHM1bFpkR0o3RzdhV2tWSVdiTmtRRGt0czgveXlZc01oTU5OR3JT?=
- =?utf-8?B?ZHJ5Qm8yeVpBeTdpSk5NNG1zQXplakN2aDVoUndvbnQwWnE1RVRMY3o5L1hB?=
- =?utf-8?B?VTBIL1cwbkRBb2JVdSszV1EvamJjTmJTK0lBbm9DZjJYMkNDaFVpaHJaN3BE?=
- =?utf-8?B?Y3hxTHVjS3ViSjlFMkp4cnVPVnFvN1hHVXZ4T0FEVWpRWUpiSkNqdkF5YTI5?=
- =?utf-8?B?QUxacnh4ZzBEb2gya2dSVjJRWmJPYmtKY3p1eFhYR1d2N3h6ZGh2cStsUWcr?=
- =?utf-8?B?WlVXSkd4ZkhnZVJjT3FzRWJnK0xVb0YyemNsZ3hacXlMdGxaaXdQZGU3QWRX?=
- =?utf-8?B?WlZ3ZmxnSW5GOGNneEVCSS9uT2RqaC9wa2orUktNQWh0WUIxbXdTTFpmOFg1?=
- =?utf-8?B?L2V0Nml0Y3BscHNNSlhHeFF5OGNtSTNwdnBRU3NwM0Eva25ISzFJZDNoc2Vs?=
- =?utf-8?B?UnE1M3Z5NitTaHF2b0pTaktsZVpqR0hHcmVaU3p2QnNyRnNDb0xaVmVwQmVl?=
- =?utf-8?B?WmRzNStEdmh5ai9lejJaR3Vub09tUTBCbVA1M0krODEycWgxdGtlQ01XSE9M?=
- =?utf-8?B?Lzk4K2RZaVVCYWhabGhBVVRZTmZqd09pNlFqeHdnZDgza2IrNnorZ0hTMy9q?=
- =?utf-8?B?SnRpUUtNQnhYOFNSNUVZdVM3VitzQ3BwT2tHaXl3QVEvQzNoN0xySnFQemts?=
- =?utf-8?B?bW5uN3M5bjZaOTNQTFliRWVKNy9lTmQ0VmtSQTBkUlRWdlVYNFJEMDFCS2xn?=
- =?utf-8?B?bHhlYXFETU9tOFZxRU9CVkpjQXhQQnJZQWpFR1dvTm5xUndaa2RibTNoNldt?=
- =?utf-8?B?WFJoRmJmSSswTDBrUlRpSGcxZ0lVQzVpSHJSYUhzTDVlb1B4cUN0Z0VMbWpB?=
- =?utf-8?B?NkZJd0U5alB6L3lkYkxTeGVPWlBNbEg5QitxZVpmVFpnVERMaTZWd2JESkpj?=
- =?utf-8?B?OVdyNHZ6T2F1VFFWVTNmOFRPS1JSL202MTM4N25qMm1vbGhJZDRkb1B6Q0VC?=
- =?utf-8?B?L21wYlk5b2F4VTRaNU4wQzVHc29VMTlUb2hwcFl6aHhpT0g0bThod05ETmV4?=
- =?utf-8?B?SmlGbktZTldZMjlwZXlvbWtpWDhvc0IxVTRRR0ROSFR4MDNzQU9STTdZbUhS?=
- =?utf-8?B?SGZmQTJhN2FTMzZBYlg1VDlSa1o3TVRrZTg4ZG5pRFhaYWRFamJqdUJUYlhx?=
- =?utf-8?B?ZUxhMTBWUzViUmV0eHJ6dFZwamFZU09qOVNoQVVDUElScElqY1pMWGNxbVVu?=
- =?utf-8?B?RDZJckpVQ3NVTlllRUtWamtJWlhqTEE5YUtZbkZ5OHR0MVhqOWxRMy9mZ21i?=
- =?utf-8?B?YjVZQmNZT2R0cTRaYjdzZnYyRENKTkdrS0lNN1Jha09aNlZXbkVONm1CSzFV?=
- =?utf-8?B?bGNaTE54VGJJMGt0WkhZdVRialRJQ0p3YytVMThLMkhmdVhLMWNhcTZTNWdX?=
- =?utf-8?B?aTRFb2h2QjRVaW82SUI1eWNmRDJIdG40QjNaNjBOMDZOOXl5VDJNREsyejd6?=
- =?utf-8?B?Vk81Nk54dk4rZEFMdUo2N1dweHdIUUtrZmtLT1BmNExCbEpuZ1pYcmZlMlJC?=
- =?utf-8?B?REpFcVY5anNTaWN3Y0VaUFAzeEF6cE4va0VxU2M4aWIxaHFOQ3JRWXhNbmJy?=
- =?utf-8?B?Nlo5b24zZDRhcjl4MDRMZWpIeXA2dDMveWluTGgvY2JCWWVBYzJjZU9lZjBU?=
- =?utf-8?B?a2NJWW9pOEtSQWl1Ti94L2FvaGdXK3dyNzFOcVZxM2ZHeDM3dkx2aWNhcCs5?=
- =?utf-8?B?SEF4ZGhpdVBJa3QrQXhBVTdwUzNiN1BFM296YUpGVWs4WmJZdlhJYThMUXN4?=
- =?utf-8?Q?mzrU4Cf7JSQyfQ4Hgk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa2c21d0-3a14-40ca-117b-08ded2033a7a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 15:14:04.2349 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R4rme07nR0TAJArxZX3y3vCvDcbuqm4LKa0JmObVCEqSYAzyVTYefnItPmBS5Nza
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7618
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] drm/amdgpu: ACK the retry CAM after VM update finishes
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+References: <20260529103059.21470-1-timur.kristof@gmail.com>
+ <20260529103059.21470-3-timur.kristof@gmail.com>
+ <55bb616f-343f-4189-8ef8-e9f20429cdbb@ursulin.net>
+ <2746166.fDdHjke4Dd@timur-max>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <2746166.fDdHjke4Dd@timur-max>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,337 +97,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------kqfaLqTpK01Pia5bduDDIgnB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On 24/06/2026 15:52, Timur Kristóf wrote:
+> On 2026. június 24., szerda 16:31:20 közép-európai nyári idő Tvrtko Ursulin
+> wrote:
+>> On 29/05/2026 11:30, Timur Kristóf wrote:
+>>> Add a fence callback to the VM update and ACK the retry CAM
+>>> after the VM update is finished. Previously, we would ACK it
+>>> immediately after calling amdgpu_vm_handle_fault() which
+>>> caused a race condition that was likely to trigger the same
+>>> interrupt again, causing the same fault to be handled
+>>> multiple times.
+>>>
+>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>>> ---
+>>>
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     | 28 +++++++++++++++++++--
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  8 ++++++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  2 +-
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c |  2 +-
+>>>    4 files changed, 36 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
+>>> 26aea960e2759..21c8d87477448 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> @@ -545,6 +545,16 @@ void amdgpu_gmc_filter_faults_remove(struct
+>>> amdgpu_device *adev, uint64_t addr,>
+>>>    	} while (fault->timestamp < tmp);
+>>>    
+>>>    }
+>>>
+>>> +static void amdgpu_gmc_retry_fault_handled(struct dma_fence *fence,
+>>> +					   struct dma_fence_cb
+> *cb)
+>>> +{
+>>> +	struct amdgpu_fence_cb *afc = container_of(cb, struct
+> amdgpu_fence_cb,
+>>> cb); +	struct amdgpu_device *adev = afc->adev;
+>>> +
+>>> +	/* CAM index is the array index of the current callback struct */
+>>> +	adev->irq.ih_funcs->retry_cam_ack(adev, afc - &adev-
+>> gmc.retry_cb[0]);
+>>
+>> Is the "afc - &adev->gmc.retry_cb[0]" part correct? It will be the index
+>> of the array element, while ->retry_cam_ack() expects the content of
+>> that element, no?
+> 
+> Like the comment says, the CAM index is the array index.
+> We just need the CAM index in order to tell the CAM to ACK the current entry.
+> The contents of the array are just there to make dma_fence_add_callback() work
+> with this callback function.
 
+Ah you are right, I got confused. But it is also a bit bad, and I mean 
+not just the array sizing dilema from lower in the email. But since the 
+cam_index comes from the hardware and then below we blindly do:
 
-On 2026-06-24 10:27, James Zhu wrote:
-> with different domain.
->
-> Signed-off-by: James Zhu<James.Zhu@amd.com>
-> Reviewed-by: Vladimir Indic<vladimir.indic@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 13 +++++++------
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c          |  5 +++--
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 10 +++++-----
->   4 files changed, 18 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 5b49fa50a47d..e40e71f35bb9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -336,9 +336,9 @@ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
->   int amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv);
->   int amdgpu_amdkfd_gpuvm_sync_memory(
->   		struct amdgpu_device *adev, struct kgd_mem *mem, bool intr);
-> -int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
-> -					     void **kptr, uint64_t *size);
-> -void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
-> +int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem,
-> +					     void **kptr, uint64_t *size, uint32_t domain);
-> +void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem);
->   
->   int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 5bb3e28441a5..ec0901aa923c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -2271,11 +2271,12 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
->   	return ret;
->   }
->   
-> -/** amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel() - Map a GTT BO for kernel CPU access
-> +/** amdgpu_amdkfd_gpuvm_map_bo_to_kernel() - Map a GTT BO for kernel CPU access
-Map a GTT or VRAM BO for kernel CPU access
->    *
->    * @mem: Buffer object to be mapped for CPU access
->    * @kptr[out]: pointer in kernel CPU address space
->    * @size[out]: size of the buffer
-> + * @domain[IN]: domain of the buffer
->    *
->    * Pins the BO and maps it for kernel CPU access. The eviction fence is removed
->    * from the BO, since pinned BOs cannot be evicted. The bo must remain on the
-> @@ -2284,8 +2285,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
->    *
->    * Return: 0 on success, error code on failure
->    */
-> -int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
-> -					     void **kptr, uint64_t *size)
-> +int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem,
-> +					     void **kptr, uint64_t *size, uint32_t domain)
->   {
->   	int ret;
->   	struct amdgpu_bo *bo = mem->bo;
-> @@ -2303,7 +2304,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
->   		goto bo_reserve_failed;
->   	}
->   
-> -	ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-> +	ret = amdgpu_bo_pin(bo, domain);
->   	if (ret) {
->   		pr_err("Failed to pin bo. ret %d\n", ret);
->   		goto pin_failed;
-> @@ -2336,7 +2337,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
->   	return ret;
->   }
->   
-> -/** amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel() - Unmap a GTT BO for kernel CPU access
-> +/** amdgpu_amdkfd_gpuvm_map_bo_to_kernel() - Unmap a GTT BO for kernel CPU access
->    *
->    * @mem: Buffer object to be unmapped for CPU access
->    *
-> @@ -2344,7 +2345,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
->    * eviction fence, so this function should only be used for cleanup before the
->    * BO is destroyed.
->    */
-> -void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem)
-> +void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem)
->   {
->   	struct amdgpu_bo *bo = mem->bo;
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index 3ffe9a52f3e1..d6fa5d71f581 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -314,7 +314,8 @@ int kfd_kmap_event_page(struct kfd_process *p, uint64_t event_page_offset)
->   		return -EINVAL;
->   	}
->   
-> -	err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(mem, &kern_addr, &size);
-> +	err = amdgpu_amdkfd_gpuvm_map_bo_to_kernel(mem, &kern_addr, &size,
-> +						AMDGPU_GEM_DOMAIN_GTT);
->   	if (err) {
->   		pr_err("Failed to map event page to kernel\n");
->   		return err;
-> @@ -323,7 +324,7 @@ int kfd_kmap_event_page(struct kfd_process *p, uint64_t event_page_offset)
->   	err = kfd_event_page_set(p, kern_addr, size, event_page_offset);
->   	if (err) {
->   		pr_err("Failed to set event page\n");
-> -		amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
-> +		amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
->   		return err;
->   	}
->   	return err;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 71b36a4613fa..21a90fc3adff 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -736,7 +736,7 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
->   	struct kfd_node *dev = pdd->dev;
->   
->   	if (kptr && *kptr) {
-> -		amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
-> +		amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
->   		*kptr = NULL;
->   	}
->   
-> @@ -776,10 +776,10 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
->   	}
->   
->   	if (kptr) {
-> -		err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(
-> -				(struct kgd_mem *)*mem, kptr, NULL);
-> +		err = amdgpu_amdkfd_gpuvm_map_bo_to_kernel(
-> +				(struct kgd_mem *)*mem, kptr, NULL, domain);
->   		if (err) {
-> -			pr_debug("Map GTT BO to kernel failed\n");
-> +			pr_debug("Map BO to kernel failed\n");
-print out err code
+	if (dma_fence_add_callback(fence, &adev->gmc.retry_cb[cam_index].cb, 
+amdgpu_gmc_retry_fault_handled))
 
-pr_debug("Map BO to kernel failed err %d\n", err);
+Should hardware manage to send two faults with the same cam_index when 
+the previous one hasn't been handled, that is the very same callback is 
+already installed and unsignaled (expect the unexpected), we have just 
+upgraded the hardware bug to a kernel crash.
 
-With those fixed, this is Reviewed-by: Philip Yang <philip.yang@amd.com
+If I now understand it right, you want to "remember" the cam_index 
+received so callback knows what to handle. Hmm.. Allocating memory does 
+seem allowed if I follow correctly that amdgpu_vm_handle_fault() is 
+calling dma_resv_reserve_fences(). So unless I am missing something 
+perhaps kmalloc of struct amdgpu_fence_cb would be fine after all? And 
+if so you should also probably rename it to a less generic name along 
+the lines of amgpud_retry_fault_cb or so. Workable?
 
+Regards,
 
->   			goto sync_memory_failed;
->   		}
->   	}
-> @@ -1140,7 +1140,7 @@ static void kfd_process_kunmap_signal_bo(struct kfd_process *p)
->   	if (!mem)
->   		goto out;
->   
-> -	amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
-> +	amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
->   
->   out:
->   	mutex_unlock(&p->mutex);
+Tvrtko
 
---------------kqfaLqTpK01Pia5bduDDIgnB
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+>>
+>>> +}
+>>> +
+>>>
+>>>    int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
+>>>    
+>>>    				  struct amdgpu_iv_entry *entry,
+>>>    				  u64 addr,
+>>>
+>>> @@ -552,6 +562,7 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device
+>>> *adev,>
+>>>    				  u32 node_id,
+>>>    				  bool write_fault)
+>>>    
+>>>    {
+>>>
+>>> +	struct dma_fence *fence = NULL;
+>>>
+>>>    	int ret;
+>>>    	
+>>>    	if (adev->irq.retry_cam_enabled) {
+>>>
+>>> @@ -564,8 +575,21 @@ int amdgpu_gmc_handle_retry_fault(struct
+>>> amdgpu_device *adev,>
+>>>    		}
+>>>    		
+>>>    		ret = amdgpu_vm_handle_fault(adev, entry->pasid,
+> entry->vmid, node_id,
+>>>
+>>> -					     addr, entry-
+>> timestamp, write_fault, NULL);
+>>> -		adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
+>>> +					     addr, entry-
+>> timestamp, write_fault, &fence);
+>>> +
+>>> +		/* If the update is already done, ACK now, otherwise
+> when it's done. */
+>>> +		if (fence) {
+>>> +			adev->gmc.retry_cb[cam_index].adev = adev;
+>>
+>> Why is 16 retry_cb elements enough? I see in the code cam_index extraced
+>> from the IV entry with a mask such as 0x3ff.
+> 
+> I think this came up in a conversation after I had already submitted the
+> patch. The maximum amount of CAM entries are specified by the
+> IH_RETRY_INT_CAM_CNTL.CAM_SIZE field.  The content of the field will need to be
+> interpreted as something like this:
+> ((CAM_SIZE + 1) * 64) = (15 + 1) * 64 = 1024
+> 
+> It is a good question whether we actually want to statically allocate that
+> many items. We should very much avoid doing dynamic allocation in the page
+> fault handler. I'm open to suggestions on how to move forward with this.
+> 
+>>
+>>> +
+>>> +			if (dma_fence_add_callback(fence, &adev-
+>> gmc.retry_cb[cam_index].cb,
+>>> +						
+> amdgpu_gmc_retry_fault_handled))
+>>> +				adev->irq.ih_funcs-
+>> retry_cam_ack(adev, cam_index);
+>>> +
+>>> +			dma_fence_put(fence);
+>>> +		} else {
+>>> +			adev->irq.ih_funcs->retry_cam_ack(adev,
+> cam_index);
+>>> +		}
+>>> +
+>>>
+>>>    		if (ret)
+>>>    		
+>>>    			return 1;
+>>>    	
+>>>    	} else {
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h index
+>>> 77eb153802845..3bfb06e011a86 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>> @@ -27,6 +27,7 @@
+>>>
+>>>    #define __AMDGPU_GMC_H__
+>>>    
+>>>    #include <linux/types.h>
+>>>
+>>> +#include <linux/dma-fence.h>
+>>>
+>>>    #include "amdgpu_irq.h"
+>>>    #include "amdgpu_xgmi.h"
+>>>
+>>> @@ -214,6 +215,11 @@ struct amdgpu_gmc_memrange {
+>>>
+>>>    	int nid_mask;
+>>>    
+>>>    };
+>>>
+>>> +struct amdgpu_fence_cb {
+>>> +	struct amdgpu_device *adev;
+>>> +	struct dma_fence_cb cb;
+>>> +};
+>>> +
+>>>
+>>>    enum amdgpu_gart_placement {
+>>>    
+>>>    	AMDGPU_GART_PLACEMENT_BEST_FIT = 0,
+>>>    	AMDGPU_GART_PLACEMENT_HIGH,
+>>>
+>>> @@ -305,6 +311,8 @@ struct amdgpu_gmc {
+>>>
+>>>    	} fault_hash[AMDGPU_GMC_FAULT_HASH_SIZE];
+>>>    	uint64_t		last_fault:AMDGPU_GMC_FAULT_RING_ORDER;
+>>>
+>>> +	struct amdgpu_fence_cb retry_cb[16];
+>>> +
+>>>
+>>>    	bool tmz_enabled;
+>>>    	bool is_app_apu;
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c index
+>>> 8c3ba7213eb22..f5e9b97e92a8c 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -3035,7 +3035,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device
+>>> *adev, u32 pasid,>
+>>>    	r = amdgpu_vm_update_pdes(adev, vm, true);
+>>>
+>>> -	*fence = vm->last_update;
+>>> +	*fence = dma_fence_get(vm->last_update);
+>>
+>> Ah! But passing over since you said you are dropping that patch anyway.
+> 
+> That line should have gone to the previous patch and was added to this one by
+> mistake.
+> 
+>>
+>>>    error_unlock:
+>>>    	amdgpu_bo_unreserve(root);
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c index
+>>> 2eb64df6daa94..6e28f0e435bf5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+>>> @@ -132,7 +132,7 @@ static int amdgpu_vm_sdma_commit(struct
+>>> amdgpu_vm_update_params *p,>
+>>>    				   DMA_RESV_USAGE_BOOKKEEP);
+>>>    	
+>>>    	}
+>>>
+>>> -	if (fence && !p->immediate) {
+>>> +	if (fence) {
+>>
+>> Is this deliberate and if so what it is about? Commit message should
+>> explain it as well.
+> 
+> The reason it is changed is because previously it wouldn't return a fence in
+> immediate mode. This line also should have gone to the previous patch and was
+> added to this one by mistake.
+> 
+> Thanks & best regards,
+> Timur
+> 
+> 
+> 
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-06-24 10:27, James Zhu wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260624142727.1946258-1-James.Zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">with different domain.
-
-Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>
-Reviewed-by: Vladimir Indic <a class="moz-txt-link-rfc2396E" href="mailto:vladimir.indic@amd.com">&lt;vladimir.indic@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 13 +++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_events.c          |  5 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 10 +++++-----
- 4 files changed, 18 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 5b49fa50a47d..e40e71f35bb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -336,9 +336,9 @@ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- int amdgpu_amdkfd_gpuvm_dmaunmap_mem(struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_sync_memory(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, bool intr);
--int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
--					     void **kptr, uint64_t *size);
--void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
-+int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem,
-+					     void **kptr, uint64_t *size, uint32_t domain);
-+void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem);
- 
- int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 5bb3e28441a5..ec0901aa923c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2271,11 +2271,12 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
- 	return ret;
- }
- 
--/** amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel() - Map a GTT BO for kernel CPU access
-+/** amdgpu_amdkfd_gpuvm_map_bo_to_kernel() - Map a GTT BO for kernel CPU access</pre>
-    </blockquote>
-    Map a GTT or VRAM BO for kernel CPU access
-    <blockquote type="cite" cite="mid:20260624142727.1946258-1-James.Zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-  *
-  * @mem: Buffer object to be mapped for CPU access
-  * @kptr[out]: pointer in kernel CPU address space
-  * @size[out]: size of the buffer
-+ * @domain[IN]: domain of the buffer
-  *
-  * Pins the BO and maps it for kernel CPU access. The eviction fence is removed
-  * from the BO, since pinned BOs cannot be evicted. The bo must remain on the
-@@ -2284,8 +2285,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
-  *
-  * Return: 0 on success, error code on failure
-  */
--int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
--					     void **kptr, uint64_t *size)
-+int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem,
-+					     void **kptr, uint64_t *size, uint32_t domain)
- {
- 	int ret;
- 	struct amdgpu_bo *bo = mem-&gt;bo;
-@@ -2303,7 +2304,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
- 		goto bo_reserve_failed;
- 	}
- 
--	ret = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-+	ret = amdgpu_bo_pin(bo, domain);
- 	if (ret) {
- 		pr_err(&quot;Failed to pin bo. ret %d\n&quot;, ret);
- 		goto pin_failed;
-@@ -2336,7 +2337,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
- 	return ret;
- }
- 
--/** amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel() - Unmap a GTT BO for kernel CPU access
-+/** amdgpu_amdkfd_gpuvm_map_bo_to_kernel() - Unmap a GTT BO for kernel CPU access
-  *
-  * @mem: Buffer object to be unmapped for CPU access
-  *
-@@ -2344,7 +2345,7 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
-  * eviction fence, so this function should only be used for cleanup before the
-  * BO is destroyed.
-  */
--void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem)
-+void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem)
- {
- 	struct amdgpu_bo *bo = mem-&gt;bo;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 3ffe9a52f3e1..d6fa5d71f581 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -314,7 +314,8 @@ int kfd_kmap_event_page(struct kfd_process *p, uint64_t event_page_offset)
- 		return -EINVAL;
- 	}
- 
--	err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(mem, &amp;kern_addr, &amp;size);
-+	err = amdgpu_amdkfd_gpuvm_map_bo_to_kernel(mem, &amp;kern_addr, &amp;size,
-+						AMDGPU_GEM_DOMAIN_GTT);
- 	if (err) {
- 		pr_err(&quot;Failed to map event page to kernel\n&quot;);
- 		return err;
-@@ -323,7 +324,7 @@ int kfd_kmap_event_page(struct kfd_process *p, uint64_t event_page_offset)
- 	err = kfd_event_page_set(p, kern_addr, size, event_page_offset);
- 	if (err) {
- 		pr_err(&quot;Failed to set event page\n&quot;);
--		amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
-+		amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
- 		return err;
- 	}
- 	return err;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 71b36a4613fa..21a90fc3adff 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -736,7 +736,7 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
- 	struct kfd_node *dev = pdd-&gt;dev;
- 
- 	if (kptr &amp;&amp; *kptr) {
--		amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
-+		amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
- 		*kptr = NULL;
- 	}
- 
-@@ -776,10 +776,10 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
- 	}
- 
- 	if (kptr) {
--		err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(
--				(struct kgd_mem *)*mem, kptr, NULL);
-+		err = amdgpu_amdkfd_gpuvm_map_bo_to_kernel(
-+				(struct kgd_mem *)*mem, kptr, NULL, domain);
- 		if (err) {
--			pr_debug(&quot;Map GTT BO to kernel failed\n&quot;);
-+			pr_debug(&quot;Map BO to kernel failed\n&quot;);</pre>
-    </blockquote>
-    print out err code<br>
-    <pre wrap="" class="moz-quote-pre">pr_debug(&quot;Map BO to kernel failed err %d\n&quot;, err);
-
-With those fixed, this is Reviewed-by: Philip Yang &lt;<a class="moz-txt-link-abbreviated" href="mailto:philip.yang@amd.com">philip.yang@amd.com</a></pre>
-    <br>
-    <blockquote type="cite" cite="mid:20260624142727.1946258-1-James.Zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">
- 			goto sync_memory_failed;
- 		}
- 	}
-@@ -1140,7 +1140,7 @@ static void kfd_process_kunmap_signal_bo(struct kfd_process *p)
- 	if (!mem)
- 		goto out;
- 
--	amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(mem);
-+	amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
- 
- out:
- 	mutex_unlock(&amp;p-&gt;mutex);
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------kqfaLqTpK01Pia5bduDDIgnB--
