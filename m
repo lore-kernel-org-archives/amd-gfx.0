@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02857CDE008
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1131CDE002
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:09:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FCFA10F08D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D97710F088;
 	Wed, 24 Jun 2026 18:09:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tRahE4kS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UamCy9Kg";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012030.outbound.protection.outlook.com
- [40.107.200.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0677710F087
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010008.outbound.protection.outlook.com [52.101.61.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9E8A10F086
  for <amd-gfx@lists.freedesktop.org>; Wed, 24 Jun 2026 18:09:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lGUNhb+uwbKoTI7fIk9nMjeIvtmPaBSQcJb4dr2Ghfwu7dZVMZ+5nKEoRM8lPfbVFRFE2TVrq+PjUA/unmiImsWBIxDCJDwpW9DfOn22mkYKjq6+Vp+lYXg9z4gYdsKvVhlw80aVCGAcC54GgdNkWG3l4l07O3xLH/OsiiarUfCDyVw9GQIg8xzprWNtKndfmzTIMK5d83IEiUCWVR6a04HYGsgNK5E0I1d4uVL82GmknpMH7ko5cVZPA3h/+tru22gYlEST0GlOQ3O7Ek3zAHYaxaxXjLg6NHxMWjlomXL2dkAaZshIOWX6xeQIlWH4bsd8YkMB710uanTB+gVG2A==
+ b=xT1wXViXW1pxwF+Yq7xqRwilmrx8Qv66fq4509SBtJ9m+YpRmcLW+/PlZjSBS1GuN2M85rJkuv3AOBqsf9Ok10qJo2e3rxjM7hO6TgRf+kvDr3UARcoxxGMvkN45iw+JROXp9Y15f40Hh6+PDUxyl9mMe3etQ6k+QwQcWbtn7fJbdevgh88iRrk9/1GokCp+9rV2bbAkpDB9smFaESjm4axZ0rerJHomi974OGVhKR9O4sEzeEM4CV9F/6ZU9ot9uM/eRFn3+XuIHONQZ2+U1YPNYwA3nTRgegqZ3fWMRDBzaid1vXyHN/a/mcftUBYogE94SeXncZJB9OyT+DL4zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A39GRa8WvufJfE3LJiFH3ZFTOp9/ntqIZya/fTS7cSY=;
- b=I5jYet/hcpSZxX9Mngbutm0x3JU3kga0XS4qAFiiFgSI3pLcXQScKT66YoZJWb7KCoDi5i7r9k1/+dRQdH4zfXCt2ZhRvEooUL9DAuy1lzNhJvz9qmDK1p1cIXpemMFV4xu28VkRdTwhPjxfSjmpIuJ+F2IqFOzPfpHJjRxCRxOp7lNoXZPnh8sUSaYVBhUn5zjNA3Ej/TPX3RCAfqJrSI1t7hXJCuk7eC37MrpQDGSp3kyCUHhCLF3D3xk1iV90HilaKkAgYoC2yPrFFz70h/Lgj9OJHIlASn5owfJjXnmyxyQx+Wdx5YBE4J+uRMRhR9YO/gnAYzuVB5u0Tm/low==
+ bh=+ymjtYebezcBgulBBLqCY26C6GPF2a6yHbEmIiPQnxY=;
+ b=c2aQWRMozAMMMZyDFFF74oVcLOLUkNiHC2tgiyH+rpWpmWMm3bwdLVE6VFLQqxgwHeOlqTeTqKMMqWCC7N1SL111EiIIF8cRNvEvT3iQQReoJ81XZzcdeWGy+eJt2gcTXYNVt2P7RFFzkjBd3r87x+l3do7CtajQ7G2OxoPIhf258eN1E4c2tSCjMJimLfDhVIcHmHw4Jvw5ITKmBn4U8X9vQL7Bfnb9oE7EcFk0AlwUMVth27vj0haUqRWrM+ogslqqlLTqXuycHkdzULltDMW2gvlUyPCthbQe8R9vbfdnvBiQAiBciNBiUBNTFC3iBkTue4uaLByeXLMKHtf96w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A39GRa8WvufJfE3LJiFH3ZFTOp9/ntqIZya/fTS7cSY=;
- b=tRahE4kSoUSWbqsmtvRGZVppbaF2QrKXeTSrOfRZe/U0lCdMgscDQiOuR0PjRJMn6Botc9lUjjd2pD1y6wUYKEVgdWRUcqg001voqZckfFr6ggN1saBbcSLKR93ThGMWjRgiAdykQNy1USMkbErAG4nDEJ0z64A3s3f/WqG5rno=
-Received: from SJ0PR03CA0022.namprd03.prod.outlook.com (2603:10b6:a03:33a::27)
- by CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12)
+ bh=+ymjtYebezcBgulBBLqCY26C6GPF2a6yHbEmIiPQnxY=;
+ b=UamCy9KgPUIS5KmrtkVg/YhgzZlgMPxKRpMiHY4BHxoJ+SJ98+Pl5VG2bqqHVvSOnYm5Raigqa6hQaYH/cWI3ljimoilUv0Xb7GZUKbrB4Bz9WXflpJJKYZAOD8zGuF9uXR4ef8aeZrW8nF4GDrrX3k87KHgqfV4l7CN86YZQFw=
+Received: from SJ0PR03CA0011.namprd03.prod.outlook.com (2603:10b6:a03:33a::16)
+ by CH2PR12MB4072.namprd12.prod.outlook.com (2603:10b6:610:7e::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
- 2026 18:09:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Wed, 24 Jun
+ 2026 18:09:21 +0000
 Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
- (2603:10b6:a03:33a:cafe::10) by SJ0PR03CA0022.outlook.office365.com
- (2603:10b6:a03:33a::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Wed,
- 24 Jun 2026 18:09:17 +0000
+ (2603:10b6:a03:33a:cafe::5f) by SJ0PR03CA0011.outlook.office365.com
+ (2603:10b6:a03:33a::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Wed,
+ 24 Jun 2026 18:09:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 18:09:17 +0000
+ 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 18:09:20 +0000
 Received: from MKMGEORZHAN02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
- 2026 13:09:14 -0500
+ 2026 13:09:18 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 08/28] drm/amd/display: scale plane global alpha to 12 bits on
- DCN 4.2
-Date: Wed, 24 Jun 2026 14:03:06 -0400
-Message-ID: <20260624180829.4775-9-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, <stable@vger.kernel.org>, George Zhang
+ <george.zhang@amd.com>
+Subject: [PATCH 11/28] drm/amd/display: fix malformed link_settings debugfs
+ output
+Date: Wed, 24 Jun 2026 14:03:09 -0400
+Message-ID: <20260624180829.4775-12-george.zhang@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180829.4775-1-george.zhang@amd.com>
 References: <20260624180829.4775-1-george.zhang@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|CH3PR12MB8728:EE_
-X-MS-Office365-Filtering-Correlation-Id: f653cb8d-6f30-46da-bb2f-08ded21bb4d2
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|CH2PR12MB4072:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b83ced3-ca3c-42dd-8a0e-08ded21bb704
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: T9G3nyGvxP6Gt3RrbduspvHvrvBdUNkMbbG3qmYc1ZAkK5gidKUb80arNItUVucHPp+vgUKqV7j+QL+6BUqHhlPM09JgVsU5PQxos5kO0T33TdIZ5XKq5l3BvOjAgpc7AkokvKew1VjbQLbPiSWxyXLlmXhyOQy1xUbLLx7QPhQIz5FpC3dN2mcRURmKhn5bqkIzjeyMVGWfjyNt9vHT3cSwavnuep6MOd1tt3gUMGhmxKEntjfdIJYy5HZKFAB+2303z60O8sfwhBJBtOETI6UKw8G1hC/vUgeOLEkPVOAQXrlgdovKMAqcqZLEFaK/5Z3IFoD1KrraQgqlUwVg4dG9lho6an3Ukc0zakOYeXyL74RNVXPaOOCqGrNz8J0gEIt4azK/Hhh4QFpbBOSWSpoEOTtlv5gimEzZloLcLDAUuDtBlfgD09btFZCzDfCnI0eSDmoBJcruLEHygfZKOecnE9gqXQKkkb8JNXkAEyWO5RrXoT9XMZJnzHUACr2CLVXKB5FzKh/tNPRqlqJL+Xu+ugNu9E5eX7L60J4lS7Wq/g23dS7fyeuprWxn+0dijaX5zmeWCURbhkafRtzEubFiOFmMDmmxJrwLLhEPhOYjHi/ofqWsh1L+HNKFmY4JCEc49KniVhnIUySwyaIjaNi8fGsN5mjFmK8U2UMTFsAcRtDQ7YRWrIA5eNtrgfTJmxrdY/QKbzDYbtFXdOz7VA==
+ ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|6133799003|18002099003|22082099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: o5vsfTgZ06INaW9nKTBmqSgF2uHmKGOec8qyiuShU+svocHSjC4gjEEkAgcXHiBFySOZTZBY6Enqb1oxKAh+3P6QVQYYdYxZgB9M9CscVaAezgqLS/q+JIeI67sxKv11YNlgjlwjUCPQvCOaU/X0Iu7YtpyeZCXZ2opZQg+/5tuY/zoc18WmXx5N3hqOmx9Qp3GEYUIJbv2CUjZNng7jW8Oz1y306TvavhVXSKl5nBC2P/Fy5OfakHXsprbKx8pQ7dXN/y3SNJzkQL51mhuR0e1KTg+9O4RPd9MNFQWjXPH0hDNt9rOACgbHjb8ncDQvbZqEZXFWZtg5hkKlSyamPqVIqUV+efREu3dgYi85luZvzIAutIUMuaWIafRux5C+UWooZ9qEUMEvEKytwOs1CaAP7EG4kBqNrk9my31HtGLQKJjRr6jeazTkKaxS7cZKQGM2XdXANx0+Hv90Ks1J1RPyYmxueHpdz4XL5LUcpi+CH+7bv+uaSE3Q7meFXttAohKRJs2ajIShvjYbZHDbf7q36KOfowsorD+ba/1M38InFddKTf3zNOtZQeuyGIWIuvdJmO8Zmuap05ZyYce1TxLj9OUQDFmw8lb9RO2M2tE2i9Ic0FfA4Kr+cpBvLNvR7YpU6KcXTfNJf9xrzmumLZMoPg2Les8zVsgycNxiPbdDC684QT/b3F6bbWq9ELicBkIx7K0UFF3U+5obyMERkQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(3023799007);
+ SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: m53OxNFUJayy12GYeYFa4xzmzvmxxDE0rYW3BSlNXS5rhFWca11aA2uv35bT5KnOz5z1Ah+/Be+ShhfpEQg8+Hi0nGXBoq8T+2C3ZAFz+Ig5D6UqigN1RrlC2BkSIdFWcMbYAF+yghpKnk25UL/2Gy26Zbt2fa+wkQODLKONSqXXLtnGz8E/ow9j1BpszcUngIQDhQ33RSzPQ82E+irvyYMQZkSY/mzMPACGuoBdil7woDZIQ72Avc4db0aKiKRiCfN1H+ElVK4DWDxL1ygvDahfoOm/cNWxEmYdx4jBAgPAwQfh9hpw0W4iWL9Erfi11msTgMsz8b++AL5JepxVP8SPHIcBxOeSJpurNC7GFGHzm6Cx0oPisGuWEDXl2Rb49++AfV2Q+TqsN6Yo0CxS87T0TF1YZZM2gRv6PjKTd7sJzCbtTxvdJzC7PwL+21Pw
+X-MS-Exchange-AntiSpam-MessageData-0: Ox96lpdRdCOUZj8Ce6QxEA4q6KcemjJRs49gIUS5UTUyZdRs5M9RLaNc88JysjjCBFvqXw59HHEbMOZ2BhvBwcHKbSYyQXM0p/gzqi5qn41UyjWupbg6VyeXY3wYmn/tcEdRKesoP0kFVlK3QSCiiLqNi20D6W57hW0qnLlysYEnQXH7H0IEOuaI8wBOAqkGL1eal3xEaI43bspKYXLhuEfeTWFWZFQ1hT25bEfQWzwz5mUkNQ9PYLV0QpzwocGZaL2783HyRgBtq/vB1iWHRlYDe1fMTWcnOh4quk1AcEW2C70xbkp7rPUqFTDqSFiGVMYcWSqXcvknf/pzXezxO+QaMGq0QxZKCVAuy+l4t/WeVjFTNhhaa2lx7uJJMeT7K5z0Qmsi80GdSHz2qZVqQT8J87vv5ywRfFTqUwDCazso9ozK57rThI+frEQC5vVT
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 18:09:17.1419 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f653cb8d-6f30-46da-bb2f-08ded21bb4d2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 18:09:20.8317 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b83ced3-ca3c-42dd-8a0e-08ded21bb704
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8728
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4072
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,55 +117,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: James Lin <PingLei.Lin@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[why]
-On DCN 4.2 the global alpha is reported using 12 bits
-(MPCC_GLOBAL_ALPHA spans bits [0:11]), whereas other ASICs such as
-DCN 3.1.4 use an 8-bit field (MPCC_GLOBAL_ALPHA spans bits
-[16:23]). The DRM plane alpha property is 16-bit and amdgpu_dm
-unconditionally scaled it down by >> 8, which only matches the 8-bit
-hardware field. On DCN 4.2 this fed a value that was 4 bits too small
-into the 12-bit field, so the hardware applied the wrong global alpha
-and the resulting blended output did not match the expected hw * alpha
-value.
+[Why]
+dp_link_settings_read() passed strlen() of each format string as the size
+argument to snprintf() and then advanced rd_buf_ptr by that same fixed amount.
+The format-string length has no relation to the formatted output length, so
+snprintf() truncated each field at a NUL it wrote inside the buffer while the
+pointer was advanced past it. The result is a buffer peppered with embedded NUL
+bytes and fields that are silently cut short, so the data read back from the
+debugfs node does not reflect the actual link settings.
 
-[how]
-Detect DCN 4.2 via amdgpu_ip_version(adev, DCE_HWIP, 0) and scale the
-16-bit plane alpha by >> 4 to fill the 12-bit MPCC_GLOBAL_ALPHA field.
-All other ASICs keep the existing >> 8 behavior for their 8-bit field.
+[How]
+Use scnprintf() with the real remaining buffer size
+(rd_buf_size - (rd_buf_ptr - rd_buf)) and advance rd_buf_ptr by its return
+value, which is the number of characters actually written. This both bounds
+each write to the space left in rd_buf and keeps the output a single,
+properly terminated string. The now-unused str_len local is removed.
 
-Reviewed-by: ChiaHsuan (Tom) Chung <chiahsuan.chung@amd.com>
-Signed-off-by: James Lin <PingLei.Lin@amd.com>
+Fixes: 41db5f1931ec ("drm/amd/display: set-read link rate and lane count through debugfs")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-4.8
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c  | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 20 ++++++++-----------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 20bac36be335..458b3dcdbfa3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -137,8 +137,18 @@ void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 1f5dde2bc74c..6b07982e3aa5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -196,7 +196,6 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
+ 	char *rd_buf_ptr = NULL;
+ 	const uint32_t rd_buf_size = 100;
+ 	uint32_t result = 0;
+-	uint8_t str_len = 0;
+ 	int r;
  
- 	if (plane_state->alpha < 0xffff) {
-+		struct amdgpu_device *adev = drm_to_adev(plane_state->plane->dev);
- 		*global_alpha = true;
--		*global_alpha_value = plane_state->alpha >> 8;
-+		/*
-+		 * DCN 4.2 uses a 12-bit MPCC_GLOBAL_ALPHA field, while
-+		 * other ASICs use an 8-bit field. The DRM plane alpha is
-+		 * 16-bit, so scale it down to the width the hardware expects.
-+		 */
-+		if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 0))
-+			*global_alpha_value = plane_state->alpha >> 4;
-+		else
-+			*global_alpha_value = plane_state->alpha >> 8;
-+
- 	}
- }
- EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_blending_from_plane_state);
+ 	if (*pos & 3 || size & 3)
+@@ -208,29 +207,26 @@ static ssize_t dp_link_settings_read(struct file *f, char __user *buf,
+ 
+ 	rd_buf_ptr = rd_buf;
+ 
+-	str_len = strlen("Current:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Current:  %d  0x%x  %d  ",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Current:  %d  0x%x  %d  ",
+ 			link->cur_link_settings.lane_count,
+ 			link->cur_link_settings.link_rate,
+ 			link->cur_link_settings.link_spread);
+-	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Verified:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Verified:  %d  0x%x  %d  ",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Verified:  %d  0x%x  %d  ",
+ 			link->verified_link_cap.lane_count,
+ 			link->verified_link_cap.link_rate,
+ 			link->verified_link_cap.link_spread);
+-	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Reported:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Reported:  %d  0x%x  %d  ",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Reported:  %d  0x%x  %d  ",
+ 			link->reported_link_cap.lane_count,
+ 			link->reported_link_cap.link_rate,
+ 			link->reported_link_cap.link_spread);
+-	rd_buf_ptr += str_len;
+ 
+-	str_len = strlen("Preferred:  %d  0x%x  %d  ");
+-	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  0x%x  %d\n",
++	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
++			"Preferred:  %d  0x%x  %d\n",
+ 			link->preferred_link_setting.lane_count,
+ 			link->preferred_link_setting.link_rate,
+ 			link->preferred_link_setting.link_spread);
 -- 
 2.53.0
 
