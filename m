@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F52CDE002
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E06CFCDB47F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:20:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E504510F189;
-	Thu, 25 Jun 2026 08:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 809F410F17E;
+	Thu, 25 Jun 2026 08:20:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d8iX7498";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="17vnalY7";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011037.outbound.protection.outlook.com [40.107.208.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C6A010F187
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 08:20:46 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013036.outbound.protection.outlook.com
+ [40.93.201.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0AF10F17E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 08:20:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vxEI06vugh8Oa8gcQh0ObYkovSTFutLkjvlkwsqyjje4pRHWIAiRyfjWHppml+prOQMbHn32Wu/a2gqd9fmWjRnEG9B4bWQiZ/9d0JMWuZso0XXEHPNbG+3Umltg+jGsuZ3iHj4c9IDOgsXMuM2LJ9fUEiqRmgUxrR9CX2qO0lMRJrg4Rl0TvTPobT9mqhMSE3+UsNp8xaJn70wvGCnWALaAFXKSg2sco0Y81lxpAZBBG8I1Qn9oYtnI+Vd1z0vFJSOnfgAvdmej4x3tQAct6FzmSZTOVa+UNwA0wc3+1HsuKnNSlPsjkRv3Ll53LqC90A77tD0uWADNuPlNYEWPQg==
+ b=vEvNmhrDepGIDPbyTTcNZH6rD9CR3XBvC8zCTSsRhYhzDb/bcevTN+EGkoPe+3f0FlNGJe5+vaN76WDDDqMlBO50fTHPUtlW7NBQriXOZ/Z1bRWJoWso5oJJR4tY0Cv5SxmfoLVxfEFCgm9QWA63fi8MGHuCjHzEmC7jpYsE+nKf/i/n0KOxDsoQpzJqRyK1gld0t919dHSRRgyfJGhH/Ar9GopkdAeYjbKBCKkm2fsinalI5ub8aavBHZHHVmF3Ennei5CQRQZHj9iq/lZfa0DAyxJjY7Cq3H7EFYM1CosevzlhO3EhyPgeiZi0xoWMX1FO0v4AwXUpjOB0HkG8Cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xTw1ztKjpJ3SOn3N+mpJYyivHOwy7qOu1LUNBSJ64G4=;
- b=nXgxvoK+tZv0dWM186b4SCqPhq7V9xbTYTw6cmULQdiKcLMsyT/GUihF3UmUSlkwZiGf+gZgifFfL+1ZSVHiPv4NymXds7nPHKXQT0C6M6FNJqYS8dBNjZlPjhp6QkKxoMfIdIX0e1b/U61OlrofDONpWxyzt40Vj5OLzWuKMmcZlPa7Yv8Ubqqd4RKMYyH6zR0qA7FtMvg431de33kOXRxNhLzTJLji9vAzAuvlNgFYWLQGw6xxM+8MG6tv5qCns9oX6t19raWU5rwynsQxFd8nGbtKzE433w0oQgyovu7HD2bO3pv5NtVpTsF/yiXEhD5G+LqWrteOrlBBrEFEiQ==
+ bh=6fjQenH7kj3xGbzxM/W2fDQDbWG5vZhf+onObfJ7zso=;
+ b=VVF1Ko3q+lo5J3/hWe8ZU1BfoMDSs5e8ZvdjXuI59sfz04cJ8LpFd0D7yEud909W+a9vpFFFZQmf2Yq8ovVWzeimvsrWngsE1rYlWiI1P9xhUN6JFFWMN6qczrKOY/xF/9yz6Ir7/9Phcv1qYaO22+FMJppuQrRVJeDlNVukyLZQ1Jrh8+rCUZIRTKNhcrN6c8lAE4kEPv1w9/RMfxmnFXhyWgdyZyN0Dt46Zmz7yijuLhSs7J/bKF4lFhzQZSyiYeOfd8WNBQ6G5GSHG67N+iAazaivPThoOk+C9MF6IhjEURKwJZoDQF10bj4+oeCD3MTmkwh7jyGS+3vDbUtw2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xTw1ztKjpJ3SOn3N+mpJYyivHOwy7qOu1LUNBSJ64G4=;
- b=d8iX74981ZzteWhhJLaFjjiQq4wGKQdT9yZmJswCVu6tync/5rqNUs1tinkc2Nf8+NOV3L2jeqUnrxdiiP2BXaX2HbM8/krP/seCzr0Idi25cjC1E+gPCaEsQojpUKm5Y4QVFmAhIN9zfHDuy32yZG7yhJnnO+eWhPROtCzIKoQ=
-Received: from PH8P220CA0029.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:348::13)
- by IA1PR12MB6355.namprd12.prod.outlook.com (2603:10b6:208:3e1::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Thu, 25 Jun
- 2026 08:20:38 +0000
+ bh=6fjQenH7kj3xGbzxM/W2fDQDbWG5vZhf+onObfJ7zso=;
+ b=17vnalY73nsSB8/9oqkplEgUr8tzdd9igaEXAgN7Xb+8wsTYkQIsxMLTnubNk0D3Zz1yklkCxVvirA6wqrlVQLwVHWv+E9yd82PI9ePlLdsedXuQ9ne9FYQFr1krzxRDglNq6/211wjv2FjIbTH615n9PcBcHWLZnzw2jTgBuH4=
+Received: from PH8P220CA0027.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:348::8)
+ by DS2PR12MB9773.namprd12.prod.outlook.com (2603:10b6:8:2b1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Thu, 25 Jun
+ 2026 08:20:46 +0000
 Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
- (2603:10b6:510:348:cafe::74) by PH8P220CA0029.outlook.office365.com
- (2603:10b6:510:348::13) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:348:cafe::82) by PH8P220CA0027.outlook.office365.com
+ (2603:10b6:510:348::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.17 via Frontend Transport; Thu,
- 25 Jun 2026 08:20:37 +0000
+ 25 Jun 2026 08:20:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +51,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 08:20:37 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 08:20:46 +0000
 Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
- 2026 03:20:34 -0500
+ 2026 03:20:43 -0500
 From: Ce Sun <cesun102@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
  <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
-Subject: [PATCH v3 14/44] drm/amdgpu: retire funcs for generating legacy cper
- record
-Date: Thu, 25 Jun 2026 16:19:07 +0800
-Message-ID: <e977d14de67f5430c55f6aae74e6e4feb2cef811.1782373701.git.cesun102@amd.com>
+Subject: [PATCH v3 18/44] drm/amdgpu: retire RAS error count query/reset for
+ gfx_v9_4_3
+Date: Thu, 25 Jun 2026 16:19:11 +0800
+Message-ID: <7aa82026965d6bf09b416423222a5f1f48051bed.1782373701.git.cesun102@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <b5587fca5f57f8f352245edf2c76606ad3307923.1782373701.git.cesun102@amd.com>
 References: <b5587fca5f57f8f352245edf2c76606ad3307923.1782373701.git.cesun102@amd.com>
@@ -74,29 +75,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|IA1PR12MB6355:EE_
-X-MS-Office365-Filtering-Correlation-Id: 248b8a4c-fb97-4552-0666-08ded292a319
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|DS2PR12MB9773:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c611692-1112-47fc-a6fd-08ded292a81f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|6133799003|11063799006|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: mTiDl2KKLNR31xM1cF8Of/dJ/fMEgQP1ndc8SeitGVhu9WJ/HWx3OZ+lhWB8yEUDziWoMZZqD9Q7Q2Zzx0QDik6+dIOoxK/jIG/kz0txnP4xqHCtW6xq5IC5BD68TuuG4ASmkLvDYa+n2YXsp34L1PxAJ6X1Ia2CV5JKffE+AIl6MOcoO2YOKMAEASi9CcfnTY2Vb9/kgtQcImflH3MOSfVLsfqz2u9+SeIsBaEW8dC2YMfppIS/8xK1LGh/otAuRWrheYdK/H73Q0pje1i2ziB2Bj+W9yHFKL+r4pIenvYgi2I2RK+OBqKVIgk45QidGsP3JFzvZETPIXR7zCJIcEnvWUTLR2QT71ajNL3PLguPTdYVUwQ087gREo1FfxLGOjpQ1j+t7zY+frVJ4h888wrtak1BC5PsOy5QnAD0OW8QBkn23rP/9ZDYeC/74ok7ipn6dY9M3aepZnZ5A186DpHUUB4qsT++fz+ftFxHAuq3ctrEgYGMbDiMowEp7F7Ppet91fR8mz26xGWxB9zH3XhEli6ymIhzaFBxWX6/vX6j4Fk8otNgyjhA6SHXUtHkqSU7kxzZSGX0f+GRqZfuadEgHQlnGEUr/lLWW4BuffZCijfpsnsLmAY8X41BluGqCzL0GYG31JL4iDLpAtQQU69SYU1+Wd4iV3lV1IJBIrfzwH3Rmyiz7yvmQJ/W0r1C7lHmmSIxGjRmNF7KKLFr4g==
+ ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: NFW+9f5MBM6+aQ8WOXE1TLkMPaabMN5tjwOI5/wPPGIgE7O8xAbijtOblW+UtVnfWmtVOCP5kAQJX4wpG496nLozRTwl+zXo7gKbI5Tg1i8npwwIjeCHxJn+GhxBgUokdcKMb8I2u/NX1krxgbkp4FtHbHuo68e9aEv5KHk6AxmteZEZwH4SbMVbypnjIS/TMJQA4CAPV7VFULQepMnOedq1bBo3YhV2z+wFYRH3gThMuK5QenNL0cdrR5oTDZoXNwU9cBkCNyELQUdlMWZI43PprrH6suSOvKPGnfDuTWYuz3P8dbgM+EpNPygSGA3AIEuRjpB7EMws0mD9Iuh8E6ncOyF5JbeEmjMXoJTILsKRw/NjvKJtKmJ8t6jY1hXp+Sadx8UlMd7cqgzdhAN3KD3SJi3EkQQt3UE4ysW4mZ8Cx1oW3uEKSOOnRSG7Wa715SkV/UQV6xDBBjVnBWhAFwgZIG4MucDKP54LH0qdg4dkh6XBEkaVAnXTbGe55PaTIOMfRONpLmw2yQSCJbJne6WPQ/r0dNLh6w1uFfk90nMuMQ9hg1VxpGl6op2KVsElw1Kj6fIv6lD39/R0Ne/T2xn4yzrQcKwiCnz7NT6TEnS8QJU4bbA5zBHIRqSqrHIzo0qfoCAOl5DCkbuIgFUd6j69pVGMIg83u3dUX9L7qFD5S4q3jVOAx7G08WzVK4g3ST/dgXRp/QQIu1ceYXVdTA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OYKUbcc28nRG0l3QAmzCo2SsZpFlhYVnalJpqbYLGecjFQjmKStnwUtINmS/2ZqEtvOjMPEEQ/aSO82LGzlCNosdvHPlpTZRli6znxFJrm61LX2U5BnIzsSop8KXIs2bMVOstzT3Uyf8PorbPQCzwip1IK29lZiUOtzHs6giaUxSvayA8Gn1Mtj6CWvJ3Z5JgmptAaHdoT5VqvvbZ64wqjOe+NfggbJH57q7JBmtAh7PwTiWpio0o8gautFZWG6konNMJAt3gsiGmDEt33S+ICuAuoWwmiQa6aa2GuUGPlcxkyO56z/3o/vWQ4aYoSw6wiUibpmITomJ9T6ILNoCy2G62eQlZtE0L/7kCzhbEmYqmK72ejJSxcNUHsVBJ+5dkTLP9x4ncR3hDTNtxHHz6IgekjR3GopqSSKqqpHYeY9PkeUYocdZVtS/mKCmXwNT
+X-MS-Exchange-AntiSpam-MessageData-0: 4kxLK1Rt5FKxAIXQuXtE1ZCFUiEbgu/f6XFJIKdQjix85QLxEGrpTx+r26etCXuNzBBhiC4JhXOfU+KzX6VFQs7V9x1XzBW2LmTQbVRcaTlepX78Cu+XXYAvOctE7pfjD5GbdgHdW8VDD2UGC/y0qLvFXXxObHkdEPoAseNN5TQP0ndcu+WoTmZXn5MH650R37UHfuyJWugxmOxck8bEe6upeoFNd0XK+DuxFzKSWzOSn/qxkd80pWcc0KcIuKsRY7DJ8r35AppOLJropGoe5YRLwPgTH46e7aLYvmtGKvF+BM3WY3YJOdt3eRr1l/V+h4DVZXm7wXuYraU5IB9hVyOtQiKDdvfSYSL7aAP3piPnFURSUy3PT6aWucwld/qNy8Vtp5mfndOE9Lx6YeRoXCUmGHB4WHIWVTZr3HvMdSaId6HX2HuDFTGu5A5lYvW3
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:20:37.6171 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 248b8a4c-fb97-4552-0666-08ded292a319
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:20:46.0020 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c611692-1112-47fc-a6fd-08ded292a81f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6355
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,169 +112,942 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-retire funcs for generating legacy cper record
+retire RAS error count query/reset for gfx_v9_4_3
 
 Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 111 -----------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h |   8 --
- 2 files changed, 119 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 885 +-----------------------
+ 2 files changed, 3 insertions(+), 886 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-index d5e59c24d907..34a70e479f60 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -289,40 +289,6 @@ struct cper_hdr *amdgpu_cper_alloc_entry(struct amdgpu_device *adev,
- 	return hdr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 0e76aa46b453..fa0f0df2d32c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -4095,9 +4095,9 @@ int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
+ 			goto cleanup;
+ 	}
+ 
+-	if (ras_obj->hw_ops &&
++	if (amdgpu_uniras_enabled(adev) || (ras_obj->hw_ops &&
+ 	    (ras_obj->hw_ops->query_ras_error_count ||
+-	     ras_obj->hw_ops->query_ras_error_status)) {
++	     ras_obj->hw_ops->query_ras_error_status))) {
+ 		r = amdgpu_ras_sysfs_create(adev, ras_block);
+ 		if (r)
+ 			goto interrupt;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index d67ac6f96481..b89cbc2df951 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -3726,872 +3726,6 @@ static int gfx_v9_4_3_reset_kcq(struct amdgpu_ring *ring,
+ 	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
  }
  
--int amdgpu_cper_generate_ue_record(struct amdgpu_device *adev,
--				   struct aca_bank *bank)
+-enum amdgpu_gfx_cp_ras_mem_id {
+-	AMDGPU_GFX_CP_MEM1 = 1,
+-	AMDGPU_GFX_CP_MEM2,
+-	AMDGPU_GFX_CP_MEM3,
+-	AMDGPU_GFX_CP_MEM4,
+-	AMDGPU_GFX_CP_MEM5,
+-};
+-
+-enum amdgpu_gfx_gcea_ras_mem_id {
+-	AMDGPU_GFX_GCEA_IOWR_CMDMEM = 4,
+-	AMDGPU_GFX_GCEA_IORD_CMDMEM,
+-	AMDGPU_GFX_GCEA_GMIWR_CMDMEM,
+-	AMDGPU_GFX_GCEA_GMIRD_CMDMEM,
+-	AMDGPU_GFX_GCEA_DRAMWR_CMDMEM,
+-	AMDGPU_GFX_GCEA_DRAMRD_CMDMEM,
+-	AMDGPU_GFX_GCEA_MAM_DMEM0,
+-	AMDGPU_GFX_GCEA_MAM_DMEM1,
+-	AMDGPU_GFX_GCEA_MAM_DMEM2,
+-	AMDGPU_GFX_GCEA_MAM_DMEM3,
+-	AMDGPU_GFX_GCEA_MAM_AMEM0,
+-	AMDGPU_GFX_GCEA_MAM_AMEM1,
+-	AMDGPU_GFX_GCEA_MAM_AMEM2,
+-	AMDGPU_GFX_GCEA_MAM_AMEM3,
+-	AMDGPU_GFX_GCEA_MAM_AFLUSH_BUFFER,
+-	AMDGPU_GFX_GCEA_WRET_TAGMEM,
+-	AMDGPU_GFX_GCEA_RRET_TAGMEM,
+-	AMDGPU_GFX_GCEA_IOWR_DATAMEM,
+-	AMDGPU_GFX_GCEA_GMIWR_DATAMEM,
+-	AMDGPU_GFX_GCEA_DRAM_DATAMEM,
+-};
+-
+-enum amdgpu_gfx_gc_cane_ras_mem_id {
+-	AMDGPU_GFX_GC_CANE_MEM0 = 0,
+-};
+-
+-enum amdgpu_gfx_gcutcl2_ras_mem_id {
+-	AMDGPU_GFX_GCUTCL2_MEM2P512X95 = 160,
+-};
+-
+-enum amdgpu_gfx_gds_ras_mem_id {
+-	AMDGPU_GFX_GDS_MEM0 = 0,
+-};
+-
+-enum amdgpu_gfx_lds_ras_mem_id {
+-	AMDGPU_GFX_LDS_BANK0 = 0,
+-	AMDGPU_GFX_LDS_BANK1,
+-	AMDGPU_GFX_LDS_BANK2,
+-	AMDGPU_GFX_LDS_BANK3,
+-	AMDGPU_GFX_LDS_BANK4,
+-	AMDGPU_GFX_LDS_BANK5,
+-	AMDGPU_GFX_LDS_BANK6,
+-	AMDGPU_GFX_LDS_BANK7,
+-	AMDGPU_GFX_LDS_BANK8,
+-	AMDGPU_GFX_LDS_BANK9,
+-	AMDGPU_GFX_LDS_BANK10,
+-	AMDGPU_GFX_LDS_BANK11,
+-	AMDGPU_GFX_LDS_BANK12,
+-	AMDGPU_GFX_LDS_BANK13,
+-	AMDGPU_GFX_LDS_BANK14,
+-	AMDGPU_GFX_LDS_BANK15,
+-	AMDGPU_GFX_LDS_BANK16,
+-	AMDGPU_GFX_LDS_BANK17,
+-	AMDGPU_GFX_LDS_BANK18,
+-	AMDGPU_GFX_LDS_BANK19,
+-	AMDGPU_GFX_LDS_BANK20,
+-	AMDGPU_GFX_LDS_BANK21,
+-	AMDGPU_GFX_LDS_BANK22,
+-	AMDGPU_GFX_LDS_BANK23,
+-	AMDGPU_GFX_LDS_BANK24,
+-	AMDGPU_GFX_LDS_BANK25,
+-	AMDGPU_GFX_LDS_BANK26,
+-	AMDGPU_GFX_LDS_BANK27,
+-	AMDGPU_GFX_LDS_BANK28,
+-	AMDGPU_GFX_LDS_BANK29,
+-	AMDGPU_GFX_LDS_BANK30,
+-	AMDGPU_GFX_LDS_BANK31,
+-	AMDGPU_GFX_LDS_SP_BUFFER_A,
+-	AMDGPU_GFX_LDS_SP_BUFFER_B,
+-};
+-
+-enum amdgpu_gfx_rlc_ras_mem_id {
+-	AMDGPU_GFX_RLC_GPMF32 = 1,
+-	AMDGPU_GFX_RLC_RLCVF32,
+-	AMDGPU_GFX_RLC_SCRATCH,
+-	AMDGPU_GFX_RLC_SRM_ARAM,
+-	AMDGPU_GFX_RLC_SRM_DRAM,
+-	AMDGPU_GFX_RLC_TCTAG,
+-	AMDGPU_GFX_RLC_SPM_SE,
+-	AMDGPU_GFX_RLC_SPM_GRBMT,
+-};
+-
+-enum amdgpu_gfx_sp_ras_mem_id {
+-	AMDGPU_GFX_SP_SIMDID0 = 0,
+-};
+-
+-enum amdgpu_gfx_spi_ras_mem_id {
+-	AMDGPU_GFX_SPI_MEM0 = 0,
+-	AMDGPU_GFX_SPI_MEM1,
+-	AMDGPU_GFX_SPI_MEM2,
+-	AMDGPU_GFX_SPI_MEM3,
+-};
+-
+-enum amdgpu_gfx_sqc_ras_mem_id {
+-	AMDGPU_GFX_SQC_INST_CACHE_A = 100,
+-	AMDGPU_GFX_SQC_INST_CACHE_B = 101,
+-	AMDGPU_GFX_SQC_INST_CACHE_TAG_A = 102,
+-	AMDGPU_GFX_SQC_INST_CACHE_TAG_B = 103,
+-	AMDGPU_GFX_SQC_INST_CACHE_MISS_FIFO_A = 104,
+-	AMDGPU_GFX_SQC_INST_CACHE_MISS_FIFO_B = 105,
+-	AMDGPU_GFX_SQC_INST_CACHE_GATCL1_MISS_FIFO_A = 106,
+-	AMDGPU_GFX_SQC_INST_CACHE_GATCL1_MISS_FIFO_B = 107,
+-	AMDGPU_GFX_SQC_DATA_CACHE_A = 200,
+-	AMDGPU_GFX_SQC_DATA_CACHE_B = 201,
+-	AMDGPU_GFX_SQC_DATA_CACHE_TAG_A = 202,
+-	AMDGPU_GFX_SQC_DATA_CACHE_TAG_B = 203,
+-	AMDGPU_GFX_SQC_DATA_CACHE_MISS_FIFO_A = 204,
+-	AMDGPU_GFX_SQC_DATA_CACHE_MISS_FIFO_B = 205,
+-	AMDGPU_GFX_SQC_DATA_CACHE_HIT_FIFO_A = 206,
+-	AMDGPU_GFX_SQC_DATA_CACHE_HIT_FIFO_B = 207,
+-	AMDGPU_GFX_SQC_DIRTY_BIT_A = 208,
+-	AMDGPU_GFX_SQC_DIRTY_BIT_B = 209,
+-	AMDGPU_GFX_SQC_WRITE_DATA_BUFFER_CU0 = 210,
+-	AMDGPU_GFX_SQC_WRITE_DATA_BUFFER_CU1 = 211,
+-	AMDGPU_GFX_SQC_UTCL1_MISS_LFIFO_DATA_CACHE_A = 212,
+-	AMDGPU_GFX_SQC_UTCL1_MISS_LFIFO_DATA_CACHE_B = 213,
+-	AMDGPU_GFX_SQC_UTCL1_MISS_LFIFO_INST_CACHE = 108,
+-};
+-
+-enum amdgpu_gfx_sq_ras_mem_id {
+-	AMDGPU_GFX_SQ_SGPR_MEM0 = 0,
+-	AMDGPU_GFX_SQ_SGPR_MEM1,
+-	AMDGPU_GFX_SQ_SGPR_MEM2,
+-	AMDGPU_GFX_SQ_SGPR_MEM3,
+-};
+-
+-enum amdgpu_gfx_ta_ras_mem_id {
+-	AMDGPU_GFX_TA_FS_AFIFO_RAM_LO = 1,
+-	AMDGPU_GFX_TA_FS_AFIFO_RAM_HI,
+-	AMDGPU_GFX_TA_FS_CFIFO_RAM,
+-	AMDGPU_GFX_TA_FSX_LFIFO,
+-	AMDGPU_GFX_TA_FS_DFIFO_RAM,
+-};
+-
+-enum amdgpu_gfx_tcc_ras_mem_id {
+-	AMDGPU_GFX_TCC_MEM1 = 1,
+-};
+-
+-enum amdgpu_gfx_tca_ras_mem_id {
+-	AMDGPU_GFX_TCA_MEM1 = 1,
+-};
+-
+-enum amdgpu_gfx_tci_ras_mem_id {
+-	AMDGPU_GFX_TCIW_MEM = 1,
+-};
+-
+-enum amdgpu_gfx_tcp_ras_mem_id {
+-	AMDGPU_GFX_TCP_LFIFO0 = 1,
+-	AMDGPU_GFX_TCP_SET0BANK0_RAM,
+-	AMDGPU_GFX_TCP_SET0BANK1_RAM,
+-	AMDGPU_GFX_TCP_SET0BANK2_RAM,
+-	AMDGPU_GFX_TCP_SET0BANK3_RAM,
+-	AMDGPU_GFX_TCP_SET1BANK0_RAM,
+-	AMDGPU_GFX_TCP_SET1BANK1_RAM,
+-	AMDGPU_GFX_TCP_SET1BANK2_RAM,
+-	AMDGPU_GFX_TCP_SET1BANK3_RAM,
+-	AMDGPU_GFX_TCP_SET2BANK0_RAM,
+-	AMDGPU_GFX_TCP_SET2BANK1_RAM,
+-	AMDGPU_GFX_TCP_SET2BANK2_RAM,
+-	AMDGPU_GFX_TCP_SET2BANK3_RAM,
+-	AMDGPU_GFX_TCP_SET3BANK0_RAM,
+-	AMDGPU_GFX_TCP_SET3BANK1_RAM,
+-	AMDGPU_GFX_TCP_SET3BANK2_RAM,
+-	AMDGPU_GFX_TCP_SET3BANK3_RAM,
+-	AMDGPU_GFX_TCP_VM_FIFO,
+-	AMDGPU_GFX_TCP_DB_TAGRAM0,
+-	AMDGPU_GFX_TCP_DB_TAGRAM1,
+-	AMDGPU_GFX_TCP_DB_TAGRAM2,
+-	AMDGPU_GFX_TCP_DB_TAGRAM3,
+-	AMDGPU_GFX_TCP_UTCL1_LFIFO_PROBE0,
+-	AMDGPU_GFX_TCP_UTCL1_LFIFO_PROBE1,
+-	AMDGPU_GFX_TCP_CMD_FIFO,
+-};
+-
+-enum amdgpu_gfx_td_ras_mem_id {
+-	AMDGPU_GFX_TD_UTD_CS_FIFO_MEM = 1,
+-	AMDGPU_GFX_TD_UTD_SS_FIFO_LO_MEM,
+-	AMDGPU_GFX_TD_UTD_SS_FIFO_HI_MEM,
+-};
+-
+-enum amdgpu_gfx_tcx_ras_mem_id {
+-	AMDGPU_GFX_TCX_FIFOD0 = 0,
+-	AMDGPU_GFX_TCX_FIFOD1,
+-	AMDGPU_GFX_TCX_FIFOD2,
+-	AMDGPU_GFX_TCX_FIFOD3,
+-	AMDGPU_GFX_TCX_FIFOD4,
+-	AMDGPU_GFX_TCX_FIFOD5,
+-	AMDGPU_GFX_TCX_FIFOD6,
+-	AMDGPU_GFX_TCX_FIFOD7,
+-	AMDGPU_GFX_TCX_FIFOB0,
+-	AMDGPU_GFX_TCX_FIFOB1,
+-	AMDGPU_GFX_TCX_FIFOB2,
+-	AMDGPU_GFX_TCX_FIFOB3,
+-	AMDGPU_GFX_TCX_FIFOB4,
+-	AMDGPU_GFX_TCX_FIFOB5,
+-	AMDGPU_GFX_TCX_FIFOB6,
+-	AMDGPU_GFX_TCX_FIFOB7,
+-	AMDGPU_GFX_TCX_FIFOA0,
+-	AMDGPU_GFX_TCX_FIFOA1,
+-	AMDGPU_GFX_TCX_FIFOA2,
+-	AMDGPU_GFX_TCX_FIFOA3,
+-	AMDGPU_GFX_TCX_FIFOA4,
+-	AMDGPU_GFX_TCX_FIFOA5,
+-	AMDGPU_GFX_TCX_FIFOA6,
+-	AMDGPU_GFX_TCX_FIFOA7,
+-	AMDGPU_GFX_TCX_CFIFO0,
+-	AMDGPU_GFX_TCX_CFIFO1,
+-	AMDGPU_GFX_TCX_CFIFO2,
+-	AMDGPU_GFX_TCX_CFIFO3,
+-	AMDGPU_GFX_TCX_CFIFO4,
+-	AMDGPU_GFX_TCX_CFIFO5,
+-	AMDGPU_GFX_TCX_CFIFO6,
+-	AMDGPU_GFX_TCX_CFIFO7,
+-	AMDGPU_GFX_TCX_FIFO_ACKB0,
+-	AMDGPU_GFX_TCX_FIFO_ACKB1,
+-	AMDGPU_GFX_TCX_FIFO_ACKB2,
+-	AMDGPU_GFX_TCX_FIFO_ACKB3,
+-	AMDGPU_GFX_TCX_FIFO_ACKB4,
+-	AMDGPU_GFX_TCX_FIFO_ACKB5,
+-	AMDGPU_GFX_TCX_FIFO_ACKB6,
+-	AMDGPU_GFX_TCX_FIFO_ACKB7,
+-	AMDGPU_GFX_TCX_FIFO_ACKD0,
+-	AMDGPU_GFX_TCX_FIFO_ACKD1,
+-	AMDGPU_GFX_TCX_FIFO_ACKD2,
+-	AMDGPU_GFX_TCX_FIFO_ACKD3,
+-	AMDGPU_GFX_TCX_FIFO_ACKD4,
+-	AMDGPU_GFX_TCX_FIFO_ACKD5,
+-	AMDGPU_GFX_TCX_FIFO_ACKD6,
+-	AMDGPU_GFX_TCX_FIFO_ACKD7,
+-	AMDGPU_GFX_TCX_DST_FIFOA0,
+-	AMDGPU_GFX_TCX_DST_FIFOA1,
+-	AMDGPU_GFX_TCX_DST_FIFOA2,
+-	AMDGPU_GFX_TCX_DST_FIFOA3,
+-	AMDGPU_GFX_TCX_DST_FIFOA4,
+-	AMDGPU_GFX_TCX_DST_FIFOA5,
+-	AMDGPU_GFX_TCX_DST_FIFOA6,
+-	AMDGPU_GFX_TCX_DST_FIFOA7,
+-	AMDGPU_GFX_TCX_DST_FIFOB0,
+-	AMDGPU_GFX_TCX_DST_FIFOB1,
+-	AMDGPU_GFX_TCX_DST_FIFOB2,
+-	AMDGPU_GFX_TCX_DST_FIFOB3,
+-	AMDGPU_GFX_TCX_DST_FIFOB4,
+-	AMDGPU_GFX_TCX_DST_FIFOB5,
+-	AMDGPU_GFX_TCX_DST_FIFOB6,
+-	AMDGPU_GFX_TCX_DST_FIFOB7,
+-	AMDGPU_GFX_TCX_DST_FIFOD0,
+-	AMDGPU_GFX_TCX_DST_FIFOD1,
+-	AMDGPU_GFX_TCX_DST_FIFOD2,
+-	AMDGPU_GFX_TCX_DST_FIFOD3,
+-	AMDGPU_GFX_TCX_DST_FIFOD4,
+-	AMDGPU_GFX_TCX_DST_FIFOD5,
+-	AMDGPU_GFX_TCX_DST_FIFOD6,
+-	AMDGPU_GFX_TCX_DST_FIFOD7,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB0,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB1,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB2,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB3,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB4,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB5,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB6,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKB7,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD0,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD1,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD2,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD3,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD4,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD5,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD6,
+-	AMDGPU_GFX_TCX_DST_FIFO_ACKD7,
+-};
+-
+-enum amdgpu_gfx_atc_l2_ras_mem_id {
+-	AMDGPU_GFX_ATC_L2_MEM0 = 0,
+-};
+-
+-enum amdgpu_gfx_utcl2_ras_mem_id {
+-	AMDGPU_GFX_UTCL2_MEM0 = 0,
+-};
+-
+-enum amdgpu_gfx_vml2_ras_mem_id {
+-	AMDGPU_GFX_VML2_MEM0 = 0,
+-};
+-
+-enum amdgpu_gfx_vml2_walker_ras_mem_id {
+-	AMDGPU_GFX_VML2_WALKER_MEM0 = 0,
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_cp_mem_list[] = {
+-	{AMDGPU_GFX_CP_MEM1, "CP_MEM1"},
+-	{AMDGPU_GFX_CP_MEM2, "CP_MEM2"},
+-	{AMDGPU_GFX_CP_MEM3, "CP_MEM3"},
+-	{AMDGPU_GFX_CP_MEM4, "CP_MEM4"},
+-	{AMDGPU_GFX_CP_MEM5, "CP_MEM5"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_gcea_mem_list[] = {
+-	{AMDGPU_GFX_GCEA_IOWR_CMDMEM, "GCEA_IOWR_CMDMEM"},
+-	{AMDGPU_GFX_GCEA_IORD_CMDMEM, "GCEA_IORD_CMDMEM"},
+-	{AMDGPU_GFX_GCEA_GMIWR_CMDMEM, "GCEA_GMIWR_CMDMEM"},
+-	{AMDGPU_GFX_GCEA_GMIRD_CMDMEM, "GCEA_GMIRD_CMDMEM"},
+-	{AMDGPU_GFX_GCEA_DRAMWR_CMDMEM, "GCEA_DRAMWR_CMDMEM"},
+-	{AMDGPU_GFX_GCEA_DRAMRD_CMDMEM, "GCEA_DRAMRD_CMDMEM"},
+-	{AMDGPU_GFX_GCEA_MAM_DMEM0, "GCEA_MAM_DMEM0"},
+-	{AMDGPU_GFX_GCEA_MAM_DMEM1, "GCEA_MAM_DMEM1"},
+-	{AMDGPU_GFX_GCEA_MAM_DMEM2, "GCEA_MAM_DMEM2"},
+-	{AMDGPU_GFX_GCEA_MAM_DMEM3, "GCEA_MAM_DMEM3"},
+-	{AMDGPU_GFX_GCEA_MAM_AMEM0, "GCEA_MAM_AMEM0"},
+-	{AMDGPU_GFX_GCEA_MAM_AMEM1, "GCEA_MAM_AMEM1"},
+-	{AMDGPU_GFX_GCEA_MAM_AMEM2, "GCEA_MAM_AMEM2"},
+-	{AMDGPU_GFX_GCEA_MAM_AMEM3, "GCEA_MAM_AMEM3"},
+-	{AMDGPU_GFX_GCEA_MAM_AFLUSH_BUFFER, "GCEA_MAM_AFLUSH_BUFFER"},
+-	{AMDGPU_GFX_GCEA_WRET_TAGMEM, "GCEA_WRET_TAGMEM"},
+-	{AMDGPU_GFX_GCEA_RRET_TAGMEM, "GCEA_RRET_TAGMEM"},
+-	{AMDGPU_GFX_GCEA_IOWR_DATAMEM, "GCEA_IOWR_DATAMEM"},
+-	{AMDGPU_GFX_GCEA_GMIWR_DATAMEM, "GCEA_GMIWR_DATAMEM"},
+-	{AMDGPU_GFX_GCEA_DRAM_DATAMEM, "GCEA_DRAM_DATAMEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_gc_cane_mem_list[] = {
+-	{AMDGPU_GFX_GC_CANE_MEM0, "GC_CANE_MEM0"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_gcutcl2_mem_list[] = {
+-	{AMDGPU_GFX_GCUTCL2_MEM2P512X95, "GCUTCL2_MEM2P512X95"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_gds_mem_list[] = {
+-	{AMDGPU_GFX_GDS_MEM0, "GDS_MEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_lds_mem_list[] = {
+-	{AMDGPU_GFX_LDS_BANK0, "LDS_BANK0"},
+-	{AMDGPU_GFX_LDS_BANK1, "LDS_BANK1"},
+-	{AMDGPU_GFX_LDS_BANK2, "LDS_BANK2"},
+-	{AMDGPU_GFX_LDS_BANK3, "LDS_BANK3"},
+-	{AMDGPU_GFX_LDS_BANK4, "LDS_BANK4"},
+-	{AMDGPU_GFX_LDS_BANK5, "LDS_BANK5"},
+-	{AMDGPU_GFX_LDS_BANK6, "LDS_BANK6"},
+-	{AMDGPU_GFX_LDS_BANK7, "LDS_BANK7"},
+-	{AMDGPU_GFX_LDS_BANK8, "LDS_BANK8"},
+-	{AMDGPU_GFX_LDS_BANK9, "LDS_BANK9"},
+-	{AMDGPU_GFX_LDS_BANK10, "LDS_BANK10"},
+-	{AMDGPU_GFX_LDS_BANK11, "LDS_BANK11"},
+-	{AMDGPU_GFX_LDS_BANK12, "LDS_BANK12"},
+-	{AMDGPU_GFX_LDS_BANK13, "LDS_BANK13"},
+-	{AMDGPU_GFX_LDS_BANK14, "LDS_BANK14"},
+-	{AMDGPU_GFX_LDS_BANK15, "LDS_BANK15"},
+-	{AMDGPU_GFX_LDS_BANK16, "LDS_BANK16"},
+-	{AMDGPU_GFX_LDS_BANK17, "LDS_BANK17"},
+-	{AMDGPU_GFX_LDS_BANK18, "LDS_BANK18"},
+-	{AMDGPU_GFX_LDS_BANK19, "LDS_BANK19"},
+-	{AMDGPU_GFX_LDS_BANK20, "LDS_BANK20"},
+-	{AMDGPU_GFX_LDS_BANK21, "LDS_BANK21"},
+-	{AMDGPU_GFX_LDS_BANK22, "LDS_BANK22"},
+-	{AMDGPU_GFX_LDS_BANK23, "LDS_BANK23"},
+-	{AMDGPU_GFX_LDS_BANK24, "LDS_BANK24"},
+-	{AMDGPU_GFX_LDS_BANK25, "LDS_BANK25"},
+-	{AMDGPU_GFX_LDS_BANK26, "LDS_BANK26"},
+-	{AMDGPU_GFX_LDS_BANK27, "LDS_BANK27"},
+-	{AMDGPU_GFX_LDS_BANK28, "LDS_BANK28"},
+-	{AMDGPU_GFX_LDS_BANK29, "LDS_BANK29"},
+-	{AMDGPU_GFX_LDS_BANK30, "LDS_BANK30"},
+-	{AMDGPU_GFX_LDS_BANK31, "LDS_BANK31"},
+-	{AMDGPU_GFX_LDS_SP_BUFFER_A, "LDS_SP_BUFFER_A"},
+-	{AMDGPU_GFX_LDS_SP_BUFFER_B, "LDS_SP_BUFFER_B"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_rlc_mem_list[] = {
+-	{AMDGPU_GFX_RLC_GPMF32, "RLC_GPMF32"},
+-	{AMDGPU_GFX_RLC_RLCVF32, "RLC_RLCVF32"},
+-	{AMDGPU_GFX_RLC_SCRATCH, "RLC_SCRATCH"},
+-	{AMDGPU_GFX_RLC_SRM_ARAM, "RLC_SRM_ARAM"},
+-	{AMDGPU_GFX_RLC_SRM_DRAM, "RLC_SRM_DRAM"},
+-	{AMDGPU_GFX_RLC_TCTAG, "RLC_TCTAG"},
+-	{AMDGPU_GFX_RLC_SPM_SE, "RLC_SPM_SE"},
+-	{AMDGPU_GFX_RLC_SPM_GRBMT, "RLC_SPM_GRBMT"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_sp_mem_list[] = {
+-	{AMDGPU_GFX_SP_SIMDID0, "SP_SIMDID0"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_spi_mem_list[] = {
+-	{AMDGPU_GFX_SPI_MEM0, "SPI_MEM0"},
+-	{AMDGPU_GFX_SPI_MEM1, "SPI_MEM1"},
+-	{AMDGPU_GFX_SPI_MEM2, "SPI_MEM2"},
+-	{AMDGPU_GFX_SPI_MEM3, "SPI_MEM3"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_sqc_mem_list[] = {
+-	{AMDGPU_GFX_SQC_INST_CACHE_A, "SQC_INST_CACHE_A"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_B, "SQC_INST_CACHE_B"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_TAG_A, "SQC_INST_CACHE_TAG_A"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_TAG_B, "SQC_INST_CACHE_TAG_B"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_MISS_FIFO_A, "SQC_INST_CACHE_MISS_FIFO_A"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_MISS_FIFO_B, "SQC_INST_CACHE_MISS_FIFO_B"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_GATCL1_MISS_FIFO_A, "SQC_INST_CACHE_GATCL1_MISS_FIFO_A"},
+-	{AMDGPU_GFX_SQC_INST_CACHE_GATCL1_MISS_FIFO_B, "SQC_INST_CACHE_GATCL1_MISS_FIFO_B"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_A, "SQC_DATA_CACHE_A"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_B, "SQC_DATA_CACHE_B"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_TAG_A, "SQC_DATA_CACHE_TAG_A"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_TAG_B, "SQC_DATA_CACHE_TAG_B"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_MISS_FIFO_A, "SQC_DATA_CACHE_MISS_FIFO_A"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_MISS_FIFO_B, "SQC_DATA_CACHE_MISS_FIFO_B"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_HIT_FIFO_A, "SQC_DATA_CACHE_HIT_FIFO_A"},
+-	{AMDGPU_GFX_SQC_DATA_CACHE_HIT_FIFO_B, "SQC_DATA_CACHE_HIT_FIFO_B"},
+-	{AMDGPU_GFX_SQC_DIRTY_BIT_A, "SQC_DIRTY_BIT_A"},
+-	{AMDGPU_GFX_SQC_DIRTY_BIT_B, "SQC_DIRTY_BIT_B"},
+-	{AMDGPU_GFX_SQC_WRITE_DATA_BUFFER_CU0, "SQC_WRITE_DATA_BUFFER_CU0"},
+-	{AMDGPU_GFX_SQC_WRITE_DATA_BUFFER_CU1, "SQC_WRITE_DATA_BUFFER_CU1"},
+-	{AMDGPU_GFX_SQC_UTCL1_MISS_LFIFO_DATA_CACHE_A, "SQC_UTCL1_MISS_LFIFO_DATA_CACHE_A"},
+-	{AMDGPU_GFX_SQC_UTCL1_MISS_LFIFO_DATA_CACHE_B, "SQC_UTCL1_MISS_LFIFO_DATA_CACHE_B"},
+-	{AMDGPU_GFX_SQC_UTCL1_MISS_LFIFO_INST_CACHE, "SQC_UTCL1_MISS_LFIFO_INST_CACHE"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_sq_mem_list[] = {
+-	{AMDGPU_GFX_SQ_SGPR_MEM0, "SQ_SGPR_MEM0"},
+-	{AMDGPU_GFX_SQ_SGPR_MEM1, "SQ_SGPR_MEM1"},
+-	{AMDGPU_GFX_SQ_SGPR_MEM2, "SQ_SGPR_MEM2"},
+-	{AMDGPU_GFX_SQ_SGPR_MEM3, "SQ_SGPR_MEM3"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_ta_mem_list[] = {
+-	{AMDGPU_GFX_TA_FS_AFIFO_RAM_LO, "TA_FS_AFIFO_RAM_LO"},
+-	{AMDGPU_GFX_TA_FS_AFIFO_RAM_HI, "TA_FS_AFIFO_RAM_HI"},
+-	{AMDGPU_GFX_TA_FS_CFIFO_RAM, "TA_FS_CFIFO_RAM"},
+-	{AMDGPU_GFX_TA_FSX_LFIFO, "TA_FSX_LFIFO"},
+-	{AMDGPU_GFX_TA_FS_DFIFO_RAM, "TA_FS_DFIFO_RAM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_tcc_mem_list[] = {
+-	{AMDGPU_GFX_TCC_MEM1, "TCC_MEM1"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_tca_mem_list[] = {
+-	{AMDGPU_GFX_TCA_MEM1, "TCA_MEM1"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_tci_mem_list[] = {
+-	{AMDGPU_GFX_TCIW_MEM, "TCIW_MEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_tcp_mem_list[] = {
+-	{AMDGPU_GFX_TCP_LFIFO0, "TCP_LFIFO0"},
+-	{AMDGPU_GFX_TCP_SET0BANK0_RAM, "TCP_SET0BANK0_RAM"},
+-	{AMDGPU_GFX_TCP_SET0BANK1_RAM, "TCP_SET0BANK1_RAM"},
+-	{AMDGPU_GFX_TCP_SET0BANK2_RAM, "TCP_SET0BANK2_RAM"},
+-	{AMDGPU_GFX_TCP_SET0BANK3_RAM, "TCP_SET0BANK3_RAM"},
+-	{AMDGPU_GFX_TCP_SET1BANK0_RAM, "TCP_SET1BANK0_RAM"},
+-	{AMDGPU_GFX_TCP_SET1BANK1_RAM, "TCP_SET1BANK1_RAM"},
+-	{AMDGPU_GFX_TCP_SET1BANK2_RAM, "TCP_SET1BANK2_RAM"},
+-	{AMDGPU_GFX_TCP_SET1BANK3_RAM, "TCP_SET1BANK3_RAM"},
+-	{AMDGPU_GFX_TCP_SET2BANK0_RAM, "TCP_SET2BANK0_RAM"},
+-	{AMDGPU_GFX_TCP_SET2BANK1_RAM, "TCP_SET2BANK1_RAM"},
+-	{AMDGPU_GFX_TCP_SET2BANK2_RAM, "TCP_SET2BANK2_RAM"},
+-	{AMDGPU_GFX_TCP_SET2BANK3_RAM, "TCP_SET2BANK3_RAM"},
+-	{AMDGPU_GFX_TCP_SET3BANK0_RAM, "TCP_SET3BANK0_RAM"},
+-	{AMDGPU_GFX_TCP_SET3BANK1_RAM, "TCP_SET3BANK1_RAM"},
+-	{AMDGPU_GFX_TCP_SET3BANK2_RAM, "TCP_SET3BANK2_RAM"},
+-	{AMDGPU_GFX_TCP_SET3BANK3_RAM, "TCP_SET3BANK3_RAM"},
+-	{AMDGPU_GFX_TCP_VM_FIFO, "TCP_VM_FIFO"},
+-	{AMDGPU_GFX_TCP_DB_TAGRAM0, "TCP_DB_TAGRAM0"},
+-	{AMDGPU_GFX_TCP_DB_TAGRAM1, "TCP_DB_TAGRAM1"},
+-	{AMDGPU_GFX_TCP_DB_TAGRAM2, "TCP_DB_TAGRAM2"},
+-	{AMDGPU_GFX_TCP_DB_TAGRAM3, "TCP_DB_TAGRAM3"},
+-	{AMDGPU_GFX_TCP_UTCL1_LFIFO_PROBE0, "TCP_UTCL1_LFIFO_PROBE0"},
+-	{AMDGPU_GFX_TCP_UTCL1_LFIFO_PROBE1, "TCP_UTCL1_LFIFO_PROBE1"},
+-	{AMDGPU_GFX_TCP_CMD_FIFO, "TCP_CMD_FIFO"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_td_mem_list[] = {
+-	{AMDGPU_GFX_TD_UTD_CS_FIFO_MEM, "TD_UTD_CS_FIFO_MEM"},
+-	{AMDGPU_GFX_TD_UTD_SS_FIFO_LO_MEM, "TD_UTD_SS_FIFO_LO_MEM"},
+-	{AMDGPU_GFX_TD_UTD_SS_FIFO_HI_MEM, "TD_UTD_SS_FIFO_HI_MEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_tcx_mem_list[] = {
+-	{AMDGPU_GFX_TCX_FIFOD0, "TCX_FIFOD0"},
+-	{AMDGPU_GFX_TCX_FIFOD1, "TCX_FIFOD1"},
+-	{AMDGPU_GFX_TCX_FIFOD2, "TCX_FIFOD2"},
+-	{AMDGPU_GFX_TCX_FIFOD3, "TCX_FIFOD3"},
+-	{AMDGPU_GFX_TCX_FIFOD4, "TCX_FIFOD4"},
+-	{AMDGPU_GFX_TCX_FIFOD5, "TCX_FIFOD5"},
+-	{AMDGPU_GFX_TCX_FIFOD6, "TCX_FIFOD6"},
+-	{AMDGPU_GFX_TCX_FIFOD7, "TCX_FIFOD7"},
+-	{AMDGPU_GFX_TCX_FIFOB0, "TCX_FIFOB0"},
+-	{AMDGPU_GFX_TCX_FIFOB1, "TCX_FIFOB1"},
+-	{AMDGPU_GFX_TCX_FIFOB2, "TCX_FIFOB2"},
+-	{AMDGPU_GFX_TCX_FIFOB3, "TCX_FIFOB3"},
+-	{AMDGPU_GFX_TCX_FIFOB4, "TCX_FIFOB4"},
+-	{AMDGPU_GFX_TCX_FIFOB5, "TCX_FIFOB5"},
+-	{AMDGPU_GFX_TCX_FIFOB6, "TCX_FIFOB6"},
+-	{AMDGPU_GFX_TCX_FIFOB7, "TCX_FIFOB7"},
+-	{AMDGPU_GFX_TCX_FIFOA0, "TCX_FIFOA0"},
+-	{AMDGPU_GFX_TCX_FIFOA1, "TCX_FIFOA1"},
+-	{AMDGPU_GFX_TCX_FIFOA2, "TCX_FIFOA2"},
+-	{AMDGPU_GFX_TCX_FIFOA3, "TCX_FIFOA3"},
+-	{AMDGPU_GFX_TCX_FIFOA4, "TCX_FIFOA4"},
+-	{AMDGPU_GFX_TCX_FIFOA5, "TCX_FIFOA5"},
+-	{AMDGPU_GFX_TCX_FIFOA6, "TCX_FIFOA6"},
+-	{AMDGPU_GFX_TCX_FIFOA7, "TCX_FIFOA7"},
+-	{AMDGPU_GFX_TCX_CFIFO0, "TCX_CFIFO0"},
+-	{AMDGPU_GFX_TCX_CFIFO1, "TCX_CFIFO1"},
+-	{AMDGPU_GFX_TCX_CFIFO2, "TCX_CFIFO2"},
+-	{AMDGPU_GFX_TCX_CFIFO3, "TCX_CFIFO3"},
+-	{AMDGPU_GFX_TCX_CFIFO4, "TCX_CFIFO4"},
+-	{AMDGPU_GFX_TCX_CFIFO5, "TCX_CFIFO5"},
+-	{AMDGPU_GFX_TCX_CFIFO6, "TCX_CFIFO6"},
+-	{AMDGPU_GFX_TCX_CFIFO7, "TCX_CFIFO7"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB0, "TCX_FIFO_ACKB0"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB1, "TCX_FIFO_ACKB1"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB2, "TCX_FIFO_ACKB2"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB3, "TCX_FIFO_ACKB3"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB4, "TCX_FIFO_ACKB4"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB5, "TCX_FIFO_ACKB5"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB6, "TCX_FIFO_ACKB6"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKB7, "TCX_FIFO_ACKB7"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD0, "TCX_FIFO_ACKD0"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD1, "TCX_FIFO_ACKD1"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD2, "TCX_FIFO_ACKD2"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD3, "TCX_FIFO_ACKD3"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD4, "TCX_FIFO_ACKD4"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD5, "TCX_FIFO_ACKD5"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD6, "TCX_FIFO_ACKD6"},
+-	{AMDGPU_GFX_TCX_FIFO_ACKD7, "TCX_FIFO_ACKD7"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA0, "TCX_DST_FIFOA0"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA1, "TCX_DST_FIFOA1"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA2, "TCX_DST_FIFOA2"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA3, "TCX_DST_FIFOA3"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA4, "TCX_DST_FIFOA4"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA5, "TCX_DST_FIFOA5"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA6, "TCX_DST_FIFOA6"},
+-	{AMDGPU_GFX_TCX_DST_FIFOA7, "TCX_DST_FIFOA7"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB0, "TCX_DST_FIFOB0"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB1, "TCX_DST_FIFOB1"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB2, "TCX_DST_FIFOB2"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB3, "TCX_DST_FIFOB3"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB4, "TCX_DST_FIFOB4"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB5, "TCX_DST_FIFOB5"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB6, "TCX_DST_FIFOB6"},
+-	{AMDGPU_GFX_TCX_DST_FIFOB7, "TCX_DST_FIFOB7"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD0, "TCX_DST_FIFOD0"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD1, "TCX_DST_FIFOD1"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD2, "TCX_DST_FIFOD2"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD3, "TCX_DST_FIFOD3"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD4, "TCX_DST_FIFOD4"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD5, "TCX_DST_FIFOD5"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD6, "TCX_DST_FIFOD6"},
+-	{AMDGPU_GFX_TCX_DST_FIFOD7, "TCX_DST_FIFOD7"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB0, "TCX_DST_FIFO_ACKB0"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB1, "TCX_DST_FIFO_ACKB1"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB2, "TCX_DST_FIFO_ACKB2"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB3, "TCX_DST_FIFO_ACKB3"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB4, "TCX_DST_FIFO_ACKB4"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB5, "TCX_DST_FIFO_ACKB5"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB6, "TCX_DST_FIFO_ACKB6"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKB7, "TCX_DST_FIFO_ACKB7"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD0, "TCX_DST_FIFO_ACKD0"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD1, "TCX_DST_FIFO_ACKD1"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD2, "TCX_DST_FIFO_ACKD2"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD3, "TCX_DST_FIFO_ACKD3"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD4, "TCX_DST_FIFO_ACKD4"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD5, "TCX_DST_FIFO_ACKD5"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD6, "TCX_DST_FIFO_ACKD6"},
+-	{AMDGPU_GFX_TCX_DST_FIFO_ACKD7, "TCX_DST_FIFO_ACKD7"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_atc_l2_mem_list[] = {
+-	{AMDGPU_GFX_ATC_L2_MEM, "ATC_L2_MEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_utcl2_mem_list[] = {
+-	{AMDGPU_GFX_UTCL2_MEM, "UTCL2_MEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_vml2_mem_list[] = {
+-	{AMDGPU_GFX_VML2_MEM, "VML2_MEM"},
+-};
+-
+-static const struct amdgpu_ras_memory_id_entry gfx_v9_4_3_ras_vml2_walker_mem_list[] = {
+-	{AMDGPU_GFX_VML2_WALKER_MEM, "VML2_WALKER_MEM"},
+-};
+-
+-static const struct amdgpu_gfx_ras_mem_id_entry gfx_v9_4_3_ras_mem_list_array[AMDGPU_GFX_MEM_TYPE_NUM] = {
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_cp_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_gcea_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_gc_cane_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_gcutcl2_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_gds_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_lds_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_rlc_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_sp_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_spi_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_sqc_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_sq_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_ta_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_tcc_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_tca_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_tci_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_tcp_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_td_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_tcx_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_atc_l2_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_utcl2_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_vml2_mem_list)
+-	AMDGPU_GFX_MEMID_ENT(gfx_v9_4_3_ras_vml2_walker_mem_list)
+-};
+-
+-static const struct amdgpu_gfx_ras_reg_entry gfx_v9_4_3_ce_reg_list[] = {
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regRLC_CE_ERR_STATUS_LOW, regRLC_CE_ERR_STATUS_HIGH),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "RLC"},
+-	    AMDGPU_GFX_RLC_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regCPC_CE_ERR_STATUS_LO, regCPC_CE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CPC"},
+-	    AMDGPU_GFX_CP_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regCPF_CE_ERR_STATUS_LO, regCPF_CE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CPF"},
+-	    AMDGPU_GFX_CP_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regCPG_CE_ERR_STATUS_LO, regCPG_CE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CPG"},
+-	    AMDGPU_GFX_CP_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regGDS_CE_ERR_STATUS_LO, regGDS_CE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "GDS"},
+-	    AMDGPU_GFX_GDS_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regGC_CANE_CE_ERR_STATUS_LO, regGC_CANE_CE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CANE"},
+-	    AMDGPU_GFX_GC_CANE_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSPI_CE_ERR_STATUS_LO, regSPI_CE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SPI"},
+-	    AMDGPU_GFX_SPI_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSP0_CE_ERR_STATUS_LO, regSP0_CE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SP0"},
+-	    AMDGPU_GFX_SP_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSP1_CE_ERR_STATUS_LO, regSP1_CE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SP1"},
+-	    AMDGPU_GFX_SP_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSQ_CE_ERR_STATUS_LO, regSQ_CE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SQ"},
+-	    AMDGPU_GFX_SQ_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSQC_CE_EDC_LO, regSQC_CE_EDC_HI),
+-	    5, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SQC"},
+-	    AMDGPU_GFX_SQC_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCX_CE_ERR_STATUS_LO, regTCX_CE_ERR_STATUS_HI),
+-	    2, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCX"},
+-	    AMDGPU_GFX_TCX_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCC_CE_ERR_STATUS_LO, regTCC_CE_ERR_STATUS_HI),
+-	    16, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCC"},
+-	    AMDGPU_GFX_TCC_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTA_CE_EDC_LO, regTA_CE_EDC_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TA"},
+-	    AMDGPU_GFX_TA_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCI_CE_EDC_LO_REG, regTCI_CE_EDC_HI_REG),
+-	    27, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCI"},
+-	    AMDGPU_GFX_TCI_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCP_CE_EDC_LO_REG, regTCP_CE_EDC_HI_REG),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCP"},
+-	    AMDGPU_GFX_TCP_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTD_CE_EDC_LO, regTD_CE_EDC_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TD"},
+-	    AMDGPU_GFX_TD_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regGCEA_CE_ERR_STATUS_LO, regGCEA_CE_ERR_STATUS_HI),
+-	    16, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "GCEA"},
+-	    AMDGPU_GFX_GCEA_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regLDS_CE_ERR_STATUS_LO, regLDS_CE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "LDS"},
+-	    AMDGPU_GFX_LDS_MEM, 4},
+-};
+-
+-static const struct amdgpu_gfx_ras_reg_entry gfx_v9_4_3_ue_reg_list[] = {
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regRLC_UE_ERR_STATUS_LOW, regRLC_UE_ERR_STATUS_HIGH),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "RLC"},
+-	    AMDGPU_GFX_RLC_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regCPC_UE_ERR_STATUS_LO, regCPC_UE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CPC"},
+-	    AMDGPU_GFX_CP_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regCPF_UE_ERR_STATUS_LO, regCPF_UE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CPF"},
+-	    AMDGPU_GFX_CP_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regCPG_UE_ERR_STATUS_LO, regCPG_UE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CPG"},
+-	    AMDGPU_GFX_CP_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regGDS_UE_ERR_STATUS_LO, regGDS_UE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "GDS"},
+-	    AMDGPU_GFX_GDS_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regGC_CANE_UE_ERR_STATUS_LO, regGC_CANE_UE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "CANE"},
+-	    AMDGPU_GFX_GC_CANE_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSPI_UE_ERR_STATUS_LO, regSPI_UE_ERR_STATUS_HI),
+-	    1, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SPI"},
+-	    AMDGPU_GFX_SPI_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSP0_UE_ERR_STATUS_LO, regSP0_UE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SP0"},
+-	    AMDGPU_GFX_SP_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSP1_UE_ERR_STATUS_LO, regSP1_UE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SP1"},
+-	    AMDGPU_GFX_SP_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSQ_UE_ERR_STATUS_LO, regSQ_UE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SQ"},
+-	    AMDGPU_GFX_SQ_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regSQC_UE_EDC_LO, regSQC_UE_EDC_HI),
+-	    5, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "SQC"},
+-	    AMDGPU_GFX_SQC_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCX_UE_ERR_STATUS_LO, regTCX_UE_ERR_STATUS_HI),
+-	    2, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCX"},
+-	    AMDGPU_GFX_TCX_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCC_UE_ERR_STATUS_LO, regTCC_UE_ERR_STATUS_HI),
+-	    16, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCC"},
+-	    AMDGPU_GFX_TCC_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTA_UE_EDC_LO, regTA_UE_EDC_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TA"},
+-	    AMDGPU_GFX_TA_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCI_UE_EDC_LO_REG, regTCI_UE_EDC_HI_REG),
+-	    27, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCI"},
+-	    AMDGPU_GFX_TCI_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCP_UE_EDC_LO_REG, regTCP_UE_EDC_HI_REG),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCP"},
+-	    AMDGPU_GFX_TCP_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTD_UE_EDC_LO, regTD_UE_EDC_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TD"},
+-	    AMDGPU_GFX_TD_MEM, 4},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regTCA_UE_ERR_STATUS_LO, regTCA_UE_ERR_STATUS_HI),
+-	    2, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "TCA"},
+-	    AMDGPU_GFX_TCA_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regGCEA_UE_ERR_STATUS_LO, regGCEA_UE_ERR_STATUS_HI),
+-	    16, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "GCEA"},
+-	    AMDGPU_GFX_GCEA_MEM, 1},
+-	{{AMDGPU_RAS_REG_ENTRY(GC, 0, regLDS_UE_ERR_STATUS_LO, regLDS_UE_ERR_STATUS_HI),
+-	    10, (AMDGPU_RAS_ERR_INFO_VALID | AMDGPU_RAS_ERR_STATUS_VALID), "LDS"},
+-	    AMDGPU_GFX_LDS_MEM, 4},
+-};
+-
+-static void gfx_v9_4_3_inst_query_ras_err_count(struct amdgpu_device *adev,
+-					void *ras_error_status, int xcc_id)
 -{
--	struct cper_hdr *fatal = NULL;
--	struct cper_sec_crashdump_reg_data reg_data = { 0 };
--	struct amdgpu_ring *ring = &adev->cper.ring_buf;
--	int ret;
+-	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
+-	unsigned long ce_count = 0, ue_count = 0;
+-	uint32_t i, j, k;
 -
--	fatal = amdgpu_cper_alloc_entry(adev, AMDGPU_CPER_TYPE_FATAL, 1);
--	if (!fatal) {
--		dev_err(adev->dev, "fail to alloc cper entry for ue record\n");
--		return -ENOMEM;
--	}
+-	/* NOTE: convert xcc_id to physical XCD ID (XCD0 or XCD1) */
+-	struct amdgpu_smuio_mcm_config_info mcm_info = {
+-		.socket_id = adev->smuio.funcs->get_socket_id(adev),
+-		.die_id = xcc_id & 0x01 ? 1 : 0,
+-	};
 -
--	reg_data.status_lo = lower_32_bits(bank->regs[ACA_REG_IDX_STATUS]);
--	reg_data.status_hi = upper_32_bits(bank->regs[ACA_REG_IDX_STATUS]);
--	reg_data.addr_lo   = lower_32_bits(bank->regs[ACA_REG_IDX_ADDR]);
--	reg_data.addr_hi   = upper_32_bits(bank->regs[ACA_REG_IDX_ADDR]);
--	reg_data.ipid_lo   = lower_32_bits(bank->regs[ACA_REG_IDX_IPID]);
--	reg_data.ipid_hi   = upper_32_bits(bank->regs[ACA_REG_IDX_IPID]);
--	reg_data.synd_lo   = lower_32_bits(bank->regs[ACA_REG_IDX_SYND]);
--	reg_data.synd_hi   = upper_32_bits(bank->regs[ACA_REG_IDX_SYND]);
+-	mutex_lock(&adev->grbm_idx_mutex);
 -
--	amdgpu_cper_entry_fill_hdr(adev, fatal, AMDGPU_CPER_TYPE_FATAL, CPER_SEV_FATAL_UNCORRECTED);
--	ret = amdgpu_cper_entry_fill_fatal_section(adev, fatal, 0, reg_data);
--	if (ret)
--		return ret;
+-	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_3_ce_reg_list); i++) {
+-		for (j = 0; j < gfx_v9_4_3_ce_reg_list[i].se_num; j++) {
+-			for (k = 0; k < gfx_v9_4_3_ce_reg_list[i].reg_entry.reg_inst; k++) {
+-				/* no need to select if instance number is 1 */
+-				if (gfx_v9_4_3_ce_reg_list[i].se_num > 1 ||
+-				    gfx_v9_4_3_ce_reg_list[i].reg_entry.reg_inst > 1)
+-					gfx_v9_4_3_xcc_select_se_sh(adev, j, 0, k, xcc_id);
 -
--	amdgpu_cper_ring_write(ring, fatal, fatal->record_length);
--	kfree(fatal);
+-				amdgpu_ras_inst_query_ras_error_count(adev,
+-					&(gfx_v9_4_3_ce_reg_list[i].reg_entry),
+-					1,
+-					gfx_v9_4_3_ras_mem_list_array[gfx_v9_4_3_ce_reg_list[i].mem_id_type].mem_id_ent,
+-					gfx_v9_4_3_ras_mem_list_array[gfx_v9_4_3_ce_reg_list[i].mem_id_type].size,
+-					GET_INST(GC, xcc_id),
+-					AMDGPU_RAS_ERROR__SINGLE_CORRECTABLE,
+-					&ce_count);
 -
--	return 0;
--}
--
- int amdgpu_cper_generate_bp_threshold_record(struct amdgpu_device *adev)
- {
- 	struct cper_hdr *bp_threshold = NULL;
-@@ -348,83 +314,6 @@ int amdgpu_cper_generate_bp_threshold_record(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--static enum cper_error_severity amdgpu_aca_err_type_to_cper_sev(struct amdgpu_device *adev,
--								enum aca_error_type aca_err_type)
--{
--	switch (aca_err_type) {
--	case ACA_ERROR_TYPE_UE:
--		return CPER_SEV_FATAL_UNCORRECTED;
--	case ACA_ERROR_TYPE_CE:
--		return CPER_SEV_NON_FATAL_CORRECTED;
--	case ACA_ERROR_TYPE_DEFERRED:
--		return CPER_SEV_NON_FATAL_UNCORRECTED;
--	default:
--		dev_err(adev->dev, "Unknown ACA error type!\n");
--		return CPER_SEV_FATAL_UNCORRECTED;
--	}
--}
--
--int amdgpu_cper_generate_ce_records(struct amdgpu_device *adev,
--				    struct aca_banks *banks,
--				    uint16_t bank_count)
--{
--	struct cper_hdr *corrected = NULL;
--	enum cper_error_severity sev = CPER_SEV_NON_FATAL_CORRECTED;
--	struct amdgpu_ring *ring = &adev->cper.ring_buf;
--	uint32_t reg_data[CPER_ACA_REG_COUNT] = { 0 };
--	struct aca_bank_node *node;
--	struct aca_bank *bank;
--	uint32_t i = 0;
--	int ret;
--
--	corrected = amdgpu_cper_alloc_entry(adev, AMDGPU_CPER_TYPE_RUNTIME, bank_count);
--	if (!corrected) {
--		dev_err(adev->dev, "fail to allocate cper entry for ce records\n");
--		return -ENOMEM;
--	}
--
--	/* Raise severity if any DE is detected in the ACA bank list */
--	list_for_each_entry(node, &banks->list, node) {
--		bank = &node->bank;
--		if (bank->aca_err_type == ACA_ERROR_TYPE_DEFERRED) {
--			sev = CPER_SEV_NON_FATAL_UNCORRECTED;
--			break;
+-				amdgpu_ras_inst_query_ras_error_count(adev,
+-					&(gfx_v9_4_3_ue_reg_list[i].reg_entry),
+-					1,
+-					gfx_v9_4_3_ras_mem_list_array[gfx_v9_4_3_ue_reg_list[i].mem_id_type].mem_id_ent,
+-					gfx_v9_4_3_ras_mem_list_array[gfx_v9_4_3_ue_reg_list[i].mem_id_type].size,
+-					GET_INST(GC, xcc_id),
+-					AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
+-					&ue_count);
+-			}
 -		}
 -	}
 -
--	amdgpu_cper_entry_fill_hdr(adev, corrected, AMDGPU_CPER_TYPE_RUNTIME, sev);
+-	/* handle extra register entries of UE */
+-	for (; i < ARRAY_SIZE(gfx_v9_4_3_ue_reg_list); i++) {
+-		for (j = 0; j < gfx_v9_4_3_ue_reg_list[i].se_num; j++) {
+-			for (k = 0; k < gfx_v9_4_3_ue_reg_list[i].reg_entry.reg_inst; k++) {
+-				/* no need to select if instance number is 1 */
+-				if (gfx_v9_4_3_ue_reg_list[i].se_num > 1 ||
+-					gfx_v9_4_3_ue_reg_list[i].reg_entry.reg_inst > 1)
+-					gfx_v9_4_3_xcc_select_se_sh(adev, j, 0, k, xcc_id);
 -
--	/* Combine CE and DE in cper record */
--	list_for_each_entry(node, &banks->list, node) {
--		bank = &node->bank;
--		reg_data[CPER_ACA_REG_CTL_LO]    = lower_32_bits(bank->regs[ACA_REG_IDX_CTL]);
--		reg_data[CPER_ACA_REG_CTL_HI]    = upper_32_bits(bank->regs[ACA_REG_IDX_CTL]);
--		reg_data[CPER_ACA_REG_STATUS_LO] = lower_32_bits(bank->regs[ACA_REG_IDX_STATUS]);
--		reg_data[CPER_ACA_REG_STATUS_HI] = upper_32_bits(bank->regs[ACA_REG_IDX_STATUS]);
--		reg_data[CPER_ACA_REG_ADDR_LO]   = lower_32_bits(bank->regs[ACA_REG_IDX_ADDR]);
--		reg_data[CPER_ACA_REG_ADDR_HI]   = upper_32_bits(bank->regs[ACA_REG_IDX_ADDR]);
--		reg_data[CPER_ACA_REG_MISC0_LO]  = lower_32_bits(bank->regs[ACA_REG_IDX_MISC0]);
--		reg_data[CPER_ACA_REG_MISC0_HI]  = upper_32_bits(bank->regs[ACA_REG_IDX_MISC0]);
--		reg_data[CPER_ACA_REG_CONFIG_LO] = lower_32_bits(bank->regs[ACA_REG_IDX_CONFIG]);
--		reg_data[CPER_ACA_REG_CONFIG_HI] = upper_32_bits(bank->regs[ACA_REG_IDX_CONFIG]);
--		reg_data[CPER_ACA_REG_IPID_LO]   = lower_32_bits(bank->regs[ACA_REG_IDX_IPID]);
--		reg_data[CPER_ACA_REG_IPID_HI]   = upper_32_bits(bank->regs[ACA_REG_IDX_IPID]);
--		reg_data[CPER_ACA_REG_SYND_LO]   = lower_32_bits(bank->regs[ACA_REG_IDX_SYND]);
--		reg_data[CPER_ACA_REG_SYND_HI]   = upper_32_bits(bank->regs[ACA_REG_IDX_SYND]);
--
--		ret = amdgpu_cper_entry_fill_runtime_section(adev, corrected, i++,
--				amdgpu_aca_err_type_to_cper_sev(adev, bank->aca_err_type),
--				reg_data, CPER_ACA_REG_COUNT);
--		if (ret)
--			return ret;
+-				amdgpu_ras_inst_query_ras_error_count(adev,
+-					&(gfx_v9_4_3_ue_reg_list[i].reg_entry),
+-					1,
+-					gfx_v9_4_3_ras_mem_list_array[gfx_v9_4_3_ue_reg_list[i].mem_id_type].mem_id_ent,
+-					gfx_v9_4_3_ras_mem_list_array[gfx_v9_4_3_ue_reg_list[i].mem_id_type].size,
+-					GET_INST(GC, xcc_id),
+-					AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
+-					&ue_count);
+-			}
+-		}
 -	}
 -
--	amdgpu_cper_ring_write(ring, corrected, corrected->record_length);
--	kfree(corrected);
+-	gfx_v9_4_3_xcc_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff,
+-			xcc_id);
+-	mutex_unlock(&adev->grbm_idx_mutex);
 -
--	return 0;
+-	/* the caller should make sure initialize value of
+-	 * err_data->ue_count and err_data->ce_count
+-	 */
+-	amdgpu_ras_error_statistic_ue_count(err_data, &mcm_info, ue_count);
+-	amdgpu_ras_error_statistic_ce_count(err_data, &mcm_info, ce_count);
 -}
 -
- static bool amdgpu_cper_is_hdr(struct amdgpu_ring *ring, u64 pos)
+-static void gfx_v9_4_3_inst_reset_ras_err_count(struct amdgpu_device *adev,
+-					void *ras_error_status, int xcc_id)
+-{
+-	uint32_t i, j, k;
+-
+-	mutex_lock(&adev->grbm_idx_mutex);
+-
+-	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_3_ce_reg_list); i++) {
+-		for (j = 0; j < gfx_v9_4_3_ce_reg_list[i].se_num; j++) {
+-			for (k = 0; k < gfx_v9_4_3_ce_reg_list[i].reg_entry.reg_inst; k++) {
+-				/* no need to select if instance number is 1 */
+-				if (gfx_v9_4_3_ce_reg_list[i].se_num > 1 ||
+-				    gfx_v9_4_3_ce_reg_list[i].reg_entry.reg_inst > 1)
+-					gfx_v9_4_3_xcc_select_se_sh(adev, j, 0, k, xcc_id);
+-
+-				amdgpu_ras_inst_reset_ras_error_count(adev,
+-					&(gfx_v9_4_3_ce_reg_list[i].reg_entry),
+-					1,
+-					GET_INST(GC, xcc_id));
+-
+-				amdgpu_ras_inst_reset_ras_error_count(adev,
+-					&(gfx_v9_4_3_ue_reg_list[i].reg_entry),
+-					1,
+-					GET_INST(GC, xcc_id));
+-			}
+-		}
+-	}
+-
+-	/* handle extra register entries of UE */
+-	for (; i < ARRAY_SIZE(gfx_v9_4_3_ue_reg_list); i++) {
+-		for (j = 0; j < gfx_v9_4_3_ue_reg_list[i].se_num; j++) {
+-			for (k = 0; k < gfx_v9_4_3_ue_reg_list[i].reg_entry.reg_inst; k++) {
+-				/* no need to select if instance number is 1 */
+-				if (gfx_v9_4_3_ue_reg_list[i].se_num > 1 ||
+-					gfx_v9_4_3_ue_reg_list[i].reg_entry.reg_inst > 1)
+-					gfx_v9_4_3_xcc_select_se_sh(adev, j, 0, k, xcc_id);
+-
+-				amdgpu_ras_inst_reset_ras_error_count(adev,
+-					&(gfx_v9_4_3_ue_reg_list[i].reg_entry),
+-					1,
+-					GET_INST(GC, xcc_id));
+-			}
+-		}
+-	}
+-
+-	gfx_v9_4_3_xcc_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff,
+-			xcc_id);
+-	mutex_unlock(&adev->grbm_idx_mutex);
+-}
+-
+ static void gfx_v9_4_3_inst_enable_watchdog_timer(struct amdgpu_device *adev,
+ 					void *ras_error_status, int xcc_id)
  {
- 	char signature[CPER_SIGNATURE_SZ];
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-index 353421807387..d12c98077d9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-@@ -26,7 +26,6 @@
- #define __AMDGPU_CPER_H__
+@@ -4624,18 +3758,6 @@ static void gfx_v9_4_3_inst_enable_watchdog_timer(struct amdgpu_device *adev,
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ }
  
- #include "amd_cper.h"
--#include "amdgpu_aca.h"
+-static void gfx_v9_4_3_query_ras_error_count(struct amdgpu_device *adev,
+-					void *ras_error_status)
+-{
+-	amdgpu_gfx_ras_error_func(adev, ras_error_status,
+-			gfx_v9_4_3_inst_query_ras_err_count);
+-}
+-
+-static void gfx_v9_4_3_reset_ras_error_count(struct amdgpu_device *adev)
+-{
+-	amdgpu_gfx_ras_error_func(adev, NULL, gfx_v9_4_3_inst_reset_ras_err_count);
+-}
+-
+ static void gfx_v9_4_3_enable_watchdog_timer(struct amdgpu_device *adev)
+ {
+ 	amdgpu_gfx_ras_error_func(adev, NULL, gfx_v9_4_3_inst_enable_watchdog_timer);
+@@ -5116,14 +4238,9 @@ struct amdgpu_xcp_ip_funcs gfx_v9_4_3_xcp_funcs = {
+ 	.resume = &gfx_v9_4_3_xcp_resume
+ };
  
- #define CPER_MAX_ALLOWED_COUNT		0x1000
- #define CPER_MAX_RING_SIZE		0X100000
-@@ -88,13 +87,6 @@ int amdgpu_cper_entry_fill_bad_page_threshold_section(struct amdgpu_device *adev
- struct cper_hdr *amdgpu_cper_alloc_entry(struct amdgpu_device *adev,
- 					 enum amdgpu_cper_type type,
- 					 uint16_t section_count);
--/* UE must be encoded into separated cper entries, 1 UE 1 cper */
--int amdgpu_cper_generate_ue_record(struct amdgpu_device *adev,
--				   struct aca_bank *bank);
--/* CEs and DEs are combined into 1 cper entry */
--int amdgpu_cper_generate_ce_records(struct amdgpu_device *adev,
--				    struct aca_banks *banks,
--				    uint16_t bank_count);
- /* Bad page threshold is encoded into separated cper entry */
- int amdgpu_cper_generate_bp_threshold_record(struct amdgpu_device *adev);
- void amdgpu_cper_ring_write(struct amdgpu_ring *ring,
+-struct amdgpu_ras_block_hw_ops  gfx_v9_4_3_ras_ops = {
+-	.query_ras_error_count = &gfx_v9_4_3_query_ras_error_count,
+-	.reset_ras_error_count = &gfx_v9_4_3_reset_ras_error_count,
+-};
+-
+ struct amdgpu_gfx_ras gfx_v9_4_3_ras = {
+ 	.ras_block = {
+-		.hw_ops = &gfx_v9_4_3_ras_ops,
++		.hw_ops = NULL,
+ 	},
+ 	.enable_watchdog_timer = &gfx_v9_4_3_enable_watchdog_timer,
+ };
 -- 
 2.34.1
 
