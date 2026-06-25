@@ -4,124 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD33CDB47F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF619CDB466
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B6610F1B5;
-	Thu, 25 Jun 2026 08:46:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A76E10E1A0;
+	Thu, 25 Jun 2026 08:54:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cbXacHwE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RUdgUmr3";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86E7810F1B5;
- Thu, 25 Jun 2026 08:46:33 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013035.outbound.protection.outlook.com
+ [40.107.201.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 960EF10E1A0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 08:54:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kt8KkRfsKq4VKcMDtEwzGGxalnO8IYz7TSNpYf/5UxEfEjlBUBqJyfKRye9otxJ6slWGzEdGKWUCDLlE46wPwA6eBByMUvxB84Cfdz+DqwrXvplpyFSpnZjjVObnJFW8LC2RVbjFR6BA9R3s4Mgi3ZrBAYG3q89VJ5EDeutzA7d8wbtzk3p5BMu98WQm2fqAMOXFxqYStFLvFVQcH76Z5JWRgMsXtTUeGmNWwIeigriSPd6Qsu9IrWIr6gUEsJXs8oIrbuZqbQmcOfaOB+BIuB92GgunyXZoS3vA07Zyo7mRKihYJa0syiyR2ID3jlCd89yXWomRqqdev5lDHz1HbQ==
+ b=Y9WXTvO5PhICWk6tJnf42PyYnVDE//qZf9iV6ouDtwQVmQQpeNN9HPj+JmEJIlYz1Bol7pLJZMxKY5JYGSosto+x0Fdp5gZi51CdR5CtUTM3EzHRsfAsugmjpXPtbtAEk9xkGy0I7R1iu5Fr7QQhuRT7ZR9aYKVmac/wtFnQ7JSf66kDhC6txmigF658vUAq3XpLUVwJCsnMCznltJ02e7GsQTRCjtCfiYdLvipu3TNkN++Oo0F/OSSNKBnkIFPiqtdCnD8oWgFVn4vseukFyJrRmpMUh2xSTYBkwScsoX7bL8Saud9BXrxMMPYAedTXjCeuO2skBwPp718sKqaWfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6zmIh9gOPAkEu0PGa+pPl8ZQcZGO0UPNpdgRxjtsOXw=;
- b=h7oOt/RgEO4k6isqlWcqDAa2b+OTcEairMHpRZZwaH2LgBttUfKieTijim2bOXOGfREPyptxzZthMCBGgAAxOblLwdpZXCf0bdXgMq+CZG3Hvhw7rQOAF6SBAVNSltpq08Ann0Oq5cYDcUIQIFOGpAUSAX6fdKuRmLKO3AjYcio94bt/bhg3bLMzuARQFJmpVgiktNFICcRpxDLggrfMQVdAXlfayE/Y9Rav8WEHdfzUTkQ3DsRK1N0KmHQp/cGViNrdNfexmgT/b2HBp1hVlwyHWObelgp0/oktevfYQG1jJGs5/fcPclsWLeZIu8Wg5XgC2XGkBMSGSITv67BXGg==
+ bh=3QdX+hKy7ecNhweFaT0EGp2PI1NfTh9wkzbmkaarmsU=;
+ b=hVEJTr8erP0SGiU5xFaKQzcpd27nju8qOyeP2Nzr+QFKqK5ZyNVbcCO1JWQziwxUI2zXIAXaLIr6iDTG39vitMFBcj6YzmmpX1HEcbjv+iNpfnLKJ+R5TfuVflMR7xtb+exnquddNHKmSB62rElacM7Xr2/pvcLgTq82T0aXzXYL36rG+IIVm6Jre3fHlBfcbrrqEru35BxvOhN0SSeZTaynsOxbakSrZGU1rCR0cQU3uB6B+7VpA/zNBz7YiUJwjMaB3lU4nds6B5Ha5i6Z1PVqFkLROAYA21isblWCcXn6zDvpAiUrDkBdUk3Xc0ZZsSGu4svsJIuuOFbGtxOBdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zmIh9gOPAkEu0PGa+pPl8ZQcZGO0UPNpdgRxjtsOXw=;
- b=cbXacHwESTZip3XFfnPzYGsgN94TkmwxxBoE/LR7qNLL2n2noUfGYiO+SUQswJX0xG64MUp0enX6USUNRt66bM/vq8IYQqDetmfa9dodmU8cNCueqTHca3us11X4N2/9fLu7OI7cFcW33Sxf/t0QFOUPzjSH0zyvDIqMRKdFDyM=
+ bh=3QdX+hKy7ecNhweFaT0EGp2PI1NfTh9wkzbmkaarmsU=;
+ b=RUdgUmr3Ou3qBmcUq7TcNoxYJsONC+rV6unypfIo3s+NVZg6gAPetiShJBniiFOsg7r39Abi8dOuwzuMYAnfLbvfe+IjJZlo16Ty9AB1aHBcPy/O7XI/uOZ8+yEb2Pu32YjpHteN2eU/BfwDAbxtO8Wmbj3rfNoMyD0KN5d6zNA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
+ by SN7PR12MB7178.namprd12.prod.outlook.com (2603:10b6:806:2a6::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Thu, 25 Jun
- 2026 08:46:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 08:54:39 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0139.018; Thu, 25 Jun 2026
- 08:46:28 +0000
-Message-ID: <72aa8cb3-2b48-4b08-ab17-788c3dd18fe6@amd.com>
-Date: Thu, 25 Jun 2026 10:46:24 +0200
+ 08:54:38 +0000
+Message-ID: <9a83a967-ede3-4777-b46c-e4baf958b6ac@amd.com>
+Date: Thu, 25 Jun 2026 10:54:34 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: reject mapping info for unmapped BOs
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+Subject: Re: [PATCH v4 1/6] drm/amdgpu: move struct amdgpu_wb and helpers into
+ separate files
+To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260624175554.489406-1-shahyan.soltani@amd.com>
+ <20260624175554.489406-2-shahyan.soltani@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+In-Reply-To: <20260624175554.489406-2-shahyan.soltani@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0430.namprd13.prod.outlook.com
- (2603:10b6:208:2c3::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR08CA0024.namprd08.prod.outlook.com
+ (2603:10b6:208:239::29) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB6967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c1dd9b2-37b8-4145-cb5f-08ded2963f7d
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7178:EE_
+X-MS-Office365-Filtering-Correlation-Id: dee277df-9624-4bfc-20e5-08ded2976370
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: kTlN7O5hH+7x/naXs/gQmUjuivg5/jZ8oGdEsBQeiGEAipy8/n0190H6toWVGaGRb5JRczP8Ed9jt4/fAeaJUM88yDXmtstWu4xJej8xnEBlv0l07U2IyvyAbIeBkLPRx/Ka/CWV5pXQnTQys/SZFqdolcPKkbuRRCwQrhsG9Dzbkv3LKQhAEEos805hC/Hvq+iGMg9euWlT8icnf46ynfRItCr9JJgb00q/SZbqhLybXBZTkQX76wtZANUSZ/TZC8GMdY+lkSi9SKZZHtSFmPl5SAXeoSnnVXcEs/cfXHwgM2qLtFIVX3F/sOttC31kk6N3c+Pukn/DCLVk+rNmGXqB6FZrjjAs7ds1adRBAA2WJV0zfDrOZcuciQgCY0cp6/jOd6YQ5Xy0u2+fJfz2DkSCbo5lNqdBuhwMbFOoyphcApikl03PEi1c8AMwBU95ETgQVjn43xpU6ubKhfw+osWvAlVLSLZnsshGZNpUyo5R5eTAgelAGE3CQkHuk3exAwPRwu6VQKqEbTDbe/voJi1fLOjRbQofBvXOskoW1NsZmFt/sVkF1h3yrgLsGGrUiWFAmiZk4vOTWSR2VBp4hKWOa1kuZjvevW5fBa0l9/O+MdTJ5YisH/UTX/yZQgVJk7OBv+k/uD/UTuQE4+TJznG0W8U4OP2RpJsrRLYm/To=
+ ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|3023799007|6133799003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: Dztp4epFt9qFgH7nsaIs+hBW9N1FS9MOKZXpZ9/WzGKEPrzIV08DLwEK/J+87KL3QZiwu0s3gNlaKjhiZ9OjGIAgqzhVGWE7E1bE06XRZ2UxNSZH/EI8smhe0UyeV/4zvqzF1Mbq/+kFCCwGZQQME3gIgAfPn4xJjAOnh7vhEFUHB+9Aer/eUwYB+nV+jkmyrTBwN6N8F2TyPKnOnDhdW5hOC/CYmAOGH3lSqTyHMprR0ck5E+kmpPvGGvIqkH3xvrB58bpWN68P6UQpu31KBCO7O0OOc0XRUlmrxTLhsZ8pAxNroXK/ocHocHzKfVhd2OlRZmFkZ87ZL8eam9NFxLM/EXjrzam/wWxWHjvh0xfScyswtcKRSuzeq0B3a2Zmx7e7sjd0AS29lsQPEeUuZint6zpdJg9srVPZycegR/8wTtA5XtRAt5I47ppqV1ynRK+34ghbUQgYCNwx1679uF7AHHDEwQ5dL1ty4mR965fn9H9Bjqv9I+HeN6Kh0ZkoYxfE7aKaZxnUjxAe08LF3TjoDWvrL1HuWJzysEpKJp0+EZMPlA6EFhWkBPzNlIJVsWNTKIvuXgnzO/PqI89WP08VLcnaJUPy2aDm2X8izfUfo2GPyIAKieArdnwhwvplPDmu5dPBaIme+tckbigxp5Hn2y0FL5a7R4aXbHUTqI0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(3023799007)(6133799003)(11063799006)(4143699003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0ZNdnR0M2NoazhxZjlxckg2TXZDUmtnWklxTnp2dmdxeUNFUUJuNWxkSEdG?=
- =?utf-8?B?T0xmZ1N2Y3Q0YmNtSWFDUnRDcHpQMTQxSmwyRW9aZlMvcDZ3S0NNTm5TNWt0?=
- =?utf-8?B?dHBrczV2Y0daMHNHRmRIeTNXQThDekIwQzNnM3pmSHRzTUtzdWovd293d0Z6?=
- =?utf-8?B?djA3YURld2llMkhQbFNqdEhXa01TQlBYeHRjY0c5N1FaYld5VXBLYW5kN3Rj?=
- =?utf-8?B?Y3Z3SEtER0kzdk00MlR6QW5SQjNFeGJaV3ljMG9mblNMWHhENVloOEdIa0hq?=
- =?utf-8?B?SmU2bWNzeHZzZmJKZlRIWVBxbzV3M3VmeUtldmNKQnQyVXh5aXFneWtYd0RT?=
- =?utf-8?B?UEtGWjg0akhzTTNMQ2tTYVI0OXhZUWt1cUFXSjhPKytJdkc4TlRkeTRGOU80?=
- =?utf-8?B?c2x6Q3pibHlvUllkLzR2NUMySmxGeTJ3ckJFUkhsUGpqL1J3Q2lZdTMwM3Jl?=
- =?utf-8?B?K0hOMVo4RmpnaFMvNFZGRHovUEd5NmpZMHRKU0x5ZVNyWUhwZTFkQXBLN0hm?=
- =?utf-8?B?V0pqMUtLM3FrY3lmUHE5VjZMaWxrVTNDeHByclAyVEFBaDd2VXl5Y0lpWXBT?=
- =?utf-8?B?ZkQ4alBtVFkyQy9aT2oxdW82Z0pOdWdwbUl6MUpkVG1MeU5YL1VqcjhBUnpG?=
- =?utf-8?B?VmMxZHgza2F3MzNON0tqSk52ckNQSkhmZWlzVXRiUnlLK1dJd2JzaENlVXY4?=
- =?utf-8?B?a2lpWnNhUW02emJNcnRaUXNZRWdQYmk5YTNwM0FrN3F0T244TTE5SFFDUlI0?=
- =?utf-8?B?VC92L3JCSit1RHZoTjhTcjNlbTZxNUZIb3NWWllJczhJZ2NzdmwvNjU5NXlZ?=
- =?utf-8?B?aUJ4UlhaV2cvdG1nS2JsSDFmOThPUzhMZlVYNEtFeTRzTjAzNVU3eFdPaHF4?=
- =?utf-8?B?a0hzZW8reThHOFBncE4rbU9ObFJWTmg1TFBTWXFsa25KZDREZFB6bExWUDNw?=
- =?utf-8?B?b2pIZ1lUOEZibXYvK2M0bUlzeW5RelJyTzhWWWVPRXhWUnJ5a0M0T2hFUUZa?=
- =?utf-8?B?K1lqSEZYYmxlalZ2bTFZWmR0TGJLZkN1bVBmRE12MTlUU0NjSXF4RW03bXpZ?=
- =?utf-8?B?bUxuZCtjN3lTWlFYWm9pSnFzdGxjL0ZIcktZNW0xbXVLU1ljM3lkQnFwcmkx?=
- =?utf-8?B?WVY1eHhjVlZrVFVoZkVyd050QVVTUTFVcCtvNUhFeGhRRjEySXJhVlFqODFQ?=
- =?utf-8?B?Z1dLaVc3VFdRdFJISFBxYk5qcWY3NTVuUHpnQ3NhTFkzNnE5SnBadTU1UGhC?=
- =?utf-8?B?VXROb0pHVC91WjBncDh1cVB6SHVSNHFndytmb2ozUWluQXB6UXdNQ3dNclMr?=
- =?utf-8?B?UnUxZ0NkZTFLdXhlNU9uNFE3MERmaTA1d1BnWXZHV0NBTjY0Z2l4SGZiQklm?=
- =?utf-8?B?L3BIbXBLN29ZZExQTHY5QVYyVUZBQURaMGo2a2R1ZWFWckVoMjhNNm5JblVY?=
- =?utf-8?B?ZFFiUFJuVFc4MSt2aXpOUDN1MzI5MDN0dGtsWVE4VVZPRjZFM3dSdnhOcmRM?=
- =?utf-8?B?QVB3SjlPdjFVK3JzZzVXdjVTckJyYjMyOXlybHNiT3ZXdWlVaDJNTVlvaThB?=
- =?utf-8?B?MzVYbXd4OG5BK2N5SUQ4UnZDNXM3d3RBcERZWWIvbmNHZkIwVVlhU0lPRHJ6?=
- =?utf-8?B?cW9UcWIrSGVvckIyY2IyV0Q1TDhYL1lkNlJGTklXWXl0UHhtSHhzaWJvOFkx?=
- =?utf-8?B?RmZnQWhtaFM4d1llR2pERlF1VVFSRDB5bVIxanYrb3BYN093cGNuTzRPeVhs?=
- =?utf-8?B?OUs3clRiaE40OWRCSUFLYktYYXBrUzhGWlhiaG5CcHVUTmREQ0dleGZPTXJa?=
- =?utf-8?B?d0VqSWR3dm42U0NkR2xUTTl6aEV5OXA0OFA2RU9ISkNwVE5PUkg5Si9GbDY5?=
- =?utf-8?B?VVdwSEhwdkdrTVdLcUNBVkQrcVJMTzJZa0ZOcjc3MWJsOU9KTy9HZVB5Rm4y?=
- =?utf-8?B?S1pVejJRTmhqM092Q3gyWVRMQUtTV0hMMGRPUGg0b2hIRjEzZEViZExBakRq?=
- =?utf-8?B?WUlIVUQ0L2ZtNzM3VUErVzI4MFdyUElHS0N2clVpbkc2VTlweUxlYTNyQzN4?=
- =?utf-8?B?YXQxU3JXYlNOd3JkVm1mNUF2b3FIdkxvTzB0L0xCWUhvTFVpd0dVdzFDWTZu?=
- =?utf-8?B?dzNJUjlwc29DWXJubTMybDJNbUNmMitIbk1QYWtKemJmL2U5QjlqRXg5NXdV?=
- =?utf-8?B?aGlxMzVXanhJelgxakh5RXhtd2JEK2VCNC84cno0SVNNbUIwR3MrOVVramR3?=
- =?utf-8?B?MmVXRTVLbGNvblZCVWVFcHFlWkpva0VCZjc5cHI3NXRMemE5QWRJM2xGTnpU?=
- =?utf-8?Q?ekkTsmWs1v0rFPHdaK?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDZRaEw0UXVwR0N5d1NEYzZZdU1NQUllbGI4YVdQRi9rN3NuN093N1VFblE2?=
+ =?utf-8?B?Nk9DVlYxWWJjYm5xek5La1RuZnNPY3JMdzQwZ1I2TVFyYTFBV0IzUUJjS2lk?=
+ =?utf-8?B?UDh0THgxSk0vSjZCQzZYeVBSbk00UHRrNVZwQ25aUUs4c0hQZENneERRcDlD?=
+ =?utf-8?B?RENLRzBsbVQ2Q01UMVE5VVFMdjRLa2VXTWJpK0FkTFNJS3RSdEUrdkprMDM4?=
+ =?utf-8?B?YkJOTnYyK1pweEYwRGRaQUZhaHVoK1lDVmdMYkhrMTZwbGJ6RlpJSGhKRWo2?=
+ =?utf-8?B?amdkL2xtcWNqcWxuZEk5NWg2OWR5cGFUVjdsaGJNaFVlVk1XbVBwNEl3ZFRz?=
+ =?utf-8?B?cmJIYXRsWEFIZzAxamxGd3VHcW40dEgwWHdlWklKK2RNY2l6VkdGdkgzQlpG?=
+ =?utf-8?B?L0VkZWlubWc1RVg1T3RWbVVHU1JwWUZhRnJjZWtMelpwVWpZU0kyYmFvaVNk?=
+ =?utf-8?B?T2dTTkJ3dTNZS2V4K0dwM0hwdU1IY21VN1pEUVFDYXQwU0Z6cnlRK2VycFFW?=
+ =?utf-8?B?TWhwczIxS2ZFQUFXN1FpZm5ZRzNIKzRiUHB6MGhVWjdJck9hcVJKb2RCeE5E?=
+ =?utf-8?B?L05aMm02TnRxeTVwUGhLOUE5ZUhUKzZvdWZFcjdERHd4QzBWRU5Gejc1dkdB?=
+ =?utf-8?B?MlhLMnE3NEtPbGxrSUdNV1NKRGl1RUlLc2gyREh5NU1ZSGFoZFpyOW5kQkNK?=
+ =?utf-8?B?SUJ5T0pwcmpEaXA1U3pVaTRKNTViWVJoZ2Y4ZTJzVkorRCtoRkRlalF6dDlH?=
+ =?utf-8?B?emdySFpsV3BocXJtTjB0Um4xallUL0E5WDFRendESmhnNUp1U2h0ZGR3TWZu?=
+ =?utf-8?B?MERQTTU0NE11anhIWjRPT01tRFYzQkFlU3lEQjN2S1NSTEt0V1o2S3lTVVNZ?=
+ =?utf-8?B?SU9sditmVDNxRkRZRTBWUWhoVENscHFMblRFMm9zd2pONXZrOUxnd2pWc3lZ?=
+ =?utf-8?B?L0hiZ25RaWx2dWY0d3A3RzlBRXFCaGJnMmVQTjhkNmdyd0MzcFdRdU1Tdk0z?=
+ =?utf-8?B?U2d0TkRGK0ltWEZxUDlRQXlVdGNCd2ZDb3JINW1RWUdNazhMVVlPbjdpNzFF?=
+ =?utf-8?B?WkJ0UXFhbmNTWEFWT0RlK2xSOGM5VjhDb3ZYVmxKNDNPRnBoSUZlTlhPWHBn?=
+ =?utf-8?B?UCs2WkFlSFl6QXl1M1lxZmZHVTl3UmY5TFJmRUtmQVl2bkJFelRNQUVtMURv?=
+ =?utf-8?B?NnpDMkJaSHBTMS9DZ3JvV2dzQncxWmNVZEV0NDgxaTFDM0VRSFRST2NkYUNz?=
+ =?utf-8?B?TzJBNFpCNVNNYTJJelRTTy9Fb1ZiYzJNOFlyNnZqUVplMWlvZVJUK0M4WDk5?=
+ =?utf-8?B?QnFnQytQZ2ZlY01pNzI4aGp2NThZcnZ2MUFxMmdMTmVGQ0t0Y1lyZzJhSk02?=
+ =?utf-8?B?R1BFTlhLM3NEWEhPN29QVE1IdTBQUmxZa3NPTEFHUnk4cHdITGF0Mk8xRUtN?=
+ =?utf-8?B?KzkzcGdWVnNIZUpITkRTMFhtTmZBVjl3RWdXcUJENElOSGFLNlBZdkRzVW9o?=
+ =?utf-8?B?aUw0MDZEUVg1S25uek9GYVFZT3k4UWE4b0lJbm95bG81OUVGcEpzMGxWOUE4?=
+ =?utf-8?B?RjJzRFZycWViUEdSTmhoMElLNHo0UUNDMklmYXJzdHhjR2QyTXVQRnphNExS?=
+ =?utf-8?B?VC84Z3IrWHZBWk1NMkxlTy9sSGIrN2JudXVwL0FYdk0vb29pYjUzaThwd1JH?=
+ =?utf-8?B?eStleVBtOTltbTdiWjljcHFsWCtRSW9UK2tYZ1FNT1FBbTlpMWg2Wm9MS0xK?=
+ =?utf-8?B?NjBMd1V4UGd0M09lMitIcHhGZVBNWmFYODFUcGRmMldBY28ycmFlMjBqSDBK?=
+ =?utf-8?B?T2c3cERtM0NLVDE3SmUwTEFpOVo3WjdTRWdRMHRQSzBkLzd2OFpaT2hieFNz?=
+ =?utf-8?B?MzE5R3R5QXhTZG9hN2FhOURQazFhZW9BNmhnWlZMMXFSdE1LSzRMWkFzSFhH?=
+ =?utf-8?B?cXE4cnR5T3NOOWlkNGpibHNFS2lkSXI3Wkc5dC96NkRFZHJSZU16QkhPbjJy?=
+ =?utf-8?B?UzFXNjVNbTBiakhzVno3Tjl2UmczZWNZZnpYREphb1hMck5tdi9TSGFFMkt6?=
+ =?utf-8?B?eWFTNDFuQitOc3l2RWdvVXFqS2N0WGdKZXZZVWdyS3V0TU8xdjNlRzgvL0xx?=
+ =?utf-8?B?dVZmOUtBd1BrTDZDN21jV2crMVg2YWw3THdmUXMySkRNYjhkNlBHV1dMYmQ4?=
+ =?utf-8?B?NDZuSFNYRnVMRUtFRGRoaTRzVFBuTjdqb0hMMzUvbVhWR21xSVJKL01BQ1k5?=
+ =?utf-8?B?SU5pWS82b2JqVDVhOFFiSEJObndqanVnVmVqNjNNT2pPVFI5ZGpNUTBkcEFD?=
+ =?utf-8?Q?MpPoBTaEVw9gnEkLxj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c1dd9b2-37b8-4145-cb5f-08ded2963f7d
+X-MS-Exchange-CrossTenant-Network-Message-Id: dee277df-9624-4bfc-20e5-08ded2976370
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:46:28.7791 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:54:38.5870 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ba+DbkQVGCXso6IZUm3r8GdtzCucxYF6Vrfvjlet+y58Awh5ZfzdrGlA8vzWs5F5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6967
+X-MS-Exchange-CrossTenant-UserPrincipalName: +6Nzf9usJgoZ8R4uPyPVDqADMaNcA5OsHAswM1khyqBW/zK4tqcxcjpRmKeGEeQe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7178
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,48 +136,1601 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/24/26 19:20, Yousef Alhouseen wrote:
-> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the BO's VM mapping and then
-> iterates the valid and invalid mapping lists unconditionally. A GEM BO can
-> be queried before it has been mapped into the file VM, in which case
-> amdgpu_vm_bo_find() returns NULL and the list walk dereferences it.
-
-Mhm, that is not correct at all.
-
-The bo_va is created when the handle is opened inside the filp and not when the first mapping is created.
-
-Do you have a test case to reproduce the issue?
-
-Thanks,
-Christian.
-
+On 6/24/26 19:55, Shahyan Soltani wrote:
+> Move struct amdgpu_wb and helpers out of the monolithic header amdgpu.h
+> into its own dedicated header amdgpu_wb.h.
 > 
-> Return -ENOENT for an unmapped BO, matching the VA operation path that
-> already rejects missing BO-VA state before touching the mapping lists.
+> Add amdgpu_wb_init() and amdgpu_wb_fini() into amdgpu_wb.h.
 > 
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> Move functions amdgpu_device_wb_get(), amdgpu_device_wb_free(),
+> amdgpu_device_wb_init(), and amdgpu_device_wb_fini() out of
+> amdgpu_device.c into new dedicated amdgpu_wb.c file.
+> 
+> Removed static from functions amdgpu_device_wb_init() and amdgpu_device_wb_fini().
+> 
+> Rename functions amdgpu_device_wb_get(), amdgpu_device_wb_free(),
+> amdgpu_device_wb_init(), and amdgpu_device_wb_fini() into
+> amdgpu_wb_get(), amdgpu_wb_free(), amdgpu_wb_init(), and amdgpu_wb_fini().
+> 
+> Update amdgpu/Makefile to build amdgpu_wb.o.
+> 
+> This is part of the ongoing effort to reduce the size of amdgpu.h into
+> their own respective separate headers.
+> 
+> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/Makefile          |   3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h          |  68 +---------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 110 +---------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c      |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c       |  14 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c      |  16 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c     |  18 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c      |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c       | 129 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h       | 102 +++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/cik_sdma.c        |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c       |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c       |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c       |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c       |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c        |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c        |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c      |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c   |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c       |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c       |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c       |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c       |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c       |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c       |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c     |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c       |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c       |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c       |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c       |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c       |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/si_dma.c          |   8 +-
+>  33 files changed, 349 insertions(+), 285 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 212c14d99..4b2699931 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->                 struct drm_amdgpu_gem_vm_entry *vm_entries;
->                 struct amdgpu_bo_va_mapping *mapping;
->                 int num_mappings = 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index ba80542ead9d..10dc7cfd607e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -71,7 +71,8 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
+>  	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+>  	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
+>  	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
+> -	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o
+> +	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
+> +	amdgpu_wb.o
+>  
+>  amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 4c3e933ff6d5..f9b579675886 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -113,6 +113,7 @@
+>  #include "amdgpu_reg_state.h"
+>  #include "amdgpu_userq.h"
+>  #include "amdgpu_eviction_fence.h"
+> +#include "amdgpu_wb.h"
+>  #include "amdgpu_ip.h"
+>  #include "amdgpu_sa.h"
+>  #if defined(CONFIG_DRM_AMD_ISP)
+> @@ -430,73 +431,6 @@ struct amdgpu_fpriv {
+>  
+>  int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
+>  
+> -/*
+> - * Writeback
+> - */
+> -#define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
+> -
+> -/**
+> - * struct amdgpu_wb - This struct is used for small GPU memory allocation.
+> - *
+> - * This struct is used to allocate a small amount of GPU memory that can be
+> - * used to shadow certain states into the memory. This is especially useful for
+> - * providing easy CPU access to some states without requiring register access
+> - * (e.g., if some block is power gated, reading register may be problematic).
+> - *
+> - * Note: the term writeback was initially used because many of the amdgpu
+> - * components had some level of writeback memory, and this struct initially
+> - * described those components.
+> - */
+> -struct amdgpu_wb {
+> -
+> -	/**
+> -	 * @wb_obj:
+> -	 *
+> -	 * Buffer Object used for the writeback memory.
+> -	 */
+> -	struct amdgpu_bo	*wb_obj;
+> -
+> -	/**
+> -	 * @wb:
+> -	 *
+> -	 * Pointer to the first writeback slot. In terms of CPU address
+> -	 * this value can be accessed directly by using the offset as an index.
+> -	 * For the GPU address, it is necessary to use gpu_addr and the offset.
+> -	 */
+> -	uint32_t		*wb;
+> -
+> -	/**
+> -	 * @gpu_addr:
+> -	 *
+> -	 * Writeback base address in the GPU.
+> -	 */
+> -	uint64_t		gpu_addr;
+> -
+> -	/**
+> -	 * @num_wb:
+> -	 *
+> -	 * Number of writeback slots reserved for amdgpu.
+> -	 */
+> -	u32			num_wb;
+> -
+> -	/**
+> -	 * @used:
+> -	 *
+> -	 * Track the writeback slot already used.
+> -	 */
+> -	unsigned long		used[DIV_ROUND_UP(AMDGPU_MAX_WB, BITS_PER_LONG)];
+> -
+> -	/**
+> -	 * @lock:
+> -	 *
+> -	 * Protects read and write of the used field array.
+> -	 */
+> -	spinlock_t		lock;
+> -};
+> -
+> -int amdgpu_device_wb_get(struct amdgpu_device *adev, u32 *wb);
+> -void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb);
+> -
+>  /*
+>   * Benchmarking
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5442a1fc1c37..7178f1afc5ff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -72,6 +72,7 @@
+>  
+>  #include "amdgpu_xgmi.h"
+>  #include "amdgpu_ras.h"
+> +#include "amdgpu_wb.h"
+>  #include "amdgpu_ras_mgr.h"
+>  #include "amdgpu_pmu.h"
+>  #include "amdgpu_fru_eeprom.h"
+> @@ -1005,109 +1006,6 @@ int amdgpu_device_pci_reset(struct amdgpu_device *adev)
+>  	return pci_reset_function(adev->pdev);
+>  }
+>  
+> -/*
+> - * amdgpu_device_wb_*()
+> - * Writeback is the method by which the GPU updates special pages in memory
+> - * with the status of certain GPU events (fences, ring pointers,etc.).
+> - */
+> -
+> -/**
+> - * amdgpu_device_wb_fini - Disable Writeback and free memory
+> - *
+> - * @adev: amdgpu_device pointer
+> - *
+> - * Disables Writeback and frees the Writeback memory (all asics).
+> - * Used at driver shutdown.
+> - */
+> -static void amdgpu_device_wb_fini(struct amdgpu_device *adev)
+> -{
+> -	if (adev->wb.wb_obj) {
+> -		amdgpu_bo_free_kernel(&adev->wb.wb_obj,
+> -				      &adev->wb.gpu_addr,
+> -				      (void **)&adev->wb.wb);
+> -		adev->wb.wb_obj = NULL;
+> -	}
+> -}
+> -
+> -/**
+> - * amdgpu_device_wb_init - Init Writeback driver info and allocate memory
+> - *
+> - * @adev: amdgpu_device pointer
+> - *
+> - * Initializes writeback and allocates writeback memory (all asics).
+> - * Used at driver startup.
+> - * Returns 0 on success or an -error on failure.
+> - */
+> -static int amdgpu_device_wb_init(struct amdgpu_device *adev)
+> -{
+> -	int r;
+> -
+> -	if (adev->wb.wb_obj == NULL) {
+> -		/* AMDGPU_MAX_WB * sizeof(uint32_t) * 8 = AMDGPU_MAX_WB 256bit slots */
+> -		r = amdgpu_bo_create_kernel(adev, AMDGPU_MAX_WB * sizeof(uint32_t) * 8,
+> -					    PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
+> -					    &adev->wb.wb_obj, &adev->wb.gpu_addr,
+> -					    (void **)&adev->wb.wb);
+> -		if (r) {
+> -			dev_warn(adev->dev, "(%d) create WB bo failed\n", r);
+> -			return r;
+> -		}
+> -
+> -		adev->wb.num_wb = AMDGPU_MAX_WB;
+> -		memset(&adev->wb.used, 0, sizeof(adev->wb.used));
+> -
+> -		/* clear wb memory */
+> -		memset((char *)adev->wb.wb, 0, AMDGPU_MAX_WB * sizeof(uint32_t) * 8);
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -/**
+> - * amdgpu_device_wb_get - Allocate a wb entry
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @wb: wb index
+> - *
+> - * Allocate a wb slot for use by the driver (all asics).
+> - * Returns 0 on success or -EINVAL on failure.
+> - */
+> -int amdgpu_device_wb_get(struct amdgpu_device *adev, u32 *wb)
+> -{
+> -	unsigned long flags, offset;
+> -
+> -	spin_lock_irqsave(&adev->wb.lock, flags);
+> -	offset = find_first_zero_bit(adev->wb.used, adev->wb.num_wb);
+> -	if (offset < adev->wb.num_wb) {
+> -		__set_bit(offset, adev->wb.used);
+> -		spin_unlock_irqrestore(&adev->wb.lock, flags);
+> -		*wb = offset << 3; /* convert to dw offset */
+> -		return 0;
+> -	} else {
+> -		spin_unlock_irqrestore(&adev->wb.lock, flags);
+> -		return -EINVAL;
+> -	}
+> -}
+> -
+> -/**
+> - * amdgpu_device_wb_free - Free a wb entry
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @wb: wb index
+> - *
+> - * Free a wb slot allocated for use by the driver (all asics)
+> - */
+> -void amdgpu_device_wb_free(struct amdgpu_device *adev, u32 wb)
+> -{
+> -	unsigned long flags;
+> -
+> -	wb >>= 3;
+> -	spin_lock_irqsave(&adev->wb.lock, flags);
+> -	if (wb < adev->wb.num_wb)
+> -		__clear_bit(wb, adev->wb.used);
+> -	spin_unlock_irqrestore(&adev->wb.lock, flags);
+> -}
+> -
+>  /**
+>   * amdgpu_device_resize_fb_bar - try to resize FB BAR
+>   *
+> @@ -2371,10 +2269,10 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>  					r);
+>  				goto init_failed;
+>  			}
+> -			r = amdgpu_device_wb_init(adev);
+> +			r = amdgpu_wb_init(adev);
+>  			if (r) {
+>  				dev_err(adev->dev,
+> -					"amdgpu_device_wb_init failed %d\n", r);
+> +					"amdgpu_wb_init failed %d\n", r);
+>  				goto init_failed;
+>  			}
+>  			adev->ip_blocks[i].status.hw = true;
+> @@ -2906,7 +2804,7 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
+>  			amdgpu_ucode_free_bo(adev);
+>  			amdgpu_free_static_csa(&adev->virt.csa_obj);
+> -			amdgpu_device_wb_fini(adev);
+> +			amdgpu_wb_fini(adev);
+>  			amdgpu_device_mem_scratch_fini(adev);
+>  			amdgpu_ib_pool_fini(adev);
+>  			amdgpu_seq64_fini(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index a5b835d0c166..b56212335d19 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1170,7 +1170,7 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+>  	BUG_ON(!ring->funcs->emit_rreg);
+>  
+>  	spin_lock_irqsave(&kiq->ring_lock, flags);
+> -	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
+> +	if (amdgpu_wb_get(adev, &reg_val_offs)) {
+>  		pr_err("critical bug! too many kiq readers\n");
+>  		goto failed_unlock;
+>  	}
+> @@ -1213,7 +1213,7 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+>  
+>  	mb();
+>  	value = adev->wb.wb[reg_val_offs];
+> -	amdgpu_device_wb_free(adev, reg_val_offs);
+> +	amdgpu_wb_free(adev, reg_val_offs);
+>  	return value;
+>  
+>  failed_undo:
+> @@ -1222,7 +1222,7 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_
+>  	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+>  failed_kiq_read:
+>  	if (reg_val_offs)
+> -		amdgpu_device_wb_free(adev, reg_val_offs);
+> +		amdgpu_wb_free(adev, reg_val_offs);
+>  	dev_err(adev->dev, "failed to read reg:%x\n", reg);
+>  	return ~0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> index a6419246e9c2..c2a10b41804a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> @@ -75,13 +75,13 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+>  	} else {
+>  		unsigned wptr_offs, rptr_offs;
+>  
+> -		r = amdgpu_device_wb_get(adev, &wptr_offs);
+> +		r = amdgpu_wb_get(adev, &wptr_offs);
+>  		if (r)
+>  			return r;
+>  
+> -		r = amdgpu_device_wb_get(adev, &rptr_offs);
+> +		r = amdgpu_wb_get(adev, &rptr_offs);
+>  		if (r) {
+> -			amdgpu_device_wb_free(adev, wptr_offs);
+> +			amdgpu_wb_free(adev, wptr_offs);
+>  			return r;
+>  		}
+>  
+> @@ -90,8 +90,8 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+>  					    &ih->ring_obj, &ih->gpu_addr,
+>  					    (void **)&ih->ring);
+>  		if (r) {
+> -			amdgpu_device_wb_free(adev, rptr_offs);
+> -			amdgpu_device_wb_free(adev, wptr_offs);
+> +			amdgpu_wb_free(adev, rptr_offs);
+> +			amdgpu_wb_free(adev, wptr_offs);
+>  			return r;
+>  		}
+>  
+> @@ -131,8 +131,8 @@ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>  	} else {
+>  		amdgpu_bo_free_kernel(&ih->ring_obj, &ih->gpu_addr,
+>  				      (void **)&ih->ring);
+> -		amdgpu_device_wb_free(adev, (ih->wptr_addr - ih->gpu_addr) / 4);
+> -		amdgpu_device_wb_free(adev, (ih->rptr_addr - ih->gpu_addr) / 4);
+> +		amdgpu_wb_free(adev, (ih->wptr_addr - ih->gpu_addr) / 4);
+> +		amdgpu_wb_free(adev, (ih->rptr_addr - ih->gpu_addr) / 4);
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 6c0dde3786e3..7fbb6677d5ad 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -183,7 +183,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>  			 adev->mes.sdma_hqd_mask[0]);
+>  
+>  	for (i = 0; i < AMDGPU_MAX_MES_PIPES * num_xcc; i++) {
+> -		r = amdgpu_device_wb_get(adev, &adev->mes.sch_ctx_offs[i]);
+> +		r = amdgpu_wb_get(adev, &adev->mes.sch_ctx_offs[i]);
+>  		if (r) {
+>  			dev_err(adev->dev,
+>  				"(%d) ring trail_fence_offs wb alloc failed\n",
+> @@ -195,7 +195,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>  		adev->mes.sch_ctx_ptr[i] =
+>  			(uint64_t *)&adev->wb.wb[adev->mes.sch_ctx_offs[i]];
+>  
+> -		r = amdgpu_device_wb_get(adev,
+> +		r = amdgpu_wb_get(adev,
+>  				 &adev->mes.query_status_fence_offs[i]);
+>  		if (r) {
+>  			dev_err(adev->dev,
+> @@ -263,9 +263,9 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>  error:
+>  	for (i = 0; i < AMDGPU_MAX_MES_PIPES * num_xcc; i++) {
+>  		if (adev->mes.sch_ctx_ptr[i])
+> -			amdgpu_device_wb_free(adev, adev->mes.sch_ctx_offs[i]);
+> +			amdgpu_wb_free(adev, adev->mes.sch_ctx_offs[i]);
+>  		if (adev->mes.query_status_fence_ptr[i])
+> -			amdgpu_device_wb_free(adev,
+> +			amdgpu_wb_free(adev,
+>  				      adev->mes.query_status_fence_offs[i]);
+>  		if (adev->mes.hung_queue_db_array_gpu_obj[i])
+>  			amdgpu_bo_free_kernel(&adev->mes.hung_queue_db_array_gpu_obj[i],
+> @@ -295,9 +295,9 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
+>  					 &adev->mes.hung_queue_db_array_gpu_addr[i],
+>  					 &adev->mes.hung_queue_db_array_cpu_addr[i]);
+>  		if (adev->mes.sch_ctx_ptr[i])
+> -			amdgpu_device_wb_free(adev, adev->mes.sch_ctx_offs[i]);
+> +			amdgpu_wb_free(adev, adev->mes.sch_ctx_offs[i]);
+>  		if (adev->mes.query_status_fence_ptr[i])
+> -			amdgpu_device_wb_free(adev,
+> +			amdgpu_wb_free(adev,
+>  				      adev->mes.query_status_fence_offs[i]);
+>  	}
+>  
+> @@ -567,7 +567,7 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg,
+>  	uint64_t read_val_gpu_addr;
+>  	uint32_t *read_val_ptr;
+>  
+> -	if (amdgpu_device_wb_get(adev, &addr_offset)) {
+> +	if (amdgpu_wb_get(adev, &addr_offset)) {
+>  		dev_err(adev->dev, "critical bug! too many mes readers\n");
+>  		goto error;
+>  	}
+> @@ -593,7 +593,7 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg,
+>  
+>  error:
+>  	if (addr_offset)
+> -		amdgpu_device_wb_free(adev, addr_offset);
+> +		amdgpu_wb_free(adev, addr_offset);
+>  	return val;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 07a8ad5697e4..b35ab57cd9d5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -264,31 +264,31 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>  			return r;
+>  	}
+>  
+> -	r = amdgpu_device_wb_get(adev, &ring->rptr_offs);
+> +	r = amdgpu_wb_get(adev, &ring->rptr_offs);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) ring rptr_offs wb alloc failed\n", r);
+>  		return r;
+>  	}
+>  
+> -	r = amdgpu_device_wb_get(adev, &ring->wptr_offs);
+> +	r = amdgpu_wb_get(adev, &ring->wptr_offs);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) ring wptr_offs wb alloc failed\n", r);
+>  		return r;
+>  	}
+>  
+> -	r = amdgpu_device_wb_get(adev, &ring->fence_offs);
+> +	r = amdgpu_wb_get(adev, &ring->fence_offs);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\n", r);
+>  		return r;
+>  	}
+>  
+> -	r = amdgpu_device_wb_get(adev, &ring->trail_fence_offs);
+> +	r = amdgpu_wb_get(adev, &ring->trail_fence_offs);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) ring trail_fence_offs wb alloc failed\n", r);
+>  		return r;
+>  	}
+>  
+> -	r = amdgpu_device_wb_get(adev, &ring->cond_exe_offs);
+> +	r = amdgpu_wb_get(adev, &ring->cond_exe_offs);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) ring cond_exec_polling wb alloc failed\n", r);
+>  		return r;
+> @@ -401,11 +401,11 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
+>  
+>  	ring->sched.ready = false;
+>  
+> -	amdgpu_device_wb_free(ring->adev, ring->rptr_offs);
+> -	amdgpu_device_wb_free(ring->adev, ring->wptr_offs);
+> +	amdgpu_wb_free(ring->adev, ring->rptr_offs);
+> +	amdgpu_wb_free(ring->adev, ring->wptr_offs);
+>  
+> -	amdgpu_device_wb_free(ring->adev, ring->cond_exe_offs);
+> -	amdgpu_device_wb_free(ring->adev, ring->fence_offs);
+> +	amdgpu_wb_free(ring->adev, ring->cond_exe_offs);
+> +	amdgpu_wb_free(ring->adev, ring->fence_offs);
+>  
+>  	amdgpu_bo_free_kernel(&ring->ring_obj,
+>  			      &ring->gpu_addr,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> index cd707d70a0bf..3985d56008cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+> @@ -272,7 +272,7 @@ static int umsch_mm_init(struct amdgpu_device *adev)
+>  	adev->umsch_mm.engine_mask = (1 << UMSCH_SWIP_ENGINE_TYPE_VPE);
+>  	adev->umsch_mm.vpe_hqd_mask = 0xfe;
+>  
+> -	r = amdgpu_device_wb_get(adev, &adev->umsch_mm.wb_index);
+> +	r = amdgpu_wb_get(adev, &adev->umsch_mm.wb_index);
+>  	if (r) {
+>  		dev_err(adev->dev, "failed to alloc wb for umsch: %d\n", r);
+>  		return r;
+> @@ -288,7 +288,7 @@ static int umsch_mm_init(struct amdgpu_device *adev)
+>  				    (void **)&adev->umsch_mm.cmd_buf_ptr);
+>  	if (r) {
+>  		dev_err(adev->dev, "failed to allocate cmdbuf bo %d\n", r);
+> -		amdgpu_device_wb_free(adev, adev->umsch_mm.wb_index);
+> +		amdgpu_wb_free(adev, adev->umsch_mm.wb_index);
+>  		return r;
+>  	}
+>  
+> @@ -380,7 +380,7 @@ static int umsch_mm_sw_fini(struct amdgpu_ip_block *ip_block)
+>  				    &adev->umsch_mm.log_gpu_addr,
+>  				    (void **)&adev->umsch_mm.log_cpu_addr);
+>  
+> -	amdgpu_device_wb_free(adev, adev->umsch_mm.wb_index);
+> +	amdgpu_wb_free(adev, adev->umsch_mm.wb_index);
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> index 7bf74ff93fbd..2b45010b7ebe 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+> @@ -789,7 +789,7 @@ static int vpe_ring_test_ring(struct amdgpu_ring *ring)
+>  	uint64_t wb_addr;
+>  	int ret;
+>  
+> -	ret = amdgpu_device_wb_get(adev, &index);
+> +	ret = amdgpu_wb_get(adev, &index);
+>  	if (ret) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", ret);
+>  		return ret;
+> @@ -818,7 +818,7 @@ static int vpe_ring_test_ring(struct amdgpu_ring *ring)
+>  
+>  	ret = -ETIMEDOUT;
+>  out:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return ret;
+>  }
+> @@ -833,7 +833,7 @@ static int vpe_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	uint64_t wb_addr;
+>  	int ret;
+>  
+> -	ret = amdgpu_device_wb_get(adev, &index);
+> +	ret = amdgpu_wb_get(adev, &index);
+>  	if (ret) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", ret);
+>  		return ret;
+> @@ -872,7 +872,7 @@ static int vpe_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return ret;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c
+> new file mode 100644
+> index 000000000000..8b7061c94ccd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c
+> @@ -0,0 +1,129 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright 2026 Advanced Micro Devices, Inc.
 > +
-> +               if (!bo_va) {
-> +                       r = -ENOENT;
-> +                       goto out_exec;
-> +               }
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +#include <linux/spinlock.h>
 > +
->                 /*
->                  * num_entries is set as an input to the size of the user-allocated array of
->                  * drm_amdgpu_gem_vm_entry stored at args->value.
-> --
-> 2.54.0
-> 
+> +#include "amdgpu.h"
+> +#include "amdgpu_wb.h"
+> +
+> +/*
+> + * amdgpu_wb_*()
+> + * Writeback is the method by which the GPU updates special pages in memory
+> + * with the status of certain GPU events (fences, ring pointers,etc.).
+> + */
+> +
+> +/**
+> + * amdgpu_wb_fini - Disable Writeback and free memory
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * Disables Writeback and frees the Writeback memory (all asics).
+> + * Used at driver shutdown.
+> + */
+> +void amdgpu_wb_fini(struct amdgpu_device *adev)
+> +{
+> +	if (adev->wb.wb_obj) {
+> +		amdgpu_bo_free_kernel(&adev->wb.wb_obj,
+> +				      &adev->wb.gpu_addr,
+> +				      (void **)&adev->wb.wb);
+> +		adev->wb.wb_obj = NULL;
+> +	}
+> +}
+> +
+> +/**
+> + * amdgpu_wb_init - Init Writeback driver info and allocate memory
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * Initializes writeback and allocates writeback memory (all asics).
+> + * Used at driver startup.
+> + * Returns 0 on success or an -error on failure.
+> + */
+> +int amdgpu_wb_init(struct amdgpu_device *adev)
+> +{
+> +	int r;
+> +
+> +	if (adev->wb.wb_obj == NULL) {
+> +		/* AMDGPU_MAX_WB * sizeof(uint32_t) * 8 = AMDGPU_MAX_WB 256bit slots */
+> +		r = amdgpu_bo_create_kernel(adev, AMDGPU_MAX_WB * sizeof(uint32_t) * 8,
+> +					    PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
+> +					    &adev->wb.wb_obj, &adev->wb.gpu_addr,
+> +					    (void **)&adev->wb.wb);
+> +		if (r) {
+> +			dev_warn(adev->dev, "(%d) create WB bo failed\n", r);
+> +			return r;
+> +		}
+> +
+> +		adev->wb.num_wb = AMDGPU_MAX_WB;
+> +		memset(&adev->wb.used, 0, sizeof(adev->wb.used));
+> +
+> +		/* clear wb memory */
+> +		memset((char *)adev->wb.wb, 0, AMDGPU_MAX_WB * sizeof(uint32_t) * 8);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * amdgpu_wb_get - Allocate a wb entry
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @wb: wb index
+> + *
+> + * Allocate a wb slot for use by the driver (all asics).
+> + * Returns 0 on success or -EINVAL on failure.
+> + */
+> +int amdgpu_wb_get(struct amdgpu_device *adev, u32 *wb)
+> +{
+> +	unsigned long flags, offset;
+> +
+> +	spin_lock_irqsave(&adev->wb.lock, flags);
+> +	offset = find_first_zero_bit(adev->wb.used, adev->wb.num_wb);
+> +	if (offset < adev->wb.num_wb) {
+> +		__set_bit(offset, adev->wb.used);
+> +		spin_unlock_irqrestore(&adev->wb.lock, flags);
+> +		*wb = offset << 3; /* convert to dw offset */
+> +		return 0;
+> +	} else {
+> +		spin_unlock_irqrestore(&adev->wb.lock, flags);
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +/**
+> + * amdgpu_wb_free - Free a wb entry
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @wb: wb index
+> + *
+> + * Free a wb slot allocated for use by the driver (all asics)
+> + */
+> +void amdgpu_wb_free(struct amdgpu_device *adev, u32 wb)
+> +{
+> +	unsigned long flags;
+> +
+> +	wb >>= 3;
+> +	spin_lock_irqsave(&adev->wb.lock, flags);
+> +	if (wb < adev->wb.num_wb)
+> +		__clear_bit(wb, adev->wb.used);
+> +	spin_unlock_irqrestore(&adev->wb.lock, flags);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h
+> new file mode 100644
+> index 000000000000..7b8efa6a639c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h
+> @@ -0,0 +1,102 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR MIT
+> + *
+> + * Copyright 2026 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +#ifndef __AMDGPU_WB_H__
+> +#define __AMDGPU_WB_H__
+> +
+> +#include <linux/types.h>
+> +#include <linux/spinlock_types.h>
+> +#include <linux/math.h>
+> +
+> +/*
+> + * Writeback
+> + */
+> +#define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
+> +
+> +/**
+> + * struct amdgpu_wb - This struct is used for small GPU memory allocation.
+> + *
+> + * This struct is used to allocate a small amount of GPU memory that can be
+> + * used to shadow certain states into the memory. This is especially useful for
+> + * providing easy CPU access to some states without requiring register access
+> + * (e.g., if some block is power gated, reading register may be problematic).
+> + *
+> + * Note: the term writeback was initially used because many of the amdgpu
+> + * components had some level of writeback memory, and this struct initially
+> + * described those components.
+> + */
+> +
+> +struct amdgpu_bo;
+> +struct amdgpu_device;
+> +
+> +struct amdgpu_wb {
+> +
+> +	/**
+> +	 * @wb_obj:
+> +	 *
+> +	 * Buffer Object used for the writeback memory.
+> +	 */
+> +	struct amdgpu_bo	*wb_obj;
+> +
+> +	/**
+> +	 * @wb:
+> +	 *
+> +	 * Pointer to the first writeback slot. In terms of CPU address
+> +	 * this value can be accessed directly by using the offset as an index.
+> +	 * For the GPU address, it is necessary to use gpu_addr and the offset.
+> +	 */
+> +	uint32_t		*wb;
+> +
+> +	/**
+> +	 * @gpu_addr:
+> +	 *
+> +	 * Writeback base address in the GPU.
+> +	 */
+> +	uint64_t		gpu_addr;
+> +
+> +	/**
+> +	 * @num_wb:
+> +	 *
+> +	 * Number of writeback slots reserved for amdgpu.
+> +	 */
+> +	u32			num_wb;
+> +
+> +	/**
+> +	 * @used:
+> +	 *
+> +	 * Track the writeback slot already used.
+> +	 */
+> +	unsigned long		used[DIV_ROUND_UP(AMDGPU_MAX_WB, BITS_PER_LONG)];
+> +
+> +	/**
+> +	 * @lock:
+> +	 *
+> +	 * Protects read and write of the used field array.
+> +	 */
+> +	spinlock_t		lock;
+> +};
+> +
+> +void amdgpu_wb_fini(struct amdgpu_device *adev);
+> +int amdgpu_wb_init(struct amdgpu_device *adev);
+> +int amdgpu_wb_get(struct amdgpu_device *adev, u32 *wb);
+> +void amdgpu_wb_free(struct amdgpu_device *adev, u32 wb);
+> +#endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> index 120da838ac28..b703ef1fe340 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+> @@ -605,7 +605,7 @@ static int cik_sdma_ring_test_ring(struct amdgpu_ring *ring)
+>  	u32 tmp;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -635,7 +635,7 @@ static int cik_sdma_ring_test_ring(struct amdgpu_ring *ring)
+>  		r = -ETIMEDOUT;
+>  
+>  error_free_wb:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -658,7 +658,7 @@ static int cik_sdma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	u64 gpu_addr;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -699,7 +699,7 @@ static int cik_sdma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index ddf190672530..9d325867a1aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -4080,7 +4080,7 @@ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -4121,7 +4121,7 @@ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index b08a0aa5e22b..6f657f9069a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -627,7 +627,7 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -668,7 +668,7 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index cd6c1b6f8894..f9debbd2c7cb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -507,7 +507,7 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -548,7 +548,7 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> index aaa8f4212a15..2a60dc677079 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> @@ -320,7 +320,7 @@ static int gfx_v12_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -361,7 +361,7 @@ static int gfx_v12_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index bee2ff6865f9..9e0840df8849 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -876,7 +876,7 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	uint32_t tmp;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -917,7 +917,7 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 9f81fd715418..556e5cb3f4cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -1232,7 +1232,7 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	uint32_t tmp;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -1273,7 +1273,7 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -4267,7 +4267,7 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+>  	BUG_ON(!ring->funcs->emit_rreg);
+>  
+>  	spin_lock_irqsave(&kiq->ring_lock, flags);
+> -	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
+> +	if (amdgpu_wb_get(adev, &reg_val_offs)) {
+>  		pr_err("critical bug! too many kiq readers\n");
+>  		goto failed_unlock;
+>  	}
+> @@ -4315,7 +4315,7 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+>  	mb();
+>  	value = (uint64_t)adev->wb.wb[reg_val_offs] |
+>  		(uint64_t)adev->wb.wb[reg_val_offs + 1 ] << 32ULL;
+> -	amdgpu_device_wb_free(adev, reg_val_offs);
+> +	amdgpu_wb_free(adev, reg_val_offs);
+>  	return value;
+>  
+>  failed_undo:
+> @@ -4324,7 +4324,7 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+>  	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+>  failed_kiq_read:
+>  	if (reg_val_offs)
+> -		amdgpu_device_wb_free(adev, reg_val_offs);
+> +		amdgpu_wb_free(adev, reg_val_offs);
+>  	pr_err("failed to read gpu clock\n");
+>  	return ~0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> index 5f5577f52a98..e4b287e6dc7e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -459,7 +459,7 @@ static int gfx_v9_4_3_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	uint32_t tmp;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -500,7 +500,7 @@ static int gfx_v9_4_3_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err1:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> index 5ad8dd18dc67..77f159593b88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -520,7 +520,7 @@ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
+>  
+>  	if (queue->state != AMDGPU_USERQ_STATE_MAPPED)
+>  		return 0;
+> -	r = amdgpu_device_wb_get(adev, &fence_offset);
+> +	r = amdgpu_wb_get(adev, &fence_offset);
+>  	if (r)
+>  		return r;
+>  
+> @@ -548,7 +548,7 @@ static int mes_userq_preempt(struct amdgpu_usermode_queue *queue)
+>  	r = -ETIMEDOUT;
+>  
+>  out:
+> -	amdgpu_device_wb_free(adev, fence_offset);
+> +	amdgpu_wb_free(adev, fence_offset);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 9e27d01cbfa3..8b87422be24e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -194,7 +194,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  		timeout = 15 * 600 * 1000;
+>  	}
+>  
+> -	ret = amdgpu_device_wb_get(adev, &status_offset);
+> +	ret = amdgpu_wb_get(adev, &status_offset);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -266,7 +266,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  		goto error_wb_free;
+>  	}
+>  
+> -	amdgpu_device_wb_free(adev, status_offset);
+> +	amdgpu_wb_free(adev, status_offset);
+>  	return 0;
+>  
+>  error_undo:
+> @@ -277,7 +277,7 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  	spin_unlock_irqrestore(&mes->ring_lock[0], flags);
+>  
+>  error_wb_free:
+> -	amdgpu_device_wb_free(adev, status_offset);
+> +	amdgpu_wb_free(adev, status_offset);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> index 20f4fd57b1da..88647c27d676 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -175,7 +175,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  		timeout = 15 * 600 * 1000;
+>  	}
+>  
+> -	ret = amdgpu_device_wb_get(adev, &status_offset);
+> +	ret = amdgpu_wb_get(adev, &status_offset);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -253,7 +253,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  		goto error_wb_free;
+>  	}
+>  
+> -	amdgpu_device_wb_free(adev, status_offset);
+> +	amdgpu_wb_free(adev, status_offset);
+>  	return 0;
+>  
+>  error_undo:
+> @@ -264,7 +264,7 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  	spin_unlock_irqrestore(ring_lock, flags);
+>  
+>  error_wb_free:
+> -	amdgpu_device_wb_free(adev, status_offset);
+> +	amdgpu_wb_free(adev, status_offset);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> index 8007a6e69305..e95b8bcaf00a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> @@ -178,7 +178,7 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  		timeout = 15 * 600 * 1000;
+>  	}
+>  
+> -	ret = amdgpu_device_wb_get(adev, &status_offset);
+> +	ret = amdgpu_wb_get(adev, &status_offset);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -253,7 +253,7 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  		goto error_wb_free;
+>  	}
+>  
+> -	amdgpu_device_wb_free(adev, status_offset);
+> +	amdgpu_wb_free(adev, status_offset);
+>  	return 0;
+>  
+>  error_undo:
+> @@ -264,7 +264,7 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
+>  	spin_unlock_irqrestore(ring_lock, flags);
+>  
+>  error_wb_free:
+> -	amdgpu_device_wb_free(adev, status_offset);
+> +	amdgpu_wb_free(adev, status_offset);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> index 93ec52c1f367..397b08c7173a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+> @@ -536,7 +536,7 @@ static int sdma_v2_4_ring_test_ring(struct amdgpu_ring *ring)
+>  	u32 tmp;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -567,7 +567,7 @@ static int sdma_v2_4_ring_test_ring(struct amdgpu_ring *ring)
+>  		r = -ETIMEDOUT;
+>  
+>  error_free_wb:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -590,7 +590,7 @@ static int sdma_v2_4_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	u64 gpu_addr;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -635,7 +635,7 @@ static int sdma_v2_4_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> index c2d098cd72ce..8ac1c9dae72e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+> @@ -810,7 +810,7 @@ static int sdma_v3_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	u32 tmp;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -841,7 +841,7 @@ static int sdma_v3_0_ring_test_ring(struct amdgpu_ring *ring)
+>  		r = -ETIMEDOUT;
+>  
+>  error_free_wb:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -864,7 +864,7 @@ static int sdma_v3_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	u64 gpu_addr;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -908,7 +908,7 @@ static int sdma_v3_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index cb64d17000df..20c8ebf0e159 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -1468,7 +1468,7 @@ static int sdma_v4_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	u32 tmp;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -1499,7 +1499,7 @@ static int sdma_v4_0_ring_test_ring(struct amdgpu_ring *ring)
+>  		r = -ETIMEDOUT;
+>  
+>  error_free_wb:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -1522,7 +1522,7 @@ static int sdma_v4_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	u32 tmp = 0;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -1567,7 +1567,7 @@ static int sdma_v4_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> index a7685b516f19..e7dba212e1ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -1064,7 +1064,7 @@ static int sdma_v4_4_2_ring_test_ring(struct amdgpu_ring *ring)
+>  	u32 tmp;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -1095,7 +1095,7 @@ static int sdma_v4_4_2_ring_test_ring(struct amdgpu_ring *ring)
+>  		r = -ETIMEDOUT;
+>  
+>  error_free_wb:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -1118,7 +1118,7 @@ static int sdma_v4_4_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	u32 tmp = 0;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -1163,7 +1163,7 @@ static int sdma_v4_4_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> index b809942b1eb7..1ca0e7f65442 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -1019,7 +1019,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+>  
+>  	tmp = 0xCAFEDEAD;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -1031,7 +1031,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	r = amdgpu_ring_alloc(ring, 20);
+>  	if (r) {
+>  		drm_err(adev_to_drm(adev), "dma failed to lock ring %d (%d).\n", ring->idx, r);
+> -		amdgpu_device_wb_free(adev, index);
+> +		amdgpu_wb_free(adev, index);
+>  		return r;
+>  	}
+>  
+> @@ -1056,7 +1056,7 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	if (i >= adev->usec_timeout)
+>  		r = -ETIMEDOUT;
+>  
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return r;
+>  }
+> @@ -1083,7 +1083,7 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	tmp = 0xCAFEDEAD;
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -1135,7 +1135,7 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> index 87c1e29fd298..81f1e9882177 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -919,7 +919,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+>  
+>  	tmp = 0xCAFEDEAD;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -931,7 +931,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+>  	r = amdgpu_ring_alloc(ring, 20);
+>  	if (r) {
+>  		drm_err(adev_to_drm(adev), "dma failed to lock ring %d (%d).\n", ring->idx, r);
+> -		amdgpu_device_wb_free(adev, index);
+> +		amdgpu_wb_free(adev, index);
+>  		return r;
+>  	}
+>  
+> @@ -956,7 +956,7 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+>  	if (i >= adev->usec_timeout)
+>  		r = -ETIMEDOUT;
+>  
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return r;
+>  }
+> @@ -983,7 +983,7 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	tmp = 0xCAFEDEAD;
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -1034,7 +1034,7 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> index 7a3f1a60b014..cf3d2997fff8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -910,7 +910,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>  
+>  	tmp = 0xCAFEDEAD;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -922,7 +922,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	r = amdgpu_ring_alloc(ring, 5);
+>  	if (r) {
+>  		drm_err(adev_to_drm(adev), "dma failed to lock ring %d (%d).\n", ring->idx, r);
+> -		amdgpu_device_wb_free(adev, index);
+> +		amdgpu_wb_free(adev, index);
+>  		return r;
+>  	}
+>  
+> @@ -947,7 +947,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	if (i >= adev->usec_timeout)
+>  		r = -ETIMEDOUT;
+>  
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return r;
+>  }
+> @@ -974,7 +974,7 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	tmp = 0xCAFEDEAD;
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -1025,7 +1025,7 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> index 84305b6800fe..69cb89298a3e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+> @@ -925,7 +925,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>  
+>  	tmp = 0xCAFEDEAD;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -937,7 +937,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	r = amdgpu_ring_alloc(ring, 5);
+>  	if (r) {
+>  		drm_err(adev_to_drm(adev), "dma failed to lock ring %d (%d).\n", ring->idx, r);
+> -		amdgpu_device_wb_free(adev, index);
+> +		amdgpu_wb_free(adev, index);
+>  		return r;
+>  	}
+>  
+> @@ -962,7 +962,7 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+>  	if (i >= adev->usec_timeout)
+>  		r = -ETIMEDOUT;
+>  
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return r;
+>  }
+> @@ -989,7 +989,7 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	tmp = 0xCAFEDEAD;
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -1040,7 +1040,7 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> index 322e6f4dd121..18366e16ef3f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+> @@ -915,7 +915,7 @@ static int sdma_v7_1_ring_test_ring(struct amdgpu_ring *ring)
+>  
+>  	tmp = 0xCAFEDEAD;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%d) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -927,7 +927,7 @@ static int sdma_v7_1_ring_test_ring(struct amdgpu_ring *ring)
+>  	r = amdgpu_ring_alloc(ring, 5);
+>  	if (r) {
+>  		DRM_ERROR("amdgpu: dma failed to lock ring %d (%d).\n", ring->idx, r);
+> -		amdgpu_device_wb_free(adev, index);
+> +		amdgpu_wb_free(adev, index);
+>  		return r;
+>  	}
+>  
+> @@ -952,7 +952,7 @@ static int sdma_v7_1_ring_test_ring(struct amdgpu_ring *ring)
+>  	if (i >= adev->usec_timeout)
+>  		r = -ETIMEDOUT;
+>  
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  
+>  	return r;
+>  }
+> @@ -979,7 +979,7 @@ static int sdma_v7_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	tmp = 0xCAFEDEAD;
+>  	memset(&ib, 0, sizeof(ib));
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r) {
+>  		dev_err(adev->dev, "(%ld) failed to allocate wb slot\n", r);
+>  		return r;
+> @@ -1030,7 +1030,7 @@ static int sdma_v7_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+> index 549708075eb4..47f1d325bd1a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+> @@ -213,7 +213,7 @@ static int si_dma_ring_test_ring(struct amdgpu_ring *ring)
+>  	u32 tmp;
+>  	u64 gpu_addr;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -242,7 +242,7 @@ static int si_dma_ring_test_ring(struct amdgpu_ring *ring)
+>  		r = -ETIMEDOUT;
+>  
+>  error_free_wb:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
+> @@ -265,7 +265,7 @@ static int si_dma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	u64 gpu_addr;
+>  	long r;
+>  
+> -	r = amdgpu_device_wb_get(adev, &index);
+> +	r = amdgpu_wb_get(adev, &index);
+>  	if (r)
+>  		return r;
+>  
+> @@ -304,7 +304,7 @@ static int si_dma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>  	amdgpu_ib_free(&ib, NULL);
+>  	dma_fence_put(f);
+>  err0:
+> -	amdgpu_device_wb_free(adev, index);
+> +	amdgpu_wb_free(adev, index);
+>  	return r;
+>  }
+>  
 
