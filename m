@@ -4,47 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B4C9CDE001
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 14:15:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5422CDB479
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 14:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CE7D10F2D1;
-	Thu, 25 Jun 2026 14:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6295B10F2D0;
+	Thu, 25 Jun 2026 14:17:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sCyQUHhL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oru4CYH6";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6794210F2CD
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 14:14:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Wg1NdVj+d82DRQG0tz1bwmU/jF6ULOTWhs0g1be4YQU=; b=sCyQUHhL4z/J0QrCjLi3UEckH7
- 8oqr90zzHbfx9BiNozO5uuOqxXjt4juWBRw1fZrG0StyctJscyRHMV0llGgEfUBbjmT7KyGWLZuWl
- KQPwJ3iPMa+gfKr5IWTQKZe3IKC67vCbTF9TdD43KcF8xeebgki8vH6CrWfM9UIWTElyUFCkbQx/o
- ERLZ8xLKupQ61sSOhPFbdKTsESmwSU4ndHmCQZeNU8ud0pJDypTQcIVimGqHqDeTird68Uh1rehjS
- Y8L0Ad0FIISFjjrxvyGZp+wNM85Un2CU36rHOPlP2uSovwBa53kS4ZCP6hDu734pv1seDQMWt3JR7
- ojfNyXIw==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wckr1-0055O4-PO; Thu, 25 Jun 2026 16:14:55 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [RFC 1/2] drm/amdgpu: Save some cycles on the job submission path
-Date: Thu, 25 Jun 2026 15:14:52 +0100
-Message-ID: <20260625141453.83100-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.54.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.201.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4259A10F2D0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 14:17:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v2/ZNkrbEjdaeDygeAHTV7talWEVK3v+xMXhWkXBKj1tELURNRl3rFhuRikFowUrvUxypze1AuaUdedNuhdMxBkLGrJnjpsUMrzZnCVfQAlucWfT2N5J7s8zudE0d397Oz+R2PjzMuCKUvcZHo9xpj0Ig+TTbWZncTeYXe3Huhdw+P0lvLgcRFVYpUbcYX2t+S/dY7l5ovM4ReNqPHkEXfEYo3wbE4LxdPSMowrsHsl3FE4ADN0cNKC7z/ok8BIvLeik1E8NORurb9zUyubiP5z/5Smcgpvmk0hZRkCItD/7a+8g0fWDVcUsMB4OcL8X+6WrCQOvppLyZ6Np3QwzmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KKXIRF+mPszLNt3IdFe5kK6fK8eicSZYr6pt25fYqoM=;
+ b=hPd+4hJ5gBrrZtRur9C7u81oLOz0CyE10vjNGXHBEbbCwNMcT5o6ZEDxv8mfx4SjApOu0hglLCO81OQ34MXfosLC6zQe59RmjMSfG/joTFJ4Qd/RTg9tTIsYtKjkuY4uM9D8LkXGAOpxR/NlA2cYZ3cW+CNoOkyK54YgzHntsRXl68xFRFGwEKBM0+Pi+fr1IswcKW7D+gvVMnq6fsGEkNwoQOyz/aAF8d14UPNPvncA+CTJd/kR1NjktwLIlfBGzyXVIpjBmE4zZlQxmkrYP7CVO10LqwDab5ZcSYObW68St1Y6ZbQDJ6T3ufjxN6HX3gHRGUOA+cTQIUby9r6AIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KKXIRF+mPszLNt3IdFe5kK6fK8eicSZYr6pt25fYqoM=;
+ b=oru4CYH6o7V2ysUCO/b4umWUIaNvxrFsi5rqUc6csZc33XinzEC4Qoc9Khqey3b/yvjl99lJuiQ4+BLkhNJD+EWFjroRrjEg5DseQxkwzyNF2MEEvb2TjQ/gMPw8HdlJJPE67WmLYaPx2eP6tp33XXHismrD+6jCCooGRXz3k64=
+Received: from MW4P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::16)
+ by PH7PR12MB6908.namprd12.prod.outlook.com (2603:10b6:510:1ba::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 14:16:55 +0000
+Received: from MWH0EPF000C618A.namprd02.prod.outlook.com
+ (2603:10b6:303:115:cafe::27) by MW4P220CA0011.outlook.office365.com
+ (2603:10b6:303:115::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.14 via Frontend Transport; Thu,
+ 25 Jun 2026 14:16:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C618A.mail.protection.outlook.com (10.167.249.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 14:16:54 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
+ 2026 09:16:54 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdkfd: Use kvmalloc_array to allocate arrays
+Date: Thu, 25 Jun 2026 10:16:41 -0400
+Message-ID: <20260625141641.1826100-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618A:EE_|PH7PR12MB6908:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9ff079f-6000-45cc-6437-08ded2c4690d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: X0lKAM2kQdgbAjQs72cwKr+2jepFqi4ArV62IVmq3Tlvg5M0LPxmpc7aAfE96kTWAfYaQrZmdlSc1vS7TBsya4jqgYen8ACNeU3J3PxEI7wG6UiKpj/61H6NpRK9HHuDO/CUnzMv2abQBLgTOTfI8rhXPDloipLjqj/pxVSCm5SHAoa/9Sm6B0cTWGjKnhBRjnfdwnvFMQZBbpAxWEPAviVHaCqq/nTB21zM97yxVgeKmUjIEMrZhIELsLYPy+IbeIbhYtfXX+tWEMD2L5kL0etXZb4Ut6pUffAKthggbpF+MY6fyAOYPd9oBR+zmUI3sTB4WU4+lacXQ9x0RrFIkT2Ox5QIFEJVV8PFjqHEyotauTQYFOBO5pLt7wVAqrH8GfQ7HkdmggOhXRo6h3DTtBK035avkLHv3Htk34GDyWtBmAXa8z/c0TV30TCwDNZovLMld4NayYyMm87KNJMq9RSDWuKzBJxPG8r8hGa7182H9BL5COZAI3IcGKyjkIe78h4wGnUEWDzCPvDei486qFd4QstYb+ysEwxjsv+ET3sDtd9oA13PZ16Qa0fkl4fjELus0K4I+DMBvfO/pkP9U/YRy5oRlFTX30JlUayBSiKhyzgsUMYi1rqVGCc4U0kelqztGaAlMDgoNrIUgbX2wWtk4ip2sm/1aCS/5N7+Ckjtb1nleuB70fG9g191SVofrcrwM2ySSXGaP9BUkgApSw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jc3F8nGjetwhoVPv2DWxCZ9Ep+JOos1+Mm0GHjHxgqhIS4O38P4CauerNLwdjLmSfVWnxvosAXJkn2dCkw1HndQRU9y7vIzWK1um6VOpXI2MDTtk3uADLoTA2jMd5k0cUPzQjvZ7xJzngvbxHYCkNtg48zoHM1eWQEOVkjMmWbMzlRZleR4iF7t8JVmB4v2wsXg1PO1Zbq7umh0sbeHbMg4tMMMpMAz63n6OGbkNIwv/4x/fn9Qfp1wUeKNa9DMFRzhIJARxaie4RXx1Gi9rp4fvs9/yFjIPoOQQrg/fgTeLDwbCEdL20nnejOzAPfe8y00MZVjHKGlCCO90CWSrd90Om/V2IcgW0yvvvbTNAIy6wlljIPVdSm6hkIHHNjW7pTaMYV5oXtNXLFvDyYGFLuAjT946EbRbDmF3XK/a5Uuco7DWc+msRWo8hE+w379v
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 14:16:54.9800 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9ff079f-6000-45cc-6437-08ded2c4690d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6908
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,99 +108,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Every job submission on the Steam Deck ends up walking the list of IP
-blocks looking for AMD_IP_BLOCK_TYPE_SMC. Half of the call chain is like
-the below, while the second half is from amdgpu_gfx_profile_ring_end_use:
+There were a few instances in kfd_chardev.c of kvzalloc being
+used to allocate memory for an array.
 
- amdgpu_gfx_profile_ring_begin_use
-  amdgpu_dpm_is_overdrive_enabled
-   is_support_sw_smu
-    amdgpu_device_ip_is_valid
+Switch those to kvmalloc_array, which
+- is the standard way of doing this
+- does a check for the mul overflowing
 
-On a game menu screen at 90Hz refresh rate we end up with ~840 calls per
-second which sticks out when the submission worker is profiled with perf:
-
-  13.78%  [kernel]  [k] __lock_text_start
-  10.86%  [kernel]  [k] __lookup_object
-   8.76%  [kernel]  [k] __mod_timer
-   4.94%  [kernel]  [k] queued_spin_lock_slowpath
-   1.66%  [kernel]  [k] amdgpu_device_ip_is_valid
-   1.54%  [kernel]  [k] preempt_count_add
-   1.42%  [kernel]  [k] amdgpu_sync_peek_fence
-   1.18%  [kernel]  [k] amdgpu_vmid_grab
-   1.17%  [kernel]  [k] amdgpu_ib_schedule
-   1.14%  [kernel]  [k] kthread_worker_fn
-
-Lets short-circuit this walk by simply remembering a mask of valid IP
-blocks. We could go a step further and remove a function call as well if
-wanted.
-
-I do not think the improvement here is easy to measure but it is at
-least conceptually nicer to avoid repeating the same walk so much.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c     | 8 +-------
- 3 files changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 7b09410d6d8f..5b3dd6c0baf8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1029,6 +1029,7 @@ struct amdgpu_device {
- 	struct amdgpu_cper		cper;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index ab9e53dc8deb..dbfb574f4fed 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1917,13 +1917,13 @@ static int criu_checkpoint_devices(struct kfd_process *p,
+ 	struct kfd_criu_device_bucket *device_buckets = NULL;
+ 	int ret = 0, i;
  
- 	struct amdgpu_ip_block          ip_blocks[AMDGPU_MAX_IP_NUM];
-+	uint32_t			ip_block_type_valid;
- 	uint32_t		        harvest_ip_mask;
- 	int				num_ip_blocks;
- 	struct mutex	mn_lock;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1e6b75ecafe4..e3c51ae2e61a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2071,9 +2071,11 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 				total = false;
- 			} else {
- 				adev->ip_blocks[i].status.valid = true;
-+				adev->ip_block_type_valid |= BIT(adev->ip_blocks[i].version->type);
- 			}
- 		} else {
- 			adev->ip_blocks[i].status.valid = true;
-+			adev->ip_block_type_valid |= BIT(adev->ip_blocks[i].version->type);
- 		}
- 		/* get the vbios after the asic_funcs are set up */
- 		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON) {
-@@ -2923,6 +2925,7 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
- 		}
- 		adev->ip_blocks[i].status.sw = false;
- 		adev->ip_blocks[i].status.valid = false;
-+		adev->ip_block_type_valid &= ~BIT(adev->ip_blocks[i].version->type);
+-	device_buckets = kvzalloc(num_devices * sizeof(*device_buckets), GFP_KERNEL);
++	device_buckets = kvmalloc_array(num_devices, sizeof(*device_buckets), GFP_KERNEL);
+ 	if (!device_buckets) {
+ 		ret = -ENOMEM;
+ 		goto exit;
  	}
  
- 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-index 6aa54156bbc9..d5cd3f19d2bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-@@ -401,11 +401,5 @@ bool amdgpu_device_ip_is_hw(struct amdgpu_device *adev,
- bool amdgpu_device_ip_is_valid(struct amdgpu_device *adev,
- 			       enum amd_ip_block_type block_type)
- {
--	struct amdgpu_ip_block *ip_block;
--
--	ip_block = amdgpu_device_ip_get_ip_block(adev, block_type);
--	if (ip_block)
--		return ip_block->status.valid;
--
--	return false;
-+	return adev->ip_block_type_valid & BIT(block_type);
- }
+-	device_priv = kvzalloc(num_devices * sizeof(*device_priv), GFP_KERNEL);
++	device_priv = kvmalloc_array(num_devices, sizeof(*device_priv), GFP_KERNEL);
+ 	if (!device_priv) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+@@ -2043,17 +2043,17 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+ 	int ret = 0, pdd_index, bo_index = 0, id;
+ 	void *mem;
+ 
+-	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
++	bo_buckets = kvmalloc_array(num_bos, sizeof(*bo_buckets), GFP_KERNEL);
+ 	if (!bo_buckets)
+ 		return -ENOMEM;
+ 
+-	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
++	bo_privs = kvmalloc_array(num_bos, sizeof(*bo_privs), GFP_KERNEL);
+ 	if (!bo_privs) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+ 	}
+ 
+-	files = kvzalloc(num_bos * sizeof(struct file *), GFP_KERNEL);
++	files = kvmalloc_array(num_bos, sizeof(struct file *), GFP_KERNEL);
+ 	if (!files) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+@@ -2584,7 +2584,7 @@ static int criu_restore_bos(struct kfd_process *p,
+ 	if (!bo_buckets)
+ 		return -ENOMEM;
+ 
+-	files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
++	files = kvmalloc_array(args->num_bos, sizeof(struct file *), GFP_KERNEL);
+ 	if (!files) {
+ 		ret = -ENOMEM;
+ 		goto exit;
 -- 
-2.54.0
+2.34.1
 
