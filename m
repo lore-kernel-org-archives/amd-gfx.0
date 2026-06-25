@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 043AACDE008
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 11:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1003CDE007
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 11:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6290E10E1EC;
-	Thu, 25 Jun 2026 11:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB6D10E1E1;
+	Thu, 25 Jun 2026 11:59:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="beu4O6BZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AArBWtJu";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D70E610E1EB;
- Thu, 25 Jun 2026 11:54:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29DFA10E1E1;
+ Thu, 25 Jun 2026 11:59:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 96DF040B7B;
- Thu, 25 Jun 2026 11:54:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264EE1F000E9;
- Thu, 25 Jun 2026 11:54:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F328843232;
+ Thu, 25 Jun 2026 11:59:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12FB1F000E9;
+ Thu, 25 Jun 2026 11:59:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782388470;
- bh=/GXFi/MVRAwUZHw1Zk5DPCqLioIWwoiNAiqmK1nO1Ew=;
+ s=k20260515; t=1782388748;
+ bh=SOWUv1XfnbEbqm4GgtkhR5DJeEd/Hng/YV/E0/Qc0Cc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=beu4O6BZP1eXIi45Dd5+lSUZZefTpFb3TjvzlFxLH0t/BOcXi8L6Dale141fqCl6Z
- /Xte0MUmMr3yT9Pcbt1Lg8nplPdvKdmOnIVohDbRXzgub0s/+nTkR/vXxf57AZz0CF
- SBFlmlwifSmHo/3s7jGSTq143SfCAFMwOl8TxWJ61LJRBo6NS6O+GjGXDZFEdykJda
- ZAhI6fYFT/UqiaP96opC92vgpKZ/jIEtfoHBzsGwNgcrPxbp9F0u58F4tUoecbcYza
- skRccOgyZHJp/MMsUbljWviO84DFhaq696UGJc6N0ZebJUxf28JNGPE6nucgOmoHxO
- kXQfySON4fttw==
-Date: Thu, 25 Jun 2026 12:54:20 +0100
+ b=AArBWtJuZNc+/FIFUIMlGuEZ8kMvlKEFWkOuvjAEvmSCRP6Xtr79DwdLfMRKxlCsp
+ Y3IT3WOyGk6qDjC+t4HKdGewaQIfROBx3//zGaqkVvAIWSn89JQ5+qpQIXdCm6oMxe
+ psbFJ8N1cByHOQzNmWU63y70+iMNRCiyAjs4IyQzZXKg4LEnhDy1S1MXdKCNt/nrsZ
+ xUKH6wlT1qw0OomPAMWfNmOPisTudnb6s7TrvtA9fGPJODLcaiOKBZlSZh07z2lZvG
+ ARk0cWPCvn/SNRPjo4quuTXhn9k1+0qPGQG2NWAw6QswrpPXgADAiOxmSiH3UgiJ/3
+ BLqOQd0LHWe1A==
+Date: Thu, 25 Jun 2026 12:58:58 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yitao Jiang <jytscientist@hotmail.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-Subject: Re: [PATCH 0/3] mm/mmu_notifier, drm/amdgpu: block THP for GPU user
- mappings
-Message-ID: <aj0V0Dqg-4Xa8-6Y@lucifer>
+To: Yitao Jiang <jytscientist@hotmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, 
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 1/3] mm/mmu_notifier: let interval notifiers block THP
+Message-ID: <aj0XB-ZLl8uhSDzQ@lucifer>
 References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
- <d462612c-508c-4682-a776-92f4f4a40e28@kernel.org>
+ <SY1PR01MB1059616E59F213B6FB4F4E3C5C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d462612c-508c-4682-a776-92f4f4a40e28@kernel.org>
+In-Reply-To: <SY1PR01MB1059616E59F213B6FB4F4E3C5C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,37 +70,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-NAK to this or any version of this.
+On Thu, Jun 25, 2026 at 06:59:51PM +0800, Yitao Jiang wrote:
+> Assisted-by: OpenAI-Codex:GPT-5.5
 
-This series is insane and the idea is insane.
+Thanks for acking AI involvement, that's appreciated (and there appears to be a
+fair but of unacknowledged AI-generated code being submitted at the moment).
 
-On Thu, Jun 25, 2026 at 01:47:25PM +0200, David Hildenbrand (Arm) wrote:
-> On 6/25/26 12:59, Yitao Jiang wrote:
-> > Hi,
-> >
-> > This series fixes a THP policy problem I found while debugging
-> > frequent ROCm GPU failures on an AMD Radeon 780M system during ML
-> > training.
-> >
-> > Some AMDGPU/KFD user mappings are registered through interval
-> > notifiers and cannot safely tolerate the backing VMA changing from base
-> > pages to a transparent huge page after registration. Userspace can
-> > still apply MADV_HUGEPAGE or MADV_COLLAPSE, and khugepaged can also
-> > collapse the range, after the GPU mapping has been registered.
->
-> Huh, why? As a memory notifier user, you must be prepared from memory to get
-> unmapped+remapped at random points in time.
->
-> What is the precise problem here? How are you handling THPs at registration time?
->
-> Letting arbitrary drivers make THP policies sounds like the very wrong approach.
+However, may I gnetly direct you towards the last few paragraphs in this document:
 
-We absolutely will not _ever_ allow drivers to do this while I still breath :)
+https://origin.kernel.org/doc/html/latest/process/generated-content.html
 
->
-> --
-> Cheers,
->
-> David
+I think this MAY be a case of the AI possibly misleading you into a crazy idea
+when, as David points out, page pinning is what you need :)
+
+We don't bite, if you have a problem that you need to solve, feel free to email
+linux-mm@kvack.org and relevant maintainers/reviewers from MAINTAINERS with a
+'[DISCUSSION]' or '[QUESTION]'-prefixed thread and we can help you ahead of
+time.
 
 Thanks, Lorenzo
