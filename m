@@ -4,100 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F710CDB466
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 07:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BC83CDB466
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB30C10F169;
-	Thu, 25 Jun 2026 07:52:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2854810E19C;
+	Thu, 25 Jun 2026 08:20:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="tr0wI6UZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M6FFFwvX";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF9C10F169
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 07:52:28 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65P3mZ312889258; Thu, 25 Jun 2026 07:52:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=pp1; bh=y0u/WQTiVYBc3mGCwC6DvPC3wCAoQf71irkXV52yO
- rs=; b=tr0wI6UZY+tpvTm5kHXoPG5FzQG8IKAgWaxxuS2OezblCYDEdwNzv/KGF
- AIbCXCBIx063bBkXi2S4sxBkbBzTdbhT4E8zlc7dUi9saKLyUf3enmnpUxLGTUNJ
- pBK0KjP6uEABoSN+iQ0IMtWhbWUqD7ZPSNVUn4Ta4Wssa9x4NDNtI2Lrrho2wkiA
- evHkWcfd2Amm2zUWkKcnpiy5h6Ylb4RVyxijRVqJ5/e27Ssd2jiubJP1LZkhquc5
- Ve1RRDnHZGXshuC2iOU43KXTcJzOjjWkafc02xNU4AqnhWsGLCwbvagBchu13daV
- hG0Yx1nOy6B+gsceaE0L9YOav5C1A==
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ewjgt0816-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jun 2026 07:52:26 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65P7njr9003653;
- Thu, 25 Jun 2026 07:52:26 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ex66kd2x7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jun 2026 07:52:25 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 65P7qL3Y13762950
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Jun 2026 07:52:22 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D79162004D;
- Thu, 25 Jun 2026 07:52:21 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B30942004E;
- Thu, 25 Jun 2026 07:52:17 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
- [9.124.222.69]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Thu, 25 Jun 2026 07:52:17 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>, pierre-eric.pelloux-prayer@amd.com
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [PATCH] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K
- systems
-Date: Thu, 25 Jun 2026 13:22:06 +0530
-Message-ID: <20260625075206.1105650-1-donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010034.outbound.protection.outlook.com
+ [52.101.193.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9440A10E19C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 08:20:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oGbLymzt4EVn5ROCdcuA7WuZUfpc329ADUmtHEqFfMRmgiVsPwGmxszmiT/s/S+8APPJi2eEYdYS+6tBqJYsTGRL/gw7N4zBHXn9HXxVA85zwn3SIKvIgPg8T28IfSlTKgiWVliGhrubTjm7kD28Hyq9uIRw3eXUCAz0u1/OsswZSHL6AsPgDYwxd5PYxo6r5qpWNKrBoJwRZt50/Zlke0DENKoQo3wIc655thp/93+vKjUourX/VPdeAB3fuLiVcv6HaCGqEs0fdIJZlCNLajljzTtZju5QUAjgivsTLEST5urIcIDUqcJJvHiY8ixwAh9ccym8XHO5EtkyDwsuUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TAN6sgzmHC9/7C8FWadaiSQi3mJQ7ZmSq3pp5rfv7MA=;
+ b=tXMUvTYtoKcKUw69WNLqYP/VSx1lfCP5G3NjJ0wi91LHNSwqVDqukRAX+19EurXmUhn9jbRQuH6CWDje6HB/+JV+iTn5S26YLX6xkgq7kZxoHjQpsTYv/PbYFPQ2Ekr12D+CfnA4vxaqMuRxYTlLWE51eRzuSmROLjaThTjWoWHMoya2HmjUEiqG/BFLm9hrGYTdTMHuiZXyPYhPX9fiI6ZQFcEBaZOwmQ6dMIuGFVMtZxISvrj5xZsuHykGEnAQhufDyvlD8eBxichm1kXYX5YTC9vDSKmwjL7730U3iE9LEKIz5HMy75s8hcnpSeUi+Bti1ExdoK0+igPz0+jqdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TAN6sgzmHC9/7C8FWadaiSQi3mJQ7ZmSq3pp5rfv7MA=;
+ b=M6FFFwvXTGEPAjGy4Xw5LzUebWxcAb5SH+QBO9zaqbihg9PJ/FnFhGUn4g0a2Td0cxEty+FdCJY4GTrDMApo5VGoTgNDil0Manai0kJ2UxLefd9FUxnHZ3zc89AuIJlzjzFHMnU5PkaCRHn8Bp7uUdUtkuCAAlkeWdr66i25v/U=
+Received: from PH7P221CA0045.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::17)
+ by SA1PR12MB6799.namprd12.prod.outlook.com (2603:10b6:806:25b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Thu, 25 Jun
+ 2026 08:20:10 +0000
+Received: from CY4PEPF0000EDD5.namprd03.prod.outlook.com
+ (2603:10b6:510:33c:cafe::44) by PH7P221CA0045.outlook.office365.com
+ (2603:10b6:510:33c::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
+ 25 Jun 2026 08:20:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD5.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 08:20:09 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
+ 2026 03:20:07 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
+ <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH v3 01/44] drm/amdgpu: Retire legacy page retirement RAS code
+Date: Thu, 25 Jun 2026 16:18:54 +0800
+Message-ID: <b5587fca5f57f8f352245edf2c76606ad3307923.1782373701.git.cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA2NiBTYWx0ZWRfX2j71QETiAB7s
- sf/ycKWy0vYBbfa4Tdr5dkcDlmmGKhH/CpAfq0q4bLEtBjETcW0PX0R6oNk43HFl5YPhZRkkyQk
- oXDaaHUqwX7ifKQMKI5bBgMvEawFiE9RL0+ZxeKHi4VDUHYNJYv3IwTJi3Y+5kPLM9VNdvXzpf9
- V6YV+jn0OGHNOtpmKrYemKl6Gs2/QG/FZKHLQCTcWXDwN1GA+IcPtZHfKZTXlCcgLFxfQ/f/H1q
- S0KRjy+gsy9i4lVkxwgTuel/GJjhEqrccZsHsG+wsfDTnnQB72FPQFBEn8z4Al5hSBF68sKu+M6
- WJI50Ie2yOI5tre0G3+vr7IN4/XWmmmxwO3OTpbxe1Mn7SiMT2Ud4VJsAoyf9nEmZlLA944UP/O
- 5DdqoRq34f2co6Al3Tq88TE4+pK0RTo0qWMQdvkYGG2vv7HE4V4nmBi/lDVkTsI2otceyFwBCc4
- dRdaww/b41+7m1jCFSA==
-X-Proofpoint-GUID: RRfEDZhvigWHDvxID_uabathswkjEhSI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA2NiBTYWx0ZWRfX3xhQMrqdaFA9
- cTarE/RwwOZncNVuZeRt+8StpnlK0nVZ6KrmF3oLUfah0eDgc+BxKOhmqjeSBT8gEvtwsHB2SSK
- kwGNbBjJuHXABKytpq6GwTyz65HmOeE=
-X-Authority-Analysis: v=2.4 cv=I/lVgtgg c=1 sm=1 tr=0 ts=6a3cde3b cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=zd2uoN0lAAAA:8 a=VnNF1IyMAAAA:8
- a=9GqvVxz53e6ScOHA3rkA:9
-X-Proofpoint-ORIG-GUID: lJEtgTi_mQykVP04mSZprjG0B29wploY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250066
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|SA1PR12MB6799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97d659e5-f185-4ba2-47f6-08ded292928d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|56012099006|6133799003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: BWAdKr2B47LAaoQy3yMGovQPfoFNH1kjWVqjoNSGYiuUw43apDLGdjZjDhlharbkiZL7TfYYATfQ7GBX/KH44qZKdce4TG2Oe2Gp+yeSt+6UgRMy7rhK8X0tv89A8kY+xgErZZ27IjGpmWueaIA9i0tOnKyf+UAn51MpIUuiW1Atq+yiAotZsIST+ml+NUrsVis0198PPxztM7Yk7SVg1KooO9v/NNpYHzYrRfck9325wZX5Y9JwDGLobvNIjBDKZEuiLjKPJUKNwPgSrpfKxPKXQKfbgekTyCi58K06u8I1eXyhbS2YgBkzjfKqM1PoxtS/zh3Q4G/LJeH0BqHztUNJzSsGc0TzR1iPs2V+/OIGl89GVYN5hUDhifVXhjMQKUWE/Y/7py8JBR7RPWuyxJxZLZjbDdZeMAKEpx0FTvYK8PnL9oRjsj27PD1MrVOOJjs2eaCsaId0XYsEw652fQ3pB/Y2OlVWNo/QUqZ9/GrsOt5upGVzkgE4A/jMiqiKapnRS65SoAPD+ylY7btaTiBKjwQgGyldb8qKBQcz3/0ersnUDkxM718Kw0kOX85wwAmar2yXxxSEnOSQDenStCjEM4wza1E2JQlsp+LWPSuiYEzAvwphi72RcrVqJVuyhmIUhR5ZhS2WXzPEivT8qiAjldB2czOaLwMXzrwcfxuTywQyoSP3XjNNj3HO3RFjveApyJHiuZ4m4gzuwrhh1g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(56012099006)(6133799003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: eMI6vLFVbiPOUIkoT1FEulsys1K/ZtVjwmGBAmh78lNJx9Tw/A4DICAV+vtzKLC5+sHhRQa0e6cS1S1bh/69CPBZYH+zr5DTVY9edWSaCtR+7+gQHdbaZBimcvNntUVuxJ3lkIuUhofT1k2paP4141T1orWHmlVQVruRLOn7y1oioMnc1RMtYSwd86bREp39vuF7SAkX1Am0I1fKJjAlUTyNTbBR3Ve1RUxgdLqF0z3gQ3IxZ1wGQUBVRmn6eus3mqhPCoWeH8Wax0WadOaMXxUD2VXZIWsNXiRL+Rti0p+jV4pgOUZbNP6DCXEz7Xo8derEO4Az0gfyYQOTXsEmAuvIcZ3PepZ+lHx7RI9yGoUoB7YIyiZ4lH2YtY5PRnT/LknPiZy3v1jMcArUXfjP19eUwfG4ICsachggJZ9ZqYMLOjWhlTD0mo6lu3IEhdCA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:20:09.8104 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97d659e5-f185-4ba2-47f6-08ded292928d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6799
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,146 +109,509 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Running RCCL unit tests on a system with a 64K PAGE_SIZE triggers
-the following warning and causes the test to terminate on latest
-upstream kernel:
+Remove the deprecated legacy RAS code path for page retirement
 
-WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1335 at
-amdgpu_bo_release_notify+0x1bc/0x280 [amdgpu],
-CPU#18: rccl-UnitTests/33151
-
-Call trace:
-amdgpu_bo_release_notify
-ttm_bo_release
-amdgpu_gem_object_free
-drm_gem_object_free
-amdgpu_bo_unref
-amdgpu_bo_create
-amdgpu_bo_create_user
-amdgpu_gem_object_create
-amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu
-kfd_ioctl_alloc_memory_of_gpu
-kfd_ioctl
-sys_ioctl
-
-The warning is triggered because
-amdgpu_ttm_next_clear_entity() returns NULL when a clear buffer
-operation is requested. This happens because the GART window
-allocation for the default_entity, clear_entity and move_entity
-fails during initialization.
-
-Commit [1] introduced separate GART windows for the
-default_entity, clear_entity and move_entity of each SDMA
-instance. Their sizes are derived from
-AMDGPU_GTT_MAX_TRANSFER_SIZE, which is currently defined as 1024
-pages. This implicitly assumes a 4K PAGE_SIZE, where 1024 pages
-correspond to a 4MB transfer. On a 64K PAGE_SIZE system, however,
-the same value expands to 64MB.
-
-The default_entity and clear_entity each allocate one
-AMDGPU_GTT_MAX_TRANSFER_SIZE GART window, while the move_entity
-allocates two such windows. This results in 16MB of GART space
-per SDMA instance on a 4K PAGE_SIZE system, but 256MB per SDMA
-instance on a 64K PAGE_SIZE system.
-
-On an MI210 system with five SDMA instances and a 512MB GART
-aperture, the total GART space required becomes 1.25GB,
-exceeding the available GART aperture. Consequently, GART window
-allocation fails, amdgpu_ttm_next_clear_entity() returns NULL,
-and the above warning is triggered.
-
-Redefine AMDGPU_GTT_MAX_TRANSFER_SIZE in bytes instead of page
-units. Where a page count is required, convert it using
-PAGE_SHIFT. This preserves the existing 4MB transfer size across
-all PAGE_SIZE configurations while keeping GART window
-allocations within the available GART aperture.
-
-[1] https://lore.kernel.org/all/20260408100327.1372-3-pierre-eric.pelloux-prayer@amd.com/#t
-
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 10 ++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h  |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  2 +-
- 3 files changed, 8 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 304 +-----------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  23 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c |  13 +-
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  |  17 --
+ 4 files changed, 2 insertions(+), 355 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 2740de94e93c..bad33b3368eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -208,9 +208,10 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	void *cpu_addr;
- 	uint64_t flags;
- 	int r;
-+	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 8a49ae4c0132..8095f284d531 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -128,12 +128,6 @@ const char *get_ras_block_str(struct ras_common_if *ras_block)
+ /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
+ #define RAS_BAD_PAGE_COVER              (100 * 1024 * 1024ULL)
  
- 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
--	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
-+	       GTT_MAX_PAGES * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
+-#define MAX_UMC_POISON_POLLING_TIME_ASYNC  10
+-
+-#define AMDGPU_RAS_RETIRE_PAGE_INTERVAL 100  //ms
+-
+-#define MAX_FLUSH_RETIRE_DWORK_TIMES  100
+-
+ #define BYPASS_ALLOCATED_ADDRESS        0x0
+ #define BYPASS_INITIALIZATION_ADDRESS   0x1
  
- 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
- 		return -EINVAL;
-@@ -230,7 +231,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	offset = mm_cur->start & ~PAGE_MASK;
+@@ -2489,14 +2483,6 @@ static void amdgpu_ras_interrupt_poison_creation_handler(struct ras_manager *obj
+ 	event_id = amdgpu_ras_acquire_event_id(adev, type);
+ 	RAS_EVENT_LOG(adev, event_id, "Poison is created\n");
  
- 	num_pages = PFN_UP(*size + offset);
--	num_pages = min_t(uint32_t, num_pages, AMDGPU_GTT_MAX_TRANSFER_SIZE);
-+	num_pages = min_t(uint32_t, num_pages, GTT_MAX_PAGES);
+-	if (amdgpu_ip_version(obj->adev, UMC_HWIP, 0) >= IP_VERSION(12, 0, 0)) {
+-		struct amdgpu_ras *con = amdgpu_ras_get_context(obj->adev);
+-
+-		atomic_inc(&con->page_retirement_req_cnt);
+-		atomic_inc(&con->poison_creation_count);
+-
+-		wake_up(&con->page_retirement_wq);
+-	}
+ }
  
- 	*size = min(*size, (uint64_t)num_pages * PAGE_SIZE - offset);
+ static void amdgpu_ras_interrupt_umc_handler(struct ras_manager *obj,
+@@ -3550,38 +3536,6 @@ static void amdgpu_ras_validate_threshold(struct amdgpu_device *adev,
+ 	}
+ }
  
-@@ -2015,6 +2016,7 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
- 					 u32 num_gart_windows)
+-int amdgpu_ras_put_poison_req(struct amdgpu_device *adev,
+-		enum amdgpu_ras_block block, uint16_t pasid,
+-		pasid_notify pasid_fn, void *data, uint32_t reset)
+-{
+-	int ret = 0;
+-	struct ras_poison_msg poison_msg;
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-
+-	memset(&poison_msg, 0, sizeof(poison_msg));
+-	poison_msg.block = block;
+-	poison_msg.pasid = pasid;
+-	poison_msg.reset = reset;
+-	poison_msg.pasid_fn = pasid_fn;
+-	poison_msg.data = data;
+-
+-	ret = kfifo_put(&con->poison_fifo, poison_msg);
+-	if (!ret) {
+-		dev_err(adev->dev, "Poison message fifo is full!\n");
+-		return -ENOSPC;
+-	}
+-
+-	return 0;
+-}
+-
+-static int amdgpu_ras_get_poison_req(struct amdgpu_device *adev,
+-		struct ras_poison_msg *poison_msg)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-
+-	return kfifo_get(&con->poison_fifo, poison_msg);
+-}
+-
+ static void amdgpu_ras_ecc_log_init(struct ras_ecc_log_info *ecc_log)
  {
- 	int i, r, num_pages;
-+	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
+ 	mutex_init(&ecc_log->lock);
+@@ -3611,232 +3565,6 @@ static void amdgpu_ras_ecc_log_fini(struct ras_ecc_log_info *ecc_log)
+ 	ecc_log->consumption_q_count = 0;
+ }
  
- 	r = drm_sched_entity_init(&entity->base, prio, scheds, num_schedulers, NULL);
- 	if (r)
-@@ -2027,7 +2029,7 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
- 	if (num_gart_windows == 0)
- 		return 0;
- 
--	num_pages = num_gart_windows * AMDGPU_GTT_MAX_TRANSFER_SIZE;
-+	num_pages = num_gart_windows * GTT_MAX_PAGES;
- 	r = amdgpu_gtt_mgr_alloc_entries(mgr, &entity->gart_node, num_pages,
- 					 DRM_MM_INSERT_BEST);
- 	if (r) {
-@@ -2038,7 +2040,7 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
- 	for (i = 0; i < num_gart_windows; i++) {
- 		entity->gart_window_offs[i] =
- 			amdgpu_gtt_node_to_byte_offset(&entity->gart_node) +
--				i * AMDGPU_GTT_MAX_TRANSFER_SIZE * PAGE_SIZE;
-+				i * GTT_MAX_PAGES * PAGE_SIZE;
+-static bool amdgpu_ras_schedule_retirement_dwork(struct amdgpu_ras *con,
+-				uint32_t delayed_ms)
+-{
+-	int ret;
+-
+-	mutex_lock(&con->umc_ecc_log.lock);
+-	ret = radix_tree_tagged(&con->umc_ecc_log.de_page_tree,
+-			UMC_ECC_NEW_DETECTED_TAG);
+-	mutex_unlock(&con->umc_ecc_log.lock);
+-
+-	if (ret)
+-		schedule_delayed_work(&con->page_retirement_dwork,
+-			msecs_to_jiffies(delayed_ms));
+-
+-	return ret ? true : false;
+-}
+-
+-static void amdgpu_ras_do_page_retirement(struct work_struct *work)
+-{
+-	struct amdgpu_ras *con = container_of(work, struct amdgpu_ras,
+-					      page_retirement_dwork.work);
+-	struct amdgpu_device *adev = con->adev;
+-	struct ras_err_data err_data;
+-
+-	/* If gpu reset is ongoing, delay retiring the bad pages */
+-	if (amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) {
+-		amdgpu_ras_schedule_retirement_dwork(con,
+-				AMDGPU_RAS_RETIRE_PAGE_INTERVAL * 3);
+-		return;
+-	}
+-
+-	amdgpu_ras_error_data_init(&err_data);
+-
+-	amdgpu_umc_handle_bad_pages(adev, &err_data);
+-
+-	amdgpu_ras_error_data_fini(&err_data);
+-
+-	amdgpu_ras_schedule_retirement_dwork(con,
+-			AMDGPU_RAS_RETIRE_PAGE_INTERVAL);
+-}
+-
+-static int amdgpu_ras_poison_creation_handler(struct amdgpu_device *adev,
+-				uint32_t poison_creation_count)
+-{
+-	int ret = 0;
+-	struct ras_ecc_log_info *ecc_log;
+-	struct ras_query_if info;
+-	u32 timeout = MAX_UMC_POISON_POLLING_TIME_ASYNC;
+-	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+-	u64 de_queried_count;
+-	u64 consumption_q_count;
+-	enum ras_event_type type = RAS_EVENT_TYPE_POISON_CREATION;
+-
+-	memset(&info, 0, sizeof(info));
+-	info.head.block = AMDGPU_RAS_BLOCK__UMC;
+-
+-	ecc_log = &ras->umc_ecc_log;
+-	ecc_log->de_queried_count = 0;
+-	ecc_log->consumption_q_count = 0;
+-
+-	do {
+-		ret = amdgpu_ras_query_error_status_with_event(adev, &info, type);
+-		if (ret)
+-			return ret;
+-
+-		de_queried_count = ecc_log->de_queried_count;
+-		consumption_q_count = ecc_log->consumption_q_count;
+-
+-		if (de_queried_count && consumption_q_count)
+-			break;
+-
+-		msleep(100);
+-	} while (--timeout);
+-
+-	if (de_queried_count)
+-		schedule_delayed_work(&ras->page_retirement_dwork, 0);
+-
+-	if (amdgpu_ras_is_rma(adev) && atomic_cmpxchg(&ras->rma_in_recovery, 0, 1) == 0)
+-		amdgpu_ras_reset_gpu(adev);
+-
+-	return 0;
+-}
+-
+-static void amdgpu_ras_clear_poison_fifo(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	struct ras_poison_msg msg;
+-	int ret;
+-
+-	do {
+-		ret = kfifo_get(&con->poison_fifo, &msg);
+-	} while (ret);
+-}
+-
+-static int amdgpu_ras_poison_consumption_handler(struct amdgpu_device *adev,
+-			uint32_t msg_count, uint32_t *gpu_reset)
+-{
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	uint32_t reset_flags = 0, reset = 0;
+-	struct ras_poison_msg msg;
+-	int ret, i;
+-
+-	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
+-
+-	for (i = 0; i < msg_count; i++) {
+-		ret = amdgpu_ras_get_poison_req(adev, &msg);
+-		if (!ret)
+-			continue;
+-
+-		if (msg.pasid_fn)
+-			msg.pasid_fn(adev, msg.pasid, msg.data);
+-
+-		reset_flags |= msg.reset;
+-	}
+-
+-	/*
+-	 * Try to ensure poison creation handler is completed first
+-	 * to set rma if bad page exceed threshold.
+-	 */
+-	flush_delayed_work(&con->page_retirement_dwork);
+-
+-	/* for RMA, amdgpu_ras_poison_creation_handler will trigger gpu reset */
+-	if (reset_flags && !amdgpu_ras_is_rma(adev)) {
+-		if (reset_flags & AMDGPU_RAS_GPU_RESET_MODE1_RESET)
+-			reset = AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+-		else if (reset_flags & AMDGPU_RAS_GPU_RESET_MODE2_RESET)
+-			reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
+-		else
+-			reset = reset_flags;
+-
+-		con->gpu_reset_flags |= reset;
+-		amdgpu_ras_reset_gpu(adev);
+-
+-		*gpu_reset = reset;
+-
+-		/* Wait for gpu recovery to complete */
+-		flush_work(&con->recovery_work);
+-	}
+-
+-	return 0;
+-}
+-
+-static int amdgpu_ras_page_retirement_thread(void *param)
+-{
+-	struct amdgpu_device *adev = (struct amdgpu_device *)param;
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	uint32_t poison_creation_count, msg_count;
+-	uint32_t gpu_reset;
+-	int ret;
+-
+-	while (!kthread_should_stop()) {
+-
+-		wait_event_interruptible(con->page_retirement_wq,
+-				kthread_should_stop() ||
+-				atomic_read(&con->page_retirement_req_cnt));
+-
+-		if (kthread_should_stop())
+-			break;
+-
+-		mutex_lock(&con->poison_lock);
+-		gpu_reset = 0;
+-
+-		do {
+-			poison_creation_count = atomic_read(&con->poison_creation_count);
+-			ret = amdgpu_ras_poison_creation_handler(adev, poison_creation_count);
+-			if (ret == -EIO)
+-				break;
+-
+-			if (poison_creation_count) {
+-				atomic_sub(poison_creation_count, &con->poison_creation_count);
+-				atomic_sub(poison_creation_count, &con->page_retirement_req_cnt);
+-			}
+-		} while (atomic_read(&con->poison_creation_count) &&
+-			!atomic_read(&con->poison_consumption_count));
+-
+-		if (ret != -EIO) {
+-			msg_count = kfifo_len(&con->poison_fifo);
+-			if (msg_count) {
+-				ret = amdgpu_ras_poison_consumption_handler(adev,
+-						msg_count, &gpu_reset);
+-				if ((ret != -EIO) &&
+-				    (gpu_reset != AMDGPU_RAS_GPU_RESET_MODE1_RESET))
+-					atomic_sub(msg_count, &con->page_retirement_req_cnt);
+-			}
+-		}
+-
+-		if ((ret == -EIO) || (gpu_reset == AMDGPU_RAS_GPU_RESET_MODE1_RESET)) {
+-			/* gpu mode-1 reset is ongoing or just completed ras mode-1 reset */
+-			/* Clear poison creation request */
+-			atomic_set(&con->poison_creation_count, 0);
+-			atomic_set(&con->poison_consumption_count, 0);
+-
+-			/* Clear poison fifo */
+-			amdgpu_ras_clear_poison_fifo(adev);
+-
+-			/* Clear all poison requests */
+-			atomic_set(&con->page_retirement_req_cnt, 0);
+-
+-			if (ret == -EIO) {
+-				/* Wait for mode-1 reset to complete */
+-				down_read(&adev->reset_domain->sem);
+-				up_read(&adev->reset_domain->sem);
+-			}
+-
+-			/* Wake up work to save bad pages to eeprom */
+-			schedule_delayed_work(&con->page_retirement_dwork, 0);
+-		} else if (gpu_reset) {
+-			/* gpu just completed mode-2 reset or other reset */
+-			/* Clear poison consumption messages cached in fifo */
+-			msg_count = kfifo_len(&con->poison_fifo);
+-			if (msg_count) {
+-				amdgpu_ras_clear_poison_fifo(adev);
+-				atomic_sub(msg_count, &con->page_retirement_req_cnt);
+-			}
+-
+-			atomic_set(&con->poison_consumption_count, 0);
+-
+-			/* Wake up work to save bad pages to eeprom */
+-			schedule_delayed_work(&con->page_retirement_dwork, 0);
+-		}
+-		mutex_unlock(&con->poison_lock);
+-	}
+-
+-	return 0;
+-}
+-
+ int amdgpu_ras_init_badpage_info(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+@@ -3917,10 +3645,8 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev, bool init_bp_info)
  	}
  
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 2d72fa217274..b5d938b31383 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -39,7 +39,7 @@
- #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
- #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+ 	mutex_init(&con->recovery_lock);
+-	mutex_init(&con->poison_lock);
+ 	INIT_WORK(&con->recovery_work, amdgpu_ras_do_recovery);
+ 	atomic_set(&con->in_recovery, 0);
+-	atomic_set(&con->rma_in_recovery, 0);
+ 	con->eeprom_control.bad_channel_bitmap = 0;
  
--#define AMDGPU_GTT_MAX_TRANSFER_SIZE	1024
-+#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1ULL << 22)
+ 	max_eeprom_records_count = amdgpu_ras_eeprom_max_record_count(&con->eeprom_control);
+@@ -3933,20 +3659,8 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev, bool init_bp_info)
+ 	}
  
- extern const struct attribute_group amdgpu_vram_mgr_attr_group;
- extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 28dc6886c1ff..8aec1ae60ca1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -128,7 +128,7 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
- 			     enum MIGRATION_COPY_DIR direction,
- 			     struct dma_fence **mfence)
+ 	mutex_init(&con->page_rsv_lock);
+-	INIT_KFIFO(con->poison_fifo);
+ 	mutex_init(&con->page_retirement_lock);
+-	init_waitqueue_head(&con->page_retirement_wq);
+-	atomic_set(&con->page_retirement_req_cnt, 0);
+-	atomic_set(&con->poison_creation_count, 0);
+-	atomic_set(&con->poison_consumption_count, 0);
+-	con->page_retirement_thread =
+-		kthread_run(amdgpu_ras_page_retirement_thread, adev, "umc_page_retirement");
+-	if (IS_ERR(con->page_retirement_thread)) {
+-		con->page_retirement_thread = NULL;
+-		dev_warn(adev->dev, "Failed to create umc_page_retirement thread!!!\n");
+-	}
+-
+-	INIT_DELAYED_WORK(&con->page_retirement_dwork, amdgpu_ras_do_page_retirement);
++
+ 	amdgpu_ras_ecc_log_init(&con->umc_ecc_log);
+ #ifdef CONFIG_X86_MCE_AMD
+ 	if ((adev->asic_type == CHIP_ALDEBARAN) &&
+@@ -3978,31 +3692,15 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
  {
--	const u64 GTT_MAX_PAGES = AMDGPU_GTT_MAX_TRANSFER_SIZE;
-+	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
- 	struct amdgpu_ring *ring;
- 	struct amdgpu_ttm_buffer_entity *entity;
- 	u64 gart_s, gart_d;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_err_handler_data *data = con->eh_data;
+-	int max_flush_timeout = MAX_FLUSH_RETIRE_DWORK_TIMES;
+-	bool ret;
+ 
+ 	/* recovery_init failed to init it, fini is useless */
+ 	if (!data)
+ 		return 0;
+ 
+-	/* Save all cached bad pages to eeprom */
+-	do {
+-		flush_delayed_work(&con->page_retirement_dwork);
+-		ret = amdgpu_ras_schedule_retirement_dwork(con, 0);
+-	} while (ret && max_flush_timeout--);
+-
+-	if (con->page_retirement_thread)
+-		kthread_stop(con->page_retirement_thread);
+-
+-	atomic_set(&con->page_retirement_req_cnt, 0);
+-	atomic_set(&con->poison_creation_count, 0);
+-
+ 	mutex_destroy(&con->page_rsv_lock);
+ 
+ 	cancel_work_sync(&con->recovery_work);
+ 
+-	cancel_delayed_work_sync(&con->page_retirement_dwork);
+-
+ 	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
+ 
+ 	mutex_lock(&con->recovery_lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index a86ab65aa2f0..1629a242d58e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -466,14 +466,6 @@ struct ras_query_context {
+ typedef int (*pasid_notify)(struct amdgpu_device *adev,
+ 		uint16_t pasid, void *data);
+ 
+-struct ras_poison_msg {
+-	enum amdgpu_ras_block block;
+-	uint16_t pasid;
+-	uint32_t reset;
+-	pasid_notify pasid_fn;
+-	void *data;
+-};
+-
+ struct ras_err_pages {
+ 	uint32_t count;
+ 	uint64_t *pfn;
+@@ -549,7 +541,6 @@ struct amdgpu_ras {
+ 	/* gpu recovery */
+ 	struct work_struct recovery_work;
+ 	atomic_t in_recovery;
+-	atomic_t rma_in_recovery;
+ 	struct amdgpu_device *adev;
+ 	/* error handler data */
+ 	struct ras_err_handler_data *eh_data;
+@@ -587,16 +578,9 @@ struct amdgpu_ras {
+ 	/* Record special requirements of gpu reset caller */
+ 	uint32_t  gpu_reset_flags;
+ 
+-	struct task_struct *page_retirement_thread;
+-	wait_queue_head_t page_retirement_wq;
+ 	struct mutex page_retirement_lock;
+-	atomic_t page_retirement_req_cnt;
+-	atomic_t poison_creation_count;
+-	atomic_t poison_consumption_count;
+ 	struct mutex page_rsv_lock;
+-	DECLARE_KFIFO(poison_fifo, struct ras_poison_msg, 128);
+ 	struct ras_ecc_log_info  umc_ecc_log;
+-	struct delayed_work page_retirement_dwork;
+ 
+ 	/* ras errors detected */
+ 	unsigned long ras_err_state;
+@@ -615,9 +599,6 @@ struct amdgpu_ras {
+ 	struct list_head critical_region_head;
+ 	struct mutex critical_region_lock;
+ 
+-	/* Protect poison injection */
+-	struct mutex poison_lock;
+-
+ 	/* Disable/Enable uniras switch */
+ 	bool uniras_enabled;
+ 	const struct ras_smu_drv *ras_smu_drv;
+@@ -1029,10 +1010,6 @@ int amdgpu_ras_reserve_page(struct amdgpu_device *adev, uint64_t pfn);
+ int amdgpu_ras_add_critical_region(struct amdgpu_device *adev, struct amdgpu_bo *bo);
+ bool amdgpu_ras_check_critical_address(struct amdgpu_device *adev, uint64_t addr);
+ 
+-int amdgpu_ras_put_poison_req(struct amdgpu_device *adev,
+-		enum amdgpu_ras_block block, uint16_t pasid,
+-		pasid_notify pasid_fn, void *data, uint32_t reset);
+-
+ bool amdgpu_ras_in_recovery(struct amdgpu_device *adev);
+ 
+ __printf(3, 4)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index a250109edb63..f22d07e9c29c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -276,7 +276,7 @@ int amdgpu_umc_pasid_poison_handler(struct amdgpu_device *adev,
+ 			}
+ 
+ 			amdgpu_ras_error_data_fini(&err_data);
+-		} else if (amdgpu_uniras_enabled(adev)) {
++		} else {
+ 			struct ras_ih_info ih_info = {0};
+ 
+ 			ih_info.block = block;
+@@ -285,17 +285,6 @@ int amdgpu_umc_pasid_poison_handler(struct amdgpu_device *adev,
+ 			ih_info.pasid_fn = pasid_fn;
+ 			ih_info.data = data;
+ 			amdgpu_ras_mgr_handle_consumer_interrupt(adev, &ih_info);
+-		} else {
+-			struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-			int ret;
+-
+-			ret = amdgpu_ras_put_poison_req(adev,
+-				block, pasid, pasid_fn, data, reset);
+-			if (!ret) {
+-				atomic_inc(&con->page_retirement_req_cnt);
+-				atomic_inc(&con->poison_consumption_count);
+-				wake_up(&con->page_retirement_wq);
+-			}
+ 		}
+ 	} else {
+ 		if (adev->virt.ops && adev->virt.ops->ras_poison_handler)
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+index a6df6a778f50..749c1f845ac6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+@@ -656,23 +656,6 @@ static int umc_v12_0_update_ecc_status(struct amdgpu_device *adev,
+ 	for (i = 0; i < count; i++)
+ 		amdgpu_ras_reserve_page(adev, page_pfn[i]);
+ 
+-	/* The problem case is as follows:
+-	 * 1. GPU A triggers a gpu ras reset, and GPU A drives
+-	 *    GPU B to also perform a gpu ras reset.
+-	 * 2. After gpu B ras reset started, gpu B queried a DE
+-	 *    data. Since the DE data was queried in the ras reset
+-	 *    thread instead of the page retirement thread, bad
+-	 *    page retirement work would not be triggered. Then
+-	 *    even if all gpu resets are completed, the bad pages
+-	 *    will be cached in RAM until GPU B's bad page retirement
+-	 *    work is triggered again and then saved to eeprom.
+-	 * Trigger delayed work to save the bad pages to eeprom in time
+-	 * after gpu ras reset is completed.
+-	 */
+-	if (amdgpu_ras_in_recovery(adev))
+-		schedule_delayed_work(&con->page_retirement_dwork,
+-			msecs_to_jiffies(DELAYED_TIME_FOR_GPU_RESET));
+-
+ 	return 0;
+ }
+ 
 -- 
-2.54.0
+2.34.1
 
