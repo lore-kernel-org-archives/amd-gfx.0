@@ -4,101 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B50CDB47F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 07:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F710CDB466
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 07:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5743A10F156;
-	Thu, 25 Jun 2026 07:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB30C10F169;
+	Thu, 25 Jun 2026 07:52:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f8CGOlUD";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="tr0wI6UZ";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012065.outbound.protection.outlook.com
- [40.107.200.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29FD410F156
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 07:27:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W9+mpiSm8bnZM0W2A1gmpexzOE7QdNvo4gCmejtz1zWj9WqgpB0lpcY5Idxei2HLDschTBtjC3rT1Aq84XPUKLUarAlbbX1/vRrqBkf6TZa/emzOlSOilUnVJWxaNQBuD/794Wv6Qhfk46Z0gYkxBKvAmfxbaZN8I+CctUNLEF3jRa+7ini0r1xHbCGbdJR/xLItU4deiods27NxBc15GKhmPyJcwdsDVO4NbOcst6VXlYcRKK2zy0dMpf0sKmMKNpMPeLS/tge0kPken6e4Lf9YvB2s9U7QVtUbLSmmePwFiSNQERADfqfHqYxsiCKGz4L0XbH8qOfPJHWhDw1LlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g2GJX1AOy/c4nmbYwuePRn4s3+3nWeet0m61tyuJQYQ=;
- b=bODXsgunpAAbTlU4fOi0/idC+vW8q+qV7MkXKzdI83QghGuVkuUOHxUIHuMap6t/47DFnUlMfYHvJOj0k246PnT4V9kC2LnVbtAEPPwcqdrQZF4hy+PCXIR2YoRwg/4LgmQysNDSWjtI3tuzale8zVfw6jfTy95juqJ0WP0Uin5p2bI740FTqT07ymSkiP4rL8aRUclo5QtzargfHwKG7+YVtdWHhBhVhcvJHRT/r3gfZPHcaM8G8jwk7YKzjfr6xbVIvcdMJJPebzNskzZnKnhxOab5mxNeTBA8MW4J5tarDiPof06H64zdaDjCBGvpAvqitVf4u2MjuHkscc6fMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g2GJX1AOy/c4nmbYwuePRn4s3+3nWeet0m61tyuJQYQ=;
- b=f8CGOlUDLkDQ5/bZmkNRIhvEOaEdnMZJOP5wQw8bc7nIF6Jgnn5NEiiHbwItALB33wo2Lzj5F6h1rFfD4DBIcVaWmgNUwhJuU321H5+Kucs7dyDpeXzr+TXumi79aUFbF7yiWtND/CnilynYHslkaZbl6Dq7Z2NmIBkYftmbLIA=
-Received: from DS1PR07CA0012.namprd07.prod.outlook.com (2603:10b6:8:456::12)
- by MW4PR12MB7335.namprd12.prod.outlook.com (2603:10b6:303:22b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Thu, 25 Jun
- 2026 07:27:30 +0000
-Received: from CY4PEPF0000E9DB.namprd05.prod.outlook.com
- (2603:10b6:8:456:cafe::12) by DS1PR07CA0012.outlook.office365.com
- (2603:10b6:8:456::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
- 25 Jun 2026 07:27:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000E9DB.mail.protection.outlook.com (10.167.241.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 07:27:29 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
- 2026 02:27:27 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 25 Jun 2026 02:27:26 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Shaoyun Liu <shaoyun.liu@amd.com>, Amber Lin <Amber.Lin@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 2/2] Revert "drm/amdgpu: defer KCQ remap until after MES
- resume in reset flow"
-Date: Thu, 25 Jun 2026 15:27:08 +0800
-Message-ID: <20260625072723.1919513-2-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260625072723.1919513-1-Jesse.Zhang@amd.com>
-References: <20260625072723.1919513-1-Jesse.Zhang@amd.com>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF9C10F169
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 07:52:28 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65P3mZ312889258; Thu, 25 Jun 2026 07:52:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=pp1; bh=y0u/WQTiVYBc3mGCwC6DvPC3wCAoQf71irkXV52yO
+ rs=; b=tr0wI6UZY+tpvTm5kHXoPG5FzQG8IKAgWaxxuS2OezblCYDEdwNzv/KGF
+ AIbCXCBIx063bBkXi2S4sxBkbBzTdbhT4E8zlc7dUi9saKLyUf3enmnpUxLGTUNJ
+ pBK0KjP6uEABoSN+iQ0IMtWhbWUqD7ZPSNVUn4Ta4Wssa9x4NDNtI2Lrrho2wkiA
+ evHkWcfd2Amm2zUWkKcnpiy5h6Ylb4RVyxijRVqJ5/e27Ssd2jiubJP1LZkhquc5
+ Ve1RRDnHZGXshuC2iOU43KXTcJzOjjWkafc02xNU4AqnhWsGLCwbvagBchu13daV
+ hG0Yx1nOy6B+gsceaE0L9YOav5C1A==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ewjgt0816-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jun 2026 07:52:26 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65P7njr9003653;
+ Thu, 25 Jun 2026 07:52:26 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ex66kd2x7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jun 2026 07:52:25 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 65P7qL3Y13762950
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 25 Jun 2026 07:52:22 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D79162004D;
+ Thu, 25 Jun 2026 07:52:21 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B30942004E;
+ Thu, 25 Jun 2026 07:52:17 +0000 (GMT)
+Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
+ [9.124.222.69]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Thu, 25 Jun 2026 07:52:17 +0000 (GMT)
+From: Donet Tom <donettom@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>, pierre-eric.pelloux-prayer@amd.com
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
+Subject: [PATCH] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K
+ systems
+Date: Thu, 25 Jun 2026 13:22:06 +0530
+Message-ID: <20260625075206.1105650-1-donettom@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="Y"
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DB:EE_|MW4PR12MB7335:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3537cb7-10d0-48bb-e2c1-08ded28b36e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|3023799007|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: vOyONB8Ip65xG0UgNP6OqzYrHAt/lXqYzfsPhcPC1a/OpmlxbD8YFKhxvf+wsr1uCu5nss6uWDKfsY2GuxlRz4Pe6JfQmF9nksND529sfFirvLyjPSWRAHfDZssIY7CiIlljEAG6KzeVlQM7IX9CIiw8rTV+UmLVwUk8TK5Tz7Fa6qabGQP4xa0PpLoHLa8toZeQ549h+Y3GIahIaQwDPnFgtiFL+GklrWU6Yvnz53Q1uZFEALIsSisR9ZjbVZYKo5yb4VK9YYHqGMQj8ScTTJMKZeungFUk63DV7LxNhqAIR/FD3mQ44UqWkxPMORBeLYfiFEl8Z+ltDMdXMeSR8NULWlwcCpvg1nMrq05+WJsQ9eCl1c9fMhZv0pjBzh34+o35ydbCUDhgjjzn/jfmd9DkNU0HU9IRD6fL4w2Zi2fGv5LEto1eoruHito3iziumJs2WENK9Y84wqSQ4Cks/1Yt6B2bGQf/J5gJInTiTQv3Nnt5UzIkJVrf9sSy/105d9WNo3o86hYRkjHnr4h96kltNf/mUmnTpSH9WFIyMmTTDr+4mfDQeFB59NFMbwDyqsEaf0BGRgvD/oo+sRfEJPwzCl54H1aouAqmGsWq8TBcXc2XKoTwK3BrBnaG99BJj1NG3RUpoecBiAOSU4A8JkPYPQLGYFabNFEi0IMScnzLKKm378KqCFk8O8FLy76Y0QTCFX4WeHyhDPv8Df9rsA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3Ha0Q8fymKgj+9NNbktPgjFOEpJ1k0VQstM4LgyrBSCedVJ4tIiRgaM+RiHNlbN6GTUzi9w0NRZ/3dUyHXCNFaxL0JEu+J5jhPyg/FRqI3jKBfh6kLmi3NVtufcsqIF3U0yQX2z7M9oiJv8MgQL5hfAd9B42PL4Q8ccyJB7Eu45F0DQ6FG1dHUaFdueVYRAV00Jzyd668tLAqAFLoZhqTWZiCboUKL+4TC0eLSska5BMSSuE7zNgL7jVChHlvZqlZvSt32THF/lhUu9dGpWN4Y2p8dbQ4vjGFEW452gV1Xlsr2S5EyJq2/UPdRxxDLuw4vszLR+dNmBgrg0csGhN4lNb0DS4DLCKefzbAoDMBO7/lL0S0PVX3/o3Lv6CZpbBMOnXPM1ZVI7A0BBKwfZT3JG4EBAfhGlIYMFu9TExY84QrP1+zI8mXxZNotJYgbH2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 07:27:29.5564 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3537cb7-10d0-48bb-e2c1-08ded28b36e4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DB.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7335
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA2NiBTYWx0ZWRfX2j71QETiAB7s
+ sf/ycKWy0vYBbfa4Tdr5dkcDlmmGKhH/CpAfq0q4bLEtBjETcW0PX0R6oNk43HFl5YPhZRkkyQk
+ oXDaaHUqwX7ifKQMKI5bBgMvEawFiE9RL0+ZxeKHi4VDUHYNJYv3IwTJi3Y+5kPLM9VNdvXzpf9
+ V6YV+jn0OGHNOtpmKrYemKl6Gs2/QG/FZKHLQCTcWXDwN1GA+IcPtZHfKZTXlCcgLFxfQ/f/H1q
+ S0KRjy+gsy9i4lVkxwgTuel/GJjhEqrccZsHsG+wsfDTnnQB72FPQFBEn8z4Al5hSBF68sKu+M6
+ WJI50Ie2yOI5tre0G3+vr7IN4/XWmmmxwO3OTpbxe1Mn7SiMT2Ud4VJsAoyf9nEmZlLA944UP/O
+ 5DdqoRq34f2co6Al3Tq88TE4+pK0RTo0qWMQdvkYGG2vv7HE4V4nmBi/lDVkTsI2otceyFwBCc4
+ dRdaww/b41+7m1jCFSA==
+X-Proofpoint-GUID: RRfEDZhvigWHDvxID_uabathswkjEhSI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA2NiBTYWx0ZWRfX3xhQMrqdaFA9
+ cTarE/RwwOZncNVuZeRt+8StpnlK0nVZ6KrmF3oLUfah0eDgc+BxKOhmqjeSBT8gEvtwsHB2SSK
+ kwGNbBjJuHXABKytpq6GwTyz65HmOeE=
+X-Authority-Analysis: v=2.4 cv=I/lVgtgg c=1 sm=1 tr=0 ts=6a3cde3b cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=zd2uoN0lAAAA:8 a=VnNF1IyMAAAA:8
+ a=9GqvVxz53e6ScOHA3rkA:9
+X-Proofpoint-ORIG-GUID: lJEtgTi_mQykVP04mSZprjG0B29wploY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250066
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,199 +112,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 5d95aa4278be.
-It introduced a regression issue on gfx11.
+Running RCCL unit tests on a system with a 64K PAGE_SIZE triggers
+the following warning and causes the test to terminate on latest
+upstream kernel:
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1335 at
+amdgpu_bo_release_notify+0x1bc/0x280 [amdgpu],
+CPU#18: rccl-UnitTests/33151
+
+Call trace:
+amdgpu_bo_release_notify
+ttm_bo_release
+amdgpu_gem_object_free
+drm_gem_object_free
+amdgpu_bo_unref
+amdgpu_bo_create
+amdgpu_bo_create_user
+amdgpu_gem_object_create
+amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu
+kfd_ioctl_alloc_memory_of_gpu
+kfd_ioctl
+sys_ioctl
+
+The warning is triggered because
+amdgpu_ttm_next_clear_entity() returns NULL when a clear buffer
+operation is requested. This happens because the GART window
+allocation for the default_entity, clear_entity and move_entity
+fails during initialization.
+
+Commit [1] introduced separate GART windows for the
+default_entity, clear_entity and move_entity of each SDMA
+instance. Their sizes are derived from
+AMDGPU_GTT_MAX_TRANSFER_SIZE, which is currently defined as 1024
+pages. This implicitly assumes a 4K PAGE_SIZE, where 1024 pages
+correspond to a 4MB transfer. On a 64K PAGE_SIZE system, however,
+the same value expands to 64MB.
+
+The default_entity and clear_entity each allocate one
+AMDGPU_GTT_MAX_TRANSFER_SIZE GART window, while the move_entity
+allocates two such windows. This results in 16MB of GART space
+per SDMA instance on a 4K PAGE_SIZE system, but 256MB per SDMA
+instance on a 64K PAGE_SIZE system.
+
+On an MI210 system with five SDMA instances and a 512MB GART
+aperture, the total GART space required becomes 1.25GB,
+exceeding the available GART aperture. Consequently, GART window
+allocation fails, amdgpu_ttm_next_clear_entity() returns NULL,
+and the above warning is triggered.
+
+Redefine AMDGPU_GTT_MAX_TRANSFER_SIZE in bytes instead of page
+units. Where a page count is required, convert it using
+PAGE_SHIFT. This preserves the existing 4MB transfer size across
+all PAGE_SIZE configurations while keeping GART window
+allocations within the available GART aperture.
+
+[1] https://lore.kernel.org/all/20260408100327.1372-3-pierre-eric.pelloux-prayer@amd.com/#t
+
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 70 ++++++-------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  1 -
- 2 files changed, 16 insertions(+), 55 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 10 ++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h  |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  2 +-
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index a3e76bd85401..0506b90f318e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1989,24 +1989,10 @@ static ssize_t amdgpu_gfx_get_compute_reset_mask(struct device *dev,
- 	return amdgpu_show_reset_mask(buf, adev->gfx.compute_supported_reset);
- }
- 
--static int amdgpu_gfx_mes_reset_queue_reinit(struct amdgpu_ring *ring)
--{
--	struct amdgpu_device *adev = ring->adev;
--	int r;
--
--	amdgpu_gfx_mqd_reset_restore(ring);
--
--	r = amdgpu_mes_map_legacy_queue(adev, ring, 0);
--	if (r)
--		dev_err(adev->dev, "failed to remap kgq\n");
--
--	return r;
--}
--
- static int amdgpu_gfx_mes_reset_queue_start(struct amdgpu_ring *ring,
- 					     unsigned int vmid,
- 					     struct amdgpu_fence *timedout_fence,
--					     bool use_mmio, bool *need_reinit)
-+					     bool use_mmio)
- {
- 	struct amdgpu_device *adev = ring->adev;
- 	bool reinit_queue;
-@@ -2021,9 +2007,6 @@ static int amdgpu_gfx_mes_reset_queue_start(struct amdgpu_ring *ring,
- 	else
- 		reinit_queue = use_mmio;
- 
--	if (need_reinit)
--		*need_reinit = false;
--
- 	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
- 
- 	r = amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, use_mmio, 0);
-@@ -2035,9 +2018,13 @@ static int amdgpu_gfx_mes_reset_queue_start(struct amdgpu_ring *ring,
- 						  RESET_QUEUES, 0, 0, 0);
- 		if (r)
- 			return r;
-+		amdgpu_gfx_mqd_reset_restore(ring);
- 
--		if (need_reinit)
--			*need_reinit = true;
-+		r = amdgpu_mes_map_legacy_queue(adev, ring, 0);
-+		if (r) {
-+			dev_err(adev->dev, "failed to remap kgq\n");
-+			return r;
-+		}
- 	}
- 	return 0;
- }
-@@ -2047,19 +2034,12 @@ int amdgpu_gfx_mes_reset_queue(struct amdgpu_ring *ring,
- 			       struct amdgpu_fence *timedout_fence,
- 			       bool use_mmio)
- {
--	bool need_reinit;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 2740de94e93c..bad33b3368eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -208,9 +208,10 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	void *cpu_addr;
+ 	uint64_t flags;
  	int r;
++	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
  
--	/* Single-queue reset (no suspend/resume): re-add the queue inline. */
- 	r = amdgpu_gfx_mes_reset_queue_start(ring, vmid, timedout_fence,
--					      use_mmio, &need_reinit);
-+					      use_mmio);
- 	if (r)
- 		return r;
--	if (need_reinit) {
--		r = amdgpu_gfx_mes_reset_queue_reinit(ring);
--		if (r)
--			return r;
--	}
- 	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
- }
+ 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
+-	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
++	       GTT_MAX_PAGES * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
  
-@@ -2259,8 +2239,7 @@ static int amdgpu_gfx_reset_mes_kcq(struct amdgpu_device *adev,
- 				    struct amdgpu_ring *guilty_ring,
- 				    unsigned int db,
- 				    struct amdgpu_ring **out_ring,
--				    struct amdgpu_fence **out_fence,
--				    bool *out_reinit)
-+				    struct amdgpu_fence **out_fence)
+ 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
+ 		return -EINVAL;
+@@ -230,7 +231,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	offset = mm_cur->start & ~PAGE_MASK;
+ 
+ 	num_pages = PFN_UP(*size + offset);
+-	num_pages = min_t(uint32_t, num_pages, AMDGPU_GTT_MAX_TRANSFER_SIZE);
++	num_pages = min_t(uint32_t, num_pages, GTT_MAX_PAGES);
+ 
+ 	*size = min(*size, (uint64_t)num_pages * PAGE_SIZE - offset);
+ 
+@@ -2015,6 +2016,7 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
+ 					 u32 num_gart_windows)
  {
- 	bool use_mmio = adev->gfx.mec.use_mmio_for_reset;
- 	struct amdgpu_fence *fence;
-@@ -2269,16 +2248,14 @@ static int amdgpu_gfx_reset_mes_kcq(struct amdgpu_device *adev,
+ 	int i, r, num_pages;
++	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
  
- 	*out_ring = NULL;
- 	*out_fence = NULL;
--	*out_reinit = false;
- 	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
- 		ring = &adev->gfx.compute_ring[i];
- 		if (ring == guilty_ring)
- 			continue;
- 		if (ring->doorbell_index == db) {
- 			fence = amdgpu_ring_find_guilty_fence(ring);
--			/* reset + unmap now; re-add (map) is deferred to after resume */
- 			r = amdgpu_gfx_mes_reset_queue_start(ring, 0, fence,
--							      use_mmio, out_reinit);
-+							      use_mmio);
- 			if (r)
- 				return r;
- 			*out_ring = ring;
-@@ -2329,16 +2306,12 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
- fence_reset:
- 	/* reset the queue this came from if specified */
- 	if (ring) {
--		bool reinit = false;
--
--		/* reset + unmap now; re-add (map) is deferred to after resume */
- 		r = amdgpu_gfx_mes_reset_queue_start(ring, 0, guilty_fence,
--						      use_mmio, &reinit);
-+						      use_mmio);
- 		if (r)
- 			goto out;
- 		deferred_end[n_deferred].ring = ring;
- 		deferred_end[n_deferred].fence = guilty_fence;
--		deferred_end[n_deferred].reinit = reinit;
- 		n_deferred++;
+ 	r = drm_sched_entity_init(&entity->base, prio, scheds, num_schedulers, NULL);
+ 	if (r)
+@@ -2027,7 +2029,7 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
+ 	if (num_gart_windows == 0)
+ 		return 0;
+ 
+-	num_pages = num_gart_windows * AMDGPU_GTT_MAX_TRANSFER_SIZE;
++	num_pages = num_gart_windows * GTT_MAX_PAGES;
+ 	r = amdgpu_gtt_mgr_alloc_entries(mgr, &entity->gart_node, num_pages,
+ 					 DRM_MM_INSERT_BEST);
+ 	if (r) {
+@@ -2038,7 +2040,7 @@ static int amdgpu_ttm_buffer_entity_init(struct amdgpu_gtt_mgr *mgr,
+ 	for (i = 0; i < num_gart_windows; i++) {
+ 		entity->gart_window_offs[i] =
+ 			amdgpu_gtt_node_to_byte_offset(&entity->gart_node) +
+-				i * AMDGPU_GTT_MAX_TRANSFER_SIZE * PAGE_SIZE;
++				i * GTT_MAX_PAGES * PAGE_SIZE;
  	}
- 	if (uq) {
-@@ -2349,7 +2322,6 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
- 	for (i = 0; i < num_hung; i++) {
- 		struct amdgpu_ring *hr = NULL;
- 		struct amdgpu_fence *hf = NULL;
--		bool hr_reinit = false;
  
- 		pipe = hqd_info[i].pipe_index;
- 		queue = hqd_info[i].queue_index;
-@@ -2358,13 +2330,12 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
- 		/* reset any KCQs */
- 		r = amdgpu_gfx_reset_mes_kcq(adev, ring,
- 					     adev->gfx.mec.mes_hung_db_array[i],
--					     &hr, &hf, &hr_reinit);
-+					     &hr, &hf);
- 		if (r)
- 			goto out;
- 		if (hr) {
- 			deferred_end[n_deferred].ring = hr;
- 			deferred_end[n_deferred].fence = hf;
--			deferred_end[n_deferred].reinit = hr_reinit;
- 			n_deferred++;
- 		}
- 		/* reset any KFD queues */
-@@ -2396,21 +2367,12 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
- 	/* resume all will enable the non-hung queues */
- 	amdgpu_mes_resume(adev, 0);
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 2d72fa217274..b5d938b31383 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -39,7 +39,7 @@
+ #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
+ #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
  
--	/* Now CP is running again — for queues that were unmapped during the
--	 * reset, re-add (map) them only now that MES is resumed and back to a
--	 * normal state, then replay backed-up commands and ring doorbells on
--	 * each reset queue.
-+	/* Now CP is running again — replay backed-up commands and ring
-+	 * doorbells on each reset queue.
- 	 */
- 	for (i = 0; i < n_deferred; i++) {
--		int er;
--
--		if (deferred_end[i].reinit) {
--			er = amdgpu_gfx_mes_reset_queue_reinit(deferred_end[i].ring);
--			if (er && !r)
--				r = er;
--		}
--		er = amdgpu_ring_reset_helper_end(deferred_end[i].ring,
--						  deferred_end[i].fence);
-+		int er = amdgpu_ring_reset_helper_end(deferred_end[i].ring,
-+						      deferred_end[i].fence);
- 		if (er && !r)
- 			r = er;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 9432107c96a1..aefd4f03b443 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -550,7 +550,6 @@ struct amdgpu_gfx {
- struct amdgpu_gfx_deferred_entry {
- 	struct amdgpu_ring	*ring;
- 	struct amdgpu_fence	*fence;
--	bool			reinit;
- };
+-#define AMDGPU_GTT_MAX_TRANSFER_SIZE	1024
++#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1ULL << 22)
  
- struct amdgpu_gfx_ras_reg_entry {
+ extern const struct attribute_group amdgpu_vram_mgr_attr_group;
+ extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 28dc6886c1ff..8aec1ae60ca1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -128,7 +128,7 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
+ 			     enum MIGRATION_COPY_DIR direction,
+ 			     struct dma_fence **mfence)
+ {
+-	const u64 GTT_MAX_PAGES = AMDGPU_GTT_MAX_TRANSFER_SIZE;
++	const u64 GTT_MAX_PAGES = (AMDGPU_GTT_MAX_TRANSFER_SIZE >> PAGE_SHIFT);
+ 	struct amdgpu_ring *ring;
+ 	struct amdgpu_ttm_buffer_entity *entity;
+ 	u64 gart_s, gart_d;
 -- 
-2.49.0
+2.54.0
 
