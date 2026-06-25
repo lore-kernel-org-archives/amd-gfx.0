@@ -4,79 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7676DCDE01A
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 494E2CDE01B
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D77F310F4AE;
-	Fri, 26 Jun 2026 07:54:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1A410F4BD;
+	Fri, 26 Jun 2026 07:54:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F6VnDwvP";
+	dkim=pass (2048-bit key; unprotected) header.d=haghiri.net header.i=@haghiri.net header.b="ThcTqgIF";
 	dkim-atps=neutral
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD31310F2C8
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 13:54:05 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-804e46366d7so23607997b3.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 06:54:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782395645; x=1783000445; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=m9aAmr8/iGyamwXOE0x+7nRWzrQLtbEEZ6iUw+t3oT4=;
- b=F6VnDwvPLtkffmEFUTsKUCZA2oS4Mg0M8w8iCDsiJnRW/L9dQEG4DZoCQ2cv2CXZNU
- O0JQokZntyCNM948YsN9kQ+JxZPTe1FtavegXjcIkNctB1/OuBUz5VDFXoJwWzxQO+py
- xauVb4R8ZzARMG4XjARNx96nZVYW5X2ayC+AQa3BAiwXpWf6bxF6KieGrh35aeSIvNTZ
- 7pxjHqVO181wqHxaGwB3aSMLL4kIt+fMGsuJHTqBbKxVXaPBab7+0h4F0hqCT+6z7ggz
- ZAL+6MF7BSgXBnZW6AyUEz0Rw2F6Kuqy3x096qp8THLBlLG5EYm4xBsEMn2DsLUm4CQw
- u/VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782395645; x=1783000445;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=m9aAmr8/iGyamwXOE0x+7nRWzrQLtbEEZ6iUw+t3oT4=;
- b=jBtLm6ha+7bNt8TYRckU0xixChZDa2gk0LQvr5YM19w6ev6kcT2r10YtBOp/kyGasK
- jYad7RjoUDtRQ1pKX+dJKTQTxBbKL7t1wfUvy1Ia2LQ3srL5B60L8VYfgliVPUJTEg3Q
- RyhH/OZt3f/NI2DkF8OdDOzlt+OZ8V6C9YoKj3WiZLx0b6ErugoulQu8I9oJ6F/8hGO9
- btQh9vPQYBVmMki6DZtojDxyXYpi4vx6gKhoTrhi5EPVa0kwv4CzKhRJE4S0qT1Qsf8q
- 7pI2QndSL+Ky+NwVq3fhxdwgIg9oe2/adAPR83aMiEwejh7Id+NGS8i2v7pTnFSK0Sjv
- ZfYQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq+vqvBiscMc1BDwvh0zaeKtn7rhMyTvF9pMtVqMg/vYKfehlAx7B4UuB2OEEdXIntxhFq6cWuA@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwteS+OtyVcj9HFkRUjeh+7Dc57zJXSCMb9jdulz4vA6+Sa8iVP
- Ih9TfobQuqkCHRXcer72Y9Ew3/vJNc7vmHInzF5SJ9G9FWCrEuc0FJGV
-X-Gm-Gg: AfdE7ckl11gPS6n/Gc245LknW95T1TvPRg6iNXuT/s5BmJlnebOPC3Cz715t8BuJRNK
- eoS9neZSU7tJ2NPtliVtZsEIaLnLEqMT03Xe7T2Pw/KhIsAB7y093s0iDwnZKN57VbHMmSOdfw5
- hhXLvteE4SXfhgpIgYvLmlyZgEhbTfflEIuucU0avO//kr/dO8kmnu3PDLQlde8OBMosjw9dKej
- ZeNZnNqDsZeVgy+rDzKBXKn+wYcUA9ZcIaps/ydwzUU8P9OL0Dn/S0xjM6D3eB3k6UsqKa4BeOa
- o3uMZAA8c7b88jagd0iVWGKuUefRrbS5GgvXK8hSXetT+6NQ3tSn+MC5CzqbvpCsKHNo1HgYnHs
- 2Nx4p6HaKAv3BSXvNB2H14rtB+pKVdt5tPgbLUznJaVD0fJJVIY/WabT5W1+7SRbczhD1hxwctj
- h7i6mwJNuUjorjR/DcxVfD/fT0c2mGH3sGgp0g
-X-Received: by 2002:a05:690c:6e02:b0:7f8:7e31:28ab with SMTP id
- 00721157ae682-80a6b898733mr25315367b3.51.1782395644452; 
- Thu, 25 Jun 2026 06:54:04 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8025f8da5fbsm72143407b3.30.2026.06.25.06.54.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 06:54:04 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH v2] drm/amdgpu: reject mapping info when BO VA is gone
-Date: Thu, 25 Jun 2026 15:53:41 +0200
-Message-ID: <20260625135341.1159-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260624172029.2508-1-alhouseenyousef@gmail.com>
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+X-Greylist: delayed 601 seconds by postgrey-1.36 at gabe;
+ Thu, 25 Jun 2026 20:01:02 UTC
+Received: from a4i518.smtp2go.com (a4i518.smtp2go.com [158.120.82.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AD710E270
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 20:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=haghiri.net;
+ i=@haghiri.net; q=dns/txt; s=s670074; t=1782416768; h=from : subject :
+ to : message-id : date;
+ bh=4FDASpAZewTAw9aVPec4IBz0vmR8o1gLUU6QhtvS7Ek=;
+ b=ThcTqgIFIuT4nw4QYLMUqWElVNOfmsY6cb+ldUT2D+g79tkiWPaQiw74bc9OZbe2FOWIB
+ DkOLU92GIn5eQ20TuqOAWq/ehVRqZB58UwMyOZkreqcj3kIp7Z5Br0ZDzrtkGh2HpQb9sZ+
+ YW4LwGlrWnBGZX1jhQXBNRho/f+y5AxmUsy8H25xGwtz/h8CMzknEu8NxuALLwGp6e9IL8w
+ J5eBa4iXlSSghC+u8kkVgaQpBhmq/ksoRPWHtkHmop+f68sglOO92+Hu0ykkXWCzrwKEZNo
+ HfMGo3WR3DLnNNaN39GLuvolv6XbQWjZPmISs/cNvQcdG/ZL9v0kbK/h/nSA==
+Received: from [10.132.241.142] (helo=[10.161.48.225])
+ by smtpcorp.com with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
+ (Exim 4.99.4) (envelope-from <nick@haghiri.net>)
+ id 1wcq1C-4o5NDgrhWwe-hkHe; Thu, 25 Jun 2026 19:45:46 +0000
+Message-ID: <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
+Date: Thu, 25 Jun 2026 15:45:44 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Linux)
+Subject: Re: [RFC PATCH] drm/amd/display: extend HPD debounce filter to
+ DisplayPort SST
+To: Ivan Lipski <ivlipski@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260625150439.330875-1-nick@haghiri.net>
+ <928d4c2a-d8b7-43d7-995e-a3e6996d2952@amd.com>
+Content-Language: en-US
+From: Nick Haghiri <nick@haghiri.net>
+In-Reply-To: <928d4c2a-d8b7-43d7-995e-a3e6996d2952@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Report-Abuse: Please forward a copy of this message, including all headers,
+ to <abuse-report@smtp2go.com>
+Feedback-ID: 670074m:670074aX29xAY:670074syjoatcHpi
+X-smtpcorp-track: Gs7evT_GYhrg.u16CnetuVI8X.WWWAOwN7scx
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,44 +69,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object from the file
-handle and then locks the object and VM before resolving the BO-VA. The
-GEM object reference keeps the BO alive, but it does not keep the
-per-file handle open.
+On 6/25/26 3:15 PM, Ivan Lipski wrote:
+ > I don't think I've encountered a situation when a monitor with DP can
+ > wake a system up from DPMS, so that's interesting. What distro and
+ > desktop environment are you using? I'd like to reproduce this issue
+ > and help with it.
 
-If a racing close drops the last handle reference in that window,
-amdgpu_gem_object_close() can remove the BO-VA before
-amdgpu_vm_bo_find() runs. The ioctl then walks the BO-VA mapping lists
-unconditionally.
+openSUSE Tumbleweed, KDE Plasma 6.7 on Wayland (KWin). GPU is an RX 9070
+XT (RDNA4), monitor is an MSI MPG 274U over DisplayPort SST.
 
-Return -EINVAL if the BO is no longer associated with this VM.
+What happens: when the output goes DPMS-off and the monitor drops into
+deep sleep, it briefly de-asserts and re-asserts HPD. amdgpu forwards
+that as a hotplug, KWin re-probes and re-enables the output, and the
+panel comes right back on, so it never actually stays asleep while
+connected.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
-Changes in v2:
-- Describe the handle-close race instead of an initially unmapped BO.
-- Return -EINVAL instead of -ENOENT.
+I suspect the monitor's input auto-scan plays a part, but disabling 
+auto-scan on the monitor did not stop the HPD toggle, so it looks like 
+panel-side behavior on entering deep sleep rather than something the 
+user can turn off.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+To watch it, enable drm logging:
+   echo 0x16 > /sys/module/drm/parameters/debug
+then force DPMS-off on the DP output (kscreen-doctor --dpms off, or just 
+let it idle). On the stock driver you get a link_set_dpms_off quickly 
+followed by a spurious detect and a link_set_dpms_on. With the debounce 
+set, the toggle is coalesced and it stays off.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 212c14d99..6f5b6f4c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		struct drm_amdgpu_gem_vm_entry *vm_entries;
- 		struct amdgpu_bo_va_mapping *mapping;
- 		int num_mappings = 0;
-+
-+		if (!bo_va) {
-+			r = -EINVAL;
-+			goto out_exec;
-+		}
-+
- 		/*
- 		 * num_entries is set as an input to the size of the user-allocated array of
- 		 * drm_amdgpu_gem_vm_entry stored at args->value.
--- 
-2.54.0
+I am happy to send the monitor's EDID and a full drm.debug trace 
+off-list if that helps. Its EDID identifies as manufacturer MSI, product 
+code 0x3CF0, i.e. drm_edid_encode_panel_id('M', 'S', 'I', 0x3CF0) for 
+the apply_edid_quirks() switch.
+
+ > I think generalizing the hpd_debounce_delay for both DP and HDMI would
+ > be better.
+
+If you're open to it, I will fold it into a single hpd_debounce_delay_ms 
+that applies to both HDMI and DP SST (eDP and MST still excluded), and 
+rename the internal hdmi_* field, work, and prev_sink to generic hpd_* 
+while I am there.
+
+One question on the existing knob: hdmi_hpd_debounce_delay_ms already 
+shipped. Would you rather I keep it as a back-compat alias of the 
+generic one, or just replace it since it is only a couple of cycles old? 
+I will go with whichever you prefer.
+
+ > Maybe we can also enable hpd_debounce_delay by default for monitors,
+ > that are known to have this issue, using apply_edid_quirks
+
+I like that. It could make it work out of the box instead of needing a 
+module param. I can add an apply_edid_quirks() case for the MSI MPG 274U 
+(panel id above) that sets a sane default, and keep the module param as 
+a global override. 1500 ms is what reliably works in the testing I've 
+done, but I can tune that down if you want a smaller default.
+
+Thanks for the quick and helpful review.
+
+--
+
+Nick Haghiri
+
