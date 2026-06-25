@@ -4,131 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA64DCDE021
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EACCCDE01D
 	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1780A10F4AC;
-	Fri, 26 Jun 2026 07:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8F2310F4C2;
+	Fri, 26 Jun 2026 07:54:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="fvwDzDcM";
+	dkim=pass (2048-bit key; unprotected) header.d=haghiri.net header.i=@haghiri.net header.b="CWeqiz4Y";
 	dkim-atps=neutral
-Received: from MEUPR01CU001.outbound.protection.outlook.com
- (mail-australiasoutheastazolkn19010010.outbound.protection.outlook.com
- [52.103.73.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1018B10E109;
- Thu, 25 Jun 2026 11:00:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wvUnXi8p4U4RGZc0DL38NCSjReQNHEJl/rFkMBrSAXCG2ulkk8wlsX687PEvSXAvYz79KWU2IhL+NfKj+ZFmUbbt1Xtq5vS6fS5AOPlSKz0TkTzYMv4+AUhpB+Jjd2mGcUJK9UkafMx0gWu4bsJLgYOKduXDO7S/1FHyViFNfJgJXKPNadFW7hUOrr+OWJdWJHagjtqRRaq6KMFY6g4/jqZHxJuGX13tl3kSixwCBMDcE6De4NuXy+8Kcw2I6rxzXX+acC0dduF7WYkwc2+zvHEgyS416v2LJc3Be9yW3/03DLhw84ly3DrrGEgdwHYquqa9gxnzFwoenySrtqUNng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1omvIcwVXpixCCsiOZpunz7SR6/ADMNUnxevuHO0pfM=;
- b=hYnsymB3CHs9cGALuUgG8rO94RQQ/WDuY1r62TtjldGVqfLE9lVisLo7iy5oY7/Q/IzTTGU8BCPt/KizoV/+/NsdePKfcQ99UZaUXcJJ8xom26ShI+uUtZMPqrc3teMQNie5dBBPWULfvKOLsRXy56uFtk01uCq2AF50Q4F4sTW+4RXKrkPqEofgtFkWGrnRi4TBODNZRfOs1qvtD6Ou9sLMFpLOnE+YJBBhRzyXmoqSBWzt2sXSlitTwQHMBcwvcm/tpS/oboECcyPVELK6nLdADxw588tQ/I+/AbqTSs0ejLnFsT94C12mSQ9zUH2ncwTtTeq/iz8jj1LfRiiBWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1omvIcwVXpixCCsiOZpunz7SR6/ADMNUnxevuHO0pfM=;
- b=fvwDzDcMsclIriC81XE/w32mpeEFnEP9Ffe4J+yTzJYWFWVuD5ytZTB/aWkj42Q8Q4aIXr/3cyMPR48SCRrFaOGIEWYhEadQz8qzhNynAsujEQy5Rl9Zy0tAyONag2rIednLF75mpT+8iHvEzzC1LWdcVZAMmn4B12RMYQNoMCmO2U93Shln3jORpZguYW1kU0ixlCUiJoXTYr4Cew4JkRdhchAE2e2nVa5pLDaD5qTG2aczmkqu1FOv+zsuGHxzTjmAgz0PaPZKn8/Sc2P0cDk3d5ampaCpIpA5cJgj0hXSQvyZ3HhSQ239O3AXI+wZN5CAtvJh4Ay4xF/ZZBJRTA==
-Received: from SY1PR01MB10596.ausprd01.prod.outlook.com (2603:10c6:10:31a::15)
- by SY1PR01MB10657.ausprd01.prod.outlook.com (2603:10c6:10:315::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Thu, 25 Jun
- 2026 11:00:08 +0000
-Received: from SY1PR01MB10596.ausprd01.prod.outlook.com
- ([fe80::7ab4:1f80:a8a0:7d3f]) by SY1PR01MB10596.ausprd01.prod.outlook.com
- ([fe80::7ab4:1f80:a8a0:7d3f%6]) with mapi id 15.21.0159.012; Thu, 25 Jun 2026
- 11:00:08 +0000
-From: Yitao Jiang <jytscientist@hotmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
+X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
+ Thu, 25 Jun 2026 15:21:01 UTC
+Received: from a4i518.smtp2go.com (a4i518.smtp2go.com [158.120.82.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C84810E216
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 15:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=haghiri.net;
+ i=@haghiri.net; q=dns/txt; s=s670074; t=1782399959; h=from : subject :
+ to : message-id : date;
+ bh=5ZwT0PxOqnzVKIx4Y3cq874cex5oIA7eLWed26NQDUA=;
+ b=CWeqiz4Yd1PvCX3zRhcv0tBzFkSd+Il+ZlwQob5LeoGsWhJ1dPSkjb5cop2kmkuIcMUg8
+ dXTibbij6gQNY9mbmqLN3KNcnB2CWuaMKsS+pv0cTrffcttTRSCuFZsKEBUXpLEtKuQjAEz
+ nGkzWNcIan8O12HCJ12RTy/OXMYons19rGDeZiia0I+KZf1T/lHmeTPoBAiJqCnJ/UR6BkX
+ xaXYVC2sv6jwo/VucRW4QCRzH11SA3UZEnAPQdglmJqXAy3jqeQwMDK0vaMLqgL1rvAE+CC
+ fgmWrVi6JdZ949K4ulOnGsLNYCc6yUNxFUpZRr7kSJStngmgHFx/VEaiRdvQ==
+Received: from [10.132.241.142] (helo=opensuse-desktop.haghiri.lan)
+ by smtpcorp.com with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.99.4) (envelope-from <nick@haghiri.net>)
+ id 1wcldC-FnQW0hPksvN-Ir6Z; Thu, 25 Jun 2026 15:04:42 +0000
+From: Nick Haghiri <nick@haghiri.net>
+To: amd-gfx@lists.freedesktop.org,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Yitao Jiang <jytscientist@hotmail.com>
-Subject: [PATCH 0/3] mm/mmu_notifier,
- drm/amdgpu: block THP for GPU user mappings
-Date: Thu, 25 Jun 2026 18:59:50 +0800
-Message-ID: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TP0P295CA0028.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:5::8)
- To SY1PR01MB10596.ausprd01.prod.outlook.com
- (2603:10c6:10:31a::15)
-X-Microsoft-Original-Message-ID: <20260625105953.70647-1-jytscientist@hotmail.com>
+ Nick Haghiri <nick@haghiri.net>
+Subject: [RFC PATCH] drm/amd/display: extend HPD debounce filter to
+ DisplayPort SST
+Date: Thu, 25 Jun 2026 11:04:39 -0400
+Message-ID: <20260625150439.330875-1-nick@haghiri.net>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY1PR01MB10596:EE_|SY1PR01MB10657:EE_
-X-MS-Office365-Filtering-Correlation-Id: 134f0b9b-a555-4ad6-bffa-08ded2a8ebb5
-X-MS-Exchange-SLBlob-MailProps: Cq7lScuPrnrlC5lHdFGci+YUsdS3F/CIgbjn9CPX368tW0y7zBVDYhBIlH2ZsP+Uystt/QMQ3Ah0OpW9RtGuKTUW8poaV4TDB7MxGaa6vqe+sy7BkKOw1IgBN8KKUvtBN+JxGTjHK+mg+QqXjjuci84zhUZA7uxXUbUuX2zDbvfVJ0SHfNwrFKYGtMk3XatKd4vu1Bewp3GtFylzXxXA2jxvUJRWxNwoSGx+y/QeUwEShzO43NyRZbOZZSynj1na4JBeMup/NpCjNDAAHNr36IHS7hml557x/3W4LnaaG+ndGuyFtrUxpxIJZhj7KDjPW3+x3yHLJxez4JioUBLPHz8czfkgwGZB6Liabcxu96AX3PAAad6z5vUxIOBrR6kglSYBsyfWU27JxqmLB/KmzW1HejhgiC+QKu+93fzeenqAhI9TX9rx/sby5OvKvSAXqKX8tvxciwzm3dwx0561e2gQDq3c+UGZpbeKA3auKrReWbsYQDqvbBkBQFGbrMPbqF2J1CqN08mp4lkQkQncJ9j/6f2GH22VRbca6DDdQvqUMTyEjplO8wA5xp5Qwdee+ue6c6rIdGGLPdbBOD+NctyI5w5cHMP+bBkpHwnCZ64675NaJz0bAx9EV3IA/eBTkiKBGHi2l/pRep/fibCB+GBXRpOPZi065x/fGQw/rbhvXE/vDgaQx0w7acBiuIScymKFviUOcHWqZBLtEQg9hPrFc+rGN8zcBnno0XvrDeL/eKpvHjdxs786Dx6AfBgAzOGqocX5R54=
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|4140399003|5072599009|15080799012|25010399006|8060799015|39105399006|19110799012|24021099003|23021999003|12121999013|3412199025|440099028|40105399003|41105399003|18071099003|1710799026;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nMSJ8o+1xkjeUAglHVCRKnoNd7/e5TZjZar2SDuXpVvq7DBxuoKYu+BO84Gn?=
- =?us-ascii?Q?k9tnHZYbKvgJZ9q5FF/bTWwiQalMu9kjHLavGrW6ND7BWvT6E8X9Ytu6SghD?=
- =?us-ascii?Q?Ef48NW2DZXgptSYCpYI08Jkm+DceISnY7st4QIjysILeDYwLBL/abCmMbHkY?=
- =?us-ascii?Q?qjxe90qg24GCdL/xBWlZejRhkFQibIQ7DGpRzSVeLexPBS6mjdJIZ2TBn/Qi?=
- =?us-ascii?Q?MlJK5jpVYeDl4BbOBQrZcjmbOj0GS/YBD0RPx2zvqQIpue/aCfFsJpF844Mp?=
- =?us-ascii?Q?hvhTA6cVvkRM4QvNKF92aAgPLUr/U0rA87DrbDUA5rNA/bDBmEdM5oiUsPcx?=
- =?us-ascii?Q?nzpq6OGPs9o2m1CETNv4o3+LGHbpYbQThbHW0amS/27C9GUlY+ToA01c1o8F?=
- =?us-ascii?Q?1o+0CBBxah9VtkZkgoj3SE5ulL9vBRHzZxuvgwAZa32YxRF5TjU4xI/9yncl?=
- =?us-ascii?Q?90XRVa5PsK+JRg8uHDwASAA4T1d9aIPipA7CbaCCRdA1a8SUqCqMMs4o82hG?=
- =?us-ascii?Q?AV0mq2Wpu4BtBffPaFv1kswW5Xxfi9SQRXb+5pEEmKGta4COC/MnNo4Idz9K?=
- =?us-ascii?Q?Udl08YXPEIR1jVxSTPv2FAoES5T77oBdW6tZlcIbyVQUBZCDI8BwsgBK/p7c?=
- =?us-ascii?Q?s59O/CFA+g9XXOYzFuAHnwX2JIPkEMkwPUWAaVrga5KuAiGyd8rDwSV5WIZ+?=
- =?us-ascii?Q?KfYap1lQh0sJMih8s8jQI52PBT6SlccJMUjmTVbFDB+pK+tKqJgthbCqkxUj?=
- =?us-ascii?Q?VzkMr6TUaCG0Hy3wVnMnn9Ydl7ZRU9VljIg6B6DPRqcUtBf8+QheqoPzCK3w?=
- =?us-ascii?Q?OW7QSPP430AM/vnm5lkDhZX1gOYNb/mIFoZjiHvvEXNhjICMIlrNR+7oCaQS?=
- =?us-ascii?Q?wDLy8COpun6ITV6skf/xyEaPEEK1CKn5YCQJifTq4L7YSPK3Xhbt6x7xLV/L?=
- =?us-ascii?Q?7sTrbT31M+NBOlsOrqJW2FEYykZEF5srtEILsiUNnngqtQQKA+LtK/wTQ5yh?=
- =?us-ascii?Q?dsIjm1IQIMslL/ix2PfyLoz8rMvRsS4b9qpLUU4EcufNStTlIKVmBvY4CbOd?=
- =?us-ascii?Q?AXc+8syV?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8ZZzoS4VbHw/1gnTxO7ifjc4qb3RT1OPBITYtvi8CJptK3oofX2qoGaP45za?=
- =?us-ascii?Q?F2YyEfSHPEfsEPd7BF5MeDNNR9Pq3ospfv4ItKgKxqW9bJafY1xxLiKgyjDr?=
- =?us-ascii?Q?9oJyNaLUWKZS4/ECJLETpntphS0T6snsW8DIW2l0d+20VowP4Cl6rh/uOpvq?=
- =?us-ascii?Q?l3i2QN0hdSxAFVtDBJUlvX7f6XjzNkkw+fhpB5d67dZHyS8xXZpzM/jombc2?=
- =?us-ascii?Q?oWmt9poXz7LJtWouz5gFyp2hDtPdfkPY+P7CwNUySBZ1G4vPv47wlInTsop/?=
- =?us-ascii?Q?r4/lhCqNTzdgBHWjTcR18B0cy65ImWjj8UWvCS4Xr+hTF5barH3T6eob0hNr?=
- =?us-ascii?Q?LfpysaU9X2wqCjfaDMwptAGYcMhqa6J4kTkg9+is4LC+xho2yNQa3tBu7loa?=
- =?us-ascii?Q?xGFXsQp9yD06wIo0apsTJHEz2x876VBZ1AY6G0NRFYpXq1XEoY9f/ra+K2sU?=
- =?us-ascii?Q?GBZxdZHORHmRveIf7kZ90PlO1/7PIuwxhHiMJy5zh2bWcUacYemVYXDJCObq?=
- =?us-ascii?Q?ryLT03B6f5aIDrBpWrTiLLGOHV3fZCmJU+uY4Wq4maEogYaHh9mzloPoo8Zn?=
- =?us-ascii?Q?R8C3WpJoNfrZSB3RHH4zOkZkxLo9ibGyVyMUaBquLuhnsHeRS8fArKHDXZTl?=
- =?us-ascii?Q?LGhpuL+Tz6F1K6gX0VwDN2FOfFiCpxVmc2T09MMJhNicZC71aN4Xiznuw1Az?=
- =?us-ascii?Q?hXesA0RzwKiMjZqfl3kK9FcCNZGtshh//S8GOpqr2n6Mz7BZyCF86RSFeSun?=
- =?us-ascii?Q?8M54BmHGlPlTgABQ8exWxcUWBS/VoKXOfkk9Mlkuyj7hIahjuZnndC4/hTFn?=
- =?us-ascii?Q?2jksqrplI0Z2DuOz0nAdGJDvLMH3KvmtUwFGbNpIyl7G4FLLOTdwjybNMRbT?=
- =?us-ascii?Q?7MZYfsmiBZv3vj4BBczcfP0YYnxunPf78GTf+1VbDa27+clScO5WuxtKpSGv?=
- =?us-ascii?Q?+5y2rioqKPqtfdTkEFRmK9FUifvc/tM7+dBN5zM5eG7SSoI+SZ9U1COtpg+s?=
- =?us-ascii?Q?05ToQLMXDj3aab+ix7pLwfGCS2sFC9D5Imyn5HqpQF7WjH5Gw9Y/XxlMRY4p?=
- =?us-ascii?Q?sA07Sdvi/hWDUPr9gLsaLDLPNW5IM+Mo8n5DBGvzXk9xju4hDdLBXY9d5eNl?=
- =?us-ascii?Q?eozIMuxyR9L7kqDCQlP12w/1A6MxNcB5fUVs+9gMEQhJ9rPpsVmKuzF9HF06?=
- =?us-ascii?Q?E5rKEt2WgH8xzS0mHl5tzXLywm1qeMTqwv7mpNKCN8a7nf3KYtrYwv3a1HwM?=
- =?us-ascii?Q?lMGFRxBkou1bu5JjHa2LZWhQTxNtVCSnYCL3lAWO1Wg+UgTSezURTW+fgnda?=
- =?us-ascii?Q?6dYeEakV8InA2VPsnf4YjDaulL93aHq6LyxZ6bAdWCSnJSWKZjotpeoBv/BO?=
- =?us-ascii?Q?5qGPeXa5KO5nHYiXQuSM5t9YAxXk2HXlHKwBnQJ+i440VQzAUSUlD+3aMs9K?=
- =?us-ascii?Q?2+dN3im0mRgzRBo0zp5a4c48MOWsoS7wlXm5ovh67HWXsHrNePuBNQ=3D=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-feddd.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 134f0b9b-a555-4ad6-bffa-08ded2a8ebb5
-X-MS-Exchange-CrossTenant-AuthSource: SY1PR01MB10596.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:00:08.6433 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY1PR01MB10657
+Content-Transfer-Encoding: 8bit
+X-Report-Abuse: Please forward a copy of this message, including all headers,
+ to <abuse-report@smtp2go.com>
+Feedback-ID: 670074m:670074aX29xAY:670074skgR_GI0uG
+X-smtpcorp-track: PaSuzB9cPz_U.gzYUlQZ9WNHp.92Fk9ANGJbM
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,74 +65,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Commit c97da4785b3b ("drm/amd/display: Add an HPD filter for HDMI") and
+commit 6a681cd90345 ("drm/amd/display: Add an hdmi_hpd_debounce_delay_ms
+module") added a filter that, on an HDMI disconnect, waits
+hdmi_hpd_debounce_delay_ms and suppresses the hotplug if the sink comes
+back with an unchanged EDID, instead of churning userspace.
 
-This series fixes a THP policy problem I found while debugging
-frequent ROCm GPU failures on an AMD Radeon 780M system during ML
-training.
+DisplayPort SST sinks show the same pattern: some monitors briefly drop
+and re-assert HPD when they enter deep sleep after DPMS-off. On the DP
+path that toggle is forwarded as a real hotplug, so the compositor
+re-probes and re-enables the output and the panel can never stay powered
+off while connected.
 
-Some AMDGPU/KFD user mappings are registered through interval
-notifiers and cannot safely tolerate the backing VMA changing from base
-pages to a transparent huge page after registration. Userspace can
-still apply MADV_HUGEPAGE or MADV_COLLAPSE, and khugepaged can also
-collapse the range, after the GPU mapping has been registered.
+Extend the existing filter to DisplayPort SST behind a new
+dp_hpd_debounce_delay_ms module parameter (default 0/off, mirroring the
+HDMI knob). eDP and MST are excluded; are_sinks_equal() and the debounce
+work are reused unchanged.
 
-On my system this showed up as asynchronous ROCm/HIP kernel launch
-failures, often reported later at a synchronization or copy point. I
-expect the issue to be relevant to AMDGPU/KFD mappings on
-XNACK-disabled GPUs more generally, because those mappings cannot rely
-on replayable GPU faults after a CPU-side THP remap. I have validated
-the failure and fix on AMD Radeon 780M / gfx1103.
+Signed-off-by: Nick Haghiri <nick@haghiri.net>
+---
 
-Patch 1 adds MMU_INTERVAL_NOTIFIER_BLOCK_THP so interval notifier
-users can ask the MM core to keep the covered VMA range out of THP
-while the notifier is active. The MM core applies VM_NOHUGEPAGE and
-clears VM_HUGEPAGE under mmap_lock for write. A later MADV_HUGEPAGE
-over an active opt-in range is treated as an ignored hint, and
-MADV_COLLAPSE is rejected by the existing VM_NOHUGEPAGE checks.
+RFC notes / open questions (below the --- so they stay out of the commit):
 
-Patches 2 and 3 opt in the AMDGPU/KFD paths that need this behavior:
-HSA userptr BOs, KFD SVM ranges when XNACK is disabled, and
-GPU_ALWAYS_MAPPED SVM ranges. Other interval notifier users keep their
-current behavior.
+- Near-mechanical port of the HDMI filter to DisplayPort SST. I run it
+  daily on an RX 9070 XT (RDNA4) driving an MSI MPG 274U over DP, which
+  briefly drops and re-asserts HPD on DPMS-off and otherwise keeps the
+  panel from staying asleep; dp_hpd_debounce_delay_ms=1500 fixes it.
+- The DP path reuses the existing debounce work and ->hdmi_prev_sink, so
+  those names are now a little misleading. Happy to rename them to a
+  generic hpd_* if you'd prefer.
+- I added a separate dp_hpd_debounce_delay_ms knob to mirror the HDMI
+  one; folding both into a single hpd_debounce_delay_ms applied by signal
+  type would work too. Let me know which you'd rather have.
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 12 +++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 +++++
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 20 ++++++++-------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 25 ++++++++++++-------
+ 5 files changed, 46 insertions(+), 18 deletions(-)
 
-This does not disable THP globally and does not add work to GPU
-command submission or kernel launch paths. Additional work is limited
-to opt-in notifier registration, opt-in notifier flag transitions, and
-MADV_HUGEPAGE attempts that overlap an active opt-in range.
-
-I tested this on top of torvalds/linux commit ab9de95c9cf9 with:
-
-  - scripts/checkpatch.pl --strict --no-tree
-  - git apply --check
-  - x86_64 defconfig build with TRANSPARENT_HUGEPAGE=y,
-    DRM_AMDGPU=m, and HSA_AMD=y for mm/ and AMDGPU/KFD objects
-  - standalone HSA/HIP reproducers and the ROCm/PyTorch workload that
-    originally exposed the failure on my Radeon 780M system
-
-The standalone reproducers depend on ROCm userspace libraries, so I
-have not included them in this series. I can send them separately if
-useful.
-
-This series was prepared with assistance from OpenAI Codex (GPT-5.5).
-I reviewed the resulting code and take responsibility for the
-submission.
-
-Yitao Jiang (3):
-  mm/mmu_notifier: let interval notifiers block THP
-  drm/amdgpu: block THP for HSA userptr notifiers
-  drm/amdkfd: block THP for non-replayable SVM ranges
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c |  25 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |  36 ++++-
- include/linux/huge_mm.h                 |   5 +-
- include/linux/mmu_notifier.h            |  28 ++++
- mm/khugepaged.c                         |   9 +-
- mm/madvise.c                            |   3 +-
- mm/mmu_notifier.c                       | 204 +++++++++++++++++++++++-
- 7 files changed, 286 insertions(+), 24 deletions(-)
-
-
-base-commit: ab9de95c9cf952332ab79453b4b5d1bfca8e514f
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index e2d4be3c1..c085a6cc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -271,6 +271,7 @@ extern int amdgpu_user_queue;
+ extern int amdgpu_ptl;
+ 
+ extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
++extern uint amdgpu_dp_hpd_debounce_delay_ms;
+ 
+ #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+ #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 65f2de86f..78df53b8c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -246,6 +246,7 @@ int amdgpu_umsch_mm_fwlog;
+ int amdgpu_rebar = -1; /* auto */
+ int amdgpu_user_queue = -1;
+ uint amdgpu_hdmi_hpd_debounce_delay_ms;
++uint amdgpu_dp_hpd_debounce_delay_ms;
+ int amdgpu_ptl = -1; /* auto */
+ 
+ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+@@ -1113,6 +1114,17 @@ module_param_named(user_queue, amdgpu_user_queue, int, 0444);
+ MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
+ module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
+ 
++/*
++ * DOC: dp_hpd_debounce_delay_ms (uint)
++ * DisplayPort SST HPD disconnect debounce delay in milliseconds.
++ *
++ * Used to filter short disconnect->reconnect HPD toggles some DisplayPort SST
++ * sinks generate while entering/leaving power save. Set to 0 to disable by
++ * default. eDP and MST are not affected.
++ */
++MODULE_PARM_DESC(dp_hpd_debounce_delay_ms, "DisplayPort SST HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
++module_param_named(dp_hpd_debounce_delay_ms, amdgpu_dp_hpd_debounce_delay_ms, uint, 0644);
++
+ /**
+  * DOC: ptl (int)
+  * Enable PTL feature at boot time. Possible values:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 2f4a56741..abc17f547 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -64,6 +64,11 @@ enum amd_vsdb_panel_type {
+  * Maximum HDMI HPD debounce delay in milliseconds
+  */
+ #define AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS 5000
++
++/*
++ * Maximum DisplayPort SST HPD debounce delay in milliseconds
++ */
++#define AMDGPU_DM_MAX_DP_HPD_DEBOUNCE_MS 5000
+ /*
+ #include "include/amdgpu_dal_power_if.h"
+ #include "amdgpu_dm_irq.h"
+@@ -875,6 +880,7 @@ struct amdgpu_dm_connector {
+ 
+ 	/* HDMI HPD debounce support */
+ 	unsigned int hdmi_hpd_debounce_delay_ms;
++	unsigned int dp_hpd_debounce_delay_ms;
+ 	struct delayed_work hdmi_hpd_debounce_work;
+ 	struct dc_sink *hdmi_prev_sink;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 6143cdcf2..c79a8ada8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1747,8 +1747,8 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 	if (aconnector->mst_mgr.dev)
+ 		drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
+ 
+-	/* Cancel and flush any pending HDMI HPD debounce work */
+-	if (aconnector->hdmi_hpd_debounce_delay_ms) {
++	/* Cancel and flush any pending HPD debounce work */
++	if (aconnector->hdmi_hpd_debounce_delay_ms || aconnector->dp_hpd_debounce_delay_ms) {
+ 		cancel_delayed_work_sync(&aconnector->hdmi_hpd_debounce_work);
+ 		if (aconnector->hdmi_prev_sink) {
+ 			dc_sink_release(aconnector->hdmi_prev_sink);
+@@ -2829,16 +2829,18 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	mutex_init(&aconnector->handle_mst_msg_ready);
+ 
+ 	/*
+-	 * If HDMI HPD debounce delay is set, use the minimum between selected
+-	 * value and AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS
++	 * If an HPD debounce delay is set, clamp each signal's delay to its
++	 * maximum. The debounce work and cached sink are shared by both the
++	 * HDMI and DisplayPort SST paths.
+ 	 */
+-	if (amdgpu_hdmi_hpd_debounce_delay_ms) {
+-		aconnector->hdmi_hpd_debounce_delay_ms = min(amdgpu_hdmi_hpd_debounce_delay_ms,
+-							     AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS);
++	aconnector->hdmi_hpd_debounce_delay_ms = amdgpu_hdmi_hpd_debounce_delay_ms ?
++		min(amdgpu_hdmi_hpd_debounce_delay_ms, AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS) : 0;
++	aconnector->dp_hpd_debounce_delay_ms = amdgpu_dp_hpd_debounce_delay_ms ?
++		min(amdgpu_dp_hpd_debounce_delay_ms, AMDGPU_DM_MAX_DP_HPD_DEBOUNCE_MS) : 0;
++
++	if (aconnector->hdmi_hpd_debounce_delay_ms || aconnector->dp_hpd_debounce_delay_ms) {
+ 		INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, amdgpu_dm_hdmi_hpd_debounce_work);
+ 		aconnector->hdmi_prev_sink = NULL;
+-	} else {
+-		aconnector->hdmi_hpd_debounce_delay_ms = 0;
+ 	}
+ 
+ 	dm->hdmi_frl_status_polling_delay_ms = 200;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index 85711a2f2..2a732d19b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -1302,6 +1302,7 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
+ 	struct dc *dc = aconnector->dc_link->ctx->dc;
+ 	bool ret = false;
+ 	bool debounce_required = false;
++	unsigned int debounce_delay_ms = 0;
+ 
+ 	if (adev->dm.disable_hpd_irq)
+ 		return;
+@@ -1325,10 +1326,16 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
+ 		drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
+ 
+ 	/*
+-	 * Check for HDMI disconnect with debounce enabled.
++	 * Check for an HDMI or DisplayPort SST disconnect with debounce
++	 * enabled. eDP and MST are intentionally excluded.
+ 	 */
+-	debounce_required = (aconnector->hdmi_hpd_debounce_delay_ms > 0 &&
+-			      dc_is_hdmi_signal(aconnector->dc_link->connector_signal) &&
++	if (dc_is_hdmi_signal(aconnector->dc_link->connector_signal))
++		debounce_delay_ms = aconnector->hdmi_hpd_debounce_delay_ms;
++	else if (aconnector->dc_link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
++		 aconnector->dc_link->type != dc_connection_mst_branch)
++		debounce_delay_ms = aconnector->dp_hpd_debounce_delay_ms;
++
++	debounce_required = (debounce_delay_ms > 0 &&
+ 			      new_connection_type == dc_connection_none &&
+ 			      aconnector->dc_link->local_sink != NULL);
+ 
+@@ -1344,12 +1351,12 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
+ 			drm_kms_helper_connector_hotplug_event(connector);
+ 	} else if (debounce_required) {
+ 		/*
+-		 * HDMI disconnect detected - schedule delayed work instead of
++		 * Disconnect detected - schedule delayed work instead of
+ 		 * processing immediately. This allows us to coalesce spurious
+-		 * HDMI signals from physical unplugs.
++		 * HDMI/DP HPD signals from physical unplugs.
+ 		 */
+-		drm_dbg_kms(dev, "HDMI HPD: Disconnect detected, scheduling debounce work (%u ms)\n",
+-			    aconnector->hdmi_hpd_debounce_delay_ms);
++		drm_dbg_kms(dev, "HPD: Disconnect detected, scheduling debounce work (%u ms)\n",
++			    debounce_delay_ms);
+ 
+ 		/* Cache the current sink for later comparison */
+ 		if (aconnector->hdmi_prev_sink)
+@@ -1361,8 +1368,8 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
+ 		/* Schedule delayed detection. */
+ 		if (mod_delayed_work(system_percpu_wq,
+ 				 &aconnector->hdmi_hpd_debounce_work,
+-				 msecs_to_jiffies(aconnector->hdmi_hpd_debounce_delay_ms)))
+-			drm_dbg_kms(dev, "HDMI HPD: Re-scheduled debounce work\n");
++				 msecs_to_jiffies(debounce_delay_ms)))
++			drm_dbg_kms(dev, "HPD: Re-scheduled debounce work\n");
+ 
+ 	} else {
+ 
 -- 
-2.53.0
+2.54.0
+
