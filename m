@@ -4,98 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B69ECDE01F
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B11CDE022
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02FF410F49B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A66B10F4AA;
 	Fri, 26 Jun 2026 07:54:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KaT1iddS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RVx48wg2";
 	dkim-atps=neutral
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D4D710F2DF
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 14:26:38 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-7f69b71f7b2so26576627b3.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 07:26:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782397597; cv=none;
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9168F10E1D2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 11:00:29 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-46e335379cbso148983f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 04:00:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782385228; cv=none;
  d=google.com; s=arc-20260327;
- b=gSwhw5VzEN84ckMCbNM+KeQLEOU8RmHp+5+jhUn2cl0L7LmGuSqL5Eh9CAd30ny0kQ
- E0hYWS6Q1spSQSYbDG07JJR5ZNur9EbwcZ63px+Ej7btM8c4KL8dHb/sFRddt8D47N9M
- Vq8fNfz6vgeytj9A+zM0br8keaalvnUHoftpxwWftxOA9W9qShKnn7Pn4of/5o59CeMs
- tZWf6NaZaiw+mZP6uBDUcOZul7/TWaspNYvVMT0J46rTiGXu0LVARTuAplv2Eat/GMVu
- uPqPz7ZpvvNuIL/Q49VuNl+/dGGByxksCDRHcJyTysrvG0mGJnTmj1FeZMA9TfL4aMZu
- 4M3g==
+ b=WTHMxoZxFQlPjnFSzYtBWgVYVkImuR97Cakk0yU1gQ+OUp1W2wZxp1/WMm6YLsIdli
+ h7mGARUjXZTIt0WzDFgbgFYR/UwGXlY7658W9pN6zKzBwk06CtMJqQOzHxC/aVXUAfpN
+ fYyYC1L5Pz8s+w2xhFV4evB/YkIY+rjdlkdETR17V8LIqE/xdnspR5RVetPx4V4lNGrf
+ OlBKtpcAM/KWxQ4BPhhCM4QcRfpyQI00vKJjhW4HVIwGJzvKVNzG0pmCo//x/MBrMcB2
+ XcRQEmSIZopkX08cPCl5xr0p6/8J3/YP7k416nHKUsvqPTApLndX+2OME715it5vHbQf
+ AFiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:dkim-signature;
- bh=zG0ziIrnl5+Uq7ZzfQ6z6EifKGZA4Cbm70aG+1ToxjY=;
- fh=9X7mPNQiEIoOX2Mrz8M7YhToZFNWV/p2ZuZ/YnRRxrg=;
- b=EEVK53VLuRhpkv/1TBStERtvhhlSKyWWtJdP8aD6KRE7xxOdbAyvm0isn8EturUq+C
- gJdQF2MXC11LSjp6Qbu3krc+9W+6ZkAJ769hebLC9asW3bnXQKvi5+aAGLQIQmIcYbfT
- Be3RhXMTRwqla5MMa/ow0fKZ+IQ5yRRIAgKPtXsX9ueSjHO5/oimzFLNKUSUNKWPLR8S
- z6PuuHNIS+nl8Vvkd307ikXWf6f7Ci0a+WkWIBTUzTs/tAIsOQMml5YRzFztccDOEOoJ
- ZFn0i1hS7jVyfcoT8Es55EpsB7z+8z2IVhNw1Gs7YAi922gqHbpkvyuLXCReKofEEPcw
- X5Qg==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=SYJ9K/irCjAHZhFgkU4tEC3o9IbVrQ1kbJDsUWJW4tg=;
+ fh=Y8VWvczhtA2+qfWV4n3yFIjz11C0Tu5ciM95NunAusE=;
+ b=bznkXlTe1MsW3fhu3xgPuK4XDW0/JFsI+oS2UzVKV0sXhLO7is6VmDZAz8Rxp2yyuL
+ wHV59APvk7hpTipIvsfAaqxeKKKSf9HTmKYjF2B8+6yIu/NJvs57nvkzZf0VNUS9sNm9
+ 9zezLzdeCnztiY7IxQE8g4DydT7iYplnnufIfV4pEumQqlcfL8Q9uA5zCSqRtU8Kx7bh
+ Vgs/SSp43q4aBrLycAst7M6I77caa3PNSUohxO3Ao6yjBhBc6eZ6tJTd1c/x7MaBcTIF
+ nK0Yn6I7dKPyZiBi4wopnjUGyPBBHs/laFxp/fisXx51Op9w3bj48/SZCyskHGhdujrw
+ 9OpQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782397597; x=1783002397; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zG0ziIrnl5+Uq7ZzfQ6z6EifKGZA4Cbm70aG+1ToxjY=;
- b=KaT1iddSxn/bETwnP6DZu3AsNZ19jacJhqD8V7Ib26Ti0VIRUKtl1xCEZPvGoRvksN
- tvMy01A6CVEp80kwHurjVL+worT6UAWZxUjKxzLX0Tg42MrV96cvNnqgmV0Z6QIPbNTl
- k9JDlp4yUN18QY7BhGDHJOexwEk9CNXcrTvzU00M2CxbeMouOzGjxND2iJDjBct3bi5o
- cRUtwdOVJWZmoaqgbF/OhR/3cnn7ywNnzsPdXXzWdO+8mKHQpL+308yEE2KGdjwfENQ+
- hmwtXcdmTlHf9v9cfuJDlH32PAYOs3EWmCY/C64xssEYE2LS45HhbXLoKVncGkWshtfK
- gcFw==
+ d=gmail.com; s=20251104; t=1782385228; x=1782990028; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SYJ9K/irCjAHZhFgkU4tEC3o9IbVrQ1kbJDsUWJW4tg=;
+ b=RVx48wg2CRlAt2vHkWcWHnrDX63x98TLxSUHTJakoDYvq2qSxe+ePYe/GwUc7a1Ez8
+ nS+oYxaeotuJWEeVvNN5hAbsVm8YJlz6iKjSw3CBn42wZX2KvsYyHEU44vqP95817Wa3
+ dgAZODUj/gaxSt1St4UJ05iPDYosNUTNEtN5RIYpG01Nfu4s4HFwHd4iytB5BzkaVOzh
+ 45wdiWe3ODdu7z+i+3XIRZ6bBwYZ1QydXS3EhEZSTOWHR+l65ZYXQvLSR0I5pUHiEyki
+ VHdzzVI4P9nigE8/O2p5XBOWwvJKofN4Susalr9h/6HbN+4CnNdBr8+8d/wofab0+zWa
+ tYUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782397597; x=1783002397;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=zG0ziIrnl5+Uq7ZzfQ6z6EifKGZA4Cbm70aG+1ToxjY=;
- b=Q5uEuSsmEfjAF9/BKDATquqWczWs97eDTw/fGrpzg1Myg8m918YYaOJ1h+32y6P9S3
- CsD8GGIR0ae/uCrjWTrF2IeLSxtvbMq50K1LbVurdv0t18qiOt+j9XNL/zXKgbRQhLT3
- X2G6ZKRnJZYi68zRN1SAZC/QRdSXHehaTEwEeyn9reyYrZ40kGAa+4JLyDRbtZRXCQdV
- iCcJG1JkibueklyoMs/wKLA0UqUYspSPWr0Yi+Jgd9mr6dHMkDaEqoLLNXkVjlBgvX/7
- p5FO+kdNeByK9ENgUMeDNAgNmRD3knq38f9rEF59BMp2a0BaKHYnNUX6RV6MePtKNDKX
- s5sA==
+ d=1e100.net; s=20251104; t=1782385228; x=1782990028;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SYJ9K/irCjAHZhFgkU4tEC3o9IbVrQ1kbJDsUWJW4tg=;
+ b=Q5iRMIW6rcLSF3kK9YmedCJ69367+rXXJhYPTnBg0FUN2yTrQRzV92fEACg5ZBpexr
+ j4QVpzxAxF8jEaDXkRB30CjKIStuKbdMPgFgIqYzLWQHg1PKKAzUEObnoHP7TDUuNqll
+ 6eWG2KRQ3WQwE/Jhv33W2BI3OoOaTsv98QAEktEn5PCfamK6+45fdi0zyOFHTnG8vb/3
+ CU9AGIaQLcN5CqQZbV+fsxqlUxSvtsKPre1OR85CajsbhPEsCuUdP+gNkp41/0zhOFmG
+ EfeNc1kTCIXVBF3W4Cft4y/J7j7EHQEy+CnqoqPH7moJzEnmWMdRYcZwfv/TDG7o3KwF
+ i1Ww==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro1CxHlSOdapu4rYN7bnjwHJO5Pdq3BumgmnkKmffnO4xnAZ3lC1BuV0ooxwoLR/cmc+X3xalJN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+09raemDPgpxnaO2ZBGtSkZYIDRdzS2EG9WIXzQOjvnJeDX9R
- 42o2dG+0cjLe3bm5PGLCvEZpJ69iLZLmt3PgqrITNseqU8xqrKrZ677sAo4V7GVXOvzaGb20BSE
- 9F2TTqm6eaF/v3bgwcN2I2PNIIU60aKGEAeMAqgw=
-X-Gm-Gg: AfdE7ckZnU0HcS7NW9suqw44m+tSjM49CKSASduvUYicW1tr26TVA4Cd++HHtvF8okY
- dK26HE3XPCU7KIfL/teamxlaKVzNxi74gxXZrCHatJahTFyNLQz8B9peOPxNtBkDfpSHSafycZP
- 9Zh1Lep5l9b8IheVwoQ7ra9/Dn7pOpEss56IUiO72cjyEhWwyUpM8ZC0p4f0EiQkBP0c2JrZCrd
- gOdH5lRq7bD/r1dpH3PiocrCYI6xVvR4w3PknU5P8r6II+AjsP7a6WJFQISLZq1YH2dzzmnwg==
-X-Received: by 2002:a05:690c:368d:b0:7be:fedd:726b with SMTP id
- 00721157ae682-80a6d262368mr24686747b3.42.1782397597299; Thu, 25 Jun 2026
- 07:26:37 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 25 Jun 2026 07:26:36 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 25 Jun 2026 07:26:36 -0700
-In-Reply-To: <20260625135341.1159-1-alhouseenyousef@gmail.com>
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
- <20260625135341.1159-1-alhouseenyousef@gmail.com>
+ AHgh+RpLHG+AaTjnW64KiEzNFWto2Wzg0V+MVMbG530WqxkA6utbdgGji1IqhEP1fKzJ8W51gA4TeGfZ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWrUuLv288Uj5MKXSM88x33Ig8COAQpH4Duw/YESI+2Blq/skl
+ S/7dpiXQVynPGcg+xCHCj3GXH4q3pUoONtWfFj9QqFhGOS8sDQZ/J2clUPNFVUwWqLfRiJbfAHr
+ 5/b8ihUIz2iEnDGhGXihIE/ARFGT13s0=
+X-Gm-Gg: AfdE7clLFi5QjGxzeAgZ5ZjVwASQIII7EmunYWU8e5ODr3Ntzv2lowxU7jab3N1+HO6
+ 7nwdM5mU3681hYJhE7Z38jCvuce3XgWGARfI8eUNT4BfwQHkMfZqgLKdfqQQzXCtoaZyHeahd9H
+ hJwuJKeIizOg8RlkiKXZhAdq33KaH6V89Bk5t1qlPRGSDB8Gt+Xm+3PjRV5zThWvcvPuPh8yjs7
+ 22Y0BtNXB6+3wrwgqhi4fZoOl9vhaEJ8uPm40JszaBbugiQaFMxM1oWupaHihmOE4AeDQFg
+X-Received: by 2002:a05:6000:98b:b0:46e:1bcd:6a0f with SMTP id
+ ffacd0b85a97d-46e1bcd6be1mr1709213f8f.10.1782385227477; Thu, 25 Jun 2026
+ 04:00:27 -0700 (PDT)
 MIME-Version: 1.0
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Thu, 25 Jun 2026 07:26:36 -0700
-X-Gm-Features: AVVi8CesCW6iLL67hakaynYG37WtYiPVPjL9y6jKGomdujasLZOfkHuY3iSrjGg
-Message-ID: <CAMuQ4bWVb-vxCWMxF_JpJmBnKD=rVH2KZWf36jnzPbC35CdrmA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: reject mapping info when BO VA is gone
+References: <20260521133537.3438468-1-maoyixie.tju@gmail.com>
+In-Reply-To: <20260521133537.3438468-1-maoyixie.tju@gmail.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+Date: Thu, 25 Jun 2026 19:00:14 +0800
+X-Gm-Features: AVVi8CdjQVfdmvFjsaSWCi4UnNz1OBoLuP5LUHLjBHGhcG0i8c0m07TuDEVi3ZA
+Message-ID: <CAHPEe=GiP6GKaFWrd1M2Oc2Dod5PECD0nCwX1OfdP88nQM+z2Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove dead empty checks in ring_mux
+ ib_mark_offset and end_ib
 To: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,63 +105,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex, Christian,
+Ping. Christian acked the approach in the inquiry thread, could this be applied?
 
-Please drop this v2 as well.
+https://lore.kernel.org/amd-gfx/ecab2606-e54b-4d21-93f0-0feaade64e6c@amd.com/
 
-I rechecked the target tree and missed the existing !bo_va check in
-AMDGPU_GEM_OP_GET_MAPPING_INFO. The close-race case is already handled
-before the mapping list walks, so this patch only makes the later check
-unreachable and changes the errno.
-
-Sorry for the churn.
-
-Thanks,
-Yousef
-
-On Thu, 25 Jun 2026 15:53:41 +0200, Yousef Alhouseen
-<alhouseenyousef@gmail.com> wrote:
-> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object from the file
-> handle and then locks the object and VM before resolving the BO-VA. The
-> GEM object reference keeps the BO alive, but it does not keep the
-> per-file handle open.
->
-> If a racing close drops the last handle reference in that window,
-> amdgpu_gem_object_close() can remove the BO-VA before
-> amdgpu_vm_bo_find() runs. The ioctl then walks the BO-VA mapping lists
-> unconditionally.
->
-> Return -EINVAL if the BO is no longer associated with this VM.
->
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> ---
-> Changes in v2:
-> - Describe the handle-close race instead of an initially unmapped BO.
-> - Return -EINVAL instead of -ENOENT.
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
-> 1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 212c14d99..6f5b6f4c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
-id *data,
-> struct drm_amdgpu_gem_vm_entry *vm_entries;
-> struct amdgpu_bo_va_mapping *mapping;
-> int num_mappings =3D 0;
-> +
-> + if (!bo_va) {
-> + r =3D -EINVAL;
-> + goto out_exec;
-> + }
-> +
-> /*
-> * num_entries is set as an input to the size of the user-allocated array =
-of
-> * drm_amdgpu_gem_vm_entry stored at args->value.
-> --
-> 2.54.0
+Best,
+Maoyi
