@@ -4,59 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD01CDB47F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52141CDB47F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E64B210F1AB;
-	Thu, 25 Jun 2026 08:37:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF5A10E1D8;
+	Thu, 25 Jun 2026 08:41:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="W84MQ712";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N8r/upPb";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9F4110F1B1;
- Thu, 25 Jun 2026 08:37:10 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gmBxb6GCXz9tqB;
- Thu, 25 Jun 2026 10:37:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1782376627;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8kBqRXRlpUaMX3821HCBG8mAA4wukwyC2l9HGWwcu4A=;
- b=W84MQ712vFQKCDVmGMZW/JvMcp4+hJ/Iqacvb9erdVqDn8cSqOQurxmIkYeuL9baiyQNaE
- dE8ojQRgwHZVitwbAPMLCwUlw2W6W3rgR1uepqvylby0qdJ195Haf+iGNMoVc5c2qVAYBi
- W2wtj4entLQUJ15voWg0gQqnMWKQOpsTOqQ3SB52iK8T0vft8xmuEvaoyMi49Z2En/ZbbM
- VKYeiPSr+CD5s0sn/yIyODWmPw3AfrbkyTIw7giDU/AXY7FV4hrLcg1WwgMpHyrPOFKZrf
- 9yz1pb2sZZ6WUGitwPfRzfEmaPKql0WOur31sY15lDgMpzztPBlgektwc+BEHQ==
-Message-ID: <e4e280a4-fe82-4c2a-ba1b-43fe06844e83@mailbox.org>
-Date: Thu, 25 Jun 2026 10:37:03 +0200
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012025.outbound.protection.outlook.com
+ [40.107.200.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C05EF10E1D8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 08:41:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PsF/zxRI8bhpWeEsSI98rZITAO57dW8a3dVdRLSJDiBXXleQ0eWv1g836L01gWD2E5VZziLmVGJLygYqPqvvYBxEia48lKNvu+juio2uZnG3xePNeIH6mHoiHATCz4o5r6la0/eV8c4fT/WQgKMtK+BRldsMgyQ9jajsz4qRphluUG43l/ecocR7U6bCg/MCZQIGecubHws55EZ0ZhmafXKrALjR/UATgXWxrGGdY53bcQ2+1czIS65/mLNWpnE2Vblaf3hFi9gz0E8tynfCeK6C8e/pUKX+S8euya4KRWtpOwODSrvMIhTDy5KopMm37Yz9maoW1AfMQOJBQycZsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N9KHAiZsNoHLr4/C0wku8akkh/GCT43rMdRbjJzPyxE=;
+ b=fM6orXQuZpqUGcuzZ/ik4/o19zb7PUm1kFG3cvEtdnRHD0kfi3QjPel66PjMSiGB2LYNhGCgkthcNYV+vE5oY1r6qgM0Ecm85W18Q7hiS/7b5JFRjQX4VwjUKP0jD/8UXdGvUA5J5cUh80sp8Ougv2MPr0Ade32lommaTzKCf+PB3RDHZYDJXRX1hL16ln/LvgRelLIinnNC1YvNsxvx0yY/EbfCz/vrsKCkACL2G0RWmk5BqKt4LNBnoEJ5NuAaYOTEE+8PFr+EsujUtDPlplT7ntCPR60xwceTiq/5BaO8R7vJ7pJS4OvctcRc7d+ZPQ9hRsrTkxKX7YRPDNPW0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N9KHAiZsNoHLr4/C0wku8akkh/GCT43rMdRbjJzPyxE=;
+ b=N8r/upPbrR8z69X0CfGGKPvpZnRfa7efw7cjyq7VhQiPq+U2tq1bsz7kLIbFCJK8712dQOUw0leM1JvUdykGgWOgaTqnymML016jESw9wqYtVMx3nacyEpxs487To9RgAM7k6rXYTSm0/UuWDQjtOzhwNs17Uu2jPJpyimrn+NA=
+Received: from SA1P222CA0025.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:22c::10)
+ by IA0PR12MB7601.namprd12.prod.outlook.com (2603:10b6:208:43b::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 08:41:38 +0000
+Received: from SA2PEPF00003F66.namprd04.prod.outlook.com
+ (2603:10b6:806:22c:cafe::56) by SA1P222CA0025.outlook.office365.com
+ (2603:10b6:806:22c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.15 via Frontend Transport; Thu,
+ 25 Jun 2026 08:41:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003F66.mail.protection.outlook.com (10.167.248.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 08:41:37 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
+ 2026 03:41:34 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <siqueira@igalia.com>,
+ <Christian.Koenig@amd.com>, <Mario.Limonciello@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Ray.Huang@amd.com>, Honglei Huang
+ <honghuan@amd.com>, <stable@vger.kernel.org>, Mario Limonciello
+ <superm1@kernel.org>
+Subject: [PATCH v2] drm/amd/display: use kvzalloc to allocate struct dc
+Date: Thu, 25 Jun 2026 16:41:21 +0800
+Message-ID: <20260625084121.3053587-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: [RFC PATCH] drm/amd/display: Pin native scanout to VRAM on
- large-carveout APUs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, Melissa Wen
- <mwen@igalia.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, natalie.vock@gmx.de
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
-References: <20260616071037.26718-1-matthew.schwartz@linux.dev>
- <334d4642-a7ce-4d04-ab14-6b95653e6f86@amd.com>
- <09a37c38-3f99-40bf-9a87-f88298ce349a@amd.com>
- <9b96d6a5-7c3c-4bd5-8785-76c9642bc933@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <9b96d6a5-7c3c-4bd5-8785-76c9642bc933@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 35c4b84c76678b65f08
-X-MBO-RS-META: 94343597edxmcf43bju6jbuhcb88ga6d
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F66:EE_|IA0PR12MB7601:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4febb5ad-d1f1-4e50-7b87-08ded29591da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|56012099006|11063799006|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: 1IzOQwFfGqSh59suf1aujkdQpakCdgrgshm+n+wId4Cwlp6ngvMngzMcNDfTWUzXAR6WfAfX+DaZGjguruc0EBJdp/BXfyTkBcVnLtaGYxCLiD6eBTeFIlFvGs5qqUvH7jeQ0UEcTtsCwahI48s/aWaXKBCd9X1jSi4VfMTv4OGQJdMlRIYlj1mc1I1CLuhM51H/XCu0muGw0QjxTr2B8iAf0dexKRei6UM+lFUDnaMjElJ84p0+peGdJqGtNWziRrPcQxLa+v4BtnY6yFdD+qWsJpSwD+46YKO4y2hRGItWspOtobrut05S9ZfZAMyTSma6yFXyye9mKq00sihUrMIxaAY7uMnJ1SSGjIeI/sXo6mM+opQ6PyODvMqhOSH9qT84pzdRZA93aJDtDEo7Ye7ixDz0Xhm6syaSqPrEB3p7Qsbe9YsmWgEcod5KWiACDLWMfSfFqA4fj/MCarhwOYJksntdISg0W43j3fYgQ4d6Jr7vs3tveuGsEZviI9N6iOgbauJ20yQyPFx0XOeeO61W7p9MbDH8fMNFBS5ghUHL4CCJfvVTlI5seGCz16ng1p20MJMd2hAZhnC7wRM6CtJVS6+1P5ve3oTrTQstjOQGVpMO4OqZlijfIJa0PRKcx9B+LfgQYXbsfoHJsPrmXfsZxqneugK37ahJUaLoPdYs9AtPt9PfEidjdUljxhpHxM2Of2qS2PNrT9A40NYxkA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(56012099006)(11063799006)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Fj5b1fFkf4Tdn9nWuK833pLF1I+4HHsCMRwNFAKGbLheXvw2sESOnNeijyuOMAJUCYmWnjXicwwGpSv9DBpmuczidoW2rjQSJTZrscrIrYDLGdsMZt45hrEvNa1dE9dCJwwQUt8jv6qLKiwiYtsuy2VpuPBjO42kecXlTOtyz5TS4twirMpSObPGZpl/Fq7GYYSaw6q0JhdgPJLYFp/gnbcyKmaKr9coy36gWVVw3iQRDEyxB3R4zQJp4YLRpNjkwmXR1inRFUTK49i0+/ayyC7OGtymU1Pwm4MaaK8mITmezwkhFDXpquBbb4DbYjIdi4AGxvORRfy0NRILoc93Ar//Qn/srVKtxReJ5p/TvGrIxZggcjabojX1doJUQ8Y1O9Wrx03N1/ROfUu5K21jzfxF3xIrfwmI1lyHz2TfYxY1gEA8Xr4n1gjgzP7C9hbz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 08:41:37.1513 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4febb5ad-d1f1-4e50-7b87-08ded29591da
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F66.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7601
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,39 +112,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/24/26 17:52, Christian König wrote:
-> On 6/24/26 17:30, Harry Wentland wrote:
->> On 2026-06-16 03:31, Christian König wrote:
->>> On 6/16/26 09:10, Matthew Schwartz wrote:
->>>> Native scanout buffers on APUs are pinned with the VRAM|GTT domain, so
->>>> under VRAM carveout pressure a swapchain can end up split across VRAM and
->>>> GTT. The scanout buffer's memory type then changes from one flip to the
->>>> next, and amdgpu_dm_crtc_mem_type_changed() rejects an async page flip
->>>> across the change. The result is repeated async page flip failures,
->>>> observed as choppy updates under carveout pressure, until the buffers
->>>> reconverge to a single domain.
->>>
->>> That's intentional behavior.
->>>
->>>> Pin native scanout buffers in VRAM only so the swapchain stays in one
->>>> memory domain. Restrict this to APUs whose carveout is larger than
->>
->> Above you mention that under VRAM pressure a swapchain can end up split
->> across VRAM and GTT. Wouldn't restricting the swapchain to VRAM now mean
->> that in those cases you fail to allocate the swapchain entirely?
-> 
-> Yes, exactly that.
+struct dc has grown large over time (most of it the two inlined
+dc_scratch_space copies) and now sits close to the page allocator's 4 MiB
+contiguous allocation limit. Its actual size is not fixed by the source
+alone, it also depends on the compiler and the .config, so it can easily
+cross 4 MiB, e.g. with a newer GCC or a config change.
 
-This doesn't affect swapchain allocation, does it? It only affects whether or not an atomic commit succeeds or fails.
+dc_create() allocates it with kzalloc(). Once struct dc exceeds 4 MiB the
+request is rounded up to order 11 (8 MiB), which is above MAX_PAGE_ORDER,
+so the page allocator warns and returns NULL. dc_create() then fails, DM
+init fails and amdgpu probe aborts with -EINVAL:
 
+  WARNING: mm/page_alloc.c:5197 at __alloc_frozen_pages_noprof+0x2f9/0x380
+   dc_create+0x38/0x660 [amdgpu]
+   amdgpu_dm_init+0x2d9/0x510 [amdgpu]
+   dm_hw_init+0x1b/0x90 [amdgpu]
+   amdgpu_device_init.cold+0x150d/0x1e13 [amdgpu]
+   amdgpu_driver_load_kms+0x19/0x80 [amdgpu]
+   amdgpu_pci_probe+0x1e2/0x4c0 [amdgpu]
 
-> My educated guess is that the display server then falls back to using a copy instead of a flip and that helps saving memory somehow (e.g. less scanout buffers alocated concurrently).
+dc_create() then returns NULL and DM init fails, which aborts the whole
+GPU init and makes amdgpu probe fail with -EINVAL ("hw_init of IP block
+<dm> failed -22"), leaving the display unusable. The subsequent
+amdgpu_irq_put() warnings during teardown are just fallout of unwinding
+a half-initialized device.
 
-If an atomic commit fails (e.g. because the buffer can't be pinned to VRAM), I'd expect a Wayland compositor to first fall back from direct scanout of a client buffer to compositing, or if it's for a composited buffer, from an async commit to a non-async one.
+struct dc is a software-only bookkeeping structure that is never handed
+to hardware DMA and is only ever kept as an opaque pointer, so it does
+not require physically contiguous memory. Allocate it with kvzalloc()
+(and free it with kvfree()) so that the allocator can fall back to
+vmalloc() when a contiguous allocation of that size is not available,
+which also avoids the MAX_PAGE_ORDER warning entirely.
 
-Xorg can further fall back to copying from the new buffer to the current scanout buffer, not sure any Wayland compositor does that though. Mutter doesn't, I suspect it would freeze if a non-async commit to a composited buffer fails.
+v2:
+ - Rebase to amd-staging-drm-next.
 
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5406
+Cc: stable@vger.kernel.org
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ae776519e6e..99d08bfad53 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1509,7 +1509,7 @@ static void disable_vbios_mode_if_required(
+ 
+ struct dc *dc_create(const struct dc_init_data *init_params)
+ {
+-	struct dc *dc = kzalloc(sizeof(*dc), GFP_KERNEL);
++	struct dc *dc = kvzalloc(sizeof(*dc), GFP_KERNEL);
+ 	unsigned int full_pipe_count;
+ 
+ 	if (!dc)
+@@ -1557,7 +1557,7 @@ struct dc *dc_create(const struct dc_init_data *init_params)
+ 
+ destruct_dc:
+ 	dc_destruct(dc);
+-	kfree(dc);
++	kvfree(dc);
+ 	return NULL;
+ }
+ 
+@@ -1606,7 +1606,7 @@ void dc_deinit_callbacks(struct dc *dc)
+ void dc_destroy(struct dc **dc)
+ {
+ 	dc_destruct(*dc);
+-	kfree(*dc);
++	kvfree(*dc);
+ 	*dc = NULL;
+ }
+ 
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.34.1
+
