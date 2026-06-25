@@ -4,60 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18A2BCDB47F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 08:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A77D9CDB479
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 10:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEA310F1C4;
-	Thu, 25 Jun 2026 08:59:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA5510F211;
+	Thu, 25 Jun 2026 10:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="v6PB8gUB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="24+W9G5C";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFA8410F1C4;
- Thu, 25 Jun 2026 08:59:05 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gmCQs2h9Hz9tfx;
- Thu, 25 Jun 2026 10:59:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1782377941;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QqIEwzv1RmZSABsvckz2P9dhAjK2UikqkQENvnsyIuw=;
- b=v6PB8gUBhjvoaxMgTEkCKc9WkDBq3OA9MQ9QoL8q/TIRe290WWlx8j4r1hlt7MCvrFXhjN
- buEcaVDL0dTZAVkqwIbtViY8AJFcqq2cw719wHbvfdIAlmMJMHIiEA83kwpp31dLvaKXH+
- eTcUBeYoFugvRbicDxQun6aDYJ5u/ePYHovhwkkJ4wwFuCFMCwxTVyy6AhUcTzrwBpFBsR
- 3aC6eLPZMfqQeSO4OMB/jpgg7KcYR6Qc+9YHoFpf2vQajGiIO5+KQKbFVqQXu48YE5cNrj
- 75v3bdF4ty906899UUdloRZYhHn9al/6RzBvlxcIAEn8oxZsH7fsjHePcxV4fw==
-Message-ID: <ac206a38-65cf-466a-ad12-36d3f2e3372a@mailbox.org>
-Date: Thu, 25 Jun 2026 10:58:57 +0200
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010056.outbound.protection.outlook.com
+ [40.93.198.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34BC310F211
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 10:02:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S69RBeoOX8Ibr/DOJmckx2GWIiokVngEZTCSXGbrxfyC8rUHdjrwZHqKV+GIdNYhvtUqJbv35jmJaoHpfvk5opd7KmqRpP7MZJII6s61SkW541Mkisn9uMFNWZeSoAUQjPgKIAMI8KMb5G1Lkis7U1fSEBihzLosazXw3HdN0fmAoq1Bf5vMDQJMJ9oQZh+qYnMZ66maFfxyCRkKmB1Z4qGk+aklrpLxJl+cCqYFn3ymJ0F4F6ReUQemCASTCjtUA3ICliNGrv2w4YAg8jknpj0+yXxjnbfKDwPgXtl/9bwEA+G0zmHoTwFBUJ6ZaAK4ISYoPrIkRYcKuux8oSF65A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+RgtRmHEcyCvXVjUg1/g7ySPr/6ZrOqjVrJyF3lCpcM=;
+ b=DNxEMQR8E19YJXVxaFeYWvQtuMAQ0lbdnuyQfTIY2fU71o3skl+7wT13mSPRHECK46sR1sr4LB5rmzLFqFmfdGP3Q5iNE8ygbQcVNStOihJH8+ipJJZOd2lf4lHlcbiMrag+itx4HnPfKOgf3jLWjSGuD9fLckLx6Fttf5CZ9DReBb2FOKiX+b2GNILnhttUj0g2FSb2nQR+OhFIxUSsUsWcjyLsdXmfyZPYd3R+6dtM3G9rMX8Tt8v8xxjY269dAtgF5CiFgAwF0x1+lGZMKj0iMIHFeg5J66qLigu1Gaq6Xek0U4bgCCfiZkFWi0qUaGt4ZuZ0neiaNE1zlYYdHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+RgtRmHEcyCvXVjUg1/g7ySPr/6ZrOqjVrJyF3lCpcM=;
+ b=24+W9G5CQFCx4jSsCarnMDIZ+RLD8iuFLIuIRzmdL0lRinOliESYXA2zZIwv5vD5piGMNHeWV2wfT9xPKFXUN7ZpassFjOoKHO2GmwQ3yg6mKHcrNvgpCb46cHIgoc/ylyKrvutFpPD4R/pMnGOpZ9mCNfZFhsMUVT5SCGKhc4k=
+Received: from SJ0PR13CA0229.namprd13.prod.outlook.com (2603:10b6:a03:2c1::24)
+ by CH3PR12MB9250.namprd12.prod.outlook.com (2603:10b6:610:1ae::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Thu, 25 Jun
+ 2026 10:02:13 +0000
+Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::75) by SJ0PR13CA0229.outlook.office365.com
+ (2603:10b6:a03:2c1::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.5 via Frontend Transport; Thu, 25
+ Jun 2026 10:02:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 10:02:13 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 25 Jun
+ 2026 05:02:04 -0500
+Received: from kenneth-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41
+ via Frontend Transport; Thu, 25 Jun 2026 05:02:03 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <KevinYang.Wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: disable ASPM on VI if pcie dpm is disabled
+Date: Thu, 25 Jun 2026 18:02:00 +0800
+Message-ID: <20260625100200.147004-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: [RFC PATCH] drm/amd/display: Pin native scanout to VRAM on
- large-carveout APUs
-To: Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, Melissa Wen
- <mwen@igalia.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, natalie.vock@gmx.de
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
-References: <20260616071037.26718-1-matthew.schwartz@linux.dev>
- <334d4642-a7ce-4d04-ab14-6b95653e6f86@amd.com>
- <09a37c38-3f99-40bf-9a87-f88298ce349a@amd.com>
- <9b96d6a5-7c3c-4bd5-8785-76c9642bc933@amd.com>
- <faa1c424-2282-4e70-9934-e29f437f8bbb@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <faa1c424-2282-4e70-9934-e29f437f8bbb@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 61jgk4mtwaxym58hnqu4yeiu8ueddh3d
-X-MBO-RS-ID: b0abf692e43af43f1a5
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|CH3PR12MB9250:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5b2d86a-b723-4240-1e17-08ded2a0d476
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|13003099007|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: FIeMbgBnK5Yye/lP9e2IBZN38Q8QvZ2hGNgCl0uG5kTbuR9GVynrRSaRC+TDH5XpUTocvR3Eu5jDxbt0wnRG8kJUFR5kegb2Pr44MVrZJpXwMFEewNjX4520+xrJvk8KFp51EA8iPklRaeIctYchzIBMn/KViMR8ccqjQWkmTzRcSCzhcPi3OeEY9Rfjn6pVDRTvuwvL4dR18eJSKbuurGMITUi+Cc8FCNuv0+FOo/aONkGScnvU3rwf2q1NPLLRedwNSklsL7NFbNwXXeIq4eHBnQCm7lot8VKDzpRaBJA07gqjnQ9WEZyXfpCc7ApwnwwvNvxcj3guwnmq1pRiU1sB+KWhEL9l0VYDzkYdBtBMEuwwaZ4hogcOyfjvBJbcjiPZZuXqqeoxxlqfJIuj22w+PBeAayjsK5dXo98zIE7snYq4Ao+Y5x53JCWUCx2YTEuMs+4Xk1Y12XAzAasuO7rK5st+0goLrLgVtrSvThMNo1oQIf+zwrQn3jniIY/k9UOUR2NYwWWUJzSzJCHbkSayMiKHEFkilyDQhwV3of/SxX46qRL0Gi48XBK/x1Rn2mPVsrtv2PzPCur1JhX8xjcM6pWWVjoJFm3o0UkgeiqOMWGpo0dOooveXu9psYr7MeB1Uiko/rfCLmGMJD+cdOCUhGgvqhzOZwzuvA4aNYz4N4WZPg732MhXdMyzM1u2GUgK5OaKGV9mMSojCisG3g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(13003099007)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: eIBVHFA3NKgx8H2CjSqls7GrZQ2zIK1ZqYGneUoCdJb9UY/SsTjqA1GnZouhTQ0Lz0h68UfcUZqBVndXDQRrVS+JyPjHJfVmNf88jQLTCQI4T+mXGVs1o7mgxCNwoVObcYAIUhdCVi3cLkAHWyGhTderkmX0HGn4I67ADACLK+GnrZprGcM4OAzojlBOf7OxsN6BHFJP1DJseBjDsLBmHxSi9r1KXBsn0Z6x6j8qkKtN7Vn9K4LlgAHBaGT7HGyEJ4/t8rPOt0XH3qUTOzFqz4hJDlHdxcjVmf8j+Duc4KmRJNDpgmlLnhdvZuiewhekzrtROdgXJ0WH9uhLrOF9QwYWzB5PJgriFjUpa9H8fAohozYhq4sfteYabXoLpjeK8cN+v4EjMDZhFsYn7s7t7Qof8mEO2e6Ut2sjj3wPvsUmOJN0DK0KSCvUev0nPS7C
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 10:02:13.3562 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5b2d86a-b723-4240-1e17-08ded2a0d476
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002314.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9250
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +108,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/24/26 19:55, Harry Wentland wrote:
-> On 2026-06-24 11:52, Christian König wrote:
->> On 6/24/26 17:30, Harry Wentland wrote:
->>> On 2026-06-16 03:31, Christian König wrote:
->>>> On 6/16/26 09:10, Matthew Schwartz wrote:
->>>>> Native scanout buffers on APUs are pinned with the VRAM|GTT domain, so
->>>>> under VRAM carveout pressure a swapchain can end up split across VRAM and
->>>>> GTT. The scanout buffer's memory type then changes from one flip to the
->>>>> next, and amdgpu_dm_crtc_mem_type_changed() rejects an async page flip
->>>>> across the change. The result is repeated async page flip failures,
->>>>> observed as choppy updates under carveout pressure, until the buffers
->>>>> reconverge to a single domain.
->>>>
->>>> That's intentional behavior.
->>>>
->>>>> Pin native scanout buffers in VRAM only so the swapchain stays in one
->>>>> memory domain. Restrict this to APUs whose carveout is larger than
->>>
->>> Above you mention that under VRAM pressure a swapchain can end up split
->>> across VRAM and GTT. Wouldn't restricting the swapchain to VRAM now mean
->>> that in those cases you fail to allocate the swapchain entirely?
->>
->> Yes, exactly that.
->>
->> My educated guess is that the display server then falls back to using a copy instead of a flip and that helps saving memory somehow (e.g. less scanout buffers alocated concurrently).
->>
->> Would it somehow be possible to get DC to dynamically switch between VRAM and GTT?
-> 
-> DCN can't switch between mapped and unmapped memory. I'm not a memory
-> management expert but wouldn't GTT be in GART (mapped) and VRAM in
-> the (unmapped) FB aperture?
-> 
-> From DCHUB HW doc:
-> "No change from mapped to unmapped or unmapped to mapped is 
-> allowed for immediate f lip"
-> 
-> If so, we can't async flip between them.
+Disable ASPM on VI if PCIE dpm is disabled.
+This is a workaround for issue: https://gitlab.freedesktop.org/drm/amd/-/work_items/5370#note_3528027
+For the other projects, ASPM are still independant to PCIE dpm.
 
-A possible alternative solution then might be explicitly pinning the BO to either VRAM or GTT for an async commit, wherever the current scanout BO is located.
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 70d07ca187a3..9a8f9c74b474 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1333,7 +1333,8 @@ static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
+ 	 * It's unclear if this is a platform-specific or GPU-specific issue.
+ 	 * Disable ASPM on SI for the time being.
+ 	 */
+-	if (adev->family == AMDGPU_FAMILY_SI)
++	if (adev->family == AMDGPU_FAMILY_SI ||
++		(!(adev->pm.pp_feature & PP_PCIE_DPM_MASK) && adev->family == AMDGPU_FAMILY_VI))
+ 		return true;
+ 
+ #if IS_ENABLED(CONFIG_X86)
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.34.1
+
