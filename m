@@ -4,92 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08FBFCDE015
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544BECDE008
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:55:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A75B10F4B2;
-	Fri, 26 Jun 2026 07:54:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E726A10F4AD;
+	Fri, 26 Jun 2026 07:55:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="FS2ks8jw";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="QXcT2dL/";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9F4710E1B0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 09:19:24 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-490b7866869so17854095e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 02:19:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1782379163; x=1782983963; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ECEn+V2NhWD3Cl+wFoaowjzh5mZpSqtDy2oOQW/aJbc=;
- b=FS2ks8jw2gnHlF0ksmkAV3+FuaABl+YUDnA6qcsTIELaroYsoYuJlUh8G3FsZvq5jJ
- dYAYawETVSwA4lYCORlXqHPZye7Jc8/B7vNxQGvnXG4pVpOjIfUdXQYZmQH3CmaL7nMC
- 1ojQGh2ZcbKR3EnAsK01CV5jdsUtLS/dGcFdJZsAuol2bas+7x8fTMGo3Ao6A7Q5HUBF
- EyGiLZYdbdgRFcxi4i8E2CN6foNib5ZxLNmTBKUKpRpX4+5QDfkmkRxLpCGIgy5S4k83
- TO0clZXiqNE9gNdbgcFKxfZtokUqs5jEkL4PAZmdmImAVKWTmfym43L8I9tcuIuuEC73
- qquA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782379163; x=1782983963;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ECEn+V2NhWD3Cl+wFoaowjzh5mZpSqtDy2oOQW/aJbc=;
- b=addaKAMDlwtvujkjBOLHNdgUkYRhnFyaQfTEo2Uy13QtEnhIwQ7XbKkhxWOsxLpnwz
- 8Tgp6+3APmHetzU2GkQhVGsfixv9Ug8YszF4KeiqH/dA6RkihSyZ++PmtmWb+oJsgd3m
- T9OapirvUbxm2MEfXDdLmgAYbXkKsX7mttGB5HotXt1ytcCbhbWIl3/bQ6tiJLFiIMej
- bymWPJD8iYYB/kLmH7GyqvTWefdjkbqA4e+sPgAvAuJy7n4NLPVg5DBS3QCsGm8bruzs
- +f8XZDnB+alGIs3cmeNbIB+LrvqnlwV0uSro6YXfDgBIucho4tZKylqjcqNvoDX0oo/J
- m5jw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/OBcdHpLgJrJEzR6cfSs+ejP395/spCH8GpGyHIbTgFSzkn/dUSd0zEZtBgsz9yzMFnNQ2utQg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyuSkpVLCeQH6n5Zv0B7pA19H0a2eN3lnjkmiej2OE6bmboleXn
- ZLqOHNxhLj9V/Zt3TXur1GsU/caVDYZKYl0ZMg1viPv4jI876w61UNIV++SL/O/shPo=
-X-Gm-Gg: AfdE7ckKyABWnYymoMI2ASamfiQqMB0prlkJ5796MFggK+RMZ7tHUYQl1ymZ9l/7M/B
- iIJCCS+fuK5mqYrfO+EBIoAxCM5RYcKLANImMtFdPOm4oWVN1H+Z+h6yIE/n9ikfO11H2CkzOg+
- wFOZpzq3ED4e66mICON0Amp9S09PhMa3v94KoTLp1Dd4Lqfiqhv8NnC+pDQJ/6CpEefLD7Und4L
- r3dkoYWLi1boy+TUSSX4kcCH23hnWt8FwxNbc/NDa8kq0VjaQVOQhnJGzKNws68tjbgu2bdXbkp
- JV2R8mNPUUgZo1TJhJppKJGQaBQwDb4kil5+fwSRVRIeXn0X1iT9UZnZm26f0fLAAjFWu3IRH5l
- B299cPquI9WyWomwBZJMTq2rxM4aUcFAtibeL7MBkaZ46i7XYohSnUVB5CWjvT9vRvC/lzezpd9
- rQBz4Ilbq8G3bXlOEOHw==
-X-Received: by 2002:a05:600d:8443:10b0:490:d32b:39c3 with SMTP id
- 5b1f17b1804b1-4926685feb6mr16924745e9.6.1782379163017; 
- Thu, 25 Jun 2026 02:19:23 -0700 (PDT)
-Received: from localhost.localdomain ([62.77.90.70])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49264082426sm60418065e9.9.2026.06.25.02.19.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 02:19:22 -0700 (PDT)
-Date: Thu, 25 Jun 2026 11:19:19 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: Tejun Heo <tj@kernel.org>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org, 
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- cgroups@vger.kernel.org, 
- Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/6] [PATCH v6 0/6] Add reclaim to the dmem cgroup
- controller
-Message-ID: <ajzxLABtnWym81Dp@localhost.localdomain>
-References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
- <ajBJU-Jp2QVy14qt@slm.duckdns.org>
- <ajBLAsNoKesXmFcs@slm.duckdns.org>
- <ajlUPmaMsa2gxOLg@quatroqueijos.cascardo.eti.br>
+X-Greylist: delayed 367 seconds by postgrey-1.36 at gabe;
+ Thu, 25 Jun 2026 15:24:33 UTC
+Received: from forward202b.mail.yandex.net (forward202b.mail.yandex.net
+ [178.154.239.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4833A10E216;
+ Thu, 25 Jun 2026 15:24:33 +0000 (UTC)
+Received: from forward102b.mail.yandex.net (forward102b.mail.yandex.net
+ [IPv6:2a02:6b8:c02:900:1:45:d181:d102])
+ by forward202b.mail.yandex.net (Yandex) with ESMTPS id 88A4EC3663;
+ Thu, 25 Jun 2026 18:18:26 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net
+ [IPv6:2a02:6b8:c24:221f:0:640:b03f:0])
+ by forward102b.mail.yandex.net (Yandex) with ESMTPS id 629CDC00F6;
+ Thu, 25 Jun 2026 18:18:23 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net (smtp)
+ with ESMTPSA id DIbMBTIdH0U0-mdd7Epgp; 
+ Thu, 25 Jun 2026 18:18:22 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1782400702; bh=8NQg9mqw8zBbJMcwecVSvlZHJ1JE4BFnWrwrF2BbF7A=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=QXcT2dL/k8M5RbOhYNhFlUOU5jtWfYXUCyN5lxYd3RQc2Ih1VuzyCV144MsLJ+eHs
+ qjLoDS/5rH18f4VfKFmj2Qgdo4N7a3yFPn/PwLx1tRFzCq7Zc9H661N+X6DPS4TpPH
+ 1caTrKIfigb01wfGFnpOzrSoAMWSOQbL7WH5OW4M=
+Authentication-Results: mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ alex.hung@amd.com, mwen@igalia.com, tzimmermann@suse.de,
+ Alvin.Lee2@amd.com, ray.wu@amd.com, dmitry.baryshkov@oss.qualcomm.com,
+ chaitanya.kumar.borah@intel.com, pierre-eric.pelloux-prayer@amd.com,
+ HaoPing.Liu@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+Subject: [PATCH] drm/amd/display: Fix dangling pointer in plane state reset on
+ allocation failure
+Date: Thu, 25 Jun 2026 18:17:12 +0300
+Message-ID: <20260625151717.27757-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lrl2vho5y5eomexp"
-Content-Disposition: inline
-In-Reply-To: <ajlUPmaMsa2gxOLg@quatroqueijos.cascardo.eti.br>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:54:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,42 +73,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+In amdgpu_dm_plane_drm_plane_reset(), the old plane state is freed
+before allocating a new one. If kzalloc_obj() fails, the function
+returns without updating plane->state, leaving a dangling pointer
+to already freed memory.
 
---lrl2vho5y5eomexp
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 0/6] [PATCH v6 0/6] Add reclaim to the dmem cgroup
- controller
-MIME-Version: 1.0
+Fix this by allocating the new state first. If allocation fails,
+free the old state (if present) and set plane->state to NULL to
+prevent any dangling references.
 
-On Mon, Jun 22, 2026 at 12:26:54PM -0300, Thadeu Lima de Souza Cascardo <ca=
-scardo@igalia.com> wrote:
-> As far as I understood the patchset, it doesn't fail the write if it fails
-> to reclaim. It sets the new max, then, if the write is blocking, starts
-> reclaim and eventually returns after multiple attempts. But it still
-> returns success.
->=20
-> So I believe this is behaving as you would expect.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-I was alarmed by the EBUSY mention similarly to Tejun but then I
-couldn't find it in pre-patch (840ef6c78e6a2) nor in patched (v5) code.
-Please make sure the EBUSY return behavior is not introduced
-(essentially match memory.max behavior) and that the accompanying
-message refers up to date code ;-)
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 ++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-Michal
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e957657b06c7..0d81cef5fdaa 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1490,20 +1490,30 @@ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+ 	struct dm_plane_state *amdgpu_state = NULL;
+ 
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
+-
+ 	amdgpu_state = kzalloc_obj(*amdgpu_state);
+-	WARN_ON(amdgpu_state == NULL);
+ 
+ 	if (!amdgpu_state)
+-		return;
++		goto err_alloc;
++
++	/* Old state can now be safely destroyed. The new state is already allocated and will be assigned */
++	if (plane->state)
++		plane->funcs->atomic_destroy_state(plane, plane->state);
+ 
+ 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+ 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
++
++	return;
++
++err_alloc:
++	/* Allocation failed: free old state (if present) and set plane->state to NULL */
++	if (plane->state) {
++		plane->funcs->atomic_destroy_state(plane, plane->state);
++		plane->state = NULL;
++	}
++	WARN_ON(amdgpu_state == NULL);
+ }
+ 
+ static struct drm_plane_state *amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane)
+-- 
+2.43.0
 
---lrl2vho5y5eomexp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCajzykhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AihGwEA1SCEBfnAwyeubLR7IllY
-8xY1mJBt88wz9mCIeM9+iY8A/0e+2PnPs29VJ7kdk24/ZbM72Eltcu2Pv4++6deM
-lMAL
-=i/jW
------END PGP SIGNATURE-----
-
---lrl2vho5y5eomexp--
