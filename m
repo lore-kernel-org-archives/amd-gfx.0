@@ -4,136 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF43CD4F26
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 11:46:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87FD2CDE013
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 11:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFAD310F57A;
-	Fri, 26 Jun 2026 11:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F4410F587;
+	Fri, 26 Jun 2026 11:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VjrTjnGT";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PmnvnieZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/tfCxJ/z";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EHtVQcMC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WMyAR75b";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011052.outbound.protection.outlook.com
- [40.93.194.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1888B10F57A
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 11:45:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jdbTJbp+x6atYKPJGM3E3/hPoMl9C4Fil4P1wa+Sjc8zGPEHwfkwDiVCr17bYdbzLoauBCLDgS//u5nWqdvQTj5C39/U0hiXP78Ci8bfWycMiZSUvMAsjqIQv6QtFMpN0EU+jQ/z5QEnGOLYfzZasQ5renPTGKP45av/PcX4qcbsnp87N9GR+za4QQJn1zr/pycmcdB6cXEVPOAwhn3VdmjPA0NATbH6nyv6bgtkSTce5ArBAL3By9P5c8INL3690o8rQXwlhcBKhWihB6WVRfgjvuwxWtdWqWPwCzBMCf2QAmDxoi/1AyIWgWkDvY0UUOfQXrNGNUxSLl4sBjCNFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tptj0tUMczfAu3pWJRze6c+7k8b57TWyusAPCDh9aCc=;
- b=BQ3CrtyvGYvpAdjmvk12K/pJM85z9S2HB53MHc/+1JWJ4fXi8runTCghA4coBdERsLsEDRadwWCZXnVNfLguCKczMHteXd4pxc8RQUZgFbMI83+fGsWyNhbaF/Q9xLyO6dyFxAVWpSSmhzctzUlJSVxOc51YDjonaozEMzm9FziO4J43OxjU93CLRTtsCJPoczMmSjlV3A8B7TbN5WCnNfaRUe2BL8PoCowqZDgsmSGfKPt4SYMCLhaK+CGZxSP4LlSzSK2LXB2DtY1+aEIORNGtWXtHh+OSQuUrAuayXwuGySUdP1ZKgWi/S9T9Ddx3gImtFVTOPnuxoxZ1WVRALw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tptj0tUMczfAu3pWJRze6c+7k8b57TWyusAPCDh9aCc=;
- b=VjrTjnGTqC2euCzKuxf7s8mCei/Hz0SksaKGup3L896EmlR2Dv6iatrCjQHVLlytLCtdABoO5H/GMnmo0Nwh+g67huzH3xw7LPFAfrFQmzMHHZsl75qZK4yU9BjCOIqkjronfyGaw/xf0PEjb5goqbP+gf8yENOMXs2YdOP/geA=
-Received: from DS7PR12MB8324.namprd12.prod.outlook.com (2603:10b6:8:ec::9) by
- BL1PR12MB5899.namprd12.prod.outlook.com (2603:10b6:208:397::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Fri, 26 Jun
- 2026 11:45:53 +0000
-Received: from DS7PR12MB8324.namprd12.prod.outlook.com
- ([fe80::e392:f2c2:6088:170]) by DS7PR12MB8324.namprd12.prod.outlook.com
- ([fe80::e392:f2c2:6088:170%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 11:45:53 +0000
-From: "Yang, Stanley" <Stanley.Yang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/1] drm/amdgpu/ras: Resum RAS IP hw init during nps
- dynamic switch
-Thread-Topic: [PATCH 1/1] drm/amdgpu/ras: Resum RAS IP hw init during nps
- dynamic switch
-Thread-Index: AQHdBTv4AishPOVFIEi8bw8Kt/kEv7ZQfY+AgAAEcRCAABQyAIAABo2QgAAZAQCAAAB8IA==
-Date: Fri, 26 Jun 2026 11:45:52 +0000
-Message-ID: <DS7PR12MB83247FF0E7C66B49072AA0789AEB2@DS7PR12MB8324.namprd12.prod.outlook.com>
-References: <20260626071752.192163-1-Stanley.Yang@amd.com>
- <d06a5c88-63cb-491f-8090-6df38325acdb@amd.com>
- <DS7PR12MB832415758449F9B1FE398BD59AEB2@DS7PR12MB8324.namprd12.prod.outlook.com>
- <a518c22d-35c0-4e05-98b1-de95d8f31fa2@amd.com>
- <DS7PR12MB8324DFB3CC667353307A93869AEB2@DS7PR12MB8324.namprd12.prod.outlook.com>
- <4569930e-6507-42c0-8470-e33cb69af088@amd.com>
-In-Reply-To: <4569930e-6507-42c0-8470-e33cb69af088@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-26T11:38:47.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB8324:EE_|BL1PR12MB5899:EE_
-x-ms-office365-filtering-correlation-id: 6fa8a07c-c606-4e08-c056-08ded3787a12
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|3023799007|4143699003|6133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: i+syDrBod34l0vu5cB4U24jnzReWLz62CeU+bpM776YoeBg81p6Z53Oh0GwRGGh+a4Ctd07U1Bt2JuIJrQpZsQtxO5ii2d9xPociBd66qCBe/5jLTTAO+mFr8E+Xs+memMBW4rNagmdcvZLzc+deTt5m4eJPII16Z+l/7c1nuaFWor+QLW/h+qaCqlIfzFv5vaqaCo7p75FVllV/WPzbB2Pqn5fDjd4ZhTye9Ozr81VDcgMupniZDH8QfsmoCFbi6RUXqkHLXEASkxOwBpkCoyUBKiDznfEsdEGOX4iFzN0jXHmGUfIkh3BTMyTRvvhHMpQYKWvJgqYF9lZx+U1T3RQEGh0i4YXrOQ4zFGAtX2gxvAEP7OSs0ChgdAXLhja+hURaM05t/8qEGsrDdo02bGA0Tseqi9EYk8iK0qYy5cg7QzLHntp1UR3rpM/dbiMaOdZYY1p8k1s1nu04+wsxIOWPZ/b5OjcUGQiW+jC5XGr9PxybXJ59jdMgAk1ejAYTGTXLjp+Uus1yRowFr+4bmQFY8WN4bixpC5FqjCig0eh0Z0K8g2jb0qBzNRQxCzxTwZzdxvgH+ruIyRqju4+EE4KodLUyj7iFE4quYMOt1rChXZr9agPDiBFrinjhBH9WOaEPchS4NU4bzMPwRKeeB1lbX1Kd2hGqgqxI2L0CiFnrBKTwFi507WphfAzvtzFn
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB8324.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(3023799007)(4143699003)(6133799003)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TWtZRXlTbzFib2hWSGhjbEJUNy9kZkNBeExua1hCdFpaTzhFN0FUNmlYMjRm?=
- =?utf-8?B?QnhlUlJIMWU5UHozS3dFVjN5eStDNUdMbTlYN1hDNE1tTVpTRktZWDUzbjJL?=
- =?utf-8?B?KzA0SG1Sd2RYSW5rZytYL3JqT01MUDlaU2hQTUE2RjEzOFNWUVZMakluZEJs?=
- =?utf-8?B?UmRyUGptNU9EM0NBUTlUMXlKTENaa1R4MzRTQVZOb2FpcGlMRmtUbGRUQzlv?=
- =?utf-8?B?NnI5eXduclFGSVRaOFB1SlFvUWpjK0dHbHc3a0dKOE1sTmlaN3Ruc01XWklO?=
- =?utf-8?B?SWlqY3pGdS9VaUhWUzlEUTQzSWVLWnE5dmNHb0xobDlONjU1aUR1bURvU3VD?=
- =?utf-8?B?VHRNQUhFZlAzVjVUTmREQ0pXM1RDWTJ2KytlRHlWTG1oRytBV3VYNzFFZkll?=
- =?utf-8?B?UCtHaTNQQ1FhNVAyMy9rWHlua1NuSjRnRDRVREhCc3BiSDlnVW1lYVVGWVJV?=
- =?utf-8?B?SHRTclNodWRpK3gyZTNVVm4vK1BzNEJRRktib0dkcGNyTTFVUWphNG1zZENx?=
- =?utf-8?B?R2Z4UFR3VkdpT0JuQ2I4WGFwblo5OVlYMEdlSlF6akNYTElZK0RNM0lidks5?=
- =?utf-8?B?QjFtRkRiLzRFdWNOeUtHZzFPOCt2Wlducy9ldlYzZG9PUWNDVlJLeCsvWnAz?=
- =?utf-8?B?UXhKdDlkSnB4SG5aeHdnZTM2UVdUbUN6UjQ2Nlo1U1QzcWxaMjRLVlRJMXhK?=
- =?utf-8?B?eThYWkhydlJ3b2ZlUTdXaTAzeHlwd1ZMZ3ZMeW1jNGpxWExJeUhsYXhxdzFz?=
- =?utf-8?B?WkRTRnJ4S296ZWpEUUNINUVpOFpSUnpjaFJXbGtZc3BVUXNrVXc0bjFtVjFa?=
- =?utf-8?B?eGQ4Y3B0V283bVV4UkhMOFlrWXJQcTRITUFTR25QL09pSW9lTklHNnRZdkZH?=
- =?utf-8?B?SVF1SFkzOHJJREU1Smc3NGdrNHdMTFk3NkxBWE95eC9xSzZ4WUUrT1JRaWFM?=
- =?utf-8?B?WTM0VjMrbFFDa1F3YXh4cU92VFhuay9uby9sTVpGYU1PSm1XSGpPaERsdUQr?=
- =?utf-8?B?UnozQTByMWFDYnozMm9WUHNhYVA4ZWs3MjMrUzg1dWRzZzlYU2hrTDVzczA2?=
- =?utf-8?B?Uzg3ZjgzamdGck1hTWVTVGJYMGNqQmlpMDZoZXdqRHVaMXpVOUxtUzJIcmx4?=
- =?utf-8?B?UlM4T3dVT2tZWXNIay9TR0VVSmVoT2JYQmlpdGJqUEh0QS8xVytlOXlPb3JF?=
- =?utf-8?B?S0pralhMc1ZjNm9QeGlxSjJZT3dSQWU2amVCQzlFNlBFVis5ejlIWUFRWTY0?=
- =?utf-8?B?WHNOU3pqZHE4bmFVTU9tdlBmRkFZVFNjNE1XUGRiVWNhOXhDN0o1V1lHOGhF?=
- =?utf-8?B?SUNkZ3RpRU5SQUxBd3dweUNndE9KYkxpSkZwaUxkV3JDem96RSswZk9Da2h4?=
- =?utf-8?B?Y1lOUU02ak9GMDJDUlhjcVNZd21jdzJpR1M5WWltMUlTVnFnaE9mNEp6d2F4?=
- =?utf-8?B?VGpacERjMjVIcC9uT0xQa3ByWVAremt6S0FYZjkvclpDaUpBY1AwMEJ2c0N5?=
- =?utf-8?B?L1VaQ2kwcFRIcWZJaDlReEM3ZHZobjdEZWRxUnlnWjQzV1BpM0dsVVVlc2hC?=
- =?utf-8?B?Y2RJQzRVV0E1VG5qNW9rMGwrTHNOTVh1bDZNb0FjVWlRRFlTc2pESHZHY1gv?=
- =?utf-8?B?TFRqbHpHNkNKTkUwYzZVN1Bhbk81SlFqd05CcGMxYktWTXE1UjUxNFhPazRu?=
- =?utf-8?B?MlQ0Q0NLZ2NGNWVhWEFVUUpQY1V5bkFoTlNhME9sVkRQaXF1MEZXRXJTa1hP?=
- =?utf-8?B?aVFzUDkybmk4UmV3dG8ydSswUjVidXlsMktLWFo3WkY5aXlVVnFxQTNuL21s?=
- =?utf-8?B?MzRNK2w4VHdVRW9lbnd6OFRRSzBKS0lZVHJIbDRuUWUzU2dncm4xZW92Qmlo?=
- =?utf-8?B?T1ozWG9WckxtNnk4cDcwRE1qM0R6VGJ6VThPclIvNnlVTzdoYWUyenNIdWRs?=
- =?utf-8?B?N3M3Q0U3WC9BakpPSE1qWkJsR0kxZjNlcU1ESU5jSnF0N2RGODVudHQ0MzNx?=
- =?utf-8?B?NVlZTVU0ZFFGRmNLM2lSeWsyenlsd3N0cUZ6RFJCUS9EZHhFNE9JMlcvNytK?=
- =?utf-8?B?SUtINHAwdmNPS09BTEpvNEQ1N1BnYlBTNHZKK3Bmcyt0QUQxV2Nod0Y2cHR4?=
- =?utf-8?B?SzYvMUNFQlZuVHRZZ0szTEVkNnJrVWVYNlZyZDJ3K1FNYUQzd0tTYVBXK2d2?=
- =?utf-8?B?ZzFJVHU3Vmp5dmJmaE9mcUJaVGNGcG0xbFU5Z0NMcWhQR3BIeTJhMXF3WjdQ?=
- =?utf-8?B?SXQzRi9NZ2h6Z2crRlY5R0pvVEdJOGhFU1NnMEpZRWR0ZWNERnMydHU3YmhN?=
- =?utf-8?Q?pjHbnCvSZZZlLS3uyM?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B65F10E16D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 11:49:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9BDE1720FF;
+ Fri, 26 Jun 2026 11:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782474543; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kKIF6czrETbE7ytabinUU6yReUDb3ya/q7IX4Xv4I/Y=;
+ b=PmnvnieZfOUpSuZSWNZ0CZMPuLDV1yeEbELNTHtS0vYALJJvPGpHfkM+J1EcHK2tolqN5h
+ zS7h8WvrFRn3eKWRWx1pcPILRYMdYfXA6SHLXnQOMehhTsnSUoefsBirK2C8Ixr1z3vWLQ
+ 89LN3mcEmfpIL1t4gkYR0O06Pyb9QeU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782474543;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kKIF6czrETbE7ytabinUU6yReUDb3ya/q7IX4Xv4I/Y=;
+ b=/tfCxJ/zPFUy40Un2sdN/rnCE4s5qccE4iweTJ5UzJgjOqCCEhiNSI4XQFuFg9am78/tI3
+ 8DgGgoTqK/T0AFDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782474542; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kKIF6czrETbE7ytabinUU6yReUDb3ya/q7IX4Xv4I/Y=;
+ b=EHtVQcMCDndsWLHu9hlh15f1VKn03LC4i1yoSzs5F3SJ5FOkDj4sgKT730Rbo3ar4jlrmt
+ CvcxQgBz6vOY4K2k/UE8cAvQYAxYfT+wIkrLQI8vkV5L7oUvom58ILM7yhMcHr9gClElEi
+ kzkmb4Li0UXSAd6JkKlzT3sbTM9BF3I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782474542;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kKIF6czrETbE7ytabinUU6yReUDb3ya/q7IX4Xv4I/Y=;
+ b=WMyAR75b3yj+p24h2mP789p0HARpx8LmPXUfQA5y/zuEKgzKrmMLK1e1xbazLF426N9Xf8
+ P1qiugVkgizbesBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 375F5779A8;
+ Fri, 26 Jun 2026 11:49:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mLRfDC5nPmq8SgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 26 Jun 2026 11:49:02 +0000
+Message-ID: <8224920a-3a10-4400-9503-f014b7059329@suse.de>
+Date: Fri, 26 Jun 2026 13:49:01 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB8324.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fa8a07c-c606-4e08-c056-08ded3787a12
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2026 11:45:53.0267 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ICCYXIdAmpeqCM1VlNKlY6S4NKmvv0vfFkexzR0qcLB/t8WY0THodiUxAG3fAafGxoqrEgehbIB/EUlFnIC4xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5899
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/10] drm: link connectors to backlight devices
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260624165751.2014759-1-mario.limonciello@amd.com>
+ <20260624165751.2014759-4-mario.limonciello@amd.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260624165751.2014759-4-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCPT_COUNT_TWELVE(0.00)[14]; TAGGED_RCPT(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,lists.freedesktop.org,kernel.org,oss.qualcomm.com];
+ FREEMAIL_TO(0.00)[amd.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,kernel.org,gmail.com];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.com:url, qualcomm.com:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,181 +149,882 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXph
-ciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiBTZW50OiBGcmlkYXksIEp1bmUgMjYsIDIw
-MjYgNzozNyBQTQ0KPiBUbzogWWFuZywgU3RhbmxleSA8U3RhbmxleS5ZYW5nQGFtZC5jb20+OyBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMV0g
-ZHJtL2FtZGdwdS9yYXM6IFJlc3VtIFJBUyBJUCBodyBpbml0IGR1cmluZyBucHMNCj4gZHluYW1p
-YyBzd2l0Y2gNCj4NCj4NCj4NCj4gT24gMjYtSnVuLTI2IDM6NTYgUE0sIFlhbmcsIFN0YW5sZXkg
-d3JvdGU6DQo+ID4gQU1EIEdlbmVyYWwNCj4gPg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KPiA+PiBGcm9tOiBMYXphciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiA+PiBT
-ZW50OiBGcmlkYXksIEp1bmUgMjYsIDIwMjYgNTo0NCBQTQ0KPiA+PiBUbzogWWFuZywgU3Rhbmxl
-eSA8U3RhbmxleS5ZYW5nQGFtZC5jb20+Ow0KPiA+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZw0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMV0gZHJtL2FtZGdwdS9yYXM6IFJlc3Vt
-IFJBUyBJUCBodyBpbml0IGR1cmluZw0KPiA+PiBucHMgZHluYW1pYyBzd2l0Y2gNCj4gPj4NCj4g
-Pj4NCj4gPj4NCj4gPj4gT24gMjYtSnVuLTI2IDI6MDQgUE0sIFlhbmcsIFN0YW5sZXkgd3JvdGU6
-DQo+ID4+PiBBTUQgR2VuZXJhbA0KPiA+Pj4NCj4gPj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KPiA+Pj4+IEZyb206IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+DQo+ID4+
-Pj4gU2VudDogRnJpZGF5LCBKdW5lIDI2LCAyMDI2IDQ6MTYgUE0NCj4gPj4+PiBUbzogWWFuZywg
-U3RhbmxleSA8U3RhbmxleS5ZYW5nQGFtZC5jb20+Ow0KPiA+Pj4+IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnDQo+ID4+Pj4gU3ViamVjdDogUmU6IFtQQVRDSCAxLzFdIGRybS9hbWRncHUv
-cmFzOiBSZXN1bSBSQVMgSVAgaHcgaW5pdA0KPiA+Pj4+IGR1cmluZyBucHMgZHluYW1pYyBzd2l0
-Y2gNCj4gPj4+Pg0KPiA+Pj4+DQo+ID4+Pj4NCj4gPj4+PiBPbiAyNi1KdW4tMjYgMTI6NDcgUE0s
-IFN0YW5sZXkuWWFuZyB3cm90ZToNCj4gPj4+Pj4gT24gYW4gWEdNSSByZXNldC1vbi1pbml0IChO
-UFMgbWVtb3J5IHBhdGl0aW9uIG1vZGUgc3dpdGgpLCBSQVMgSVANCj4gPj4+Pj4gaHcgZmluaSwg
-c3cgZmluaSBpcyBjYWxsZWQgYnV0IGh3IGluaXQgaXMgc2tpcHBlZCBkdWUgdG8gUkFTIElQDQo+
-ID4+Pj4+IGJsb2NrIGlzIG5vdCBpbmNsdWRlZCBpbiBod2luaXQgbWFzaywgc28gbmVlZCBjYWxs
-IFJBUyBJUCBodyBpbml0DQo+ID4+Pj4+IGR1cmluZyBYR01JIHJlc2V0LW9uLWluaXQuDQo+ID4+
-Pj4+DQo+ID4+Pj4NCj4gPj4+PiBBZnRlciByZXNldCwgd2Ugc2V0IGl0IHRvIGRlZmF1bHQgbGV2
-ZWwuDQo+ID4+Pj4NCj4gPj4+Pg0KPiA+Pg0KPiBodHRwczovL2dpdGh1Yi5jb20vdG9ydmFsZHMv
-bGludXgvYmxvYi9tYXN0ZXIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWQNCj4gPj4+PiBnDQo+ID4+
-Pj4gcHUvYW1kZ3B1X2RldmljZS5jI0w1MjExDQo+ID4+Pj4NCj4gPj4+PiBUaGUgZGVmYXVsdCBs
-ZXZlbCBpbmNsdWRlcyBhbGwgSVAgYmxvY2tzLCBoZW5jZSBpdCdzIHN1cHBvc2VkIHRvDQo+ID4+
-Pj4gcmVzdW1lIGFsbCBibG9ja3MuDQo+ID4+Pj4NCj4gPj4+PiBXaXRoIFJBUyBhcyBhIHNlcGFy
-YXRlIGlwIGJsb2NrLCBpZGVhbGx5IGl0IHNob3VsZCBoYXZlIHJlc3VtZWQuDQo+ID4+Pj4gQ291
-bGQgeW91IGNoZWNrIHdoeS9ob3cgUkFTIElQIGJsb2NrIGlzIG1pc3NlZD8NCj4gPj4+DQo+ID4+
-PiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZF9pcF9mdW5jcyBfX21heWJlX3VudXNlZCByYXNfdjFf
-MF9pcF9mdW5jcyA9IHsNCj4gPj4+ICAgICAgIC5uYW1lID0gInJhc192MV8wIiwNCj4gPj4+ICAg
-ICAgIC5zd19pbml0ID0gYW1kZ3B1X3Jhc19tZ3Jfc3dfaW5pdCwNCj4gPj4+ICAgICAgIC5zd19m
-aW5pID0gYW1kZ3B1X3Jhc19tZ3Jfc3dfZmluaSwNCj4gPj4+ICAgICAgIC5od19pbml0ID0gYW1k
-Z3B1X3Jhc19tZ3JfaHdfaW5pdCwNCj4gPj4+ICAgICAgIC5od19maW5pID0gYW1kZ3B1X3Jhc19t
-Z3JfaHdfZmluaSwgfTsNCj4gPj4+DQo+ID4+PiBUaGUgUkFTIElQIGJsb2NrIGRvZXMgbm90IHJl
-Z2lzdGVyIHN1c3BlbmQgYW5kIHJlc3VtZSBjYWxsYmFjaw0KPiA+Pj4gZnVuY3Rpb24sIHNvDQo+
-ID4+IFJBUyBJUCBibG9jayBodyBpbml0IGZ1bmN0aW9uIG1pc3NlZCB1bmRlciB0aGlzIGNhc2Uu
-DQo+ID4+Pg0KPiA+Pg0KPiA+PiBIb3cgZG9lcyBpdCB3b3JrIGZvciByZWd1bGFyIHJlc2V0PyBG
-b3IgcmVndWxhciByZXNldCBhbHNvLCBkcml2ZXINCj4gPj4gY2FsbHMgdGhlIHJlc3VtZSBzZXF1
-ZW5jZSBmb3IgdGhlIElQIGJsb2NrLg0KPiA+Pg0KPiA+PiBJIHRoaW5rIHRoZSBwcm9wZXIgZml4
-IGlzIHRvIGFkZCBhIHJlc3VtZSBzZXF1ZW5jZSB3aGljaCBjYWxscw0KPiA+PiBod19pbml0IChp
-ZiB0aG9zZSBwYXRocyBhcmUgaWRlbnRpY2FsKS4NCj4gPg0KPiA+IFtTdGFubGV5XTogTm9ybWFs
-IGNvbGQgc3RhcnQgaXMgYXQgdGhlIERFRkFVTFQgaW5pdCBsZXZlbCwgYW5kIFJBUyBod19pbml0
-IGlzDQo+IGV4ZWN1dGluZyBub3JtYWxseSwgc28gdW5pcmFzIGlzIGVuYWJsZWQ7IE5vcm1hbCBH
-UFUgcmVzZXQsIGJlY2F1c2UgdGhlcmUgaXMNCj4gbm8uIHN1c3BlbmQsIHJhc19pc19yZWFkIHJl
-bWFpbnMgdHJ1ZSBhbmQgdGhlIHN0YXRlIGlzIHByZXNlcnZlZCAtIHNvIG9ubHkgTlBTDQo+IHN3
-aXRjaGluZyB0byB0aGlzIFhHTUkgcmVzZXQgb24gaW50IHBhdGggd2lsbCB0cmlnZ2VyIHRoaXMg
-YnVnLg0KPiA+DQo+ID4gTm90IHN1Z2dlc3QgYWRkIC5yZXN1bWUgc2VxdWVuY2UgYmVjYXVzZSBk
-dXJpbmcgUkFTIElQIGJsb2NrIGh3X2luaXQNCj4gcHJvY2VzcyBuZWVkIGhvbGQgcmVzZXQgZG9t
-YWluIHNlbWFwaG9yZSBidXQgdGhlIHNlbWFwaG9yZSBoYXMgYWxyZWFkeQ0KPiBob2xkIGJlZm9y
-ZSwgdGhlIG90aGVyIHJlYXNvbiBpcyBhZGRpbmcgLnJlc3VtZSB3aWxsIGJyZWFrIHJlZ3VsYXIg
-cmVzZXQsIGl0DQo+IGRvZXNuJ3QgbmVlZCB0byBiZSByZWluaXRpYWxpemVkIGR1ZSB0byBhbGwg
-UkFTIGVycm9yIGluZm8gaXMgY2FjaGVkLg0KPiA+DQo+DQo+IFRoZW4gYSBkZWRpY2F0ZWQgcmVz
-dW1lIHNlcXVlbmNlIG5lZWRzIHRvIGJlIGFkZGVkIHdoaWNoIGNoZWNrcyBpZiBkZXZpY2UgaXMN
-Cj4gaW4gcmVzZXQgKGJlaW5nIHJlc3VtZWQgZnJvbSBhIHJlc2V0KSBiZWZvcmUgdGFraW5nIGhv
-bGQgb2YgdGhlIHNlbWFwaG9yZS4NCg0KWWVzLCBjb250cm9sbGluZyB0aGUgc2VtYXBob3JlIGJ5
-IGNoZWNraW5nIGlmIGl0IGlzIGluIHRoZSByZXNldCBzdGF0ZSBjYW4gaW5kZWVkIHNvbHZlIHRo
-ZSBzZW1hcGhvcmUgcHJvYmxlbSwgYnV0IGFzIEkgc2FpZCB0aGVyZSBpcyBubyBuZWVkIHRvIHN1
-c3BlbmQgYW5kIHRoZW4gcmVzdW1lIHRoZSBSQVMgSVAgYmxvY2sgaW4gcmVndWxhciByZXNldC4N
-Cg0KUmVnYXJkcywNClN0YW5sZXkNCj4NCj4gQXMgYW4gSVAgYmxvY2ssIGl0IHdpbGwgbmVlZCBz
-dXNwZW5kL3Jlc3VtZSBmb3Igb3RoZXIgc2NlbmFyaW9zIGxpa2UgZGV2aWNlDQo+IHJ1bnRpbWUg
-cG0gb3Igc3lzdGVtIHN1c3BlbmQvcmVzdW1lLiBUaGlzIGNhbiBiZSB1c2VkIG9ubHkgYXMgYSB0
-ZW1wb3JhcnkNCj4gd29ya2Fyb3VuZCB0aWxsIHRoYXQgcG9pbnQuDQo+DQo+IFRoYW5rcywNCj4g
-TGlqbw0KPg0KPiA+IFJlZ2FyZHMsDQo+ID4gU3RhbmxleQ0KPiA+Pg0KPiA+PiBUaGFua3MsDQo+
-ID4+IExpam8NCj4gPj4NCj4gPj4+IFJlZ2FyZHMsDQo+ID4+PiBTdGFubGV5DQo+ID4+Pj4NCj4g
-Pj4+PiBUaGFua3MsDQo+ID4+Pj4gTGlqbw0KPiA+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBTdGFubGV5
-LllhbmcgPFN0YW5sZXkuWWFuZ0BhbWQuY29tPg0KPiA+Pj4+PiAtLS0NCj4gPj4+Pj4gICAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyAgICAgICB8IDE0DQo+ICsrKysr
-KysrKysrLQ0KPiA+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jh
-cy5oICAgICAgIHwgIDEgKw0KPiA+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3hnbWkuYyAgICAgIHwgMTAgKysrKysrKysrDQo+ID4+Pj4+ICAgICAuLi4vZ3B1L2Ry
-bS9hbWQvcmFzL3Jhc19tZ3IvYW1kZ3B1X3Jhc19tZ3IuYyAgfCAyMg0KPiA+Pj4+ICsrKysrKysr
-KysrKysrKysrKysNCj4gPj4+Pj4gICAgIC4uLi9ncHUvZHJtL2FtZC9yYXMvcmFzX21nci9hbWRn
-cHVfcmFzX21nci5oICB8ICAxICsNCj4gPj4+Pj4gICAgIDUgZmlsZXMgY2hhbmdlZCwgNDcgaW5z
-ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiA+Pj4+Pg0KPiA+Pj4+PiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+ID4+Pj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+ID4+Pj4+IGluZGV4IDdlZjdjNTRh
-Yjk4Mi4uZTExYzU0MmEwMWI2IDEwMDY0NA0KPiA+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+ID4+Pj4+IEBAIC0zODU3LDcgKzM4NTcsMTQgQEAgaW50
-IGFtZGdwdV9yYXNfaW5pdF9iYWRwYWdlX2luZm8oc3RydWN0DQo+ID4+Pj4gYW1kZ3B1X2Rldmlj
-ZSAqYWRldikNCj4gPj4+Pj4gICAgICAgaWYgKCFjb24gfHwgYW1kZ3B1X3NyaW92X3ZmKGFkZXYp
-KQ0KPiA+Pj4+PiAgICAgICAgICAgICAgIHJldHVybiAwOw0KPiA+Pj4+Pg0KPiA+Pj4+PiAtICAg
-aWYgKGFtZGdwdV91bmlyYXNfZW5hYmxlZChhZGV2KSkNCj4gPj4+Pj4gKyAgIC8qDQo+ID4+Pj4+
-ICsgICAgKiBGb3IgdGhlIHJlc2V0LW9uLWluaXQgcGF0aCAoZS5nLiBhbiBOUFMgbWVtb3J5IHBh
-cnRpdGlvbiwNCj4gPj4+Pj4gKyAgICAqIHN3aXRjaCkgdGhlIFJBUyBJUCBibG9jayBod19pbml0
-IGhhcyBub3QgYmVlbiBlbmFibGVkIGFuZA0KPiA+Pj4+PiArICAgICogdGhlIGFtZGdwdV91bmly
-YXNfZW5hYmxlZCByZXR1cm4gZmFsc2UsIGNoZWNrIGFtZGdwdSByYXMNCj4gPj4+Pj4gKyAgICAq
-IGNvbnRleHQgdW5pcmFzX2VuYWJsZWQgZmxhZywgZWVwcm9uIGluaXQgd2lsbCBiZSBjYWxsZWQN
-Cj4gPj4+Pj4gKyAgICAqIGR1cmluZyBSQVMgSVAgYmxvY2sgaHdfaW5pdC4NCj4gPj4+Pj4gKyAg
-ICAqLw0KPiA+Pj4+PiArICAgaWYgKGFtZGdwdV91bmlyYXNfZW5hYmxlZChhZGV2KSB8fCBjb24t
-PnVuaXJhc19lbmFibGVkKQ0KPiA+Pj4+PiAgICAgICAgICAgICAgIHJldHVybiAwOw0KPiA+Pj4+
-Pg0KPiA+Pj4+PiAgICAgICBjb250cm9sID0gJmNvbi0+ZWVwcm9tX2NvbnRyb2w7IEBAIC01ODU5
-LDMgKzU4NjYsOCBAQCB2b2lkDQo+ID4+Pj4+IGFtZGdwdV9yYXNfcG9zdF9yZXNldChzdHJ1Y3QN
-Cj4gPj4+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+Pj4+PiAgICAgICAgICAgICAgICAgICAg
-ICAgYW1kZ3B1X3Jhc19tZ3JfcG9zdF9yZXNldCh0bXBfYWRldik7DQo+ID4+Pj4+ICAgICAgIH0N
-Cj4gPj4+Pj4gICAgIH0NCj4gPj4+Pj4gKw0KPiA+Pj4+PiArdm9pZCBhbWRncHVfcmFzX3Jlc3Vt
-ZV9hZnRlcl9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgew0KPiA+Pj4+PiArICAg
-YW1kZ3B1X3Jhc19tZ3JfcmVzdW1lX2FmdGVyX3Jlc2V0KGFkZXYpOw0KPiA+Pj4+PiArfQ0KPiA+
-Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5o
-DQo+ID4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oDQo+ID4+
-Pj4+IGluZGV4IGE4NmFiNjVhYTJmMC4uYWQyNGM3Y2Y4OTM2IDEwMDY0NA0KPiA+Pj4+PiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgNCj4gPj4+Pj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oDQo+ID4+Pj4+IEBAIC0xMDQ1
-LDQgKzEwNDUsNSBAQCB2b2lkIGFtZGdwdV9yYXNfcHJlX3Jlc2V0KHN0cnVjdA0KPiA+Pj4+IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkICpkZXZpY2VfbGlzdCk7DQo+ID4+Pj4+ICAgICB2
-b2lkIGFtZGdwdV9yYXNfcG9zdF9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4g
-Pj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBsaXN0
-X2hlYWQNCj4gPj4+Pj4gKmRldmljZV9saXN0KTsNCj4gPj4+Pj4gK3ZvaWQgYW1kZ3B1X3Jhc19y
-ZXN1bWVfYWZ0ZXJfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiA+Pj4+PiAg
-ICAgI2VuZGlmDQo+ID4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfeGdtaS5jDQo+ID4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3hnbWkuYw0KPiA+Pj4+PiBpbmRleCA5YTRlODcxNTc0MmEuLmYxNzVjODk4N2FlYiAxMDA2
-NDQNCj4gPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWku
-Yw0KPiA+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5j
-DQo+ID4+Pj4+IEBAIC0xNjY5LDYgKzE2NjksMTYgQEAgc3RhdGljIHZvaWQNCj4gPj4+PiBhbWRn
-cHVfeGdtaV9yZXNldF9vbl9pbml0X3dvcmsoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQ0KPiA+
-Pj4+PiAgICAgICAgICAgICAgIGlmIChyICYmIHIgIT0gLUVIV1BPSVNPTikNCj4gPj4+Pj4gICAg
-ICAgICAgICAgICAgICAgICAgIGRldl9lcnIodG1wX2FkZXYtPmRldiwNCj4gPj4+Pj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgImVycm9yIGR1cmluZyBiYWQgcGFnZSBkYXRhDQo+ID4+
-Pj4+IGluaXRpYWxpemF0aW9uIik7DQo+ID4+Pj4+ICsNCj4gPj4+Pj4gKyAgICAgICAgICAgLyoN
-Cj4gPj4+Pj4gKyAgICAgICAgICAgICogRm9yIHRoZSByZXNldC1vbi1pbml0IHBhdGggKGUuZy4g
-YW4gTlBTIG1lbW9yeSBwYXJ0aXRpb24NCj4gPj4+Pj4gKyAgICAgICAgICAgICogc3dpdGNoKSB0
-aGUgUkFTIElQIGJsb2NrIGh3X2luaXQgd2FzIHNraXBwZWQgdW5kZXIgdGhlDQo+ID4+Pj4+ICsg
-ICAgICAgICAgICAqIG1pbmltYWwgaW5pdCBsZXZlbCwgc28gdW5pcmFzIHdhcyBuZXZlciBlbmFi
-bGVkLiBCcmluZyBpdA0KPiA+Pj4+PiArICAgICAgICAgICAgKiB1cCBub3cgdGhhdCB0aGUgcmVz
-ZXQgZG9tYWluIGhhcyBiZWVuIHVubG9ja2VkLiBUaGlzIGlzIGENCj4gPj4+Pj4gKyAgICAgICAg
-ICAgICogbm8tb3AgZm9yIGFueSBvdGhlciByZXNldCBwYXRoIHdoZXJlIFJBUyBpcyBhbHJlYWR5
-DQo+ID4+Pj4+ICsgICAgICAgICAgICAqIGluaXRpYWxpemVkLCBhbmQgZm9yIG5vbi11bmlyYXMg
-ZGV2aWNlcy4NCj4gPj4+Pj4gKyAgICAgICAgICAgICovDQo+ID4+Pj4+ICsgICAgICAgICAgIGFt
-ZGdwdV9yYXNfcmVzdW1lX2FmdGVyX3Jlc2V0KHRtcF9hZGV2KTsNCj4gPj4+Pj4gICAgICAgfQ0K
-PiA+Pj4+PiAgICAgfQ0KPiA+Pj4+Pg0KPiA+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9yYXMvcmFzX21nci9hbWRncHVfcmFzX21nci5jDQo+ID4+Pj4+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9yYXMvcmFzX21nci9hbWRncHVfcmFzX21nci5jDQo+ID4+Pj4+IGluZGV4IGY2
-MjdhOTc3OTdlZC4uYTcwZTUzMmIzZDAwIDEwMDY0NA0KPiA+Pj4+PiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Jhcy9yYXNfbWdyL2FtZGdwdV9yYXNfbWdyLmMNCj4gPj4+Pj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9yYXMvcmFzX21nci9hbWRncHVfcmFzX21nci5jDQo+ID4+Pj4+IEBA
-IC00NjUsNiArNDY1LDI4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Jhc19tZ3JfaHdfZmluaShzdHJ1
-Y3QNCj4gPj4+PiBhbWRncHVfaXBfYmxvY2sgKmlwX2Jsb2NrKQ0KPiA+Pj4+PiAgICAgICByZXR1
-cm4gMDsNCj4gPj4+Pj4gICAgIH0NCj4gPj4+Pj4NCj4gPj4+Pj4gK2ludCBhbWRncHVfcmFzX21n
-cl9yZXN1bWVfYWZ0ZXJfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4gKmFkZXYpIHsNCj4g
-Pj4+Pj4gKyAgIHN0cnVjdCBhbWRncHVfcmFzICpjb24gPSBhbWRncHVfcmFzX2dldF9jb250ZXh0
-KGFkZXYpOw0KPiA+Pj4+PiArICAgc3RydWN0IGFtZGdwdV9yYXNfbWdyICpyYXNfbWdyID0NCj4g
-Pj4+PiBhbWRncHVfcmFzX21ncl9nZXRfY29udGV4dChhZGV2KTsNCj4gPj4+Pj4gKyAgIHN0cnVj
-dCBhbWRncHVfaXBfYmxvY2sgKmlwX2Jsb2NrOw0KPiA+Pj4+PiArDQo+ID4+Pj4+ICsgICBpZiAo
-IWNvbiB8fCAhY29uLT51bmlyYXNfZW5hYmxlZCkNCj4gPj4+Pj4gKyAgICAgICAgICAgcmV0dXJu
-IDA7DQo+ID4+Pj4+ICsNCj4gPj4+Pj4gKyAgIGlmICghcmFzX21nciB8fCAhcmFzX21nci0+cmFz
-X2NvcmUpDQo+ID4+Pj4+ICsgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiA+Pj4+PiArDQo+
-ID4+Pj4+ICsgICBpZiAocmFzX21nci0+cmFzX2lzX3JlYWR5KQ0KPiA+Pj4+PiArICAgICAgICAg
-ICByZXR1cm4gMDsNCj4gPj4+Pj4gKw0KPiA+Pj4+PiArICAgaXBfYmxvY2sgPSBhbWRncHVfZGV2
-aWNlX2lwX2dldF9pcF9ibG9jayhhZGV2LA0KPiA+Pj4+IEFNRF9JUF9CTE9DS19UWVBFX1JBUyk7
-DQo+ID4+Pj4+ICsgICBpZiAoIWlwX2Jsb2NrKQ0KPiA+Pj4+PiArICAgICAgICAgICByZXR1cm4g
-LUVJTlZBTDsNCj4gPj4+Pj4gKw0KPiA+Pj4+PiArICAgcmV0dXJuIGFtZGdwdV9yYXNfbWdyX2h3
-X2luaXQoaXBfYmxvY2spOyB9DQo+ID4+Pj4+ICsNCj4gPj4+Pj4gICAgIHN0cnVjdCBhbWRncHVf
-cmFzX21nciAqYW1kZ3B1X3Jhc19tZ3JfZ2V0X2NvbnRleHQoc3RydWN0DQo+ID4+Pj4gYW1kZ3B1
-X2RldmljZSAqYWRldikNCj4gPj4+Pj4gICAgIHsNCj4gPj4+Pj4gICAgICAgaWYgKCFhZGV2IHx8
-ICFhZGV2LT5wc3AucmFzX2NvbnRleHQucmFzKSBkaWZmIC0tZ2l0DQo+ID4+Pj4+IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9yYXMvcmFzX21nci9hbWRncHVfcmFzX21nci5oDQo+ID4+Pj4+IGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9yYXMvcmFzX21nci9hbWRncHVfcmFzX21nci5oDQo+ID4+Pj4+IGlu
-ZGV4IDRmNDRhOTE3ZDQ4Yi4uM2Y4MGI5ZjFmMGFjIDEwMDY0NA0KPiA+Pj4+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Jhcy9yYXNfbWdyL2FtZGdwdV9yYXNfbWdyLmgNCj4gPj4+Pj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9yYXMvcmFzX21nci9hbWRncHVfcmFzX21nci5oDQo+ID4+
-Pj4+IEBAIC04Miw2ICs4Miw3IEBAIGludCBhbWRncHVfcmFzX21ncl9oYW5kbGVfcmFzX2NtZChz
-dHJ1Y3QNCj4gPj4+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+Pj4+PiAgICAgICAgICAgICAg
-IHZvaWQgKm91dHB1dCwgdWludDMyX3Qgb3V0X3NpemUpOw0KPiA+Pj4+PiAgICAgaW50IGFtZGdw
-dV9yYXNfbWdyX3ByZV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ID4+Pj4+
-ICAgICBpbnQgYW1kZ3B1X3Jhc19tZ3JfcG9zdF9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldik7DQo+ID4+Pj4+ICtpbnQgYW1kZ3B1X3Jhc19tZ3JfcmVzdW1lX2FmdGVyX3Jlc2V0KHN0
-cnVjdCBhbWRncHVfZGV2aWNlDQo+ID4+Pj4+ICsqYWRldik7DQo+ID4+Pj4+ICAgICBpbnQgYW1k
-Z3B1X3Jhc19tZ3JfbG9va3VwX2JhZF9wYWdlc19pbl9hX3JvdyhzdHJ1Y3QNCj4gPj4gYW1kZ3B1
-X2RldmljZQ0KPiA+Pj4+ICphZGV2LA0KPiA+Pj4+PiAgICAgICAgICAgICAgIHVpbnQ2NF90IGFk
-ZHIsIHVpbnQ2NF90ICpucHNfcGFnZV9hZGRyLCB1aW50MzJfdA0KPiA+Pj4+IG1heF9wYWdlX2Nv
-dW50KTsNCj4gPj4+Pj4gICAgICNlbmRpZg0KPiA+Pj4NCj4gPg0KDQo=
+Hi
+
+Am 24.06.26 um 18:57 schrieb Mario Limonciello:
+> From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+>
+> This will show which connector in sysfs matches which backlight.
+>
+> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # SM8150-HDK
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>   drivers/gpu/drm/Kconfig             |   1 +
+>   drivers/gpu/drm/Makefile            |   1 +
+>   drivers/gpu/drm/drm_backlight.c     | 371 ++++++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_connector.c     |  12 +
+>   drivers/gpu/drm/drm_drv.c           |   8 +
+>   drivers/gpu/drm/drm_mode_config.c   |   7 +
+>   drivers/gpu/drm/drm_mode_object.c   |  66 ++++-
+>   drivers/gpu/drm/drm_sysfs.c         |  28 ++-
+>   drivers/video/backlight/backlight.c |  17 ++
+>   include/drm/drm_backlight.h         |  51 ++++
+>   include/drm/drm_connector.h         |   3 +
+>   include/drm/drm_mode_config.h       |   5 +
+>   include/linux/backlight.h           |  13 +
+>   13 files changed, 578 insertions(+), 5 deletions(-)
+>   create mode 100644 drivers/gpu/drm/drm_backlight.c
+>   create mode 100644 include/drm/drm_backlight.h
+>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f6..d6035bbbdc83f 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -17,6 +17,7 @@ menuconfig DRM
+>   # device and dmabuf fd. Let's make sure that is available for our userspace.
+>   	select KCMP
+>   	select VIDEO
+> +	select BACKLIGHT_CLASS_DEVICE
+
+Nope, sorry. I've work a long time over many kernel releases to get 
+these out. And there are still many of them left.
+
+BACKLIGHT_CLASS_DEVICE is a user-configurable option. Whatever you build 
+needs to use 'depends on' or preferably make it optional. Mixing select 
+and depends on can result in dependency problems.
+
+Another issue is that nowadays, DRM is usually part of the kernel binary 
+instead of a module. The last thing we want is to pull in yet another 
+subsystem into the binary.
+
+Best regards
+Thomas
+
+>   	help
+>   	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+>   	  introduced in XFree86 4.0. If you say Y here, you need to select
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd7830..bf980a2ac1e6b 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -78,6 +78,7 @@ drm-$(CONFIG_DRM_CLIENT) += \
+>   	drm_client_event.o \
+>   	drm_client_modeset.o \
+>   	drm_client_sysrq.o
+> +drm-y += drm_backlight.o
+>   drm-$(CONFIG_COMPAT) += drm_ioc32.o
+>   drm-$(CONFIG_DRM_PANEL) += drm_panel.o
+>   drm-$(CONFIG_OF) += drm_of.o
+> diff --git a/drivers/gpu/drm/drm_backlight.c b/drivers/gpu/drm/drm_backlight.c
+> new file mode 100644
+> index 0000000000000..b1ec470be86ca
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_backlight.c
+> @@ -0,0 +1,371 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * DRM Backlight Helpers
+> + * Copyright (c) 2014 David Herrmann
+> + * Copyright (c) 2026 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/fs.h>
+> +#include <linux/list.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/notifier.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <drm/drm_backlight.h>
+> +#include <drm/drm_connector.h>
+> +#include <drm/drm_device.h>
+> +#include <drm/drm_mode_config.h>
+> +
+> +/**
+> + * DOC: Backlight Devices
+> + *
+> + * Backlight devices have always been managed as a separate subsystem,
+> + * independent of DRM. They are usually controlled via separate hardware
+> + * interfaces than the display controller, so the split works out fine.
+> + * However, backlight brightness is a property of a display, and thus a
+> + * property of a DRM connector. We already manage DPMS states via connector
+> + * properties, so it is natural to keep brightness control at the same place.
+> + *
+> + * This DRM backlight interface implements generic backlight properties on
+> + * connectors. It does not handle any hardware backends but simply forwards
+> + * the requests to a linked backlight device. The links between connectors and
+> + * backlight devices are established by DRM drivers; user-space cannot create
+> + * or modify these links. A 'change' uevent is sent whenever the brightness is
+> + * updated.
+> + *
+> + * Drivers have to call drm_backlight_alloc() after allocating a connector via
+> + * drm_connector_init(). This will automatically add a backlight device to the
+> + * given connector. Drivers must then link a hardware backlight by calling
+> + * drm_backlight_link() with the registered backlight_device. If no link is
+> + * established, the DRM backlight property reports an empty range and
+> + * brightness changes are no-ops.
+> + */
+> +
+> +struct drm_backlight {
+> +	struct list_head list;
+> +	struct drm_connector *connector;
+> +	struct backlight_device *link;
+> +	/*
+> +	 * Number of luminance-aware DRM clients that have taken over this
+> +	 * connector's backlight. While > 0, legacy sysfs writes to the
+> +	 * linked backlight_device return -EBUSY. Protected by
+> +	 * drm_backlight_lock.
+> +	 */
+> +	unsigned int luminance_clients;
+> +};
+> +
+> +static LIST_HEAD(drm_backlight_list);
+> +static DEFINE_SPINLOCK(drm_backlight_lock);
+> +
+> +/* caller must hold @drm_backlight_lock */
+> +static bool __drm_backlight_is_registered(struct drm_backlight *b)
+> +{
+> +	lockdep_assert_held(&drm_backlight_lock);
+> +	/* a device is live if it is linked to @drm_backlight_list */
+> +	return !list_empty(&b->list);
+> +}
+> +
+> +/* caller must hold @drm_backlight_lock */
+> +static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
+> +{
+> +	unsigned int max, set;
+> +
+> +	lockdep_assert_held(&drm_backlight_lock);
+> +
+> +	if (!b->link)
+> +		return;
+> +
+> +	max = b->link->props.max_brightness;
+> +	if (max < 1)
+> +		return;
+> +
+> +	set = v;
+> +	if (set >= max)
+> +		set = max;
+> +}
+> +
+> +/**
+> + * __drm_backlight_update_prop_range - update the luminance property range
+> + * @b: backlight device
+> + *
+> + * Updates the luminance property range based on the linked backlight device's
+> + * max_brightness. If no device is linked, sets range to 0-0 to indicate
+> + * unavailability.
+> + */
+> +static void __drm_backlight_update_prop_range(struct drm_backlight *b)
+> +{
+> +	struct drm_device *dev = b->connector->dev;
+> +	struct drm_property *prop = dev->mode_config.luminance_property;
+> +	unsigned int max = 0;
+> +
+> +	lockdep_assert_held(&drm_backlight_lock);
+> +
+> +	if (b->link && b->link->props.max_brightness > 0)
+> +		max = b->link->props.max_brightness;
+> +
+> +	/* Update property range to match hardware capabilities.
+> +	 * Range of 0-0 indicates no backing device.
+> +	 * Range of 1-max for normal operation (0 reserved for display off).
+> +	 */
+> +	if (prop->values[1] != max) {
+> +		prop->values[0] = max ? 1 : 0;
+> +		prop->values[1] = max;
+> +	}
+> +}
+> +
+> +/* caller must hold @drm_backlight_lock */
+> +static bool __drm_backlight_link(struct drm_backlight *b,
+> +				 struct backlight_device *bd)
+> +{
+> +	if (bd == b->link)
+> +		return false;
+> +
+> +	backlight_device_unref(b->link);
+> +	b->link = bd;
+> +	backlight_device_ref(b->link);
+> +	if (bd)
+> +		__drm_backlight_real_changed(b, bd->props.brightness);
+> +	__drm_backlight_update_prop_range(b);
+> +
+> +	return true;
+> +}
+> +
+> +/**
+> + * drm_backlight_alloc - add backlight capability to a connector
+> + * @connector: connector to add backlight to
+> + *
+> + * This allocates a new DRM-backlight device and attaches it to @connector.
+> + * This *must* be called before registering the connector. The backlight
+> + * device will be automatically registered in sync with the connector. It will
+> + * also get removed once the connector is removed.
+> + *
+> + * No hardware backlight is linked by default. Drivers must call
+> + * drm_backlight_link() to associate a registered backlight_device with the
+> + * connector. User-space cannot create or modify this link.
+> + *
+> + * Returns: 0 on success, negative error code on failure.
+> + */
+> +int drm_backlight_alloc(struct drm_connector *connector)
+> +{
+> +	struct drm_mode_config *config = &connector->dev->mode_config;
+> +	struct drm_backlight *b;
+> +
+> +	b = kzalloc_obj(*b, GFP_KERNEL);
+> +	if (!b)
+> +		return -ENOMEM;
+> +
+> +	INIT_LIST_HEAD(&b->list);
+> +	b->connector = connector;
+> +	connector->backlight = b;
+> +
+> +	drm_object_attach_property(&connector->base,
+> +				   config->luminance_property, 0);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_backlight_alloc);
+> +
+> +void drm_backlight_free(struct drm_connector *connector)
+> +{
+> +	struct drm_backlight *b = connector->backlight;
+> +
+> +	if (!b)
+> +		return;
+> +
+> +	WARN_ON(__drm_backlight_is_registered(b));
+> +	WARN_ON(b->link);
+> +
+> +	kfree(b);
+> +	connector->backlight = NULL;
+> +}
+> +EXPORT_SYMBOL(drm_backlight_free);
+> +
+> +void drm_backlight_register(struct drm_backlight *b)
+> +{
+> +	if (!b)
+> +		return;
+> +
+> +	WARN_ON(__drm_backlight_is_registered(b));
+> +
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	list_add(&b->list, &drm_backlight_list);
+> +}
+> +EXPORT_SYMBOL(drm_backlight_register);
+> +
+> +void drm_backlight_unregister(struct drm_backlight *b)
+> +{
+> +	if (!b)
+> +		return;
+> +
+> +	WARN_ON(!__drm_backlight_is_registered(b));
+> +
+> +	scoped_guard(spinlock, &drm_backlight_lock) {
+> +		list_del_init(&b->list);
+> +		__drm_backlight_link(b, NULL);
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_backlight_unregister);
+> +
+> +/**
+> + * drm_backlight_link - link a backlight device to a DRM backlight
+> + * @b: DRM backlight to modify
+> + * @bd: backlight device to link, or NULL to unlink
+> + *
+> + * Establish the link between a DRM connector's backlight property and a
+> + * registered backlight_device. Drivers must call this with the
+> + * backlight_device they registered for the connector. Passing NULL unlinks
+> + * any previously linked device.
+> + *
+> + * The caller is responsible for ensuring @bd remains valid until either it
+> + * is unlinked via drm_backlight_link(b, NULL) or the connector is
+> + * unregistered.
+> + *
+> + * Whenever a hardware backlight is linked or unlinked, a uevent with
+> + * "BACKLIGHT=1" is generated on the connector.
+> + */
+> +void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd)
+> +{
+> +	if (!b)
+> +		return;
+> +
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	__drm_backlight_link(b, bd);
+> +}
+> +EXPORT_SYMBOL(drm_backlight_link);
+> +
+> +/**
+> + * drm_backlight_get_device - get the backlight_device linked to a DRM backlight
+> + * @b: DRM backlight
+> + *
+> + * Returns the &backlight_device linked to @b, or NULL if no device is linked
+> + * or @b is NULL. The caller must hold the appropriate lock to prevent the
+> + * link from changing while the pointer is in use.
+> + */
+> +struct backlight_device *drm_backlight_get_device(struct drm_backlight *b)
+> +{
+> +	if (!b)
+> +		return NULL;
+> +
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	return b->link;
+> +}
+> +EXPORT_SYMBOL(drm_backlight_get_device);
+> +
+> +/**
+> + * drm_backlight_inhibit_legacy - disable legacy sysfs control of the linked bd
+> + * @b: DRM backlight to inhibit
+> + *
+> + * Record that one more luminance-aware DRM client has taken over @b. While
+> + * any clients are recorded, writes to the linked backlight_device's legacy
+> + * ``brightness`` sysfs attribute return ``-EBUSY``. The takeover follows
+> + * @b->link if the link changes.
+> + *
+> + * Calls must be balanced with drm_backlight_uninhibit_legacy().
+> + */
+> +void drm_backlight_inhibit_legacy(struct drm_backlight *b)
+> +{
+> +	if (!b)
+> +		return;
+> +}
+> +EXPORT_SYMBOL(drm_backlight_inhibit_legacy);
+> +
+> +/**
+> + * drm_backlight_uninhibit_legacy - re-enable legacy sysfs control
+> + * @b: DRM backlight to uninhibit
+> + *
+> + * Balances a previous drm_backlight_inhibit_legacy() call. When the last
+> + * luminance-aware client goes away, legacy sysfs writes are allowed again.
+> + */
+> +void drm_backlight_uninhibit_legacy(struct drm_backlight *b)
+> +{
+> +	if (!b)
+> +		return;
+> +}
+> +EXPORT_SYMBOL(drm_backlight_uninhibit_legacy);
+> +
+> +/**
+> + * drm_backlight_inhibit_legacy_all - inhibit legacy sysfs on every connector
+> + * @dev: DRM device whose connectors should be inhibited
+> + *
+> + * Walks all connectors on @dev and calls drm_backlight_inhibit_legacy() on
+> + * each connector that has a DRM backlight attached. Used when a client
+> + * declares it is luminance-aware via DRM_CLIENT_CAP_LUMINANCE.
+> + */
+> +void drm_backlight_inhibit_legacy_all(struct drm_device *dev)
+> +{
+> +	struct drm_connector_list_iter iter;
+> +	struct drm_connector *connector;
+> +
+> +	drm_connector_list_iter_begin(dev, &iter);
+> +	drm_for_each_connector_iter(connector, &iter)
+> +		drm_backlight_inhibit_legacy(connector->backlight);
+> +	drm_connector_list_iter_end(&iter);
+> +}
+> +EXPORT_SYMBOL(drm_backlight_inhibit_legacy_all);
+> +
+> +/**
+> + * drm_backlight_uninhibit_legacy_all - reverse drm_backlight_inhibit_legacy_all()
+> + * @dev: DRM device whose connectors should be uninhibited
+> + */
+> +void drm_backlight_uninhibit_legacy_all(struct drm_device *dev)
+> +{
+> +	struct drm_connector_list_iter iter;
+> +	struct drm_connector *connector;
+> +
+> +	drm_connector_list_iter_begin(dev, &iter);
+> +	drm_for_each_connector_iter(connector, &iter)
+> +		drm_backlight_uninhibit_legacy(connector->backlight);
+> +	drm_connector_list_iter_end(&iter);
+> +}
+> +EXPORT_SYMBOL(drm_backlight_uninhibit_legacy_all);
+> +
+> +void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value)
+> +{
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	__drm_backlight_real_changed(b, value);
+> +}
+> +EXPORT_SYMBOL(drm_backlight_set_luminance);
+> +
+> +static int drm_backlight_notify(struct notifier_block *self,
+> +				unsigned long event, void *data)
+> +{
+> +	struct backlight_device *bd = data;
+> +	struct drm_backlight *b;
+> +
+> +	guard(spinlock)(&drm_backlight_lock);
+> +
+> +	switch (event) {
+> +	case BACKLIGHT_UNREGISTERED:
+> +		list_for_each_entry(b, &drm_backlight_list, list)
+> +			if (b->link == bd)
+> +				__drm_backlight_link(b, NULL);
+> +
+> +		break;
+> +	case BACKLIGHT_BRIGHTNESS_CHANGED:
+> +		/* Update DRM property value when hardware backlight changes */
+> +		list_for_each_entry(b, &drm_backlight_list, list)
+> +			if (b->link == bd)
+> +				__drm_backlight_real_changed(b, bd->props.brightness);
+> +
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct notifier_block drm_backlight_notifier = {
+> +	.notifier_call = drm_backlight_notify,
+> +};
+> +
+> +int drm_backlight_init(void)
+> +{
+> +	return backlight_register_notifier(&drm_backlight_notifier);
+> +}
+> +
+> +void drm_backlight_exit(void)
+> +{
+> +	backlight_unregister_notifier(&drm_backlight_notifier);
+> +}
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 3fa4d2082cd72..128d431f0d6b0 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -21,6 +21,7 @@
+>    */
+>   
+>   #include <drm/drm_auth.h>
+> +#include <drm/drm_backlight.h>
+>   #include <drm/drm_connector.h>
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_edid.h>
+> @@ -760,6 +761,7 @@ void drm_connector_cleanup(struct drm_connector *connector)
+>   	struct drm_device *dev = connector->dev;
+>   	struct drm_display_mode *mode, *t;
+>   
+> +	drm_backlight_free(connector);
+>   	/* The connector should have been removed from userspace long before
+>   	 * it is finally destroyed.
+>   	 */
+> @@ -845,6 +847,8 @@ int drm_connector_register(struct drm_connector *connector)
+>   	if (connector->registration_state != DRM_CONNECTOR_INITIALIZING)
+>   		goto unlock;
+>   
+> +	drm_backlight_register(connector->backlight);
+> +
+>   	ret = drm_sysfs_connector_add(connector);
+>   	if (ret)
+>   		goto unlock;
+> @@ -931,6 +935,8 @@ EXPORT_SYMBOL(drm_connector_dynamic_register);
+>   void drm_connector_unregister(struct drm_connector *connector)
+>   {
+>   	mutex_lock(&connector->mutex);
+> +	drm_backlight_unregister(connector->backlight);
+> +
+>   	if (connector->registration_state != DRM_CONNECTOR_REGISTERED) {
+>   		mutex_unlock(&connector->mutex);
+>   		return;
+> @@ -3252,10 +3258,16 @@ int drm_connector_set_obj_prop(struct drm_mode_object *obj,
+>   {
+>   	int ret = -EINVAL;
+>   	struct drm_connector *connector = obj_to_connector(obj);
+> +	struct drm_mode_config *config = &connector->dev->mode_config;
+>   
+>   	/* Do DPMS ourselves */
+>   	if (property == connector->dev->mode_config.dpms_property) {
+>   		ret = (*connector->funcs->dpms)(connector, (int)value);
+> +	} else if (property == config->luminance_property) {
+> +		if (connector->backlight && connector->dpms == DRM_MODE_DPMS_ON)
+> +			drm_backlight_set_luminance(connector->backlight,
+> +						    value);
+> +		ret = 0;
+>   	} else if (connector->funcs->set_property)
+>   		ret = connector->funcs->set_property(connector, property, value);
+>   
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 675675480da49..5bf402197867a 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -42,6 +42,7 @@
+>   #include <linux/xarray.h>
+>   
+>   #include <drm/drm_accel.h>
+> +#include <drm/drm_backlight.h>
+>   #include <drm/drm_bridge.h>
+>   #include <drm/drm_cache.h>
+>   #include <drm/drm_client_event.h>
+> @@ -1230,6 +1231,7 @@ static void drm_core_exit(void)
+>   	drm_privacy_screen_lookup_exit();
+>   	drm_panic_exit();
+>   	accel_core_exit();
+> +	drm_backlight_exit();
+>   	unregister_chrdev(DRM_MAJOR, "drm");
+>   	drm_debugfs_remove_root();
+>   	drm_sysfs_destroy();
+> @@ -1253,6 +1255,12 @@ static int __init drm_core_init(void)
+>   	drm_debugfs_init_root();
+>   	drm_debugfs_bridge_params();
+>   
+> +	ret = drm_backlight_init();
+> +	if (ret < 0) {
+> +		DRM_ERROR("Cannot initialize backlight interface\n");
+> +		goto error;
+> +	}
+> +
+>   	ret = register_chrdev(DRM_MAJOR, "drm", &drm_stub_fops);
+>   	if (ret < 0)
+>   		goto error;
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+> index 66f7dc37b5970..25c5d29694624 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -32,6 +32,7 @@
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_colorop.h>
+>   #include <linux/dma-resv.h>
+> +#include <drm/drm_backlight.h>
+>   
+>   #include "drm_crtc_internal.h"
+>   #include "drm_internal.h"
+> @@ -407,6 +408,12 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
+>   		return -ENOMEM;
+>   	dev->mode_config.size_hints_property = prop;
+>   
+> +	prop = drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC,
+> +					 "LUMINANCE", 0, 0);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.luminance_property = prop;
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+> index 21fc9deda4371..a50d33af95e8c 100644
+> --- a/drivers/gpu/drm/drm_mode_object.c
+> +++ b/drivers/gpu/drm/drm_mode_object.c
+> @@ -30,6 +30,7 @@
+>   #include <drm/drm_mode_object.h>
+>   #include <drm/drm_plane.h>
+>   #include <drm/drm_print.h>
+> +#include <drm/drm_backlight.h>
+>   
+>   #include "drm_crtc_internal.h"
+>   
+> @@ -287,11 +288,72 @@ int drm_object_property_set_value(struct drm_mode_object *obj,
+>   {
+>   	int i;
+>   
+> -	WARN_ON(drm_drv_uses_atomic_modeset(property->dev) &&
+> -		!(property->flags & DRM_MODE_PROP_IMMUTABLE));
+> +	/* Exempt dpms and luminance properties from the atomic warning, as these
+> +	 * have special interdependencies managed internally in this function
+> +	 */
+> +	if (obj->type == DRM_MODE_OBJECT_CONNECTOR) {
+> +		struct drm_connector *connector = obj_to_connector(obj);
+> +		struct drm_mode_config *config = &connector->dev->mode_config;
+> +
+> +		if (property != config->dpms_property &&
+> +		    property != config->luminance_property) {
+> +			WARN_ON(drm_drv_uses_atomic_modeset(property->dev) &&
+> +				!(property->flags & DRM_MODE_PROP_IMMUTABLE));
+> +		}
+> +	} else {
+> +		WARN_ON(drm_drv_uses_atomic_modeset(property->dev) &&
+> +			!(property->flags & DRM_MODE_PROP_IMMUTABLE));
+> +	}
+>   
+>   	for (i = 0; i < obj->properties->count; i++) {
+> +		/* If properties depends on each other
+> +		 * this is where to resolve that issue
+> +		 */
+>   		if (obj->properties->properties[i] == property) {
+> +			/* Connector-specific property interdependencies */
+> +			if (obj->type == DRM_MODE_OBJECT_CONNECTOR) {
+> +				struct drm_connector *connector = obj_to_connector(obj);
+> +				struct drm_property *dpms_property =
+> +					connector->dev->mode_config.dpms_property;
+> +				struct drm_property *luminance_property =
+> +					connector->dev->mode_config.luminance_property;
+> +
+> +				if (property == dpms_property) {
+> +					/* When DPMS goes from ON -> OFF,
+> +					 * set the brightness to the minimum possible
+> +					 * to save power.
+> +					 */
+> +					if (obj->properties->values[i] !=
+> +					    DRM_MODE_DPMS_OFF &&
+> +					    val == DRM_MODE_DPMS_OFF)
+> +						drm_backlight_set_luminance(
+> +							connector->backlight, 0);
+> +					/* When DPMS OFF -> ON, reset the brightness
+> +					 * to the original level
+> +					 */
+> +					else if (obj->properties->values[i] ==
+> +						 DRM_MODE_DPMS_OFF &&
+> +						 val != DRM_MODE_DPMS_OFF) {
+> +						uint64_t value;
+> +
+> +						drm_object_property_get_value(
+> +							obj, luminance_property,
+> +							&value);
+> +						drm_backlight_set_luminance(
+> +							connector->backlight, value);
+> +					}
+> +				} else if (property == luminance_property) {
+> +					/* Always update the property value to remember
+> +					 * the user's desired brightness, but only update
+> +					 * hardware when DPMS is ON.
+> +					 */
+> +					obj->properties->values[i] = val;
+> +					if (connector->dpms == DRM_MODE_DPMS_ON)
+> +						drm_backlight_set_luminance(
+> +							connector->backlight, val);
+> +					return 0;
+> +				}
+> +			}
+>   			obj->properties->values[i] = val;
+>   			return 0;
+>   		}
+> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+> index ef4e923a87284..8609e1660f210 100644
+> --- a/drivers/gpu/drm/drm_sysfs.c
+> +++ b/drivers/gpu/drm/drm_sysfs.c
+> @@ -11,6 +11,7 @@
+>    */
+>   
+>   #include <linux/acpi.h>
+> +#include <linux/backlight.h>
+>   #include <linux/component.h>
+>   #include <linux/device.h>
+>   #include <linux/err.h>
+> @@ -27,6 +28,7 @@
+>   #include <drm/drm_device.h>
+>   #include <drm/drm_file.h>
+>   #include <drm/drm_modes.h>
+> +#include <drm/drm_backlight.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_property.h>
+>   #include <drm/drm_sysfs.h>
+> @@ -391,15 +393,35 @@ int drm_sysfs_connector_add(struct drm_connector *connector)
+>   
+>   int drm_sysfs_connector_add_late(struct drm_connector *connector)
+>   {
+> -	if (connector->ddc)
+> -		return sysfs_create_link(&connector->kdev->kobj,
+> -					 &connector->ddc->dev.kobj, "ddc");
+> +	if (connector->ddc) {
+> +		int ret = sysfs_create_link(&connector->kdev->kobj,
+> +					    &connector->ddc->dev.kobj, "ddc");
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (connector->backlight) {
+> +		struct backlight_device *bd = drm_backlight_get_device(connector->backlight);
+> +
+> +		if (bd) {
+> +			int ret = sysfs_create_link(&connector->kdev->kobj,
+> +						    &bd->dev.kobj, "backlight");
+> +			if (ret) {
+> +				if (connector->ddc)
+> +					sysfs_remove_link(&connector->kdev->kobj, "ddc");
+> +				return ret;
+> +			}
+> +		}
+> +	}
+>   
+>   	return 0;
+>   }
+>   
+>   void drm_sysfs_connector_remove_early(struct drm_connector *connector)
+>   {
+> +	if (connector->backlight && drm_backlight_get_device(connector->backlight))
+> +		sysfs_remove_link(&connector->kdev->kobj, "backlight");
+> +
+>   	if (connector->ddc)
+>   		sysfs_remove_link(&connector->kdev->kobj, "ddc");
+>   }
+> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
+> index cd1a161ae7bc6..13954c2220b7e 100644
+> --- a/drivers/video/backlight/backlight.c
+> +++ b/drivers/video/backlight/backlight.c
+> @@ -126,6 +126,9 @@ static void backlight_generate_event(struct backlight_device *bd,
+>   	case BACKLIGHT_UPDATE_HOTKEY:
+>   		envp[0] = "SOURCE=hotkey";
+>   		break;
+> +	case BACKLIGHT_UPDATE_DRM:
+> +		envp[0] = "SOURCE=drm";
+> +		break;
+>   	default:
+>   		envp[0] = "SOURCE=unknown";
+>   		break;
+> @@ -579,6 +582,20 @@ int backlight_unregister_notifier(struct notifier_block *nb)
+>   }
+>   EXPORT_SYMBOL(backlight_unregister_notifier);
+>   
+> +/**
+> + * backlight_notify_brightness - notify brightness change to listeners
+> + * @bd: backlight device that changed
+> + *
+> + * Notify registered listeners that the backlight brightness has changed.
+> + * This is called automatically after successful brightness updates.
+> + */
+> +void backlight_notify_brightness(struct backlight_device *bd)
+> +{
+> +	blocking_notifier_call_chain(&backlight_notifier,
+> +				     BACKLIGHT_BRIGHTNESS_CHANGED, bd);
+> +}
+> +EXPORT_SYMBOL(backlight_notify_brightness);
+> +
+>   /**
+>    * devm_backlight_device_register - register a new backlight device
+>    * @dev: the device to register
+> diff --git a/include/drm/drm_backlight.h b/include/drm/drm_backlight.h
+> new file mode 100644
+> index 0000000000000..e0e09e38f7c06
+> --- /dev/null
+> +++ b/include/drm/drm_backlight.h
+> @@ -0,0 +1,51 @@
+> +/* SPDX-License-Identifier: MIT */
+> +#ifndef __DRM_BACKLIGHT_H__
+> +#define __DRM_BACKLIGHT_H__
+> +
+> +/*
+> + * Copyright (c) 2014 David Herrmann <dh.herrmann at gmail.com>
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/types.h>
+> +
+> +struct backlight_device;
+> +struct drm_backlight;
+> +struct drm_connector;
+> +struct drm_device;
+> +struct drm_mode_object;
+> +
+> +int drm_backlight_init(void);
+> +void drm_backlight_exit(void);
+> +
+> +int drm_backlight_alloc(struct drm_connector *connector);
+> +void drm_backlight_free(struct drm_connector *connector);
+> +void drm_backlight_register(struct drm_backlight *b);
+> +void drm_backlight_unregister(struct drm_backlight *b);
+> +
+> +void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd);
+> +struct backlight_device *drm_backlight_get_device(struct drm_backlight *b);
+> +void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
+> +void drm_backlight_inhibit_legacy(struct drm_backlight *b);
+> +void drm_backlight_uninhibit_legacy(struct drm_backlight *b);
+> +void drm_backlight_inhibit_legacy_all(struct drm_device *dev);
+> +void drm_backlight_uninhibit_legacy_all(struct drm_device *dev);
+> +#endif /* __DRM_BACKLIGHT_H__ */
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 5ad62c207d009..d78ac1068d12e 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -2410,6 +2410,9 @@ struct drm_connector {
+>   	 * @cec: CEC-related data.
+>   	 */
+>   	struct drm_connector_cec cec;
+> +
+> +	/* backlight link */
+> +	struct drm_backlight *backlight;
+>   };
+>   
+>   #define obj_to_connector(x) container_of(x, struct drm_connector, base)
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index e584652ddf676..b6d88319d5d0f 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -852,6 +852,11 @@ struct drm_mode_config {
+>   	 * the position of the output on the host's screen.
+>   	 */
+>   	struct drm_property *suggested_y_property;
+> +	/**
+> +	 * @luminance_property: Default connector property to control the
+> +	 * connector's backlight luminance.
+> +	 */
+> +	struct drm_property *luminance_property;
+>   
+>   	/**
+>   	 * @non_desktop_property: Optional connector property with a hint
+> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
+> index 204eea9256fd7..26a7281d179c1 100644
+> --- a/include/linux/backlight.h
+> +++ b/include/linux/backlight.h
+> @@ -29,6 +29,7 @@ enum backlight_update_reason {
+>   	 * @BACKLIGHT_UPDATE_SYSFS: The backlight was updated using sysfs.
+>   	 */
+>   	BACKLIGHT_UPDATE_SYSFS,
+> +	BACKLIGHT_UPDATE_DRM,
+>   };
+>   
+>   /**
+> @@ -80,6 +81,11 @@ enum backlight_notification {
+>   	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
+>   	 */
+>   	BACKLIGHT_UNREGISTERED,
+> +
+> +	/**
+> +	 * @BACKLIGHT_BRIGHTNESS_CHANGED: The backlight brightness has changed.
+> +	 */
+> +	BACKLIGHT_BRIGHTNESS_CHANGED,
+>   };
+>   
+>   /** enum backlight_scale - the type of scale used for brightness values
+> @@ -310,6 +316,9 @@ struct backlight_device {
+>   	int use_count;
+>   };
+>   
+> +/* Forward declaration for backlight_update_status */
+> +void backlight_notify_brightness(struct backlight_device *bd);
+> +
+>   /**
+>    * backlight_update_status - force an update of the backlight device status
+>    * @bd: the backlight device
+> @@ -323,6 +332,10 @@ static inline int backlight_update_status(struct backlight_device *bd)
+>   		ret = bd->ops->update_status(bd);
+>   	mutex_unlock(&bd->update_lock);
+>   
+> +	/* Notify DRM and other listeners that brightness changed */
+> +	if (ret == 0)
+> +		backlight_notify_brightness(bd);
+> +
+>   	return ret;
+>   }
+>   
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
