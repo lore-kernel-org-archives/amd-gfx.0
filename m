@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FAFCDE008
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 08:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F530CD4F26
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 08:56:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C83B10E33E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6BD10E333;
 	Fri, 26 Jun 2026 08:56:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="R4hgFkZS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BkQW1Bf8";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6512710E34A
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 08:56:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3501910F3E7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 08:56:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,25 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=xoJdTBQZdVm4a0YefFfdbw8z7s5cLiJiMTkW4rq8BHE=; b=R4hgFkZSShl9EKF8PlByk3QTzO
- FhdNbWPdup2ZJWpaEOtNBf06ZCMslEDR/2cGfxnsO7ybKNfwhfi8tC0YUDy5mbsY+JZm75OMagKBy
- s2jHFuBpltDHIZnFLeIylGdaYO6pXZ3/V7aDkl+6jP3tqVWL3RlCQGhvP1E1dxRyShhODgySJ25vC
- O5Uf3qaq1ZIf6r2F6E+iQ2xo7IgkLGSEKIV74MGpJFzWo8QA/WQPd1218OTfynf/jAI6DmOdpftRp
- Onrx64/HU2RVi5g93xvgcGmgqhVlVa+Jem8j8Zh5B+hv/VPG5cXycoSHkycXXdD9qYtRC2OgVojFc
- KqV+lTXw==;
+ bh=kZKSh8ZEB9n0xi77rNhswLVtpX36HvQmo7+c1HLM+tE=; b=BkQW1Bf8A+ZhuzIkq5zMMcPigT
+ AZHEYugA+mTjaXl0+/deCPa0qZx5Rvsr9OeRm6Y0T3zpEb7lutTCM0bQSNrQt8AEALR9RRSVb/Lzy
+ irIxbnR8B+35BK+lXJZD2UPLGHnMGxPGCwvnvT0cSmj+X9Os5TqpWHI2Xh/iMbsewGHNst5i7eDwc
+ p3SUPuXfK0tDxuO1XEMR/fn/b/nq+x/gQC6jC7fZFiP83rHMsH95aJCfLnraIiWYFd8XTrdjT67l0
+ SZKkyZrpl0VtZEcDlqlVYD3qEvftGumxSLx5IGJdXbOJIR0PeAVrk3QNV+Zc03JZmGGgUwKp3Nhmj
+ 7p4wjsqw==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wd2M0-005Pwm-Fy; Fri, 26 Jun 2026 10:56:04 +0200
+ id 1wd2M1-005Pwt-8t; Fri, 26 Jun 2026 10:56:05 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/3] drm/amdgpu: Save some cycles on the job submission path
-Date: Fri, 26 Jun 2026 09:55:57 +0100
-Message-ID: <20260626085558.97923-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 3/3] drm/amdgpu: Do not fiddle with the idle workers too much
+Date: Fri, 26 Jun 2026 09:55:58 +0100
+Message-ID: <20260626085558.97923-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260626085558.97923-1-tvrtko.ursulin@igalia.com>
 References: <20260626085558.97923-1-tvrtko.ursulin@igalia.com>
@@ -61,128 +61,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Every job submission on the Steam Deck ends up walking the list of IP
-blocks looking for AMD_IP_BLOCK_TYPE_SMC. Half of the call chain is like
-the below, while the second half is from amdgpu_gfx_profile_ring_end_use:
-
- amdgpu_gfx_profile_ring_begin_use
-  amdgpu_dpm_is_overdrive_enabled
-   is_support_sw_smu
-    amdgpu_device_ip_is_valid
-
-On a game menu screen at 90Hz refresh rate we end up with ~840 calls per
-second which sticks out when the submission worker is profiled with perf:
-
-  13.78%  [kernel]  [k] __lock_text_start
-  10.86%  [kernel]  [k] __lookup_object
-   8.76%  [kernel]  [k] __mod_timer
-   4.94%  [kernel]  [k] queued_spin_lock_slowpath
-   1.66%  [kernel]  [k] amdgpu_device_ip_is_valid
-   1.54%  [kernel]  [k] preempt_count_add
-   1.42%  [kernel]  [k] amdgpu_sync_peek_fence
-   1.18%  [kernel]  [k] amdgpu_vmid_grab
-   1.17%  [kernel]  [k] amdgpu_ib_schedule
-   1.14%  [kernel]  [k] kthread_worker_fn
-
-Lets short-circuit this walk by simply caching the result of
-is_support_sw_smu() in the device.
-
-This is a micro-improvement but it is at least conceptually nicer to avoid
-repeating the same walk so much.
+Idle workers only need to be canceled or pushed back if we are potentially
+idle. Make the both operations conditional on the pre-increment and post-
+decrement status of the in-flight job counter.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Timur Kristóf <timur.kristof@gmail.com>
 ---
-v2:
- * Approach changed to cache sw_smu status only.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  3 +++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 14 +++++---------
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  8 +++++++-
- 4 files changed, 16 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 11 +++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c |  9 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 12 +++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    | 12 +++++-------
+ 4 files changed, 20 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 7b09410d6d8f..9803967d15f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -851,6 +851,7 @@ struct amdgpu_device {
- 	struct dev_pm_domain		vga_pm_domain;
- 	bool				have_disp_power_ref;
- 	bool                            have_atomics_support;
-+	bool				is_sw_smu;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 85372af1216d..623a5339bc47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2460,9 +2460,8 @@ void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring)
+ 	else
+ 		profile = PP_SMC_POWER_PROFILE_COMPUTE;
  
- 	/* BIOS */
- 	bool				is_atom_fw;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 1e6b75ecafe4..7f935a5778b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -74,6 +74,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_ras_mgr.h"
- #include "amdgpu_pmu.h"
-+#include "amdgpu_smu.h"
- #include "amdgpu_fru_eeprom.h"
- #include "amdgpu_reset.h"
- #include "amdgpu_virt.h"
-@@ -2130,6 +2131,8 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 	adev->cg_flags &= amdgpu_cg_mask;
- 	adev->pg_flags &= amdgpu_pg_mask;
+-	atomic_inc(&adev->gfx.total_submission_cnt);
+-
+-	cancel_delayed_work_sync(&adev->gfx.idle_work);
++	if (!atomic_fetch_inc(&adev->gfx.total_submission_cnt))
++		cancel_delayed_work_sync(&adev->gfx.idle_work);
  
-+	amdgpu_smu_early_init(adev);
-+
- 	return 0;
+ 	/* We can safely return early here because we've cancelled the
+ 	 * the delayed work so there is no one else to set it to false
+@@ -2490,9 +2489,9 @@ void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring)
+ 	if (amdgpu_dpm_is_overdrive_enabled(adev))
+ 		return;
+ 
+-	atomic_dec(&ring->adev->gfx.total_submission_cnt);
+-
+-	schedule_delayed_work(&ring->adev->gfx.idle_work, GFX_PROFILE_IDLE_TIMEOUT);
++	if (atomic_dec_and_test(&ring->adev->gfx.total_submission_cnt))
++		schedule_delayed_work(&ring->adev->gfx.idle_work,
++				      GFX_PROFILE_IDLE_TIMEOUT);
  }
  
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 208a2fba6d40..82c9ae6a5092 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -591,17 +591,13 @@ static int smu_get_power_num_states(void *handle,
- 	return 0;
- }
- 
--bool is_support_sw_smu(struct amdgpu_device *adev)
-+void amdgpu_smu_early_init(struct amdgpu_device *adev)
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 63ee6ba6a931..57935c321515 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -134,8 +134,8 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *ring)
  {
- 	/* vega20 is 11.0.2, but it's supported via the powerplay code */
--	if (adev->asic_type == CHIP_VEGA20)
--		return false;
--
--	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) >= IP_VERSION(11, 0, 0)) &&
--	    amdgpu_device_ip_is_valid(adev, AMD_IP_BLOCK_TYPE_SMC))
--		return true;
--
--	return false;
-+	adev->is_sw_smu = adev->asic_type != CHIP_VEGA20 &&
-+			  (amdgpu_ip_version(adev, MP1_HWIP, 0) >=
-+			   IP_VERSION(11, 0, 0) &&
-+			   amdgpu_device_ip_is_valid(adev, AMD_IP_BLOCK_TYPE_SMC));
+ 	struct amdgpu_device *adev = ring->adev;
+ 
+-	atomic_inc(&adev->jpeg.total_submission_cnt);
+-	cancel_delayed_work_sync(&adev->jpeg.idle_work);
++	if (!atomic_fetch_inc(&adev->jpeg.total_submission_cnt))
++		cancel_delayed_work_sync(&adev->jpeg.idle_work);
+ 
+ 	mutex_lock(&adev->jpeg.jpeg_pg_lock);
+ 	amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_JPEG,
+@@ -145,8 +145,9 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *ring)
+ 
+ void amdgpu_jpeg_ring_end_use(struct amdgpu_ring *ring)
+ {
+-	atomic_dec(&ring->adev->jpeg.total_submission_cnt);
+-	schedule_delayed_work(&ring->adev->jpeg.idle_work, JPEG_IDLE_TIMEOUT);
++	if (atomic_dec_and_test(&ring->adev->jpeg.total_submission_cnt))
++		schedule_delayed_work(&ring->adev->jpeg.idle_work,
++				      JPEG_IDLE_TIMEOUT);
  }
  
- bool is_support_cclk_dpm(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index d76e0b005308..efc52d97058b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -1952,7 +1952,13 @@ int smu_link_reset(struct smu_context *smu);
+ int amdgpu_jpeg_dec_ring_test_ring(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index b261aa7c1ba8..8d2abf706dfd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -506,9 +506,8 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_vcn_inst *vcn_inst = &adev->vcn.inst[ring->me];
  
- extern const struct amd_ip_funcs smu_ip_funcs;
+-	atomic_inc(&vcn_inst->total_submission_cnt);
+-
+-	cancel_delayed_work_sync(&vcn_inst->idle_work);
++	if (!atomic_fetch_inc(&vcn_inst->total_submission_cnt))
++		cancel_delayed_work_sync(&vcn_inst->idle_work);
  
--bool is_support_sw_smu(struct amdgpu_device *adev);
-+void amdgpu_smu_early_init(struct amdgpu_device *adev);
-+
-+static inline bool is_support_sw_smu(struct amdgpu_device *adev)
-+{
-+	return adev->is_sw_smu;
-+}
-+
- bool is_support_cclk_dpm(struct amdgpu_device *adev);
- int smu_write_watermarks_table(struct smu_context *smu);
+ 	mutex_lock(&vcn_inst->vcn_pg_lock);
+ 	vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
+@@ -550,10 +549,9 @@ void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring)
+ 	    !adev->vcn.inst[ring->me].using_unified_queue)
+ 		atomic_dec(&ring->adev->vcn.inst[ring->me].dpg_enc_submission_cnt);
  
+-	atomic_dec(&ring->adev->vcn.inst[ring->me].total_submission_cnt);
+-
+-	schedule_delayed_work(&ring->adev->vcn.inst[ring->me].idle_work,
+-			      VCN_IDLE_TIMEOUT);
++	if (atomic_dec_and_test(&ring->adev->vcn.inst[ring->me].total_submission_cnt))
++		schedule_delayed_work(&ring->adev->vcn.inst[ring->me].idle_work,
++				      VCN_IDLE_TIMEOUT);
+ }
+ 
+ int amdgpu_vcn_dec_ring_test_ring(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 8b8184fe6764..0d8a3cea63ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -159,9 +159,8 @@ static void vcn_v2_5_ring_begin_use(struct amdgpu_ring *ring)
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_vcn_inst *v = &adev->vcn.inst[ring->me];
+ 
+-	atomic_inc(&adev->vcn.inst[0].total_submission_cnt);
+-
+-	cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work);
++	if (!atomic_fetch_inc(&adev->vcn.inst[0].total_submission_cnt))
++		cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work);
+ 
+ 	/* We can safely return early here because we've cancelled the
+ 	 * the delayed work so there is no one else to set it to false
+@@ -207,10 +206,9 @@ static void vcn_v2_5_ring_end_use(struct amdgpu_ring *ring)
+ 	    !adev->vcn.inst[ring->me].using_unified_queue)
+ 		atomic_dec(&adev->vcn.inst[ring->me].dpg_enc_submission_cnt);
+ 
+-	atomic_dec(&adev->vcn.inst[0].total_submission_cnt);
+-
+-	schedule_delayed_work(&adev->vcn.inst[0].idle_work,
+-			      VCN_IDLE_TIMEOUT);
++	if (atomic_dec_and_test(&adev->vcn.inst[0].total_submission_cnt))
++		schedule_delayed_work(&adev->vcn.inst[0].idle_work,
++				      VCN_IDLE_TIMEOUT);
+ }
+ 
+ /**
 -- 
 2.54.0
 
