@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64BBDCDE017
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1260FCDE019
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7E8D10F4A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC00110F4B5;
 	Fri, 26 Jun 2026 07:54:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="VF3kHbnc";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="WXjh8aBX";
 	dkim-atps=neutral
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E454A10E2A1
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 03:00:24 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-1397e093f90so1755068c88.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 20:00:24 -0700 (PDT)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E7810F3F4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 02:51:25 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-30b9e755555so1358306eec.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 19:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782442824; x=1783047624; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1782442285; x=1783047085; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
  bh=Yq2opASfg/ddj/DpE+EyMQATEY25HCM9sOHt/sCT3XM=;
- b=VF3kHbncwjiavamhDe506pLyLvitlXD2mwS4kS3Fd0glNuc/ZR/U0rnU/LCE4ooJ17
- hxo9EPi9gZ6DUIo2pT2gK+HLV/9oQ14VWvF3OylHO5QccEZ5omr8chJDlh7MnT8ZRWEn
- gdv7TzXAeOoUhQEnS7WYQkUyoOo7bqzhXHB7EtBYjB01oS/YGpTsQTQ20Kxg7n1HFV64
- QcGnMeEgyq4efv/XnA9r8+rfdcU1fF3ft7SYw7gYoTtmnSyvLeGICrFzkTvBsekMUF1z
- PWz5n3rpG/7CaBI4jzNuFcQaSP/7saCriOenvV3Sal7UKyxKfJ1z1hZSADadieSlUXEI
- NVDQ==
+ b=WXjh8aBXiK9962QVd7z2o0X5xdOlRO+Uqw1Lb5n9vOD4wKd5rA0Xw8hL9Z4gZvdUnp
+ 31z1DtioUafPEXwmMifZDlbabUHG7ai706grS5QsVBzGZt/vA0Qtreg+R5AMuCa4UV7y
+ H8CgT+ZyARhNhQVK4qCXCUYquBRwkpKFuL82Mrv0TXZ3/ZjYUOjyh+c04+4tdTD9Ixbb
+ 6pzTKUBYS1niMVBimGPHoHd+u0qso+dQFSy/177MMivs/abP78LylUf+2O93qI2uMy7G
+ yQhpAYP4nzvxXAeEXmujgOxBn73yY4sdomrq8LB/aJcru/D91brAsA018Da2xd3Xx+YR
+ xg8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782442824; x=1783047624;
+ d=1e100.net; s=20251104; t=1782442285; x=1783047085;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
  bh=Yq2opASfg/ddj/DpE+EyMQATEY25HCM9sOHt/sCT3XM=;
- b=Kytn8hi4IeYW93tzO1lLIVjNm47RbcjX0+eRI5/rWwsk6/i9ViNACixujXzIuJDUYH
- UnGY/UVVjyM5Sibfd0sefWYGQFteMusxVEkik8j/I/3y+EsQbnsrinn+hJdBasaj1ebJ
- qha/T588Kpjm3XbJ3Z7eSqXoC6tQRohVN6Jipu4EdQ5laqzOO8XcgPNsv8J7S22BVI0W
- TZfU3svaRqeApI3X+xKJFDhR0mL8vSLVjM57OJeUkbBCuPWmWod0QwLrv2oShY+T/Tt9
- ujlfFBPLIF973KRRNOELVoX2zOeRwzUNH0xvxuenLE7Slbr+yxTHEBfE+vL+E6aUVjTs
- Mi7Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+3Vf3ZeSiTFoaGtR1A2Mki0MdIONZHKWPlmQDVOl+w9hvQ+pIPaSh3DmpuBJ2sYEdJbuIXNRs5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxuVAQdaeDS4EVfEwgrI1Ugc8KtOyQ+4NRzn1uuqxUaQ+SydaTN
- oqYBTdDj6adhD21x6rAoTpkXm4LXHEpeobRB/uP+nRKdvuYkV/tw8svrmpYeGpxYxS0=
-X-Gm-Gg: AfdE7ckLy3M/0ZbvjD1/gDPjGqVKv5TjbTqanlH4lBl9u8wGCbkU2OfQqvnGgiJJmZD
- GY870xBobapMoZ0swh8LOyHlJ3k/rI3IG5JQmI98YFotqUVgFzHBt5P7/QR3EzPpWwte9X03FwF
- AtOjaQmlsUVEJ5MC4gnUXxMlgLittA5k73NhegpwfknDPVRw3/V5Frb0+eRtyuReW36H9siQVCt
- LOTu5wGTJGF0lTtE3YJZuDIywpUf9rrJc621B2oec2F8TtDoDkzMD/X16LSPcoAenAg7Fr1z8n4
- WCgA+R5csBic4OuV28Ro0hRUn6+5MMGFbHiYT/pjeiGbckAMYEaRTBvXlArDd7R2FD/klNKx8K0
- OYdO6i8xahVVCbVm2G9jLlz1ME4G5S6QNQXNanb1e4xTFfv/EiAV2ck6hHXxj2RLBS6Ezn/14iS
- 4pYTymkwl1twA/vVpIu49e5aJScDxKWao3Nonik5vHG0Lu0aj2naU5wqNctsC1Qyz+aER3zA==
-X-Received: by 2002:a05:7022:390:b0:139:c4e3:9499 with SMTP id
- a92af1059eb24-139db9edd39mr4209752c88.2.1782442824088; 
- Thu, 25 Jun 2026 20:00:24 -0700 (PDT)
+ b=N9a4CieaozEwuQ561WC4FrQpMuWicH9ZmiNzAcuMMH83lt5hR6fbjxW21r3zJxlUMc
+ FE1klgFZTGXbU68RcPrSmDp+Jc06nOyT8QL8cWH9Sc0aiaOqnB5eyV+JVnf3ddgJUqcy
+ dSGSuE/SAn0PcTNk7M2av8XilbetQHjz0R1l+ZJZswhTj74tqDNMJ0+BUXEIzr0KwW3q
+ VSnzknT9yy+obwRiME2tBPDoAX+oVDb4X5mFDCMi39Iiv4xXJ9het69x+D79RilEzGxT
+ PbtNBf0W3czT1ae/8VcG6K9Eu4r+0XVB1bfEia0td+BP3buOqklBqlyOc7RELu93ROJO
+ GGug==
+X-Gm-Message-State: AOJu0Yx+mTNOFfbSN+3ShwfwKUX8jc0EJjcGfGSlrYhZ2aqEx5m8YXm7
+ CXJRKVquNWu0bzRIISKreaJ1dLQEZpEtJddsJ1LD5rrpAFVohImL9BdDekBwK5qQaT+FoXpQd6c
+ cp1MaNr8GTA==
+X-Gm-Gg: AfdE7clMalQJDo6pjQ6hhSPJPsiSJI7lMKsr6P+oUzOw8kUpn0x6TF/Sd4+0UJfTjOF
+ z+4BKqaFrP2ZKXpTR+GwwYtvkC3w3d4v3XSzsWAGcxPHWAIZyUi8p41/SPC+pLvIM9bD8onLWwJ
+ 3+S60lcONz5vhuTBKWaISnInf4Y5TzyEHeCBqe0/+MezzTlEByag4AuimBzvDVtkVk5Y46auQl9
+ YL2f7JjwqSz/3srMT9EZP82QPekaggb64hQkGdsM/dtf2WcWu9Hz22is5zuqcKAbCGrOx2Oj1Fl
+ RWWcRIOmG2syMwk406i2CuJBXGD4sDucQpULOHq7d/dznSIha7mUUj/JzMcn09tN/rrkz7Qs4lj
+ ms2Eb+MeuD1Tey62tAZvVnQ9JuVTzdAs/ig/1q441c64+xiur8ahQXSPzRCGrJuziciSSba7KTv
+ 6GCka110huT5hjlkaTGZoi2rsuPYbivEmVcRdyry8aPqmVOHGtlfFV+Yl1pyB32muO8OV8ZA==
+X-Received: by 2002:a05:7300:7b91:b0:30b:c40f:de0c with SMTP id
+ 5a478bee46e88-30c84bfeac9mr4973357eec.10.1782442284740; 
+ Thu, 25 Jun 2026 19:51:24 -0700 (PDT)
 Received: from voyager.. ([179.119.40.186]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-139d8f6acf9sm13048415c88.6.2026.06.25.20.00.21
+ 5a478bee46e88-30c7ca438ddsm12905797eec.23.2026.06.25.19.51.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 20:00:23 -0700 (PDT)
+ Thu, 25 Jun 2026 19:51:23 -0700 (PDT)
 From: Tiago Dourado <tiagodourado@usp.br>
-To: kernel@lists.ime.usp.br, airlied@gmail.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, simona@ffwll.ch
-Cc: Tiago Dourado <tiagodourado@usp.br>,
- Luiz Fernandes <luiz.f.f.fernandes@usp.br>, amd-gfx@lists.freedesktop.org,
+To: amd-gfx@lists.freedesktop.org, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch
+Cc: luiz.f.f.fernandes@usp.br, Tiago Dourado <tiagodourado@usp.br>,
  dri-devel@lists.freedesktop.org
 Subject: [PATCH v2 1/2] drm/amdgpu/jpeg: deduplicate jpeg_v3_0
  process_interrupt
-Date: Thu, 25 Jun 2026 23:59:12 -0300
-Message-ID: <20260626030013.20569-2-tiagodourado@usp.br>
+Date: Thu, 25 Jun 2026 23:47:23 -0300
+Message-ID: <20260626024948.19131-2-tiagodourado@usp.br>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260626030013.20569-1-tiagodourado@usp.br>
-References: <20260626030013.20569-1-tiagodourado@usp.br>
+In-Reply-To: <20260626024948.19131-1-tiagodourado@usp.br>
+References: <20260626024948.19131-1-tiagodourado@usp.br>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:54:04 +0000
