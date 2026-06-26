@@ -4,96 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13AE1C43211
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 14:44:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81E61C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 16:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A19C210F61E;
-	Fri, 26 Jun 2026 14:44:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1421710E3C3;
+	Fri, 26 Jun 2026 16:10:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KIRKpC6p";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g58uvLvi";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010002.outbound.protection.outlook.com [52.101.85.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEC9C10F61E
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 14:44:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yCOTw3jp/REYadNV+JrZJggpCTpWlaYcXntdcuf9OVg53mr5llA4iIWpr+djCeiaQXGSdc+QdN5bg2jFZtMmMr/+9gf1DQTcUsuE+CcV7Zm5Dp8utTmCLKVAaEviQyncSxbSMxGB8+cXf4+AQsoHjb2wtfvhyeMmuqQF7F5gG+GCbS6RktQN5GMJ8IwQYau+GCBqbXc+dx1RHKm9a9GZdCSCNkq+jtPgZE/h62TP//P3jquJi/ucZcMnzxalg6UuLDbZHKw+/1pdnz3GyEfoBl5WA2x+kNrjXzf88r3WHGUbYCFv1PRaPuvMRvxF0XEcNYBqPPAZtu6RRhd+9GgcOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TdEVS1BfZ3bFiLhA8/NbmIHaVHdV5CkU6WvWbUcDpNc=;
- b=ykD/jndYGOI7T4bENGNyHFTMKX/ysMhG52Rt6brU5UFf71ZKKcIiKGh48RGVoSzcrqUZsZES6kedO8r2GqpnrWst7XBABZCHuEW8miTttzhnIKzgwpB93mgxbD/DnXCfmpUAof2Sr+8tlGdO7o6o3Ei8vYWtgcq/4bJ2duqrXYr6f5dtgYFyLM2zmBkJP4AUJ3LbqjFpoRc9piN+6okBw8Q4ikwcVwRF6DcHEB8IKYnUiyRwdegomzT1wINS4WQaCvjsjBogebe3HKR3C8zP1su+P0nBNhabyIbLy/IKTthS+rX5kZLJqoBmuIUjj9ze58U4gr5URhaRdxuJuALNPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TdEVS1BfZ3bFiLhA8/NbmIHaVHdV5CkU6WvWbUcDpNc=;
- b=KIRKpC6pQtxC52rQ5QgzvtUhIYZSgIwJeGNBsc8tDbIxXF6NzW6dcWsQ282F+68Epkd8nGte7QX2I/QIiFjcxRaUm/bAkO6IqGCy1HPrnv7Lxytbms2JC5S32vxRuFiYW5f4Y8cVYJa/wALiCWs6o7WNF52IbzNNgZfZczAAbi4=
-Received: from SJ0PR03CA0174.namprd03.prod.outlook.com (2603:10b6:a03:338::29)
- by MN0PR12MB6366.namprd12.prod.outlook.com (2603:10b6:208:3c1::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 14:43:55 +0000
-Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
- (2603:10b6:a03:338:cafe::49) by SJ0PR03CA0174.outlook.office365.com
- (2603:10b6:a03:338::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Fri,
- 26 Jun 2026 14:43:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 14:43:55 +0000
-Received: from atitest-Rembrandt.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Fri, 26 Jun 2026 09:43:54 -0500
-From: <boyuan.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <leo.liu@amd.com>, <alexander.deucher@amd.com>, <david.wu3@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, David Wu <David.Wu3@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu/jpeg: fix jpeg_v5_0_1_is_idle detection
-Date: Fri, 26 Jun 2026 10:43:18 -0400
-Message-ID: <20260626144319.313979-1-boyuan.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C838010E3C3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 16:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=p8IPpt/pyLro+wEocJFrjk2OlKWomIKnv1ZGPLIRg9I=; b=g58uvLviPShdGKofqOJ5U5dGjK
+ cG5pJTEQvlPiwuR+JmiVDYNumF1OgSOzeA8C9UZN3U7yRDAAE2sy3hQZ4ya815QfxBxk5Zo5L0C7/
+ hCvbaY4MSc6PpxlsRZ8V3O5h25ef2JW6So1nwHebFz+Ysr1c6eSANrr+/7NNMY5PvVu0vaa0pSp9y
+ be1hN1tv48nQ07NL38V6TyVnx7tnsetuatcuNaii6RMa02601u3pwwZI1aFHZ2TavFECiotIr0UPD
+ Qi4fJFCwHBTbOPpXJOeDh1jdY9KNv1AG/Ay1IqHw31e+cJ6ruXvMEBsLT0hJrBqBs5117ziDYCoPA
+ RT3pSavw==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wd980-005Zq8-IU; Fri, 26 Jun 2026 18:10:04 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [RFC] drm/amdgpu: Simplify amdgpu_vmid_grab?
+Date: Fri, 26 Jun 2026 17:10:02 +0100
+Message-ID: <20260626161002.13908-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|MN0PR12MB6366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d6b2598-17f1-4108-34b5-08ded391590c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: rssN6yapCkpEg7kzhEKrqvWYkc7SFddzpiSa5dUDA1u4x+SZldrU5pA69YwkO8GxKUW/9ziTLSVCgK1eFwPuJJLPSee+3109Vnp7UjmcFyQAYfsJWf1Xfk/tVy752vRG2yKJZ3nhC/yqOEqqLZXmIX5M2rVDZBf4qTQlPwqLW+sRkk0hJ/fqI+Wea2U2WpmqYdrUGpCPtGazTk6ppQffw28Vv7DoQyB42NNPnh2eObd6b2nNXIYYyOnG/tdufv5wwXX+nbb/ToJiYrk32HFuuZKNAh/SEItYznYGMX/HxrUrhP3XplCirVEYzROhIm/L83uygY/XtFo/GgZsVxSRRnfdOqKzpL5AkOxBHShObXLR+2PVX+gtsO9n1V0cvJoPtO5U55bMBV7mguKyFFUQi+lPNLpfJyGmSebJ1eAUcCxi8YhBEXw3AizPJ6wMqfprW4+/8UKnxxcexsTzmCqmGEooQ+txwae9Fggt6OQav9WD1W2i3Wm1lw9+XO1NdGrHozYn0QBiSnt67d4XyBv9bDmcSaYhs69STNyGI8uWnkRiJ+s4rFLEUtpQxE1gOlrfsvV+dIHUDv30PDAjpAsiyIsG9sOwM762U6V2+gkOiBmexKdCUh+z/tj5d7cvw7I4E+lfX37fgOhwh/oiLGCQ66cHuS/YIAXDe4J3t3W96vHdms73COzeUCr78MlGXyLnPSyld+HEJvv66nD7it1G3A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 685tbse9RhKRzrePtRhAuTOdGTDYnuvZtY/tytWRcDrsm6JTlAPEkI3XUwc0yO9/kJtD0GzGr75bb9BLaR9vSCV3CjjUd33hV29pJHCKQBeeUu+Kv/tuE+bItr2IFk1qrJFNU046vmz7toQ1hNl7lfR700NErZ9BGYvP6X8HZz0sFWWS528r36W3nZRlXVs5gGxmWhBppeo0PVmj+gypUjnh1W6o/iN11onnZCqIJacRcjZjy7QM0csPsBcIDu/TGr4NEoGFDt0LY4LvoZtnxtqUBYFwKD/u1+yeNjOj0LJUueVIXIPDH84uURIGzS/5UbAJ+yhVBc1kmq3oLUgNgYwRYIQZGbs53l/SjC/ysTASLbOvQGRAOIZ5CDII4anjRftJlQAIHMcFP2EoOKqU0O0zMM9ELtiNUBz/UH+NaC16GJdWG/mxiZmPJC/xu/Pf
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 14:43:55.0035 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d6b2598-17f1-4108-34b5-08ded391590c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E64.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6366
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,34 +57,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Boyuan Zhang <boyuan.zhang@amd.com>
+This is not a proper commit message but a conversation starter:
 
-jpeg_v5_0_1_is_idle() initializes ret to false and then accumulates ring
-idle status using &=. Since false & condition always remains false, the
-function can never report the JPEG block as idle.
+I found the flow of amdgpu_vmid_grab a bit confusing and decided to
+butcher it, heavily, to see what will happen. To my surprise, I was able
+to start a dozen of parallel 3d apps and nothing broke.
 
-Initialize ret to true so the function returns true only when all JPEG
-rings report RB_JOB_DONE.
+In no particular order:
 
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
-Reviewed-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+ - Amdgpu_vmid_grab_idle cannot return an error despite the code claims it
+   can.
+ - Also, why it is called before attempting to re-use the previously
+   assigned vmid?
+ - And why it is called before the reserved vmid path and then not used?
+ - What is the point of ring->vmid_wait? It is never cleared and isn't
+   the same effect achieved by simply waiting on the last LRU entry?
+
+What am I missing and what have I broke? :) Or if nothing, then:
+
+ 3 files changed, 64 insertions(+), 99 deletions(-)
+
+And:
+
+add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-465 (-465)
+Function                                     old     new   delta
+amdgpu_vmid_grab                            2917    2452    -465
+
+Which is not bad? Not least the clearer flow of amdgpu_vmid_grab(),
+one of the hottest functions in the submit worker after all.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c  | 159 +++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |   3 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |   1 -
+ 3 files changed, 64 insertions(+), 99 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-index a562369d2d81..01cafa6a4fed 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-@@ -674,7 +674,7 @@ static void jpeg_v5_0_1_dec_ring_set_wptr(struct amdgpu_ring *ring)
- static bool jpeg_v5_0_1_is_idle(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 124fb38eb465..37405f9ff7e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -199,48 +199,35 @@ static bool amdgpu_vmid_compatible(struct amdgpu_vmid *id,
+  * amdgpu_vmid_grab_idle - grab idle VMID
+  *
+  * @ring: ring we want to submit job to
+- * @idle: resulting idle VMID
+  * @fence: fence to wait for if no id could be grabbed
+  *
+  * Try to find an idle VMID, if none is idle add a fence to wait to the sync
+- * object. Returns -ENOMEM when we are out of memory.
++ * object.
+  */
+-static int amdgpu_vmid_grab_idle(struct amdgpu_ring *ring,
+-				 struct amdgpu_vmid **idle,
+-				 struct dma_fence **fence)
++static struct amdgpu_vmid *amdgpu_vmid_grab_idle(struct amdgpu_ring *ring,
++						 struct dma_fence **fence)
  {
- 	struct amdgpu_device *adev = ip_block->adev;
--	bool ret = false;
-+	bool ret = true;
- 	int i, j;
+ 	struct amdgpu_device *adev = ring->adev;
+-	unsigned vmhub = ring->vm_hub;
+-	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+-
+-	/* If anybody is waiting for a VMID let everybody wait for fairness */
+-	if (!dma_fence_is_signaled(ring->vmid_wait)) {
+-		*fence = dma_fence_get(ring->vmid_wait);
+-		return 0;
+-	}
++	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[ring->vm_hub];
++	struct amdgpu_vmid *idle;
  
- 	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+ 	/* Check if we have an idle VMID */
+-	list_for_each_entry_reverse((*idle), &id_mgr->ids_lru, list) {
++	list_for_each_entry_reverse(idle, &id_mgr->ids_lru, list) {
+ 		/* Don't use per engine and per process VMID at the same time */
+ 		struct amdgpu_ring *r = adev->vm_manager.concurrent_flush ?
+ 			NULL : ring;
+ 
+-		*fence = amdgpu_sync_peek_fence(&(*idle)->active, r);
++		*fence = amdgpu_sync_peek_fence(&idle->active, r);
+ 		if (!(*fence))
+-			return 0;
++			return idle;
+ 	}
+ 
+ 	/*
+ 	 * If we can't find a idle VMID to use, wait on a fence from the least
+ 	 * recently used in the hope that it will be available soon.
+ 	 */
+-	*idle = NULL;
+-	dma_fence_put(ring->vmid_wait);
+-	ring->vmid_wait = dma_fence_get(*fence);
+-
+-	/* This is the reference we return */
+ 	dma_fence_get(*fence);
+-	return 0;
++	return NULL;
+ }
+ 
+ /**
+@@ -249,34 +236,33 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_ring *ring,
+  * @vm: vm to allocate id for
+  * @ring: ring we want to submit job to
+  * @job: job who wants to use the VMID
+- * @id: resulting VMID
+  * @fence: fence to wait for if no id could be grabbed
+  *
+  * Try to assign a reserved VMID.
+  */
+-static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+-				     struct amdgpu_ring *ring,
+-				     struct amdgpu_job *job,
+-				     struct amdgpu_vmid **id,
+-				     struct dma_fence **fence)
++static struct amdgpu_vmid *
++amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
++			  struct amdgpu_ring *ring,
++			  struct amdgpu_job *job,
++			  struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	unsigned vmhub = ring->vm_hub;
+ 	uint64_t fence_context = adev->fence_context + ring->idx;
+ 	bool needs_flush = vm->use_cpu_for_update;
+ 	uint64_t updates = amdgpu_vm_tlb_seq(vm);
++	struct amdgpu_vmid *id;
+ 	int r;
+ 
+-	*id = vm->reserved_vmid[vmhub];
+-	if ((*id)->owner != vm->immediate.fence_context ||
+-	    !amdgpu_vmid_compatible(*id, job) ||
+-	    (*id)->flushed_updates < updates ||
+-	    !(*id)->last_flush ||
+-	    ((*id)->last_flush->context != fence_context &&
+-	     !dma_fence_is_signaled((*id)->last_flush)))
++	id = vm->reserved_vmid[ring->vm_hub];
++	if (id->owner != vm->immediate.fence_context ||
++	    !amdgpu_vmid_compatible(id, job) ||
++	    id->flushed_updates < updates ||
++	    !id->last_flush ||
++	    (id->last_flush->context != fence_context &&
++	     !dma_fence_is_signaled(id->last_flush)))
+ 		needs_flush = true;
+ 
+-	if ((*id)->owner != vm->immediate.fence_context ||
++	if (id->owner != vm->immediate.fence_context ||
+ 	    (!adev->vm_manager.concurrent_flush && needs_flush)) {
+ 		struct dma_fence *tmp;
+ 
+@@ -287,26 +273,25 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 			ring = NULL;
+ 
+ 		/* to prevent one context starved by another context */
+-		(*id)->pd_gpu_addr = 0;
+-		tmp = amdgpu_sync_peek_fence(&(*id)->active, ring);
++		id->pd_gpu_addr = 0;
++		tmp = amdgpu_sync_peek_fence(&id->active, ring);
+ 		if (tmp) {
+-			*id = NULL;
+ 			*fence = dma_fence_get(tmp);
+-			return 0;
++			return NULL;
+ 		}
+ 	}
+ 
+ 	/* Good we can use this VMID. Remember this submission as
+ 	* user of the VMID.
+ 	*/
+-	r = amdgpu_sync_fence(&(*id)->active, &job->base.s_fence->finished,
++	r = amdgpu_sync_fence(&id->active, &job->base.s_fence->finished,
+ 			      GFP_ATOMIC);
+ 	if (r)
+-		return r;
++		return ERR_PTR(r);
+ 
+ 	job->vm_needs_flush = needs_flush;
+ 	job->spm_update_needed = true;
+-	return 0;
++	return id;
+ }
+ 
+ /**
+@@ -319,57 +304,46 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+  *
+  * Try to reuse a VMID for this submission.
+  */
+-static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
+-				 struct amdgpu_ring *ring,
+-				 struct amdgpu_job *job,
+-				 struct amdgpu_vmid **id)
++static struct amdgpu_vmid *
++amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
++		      struct amdgpu_ring *ring,
++		      struct amdgpu_job *job)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	unsigned vmhub = ring->vm_hub;
+-	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
++	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[ring->vm_hub];
+ 	uint64_t fence_context = adev->fence_context + ring->idx;
+ 	uint64_t updates = amdgpu_vm_tlb_seq(vm);
+-	int r;
++	struct amdgpu_vmid *id;
+ 
+ 	job->vm_needs_flush = vm->use_cpu_for_update;
+ 
+ 	/* Check if we can use a VMID already assigned to this VM */
+-	list_for_each_entry_reverse((*id), &id_mgr->ids_lru, list) {
++	list_for_each_entry_reverse(id, &id_mgr->ids_lru, list) {
+ 		bool needs_flush = vm->use_cpu_for_update;
+ 
+ 		/* Check all the prerequisites to using this VMID */
+-		if ((*id)->owner != vm->immediate.fence_context)
++		if (id->owner != vm->immediate.fence_context)
+ 			continue;
+ 
+-		if (!amdgpu_vmid_compatible(*id, job))
++		if (!amdgpu_vmid_compatible(id, job))
+ 			continue;
+ 
+-		if (!(*id)->last_flush ||
+-		    ((*id)->last_flush->context != fence_context &&
+-		     !dma_fence_is_signaled((*id)->last_flush)))
++		if (!id->last_flush ||
++		    (id->last_flush->context != fence_context &&
++		     !dma_fence_is_signaled(id->last_flush)))
+ 			needs_flush = true;
+ 
+-		if ((*id)->flushed_updates < updates)
++		if (id->flushed_updates < updates)
+ 			needs_flush = true;
+ 
+ 		if (needs_flush && !adev->vm_manager.concurrent_flush)
+ 			continue;
+ 
+-		/* Good, we can use this VMID. Remember this submission as
+-		 * user of the VMID.
+-		 */
+-		r = amdgpu_sync_fence(&(*id)->active,
+-				      &job->base.s_fence->finished,
+-				      GFP_ATOMIC);
+-		if (r)
+-			return r;
+-
+ 		job->vm_needs_flush |= needs_flush;
+-		return 0;
++		return id;
+ 	}
+ 
+-	*id = NULL;
+-	return 0;
++	return NULL;
+ }
+ 
+ /**
+@@ -386,39 +360,34 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 		     struct amdgpu_job *job, struct dma_fence **fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	unsigned vmhub = ring->vm_hub;
++	const unsigned vmhub = ring->vm_hub;
+ 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+-	struct amdgpu_vmid *idle = NULL;
+-	struct amdgpu_vmid *id = NULL;
++	struct amdgpu_vmid *id;
+ 	int r = 0;
+ 
+ 	mutex_lock(&id_mgr->lock);
+-	r = amdgpu_vmid_grab_idle(ring, &idle, fence);
+-	if (r || !idle)
+-		goto error;
+ 
+ 	if (amdgpu_vmid_uses_reserved(vm, vmhub)) {
+-		r = amdgpu_vmid_grab_reserved(vm, ring, job, &id, fence);
+-		if (r || !id)
+-			goto error;
++		id = amdgpu_vmid_grab_reserved(vm, ring, job, fence);
++		if (IS_ERR_OR_NULL(id)) {
++			r = PTR_ERR(id);
++			goto out;
++		}
+ 	} else {
+-		r = amdgpu_vmid_grab_used(vm, ring, job, &id);
++		id = amdgpu_vmid_grab_used(vm, ring, job);
++		if (!id)
++			id = amdgpu_vmid_grab_idle(ring, fence);
++		if (!id)
++			goto out;
++
++		/* Remember this submission as user of the VMID */
++		r = amdgpu_sync_fence(&id->active,
++				      &job->base.s_fence->finished,
++				      GFP_ATOMIC);
+ 		if (r)
+-			goto error;
++			goto out;
+ 
+-		if (!id) {
+-			/* Still no ID to use? Then use the idle one found earlier */
+-			id = idle;
+-
+-			/* Remember this submission as user of the VMID */
+-			r = amdgpu_sync_fence(&id->active,
+-					      &job->base.s_fence->finished,
+-					      GFP_ATOMIC);
+-			if (r)
+-				goto error;
+-
+-			job->vm_needs_flush = true;
+-		}
++		job->vm_needs_flush = true;
+ 
+ 		list_move_tail(&id->list, &id_mgr->ids_lru);
+ 	}
+@@ -443,7 +412,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 
+ 	trace_amdgpu_vm_grab_id(vm, ring, job);
+ 
+-error:
++out:
+ 	mutex_unlock(&id_mgr->lock);
+ 	return r;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 09593fcdb2f7..6614682eaa89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 		ring->adev = adev;
+ 		ring->num_hw_submission = sched_hw_submission;
+ 		ring->sched_score = sched_score;
+-		ring->vmid_wait = dma_fence_get_stub();
+ 
+ 		ring->idx = adev->num_rings++;
+ 		adev->rings[ring->idx] = ring;
+@@ -413,8 +412,6 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
+ 	kvfree(ring->ring_backup);
+ 	ring->ring_backup = NULL;
+ 
+-	dma_fence_put(ring->vmid_wait);
+-	ring->vmid_wait = NULL;
+ 	ring->me = 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 8f28b3bd7010..33dd39dd21cc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -414,7 +414,6 @@ struct amdgpu_ring {
+ 	u64			set_q_mode_token;
+ 	unsigned		vm_hub;
+ 	unsigned		vm_inv_eng;
+-	struct dma_fence	*vmid_wait;
+ 	bool			has_compute_vm_bug;
+ 	bool			no_scheduler;
+ 	bool			no_user_submission;
 -- 
-2.43.0
+2.54.0
 
