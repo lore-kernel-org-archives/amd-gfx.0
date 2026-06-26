@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C7DBC43211
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 19:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614B5C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 19:06:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6B5C10F705;
-	Fri, 26 Jun 2026 19:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB91810E274;
+	Fri, 26 Jun 2026 19:06:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FstiwF0N";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cBoHEM+Y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 687DF10F704;
- Fri, 26 Jun 2026 19:02:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 91BB5600C8;
- Fri, 26 Jun 2026 19:02:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02B91F000E9;
- Fri, 26 Jun 2026 19:02:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782500539;
- bh=UUIgku0dEeTkAIbEWbmP2c4kgTyRAbCcRnpJ75y3OUk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=FstiwF0N2TKXY0zUW6qxHZC2DhJ7UIsuxklD9FRC7G5Ub6nedrarR5rIBl62qwf81
- DAzynZykkyWrvW5K7JOzHlBQLiTqUUaBhY17H9d5DsRO1PjBifTpMzGM0OxuLlJ/FG
- 3m7PYebotrPF7kBpbtauyfrSxcbJ3FLCxiB1bQQPoe14IHV5tbizpn8RPexr6OImz8
- CN4L3Ve3hxRFNYHDsWNoi9XykmXOopwmIhQU/q6KoqMQUrVX9f6gYm4CAE2dzcM/7g
- bzb00ieDYhxGq1puMyvJkrkAwRWfMqRR2GTqqKQUJwv/IOMJ0MGU9ZTxFoS4+sQtHg
- mOku3Cru3MR1w==
-Message-ID: <9b3b135c-0e9d-4439-bbe7-877ac9824249@kernel.org>
-Date: Fri, 26 Jun 2026 14:02:17 -0500
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34D8910E274
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 19:06:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=rOmIE0CF+Mz+pl53T+O7iOs66YOotTKS+U+8CKwg3lY=; b=cBoHEM+YJ7h4FdVCcCbvCmHa0C
+ fAmVZHZ+u9dC1YLDdW4CdlVy0aCZR0bNkcrDZLYaRPIUO8Ozp2YFSHhGjiD3kSh8e15eB7qghj1Nh
+ tiL82dVxl1mvcSd2oOZfpLB0Q1qZtx3h84IIvW1SKb5PCH/n5zLCKANVCr+MDW5+GmqVdIDxrzH1p
+ YSwxbeApujKOKZM31//nyV8CIm0ptGfoNSLwBSHzeKTRl8m6gfHXmnvP5HF91li8ZBYz2CAmmoCFl
+ GtpkkWvHrWSqcvjcBnSREY1ygk0BV1bdVjYmBss/zmIC761am6AgfSNKgy+5b142G1c0zjHI1zlm2
+ FfeFiWOA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wdBsj-005dKB-1d; Fri, 26 Jun 2026 21:06:29 +0200
+Message-ID: <f2817235-3f0f-4a95-ba21-e5c0913f7c07@igalia.com>
+Date: Fri, 26 Jun 2026 20:06:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix: drm/amd/display: detect_link_and_local_sink: DP alt
- mode timeout path leaks prev_sink reference
-Content-Language: en-US
-To: WenTao Liang <vulab@iscas.ac.cn>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, alex.hung@amd.com, timur.kristof@gmail.com,
- wenjing.liu@amd.com, Relja.Vojvodic@amd.com, Derek.Lai@amd.com,
- srinivasan.shanmugam@amd.com, clayking@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260626124555.36910-1-vulab@iscas.ac.cn>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260626124555.36910-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Remove unused amdgpu_device_ip_is_hw
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20260626085558.97923-1-tvrtko.ursulin@igalia.com>
+ <20260626085558.97923-2-tvrtko.ursulin@igalia.com>
+ <4887714.vXUDI8C0e8@timur-max>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <4887714.vXUDI8C0e8@timur-max>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,39 +63,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/26/26 07:45, WenTao Liang wrote:
-> prev_sink is unconditionally retained via dc_sink_retain at function
->    entry, but the DP alt mode timeout path inside SIGNAL_TYPE_DISPLAY_PORT
->    returns false without releasing prev_sink. All other return paths in the
->    function correctly call dc_sink_release(prev_sink), making this the only
->    missing cleanup.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 54618888d1ea ("drm/amd/display: break down dc_link.c")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-Applied, thanks.
-
-> ---
->   drivers/gpu/drm/amd/display/dc/link/link_detection.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
+On 26/06/2026 17:59, Timur Kristóf wrote:
+> On 2026. június 26., péntek 10:55:56 közép-európai nyári idő Tvrtko Ursulin
+> wrote:
+>> This function is unused so lets remove it.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Timur Kristóf <timur.kristof@gmail.com>
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index 794dd6a95918..03bb210ebab8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -1069,8 +1069,11 @@ static bool detect_link_and_local_sink(struct dc_link *link,
->   			    link->link_enc->features.flags.bits.DP_IS_USB_C == 1) {
->   
->   				/* if alt mode times out, return false */
-> -				if (!wait_for_entering_dp_alt_mode(link))
-> +				if (!wait_for_entering_dp_alt_mode(link)) {
-> +					if (prev_sink)
-> +						dc_sink_release(prev_sink);
->   					return false;
-> +				}
->   			}
->   
->   			if (!detect_dp(link, &sink_caps, reason)) {
+> Nice cleanup!
+> 
+> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+> 
+> Are there any more uses left of the amdgpu_ip_block_status.hw field?
+> As far as I can see the field is set but never used, maybe we could remove it
+> too. What did this field mean anyway?
+
+It appears used during init/fini and suspend/resume, a little bit in 
+reset. I am not quite sure what it means - could it be "hw initialized" 
+or "hw ready"?
+
+Regards,
+
+Tvrtko
+
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c | 21 ---------------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h |  2 --
+>>   2 files changed, 23 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c index 6aa54156bbc9..62285e973c5c
+>> 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+>> @@ -368,27 +368,6 @@ int amdgpu_device_ip_wait_for_idle(struct amdgpu_device
+>> *adev, return 0;
+>>   }
+>>
+>> -/**
+>> - * amdgpu_device_ip_is_hw - is the hardware IP enabled
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - * @block_type: Type of hardware IP (SMU, GFX, UVD, etc.)
+>> - *
+>> - * Check if the hardware IP is enable or not.
+>> - * Returns true if it the IP is enable, false if not.
+>> - */
+>> -bool amdgpu_device_ip_is_hw(struct amdgpu_device *adev,
+>> -			    enum amd_ip_block_type block_type)
+>> -{
+>> -	struct amdgpu_ip_block *ip_block;
+>> -
+>> -	ip_block = amdgpu_device_ip_get_ip_block(adev, block_type);
+>> -	if (ip_block)
+>> -		return ip_block->status.hw;
+>> -
+>> -	return false;
+>> -}
+>> -
+>>   /**
+>>    * amdgpu_device_ip_is_valid - is the hardware IP valid
+>>    *
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h index 1d0df6d93957..11739fbdeaa6
+>> 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+>> @@ -146,8 +146,6 @@ void amdgpu_device_ip_get_clockgating_state(struct
+>> amdgpu_device *adev, u64 *flags);
+>>   int amdgpu_device_ip_wait_for_idle(struct amdgpu_device *adev,
+>>   				   enum amd_ip_block_type
+> block_type);
+>> -bool amdgpu_device_ip_is_hw(struct amdgpu_device *adev,
+>> -			    enum amd_ip_block_type block_type);
+>>   bool amdgpu_device_ip_is_valid(struct amdgpu_device *adev,
+>>   			       enum amd_ip_block_type block_type);
+> 
+> 
+> 
+> 
 
