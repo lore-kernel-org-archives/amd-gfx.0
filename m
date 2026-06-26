@@ -4,129 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BA4C43327
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 16:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8917C43327
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 16:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23A1E10E3EB;
-	Fri, 26 Jun 2026 16:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E9610E1B4;
+	Fri, 26 Jun 2026 16:59:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HF1spe6M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rdhux1Ii";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010051.outbound.protection.outlook.com
- [52.101.193.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF5C10E3EB;
- Fri, 26 Jun 2026 16:45:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VEXcXDXRZtOItuDyb6151CNNL69Y8z7v/fyXLvAfErH/eQEQWZ3Oo6hSI98k3c8yAtXv6DdklFi2Sldyhj7qanVTZuBfVGnHTPrxMQoXrvJSpjR6JVT54ssbZ+Mebsi3dkeCQksZ/tuyVgEkiMZypjhtmnRPs2FWpWNRmqzMhl+Duz3eQkP8+J1Xg7qo0Hwmz6hpzHhIcvODh//1w5uaEY6yZbJB/K/0985KZ/WGYS8tUyYhIqu9L/bVl1lmyW5tKVgff0tcB1XlXVXRhljvOd80PeoxXn2yfUHiH13bPq3QEFQgGHeC0yXfF8vYWXRlbpnnqn7ca918fb4XdFl9HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SH8j8iyzMjFTXiHrXjUl2gFZvDRe8f7DcLsM9Td28Zk=;
- b=p5C1SJoQHjY3PLP84/hSAuQT64czSXE+tHZC0/JsLGugsPTFCGRWi9MmZ92I8oVxkTncVCKmAnH3T5Jv/7nUGjLOiNIJik8AlTtDooOGLVzK+ImxhO0dCjrNS7j8ZJUQhNsc0/nchOdazYmla0CJOQaZPMmJUErxWVpmTHAR8rqqVDRmMx79b42VjXutLIe7AnSXOXWeEskVdm02XJkF34IchHwkpMKGc8GHxwwoGDKAvymicATQobFyooBq2wuCS7jsp81sV4BqiZnIxgu+8n0lLqlPz/hkami9hP11RkhG8rXEsy07Gye2Ibehjo+BBy3StOtDXCKkx1DBTw0ykQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SH8j8iyzMjFTXiHrXjUl2gFZvDRe8f7DcLsM9Td28Zk=;
- b=HF1spe6MibXKsqr6ViNTYfniPPwl/gJd4TZOntkstvlYzqFBJj9UIGQ6IcYtKMyRxqmTTqSkNQy0z8DsPQ2NIhGprRHmRZcV/OnjWSCe/iacUUaitnPsb7DXh+WK0u874SY+HSf59s+KZA0Ow5u+uMqc1SH6COZfgJ/Sw0axo/Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by MW4PR12MB7438.namprd12.prod.outlook.com (2603:10b6:303:219::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 16:45:27 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 16:45:26 +0000
-Message-ID: <35dee3d1-f114-4eda-8185-244bc429c021@amd.com>
-Date: Fri, 26 Jun 2026 11:45:23 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix: drm/amd/display: dm_update_crtc_state: skip_modeset
- path leaves new_stream dangling, causing double release
-Content-Language: en-US
-To: WenTao Liang <vulab@iscas.ac.cn>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, aurabindo.pillai@amd.com,
- chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260626124128.36625-1-vulab@iscas.ac.cn>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260626124128.36625-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH5P222CA0010.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:610:1ee::28) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2A8010E1B4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 16:59:14 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c0b97e268f3so165103266b.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 09:59:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782493153; x=1783097953; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BUSrLdQ2FI4LHY0dWueNCnyawFEpRnJYUQiGcaotRTs=;
+ b=Rdhux1IixPoMKalP6eS9UuJL1ZntPTqBZsIgkjjtcoYXyBiLfMScFA+0VSTStN2BEq
+ mthi6FfiQhKWOd6mmX+XZBv0eiMyuKLqAEAWHsQ2L3E6erN4AN31ibWt+w2JvWpvxddy
+ +5eNXQ2cTtk8e/6olEliBzJYTd9MYr2MO4LT3kxd4Th/tZIMpwPwsLhdNpF78hOyMFA/
+ lfCX8Tcu4TJtlTAj5L2L4VF4l80zuXoJGVpUMfOh+9fLc+I50H315zlDdVbrnQklj2mG
+ zvFXapWPMfDCrOhqr8SFDRqnPvzYKSvknDcS/J02gXe0wJXkg52eGdKweawtr0vx4hav
+ 5gvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782493153; x=1783097953;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=BUSrLdQ2FI4LHY0dWueNCnyawFEpRnJYUQiGcaotRTs=;
+ b=Xa3tjyU36RN3QgCei1qcrWOFbTdDW0C3KaK47Gh1IFC61Agh/WSqTG4wCKL81E83ey
+ ICKkrNRGuMnKYQpmcUSpGBsoDaGOyTdsZap/WU6YC0O3fvAZ+dShRlcCtVGPSOnCdppJ
+ S5HLlWFFFojWDvW/pDjEh81Hb07W1F9z864uUu5ULCHD4AxllDD6h8o6UGhkHy4eRmVi
+ aEif/LKHvP7nL7nXzkQnPhMyPDSp1LMyB+xCnsa5wOzvB6NyLq6cAPOLQYz79RWVD9KE
+ czBK2mZh5S5G70Uc4e5EOH7rhc8YZEzpNxKRWdtg/TYdnm4bVoqKnKGF1JjApD2e2iE8
+ a4ng==
+X-Gm-Message-State: AOJu0YxbjHpnoaOZl8CQMMhRx6FXXki869htXTrVEhyAaPIPmiCJavuE
+ NpMKjJ22ehP7w6ftSAeyx3Jv9NNF0LkfiDt7H+fwTtK5Lalm4TdMBBXdYOtvdQ==
+X-Gm-Gg: AfdE7ckDW1Pk8OLkLMYXWa80W2I2g9I6Wbbe6RfcX6I7Yq1GSi9AiE+mqLV0MvkMPBB
+ Uof+KUDNevsa6NmW4e0vtbuLl0kKr7SZ8MSKgD7kYuYYzo2+xpP6V9F7nJIZHn25eYH/Uv8RCng
+ mVCcThaJ8XIeBaM+/KcCE6knS8fuSw1Y5gQRjwP7ws8VLiUL1Z6m7GcGcV7JvlFtCcZR0r3oLhr
+ +xserdhxlNz0jKfrXl55N8jOsjRPrDbKIuAwdeYJP8qGJ8giIpZreoyLgpu9Uw00z+0G7NYkWjj
+ 1MPUcpYhbRRMWKqUeg6tIj1gAxQJVzaUgLlwy14h9kRxnAIW0ha9LyDDqkeE0OGG2Ca2lMiuM7D
+ Zjo2ILdfFbkQ9LioHGymdRJxC2SmHYKL15b1dcW0fXDi/3JO16W625gWF3QKyAekUnAjnBAfXY9
+ g2JzP3yuYlTOgI/cbKEjvJXI1cOrA7Ww==
+X-Received: by 2002:a17:906:e108:10b0:c12:29a3:e348 with SMTP id
+ a640c23a62f3a-c1229a3eca4mr139568066b.27.1782493152627; 
+ Fri, 26 Jun 2026 09:59:12 -0700 (PDT)
+Received: from timur-max.localnet ([2a0a:f640:1701:30c:61f9:a53e:4a65:c732])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c121cd03f24sm159682066b.32.2026.06.26.09.59.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jun 2026 09:59:12 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Remove unused amdgpu_device_ip_is_hw
+Date: Fri, 26 Jun 2026 18:59:10 +0200
+Message-ID: <4887714.vXUDI8C0e8@timur-max>
+In-Reply-To: <20260626085558.97923-2-tvrtko.ursulin@igalia.com>
+References: <20260626085558.97923-1-tvrtko.ursulin@igalia.com>
+ <20260626085558.97923-2-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|MW4PR12MB7438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e068c59-22ed-4cb3-1f54-08ded3a2530c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|7416014|376014|18002099003|22082099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 8L0kK9rc/EK+SjVVefqlB65+Wo2YuNxm140XB+gH5pZRl1YViNB8k/nf+DXVPQkU1hRdcVQphPgjrkZ2aEdu3IRm4/4eNofSRRfO5irVfkUfvxKVi8ZlNmWRXPUOWYfYfxC1/Ie2nCVVcNg7UzlmN8ZpaCPUYXGnJLgg4ZNnd6CghA6WlVU0pedPF+DjBO1Gxc68LUuMm7UNk7Pi4t2RJ/JZGixsiVdA7fpxR4NIh6KmCatuFXBhnebDPHl+7YhcE5OuXhLYnSg2vofpiUa60APCfLaImXWokipj5lkHAZBps556Wj2v38Ajs2OoFuD07zwJNaT2Pbc50aVJ/Ap4li0EkAUGuXgtjx0kiSbaR9YALKDnwqySo0GsyeWM2QerlqYM1D9fuX0c2+cYz3+gmJzJVn1cc8of2k/mCOlWXmlgp8Ll0DjlTU9KpmA+X6dyRcl0lxq6TXa1jYgDF3tZAB4wVXLcPZuIRrolgrcmQIdD6sMOd2xXQHq4TzDgA7yRvINi96V86sreU6yKXszLCyph6q0w2HcMpbYbsntTZx4G8QkEIFPahTg0hS+AmYw3Y4oPjl6XHBQnSYhH/DzD4YUa+3QIJJz9PTjM7/8tgOP2pKT+gkDMStqDuFaa4UUashBNJ3DPtfLpcAQ68EtKVhxUW8/bpi0c2vBxnvymSYA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2R3V3RMbVNFVnFlci9qVGNEaFRqNWp3Tmszd3FEMmJvNlJJaTU2VVE3R3JM?=
- =?utf-8?B?Y0Y5YjNTNGREeTNqaXVNQnVrdjh4ZnNLcitPcDIzUHU3QzA2K2Q1cHhTRkwz?=
- =?utf-8?B?ZGM3OXNITlJNb01FUEJBM1Irc1VKc3d0Q09QU01aWHRObTcwei9paDloUnl0?=
- =?utf-8?B?dGh5KzJWTThxaERoby9NNjJCdTZrWkM5d3N1OHF0RnlJZFRiTnhSc2ZPVS8z?=
- =?utf-8?B?MG93aHgvVVBqZHhDRFFyNjV5OGwwVHM3L09GU0kwQjJDdTFlVzY3cTlRUXlS?=
- =?utf-8?B?dVpLYjJ3Y3Bxb0VMcndIS3BVQk1NWVM5dzVKQ1FPYjlocDVvR2hwVWdiWmhG?=
- =?utf-8?B?RiswOE1SMm5pN081N1VpOVVNeEpHUCtUS2w1SE9ZK3hBUnA0S3I0UVB1UFE2?=
- =?utf-8?B?VzcrejhGZXNYaDNRYVZtVlJKNURQKzdXTWV4UXZOcnpUajVmNG03K0l6OVE1?=
- =?utf-8?B?eEFJZ3FhUTVubkRyOHdkNU1tckNnYWNlTXJBN2gvZ29YU0hYZTdpcElKaG5U?=
- =?utf-8?B?RE1WbHhYdEE4TS9Wb0ozclJMYlRVdmhXVXdsZ2dzMkROQzFpTFBQVDR5R29o?=
- =?utf-8?B?WFNCbXcrVkpjRzZVdzgxQVZRNnoyVCtYU05jWGtQNnJFVWVyTUxWWFRibXMx?=
- =?utf-8?B?SWlxbzFKeWcyb01oR1AwSE8rZDJvakwxOGhGZ2MxSkFkVzM2QWtyZUxjS2k3?=
- =?utf-8?B?WnlaODF0TXpsK1F4R2NrUEZxWEN4K1Z5QlhKaG1UQ1NSdVZReE1XYWVhVERC?=
- =?utf-8?B?K0M2TW15VWFaQndhYXlyckRRZzJFL0R1YnRGMkFKWGVBN3VBSFNvckJjRVJX?=
- =?utf-8?B?WXFhaFZ5cFJiTDFyVkdRRmdUMTdnWjU4VnZvckNwWVpJRGVDdWR4TjlBTnhE?=
- =?utf-8?B?UG1VZzBqMmtWZXh1ekVIV2VVT3lwOTJmMThhdS8rTFF1dVdUUWdZMTYzUU53?=
- =?utf-8?B?dm55Y2NwWnErdmUzaTVuc1ZTWVJacGxid1pDeVdwUXhLYmhTVjN4bkd0RDZV?=
- =?utf-8?B?Z2ljcTgyZ1cwamVHanNGNkpKSjE1MERReHBhdUFzZVNrZ1NaaWR5TmYxOE11?=
- =?utf-8?B?Z0c2SWNOQmZGeFVxMi9JZE50QnNSbFQ1Q09TQlhQblQ0S1hwYUp3OEhBeHZZ?=
- =?utf-8?B?bzRCdWFpUy9TVjh1V21ESVhVRVROaU9yNFhJZ2F2ZmJMZ0FueHhFcjdwUUpu?=
- =?utf-8?B?MncrQ1BLUTJJaVZOUmVqRkNRMVJJdEt6RHNMYlMrS25FWG9wdUFMa25WcUZZ?=
- =?utf-8?B?Sk4rUTdPdHoxWVZoSFdJVTBlVitDMUxqQUdKNmlXUjRRL0t0eDBUUzJFdEw0?=
- =?utf-8?B?dVRWUFBHb1FXQkh3UG54dE04ajVvWHcwY1BiMGFXeWo0VGNSUlBzcHQ3NWtD?=
- =?utf-8?B?ekdZU0gzczgrUzN0bDlrTTB6SGtLNlVuU3djUGsvR2dWNWRpcHBmWjcrbkFu?=
- =?utf-8?B?Y3dYSzFnc3Y4RkloWVlkNGY3enlXMS9rUVdIVGFKOG05Z3hjUVp2K1BJSHQw?=
- =?utf-8?B?ZDR6OHUvcGJUUGNvVTEwYnRsNUowRmFJUjl4emx4SVhURG9DNmp5bm1PYUVo?=
- =?utf-8?B?cW9hZzhuYUZpelREVUVVRUhSMmxKWWQyVmo3dE9tSGR1QlZzRHpNaEIrcTlS?=
- =?utf-8?B?NnNBMVlSL2FjQU9DeWJaeTVXVmY4TlpialQ3bkJvS25aL1ZSM3h0Z1ZrWlE3?=
- =?utf-8?B?ajdFemRJVTZnemRQMXFZVVVoWkZnQWNOZmVQQW5pQWdIZ3dRV3h6d0JRMlk1?=
- =?utf-8?B?NXA2SlZKT2NhQ0Z6bktzUXFBK2FVOUJ6eHhYUWhKRytYSjFqOU5FS2JzNG55?=
- =?utf-8?B?bW1ML0JxWGVpd0l3ejlCTFhFMzdoWmwwYTVyTVVoV1FwcHpsUklhLyt5UGFE?=
- =?utf-8?B?ZmpDRGtEaWN6aTBLdzZlYWEwQmQwLy9tV0s2R1NJZFZmcjc3NDZ2T1JIMVZj?=
- =?utf-8?B?NDIvUEd0MWlPbUNCY0JselcrQ1V1NmRPTzNDYTBud20zcmRmOXF4TitIUUhO?=
- =?utf-8?B?Ym5GUHUxcFlRdllXNnBkeUNVd2pqMlpRbzNvNWpyUUwrQWJKTUhzbndhRkUx?=
- =?utf-8?B?bkhGYTBEKzJUa1RJb2hiaHJDNW9hRndadmJDZDM5SmlRRXVKVEx4ZEFwSTI1?=
- =?utf-8?B?OER2M0hmeDhwbFJQY250VUpnb2U1aDc1U040UlNRcEtqMzF1S0ZmeE14bEs3?=
- =?utf-8?B?YXFoS0NSbkNGQk1COWFxWEIvVm5qNXZ3akJXYWhJYUtkUGxJWEp3Yit1Y2NI?=
- =?utf-8?B?eWpuY05YdFBTQXM5UDZZVDVub2kvRGdLMjVNTU1ic0prNktOVlQzTVNjZ2V2?=
- =?utf-8?Q?gntRYsFeT2jjvmL4w0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e068c59-22ed-4cb3-1f54-08ded3a2530c
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 16:45:26.6646 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IQK/qjQsfQkk7Tf/s+rlWRKCUAtT5u7i7iXpuVfhttpSR8GZDBS7Bov4O5SgxkWefT/43RQzRDXv77R/8eoyUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7438
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,43 +88,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2026. j=C3=BAnius 26., p=C3=A9ntek 10:55:56 k=C3=B6z=C3=A9p-eur=C3=B3pai=
+ ny=C3=A1ri id=C5=91 Tvrtko Ursulin=20
+wrote:
+> This function is unused so lets remove it.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
+Nice cleanup!
 
-On 6/26/26 07:41, WenTao Liang wrote:
-> The skip_modeset path calls dc_stream_release(new_stream) but does not
->    set new_stream to NULL. If a subsequent error (e.g., color management
->    failure) triggers goto fail, the fail label executes a second
->    dc_stream_release on the same pointer, causing a use-after-free or excess
->    put on the stream reference.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 3ce51649cdf2 ("drm/amdgpu/display: add quirk handling for stutter mode")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-The code change looks good to me, but this Fixes hash doesn't really 
-make sense to me.
+Are there any more uses left of the amdgpu_ip_block_status.hw field?
+As far as I can see the field is set but never used, maybe we could remove =
+it=20
+too. What did this field mean anyway?
 
-Are you sure about that?
+Best regards,
+Timur
 
-I /think/ this is the correct hash:
-
-Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not 
-required")
 
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 5fc5d5608506..acf0b01d6f62 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
->   	/* Release extra reference */
->   	if (new_stream)
->   		dc_stream_release(new_stream);
-> +	new_stream = NULL;
->   
->   	/*
->   	 * We want to do dc stream updates that do not require a
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c | 21 ---------------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h |  2 --
+>  2 files changed, 23 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c index 6aa54156bbc9..62285e973c5c
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> @@ -368,27 +368,6 @@ int amdgpu_device_ip_wait_for_idle(struct amdgpu_dev=
+ice
+> *adev, return 0;
+>  }
+>=20
+> -/**
+> - * amdgpu_device_ip_is_hw - is the hardware IP enabled
+> - *
+> - * @adev: amdgpu_device pointer
+> - * @block_type: Type of hardware IP (SMU, GFX, UVD, etc.)
+> - *
+> - * Check if the hardware IP is enable or not.
+> - * Returns true if it the IP is enable, false if not.
+> - */
+> -bool amdgpu_device_ip_is_hw(struct amdgpu_device *adev,
+> -			    enum amd_ip_block_type block_type)
+> -{
+> -	struct amdgpu_ip_block *ip_block;
+> -
+> -	ip_block =3D amdgpu_device_ip_get_ip_block(adev, block_type);
+> -	if (ip_block)
+> -		return ip_block->status.hw;
+> -
+> -	return false;
+> -}
+> -
+>  /**
+>   * amdgpu_device_ip_is_valid - is the hardware IP valid
+>   *
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h index 1d0df6d93957..11739fbdeaa6
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.h
+> @@ -146,8 +146,6 @@ void amdgpu_device_ip_get_clockgating_state(struct
+> amdgpu_device *adev, u64 *flags);
+>  int amdgpu_device_ip_wait_for_idle(struct amdgpu_device *adev,
+>  				   enum amd_ip_block_type=20
+block_type);
+> -bool amdgpu_device_ip_is_hw(struct amdgpu_device *adev,
+> -			    enum amd_ip_block_type block_type);
+>  bool amdgpu_device_ip_is_valid(struct amdgpu_device *adev,
+>  			       enum amd_ip_block_type block_type);
+
+
+
 
