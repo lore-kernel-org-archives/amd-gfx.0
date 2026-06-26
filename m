@@ -4,62 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C4EC43211
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 17:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30591C43327
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 17:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53E2510F6C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B69410F6CA;
 	Fri, 26 Jun 2026 17:27:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="gjuVN2pA";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A0410E391;
- Fri, 26 Jun 2026 14:20:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782483606; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=amMJ57mcMYX52UjAj+HszuIE2Wpn6141jOUIQiNz6hWeEZHyTUZACdnt1b2kqzs1GQS8mJ9uIZMYA5vM7iWVR+iovc3YnKxzeWgKcECk7pHpSa+mlpWtaQ+v6j1MZmlxfpPKG3jSdZacMB+Mb4GCY/Su73MJPDWHBpOD0XhqHOg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782483606;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=cQyjiVRTcXnC6EW1WnK2c+p4P+ZHsMUWyzuRTT8Dx98=; 
- b=YF+ruGfeObIm2RzRLnhhKl9Eal3cDF0dRad497sqPARzXVoYEPfihlbhGiq/LM4HtQgjAlZPcQ0AFvyZXe6at0t9n0EcptHbNKwS3cGe2Wp1LC56QyLic+jbGPw91Z+ctvbRLsvZi8P+qYgMsMOrMLIEz2UnApXedeTcyt/qDPs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nfraprado@collabora.com;
- dmarc=pass header.from=<nfraprado@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782483606; 
- s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
- bh=cQyjiVRTcXnC6EW1WnK2c+p4P+ZHsMUWyzuRTT8Dx98=;
- b=gjuVN2pAzQSyvU1/0pyfP3dLYWgXBEcA8X/m9z1jTh9S3okyDwG8gf3EFsjQxMLj
- 6g5VpyeKOeAF8ccF3wir1WYDcWKRAjBLRBRWWJ66NPJbNY4t565z09N5dTomFZRN5Nw
- nfOZKEBNPdM1SfLlvzHHKuikJ/ttlcsVhsx6Owio=
-Received: by mx.zohomail.com with SMTPS id 1782483604203501.78261578975673;
- Fri, 26 Jun 2026 07:20:04 -0700 (PDT)
-From: =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>
-Date: Fri, 26 Jun 2026 10:18:06 -0400
-Subject: [PATCH] drm/amd/display: Always notify the HDA driver on connector
- disconnect
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D245B10E398;
+ Fri, 26 Jun 2026 12:41:38 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-05 (Coremail) with SMTP id zQCowADXI8d6cz5qWKRoFQ--.22937S2;
+ Fri, 26 Jun 2026 20:41:31 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: siqueira@igalia.com, mario.limonciello@amd.com, alex.hung@amd.com,
+ superm1@kernel.org, timur.kristof@gmail.com, ivan.lipski@amd.com,
+ aurabindo.pillai@amd.com, chen-yu.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] fix: drm/amd/display: dm_update_crtc_state: skip_modeset path
+ leaves new_stream dangling, causing double release
+Date: Fri, 26 Jun 2026 20:41:28 +0800
+Message-Id: <20260626124128.36625-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260626-amdgpu-dm-always-eld-notify-on-disconnect-v1-1-40ce473cd724@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAB2KPmoC/x3NywqEMAxA0V+RrCegBTuPXxlmUZrUCWgqjfMQ8
- d8tLs/m3g2Mi7DBo9mg8FdMslZ0lwbiO+jAKFQNrnW+9a7HMNEwf5AmDOMvrIY8EmpeJK2YFUk
- sZlWOC977jv01Bb4xQe3NhZP8z9fzte8HAUqwbHsAAAA=
-X-Change-ID: 20260625-amdgpu-dm-always-eld-notify-on-disconnect-951e67fae8ed
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>
-X-Mailer: b4 0.14.3
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Fri, 26 Jun 2026 17:27:20 +0000
+X-CM-TRANSID: zQCowADXI8d6cz5qWKRoFQ--.22937S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GF47WFW7Kr1kGF17Xw48tFb_yoWkuFb_GF
+ WUJr9xX3WayFs0qF12yrZ3urs2qFWYvFs7Gr17tFZ3try7JryUAry5Wrs5Wa1rCFnIgF98
+ Za40g3W3AwsIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb3kFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+ Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0pR-189UUUUU=
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgKA2o+ThJwSwAAs+
+X-Mailman-Approved-At: Fri, 26 Jun 2026 17:27:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,92 +65,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_audio_eld_notify() is currently only called in atomic commits.
-This results in the state of the HDA driver never getting updated when
-an audio sink is removed and an atomic commit never comes. (eg the HDMI
-audio jack switch in ALSA stays 'on' after the HDMI cable is
-disconnected if no other display is connected to cause the compositor to
-submit an atomic commit)
+The skip_modeset path calls dc_stream_release(new_stream) but does not
+  set new_stream to NULL. If a subsequent error (e.g., color management
+  failure) triggers goto fail, the fail label executes a second
+  dc_stream_release on the same pointer, causing a use-after-free or excess
+  put on the stream reference.
 
-Call amdgpu_dm_audio_eld_notify() in
-amdgpu_dm_update_connector_after_detect() when a sink is no longer
-available to ensure that the HDA driver always gets notified on
-disconnect regardless of atomic commits.
-
-Assisted-by: Copilot:claude-sonnet-4.6
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Cc: stable@vger.kernel.org
+Fixes: 3ce51649cdf2 ("drm/amdgpu/display: add quirk handling for stutter mode")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c     | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h     | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 9 +++++++++
- 3 files changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-index 13c9a9d145ba..c9da19335eac 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-@@ -168,7 +168,7 @@ void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
- }
- EXPORT_IF_KUNIT(amdgpu_dm_audio_fini);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5fc5d5608506..acf0b01d6f62 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	/* Release extra reference */
+ 	if (new_stream)
+ 		dc_stream_release(new_stream);
++	new_stream = NULL;
  
--STATIC_IFN_KUNIT void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
-+void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
- {
- 	struct drm_audio_component *acomp = adev->dm.audio_component;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
-index 7acfc5ef69b3..d0361fd95f60 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
-@@ -40,6 +40,7 @@ void amdgpu_dm_commit_audio(struct drm_device *dev,
- void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
- 		     const struct drm_connector *drm_connector,
- 		     const struct dc_sink *dc_sink);
-+void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin);
- 
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- struct device;
-@@ -48,7 +49,6 @@ int amdgpu_dm_audio_component_bind(struct device *kdev,
- 				   struct device *hda_kdev, void *data);
- void amdgpu_dm_audio_component_unbind(struct device *kdev,
- 				      struct device *hda_kdev, void *data);
--void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin);
- int amdgpu_dm_audio_get_param(void);
- void amdgpu_dm_audio_set_param(int val);
- #endif
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 300ee26f26ff..9286f86a20cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -464,6 +464,8 @@ void amdgpu_dm_update_connector_after_detect(
- 	struct drm_connector *connector = &aconnector->base;
- 	struct dc_sink *sink __free(sink_release) = NULL;
- 	struct drm_device *dev = connector->dev;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	int inst;
- 
- 	/* MST handled by drm_mst framework */
- 	if (aconnector->mst_mgr.mst_state == true)
-@@ -601,6 +603,13 @@ void amdgpu_dm_update_connector_after_detect(
- 		/* Set CP to DESIRED if it was ENABLED, so we can re-enable it again on hotplug */
- 		if (connector->state->content_protection == DRM_MODE_CONTENT_PROTECTION_ENABLED)
- 			connector->state->content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
-+
-+		mutex_lock(&adev->dm.audio_lock);
-+		inst = aconnector->audio_inst;
-+		aconnector->audio_inst = -1;
-+		mutex_unlock(&adev->dm.audio_lock);
-+		if (inst != -1)
-+			amdgpu_dm_audio_eld_notify(adev, inst);
- 	}
- 
- 	update_subconnector_property(aconnector);
-
----
-base-commit: 30ffa8de54e5cc80d93fd211ca134d1764a7011f
-change-id: 20260625-amdgpu-dm-always-eld-notify-on-disconnect-951e67fae8ed
-
-Best regards,
+ 	/*
+ 	 * We want to do dc stream updates that do not require a
 -- 
-Nícolas F. R. A. Prado <nfraprado@collabora.com>
+2.39.5 (Apple Git-154)
 
