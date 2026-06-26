@@ -4,57 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544BECDE008
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA8F6CD4F26
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 07:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E726A10F4AD;
-	Fri, 26 Jun 2026 07:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 655FE10F4B9;
+	Fri, 26 Jun 2026 07:55:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="QXcT2dL/";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="XDIHEVEA";
 	dkim-atps=neutral
-X-Greylist: delayed 367 seconds by postgrey-1.36 at gabe;
- Thu, 25 Jun 2026 15:24:33 UTC
-Received: from forward202b.mail.yandex.net (forward202b.mail.yandex.net
- [178.154.239.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4833A10E216;
- Thu, 25 Jun 2026 15:24:33 +0000 (UTC)
-Received: from forward102b.mail.yandex.net (forward102b.mail.yandex.net
- [IPv6:2a02:6b8:c02:900:1:45:d181:d102])
- by forward202b.mail.yandex.net (Yandex) with ESMTPS id 88A4EC3663;
- Thu, 25 Jun 2026 18:18:26 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net
- [IPv6:2a02:6b8:c24:221f:0:640:b03f:0])
- by forward102b.mail.yandex.net (Yandex) with ESMTPS id 629CDC00F6;
- Thu, 25 Jun 2026 18:18:23 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net (smtp)
- with ESMTPSA id DIbMBTIdH0U0-mdd7Epgp; 
- Thu, 25 Jun 2026 18:18:22 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1782400702; bh=8NQg9mqw8zBbJMcwecVSvlZHJ1JE4BFnWrwrF2BbF7A=;
- h=Message-ID:Date:Cc:Subject:To:From;
- b=QXcT2dL/k8M5RbOhYNhFlUOU5jtWfYXUCyN5lxYd3RQc2Ih1VuzyCV144MsLJ+eHs
- qjLoDS/5rH18f4VfKFmj2Qgdo4N7a3yFPn/PwLx1tRFzCq7Zc9H661N+X6DPS4TpPH
- 1caTrKIfigb01wfGFnpOzrSoAMWSOQbL7WH5OW4M=
-Authentication-Results: mail-nwsmtp-smtp-production-main-67.sas.yp-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- alex.hung@amd.com, mwen@igalia.com, tzimmermann@suse.de,
- Alvin.Lee2@amd.com, ray.wu@amd.com, dmitry.baryshkov@oss.qualcomm.com,
- chaitanya.kumar.borah@intel.com, pierre-eric.pelloux-prayer@amd.com,
- HaoPing.Liu@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH] drm/amd/display: Fix dangling pointer in plane state reset on
- allocation failure
-Date: Thu, 25 Jun 2026 18:17:12 +0300
-Message-ID: <20260625151717.27757-1-evg28bur@yandex.ru>
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A9E10E2A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 03:00:22 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-1384ebe7a10so42476c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 20:00:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1782442821; x=1783047621; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xyfqQaJzQGqQ+w3Wgkei2isTk6qDBF7q1W+qeueb6IQ=;
+ b=XDIHEVEAP6VRrDX4ISUVY1fASNy/8hg5AvqjAaHwHDBxIHLXwP/xRi8Zk2XIdUsYwM
+ icW+EYvSJkmoyVh3e3Qc9O/qIEe2LEKV0ZsMqT7oWQtjvTOYmcZzOxWLxbVXISl7JP1f
+ b1pFveKjDnyhfmXeFyqLkJdvBtwBdyYiVFEcNnL5brkel39L1+EHPJIeff3qWPByLwt8
+ VrDeqBUjvfW7+KvThYMrcrTWpNxSKcBqBOXtqfDIApdIOwh2n6q6t/3LbsZ0raEfkxIe
+ iUGiGI0masL54D7Vyh4ZtTrYwVngTC5SZkPnysL/SuQVm11mEDn1eh1cXm9EmKqiAt3K
+ HJ2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782442821; x=1783047621;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xyfqQaJzQGqQ+w3Wgkei2isTk6qDBF7q1W+qeueb6IQ=;
+ b=RtA/undE9/6CVNpejzGEQ+TLKpCWqsvzmbUG5Idf14W+vFLdUfxJvaOjYBfzGi61QX
+ YIk7YHzfnjYxbfZrcgttQZJ1QqyVO2jKv+MaGxIVOnkKcuoOX36gpaPoslljjCYOCajL
+ GupTkJ4NVEwqMwaKcYf/NkBnSUlytEtAXiASRUB7tvm/XZBBHOvM3aLng0KnN14YTmrf
+ IrIhr/fRs0rfJ9xgyB9gDZxS9FWmNkcv2ZHoideBVo7T2xQZMAQsUzB4KhR7utpAEErO
+ qeuaJ8peDOL9rAZyqbjaRG/SmB05x6V3tlwpn+l0cu7xZZCzsw1NIBKCv3xfeGDaZv0X
+ Z1Rw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8K8pFBY2IeMFSNtL1yZF5iK6dXgqkuvogDx9qzcAPRJ5azaS6YcLl8/zggKCPY18jMZ5DBE3LD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEK4cnX8tiMo29U+EIW6tsNsbNzPVz7E27BXknxA/G1apmiDMB
+ 9Yz4HNXRyxDGMwplUH+SjP/o60p7YLPfkwapOC62E/Q9gOYd9LfSmOmWqoTWRyClphE=
+X-Gm-Gg: AfdE7cnSVKgC9A7FVpunDuRgSHFOTU7xvRSFL8jBI+hBCLgPkuUkMHWDIbcNyH9EBtR
+ Fbh1uUaaLwB0gdiNdqSUbsUOUEfjFztPI21ekc+eczQnZPBtMC4hqGNaMUqd3p1KraUZNH+5LT0
+ 5EixWidXrQO1ixVjq/n409PTTdUSoELvs+CP06LyMgGJk2/mH130DU4tro95m+d1yCj7xJLsIYT
+ yiRFBlrz/jBDsMSV/4q5Y1TT3lVxKKwobg2r6RzSsDaAg3oktlqKygmQRZvSP+vcuUnie7fkS+p
+ 3O4MKYf1xFOGBKk1hQXu2or09CeAk9/BPvRX/lxgYWwna8lLvDpIKBCYyKXdN+hUT8FCaTbxNWK
+ DDB+0QaRmtUhDmGxD0DonJ1C1gXs+qiFR3LH8aBqiTvbQw0EFxLPsM5PiXksQJF21Fy6Jq/M96L
+ F6HZlRajT8bZmR7U7p+tuVtH5JIXy3BgPDNogaRveVafV7HzaXCu+rRoz3vWZP69CQFJ/k9g==
+X-Received: by 2002:a05:7022:5f08:b0:139:dfe9:c8b1 with SMTP id
+ a92af1059eb24-139dfe9c90emr1949342c88.8.1782442821140; 
+ Thu, 25 Jun 2026 20:00:21 -0700 (PDT)
+Received: from voyager.. ([179.119.40.186]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-139d8f6acf9sm13048415c88.6.2026.06.25.20.00.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 20:00:20 -0700 (PDT)
+From: Tiago Dourado <tiagodourado@usp.br>
+To: kernel@lists.ime.usp.br, airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, simona@ffwll.ch
+Cc: Tiago Dourado <tiagodourado@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/2] drm/amdgpu/jpeg: deduplicate process_interrupt across
+ JPEG versions
+Date: Thu, 25 Jun 2026 23:59:11 -0300
+Message-ID: <20260626030013.20569-1-tiagodourado@usp.br>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -73,63 +86,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In amdgpu_dm_plane_drm_plane_reset(), the old plane state is freed
-before allocating a new one. If kzalloc_obj() fails, the function
-returns without updating plane->state, leaving a dangling pointer
-to already freed memory.
+The JPEG versions v3_0 and v5_3_0 have process_interrupt implementations identical to their predecessor versions (v2_0, v5_0_0 respectively). This patchset removes these duplicates by exporting the original functions and reusing them.
 
-Fix this by allocating the new state first. If allocation fails,
-free the old state (if present) and set plane->state to NULL to
-prevent any dangling references.
+v2:
+- Replaced macro alias with direct function pointer assignment in the irq_funcs struct, as requested by Alex Deucher.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Tiago Dourado (2):
+  drm/amdgpu/jpeg: deduplicate jpeg_v3_0 process_interrupt
+  drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0 process_interrupt
 
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 ++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h   |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   | 21 +--------------------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 22 ++--------------------
+ 6 files changed, 13 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index e957657b06c7..0d81cef5fdaa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1490,20 +1490,30 @@ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
- {
- 	struct dm_plane_state *amdgpu_state = NULL;
- 
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
--
- 	amdgpu_state = kzalloc_obj(*amdgpu_state);
--	WARN_ON(amdgpu_state == NULL);
- 
- 	if (!amdgpu_state)
--		return;
-+		goto err_alloc;
-+
-+	/* Old state can now be safely destroyed. The new state is already allocated and will be assigned */
-+	if (plane->state)
-+		plane->funcs->atomic_destroy_state(plane, plane->state);
- 
- 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
- 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-+
-+	return;
-+
-+err_alloc:
-+	/* Allocation failed: free old state (if present) and set plane->state to NULL */
-+	if (plane->state) {
-+		plane->funcs->atomic_destroy_state(plane, plane->state);
-+		plane->state = NULL;
-+	}
-+	WARN_ON(amdgpu_state == NULL);
- }
- 
- static struct drm_plane_state *amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane)
 -- 
 2.43.0
 
