@@ -4,153 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDD9CDE00E
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 08:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6360DCD4F26
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 08:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB1810E33F;
-	Fri, 26 Jun 2026 08:14:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 019BD10E340;
+	Fri, 26 Jun 2026 08:16:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hzXF7PUk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p3JxBvVR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7359E10F4D3;
- Fri, 26 Jun 2026 08:14:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782461647; x=1813997647;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=gZya5T7a9cCEzEUqG9MR4k8TtbLs7YNiBO9Z3kGgPGI=;
- b=hzXF7PUklD+eYfTAZbsCuPpKd+lk7QGUsHlMCf3wEJRE8y53RLfVBZ6T
- 8hCM87JUrMkern8VoSoakcjb9lQNn7FE7JGkAu5893/hLEMS/6LXTYfYs
- 5xi5FCflDIZnpM4jodob4p25wUKDZi3qff0L7B96dPWZWPrzpZrLsa2nG
- j9KwBooh6WywhExyB4WpeO3x9nbfvoc/8sLUmvbwJwg9Jgk7EsHelVYsp
- iQr3kv8LQP35eq04/TXOabucdufHoxKO5aTfSg2PS16j7z+xTImrx/nj5
- a+TYC4qU0u5YV2/qHCc/7Ul6BJMNcVPqACsNn7L7zx9sNN99wpSODu2Ps g==;
-X-CSE-ConnectionGUID: lX5yFmrSTzO8SeauBLZeYw==
-X-CSE-MsgGUID: TrYwdjRvQ6Omj5rBTKde3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="93606734"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="93606734"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 01:14:06 -0700
-X-CSE-ConnectionGUID: ox7ijuVTS4emC003Iae6yw==
-X-CSE-MsgGUID: LXo1+zr+RZWqAwbGtUBwCA==
-X-ExtLoop1: 1
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 01:14:06 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 26 Jun 2026 01:14:05 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 26 Jun 2026 01:14:05 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.26) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 26 Jun 2026 01:14:05 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012065.outbound.protection.outlook.com
+ [40.107.200.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 956FB10E340
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 08:16:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nbLpCioIvDqWf2d/Xs+jE9lwMwrbAxd1N6n99224dETARnfl8VuvUBXR77WxnT46cy6TzAamrPkZ8jtAabNjG7SGCQfZCEL8NhNT/G5pchyOZTu3/7V7B5n08IsNGE5e2uu7ND7WX9Bs8TR1JwGo3nbohpckUxWYBlvHc8/2g0Z2rJ+bVD6Ngs3tZ91TvNsJxSPbapBghp3B4W8cMZ3R3BWH5pJBsr/DuFGr7GxMavcLp3kFzZNJRyaToE6l8TIp+cfX2OBEgra7q7Yz3t9lmImL7YV5ve2cpVnzcxVDRZIrQbmAyhMs/TYStqyEwGqNuxbhOEExCUBb4ZVIyhVqCQ==
+ b=CElL7/8YZOs23fe3YCda3+XhhQzsX9Ykw/7SATxZ3p1Lt7W0jDycXrFSGIkLyxzKfKMjfG7uGHU/vRI4/MtD5W1r9x6PDgQNWDDklOciXkECyLPUcqA2ncKpNkD/zuGG4nAWnFQhD5VmW0mY4b6W5ESIvrtlScsFi3OqwZClj0YNHz4U3ifooBwEEbZjLE+Xsvj/khKntCiOb52acKUXq4WyDaaWVVlTs+Sy7Mw+EbuZgRBbpjswyql1/8PgrKTCiJl/3RMYpvGTp3hwbRJXDpqQIO6j1sGzInIU0EpVLd1U679Jqztp+sHoZ7y7uI5JR+X0MsPmSePxMf0c3hnOPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fdTAVAcB/xPg2aUbsRocMgetcjgpug78KLLTSdzUgz8=;
- b=H0zCnDxCNs3MXsOCwSn3YqSLV2p/zKGeE2XEWcOuFUN9lgQ4OZ/KI7IZlRj0F0yZJlajsXFXdQ0XqphYkJmFGmEkXXd/GsED9335OY/f7TuPt8FJG/BDmC1YqlPw3sTy3DpQPU40UywY9V77ca2PmYG54ydgF917CU/0iV90lW1fYCMQFWsxnggAPzQhCg1NZm+v8MknBPpY44sjexi5DBYhHgXN4znFlIr00zP7csVOpWjYKRBCHb7V7hrxJJyROlHbSXXRJq/HIVwQ3Tzw8hVPQz0jy58D+/FSOy0GJ/CXIp8YNL3pJOWoIPq1JuwKqutlbJ4tBgi1hMgMTPASrg==
+ bh=6i0NSmCViIFZRPz5cnee+BnFoSoqB5FX7GDqceDF1cY=;
+ b=MgQxeNLj0/hzvA8nfZrHJ4wTFu36b4cIUO5KSG38/mqjHD3czGmnGqHTGASCvzdwZjBLDYbeA9vGSkia0+KBPi/X0Ne9D7kOpFgEG6VgGoO1CKltlOee7y62ldjHkUQV+r5NPt+9dgFJGLyHzffxdBMbK/7hg1gb7/T4O4EXm1IWQEmdYndam38V+LnlFsYwMNnzLzknkCJzRze6eAQiTKw3BQUvEsQIaTdiea/DnksjGEFHtw27eZyUYycVbdA2jW/y1VnfnLuWBBfudFR/n1TOcyO37tTFlyIPnnPg43eSEe40bMOcqx9c/L/Yd6Pu+EpV7Jb+C4Qy+oljplqRtQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6i0NSmCViIFZRPz5cnee+BnFoSoqB5FX7GDqceDF1cY=;
+ b=p3JxBvVRSx1pPigzaCvatjY7VZSU7C+61hHYHjMDP3vxMY1mDo6W6gG+nNCl1t0D/5LeVsXTbTPMjrOnZ2pk+G+QIBXThOgp8KJ8LzqcCu05UJI9vKLak4TFv8vv3tJFdZQyXqQbAmTmCFwFkFK3//eMYRCrDNsecGQJ+M3qhWk=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by SA0PR11MB4766.namprd11.prod.outlook.com (2603:10b6:806:92::20)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
+ by PHXPR12MB999231.namprd12.prod.outlook.com (2603:10b6:510:3ce::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 08:14:00 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 08:14:00 +0000
-Date: Fri, 26 Jun 2026 01:13:57 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Honglei Huang <honglei1.huang@amd.com>
-CC: <sima@ffwll.ch>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
- <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
- <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>,
- <Jenny-Jing.Liu@amd.com>, <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>,
- <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>,
- <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <honghuan@amd.com>
-Subject: Re: [PATCH v3 1/5] drm/gpusvm: split MM state flags out of
- drm_gpusvm_pages_flags
-Message-ID: <aj40xcAiXlj6/z6S@gsse-cloud1.jf.intel.com>
-References: <20260618080902.1527255-1-honglei1.huang@amd.com>
- <20260618080902.1527255-2-honglei1.huang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260618080902.1527255-2-honglei1.huang@amd.com>
-X-ClientProxiedBy: SJ0PR03CA0177.namprd03.prod.outlook.com
- (2603:10b6:a03:338::32) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Fri, 26 Jun
+ 2026 08:16:02 +0000
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819%3]) with mapi id 15.21.0159.012; Fri, 26 Jun 2026
+ 08:16:02 +0000
+Message-ID: <d06a5c88-63cb-491f-8090-6df38325acdb@amd.com>
+Date: Fri, 26 Jun 2026 13:45:57 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm/amdgpu/ras: Resum RAS IP hw init during nps
+ dynamic switch
+To: "Stanley.Yang" <Stanley.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20260626071752.192163-1-Stanley.Yang@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260626071752.192163-1-Stanley.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4P287CA0106.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:276::6) To SJ0PR12MB7082.namprd12.prod.outlook.com
+ (2603:10b6:a03:4ae::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SA0PR11MB4766:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9d18aba-0a7b-401a-7397-08ded35ae0a3
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|PHXPR12MB999231:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42e8a9ca-936d-4291-a24f-08ded35b2973
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|7416014|1800799024|6133799003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +75ml/qkqiIyahg3CFUeEn850GQFlRdXhnHSAqDUJTAXVnzlhnbUUwVgLHIuTxZ8iD6xoW7NxLoZV7WQeBaNUTLhJwyPW6ClkW4si3PFytkBLCqsn+4nJtiuRvZIqi2PchwqiNdmhq1elcNqhyhAKvzpSUd8oHvxAm/nAk3rKv2O5YPdzPTM8hwuu6dY72qJLMUxiedMHSkbS+5bG4T0zP6ucZiRa+bTCh5XgmzwiQNG3dJ0ayTfSPydYcNu/cntpxRT8kLfBjp3EdWRGt/UqNtdGPWEOzyOHMUCmXYsc6NV8PXnS3qLYnMzogUBgzlHMdCH2TdazvTkAmzezSn/jR88Q+HHGILDNyfo87TUwrPZfdlCA6MZM7eyqbV7Hu8zM8K/O9ynspMLRv7gOO/8pXcLVRwzoybUfueg0oWmGXIWktbwdg5Q0ih3b9NKLzE4TUFSsDm1gQiaFgqrB5pl3MIS0IQUGqPv13HIev9kattTpt0M2TQtRQUzXTJyaAE4Hu6ColT+a5pe50uSomOoPbt5Q+urTJdeNw1VVPuHnLQpkaWvU4ggELNxNe5r0QKpouvJUH0wkc8d/WYyzDDcjSOYlGz4i6Yt+TySEel6PBb/0xMFW+++lWEKn6cSin7m
+ ARA:13230040|1800799024|23010399003|366016|376014|22082099003|6133799003|18002099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 4OkHXh3gxm20NVgP+HckHNuvuurVQLzb9nn5F2oTR8QhjYmTG3QFOqBBTz1NyP8brlGGabWzxrPTeLeY8MNdUPM6bbmLDfYNs39F3xJ87aEg73DDNpmZzw5vZkbMQ5xOS4i5WCyir+nmTTiH6JBLMPxk2j4RytlkZqJNUnR+JWgPL2mqP5hFBatqqFRbePiVZK6oUt9IWs5ApP6yLyyrvpILjD9BZOVoqyvI48eVacmTKJYITYivkCXFTziu0A7KF4bjb+ojSgXyYF8E3pelVzY3JuCJRC8ZOYvgUqUltJ9upUIvXDYr/VS2CiXbNN4/aN3WXEvR3rCfR2rlFIDhzZr1OgOEwpjl8mlWAngc897c4/0iyXD1rqE//qKIRpl9pXRQZHn+otjdtbxg0QwZCBDDJ/XPLu+uV5dTvBktDGOTdTbKb1aPDmS1p6NCJdyRYYTC+NHrdzX5WffiH0TDl+ogoPqQxa5vbb6aSevXVbYw8ZpmN5HhRzvwyirAc1L2ZE8IB+RK+UvF2awFEIF068KgxPBHMTVbRXykn6Deud3vvV92LpgU1HRg3tWcOSx+NOii6P7nBA8pbz1MTWRZcFU5E3Wpnvae9DKZN9RcKemoPiiQiXLoSBiVA2iLOGrU
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(22082099003)(6133799003)(18002099003)(3023799007)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zFPyvE0owmRWhf78AO8OSS1Y7Nt1gbMp8luwKL1JSI3BJQCukW/nozI5Arjv?=
- =?us-ascii?Q?IsQF1SXpEwcLiPj7RVFl3RSecVBW9NyF3/Q8hSlNk2sDrXuwB2LTsJrvOUpe?=
- =?us-ascii?Q?sr8Mu93SSaWUsf/J2o/ahfV/a90dgJbe2Xu8MBm/0XcZrAtWGfD6+zm64wES?=
- =?us-ascii?Q?GNK0yWm+yCM7uZLeBo/SarPFBwizDeFavULl7Pf5jH34xRxb92ljGXf47i1G?=
- =?us-ascii?Q?R18AZ/rHF6TZUQ+jiOod7hD03fUr/bcLYGXMvepIWbWHwQifxWA1R/GDyFNo?=
- =?us-ascii?Q?cX1Vs3Avswh1OwXeGaYxv0cWyJzrd0nt/5enxm76NcXhKYZzbd2ZthfkkkOY?=
- =?us-ascii?Q?tiEFOKIMZV6HB8Bxkq9X9cryf1bzvJ+r3MZsi9wK3bStA47A92CMZ9+O0MfU?=
- =?us-ascii?Q?YiGEioHrbKARTY2WhT9QHyOoKHO3qRBA1rkUXjPrId/7yW9fuLtGirXGbILS?=
- =?us-ascii?Q?PdAWh9IFh7RHSwdoMsBaJ8kk8vBNVtSGrne7WjV9jRkovBiS70/yMkucsfPw?=
- =?us-ascii?Q?3wN4OKnaUFNqCdR3QUWv21n9rjMGWe5svwxGQE/wwpmSOvR0JU+qHT/DkIav?=
- =?us-ascii?Q?AGUpfK0s+TQy0u1WzTTXayBDKxdU5MGcM2/yZ38F1tibJEQ+r6a4O972nC5a?=
- =?us-ascii?Q?fVGG4jKYeRWEQe3+k/yo3wyS0tI9+jH7rPy8ppizz/wMOB7dqxhQ/oaRXkbU?=
- =?us-ascii?Q?5w/UqdUlT3Rj64/6CSz+9YmWPvYhDJ/OmSz493q2J2q0MyemXtneWjB+CCoS?=
- =?us-ascii?Q?uus4Tj1Ld/nVyENys4DTnSkiP/WMotLl+kjidpuaxF0TZpr+MT1FgJpWOmWl?=
- =?us-ascii?Q?r/vK+WTwVXk9A0XpG8fbdpXmG3aHOFOuxrHCY34aZ3g2xKSP6KyE9eMjVCs/?=
- =?us-ascii?Q?/SB1RIHUzvMXym7tHTWKMRmO73HDKb8x6FoaYe+8LdqgcYifitGPWgWpbshv?=
- =?us-ascii?Q?b6RXZZB/fjP0GuXDwtRUZMp/5wla5B5xOBzAJmfitrhv5pDQaaJzI0Sgtn3K?=
- =?us-ascii?Q?Qm8Uvqgfou/OTDPj58RqNWXnV+IbalgDQCjNAyP+VeFtoOCZ0hINyJWmDi+B?=
- =?us-ascii?Q?gV5bCiWzrVTkR3Jo47VZrCT/zKfzFQCUSFltLiIgX1dNKmFxbB/zRw2RXV2v?=
- =?us-ascii?Q?SVY21CFVu4krJD3VPOsax5phCFnKkwIr5t6WB6bpbjmXbnvdNbc/PBEHsbYV?=
- =?us-ascii?Q?v8u6wCO+BtuKnd7Na9+ioiy7U9HVxu+mf7Vi7AiG9xQjIbzybGRIyBjbyJie?=
- =?us-ascii?Q?mw2x6mDhjeb8eaiURnxE1iTMfAMijBdUF0hLc1PMu6pyi/vXNmbSbVpEzLqp?=
- =?us-ascii?Q?FWjkYKn9Eq5J/5syvuXfi6zV/iarEsQDwN+dNo9mLFlrlAt9m2SBY6xQFBwP?=
- =?us-ascii?Q?yDoi6RntzTIMQUoFXa6bUdtWRw3PcT6EqXEpgUEQW76yD8MLuSIxtxUT70iS?=
- =?us-ascii?Q?h8Ya3iQ5yarqFfTVSfcN9ezkRS5VmzzeVSu58ynWaTmWw7V9YxU0fs5SEFF6?=
- =?us-ascii?Q?h0IxZAKSQwWKNCvdPyQdoi3tMvUkXdlvUxKgtPuIBR4WWj/PEWFDQNd64qxn?=
- =?us-ascii?Q?wjmaOkKra+CRL9EDNfdeRvcikZr8w+fYJ+tqET0d9mz7jARNWOlZBkkxlu5I?=
- =?us-ascii?Q?uxtAwXTPgabVtmXih/nxZa5iphmavDiKrvRjAq1GJjL0vpryUkn3dfZ0RWM4?=
- =?us-ascii?Q?EVWXLH917zPWcr0T5g4tR61zbfmzveXuWONH8gR/qORYqnNETOE22oUePLa0?=
- =?us-ascii?Q?xfMg5wXwHuGtCRq4yceQpjuKNX+LAD4=3D?=
-X-Exchange-RoutingPolicyChecked: EiGrjLexlokzhxAjFpY91uLAeN677NR+r3K9o1boV1f9ewNp0qFcwko5qYUzt8Qbx4BciNMA8UhNzqiUkihcWuBJq5dZgbXw3vSaHzrhWPznAq/J0sLRjt/fQuQUcpqdyKA0LMUd9YmIV3FchjeMbG+Zms2vka1rcrTtED92ZxV1vb+/SOjx4/aHaH6m6MTuzW6ZYqel2PkZXU48gbcBNEgBMVTfdo+AEUwuzm/yXhwQXuVBijhmw4Kud1YZ43d2zRp++MumpIwqgpe1T0tR4xAurDJJ9ZT1kXEKEP1v32qMLNNbHRPY5EMqjrSZ1tbVEz09rFzZt9vVfkK7vYpLQQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9d18aba-0a7b-401a-7397-08ded35ae0a3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SE9MWUdPWG5uVWMzQVdqaGZBRVJWYWtoSWhDbUkyNnBvSjd6a3VmWFNzOEs3?=
+ =?utf-8?B?RnZwUVVZeVJZbjhQMDNRODJ5T3BlYldXeEtEWm02ZVBEbVc1b1M1MjdIY0ZV?=
+ =?utf-8?B?clVFZTlyWW1hVU1sbDR0TGNIM0ZxQ0JWWmtnVmU4UldraUJUdTV3YTYrZVFJ?=
+ =?utf-8?B?R1N1dE9HRG5ReVFLZlU3enVaRXYveVVBQS9JeFhwKzlhTUpoMnpSVmpSTG1r?=
+ =?utf-8?B?cjg2elFpWEFEUThWRkxuRTFGOUVPMCtxUSt2aFR4UHRhNmNxUS96M3ZqTk5a?=
+ =?utf-8?B?L01idTA0ZmQvbUhpdjJtVFljUnJacjVBYlBmYXdJN0toS2lpZlplRTA3RlZU?=
+ =?utf-8?B?Q1htUlZhTmFFVmlYZUpXWk5JVWlVUENaM1JNcFRwazdKMXJnL1dkZ1BQTkdy?=
+ =?utf-8?B?dW1aZGFjYlpWWkpiOWNpR0dpTEY4Vk5iYkVLaXBCZXYwTmNGNzNjL0o2clps?=
+ =?utf-8?B?NGVyZmU2SXliL1dLc1lCTk5LUHVSUUFtV1VaT1VWc2lNM2FVckZkMUdZdVh3?=
+ =?utf-8?B?ZlRJVGorKzVTVVNiV25nM3VLNERwaHQ3RVl5VlZoSE1ndjI2VE9DL3dSd01X?=
+ =?utf-8?B?QUFORDJJcm80b0ZCTjg4ZTRCN3o2NWprZ3NlRW9vRjVLc2NidmVrVEh0MW1w?=
+ =?utf-8?B?cmJkWW1hU0kxVFBzRHEzTXJ2ZUVQdTUwbUhuMTZ3VzJXVGI0TTgzcHg0eU5a?=
+ =?utf-8?B?anZiQnpseUpkaXVWd2xMbC90VmhIeGxIV0V6bGxORTY4NEwyMEF6Z0s5M0d6?=
+ =?utf-8?B?Q3ZmYUt6Q0tVdWNGdFlRSlpOV2NlRndjcS9JRld6d3hzM3E2VFFtM0VtUGRF?=
+ =?utf-8?B?R0NVdjRhbXFGSzdOWEFtYVgzT0lQUFZYR2RlL3FIUXV4UmhUOXdWRTZzZm5o?=
+ =?utf-8?B?a0NHTzdZOHE2d0haUERzZUxjQkIxbU0zcXcwNlNtRjJPT2F3N2YyMTE0S2hB?=
+ =?utf-8?B?MDJUejVnZHl2N1VHaktGY1BYeGF4bGRjTzZtMzl2Z0VObmpqcGhBL05ydDFM?=
+ =?utf-8?B?U24rSWxrK0gvZzRDWWdwY1ZmZ3cxMzlPdU50OGpsUXVxcDdEVDA4RUZ6M0RV?=
+ =?utf-8?B?T3VIb043dFJ6ZE1sV2tyOFRPUWpLam9XSUkydjRTWmlXK1dlM0pGYkVOSURX?=
+ =?utf-8?B?VnU0Y1ZIZ0tTRnVEeUZhSG16OGFKRzR1REF4dFV5ZC9Vek1nbURvUEtuTUNE?=
+ =?utf-8?B?UTg3ZWk0MWZwL01GbDNyU1ZWc3p3d2FCbjgwRVJZOStUMGdtQThmWUw4aXRI?=
+ =?utf-8?B?SklIeW8xcVN6UXB6ZkZiNHFxdXFuRS9pYWRreGFiNUZPa0JjRjFLNjQyODFL?=
+ =?utf-8?B?ZWFOZWdPSlFiMjF5WVlXbXZkRFFNL3pOQWJuK013NzM1eE00K3gxOVVVd2hJ?=
+ =?utf-8?B?QnNxMExWbXl2azBRS3NMVlhBUWt5ZFQ3SXVSb1RDczAxOUszK2VCZW1kb1dX?=
+ =?utf-8?B?UHBVWXJkTWpncHVpaVF0NnVvY0hGVTBpYVlaTk5RanlKbDRReGRGZU1jQVdR?=
+ =?utf-8?B?RlBFcHFwam5FRWkyYWVjclBPYkUvbDV1U0RoYlZiZG9HK3RaYWRoeXRzWG5R?=
+ =?utf-8?B?Rk9nVS8ycTArdi93RzJKd1F0NlVZN0hXeGRsZS92bjRhSDJSd1RTblZsSWcz?=
+ =?utf-8?B?bjY4V08wTzI1aHhTcURjb2JWSmQ5Vk1QbXB6bnRKSXZiNHRRR2N0T2gyTko0?=
+ =?utf-8?B?NktOSHRZcWtVQzhsckdYdFgxbUZjRSs1OUh3K2NsdzlzRFZyNzZqSjZKTDA3?=
+ =?utf-8?B?dE9XZHdNeHpZdFBNeHVVNHdvbEpyR0VWYjc1Z0g2ZmZOYnZKVkN3dDEwZnNw?=
+ =?utf-8?B?M0hMbVgvUG1CVG1KTE5uVnZCeTV0N09FMzVtUm1sQmtZSzFmLy9rcE1jdU9a?=
+ =?utf-8?B?R1FWQzJ0WFl5Y2pMWGNvQ1ZXc3lXVmNheUJoT0Zrc2RTRmZPYXp1dXpqZm9w?=
+ =?utf-8?B?MXNadDR2Q213cGZ1cGNXd3g1cVpQT0lFdXJ6ZmRXNWxmcEVGcUNoNlc4dmNV?=
+ =?utf-8?B?SExSY000SDBReFd0Z1RTc1haTFcvYjVreVIvSFFGRnpLNGViZGNVeG5WMnl3?=
+ =?utf-8?B?b29tcUVjd3dWbGhhMzB5SCtXcjlzUUxBVVpWVHJ0L0ZKUmc2WnNUSjdrY1J4?=
+ =?utf-8?B?a0V5eUh2N1cwWmxrQldJMWEwcm40VzRYWHdBQVhyQ3l2L3pYMW80eGQ4Y2Zi?=
+ =?utf-8?B?RTYyekhaU0x3WHlESlJQT2U5MFNvUkY5RlNrejhoYWN5T0UrRkdOUzFnaWZB?=
+ =?utf-8?B?Z280M21VSWU4UUtyMlFDanVpNi9JbjBUeVRBMVFlZmlOZ0p3STNzY1o2MXZK?=
+ =?utf-8?B?eGNLNG5Hcm5aZm1WenptZDlUV0lDTmlCb0c0YzV0M0lBNEJQa0VyQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42e8a9ca-936d-4291-a24f-08ded35b2973
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 08:14:00.4263 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 08:16:02.5707 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uZ1czwvPEowI01IfyTIbfR45/NIqkWvdiTB31XxhvTfyJ3pPK1lTUjlR5pKuMhi7/EIReDbDC0SWR1FRM++mEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4766
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: dBDCSYok9oBChzCx4xqkG8PmlZF5O7HXXwB639Nn9xNh4uuPDP6F8H2LofnmL5T2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR12MB999231
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,226 +134,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 18, 2026 at 04:08:58PM +0800, Honglei Huang wrote:
-> From: Honglei Huang <honghuan@amd.com>
-> 
-> drm_gpusvm_pages_flags currently mixes two status:
->   - MM / virtual-address state: whether the range has been (partially)
->     unmapped by the Linux MM, these follow the lifetime of the VMA and
->     are a single per VA range fact.
->   - Device mapping state: has_devmem_pages and has_dma_mapping,
->     which describe the current page mapping status held by device
->     itself.
-> 
-> Keeping both on the pages object blurs the semantics of the
-> abstraction of pages and VA range. So move the MM state flags onto the
-> range, and keep drm_gpusvm_pages_flags strictly for mapping state.
-> 
->   - Introduce drm_gpusvm_range_flags { migrate_devmem, unmapped,
->     partial_unmap } on drm_gpusvm_range.
->   - Shrink drm_gpusvm_pages_flags to just has_devmem_pages and
->     has_dma_mapping.
-> 
-> Side effect: drivers now need to check the unmap flags in the driver
-> itself to avoid handling the unmapped pages.
-> 
-> Mirror that bit onto drm_gpusvm_pages so the framework can
-> still short circuit drm_gpusvm_get_pages() under the notifier lock, and
-> make drm_gpusvm_range_set_unmapped() propagate it to the backing pages.
-> This follows Matt's review fixup for the v0 series; see the Link below.
-> 
-> Suggested-by: Matthew Brost <matthew.brost@intel.com>
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-> Link: https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
+On 26-Jun-26 12:47 PM, Stanley.Yang wrote:
+> On an XGMI reset-on-init (NPS memory patition mode swith), RAS
+> IP hw fini, sw fini is called but hw init is skipped due to
+> RAS IP block is not included in hwinit mask, so need call
+> RAS IP hw init during XGMI reset-on-init.
+> 
+
+After reset, we set it to default level.
+
+https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c#L5211
+
+The default level includes all IP blocks, hence it's supposed to resume 
+all blocks.
+
+With RAS as a separate ip block, ideally it should have resumed. Could 
+you check why/how RAS IP block is missed?
+
+Thanks,
+Lijo
+> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 > ---
->  drivers/gpu/drm/drm_gpusvm.c | 21 ++++++++++++++++++---
->  drivers/gpu/drm/xe/xe_svm.c  | 11 ++++++-----
->  include/drm/drm_gpusvm.h     | 30 +++++++++++++++++++++++++-----
->  3 files changed, 49 insertions(+), 13 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 14 +++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      | 10 +++++++++
+>   .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 22 +++++++++++++++++++
+>   .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h  |  1 +
+>   5 files changed, 47 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 958cb605aed..df900553f21 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -641,7 +641,7 @@ drm_gpusvm_range_alloc(struct drm_gpusvm *gpusvm,
->  	range->itree.last = ALIGN(fault_addr + 1, chunk_size) - 1;
->  	INIT_LIST_HEAD(&range->entry);
->  	range->pages.notifier_seq = LONG_MAX;
-> -	range->pages.flags.migrate_devmem = migrate_devmem ? 1 : 0;
-> +	range->flags.migrate_devmem = migrate_devmem ? 1 : 0;
->  
->  	return range;
->  }
-> @@ -1784,20 +1784,35 @@ EXPORT_SYMBOL_GPL(drm_gpusvm_has_mapping);
->  /**
->   * drm_gpusvm_range_set_unmapped() - Mark a GPU SVM range as unmapped
->   * @range: Pointer to the GPU SVM range structure.
-> + * @pages: Pointer to the GPU SVM pages structure(s).
-> + * @pages_count: Number of GPU SVM pages structure(s) passed in.
->   * @mmu_range: Pointer to the MMU notifier range structure.
->   *
->   * This function marks a GPU SVM range as unmapped and sets the partial_unmap flag
->   * if the range partially falls within the provided MMU notifier range.
->   */
->  void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
-> +				   struct drm_gpusvm_pages *pages,
-> +				   unsigned int pages_count,
->  				   const struct mmu_notifier_range *mmu_range)
->  {
-> +	unsigned int i;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 7ef7c54ab982..e11c542a01b6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -3857,7 +3857,14 @@ int amdgpu_ras_init_badpage_info(struct amdgpu_device *adev)
+>   	if (!con || amdgpu_sriov_vf(adev))
+>   		return 0;
+>   
+> -	if (amdgpu_uniras_enabled(adev))
+> +	/*
+> +	 * For the reset-on-init path (e.g. an NPS memory partition,
+> +	 * switch) the RAS IP block hw_init has not been enabled and
+> +	 * the amdgpu_uniras_enabled return false, check amdgpu ras
+> +	 * context uniras_enabled flag, eepron init will be called
+> +	 * during RAS IP block hw_init.
+> +	 */
+> +	if (amdgpu_uniras_enabled(adev) || con->uniras_enabled)
+>   		return 0;
+>   
+>   	control = &con->eeprom_control;
+> @@ -5859,3 +5866,8 @@ void amdgpu_ras_post_reset(struct amdgpu_device *adev,
+>   			amdgpu_ras_mgr_post_reset(tmp_adev);
+>   	}
+>   }
 > +
->  	lockdep_assert_held_write(&range->gpusvm->notifier_lock);
->  
-> -	range->pages.flags.unmapped = true;
-> +	range->flags.unmapped = true;
-> +	for (i = 0; i < pages_count; ++i) {
-> +		struct drm_gpusvm_pages_flags flags = {
-> +			.__flags = pages[i].flags.__flags,
-> +		};
+> +void amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)
+> +{
+> +	amdgpu_ras_mgr_resume_after_reset(adev);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> index a86ab65aa2f0..ad24c7cf8936 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+> @@ -1045,4 +1045,5 @@ void amdgpu_ras_pre_reset(struct amdgpu_device *adev,
+>   					  struct list_head *device_list);
+>   void amdgpu_ras_post_reset(struct amdgpu_device *adev,
+>   					  struct list_head *device_list);
+> +void amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> index 9a4e8715742a..f175c8987aeb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -1669,6 +1669,16 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
+>   		if (r && r != -EHWPOISON)
+>   			dev_err(tmp_adev->dev,
+>   				"error during bad page data initialization");
 > +
-> +		flags.unmapped = true;
-> +		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
-> +		WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
-> +	}
->  	if (drm_gpusvm_range_start(range) < mmu_range->start ||
->  	    drm_gpusvm_range_end(range) > mmu_range->end)
-> -		range->pages.flags.partial_unmap = true;
-> +		range->flags.partial_unmap = true;
->  }
->  EXPORT_SYMBOL_GPL(drm_gpusvm_range_set_unmapped);
->  
-> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-> index e1651e70c8f..63da149f3b7 100644
-> --- a/drivers/gpu/drm/xe/xe_svm.c
-> +++ b/drivers/gpu/drm/xe/xe_svm.c
-> @@ -134,7 +134,8 @@ xe_svm_garbage_collector_add_range(struct xe_vm *vm, struct xe_svm_range *range,
->  
->  	range_debug(range, "GARBAGE COLLECTOR ADD");
->  
-> -	drm_gpusvm_range_set_unmapped(&range->base, mmu_range);
-> +	drm_gpusvm_range_set_unmapped(&range->base, &range->base.pages, 1,
-> +				      mmu_range);
->  
->  	spin_lock(&vm->svm.garbage_collector.lock);
->  	if (list_empty(&range->garbage_collector_link))
-> @@ -166,7 +167,7 @@ xe_svm_range_notifier_event_begin(struct xe_vm *vm, struct drm_gpusvm_range *r,
->  	range_debug(range, "NOTIFIER");
->  
->  	/* Skip if already unmapped or if no binding exist */
-> -	if (range->base.pages.flags.unmapped || !range->tile_present)
-> +	if (range->base.flags.unmapped || !range->tile_present)
->  		return 0;
->  
->  	range_debug(range, "NOTIFIER - EXECUTE");
-> @@ -1136,7 +1137,7 @@ bool xe_svm_range_needs_migrate_to_vram(struct xe_svm_range *range, struct xe_vm
->  	struct xe_vm *vm = range_to_vm(&range->base);
->  	u64 range_size = xe_svm_range_size(range);
->  
-> -	if (!range->base.pages.flags.migrate_devmem || !dpagemap)
-> +	if (!range->base.flags.migrate_devmem || !dpagemap)
->  		return false;
->  
->  	xe_assert(vm->xe, IS_DGFX(vm->xe));
-> @@ -1248,7 +1249,7 @@ static int __xe_svm_handle_pagefault(struct xe_vm *vm, struct xe_vma *vma,
->  
->  	xe_svm_range_fault_count_stats_incr(gt, range);
->  
-> -	if (ctx.devmem_only && !range->base.pages.flags.migrate_devmem) {
-> +	if (ctx.devmem_only && !range->base.flags.migrate_devmem) {
->  		err = -EACCES;
->  		goto out;
->  	}
-> @@ -1623,7 +1624,7 @@ int xe_svm_alloc_vram(struct xe_svm_range *range, const struct drm_gpusvm_ctx *c
->  	int err, retries = 1;
->  	bool write_locked = false;
->  
-> -	xe_assert(range_to_vm(&range->base)->xe, range->base.pages.flags.migrate_devmem);
-> +	xe_assert(range_to_vm(&range->base)->xe, range->base.flags.migrate_devmem);
->  	range_debug(range, "ALLOCATE VRAM");
->  
->  	migration_state = drm_gpusvm_scan_mm(&range->base,
-> diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
-> index 8a4d7134a9a..251a7266a73 100644
-> --- a/include/drm/drm_gpusvm.h
-> +++ b/include/drm/drm_gpusvm.h
-> @@ -109,9 +109,7 @@ struct drm_gpusvm_notifier {
->  /**
->   * struct drm_gpusvm_pages_flags - Structure representing a GPU SVM pages flags
->   *
-> - * @migrate_devmem: Flag indicating whether the pages can be migrated to device memory
->   * @unmapped: Flag indicating if the pages has been unmapped
-> - * @partial_unmap: Flag indicating if the pages has been partially unmapped
->   * @has_devmem_pages: Flag indicating if the pages has devmem pages
->   * @has_dma_mapping: Flag indicating if the pages has a DMA mapping
->   * @__flags: Flags for pages in u16 form (used for READ_ONCE)
-> @@ -119,11 +117,8 @@ struct drm_gpusvm_notifier {
->  struct drm_gpusvm_pages_flags {
->  	union {
->  		struct {
-> -			/* All flags below must be set upon creation */
-> -			u16 migrate_devmem : 1;
->  			/* All flags below must be set / cleared under notifier lock */
->  			u16 unmapped : 1;
-> -			u16 partial_unmap : 1;
->  			u16 has_devmem_pages : 1;
->  			u16 has_dma_mapping : 1;
->  		};
-> @@ -151,6 +146,27 @@ struct drm_gpusvm_pages {
->  	struct drm_gpusvm_pages_flags flags;
->  };
->  
-> +/**
-> + * struct drm_gpusvm_range_flags - Range-level GPU SVM flags
-> + *
-> + * @migrate_devmem: Flag indicating whether the range can be migrated to device memory
-> + * @unmapped: Flag indicating if the range has been unmapped
-> + * @partial_unmap: Flag indicating if the range has been partially unmapped
-> + * @__flags: All flags in u16 form (used for READ_ONCE)
-> + */
-> +struct drm_gpusvm_range_flags {
-> +	union {
-> +		struct {
-> +			/* All flags below must be set upon creation */
-> +			u16 migrate_devmem	: 1;
-> +			/* All flags below must be set / cleared under notifier lock */
-> +			u16 unmapped		: 1;
-> +			u16 partial_unmap	: 1;
-> +		};
-> +		u16 __flags;
-> +	};
-> +};
+> +		/*
+> +		 * For the reset-on-init path (e.g. an NPS memory partition
+> +		 * switch) the RAS IP block hw_init was skipped under the
+> +		 * minimal init level, so uniras was never enabled. Bring it
+> +		 * up now that the reset domain has been unlocked. This is a
+> +		 * no-op for any other reset path where RAS is already
+> +		 * initialized, and for non-uniras devices.
+> +		 */
+> +		amdgpu_ras_resume_after_reset(tmp_adev);
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> index f627a97797ed..a70e532b3d00 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> @@ -465,6 +465,28 @@ static int amdgpu_ras_mgr_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> +int amdgpu_ras_mgr_resume_after_reset(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+> +	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
+> +	struct amdgpu_ip_block *ip_block;
 > +
->  /**
->   * struct drm_gpusvm_range - Structure representing a GPU SVM range
->   *
-> @@ -160,6 +176,7 @@ struct drm_gpusvm_pages {
->   * @itree: Interval tree node for the range (inserted in GPU SVM notifier)
->   * @entry: List entry to fast interval tree traversal
->   * @pages: The pages for this range.
-> + * @flags: Flags for range see &struct drm_gpusvm_range_flags
->   *
->   * This structure represents a GPU SVM range used for tracking memory ranges
->   * mapped in a DRM device.
-> @@ -171,6 +188,7 @@ struct drm_gpusvm_range {
->  	struct interval_tree_node itree;
->  	struct list_head entry;
->  	struct drm_gpusvm_pages pages;
-> +	struct drm_gpusvm_range_flags flags;
->  };
->  
->  /**
-> @@ -310,6 +328,8 @@ drm_gpusvm_range_find(struct drm_gpusvm_notifier *notifier, unsigned long start,
->  		      unsigned long end);
->  
->  void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
-> +				   struct drm_gpusvm_pages *pages,
-> +				   unsigned int pages_count,
->  				   const struct mmu_notifier_range *mmu_range);
->  
->  int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
-> -- 
-> 2.34.1
-> 
+> +	if (!con || !con->uniras_enabled)
+> +		return 0;
+> +
+> +	if (!ras_mgr || !ras_mgr->ras_core)
+> +		return -EINVAL;
+> +
+> +	if (ras_mgr->ras_is_ready)
+> +		return 0;
+> +
+> +	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_RAS);
+> +	if (!ip_block)
+> +		return -EINVAL;
+> +
+> +	return amdgpu_ras_mgr_hw_init(ip_block);
+> +}
+> +
+>   struct amdgpu_ras_mgr *amdgpu_ras_mgr_get_context(struct amdgpu_device *adev)
+>   {
+>   	if (!adev || !adev->psp.ras_context.ras)
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+> index 4f44a917d48b..3f80b9f1f0ac 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+> @@ -82,6 +82,7 @@ int amdgpu_ras_mgr_handle_ras_cmd(struct amdgpu_device *adev,
+>   		void *output, uint32_t out_size);
+>   int amdgpu_ras_mgr_pre_reset(struct amdgpu_device *adev);
+>   int amdgpu_ras_mgr_post_reset(struct amdgpu_device *adev);
+> +int amdgpu_ras_mgr_resume_after_reset(struct amdgpu_device *adev);
+>   int amdgpu_ras_mgr_lookup_bad_pages_in_a_row(struct amdgpu_device *adev,
+>   		uint64_t addr, uint64_t *nps_page_addr, uint32_t max_page_count);
+>   #endif
+
