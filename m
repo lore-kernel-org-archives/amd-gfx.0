@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30591C43327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE355C43638
 	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 17:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B69410F6CA;
-	Fri, 26 Jun 2026 17:27:21 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D245B10E398;
- Fri, 26 Jun 2026 12:41:38 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-05 (Coremail) with SMTP id zQCowADXI8d6cz5qWKRoFQ--.22937S2;
- Fri, 26 Jun 2026 20:41:31 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, mario.limonciello@amd.com, alex.hung@amd.com,
- superm1@kernel.org, timur.kristof@gmail.com, ivan.lipski@amd.com,
- aurabindo.pillai@amd.com, chen-yu.chen@amd.com,
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40DA10E287;
+	Fri, 26 Jun 2026 17:27:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="LIj3K3Es";
+	dkim-atps=neutral
+Received: from forward100a.mail.yandex.net (forward100a.mail.yandex.net
+ [178.154.239.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD5210F2F9;
+ Fri, 26 Jun 2026 13:40:04 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c1f:582e:0:640:200:0])
+ by forward100a.mail.yandex.net (Yandex) with ESMTPS id C44DDC0735;
+ Fri, 26 Jun 2026 16:40:01 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net (smtp)
+ with ESMTPSA id rdanEUkf5Gk0-AkfTld3r; 
+ Fri, 26 Jun 2026 16:40:00 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1782481200; bh=e9YMAmOw7IfaTS4/uOeKkF1326th313osWzDsbfnnqo=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=LIj3K3EsdqMFaoe1y6wJVJzk0ObBELltGEm3Mf5hqdoomBHz5B2NUaF4Gw2FEtyXT
+ +n5leGC6MSBb1Zqj9s6SMJcVDK52G/Xo0i5Cm26D73OT6z6W+//x+GXD9n1vD36dcG
+ 0dYGAWirlFQF0LxVv7qo8YNHWpATZ4FaoOM4sLZg=
+Authentication-Results: mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ mario.limonciello@amd.com, alex.hung@amd.com, superm1@kernel.org,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
+ aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
+ Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
+ kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, contact@emersion.fr,
+ Alvin.Lee2@amd.com, chaitanya.kumar.borah@intel.com,
+ dmitry.baryshkov@oss.qualcomm.com, pierre-eric.pelloux-prayer@amd.com,
+ ekurzinger@gmail.com, HaoPing.Liu@amd.com, Tony.Cheng@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] fix: drm/amd/display: dm_update_crtc_state: skip_modeset path
- leaves new_stream dangling, causing double release
-Date: Fri, 26 Jun 2026 20:41:28 +0800
-Message-Id: <20260626124128.36625-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: [PATCH v2] drm/amd/display: Fix dangling pointers in state reset
+ functions on allocation failure
+Date: Fri, 26 Jun 2026 16:38:49 +0300
+Message-ID: <20260626133859.21492-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADXI8d6cz5qWKRoFQ--.22937S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GF47WFW7Kr1kGF17Xw48tFb_yoWkuFb_GF
- WUJr9xX3WayFs0qF12yrZ3urs2qFWYvFs7Gr17tFZ3try7JryUAry5Wrs5Wa1rCFnIgF98
- Za40g3W3AwsIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb3kFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
- VFxhVjvjDU0xZFpf9x0pR-189UUUUU=
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgKA2o+ThJwSwAAs+
 X-Mailman-Approved-At: Fri, 26 Jun 2026 17:27:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,31 +71,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The skip_modeset path calls dc_stream_release(new_stream) but does not
-  set new_stream to NULL. If a subsequent error (e.g., color management
-  failure) triggers goto fail, the fail label executes a second
-  dc_stream_release on the same pointer, causing a use-after-free or excess
-  put on the stream reference.
+Multiple reset functions in amdgpu_dm free the old state before allocating
+a new one. If kzalloc_obj() fails, the function returns without updating
+the state pointer, leaving a dangling pointer to already freed memory.
 
-Cc: stable@vger.kernel.org
-Fixes: 3ce51649cdf2 ("drm/amdgpu/display: add quirk handling for stutter mode")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+Fix this by allocating the new state first. If allocation fails, warn and
+return without touching the old state, as it remains valid and the caller
+will handle the error appropriately.
+
+This affects three functions:
+- amdgpu_dm_plane_drm_plane_reset()
+- amdgpu_dm_crtc_reset_state()
+- amdgpu_dm_connector_funcs_reset()
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
+Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 ++++++++++---------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
+ 3 files changed, 37 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5fc5d5608506..acf0b01d6f62 100644
+index 97ab1e83b318..6ef1b07ec251 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 	/* Release extra reference */
- 	if (new_stream)
- 		dc_stream_release(new_stream);
-+	new_stream = NULL;
+@@ -8151,33 +8151,35 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
  
- 	/*
- 	 * We want to do dc stream updates that do not require a
+ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+ {
+-	struct dm_connector_state *state =
+-		to_dm_connector_state(connector->state);
+-
+-	if (connector->state)
+-		__drm_atomic_helper_connector_destroy_state(connector->state);
+-
+-	kfree(state);
++	struct dm_connector_state *state;
+ 
++	/* Allocate new state first */
+ 	state = kzalloc_obj(*state);
++	if (WARN_ON(!state))
++		return;
+ 
+-	if (state) {
+-		state->scaling = RMX_OFF;
+-		state->underscan_enable = false;
+-		state->underscan_hborder = 0;
+-		state->underscan_vborder = 0;
+-		state->base.max_requested_bpc = 8;
+-		state->vcpi_slots = 0;
+-		state->pbn = 0;
+-
+-		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+-			if (amdgpu_dm_abm_level <= 0)
+-				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
+-			else
+-				state->abm_level = amdgpu_dm_abm_level;
+-		}
++	/* Destroy old state only after successful allocation */
++	if (connector->state)
++		__drm_atomic_helper_connector_destroy_state(connector->state);
+ 
+-		__drm_atomic_helper_connector_reset(connector, &state->base);
++	/* Let DRM core install the new state */
++	__drm_atomic_helper_connector_reset(connector, &state->base);
++
++	/* Initialize driver-specific fields */
++	state->scaling = RMX_OFF;
++	state->underscan_enable = false;
++	state->underscan_hborder = 0;
++	state->underscan_vborder = 0;
++	state->base.max_requested_bpc = 8;
++	state->vcpi_slots = 0;
++	state->pbn = 0;
++
++	/* eDP-specific initialization */
++	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
++		if (amdgpu_dm_abm_level <= 0)
++			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
++		else
++			state->abm_level = amdgpu_dm_abm_level;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 3dcedaa67ed8..6146fbc528c3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
+ {
+ 	struct dm_crtc_state *state;
+ 
+-	if (crtc->state)
+-		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+-
++	/* Allocate new state first */
+ 	state = kzalloc_obj(*state);
+ 	if (WARN_ON(!state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (crtc->state)
++		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
++
+ 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e957657b06c7..eb1c0a26f20d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
+ 
+ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+-	struct dm_plane_state *amdgpu_state = NULL;
+-
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
++	struct dm_plane_state *amdgpu_state;
+ 
++	/* Allocate new state first */
+ 	amdgpu_state = kzalloc_obj(*amdgpu_state);
+-	WARN_ON(amdgpu_state == NULL);
+-
+-	if (!amdgpu_state)
++	if (WARN_ON(!amdgpu_state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (plane->state)
++		plane->funcs->atomic_destroy_state(plane, plane->state);
++
+ 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
 
