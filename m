@@ -4,134 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F2A4C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 17:24:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FF5C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 17:27:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277E010F6C2;
-	Fri, 26 Jun 2026 17:24:46 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ACSgK6cd";
-	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011001.outbound.protection.outlook.com [40.107.208.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC7DF10E181;
- Fri, 26 Jun 2026 17:24:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lN1Z81gBJpv0ZHEWvK8F9pWjReXdQWeMDXNifCIczi+FYnWQLlA/rrsj3OUlsxEM/eoVcfXXhUT1QgcQnobTDgbsR5m95dWn5JFRM9HEVlInt7Awq5po0AlqqET7TYHfAY2Nbe6KCNS8ZtCJZvcmLms4XUcAIj5Ak1HNea/HKf4lsvNS1sDENedY8t2yHyx0KedZKoBj5m81ZiD8x68tZkLPP06w/X/M7cB+JPRJ7RtzRtZM64NWZ5I5A81hEqcL/NNOnnMC8eSG7AbCrtw/0fw6DsywCXccDaQ4WBLyyobEbt/26bh7Jm0AeD01QhJS5OjSNF6N2FQYojXZam00rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zvPpf2lruBpYrAYz2xYPfvzciwA5+9cOoa1tV3Bqkso=;
- b=N7QWmTndaFVNDi1R1uR0z9Uh3BBf9AVyY+yME51LWNVZwpz25DBFZGkZAR09Odn/WgoqHfLyT51G9kX2nb8NXebwi7cYH04BBdkTlvROGmQ5l9sP6SvlqeJOemUhs6FIo9LmptblIQXufMNWHjFOfC1cWICltnmkyllLQ9O34B43LcfnrhZ/DiAVBSnhWo5T63nnTm3sd1croU+jTcj3IGN7TD7pU9WxnlpztaBUohs6F1c0QTLgipyiQL/cx/OeQz49y2Mqw5D+SRoVQECtLS70m/4xzqkBmNu/bQXuB2NJk00VTwCSlhQHmrwNdqZguxxM+OH8uVnovgLMPhmgbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zvPpf2lruBpYrAYz2xYPfvzciwA5+9cOoa1tV3Bqkso=;
- b=ACSgK6cdA9WBPlzCxig/tmswtIYbtwHsxlkNIZ1aBfWcvj+YMwS+uws+gap4HzDbOpNNwbGtblCIBq1KlLJG14U/QRqTI+uFpSXCqklTAw9poNWhx9Grn3xYY7OQVH6xoDjYlCu25w7/G3JSqXUNdw0QZlxWM7k8aVo63/Shank=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SN7PR12MB7203.namprd12.prod.outlook.com (2603:10b6:806:2aa::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Fri, 26 Jun
- 2026 17:24:39 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 17:24:39 +0000
-Message-ID: <6f93acaf-7483-42d4-b29d-72b3b9933fe9@amd.com>
-Date: Fri, 26 Jun 2026 12:24:34 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Fix dangling pointers in state reset
- functions on allocation failure
-Content-Language: en-US
-To: Evgenii Burenchev <evg28bur@yandex.ru>, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
- aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
- Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
- kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, contact@emersion.fr,
- Alvin.Lee2@amd.com, chaitanya.kumar.borah@intel.com,
- dmitry.baryshkov@oss.qualcomm.com, pierre-eric.pelloux-prayer@amd.com,
- ekurzinger@gmail.com, HaoPing.Liu@amd.com, Tony.Cheng@amd.com,
+	by gabe.freedesktop.org (Postfix) with ESMTP id B497310F6C7;
+	Fri, 26 Jun 2026 17:27:20 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45ECD10E385;
+ Fri, 26 Jun 2026 12:46:05 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-05 (Coremail) with SMTP id zQCowAD3bfGFdD5qbstoFQ--.22865S2;
+ Fri, 26 Jun 2026 20:45:58 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: siqueira@igalia.com, alex.hung@amd.com, timur.kristof@gmail.com,
+ wenjing.liu@amd.com, Relja.Vojvodic@amd.com, superm1@kernel.org,
+ Derek.Lai@amd.com, srinivasan.shanmugam@amd.com, clayking@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20260626133859.21492-1-evg28bur@yandex.ru>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260626133859.21492-1-evg28bur@yandex.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0360.namprd03.prod.outlook.com
- (2603:10b6:610:11a::11) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] fix: drm/amd/display: detect_link_and_local_sink: DP alt mode
+ timeout path leaks prev_sink reference
+Date: Fri, 26 Jun 2026 20:45:55 +0800
+Message-Id: <20260626124555.36910-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SN7PR12MB7203:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe2ac424-e142-4340-77a4-08ded3a7cd67
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: pLbN7iOXZ5C3YckikebK81+P+pGXXT9SI6nnH3tzbDudhFk3g04kgA7+TbsX8g4ykFm8LumyDEEeWvusvsDLiOsAFxD8z+sHym6b7celWCHah5KyDbqRUw2wEk8noV7E+Xa04h+odBgtFbW8xavDaa3Vx0nyzDXbbhCtCb31V27gs37TiotLwQOgdQTTmj5bEi7kJ7XKM7XJBDxOvQQTSaZjtV3xAbYpfWbjZ7dS6FYtOs6LOVmVdHJfzqpqMfXykuSDHmQUKiVJMxdpBLanVaj96aMc8M9Ec6eQHjfEVARUrALn3nafjJ55fVMcsq70kefGpGCvCL4wHWCXHYGnE7ObMQgYwWlxDTcEN9o28cAOQwqZiuh8dUAu9akefmbwhZpGY3nSDcgxoNe4077CLcWCNr1GODwTzDonv+KzKC4NZBAwdNyZ/LT572b+l0Udx93iptbSQ0YhzMSKPziq7zgKPiWHOsTeKJUPuytd4QSHRO/vyF7og20ekwzqmsH/xlMjNmHBeKUUrNFU/xN3FPTr1iwwMNp3D/1edMpbtNDYpDdOc3pfIUbZSBghZtQIGkJ1KskHkLbc1Y9ceJWtpVKyAdEYkaLBwNAq4rkKjNMuwTEzRoAQF/ysmc0EkvFMwnq4tr0hDvnoCM/b+0j6KuWT4JIhJKypFPK/+5nq5Qg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akJWVlB6UEpuVFdmaW83TUtiYkdDcjBYcDdxWUlKamM1MnlrcGNXcTFJUFUy?=
- =?utf-8?B?ZWl1Y0tvR0Z3RzREWW5maG9xUGc0RFFrT0xIaTFqVENoTFo5OWNPcXpRSWs5?=
- =?utf-8?B?UVB5cEpyVktoNHQ0NmJTTXQ5eSs2VFFsTkJsVXhJUDcxMFA1KzNVN3YrQUVn?=
- =?utf-8?B?NUhKcnBHOHpJNWFOb2tWNEx0NzVuOEt2aHM1aGJuVEFlSVM2Z3hyNVQvRXFM?=
- =?utf-8?B?TWRObHFaQXBhN05vQktpWjJsN3NxL0NaYWtON0tWampLOVRJeXUzMDNmdExP?=
- =?utf-8?B?OEp6aHlnc1pBV1ZyS3UzaUxpVkR6SmhvaVhHSE15RnVOYWE0bE1iWjJWa01B?=
- =?utf-8?B?R2x3WkM4Y2tQaHZndUtVazVRMXFyalNlTUVrSGdndGtYMEVLNk4xZTBBTFA5?=
- =?utf-8?B?WHo5ZGZQclV0c3YvdEZ0SGJYQlhRWUlFdE02eFlnaUYxZHlicFFVclQxRDRN?=
- =?utf-8?B?Z21xc0dyK3g5Qzh4ZG1BOTU5N2RVT1NVMEw2VlVXakJNaStYamFCUHloMXpW?=
- =?utf-8?B?NmI0VEQ4NXFFOU44ajFKNjZXbGhLTnZBMExMMm9OeVc4MkQvYU5xVWhrT3Jy?=
- =?utf-8?B?RzlhK2trQWM1NVcranA1cXdiZDl6TnZDaW1NSXNhSk9nbWpwVnNyelk3NWIz?=
- =?utf-8?B?emxZaGhUYkhWUlQxU3NZVEE0eTVsU1g2RGFtbVF6S1BMY04vNTJBaElaTEVo?=
- =?utf-8?B?TXR6TGF3M3VhNzB3OS9XdWo0cHlIbjJrNTdhVldUY0lJaUxtTDhTTnovQldS?=
- =?utf-8?B?RlBybXk0djAzTnRTYWsxZGdYTnBFdmUvWUNPNXlRSVpvVno3dmRCYWY4Zmln?=
- =?utf-8?B?K2tFek9FQkJLQXhJVU1YQmFxdVBvZE9jaXlWQ2tURlZEM09RdE9ZVFVOTFZH?=
- =?utf-8?B?M1BwelhJeWxZZWV2UEZyRW1ZdjZFM2loRzV3NG5raEcrdldNTGlzeFRsN0Vq?=
- =?utf-8?B?clpHaDZvWDF3OExDM3BpOVhGVmRFYy9VUDFpcm5XRmVjZ1B6dU1TV0pOOWZH?=
- =?utf-8?B?RlRITC90ZTNnOU1QblVOQXlTc0J6bmhmM1o2MXpvVXpHWUh4L2VJa1Z2eWlJ?=
- =?utf-8?B?UVN4Y00rVEZqN1hFUWxvVjZ2TkpNZ01VR0hDNmtMamJXRjVmdlp0OW9zQ3Zs?=
- =?utf-8?B?N2cxYUMrckwrOXBwWndEejd2NncxUjdCNjZrRDE0VGl6OFNSVXJ4MXNxd0Zw?=
- =?utf-8?B?bFdveXpuQldYUVZBU2FmWGVBcEZXY2ozeEE1b1FLeHdXd2h2Y1V1WlV2Wnlp?=
- =?utf-8?B?WVZNU1dPOW1NRHM4Mzc5UGdicitjWk55WDEyN1gxSkZZNGw0U3JUOHpDa0Zw?=
- =?utf-8?B?d2NPYXdMRGNWODhWUE5pUXFubFhrV00rTnNkQThlbVdHMk9CdFh5Q1FpK0Zq?=
- =?utf-8?B?aTBFMHNSVWRaZ1BEbHlMV1MzZlYwZEpPQTE4NUVLU2hyclpZYXpvNTlQYUJ3?=
- =?utf-8?B?blNIVmdvL2YwOWlvdEFsZVRYcVNkb0dlOVE4WE5WN0w0eldwb2Q5WFBZMjBn?=
- =?utf-8?B?WkhFUU9ENWNtWnFqWlJZZzVmSVFrV3R1OVoyQnIwTXhnOXpGcVllT29NODlJ?=
- =?utf-8?B?NnRBcEZzQXVMb1lpTllYelVodjJ2aHFRczFZczJoVUl1a0o0RForaXN0bU53?=
- =?utf-8?B?ZWpyaElTUWlkL2RqaXFDMFVmTlduNlpuZVR2N0ttN1BWUEljOUlKT2JncXRH?=
- =?utf-8?B?UnRjNnI0NlRWR1czbitKOUd2OFduZDRzTUU2c2RwUE9YVTc3ZGttdnFLTW91?=
- =?utf-8?B?OWpjTEZJNzBZM0RzandqVTc5OVFOWFZRZjZqL3hEQnpmd2FaRU9nSGVpSDFm?=
- =?utf-8?B?TW9pZXlTSnZpYkYrdDZ4U2VBU0o1ZExKQ3RtQWhZdzRWVTA0OWp5Nm91Tk5W?=
- =?utf-8?B?SWJIaWxLY09jZU41enY3VlY1YkRNTlhXUURsODk0Z0F4eC82NXlBUFlTZkpu?=
- =?utf-8?B?d3pXa08wRkZmcU1CLzVSU2tSYjl4Q3FwZUNON1kzeVhwMmxZVUxLZzZxU0VJ?=
- =?utf-8?B?RUJnTTNzV1dqZURISGRUUUNtakNPWXNkRjUvdFd2SEF3WnNyZ0loV1hwZWhL?=
- =?utf-8?B?WDQwc0pUTU5PYzE3Vkd1clN5OFY0YW91Qm9XWGlKaXZwQjczR3FyQWRFWFNM?=
- =?utf-8?B?T1JydjdNUkxZNkNnNVozRUhKSWpqekw0MUU4RDVUZG1ReE9CZUl4OVZpT3ho?=
- =?utf-8?B?a20rdHhwMDBMNjNhSEFJbEplNWhUVHFPTURJSVVPTVFtM2lBeHdHUHR3YlpS?=
- =?utf-8?B?akEzeXd2VTlycUFibVJaaVR2NkF6WjVVdWhyYi9OdVZRa0lubGhOTDVCYVBi?=
- =?utf-8?Q?Ei9hoHmQuRreXuWnZD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe2ac424-e142-4340-77a4-08ded3a7cd67
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 17:24:39.4918 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bumvIlyNoFF/nYwvz5PpUeEY+zR44GtdEy/eZ5PjK6sxRsp9sGPbjIWwzDPwoUaFMdu5F80Yt+/71moFfCn1DA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7203
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAD3bfGFdD5qbstoFQ--.22865S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4fWFy3Aw18KF17Cw18Grg_yoW8Gry8pr
+ WjgFy8uw1kAF1IqFZrAa1ruF47Za18JF4Skry3Gw1fZwn8Zr4DKFW8uw42g34UCF98C3Wa
+ qFn8Kw43ZFWqyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+ nIWIevJa73UjIFyTuYvjTRZDGYDUUUU
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAgKA2o+ThJycgAAsF
+X-Mailman-Approved-At: Fri, 26 Jun 2026 17:27:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,153 +65,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+prev_sink is unconditionally retained via dc_sink_retain at function
+  entry, but the DP alt mode timeout path inside SIGNAL_TYPE_DISPLAY_PORT
+  returns false without releasing prev_sink. All other return paths in the
+  function correctly call dc_sink_release(prev_sink), making this the only
+  missing cleanup.
 
+Cc: stable@vger.kernel.org
+Fixes: 54618888d1ea ("drm/amd/display: break down dc_link.c")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/display/dc/link/link_detection.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-On 6/26/26 08:38, Evgenii Burenchev wrote:
-> Multiple reset functions in amdgpu_dm free the old state before allocating
-> a new one. If kzalloc_obj() fails, the function returns without updating
-> the state pointer, leaving a dangling pointer to already freed memory.
-> 
-> Fix this by allocating the new state first. If allocation fails, warn and
-> return without touching the old state, as it remains valid and the caller
-> will handle the error appropriately.
-> 
-> This affects three functions:
-> - amdgpu_dm_plane_drm_plane_reset()
-> - amdgpu_dm_crtc_reset_state()
-> - amdgpu_dm_connector_funcs_reset()
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-> Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
-> Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
-> Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
-> ---
-> Changes in v2:
-> - Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 ++++++++++---------
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
->   3 files changed, 37 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 97ab1e83b318..6ef1b07ec251 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8151,33 +8151,35 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
->   
->   void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
->   {
-> -	struct dm_connector_state *state =
-> -		to_dm_connector_state(connector->state);
-> -
-> -	if (connector->state)
-> -		__drm_atomic_helper_connector_destroy_state(connector->state);
-> -
-> -	kfree(state);
-
-You seem to have lost this kfree() in your refactor.
-
-> +	struct dm_connector_state *state;
->   
-> +	/* Allocate new state first */
->   	state = kzalloc_obj(*state);
-> +	if (WARN_ON(!state))
-> +		return;
->   
-> -	if (state) {
-> -		state->scaling = RMX_OFF;
-> -		state->underscan_enable = false;
-> -		state->underscan_hborder = 0;
-> -		state->underscan_vborder = 0;
-> -		state->base.max_requested_bpc = 8;
-> -		state->vcpi_slots = 0;
-> -		state->pbn = 0;
-> -
-> -		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> -			if (amdgpu_dm_abm_level <= 0)
-> -				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-> -			else
-> -				state->abm_level = amdgpu_dm_abm_level;
-> -		}
-> +	/* Destroy old state only after successful allocation */
-> +	if (connector->state)
-> +		__drm_atomic_helper_connector_destroy_state(connector->state);
->   
-> -		__drm_atomic_helper_connector_reset(connector, &state->base);
-> +	/* Let DRM core install the new state */
-> +	__drm_atomic_helper_connector_reset(connector, &state->base);
-> +
-> +	/* Initialize driver-specific fields */
-> +	state->scaling = RMX_OFF;
-> +	state->underscan_enable = false;
-> +	state->underscan_hborder = 0;
-> +	state->underscan_vborder = 0;
-> +	state->base.max_requested_bpc = 8;
-> +	state->vcpi_slots = 0;
-> +	state->pbn = 0;
-> +
-> +	/* eDP-specific initialization */
-> +	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +		if (amdgpu_dm_abm_level <= 0)
-> +			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-> +		else
-> +			state->abm_level = amdgpu_dm_abm_level;
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 3dcedaa67ed8..6146fbc528c3 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
->   {
->   	struct dm_crtc_state *state;
->   
-> -	if (crtc->state)
-> -		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
-> -
-> +	/* Allocate new state first */
->   	state = kzalloc_obj(*state);
->   	if (WARN_ON(!state))
->   		return;
->   
-> +	/* Destroy old state only after successful allocation */
-> +	if (crtc->state)
-> +		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
-> +
->   	__drm_atomic_helper_crtc_reset(crtc, &state->base);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index e957657b06c7..eb1c0a26f20d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
->   
->   static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
->   {
-> -	struct dm_plane_state *amdgpu_state = NULL;
-> -
-> -	if (plane->state)
-> -		plane->funcs->atomic_destroy_state(plane, plane->state);
-> +	struct dm_plane_state *amdgpu_state;
->   
-> +	/* Allocate new state first */
->   	amdgpu_state = kzalloc_obj(*amdgpu_state);
-> -	WARN_ON(amdgpu_state == NULL);
-> -
-> -	if (!amdgpu_state)
-> +	if (WARN_ON(!amdgpu_state))
->   		return;
->   
-> +	/* Destroy old state only after successful allocation */
-> +	if (plane->state)
-> +		plane->funcs->atomic_destroy_state(plane, plane->state);
-> +
->   	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
->   	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
->   	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 794dd6a95918..03bb210ebab8 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1069,8 +1069,11 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 			    link->link_enc->features.flags.bits.DP_IS_USB_C == 1) {
+ 
+ 				/* if alt mode times out, return false */
+-				if (!wait_for_entering_dp_alt_mode(link))
++				if (!wait_for_entering_dp_alt_mode(link)) {
++					if (prev_sink)
++						dc_sink_release(prev_sink);
+ 					return false;
++				}
+ 			}
+ 
+ 			if (!detect_dp(link, &sink_caps, reason)) {
+-- 
+2.39.5 (Apple Git-154)
 
