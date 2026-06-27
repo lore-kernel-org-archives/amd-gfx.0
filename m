@@ -4,51 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C956C43638
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 07:07:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9594AC43602
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9748510E6F9;
-	Mon, 29 Jun 2026 07:07:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yeah.net header.i=@yeah.net header.b="Epgq3UxM";
-	dkim-atps=neutral
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [1.95.21.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A8110E4D3;
- Sat, 27 Jun 2026 13:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rS
- cztThxqMJbnsrmUCiqJo7gdmh7LmFjJRjuznF/ZKU=; b=Epgq3UxMFPfUkowsbX
- A9p9PBTPo9kX1vMzfnmJ1ZC9TQs3USqKlroecITzE3N4MIXhUJgFYhMHoVrj8NTc
- PAuTCYJhN49160VDBs747R2aBEYcYb2uefP7wdIKiN91LnZ0ScAk9WbGoNyS7Ql/
- 3BJOa+ocI8BXSrS898pJ/veAc=
-Received: from zhang.. (unknown [])
- by gzsmtp3 (Coremail) with UTF8SMTPSA id M88vCgD3nzkfzT9qCdkOAw--.16958S4;
- Sat, 27 Jun 2026 21:16:17 +0800 (CST)
-From: Ziran Zhang <zhangcoder@yeah.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Markus Elfring <Markus.Elfring@web.de>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD8D10E711;
+	Mon, 29 Jun 2026 07:08:09 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A71710E4B8;
+ Sat, 27 Jun 2026 11:54:54 +0000 (UTC)
+Received: from smtpclient.apple (unknown [117.182.75.66])
+ by APP-03 (Coremail) with SMTP id rQCowADHq+IEuj9qIkkMFg--.11853S2;
+ Sat, 27 Jun 2026 19:54:46 +0800 (CST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH] fix: drm/amd/display: dm_update_crtc_state: skip_modeset
+ path leaves new_stream dangling, causing double release
+From: WenTao Liang <vulab@iscas.ac.cn>
+In-Reply-To: <35dee3d1-f114-4eda-8185-244bc429c021@amd.com>
+Date: Sat, 27 Jun 2026 19:54:34 +0800
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ siqueira@igalia.com, alex.hung@amd.com, superm1@kernel.org,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, aurabindo.pillai@amd.com,
+ chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ziran Zhang <zhangcoder@yeah.net>
-Subject: [PATCH v3] drm/amd/display: Remove redundant NULL check before
- kfree() in mod_power_create()
-Date: Sat, 27 Jun 2026 21:13:54 +0800
-Message-ID: <20260627131354.5811-1-zhangcoder@yeah.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260627100945.5826-1-zhangcoder@yeah.net>
-References: <20260627100945.5826-1-zhangcoder@yeah.net>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: M88vCgD3nzkfzT9qCdkOAw--.16958S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF17KFy8AF47Cr4DXFy8uFg_yoW8uF4xpF
- 4DKw15tw48G3W8KFnFg3W8XFy8Wa1kAFW3Wr47C3Wa9a45Zr9YkF18A34YgFWDWFy7tF18
- tF1UKF4UXFy3Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRUUUUUUUUU=
-X-Originating-IP: [116.149.202.60]
-X-CM-SenderInfo: x2kd0wpfrgv2o61htxgoqh3/1tbiIQLlpmo-zSI18AAA3f
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <785A9F48-8192-4C1A-B61F-FFBAC9E92D41@iscas.ac.cn>
+References: <20260626124128.36625-1-vulab@iscas.ac.cn>
+ <35dee3d1-f114-4eda-8185-244bc429c021@amd.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID: rQCowADHq+IEuj9qIkkMFg--.11853S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr43uFW5Jw45JrWDZrWxCrg_yoW8CF48pr
+ 4fJw1Yvr9rZ3WIqa47C3WY9Fyjk34fX340kr4UAw1Sv345Ar15Ja4rXr1kWrZ7uFW2vw4a
+ qFyDG39rXF1qv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvCb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
+ wI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+ 0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+ 17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+ C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+ 6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
+ nxnUUI43ZEXa7IUnTq2tUUUUU==
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQLA2o-mA9ApAAAsm
 X-Mailman-Approved-At: Mon, 29 Jun 2026 07:07:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,64 +70,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kfree() safely handles NULL pointers, so there is no need to check for
-NULL before calling kfree().
 
-Remove redundant NULL check.
 
-Found by Coccinelle ifnullfree script.
+> 2026=E5=B9=B46=E6=9C=8827=E6=97=A5 00:45=EF=BC=8CMario Limonciello =
+<mario.limonciello@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+>=20
+>=20
+> On 6/26/26 07:41, WenTao Liang wrote:
+>> The skip_modeset path calls dc_stream_release(new_stream) but does =
+not
+>>   set new_stream to NULL. If a subsequent error (e.g., color =
+management
+>>   failure) triggers goto fail, the fail label executes a second
+>>   dc_stream_release on the same pointer, causing a use-after-free or =
+excess
+>>   put on the stream reference.
+>> Cc: stable@vger.kernel.org
+>> Fixes: 3ce51649cdf2 ("drm/amdgpu/display: add quirk handling for =
+stutter mode")
+>> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+>=20
+> The code change looks good to me, but this Fixes hash doesn't really =
+make sense to me.
+>=20
+> Are you sure about that?
+>=20
+> I /think/ this is the correct hash:
+>=20
+> Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not =
+required")
+>=20
+>> ---
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 5fc5d5608506..acf0b01d6f62 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct =
+amdgpu_display_manager *dm,
+>>  	/* Release extra reference */
+>>  	if (new_stream)
+>>  		dc_stream_release(new_stream);
+>> +	new_stream =3D NULL;
+>>    	/*
+>>  	 * We want to do dc stream updates that do not require a
 
-Signed-off-by: Ziran Zhang <zhangcoder@yeah.net>
----
 
-Changes in v3:
-- Add parentheses to "kfree" in subject line for consistency.
 
- .../gpu/drm/amd/display/modules/power/power.c    | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+Thank you for the review and for catching this. You are right =E2=80=94 =
+I used
+the wrong Fixes hash. The correct one is indeed:
 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-index 5659a38b3..97889867a 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -270,13 +270,11 @@ struct mod_power *mod_power_create(struct dc *dc,
- fail_bad_brightness_range:
- fail_alloc_backlight_array:
- 	for (inst = 0; inst < edp_num; inst++)
--		if (core_power->bl_prop[inst].backlight_lut)
--			kfree(core_power->bl_prop[inst].backlight_lut);
-+		kfree(core_power->bl_prop[inst].backlight_lut);
- fail_construct:
--	for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++) {
--		if (core_power->map[i].psr_context)
--			kfree(core_power->map[i].psr_context);
--	}
-+	for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++)
-+		kfree(core_power->map[i].psr_context);
-+
- 	kfree(core_power->map);
- 
- fail_alloc_map:
-@@ -295,8 +293,7 @@ void mod_power_destroy(struct mod_power *mod_power)
- 				MOD_POWER_TO_CORE(mod_power);
- 
- 		for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++)
--			if (core_power->map[i].psr_context)
--				kfree(core_power->map[i].psr_context);
-+			kfree(core_power->map[i].psr_context);
- 
- 		for (i = 0; i < core_power->num_entities; i++)
- 			if (core_power->map[i].stream)
-@@ -305,8 +302,7 @@ void mod_power_destroy(struct mod_power *mod_power)
- 		kfree(core_power->map);
- 
- 		for (i = 0; i < MAX_NUM_EDP; i++)
--			if (core_power->bl_prop[i].backlight_lut)
--				kfree(core_power->bl_prop[i].backlight_lut);
-+			kfree(core_power->bl_prop[i].backlight_lut);
- 
- 		kfree(core_power);
- 	}
--- 
-2.43.0
+Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not =
+required")
+
+I will update it in the next version.
+
+Thanks again for your help.
+
+Best regards,
+WenTao Liang
 
