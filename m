@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78205C43458
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jun 2026 05:24:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4804C43458
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 Jun 2026 05:25:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA7710E456;
-	Sat, 27 Jun 2026 05:24:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D40F10E043;
+	Sat, 27 Jun 2026 05:25:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vh5kzskx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XGDG1AmJ";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011030.outbound.protection.outlook.com [40.107.208.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44EBE10E456
- for <amd-gfx@lists.freedesktop.org>; Sat, 27 Jun 2026 05:24:03 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013019.outbound.protection.outlook.com
+ [40.93.201.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FF0B10E043
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 Jun 2026 05:25:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TFsnSj+LjWrZsc1UAOF8KbbGs4ERMfkEOWbk0e8UdnDQaDkpdOxy3FqqYdZyZQotuaI4RkeX0/SCCjxwES972qIU1HPEb3LF0MAPgNToAzS8FEtM1PewBtbZVsBIGFdMLqvqZI/XjlwNGQdiQUO4dNsdvcwA5gyEOGiBZ8HoHLkh3Rt4dwZ1yStwvvT6Z3TkyaIDmTpEOhDJBbilnTB+HshSI8++2yx5BMj5mThCmAhR8Uu/9t/fqUJjgTMiJ1E58dv2OMx/q2dHQX1Alpf7hPQUX720WJz0AEZwQQkSCUYV5np1hLQ0U+WuleKBiue/XyTv82CuPLBtlrBc9XyoPA==
+ b=uVgCnmjmKcaqSfPxkafj4iIvbTG+U37y8a1Uio7KifyKyP0hdaRi3RCUjj+Wq5Y/v8xszrYSCL8KlUzV+bA5Qc5P2bZ0cArdqD2xfTkP3IYdqrKyJVFWPZ0D9bAiXLXi2zlUH5s/kdhaIlTabklMuuTUcVLYlFstuDJF1aLey7TC8JuhqjpNbdjmpNDQDLBX3334xNtP5Ru/fuOrAmpOWp9fQ+n2Zj4BBwrFCoG/vophsMVDIw+j3bhoaGLHKGYqLDHBefHMxjJ3LuPkDVn/fzJ27X70TwnxoxQtzzvFVvYCm3Qr25X0ZA9FQRykz/WOhWiwiH6NJBL0n3o6Kzy/Dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jaDhHgfHDXKH9fnzGDg4Zwio5IHi3dPQZsN6gC6uH+w=;
- b=YXZdiEr3NgiiI91OLYCX+NJqlN13nbvozffHeA3PyOk9fG9CnBapH/MVm88h31WrW9+h0FzwNK7FX24JkLjebKwhlr3BWCdfHGRDUFdbGmBgcS4U/Z71aTotBBVnC9/bHdgEwXPxUGZg0Asvlk1CzA4TKqj6IYzVu4KdqazfPmkvSmLI+R1YkfmYNQ/YsUTwUYGvKJQGPKXMgoCp6byR7chOp72cRIcbAZGUWWKaxrs2dr8iair8dF0Mdd/de/dBtZpI2iwFXKj3A0rTL1nWj5qLlbyjWi8HCFQ0t9tb7me9C1Wgw2528pqrHemhjmY0S1rof48O9ty3ehrxOd4cWg==
+ bh=eErGS1goHWEUpg4si2y7ygZFQVzNPNguSOINkvYBdbQ=;
+ b=QyOqE4ptoQrrHu//7IQxLXjRo2a1LjQCGZF8tWIhmeEEfH0LbVX9wZQhqTDB3AAthBXHQDUC9Uwgiq7zC0ZrjDIeUZ8ADfw/KrYUJF3ReyowjJyNAkcIPZEqh3Ct4MyaIAzTI9KiyIp+R3tNXwVNCyGfL+rKRjrGMFomIEOYoc/RMLE+sHw9XBWvJ00KWp+6Pv4/YhSZNRL66VqSXse8qm9I6Pk1WGO3diVG0ElkJpfG5NQTY2hRFBVzlKXEZ4y6S0UEgEzbxPl1aWGu2mJ26U2iiUAcZ7gQ8X74/mlR2lcT62K+LVwRubd1MfAvFrWnM3uVQjbHrUet60H4NbxJJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jaDhHgfHDXKH9fnzGDg4Zwio5IHi3dPQZsN6gC6uH+w=;
- b=Vh5kzskx2KqJPGrqTrAA9cRKP33ziGjJvbZPaaW/YQso6VRdLcLcmYT09IQy8t1Ypidma2KW5/oMk8ORP6ZV1DMPMKQtSnWjh45tvjNtv2GTS3r1h5W9YIBY8HzmttCeLoBkBI5ghsV8KXs8f2TeolvC9eAgtz1RAi7i5F1WyZE=
+ bh=eErGS1goHWEUpg4si2y7ygZFQVzNPNguSOINkvYBdbQ=;
+ b=XGDG1AmJLgqW/AyibSOXfFdJNhZ0ViP3G6um9CGeVzTiREhURmEgPwq6kYNA8qYnmVDmrPsthFrLW1RNPYgaWEcoVFKn/+3rtNzlT91sLDk3gg3XrOYjM++aavhUILUR0kE98gPCSiJaTJzEfi6ABWKd18MhWG161ZUykhFSP7Q=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
  by DSSPR12MB999237.namprd12.prod.outlook.com (2603:10b6:8:377::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Sat, 27 Jun
- 2026 05:24:00 +0000
+ 2026 05:25:05 +0000
 Received: from PH8PR12MB6914.namprd12.prod.outlook.com
  ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
  ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0159.018; Sat, 27 Jun 2026
- 05:24:00 +0000
-Message-ID: <acfb4b8e-a320-4a31-ba1d-7cf86afe5a7a@amd.com>
-Date: Sat, 27 Jun 2026 00:23:58 -0500
+ 05:25:05 +0000
+Message-ID: <f281601b-2f81-44e1-9b5c-67473991bb6c@amd.com>
+Date: Sat, 27 Jun 2026 00:25:03 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: Fix typos in comments for IP block soft
- reset
+Subject: Re: [PATCH 1/2] drm/amdgpu: Simplify filtering rings during IP block
+ soft reset
 Content-Language: en-US
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
@@ -55,77 +56,76 @@ To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Lazar Lijo <lijo.lazar@amd.com>, Martin Roukala <martin.roukala@mupuf.org>,
  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 References: <20260624073829.40835-1-timur.kristof@gmail.com>
- <20260624073829.40835-2-timur.kristof@gmail.com>
- <83fb4528-326f-4c32-a4e1-2cba75c257bb@igalia.com>
+ <4b2ebeaa-f3a4-4787-b8d7-76cd225b6564@igalia.com>
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <83fb4528-326f-4c32-a4e1-2cba75c257bb@igalia.com>
+In-Reply-To: <4b2ebeaa-f3a4-4787-b8d7-76cd225b6564@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR13CA0118.namprd13.prod.outlook.com
- (2603:10b6:806:24::33) To PH8PR12MB6914.namprd12.prod.outlook.com
+X-ClientProxiedBy: SA9PR13CA0113.namprd13.prod.outlook.com
+ (2603:10b6:806:24::28) To PH8PR12MB6914.namprd12.prod.outlook.com
  (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DSSPR12MB999237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71dc1863-c567-4427-345a-08ded40c4b29
+X-MS-Office365-Filtering-Correlation-Id: c198622f-aba8-40f7-1450-08ded40c71dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|921020|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: vs+bjo0ZsfF68SL0qFcPuWXI6fwYAJ7UOojLzg/2DyBnEp5GAXTQw8isDpM8Bw7PV1Lqy1MJZbLV1XkpHIHdAnD1wDniJq/9AjGhind9NVL5dTjNUT2TEnk8wDgiP6/d4AsHbgbUeSsBjvazE/wBU9EIV84ar4jY/We0nEetv4Zx8F7beXP8apqyCbKJ/5YQPuC0YTYUptWGEnHMFfR2pmnSNvdLdp7DfR26eNSXySlNA0/dvWzxpfN1JlVmV4XOfPcjVYZNBcxDtZ9GnMRji3yeBSKMrLvunGK7wLPAWZJ0lnzEQvAFJGxSR48dFMKS+n8Sw+eVwwjaK4Ql4+AqnmReMr066uW0vAqyB9EaH0rkpJEHM0BUsKhQiMGMtuIJR7Lw5r7SYtbNTeGgC8/1XrGkd3HsguP+ue/icHkaUgWPKojPYFUD5xFqPoRf4Dhea6m6esna/JWDZvSjEYen9f+eIoTItY+WKYXkqRI08Dqe4faYSrLne4NWbFfvfu5w+j2slwy7gxmPtg/vlOpkdHWQ7qNQfFPcPDWjd/EvdSyuDB5WUvhwDSOZCW9lasAvx06c9t8RBszEo2lI1gyKTPS+iLhIw2uLcx8ycmKHLyGTymbyDehM0r8k5QcpuxXe5MLWWWkQCrk6QAjlRlomCcgS141nJvsNzm9LNLGw63we13jxr+PtqJCP7OVUkh+UnsBfTGlFTRW6P7BqxfbXHw==
+ ARA:13230040|23010399003|366016|1800799024|376014|921020|18002099003|22082099003|6133799003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: bOPNmHtzSsOx2UeJW2+CPaQ+TYZtYwQTrzoXxPtWmU27RhPOR+7vashKH7SFjwClC53nmmSqeLNkN4plHb+iNH0bgdzkRdbq1WMqGcE7zIvk0Q+LtTwJ/URqr6N1lJibYqYiXZGimfDg9ap5lEDZDHw4sZcuWFabMN4qKNkP+SZVD9hRK/VoHvbA7x5bdMNfMaflMt/mu2K0/E+bmqfVkDOZgct+QHihOkHihxWbLn9DUoY8BsfNhzkrtm4G6ccEpZnPuRhxBcoZkTA27H9JlMHe498hhbNzqXqStLQzWENBplVSe0DeKJDV5iMFyWTxsIn+aHRrw90PgK+Mi10AJ6BrpDAIN8HEdPErB8i5oi+2TabMGRAG4AspiqBQ/j2vJ/uhOe/hxCWnAXd72xaGrWDPSA97YUtWBIM8+eJQV/jXzK6M6y2JgSiX90b7Q/NzryG2FrUji5R/DQMZveY1F4qF/Q41A53YifYQVlOMqbXC4sv6wfGed6P+wKoW/a0IJ2HM9op+5dgDrlTFfNpTR9c4YK8kVpByNAnrPmdEcqIpTc2OtgbYTu8Jcw0PdlnTzTUT5VSzz64A4lviUt7pyNVVP31eWo7rP4vvLRvpk61TyHS4ttoYdrOSDqSGmPcZgtulMXTltjcCO9OCFfd12St3XXjoew4HapwN/aJec4qfbYdWQTCGG7zyykUlWKajDflbcwsxspa5X2zibx/SIA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(921020)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0sxaUZianR4QnZueExhNnJPV202VFpjdGt2L3dUanluOUpOTGFYMUswaHFz?=
- =?utf-8?B?KzdVV01kZGdrYXFUV0tXWjlzQ0x4RFNZNEhFQzBpUlF2TnMxaEFBZi9IMk5o?=
- =?utf-8?B?ZmYvTGlqZ2t1cDFLc1hMMmZRUGdxanFBY20wOWdETWdPcWpvNWNBUVJLVk9i?=
- =?utf-8?B?czkvY3pWZzdjZmY2Q0x4YkMzRDdzOXFOOGNnV1VjNWRtSGx2Rlo2Mkx5QkdF?=
- =?utf-8?B?RnJrd0xCL2RkQ3FHb2kveTRzTERFQTFZbXI1dExpMTJiVDBuSzR3aGRTL21N?=
- =?utf-8?B?TlRNVlhyM05lQ0daTExSSDZVUG5WOW5SYmNHQzJqdGtWcFpOSUx1K2lHYkZo?=
- =?utf-8?B?aWJWUHFwNjR4dFU4UndEempiY3V1N3NWVWtDTjViZDVpWjhxcnpWVFJqS0FW?=
- =?utf-8?B?RmhZVERDOS9PN2QxNklOTzV6RnFqRVhEQ0d2aDFQL0pCRVhCUlZuOWM5NHpQ?=
- =?utf-8?B?ejBZQWh6bmVhYy9SQU91WStWSkxSVjBnV0FRYlhzTEQzSnpSZDNJZ2ZtajRx?=
- =?utf-8?B?Y1lGcnBubUlYSDlTSjR6SFVSUXRqUGxFSFk0TXd5YzNRU2RscWZzQm91Tm9K?=
- =?utf-8?B?bThWdUxFYjduUmRWeHBQcnpqamhsSEdDWVRhcTQ2N1pXRnoxN2FVdWxDV1lo?=
- =?utf-8?B?SnljMXd0UEJxS3BVZStRYzBNZExTVzNGYWpiK1ZKQUkydTYrMEk0V3BSSW5w?=
- =?utf-8?B?ZmN4NFpERkJNcUErcjNQcWJzeG80dHBJcnJJb1NyUS9xRFVtVEZDWnFKRXJK?=
- =?utf-8?B?U2dJSE9VQjVqQ0ozYmJ1ZUM2ZkNJTXhySEJuUHlaSDJ1Y1ZhZ3NwMUg4V0s3?=
- =?utf-8?B?TmtMNTZDYlF4UVA1SE9Yc2IvSXQybnUxcUViQ2pScmZiUWhuNzdjb2dFTkF5?=
- =?utf-8?B?dGxMTlJZR2RvRzlidzRGZHJDbmhVckFzMFI3NWFPWm1jU2ttWWhGd293NFNP?=
- =?utf-8?B?ZXBoN1FjRis1K2RockJZejdBMjBhVXJBa0Z5SlNRK09SVmFhYWo5WVhiU0Nw?=
- =?utf-8?B?U3BtN2tyQi9DNUluVlUzMnM4RmFlcndjK21tWURaYmp0OWdFMlN6N29KQkxN?=
- =?utf-8?B?RGlLb1Q0a0ZxUElpWXJIZ0JSYm1yYUJJK2JjRnpKbkFBM3FSbTd5bmR6S1JL?=
- =?utf-8?B?Q29zSVBFZ0NYRE9VZVpVZ2VaUUQ4bjB2aVREUkluWUV6VGxXTVpQUWErWTRm?=
- =?utf-8?B?L3p3V1JRNTVsaXpkcVU3WDI2czFtU05zR2Z0ZGRQbDd1Y2RwK0R1eVJqaUxw?=
- =?utf-8?B?S1UySlgwTHRVdThTZEk2bk1ndU8xM2ZVMHB2TitBcG9DKzZJdFlCRXR1Yzh0?=
- =?utf-8?B?YXVkMzdBOGk5c0lzcmFhVXpSb2MyajBjNW4vcHFSU01aVEFNZXN6MnFtTXk2?=
- =?utf-8?B?ajZ1UEFVc2pvVmYvOEhLOW9UbnFaWEc5VWF3aTlMcXp4OG5zSWZGRjRJUG5y?=
- =?utf-8?B?aFoxZTFmQ1h0VWw4c3NWSTBVTW1MdS91Q2NlR0tGZ3VNRGVyTWR6SmRjV1dv?=
- =?utf-8?B?b2NPMTVja0ZTZWR1TFFzcnFtcXpVeFhEbkNQZGo3eDJ4Z3UwYUZEQ2RveXJU?=
- =?utf-8?B?UUpETkZQbkJEUjcyTFB4TW1jZm0vWHhmcTBmc2t5TUJPaW41bTgwZVI0ZWdr?=
- =?utf-8?B?TWxqc3MySnM0VGFtRUtLWm0wTlJZalkxc3RGb2E4VWw2dmUzeGUrQm9HZ0lV?=
- =?utf-8?B?emFvbHVHQzByUVNmQUE2dll1UWtZWUtUa1loUi94NjhVc2k4bjN6QUJFamcz?=
- =?utf-8?B?QzFUTWxCTldJNC9vMUl2V0pqWWw3MU9XK1FUWGJKTlNzV1A3d0p3T1lUUWxs?=
- =?utf-8?B?TGZEZEVSamVvaVRSVXB1b0VPVllrNEpUMXU5TVpUVHgyRE45eFBGWDRmcnU2?=
- =?utf-8?B?VmFPOUR0NFRtbXFrREpJMkVYMVZ3QlAyWExyc1pLdHUwZHBZWmJEbHh2R3lw?=
- =?utf-8?B?eTVIc0hFTU1WZG5CaHpGNWR5OE53WEIvdkpwM085cDBMZWRmM3dZaFZaUDNZ?=
- =?utf-8?B?U3lBOWtUVS9uQUF2bDEvby9KUmF6bVBzaG1obCsxYURDQlhUVkZ0a1UxRERX?=
- =?utf-8?B?dmdPUkdadnV5NlpKYU9JcFRrSWtaSUo0UWFUZlN3TnY1a3crSnhhR2I0anFI?=
- =?utf-8?B?cStkcmxaYkpMVnBpc2trdGVyVCtjSnhDUFBqK2xLUWE5elB4cnUwQW5LRTgw?=
- =?utf-8?B?RTlPZFdITTFIRldtaXlNZlVoYzNDcjdQS3lNUHVJVzkxME9sYjhCWU5BUWlE?=
- =?utf-8?B?UFNEa0FKN0VtSnZvdThtd3RoS3NVZTY5ek1Tb1hFbWEvZHRJcVB3OGttUjl0?=
- =?utf-8?Q?fb5WMn82DIXV1PIM71?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVVFMGJLbDROQWpMdUNBdGNVRGNFWFMwYU55ekJ4MHhOZmNzc1F5b1VIZ2RD?=
+ =?utf-8?B?NHEyTUE5c3lDMkE5M2lXNEV5WUtsc3FabWtEK2laM3paWmpmS2Z1N1d4VE9l?=
+ =?utf-8?B?eGRtRFhaZlNMM0ZrTmF1MnhJMTNqdFNoMi9rNUtjS1NNUEJKYTNtK095WFdm?=
+ =?utf-8?B?RDBjVmRlUnlIS0RKWHJ6UFdlWDBYK0JyczRWQzNNdlFsaEFFV1ZROERzWHoy?=
+ =?utf-8?B?RDBuSVFBTkVibXFwdHRQRUxmd1h1MWU3SmhQUENVeUJ1Z0JuOXh2K01MUTNu?=
+ =?utf-8?B?M0pPakhCWHhnL2tDa2hQMlBLMElMYW91Q1RXTEhDaTlQWEhuKytBaHZmZks2?=
+ =?utf-8?B?NGZBaFg4SEExdFV2OHVmSmNUWWRNcGN5eW9HT3ZhYkRXSitoU051d1BOUFZn?=
+ =?utf-8?B?OWkrYm5QbER2QzR4ekVkNGY4RHlVQUxUWTZVbWlTWkVaczhhRlR5Mng0czBm?=
+ =?utf-8?B?eGxJalpHdndPeEdMTXFyV2wvYzFLakE0UGpOQ3RNcHNXOVhTZlRMb2pVNlVh?=
+ =?utf-8?B?OUdSM014cTNtQnI5QjZJUWdiTkRDdUJXL1VsZ2JyTlJXQzI1Z3hpUVJselRR?=
+ =?utf-8?B?TExZNnR6eEZxd2J3aUhWNlNXV1Zhc3U3QXFsc3ZORjlhM000YUpDL0doeDBQ?=
+ =?utf-8?B?TkVudDlUYnkrSVVDU1VBbGcrSVJZb05acm5hem5ZMzE3WXFETnF0TXFrZEIw?=
+ =?utf-8?B?dDhWRU1UMy9tU1o3R1g5RWJ6a1ladC9WdDR5Q1VnSXRRTDljWGw0K3h6UmFN?=
+ =?utf-8?B?OG1xd1pUeWRzaDRuRjc4dWVhbjRzTmNHU2lhY0RqMFI0eXladUt3WVFibDY3?=
+ =?utf-8?B?a0tydlNrblZlSGxXcVloUGgwaStoWStXMnV0eWN2ZmJHWko4d0JxTHlxZ2hS?=
+ =?utf-8?B?RE1aVFliSzh5elptdGtNRHNiU1BPL2pJalAwT0EzY3hXM1o0WDdVVzFQY1Ji?=
+ =?utf-8?B?OHBGMEQ3T29uMEJvT0VNbXRTSGZQRGE5ajNtMml0SU5HeTU5OW1RcUZhUUNu?=
+ =?utf-8?B?a244WUpUUkVQYndDTW51c3VTNWh2bFFKc0FqdHU5Mmh6S3E5amlXWlNBeHRZ?=
+ =?utf-8?B?QTcvME1rKzJIUWo4Qmc0UE5sTmU2UUVwdDJoYjNZTFlCVVRqSjFvaktSV1p0?=
+ =?utf-8?B?bG0rK1hMS1NoNnpUVVowMDVFSEhjU00rRE84N0hKQm1wTkhEbkhSVkZpVk13?=
+ =?utf-8?B?SklPdXA3bFFiSjZYc0dZeGxBWGVmNFlxcGxqcjQzdnptTkFORWh2R09xYW94?=
+ =?utf-8?B?dFo1VUpoZFpJRjQ2SUoxUEJVWG9HZGZOZ0loUWZ4cnN5SmxrbytHSGZpbHRo?=
+ =?utf-8?B?WjJXUmRVeVNWalZQZHBUc1pueGlaSWp2ZlpkWnJFbVlrSmpLR2s4QlNhMExv?=
+ =?utf-8?B?dm5wcUNOdDdGQTd3V2tiNk9TWUlMc1FWSnRvSFRkUnpra2krUE41RlRtYkRL?=
+ =?utf-8?B?ZkVsaWg3bW9ScWJGNG5XaUE5Rjdub0EvMVZrWG9aSit0QjRXeWZJVWZhdDVw?=
+ =?utf-8?B?ZmY2RklGdnprMkwzYlJuYkRjZ1VIeXJuM3NSc3dsck8xbCsxL1g3Y2ZRNVho?=
+ =?utf-8?B?Rm1qWnN2QUw3NGxxc2hQVWpMUmJJQnVLdFI0M0hiYWoxdmRDQnBITmZTampS?=
+ =?utf-8?B?QXBzWkhkckZrcW9NdThoZ1UxVVVQeTZOMzVmZ2V1TUFlRUFxTHladi9nOGJ0?=
+ =?utf-8?B?M2Z0WGNFdkhBYnJXRzJsVEJKbGtWbjVmdWFZeTEwRGRhVlNHVUQyYzhHNXNw?=
+ =?utf-8?B?bGhXWUJiYW9aNkFReTNpRW42YWNLbWdVTzF3MVMybzFuL2RmbmhQcHpOZlRy?=
+ =?utf-8?B?M25odEtQZDFQamtDM2RrSVpDUnZWM3lLSXRMVEFjT0NpUld3cEJHWDFvR0pa?=
+ =?utf-8?B?cXR5WmlBTVdIU25GNThKQlBlME9XbUZFRnAyWlpod2tCd0x2TkFDRWxqdU9R?=
+ =?utf-8?B?b2Q4OThwbTlxUkNnWXpVNXZGVHJLSklnbXg2dUZUMDhVUnpYcW95MlZHT0Rj?=
+ =?utf-8?B?SGMxK2tkL2xpdmhDVzdMbHNvcmtHdHArZDhGMm9SV0VNeE04ditreUFLYVpI?=
+ =?utf-8?B?QnNsUm1BSnV0Y2l2czFwc0Z1K1U1clF4ZWJveUxrdHpRWFZUL3haVkZ6SmI0?=
+ =?utf-8?B?K1U5RTc4UWY1eFVxcXNlUVpHYmFHQVFuQ0NpWEhqWlZHV1JtV2Fnc0FpdFFE?=
+ =?utf-8?B?aTErdk9qU2xxTnNiVm5wTGxxdzAySWRVQkhzVlhqcVIySWYzNUZBa0JrcUl3?=
+ =?utf-8?B?SkU0WjhET0YwbXJOS1JNMCtBQ3FIZGN0YW9BOFZuNHUrYVVta0RlcC8rNWR0?=
+ =?utf-8?Q?a3qrpPH6Hj6QDRtQ4X?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71dc1863-c567-4427-345a-08ded40c4b29
+X-MS-Exchange-CrossTenant-Network-Message-Id: c198622f-aba8-40f7-1450-08ded40c71dc
 X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2026 05:24:00.1079 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2026 05:25:04.9535 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f0rKfdJU0Yv7X8wAQEBRssf+PS4f3InUegsd77G46uth1gStXtdPEmlVahyRFPfJZ8RYle+ecuV0QBIOEBIpLw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: tu9t9jpqnCRRjbn1ZOTSbZ/YfutSR5NVWEhqkQBOn/dHi9+4gv+rMMobahlJ1H3OXjt2MYNY/ToYEQj7dfaATQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR12MB999237
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,63 +143,310 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 6/24/26 06:01, Tvrtko Ursulin wrote:
+On 6/24/26 06:00, Tvrtko Ursulin wrote:
 > 
 > On 24/06/2026 08:38, Timur Kristóf wrote:
->> These typos were accidentally overlooked. Let's fix them now.
+>> Instead of storing pointers to affected rings in an array,
+>> just iterate over all rings of the device and filter the
+>> affected rings by type using the type mask.
 >>
+>> This is done to save memory used by the array of affected
+>> rings which was sized AMDGPU_MAX_RINGS.
+>>
+>> Suggested-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 >> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c   | 30 ++------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 53 ++++++++++++++++--------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 +-
+>>   3 files changed, 40 insertions(+), 47 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/ 
->> drm/amd/amdgpu/amdgpu_ring.c
->> index ab5df854c1d20..dad04a88179cd 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->> @@ -942,7 +942,7 @@ void amdgpu_multi_ring_reset_helper_begin(const 
->> u32 ring_type_mask,
->>        * Give some time for non-guilty rings to finish their
->>        * current submission, to try to minimize collateral damage.
->>        *
->> -     * Note that this just a best effort, but really there
->> +     * Note that this is just a best effort, but really there
->>        * is no way to really know which ring is actually responsible
->>        * because different rings may share resources, eg. a compute
->>        * ring may hog shader engines, causing a graphics ring to hang.
->> @@ -1003,12 +1003,12 @@ void 
->> amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
->>    * @guilty_ring: The ring which is guilty of causing a reset.
->>    * @ret: Return code from the reset function.
->>    *
->> - * After calling amdgpu_multi_ring_reset_helper_end()
->> + * After calling amdgpu_multi_ring_reset_helper_begin()
->>    * and executing the actual reset method, call this
->>    * function to restore normal operation.
->>    *
->>    * In case the reset failed, this function should still
->> - * be called to restore some state, but it won't attempt to
->> + * be called to restore preemption state, but it won't attempt to
->>    * fully restore the ring contents.
->>    */
->>   int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
->> @@ -1032,7 +1032,7 @@ int amdgpu_multi_ring_reset_helper_end(const u32 
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/ 
+>> amd/amdgpu/amdgpu_ip.c
+>> index 65505bc50399a..99ed0b0d82e94 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+>> @@ -481,28 +481,6 @@ static u32 amdgpu_ring_mask_from_ip(const enum 
+>> amd_ip_block_type ip_type)
+>>       }
+>>   }
+>> -/**
+>> - * amdgpu_filter_rings() - Filter rings according to a mask.
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - * @ring_type_mask: Mask of ring types you are looking for
+>> - * @out_rings: Array of rings which is going to be filled
+>> - * @out_num_rings: Number of rings which were filtered
+>> - */
+>> -static void amdgpu_filter_rings(struct amdgpu_device *adev, const u32 
 >> ring_type_mask,
->>       /* Flush HDP cache so the GPU can see the updated COND_EXEC 
->> values */
->>       amdgpu_device_flush_hdp(adev, NULL);
->> -    /* If the reset was unsuccessful, return without restoring 
->> anything. */
->> +    /* If the reset was unsuccessful, return without restoring 
->> anything else. */
->>       if (ret)
->>           return ret;
+>> -                struct amdgpu_ring **out_rings, u32 *out_num_rings)
+>> -{
+>> -    u32 num_rings = 0;
+>> -    int i;
+>> -
+>> -    for (i = 0; i < adev->num_rings; ++i) {
+>> -        if (BIT(adev->rings[i]->funcs->type) & ring_type_mask)
+>> -            out_rings[num_rings++] = adev->rings[i];
+>> -    }
+>> -
+>> -    *out_num_rings = num_rings;
+>> -}
+>> -
+>>   /**
+>>    * amdgpu_device_ip_soft_reset() - Perform a graceful soft reset on 
+>> an IP block.
+>>    *
+>> @@ -524,10 +502,9 @@ int amdgpu_device_ip_soft_reset(struct 
+>> amdgpu_ring *guilty_ring,
+>>                   struct amdgpu_fence *guilty_fence)
+>>   {
+>>       struct amdgpu_device *adev = guilty_ring->adev;
+>> -    struct amdgpu_ring *rings[AMDGPU_MAX_RINGS];
+>>       struct amdgpu_ip_block *ip_block;
+>>       enum amd_ip_block_type ip_type;
+>> -    u32 num_rings, ring_type_mask;
+>> +    u32 ring_type_mask;
+>>       int r;
+>>       ip_type = amdgpu_ip_from_ring(guilty_ring->funcs->type);
+>> @@ -543,14 +520,13 @@ int amdgpu_device_ip_soft_reset(struct 
+>> amdgpu_ring *guilty_ring,
+>>           ip_block->version->funcs->name);
+>>       ring_type_mask = amdgpu_ring_mask_from_ip(ip_type);
+>> -    amdgpu_filter_rings(adev, ring_type_mask, rings, &num_rings);
+>>       amdgpu_device_lock_reset_domain(adev->reset_domain);
+>> -    amdgpu_multi_ring_reset_helper_begin(rings, num_rings, 
+>> guilty_ring, guilty_fence);
+>> +    amdgpu_multi_ring_reset_helper_begin(ring_type_mask, guilty_ring, 
+>> guilty_fence);
+>>       r = ip_block->version->funcs->soft_reset(ip_block);
+>> -    r = amdgpu_multi_ring_reset_helper_end(rings, num_rings, 
+>> guilty_ring, r);
+>> +    r = amdgpu_multi_ring_reset_helper_end(ring_type_mask, 
+>> guilty_ring, r);
+>>       amdgpu_device_unlock_reset_domain(adev->reset_domain);
+> 
+> Patch looks correct to me so:
 > 
 > Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Applied.
+
+> 
+> I do however have some lamentations:
+
+Feel free to follow up with any other changes on top.
+
+> 
+> 1)
+> ring_type_mask is derived directly from the guilty_ring so strictly 
+> speaking is redundant as parameter to begin/end helpers.
+> 
+> 2)
+> Lets consider this sequence:
+> 
+>    ip_type = amdgpu_ip_from_ring(guilty_ring->funcs->type);
+>    ring_type_mask = amdgpu_ring_mask_from_ip(ip_type);
+> 
+> And expand it for say sdma:
+> 
+> ip_type = amdgpu_ip_from_ring(ring_type)
+> {
+>      switch (ring_type) {
+>      case AMDGPU_RING_TYPE_SDMA:
+>          return AMD_IP_BLOCK_TYPE_SDMA;
+> 
+> ring_mask_type = amdgpu_ring_mask_from_ip(ip_type)
+> {
+>      switch (ip_type) {
+>      case AMD_IP_BLOCK_TYPE_SDMA:
+>          return BIT(AMDGPU_RING_TYPE_SDMA);
+> 
+> Identity map kind of.
+> 
+> I am not sure it is worth it for the reset code on it's own, only if 
+> there are other places in the driver which ask the same question, but in 
+> general I am often tempted to just store those in the respective parent 
+> data structures at init time.
+> 
+> In this case that would be something like:
+> 
+> ring->ip_type - holding AMD_IP_BLOCK_TYPE_SDMA
+> 
+> ip_block->ring_mask - holding a bitmask mask of rings implemented
+> 
+> Again probably not worth the effort in this instance. I only mention it 
+> because there are similar things in the driver with much more often used 
+> invariant lookups which then waste a lot of space. For example the one I 
+> recently re-posted saves ~150KiB of .text:
+> 
+> https://lore.kernel.org/amd-gfx/20260622121034.52762-1- 
+> tvrtko.ursulin@igalia.com/
+> 
+>>       if (r) {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_ring.c
+>> index 8062135e73a1d..ab5df854c1d20 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> @@ -884,8 +884,7 @@ int amdgpu_ring_reset_helper_end(struct 
+>> amdgpu_ring *ring,
+>>   /**
+>>    * amdgpu_multi_ring_reset_helper_begin() - Prepare multiple rings 
+>> for a reset.
+>>    *
+>> - * @rings: Pointer to an array of amdgpu rings that are affected.
+>> - * @num_rings: Number of rings in the array.
+>> + * @ring_type_mask: Bitmask of affected ring types
+>>    * @guilty_ring: The ring which is guilty of causing a reset.
+>>    * @guilty_fence: The fence which didn't signal on the guilty ring.
+>>    *
+>> @@ -904,7 +903,7 @@ int amdgpu_ring_reset_helper_end(struct 
+>> amdgpu_ring *ring,
+>>    * After the reset is complete, the caller should then call
+>>    * amdgpu_multi_ring_reset_helper_end() to restore the rings.
+>>    */
+>> -void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_ring **rings, 
+>> u32 num_rings,
+>> +void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
+>>                         struct amdgpu_ring *guilty_ring,
+>>                         struct amdgpu_fence *guilty_fence)
+>>   {
+>> @@ -915,8 +914,11 @@ void amdgpu_multi_ring_reset_helper_begin(struct 
+>> amdgpu_ring **rings, u32 num_ri
+>>       int i;
+>>       u32 t;
+>> -    for (i = 0; i < num_rings; ++i) {
+>> -        ring = rings[i];
+>> +    for (i = 0; i < adev->num_rings; ++i) {
+>> +        ring = adev->rings[i];
+>> +
+>> +        if (!(BIT(ring->funcs->type) & ring_type_mask))
+>> +            continue;
+> 
+> Another thing to consider is if adding a succint helper for the ring 
+> walks would be interesting. Ie.
+> 
+>   amdgpu_for_each_ring(adev, ring, mask)
 > 
 > Regards,
 > 
 > Tvrtko
 > 
-Applied.
+>>           /* Don't accept new submissions on the ring. */
+>>           if (amdgpu_ring_sched_ready(ring) && ! 
+>> drm_sched_is_stopped(&ring->sched))
+>> @@ -949,8 +951,11 @@ void amdgpu_multi_ring_reset_helper_begin(struct 
+>> amdgpu_ring **rings, u32 num_ri
+>>           rings_busy = false;
+>>           /* Check if any of the non-guilty rings are busy */
+>> -        for (i = 0; i < num_rings; ++i) {
+>> -            ring = rings[i];
+>> +        for (i = 0; i < adev->num_rings; ++i) {
+>> +            ring = adev->rings[i];
+>> +
+>> +            if (!(BIT(ring->funcs->type) & ring_type_mask))
+>> +                continue;
+>>               if (ring == guilty_ring)
+>>                   continue;
+>> @@ -966,8 +971,11 @@ void amdgpu_multi_ring_reset_helper_begin(struct 
+>> amdgpu_ring **rings, u32 num_ri
+>>           mdelay(10);
+>>       }
+>> -    for (i = 0; i < num_rings; ++i) {
+>> -        ring = rings[i];
+>> +    for (i = 0; i < adev->num_rings; ++i) {
+>> +        ring = adev->rings[i];
+>> +
+>> +        if (!(BIT(ring->funcs->type) & ring_type_mask))
+>> +            continue;
+>>           /*
+>>            * Find guilty fences, ie. the fences that didn't signal
+>> @@ -991,8 +999,7 @@ void amdgpu_multi_ring_reset_helper_begin(struct 
+>> amdgpu_ring **rings, u32 num_ri
+>>   /**
+>>    * amdgpu_multi_ring_reset_helper_end() - Prepare multiple rings for 
+>> a reset.
+>>    *
+>> - * @rings: Pointer to an array of amdgpu rings that are affected.
+>> - * @num_rings: Number of rings in the array.
+>> + * @ring_type_mask: Bitmask of affected ring types
+>>    * @guilty_ring: The ring which is guilty of causing a reset.
+>>    * @ret: Return code from the reset function.
+>>    *
+>> @@ -1004,7 +1011,7 @@ void amdgpu_multi_ring_reset_helper_begin(struct 
+>> amdgpu_ring **rings, u32 num_ri
+>>    * be called to restore some state, but it won't attempt to
+>>    * fully restore the ring contents.
+>>    */
+>> -int amdgpu_multi_ring_reset_helper_end(struct amdgpu_ring **rings, 
+>> u32 num_rings,
+>> +int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
+>>                          struct amdgpu_ring *guilty_ring, int ret)
+>>   {
+>>       struct amdgpu_device *adev = guilty_ring->adev;
+>> @@ -1012,8 +1019,11 @@ int amdgpu_multi_ring_reset_helper_end(struct 
+>> amdgpu_ring **rings, u32 num_rings
+>>       int i, r;
+>>       /* Set preempt condition, rings are now allowed to execute 
+>> submissions */
+>> -    for (i = 0; i < num_rings; ++i) {
+>> -        ring = rings[i];
+>> +    for (i = 0; i < adev->num_rings; ++i) {
+>> +        ring = adev->rings[i];
+>> +
+>> +        if (!(BIT(ring->funcs->type) & ring_type_mask))
+>> +            continue;
+>>           if (ring->funcs->init_cond_exec)
+>>               amdgpu_ring_set_preempt_cond_exec(ring, true);
+>> @@ -1027,9 +1037,13 @@ int amdgpu_multi_ring_reset_helper_end(struct 
+>> amdgpu_ring **rings, u32 num_rings
+>>           return ret;
+>>       /* Restore contents of all rings */
+>> -    for (i = 0; i < num_rings; ++i) {
+>> -        ring = rings[i];
+>> +    for (i = 0; i < adev->num_rings; ++i) {
+>> +        ring = adev->rings[i];
+>> +
+>> +        if (!(BIT(ring->funcs->type) & ring_type_mask))
+>> +            continue;
+>> +        /* Restore contents of the ring */
+>>           r = amdgpu_ring_reset_helper_end(ring, ring->guilty_fence);
+>>           if (r) {
+>>               dev_err(adev->dev,
+>> @@ -1040,8 +1054,11 @@ int amdgpu_multi_ring_reset_helper_end(struct 
+>> amdgpu_ring **rings, u32 num_rings
+>>       }
+>>       /* Accept submissions on all rings again */
+>> -    for (i = 0; i < num_rings; ++i) {
+>> -        ring = rings[i];
+>> +    for (i = 0; i < adev->num_rings; ++i) {
+>> +        ring = adev->rings[i];
+>> +
+>> +        if (!(BIT(ring->funcs->type) & ring_type_mask))
+>> +            continue;
+>>           if (!amdgpu_ring_sched_ready(ring))
+>>               continue;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_ring.h
+>> index c272e0b028ad8..9d3934b4f1069 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> @@ -595,10 +595,10 @@ void amdgpu_ring_reset_helper_begin(struct 
+>> amdgpu_ring *ring,
+>>                       struct amdgpu_fence *guilty_fence);
+>>   int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+>>                    struct amdgpu_fence *guilty_fence);
+>> -void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_ring **rings, 
+>> u32 num_rings,
+>> +void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
+>>                         struct amdgpu_ring *guilty_ring,
+>>                         struct amdgpu_fence *guilty_fence);
+>> -int amdgpu_multi_ring_reset_helper_end(struct amdgpu_ring **rings, 
+>> u32 num_rings,
+>> +int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
+>>                          struct amdgpu_ring *guilty_ring, int ret);
+>>   bool amdgpu_ring_is_reset_type_supported(struct amdgpu_ring *ring,
+>>                        u32 reset_type);
+> 
+
