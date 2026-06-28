@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE4AC44502
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607ADC44506
 	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF12D10E713;
-	Mon, 29 Jun 2026 07:08:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="V3Yc3L7o";
-	dkim-atps=neutral
-Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net
- [178.154.239.214])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 659D510E405;
- Fri, 26 Jun 2026 19:13:43 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net
- [IPv6:2a02:6b8:c43:1743:0:640:287f:0])
- by forward103d.mail.yandex.net (Yandex) with ESMTPS id D03C8C005D;
- Fri, 26 Jun 2026 22:13:40 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net (smtp)
- with ESMTPSA id VDgZvirmX8c0-CwsHMUqk; 
- Fri, 26 Jun 2026 22:13:39 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1782501219; bh=jNeglCViEBka8yVtR4z5raXj3iuBh/ECJABlpgTpemQ=;
- h=Message-ID:Date:Cc:Subject:To:From;
- b=V3Yc3L7oLn1exA8LeYfoQtfnj8/pVwN991YkA4uX0bX/F4bCEtKyyEWA8yZ1Xig8U
- IoHAfosCeg281DD+G8MtnSgQntE1iWpso+GSozZ91pxSPZbsrH8kUolwUZ6p7ANXLX
- 6ELXikKk032hyzfftzeWqSnzUmgWenfzGRpDshOI=
-Authentication-Results: mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- mario.limonciello@amd.com, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
- aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
- Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
- kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, tzimmermann@suse.de,
- Alvin.Lee2@amd.com, dmitry.baryshkov@oss.qualcomm.com,
- chaitanya.kumar.borah@intel.com, ekurzinger@gmail.com,
- pierre-eric.pelloux-prayer@amd.com, HaoPing.Liu@amd.com,
- Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH v3] drm/amd/display: Fix dangling pointers in state reset
- functions on allocation failure
-Date: Fri, 26 Jun 2026 22:13:03 +0300
-Message-ID: <20260626191314.29933-1-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDAA910E71B;
+	Mon, 29 Jun 2026 07:08:10 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7901910E414;
+ Sun, 28 Jun 2026 07:49:29 +0000 (UTC)
+Received: from smtpclient.apple (unknown [117.182.74.7])
+ by APP-05 (Coremail) with SMTP id zQCowAA3xgn_0UBqHnO7FQ--.53219S2;
+ Sun, 28 Jun 2026 15:49:22 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+Message-Id: <E91B74F1-B7B5-4EF6-A697-634178A2F3A7@iscas.ac.cn>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_49C0EBF9-8A71-45A7-AC34-64A2972B0D6E"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH v2] drm/amd/display: set new_stream to NULL after release
+Date: Sun, 28 Jun 2026 15:49:09 +0800
+In-Reply-To: <2026062816-contour-womankind-1646@gregkh>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20260628072740.8884-1-vulab@iscas.ac.cn>
+ <2026062816-contour-womankind-1646@gregkh>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID: zQCowAA3xgn_0UBqHnO7FQ--.53219S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYD7k0a2IF6FyUM7kC6x804xWl14x267AK
+ xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+ A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j
+ 6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr
+ 1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv
+ 0487McIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+ 0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l7480Y4vE
+ I4kI2Ix0rVAqx4xJMxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r1q6r43Mx
+ C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_JrI_JrWlx2IqxVCjr7xvwVAF
+ wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+ vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
+ 0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxV
+ W8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jjnmiUUUUU=
+X-Originating-IP: [117.182.74.7]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2pAiop2TQAAsT
 X-Mailman-Approved-At: Mon, 29 Jun 2026 07:07:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,160 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Multiple reset functions in amdgpu_dm free the old state before allocating
-a new one. If kzalloc_obj() fails, the function returns without updating
-the state pointer, leaving a dangling pointer to already freed memory.
 
-Fix this by allocating the new state first. In case of allocation failure,
-the old state remains untouched and the function safely returns, preserving
-the existing state.
+--Apple-Mail=_49C0EBF9-8A71-45A7-AC34-64A2972B0D6E
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-For amdgpu_dm_connector_funcs_reset(), additionally restore the explicit
-kfree(old_state) which was lost when the function was refactored, as
-__drm_atomic_helper_connector_destroy_state() only frees resources but not
-the state structure itself.
 
-This affects three functions:
-- amdgpu_dm_plane_drm_plane_reset()
-- amdgpu_dm_crtc_reset_state()
-- amdgpu_dm_connector_funcs_reset()
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 2026=E5=B9=B46=E6=9C=8828=E6=97=A5 15:33=EF=BC=8CGreg KH =
+<gregkh@linuxfoundation.org> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> Did you forget to include an Assisted-by: tag?
 
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
-Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
-Changes in v3:
-- Restore explicit kfree(old_state) in amdgpu_dm_connector_funcs_reset()
-  to prevent memory leak (reviewer Mario Limonciello <mario.limonciello@amd.com>)
+You're right, the Fixes hash correction in v2 was suggested by the =
+reviewer in v1. I'll add a Suggested-by tag in v3. Thanks for pointing =
+this out!=
 
-Changes in v2:
-- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 46 +++++++++++--------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
- 3 files changed, 39 insertions(+), 29 deletions(-)
+--Apple-Mail=_49C0EBF9-8A71-45A7-AC34-64A2972B0D6E
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 97ab1e83b318..8829e884167b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8151,33 +8151,41 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
- 
- void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
- {
--	struct dm_connector_state *state =
-+	/* Remember the old state */
-+	struct dm_connector_state *old_state =
- 		to_dm_connector_state(connector->state);
- 
-+	struct dm_connector_state *state;
-+
-+	/* Allocate new state */
-+	state = kzalloc_obj(*state);
-+	if (WARN_ON(!state))
-+		return;
-+
-+	/* Release resources owned by the previous state and free memory */
- 	if (connector->state)
- 		__drm_atomic_helper_connector_destroy_state(connector->state);
- 
--	kfree(state);
-+	kfree(old_state);
- 
--	state = kzalloc_obj(*state);
-+	/* Install and initialize the new DRM connector state */
-+	__drm_atomic_helper_connector_reset(connector, &state->base);
- 
--	if (state) {
--		state->scaling = RMX_OFF;
--		state->underscan_enable = false;
--		state->underscan_hborder = 0;
--		state->underscan_vborder = 0;
--		state->base.max_requested_bpc = 8;
--		state->vcpi_slots = 0;
--		state->pbn = 0;
--
--		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
--			if (amdgpu_dm_abm_level <= 0)
--				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
--			else
--				state->abm_level = amdgpu_dm_abm_level;
--		}
-+	/* Initialize AMD-specific connector state */
-+	state->scaling = RMX_OFF;
-+	state->underscan_enable = false;
-+	state->underscan_hborder = 0;
-+	state->underscan_vborder = 0;
-+	state->base.max_requested_bpc = 8;
-+	state->vcpi_slots = 0;
-+	state->pbn = 0;
- 
--		__drm_atomic_helper_connector_reset(connector, &state->base);
-+	/* Initialize eDP-specific defaults */
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-+		if (amdgpu_dm_abm_level <= 0)
-+			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-+		else
-+			state->abm_level = amdgpu_dm_abm_level;
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 3dcedaa67ed8..6146fbc528c3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
- {
- 	struct dm_crtc_state *state;
- 
--	if (crtc->state)
--		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
--
-+	/* Allocate new state first */
- 	state = kzalloc_obj(*state);
- 	if (WARN_ON(!state))
- 		return;
- 
-+	/* Destroy old state only after successful allocation */
-+	if (crtc->state)
-+		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
-+
- 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index e957657b06c7..eb1c0a26f20d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
- 
- static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
- {
--	struct dm_plane_state *amdgpu_state = NULL;
--
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
-+	struct dm_plane_state *amdgpu_state;
- 
-+	/* Allocate new state first */
- 	amdgpu_state = kzalloc_obj(*amdgpu_state);
--	WARN_ON(amdgpu_state == NULL);
--
--	if (!amdgpu_state)
-+	if (WARN_ON(!amdgpu_state))
- 		return;
- 
-+	/* Destroy old state only after successful allocation */
-+	if (plane->state)
-+		plane->funcs->atomic_destroy_state(plane, plane->state);
-+
- 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
--- 
-2.43.0
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;"><br =
+id=3D"lineBreakAtBeginningOfMessage"><div><br><blockquote =
+type=3D"cite"><div>2026=E5=B9=B46=E6=9C=8828=E6=97=A5 15:33=EF=BC=8CGreg =
+KH &lt;gregkh@linuxfoundation.org&gt; =E5=86=99=E9=81=93=EF=BC=9A</div><br=
+ class=3D"Apple-interchange-newline"><div><span style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;">Did you =
+forget to include an Assisted-by: =
+tag?</span></div></blockquote></div><br><div>You're right, the Fixes =
+hash correction in v2 was suggested by the reviewer in v1. I'll add a =
+Suggested-by tag in v3. Thanks for pointing this =
+out!</div></body></html>=
+
+--Apple-Mail=_49C0EBF9-8A71-45A7-AC34-64A2972B0D6E--
 
