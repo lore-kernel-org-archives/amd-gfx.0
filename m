@@ -4,125 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EA69C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 17:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 229F2C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 17:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F8A10E0D0;
-	Mon, 29 Jun 2026 17:53:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD7510E0A7;
+	Mon, 29 Jun 2026 17:54:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UdufgN4e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VxUtXarM";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010024.outbound.protection.outlook.com
- [52.101.193.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E74C10E0D0;
- Mon, 29 Jun 2026 17:53:33 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011008.outbound.protection.outlook.com [40.107.208.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4034289358
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 17:54:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oTi2H21UJDX/8DJrYy7XjumvmxyaxWnOwIzA+Q71kG7pJxzTTnpao2EFIXVISZUAUmrSwnZpWyZAKb7NyMEWfVq/mYgL8pTAcdpkJJ5MMMBklA8gbcnpH/ZthsfYnyWtJskXO9A1IoowjJZjHXv71kjtdr5mLp1UNxJVAOu2q4qaFUUGYR72Np8Su0VN36i6/ZB/iKN2O110xV055B65ATnKpTHcQn5ugV8eC5TWFj9HNOwGFS+5uG+0bL0qST16IeZH0EIig/ykJ9iPl7wA1YXkoTjuoGpZdMF4pq+8iEPDG4/SKo2KUGZnytFUzFWF3R8iRLiPh3iHsAiLdkd+YA==
+ b=BkjsHYMN3KjImV24USkqvWAJKSig1Wf0SVg0vtIQtXK9oc3J3uC4t9emE9Sjs1KSsB1NjZNIM03oZIwPBE5l2Ovc1CEk4yE+d4GItPi89fRNKOJRurb/7oTQPk4D+qIdqpzfpoFLDRE7S9ebYWaNOG3ruJYzZ2mYvxPkSlZLjEnFor2nBEezY24p2FuCS3NyqbvC46r9K/ZwGZvh0mg5u2Qm30efGt1z93/BfJhQ/CyM+B/2hl6PXnytxRwH7M+KF7pbE7+UakLMlCmmubasPBnbhKzzVlfFdU+IRHUZlcJ6DDOy2KnWpJBdNDF10F6ikiNPozZlXkcFdRltvNKm/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zELtQfPCvvCpHpa3LRpuDAcJ1DPJue0moAJ2C93+D/w=;
- b=wObVbRNtSpAwJYPh9sbq3t1Wou8HVrR4MSAV4bxrTUN5GIg66kOOku7zuX2XXVjkZspkjgYLrG5PujlmfR0cjRBqpiMQussDMt+Fzb81W9AExCbNJhjA2EK+F7yidltOHBw3loWida0sBtmrV7QK4ILt9Ey5q6wIHBoLns9AoFAkDrz567ku3cJf1NgbNGMWzjfaVku4Y7gE6dxcxFzfrXGSQB/pIM4LjQtP2XvFvDMd2Rgiz0ubSxRuANKx3wZ5p5znC53pOD2xk7rCFvMKAXMAjPUlQrpmlWMkHZGu6OU0RKlRn4KDvmxyuk6NOQ4L2PmggPwXmOHC/EH7E/R6jw==
+ bh=3xHp+Vgm+PXYi1k9oLSYqArBAQDc/G1VbnAuqAZSScc=;
+ b=Mz2RU7F/bAHcFPkWsGDN9fD9sUNmao112XZYYAKSGz4oUYuMRfxRn8hPgPMjhgTcXjApt+ZiTU6ioiBDumdfoi/quTmz5MEy7lj+Yy5DWlS+EttsZegbhLUXyf5AyELNyhz3Rn2XDEK6YYjqGl85/ax7oILk98ToyaAe1RnVSY/vK5yl7BchozKYf9alRBnlKJPCicL9dodeLVfEaIG7Kenzr4GHwLQn975yoUaUxTA9Xj0phUVODeb+GCxOovB14Ym6pJ9rMJmArPzBOV27h9f9YoekB5sIW2H49GXhLLByqjHhxhHNyGFO3/aVxDNDsbTgIL+EWN0ZZ76U5G+FMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zELtQfPCvvCpHpa3LRpuDAcJ1DPJue0moAJ2C93+D/w=;
- b=UdufgN4e5I2R8sSwUqOv+OP6+zH2kbjN1tqbwsp4JAinI1L4KOieEcw+PCMaJu+yoLM+gyaJOdZZ+0tbNYNqU1E7LlfgljW75bqCb3M78PyOhI5rQZcU2nTp9Ec4Qfe3TTSKe9EGwmftJ7gViUEXXFZZa3203qWIaKAcRTe/IUw=
+ bh=3xHp+Vgm+PXYi1k9oLSYqArBAQDc/G1VbnAuqAZSScc=;
+ b=VxUtXarM8MS/tSlnlCbcNIpvH87Xt5wsq57b7d5P71DweJMKQzYZTPnMvIYV82zNdqCtVynWguOVfxTzY0U+P9pl8vmzNtMO8nJVMwqQ+RIjzIcStXxRKiGM89CB16xJ5NYLsOCPnTBTZtxes77GPSux4ka4jb6/M3j10jFBlpc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8786.namprd12.prod.outlook.com (2603:10b6:8:149::17) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by DS7PR12MB8229.namprd12.prod.outlook.com
+ (2603:10b6:8:ea::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 17:53:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 17:53:29 +0000
-Message-ID: <9935b6d9-d534-4275-8a7d-414ce555779a@amd.com>
-Date: Mon, 29 Jun 2026 19:53:23 +0200
+ 2026 17:54:38 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::e2a6:da85:2544:e542]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::e2a6:da85:2544:e542%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 17:54:37 +0000
+Message-ID: <7f1ec051-74e2-4ac9-8ac8-9725ca82bb80@amd.com>
+Date: Mon, 29 Jun 2026 13:54:36 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: reject mapping info when BO VA is gone
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260629152807.13492-1-alhouseenyousef@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: use iosys_map for CWSR buffer access
+To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, Yifan1.Zhang@amd.com, philip.yang@amd.com,
+ Harish.Kasiviswanathan@amd.com, Bob.Zhou@amd.com, jamesz@amd.com
+References: <20260629005028.2907470-1-James.Zhu@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260629152807.13492-1-alhouseenyousef@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0009.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260629005028.2907470-1-James.Zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0456.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::20) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8786:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc2a5159-1fef-4255-37d0-08ded60753a3
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS7PR12MB8229:EE_
+X-MS-Office365-Filtering-Correlation-Id: 692063ae-f3aa-4e27-0c91-08ded6077c82
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 5k6qbtUNlQwcaMQKkYsrYIZ3xSZi01Gdlcawxxe5Dkyyb/ZphB6LSCjIIdcQC/HvLppDWr5Ot8sP7Pu12EA7FyNSm9nDZHHm4K/JVETUr6MTqm+wf8kuMZzEhnvErau0NoA8kpvx0EGWvkC8kZkJSJJINYb6W93EJQz/dYAIgsuiOrSIdRaX8HqofU7b+p+2X6YMm9sA8GAqR7ek2GsqKo8wP5hUZrrSEg6n1qkMoNQUq/w9WplGLHUV04xoE12GLa5LpqhG3Mbn6nbha6Geqmvei7HbLZWFE1tRw7XxY5j/ajwhh7D2Og1z5TlaYlTS63XqSld32Jl+v5W0z+d0Hqhzd0uAt5MZlR/Cm/T+WXpZxMk7qxyCoufWyUfoS7IMNcWfXqV0wFdKlfWewDReAok2KzwYatvDsd27Wv1lo+VG7Fj59dsy++/WPZjEzHz/Jbp8grhC3sN2Ohobiid4o4HrL7Wi1qJfFEMdSolLloExSDY7qksHNXISvVjbl2jnz9gFq3DkJxLLHg2b8RIebuUkkdJU7CYmrZoPnkXsTAKHJ5Zl9eZpEZM/CTZ868TBtmYPPZs8BGgz6SWsVyxUkUyVLTxhv8t+/tsPk5tYfYteXPOwYm0zAK8VyH9fXFOfqxTTzWZnL2iSVZ5fKneB0lwX72wx2npefAsUN+RB6jI=
+ ARA:13230040|23010399003|376014|1800799024|366016|22082099003|18002099003|11063799006|56012099006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: ZPNkdXqcDr0/ClqS9JDCXxMOkuJAGVEpAz47z/huJIc34juRJ+huI0CCiK5ChyQDG7kWxrbHqQO7dwFbCaVZf7aXhJQFj4zyvJNme+8KbRarvyRS+VbVTQERRudsFJW3W/jBR8295L4pxMfSih/BZC84OtMu/RAKGtKex/MdLgNQy6X4pmokl03lDXwN6Lwu+zORPI3fxAaP402bqDihT7D4tMRSZIB1FATNY236l6HDrVNnl3iFdMqTctIyULHldM/CBRP6wCwfs/kM5mUwkjyOdNHW2VHOV+MYvoJcIOLtj1IFmtht9Ciqll2aHf6EKIzlo8bxph+0cB+FrtkuUP40pjAbYEmXYp8M8ZegZFpvldvKK8CqQg3mJbg8s8uvnsKKknOkvo3LZTSx4kB3sbCuRSrayf9k4ncWRsyaht8um997hXYa5W/pyagIwF0Ngl0P8/qiDuKnxa17YSDunCCdXzytAS9HjwfrcUB+F/W1RrBBApxTseZ+OFJGcoDFVmqdgvuHj25iMexy7Df8dpZOuxh0q3ttTwhzctp4pBCwdsJb0EfrJJJG5TtFXBb9SDWuxz4ojFlkfEhKK+sKrXs/vlyBxganauYO++a/KLMdd/Hr70Ii976UF9SLx4+HLS1cxhFTu+2pxSK0iuFBKpXg6B6Ipn4AsmS4WCzjNH4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejJCY0kvS2pmRVRBaGdsU3ZDWDdTbmhaVGZHWnNNdUNBTndudXVSeFZIMXNE?=
- =?utf-8?B?UUJYV0lnbEwza3dSckVzR0VJS0cvZjRUV3EvSzBaaCtIYWtwaXh3elBBZTlp?=
- =?utf-8?B?MFpYTlJmd3N5bE40WUdGVkdXSTBUSnc0SElSTXUycUwwZHQ0TCtrMC9NSTYr?=
- =?utf-8?B?T0lLS0xwaVdiUUpMNkdiOWd3NjdRRTltMDlMcnNyaU85b0hUR3JWbjZvQ05Q?=
- =?utf-8?B?bmRJVC8wVlIzZGlmUWUxWnZ3ZUx5UUVkWkt2T1l3SGJDVEU1RU50WUtOVkx2?=
- =?utf-8?B?Sml2ckczMjMwa1A1aXlLL0RERDFwUHJhM0JoTFYxREdIRlFoUzRMV3ZocVV2?=
- =?utf-8?B?WDg3RmpOcmVpRnVJMnJnYXJjS1dmWlVuNnJSOVdxeFZuYndZVzRydUROb2dB?=
- =?utf-8?B?QTViZDNhRDMwVFRHWVFudnRjSVFnaitMTTg1YTRZOEtTSHorbjFHT01hejhs?=
- =?utf-8?B?QXF6c2dPY0JLUlFuQWgvK3RPSlhMd3VKRnVYRjhvMEZNNkU1UXloWG9FUEQx?=
- =?utf-8?B?MHl2RVBiL2xydWdZSVFxcDByVkdvaDJEZm9kbWVkMlg0Y2YvYW9uSytGOW1S?=
- =?utf-8?B?NHRpR3ZPVGVZZmp3SFZJYlk3RENnRncraTcxUzVFRVhxZUZMUkNFVmRQZzh1?=
- =?utf-8?B?Y0pzSVJYa09ON3QyT3BYZ0YrYi9DeEtiNTRMWk9WU0hNNFh0YzVIUlpJVUJI?=
- =?utf-8?B?TW53dVN6cEVUSzVhOEFmaFhMNkFETnluKytlUUM5b0tWSXNSdFpsdEFQNVpB?=
- =?utf-8?B?YkFGdTFpejVUSUhIUlFHMzFxalNST2szSUc4Yy9KNDNiZVhPSnp2Q01DN0pD?=
- =?utf-8?B?bXMzaDlXZENHcEVmL29mSU1IWlpIalk0M1QxRVJ6ZmQzcUdqeVZ0bFA4ZGM1?=
- =?utf-8?B?R1U4bksrbmFPZEVraEsybkZvVTdCcE1YaHhWRElyRzVIR3N4VHRZUDJCZTR5?=
- =?utf-8?B?bUxSVytWQkQ2TWVtY2ZrU3lmQnEyL2xOcDcvbVZxTk4ySEF1eGpZVFVOaDcx?=
- =?utf-8?B?Y2t5UnpBV2lhVnBRek1JdVhYS3BRU2RnQTcraVp0a3E3ZDU2MUNTTXVhSnFn?=
- =?utf-8?B?TVhBYVdqQTRULzJPK1Zlc2hFQ0JLMmtoNmc2dEtqMU4zb1RtdmxHNkVSbnRi?=
- =?utf-8?B?U2RlejUzNjJVYTRPZ1dvdmxvNGhndEJlVnFPRFExOTNhVXBTalFUamN1eHBC?=
- =?utf-8?B?eDlxTVNadytuYmZKNkl0b2Jka3B4N2gwYmNDQlVHZVVrY0g3NzhORDZuem1u?=
- =?utf-8?B?c25YbWlLODhnbDl0WGVjZXVqUVpibFdiQUtkSTRaSEN4eGxaM1V5S0F0NEkv?=
- =?utf-8?B?T21KMDFsUllnZ3YrU29SY2MxaWNKM2luaitDOW9VZ3FPRWhObDlYK0FYcHdX?=
- =?utf-8?B?M01VK3V4UTRnQVFnN1BLeHZDbEppbnBBZTNrL0t5ZWs2dStBSlpaa29lTmZW?=
- =?utf-8?B?dUc2QW53OWlvcWdkb0RWOG1lbEVQN1lWZHl3Rm5YVDJDTTRjanpNMCs0NnJm?=
- =?utf-8?B?OTFDeHVISFJnS2NJVkJGQytHT2ZoalgvVUJjV3hLb3RlUWdpQmlIbm1ZRVZo?=
- =?utf-8?B?bk1VUnl1NVYyaGxrTEFvRlM5ZGovWlY0WFdDY1lRZHRJd0FQM2VXbStKbW9v?=
- =?utf-8?B?SGg5ZFk2VjNYV1hFcUwwQmpISThZWFNIZjkxZysvZTh1ZGVoZ3IxWG5acTFw?=
- =?utf-8?B?RDd1TEtnVDVzYjFmK0ZWNFpoKzdPOEZWZzRGY2JCcnVRbmNZc08zbFZaZlJh?=
- =?utf-8?B?Q2s3TXA0K2NkdHRNUTNuVDNJSzFhUGttd3E4Vk5tdGx2UWtXaHllaXd6MFR0?=
- =?utf-8?B?cDM0MWRPYkhrdjdXaG5DQXY1dHpIZlQyeEwyWTRYQThRczY5aFA2U0ZQTkVZ?=
- =?utf-8?B?Z2N5UUxJTmJ2aVBVRG80cGZIams2VTZBdHFhM0Jpc3U2ZTJQNzZ2OVpHa1or?=
- =?utf-8?B?bU9nMkZET1BJb1dxRHVxRytvdXlzeG5SOURFRjd1amtRcVE0Y0JRZzRvdU9Z?=
- =?utf-8?B?dlk5dG9lVzBUU2dMeDhGdnBsUFM2cmFEMlMyeEN4VXpVdUp2MExMYzlITmhL?=
- =?utf-8?B?WjNDN0wwWXVHc1BRb1BCU3hQaFFZd012RW9PQ3M2a3A4Z29NYXVZZlJ3eitY?=
- =?utf-8?B?MnhoS2VvNEZxYjZVeGllRjVtQnBsdnN5M2lOalB6Z0xpSUZubExjRkZGcG9D?=
- =?utf-8?B?U21UU2hqTGN0bGxWcWJxYS9vRWE3elhVemhFaDZxT1FQRDFHTTc2V3hNZ08r?=
- =?utf-8?B?Q3RDWHJHUUpZZVF3NmVLTHJkc3l5Y2lrd2E3WDlWNDVQN2hKU2R6TXp2cTIr?=
- =?utf-8?B?bCtkbW9nMi9NMGNFNXdWdW5TTlpyWjhkSHRwSUZORDF4a2x4Nk1adz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0VacDhpVTZhT1ZMSG1ldllhRStrTmRDTjYzMTNlZm9nK0Q4TWpnV1FYWWtp?=
+ =?utf-8?B?bnVIZ0F2eXVhUHFqTks4WkNlOVBKQ3RUQ09kTTdiclZGc2ZvZjdhYkI4ZHdT?=
+ =?utf-8?B?aXJmaVk0OGo3SHppMGFCb2tyZXlOVWZrcjQ3WjRLNWZlQ0ZTZmhmenlDK0NB?=
+ =?utf-8?B?QlRGS05BL0dSNGNmZSt0Z2dyZ2FKRWhURW1pOGc0TG5PdCtkbjVsR0NVQVNz?=
+ =?utf-8?B?S2NEVnJmZ2dRQmhOMDdtSS95LzF0cCt5RWZneUt3Q2EwMXUvbGZNb3U3RDZ1?=
+ =?utf-8?B?RjhlVFNVWjNtdGdJNEZIV0ZMdXZrOHdxQmdjZVdrZnE1RUVCcE9KcXN1ME5o?=
+ =?utf-8?B?K3U1RDFhNVJzbFI3a1BNM0w3QU5ZMlZaYUovb2YveUpTMDcrQXdLTHRBcDhC?=
+ =?utf-8?B?S01YY3c5L3F4cWxiVFF1c0RTNHVTTlpMRGdzZWJzVnZUaGp2aWtpWGRQUWJv?=
+ =?utf-8?B?VmJIUDJLUmpxcEpOcFloeGJrcm04UkZPd3dQSTc4M3dzSldnWFk5dGsxWm5U?=
+ =?utf-8?B?MkdSRzRoTEN3TnkxSTM5dVd6SGwyTGV3TlJDODNKZ1JkL2VVOVhaR282Y2My?=
+ =?utf-8?B?NHJLaytub21ncG9CSmhCZnRDL29sWmJtcklwSDVRSmR6RWJiUGZXaDFoRStO?=
+ =?utf-8?B?WUNVTytFeStrY0JpOW45NzdIMmRVWlBXYjdCL0tJWlQwMVo3STVDbVd3dUpk?=
+ =?utf-8?B?eEVCRjAwQyttcFhxWStJTDJkQ2VyY1djc1V4bjdzcEs3UVkvTGxDMFNQQ1JE?=
+ =?utf-8?B?dmlVR0dqMlhQMFJYT0xPY3JrWWplQ0hjMHl2bjdWUXFPRnVSSHZINVJGZjUy?=
+ =?utf-8?B?Vmg2NTcwY3BlOGdpSnF3MitzcXZxbUpaZUpEWlBUNjFlZ2ZhZUZzdE1Pa0tt?=
+ =?utf-8?B?SlhDaUc5RW94SXhNSlVmS212VzRsNlJUR2pEM1NaVktTVEdxbWpnMjNyWE56?=
+ =?utf-8?B?Sm9IMTNnTU94czluQXl1NjcyeFBDc0JQdkpWa0NaZlU2akxaY2VrOHBWbTVS?=
+ =?utf-8?B?M3N2SE9kMmdiQXdsRDlNMWJiZnNtT0l6TTh3eUdPZEp5SVNVZVJxTWJDT0Vi?=
+ =?utf-8?B?ZnQ0SEF5Z3phQ3R3dUF1eER2dyt4eHRXVS93WXFXSUE4YThIKy9EU1hmUzRK?=
+ =?utf-8?B?YmpSWXJaV3pYTnA0Y3FYMGU1eWpIV3MrNmkvNG5uVzN2WTZPV1ZWMDRJZGlw?=
+ =?utf-8?B?Tml2QUpRVTRWWlE4aW1QZjlrWm1sWnVCWVRKVUpnNVY4OXhYSkV3dTMrbUFD?=
+ =?utf-8?B?VUV3OXpraFVSZFl6a1E5T0E3SjZaZUlDOFhkcUduVlpXMTFOVkcyN1hTckRY?=
+ =?utf-8?B?VFFqYWlIWnh0VE16NU9HbHdabVpuMzBEU0hpZFBKQUxUL2pabkUwN1B3M1lr?=
+ =?utf-8?B?VGFmNFZvN3oxckNEOVFmL3FLazlpNXVwNHdlM3ZDL3N3MXd3VmxyQzVJNUJx?=
+ =?utf-8?B?VTA1aUI1U0JzVzNlcnlJRUY4bWs2aENGOVozVUNMSGVObTEvd0JOTUZvaEdj?=
+ =?utf-8?B?MDRnQ2JwT29mNHg0Y3g5eC92NzlpZ29hTFRYWXZHWDNiSHhmeWozUGlMV2Iz?=
+ =?utf-8?B?V1VYMGtBOVVOcW96T2xoY01sb05mYTRWVjNpSHpXaHpMVjY3cjRhL0dkcy9m?=
+ =?utf-8?B?OHh3RjNkUithcGt3ZzJ6V2tjRG1NOXNlNU1hTlhQVVN0QjVYSGk2R1lxRHd4?=
+ =?utf-8?B?bElBdFNtMm1HMGR1TGJPdzc0NXEyZkhadXFEbDJOWGxMcnhGMGFFa2tZd0FY?=
+ =?utf-8?B?UGs3VFRJZGdOTXdXaGVpMzRyUzlTVmxyYkRpTWF4WGNKYm1BTnFicTB6dllv?=
+ =?utf-8?B?bHNKcmdhMFpPU1RNVkZOY2I1bStpU0dPWnA3TTg4UkFhb29JZU0zMXRNQkVl?=
+ =?utf-8?B?VDVOeElrVlB4Uk92OEhrcWpEVjJDMHBkWmYzV0prNTB5cXpZa2VIbWlia0pU?=
+ =?utf-8?B?dDRnNVlrbkFERFNrWjBwMDNBZERSbEdrR1YxYk0wTGRlcUZsWGxZS3lzaXJH?=
+ =?utf-8?B?Z2hMdE9BNkx5a2Q0WVM2UCthcEtJaW9lQ1lyMmo5ZnF6TDFEUjJ3MWJYQWNB?=
+ =?utf-8?B?NkU4dDAvZk1PV0pKdE9UQmN5Vm9sSHZIZ2VpeFhQRWdwTTN1c1JpQ0RMUGRT?=
+ =?utf-8?B?a2pLWGsrMW5sMWJNQlZMUCtwcFdpckUxaytmY3VJMlQyOHd0aEF5QjFuOG5o?=
+ =?utf-8?B?eUtKcDV1TjgzZ2daSHZRaFBqTGZQWWxQc21QQk96WGR6WFV1VG5VMnhjdHo3?=
+ =?utf-8?B?L2dwQWtCa2tidlJlRzVTdW1nYnlleXU0Ym1qTVgxaVR4N0FDalpzNHJLQVJh?=
+ =?utf-8?B?MkRXbFB3elVNaW1GbHB6UDNDMWRzTGZGMDMrN1FjZWxhczM3d2VKQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc2a5159-1fef-4255-37d0-08ded60753a3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 692063ae-f3aa-4e27-0c91-08ded6077c82
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 17:53:29.1697 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 17:54:37.7702 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ernnxyrTcVBA5wNLcQJ7PaKzzydqiOQ8C2+sBTZPtf7E58UAkueFer0Xh+gmt4zn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8786
+X-MS-Exchange-CrossTenant-UserPrincipalName: onHjI0ucF2+T/CS2ZFqRVRqo4OFMh89phbtdaFaFm8e1sr6TEoZ9elJJXhKHzIcDwzmdYpp1yY3l9psf+RauyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8229
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,48 +134,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/29/26 17:28, Yousef Alhouseen wrote:
-> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object before taking
-> the object and VM locks. The object reference keeps the BO alive, but a
-> concurrent handle close can remove the per-file BO VA before
-> amdgpu_vm_bo_find() runs.
-> 
-> The mapping-list walks then dereference the NULL BO VA. Return -EINVAL
-> when the BO is no longer associated with the VM.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+On 2026-06-28 20:50, James Zhu wrote:
+> After moving TBA/TMA from GTT to VRAM for GFX9.4.2+ in commit
+> 5088a1ba6d6d, direct pointer dereferences to CWSR buffers became
+> unsafe because VRAM is accessed via MMIO (PCI BAR mappings).
+>
+> Direct writes like 'tma[2] = enabled' and memcpy() can fail or
+> produce incorrect results on non-x86 architectures because:
+> - MMIO requires specific accessor functions (writeq/readq)
+> - Compiler optimizations may generate invalid instruction sequences
+> - No guarantee of proper memory barriers or atomic access
+>
+> This patch converts CWSR buffer access to use struct iosys_map,
+> which automatically handles both system memory (GTT) and MMIO
+> (VRAM) correctly by:
+> - Using writeq/writel/memcpy_toio for MMIO regions
+> - Using WRITE_ONCE/memcpy for system memory
+> - Providing proper memory barriers and access guarantees
+>
+> Changes:
+> - Replace void *cwsr_kaddr with struct iosys_map cwsr_map
+> - Detect MMIO vs system memory using TTM_BO_MAP_IOMEM_MASK
+> - Use iosys_map_wr() for writing trap handler addresses and flags
+> - Use iosys_map_memcpy_to() for copying CWSR ISA code
+>
+> This ensures correct operation on all architectures while maintaining
+> backward compatibility with older GPUs and APUs that use GTT.
+>
+> Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+> Co-Authored-By: Yifan Zhang <yifan1.zhang@amd.com>
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+
 
 > ---
-> Changes in v3:
-> - Generate a clean patch against drm-misc-next instead of stacking on v1.
-> - Keep only the intended !bo_va guard for the handle-close race.
-> - Clarify the v2 withdrawal confusion in thread replies.
-> 
-> Changes in v2:
-> - Describe the handle-close race instead of an initially unmapped BO.
-> - Return -EINVAL instead of -ENOENT.
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 27be5083f2af..83ec994ad36b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->  		struct drm_amdgpu_gem_vm_entry *vm_entries;
->  		struct amdgpu_bo_va_mapping *mapping;
->  		int num_mappings = 0;
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 63 +++++++++++++++++-------
+>   2 files changed, 47 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index ad4897f094a2..6e559aab4009 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -32,6 +32,7 @@
+>   #include <linux/atomic.h>
+>   #include <linux/workqueue.h>
+>   #include <linux/spinlock.h>
+> +#include <linux/iosys-map.h>
+>   #include <uapi/linux/kfd_ioctl.h>
+>   #include <linux/idr.h>
+>   #include <linux/kfifo.h>
+> @@ -710,7 +711,7 @@ struct qcm_process_device {
+>   
+>   	/* CWSR memory */
+>   	struct kgd_mem *cwsr_mem;
+> -	void *cwsr_kaddr;
+> +	struct iosys_map cwsr_map;
+>   	uint64_t cwsr_base;
+>   	uint64_t tba_addr;
+>   	uint64_t tma_addr;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 8e701dcda8ec..7fd65c31afa2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -33,6 +33,7 @@
+>   #include <linux/mman.h>
+>   #include <linux/file.h>
+>   #include <linux/pm_runtime.h>
+> +#include <drm/ttm/ttm_bo.h>
+>   #include "amdgpu_amdkfd.h"
+>   #include "amdgpu.h"
+>   #include "amdgpu_reset.h"
+> @@ -745,6 +746,21 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
+>   					       NULL);
+>   }
+>   
+> +static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
+> +			struct kfd_process_device *pdd, struct iosys_map *map)
+> +{
+> +	struct kfd_node *dev = pdd->dev;
 > +
-> +		if (!bo_va) {
-> +			r = -EINVAL;
-> +			goto out_exec;
-> +		}
+> +	if (map && !iosys_map_is_null(map)) {
+> +		amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
+> +		iosys_map_clear(map);
+> +	}
 > +
->  		/*
->  		 * num_entries is set as an input to the size of the user-allocated array of
->  		 * drm_amdgpu_gem_vm_entry stored at args->value.
-
+> +	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
+> +	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
+> +					       NULL);
+> +}
+> +
+>   /* kfd_process_alloc_gpuvm - Allocate GPU VM for the KFD process
+>    *	This function should be only called right after the process
+>    *	is created and when kfd_processes_mutex is still being held
+> @@ -1192,8 +1208,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+>   		if (pdd->drm_file)
+>   			fput(pdd->drm_file);
+>   
+> -		if (pdd->qpd.cwsr_kaddr && !pdd->qpd.cwsr_base)
+> -			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
+> +		if (!iosys_map_is_null(&pdd->qpd.cwsr_map) && !pdd->qpd.cwsr_base)
+> +			free_pages((unsigned long)pdd->qpd.cwsr_map.vaddr,
+>   				get_order(KFD_CWSR_TBA_TMA_SIZE));
+>   
+>   		idr_destroy(&pdd->alloc_idr);
+> @@ -1501,7 +1517,7 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+>   	void *kaddr;
+>   	int ret;
+>   
+> -	if (!dev->kfd->cwsr_enabled || qpd->cwsr_kaddr || !qpd->cwsr_base)
+> +	if (!dev->kfd->cwsr_enabled || !iosys_map_is_null(&qpd->cwsr_map) || !qpd->cwsr_base)
+>   		return 0;
+>   
+>   	if (KFD_GC_VERSION(dev) >= IP_VERSION(9, 4, 2) && !dev->adev->apu_prefer_gtt)
+> @@ -1516,17 +1532,28 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+>   		return ret;
+>   
+>   	qpd->cwsr_mem = mem;
+> -	qpd->cwsr_kaddr = kaddr;
+> +
+> +	/* Set up iosys_map based on whether memory is MMIO or system memory */
+> +	if (mem->bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
+> +		iosys_map_set_vaddr_iomem(&qpd->cwsr_map, kaddr);
+> +	else
+> +		iosys_map_set_vaddr(&qpd->cwsr_map, kaddr);
+> +
+>   	qpd->tba_addr = qpd->cwsr_base;
+>   
+> -	memcpy(qpd->cwsr_kaddr, dev->kfd->cwsr_isa, dev->kfd->cwsr_isa_size);
+> +	/* Copy CWSR ISA to buffer using appropriate accessor */
+> +	iosys_map_memcpy_to(&qpd->cwsr_map, 0, dev->kfd->cwsr_isa,
+> +			    dev->kfd->cwsr_isa_size);
+>   
+>   	kfd_process_set_trap_debug_flag(&pdd->qpd,
+>   					pdd->process->debug_trap_enabled);
+>   
+>   	qpd->tma_addr = qpd->tba_addr + KFD_CWSR_TMA_OFFSET;
+> -	pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_kaddr:%p for pqm.\n",
+> -		 qpd->tba_addr, qpd->tma_addr, qpd->cwsr_kaddr);
+> +	pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_map:%s at %p for pqm.\n",
+> +		 qpd->tba_addr, qpd->tma_addr,
+> +		 qpd->cwsr_map.is_iomem ? "iomem" : "system",
+> +		 qpd->cwsr_map.is_iomem ? (void *)qpd->cwsr_map.vaddr_iomem :
+> +					  qpd->cwsr_map.vaddr);
+>   
+>   	return 0;
+>   }
+> @@ -1536,24 +1563,24 @@ static void kfd_process_device_destroy_cwsr_dgpu(struct kfd_process_device *pdd)
+>   	struct kfd_node *dev = pdd->dev;
+>   	struct qcm_process_device *qpd = &pdd->qpd;
+>   
+> -	if (!dev->kfd->cwsr_enabled || !qpd->cwsr_kaddr || !qpd->cwsr_base)
+> +	if (!dev->kfd->cwsr_enabled || iosys_map_is_null(&qpd->cwsr_map) || !qpd->cwsr_base)
+>   		return;
+>   
+> -	kfd_process_free_gpuvm(qpd->cwsr_mem, pdd, &qpd->cwsr_kaddr);
+> +	kfd_process_free_gpuvm_map(qpd->cwsr_mem, pdd, &qpd->cwsr_map);
+>   }
+>   
+>   void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+>   				  uint64_t tba_addr,
+>   				  uint64_t tma_addr)
+>   {
+> -	if (qpd->cwsr_kaddr) {
+> +	if (!iosys_map_is_null(&qpd->cwsr_map)) {
+>   		/* KFD trap handler is bound, record as second-level TBA/TMA
+>   		 * in first-level TMA. First-level trap will jump to second.
+>   		 */
+> -		uint64_t *tma =
+> -			(uint64_t *)(qpd->cwsr_kaddr + KFD_CWSR_TMA_OFFSET);
+> -		tma[0] = tba_addr;
+> -		tma[1] = tma_addr;
+> +		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET,
+> +			     uint64_t, tba_addr);
+> +		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + sizeof(uint64_t),
+> +			     uint64_t, tma_addr);
+>   	} else {
+>   		/* No trap handler bound, bind as first-level TBA/TMA. */
+>   		qpd->tba_addr = tba_addr;
+> @@ -1619,10 +1646,10 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
+>   void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+>   				     bool enabled)
+>   {
+> -	if (qpd->cwsr_kaddr) {
+> -		uint64_t *tma =
+> -			(uint64_t *)(qpd->cwsr_kaddr + KFD_CWSR_TMA_OFFSET);
+> -		tma[2] = enabled;
+> +	if (!iosys_map_is_null(&qpd->cwsr_map)) {
+> +		iosys_map_wr(&qpd->cwsr_map,
+> +			     KFD_CWSR_TMA_OFFSET + 2 * sizeof(uint64_t),
+> +			     uint64_t, enabled);
+>   	}
+>   }
+>   
