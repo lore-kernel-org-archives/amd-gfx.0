@@ -4,96 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD378C43327
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 13:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC322C43327
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 13:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343E210E8AD;
-	Mon, 29 Jun 2026 13:29:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19D7F88FAE;
+	Mon, 29 Jun 2026 13:34:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IB/nUbFD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S0+X+ldK";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012039.outbound.protection.outlook.com
- [40.93.195.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0F510E8AD
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 13:29:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oq2IDPYtDAhYOwBjSTH0Fbkdq6hknftG4CCQOiajQWol7wTXRiD3XC6dw7bKg3n4JAwBttj8D1xuIQihC+0+xtTKlVnT+LW/TUVmMf3qgo0n5FYEdwZ85UapbTdPoRdxyRHzfXOB7qf0fXPLrPvFRnTzKzBczKvgHi0ge07n+X2BqFWeTbZiVWakonMxtdlMJJN+O6q/vDJxbi2C4V31PYZcyPslV+iWjhzkRxryac7zyfLCppLdBac6ZaYqt+Z/7nmvwF9hf1h/N7xGoVUy8HIPMNTBuZQ0Snw0T5lWr56vx2jwBdf4qHjLUl9xPfEI/MGeQC+VhbJt0+1rJNblvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qk9AzrNr6YcXOlC7Of1jZ+VYK9aQA6Of2p4R5/axi6Q=;
- b=bVe8y5EvKKx1f1GG94Sb4D+GVwiMASKnZIXHHHgE0pt7pta39fxKod/7/FpROZO22wmShmk8imbY+eDfDck+IbEl8ZM/f0AVSniY/L2wKOyVdV4kOzbqUM+t3Gn3NE3HnNjC1f7UxiBgJV5nBle4p8+lR8rwKE6Pq7SW/eC73l3+Ls5gWaQfZsJn5/w9Iq9wF8y8zLrWl1dikB5gX6RVt8vvsfOdwmN2hwkiErVMzRmKJwHFt+RAcd5bGGq37RZrnmcMJ/Eyxbl/ERq9fV+4Q7i8/d2Hx6IroWQm3ESdrCwoDkzbZ+zJezO/QRtmqWePM2+ee7aQHfzrFQs8GZQQtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qk9AzrNr6YcXOlC7Of1jZ+VYK9aQA6Of2p4R5/axi6Q=;
- b=IB/nUbFDWvtFIi0LY29DYD2ggZZnvXeGIcoVZKrcid48kC7gEIhrTW/nGiSPZnzTJirkThaaT9LUERotfSFHj3Tbnk1LRxlLiZpkdcY6MwVx2pB1lNEfRPe4FVv4iE9pJnTxwLG1ygvGiiR2dXv3yteuVvxfsch9bjv5POygQfc=
-Received: from SJ0PR03CA0289.namprd03.prod.outlook.com (2603:10b6:a03:39e::24)
- by IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 13:28:53 +0000
-Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
- (2603:10b6:a03:39e:cafe::2d) by SJ0PR03CA0289.outlook.office365.com
- (2603:10b6:a03:39e::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
- 29 Jun 2026 13:28:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 13:28:52 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
- 2026 08:28:51 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: David Francis <David.Francis@amd.com>
-Subject: [PATCH] drm/amdkfd: Use kvcalloc to allocate arrays
-Date: Mon, 29 Jun 2026 09:28:37 -0400
-Message-ID: <20260629132837.2288044-1-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3992010E8B0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 13:34:14 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-30c5fcfc947so243882eec.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 06:34:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782740053; cv=none;
+ d=google.com; s=arc-20260327;
+ b=qmbdry/tCkogZjLZzezQLh3Cgz9mi3ni5OrNBrkVON9B2beXhUR27Kmpl1aRWUtZgV
+ Fj6eb2kMddP5ozCLkzwPsEeJ+k+QOhCxC3YAYpu7E5QCMlNxGsDWX4IrZkJhNje/ydeS
+ XKlduIJFSB8/nXXyBNTTw17LVUntmmobUz3Ni3I4uDrxlEUGJ6c/KPPUD0vsn+FF+LlL
+ YYQN/BDjJf4C95tk07fvMQHYoFqaLtmeTYUjZE0MX/Lo/JCPJQhjGY9kW8ytGNx26Me0
+ patWiIT5rFnQYby9wPYzusUXjN8ilMMEXi8hpoXiileSxwj4FkndBGhJ7nZhcXF9jVql
+ ZhFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=44UNaQnKFeG81xaHvo2bhlsa17OB2yqW1zzJDfcCq7g=;
+ fh=Mnri66E0GbSr/Eaqxk9yAynUI9+zUbrN+6RYs7L2l0c=;
+ b=ZqU1zxb3/x8tQ5DYxapi8/E7xLcZVw9N2SesgfsN7BonzQXIZR89B0C5Qu8dEwcZUu
+ JSzLqxdiXgfxNNX4UZKad6jS0oyxAJvZCjph1zxmXQWoweYTvzaA+EjJbTiCJUskZd3E
+ GEpQh31KA2hGobfLGmIdHYAvxjjdJ/PK9EFkPSudF3LsQ6kJVVJGaknE44omm0bDgjnF
+ tQkerUyKqPfbzgRpCmIeNo0AcQgBoILj+i3YrZsuu1xVPvvwtkKxZrzF9LO0rWvgqyCG
+ NYvqlT80SnjcCAvA+9+QGWzvTNxfr2ohZL8jA41vjNq0IN1f1UPHF2H/dBHw284cxqvR
+ Ft4A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782740053; x=1783344853; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=44UNaQnKFeG81xaHvo2bhlsa17OB2yqW1zzJDfcCq7g=;
+ b=S0+X+ldKhMApiqgaUccg2wXD1X3Yf0AvB1GsckS58lnriV5kguQJFYhcvox9sEuUQE
+ 68v+3rFyODVIHGIkwXZ70s3NXp49ZIKuQOuCzqwLtTAr9Rjk5sCH3hu+p7jOO3EVPtCD
+ GuCnClIucFF2rRJeO4zOnHZW+fhd27fv//OQrh3OINjS2Gt62p0RykxECFMYxWkaNQd1
+ 7KrPDMy9OdNiA3tu0VFvh3UiOpSyKHc6FUnS1biKCCabATebuSFWmZK0o7/nnsG3v44Q
+ HxJc0vnXoC0AkkT9YJKcT1bWioCRpCFkoblU8xzleBFJ0E6bh/0YkL/4dlgQ8EhMyQSW
+ MvLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782740053; x=1783344853;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=44UNaQnKFeG81xaHvo2bhlsa17OB2yqW1zzJDfcCq7g=;
+ b=ixPeWq9zeYfu/nuhdSemIngkQeeBWGQh/VfNNNNa5I7SE6ryJ64e/fMf3TYYXS+lOk
+ 4Y6Ozh6yHQwzfBTjuneFm6RXYQJe02rUXnBPO38mkG/sj6LZ34zXCTKRYP+YFxz+h/A+
+ d2cjQLJxWsBEkKrNY5yIKT1uMv5jse+ZZQrUCN3nYYq4ZwotJIcTb20Db73SpbPegohx
+ UtCXcwV5OgHOIFFudQM0e+R14LVVLiXWe9Pbi+J8JnnJ7qPnN2CyVJbz2/5lknqlCR6A
+ JZEkBva2htXMbYlPVLALB5ptviKmbYRiHzeq9bu1FIl/MKnL5Yt8ktgR4PHsIpdpFRsW
+ UsSQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+dHrhpQ4wBKhDnBe4PLkHgMHQN9ed15NuA3tbjYgAl8yJLtviOgsbFlVi7w1+ttG5ZRccCJoyR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsWtBhH2OCS6Gw1WgMWPbl3eBkSZpvMlCXKN1TBnAUtDByoKoI
+ 981U3MmLNElxYR2K1hmof/0oaOkYgmkN38eYhXZtqbP1PDjDXHNHWJlAu73ueTMIXSycyUTqtIq
+ QLp3N+nDdESJSg4u4Xbmp/iNvuGSK8mQ=
+X-Gm-Gg: AfdE7cnNVeBqojn4YBMjGAoBSE1gduut2JmxMxQZVPjllnJVoswFv1X1gepvyTjsPqy
+ cvhismPKwqo6Oj7fB6Jl8qJkKKpxm4m19A7rTqlsFOJQgCO2n8t0RtsGyCjY2ZqUWL9qjHRu+hp
+ lWsAwpRgNzmArQMhFM54SdRU0hnk4gsjUzxoNIH0en3jQI1ltZfGf3N/3NHdLKlqH6V7eAlg9PY
+ 9rHd9INXV1mPxdCScLq/pls76K+edUh95emBIpe1YaFeGbOiKjGIOe64tPlomyMuSc2dB58BriZ
+ YfrsjhXw9p0Sk3QG8ct4WEgup4MGtnHxPuNIXd+qogWb5IAR83wsr48/DH4=
+X-Received: by 2002:a05:7023:b0f:b0:134:cf44:5fa9 with SMTP id
+ a92af1059eb24-139db9529c6mr6328632c88.0.1782740053301; Mon, 29 Jun 2026
+ 06:34:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|IA0PR12MB8374:EE_
-X-MS-Office365-Filtering-Correlation-Id: c83382ef-47b6-48b6-aeaf-08ded5e25c59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: DBjHn1O/JE3pwuL5L7gOZFNf5D7qSh1bDccKuPHc0/19MYFDPTRCK0ZYbaZWvP1jZgmBVOL++hDKO8ZnmZyudopL1prhVKhT8sTmkWsZswTq6ZvkSeJ5iZlCLyMLM3Yypfrs1UbCBkecdrYMNQQL+UpkFhG2W14XCYS5xqlar8LIWs7Tsvf23f4tdmM6vZ/7jt+Y9sxhH2o9IgjRYHs+fWDwokKpjQPUa4oYR8LOLfOgRP17Wo1wvggWyHQVjxaj/EkeQ4gb1bgw68DqgZnF/aNOGnqHd/9ad+uYURTMB5HIzp+biYAlWAlbpKFjtc9PNgysEPg2AL6BLsi9Y+tR2ZJnRGPkQqufG+IlD45xIYC0Om3kAf3LJ2eZzKLTKYons+Up8OFOECOAalM3rLAy5rgQI96LOZwrGXoytWKc8tPWfxQvnnmCM0kK0SzBiNuLI/yUxxhgQvLZtcmQxaW2A515ju6aIwp8xUN5kSxL72TxLyQJltWDlIxUk6z8ua+19LB+4lOnVngqupuKZE6YIXa/L1X88LTazmVKC53zSzL+cj5R1SFOme2wNeSh9TtAvzDZ2+AATt6f+mnD72qWK2H8+tOsqFAyMXOkR6B0fep+/Yc0djSwOVQI2RSZE7UXjoPfJ4hBmKiD0Vk0Tq6U++dNZJK+4fsP2H6wcWuyL7/5eShiUncjKrrviL8F0iz3hRkK9Z7An7EkCsMvMrn/LQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 226M8TTDYMK1Kwy+CVmFf2rjriMPHlKfY5mOZB88fp8si/uLEaXFWI5cv5/vVRzpgGH7Ft9DsVCwt8fUVq+vLBLFuJsef1m8ibeuJuSeHF5YezIatQkoLRyDe47ZmAgEstNU5uUnpFT/J5qPI7VntdhvAJ7edsA+WnDUiY1njE2aXW5wXIt0s/cjKo3SW2bRkOXZf3riWA73h+z1UrPIOZDy0NlqQGFpT++tWT/ppoh5wQjYKRphNZZ1X5kLOTxZqgpeoJK/L4lQi6xSa1PAN8reZ8IE6NkIgjYzOvBNiCuSKaiN7bMeay+T1P330eLrj9tFEDQj9KQ5Y9dROypAsyqa+YxcyPE+zJpgpZzdTE2H/eAMSoGtxW6A02A+D1LRqKO95v1uCiHUhDtOIoZ/h6E2bhD65mFiaaBDjxEm7rvTrGyJI33XSs4yBXgYoPGL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 13:28:52.1193 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c83382ef-47b6-48b6-aeaf-08ded5e25c59
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8374
+References: <20260626180145.6213-1-christian.koenig@amd.com>
+ <CADnq5_MQfj8svtHLj5bB6R8hBnTX8tC5r1qdRn+wHH-DdfeBaw@mail.gmail.com>
+ <c3332376-cd3b-4a36-b89b-5b4d469e1545@amd.com>
+In-Reply-To: <c3332376-cd3b-4a36-b89b-5b4d469e1545@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 29 Jun 2026 09:34:00 -0400
+X-Gm-Features: AVVi8CeRAE1B6qWzWLK_LQGeJPufHCsKjviLBIybHgLL5seVVtWnC2-vKH4W4kQ
+Message-ID: <CADnq5_MUUYNN1mF0CVaFLu50gC3nBRrW8h3XZB3h5DhViWjiUg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix check in amdgpu_hmm_invalidate_gfx
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,68 +106,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There were a few instances in kfd_chardev.c of kvzalloc being
-used to allocate memory for an array.
+On Sun, Jun 28, 2026 at 11:12=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+>
+>
+> On 6/26/26 21:31, Alex Deucher wrote:
+> > On Fri, Jun 26, 2026 at 2:01=E2=80=AFPM Christian K=C3=B6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> >>
+> >> For a short moment during alloc/free the userptr BO is not part of his=
+ VM,
+> >> so bo->vm_bo can be NULL.
+> >>
+> >> Keep a reference to the VM root PD as parent of the userptr BO so that
+> >> we can always use that to wait for all submissions of the VM instead o=
+f
+> >> only the one involving the userptr BO.
+> >>
+> >> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >> Fixes: 5cd5f99b7b9b ("drm/amdgpu: fix waiting for all submissions for =
+userptrs")
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5399
+> >
+> >> ---
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 1 +
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 3 +--
+> >>  2 files changed, 2 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gem.c
+> >> index 28f89ae8ca74..686be2bb8c37 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> >> @@ -535,6 +535,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *de=
+v, void *data,
+> >>         bo =3D gem_to_amdgpu_bo(gobj);
+> >>         bo->preferred_domains =3D AMDGPU_GEM_DOMAIN_GTT;
+> >>         bo->allowed_domains =3D AMDGPU_GEM_DOMAIN_GTT;
+> >> +       bo->parent =3D amdgpu_bo_ref(fpriv->vm.root.bo);
+> >
+> > Do you need an unref to match this?
+>
+> That's in amdgpu_bo_destroy(), we use bo->parent for multiple other thing=
+s already.
 
-Switch those to kvcalloc, which
-- is the standard way of allocating a xero-initialized array
-- does a check for the mul overflowing
+Thanks, might be useful to add a comment to that effect.  With the
+Closes tag, patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index ab9e53dc8deb..7d8215169c10 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1917,13 +1917,13 @@ static int criu_checkpoint_devices(struct kfd_process *p,
- 	struct kfd_criu_device_bucket *device_buckets = NULL;
- 	int ret = 0, i;
- 
--	device_buckets = kvzalloc(num_devices * sizeof(*device_buckets), GFP_KERNEL);
-+	device_buckets = kvcalloc(num_devices, sizeof(*device_buckets), GFP_KERNEL);
- 	if (!device_buckets) {
- 		ret = -ENOMEM;
- 		goto exit;
- 	}
- 
--	device_priv = kvzalloc(num_devices * sizeof(*device_priv), GFP_KERNEL);
-+	device_priv = kvcalloc(num_devices, sizeof(*device_priv), GFP_KERNEL);
- 	if (!device_priv) {
- 		ret = -ENOMEM;
- 		goto exit;
-@@ -2043,17 +2043,17 @@ static int criu_checkpoint_bos(struct kfd_process *p,
- 	int ret = 0, pdd_index, bo_index = 0, id;
- 	void *mem;
- 
--	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
-+	bo_buckets = kvcalloc(num_bos, sizeof(*bo_buckets), GFP_KERNEL);
- 	if (!bo_buckets)
- 		return -ENOMEM;
- 
--	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
-+	bo_privs = kvcalloc(num_bos, sizeof(*bo_privs), GFP_KERNEL);
- 	if (!bo_privs) {
- 		ret = -ENOMEM;
- 		goto exit;
- 	}
- 
--	files = kvzalloc(num_bos * sizeof(struct file *), GFP_KERNEL);
-+	files = kvcalloc(num_bos, sizeof(struct file *), GFP_KERNEL);
- 	if (!files) {
- 		ret = -ENOMEM;
- 		goto exit;
-@@ -2584,7 +2584,7 @@ static int criu_restore_bos(struct kfd_process *p,
- 	if (!bo_buckets)
- 		return -ENOMEM;
- 
--	files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
-+	files = kvcalloc(args->num_bos, sizeof(struct file *), GFP_KERNEL);
- 	if (!files) {
- 		ret = -ENOMEM;
- 		goto exit;
--- 
-2.34.1
-
+>
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>         r =3D amdgpu_ttm_tt_set_userptr(&bo->tbo, args->addr, args->fl=
+ags);
+> >>         if (r)
+> >>                 goto release_object;
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_hmm.c
+> >> index b38788228d0b..eaf02f90fddf 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> >> @@ -67,7 +67,6 @@ static bool amdgpu_hmm_invalidate_gfx(struct mmu_int=
+erval_notifier *mni,
+> >>  {
+> >>         struct amdgpu_bo *bo =3D container_of(mni, struct amdgpu_bo, n=
+otifier);
+> >>         struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
+> >> -       struct amdgpu_bo *vm_root =3D bo->vm_bo->vm->root.bo;
+> >>         long r;
+> >>
+> >>         if (!mmu_notifier_range_blockable(range))
+> >> @@ -78,7 +77,7 @@ static bool amdgpu_hmm_invalidate_gfx(struct mmu_int=
+erval_notifier *mni,
+> >>         mmu_interval_set_seq(mni, cur_seq);
+> >>
+> >>         amdgpu_vm_bo_invalidate(bo, false);
+> >> -       r =3D dma_resv_wait_timeout(vm_root->tbo.base.resv,
+> >> +       r =3D dma_resv_wait_timeout(bo->parent->tbo.base.resv,
+> >>                                   DMA_RESV_USAGE_BOOKKEEP, false,
+> >>                                   MAX_SCHEDULE_TIMEOUT);
+> >>         mutex_unlock(&adev->notifier_lock);
+> >> --
+> >> 2.43.0
+> >>
+>
