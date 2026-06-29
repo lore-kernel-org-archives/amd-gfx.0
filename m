@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 820EDC43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 12:57:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23529C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 12:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E14E10E87C;
-	Mon, 29 Jun 2026 12:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B25E410E89C;
+	Mon, 29 Jun 2026 12:57:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="oFEeQzkK";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="Scp36FMo";
 	dkim-atps=neutral
-Received: from forward100d.mail.yandex.net (forward100d.mail.yandex.net
- [178.154.239.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0536E10E7A5;
- Mon, 29 Jun 2026 09:11:11 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net
- [IPv6:2a02:6b8:c0c:bb8b:0:640:6ac7:0])
- by forward100d.mail.yandex.net (postfix) with ESMTPS id D4A69C00F9;
- Mon, 29 Jun 2026 12:11:07 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net (smtp)
- with ESMTPSA id ZAZXGGsiDOs0-SYImwU3y; 
- Mon, 29 Jun 2026 12:11:06 +0300
+Received: from forward103a.mail.yandex.net (forward103a.mail.yandex.net
+ [178.154.239.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 238E310E805;
+ Mon, 29 Jun 2026 10:33:25 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c15:340d:0:640:ad51:0])
+ by forward103a.mail.yandex.net (postfix) with ESMTPS id BBC1E806C0;
+ Mon, 29 Jun 2026 13:33:22 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (smtp)
+ with ESMTPSA id mWaU7PLg7Gk0-zr3sTh1k; 
+ Mon, 29 Jun 2026 13:33:21 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1782724266; bh=sM6D1HOqQeLKlOUIzQLXH1KXbMCFiNY+40aRY6mi29w=;
+ t=1782729201; bh=bkbr8BQEH5XYv/QZbwbCjGjbwygqzEt5NhSM1N730sw=;
  h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
- b=oFEeQzkKKDg2nhmtrxaFqL4852a639s7Ts1woroD9xE/zhNNnF9HDiEQ5/f3CkZHc
- xJvdTg3+k9RBR+I/FXG040mgTNws4BKM7LoceYpE4ZyXobGmqK3+IEZTymrp9SIGHH
- ZufbMbECzuPkDrasku8yNbM4DbKK4k8uVi/wDfRA=
-Authentication-Results: mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net;
+ b=Scp36FMoYe+GiOzC5BrP3iXWVS3eqZdc2Wp7VLUWWWevEJSEuNth5Rv5kKFNfZoQ8
+ 6LRo0RsiQ/cmMmiG3I28tj3PwK9xXvpLXyctwZ9q80Co+CDvzkMAxouUdMEDZDbnc9
+ 4KKP7F2THNb8a84zDstVDFOZCvYuGQtWDGM/CfFg=
+Authentication-Results: mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net;
  dkim=pass header.i=@yandex.ru
 From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- mario.limonciello@amd.com, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
- aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
- Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
- kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, tzimmermann@suse.de,
- Alvin.Lee2@amd.com, dmitry.baryshkov@oss.qualcomm.com,
- chaitanya.kumar.borah@intel.com, ekurzinger@gmail.com,
- pierre-eric.pelloux-prayer@amd.com, HaoPing.Liu@amd.com,
- Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
+To: sashiko-bot@kernel.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
+ superm1@kernel.org, timur.kristof@gmail.com, ivan.lipski@amd.com,
+ ray.wu@amd.com, aurabindo.pillai@amd.com, chen-yu.chen@amd.com,
+ mripard@kernel.org, Dillon.Varone@amd.com, mwen@igalia.com,
+ chiahsuan.chung@amd.com, kenneth.feng@amd.com,
+ srinivasan.shanmugam@amd.com, tzimmermann@suse.de, Alvin.Lee2@amd.com,
+ dmitry.baryshkov@oss.qualcomm.com, chaitanya.kumar.borah@intel.com,
+ ekurzinger@gmail.com, pierre-eric.pelloux-prayer@amd.com,
+ HaoPing.Liu@amd.com, Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH v4 3/3] drm/amd/display: Fix dangling pointer in connector
+ lvc-project@linuxtesting.org, sashiko-reviews@lists.linux.dev,
+ Evgenii Burenchev <evg28bur@yandex.ru>
+Subject: Re: [PATCH v4 1/3] drm/amd/display: Fix dangling pointer in plane
  reset function
-Date: Mon, 29 Jun 2026 12:04:31 +0300
-Message-ID: <20260629090435.9729-5-evg28bur@yandex.ru>
+Date: Mon, 29 Jun 2026 13:32:36 +0300
+Message-ID: <20260629103236.12380-1-evg28bur@yandex.ru>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260629090435.9729-2-evg28bur@yandex.ru>
-References: <20260629090435.9729-2-evg28bur@yandex.ru>
+In-Reply-To: <20260629092538.4D19B1F000E9@smtp.kernel.org>
+References: <20260629092538.4D19B1F000E9@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Jun 2026 12:57:25 +0000
@@ -74,81 +73,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dm_connector_funcs_reset() frees the old state before allocating
-a new one. If kzalloc_obj() fails, the function returns without updating
-the state pointer, leaving a dangling pointer to already freed memory.
+On Mon, Jun 29, 2026 at 09:25:37AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>
+> Pre-existing issues:
+> - [High] Dangling pointer (Use-After-Free) vulnerability in vmwgfx component reset hooks on memory allocation failure.
+> - [High] Missing NULL pointer checks in amdgpu duplicate_state hooks lead to NULL pointer dereference on allocation failure.
 
-Fix this by allocating the new state first. On allocation failure, the
-old state remains untouched and the function safely returns.
+Thank you for the review.
 
-Additionally restore the explicit kfree(old_state) which was lost when
-the function was refactored, as __drm_atomic_helper_connector_destroy_state()
-only frees resources but not the state structure itself.
+> [Severity: High]
+> This is a pre-existing issue, but returning here when plane->state is
+> initially NULL means plane->state remains NULL. Later, when the DRM core
+> attempts to duplicate the state, it calls the driver's duplicate hook.
+>
+> In amdgpu_dm_plane_drm_plane_duplicate_state(), there is no check if
+> plane->state is NULL:
+>
+> amdgpu_dm_plane_drm_plane_duplicate_state() {
+>     ...
+>         dm_plane_state = kzalloc_obj(*dm_plane_state);
+>         if (!dm_plane_state)
+>                 return NULL;
+>
+>         __drm_atomic_helper_plane_duplicate_state(plane, &dm_plane_state->base);
+>     ...
+> }
+>
+> Will this cause a NULL pointer dereference in
+> __drm_atomic_helper_plane_duplicate_state() since it will crash when trying
+> to memcpy from a NULL plane->state?
 
-Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
+The DRM core guarantees that duplicate_state() is never called on an object
+with a NULL state. The state pointer is always valid when duplication is
+requested, as DRM only calls this hook on objects that are already fully
+initialized and have an active state.
+
+Therefore, the scenario described above is not possible in practice.
+This patch does not introduce any new NULL pointer risks.
+
+> The same pattern appears in amdgpu_dm_connector_atomic_duplicate_state(),
+> where to_dm_connector_state(connector->state) will resolve to an invalid
+> pointer offset from NULL, causing kmemdup to panic:
+>
+> Could these duplicate_state hooks be updated to handle a NULL state?
+
+As explained above, DRM core guarantees that duplicate_state is only called
+with a valid state. Adding NULL checks in duplicate_state hooks would be
+redundant and unnecessary.
+
+> [Severity: High]
+> This isn't a bug introduced by this patch, but I noticed the exact same
+> dangling pointer pattern this patch fixes also exists in the vmwgfx driver.
+>
+> In vmw_du_connector_reset(), if kzalloc_obj() fails, it returns without
+> updating the state pointer, leaving a dangling pointer:
+>
+> The identical issue also occurs in vmw_du_crtc_reset() and
+> vmw_du_plane_reset().
+>
+> Since unhandled use-after-free bugs in core DRM state structures can cause
+> severe stability issues, do these vmwgfx component reset hooks need a similar
+> fix to allocate the new state before freeing the old one?
+
+This is a separate pre-existing issue in a different driver (vmwgfx).
+While it does appear to suffer from the same dangling pointer pattern,
+it is unrelated to this patch series and should be addressed in a
+separate patch by the vmwgfx maintainers.
+
+This patch series only addresses the dangling pointer issue in the
+amdgpu_dm reset functions.
+
 Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 39 ++++++++++---------
- 1 file changed, 20 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d3a8d681227a..b1f91dd0ab61 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8151,33 +8151,34 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
- 
- void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
- {
--	struct dm_connector_state *state =
-+	struct dm_connector_state *old_state =
- 		to_dm_connector_state(connector->state);
-+	struct dm_connector_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return;
- 
- 	if (connector->state)
- 		__drm_atomic_helper_connector_destroy_state(connector->state);
- 
--	kfree(state);
-+	kfree(old_state);
- 
--	state = kzalloc_obj(*state);
-+	__drm_atomic_helper_connector_reset(connector, &state->base);
- 
--	if (state) {
--		state->scaling = RMX_OFF;
--		state->underscan_enable = false;
--		state->underscan_hborder = 0;
--		state->underscan_vborder = 0;
--		state->base.max_requested_bpc = 8;
--		state->vcpi_slots = 0;
--		state->pbn = 0;
--
--		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
--			if (amdgpu_dm_abm_level <= 0)
--				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
--			else
--				state->abm_level = amdgpu_dm_abm_level;
--		}
-+	state->scaling = RMX_OFF;
-+	state->underscan_enable = false;
-+	state->underscan_hborder = 0;
-+	state->underscan_vborder = 0;
-+	state->base.max_requested_bpc = 8;
-+	state->vcpi_slots = 0;
-+	state->pbn = 0;
- 
--		__drm_atomic_helper_connector_reset(connector, &state->base);
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-+		if (amdgpu_dm_abm_level <= 0)
-+			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-+		else
-+			state->abm_level = amdgpu_dm_abm_level;
- 	}
- }
- 
--- 
-2.43.0
-
