@@ -4,90 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3AA7C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 20:28:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E958C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 20:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F9910EA37;
-	Mon, 29 Jun 2026 20:28:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC5D610EA4A;
+	Mon, 29 Jun 2026 20:52:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rnDRRvvK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1mhLwo/B";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC1D10EA37
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 20:28:15 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-30cb5001e5bso200674eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 13:28:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782764895; cv=none;
- d=google.com; s=arc-20260327;
- b=W/2I6FSG4k5unp8Ouo4IZLKj00/eLoW5Eu9xMHo4pcJYkbHD6mpO5rEQisxweA7HVy
- cLYlIcUpiSR1qqpCwryaO4WqqnA+QQiah/AF/0w/YRXSiQzQXaDnjdcyXRLWxcPOAvLJ
- BEEHMKAibBCXAgFTph8eCNBSBERxsOJkRk6yLjakQRu3bvR6D7IdwLDY7Sb17anP4QPY
- NshEWcJMheXLTGjUf/fSJwJqDXgJc1Y8MMBY+5T4LGUtHZ7aZop2d/joWdlbO2m2qdA5
- RDKVmBaaqycp2pw4gZ57FFQGDFpxvDiFnO4LVYTMR0RX/S/c9pSYlLvu95u6KG+EJ35u
- h8gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Fz0f8ZcQMl/5gObXJMDLf2VRIg+GlOa/ylvgHBWZIGs=;
- fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
- b=atly4h9YIBK5v4/vWMK0gV/xJHbkm5AIa/G5o/nng33voUU19TJ1MIFUoo3/KgYqsb
- C1ryqc8eMOtARGjCnHljyikw3394dQ9qO/mQBzPD0nLqeDOeigbHc1kjJ+Qsmh1qqaxh
- JskcILPRpHpUO8Q+z8l/n4POS/ZvRHwpdaT0nXDb0jCgOy75wcjoNqhbBj5uh3UFU5Bf
- MHS7eGgEo30OGqcKCfdgwKbgvO/xE0mXLeM0oXc1lZskBcilcxfq1XBvGuqPvP4s5RvI
- 3IciBpt57m47Z82UxHUoHGgVgGp6XFjA3CmWjb3Vsfiu/1T3JPEnI/afo60AS2uYeoYg
- R5EA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782764895; x=1783369695; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Fz0f8ZcQMl/5gObXJMDLf2VRIg+GlOa/ylvgHBWZIGs=;
- b=rnDRRvvK860ADFOfoHP5Rl/xky67tBBH9umt3ztaoH0NnHxYpeVfF50dJh69RI/xJl
- 4skVOYEo1hLpkSUhbpGYW52jCEiwutZ/GmVgmuB3hQgY61YdIC1miECKhIQaXOC+EJD2
- 42SbT1olTC6OGgUofphWBbj9QQqu3TzM/X2bK3ImZh+zky0co+36Y76g7v8t78mo2nRu
- kssIeW0bx/vgtOtWhsf0uL6aDUMji78nvvlr4NYwXyxVoeztj7QJPv7oWniIYkFITVaQ
- orafbNiZTRDEcc/Z5vk1qEHX9NHgzGS7SEhfhRnihtUQeTYqBamNKKCsgr85KrP8DpsJ
- H/Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782764895; x=1783369695;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Fz0f8ZcQMl/5gObXJMDLf2VRIg+GlOa/ylvgHBWZIGs=;
- b=WGX7FtJl/RubByy22tG4YyGGi07DoE97B4f8asfFNNgvb0Y5aTdpGach/O6Lmx4ZR/
- tjF0qDUEW3iO3ZZnZCO2No+OghdhioMQucl9ibYm/u6dQfEHJ1naoJGVoLD7O7TZ4H0d
- 6ng9oBumN5zaSL/3Yl/zSsRJQ6kMyFJM7cMgKetiHs1ltb2h2ntxjFs5tUbJcugXDT3Z
- inz0Tbl7rYU2/+NH2n6rKYe88B3aYX9PM42IOhPh48MvCFH5b2RxIgPqBEX3/WEPNHxb
- 7j1HT/nCCgqmTj63fNkKHg1GNKQjmmLF273L8icpMhW1w5MBSUzsJ/6TvFVdBXwCHc1p
- v0zg==
-X-Gm-Message-State: AOJu0YzNWfw0x2SuORCULHnE15Kc/JePI2KdHKMFWZIfa0F3HM3D8hCp
- 4RvewQrlqwGxxnV37JNDXTQ5YCf7gGX+VDwfjMhJVq7nAzLBkihq3EtKPw3lESAtymbxCHb+PFK
- VGDQOVW8VAr54Td3EUPxLlTAaZcohl3JUz0jE
-X-Gm-Gg: AfdE7cl9VCj4t7l7fMNh9fOrVd7n81ju7uqupJ0DCnJwloFDTkQdPlVCcIYqmChUu5N
- dHzuJv8migGH9u+RAfeDqT1eQEpob1eDnli2X79ImPp1ome/Ern6TqMui11Riqbl4icvW0SsZPB
- 32LjkgQR6HT+rFZzWqXdMFxNYAY+soS9LDoftRFFbJ2aQ/za+ogefbgq4l4Wdqw6P57gNpNJ25q
- 1syH9JdlrL/yVeyy75bsaOA0MJI3uB9g4oAkndKs52A0Ze3VS8+dtyyImP08afIx1EThSPGCByA
- bGlnmt+Tnre3WP+SHoGmA1JamRO5V8JbruWAdWprNGUKCTQ/WhrIhxDks3U=
-X-Received: by 2002:a05:7022:312:b0:138:2790:149b with SMTP id
- a92af1059eb24-13b2a1bfcd0mr258229c88.7.1782764894752; Mon, 29 Jun 2026
- 13:28:14 -0700 (PDT)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010055.outbound.protection.outlook.com [52.101.61.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0663810EA4A;
+ Mon, 29 Jun 2026 20:52:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s4nS58LnjhA6oPkmvTvrcazm6dybqDAl29WoOE9p70GBUJ3mbg/LMsdI0I78TJUDgPtGxM20BV0/KqFWkocLp4/bdfFHUXR5Y2nH4biq2FxL7QGofMmmOTB88JP4IcrIuiUIGtw7tlIKPYGdsGPiUVIiSsTGgx881HRNSZmakeiT0rBGY8O29OasWDUit0D5vefspgeI09vrThrpUVFtE0Fk5/HVgKOWiN3dnxK8+4lW6/LBswObdBvH9H8RYmrpiy9e8MRRV5vS0tMZ0ow659G/9cMjBHazb02I4nncFe8vSBm1A29Kz4bKOBGeuw6CqoOAR5nVTkUUTaVTgeDAUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M9xV+OpTqq/kKC1iLVdzKFUIdOtWOO0cJtQKxHUNkiI=;
+ b=HrGNmHJqYPCNtFwEqA9H7io7ejgBH5neTTWHkBirQCu6CG5lCGz48MwlfFTvHJv8OHKWOyfxPvr1Qksxw6bBhQweL3uymXu2rmGCZeTXeMfkF925Hbbjo7NMmEgomJNDDm+QD11nmwAGmhOrjxeGYN7EXg6fOa5WSXb1Th2kc4ORRr52q9GDoOqmfI/ajIcVKJeSWndAdOy/Tfrta+yDSo3o+xj3wIgIs9QDCV4LGjAXnabp0FcAXpwPzbCLlDREJ7D3YKj7GOTN5fHbkqicsto74ZM7vrNv3nBZR3u/X47D5Tqio80g7jHCeE5I1sFluSZmXISHopKack3FhSGg1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M9xV+OpTqq/kKC1iLVdzKFUIdOtWOO0cJtQKxHUNkiI=;
+ b=1mhLwo/B5dchvvVEVA63/EGNz/6ybTumM5TD207DUI9NunH2x4aZCWKqoUL+7RyQ4LGg3VYT/NyoAq5WYL3Qonitv7EgzuHZwlaJGQPnX95mn+rRR82LuKQaXIzLVSxq6MRCT59+Lr5LcEiDw7DLFSmdYotpS7pBGM2XCwS1x6s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by MW6PR12MB8916.namprd12.prod.outlook.com (2603:10b6:303:24b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 20:52:25 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 20:52:24 +0000
+Message-ID: <ea17cfdd-b43c-4efd-a208-3c86e9d4e8b5@amd.com>
+Date: Mon, 29 Jun 2026 15:52:20 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] drm/amd/display: Fix dangling pointers in state
+ reset functions
+Content-Language: en-US
+To: Evgenii Burenchev <evg28bur@yandex.ru>, stable@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, superm1@kernel.org,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
+ aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
+ Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
+ kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, tzimmermann@suse.de,
+ Alvin.Lee2@amd.com, dmitry.baryshkov@oss.qualcomm.com,
+ chaitanya.kumar.borah@intel.com, ekurzinger@gmail.com,
+ pierre-eric.pelloux-prayer@amd.com, HaoPing.Liu@amd.com, Tony.Cheng@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+References: <20260629090435.9729-2-evg28bur@yandex.ru>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260629090435.9729-2-evg28bur@yandex.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1PR05CA0007.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2::9) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
-References: <20260618204550.753250-1-alexander.deucher@amd.com>
-In-Reply-To: <20260618204550.753250-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 29 Jun 2026 16:28:02 -0400
-X-Gm-Features: AVVi8CcIFwXhdo1TD2vdTMq7ZAk_vBPc_HYTmkmjdupd598HTyrwHhuQSOe-orM
-Message-ID: <CADnq5_Pn732-q2h0jcXcRErbjO=dtwsOfVgZE_qCT3-xCW24BA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gx12.1: Add ip dump support
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|MW6PR12MB8916:EE_
+X-MS-Office365-Filtering-Correlation-Id: a038ccfb-1195-4bd4-b7f3-08ded6205272
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|23010399003|366016|376014|1800799024|6133799003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 5R0D1pu2HLXmR5oKftbheJR9Mfwp7GstSfC9KJ5VUOfHCsYk8WcSJjYAZCa/jsLGRg7ODNH5vDZNOH+J8ad6cT9SykfCg47vSlhONxPKyvQVfkNfhKFNshfcsNZ44EOg7XPCfvscAjgcDnEFsFTfTAroTw9fGqmZuRnGdUtRmUuWhqka6i9w6dFOZpnMpY1/ypoImi77aBsldU1kv3XOyIBsoz3s7HIIT1QzPnGte+yrhZvgHEv+BB2JYWOMsHMyODSmwDKASS49tdt2fntn2B1PBZ3AO2GZPs/em9AlgEI7X6IjcDdwUtknpqJ2Ge0oe+fKEZvk6CzvfIXjWdZTJ/eHmnFdULoY0lkxICOlhSWYdsdpV270d13FJYdOBIAIsJ2bbF73HjJe1yBnUssKGy5PuNy9/W4GF8A5rB0QZ9Lq/vRu6p/rG8wMIZ3Dit++blB17qUabq9bzqfNuTEIXvW/jXSxTVt+/P2G34qanVw0Rz0YvWZfc+ogY4inhD9KNatK4eMw2OtVYzKakuDtQ2LDOVO92MRca7SUvopT/SohU2ISlZVNbzVQFS+Y8WTvy6C2lovhNuHwr2a0a5xO4l0yHGDvuvDAa/2Ry3LHMhJWETe0fdawFk1FIk5IvRb4GteFet7IlnzyF9czgutRpl8mRm9J5kWvaot9yHuFfKk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(23010399003)(366016)(376014)(1800799024)(6133799003)(11063799006)(18002099003)(22082099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlBvVGZyeGt0cG40Z0FTNHorRlc0ejVTN1l2NS9aT1NnZHgydThMdWtOTnl2?=
+ =?utf-8?B?aW1ucHEvRktBN0treXZNeW9MQ3FaOTJSMzNPUWZHcFRZUGRxbkdHd0FHd1I2?=
+ =?utf-8?B?YXE2NkxnMHNva1NsSzFGaWZsbW84N20wdCtMOStKZkxHT0U5UW9INEhVd1R4?=
+ =?utf-8?B?eWIwSWpqZi9JQmxhRWNCRFgwb0hlWGhIRko3TFFkM25UWXJMSjhHK1hiampX?=
+ =?utf-8?B?U2VWREF6dFp0WmU2TXdhOU1MajlhWHdkaG53R2FITEduZmVYUHNPQ3hHbWlV?=
+ =?utf-8?B?bEd5L29Kd3QzUElrSm5IRXB1WnYwbjZrMDZHdHY4RlBtZ3VkNUpvZ04yY00x?=
+ =?utf-8?B?cUZWSmRsNEFjdXVxdWVkWGlGUkRIa0JCQ2RJTXZrTjhaQXY3c2FmUlhMdGdD?=
+ =?utf-8?B?QUVMM2ZkU1RnVmFFU3FwRER0UjliUUFVLzlmRERqWVF3TjJIQ1ZaWCtnT0p3?=
+ =?utf-8?B?SnVsN3c3c0tsTWpNMWpSdXVnc000VkFNNHZRZXNkVEpZT2xWcnFDdG1YRnZK?=
+ =?utf-8?B?RzRGUlhDUkpQc0czOFM0NGprblZ0ZnNUWVJBOE9nbkpKQjltYkdjWFVObWli?=
+ =?utf-8?B?MHVza0Q0dmhVckNkVUx6b2pGa2s4UGdlRTYwVklFT2NGelkxNDBvUXEzaEF3?=
+ =?utf-8?B?MXdrVFdTeThHME9Ic2had1Y4YXpZdDUxcjY2TVYzc3UxZnJJRWEyWVEzS0Q5?=
+ =?utf-8?B?bS96eVV0d1BvVVI5cjNVRFdQQUFTMlFsdlpITVk5MHVEWnpRZXN5Y2FwZ0FQ?=
+ =?utf-8?B?d1VvemV2QUNDaWZLWnFoYm9TTVNrYVh0MGJ2dWdqdmRhaVhBQ0NMSndxeDNH?=
+ =?utf-8?B?MGYxVDhxdUV2SjJ5SjNzdlJRSUR5QzBTM1YwYnloVUNQLzF5Z2hLMUdwRFB5?=
+ =?utf-8?B?cDJnZUZGS1NYclZtNjlJb2VwTkZleGtkbmVVQ3BFRExnMFVSb2ZoK3FYOVBt?=
+ =?utf-8?B?b3Z6L1BCV3JyWHlOa3pqSlIreHJYN2dDRTJ3STF4UitPcGsvcEpKMHI2YzVJ?=
+ =?utf-8?B?ZmtzSlVYdm12Zis2UlpINGdCK3dCZU9FK05ncHpWTGVVbVhWN2pHOTlPZGpp?=
+ =?utf-8?B?Tk1La3RJcEVyU1dRZm9BdmZxbzB1eWxqK2loOFQwUCtwKzJtYy9ZR0c1Qytq?=
+ =?utf-8?B?UmMveWplZDZubHB4V1hsZWY5eTBmNnA5ZUtNdm9iS2VGSmVtVlFUSlF6NEUw?=
+ =?utf-8?B?eGIyd3dML3FIS3U1RUhSaWRPaDZwSHVEYnZ0S3NOVTdaRzl5SjJ2QVVvZkFH?=
+ =?utf-8?B?dURtRERoZnNyamE0aEdvZEZ3ZUVRTjRYZEZVVjFxQjFPOFJmZDRuL0JKZ1Fx?=
+ =?utf-8?B?WFB3U0FRdCtCUEZOOFcxdkVkY3drRjFMWG1ERTNWRHY1dDk5b2UydlFUMDVx?=
+ =?utf-8?B?K1NrNGJMQk54dFNrbTFBTjIwbU5iVlBFU2U5YXBSdTZoMlVXeTJmYjk1V0s4?=
+ =?utf-8?B?c3o2aVlUcGJObWZhQnZYenZobm5Cd0o1elp0eHJJRVZ4VVFzWHhpR01LNVky?=
+ =?utf-8?B?d3NpT3luTjFpOEs2ZE51SWN3RDZTQ01IYUtCSWE1TG9OaEZhV1pBYVRPZFRL?=
+ =?utf-8?B?WXluSlV1WWdRckFmSDdNVU56aXV5QnpTczBXK0hCRG8ycUdiK0hWeW1pNHhn?=
+ =?utf-8?B?c1BkNzRMYVI4MmtldVhzSUJXU0VkNmtFOXpQdXlXa1pSNEJ0ZkhWdHk0L0dT?=
+ =?utf-8?B?VERKOXZsdXdrRmtDMlo5dWZSUXRxbmNPRVpaM2F2TVIzcGVFYjdwWlNRd09i?=
+ =?utf-8?B?ckxocDExYUk0RTByd0hsZEJueDRKNllMK3N0bHpRcEpCSUtJTGJyQ3lVdHBm?=
+ =?utf-8?B?dzVMeDhwSlhQU2MzZHJyUEhSM3dscUtuTS9oWHpDNmFROUdJSXowY1diSTZV?=
+ =?utf-8?B?NGpTelFSeWJIdFMrQ1hTMW5pQkZZbEd0b0NxTmM4Z0NKR0JESzBIMjFBTnFC?=
+ =?utf-8?B?S04yTkxyMDByUHppS1hnckVyTEpYVkIxRGpJN3YvQnczRXlaN0pzMGRmSzhr?=
+ =?utf-8?B?ZkRLVVdCc2IrRGhQQ1p6WTJTMm1kbjZNbHlLbFlCRVRpZG8yWWZqclJibHpk?=
+ =?utf-8?B?WVpDb0E0cDVCYmIvWHpKdjd3eVM0QXROQThWRmdIUy9FdGpIMlhiVUpCd1dx?=
+ =?utf-8?B?MlJKdlNtL1hGWEVmYnZ6alZJb2l1cnJPakFUMkd2ZGU0V3RrdHlHQkh4cmRj?=
+ =?utf-8?B?Tk5TTWdsMFQxQ05ybWhRSjFXMzVUMHMvMmMrbnAzVEFlSVZoQUEwNlczT2lk?=
+ =?utf-8?B?YXhJay9iZzR4RnZ2OEdMbWFqNUExTDA1ZytQUkV2bDdPZURxbXcwSE9QTVRF?=
+ =?utf-8?B?UGtOZTI0NCtsVitCREk2cncvdnR6bWk2V2crdDBsOVNHTndRbExiQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a038ccfb-1195-4bd4-b7f3-08ded6205272
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 20:52:24.5269 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GH/QbvcrJ2lGF+JA3o6lDCkgJAhKVUamigHwRj91N2borXHz7/rVTIOQ1nCyuXu5vaSGl4CYg1y+rGNNxxCkyw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8916
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,369 +146,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
 
-On Thu, Jun 18, 2026 at 5:04=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
->
-> Add support for dumping IP register state.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+On 6/29/26 04:04, Evgenii Burenchev wrote:
+> This series fixes a dangling pointer issue in three reset functions:
+> - amdgpu_dm_plane_drm_plane_reset()
+> - amdgpu_dm_crtc_reset_state()
+> - amdgpu_dm_connector_funcs_reset()
+> 
+> Each function frees the old state before allocating a new one. If
+> kzalloc_obj() fails, the function returns without updating the state
+> pointer, leaving a dangling pointer to already freed memory.
+> 
+> The fix is to allocate the new state first. On allocation failure,
+> the old state remains untouched and the function safely returns.
+> 
+> For the connector function, additionally restore the explicit
+> kfree(old_state) which was lost during refactoring.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 275 +++++++++++++++++++++++++
->  1 file changed, 275 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_1.c
-> index 5bdf2512f1540..ec4346a6c2af2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> @@ -69,6 +69,127 @@ MODULE_FIRMWARE("amdgpu/gc_12_1_0_rlc_1.bin");
->          (SH_MEM_ALIGNMENT_MODE_UNALIGNED_GFX12_1_0 << SH_MEM_CONFIG__ALI=
-GNMENT_MODE__SHIFT) | \
->          (3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT))
->
-> +
-> +static const struct amdgpu_hwip_reg_entry gc_reg_list_12_1[] =3D {
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS3),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_STALLED_STAT1),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_STALLED_STAT2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_STALLED_STAT3),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPC_STALLED_STAT1),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_STALLED_STAT1),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_BUSY_STAT),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPC_BUSY_STAT),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_BUSY_STAT),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPC_BUSY_STAT2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_BUSY_STAT2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPF_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_ERROR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_HPD_STATUS0),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_BASE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_RPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB_WPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_BASE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_RPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_RB0_WPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_CMD_BUFSZ),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_CMD_BUFSZ),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_LO),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BASE_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB1_BUFSZ),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BASE_LO),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BASE_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_IB2_BUFSZ),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCPF_UTCL1_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCPC_UTCL1_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCPG_UTCL1_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regIA_UTCL1_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regIA_UTCL1_STATUS_2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regPA_CL_CNTL_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regRMI_UTCL1_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regSQC_CACHES),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regSQG_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regWD_UTCL1_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGCVM_L2_PROTECTION_FAULT_STATUS_LO3=
-2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGCVM_L2_PROTECTION_FAULT_STATUS_HI3=
-2),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_DEBUG),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_CNTL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_CNTL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_INSTR_PNTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_ME_INSTR_PNTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_PFP_INSTR_PNTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_CPC_STATUS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_RS64_INSTR_PNTR0),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_GFX_RS64_INSTR_PNTR1),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_RS64_INSTR_PNTR),
-> +       /* cp header registers */
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MES_HEADER_DUMP),
-> +       /* SE status registers */
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS_SE0),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS_SE1),
-> +};
-> +
-> +static const struct amdgpu_hwip_reg_entry gc_cp_reg_list_12_1[] =3D {
-> +       /* compute registers */
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_VMID),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PERSISTENT_STATE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PIPE_PRIORITY),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_QUEUE_PRIORITY),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_QUANTUM),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_BASE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_BASE_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_RPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_WPTR_POLL_ADDR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_WPTR_POLL_ADDR_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_DOORBELL_CONTROL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_CONTROL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_IB_BASE_ADDR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_IB_BASE_ADDR_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_IB_RPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_IB_CONTROL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_DEQUEUE_REQUEST),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_BASE_ADDR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_BASE_ADDR_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_CONTROL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_RPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_WPTR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_EVENTS),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_CTX_SAVE_BASE_ADDR_LO),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_CTX_SAVE_BASE_ADDR_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_CTX_SAVE_CONTROL),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_CNTL_STACK_OFFSET),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_CNTL_STACK_SIZE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_WG_STATE_OFFSET),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_CTX_SAVE_SIZE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_GDS_RESOURCE_STATE),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_ERROR),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_EOP_WPTR_MEM),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_WPTR_LO),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_PQ_WPTR_HI),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_SUSPEND_CNTL_STACK_OFFSET),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_SUSPEND_CNTL_STACK_DW_CNT),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_SUSPEND_WG_STATE_OFFSET),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_HQD_DEQUEUE_STATUS),
-> +       /* cp header registers */
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +       SOC15_REG_ENTRY_STR(GC, 0, regCP_MEC_ME1_HEADER_DUMP),
-> +};
-> +
->  static void gfx_v12_1_xcc_disable_gpa_mode(struct amdgpu_device *adev, i=
-nt xcc_id);
->  static void gfx_v12_1_set_ring_funcs(struct amdgpu_device *adev);
->  static void gfx_v12_1_set_irq_funcs(struct amdgpu_device *adev);
-> @@ -1148,6 +1269,153 @@ static int gfx_v12_1_rlc_backdoor_autoload_enable=
-(struct amdgpu_device *adev)
->         return 0;
->  }
->
-> +static void gfx_v12_1_alloc_ip_dump(struct amdgpu_device *adev)
-> +{
-> +       uint32_t reg_count =3D ARRAY_SIZE(gc_reg_list_12_1);
-> +       uint32_t *ptr, inst, num_xcc;
-> +
-> +       num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
-> +
-> +       ptr =3D kcalloc(reg_count * num_xcc, sizeof(uint32_t), GFP_KERNEL=
-);
-> +       if (!ptr) {
-> +               DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
-> +               adev->gfx.ip_dump_core =3D NULL;
-> +       } else {
-> +               adev->gfx.ip_dump_core =3D ptr;
-> +       }
-> +
-> +       /* Allocate memory for compute queue registers for all the instan=
-ces */
-> +       reg_count =3D ARRAY_SIZE(gc_cp_reg_list_12_1);
-> +       inst =3D adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
-> +               adev->gfx.mec.num_queue_per_pipe;
-> +
-> +       ptr =3D kcalloc(reg_count * inst * num_xcc, sizeof(uint32_t), GFP=
-_KERNEL);
-> +       if (!ptr) {
-> +               DRM_ERROR("Failed to allocate memory for Compute Queues I=
-P Dump\n");
-> +               adev->gfx.ip_dump_compute_queues =3D NULL;
-> +       } else {
-> +               adev->gfx.ip_dump_compute_queues =3D ptr;
-> +       }
-> +}
-> +
-> +static void gfx_v12_1_ip_print(struct amdgpu_ip_block *ip_block,
-> +                              struct drm_printer *p)
-> +{
-> +       struct amdgpu_device *adev =3D ip_block->adev;
-> +       uint32_t i, j, k;
-> +       uint32_t xcc_id, xcc_offset, inst_offset;
-> +       uint32_t num_xcc, reg, num_inst;
-> +       uint32_t reg_count =3D ARRAY_SIZE(gc_reg_list_12_1);
-> +
-> +       if (!adev->gfx.ip_dump_core)
-> +               return;
-> +
-> +       num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
-> +       drm_printf(p, "Number of Instances:%d\n", num_xcc);
-> +       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-> +               xcc_offset =3D xcc_id * reg_count;
-> +               drm_printf(p, "\nInstance id:%d\n", xcc_id);
-> +               for (i =3D 0; i < reg_count; i++)
-> +                       drm_printf(p, "%-50s \t 0x%08x\n",
-> +                                  gc_reg_list_12_1[i].reg_name,
-> +                                  adev->gfx.ip_dump_core[xcc_offset + i]=
-);
-> +       }
-> +
-> +       /* print compute queue registers for all instances */
-> +       if (!adev->gfx.ip_dump_compute_queues)
-> +               return;
-> +
-> +       reg_count =3D ARRAY_SIZE(gc_cp_reg_list_12_1);
-> +       drm_printf(p, "\nnum_xcc: %d num_mec: %d num_pipe: %d num_queue: =
-%d\n",
-> +                  num_xcc,
-> +                  adev->gfx.mec.num_mec,
-> +                  adev->gfx.mec.num_pipe_per_mec,
-> +                  adev->gfx.mec.num_queue_per_pipe);
-> +
-> +       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-> +               xcc_offset =3D xcc_id * reg_count * num_inst;
-> +               inst_offset =3D 0;
-> +               for (i =3D 0; i < adev->gfx.mec.num_mec; i++) {
-> +                       for (j =3D 0; j < adev->gfx.mec.num_pipe_per_mec;=
- j++) {
-> +                               for (k =3D 0; k < adev->gfx.mec.num_queue=
-_per_pipe; k++) {
-> +                                       drm_printf(p,
-> +                                                  "\nxcc:%d mec:%d, pipe=
-:%d, queue:%d\n",
-> +                                                   xcc_id, i, j, k);
-> +                                       for (reg =3D 0; reg < reg_count; =
-reg++) {
-> +                                               drm_printf(p,
-> +                                                          "%-50s \t 0x%0=
-8x\n",
-> +                                                          gc_cp_reg_list=
-_12_1[reg].reg_name,
-> +                                                          adev->gfx.ip_d=
-ump_compute_queues
-> +                                                          [xcc_offset + =
-inst_offset +
-> +                                                           reg]);
-> +                                       }
-> +                                       inst_offset +=3D reg_count;
-> +                               }
-> +                       }
-> +               }
-> +       }
-> +}
-> +
-> +static void gfx_v12_1_ip_dump(struct amdgpu_ip_block *ip_block)
-> +{
-> +       struct amdgpu_device *adev =3D ip_block->adev;
-> +       uint32_t i, j, k;
-> +       uint32_t num_xcc, reg, num_inst;
-> +       uint32_t xcc_id, xcc_offset, inst_offset;
-> +       uint32_t reg_count =3D ARRAY_SIZE(gc_reg_list_12_1);
-> +
-> +       if (!adev->gfx.ip_dump_core)
-> +               return;
-> +
-> +       num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
-> +
-> +       amdgpu_gfx_off_ctrl(adev, false);
-> +       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-> +               xcc_offset =3D xcc_id * reg_count;
-> +               for (i =3D 0; i < reg_count; i++)
-> +                       adev->gfx.ip_dump_core[xcc_offset + i] =3D
-> +                               RREG32(SOC15_REG_ENTRY_OFFSET_INST(gc_reg=
-_list_12_1[i],
-> +                                                                  GET_IN=
-ST(GC, xcc_id)));
-> +       }
-> +       amdgpu_gfx_off_ctrl(adev, true);
-> +
-> +       /* dump compute queue registers for all instances */
-> +       if (!adev->gfx.ip_dump_compute_queues)
-> +               return;
-> +
-> +       num_inst =3D adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_m=
-ec *
-> +               adev->gfx.mec.num_queue_per_pipe;
-> +       reg_count =3D ARRAY_SIZE(gc_cp_reg_list_12_1);
-> +       amdgpu_gfx_off_ctrl(adev, false);
-> +       mutex_lock(&adev->srbm_mutex);
-> +       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-> +               xcc_offset =3D xcc_id * reg_count * num_inst;
-> +               inst_offset =3D 0;
-> +               for (i =3D 0; i < adev->gfx.mec.num_mec; i++) {
-> +                       for (j =3D 0; j < adev->gfx.mec.num_pipe_per_mec;=
- j++) {
-> +                               for (k =3D 0; k < adev->gfx.mec.num_queue=
-_per_pipe; k++) {
-> +                                       /* ME0 is for GFX so start from 1=
- for CP */
-> +                                       soc_v1_0_grbm_select(adev, 1 + i,=
- j, k, 0,
-> +                                                            GET_INST(GC,=
- xcc_id));
-> +
-> +                                       for (reg =3D 0; reg < reg_count; =
-reg++) {
-> +                                               adev->gfx.ip_dump_compute=
-_queues
-> +                                                       [xcc_offset +
-> +                                                        inst_offset + re=
-g] =3D
-> +                                                       RREG32(SOC15_REG_=
-ENTRY_OFFSET_INST(
-> +                                                                      gc=
-_cp_reg_list_12_1[reg],
-> +                                                                      GE=
-T_INST(GC, xcc_id)));
-> +                                       }
-> +                                       inst_offset +=3D reg_count;
-> +                               }
-> +                       }
-> +               }
-> +       }
-> +       soc_v1_0_grbm_select(adev, 0, 0, 0, 0, 0);
-> +       mutex_unlock(&adev->srbm_mutex);
-> +       amdgpu_gfx_off_ctrl(adev, true);
-> +}
-> +
->  static int gfx_v12_1_sw_init(struct amdgpu_ip_block *ip_block)
->  {
->         uint16_t major_ver, minor_ver;
-> @@ -1282,6 +1550,8 @@ static int gfx_v12_1_sw_init(struct amdgpu_ip_block=
- *ip_block)
->         if (r)
->                 return r;
->
-> +       gfx_v12_1_alloc_ip_dump(adev);
-> +
->         r =3D amdgpu_gfx_sysfs_init(adev);
->         if (r)
->                 return r;
-> @@ -1325,6 +1595,9 @@ static int gfx_v12_1_sw_fini(struct amdgpu_ip_block=
- *ip_block)
->         gfx_v12_1_free_microcode(adev);
->         amdgpu_gfx_sysfs_fini(adev);
->
-> +       kfree(adev->gfx.ip_dump_core);
-> +       kfree(adev->gfx.ip_dump_compute_queues);
-> +
->         return 0;
->  }
->
-> @@ -3905,6 +4178,8 @@ static const struct amd_ip_funcs gfx_v12_1_ip_funcs=
- =3D {
->         .set_clockgating_state =3D gfx_v12_1_set_clockgating_state,
->         .set_powergating_state =3D gfx_v12_1_set_powergating_state,
->         .get_clockgating_state =3D gfx_v12_1_get_clockgating_state,
-> +       .dump_ip_state =3D gfx_v12_1_ip_dump,
-> +       .print_ip_state =3D gfx_v12_1_ip_print,
->  };
->
->  static const struct amdgpu_ring_funcs gfx_v12_1_ring_funcs_compute =3D {
-> --
-> 2.54.0
->
+> Evgenii Burenchev (3):
+>    drm/amd/display: Fix dangling pointer in plane reset function
+>    drm/amd/display: Fix dangling pointer in CRTC reset function
+>    drm/amd/display: Fix dangling pointer in connector reset function
+> 
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 39 ++++++++++---------
+>   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 10 ++---
+>   3 files changed, 28 insertions(+), 29 deletions(-)
+> ---
+> Changes in v4:
+> - Split into three separate patches as requested (reviewer Fedor Pchelkin)
+> - Remove WARN_ON on memory allocation failure (reviewer Fedor Pchelkin)
+> - Remove redundant comments (reviewer Fedor Pchelkin)
+> - Fix empty line in local variable declaration block (reviewer Fedor Pchelkin)
+> 
+> Changes in v3:
+> - Restore explicit kfree(old_state) in amdgpu_dm_connector_funcs_reset()
+>    to prevent memory leak (reviewer Mario Limonciello)
+> 
+> Changes in v2:
+> - Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+
+I will apply the series to amd-staging-drm-next and it will come in a 
+future to drm-fixes.
