@@ -4,95 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1105BC43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 15:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 175A5C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 16:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B9C10E666;
-	Mon, 29 Jun 2026 15:28:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A977A10E0B0;
+	Mon, 29 Jun 2026 16:24:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AtmZzUYn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KsiEpt2d";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18CC810E666
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 15:28:27 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-30cb5001e5bso162772eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 08:28:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782746906; cv=none;
- d=google.com; s=arc-20260327;
- b=mPN37OgqsroUheeWPGsI1ZZkv3xijqL7d24L9mRM6uTTc38XR91ygFZE8yZCHcTXu4
- go6GAz4mjJ/9vjp6XWcmHjBfDNSMDuNoUuFEknjbPSW2/XPwOjpGZWu+FJOsfBLSP4JC
- 66h+9ZIrMJKHcNbQYV5ASJfSnfCMendXmKQjwjnJ6p9mID3mIlCVcVHWiG6GjoOG1PyV
- m8qVXRrV6Nc3ZlRNTs0hpg/DwgvtC/tbFnfwxCj3/rjSjIdg2AieOKtR55KzYZIKWbg/
- CTfkh6DhTfETneREkvFiRszCEnmaX6p0neolh78C9tOEUU8MVueR/UbRGdxnLCkf9JbG
- h+lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=233bFXjxRjH5Zjbc9QTxFdkTjBLkLABDwT56ZmykFtA=;
- fh=9k/4C+jNX/+ca5X4cGefuZ/zsq/hRrtFLKCoNzV1rIk=;
- b=qjs6TtB08gHDVMc6aT5lGNExV6af0lhR+hEURMhqzd87fe8miHw2Co9DQJ1790FpNs
- RazOLMlf9SCsw1+7bPT+n27ELg035zqHCvxqcOxAnYUXNJ/Y8yu32CqXDrP56E/d8cJM
- /IYMVZOp4VwvfWG6B7Yrnap8/pb1hxOzqZMNXhPmCPskFh9AnaVej3l95J0MYRrgtHMB
- eOEE5P+g/yFkbhoI7jf6iB/HGHHEinqzTdW3jUV6DtmlEeaykjcXZwAiGhhRxWY+ivHW
- T2/0TraGW+/5PH0McXU+nmczj9GEmz//o25gkwULLmHJfx90LxR6qprgAF7qPykT+pWv
- Nlvw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782746906; x=1783351706; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=233bFXjxRjH5Zjbc9QTxFdkTjBLkLABDwT56ZmykFtA=;
- b=AtmZzUYnkllRccXp/pZ4WDXb/A6yOfzvQjjcFRRbQAP+hx0qvyg7/DVw60KiTqOTgB
- b0MxNoGmWngdPgZPw9c4cBGABGx9xBfV7MkyEecnZ5ncRYqpI7mqyBUlZKNLs/Ba1MYE
- 61FZHjDaM4Nl0jTnTj5sPvnMKM8i5W+gNEcaBGgDLoCWhQLsbLIhuMq+DTxr4n9awFT+
- dsy1kGI2Edq1iartAfHlt+31SHQ62Jm0Ue+hVGTHT3Cf2iYZa+KFMOCbdULPk/Iw/wkO
- niWpaGwtDJP7kn7qFLOieSUkQEMQu97uOM1VqwdlXnITOD4Jg6ndNUFEn/rn3Vm3bIq2
- RLMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782746906; x=1783351706;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=233bFXjxRjH5Zjbc9QTxFdkTjBLkLABDwT56ZmykFtA=;
- b=blYh2GXhR9ukjM+we9MiJqqD6TK5TC39i8EtemmrHkJUXw2HFQ67O94p9Q8NQKGBKh
- AxC3al5iKVY6bOxt01s/ZQSfNw3EVflTs3rADqedd4VvxBDKNce6W8smzTimQynsh+kX
- jG2cbemAznlhhrew55GEWdFme7lD+lBfS6y5O3/13z+Do7GNgatmsc/r8T7YlGNGQuQ0
- v0RCD+qBTG80mDQDS7XwvAhAgw/I65GqHYi35H55o6bUk5z8YLqwLa/hWVm6rnCayt8m
- EWTxoa/9vUNl5MsK0P1olBocFpqkwPgz8xe/jLDAdLirOZ6csilKdajGQqBWsvJwMW1v
- IiVg==
-X-Gm-Message-State: AOJu0Yyrg5LhMzIORqQFGhXKazHpUy0Fiu+faOLAll8n6u75Uvbbobir
- hUa/Tb3Hk4zqGt+yRpqosTHZRNIlsle1+AEFPodgEiLxPVxpbwtjYCHkLdF+i7BA4dwmSwK7WHe
- BHfxckIp/4oBeNqiun5IK/EOCcJehD2k=
-X-Gm-Gg: AfdE7cmgaPTisCVFlQK8gt3LNtr1yGCkcDcB2vwShXI2DyB4zigkVd21xRg+Rb7v5HM
- b19qW9FYW+FBQSA4Dqvnf2WZ1yFOwdNAXwNE0KEmzKHf2t0TZI6JtLLUlP+b0FOxdVO8rXeQOj6
- DdtzIuDDZ579sVnc4Uuo0Cy+OOE2ybTGTCxjXMFljRnCJ6i9ARrUcYY3cLH7xR6Hr8RHmhV6C5O
- SJTpWtg14o0Z2SwA6E8RZnZAAgUUeRRTWYJLd67y44JCYgH52xhePOXkvcv94e7pjtaFZX0g1rF
- HG5WHWE+AnqDKYi7ou8VbZePUBMHXuOIM3Td+KNZy4Bejp38e4KYu/HXZ3g=
-X-Received: by 2002:a05:7022:6295:b0:137:fea7:9297 with SMTP id
- a92af1059eb24-139dba00013mr6884997c88.1.1782746906072; Mon, 29 Jun 2026
- 08:28:26 -0700 (PDT)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7342710E0B0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 16:24:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JhPd8rWvMFVpTpT/ojaKr0CwgIKvx9m3YRE/YUgIoeR7Pbo8j1kRGnipHbRFZbju8Qbho0lKlnthiSFfzCQqX6JO7RePSbS1RNy1+1sknf9fC2yCGYsI5vn6kyGYLCxo8CGoXB/Hz85X2Pgmg6qHhiEZIqtB2yMQcoEGged+7oUq5fb65MhkXoItc1k67kyyHEQ3sYSQ3I2p9OKbuKKB/vHK1jI/DFOwqKOXOM10yberpkn6GNt8Gf7yGxVdIi1pf8mMjdGwJn8WDGI3oRPKZ+AY4YoXUiqEq6mt3ibRwGw+GbQYTrQJfbTnNeUZVWbHORnY0gBcACKnOXDrDIwUTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cZovGXJjtsurIFgXdzrDi8Tj4SjNL0A1uOqUnWZXcUk=;
+ b=yGiHQ60JU27g3j4rew3FPS1PijrMnZzYgc5lO9ssz9kDehMk6EVnIapIJCD4FvVq5zzF4ZTc4bD+U9gylc8Us6M/BMol2qMqlY5pyEfI+rMsLLzCY6RPafg8xxGcAdlVXVDwIMMV5cQjE12h8nYV/xT98piJjA70J5yC4gXuEeEVj5GzZ/CMr77vdWeOhEXgb0+DKKFqE/6nN9mBpirAK3UTdRFALnvPvJXk8reMYbiMEDN3pxn5593HDZOdA1CJ7PpwRWfGloNVepP9TIWOjTAd3DRsuD0YmZeAkbqPM1a4YKdViFPxqlYo2gTqusbC69RzxlN8LeZMUhD8KwRTdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cZovGXJjtsurIFgXdzrDi8Tj4SjNL0A1uOqUnWZXcUk=;
+ b=KsiEpt2dRMqro8wbwKKpt/6yG+wfYA9PVrJcDvTOxFhGHM697oz+G20sNqJluE9E2O15xVUSbnNVAhbfRjX9/tU7T0HEQdqVbq0AsfWrDQKJeELEOXlNl0AkGpfczQ/lHJdejj1DAVj68lBSOfUBQQxF+Q/7RbjW1xPkftAMe5s=
+Received: from CY8PR12MB7491.namprd12.prod.outlook.com (2603:10b6:930:92::15)
+ by BN7PPF521FFE181.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6d0) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 16:24:34 +0000
+Received: from CY8PR12MB7491.namprd12.prod.outlook.com
+ ([fe80::6a3c:6129:f3b7:8c00]) by CY8PR12MB7491.namprd12.prod.outlook.com
+ ([fe80::6a3c:6129:f3b7:8c00%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 16:24:34 +0000
+From: "Zhang, Boyuan" <Boyuan.Zhang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Liu, Leo" <Leo.Liu@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Wu, David" <David.Wu3@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/jpeg: fix jpeg_v4_0_3_is_idle detection
+Thread-Topic: [PATCH 2/2] drm/amdgpu/jpeg: fix jpeg_v4_0_3_is_idle detection
+Thread-Index: AQHdBXo4renU99JgoESoSV2mZQkel7ZVvGhO
+Date: Mon, 29 Jun 2026 16:24:34 +0000
+Message-ID: <CY8PR12MB7491EBDD37936097B29798FA87E82@CY8PR12MB7491.namprd12.prod.outlook.com>
+References: <20260626144319.313979-1-boyuan.zhang@amd.com>
+ <20260626144319.313979-2-boyuan.zhang@amd.com>
+In-Reply-To: <20260626144319.313979-2-boyuan.zhang@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-CA
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-29T16:24:36.860Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7491:EE_|BN7PPF521FFE181:EE_
+x-ms-office365-filtering-correlation-id: e3885592-fc1b-46ca-a1d3-08ded5fae839
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|8096899003|38070700021|22082099003|18002099003|56012099006|11063799006|4143699003;
+x-microsoft-antispam-message-info: XQQgEUBQVIo026taLwxJjvQGIgVkSVsQVJJFKUCsg0Jxxx73PDiHzNBmRMkeSHWEF5ZuHZC5eC1aah0XOmJ3KArHPuP6K8g7QidvRQS05yCdD5FnT0GA85VKdNGB+tdttgVXBoncL9SLYSJUINgaLBvSV9IEpJ72fqo5i9Fw/3rFIqifo9nFA3WvACFriw3RH+YHEzmptUIprelCD4I805z7LXTTX+OGkz6pvf2QXwSMpcyOxA7wRZ2mY2i2VZiKgJgz2vjSQUStPWAG/WaqLoLkYHF3Mio/KQL7XS5nY7f+1kzr8EBojfSeiXRP1zxExLOnq/TZeVtIICEWIHrocqMmIra0NkPkrjLAgmAGi9GFhXhNdjU3aqK6DnzdzB0yQgp1P/1Kd2qw/1ZQDMxxexhpQhtTsWvFXNGqldp5g8J15xkwg0wWScEIFXGHf9HObTsABFwWJzDDY9umV0JNu0xIXj7ImnZ+k5zvA+CG7bEZMkH27U4tONkPq5iuzObXNTHTStoMNzfuJbIioMy1YkkDXxV4kHXMBOQhzLumob58isrpGfxLrcM8LgxpIdsaQvGSwxkbSJFQlgT9pVyh0nzD3wcHWSTgC3NTTgmqEmhg4pYYms3cl32XRJLcVbOp2CDsOiNQLmIFl94GZQpeLJZCGnmrCLm9LgmnnoyELBoQuMTPT/PY7ICr9ilovxoJcnehFaCZBREBjkQAgy+9NzxRv4THuD1BwXTVLbu0hA4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(8096899003)(38070700021)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DwQQQSW0msyqSnoJZAZDziH3yq8H9WJSspyFjMUm/gdqEmZEwLK095rTZoI+?=
+ =?us-ascii?Q?mXV47LJ0j56fMnQY1OuyoXM5LGV+UEeX0hKFRNMUCef561gqvAxPblctQfbf?=
+ =?us-ascii?Q?wZ7+OzvLaYRMErIXj5TKbFzDoLo4Q7OBaRA1bqOGzM9ZfKHO9k24ThS8aAgC?=
+ =?us-ascii?Q?aG3dNZpEjNH7H94XwHOJnDCrJm4Wk6lyHGI7cQepmv6YBE3UF1oePGlv+NQs?=
+ =?us-ascii?Q?GaNArEWS4uZxhPlrX0GIUX4eF8MJSrbZJRCpM9yiWnz6K1ZpPAOp9We76frQ?=
+ =?us-ascii?Q?ogmoQN5F9fUTYr0hUTE6ui5io5QadWHhKkihIoTjTrTpcFqi+C//ZPLau4SX?=
+ =?us-ascii?Q?IqF3M0ShCqGCMNiyVJGXRIEqjzSypwQn4YCxahwYyeZtrPdfdOUMctU+1w+s?=
+ =?us-ascii?Q?+0ZPFZbZCozFx34ndxS1aPxiIhF45QEyuFncxYTFjP4YpqmhAUm9CCWIU6H7?=
+ =?us-ascii?Q?KV0X2VGTNuSKbXIPF1rJonssUGUYBrdww8zI/qSVDpxezbWbhEXjyWb79/r+?=
+ =?us-ascii?Q?UVaVnQBwTDeXlQJrNjY23vqmS0ByTPmQqGBdeEilpGAMgfDFI++ze652MQfw?=
+ =?us-ascii?Q?q2s8xsM2xs+uZgHLxT2qCaX/8L4icoKQ+eQ6qO9uPqnp+qp8gF7D50KjdinP?=
+ =?us-ascii?Q?y+gGhtFZfpcPXoaat6rkDbBryDFKpwqHA8vVH+gdX8skZ/FSGrJMPiLFlGmD?=
+ =?us-ascii?Q?JNgDLIw+bQQGMS4sGfr2/hkm7rhftFz+vrfGAvH9X0dBbk/sW6ZQaVv/JZHd?=
+ =?us-ascii?Q?OUPYbtJbiCOC8d6sf03MYpBwgvqUApiYE4GONAXeuVTq6pvn+59G2tE4wN9/?=
+ =?us-ascii?Q?x1RaNEZRHc1/IzzXT2xqOE8vkdAyAT/M0R7Nl9L226F+buUDqGnkLcPZJKRM?=
+ =?us-ascii?Q?lvRR1jcLqSVLjHdBWc73SETn4jQCSFBTbNvLFNLn2yWhNxQp9DRl5VBeY64j?=
+ =?us-ascii?Q?/FvZRGQ8E/QtnepVO/iy3syEFzCvmGi8wXor2PKvO2X9lJFMUawhhpmOZw0S?=
+ =?us-ascii?Q?u+z9zcLkCgFXRlc9h4VC6oZ1MCJDdSG4Ib21yROGCRMkNVzbQiPgjiY42gv0?=
+ =?us-ascii?Q?2mvwVI0NqapTMvr1x+MEAJ/IORl4UBQZb77Mzxe1fsGwcMZcf480PdWTagM/?=
+ =?us-ascii?Q?YVwukf0pa/Cd+jpF3mQ4DNVTet5s4EtL/b2gpXpm5vxkiLVxrtb6FM8dtXvo?=
+ =?us-ascii?Q?1mQ+jBgqdfqVJW26q4CZyeAkNMLcRWZMuP9Paf+eXJWx/PUg+ywXHmHghTVf?=
+ =?us-ascii?Q?z8O/zl9EDhYInYPfJuJ2sKXPStbdLF1GtJUHdfjEbyQUPOf5Xk59fUHS+Tvt?=
+ =?us-ascii?Q?TedPVd17UdgfTUOxAJdjdyjyudTTqXphQLIQ1/oIGp8fO66ydzyRObw/AHr4?=
+ =?us-ascii?Q?GZRQL3TRsNerQ/0Xkw41v9bDcMJbu+nETIy6wPoX8dQBpK52oHagECy5ZHDp?=
+ =?us-ascii?Q?oqCaCp9UsuKYtJ+UbR+3v07Fo2xgV4rbdrVZD29Bx31mLiVgy7aJst/IrcKx?=
+ =?us-ascii?Q?oTqF2WwuYUHGHgcyKo03c6t9Ln9e5O7mTBOvMQ49fqkRXjrdtag5MVS11OTQ?=
+ =?us-ascii?Q?PURjmMN/OPicZ1Fab/0JdqLNT5tIKpCPIcw3SIQSly+cxMK1dOw5FXPbspJo?=
+ =?us-ascii?Q?/v2jDmLb8CeoX1RPm9omDlnlwMBJBWo6oFWmMkEvtT7RIa4cyVOcExS554kp?=
+ =?us-ascii?Q?LQZTbo+262Ppz5CON9zan2+q6Oj5oDgtufKYci9vzd1kv941?=
+Content-Type: multipart/alternative;
+ boundary="_000_CY8PR12MB7491EBDD37936097B29798FA87E82CY8PR12MB7491namp_"
 MIME-Version: 1.0
-References: <20260626085558.97923-1-tvrtko.ursulin@igalia.com>
- <20260626085558.97923-3-tvrtko.ursulin@igalia.com>
- <3694635.dWV9SEqChM@timur-max>
-In-Reply-To: <3694635.dWV9SEqChM@timur-max>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 29 Jun 2026 11:28:14 -0400
-X-Gm-Features: AVVi8CeordtiVHL8RXRJMySgdkOJ93IZmDGNbwcoQMvW5S-bBTwE9OJgo78AN9s
-Message-ID: <CADnq5_MiRc2Gei3QcmxVgtykLNfC+QwyxC7W=LsAVjMfCAT5_g@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: Save some cycles on the job submission
- path
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7491.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3885592-fc1b-46ca-a1d3-08ded5fae839
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jun 2026 16:24:34.7571 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: popqtgpv8tWyZ2hYtD3bp+Jdsmz4rfXMYdsi1gA3x1/DBC1Mkx9WK+VSYUAKe1gL24e1Y9i0G7Gq5lgBgP+N/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF521FFE181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,187 +132,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2026 at 1:10=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> On 2026. j=C3=BAnius 26., p=C3=A9ntek 10:55:57 k=C3=B6z=C3=A9p-eur=C3=B3p=
-ai ny=C3=A1ri id=C5=91 Tvrtko Ursulin
-> wrote:
-> > Every job submission on the Steam Deck ends up walking the list of IP
-> > blocks looking for AMD_IP_BLOCK_TYPE_SMC. Half of the call chain is lik=
-e
-> > the below, while the second half is from amdgpu_gfx_profile_ring_end_us=
-e:
-> >
-> >  amdgpu_gfx_profile_ring_begin_use
-> >   amdgpu_dpm_is_overdrive_enabled
-> >    is_support_sw_smu
-> >     amdgpu_device_ip_is_valid
-> >
-> > On a game menu screen at 90Hz refresh rate we end up with ~840 calls pe=
-r
-> > second which sticks out when the submission worker is profiled with per=
-f:
-> >
-> >   13.78%  [kernel]  [k] __lock_text_start
-> >   10.86%  [kernel]  [k] __lookup_object
-> >    8.76%  [kernel]  [k] __mod_timer
-> >    4.94%  [kernel]  [k] queued_spin_lock_slowpath
-> >    1.66%  [kernel]  [k] amdgpu_device_ip_is_valid
-> >    1.54%  [kernel]  [k] preempt_count_add
-> >    1.42%  [kernel]  [k] amdgpu_sync_peek_fence
-> >    1.18%  [kernel]  [k] amdgpu_vmid_grab
-> >    1.17%  [kernel]  [k] amdgpu_ib_schedule
-> >    1.14%  [kernel]  [k] kthread_worker_fn
-> >
-> > Lets short-circuit this walk by simply caching the result of
-> > is_support_sw_smu() in the device.
-> >
-> > This is a micro-improvement but it is at least conceptually nicer to av=
-oid
-> > repeating the same walk so much.
->
-> Hi,
->
-> I agree with cleaning up this thing.
-> Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
->
-> That being said, I think is_support_sw_smu() is horrible and should be re=
-moved
-> alltogether, because it goes against how the rest of the power management=
- code
-> works.
->
-> In my opinion, we should instead:
->
-> 1. Hook up some function pointers and check those instead,
-> For example in amdgpu_pm_acpi_event_handler() we should just hook up
-> smu_set_ac_dc() to the notify_ac_dc() function pointer. There are plenty =
-of
-> other similar cases.
-> Another example, for amdgpu_dpm_mode1_reset() we should introduce a new
-> asic_reset_mode_1() pointer in amd_pm_funcs() similar to how it works wit=
-h
-> MODE2 reset for consistency.
->
-> 2. Eliminate redundant functions where the same thing is already done
-> elsewhere.
-> For example in amdgpu_dpm_is_mode1_reset_supported() it checks
-> smu_mode1_reset_is_support() which is redundant because the supported res=
-et
-> type is available on the ASIC functions already and we can just use that.
->
-> What do you think?
+--_000_CY8PR12MB7491EBDD37936097B29798FA87E82CY8PR12MB7491namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I agree.  This has been a todo for a while.
+AMD General
 
-Alex
+Gentle Ping...
 
+Thanks,
+Boyuan
+
+________________________________
+From: Zhang, Boyuan <Boyuan.Zhang@amd.com>
+Sent: June 26, 2026 10:43 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Liu, Leo <Leo.Liu@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.c=
+om>; Wu, David <David.Wu3@amd.com>; Zhang, Boyuan <Boyuan.Zhang@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu/jpeg: fix jpeg_v4_0_3_is_idle detection
+
+From: Boyuan Zhang <boyuan.zhang@amd.com>
+
+jpeg_v4_0_3_is_idle() initializes ret to false and then accumulates ring
+idle status using &=3D. Since false & condition always remains false, the
+function can never report the JPEG block as idle.
+
+Initialize ret to true so the function returns true only when all JPEG
+rings report RB_JOB_DONE.
+
+Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd=
+/amdgpu/jpeg_v4_0_3.c
+index b0bdb449538e..c7d40dfcb751 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -1027,7 +1027,7 @@ void jpeg_v4_0_3_dec_ring_nop(struct amdgpu_ring *rin=
+g, uint32_t count)
+ static bool jpeg_v4_0_3_is_idle(struct amdgpu_ip_block *ip_block)
+ {
+         struct amdgpu_device *adev =3D ip_block->adev;
+-       bool ret =3D false;
++       bool ret =3D true;
+         int i, j;
+
+         for (i =3D 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+--
+2.43.0
+
+
+--_000_CY8PR12MB7491EBDD37936097B29798FA87E82CY8PR12MB7491namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Thanks & best regards,
-> Timur
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Gentle Ping...</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Boyuan</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Boyuan &lt;Boy=
+uan.Zhang@amd.com&gt;<br>
+<b>Sent:</b> June 26, 2026 10:43 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Liu, Leo &lt;Leo.Liu@amd.com&gt;; Deucher, Alexander &lt;Alexand=
+er.Deucher@amd.com&gt;; Wu, David &lt;David.Wu3@amd.com&gt;; Zhang, Boyuan =
+&lt;Boyuan.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu/jpeg: fix jpeg_v4_0_3_is_idle detect=
+ion</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Boyuan Zhang &lt;boyuan.zhang@amd.com&gt;<br=
 >
-> >
-> > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> > v2:
-> >  * Approach changed to cache sw_smu status only.
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  3 +++
-> >  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 14 +++++---------
-> >  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  8 +++++++-
-> >  4 files changed, 16 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h index 7b09410d6d8f..9803967d15f9
-> > 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -851,6 +851,7 @@ struct amdgpu_device {
-> >       struct dev_pm_domain            vga_pm_domain;
-> >       bool                            have_disp_power_ref;
-> >       bool                            have_atomics_support;
-> > +     bool                            is_sw_smu;
-> >
-> >       /* BIOS */
-> >       bool                            is_atom_fw;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c index
-> > 1e6b75ecafe4..7f935a5778b0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -74,6 +74,7 @@
-> >  #include "amdgpu_ras.h"
-> >  #include "amdgpu_ras_mgr.h"
-> >  #include "amdgpu_pmu.h"
-> > +#include "amdgpu_smu.h"
-> >  #include "amdgpu_fru_eeprom.h"
-> >  #include "amdgpu_reset.h"
-> >  #include "amdgpu_virt.h"
-> > @@ -2130,6 +2131,8 @@ static int amdgpu_device_ip_early_init(struct
-> > amdgpu_device *adev) adev->cg_flags &=3D amdgpu_cg_mask;
-> >       adev->pg_flags &=3D amdgpu_pg_mask;
-> >
-> > +     amdgpu_smu_early_init(adev);
-> > +
-> >       return 0;
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c index
-> > 208a2fba6d40..82c9ae6a5092 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > @@ -591,17 +591,13 @@ static int smu_get_power_num_states(void *handle,
-> >       return 0;
-> >  }
-> >
-> > -bool is_support_sw_smu(struct amdgpu_device *adev)
-> > +void amdgpu_smu_early_init(struct amdgpu_device *adev)
-> >  {
-> >       /* vega20 is 11.0.2, but it's supported via the powerplay code */
-> > -     if (adev->asic_type =3D=3D CHIP_VEGA20)
-> > -             return false;
-> > -
-> > -     if ((amdgpu_ip_version(adev, MP1_HWIP, 0) >=3D IP_VERSION(11, 0, =
-0))
-> &&
-> > -         amdgpu_device_ip_is_valid(adev, AMD_IP_BLOCK_TYPE_SMC))
-> > -             return true;
-> > -
-> > -     return false;
-> > +     adev->is_sw_smu =3D adev->asic_type !=3D CHIP_VEGA20 &&
-> > +                       (amdgpu_ip_version(adev, MP1_HWIP, 0) >=3D
-> > +                        IP_VERSION(11, 0, 0) &&
-> > +                        amdgpu_device_ip_is_valid(adev,
-> AMD_IP_BLOCK_TYPE_SMC));
-> >  }
-> >
-> >  bool is_support_cclk_dpm(struct amdgpu_device *adev)
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> > b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h index
-> > d76e0b005308..efc52d97058b 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> > @@ -1952,7 +1952,13 @@ int smu_link_reset(struct smu_context *smu);
-> >
-> >  extern const struct amd_ip_funcs smu_ip_funcs;
-> >
-> > -bool is_support_sw_smu(struct amdgpu_device *adev);
-> > +void amdgpu_smu_early_init(struct amdgpu_device *adev);
-> > +
-> > +static inline bool is_support_sw_smu(struct amdgpu_device *adev)
-> > +{
-> > +     return adev->is_sw_smu;
-> > +}
-> > +
-> >  bool is_support_cclk_dpm(struct amdgpu_device *adev);
-> >  int smu_write_watermarks_table(struct smu_context *smu);
+<br>
+jpeg_v4_0_3_is_idle() initializes ret to false and then accumulates ring<br=
 >
->
->
->
+idle status using &amp;=3D. Since false &amp; condition always remains fals=
+e, the<br>
+function can never report the JPEG block as idle.<br>
+<br>
+Initialize ret to true so the function returns true only when all JPEG<br>
+rings report RB_JOB_DONE.<br>
+<br>
+Signed-off-by: Boyuan Zhang &lt;boyuan.zhang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd=
+/amdgpu/jpeg_v4_0_3.c<br>
+index b0bdb449538e..c7d40dfcb751 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c<br>
+@@ -1027,7 +1027,7 @@ void jpeg_v4_0_3_dec_ring_nop(struct amdgpu_ring *rin=
+g, uint32_t count)<br>
+&nbsp;static bool jpeg_v4_0_3_is_idle(struct amdgpu_ip_block *ip_block)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D ip_block-&gt;adev;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret =3D false;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ret =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, j;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
+&gt;jpeg.num_jpeg_inst; ++i) {<br>
+-- <br>
+2.43.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY8PR12MB7491EBDD37936097B29798FA87E82CY8PR12MB7491namp_--
