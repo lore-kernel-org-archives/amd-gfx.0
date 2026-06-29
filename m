@@ -4,122 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F119BC43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 14:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBED4C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 14:47:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85CBE10E945;
-	Mon, 29 Jun 2026 14:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B72F10E07F;
+	Mon, 29 Jun 2026 14:47:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zmNB5vZ/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="j+dR/Pvu";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012071.outbound.protection.outlook.com [52.101.53.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA0610E922
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 14:33:31 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2842010E07F;
+ Mon, 29 Jun 2026 14:47:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pJFSxAHyP4ievOB6ZF4kgcQ1cboiL1qB4uncB8kUb8iArxzGGI9htYDc7m1Me8EWjFcvNWP5jObYiXjF2nJ3EttyjGZDliylXJFyfRAkJZkDk79DvkUaWjTkVrNx9oNFqtsYZN94QW4ATqZcoY9rr6IWTWmszzXzAMD5Z0MmDhlPExrehRi/GAh53nrNtFV1+tQgnSP/gfaJRbU+j5YRqjWb0O02xEbduVp3PrfYH+sXH4uoUgiiWRscAx/OhYW9L55sQrsHmoou5ukyPHd3SYRhsQTcqf6+3A46c4L1uR951Bn8/WSUmdfWmV/zKZD3DxqIVJPj+ln5+83Rxl4wlQ==
+ b=GHhH8/7QUaXJM4RDDlhFSU1dZo5tKuBNGGKmeMIGWlVcat0SzOj0+hkAezeqEoMCydoYJ9cBZonO1UszeDJZDCfqKc8kq9n+3KZj+WptcuLZZzIBRjNpr1eW3A/mdkTxmQwdd2KXH5TYgMNSrG8s+ZWlTUv7NH9GLGDlVzJHgjaN8YjWa/d6wosU/l55KRbiSWxg6u9IHSrlyNq5BjZ4kggnVTbBxMQZou0KV/EuTfq8efFrT65vLjmnv4pKSros4mvOEvVxdFDgwGJbJC3IvwGmRxQ72k1xaoFG2eQPB0v1SJzRaKgM1BGJ/6xHQBLcc8tSZ1Uet8QbggQyhtAyeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KF3wMzDjGjLF3W9HDARz2cQQzjUxtcwWBgQZInOureE=;
- b=DZTI5Hsn/gcOZ17yRcEUwViWPZXF/iURNoGMgjf2rrKI0jJHt423QOe7WqQbYSZrXo+lvXUNSekS1MNL0nnanfpAmIDwR01dTMPFkxmXgrzHogtj6G/b/oHYhAFy9cq220Rk8qE5P7uWpEqORxK0+xc4FyO1ZgSJwUd4a1/6gY/9mqLWkqYoSxJIKfzfkdQeIfG3NHtdWbWxGnwKmoDjnI6KXHoJpbuq+qOi1nTUgx7QT9q4iYQdidaI6hJVJxUYn4tVxHSgENYD1h0fDXxWMl1taG9pETkzsUc+ny+K3PuPOSXMmu4P5YZ4thNR2D+2jH4JKyQ2TrAP4w90m29RUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=NvpScQIUgEOz0wAVPS1NFdprt6ltXr5+BHPmUTzl9/U=;
+ b=U1tmwW4G2qByPMM95QArYnFSYmT3Baj2o916ClJweRzvOIz4j/+v/ckunICvQoMbBIPo6AVB4bDQ1avhzaSNKoHKAUgnPfUVBYhLKBk7o/Q5kJQT38EPFCNl4M3IaXQvYJII9RI9qOBy0YRiUCdH8WxvE6NnbC/n2s2i0XDeXZa+EwIx36QTU9S/iuJvbsXXRDqABHrxydX6RzqU+n4NTpVeofCCZdv0+/zWqmquJOyNkmvCyx5+5hD0j+FqOmpMHknLef5Gwgo6YuCIYMWl+BvfEuBi6anI4nIJvIuy7akrl6gI/lHca/5rzR1Wvb1kdkoIffbSeKvF8dKbyhd3DA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KF3wMzDjGjLF3W9HDARz2cQQzjUxtcwWBgQZInOureE=;
- b=zmNB5vZ/hiDM+sb/Yocmg9J4hJ7ZqVKEDXpzwRpYiUXRIuKeNZgLEd3harOi+hh3lIlQUoA1ypp4eYEY6hWbQxZlOBgJZTEqRtKK2TgAkHiXU5CpzPdm918eE3ZTqNYJu1ZmhPdyFOyyXbYoTgmA4kmyjmQAGwTwLicI5/uHLuU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com (2603:10b6:610:184::11)
- by CY8PR12MB7433.namprd12.prod.outlook.com (2603:10b6:930:53::22)
+ bh=NvpScQIUgEOz0wAVPS1NFdprt6ltXr5+BHPmUTzl9/U=;
+ b=j+dR/Pvu/SGOPmkW3MZxOYM5EwnP5NqfRB+iQk1MKMZrV1/nreL6RE39Q576UFwtYvyhQ99gUlIW64fG4V3BCHeEZ54NsI9anG1k6HpXZ0K7pTNLsJKVB4Xx0jQaLJjxBK0XEIobC+rSG0YcIpyTZds4I7Uq0BUtCoJnp4uVsy0=
+Received: from SA9PR10CA0013.namprd10.prod.outlook.com (2603:10b6:806:a7::18)
+ by SJ0PR12MB8616.namprd12.prod.outlook.com (2603:10b6:a03:485::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 14:33:27 +0000
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::a45b:9b43:1014:eaf2]) by CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::a45b:9b43:1014:eaf2%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 14:33:27 +0000
-Message-ID: <ba973155-8942-4e4b-97d5-486b3410d5ab@amd.com>
-Date: Mon, 29 Jun 2026 10:33:25 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/mes: Fix hung_queue_db_array loop limit for
- multi-XCC
-To: Geoffrey McRae <geoffrey.mcrae@amd.com>, alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260628055701.1561570-1-geoffrey.mcrae@amd.com>
-Content-Language: en-US
-From: Amber Lin <amber.lin@amd.com>
-In-Reply-To: <20260628055701.1561570-1-geoffrey.mcrae@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0328.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::18) To CH0PR12MB8464.namprd12.prod.outlook.com
- (2603:10b6:610:184::11)
+ 2026 14:46:54 +0000
+Received: from SN1PEPF0002636D.namprd02.prod.outlook.com
+ (2603:10b6:806:a7:cafe::ad) by SA9PR10CA0013.outlook.office365.com
+ (2603:10b6:806:a7::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 14:46:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002636D.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 14:46:53 +0000
+Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
+ 2026 09:46:51 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <siqueira@igalia.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <alex.hung@amd.com>, <bhawanpreet.lakha@amd.com>,
+ <george.zhang@amd.com>, <aurabindo.pillai@amd.com>, <chen-yu.chen@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: Drop dm_pp_get_static_clocks KUnit tests
+Date: Mon, 29 Jun 2026 08:46:28 -0600
+Message-ID: <20260629144628.1710240-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8464:EE_|CY8PR12MB7433:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78f97bb8-4772-4f2f-43e7-08ded5eb61bc
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636D:EE_|SJ0PR12MB8616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24a2a3c7-2f25-4da7-fd64-08ded5ed427e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|22082099003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 3cRFFD+OsscpDlT/2dL+xTA6wPdJ8HBkzFQ09VFsQOt4dT4uCw+aCIDbFheN+HkO9P6KgBD1iFTOUR7nXqr4k5khW3ZobIAPIqKe3nCnLKT6ewlLL8rV19FjnVjWwcRhPRnt8k9dvZA4FA1WV04XO2BywpgNaeGx80sjR/ashyulgSX08/VrSdSJq2oVazZqm/oSRAGVMcC/tbVBUuBrUWxxXJF8hafxXFO604ys5JcB8mOmu55mSIOa2BBJWbnWu3O1l1BdIJsvamu5SazGRXz6uLmAM3uu6v5OqYJRbAjTw05R5lRjglM4r8O4c+tcnRfJ40Q0kXHrHRmSYKFQwwrwpPN4y+QDRZSWK+DGyLte5c1kcEXHerT625Ep7FfX8FFmXx4wA/oP5sOO6p5SrQ3iNn6olMvex//GEnP6ruofeRMbqC66WRQPND5VMA/SvU5fYHu/h9ncAR84B/6uU+16y3ONAFY72O6ZCx6TxxzBwTIi07HmorBuKO3ZC5Yb+H/W+Gvetmt6bPyFwhZ+X7KHuQKkV9LKjoEkN4soabcw14eJdwEG+AFUME2FhOOvDngd17dFbzSGooLzfUSaUBGh8tVLyOCJocZEyusOJp822MH36CFZiKWN6XKdUDoXAXoRi1ZZenLisAkoZ9a+hZ5arj21UqbgvNlYx5NPHC0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB8464.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(22082099003)(56012099006)(18002099003)(11063799006);
+ ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|11063799006|18002099003|56012099006|921020;
+X-Microsoft-Antispam-Message-Info: 7WCSX25V00n5mbLKqO03sqf68XeBbovBRD4ze58P2cRWh+7fGoBYzAxM4PnQUTzXivG7yRUHMgYd6srB9mWhU5BiJRkyHv/CtFb6xDLT6EnHbRWd7ZzNEvYzbUQ+tbHr6NYYtEPOacND03dqjIksL05sjiDV/HULlcZgfDEUTzDIzHyYCiTtf3Y8Y1KQ1P4UceSD+LbutTW2ImBLtirsIf7uvjkVHC9XBE4iQGmjFg+FWRpTrBLN+QeczQ4fdkQhKKbIECtNoBLRNV3bonh44phj1I9uIrH1z9Y4e6vRw+5C65X9rpZc7/g1VCWWfdK6676hNnVyJQKEZjvqDxSjqvunVQMv7Bvb7JSnRwPYysjMRol+YVv8oS1qfjCvhC4NEx4VHCaLY1J15AwMUfh2X1IvbhFc/q8TwD2L4iuAlzjWlhZtkiTy50XnBb60muYvJ/h1H8z3hONozg2tz0t2CxEeQyOsa4K/EUR8fJCkIEPHIl+3+wZF+e6UqOKZbyp/5Sk0K9mSs9Rf4BIAZtWbixaBGsTDQyjJ9gbGyKKP1xAE/s8t9V7l5i2NRorTg39f/I8e7fa/oXZHRngAdamQS94c+bS67akR4Tklb2icWnifgD4X4Toso6I14dTs85Fj+3YXbaj8v+sQqBuepurjLdIU36ZBiu6jHlMegV4OzdA5nr74wRFXfqkrJe5FSFVYWeh1e1Gxz4BN20R2YzVWJ8tZG7i5CsOVZveg6if/rjFA6ytwd+yjZBasUMmSk1tV
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(11063799006)(18002099003)(56012099006)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGJRZTJFYlZqK3pPUUJaNjlDTzJYcXhxOHB0SGE0RmhSMjBSZ2xDK09yekFy?=
- =?utf-8?B?Sjc3bzd4dmtOTWo2UVZmQmZ6eERRZ3htaDRueWRFdlRPSGFtMFRodVUyRlRI?=
- =?utf-8?B?bi92N2VENmhZY2ROMWlvYnBBYURmZUNFelhhcTRyczVmUmNqYWF3MStQR1pF?=
- =?utf-8?B?YUJxU1k3dTE0cElvWDMzd3lsc0I1UHpDKzBpeWxzRGtKZU16VElJV2hTbVdt?=
- =?utf-8?B?NGxHbGpyUmR2eEVGQ091YmhTK2duajBza0IvZ241VHdBUFpXUmo4blJsRStT?=
- =?utf-8?B?WHVPTlBvMG9EZVI4TE1sb0VNN2ZDZmIrWXNPQ3dYeVhCbVdWVllnVjlKVlhl?=
- =?utf-8?B?cU5SOW8zRDJjTFBlcmt0SzlqcnBaQ0twUWVaK1diTmltTzBoRkFsaHRib2lo?=
- =?utf-8?B?cC90OUY3MURKa0lUZ2lxNG1KeHNmL0N5Tm8ydHR0SnYzc0hkb1k1KzBQaUZF?=
- =?utf-8?B?MElXWkRwcW1HbFpsbTl6U3hZN3kxcktXbEMwa1FlNmFVNWpEY3NxejF2QUR3?=
- =?utf-8?B?UE15VzZyMlR2UDFTamNOdENCQ29pcWFGOG4vU2htYkZlbTAwalZHOGplbjJV?=
- =?utf-8?B?UWozS3M0VzJPblorc1lHMENDOE5BYmE4azFwOWprb0hDZlZmV3VsdTRhclJa?=
- =?utf-8?B?OGNwcW5PZXM1a012N2syQXNoNUpKb0o3OG1JOFMzOHBvK2FWamY2SGNZTE53?=
- =?utf-8?B?MWdRWi9Qbys3S3lLaEdSeUNGcVByT3NrRm03R2Y3U2thV1BpZnZJdFVRc3Mv?=
- =?utf-8?B?bUpvMVNVYmprR3hQbElqb05ScUwzUWZ2RnJydkNaZVdwRFFNMWZKSCtkWXBV?=
- =?utf-8?B?WlVRQUFPVS9DRy9kVFdaZUdJaGpWZFExOXZ2Z2gyRVd3dXFDY1NjV1orY0Np?=
- =?utf-8?B?akJZenJrTkJ1bjRxTFNUeFZBb3lGbFp3cUxpSVdseDJVbWNrUTZ5cUVVYVBS?=
- =?utf-8?B?Nnk0OE5jWXFRS2ZINEVxejc3dzZEN1JZL1dUNnZkS2NaZmtCSDd4OG51TTJC?=
- =?utf-8?B?MkJHeUowcnNSSEJMRWlqUHFpRlRyS0FOWTFHRzVpVUk3Rm1aZEU2cjkrbWZZ?=
- =?utf-8?B?d1UxbmFLQTNDUkVKaFViemxFK1UxbjhqZUhyZ1pPQlBpeVQreFo4TWs4dEFP?=
- =?utf-8?B?RzMyQnpmUkt2aTNHbHlYQk13WFpGMjNFSkJWOUJsanZDaWNtTWlJVW9KNjNi?=
- =?utf-8?B?dmVtZ1kwdlRMU1JWMERxcDZTTnhiYURCalJjVkxKKzRYZzhBWHFPOFFOK2Vw?=
- =?utf-8?B?YkVjYU9LN0JSMG9qcUdzZ1BlY2piR1gwUHJZVUV3WFB6dkxESkhwZVJ2bjlT?=
- =?utf-8?B?ZFNPNzJkbk5mYlVRWEpIZ3RsUVB5NGljcU9IS2pVWnpBV0s2WE1WbDJWR1RN?=
- =?utf-8?B?TENGbFVLTzRRT1dhL1B1TzU1dkJSRGVCbTZkV0N1TGc3MWRqTnRMVE9EWlBC?=
- =?utf-8?B?dFp1dmw2bVRRcGpBMytCMlQ1SnpZTmU0dzZrUE9GdlVKR3dzbUxDWHBQMERL?=
- =?utf-8?B?U1REdExDd01YU0VaN1lHY01uMzg2VDlGemxOTzY0aUFzYjB6K0RBTDBkUWFh?=
- =?utf-8?B?VG9UQ0xRakFGRGE4TTNRNjlTd0xNN1dyc3J3b0NYcThuZmoxcWFER3FmTnZR?=
- =?utf-8?B?Szg3T2l5cjN2dGRvOUdJd2dvTzVqZjFGZGhHU1hSNlVMdjMydkRsRmM1ZklM?=
- =?utf-8?B?VWo4RGRpaGNvMlNFM1dyc29GbGphRzA5YllIZi9STm1OYzF3YVdieGxJcGVo?=
- =?utf-8?B?aGRiV2g5cG5hdFpRYkpGcTVoNWU5U2lJZUtBbWZNVVVBemlKRkE2TmVscE0r?=
- =?utf-8?B?TUJqQWY2RkRWSjZObG1kUENyK3JLdW1haW9hNWQ1SWNNdFp3Yjlza1h4SE1z?=
- =?utf-8?B?Z2ZoS3FEWEZaa3NxSG5BVkJQZXVtNVlKT2JERkc5WDZJeHV3ZnVpMTNmZUpE?=
- =?utf-8?B?Z3pMdVhkM2wyYTdnOFdjdHQ4MnZuZ1BXYU9YN2lpLzYzSWFzWUhtaXZDUDZx?=
- =?utf-8?B?V05aQTdoR3lTNzZvU09QYWhoZ3hudGZvVkRseHcvZjVJWmxnQUlDcVYvajZ1?=
- =?utf-8?B?UFoyRUhUTHdCOVlhUGpaS0pMdXpLVkpvVFRmN20rbzBjVUhHU2Y4R3RFR2Ju?=
- =?utf-8?B?bGY2aEpONk5wWmYvdytZaTU4Q01qalV5MmlvSGEyUmVTdEFIaWoyTGxBaTV2?=
- =?utf-8?B?YXJEbjY5N1BndStrdzRRb2F2NTN5SkpGbW1sQmdsS2JEa0dYVU96a2pFNXk0?=
- =?utf-8?B?T2lLSDZST01nbmZxMUNBREgvdTUrWW9FNGVUcituZG85b0lTb05jTVNMcnBl?=
- =?utf-8?Q?PWh3vlz2MrmSqLGcNH?=
+X-MS-Exchange-AntiSpam-MessageData-0: O1BMII7lIcihspskHBUr9lUeaD72xPW++mNP6v2kXmIzTFsVlO0UwWSj0VAj9iQ423J2ZLqhGy6IQEdxWiGPDseK8p16ioY6GGy0B5kPiZ6DU1xBpEQ4+q4kpTWsR+7kx7hg/F5UP2tBnU9fgtbEIKK///jP3qE6Sr/mhXzUFh4duxJFMsnerKWU48/di1OikXwRVlSRskJ/GU7LMvhmG2Tb6oV98CMVaA7SCB58XJE+M71lOYF6nU4HdvuJ5scawlo3imbixP31PThGgtt4QEc73yDmPjAKww9q5sEGVI6bUsqlD2OI+zeGwR7/NbZbu8ch+DlWm7gP9VMHN4vz84xDZGEgGxLQ8Vai7zXXFWtz9amaJ1MU2/KsKmVCJ3JF6y4IDyrTfzV8sY+v899NleXyrEk3aDnloYThgeIDHxs2g6VQdwxHr4k08zbzzeZs
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78f97bb8-4772-4f2f-43e7-08ded5eb61bc
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8464.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:33:26.9473 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:46:53.2112 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24a2a3c7-2f25-4da7-fd64-08ded5ed427e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WTfv5BAwQOzZhtvdY9tGu92yGss9kIXKfCiT0PnfblW8n0JDA9lSuL6HI+eVH8I4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7433
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,34 +110,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Amber Lin <amber.lin@amd.com>
+[WHY]
+dm_pp_get_static_clocks() is removed, but the KUnit still referenced it.
 
-On 6/28/26 01:57, Geoffrey McRae wrote:
-> The loop iterated only AMDGPU_MAX_MES_PIPES times, leaving entries
-> uninitialized for multi-XCC GPUs. This causes null pointer dereferences
-> when accessing arrays indexed by XCC ID >= 2. Extend the loop to cover
-> all XCCs (AMDGPU_MAX_MES_PIPES * num_xcc), matching other per-XCC
-> arrays.
->
-> Fixes: 723b3bc87afb ("drm/amdgpu: Fixup boost mes detect hang array size")
-> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Amber Lin <Amber.Lin@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 6c0dde3786e3..6ec4f1d537d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -237,7 +237,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->   	}
->   
->   	if (adev->mes.hung_queue_db_array_size) {
-> -		for (i = 0; i < AMDGPU_MAX_MES_PIPES; i++) {
-> +		for (i = 0; i < AMDGPU_MAX_MES_PIPES * num_xcc; i++) {
->   			r = amdgpu_bo_create_kernel(adev,
->   						    adev->mes.hung_queue_db_array_size * sizeof(u32),
->   						    PAGE_SIZE,
+[HOW]
+Remove the two dm_pp_get_static_clocks test cases and their entries
+from the test case array so the suite builds again.
+
+Fixes: 897f2ea8a45e1 ("drm/amd/display: Add KUnit tests for amdgpu_dm_pp_smu")
+Assisted-by: Copilot:Claude-Opus-4.8
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c   | 54 -------------------
+ 1 file changed, 54 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c
+index e1d5088d8c0f..8d1d26bfcc16 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c
+@@ -1121,57 +1121,6 @@ static void dm_test_nv_clock_id_invalid(struct kunit *test)
+ 
+ /* ---- Tests using stub DPM layer ---- */
+ 
+-/**
+- * dm_test_get_static_clocks_success - Test successful static clock retrieval
+- * @test: KUnit test context
+- *
+- * Verify that dm_pp_get_static_clocks returns true and correctly scales
+- * the max engine and memory clocks from 10kHz to kHz units.
+- */
+-static void dm_test_get_static_clocks_success(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
+-	struct dc_context *ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+-	struct dm_pp_static_clock_info info = {};
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	KUNIT_ASSERT_NOT_NULL(test, ctx);
+-
+-	setup_stub_dpm(test, adev);
+-	ctx->driver_context = adev;
+-
+-	stub_dpm_ctx->get_current_clocks_info.max_memory_clock = 80000;
+-	stub_dpm_ctx->get_current_clocks_info.max_engine_clock = 72000;
+-
+-	KUNIT_EXPECT_TRUE(test, dm_pp_get_static_clocks(ctx, &info));
+-	KUNIT_EXPECT_EQ(test, info.max_mclk_khz, 800000U);
+-	KUNIT_EXPECT_EQ(test, info.max_sclk_khz, 720000U);
+-	KUNIT_EXPECT_EQ(test, (int)info.max_clocks_state, (int)DM_PP_CLOCKS_STATE_NOMINAL);
+-}
+-
+-/**
+- * dm_test_get_static_clocks_failure - Test DPM error returns false
+- * @test: KUnit test context
+- *
+- * Verify that dm_pp_get_static_clocks returns false when the DPM callback
+- * returns an error.
+- */
+-static void dm_test_get_static_clocks_failure(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
+-	struct dc_context *ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+-	struct dm_pp_static_clock_info info = {};
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	KUNIT_ASSERT_NOT_NULL(test, ctx);
+-
+-	setup_stub_dpm(test, adev);
+-	ctx->driver_context = adev;
+-	stub_dpm_ctx->ret_val = -EINVAL;
+-
+-	KUNIT_EXPECT_FALSE(test, dm_pp_get_static_clocks(ctx, &info));
+-}
+-
+ /**
+  * dm_test_apply_display_requirements_dpm_enabled - Test DPM-enabled path
+  * @test: KUnit test context
+@@ -2424,9 +2373,6 @@ static struct kunit_case dm_pp_smu_test_cases[] = {
+ 	KUNIT_CASE(dm_test_nv_clock_id_phyclk),
+ 	KUNIT_CASE(dm_test_nv_clock_id_pixelclk),
+ 	KUNIT_CASE(dm_test_nv_clock_id_invalid),
+-	/* dm_pp_get_static_clocks (with stub DPM) */
+-	KUNIT_CASE(dm_test_get_static_clocks_success),
+-	KUNIT_CASE(dm_test_get_static_clocks_failure),
+ 	/* dm_pp_apply_display_requirements (DPM enabled) */
+ 	KUNIT_CASE(dm_test_apply_display_requirements_dpm_enabled),
+ 	/* dm_pp_get_clock_levels_by_type */
+-- 
+2.43.0
+
