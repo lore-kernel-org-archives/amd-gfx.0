@@ -4,61 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23529C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 12:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD378C43327
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 13:29:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B25E410E89C;
-	Mon, 29 Jun 2026 12:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 343E210E8AD;
+	Mon, 29 Jun 2026 13:29:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="Scp36FMo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IB/nUbFD";
 	dkim-atps=neutral
-Received: from forward103a.mail.yandex.net (forward103a.mail.yandex.net
- [178.154.239.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238E310E805;
- Mon, 29 Jun 2026 10:33:25 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
- [IPv6:2a02:6b8:c15:340d:0:640:ad51:0])
- by forward103a.mail.yandex.net (postfix) with ESMTPS id BBC1E806C0;
- Mon, 29 Jun 2026 13:33:22 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (smtp)
- with ESMTPSA id mWaU7PLg7Gk0-zr3sTh1k; 
- Mon, 29 Jun 2026 13:33:21 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1782729201; bh=bkbr8BQEH5XYv/QZbwbCjGjbwygqzEt5NhSM1N730sw=;
- h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
- b=Scp36FMoYe+GiOzC5BrP3iXWVS3eqZdc2Wp7VLUWWWevEJSEuNth5Rv5kKFNfZoQ8
- 6LRo0RsiQ/cmMmiG3I28tj3PwK9xXvpLXyctwZ9q80Co+CDvzkMAxouUdMEDZDbnc9
- 4KKP7F2THNb8a84zDstVDFOZCvYuGQtWDGM/CfFg=
-Authentication-Results: mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: sashiko-bot@kernel.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
- superm1@kernel.org, timur.kristof@gmail.com, ivan.lipski@amd.com,
- ray.wu@amd.com, aurabindo.pillai@amd.com, chen-yu.chen@amd.com,
- mripard@kernel.org, Dillon.Varone@amd.com, mwen@igalia.com,
- chiahsuan.chung@amd.com, kenneth.feng@amd.com,
- srinivasan.shanmugam@amd.com, tzimmermann@suse.de, Alvin.Lee2@amd.com,
- dmitry.baryshkov@oss.qualcomm.com, chaitanya.kumar.borah@intel.com,
- ekurzinger@gmail.com, pierre-eric.pelloux-prayer@amd.com,
- HaoPing.Liu@amd.com, Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, sashiko-reviews@lists.linux.dev,
- Evgenii Burenchev <evg28bur@yandex.ru>
-Subject: Re: [PATCH v4 1/3] drm/amd/display: Fix dangling pointer in plane
- reset function
-Date: Mon, 29 Jun 2026 13:32:36 +0300
-Message-ID: <20260629103236.12380-1-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260629092538.4D19B1F000E9@smtp.kernel.org>
-References: <20260629092538.4D19B1F000E9@smtp.kernel.org>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012039.outbound.protection.outlook.com
+ [40.93.195.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0F510E8AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 13:29:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oq2IDPYtDAhYOwBjSTH0Fbkdq6hknftG4CCQOiajQWol7wTXRiD3XC6dw7bKg3n4JAwBttj8D1xuIQihC+0+xtTKlVnT+LW/TUVmMf3qgo0n5FYEdwZ85UapbTdPoRdxyRHzfXOB7qf0fXPLrPvFRnTzKzBczKvgHi0ge07n+X2BqFWeTbZiVWakonMxtdlMJJN+O6q/vDJxbi2C4V31PYZcyPslV+iWjhzkRxryac7zyfLCppLdBac6ZaYqt+Z/7nmvwF9hf1h/N7xGoVUy8HIPMNTBuZQ0Snw0T5lWr56vx2jwBdf4qHjLUl9xPfEI/MGeQC+VhbJt0+1rJNblvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qk9AzrNr6YcXOlC7Of1jZ+VYK9aQA6Of2p4R5/axi6Q=;
+ b=bVe8y5EvKKx1f1GG94Sb4D+GVwiMASKnZIXHHHgE0pt7pta39fxKod/7/FpROZO22wmShmk8imbY+eDfDck+IbEl8ZM/f0AVSniY/L2wKOyVdV4kOzbqUM+t3Gn3NE3HnNjC1f7UxiBgJV5nBle4p8+lR8rwKE6Pq7SW/eC73l3+Ls5gWaQfZsJn5/w9Iq9wF8y8zLrWl1dikB5gX6RVt8vvsfOdwmN2hwkiErVMzRmKJwHFt+RAcd5bGGq37RZrnmcMJ/Eyxbl/ERq9fV+4Q7i8/d2Hx6IroWQm3ESdrCwoDkzbZ+zJezO/QRtmqWePM2+ee7aQHfzrFQs8GZQQtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qk9AzrNr6YcXOlC7Of1jZ+VYK9aQA6Of2p4R5/axi6Q=;
+ b=IB/nUbFDWvtFIi0LY29DYD2ggZZnvXeGIcoVZKrcid48kC7gEIhrTW/nGiSPZnzTJirkThaaT9LUERotfSFHj3Tbnk1LRxlLiZpkdcY6MwVx2pB1lNEfRPe4FVv4iE9pJnTxwLG1ygvGiiR2dXv3yteuVvxfsch9bjv5POygQfc=
+Received: from SJ0PR03CA0289.namprd03.prod.outlook.com (2603:10b6:a03:39e::24)
+ by IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 13:28:53 +0000
+Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::2d) by SJ0PR03CA0289.outlook.office365.com
+ (2603:10b6:a03:39e::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 13:28:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 13:28:52 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
+ 2026 08:28:51 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdkfd: Use kvcalloc to allocate arrays
+Date: Mon, 29 Jun 2026 09:28:37 -0400
+Message-ID: <20260629132837.2288044-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 29 Jun 2026 12:57:25 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|IA0PR12MB8374:EE_
+X-MS-Office365-Filtering-Correlation-Id: c83382ef-47b6-48b6-aeaf-08ded5e25c59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: DBjHn1O/JE3pwuL5L7gOZFNf5D7qSh1bDccKuPHc0/19MYFDPTRCK0ZYbaZWvP1jZgmBVOL++hDKO8ZnmZyudopL1prhVKhT8sTmkWsZswTq6ZvkSeJ5iZlCLyMLM3Yypfrs1UbCBkecdrYMNQQL+UpkFhG2W14XCYS5xqlar8LIWs7Tsvf23f4tdmM6vZ/7jt+Y9sxhH2o9IgjRYHs+fWDwokKpjQPUa4oYR8LOLfOgRP17Wo1wvggWyHQVjxaj/EkeQ4gb1bgw68DqgZnF/aNOGnqHd/9ad+uYURTMB5HIzp+biYAlWAlbpKFjtc9PNgysEPg2AL6BLsi9Y+tR2ZJnRGPkQqufG+IlD45xIYC0Om3kAf3LJ2eZzKLTKYons+Up8OFOECOAalM3rLAy5rgQI96LOZwrGXoytWKc8tPWfxQvnnmCM0kK0SzBiNuLI/yUxxhgQvLZtcmQxaW2A515ju6aIwp8xUN5kSxL72TxLyQJltWDlIxUk6z8ua+19LB+4lOnVngqupuKZE6YIXa/L1X88LTazmVKC53zSzL+cj5R1SFOme2wNeSh9TtAvzDZ2+AATt6f+mnD72qWK2H8+tOsqFAyMXOkR6B0fep+/Yc0djSwOVQI2RSZE7UXjoPfJ4hBmKiD0Vk0Tq6U++dNZJK+4fsP2H6wcWuyL7/5eShiUncjKrrviL8F0iz3hRkK9Z7An7EkCsMvMrn/LQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 226M8TTDYMK1Kwy+CVmFf2rjriMPHlKfY5mOZB88fp8si/uLEaXFWI5cv5/vVRzpgGH7Ft9DsVCwt8fUVq+vLBLFuJsef1m8ibeuJuSeHF5YezIatQkoLRyDe47ZmAgEstNU5uUnpFT/J5qPI7VntdhvAJ7edsA+WnDUiY1njE2aXW5wXIt0s/cjKo3SW2bRkOXZf3riWA73h+z1UrPIOZDy0NlqQGFpT++tWT/ppoh5wQjYKRphNZZ1X5kLOTxZqgpeoJK/L4lQi6xSa1PAN8reZ8IE6NkIgjYzOvBNiCuSKaiN7bMeay+T1P330eLrj9tFEDQj9KQ5Y9dROypAsyqa+YxcyPE+zJpgpZzdTE2H/eAMSoGtxW6A02A+D1LRqKO95v1uCiHUhDtOIoZ/h6E2bhD65mFiaaBDjxEm7rvTrGyJI33XSs4yBXgYoPGL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 13:28:52.1193 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c83382ef-47b6-48b6-aeaf-08ded5e25c59
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,75 +108,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 09:25:37AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> Pre-existing issues:
-> - [High] Dangling pointer (Use-After-Free) vulnerability in vmwgfx component reset hooks on memory allocation failure.
-> - [High] Missing NULL pointer checks in amdgpu duplicate_state hooks lead to NULL pointer dereference on allocation failure.
+There were a few instances in kfd_chardev.c of kvzalloc being
+used to allocate memory for an array.
 
-Thank you for the review.
+Switch those to kvcalloc, which
+- is the standard way of allocating a xero-initialized array
+- does a check for the mul overflowing
 
-> [Severity: High]
-> This is a pre-existing issue, but returning here when plane->state is
-> initially NULL means plane->state remains NULL. Later, when the DRM core
-> attempts to duplicate the state, it calls the driver's duplicate hook.
->
-> In amdgpu_dm_plane_drm_plane_duplicate_state(), there is no check if
-> plane->state is NULL:
->
-> amdgpu_dm_plane_drm_plane_duplicate_state() {
->     ...
->         dm_plane_state = kzalloc_obj(*dm_plane_state);
->         if (!dm_plane_state)
->                 return NULL;
->
->         __drm_atomic_helper_plane_duplicate_state(plane, &dm_plane_state->base);
->     ...
-> }
->
-> Will this cause a NULL pointer dereference in
-> __drm_atomic_helper_plane_duplicate_state() since it will crash when trying
-> to memcpy from a NULL plane->state?
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-The DRM core guarantees that duplicate_state() is never called on an object
-with a NULL state. The state pointer is always valid when duplication is
-requested, as DRM only calls this hook on objects that are already fully
-initialized and have an active state.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index ab9e53dc8deb..7d8215169c10 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1917,13 +1917,13 @@ static int criu_checkpoint_devices(struct kfd_process *p,
+ 	struct kfd_criu_device_bucket *device_buckets = NULL;
+ 	int ret = 0, i;
+ 
+-	device_buckets = kvzalloc(num_devices * sizeof(*device_buckets), GFP_KERNEL);
++	device_buckets = kvcalloc(num_devices, sizeof(*device_buckets), GFP_KERNEL);
+ 	if (!device_buckets) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+ 	}
+ 
+-	device_priv = kvzalloc(num_devices * sizeof(*device_priv), GFP_KERNEL);
++	device_priv = kvcalloc(num_devices, sizeof(*device_priv), GFP_KERNEL);
+ 	if (!device_priv) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+@@ -2043,17 +2043,17 @@ static int criu_checkpoint_bos(struct kfd_process *p,
+ 	int ret = 0, pdd_index, bo_index = 0, id;
+ 	void *mem;
+ 
+-	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
++	bo_buckets = kvcalloc(num_bos, sizeof(*bo_buckets), GFP_KERNEL);
+ 	if (!bo_buckets)
+ 		return -ENOMEM;
+ 
+-	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
++	bo_privs = kvcalloc(num_bos, sizeof(*bo_privs), GFP_KERNEL);
+ 	if (!bo_privs) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+ 	}
+ 
+-	files = kvzalloc(num_bos * sizeof(struct file *), GFP_KERNEL);
++	files = kvcalloc(num_bos, sizeof(struct file *), GFP_KERNEL);
+ 	if (!files) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+@@ -2584,7 +2584,7 @@ static int criu_restore_bos(struct kfd_process *p,
+ 	if (!bo_buckets)
+ 		return -ENOMEM;
+ 
+-	files = kvzalloc(args->num_bos * sizeof(struct file *), GFP_KERNEL);
++	files = kvcalloc(args->num_bos, sizeof(struct file *), GFP_KERNEL);
+ 	if (!files) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+-- 
+2.34.1
 
-Therefore, the scenario described above is not possible in practice.
-This patch does not introduce any new NULL pointer risks.
-
-> The same pattern appears in amdgpu_dm_connector_atomic_duplicate_state(),
-> where to_dm_connector_state(connector->state) will resolve to an invalid
-> pointer offset from NULL, causing kmemdup to panic:
->
-> Could these duplicate_state hooks be updated to handle a NULL state?
-
-As explained above, DRM core guarantees that duplicate_state is only called
-with a valid state. Adding NULL checks in duplicate_state hooks would be
-redundant and unnecessary.
-
-> [Severity: High]
-> This isn't a bug introduced by this patch, but I noticed the exact same
-> dangling pointer pattern this patch fixes also exists in the vmwgfx driver.
->
-> In vmw_du_connector_reset(), if kzalloc_obj() fails, it returns without
-> updating the state pointer, leaving a dangling pointer:
->
-> The identical issue also occurs in vmw_du_crtc_reset() and
-> vmw_du_plane_reset().
->
-> Since unhandled use-after-free bugs in core DRM state structures can cause
-> severe stability issues, do these vmwgfx component reset hooks need a similar
-> fix to allocate the new state before freeing the old one?
-
-This is a separate pre-existing issue in a different driver (vmwgfx).
-While it does appear to suffer from the same dangling pointer pattern,
-it is unrelated to this patch series and should be addressed in a
-separate patch by the vmwgfx maintainers.
-
-This patch series only addresses the dangling pointer issue in the
-amdgpu_dm reset functions.
-
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
