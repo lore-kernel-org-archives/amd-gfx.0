@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2517C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 12:57:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE4BDC43602
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 12:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD6D10E075;
-	Mon, 29 Jun 2026 12:57:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8C610E868;
+	Mon, 29 Jun 2026 12:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="p3Ba5InO";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="ks5im5QQ";
 	dkim-atps=neutral
 Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net
  [178.154.239.214])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7346C10E79F;
- Mon, 29 Jun 2026 09:10:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A5B310E7A4;
+ Mon, 29 Jun 2026 09:11:02 +0000 (UTC)
 Received: from mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net
  (mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net
  [IPv6:2a02:6b8:c0c:bb8b:0:640:6ac7:0])
- by forward103d.mail.yandex.net (postfix) with ESMTPS id A3FBEC4705;
- Mon, 29 Jun 2026 12:10:43 +0300 (MSK)
+ by forward103d.mail.yandex.net (postfix) with ESMTPS id D8A06C4701;
+ Mon, 29 Jun 2026 12:11:00 +0300 (MSK)
 Received: by mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net (smtp)
- with ESMTPSA id ZAZXGGsiDOs0-5jVX16YM; 
- Mon, 29 Jun 2026 12:10:42 +0300
+ with ESMTPSA id ZAZXGGsiDOs0-e82wDVD8; 
+ Mon, 29 Jun 2026 12:10:59 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1782724242; bh=xa8mxpQF1gWUMUNTX/3Xc9iwg6Tf8Ib7YDOWmAM4pJ8=;
- h=Message-ID:Date:Cc:Subject:To:From;
- b=p3Ba5InO56HaMPWNkPtOvS6h7ow6ARn/OigJksxiJ//wfH8jvghIcYwuazG94uG24
- mJYeqQI62mOA4zhdU6FnPrHwpqIJoPZHcOx2eCJSNCs3YA9URjckaL+smgd4lTi7KC
- 3Y0yVV+Ffs4PD7Ay5HG/2kyUt7x+D6lApen6mmw4=
+ t=1782724259; bh=ozXm2Xvy6K1ZkZFvOIsIPVVdHjDSCB8gUTLLJ0/7c0k=;
+ h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=ks5im5QQyUQzg9JH+aa30cTczRyFk3Ww3tnmluw6+PVrv+1Qf1qBsm6DesF7wkzoP
+ YfRrVxvvohrCvZ/QT+MdaeD6MJ6BgiPGX+ZWVcbiE3fLR4QiT8AVf8w8RI4C4/4MNw
+ Hr8SpgnsjrBNK1TPYsZoZ9hv0P3YFoZR7OOqqDXk=
 Authentication-Results: mail-nwsmtp-smtp-production-main-73.iva.yp-c.yandex.net;
  dkim=pass header.i=@yandex.ru
 From: Evgenii Burenchev <evg28bur@yandex.ru>
@@ -49,12 +49,14 @@ Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
  pierre-eric.pelloux-prayer@amd.com, HaoPing.Liu@amd.com,
  Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH v4 0/3] drm/amd/display: Fix dangling pointers in state reset
- functions
-Date: Mon, 29 Jun 2026 12:04:28 +0300
-Message-ID: <20260629090435.9729-2-evg28bur@yandex.ru>
+ lvc-project@linuxtesting.org, mdaenzer@redhat.com
+Subject: [PATCH v4 2/3] drm/amd/display: Fix dangling pointer in CRTC reset
+ function
+Date: Mon, 29 Jun 2026 12:04:30 +0300
+Message-ID: <20260629090435.9729-4-evg28bur@yandex.ru>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260629090435.9729-2-evg28bur@yandex.ru>
+References: <20260629090435.9729-2-evg28bur@yandex.ru>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Jun 2026 12:57:25 +0000
@@ -72,47 +74,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series fixes a dangling pointer issue in three reset functions:
-- amdgpu_dm_plane_drm_plane_reset()
-- amdgpu_dm_crtc_reset_state()
-- amdgpu_dm_connector_funcs_reset()
+amdgpu_dm_crtc_reset_state() frees the old state before allocating
+a new one. If kzalloc_obj() fails, the function returns without updating
+the state pointer, leaving a dangling pointer to already freed memory.
 
-Each function frees the old state before allocating a new one. If
-kzalloc_obj() fails, the function returns without updating the state
-pointer, leaving a dangling pointer to already freed memory.
+Fix this by allocating the new state first. On allocation failure, the
+old state remains untouched and the function safely returns.
 
-The fix is to allocate the new state first. On allocation failure,
-the old state remains untouched and the function safely returns.
-
-For the connector function, additionally restore the explicit
-kfree(old_state) which was lost during refactoring.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
+Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
 Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
-Evgenii Burenchev (3):
-  drm/amd/display: Fix dangling pointer in plane reset function
-  drm/amd/display: Fix dangling pointer in CRTC reset function
-  drm/amd/display: Fix dangling pointer in connector reset function
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 39 ++++++++++---------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 10 ++---
- 3 files changed, 28 insertions(+), 29 deletions(-)
----
-Changes in v4:
-- Split into three separate patches as requested (reviewer Fedor Pchelkin)
-- Remove WARN_ON on memory allocation failure (reviewer Fedor Pchelkin)
-- Remove redundant comments (reviewer Fedor Pchelkin)
-- Fix empty line in local variable declaration block (reviewer Fedor Pchelkin)
-
-Changes in v3:
-- Restore explicit kfree(old_state) in amdgpu_dm_connector_funcs_reset()
-  to prevent memory leak (reviewer Mario Limonciello)
-
-Changes in v2:
-- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 3dcedaa67ed8..5b5c4023a514 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -437,13 +437,13 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
+ {
+ 	struct dm_crtc_state *state;
+ 
+-	if (crtc->state)
+-		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+-
+ 	state = kzalloc_obj(*state);
+-	if (WARN_ON(!state))
++	if (!state)
+ 		return;
+ 
++	if (crtc->state)
++		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
++
+ 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+ }
+ 
 -- 
 2.43.0
 
