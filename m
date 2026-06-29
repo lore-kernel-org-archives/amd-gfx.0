@@ -4,130 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70C73C43458
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Jun 2026 19:12:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA8CAC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Jun 2026 00:50:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9A0410E27B;
-	Sun, 28 Jun 2026 19:12:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9EF10E2A8;
+	Mon, 29 Jun 2026 00:50:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D6py7Khj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aA1NKzbM";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010033.outbound.protection.outlook.com [52.101.201.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0B710E27B;
- Sun, 28 Jun 2026 19:12:56 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010027.outbound.protection.outlook.com
+ [40.93.198.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEADC10E2A8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 00:50:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vkLoVlelmqAfPfavJKcv+QwLOUau6T/YZTWJxAtommw8dXz/cqNUlAkz3/HxoWajSCHExCiYkH9Zr1SC04Q+8K+0tjp8tUJtg/f0G2Fvts+i68VFEPEVZfYHAzhyMw1pYwD58oYFXg2FGAJHhhEGWYF6OwB5SH4jzbA7xy071ioF+iKiGSn1CDbPiMDAvdLDUykxcbL4gU7JoKgJIxAyVZUnpmMZ/2NkuLpl2BjBb8enCYUFM+Doe2Hl9NVbQDVtjNqi7KyCkaR37AsrnPH70W8BpcBiCf+i6Ksy1VXUwM/FxANKZ6wTUIaRzjkYmW7XXmGKdMWY5B2Q2yNebAgYRg==
+ b=aNeXXkoH5b9J0zbb0tEkeYw36C4AdouwxjDy52qDXo1S97DeyqebShOiYOqzKbsW4iS508Kx8WUIOHNkCellT5z4/y0Rxlp6OBft0mTVMlLoGoW94eh8l6+WK3ZjQ0mMghF77LLwd5+bkJH+bZ5zMmNJ/JvqzVNTKeZXMR1DCfJgvUZkDkAMAArmqeYCCIBwE7I1DSF2WD6EglmDhFGVWO9KTUQSrd2dpn7DengC/QruUpE3UfNTcyngLOEFS0WUQf8qq63hqB1pjoGEIkm2jpz6az1rSM+IPhtYk6FGk2FGY2vY9sJOYwqWlGZmuWZXPVHVeX3dMGPyjf5wH8xh8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8HmwFZW81mK8xvf411VCMNo7oO3kFExdFU1tq+i/AvI=;
- b=wA9BruIn/ZiM1x62cFguonwuEwmPsPS3FQiRslJaTE3SyqHLE3yz0YuMNHAwZKMRD2qmcMvrLdHgmzpnNP0hhkx+X5EJz0N2412CiQRrTCNE9oiiWJoFIqPr2eKpPtykKmX28IAvE3Q0PsSiz9kbk5rdCeZca0TkvevK3vsrFqmwoWBp4qzxS4Rrt6MlmW0RWoWTMO/byAfuod247tMQ+RPaBjE4cUKYemTwo8ghOCwhjOWrIaNWfyzcPLViPMOSGQucCZZezpDghTSMeCHKnq46oQy8qIQB/FKt+MTPtOaXJooEECby45k0fALqwfCrg0LulmYNVNHlvMEFbZx7Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=eXJ0EH7e4EaMhfCSzGlcTAp9RVz+zrq6hYx5irLlpYY=;
+ b=FGe/ZFuXyAXnr/kaYsYlfXKRJ2IL0/8Fj1CPEe9UYs0n1YDqhmt3EzdLPggC6wYqbfdXQmYgOeKdeu9cyy3MKsOOYHrIfiXjjWAibShwuFOw+k5Mbwx/VwKZEMdQxWpQe8Uka0LbVkLtkm72uVLFl5ntkVd7ZnI+6zAuRqHgSEotEWAy0KdM8E9XgGxrbiprTRiFKj/E1X22crv9iR+KUwcVtFNnEVM2iGu/9KoZU4hF63f4FIGdcpCOpSHW/v8HBiVV6nrlP48pQPemByG2IosdzydcEQlHH9OJ1ozk1DnzIiCkTxk1+n7NkX4Y+BmtVeSy2vzDAfsYQqce+MeIoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8HmwFZW81mK8xvf411VCMNo7oO3kFExdFU1tq+i/AvI=;
- b=D6py7KhjIl3KxAuqgJl5PHFo/aosiLhgTlUtb99OeHVzpq9PfF/CuyrgI2wbQxXEsgT9MpcNIQC51m9cfcTdQywKZjhGPB3jadtnPI+fh+TtPY4xgqZDgjFTM3L9v380abjUUEs3w8kSH6CWtt9K0F+Gw53JJ5Z8wQscmtTUr9M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DS7PR12MB6288.namprd12.prod.outlook.com (2603:10b6:8:93::7) with
- Microsoft
+ bh=eXJ0EH7e4EaMhfCSzGlcTAp9RVz+zrq6hYx5irLlpYY=;
+ b=aA1NKzbMKH1gMO9hkAlFkieKf0V84ZKqRhfnLmU/rDQlVMkZAzRKKLQD+1VtdT6TY1pIB4V7fcVQUSlVLQORobUSVQbmw6J4bXn31MSN+sfYz3Js0jkA9RzEDcnXwUt/mWVbwpPYbe4igKWxAjV367cyS6IQg1MgrRMl0yGRiW8=
+Received: from CH5PR04CA0002.namprd04.prod.outlook.com (2603:10b6:610:1f4::20)
+ by IA0PR12MB8279.namprd12.prod.outlook.com (2603:10b6:208:40c::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 00:50:44 +0000
+Received: from DS3PEPF000099DC.namprd04.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::8c) by CH5PR04CA0002.outlook.office365.com
+ (2603:10b6:610:1f4::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 00:50:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099DC.mail.protection.outlook.com (10.167.17.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.19; Sun, 28 Jun 2026 19:12:52 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0159.018; Sun, 28 Jun 2026
- 19:12:52 +0000
-Message-ID: <396b26b4-50ea-4635-9f18-4401778d20a8@amd.com>
-Date: Sun, 28 Jun 2026 14:12:47 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: set new_stream to NULL after release
-To: WenTao Liang <vulab@iscas.ac.cn>, Greg KH <gregkh@linuxfoundation.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260628072740.8884-1-vulab@iscas.ac.cn>
- <2026062816-contour-womankind-1646@gregkh>
- <E91B74F1-B7B5-4EF6-A697-634178A2F3A7@iscas.ac.cn>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <E91B74F1-B7B5-4EF6-A697-634178A2F3A7@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR04CA0139.namprd04.prod.outlook.com
- (2603:10b6:408:ed::24) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 00:50:43 +0000
+Received: from jz-tester2.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 28 Jun
+ 2026 19:50:42 -0500
+From: James Zhu <James.Zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <Felix.kuehling@amd.com>,
+ <Yifan1.Zhang@amd.com>, <philip.yang@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>, <Bob.Zhou@amd.com>, <jamesz@amd.com>,
+ "Claude Opus 4 . 6" <noreply@anthropic.com>, Yifan Zhang
+ <yifan1.zhang@amd.com>
+Subject: [PATCH] drm/amdkfd: use iosys_map for CWSR buffer access
+Date: Sun, 28 Jun 2026 20:50:28 -0400
+Message-ID: <20260629005028.2907470-1-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS7PR12MB6288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 456d45af-321d-42b4-868b-08ded5494015
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|IA0PR12MB8279:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfb023e8-e41c-4b22-4c6b-08ded57872c0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|18002099003|11063799006|56012099006|4143699003|22082099003;
-X-Microsoft-Antispam-Message-Info: gvs8BDlspeT8sirdiV5my2FYEf2PyCTqD8upR0t5LJgBbRTaYSjEUHeO8sgVufTx6Y1UcH4ZtuBIxSVvQQtSHXc5CYSXaasZEPnHjxgaWXZPEuX1X31WRBqLsEpDuqz50YRGyY+c+5BKiZg25sG6AjoWm4r0wb4DMblIoxbRg82zudoi4/VtNGQ2zY+adbP9JcWEgibvccJf9t2xEREQwD2f6F/36Sg6ioiI12iKvI5tVk0WqkQ6vqJcgJ5bcXKe6GgGqrffDdNPFAu1BgWxrovytdBBzOYALibW1IvrbPr/iaai2Rm/fiXtIMy+Q7KMep21M5luiFYwgYElAk9Vls3sPuv/fY/wUC6DBF2Aq3Uj0uepHTj43SYCRMg9jfu2IhpOlchlKcpYQns06hsMGdIMiRaG3GnLQw0WSEn9zCkluLreJW6dpgutsHj9kH8l1NaC540e5QHAHLndJyNvbqM5lB7Anx3xA8GclZQHLB64gdvJEwMYJx33/Mo+dxc4p5miqTGOwVGY8ODES2HWrJPy6msdTg27zafk1h+A9QJwxnBR6vDkfy8fgsPuaKSb4x9qDaKMZbB4ll/WusvTREbyEolE31zD0TLcKwIPC2OQrIbVtC52Pf2LDleTyo0Fz7VfHSxKo3KvP0/X2c1F9q7ynewP3VkWTJ8DS4fL1Ww=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(11063799006)(56012099006)(4143699003)(22082099003);
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|18002099003|11063799006|6123799006|56012099006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: Us5WaI9rGep14QNwBEjZxWdw/gVbQ0YB8iBbQc+LdSUIwHNc8icW7c9fKo9gdV4M9+4n3RejznV3rkQ5mIclLlDHV2uEQqCUVjghTFRbJXAZggAA0RGyqtsGlZtwhU/utT5zV2S1wQ+afsEJple6RwSFNHn/m5r5Kd8wrMby8HfM5GdFV/WAqkQTaTqQlXkJEkIYSlxN1osxrV/ZwOd4m+Inupnd3YYnc6qNJ8PD/Eov8pddn7KbwnWPLlwyKTVb53EhOSgmn4xVzJ9r4ARTDdo75PZt1lSqQ1ObAAduj2gq/LFzUvyCcE8DLdvjgzO4rdpbl+W1VdO3eInald6QRapW+qrFDvfSqFskKYJU1PbqQNQ6GSU6iqKA9oJvFBoQ2rlJqjdPVRsaw3b6xqRbGmPKXjxUTX5uUE0dENfS/jd6/SqPV6v0ciopF/pOvD26WGfV5SMSGiSTQ11h6X9lOoo338zaZXrikbPhxSliGnmQxY7Qf16ogycjcoe6z1Aju8iKV7IJLa7n41Mip7amoqrUcYet/a1f6FvgcHTcRAq0Y6FIaqP2DNcI/6HIzX8ufYfUmLPO2hYEUi8xdtJU5FGfnE5OESCHgZklpWA7ewrIxoL1vYDpD/pAGpHpeUzOA3hSNLQbQILioZONGWjNNv9Vnp1THWMysQTd7ONlwbDJkjSlpFkHiXXaSrkW/9f4qlk2mDxw7O87kKHfkj0tLQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(18002099003)(11063799006)(6123799006)(56012099006)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkNSQnZKQXpDcVZTVTR1ZUNBQmZFTWZwcEMydU9zdU1DSkllek1TVlJQQ1hZ?=
- =?utf-8?B?YkxCaW5iem9WMTBkcnhySHlwUk1jUHVUMllrclU1M09sQm53eUZuUXh3OERq?=
- =?utf-8?B?dlp3cHUramEzNUZZVWZ6a1BNNWhpWUwwVGpFMFE1UStyaUZkWHVLSEtmRlh5?=
- =?utf-8?B?THZKQVFMYWlBWWdXNkRjWXF3U3VIb3hwRG93RTlrSWFQRGR4a2R2c2R4cDhR?=
- =?utf-8?B?TFdRQk1QaCtSY2xxT1d6MS9qNk9XT1hzZG8wVzA0Qk5hQzNFK3NjZ1I4WkZH?=
- =?utf-8?B?QlI4enExbkpzazA4UEN5Rkt5UUVxT1Z6TVhQS0pTWDZ2OVhkamRBczZHSHM4?=
- =?utf-8?B?SUxpTXJraVcxL2tmNUJvdk9mamVDWjZFSGhoZWdZN0xnNDBTRWVzQlFjYWxn?=
- =?utf-8?B?K0NWN0VWYUh6Z2ZkazlBdk5KUnliMG9IL3VQbzMwRnE4dDZPbEFoTThNaFJh?=
- =?utf-8?B?K3VnQUVaMnl5UTc0Z21aREdIaWNBUDZhUkhZT2hSWDRKNnRpMU1KNlc2YlZ6?=
- =?utf-8?B?YmhVaEc2YmFMSG82dGg1ODBQWTJ0ZHB3b3Q1VG5EWXNxekxQTlRDckR0dVA2?=
- =?utf-8?B?WXBST0ZkYUtrbm8vMGRDZWNKdHRqa0V5eG11RXVOTG1CaDRWS3VyYWJoU0oz?=
- =?utf-8?B?RWE4WUxxdUJ5OVgrbTF3alJ2d2Vpdlo1SVcvWWM5alpLTk9LcGVla2tDMXNl?=
- =?utf-8?B?ekduVERWQjZMcDdQano3SlV0NGRRWFBSQTkxZGFLdkhGOElhVThLNEFuWTlx?=
- =?utf-8?B?dTBrc09mdU1mUDJzQzJQL1U3bjl0ZkJTVHVpSmZUQUt0T0lTajU2cjFEdVNP?=
- =?utf-8?B?Y2djSDZ2S1JEMTNlOUJRSWpsRVE5eENWbEhxaVo0VVZLb2hveHp2enN3cjV1?=
- =?utf-8?B?ZG40RjBaMXd6dDhKU1hHT0RWYUIzeEs1Z1VyVTJJTG5IelVsQmUvQlRkSXUy?=
- =?utf-8?B?akFMaTVQbGI5RVBERzByU2twY2hqZ0hsV2Y4c05nVUdQaXdzYkI1cFFUWWhP?=
- =?utf-8?B?Rk5PcW9FNTl3VGxqdklTZ25QY21WR3p3WXVyMzFCRG5lV1NoU2Z0dDhNRmFq?=
- =?utf-8?B?a2dPbGZNZm9GSER0OEx0MStkUzF2dnBGcWU0enZlRVVYVm5sS3RwWFFkVW5X?=
- =?utf-8?B?aTcvQnladXdwSHE4QytHd2tDcXBVQVJQbXp5K0FWRmlXQnllK2RrRDRVRnZB?=
- =?utf-8?B?MHNzT0JKYWFJdzRvY0RNRUtueU11Q3RYdnh4TlhaakcxTnlxMVQyRGVWZjNj?=
- =?utf-8?B?RUFoTnozY0FmdjhiY2VIZDJUMUtmRm44dWM1MGFybFZCYVdHTndYK3NwUzI0?=
- =?utf-8?B?cUxsaEhoM01PcEN0WnlvUmZwSWVZU2M4dm9hcU04QzlWUUhQUEUxN2F0YVZ1?=
- =?utf-8?B?ZHloWmRDaW8xa1JWSHNoVkJscmkyUnNqSEFGbFo4VXZGUnRFclIranNlb0k5?=
- =?utf-8?B?UUkzZEVYN2EzM3JLQmZZSUVJRXVwYi9nZDhJMmk4d3F2WmRodXRLL2puR3dl?=
- =?utf-8?B?L0kxcjlhVlcrV0hlQ3kvOGJZSk0ydktqZnJkaU5BWFhaOHljTHdaZmFXRDkr?=
- =?utf-8?B?Q09NV1pvV05aVUpsZHpLMFZ4Nk1xYjRkb0lhejV1ekdFbkRpZzZybWg2R2Vt?=
- =?utf-8?B?ZnFnUFhVTDNGTlZieXExWWQyT3VoOTRCYVFHaldSQ2NRekFNNlpwMCtwcWRR?=
- =?utf-8?B?WVQwN3NFRUNGQmVxeUNKdDNyK091aXhTbXQ5TXRMQU8zbHJxeWs4ZnVhRXNo?=
- =?utf-8?B?VDFiT0lOZFB6NUw5MnJXS1FSbFVXdjUzek9GYjluTzlvUzFkVUhKWWxrZy8x?=
- =?utf-8?B?eVR4NnVsOFBmVTErK0dQaUcxQkthY2FXdVRheUlqQXc0M0lqK29SWWxCOGRH?=
- =?utf-8?B?aEZualFjOVdRM29vTDZVa1YvaDB5RDUvdFFjandUQkxpelhjenN2NUNHZFQ2?=
- =?utf-8?B?cVQ0TEJKNjRNU3VSQlpVTDA5c0w2cnJoVitiUWprcERaUVBVUHNvTHV4cWpt?=
- =?utf-8?B?YTRTbHBnZUhjelpCeGZVeWJTU2NyclJGckQ5SGtjajlxRFBkcmxqRWIyK0Nm?=
- =?utf-8?B?R2ZjYlNLSWdFQW12Ym1rM2h0TStzMElHeE1mWS94SFBhRkJlbU93SzFsMVYy?=
- =?utf-8?B?VGJFeU5Cdi9iTTBuS2p3cjB1YTU0N0F1RU5VQmZrRWN0eGRCcjJuSitySHVh?=
- =?utf-8?B?MC9WTHN2K05ZeVlBU2ladXRwRGlZYlBvSkpBQ3hLdkM2VVdKSnlvZFlFc28y?=
- =?utf-8?B?TG5kdGNxdVFUZVcyNjYya0xtZWNLWFNSZnA1bm5LVENVaTBFUzhxOVJnS3Y1?=
- =?utf-8?Q?aNBL+7pLqMxejjMVtC?=
+X-MS-Exchange-AntiSpam-MessageData-0: 8DndOKlOD4Vwc8vI33uxTXpcteDvceSmQYypUEGEyAtkDaTtnyMoYOw74SFzyJRAziMlG7uPeloSemU1jYuXPWBV12w8Lya0LUJIe/fgGaJvbKV6oHYL6HIkP9d8C8p0G2W2IZsat9yXpTQiHaCXgwsxl/rqml1HreG8hSzpRlTw4y5QxaSZ0chF+KbddVzBAaqgKLRR5UPfTXa2RYK1UZIRCH6qpintIj5f7vDgowTEwuQHceekV8Q87eC91jVol5Zs1Gz5va75pNsPHah1AIU5ULpuj0lRQ9fzxM9RbiQP2pPXdqo7JhSMdHFXE5XyBgHcmM9i2Tr3HjiIozEICAbeiZ4m+rBsvrQjQ2u/kWk0Go9cgLWD98IfA9aCQPBlVYfWpWnskxIMFdoEhKETzVjpnTgN03mbyeZiToP8lYq8FHX7Y5IKbZl92pCP7YIB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 456d45af-321d-42b4-868b-08ded5494015
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 19:12:51.9051 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 00:50:43.0368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfb023e8-e41c-4b22-4c6b-08ded57872c0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E19geOWSjKOe8vC1AGAJ3VijOnkXCJsHLggFcu14wjzvucvhwpSFRA+QrbJ9/XQlyQLHEor6mWntM49fOz5eVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6288
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,20 +112,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+After moving TBA/TMA from GTT to VRAM for GFX9.4.2+ in commit
+5088a1ba6d6d, direct pointer dereferences to CWSR buffers became
+unsafe because VRAM is accessed via MMIO (PCI BAR mappings).
 
+Direct writes like 'tma[2] = enabled' and memcpy() can fail or
+produce incorrect results on non-x86 architectures because:
+- MMIO requires specific accessor functions (writeq/readq)
+- Compiler optimizations may generate invalid instruction sequences
+- No guarantee of proper memory barriers or atomic access
 
-On 6/28/26 02:49, WenTao Liang wrote:
-> 
-> 
->> 2026年6月28日 15:33，Greg KH <gregkh@linuxfoundation.org> 写道：
->>
->> Did you forget to include an Assisted-by: tag?
-> 
-> You're right, the Fixes hash correction in v2 was suggested by the 
-> reviewer in v1. I'll add a Suggested-by tag in v3. Thanks for pointing 
-> this out!
+This patch converts CWSR buffer access to use struct iosys_map,
+which automatically handles both system memory (GTT) and MMIO
+(VRAM) correctly by:
+- Using writeq/writel/memcpy_toio for MMIO regions
+- Using WRITE_ONCE/memcpy for system memory
+- Providing proper memory barriers and access guarantees
 
-I believe Greg is hypothesizing that this mistaken tag was caused by a 
-tool/model and you didn't mention the tool that you used.
+Changes:
+- Replace void *cwsr_kaddr with struct iosys_map cwsr_map
+- Detect MMIO vs system memory using TTM_BO_MAP_IOMEM_MASK
+- Use iosys_map_wr() for writing trap handler addresses and flags
+- Use iosys_map_memcpy_to() for copying CWSR ISA code
 
-https://docs.kernel.org/process/coding-assistants.html#attribution
+This ensures correct operation on all architectures while maintaining
+backward compatibility with older GPUs and APUs that use GTT.
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+Co-Authored-By: Yifan Zhang <yifan1.zhang@amd.com>
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 63 +++++++++++++++++-------
+ 2 files changed, 47 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index ad4897f094a2..6e559aab4009 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -32,6 +32,7 @@
+ #include <linux/atomic.h>
+ #include <linux/workqueue.h>
+ #include <linux/spinlock.h>
++#include <linux/iosys-map.h>
+ #include <uapi/linux/kfd_ioctl.h>
+ #include <linux/idr.h>
+ #include <linux/kfifo.h>
+@@ -710,7 +711,7 @@ struct qcm_process_device {
+ 
+ 	/* CWSR memory */
+ 	struct kgd_mem *cwsr_mem;
+-	void *cwsr_kaddr;
++	struct iosys_map cwsr_map;
+ 	uint64_t cwsr_base;
+ 	uint64_t tba_addr;
+ 	uint64_t tma_addr;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 8e701dcda8ec..7fd65c31afa2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -33,6 +33,7 @@
+ #include <linux/mman.h>
+ #include <linux/file.h>
+ #include <linux/pm_runtime.h>
++#include <drm/ttm/ttm_bo.h>
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu.h"
+ #include "amdgpu_reset.h"
+@@ -745,6 +746,21 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
+ 					       NULL);
+ }
+ 
++static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
++			struct kfd_process_device *pdd, struct iosys_map *map)
++{
++	struct kfd_node *dev = pdd->dev;
++
++	if (map && !iosys_map_is_null(map)) {
++		amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(mem);
++		iosys_map_clear(map);
++	}
++
++	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
++	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
++					       NULL);
++}
++
+ /* kfd_process_alloc_gpuvm - Allocate GPU VM for the KFD process
+  *	This function should be only called right after the process
+  *	is created and when kfd_processes_mutex is still being held
+@@ -1192,8 +1208,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 		if (pdd->drm_file)
+ 			fput(pdd->drm_file);
+ 
+-		if (pdd->qpd.cwsr_kaddr && !pdd->qpd.cwsr_base)
+-			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
++		if (!iosys_map_is_null(&pdd->qpd.cwsr_map) && !pdd->qpd.cwsr_base)
++			free_pages((unsigned long)pdd->qpd.cwsr_map.vaddr,
+ 				get_order(KFD_CWSR_TBA_TMA_SIZE));
+ 
+ 		idr_destroy(&pdd->alloc_idr);
+@@ -1501,7 +1517,7 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+ 	void *kaddr;
+ 	int ret;
+ 
+-	if (!dev->kfd->cwsr_enabled || qpd->cwsr_kaddr || !qpd->cwsr_base)
++	if (!dev->kfd->cwsr_enabled || !iosys_map_is_null(&qpd->cwsr_map) || !qpd->cwsr_base)
+ 		return 0;
+ 
+ 	if (KFD_GC_VERSION(dev) >= IP_VERSION(9, 4, 2) && !dev->adev->apu_prefer_gtt)
+@@ -1516,17 +1532,28 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+ 		return ret;
+ 
+ 	qpd->cwsr_mem = mem;
+-	qpd->cwsr_kaddr = kaddr;
++
++	/* Set up iosys_map based on whether memory is MMIO or system memory */
++	if (mem->bo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
++		iosys_map_set_vaddr_iomem(&qpd->cwsr_map, kaddr);
++	else
++		iosys_map_set_vaddr(&qpd->cwsr_map, kaddr);
++
+ 	qpd->tba_addr = qpd->cwsr_base;
+ 
+-	memcpy(qpd->cwsr_kaddr, dev->kfd->cwsr_isa, dev->kfd->cwsr_isa_size);
++	/* Copy CWSR ISA to buffer using appropriate accessor */
++	iosys_map_memcpy_to(&qpd->cwsr_map, 0, dev->kfd->cwsr_isa,
++			    dev->kfd->cwsr_isa_size);
+ 
+ 	kfd_process_set_trap_debug_flag(&pdd->qpd,
+ 					pdd->process->debug_trap_enabled);
+ 
+ 	qpd->tma_addr = qpd->tba_addr + KFD_CWSR_TMA_OFFSET;
+-	pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_kaddr:%p for pqm.\n",
+-		 qpd->tba_addr, qpd->tma_addr, qpd->cwsr_kaddr);
++	pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_map:%s at %p for pqm.\n",
++		 qpd->tba_addr, qpd->tma_addr,
++		 qpd->cwsr_map.is_iomem ? "iomem" : "system",
++		 qpd->cwsr_map.is_iomem ? (void *)qpd->cwsr_map.vaddr_iomem :
++					  qpd->cwsr_map.vaddr);
+ 
+ 	return 0;
+ }
+@@ -1536,24 +1563,24 @@ static void kfd_process_device_destroy_cwsr_dgpu(struct kfd_process_device *pdd)
+ 	struct kfd_node *dev = pdd->dev;
+ 	struct qcm_process_device *qpd = &pdd->qpd;
+ 
+-	if (!dev->kfd->cwsr_enabled || !qpd->cwsr_kaddr || !qpd->cwsr_base)
++	if (!dev->kfd->cwsr_enabled || iosys_map_is_null(&qpd->cwsr_map) || !qpd->cwsr_base)
+ 		return;
+ 
+-	kfd_process_free_gpuvm(qpd->cwsr_mem, pdd, &qpd->cwsr_kaddr);
++	kfd_process_free_gpuvm_map(qpd->cwsr_mem, pdd, &qpd->cwsr_map);
+ }
+ 
+ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+ 				  uint64_t tba_addr,
+ 				  uint64_t tma_addr)
+ {
+-	if (qpd->cwsr_kaddr) {
++	if (!iosys_map_is_null(&qpd->cwsr_map)) {
+ 		/* KFD trap handler is bound, record as second-level TBA/TMA
+ 		 * in first-level TMA. First-level trap will jump to second.
+ 		 */
+-		uint64_t *tma =
+-			(uint64_t *)(qpd->cwsr_kaddr + KFD_CWSR_TMA_OFFSET);
+-		tma[0] = tba_addr;
+-		tma[1] = tma_addr;
++		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET,
++			     uint64_t, tba_addr);
++		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + sizeof(uint64_t),
++			     uint64_t, tma_addr);
+ 	} else {
+ 		/* No trap handler bound, bind as first-level TBA/TMA. */
+ 		qpd->tba_addr = tba_addr;
+@@ -1619,10 +1646,10 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
+ void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+ 				     bool enabled)
+ {
+-	if (qpd->cwsr_kaddr) {
+-		uint64_t *tma =
+-			(uint64_t *)(qpd->cwsr_kaddr + KFD_CWSR_TMA_OFFSET);
+-		tma[2] = enabled;
++	if (!iosys_map_is_null(&qpd->cwsr_map)) {
++		iosys_map_wr(&qpd->cwsr_map,
++			     KFD_CWSR_TMA_OFFSET + 2 * sizeof(uint64_t),
++			     uint64_t, enabled);
+ 	}
+ }
+ 
+-- 
+2.43.0
+
