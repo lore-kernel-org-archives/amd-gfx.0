@@ -4,93 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00F1AC43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 13:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B0DC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 13:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9165510E1A3;
-	Tue, 30 Jun 2026 13:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53F2110EAD0;
+	Tue, 30 Jun 2026 13:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CkEJMapV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FWKlSxEF";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BC4010E1A3
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 13:31:00 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-137eb8e3491so449356c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 06:31:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782826259; cv=none;
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C37C10EAD0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 13:33:27 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-137eb8e3491so450080c88.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 06:33:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782826406; cv=none;
  d=google.com; s=arc-20260327;
- b=NGDzE15UKP7cC53gQlWYCMQRqc96gu1bfE7SxX3KkZLgHMmY0a1HHgj5l3uwoRrsB9
- 3/PY8Au7hkEEbm73wbzmUzUPPAfvyh5aPS/AIsvtFYX04TC4pqhaZpsIsJeG8ce+2EFY
- 9p/jkv01obLmaSSxDkiziqRnoWi5nhP+1m4KlU/NKUiQN2KncXjG1S+klBdrxqEfUfWZ
- 4QXCKF1lZiR44/i4RgHbgrKc2p5K4H6eRJ51oWx7YreAY+abjy5+V8N27hTqZNOiBDKg
- HR+AfPPwtGX8paeAK/sPrOcPHL5i44IbEoBAdQEGeMuzCF6zc20dK6TWToeGr5O4BK9Y
- s0/Q==
+ b=h9l0LrxqHj+NEAxPDIwTVMmnOEGOrlCmdudYD9+62u2qkZ4Fx50tyMfbQzFhP1T2zX
+ qgyB5zc+JF3Wl6iIhIyTpIUkm7c1th5KyF49pxOE31yueH9UbXqHfaEhA1nRRFDiZ9SG
+ pt9x1qW+SqcJNV46bT0xb5ioSK1pfALbe2Qy4FDEfBWZeUtDTs0ztmVzIL5xNdYbmUM1
+ xI/fOy+prDEHxcxBJXXHGSMu6WEfkg3xtORyNHLLNva2PIiAqYs0RYd/hrcK4yIO1AEp
+ jUUSS0FNBsqtwU3Kv1hpwxtMrSft8eGg/N69B59HHEcqOIpAhIMRMJRYG/+SkMAQQNDA
+ RDBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=dZ7ZKrFz/LoxsXRp5/3accJXjFAsFZa9cDA5b1lQP0Y=;
- fh=9k/4C+jNX/+ca5X4cGefuZ/zsq/hRrtFLKCoNzV1rIk=;
- b=i44sagGNKQ9MwA+fLuZfFZ1rofB2Q8VMfuD8t27D9UxicpFx66yUwYa0gSj6dG8bwF
- 5T7/40uGCTA/tss+bi2TVjG99cJ89VjWHnpqwKOIwKkXaHPPY2Xkp/WlQ2XAz/EMHJYS
- Zxm7KyxYkGAK0fpjNtn2FE4SoRgfF3GRcLe0HqQ7iHDcXV9spe49iMAjtRIaRF9EKfYn
- bbppI5oXgPnUQy9xm8jNhs150vh6AEQ9ldYSbX96Nlvld18P40Oyq+p6RIGeTkXG10/h
- IvO636YDtFI3HzW0TTTgx/gJcR3EuL9uMqO2IDKvj8+OcVG7/Zk1sob8/wr8jRh44hAo
- qu/A==; darn=lists.freedesktop.org
+ bh=MxO8NQTZB9THcSU9sWEewow4jOxEhdvT7ds9pL/iUyg=;
+ fh=WLp0uyQ5VgooXd+KwajGtyg086yoNX2AEsj1tWPaT2o=;
+ b=ehn+FM2nCz11r6pigc15xyt+N+RuhGot3Lo06JuR5W70tqjuk1cax996V1HQfxW360
+ NVuwIgauIrsNiTQqyKP/4QQ7OYKGadD5Y3VgixyorJUZUqt/j6BoPMt+eoQ+A5p0XlIV
+ W82LYOdHaMPLRjgKjtmYBySZcthUcxm5WnOjm7/DFHG2JvYXhJ1vkJPymnvyjj462xRV
+ aAnYUyHw/d5szPISKBt0V7RD4eszdP9EsUHKhCdAjU0J/sJffVwllyLCblYViAJkXBA4
+ nkSaXs9PXmwmr4z5ugoqD9plSmtmsO3LPCnkPuEiniBgjkpikCgmslY+D43E+S9xbllO
+ +WWw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782826259; x=1783431059; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782826406; x=1783431206; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=dZ7ZKrFz/LoxsXRp5/3accJXjFAsFZa9cDA5b1lQP0Y=;
- b=CkEJMapVtBHCmxvgOCRSQAFAXw9Vac4uLOgauE+jaDlyipatS6toI8ZZpO7OpniXHK
- HQbXe21G4yUanTmOpFByo3CmfM3ho21vsJm8LY8tm9/UGhtDahfMEnsWF8WA9YHFFwBd
- oC0Xez1ToroXpOHEG1DyM79I0vQJ51fzcEI7zOA97UDfooQ6A4Q/0NyD337fnEeuKAX2
- /S5OpO0Mfm6lSiwlw7A6J7iuBAaDXHzot5aYp+Bb03i5D43tpHh3jtSihX/OS6v/859c
- 6GjP5yAaMD/RbpY+oT1hojq5Z6SbV3ia6AO2fCLJOyxHPKMAuCDoP+8i6SjmB9iUsXH0
- dxTg==
+ bh=MxO8NQTZB9THcSU9sWEewow4jOxEhdvT7ds9pL/iUyg=;
+ b=FWKlSxEFv2SLBqsMn4dzT73OSJa42L98HtmLa3WBclAoe14NF5v1a0YoJSVP1Qfwc8
+ 1NxXu2rQmVTY6MrEcEOvupg4DvVg6ulZ8THQpsgY//SIig3c4QZvkVCT6Bz+sJo4zjQW
+ OuXwsqEZb/+Okv/FyJmpVc84hsC3vJH01xM4kO/VXtG/oChNYC5SjdEe3ZCKCFpCQYeJ
+ v27JIlPT5OXP/aZYk3kLBEYJXAG6kFPVuEBC/i3mK1IPvVv9hd2zx+qTE0Fm6sDh4I/d
+ aJJVnNDRXgzT7PiwtS9g2nX1J0WDMy0hOcC4YzwB9Ewb3iJbVhZm6s710NYNd1Xd95/u
+ /N0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782826259; x=1783431059;
+ d=1e100.net; s=20251104; t=1782826406; x=1783431206;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dZ7ZKrFz/LoxsXRp5/3accJXjFAsFZa9cDA5b1lQP0Y=;
- b=b1SpHqg4ycOr6QrL4PmGq5lXiniYDvFV24BMMZQ17NvxNpHXzHZRP/+hxF14SCHyHh
- DEITLPGUZIQayun71RXx+w9lq455SJzvDASpchVl2ESR5OscPnfJPOjZs3GuJkdtNSJX
- 5XpqN5Obxr2Ta53YRA7wFPdizE2vG9WiwXi1yDcTsyxGQkW4rQo5Ro2hix0bKX0g16lo
- cliQTfu8nBD8U1WmysYRrxgE7q02/RdbTg597C2I4GCNfrJcm7fD6K//IStOV2kOWR1d
- LPIyi48mCAG9KV0zUQCKCGj26oFVcsL3kYPGr1cWVldRDu+8XNuLgc4j15p6fhNC44Oa
- XyvA==
-X-Gm-Message-State: AOJu0YzyLTV0VFQoxTdeDYF5nHqXBjNpuBNe1zlUcAqsL1KMVmqKzCGl
- krP2I3rVjtglK1R8ogq4wBZI7KQ8WzOAx3IZ04dumo+Jlv2nXU5CbNj2DQEU35LnRv48uudEuxl
- h4DZTVG2vfo/nDczYfiDd7kxkbzA/gtg=
-X-Gm-Gg: AfdE7clyHf4sdemMxY+P9ts4LezxjsuZhBZtJ2fvfS33FQTLO14SAVWH3rUivT2ViS3
- P9teufX8NpJ8p/hHCPfX5ES4bwLORytwwLYHDiKbQU74YBwn1VpTs5oyAd1Ub8XVJ95sAA1M7DH
- isT0NPqG5+O39btKzUEzSKTX6UxxS9pganrSupFzv4ESJ6EWWB+GwUyDeCCwOYy1tqLH4/fUEcS
- j1zG4l+QcMbHEajYs1u7FBSozqiJkw7meoXhGnHM9XtBFP+AAJtE3sWFtbo4lrkzmUkcim/dnLy
- iNYWb001uiZtkw1ZeQV/btu7YRTwRkzs2tQx28UMWYnCQ1JUgLWAEShBdEo=
-X-Received: by 2002:a05:7022:396:b0:134:d037:aca3 with SMTP id
- a92af1059eb24-13b2a15799amr1116702c88.3.1782826259413; Tue, 30 Jun 2026
- 06:30:59 -0700 (PDT)
+ bh=MxO8NQTZB9THcSU9sWEewow4jOxEhdvT7ds9pL/iUyg=;
+ b=etXaVfFPKucvDE8iLci6IRbOeSEzf5v93dCIuu5tGJyRnz7oW/yDMpIFJn7LiO5dj4
+ avLWhUCLyy2r3VL3gOK8Y9+IDHgFN8hIy1wdAxcbMTUm+0nyUXSU2Hk0lQxMGkQfl1a0
+ hp+fVtbBFQL+B0jro6wAqlpRv4+0OMqcP12+g6CIofmf8duQOnetM/8NPa1+21E6KFg+
+ 7pjUwB4ZXrFogcGOrpn1re/TsZwF4gZvj8Vu6tBjhlBYo5HAadoLFSK3pK3ekKW2/JvD
+ 0T5kSTq3QxHywoBiWFAIzOoUaBPRNtcM7KZqjxJG2S/u8E94QtjnBJlXtm7OvOOmA3pL
+ A3yw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ99RBItZVu6ARerfTFKlXja/FuzEGxoNNze8edqWO3+P7nV58JlH4ntdUyldKU4iRfba2PHXwrv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfulVVYpulxni61qDINE6454KnvvvIbpYCvJu9nJsgs3KK5tw+
+ u6vNicMYQod30nSq+iP44BFjTr258dqQtt+yEdboB+BwgUhcOJYKEkJNEqGa3yfMBtZOakj3cVu
+ h/gxaOV4/8tb/LkNtTEMvX7KEffiZd7c=
+X-Gm-Gg: AfdE7cngjb1VGJGSbECGnNQM3rZyu+63X6W9WYNcNXtIwlCU+EBIqvwWl6vQj9Ws2eH
+ IZdrel2cp5fr7M/46PdY+hMvOI6dBFveeBlU//2ELph7b8kT9fGQ7rTbIqY4kSdhRNVnUZ0KW/P
+ yPfC0NSzNwuP4btAdfnRWrFTAJ0NDxvRZ0KLrA6of63wgH/E7q+1dAg/b7F8tAGgVtfDtbWx3pe
+ tzVAbbAAbqPXiqc7NoA5q78N58Pb8L7yh4LiA5ZrHwrIrhGzLaCqJ700EpRdixSykyE5sY7ECj1
+ cbsCbRFp1M2VApgnWc7pBJvgEZyp+Xh29nimrkaKKtchxKkmjP4GT8dPc8c=
+X-Received: by 2002:a05:7022:ef0b:b0:139:ed59:8745 with SMTP id
+ a92af1059eb24-13b2a1bcf85mr1062085c88.8.1782826406221; Tue, 30 Jun 2026
+ 06:33:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260626085558.97923-1-tvrtko.ursulin@igalia.com>
- <3694635.dWV9SEqChM@timur-max>
- <CADnq5_MiRc2Gei3QcmxVgtykLNfC+QwyxC7W=LsAVjMfCAT5_g@mail.gmail.com>
- <4911451.vXUDI8C0e8@timur-hyperion>
-In-Reply-To: <4911451.vXUDI8C0e8@timur-hyperion>
+References: <20260630072838.67086-1-ke.zhao.kernel@gmail.com>
+In-Reply-To: <20260630072838.67086-1-ke.zhao.kernel@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 30 Jun 2026 09:30:45 -0400
-X-Gm-Features: AVVi8CdL4H9i61g92RzrVYI1z7kpmdoOpBtcLXc1iM9R5obskcosi-Y6o10XEBM
-Message-ID: <CADnq5_MLEK4eE3tTvory-1-Uo00FCKPfM6mXWh8RMpV3bkMbxA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: Save some cycles on the job submission
- path
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Tue, 30 Jun 2026 09:33:13 -0400
+X-Gm-Features: AVVi8CdM88QkmqoCNLlwZsB6fAv5X0TzxYB4d_ZM8E9TNR3nyDqVPkCBZr0u2y8
+Message-ID: <CADnq5_PjWYebXd3-MBik0mOvEXheRckZo3KeD4T5G=LS5D0Szg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix typo in comment
+To: Ke Zhao <ke.zhao.kernel@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, pierre-eric.pelloux-prayer@amd.com, lijo.lazar@amd.com, 
+ felix.kuehling@amd.com, srinivasan.shanmugam@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -107,239 +107,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 6:31=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> On Monday, June 29, 2026 5:28:14=E2=80=AFPM Central European Summer Time =
-Alex Deucher
-> wrote:
-> > On Fri, Jun 26, 2026 at 1:10=E2=80=AFPM Timur Krist=C3=B3f <timur.krist=
-of@gmail.com>
-> wrote:
-> > > On 2026. j=C3=BAnius 26., p=C3=A9ntek 10:55:57 k=C3=B6z=C3=A9p-eur=C3=
-=B3pai ny=C3=A1ri id=C5=91 Tvrtko
-> > > Ursulin
-> > >
-> > > wrote:
-> > > > Every job submission on the Steam Deck ends up walking the list of =
-IP
-> > > > blocks looking for AMD_IP_BLOCK_TYPE_SMC. Half of the call chain is=
- like
-> > > >
-> > > > the below, while the second half is from amdgpu_gfx_profile_ring_en=
-d_use:
-> > > >  amdgpu_gfx_profile_ring_begin_use
-> > > >
-> > > >   amdgpu_dpm_is_overdrive_enabled
-> > > >
-> > > >    is_support_sw_smu
-> > > >
-> > > >     amdgpu_device_ip_is_valid
-> > > >
-> > > > On a game menu screen at 90Hz refresh rate we end up with ~840 call=
-s per
-> > > >
-> > > > second which sticks out when the submission worker is profiled with=
- perf:
-> > > >   13.78%  [kernel]  [k] __lock_text_start
-> > > >   10.86%  [kernel]  [k] __lookup_object
-> > > >
-> > > >    8.76%  [kernel]  [k] __mod_timer
-> > > >    4.94%  [kernel]  [k] queued_spin_lock_slowpath
-> > > >    1.66%  [kernel]  [k] amdgpu_device_ip_is_valid
-> > > >    1.54%  [kernel]  [k] preempt_count_add
-> > > >    1.42%  [kernel]  [k] amdgpu_sync_peek_fence
-> > > >    1.18%  [kernel]  [k] amdgpu_vmid_grab
-> > > >    1.17%  [kernel]  [k] amdgpu_ib_schedule
-> > > >    1.14%  [kernel]  [k] kthread_worker_fn
-> > > >
-> > > > Lets short-circuit this walk by simply caching the result of
-> > > > is_support_sw_smu() in the device.
-> > > >
-> > > > This is a micro-improvement but it is at least conceptually nicer t=
-o
-> > > > avoid
-> > > > repeating the same walk so much.
-> > >
-> > > Hi,
-> > >
-> > > I agree with cleaning up this thing.
-> > > Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > >
-> > > That being said, I think is_support_sw_smu() is horrible and should b=
-e
-> > > removed alltogether, because it goes against how the rest of the powe=
-r
-> > > management code works.
-> > >
-> > > In my opinion, we should instead:
-> > >
-> > > 1. Hook up some function pointers and check those instead,
-> > > For example in amdgpu_pm_acpi_event_handler() we should just hook up
-> > > smu_set_ac_dc() to the notify_ac_dc() function pointer. There are ple=
-nty
-> > > of
-> > > other similar cases.
-> > > Another example, for amdgpu_dpm_mode1_reset() we should introduce a n=
-ew
-> > > asic_reset_mode_1() pointer in amd_pm_funcs() similar to how it works=
- with
-> > > MODE2 reset for consistency.
-> > >
-> > > 2. Eliminate redundant functions where the same thing is already done
-> > > elsewhere.
-> > > For example in amdgpu_dpm_is_mode1_reset_supported() it checks
-> > > smu_mode1_reset_is_support() which is redundant because the supported
-> > > reset
-> > > type is available on the ASIC functions already and we can just use t=
-hat.
-> > >
-> > > What do you think?
-> >
-> > I agree.  This has been a todo for a while.
-> >
->
-> Thanks Alex. I'd be happy to work on this cleanup. However can you please
-> apply Tvrtko's patch? I think it's a nice improvement until that cleanup =
-is
-> complete.
-
-Sure.  Applied the series.  Thanks!
+Applied.  thanks!
 
 Alex
 
+On Tue, Jun 30, 2026 at 9:24=E2=80=AFAM Ke Zhao <ke.zhao.kernel@gmail.com> =
+wrote:
 >
-> Thanks & best regards,
-> Timur
+> It should be doorbell.
 >
+> Signed-off-by: Ke Zhao <ke.zhao.kernel@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > > ---
-> > > >
-> > > > v2:
-> > > >  * Approach changed to cache sw_smu status only.
-> > > >
-> > > > ---
-> > > >
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  3 +++
-> > > >  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 14 +++++---------
-> > > >  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  8 +++++++-
-> > > >  4 files changed, 16 insertions(+), 10 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h index 7b09410d6d8f..9803967d1=
-5f9
-> > > > 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > > > @@ -851,6 +851,7 @@ struct amdgpu_device {
-> > > >
-> > > >       struct dev_pm_domain            vga_pm_domain;
-> > > >       bool                            have_disp_power_ref;
-> > > >       bool                            have_atomics_support;
-> > > >
-> > > > +     bool                            is_sw_smu;
-> > > >
-> > > >       /* BIOS */
-> > > >       bool                            is_atom_fw;
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c index
-> > > > 1e6b75ecafe4..7f935a5778b0 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > > @@ -74,6 +74,7 @@
-> > > >
-> > > >  #include "amdgpu_ras.h"
-> > > >  #include "amdgpu_ras_mgr.h"
-> > > >  #include "amdgpu_pmu.h"
-> > > >
-> > > > +#include "amdgpu_smu.h"
-> > > >
-> > > >  #include "amdgpu_fru_eeprom.h"
-> > > >  #include "amdgpu_reset.h"
-> > > >  #include "amdgpu_virt.h"
-> > > >
-> > > > @@ -2130,6 +2131,8 @@ static int amdgpu_device_ip_early_init(struct
-> > > > amdgpu_device *adev) adev->cg_flags &=3D amdgpu_cg_mask;
-> > > >
-> > > >       adev->pg_flags &=3D amdgpu_pg_mask;
-> > > >
-> > > > +     amdgpu_smu_early_init(adev);
-> > > > +
-> > > >
-> > > >       return 0;
-> > > >
-> > > >  }
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > > b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c index
-> > > > 208a2fba6d40..82c9ae6a5092 100644
-> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > > > @@ -591,17 +591,13 @@ static int smu_get_power_num_states(void *han=
-dle,
-> > > >
-> > > >       return 0;
-> > > >
-> > > >  }
-> > > >
-> > > > -bool is_support_sw_smu(struct amdgpu_device *adev)
-> > > > +void amdgpu_smu_early_init(struct amdgpu_device *adev)
-> > > >
-> > > >  {
-> > > >
-> > > >       /* vega20 is 11.0.2, but it's supported via the powerplay cod=
-e */
-> > > >
-> > > > -     if (adev->asic_type =3D=3D CHIP_VEGA20)
-> > > > -             return false;
-> > > > -
-> > > > -     if ((amdgpu_ip_version(adev, MP1_HWIP, 0) >=3D IP_VERSION(11,=
- 0, 0))
-> > >
-> > > &&
-> > >
-> > > > -         amdgpu_device_ip_is_valid(adev, AMD_IP_BLOCK_TYPE_SMC))
-> > > > -             return true;
-> > > > -
-> > > > -     return false;
-> > > > +     adev->is_sw_smu =3D adev->asic_type !=3D CHIP_VEGA20 &&
-> > > > +                       (amdgpu_ip_version(adev, MP1_HWIP, 0) >=3D
-> > > > +                        IP_VERSION(11, 0, 0) &&
-> > > > +                        amdgpu_device_ip_is_valid(adev,
-> > >
-> > > AMD_IP_BLOCK_TYPE_SMC));
-> > >
-> > > >  }
-> > > >
-> > > >  bool is_support_cclk_dpm(struct amdgpu_device *adev)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> > > > b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h index
-> > > > d76e0b005308..efc52d97058b 100644
-> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> > > > @@ -1952,7 +1952,13 @@ int smu_link_reset(struct smu_context *smu);
-> > > >
-> > > >  extern const struct amd_ip_funcs smu_ip_funcs;
-> > > >
-> > > > -bool is_support_sw_smu(struct amdgpu_device *adev);
-> > > > +void amdgpu_smu_early_init(struct amdgpu_device *adev);
-> > > > +
-> > > > +static inline bool is_support_sw_smu(struct amdgpu_device *adev)
-> > > > +{
-> > > > +     return adev->is_sw_smu;
-> > > > +}
-> > > > +
-> > > >
-> > > >  bool is_support_cclk_dpm(struct amdgpu_device *adev);
-> > > >  int smu_write_watermarks_table(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 16c060badaee..b7be28d74e83 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -2187,7 +2187,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>                 return r;
+>         }
 >
->
->
+> -       /* Create a boorbell page for kernel usages */
+> +       /* Create a doorbell page for kernel usages */
+>         r =3D amdgpu_doorbell_create_kernel_doorbells(adev);
+>         if (r) {
+>                 dev_err(adev->dev, "Failed to initialize kernel doorbells=
+.\n");
+> --
+> 2.43.0
 >
