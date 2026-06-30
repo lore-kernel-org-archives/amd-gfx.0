@@ -4,132 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E535C44507
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 12:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B47AC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 12:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A820710EC84;
-	Tue, 30 Jun 2026 12:47:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA2810E1E7;
+	Tue, 30 Jun 2026 12:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CrQbTc21";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZCLoUTwq";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013009.outbound.protection.outlook.com
- [40.107.201.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7800F10EC7D;
- Tue, 30 Jun 2026 12:47:17 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD08610E1E7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 12:50:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sJuJulmCLI+oJqKWTaPVLTRmsvPTYKr0OemE/8UaXc1gi+XxMQJLO1AGnVauxosCkEJ44u4hF+xRY89v+XX2ZHeOZ7yJiyoL3KEvPUj6g/eVr1AG4JB/anSMuaaunw1FAiuB2XjO4GAC/YyAkg4/PvyCUi4b/0Vh+3w1LDSgP4+Y1a+8k/5n4p7+4XLAvreBIGMq8UYXxZedGrfxD8PigOjEv8tUHb3ksKtfOvgKtglnTNJDwMPxuD+4bTCdFownjnb8Ti0vnAge15rXnfIvOscNP1rm2o0ZQb627tMPpBk9xGz1w50ydsTyrjkCNt5RT0DDFcuyz/A5cU04sI4Uag==
+ b=ENrY1ZMVFZDWaIEbgDCPxBi9tSV0jrrl0L/IK6IXbAfmvb4jzzCGhFn88/bi6B97WKJRQ5/Ux573i5C32RIfG4Kerq0OrSOVWJvvrd/rz43QmVDAz+smUh1oYN4fgIKJylCRtE31s3MzNLYwc/rWzUOZiGyfW9buEMHtuAfu2avzbtQT3wAiy+F+yh2lu/8djwQ9XqzzpBbyVaFXPImNTosQpuW5xy43jvxykmzjwFm1i4/Sm19VXRKgVY446g/7MCaPUIcXBrkRc7LHn9iFCr1XlE6CbbEFxGORXjCk452M28nrKfFl1zLMXuGDYzxvz991FhjsH8JVLiMQZIRwIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ebXwMp6TH8hzY8lnwU6uEoTY2QTgjcjuecdljDmFthg=;
- b=FsU+YrltHUR3Ttoe+di3mziyqyitDxvhe5UbhOIRG7K7JFwfk0Ps5gM3s3WoGpzDgQs7iHSCSBqRfLJxl4QuHg9HbQwRahoRuuIlp5yBQyCHrKikYBZBBKY5VOeIErJOJHi2hNJkJGcca1IgEWbUkSvYD2+8augMVIF6GtC9VU7kxmAWX14G5qC2isjuO4kefCgziii0iiLSRIhO/DBJMHTVgk2kQpXhwoiFkX8AYyln8e28RBM5sYlyoZXZfqzOBObodhG37SElu9S3blNlr+BsfA1sowdtbbHlROWRNd2TViSBzbEUqiQUZfjZDmLOuY8sxOTK3EieSZo/KCS3dQ==
+ bh=asJLz0VIKclN0/4thRpaGerYAXfwZ3surpP/hbCsY4I=;
+ b=FB1y7a54Xyu+j8Ov/32U1cG7tQAZVZol/rJu7NpQ6y8Nz5i8MEODdtCaOLd/pVYSlNK/VZmq4vv+/ztMivWf3Ygfa5BbrTVZzQ6UVQceXkPGH68hH9a+BS1MzOYUumjeY2wVqNO/6N9ZwGmhvPko2+nkG+jUQABoZGwQL3OP3s1suHsgesoFTRRRyhziDCFY0ysgwAN4buawi2I99K3yCfayAi/g7x/MkgfWWAgunXTva+sF2fQzYy80ox3Z9T252bKH5U4HebeT7Dn0ysJO9le3btYSoB/4MGOekzfMxrL0Pw5vn2ffoeKbHhnaB62Mz3F02CE/FWP7BqFcNELOLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ebXwMp6TH8hzY8lnwU6uEoTY2QTgjcjuecdljDmFthg=;
- b=CrQbTc21WeXMMpfe0Gp74rsaL6BJ7jCp1ZjSvtD0Mlf9U3K1+dB1L1gAXoZvf+BSXIQFCB/m8Bs7zFJsBAHO/o0gvq6MbC8PYFr/bd/e7X2mNOHqQc1TIH6uDMv+1C3YgdPa3MnKaKj3rCQ1TEgZrW8QO+Rm1dzTFniGkRcxQ2Y=
+ bh=asJLz0VIKclN0/4thRpaGerYAXfwZ3surpP/hbCsY4I=;
+ b=ZCLoUTwqkUQvXwuRhDQRs9V4c6hIAFpqRD+ZGcP0gAPZ/JhFIi9B8M0rM+jmrlAzZIOBIx4FO4K5zBerka2a7CfP2RdzVRis0xrb4LVkEpviDOTbYEX6mTkle3f6Zl8tSzTxDgM1lluKdAswpHFDVTgS7i6sOBqUKiQeHPYYO0A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11) by DS2PR12MB9775.namprd12.prod.outlook.com
- (2603:10b6:8:2bb::13) with Microsoft SMTP Server (version=TLS1_2,
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6957.namprd12.prod.outlook.com (2603:10b6:806:263::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 12:47:14 +0000
-Received: from EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8]) by EAYPR12MB999132.namprd12.prod.outlook.com
- ([fe80::7798:60c4:e3f0:d3f8%4]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
- 12:47:14 +0000
-Message-ID: <60c6155a-2f0e-4dbc-aa13-58b7d36cd264@amd.com>
-Date: Tue, 30 Jun 2026 18:17:06 +0530
+ 2026 12:50:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
+ 12:50:50 +0000
+Message-ID: <38cf3568-cdd6-46e6-960d-03c378cb0669@amd.com>
+Date: Tue, 30 Jun 2026 14:50:41 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/ttm: add generic drvparam[] alias for
- ttm_place::fpfn/lpfn
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>
-References: <20260626063658.10237-1-Arunpravin.PaneerSelvam@amd.com>
- <5021eae6-40f8-4079-9b5d-f511537aa460@ursulin.net>
- <81082f11-8b8a-4420-866e-4e15df3e5b1c@amd.com>
+Subject: Re: [RFC v2 1/4] drm/amdgpu: Extend listing of buffer handles with
+ the userptr object flag
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
+References: <20260623141257.66086-1-tvrtko.ursulin@igalia.com>
+ <20260623141257.66086-2-tvrtko.ursulin@igalia.com>
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <81082f11-8b8a-4420-866e-4e15df3e5b1c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0005.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:26a::17) To EAYPR12MB999132.namprd12.prod.outlook.com
- (2603:10b6:303:2c2::11)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260623141257.66086-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN0PR04CA0029.namprd04.prod.outlook.com
+ (2603:10b6:208:52d::34) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR12MB999132:EE_|DS2PR12MB9775:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1c9d159-5a53-44e3-9d51-08ded6a5b51e
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6957:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5331eee1-88b3-48a4-b9ed-08ded6a63683
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|376014|1800799024|366016|22082099003|18002099003|11063799006|56012099006|3023799007|4143699003;
-X-Microsoft-Antispam-Message-Info: UPpTjF0sigzcq31OsqVoiyz6mHIzlKvO9R/WAtDlosw5Zz4tdiyPSNiEjhQO3QY6tBrG4WMm5RZkB2L0iA7IQAofMvhDLJjWShkRIT+sGVgfXX9XFX9vJRs0NjyFYSO4HBPE2hQpLwPkCxEKL98gSXmRx2Kq7hwQQbzabxLI+D2umwlWZcgKJnakSio1+pdsmXfPG53dbElefIqW2a/vZ6VD7Sn5GEBqXFWw/PhYes+caIDLsQeqyaTasx4SQiQOa064rTn5FK7rd7Z94MxGu3UIdovK+YqdcEFzHp+S10ASB14BC+CPpxH6v9wzBXy94kTG9rNgMQIo984SPikQf1lHEkQElr7StMANNENefV0AlmNm6zYyXjwEJBaVpgDE6QZslDTBCN+cVnQJ0lc/qaMQoWRehGpmDivcWo2O49jatlgyQaLMLe7YcInDWabkHppZnFHrir197vqlavXlicO7rkoP8JQknnprKNY3s8PWXoz76V1tEagPw/Ud8mMlJ8sP2bVsl7Xt86fm32J9neQ3GcbqNoZ3J+YeowpzLd5+SfzpjZc0N5E3TwO4uranTIIoRt3L8x/6ygD8KziwuxwxOy9mOnaQBOQUI4VvcJ7Mj2nJjT/nAAytKu004OTD5IQa69t2Dts+o8zz0z9LHnkCLBKvVUmoggiVfQoXOwk=
+ ARA:13230040|376014|366016|23010399003|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006|10063799003|6133799003;
+X-Microsoft-Antispam-Message-Info: hOxTSF3M06XHjGS7tMu0TlbUsXsjAVytd6OEPw2IhDitb1ndZvbQQZQ3dCto9PII8gXGQTNCViMCpaitRbTT3Bkkj/GKtniM+I5FM7lz4xQQCxDC2/Emq0/T4YNUuiZmeh0sFDSprgU6x8yjitocDsiagKxKQy7ZYr41m0Qh0fD2kBTKfsqV1sRVhCtS0GesS6Qo1ImUFXUFERa/OVRb64RSRtHQfmsWeFxRkWBUYw76iSR9JV2ks2ukxKjREgBDS7QFk/DAL043bAwncZchNx4Bge/UtNLiqIwa9/DgnuxuTIruJvSvy68ueT1c0YpXa3UBWoIk+fuTYUdgswvonh2/GKuXQRUhYaE7AusLRlfG7iyeigqAauthxQXvBjJIrsuP6o4FRZO6/sc++SCVICLNa3Nh5eE1nLEvL9l+f+pALjJ3nK9LzMcw7nu348xPggajo/VLMq06/Z3tiyXmXz9ox2TdmHJSgyniPzVK5CJpq6qafx59gyVb8HaKh15x+ckj5U3pBaJ4QciLutHb+LNlSF6UYEVg0GSLtK/urf1Ira4aUR1n++rIL7AImT7AIUSNKk2iTJTthIc2VGCcjMxSmyS4JrHQO0u6E6e8mVES78GxueYj3I5LXglKwrf2wSsmsMfYuKNzAaMkK7l9LTfUC1TjTHuT2LUzEVkxSWA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR12MB999132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007)(4143699003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(10063799003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjV3UU1qY1ExSEFqSkNMRGd4Zytsb3oxTnJOWUdmNzIraFBYRkhHY2hrZHIy?=
- =?utf-8?B?QlVnY2prTFZ3dGpCN0lURmFRa0d0M1ZhbVJ5eU9XZFlIWHdNbmFHL0pEbFZ5?=
- =?utf-8?B?UHhGMStoWVZVZ1MxUFVGV2hka3dsVVErNldqOUNZeWJranNXOEhpRnJmNGZ2?=
- =?utf-8?B?UHhUUzI3MWVUMWEvYncrS2QyTHRWNUk0MkZLQW5ReHYzUHlLdWFuOE5kL3Qx?=
- =?utf-8?B?SzZ0UmhTNTluYmVsNGNGM3BoQjZZQ1JXV09WZnpEVXR4cjlDaWliK2lyREVr?=
- =?utf-8?B?SHBxSmpkNis4bE5rbDJxMWVzMVc0T2dqcmd6ZENhVlgxYUhlRnI1c3NkVlNv?=
- =?utf-8?B?NTFVRUZIdVZuY2lnOGxzODNsZTd4MkQ4WmJlNEVzYUJZOEVhY2JYZENjcW1N?=
- =?utf-8?B?bkhsM1VKakllWllHakZNa3U3am1vNFVHNWswME5XZC9jY1l3VzRQT0xaOHQv?=
- =?utf-8?B?cmdlZXBQRFRETzN2QnlLUkRtbm9WaXg3TFVjNEpIa1I3OHRSQms5bUlCM1VI?=
- =?utf-8?B?ejdobmJZZjRINzhFV3BzODFNd29Yb3c3ekl2RmVpdk9Nd2dONWk2ZTlhcitJ?=
- =?utf-8?B?THVNRTRHNEZnUS9nbVpMelhDOFl0WFd5aCtOSXNYYmkrNklxSVJucmxhSklF?=
- =?utf-8?B?emh1SWQ1YXNpamhGNlNyN05POE85WVNmbGducGxocUtVY3dnR1lFUG5jZHpi?=
- =?utf-8?B?cHFqSHBGTkZ6VDVRZ2locmJMcWZSbzVQdmtNcVNyelFQWlBFUm9TSjFodmJ3?=
- =?utf-8?B?QmpCTU5Kbk9EanR1NW5RRmpwb0dwSkJVRHUwTFRiTE8zV2lyckxsbFZGQXFr?=
- =?utf-8?B?NUlCS2xsNDBKVXZyNXY3cG1hSzk2S1BmOXhKSzhTR01YRlZtM0pKL2xmYnRX?=
- =?utf-8?B?Z2IrVUdkZjBwOWc5aG4wc0NEY0M1SVdOTkh5dXZ6WDlaZEVVUUhZUURqV25y?=
- =?utf-8?B?SjJGcWhNUFVOZzJKWmpDZGk0WTZEYlNFYUJHNWZlQXRaMmF5dmJjOXF3SnNI?=
- =?utf-8?B?MHRBRklZMEg3Qy8vRkh3TW9zMGJlOGJtK1d3VVAxTkdJQjhvbHUweDRCWUxM?=
- =?utf-8?B?ejZvMVJFay9WbHBFblF6OFF2ZWhIMFhTUjVwdmF4RkFObWxZTSs0ZXRtRURI?=
- =?utf-8?B?cXBrcDk1T2RXV2tMQTREK0tDbWRGbDNuL2hCWlUwWUxSQUtDSzhEYXMyM0Q1?=
- =?utf-8?B?V1NvK2NwTGJCSW1uZkZWaVFkdXJnT1JPLzR6ditLVmJ3cXp0elNreXY1a0dh?=
- =?utf-8?B?MGtWcTBFY1B2Q21iRU1zVXlKNTlIRmsvTWNDcmxoRDdTZ1V3VjBGak9CNzAw?=
- =?utf-8?B?aWlvaFRCRHRnY0YyYnVzekYycUYrOE1xSmd6b29vZ2l6bWVHc2dMMkovRUN3?=
- =?utf-8?B?cy8vQzdLT25VNlJBSDJYdlZiQUhBYllRSDNWR2ZNUWJqSjJWdmVVQlFabWNr?=
- =?utf-8?B?d1MvQkFPN005eEFaUmczbkJPb3V3aTNzdzlpL05qbWZEekNySDRKTG01eG43?=
- =?utf-8?B?Qm50Qy9xK2VsOTdneWxFd2NtR1B3aEFDalZtWmFtRzcxVGprMVh5ODdTVlBj?=
- =?utf-8?B?NTEzZVdrY2UvRTMrc0dLR0s3L3l1UHBGSlcwMVVXb21TNDRRdE9rS2NlUEdW?=
- =?utf-8?B?L2FERVd2bzQxZkM5OHEyZy8rVm1sZ2ZhUVRJZjMyTHhrUkJyYThVclVkU1JZ?=
- =?utf-8?B?RkMyQTNxUGg3cnNqRllNcTZKSjVHN1RHR1gzc2tpcXArbjAraE5Vb25vbE5x?=
- =?utf-8?B?MTdHQ1ZhR0xzZDBVTWF2Yk4yc2gwMFVyVWtFZFJ4bmcrcXUzanhpTDV2TTMv?=
- =?utf-8?B?d1lhRUQ5Yk15VnFJeHJDa1I0OVJiTmROYVVoaGNlWFNWbElTUFJEbnpSZzd6?=
- =?utf-8?B?U0ZwMUtYSFVnUVVVWUZnUXIwbEZHUzVXSjlXYU50cC96N0FlNUF0T1F0anls?=
- =?utf-8?B?WGh2WEkxNTBtSWxqdGRHZWovazJhN290dzIzaHhwbDZwV2t0eDVNMHBXRjZO?=
- =?utf-8?B?SkU5VDFJOG0yVjRlbGxYbnJNSkxmRE8vQjNmdWlvWjNDRXZTbnk0NFhYcFVs?=
- =?utf-8?B?TnQvZUw0NEZvRDJIMlhlYXdGRVR2NEpOVUwxUS9XMUtKcEIwV2cvTEt3Q3lJ?=
- =?utf-8?B?Y3RMdUhpYVdhcnV5T1dsQ1RxTkc5REhYYzVOK2xkbXloQkEycGlKQ1FVR0c5?=
- =?utf-8?B?ZzRjOUpYMFhESHhjbWVuSStkY3RzeUdtRUNXY21yR2JMcHVKVk1MRy8vbXVi?=
- =?utf-8?B?dENLYnBXTjFWdk5rRlBIRzVVajAybDM1Q0E0Mk5lbTlWQ1lHTDRSWUp3S21M?=
- =?utf-8?B?M3AyZSt3ZDJpTXczQVJjNkRWcVVsaCtybW0xdUVTZzBES3BSOUhPUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qnd6d0sxTjE4ZFRaejBFNGVmRDVtMk5hZFdSampPYm14R1JsRmZRTm1Rdk9E?=
+ =?utf-8?B?Ky8vRE9oOW1VbnFJeVdCM1NHS3ZRUGd0bHJyaStrVFVab2RrSlZtNjh2MndK?=
+ =?utf-8?B?TDdnd3FkRXVyM2RCMGVYc2RlWHRtaXRuMjBhQ3NXc2tEd0Nnc1lrLzNnVWk1?=
+ =?utf-8?B?U2lDSFVxWWxFblZpNlBOZFZBOUxleTJBalRuTnpCUUY3UDBoRWxMY2R1a0M5?=
+ =?utf-8?B?N2xIZzNkaG82L1pBN2tTWDNDM1JsMWZQZFhJVCtGeHRCUnQySVJqR2IyNjBZ?=
+ =?utf-8?B?T0Q1Vkx1N0QzeCthMlRyVmlDc2c1UUhXajVmaG4weFh2UDV6bjU2NmRvWG9i?=
+ =?utf-8?B?VGJzbzNwdUVSMWMxSmhDaEtGNUlrUURNKzJwdktzR2Q1MGJRMjNmNzJCYkt2?=
+ =?utf-8?B?bWl2dzIvNkVLcSt1cExzNnZGSDVJcVoyQ3ZUcCtreTZHcW8rTkRKcVU3WHdi?=
+ =?utf-8?B?aDYrNFQ3R294R01GTHdHK2VNSmpLc01tNmE4TGdsUkdDZWtoTUtzT1NhcjJ2?=
+ =?utf-8?B?YUNNV1QrUTRkNEJkVGhiYmZMZnZTNXRUK3Q3bXFhcXQ3THFPcmUycXVQZVcx?=
+ =?utf-8?B?d3c1TU0yNTRQK3d1T2dlYlc2M0ZGSFFtSHVQbzYzUy9UaXgzNUxwK09Bc3Bu?=
+ =?utf-8?B?QythbDdTUWpRc01IZFBTeExxMGNHRTJxTmNITUZkeFhHd0dHNXUvcDE5dXBu?=
+ =?utf-8?B?SUltc3kzd2t6eHd4WXNWYXR2V1F5NGFQRFhlbktPMTJwYzcrNzhhRnpJYmxq?=
+ =?utf-8?B?MUVOM2hzZmpoalljc0ZoMFJ4S1dtc1VsUGtLeGcxcUxkMHRCR3lpNjdDSldZ?=
+ =?utf-8?B?NzBLMWhZWTNCMTBXQzlWTW1wMmFKekllWGExRk8ya0NjQ2VyVnQ2VDRiRTdZ?=
+ =?utf-8?B?MVlkSWJkampJc0pTcjFDQUMyTDJXakhEc1lrd3JEL2p1bERNWTZTekFrek5K?=
+ =?utf-8?B?WkxiSGx5U2w5dUtsSDVaSWk3Z2hzTUxGMnJ4YnU4bUwvVlpocGJYaXBFL2dY?=
+ =?utf-8?B?OERhUDNVS1E2cTdlUUpmYzFuSE4yZWNJRDkwSkw0UWNXL3ZaUUxubXZKUFk1?=
+ =?utf-8?B?czJMM0gwUnVYRVduZEtzbjEweDk4c1pNN3h6VWNrUjdsNG8zTHpCalFoNWJs?=
+ =?utf-8?B?RllYLzJIZmdWaE5vNU9lUTR3akgxYW9oWDgxNEo2RnYrTXp6ZGdrQTBWbTFs?=
+ =?utf-8?B?bVd4RHU2N0xIL2RUR2czQXVDL3NvOFBRL2M2Z1FpOGpqQStUcGlTM0I0L1Iz?=
+ =?utf-8?B?WEQ3eXJQSXQ3SFBDa0dOQWh4TUpBbnNaYnBFVGxoN09HTk90enMzOXZ6L3ZK?=
+ =?utf-8?B?dWUvYXJxUktDSGRSZG45eEVJM0FFQ0lGM3JMZXNRWVFOcVhuUlBXM3AxM0ZQ?=
+ =?utf-8?B?RW1IUS9vNHozZmlCbUpqM1ZaM0JMYnc3ZUdHemQxSWRybzF6TU5ZVWk5Vkpl?=
+ =?utf-8?B?bEdFYlRyL09ORUg4NXozZkpPVURzbGJrYnRNNUJ2YmtqaEFGeXVUbGxuOUNl?=
+ =?utf-8?B?M2gyTmtuMHdiUWJHeDd3YVg4VU9FV3RYWGdsQnhwNVg4dTJGV3FFUmRzdUFP?=
+ =?utf-8?B?cVdpTzI3enVRYUV1RHJQelpuYmZnRkxtSkVqb3FtZm4rSzJBamFyUVZmQlpO?=
+ =?utf-8?B?TVFMS1NPZGREcGhHNlBqeXlBRS9qUkU4R2JlYnhsZEhQZVRzT01lZWRSc3Ez?=
+ =?utf-8?B?by9ndERpMWlJUWVjUGtRV05WTlRZVndzK3hCRkhOaDRWaTNrZU4rcE5lRHgz?=
+ =?utf-8?B?WmpzT3gvc0Fvdkdyc3pXUU94UkdBYW56c0ljWkw2UzRkZW5kR3BoRWxPNEV0?=
+ =?utf-8?B?QU9tMHJhYm1xSlV1WUZ6b3FYdTEyTWVCR0xNVzZRVEl4OVpYK0UyNFpaZjFi?=
+ =?utf-8?B?dW0rcGdMSkZJcGY0c0VTV2EyQ2dmZjVXTmJyLytJekd5VjNaRk44WDVlemov?=
+ =?utf-8?B?anQyRy9Cd0V1czAwMklxVkJHSFNCTkxSVExTYlFDWExjUFJKM0JkTGJwNm0z?=
+ =?utf-8?B?NFB2ZXk5WHVNWlE0eURiVUgyWmVTMEEvd2Nxc3RzWVhqUFpNSUJzeVBueEUw?=
+ =?utf-8?B?NUpkb1p2eGtDMkZjS1ZtNWxWaTZTdEdFNmtrZXRla050ampNbm1sTzcwTVBh?=
+ =?utf-8?B?dFY3bzVHSXhjem05SjIwSVFXN2hDU2tCbzZDWG1SUFR1dHhaa3M3cW0xZmxE?=
+ =?utf-8?B?dFN1WXFIZm1vQ05YdkNXRHhSSjBnNGphRWZJQjh0S0Q3SXAxcHlZZ3JLZ0pH?=
+ =?utf-8?B?YU9Db3d2V2h3ckdKbm5wNm1DeHhndjJrUWQ5U3BVeGVDWjRDdHdzck4zekNu?=
+ =?utf-8?Q?VvBV5j41H5nkaovVtl?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1c9d159-5a53-44e3-9d51-08ded6a5b51e
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5331eee1-88b3-48a4-b9ed-08ded6a63683
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 12:47:14.1409 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 12:50:50.2167 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: geJzDdZ1O2XrDOGQdLWWTt5WrbJ8VXxXvGgz9MVErsn8OCRKjU+edM/psAvGkBcwQLMUVWpG7aju2vvOKATkOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9775
+X-MS-Exchange-CrossTenant-UserPrincipalName: JJFHZYLDGywpvtJjTNEBzOrXDlSd9BkDjPd7+OtVFqfHuCVdVKSMbn/+ILgyh/xF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6957
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,87 +138,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 6/23/26 16:12, Tvrtko Ursulin wrote:
+> Add a new flag (AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR) to the
+> DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS ioctl.
+> 
+> This is required to allow for checkpoint and restore of userptr objects.
+> 
+> The existing struct drm_amdgpu_gem_list_handles_entry is used with the
+> userptr creation flags places in alloc_flags, while the alignment field
+> contains the userspace address.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 18 +++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 40 +++++++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 19 +++++++++++-
+>  include/uapi/drm/amdgpu_drm.h           | 14 ++++++---
+>  4 files changed, 67 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index 862fbc2e125f..e75026aba874 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -1204,14 +1204,20 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
+>  
+>  		bo_entry = &bo_entries[bo_index];
+>  
+> -		bo_entry->size = amdgpu_bo_size(bo);
+> -		bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
+> -		bo_entry->preferred_domains = bo->preferred_domains;
+>  		bo_entry->gem_handle = id;
+> -		bo_entry->alignment = bo->tbo.page_alignment;
+> +		bo_entry->size = amdgpu_bo_size(bo);
+> +		if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm)) {
+> +			bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR;
+> +			bo_entry->alloc_flags = amdgpu_ttm_tt_get_userptr_flags(bo->tbo.ttm);
+> +			bo_entry->userptr = amdgpu_ttm_tt_get_userptr_addr(bo->tbo.ttm);
+> +		} else {
+> +			bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
+> +			bo_entry->preferred_domains = bo->preferred_domains;
+> +			bo_entry->alignment = bo->tbo.page_alignment;
+>  
+> -		if (bo->tbo.base.import_attach)
+> -			bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
+> +			if (bo->tbo.base.import_attach)
+> +				bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
+> +		}
+>  
+>  		bo_index += 1;
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 16c060badaee..7ce9e0e194c3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -785,6 +785,33 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>  	return r;
+>  }
+>  
+> +/*
+> + * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
+> + */
+> +bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
+> +{
+> +	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+> +
+> +	if (gtt == NULL || !gtt->userptr)
 
+That should actually check for usertask and not userptr.
 
-On 6/29/2026 5:36 PM, Christian König wrote:
-> On 6/26/26 12:57, Tvrtko Ursulin wrote:
->> On 26/06/2026 07:36, Arunpravin Paneer Selvam wrote:
->>> The fpfn/lpfn fields in struct ttm_place are named after page frame
->>> numbers, but they are really just placement parameters interpreted by
->>> the backend resource manager. Wrap them in a union with a generic
->>> drvparam[2] array so backends can access the same storage without the
->>> PFN-specific naming.
->>>
->>> drvparam[0]/drvparam[1] alias fpfn/lpfn, so existing users and the
->>> VRAM range manager are unchanged. This decouples the API from
->>> PFN/range-specific semantics so that these fields can be used more
->>> flexibly in the future (e.g. mask-based or segment-aware placement
->>> constraints). No functional change.
->>>
->>> v2: Use a union exposing a generic drvparam[2] array instead of
->>>       renaming fpfn/lpfn to param1/param2, keeping existing users
->>>       unchanged (Tvrtko Ursulin)
->>>
->>> Suggested-by: Christian König <christian.koenig@amd.com>
->>> Assisted-by: Claude:claude-opus-4-8
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Cc: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>> ---
->>>    include/drm/ttm/ttm_placement.h | 12 ++++++++++--
->>>    1 file changed, 10 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/include/drm/ttm/ttm_placement.h b/include/drm/ttm/ttm_placement.h
->>> index ab2639e42c54..7db2073f3236 100644
->>> --- a/include/drm/ttm/ttm_placement.h
->>> +++ b/include/drm/ttm/ttm_placement.h
->>> @@ -75,14 +75,22 @@
->>>     *
->>>     * @fpfn:    first valid page frame number to put the object
->>>     * @lpfn:    last valid page frame number to put the object
->>> + * @drvparam:    generic driver/backend placement parameters; the
->>> + *        interpretation is defined by the backend resource manager.
->>> + *        drvparam[0] and drvparam[1] alias @fpfn and @lpfn.
->>>     * @mem_type:    One of TTM_PL_* where the resource should be allocated from.
->>>     * @flags:    memory domain and caching flags for the object
->>>     *
->>>     * Structure indicating a possible place to put an object.
->>>     */
->>>    struct ttm_place {
->>> -    uint64_t    fpfn;
->>> -    uint64_t    lpfn;
->>> +    union {
->>> +        struct {
->>> +            uint64_t    fpfn;
->>> +            uint64_t    lpfn;
->>> +        };
->>> +        uint64_t    drvparam[2];
->>> +    };
->>>        uint32_t    mem_type;
->>>        uint32_t    flags;
->>>    };
->>>
->>> base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
->> LGTM but then again I suggested it (hint hint) so I may be biased :)
->>
->> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Looks good to me as well, Reviewed-by: Christian König <christian.koenig@amd.com>.
->
-> I think this way we can also merge it with the AMDGPU patches who needs this through amd-staging-drm-next.
->
-> Let's sync up with Alex on the next weekly call, I think we should start creating an internal branch for the new feature if that hasn't be done yet.
-Sure Christian.
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+> +u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm)
+> +{
+> +	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+> +
+> +	return gtt->userflags;
+> +}
+> +
+> +u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm)
+> +{
+> +	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+> +
+> +	return gtt->userptr;
+> +}
+> +
 
-Thanks,
-Arun.
->
-> Thanks,
-> Christian.
->
->> Regards,
->>
->> Tvrtko
->>
+This is identical to the existing amdgpu_ttm_tt_get_userptr() function, just without error handling.
+
+I suggest to just extend amdgpu_ttm_tt_get_userptr() to also return the flags.
+
+Apart from that the patch looks good to me of hand.
+
+Regards,
+Christian.
+
+>  #endif
+>  
+>  /*
+> @@ -1392,19 +1419,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
+>  	return true;
+>  }
+>  
+> -/*
+> - * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
+> - */
+> -bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
+> -{
+> -	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+> -
+> -	if (gtt == NULL || !gtt->userptr)
+> -		return false;
+> -
+> -	return true;
+> -}
+> -
+>  /*
+>   * amdgpu_ttm_tt_is_readonly - Is the ttm_tt object read only?
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index 2d72fa217274..e1b3495b902f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -209,12 +209,30 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
+>  #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+>  int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>  				 struct amdgpu_hmm_range *range);
+> +bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
+> +u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm);
+> +u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm);
+>  #else
+>  static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+>  					       struct amdgpu_hmm_range *range)
+>  {
+>  	return -EPERM;
+>  }
+> +
+> +static inline bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
+> +{
+> +	return false;
+> +}
+> +
+> +static inline u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm)
+> +{
+> +	return -1;
+> +}
+> +
+> +static inline u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm)
+> +{
+> +	return 0;
+> +}
+>  #endif
+>  
+>  /**
+> @@ -249,7 +267,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
+>  				  unsigned long end, unsigned long *userptr);
+>  bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
+>  				       int *last_invalidated);
+> -bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
+>  bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
+>  uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem);
+>  uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 9f3090db2f16..24f2dffc0789 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -836,6 +836,7 @@ struct drm_amdgpu_gem_op {
+>  };
+>  
+>  #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
+> +#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR	(1 << 1)
+>  
+>  struct drm_amdgpu_gem_list_handles {
+>  	/* User pointer to array of drm_amdgpu_gem_bo_info_entry */
+> @@ -851,7 +852,7 @@ struct drm_amdgpu_gem_list_handles_entry {
+>  	/* gem handle of buffer object */
+>  	__u32 gem_handle;
+>  
+> -	/* Currently just one flag: IS_IMPORT */
+> +	/* AMDGPU_GEM_LIST_HANDLES_FLAG_* */
+>  	__u32 flags;
+>  
+>  	/* Size of bo */
+> @@ -860,11 +861,16 @@ struct drm_amdgpu_gem_list_handles_entry {
+>  	/* Preferred domains for GEM_CREATE */
+>  	__u64 preferred_domains;
+>  
+> -	/* GEM_CREATE flags for re-creation of buffer */
+> +	/* GEM_CREATE flags for re-creation of buffer or drm_amdgpu_gem_userptr.flags */
+>  	__u64 alloc_flags;
+>  
+> -	/* physical start_addr alignment in bytes for some HW requirements */
+> -	__u64 alignment;
+> +	union {
+> +		/* physical start_addr alignment in bytes for some HW requirements */
+> +		__u64 alignment;
+> +
+> +		/* drm_amdgpu_gem_userptr.addr for userptr objects */
+> +		__u64 userptr;
+> +	};
+>  };
+>  
+>  #define AMDGPU_VA_OP_MAP			1
 
