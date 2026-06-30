@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7FA0C43327
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 04:37:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2789CC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 04:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38EF410E165;
-	Tue, 30 Jun 2026 04:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B065810E16B;
+	Tue, 30 Jun 2026 04:37:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Wew4GNun";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0Yj8n3CY";
 	dkim-atps=neutral
 Received: from SN4PR2101CU001.outbound.protection.outlook.com
  (mail-southcentralusazon11012044.outbound.protection.outlook.com
  [40.93.195.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6706610E165
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 04:37:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB5610E16B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 04:37:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mjfrMvoJyKJVDVFgQBnExhR11fZajUSlVVKVr80BWblEq21SPFdx75svMBdtkz/suf/U9E7aSYBMNnjUcx4iJyqw8xpbZRZJYXdr9HmFd9lVHmP1TAw+XtPQkMMoYlfcQKXgQNLB47mVzVPqgD0KdPXVF6yIZkxBmt4y8fsXsE09S82dgZwzrJ5mkcdILeNKFbZW3iE0aj0wpQsnW3NzQjaAx98uRg/xrNt0A4v0KHNwtWNY/62fyqEsjnj6lEH91VT7+NWOGqEoX7RhJ/7eenqgmYsnJ5gMGdrwZ5+Z6H7dammfwyQqq3Y9ZKm3ik7whfKZrlWJB3aEf7EoCJ0gpQ==
+ b=JoAD+wDQah7G4WgRvlglO0m+E1vHmmmh08ZdYEZ5wvHeFHFKERipVxL2hlEfMsW2B+l9GX4wcOs4gmw35MoX0DvBJ42LyhYKHsDsmTO6Yf/4FatKXRjiQdrHRNbI7RiZa1dB8TQILwPubF1T2cAoB72xZWVsRzpWks7XytLYhunOI+tLVHLdWjTBGJwJ/pxSJuEON6J8H4aJsLl7UgkVjqZBuQAQQnfrmWhl6oE4NIFJLDMJgAZeI3WVQzCcGdJ+qGHWEIXADpvdA6WIOeRy1k6WeNXw9ViZ3O36XDUU1v/8VtY1UoiJzIG1xUc/rREM2nmGLcJnzZnzDRiPNBTAaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LL+1qpwSvrzF1rGDfTZA3IAo564yhz1MVo1swayM0LU=;
- b=c87XXYmR0k0IOaBzpSO3wb8kkSgkAwwo3ow/RhdRE7BcUmfGdogI+7d2YoIjFHGUe9JK6sUAsdX9Odtwc3nnqEwtVgpA0TaxKAPlcv29TYrXA62NgTzJhUr8WO0f9rshkMoNEv82pNmk/hJemTx9HgOBlGVGt9eAtks6gnqF3TzQPWOCYX0ivgkx2ukj/qBa8bK51UNhsHVZNdC5IY0jko5Di6cSBvxTadRinKJR2RdGKhFIv0GGI9ET+vTmPfutaAY8XkcU9jKj7zk3SCSvOTeZykV3BsOD+e7SYcrxOcpFOonANQL1TLSpWumMs9CfpPFGIls+aG/Wx57mB2XRNg==
+ bh=AlqeAr7C1nFm7HF8XtEj8ttmV63txZ1WFVCBGVDp824=;
+ b=TY5N3/Fz7lvp74PEX5IsVfqUeu5Wf3+NCTtPoBwsY/n6ilUN7YzHVES4Mx7VE4kLkh+Z4iHVKQqdtJQqj63MAuXlw6RCSrbPKzSJWfRCY3eLBw23lchLBkVDEyafk81Bli5beZHsIBBbH8ossBF8cP+DmeMHxw6Ztj6WXA3actEqfT0N+wECP5CVc1hEWZu1x1j/7QDRhdeTAJh0ouMOzGyXH9tS34aaeVdaV/oB86iYCIg3/pe/5RqIFKNt3WV4BIjom71uUAvNiae+iuQE1Wu7FPz8y3iAghPrdkDzgVv0v7l5uaID/R7YsXzWWfL5XoixGoqiiK8H6dbAcjxkKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LL+1qpwSvrzF1rGDfTZA3IAo564yhz1MVo1swayM0LU=;
- b=Wew4GNun3Km3J1N1hgBsfqUMB8i5veAWB+MABm1DM8xGO119RacsbQYvXSfxb+tG0eHy1leeGVBCs7YWecy9PqyGdhGYhLsLZ1RcldW35DAwFItaH0XjY5GfIbTv0CoPSylGoood1CR7o4JgtldnmBcUilZM6v7Fhi2gNaqwA7A=
-Received: from CH2PR14CA0007.namprd14.prod.outlook.com (2603:10b6:610:60::17)
- by DS7PR12MB6045.namprd12.prod.outlook.com (2603:10b6:8:86::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 04:37:19 +0000
-Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
- (2603:10b6:610:60:cafe::5b) by CH2PR14CA0007.outlook.office365.com
- (2603:10b6:610:60::17) with Microsoft SMTP Server (version=TLS1_3,
+ bh=AlqeAr7C1nFm7HF8XtEj8ttmV63txZ1WFVCBGVDp824=;
+ b=0Yj8n3CY1h+bsiLaLuf7kW2uckS8f/7kWUrLkhiEDYmZMVjFuABVx1zOv08dZEd/G/cGNzpDhlJzfRaQicHZNNptdjoEs2e2OZisJTcQufV/PS8UwmCDaH8ipQBkFf811DX8oTzZuF0f02jjV1gUFe2EkQkfzfjMZa8TMcMlQDQ=
+Received: from CH0PR03CA0279.namprd03.prod.outlook.com (2603:10b6:610:e6::14)
+ by CH3PR12MB8212.namprd12.prod.outlook.com (2603:10b6:610:120::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
+ 2026 04:37:26 +0000
+Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
+ (2603:10b6:610:e6:cafe::6) by CH0PR03CA0279.outlook.office365.com
+ (2603:10b6:610:e6::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 30
- Jun 2026 04:37:19 +0000
+ Jun 2026 04:37:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,26 +49,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 04:37:18 +0000
+ 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 04:37:25 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
- 2026 23:37:18 -0500
+ 2026 23:37:25 -0500
 Received: from granthali.amd.com (10.180.168.240) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
- 2026 21:37:16 -0700
+ 2026 21:37:22 -0700
 From: Granthali Vinodkumar Dhandar <Granthali.VinodkumarDhandar@amd.com>
 To: <Alexander.Deucher@amd.com>, <Mario.Limonciello@amd.com>,
  <amd-gfx@lists.freedesktop.org>, <Pratik.Vishwakarma@amd.com>,
  <Suresh.Guttula@amd.com>
 CC: <Kanala.RamalingeswaraReddy@amd.com>, Granthali Vinodkumar Dhandar
  <granthali.vinodkumardhandar@amd.com>
-Subject: [PATCH v2 2/5] drm/amdgpu: add support for GC IP version 11.7.1
-Date: Tue, 30 Jun 2026 10:06:52 +0530
-Message-ID: <20260630043655.1284069-2-Granthali.VinodkumarDhandar@amd.com>
+Subject: [PATCH v2 3/5] drm/amdgpu: add support for PSP version 15.0.9
+Date: Tue, 30 Jun 2026 10:06:53 +0530
+Message-ID: <20260630043655.1284069-3-Granthali.VinodkumarDhandar@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260630043655.1284069-1-Granthali.VinodkumarDhandar@amd.com>
 References: <20260630043655.1284069-1-Granthali.VinodkumarDhandar@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|DS7PR12MB6045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c23b774-bbc5-4fe9-33b4-08ded66144e2
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|CH3PR12MB8212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 918dc88c-46c8-4f55-0ddb-08ded661490f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: u3e34lBkvFhAdNlC92szfwJvo4IlCySiH6nD56V+Id3ALVGEw/NqnqpsYuDi2lDHRpd49OZnU1XiZFuIGulY+JyJniDNKw9zMN0K50pBPQFPCj7msgdNlrB7hgii6VVAhrbptJHQdjHoNSGU9aXGTrRNFf7s/fex4qzp2QtS5FqBbALyjjj6pnINayLhAjQ8y9OQHP8Rt7tDx+/1+2CIupJDVA4SySbYD98kbgdBhKaFMLDoEsOrLj+VjQuhRW8Nvwbfg+0xFSUjxzn0vfptFHCsFLqpnv384A5b63rRWzyzVqipiAFSAwzJCQoEXp9UCvKl1yGERE13N8lA4QHd6LqUhiH6vaGQipG2aEXT+aGPItjUdy6DyGD7wZ7VMxJQVPHz6xw9CeFF0PLm+7FbjnEi7I7aFpKu6GfyRu3PpGL1j0Op0dJ/OfTWCmC0RuQPHwF3h6Lp6DaDw75aHe9UaMUYY2LcZSmlSZOOJU7klE9lxgin3PUI7j7Hbbkenhpd7iYAeoz6F1alTRIoDEL/nJ17zHRIjNzCTX5C8t/eeVUyVJXCzjqUjlKsMu9iDbt334+eWu2+yYoSbYsBmJzAh7KttTOonhiI3FtGaR+zkMVsuo6gPe9UjWYXR0o2Qw3CL4/iNMhjjER07YWot3mtRDCRXc6VNRPC+yYW9IpybOD9EbMQXw06BldsO7kP/+/uX1auE5GR3b4XAB/0rDUHMA==
+ ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: yFO7khzDPAkmJBtlTT0dj4ddFN2h4Sk/zLXLwYxlsHio+uJgTTnLpB/Y0f9Kh3z/DWlzH2OXT7hj83bZYXtjMA+CiQk0G5xDAc6/R+Rt6Xq65zvpt83pV8bIaLgMZYs5kueBpaV22sDBDpO1UH9n5BmUP6Mx0B2Adgvj1JvRdpOKoABfn6M6Cd1bpcmqMJq+2sjJU0SKjIBrPgBWsN4J86kauC/4InCNTE/i7F6NRG7qKZS0A0xOKtkGeijbGBgyhyZX1RKYQK3f44U4htpMFvzACSFQIaOSREolZ4mfQ63KFYA3gyxsCZbAk2h1DIjjrUve80YGdpi+nZOQXRe9XUfSFrTrrl8tTghrRBsplnEksQkWG1gKXHA67fECUCsCjBmv8P3loAEAD61NTOtWHJ4Wtg1ktFqfvNl794rQK81+G6vFqh1tAfrULAmBqXeZUPGhn0vrWTBo3VwDUtbN5eqx4rAUEKswDuPOxkM6QXvButSPDBQfI8QQIJFX6RD7AG+y4w4c/2f5pIgPKoVMIr82EGoNpNx716bCaO5dk04s0z8C8g9VuPo3nyGccfi5zhrWY+If/8qkplVJzO5MOsHh0HRqHqx70LD2r5EHJWGUVVB1OrOKDDrQOm0aoDkYwmiqFFRnZeOkhn3z32RBFL6tldz1YWcnCK4QUnpRbPdAM3p9HElmbGujx4NDl9QBWuAJWr38o8YeCGC5oM2a+w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CkY5vMGCRr5V21061UqW/XrAii97R31dcwpByjt/yA9LoQJbNLxXQwr/0RHgTOckdA5U9i13kY2JAQyyvQWAhBxUT7q4Jj6oD1xeGJrkYwI9Oq2OItrr4ocNQ3lHPmSs2zAIiU7fa2jWBk8h3JY+CjsF4m55Y/jnsviLb8nE9JRd4ek5rD57nL32KUMlgl+zekUEScns68NcwsDrFIQcmzL1FX3yAk56D2SCYBrWPaKVFe7PwLP2uM3PgehNbzppuHtMmszDgoD/UqMayInATAocvGEwLlJUeTiTMWRqmXVvogPDLnNJPd38Td6NaVAaC5jNR+CPsKxkql0hmFKXJhM/jwRE0PiCdl/Zm2UItd/I78+zQe0aWmg49RbeouprZRBV24IuDWGRfiEb1Kwk/+dA47q3gzB71uelr96LuOc6UNU0MbpTHumYae7A7btU
+X-MS-Exchange-AntiSpam-MessageData-0: 8b7LUk7avEHprSdeOKG/G1myHNApbxRtpjC8oeYoBQHdXpDVvmrSehaBhgRVs92Kf6iQe16sNcwHCXZL8RrJCNkAXXsMIRgp9enr3vmJ8PZ+t33wUeftzRisHQVaK37y0k5dVtBqm7iK1k9geEdo73J+hyciZm0nNHh4JvsQvBWTVgMQ1kSq7rX7o3stwHyo8G0iF33JRP+Wfus6tj8IuZAj36ZIkJPubCMdOvvrLi+oWai/WtwnjM2r4iBWacvCFdGdw27u6GktxZZQCr4+LwisZcItULwqNLA4EjAf9zEaaIJ/ILA0V8rpf2Eg088GP62RaozFxsMGhSH/sHzPjwiBbW8BRdiitm9wZs2/jLaXvbkI95qqIap+4DcCR7EyumRjN7vQDys9+nM2MSvU72AQ5LAVvfmPjJvoGUQxGXnuE0Md3ETG1kBTV/IE3nSY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 04:37:18.8718 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c23b774-bbc5-4fe9-33b4-08ded66144e2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 04:37:25.8534 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 918dc88c-46c8-4f55-0ddb-08ded661490f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6045
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8212
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,285 +117,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Granthali Vinodkumar Dhandar <granthali.vinodkumardhandar@amd.com>
+From: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
 
-Initialize GC IP 11_7_1
+Initialize PSP Version 15_0_9
 
+Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
 Signed-off-by: Granthali Vinodkumar Dhandar <granthali.vinodkumardhandar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  6 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 12 +++++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  2 ++
- drivers/gpu/drm/amd/amdgpu/imu_v11_0.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  2 ++
- drivers/gpu/drm/amd/amdgpu/psp_v15_0.c        |  2 ++
- drivers/gpu/drm/amd/amdgpu/soc21.c            | 28 +++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  5 ++++
- 10 files changed, 59 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 5 ++++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 249b2d556bb3..d345bea4f390 100644
+index d345bea4f390..16606155a92e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2337,6 +2337,7 @@ static int amdgpu_discovery_set_common_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		amdgpu_device_ip_block_add(adev, &soc21_common_ip_block);
+@@ -2521,6 +2521,7 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
+ 		amdgpu_device_ip_block_add(adev, &psp_v14_0_ip_block);
  		break;
- 	case IP_VERSION(12, 0, 0):
-@@ -2399,6 +2400,7 @@ static int amdgpu_discovery_set_gmc_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		amdgpu_device_ip_block_add(adev, &gmc_v11_0_ip_block);
+ 	case IP_VERSION(15, 0, 0):
++	case IP_VERSION(15, 0, 9):
+ 		amdgpu_device_ip_block_add(adev, &psp_v15_0_ip_block);
  		break;
- 	case IP_VERSION(12, 0, 0):
-@@ -2726,6 +2728,7 @@ static int amdgpu_discovery_set_gc_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		amdgpu_device_ip_block_add(adev, &gfx_v11_0_ip_block);
+ 	case IP_VERSION(15, 0, 8):
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 4b91a22701dc..a36cbfc1f6f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -275,6 +275,7 @@ static int psp_early_init(struct amdgpu_ip_block *ip_block)
+ 		psp->boot_time_tmr = false;
  		break;
- 	case IP_VERSION(12, 0, 0):
-@@ -2945,6 +2948,7 @@ static int amdgpu_discovery_set_mes_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		amdgpu_device_ip_block_add(adev, &mes_v11_0_ip_block);
- 		adev->enable_mes = true;
- 		adev->enable_mes_kiq = true;
-@@ -3354,6 +3358,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		adev->family = AMDGPU_FAMILY_GC_11_5_0;
+ 	case IP_VERSION(15, 0, 0):
++	case IP_VERSION(15, 0, 9):
+ 		psp_v15_0_0_set_psp_funcs(psp);
+ 		psp->boot_time_tmr = false;
  		break;
- 	case IP_VERSION(12, 0, 0):
-@@ -3384,6 +3389,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		adev->flags |= AMD_IS_APU;
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 46b9a477fb42..61c528c5db5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -978,6 +978,7 @@ void amdgpu_gmc_tmz_set(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		/* Don't enable it by default yet.
- 		 */
- 		if (amdgpu_tmz < 1) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 26c02bcb05fa..64e58cf15c1f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -137,6 +137,10 @@ MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_me.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_me.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc.bin");
- 
- static const struct amdgpu_hwip_reg_entry gc_reg_list_11_0[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS),
-@@ -1133,6 +1137,7 @@ static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		adev->gfx.config.max_hw_contexts = 8;
- 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
- 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
-@@ -1618,6 +1623,7 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		adev->gfx.me.num_me = 1;
- 		adev->gfx.me.num_pipe_per_me = 1;
- 		adev->gfx.me.num_queue_per_pipe = 2;
-@@ -3097,7 +3103,8 @@ static int gfx_v11_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev)
- 		    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 5, 3) ||
- 		    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 5, 4) ||
- 		    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 5, 6) ||
--		    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 7, 0))
-+		    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 7, 0) ||
-+		    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 7, 1))
- 			bootload_status = RREG32_SOC15(GC, 0,
- 					regRLC_RLCS_BOOTLOAD_STATUS_gc_11_0_1);
- 		else
-@@ -5773,6 +5780,7 @@ static void gfx_v11_cntl_power_gating(struct amdgpu_device *adev, bool enable)
- 	        case IP_VERSION(11, 5, 4):
- 		case IP_VERSION(11, 5, 6):
- 		case IP_VERSION(11, 7, 0):
-+		case IP_VERSION(11, 7, 1):
- 			WREG32_SOC15(GC, 0, regRLC_PG_DELAY_3, RLC_PG_DELAY_3_DEFAULT_GC_11_0_1);
- 			break;
- 		default:
-@@ -5814,6 +5822,7 @@ static int gfx_v11_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		if (!enable)
- 			amdgpu_gfx_off_ctrl(adev, false);
- 
-@@ -5851,6 +5860,7 @@ static int gfx_v11_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 	        gfx_v11_0_update_gfx_clock_gating(adev,
- 	                        state ==  AMD_CG_STATE_GATE);
- 	        break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 8a0a88551461..c40d9c467204 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -607,6 +607,7 @@ static void gmc_v11_0_set_gfxhub_funcs(struct amdgpu_device *adev)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		adev->gfxhub.funcs = &gfxhub_v11_5_0_funcs;
- 		break;
- 	default:
-@@ -783,6 +784,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
- 		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
- 		/*
-diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-index 177d702e612a..05b164f38c97 100644
---- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-@@ -44,6 +44,7 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_3_imu.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_4_imu.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_imu.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu.bin");
- 
- static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 3ee0c9ee262b..73c1525ad289 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -62,6 +62,8 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes_2.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes1.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1.bin");
- 
- static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block);
- static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-index 2a8582e87f2b..2a4d91368ac6 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-@@ -33,6 +33,8 @@
- 
- MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc.bin");
- MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta.bin");
- 
- static int psp_v15_0_0_init_microcode(struct psp_context *psp)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 9b9b13e327d8..1677e88a4e36 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -866,6 +866,34 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
- 			AMD_PG_SUPPORT_GFX_PG;
- 		adev->external_rev_id = adev->rev_id + 0xF;
- 		break;
-+	case IP_VERSION(11, 7, 1):
-+		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG |
-+			AMD_CG_SUPPORT_JPEG_MGCG |
-+			AMD_CG_SUPPORT_GFX_CGCG |
-+			AMD_CG_SUPPORT_GFX_CGLS |
-+			AMD_CG_SUPPORT_GFX_MGCG |
-+			AMD_CG_SUPPORT_GFX_FGCG |
-+			AMD_CG_SUPPORT_REPEATER_FGCG |
-+			AMD_CG_SUPPORT_GFX_PERF_CLK |
-+			AMD_CG_SUPPORT_GFX_3D_CGCG |
-+			AMD_CG_SUPPORT_GFX_3D_CGLS |
-+			AMD_CG_SUPPORT_MC_MGCG |
-+			AMD_CG_SUPPORT_MC_LS |
-+			AMD_CG_SUPPORT_HDP_LS |
-+			AMD_CG_SUPPORT_HDP_DS |
-+			AMD_CG_SUPPORT_HDP_SD |
-+			AMD_CG_SUPPORT_ATHUB_MGCG |
-+			AMD_CG_SUPPORT_ATHUB_LS |
-+			AMD_CG_SUPPORT_IH_CG |
-+			AMD_CG_SUPPORT_BIF_MGCG |
-+			AMD_CG_SUPPORT_BIF_LS;
-+		adev->pg_flags = AMD_PG_SUPPORT_VCN_DPG |
-+			AMD_PG_SUPPORT_VCN |
-+			AMD_PG_SUPPORT_JPEG_DPG |
-+			AMD_PG_SUPPORT_JPEG |
-+			AMD_PG_SUPPORT_GFX_PG;
-+		adev->external_rev_id = adev->rev_id + 0x40;
-+		break;
- 	default:
- 		/* FIXME: not supported yet */
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index a6a7888c7a8d..2a239f45fc24 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1716,6 +1716,7 @@ int kfd_get_gpu_cache_info(struct kfd_node *kdev, struct kfd_gpu_cache_info **pc
- 		case IP_VERSION(11, 5, 4):
- 		case IP_VERSION(11, 5, 6):
- 		case IP_VERSION(11, 7, 0):
-+		case IP_VERSION(11, 7, 1):
- 			/* Cacheline size not available in IP discovery for gc11.
- 			 * kfd_fill_gpu_cache_info_from_gfx_config to hard code it
- 			 */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index bc05ae15c1cc..1c3e8b61d4f8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -170,6 +170,7 @@ static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
- 	case IP_VERSION(11, 5, 4):
- 	case IP_VERSION(11, 5, 6):
- 	case IP_VERSION(11, 7, 0):
-+	case IP_VERSION(11, 7, 1):
- 		kfd->device_info.event_interrupt_class = &event_interrupt_class_v11;
- 		break;
- 	case IP_VERSION(12, 0, 0):
-@@ -456,6 +457,10 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
- 			gfx_target_version = 110700;
- 			f2g = &gfx_v11_kfd2kgd;
- 			break;
-+		case IP_VERSION(11, 7, 1):
-+			gfx_target_version = 110701;
-+			f2g = &gfx_v11_kfd2kgd;
-+			break;
- 		case IP_VERSION(12, 0, 0):
- 			gfx_target_version = 120000;
- 			f2g = &gfx_v12_kfd2kgd;
+@@ -3475,7 +3476,9 @@ static int psp_load_non_psp_fw(struct psp_context *psp)
+ 		     amdgpu_ip_version(adev, MP0_HWIP, 0) ==
+ 			     IP_VERSION(15, 0, 0) ||
+ 		     amdgpu_ip_version(adev, MP0_HWIP, 0) ==
+-			     IP_VERSION(15, 0, 8)) &&
++			     IP_VERSION(15, 0, 8) ||
++		     amdgpu_ip_version(adev, MP0_HWIP, 0) ==
++			     IP_VERSION(15, 0, 9)) &&
+ 		    (ucode->ucode_id == AMDGPU_UCODE_ID_SDMA1 ||
+ 		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA2 ||
+ 		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA3))
 -- 
 2.43.0
 
