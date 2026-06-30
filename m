@@ -4,49 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61BBAC43602
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 07:11:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87F0CC43327
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 07:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 334C210EDFD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63DC110EDFF;
 	Wed,  1 Jul 2026 07:11:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="H9AtX5gv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nSg/MP0h";
 	dkim-atps=neutral
-Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
- [136.143.188.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0188510ED40
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 20:28:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782851306; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=QeshbaSU6hizs4JI6RTD0I+xIOKSfJ+BzzRbbaXOoh36dtqA83XU7zY63DiOtPtDdK9EnAvyCNOP+Mym34E5UeWNCMCfx/GdBba3hiaTAEHYtdauiMifofYhkcigp8T43O09N/pTTw2Bmw5ta/SJM3vLTZaXCd5urxuZtjCqHns=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782851306;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=/xxStwIF61bn3ZqA6+M8xNVE8MJdolxYpTE31ogRu80=; 
- b=Q27/1FCC1Yecxiu8Ycjcn0we7lyb1KuRCzPLUau1a3PyQs6CcGSZXJADxY6krCcnoG1CRL7eJOcDPp4ifDyzcwfe8D0uBpXxmvbj+vEs+jiZGcdwZLjYM4zXWBpUwZQkPK1yxrHpAKTiX5GGDZfjnoDDBZzdcbrXIbbdArIO4ak=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=mark.filion@collabora.com;
- dmarc=pass header.from=<mark.filion@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782851306; 
- s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To:Cc;
- bh=/xxStwIF61bn3ZqA6+M8xNVE8MJdolxYpTE31ogRu80=;
- b=H9AtX5gvsE/h6k/VgvBl0++qclp1i6kMqdsXkXgoGl5+fDL+UbnmnDKjaNYFMXLS
- 9HIOrsYzBf3wvVkz40VodOmY9lssOPVb4CrMSVy0Qt3uLhsZgxikHjKKBGPWVcJrMVA
- IAMCVLa/d57+NSZzSDegNvdvrW8OYekyPozQOg18=
-Received: by mx.zohomail.com with SMTPS id 178285130449927.213119788359222;
- Tue, 30 Jun 2026 13:28:24 -0700 (PDT)
-Message-ID: <102a923307828ec347c99fc982cf2665097218c9.camel@collabora.com>
-Subject: Reminder: Call for Proposals closing soon for XDC 2026!
-From: Mark Filion <mark.filion@collabora.com>
-To: amd-gfx@lists.freedesktop.org
-Date: Tue, 30 Jun 2026 16:28:23 -0400
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2D6310E269
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 21:10:50 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-13b20620476so12782c88.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 14:10:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782853850; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Ir6sJ6hIXvPYOGd3i8gmnIP7QQix8p/atEy0pRD8y7R3F8C9EODKq1MXJwI7eGFtHt
+ AXr9Jms9ejVlC22fa+U3wfLqmCQ4KkkEReKAaVsuOBgpveKNpXaK3NRI3/1UYJAIuKb2
+ aIR7gSj8tOokGss/DvD/j/pTHD3oMgp5tRm/MKYgSth78WSlN5y0HdW6gpLT330Ioi/e
+ YXFDOUDuOyn0X17NlPlF7tEFmJvKMf1nW+CwHUSzvYR9c33TVe2hiI2TzBTHAqC7aDb4
+ Sedto26UQpmoriTK/myFh4n/KbhD4gd5DpucZDBenCcYTu3+o8IjOrhmkLdGYkQn8EEU
+ Y4iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7SSqL1E+p7WgGd8ZO/9M9ZdneV3Ml3dOx3/qlpyHxCQ=;
+ fh=IZz3X4osmxS36Y7VJjJugOXSjor+sjbvrUZSYnSJqfU=;
+ b=RU9cEYO3QpkX8Fe723ZmbsnqlW4r9AleF7lidRaqvL5uP3LNNvnCjYrEsUADEFM7s3
+ 78Qs5Bp5r9XP/y4/uxMsq+EMQ9LjR/E8yUcmjQ0bKqNjRhU4nWK9rvFeCw6mNaw53neR
+ okrrngZYu/eTSeB9k5SKmCFapcNrClI8ky8eZVhZbRNGdLmK51fNEc3hcbA0cR9RWDgV
+ dNs8Y1qLfX6USBWoNR+50NUEzgCIjLGr3/UETMLlfFkGse743lyT4fB2sKBlHghLfEGC
+ YSewQV+yAyxr3klWRSCy7LBWs+vudfllLLeL+tBRPeVxQI8XixWsLfySBg7rB5h/Z564
+ 1Ulg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782853850; x=1783458650; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7SSqL1E+p7WgGd8ZO/9M9ZdneV3Ml3dOx3/qlpyHxCQ=;
+ b=nSg/MP0hvZaMCT90L34XoNdYrRhU3rDNjWr5MDP6F99FqVh+iiAgLijisfGNIUG9Jg
+ JsDvlviymjF6COk5KgUJnhdEjB8tf7870ck9h5+NHX8/eISSFtyo4Jnf88SrAvsfeqWe
+ U/jTCg8X8wO4BEhBKvYoUyRJbMj8kB14dsEiNZV9R3x2mOppHS5AgfGYfAkJfcH6DR/R
+ MhHQuahiAWDDY0wSepMry3dBSht+ghMPz8u0Bi3GhglLO3qYn+CLF4J/kGM2sGJpsswz
+ fR6X4uPKxPMJURahnw72VGB1ayLARxWIXmO187HRkP3EPCsSMWNsisqii6BrjN5vYMVF
+ xaPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782853850; x=1783458650;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=7SSqL1E+p7WgGd8ZO/9M9ZdneV3Ml3dOx3/qlpyHxCQ=;
+ b=fiGzDMntsdsYUc6Jl2I9R8SZOpJfOPsfyhwRvkooxuLdeczjj3vywaJsAgp0pGkrqc
+ FJ67bhDgArapXPBt+ZC2IqeGWiey83jnOY7ZCbee7Bbopuci/SvRtXK6cxz2hlQO1D8H
+ bGCdX3P95RSmghfvWspG2/AK3/6avHwVaxoVm0VraXSJ9Iz/jllw7xQvVhvTDEY+cgvc
+ GQ05QxNxPMNsqC/EEnp45hliwrWxVXKHOxi24WsJ+tHEHY0UF+MYaRQU4tMKyiGTdkA0
+ iaac7t/V6sjmit3xPvoK8fQEulexA3xL8dl5JAguZzE4NX83KQ5cCJG7cT67ZJFrgRQ7
+ p6UA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9PapltKM0V5rabWTtWnlAitkzEVgJeW0+ybF+gSg4TRp0hHolFbNXIRmIP4Y9AKSlh2BnPvzZc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXQejTye56Uz5EdvkMoNwIiImbAq2PVd5TP9tn2f1qQRogHQd1
+ dmDlwzeMxZG2cr4qyc581bLqLHpfan7JUjP89gHI8OZqAxPdgYrNdgqrrZMtzme0L17ty/mOGLq
+ qNEKUuclK1iVyBBqExgXQwuF7Ps59yHY=
+X-Gm-Gg: AfdE7cm72cSnlT3DX22vH2mrs8sb0C/20cRLFvzxNDwXgfwpkIT790HUsNw1A6hqIVZ
+ epZwzuyRnALes3e+jHZaBW0w0EhhsHWuXKZM/9Zr1rhI/uqqgreeMQpcUkQ/7ChLqC4E0XWjeRB
+ 63W/jbqbTVDAlZYg5mDhv7Zeqm24ZhH1QLUeCCUXulQjBDyhk2+NFeZ2GIjtpvmXAs1rKnSeLCV
+ p88G+zkimx3vxphYMqTuU5j+YCGASiqDSxF8YtYnfPiN4h0qCOzEbHj4kQxnNXvGBSSKaLNyj9e
+ 4zO/M5nSa3BLx591aZkzr/ly0GxHIB9Iq6k7nx53hndVcct3UEYk/vfk9V0HllgYcxAyX2AvJFX
+ tMPjYaUAvt2Y4
+X-Received: by 2002:a05:7022:688b:b0:137:e391:1ae2 with SMTP id
+ a92af1059eb24-13b2a1ab955mr1757879c88.6.1782853849895; Tue, 30 Jun 2026
+ 14:10:49 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260630210445.23103-1-breno3011alves@gmail.com>
+In-Reply-To: <20260630210445.23103-1-breno3011alves@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 30 Jun 2026 23:10:37 +0200
+X-Gm-Features: AVVi8Cfjoi3T3EKFkCwXhsv0BrkYg3IOIGvLrRnFevnovSKeBOUhSVdqZIWPxgE
+Message-ID: <CANiq72nFchJZVE8sr=oRnh8wR_DxefJNBUV=OwOs7hShZXApTQ@mail.gmail.com>
+Subject: Re: [PATCH v3] rust: core: implement rx580 state optimization engine
+ and c-to-rust char dev
+To: Breno Rodrigues Alves <breno3011alves@gmail.com>
+Cc: alexander.deucher@amd.com, gregkh@linuxfoundation.org, ojeda@kernel.org, 
+ christian.koenig@amd.com, arnd@arndb.de, rust-for-linux@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
-MIME-Version: 1.0
-X-ZohoMailClient: External
 X-Mailman-Approved-At: Wed, 01 Jul 2026 07:11:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,27 +108,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+On Tue, Jun 30, 2026 at 11:04=E2=80=AFPM Breno Rodrigues Alves
+<breno3011alves@gmail.com> wrote:
+>
+> diff --git a/Documentation/rust/alves_guidelines.rst b/Documentation/rust=
+/alves_guidelines.rst
+> new file mode 100644
+> index 000000000..f6afa63de
+> --- /dev/null
+> +++ b/Documentation/rust/alves_guidelines.rst
+> @@ -0,0 +1,3 @@
+> +# Rust for Linux - Core Guidelines
+> +- Style: Linear, pragmatic, flat, Linus Torvalds style.
+> +- Constraints: Zero-cost abstractions, strict RAII, no binary bloat.
 
-Reminder - The deadline for submissions for XDC 2026 is this coming
-Friday, 3 July 2026.
+What is this? And how is it possible that you changed this file (and
+also tested the typo) within minutes of v2 submission?
 
-    https://xdc2026.x.org
+Is this submission generated with AI? Please see:
 
-While any serious proposal will be gratefully considered, topics of
-interest to X.Org and freedesktop.org developers are encouraged. The
-program focus is on new development, ongoing challenges and anything
-else that will spark discussions among attendees in the hallway track.
+  https://docs.kernel.org/process/generated-content.html
+  https://docs.kernel.org/process/coding-assistants.html
 
-We are open to talks across all layers of the graphics stack, from the
-kernel to desktop environments / graphical applications and about how
-to make things better for the developers who build them. Head to the
-CfP page to learn more!
- =20
-As usual, the conference is free of charge and open to the general
-public. If you plan on attending, please make sure to register as early
-as possible!
+Please observe the ~week delay between submissions. Also please add
+changelogs for your submissions etc. Please see:
 
-Best,
+  https://docs.kernel.org/process/submitting-patches.html
 
-Mark
+Thanks!
+
+Cheers,
+Miguel
