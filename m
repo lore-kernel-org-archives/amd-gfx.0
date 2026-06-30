@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E4CC43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 07:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 330D7C44500
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 07:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75E9710EE01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF8A10EE02;
 	Wed,  1 Jul 2026 07:11:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kBF/B6d1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Aa0chqnf";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AFC810E1C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 20:53:50 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-30ec3dfbcd1so4460724eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 13:53:50 -0700 (PDT)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8858010E1C4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 20:56:32 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-30ec3dfbcd1so4464920eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 13:56:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782852829; x=1783457629; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782852992; x=1783457792; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Im/Cgy1KPUJRDkgmPppKUBi9RUAthiZthPAkYs4iPWE=;
- b=kBF/B6d1LSv10StRkyWO2EWVJj3/7UDcUEF+uwy3I9DbCqsijXzXEFGzRysWna96Me
- oufP43gIWQwiTdI3wKrVdKsoG/uxRGUxizGkNmt/xjry9nSgSSrwR0b2uKEs+JFt/bSh
- YLQ699ev7J6+Tt3fw6SRG3PmFid9VwgYa+MvkYGZhoIipMi054WrVZCTh1zstqqjCNpt
- NTx6Q2vMCsT1GUpq6Ny5Y4JYgj7XuRqU7mUiXHbmI1/DvTDVt9LsJU2e6tKkn1nS3y6d
- ePMTxI9ap7V2tGXy6fYhHhw4gtQdvqbSxMeCuOPlKv0vunNxRoUY/dQJ3wspdLq/EyDV
- N4rQ==
+ bh=x6HiwsfvjPmDRHwoix/a9VYdRRXV1hUXI65/5jT+lC4=;
+ b=Aa0chqnf008KGiEzQDvpX51CweXE0dS5kOgW55MZCx0ddhWQ6d3MO9O2PH+N8I+e8M
+ oSWu38ldQhCc/9duCHJ7Q0hrukTqAam8Cp8wIyLP34qJ5rkqEPVfM9rH7cNWa4fOi3Kt
+ xjt2g6cOaOuA7EVOzdrtsz994tBuogIBAUimBg9fnJ/dOXt2IhgT97hKtqurGUsdZCpF
+ Wc+lhNRWdyBEULuU/G17WwkiP2CNqC8JN96miFnMnEc/a+U65TG5BDOsxyCtYdfjMBbt
+ OuyzglRHSPIglsQJ2LVL1bRQneYgve3TZ/iwALiZQGdp6uVOEhM6cd9dDJrTKDXLT3b3
+ cNUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782852829; x=1783457629;
+ d=1e100.net; s=20251104; t=1782852992; x=1783457792;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Im/Cgy1KPUJRDkgmPppKUBi9RUAthiZthPAkYs4iPWE=;
- b=KXpjU5CAEhdYx/6+mEHk/IVzIdAxbfn4ZmWabRB5G2qmsW2MJ6XwqZh82UjYuhxH6f
- 2xnVW6sX5HEdA7zGEonvjka1yF7a9bsUOmYu/JAEXcaxkQBw2+zxQuIpdY+ThLjNs3fC
- YhDBtCB9hOa7yPalE/76hTSKN1ay4UH5GP3mtWJGjlpkJnTaeT6b4dCdREMLTVrhq84O
- X2cC3uob1KhjP6Gqlxi8mjNRObRCAIqB9qhIWByRhGBfQrq9ZmMzMSR7VT10ENszTwt7
- qynbaE3CEE/TzFg4e7KLal8diEja7nJCfjUpq2+4o/y6vrNa/ukXLJH/8ELeXXER0DU1
- UiPA==
+ bh=x6HiwsfvjPmDRHwoix/a9VYdRRXV1hUXI65/5jT+lC4=;
+ b=kqStG6jCu7FU2YMWOGIX19tMfpKV/63LtLLf9O/5uxKqX9M7hGy6w3KZo9iotJlxFD
+ ZLkmTvk93NFz9MQbuWho/WO0pSUgDeqEeULe91euMzdUhaAsCfNZTbdyhl5pLKIVVKZg
+ pVHfLCxDLpWcfB06xMVm55CfnXjiz8pPNoEGo63tb6tTVztXru5ZK6rM+7+XB8D6b/GN
+ UGgxVqf6krCSwKWmQkA1QK8PujGlbxgjHMTAIjo6Sir1dBIa447b6JfDCQfGc8Ma9tKO
+ goWsbM8wGCzluuK7p5pXBWnEshta3DGdmOGR8LvUfXV6gppIsO3XCt39GIqHp4Z4E8w/
+ jmSg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq+22OWiZpcVMfs+Ob9rJpAfcSEBses8MKC+FsCfaO2gp2z+MCmUAU1sIbG8jsWpzYUw2oPRRDo@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcDzkEJhz3GGg3O5DcqNB/eIuUP7XIUJkeSDiLxRo4+pws0h84
- 3H9vSMr/P6daWYHvzab9AoT1g24FzNvwUS3iEEyVFoylBOyfT1v9oKja
-X-Gm-Gg: AfdE7cmym/0Pd7+1onNPYFA0pWQqLTVkfs3SVj6IUnwxGDu7xHIMQOr8VApB0GvyHGi
- q9hBPvF7CND4RJfG8W3KEICQSgSTG58s0Y1EsJ8OHgrihiHhZyaJRzUl6LfBOqRo5eSq59tZujm
- OveXnThaeO8B1yw/C4X180FT9I2G8Bx0PXFY/CXEdT3B8uqLwHqUm66n9xrYUcBePE25YxuCB7W
- zwNi1nmD4v50tbsJ5G7IDoULcFYQJm0pTKspVrq0cM12vwqqnueK7OyHVQTuoKKGWz4G9eu8cSZ
- iMuPNuzaVD9iLl2PQQTCYv39+PkX85aFGumtzga67/RSMabmqU41CzRIhf6K154Sq4jJJ8oBHsl
- A5l6uuyw1xB4JKo9ReloJ3o8JeDR+Y0CGXniZf67kPbmyWAl1D3M+OKH9+8ACWPftQ97YBzHFUf
- PHBIk048zs0/PtehgKMiTffKjB0Ezs8uTADlNYdX3S0IkCnB4Nj+1B1XQ=
+ AHgh+RrNW9w5pe7A8Bbyq6MxmhtlfB6mwX6ZaumMJuSwPIOMSxeeWMNKN6foqT6ksc1YNAFBVeicRtAt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgQtU4Q6gr4I0uXKKO3Z7MOf1lg6hKV/eaGbis59CYXJmEgMbK
+ WMEq/I0T1xJgC2D6rHQmECb06khFkzRr0ibMgXJMY35MCdxyMkyWQeiECJkDTBxSywg=
+X-Gm-Gg: AfdE7cnYU0Z6/LTWzsAG1Q7ZbjqbEpno0IZ5SD67g9RzAu+gtLK26JGEsc7yh1iczK9
+ GbCXaEcqF7TW4WdNCdzInJYHoZaI7ChLmb3Cy6tO4McNNfWIAASYJoB3BJU++QPOEVkWWAYKd4s
+ 0vrJa2GMWeQsLsRr9QiqRERnN3Ktp3umKQ3/M8QQWwb5YssZym/d1xvEtxWm5fcGf7ut0H6O1Jh
+ JdNcffprNGtWXulQNCxksjm6F6xvHDZtXPWEgTRBrtWC6o+x/+AJh3tqEQkve5uKlWV+MZll2cv
+ cWJ8cWh3jHJRSCHvtHFT+WGYfOzP0weQoIMW1xgOp17dOiE0bJAxDW9nIzieneoBvgTWKN1A/KP
+ IDDR8+DL+ELHblQfESQ0H78AyTJu5vfLq5yRRCPZXW05TjqRkZjuoe8UMrHFxvS2TY5TAeBleij
+ K9VWFgk+dcx3o5xMO8iLZWfsPTeuD3B4S1B1EhNhGyC6YO0zdCjkQ52750
 X-Received: by 2002:a05:7300:3207:b0:30c:2932:ab98 with SMTP id
- 5a478bee46e88-30ee1374657mr3437692eec.18.1782852829102; 
- Tue, 30 Jun 2026 13:53:49 -0700 (PDT)
+ 5a478bee46e88-30ee1374657mr3444273eec.18.1782852991437; 
+ Tue, 30 Jun 2026 13:56:31 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.127])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30ee316bf4dsm11359306eec.17.2026.06.30.13.53.46
+ 5a478bee46e88-30ee31711acsm10767689eec.18.2026.06.30.13.56.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 13:53:48 -0700 (PDT)
+ Tue, 30 Jun 2026 13:56:30 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-X-Google-Original-From: Breno Rodrigues Alves <breno301alves@gmail.com>
 To: alexander.deucher@amd.com,
 	gregkh@linuxfoundation.org,
 	ojeda@kernel.org
 Cc: christian.koenig@amd.com, arnd@arndb.de, rust-for-linux@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Breno Rodrigues Alves <breno3011alves@gmail.com>,
  Breno Rodrigues Alves <breno301alves@gmail.com>
 Subject: [PATCH] rust: core: implement rx580 state optimization engine and
  c-to-rust char dev
-Date: Tue, 30 Jun 2026 17:53:42 -0300
-Message-ID: <20260630205342.22301-1-breno301alves@gmail.com>
+Date: Tue, 30 Jun 2026 17:56:25 -0300
+Message-ID: <20260630205625.22569-1-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -96,6 +96,7 @@ VRAM latency and command loops for the Radeon RX 580 architecture.
 Additionally, it provides a converted C-to-Rust sample char driver.
 
 Signed-off-by: Breno Rodrigues Alves <breno301alves@gmail.com>
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 ---
  RUST_GUIDELINES.md                       |  3 ++
  drivers/char/Kconfig                     |  8 +++++
