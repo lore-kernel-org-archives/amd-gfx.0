@@ -4,76 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35598C43327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C32BEC44501
 	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C887310F20B;
-	Thu,  2 Jul 2026 08:07:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C2A10F20D;
+	Thu,  2 Jul 2026 08:07:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="bq8sF/Le";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CLEsIiWM";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E1CF10F086
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 17:37:47 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-37e0fb87b75so723076a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 10:37:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782927467; x=1783532267; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=g62Dxf6SMlDovUW02yTNltfYRMA0PsQgdavrAfTkmdA=;
- b=bq8sF/LeC9o0OkpAaysXjoTJiHiOkbf+u0sfEUZ8QBwbVbyg8i2UfAnYOsXTmtrQIs
- 31uc9Uod+hDy5tRZv7A0tLVO3BdtO+4WIyrYovzKAqrZaasweYssyViqHAYyhFybeeLB
- +gHAMNs3xt67r6pk1R8kwOp/N08wbaVP3XXVeemi/CN7NOjY0v36xkxP6GR/65Q7H4D8
- LcuvGu+6iF3FGfeaBwWpM+q3JEH9nfN6vNF6LzGhbIfPcBPMJLRlwTw9rtQipRBcIQS5
- lkGo0xd/p5D0eETn5mzrXI9QV+xOTmheLLcmQ8bl/Iyp2CM/NI5e15Twdstwjo4NuK39
- h01A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782927467; x=1783532267;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g62Dxf6SMlDovUW02yTNltfYRMA0PsQgdavrAfTkmdA=;
- b=ny89y0urOYDpCbUGK5Y+Liy7eJNAcua2Sihkdat9pZ2ngFmJroSR/qNYDitVjTo7wb
- 1EwcZXtCoBf3sVGQVhpBILSbJ89f2Mi5SDjFeUoZEZFTbcYC5Vq9XAdBgkGsiARc5lDm
- 6roHLXnt8rnHV+tfRAnamRDmOQvc58TAckjw+UObo2T6uX/0oMrzPuR6sOvZFsFm/spv
- ILmr+KF/0IWNryK0zGwWPIYckS1tngJp09J2FzLIgIR8oOb/abv6Mc+GxQEqXEkMxtpd
- tXrq/UH5ZEFIooWv97Mm3st9ahqdjoeV2YEL5pTgUFAGhTCBKDE2pA/4aAFrmlNbM0p4
- QGow==
-X-Forwarded-Encrypted: i=1;
- AHgh+RphGkKWUBQ4gUEu//9nSIcyxTEigfofWxIuVK1kzunJxZynzX2q0hMfT2RxIqX01MZbDcOHL+3g@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yygv2csQmGL+d6mg/AuutJBA9J5fRBb2T8uJnE3UnQXxcpHkNpy
- W788ZcTZjdxRPEEoOapeIraAc/Jk0ACdbp+InAO96ruAXYZr0cE8oRfK1xnSsk+p9Iw=
-X-Gm-Gg: AfdE7cnEnh8khl6mNtPqekaSkPQ8x31NfiGPDzJ2csXhEIIZF5oVA5lVWZaMK4mr/HJ
- Ry7Vf9TDjpxhdwHADNvl/V7t8buSjf2yPeYq32j+FS8iqPwXdJXZvtZ+W1vyC2jeIzKDWF5lnfy
- gfIqE4tRpMCvavf12GaHgAk1K/7PfK0pxZFw2CuWa3ZH/aaZZSeDja2ilnbrFHR/7vv8YBP0KuE
- I39Sapgr1Br2iny3m7GjXCV4wP39g5m2fUr5V2cOYzfUtdQflGKmiToB3QKkJ+ocaaIr0x/hYuF
- 0eeYl5op5lYxP1OVv+N8x634uZwu6tAVgYXTi9TEU17ZdoQmyBbkLQo7QnPSZLy8IKBtOMlQ1b/
- AXWzqRQWEeb/CFbCz+eb0sKbU2uNhRRorFnjKag4Z/L46i0ZzCUJtU3sANYC/PELZmKTNCdi6cA
- DRp4Jh2Yi19qjX0+9afrT2Wj3wFonNMg==
-X-Received: by 2002:a17:90b:4c48:b0:37f:db06:228f with SMTP id
- 98e67ed59e1d1-380aa0be8b5mr2225408a91.14.1782927467044; 
- Wed, 01 Jul 2026 10:37:47 -0700 (PDT)
-Received: from todd.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f0b7b9a8asm34228eec.2.2026.07.01.10.37.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 10:37:46 -0700 (PDT)
-From: Ulisses Paixao <ulissespaixao@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Ulisses Paixao <ulissespaixao@usp.br>, Felipe Sousa <felipesousa@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v5] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
- gfx_v12
-Date: Wed,  1 Jul 2026 14:37:41 -0300
-Message-Id: <20260701173741.39177-1-ulissespaixao@usp.br>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F68410EA6E;
+ Wed,  1 Jul 2026 15:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782921376; x=1814457376;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=afwJd+S6lP1l2dk3kI5UOr04xPYFcO5Q8UB0L68b/y4=;
+ b=CLEsIiWMvZ5GKR/8pgMo+DVmAyxVAqr4QKa0vL+SFEpW6c8w8ApHaiYf
+ A8zM5KvAkGwzTNh/3zlenEMOT1u5+6lJt+fjW3QPhClXiICOgnwUCLX0A
+ sKJpLM6gXSh8oam134T7JOcOlCo6gFod3NMWM+kCT/Mx39DOOm5MSn4Ce
+ HBRmkfUi1dqoLNIm2VdcXadMy2eS3We3eIUUKohyMbtMY2swALA2fBUYC
+ U2cL5kpTbfmCqP7EJsTIsh/K+bxBG9W/+ADgzXmIXeFepxpZcXqjrz3sS
+ euKVYjLmmce9FU0jelZk6yi73JKRujchesXg3+mHFwEziNyJPCyQDrAaS A==;
+X-CSE-ConnectionGUID: C11Z6hNCQoijcalVRy39oQ==
+X-CSE-MsgGUID: MAZJE2Q/R4q+B8C8280xDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="87571900"
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="87571900"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 08:56:15 -0700
+X-CSE-ConnectionGUID: FsdKxxFaRS+2fJ35CrDePw==
+X-CSE-MsgGUID: Tqp34GmNTRmi31OCCvlsug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="256938068"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.120])
+ ([10.245.244.120])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 08:56:10 -0700
+Message-ID: <6f612bb912271b0dabb86c10e4f81dfbd4c4d31c.camel@linux.intel.com>
+Subject: Re: [PATCH v10 0/5] drm/gpusvm: split MM and device state across
+ gpusvm/range/pages
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
+Cc: Honglei Huang <honghuan@amd.com>, sima@ffwll.ch, rodrigo.vivi@intel.com,
+ intel-xe@lists.freedesktop.org, aliceryhl@google.com,
+ Alexander.Deucher@amd.com, 	Felix.Kuehling@amd.com,
+ Christian.Koenig@amd.com, Ray.Huang@amd.com, 	Lingshan.Zhu@amd.com,
+ Junhua.Shen@amd.com, Yiru.Ma@amd.com, 	amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Wed, 01 Jul 2026 17:56:07 +0200
+In-Reply-To: <DJMGHGBIJTOI.3FTGPA92WVGC6@kernel.org>
+References: <20260630102127.392396-1-honghuan@amd.com>
+ <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
+ <DJMGHGBIJTOI.3FTGPA92WVGC6@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Jul 2026 08:07:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,190 +78,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The functions gfx_v11_0_handle_priv_fault and
-gfx_v12_0_handle_priv_fault share the same logic for searching and
-triggering a scheduler fault on a ring. This patch moves the shared
-ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
-in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
-the version-specific files to maintain proper architectural separation.
+Hi Danilo,
 
-Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
-Co-developed-by: Felipe Sousa <felipesousa@usp.br>
-Signed-off-by: Felipe Sousa <felipesousa@usp.br>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
-v5:
-Return early on adv->gfx.disable_kq check.
+On Tue, 2026-06-30 at 16:33 +0200, Danilo Krummrich wrote:
+> On Tue Jun 30, 2026 at 4:26 PM CEST, Matthew Brost wrote:
+> > If we merge the patches in drm-xe-next and pick them up via a
+> > rebase in the
+> > AMD trees, that works.
+>=20
+> IIUC what your are proposing this will create duplicate commits,
+> which should be
+> avoided.
+>=20
+> If the series is needed in multiple trees it is better to pick a
+> common base and
+> share via a tag that can be merged in all relevant trees.
 
-v4:
-Restore the adev->gfx.disable_kq check to prevent falsely triggering
-scheduler faults on idle kernel rings when MES is managing user queues.
+Our standard workflow if we need commits merged elsewhere in the DRM
+tree is to wait for it to appear in drm-next and then backmerge drm-
+next into our branch. It sounds like that's what Matthew is proposing
+here? And it wouldn't create duplicate commits?
 
-v3:
-Return early if the ring is found in the gfx rings loop.
-
-v2:
-Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
-Remove the redundant check for adev->gfx.disable_kq.
-Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
-all gfx and compute rings without a switch statement.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 40 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 27 +----------------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +----------------
- 4 files changed, 44 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b8ca87669..ca85072f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -830,6 +830,46 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
- 	return r;
- }
- 
-+/**
-+ * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @me_id: micro-engine ID of the faulty ring
-+ * @pipe_id: pipe ID of the faulty ring
-+ * @queue_id: queue ID of the faulty ring
-+ *
-+ * This function handles privileged instruction faults by identifying
-+ * the faulty ring (gfx or compute) and triggering a scheduler fault
-+ */
-+void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-+					u8 me_id, u8 pipe_id, u8 queue_id)
-+{
-+	struct amdgpu_ring *ring;
-+	int i;
-+
-+	/* The scheduler only handles kernel queues so this is a no-op 
-+	without them. */
-+	if (!adev->gfx.disable_kq) {
-+		return;
-+	}
-+
-+	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
-+		ring = &adev->gfx.gfx_ring[i];
-+		if (ring->me == me_id && ring->pipe == pipe_id &&
-+		    ring->queue == queue_id) {
-+			drm_sched_fault(&ring->sched);
-+			return;
-+		}
-+	}
-+	
-+	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-+		ring = &adev->gfx.compute_ring[i];
-+		if (ring->me == me_id && ring->pipe == pipe_id &&
-+		    ring->queue == queue_id)
-+			drm_sched_fault(&ring->sched);
-+	}
-+}
-+
- static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
- 				   bool no_delay)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index a0cf0a3b4..0b2f6ce85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -611,6 +611,8 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *adev,
- 						struct amdgpu_ring *ring);
- bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
- 				    int pipe, int queue);
-+void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-+					u8 me_id, u8 pipe_id, u8 queue_id);
- void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
- void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 2c6f1e25c..888c9f3c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -6688,37 +6688,12 @@ static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
- 					struct amdgpu_iv_entry *entry)
- {
- 	u8 me_id, pipe_id, queue_id;
--	struct amdgpu_ring *ring;
--	int i;
- 
- 	me_id = (entry->ring_id & 0x0c) >> 2;
- 	pipe_id = (entry->ring_id & 0x03) >> 0;
- 	queue_id = (entry->ring_id & 0x70) >> 4;
- 
--	if (!adev->gfx.disable_kq) {
--		switch (me_id) {
--		case 0:
--			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
--				ring = &adev->gfx.gfx_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		case 1:
--		case 2:
--			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--				ring = &adev->gfx.compute_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		default:
--			BUG();
--			break;
--		}
--	}
-+	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
- }
- 
- static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 6baac533a..3f0d29372 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -5019,37 +5019,12 @@ static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
- 					struct amdgpu_iv_entry *entry)
- {
- 	u8 me_id, pipe_id, queue_id;
--	struct amdgpu_ring *ring;
--	int i;
- 
- 	me_id = (entry->ring_id & 0x0c) >> 2;
- 	pipe_id = (entry->ring_id & 0x03) >> 0;
- 	queue_id = (entry->ring_id & 0x70) >> 4;
- 
--	if (!adev->gfx.disable_kq) {
--		switch (me_id) {
--		case 0:
--			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
--				ring = &adev->gfx.gfx_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		case 1:
--		case 2:
--			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--				ring = &adev->gfx.compute_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		default:
--			BUG();
--			break;
--		}
--	}
-+	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
- }
- 
- static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
--- 
-2.34.1
+Thanks,
+Thomas
 
