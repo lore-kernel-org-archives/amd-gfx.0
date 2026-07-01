@@ -4,128 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA0EC43327
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 03:35:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F328C43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 04:07:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B64610ED84;
-	Wed,  1 Jul 2026 03:35:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7D410E2E1;
+	Wed,  1 Jul 2026 04:07:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zQ4bdufE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iMHffZWQ";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011036.outbound.protection.outlook.com [52.101.62.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4D110E2D3;
- Wed,  1 Jul 2026 03:35:14 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF03B10E2E1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 04:07:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y3DXw5MlM2P0Ye3sTCo2DarSN85XCon6s5kQ/n5AXfbZV0J5O48yYykMKzxt9hQM3xh3OKfL/7TN9jP3LBn/elt3YC3ggqcj9jund7N5cpgBBwbDH/k8o8IGBmzopZSkLsKInG9atE47OidOUzTZt/PgsGHqf8C2x2/e3+7mgJZI0g9YxYzPEQZv3/b/Hp7sz76EJM2JO6Sx4L8uDODxggAGpKS4SGy7avksxY1nsXcbjzfV74fz0t0MiR7XOAiXVyhklM1/c+NnhbGGUKYoVDXAuO3IuPnoVfdhDc2fqAs7NJdj7sP7GT6fninLKdGeFyvOXPK7s15bLGvrk68hyQ==
+ b=LJsOE95CQrKzSHr7ZEW63P/e6xyi+x0x9ja0l8Wh2Z2CdN6eJhyqHkb6dwt+j7jDdcFxxfaoqq8mfEWG+sdKnVk7th14R9tezsUPjqu05cVspbppylBCDSC48tQA8O6t1+kDMgOGH9/bYokTHUd47aMwHnKR4qyiy1F7o6Yzky1MWGeW07TsTlnd92C5rmfXdgd8lNU+9VIGAa8rExGjYKCW4+nF41rt2APTRMVvWMaOD1VmC6PHF+fZ0NkyXgoaHXOZrBwfRrlj7WSZnE9qp6kCWlg+obgvUlzax67Zoyd5BGG52YG33hFO1bSbbQbwCYnmVobJ7Wg0KBTJNqwREg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=axZduVim8E8rJxyyRDfcgfeZhhPB/piZN35Rc8q6ILM=;
- b=AaDU0QTOOzrt3b/muytlMcnmnmpRSyr9IfX7dkHRjMN9gn5/GGk4zey3j9Y6c9vh0CKh/1BeiI4lWh/ldzJMnkLtLftryeFwFy282chdc0BXOf7EAceWxEW5XVbh8m0CPH33NxNcDktHXgNCQSqIc9vKbk4644ckx/KA5/MJ9INRcuHwjL7fWgV58LcOrmfJ5vr8LIM5rJnSBWfwypk1FVGTTervC3jtkabSFgZdoluGglZeJ5WxNBd/ZeQmHd0TWfi7tbAM7IPEO8nACdlPqS7qOzp9Ltaz6GmcPztRm6bb11W70DQKY/10jjD1aRSDiORAVhn2hl5LYNne8bAcSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=73+OTDS5RrtUjoWxah7WFbVvKgzCldzHi9NcMvP3o2w=;
+ b=MY4DULkIlkjFpZppY3ckEKmY9G8GNectlgDnLCD/L6OInFwRL91J9N/irMWnSR2GVGNHRcUCnoryUeppmiIXmxMnrnRYy8XC/8ncvFDCdOjIgDAr8ggvTekUwqV5C+98QizdVx+lJTXa7IllHLKQKx6/yRzOHPDGglRjARKwLoKFCfVgvVO1AaIoNqOMDV45dwm86ON0s53LuG7AcVFa29iG6UrvPMVHZdxY22X8iFdIfp9tusY9UagcrmZeH7YnENYYYIMMoE1B7hxMbSdDP/L40Wi1C/uIdUWuoCTm9ImTAoHAyLl6twbdsHgZehicJLnwO1VAHNRCfh+2GbOOWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=axZduVim8E8rJxyyRDfcgfeZhhPB/piZN35Rc8q6ILM=;
- b=zQ4bdufErlqMZwPUoHAHPwHKSNDckIpgSpItI8XDB2I8Rbvg1afyssUtmA1EfCA/9DF+U9OG9ofKY78QQx9z13U7wg9dSaGCR9hrBFx+zxxscgNGXjY93vyU3VBFmA542cJzrxTO4Wa/0JtrTVmEoqztvhabRO1ga6zdJHdCxSo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by LV8PR12MB9205.namprd12.prod.outlook.com (2603:10b6:408:191::21)
+ bh=73+OTDS5RrtUjoWxah7WFbVvKgzCldzHi9NcMvP3o2w=;
+ b=iMHffZWQ/aQQyX14VydaZS7/1BOrSAF9akzHL8GfqYuZRhtrbKG6legS7W479TzWMIhG7g4boHOWtOcXvyd7UkiqYbgBVfhbgfst07vyI6UL+huIRdXFL9tMB1XYCSTt6GHxCLmeJlSBcNmKV4HM3uA6ldbpXZjVz9QtIeUJg1A=
+Received: from BY3PR05CA0002.namprd05.prod.outlook.com (2603:10b6:a03:254::7)
+ by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
- 2026 03:35:05 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%4]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
- 03:35:05 +0000
-Message-ID: <4c0d3658-9480-43b9-9c33-667238697d1a@amd.com>
-Date: Wed, 1 Jul 2026 11:34:57 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 0/5] drm/gpusvm: split MM and device state across
- gpusvm/range/pages
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: sima@ffwll.ch, rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
- dakr@kernel.org, intel-xe@lists.freedesktop.org, aliceryhl@google.com,
- Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Christian.Koenig@amd.com,
- Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
- Yiru.Ma@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260630102127.392396-1-honghuan@amd.com>
- <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2P153CA0049.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::18)
- To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+ 2026 04:07:07 +0000
+Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
+ (2603:10b6:a03:254:cafe::ac) by BY3PR05CA0002.outlook.office365.com
+ (2603:10b6:a03:254::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Wed, 1
+ Jul 2026 04:07:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Wed, 1 Jul 2026 04:07:06 +0000
+Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 30 Jun
+ 2026 23:07:04 -0500
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Felix.Kuehling@amd.com>
+CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
+ <lingshan.zhu@amd.com>
+Subject: [PATCH] amdkfd: expose pasid of secondary contexts by debugfs
+Date: Wed, 1 Jul 2026 12:06:48 +0800
+Message-ID: <20260701040649.8836-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|LV8PR12MB9205:EE_
-X-MS-Office365-Filtering-Correlation-Id: 948157c8-7106-45dd-05f3-08ded721bdea
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|MN2PR12MB4470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c1acde0-f6de-40e9-0638-08ded7263731
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|22122799003|18002099003|22082099003|3023799007|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 63ZogdQAYGa1iopOY52oKN3OwhPeH3qBKtPooGj/8kSf+qH3A4orbarh5rulv2k81Iidhb/CKHRDe/L+yudERx6bgnKREOC1NdYVCAfIoNEXdnwRHkbUhuorZjxz15zeVBPN7r//Sst4YiS7vMw8XG2qHsBhETiIvvgim9OEpDj2XBOWLD15bsOB45DKyggohw311oo3M62zaBTT2MWAvzDyIXeDh2w2fFKhvSz9nm4/sjvQ2XUH/d0H5+kYFJWV6x4P9fgzqkegdPbiKJg+D7wqyfnYqJ3CIkdth3Q/a5VtlP5hUHj9Gt8zgkBZa7hSVfKVaJvRMeF+Ft9zJDpwfThe+ur+wIpcbvLbRHTlZkvLBALbiyF4eMCPA3wUCQXvLIyCVdbjQbM19hf6d6tSjtENszjpUimapiY/i2OfZQCWAI5TfEOQ5jVQuZcozRFnVthRa5+WzXIY0VX7NYQyUc79pzJwtT3uAZULvbS7Kb30ydu0attwI81ej2RewjCzJo0hFUoHFizZoIUuzLFPF/wxzWh7pACYkyhDadq7gFjsnPZdxz8k+klhuXC7v5etzj83C3LqIi6hnA1PfXC2AQV6/0F3weQ96AKzTonyee5yqIb5aBIJHck34xfy2Dc+
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22122799003)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(56012099006);
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|18002099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: mCQQ6s/dhbCgNd+i2bvaSC9rA+zyu0zzZmJRdVcgBefq7V+yjBUkgkiYuhx97h+3CQp28iuulw0YaBvs1SXaEZNp3sZjFtBN4MT+nH1nmp1DC8q2gpKH/ot69ZavEEjV/cg1KDiIIQRelepdQ/zwwTM7XlwLssv0G61dm5FMTc6vHSbzHvIYIrZ5GWgvKm6Dx5tCh+FblMytULsK0Nw/XHJhLn8HHIVaBXE0l4onOP7MRbegFO+MjkUY4mQoONmyoJQuFY0Z3bmmPzErhAVPiwl3nmkalQy1HZKg8pReqjTw51ikQBsZpt3aC4MqRqStlfYUPZaiTW2+xjNhn6tWQNVYizBSmU/mz3KO+7EgZ2fs7Gny9GIWeHSDTZUeftbm4ps0dQLhyHn910gagM48QBNZj0dXtNctHCGyTuCPsGyP7rj5zCmjL5+r8li4TAa5vlae7t1sfaZStP1ECwTgrnHgnu15HoTRyAkzEpwy1djkHWUOVlk6KsBYMsodMLRkJmEY47b2bWgKL7FhzvP3WYN4ibBORG1aghKSKGb2LKk8nUnXDvqvbimsEs0a+3y4pqXH/UpuKht5JZIqlBAiJPql8QUKY88cZc9LnHD+dNnyik5L9OuLfptVn1LOIDXS3IvDFt+hQ6VjSk5T0ocnJhofQ7VjyetnjReaHPwcqgkZGYnMqcGn4pMvTyirygpqHw+z22bt2TKQyq5qkUv9tg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(11063799006)(56012099006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlVLcjlvUnJ5Nk9jSlFjNVN6MWVoRXFTOGRpMjJDMkQ4dktndHJQeENSRkZs?=
- =?utf-8?B?TWcrWTVJMGYxQ0dhbnBkSzArTDUyQnRydWdvU1Z6Mkl1QjZBem83ckxkOGEw?=
- =?utf-8?B?UCtwWERvc3FMZy80V3dkYjRvQlVxcVlCZGNZODZkcnZIWnhUVUFyb25IbWRU?=
- =?utf-8?B?b2kwdDlobnVZZVNENk1ueFdvTlpNOE54dnBvZ3hoaWhMRGZRV2hkOVFQM2NM?=
- =?utf-8?B?K28zOExZYVhWUTZhRDBzcnQ3VkJOMTJUSGZLYmxTR3M4Nm1iYjUram5Xako2?=
- =?utf-8?B?T2FqUmRyWG8rOXRpamhJNm5QNlBiUDhvNFhPSGx3TUFsTkZjQVBod3J2YWcw?=
- =?utf-8?B?S2Q4QnpqZHdHaVJzUlh6QjB2di9CaXlua3pnc2pHb0NDaEd2eUlwQVFEMGZ0?=
- =?utf-8?B?TjRVa1dhdmZndk16bUVGTklNemE0WitvL0VUNjVQY1hhMjl3TlN3NmVxbUIw?=
- =?utf-8?B?L2licC8yWGpjb1orTjlLWGdxK2pzUlZockhNZjNodUVRR0hNRDBIK1VHUWk2?=
- =?utf-8?B?M3c1eHlBcy9kUVpDMmt5bThOMUFhQVFodGVCMGZ4WEw5WFdvYlgvMitRdllN?=
- =?utf-8?B?MVZZbmhIK1gvMEgxLzg4VnhkcjRDa3ZIWXB0aWNzZVRObTlsWG5neVYzZ1Mw?=
- =?utf-8?B?TWF3SnBweFc4cTRFTW16cm1Da1NxZkxPNnBhRDFIbitoaE1DSTFyNXUvYTdW?=
- =?utf-8?B?VHF4U0d3OUg5M0VXNnJEQ09Wc1A3RGJ5QU50QWNsMkt4UnNhWEVvOU82RCtO?=
- =?utf-8?B?ZXhNNFVYSzVtRUFVUXN4SVBMdVlCK0sxZ2RVa3dUNjdJVHVIR2R2Z1BqUXBi?=
- =?utf-8?B?U3JrVVVadzRzNnM0dkx4WUF6N3JVTHl0dGkvb3JzakgrR1ZxQUgvRU9KVnkv?=
- =?utf-8?B?dmh3MU9OR3J3bUw4cWZ3VWYxb2p6Y0kvMGlZcTJ3VDNkUm5TdUlFWW40NHUr?=
- =?utf-8?B?Wlk2aDdPVzRjV3hFNWxzUk9sWGVJajVSY01vSllnVEZycGdORDYwL0pjU0JH?=
- =?utf-8?B?alZubzhxWUxTM2t3TzhyNFRpazZZcGJtYTU4aXJQV0JxYUlHcXZrb05uTm93?=
- =?utf-8?B?QUg1OS9wbDFPMjZDbzUyaHl0WVRNVXpuNlpTVzVTUXpHUXIwM29rb1k1aWFB?=
- =?utf-8?B?clNESG56VW9XVzZtZzV3aGVFKzBIVHdJQWRiZU43RGVqWkJwS0lFcVVmaHM2?=
- =?utf-8?B?UUVEU1pPeXB3UkxNU0plZzd1VFp1WEtJNE9hUS80ekVQM2t4Vkx0QVQyREJk?=
- =?utf-8?B?Qno5M0pPSVJnbzByVXIvQ0F2WkQ2djMwTjFwYnVITENMQ2ZpYURRZWJuNEVj?=
- =?utf-8?B?WTU0SnR3ZWZUNG0vZ0lPR2VXOUlOdVVIajJRdnJ5WVN2ZkdvSm12Z0lkaWRv?=
- =?utf-8?B?NllXMUtsZFlSbkZGMXhrQW8xcUo4TVNuUGVtemZRNXZqRzQ5Q2VQZ3lLVmhy?=
- =?utf-8?B?WndDaG9memQ2TG9uZEw2WDdtNFJ5QVh2ZXZja2VidUVpcm5UM3B1Q3l6UFVC?=
- =?utf-8?B?S2xXd04vUDM4TStpNWo0aHVDYnZVcTBKaW8zNUpHUWYwamtXQVNEWmUxTldu?=
- =?utf-8?B?TFhBaE5Oc1dlcWpIL1AzKytJTDZqWDgrMjFaK2NuY01RaTdqNXFYeHpjRkl3?=
- =?utf-8?B?SDNhNFpXck9XS1k0MW9QMUtiMTAzdEFtYjJJL1F1SHpWa3RMZmx6Zytrdldq?=
- =?utf-8?B?WEQxM0NjQ3d1RW9xNlFQb2dqa1FOTDQ2VDNnc0ZXcVdkRU9tRHhMTG1zdHp2?=
- =?utf-8?B?TFFzNzMxRys2ZlMrZjZteDlxNjJoOXJod09vSGJEdlVNWHJTVjVDc0xJaHBy?=
- =?utf-8?B?YW15bXIrcEVUUjdUZklJVmd2c0JSOXRZRlViQkFRQmNUUndib2VMaEJzbnBh?=
- =?utf-8?B?TzZOUzZra2hma1doMTNEaldTWnR6dldnTldXNE5OZTlVTDBrbnI3YUEwYlUw?=
- =?utf-8?B?ZitMRHFEbDVqUVAzOVFwVlZLMnkwQXNnS1U5SXl4KzFYdmIyZkNxYTcyNzdT?=
- =?utf-8?B?K1dnZkhLSjdEWE5KWVlzdmU4d3pQTndKZFUxR3RHQzh4N2hLMEUzWW9SOUJI?=
- =?utf-8?B?MEZFRUJJQkI1UnlDRVprQStlVWlVdkFtNFdGUFl5VUZQKzNhT1R6VkE0YkY1?=
- =?utf-8?B?VlNkUjFnUmY2VFVjOUJZSnJSZTFwUUE0eGZydVEvZlNqWm5XVVIyVkNPaTVS?=
- =?utf-8?B?M1dVdFVjanVSUDE3d0hkK2VGeWFkQm4yWHJ1aEZXY05QeVhNbFBTeFQyM29y?=
- =?utf-8?B?TGIzRU9DUGUyMmIxVkVlckdTb09Fa0FuWTdpbXlKYnhUdEw5SE5vSXRuUng5?=
- =?utf-8?Q?kTQ4FvwEeP8ap97yKK?=
+X-MS-Exchange-AntiSpam-MessageData-0: 8x0m2xkoZO6KyMrLOsAIpJIENgyD21cpkCyJG7t2mDZZWfNIpTlQagBtLIeWoTqTvJ2PXU1yFl0Z/qiNC4OMZFv7sxQLeCZYWyOdCFfH+5kUEvCI5swYCJHJpKAlY05+NE6zNKSzC88dQIeMuS2HYNh8LMiuaATmoMbhSh9b5Fgrtj6odZUaABUdcpbAylr3ny3oL5ae5YKHH4YF46fDP/QmfGQRop40PexHsBJ1Eq/WVOfsns0Z4C0RyrU9W2Oo/7KRnxpQ1nCMdYHlJreoIgF4/pW0dNRHeZU9if+0eir8OLSUFTaqxEkh8r7K0BkRwE9CXGyanaEWnr24vO9hAsUpMhH5B4SnXjaT5L+emdy1v9W0z6PvNT4+yP5GlmvC4+RWMYR1SvKbfSg2lFHapr/MibaJpKMCl0cZNOCF3u/qe5Q09udR5p8Zc3TrkF1d
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 948157c8-7106-45dd-05f3-08ded721bdea
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 03:35:05.5463 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 04:07:06.7132 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c1acde0-f6de-40e9-0638-08ded7263731
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LItLr3f4sR2GFrg4Te5ZTeDUTzJd36e1hcDdkwVXTnJuT+0k2RSCJcKzzLzHigNnB6+uwCs9eZ8b+qCzx8OiZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9205
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,192 +109,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Current kfd debugfs interfaces only expose pasid
+of the primary process, this commit exposes
+pasid of secondary contexts by debugfs
 
+Just like entries under sysfs,
+the secondary contexts are named as
+context_<id> under its primary kfd process.
 
-On 6/30/2026 10:26 PM, Matthew Brost wrote:
-> On Tue, Jun 30, 2026 at 06:21:22PM +0800, Honglei Huang wrote:
->> The intent of this series is to make drm_gpusvm more flexible and give
->> drivers more freedom over how they assemble the MM related and device
->> side operations. It implements the direction Matt suggested in [1]:
->> Mirror MR in gitlab: [4]
->>
->>    - Move struct drm_gpusvm_pages out of struct drm_gpusvm_range.
->>    - Embed a struct drm_device in struct drm_gpusvm_pages and drive all
->>      DMA through it.
->>    - Drop struct drm_device from struct drm_gpusvm.
->>    - Have the driver's range structure embed one or more struct
->>      drm_gpusvm_pages in addition to struct drm_gpusvm_range.
->>    - Drop the range-based helpers (drm_gpusvm_range_pages_valid,
->>      drm_gpusvm_range_get_pages, drm_gpusvm_range_unmap_pages) and update
->>      drivers to use the drm_gpusvm_pages helpers instead.
->>
->> In essence the series does only two abstractions, plus the xe
->> adaptation that follows from them:
->>
->>    - range vs pages: split drm_gpusvm_range (MM / VA range state) from
->>      drm_gpusvm_pages (device physical related), so the two sides can
->>      have independent lifetimes and ownership.
->>    - drm_gpusvm vs drm_device: make drm_gpusvm pure MM level and push
->>      the device side down onto drm_gpusvm_pages, which is where DMA
->>      actually happens.
->>    - xe is updated to fit the modifications, no functional change
->>      intended.
->>
->> V10:
->>    Fix two issues found by the AI review:
->>    - patch 1: fix a KCSAN data race in xe_svm_alloc_vram(): read
->>      range->base.flags.__flags with READ_ONCE() and assert on a local
->>      copy, pairing with the WRITE_ONCE() in
->>      drm_gpusvm_range_set_unmapped().
->>    - patch 3: remove the DMA unmap in xe_svm_fini(): since
->>      drm_gpusvm_range_remove() no longer unmaps synchronously, explicitly
->>      drm_gpusvm_unmap_pages() all remaining ranges before
->>      drm_gpusvm_fini().
->>
->> V9:
->>    - patch 3: fix the build with CONFIG_DRM_XE_GPUSVM disabled: move
->>      pages out of the nested base struct in the stub xe_svm_range and
->>      route has_dma_mapping through range->pages. No functional change.
->>
->> V8:
->>    - patch 4: add reviewed-by for Matt's review.
->>
->> V7:
->>    - patch 1: split MM state flags: the AI review found a KCSAN / memory
->>      model cleanliness issue. Address it for consistency with
->>      drm_gpusvm_pages_flags, set the range flags with WRITE_ONCE() on
->>      __flags and read them with READ_ONCE().
->>
->> V6:
->>    - The AI review flagged a potential DMA free issue: the DMA unmap
->>      step was moved into the range_free callback, but on the invalidate
->>      path a range can be removed from the MMU interval tree while its DMA
->>      mappings are still live, so a concurrent unmap event can miss it.
->>    - patch 3: have xe_svm_range embed one drm_gpusvm_pages: explicitly
->>      call drm_gpusvm_unmap_pages() before drm_gpusvm_range_remove() in the
->>      garbage collector, so a range is never off the tree while still DMA
->>      mapped, and document this caller contract in drm_gpusvm_range_remove()
->>      kernel-doc.
->>    - patch 4: move struct drm_gpusvm_pages out: document the
->>      unmap before remove contract in the garbage collector example and
->>      note that range_free()'s drm_gpusvm_free_pages() as a final fallback.
->>    - patch 1: split MM state flags: return -EACCES directly.
->>    - Fold in the pre existing IOVA/DMA unmap fixes the AI review found
->>      previously sent separately: the uninitialized dma_addr[0].dir on
->>      the get_pages() error path, the whole reservation IOVA free for
->>      mixed ranges, and the device mapping leak on the get_pages() error
->>      path. [6]
->>
->> V5:
->>    - add reviewed-by in patches 1, 2, 3, 5 for Matt's review.
->>
->> V4:
->>    - drm_gpusvm_init_pages(): memset() the pages to zero before recording
->>      the owning drm_device.
->>    - DOC: overview: recommend a zeroing allocator: kcalloc() for the
->>      N:1 pages array.
->>    - Rebased onto the latest drm-xe.
->>    - The AI review of this series flagged two preexisting issues in the
->>      IOVA unmap path that are not introduced by this series; they are
->>      fixed in a separate series [5].
->>
->> V3:
->>    - Fix a kernel-doc/Sphinx warning from the kernel test robot: use
->>      ".. code-block:: c" for the drm_gpusvm_pages example in DOC: overview.
->>    - drm_gpusvm_range_set_unmapped(): use WRITE_ONCE() on the whole
->>      pages[i].flags.__flags word to pair with the lockless READ_ONCE()
->>      readers and avoid a data race.
->>    - xe_userptr_setup(): call drm_gpusvm_init_pages() before
->>      mmu_interval_notifier_insert() to avoid exposing uninitialized
->>      pages.drm to invalidation callbacks.
->>    - Fix per commit build of the set_unmapped() pages.
->>
->> V2:
->>    - Followed in Matt's v0 review fixups [2]:
->>       - keep unmapped flag in pages structures.
->>       - add pages_count to drm_gpusvm_range_set_unmapped() to set the pages
->>         unmapped flag, so the framework can check unmapped status in
->>         drm_gpusvm_get_pages().
->>    - Add drm_gpusvm_init_pages to init the drm_device and sequence number.
->>    - Remove drm_device from drm_gpusvm_get_pages() parameters.
->>    - Reworked the DOC: overview and usage examples to describe the new
->>      model: struct drm_gpusvm_pages, the 1:1 / N:1 driver layouts, and
->>      examples that operate on a driver embedded pages object by the
->>      drm_gpusvm_pages helpers and etc.
->>    - remove WARN_ON_ONCE in __drm_gpusvm_unmap_pages.
->>    - Dropped RFC.
->>
->> Follow-up (not in this series):
->>
->>    - modify drm_gpusvm_get_pages() to support one time hmm range fault
->>      and multi drm device dma mapping.
->>    - Add no dma device support for drm_gpusvm_get_pages().
->>
->> tests:
->> AMDGPU:
->>    based on amdgpu adaptation patch in [3], but still SVM:DRM = 1:1,
->>    1:n is on going needs many modifications and testings.
->>
->>    Tested on gfx943 (MI300X) and gfx906 (MI60) with XNACK on/off:
->>    - KFD test: 95%+ passed.
->>    - ROCR test: all passed.
->>    - HIP catch test: gfx943 (MI300X): 99% passed.
->>                      gfx906 (MI60): 99% passed.
->> INTEL XE:
->>    CI tests passed in rev5 tests.[7]
-> 
-> 
-> CI full is in flight, but it seems likely to pass. Once it completes, we
-> can merge this; we just need to decide which branch to use.
-> 
-> The series does not apply cleanly to drm-misc-next because it depends on
-> changes in drm-xe-next that have not yet been merged into drm-misc-next.
-> It does apply cleanly to drm-xe-next, though.
-> 
-> If we merge the patches in drm-xe-next and pick them up via a rebase in
-> the AMD trees, that works. Alternatively, we can ask the drm-misc-next
-> maintainers to rebase and apply them there. Either option works for me.
-> 
+The layout:
+/sys/kernel/debug/kfd/proc# tree
+.
+└── 5802
+    ├── context_0
+    │   ├── pasid_1025
+    │   └── pasid_63266
+    ├── context_1
+    │   ├── pasid_1025
+    │   └── pasid_63266
+    ├── pasid_1025
+    └── pasid_63266
 
-Thanks a lot, Matt, for the guidance and the reviews in this series.
+Another fix is, kfd_debugfs_add_process may fail,
+this commit change it to return a meaningful
+value other than void
 
-For the merge, happy to rebase onto whatever base/tag decided, just
-let me know.
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |   5 +
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 113 +++++++++++++++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c |   5 +-
+ 4 files changed, 104 insertions(+), 23 deletions(-)
 
-And will work on the follow up works.
-
-Regards,
-Honglei
-
-> Matt
-> 
->>
->> links:
->> [1] https://lore.kernel.org/amd-gfx/acRgr7QwdULsn6G2@gsse-cloud1/#:~:text=I%20think%20roughly,drm_gpusvm_pages%0A%20%20helpers%20instead.
->> [2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
->> [3] https://lore.kernel.org/amd-gfx/20260603065030.2554403-1-honglei1.huang@amd.com/
->> [4] https://gitlab.freedesktop.org/drm/xe/kernel/-/merge_requests/360
->> [5] https://lore.kernel.org/all/20260627033325.3795298-1-honglei1.huang@amd.com/
->> [6] https://lore.kernel.org/all/20260628061757.4093701-1-honglei1.huang@amd.com/
->> [7] https://patchwork.freedesktop.org/series/169384/#rev5
->>
->> Honglei Huang (5):
->>    drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
->>    drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
->>    drm/xe: have xe_svm_range embed one drm_gpusvm_pages
->>    drm/gpusvm: move struct drm_gpusvm_pages out of struct
->>      drm_gpusvm_range
->>    drm/gpusvm: let the drm_gpusvm core context purely MM level
->>
->>   drivers/gpu/drm/drm_gpusvm.c    | 243 +++++++++++++++++++-------------
->>   drivers/gpu/drm/xe/xe_pt.c      |   2 +-
->>   drivers/gpu/drm/xe/xe_svm.c     |  66 +++++++--
->>   drivers/gpu/drm/xe/xe_svm.h     |  14 +-
->>   drivers/gpu/drm/xe/xe_userptr.c |   5 +-
->>   include/drm/drm_gpusvm.h        |  67 ++++++---
->>   6 files changed, 255 insertions(+), 142 deletions(-)
->>
->> -- 
->> 2.34.1
->>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index ab9e53dc8deb..2635218188cc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3303,6 +3303,11 @@ static int kfd_ioctl_create_process(struct file *filep, struct kfd_process *p, v
+ 	}
+ 
+ 	filep->private_data = process;
++	ret = kfd_debugfs_add_process(process);
++	if (ret)
++		pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
++			ret);
++
+ 	mutex_unlock(&kfd_processes_mutex);
+ 
+ 	ret = kfd_create_process_sysfs(process);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+index 9bde2c64540f..02673f01b448 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+@@ -33,6 +33,7 @@ static struct list_head procs;
+ struct debugfs_proc_entry {
+ 	struct list_head list;
+ 	struct dentry *proc_dentry;
++	struct kfd_process *process;
+ 	pid_t pid;
+ };
+ 
+@@ -140,34 +141,97 @@ static const struct file_operations kfd_debugfs_pasid_fops = {
+ 	.read = kfd_debugfs_pasid_read,
+ };
+ 
+-void kfd_debugfs_add_process(struct kfd_process *p)
++/* This helper locates the debugfs entry of a kfd process */
++static struct debugfs_proc_entry *kfd_debugfs_find_process_entry(struct kfd_process *p)
+ {
++	struct debugfs_proc_entry *entry;
++
++	list_for_each_entry(entry, &procs, list) {
++		if (entry->process == p)
++			return entry;
++	}
++
++	return NULL;
++}
++
++/* This helper creates pasid file of a kfd process under debugfs */
++static void kfd_debugfs_create_pasid_files(struct kfd_process *p,
++					   struct dentry *dir)
++{
++	char name[MAX_DEBUGFS_FILENAME_LEN];
++	struct kfd_process_device *pdd;
+ 	int i;
++
++	/* create pasid file for each GPU */
++	for (i = 0; i < p->n_pdds; i++) {
++		pdd = p->pdds[i];
++		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "pasid_%u", pdd->dev->id);
++		debugfs_create_file((const char *)name, S_IFREG | 0444,
++				    dir, pdd, &kfd_debugfs_pasid_fops);
++	}
++}
++
++int kfd_debugfs_add_process(struct kfd_process *p)
++{
++	struct debugfs_proc_entry *primary_entry;
+ 	char name[MAX_DEBUGFS_FILENAME_LEN];
++	struct kfd_process *primary_process;
+ 	struct debugfs_proc_entry *entry;
++	int ret;
+ 
+ 	entry = kzalloc(sizeof(*entry), GFP_KERNEL);
+ 	if (!entry)
+-		return;
++		return -ENOMEM;
+ 
+-	list_add(&entry->list, &procs);
++	entry->process = p;
+ 	entry->pid = p->lead_thread->pid;
+-	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+-		 (int)entry->pid);
+-	entry->proc_dentry = debugfs_create_dir(name, debugfs_proc);
+ 
+-	/* Create debugfs files for each GPU:
+-	 * - proc/<pid>/pasid_<gpuid>
+-	 */
+-	for (i = 0; i < p->n_pdds; i++) {
+-		struct kfd_process_device *pdd = p->pdds[i];
++	if (p->context_id == KFD_CONTEXT_ID_PRIMARY) {
++		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
++			 (int)entry->pid);
++		entry->proc_dentry = debugfs_create_dir(name, debugfs_proc);
++	} else {
++		primary_process = kfd_lookup_process_by_mm(p->lead_thread->mm);
++		if (!primary_process) {
++			ret = -ESRCH;
++			goto err_free_entry;
++		}
+ 
+-		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "pasid_%u",
+-			 pdd->dev->id);
+-		debugfs_create_file((const char *)name, S_IFREG | 0444,
+-				    entry->proc_dentry, pdd,
+-				    &kfd_debugfs_pasid_fops);
++		primary_entry = kfd_debugfs_find_process_entry(primary_process);
++		kfd_unref_process(primary_process);
++		if (!primary_entry) {
++			pr_warn("Failed to find the primary debugfs entry for pid %d\n",
++				entry->pid);
++			ret = -ENOENT;
++			goto err_free_entry;
++		}
++
++		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "context_%u",
++			 p->context_id);
++		entry->proc_dentry = debugfs_create_dir(name,
++							primary_entry->proc_dentry);
+ 	}
++	if (IS_ERR_OR_NULL(entry->proc_dentry)) {
++		ret = entry->proc_dentry ? PTR_ERR(entry->proc_dentry) : -ENOMEM;
++		goto err_free_entry;
++	}
++
++	list_add(&entry->list, &procs);
++	kfd_debugfs_create_pasid_files(p, entry->proc_dentry);
++
++	return 0;
++
++err_free_entry:
++	kfree(entry);
++	return ret;
++}
++
++/* This helper removes a debugfs entry and its sub-entries */
++static void kfd_debugfs_remove_entry(struct debugfs_proc_entry *entry)
++{
++	debugfs_remove(entry->proc_dentry);
++	list_del(&entry->list);
++	kfree(entry);
+ }
+ 
+ void kfd_debugfs_remove_process(struct kfd_process *p)
+@@ -175,13 +239,22 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
+ 	struct debugfs_proc_entry *entry, *next;
+ 
+ 	mutex_lock(&kfd_processes_mutex);
++	if (p->context_id == KFD_CONTEXT_ID_PRIMARY) {
++		/* remove entries of secondary contexts */
++		list_for_each_entry_safe(entry, next, &procs, list) {
++			if (entry->pid != p->lead_thread->pid || entry->process == p)
++				continue;
++
++			kfd_debugfs_remove_entry(entry);
++		}
++	}
++
+ 	list_for_each_entry_safe(entry, next, &procs, list) {
+-		if (entry->pid != p->lead_thread->pid)
++		if (entry->process != p)
+ 			continue;
+ 
+-		debugfs_remove_recursive(entry->proc_dentry);
+-		list_del(&entry->list);
+-		kfree(entry);
++		kfd_debugfs_remove_entry(entry);
+ 	}
++
+ 	mutex_unlock(&kfd_processes_mutex);
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index ad4897f094a2..365c6289b05d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1649,14 +1649,14 @@ int kfd_debugfs_hang_hws(struct kfd_node *dev);
+ int pm_debugfs_hang_hws(struct packet_manager *pm);
+ int dqm_debugfs_hang_hws(struct device_queue_manager *dqm);
+ 
+-void kfd_debugfs_add_process(struct kfd_process *p);
++int kfd_debugfs_add_process(struct kfd_process *p);
+ void kfd_debugfs_remove_process(struct kfd_process *p);
+ 
+ #else
+ 
+ static inline void kfd_debugfs_init(void) {}
+ static inline void kfd_debugfs_fini(void) {}
+-static inline void kfd_debugfs_add_process(struct kfd_process *p) {}
++static inline int kfd_debugfs_add_process(struct kfd_process *p) { return 0; }
+ static inline void kfd_debugfs_remove_process(struct kfd_process *p) {}
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 8e701dcda8ec..a87878aee0f1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1002,7 +1002,10 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 		if (ret)
+ 			pr_warn("Failed to create sysfs entry for the kfd_process");
+ 
+-		kfd_debugfs_add_process(process);
++		ret = kfd_debugfs_add_process(process);
++		if (ret)
++			pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
++				ret);
+ 
+ 		init_waitqueue_head(&process->wait_irq_drain);
+ 	}
+-- 
+2.53.0
 
