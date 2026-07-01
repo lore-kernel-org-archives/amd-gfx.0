@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43E77C43327
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 16:17:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B12DC43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 16:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF49910E3DE;
-	Wed,  1 Jul 2026 16:17:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC9210EFBB;
+	Wed,  1 Jul 2026 16:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zg+LCZTr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FzDl5nR3";
 	dkim-atps=neutral
 Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
  [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 409CA10EECD
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 16:17:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5610D10EECD
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 16:17:38 +0000 (UTC)
 Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4921eed3fa2so5934275e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 09:17:37 -0700 (PDT)
+ 5b1f17b1804b1-493b779003fso4406135e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 09:17:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782922655; x=1783527455; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782922657; x=1783527457; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rb34oSlRm8xuknA5nzYeSB9cTOq95LqjBQ6dYTj5ggQ=;
- b=Zg+LCZTrSj7RpP67GzuK15KxrvUz7FrOaNu6DWHTDAN+5ADHPFkMylz07UGd1Ufj2+
- PUFIzgVAh2/eH3v2ZdYk1k1DtD5MihVzqGogtGeiZj/WnjgrDGPtxJjQuaH1Pa1dYDgp
- sC/qh+E7W4FsF4iousIvVQ7l0+2aLEb73DViAxJehMJJpTTnntrfwL37wEHjnsisq/Yj
- hIo+ayHEoysg8lc8TD57NxrNU124+ShlvQWUyMRAyzhZZL24JvXJ5G86pj2QK86zJPuS
- fA4RKKUgt7iDeXNdnsBvFb1eMiqEBfuSEbhCr3C6G9KwuJdLiDUx33trMzH2Q7iQJWmb
- qcFA==
+ bh=4ZE2UZVOPJaHEAj/nXdanqxLIJuDuJCfXvCWuwEFSTU=;
+ b=FzDl5nR3DzXJhMcLwxLxORNcAOIgC/RSp6vIZkYEfhEpZFoX2kOgZfkM+eOuXPbPFu
+ kxjSF7WfeBRDrQ8CeD7ChkphK/6Z6G1lw1yl5Ty7a1OKD/9KrorXCIPMkA+9//amqdVK
+ 5k2VTNowpiE9PZWobTnrC38/QA9udgfdcubHFSuysH3hed/ASMVIUviPMsU7KAfIJL8Q
+ F/+I14VQcRcANuR21cepRhzISYoSrW944tsP9TgK7CbDXthr94sWlrtT2DTb/Hhg3oMn
+ /S/vQeeI938CFMyDvH+Gaz9kblRsVw8t6p8E22UKVTV3py88mcsmkYd8BVsUhGhYlRdv
+ JABA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782922655; x=1783527455;
+ d=1e100.net; s=20251104; t=1782922657; x=1783527457;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rb34oSlRm8xuknA5nzYeSB9cTOq95LqjBQ6dYTj5ggQ=;
- b=I3WXzL7sr+mkf0Llc7ubbIZktLg1Mlyq3FolJAxqeJoYDKs21esJc+vTOdpV5XRz37
- fhho0x6SBJhMqoGaVspEzGc99igaaQmjJu+nxYUrEV6dHbGHH3kbhmpQx98K2O4avC2T
- AcwKuDuMQl28Gx+0ggZ1LwCm4kTYMNHPq/snEJNnzDxw7bR4APx+ZSnPRp9dPrjTsyZV
- nQ9qZdV3Yvuh4B8zRstg5U8ux5KornrBAzgDg/w5MKWZIfqE9ZIFtPVuz3Y6jH53hKVU
- VzIdMuwcckTteSUXE9EmJosYPmRfcQQl9uGSGDmGqUI2LAdZZ4OejjUuIWxtCKgqLzY/
- Sfuw==
-X-Gm-Message-State: AOJu0Yw/def+IKqJTLcDUqbnVOZeuCXBZqqewfMAIHTUfS5zv2leOA/P
- xTFtfocEg8QdbHbvWQuS09zVMdCDRtkF2n39tXppoTRojETk9IG2hAQRlwveYyyk
-X-Gm-Gg: AfdE7cmLqQKBGXBsiLFiFjEu2peRbw56xv/TitQ4jFqTIZe2H6tWuM6Uuj9qs7rjMel
- 5wsrP38cxYsJGLPSvOCXFfof+n09m5V4i/crlklfSl+zuK0SMFM56Z4J23/5eI2kikeq2Dtv2RN
- zJsZtvLSqwhei1EKPVVLUszXDbolkd6aqqjK2j0vCPnunZ1zX5k5ZzDkkub5e5cZtxH9W7spETh
- SEYm3gEr6exJiDaSIO4u3BhVYBjQeZ/EpkGKj/HZctSquGu9Z3GA5Cl0BfT60rPraKVOLHf34B+
- Z8OBkBvYzR9AXCmTc6tsTU+rEdZuGXEJ7H4MKo05ie8L+mlCmtO0pVutxEfI7ByS4TqRvsL2EW/
- qhCvBH/eTg8Oyj2fRaIBDkBp7KCftgsugpsMobSXZXpZeP+DVLH3ySh+ybQ08BSbmlGFEYYHeXY
- K8fdIrHrhtrpEYS2hI
-X-Received: by 2002:a05:600d:4452:10b0:493:bdde:e400 with SMTP id
- 5b1f17b1804b1-493c2b38c42mr28609095e9.4.1782922655242; 
- Wed, 01 Jul 2026 09:17:35 -0700 (PDT)
+ bh=4ZE2UZVOPJaHEAj/nXdanqxLIJuDuJCfXvCWuwEFSTU=;
+ b=LeXU5Lda2Gg22QCWTmIYlQ6t9ia28vQ9GluxLFuWfmkZv6Z8BIc0p/THKk7qDkD3L0
+ wap/52tqo9XztQpd/u4rokPUk6vr1qDLO6uRITnVl4Oqgk4hLipkZCR4wpSuL9LLBiZw
+ B0jdyxAyU39S3mLlow0IdymIy86+zFqbrzF6AoVlb1bPRtK1DElo+qfnnTe/POaW+kME
+ QTbpU70oqEtXyqL7zblUuSCzK1ySBevfkRht5fh7nx+Jh2+XQ+vYFC1o1nPF3HHkwAQp
+ i3MRMeREHw0hJd0TilUpjl5A8G0O4YgSgJuAgnXPxz8Q9BR5ivGgPZPs0OlOWDHMr/fR
+ ta2g==
+X-Gm-Message-State: AOJu0YyjGlCiyOBYB4GXZ20LYIF07nUr1wmw3itT0/0cRFmt4ziN/hI0
+ Z5imm55zbUEOurAHlZuDSVXqDqCB/fn3M5PLwbfUf30GzrW4DadDh/URMJWvdZVl
+X-Gm-Gg: AfdE7ckqQSjGYdySrYoAZlb9WuVnebJ2qse79hU00yd0m3tMKV48XW6eS4gDANoJqQE
+ Rvtqv1/inZF/MxeoFQJSoZgVm9IX+P78UeuLs0//Zb7kY+WXu3DMYkyr5vGYRX1foSYYbzOnr/X
+ YOSgBij4kALJi/+nk0q68F46HjOzbhK9sUPKAy6O4SUzQv8XrjfkmuOc51kIq6ZTz9qtoR52m/N
+ +0sy0kTbkkvsMv2i4VV+zwXGHFA97yXCNrAv5re0k+RN4HI1Je92uPQQsBkYOEYXQDCQKyD50M4
+ i9uiZeSOfGLq2xOcIZtI9+N7maiDfJ403Kl50EvcCyns1jRRohTn2jKgayhUDEHCN+4Q9D8hiqa
+ fau6pfKq3YwZ6sYyXuymZuvJNdqDvpV+LdTRMiekc3FRooTLUOkDk4vXRx8NM802Sb7l8hb9oVX
+ /3Gvc85QF/HqlcY+/Je9NX5NLgWBo=
+X-Received: by 2002:a7b:c00f:0:b0:492:4911:8a with SMTP id
+ 5b1f17b1804b1-493c2b4b173mr29880685e9.12.1782922656719; 
+ Wed, 01 Jul 2026 09:17:36 -0700 (PDT)
 Received: from Timur-Max ([212.108.193.106]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be81df2asm168812255e9.12.2026.07.01.09.17.33
+ 5b1f17b1804b1-493be81df2asm168812255e9.12.2026.07.01.09.17.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 09:17:34 -0700 (PDT)
+ Wed, 01 Jul 2026 09:17:36 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -69,12 +69,10 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
  Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 03/14] drm/amdgpu/ih: Don't perturb HW registers when
- accessing soft IH ring
-Date: Wed,  1 Jul 2026 18:17:10 +0200
-Message-ID: <20260701161721.85681-4-timur.kristof@gmail.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 04/14] drm/amdgpu/ih: Add retry_cam_ack IH function pointer
+Date: Wed,  1 Jul 2026 18:17:11 +0200
+Message-ID: <20260701161721.85681-5-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701161721.85681-1-timur.kristof@gmail.com>
 References: <20260701161721.85681-1-timur.kristof@gmail.com>
@@ -95,108 +93,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The soft IH ring is implemented entirely in software.
-We shouldn't read (or write) any HW registers when accessing it.
+No functional changes.
+
+This is a refactor to allow different filter CAM implementation
+in subsequent commits. The actual new implementations are
+going to be in subsequent commits.
+
+Instead of writing the doorbell in amdgpu_gmc_handle_retry_fault()
+directly, add an IH function pointer which can be defined in
+a different way for different IH versions.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c   | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c   | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 4 ++++
- 4 files changed, 25 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 1 +
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c    | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 8 +++++++-
+ 4 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index 333e9c30c091..65e5d21753f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -439,6 +439,10 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev,
- 	struct amdgpu_ih_regs *ih_regs;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 3f0b1b7a557b..bb278a61dc9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -552,6 +552,11 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
+ 	int ret;
  
- 	wptr = le32_to_cpu(*ih->wptr_cpu);
+ 	if (adev->irq.retry_cam_enabled) {
++		if (!adev->irq.ih_funcs->retry_cam_ack) {
++			dev_warn(adev->dev, "retry CAM is enabled, but retry_cam_ack is NULL\n");
++			return -EOPNOTSUPP;
++		}
 +
-+	if (ih == &adev->irq.ih_soft)
-+		goto out;
-+
- 	ih_regs = &ih->ih_regs;
+ 		/* Delegate it to a different ring if the hardware hasn't
+ 		 * already done it.
+ 		 */
+@@ -562,7 +567,7 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
  
- 	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-@@ -514,6 +518,9 @@ static void ih_v6_0_set_rptr(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ih_regs *ih_regs;
+ 		ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+ 					     addr, entry->timestamp, write_fault);
+-		WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
++		adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
+ 		if (ret)
+ 			return 1;
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+index 444437c30088..e6e34f6e86f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -97,6 +97,7 @@ struct amdgpu_ih_funcs {
+ 	const char *(*node_id_to_die_name)(struct amdgpu_device *adev,
+ 					   unsigned int node_id,
+ 					   char *buf, size_t size);
++	void (*retry_cam_ack)(struct amdgpu_device *adev, u32 cam_index);
+ };
  
-+	if (ih == &adev->irq.ih_soft)
-+		return;
-+
- 	if (ih->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
- 		*ih->rptr_cpu = ih->rptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-index 699c274d357e..9dbc20131410 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-@@ -410,6 +410,10 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev,
- 	struct amdgpu_ih_regs *ih_regs;
- 
- 	wptr = le32_to_cpu(*ih->wptr_cpu);
-+
-+	if (ih == &adev->irq.ih_soft)
-+		goto out;
-+
- 	ih_regs = &ih->ih_regs;
- 
- 	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-@@ -481,6 +485,9 @@ static void ih_v6_1_irq_rearm(struct amdgpu_device *adev,
- static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
- 			       struct amdgpu_ih_ring *ih)
- {
-+	if (ih == &adev->irq.ih_soft)
-+		return;
-+
- 	struct amdgpu_ih_regs *ih_regs;
- 
- 	if (ih->use_doorbell) {
+ #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
 diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-index 6de9e87e04e1..bd332e8cc5bf 100644
+index bd332e8cc5bf..24be9d726428 100644
 --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-@@ -457,6 +457,10 @@ static u32 ih_v7_0_get_wptr(struct amdgpu_device *adev,
- 	struct amdgpu_ih_regs *ih_regs;
+@@ -289,6 +289,11 @@ static uint32_t ih_v7_0_setup_retry_doorbell(u32 doorbell_index)
+ 	return val;
+ }
  
- 	wptr = le32_to_cpu(*ih->wptr_cpu);
++static void ih_v7_0_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
++{
++	WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
++}
 +
-+	if (ih == &adev->irq.ih_soft)
-+		goto out;
-+
- 	ih_regs = &ih->ih_regs;
+ #define regIH_RING1_CLIENT_CFG_INDEX_V7_1             0x122
+ #define regIH_RING1_CLIENT_CFG_INDEX_V7_1_BASE_IDX    0
+ #define regIH_RING1_CLIENT_CFG_DATA_V7_1              0x123
+@@ -865,6 +870,7 @@ static const struct amdgpu_ih_funcs ih_v7_0_funcs = {
+ 	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+ 	.set_rptr = ih_v7_0_set_rptr,
+ 	.node_id_to_die_name = ih_v7_0_node_id_to_die_name,
++	.retry_cam_ack = ih_v7_0_retry_cam_ack,
+ };
  
- 	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-@@ -527,6 +531,9 @@ static void ih_v7_0_set_rptr(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ih_regs *ih_regs;
+ static void ih_v7_0_set_interrupt_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index 85846fd08ce4..30a82fff3ff7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -293,6 +293,11 @@ static uint32_t vega20_setup_retry_doorbell(u32 doorbell_index)
+ 	return val;
+ }
  
-+	if (ih == &adev->irq.ih_soft)
-+		return;
++static void vega20_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
++{
++	WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
++}
 +
- 	if (ih->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
- 		*ih->rptr_cpu = ih->rptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 4cd325149b63..e7ed37bb48e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -417,6 +417,10 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
- 		 */
- 		wptr = le32_to_cpu(*ih->wptr_cpu);
+ /**
+  * vega20_ih_irq_init - init and enable the interrupt ring
+  *
+@@ -738,7 +743,8 @@ static const struct amdgpu_ih_funcs vega20_ih_funcs = {
+ 	.get_wptr = vega20_ih_get_wptr,
+ 	.decode_iv = amdgpu_ih_decode_iv_helper,
+ 	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+-	.set_rptr = vega20_ih_set_rptr
++	.set_rptr = vega20_ih_set_rptr,
++	.retry_cam_ack = vega20_retry_cam_ack,
+ };
  
-+		if (ih == &adev->irq.ih_soft)
-+			goto out;
-+
-+
- 		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
- 			goto out;
- 	}
+ static void vega20_ih_set_interrupt_funcs(struct amdgpu_device *adev)
 -- 
 2.54.0
 
