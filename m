@@ -4,122 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70193C43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 13:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C939FC43327
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 14:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D706D10E277;
-	Wed,  1 Jul 2026 13:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB1E10E3A9;
+	Wed,  1 Jul 2026 14:26:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Mn6j2U2l";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U1uHbPDN";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012058.outbound.protection.outlook.com
- [40.107.200.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C3C10E277
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 13:37:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aGheJg3JIogZDG87c8NGQHPF+DnpKkFYwrEc7aUz8wXetl0U1ZMXtMEGZdZooQ/fJ3IN8WEazoLz1y2bcw5L862E4UPwj4wkbYGCF2z5Cdtk9iB0pk3vZMaHXbJWihGycxjYKnYcbE6yhIMfkm0RwVU6SGfeTbkjdWzDSgP8SgJBnR4e1RlKeiyvbzdIuwYjpS9HlMVfSfJ4ctfb7o9RKgHkBPpHK/dGJmoaIrbiyBC7d+Ps8hshxhSrVNR/+7c+hGTvNfy8U203wL5Qu82Xnkt9Nb4H7att3tQZZoI37DVMmK6v5W91+cIJFN//ond3HFfWBvD1ueXutp4OG5QpEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9ipXwwOb763RFyKY0kTQg6Xy+OfmUWEHx9xIhcbSg40=;
- b=I5YlS1vNWXAEfWUFKOFcPBqMyJjyBAR4oJYtmzh+ggIJZUxrQc4m3q2B99EHgfPKBkyttbrYE8aMTSfEMYd+9JQGGOTlCZP+CBvUsbAyJCOkmXwZ18dRt1PgBvshvD/hLF20zbqifdChqHSxphLxzLMwy6qGTfxu+2wqOEIh0AAQ6zq7/FgcZtGQR7NGc8tPhcaxsr3w3icIgpYfmYqybL53dbOECbcclN51/ZFgyGFO44L7AJs56CjqHD5yfAT01bGf9DQITbxXZQjlL1kt5nexq1YNLNqxAuNBsrvmacky+GYd9UmHcyZpQM/CbUthkLGD534IsT7ggQ2abJcIkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9ipXwwOb763RFyKY0kTQg6Xy+OfmUWEHx9xIhcbSg40=;
- b=Mn6j2U2lBVj1F7hH08kGIFnFAiZHZhdbWF4g+iqfP2HT/zFJhFJ9PqYroSI7HP9VBu5ap3M/2mQFlb8NmC8eFAnS7RPe9KOjTc23rwWEfszHXXaEgY0JnnxnxB9zyootjysrSuFLOuaSq+Q3vfZ1CSHbTzC/oypAgNQYuBQ3r2M=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by MW6PR12MB8663.namprd12.prod.outlook.com (2603:10b6:303:240::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
- 2026 13:37:02 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
- 13:37:02 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Yang, Stanley" <Stanley.Yang@amd.com>
-Subject: RE: [PATCH 1/1] drm/amdgpu/ras: only check bad page for address-based
- UMC injection
-Thread-Topic: [PATCH 1/1] drm/amdgpu/ras: only check bad page for
- address-based UMC injection
-Thread-Index: AQHdCVJSbJ+yDSscdkylEbJNDfpq67ZYqcgQ
-Date: Wed, 1 Jul 2026 13:37:02 +0000
-Message-ID: <BN9PR12MB525799E4692E89A1783B103BFCF62@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20260701120752.289190-1-Stanley.Yang@amd.com>
-In-Reply-To: <20260701120752.289190-1-Stanley.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-01T13:33:33.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MW6PR12MB8663:EE_
-x-ms-office365-filtering-correlation-id: 52657eb0-3bf6-452b-b480-08ded775d53b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|38070700021|11063799006|56012099006|6133799003|22082099003|18002099003;
-x-microsoft-antispam-message-info: Qy09oOgw/IJAxVXLZpmuFv8C2VEwmAMdGaGW86k0IqdS+J/JjNXdS6NjUlzq0+TGxfERJFWjF46Hqg6+yERqLTQzb7e8WPg23AoPBycxSqm2cggIpTZdUFLYPfKruKIRBiXoUtxPx8mALSVeDXuSJ98yIGZ+MsPqHNIE7XccF805Y0fTZb3Wc5WsAogF8QiLyN9kmsR30SxQyBqtBSbY0CvBil8juG0FTFac3Plk3C2vY94GeuAbeuOlmUEGi9F8Z4DbvMDEWZZ3akcu3Ty9IJVp3q0Tnk9hCV/5D7AzjkCBPFgVradUlviEqGcZxSSxkufAsJIrewhQkvJpxn7ZVMeuEfZjPuTUre01/6LAqXEb76vtkeXL4GhOI54uHmw3xBwlYAme1VayPDGi0aAth1z6yHYgKrdnFi0ICMlLdzvC+sKLnhTfEPQ28//nQr+zmIM5RqEVhP61fHDIckLObYpncrGvF9Id2lJduYlLUzTmE3YhJuBlenFPHEam6Aekt1OTCsk33OQ+20E9LAwdW4vBd0DOkkjfjWqkGHCFaQ5OuvPnV7in4xS0/IFstgCjfg99oPzowptOXUXRVYvedmykVXxLaWQZNImI04X/erm3WC3QVRbRYkGK2i22FqIVFibpPUwYTTW7ZQFVzlPOF3wiaXq4QQPpBQbY1tEmv1/iKjQxPQd1F67XuohhOaPnzew/ZM+Jp7T2Q243edz6xbP28bcKKI2eTCUayX/4lYc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(38070700021)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?h2iP+qIXFID7SV+CxDVqhAFZGb4x/eplqAl7DPK5xA6oKYyzqBwPLkEv8NYF?=
- =?us-ascii?Q?dVEKFAU4PCebyFkz02CeWaogFmjGsISnTcYHYDT6bRKl3L7Z9OWuN3uFKJeK?=
- =?us-ascii?Q?V9xrrWJ8ovM0hV6YK4bVisvM4tppKFBEbxH5vd4Ode1Pbki/EiIiw1ID1V+R?=
- =?us-ascii?Q?G4ij0ftuimWYVKEMZB4rhclrfijCnSQJmp2+NRbobOFSg3pvizaDisJkyjxD?=
- =?us-ascii?Q?pAaROGtUeEFPUGNcOe5et+7ndhboo3VSVK25rdRGeEe/Fxf7sWNtoMjK6w0o?=
- =?us-ascii?Q?JdxD/a+1JuXh4qrsP4yekhFAilUIYKpy0WC/cn6afAMtwd8GYe8KfDJYkQoY?=
- =?us-ascii?Q?JMvAweniv0fd0eHTUueu08gEIVa6vq2Db0vUyu+wuZDZjyGIzLZRpKVraDcM?=
- =?us-ascii?Q?TDFzJfFjQlMgQiqDw0U4swXKfpVopqAMU18puA+NC3inTjhxw6hUcPy+yJIk?=
- =?us-ascii?Q?mWdWJSaFdo3GO1oU9cfwV1D3JcFa12xtPOFj2LbVij3/wPZUfyUE/d96Ah3l?=
- =?us-ascii?Q?xA4gGHH+DcUy8iUFzVaMo0dy/Bu0bB0/BA1K18RRUddzq27Q68fF/vTVyVPT?=
- =?us-ascii?Q?Zw42vZll89WcB/kkrFHAejnt8D4cEdGNxyxtlo9IhZlaA+f/MT0k3h4/knD4?=
- =?us-ascii?Q?EYD0RrF6GHxBR7lPWFznYkmetrPu5oMaYJOMm0DxB4EjtYfUJ5Ekk1UtWGeb?=
- =?us-ascii?Q?nTqaRj25jHCnELM45zEtJyBxRY6gjeAThX2oiYQkJmoGvEoBiJJUdzE0ODtl?=
- =?us-ascii?Q?YVjOpP4rXY3UaLmX+5Zdg6wY2F/SONPTSua/jx0yRriYa8Z0DEu+N0zij1fO?=
- =?us-ascii?Q?MVGxgLNsgiWOSU1iIB4QF+7yeTk2SBuX2b2/B4E4wRbOQv/ruK3x0LT6eXwa?=
- =?us-ascii?Q?PL+zJnopeLN+xnFjb6ep062f+ekWafU8MkAiknGEvxxyozPHVX762yQWE1X3?=
- =?us-ascii?Q?M3ztp4gy2TGxJZnD2gJwMj37xakb5Agk1r4fTBBX++jgK/vEIwO+zpAvYPlu?=
- =?us-ascii?Q?t6hod7tF4LANm6FObBVcKMBzUk6hddsjE/+zCUt1wbGRPQ+VZ3hXjWPsrWSL?=
- =?us-ascii?Q?zb0eTRGGQxKfV1Xyy7USQrIwfWdS4mErhHaqYdGslarVn/MHj/hdFmhZXQge?=
- =?us-ascii?Q?b7S/92+jT+2kErLVO96PHDBZtnL79TYnw9UU/lr5JK9AxOxRwaqvJsv3gbZv?=
- =?us-ascii?Q?PZTuLlLub4QO/PRFbkkrU9QxKvry3483wXBeuuuPvtJYetGLiU7+PXkrBY9X?=
- =?us-ascii?Q?Jw5fVwhJ79WK0jAiPFxnM36OmO1bVQMYQTat79mkO4SlqvT3SB3fxf7bbmTM?=
- =?us-ascii?Q?kKyTPNKXAVypkGwZse+IZ1SslcPs6Dph2YG4M1aoT7YldQWwfF1YLm5p7Hw8?=
- =?us-ascii?Q?9DK2xpEJX8aHRrLsfTGRhEakl4w/Njsm4GCA/KrbDZwJnem3sDpYJqS1rEJt?=
- =?us-ascii?Q?Tc8sjngZJahBQ1PhimcWqOh5uKdLNut1KfOJxeiF9lxKjxK6oe6k8YfmJuuu?=
- =?us-ascii?Q?8hETIWiyr/cnbtQ1RBk8WlUFxKatvSXAJx9V9hkE8hqwjvrO+iPeJMg9C58V?=
- =?us-ascii?Q?Q94ASYrDSf4qNaGMhs7xMHjJMEBiVeixkiXI3yH3UyuUJO7rATX3QDkBBKvy?=
- =?us-ascii?Q?hRuU4GZ7tW1/t6gVlEY5+OBN3b7/7vIV0XJUM/SuPZPOOtwOUgn07ppG0I4P?=
- =?us-ascii?Q?AscSEYc95PtICiYPi1E8C7dZkJN7I5T1c1vUm9xvWE9pRGrC?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C09E410E3A2;
+ Wed,  1 Jul 2026 14:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782916014; x=1814452014;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=LeJ4Etb/bs+mMpVgZ7+XfiR2eSv6eMXWa+iNgsnuWZs=;
+ b=U1uHbPDNr3bOc575KKRyvexuthKtNR0I3/F+u4357wFCqcp5m/fCr3Uy
+ gkph2v3ljqmvBft9D++FuyamcGsuJQAxzey2Ej1AL/7anC8tQVqaB1j50
+ dsTzjXdoDqembHGEoIRJgbe+B03qqQS/7YT3lkJD0jN3abqkJZQdGAenP
+ CVIX/4zQ+GLFFGKTOn+4EVn0HhR6g9feMDLeYdceuByBLOWOSye03Cu19
+ l8xZx/5lGDTSmwUl/AESXbVm0492v9PvRG3/TRISCDe+RjdF2fjNq1ein
+ pvhA+E4+qG0EyDdFgyno1hB/zkHQiHpQxTVfEitvgfmXGwjbPaVDWl9eW w==;
+X-CSE-ConnectionGUID: e3j28ry/Tt2ajIPcHYo3uw==
+X-CSE-MsgGUID: VJLz7q3oSlWKJXtlZnmL+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83426283"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="83426283"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 07:26:53 -0700
+X-CSE-ConnectionGUID: z2oPJFEWTwmjm8Ns9riNdA==
+X-CSE-MsgGUID: yWS2qhZITMeQi1FbaIgtCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="256162220"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.244.143])
+ ([10.245.244.143])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 07:26:47 -0700
+Message-ID: <853a147c-6565-4286-ba4f-60decd3b23e0@linux.intel.com>
+Date: Wed, 1 Jul 2026 16:26:45 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52657eb0-3bf6-452b-b480-08ded775d53b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2026 13:37:02.1302 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2N3WopmVkYjum+ajxLR63FxA7WU45pZPMqFbHDQJIBgFzv7bQw9HedOi2hfB7sJowa7b0XVy5yyXWPRR/F5FZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8663
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+ behind driver feature
+To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260630084229.529682-1-robert.mader@collabora.com>
+ <3bc9d27b-2886-48df-a897-7e73f14a88a2@linux.intel.com>
+ <11792a51-aeeb-428f-a793-607ff09558f3@collabora.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <11792a51-aeeb-428f-a793-607ff09558f3@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,206 +83,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+Hey,
 
-Should we add a new API in amdgpu ras_mgr layer for this check? I think we =
-should stop adding RAS functionality for SMU v13 and later products in the =
-legacy ras layer.
 
-Regards,
-Hawking
+On 7/1/26 15:32, Robert Mader wrote:
+> Hi Maarten,
+> 
+> On 01.07.26 12:41, Maarten Lankhorst wrote:
+>> Hello,
+>>
+>> All you have to do is iterate over all planes at runtime until
+>> one is found that has the pipeline property attached, it's not
+>> a performance sensitive area and no locking is required for
+>> testing if plane->color_pipeline_property is NULL.
+> 
+> that's correct - I checked that before and while the amount of code changes necessary to support such a "check-planes-with-cap-enabled-and-reinitialize-without-cap-otherwise" is not big (AFAICS it should be possible with under 100 lines in Weston), it would need to be replicated in various Wayland compositors and lots of apps with native DRM backend (drm_info, Gstreamer KMS sink, MPV, Kodi etc.). The small change proposed here seems like a more elegant solution to me.
+> 
+> In a previous chat Pekka and Simon seemed to agree, quoting: "< emersion> pq, you mean the cap is advertised regardless of driver support? that sounds like a bug".
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
-Yang
-Sent: Wednesday, July 1, 2026 8:08 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Yang, Stanley <Stanley.Yang@amd.com>
-Subject: [PATCH 1/1] drm/amdgpu/ras: only check bad page for address-based =
-UMC injection
+You misunderstand my comment, I meant this from the kernel side.
 
-UMC error injection on MI300 series is dispatched by the RAS TA via the (su=
-b-block, method) pair; only the "coherent" methods are address based, the s=
-ingle-shot/persistent/ac-parity ones ignore the address.
-
-The debugfs control path validated the injection address against the bad pa=
-ge list for every UMC injection. Restrict that check to address-based injec=
-tions and warn when a non address-based one is given a non-zero address. Ot=
-her ASICs keep injecting by address.
-
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 94 ++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  3 +
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  |  3 +-
- 3 files changed, 97 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index af48dd2ebd16..c563e2d96809 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -485,6 +485,91 @@ static void amdgpu_ras_instance_mask_check(struct amdg=
-pu_device *adev,
-                        inst_mask, data->inject.instance_mask);  }
-
-+/*
-+ * UMC error injection on MI300-class ASICs is dispatched by the RAS TA
-+using
-+ * the (sub-block, method) pair passed in struct
-+ta_ras_trigger_error_input as
-+ * sub_block_index (enum error_sub_block_umc) and value (enum inject_metho=
-d_umc).
-+ * Only the "coherent" methods program an explicit injection address.
-+ *
-+ * Keep the values below in sync with the RAS TA.
-+ */
-+enum umc_error_sub_block {
-+       UMC_ERROR_CRC                   =3D 0,
-+       UMC_ERROR_SRAM                  =3D 1,
-+       UMC_ERROR_ODECC                 =3D 2,
-+       UMC_ERROR_PARITY_DATA           =3D 3,
-+       UMC_ERROR_PARITY_CMD            =3D 4,
-+};
-+
-+enum umc_inject_method {
-+       UMC_METH_COHERENT               =3D 0,
-+       UMC_METH_SINGLE_SHOT            =3D 1,
-+       UMC_METH_PERSISTENT             =3D 2,
-+       UMC_METH_PERSISTENT_DISABLE     =3D 3,
-+       UMC_METH_COHERENT_NO_DETECTION  =3D 4,
-+       UMC_METH_COHERENT_WR            =3D 5,
-+       UMC_METH_SINGLE_SHOT_WR         =3D 6,
-+       UMC_METH_PERSISTENT_WR          =3D 7,
-+       UMC_METH_SINGLE_SHOT_CLEAN      =3D 8,
-+};
-+
-+/*
-+ * Return true if a UMC error injection using @sub_block (enum
-+error_sub_block_umc)
-+ * and @method (enum inject_method_umc) is address-based, i.e. it
-+programs an
-+ * explicit injection address. On MI300 series the non address-based
-+methods
-+ * ignore the address; other ASICs always inject by the given address,
-+so return
-+ * true there to keep validating it.
-+ */
-+bool amdgpu_ras_umc_is_address_based(struct amdgpu_device *adev,
-+                                    u32 sub_block, u64 method)
-+{
-+       /*
-+        * The (sub-block, method) classification below follows the MI300 R=
-AS
-+        * TA injection ABI and does not apply to other ASICs.
-+        */
-+       switch (amdgpu_ip_version(adev, MP0_HWIP, 0)) {
-+       case IP_VERSION(13, 0, 6):
-+       case IP_VERSION(13, 0, 12):
-+       case IP_VERSION(13, 0, 14):
-+               break;
-+       default:
-+               return true;
-+       }
-+
-+       switch (sub_block) {
-+       case UMC_ERROR_CRC:
-+               return method =3D=3D UMC_METH_COHERENT ||
-+                      method =3D=3D UMC_METH_COHERENT_NO_DETECTION ||
-+                      method =3D=3D UMC_METH_COHERENT_WR;
-+       case UMC_ERROR_ODECC:
-+               return method =3D=3D UMC_METH_COHERENT;
-+       case UMC_ERROR_PARITY_DATA:
-+               return method =3D=3D UMC_METH_COHERENT ||
-+                      method =3D=3D UMC_METH_COHERENT_WR;
-+       default:
-+               return false;
-+       }
-+}
-+
-+/*
-+ * Wrapper for the legacy debugfs inject path: classify @data and warn
-+when a
-+ * non address-based injection was given a non-zero address (which is igno=
-red).
-+ */
-+static bool amdgpu_ras_umc_inject_is_address_based(struct amdgpu_device *a=
-dev,
-+                                                  struct ras_debug_if *dat=
-a)
-+{
-+       bool address_based =3D amdgpu_ras_umc_is_address_based(adev,
-+                                       data->head.sub_block_index,
-+                                       data->inject.value);
-+
-+       if (!address_based && data->inject.address)
-+               dev_warn(adev->dev,
-+                        "RAS WARN: non address based injection, ignore the=
- injection address 0x%llx\n",
-+                        data->inject.address);
-+
-+       return address_based;
-+}
-+
- /**
-  * DOC: AMDGPU RAS debugfs control interface
-  *
-@@ -606,8 +691,13 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
-le *f,
-                ret =3D amdgpu_ras_feature_enable(adev, &data.head, 1);
-                break;
-        case 2:
--               /* umc ce/ue error injection for a bad page is not allowed =
-*/
--               if (data.head.block =3D=3D AMDGPU_RAS_BLOCK__UMC)
-+               /*
-+                * UMC ce/ue error injection for a bad page is not allowed,=
- but
-+                * only address-based injections actually use the address, =
-so
-+                * limit the bad page check to those.
-+                */
-+               if (data.head.block =3D=3D AMDGPU_RAS_BLOCK__UMC &&
-+                   amdgpu_ras_umc_inject_is_address_based(adev, &data))
-                        ret =3D amdgpu_ras_check_bad_page(adev, data.inject=
-.address);
-                if (ret =3D=3D -EINVAL) {
-                        dev_warn(adev->dev, "RAS WARN: input address 0x%llx=
- is invalid.", diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drive=
-rs/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index ad24c7cf8936..69a1600ad1a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -917,6 +917,9 @@ int amdgpu_ras_reset_error_status(struct amdgpu_device =
-*adev,  int amdgpu_ras_error_inject(struct amdgpu_device *adev,
-                struct ras_inject_if *info);
-
-+bool amdgpu_ras_umc_is_address_based(struct amdgpu_device *adev,
-+               u32 sub_block, u64 method);
-+
- int amdgpu_ras_interrupt_add_handler(struct amdgpu_device *adev,
-                struct ras_common_if *head);
-
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c b/drivers/gpu=
-/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-index bfbfdffbfbe6..31486ceecc72 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-@@ -90,7 +90,8 @@ static int amdgpu_ras_inject_error(struct ras_core_contex=
-t *ras_core,
-                (struct ras_cmd_inject_error_req *)cmd->input_buff_raw;
-        int ret =3D RAS_CMD__ERROR_GENERIC;
-
--       if (req->block_id =3D=3D RAS_BLOCK_ID__UMC) {
-+       if (req->block_id =3D=3D RAS_BLOCK_ID__UMC &&
-+               amdgpu_ras_umc_is_address_based(adev, req->subblock_id, req=
-->method))
-+{
-                if (amdgpu_ras_mgr_check_retired_addr(adev, req->address)) =
-{
-                        RAS_DEV_WARN(ras_core->dev,
-                                "RAS WARN: inject: 0x%llx has already been =
-marked as bad!\n",
---
-2.43.0
+>> You can also make drm_plane_create_color_pipeline_property set
+>> the flag in drm_device::driver_features that the cap is supported.
+> Automatically enabling the driver feature sounds like a reasonable improvement - I'll try that, thanks!
+>>
+>> But the cap setting code's not really performance sensitive, it will
+>> be called only a few times during boot at most. Perhaps check whether
+>> the first crtc->primary plane has the cap is also sufficient.
+>>
+>> If you want to continue with a special driver cap, then please set
+>> the flag for the xe driver too.
+> Indeed, will do in case the approach mentioned above doesn't work out for some reason.
+>> Kind regards,
+>> ~Maarten Lankhorst
+> 
+> Regards and thanks for the feedback!e
+>>
+>> On 6/30/26 10:42, Robert Mader wrote:
+>>>  From the main commit:
+>>>
+>>> The client cap is currently advertised unconditionally, even for drivers that do
+>>> not support plane color pipelines. If clients supporting the later, like Wayland
+>>> compositors and drm_info, enable the client cap on sich drivers they will be
+>>> left without both color pipeline and the legacy properties COLOR_ENCODING and
+>>> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
+>>>
+>>> Add a new driver feature and guard the client cap behind it, allowing
+>>> plane color pipeline and legacy YUV->RGB support to co-exist.
+>>>
+>>> In case of VKMS make the client cap depend on the enable_plane_pipeline.
+>>>
+>>> The series can be easily tested with drm_info >= v2.10.0 and VKMS. Without the
+>>> enable_plane_pipeline option - currently the default - the legacy flags
+>>> COLOR_ENCODING and COLOR_RANGE should be advertised, just like older drm_info
+>>> versions.
+>>>
+>>> ---
+>>>
+>>> Related series actually implementing the color pipeline replacement for the
+>>> legacy flags:
+>>> https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html
+>>>
+>>>
+>>> Robert Mader (4):
+>>>    drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE behind driver feature
+>>>    drm/amdgpu: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>>    drm/i915: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>>    drm/vkms: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+>>>   drivers/gpu/drm/drm_ioctl.c             | 2 ++
+>>>   drivers/gpu/drm/i915/i915_driver.c      | 2 +-
+>>>   drivers/gpu/drm/vkms/vkms_drv.c         | 6 +++++-
+>>>   include/drm/drm_drv.h                   | 6 ++++++
+>>>   5 files changed, 15 insertions(+), 3 deletions(-)
+>>>
 
