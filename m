@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E93B7C43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 16:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF647C43602
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 16:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C48C10EFBC;
-	Wed,  1 Jul 2026 16:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D8310EFEF;
+	Wed,  1 Jul 2026 16:17:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FpEiMlQ5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SZgMMV/c";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70EB810EFBC
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 16:17:41 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-493c4ce68fbso178155e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 09:17:41 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07AB410F000
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 16:17:43 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-493b966dd74so3650875e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 09:17:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782922660; x=1783527460; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782922661; x=1783527461; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MwiCBKCT2C+BQ2/OA9r19z26V1Q/P0Sd4sBcSdmyQ1I=;
- b=FpEiMlQ5l0UxIu21U2PTiatGq9ngYra27KOjFx1rPwjA94QNLuqkOjj6y4Nf71dTiW
- DxsEmMz8al+hWAWzSIq2Zh6MnFW9C9EoxBEB9fxoVqMnPRGBfwo+g08VexoOhvqsEW6x
- Hx499gqwYo5eL23aJUFA5t+CB3q1ZE6Kj28URoczQSbxCqEEH3U2jH4yxnVS6zZmGIj3
- cOcJc4ku9QheXOS8AIyOQOSQeD4Jdrvp0n7BzGPWQDb2zh27dRtMxXgisPZYsAiUAS1c
- M58TokHIclRhUtPIwvwqdt98kxDp65gfwIkB/SbAqJ4I2Vi7MpE2CL5kJ/MVUtLowqqP
- XmWA==
+ bh=yxAXRKeX6/H4VRe5/Fx6stfz5B7QeggGjmb6J7LfULg=;
+ b=SZgMMV/cLdhPu3Y+ZI7Z/fBvsRCpitqa7WP1QCmZnM9c3cJs10t0Qmnr+dXvZYl+lR
+ 63zlgRmJt2LXHFOVk0c0egWAtnDF/lhef0ksfBk4mHNIr533mXMq3rIdLTnltCS4+TOi
+ UuaQChSTOleOwEjHZg4aPBcCjrPFpH2MXVyhsyrsXLlPQRlreyWcpvY9FPQd67pgwgrG
+ VuW1FzXFlNZmMVhXTWgevjyRIT5pb8OhbZmn0G5PcyA8LohJrh8LMtjfXYugo8niDvxx
+ d871Nk1ESXJqBYmsiqCD/+niGBlwtYge0EXX6eywiZ6HPcDbErVsI030IMsmbUEEt6Qt
+ Majw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782922660; x=1783527460;
+ d=1e100.net; s=20251104; t=1782922661; x=1783527461;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=MwiCBKCT2C+BQ2/OA9r19z26V1Q/P0Sd4sBcSdmyQ1I=;
- b=lj/xD9vZBWWc666uhmYSxH0OLneo1mA8F/+dFb96tsKqhfALwGaN+PbEqSYdsesLgT
- U3FnBKCqArYD4bACPHcdtcOiXy3TKHYkv501JgGHahtsrov9d6h4FPOJIGJCDcRnv4fs
- 6YliG7jcAZtAqy+shuWqLgGZZZc1vdERqStWa578KRPuldfTaQrFoovMdoLBMG8JT/Nx
- gVuoe5u82TNrSPi+0i97cxd/4jb7IK6uQd23V4NY54gnGXcEf9QaQSqXokDmmc+vK5FF
- eaifRq5klDQ5BnhUW7DrfiimMa7Ky7qu5/MGqzCMWZpWNTcwH4EvRNnQSIJMHhVgnBku
- zN6g==
-X-Gm-Message-State: AOJu0YyVgCFxljLnzWEjgpyWr2Vg+x02CoZidq2iZqwsKRqM771cdZK6
- Dwy9Kq7TsCDF1GK4Rl/zFtIhLvNu38q3lzXhdJ4PhakBvHrAQfgImAlbivMVWJWs
-X-Gm-Gg: AfdE7cndUBEtTlBVmIh467ZsvPmki4ukEPfBCNQ/EsA66q6xcOC4xYr5hJbHydAoXmM
- fC0a0cdLac6eh6sj5B/and8GjdFQkrE670sZvflGZzhjEVzQJLnGUGamz7R+xXnrEM4aenf8ssj
- f9amoNJn++1F03HlIb5cqsEtbcMB3afqndP0uXY2l+fZ+XFPvlTBUUdgVKxuR+Nkwac//Zm7bRD
- HOdhBnxcL+d92JPK/IWHFSeeg+Fd04oOfe6tc1RiIdrnbOpDRNwWo78JIWJO4Zku45msZPrLYSf
- iI2y/Gm17H53VE1ulbjAL37Hh5NPe08PHxiugC8ajWpdWDneH4NRJj8Rqh2DIMvNyXchDJV5Qs+
- 2MAvj2ES1IvZ4OfG9YR8N4p5jI+i27pUf+dzHt1mU22KTfIqozppngzaxqiXArRJIwsBeRob32q
- JoMkOFYhQ3WGblIeDj
-X-Received: by 2002:a05:600c:5883:b0:493:b6ee:fcb7 with SMTP id
- 5b1f17b1804b1-493c2b506d8mr25670745e9.14.1782922659745; 
- Wed, 01 Jul 2026 09:17:39 -0700 (PDT)
+ bh=yxAXRKeX6/H4VRe5/Fx6stfz5B7QeggGjmb6J7LfULg=;
+ b=eRZGKqeJCtM2rbl0TX1iX8cTyWrAWHCmRZcupn44s/CEdV3/d78fQumSyslBuIGV7O
+ Evidmcw4y5EteHoQHuZGT4eoeVVcwgaFHc8UtRgxf+BQHJMGYL7HK9TbSfSdr7SbbYnW
+ +MK5YbmovjRBM34y9OWx3vRs3KkTB91wUKuSlqJqMyp8DRu0wjs+8B2PcgEJWytfvtJ7
+ BV8/syJTbNtmmuw/xS/a2zlT08GbUMoic+K+UnLNFUUbeQiRgjpQqsd+AOFQSTG5D2cQ
+ 0UXUUFu1iwBePGw685LTLbQN7g46Cb4nQ4Yxwt8Y3A9PiSLajamcSdt7xK3b46RBJJu+
+ OhrA==
+X-Gm-Message-State: AOJu0YzZWA5mYI2kzkOxAjFm9Ot26vZWigOSvL64h66CMvEUX3XjNhvF
+ NfsKqlsw79vXvxmCqsi0wmC4vos8TaHUKVHjT8R4aqfs76KrkSGGumqSe2SNLUZG
+X-Gm-Gg: AfdE7cnEoJvsZJWh+DAbpXJclO5R7CHOrsyPFhVECfSaGbwKRMQUCa7G9Rw7b4igqJx
+ EuwnT/aTU38ibvC5QNhkKbxilFiuISg9zPWLZOdhgrqda4YjEQQOvN9wkLbKkbhbGmFyV5dHIAF
+ JITLq/qDF8q7RVvZz+m4fouC27j4vZpO/e1XTooABze4B5kq3kzJHUSuVES3pvpOvS88aUxgzoE
+ rQvHbO4X8cBodbO6VcplUWJK+KGpxCDWRHTwTGJxv7TPWnrKViwYxzvJ7IQKQlpo42BEyAHsP9h
+ KoMmxW0+oKI5l1HHyAeIPAS3l5N+n0DRwyTiTIWvAGlxEEXIKI3eZj5C/8BTL+1XvzwdMXmomUo
+ oycg3oUA7i+vTwlrlDQRYjjl3+8tgpQqI6An4iDbktI/uTNcbGSggk4vtkGNdJc+ygGciA/qRZ8
+ C2A//Toz3XA4E8TI3r
+X-Received: by 2002:a7b:c857:0:b0:493:a623:d090 with SMTP id
+ 5b1f17b1804b1-493c2b4cdc3mr23639915e9.10.1782922661139; 
+ Wed, 01 Jul 2026 09:17:41 -0700 (PDT)
 Received: from Timur-Max ([212.108.193.106]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be81df2asm168812255e9.12.2026.07.01.09.17.38
+ 5b1f17b1804b1-493be81df2asm168812255e9.12.2026.07.01.09.17.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 09:17:39 -0700 (PDT)
+ Wed, 01 Jul 2026 09:17:40 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -69,12 +69,10 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
  Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 06/14] drm/amdgpu/ih7.0: Use IH_SW_RING_SIZE for soft IH ring
- instead of PAGE_SIZE
-Date: Wed,  1 Jul 2026 18:17:13 +0200
-Message-ID: <20260701161721.85681-7-timur.kristof@gmail.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 07/14] drm/amdgpu/gmc11: Pass cam_index to retry fault handler
+Date: Wed,  1 Jul 2026 18:17:14 +0200
+Message-ID: <20260701161721.85681-8-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701161721.85681-1-timur.kristof@gmail.com>
 References: <20260701161721.85681-1-timur.kristof@gmail.com>
@@ -95,40 +93,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When there are a lot of retry faults happening, the soft IH ring
-can fill up really quickly and possibly overflow. PAGE_SIZE was
-too small, use IH_SW_RING_SIZE to match what other GPU generations
-are doing.
+This is necessary if we want to make use of the filter CAM.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-index 24be9d726428..f1de6450a31d 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-@@ -601,7 +601,6 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	int r;
- 	struct amdgpu_device *adev = ip_block->adev;
- 	bool use_bus_addr;
--	unsigned int sw_ring_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index c40d9c467204..18a53b9df77f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -108,13 +108,16 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
+ 	bool write_fault = !!(entry->src_data[1] &
+ 			      AMDGPU_GMC9_FAULT_SOURCE_DATA_WRITE);
+ 	uint32_t status = 0;
++	uint32_t cam_index;
+ 	u64 addr;
  
- 	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_IH, 0,
- 			      &adev->irq.self_irq);
-@@ -633,9 +632,7 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	/* initialize ih control register offset */
- 	ih_v7_0_init_register_offset(adev);
+ 	addr = (u64)entry->src_data[0] << 12;
+ 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
  
--	sw_ring_size = (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0)) ?
--			IH_SW_RING_SIZE : PAGE_SIZE;
--	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, sw_ring_size, true);
-+	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
- 	if (r)
- 		return r;
- 
+ 	if (retry_fault) {
+-		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
++		cam_index = entry->src_data[2] & 0x3ff;
++
++		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, cam_index, 0,
+ 							write_fault);
+ 		/* Returning 1 here also prevents sending the IV to the KFD */
+ 		if (ret == 1)
 -- 
 2.54.0
 
