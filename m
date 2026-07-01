@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BD31C44500
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 16:17:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E93B7C43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 16:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A12DF10EECD;
-	Wed,  1 Jul 2026 16:17:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C48C10EFBC;
+	Wed,  1 Jul 2026 16:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xb96jpZE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FpEiMlQ5";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE75A10EECD
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 16:17:39 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-493c1950518so4662285e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 09:17:39 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70EB810EFBC
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 16:17:41 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-493c4ce68fbso178155e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Jul 2026 09:17:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782922658; x=1783527458; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782922660; x=1783527460; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=p/Vq/KrrHT2PIV2udEWzP9xO+YQv9/+rn4f2pkOy2ow=;
- b=Xb96jpZEiNZ+hH2wjTL2QLppEtdXPxVoTkjDsXkDWyjI9eGI8ulBKYAHK9t2J/I5ZH
- yXoJ40jRzMOn3RApL3PPLerfu87Tb3fdQL+WLdkWiPtYeHwM3DIQzLUElB37ojM0eeo+
- D3M3WJWgS4Pa7XMvYXtyqrS2zvqaQUSTeEO66oEg6bSzwDwxx6/CvAinrscz1Q1PhY06
- gUXAlDNyFyWCVq85Zim7AgYqdEDUsgQ4fa3WQNQPy0RhEAvyQa+bh3RkQr3VuSwTPJaJ
- pFYHwMEzgjpXrsd4lOatnZ5riUHoYUlTQ0g1Zf8AbFJ1lUgf3UfbRZTdZtmVbU67I2+s
- T2cA==
+ bh=MwiCBKCT2C+BQ2/OA9r19z26V1Q/P0Sd4sBcSdmyQ1I=;
+ b=FpEiMlQ5l0UxIu21U2PTiatGq9ngYra27KOjFx1rPwjA94QNLuqkOjj6y4Nf71dTiW
+ DxsEmMz8al+hWAWzSIq2Zh6MnFW9C9EoxBEB9fxoVqMnPRGBfwo+g08VexoOhvqsEW6x
+ Hx499gqwYo5eL23aJUFA5t+CB3q1ZE6Kj28URoczQSbxCqEEH3U2jH4yxnVS6zZmGIj3
+ cOcJc4ku9QheXOS8AIyOQOSQeD4Jdrvp0n7BzGPWQDb2zh27dRtMxXgisPZYsAiUAS1c
+ M58TokHIclRhUtPIwvwqdt98kxDp65gfwIkB/SbAqJ4I2Vi7MpE2CL5kJ/MVUtLowqqP
+ XmWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782922658; x=1783527458;
+ d=1e100.net; s=20251104; t=1782922660; x=1783527460;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=p/Vq/KrrHT2PIV2udEWzP9xO+YQv9/+rn4f2pkOy2ow=;
- b=jiCW2BypZwhR/ZzP9l4B1yUgsBymsYRvF1kvYNTke31H0PsvUY+BA0nTz6YAbe2vrd
- 41MCwRULYsHbqJVj9q0eZeb6qji24Bj5pQPQJAx2OOIjKRlUnfbfe6noKj862xzWw6i0
- 0nkHCsXEXvs91S2v6bXQQx733MsTjtYID3ZPXjzglxJF9X7rjTHFWbnh2CT2lGTpvWYE
- BINO4eZ3fEGKxZLzwAMayOPPi03kpM7/HXh/RGCopqdvwHdRqzE/1dzeyiQERsq3unrc
- Is+nNLvyp7rDTGYpTSoJPe5XOBuqa+5QtRDfM9EJH+mNxIRstQ2Cdss5ntGWb8K3TEJ9
- Nz4A==
-X-Gm-Message-State: AOJu0YxlvemxP3U4P24u93Pp7hGa8sNvZjcYd4MmkjHg9/jGQzb+R1AU
- K9eaDFNQK3kE1d4LGrKzFKry4+ncmuC+mm6qDTRU5qeRHGJSlGZpe5eS/CiQGb75
-X-Gm-Gg: AfdE7cnf8+miCDY7z7qV7RmIvkFZo5gUnxc9GyTujFC5/rZtnJHY6wd1Abu7KJyMCrl
- zMC5DtAMgFTe7Tzd8lDulCP9iE9EMBwfFv/qC1UBQEyGhLQJqiLYMWG69tjiII8BnJazhG0zlIx
- KNgah7/s5ErUkmS0pg8ht6FCBtHWO6qPVzrS6djUzxQJ6RKjulRqgt8LDCS+TkjIL97h4QAKyP+
- /x0Mi+OgnDtwtBBtUbz1o/GzNbEWno/7HabfyTyFV2z0EzswMjVMzoNWchQVb56azBRexFqMmyR
- 23OBMaMWHLujV/gBQ6OHi1IbXiN3HHvBNTOgEtNYuaFg3xz6nE4zE3W2fMNAuZyOSE+8uKbBRCI
- br3H7mmwFwA0KQcTXajdvQ9hwwcRyiEhZxy90Gv0DG9et3a1CXfrU/Sl2XM+I96QHQEOVeNDKdp
- XAOAvFlI63mp41JK/F
-X-Received: by 2002:a05:600d:8488:10b0:492:3fb5:3a17 with SMTP id
- 5b1f17b1804b1-493c4cf158fmr983035e9.2.1782922658219; 
- Wed, 01 Jul 2026 09:17:38 -0700 (PDT)
+ bh=MwiCBKCT2C+BQ2/OA9r19z26V1Q/P0Sd4sBcSdmyQ1I=;
+ b=lj/xD9vZBWWc666uhmYSxH0OLneo1mA8F/+dFb96tsKqhfALwGaN+PbEqSYdsesLgT
+ U3FnBKCqArYD4bACPHcdtcOiXy3TKHYkv501JgGHahtsrov9d6h4FPOJIGJCDcRnv4fs
+ 6YliG7jcAZtAqy+shuWqLgGZZZc1vdERqStWa578KRPuldfTaQrFoovMdoLBMG8JT/Nx
+ gVuoe5u82TNrSPi+0i97cxd/4jb7IK6uQd23V4NY54gnGXcEf9QaQSqXokDmmc+vK5FF
+ eaifRq5klDQ5BnhUW7DrfiimMa7Ky7qu5/MGqzCMWZpWNTcwH4EvRNnQSIJMHhVgnBku
+ zN6g==
+X-Gm-Message-State: AOJu0YyVgCFxljLnzWEjgpyWr2Vg+x02CoZidq2iZqwsKRqM771cdZK6
+ Dwy9Kq7TsCDF1GK4Rl/zFtIhLvNu38q3lzXhdJ4PhakBvHrAQfgImAlbivMVWJWs
+X-Gm-Gg: AfdE7cndUBEtTlBVmIh467ZsvPmki4ukEPfBCNQ/EsA66q6xcOC4xYr5hJbHydAoXmM
+ fC0a0cdLac6eh6sj5B/and8GjdFQkrE670sZvflGZzhjEVzQJLnGUGamz7R+xXnrEM4aenf8ssj
+ f9amoNJn++1F03HlIb5cqsEtbcMB3afqndP0uXY2l+fZ+XFPvlTBUUdgVKxuR+Nkwac//Zm7bRD
+ HOdhBnxcL+d92JPK/IWHFSeeg+Fd04oOfe6tc1RiIdrnbOpDRNwWo78JIWJO4Zku45msZPrLYSf
+ iI2y/Gm17H53VE1ulbjAL37Hh5NPe08PHxiugC8ajWpdWDneH4NRJj8Rqh2DIMvNyXchDJV5Qs+
+ 2MAvj2ES1IvZ4OfG9YR8N4p5jI+i27pUf+dzHt1mU22KTfIqozppngzaxqiXArRJIwsBeRob32q
+ JoMkOFYhQ3WGblIeDj
+X-Received: by 2002:a05:600c:5883:b0:493:b6ee:fcb7 with SMTP id
+ 5b1f17b1804b1-493c2b506d8mr25670745e9.14.1782922659745; 
+ Wed, 01 Jul 2026 09:17:39 -0700 (PDT)
 Received: from Timur-Max ([212.108.193.106]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be81df2asm168812255e9.12.2026.07.01.09.17.36
+ 5b1f17b1804b1-493be81df2asm168812255e9.12.2026.07.01.09.17.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 09:17:37 -0700 (PDT)
+ Wed, 01 Jul 2026 09:17:39 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -71,10 +71,10 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Mukul Joshi <mukul.joshi@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 05/14] drm/amdgpu/ih6.1: Use IH_SW_RING_SIZE for soft IH ring
+Subject: [PATCH 06/14] drm/amdgpu/ih7.0: Use IH_SW_RING_SIZE for soft IH ring
  instead of PAGE_SIZE
-Date: Wed,  1 Jul 2026 18:17:12 +0200
-Message-ID: <20260701161721.85681-6-timur.kristof@gmail.com>
+Date: Wed,  1 Jul 2026 18:17:13 +0200
+Message-ID: <20260701161721.85681-7-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701161721.85681-1-timur.kristof@gmail.com>
 References: <20260701161721.85681-1-timur.kristof@gmail.com>
@@ -103,18 +103,28 @@ are doing.
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-index 9dbc20131410..f6fdb3a950e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-@@ -590,7 +590,7 @@ static int ih_v6_1_sw_init(struct amdgpu_ip_block *ip_block)
- 	/* initialize ih control register offset */
- 	ih_v6_1_init_register_offset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+index 24be9d726428..f1de6450a31d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+@@ -601,7 +601,6 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	int r;
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	bool use_bus_addr;
+-	unsigned int sw_ring_size;
  
--	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
+ 	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_IH, 0,
+ 			      &adev->irq.self_irq);
+@@ -633,9 +632,7 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	/* initialize ih control register offset */
+ 	ih_v7_0_init_register_offset(adev);
+ 
+-	sw_ring_size = (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0)) ?
+-			IH_SW_RING_SIZE : PAGE_SIZE;
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, sw_ring_size, true);
 +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
  	if (r)
  		return r;
