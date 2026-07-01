@@ -4,121 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7898BC43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 02:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA0EC43327
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 03:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D329910E2D9;
-	Wed,  1 Jul 2026 02:19:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B64610ED84;
+	Wed,  1 Jul 2026 03:35:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dR4QHJgY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zQ4bdufE";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010070.outbound.protection.outlook.com
- [40.93.198.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 458A510E2D9
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 02:19:05 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011036.outbound.protection.outlook.com [52.101.62.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4D110E2D3;
+ Wed,  1 Jul 2026 03:35:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QvjuTl+SFWRVH9D1E8bFM5RyfAHbPCLtBlVfXdwZcCQsLPq4hdqm4NjnYrq9ynXnO/67VFOCrRz3PQ6sUVpQqKGP/Kj9Twwa/FtLMrIhzAwiJ1RPJ1J4/syYBJt49aVZp4vouxKjTgU16qJPl7bwbqk7nZ0iV0gIVO6kujAYkyBPhapbvSjGwKQ+0pePnXdJY3izE+FEt8tw76xc9HKPktYZ+HmEL8AnAAsrJZvAGuyYkY2BgJ/Tvsa479iYFetd8iYZsSth7xny7b5XY0wVX7U961TRgwb1fRLhmx/rkCYeKBsL765jxagI4dOWwKX7RyIKhh4qm3eF9F37HATsfg==
+ b=y3DXw5MlM2P0Ye3sTCo2DarSN85XCon6s5kQ/n5AXfbZV0J5O48yYykMKzxt9hQM3xh3OKfL/7TN9jP3LBn/elt3YC3ggqcj9jund7N5cpgBBwbDH/k8o8IGBmzopZSkLsKInG9atE47OidOUzTZt/PgsGHqf8C2x2/e3+7mgJZI0g9YxYzPEQZv3/b/Hp7sz76EJM2JO6Sx4L8uDODxggAGpKS4SGy7avksxY1nsXcbjzfV74fz0t0MiR7XOAiXVyhklM1/c+NnhbGGUKYoVDXAuO3IuPnoVfdhDc2fqAs7NJdj7sP7GT6fninLKdGeFyvOXPK7s15bLGvrk68hyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ukcZiobE5H1vlPoXEGVuLt9XcMMVkcRLeoT47SsWfbw=;
- b=HvLUgv3dS3y6+dODfcYk8qBdZIvWYNpu3uO5c5crbEIA+x4QSoNN7kW7b93P0+4is2TM3VIGtJbbd83GLTHFfwKBcjB09wLDzxQUkDcoZOJklEKMs1457W7nTNX+tvGJIcZ+KH/NShisMShlnMBKMB+mQLHrh3QjS/MCLv8lPBTeLUnozxVGwiJYcx36epjg1py1YPfyv5khntB8DXnFPV622kO7MRoCmujL+Q89dsJJZEAYvdTa4rD1gTrl7v718RSlAUXUFhQ1DAsQptrOD7AWsZHS/k6xPhqWoZxcWrYEBBm8K2uD8cwLKdfPGZnhf88AMLB9knpu+2f9LwktIg==
+ bh=axZduVim8E8rJxyyRDfcgfeZhhPB/piZN35Rc8q6ILM=;
+ b=AaDU0QTOOzrt3b/muytlMcnmnmpRSyr9IfX7dkHRjMN9gn5/GGk4zey3j9Y6c9vh0CKh/1BeiI4lWh/ldzJMnkLtLftryeFwFy282chdc0BXOf7EAceWxEW5XVbh8m0CPH33NxNcDktHXgNCQSqIc9vKbk4644ckx/KA5/MJ9INRcuHwjL7fWgV58LcOrmfJ5vr8LIM5rJnSBWfwypk1FVGTTervC3jtkabSFgZdoluGglZeJ5WxNBd/ZeQmHd0TWfi7tbAM7IPEO8nACdlPqS7qOzp9Ltaz6GmcPztRm6bb11W70DQKY/10jjD1aRSDiORAVhn2hl5LYNne8bAcSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ukcZiobE5H1vlPoXEGVuLt9XcMMVkcRLeoT47SsWfbw=;
- b=dR4QHJgYeMl7BAyxl0p9are706czwlqEL8AhWNYRWnT1g9QWylWhvF8SrZJF2qgVosC2MLZw4lrRHRuOuHiq2F/wri9Y2PzQzRMyC6y0T7qASFuI4V6LQUu02RXSclXaNQVzU6kR04lDz65nobWJko5F40WUsCTzJIkBENjLUIQ=
-Received: from SA1PR12MB6799.namprd12.prod.outlook.com (2603:10b6:806:25b::18)
- by MW4PR12MB7384.namprd12.prod.outlook.com (2603:10b6:303:22b::15)
+ bh=axZduVim8E8rJxyyRDfcgfeZhhPB/piZN35Rc8q6ILM=;
+ b=zQ4bdufErlqMZwPUoHAHPwHKSNDckIpgSpItI8XDB2I8Rbvg1afyssUtmA1EfCA/9DF+U9OG9ofKY78QQx9z13U7wg9dSaGCR9hrBFx+zxxscgNGXjY93vyU3VBFmA542cJzrxTO4Wa/0JtrTVmEoqztvhabRO1ga6zdJHdCxSo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by LV8PR12MB9205.namprd12.prod.outlook.com (2603:10b6:408:191::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
- 2026 02:19:00 +0000
-Received: from SA1PR12MB6799.namprd12.prod.outlook.com
- ([fe80::6d46:bf1d:4a60:76c5]) by SA1PR12MB6799.namprd12.prod.outlook.com
- ([fe80::6d46:bf1d:4a60:76c5%7]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
- 02:18:57 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: fix smu13 power limit range calculation
-Thread-Topic: [PATCH] drm/amd/pm: fix smu13 power limit range calculation
-Thread-Index: AQHdCPzUUBFRiswcvUO7pYm14NavqrZX7cow
-Date: Wed, 1 Jul 2026 02:18:57 +0000
-Message-ID: <SA1PR12MB67993B58D8853878E493977A8EF62@SA1PR12MB6799.namprd12.prod.outlook.com>
-References: <20260701015558.3757481-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260701015558.3757481-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
+ 2026 03:35:05 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%4]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
+ 03:35:05 +0000
+Message-ID: <4c0d3658-9480-43b9-9c33-667238697d1a@amd.com>
+Date: Wed, 1 Jul 2026 11:34:57 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 0/5] drm/gpusvm: split MM and device state across
+ gpusvm/range/pages
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: sima@ffwll.ch, rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com,
+ dakr@kernel.org, intel-xe@lists.freedesktop.org, aliceryhl@google.com,
+ Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Christian.Koenig@amd.com,
+ Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
+ Yiru.Ma@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260630102127.392396-1-honghuan@amd.com>
+ <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-01T02:18:19.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB6799:EE_|MW4PR12MB7384:EE_
-x-ms-office365-filtering-correlation-id: 2f25f198-a65f-4a3e-7c61-08ded7171b2b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|22082099003|38070700021|6133799003|56012099006|18002099003|11063799006;
-x-microsoft-antispam-message-info: MzoQfFO4MT7WMflJn7gQAUeFkqYRphc8ziHq415tOHKwlyJEMWDUGxThlbQp5/Bh8kskadcfELdA5PmMQnuJ9Sr+OGMklI1OUlP/nv9WFA/+GGH6gLAvmgLrVvZMtZjFG+BQJ8lZ/x90XROTgD8MkVvCDfvPvNrQ2vW/pR4HabhOluX26FPME1WU5ZkL6hOtrdqGH+82uvGB6G6hZ+mAHf4wcjxeZd3KwIVyU4FC4v+quuZSGWgKuE2N9M2QBRAB/E1WUF9UcbmKfjF/Yl2wIcCjthXGbKQrtrQusvcWbFHejWWmqWJ6Xv8Y9dUQeCxj3e+zusje57iUTaxlm+Siv5amls4zWupyA4QKEobYIuagOwEBKSGE9luDlt20D6i45Y+su898DDu0eNtjtS2bk8mKSb9V4DqaG9TFJF6EJu2iyF6TkMr3ztT1MIKxqtCGlsWbrfKpcp+Ee2M5timZKo/tGXiFL48UV2FVIZjkK1MutAkr2xRJZt6qiNh2C7aPJ23+lgyZO74/o2di0SRGaWiIsHkxLBCZFOeoaYlO7+j4S15bMi3+JY5CLpJ/xAwC6eTy8ByvaXz8hYtPNA7ycRYrAxIW1wqgfDTurfGX7Ydk9+j6QccKTzQZRtdAEY9ow2bGpHSL72W+1RgUaSZ/Bo3zQc7RqARKfA61uURsgPjkxXa+CV3EHcxTq2QG/rZReip8wSoT65SgsrdB+FT/PG1p0BesYlhR2SHMSOp+2dQ=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB6799.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(38070700021)(6133799003)(56012099006)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PfY0Jft8FW4Qe3tF8SDP8sbKbI4sboHKsS1/Wd//r5OyEhjeu+279531+MBm?=
- =?us-ascii?Q?Pk/pTGld+cqDAzOxDqSQpQ12qreCFMYDib5qMu3ViYhsk2S2QqpCd+Q/i9qe?=
- =?us-ascii?Q?Yr4SrvuBPlBl1FF8a5xGkScWJuhtRtMm3mlNRjEaYfWNAZaljwjwgBhp93DH?=
- =?us-ascii?Q?XlDezzFzQlXBzMLp1CpbWTWUs7oIw52srIovatP6+GscyFl0WbQ3ULCoKew/?=
- =?us-ascii?Q?uB7+b25IhS7jNjqcrd3x9IkSCMAbK9Pum0cGkNDm63BUU1eN8IQwbyUccy+H?=
- =?us-ascii?Q?V8VKvZnbTqCD1J+gmbkfc/70q/I9PEq63A5JifXTLfw7R54X+/a0jUKUyhX0?=
- =?us-ascii?Q?RiQ1LBWP+PD0ncHphyQJ8uEK/eFUIcq8eDg4VjQcMDCJGiYSmdfr58u22PLD?=
- =?us-ascii?Q?xoXCEDERQt93BlX83Q8W2ce1MJpXremU/TmHZfAxAItTmhA8fuspb5y4tcbk?=
- =?us-ascii?Q?WWZ+v2Ev99NZfXLccymkgKtCXxriKCEE4muufnWkIFHgimK/nWg3q1Ep+h1W?=
- =?us-ascii?Q?cl2QCkrlVbgGppNFQfUCvld1UsQECGbNyBYbO8Wy1o5ZBFSlvHOch2DNAUXw?=
- =?us-ascii?Q?+f1zCwVVqtYdIR5WENSozkcyl4nLZ3dT5Gc78mVO5KST7YavoG9d0aZOj7Lx?=
- =?us-ascii?Q?wSNIed4VWWXTOzmwppO8faKON1vCp8Lfm/Uu6K9jceAKTsyp5XR7mY0+/oqR?=
- =?us-ascii?Q?OU6qA6NLRfVtL7dReBs0YmbtDQwML78++j+Dc87RSySavsJlBNY0kj9H8IUW?=
- =?us-ascii?Q?dFqKE+cvWrpmLGWitDe9kdOmhCcTsKGhYD1GVj28FLvrcK4L5vmGiAI9VWC+?=
- =?us-ascii?Q?W6u5ZGaxp+HFdMVHrIEdIjMvM+rjYNI2tcuCmGwCbz7rydkJh88CzKGr+K5H?=
- =?us-ascii?Q?DQH7lt5PZ0jMhGfRrD86Ac7RuIDPo21OaS1ZENYolJGsmdReVjnaxkgek7hR?=
- =?us-ascii?Q?GD+U9DglPdt8htEbexaNccRWuspTzXifpy4PreNxAoHaubd/5iM8rCiuajFO?=
- =?us-ascii?Q?iLq2cSp7EgNt32J9Ej3BloCnhRHmbv7pEQBn6P0Yu3Kgqb2KXS37741zHiYE?=
- =?us-ascii?Q?Z0tWOrGZ1MenWdad7uWG+plyHgjttJD68YwHqH92HHq1y5DT9n+EruzHEjRl?=
- =?us-ascii?Q?bp9Nx1gE4btEGSMHkozkL6U+nvvutaDsUR+cBEa0FR22tvN6CEhJ3lobtV7Q?=
- =?us-ascii?Q?7BmGxC35oTncUIygLWtTXThexyYoTLD93I/QNdKAJGV+cLV+u5kz6/PPTt6R?=
- =?us-ascii?Q?8CaAvs0GRqm5nskLl2MoxP81R8JFwZMs1lWySg1zYWcCO57gcAP6JCAd0Re2?=
- =?us-ascii?Q?kdLC1q0Jbwqn4qdVBVe0cUaT7oFZWYUajWrmI+Xt5CQmfVh1oLIim8+QooJH?=
- =?us-ascii?Q?E/90fahhsPmFeDU4XQm4OasL74nDgQio76PjTxxns/zUqDTVn8wANfxGeaAu?=
- =?us-ascii?Q?RX/UWLe4Nc0cZHNRp+CNE45PLjPc+yUKdCpFmtwUcJGliY566jRtjN8uF3uj?=
- =?us-ascii?Q?xXcEjt3KcV/KQoa+OYzX7R9q9maTFnh4wezWU+lAmqfZIUkEl0Q9hzmX4St2?=
- =?us-ascii?Q?7Emj6Wg+fMfNgaPHBgpnXeym9zRWs9vnNvu1yGp1WhSmxDAJFDEPIp9jAvmu?=
- =?us-ascii?Q?EOVjmyuNP4CkU9QTrL94x2TPdT+PSbtkNXleG5eBHDXiZZ0xvzHVvWndJ0pg?=
- =?us-ascii?Q?qzxx6UNx12MAXo6TmIlm5QtLyiR2l3SXgUrMqcdwGFyztq+2?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SG2P153CA0049.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::18)
+ To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|LV8PR12MB9205:EE_
+X-MS-Office365-Filtering-Correlation-Id: 948157c8-7106-45dd-05f3-08ded721bdea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|22122799003|18002099003|22082099003|3023799007|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 63ZogdQAYGa1iopOY52oKN3OwhPeH3qBKtPooGj/8kSf+qH3A4orbarh5rulv2k81Iidhb/CKHRDe/L+yudERx6bgnKREOC1NdYVCAfIoNEXdnwRHkbUhuorZjxz15zeVBPN7r//Sst4YiS7vMw8XG2qHsBhETiIvvgim9OEpDj2XBOWLD15bsOB45DKyggohw311oo3M62zaBTT2MWAvzDyIXeDh2w2fFKhvSz9nm4/sjvQ2XUH/d0H5+kYFJWV6x4P9fgzqkegdPbiKJg+D7wqyfnYqJ3CIkdth3Q/a5VtlP5hUHj9Gt8zgkBZa7hSVfKVaJvRMeF+Ft9zJDpwfThe+ur+wIpcbvLbRHTlZkvLBALbiyF4eMCPA3wUCQXvLIyCVdbjQbM19hf6d6tSjtENszjpUimapiY/i2OfZQCWAI5TfEOQ5jVQuZcozRFnVthRa5+WzXIY0VX7NYQyUc79pzJwtT3uAZULvbS7Kb30ydu0attwI81ej2RewjCzJo0hFUoHFizZoIUuzLFPF/wxzWh7pACYkyhDadq7gFjsnPZdxz8k+klhuXC7v5etzj83C3LqIi6hnA1PfXC2AQV6/0F3weQ96AKzTonyee5yqIb5aBIJHck34xfy2Dc+
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22122799003)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlVLcjlvUnJ5Nk9jSlFjNVN6MWVoRXFTOGRpMjJDMkQ4dktndHJQeENSRkZs?=
+ =?utf-8?B?TWcrWTVJMGYxQ0dhbnBkSzArTDUyQnRydWdvU1Z6Mkl1QjZBem83ckxkOGEw?=
+ =?utf-8?B?UCtwWERvc3FMZy80V3dkYjRvQlVxcVlCZGNZODZkcnZIWnhUVUFyb25IbWRU?=
+ =?utf-8?B?b2kwdDlobnVZZVNENk1ueFdvTlpNOE54dnBvZ3hoaWhMRGZRV2hkOVFQM2NM?=
+ =?utf-8?B?K28zOExZYVhWUTZhRDBzcnQ3VkJOMTJUSGZLYmxTR3M4Nm1iYjUram5Xako2?=
+ =?utf-8?B?T2FqUmRyWG8rOXRpamhJNm5QNlBiUDhvNFhPSGx3TUFsTkZjQVBod3J2YWcw?=
+ =?utf-8?B?S2Q4QnpqZHdHaVJzUlh6QjB2di9CaXlua3pnc2pHb0NDaEd2eUlwQVFEMGZ0?=
+ =?utf-8?B?TjRVa1dhdmZndk16bUVGTklNemE0WitvL0VUNjVQY1hhMjl3TlN3NmVxbUIw?=
+ =?utf-8?B?L2licC8yWGpjb1orTjlLWGdxK2pzUlZockhNZjNodUVRR0hNRDBIK1VHUWk2?=
+ =?utf-8?B?M3c1eHlBcy9kUVpDMmt5bThOMUFhQVFodGVCMGZ4WEw5WFdvYlgvMitRdllN?=
+ =?utf-8?B?MVZZbmhIK1gvMEgxLzg4VnhkcjRDa3ZIWXB0aWNzZVRObTlsWG5neVYzZ1Mw?=
+ =?utf-8?B?TWF3SnBweFc4cTRFTW16cm1Da1NxZkxPNnBhRDFIbitoaE1DSTFyNXUvYTdW?=
+ =?utf-8?B?VHF4U0d3OUg5M0VXNnJEQ09Wc1A3RGJ5QU50QWNsMkt4UnNhWEVvOU82RCtO?=
+ =?utf-8?B?ZXhNNFVYSzVtRUFVUXN4SVBMdVlCK0sxZ2RVa3dUNjdJVHVIR2R2Z1BqUXBi?=
+ =?utf-8?B?U3JrVVVadzRzNnM0dkx4WUF6N3JVTHl0dGkvb3JzakgrR1ZxQUgvRU9KVnkv?=
+ =?utf-8?B?dmh3MU9OR3J3bUw4cWZ3VWYxb2p6Y0kvMGlZcTJ3VDNkUm5TdUlFWW40NHUr?=
+ =?utf-8?B?Wlk2aDdPVzRjV3hFNWxzUk9sWGVJajVSY01vSllnVEZycGdORDYwL0pjU0JH?=
+ =?utf-8?B?alZubzhxWUxTM2t3TzhyNFRpazZZcGJtYTU4aXJQV0JxYUlHcXZrb05uTm93?=
+ =?utf-8?B?QUg1OS9wbDFPMjZDbzUyaHl0WVRNVXpuNlpTVzVTUXpHUXIwM29rb1k1aWFB?=
+ =?utf-8?B?clNESG56VW9XVzZtZzV3aGVFKzBIVHdJQWRiZU43RGVqWkJwS0lFcVVmaHM2?=
+ =?utf-8?B?UUVEU1pPeXB3UkxNU0plZzd1VFp1WEtJNE9hUS80ekVQM2t4Vkx0QVQyREJk?=
+ =?utf-8?B?Qno5M0pPSVJnbzByVXIvQ0F2WkQ2djMwTjFwYnVITENMQ2ZpYURRZWJuNEVj?=
+ =?utf-8?B?WTU0SnR3ZWZUNG0vZ0lPR2VXOUlOdVVIajJRdnJ5WVN2ZkdvSm12Z0lkaWRv?=
+ =?utf-8?B?NllXMUtsZFlSbkZGMXhrQW8xcUo4TVNuUGVtemZRNXZqRzQ5Q2VQZ3lLVmhy?=
+ =?utf-8?B?WndDaG9memQ2TG9uZEw2WDdtNFJ5QVh2ZXZja2VidUVpcm5UM3B1Q3l6UFVC?=
+ =?utf-8?B?S2xXd04vUDM4TStpNWo0aHVDYnZVcTBKaW8zNUpHUWYwamtXQVNEWmUxTldu?=
+ =?utf-8?B?TFhBaE5Oc1dlcWpIL1AzKytJTDZqWDgrMjFaK2NuY01RaTdqNXFYeHpjRkl3?=
+ =?utf-8?B?SDNhNFpXck9XS1k0MW9QMUtiMTAzdEFtYjJJL1F1SHpWa3RMZmx6Zytrdldq?=
+ =?utf-8?B?WEQxM0NjQ3d1RW9xNlFQb2dqa1FOTDQ2VDNnc0ZXcVdkRU9tRHhMTG1zdHp2?=
+ =?utf-8?B?TFFzNzMxRys2ZlMrZjZteDlxNjJoOXJod09vSGJEdlVNWHJTVjVDc0xJaHBy?=
+ =?utf-8?B?YW15bXIrcEVUUjdUZklJVmd2c0JSOXRZRlViQkFRQmNUUndib2VMaEJzbnBh?=
+ =?utf-8?B?TzZOUzZra2hma1doMTNEaldTWnR6dldnTldXNE5OZTlVTDBrbnI3YUEwYlUw?=
+ =?utf-8?B?ZitMRHFEbDVqUVAzOVFwVlZLMnkwQXNnS1U5SXl4KzFYdmIyZkNxYTcyNzdT?=
+ =?utf-8?B?K1dnZkhLSjdEWE5KWVlzdmU4d3pQTndKZFUxR3RHQzh4N2hLMEUzWW9SOUJI?=
+ =?utf-8?B?MEZFRUJJQkI1UnlDRVprQStlVWlVdkFtNFdGUFl5VUZQKzNhT1R6VkE0YkY1?=
+ =?utf-8?B?VlNkUjFnUmY2VFVjOUJZSnJSZTFwUUE0eGZydVEvZlNqWm5XVVIyVkNPaTVS?=
+ =?utf-8?B?M1dVdFVjanVSUDE3d0hkK2VGeWFkQm4yWHJ1aEZXY05QeVhNbFBTeFQyM29y?=
+ =?utf-8?B?TGIzRU9DUGUyMmIxVkVlckdTb09Fa0FuWTdpbXlKYnhUdEw5SE5vSXRuUng5?=
+ =?utf-8?Q?kTQ4FvwEeP8ap97yKK?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 948157c8-7106-45dd-05f3-08ded721bdea
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6799.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f25f198-a65f-4a3e-7c61-08ded7171b2b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2026 02:18:57.3024 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qEqMOMXL+7CNaSxWhnSl2SMwR+qzCV240lucPPNAPcdm/bd7cwrRhghsLG1+o9x7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7384
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 03:35:05.5463 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LItLr3f4sR2GFrg4Te5ZTeDUTzJd36e1hcDdkwVXTnJuT+0k2RSCJcKzzLzHigNnB6+uwCs9eZ8b+qCzx8OiZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9205
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,134 +140,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Wednesday, July 1, 2026 9:56 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: fix smu13 power limit range calculation
+On 6/30/2026 10:26 PM, Matthew Brost wrote:
+> On Tue, Jun 30, 2026 at 06:21:22PM +0800, Honglei Huang wrote:
+>> The intent of this series is to make drm_gpusvm more flexible and give
+>> drivers more freedom over how they assemble the MM related and device
+>> side operations. It implements the direction Matt suggested in [1]:
+>> Mirror MR in gitlab: [4]
+>>
+>>    - Move struct drm_gpusvm_pages out of struct drm_gpusvm_range.
+>>    - Embed a struct drm_device in struct drm_gpusvm_pages and drive all
+>>      DMA through it.
+>>    - Drop struct drm_device from struct drm_gpusvm.
+>>    - Have the driver's range structure embed one or more struct
+>>      drm_gpusvm_pages in addition to struct drm_gpusvm_range.
+>>    - Drop the range-based helpers (drm_gpusvm_range_pages_valid,
+>>      drm_gpusvm_range_get_pages, drm_gpusvm_range_unmap_pages) and update
+>>      drivers to use the drm_gpusvm_pages helpers instead.
+>>
+>> In essence the series does only two abstractions, plus the xe
+>> adaptation that follows from them:
+>>
+>>    - range vs pages: split drm_gpusvm_range (MM / VA range state) from
+>>      drm_gpusvm_pages (device physical related), so the two sides can
+>>      have independent lifetimes and ownership.
+>>    - drm_gpusvm vs drm_device: make drm_gpusvm pure MM level and push
+>>      the device side down onto drm_gpusvm_pages, which is where DMA
+>>      actually happens.
+>>    - xe is updated to fit the modifications, no functional change
+>>      intended.
+>>
+>> V10:
+>>    Fix two issues found by the AI review:
+>>    - patch 1: fix a KCSAN data race in xe_svm_alloc_vram(): read
+>>      range->base.flags.__flags with READ_ONCE() and assert on a local
+>>      copy, pairing with the WRITE_ONCE() in
+>>      drm_gpusvm_range_set_unmapped().
+>>    - patch 3: remove the DMA unmap in xe_svm_fini(): since
+>>      drm_gpusvm_range_remove() no longer unmaps synchronously, explicitly
+>>      drm_gpusvm_unmap_pages() all remaining ranges before
+>>      drm_gpusvm_fini().
+>>
+>> V9:
+>>    - patch 3: fix the build with CONFIG_DRM_XE_GPUSVM disabled: move
+>>      pages out of the nested base struct in the stub xe_svm_range and
+>>      route has_dma_mapping through range->pages. No functional change.
+>>
+>> V8:
+>>    - patch 4: add reviewed-by for Matt's review.
+>>
+>> V7:
+>>    - patch 1: split MM state flags: the AI review found a KCSAN / memory
+>>      model cleanliness issue. Address it for consistency with
+>>      drm_gpusvm_pages_flags, set the range flags with WRITE_ONCE() on
+>>      __flags and read them with READ_ONCE().
+>>
+>> V6:
+>>    - The AI review flagged a potential DMA free issue: the DMA unmap
+>>      step was moved into the range_free callback, but on the invalidate
+>>      path a range can be removed from the MMU interval tree while its DMA
+>>      mappings are still live, so a concurrent unmap event can miss it.
+>>    - patch 3: have xe_svm_range embed one drm_gpusvm_pages: explicitly
+>>      call drm_gpusvm_unmap_pages() before drm_gpusvm_range_remove() in the
+>>      garbage collector, so a range is never off the tree while still DMA
+>>      mapped, and document this caller contract in drm_gpusvm_range_remove()
+>>      kernel-doc.
+>>    - patch 4: move struct drm_gpusvm_pages out: document the
+>>      unmap before remove contract in the garbage collector example and
+>>      note that range_free()'s drm_gpusvm_free_pages() as a final fallback.
+>>    - patch 1: split MM state flags: return -EACCES directly.
+>>    - Fold in the pre existing IOVA/DMA unmap fixes the AI review found
+>>      previously sent separately: the uninitialized dma_addr[0].dir on
+>>      the get_pages() error path, the whole reservation IOVA free for
+>>      mixed ranges, and the device mapping leak on the get_pages() error
+>>      path. [6]
+>>
+>> V5:
+>>    - add reviewed-by in patches 1, 2, 3, 5 for Matt's review.
+>>
+>> V4:
+>>    - drm_gpusvm_init_pages(): memset() the pages to zero before recording
+>>      the owning drm_device.
+>>    - DOC: overview: recommend a zeroing allocator: kcalloc() for the
+>>      N:1 pages array.
+>>    - Rebased onto the latest drm-xe.
+>>    - The AI review of this series flagged two preexisting issues in the
+>>      IOVA unmap path that are not introduced by this series; they are
+>>      fixed in a separate series [5].
+>>
+>> V3:
+>>    - Fix a kernel-doc/Sphinx warning from the kernel test robot: use
+>>      ".. code-block:: c" for the drm_gpusvm_pages example in DOC: overview.
+>>    - drm_gpusvm_range_set_unmapped(): use WRITE_ONCE() on the whole
+>>      pages[i].flags.__flags word to pair with the lockless READ_ONCE()
+>>      readers and avoid a data race.
+>>    - xe_userptr_setup(): call drm_gpusvm_init_pages() before
+>>      mmu_interval_notifier_insert() to avoid exposing uninitialized
+>>      pages.drm to invalidation callbacks.
+>>    - Fix per commit build of the set_unmapped() pages.
+>>
+>> V2:
+>>    - Followed in Matt's v0 review fixups [2]:
+>>       - keep unmapped flag in pages structures.
+>>       - add pages_count to drm_gpusvm_range_set_unmapped() to set the pages
+>>         unmapped flag, so the framework can check unmapped status in
+>>         drm_gpusvm_get_pages().
+>>    - Add drm_gpusvm_init_pages to init the drm_device and sequence number.
+>>    - Remove drm_device from drm_gpusvm_get_pages() parameters.
+>>    - Reworked the DOC: overview and usage examples to describe the new
+>>      model: struct drm_gpusvm_pages, the 1:1 / N:1 driver layouts, and
+>>      examples that operate on a driver embedded pages object by the
+>>      drm_gpusvm_pages helpers and etc.
+>>    - remove WARN_ON_ONCE in __drm_gpusvm_unmap_pages.
+>>    - Dropped RFC.
+>>
+>> Follow-up (not in this series):
+>>
+>>    - modify drm_gpusvm_get_pages() to support one time hmm range fault
+>>      and multi drm device dma mapping.
+>>    - Add no dma device support for drm_gpusvm_get_pages().
+>>
+>> tests:
+>> AMDGPU:
+>>    based on amdgpu adaptation patch in [3], but still SVM:DRM = 1:1,
+>>    1:n is on going needs many modifications and testings.
+>>
+>>    Tested on gfx943 (MI300X) and gfx906 (MI60) with XNACK on/off:
+>>    - KFD test: 95%+ passed.
+>>    - ROCR test: all passed.
+>>    - HIP catch test: gfx943 (MI300X): 99% passed.
+>>                      gfx906 (MI60): 99% passed.
+>> INTEL XE:
+>>    CI tests passed in rev5 tests.[7]
+> 
+> 
+> CI full is in flight, but it seems likely to pass. Once it completes, we
+> can merge this; we just need to decide which branch to use.
+> 
+> The series does not apply cleanly to drm-misc-next because it depends on
+> changes in drm-xe-next that have not yet been merged into drm-misc-next.
+> It does apply cleanly to drm-xe-next, though.
+> 
+> If we merge the patches in drm-xe-next and pick them up via a rebase in
+> the AMD trees, that works. Alternatively, we can ask the drm-misc-next
+> maintainers to rebase and apply them there. Either option works for me.
+> 
 
-SMU13 reports SocketPowerLimitAc/Dc as the default power limit, but MsgLimi=
-ts.Power may carry a different firmware bound for the same PPT throttler. U=
-sing only the socket limit for both min and max can therefore expose an inc=
-orrect power range.
+Thanks a lot, Matt, for the guidance and the reviews in this series.
 
-Keep the socket limit as the default, but derive the range from both values=
-:
-use the lower value for the min base and the higher value for the max base =
-before applying OD percentages. Keep the current limit query independent fr=
-om the cap calculation.
+For the merge, happy to rebase onto whatever base/tag decided, just
+let me know.
 
-Fixes: 8c658297a4db ("drm/amd/pm: fix smu13 power limit default/cap calcula=
-tion")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5419
+And will work on the follow up works.
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 11 +++++++----  .../gp=
-u/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 15 ++++++++-------
- 2 files changed, 15 insertions(+), 11 deletions(-)
+Regards,
+Honglei
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index c984dce48310..560cc306f10f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -2404,11 +2404,14 @@ static int smu_v13_0_0_get_power_limit(struct smu_c=
-ontext *smu,
-        uint32_t pp_limit =3D smu->adev->pm.ac_power ?
-                              skutable->SocketPowerLimitAc[PPT_THROTTLER_PP=
-T0] :
-                              skutable->SocketPowerLimitDc[PPT_THROTTLER_PP=
-T0];
--       uint32_t power_limit =3D 0, od_percent_upper =3D 0, od_percent_lowe=
-r =3D 0;
-+       uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PPT0=
-][POWER_SOURCE_AC];
-+       uint32_t min_limit =3D min_t(uint32_t, pp_limit, msg_limit);
-+       uint32_t max_limit =3D max_t(uint32_t, pp_limit, msg_limit);
-+       uint32_t od_percent_upper =3D 0, od_percent_lower =3D 0;
-        int ret;
-
-        if (current_power_limit) {
--               ret =3D smu_v13_0_get_current_power_limit(smu, &power_limit=
-);
-+               ret =3D smu_v13_0_get_current_power_limit(smu, current_powe=
-r_limit);
-                if (ret)
-                        *current_power_limit =3D pp_limit;
-        }
-@@ -2431,12 +2434,12 @@ static int smu_v13_0_0_get_power_limit(struct smu_c=
-ontext *smu,
-                od_percent_upper, od_percent_lower, pp_limit);
-
-        if (max_power_limit) {
--               *max_power_limit =3D pp_limit * (100 + od_percent_upper);
-+               *max_power_limit =3D max_limit * (100 + od_percent_upper);
-                *max_power_limit /=3D 100;
-        }
-
-        if (min_power_limit) {
--               *min_power_limit =3D pp_limit * (100 - od_percent_lower);
-+               *min_power_limit =3D min_limit * (100 - od_percent_lower);
-                *min_power_limit /=3D 100;
-        }
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 7d0222d3d44d..8f214400cca5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -2386,15 +2386,16 @@ static int smu_v13_0_7_get_power_limit(struct smu_c=
-ontext *smu,
-        uint32_t pp_limit =3D smu->adev->pm.ac_power ?
-                              skutable->SocketPowerLimitAc[PPT_THROTTLER_PP=
-T0] :
-                              skutable->SocketPowerLimitDc[PPT_THROTTLER_PP=
-T0];
--       uint32_t power_limit =3D 0, od_percent_upper =3D 0, od_percent_lowe=
-r =3D 0;
-+       uint32_t msg_limit =3D skutable->MsgLimits.Power[PPT_THROTTLER_PPT0=
-][POWER_SOURCE_AC];
-+       uint32_t min_limit =3D min_t(uint32_t, pp_limit, msg_limit);
-+       uint32_t max_limit =3D max_t(uint32_t, pp_limit, msg_limit);
-+       uint32_t od_percent_upper =3D 0, od_percent_lower =3D 0;
-        int ret;
-
-        if (current_power_limit) {
--               ret =3D smu_v13_0_get_current_power_limit(smu, &power_limit=
-);
-+               ret =3D smu_v13_0_get_current_power_limit(smu, current_powe=
-r_limit);
-                if (ret)
--                       power_limit =3D pp_limit;
--
--               *current_power_limit =3D power_limit;
-+                       *current_power_limit =3D pp_limit;
-        }
-
-        if (default_power_limit)
-@@ -2415,12 +2416,12 @@ static int smu_v13_0_7_get_power_limit(struct smu_c=
-ontext *smu,
-                od_percent_upper, od_percent_lower, pp_limit);
-
-        if (max_power_limit) {
--               *max_power_limit =3D pp_limit * (100 + od_percent_upper);
-+               *max_power_limit =3D max_limit * (100 + od_percent_upper);
-                *max_power_limit /=3D 100;
-        }
-
-        if (min_power_limit) {
--               *min_power_limit =3D pp_limit * (100 - od_percent_lower);
-+               *min_power_limit =3D min_limit * (100 - od_percent_lower);
-                *min_power_limit /=3D 100;
-        }
-
---
-2.47.3
+> Matt
+> 
+>>
+>> links:
+>> [1] https://lore.kernel.org/amd-gfx/acRgr7QwdULsn6G2@gsse-cloud1/#:~:text=I%20think%20roughly,drm_gpusvm_pages%0A%20%20helpers%20instead.
+>> [2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
+>> [3] https://lore.kernel.org/amd-gfx/20260603065030.2554403-1-honglei1.huang@amd.com/
+>> [4] https://gitlab.freedesktop.org/drm/xe/kernel/-/merge_requests/360
+>> [5] https://lore.kernel.org/all/20260627033325.3795298-1-honglei1.huang@amd.com/
+>> [6] https://lore.kernel.org/all/20260628061757.4093701-1-honglei1.huang@amd.com/
+>> [7] https://patchwork.freedesktop.org/series/169384/#rev5
+>>
+>> Honglei Huang (5):
+>>    drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
+>>    drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
+>>    drm/xe: have xe_svm_range embed one drm_gpusvm_pages
+>>    drm/gpusvm: move struct drm_gpusvm_pages out of struct
+>>      drm_gpusvm_range
+>>    drm/gpusvm: let the drm_gpusvm core context purely MM level
+>>
+>>   drivers/gpu/drm/drm_gpusvm.c    | 243 +++++++++++++++++++-------------
+>>   drivers/gpu/drm/xe/xe_pt.c      |   2 +-
+>>   drivers/gpu/drm/xe/xe_svm.c     |  66 +++++++--
+>>   drivers/gpu/drm/xe/xe_svm.h     |  14 +-
+>>   drivers/gpu/drm/xe/xe_userptr.c |   5 +-
+>>   include/drm/drm_gpusvm.h        |  67 ++++++---
+>>   6 files changed, 255 insertions(+), 142 deletions(-)
+>>
+>> -- 
+>> 2.34.1
+>>
 
