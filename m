@@ -4,125 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27724C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 12:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CE0BC43327
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 12:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A939110F338;
-	Thu,  2 Jul 2026 12:27:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F6F610F343;
+	Thu,  2 Jul 2026 12:30:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PEXWqRTx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ak4c/x3W";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010000.outbound.protection.outlook.com
- [40.93.198.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D1D010F338
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 12:27:58 +0000 (UTC)
+ (mail-westcentralusazon11010033.outbound.protection.outlook.com
+ [40.93.198.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E99D10F34A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 12:30:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KvL/fyKYwW3j18YXrkW/+eO9bvO2j+2yE27l5/0y4L69odk9pPgQZ67ueORPhNHkJEiWACBjDpf2dsEFIGsTxF++iiwIKPz3iTu7/ozxTIoQLTmgyjUNGGNwrGDiJaWZcPKiyP8zKYKH5fUFmmCneP4rm7/XxgLJlaiht2hmKvI171d8d4k8DPkSxpyye8vmRsDFo6QxYbv9C70pa73cchm6LB5PkDX0eN6UyB1clwRGPF4ue+9p8goCAxGRcUSKA9xWLFujnuafQ2/WVlYhQN6yV52qaVHwS8JQ3PjNoSl2B0FHn+yX+lHkuOmZn1kHy2/VTO1n3eeQCudoU7v6fQ==
+ b=ZBmUmiUrfR0hu0n8YLxlVyFjriuyBW4tWhM37t17xs2/XwCnhSCTUUDBifMMswPiEbCKqFPr1Hz/9OI9C7y142CXRtxHZWwZ/wV5LmhPR5qGEuirUJFv34zvhPpfYUjidDVAhvQG4OFzLhHh5fYLp6SUqW5wUi/zo8HXKV/x/gXnWKXqqRiK+Di423fsimhmBQxCPvcSFqjR1NRldAI+NJjKQSGChNUIf4Vn3h7NDAIWlvHSpsnhsiFkVXkLqU9eQo8ta42HmrYDBStNLG2xulcIaVVVtMkTmHCyY4Ue79TFy8SvEwgUvXHykawyhRQEHnXm3eEvIt9geIysjGNKww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Np4rXGEpf1l1z0tsOj5QwoekqRVkonzC12xmfLXoYHw=;
- b=BTWtefRrc4hNJK9bTqp6h0s7jKs3aDv47w8tjQYfDWvPwhP+VVLoVALxDeQPin8aqabzMVI66g/9P7NH1ojsQ6D/A+nInIxFPOg5mR/4OJAfnuWzpo6uzxQZueJHKOWYi1iXuEKnUuc8ZAC3V99hzCmSoXZ/GuPEb0ZDyqTtpO9rG8fk0gOz/Wsc8twcEZsDyiocnkHY2MpYDCKWKpUvh4YizfQn7m6QGbZHq1iCLGeGkI7MziHohx1ZGIMdr4tcRbh4utLIrNK4YUDjV9f0Mgi5TUdHmUhNJeo4r9Qgi/jpO38/dv1nP5khPkflD7aESaCdoZ6D4XybHnlCY6SnPw==
+ bh=xqpCxK7M2t25m8kd2n1RkVX5RipcGpNBE5PThKM4Ans=;
+ b=WSM9ozKQNkXC3Dg2SEBL93Od5LJOkEd/toYihaJhGh9vmpeq91SWjmYcoT15TSQMyBDQLQwPyZCz6pNVyMuVhH53/3X1rJT8kVBV7dND8cBcmSx9977iq34R9eH4NG+KHLQ5V1mwOIYTI+78m96K1uzfV9l0ItpuEY962vdmT6oldElfEiotd58ifsMq+3yGnsrrh2HAMKR9HUAzcwtPwCTv1ZaYcUAm6NeZ3rmxgA35vxbjEgdFVDqhVESFNsjPwzzyRcS31QZb2ubzCocZAmfq0BwglMZrlEZTLYVyiFR3PFpuAVy8YBpk+ZtEY62v1b24dP9qRjpPDG4Z12VjGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Np4rXGEpf1l1z0tsOj5QwoekqRVkonzC12xmfLXoYHw=;
- b=PEXWqRTx6unfHTbdeu7HmngxwonMceW9jNfk+ECZIAzzpZITFwXV9kCmLMUyipmpzaFk8COzTlMcByqo4rpcHhld+xzuHkPeWs0vzS4MgKc0OP54q713O4c5eJ41ODzKikD6X7Gw6u2Z+UHafvWz1TnWYbXlTta3CvMELx4bwmk=
+ bh=xqpCxK7M2t25m8kd2n1RkVX5RipcGpNBE5PThKM4Ans=;
+ b=Ak4c/x3WH//nnsiFFA3s3TlLLjXnTzvjiAmZXx0woWXfAzTVuVGRakxt3NjLspe69Gd9utHgtXl7oz2oCvGXsimwgPeNolkKiD9qKft4R9Bud/F9Jvkwp37Ey87UZaf8RGvtgrva33SErM+Z9Z/S5cNtxg4nRfPk/wo8JLQss24=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SN7PR12MB7132.namprd12.prod.outlook.com (2603:10b6:806:2a4::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 12:27:49 +0000
+ 12:30:26 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
- 12:27:48 +0000
-Message-ID: <17c52590-a549-4790-8b99-0b6575139da5@amd.com>
-Date: Thu, 2 Jul 2026 14:27:44 +0200
+ 12:30:26 +0000
+Message-ID: <15459d84-24fd-404c-b90f-97d2ecfb7af8@amd.com>
+Date: Thu, 2 Jul 2026 14:30:20 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] drm/amdgpu: Add PASID fpriv ownership helpers
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260702084021.3140071-1-srinivasan.shanmugam@amd.com>
- <20260702084021.3140071-2-srinivasan.shanmugam@amd.com>
- <5a6ad86d-64dc-480d-bb08-230e61534b79@amd.com>
- <IA0PR12MB8208395BD2307863D6BF516290F52@IA0PR12MB8208.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 14/14] drm/amdgpu/ih7.0: Enable retry CAM on Navi 4 dGPUs
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>
+References: <20260701161721.85681-1-timur.kristof@gmail.com>
+ <20260701161721.85681-15-timur.kristof@gmail.com>
+ <dee4f6f3-0494-40e6-94d9-e0249633d0bc@amd.com> <5873192.ZASKD2KPVS@timur-max>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <IA0PR12MB8208395BD2307863D6BF516290F52@IA0PR12MB8208.namprd12.prod.outlook.com>
+In-Reply-To: <5873192.ZASKD2KPVS@timur-max>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR18CA0026.namprd18.prod.outlook.com
- (2603:10b6:208:23c::31) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1P222CA0004.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c7::9) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7132:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62a10120-6c79-4f9c-b200-08ded83553c0
+X-MS-Office365-Filtering-Correlation-Id: 9b7c49b2-8d3a-4fed-badc-08ded835b1a1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info: jpcneCQoycNooZErLKKO4TQ4AR+3czR/7xh+dv41tE1dScoBbArNahbc8n6zKrIuBdiVJu2zfGUTDDhF8vSIvpz0QBsczyDNCn9a6+XvhrPVyaMKPPkhjp+VlqR+/ILVqj2NdtrNOwvg7mCxGC4nDS36CmAAE1lfF2hjtk95V10VniEBBmHfY5loP1ztgFTC2icSpFMe1hSKYn/7xmTUOcwLihWaEs5KPGsA697gj0JiLQ2uajveb9YaYsvKhG+UbniZgIs6At/Otq2MlIsPnk549c5dz8U1theKgWrSuFqXm5GVvH3zebgIBtk2Yf6nCGIMIRLXFMBWCR9bQTtHMCB29XlXhWc+E6uSU+Zn3ywZxgvf6K7HFUwIO2DuvF0BSUbn+R/G465o4bsLr/oAZb5KiITVtj/VUxzyChG9dcXBCQYW0FdvFEL+X61R65UeWrblv+WFuKzFM2E558ldzgA1uTBKIGZ7IdFPQ54/d7Wdr6uclwGiWkyyQc4Sc3Auwl48ajkFzg2kVGXkjnBQ6aofYSY33x+LYVt+8/gtSi76WxCVYPiwLIH5iNZZyGxUIrh+XdblEOrhqKAt3OXBBD66S1gUijg2bPG36h5YRozSBIpUHwlgzjyso3gCuiX0aKKFMkUzvcH/ogyWQ6BY3FnXXY7VVx//dGq6Z4K4JqI=
+ ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|4143699003|921020;
+X-Microsoft-Antispam-Message-Info: +VqaXcQz9LhdlzBKdoa/4SxSd1YcJ/sDdzMS7clQlM2hNwxWNs6atdznQehj4l4AcinnrFuHdZ8WKl6LKqCVvrThgL6oxkXZfhNhumt9+Y9IaHvoKJW/tETq8O/ol484uU9l0pkWrtWL/xolTyVy/9z+b9VsPg7ZsfT9PIVsfaAmDct/Fhht2dmL8cLYEtK1dL/9EMIs25TxUIUMw+TI5q73AT6+z7cqidRUS5oWta3paWMDoZlxsQ9Jt8jbzrmXlmkycSrAIQwixdm3DPlBJ8n7VDRXk1yrS+UA7azUXSd15BILXpoT75Q5AbEw/p1kLBGPd2HD9g/OiWIDJPYP/KASERwWvtEUZoh7dBXnm17veh6XB4wJG6vmo2G2qctMv8MKcIjpZ6G42ZB9Ug9UNRWqgyjJvRdwD2CJnZoNc13xJaT8qZqIPPXcAdFIRVNgL3FUj88X4Dfsuq2CesCViqFxgHyEzR8Dd3ieh6l49qCDTCM88aYgOsWB1CLpMp9aWrCqwFP6hhMbRft1nFljafC2R3SNRARFbzLUM+77K3u6lN1cLrXpwJ1z9H+cifcX6ULOipIdS1xXid48cal7VVH6rwg5hp8WZXHVdZtfrRw3Cii/yPekZ+fTQjnpDJ6lB3RrnGnJ8USt8oS3eXioHTIdh7qwwi307LBaLqWL3cAjZ4nklSLc3LUUYdW8Kif6anIl9BN+mr4bt7a9CIZzWQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(6133799003);
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGIraENkNUo5MlFnWVloOUg2ZnczTGNScHhTeFE2V0tTMG9ja0JNZVh4NEZN?=
- =?utf-8?B?L0Q2bm9EZTVFUlV1RFNLTnYrS2VOTHdTb2ZuQlJSd1NnMnhzVFY1Y2FrWmRF?=
- =?utf-8?B?VkNVMVJyZlVJYjBtL2tCa3BnSE81U1BxZ1IzY09ZSnplQmpYVzdEenlYOVVi?=
- =?utf-8?B?ZjRlQXZWVEpmTHd2RmNFcHBud2t3dTFzU0VDOUdCb09ud0pjMCt1clNIZ2pN?=
- =?utf-8?B?NTd0dmFzMTF3QzY1WXNGWXF0V1ZWeG04Ym52VXg3b2JWTXdIMjM4aFE4S3F3?=
- =?utf-8?B?WDR6TEplMXp4bDRSTnljT0hENUNlbUg4dGp3SEFWdmlsUHV2YmVJUUNWUEx0?=
- =?utf-8?B?TkpMTnZ6MmZJekZ3WXJWRkR1VkVHZi85d0ZuQWpoTTFWYWRqNVFOUUpXcWNB?=
- =?utf-8?B?ZDVmV3ZIT09sSVphZHR6SnhUSkZwVGtVWlgrKzU5RG8rVTJWV05RazB5d3U1?=
- =?utf-8?B?SFdUSnMyZjJwTmJLRU9PTGduOVRwZmZuZ2lBcWsydGdwQUFVaFJmYldLbFpM?=
- =?utf-8?B?anVQUUpvYktsWjNEdW5GOGc0UTVSalhaYWtLSHR4U0ZHNXIyNkRQT25nNnNt?=
- =?utf-8?B?eVVzQk5uY0RjNTlTTXVnU2xhdzByUWxBWHdpWUVmanMzL1lNaFRXNzJ1WUQv?=
- =?utf-8?B?czBTQkZEbDJ1bHQzMWZkdVFvSGNuKzl5YnFIWFZVZ2JtNmNJd1dScERvcTg0?=
- =?utf-8?B?aDhpTlNTSUdXSnc3WDRvL1IzQ05VRHF4ZnIzeStzODM0SDVNcjNMVnZYSzdp?=
- =?utf-8?B?T2l2UENxbWZ4akVDQmNKUDFJczNieVZrSzRhNHpkVWlBWnJZaWloKzR6S0Jw?=
- =?utf-8?B?bzNETisvQURLdkovYWxLb3BYWU9ERHI2TDRFbTIxVklrOU1SUVFtQ0hZVWVx?=
- =?utf-8?B?RVVDc0tvei9vUWJxSFR0NlhhRDBTTEhtVm5SNWxlK2d3RElndklWY2NlVFJE?=
- =?utf-8?B?cHh3bzQwTm1HaWdMT0NOQmZxVjNtaGQ0RlNLU1NVR2VDRDlJaGlUS25neE5a?=
- =?utf-8?B?bkJLMXc3YjMwdWtqQ2NpejREc0NqMkRlSXllUzdZYkpEMGRGT2dnWnloZ043?=
- =?utf-8?B?SjhBaTllVStTTy81NjdEWE4zVWdoMGN3R3NLTTNvcVhGT2tpL1JCVW9JWk9w?=
- =?utf-8?B?Z2l6NVlmWG1lcm1OdkVFRlREQWlxRTBFK3hGdW9nZy9zeG1GQWRwTjZrZ2J1?=
- =?utf-8?B?MjJxM0JPVEh5WE5Fb1VtYlRsNmczakZnQUZuby9ab2FIWU90WERpOHFWTDJk?=
- =?utf-8?B?RmVVaWF0RHFSajJacFdQbE5zVTAxVm9mVHZIeDhKd05xVURBa1N3S1h4WmV3?=
- =?utf-8?B?M3RIak53eTVYZlJzWlF2QzV5a1VJYkU5WWVGKzBaQ3VXVUhibEFLTjVJVm8v?=
- =?utf-8?B?UWtyc2dhRjdtOFF6MjY0bzQ2K085YVNUakFlbTc0L25EY2VjVVRnY2NRaEVh?=
- =?utf-8?B?Tm5oSng0YWx4Z0EyYThlZjJYbTNRY3pRbXJVamlsMEZJZzVvZWNPVitDeGww?=
- =?utf-8?B?TDA0U2x6WGIxZ3V0UndUaHZkLzZlKzdTYTQvSTV0S21VRW5qY3hyS1dLck04?=
- =?utf-8?B?WUROMEc5aVloS1h1QXFuZEc5ZTYxZi9rZ3NPaHVKSHlOYWZEbGx1Q29uQW1u?=
- =?utf-8?B?MlhQWGJmVGNMRjNXRjYrb1RzZmpQZFE5NmJqMWVUMlV5NktORjJjbWcxTVUy?=
- =?utf-8?B?TzR1V3loV1d3VXkrZnpBVkc2aGpESTNRUmZPZmFaR05OMmV2UFA5bjZtemNM?=
- =?utf-8?B?QXJ4Sm5iM3RNblNZck5iVW5lUXhoQ2FRajJWKzVaeTQ2ZWxRRUI0eTlRczlU?=
- =?utf-8?B?NUcrd1h5ZG5sTkpMWktwZnJpbWxhS1dBSVVCbHRFaFIxcVU1anpDTUlJRWgw?=
- =?utf-8?B?WFNPYUNpcFN3N0I4RzhxZ3B0a2V4V2Nkc3hjbmU1UGxqbVQ5RU1QTks5ZktH?=
- =?utf-8?B?ZVN5MytCTmkxRWVEcXY4eDZqV09vVzczNEN6cHpWWEVHUHZZbkRxMnpVZTA5?=
- =?utf-8?B?SjhhdXkwc3hmUmd6VlRQQ2k2aVBFQnRaNXI1L3lhcm5QcEEvNkt4amcxcHVP?=
- =?utf-8?B?QUI5SXgyTGdPRVhrVWYxS1pLRVhBV2ZFY2JNQzN3b3ZNOC9INDZ1dnlHdTdB?=
- =?utf-8?B?UElQa2d1YTlqbHVUbHBwaHBOWkpjM0x5bjdKdlBNeGRPM09TQ3VFZm5CcVhD?=
- =?utf-8?B?ek9RSDU3aXZkaEF2SmRpdG9xRmlSdjVPTnhzREpmQzNHeHpPeE9YMWY0MTNX?=
- =?utf-8?B?bmNNcEEyRWlldWRkMHJWT0xkd2N5dDZ6ZlkwaUxCOFJSR1pzSkZ6RkFwWnRP?=
- =?utf-8?Q?tDkMsukvn3H0FBN8yy?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkkwVXpLVE5Yd1VsSWJXNHMvVVRKUitEK1pnaTh0eHpBaXBya09ZL3VKc2l4?=
+ =?utf-8?B?ZXJHRDNnU3c5VmpSWmhSWkl4TW1ZNlh0aTYxOCtVZFFKR3htaDJMQkVtdi9o?=
+ =?utf-8?B?dFMzZUN4Q01MT3Y0UXJLckgzbUNjUCt4ajh4OWp3VXV6bytZRDhJdnQyMHlO?=
+ =?utf-8?B?UWkyeHFxa2dUSEJ3SmlzcnV4aUtoV09SY0RtWEhabWJtZTFYSFZaeFpVM2tC?=
+ =?utf-8?B?YXhSVElhNHRJbXFqMktsejZ0UitIWWhpeStWWTVldk1DT2h6SEJpOEp4aW1Y?=
+ =?utf-8?B?RjhzVDk4S3laUStyZHA3cHpNUzY4b3NRVW84MUlpMlhKeDROZURGb1dKVjht?=
+ =?utf-8?B?djNKVEtvRXhYQ01JT0FPN2JmQy9WRm9NUDVSQk12eXYxeEw2Qm5NcStwMVZh?=
+ =?utf-8?B?VnB3RWgwT0pCSTdIUmJnbDEzYzFwMVBqRHVLR0gwY2ZBRkp6VzBXWHhLSldV?=
+ =?utf-8?B?VmIwWnVCRUtEUHB2T3pXdEJyeGdOcjIwejd1Ni9DeWdGRGtXTW9NdzdGZHlt?=
+ =?utf-8?B?WnlPOTV3TjE3bzJjOEF1OEhMYjNHN1I1MFFtRXpHL3JsNSszeUJneVdIU1E2?=
+ =?utf-8?B?RlpydTFoSWRJTXQ1a0ZlaWlSeUpMMWNkQWFvUHlLT2UyRWU2d0YzejFmZXY0?=
+ =?utf-8?B?TzZjc2pocENLZUFLUWpzMzdqR2FWdy9oVnk5MnpwRVI2bUhRVS9MKzFsaHJS?=
+ =?utf-8?B?ZDZzYTcyZEpjUUxoRnN5ZWZMSFJNSSs5NWF2SG9mWFhkZzJZVHFLNGtiRjhN?=
+ =?utf-8?B?MmtsUlpjOFduU3dCa3NqdUx4RTRxNDN5UzlvL3JwdzZrRi9ld3U1S0Jkck1G?=
+ =?utf-8?B?cUF3bXZ6WUltVXp0VWl2clJPWWgvNFNobzFDeFY3R2U0N3FObG1KQWtnbTRi?=
+ =?utf-8?B?MXc0bEtLWlBTSEtVZFQzZHc5anpTYzlBRU1PTTdKMTdDa1R2ZXZlbC92cXFG?=
+ =?utf-8?B?SEZUNkFuckIvNXpkSk9OUlZiZWw4V2ZtSStVbXRKVTNzVkl2RlpFUXZYaXND?=
+ =?utf-8?B?VlpGK0RNaDhjaUpBQmc3d21CektXd1BSM3RIWG5ibnpHdC9KTmM0U2ZxVzVi?=
+ =?utf-8?B?MkEwU3lXamhmSWpONkVua3M2V3NBK2Z1bGJ3elA5ZVpSZzBMbmdzU01jN0Ry?=
+ =?utf-8?B?WTFaaDdIMVJyUU5QTHFDZzZuTTROU2ZPRzVsam1TSm5aYW5UeEdhb0JmckZs?=
+ =?utf-8?B?UDVsM1RvZC9vdkJBY3JtVkt2UCs2dWNNSWdVczhqdmxBa09tMGg3LzhHbWVB?=
+ =?utf-8?B?VTNEaVhFaUJrb2ozSkgvalRNbHA0bTFhRStJQUhGWDlOcXEvaHU0SWR1NDZW?=
+ =?utf-8?B?dTZ4QjZtWlpXRUhOcXhCSkh1bTFPU1IwckRPTFQ1aDlJekp5KzhMSHVadnRx?=
+ =?utf-8?B?bmtTSkNFUXpPdGFJcXlGYk5xQTdvcXV6ZTRhb3JHZzJNczhEdkMyNHpneUZT?=
+ =?utf-8?B?QkRKY3pHMk8xVTlUUmhsYUdiajVOWGFhdDZoM3RGbjYzZ2YxK2dHQ3poZndM?=
+ =?utf-8?B?RTZKeDhaVS9VVzFyd0g2ajIzUGJtcStESHMreVFpRlNYcEJlVTh4d2JLMkhW?=
+ =?utf-8?B?YkU3Z1BHMXlxNzM3VldpZmpRR253c2dXRy9qSzlxOGlPbmlLbC9XcldCMHpC?=
+ =?utf-8?B?anJRS0YwVnlZRlViNnNRODN2OVRpSFZDNjk5aDhDRERQbmRyVVRWYkFmMEI3?=
+ =?utf-8?B?M1k3a1EzbnhFWXlJeGJwRkdqbmdUSHMxYkU2dktYRGJFeitoR0hYTkxkRWp5?=
+ =?utf-8?B?amRYZ3JYR2pKbXZheGI4cDFuMDAwaGI2ZHk2dEJoanh4UFhLVkQ3M2VpYmlW?=
+ =?utf-8?B?Q2ZxbTlpRGdLdUdTWGMxbzJhaHN0WWNKcGRueTFEZWNPNVRKbWdwU1ZEUHpt?=
+ =?utf-8?B?ZjJJMlgwNDJvdzMrOVBqcjQ3TUpJRUxxNmtNQnNhajAzRFZjeHErcnNSeFRF?=
+ =?utf-8?B?MWovSFFxV2JmL1FhWHZEQkYyM29XeEsrZGZCdVpSQ0hxKytiYzUrU2x3cWYx?=
+ =?utf-8?B?Y1N6SnhGOVhvdmlUelZ3ZXh3TktDM2lJNVlCMVFTb2hDWnJGOW1EeFVYY0tH?=
+ =?utf-8?B?RlJZUEc5dmpoMXRDNFpWU1orN09WNkt1VWtlejZ5aEtqQlFQWEpBWnF5UGx1?=
+ =?utf-8?B?bmRDTDFhcXc5bThWMlVjMWdkSnJROCsrc0pmeDZpcVhVNHVBTU1VSmRNbFZP?=
+ =?utf-8?B?dExUSWhVUlpSQ0xNb25aVkgwa25aaHNYb0I2OElmRXZjMEJXMS9NdWRqNXp3?=
+ =?utf-8?B?TmVCakhlSWtCc2NYSGpVU3NSeEFiSHRNVXBJVk83TGhUSDFZUXZNZ1JkeU00?=
+ =?utf-8?Q?hQVAmUDzY9vxTjzLxl?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62a10120-6c79-4f9c-b200-08ded83553c0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b7c49b2-8d3a-4fed-badc-08ded835b1a1
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 12:27:48.6504 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 12:30:26.0817 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LfxKqcMnHXQ8wc0k8XVdPvUj7SMVtqf/8Slp2ESGDKOY6zHNGOXpI8QUIPVFaxzU
+X-MS-Exchange-CrossTenant-UserPrincipalName: wEMgt/TA0WbFrRcriXXMbQ0lns3Zlyix3/6G9ChP/0ciD1vtQNHbLqUZGKGwCgBo
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7132
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,87 +143,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/2/26 14:13, SHANMUGAM, SRINIVASAN wrote:
-> AMD General
-> 
-> Hi Christian,
-> 
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Thursday, July 2, 2026 4:23 PM
->> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Deucher, Alexander <Alexander.Deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH v3 1/4] drm/amdgpu: Add PASID fpriv ownership helpers
->>
->> On 7/2/26 10:40, Srinivasan Shanmugam wrote:
->>> AMDGPU already has a global PASID xarray used by the PASID allocator.
+
+
+On 7/2/26 13:53, Timur Kristóf wrote:
+> On 2026. július 2., csütörtök 12:38:12 közép-európai nyári idő Christian König 
+> wrote:
+>> On 7/1/26 18:17, Timur Kristóf wrote:
+>>> The retry CAM can filter interrupts which occur repeatedly,
+>>> such as page fault interrupts when retry faults are enabled.
+>>> This makes processing those interrupts much more efficient,
+>>> because the CPU won't have to deal with processing the same
+>>> interrupt repeatedly.
 >>>
->>> Currently allocated PASIDs store a dummy value in that xarray.
->>>
->>> Add helper functions so DRM-owned PASIDs can store and retrieve their
->>> owning DRM file-private object.
->>>
->>> This prepares for using:
->>>
->>>     PASID -> fpriv -> vm
->>>
->>> instead of the separate per-device:
->>>
->>>     PASID -> vm
->>>
->>> mapping.
->>>
->>> v3: (per Christian)
->>> - Document that PASID allocation is intentionally kept separate
->>>   from fpriv registration because fpriv is not fully initialized
->>>   when the PASID is allocated.
->>>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Suggested-by: Christian König <christian.koenig@amd.com>
->>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 >>> ---
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 126
->>> ++++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |
->>> 13 +++
->>>  2 files changed, 139 insertions(+)
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>> index 684f40fce73f..5333937f0d04 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>> @@ -78,6 +78,132 @@ int amdgpu_pasid_alloc(unsigned int bits)
->>>     return pasid;
->>>  }
+>>>  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
 >>>
->>> +/**
->>> + * amdgpu_pasid_set_fpriv - register the DRM owner of a PASID
->>> + * @pasid: PASID allocated for the DRM client
->>> + * @fpriv: owning DRM file-private object
->>> + *
->>> + * PASID allocation is intentionally kept separate from owner
->>> + * registration because the DRM file-private object is not fully
->>> + * initialized when the PASID is allocated.
->>> + *
->>> + * This helper replaces the temporary allocation marker with the
->>> + * initialized DRM owner.
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+>>> b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c index 291326d2ee8b..ec0919fa8254
+>>> 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+>>> @@ -390,7 +390,8 @@ static int ih_v7_0_irq_init(struct amdgpu_device
+>>> *adev)
+>>>
+>>>  	pci_set_master(adev->pdev);
+>>>
+>>> -	if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 
+> 0)) {
+>>> +	if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0) 
+> ||
+>>> +	    !(adev->flags & AMD_IS_APU)) {
 >>
->> Taking a closer look at I think we should rather re-structure the fprif init code to
->> allocate the pasid later.
+>> I think the check should be the other way around.
+>>
+>> In other words we can enable the cam on dGPU or APUs with IP version 7.1
+>> because that one has the CAM as well.
 > 
-> Thanks!
+> What do you mean by the other way around?
 > 
-> Just to make sure I understand the intended initialization order correctly: when you say "allocate the PASID later", do you mean moving the PASID allocation until after fpriv has been fully initialized in amdgpu_driver_open_kms(), so that amdgpu_pasid_alloc() can directly register the fpriv without a separate amdgpu_pasid_set_fpriv() step?
+> The patch keeps pre-existing behaviour on IH 7.1 and additionally enables the 
+> retry CAM on dGPUs. The patch makes no functional changes to IH 7.1, on that 
+> version the retry CAM is always enabled regardless of whether it's an APU or 
+> dGPU.
 
-Yes, in this patch just give the fpriv as additional parameter to amdgpu_pasid_alloc() and make all callers give NULL.
+I just wanted to make the logic more readable. In other words:
 
-Then squash patches 2 & 3 together and switch from PASID->VM to PASID->fpriv->VM mapping in just one patch.
+if (!(adev->flags & AMD_IS_APU) ||
+    amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0))
+...
+
+I still need to double check why we have the exception for OSSSYS 7.1.
+
+Could be that this is for some MI* product, but I'm not 100% sure yet.
 
 Regards,
 Christian.
 
 > 
-> Best regards,
-> Srini
+>>
+>>>  		/* Enable IH Retry CAM */
+>>>  		tmp = RREG32_SOC15(OSSSYS, 0, 
+> regIH_RETRY_INT_CAM_CNTL);
+>>>  		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, ENABLE, 
+> 1);
+> 
+> 
+> 
+> 
 
