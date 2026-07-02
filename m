@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22ECBC44506
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 304CFC44502
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3A7510F68A;
-	Fri,  3 Jul 2026 07:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5829110F690;
+	Fri,  3 Jul 2026 07:06:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MHvDB0PD";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GP1c3W3o";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8938D10F370;
- Thu,  2 Jul 2026 13:02:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 123EE10F366;
+ Thu,  2 Jul 2026 13:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=DyWqc4wPdfvM4114hsamLmuQ0/7w1IqiQaxw7+9Jmd4=; b=MHvDB0PDyTcQOyC5hVfzD/RO75
- z4CsbOI/naXxti5OAXnecjOfl91QTjP9M1aokpD4L33+8ps2eHGPKNo+rsDZfH0PPqGGqdTNPXXXG
- AXUGzV/LL9h+XAiz5sxq6nmLZNbAjpMO/hZeWxHk3CMKgbPZhQDYeHsOK5KIkHQ4QuOzgm0/iNKKZ
- lZsF4uPAUavidJ6YMDCN31cZDXfOgvmRTyh/8ukCVjPJ80veKtyU3A7IDZCgRVmVABFDAqppnK6p3
- B96IBLUrQ7VfoOB1YveEunni9AH373YzjO7UxD02ezlAWvIkCyRMJ98gLHf1z/+rTxso9NsmYcRzE
- b+xyqD0w==;
+ bh=lT15FuhNiGFpf49I/crr9KaNiaPJlLwK5Gm5jsQ8X34=; b=GP1c3W3oH5IW53D51EEkvOxQQO
+ Q54Jq4M1aBR5RXg8fPfM8tHoGhnh1PmpmbqUUsagvkol2123e3Sk0aksiG6EX+wwQEiTMREbhS/5g
+ 5byJyF0CFPUOasqrX0k6WlOT+be1I96FittLxeK6Ajfqe4Sjed7/n6ELn4dlwctmGKhGhbSQcVcMA
+ iuEppI2vvsKaCxiBwBc3B7QmKfNS0RrCYmKtGP2bAmCz0Pxh3fvjXqX4YJQbWwD5XDshX4W3bQ+V+
+ sVzVPxXttWKOiYVcSdhHkoVRBXPRQGHjLJz+KPeXZvjG/YF8JmY8jKlis5jp7elvhJnHf7eY0igdt
+ nCzteSFA==;
 Received: from [179.125.94.247] (helo=quatroqueijos.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wfH3R-0082Ji-7J; Thu, 02 Jul 2026 15:02:09 +0200
+ id 1wfH3i-0082Ji-HB; Thu, 02 Jul 2026 15:02:27 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
@@ -45,10 +45,9 @@ Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v2 4/7] lib/xe: Introduce dmem driver and implement Xe
- support
-Date: Thu,  2 Jul 2026 10:00:55 -0300
-Message-ID: <20260702130108.1397444-5-cascardo@igalia.com>
+Subject: [PATCH i-g-t v2 7/7] tests/dmem_cgroups: add test for dmem.current
+Date: Thu,  2 Jul 2026 10:00:58 -0300
+Message-ID: <20260702130108.1397444-8-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260702130108.1397444-1-cascardo@igalia.com>
 References: <20260702130108.1397444-1-cascardo@igalia.com>
@@ -70,216 +69,286 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to be reuse the same dmem tests with multiple drivers, we need to
-abstract a few operations. That includes getting the region name, and
-allocating and releasing VRAM. As there is some initialization also when
-multiple allocations are done, also provide init and deinit functions.
+Based on the work of Thomas Hellström to test dmem.max eviction, add a test
+for dmem.current usage after allocations and setting dmem.max.
 
-The Xe implementation was based on the original operations from
-xe_cgroups.c written by Thomas Hellström. However, instead of doing a
-deferred backing, followed by a bind, it does a simple non-deferred GEM
-object creation on the VRAM region.
+Create a dmem cgroup, allocate close to capacity (or at most 4GiB), check
+current usage is within a small slack of the expected allocation.  Then,
+set max to a small value and check allocations and current usage are
+limited to the max set.  Set max to 0, then check no allocations are
+allowed and current usage is also within the slack.  After each allocation,
+release memory and check current usage has gone down.
 
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- lib/igt_dmem_driver.h |  24 +++++++
- lib/meson.build       |   1 +
- lib/xe/xe_dmem.c      | 143 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 168 insertions(+)
- create mode 100644 lib/igt_dmem_driver.h
- create mode 100644 lib/xe/xe_dmem.c
+ tests/dmem_cgroups.c | 245 +++++++++++++++++++++++++++++++++++++++++++
+ tests/meson.build    |   1 +
+ 2 files changed, 246 insertions(+)
+ create mode 100644 tests/dmem_cgroups.c
 
-diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+diff --git a/tests/dmem_cgroups.c b/tests/dmem_cgroups.c
 new file mode 100644
-index 000000000000..2f4a4673ab16
+index 000000000000..da2475a14ff9
 --- /dev/null
-+++ b/lib/igt_dmem_driver.h
-@@ -0,0 +1,24 @@
++++ b/tests/dmem_cgroups.c
+@@ -0,0 +1,245 @@
 +// SPDX-License-Identifier: MIT
 +/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ * Copyright © 2026 Intel Corporation
 + */
 +
-+#ifndef __IGT_DMEM_DRIVER_H__
-+#define __IGT_DMEM_DRIVER_H__
-+
-+#include <stdlib.h>
-+
-+struct igt_dmem_driver {
-+	const char *name;
-+	char * (*get_region_name)(int fd);
-+	int (*init)(void **ctx, int fd, int max_bo);
-+	void (*deinit)(void *ctx);
-+	int (*allocate_vram)(void *ctx, int n_bo, size_t len);
-+	void (*free_vram)(void *ctx, int n_bo);
-+};
-+
-+extern const struct igt_dmem_driver xe_dmem_driver;
-+
-+#endif
-diff --git a/lib/meson.build b/lib/meson.build
-index e0d9c2f7475b..04fe5755c82c 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -126,6 +126,7 @@ lib_sources = [
- 	'igt_msm.c',
- 	'igt_dsc.c',
- 	'igt_hook.c',
-+	'xe/xe_dmem.c',
- 	'xe/xe_gt.c',
- 	'xe/xe_ioctl.c',
- 	'xe/xe_legacy.c',
-diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
-new file mode 100644
-index 000000000000..0de3a8c0b222
---- /dev/null
-+++ b/lib/xe/xe_dmem.c
-@@ -0,0 +1,143 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++/**
++ * TEST: dmem_cgroups
++ * DESCRIPTION: Tests exercising the dmem cgroup controller on devices.
++ * Category: Core
++ * Mega feature: General Core features
++ * Sub-category: cgroup
++ * FUNCTIONALITY: cgroup dmem controller
 + */
 +
 +#include <errno.h>
++#include <signal.h>
++#include <stdatomic.h>
++#include <stdint.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
 +
++#include "drmtest.h"
 +#include "igt.h"
++#include "igt_aux.h"
 +#include "igt_cgroup.h"
 +#include "igt_dmem_driver.h"
-+#include "xe_drm.h"
-+#include "xe/xe_ioctl.h"
-+#include "xe/xe_query.h"
 +
-+static char * xe_dmem_get_region_name(int fd)
++#define BO_SIZE			SZ_64M
++#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
++#define USAGE_SLACK		SZ_4M		/* tolerance above the set max */
++#define USAGE_POLL_MS		10
++#define USAGE_DROP_TIMEOUT_MS	1000
++
++/**
++ * SUBTEST: current
++ * DESCRIPTION:
++ *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
++ *  check current usage is within a small slack of the expected allocation.
++ *  Then, set max to a small value and check allocations and current usage
++ *  are limited to the max set.
++ *  Set max to 0, then check no allocations are allowed and current usage
++ *  is also within the slack.
++ *  After each allocation, release memory and check current usage has gone
++ *  down.
++ * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
++ */
++
++static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
++				    uint64_t limit)
 +{
-+	uint64_t vram_region = 0;
-+	uint64_t region;
-+	char *cg_region;
++	uint64_t current;
++	unsigned int elapsed = 0;
 +
-+	/* Find first VRAM region */
-+	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
-+		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
-+			vram_region = region;
++	do {
++		igt_cgroup_dmem_get_current(cg, region, &current);
++		if (current <= limit)
++			return current;
++		usleep(USAGE_POLL_MS * 1000);
++		elapsed += USAGE_POLL_MS;
++	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
++
++	return current;
++}
++
++static int allocate_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo, size_t len)
++{
++	int n_bo, err = 0;
++	for (n_bo = 0; n_bo < max_bo; n_bo++) {
++		err = drv->allocate_vram(ctx, n_bo, len);
++		if (err)
 +			break;
-+		}
 +	}
-+	if (!vram_region)
-+		return NULL;
-+
-+	cg_region = xe_cgroup_region_name(fd, vram_region);
-+
-+	return cg_region;
++	/* These are expected failures we can ignore. */
++	if (err == -ENOMEM || err == -ENOSPC)
++		err = 0;
++	return err ?: n_bo;
 +}
 +
-+struct xe_bo {
-+	uint32_t handle;
-+	size_t len;
-+};
-+
-+struct xe_dmem_ctx {
-+	int fd;
-+	uint32_t vm;
-+	struct xe_bo *bos;
-+	uint64_t vram_region;
-+	int max_bo;
-+};
-+
-+static int xe_dmem_init(void **ctx, int fd, int max_bo)
++static void free_vram(const struct igt_dmem_driver *drv, void *ctx, int max_bo)
 +{
-+	struct xe_dmem_ctx *xe_ctx;
-+	uint64_t region;
-+
-+	xe_ctx = malloc(sizeof(*xe_ctx));
-+	if (!xe_ctx)
-+		return -ENOMEM;
-+
-+	xe_ctx->bos = calloc(max_bo, sizeof(xe_ctx->bos[0]));
-+	if (!xe_ctx->bos)
-+		goto out;
-+	memset(xe_ctx->bos, 0, max_bo * sizeof(xe_ctx->bos[0]));
-+	xe_ctx->max_bo = max_bo;
-+
-+	xe_ctx->vram_region = 0;
-+	/* Find first VRAM region */
-+	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
-+		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
-+			xe_ctx->vram_region = region;
-+			break;
-+		}
-+	}
-+	if (!xe_ctx->vram_region)
-+		goto out;
-+
-+	xe_ctx->fd = fd;
-+
-+	xe_ctx->vm = xe_vm_create(fd, DRM_XE_VM_CREATE_FLAG_LR_MODE, 0);
-+
-+	*ctx = xe_ctx;
-+
-+	return 0;
-+
-+out:
-+	if (xe_ctx->bos)
-+		free(xe_ctx->bos);
-+	free(xe_ctx);
-+
-+	return -ENOMEM;
++	int i;
++	for (i = 0; i < max_bo; i++)
++		drv->free_vram(ctx, i);
 +}
 +
-+static void xe_dmem_deinit(void *ctx)
++static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv)
 +{
-+	struct xe_dmem_ctx *xe_ctx = ctx;
-+
-+	xe_vm_destroy(xe_ctx->fd, xe_ctx->vm);
-+	free(xe_ctx->bos);
-+	free(xe_ctx);
-+}
-+
-+static int xe_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
-+{
-+	struct xe_dmem_ctx *xe_ctx = ctx;
-+	uint32_t handle;
++	struct igt_cgroup *cg;
++	void *ctx;
++	uint64_t current, capacity, cg_max;
++	int n_bo = 0, max_bo;
 +	int err;
 +
-+	if (n_bo >= xe_ctx->max_bo)
-+		return -ENOMEM;
++	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
++	igt_require_f(capacity >= 4 * BO_SIZE,
++		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
++		      capacity / SZ_1M);
 +
-+	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
-+			     NULL, &handle);
-+	if (err)
-+		goto out;
++	/*
++	 * Use up to 4 GiB, or the full capacity if the device has less.
++	 * Leave one BO_SIZE worth of headroom so the device isn't completely
++	 * exhausted before the cgroup limit is hit.
++	 */
++	cg_max = min(MAX_LIMIT, capacity - BO_SIZE - USAGE_SLACK);
++	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
 +
-+	xe_ctx->bos[n_bo].handle = handle;
-+	xe_ctx->bos[n_bo].len = len;
++	/* Create cgroup and move into it */
++	cg = igt_cgroup_new("igt_cgroups_test");
++	igt_cgroup_move_current(cg);
 +
-+out:
-+	return err;
++	max_bo = cg_max / BO_SIZE;
++
++	err = drv->init(&ctx, fd, max_bo);
++	igt_assert_f(!err, "Failed to initialize driver");
++
++	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
++	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current < cg_max + USAGE_SLACK && current > cg_max - USAGE_SLACK,
++		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
++		     current / SZ_1M, cg_max / SZ_1M);
++
++	free_vram(drv, ctx, n_bo);
++	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current < USAGE_SLACK,
++		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
++		     current / SZ_1M, USAGE_SLACK / SZ_1M);
++
++	/* Allow for a slack as there might be some extra pages allocated. */
++	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE + USAGE_SLACK, false);
++
++	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
++	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current > 2 * BO_SIZE - USAGE_SLACK,
++		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
++		     current / SZ_1M, cg_max / SZ_1M);
++
++	free_vram(drv, ctx, n_bo);
++	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current < USAGE_SLACK,
++		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
++		     current / SZ_1M, USAGE_SLACK / SZ_1M);
++
++	igt_cgroup_dmem_set_max(cg, cg_region, USAGE_SLACK, false);
++
++	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
++	igt_assert_f(n_bo != -ENOMEM, "VRAM allocation succeeded despite max set to 0\n");
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current < USAGE_SLACK,
++		     "current usage (%"PRIu64" MiB) is not within margin\n",
++		     current / SZ_1M);
++
++	if (n_bo > 0)
++		free_vram(drv, ctx, n_bo);
++	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
++
++	igt_cgroup_dmem_get_current(cg, cg_region, &current);
++	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
++		  "max = %"PRIu64" MiB\n",
++		  current / SZ_1M, cg_max / SZ_1M);
++	igt_assert_f(current < USAGE_SLACK,
++		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
++		     current / SZ_1M, USAGE_SLACK / SZ_1M);
++
++	drv->deinit(ctx);
++	igt_cgroup_free(cg);
 +}
 +
-+static void xe_dmem_free_vram(void *ctx, int n_bo)
++static const struct {
++	const char *name;
++	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv);
++	unsigned int flags;
++} subtests[] = {
++	{ "current", test_current, 0 },
++	{ }
++};
++
++static const struct {
++	int driver_flag;
++	const struct igt_dmem_driver *driver;
++} drivers[] = {
++	{ DRIVER_XE, &xe_dmem_driver },
++	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
++	{ },
++};
++
++int igt_main()
 +{
-+	struct xe_dmem_ctx *xe_ctx = ctx;
-+	size_t len;
-+	if (n_bo >= xe_ctx->max_bo)
-+		return;
-+	len = xe_ctx->bos[n_bo].len;
-+	if (len) {
-+		gem_close(xe_ctx->fd, xe_ctx->bos[n_bo].handle);
-+		xe_ctx->bos[n_bo].len = 0;
++	igt_fixture() {
++		igt_require_f(getuid() == 0, "Test requires root\n");
++		/* Check dmem cgroup controller is available before doing anything else */
++		igt_require_f(igt_cgroup_dmem_available(),
++			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
++
++	}
++
++	for (int d = 0; drivers[d].driver; d++) {
++		igt_subtest_group() {
++			int fd = -1;
++			char *cg_region;
++			igt_fixture() {
++				fd = drm_open_driver(drivers[d].driver_flag);
++				igt_require_f(fd >= 0,
++					"No %s device found, skipping\n",
++					drivers[d].driver->name);
++				cg_region = drivers[d].driver->get_region_name(fd);
++				igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
++			}
++
++			for (int i = 0; subtests[i].name; i++)
++				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
++					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver);
++
++			igt_fixture() {
++				if (fd >= 0)
++					drm_close_driver(fd);
++				free(cg_region);
++			}
++		}
 +	}
 +}
-+
-+const struct igt_dmem_driver xe_dmem_driver = {
-+	.name = "xe",
-+	.get_region_name = xe_dmem_get_region_name,
-+	.init = xe_dmem_init,
-+	.deinit = xe_dmem_deinit,
-+	.allocate_vram = xe_dmem_allocate_vram,
-+	.free_vram = xe_dmem_free_vram,
-+};
+diff --git a/tests/meson.build b/tests/meson.build
+index 88a0ce224432..dfdaab41825a 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -11,6 +11,7 @@ test_progs = [
+ 	'core_sysfs',
+ 	'dmabuf',
+ 	'dmabuf_sync_file',
++	'dmem_cgroups',
+ 	'device_reset',
+ 	'dumb_buffer',
+ 	'drm_buddy',
 -- 
 2.47.3
 
