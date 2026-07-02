@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684B7C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 11:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40483C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 11:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43F010F2F1;
-	Thu,  2 Jul 2026 11:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C372710E4AA;
+	Thu,  2 Jul 2026 11:52:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SOAnVuqC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GZCQLuDm";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5C410F2F1
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 11:28:12 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-471eeac43bfso1398561f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jul 2026 04:28:12 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37DF510E4AA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 11:52:12 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-461edb387ddso1620710f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jul 2026 04:52:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782991691; x=1783596491; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782993130; x=1783597930; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=LglR3yqv1MYESlAG0srTxG7e1unf8WfiWnISQG0/klg=;
- b=SOAnVuqC6RE9k3BMpqpqdN4an2PYpXnt6Jutl0h+mStUkwPCa+nn+mt7nGVPaljPwQ
- l+nr8io0ProejigXfnC/FPZFshgO9v0VXCaKNAAP7oWZsNT+QQK6i1FlSVXq8iZzC+An
- O8KFURru85AZ3o+1IKbfLUdV5PDbGlqwaeInHHvt9TJ8mbWwka85T8s8ezmSZPcvPH8Y
- omBU3Imz6GQ5e7ELvsl9Cr3LiOG4GDKN0Yr3tU9Gw/+AxuLtnmiupquQcIGIlD1hBF7K
- NSX2kId7Cb1wgQDezBqg/EQx1ZIpncxYShZh6BGA7dVZU3VM74vMc2mqhrTJszDfXdX0
- Gjww==
+ :reply-to; bh=fcOdzUMYycvpjMN9JW0mbn3wsyAtYM+j1SiK+GfZmzo=;
+ b=GZCQLuDm8x3fBtyV8O43Duik/THIMdJwgY5ZCtRClIEnR2GEeAmx2PJdy3+VwEv7tK
+ Jk5BzBVbn0yRs3M1RXtGqH6CO9BjzGohULAbIerTtTekiWh17Lfyg6CG/aHphkU0vziV
+ KPw3M8S68uh5WSnyKD08bctIbAXj93B3TLr2Tqx+o8YFmTgRHkUYynm1VnkyizOcx2an
+ hv/gDLtTaoRMT14m1Rl5LeUdaXXFpwoxbh6BNHKBjQqSjqwKnm9os2ZDtGv30reKS2km
+ UV9qAe7ctbnqeUHebAzbCKyh4uNVCH+UktGUtiUVy1LQ/EIEV6RbTt5hQhYIIgJt/X+p
+ tRHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782991691; x=1783596491;
+ d=1e100.net; s=20251104; t=1782993130; x=1783597930;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=LglR3yqv1MYESlAG0srTxG7e1unf8WfiWnISQG0/klg=;
- b=LvAe9jXoIGRmZ1tS1RNEZa2k8dNkgV8B1it+UW4hQBMO924/XOZHl7wUn01yUW9yjF
- UVLNQmLPSe53Tum7RUCRLWv0LQ5Zt8zr2eCOJDbW2M5KgdfWGONGxXlSyVvXRSYu+maD
- dGpcksNzDzX0SiIsDjd/DT0ElybNZ+uKNPisBTCfs/WzaTXQcH642QVciZFNF4LhhDyI
- G1V0vnBztGN/4sqJP0qBm8l+qB/FgdzNUsjqydqu/SxNTMomGOSrVDezrrb7KI87TBzO
- yhpS2QaC0mzCbtT0kaVAvrrwGeTUHcAU6aeo8N80a8k2PqLckb8l3hMDRt6/7pGE49Qj
- gzKQ==
-X-Gm-Message-State: AOJu0Yy5nX/+Uao/0ldVvHulIPYZvwejPFy+9aMm/bHu2cuS71alvPWj
- 2BBtjxiTOmWRDIPw0q7aJBbAYaUkl+aifpTD61qwaTKBPrrtZqgW+V5D5C6olQ6H
-X-Gm-Gg: AfdE7cmSLvtmlM3gcqNGwdhjjXQZ9MCV56Z4skQbxQg5AA6cGEjqQv0NxRsgmp5KuC1
- 3Z4BDkOv9Lcdj+gBpQt1q0zChudH/qsNF4u6cCG+N59yc7JaxZu3UoqhI8fK6T3lDqD0hPgZM6t
- bHLf/e1gr2Gq1dyUWcvTPc5kxVMQ9eLQxhAYNEI7Ag2J4OppzgEkWVHxZ9eCtUnMf1dZsghXz/t
- EC3NiMqtEQzbc00B63UGIKlI3XX2CbWl4wvqwQYgMVTaORhrQqw6RXCc6bRG+iuP9c1gedjvhAc
- CzjTM2opIcKsnLFLWv/W2UlX57JQl/zFZ/2rzTP7qjZ9YJFaVwcwJasohb4VVHND0JHW3Phz88X
- +iais/qJyS2+fX2NnNtCuhA3Gh11pwA25+0JpvQGkLTlN7+3CvomIMBsPAPk61bjnexgrviV7pA
- 5HE6ppLMJ8l9776QpXOaagSPCLJg47tBLsU8ifYhQt6IJk1obEW8VRl9sgw3RR9zbuMl3b5GbNf
- zUVP+lm/vnLnjaynw==
-X-Received: by 2002:a5d:5f8e:0:b0:46c:cffc:7638 with SMTP id
- ffacd0b85a97d-4775a1010ccmr8474637f8f.30.1782991690659; 
- Thu, 02 Jul 2026 04:28:10 -0700 (PDT)
+ bh=fcOdzUMYycvpjMN9JW0mbn3wsyAtYM+j1SiK+GfZmzo=;
+ b=TBGDgUsRdw7PzC3sT3C4wpPsZ77+L9JVUHNKigsR7BewmqC3DxcZVgtlgV03EMeVgT
+ xnrS+XTpEsk9BZnZQkhBn+EaK7aF0GhpQ9d/039nwkVEYkNbonCB96e5Ndu95lpMJqtC
+ qyG7SJurwSdI1d6iFeRejH9GdUgRL8jM7jOYeGrlB1imPnMLbdKrAIrGLYC/aKs5SWrP
+ Dakpjh1SqcacpAmeGLXlXIvkUI5wTd7smWQzzBLjpfVV542Q09vFaKN61RKtHcT/cKxj
+ 05M1KzpDB8G1eehGMLJ6hZwIWxd2mZ5nUzlfHe+E0B+YA7mVnfKS9Edxq5VkcCxKzlW4
+ pqaQ==
+X-Gm-Message-State: AOJu0Yyp9+VoTCTKLxbkJjRU9f8PByytFKr9HCMxlSRaluQhjrNGoAIq
+ YfIEuaZpnSllC6fUFZf5FGy2kJIVx6b4fHB6qHKTkF2gZYJ8lEFZRpMHSjNRUILX
+X-Gm-Gg: AfdE7ck984sn0AquvVBxYG60nQI7NQwq/UQpsR8tdxded8/MBX7KjnsThbK2/M36Z6X
+ g8N7CH+A64D/HbNNNBJ2lCaZRE1g4DYcNgQgcMmfNC6WIsHz++iQA9C1e5IfemtoBlm/45c1pnL
+ G+hFQq8TvnMagpzuz8G7Krv+1KZYPR3XAe+gfsMVxm2zvHzGC58VXjy4mwb+rztDmInsDKBBwDn
+ oVJZ/tnxCVB42t00A1bkfUj06LMOqxhuBL59ZZIG3Pi09Z3xoLNnlN929LfciK420JooDjmFK7c
+ uIflcloYSWHxBbzzeNGA1/DdM0o9SXIf5QXQwYuazEdLQXgaLU5BOlHVfF8VJx9RNGreyjnhE3H
+ eoMOwfgGTXYblf+yBA+ikDC6C+DVAH+kN3i0E5QC8XgK52P9glckqPADYwJRq+KlYfFp/8PuxfI
+ j2rh1e3odEPXEJ4eRgKDWwxEkymZnLj3X5+mKwOyg0twGxYEiKIdZj8dCcoNHHCeYEqhJgf/AhQ
+ GifKfcJfZzGeKlBqwceDl7LhbWH
+X-Received: by 2002:a5d:474a:0:b0:475:f0d1:eb62 with SMTP id
+ ffacd0b85a97d-477b225850emr5514595f8f.61.1782993130424; 
+ Thu, 02 Jul 2026 04:52:10 -0700 (PDT)
 Received: from timur-max.localnet
  (20014C4E24EF0F0080162CDB5B2DFACF.dsl.pool.telekom.hu.
  [2001:4c4e:24ef:f00:8016:2cdb:5b2d:facf])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db8a4ad4sm8386022f8f.11.2026.07.02.04.28.08
+ ffacd0b85a97d-477dbe617b1sm8295835f8f.16.2026.07.02.04.52.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 04:28:10 -0700 (PDT)
+ Thu, 02 Jul 2026 04:52:10 -0700 (PDT)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
@@ -72,14 +72,14 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>,
  Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 10/14] drm/amdgpu/vm: Use init PTE flags and NOALLOC in
- amdgpu_vm_handle_fault()
-Date: Thu, 02 Jul 2026 13:28:08 +0200
-Message-ID: <27457954.1r3eYUQgxm@timur-max>
-In-Reply-To: <44f84ba4-e91d-4cf0-bf82-635b03e668b6@amd.com>
+Subject: Re: [PATCH 11/14] drm/amdgpu/ih6.0: Use MMIO ACK for retry CAM on IH
+ 6.0
+Date: Thu, 02 Jul 2026 13:52:08 +0200
+Message-ID: <2030676.7Z3S40VBb9@timur-max>
+In-Reply-To: <4547ddd3-974a-4c9c-8fec-939dc132f7d0@amd.com>
 References: <20260701161721.85681-1-timur.kristof@gmail.com>
- <20260701161721.85681-11-timur.kristof@gmail.com>
- <44f84ba4-e91d-4cf0-bf82-635b03e668b6@amd.com>
+ <20260701161721.85681-12-timur.kristof@gmail.com>
+ <4547ddd3-974a-4c9c-8fec-939dc132f7d0@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -97,84 +97,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. j=C3=BAlius 2., cs=C3=BCt=C3=B6rt=C3=B6k 12:22:23 k=C3=B6z=C3=A9p-=
+On 2026. j=C3=BAlius 2., cs=C3=BCt=C3=B6rt=C3=B6k 12:23:42 k=C3=B6z=C3=A9p-=
 eur=C3=B3pai ny=C3=A1ri id=C5=91 Christian K=C3=B6nig=20
 wrote:
 > On 7/1/26 18:17, Timur Krist=C3=B3f wrote:
-> > PTE_IS_PTE seems necessary for handling retry faults on GFX12.
-> >=20
-> > For reference see:
-> > amdgpu_vm_pte_update_flags() that explains the problem
-> > svm_range_get_pte_flags() that uses the flag on GFX12
-> >=20
-> > Also add NOALLOC on GFX10.3+ as we don't need to allocate
-> > the fault handling PTE in the infinity cache (MALL).
+> > The doorbell is not working on Navi 31.
+> > Use the IH_RETRY_CAM_ACK register.
 > >=20
 > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+>=20
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>=20
+> I still haven't found any explanation why we use a doorbell for the CAM in
+> the first place? Lijo, Alex, Felix does anybody know that?
+
+The first mention of the retry CAM in the kernel is:
+commit 318e431b306e - drm/amdgpu: Enable IH retry CAM on GFX9
+which was written by Mukul (also on CC for this series).
+Mukul - can you please give us some information on that?
+
+It seems that the IH 7.1 code was just copied from there.
+
+As far as I see, Vega 20 already has the mmIH_RETRY_CAM_ACK register, thoug=
+h I=20
+don't know why that wasn't used. I guess you guys would have heard from you=
+r=20
+datacenter customers if the current code didn't work on Vega 20 and CDNA.
+I can say with certainty that I couldn't get the doorbell working on Navi 3=
+1=20
+or Navi 48.
+
+Unfortunately I don't have a Vega 20 card (or any datacenter GPU) so I can'=
+t=20
+test what actually works there. I have a Vega 10, but it's unclear if that =
+has=20
+a retry CAM or not.
+
+Thanks & best regards,
+Timur
+
+>=20
 > > ---
 > >=20
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
 > >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c index 32719f31b6c9..a915d06108=
-5f
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c index 65e5d21753f9..a97c85b0cb99
 > > 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -3044,7 +3044,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device
-> > *adev, u32 pasid,>=20
-> >  	}
-> >  =09
-> >  	addr /=3D AMDGPU_GPU_PAGE_SIZE;
+> > --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> > @@ -307,6 +307,11 @@ static int ih_v6_0_enable_ring(struct amdgpu_device
+> > *adev,>=20
+> >  	return 0;
+> > =20
+> >  }
 > >=20
-> > -	flags =3D AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
-> > +	flags =3D adev->gmc.init_pte_flags |
-> > +		AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
-> >=20
-> >  		AMDGPU_PTE_SYSTEM;
->=20
-> That doesn't make sense the PTE flags should be adjusted to the device
-> specific flags by the callbacks.
-
-Can you please elaborate on what is it that doesn't make sense here and why=
-,=20
-and what you recommend to do instead?
-
-> >  	if (is_compute_context) {
-> >=20
-> > @@ -3054,11 +3055,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device
-> > *adev, u32 pasid,>=20
-> >  		flags =3D AMDGPU_VM_NORETRY_FLAGS;
-> >  		value =3D 0;
-> >  =09
-> >  	} else if (amdgpu_vm_fault_stop =3D=3D AMDGPU_VM_FAULT_STOP_NEVER) {
-> >=20
-> > +		/* Don't allocate this PTE in the MALL */
-> > +		if (amdgpu_ip_version(adev, GC_HWIP, 0) >=3D=20
-IP_VERSION(10, 3, 0))
-> > +			flags |=3D AMDGPU_PTE_NOALLOC;
+> > +static void ih_v6_0_retry_cam_ack(struct amdgpu_device *adev, u32
+> > cam_index) +{
+> > +	WREG32_SOC15(OSSSYS, 0, regIH_RETRY_CAM_ACK, cam_index);
+> > +}
 > > +
->=20
-> This doesn't make sense either, mall allocation for the dummy page should=
- be
-> perfectly fine.
-
-I think we shouldn't waste space for this PTE in the MALL.
-
->=20
-> >  		/* Redirect the access to the dummy page */
-> >  		value =3D adev->dummy_page_addr;
-> >  		flags |=3D AMDGPU_PTE_EXECUTABLE | AMDGPU_PTE_READABLE |
-> >  	=09
-> >  			AMDGPU_PTE_WRITEABLE;
 > >=20
-> > -
+> >  /**
+> > =20
+> >   * ih_v6_0_irq_init - init and enable the interrupt ring
+> >   *
 > >=20
-> >  	} else {
-> >  =09
-> >  		/* Let the hw retry silently on the PTE */
-> >  		value =3D 0;
+> > @@ -807,7 +812,8 @@ static const struct amdgpu_ih_funcs ih_v6_0_funcs =
+=3D {
+> >=20
+> >  	.get_wptr =3D ih_v6_0_get_wptr,
+> >  	.decode_iv =3D amdgpu_ih_decode_iv_helper,
+> >  	.decode_iv_ts =3D amdgpu_ih_decode_iv_ts_helper,
+> >=20
+> > -	.set_rptr =3D ih_v6_0_set_rptr
+> > +	.set_rptr =3D ih_v6_0_set_rptr,
+> > +	.retry_cam_ack =3D ih_v6_0_retry_cam_ack,
+> >=20
+> >  };
+> > =20
+> >  static void ih_v6_0_set_interrupt_funcs(struct amdgpu_device *adev)
 
 
 
