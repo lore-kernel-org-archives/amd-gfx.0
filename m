@@ -4,68 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFAFEC43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:34:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8489C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821DE10F230;
-	Thu,  2 Jul 2026 08:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658BE10F23D;
+	Thu,  2 Jul 2026 08:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QHXXAeqq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZWwGHo3g";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C22310F230;
- Thu,  2 Jul 2026 08:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782981264; x=1814517264;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=k7eA92s159Ngu+QIltfO74+zhMPwS9Ty8QA1lb2JpIs=;
- b=QHXXAeqqsSH0X83QpyzY67b7YGKN5bHK42TQzGGqQwXNvfD+0Vae4Lyl
- d+uuthhd14FfLK05V4Ih57TV+fJWalMX0krq03ycB+o3bRApxciprAQMd
- YvKzvACN83cUiTY23FjfhJ58c/Jd0BVz2dFA/9hFy89HlaI932eoRbEXw
- J/otb/MMA2+PSjZo39XPE7EpKQplP4yKB1kpn5+EnsUlQ9N+4yJZ34XM3
- APvyeCGkMyqnHWQycFl7oxQDXFxYNs48GseZ9+cL4qeZY/3i2yj5puMPX
- VfnXJgAVTxrr+iuIfsyA4pcZ09QuCeOsryVOqnqEkD3g6YhL2TTfyYX5G A==;
-X-CSE-ConnectionGUID: MGk6NZmtRxS/hx9ZXWe7Uw==
-X-CSE-MsgGUID: Ao28F5LMTMe4wmPJUaK7WQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83757837"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="83757837"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 01:34:21 -0700
-X-CSE-ConnectionGUID: 1E70bXLBSEaWsOtGDbizPw==
-X-CSE-MsgGUID: Cug6YpbtRD21DUPbY/VThg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="254739884"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.210])
- ([10.245.244.210])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 01:34:17 -0700
-Message-ID: <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
-Date: Thu, 2 Jul 2026 10:34:51 +0200
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010063.outbound.protection.outlook.com [52.101.56.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76BB510F23D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 08:40:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ITDV86AKVrcpyatI7Eg2mrM3xODo7VXdc5DAqT50a2JzFAC8MO9oNT89oncY+PH6r3uzMsCH5M/WMn7jE/CNBKHX+rAVm+flP9T5ypQvNiglBucWPtw0Xltpr7fWHOdrGxh9+ZwzEc26EQVfrH4DpuXNCcBwHSCwujy4+EDv3sVxMXbem0okg4NlwtwOCW3ezjXeYgD9SAaz4fyAtUQ19f5FwCWUCg1UEt+c4oioDwuW9HKgvqQmoJQwjPgu4hMoYhaxFKSrGtc6/YOcqVIXIZpdp5hACUwYHa2gCc1JekKrvOYrVaM38Mgdb/+N4MaU8GvzxRE43pSjj5pg+/kooA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vQp2QqZwwf6SfT00SDi5NKCJNGQJa17yTcADIib4FDY=;
+ b=e3SI4vNjl/F4u5VDsDNsCCC4YNMOrtCCSsoKo7HiqPUBP3+DolfBT8CHotZu23bKsjOUg5t3RNzdBvStabK61xO7fl3a1R3bWpWm2cq7bgqre0pSlue0t0rt7cayl4B6dXq7zFv0QRRb5ln3miECuyDiNF9whmx9i6c1qyBQ8nbS0KbMEBZ4zDUHUYNcPqUDwPdNvxv/ufqCDEV4VLtZ6Y7DgA4D3ty8LmmF5mKPEjqLLmSZM9vvM+7eaO6gCSJ+VwvbYgqJEEpk8S/TtBcLojT4mNA6OkjPcuZBWEugHLS+YjoHgy4y9Sr03t8ixUoNGHwnFCOk5j2xffsu6kQZVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vQp2QqZwwf6SfT00SDi5NKCJNGQJa17yTcADIib4FDY=;
+ b=ZWwGHo3gN1+SlL4+d82jooKmeaA1yRZoXi5o8U3FBN//+fIvm1KkP4RDwiqcOS2jPcP/U7T4d6qwsZjEbadL0rru11vbJG+h4OAJw7O1848cMbNmvDUYpgQH8VExjUR1ppcB1SKuB0ERRiLeM4oP8MeFpXpPae6dAwb4hH4fohU=
+Received: from BN1PR13CA0020.namprd13.prod.outlook.com (2603:10b6:408:e2::25)
+ by SJ2PR12MB8847.namprd12.prod.outlook.com (2603:10b6:a03:546::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Thu, 2 Jul
+ 2026 08:40:43 +0000
+Received: from BN1PEPF00006003.namprd05.prod.outlook.com
+ (2603:10b6:408:e2:cafe::87) by BN1PR13CA0020.outlook.office365.com
+ (2603:10b6:408:e2::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Thu, 2
+ Jul 2026 08:40:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 2 Jul 2026 08:40:43 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Thu, 2 Jul 2026 03:40:41 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH v3 0/4] Add PASID to fpriv lookup infrastructure
+Date: Thu, 2 Jul 2026 14:10:17 +0530
+Message-ID: <20260702084021.3140071-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260702081641.22990-1-robert.mader@collabora.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20260702081641.22990-1-robert.mader@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|SJ2PR12MB8847:EE_
+X-MS-Office365-Filtering-Correlation-Id: 834d35a6-8346-4116-52c7-08ded8159aa4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: teAxRHDIfFqg+qENIMaJl6pyoLOPNZChdHSurAhNSIJizdOJzLecoZli/FZG6U1qHhfStN5utcL3hbhF6sdaSfePx1xHX+q2lCgP0Z7qF2gsBt3qJgBrXgPBHyKR672+B3Lmtp5e+vrHXsCG00/J/op9OOMcMJ4OKs8rkKNrIGYU7ceSKc58hK1o/Qyk1oyEn2FeP8K3WVycoILrWB8swUXCYEFcHx+v4QCWG0W7skef1wMi4ZfhuG+1s6ZuIdpOUfx6UfEXstrxYCMPeWzc4zuKgKQlX6u+X2QicSP8rSMAKIkiSeOY6v92TB/tA08XxKLCtbMc4PqyBu9mZPwwCoBaCcyFfAl6KAcLqlD5goOIq73cOEJxnWBysHRyDyixNNB1QMC86JOfJbutAhCZGMF8IUaz/91dNewBjSJiE6zek3ZajTxruVQPx8ETiimmgebh1lw+J4DSgLmeBbhYAvbZhQYwE6jK958CbCAc5Y3EEJRrFjNNTUW6ESMW1SCLcgsfOQPO3O4sEFWfwdEkjmRIH0WFiDhKp2b1ZEs84XnB5Vrmzccy8PhG8l+xA7HDPScAnzwpQ/kgEYIIklzw4aZ+UU35our6YY728deSY5mXhamgaDx0ST2AVS2UF2lLLoh844gbVWpTjI7ZmbECyA7Q4FHlH7BrG4UkNI+Gzs6VifUHAXPEvABSqjV92QUOOUcJ46CB5fgfJvvaJ7W7MA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 0cbPRi1CHdVoaoYbWMkhCVBTEdePoIRTbIyFLz8VHZS72LAHyc2/NSUfWB1c0g0ajypfrX5ov0S3t5ENcBMksoaKtFqNyOzjscdiSdlr+H2jra7BCA+HEfRE4Xo65T509hKK8HR0AxzGMNpnrAysMDlQtdYlXkS3e+GPDIERBL/vdI6vxu2LLvH3JcZK/ZNslYBeo1SBiRDWxnaXczQvSeHbO5JCSwaZY9Ha+nU5CEBsRwQXFiQQN+pUjB+FVugHlUBlc2S59nwYZYlHadArRU3xQchCIqM/giDXcgtqxZ6EMuU7qzeL38oYy6HedmdIVD3ysANsZspGeW9ezg3L1NNmWEbkGaDOMKUmPg7HxRAQvmTgRBwaoeo7Opkot7m0ogxdJfGgD8y2mU1YyonlPKRM4NvCd7QZotDTKj1UnFkDyHLAp8gUgqd/ZgYzIQuE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 08:40:43.3165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 834d35a6-8346-4116-52c7-08ded8159aa4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006003.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8847
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,74 +109,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Changes since v2:
+  - Document that PASID allocation is intentionally kept separate
+    from fpriv registration because the DRM file-private object is
+    not fully initialized when the PASID is allocated.
 
-On 7/2/26 10:16, Robert Mader wrote:
-> The client cap is currently advertised unconditionally, even for drivers
-> that do not support plane color pipelines. If clients supporting the later,
-> like Wayland compositors or tools like drm_info, enable the client cap on
-> such drivers they will be left without both color pipeline and the legacy
-> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
-> conversion support.
-> 
-> Prevent that by only marking the cap supported if there are actually planes
-> with color pipelines.
-> 
-> Note: while the color pipeline replacement for the legacy properties is
-> still under review (1), we can assume that it will work as a drop-in
-> replacement. That means any plane on any hardware currently supporting
-> the legacy properties will be able to offer a functionally equal color
-> pipeline and there will be no technical reason keep using the legacy
-> properties if both the driver and the client support the new API.
-> 
-> 1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
-> 
-> Signed-off-by: Robert Mader <robert.mader@collabora.com>
-> 
-> ---
-> 
-> Changes in v2:
->  - Replace the driver feature with a simple check (suggested by Maarten
->    Lankhorst <maarten.lankhorst@linux.intel.com>)
->  - Expand the commit message slightly and change the title
-> ---
->  drivers/gpu/drm/drm_ioctl.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index e2df4becce62..b2c0234eaf14 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -373,13 +373,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->  			return -EINVAL;
->  		file_priv->supports_virtualized_cursor_plane = req->value;
->  		break;
-> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
-> +		struct drm_plane *plane;
-> +		bool has_plane_with_color_pipeline = false;
-> +
-> +		drm_for_each_plane(plane, dev) {
-> +			if (plane->color_pipeline_property) {
-> +				has_plane_with_color_pipeline = true;
-> +				break;
-> +			}
-> +		}
-> +		if (!has_plane_with_color_pipeline)
-> +			return -EOPNOTSUPP;
-> +
->  		if (!file_priv->atomic)
->  			return -EINVAL;
->  		if (req->value > 1)
->  			return -EINVAL;
->  		file_priv->plane_color_pipeline = req->value;
->  		break;
-> +	}
+Srinivasan Shanmugam (4):
+  drm/amdgpu: Add PASID fpriv ownership helpers
+  drm/amdgpu: Register DRM PASID ownership
+  drm/amdgpu: Resolve VM through DRM PASID ownership
+  drm/amdgpu: Drop vm_manager PASID to VM mapping
 
-Perhaps put the most specific check (is there a plane with color pipeline?)
-last, and return -EINVAL, as that is the default before
-DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE was added.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 126 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  13 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  20 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  59 +++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |   4 -
+ 5 files changed, 178 insertions(+), 44 deletions(-)
 
-Kind regards,
-~Maarten Lankhorst
+
+base-commit: b045e9c2cd561613d9092b17d653fdcea2fb75ea
+-- 
+2.34.1
 
