@@ -4,130 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A22E3C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 10:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D798C43327
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 10:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3546710E4BC;
-	Thu,  2 Jul 2026 10:38:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB2F710F2B7;
+	Thu,  2 Jul 2026 10:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="snDghXf9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BrVp59r+";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010000.outbound.protection.outlook.com
- [40.93.198.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F5110F2BA
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 10:38:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jjldzjVPBKvL6HXG7fjOn7Xwr/6IYbDmXt0moPDMYRVPeGzuvkKGFcNLovr/gIejL8Y5z7Xm4FgiumgZXCBA4tjJgKdUKBIKEQAKc0vGv/mTQI6qKMAR9/zJKOovT9N5/yuYupXJ6aqqXONARQxwaY8P6aBMc4etNVmwygtre8jaRKjSwJeO+IPvtfWi1NNSGW+QK9jxzlcKRG7MEgUKd/xFuEUHvpTUNu8iikQCABSe5zG76u20TVLUwNY9VgHLLofEvBLWPiYnoTBy36CZhEAy2xuuXfdhR1Sfr1RuP9E8slBjbKdp03BwqDtk0rxmFeBdv470sF4MgrAmk0uyLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s+xPSC44xFSUqPWvRddwLCRe2+yrFk9zNPokx5qDzr0=;
- b=IuaTCUIyHAoBedThRPxiwGzvnUb+F1NElxeA/8+sDIAK4kqZ1K6/0CBUw9ZdZ6JrSNgDdBOnA6a1L2LyNGF3otMWl5uAGXXPMhN9OET260O0keHALmVVimCEXBLgyXAQgrtJFGxjOkAFw0JdMHOQclEM9T6IEZOnP7DiXROpX9uLisKpa83WGJMhY9gMEc6Fnq6YPsgfQ60ZFeHi/TnmA64+J3FocAAcAJCP+9TQb0ryIKux4L66cxuh0rBgmeTEYvamjQPiIhCIo2jr4i8wGq91p8QxRxI+zCSpvkJ6zCxWG3JwIBJHhyZjlVW+KibvL8kQz8kLu45Oi/otoBJnBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s+xPSC44xFSUqPWvRddwLCRe2+yrFk9zNPokx5qDzr0=;
- b=snDghXf97uIMhL6MBPiyEmnWwnj3qvhtLlydOE3dwg4V5BeTjx93RGR78502hUqPN1tV/3TK3WYD0ctfI7wumL3wUijb3VNK0KlwFYnHBPM284GWMXz9JQoMV6QDwlObldleoOkktY9A/xzqYUR0qRpu4Qp0H7AzaQfZtgjIo9M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6077.namprd12.prod.outlook.com (2603:10b6:208:3cb::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
- 2026 10:38:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
- 10:38:18 +0000
-Message-ID: <dee4f6f3-0494-40e6-94d9-e0249633d0bc@amd.com>
-Date: Thu, 2 Jul 2026 12:38:12 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/14] drm/amdgpu/ih7.0: Enable retry CAM on Navi 4 dGPUs
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>
-References: <20260701161721.85681-1-timur.kristof@gmail.com>
- <20260701161721.85681-15-timur.kristof@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260701161721.85681-15-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0006.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E203810F2AF;
+ Thu,  2 Jul 2026 10:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782989299; x=1814525299;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=k+6/Z2gs9cVAAhPHygjW4k5IBm479qlyxmM2Tyng3a0=;
+ b=BrVp59r+FTTu494SrsP6YnzNcXlOprMtp8Q3MF/2VMkvFdtBlXWggoez
+ OHPdZEGfcr7EbgTbAnz8C65WZDgCkaJKBVENdbStzKbwtaI4KF522IEio
+ IbLojHF8jw2lo9t79Rk4wZnDkv8u784j0GSEHYBSTTvKIMDiqkNp2R2Cd
+ J5bK8+LbHbPUh+IrDuKlflDHAFYQLpBPurcuIkfFSHjR8CW5Zn9Fs5SCe
+ ZHUc3UVstOeOjPJJdNV3iMub7/QMzWe9vDlLzyZWwiTD4ltO/y/qOtm+q
+ y38ge2m2uTKem2rF1dTN7bIydY6UVS9jY3K8ajMGCwK49EYz5e7dJqk5h Q==;
+X-CSE-ConnectionGUID: 0nuLj8ttQwGIKKW1KUyDHw==
+X-CSE-MsgGUID: yrUZSfyjTmmJlid7nr/+dA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="94340598"
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="94340598"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 03:48:19 -0700
+X-CSE-ConnectionGUID: OSSGdLzfTSae19ANyeWZrg==
+X-CSE-MsgGUID: urzn876CTMaIgaRj9LGwYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="250174105"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.242])
+ ([10.245.244.242])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 03:48:16 -0700
+Message-ID: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+Date: Thu, 2 Jul 2026 11:48:14 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6077:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4076dc99-6547-4368-ec49-08ded8260754
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|921020|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: cUargHdnX/JSLaGSIJhLFkw75+hN3xcG/T/6OPiTkymmGE8gJhRcav3KOOt2EfpMl1ame8t8dv/JavfSnp/aEUf4xgDAWvWbXK/irzperHsimvArr/5/X6Sy5T+pMYTYA3/zPzcjUSFjU0VvEyKX9Egdl622lzkq9dEenzJP7ejqxj3n/66JahU+QjeHYJScsLCxqInGbwjlkB1Ldvu4ROgMHAqgS3DX0tQ+WUCxqPYuSxSv+6KNPlai6IjalMSpdz3BQ+5AC3bk5C/BnEDP66CYPjAKLoVoMOBNPC5tSsteeOBvnFIFjRIEOxLPT8m/dzTZCWXtc+Tv0Cpp6FlsAEDEovn11wWmeFRwCSQO77mvC/vM7UBf6NJx9Dwro/SCwryfQm8NSrrZEzVLcXLU6V3Tyv0Sy24MHFjj78cMUBC7nltZbhkObimgVOj8hUxV8RVqHH5lF+IFcKH1druwLRMa5ucU3/vmUW+GTyg7Xoc+GT3XF8PHBcIlOCcf3NkhoWGHaja2hU4/qKDwmI/nDWqNH0Eh+hABjzDMNNt+RT56YZ0RGpf+/AZCXfUhWotubU1KLq65ZI98rVSPAVe9xFHe/qj72m7jTS7I+aAOTl6+ez6pxa/y9XNpDJ7iYQd2HNZF0HQ2xeV4UezVU6rR9zr1fiMcIF0+PSxnWrbYJI9tXwuLUJ5RV1+uySmnbLC52DEN7JXRa+2Bid5c4KLn9Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(921020)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akVtVzg0L2I0d3hITUg4Z1RKWHJMK0VLeHVoQTRLK2hady9EOTFGNzU0NEM4?=
- =?utf-8?B?VzdoWDJ4SHVkMm1zSDNKaVZNQjdZcjFVOUVEamFGd2Rmc2JmVzhySTNzVkZM?=
- =?utf-8?B?QkxjV2NYckxWcWtwNjFiemYwc0dEMkt6U0NTYkVzWnVCVFRXSStncVJBYkdW?=
- =?utf-8?B?R0xROFFaSEw4NVhra0pZNS9jNFlRNFlpK2Vyc3l3MDEyK0RGRUFIa0Z1NitS?=
- =?utf-8?B?N25hZmhpcmpPRGFRTFhnbzNDQW1wRXJ6UjUrL3doOVFIbmtrKzZoM093L2c1?=
- =?utf-8?B?Q1UzdjZCMjFHemNzZTNYcGltTkZuRlNPWCsrMmJleWtpdzFkNVB4STZ5blov?=
- =?utf-8?B?RnNta3A5Z1o0WGZldnRzRmt3K0pBanJJWW11dGFjVmVVZm1ZRVFnRHNicVRC?=
- =?utf-8?B?UXdxV3M2OFFUR0hBWmpRcy84YklLczRHODVxNTlZc2JiSkpRYjJkcG1ubGZZ?=
- =?utf-8?B?Qnp2UkVBSk9QYjJJaHBXNlpNclN3QnRCUHhmZkpLczJWejVWY2ZVaUt4Q0Vh?=
- =?utf-8?B?YmlBNEp0cU5tSlFZY3JUWUN5TW5pTWxCRFN0d0VPd2RkdlFmdnhEYTZGTTlM?=
- =?utf-8?B?NXZiOG56ekVVR2JQTWRQODNCeTdHajFLVUJkTUNkSkpxWkJ3SlNreUxHRjIv?=
- =?utf-8?B?Wi84UTdSUDJMVTlCVGxOWUZwK0dKQitmODlRUWZMV2xBdWxWQWxIc0JJVlds?=
- =?utf-8?B?Nk84cmdvTVRIYVE3eEVHcHNhanhTc2c4MTgxVlhKV3FLK0VaOFZ1WmQ1NGph?=
- =?utf-8?B?U2N6L2tSMnlCUlR1QkE4WFp6T21Td3hQTnkxU1hWaTNjWUdsdWE0RlRZNG5k?=
- =?utf-8?B?K0oxeTV0SytLcldyMythNVNtdXNJZGpRL2wyZHRrcWc4TmxxSzhxNmpobzI4?=
- =?utf-8?B?T29QdnIweXNaTEw0ZlNGeDNlNVBteVFHVW96OWxyMGQrTy9PZ2tNVENSTDF2?=
- =?utf-8?B?cnF5WnBhZTJBOUZGbjh2ZmZLYnNDQ2JGYmc5aVU1NFp5TnQ3ZzVYdERnQWRl?=
- =?utf-8?B?K0Qvc0JYSjJ6ejZ5QjlXZllVUk9Pa3VzSXVORU94Z2RydlFvUGRBY3hwTHN3?=
- =?utf-8?B?bVZYZGNvV3NDdWM1MTVDS0JlM0sydnA5NGVjeXY4OWV1T0FWNUZTOW83T3h6?=
- =?utf-8?B?ZVUxemxuTlJXM0F4OFQ5aFBCSWRzTEcza0prU2pTTlpsMExYVmgxR2VNQ2N3?=
- =?utf-8?B?T1VrWVRhQkNHbkdtZGNpWW0vWHlHRVl4TEpSTjVsdzNyb1orV01kS3M2RUpa?=
- =?utf-8?B?dDJ6VG9BVURmNU1yQnJhaEJiUWl3T1RlNDE2bUw4bDViZTRoamlKeGpUSUpN?=
- =?utf-8?B?d3YzM2w4ZWhCeU9kSGY3Y0tRVDdCVXIrLytMRzdhWE1GUlk3RGpZUzNRN1No?=
- =?utf-8?B?dUNGcGtTTFhFdS8zM0IzelUrVGdKcWlUZS9kb1pqS2Y3M3RoM1pLMVhzWjlW?=
- =?utf-8?B?c1BEMitNNzJmY3ZtNWlXRmdQU2NYQzFMT3VFeTkrTXh5dDc0V3dodGJXd0F2?=
- =?utf-8?B?b1VJK3ZQYms3QUtWRE5paWFDLzZ5SzlKK28veVA5UGJxMW5DL1djazRhdW9Q?=
- =?utf-8?B?SDRYcW5CT0RKc2V4eUkxek1jWjFqN01FSDJnNmZWZW1QaVZhLzJGRDBxaEdS?=
- =?utf-8?B?OHkyUFl4aDE5WC9lMWw0V1JEd1B2dmhubVhYY1d6YWJuaTllWFlPekhsNUc0?=
- =?utf-8?B?S0ViRjNsZXNTcTIvelRCYk5odlVIZTR5YkhEUWpMYXdjTFpPemdGbnFhZm1x?=
- =?utf-8?B?Qm16eFNlQU1mVjNETmN5cEdIVDJMS29VN1VqdEhxam5FN2NOWkVTdHJzRVNp?=
- =?utf-8?B?R1Y3SVlLZmQ5L1EyS2dLOStIVkNaY3VaZ25rRW1lYWpGNUpsV2g1OGJmWWxF?=
- =?utf-8?B?NW4rN2hnVldmM0hhc1JSbkQvQ0t6Z1JDTVN4SUZFdWczem9HWHJpL1BPS2t6?=
- =?utf-8?B?bDdjS0ZTaEhPTzlYUkJWcmN6NlJ6UVk2NUNwQ3M5OVAzTkZEOWVTNG5wWmFr?=
- =?utf-8?B?dHVQOThKUVgrdXdUZkZQdnkzbVJFTDYyYmpZQ2xUMnJmclc2VmRRRnhMRlJK?=
- =?utf-8?B?cWMwdHlCYTFRUFZJY3B5b1pFRHVvcmZuWUhSTTc5eUIvT2dDaWZtOFVTdmQy?=
- =?utf-8?B?RStvV1RiWmc0RnZCcTRHY0ZRMWd3N0xTZGxtdjJQYk1VNnowaXE1NTlGUXdk?=
- =?utf-8?B?RHVzQW1OV3VTd3BaWENwbkRVTXk5dFJVTGN3Z25QaG52Y1U1KytJTit1cUlZ?=
- =?utf-8?B?N00yaEtMSDlaYlpLVHlnMzkweXRaOERtU1pXUVVaRTZwVGlNbmxwRFYzckly?=
- =?utf-8?Q?CeAh0lxYQdzYVJPj2X?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4076dc99-6547-4368-ec49-08ded8260754
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 10:38:18.1502 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 25iHlYhI5X8fQ4g0pHXzB5svvgiALqllsPLYw+N/nVRF7on/jEBD8m/gy5aqukcO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6077
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
+ cannot be honoured
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
+ stable@vger.kernel.org
+References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,38 +75,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/1/26 18:17, Timur Kristóf wrote:
-> The retry CAM can filter interrupts which occur repeatedly,
-> such as page fault interrupts when retry faults are enabled.
-> This makes processing those interrupts much more efficient,
-> because the CPU won't have to deal with processing the same
-> interrupt repeatedly.
+On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
+> The try_harder contiguous fallback could return a range whose start
+> offset did not match the caller's min_block_size. When a candidate's
+> start is misaligned, realign it: free the misaligned run and reallocate
+> exactly @size at the next lower min_block_size boundary. This keeps the
+> returned size unchanged with no surplus to trim, and rejects the request
+> only when no aligned candidate fits.
 > 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> v2: align misaligned candidates down to min_block_size instead of
+>      bailing out, for both the RHS and LHS paths (Matthew).
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Timur Kristóf <timur.kristof@gmail.com>
+> Cc: John Olender <john.olender@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
+>   1 file changed, 44 insertions(+), 19 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> index 291326d2ee8b..ec0919fa8254 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> @@ -390,7 +390,8 @@ static int ih_v7_0_irq_init(struct amdgpu_device *adev)
->  
->  	pci_set_master(adev->pdev);
->  
-> -	if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0)) {
-> +	if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0) ||
-> +	    !(adev->flags & AMD_IS_APU)) {
-
-I think the check should be the other way around.
-
-In other words we can enable the cam on dGPU or APUs with IP version 7.1 because that one has the CAM as well.
-
-Apart from that looks good to me,
-Christian.
-
->  		/* Enable IH Retry CAM */
->  		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL);
->  		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index dc81fe0301ce..3c73ae87f3c5 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>   			     blocks, total_allocated_on_err);
+>   }
+>   
+> +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+> +					u64 unaligned_offset,
+> +					u64 size,
+> +					u64 min_block_size,
+> +					struct list_head *blocks)
+> +{
+> +	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
+> +
+> +	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
+> +}
+> +
+>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   				     u64 size,
+>   				     u64 min_block_size,
+>   				     struct list_head *blocks)
+>   {
+> -	u64 rhs_offset, lhs_offset, lhs_size, filled;
+> +	u64 rhs_offset, lhs_offset, filled;
+>   	struct gpu_buddy_block *block;
+>   	unsigned int tree, order;
+> -	LIST_HEAD(blocks_lhs);
+> -	unsigned long pages;
+>   	u64 modify_size;
+>   	int err;
+>   
+>   	modify_size = rounddown_pow_of_two(size);
+> -	pages = modify_size >> ilog2(mm->chunk_size);
+> -	order = fls(pages) - 1;
+> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>   	if (order == 0)
+>   		return -ENOSPC;
+>   
+> @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   		while (iter) {
+>   			block = rbtree_get_free_block(iter);
+>   
+> -			/* Allocate blocks traversing RHS */
+>   			rhs_offset = gpu_buddy_block_offset(block);
+> +
+> +			/* Allocate blocks traversing RHS */
+>   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>   						       &filled, blocks);
+> -			if (!err || err != -ENOSPC)
+> +			if (err && err != -ENOSPC)
+>   				return err;
+> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+> +				return 0;
+> +			if (!err) {
+> +				/* Allocate the unaligned RHS offset using round_down */
+> +				gpu_buddy_free_list_internal(mm, blocks);
+> +				err = __alloc_contig_aligned_retry(mm, rhs_offset,
+> +								   size,
+> +								   min_block_size,
+> +								   blocks);
+> +				if (!err)
+> +					return 0;
+> +				if (err != -ENOSPC) {
+> +					gpu_buddy_free_list_internal(mm, blocks);
+> +					return err;
+> +				}
+> +				goto next;
+> +			}
+>   
+> -			lhs_size = max((size - filled), min_block_size);
+> -			if (!IS_ALIGNED(lhs_size, min_block_size))
+> -				lhs_size = round_up(lhs_size, min_block_size);
+> +			if (size - filled > rhs_offset)
+> +				goto next;
+>   
+> -			/* Allocate blocks traversing LHS */
+> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+> -			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+> -						       NULL, &blocks_lhs);
+> -			if (!err) {
+> -				list_splice(&blocks_lhs, blocks);
+> +			lhs_offset = rhs_offset - (size - filled);
+> +
+> +			/* Allocate the unaligned LHS offset using round_down */
+> +			gpu_buddy_free_list_internal(mm, blocks);
+> +			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
+> +							   min_block_size, blocks);
+> +			if (!err)
+>   				return 0;
+> -			} else if (err != -ENOSPC) {
+> +			if (err != -ENOSPC) {
+>   				gpu_buddy_free_list_internal(mm, blocks);
+>   				return err;
+>   			}
+> -			/* Free blocks for the next iteration */
+> +next:
+>   			gpu_buddy_free_list_internal(mm, blocks);
+> -
+>   			iter = rb_prev(iter);
+>   		}
+>   	}
+> 
+> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
 
