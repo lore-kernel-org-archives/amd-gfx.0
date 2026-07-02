@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88E27C44502
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E73ECC43458
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 655F910F685;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 712AE10F686;
 	Fri,  3 Jul 2026 07:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="Z4I2NWrM";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EotXi2dl";
 	dkim-atps=neutral
-X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
- Thu, 02 Jul 2026 16:29:55 UTC
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F355C10F496;
- Thu,  2 Jul 2026 16:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1783009479; bh=IY5C6F1/QEO/Tb6bgJrWUfZwUAuddxbrXqk1mvKaQME=;
- h=Date:Subject:From:To:Cc:From;
- b=Z4I2NWrMuK7o6dkdA3eom/gnVJMtzM+pHTiA+poVFlYWJRbtobsG4Xv4rZx79uHxi
- yCC2zVVXuHk3djLK1MOBT1AsabhBlDHL1d1H3vGz76lKp8B4AN+8gvodq44Bf7jK7x
- IZDm3svpa4fuBFJW7XUC3nqcpFBE777f4RwKZopIQawIIgxf4+6v+TFpgaqVKVVrDq
- fZgIj44mMOMkyH6OxHuW/lq+AaBUuG7IcFMEda7wgP9a6sshAHk4pn26+q8SKlTJUJ
- HKd97VMEV/a5PcniZobXzDEISnH7QGuO2gOoURezeYSW9EUGV0JRrwMfoLQjhMtIpQ
- iXnDd0VEzjyaQ==
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzp0HGWzBL;
- Thu, 02 Jul 2026 18:24:37 +0200 (CEST)
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 1.4.3 at mail
-Date: Thu, 02 Jul 2026 18:24:37 +0200
-Message-ID: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-Subject: [PATCH 0/5] Random debugging quality-of-life improvements
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B5310F371;
+ Thu,  2 Jul 2026 13:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=I6Lp4nixbOv2LqJ07br1/AHEIE91d9ecDtIof3D1v7A=; b=EotXi2dlonnZnC91l5UKlDeAwy
+ MgM2ppPEoYywcZs37Z/gn9v5mJEnY7PJ1YM2FiSF5S9BBeU4tcdVIdyHWJ8sZlPp/LhxV3rwSFMmF
+ LV/3285uwkA1R5EHOLpv9uuRlAGDMsWH96srXcDim/Enmp8FHQIitpuSMgwBLEtdCm5soCmoKhjSZ
+ c7BNxF6GEXA2rDLe9F8Sipzk43XUxAsB51kgRLTPddknSiXRMmL/ISGSq13edRKdB+y00hlV8idB/
+ I/0PVzf3P99hKcwXTvzbRWNpF5hB0GXtvLFzdC6W0NjsfzCxmzZUIh93bjFN+GGJBMzRPXIYWq8A2
+ Pr/M+jfQ==;
+Received: from [179.125.94.247] (helo=quatroqueijos.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wfH3W-0082Ji-Rp; Thu, 02 Jul 2026 15:02:15 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v2 5/7] lib/amdgpu: add amdgpu_cgroup_region_name
+Date: Thu,  2 Jul 2026 10:00:56 -0300
+Message-ID: <20260702130108.1397444-6-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260702130108.1397444-1-cascardo@igalia.com>
+References: <20260702130108.1397444-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:06:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,24 +68,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a set of small improvements to debugging and error handling in
-amdgpu driver. Please consider each patch independently.
+The amdgpu dmem region name uses its PCI address, just like the one from
+Xe, but there is only a single VRAM region.
 
-Michał Mirosław (5):
-  drm/amd/display/amdgpu_dm: show error names
-  drm/amd/pm/smu7: make SMU message reports more readable
-  drm/amd/pm/smu7: return error on message send failure
-  drm/amd/amdgpu/cgs: Avoid redundant copying of firmware filename
-  drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ lib/amdgpu/amd_memory.c | 25 +++++++++++++++++++++++++
+ lib/amdgpu/amd_memory.h |  2 ++
+ 2 files changed, 27 insertions(+)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c       | 54 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  3 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 40 +++++++-------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 +++----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +++--
- .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c | 25 ++++-----
- 6 files changed, 76 insertions(+), 78 deletions(-)
-
+diff --git a/lib/amdgpu/amd_memory.c b/lib/amdgpu/amd_memory.c
+index 12fe23c65ab2..2da4a8a4baee 100644
+--- a/lib/amdgpu/amd_memory.c
++++ b/lib/amdgpu/amd_memory.c
+@@ -30,9 +30,11 @@
+ #include <amdgpu_drm.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <limits.h>
+ #include <unistd.h>
+ #include <sys/mman.h>
+ #include <inttypes.h>
++#include "igt_device.h"
+ 
+ /**
+  *
+@@ -679,6 +681,29 @@ bool virtual_free_memory(void *address, unsigned int size)
+ 	}
+ }
+ 
++/**
++ * amdgpu_cgroup_region_name() - Build the dmem cgroup region name for an amdgpu.
++ * @fd: amdgpu device fd.
++ *
++ * Constructs the full dmem cgroup region path for VRAM on the device
++ * identified by @fd.  The returned string has the form
++ * ``drm/<pci-slot>/vram`` (e.g. ``drm/0000:03:00.0/vram``), matching
++ * the name registered by the kernel driver via drmm_cgroup_register_region().
++ *
++ * Return: A newly allocated string that the caller must free(), or %NULL if
++ * @region is not tracked by the dmem cgroup controller.
++ */
++char *amdgpu_cgroup_region_name(int fd)
++{
++	char pci_slot[NAME_MAX];
++	char *name;
++
++	igt_device_get_pci_slot_name(fd, pci_slot);
++
++	igt_assert(asprintf(&name, "drm/%s/vram", pci_slot) > 0);
++	return name;
++}
++
+ /**
+  * Wait for specific value in memory with timeout
+  */
+diff --git a/lib/amdgpu/amd_memory.h b/lib/amdgpu/amd_memory.h
+index e26c85bc4b0a..de169e580c1b 100644
+--- a/lib/amdgpu/amd_memory.h
++++ b/lib/amdgpu/amd_memory.h
+@@ -105,6 +105,8 @@ void
+ bool
+ virtual_free_memory(void *address, unsigned int size);
+ 
++char *amdgpu_cgroup_region_name(int fd);
++
+ bool
+ wait_on_value(unsigned int *ptr, unsigned int expected);
+ #endif
 -- 
 2.47.3
 
