@@ -4,55 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E73ECC43458
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC52C44501
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 712AE10F686;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA0C10F687;
 	Fri,  3 Jul 2026 07:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EotXi2dl";
+	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="kxGeIi2i";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B5310F371;
- Thu,  2 Jul 2026 13:02:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=I6Lp4nixbOv2LqJ07br1/AHEIE91d9ecDtIof3D1v7A=; b=EotXi2dlonnZnC91l5UKlDeAwy
- MgM2ppPEoYywcZs37Z/gn9v5mJEnY7PJ1YM2FiSF5S9BBeU4tcdVIdyHWJ8sZlPp/LhxV3rwSFMmF
- LV/3285uwkA1R5EHOLpv9uuRlAGDMsWH96srXcDim/Enmp8FHQIitpuSMgwBLEtdCm5soCmoKhjSZ
- c7BNxF6GEXA2rDLe9F8Sipzk43XUxAsB51kgRLTPddknSiXRMmL/ISGSq13edRKdB+y00hlV8idB/
- I/0PVzf3P99hKcwXTvzbRWNpF5hB0GXtvLFzdC6W0NjsfzCxmzZUIh93bjFN+GGJBMzRPXIYWq8A2
- Pr/M+jfQ==;
-Received: from [179.125.94.247] (helo=quatroqueijos.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wfH3W-0082Ji-Rp; Thu, 02 Jul 2026 15:02:15 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v2 5/7] lib/amdgpu: add amdgpu_cgroup_region_name
-Date: Thu,  2 Jul 2026 10:00:56 -0300
-Message-ID: <20260702130108.1397444-6-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260702130108.1397444-1-cascardo@igalia.com>
-References: <20260702130108.1397444-1-cascardo@igalia.com>
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC7610F4DD;
+ Thu,  2 Jul 2026 16:29:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1783009480; bh=YuJVkhEfcgaku4wOWS2SXkCc3/Q3CpYqNBhzmDhas60=;
+ h=Date:In-Reply-To:References:Subject:From:To:Cc:From;
+ b=kxGeIi2i5d+7183oVQFPlU5HR5zElNsysUWUX15VK+2bpHCaVuK5+xqdIOCMQPd/O
+ doqppXRegZ3Wz9TiPB/GnC6D2l9mhTCcFJALiMFVdvo9IiDsJK7MDwT9DHlqzoNh4r
+ cvSdKk4CXDng/MuCmctHz4jxY3t7mdCTKO/CQ7CkCA4pXwBsulPIr0wtdprmFJaB0G
+ nl2BAJlCyNP+2ceOdFlpCYzv0fu2ivJQ8l8q6yCQUfLjsV1E/XYAxEfNlKCiDxBat0
+ xyeXkXLGC+7vLCTbLkzpNm1HK5eeP7XtAu67QJjhX+mdxa15HNrFqBVuEWQSZ1hktQ
+ 8ghJX7fK+c9Dw==
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzr1yCgzKq;
+ Thu, 02 Jul 2026 18:24:40 +0200 (CEST)
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 1.4.3 at mail
+Date: Thu, 02 Jul 2026 18:24:40 +0200
+Message-ID: <df3064b3a250a694e39adedd96b9f2133eb3dcf6.1783009338.git.mirq-linux@rere.qmqm.pl>
+In-Reply-To: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
+References: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
+Subject: [PATCH 2/5] drm/amd/pm/smu7: make SMU message reports more readable
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:06:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,74 +60,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The amdgpu dmem region name uses its PCI address, just like the one from
-Xe, but there is only a single VRAM region.
+Make the lines greppable by removing an extra EOL and report the
+status only once - after the reply is detected.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 ---
- lib/amdgpu/amd_memory.c | 25 +++++++++++++++++++++++++
- lib/amdgpu/amd_memory.h |  2 ++
- 2 files changed, 27 insertions(+)
+ .../gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c   | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
-diff --git a/lib/amdgpu/amd_memory.c b/lib/amdgpu/amd_memory.c
-index 12fe23c65ab2..2da4a8a4baee 100644
---- a/lib/amdgpu/amd_memory.c
-+++ b/lib/amdgpu/amd_memory.c
-@@ -30,9 +30,11 @@
- #include <amdgpu_drm.h>
- #include <stdio.h>
- #include <string.h>
-+#include <limits.h>
- #include <unistd.h>
- #include <sys/mman.h>
- #include <inttypes.h>
-+#include "igt_device.h"
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+index 0d4cbe4113a0..ffe3ce87d907 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+@@ -134,14 +134,6 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
  
- /**
-  *
-@@ -679,6 +681,29 @@ bool virtual_free_memory(void *address, unsigned int size)
- 	}
+ 	PHM_WAIT_FIELD_UNEQUAL(hwmgr, SMC_RESP_0, SMC_RESP, 0);
+ 
+-	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
+-
+-	if (ret == 0xFE)
+-		dev_dbg(adev->dev, "last message was not supported\n");
+-	else if (ret != 1)
+-		dev_info(adev->dev,
+-			"\nlast message was failed ret is %d\n", ret);
+-
+ 	cgs_write_register(hwmgr->device, mmSMC_RESP_0, 0);
+ 	cgs_write_register(hwmgr->device, mmSMC_MESSAGE_0, msg);
+ 
+@@ -150,10 +142,9 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
+ 	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
+ 
+ 	if (ret == 0xFE)
+-		dev_dbg(adev->dev, "message %x was not supported\n", msg);
++		dev_dbg(adev->dev, "SMU message %#x was not supported\n", msg);
+ 	else if (ret != 1)
+-		dev_dbg(adev->dev,
+-			"failed to send message %x ret is %d \n",  msg, ret);
++		dev_info(adev->dev, "SMU message %#x failed: response is %d\n", msg, ret);
+ 
+ 	return 0;
  }
- 
-+/**
-+ * amdgpu_cgroup_region_name() - Build the dmem cgroup region name for an amdgpu.
-+ * @fd: amdgpu device fd.
-+ *
-+ * Constructs the full dmem cgroup region path for VRAM on the device
-+ * identified by @fd.  The returned string has the form
-+ * ``drm/<pci-slot>/vram`` (e.g. ``drm/0000:03:00.0/vram``), matching
-+ * the name registered by the kernel driver via drmm_cgroup_register_region().
-+ *
-+ * Return: A newly allocated string that the caller must free(), or %NULL if
-+ * @region is not tracked by the dmem cgroup controller.
-+ */
-+char *amdgpu_cgroup_region_name(int fd)
-+{
-+	char pci_slot[NAME_MAX];
-+	char *name;
-+
-+	igt_device_get_pci_slot_name(fd, pci_slot);
-+
-+	igt_assert(asprintf(&name, "drm/%s/vram", pci_slot) > 0);
-+	return name;
-+}
-+
- /**
-  * Wait for specific value in memory with timeout
-  */
-diff --git a/lib/amdgpu/amd_memory.h b/lib/amdgpu/amd_memory.h
-index e26c85bc4b0a..de169e580c1b 100644
---- a/lib/amdgpu/amd_memory.h
-+++ b/lib/amdgpu/amd_memory.h
-@@ -105,6 +105,8 @@ void
- bool
- virtual_free_memory(void *address, unsigned int size);
- 
-+char *amdgpu_cgroup_region_name(int fd);
-+
- bool
- wait_on_value(unsigned int *ptr, unsigned int expected);
- #endif
 -- 
 2.47.3
 
