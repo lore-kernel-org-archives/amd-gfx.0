@@ -4,53 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56202C43602
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B462DC44500
 	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1FC710F688;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A901710F689;
 	Fri,  3 Jul 2026 07:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H5shq5kP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ASrJMy1P";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E348E10F376;
- Thu,  2 Jul 2026 13:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=eQ01zZl7CA9tZ/G/ueOCdHz/Z0lI9e7IYSPPzuvxq8o=; b=H5shq5kPuHqc57yPmlcclbwDLf
- PPAcMPdrqnXDm/iguk5LONL4SRfrwC6G1KaBcYzvUtdXkHtDPLZOlZogVL8ngj5pySwi74vUt1d7V
- eNkAr+fSoqbnaHgerEKiPD7KAYO782IpulSlZBzbGOJMha62qNv2umvCuEZhmqKLMiIb9CbR67GzB
- pdY3ji51YlUfPGlrHqla6SqDPuxdroSnEQdZKL2MVVAubVARuiIc0NNv9Twio9pf0qP+tZl6bvtn7
- qrZu8i+iaUm+ctuT7ORQOX3vBIisXrd5UlDqR5WtxtZLVAr3oEAk0eyP87aaXebWInAFZN9gzYo2O
- Tutcir6Q==;
-Received: from [179.125.94.247] (helo=quatroqueijos.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wfH3c-0082Ji-GS; Thu, 02 Jul 2026 15:02:21 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v2 6/7] lib/amdgpu: add amdgpu support to igt_dmem_driver
-Date: Thu,  2 Jul 2026 10:00:57 -0300
-Message-ID: <20260702130108.1397444-7-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260702130108.1397444-1-cascardo@igalia.com>
-References: <20260702130108.1397444-1-cascardo@igalia.com>
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E72F710F599
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 19:48:45 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2c6770f12e4so1859485ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jul 2026 12:48:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783021725; x=1783626525; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=68hLmhb2rJT6HC8MF+9I9bjhr7Jl54P+QNhqjh8bKmw=;
+ b=ASrJMy1P7XOgl9qrEGeBSCZqd3v/LmpovEkiMTk08pAtDMt7EmZHxYGowtaMsxAy+M
+ pomP2poBnkRnvNRZ0uhN4WcnzX6ceg7yTTjutu6RapC35xdPsdnqiziih7CpMFmy8Jl/
+ XSsgCRLiQMZuHWz4z0X3ssSYjLqZkdtE66r4cCBAApjclKjx5oLr2s7WHAaFIIpHE7vu
+ UhE4lw4d9msD0fl93cePz1RTqhlx48GNS+0ijM1osiIp34/4/rrSctAyILcKZvNuN8U/
+ l8QVlJC/20AVvS5ID3itDf6pl0gU1ppesJwjoTxXLUnwpyFxzRk/+mrKnxmjO3y6tiaZ
+ yGyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783021725; x=1783626525;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=68hLmhb2rJT6HC8MF+9I9bjhr7Jl54P+QNhqjh8bKmw=;
+ b=opHoK/nKpd5Pg7yf1OOprpH8nY6s40K5Lr330qPPW0lRrMQuAtfdGcjcb4aypjlQJV
+ E0sUvegoM2gbX7MZt3RYRf0eRqte4511I7Y0bchY3dvD9ey4src1U0Xvx4hp7volTB36
+ wfXFaKLtppM6ZlHAWQethzWqwbf99B6LATR/U/Z9QnuBWoOLAjT4NeRVzDV9rrf4c+7/
+ 6BKQhSWkGlrjHJ36L6331OtNZsaeMEeMlHyD6IIniVxRYIZesk8lAn7w3OXJlam23Y50
+ p94/Jl6wAzk/9XlLGZlfZ6fuVAFjd/WcycTgvNpskJAQJVOyAmq8JedYFdRv1UXGuJ4s
+ fHNg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqqTnKn7B9y+m0aP2kmNIM+OEksQqDBo+UE4LWue5jFKUUDulzCGUsxQaPe7soQJa5oETtSUaqy@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyfci0nxoX3YofGElGhXHTFNP8Bo3hdwKDsEeBjPLB+T2/tkR2x
+ usxK2DZ8tFrG6HdwFZPP6L06Q4T3iLxcARUvVu4WrVpcJLEHHEhskHgf
+X-Gm-Gg: AfdE7clW4rAJuQv9E0e4ArXJH6+nC9SnztwItPktwMq27i0TGPXx4p/VNM4OBw/9xo3
+ /TTwSUEek0CQE39raFZYhO4/qm+fLm8QRaseq7WY/5lGASlwD3yTiG6L2qjDVIM+Ptpqt71Tjvy
+ 32caAKpU17jM0/ksE2koNv6Vnh1O6tJKEZgO2oGRnV6CuVZW/G/S0TMhis70Wnw9Ntm8ykI0IOg
+ DinDfSqnOUTMULRtzUWWn82uzyiDAQcpn81QyuMHYNUrQK6fFP/aYjTmQknyfUxUAvyjxwma2SG
+ ThD3TtjuSABhQ6VZlDBxWTZfbqPCBF9rF7iLIezS5HXoElKb6rWkMKVgeryaH0HA6+TA0u49M+T
+ 6DYabz7f8dW196UCfCTekI9ZLjC5X6KBYLFYwzM3cSq3xG1Gc8seifq3bfNJxgaANN9lcvvX6B/
+ BvfB2R16vVEC6rLT1BhsSq6tR/Y/aTryw2d6lG7mSk436JlTTyCahv2KNLIQMvtX5iHDdZ8Q7cB
+ 8Oy1f7yZjD6Y589f/TfkajEoV0suo0W7xrwUXHA7veK8o/TzMogn9UC01nGP2tI8ZufPLR/tBJC
+ Dh7ES51aVPCPuf4zR0QJ2oo8TkcQ9JSY+b5eyw==
+X-Received: by 2002:a17:902:d490:b0:2c4:397:dd7a with SMTP id
+ d9443c01a7336-2ca7e8cf2e3mr46822875ad.4.1783021725266; 
+ Thu, 02 Jul 2026 12:48:45 -0700 (PDT)
+Received: from midnightair ([2401:4900:1c94:62e8:bc10:77d0:2fda:415d])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13b3c7ef5b3sm16339527c88.1.2026.07.02.12.48.41
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 02 Jul 2026 12:48:44 -0700 (PDT)
+From: Anas Khan <anxkhn28@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Peichen Huang <PeiChen.Huang@amd.com>, Chen Ni <nichen@iscas.ac.cn>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Anas Khan <anxkhn28@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove duplicate link_dp_panel_replay.h
+ include
+Date: Fri,  3 Jul 2026 01:18:38 +0530
+Message-ID: <20260702194838.66361-1-anxkhn28@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260702112828.34698-1-anxkhn28@gmail.com>
+References: <20260702112828.34698-1-anxkhn28@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:06:48 +0000
@@ -68,148 +96,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows dmem cgroups tests to run on top of amdgpu driver, adding
-support to allocate and release VRAM memory.
+Please disregard this patch. I did not notice that Chen Ni had already
+posted the identical change back in February:
 
-This does this by allocating a BO from VRAM domain, which will try to
-place BOs on VRAM, but may fallback to GTT.
+  https://lore.kernel.org/all/20260211021953.2504249-1-nichen@iscas.ac.cn/
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- lib/amdgpu/amd_dmem.c | 99 +++++++++++++++++++++++++++++++++++++++++++
- lib/igt_dmem_driver.h |  1 +
- lib/meson.build       |  1 +
- 3 files changed, 101 insertions(+)
- create mode 100644 lib/amdgpu/amd_dmem.c
+Sorry for the duplicate.
 
-diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
-new file mode 100644
-index 000000000000..5ff6437dc78a
---- /dev/null
-+++ b/lib/amdgpu/amd_dmem.c
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-+ */
-+
-+#include <errno.h>
-+
-+#include "igt.h"
-+#include "igt_cgroup.h"
-+#include "igt_dmem_driver.h"
-+#include "lib/amdgpu/amd_memory.h"
-+
-+struct amdgpu_dmem_ctx {
-+	int fd;
-+	amdgpu_device_handle device;
-+	amdgpu_bo_handle *handles;
-+	int max_bo;
-+};
-+
-+static int amdgpu_dmem_init(void **ctx, int fd, int max_bo)
-+{
-+	struct amdgpu_dmem_ctx *actx;
-+	uint32_t major, minor;
-+	int err = -ENOMEM;
-+
-+	actx = malloc(sizeof(*actx));
-+	if (!actx)
-+		return -ENOMEM;
-+
-+	actx->handles = calloc(max_bo, sizeof(actx->handles[0]));
-+	if (!actx->handles)
-+		goto out;
-+
-+	actx->max_bo = max_bo;
-+
-+	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
-+	if (err)
-+		goto out;
-+
-+	*ctx = actx;
-+
-+	return 0;
-+
-+out:
-+	if (actx->handles)
-+		free(actx->handles);
-+	free(actx);
-+
-+	return err;
-+}
-+
-+static void amdgpu_dmem_deinit(void *ctx)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+
-+	amdgpu_device_deinitialize(actx->device);
-+	free(actx->handles);
-+	free(actx);
-+}
-+
-+static int amdgpu_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+	amdgpu_bo_handle handle;
-+	int err;
-+
-+	if (n_bo >= actx->max_bo)
-+		return -ENOMEM;
-+
-+	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
-+				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
-+	if (err)
-+		return err;
-+
-+	actx->handles[n_bo] = handle;
-+
-+	return 0;
-+}
-+
-+static void amdgpu_dmem_free_vram(void *ctx, int n_bo)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+	if (n_bo >= actx->max_bo)
-+		return;
-+	if (actx->handles[n_bo])
-+		amdgpu_bo_free(actx->handles[n_bo]);
-+	actx->handles[n_bo] = 0;
-+}
-+
-+const struct igt_dmem_driver amdgpu_dmem_driver = {
-+	.name = "amdgpu",
-+	.get_region_name = amdgpu_cgroup_region_name,
-+	.init = amdgpu_dmem_init,
-+	.deinit = amdgpu_dmem_deinit,
-+	.allocate_vram = amdgpu_dmem_allocate_vram,
-+	.free_vram = amdgpu_dmem_free_vram,
-+};
-diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
-index 2f4a4673ab16..d34c839740a5 100644
---- a/lib/igt_dmem_driver.h
-+++ b/lib/igt_dmem_driver.h
-@@ -20,5 +20,6 @@ struct igt_dmem_driver {
- };
- 
- extern const struct igt_dmem_driver xe_dmem_driver;
-+extern const struct igt_dmem_driver amdgpu_dmem_driver;
- 
- #endif
-diff --git a/lib/meson.build b/lib/meson.build
-index 04fe5755c82c..6bf9d0d9cb74 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -199,6 +199,7 @@ if libdrm_amdgpu.found()
- 		'amdgpu/amd_mmd_shared.c',
- 		'amdgpu/amd_jpeg_shared.c',
- 		'amdgpu/amd_utils.c',
-+		'amdgpu/amd_dmem.c',
- 		'amdgpu/amd_vcn_shared.c'
- 	]
- 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
--- 
-2.47.3
-
+Thanks,
+Anas
