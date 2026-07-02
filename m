@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F980C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:10:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B2A7C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C6910E49E;
-	Thu,  2 Jul 2026 08:10:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0690210F222;
+	Thu,  2 Jul 2026 08:11:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1brKmmVb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ppzFWY0A";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013023.outbound.protection.outlook.com
- [40.107.201.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02C2B10E49E
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 08:10:22 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013057.outbound.protection.outlook.com
+ [40.93.201.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6A7610F206
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 08:11:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BqNiHgkziKgVjP03qOO08giQFMmreUsN4Z8HiRQEV4FTiKUHjybM/NAQDMgSfHM8DxKPVaLOvd5KBODIHbS9ai4uTPqZtm24yVVDYmhiqlmWBwQxrkW+2QLNF+MLwwIset88DtdHeL8sW1xNQr/cjk97YOgzwZxmJtIv/VHhCYpdpQ0iPENeY+cFYq6okfU/aE5bakmTN9lgqmDhrwqfPmVaPEj9eyCV9l/RvvDgp+pVagB3hTtcS4IigCGYagH+mXEGO+yI4lp788nuH1DFbwQv9hl8wF/iEMF/S8QB0RJEI8SEEp8FysROfMeBZV2Zk6Vv3PnT1QFMarOpP8CT+Q==
+ b=HarDFEGGF8c6fBVl64HSoUCYj+JedZPiy6W3QXcxry0J34k0frsRJc1xaPmuyJP0o9gc8cfvIzvU8o+wizEhQbJFMzOlNoHgkPmrvh6hBbVz4ii8aQbMO0n3DJePEUZnXHxq6KE2hT4EzFBVi9L7dohU76WX+Ct61YpT1pTj35WbuuROadMxtMnImdBboHzey4T55SNrukRRoel5LN5IAMWneh8bi7PpI1Yt04pcgqkrruHrowxVU246tVJkr/JI4z9lGC6fJ6sIlPTHrgckjdSUR5VuRMXk6Jwt6qJBZye23R7lz9q9LyTGIKXdKYjqi0Dbsy5AkIe8CWXwgUIFEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M6QRBYOPDkVI1+6BKYi+eOOkOqZGx4BaOxa+qYbO9QY=;
- b=V8SNOavP/g54hjUkPgVEoIKtqyRGJnLzTTYqmPqoqytZISYecBeIAAOXabbzwb6FkieMSWN2XAMikjQrdAGAQXbG03N3MzqQV/xkerpeULg7aHibMjtqDxgea6N8UZ6qiKt+GlnMVvZVU8/VgwbVS5gDcoDAAUQw9CokZwtZxfUEExIICzWcT0FwlGVHsqlCLZnGRaLnVrMqMgyMZrUbEZpGUfFqd1Q/lH7+3L2Chq+3tUj4WLbAccB7vZw+lU13egbvFEXysQlDdYTl8mAfAzBH8ERDJISnh+2+HVE0HFfGPk+jhY4CLtv4NX6v5ieQZTraaLul1ToFPeUP3QH2uA==
+ bh=ICVY+L5yrZb3xom0/Ej2XuUHOvR2cg+VyibIb8OD6yw=;
+ b=SU2tXmUVPRHeS41DM8ByW7FDJLz+ucdb+qG53FnZah8gaSxdeLaat0LoxybXBDx1MOiYO5Z3fYu9d3NqIKHJnLhT7858z/teG6bqd4BKtfDgSeilmLbssRC5Lg1PiZ11Sre/cqghq8xJJu8Jixg7yMuAvbkSp/qSCUALCXmfNgBNJuWNpejyZfH2SrvBNMedUmT7ABp8xeECQrQ/7JoUoHSQIyfqM7VhuF6CJsjWqfQX9uGEBHCwvjZfxox4eyDBSqJ/zbVWdNoN0ZoVDCtX6kAT6ogjPew2lY9UGnMUfIo8MnU+xgxoZKGLGbSz7xgcox+U6DlsrH4qcNAp2k5OSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M6QRBYOPDkVI1+6BKYi+eOOkOqZGx4BaOxa+qYbO9QY=;
- b=1brKmmVbMI5hkk8ZPA/uvhoE+TaPQ6B+E3BCAqjacYQh1bojmTAmk/f96KSKUW8NTRJFcXAz+Ac6etFNFOkjJn1COU2CBX9XVh2xu/U9qjqQQ+G7kAQjrSaoLyrOClwTJY7EFTwFEETriEkJ5TsVVBSfTD9Kk3I0FvK0GgXAu78=
+ bh=ICVY+L5yrZb3xom0/Ej2XuUHOvR2cg+VyibIb8OD6yw=;
+ b=ppzFWY0AT6RjWn6Fy1iiGiMmzwFWzKK0hLNU5TAHkxfQOqMGvrvFqAmXN9hGoa5GL2eusDXaW16mqUle2C7QgRKU5lObxUP6UAadFQBZwM+OlW5QDYgYwyGPMTFYh7fT0Pk02xo5x6qiPEKsMTvYEtOzdd765PPzGx9ipCXa/Pk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
- 2026 08:10:17 +0000
+ 2026 08:11:03 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
- 08:10:17 +0000
-Message-ID: <be24281a-465b-420b-9279-a749ebd79ba1@amd.com>
-Date: Thu, 2 Jul 2026 10:10:10 +0200
+ 08:11:03 +0000
+Message-ID: <44c427a8-8e6c-4392-9c3d-fd2f907aabdd@amd.com>
+Date: Thu, 2 Jul 2026 10:10:57 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/14] drm/amdgpu/gfxhub: Enable retry fault interrupts
- when needed
+Subject: Re: [PATCH 03/14] drm/amdgpu/ih: Don't perturb HW registers when
+ accessing soft IH ring
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
@@ -56,78 +56,79 @@ To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
  Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 References: <20260701161721.85681-1-timur.kristof@gmail.com>
- <20260701161721.85681-3-timur.kristof@gmail.com>
+ <20260701161721.85681-4-timur.kristof@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260701161721.85681-3-timur.kristof@gmail.com>
+In-Reply-To: <20260701161721.85681-4-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0082.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::21) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0089.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::11) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8165:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6c088d2-c819-4d1a-3009-08ded81159e1
+X-MS-Office365-Filtering-Correlation-Id: 1d81ce59-9750-404e-42af-08ded8117588
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|376014|1800799024|23010399003|4143699003|18002099003|56012099006|11063799006|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: q6YhJrwoVL2hweq1AShHH8Dh/0CCCJEkEJnsBBbHj+1/WvBV7YQ5+SykL06PYyVTy6MUCD+EB/rDoCL2Lg8Dp5re8FB05LIxF+jiwfJ5/mmaz9cA2fmAktZqQvLTJcOlX9xt0tmrMbEojcYhyiy2ioD5ac4xawkVs64VxaZuRhShSd2aL+d5KNXGm/c66xNFhRbP8IPGbVYDY32oJ50pHM7+afu16c9K69lymvU3iFybYPRXSjgcYDXlY82Cc8c3OAVMu6AuUjaQ2UrIlJjDHWyodC13D30LG7boopFihOY1gZXGV+PTGC0UpC0UmI3DoxWua6Y2jwnQW0Pwhb9MhyHMpOP11oJgxAW79legfm44o2cfnr04CDJkbipCzfYJqsQ8r4GKJ0kOW5WqH7zk4WnldyyF9rd7+WUCvdhT8MYhYq0aRDEcYHqF5CXo3qLPMDoa/fAVoBSoO/WLm6RHvA3mi5vlME8doXNLMV33LOMhLqCAitiHeQIVVr3RWAGR937qbMAOY5jan2etp22ARPjNRGwCBjsjx6J0wlylyghUf889hbm3bOA9GCysu5jP7u+0sndQbwdoC7qwHa/whBqAS1acCdo9IjMWbN0HPY8XZeoxg5GBF/Ir6wkdIrH+Khh1y4mb6S7EmQpiy/TwFsbkMW+dM52tCp0V2/WvMr5sWyax5SpYh7s6Ov63/Tie5Xlz8aHdsEua36J8WcSDhw==
+X-Microsoft-Antispam-Message-Info: A10X/mivy3Iw9X7LZqnwsW6I1FW3rgtwIm9QyIyCj2h3w3HrEg0k20n0VvPJooXLll0v3okX++41mCul6MlG19B+5wMNQTFS5y7K3GnH1nzoEkgXt887UyHgZGPVNAU7G9lmsF+WGtyFZkhqkdzPyN+Sb5TNV0y+FG6KM4Q+N+5StF6uRAHAYYtLr/3NeMdDO7Vq7V/HJ+AUC+Ex17rByqFagNfRMVqa40X7i4RC6n+CZbOo50pYTXTU1K7rnMj3DoJMqhnNlxpP2ReGG76gZIuM/+SvX9CKU56eC/SkT8G0Mzjc8wauTRuyJb48Jxbahz5Uo3ILLq4lZp4nHDDrwa6bP23gtvkDNhAU1gor5d4V7eJk+CTdNPNJmLzXhTwI5sF67CrtBhcMZAXWdusOw908uasOlCthZ1BwpjqZNRjuS4p+xZuJU/Ueogwtcc3La6KmnDGffw2e5aRxCBgNmxkH1Jm1CK+Y/KJRv2phwhvM1mMCjIg7HzuKPatgnBkmefEbcnsJz5vGCuGf/nx6GXBkUvIyvUIUXM30ICNKe4ANNxFSXR2yGdXKzBOII5F170Q9tOomql7QQGvUmzqMvob8OwknuFUfMCUJ91LGTVbibyzgatIBZWjLCrIhZysIgr5mZDZ9uQWqnMRWK9bJuFlAhXo4agFhLvrULEmICb7a5lA8Wb1sQ4jHwxkWFSHaRhAjp1RD+tJC8wUWBupz7w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(4143699003)(18002099003)(56012099006)(11063799006)(22082099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHRPU3p1Y01vSnFCV0IwakV6R2NpN2xhWkIvaHFTVnFpaXY0S0FqRGZHQnUw?=
- =?utf-8?B?YmYxUUc0VkJId0h2Nnk5d2RidmVDR1RDVDhLL3R2TlN3TWZMU1BNM21pQi94?=
- =?utf-8?B?U1FlWDdTU0JSSmxlSnhKTUxScEZpUCtlUmR3SmV2NWhJOTMrT1JaaXdBN2FX?=
- =?utf-8?B?SG9OYUp5KzRpTHNtT1Q4RDN0ZFprdEN1N21IWlJHYjVXdTBuMjFPZjBPUUts?=
- =?utf-8?B?UXVLK0MrY096S0w2MXM3eVJuTzcvNzVZa0hMekN5dFQ4MlV4b21LNUVoemVC?=
- =?utf-8?B?L3BpbkM1ZHB6VVNRSVlUUmZ1Rm45eEtleHRFekpCdTRkTGdQb2pFZ2lQajNu?=
- =?utf-8?B?RUU5aGZWd3BnLzRVMnNVcnlCclhzU00vUFVMbjd1VmJhOGZsOU9SSGtEWERP?=
- =?utf-8?B?UVk2d2ZFaXJWdTdiUno0bjVPUEZSVHVPYnQzUm02ZlkrNlFXNmtyN2dJM0lt?=
- =?utf-8?B?Z096cWVVL3Y1YW8zMHBuZ3VTMnZCYlhEb2paL2lVb1hhd0o1eFhyV3c3YUw4?=
- =?utf-8?B?bitGa09DR3E1Q1JYTWwvUkhoS0JPQm1BQXNMNENRRjJPc3REc1hZcURCSWZB?=
- =?utf-8?B?TTlNOTRWRzBpSnp6dnBzMnVYNzhzUkQrUnhLZUplT3VPYlg2RjgrUk4vSGdD?=
- =?utf-8?B?OFU5TDRaMnVLRjRIclhROXhINXc3Z3YvaWJjeHJLSkpRTC9OMTZhZm1CUnlD?=
- =?utf-8?B?aXNHZXNIUDk3K3RxNFh6T0dpVWVVdDgxeHRIK0ZqbzF1Z1RHOEdJTmI5VkZi?=
- =?utf-8?B?RDJkSHY5K1F0TFBIaGJqWWZPUnJXdWU2WmVxY2J5UmxaUFBOTEtWT3ZIeGM4?=
- =?utf-8?B?c2phbXdPcTlzZVEvUUltM2w5dFBScVUvK29xQ2prSHdSZ0J3MjdoK2FmZHdG?=
- =?utf-8?B?cW1oZ1JkQnZVbTdOSzZtcGxHRmx5c2VnUS9kNzJlanlucDFYV1o1VjBoSk5q?=
- =?utf-8?B?TVJPSGVPdy84WXZ2b2dTZEk5UVpwNmZqSjhOc2JscU1ocUExOTFIRklqT3ZZ?=
- =?utf-8?B?ZVgxQnVqckJHTlVIeUNBelFaMVVKRjlWbTZCb0wyRnhsd09zUHdGZ2ZaRktz?=
- =?utf-8?B?Zkg3SDRJMG1ZQXJrQW1mUkwxY0ROeklSU0xjSEVTaVpleWhIWmgvOXh6UUdT?=
- =?utf-8?B?dVhmdmdKbk5BSVFOQ0JyUEVaSWwzYkJjMXBpZWVXRTlEK3VtdVNGeEdVOU1p?=
- =?utf-8?B?MGFBS2tSWllRNHBTRlB4WUdXTjhXLzdaalNJc2lpOGljaklUcXFLRnlUczlr?=
- =?utf-8?B?ZlFJRFJ5Tjg5aTRoaCt2VGJBbkRnbHViSEo0cVV6am1tK3RCZ0s3MHBqWWhL?=
- =?utf-8?B?RGVtZGxHSSsrdEs1WVR3R0VIa2huYmlXT0p0Q2VRalpZVkNIazNyZS8wMVpO?=
- =?utf-8?B?OG51dWtPRHk3MVdCL3gvZ3B2T2xzUDNBamgvU3NsUUk5TGlCbHQwTkNvM1dj?=
- =?utf-8?B?Yy9JaWlCck5mbHgzc2dTdEtxL0wrVTFEUVZudnk2SHBoVnJQZVE5cHpBUnpy?=
- =?utf-8?B?SVhvcEhnTnhvVVJUak44RzZsOXBqb2NwMFZmclFpRzFmSGpzb0VMMm5yRDJp?=
- =?utf-8?B?R2JzUDJmTnl4NmxyZVRjMjBxb0N3b1hZQ0FPN08zN05lUWVKRFU3RGhwcDBR?=
- =?utf-8?B?WmUyTFFBY1JCckNwZFNZZjNDQUk3eXFsUzBEem5mNE0xUGlPcFhyaEhTMzdv?=
- =?utf-8?B?MWZWVFNhRWJmT2U3ZzRUVEJGVVlIZmh0K3kyMTlJY25rMkFZMC83cXhSOXpF?=
- =?utf-8?B?YzlUaHBOdjV6dTRpaEJTL3lvcGJVVjFNNDZvc2dCeUJlV2QwWWQ2aW9uc3N5?=
- =?utf-8?B?ak1TYlFTQnU5RDY1blk1eGZBc2djYlkwQ0hyWG1wQjdWK2xPWFpCQ08zSllR?=
- =?utf-8?B?djJCb2dQZS85ekh2cVV4TnNjdFRYMEQxbm5KdEdadjdxaWFVcDVmV0puTEdz?=
- =?utf-8?B?SU1WOWtCY3g2QnBTSStiKzQ3Rm1Vbk9kWHFvK1BJMG9lMCs5WStFTUxHdVdS?=
- =?utf-8?B?aUNKdXcvMTFldi9ydGZUR3duTXlwUlFnMS9hZWRtSFprNFN1cTVEREdmUVVj?=
- =?utf-8?B?VWFQazUwQ1ZtTnJwMkMrcmNZVGVPVUZrQW54aEQ5STZoa09LanU4L3Z3czU5?=
- =?utf-8?B?TkRTekdqSmRKM2pKNWtxaFJmeWt3T3llR05KS2ZrM0QwQnNIQ3QvYTU1VUtE?=
- =?utf-8?B?ZGZqaVNiU2lyNTVVUFlrYUNsb1BqbWNLNXR2Z1VNU0haTktqRktWb055SmN1?=
- =?utf-8?B?MHdlcVpSUSt6eitUdXJHcTJkdmVFNGpVYndGcnFBRkFUTDFOZ0RObVkwUElZ?=
- =?utf-8?Q?sQDI13z8EeHoKED9+r?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXJ6MVF1QlRqTWhrU2d2V044K3U4QTNkSVc0S3Zucm9aOWpIT2xtTlRFbDN4?=
+ =?utf-8?B?b3FPT0M4dUhVaVBiVm0wcXZzUzdRaHM2QlMwQjZUNnJpRm9aNWlBL0pXMWwr?=
+ =?utf-8?B?VERiMVdvdWZMM1FUNTlRK0pqUHFGY3hyRUF0MVcrb2dEU0tLWm8wQ0xzUVpS?=
+ =?utf-8?B?a2RJclhrUUZjL3hsU0RLclJNQ3hKdS9TMU82UHVPcnBhL1JQQ0ZNeDVNdldK?=
+ =?utf-8?B?aTByZFpGUVhrSS9XKytqclRBdi9kWkI4OUVvT0YrRkV4a2E0NGpoVlI3WFJY?=
+ =?utf-8?B?YkhQV3dqMVc1SzMyTTZDbWJFc2thMnY4NWJ2VkxJb0JuMmlhUS9BK3dRS3hk?=
+ =?utf-8?B?VG1UV3FXemRQcHZCa1FHVWNUUjRiTDQxd2ZqcDlsLy9hYnJHYWUreGpLU0ln?=
+ =?utf-8?B?SFgwbUJNUlNmSnZxZUxPbHgzTXZ5WVBWT3loR1ViQ0F6TlhqdU9seThtTEVt?=
+ =?utf-8?B?d25sZVhwcU4yV29aV0lVVlVUT0ZkVzZPMi9XSHJRWnVSUnVRem41YStaNVNl?=
+ =?utf-8?B?cTBiOXk1TmhLMXFjNkR2WkhicGdzVkdIZkxIajRoSVZwNUhMU2tWcWxVVXFY?=
+ =?utf-8?B?TmZteE1VOWRZYlQ0RXBDNS9PZHgyVzkzT2JVQkNYdFJNbEVocXF5aWVZRDFm?=
+ =?utf-8?B?UlNlRERPOGRXK0l4VXl1anJRZnRodDdIU3Z3QTcvSElpNmRkWDZEc2g1bHE1?=
+ =?utf-8?B?RXQrZStUN1c2TWwxdHhtWjQyR3RySWU0Z1FqK0NSRVhFSnBsNHExOVJGNXdC?=
+ =?utf-8?B?MGg4dmU4d2t6aGdydTJwK3Jqc0h3aFZRRDlxNGFHQnRrRTVRMWJWelJnanJR?=
+ =?utf-8?B?THdsNU5XNzhwbTRIeHpaT0xFelJMb0dnbnZqa3YwQ1ZCZFA5cjJiK21xaEoz?=
+ =?utf-8?B?QisrUGNWUFY1blozbm55azRlKzRXUlZvVlNjRCtoNkhWV0xqT0QyNm9waVIv?=
+ =?utf-8?B?TTFURTV1ZDF6YmM5L045L2t4bHJyTUQzUzVYSXdESXpKd3J3Vi9tRmFEcmw3?=
+ =?utf-8?B?dkJtdFU1Yzd4c2ppYXlqblh1RHJTSlRYMm5ib2tkazNlUTExQzBqamJ5RDBT?=
+ =?utf-8?B?a0Fjc0toWFpITmtiYWt5R0NZWng3YXhIRmwyajFpM1JyQ0VNNk5VWWJwT1hj?=
+ =?utf-8?B?ZytLTnZKWHFpRnA5Ry9xVkY0MnNwbEhFVmswbSszRDFRaGFZSkdDNlIzWEpj?=
+ =?utf-8?B?Yy94MzB0ZG45OUU4YjkyQ0tCaHgrYWJXRmJHcmJZWmZyUEx2ZFIyUzJOUmE3?=
+ =?utf-8?B?SkFaR0FRK1prUGREbTBHVjB3NUdjRnMxR2MzanptbXN1WHJWYkh2cDZseFI3?=
+ =?utf-8?B?N2c5Ri9Lc2dNdSttZVRxVFdwdXM2VzlRaU5uY3NFRGx5cEd6YzZpaGtxYi9D?=
+ =?utf-8?B?a2xBREcrYVVXZUp3MFR5Vk5OUEkyd2w3R0lqZ1liaTU3NVVNRmZVbjk2QURI?=
+ =?utf-8?B?Q1A3NU9uZFBQQk5RekhlTnNGMllxUFFwV0J2R3R0WXExcXRpSHNhcEY2b2Zh?=
+ =?utf-8?B?aXlaMkh3SFU4S012alpYNGR0dVB5eTNyT1ZBOGVVSDlwVHJWOVNYNWx0bWdk?=
+ =?utf-8?B?V3FQdU5maEVDa2lFZllPci91akpFOG03ZWJKSCtzNGk1bzRFbWJFK3pqdVJD?=
+ =?utf-8?B?aW9qWVEwd3FNNDdUL1JSZXpmc1Z2WXhjOXZyb2lTZGM5Qk5JTW1QV1k1MWtT?=
+ =?utf-8?B?aTJiL2JDa3FJQXQvZGk2S0tmS1M0MlF1azJiQnBTcTdjNUU2cDBpUjBQVHBw?=
+ =?utf-8?B?bjgvR2NXWHVKVzdiSUFScGxIMmhWMWp5ei91RHhuSkV1MnhaZHZUQnVBSmNB?=
+ =?utf-8?B?ZllYNUU4QkxTSDdhODhNZTc2azNPY09iNHVRRm02ZnYwQ1lOTUVRSUYyS01x?=
+ =?utf-8?B?cTBHeUY1NW1xUTRncllyNnpOVHhlS1hRMlpJa0FCSm4ycWt1TzAveHdJOXVW?=
+ =?utf-8?B?S1RuRFJLUGlZR2RLVmV5VHpGaHpxSlRQOEd6eWpidVlCaVR0d2tuU1Vib0VY?=
+ =?utf-8?B?MTRTWllSSmVNUEhqUjYvWGlPcVFZcWkvb2FtZmEyV1lqUlhrejNMMHdKVlFG?=
+ =?utf-8?B?NE1mRExGSkVrM2NZZHFPaEErSTE5eHVnVTRjdEdqNFhYR0l2ZjBJNGZWcC8w?=
+ =?utf-8?B?WWRVQmNtYlhKaGRmREhsSUFmUTJVS2dFZjM2R2lQTHJHQzMxZ21FTFdGUWVr?=
+ =?utf-8?B?WlExZEJjaEpiN1FGTUxJUG1DWFlHekIrVVFvL3NSOWsvUDgvM3JkRFVZRnhh?=
+ =?utf-8?B?MjdhV2FHQnJraGNFWEF4NkRRR09ITWJvZWtycnlLdW5uTG8rNkpybHpvb0ZF?=
+ =?utf-8?Q?jWDzXzNZxqNNIwNIpb?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6c088d2-c819-4d1a-3009-08ded81159e1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d81ce59-9750-404e-42af-08ded8117588
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 08:10:17.0101 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 08:11:03.2845 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ec+j6NFQy5qNYJD9FlW/LC+UCMh60obLWtPEojD89X47WguILk01bJt+lw785she
+X-MS-Exchange-CrossTenant-UserPrincipalName: S9kQCtvbQ0xYOvrsBTYkfPn/5iGlltJL9HQQ9Yj/I2kYr7DG/P/jH/cuAldhRabJ
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,233 +145,109 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 7/1/26 18:17, Timur Kristóf wrote:
-> Enable retry fault interrupts when initializing the GFXHUB
-> system aperture registers according to whether retrying
-> page faults is enabled in amdgpu (ie. amdgpu.noretry=0).
-> 
-> Needs to be done for each GFXHUB version at once,
-> because none of them actually enabled this interrupt.
-
-Thinking more about it we are clearly missing something here. The retry fault interrupt itself should be enabled all the time.
-
-IIRC only the RETRY_PERMISSION_OR_INVALID_PAGE_FAULT bit in the VM_CONTEXT0_CNTL register should be set or cleared by the kernel driver or firmware to control if the HW retries the access or not.
-
-Regards,
-Christian.
-
+> The soft IH ring is implemented entirely in software.
+> We shouldn't read (or write) any HW registers when accessing it.
 > 
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c   | 9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c    | 9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c    | 2 ++
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    | 9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c    | 9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  | 9 +++++++--
->  8 files changed, 51 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 7 +++++++
+>  drivers/gpu/drm/amd/amdgpu/ih_v6_1.c   | 7 +++++++
+>  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c   | 7 +++++++
+>  drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 4 ++++
+>  4 files changed, 25 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> index 652eea6eae4a..ef20eafd59ae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> @@ -155,6 +155,7 @@ static void gfxhub_v11_5_0_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v11_5_0_init_system_aperture_regs(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> index 333e9c30c091..65e5d21753f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> @@ -439,6 +439,10 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev,
+>  	struct amdgpu_ih_regs *ih_regs;
+>  
+>  	wptr = le32_to_cpu(*ih->wptr_cpu);
+> +
+> +	if (ih == &adev->irq.ih_soft)
+> +		goto out;
+> +
+>  	ih_regs = &ih->ih_regs;
+>  
+>  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> @@ -514,6 +518,9 @@ static void ih_v6_0_set_rptr(struct amdgpu_device *adev,
 >  {
->  	uint64_t value;
-> +	u32 tmp;
+>  	struct amdgpu_ih_regs *ih_regs;
 >  
->  	WREG32_SOC15(GC, 0, regGCMC_VM_AGP_BASE, 0);
->  	WREG32_SOC15(GC, 0, regGCMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-> @@ -180,8 +181,12 @@ static void gfxhub_v11_5_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  		     (u32)((u64)adev->dummy_page_addr >> 44));
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>  	if (ih->use_doorbell) {
+>  		/* XXX check if swapping is necessary on BE */
+>  		*ih->rptr_cpu = ih->rptr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> index 699c274d357e..9dbc20131410 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+> @@ -410,6 +410,10 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev,
+>  	struct amdgpu_ih_regs *ih_regs;
 >  
-> -	WREG32_FIELD15_PREREG(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> -		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = RREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  }
+>  	wptr = le32_to_cpu(*ih->wptr_cpu);
+> +
+> +	if (ih == &adev->irq.ih_soft)
+> +		goto out;
+> +
+>  	ih_regs = &ih->ih_regs;
 >  
->  static void gfxhub_v11_5_0_init_tlb_regs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> index 6cbf837d50dd..ec3ff4dec674 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c
-> @@ -158,6 +158,7 @@ static void gfxhub_v12_0_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v12_0_init_system_aperture_regs(struct amdgpu_device *adev)
+>  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> @@ -481,6 +485,9 @@ static void ih_v6_1_irq_rearm(struct amdgpu_device *adev,
+>  static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
+>  			       struct amdgpu_ih_ring *ih)
 >  {
->  	uint64_t value;
-> +	u32 tmp;
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>  	struct amdgpu_ih_regs *ih_regs;
 >  
->  	/* Program the AGP BAR */
->  	WREG32_SOC15(GC, 0, regGCMC_VM_AGP_BASE, 0);
-> @@ -184,8 +185,12 @@ static void gfxhub_v12_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  		     (u32)((u64)adev->dummy_page_addr >> 44));
+>  	if (ih->use_doorbell) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> index 6de9e87e04e1..bd332e8cc5bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+> @@ -457,6 +457,10 @@ static u32 ih_v7_0_get_wptr(struct amdgpu_device *adev,
+>  	struct amdgpu_ih_regs *ih_regs;
 >  
-> -	WREG32_FIELD15_PREREG(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> -		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = RREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  }
+>  	wptr = le32_to_cpu(*ih->wptr_cpu);
+> +
+> +	if (ih == &adev->irq.ih_soft)
+> +		goto out;
+> +
+>  	ih_regs = &ih->ih_regs;
 >  
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> index bfe247b1a333..27d7f7cb903f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> @@ -91,6 +91,7 @@ static void gfxhub_v1_0_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+>  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+> @@ -527,6 +531,9 @@ static void ih_v7_0_set_rptr(struct amdgpu_device *adev,
 >  {
->  	uint64_t value;
-> +	u32 tmp;
+>  	struct amdgpu_ih_regs *ih_regs;
 >  
->  	if (!amdgpu_sriov_vf(adev) || adev->asic_type <= CHIP_VEGA10) {
->  		/* Program the AGP BAR */
-> @@ -134,8 +135,12 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  		WREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  			     (u32)((u64)adev->dummy_page_addr >> 44));
+> +	if (ih == &adev->irq.ih_soft)
+> +		return;
+> +
+>  	if (ih->use_doorbell) {
+>  		/* XXX check if swapping is necessary on BE */
+>  		*ih->rptr_cpu = ih->rptr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index 4cd325149b63..e7ed37bb48e0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -417,6 +417,10 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
+>  		 */
+>  		wptr = le32_to_cpu(*ih->wptr_cpu);
 >  
-> -		WREG32_FIELD15(GC, 0, VM_L2_PROTECTION_FAULT_CNTL2,
-> -			       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +		tmp = RREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_CNTL2);
-> +		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL2,
-> +					 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL2,
-> +					 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +		WREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_CNTL2, tmp);
+> +		if (ih == &adev->irq.ih_soft)
+> +			goto out;
+> +
+> +
+>  		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
+>  			goto out;
 >  	}
->  
->  	/* In the case squeezing vram into GART aperture, we don't use
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> index fbdf46070b38..ed9a64bc5aaa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> @@ -176,6 +176,8 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(struct amdgpu_device *adev,
->  			tmp = RREG32_SOC15(GC, GET_INST(GC, i), regVM_L2_PROTECTION_FAULT_CNTL2);
->  			tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL2,
->  					    ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +			tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL2,
-> +					    ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
->  			WREG32_SOC15(GC, GET_INST(GC, i), regVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  		}
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> index 9ea593e2c719..152b2735d360 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
-> @@ -151,6 +151,7 @@ static void gfxhub_v2_0_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  {
->  	uint64_t value;
-> +	u32 tmp;
->  
->  	if (!amdgpu_sriov_vf(adev)) {
->  		/* Program the AGP BAR */
-> @@ -178,8 +179,12 @@ static void gfxhub_v2_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  		     (u32)((u64)adev->dummy_page_addr >> 44));
->  
-> -	WREG32_FIELD15(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> -		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL2);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  }
->  
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> index 30b90d35abd0..83c2ddbbd292 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-> @@ -154,6 +154,7 @@ static void gfxhub_v2_1_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)
->  {
->  	uint64_t value;
-> +	u32 tmp;
->  
->  	if (amdgpu_sriov_vf(adev))
->  		return;
-> @@ -182,8 +183,12 @@ static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)
->  	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  		     (u32)((u64)adev->dummy_page_addr >> 44));
->  
-> -	WREG32_FIELD15(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> -		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL2);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  }
->  
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> index 9e6a6e13dec0..90bbb2fe4884 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> @@ -150,6 +150,7 @@ static void gfxhub_v3_0_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  {
->  	uint64_t value;
-> +	u32 tmp;
->  
->  	/* Program the AGP BAR */
->  	WREG32_SOC15(GC, 0, regGCMC_VM_AGP_BASE, 0);
-> @@ -176,8 +177,12 @@ static void gfxhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
->  	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  		     (u32)((u64)adev->dummy_page_addr >> 44));
->  
-> -	WREG32_FIELD15_PREREG(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> -		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = RREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  }
->  
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> index b3b1085c7cd3..1b3c067ab48c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> @@ -153,6 +153,7 @@ static void gfxhub_v3_0_3_init_gart_aperture_regs(struct amdgpu_device *adev)
->  static void gfxhub_v3_0_3_init_system_aperture_regs(struct amdgpu_device *adev)
->  {
->  	uint64_t value;
-> +	u32 tmp;
->  
->  	if (amdgpu_sriov_vf(adev))
->  		return;
-> @@ -181,8 +182,12 @@ static void gfxhub_v3_0_3_init_system_aperture_regs(struct amdgpu_device *adev)
->  	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
->  		     (u32)((u64)adev->dummy_page_addr >> 44));
->  
-> -	WREG32_FIELD15_PREREG(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> -		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = RREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-> +	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL2,
-> +				 ENABLE_RETRY_FAULT_INTERRUPT, !adev->gmc.noretry);
-> +	WREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL2, tmp);
->  }
->  
->  
 
