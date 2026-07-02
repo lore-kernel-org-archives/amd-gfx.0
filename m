@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC52C44501
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56202C43602
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA0C10F687;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1FC710F688;
 	Fri,  3 Jul 2026 07:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="kxGeIi2i";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H5shq5kP";
 	dkim-atps=neutral
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC7610F4DD;
- Thu,  2 Jul 2026 16:29:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1783009480; bh=YuJVkhEfcgaku4wOWS2SXkCc3/Q3CpYqNBhzmDhas60=;
- h=Date:In-Reply-To:References:Subject:From:To:Cc:From;
- b=kxGeIi2i5d+7183oVQFPlU5HR5zElNsysUWUX15VK+2bpHCaVuK5+xqdIOCMQPd/O
- doqppXRegZ3Wz9TiPB/GnC6D2l9mhTCcFJALiMFVdvo9IiDsJK7MDwT9DHlqzoNh4r
- cvSdKk4CXDng/MuCmctHz4jxY3t7mdCTKO/CQ7CkCA4pXwBsulPIr0wtdprmFJaB0G
- nl2BAJlCyNP+2ceOdFlpCYzv0fu2ivJQ8l8q6yCQUfLjsV1E/XYAxEfNlKCiDxBat0
- xyeXkXLGC+7vLCTbLkzpNm1HK5eeP7XtAu67QJjhX+mdxa15HNrFqBVuEWQSZ1hktQ
- 8ghJX7fK+c9Dw==
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzr1yCgzKq;
- Thu, 02 Jul 2026 18:24:40 +0200 (CEST)
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 1.4.3 at mail
-Date: Thu, 02 Jul 2026 18:24:40 +0200
-Message-ID: <df3064b3a250a694e39adedd96b9f2133eb3dcf6.1783009338.git.mirq-linux@rere.qmqm.pl>
-In-Reply-To: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-References: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-Subject: [PATCH 2/5] drm/amd/pm/smu7: make SMU message reports more readable
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E348E10F376;
+ Thu,  2 Jul 2026 13:02:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=eQ01zZl7CA9tZ/G/ueOCdHz/Z0lI9e7IYSPPzuvxq8o=; b=H5shq5kPuHqc57yPmlcclbwDLf
+ PPAcMPdrqnXDm/iguk5LONL4SRfrwC6G1KaBcYzvUtdXkHtDPLZOlZogVL8ngj5pySwi74vUt1d7V
+ eNkAr+fSoqbnaHgerEKiPD7KAYO782IpulSlZBzbGOJMha62qNv2umvCuEZhmqKLMiIb9CbR67GzB
+ pdY3ji51YlUfPGlrHqla6SqDPuxdroSnEQdZKL2MVVAubVARuiIc0NNv9Twio9pf0qP+tZl6bvtn7
+ qrZu8i+iaUm+ctuT7ORQOX3vBIisXrd5UlDqR5WtxtZLVAr3oEAk0eyP87aaXebWInAFZN9gzYo2O
+ Tutcir6Q==;
+Received: from [179.125.94.247] (helo=quatroqueijos.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wfH3c-0082Ji-GS; Thu, 02 Jul 2026 15:02:21 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v2 6/7] lib/amdgpu: add amdgpu support to igt_dmem_driver
+Date: Thu,  2 Jul 2026 10:00:57 -0300
+Message-ID: <20260702130108.1397444-7-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260702130108.1397444-1-cascardo@igalia.com>
+References: <20260702130108.1397444-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:06:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,46 +68,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make the lines greppable by removing an extra EOL and report the
-status only once - after the reply is detected.
+This allows dmem cgroups tests to run on top of amdgpu driver, adding
+support to allocate and release VRAM memory.
 
-Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+This does this by allocating a BO from VRAM domain, which will try to
+place BOs on VRAM, but may fallback to GTT.
+
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- .../gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c   | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
+ lib/amdgpu/amd_dmem.c | 99 +++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_dmem_driver.h |  1 +
+ lib/meson.build       |  1 +
+ 3 files changed, 101 insertions(+)
+ create mode 100644 lib/amdgpu/amd_dmem.c
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-index 0d4cbe4113a0..ffe3ce87d907 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-@@ -134,14 +134,6 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
+diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
+new file mode 100644
+index 000000000000..5ff6437dc78a
+--- /dev/null
++++ b/lib/amdgpu/amd_dmem.c
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "lib/amdgpu/amd_memory.h"
++
++struct amdgpu_dmem_ctx {
++	int fd;
++	amdgpu_device_handle device;
++	amdgpu_bo_handle *handles;
++	int max_bo;
++};
++
++static int amdgpu_dmem_init(void **ctx, int fd, int max_bo)
++{
++	struct amdgpu_dmem_ctx *actx;
++	uint32_t major, minor;
++	int err = -ENOMEM;
++
++	actx = malloc(sizeof(*actx));
++	if (!actx)
++		return -ENOMEM;
++
++	actx->handles = calloc(max_bo, sizeof(actx->handles[0]));
++	if (!actx->handles)
++		goto out;
++
++	actx->max_bo = max_bo;
++
++	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
++	if (err)
++		goto out;
++
++	*ctx = actx;
++
++	return 0;
++
++out:
++	if (actx->handles)
++		free(actx->handles);
++	free(actx);
++
++	return err;
++}
++
++static void amdgpu_dmem_deinit(void *ctx)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++
++	amdgpu_device_deinitialize(actx->device);
++	free(actx->handles);
++	free(actx);
++}
++
++static int amdgpu_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	amdgpu_bo_handle handle;
++	int err;
++
++	if (n_bo >= actx->max_bo)
++		return -ENOMEM;
++
++	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
++				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
++	if (err)
++		return err;
++
++	actx->handles[n_bo] = handle;
++
++	return 0;
++}
++
++static void amdgpu_dmem_free_vram(void *ctx, int n_bo)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	if (n_bo >= actx->max_bo)
++		return;
++	if (actx->handles[n_bo])
++		amdgpu_bo_free(actx->handles[n_bo]);
++	actx->handles[n_bo] = 0;
++}
++
++const struct igt_dmem_driver amdgpu_dmem_driver = {
++	.name = "amdgpu",
++	.get_region_name = amdgpu_cgroup_region_name,
++	.init = amdgpu_dmem_init,
++	.deinit = amdgpu_dmem_deinit,
++	.allocate_vram = amdgpu_dmem_allocate_vram,
++	.free_vram = amdgpu_dmem_free_vram,
++};
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+index 2f4a4673ab16..d34c839740a5 100644
+--- a/lib/igt_dmem_driver.h
++++ b/lib/igt_dmem_driver.h
+@@ -20,5 +20,6 @@ struct igt_dmem_driver {
+ };
  
- 	PHM_WAIT_FIELD_UNEQUAL(hwmgr, SMC_RESP_0, SMC_RESP, 0);
+ extern const struct igt_dmem_driver xe_dmem_driver;
++extern const struct igt_dmem_driver amdgpu_dmem_driver;
  
--	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
--
--	if (ret == 0xFE)
--		dev_dbg(adev->dev, "last message was not supported\n");
--	else if (ret != 1)
--		dev_info(adev->dev,
--			"\nlast message was failed ret is %d\n", ret);
--
- 	cgs_write_register(hwmgr->device, mmSMC_RESP_0, 0);
- 	cgs_write_register(hwmgr->device, mmSMC_MESSAGE_0, msg);
- 
-@@ -150,10 +142,9 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
- 	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
- 
- 	if (ret == 0xFE)
--		dev_dbg(adev->dev, "message %x was not supported\n", msg);
-+		dev_dbg(adev->dev, "SMU message %#x was not supported\n", msg);
- 	else if (ret != 1)
--		dev_dbg(adev->dev,
--			"failed to send message %x ret is %d \n",  msg, ret);
-+		dev_info(adev->dev, "SMU message %#x failed: response is %d\n", msg, ret);
- 
- 	return 0;
- }
+ #endif
+diff --git a/lib/meson.build b/lib/meson.build
+index 04fe5755c82c..6bf9d0d9cb74 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -199,6 +199,7 @@ if libdrm_amdgpu.found()
+ 		'amdgpu/amd_mmd_shared.c',
+ 		'amdgpu/amd_jpeg_shared.c',
+ 		'amdgpu/amd_utils.c',
++		'amdgpu/amd_dmem.c',
+ 		'amdgpu/amd_vcn_shared.c'
+ 	]
+ 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
 -- 
 2.47.3
 
