@@ -4,77 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78C8C44508
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3DFC4450A
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:06:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC5410F68E;
-	Fri,  3 Jul 2026 07:06:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAFF10F691;
+	Fri,  3 Jul 2026 07:06:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="nKWXUQN4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rL6t+TrJ";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D180110E3CB
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 21:22:16 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c9fe3c9bd5fso224809a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jul 2026 14:22:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1783027336; x=1783632136; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ci4TsIpsFBWZiwc0p2U/RGPCdbH0GqNhcemalrzwhh0=;
- b=nKWXUQN4JZcvR1L/bUUxnoIY4e8IKFFNcInTVWLLAAEmLTdRvKOTQ7UkR7bl3ZzUgO
- WhzNSnjBmktJD/2BjVeTDdcDuenSXYK/wVCp34uBxC1RJtbQIedENjwWtQuvz6Qf7+iP
- DdXai1HsjQv6xVS7Kgp9eUA/RQFZl7thvvgOG96uBzybRx/JJ9QYP75J5lOi4vSSptNc
- jsY4CQEQQ/PruM6qTtFfvHrKMYlOHdvb2SO9O+n10NEMd/fXmyh292AayacLCbdw8pgP
- ROcjC32Gif7Fq6kBEYTOhYlpa1PVMD1dx/Zj6FJtzBQCJnmp4NlcIkkXsgDtk4yhKHt0
- EG3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783027336; x=1783632136;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ci4TsIpsFBWZiwc0p2U/RGPCdbH0GqNhcemalrzwhh0=;
- b=lMGyFUwsF+nHBm/0D3phM17HZa9m2sMiGbPjzz89ly67QdTeSovX1OtP6DIpqeCLKs
- CSknbU9Wo2Vd2RqSho8CdBZZjXat++SMBRSolViNkBwdj1cJCfXBF/Vp07NWnilnvnzI
- o03t/gjAccqGWtmJPXJPhvzRvnTwIGRISZFIy/CQ2ODAivcBd9SRFG5R3bRgR6CiK2vc
- MNyq+gy6NlUxbjGPd5tB59bTbuCbbZFD+j9nTlTfTiUeB9qo+AWBkx0oYfb/E2U3kQGR
- tcWngVUTXzLuKVCLd8KuDKpgn3Mj8Y6eq0XfPVPdpmkGb5q9CAJMEQIuobM9PgM6ANRE
- X2Rw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8fqo/gceO6uK+m+YA2WQT2A7+1Eyj7F2kKPLDaEocP6VGYkWHKXG5/FG+Co6TG2eUGocsvgWV5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzy9R08W9hlTwAU8u5rCsI0jbyhL9tHKGCDl/P1/x3msWy7pDFp
- tvVGxiY19KzoyCZ+jssjLW6RNhLMJeduzKbPBac59Vkzxepn6cWMRLS/zZpLItVj7QRHlB6skJD
- qkJgpTFwsWw==
-X-Gm-Gg: AfdE7cmjIeFfMVmE3Zg1clAy45ZcVkJykZUtFZ/FdqxQT33azKZU6wnHo3EN9olD8gZ
- 3gfOXFZuhnF1KeKmjJGQLGm1h1D7GtfaVfGnVnw2VyfBjNmXej7FN9mmBD8JJ4RQt3ESvtRmnma
- 7NIhPrp/h0WttpsxeXgFEGSHMJSesIKziR4HFamEJMlosQnBUBi2nlcOsVyle0wUX44LFPleSX5
- x2kwA4lQXorfD/HWi588jUoL5tYAT4FQ2pkiB1Hl1kg0g65Jfrzna3w/babaBoz6s6Hv0DzxQ5x
- NA6f4ekUKYFXbjFFJHxYGRy8YyAUvgQeO6Vo4l35rHpljpuLs80qEdwz9w84UEnnBpnZrrADRlA
- HE4pypuKlWxWyVlSACIOw0r719zJJSNvEOHLn5zbs/Qma6FE0JWrjKKDDn+jAq4TZj+0azRs3XD
- WrZ5caOOjD18lg7eDQXUIN0lECj3TRcg==
-X-Received: by 2002:a05:6a21:468a:b0:3bf:9e85:b423 with SMTP id
- adf61e73a8af0-3c01cbdab60mr1649143637.34.1783027335648; 
- Thu, 02 Jul 2026 14:22:15 -0700 (PDT)
-Received: from todd.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f0b7b9a1bsm12845618eec.3.2026.07.02.14.22.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 14:22:15 -0700 (PDT)
-From: Ulisses Paixao <ulissespaixao@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Ulisses Paixao <ulissespaixao@usp.br>, Felipe Sousa <felipesousa@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v5] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
- gfx_v12
-Date: Thu,  2 Jul 2026 18:22:04 -0300
-Message-Id: <20260702212204.12171-1-ulissespaixao@usp.br>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <d3bbb2cb-f073-4518-8f59-48619eb124df@amd.com>
-References: 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F26CF10F361;
+ Thu,  2 Jul 2026 13:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ANM+eSpahzqvwTWIXh7CuP5Wcj+NwCM3k9v5P8p6HW0=; b=rL6t+TrJA8En0CEtD+pSZoNrNm
+ U+ecUgCAGQbNY2wu+zS2COt07bPY/IHPaK0Axyr3pFhi/CjdUynvk4yzqUnayDv2ym9aIDh+vC0pW
+ ASR36bShjQfl1cUjZM8ZJpap8QnEMvwq814u8Bk+9LDT1XaZ2dsfAfBxyamPg9faLorqdod81gemr
+ TptXUNhrvTtc53gYP5l2+fIpg5Zt9/91cuY7Z1SbA/7Z7HhCXBkHGkzds1ILRRHfXxH3Sns2pnXZY
+ pEKCq1+VvAuRy3J8g7ewS969lzKpX/ge0mPfKb6bJYTuFksADNx/V/kBXUogW7RRWbfJuupwa3S1F
+ dq4T/tvg==;
+Received: from [179.125.94.247] (helo=quatroqueijos.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wfH3L-0082Ji-Ft; Thu, 02 Jul 2026 15:02:04 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v2 3/7] lib/xe: add xe_cgroup_region_name() helper
+Date: Thu,  2 Jul 2026 10:00:54 -0300
+Message-ID: <20260702130108.1397444-4-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260702130108.1397444-1-cascardo@igalia.com>
+References: <20260702130108.1397444-1-cascardo@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -93,190 +69,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The functions gfx_v11_0_handle_priv_fault and
-gfx_v12_0_handle_priv_fault share the same logic for searching and
-triggering a scheduler fault on a ring. This patch moves the shared
-ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
-in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
-the version-specific files to maintain proper architectural separation.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
-Co-developed-by: Felipe Sousa <felipesousa@usp.br>
-Signed-off-by: Felipe Sousa <felipesousa@usp.br>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Add xe_cgroup_region_name(fd, region) which constructs the dmem cgroup
+region path for a given xe memory region.  The returned string has the
+form "drm/<pci-slot>/<region>" (e.g. "drm/0000:03:00.0/vram0"),
+matching the name registered by the kernel via drmm_cgroup_register_region().
+
+Only VRAM regions are tracked by the dmem controller; system and stolen
+memory regions return NULL.
+
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
-v5:
-Return early on adv->gfx.disable_kq check.
+ lib/xe/xe_query.c | 32 ++++++++++++++++++++++++++++++++
+ lib/xe/xe_query.h |  2 ++
+ 2 files changed, 34 insertions(+)
 
-v4:
-Restore the adev->gfx.disable_kq check to prevent falsely triggering
-scheduler faults on idle kernel rings when MES is managing user queues.
-
-v3:
-Return early if the ring is found in the gfx rings loop.
-
-v2:
-Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
-Remove the redundant check for adev->gfx.disable_kq.
-Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
-all gfx and compute rings without a switch statement.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 40 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 27 +----------------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +----------------
- 4 files changed, 44 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b8ca87669..47e06a585 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -830,6 +830,46 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
- 	return r;
+diff --git a/lib/xe/xe_query.c b/lib/xe/xe_query.c
+index 68e60ddc75a2..e2b25be21140 100644
+--- a/lib/xe/xe_query.c
++++ b/lib/xe/xe_query.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <fcntl.h>
++#include <limits.h>
+ #include <stdlib.h>
+ #include <pthread.h>
+ 
+@@ -21,6 +22,7 @@
+ 
+ #include "drmtest.h"
+ #include "igt_debugfs.h"
++#include "igt_device.h"
+ #include "ioctl_wrappers.h"
+ #include "igt_map.h"
+ #include "intel_common.h"
+@@ -1304,6 +1306,36 @@ int xe_query_eu_thread_count(int fd, int gt)
+ 		xe_hwconfig_lookup_value_u32(fd, INTEL_HWCONFIG_NUM_THREADS_PER_EU);
  }
  
 +/**
-+ * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
++ * xe_cgroup_region_name() - Build the dmem cgroup region name for an xe memory region.
++ * @fd: xe device fd.
++ * @region: Region mask (as used by xe_mem_region(), xe_region_name(), etc.).
 + *
-+ * @adev: amdgpu_device pointer
-+ * @me_id: micro-engine ID of the faulty ring
-+ * @pipe_id: pipe ID of the faulty ring
-+ * @queue_id: queue ID of the faulty ring
++ * Constructs the full dmem cgroup region path for @region on the device
++ * identified by @fd.  The returned string has the form
++ * ``drm/<pci-slot>/<region>`` (e.g. ``drm/0000:03:00.0/vram0``), matching
++ * the name registered by the kernel driver via drmm_cgroup_register_region().
 + *
-+ * This function handles privileged instruction faults by identifying
-+ * the faulty ring (gfx or compute) and triggering a scheduler fault
++ * Only VRAM regions are registered with the dmem controller; passing a
++ * system-memory region returns %NULL.
++ *
++ * Return: A newly allocated string that the caller must free(), or %NULL if
++ * @region is not tracked by the dmem cgroup controller.
 + */
-+void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-+					u8 me_id, u8 pipe_id, u8 queue_id)
++char *xe_cgroup_region_name(int fd, uint64_t region)
 +{
-+	struct amdgpu_ring *ring;
-+	int i;
++	char pci_slot[NAME_MAX];
++	char *name;
 +
-+	/* The scheduler only handles kernel queues so this is a no-op 
-+	without them. */
-+	if (adev->gfx.disable_kq) {
-+		return;
-+	}
++	if (xe_region_class(fd, region) != DRM_XE_MEM_REGION_CLASS_VRAM)
++		return NULL;
 +
-+	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
-+		ring = &adev->gfx.gfx_ring[i];
-+		if (ring->me == me_id && ring->pipe == pipe_id &&
-+		    ring->queue == queue_id) {
-+			drm_sched_fault(&ring->sched);
-+			return;
-+		}
-+	}
-+	
-+	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-+		ring = &adev->gfx.compute_ring[i];
-+		if (ring->me == me_id && ring->pipe == pipe_id &&
-+		    ring->queue == queue_id)
-+			drm_sched_fault(&ring->sched);
-+	}
++	igt_device_get_pci_slot_name(fd, pci_slot);
++
++	igt_assert(asprintf(&name, "drm/%s/%s", pci_slot, xe_region_name(region)) > 0);
++	return name;
 +}
 +
- static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
- 				   bool no_delay)
+ igt_constructor
  {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index a0cf0a3b4..0b2f6ce85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -611,6 +611,8 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *adev,
- 						struct amdgpu_ring *ring);
- bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
- 				    int pipe, int queue);
-+void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-+					u8 me_id, u8 pipe_id, u8 queue_id);
- void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
- void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 2c6f1e25c..888c9f3c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -6688,37 +6688,12 @@ static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
- 					struct amdgpu_iv_entry *entry)
- {
- 	u8 me_id, pipe_id, queue_id;
--	struct amdgpu_ring *ring;
--	int i;
+ 	xe_device_cache_init();
+diff --git a/lib/xe/xe_query.h b/lib/xe/xe_query.h
+index 59330d80fd1b..a6ef9cab9aa1 100644
+--- a/lib/xe/xe_query.h
++++ b/lib/xe/xe_query.h
+@@ -206,4 +206,6 @@ void xe_device_put(int fd);
+ int xe_query_eu_count(int fd, int gt);
+ int xe_query_eu_thread_count(int fd, int gt);
  
- 	me_id = (entry->ring_id & 0x0c) >> 2;
- 	pipe_id = (entry->ring_id & 0x03) >> 0;
- 	queue_id = (entry->ring_id & 0x70) >> 4;
- 
--	if (!adev->gfx.disable_kq) {
--		switch (me_id) {
--		case 0:
--			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
--				ring = &adev->gfx.gfx_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		case 1:
--		case 2:
--			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--				ring = &adev->gfx.compute_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		default:
--			BUG();
--			break;
--		}
--	}
-+	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
- }
- 
- static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 6baac533a..3f0d29372 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -5019,37 +5019,12 @@ static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
- 					struct amdgpu_iv_entry *entry)
- {
- 	u8 me_id, pipe_id, queue_id;
--	struct amdgpu_ring *ring;
--	int i;
- 
- 	me_id = (entry->ring_id & 0x0c) >> 2;
- 	pipe_id = (entry->ring_id & 0x03) >> 0;
- 	queue_id = (entry->ring_id & 0x70) >> 4;
- 
--	if (!adev->gfx.disable_kq) {
--		switch (me_id) {
--		case 0:
--			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
--				ring = &adev->gfx.gfx_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		case 1:
--		case 2:
--			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--				ring = &adev->gfx.compute_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		default:
--			BUG();
--			break;
--		}
--	}
-+	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
- }
- 
- static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
++char *xe_cgroup_region_name(int fd, uint64_t region);
++
+ #endif	/* XE_QUERY_H */
 -- 
-2.34.1
+2.47.3
 
