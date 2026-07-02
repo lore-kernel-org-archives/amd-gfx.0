@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B2A7C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B968C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0690210F222;
-	Thu,  2 Jul 2026 08:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28F8310F1FE;
+	Thu,  2 Jul 2026 08:12:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ppzFWY0A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iPc22vq0";
 	dkim-atps=neutral
 Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013057.outbound.protection.outlook.com
- [40.93.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6A7610F206
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 08:11:05 +0000 (UTC)
+ (mail-westcentralusazon11013038.outbound.protection.outlook.com
+ [40.93.201.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55BE010F1FE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 08:12:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HarDFEGGF8c6fBVl64HSoUCYj+JedZPiy6W3QXcxry0J34k0frsRJc1xaPmuyJP0o9gc8cfvIzvU8o+wizEhQbJFMzOlNoHgkPmrvh6hBbVz4ii8aQbMO0n3DJePEUZnXHxq6KE2hT4EzFBVi9L7dohU76WX+Ct61YpT1pTj35WbuuROadMxtMnImdBboHzey4T55SNrukRRoel5LN5IAMWneh8bi7PpI1Yt04pcgqkrruHrowxVU246tVJkr/JI4z9lGC6fJ6sIlPTHrgckjdSUR5VuRMXk6Jwt6qJBZye23R7lz9q9LyTGIKXdKYjqi0Dbsy5AkIe8CWXwgUIFEA==
+ b=kZFg66SwS261Zi8Czb5chncM1pvqepBLN3eVqVP98aFvvF/CsE8CZAoHEx6NXBggbN0Dvav02G6nykAJp1e/AgyotlchGU6ByZcggGL0OrdU3DqBQIaLK+XTl17FvGiyQEWUFG/Ihbx7/KZXCMf2zelrWCIafJs1WdE1IH7Thk9JZp1EU9BeAYjHCY7y415BqE5xU91wECHjYZdQpDiLNB00zZ494EIUex2tFy3kA4A3bf5NMWUgYsPNkreqgwLUEbONezmtNYO9RpcxYW0DbxS76b67ICndV9v/INExe5ujGyPX4Q5uDuIwJ5MvgVTHdNxsWHn4+V0VUXspZzFS1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ICVY+L5yrZb3xom0/Ej2XuUHOvR2cg+VyibIb8OD6yw=;
- b=SU2tXmUVPRHeS41DM8ByW7FDJLz+ucdb+qG53FnZah8gaSxdeLaat0LoxybXBDx1MOiYO5Z3fYu9d3NqIKHJnLhT7858z/teG6bqd4BKtfDgSeilmLbssRC5Lg1PiZ11Sre/cqghq8xJJu8Jixg7yMuAvbkSp/qSCUALCXmfNgBNJuWNpejyZfH2SrvBNMedUmT7ABp8xeECQrQ/7JoUoHSQIyfqM7VhuF6CJsjWqfQX9uGEBHCwvjZfxox4eyDBSqJ/zbVWdNoN0ZoVDCtX6kAT6ogjPew2lY9UGnMUfIo8MnU+xgxoZKGLGbSz7xgcox+U6DlsrH4qcNAp2k5OSw==
+ bh=73532OQ5mUH3h9CpLoXNFvRgP0uH1WLF4EEyQv15f8o=;
+ b=pEgT4o+RrXnh3Q+cJb9rEaC5lL/sA8jl+DaMlU+6NKW54k4+hl94syzYP3i831uxc86MXOoHeDJCaHYlyWxTSeP+jg+2V5R27nOzXOixjwDMRrQnPWBkA+RELfp8t+wMzYR2Fn95yMuaCjNr6u/zA4Vk/l4woXPaHdvIQL60p/zZH+GPHKYxRz5mYuyuDh9k9p+GWSLYufApkA45OHRlOfqNsy4qUEyjcO4gpM5yMhe+bw3a86ajHaQEdlWXNdFUae7NT6vPr4WfwRFac76n0ZelQXiwNWH9+aIZUCrvYPxo7/BIwYaS+Q7GzBId320BvoHnoUApLfZ+61Lk9LNXEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ICVY+L5yrZb3xom0/Ej2XuUHOvR2cg+VyibIb8OD6yw=;
- b=ppzFWY0AT6RjWn6Fy1iiGiMmzwFWzKK0hLNU5TAHkxfQOqMGvrvFqAmXN9hGoa5GL2eusDXaW16mqUle2C7QgRKU5lObxUP6UAadFQBZwM+OlW5QDYgYwyGPMTFYh7fT0Pk02xo5x6qiPEKsMTvYEtOzdd765PPzGx9ipCXa/Pk=
+ bh=73532OQ5mUH3h9CpLoXNFvRgP0uH1WLF4EEyQv15f8o=;
+ b=iPc22vq0B6oSeTmtDFkj4Zu3qcd/S8xhFJE4WE5G/FqYdUxunJqWDtAlncrmnxYBgkgqk7YBEFiYGkEtL6E1cphDIO0AVsI12fwIAlam3cvm6RcT3KrboGDjbHmKn9QHOEQccPuYqwBZ1zV896zmQBqKicPyHC2yd8pikWaljW0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
- 2026 08:11:03 +0000
+ 2026 08:12:31 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
- 08:11:03 +0000
-Message-ID: <44c427a8-8e6c-4392-9c3d-fd2f907aabdd@amd.com>
-Date: Thu, 2 Jul 2026 10:10:57 +0200
+ 08:12:31 +0000
+Message-ID: <030a0e49-e2b5-4659-9252-02ce57b1a660@amd.com>
+Date: Thu, 2 Jul 2026 10:12:25 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/14] drm/amdgpu/ih: Don't perturb HW registers when
- accessing soft IH ring
+Subject: Re: [PATCH 04/14] drm/amdgpu/ih: Add retry_cam_ack IH function pointer
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
@@ -56,79 +55,78 @@ To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
  Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 References: <20260701161721.85681-1-timur.kristof@gmail.com>
- <20260701161721.85681-4-timur.kristof@gmail.com>
+ <20260701161721.85681-5-timur.kristof@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260701161721.85681-4-timur.kristof@gmail.com>
+In-Reply-To: <20260701161721.85681-5-timur.kristof@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0089.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0007.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::17) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d81ce59-9750-404e-42af-08ded8117588
+X-MS-Office365-Filtering-Correlation-Id: dc24bf0e-3cb2-42e3-9f13-08ded811a9eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|376014|1800799024|23010399003|4143699003|18002099003|56012099006|11063799006|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: A10X/mivy3Iw9X7LZqnwsW6I1FW3rgtwIm9QyIyCj2h3w3HrEg0k20n0VvPJooXLll0v3okX++41mCul6MlG19B+5wMNQTFS5y7K3GnH1nzoEkgXt887UyHgZGPVNAU7G9lmsF+WGtyFZkhqkdzPyN+Sb5TNV0y+FG6KM4Q+N+5StF6uRAHAYYtLr/3NeMdDO7Vq7V/HJ+AUC+Ex17rByqFagNfRMVqa40X7i4RC6n+CZbOo50pYTXTU1K7rnMj3DoJMqhnNlxpP2ReGG76gZIuM/+SvX9CKU56eC/SkT8G0Mzjc8wauTRuyJb48Jxbahz5Uo3ILLq4lZp4nHDDrwa6bP23gtvkDNhAU1gor5d4V7eJk+CTdNPNJmLzXhTwI5sF67CrtBhcMZAXWdusOw908uasOlCthZ1BwpjqZNRjuS4p+xZuJU/Ueogwtcc3La6KmnDGffw2e5aRxCBgNmxkH1Jm1CK+Y/KJRv2phwhvM1mMCjIg7HzuKPatgnBkmefEbcnsJz5vGCuGf/nx6GXBkUvIyvUIUXM30ICNKe4ANNxFSXR2yGdXKzBOII5F170Q9tOomql7QQGvUmzqMvob8OwknuFUfMCUJ91LGTVbibyzgatIBZWjLCrIhZysIgr5mZDZ9uQWqnMRWK9bJuFlAhXo4agFhLvrULEmICb7a5lA8Wb1sQ4jHwxkWFSHaRhAjp1RD+tJC8wUWBupz7w==
+X-Microsoft-Antispam-Message-Info: XlPhlKiFsSGYe5hQnvNX5leevVCr6jCZEuFA8VQnp3IhDgwKPRz77qZF09pkBLB6G8pwErIlEsl88wLr/kL4Q1qA0Vere58K/BJzaLY1nyJyYUKFZPZJE851eHwtghbiyzxuyJKFYQ9VVO73hIlxK5fWvVhsQcc/QBOWg1e42v53ZqIcVvqKRldKrltQ147pJHIKWG214lc8/lrOJQNee62TRqTIRilF/Uton67U3gxCG0In5w/86MYjbkvLz7ZvUB3NzTo8dARcKQ5pdmVjuYNwwbxmTerP+NWSycxVgIMgP9SkJKDHUJaxFEKEbalvOIEdiXbx6xD3z4ze9MfTpJP0QoLA2BgKbqccunA8VvYvWDl//qu3bB1Cjn7xH7GDo8d/mcIW8hBcbtBRL3i6ImhB98U6MfeWpicZEPkWA4eFMtvXSINpoFuR90kqjlkHH/n3EyYBeqHWyJYeze868j9DPx/rrLEyk3dmYaTJuM2dVQ9Lw0Ltr16dAiHKgAaK92zK1Y2q9QFdJp//Vn4BIQoXgh6OdYohv/QWPJVZzW+DFyDqFJsyb4SVnuyRX7kVEdC63nQyZz20aG5HaOuzb4J+/WcAJIpCJYQWyZT+7FcYW2RgvZ4FFiG4HPBipufNtH4AwWqLZPNllEINCO9x/IUw+KAkNco8eM4/CrRz2pg7mmjViRJv3wWGQwJ6bL31kPsDnF2Rn3RZ7htPjbDIgw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(4143699003)(18002099003)(56012099006)(11063799006)(22082099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXJ6MVF1QlRqTWhrU2d2V044K3U4QTNkSVc0S3Zucm9aOWpIT2xtTlRFbDN4?=
- =?utf-8?B?b3FPT0M4dUhVaVBiVm0wcXZzUzdRaHM2QlMwQjZUNnJpRm9aNWlBL0pXMWwr?=
- =?utf-8?B?VERiMVdvdWZMM1FUNTlRK0pqUHFGY3hyRUF0MVcrb2dEU0tLWm8wQ0xzUVpS?=
- =?utf-8?B?a2RJclhrUUZjL3hsU0RLclJNQ3hKdS9TMU82UHVPcnBhL1JQQ0ZNeDVNdldK?=
- =?utf-8?B?aTByZFpGUVhrSS9XKytqclRBdi9kWkI4OUVvT0YrRkV4a2E0NGpoVlI3WFJY?=
- =?utf-8?B?YkhQV3dqMVc1SzMyTTZDbWJFc2thMnY4NWJ2VkxJb0JuMmlhUS9BK3dRS3hk?=
- =?utf-8?B?VG1UV3FXemRQcHZCa1FHVWNUUjRiTDQxd2ZqcDlsLy9hYnJHYWUreGpLU0ln?=
- =?utf-8?B?SFgwbUJNUlNmSnZxZUxPbHgzTXZ5WVBWT3loR1ViQ0F6TlhqdU9seThtTEVt?=
- =?utf-8?B?d25sZVhwcU4yV29aV0lVVlVUT0ZkVzZPMi9XSHJRWnVSUnVRem41YStaNVNl?=
- =?utf-8?B?cTBiOXk1TmhLMXFjNkR2WkhicGdzVkdIZkxIajRoSVZwNUhMU2tWcWxVVXFY?=
- =?utf-8?B?TmZteE1VOWRZYlQ0RXBDNS9PZHgyVzkzT2JVQkNYdFJNbEVocXF5aWVZRDFm?=
- =?utf-8?B?UlNlRERPOGRXK0l4VXl1anJRZnRodDdIU3Z3QTcvSElpNmRkWDZEc2g1bHE1?=
- =?utf-8?B?RXQrZStUN1c2TWwxdHhtWjQyR3RySWU0Z1FqK0NSRVhFSnBsNHExOVJGNXdC?=
- =?utf-8?B?MGg4dmU4d2t6aGdydTJwK3Jqc0h3aFZRRDlxNGFHQnRrRTVRMWJWelJnanJR?=
- =?utf-8?B?THdsNU5XNzhwbTRIeHpaT0xFelJMb0dnbnZqa3YwQ1ZCZFA5cjJiK21xaEoz?=
- =?utf-8?B?QisrUGNWUFY1blozbm55azRlKzRXUlZvVlNjRCtoNkhWV0xqT0QyNm9waVIv?=
- =?utf-8?B?TTFURTV1ZDF6YmM5L045L2t4bHJyTUQzUzVYSXdESXpKd3J3Vi9tRmFEcmw3?=
- =?utf-8?B?dkJtdFU1Yzd4c2ppYXlqblh1RHJTSlRYMm5ib2tkazNlUTExQzBqamJ5RDBT?=
- =?utf-8?B?a0Fjc0toWFpITmtiYWt5R0NZWng3YXhIRmwyajFpM1JyQ0VNNk5VWWJwT1hj?=
- =?utf-8?B?ZytLTnZKWHFpRnA5Ry9xVkY0MnNwbEhFVmswbSszRDFRaGFZSkdDNlIzWEpj?=
- =?utf-8?B?Yy94MzB0ZG45OUU4YjkyQ0tCaHgrYWJXRmJHcmJZWmZyUEx2ZFIyUzJOUmE3?=
- =?utf-8?B?SkFaR0FRK1prUGREbTBHVjB3NUdjRnMxR2MzanptbXN1WHJWYkh2cDZseFI3?=
- =?utf-8?B?N2c5Ri9Lc2dNdSttZVRxVFdwdXM2VzlRaU5uY3NFRGx5cEd6YzZpaGtxYi9D?=
- =?utf-8?B?a2xBREcrYVVXZUp3MFR5Vk5OUEkyd2w3R0lqZ1liaTU3NVVNRmZVbjk2QURI?=
- =?utf-8?B?Q1A3NU9uZFBQQk5RekhlTnNGMllxUFFwV0J2R3R0WXExcXRpSHNhcEY2b2Zh?=
- =?utf-8?B?aXlaMkh3SFU4S012alpYNGR0dVB5eTNyT1ZBOGVVSDlwVHJWOVNYNWx0bWdk?=
- =?utf-8?B?V3FQdU5maEVDa2lFZllPci91akpFOG03ZWJKSCtzNGk1bzRFbWJFK3pqdVJD?=
- =?utf-8?B?aW9qWVEwd3FNNDdUL1JSZXpmc1Z2WXhjOXZyb2lTZGM5Qk5JTW1QV1k1MWtT?=
- =?utf-8?B?aTJiL2JDa3FJQXQvZGk2S0tmS1M0MlF1azJiQnBTcTdjNUU2cDBpUjBQVHBw?=
- =?utf-8?B?bjgvR2NXWHVKVzdiSUFScGxIMmhWMWp5ei91RHhuSkV1MnhaZHZUQnVBSmNB?=
- =?utf-8?B?ZllYNUU4QkxTSDdhODhNZTc2azNPY09iNHVRRm02ZnYwQ1lOTUVRSUYyS01x?=
- =?utf-8?B?cTBHeUY1NW1xUTRncllyNnpOVHhlS1hRMlpJa0FCSm4ycWt1TzAveHdJOXVW?=
- =?utf-8?B?S1RuRFJLUGlZR2RLVmV5VHpGaHpxSlRQOEd6eWpidVlCaVR0d2tuU1Vib0VY?=
- =?utf-8?B?MTRTWllSSmVNUEhqUjYvWGlPcVFZcWkvb2FtZmEyV1lqUlhrejNMMHdKVlFG?=
- =?utf-8?B?NE1mRExGSkVrM2NZZHFPaEErSTE5eHVnVTRjdEdqNFhYR0l2ZjBJNGZWcC8w?=
- =?utf-8?B?WWRVQmNtYlhKaGRmREhsSUFmUTJVS2dFZjM2R2lQTHJHQzMxZ21FTFdGUWVr?=
- =?utf-8?B?WlExZEJjaEpiN1FGTUxJUG1DWFlHekIrVVFvL3NSOWsvUDgvM3JkRFVZRnhh?=
- =?utf-8?B?MjdhV2FHQnJraGNFWEF4NkRRR09ITWJvZWtycnlLdW5uTG8rNkpybHpvb0ZF?=
- =?utf-8?Q?jWDzXzNZxqNNIwNIpb?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emZQU3J5YUl2U1VIb3cyTnVJbEczS3JWRzI5c2poZHJrcUFHeGg4dEc5WVdt?=
+ =?utf-8?B?QkZwU2lXTUo5d2pyVEFmbFhVWWIyaFRSUGVyU2pISXV6NXlvZmtiZlVMNklz?=
+ =?utf-8?B?M1B1U1NoWmRRMjhRek5wdDVzSE5neVZnclBZanRieEptTHIrVkxjN0tVMFQz?=
+ =?utf-8?B?dHA2S1h4YTRhUEE3UUFnUVdxUWg0UG1TdUNGaTV4NXc1T3dBSUVLMGl1UHlE?=
+ =?utf-8?B?MEp3VWFWQ0N5ajE4VnlET1hmTGlZSFJuRVdjR292L1k4d0IwY1NuN0RMc1I1?=
+ =?utf-8?B?VWZmSTRFTGFINmRmc28wS1ovcG4rWkczejB1a3B4bzBZRzBCRHpJYmt3QWVO?=
+ =?utf-8?B?cURZazM4WFFzL28yYmdRL1BWd0kzZkNac1A4TVhFL3RwZ00xeWcvc3gwcHZY?=
+ =?utf-8?B?K3M0R2p1Zk96WDh1dDFybEF1MGd0N1BURXNJK0VmSmN6VWhxLzdLWjNmbXBR?=
+ =?utf-8?B?V2ZvQmNESEpXWVByeFp3bjl4aUFCS1R0R2RrUTVMWWJ2eStHY2cvaVBWbEFz?=
+ =?utf-8?B?bW0zMHRSOHZMQWJGcld4cko2cWUvUVZQRU1oWTByZEp6MVZJT2FvdUE3V3Jx?=
+ =?utf-8?B?SE9ZeUcvd3l1dHpXcFNWK1VBaVZXbG5QRjc3NktsaFJmaytyQ3lsb2xITC9P?=
+ =?utf-8?B?RGdCdVluTGNieWZ5NjNMcFV2SnNCMFNSQTJoR25oV2RiR3lnMjYyRU4vdkVw?=
+ =?utf-8?B?ME1RaXNRSU05OVNaVStYMzhPUjhmQkFSRFhEUEwyRVVTWHAzb2RxQ09ZN0hp?=
+ =?utf-8?B?eEZOejNnWWJaYXBKcUNjWWxWdkVzQzlWdmNrWlpSZ3JKcjNIRC84MkhIM0o0?=
+ =?utf-8?B?MnNWa1RJUGVBaVNzYlAwV3c2dW9pNURoSzhVNUFCSEZkSURvcFJqSGhqZzNK?=
+ =?utf-8?B?UVFoNU9OSzlRczNpWU5MVDVsaWgvSVZYZUJjOUR1TUdET1hCdVBDcENPcDZx?=
+ =?utf-8?B?WkM5aXJvbjh2QjN1MjRucjIrQVA0VmVyUm1oekxVRXZtYlpiNm1HS204alNQ?=
+ =?utf-8?B?OEw4T1N3bkxEdUFaMGdKWmJCanZQREJ4Y0JoQUVkcGlWNkRNdWg2NUREenJ5?=
+ =?utf-8?B?TXZRSWFiMkw2a0p4TStpWm10V3hjbWkwYmwrS2FFclQ4R3o0LytlMTl3d1N4?=
+ =?utf-8?B?QWpOWGFVcGdtT1NKT2lRUndhTTNUWVk5KytseFVJOGt2dHZyUTV5VEE3SzRR?=
+ =?utf-8?B?aTNhQ2Rwc2JxaG14Z3hUVEVXWU5Fdnc1R0ZLUVpTY1NMMmJwdG42QlFhUmJ1?=
+ =?utf-8?B?TUVKVmQ1Sk9YTnoram9Mc0YySTA3MkpEbE8rbHU0bGFiUjRZQ1NLbm03S2Ja?=
+ =?utf-8?B?ZWdMdzRVdXZMaGI3dTVLOUc0Q1dsUk0zUnplNUIxcDFscE1KOUFGUnAzN0Zo?=
+ =?utf-8?B?QTRLRnkzRTFJM2V3NTQwZ1cvWGoybGxYdi9NNjRXbjMvZU5ic05kNkxsQ2w5?=
+ =?utf-8?B?UUZ4dEZVTTEvNzB5MmJnOG53ZExlSkROZ1o4QUlWQUF1ZmxJemhWY2ZVaVZE?=
+ =?utf-8?B?cElpUmdPQTl0OXRTcWtDakFVTklHYTNqbGIxOVJFMjBOblYvaHpWdVVQdEh6?=
+ =?utf-8?B?MG8xdEQzWUtMV2krQnhxWTlXNnJTR2xuc0xENGV2QlZVN2FwZnZHQUcrK1N1?=
+ =?utf-8?B?Zy9xa2NWT0haT3E1RTVsMm5Kc21VNnExVHNGc0g3b2xlelg1Mk1lQ241a3Zv?=
+ =?utf-8?B?TEl4SzJ2NXYrSzA4WnpWOFZGOW42Vjk1dzhEZjFUcWl6aGZWZ0FnZ0xRNktV?=
+ =?utf-8?B?WFFzYldhcHBQR3JteElFL3FocmhZYUlGanJVSHQrZmFVbkpDVU1lZmRFT21l?=
+ =?utf-8?B?Z01FaFRsaDVVN0RlRmpic1pIYkZiUzVzVXUybWliWVBaUGYreTQ3ZUZaa3dP?=
+ =?utf-8?B?T1JkTkZkcit4T0hTZ2tqckJ2Y0R2ODFOMklmdmg5cndiMGovUW14TTBLK3Z6?=
+ =?utf-8?B?ak0vZytpZXZ6MElYMjh5YWVNL2xaZ2dXMEUyY0hSZjQ2V2xMRTVJSGNZRkgy?=
+ =?utf-8?B?MkhGcU9BbG84bktYSGgwT2hPTXB3OUpPN25OaDZBdWJ3cFJuWlhNY2IweFBI?=
+ =?utf-8?B?REFPR0VsYzlKdVpHMTBrWElQN3JSWVlzTldxMmVpSmZxaTUxZlVuZkJmcUxx?=
+ =?utf-8?B?emZ1OHBqV3Y0Skhsb0NucThUNlY0RGtGVkJQWXdxcU5ISGNlRWZhcmZhQzlH?=
+ =?utf-8?B?WUZidmhlTUxBMnRIUXNCcnpQWURnaXB3ZytYclhGVEVsWVZnc2IxZit0bW43?=
+ =?utf-8?B?U1d6VDhPWUFYWFdESVA4MmxpNVVobGZXbEJoSU9JYVlsUFI3enBIcy9hcThD?=
+ =?utf-8?Q?NJ1HoSwOAf8eQw1Xhm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d81ce59-9750-404e-42af-08ded8117588
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc24bf0e-3cb2-42e3-9f13-08ded811a9eb
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 08:11:03.2845 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 08:12:31.1623 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S9kQCtvbQ0xYOvrsBTYkfPn/5iGlltJL9HQQ9Yj/I2kYr7DG/P/jH/cuAldhRabJ
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1ImbItkhRrMkPKnZezn+b5JC/IGTSq4J4dP9WRTyjj9kpVMntGeu9A8A//fsZVnP
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8165
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,109 +143,112 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 7/1/26 18:17, Timur Kristóf wrote:
-> The soft IH ring is implemented entirely in software.
-> We shouldn't read (or write) any HW registers when accessing it.
+> No functional changes.
+> 
+> This is a refactor to allow different filter CAM implementation
+> in subsequent commits. The actual new implementations are
+> going to be in subsequent commits.
+> 
+> Instead of writing the doorbell in amdgpu_gmc_handle_retry_fault()
+> directly, add an IH function pointer which can be defined in
+> a different way for different IH versions.
 > 
 > Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
 Reviewed-by: Christian König <christian.koenig@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 7 +++++++
->  drivers/gpu/drm/amd/amdgpu/ih_v6_1.c   | 7 +++++++
->  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c   | 7 +++++++
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 4 ++++
->  4 files changed, 25 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 7 ++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 1 +
+>  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c    | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 8 +++++++-
+>  4 files changed, 20 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> index 333e9c30c091..65e5d21753f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-> @@ -439,6 +439,10 @@ static u32 ih_v6_0_get_wptr(struct amdgpu_device *adev,
->  	struct amdgpu_ih_regs *ih_regs;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 3f0b1b7a557b..bb278a61dc9e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -552,6 +552,11 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
+>  	int ret;
 >  
->  	wptr = le32_to_cpu(*ih->wptr_cpu);
+>  	if (adev->irq.retry_cam_enabled) {
+> +		if (!adev->irq.ih_funcs->retry_cam_ack) {
+> +			dev_warn(adev->dev, "retry CAM is enabled, but retry_cam_ack is NULL\n");
+> +			return -EOPNOTSUPP;
+> +		}
 > +
-> +	if (ih == &adev->irq.ih_soft)
-> +		goto out;
-> +
->  	ih_regs = &ih->ih_regs;
+>  		/* Delegate it to a different ring if the hardware hasn't
+>  		 * already done it.
+>  		 */
+> @@ -562,7 +567,7 @@ int amdgpu_gmc_handle_retry_fault(struct amdgpu_device *adev,
 >  
->  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> @@ -514,6 +518,9 @@ static void ih_v6_0_set_rptr(struct amdgpu_device *adev,
->  {
->  	struct amdgpu_ih_regs *ih_regs;
+>  		ret = amdgpu_vm_handle_fault(adev, entry->pasid, entry->vmid, node_id,
+>  					     addr, entry->timestamp, write_fault);
+> -		WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> +		adev->irq.ih_funcs->retry_cam_ack(adev, cam_index);
+>  		if (ret)
+>  			return 1;
+>  	} else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> index 444437c30088..e6e34f6e86f4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> @@ -97,6 +97,7 @@ struct amdgpu_ih_funcs {
+>  	const char *(*node_id_to_die_name)(struct amdgpu_device *adev,
+>  					   unsigned int node_id,
+>  					   char *buf, size_t size);
+> +	void (*retry_cam_ack)(struct amdgpu_device *adev, u32 cam_index);
+>  };
 >  
-> +	if (ih == &adev->irq.ih_soft)
-> +		return;
-> +
->  	if (ih->use_doorbell) {
->  		/* XXX check if swapping is necessary on BE */
->  		*ih->rptr_cpu = ih->rptr;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> index 699c274d357e..9dbc20131410 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
-> @@ -410,6 +410,10 @@ static u32 ih_v6_1_get_wptr(struct amdgpu_device *adev,
->  	struct amdgpu_ih_regs *ih_regs;
->  
->  	wptr = le32_to_cpu(*ih->wptr_cpu);
-> +
-> +	if (ih == &adev->irq.ih_soft)
-> +		goto out;
-> +
->  	ih_regs = &ih->ih_regs;
->  
->  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> @@ -481,6 +485,9 @@ static void ih_v6_1_irq_rearm(struct amdgpu_device *adev,
->  static void ih_v6_1_set_rptr(struct amdgpu_device *adev,
->  			       struct amdgpu_ih_ring *ih)
->  {
-> +	if (ih == &adev->irq.ih_soft)
-> +		return;
-> +
->  	struct amdgpu_ih_regs *ih_regs;
->  
->  	if (ih->use_doorbell) {
+>  #define amdgpu_ih_get_wptr(adev, ih) (adev)->irq.ih_funcs->get_wptr((adev), (ih))
 > diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> index 6de9e87e04e1..bd332e8cc5bf 100644
+> index bd332e8cc5bf..24be9d726428 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-> @@ -457,6 +457,10 @@ static u32 ih_v7_0_get_wptr(struct amdgpu_device *adev,
->  	struct amdgpu_ih_regs *ih_regs;
+> @@ -289,6 +289,11 @@ static uint32_t ih_v7_0_setup_retry_doorbell(u32 doorbell_index)
+>  	return val;
+>  }
 >  
->  	wptr = le32_to_cpu(*ih->wptr_cpu);
+> +static void ih_v7_0_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
+> +{
+> +	WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> +}
 > +
-> +	if (ih == &adev->irq.ih_soft)
-> +		goto out;
-> +
->  	ih_regs = &ih->ih_regs;
+>  #define regIH_RING1_CLIENT_CFG_INDEX_V7_1             0x122
+>  #define regIH_RING1_CLIENT_CFG_INDEX_V7_1_BASE_IDX    0
+>  #define regIH_RING1_CLIENT_CFG_DATA_V7_1              0x123
+> @@ -865,6 +870,7 @@ static const struct amdgpu_ih_funcs ih_v7_0_funcs = {
+>  	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+>  	.set_rptr = ih_v7_0_set_rptr,
+>  	.node_id_to_die_name = ih_v7_0_node_id_to_die_name,
+> +	.retry_cam_ack = ih_v7_0_retry_cam_ack,
+>  };
 >  
->  	if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
-> @@ -527,6 +531,9 @@ static void ih_v7_0_set_rptr(struct amdgpu_device *adev,
->  {
->  	struct amdgpu_ih_regs *ih_regs;
+>  static void ih_v7_0_set_interrupt_funcs(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index 85846fd08ce4..30a82fff3ff7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -293,6 +293,11 @@ static uint32_t vega20_setup_retry_doorbell(u32 doorbell_index)
+>  	return val;
+>  }
 >  
-> +	if (ih == &adev->irq.ih_soft)
-> +		return;
+> +static void vega20_retry_cam_ack(struct amdgpu_device *adev, u32 cam_index)
+> +{
+> +	WDOORBELL32(adev->irq.retry_cam_doorbell_index, cam_index);
+> +}
 > +
->  	if (ih->use_doorbell) {
->  		/* XXX check if swapping is necessary on BE */
->  		*ih->rptr_cpu = ih->rptr;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> index 4cd325149b63..e7ed37bb48e0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -417,6 +417,10 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
->  		 */
->  		wptr = le32_to_cpu(*ih->wptr_cpu);
+>  /**
+>   * vega20_ih_irq_init - init and enable the interrupt ring
+>   *
+> @@ -738,7 +743,8 @@ static const struct amdgpu_ih_funcs vega20_ih_funcs = {
+>  	.get_wptr = vega20_ih_get_wptr,
+>  	.decode_iv = amdgpu_ih_decode_iv_helper,
+>  	.decode_iv_ts = amdgpu_ih_decode_iv_ts_helper,
+> -	.set_rptr = vega20_ih_set_rptr
+> +	.set_rptr = vega20_ih_set_rptr,
+> +	.retry_cam_ack = vega20_retry_cam_ack,
+>  };
 >  
-> +		if (ih == &adev->irq.ih_soft)
-> +			goto out;
-> +
-> +
->  		if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
->  			goto out;
->  	}
+>  static void vega20_ih_set_interrupt_funcs(struct amdgpu_device *adev)
 
