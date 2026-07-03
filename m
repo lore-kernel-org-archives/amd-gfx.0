@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32369C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C19D9C44509
 	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 15:40:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DEDF10E678;
-	Sat,  4 Jul 2026 15:40:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72BC910E6D0;
+	Sat,  4 Jul 2026 15:40:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JvD9OLEG";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="aXn/+Dz5";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91C7010F9B2;
- Fri,  3 Jul 2026 22:35:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
- :Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=alJyYzXPrjrW+fze2BEqVVAidt8/0vL+0wACtUJNxOg=; b=JvD9OLEG7RuXOzzmi63hrMgrXd
- mcn3I7r213toSRGSASXT6rjnafc9o+N6DkMWeYzeRsOCcRiSy3/jLDqxQk7DLwip36IRb0cszZqtT
- ++X0RY4c0MAaRIOqKtbyaDVG8d1d8DEGXkOHJeQaPyELhxxqsJwQuZwy748L0aa3sQY6ShFl2sGYq
- xk1qf0xxI3PdpRB541FfzL319566oxgtwl6QAFozXNrsnAPiopPcbZvPQHNwu07mzT+tlhfa7IxpQ
- Oc/JTSXkbmEHVE9MrJRS7ZzkU/HLFMvTS64aWBy1qLQqSlaS8gVbP8KZThBksn61Q+M2uPjTwvtvG
- 8lEu4SOg==;
-Received: from [187.43.145.169] (helo=[127.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wfmTq-008fEP-Fb; Sat, 04 Jul 2026 00:35:30 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Fri, 03 Jul 2026 19:30:56 -0300
-Subject: [PATCH] drm/amdgpu: update comment for amdgpu_ttm_bo_eviction_valuable
+Received: from forward101a.mail.yandex.net (forward101a.mail.yandex.net
+ [178.154.239.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45E5410F809;
+ Fri,  3 Jul 2026 13:25:06 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c15:340d:0:640:ad51:0])
+ by forward101a.mail.yandex.net (postfix) with ESMTPS id 5AA3980F7F;
+ Fri, 03 Jul 2026 16:25:02 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (smtp)
+ with ESMTPSA id XOhxaGOeKKo0-Ya7LfL2p; 
+ Fri, 03 Jul 2026 16:25:01 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1783085101; bh=5w9HQXUJC9QndoLFGLwX8OwvXmeuBM1nXTtZDoVET94=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=aXn/+Dz5jX9+50//SiAHXYNZiBxo3FYT4GoM3MKQwVf297nFWN5j/sh1LiwuSWb/j
+ oN0JgFssW6HgYgoHa7J5yqGcMe2AeTMjxZvI9353irj+BqOQh/6ao1MZWvWL9DHYSy
+ lmMXbzRz4BnC24PpAxBFqlS5B8VFyb0dsZCVZ7gc=
+Authentication-Results: mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: [PATCH v2] drm/radeon/rs780: avoid potential divide-by-zero in
+ refresh rate calculation
+Date: Fri,  3 Jul 2026 16:24:12 +0300
+Message-ID: <20260703132413.22873-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260703-amdgpu-ttm_mem_evict_first_comment-v1-1-ea160651e4f3@igalia.com>
-X-B4-Tracking: v=1; b=H4sIACA4SGoC/yXNQQ6CMBCF4auQWdtkQNKqVzGmgTLgmEwh7WBMC
- Hen6vJbvP9tkCkxZbhVGyR6c+Y5FtSnCsKzixMZHoqhwcaiw7PpZJiW1aiKFxJfJkH9yCmrD7M
- IRTUXizXZ1l1bdFBCS6KRP7+T++PvvPYvCvotw74fXXNG9oYAAAA=
-X-Change-ID: 20260703-amdgpu-ttm_mem_evict_first_comment-8601e6479407
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 04 Jul 2026 15:40:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,45 +62,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since commit 3756310e9fe1 ("drm/ttm: Use the LRU walker for eviction"),
-ttm_mem_evict_first has been removed and ttm_bo_evict_first does not
-call eviction_valuable.
+The refresh rate used in rs780 DPM display configuration is derived from
+drm_mode_vrefresh(crtc->mode). While connector modes are validated through
+drm_mode_validate_driver(), crtc->mode represents runtime display state
+and may originate from restore paths or transitional modeset states.
 
-Remove the list of callers from the comment, since that is prone to be
-outdated.
+In such cases, drm_mode_vrefresh() may return 0, which is currently used
+as a divisor in rs780_program_at(), leading to a potential divide-by-zero
+condition.
 
-While at it, document the function parameters.
+This issue was found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Fix this by enforcing a safe fallback refresh rate when the computed value
+is zero.
+
+This change ensures robustness of rs780 display power management during
+resume and display reconfiguration paths.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 9d67006e6ebc ("drm/radeon: rs780 DPM display configuration handling")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 16c060badaee..1e44be64f38d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1477,10 +1477,10 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
-  * amdgpu_ttm_bo_eviction_valuable - Check to see if we can evict a buffer
-  * object.
-  *
-- * Return true if eviction is sensible. Called by ttm_mem_evict_first() on
-- * behalf of ttm_bo_mem_force_space() which tries to evict buffer objects until
-- * it can find space for a new object and by ttm_bo_force_list_clean() which is
-- * used to clean out a memory space.
-+ * @bo: The buffer object to evict
-+ * @place: the placement we need to make room for
-+ *
-+ * Return true if eviction is sensible.
-  */
- static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 					    const struct ttm_place *place)
-
+Changes in v2:
+- Add Fixes tag referencing related rs780 DPM display configuration commit
+- Clarify that issue is related to runtime crtc->mode state rather than
+  connector mode validation path
+- Reword commit message to align with DRM state model terminology
 ---
-base-commit: 903f8773ee96c5dc5fb9aec65227f39fd3e7a1dc
-change-id: 20260703-amdgpu-ttm_mem_evict_first_comment-8601e6479407
+ drivers/gpu/drm/radeon/rs780_dpm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+diff --git a/drivers/gpu/drm/radeon/rs780_dpm.c b/drivers/gpu/drm/radeon/rs780_dpm.c
+index 64bb4cafb8b5..ad7161972e37 100644
+--- a/drivers/gpu/drm/radeon/rs780_dpm.c
++++ b/drivers/gpu/drm/radeon/rs780_dpm.c
+@@ -63,8 +63,11 @@ static void rs780_get_pm_mode_parameters(struct radeon_device *rdev)
+ 		if (crtc && crtc->enabled) {
+ 			radeon_crtc = to_radeon_crtc(crtc);
+ 			pi->crtc_id = radeon_crtc->crtc_id;
+-			if (crtc->mode.htotal && crtc->mode.vtotal)
++			if (crtc->mode.htotal && crtc->mode.vtotal) {
+ 				pi->refresh_rate = drm_mode_vrefresh(&crtc->mode);
++				if (!pi->refresh_rate)
++					pi->refresh_rate = 60;
++			}
+ 			break;
+ 		}
+ 	}
+-- 
+2.43.0
 
