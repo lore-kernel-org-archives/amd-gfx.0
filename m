@@ -4,128 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41FEC44500
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 13:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31372C43602
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 13:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB3AA10F811;
-	Fri,  3 Jul 2026 13:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A636910E5FA;
+	Fri,  3 Jul 2026 13:56:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hBiAU2nt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iTZTyT7k";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011027.outbound.protection.outlook.com [52.101.62.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65C0C10F80C;
- Fri,  3 Jul 2026 13:41:04 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010048.outbound.protection.outlook.com [52.101.46.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56B6310E5FA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 13:56:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=voze5HXmwdNGgFyiURqeUS/Era9yypFP8yKk/PlXVkFA7cHKJVP6OTM3/aLXmKcObixosZs6/EDaZEXvSwtMEHnjLvHFCct/X/QFcjmxCf2eH7EXaVv2SvG/vtV/qmx6WX4LCJzXc7qmSZsdceAR+0xSrFGBwd08DGU1exGppuRIF95q29pIr8FqZGPVS/2BBKs4sL7AoN3bw/WBAWeZEk2nnaUN3KFjz4cxuKQMVk8lF+agsAm2fkIAKDgm+EZbc+NvTDKK1M7xoMNXPlDRDBfI5JWWfpxwMhGJxnDB2U8+DMK55H1u5dJrKTMqBYL+EYFZswV72wEpw98C94cXpg==
+ b=ro1jILpcsEP1B4e6ip2ZtOTFP5yzc2bXEvDvP26ZKAvPlxysC2xRCjIqPip3oIv5C/uat4NSbtIlJsY0N6jtvxiCiCa/fHjm7F0/u+qdf7md3nSmQ7soOnYPdjtjmr7i2fzgOmpduO5VWEUswuAqjCoEDQn9d0lZ2UlL63tI/UtzzJDYgGlOHKwV5pFxSXoVf/JiD5MdB/NQseF70b7JPRF9i9pbFLWPQQkwU75i2mUokBLxWSfBTTm7TX1vnYObzn1wVVgXno3bjpF9RkByUwlaenPk3Rs8ewaoThuTAEYo1M+vrqIwueahunwKHJeUDMlvtIRcNci1DwXzIG7M6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6zsKGeV1pnWEIUindNKBAbZZUDY7/fKQSbSD9qqq+Qo=;
- b=qmWQb/CEFCkTLFVcceCbvMa3E/1JyxVfKIZfjqoPymXblBkPYT2TWh848sUFVVVROuW4HFDAfOwXo8g0Z2v541nfw7oGV+K+I0wgUtrRwSwDjob2eaHb/TwdY2OGIDA6OqZ6v+JaURqUUzBHTaH+MYaTjTBQdz8IuCOqfWKndlj3oIVXMjkL6rhtGv3u6k8dbCrZybvMJJKEKsoH2lK/YhWxScagUmMUEum3/vvTgw7hvH+IP0uUmeUv3Qld342/FFOjxPF8FStX//2yzqLLAUt7ec7CRVucKfkmLlIUpratuufCvKJRwEIza5tLcheAO6lZsdzPBVERhzPoqeItRA==
+ bh=k2ndKGpkmB0pcdgsDrqvPbzf0f8MO5EJ8z5+YzqA72k=;
+ b=pi7Df0+zXDRj1jKafliU+qsW8ZsEF1MEppbu9NsH6UMKRZQJzcGvoYGc4qgqG2n6pMXjgnrk9YUSLgx6knWCEEjeQTUVIoHWqkTnA7Q7wXvb38ps4dMCJFWd6OcPkktA9jXHUgpWJM88jRSFIx0S3Wz6gU4OXyf2BApCFGFK3O7uR+VfxBjUd6lAKQL3FV+X1wxpDCOYr66KRnGDrNEf6xcEiyD6c3cYUCn3ZqMZCAZtdtfJxJT9pKQgqhDgXhCHNpUErsDXn+BH/Ik9OfspDe/6uKEbi+b61KX6xOvuapyjIguWOK3GNSK7jSwxXakEsA/wR0fsf0BF1RLG7OadIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zsKGeV1pnWEIUindNKBAbZZUDY7/fKQSbSD9qqq+Qo=;
- b=hBiAU2ntCDY3d/fg9OTHfiOdBRH2W57hfH5ZGWgM+3vtSlbmgpvhU7Nr9B3ka1sK+3xr6SIJffvyNmVoYE2fdvDXkewoEi4CZtzkFcnxM7ZCZjuj0Pct4BBfEqqkaiKlo3ac81m0LNYAp0fghv3DPw3SoPVHb2RaJyBcRYiME/A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by DSVPR12MB999194.namprd12.prod.outlook.com (2603:10b6:8:496::21) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=k2ndKGpkmB0pcdgsDrqvPbzf0f8MO5EJ8z5+YzqA72k=;
+ b=iTZTyT7krfyrSgleU+DDEtUDBcL1TEXzGXwAH1E2DFdpiquULIyRDehOWaqW0vk0yZsGAgb5JfZLDt7p/5+C22njxPDYSxSPW7kIAEKy7U1fkg+hU32JakonAq1jD2qxz4FC6TmbnqVNvOHodhiEy+BIOPnn/67uBGfLDjoQG6g=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SJ1PR12MB6291.namprd12.prod.outlook.com (2603:10b6:a03:456::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 13:41:01 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0159.015; Fri, 3 Jul 2026
- 13:41:01 +0000
-Message-ID: <c3ab374c-23bb-4348-b7d2-1f431fe07f6a@amd.com>
-Date: Fri, 3 Jul 2026 19:10:54 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
- cannot be honoured
-To: John Olender <john.olender@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, stable@vger.kernel.org
-References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
- <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
- <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
+ 2026 13:56:48 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0181.010; Fri, 3 Jul 2026
+ 13:56:48 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH V2 1/1] drm/amdgpu/ras: only check bad page for
+ address-based UMC injection
+Thread-Topic: [PATCH V2 1/1] drm/amdgpu/ras: only check bad page for
+ address-based UMC injection
+Thread-Index: AQHdCg44zj3JYJb6g0Cg58TryNnJcbZb0m2Q
+Date: Fri, 3 Jul 2026 13:56:48 +0000
+Message-ID: <BN9PR12MB52571AD6187A07E48068BBB0FCF42@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20260702103201.299749-1-Stanley.Yang@amd.com>
+In-Reply-To: <20260702103201.299749-1-Stanley.Yang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0261.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::17) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DSVPR12MB999194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cbec038-3588-4a2d-cd69-08ded908b821
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: LKdSWcSd5AwaBQMVc5xrUPe10o7vt18aBvrunUasERkrNlyvugHOiJVRt1w/4W02m65iYkDGn5iJZGi7I6UwvCQmuIs4f7TC1xszFS30blVdFJNS+21BN2mjC0s948mP8MH8jU5Jz7yIEtHc82XN3TjM45lwDWZItiIdIz1mGXy74CH8diV675FIIiulmhduNQAv6M3w3kzs6MN3IHk+1KKV0TR1jYdoIqLM4pWBuJjxDWObKFCaDOt+Rs6mp4Ts/gv6v7bmHeVAoRwHV18E1aJow1Kw7aUWLTmj/LBT87y1ozTOQ8Jbgp0e2R98eMzn5X5qWQBBNE6OhWPhtYeZEDh3ujNqlBMlaVWZtdtXuYEjG3xRGm2G9aC1K4scN3QfgfwkrVUzQRYSBp9eHWJ46mzAjBHJ4+eS62fBdVvkPYXEw9ZpTtxQehO1uBBh8g1tvTvh8RThageYhmt7QLJByGf3xyrNLfkvYkB9i6esoluKBNYt5H+2K03QbqV7sNdea4vV+lghfwJwgqAM8bVzwcHJlXwqwq4XG0P4lm8HV04cfPSwNYH9pDKqhSod18EbwId9ZxAGif0rA9xxc9rV0PnKLc0hPMDFcAP+wKq9TEhHqxX7OBpPbNjtT5aTxx9G4ZW0yQooFTF4dwZAd6qer5feQLf1gmMbErOWUutL540=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-03T13:53:04.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SJ1PR12MB6291:EE_
+x-ms-office365-filtering-correlation-id: 3a78e0a6-d78f-4ac5-f042-08ded90aed49
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|11063799006|56012099006|22082099003|18002099003|6133799003|38070700021;
+x-microsoft-antispam-message-info: WFka1us+JLC4/lR8Is8FQ6IZ4/9BmwrHhkUhVKDBrT89CxW/XnbRrO1JjtSDOzWkY5UXtNf0P6zorfZhDeeO5ZKNVOPUGGxVeJjEqPKslB038+vCohQwmZwejjzbHVEXW0PNsczOImNzgx5dkeqwDqXAYiS1IIISxdHmDUkMBLtLJ3N5ET1vIo5461xu/d2GtS07TcReEBgieU3PSuFSdKDQlfPvgCUplxv9QvfVmRwW8rUm9cvtgTtvq1tmVLjUuW0y/TjFjZsACNUvfMfhIAE34+KzbQe7jrIH09sSfL/jk9uOVBvUrao/Jwdf71Lyixga1kxAV5PSFf4fv4gKFThTJQjVB4xNNg1odt2Tb5QPHGgTZKr0KnYMhRXyhFSAIYsc+u+oCxptpfXJClwHKy1QWprgRB/+rrHSYe0OsLYcx1BGwRJsHN9CYpQkmTA4wjnARX1OShfDOj9b3YtYXzkxiakWnXLzKh+YnlDiQ83vaX+aMJre/IV/kWKJr8MH0iiHIBfeD/lg9w80qxFk2uYWCHp8waYhWD1IuTf/ZSG616mXGU5uKRA7vslhNwV0J4JuSIMK1HooTabRtl+aJX5H//mN8lJCtn8FsTWe0f6j+uC5ZKGdh6g8SSK7Ennc8qds02ttyUiX8x8kCrMn6FqG/K9RRSgSkWMv3zu8JMj4+ztghTCzMnjljvNSfArwhEfKHogec849pt3bb6/PwsO9vRNtrLttSiBZxWIVboc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDc4OXhGc2FXOEJsTEdDRHk2MVZjNEZ0TzhoRStZQVZVOThIWlg0VlZyNFFY?=
- =?utf-8?B?M3ZGSnc4UjQwUGM1WXpwSEltTnRFd1BhZUhWY1g0M29va3U0SzJwYzNuVUZn?=
- =?utf-8?B?MVcreUxlVzAzWUVZY2M2RXduWjVJcC9RQ2NhcWdLWVBGUWN1OXp2ZEJ2Z2tC?=
- =?utf-8?B?ZUdabzc1ZVhuam9iVlRRRmo1ZkRkcnBjSUhjbnJUdnVWSm9QOUlEaFVYTHFI?=
- =?utf-8?B?M29mV2FxYXRWdUczSytLMVBtcCtzYXY3MzlTbVFpYzJDMkxCaStGVVlYUHFi?=
- =?utf-8?B?alFjc1ZKY1g1d3A1ZGVkcUZoUHM3S3hRWmI0cU9oQzhpZXRDNm5DMDRmUFNM?=
- =?utf-8?B?ditBMGxLWWdBOGVqRkdibWtzN1ZsSlRDSGRQQVB6eEd4aGRvZGJMNi96dC83?=
- =?utf-8?B?NjNZK0h1aE1SZVNXVHpoaG9OZ3owUnd6aGkrYW1HVE1jMFprZUl6Tk1QZ2Zh?=
- =?utf-8?B?UXdmU3BnTW16b3ZSQmZHQ1pLYXdmVEJaNzZ4eDFCeXphM29SOVNhUmtxNUEz?=
- =?utf-8?B?dG85TzdWd1VhcVBWdC9saDBqRXB3MG84bzc3RG5NYnJ2Z0RhWEZRTkl1MEg0?=
- =?utf-8?B?ck9FY0IxTFVIZzJRQkdENkkyWWhqZ2JVVytrb0RKYkNxQy9mOW92a2tNRHpK?=
- =?utf-8?B?YkhTaVVMYjc4UGFWMGhvYi9hNkVIUGM5YWhpRzljaTY5V0NXR2JpMTBETmVw?=
- =?utf-8?B?YnZZWkU4ZUJlTmg4bHFrclRXaVFDSjVJM3R6bHV2R3BJdWhKaVEwaDBQalMx?=
- =?utf-8?B?QXZBakwwaVNtQ0o2R1pTeFY3VGowMXFzcE1oZnVxNm9WVGVBbnJaanZsYUNz?=
- =?utf-8?B?cjVERUNVNWRKY1Q2Slo2aEwwemU3Sjg2ZU1KU2MvYUIxMTVTd0Q2bUt5SWtp?=
- =?utf-8?B?bjhmS2tXMlNaYWZ4bkExL2pRZ3Z5bCt1S2Zya2NTbVN6Z2NndHRncXFpUUVJ?=
- =?utf-8?B?eFVTaWlZWFZYTHlvQVdGZnE2VjFlV3kvVG1LbWVkcnBSR01SeGRRZ1d5d08v?=
- =?utf-8?B?c3Z3ZjRGLzVpWkpSU3VPWUZ5UFpQMGpmV1djRWdBS2huMndEY0xycXBVZ0Qw?=
- =?utf-8?B?eGhPcHRXTlpOWC9hWnp5R2MyK1ZiMmFzOTBTaDhpT3R4QStNdlFFS2k5ZXJy?=
- =?utf-8?B?TzBoUDRhdWlDZktvTFNUTVkvT3FDcXBQVWdXN0tIQmJHVndKZ0pOQ3hzTE5X?=
- =?utf-8?B?b3FRZ2psR3hxOTVNdEp5SzZnaHdyMUpkMWdScjBaUlh3bmNSTExvS1R2Rlpr?=
- =?utf-8?B?OVVuSFlBMmJEV25meUN1Q0tiVWUwakpuMXU3ZTV6WGJvU0pNdHNrNmw3WWNh?=
- =?utf-8?B?K2FwMW5zYWJWb05zSzc5Nk95MEEzaWRacE5rVDhMTW5IM2ZXcnZQcmZnYy9O?=
- =?utf-8?B?Qmd6VWNMRmNjcEdsOGZ1WmZvOTJwOUNYL0hrckZJM3kzOHVKV0ZrdGVzOTVw?=
- =?utf-8?B?Z1F3cDRtOXVwd3FnOHVFbi9wM3g1YVpXYUhVRmFhNW1iT09jcEVBWG1hbzJG?=
- =?utf-8?B?eENrbHhWak12ODh1VWdjTHRjeU41QTl5eWp6WkwzSTRnc2NQcWIvV0RBRlhB?=
- =?utf-8?B?NmdjTWp4WTRXdC92U1dXUkpheHNIUkJDOExRTnFWY281WkJoNHl1Z0ZjMXJZ?=
- =?utf-8?B?MzVBNXVVVHo4U2REWjBpK0R4eHBXWjYxSjNyK2lIM1RYZ1Y0cUJiaDR6dVh2?=
- =?utf-8?B?eThEMmE3amFVM2lPVmpHWVZXT01STmZtUDhRTlFFaFJEY1ZPQkxua0JEelpw?=
- =?utf-8?B?OEZRN3l2d0tUMGpoL0tWWlM1dm5OL0tka0lVbEtFZVZBc1gvK3BQaW5SWUlM?=
- =?utf-8?B?TFdHTWhPbVo2NGpPKzBmUlBxODVid2ppQVFTb0pYT2FsS0dneWZsR2srZDZO?=
- =?utf-8?B?ZVZlQ3pvZXlIemZVY2ZKc0ZzS24zQVRtK0Zzc0NEVXJGUXJnamtqOEo3eDZw?=
- =?utf-8?B?NjlMM3g1eDBpTVBrYWFlbW9LTVRsVGxsa2t2WFFncHZMc1ZLc1VwYlhKUWxL?=
- =?utf-8?B?T21ITDVOTklCZi8ya3o4VDdIRGVMamN0aTBRR2daR085ejJISUZJUXdCejVw?=
- =?utf-8?B?eVdBYmRpNExiam56QWhrVE5XVkV2VjVDK1kyWjkwbUJVT1F1YVVJUjFVVGhr?=
- =?utf-8?B?SlVvT3JEa015RUVoa3ZWOGVsajBIbFhqOTlIYkZWNGd0emE3QnZ4N2JtVFZi?=
- =?utf-8?B?MkNCeVIvQlF1N0o5eHU5REx6YzVpRHpRTlFqdWEvRHlQZE5TUnRYR2ZPUGFK?=
- =?utf-8?B?Yi9XTTVnVUdHemppUlB2SWJjbys2QmZHU2x0Vm9YM2JuNlU4TjZ2Mzc3NU5R?=
- =?utf-8?B?NzZwTVlNeENzbnVjY0JmcU1XMTJyUkxQYWcrQTlxa2xtQmtuUDRjZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GWBVv8j9IfMdcS6qsjsjlG0eGON1xzKJvsLlFCrL+jvw0zyE/JmiX1S3Wn1e?=
+ =?us-ascii?Q?D/qrhum6NTn70yb4Kw+QMsKJZTN+ULqxkNgUOFt08UGBFJrtmbcmLf4OBuyl?=
+ =?us-ascii?Q?EGANDtyFh/yQ6zYR+uB38pbt4RuWNlS98ORZVcO0ljQKwcZX5qWh/ARjGs2y?=
+ =?us-ascii?Q?JR+SVtWWtFWsoXpNIxMhx2cgsPWdOZPPbO9nagnxAdZs/l3JfmvJWB/oqdfq?=
+ =?us-ascii?Q?Pwwp6B9IOCJB38MJJNC1JiKeaO0SPHpLUpT7q9j9HMSRlzMqhRlYOG2wYgN8?=
+ =?us-ascii?Q?WVb38XSF+ejPhdvdLllk+0vcJUh4ZyALIttWuzHklCm11MuG8d1fRc5bEUJJ?=
+ =?us-ascii?Q?FMfOYCfcD5iCUNb2LmeFUvuhEFa2+IAxF2yZqGtYmWFk4botdECcMpEClNXT?=
+ =?us-ascii?Q?apJY0t+WCkFAxULdi6oTSEiPxGaX2RsppD98JWazNaGj6ey8hEZO0vdnDbGk?=
+ =?us-ascii?Q?G2wgVGMMsVfVs1nQUeCYauzqUFCCn/x5076fjdd5+ILVKlvkxs5Z5qP9RMFp?=
+ =?us-ascii?Q?Gpl7wjPVtQ27JXh921AkA51KbKvOdBwZXx44R7qDCnLR0NTg23YDBhBECuoQ?=
+ =?us-ascii?Q?wHhfjYNXiLCQxvWbJet+VbQXA5T2ZjISqZagt8k+RZpVrlgxyOM3Xan/klCc?=
+ =?us-ascii?Q?Mw7D7DkYPJYESYniM7GinBwWf0qfsrRfbraLt5+blAySB6bPRdIIsVbtXFQi?=
+ =?us-ascii?Q?PVtGle1kuU7EszVGxhYJnEVnQLOQkHmHKocyLGL6D6dOiNcjNdlEYDAssJD3?=
+ =?us-ascii?Q?mlFNO5oTpF+cSjqofoGoMboFAL75nxUk/VnwxY2zWvy+jG6i4pFMlSbiQbym?=
+ =?us-ascii?Q?gBI3VWLXrzMRCfQhHjDmQCjMP+gGbH0FfBLMYLSKRUFZtFVu4faT1VnLqOcd?=
+ =?us-ascii?Q?tUPMEHFDlHZ+8keMfYe74bPyxFOiWC2OSdIRsKIB8XnqlTiK4xqWMthiR3U6?=
+ =?us-ascii?Q?4KxMM4aP/M9JcB6KQT4GjtSde7da5V9d2PH6/2o8m3zKpZC4gbdfsFh0plV7?=
+ =?us-ascii?Q?JOK6VP2gE1GOnFRXRRiR8EYrfzn5YxaqmdrarEvGHiEBUK6YC3sjIWvKBdEl?=
+ =?us-ascii?Q?MpVrZ7VFKkjpKhgkrVv8htDRw89M7UiTNab5lFVqbucIjHrZfgybmYjzU3GB?=
+ =?us-ascii?Q?u9oFjrG8Qmk2yN66OwskJuAMVPPq6cjdiKWh6EwF+1/2doyloPW3jesOclyK?=
+ =?us-ascii?Q?PZbQX1L8ZV/xOh+CBFSo2HRASxkvN57S4nSevmSTySNvKW0NVvo1Q2FuktHC?=
+ =?us-ascii?Q?TmoMtrrWWiIG3RT8R+d8n74ZD0QePOYeQh442IdhSSmJQf3PJIj2N28tSFWF?=
+ =?us-ascii?Q?QNpu/FD9ZIYcrR/g6NZU+dADzL/lLmLER2OsBnLWU0KNOmVe/H4JDuA1tMMw?=
+ =?us-ascii?Q?5PAfU1s0AaOq3wBfoTtYyxYmlTe9/5MRhfiyQvPfHh/hQVAUAfPAUMjS3F8v?=
+ =?us-ascii?Q?fUPQsTYpYPgRQOK5sdnVlkuSbCqdKdG9Thy4+f8qmkHoBKg/elUNMuLFnLAQ?=
+ =?us-ascii?Q?eKO9flK5fc4VQguqo2h/u8st2f9g+k5CGFgJ/9LhlOyiAQ6K3I2yEojiezjO?=
+ =?us-ascii?Q?Iph4HQNlC8mqPvOXTiBY7kCvvD2FaSmhmvKm8GuWbzyr5Tl1F4oidi5FUd4k?=
+ =?us-ascii?Q?MnNKvAhM3DdX5KLs8+G6TtlK6nYoPBZ4zDmR9J0daLb+i8f34cEI6uv9xGC2?=
+ =?us-ascii?Q?1khbvtqMJfoWZe4bLz87659tEtte+ivejL7KISWbQDPMpf9F?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cbec038-3588-4a2d-cd69-08ded908b821
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 13:41:00.9089 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9pxPrdPUgfwnob3RHPj/mV0AVlWqW2xcuKj3ZuCoynECsoKoKCRKeDMaAHxBY0pwPh1wC76HcW5xs90fxTIKWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999194
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a78e0a6-d78f-4ac5-f042-08ded90aed49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2026 13:56:48.6916 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +aZDjejRziwbY7U+8fy927Ys+Q/8LJWkgriPNJ9W0rIBlqZcVQZUpeujX8ssq7+7ctXBUdl0dfNKyfxvDGVXxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6291
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,141 +133,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+AMD General
 
+Thinking about it more, would it be better to add error-checking logic in t=
+he debugfs parser?
 
-On 7/3/2026 6:05 AM, John Olender wrote:
-> On 7/2/26 6:48 AM, Matthew Auld wrote:
->> On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
->>> The try_harder contiguous fallback could return a range whose start
->>> offset did not match the caller's min_block_size. When a candidate's
->>> start is misaligned, realign it: free the misaligned run and reallocate
->>> exactly @size at the next lower min_block_size boundary. This keeps the
->>> returned size unchanged with no surplus to trim, and rejects the request
->>> only when no aligned candidate fits.
->>>
->>> v2: align misaligned candidates down to min_block_size instead of
->>>       bailing out, for both the RHS and LHS paths (Matthew).
->>>
->>> Suggested-by: Christian König <christian.koenig@amd.com>
->>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
->>> Cc: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Timur Kristóf <timur.kristof@gmail.com>
->>> Cc: John Olender <john.olender@gmail.com>
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>
-> I haven't hit any issues with this revision during testing.
-Thanks for testing.
+When the address parameter is set, we should also check the sub_block param=
+eter to ensure the injection method is applied correctly to the intended su=
+b-blocks. Otherwise, we should reject the debugfs ctrl command.
+
+Any thoughts?
 
 Regards,
-Arun.
->
-> Thanks,
-> John
->
->>> ---
->>>    drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
->>>    1 file changed, 44 insertions(+), 19 deletions(-)
->>>
->>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->>> index dc81fe0301ce..3c73ae87f3c5 100644
->>> --- a/drivers/gpu/buddy.c
->>> +++ b/drivers/gpu/buddy.c
->>> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
->>>                     blocks, total_allocated_on_err);
->>>    }
->>>    +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
->>> +                    u64 unaligned_offset,
->>> +                    u64 size,
->>> +                    u64 min_block_size,
->>> +                    struct list_head *blocks)
->>> +{
->>> +    u64 aligned_offset = round_down(unaligned_offset, min_block_size);
->>> +
->>> +    return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
->>> +}
->>> +
->>>    static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->>>                         u64 size,
->>>                         u64 min_block_size,
->>>                         struct list_head *blocks)
->>>    {
->>> -    u64 rhs_offset, lhs_offset, lhs_size, filled;
->>> +    u64 rhs_offset, lhs_offset, filled;
->>>        struct gpu_buddy_block *block;
->>>        unsigned int tree, order;
->>> -    LIST_HEAD(blocks_lhs);
->>> -    unsigned long pages;
->>>        u64 modify_size;
->>>        int err;
->>>          modify_size = rounddown_pow_of_two(size);
->>> -    pages = modify_size >> ilog2(mm->chunk_size);
->>> -    order = fls(pages) - 1;
->>> +    order = ilog2(modify_size) - ilog2(mm->chunk_size);
->>>        if (order == 0)
->>>            return -ENOSPC;
->>>    @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->>>            while (iter) {
->>>                block = rbtree_get_free_block(iter);
->>>    -            /* Allocate blocks traversing RHS */
->>>                rhs_offset = gpu_buddy_block_offset(block);
->>> +
->>> +            /* Allocate blocks traversing RHS */
->>>                err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->>>                                   &filled, blocks);
->>> -            if (!err || err != -ENOSPC)
->>> +            if (err && err != -ENOSPC)
->>>                    return err;
->>> +            if (!err && IS_ALIGNED(rhs_offset, min_block_size))
->>> +                return 0;
->>> +            if (!err) {
->>> +                /* Allocate the unaligned RHS offset using round_down */
->>> +                gpu_buddy_free_list_internal(mm, blocks);
->>> +                err = __alloc_contig_aligned_retry(mm, rhs_offset,
->>> +                                   size,
->>> +                                   min_block_size,
->>> +                                   blocks);
->>> +                if (!err)
->>> +                    return 0;
->>> +                if (err != -ENOSPC) {
->>> +                    gpu_buddy_free_list_internal(mm, blocks);
->>> +                    return err;
->>> +                }
->>> +                goto next;
->>> +            }
->>>    -            lhs_size = max((size - filled), min_block_size);
->>> -            if (!IS_ALIGNED(lhs_size, min_block_size))
->>> -                lhs_size = round_up(lhs_size, min_block_size);
->>> +            if (size - filled > rhs_offset)
->>> +                goto next;
->>>    -            /* Allocate blocks traversing LHS */
->>> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
->>> -            err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
->>> -                               NULL, &blocks_lhs);
->>> -            if (!err) {
->>> -                list_splice(&blocks_lhs, blocks);
->>> +            lhs_offset = rhs_offset - (size - filled);
->>> +
->>> +            /* Allocate the unaligned LHS offset using round_down */
->>> +            gpu_buddy_free_list_internal(mm, blocks);
->>> +            err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
->>> +                               min_block_size, blocks);
->>> +            if (!err)
->>>                    return 0;
->>> -            } else if (err != -ENOSPC) {
->>> +            if (err != -ENOSPC) {
->>>                    gpu_buddy_free_list_internal(mm, blocks);
->>>                    return err;
->>>                }
->>> -            /* Free blocks for the next iteration */
->>> +next:
->>>                gpu_buddy_free_list_internal(mm, blocks);
->>> -
->>>                iter = rb_prev(iter);
->>>            }
->>>        }
->>>
->>> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
+Hawking
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
+Yang
+Sent: Thursday, July 2, 2026 6:32 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Yang, Stanley <Stanley.Yang@amd.com>
+Subject: [PATCH V2 1/1] drm/amdgpu/ras: only check bad page for address-bas=
+ed UMC injection
+
+UMC error injection on MI300 series is dispatched by the RAS TA via the (su=
+b-block, method) pair; only the "coherent" methods are address based, the s=
+ingle-shot/persistent/ac-parity ones ignore the address.
+
+The debugfs control path validated the injection address against the bad pa=
+ge list for every UMC injection. Restrict that check to address-based injec=
+tions and warn when a non address-based one is given a non-zero address. Ot=
+her ASICs keep injecting by address.
+
+Changed from V1:
+        move address based checking to uniras layer
+
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 10 +++-
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  | 58 ++++++++++++++++++-
+ 2 files changed, 65 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index af48dd2ebd16..f280a312b0a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -606,8 +606,14 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
+le *f,
+                ret =3D amdgpu_ras_feature_enable(adev, &data.head, 1);
+                break;
+        case 2:
+-               /* umc ce/ue error injection for a bad page is not allowed =
+*/
+-               if (data.head.block =3D=3D AMDGPU_RAS_BLOCK__UMC)
++               /*
++                * UMC ce/ue error injection for a bad page is not allowed.=
+ For
++                * uniras (SMU v13+) devices the injection address is valid=
+ated by
++                * the ras_mgr inject handler, so only run the legacy bad p=
+age
++                * check for the legacy RAS path.
++                */
++               if (data.head.block =3D=3D AMDGPU_RAS_BLOCK__UMC &&
++                   !amdgpu_uniras_enabled(adev))
+                        ret =3D amdgpu_ras_check_bad_page(adev, data.inject=
+.address);
+                if (ret =3D=3D -EINVAL) {
+                        dev_warn(adev->dev, "RAS WARN: input address 0x%llx=
+ is invalid.", diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.=
+c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
+index bfbfdffbfbe6..063c7b0a7b00 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
+@@ -82,6 +82,57 @@ static uint64_t local_addr_to_xgmi_global_addr(struct ra=
+s_core_context *ras_core
+        return (addr + xgmi->physical_node_id * xgmi->node_segment_size);  =
+}
+
++/*
++ * UMC error injection is dispatched by the RAS TA using the
++(sub-block, method)
++ * pair carried in struct ras_cmd_inject_error_req as subblock_id (enum
++ * error_sub_block_umc) and method (enum inject_method_umc). Only the "coh=
+erent"
++ * methods program an explicit injection address and are therefore
++address-based;
++ * the single-shot, persistent and ac-parity methods ignore the address.
++ *
++ * Keep the values below in sync with the RAS TA.
++ */
++enum umc_error_sub_block {
++       UMC_ERROR_CRC                   =3D 0,
++       UMC_ERROR_SRAM                  =3D 1,
++       UMC_ERROR_ODECC                 =3D 2,
++       UMC_ERROR_PARITY_DATA           =3D 3,
++       UMC_ERROR_PARITY_CMD            =3D 4,
++};
++
++enum umc_inject_method {
++       UMC_METH_COHERENT               =3D 0,
++       UMC_METH_SINGLE_SHOT            =3D 1,
++       UMC_METH_PERSISTENT             =3D 2,
++       UMC_METH_PERSISTENT_DISABLE     =3D 3,
++       UMC_METH_COHERENT_NO_DETECTION  =3D 4,
++       UMC_METH_COHERENT_WR            =3D 5,
++       UMC_METH_SINGLE_SHOT_WR         =3D 6,
++       UMC_METH_PERSISTENT_WR          =3D 7,
++       UMC_METH_SINGLE_SHOT_CLEAN      =3D 8,
++};
++
++/*
++ * Return true if a UMC error injection using @sub_block and @method is
++ * address-based, i.e. it programs an explicit injection address that
++must be
++ * validated. The non address-based methods ignore the address.
++ */
++static bool amdgpu_ras_umc_inject_is_address_based(u32 sub_block, u64
++method) {
++       switch (sub_block) {
++       case UMC_ERROR_CRC:
++               return method =3D=3D UMC_METH_COHERENT ||
++                      method =3D=3D UMC_METH_COHERENT_NO_DETECTION ||
++                      method =3D=3D UMC_METH_COHERENT_WR;
++       case UMC_ERROR_ODECC:
++               return method =3D=3D UMC_METH_COHERENT;
++       case UMC_ERROR_PARITY_DATA:
++               return method =3D=3D UMC_METH_COHERENT ||
++                      method =3D=3D UMC_METH_COHERENT_WR;
++       default:
++               return false;
++       }
++}
++
+ static int amdgpu_ras_inject_error(struct ras_core_context *ras_core,
+                        struct ras_cmd_ctx *cmd, void *data)  { @@ -90,7 +1=
+41,8 @@ static int amdgpu_ras_inject_error(struct ras_core_context *ras_cor=
+e,
+                (struct ras_cmd_inject_error_req *)cmd->input_buff_raw;
+        int ret =3D RAS_CMD__ERROR_GENERIC;
+
+-       if (req->block_id =3D=3D RAS_BLOCK_ID__UMC) {
++       if (req->block_id =3D=3D RAS_BLOCK_ID__UMC &&
++               amdgpu_ras_umc_inject_is_address_based(req->subblock_id,
++req->method)) {
+                if (amdgpu_ras_mgr_check_retired_addr(adev, req->address)) =
+{
+                        RAS_DEV_WARN(ras_core->dev,
+                                "RAS WARN: inject: 0x%llx has already been =
+marked as bad!\n", @@ -111,6 +163,10 @@ static int amdgpu_ras_inject_error(=
+struct ras_core_context *ras_core,
+                        req->block_id !=3D RAS_BLOCK_ID__GFX) {
+                        req->address =3D local_addr_to_xgmi_global_addr(ras=
+_core, req->address);
+                }
++       } else if (req->block_id =3D=3D RAS_BLOCK_ID__UMC && req->address) =
+{
++               RAS_DEV_WARN(adev,
++                       "RAS WARN: non address based injection, ignore the =
+injection address 0x%llx\n",
++                       req->address);
+        }
+
+        amdgpu_ras_trigger_error_prepare(ras_core, req);
+--
+2.43.0
 
