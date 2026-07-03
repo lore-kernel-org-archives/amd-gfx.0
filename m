@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701DAC44500
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 10:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C01BBC43602
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 10:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE9B10F784;
-	Fri,  3 Jul 2026 10:24:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF9710F785;
+	Fri,  3 Jul 2026 10:25:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="KiqAVMF9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kXpkqSjh";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC1010F781;
- Fri,  3 Jul 2026 10:24:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783074284; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MfsIRhwnhrm54asCSnF5t1iqWUY8VK1heUHP5NWAqZL2URHoatXswe2DSt08iMn/hrr4S3bAP7LTPw01iLhxkJjsIzNR2ezz4HsvgUTfyQ6OwwI/x2hQ6cVsPkiP3XwbLEZ0UokJ0PalVtJkEvMenbBlSRL6G/MlA/jANUmrxB0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783074284;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=swOGO7PCaEub/Lbtsrzxaux6bZHWTZvw9u3yGMn6dMw=; 
- b=ieGQQADyhMUK9g4S8Vm70N/uczhqmRkOIEK+O3kB7QDjt3BW7D267g9fvAp7ywv/y0Wmag3b3tadU8XuDtk5OnEaFHfr8Z03A17sgVekbJ0oxtBiOXsoQ4g7Cu8KjGxvwS8i7Nu4N+BGvadCC+YiODF5LSRegPGrTlAla/XDjoU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783074284; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=swOGO7PCaEub/Lbtsrzxaux6bZHWTZvw9u3yGMn6dMw=;
- b=KiqAVMF95l1FSieB4sECEond166GQ5T6Z2hhHw+2y2omMg3Rz3TZNlNrYpbdHkTc
- V3yZqugSypNR0SgNXvrHqJiTRD2q4l76EFT4TMXADw2D/Ag0YX9wi6SWkIe+IRfR82U
- +j46eexKhwkDrzBgDk6XFmAnw7KZTls/phrduJSk=
-Received: by mx.zohomail.com with SMTPS id 1783074283065948.6330683029324;
- Fri, 3 Jul 2026 03:24:43 -0700 (PDT)
-Message-ID: <32c130ee-721c-4333-a63d-450c72fd88d7@collabora.com>
-Date: Fri, 3 Jul 2026 12:24:40 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F29310F785
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 10:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Zw2EkfINYYWI8n01RYWLVQB6Ch+JFs1PzB/2KwxLC5s=; b=kXpkqSjhhM2gT8M3qV3P6idjRr
+ qH5axPw0G9c8eIePPE9Q3LafRLO0hczGSi5C75IkKlxVlo8R34DIpb0cp57KSm0Rqs1NrRjM0ENNu
+ e648vKwQ0RH6euD3Lvl6xgy/BbmIaxKhajcEGdMaLeKOnKcXnPwb1/pgcLed0ShgypRK+3plJOuHB
+ pT8TBcdmv4BX0Wp+Q5LeYqbzyuOeLDYof/PILkwprRM1Teg/RTtk6ticxXBUo2gSiXUyfi52xJkEe
+ 52JGwzKslzmhRYvnI3O1ACAQIr1w3P8+v38gpZqnazBkgpuUBzMtSi6JxdAJAF6GR71+gFnAKphOa
+ K6+ndAcA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wfb5e-008RbQ-KE; Fri, 03 Jul 2026 12:25:46 +0200
+Message-ID: <82ea7eca-2a7b-4b00-b171-32e8b92b0137@igalia.com>
+Date: Fri, 3 Jul 2026 11:25:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/11] drm/vkms: Add fixed matrix colorop to color
- pipeline
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+Subject: Re: [RFC v2 2/4] drm/amdgpu: Add a new ioctl for listing client
+ contexts
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>
-References: <20260623164812.81110-1-harry.wentland@amd.com>
- <20260623164812.81110-4-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260623164812.81110-4-harry.wentland@amd.com>
+Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
+References: <20260623141257.66086-1-tvrtko.ursulin@igalia.com>
+ <20260623141257.66086-3-tvrtko.ursulin@igalia.com>
+ <109ee3c0-2111-4256-bcac-59da1f76d2d5@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <109ee3c0-2111-4256-bcac-59da1f76d2d5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,140 +66,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 23.06.26 18:48, Harry Wentland wrote:
-> Insert a fixed matrix colorop as the first operation in the
-> VKMS color pipeline, before the existing 1D curve. This allows
-> userspace to select YUV-to-RGB conversion via the color pipeline
-> for YCbCr framebuffers.
->
-> The CSC Fixed Matrix colorop advertises support for all six
-> YUV-to-RGB conversion presets:
->    - YUV601/709/2020 full-range to RGB
->    - YUV601/709/2020 limited-range to RGB
->
-> Bump MAX_COLOR_PIPELINE_OPS from 4 to 5 to accommodate the new op.
->
-> Assisted-by: Claude:claude-opus-4.6
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> ---
->   drivers/gpu/drm/vkms/vkms_colorop.c | 66 ++++++++++++++++++++---------
->   1 file changed, 46 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/vkms_colorop.c
-> index 071f3a8d2e7c..9424b1994239 100644
-> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
-> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
-> @@ -12,11 +12,19 @@ static const u64 supported_tfs =
->   	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
->   	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF);
->   
-> +static const u64 supported_fm =
-> +	BIT(DRM_COLOROP_FM_YCBCR601_FULL_RGB) |
-> +	BIT(DRM_COLOROP_FM_YCBCR601_LIMITED_RGB) |
-> +	BIT(DRM_COLOROP_FM_YCBCR709_FULL_RGB) |
-> +	BIT(DRM_COLOROP_FM_YCBCR709_LIMITED_RGB) |
-> +	BIT(DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB) |
-> +	BIT(DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB);
-> +
->   static const struct drm_colorop_funcs vkms_colorop_funcs = {
->   	.destroy = drm_colorop_destroy,
->   };
->   
-> -#define MAX_COLOR_PIPELINE_OPS 4
-> +#define MAX_COLOR_PIPELINE_OPS 5
->   
->   static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
->   {
-> @@ -27,7 +35,25 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->   
->   	memset(ops, 0, sizeof(ops));
->   
-> -	/* 1st op: 1d curve */
-> +	/* 1st op: Fixed Matrix (YUV to RGB) */
-> +	ops[i] = kzalloc_obj(*ops[i]);
-> +	if (!ops[i]) {
-> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> +		ret = -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
-> +	ret = drm_plane_colorop_fixed_matrix_init(dev, ops[i], plane, &vkms_colorop_funcs,
-> +						  supported_fm,
-> +						  DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	list->type = ops[i]->base.id;
-> +
-> +	i++;
-> +
-> +	/* 2nd op: 1d curve */
->   	ops[i] = kzalloc_obj(*ops[i]);
->   	if (!ops[i]) {
->   		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> @@ -41,23 +67,6 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->   	if (ret)
->   		goto cleanup;
->   
-> -	list->type = ops[i]->base.id;
-> -
-> -	i++;
-> -
-> -	/* 2nd op: 3x4 matrix */
-> -	ops[i] = kzalloc_obj(*ops[i]);
-> -	if (!ops[i]) {
-> -		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> -		ret = -ENOMEM;
-> -		goto cleanup;
-> -	}
-> -
-> -	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
-> -					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> -	if (ret)
-> -		goto cleanup;
-> -
->   	drm_colorop_set_next_property(ops[i - 1], ops[i]);
->   
->   	i++;
-> @@ -79,7 +88,24 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->   
->   	i++;
->   
-> -	/* 4th op: 1d curve */
-> +	/* 4th op: 3x4 matrix */
-> +	ops[i] = kzalloc_obj(*ops[i]);
-> +	if (!ops[i]) {
-> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> +		ret = -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
-> +	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
-> +					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
-> +
-> +	i++;
-> +
-> +	/* 5th op: 1d curve */
->   	ops[i] = kzalloc_obj(*ops[i]);
->   	if (!ops[i]) {
->   		drm_err(dev, "KMS: Failed to allocate colorop\n");
+On 30/06/2026 14:02, Christian König wrote:
+> On 6/23/26 16:12, Tvrtko Ursulin wrote:
+>> Similar in principle to DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES, we need a new
+>> ioctl to list any contexts created by the client.
+>>
+>> Lets add it as DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS, and the respective uapi
+>> data structures.
+>>
+>> Structures contain all information required to re-create the context,
+>> modulo the handle id replication, which will be handled in a following
+>> patch.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 100 ++++++++++++++++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   1 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   2 +
+>>   include/uapi/drm/amdgpu_drm.h           |  31 ++++++++
+>>   4 files changed, 134 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> index ce35b415093d..b9bbf8677174 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> @@ -768,6 +768,106 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
+>>   	return r;
+>>   }
+>>   
+>> +/**
+>> + * amdgpu_gem_list_contexts_ioctl - get information about clients contexts
+>> + *
+>> + * @dev: drm device pointer
+>> + * @data: drm_amdgpu_gem_list_handles
+>> + * @filp: drm file pointer
+>> + *
+>> + * Returns:
+>> + * 0 for success, -errno for errors.
+>> + */
+>> +int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
+>> +				   struct drm_file *filp)
+>> +{
+>> +	struct drm_amdgpu_gem_list_contexts *args = data;
+>> +	struct drm_amdgpu_gem_list_contexts_entry *contexts;
+>> +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+>> +	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
+>> +	struct amdgpu_device *adev = mgr->adev;
+>> +	unsigned long num = 0, idx = 0;
+>> +	struct amdgpu_ctx *ctx;
+>> +	int ret = 0;
+>> +	u32 id;
+>> +
+>> +	if (args->padding)
+>> +		return -EINVAL;
+>> +
+>> +	mutex_lock(&mgr->lock);
+>> +	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
+>> +		num++;
+>> +	mutex_unlock(&mgr->lock);
+>> +
+>> +	if (num == 0 || args->num_contexts < num) {
+>> +		args->num_contexts = num;
+>> +		return 0;
+> 
+> For the args->num_contexts < num case I would expect an error return.
 
-LGTM.
+Hm, why, what do you have in mind? It is the same pattern as in list 
+handles by the way.
 
-Reviewed-by: Robert Mader <robert.mader@collabora.com>
+>> +	}
+>> +
+>> +	contexts = kvzalloc_objs(*contexts, num);
+>> +	if (!contexts)
+>> +		return -ENOMEM;
+>> +
+>> +	mutex_lock(&mgr->lock);
+>> +	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
+>> +		struct drm_amdgpu_gem_list_contexts_entry *context;
+>> +		enum amd_dpm_forced_level level;
+>> +
+>> +		if (idx >= num) {
+>> +			ret = -EAGAIN;
+>> +			break;
+>> +		}
+>> +
+>> +		context = &contexts[idx];
+>> +
+>> +		context->handle = id;
+>> +		context->init_priority = ctx->init_priority;
+>> +		context->override_priority = ctx->override_priority;
+>> +
+>> +		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+>> +		if (ctx == adev->pm.stable_pstate_ctx) {
+>> +			level = amdgpu_dpm_get_performance_level(adev);
+>> +
+>> +			switch (level) {
+>> +			case AMD_DPM_FORCED_LEVEL_AUTO:
+>> +				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_NONE;
+>> +				break;
+>> +			case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
+>> +				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_STANDARD;
+>> +				break;
+>> +			case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
+>> +				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK;
+>> +				break;
+>> +			case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
+>> +				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK;
+>> +				break;
+>> +			case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
+>> +				context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_PEAK;
+>> +				break;
+>> +			default:
+>> +				ret = -EIO;
+>> +				break;
+>> +			};
+>> +
+>> +		}
+>> +		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+> 
+> Looks good to me of hand, but Alex should probably take a look at this power stuff as well.
+> 
+>> +
+>> +		idx++;
+>> +	}
+>> +	mutex_unlock(&mgr->lock);
+>> +
+>> +	args->num_contexts = idx;
+>> +
+>> +	if (!ret)
+>> +		if (copy_to_user(u64_to_user_ptr(args->contexts), contexts,
+>> +				 num * sizeof(*contexts)))
+>> +			ret = -EFAULT;
+>> +
+>> +	kvfree(contexts);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>   {
+>>   	struct amdgpu_ctx *ctx;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index bf4260269681..f61f0ddd3ccf 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -3076,6 +3076,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+>>   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>>   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>>   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>> +	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_CONTEXTS, amdgpu_gem_list_contexts_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>>   };
+>>   
+>>   static const struct drm_driver amdgpu_kms_driver = {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+>> index b558336bc4c6..0e17d9fc665f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+>> @@ -69,6 +69,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+>>   			struct drm_file *filp);
+>>   int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
+>>   				  struct drm_file *filp);
+>> +int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
+>> +				   struct drm_file *filp);
+>>   
+>>   int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
+>>   				struct drm_file *filp);
+>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>> index 24f2dffc0789..3191ae1a0549 100644
+>> --- a/include/uapi/drm/amdgpu_drm.h
+>> +++ b/include/uapi/drm/amdgpu_drm.h
+>> @@ -58,6 +58,7 @@ extern "C" {
+>>   #define DRM_AMDGPU_USERQ_SIGNAL		0x17
+>>   #define DRM_AMDGPU_USERQ_WAIT		0x18
+>>   #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+>> +#define DRM_AMDGPU_GEM_LIST_CONTEXTS	0x20
+>>   
+>>   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>> @@ -79,6 +80,7 @@ extern "C" {
+>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>> +#define DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_CONTEXTS, struct drm_amdgpu_gem_list_contexts)
+>>   
+>>   /**
+>>    * DOC: memory domains
+>> @@ -873,6 +875,35 @@ struct drm_amdgpu_gem_list_handles_entry {
+>>   	};
+>>   };
+>>   
+>> +struct drm_amdgpu_gem_list_contexts {
+>> +	/* User pointer to array of drm_amdgpu_gem_list_contexts_entry */
+>> +	__u64 contexts;
+>> +
+>> +	/* Size of the contexts buffer / Number of contexts in the client (if larger than size of buffer, must retry) */
+> 
+> That comment looks to long and needs to be broken into multiple lines.
 
--- 
-Robert Mader
-Consultant Software Developer
+I was lazy and copy pasted from struct drm_amdgpu_gem_list_handles. :) 
+Will fix.
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+Regards,
+
+Tvrtko
+
+> 
+> Apart from that looks really good to me,
+> Christian.
+> 
+>> +	__u32 num_contexts;
+>> +
+>> +	__u32 padding;
+>> +};
+>> +
+>> +struct drm_amdgpu_gem_list_contexts_entry {
+>> +	/* gem context handle */
+>> +	__u32 handle;
+>> +
+>> +	/* AMDGPU_GEM_LIST_CONTEXTS_FLAG_* */
+>> +	__u32 flags;
+>> +
+>> +	/* context initial priority */
+>> +	__s32 init_priority;
+>> +
+>> +	/* context override priority */
+>> +	__s32 override_priority;
+>> +
+>> +	/* pstate flags */
+>> +	__u32 pstate_flags;
+>> +
+>> +	__u32 padding;
+>> +};
+>> +
+>>   #define AMDGPU_VA_OP_MAP			1
+>>   #define AMDGPU_VA_OP_UNMAP			2
+>>   #define AMDGPU_VA_OP_CLEAR			3
+> 
 
