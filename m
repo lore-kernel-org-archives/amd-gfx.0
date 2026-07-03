@@ -4,123 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E17C0C43458
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E45C43458
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 09:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADE810F6B5;
-	Fri,  3 Jul 2026 07:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9CFA10E331;
+	Fri,  3 Jul 2026 09:44:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oK9498WJ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="NnP5Wc1l";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010059.outbound.protection.outlook.com [52.101.85.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D42310F6B5
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 07:44:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zd+rBEyXwjlaSVlZLUww+mASI3C/HhcZ5QR0S8zQADveudD9AAcbhzOqlcUkr5ISH0IMD5eQ4ysFY624l9lmoWxX6qoQJEgzaa7rpWS25SMhzMTLAbSzKVNgQdAWj8fWr2/h4lLHdzMmHOCTXQ8ZDn2yhMTBFe6Me3bcV6NP/bagsMpeCjGW6rUghK7Y2nbi2DPF4M6rGRniDzxWsRcCCTpS+H1uDPZayHB6S1tTg2q6QLMBwfewrnrsK943WppX+6wCpRaBTcNp/+EjJUuk5RyCc55RGjfNu52RXEH4qBfF4Ygc8XC+5wFZpc1SrjcO2UG7lnHykWckwR+NfM1Zbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H8eeEh7kPtf9jZ9ga3zgLIcaiWaOlM8g4buWK0t12XE=;
- b=l4uOcNRi61NVGSWQ5chS1m8Hmg3o5HokZW3y3CsGZxq73VV2/niDmtViGK1ddoJ1qBpT81RoCLxqJZyTJpYS6Z2FejmmErIZiR/gOVh5Hh29xnMtSPVaSUN5LtE4OvX4G+iHIxHJp8KFscah2cbA2Vj8lU45Ijk+M6E18ZkpN+6m7y9I/a6Pv72AE/A6WBVN2VluVlF7FNSOlxbR1wQqNo0cpaAqTW/WLV6Jc1D0SObROOz9UpOcT6yxIanpbK96yLYU50CJVTXkui0yaoXf37TiLdXGIUzqLbacISgzFLAPW/CJGn/SZRrVi8u0ck2PaSK+RrEDHyBDMOI7yhQShQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H8eeEh7kPtf9jZ9ga3zgLIcaiWaOlM8g4buWK0t12XE=;
- b=oK9498WJrYdn8dIBL++rrnDcx8PxGmBFqruDqMgbI74kCsZQSZMhwlBqmH9rkFkK36h2areOh5Wpt0cpk3jB0J7MQ54W2g5dURxF2IfJmNxkOFz0JC56X3pwgUnfQ6V4oPOQG4SLvo9y1DN8epuSMETlYpS0fYsoWQ535P730Mk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8903.namprd12.prod.outlook.com (2603:10b6:610:17a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
- 07:44:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 07:44:10 +0000
-Message-ID: <3f732fbc-5a36-4818-9247-4539ed791872@amd.com>
-Date: Fri, 3 Jul 2026 09:44:07 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] drm/amdgpu: Drop vm_manager PASID to VM mapping
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260703061833.3163913-1-srinivasan.shanmugam@amd.com>
- <20260703061833.3163913-4-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260703061833.3163913-4-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0028.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6649910E331;
+ Fri,  3 Jul 2026 09:44:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783071848; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Hns0HDF+5DW4cD3Wyzj1ukJUOFrgFYrE5+YBpCvyWZs/W5i1XphlqM2jmQd74vHGAOf5SrrsSoJdGZwukc8jUGed2yCtRJcZfShg6cUS84axjtd7FzRPaqPfE0Q1OkT8gzP7DAzZsAvEB7aZB2YLsm6OumBXrkZZwzFm4ucmnZ4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783071848;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=iY6shyBIx6VYi3lt7Tn+pTfkrRSShmHcVAkPE+hZzh8=; 
+ b=C/8bQVBcAGDodPlIA8FodQa4mScPk9wc11zuXiFwWjIMAcGgdbZ8GelwWDAU/fzy9r4KzcibrRhY1uS2qGCchCUMMJoyPWkYPYLid74pTVYSy8iOa3uSb+Icw9xw2lotFPP2BWb8te4GqArl2FCDzk6px7c5bpUL3pexk/0kKmw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783071848; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=iY6shyBIx6VYi3lt7Tn+pTfkrRSShmHcVAkPE+hZzh8=;
+ b=NnP5Wc1lSYg5HsW1oqfJxCG0KgoZSdNoqu5SUZNoxVuRhV+ifrFEVRKQTd9tztjb
+ qRGzXtyjBCo5u38d0XcbBVAR+dFcNQ8IN7Fk2m2SiiohhtD261qC8Fhax5zXFjqFoZU
+ iOmlfluyM8gSFotaZbpG885ZkdGbQejCGQCU+H8c=
+Received: by mx.zohomail.com with SMTPS id 178307184634623.534923268723333;
+ Fri, 3 Jul 2026 02:44:06 -0700 (PDT)
+Message-ID: <8035ec76-bc86-47a9-950a-674a39b6a2fe@collabora.com>
+Date: Fri, 3 Jul 2026 11:44:01 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8903:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c406b22-ee91-42b9-ef9c-08ded8d6de92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|6133799003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: lzVhZ8VQb0Ir12IjOdBihWibHU2lWsfo/neloW+YBrYynJAHLsEn5ZXpY6vo6Y5mYl4gogg3bDTORrLQK3D3jOvmAm0rFMXhaxIjof21BtihqcQJvd9yABGWsYOvn2BFirP0wU5f7G7cyhfM4Uq2+yyFZlzQJf9AAG5vaZ1+ZVSslQIkv9RB/gQFDpALeyuYQKPczSMRTqn6nir8TTivsHTyhsQRa3k/uv/Lx5uqHQYej4bzOUnkIrpb5B9TWRS6xEWNXI0EDxjMQlUo1PnZUMJ2RtefbJ6vxuRu+4t9vJ2cp2g5ye5kHn9d3gjdnEdIY9lV95DkxVvqJ/QXXS85nwyBI0avU7xm/Nhhok4yz0VcsG4YaOuyMdzIaELntFHrFwFKkpHYiYlHAPyO/8th9Lv9GueO40uNHJLYNYukiEljK/DTkMJv7qtvtgSih6VZp/vusgYo3ZyfEdkVTGgPeea06/p85szG1zcHOoCKo0jH9jCfh1sDJXTaqV+SMq1wulsw6Dlq1b1AxXvOSho31hElFKRj2ZBvYEc9fBFqw08CBkFrDebQzj5DVmVSDA9GZJoteLIfsif0i08ZwBc+++nbAhpvBV7yaKwH6NZSIoNfl6utvtSCGJC7sZLKCym3iIJMT7oT8V3dxbFIcDTy31th2slnAy4zTQP7NX6CKL0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGl0eko4anBLQjBjTlJvOTFYa2p4TWdoK0dpWXQzcmtrOFJTNGdFOWRKQjJy?=
- =?utf-8?B?MllIWStzOEtHYjR6RzdDdXR5dDVhT1hhRXdiTE1qYlV6K0JGa1I0TFRUTzJj?=
- =?utf-8?B?YUlsRkRjSXhLL1FPZ1FuQUI5TjQ4aEhhcU1lS2J5Tkk4WnFsVzdXSThoVlVF?=
- =?utf-8?B?T3JBU2NseGp1Qk9oT3dqOUk0KzU0Q1QrVEZFOW8ydTJnZjlsMUp1Z0QvMTlR?=
- =?utf-8?B?NEI1YVZnd1h6Z00ybWkwakw5SW1SVFM1QzdjNVIzaGpPS1J5UHJPM2hSTUFk?=
- =?utf-8?B?UDNrNHJmRUpnS3g4VUNySlhvaVVFRHk1dnNMK1dkQ1NuZFBSSllFNGY0amxR?=
- =?utf-8?B?c3lGaC9NUlI1c1JPVGZLczJUVDZjcnNBUlVYYk5pbThaR2FBTHQwaFZJN1RD?=
- =?utf-8?B?VXo4ZlBpdjBVWE9WQ1B2b2V1SGVreTJpa1JGUTR4WVdoblVCcE1BaWpYaTBt?=
- =?utf-8?B?NmVBcTVMSFkvQlNwa3FXc241NU4xK2ZhMHV5V2N3cFZBU0ZRd2FnNFpkVE1o?=
- =?utf-8?B?RHZra3oxSjJXa1JDcENLZktuQXN5SlVlNnd1SER0ZFVtKy90SG5rdmRpNXpX?=
- =?utf-8?B?S2grNnF4TEV6QTRMMllkZTZYdDJhb1Q0cjdYU1pNYmxobC92bXMrM1ZhZ2Uv?=
- =?utf-8?B?dXY2dzN2VmVUaFZDZWpmVlZXN3hNOGtLbi8zYWY2YW5wSUwwaWNIbXQyOVRC?=
- =?utf-8?B?STRiSmFuMkgwRUxBVzhyWkFBWHEvcEN4QXVsSWZNdDBodFdMM0VwVVRIMnJj?=
- =?utf-8?B?aXk0MEkzWnpTSzRVSXpLVDFodHJNU0Q4VDhzYTBjMUpvd3lnQVNJMU5zdnUv?=
- =?utf-8?B?K3VPd0dWT25hWVJ6bGwrQnpMekw4NXJlQmxha0RoR3FsVmNMVUZvZXNCSHdy?=
- =?utf-8?B?YjRUTGJ3d0xPYm90Y3hqU1RIcHpvaDF6TTM0dXUyUEl2dHBpc2I0bE95S1JT?=
- =?utf-8?B?M1M3aTJXKzRONE5sdzJ5UjhmOHRRVzVId0dpQVI0RVdzNW9jRm1FMHhuNEJW?=
- =?utf-8?B?TDBsc0dQZW0vNmhvdEJNMHZJS21SZkk0REtaRFl6ZGRUejJscmxiTW9EUnVP?=
- =?utf-8?B?ek8xSElWMTdJK1RuSGZ3Vlc2NmpHNGg2WUVJNStFeDRIUmhLTGdTOXBNeENX?=
- =?utf-8?B?RFk5aDFCSkJqN1ZQNFhqUUZKVlI3d24rcnc2OUJwY0ZxdzQ2WjhIWFRlK2pI?=
- =?utf-8?B?L3NnL1dIQUk1a1JQWXlZQlpHTTFrVkFVZmFaOWNDNE9WTVRGZTJtbVdRUThH?=
- =?utf-8?B?RHQyR09FL3B5L3hZWktiTEc5MkxXLzlvNHVGZTVweHhhYU1ldlhNYVpLKytN?=
- =?utf-8?B?Y2FFRUV0MUcvdFhLd3hMWkhRaU00MW12ak9VSHFWYitFbGtWaEV3S05NNGJy?=
- =?utf-8?B?Tml2Z2NjV21GZVE0a1dXaG9UenNDc2pqZmUzdVpzZmhXU0VnTjV5UDdydS81?=
- =?utf-8?B?TW1uVzA2ckxzb0Q1OUVyZUUwS2l1ZWpQb1BoZE9rcEZGWndxRzl4ME9pYkJS?=
- =?utf-8?B?NDBpUGhaanVveGdpSFBwcGFCRG1ja0F3Z2V5ZEtjU0o0NE5yN3FqdUowa3dh?=
- =?utf-8?B?WHFINjF0VkFMVTltVnFhKy80YkxDMjVnK2I4bW13SXVJU2R1UlVZWmZvdmNo?=
- =?utf-8?B?aGc2ekxVa3Z0cGJ3WmtRTWFNeGloYkI2R0JnUllSdVF4bTVYR2ZkTjkwNEdu?=
- =?utf-8?B?QmhhTmhMSnhSYVhGL0VCU1BkSWhPbDBiMXloVW05S3hRa2FnU3orRjB3c0lv?=
- =?utf-8?B?LytvYU03NUx5SGVBcHJPdjFqNnE3SlQrUzllZHc5SHNYSTFObjRjSFhqczBt?=
- =?utf-8?B?QkxSSzErSGhxWk9naDhFcW41MW45WTUyK1ExM2tOWDRtaUp6RXhDOVhGL3Jq?=
- =?utf-8?B?NlI1WE1SQ3BjSVhOMlVoMVpmUFdkbURtaHRCSnRjNjFEV0Q1Q2V1anBmdTRt?=
- =?utf-8?B?TGhTbCtrWlBjcCtEUzN0Z21GeHBOSHFnY2NNUm1Wbm8wZGNZajE2S1Y3Q0Rh?=
- =?utf-8?B?UzdsMU5NZDdQeXhMTVRySDB3MWY4YmlCZ1QxZ0RXQkkxWHlsM2tBS2JweFJL?=
- =?utf-8?B?QW5uN1JyZkRrTHBBUEJHZ2RRODArUHhNU3A3NmhNamwxVzBZd3J0QndpTzFk?=
- =?utf-8?B?Z1ZVUTB5VDZZUm4zbEVoVUR4aHpLWGpTNkZsUzZRR0haNmlCeksvczM2M01r?=
- =?utf-8?B?akNHUFZ3bkhRZjUrcDdDcE50OWI5bm41V1I0ZnlUcUt6L3B5SkYvQkdXT1Az?=
- =?utf-8?B?Vkh2bitHMFdmdmMyYlZDU2JmalhpWm82Z2JEVW9PRXFjbE14clYxR1o1V29K?=
- =?utf-8?Q?0sHyywbQfxPMWhqAzB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c406b22-ee91-42b9-ef9c-08ded8d6de92
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 07:44:10.3840 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BTZeG+UwPnY6tCITG4tD/wVTireA9UTp5zcJdJDqrvMfdSuhXAcTgXnWmSikZtLu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8903
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/11] YUV conversion colorop with amdgpu and VKMS
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>
+References: <20260623164812.81110-1-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,108 +69,405 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/3/26 08:18, Srinivasan Shanmugam wrote:
-> VM lookup users now resolve DRM PASIDs through the global PASID xarray:
-> 
-> 	PASID -> fpriv -> VM
-> 
-> The per-device vm_manager.pasids xarray is no longer needed.
-> 
-> Remove PASID registration and teardown from VM init/fini paths, drop
-> vm_manager PASID initialization/cleanup, and remove the xarray from
-> struct amdgpu_vm_manager.
-> 
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Hi Harry,
+
+I wrote a Weston draft implementation here: 
+https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
+
+Weston had an existing test ("color-representation-drm") for the legacy 
+properties, ensuring the VKMS output visually matches expectations for 
+all six possible values. With the MR above, if VKMS is loaded with 
+enable_plane_pipeline=1 the new colorop is used, confirming that the 
+VKMS implementation works as expected and in general that the new 
+colorop can be used as a drop-in replacement for the legacy properties. 
+That means any driver/hardware/plane that currently supports 
+COLOR_ENCODING and COLOR_RANGE could offer a pipeline with only the 
+colorop added here and just map it to the existing underlying 
+implementation.
+
+The mentioned test runs on the CI and thus allow to easily check that 
+things work as expected - quoting one example from KMS debug output in 
+the the test log:
+
+[atomic] applying output 0 (Virtual-1) state
+     [CRTC:97] MODE_ID (24) -> 108 (0x6c)
+     [CRTC:97] ACTIVE (23) -> 1 (0x1)
+     [CRTC:97] GAMMA_LUT (29) -> 0 (0x0)
+     [CRTC:97] VRR_ENABLED (25) -> 0 (0x0)
+     [CRTC:97] BACKGROUND_COLOR (31) -> 18446462598732840960 
+(0xffff000000000000)
+     [CONN:105] CRTC_ID (21) -> 97 (0x61)
+     [PLANE:35] FB_ID (18) -> 109 (0x6d)
+     [PLANE:35] CRTC_ID (21) -> 97 (0x61)
+     [PLANE:35] SRC_X (10) -> 0 (0x0)
+     [PLANE:35] SRC_Y (11) -> 0 (0x0)
+     [PLANE:35] SRC_W (12) -> 16777216 (0x1000000)
+     [PLANE:35] SRC_H (13) -> 16777216 (0x1000000)
+     [PLANE:35] CRTC_X (14) -> 384 (0x180)
+     [PLANE:35] CRTC_Y (15) -> 256 (0x100)
+     [PLANE:35] CRTC_W (16) -> 256 (0x100)
+     [PLANE:35] CRTC_H (17) -> 256 (0x100)
+     [COLOROP:40] BYPASS (42) -> 0 (0x0)
+     [COLOROP:40] FIXED_MATRIX_TYPE (44) -> YCbCr 2020 NC Limited to RGB 
+(0x5)
+     [COLOROP:45] BYPASS (47) -> 1 (0x1)
+     [COLOROP:50] BYPASS (52) -> 1 (0x1)
+     [COLOROP:55] BYPASS (57) -> 1 (0x1)
+     [COLOROP:60] BYPASS (62) -> 1 (0x1)
+     [PLANE:35] COLOR_PIPELINE (65) -> 40 (0x28)
+     [PLANE:35] FORMAT: NV12 MODIFIER: LINEAR (0x0)
+     [PLANE:35] rotation (37) -> 1 (0x1)
+
+I also tested the AMD implementation with the Weston MR and Gstreamer 
+(>= 1.28) pipelines like this:
+
+gst-launch-1.0 filesrc location=~/Alaska2160p30fps8bitAV1.webm ! 
+parsebin ! vaav1dec ! waylandsink fullscreen=1
+
+and confirmed that at least BT709-limited and BT2020-limited with NV12 
+and P010 work as expected.
+
+In these test cases all other colorops where set to bypass - however at 
+the recent Display Next Hackfest we also tested more complex pipelines 
+with a mostly identical patch-set.
+
+Therefor the whole series is:
+
+Tested-by: Robert Mader <robert.mader@collabora.com>
+
+I'll now go over the individual commits to add additional R-Bs where I 
+reasonably can.
+
+Thanks and best regards!
+
+Robert
+
+On 23.06.26 18:48, Harry Wentland wrote:
+> When we merged the drm_plane color pipeline API the major gap
+> that existed was the lack of a YUV to RGB conversion colorop.
+> We deprecated any legacy drm_plane color properties, which
+> means that the COLOR_RANGE and COLOR_ENCODING properties can't
+> be used with the COLOR_PIPELINE property on a drm_plane. In
+> practice this means that we can't use a COLOR_PIPELINE on
+> YCbCr encoded framebuffers.
+>
+> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
+> and adds limited range variants of the YCbCr to RGB conversions.
+>
+> His full patchset can be found at
+> https://patchwork.freedesktop.org/patch/709860
+>
+> This code has been tested with IGT and an experimental KWin branch.
+>
+> IGT branch:
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
+>
+> KWin branch used for testing:
+> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
+>
+> The kernel branch containing these changes, based on drm-misc-next
+> can be found at:
+> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
+>
+> Further background on this work can be found at:
+> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
+>
+> v3:
+> - base on Chaitanya's updated patch and rename code accordingly
+>    to Fixed_Matrix instead of CSC Fixed-Function
+>
+> v2:
+> - use Chaitanya's CSC_FF block for named matrices
+>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Daniel Stone <daniels@collabora.com>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Simon Ser <contact@emersion.fr>
+> Cc: Robert Mader <robert.mader@collabora.com>
+>
+> Chaitanya Kumar Borah (1):
+>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+>
+> Harry Wentland (10):
+>    drm/colorop: Add limited-range YUV-to-RGB fixed matrix enum values
+>    drm/vkms: Add fixed matrix colorop to color pipeline
+>    drm/vkms: Add atomic check and matrix handling for fixed matrix
+>      colorop
+>    drm/amd/display: Add fixed matrix colorop to color pipeline
+>    drm/amd/display: Implement fixed matrix colorop color space mapping
+>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
+>    drm/amd/display: Check actual state during commit_tail
+>    drm/amd/display: Set color_space to plane_infos
+>    drm/amd/display: Set COLOR_SPACE_SRGB when fixed matrix colorop is
+>      bypassed
+>    drm/amd/display: Force GAMCOR for subsampled surfaces with
+>      PQ/Gamma22/HLG
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  91 +++++++++++++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 ++++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+>   .../amd/display/modules/color/color_gamma.c   |   3 +-
+>   drivers/gpu/drm/drm_atomic.c                  |   4 +
+>   drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
+>   drivers/gpu/drm/drm_colorop.c                 | 109 +++++++++++++++++
+>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 +++++++---
+>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+>   drivers/gpu/drm/vkms/vkms_plane.c             |  68 ++++++++++-
+>   include/drm/drm_colorop.h                     | 114 ++++++++++++++++++
+>   include/uapi/drm/drm_mode.h                   |  12 ++
+>   13 files changed, 487 insertions(+), 32 deletions(-)
+>
+> --
+> 2.54.0
+>
+>
+>  From mboxrd@z Thu Jan  1 00:00:00 1970
+> Return-Path: <dri-devel-bounces@lists.freedesktop.org>
+> X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+> 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+> Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+> 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+> 	(No client certificate requested)
+> 	by smtp.lore.kernel.org (Postfix) with ESMTPS id B655BCDB479
+> 	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 16:48:27 +0000 (UTC)
+> Received: from gabe.freedesktop.org (localhost [127.0.0.1])
+> 	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9B310EC02;
+> 	Tue, 23 Jun 2026 16:48:27 +0000 (UTC)
+> Authentication-Results: gabe.freedesktop.org;
+> 	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qZX10j76";
+> 	dkim-atps=neutral
+> Received: from CO1PR03CU002.outbound.protection.outlook.com
+>   (mail-westus2azon11010047.outbound.protection.outlook.com [52.101.46.47])
+>   by gabe.freedesktop.org (Postfix) with ESMTPS id 5F51010EC02;
+>   Tue, 23 Jun 2026 16:48:26 +0000 (UTC)
+> ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+>   b=VA0YLyQcoF/NwrbXIx3+VQ3BEuv4aT+SYHQefo57EnVYiNpi7RTRdV8VfAs3YI1HaBIgdfe0AkgUp2sC8Azh2r/XMeGOAqDdtj7rRvOHuvgjadls3iVdy5T/OCqvN+DcP5e0Ydi2hlorPceYBV4ks7zRX19kZmUhJfvowzMu+XwXMzrBa9xNAjbM+WxzxrXmrQH5lmz3Zg5xwSSInH2RR9E/Tt4TP/XK+pIaCYlJJpAYXMrInwgmzvdFXJZxaMdQ9JKTbSm0SgpYPSQNPx97d2RgSobhpvcU8W+dKFZisu+NPHwJZmigWmqY5aK94xMrUhQlA+IxH7Lt3oENs+ALcA==
+> ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+>   s=arcselector10001;
+>   h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+>   bh=Va79LlpBVSYHVb5GCR4+MP8S3TZmpgDcdmsEEadaWcA=;
+>   b=eoDmKJvvQs88tX+Vv3cmW09h27cbxGDBKt5MemE17ISSIfStPkjPR1Usp+BuJfNnGpTnlrmuYy0r6kE690Tnn9r9T1yFAYNZzZ6U8HOGw+zlTM8cXdLol+R37urgfqSWz21U08bYDNw7XnTf6wbE/g/x75DRwzWyrKN3z5Y6tWiX8+LK0yLYRmsjneexC8uAw5Z5kRaPPylBnJRY0Thse5NiffisMrri1OdAoOgEW9z1GL2Q7X8AInUvthDOGefsppr5QOZIr2Xr8zNqqKSpRCMyDIDOTUXlfO5SCdCaYc68yb7FOUWO+rbxqgWll7JcOmnMaZh4eJ1+eAgKTst9lA==
+> ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+>   165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+>   dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+>   header.from=amd.com; dkim=none (message not signed); arc=none (0)
+> DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+>   h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+>   bh=Va79LlpBVSYHVb5GCR4+MP8S3TZmpgDcdmsEEadaWcA=;
+>   b=qZX10j76DTVxZmEdcDnUG3FjzS8o4p/w092+ZzCoDTdUvqRhy8BseSn6wGPgeWFEbkyS35p0+8lPhM6kx0YCDqeAvP6ya7APbwQxyiMLnhDAMu7cZffNOZGNmVMrJd0zsMMZgN8X2aWlj0ckB5JENTDjCjjYyKZfVWwJHQO3Isc=
+> Received: from DS7PR05CA0037.namprd05.prod.outlook.com (2603:10b6:8:2f::24) by
+>   SA3PR12MB9199.namprd12.prod.outlook.com (2603:10b6:806:398::19) with
+>   Microsoft SMTP Server (version=TLS1_2,
+>   cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
+>   2026 16:48:19 +0000
+> Received: from DS1PEPF00017099.namprd05.prod.outlook.com (2603:10b6:8:2f::4)
+>   by DS7PR05CA0037.outlook.office365.com (2603:10b6:8:2f::24) with Microsoft
+>   SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12
+>   via Frontend Transport; Tue, 23 Jun 2026 16:48:18 +0000
+> X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+>   smtp.mailfrom=amd.com; dkim=none (message not signed)
+>   header.d=none;dmarc=pass action=none header.from=amd.com;
+> Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+>   165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+>   client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+> Received: from satlexmb08.amd.com (165.204.84.17) by
+>   DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+>   SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+>   15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 16:48:18 +0000
+> Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+>   (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+>   cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+>   2026 11:48:18 -0500
+> Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+>   (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+>   cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+>   2026 11:48:18 -0500
+> Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+>   (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+>   Transport; Tue, 23 Jun 2026 11:48:17 -0500
+> From: Harry Wentland <harry.wentland@amd.com>
+> To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+> CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+> Subject: [PATCH v3 03/11] drm/vkms: Add fixed matrix colorop to color pipeline
+> Date: Tue, 23 Jun 2026 12:48:04 -0400
+> Message-ID: <20260623164812.81110-4-harry.wentland@amd.com>
+> X-Mailer: git-send-email 2.54.0
+> In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
+> References: <20260623164812.81110-1-harry.wentland@amd.com>
+> MIME-Version: 1.0
+> Content-Transfer-Encoding: 8bit
+> Content-Type: text/plain
+> X-EOPAttributedMessage: 0
+> X-MS-PublicTrafficType: Email
+> X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|SA3PR12MB9199:EE_
+> X-MS-Office365-Filtering-Correlation-Id: b8d5e9e1-ef4b-45b3-3dd2-08ded1473a84
+> X-MS-Exchange-SenderADCheck: 1
+> X-MS-Exchange-AntiSpam-Relay: 0
+> X-Microsoft-Antispam: BCL:0;
+>   ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|11063799006|56012099006|18002099003|22082099003;
+> X-Microsoft-Antispam-Message-Info: HWkLA1p9dJhZyeyQ+wRPa13E7c3B1nHhhTTqJAch6jyxhBqK2bXCX4wi71GuXwKamvb0dDZO5W0bt+VmstYYLg/ai2JdaH9Ky5UZrjhvd6xZP0WpXuMaYcmPe3sy6CNsQ45zbDJH6G+w3ycZWBm9yXMQg3/U8q75th+zL2NV1PrP9CZ+xuTpWLmITvsb8s7QN75yKpxosdZ1hQheQ6SiWpe3JbfBU80b5FE03xBEQAjlO5Zr8ALlTgfDNNzSfbDmzK24bLPUxeE9gHq6uJTKbcv7mYXJsFdpDetHWjEN4gAaqXAUlyP62FksIJOdNSl1ZU4GPi9UEzqpiW/MJp2KH7p8LIVvyeN1TRtv0n8gch2slamirYUj3XZd5GGusjidQKjon7MMq1HVjkAne6f44NC1+E4WRBCWr9l3ij5HFz9+OfO6yGchONfrY/HzYApeFN8ylIghw5ZhL3FdtDmC4Ya0nC9e4zoWdcfSRa013xQC4W2ZR02YxAuoirWh9JgCbYPwcIe59geKASyGabDlJrwhmci/aFeaMzw8/cw+UvRGqnVS4dfjhyvYKKw8IDnZtHL775UavtadnBKftKlz3Punx/lsLNlEPgEInts1YSsrWWcSDwZjf9i3d+srM2YMEMtoaRjWP/ghtKFYio84JfqBTGz2zb1MductyyjOnbU/6fatAM4cf+PqmdSqyLZ9KL+xrK8hcaFxT4awOqeqvg==
+> X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+>   IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+>   SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(11063799006)(56012099006)(18002099003)(22082099003);
+>   DIR:OUT; SFP:1101;
+> X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+> X-MS-Exchange-AntiSpam-MessageData-0: y1eQ/S3waZfjEZXFahjKn+8wWNk7thWlCT5NINZNyFhy6gsLTrvn2uHkXQjwTIZHM0dKCFbNTMTl/+rtqNe7HsAuG7uDsfbZBlLQQE4BY4QDUYh4W8IvQa+vMgtH/lDUe8dUAeXDCDm6JXk6hkomFO8h3vM8ey/NZYyctZZlxUKS/ocYoL4t24N28DABkUVt+82m7QrOo6BUWwftaj2rATOo3F/wdisUHeLnUyucdGsOWYxnlD1G2Z/ZpbNChk8m5EnAMkti2xmQgHLAIroV9KC+bHBURnmn5BoK0Bub2tXFMqdFnE7SIrD4BE5GeGCWjs3icEwQgr8B1/dqwIMr1Pccuk1QebbrFUiqZEfj9rzwNcF/cYq6gqvCsM30BhcObGAob2T4aGbJam2qmxG0q53+aVy00VxSqQvLGYLDkr8VaGsbt6MOEEZ5oyYrwxTd
+> X-OriginatorOrg: amd.com
+> X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 16:48:18.7091 (UTC)
+> X-MS-Exchange-CrossTenant-Network-Message-Id: b8d5e9e1-ef4b-45b3-3dd2-08ded1473a84
+> X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+> X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+>   Helo=[satlexmb08.amd.com]
+> X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017099.namprd05.prod.outlook.com
+> X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+> X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+> X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9199
+> X-BeenThere: dri-devel@lists.freedesktop.org
+> X-Mailman-Version: 2.1.29
+> Precedence: list
+> List-Id: Direct Rendering Infrastructure - Development
+>   <dri-devel.lists.freedesktop.org>
+> List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+>   <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+> List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+> List-Post: <mailto:dri-devel@lists.freedesktop.org>
+> List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+> List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+>   <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+> Errors-To: dri-devel-bounces@lists.freedesktop.org
+> Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+>
+> Insert a fixed matrix colorop as the first operation in the
+> VKMS color pipeline, before the existing 1D curve. This allows
+> userspace to select YUV-to-RGB conversion via the color pipeline
+> for YCbCr framebuffers.
+>
+> The CSC Fixed Matrix colorop advertises support for all six
+> YUV-to-RGB conversion presets:
+>    - YUV601/709/2020 full-range to RGB
+>    - YUV601/709/2020 limited-range to RGB
+>
+> Bump MAX_COLOR_PIPELINE_OPS from 4 to 5 to accommodate the new op.
+>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 25 ++-----------------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  4 ----
->  2 files changed, 2 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 9092ff227a55..74836240edbb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2647,14 +2647,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	if (r)
->  		dev_dbg(adev->dev, "Failed to create task info for VM\n");
->  
-> -	/* Store new PASID in XArray (if non-zero) */
-> -	if (pasid != 0) {
-> -		r = xa_err(xa_store_irq(&adev->vm_manager.pasids, pasid, vm, GFP_KERNEL));
-> -		if (r < 0)
-> -			goto error_free_root;
+>   drivers/gpu/drm/vkms/vkms_colorop.c | 66 ++++++++++++++++++++---------
+>   1 file changed, 46 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/vkms_colorop.c
+> index 071f3a8d2e7c..9424b1994239 100644
+> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
+> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
+> @@ -12,11 +12,19 @@ static const u64 supported_tfs =
+>   	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+>   	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF);
+>   
+> +static const u64 supported_fm =
+> +	BIT(DRM_COLOROP_FM_YCBCR601_FULL_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR601_LIMITED_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR709_FULL_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR709_LIMITED_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB);
+> +
+>   static const struct drm_colorop_funcs vkms_colorop_funcs = {
+>   	.destroy = drm_colorop_destroy,
+>   };
+>   
+> -#define MAX_COLOR_PIPELINE_OPS 4
+> +#define MAX_COLOR_PIPELINE_OPS 5
+>   
+>   static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
+>   {
+> @@ -27,7 +35,25 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
+>   
+>   	memset(ops, 0, sizeof(ops));
+>   
+> -	/* 1st op: 1d curve */
+> +	/* 1st op: Fixed Matrix (YUV to RGB) */
+> +	ops[i] = kzalloc_obj(*ops[i]);
+> +	if (!ops[i]) {
+> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> +		ret = -ENOMEM;
+> +		goto cleanup;
+> +	}
+> +
+> +	ret = drm_plane_colorop_fixed_matrix_init(dev, ops[i], plane, &vkms_colorop_funcs,
+> +						  supported_fm,
+> +						  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	list->type = ops[i]->base.id;
+> +
+> +	i++;
+> +
+> +	/* 2nd op: 1d curve */
+>   	ops[i] = kzalloc_obj(*ops[i]);
+>   	if (!ops[i]) {
+>   		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> @@ -41,23 +67,6 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
+>   	if (ret)
+>   		goto cleanup;
+>   
+> -	list->type = ops[i]->base.id;
 > -
-> -		vm->pasid = pasid;
-> -	}
-> +	vm->pasid = pasid;
-
-What do we actually still need the pasid in the VM for?
-
-Regards,
-Christian.
-
->  
->  	amdgpu_bo_unreserve(vm->root.bo);
->  	amdgpu_bo_unref(&root_bo);
-> @@ -2662,11 +2655,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	return 0;
->  
->  error_free_root:
-> -	/* If PASID was partially set, erase it from XArray before failing */
-> -	if (vm->pasid != 0) {
-> -		xa_erase_irq(&adev->vm_manager.pasids, vm->pasid);
-> -		vm->pasid = 0;
-> -	}
-> +	vm->pasid = 0;
->  	amdgpu_vm_pt_free_root(adev, vm);
->  	amdgpu_bo_unreserve(vm->root.bo);
->  	amdgpu_bo_unref(&root_bo);
-> @@ -2773,11 +2762,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->  
->  	root = amdgpu_bo_ref(vm->root.bo);
->  	amdgpu_bo_reserve(root, true);
-> -	/* Remove PASID mapping before destroying VM */
-> -	if (vm->pasid != 0) {
-> -		xa_erase_irq(&adev->vm_manager.pasids, vm->pasid);
-> -		vm->pasid = 0;
-> -	}
->  	dma_fence_wait(vm->last_unlocked, false);
->  	dma_fence_put(vm->last_unlocked);
->  	dma_fence_wait(vm->last_tlb_flush, false);
-> @@ -2873,8 +2857,6 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
->  #else
->  	adev->vm_manager.vm_update_mode = 0;
->  #endif
+> -	i++;
 > -
-> -	xa_init_flags(&adev->vm_manager.pasids, XA_FLAGS_LOCK_IRQ);
->  }
->  
->  /**
-> @@ -2886,9 +2868,6 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
->   */
->  void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
->  {
-> -	WARN_ON(!xa_empty(&adev->vm_manager.pasids));
-> -	xa_destroy(&adev->vm_manager.pasids);
+> -	/* 2nd op: 3x4 matrix */
+> -	ops[i] = kzalloc_obj(*ops[i]);
+> -	if (!ops[i]) {
+> -		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> -		ret = -ENOMEM;
+> -		goto cleanup;
+> -	}
 > -
->  	amdgpu_vmid_mgr_fini(adev);
->  	amdgpu_pasid_mgr_cleanup();
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 939f639cd8bf..f63364f128bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -481,10 +481,6 @@ struct amdgpu_vm_manager {
->  	 */
->  	int					vm_update_mode;
->  
-> -	/* PASID to VM mapping, will be used in interrupt context to
-> -	 * look up VM of a page fault
-> -	 */
-> -	struct xarray				pasids;
->  	/* Global registration of recent page fault information */
->  	struct amdgpu_vm_fault_info	fault_info;
->  };
+> -	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
+> -					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> -	if (ret)
+> -		goto cleanup;
+> -
+>   	drm_colorop_set_next_property(ops[i - 1], ops[i]);
+>   
+>   	i++;
+> @@ -79,7 +88,24 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
+>   
+>   	i++;
+>   
+> -	/* 4th op: 1d curve */
+> +	/* 4th op: 3x4 matrix */
+> +	ops[i] = kzalloc_obj(*ops[i]);
+> +	if (!ops[i]) {
+> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> +		ret = -ENOMEM;
+> +		goto cleanup;
+> +	}
+> +
+> +	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
+> +					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
+> +
+> +	i++;
+> +
+> +	/* 5th op: 1d curve */
+>   	ops[i] = kzalloc_obj(*ops[i]);
+>   	if (!ops[i]) {
+>   		drm_err(dev, "KMS: Failed to allocate colorop\n");
+
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
