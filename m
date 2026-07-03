@@ -4,74 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF7EC44507
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 15:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAC6C44508
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 15:40:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88E310E5D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3075C10E0B1;
 	Sat,  4 Jul 2026 15:40:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WzjPc3x6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jaV+6YTM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D26110F7EA;
- Fri,  3 Jul 2026 13:11:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783084272; x=1814620272;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=Xu8EYnocXkw9ykOGNuGA2OOtRFcNnzkugR791sAp83E=;
- b=WzjPc3x6i8oESGBR+4Sc+DjA3U3nwzUKfDN4ljZtUsEfPOMNQPndDcru
- BtlA7FRzXtv+EEue78JLxVKO6agwShptmFfGDZwiNpqkQEFI6rxBJsLca
- WbwUyBYCKCwGNB93DyCMfiHaUpIzT6EPajfJqeeRfF+4Ngo0umt9G7nWS
- 4v+aFqFroSchIRsqfjEdYmDWCiMs74ZkYurzpS6ssMduZhEWIKnkTJWas
- H530gfP/bSQbT6hUQ7zwS8jWLsrKTq8gv1Fa3qLdSH2D2aqKtn4qIBwcP
- sGQ7JxpOIrgFEZeLUBZ3F5AAwluAkzL8VkA/j89yoDDVdIf2OuwbV+mqf Q==;
-X-CSE-ConnectionGUID: AnI9KWWBQmWcY3mhxOtVtA==
-X-CSE-MsgGUID: cSAH4OZoRVandgNguZc8cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="84028511"
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="84028511"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2026 06:11:11 -0700
-X-CSE-ConnectionGUID: e8FeLx5dSgKO/yHFp/+lug==
-X-CSE-MsgGUID: l+f6gr/RSDWg7+8CNdy+/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="248664380"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.146])
- ([10.245.245.146])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2026 06:11:06 -0700
-Message-ID: <92e3c9210c4038969b24c7b0f3df0a998587ff4c.camel@linux.intel.com>
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- intel-xe@lists.freedesktop.org, "Paneer Selvam, Arunpravin"
- <Arunpravin.PaneerSelvam@amd.com>
-Cc: Sashiko-bot <sashiko-bot@kernel.org>, Friedrich Vock
- <friedrich.vock@gmx.de>,  Maarten Lankhorst	 <dev@lankhorst.se>, Tejun Heo
- <tj@kernel.org>, Maxime Ripard <mripard@kernel.org>,  Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 	stable@vger.kernel.org, Natalie Vock
- <natalie.vock@gmx.de>, Johannes Weiner	 <hannes@cmpxchg.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Simona Vetter	 <simona@ffwll.ch>, David Airlie
- <airlied@gmail.com>, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-Date: Fri, 03 Jul 2026 15:11:03 +0200
-In-Reply-To: <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
- <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E98510F7B3;
+ Fri,  3 Jul 2026 11:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=XO41EM9tVb7m+F1IE4/cZwrXVnDnScz819jSskznFwo=; b=jaV+6YTMJ5HTQPCdpk0O+PZwLj
+ /JZNMp7cRJle8J1LWYX6gjIWWoqaKBaGZId9uR3/QHjBgAwilWQNsUHWDJ1IQOcSZbpd5VQ2WHsDx
+ fBmwmWyYHaPMmBAA7cV7wlx5il02qntESXJS+q3jQmdS24ra1Tmae3BsFT9rXpIdWGsn4NDGIfRN0
+ QfSD2oXgDJETDwluhPjETm4uo/tO2RtppVXIfnAVStOldnG/05JomvlxvLzr8YBDAaDQC49VbXh6g
+ gv57FhbVJuwvDmyP+RykA8UdZusO+6oipr73fUHEjh1SywWT2FQztFWjO+Yj8vqg727Q24on36Fna
+ NPuMaqjw==;
+Received: from [179.125.94.247] (helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wfbv5-008ScI-Cg; Fri, 03 Jul 2026 13:18:55 +0200
+Date: Fri, 3 Jul 2026 08:18:48 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: "Sokolowski, Jan" <jan.sokolowski@intel.com>
+Cc: "igt-dev@lists.freedesktop.org" <igt-dev@lists.freedesktop.org>,
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>
+Subject: Re: [PATCH i-g-t v3 0/7] add dmem_cgroups test
+Message-ID: <akeamIYrRSTph5St@quatroqueijos.cascardo.eti.br>
+References: <20260702130108.1397444-1-cascardo@igalia.com>
+ <IA4PR11MB9251D24975F81CFD242F88F299F42@IA4PR11MB9251.namprd11.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <IA4PR11MB9251D24975F81CFD242F88F299F42@IA4PR11MB9251.namprd11.prod.outlook.com>
 X-Mailman-Approved-At: Sat, 04 Jul 2026 15:40:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,99 +73,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2026-07-03 at 15:08 +0200, Christian K=C3=B6nig wrote:
-> Arun please take a look at this.
->=20
-> Thanks,
-> Christian.
+On Fri, Jul 03, 2026 at 09:54:14AM +0000, Sokolowski, Jan wrote:
+> I don't know if that's a problem or not, but your patches in patch series are titled as v2 instead of v3, at least that's how I see them.
+> 
+> Jan
+> 
 
-FWIW Sashiko claims there is yet another pre-existing bug WRT ordering
-here, but since the fix wasn't needed for the rest of the series, I
-focused on this one.
+I decided to name this one v3, though I did not call the previous one v2,
+because I have submitted a patchset earlier that was on top of Thomas
+Hellström patchset.
 
-Thanks,
-Thomas
+I think it tracks the history of the patchset better. I am sorry if this
+got confusing.
 
+Cascardo.
 
->=20
-> On 7/3/26 15:05, Thomas Hellstr=C3=B6m wrote:
-> > drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-> > gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
-> > function
-> > returns early and bypasses those initializations.
-> >=20
-> > Since adev->mman.initialized is set to true before
-> > amdgpu_vram_mgr_init()
-> > is called, a failure triggers amdgpu_ttm_fini(), which calls
-> > amdgpu_vram_mgr_fini(), which then:
-> >=20
-> > =C2=A0- Calls list_for_each_entry_safe() on reservations_pending and
-> > =C2=A0=C2=A0 reserved_pages, whose list_head::next pointers are zero-
-> > initialized
-> > =C2=A0=C2=A0 (NULL). The loop does not recognize them as empty and
-> > dereferences NULL.
-> >=20
-> > =C2=A0- Calls gpu_buddy_fini(), which iterates free_trees[]
-> > unconditionally
-> > =C2=A0=C2=A0 via for_each_free_tree(). Since mm->free_trees is NULL
-> > =C2=A0=C2=A0 (never allocated), this dereferences NULL.
-> >=20
-> > Both result in a kernel panic on the module load error path.
-> >=20
-> > Fix by moving drmm_cgroup_register_region() to after the list and
-> > buddy
-> > allocator are fully initialized, so the teardown path is safe to
-> > run.
-> >=20
-> > Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-> > Closes:
-> > https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@=
-linux.intel.com?part=3D4
-> > Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
-> > TTM")
-> > Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> > Cc: Maarten Lankhorst <dev@lankhorst.se>
-> > Cc: Tejun Heo <tj@kernel.org>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: <stable@vger.kernel.org> # v6.14+
-> > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
-> > =C2=A01 file changed, 4 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > index 2a241a5b12c4..ac3f71d77140 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
-> > *adev)
-> > =C2=A0	struct ttm_resource_manager *man =3D &mgr->manager;
-> > =C2=A0	int err;
-> > =C2=A0
-> > -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
-> > "vram", adev->gmc.real_vram_size);
-> > -	if (IS_ERR(man->cg))
-> > -		return PTR_ERR(man->cg);
-> > =C2=A0	ttm_resource_manager_init(man, &adev->mman.bdev,
-> > =C2=A0				=C2=A0 adev->gmc.real_vram_size);
-> > =C2=A0
-> > @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
-> > *adev)
-> > =C2=A0	if (err)
-> > =C2=A0		return err;
-> > =C2=A0
-> > +	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
-> > "vram", adev->gmc.real_vram_size);
-> > +	if (IS_ERR(man->cg))
-> > +		return PTR_ERR(man->cg);
-> > +
-> > =C2=A0	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
-> > &mgr->manager);
-> > =C2=A0	ttm_resource_manager_set_used(man, true);
-> > =C2=A0	return 0;
+> > -----Original Message-----
+> > From: igt-dev <igt-dev-bounces@lists.freedesktop.org> On Behalf Of Thadeu
+> > Lima de Souza Cascardo
+> > Sent: Thursday, July 2, 2026 3:01 PM
+> > To: igt-dev@lists.freedesktop.org
+> > Cc: siqueira@igalia.com; Thadeu Lima de Souza Cascardo
+> > <cascardo@igalia.com>; dri-devel@lists.freedesktop.org; amd-
+> > gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; Christian Koenig
+> > <christian.koenig@amd.com>; maarten.lankhorst@linux.intel.com; Thomas
+> > Hellström <thomas.hellstrom@linux.intel.com>; Kamil Konieczny
+> > <kamil.konieczny@linux.intel.com>; Janusz Krzysztofik
+> > <janusz.krzysztofik@linux.intel.com>; Vitaly Prosyak
+> > <vitaly.prosyak@amd.com>; Natalie Vock <natalie.vock@gmx.de>; Tvrtko
+> > Ursulin <tvrtko.ursulin@igalia.com>; kernel-dev@igalia.com
+> > Subject: [PATCH i-g-t v3 0/7] add dmem_cgroups test
+> > 
+> > v3 TLDR:
+> > Sending again for fixes when running on top of Xe.
+> > 
+> > This patchset is based on the work of Thomas Hellström at [1] and a
+> > followup I have submitted at [2]. This is now a v3, since I submitted [6].
+> > 
+> > With this version, I reverted the order in which to apply the patchsets, as
+> > this one adds the infrastructure and the drivers mechanisms, and a test for
+> > dmem.current and its behavior around dmem.max that is currently
+> > supported
+> > in the kernel.
+> > 
+> > As for the new dmem.max eviction behavior, introduced by [3], it has been
+> > pushed to a branch at [4]. If preferred, I can submit the two patches
+> > independently.
+> > 
+> > I have run the tests, including the ones that test dmem.max eviction
+> > behavior on a system with a 1GiB VRAM amdgpu card. Rodrigo Siqueira
+> > helped
+> > me run it on a Xe system. We have applied the patchset at [3] on top of
+> > current linux origin/master [5], with a fixup for the amdgpu driver.
+> > 
+> > Now, for the changes since v1 [2]:
+> > - Changed the test name from drv_dmem_cgroups to dmem_cgroups.
+> > - Have system includes before igt ones.
+> > - Documented the current SUBTEST.
+> > - Changed free_vram driver hook to only release a given BO. This allows for
+> >   the eviction trigger by a new allocation added by write_eviction_nonblock
+> >   subtest.
+> > - Changed allocate_vram to keep more state necessary for releasing a single
+> > BO.
+> > - Added a global free_vram helper to free all allocated VRAM.
+> > 
+> > Compared to v3 of [1]:
+> > - I have kept wait_for_usage_drop as release can be lazy and we test for it
+> >   on test_current SUBTEST, but had USAGE_DROP_TIMEOUT_MS be a little
+> >   longer.
+> > - Changed BO_SIZE and EVICT_STEP to allow for more than two eviction steps
+> >   on a 1GiB VRAM system.
+> > - Reduced USAGE_SLACK to avoid false positives, but still allow for some
+> >   page table accounting.
+> > 
+> > Compared to v2 of this one [6]:
+> > 
+> > - Ignore -ENOMEM and -ENOSPC when trying to fill VRAM.
+> > - When limiting max memory, allow for some slack, as there might be some
+> >   overhead.
+> > - On Xe, allocate GEM object with no deferred backing, and skip binding.
+> > 
+> > [1] https://patchwork.freedesktop.org/series/163935/#rev3
+> > [2] https://patchwork.freedesktop.org/series/166496/
+> > [3] https://lore.kernel.org/dri-devel/20260611173301.17473-1-
+> > thomas.hellstrom@linux.intel.com/
+> > [4] https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-
+> > /commits/dmem_max?ref_type=heads
+> > [5] 502d801f0ab0 ("Merge tag 'erofs-for-7.2-rc1' of
+> > git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs")
+> > [6] https://lore.kernel.org/dri-devel/20260623174319.4138648-1-
+> > cascardo@igalia.com/
+> > 
+> > 
+> > Thadeu Lima de Souza Cascardo (4):
+> >   lib/xe: Introduce dmem driver and implement Xe support
+> >   lib/amdgpu: add amdgpu_cgroup_region_name
+> >   lib/amdgpu: add amdgpu support to igt_dmem_driver
+> >   tests/dmem_cgroups: add test for dmem.current
+> > 
+> > Thomas Hellström (3):
+> >   lib/igt_cgroup: add cgroup v2 and dmem controller helpers
+> >   tests/cgroup_dmem: add dmem cgroup controller test
+> >   lib/xe: add xe_cgroup_region_name() helper
+> > 
+> >  lib/amdgpu/amd_dmem.c   |  99 +++++++
+> >  lib/amdgpu/amd_memory.c |  25 ++
+> >  lib/amdgpu/amd_memory.h |   2 +
+> >  lib/igt.h               |   1 +
+> >  lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
+> >  lib/igt_cgroup.h        |  56 ++++
+> >  lib/igt_dmem_driver.h   |  25 ++
+> >  lib/meson.build         |   3 +
+> >  lib/xe/xe_dmem.c        | 143 +++++++++
+> >  lib/xe/xe_query.c       |  32 ++
+> >  lib/xe/xe_query.h       |   2 +
+> >  tests/cgroup_dmem.c     |  92 ++++++
+> >  tests/dmem_cgroups.c    | 245 +++++++++++++++
+> >  tests/meson.build       |   2 +
+> >  14 files changed, 1365 insertions(+)
+> >  create mode 100644 lib/amdgpu/amd_dmem.c
+> >  create mode 100644 lib/igt_cgroup.c
+> >  create mode 100644 lib/igt_cgroup.h
+> >  create mode 100644 lib/igt_dmem_driver.h
+> >  create mode 100644 lib/xe/xe_dmem.c
+> >  create mode 100644 tests/cgroup_dmem.c
+> >  create mode 100644 tests/dmem_cgroups.c
+> > 
+> > --
+> > 2.47.3
+> 
