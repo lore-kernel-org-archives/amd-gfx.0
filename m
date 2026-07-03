@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7F72C43458
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 10:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701DAC44500
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 10:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 876EF10F762;
-	Fri,  3 Jul 2026 10:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE9B10F784;
+	Fri,  3 Jul 2026 10:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XOjpa3aG";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="KiqAVMF9";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FECF10F762
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 10:18:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=fNX5gor7uXQwjYcir3ssWFsWItuGhQGaZhf1MTua2J4=; b=XOjpa3aGIngkkKSo1kPNpIq4Xu
- ecNuZxaW7TSqcjlJyzLunVtoUCaihKdQDhZsq2I269UHsfwfXfOJWsOitIcondnVMRzO88UpyJSi0
- M20reV0s2OEKGb47or+xLGqr2JmROrCpJI740F66oIrTmTqMXIbZnV7suUCzTZz8R/7jpSfP5Zs+p
- unEZMi8H5RIFBvqEEOkBkLGBjCmxnDKVk1vWNOkuAoL/NXKb9Nwe/XDWauNxrIsMfchS76WLJCGB4
- CtpWZQVGngpGFbxD92aIe8hnBPo+TqzB6B9ODbgmQ68lHvfDw8KyGLMXJrqMtvtG0rlfSrLD4CiOb
- SMWjkl0w==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wfayx-008RJJ-H3; Fri, 03 Jul 2026 12:18:51 +0200
-Message-ID: <d0e54338-0651-4746-8f57-115e66575b6c@igalia.com>
-Date: Fri, 3 Jul 2026 11:18:50 +0100
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC1010F781;
+ Fri,  3 Jul 2026 10:24:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783074284; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=MfsIRhwnhrm54asCSnF5t1iqWUY8VK1heUHP5NWAqZL2URHoatXswe2DSt08iMn/hrr4S3bAP7LTPw01iLhxkJjsIzNR2ezz4HsvgUTfyQ6OwwI/x2hQ6cVsPkiP3XwbLEZ0UokJ0PalVtJkEvMenbBlSRL6G/MlA/jANUmrxB0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783074284;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=swOGO7PCaEub/Lbtsrzxaux6bZHWTZvw9u3yGMn6dMw=; 
+ b=ieGQQADyhMUK9g4S8Vm70N/uczhqmRkOIEK+O3kB7QDjt3BW7D267g9fvAp7ywv/y0Wmag3b3tadU8XuDtk5OnEaFHfr8Z03A17sgVekbJ0oxtBiOXsoQ4g7Cu8KjGxvwS8i7Nu4N+BGvadCC+YiODF5LSRegPGrTlAla/XDjoU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783074284; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=swOGO7PCaEub/Lbtsrzxaux6bZHWTZvw9u3yGMn6dMw=;
+ b=KiqAVMF95l1FSieB4sECEond166GQ5T6Z2hhHw+2y2omMg3Rz3TZNlNrYpbdHkTc
+ V3yZqugSypNR0SgNXvrHqJiTRD2q4l76EFT4TMXADw2D/Ag0YX9wi6SWkIe+IRfR82U
+ +j46eexKhwkDrzBgDk6XFmAnw7KZTls/phrduJSk=
+Received: by mx.zohomail.com with SMTPS id 1783074283065948.6330683029324;
+ Fri, 3 Jul 2026 03:24:43 -0700 (PDT)
+Message-ID: <32c130ee-721c-4333-a63d-450c72fd88d7@collabora.com>
+Date: Fri, 3 Jul 2026 12:24:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 1/4] drm/amdgpu: Extend listing of buffer handles with
- the userptr object flag
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+Subject: Re: [PATCH v3 03/11] drm/vkms: Add fixed matrix colorop to color
+ pipeline
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-References: <20260623141257.66086-1-tvrtko.ursulin@igalia.com>
- <20260623141257.66086-2-tvrtko.ursulin@igalia.com>
- <38cf3568-cdd6-46e6-960d-03c378cb0669@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <38cf3568-cdd6-46e6-960d-03c378cb0669@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+References: <20260623164812.81110-1-harry.wentland@amd.com>
+ <20260623164812.81110-4-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260623164812.81110-4-harry.wentland@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,222 +67,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 30/06/2026 13:50, Christian König wrote:
-> On 6/23/26 16:12, Tvrtko Ursulin wrote:
->> Add a new flag (AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR) to the
->> DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS ioctl.
->>
->> This is required to allow for checkpoint and restore of userptr objects.
->>
->> The existing struct drm_amdgpu_gem_list_handles_entry is used with the
->> userptr creation flags places in alloc_flags, while the alignment field
->> contains the userspace address.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 18 +++++++----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 40 +++++++++++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 19 +++++++++++-
->>   include/uapi/drm/amdgpu_drm.h           | 14 ++++++---
->>   4 files changed, 67 insertions(+), 24 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 862fbc2e125f..e75026aba874 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -1204,14 +1204,20 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
->>   
->>   		bo_entry = &bo_entries[bo_index];
->>   
->> -		bo_entry->size = amdgpu_bo_size(bo);
->> -		bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
->> -		bo_entry->preferred_domains = bo->preferred_domains;
->>   		bo_entry->gem_handle = id;
->> -		bo_entry->alignment = bo->tbo.page_alignment;
->> +		bo_entry->size = amdgpu_bo_size(bo);
->> +		if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm)) {
->> +			bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR;
->> +			bo_entry->alloc_flags = amdgpu_ttm_tt_get_userptr_flags(bo->tbo.ttm);
->> +			bo_entry->userptr = amdgpu_ttm_tt_get_userptr_addr(bo->tbo.ttm);
->> +		} else {
->> +			bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
->> +			bo_entry->preferred_domains = bo->preferred_domains;
->> +			bo_entry->alignment = bo->tbo.page_alignment;
->>   
->> -		if (bo->tbo.base.import_attach)
->> -			bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
->> +			if (bo->tbo.base.import_attach)
->> +				bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
->> +		}
->>   
->>   		bo_index += 1;
->>   	}
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 16c060badaee..7ce9e0e194c3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -785,6 +785,33 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->>   	return r;
->>   }
->>   
->> +/*
->> + * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
->> + */
->> +bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
->> +{
->> +	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
->> +
->> +	if (gtt == NULL || !gtt->userptr)
-> 
-> That should actually check for usertask and not userptr.
+On 23.06.26 18:48, Harry Wentland wrote:
+> Insert a fixed matrix colorop as the first operation in the
+> VKMS color pipeline, before the existing 1D curve. This allows
+> userspace to select YUV-to-RGB conversion via the color pipeline
+> for YCbCr framebuffers.
+>
+> The CSC Fixed Matrix colorop advertises support for all six
+> YUV-to-RGB conversion presets:
+>    - YUV601/709/2020 full-range to RGB
+>    - YUV601/709/2020 limited-range to RGB
+>
+> Bump MAX_COLOR_PIPELINE_OPS from 4 to 5 to accommodate the new op.
+>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> ---
+>   drivers/gpu/drm/vkms/vkms_colorop.c | 66 ++++++++++++++++++++---------
+>   1 file changed, 46 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/vkms_colorop.c
+> index 071f3a8d2e7c..9424b1994239 100644
+> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
+> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
+> @@ -12,11 +12,19 @@ static const u64 supported_tfs =
+>   	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+>   	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF);
+>   
+> +static const u64 supported_fm =
+> +	BIT(DRM_COLOROP_FM_YCBCR601_FULL_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR601_LIMITED_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR709_FULL_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR709_LIMITED_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB) |
+> +	BIT(DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB);
+> +
+>   static const struct drm_colorop_funcs vkms_colorop_funcs = {
+>   	.destroy = drm_colorop_destroy,
+>   };
+>   
+> -#define MAX_COLOR_PIPELINE_OPS 4
+> +#define MAX_COLOR_PIPELINE_OPS 5
+>   
+>   static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
+>   {
+> @@ -27,7 +35,25 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
+>   
+>   	memset(ops, 0, sizeof(ops));
+>   
+> -	/* 1st op: 1d curve */
+> +	/* 1st op: Fixed Matrix (YUV to RGB) */
+> +	ops[i] = kzalloc_obj(*ops[i]);
+> +	if (!ops[i]) {
+> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> +		ret = -ENOMEM;
+> +		goto cleanup;
+> +	}
+> +
+> +	ret = drm_plane_colorop_fixed_matrix_init(dev, ops[i], plane, &vkms_colorop_funcs,
+> +						  supported_fm,
+> +						  DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	list->type = ops[i]->base.id;
+> +
+> +	i++;
+> +
+> +	/* 2nd op: 1d curve */
+>   	ops[i] = kzalloc_obj(*ops[i]);
+>   	if (!ops[i]) {
+>   		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> @@ -41,23 +67,6 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
+>   	if (ret)
+>   		goto cleanup;
+>   
+> -	list->type = ops[i]->base.id;
+> -
+> -	i++;
+> -
+> -	/* 2nd op: 3x4 matrix */
+> -	ops[i] = kzalloc_obj(*ops[i]);
+> -	if (!ops[i]) {
+> -		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> -		ret = -ENOMEM;
+> -		goto cleanup;
+> -	}
+> -
+> -	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
+> -					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> -	if (ret)
+> -		goto cleanup;
+> -
+>   	drm_colorop_set_next_property(ops[i - 1], ops[i]);
+>   
+>   	i++;
+> @@ -79,7 +88,24 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
+>   
+>   	i++;
+>   
+> -	/* 4th op: 1d curve */
+> +	/* 4th op: 3x4 matrix */
+> +	ops[i] = kzalloc_obj(*ops[i]);
+> +	if (!ops[i]) {
+> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
+> +		ret = -ENOMEM;
+> +		goto cleanup;
+> +	}
+> +
+> +	ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, &vkms_colorop_funcs,
+> +					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
+> +
+> +	i++;
+> +
+> +	/* 5th op: 1d curve */
+>   	ops[i] = kzalloc_obj(*ops[i]);
+>   	if (!ops[i]) {
+>   		drm_err(dev, "KMS: Failed to allocate colorop\n");
 
-Ack.
+LGTM.
 
->> +		return false;
->> +
->> +	return true;
->> +}
->> +
->> +u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm)
->> +{
->> +	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
->> +
->> +	return gtt->userflags;
->> +}
->> +
->> +u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm)
->> +{
->> +	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
->> +
->> +	return gtt->userptr;
->> +}
->> +
-> 
-> This is identical to the existing amdgpu_ttm_tt_get_userptr() function, just without error handling.
-> 
-> I suggest to just extend amdgpu_ttm_tt_get_userptr() to also return the flags.
+Reviewed-by: Robert Mader <robert.mader@collabora.com>
 
-Thank you, it looks like I completely missed that one exists.
+-- 
+Robert Mader
+Consultant Software Developer
 
-Will fix both issues in next respin.
-
-Regards,
-
-Tvrtko
-
-> 
-> Apart from that the patch looks good to me of hand.
-> 
-> Regards,
-> Christian.
-> 
->>   #endif
->>   
->>   /*
->> @@ -1392,19 +1419,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
->>   	return true;
->>   }
->>   
->> -/*
->> - * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
->> - */
->> -bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
->> -{
->> -	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
->> -
->> -	if (gtt == NULL || !gtt->userptr)
->> -		return false;
->> -
->> -	return true;
->> -}
->> -
->>   /*
->>    * amdgpu_ttm_tt_is_readonly - Is the ttm_tt object read only?
->>    */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> index 2d72fa217274..e1b3495b902f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> @@ -209,12 +209,30 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
->>   #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
->>   int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->>   				 struct amdgpu_hmm_range *range);
->> +bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
->> +u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm);
->> +u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm);
->>   #else
->>   static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
->>   					       struct amdgpu_hmm_range *range)
->>   {
->>   	return -EPERM;
->>   }
->> +
->> +static inline bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
->> +{
->> +	return false;
->> +}
->> +
->> +static inline u32 amdgpu_ttm_tt_get_userptr_flags(struct ttm_tt *ttm)
->> +{
->> +	return -1;
->> +}
->> +
->> +static inline u64 amdgpu_ttm_tt_get_userptr_addr(struct ttm_tt *ttm)
->> +{
->> +	return 0;
->> +}
->>   #endif
->>   
->>   /**
->> @@ -249,7 +267,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
->>   				  unsigned long end, unsigned long *userptr);
->>   bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
->>   				       int *last_invalidated);
->> -bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
->>   bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
->>   uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem);
->>   uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
->> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
->> index 9f3090db2f16..24f2dffc0789 100644
->> --- a/include/uapi/drm/amdgpu_drm.h
->> +++ b/include/uapi/drm/amdgpu_drm.h
->> @@ -836,6 +836,7 @@ struct drm_amdgpu_gem_op {
->>   };
->>   
->>   #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
->> +#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR	(1 << 1)
->>   
->>   struct drm_amdgpu_gem_list_handles {
->>   	/* User pointer to array of drm_amdgpu_gem_bo_info_entry */
->> @@ -851,7 +852,7 @@ struct drm_amdgpu_gem_list_handles_entry {
->>   	/* gem handle of buffer object */
->>   	__u32 gem_handle;
->>   
->> -	/* Currently just one flag: IS_IMPORT */
->> +	/* AMDGPU_GEM_LIST_HANDLES_FLAG_* */
->>   	__u32 flags;
->>   
->>   	/* Size of bo */
->> @@ -860,11 +861,16 @@ struct drm_amdgpu_gem_list_handles_entry {
->>   	/* Preferred domains for GEM_CREATE */
->>   	__u64 preferred_domains;
->>   
->> -	/* GEM_CREATE flags for re-creation of buffer */
->> +	/* GEM_CREATE flags for re-creation of buffer or drm_amdgpu_gem_userptr.flags */
->>   	__u64 alloc_flags;
->>   
->> -	/* physical start_addr alignment in bytes for some HW requirements */
->> -	__u64 alignment;
->> +	union {
->> +		/* physical start_addr alignment in bytes for some HW requirements */
->> +		__u64 alignment;
->> +
->> +		/* drm_amdgpu_gem_userptr.addr for userptr objects */
->> +		__u64 userptr;
->> +	};
->>   };
->>   
->>   #define AMDGPU_VA_OP_MAP			1
-> 
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
