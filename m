@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E51F9C43458
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 10:40:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA510C43458
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 11:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D80A10F797;
-	Fri,  3 Jul 2026 10:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8BA10F7A9;
+	Fri,  3 Jul 2026 11:11:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Zb7fQJCq";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CtOD0Ip6";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B18D910F797;
- Fri,  3 Jul 2026 10:40:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783075235; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=bW1tAVz3+SZnO11VkBpP6cuw2USeOL3SrN7WcnTPpwJ9RGJ2itiNY8aM3bnerZCqj911153kSWI31UAHiJ9kpUTODzr4TIGJi42asZsEhEa/3TI9AyEJvvGQjE88rt/n9IlSicOoVSMRHzohzTJNVNh5WrAKDKPc7NxZ8cnXJsU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783075235;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LaqFELq6+zCMYGQp9Kd1Ji2zee9t3LEv1UtDmaLWXOk=; 
- b=Jx84J7RMVDcv+siun06iHOT6g1xPgBGc4odfmETRSup5BqujjZ716Zgle23Zy5u2rHJ3x4bx1EP/yg1vsU4pnIG4IyDKGsJQYgq1bCXfHY8d6u70JCjEQogOME2RL9lzfG8Rg59f11DkHtOsdYIbpa+z62nqH56/DwmkqGUf0dc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783075235; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=LaqFELq6+zCMYGQp9Kd1Ji2zee9t3LEv1UtDmaLWXOk=;
- b=Zb7fQJCqhOhsc1RwAX1V3z9+OfViVxvb0HdiS4SWlrB6zNpBQVULlolvSIGf8sZ7
- EJB+ApIc9r5d8++4/E4XgnYPF4TA+0oixrRQTXuN6lCAAvOwm9/93786ML41OdP59Xn
- 0YrYp88UsS6Qetb9LAE2I0BBTpKzOKM/Zt9zNWQ8=
-Received: by mx.zohomail.com with SMTPS id 1783075234682699.133917681519;
- Fri, 3 Jul 2026 03:40:34 -0700 (PDT)
-Message-ID: <eae10264-51ef-4e0b-9774-a694bc7f95b6@collabora.com>
-Date: Fri, 3 Jul 2026 12:40:31 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C730310F7A9;
+ Fri,  3 Jul 2026 11:11:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mWhG/3B5p+cytMrHUS2CX7qSff04CYcetqlRRCHBSkM=; b=CtOD0Ip6idv4wU06MB+2dM9hlw
+ NbGjwIzxWDu38Tobx0NODliiarFl4/RPYplorwMzX2H/74cz/KjPLkmout/na1tN/MYu7705Gy15G
+ VM9L6pQ5Ul1BP9T9QKgf3U44ZhAX2rPdJ20unt9qNX5RFepy6wnXvbHE5LgP/XWU7cM81DGSjvJR6
+ OYhk3lOhpYYiSKEm6wDv6TPsxUs23F2kJZiYGc12Fr8nc6/3nEIUZbgkm+8vJq/UD6plAsRcYT4eK
+ F+iykSo6oiJ2zSXhenUZcD9okNUebF10f0ALRBBBsLnbhPz04vVFhXnLh2XhED6PdpBxzWtw8vnGM
+ VCLiXZRQ==;
+Received: from [178.139.163.86] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wfbnx-008STX-6Y; Fri, 03 Jul 2026 13:11:33 +0200
+Message-ID: <a4d0034a-4aec-4880-86a7-699390e21a06@igalia.com>
+Date: Fri, 3 Jul 2026 13:11:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/11] drm/amd/display: Set COLOR_SPACE_SRGB when fixed
- matrix colorop is bypassed
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <20260623164812.81110-1-harry.wentland@amd.com>
- <20260623164812.81110-11-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260623164812.81110-11-harry.wentland@amd.com>
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260703073230.19982-1-robert.mader@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,57 +69,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 23.06.26 18:48, Harry Wentland wrote:
-> When the fixed matrix colorop is bypassed, the color_space was set to
-> COLOR_SPACE_UNKNOWN (0). In DC's DPP setup (dpp1_cnv_setup), the logic
-> 'input_color_space ? input_color_space : color_space' treats 0 as
-> 'not provided', causing it to fall back to the format-based default of
-> COLOR_SPACE_YCBCR709 for YUV framebuffers. This results in an implicit
-> YUV-to-RGB conversion via ICSC even when a color pipeline is active and
-> the fixed matrix is bypassed.
 
-shouldn't a commit with YUV framebuffer and fixed matrix set to bypass 
-always fail, like it does in the VKMS implementation?
+On 03/07/2026 09:32, Robert Mader wrote:
+> The client cap is currently advertised unconditionally, even for drivers
+> that do not support plane color pipelines. If clients supporting the later,
+> like Wayland compositors or tools like drm_info, enable the client cap on
+> such drivers they will be left without both color pipeline and the legacy
+> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+> conversion support.
+>
+> Prevent that by only marking the cap supported if there are actually planes
+> with color pipelines.
 
-If this commit is only needed for RGB formats, somehow getting a 
-YUV-to-RGB conversion applied to them otherwise, then I think the commit 
-message should be clarified accordingly, no?
+Hi Robert,
+
+I think Maarten probably wants to take one last look.
+
+But just to add that this approach looks good to me. Thanks for working 
+on it.
+
+Reviewed-by: Melissa Wen <mwen@igalia.com>
 
 >
-> Fix this by setting COLOR_SPACE_SRGB (1) instead. This is non-zero, so
-> it overrides the format default. The SRGB entry in dpp_input_csc_matrix
-> is an identity matrix, so ICSC performs no actual conversion, which is
-> the correct behavior when the fixed matrix colorop is bypassed.
+> Note: while the color pipeline replacement for the legacy properties is
+> still under review (1), we can assume that it will work as a drop-in
+> replacement. That means any plane on any hardware currently supporting
+> the legacy properties will be able to offer a functionally equal color
+> pipeline and there will be no technical reason keep using the legacy
+> properties if both the driver and the client support the new API.
 >
-> Cc: stable@vger.kernel.org
-> Fixes: 93d922f4833b ("drm/amd/display: Implement fixed matrix colorop color space mapping")
-> Assisted-by: Copilot:claude-opus-4.6
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> 1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
+>
+> Signed-off-by: Robert Mader <robert.mader@collabora.com>
+>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index 561ee9a2e749..984bbfcf23f0 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -1534,7 +1534,7 @@ __set_dm_plane_colorop_fixed_matrix(struct drm_plane_state *plane_state,
+> Changes in v3:
+>   - Move the new check behind the existing EINVAL ones
+>   - Rebase on latest drm-misc-next
+>
+> Changes in v2:
+>   - Replace the driver feature with a simple check (suggested by Maarten
+>     Lankhorst <maarten.lankhorst@linux.intel.com>)
+>   - Expand the commit message slightly and change the title
+> ---
+>   drivers/gpu/drm/drm_ioctl.c | 14 +++++++++++++-
+>   1 file changed, 13 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index e2df4becce62..9039a39c4324 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -373,13 +373,25 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>   			return -EINVAL;
+>   		file_priv->supports_virtualized_cursor_plane = req->value;
+>   		break;
+> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
+> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
+> +		struct drm_plane *plane;
+> +		bool has_plane_with_color_pipeline = false;
+> +
+>   		if (!file_priv->atomic)
+>   			return -EINVAL;
+>   		if (req->value > 1)
+>   			return -EINVAL;
+> +		drm_for_each_plane(plane, dev) {
+> +			if (plane->color_pipeline_property) {
+> +				has_plane_with_color_pipeline = true;
+> +				break;
+> +			}
+> +		}
+> +		if (!has_plane_with_color_pipeline)
+> +			return -EOPNOTSUPP;
+>   		file_priv->plane_color_pipeline = req->value;
+>   		break;
+> +	}
+>   	default:
 >   		return -EINVAL;
->   
->   	if (colorop_state->bypass) {
-> -		dc_plane_state->color_space = COLOR_SPACE_UNKNOWN;
-> +		dc_plane_state->color_space = COLOR_SPACE_SRGB;
->   		return 0;
 >   	}
->   
-
--- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
 
