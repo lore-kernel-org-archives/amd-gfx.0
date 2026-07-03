@@ -4,142 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E30F2C44500
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 15:40:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE0EC44502
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 15:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA08B10E0A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A427110E09F;
 	Sat,  4 Jul 2026 15:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="TTs4BOpX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Eum6qo8r";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D18EA10F857;
- Fri,  3 Jul 2026 16:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1783096372; x=1783701172; i=natalie.vock@gmx.de;
- bh=Rm+VRdqIFplNcwupWSFVQ20wUcYY6y1Q1wNpZTO2Mbw=;
- h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=TTs4BOpXo3ZnGzVGYlGMwyScuDa6GZLXG6wIg1tzixe8U19p+LOdSS8hEFiLWVxl
- 2qNC8/II3yBzq2+TMQ9YSYDqlDkPGf0BSGq+gVRvnqAVOSaWgbrvquHjC3cIjd4Im
- 0pTX85+NEVbK1nq1w1XF6tRRHFiWfpsRT653L9GRunSBqK5sRvLBiObrrk/2i9UEg
- socRR7dO4svJlq9ZID3/5eb+ACw30JwudpnBMJ7lqtE5U5PCUsaY2sB/4RUkZmuCP
- 8YYwGOw/x296qwVD1htRX5diqEXx7oNesGsUfoBK05b9gBBmsLKNnpGGw5zXkfoNq
- 8Pd2HeOMBiS11CHuRg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MgesG-1xKGtj3awO-00fKxO; Fri, 03
- Jul 2026 18:32:51 +0200
-From: Natalie Vock <natalie.vock@gmx.de>
-Date: Fri, 03 Jul 2026 18:31:26 +0200
-Subject: [PATCH 06/10] drm/ttm: move zombie handling into ttm_bo_evict
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 066A910F7E7;
+ Fri,  3 Jul 2026 13:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783084021; x=1814620021;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=XSSDJV30Wd36wi5sy2k20vmQlCp9wnUmTE7Bqh02MqY=;
+ b=Eum6qo8rkSNINZ7E0qdUY9xCF2Wem9GMEHr/6LE1s5qnXnq4CXKTFnpL
+ qV1H+0qq+c8TRHdtQ0Mgqbd9Yai4ZZ4wDa/CanOuuLLXndXzCJntxkwLW
+ Wpg0i3ltwr3Vmp5WmNeNc7EOmkPPKuC5f0cz1Om/UyBklb4y4mrpmCWcx
+ OabQXcGvRqsjkTv3O/fO7/G/Fu4je4u8ysbe/L2e3t/Ot5hzlKwE8fHni
+ ih8lrxjWy6KyN0QYGHgxYnhGkvmDRYPict+zpM+YLtsN53ULOf1UH4+8/
+ Eo0Obq8NdwsRVdKnbhA2zqQSyemiZ9oAGAFyuAWp21Du9pOpErCt39p6O A==;
+X-CSE-ConnectionGUID: K5tctkTyQ4ie+vtxkMyfeA==
+X-CSE-MsgGUID: skFbI7aHSxSZI3uEW/9Zew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83702363"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="83702363"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 06:07:00 -0700
+X-CSE-ConnectionGUID: dh7u1I78TRa7zRw2Z+fQVA==
+X-CSE-MsgGUID: DgTimVrMQFGdFTFjNIYARg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="283199605"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO fedora)
+ ([10.245.245.146])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 06:06:56 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v7 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
+Date: Fri,  3 Jul 2026 15:05:41 +0200
+Message-ID: <20260703130541.2686-7-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <20260703-ttm_2_drm_exec-v1-6-43685ac1286b@gmx.de>
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-X-Provags-ID: V03:K1:srm/kuzYQ4VjFw563aMDUD/lTSVxS4VTYTlxdzxHf55AUusOIBi
- EukvUwg7NV3uL60mZQsubopTbKzQHTRwjHkLrRjT1Wa9qMYeIBNgQs5NnofmYfdJNLNfZNF
- MLwV9QH2Ho5zLPCISlS+vPXoXCMOG2lHEMQ+kKkJGKGaxIFxtfG3Yhx/AXfOsT0vzhAg9Xi
- 0OmL5dsi2t00x8eRPb70g==
-UI-OutboundReport: notjunk:1;M01:P0:yg2Xj8zjZH0=;ozpV9xt2PXs6MYW3RwrP+mIAfj4
- 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
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 04 Jul 2026 15:40:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,69 +85,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Christian K=C3=B6nig <christian.koenig@amd.com>
+Register the VRAM manager with the dmem cgroup reclaim infrastructure
+so that lowering dmem.max below current VRAM usage triggers TTM
+eviction rather than failing with -EBUSY.
 
-Both callers do the same thing, so we can trivially unify that.
+Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
+as the TTM reclaim path passes a NULL place in cgroup drain mode.
 
-Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-=2D--
- drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+Use drmm_cgroup_register_region() so that the region is automatically
+unregistered at DRM device release, after drm_dev_unplug() has already
+made drm_dev_enter() return false.  The drm_dev_enter/exit guard in the
+reclaim callback ensures no reclaim work touches the TTM manager after
+driver unbind, closing the window between vram_mgr_fini() (called from
+drm_driver.release) and the drmm cleanup that unregisters the region.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 24c52df169ac8..54f01611ec823 100644
-=2D-- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -359,6 +359,13 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- 	struct ttm_place hop;
- 	int ret =3D 0;
-=20
-+	if (ttm_bo_is_zombie(bo)) {
-+		ret =3D ttm_bo_wait_ctx(bo, ctx);
-+		if (!ret)
-+			ttm_bo_cleanup_memtype_use(bo);
-+		return ret;
-+	}
+v3:
+- Rebased on fix for uninitialized list and buddy allocator on the
+  drmm_cgroup_register_region() error path.
+
+v5:
+- Rebased on the introduction of struct dmem_cgroup_init.
+- Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
+  use-after-free if cgroup reclaim is triggered after driver unbind
+  while userspace holds an open DRM file descriptor. (Sashiko-bot)
+- Switch from drmm_cgroup_register_region() to the raw
+  dmem_cgroup_register_region() and store the region in
+  amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
+  in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
+  to drain in-flight reclaim callbacks, and clear man->cg afterwards.
+  This is required because amdgpu's vram manager fini is called
+  explicitly during driver unbind, which may precede the DRM device
+  release and thus precede any drmm-based cleanup. (Sashiko-bot)
+
+v6:
+- Fix mgr->cg_region never being assigned, so
+  dmem_cgroup_unregister_region() in fini silently no-ops on NULL
+  and leaks the region. (Sashiko-bot)
+- Reorder fini to call set_used(false) and evict_all() before
+  dmem_cgroup_unregister_region(), so ttm_resource_free() can
+  uncharge via man->cg during eviction; clear man->cg after
+  unregister. (Sashiko-bot)
+
+v7:
+- Move dmem_cgroup_unregister_region() before the early return on
+  evict_all() failure; not doing so leaves a dangling reclaim callback
+  pointing to the partially-torn-down VRAM manager, causing a
+  use-after-free when the cgroup later triggers reclaim. (Sashiko-bot)
+- Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
+  exit guard in the reclaim callback (matching xe), rather than manual
+  register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
+  so drm_dev_enter() returning false prevents any reclaim from touching
+  the manager during teardown.  This also fixes the "vram" name
+  collision on multi-GPU systems, since drmm_cgroup_register_region()
+  automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
+
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 37 +++++++++++++++++---
+ 2 files changed, 33 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 025625e7e800..58bb21451826 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1507,7 +1507,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
+ 				DMA_RESV_USAGE_BOOKKEEP, f) {
+ 		if (amdkfd_fence_check_mm(f, current->mm) &&
+-		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
++		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
+ 			return false;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 08f05c3aed1d..9b9d738ba794 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -906,6 +906,28 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
+ 	.debug	= amdgpu_vram_mgr_debug
+ };
+ 
++static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops;
 +
- 	memset(&hop, 0, sizeof(hop));
-=20
- 	dma_resv_assert_held(bo->base.resv);
-@@ -466,13 +473,7 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struc=
-t ttm_resource_manager *man
- 	if (!bo->resource || bo->resource->mem_type !=3D mem_type)
- 		goto out_bo_moved;
-=20
--	if (ttm_bo_is_zombie(bo)) {
--		ret =3D ttm_bo_wait_ctx(bo, ctx);
--		if (!ret)
--			ttm_bo_cleanup_memtype_use(bo);
--	} else {
--		ret =3D ttm_bo_evict(bo, ctx);
--	}
-+	ret =3D ttm_bo_evict(bo, ctx);
- out_bo_moved:
- 	dma_resv_unlock(bo->base.resv);
- out_no_lock:
-@@ -520,14 +521,7 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk,=
- struct ttm_buffer_object *
- 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk-=
->place))
- 		return 0;
-=20
--	if (ttm_bo_is_zombie(bo)) {
--		lret =3D ttm_bo_wait_ctx(bo, walk->arg.ctx);
--		if (!lret)
--			ttm_bo_cleanup_memtype_use(bo);
--	} else {
--		lret =3D ttm_bo_evict(bo, walk->arg.ctx);
--	}
--
-+	lret =3D ttm_bo_evict(bo, walk->arg.ctx);
- 	if (lret)
- 		goto out;
-=20
-
-=2D-=20
-2.55.0
++static int amdgpu_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
++					u64 target_bytes, void *priv)
++{
++	struct ttm_resource_manager *man = priv;
++	struct amdgpu_device *adev = amdgpu_ttm_adev(man->bdev);
++	int ret, idx;
++
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
++		return -ENODEV;
++
++	ret = ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
++
++	drm_dev_exit(idx);
++	return ret;
++}
++
++static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops = {
++	.reclaim = amdgpu_vram_mgr_dmem_reclaim,
++};
++
+ /**
+  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
+  *
+@@ -917,6 +939,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
+ 	struct ttm_resource_manager *man = &mgr->manager;
++	struct dmem_cgroup_region *cg;
+ 	int err;
+ 
+ 	ttm_resource_manager_init(man, &adev->mman.bdev,
+@@ -933,12 +956,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ 	if (err)
+ 		return err;
+ 
+-	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
+-					      &(struct dmem_cgroup_init){
++	cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
++					 &(struct dmem_cgroup_init){
+ 						.size = adev->gmc.real_vram_size,
+-					      });
+-	if (IS_ERR(man->cg))
+-		return PTR_ERR(man->cg);
++						.ops = &amdgpu_vram_mgr_dmem_ops,
++						.reclaim_priv = man,
++					 });
++	if (IS_ERR(cg))
++		return PTR_ERR(cg);
++
++	ttm_resource_manager_set_dmem_region(man, cg);
+ 
+ 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+ 	ttm_resource_manager_set_used(man, true);
+-- 
+2.54.0
 
