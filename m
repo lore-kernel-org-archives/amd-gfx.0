@@ -4,123 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FB8C43458
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:38:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2ACEC43602
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 07:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E856610E597;
-	Fri,  3 Jul 2026 07:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A71310F6B4;
+	Fri,  3 Jul 2026 07:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B9Rga3h5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0sb6SmEl";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012034.outbound.protection.outlook.com [52.101.53.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92FE410E597
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 07:38:30 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010024.outbound.protection.outlook.com [52.101.85.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0356110F6B4
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 07:43:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i/Fc/cu/SyQutVpzWHt//GUM+jVGqcU73EXMZk1M9fvhLv7dUKZ9T01Q0y15PZgZYY7cM5hQ3hdhJ5pG0ipTAXXWFr4/5A3bVeArs5V0t0zLMBQsTNlp/HRUYX3EipQR7Tf4JKAKcb46BrF4jcx7v1Od3ltp7pndFt5v4DOtOk0t2R1QRN/edbLsE7YagM4kqJsLMOiZdoJEqK3yqv0OhAKPenjwIeoSeFfMV0MIMM0M/jVAIGUuSvXyKoa/czgJn9UlMa7TGL+BzJobXCRl9l9HrpEsXrF+CaEHmj8cWv6xndzoODNCJEPdOizQ1Q5h4mX9XfN3xOocy7nLp7+2QQ==
+ b=Spfic/gKNELSObvwDniNDnJS0FTCdYyQKoOBUmJH+AgCF+03cw8cmJN5Rb+mX75DYcCEB+J8CY8/+aGcL4Ji9FT2ZZI0K8vJcjEFptNbNpxOn9N/o+O5dEwy9RI/6mERJ8JfBRrdRRJxxjNiVBgIsoKUbmpaXDlU8nJW9SB3ORftQnWUluTOoKCUMFfT2sHaMLvdxKPJfjna9trO9q1/9i93cEA28USuLZvvwDnOPXP/3EB7PvHtloMVmq41JSSaEvrBl/MOF2jvWXy++yLZ+m6v/ihVkBurjtO1zmxJ5kVOCEXRwzLE2P4Fj4at/3oG6zP45tL26o1KBlRHHPJArg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V2eLZWbcBd7vWtVJRBFhpqYS3goYcORHL1aTeL6uW48=;
- b=w2b+3xqZ6KmRojxGSNW2bZVFPfvqvz5tHlFRCICZ2ptQttk8YYEMY/LMU/XuSGKfvHnR6WkT2EsoDVsGyABUh4emesspetPdu0MGUdlRhxQZorxLWJ56vhF7YU5uAhrvODx+OzsPB46Y4kQzLH5rtqXpOksgmM0FAH0fPQ4j50TEX8U5XIGyaUHvKKDTKoWvOGbfYgILbeldTuIe3ORvE/9NMZ/AirFbUuagbm1O44WMUBtEqrdbmTgqEJiJw1wkFaHDjpMVDCuyIaapL1pT+wYQw0DVE7fpApCCH+4xYyKR5R/JKfZQfJF0sgY2nn4x1vXGuyYyXO+47uTuHTm5Xg==
+ bh=WGesBF+8UNRGrHmQftpfoTK8CfJgBRgSO/9B7kE+Ozc=;
+ b=WHJG7F3StJ1q57s8xLvRoD9VmfKIZj3QhtWUbAg/hHYJum7/el01tvQq0HnSpqf7Y1qG66ikVIWhM9X2f2JDo2DcwdMdl1A7A4BevIe5Ej3YTmb+fdGmkAr58Cao3YHFgA2Q7RIHd8TG7cTZ2LoQOnZM7ASWHA9oUKWJBtcyCofP8XSDbN7RmM9Q+QkAPZ7EzrCNs8zIEWH8EDC8lHSY/cL/isR+Vot4ILBZYzGIlo7aZ4ktI1SqBT1V/g6bx4A3kpj1LUTJOCf4tSEMXz0vEBUtqnZWPNT3niqjZiZIduRZfBivMnG+jdWs1Yg4ROJrjfPlnoz6WIjl5/cItw66xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V2eLZWbcBd7vWtVJRBFhpqYS3goYcORHL1aTeL6uW48=;
- b=B9Rga3h57PG2zLoZgfzhavtgK1unOfvF8/MH4s3eH70lSmGdXuMP8vs8T5IN+BTNt88R1NcJgZ0ntPeO0TQtfFA2Tx68KXdW+v8eAAcZ82n4CYDRvempB+AeI2zWvKiHTvhlcl+yMe+uLdE5Ysrst1vLjgM2rbhasgp263LkMyk=
+ bh=WGesBF+8UNRGrHmQftpfoTK8CfJgBRgSO/9B7kE+Ozc=;
+ b=0sb6SmElMXc//a2/w9hL7OgPPu6GZ6Ux+yXqXZrcMBrzsdcTNPFLR3iqp/8dXD9SD0EYY0baniA1tGykvJ4FHUKkt6PrzI+iPietGxokFMYbziPAmG20daSH0GEJe8++9xXGVg4ylbbv3okrqS4g8+CsA0wfcujcBelfzEJpl7k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by CH3PR12MB8903.namprd12.prod.outlook.com (2603:10b6:610:17a::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
- 07:38:26 +0000
+ 07:43:03 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 07:38:25 +0000
-Message-ID: <9a74a1b3-3f8f-4caa-b0ce-a94dd34d4a7d@amd.com>
-Date: Fri, 3 Jul 2026 09:38:18 +0200
+ 07:43:03 +0000
+Message-ID: <efaec211-bece-427b-973f-c36eb8c62478@amd.com>
+Date: Fri, 3 Jul 2026 09:42:58 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/amdgpu: Allow PASID allocator to store fpriv
- owner
+Subject: Re: [PATCH v4 2/3] drm/amdgpu: Resolve VM through DRM PASID ownership
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 References: <20260703061833.3163913-1-srinivasan.shanmugam@amd.com>
- <20260703061833.3163913-2-srinivasan.shanmugam@amd.com>
+ <20260703061833.3163913-3-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260703061833.3163913-2-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260703061833.3163913-3-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0113.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0029.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::14) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8903:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad7adb7a-b74f-4f9a-39f8-08ded8d61130
+X-MS-Office365-Filtering-Correlation-Id: 06322744-7a4a-490c-ec47-08ded8d6b68c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: li65Y9HBMsHiVPBTYE0wZXn9Yt02QuAgtM5KBazYFgA8ZcHq5bfpqXxuABzB3qp8hjPYxPPVAWMi4zpyPGzxnsx4cIut6b1rQhPfGgjj2ufbuZuAq2/OqPdS+KD0H/KFn1qwMlxZfd4hegf0HZR0U4xNL0G9R8dukdMILFYnZdm3IGBGZjj0JHqLOwwTWx0BtZMUBADgZEH3/gbN5b0yUq7S5WGbZuBjVX/hgx12VlUyOwp0GggW4C3vf0E6TzfRomP0B1DCem6AGiMdTVV3FB2oB+5kYHaCvxBiq7ITRCkBLO9jj3vbIZCtQqWjdF1LKe444qOQRmW3Hj+UqhxzaJsOu9eJVTN6jOdqkPii8DWjYkqSLxGO0fj7YFBc1lNeTInLTMOCWtc0vqUtuRw7aPEd4S7cfdSsDKHJbp+u9fosA3sZ1oSEZ+CQWR9Xk8nfg6I3XzIcVACQHxrul5L2JZruc4qWQ6g5iMieX7bUo2DsDNib5nvCqKzrtCpSsRLthGgxX9TC3zg226SiUXLTdWYARHjgL2cXdxQXBGigBpqiWudAvUI11KG+X3wgdM1+9oObUpsNzQ9BWm3SieLXNWOo3VNbKYLjc3X+SDV7k744L5reJ+C5SxGUkzvDEsx8niFX/1GwFAdXhtBlWYgNluITnLF7wBWyryk2wsicp44=
+X-Microsoft-Antispam-Message-Info: 3PlnTMv/5EueNg6xgIS9Khms5P6BpM2Br67Bv4uQipcY3GbiJEmTI5c0HqjP4xS8pYotvoxgaWarFTJ1vzUbrwiNf1OKU4IJuDZBEs5UG6JQ6ek3pXHOWaFRjtas9J3Ee9VGoiqGYaOkxFvqVoFF1ROvTXWHQ2UnQ9FGWyB4OVumQW+O0Dvzo12aPG0GoEjNpCJe1Fui1ky2UViUTCUhHLZfDYeeFUFG0C0KByXlMlSvp9M6m1i7cit19fcgzaow1LhjVE1dCHdmxWJ6Ws3cmTr1eqUdrQPZRprrgOrZfMbYbVVnbzqPgK+q48CPC3/cZPk8ZOA+TQQiYUemQO2C8yjcD85iRwVkCIjjZ3v7ZkoDk7LlC9q2bpIa8/JgvaqftgrOHfGNNygAkoKN4uO9AR+A3nC4IY7yxY+ruaDYZd7YT5zF0rglesKJrSHukdh6E/MOJwXNuDxPi8d4T3n071lXEKMvL1rupN7u4/deYDReOquwg/YTXvJBATwbMSSze+0qYr358gFjGfuKojFAEEEUdrAq7MXG0aawS7aW5dWM+tAXFnh/cqvse15sXfb5iQM6R8l8PXHYHz2s2g7BLD6ET+czMcSQ338Ntk0PpoeKVs97W/4AbsgIYafNxJjBb6lMclfr4A0F/g6TdtTidkLfaICTRb4Nv4R5dOPPfP0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3BsWDJ2VDYzOGJnTWRqN2d5enZVbnpseGNzeUE5bmFZcktOZzQybVQvN2RZ?=
- =?utf-8?B?ditWbmM3dDJaOG0yTVJOeCtBS2JFdG5lbkpFQWRtRDdNaS96Q21rRjg5Ymt4?=
- =?utf-8?B?aWxSbXVJVmNvK2k4YmhQTng1YWVsZzBXTUZpUUppK3R5di8xT0Nrc1RSanBH?=
- =?utf-8?B?d3J6Z29iTUI4L2FlMkJEN1lQR09tZG5BOENzOEtTYll1amtEK0swZkp2cnJD?=
- =?utf-8?B?ODNFQzRSK0hObUlzOVdVMFM2OXhpWS83clN2akJ5U3ltZUNkSGZlV1pxY3JZ?=
- =?utf-8?B?Z0lmVEpuamVJK0F1aHRiZ1lFcXd6bWZLaDVQaWVkOXZSUTltRXJDQlJEdmNJ?=
- =?utf-8?B?N2xxTHlybGxrcjRaV2p5VkJ0RCtnbDVuLzVENXp5WWxkZlc4d0NLN0FCZHkv?=
- =?utf-8?B?S1JvbVArOWZITFJsVmw3YkEzMlRQSTE3NVpXT3B5NElTakpuWmZhdUhOamoz?=
- =?utf-8?B?QXlucjMwTzRGVjhCOGU5L1FVZjJUaFpwYXRPUU9kWmUxdnYycnVOdlJ4cTNy?=
- =?utf-8?B?eWkycGJUTEsyOWZJNVBPR2NMd3BUSjJaVHY0dzVOVVVKbW1oTFpMdW10UThp?=
- =?utf-8?B?aEYyMDlwd09SemNIeVl4aEhpUUkrclNYS3dFWGoxQlByR2VhZHJYZDVFOVd5?=
- =?utf-8?B?ZTZOSW00Z3Zsazgzdy9OdzNlTjJmeGNjTlJYdThTNnlNSmk3VFRyU1RSOUE1?=
- =?utf-8?B?VWpxVVlqOWJMaURFTDdTUS9POGtROWw2ZnZqbHdHVXgxUi9Vb3QvRlYyY040?=
- =?utf-8?B?YmRTY3BYYnZVMXppZnpHbzh5LzFtaVVJUVk2Z0dnTXJPUDVhZHJwbDZ3WmYv?=
- =?utf-8?B?VG82VFgxSm1NWmRtZEtjM1VnZEhNd0thK3NlWitYT2VVVW5yeHhHdHV1U2tj?=
- =?utf-8?B?c0JQUlZZWC91bXRuNHd1Vnp6cXRrOFVqZkNCZVA0UGJMdThCNi9Za2V0WW1i?=
- =?utf-8?B?TDNHS3dQeTVJSXdsRm1RckpldXptRWFKdEpCZ2ZQcVpUNHR1aXVmSWJHN0Vn?=
- =?utf-8?B?RjRWR2ZINzJNT0tmMEF2cWhDaW56RnlzTlpQMkE0RE42bzB0bSswMDh6K05O?=
- =?utf-8?B?Z1NVdXVNM1RTU1pFNjN6UUt2QVlwQ3JEUlM0ZTY5NEFhUmwzaWJobDhxRURS?=
- =?utf-8?B?MTJSLzJUUlVyb2tFRXlKRnlLeVNVY09IbFdMSUk5ZGllVkxHUnNXUG81TjU0?=
- =?utf-8?B?eHJMcjdSRDJycWRQV1pQc2tVV21kSndnOVRtcy9teXhUa2Y1aWNKN0xRd2Nt?=
- =?utf-8?B?MzVSSmRVZWQ3dWhKZldXVld0Z0RmLzVHSVlIcGkveGswNnNrVWxZYmV5TlUr?=
- =?utf-8?B?eWJlNkwrSWF1bEF6ZFJXVlZsVG5lbEhnRDZsY3FOWmRCSGQwU0s2bU9xWDl6?=
- =?utf-8?B?bkc0dUEwbStEVFFkLzhGUzU2T2xHelcwNDZ5TVgxQmpoRTQySDlDc2ZSUTF2?=
- =?utf-8?B?MzhsODlFUW55MEdiNDNKSEFxT1loRWcvbXkzbXJNeHJadSs0TWlWN1VXSjBS?=
- =?utf-8?B?YzRVcDdlaUQ3MkFYVElWQzQzQWdHYmcrbmRzNnVpUnVraU9jRFpxczVmbzYv?=
- =?utf-8?B?aUlUWkdYYTYrNDd6STNjWEZnZ3E4VkJmM2s0Zi9hSjBkcnYwNjJiRFY0UUdH?=
- =?utf-8?B?OTFLNXhKZTJmUG80aEo2bGFvTk1DMS9zYU42SXFmYW1UY0hnUWtGVGVEcjhH?=
- =?utf-8?B?U3dwZGVSQlhOSzhwdHpMTzZXOFkwMlpsZG1uU0ZZcjQvK3NoN1hHKzFveXFO?=
- =?utf-8?B?dDF2bkx1K3VoYkozcElGT25pQi8wWEF6NTVCRms2TWJhN2QvLzJpOFROckZL?=
- =?utf-8?B?bHp4SjBGN2JadnBTejB0cWE3R3I0WEN5T1JFb0Fpc3JOUUU4NjMzVHViMzNF?=
- =?utf-8?B?MHpOK2R0T3cyVXhxa2tCbVB1d0dlc1B5NTJFYXNEUmlwNk5lbkx3bGZ3Nm9F?=
- =?utf-8?B?VmVwSWNrRkI3NEV2UkErYWs2Yk1LNURGNVkzVVBEck9oM09jRVQ4eVhqSlFh?=
- =?utf-8?B?TXJOT3p1b2lOZ1dUa0RRWGlRanR2MUtIMmx0KzExQkZVR1JqVVJFWWJRS2Q1?=
- =?utf-8?B?aTltWk1ySkN0anJVVlFRVGd5SHAwcHkvMzdwR3FLUThpcmoxRFArNUo5YTJt?=
- =?utf-8?B?TVFQTlJRYnRieTQ5T1EwcXpMNWkyVU1abkJWdEw4NjJ2WnhoekNXVWVudmVB?=
- =?utf-8?B?dnNSU0s2TDM2UFR4UkpHbGJadHJvY1hEZUxoOHhKQVM4aWcrM2syOE4yTC8r?=
- =?utf-8?B?cjFmMnU0bHNyaUprU3ZEa3g3UURvRS9iZG5PTjJ4eUNQaWRmbVlERmRXbERv?=
- =?utf-8?Q?sQwu4h8Oj8+GsH+zfB?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDBBSStCaWc2VlZxRGdkUXhZR0lNclE0bXFJMEppbnROSC9pb1ZCc1B0c0Ey?=
+ =?utf-8?B?cEt5N1JLNHErMkxpaENoN0lJWUhXVGpHdWUrcWd3c09ScmFDRlFTMmtOOGU0?=
+ =?utf-8?B?aXJDVS9GanJYU0FKOHdZa09EQ1c2bjErZWhzNXl0TFVUR0dUVCtHbGpVUmRt?=
+ =?utf-8?B?TTRXcGc1QlFkbnVDNkdXQUVpcENpZC83RkVKUTlsT2Mxb09vSlhPcG1Rc0R2?=
+ =?utf-8?B?ZHRFZUlLSmJ6RnNObW8yaFk4aVVCeVo0Yk1BeXN4QkdoWlVTVzIyWEJSWXNs?=
+ =?utf-8?B?ZGQvMDV1bll0SHF0S3ZvZTl1ZENobG44ZGRWMnVYSTZMbGozYWY0M1FHYlJq?=
+ =?utf-8?B?T0pMcGpXZWhxalpyZ0tpNlJCV2JhbitxdkJCWXBHbHFZbUpWdkgzdHpUTEZR?=
+ =?utf-8?B?NlBVWWZ1TDBuaUgycWJFdDRuRmIwSC9Oc0RXQ29FaS84dlgwZmU4Tm9ET1ZM?=
+ =?utf-8?B?bUxMby9XZzhtZUlOc1RkVWhhWWJXMmNFdklFYlZnb0Nld2lXaW9HazdqUmpR?=
+ =?utf-8?B?WnZGTjY5Q1M3ZzJHdWo0aDRNT1BTMEp1clBpWXdmNnJjMTJVU0ZYVm5TNk9i?=
+ =?utf-8?B?VGJFT2pHdVV6UVpZU2hNekxOaklxVTZOclk3MDZqazA1UUliSGo0MUVpa25E?=
+ =?utf-8?B?ME82dGxYazI3VDgyTnVWVFZhcmx4dXBLTFVWdnVZTnZFVVdmU1RFWEdqL1Fv?=
+ =?utf-8?B?VkpzZ1hGbHYvaFlCTE0wZS9ObTh1OUt6M3paVW1SbkRTNzBRekh1bFVKQTY0?=
+ =?utf-8?B?UG40NVU4dzBXaHFRSU0weDloMDNyNkM1Nlg5aE9RQ2tCYWloYUZOV3djV0lL?=
+ =?utf-8?B?aDNJeklTUTJUUWlvdVJzQzJpNjVMYWtqeU01Nll0cjJBQ3NRUE1Xb0FOay9m?=
+ =?utf-8?B?YUhXUGVyQU1zakJkazhpYk52SVd3a3ZlazEwaEZnc3JQaSt0T3ovUGF6bmtM?=
+ =?utf-8?B?Z29vSE9semRlcyt0TlB5MGxta2hzY05nY25XdE5qR3hRSkhucUNNYXRmWktD?=
+ =?utf-8?B?ZGRkMld3b1lCL1ZEOVhrYVp6aCtkbXFPZlgwaVcwQURPMzF5TVdzOUpYamUw?=
+ =?utf-8?B?aXlWSkxsajZudVFKMVgyK09YTHJzanFRblZ6dG00UE1Ba3ZuMnc0UG5aZ0Fh?=
+ =?utf-8?B?VWIwMVBMOWlXVThuSnFJMXNqd1pOb0wxbXoxUWxtb0RQLzJ5NEI4dnphMXR2?=
+ =?utf-8?B?ZjYrSHh4SEQ4ZldJQlNZTCtCUVRQRXpDbWhUTjRIK2QraHpTamRkSk5GeXNG?=
+ =?utf-8?B?OUFsQ1ExeWwxaVY0cysyQWw1elF4b2pGSlROeEV2ajgyUm40dmVFQnpQcXBX?=
+ =?utf-8?B?RWVDKzVjTG1ycmZzb093OXl1SEhUM3pTRXNpTVhubnR0WnlTN01TZzdSRm5t?=
+ =?utf-8?B?Nk9qa0xYZ000UGEwYmRrM012SjlyNDJkdWs5L1FLeThRNmIzRm9Gazc4Z1VD?=
+ =?utf-8?B?U0lZNURJc0crMml5cG5jamUzWDJCRnpDRW1ZQ05sbUJHSDZLWXFEdFVzcUpL?=
+ =?utf-8?B?enJKMEdpRUIzNlM4eFVTbDhHbmVFRmZmT1U2VEQxTzQxMVEwaDlDblJrazNZ?=
+ =?utf-8?B?MC9YNFprQTkzSmg3WVZ1Y0xsSCswUDlxUk5wY2pDRStLWWtmS0pRSVRTUVBT?=
+ =?utf-8?B?cnIvUnZWQjA1cysvWGtrRnA1bHFDVHlMM2NaNVgxcXBNZFdLZFQzU2VOMU9H?=
+ =?utf-8?B?R2hDa2VOV0lXbFpCMlM1d3Z4M2ZNT0FqcjI3RGpYWk9HemVsVzRMckF4dmJF?=
+ =?utf-8?B?TVJFZmJEYkRINHBCNWI0L0R0eEJ4RzUzZEhWOTBLRllRSVFGNHlPaTBLL3Zn?=
+ =?utf-8?B?Yllra0w4YVdyY1o5dmZrdm1CY1dXbm9BSkZ6SXJGR3hNKzMyVTU0U2R2bXJP?=
+ =?utf-8?B?MVZtS3Z0TmJWQmQwY3lPemRyMXN1OG0yK0dEakh3KzBqZndYU1dyTERaZ0pK?=
+ =?utf-8?B?dVVBTkx0ZnY0TTRDZ0V6RHB5SkRxWWpIa0xyVVJ0cWpaK3B5WXBIQm0rd1k2?=
+ =?utf-8?B?NnlnK25DZXovY2E4Rzc5QjFuUk1iTkZJdGcveGpsMU0zMFg4eDdIL25WVTNq?=
+ =?utf-8?B?dmoxbGhUeFpNMGRJODkvTGlQaFZGZFhpWTJDbExMbzJabldpN3dFcFBOUTNR?=
+ =?utf-8?B?S2xaR0FNU3k0OThnTk9Ic0sxZGMvSytCc3ZXWFI1OE05QTNMT2Vrd3VtZGtJ?=
+ =?utf-8?B?WXNBMUZRc0tleS8xdGtDRi9FR0ZPRUlBMWMwL1B6dG55blgvM3JPMjFaMUZS?=
+ =?utf-8?B?Vlh3bnhyYThyVGp1d1BSUnFTRUZPRVhvS3AyQVY3TUJxQlk3czZ1a0Z5aDE1?=
+ =?utf-8?Q?/E3AYC4/qsEDZqgAmF?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad7adb7a-b74f-4f9a-39f8-08ded8d61130
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06322744-7a4a-490c-ec47-08ded8d6b68c
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 07:38:25.8367 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 07:43:03.1922 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GNoLJ2PifkgMJYQKXCaaXAQF0pxEbO6hToDfYIiv6kBEp/oe0wmDdtGm4IEY/DwX
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rczkwo8W2hfpC/VOIXKpzT+BZNcI3i4nfpiQzJh22tQQbMTPHXLeXcPPezoOZPqU
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8903
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,228 +136,171 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 7/3/26 08:18, Srinivasan Shanmugam wrote:
-> AMDGPU already has a global PASID xarray used by the PASID allocator.
-> 
-> Allow amdgpu_pasid_alloc() to optionally store the owning DRM
-> file-private object directly.
-> 
-> Initial callers pass NULL and keep the current dummy allocation marker
-> behavior. A later patch in this series passes the DRM file-private
-> object for DRM PASIDs.
-> 
-> This prepares for using:
+> Allocate DRM PASIDs with fpriv and resolve VM lookup users through:
 > 
 > 	PASID -> fpriv -> VM
 > 
-> instead of:
+> This preserves the root BO reference and revalidation flow in
+> amdgpu_vm_lock_by_pasid().
 > 
-> 	PASID -> VM
-> 
-> Also clear any stored owner from amdgpu_pasid_free_delayed() before
-> waiting for fences, so PASID lookups cannot observe a stale fpriv while
-> the PASID number itself is still pending delayed release.
-> 
-> v4: (per Christian)
-> - Add fpriv as an optional parameter to amdgpu_pasid_alloc().
-> - Drop separate amdgpu_pasid_set_fpriv()/clear_fpriv() helpers.
-> - Clear PASID owner from amdgpu_pasid_free_delayed().
+> v4:
+> - Allocate DRM PASIDs with fpriv directly.
+> - Squash ownership registration and PASID lookup conversion.
 > 
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Suggested-by: Christian König <christian.koenig@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 82 +++++++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  2 +-
->  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c  |  2 +-
->  4 files changed, 85 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 16 +++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 40 ++++++++++++++++---------
+>  2 files changed, 34 insertions(+), 22 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> index 684f40fce73f..669d0fff8cbc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -52,6 +52,7 @@ struct amdgpu_pasid_cb {
->  /**
->   * amdgpu_pasid_alloc - Allocate a PASID
->   * @bits: Maximum width of the PASID in bits, must be at least 1
-> + * @fpriv: optional DRM file-private owner
->   *
->   * Uses kernel's IDR cyclic allocator (same as PID allocation).
->   * Allocates sequentially with automatic wrap-around.
-> @@ -60,17 +61,19 @@ struct amdgpu_pasid_cb {
->   * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
->   * memory allocation failure.
->   */
-> -int amdgpu_pasid_alloc(unsigned int bits)
-> +int amdgpu_pasid_alloc(unsigned int bits, struct amdgpu_fpriv *fpriv)
->  {
->  	u32 pasid;
->  	int r;
-> +	void *entry;
->  
->  	if (bits == 0)
->  		return -EINVAL;
->  
-> -	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
-> -			    XA_LIMIT(1, (1U << bits) - 1),
-> -			    &amdgpu_pasid_xa_next, GFP_KERNEL);
-> +	entry = fpriv ? fpriv : xa_mk_value(0);
-
-That's problematic I think. The xa_mk_value(0) value is not NULL and needs to be filtered out when somebody looks the fpriv up using the array.
-
-But xa_insert() can handle NULL entries, but I'm not sure if xa_alloc_cyclic_irq() can do that as well.
-
-> +	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, entry,
-> +				XA_LIMIT(1, (1U << bits) - 1),
-> +				&amdgpu_pasid_xa_next, GFP_KERNEL);
->  	if (r < 0)
->  		return r;
->  
-> @@ -78,6 +81,75 @@ int amdgpu_pasid_alloc(unsigned int bits)
->  	return pasid;
->  }
->  
-> +/**
-> + * amdgpu_pasid_clear_owner - Remove the owner associated with a PASID
-> + * @pasid: PASID whose owner should be cleared
-> + *
-> + * Restore a PASID entry back to the allocation marker while keeping the
-> + * PASID itself allocated.
-> + *
-> + * This is used by the delayed PASID free path so that future PASID
-> + * lookups cannot resolve a stale DRM file-private object while the PASID
-> + * is still waiting for outstanding fences before being released.
-> + */
-> +static void amdgpu_pasid_clear_owner(u32 pasid)
-> +{
-> +	unsigned long flags;
-> +	void *entry;
-> +
-> +	if (!pasid)
-> +		return;
-> +
-> +	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
-
-> +	entry = xa_load(&amdgpu_pasid_xa, pasid);
-> +	if (entry && !xa_is_value(entry))
-
-I think you should just skip this test and use xa_store to overwrite the fpriv value.
-
-Alternative xa_cmpxchg() could be used to replace the value.
-
-> +		__xa_store(&amdgpu_pasid_xa, pasid, xa_mk_value(0),
-> +			   GFP_ATOMIC);
-> +	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
-> +}
-> +
-> +/**
-> + * amdgpu_pasid_lock - acquire the global PASID xarray lock
-> + * @flags: storage for interrupt state
-> + *
-> + * Acquire the global PASID xarray lock with interrupts disabled.
-> + * The saved interrupt state must be passed to
-> + * amdgpu_pasid_unlock().
-> + */
-> +void amdgpu_pasid_lock(unsigned long *flags)
-> +{
-> +	xa_lock_irqsave(&amdgpu_pasid_xa, *flags);
-> +}
-> +
-> +/**
-> + * amdgpu_pasid_unlock - release the global PASID xarray lock
-> + * @flags: interrupt state returned by amdgpu_pasid_lock()
-> + *
-> + * Release the global PASID xarray lock and restore the previous
-> + * interrupt state.
-> + */
-> +void amdgpu_pasid_unlock(unsigned long flags)
-> +{
-> +	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
-> +}
-> +
-> +/**
-> + * amdgpu_pasid_get_fpriv_locked - get fpriv from PASID
-> + * @pasid: PASID to resolve
-> + *
-> + * Caller must hold the PASID XA lock.
-> + */
-> +struct amdgpu_fpriv *amdgpu_pasid_get_fpriv_locked(u32 pasid)
-> +{
-> +	void *entry;
-> +
-> +	entry = xa_load(&amdgpu_pasid_xa, pasid);
-> +	if (!entry || xa_is_value(entry))
-> +		return NULL;
-> +
-> +	return entry;
-> +}
-> +
->  /**
->   * amdgpu_pasid_free - Free a PASID
->   * @pasid: PASID to free
-> @@ -121,6 +193,8 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
->  	struct dma_fence *fence;
->  	int r;
->  
-> +	amdgpu_pasid_clear_owner(pasid);
-> +
->  	r = dma_resv_get_singleton(resv, DMA_RESV_USAGE_BOOKKEEP, &fence);
->  	if (r)
->  		goto fallback;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-> index a57919478d3b..c2be6f81d680 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-> @@ -38,6 +38,7 @@ struct amdgpu_vm;
->  struct amdgpu_ring;
->  struct amdgpu_sync;
->  struct amdgpu_job;
-> +struct amdgpu_fpriv;
->  
->  struct amdgpu_vmid {
->  	struct list_head	list;
-> @@ -70,8 +71,11 @@ struct amdgpu_vmid_mgr {
->  	bool			reserved_vmid;
->  };
->  
-> -int amdgpu_pasid_alloc(unsigned int bits);
-> +int amdgpu_pasid_alloc(unsigned int bits, struct amdgpu_fpriv *fpriv);
->  void amdgpu_pasid_free(u32 pasid);
-> +void amdgpu_pasid_lock(unsigned long *flags);
-> +void amdgpu_pasid_unlock(unsigned long flags);
-> +struct amdgpu_fpriv *amdgpu_pasid_get_fpriv_locked(u32 pasid);
->  void amdgpu_pasid_free_delayed(struct dma_resv *resv,
->  			       u32 pasid);
->  void amdgpu_pasid_mgr_cleanup(void);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index cacdc99b3ad6..4610d6889e9b 100644
+> index 4610d6889e9b..087ca7783d1b 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1487,7 +1487,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+> @@ -1375,11 +1375,11 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  
+>  		memset(&gpuvm_fault, 0, sizeof(gpuvm_fault));
+>  
+> -		xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+> +		amdgpu_pasid_lock(&flags);
+>  		gpuvm_fault.addr = vm->fault_info.addr;
+>  		gpuvm_fault.status = vm->fault_info.status;
+>  		gpuvm_fault.vmhub = vm->fault_info.vmhub;
+> -		xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+> +		amdgpu_pasid_unlock(flags);
+>  
+>  		return copy_to_user(out, &gpuvm_fault,
+>  				    min((size_t)size, sizeof(gpuvm_fault))) ? -EFAULT : 0;
+> @@ -1464,7 +1464,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>  	struct amdgpu_device *adev = drm_to_adev(dev);
+>  	struct amdgpu_fpriv *fpriv;
+>  	struct drm_exec exec;
+> -	int r, pasid;
+> +	int r, pasid = 0;
+>  
+>  	/* Ensure IB tests are run on ring */
+>  	flush_delayed_work(&adev->delayed_init_work);
+> @@ -1487,16 +1487,16 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
 >  		goto out_suspend;
 >  	}
 >  
-> -	pasid = amdgpu_pasid_alloc(16);
-> +	pasid = amdgpu_pasid_alloc(16, NULL);
+> -	pasid = amdgpu_pasid_alloc(16, NULL);
+> +	r = amdgpu_xcp_open_device(adev, fpriv, file_priv);
+> +	if (r)
+> +		goto error_pasid;
+> +
+> +	pasid = amdgpu_pasid_alloc(16, fpriv);
+
+That needs to come even later, e.g. after the VM is initialized.
+
+Otherwise we would run into a bunch of trouble should there be any stale entries for this PASID in the interrupt ring buffers.
+
+Apart from that looks good to me,
+Christian.
+
 >  	if (pasid < 0) {
 >  		dev_warn(adev->dev, "No more PASIDs available!");
 >  		pasid = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> index f7d5879c6e44..65b824144a2f 100644
-
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-> @@ -2293,7 +2293,7 @@ static int mes_v12_1_self_test(struct amdgpu_device *adev, int xcc_id)
->  	u64 meta_gpu_addr, ctx_gpu_addr;
->  	int size, i, r, pasid;
+>  	}
 >  
-> -	pasid = amdgpu_pasid_alloc(16);
-> +	pasid = amdgpu_pasid_alloc(16, NULL);
->  	if (pasid < 0)
->  		pasid = 0;
+> -	r = amdgpu_xcp_open_device(adev, fpriv, file_priv);
+> -	if (r)
+> -		goto error_pasid;
+> -
+>  	amdgpu_debugfs_vm_init(file_priv);
 >  
+>  	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id, pasid);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 32719f31b6c9..9092ff227a55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2463,12 +2463,14 @@ static void amdgpu_vm_destroy_task_info(struct kref *kref)
+>  static inline struct amdgpu_vm *
+>  amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
+>  {
+> +	struct amdgpu_fpriv *fpriv;
+>  	struct amdgpu_vm *vm;
+>  	unsigned long flags;
+>  
+> -	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+> -	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+> +	amdgpu_pasid_lock(&flags);
+> +	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+> +	vm = fpriv ? &fpriv->vm : NULL;
+> +	amdgpu_pasid_unlock(flags);
+>  
+>  	return vm;
+>  }
+> @@ -2943,14 +2945,16 @@ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+>  					  u32 pasid, struct drm_exec *exec)
+>  {
+>  	unsigned long irqflags;
+> +	struct amdgpu_fpriv *fpriv;
+>  	struct amdgpu_bo *root;
+>  	struct amdgpu_vm *vm;
+>  	int r;
+>  
+> -	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> -	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+> -	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> +	amdgpu_pasid_lock(&irqflags);
+> +	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+> +	vm = fpriv ? &fpriv->vm : NULL;
+> +	root = vm && vm->root.bo ? amdgpu_bo_ref(vm->root.bo) : NULL;
+> +	amdgpu_pasid_unlock(irqflags);
+>  
+>  	if (!root)
+>  		return NULL;
+> @@ -2962,11 +2966,17 @@ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+>  	}
+>  
+>  	/* Double check that the VM still exists */
+> -	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> -	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> -	if (vm && vm->root.bo != root)
+> +	amdgpu_pasid_lock(&irqflags);
+> +	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+> +	if (!fpriv) {
+>  		vm = NULL;
+> -	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> +	} else {
+> +		vm = &fpriv->vm;
+> +		if (vm->root.bo != root)
+> +			vm = NULL;
+> +	}
+> +	amdgpu_pasid_unlock(irqflags);
+> +
+>  	if (!vm) {
+>  		drm_exec_unlock_obj(exec, &root->tbo.base);
+>  		amdgpu_bo_unref(&root);
+> @@ -3163,12 +3173,14 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+>  				  uint32_t status,
+>  				  unsigned int vmhub)
+>  {
+> +	struct amdgpu_fpriv *fpriv;
+>  	struct amdgpu_vm *vm;
+>  	unsigned long flags;
+>  
+> -	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+> +	amdgpu_pasid_lock(&flags);
+>  
+> -	vm = xa_load(&adev->vm_manager.pasids, pasid);
+> +	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+> +	vm = fpriv ? &fpriv->vm : NULL;
+>  	/* Don't update the fault cache if status is 0.  In the multiple
+>  	 * fault case, subsequent faults will return a 0 status which is
+>  	 * useless for userspace and replaces the useful fault status, so
+> @@ -3201,7 +3213,7 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+>  			WARN_ONCE(1, "Invalid vmhub %u\n", vmhub);
+>  		}
+>  	}
+> -	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+> +	amdgpu_pasid_unlock(flags);
+>  }
+>  
+>  void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
 
-Please prepare a patch to completely remove the self test for MES v12. We have already removed the self test for other MES versions because the IGT tests now take care of that.
-
-Regards,
-Christian.
