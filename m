@@ -4,70 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0416FC43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 15:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78182C43458
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 00:35:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F5BF10F493;
-	Thu,  2 Jul 2026 15:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C0A10E334;
+	Fri,  3 Jul 2026 00:35:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=deeplearntech.com header.i=@deeplearntech.com header.b="PNG7cuOX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nOtprTXW";
 	dkim-atps=neutral
-X-Greylist: delayed 567 seconds by postgrey-1.36 at gabe;
- Thu, 02 Jul 2026 15:45:49 UTC
-Received: from zmailpro.com (zmailpro.com [174.129.240.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFCBA10F494
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 15:45:49 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by zmailpro.com (Postfix) with ESMTP id 812B88EDC47;
- Thu,  2 Jul 2026 11:36:21 -0400 (EDT)
-Received: from zmailpro.com ([127.0.0.1])
- by localhost (zmailpro.com [127.0.0.1]) (amavis, port 10032) with ESMTP
- id xUs2QFPxW_UB; Thu,  2 Jul 2026 11:36:20 -0400 (EDT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by zmailpro.com (Postfix) with ESMTP id 8E61F8EDC48;
- Thu,  2 Jul 2026 11:36:20 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 zmailpro.com 8E61F8EDC48
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=deeplearntech.com;
- s=E11F0DAC-414D-11E7-97F0-308B22DE3479; t=1783006580;
- bh=RtjhN4hzzUcgdFyzNrzwF/kg6AW9MyBHZxzUuimsCEU=;
- h=From:Mime-Version:Date:Message-Id:To;
- b=PNG7cuOXPRlpsCXQC13h4Gz/obnw4yKDQopuZ8Q7zBLJI9BwKg/+6UI03XNMVVqLB
- D3xzFQm0rDl976obCmpUtMPkRgDfLoil6+AWBu5TcFALCoa7Sw4zccOpkSvCmPnkO8
- XsCd79S+xJU5/weQpEGlaaaKM/dZ3dNZ69ctnaOSh6WZ4nra2Bh6wczTcHZD4XaAXF
- duiMRBq+o8peX30bTV6Y5NotLbjYfEs2yVEbppbt0+DiOVM2dOSaQq2LheyibH+Nhu
- LZCXWD6G1Fvm1ybO/2uSH9U3MFAesOOJ7xGYJHqPXu0M9hd01QF6dDU8rVOh4/1eHa
- 3Fsiv0XbgSS5Q==
-X-Virus-Scanned: amavis at zmailpro.com
-Received: from zmailpro.com ([127.0.0.1])
- by localhost (zmailpro.com [127.0.0.1]) (amavis, port 10026) with ESMTP
- id Rwmb9SNgP1ch; Thu,  2 Jul 2026 11:36:20 -0400 (EDT)
-Received: from zmailpro.com (zmailpro.com [174.129.240.60])
- by zmailpro.com (Postfix) with ESMTP id 6398F8EDC46;
- Thu,  2 Jul 2026 11:36:20 -0400 (EDT)
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: base64
-From: Harris Landgarten <harrisl@deeplearntech.com>
-Mime-Version: 1.0
-Subject: Re: [BUG] linux-firmware-amdgpu 20260622 prevents clean poweroff on
- AMD RX 6800
-Date: Thu, 2 Jul 2026 11:36:19 -0400 (EDT)
-Message-Id: <1337579792.18818.1783006579737.JavaMail.zimbra@zmailpro>
-References: <64546a50-5593-4083-aaa7-6f772f8c81b5@leemhuis.info>
-Cc: IT4roundtheW0rd <IT4roundtheW0rd@protonmail.com>, linux-firmware@kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A99B10E334
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 00:35:36 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id
+ af79cd13be357-92e533aacf2so671585a.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jul 2026 17:35:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783038935; x=1783643735; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=IhuPZo9By9WeOKbnJZiXCMtpI4vqAR0qLJD+1E3bLpo=;
+ b=nOtprTXW4ewmf0vYJ6/cSZ9NoAr/FadyUwMmNvzf4pfshiM61P6ZCfl1lk8jeZXvnn
+ 71Jl65vjgSVdND+TNQsJ4Ftnv9HXWgLffbK4IXykUuFn/2uzDrZWjgCQPcBdDRstNPNY
+ 3IYVSRQltMp4/Kuyu5vFfMtLz2f7NUsveyS6sjB4PlVoFf9DgufKxR2UFRq0j6HjqO7i
+ MeMlBfSg3Bi8AJR0TWXqyewuZSi3IEGJkUDeNt/sIpj2sZrKOs/jF95ib9PQCF29l4zD
+ wQr1EcfAAkZU6EKOzGyeuSSTF1JdbBXCvZRVtEX+aTuA4ih8+zxo83eit62P9cn9lyvd
+ tQsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783038935; x=1783643735;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IhuPZo9By9WeOKbnJZiXCMtpI4vqAR0qLJD+1E3bLpo=;
+ b=UEGrEgw2IVPAn9Ctqv4bcaEF8FOguaghf1CAQ89gef4ldCALsL1LpY/JIvLP7Y5aJY
+ gP+PRkQ8YpX8KGTCBeEMubA6DgbhfFltBhgnFYQ6ij0XtLMLNZGiyyErJGfCTMFmCuZp
+ yeHwgAj592f+yCB5pClEeN8O+6ZBSEPOX/oJBfCXno8tucSUPzR1HoQQ+Oq89D/DQ3pP
+ t8U3AU1O85XoVbQnOZjdupgnJ/O83kgNGccyp/6BUy9VOWneXlHTbD8WSmohFWl7ZfX0
+ DxPbJolcAOot0uftci272g5T8U+FddwR48m1MQH4IssB88Ld14lH6LVFsesJc2El7Rjv
+ i+yQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/pKo3iCsrdwu0N6z4b+TES13iUqAyBQGtzawVMPz+zKaIhhPpIaPCVgGJoVQLBvGaQ97PlXd3a@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWjC1qZkTOVJCNYQs8+ghghkQMyonxZcvq3bMafSe+sKY7NTk0
+ oyt1kAqf5nisVWCkCZRHaA6aOuYXiNcLOOLLuzWDx6ePzgYnCN6c1YfY
+X-Gm-Gg: AfdE7ckxIFSu2VrUmVL272YAcC1rxyAy5w0JgpBNiWCcQqkedCn6l8yyJA+J0N9yh5x
+ zuLFVu/t+ghTewe5RT6v8rOZS91WjxJYkFOdWb5eFqw0PmkMREhu3N4kgfvCxb7BZgEIXzZZHR2
+ EQaoMsVdoc6o4r6CNIZDL1ZgcGHBIhie2OzBiojRHMVLcZnpPkZaEutPHsALWOQsKMRfFS9OdrV
+ yUAiXKvVY/xqtlVmsPk473/BIg1rPne0YpUmhJCh4nlExfz9kPwFhQA4oq/tECzCfAJ7K7BY4VO
+ xx7+wRcETXLJv1ObAOl+OvwuzBw53tpY3OwA9UM/9qIagjue15jHbS7sMkIGQXrasmOZOckB+9A
+ BRHPaGxVFiYVAnJUGAtxXXjgJNrPVROjzz4GfnM5lqZ8mQJrYwZwACkZaRIPl9GD6JCyAWzPUD/
+ 3aEWEhaI/rLlSgnOAaUw==
+X-Received: by 2002:a05:620a:269b:b0:92e:675e:8ef0 with SMTP id
+ af79cd13be357-92e7b473cfbmr986657085a.68.1783038935434; 
+ Thu, 02 Jul 2026 17:35:35 -0700 (PDT)
+Received: from [192.168.1.100] ([32.220.73.95])
+ by smtp.googlemail.com with ESMTPSA id
+ af79cd13be357-92e9095e780sm23952485a.0.2026.07.02.17.35.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jul 2026 17:35:34 -0700 (PDT)
+Message-ID: <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
+Date: Thu, 2 Jul 2026 20:35:33 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
+ cannot be honoured
+To: Matthew Auld <matthew.auld@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-In-Reply-To: <64546a50-5593-4083-aaa7-6f772f8c81b5@leemhuis.info>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-X-ZxMobile-Command: SmartReply
-X-ZxMobile-Version: 3.20.0
-X-Originating-IP: [72.89.182.14]
-X-Mailer: Zimbra 9.0.0_ZEXTRAS_20240927
-Thread-Topic: linux-firmware-amdgpu 20260622 prevents clean poweroff on AMD RX
- 6800
-Thread-Index: Pp2FXLDtWZLWhI2Pyw2GKLf8ubymbg==
+Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, stable@vger.kernel.org
+References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+ <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+Content-Language: en-US
+From: John Olender <john.olender@gmail.com>
+In-Reply-To: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +97,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SXQgaXMgdW5saWtlbHkgdGhhdCBpdCBpcyB0aGUgZmlybXdhcmUuIEkgaGFkIHRoZSBzYW1lIGlz
-c3VlIGFuZCBpdCBzdGFydGVkIHdpdGggNy4xLXJjMi4gSSBhbSBydW5uaW5nIGdmeDExNTAuIFRo
-ZSBpc3N1ZSBhcHBlYXJzIHRvIGhhdmUgYmVlbiBmaXhlZCBieSA3LjItcmMxDQpTZW50IGZyb20g
-bXkgaVBob25lDQoNCj4gT24gSnVsIDIsIDIwMjYsIGF0IDQ6MDfigK9BTSwgVGhvcnN0ZW4gTGVl
-bWh1aXMgPHJlZ3Jlc3Npb25zQGxlZW1odWlzLmluZm8+IHdyb3RlOg0KPiANCj4g77u/W2FkZGlu
-ZyBhIGZldyBwZW9wbGUgdG8gdGhlIENDXQ0KPiANCj4gT24gNi8yNy8yNiAwMjo0MiwgSVQ0cm91
-bmR0aGVXMHJkIHdyb3RlOg0KPiA+DQo+ID4gSSdkIGxpa2UgdG8gcmVwb3J0IGEgcmVncmVzc2lv
-biBpbiBsaW51eC1maXJtd2FyZS1hbWRncHUgaW50cm9kdWNlZCB3aXRoDQo+ID4gdGhlIDIwMjYw
-NjIyIHJlbGVhc2UuDQo+ID4NCj4gPiAqU3lzdGVtOioNCj4gPiAtIERpc3RybzogQ2FjaHlPUw0K
-PiA+IC0gS2VybmVsOiA3LjEuMS0yLWNhY2h5b3MNCj4gPiAtIEdQVTogQU1EIFJYIDY4MDAtc2Vy
-aWVzDQo+ID4gLSBCb290bG9hZGVyOiBHUlVCDQo+ID4NCj4gPiAqUHJvYmxlbToqDQo+ID4gQWZ0
-ZXIgdXBkYXRpbmcgbGludXgtZmlybXdhcmUtYW1kZ3B1IGZyb20gMToyMDI2MDUxOS0xIHRvIDE6
-MjAyNjA2MjItMSwNCj4gPiB0aGUgc3lzdGVtIG5vIGxvbmdlciBzaHV0cyBkb3duIGNvbXBsZXRl
-bHkgd2hlbiBydW5uaW5nIGBwb3dlcm9mZmAuDQo+ID4gRmFucywga2V5Ym9hcmQgTEVEcywgYW5k
-IHBvd2VyIGJ1dHRvbiBMRUQgcmVtYWluIGFjdGl2ZSBhZnRlciB0aGUNCj4gPiBzaHV0ZG93biBz
-ZXF1ZW5jZS4gVGhlIHN5c3RlbSBoYW5ncyBhZnRlciAiU2VuZGluZyBTSUdURVJNIHRvIHJlbWFp
-bmluZw0KPiA+IHByb2Nlc3Nlcy4uLiIgYW5kIG5ldmVyIHJlYWNoZXMgZnVsbCBwb3dlci1vZmYg
-KEFDUEkgKlM1KS4qDQo+IA0KPiBBIGZldyBxdWVzdGlvbnM6DQo+IA0KPiAqIFdoaWNoIGZpcm13
-YXJlIGZpbGVzIGRvZXMgeW91ciBHUFUgdXNlIGV4YWN0bHkgKGEgZnVsbCBkbWVzZyBsb2cNCj4g
-c2hvdWxkIGFuc3dlciB0aGlzKQ0KPiAqIERvZXMgdGhlIHByb2JsZW0gaGFwcGVuIHdpdGggYSB2
-YW5pbGxhIGtlcm5lbCBhcyB3ZWxsIChpdCBtb3N0IGxpa2VseQ0KPiB3aWxsLCBidXQgd291bGQg
-YmUgZ29vZCB0byBjb25maXJtLCBhcyBoZWF2aWx5IHBhdGNoZWQgdmVuZG9yIGtlcm5lbHMNCj4g
-Y2FuIGxlYWQgdG8gYWxsIHNvcnQgb2YgaXNzdWVzKS4NCj4gDQo+IENpYW8sIFRob3JzdGVuDQo+
-IA0KPiA+ICpSZWxldmFudCBsb2cgZXhjZXJwdCAoam91cm5hbGN0bCAtYiAtMSk6Kg0KPiA+DQo+
-ID4gICAgIEp1biAyNyAwMjowNDoxNCBjYWNoeW9zIHN5c3RlbWQtc2h1dGRvd25bMV06IFNlbmRp
-bmcgU0lHVEVSTSB0bw0KPiA+IHJlbWFpbmluZyBwcm9jZXNzZXMuLi4NCj4gPg0KPiA+IChubyBm
-dXJ0aGVyIGVudHJpZXMg4oCUIHN5c3RlbSBoYW5ncyBoZXJlKQ0KPiA+DQo+ID4gKldvcmthcm91
-bmQ6Kg0KPiA+IERvd25ncmFkaW5nIHRvIGxpbnV4LWZpcm13YXJlLWFtZGdwdSAxOjIwMjYwNTE5
-LTEgcmVzb2x2ZXMgdGhlIGlzc3VlDQo+ID4gY29tcGxldGVseS4NCj4gPg0KPiA+ICpTdGVwcyB0
-byByZXByb2R1Y2U6Kg0KPiA+IDEuIFVwZGF0ZSBsaW51eC1maXJtd2FyZS1hbWRncHUgdG8gMToy
-MDI2MDYyMi0xDQo+ID4gMi4gUnVuIGBwb3dlcm9mZmANCj4gPiAzLiBTeXN0ZW0gaGFuZ3Mg4oCU
-IHBvd2VyIGlzIG5vdCBjdXQNCj4gPg0KPiA+ICpBZGRpdGlvbmFsIG5vdGVzOioNCj4gPiBUaGUg
-cm9vdCBjYXVzZSBhcHBlYXJzIHRvIGJlIHRoYXQgdGhlIG5ldyBmaXJtd2FyZSBibG9iIHByZXZl
-bnRzIHRoZQ0KPiA+IGFtZGdwdSBkcml2ZXIgZnJvbSBjbGVhbmx5IHJlbGVhc2luZyB0aGUgR1BV
-IGJlZm9yZSB0aGUgQUNQSSBTNSBwb3dlcg0KPiA+IHN0YXRlIHRyYW5zaXRpb24uIE5vIG90aGVy
-IHBhY2thZ2VzIHdlcmUgdXBkYXRlZCBpbiB0aGUgc2FtZSB0cmFuc2FjdGlvbg0KPiA+IHRoYXQg
-Y291bGQgZXhwbGFpbiB0aGlzIGJlaGF2aW9yLg0KPiA+DQo+ID4gVGhpcyBpc3N1ZSB3YXMgcmVz
-ZWFyY2hlZCBhbmQgdGhpcyByZXBvcnQgd2FzIGRyYWZ0ZWQgd2l0aCB0aGUNCj4gPiBhc3Npc3Rh
-bmNlIG9mIENsYXVkZSAoQW50aHJvcGljIEFJKS4NCj4gPg0KPiA+IEJlc3QgcmVnYXJkcywNCj4g
-Pg0KPiA+IEJlbmphbWluIE1hYXMgDQo+IA0K
+On 7/2/26 6:48 AM, Matthew Auld wrote:
+> On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
+>> The try_harder contiguous fallback could return a range whose start
+>> offset did not match the caller's min_block_size. When a candidate's
+>> start is misaligned, realign it: free the misaligned run and reallocate
+>> exactly @size at the next lower min_block_size boundary. This keeps the
+>> returned size unchanged with no surplus to trim, and rejects the request
+>> only when no aligned candidate fits.
+>>
+>> v2: align misaligned candidates down to min_block_size instead of
+>>      bailing out, for both the RHS and LHS paths (Matthew).
+>>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
+>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+>> Cc: Matthew Auld <matthew.auld@intel.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Timur Kristóf <timur.kristof@gmail.com>
+>> Cc: John Olender <john.olender@gmail.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> 
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> 
+
+I haven't hit any issues with this revision during testing.
+
+Thanks,
+John
+
+>> ---
+>>   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
+>>   1 file changed, 44 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>> index dc81fe0301ce..3c73ae87f3c5 100644
+>> --- a/drivers/gpu/buddy.c
+>> +++ b/drivers/gpu/buddy.c
+>> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>>                    blocks, total_allocated_on_err);
+>>   }
+>>   +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+>> +                    u64 unaligned_offset,
+>> +                    u64 size,
+>> +                    u64 min_block_size,
+>> +                    struct list_head *blocks)
+>> +{
+>> +    u64 aligned_offset = round_down(unaligned_offset, min_block_size);
+>> +
+>> +    return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
+>> +}
+>> +
+>>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>                        u64 size,
+>>                        u64 min_block_size,
+>>                        struct list_head *blocks)
+>>   {
+>> -    u64 rhs_offset, lhs_offset, lhs_size, filled;
+>> +    u64 rhs_offset, lhs_offset, filled;
+>>       struct gpu_buddy_block *block;
+>>       unsigned int tree, order;
+>> -    LIST_HEAD(blocks_lhs);
+>> -    unsigned long pages;
+>>       u64 modify_size;
+>>       int err;
+>>         modify_size = rounddown_pow_of_two(size);
+>> -    pages = modify_size >> ilog2(mm->chunk_size);
+>> -    order = fls(pages) - 1;
+>> +    order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>>       if (order == 0)
+>>           return -ENOSPC;
+>>   @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>           while (iter) {
+>>               block = rbtree_get_free_block(iter);
+>>   -            /* Allocate blocks traversing RHS */
+>>               rhs_offset = gpu_buddy_block_offset(block);
+>> +
+>> +            /* Allocate blocks traversing RHS */
+>>               err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>>                                  &filled, blocks);
+>> -            if (!err || err != -ENOSPC)
+>> +            if (err && err != -ENOSPC)
+>>                   return err;
+>> +            if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+>> +                return 0;
+>> +            if (!err) {
+>> +                /* Allocate the unaligned RHS offset using round_down */
+>> +                gpu_buddy_free_list_internal(mm, blocks);
+>> +                err = __alloc_contig_aligned_retry(mm, rhs_offset,
+>> +                                   size,
+>> +                                   min_block_size,
+>> +                                   blocks);
+>> +                if (!err)
+>> +                    return 0;
+>> +                if (err != -ENOSPC) {
+>> +                    gpu_buddy_free_list_internal(mm, blocks);
+>> +                    return err;
+>> +                }
+>> +                goto next;
+>> +            }
+>>   -            lhs_size = max((size - filled), min_block_size);
+>> -            if (!IS_ALIGNED(lhs_size, min_block_size))
+>> -                lhs_size = round_up(lhs_size, min_block_size);
+>> +            if (size - filled > rhs_offset)
+>> +                goto next;
+>>   -            /* Allocate blocks traversing LHS */
+>> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+>> -            err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>> -                               NULL, &blocks_lhs);
+>> -            if (!err) {
+>> -                list_splice(&blocks_lhs, blocks);
+>> +            lhs_offset = rhs_offset - (size - filled);
+>> +
+>> +            /* Allocate the unaligned LHS offset using round_down */
+>> +            gpu_buddy_free_list_internal(mm, blocks);
+>> +            err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
+>> +                               min_block_size, blocks);
+>> +            if (!err)
+>>                   return 0;
+>> -            } else if (err != -ENOSPC) {
+>> +            if (err != -ENOSPC) {
+>>                   gpu_buddy_free_list_internal(mm, blocks);
+>>                   return err;
+>>               }
+>> -            /* Free blocks for the next iteration */
+>> +next:
+>>               gpu_buddy_free_list_internal(mm, blocks);
+>> -
+>>               iter = rb_prev(iter);
+>>           }
+>>       }
+>>
+>> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
+> 
+
