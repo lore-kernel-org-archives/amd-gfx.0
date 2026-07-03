@@ -4,72 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE0EC44502
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC4F5C44506
 	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 15:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A427110E09F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED7110E098;
 	Sat,  4 Jul 2026 15:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Eum6qo8r";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DVux8r3y";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 066A910F7E7;
- Fri,  3 Jul 2026 13:07:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783084021; x=1814620021;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=XSSDJV30Wd36wi5sy2k20vmQlCp9wnUmTE7Bqh02MqY=;
- b=Eum6qo8rkSNINZ7E0qdUY9xCF2Wem9GMEHr/6LE1s5qnXnq4CXKTFnpL
- qV1H+0qq+c8TRHdtQ0Mgqbd9Yai4ZZ4wDa/CanOuuLLXndXzCJntxkwLW
- Wpg0i3ltwr3Vmp5WmNeNc7EOmkPPKuC5f0cz1Om/UyBklb4y4mrpmCWcx
- OabQXcGvRqsjkTv3O/fO7/G/Fu4je4u8ysbe/L2e3t/Ot5hzlKwE8fHni
- ih8lrxjWy6KyN0QYGHgxYnhGkvmDRYPict+zpM+YLtsN53ULOf1UH4+8/
- Eo0Obq8NdwsRVdKnbhA2zqQSyemiZ9oAGAFyuAWp21Du9pOpErCt39p6O A==;
-X-CSE-ConnectionGUID: K5tctkTyQ4ie+vtxkMyfeA==
-X-CSE-MsgGUID: skFbI7aHSxSZI3uEW/9Zew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83702363"
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="83702363"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2026 06:07:00 -0700
-X-CSE-ConnectionGUID: dh7u1I78TRa7zRw2Z+fQVA==
-X-CSE-MsgGUID: DgTimVrMQFGdFTFjNIYARg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="283199605"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO fedora)
- ([10.245.245.146])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2026 06:06:56 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
- manager
-Date: Fri,  3 Jul 2026 15:05:41 +0200
-Message-ID: <20260703130541.2686-7-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB51A10F79D;
+ Fri,  3 Jul 2026 10:52:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783075959;
+ bh=BMJEQDGDneij0MhghXURL3o7tBKZzZ+Bg0a6q5KH46w=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=DVux8r3yrxZ/YtTfoSavOPV86NXAzH318yB3hHjOdS9KJBU3IQqZutF7hMlMlCeVq
+ dkengp8zDnwoiqZCvdzHS0DbbCCDuTSfya8Yop0/DWCAopxlGXbyojuUEmhk1+AliG
+ cGsm6VL47KKvQP8oukJbsBeOLADGz1hIP89m/2e8ytOiPUCJfjBD+0kvTtpi/FIsMB
+ 56/0U/z/qE1XM6EdNtxK/Z8JbwPNJWQJgYVJRjpX9oxaoaNJhG/LPyJGiFvm5gimR4
+ //OsxO5OL7T3Co2ofztUuioUuj/tnm6sHM6aREXVEm1/ex98qj/Ng9tbK3dg5nWNrq
+ Uh8DcB5n3AJvA==
+Received: from fluorite (unknown [100.64.0.208])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DABF617E02CB;
+ Fri,  3 Jul 2026 12:52:38 +0200 (CEST)
+Date: Fri, 3 Jul 2026 13:52:27 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>, Melissa Wen
+ <mwen@igalia.com>
+Subject: Re: [PATCH v3 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+Message-ID: <20260703135227.742fad19@fluorite>
+In-Reply-To: <20260623164812.81110-2-harry.wentland@amd.com>
+References: <20260623164812.81110-1-harry.wentland@amd.com>
+ <20260623164812.81110-2-harry.wentland@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/0jtuMIwzmnKN3H8lSLh5r_I";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-Mailman-Approved-At: Sat, 04 Jul 2026 15:40:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,143 +63,468 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Register the VRAM manager with the dmem cgroup reclaim infrastructure
-so that lowering dmem.max below current VRAM usage triggers TTM
-eviction rather than failing with -EBUSY.
+--Sig_/0jtuMIwzmnKN3H8lSLh5r_I
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
-as the TTM reclaim path passes a NULL place in cgroup drain mode.
+On Tue, 23 Jun 2026 12:48:02 -0400
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-Use drmm_cgroup_register_region() so that the region is automatically
-unregistered at DRM device release, after drm_dev_unplug() has already
-made drm_dev_enter() return false.  The drm_dev_enter/exit guard in the
-reclaim callback ensures no reclaim work touches the TTM manager after
-driver unbind, closing the window between vram_mgr_fini() (called from
-drm_driver.release) and the drmm cleanup that unregisters the region.
+> From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>=20
+> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
+> hardware that performs a fixed matrix operation.
+>=20
+> Unlike CTM-based colorops, this block does not expose programmable
+> coefficients. Instead, userspace selects one of the predefined
+> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
+> include common YCbCr->RGB and RGB709->RGB2020 conversions.
+>=20
+> v2:
+>  - Naming changes (Pekka)
+>=20
+> v3:
+>  - Fix NC matrix enum name and string (Melissa)
+>  - Rebase
+>=20
+> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>  drivers/gpu/drm/drm_atomic.c      |   4 ++
+>  drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
+>  drivers/gpu/drm/drm_colorop.c     | 106 ++++++++++++++++++++++++++++++
+>  include/drm/drm_colorop.h         |  84 +++++++++++++++++++++++
+>  include/uapi/drm/drm_mode.h       |  12 ++++
+>  5 files changed, 210 insertions(+)
+>=20
 
-v3:
-- Rebased on fix for uninitialized list and buddy allocator on the
-  drmm_cgroup_register_region() error path.
+Hi,
 
-v5:
-- Rebased on the introduction of struct dmem_cgroup_init.
-- Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
-  use-after-free if cgroup reclaim is triggered after driver unbind
-  while userspace holds an open DRM file descriptor. (Sashiko-bot)
-- Switch from drmm_cgroup_register_region() to the raw
-  dmem_cgroup_register_region() and store the region in
-  amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
-  in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
-  to drain in-flight reclaim callbacks, and clear man->cg afterwards.
-  This is required because amdgpu's vram manager fini is called
-  explicitly during driver unbind, which may precede the DRM device
-  release and thus precede any drmm-based cleanup. (Sashiko-bot)
+the UAPI looks good.
 
-v6:
-- Fix mgr->cg_region never being assigned, so
-  dmem_cgroup_unregister_region() in fini silently no-ops on NULL
-  and leaks the region. (Sashiko-bot)
-- Reorder fini to call set_used(false) and evict_all() before
-  dmem_cgroup_unregister_region(), so ttm_resource_free() can
-  uncharge via man->cg during eviction; clear man->cg after
-  unregister. (Sashiko-bot)
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
 
-v7:
-- Move dmem_cgroup_unregister_region() before the early return on
-  evict_all() failure; not doing so leaves a dangling reclaim callback
-  pointing to the partially-torn-down VRAM manager, causing a
-  use-after-free when the cgroup later triggers reclaim. (Sashiko-bot)
-- Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
-  exit guard in the reclaim callback (matching xe), rather than manual
-  register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
-  so drm_dev_enter() returning false prevents any reclaim from touching
-  the manager during teardown.  This also fixes the "vram" name
-  collision on multi-GPU systems, since drmm_cgroup_register_region()
-  automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
+It's a little bit unfortunate that the colorop UAPI documentation is
+embedded into kernel-private enum types' documentation.
 
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 37 +++++++++++++++++---
- 2 files changed, 33 insertions(+), 6 deletions(-)
+Is RGB always full-range? The documentation could be more explicit
+about that. Maybe the documentation should spell out the matrix
+contents just to be clear? There are more than one form of limited
+range IIRC (HDMI, JPEG, SDI). Or maybe JPEG was a different type of
+full-range?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 025625e7e800..58bb21451826 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1507,7 +1507,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
- 				DMA_RESV_USAGE_BOOKKEEP, f) {
- 		if (amdkfd_fence_check_mm(f, current->mm) &&
--		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
-+		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
- 			return false;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 08f05c3aed1d..9b9d738ba794 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -906,6 +906,28 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
- 	.debug	= amdgpu_vram_mgr_debug
- };
- 
-+static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops;
-+
-+static int amdgpu_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(man->bdev);
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-+		return -ENODEV;
-+
-+	ret = ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
-+
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
-+static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops = {
-+	.reclaim = amdgpu_vram_mgr_dmem_reclaim,
-+};
-+
- /**
-  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
-  *
-@@ -917,6 +939,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
- 	struct ttm_resource_manager *man = &mgr->manager;
-+	struct dmem_cgroup_region *cg;
- 	int err;
- 
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
-@@ -933,12 +956,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
--					      &(struct dmem_cgroup_init){
-+	cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
-+					 &(struct dmem_cgroup_init){
- 						.size = adev->gmc.real_vram_size,
--					      });
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
-+						.ops = &amdgpu_vram_mgr_dmem_ops,
-+						.reclaim_priv = man,
-+					 });
-+	if (IS_ERR(cg))
-+		return PTR_ERR(cg);
-+
-+	ttm_resource_manager_set_dmem_region(man, cg);
- 
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
--- 
-2.54.0
+> +	 * enum string "RGB709 to RGB2020"
+> +	 *
+> +	 * Selects the fixed-function CSC preset that converts RGB
+> +	 * (BT.709) colorimetry to RGB (BT.2020).
 
+Why is this called a "CSC preset" rather than a matrix? This confuses
+me.
+
+Was there a conclusion from discussions around compatible pixel formats
+for a specific choice of a fixed matrix? How will userspace discover
+that, or will it be based on documentation and enforced as a common
+requirement over all drivers?
+
+ISTR some hardware requiring an YUV pixel format to be able to use the
+YCbCr conversion matrices, or vice versa. Otherwise there is no reason
+to have that limitation.
+
+
+Thanks,
+pq
+
+
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 3af1b9cc9a06..ced591c4a0bd 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -925,6 +925,10 @@ static void drm_atomic_colorop_print_state(struct dr=
+m_printer *p,
+>  				  drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolat=
+ion));
+>  		drm_printf_indent(p, 1, "data blob id=3D%d\n", state->data ? state->da=
+ta->base.id : 0);
+>  		break;
+> +	case DRM_COLOROP_FIXED_MATRIX:
+> +		drm_printf_indent(p, 1, "fixed_matrix_type=3D%s\n",
+> +				  drm_get_colorop_fixed_matrix_type_name(state->fixed_matrix_type));
+> +		break;
+>  	default:
+>  		break;
+>  	}
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index c7f80d90794c..cee4550ffdbd 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -761,6 +761,8 @@ static int drm_atomic_colorop_set_property(struct drm=
+_colorop *colorop,
+>  	} else if (property =3D=3D colorop->data_property) {
+>  		return drm_atomic_color_set_data_property(colorop, state,
+>  							  property, val);
+> +	} else if (property =3D=3D colorop->fixed_matrix_type_property) {
+> +		state->fixed_matrix_type =3D val;
+>  	} else {
+>  		drm_dbg_atomic(colorop->dev,
+>  			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
+> @@ -793,6 +795,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *c=
+olorop,
+>  		*val =3D colorop->lut3d_interpolation;
+>  	else if (property =3D=3D colorop->data_property)
+>  		*val =3D (state->data) ? state->data->base.id : 0;
+> +	else if (property =3D=3D colorop->fixed_matrix_type_property)
+> +		*val =3D state->fixed_matrix_type;
+>  	else
+>  		return -EINVAL;
+> =20
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index c0eecde8c176..c11c3012fcc5 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type=
+_enum_list[] =3D {
+>  	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>  	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
+>  	{ DRM_COLOROP_3D_LUT, "3D LUT"},
+> +	{ DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
+>  };
+> =20
+>  static const char * const colorop_curve_1d_type_names[] =3D {
+> @@ -90,6 +91,14 @@ static const struct drm_prop_enum_list drm_colorop_lut=
+3d_interpolation_list[] =3D
+>  	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
+>  };
+> =20
+> +static const char * const colorop_fixed_matrix_type_names[] =3D {
+> +	[DRM_COLOROP_FM_YCBCR601_FULL_RGB] =3D "YCbCr 601 Full to RGB",
+> +	[DRM_COLOROP_FM_YCBCR709_FULL_RGB] =3D "YCbCr 709 Full to RGB",
+> +	[DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] =3D "YCbCr 2020 NC Full to RGB",
+> +	[DRM_COLOROP_FM_YCBCR_LIMITED_FULL] =3D "YCbCr limited to full",
+> +	[DRM_COLOROP_FM_RGB709_RGB2020] =3D "RGB709 to RGB2020",
+> +};
+> +
+>  /* Init Helpers */
+> =20
+>  static int drm_plane_colorop_init(struct drm_device *dev, struct drm_col=
+orop *colorop,
+> @@ -455,6 +464,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *=
+dev, struct drm_colorop *col
+>  }
+>  EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
+> =20
+> +/**
+> + * drm_plane_colorop_fixed_matrix_init - Initialize a DRM_COLOROP_FIXED_=
+MATRIX
+> + *
+> + * @dev: DRM device
+> + * @colorop: The drm_colorop object to initialize
+> + * @plane: The associated drm_plane
+> + * @funcs: control functions for the new colorop
+> + * @supported_fm: A bitfield of supported drm_colorop_fixed_matrix_type =
+enum values,
+> + *               created using BIT(fixed_matrix_type) and combined with =
+the OR '|'
+> + *               operator.
+> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
+> + * @return zero on success, -E value on failure
+> + */
+> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct d=
+rm_colorop *colorop,
+> +					struct drm_plane *plane,
+> +					const struct drm_colorop_funcs *funcs,
+> +					u64 supported_fm, uint32_t flags)
+> +{
+> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
+> +	int i, len;
+> +	struct drm_property *prop;
+> +	int ret;
+> +
+> +	if (!supported_fm) {
+> +		drm_err(dev,
+> +			"No supported FM type op for new Fixed Matrix colorop on [PLANE:%d:%s=
+]\n",
+> +			plane->base.id, plane->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) !=3D 0) {
+> +		drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
+> +			plane->base.id, plane->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret =3D drm_plane_colorop_init(dev, colorop, plane, funcs, DRM_COLOROP_=
+FIXED_MATRIX, flags);
+> +	if (ret)
+> +		return ret;
+> +
+> +	len =3D 0;
+> +	for (i =3D 0; i < DRM_COLOROP_FM_COUNT; i++) {
+> +		if ((supported_fm & BIT(i)) =3D=3D 0)
+> +			continue;
+> +
+> +		enum_list[len].type =3D i;
+> +		enum_list[len].name =3D colorop_fixed_matrix_type_names[i];
+> +		len++;
+> +	}
+> +
+> +	if (WARN_ON(len <=3D 0))
+> +		return -EINVAL;
+> +
+> +	prop =3D drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "FIXED_MAT=
+RIX_TYPE",
+> +					enum_list, len);
+> +
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	colorop->fixed_matrix_type_property =3D prop;
+> +	/*
+> +	 * Default to the first supported CSC mode as provided by the driver.
+> +	 * Intuitively this should be something that keeps the colorop in pixel=
+ bypass
+> +	 * mode but that is already handled via the standard colorop bypass
+> +	 * property.
+> +	 */
+> +	drm_object_attach_property(&colorop->base, colorop->fixed_matrix_type_p=
+roperty,
+> +				   enum_list[0].type);
+> +	drm_colorop_reset(colorop);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_plane_colorop_fixed_matrix_init);
+> +
+>  static void __drm_atomic_helper_colorop_duplicate_state(struct drm_color=
+op *colorop,
+>  							struct drm_colorop_state *state)
+>  {
+> @@ -521,6 +604,13 @@ static void __drm_colorop_state_init(struct drm_colo=
+rop_state *colorop_state,
+>  							   &val))
+>  			colorop_state->curve_1d_type =3D val;
+>  	}
+> +
+> +	if (colorop->fixed_matrix_type_property) {
+> +		if (!drm_object_property_get_default_value(&colorop->base,
+> +							   colorop->fixed_matrix_type_property,
+> +							   &val))
+> +			colorop_state->fixed_matrix_type =3D val;
+> +	}
+>  }
+> =20
+>  /**
+> @@ -584,6 +674,7 @@ static const char * const colorop_type_name[] =3D {
+>  	[DRM_COLOROP_CTM_3X4] =3D "3x4 Matrix",
+>  	[DRM_COLOROP_MULTIPLIER] =3D "Multiplier",
+>  	[DRM_COLOROP_3D_LUT] =3D "3D LUT",
+> +	[DRM_COLOROP_FIXED_MATRIX] =3D "Fixed Matrix",
+>  };
+> =20
+>  static const char * const colorop_lu3d_interpolation_name[] =3D {
+> @@ -640,6 +731,21 @@ const char *drm_get_colorop_lut3d_interpolation_name=
+(enum drm_colorop_lut3d_inte
+>  	return colorop_lu3d_interpolation_name[type];
+>  }
+> =20
+> +/**
+> + * drm_get_colorop_fixed_matrix_type_name: return a string for fixed mat=
+rix type
+> + * @type: fixed matrix type to compute name of
+> + *
+> + * In contrast to the other drm_get_*_name functions this one here retur=
+ns a
+> + * const pointer and hence is threadsafe.
+> + */
+> +const char *drm_get_colorop_fixed_matrix_type_name(enum drm_colorop_fixe=
+d_matrix_type type)
+> +{
+> +	if (WARN_ON(type >=3D ARRAY_SIZE(colorop_fixed_matrix_type_names)))
+> +		return "unknown";
+> +
+> +	return colorop_fixed_matrix_type_names[type];
+> +}
+> +
+>  /**
+>   * drm_colorop_set_next_property - sets the next pointer
+>   * @colorop: drm colorop
+> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+> index b4b9e4f558ab..88933d5b4d8b 100644
+> --- a/include/drm/drm_colorop.h
+> +++ b/include/drm/drm_colorop.h
+> @@ -134,6 +134,71 @@ enum drm_colorop_curve_1d_type {
+>  	DRM_COLOROP_1D_CURVE_COUNT
+>  };
+> =20
+> +/**
+> + * enum drm_colorop_fixed_matrix_type - type of Fixed Matrix
+> + *
+> + * Describes a Fixed Matrix operation to be applied by the DRM_COLOROP_F=
+IXED_MATRIX
+> + */
+> +enum drm_colorop_fixed_matrix_type {
+> +	/**
+> +	 * @DRM_COLOROP_FM_YCBCR601_FULL_RGB:
+> +	 *
+> +	 * enum string "YCbCr 601 Full to RGB"
+> +	 *
+> +	 * This selects the matrix that converts full range YCbCr into RGB
+> +	 * according to the BT.601 coefficients.
+> +	 */
+> +	DRM_COLOROP_FM_YCBCR601_FULL_RGB,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_FM_YCBCR709_FULL_RGB:
+> +	 *
+> +	 * enum string "YCbCr 709 Full to RGB"
+> +	 *
+> +	 * This selects the matrix that converts full range YCbCr into RGB
+> +	 * according to the BT.709 coefficients.
+> +	 */
+> +	DRM_COLOROP_FM_YCBCR709_FULL_RGB,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
+> +	 *
+> +	 * enum string "YCbCr 2020 NC Full to RGB"
+> +	 *
+> +	 * This selects the matrix that converts full range YCbCr into RGB
+> +	 * according to the BT.2020 non-constant luminance coefficients.
+> +	 */
+> +	DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_FM_YCBCR_LIMITED_FULL:
+> +	 *
+> +	 * enum string "YCbCr limited to full"
+> +	 *
+> +	 * This selects the matrix that converts limited range YCbCr into
+> +	 * full range YCbCr. Though not strictly a matrix operation but
+> +	 * can be represented as one.
+> +	 */
+> +	DRM_COLOROP_FM_YCBCR_LIMITED_FULL,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_FM_RGB709_RGB2020:
+> +	 *
+> +	 * enum string "RGB709 to RGB2020"
+> +	 *
+> +	 * Selects the fixed-function CSC preset that converts RGB
+> +	 * (BT.709) colorimetry to RGB (BT.2020).
+> +	 */
+> +	DRM_COLOROP_FM_RGB709_RGB2020,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_FM_COUNT:
+> +	 *
+> +	 * enum value denoting the size of the enum
+> +	 */
+> +	DRM_COLOROP_FM_COUNT
+> +};
+> +
+>  /**
+>   * struct drm_colorop_state - mutable colorop state
+>   */
+> @@ -183,6 +248,13 @@ struct drm_colorop_state {
+>  	 */
+>  	struct drm_property_blob *data;
+> =20
+> +	/**
+> +	 * @fixed_matrix_type:
+> +	 *
+> +	 * Type of Fixed Matrix operation.
+> +	 */
+> +	enum drm_colorop_fixed_matrix_type fixed_matrix_type;
+> +
+>  	/** @state: backpointer to global drm_atomic_commit */
+>  	struct drm_atomic_commit *state;
+>  };
+> @@ -368,6 +440,13 @@ struct drm_colorop {
+>  	 */
+>  	struct drm_property *data_property;
+> =20
+> +	/**
+> +	 * @fixed_matrix_type_property:
+> +	 *
+> +	 * Sub-type for DRM_COLOROP_FIXED_MATRIX type.
+> +	 */
+> +	struct drm_property *fixed_matrix_type_property;
+> +
+>  	/**
+>  	 * @next_property:
+>  	 *
+> @@ -424,6 +503,10 @@ int drm_plane_colorop_3dlut_init(struct drm_device *=
+dev, struct drm_colorop *col
+>  				 uint32_t lut_size,
+>  				 enum drm_colorop_lut3d_interpolation_type interpolation,
+>  				 uint32_t flags);
+> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct d=
+rm_colorop *colorop,
+> +					struct drm_plane *plane,
+> +					const struct drm_colorop_funcs *funcs,
+> +					u64 supported_fm, uint32_t flags);
+> =20
+>  struct drm_colorop_state *
+>  drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop);
+> @@ -482,6 +565,7 @@ drm_get_colorop_lut1d_interpolation_name(enum drm_col=
+orop_lut1d_interpolation_ty
+> =20
+>  const char *
+>  drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_interpol=
+ation_type type);
+> +const char *drm_get_colorop_fixed_matrix_type_name(enum drm_colorop_fixe=
+d_matrix_type type);
+> =20
+>  void drm_colorop_set_next_property(struct drm_colorop *colorop, struct d=
+rm_colorop *next);
+> =20
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index 381a3e857d4e..bff6dba08d50 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -954,6 +954,18 @@ enum drm_colorop_type {
+>  	 *         color =3D lut3d[index]
+>  	 */
+>  	DRM_COLOROP_3D_LUT,
+> +
+> +	/**
+> +	 * @DRM_COLOROP_FIXED_MATRIX:
+> +	 *
+> +	 * enum string "Fixed Matrix"
+> +	 *
+> +	 * A Colorop block that performs a pre-defined matrix operation selected
+> +	 * via the FIXED_MATRIX_TYPE enum property. The driver advertises the s=
+upported
+> +	 * operations through this property.
+> +	 */
+> +	DRM_COLOROP_FIXED_MATRIX,
+> +
+>  };
+> =20
+>  /**
+
+
+--Sig_/0jtuMIwzmnKN3H8lSLh5r_I
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmpHlGsACgkQI1/ltBGq
+qqc7+RAAiLrPRl1PeI3kD2oL/2/QGmTM2NOVUUtdfL5B2vRDS4uafPHGQrp9h+Hl
+bvhPiDnrF2zByo/CPKhlJ4OQ72Gdy1qHdIWF8XIIodTXMPgqmQHzp6AZ/jJVh/96
++P+2lYkhM4wOMtYHH+zJqXVTJLWZ8q3kQ98+3b3gtDDT5a5+lYYwP/eMbvBP3Q6n
+SGXMnz2JjooLf+4Jn6pgUTEe9kit9Mua3uvVEcPvGw+98C9OcCW6ohtCudr2a1in
+5UAOb9szK49Wpu6A9W21lWWGKEX2sGIFmTH+nPnhlJZzvqFGEniWOWVVmonqEq7z
+vPd/fCJNb3mTVRMIDLJk+uaf/aIhcPXno46mvbNmtDfgToB8WdkrI1lrLAgr0Pqx
+vMyYJWIiMGlY72CTAK1bWJL8QQe4WZxWwJwfm4dx8HRrIPfwXfRq39Q3a5cwGxpd
+LR7z2I6nDBBIzQfTnNXFUtlfXoBjK1wtyuVrXIxRpth/11ZNNtJecOdYkrox8vw3
+x6AbHaXO/XNTsmFTgrCijG8dHSCJSOUnFA7Vs1yvFw2Vgp48/CLR4otBj+Y7ZsuU
+SFwRnCoFrqJ4mSnMvFxLuI1PkS1GuBsxdokAhxWYvXh8SM6ik+rLd1moF0toki/V
+NuJyGQpXm/cOZM1HtCMM3c02xQ0Yf5MF4Nq2O5Wwz3N8fox2skI=
+=AILm
+-----END PGP SIGNATURE-----
+
+--Sig_/0jtuMIwzmnKN3H8lSLh5r_I--
