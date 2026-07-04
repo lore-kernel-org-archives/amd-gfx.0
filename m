@@ -4,88 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70DF1C43458
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 18:50:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D66C43458
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 08:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E14DA10E663;
-	Fri,  3 Jul 2026 18:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD27410E564;
+	Sat,  4 Jul 2026 08:41:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="adiF7C3l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bwaSH5S7";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 978DF10E663
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 18:50:13 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-49241dbf9c1so6908745e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Jul 2026 11:50:13 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3B6B10E564
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jul 2026 08:41:36 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-475417f010dso770923f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Jul 2026 01:41:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783104612; x=1783709412; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1pbMO9q4O124KT6Be0ZSe5VmRy/7//LxDSmLrSqBhhA=;
- b=adiF7C3lSC7vAUDvis19Y10HnNN8qppUY1oaSfsRuJsYxbRWbK73/CqbHs4pljJFOI
- tCRQwu1ieoDKKvVBNvTJ/a2up9LOQrvooEsDw31tNBSFTN3d4WWirJGmdDJEmkRcH2fZ
- /OK18xwQlCUTwLOp4nH5bNgJ88klZRmwTxOtdyzsNckKQdh9KY/wfab7npEYoDoVEk3h
- E1s7o3CjUZwcK7BEohXZ+fhH2WmnUmCM+ahdWASU2vIRv3u8Qss6X8H1u6iW2HctlXNq
- fPo6On8s6I2KNZojFOPcbo6lpgTW4YYsgXs9kIJO+GmXe7DyDClGu470wfrvr+wA9ykc
- MEnA==
+ d=gmail.com; s=20251104; t=1783154495; x=1783759295; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:reply-to:mime-version:message-id:date
+ :subject:to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2PKlx1RZlE0eFooFNfeW6nXm/sxrhaIM7NVbZ8hGbT4=;
+ b=bwaSH5S7ScSlXWbVAi7YvVF0xLPhrct/NBRUoP+Kq2p23q2e8ur8Icw8v1Mqfr2tW0
+ enwlndg2YMU1v+LXteHyz1kzT+9tXviL2Vg0wQ5BLKTwQDFFiHD5FYZGyLGtKkDBaYKS
+ WKKZ8Ofu90/6HbBX1pGXLoTZCopDqef8PD2LHncdR7HUeFWbP7v1anDsYskT4dJ0TLDb
+ xTs35qElmsXlST9ee4lVXLmVTmzYF4kVVZzO6W93qXQvnR2elmeX11ZYuoQIFloTURst
+ Spn/lQY65CtKMRhVDM2T+OQ1fxhuTYXzgfauz/SC83ibUYjn0bDE2n6S6U/JV74VfXgz
+ PpTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783104612; x=1783709412;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=1pbMO9q4O124KT6Be0ZSe5VmRy/7//LxDSmLrSqBhhA=;
- b=EADbQnCCUixMzRQrEILLcQ+m82pctb+lPCjt5orjTdbo7n6eacSIGBTsuOP1du4k5Z
- 5WF1u2V8LDby7Ztl4Tcsk7Cn38JkgeXkriaPJDvGMUDLjQ5HbtgjFARaAJ5yVcV1AKK0
- Xq8DS9VA0sbWJFnF3nyWlB6UiHQ79ilyOzZxJcSA6RJRQmYy5hfO+AJZi+TX3SannlhE
- iToq/nXyVhXVwL1CrVEze5nGVeaxcD0w3Ipfy2XVzigPTJF25oJrVuQo7nCZgT8eh/6X
- qpAKf1VssZeQuWC32L2F5diEww2ZnHpZ9H1UCUMQRggMXgn49c4aQeohECmgr6xKnMLQ
- Sv1Q==
+ d=1e100.net; s=20251104; t=1783154495; x=1783759295;
+ h=content-transfer-encoding:reply-to:mime-version:message-id:date
+ :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2PKlx1RZlE0eFooFNfeW6nXm/sxrhaIM7NVbZ8hGbT4=;
+ b=l3HCf7rtjVingRwvqKR95c/MsDcMIoqwcPP0cFHHC6HpRHnSpHeOXiPCKskXBjl/dQ
+ dYNPP8NS3jlLmT7OrwPC2M3sub+S+rssa2VcSkoAFzNARheAsAaoIbr4iJ1NZYtGJapj
+ bg1TjVXT/E7pfjVqhFMyZ++xIcpvSjOxGbGnC8i0kCWwiW/SYSpPVRD0wv5qUoJYQssE
+ dGWLg4WGj6syEJ7yPaOWYvl2vGoC7KDEJdbpjrUjWArEarC/wSXx4iyiBBwCh2g1jgEb
+ i/R8DMWip084CCeMu6UYVgpDQnqonVJI2BRsxPGjiEBoRioAdpYqqpMrXhnqWXndoXlR
+ qxVg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/1uCWnjSxIbqO8KhdFQhp7Za+cquEHrKTOXbXlo0jOcn6O7EFaTV+nx5HBOH98FEa9evh8TfAo@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzF3krVX86jc4ZqC09eHk/XeZ/Me7Sb4Px83mHR4tGC6NnPJaqh
- 7aB7YO2l6pqGLwYcqsf4E2kQJTrkbKJba8Y30B2s00DMRo6QeIPvlIBh
-X-Gm-Gg: AfdE7ckyPxq1EFV3Y1voaYKhgbiYWwpSHwDtoS2E3Bt3g0F8e1MOZo3ZfEyhaZaBUDE
- 1zVY3z8FCRH5lwR4HK9xdlPHjNBonpLczLjWLpJOxnpXhV+AuWdiDAujeJD8nhtASJxIG9SxLmx
- JnLaUDAIEgT2AszZFF8V0u+3IfsBEGAFL/XyxF1CYcyBMkfkuCjXX+PBPssGCwBbKCdlZilVteR
- tZolXCwvzV2yjas+hccpcj0SAfGbcK6Gt5X3vSoPb880apJUNlRN9dDqqECfIaMuXQJaEUt+xxl
- L4ZWuTQmT5S+yXZUIV1UDYfAk4mIcr1WsnK+rvLvDd3kwg2HopOHm7hEytiAhqyMUttYA7/8kiQ
- BW/Ye+h+QX73CCXG7V7t1nRFo9ZxBnS5ET9R+F5MeeM+8k+8C3L23R0X9gu7ZXUdqZy7GmvpQFj
- UXBysfMkqpnOOEhmaLMVbjXP4imVRT0aPu/ySu86kBQ3ZPSS7fFUISw9N0zIl49R7HtUBzt3vgD
- UmVv3pzWyr8LFxo+6g=
-X-Received: by 2002:a05:600c:3e18:b0:493:ad8a:e7fd with SMTP id
- 5b1f17b1804b1-493d11d7fd6mr4907195e9.14.1783104611805; 
- Fri, 03 Jul 2026 11:50:11 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24D8E500AC9DAEE3E0CDFA47.dsl.pool.telekom.hu.
- [2001:4c4e:24d8:e500:ac9d:aee3:e0cd:fa47])
+ AHgh+RrkF3cwjjbmjqH5cmudJh0K4QBJpVb1sDpfMz+Wxwnw4qVAHaNUTKN3+cqd/IjMUThoQ1qP1o0q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYRPsyTSEQqDd5OVV6Ct4KcHga1JaPRy9KmqwECkeMcWxGL1Ut
+ 631GnsWVCO4CqRIKaKCVufy5/YiT/HZ7lgnW/JnHs30N/O+xZy6rfIvv
+X-Gm-Gg: AfdE7ckbEfwJIdgRHExIWYpO19IhAHfZPHiyv4uXN6RGyIAeTjXt6PbLiOY5u6octGI
+ B+iVZT+WBRh7XbCLDoEb7dmTLX0EhriNxABDNsiqDO61VvJd0VfADIc9elfoN1PQm+uX0bC2EHP
+ +rfVxu7Xw+zdGpMYXO7nRrJXQXlMRY4qwBSlgnxVkGl9N0uh3puxA0MU8qpqxf6uTNNFXv50G6B
+ /v2fDOyv4yvBKsIN3ccV6U7ie5z+Py5w5YoRtZkAH5c9UEyAU4JV4uazpRhrZP4PWJSZ9VjWZT7
+ hxkkFjMA1XYZfdsD4gR+qTVkW6jSmTadAUyyvzhoOj4va6lDbw2y19Y2FBvXfVurfIvsCuvsmtk
+ Qu0JN41yI774wFX4nUEXBSKbB2tX6P0cpqlEw0TbRZp/zSdWKz174gqRBMMMmeXcfSMf4Zr9jZh
+ S1h3WTeX4zJbkEyXY7IfypeLDCRQ==
+X-Received: by 2002:a05:6000:469b:b0:46e:624e:3c2f with SMTP id
+ ffacd0b85a97d-47aab77082bmr1649075f8f.47.1783154494914; 
+ Sat, 04 Jul 2026 01:41:34 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15be:2e00:3669:f2aa:a674:f340])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493cce040b4sm92491775e9.10.2026.07.03.11.50.09
+ ffacd0b85a97d-47aa039bcdasm6519563f8f.21.2026.07.04.01.41.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2026 11:50:11 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, "Shetaia, Amir" <Amir.Shetaia@amd.com>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "He, Siwei" <Siwei.He@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>, "Joshi, Mukul" <Mukul.Joshi@amd.com>
-Subject: Re: [PATCH 11/14] drm/amdgpu/ih6.0: Use MMIO ACK for retry CAM on IH
- 6.0
-Date: Fri, 03 Jul 2026 20:50:09 +0200
-Message-ID: <3014087.Ex9A2HvPv6@timur-max>
-In-Reply-To: <BL3PR12MB6425A9D4631A637C778F6BACEEF42@BL3PR12MB6425.namprd12.prod.outlook.com>
-References: <20260701161721.85681-1-timur.kristof@gmail.com>
- <4547ddd3-974a-4c9c-8fec-939dc132f7d0@amd.com>
- <BL3PR12MB6425A9D4631A637C778F6BACEEF42@BL3PR12MB6425.namprd12.prod.outlook.com>
+ Sat, 04 Jul 2026 01:41:34 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: mikhail.v.gavrilov@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, peterz@infradead.org, jpoimboe@kernel.org,
+ llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/drm_exec: avoid indirect goto
+Date: Sat,  4 Jul 2026 10:41:33 +0200
+Message-ID: <20260704084133.122053-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +86,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. j=C3=BAlius 3., p=C3=A9ntek 20:11:59 k=C3=B6z=C3=A9p-eur=C3=B3pai =
-ny=C3=A1ri id=C5=91 Joshi, Mukul=20
-wrote:
-> > I still haven't found any explanation why we use a doorbell for the CAM=
- in
-> > the first
-> place? Lijo, Alex, Felix does anybody know that?
-> >
->=20
-> If I remember correctly, we weren't sure if the IH_RETRY_CAM_ACK register
-> would be available under
-> virtualization. And we were sure doorbells would
-> work for both bare-metal and virtualization.=20
+The drm_exec component uses a variable with scope limited to the for() and
+an indirect goto to allow instantiating multiple macros in the same
+function.
 
-Hi Mukul,
+This unfortunately doesn't work well with certain compilers when the
+indirect goto can't be lowered to a direct jump.
 
-Can you clarify that please?
+Switch the indirect goto to a direct goto, the drawback is that we now
+can't use the dma_exec_until_all_locked() macro in the same function
+multiple times.
 
-How are retry faults supposed to work under virtualization? Is the interrup=
-t=20
-processed by the guest or the host? Why is the IH_RETRY_CAM_ACK register no=
-t=20
-available under virtualization?
+The is currently only one user of this and only as a hacky workaround
+which is about to be removed.
 
-Thanks & best regards,
-Timur
+So document that the __label__ statement should be used when the macro is
+used multiple times and fix the tests and the only use case where that is
+necessary.
 
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  2 ++
+ drivers/gpu/drm/tests/drm_exec_test.c  | 24 ++++++++++++------
+ include/drm/drm_exec.h                 | 34 ++++++++++++++------------
+ 3 files changed, 36 insertions(+), 24 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index fee4c94c2585..fc28d0fdad37 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3011,6 +3011,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	is_compute_context = vm->is_compute_context;
+ 
+ 	if (is_compute_context) {
++		__label__ drm_exec_retry;
++
+ 		/* Release the root PD lock since svm_range_restore_pages
+ 		 * might try to take it.
+ 		 * TODO: rework svm_range_restore_pages so that this isn't
+diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
+index 2fc47f3b463b..7a374e462348 100644
+--- a/drivers/gpu/drm/tests/drm_exec_test.c
++++ b/drivers/gpu/drm/tests/drm_exec_test.c
+@@ -180,19 +180,27 @@ static void test_multiple_loops(struct kunit *test)
+ {
+ 	struct drm_exec exec;
+ 
+-	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+-	drm_exec_until_all_locked(&exec)
+ 	{
+-		break;
++		__label__ drm_exec_retry;
++
++		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++		drm_exec_until_all_locked(&exec)
++		{
++			break;
++		}
++		drm_exec_fini(&exec);
+ 	}
+-	drm_exec_fini(&exec);
+ 
+-	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+-	drm_exec_until_all_locked(&exec)
+ 	{
+-		break;
++		__label__ drm_exec_retry;
++
++		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++		drm_exec_until_all_locked(&exec)
++		{
++			break;
++		}
++		drm_exec_fini(&exec);
+ 	}
+-	drm_exec_fini(&exec);
+ 	KUNIT_SUCCEED(test);
+ }
+ 
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index 8725ba92ff91..cc2937185a9f 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -101,17 +101,6 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
+ #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
+ 	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
+ 
+-/*
+- * Helper to drm_exec_until_all_locked(). Don't use directly.
+- *
+- * Since labels can't be defined local to the loop's body we use a jump pointer
+- * to make sure that the retry is only used from within the loop's body.
+- */
+-#define __drm_exec_until_all_locked(exec, _label)			 \
+-_label:									 \
+-	for (void *const __maybe_unused __drm_exec_retry_ptr = &&_label; \
+-	     drm_exec_cleanup(exec);)
+-
+ /**
+  * drm_exec_until_all_locked - loop until all GEM objects are locked
+  * @exec: drm_exec object
+@@ -119,9 +108,18 @@ _label:									 \
+  * Core functionality of the drm_exec object. Loops until all GEM objects are
+  * locked and no more contention exists. At the beginning of the loop it is
+  * guaranteed that no GEM object is locked.
++ *
++ * A global label name drm_exec_retry is used, if you need to use more than one
++ * instance of this macro in the same function the label needs to be made local
++ * to the block with the __label__ keyword.
+  */
+ #define drm_exec_until_all_locked(exec)					\
+-	__drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
++	for (bool const __maybe_unused __drm_exec_loop = false;		\
++	     drm_exec_cleanup(exec);)					\
++		if (false) {						\
++drm_exec_retry: __maybe_unused;						\
++			continue;					\
++		} else
+ 
+ /**
+  * drm_exec_retry_on_contention - restart the loop to grap all locks
+@@ -129,12 +127,14 @@ _label:									 \
+  *
+  * Control flow helper to continue when a contention was detected and we need to
+  * clean up and re-start the loop to prepare all GEM objects.
++ * The __drm_exec_loop check exists to prevent usage outside of an
++ * drm_exec_until_all_locked() loop.
+  */
+ #define drm_exec_retry_on_contention(exec)			\
+ 	do {							\
+ 		if (unlikely(drm_exec_is_contended(exec)))	\
+-			goto *__drm_exec_retry_ptr;		\
+-	} while (0)
++			goto drm_exec_retry;			\
++	} while (__drm_exec_loop)
+ 
+ /**
+  * drm_exec_is_contended - check for contention
+@@ -154,12 +154,14 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
+  *
+  * Unconditionally retry the loop to lock all objects. For consistency,
+  * the exec object needs to be newly initialized.
++ * The __drm_exec_loop check exists to prevent usage outside of an
++ * drm_exec_until_all_locked() loop.
+  */
+ #define drm_exec_retry(_exec)					\
+ 	do {							\
+ 		WARN_ON((_exec)->contended != DRM_EXEC_DUMMY);	\
+-		goto *__drm_exec_retry_ptr;			\
+-	} while (0)
++		goto drm_exec_retry;				\
++	} while (__drm_exec_loop)
+ 
+ /**
+  * drm_exec_ticket - return the ww_acquire_ctx for this exec context
+-- 
+2.43.0
 
