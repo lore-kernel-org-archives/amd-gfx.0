@@ -4,72 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82758C43458
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 10:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3128BC43458
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jul 2026 11:32:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCF1210E04A;
-	Sat,  4 Jul 2026 10:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2912210E063;
+	Sat,  4 Jul 2026 11:32:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ri2NZIxz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nZptEJEt";
 	dkim-atps=neutral
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
- [209.85.219.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ADE110E04A
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jul 2026 10:12:16 +0000 (UTC)
-Received: by mail-qv1-f44.google.com with SMTP id
- 6a1803df08f44-8ee6912d86dso8959306d6.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 04 Jul 2026 03:12:16 -0700 (PDT)
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F5310E063
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jul 2026 11:32:35 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7e9f69ee6f4so1209664a34.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Jul 2026 04:32:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783164754; cv=none;
+ d=google.com; s=arc-20260327;
+ b=pKLT73JbxGzD34L+7p1oe6f4uQNC6CL/Ak8jyA8bcGSOHv2pPrGicHFuFBP2kU39Ox
+ qWlL57NEXR0VE88/qFKRSPDLH/yZ0w+A81XZ07cKL9UQx33jZkSmlE3PDf8/yRIhpzXC
+ bj3ZcqzUsvzxKBrxtK9t3ESNiL+kYaM4vT1mUAJj1HFNtoZxayWNtBs79YbV5JnvoCH0
+ XjHphFjgtJLHb2mM+OKX02OYzVolxyueSZlpdRor1Vwlut1gf4pyhNIvDnrjElMQeqtA
+ dOHtcY4Pyo7DPH49w08GZrdUIubiAkdH/OjIflN74kDJLwgLwxFbpOroAcOEBDtZ+7bB
+ kO0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=EWxbVxt0bUrbMOVyYOzNg2L9Hi49TedpZAPD1zNG07k=;
+ fh=SJrMnRkxp8IQkIbiKOUW3HLQIzmrYPNSiXSbnrjdcUA=;
+ b=dp/v2Wwv59onM+enxBBAo/Wk/XCiPNZRW4mizLXh+6MFz0JeQGmCfht/QfkUj5iL2T
+ 1fIT8TEePF20q4AqvpxlCHme4minXrwaihnNlY6nWLYsnaGgrcOjoRSDWw9PFyFJExKN
+ 0fwxIIj+z9CJch3FBBkdxzRwHToi7u8/sB5z3fBkWiHNxL/1ZUnT9HgQ1/H2+cLo/qtF
+ aKRaHU8pe2N7Fec0meZPLToS59zfs2bw5EIz3lnHHbVdKrVXnf6u61GcDRqcF/l7Pw2g
+ WuzQSkkAyhuAg/I5RWEOY/ond4SqZ4KLf13us4wQcYatAEJzyII4bQ09VY2PubnAg1rb
+ 1gAA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783159935; x=1783764735; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=rxyX6fPkI3zWrnoU4WDHMcsIhojSui+4pYl/gbAuI/o=;
- b=Ri2NZIxzbmMAMmmoVPrz3mwt4X2JinpkYeJw5qg0mpxpJCNjTbWzu6HRD4BzGURRsV
- G9v3LvfOqnKQupZOBT6UITVhFjOlN5xUiGV+Wk/CTLt91q3OU33tM4U2MV4eIpUZc7nW
- wXyfOxE/1SXBtsR8r0bjPSlF6DyeXrcw74lLKnq/xPT916Tvx+sF5MZYyvHzUETk+akI
- 2jAEbnmT3mr9Nl1c9Q5TbQqo7Ox/UUT9++FSBTrD6YKyo8k/wCboNZthnpp99taNI6f/
- i6qnTFnFZFnPe2ZR7rVJ0GjYUPe/2T2mLIDvS86pigjCWBJm2lZNfx+ZYgipBANiAvvO
- PjeA==
+ d=gmail.com; s=20251104; t=1783164754; x=1783769554; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=EWxbVxt0bUrbMOVyYOzNg2L9Hi49TedpZAPD1zNG07k=;
+ b=nZptEJEtjI4Rozy82GimeG8VlLPXyNWrLTOBL8X9XF/19WloZKBZFELr4dA2RT/u13
+ gkorxCGho7x++GXwzTaQQvx6zIxY5Jz7r24mb93fU8lUQ9skTCxchCpdudZm4rj91Mr5
+ tF/IOpem/yiPOo7f+cLswbwkRrmnV7YEKTazcBCsRYKixhAlSMtdXVXV8opE64APxNaJ
+ Qgp1xJvZdOzc6PIV9pnhaXdMEawzPpP+wch7TLYeo7ud3M0xIFlGpdzRveW5XiRqxsEj
+ UHazDjo11TKp7JNNPTg0xwDzVlRV65zK01ugyC6RHuaDDJj6tDmB+/m151o/DnfgKl+f
+ yRxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783159935; x=1783764735;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=rxyX6fPkI3zWrnoU4WDHMcsIhojSui+4pYl/gbAuI/o=;
- b=qhbHucZe4LAUSxoUNY3m8bK6+mqU5TepIKLuRkXgEwbVjldN+SnTB7iEjpTnP1TG2/
- qjcNVPNMs6EK6R4FquAKCIUEkTOI5vAlyXJiltCeo+m/19+QkylZ3Qa0XcfwD4T6ME+M
- XYh1QGLm+jfbCthGzPEVHcF2GZXPZ9KfvomW2UgQx8FGfzLYLkqbV/HB44Kt7cp2NgUR
- Yk71My0V/5kGQRkW56Jfazovz4URN4Id8GkII0BcHtKAs2XDdG3B38Hoj+3cA1q4vBOs
- kVpJsYQbBtO8Eg2YuOlvI54Noq9IgNKKGsvSDPTL6hT4EeKgnik8ZOaniENhFKeVfATG
- +QBw==
-X-Gm-Message-State: AOJu0YwDvAPj1ijDhii4u6kAulnqgWQyO924+Q6QMU6Dhrba5IGHTh36
- 6LzFKFp2YX93n41+lQkvtDTS19Pm454S5N9p7xTdPXctEJN9U4XlIe/VhRbIzMDl
-X-Gm-Gg: AfdE7clV3/eSAd4VgwWd8mnHbzxiEsKy/e7VLNhHA7HNq97BGTMwnBQa5wRs8bkew9G
- dZ/lV4Sj/CYtb/55xlwcum4B0eUmKMRerHeEiAiLoMTEpHeTN6XAloC5Xyowj20RxO4fXx3EffQ
- UBoNh4MKAiILdrxbTtETZVQL7mcMJrRvSR4hccs6JvdTKNY3G/Ofy+7WSSl5vgGKZ1Y5Whg1wT8
- iWyUz2LhylFISu09X+sRUBE2RXoBdmtde3Uy9ZjUqMt7sNWp02yCyDiGjRocLlCqLL8pBRA86CT
- qtkf7/orGw9mzoevlVWOHvLPCQFf9ipHz8OVy0AzGYohaYqbkvULC2Ju1FEF7UouTd02nq3OGXq
- G0Ew3J1rR961/r3WQZweyM6gH59Hpd6NIpzPnHnOGnk4OKhK026aTge7cpy/goOqsOhyP/3WV1+
- Q8Up5KPbyA1ryDbGrwQI0=
-X-Received: by 2002:ad4:5aec:0:b0:8ef:5103:df9e with SMTP id
- 6a1803df08f44-8f74a32ab33mr40294156d6.8.1783159935270; 
- Sat, 04 Jul 2026 03:12:15 -0700 (PDT)
-Received: from johnnyzero.szero ([32.220.73.95])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8f4724b9ff8sm75981446d6.40.2026.07.04.03.12.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 03:12:14 -0700 (PDT)
-From: John Olender <john.olender@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kenneth.feng@amd.com, alexander.deucher@amd.com, asad.kamal@amd.com,
- lijo.lazar@amd.com, hawking.zhang@amd.com, kevinyang.wang@amd.com,
- John Olender <john.olender@gmail.com>
-Subject: [PATCH] drm/amd/pm: Remove vbios bounds check from pp_entries_max()
-Date: Sat,  4 Jul 2026 06:11:20 -0400
-Message-ID: <20260704101120.674980-1-john.olender@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ d=1e100.net; s=20251104; t=1783164754; x=1783769554;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EWxbVxt0bUrbMOVyYOzNg2L9Hi49TedpZAPD1zNG07k=;
+ b=KbOSdQRvzhCbrqQY6LkOaE14n0eNLUretM312JjOVwTzgLDuEf17zesrx1V7urI48v
+ culxOHVG+ulaMX/nu4ci5pRNHleIz2Qe9Xi16MkxbGCQeMdeBCtlSsHMrABu+5uyu7OA
+ 0sYetFcxm3vsUKLYdkBVkDxlGy0orMoSZHBrqnOFXKowWUF546le/zNNGvVLKGGDiuxn
+ 9JW4kVykEsJBsQH8o5GKxBCW2qtFYARgZsoOC0ff2SRVjb+v3oDy6G9hWHrb4OyMsUJ5
+ oSwg+dm2AHvasKD8oU2Dn8ZsZkaft/12fhtkT0OPkFs5qIqLugAS5iYhsbU1gl11p08S
+ 43Ow==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+65a3BorZ61PA5akroamVA0ZtDoQSGfWyZyUHRkPk/+D3PAjkcb6nsFVS07UEkJLkzn+aDtJM6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywl0qFoqQ+1IS541btHhu2Y8qtGKg2F6GBgYf2EynET1gxkz+4C
+ HUZM1jeEq06MzZj8ppjcYNfPA4lZTZPwQ0+RPnF5MVHOESLrdn8mnFgbyeghHlX+e59J1O13NuK
+ z4yoqvY/O98BXeYVTJIqYrjOigI1TzKA=
+X-Gm-Gg: AfdE7cmVeTS2NgWf9mBdenu5r41AwcX7Yg+zZNtHQA3o7l/lak0TkNinzFtcG8OoFou
+ Ou93cO6Zl1fjgw7hq0NQFyF7Qyj+wq2SnhcPsdJR30bTw8zrf6UJ4Tu632SZPTNrw5C/bSznsIw
+ MYVO+OvMjzmiRrvvVjN2iMXGEP1iG7oS+ioUFkkn+spMP+3RR5C5d2REFYEbOMMLFLH6SrLlbVg
+ r2WWpbr88ubm5zSlfFi4fOiIlsgKvp5zg7IQkS5YOE3E97lgR/mdIklMfG+IBKdGXIbutRnp3M=
+X-Received: by 2002:a05:6830:258e:b0:7e6:f2dd:93c3 with SMTP id
+ 46e09a7af769-7eb7ff1bee0mr1941047a34.15.1783164754180; Sat, 04 Jul 2026
+ 04:32:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260704084133.122053-1-christian.koenig@amd.com>
+In-Reply-To: <20260704084133.122053-1-christian.koenig@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Sat, 4 Jul 2026 16:32:22 +0500
+X-Gm-Features: AVVi8CcK_S66JOwlm4n0LTy0xr_IGeFKHbpsM77Kmo3cE5f0eLtGIWRvXB6zhGs
+Message-ID: <CABXGCsPB4V6h-vUHwQ0Fo=bsdn66xP4fOOOezwWw2hiKh5TRJQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/drm_exec: avoid indirect goto
+To: christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ peterz@infradead.org, jpoimboe@kernel.org, llvm@lists.linux.dev, 
+ oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,37 +105,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The soft_pp_table is not contained within the vbios when using a
-pp_table override since commit 3cfe433630508 ("drm/amd/pm: Use uploaded
-size for legacy custom PPTable").
+On Sat, Jul 4, 2026 at 1:41=E2=80=AFPM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> The drm_exec component uses a variable with scope limited to the for() an=
+d
+> an indirect goto to allow instantiating multiple macros in the same
+> function.
+>
+> This unfortunately doesn't work well with certain compilers when the
+> indirect goto can't be lowered to a direct jump.
+>
+> Switch the indirect goto to a direct goto, the drawback is that we now
+> can't use the dma_exec_until_all_locked() macro in the same function
+> multiple times.
+>
+> The is currently only one user of this and only as a hacky workaround
+> which is about to be removed.
+>
+> So document that the __label__ statement should be used when the macro is
+> used multiple times and fix the tests and the only use case where that is
+> necessary.
+>
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  2 ++
+>  drivers/gpu/drm/tests/drm_exec_test.c  | 24 ++++++++++++------
+>  include/drm/drm_exec.h                 | 34 ++++++++++++++------------
+>  3 files changed, 36 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index fee4c94c2585..fc28d0fdad37 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -3011,6 +3011,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *a=
+dev, u32 pasid,
+>         is_compute_context =3D vm->is_compute_context;
+>
+>         if (is_compute_context) {
+> +               __label__ drm_exec_retry;
+> +
+>                 /* Release the root PD lock since svm_range_restore_pages
+>                  * might try to take it.
+>                  * TODO: rework svm_range_restore_pages so that this isn'=
+t
+> diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/test=
+s/drm_exec_test.c
+> index 2fc47f3b463b..7a374e462348 100644
+> --- a/drivers/gpu/drm/tests/drm_exec_test.c
+> +++ b/drivers/gpu/drm/tests/drm_exec_test.c
+> @@ -180,19 +180,27 @@ static void test_multiple_loops(struct kunit *test)
+>  {
+>         struct drm_exec exec;
+>
+> -       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> -       drm_exec_until_all_locked(&exec)
+>         {
+> -               break;
+> +               __label__ drm_exec_retry;
+> +
+> +               drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +               drm_exec_until_all_locked(&exec)
+> +               {
+> +                       break;
+> +               }
+> +               drm_exec_fini(&exec);
+>         }
+> -       drm_exec_fini(&exec);
+>
+> -       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> -       drm_exec_until_all_locked(&exec)
+>         {
+> -               break;
+> +               __label__ drm_exec_retry;
+> +
+> +               drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +               drm_exec_until_all_locked(&exec)
+> +               {
+> +                       break;
+> +               }
+> +               drm_exec_fini(&exec);
+>         }
+> -       drm_exec_fini(&exec);
+>         KUNIT_SUCCEED(test);
+>  }
+>
+> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> index 8725ba92ff91..cc2937185a9f 100644
+> --- a/include/drm/drm_exec.h
+> +++ b/include/drm/drm_exec.h
+> @@ -101,17 +101,6 @@ drm_exec_obj(struct drm_exec *exec, unsigned long in=
+dex)
+>  #define drm_exec_for_each_locked_object_reverse(exec, obj)             \
+>         __drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(=
+drm_exec))
+>
+> -/*
+> - * Helper to drm_exec_until_all_locked(). Don't use directly.
+> - *
+> - * Since labels can't be defined local to the loop's body we use a jump =
+pointer
+> - * to make sure that the retry is only used from within the loop's body.
+> - */
+> -#define __drm_exec_until_all_locked(exec, _label)                       =
+\
+> -_label:                                                                 =
+        \
+> -       for (void *const __maybe_unused __drm_exec_retry_ptr =3D &&_label=
+; \
+> -            drm_exec_cleanup(exec);)
+> -
+>  /**
+>   * drm_exec_until_all_locked - loop until all GEM objects are locked
+>   * @exec: drm_exec object
+> @@ -119,9 +108,18 @@ _label:                                             =
+                        \
+>   * Core functionality of the drm_exec object. Loops until all GEM object=
+s are
+>   * locked and no more contention exists. At the beginning of the loop it=
+ is
+>   * guaranteed that no GEM object is locked.
+> + *
+> + * A global label name drm_exec_retry is used, if you need to use more t=
+han one
+> + * instance of this macro in the same function the label needs to be mad=
+e local
+> + * to the block with the __label__ keyword.
+>   */
+>  #define drm_exec_until_all_locked(exec)                                 =
+       \
+> -       __drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
+> +       for (bool const __maybe_unused __drm_exec_loop =3D false;        =
+ \
+> +            drm_exec_cleanup(exec);)                                   \
+> +               if (false) {                                            \
+> +drm_exec_retry: __maybe_unused;                                         =
+       \
+> +                       continue;                                       \
+> +               } else
+>
+>  /**
+>   * drm_exec_retry_on_contention - restart the loop to grap all locks
+> @@ -129,12 +127,14 @@ _label:                                            =
+                        \
+>   *
+>   * Control flow helper to continue when a contention was detected and we=
+ need to
+>   * clean up and re-start the loop to prepare all GEM objects.
+> + * The __drm_exec_loop check exists to prevent usage outside of an
+> + * drm_exec_until_all_locked() loop.
+>   */
+>  #define drm_exec_retry_on_contention(exec)                     \
+>         do {                                                    \
+>                 if (unlikely(drm_exec_is_contended(exec)))      \
+> -                       goto *__drm_exec_retry_ptr;             \
+> -       } while (0)
+> +                       goto drm_exec_retry;                    \
+> +       } while (__drm_exec_loop)
+>
+>  /**
+>   * drm_exec_is_contended - check for contention
+> @@ -154,12 +154,14 @@ static inline bool drm_exec_is_contended(struct drm=
+_exec *exec)
+>   *
+>   * Unconditionally retry the loop to lock all objects. For consistency,
+>   * the exec object needs to be newly initialized.
+> + * The __drm_exec_loop check exists to prevent usage outside of an
+> + * drm_exec_until_all_locked() loop.
+>   */
+>  #define drm_exec_retry(_exec)                                  \
+>         do {                                                    \
+>                 WARN_ON((_exec)->contended !=3D DRM_EXEC_DUMMY);  \
+> -               goto *__drm_exec_retry_ptr;                     \
+> -       } while (0)
+> +               goto drm_exec_retry;                            \
+> +       } while (__drm_exec_loop)
+>
+>  /**
+>   * drm_exec_ticket - return the ww_acquire_ctx for this exec context
+> --
+> 2.43.0
+>
 
-Fixes: e30b3e3ab51ad ("drm/amdgpu/pm: add pp_entries_max() helper")
-Signed-off-by: John Olender <john.olender@gmail.com>
----
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 4 ----
- 1 file changed, 4 deletions(-)
+Tested on the configs that originally tripped objtool, the error is gone
+with this patch:
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index 7ebc1344023ff..19023a850e882 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -833,14 +833,10 @@ static inline uint32_t pp_entries_max(const struct pp_hwmgr *hwmgr,
- 				      const void *sub_table,
- 				      size_t hdr_size, size_t rec_size)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
--	const char *bios_end = (const char *)adev->bios + adev->bios_size;
- 	const char *pp_end   = (const char *)hwmgr->soft_pp_table
- 			       + hwmgr->soft_pp_table_size;
- 	const char *entries  = (const char *)sub_table + hdr_size;
- 
--	if (pp_end > bios_end)
--		return 0;
- 	if (!rec_size || entries >= pp_end)
- 		return 0;
- 	return (uint32_t)((pp_end - entries) / rec_size);
+  - gcc, non-LTO: amdgpu_vm.o builds clean
+    (was amdgpu_vm_handle_fault+0x169 / +0x97)
+  - clang, non-LTO: amdgpu_vm.o builds clean
+    (was amdgpu_vm_handle_fault+0x12d)
+  - clang + ThinLTO + KASAN, OBJTOOL_WERROR=3Dy: full vmlinux.o link
+    passes objtool (was amdgpu_vm_handle_fault+0x186 / +0x16b)
 
-base-commit: e3cc8c108f9a91728f9ff6e24cbf3b41c58b8f8b
--- 
-2.47.3
+x86_64, clang 22.1.8.
 
+Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+
+FWIW the kernel test robot reported this many times across trees (clang
+LTO, clang non-LTO, and gcc builds); it's all the same drm_exec
+computed-goto pattern. Full list if you want to add Reported-by/Closes:
+
+Fixes: 9920249a5288 ("drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
+drm_exec")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202606231854.7LeCtlLe-lkp@int=
+el.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202606232356.gwHMAJAW-lkp@int=
+el.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202606240753.kYjobJVl-lkp@int=
+el.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202606241110.iUga5vVw-lkp@int=
+el.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202607031446.1PWG18mN-lkp@int=
+el.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202607031837.HSmBj8pr-lkp@int=
+el.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202607040159.GopyEswS-lkp@int=
+el.com/
+
+--=20
+Best Regards,
+Mike Gavrilov.
