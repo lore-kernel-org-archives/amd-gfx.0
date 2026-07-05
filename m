@@ -4,122 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9898DC43458
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 05:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA0BC43458
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 07:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2399E10E2ED;
-	Mon,  6 Jul 2026 05:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BAB410E637;
+	Mon,  6 Jul 2026 07:20:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SoPoxZIS";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="IhmL96HM";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012008.outbound.protection.outlook.com
- [40.107.200.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE5210E2ED
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 05:53:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ThArkjQfeX/W9zuAqBEC8ljRclyxRmJhQuuAkBSduC0nr2ZZ2a0h/PFAquwJr3LP1QpijO0uGw7OUE56tvtROWk+wGyHbQSgQTcOUYKmRFJ1LnnTMh1g1aT0i/X17phJeqrMKNqiVuOAqavjTcmUOvEEHVs9EW9FEDCWhrYpiU22rNfzdQYPkfBdbHOAiprIMSjuo20XXQo3ICv00IaKfkCj/4/YYt/tjbTgfw2Y5MM8ykqf6x/xM8e7Jnoisa6yAx5PY8Yn2a0PIZOVLEXFyElE3PRK+442psFb+0RePcm7IbRtASbgTzkExHtpzUz9L7Oo8MqFRHGvZkLpieeVKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IpFJE6bt+hOHiywVQUPzGLfNaRqKDLI0MPpKII624lg=;
- b=H+zGXuQgl//H8BtR1bUTSKKRTXzA4PKw3rc446QgbJW7nciuPDoILs9/GId03nIuCIYNF6nb64hO3xm+oTJEmrw/wYLsXd3eH7ihil5OYZagmr6AwMDMF/5NwS4JQVvGSneTy0G+2QOB/vu9bw2dMY5s6FnGlQHa1Omch0tYiL714xLew0VAED7+IazRmFeuDIMxZ/ZJ8dgTJJWeCEwc58jGVXSSAiLSaq16qJbz9tAosJ5kMmt9/ziEsh2fg43BjRq+s1/+mLhmOrfOtLnsbUKCAy6gH20/SaMeUKRPqj9wicg/63/SbW9RsCGF+Fh4mNsWilCQvUjQEvNumltZtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IpFJE6bt+hOHiywVQUPzGLfNaRqKDLI0MPpKII624lg=;
- b=SoPoxZIS6gUQkzbDmHHrmsiUK/BBv/MnXGgboAvTRA+oAnvud7XMa3Il1gxwCO3blKfkKtZfjtB3UhkqjQdQNWWrE4Zuh2qlmImn6PZ0LzHkhiVYPJGrImDx3bnObIG9hoNKIYMxmEfd3H1Mv+LtlMKWYzV5G+q7E/MSfaFcCx0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
- by DS7PR12MB6215.namprd12.prod.outlook.com (2603:10b6:8:95::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.10; Mon, 6 Jul 2026 05:53:10 +0000
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819%3]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 05:53:10 +0000
-Message-ID: <6e10a3d6-bce9-4e85-bb17-e5f530f90b49@amd.com>
-Date: Mon, 6 Jul 2026 11:23:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: fix smu14 power limit range calculation
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
-References: <20260706013807.1051660-1-kevinyang.wang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260706013807.1051660-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0079.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ae::7) To SJ0PR12MB7082.namprd12.prod.outlook.com
- (2603:10b6:a03:4ae::12)
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF5610E10C
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jul 2026 00:35:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1783211705; x=1783816505; i=spasswolf@web.de;
+ bh=XI7crHPYzaUYyMnD41HPJv7MDtUrviFMCHZRU0xBtnM=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=IhmL96HM6P7dwDBU4FrXEAjBp96Fl14h+9e9w08/UqEin2nRXctVCYmpP1zssWiz
+ +Wslxs834Jk6yUsKXDuMDw4LUALwHmNogEeRJWel9LddODQ2pE9pt7G3fe89TnMx2
+ 2jzxoj2/EvFttpz0nmJARKZlqjnYgHKux+U2M6nt0A8ayI/5nq+G4isBcznPsu6XZ
+ K80+XCSM2830U92ZqEhGX1JwQYCCztYKAyXh6pRf7sYxkozHcu/IvAdZh1+KmoyW0
+ o8FAJvEvmLTGCpje5RSgLpGqs5deZl1WdDYXQn4I9V2x2hnekmqDWqI0DTA5oV7HC
+ jM4++zSI+fboQPHaxg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Meler-1xG3TQ1cSj-00ibpi; Sun, 05
+ Jul 2026 02:35:05 +0200
+From: Bert Karwatzki <spasswolf@web.de>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org,
+ Jesse Zhang <jesse.zhang@amd.com>, Amber Lin <Amber.Lin@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: [Re] GPU reset when running the ROCm hsa runtime tests on gfx12 and
+ next-20260701
+Date: Sun,  5 Jul 2026 02:35:02 +0200
+Message-ID: <20260705003504.31425-1-spasswolf@web.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260703124405.56248-1-spasswolf@web.de>
+References: 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|DS7PR12MB6215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ac2855d-1451-4658-d959-08dedb22dc31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|6133799003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: QojLJe2lV3WJws9auhhRE3HWYkrt4bseT4f6it2BQYLBNTLUW8pyUGEc0/YqTKfENFa6pKNoIkg47prumGJDzRoDdNawBaE0PSsnCCszrLTk3j533qOW8KbP+wlRNdG7kjWTyqRQ1tSIo8WURY4J7tBB/RwKMmWYMArA4wAb+e5tq9eEoBXi65TAgOYqJ2S0nn4LTcF/f58xyfXNJM6jmc2avZ0OG1my2YO8m/G/n0g57Y+BjepUHXMvjF9ApXS5we5e2G0tJw9eY5XSAaoE6KklJqzUfpEx/OTCVxapiFJPm4BRJsBzxLhJpEghRn4MZHaWq4rHMMDnzFq8GfXJbo5clbc+WAMpR+q18g0GmEwTW4d++q5bmIIhWGTV8+GyESrbQZ3rK9oahLTakMNvAaurGUSCI9g6KFZE/SAT3JOE0ArCyQWo6hy7ARns1IcrFhHNWB4FySQduXgcz7hYEWJUV/nYPvOEZlL/Th5K2uXthu6RAi1qbbK87HT2hIjRyev0pJxmMtWTLKWxeg84SR/07AK2OaY5cnMhvhIBJafo68DYX4NII76tHW3zgGkIBRaBH3E4JWfjSFNMeRyykRwOKLRmGbR7G8fUld+I6EEiFz7YreIhEFdq5KkBZrE9C5ncjglLJBBfS/7ea9a6dbmvzELH9OqhdGDOgkvRCX8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUQweXE1NG5WOUxzTlBtQ3EySnk0b1QyWndhSmZXelp3V1lzOE1KWGwrdEFN?=
- =?utf-8?B?bkMrVWhPTlJ6WGhFM3F1OVlINm1VK3BuM3J0K0NOQVJ5OFRvYjB3a0RlWmhR?=
- =?utf-8?B?M1dqYTJsTnVGN01NT1hTN0RyYVBza213Sm0vS3hhc3FGdFp3VVpab0trMmJI?=
- =?utf-8?B?S3ZJMHBhSzNhb1gxWE5iSXhOeEd1cXhpd0FvQUlVZTE2a1N0SGQ4VG9qSE91?=
- =?utf-8?B?dTJkaEppRVVTQlh0SWJMdWJxckJnMTl2Nkw0TmNySm9OZjY2ODBVRklEeHRF?=
- =?utf-8?B?WFZmYkFpZWVPZHgycVhJVmlVUTZBaENSeUNNT1VoZWJhamJ1TW1YTmhwYWIv?=
- =?utf-8?B?VldabVowSmhxcS9nRTlpTHZDRzUyWnZRbzd1NUZTQWZIMDJNTjNJOXcvcU0z?=
- =?utf-8?B?dlIrR2Y4UTBSaGRnUWVQa0t0Ri9WWXZ1ZGpHT1NmNmxXcXlTMmkzU0JwNG55?=
- =?utf-8?B?VEVzY2VzVTRNSXNERHcwa2w2RlpicG1CV01ONUZ4b0ZMOXdBcTdNZUdOYnNB?=
- =?utf-8?B?LzZ5dVc5M1Bmd1VFYlpPUFNpM0tTclpoa3dOR3k0ZDVrVElNS3dtMndLd01m?=
- =?utf-8?B?aEZGb1JIZXU0TE9IR0d4WTZaSXp3Tm52eHRmTW5SWFhxVjRZbXJCeGtNOFda?=
- =?utf-8?B?VmkrOUFDNmRBSDdwMzRrNkFHMmFic2lyRTFrc2lqVmhMakQxZEY3UmVKMUdX?=
- =?utf-8?B?NTZpQ25ORHByc3VTZGc1UUpoakF6WFVwWWJCaDA0c2ZvWWJyK2ZnZW80Y3lO?=
- =?utf-8?B?VUxZUGRrV0ZiMmtpVjY5dTN1NnRSMys5UDFyb0xjdzNCZ0FXaEsyT2ZVVzk4?=
- =?utf-8?B?SGcxVGZiM0tENGMwL1JEODlJV0pXeGUvdXhQY2lmbkNFQnBjdXZ2MDcyV25y?=
- =?utf-8?B?OXVhRi9HSXRsQWd2YjV4aE4yS0YzK1IxdkYvN00xYWVYN1BNK0Y2MkpmTmo2?=
- =?utf-8?B?ZWFjYkZLRS9KTlZIWjc1ZjNnZHZXcmpGbFNHNW1WOFhQWFhCT1NpUmpvSHQx?=
- =?utf-8?B?cTc4WDYyZ1NBcHlCQmVuR0ZCTE0wa09WNFNkNS9Pcit0Q1ZpcS93VWhyNG55?=
- =?utf-8?B?VEFPQTdQclFqNE5KRzJIYzZxNzYwZnBWdVJxOEZSMWtqa2hreDVhcXYxY3Zy?=
- =?utf-8?B?REdTYk9IdGc5ZFhrazdOcHhHeS9yNzVzcTJDcWJ3angzZWx5UWJHNE9XQ0p3?=
- =?utf-8?B?Vk4zSmloRTN4SUhvdnhVZDFBTENSWi81UUVBWDhnbEg1anJ5RmlaNjdNRUpO?=
- =?utf-8?B?ekdRK1BaTVZtQ3poMVBiaTAzVFRyQW1wbXZyMjZEM0lWeHVhMlY1a1VpNjZ2?=
- =?utf-8?B?Mm9PMUhXY05ocW11d3E4OEhrNVBHWEZsMkNzUTRuTVNQN0dRTEY4emVUVlRM?=
- =?utf-8?B?eEhlcHFyYVlpaXVaUkIvQndDeWNvV0VsM3dteWt0RStRWTJTMENMT0sxNXZJ?=
- =?utf-8?B?Ui8vV3VYNXMwdFB6RytzdUdiWVZSU0o3clVYTEtJM3V6TlpxRUQvRE9iYXll?=
- =?utf-8?B?aXFzdzV0V3JFazZGZm9jT0RXSFdLcmp2N01RbEx3cUJ6TzVxMVlhdWErZGR1?=
- =?utf-8?B?WUFSVGF3cnNHaUYyR2RxV3pWdGhiSVdYeW12dmNPdVdXT0JoWVZmWUswVk9z?=
- =?utf-8?B?eG04alNBNHY2Tjc2R1E2ekh1Y1hXK05TOUNiUTBqaDNaSUtJdFZoZ1BwT1pB?=
- =?utf-8?B?T1kzOWV2elpya1BCNUJtZWRsQWVmZUp6NmxuZndpazd1UkU2bGhQWW51emNV?=
- =?utf-8?B?SWFpT0tCT2N3aXd5bTNQN0cxYlFGdE5HaFB0QU5McFp6YmdMNldrRUFWSDg5?=
- =?utf-8?B?L1pWcGNORGQ3UzJDZ2JHNmZYeVRQYTFKMU8xdUF3RnQrYVVMc0ptcTR3S1pj?=
- =?utf-8?B?eHdHNU9HeEt3ZnJNVFI3RzdCaDRiWU1xbmVOWTltczhydy8raElZVlhwQW1Z?=
- =?utf-8?B?azdZajhJZW5MajVqczZvZGZuV0dqMXlkSXM0aDVqbmhzUTVnbC9lekd1YSs0?=
- =?utf-8?B?QU9nYjRHVWQxZ29CSncrYnFTTENrK3dYeHNsTGFsbktXdHV3b25QaXN0MTRM?=
- =?utf-8?B?RmdCeTVPQnNRaks5RVFiUWluSzBjUUk5WGxyMzZ0T2FrZ3UzTTJjTVZGbjhh?=
- =?utf-8?B?TVc0cjVLTk5sZWlLWHA3UVNGOE5WMGVLS0JaMU55MkgzWmlWM3pJV3RSMEFP?=
- =?utf-8?B?Yks2MmltVXgyZE1IUk9odGxwV3R3anpYUmZ0Rm4vTU41bTF2QnNmS05zZ1NH?=
- =?utf-8?B?N2hBa2t1dlJPMjY2YjF6M0lUa2NVY0lZQ1p5M2ViY09GWUVZOHJSTHU2Tnh6?=
- =?utf-8?B?RGlzMmk5djFmeG9hZERnZ0o1dzd0c2duZ05CdnJ3djAxTmkvZS81UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ac2855d-1451-4658-d959-08dedb22dc31
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 05:53:10.6355 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Mxbm52OWYqMLCY8wY/7kX4/ZRzjMRlWXNRNRLMp/q/X2f2gD8ntfECpWe7Xup3e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6215
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:OJYITrLKLMkaU+TKpVljLrgsgcatRa3Ku0JK7Ln1FTBPeJXShfU
+ SeTTUofRfUDtH5n+bGdXDLVELCwgOwQK6slPlRs5WO9B+p05ideWj/BJ/XOSnI7RTnyTk9I
+ q4ztDBFFG1PkQevOI3jp7bGaOKazTFBNhiDmYLAoD7pnF2HhA6Ryy/x9qL4IGr0WOW5MPA/
+ TEnSz9znmBbEOGmMit1eA==
+UI-OutboundReport: notjunk:1;M01:P0:YFWIs0cImuM=;ddEHmr1AhnoFYKOZ5HhNI4iPIWD
+ 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
+X-Mailman-Approved-At: Mon, 06 Jul 2026 07:20:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,85 +145,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+I identified the problem in =20
+f94bbd648bb4 ("drm/amdgpu: use a single entry point for mes compute reset"=
+)
+it's reset_queues_mes() being called unconditionally. f94bbd648bb4 can be =
+fixed
+like this:
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 6054c8e216b8..ed1ffa8b1743 100644
+=2D-- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -484,15 +484,18 @@ static int suspend_all_queues_mes(struct device_queu=
+e_manager *dqm)
+ 	if (!down_read_trylock(&adev->reset_domain->sem))
+ 		return -EIO;
+=20
++	r =3D amdgpu_mes_suspend(adev, ffs(dqm->dev->xcc_mask) - 1);
+=20
+-	if (!reset_queues_mes(dqm)) {
+-		r =3D 0;
+-		goto out;
+-	}
++	if (r) {
++		if (!reset_queues_mes(dqm)) {
++			r =3D 0;
++			goto out;
++		}
+=20
+-	dev_err(adev->dev, "failed to suspend gangs from MES\n");
+-	dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU res=
+et\n");
+-	kfd_hws_hang(dqm);
++		dev_err(adev->dev, "failed to suspend gangs from MES\n");
++		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU re=
+set\n");
++		kfd_hws_hang(dqm);
++	}
+ out:
+=20
+ 	up_read(&adev->reset_domain->sem);
 
 
-On 06-Jul-26 7:08 AM, Yang Wang wrote:
-> SMU14 derives the default PPT limit from SocketPowerLimitAc/Dc, but
-> MsgLimits.Power may expose a different firmware limit for the same PPT0
-> throttler. Using those values independently as fixed min/max bases can
-> report an incorrect configurable power range.
-> 
-> Keep the socket power limit as the default value and as the fallback for
-> current-limit queries. Calculate the reported range from both firmware
-> values instead, using the lower value as the minimum base and the higher
-> value as the maximum base before applying OD percentages.
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 28 +++++++++++--------
->   1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index edc5140f6ab6..b8584a1e6bcc 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -1622,19 +1622,23 @@ static int smu_v14_0_2_get_power_limit(struct smu_context *smu,
->   		table_context->power_play_table;
->   	PPTable_t *pptable = table_context->driver_pptable;
->   	CustomSkuTable_t *skutable = &pptable->CustomSkuTable;
-> -	int16_t od_percent_upper = 0, od_percent_lower = 0;
-> +	uint32_t pp_limit = smu->adev->pm.ac_power ?
-> +		skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
-> +		skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
->   	uint32_t msg_limit = pptable->SkuTable.MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
+But when I try to fix next-20260701 like this
 
-May not be related to the current patch. Is there a DC msg limit also 
-which needs to be picked for DC case?
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 5c9dfb0c424f..5a78b1504f8c 100644
+=2D-- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -493,7 +493,10 @@ static int recover_bad_queue_mes(struct device_queue_=
+manager *dqm, struct queue
+ 	if (!down_read_trylock(&adev->reset_domain->sem))
+ 		return -EIO;
+=20
+-	r =3D reset_queues_mes(dqm, q);
++	r =3D amdgpu_mes_suspend(adev, ffs(dqm->dev->xcc_mask) - 1);
++
++	if (r)
++		r =3D reset_queues_mes(dqm, q);
+=20
+ 	up_read(&adev->reset_domain->sem);
+ 	return r;
 
-Thanks,
-Lijo
+I still get GPUVM errors (but no GPU reset) and when running
 
-> -	uint32_t power_limit;
-> +	uint32_t min_limit = min_t(uint32_t, pp_limit, msg_limit);
-> +	uint32_t max_limit = max_t(uint32_t, pp_limit, msg_limit);
-> +	int16_t od_percent_upper = 0, od_percent_lower = 0;
-> +	int ret;
->   
-> -	if (smu_v14_0_get_current_power_limit(smu, &power_limit))
-> -		power_limit = smu->adev->pm.ac_power ?
-> -			      skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
-> -			      skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
-> +	if (current_power_limit) {
-> +		ret = smu_v14_0_get_current_power_limit(smu, current_power_limit);
-> +		if (ret)
-> +			*current_power_limit = pp_limit;
-> +	}
->   
-> -	if (current_power_limit)
-> -		*current_power_limit = power_limit;
->   	if (default_power_limit)
-> -		*default_power_limit = power_limit;
-> +		*default_power_limit = pp_limit;
->   
->   	if (powerplay_table) {
->   		if (smu->od_enabled &&
-> @@ -1648,15 +1652,15 @@ static int smu_v14_0_2_get_power_limit(struct smu_context *smu,
->   	}
->   
->   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
-> -					od_percent_upper, od_percent_lower, power_limit);
-> +					od_percent_upper, od_percent_lower, pp_limit);
->   
->   	if (max_power_limit) {
-> -		*max_power_limit = msg_limit * (100 + od_percent_upper);
-> +		*max_power_limit = max_limit * (100 + od_percent_upper);
->   		*max_power_limit /= 100;
->   	}
->   
->   	if (min_power_limit) {
-> -		*min_power_limit = power_limit * (100 + od_percent_lower);
-> +		*min_power_limit = min_limit * (100 + od_percent_lower);
->   		*min_power_limit /= 100;
->   	}
->   
+$ /usr/libexec/rocm/libhsa-runtime64-tests/run-tests
 
+[  146.577245] [    T418] amdgpu 0000:03:00.0: [gfxhub] page fault (src_id=
+:0 ring:157 vmid:0 pasid:0)
+[  146.577247] [    T418] amdgpu 0000:03:00.0:   in page starting at addre=
+ss 0x00000000002ba000 from client 10
+[  146.577248] [    T418] amdgpu 0000:03:00.0: GCVM_L2_PROTECTION_FAULT_ST=
+ATUS:0x00000B3A
+[  146.577249] [    T418] amdgpu 0000:03:00.0: 	 Faulty UTCL2 client ID: C=
+PC (0x5)
+[  146.577249] [    T418] amdgpu 0000:03:00.0: 	 MORE_FAULTS: 0x0
+[  146.577250] [    T418] amdgpu 0000:03:00.0: 	 WALKER_ERROR: 0x5
+[  146.577250] [    T418] amdgpu 0000:03:00.0: 	 PERMISSION_FAULTS: 0x3
+[  146.577250] [    T418] amdgpu 0000:03:00.0: 	 MAPPING_ERROR: 0x1
+[  146.577251] [    T418] amdgpu 0000:03:00.0: 	 RW: 0x0
+[  146.577606] [    T418] amdgpu 0000:03:00.0: [gfxhub] page fault (src_id=
+:0 ring:157 vmid:0 pasid:0)
+[  146.577608] [    T418] amdgpu 0000:03:00.0:   in page starting at addre=
+ss 0x00000000002ba000 from client 10
+[  146.577609] [    T418] amdgpu 0000:03:00.0: GCVM_L2_PROTECTION_FAULT_ST=
+ATUS:0x00000B3A
+[  146.577609] [    T418] amdgpu 0000:03:00.0: 	 Faulty UTCL2 client ID: C=
+PC (0x5)
+[  146.577610] [    T418] amdgpu 0000:03:00.0: 	 MORE_FAULTS: 0x0
+[  146.577611] [    T418] amdgpu 0000:03:00.0: 	 WALKER_ERROR: 0x5
+[  146.577611] [    T418] amdgpu 0000:03:00.0: 	 PERMISSION_FAULTS: 0x3
+[  146.577611] [    T418] amdgpu 0000:03:00.0: 	 MAPPING_ERROR: 0x1
+[  146.577612] [    T418] amdgpu 0000:03:00.0: 	 RW: 0x0
+
+This means there's at least another error in these commits (reverting all =
+these in
+next-20260701 fixes the issue)
+
+b789664e3e30 ("drm/amdkfd: Clean up suspend_all and resume_all mes")
+a665d09b10af ("drm/amdkfd: Pass known bad queue info to reset")
+a4e4d945cba8 ("drm/amdgpu/gfx: defer per-queue helper_end until after MES =
+resume")
+f401a2633e02 ("drm/amdgpu: Remove faulty queue before resume")
+f94bbd648bb4 ("drm/amdgpu: use a single entry point for mes compute reset"=
+)
+
+Bert Karwatzki
+   =20
