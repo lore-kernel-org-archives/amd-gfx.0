@@ -4,52 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A34E7C43458
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jul 2026 10:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C44C43602
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jul 2026 17:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 404FC10E18E;
-	Sun,  5 Jul 2026 10:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 873CB10E209;
+	Sun,  5 Jul 2026 17:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shift-computing.de header.i=@shift-computing.de header.b="e1ZJaISb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KFPFwn2P";
 	dkim-atps=neutral
-Received: from mail.teamster.cloud (mail.teamster.cloud [213.136.73.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C96710E18C;
- Sun,  5 Jul 2026 10:16:19 +0000 (UTC)
-Message-ID: <3e2a862d-53b5-45b8-9c00-08d3e69b0508@shift-computing.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shift-computing.de;
- s=dkim; t=1783246576;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VriRytiQr29dirxj3h6p1cI/zmJWkfrX2iDUkcXvSxc=;
- b=e1ZJaISbUDRcccPVLfc34+fKgs/XaiOzmxa7gxK9yGA1csK6GP8jTdhihsUiq7lE6Clg/R
- aQ1o2FN5WK9C9QRMnlQ6f7f+QthG+Dts3m0CojYZqrNk9flQdaIRTDz8F+Ix8P+QZVPKel
- FENX+wSSeuIwRVvbEg9Vctv32aDUoOcmRCr0cYMPOYERwBuTG/of59f3Ua48uPSr2qsgP8
- w644leKAHcHZJ1C3MN+oZvrndb+EgeChVJHY/8SO6V6qZePNN6yI3NBW24Hlo1+iMiQh9T
- yJ0Z1cHRRZkenwan9k2bXGJiM3yTTOB6QbyiUgtVXCZIlwEButw8V0nYioon9w==
-Authentication-Results: mail.teamster.cloud;
- auth=pass smtp.mailfrom=oz@shift-computing.de
-Date: Sun, 5 Jul 2026 12:15:56 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D51810E209
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3CE5B42A76;
+ Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1DE66C2BCB8;
+ Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1783271508;
+ bh=T2lhnNdkV4SpN9Uczb+KgNsko4p+UMaKpgAbeG7OU8g=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=KFPFwn2PXRi/EBw7e8pZ15X03rIbemVRROt0qP4aSCEGuwJh8AQS4xn5gGpAFMpnU
+ z5VUWbOyu9273e2pO4SpAedbDVKMeGCxBWlFiCbcIQALy8JS1Gixj/U9CC9uXhJyOh
+ vDzUFU5gQDB2cG/LwlhwXkHn51KpRW+7t/oYHJww3Hu5QJEyb7M4DUeR4NV9X0huaV
+ 9BR3xhWUmgUNYsB83dyWALAxa9XppsyfariMnFi3HeRnNJMWXobCECFXlovJpX7dvQ
+ iXV7OuDWvo67iTq82y+BLSS6dflZzOl5Ib16YpVdCt/4bvLuPGney6bbz9JKoI24Vd
+ vqbpelPK0tivA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 09B65C43458;
+ Sun,  5 Jul 2026 17:11:48 +0000 (UTC)
+From: Liz Fong-Jones via B4 Relay <devnull+lizf.honeycomb.io@kernel.org>
+Date: Sun, 05 Jul 2026 10:11:43 -0700
+Subject: [PATCH] PCI: Fix BAR resize for devices on a root bus
 MIME-Version: 1.0
-From: Oz Tiram <oz@shift-computing.de>
-Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
- discovery
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260621173211.28443-1-oz@shift-computing.de>
- <20260621180154.30421-1-oz@shift-computing.de>
- <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
-Content-Language: en-US
-In-Reply-To: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Bar: ---
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAE6QSmoC/yXMQQqEMAxA0atI1gbaOih4FXFha6pxYSXRYUC8u
+ 3VcvsX/JygJk0JbnCD0ZeW0ZtiygDAP60TIYzY442rTmA9ugVHID4KS0o7+UIyVdVUka2JoIIe
+ bUOTff9r1r/XwC4X9OcF13R/1e3F2AAAA
+X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
+ Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, 
+ stable@vger.kernel.org, Liz Fong-Jones <lizf@honeycomb.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4287; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=WjhPR946S5kQ2MM+7TqB/nQbZuHdNxuSaUo3YEdJ1dU=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqSpBT2VQkT7xS0DBT4bFs/PNduIzCpXSUdbhlx
+ +BUdSUWfm+JATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCakqQUwAKCRClztTjl62v
+ wuU9B/43wnUMX1r7OFzOUOLhs7jAFwO76sMfFglIIx4+jiZsAeECwbTO6vJ/B7uxJqWNBjoDBU5
+ +qBnydr+Zy8aNRAgrClef7W2QitCPB9JyGuOSMQn6nlhA/9LSJvt2shilGGo28Ekw8JbeRehZE3
+ YfEAbYPDNj6y66wpKdNAANSXa+Saj4YnmX5piKeTE2qv+qJwpMy7HZ69ov+iOg2lzmwHkjhTj9l
+ TRcjq86rbWran3ghttXJsjZ77jyY2Iw22zBQfFrlX6QV/4purUnKtLqcQ0Wih9PW7OZ5veO0vYG
+ QM53tH07CgWLmOwRFMHiVToYw4a/ZvH3h0+/9gm3H3ssJXYV
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-Endpoint-Received: by B4 Relay for lizf@honeycomb.io/gpg with auth_id=854
+X-Original-From: Liz Fong-Jones <lizf@honeycomb.io>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,127 +77,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: lizf@honeycomb.io
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+From: Liz Fong-Jones <lizf@honeycomb.io>
 
-Sorry for the slow response, I'm new to the kernel contribution process. 
-Thanks for the review. v2 addresses your questions: -
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-The VFCT does contain the iGPU entry, but with a stale PCIBus value from 
-BIOS POST time (0x6A). With pci=realloc,assign-busses the iGPU lands on 
-bus 0x0B at runtime, so amdgpu_acpi_vfct_bios() never matches it
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-This is clarified in the commit message along with a note that the UEFI 
-GOP driver initializes the iGPU successfully, confirming the hardware is 
-functional.
+This breaks amdgpu completely on the SolidRun HoneyComb LX2 (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-The VBIOS image data in the VFCT is valid — only the PCIBus metadata is 
-wrong.
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
 
-The firmware file was extracted directly from the VFCT with dd, skipping 
-past the ACPI header and VFCT_IMAGE_HEADER. The commit message now 
-documents the exact command and byte offsets.
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
 
-The patch follows.
+Assign the released BARs directly from the root bus windows when there
+is no upstream bridge. On failure, roll back through the existing
+restore path exactly as in the bridged case.
 
-Oz
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
 
-On 6/26/26 19:42, Mario Limonciello wrote:
->
->
-> On 6/21/26 13:01, Oz Tiram wrote:
->> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
->> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
->> before giving up:
->>
->>    1. ACPI VFCT table
->>    2. VRAM BAR read
->>    3. ROM BAR read
->>    4. platform BIOS
->>
->> On some systems all four fail:
->
-> That's pretty odd to me.  Isn't this a BIOS bug?  Can you share more 
-> about why all of these are failing?
->
-> Does the UEFI GOP driver work?
->
->>
->>    - The VFCT table is absent or contains only the discrete GPU entry
->>      (e.g. when a custom ACPI override is present for the dGPU only).
->>    - The VRAM BAR is unmapped at probe time.
->>    - The ROM BAR is zero (PCI firmware did not assign it; observed even
->>      with pci=realloc,assign-busses).
->>    - No platform BIOS mapping exists.
->>
->> The driver then prints "Unable to locate a BIOS ROM" and refuses to
->> bind, leaving the APU completely unusable under Linux even though the
->> hardware is functional.
->>
->> Add a fifth fallback: request a firmware file named
->> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
->> request_firmware().  This allows a VBIOS image extracted from the
->> running hardware 
->
-> I thought you just said this didn't work.  How did you extract it?
->
->> to be shipped as a firmware blob in /lib/firmware/ and
->> makes the binding succeed without any change to the ACPI tables.
->>
->> The fallback is only reached if all existing paths have already failed,
->> so there is no regression risk for boards where VFCT or ROM BAR work.
->>
->> Signed-off-by: Oz Tiram <oz@shift-computing.de>
->> ---
->> v2: Validate the fetched firmware with check_atom_bios() before 
->> accepting
->>      it, consistent with all other VBIOS discovery paths. Save fw->size
->>      before release_firmware() so it remains valid for the size check.
->>      Release the buffer via amdgpu_bios_release() if validation fails.
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++++++++
->>   1 file changed, 23 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->> index aa039e148a5e..86064c753b09 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->> @@ -26,6 +26,7 @@
->>    *          Jerome Glisse
->>    */
->>   +#include <linux/firmware.h>
->>   #include "amdgpu.h"
->>   #include "atom.h"
->>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
->> amdgpu_device *adev)
->>           goto success;
->>       }
->>   +    {
->> +        const struct firmware *fw;
->> +        char fw_name[32];
->> +        size_t fw_size;
->> +
->> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
->> +             adev->pdev->vendor, adev->pdev->device);
->> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
->> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
->> +            fw_size = fw->size;
->> +            release_firmware(fw);
->> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
->> +                amdgpu_bios_release(adev);
->> +            } else {
->> +                adev->bios_size = fw_size;
->> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
->> file %s\n",
->> +                     fw_name);
->> +                goto success;
->> +            }
->> +        }
->> +    }
->> +
->>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
->>       return false;
->
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+---
+#regzbot introduced: 337b1b566db0
+
+Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+carries this code unmodified, and the affected function is identical
+to current mainline. By source inspection the regression window is
+v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+affected users: amdgpu.rebar=0.
+---
+ drivers/pci/setup-bus.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index c0a949f2c995..9db1951f6e5c 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2397,6 +2397,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
+ 
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2417,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bus->self) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/*
++		 * A device on a root bus has no bridge windows to adjust.
++		 * Assign the BARs released above directly from the root bus
++		 * windows.
++		 */
++		list_for_each_entry(dev_res, &saved, list) {
++			i = pci_resource_num(pdev, dev_res->res);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++			ret = pci_assign_resource(pdev, i);
++			if (ret)
++				goto restore;
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
+
+---
+base-commit: 7404ce51637231382873d0b55edabc2f3b841a9d
+change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
+
+
