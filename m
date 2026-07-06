@@ -4,121 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6622C43458
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 05:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9898DC43458
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 05:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7043010E751;
-	Mon,  6 Jul 2026 05:42:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2399E10E2ED;
+	Mon,  6 Jul 2026 05:53:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EzKl7RPv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SoPoxZIS";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012020.outbound.protection.outlook.com
- [40.93.195.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9204E10E751
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 05:42:35 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012008.outbound.protection.outlook.com
+ [40.107.200.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE5210E2ED
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 05:53:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zECLKu/3uSFrU2sJK8LXGQ2278jDteUD5NjVmYTGaxqdfTv627nWFO7vWOC5M8omIgRFAUrxeaQH3mOY+i1o1fk2rcaqsCCwMosEBVbb71JYzhJP10oSZMfJ9+Nq0H76nXqjJsGROGmNyR3Yik6UxYfSPWRvnsIlP60oBhscji2wR2s0Ytc+/6oInwDVQsop/kTlYCCuOrxlkGcfqxodFmKlJXQVMBOIyVkFQGBVI9uTbgnuZyiGCUZDWxfXaPcXdlvTv/9oXXT0DQnMYCZIYiAk3myXvvkLHpILwH7Wu1kDf24J2gtPpefN6xWa+Akcr7bAkA3fppEtwdVWtlBehA==
+ b=ThArkjQfeX/W9zuAqBEC8ljRclyxRmJhQuuAkBSduC0nr2ZZ2a0h/PFAquwJr3LP1QpijO0uGw7OUE56tvtROWk+wGyHbQSgQTcOUYKmRFJ1LnnTMh1g1aT0i/X17phJeqrMKNqiVuOAqavjTcmUOvEEHVs9EW9FEDCWhrYpiU22rNfzdQYPkfBdbHOAiprIMSjuo20XXQo3ICv00IaKfkCj/4/YYt/tjbTgfw2Y5MM8ykqf6x/xM8e7Jnoisa6yAx5PY8Yn2a0PIZOVLEXFyElE3PRK+442psFb+0RePcm7IbRtASbgTzkExHtpzUz9L7Oo8MqFRHGvZkLpieeVKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pIbRMNGg8aeIJ2Mtlvwge8ClO9H9AbYJV8TRRVFFbm8=;
- b=j5K9xvQ/JOx3ENR3hGNi6gxhAe/RN559GMjmEFQD8qhA9u+nBNSpalKfgv1ZHEtcb8/6pKRgEXXWh2qIwYXDtCdj6haGnm3JQ+YVUsRj7ROJijr7wr8By1Qr/DxeAKWHFQ/LT0wU+EY+JZtZ0kzYy+Xzm4C8oa1994erAnHmNja+UvVnUMyD8FmBMTKPeEFGcCpGqXnjXDuuv3QgbcRyRkrylTdwG/oPjDPu6KAX/Vq4eUxxL1ajDmeYj4eikzyZ9Fz8OPZqpoYfne/Z9iHAd/sLHCg0y6XJodYoeIaEFloMFT/ogYKqLZxL8oBZDf3syfDekFr1mojzhCiivfNhyQ==
+ bh=IpFJE6bt+hOHiywVQUPzGLfNaRqKDLI0MPpKII624lg=;
+ b=H+zGXuQgl//H8BtR1bUTSKKRTXzA4PKw3rc446QgbJW7nciuPDoILs9/GId03nIuCIYNF6nb64hO3xm+oTJEmrw/wYLsXd3eH7ihil5OYZagmr6AwMDMF/5NwS4JQVvGSneTy0G+2QOB/vu9bw2dMY5s6FnGlQHa1Omch0tYiL714xLew0VAED7+IazRmFeuDIMxZ/ZJ8dgTJJWeCEwc58jGVXSSAiLSaq16qJbz9tAosJ5kMmt9/ziEsh2fg43BjRq+s1/+mLhmOrfOtLnsbUKCAy6gH20/SaMeUKRPqj9wicg/63/SbW9RsCGF+Fh4mNsWilCQvUjQEvNumltZtQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pIbRMNGg8aeIJ2Mtlvwge8ClO9H9AbYJV8TRRVFFbm8=;
- b=EzKl7RPvEURK+SOpyr0nxHWfNNW0bitxEPxvr8r9ThJDTqGt9laa7og/lGVtFQ9bhO1P6BH4NtskBL3kUqdCKeoolCt5aI8+SJVbZwQ/gxJ+9558z68zdGEmZ4Vqx4qgzxcJGbFcci/sKNK3EqyPxNzNgwQ3jOcpBEIGdcw7uNE=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by IA1PR12MB7543.namprd12.prod.outlook.com (2603:10b6:208:42d::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 05:42:31 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%7]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 05:42:31 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: fix smu14 power limit range calculation
-Thread-Topic: [PATCH] drm/amd/pm: fix smu14 power limit range calculation
-Thread-Index: AQHdDOgh5sPUZbMkHU6TJMrCgZQlpbZf+n5w
-Date: Mon, 6 Jul 2026 05:42:31 +0000
-Message-ID: <MW4PR12MB680335FF3E056E58A5DB63368EF12@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260706013807.1051660-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260706013807.1051660-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-06T05:41:55.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=IpFJE6bt+hOHiywVQUPzGLfNaRqKDLI0MPpKII624lg=;
+ b=SoPoxZIS6gUQkzbDmHHrmsiUK/BBv/MnXGgboAvTRA+oAnvud7XMa3Il1gxwCO3blKfkKtZfjtB3UhkqjQdQNWWrE4Zuh2qlmImn6PZ0LzHkhiVYPJGrImDx3bnObIG9hoNKIYMxmEfd3H1Mv+LtlMKWYzV5G+q7E/MSfaFcCx0=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|IA1PR12MB7543:EE_
-x-ms-office365-filtering-correlation-id: 1a0202af-78d6-4d89-d75d-08dedb215fa0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|11063799006|38070700021|18002099003|22082099003|56012099006|6133799003;
-x-microsoft-antispam-message-info: SwQ26WroRRK9KVa70gT2o78WnbFAh9M/wA4WdCvUfbhBWwDc0r6TJbXbHvO2w0GTNrIRwI9jYVezDoLr5oGZf7jaNK0FBHl5NDAdydSdgpp9rpvnWjTpDXHysc4pFHqnXle2kobAyzTkPJvSuwK6OoYlfA8Faa0nyRpEERoshPQPoswI0Y4oIRwCWB4ebYvghhWcsRswpbOqPCcycNE1vGrjOQigrD92IWm+8R1rPL1BrV5TSAJg8180dv4olziDMy7bQbs1jiw7Kb9PPBILNif1DRk3B9mChbe7e4+3EIWBVYk+qN9wvqyw6fO3dTOpkHUyBf+b9I1Upn0W0Lv0b7+KM9f0Am/anrpaD8YDXjtDwRb9A8dNNwegqkHFZ8haHbTWDAQFFoY8EEXrAFDkXO8+sYb2pEZKnyL0huYB+MW5A3nzMckQvVf3Q/Nc/zMzNny1eBXVfMn2vJDi+8xxWWYlx4JONGhO+VGaecloRabtbZWoqXXnZ/TEu2sHIv+2zLBAC/rpYadh4Q3YuHn8HNBLscDjDC9FtGVRoqvBdf+79CPF1ziKyi9107O7/TCkWXMEPVtk/Pz0nuYdWkjVhgMKoYBuj7GvuSryd6GOb3i8vRG9UxzygWOc5klTX3GS7pwHiVRHfFULCmdgzshPO8u7Xe3PXTZndI0IM+36eUK0+i5tE9ToZ65kXR16Cuhk/qH3iBkhgDsshR31T5gf26OQD8F8KqGI1l9vOFVnZV0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(11063799006)(38070700021)(18002099003)(22082099003)(56012099006)(6133799003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zpFytKD/tsCyq0CG/Z02GWK3K4bvvVeNlCoTbzya3BY7hNoeoq9SrKU5bMNz?=
- =?us-ascii?Q?do9hgm5Jsw+hxB4XBhiWduuF2t6TTo1hpQKDF8ikrj5Sk8XuN55DYppr5RTA?=
- =?us-ascii?Q?WA0AXLpOHk1De1pC8U7FWcXmExvyHV7OcY3h5y2UKPDwnKqgUXaN3LaFcKID?=
- =?us-ascii?Q?zjPNn3RwSM2LE7kNm5tPQYKpRb+x98DthaaNmM4Au0rBDz/Ge6AidT35SPVZ?=
- =?us-ascii?Q?9ftt7eNJ6vCTX1kgMri+Wu/6a5cOPZ81cgJKY8KGhVq+cxr3A/hXR+/nPuBB?=
- =?us-ascii?Q?X4iv4RlbFJ8Zmuh/ZtA3b00vVxGLZfjQYuR9p0fjAmvN+03S1bL/MTaxBQ4J?=
- =?us-ascii?Q?K71HsfCxGhaZwMpgU7lyHitSTsUijFl9e1eSTb0DaX2VfDBBgQR6yJmWXhoH?=
- =?us-ascii?Q?HBt0cJnJDG97bztMvFqbKU4VPRuXai0cZ814JvQqm7Wk/zSGtUltohknj0h7?=
- =?us-ascii?Q?I9RWOrgKZCNI+sLT14Q8di+ueT1SmCwN9rfju68H5xhTEsNBlDG4zNehsHUd?=
- =?us-ascii?Q?XqGdiHlOpOWLVTqu1bS37C6/UqQjJbJnjcgo0Dl3KUMISiAxd9QjzXbakeXA?=
- =?us-ascii?Q?cUCnp63pMkzhl3Qp4A4nzr620F+pMfsFUDolODbE/buQDW6PBGNFTBrruDim?=
- =?us-ascii?Q?sDJy+Btpf2NYarh8H99ukHNwUz3nc3AlmpxuOhm7eSGjcyCEXueY58FZwBQZ?=
- =?us-ascii?Q?3JGYgQSbdcndLKi3wMt7wm8KW/uGHZYLCRRt5z+Wwpu2ursqCKcduyT12HHR?=
- =?us-ascii?Q?zvETC6XjYbW/pTTBaNrP0XIGViNWR6dqgGqRbSag1MHZyzxyIDgLr5eN5nao?=
- =?us-ascii?Q?6GtsW9tkTCM2ooq41kYs8e0v5GsHh31xmjBJqViZ6LaYwCWJWns9CBvhGcNR?=
- =?us-ascii?Q?awvZvjZhkcliHimWHIIAf6x6dz1jYppcKq7m9R9pjVIMLHZtUGLg/3YYmrN3?=
- =?us-ascii?Q?tEpEbKg4ebFDKLOML6n1Qtd+5CPCfm3iXfQ8g9E8cn+hOVaKOX0aa5RurLzf?=
- =?us-ascii?Q?81KLsMeaqKygoFO3QhHigMDPG4LFUGx0Q55LjYu43JOcNF3L5P5KSvkKek9N?=
- =?us-ascii?Q?R91fSTers1IpHDWCisMCe+U6LJZw56uFHzcg+wRYKA3tldTLF9LEZ3Cq1bp9?=
- =?us-ascii?Q?xfENoo0MaUbj+0R0PGdhc3v9D8JfHcABbHf208lA1lqg5sTYRZnyQ8tZhQOr?=
- =?us-ascii?Q?WOMIM3+3vp590uJ7ZTBtZK8/+yO0ZxqdylDMVPNRjgn4FvbkNCETPxyJ80mG?=
- =?us-ascii?Q?SjN3Ya6RbC96jevx0WsFZqZZ3fEtk6+ccTls2d+W6BZt0tl0WxcS6mK3k9Bs?=
- =?us-ascii?Q?2JyFs+wcsFZpdyHiZGeTyp3daBN4KPSscw14jtVboh6a4GLtIpw8wZIeDvDU?=
- =?us-ascii?Q?vE4coHuWLnTKVGgDuTrMRLNqMFH3GUiMezt2Blqdh9QE+1AfzeoL9bY0UAbA?=
- =?us-ascii?Q?mxUnaoEa0pVYdYxYpVt337W1+JcfV5xSrropfdnSfXpw1kOYAQb7OMNw6smy?=
- =?us-ascii?Q?2KeqoIADnbO20kxNmONqF4HgUxKNTQooazeEK/AsjATpyGizyMBASnj0w9z5?=
- =?us-ascii?Q?qb0LwL7brTaqNNLPupMK6wLs18uE/z0+btF40EStcwOakBH0DsfHkoUyJGNB?=
- =?us-ascii?Q?ewx18IelaTyejHgwev9A7K2AVuAEiYOtFnf0/j08tUcuiIyCTCefV/KdAa7A?=
- =?us-ascii?Q?wUptxVtt33kBjYFXuLpp8/MhwHnhzXL2eeTl950HtTDAR28R?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
+ by DS7PR12MB6215.namprd12.prod.outlook.com (2603:10b6:8:95::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.10; Mon, 6 Jul 2026 05:53:10 +0000
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819%3]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 05:53:10 +0000
+Message-ID: <6e10a3d6-bce9-4e85-bb17-e5f530f90b49@amd.com>
+Date: Mon, 6 Jul 2026 11:23:04 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/pm: fix smu14 power limit range calculation
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+References: <20260706013807.1051660-1-kevinyang.wang@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260706013807.1051660-1-kevinyang.wang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0079.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ae::7) To SJ0PR12MB7082.namprd12.prod.outlook.com
+ (2603:10b6:a03:4ae::12)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|DS7PR12MB6215:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ac2855d-1451-4658-d959-08dedb22dc31
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|6133799003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QojLJe2lV3WJws9auhhRE3HWYkrt4bseT4f6it2BQYLBNTLUW8pyUGEc0/YqTKfENFa6pKNoIkg47prumGJDzRoDdNawBaE0PSsnCCszrLTk3j533qOW8KbP+wlRNdG7kjWTyqRQ1tSIo8WURY4J7tBB/RwKMmWYMArA4wAb+e5tq9eEoBXi65TAgOYqJ2S0nn4LTcF/f58xyfXNJM6jmc2avZ0OG1my2YO8m/G/n0g57Y+BjepUHXMvjF9ApXS5we5e2G0tJw9eY5XSAaoE6KklJqzUfpEx/OTCVxapiFJPm4BRJsBzxLhJpEghRn4MZHaWq4rHMMDnzFq8GfXJbo5clbc+WAMpR+q18g0GmEwTW4d++q5bmIIhWGTV8+GyESrbQZ3rK9oahLTakMNvAaurGUSCI9g6KFZE/SAT3JOE0ArCyQWo6hy7ARns1IcrFhHNWB4FySQduXgcz7hYEWJUV/nYPvOEZlL/Th5K2uXthu6RAi1qbbK87HT2hIjRyev0pJxmMtWTLKWxeg84SR/07AK2OaY5cnMhvhIBJafo68DYX4NII76tHW3zgGkIBRaBH3E4JWfjSFNMeRyykRwOKLRmGbR7G8fUld+I6EEiFz7YreIhEFdq5KkBZrE9C5ncjglLJBBfS/7ea9a6dbmvzELH9OqhdGDOgkvRCX8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUQweXE1NG5WOUxzTlBtQ3EySnk0b1QyWndhSmZXelp3V1lzOE1KWGwrdEFN?=
+ =?utf-8?B?bkMrVWhPTlJ6WGhFM3F1OVlINm1VK3BuM3J0K0NOQVJ5OFRvYjB3a0RlWmhR?=
+ =?utf-8?B?M1dqYTJsTnVGN01NT1hTN0RyYVBza213Sm0vS3hhc3FGdFp3VVpab0trMmJI?=
+ =?utf-8?B?S3ZJMHBhSzNhb1gxWE5iSXhOeEd1cXhpd0FvQUlVZTE2a1N0SGQ4VG9qSE91?=
+ =?utf-8?B?dTJkaEppRVVTQlh0SWJMdWJxckJnMTl2Nkw0TmNySm9OZjY2ODBVRklEeHRF?=
+ =?utf-8?B?WFZmYkFpZWVPZHgycVhJVmlVUTZBaENSeUNNT1VoZWJhamJ1TW1YTmhwYWIv?=
+ =?utf-8?B?VldabVowSmhxcS9nRTlpTHZDRzUyWnZRbzd1NUZTQWZIMDJNTjNJOXcvcU0z?=
+ =?utf-8?B?dlIrR2Y4UTBSaGRnUWVQa0t0Ri9WWXZ1ZGpHT1NmNmxXcXlTMmkzU0JwNG55?=
+ =?utf-8?B?VEVzY2VzVTRNSXNERHcwa2w2RlpicG1CV01ONUZ4b0ZMOXdBcTdNZUdOYnNB?=
+ =?utf-8?B?LzZ5dVc5M1Bmd1VFYlpPUFNpM0tTclpoa3dOR3k0ZDVrVElNS3dtMndLd01m?=
+ =?utf-8?B?aEZGb1JIZXU0TE9IR0d4WTZaSXp3Tm52eHRmTW5SWFhxVjRZbXJCeGtNOFda?=
+ =?utf-8?B?VmkrOUFDNmRBSDdwMzRrNkFHMmFic2lyRTFrc2lqVmhMakQxZEY3UmVKMUdX?=
+ =?utf-8?B?NTZpQ25ORHByc3VTZGc1UUpoakF6WFVwWWJCaDA0c2ZvWWJyK2ZnZW80Y3lO?=
+ =?utf-8?B?VUxZUGRrV0ZiMmtpVjY5dTN1NnRSMys5UDFyb0xjdzNCZ0FXaEsyT2ZVVzk4?=
+ =?utf-8?B?SGcxVGZiM0tENGMwL1JEODlJV0pXeGUvdXhQY2lmbkNFQnBjdXZ2MDcyV25y?=
+ =?utf-8?B?OXVhRi9HSXRsQWd2YjV4aE4yS0YzK1IxdkYvN00xYWVYN1BNK0Y2MkpmTmo2?=
+ =?utf-8?B?ZWFjYkZLRS9KTlZIWjc1ZjNnZHZXcmpGbFNHNW1WOFhQWFhCT1NpUmpvSHQx?=
+ =?utf-8?B?cTc4WDYyZ1NBcHlCQmVuR0ZCTE0wa09WNFNkNS9Pcit0Q1ZpcS93VWhyNG55?=
+ =?utf-8?B?VEFPQTdQclFqNE5KRzJIYzZxNzYwZnBWdVJxOEZSMWtqa2hreDVhcXYxY3Zy?=
+ =?utf-8?B?REdTYk9IdGc5ZFhrazdOcHhHeS9yNzVzcTJDcWJ3angzZWx5UWJHNE9XQ0p3?=
+ =?utf-8?B?Vk4zSmloRTN4SUhvdnhVZDFBTENSWi81UUVBWDhnbEg1anJ5RmlaNjdNRUpO?=
+ =?utf-8?B?ekdRK1BaTVZtQ3poMVBiaTAzVFRyQW1wbXZyMjZEM0lWeHVhMlY1a1VpNjZ2?=
+ =?utf-8?B?Mm9PMUhXY05ocW11d3E4OEhrNVBHWEZsMkNzUTRuTVNQN0dRTEY4emVUVlRM?=
+ =?utf-8?B?eEhlcHFyYVlpaXVaUkIvQndDeWNvV0VsM3dteWt0RStRWTJTMENMT0sxNXZJ?=
+ =?utf-8?B?Ui8vV3VYNXMwdFB6RytzdUdiWVZSU0o3clVYTEtJM3V6TlpxRUQvRE9iYXll?=
+ =?utf-8?B?aXFzdzV0V3JFazZGZm9jT0RXSFdLcmp2N01RbEx3cUJ6TzVxMVlhdWErZGR1?=
+ =?utf-8?B?WUFSVGF3cnNHaUYyR2RxV3pWdGhiSVdYeW12dmNPdVdXT0JoWVZmWUswVk9z?=
+ =?utf-8?B?eG04alNBNHY2Tjc2R1E2ekh1Y1hXK05TOUNiUTBqaDNaSUtJdFZoZ1BwT1pB?=
+ =?utf-8?B?T1kzOWV2elpya1BCNUJtZWRsQWVmZUp6NmxuZndpazd1UkU2bGhQWW51emNV?=
+ =?utf-8?B?SWFpT0tCT2N3aXd5bTNQN0cxYlFGdE5HaFB0QU5McFp6YmdMNldrRUFWSDg5?=
+ =?utf-8?B?L1pWcGNORGQ3UzJDZ2JHNmZYeVRQYTFKMU8xdUF3RnQrYVVMc0ptcTR3S1pj?=
+ =?utf-8?B?eHdHNU9HeEt3ZnJNVFI3RzdCaDRiWU1xbmVOWTltczhydy8raElZVlhwQW1Z?=
+ =?utf-8?B?azdZajhJZW5MajVqczZvZGZuV0dqMXlkSXM0aDVqbmhzUTVnbC9lekd1YSs0?=
+ =?utf-8?B?QU9nYjRHVWQxZ29CSncrYnFTTENrK3dYeHNsTGFsbktXdHV3b25QaXN0MTRM?=
+ =?utf-8?B?RmdCeTVPQnNRaks5RVFiUWluSzBjUUk5WGxyMzZ0T2FrZ3UzTTJjTVZGbjhh?=
+ =?utf-8?B?TVc0cjVLTk5sZWlLWHA3UVNGOE5WMGVLS0JaMU55MkgzWmlWM3pJV3RSMEFP?=
+ =?utf-8?B?Yks2MmltVXgyZE1IUk9odGxwV3R3anpYUmZ0Rm4vTU41bTF2QnNmS05zZ1NH?=
+ =?utf-8?B?N2hBa2t1dlJPMjY2YjF6M0lUa2NVY0lZQ1p5M2ViY09GWUVZOHJSTHU2Tnh6?=
+ =?utf-8?B?RGlzMmk5djFmeG9hZERnZ0o1dzd0c2duZ05CdnJ3djAxTmkvZS81UT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ac2855d-1451-4658-d959-08dedb22dc31
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a0202af-78d6-4d89-d75d-08dedb215fa0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jul 2026 05:42:31.7603 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: q3WFj7NqEyVmOGMnIQfR1VzoloyqXGuGhDtKjD37zeQD8s7YGgJNA3p/AeC69VPG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7543
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 05:53:10.6355 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Mxbm52OWYqMLCY8wY/7kX4/ZRzjMRlWXNRNRLMp/q/X2f2gD8ntfECpWe7Xup3e
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6215
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,101 +134,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
-
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Monday, July 6, 2026 9:38 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: fix smu14 power limit range calculation
+On 06-Jul-26 7:08 AM, Yang Wang wrote:
+> SMU14 derives the default PPT limit from SocketPowerLimitAc/Dc, but
+> MsgLimits.Power may expose a different firmware limit for the same PPT0
+> throttler. Using those values independently as fixed min/max bases can
+> report an incorrect configurable power range.
+> 
+> Keep the socket power limit as the default value and as the fallback for
+> current-limit queries. Calculate the reported range from both firmware
+> values instead, using the lower value as the minimum base and the higher
+> value as the maximum base before applying OD percentages.
+> 
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 28 +++++++++++--------
+>   1 file changed, 16 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> index edc5140f6ab6..b8584a1e6bcc 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> @@ -1622,19 +1622,23 @@ static int smu_v14_0_2_get_power_limit(struct smu_context *smu,
+>   		table_context->power_play_table;
+>   	PPTable_t *pptable = table_context->driver_pptable;
+>   	CustomSkuTable_t *skutable = &pptable->CustomSkuTable;
+> -	int16_t od_percent_upper = 0, od_percent_lower = 0;
+> +	uint32_t pp_limit = smu->adev->pm.ac_power ?
+> +		skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
+> +		skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
+>   	uint32_t msg_limit = pptable->SkuTable.MsgLimits.Power[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
 
-SMU14 derives the default PPT limit from SocketPowerLimitAc/Dc, but MsgLimi=
-ts.Power may expose a different firmware limit for the same PPT0 throttler.=
- Using those values independently as fixed min/max bases can report an inco=
-rrect configurable power range.
+May not be related to the current patch. Is there a DC msg limit also 
+which needs to be picked for DC case?
 
-Keep the socket power limit as the default value and as the fallback for cu=
-rrent-limit queries. Calculate the reported range from both firmware values=
- instead, using the lower value as the minimum base and the higher value as=
- the maximum base before applying OD percentages.
+Thanks,
+Lijo
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 28 +++++++++++--------
- 1 file changed, 16 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index edc5140f6ab6..b8584a1e6bcc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -1622,19 +1622,23 @@ static int smu_v14_0_2_get_power_limit(struct smu_c=
-ontext *smu,
-                table_context->power_play_table;
-        PPTable_t *pptable =3D table_context->driver_pptable;
-        CustomSkuTable_t *skutable =3D &pptable->CustomSkuTable;
--       int16_t od_percent_upper =3D 0, od_percent_lower =3D 0;
-+       uint32_t pp_limit =3D smu->adev->pm.ac_power ?
-+               skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
-+               skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
-        uint32_t msg_limit =3D pptable->SkuTable.MsgLimits.Power[PPT_THROTT=
-LER_PPT0][POWER_SOURCE_AC];
--       uint32_t power_limit;
-+       uint32_t min_limit =3D min_t(uint32_t, pp_limit, msg_limit);
-+       uint32_t max_limit =3D max_t(uint32_t, pp_limit, msg_limit);
-+       int16_t od_percent_upper =3D 0, od_percent_lower =3D 0;
-+       int ret;
-
--       if (smu_v14_0_get_current_power_limit(smu, &power_limit))
--               power_limit =3D smu->adev->pm.ac_power ?
--                             skutable->SocketPowerLimitAc[PPT_THROTTLER_PP=
-T0] :
--                             skutable->SocketPowerLimitDc[PPT_THROTTLER_PP=
-T0];
-+       if (current_power_limit) {
-+               ret =3D smu_v14_0_get_current_power_limit(smu, current_powe=
-r_limit);
-+               if (ret)
-+                       *current_power_limit =3D pp_limit;
-+       }
-
--       if (current_power_limit)
--               *current_power_limit =3D power_limit;
-        if (default_power_limit)
--               *default_power_limit =3D power_limit;
-+               *default_power_limit =3D pp_limit;
-
-        if (powerplay_table) {
-                if (smu->od_enabled &&
-@@ -1648,15 +1652,15 @@ static int smu_v14_0_2_get_power_limit(struct smu_c=
-ontext *smu,
-        }
-
-        dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (=
-default power: %d)\n",
--                                       od_percent_upper, od_percent_lower,=
- power_limit);
-+                                       od_percent_upper, od_percent_lower,=
- pp_limit);
-
-        if (max_power_limit) {
--               *max_power_limit =3D msg_limit * (100 + od_percent_upper);
-+               *max_power_limit =3D max_limit * (100 + od_percent_upper);
-                *max_power_limit /=3D 100;
-        }
-
-        if (min_power_limit) {
--               *min_power_limit =3D power_limit * (100 + od_percent_lower)=
-;
-+               *min_power_limit =3D min_limit * (100 + od_percent_lower);
-                *min_power_limit /=3D 100;
-        }
-
---
-2.47.3
+> -	uint32_t power_limit;
+> +	uint32_t min_limit = min_t(uint32_t, pp_limit, msg_limit);
+> +	uint32_t max_limit = max_t(uint32_t, pp_limit, msg_limit);
+> +	int16_t od_percent_upper = 0, od_percent_lower = 0;
+> +	int ret;
+>   
+> -	if (smu_v14_0_get_current_power_limit(smu, &power_limit))
+> -		power_limit = smu->adev->pm.ac_power ?
+> -			      skutable->SocketPowerLimitAc[PPT_THROTTLER_PPT0] :
+> -			      skutable->SocketPowerLimitDc[PPT_THROTTLER_PPT0];
+> +	if (current_power_limit) {
+> +		ret = smu_v14_0_get_current_power_limit(smu, current_power_limit);
+> +		if (ret)
+> +			*current_power_limit = pp_limit;
+> +	}
+>   
+> -	if (current_power_limit)
+> -		*current_power_limit = power_limit;
+>   	if (default_power_limit)
+> -		*default_power_limit = power_limit;
+> +		*default_power_limit = pp_limit;
+>   
+>   	if (powerplay_table) {
+>   		if (smu->od_enabled &&
+> @@ -1648,15 +1652,15 @@ static int smu_v14_0_2_get_power_limit(struct smu_context *smu,
+>   	}
+>   
+>   	dev_dbg(smu->adev->dev, "od percent upper:%d, od percent lower:%d (default power: %d)\n",
+> -					od_percent_upper, od_percent_lower, power_limit);
+> +					od_percent_upper, od_percent_lower, pp_limit);
+>   
+>   	if (max_power_limit) {
+> -		*max_power_limit = msg_limit * (100 + od_percent_upper);
+> +		*max_power_limit = max_limit * (100 + od_percent_upper);
+>   		*max_power_limit /= 100;
+>   	}
+>   
+>   	if (min_power_limit) {
+> -		*min_power_limit = power_limit * (100 + od_percent_lower);
+> +		*min_power_limit = min_limit * (100 + od_percent_lower);
+>   		*min_power_limit /= 100;
+>   	}
+>   
 
