@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96100C43458
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1804C43458
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:26:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCE310E88F;
-	Mon,  6 Jul 2026 10:26:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B88710E894;
+	Mon,  6 Jul 2026 10:26:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="g2qFX0Bb";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="g9bm8HDG";
 	dkim-atps=neutral
-Received: from smtpout6.mo534.mail-out.ovh.net
- (smtpout6.mo534.mail-out.ovh.net [54.36.140.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39C8210E88F
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:26:44 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net [79.137.60.37])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SL0cLtz6JQw;
- Mon,  6 Jul 2026 10:08:50 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net. [127.0.0.1])
- by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:49 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.244])
- by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4gv0SK6gg8z1xpM; Mon,  6 Jul 2026 10:08:49 +0000 (UTC)
+Received: from 10.mo534.mail-out.ovh.net (10.mo534.mail-out.ovh.net
+ [46.105.32.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9000710E894
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:26:47 +0000 (UTC)
+Received: from director3.derp.mail-out.ovh.net
+ (director3.derp.mail-out.ovh.net [152.228.215.222])
+ by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SC1QPYz6JPw;
+ Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+Received: from director3.derp.mail-out.ovh.net
+ (director3.derp.mail-out.ovh.net. [127.0.0.1])
+ by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.1])
+ by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SC0HkGz5vVf;
+ Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.11])
  (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id D6BB88E1900; 
- Mon,  6 Jul 2026 10:08:47 +0000 (UTC)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id C78D98E1903; 
+ Mon,  6 Jul 2026 10:08:40 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-104R0059e04c65d-8d6d-4e04-b7d3-3cab13c6df7f,
+ (GARM-104R005c18bf4c1-4a57-40e9-bf8d-5f756da7189f,
  F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp: 88.133.252.134
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Mon, 06 Jul 2026 12:07:47 +0200
-Subject: [PATCH v2 05/10] drm/ttm: switch to
- ttm_bo_lru_for_each_reserved_guarded for swapout
+Date: Mon, 06 Jul 2026 12:07:43 +0200
+Subject: [PATCH v2 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES flag
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260706-ttm_2_drm_exec-v2-5-4bf6bfc0d320@pixelcluster.dev>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-ttm_2_drm_exec-v2-1-4bf6bfc0d320@pixelcluster.dev>
 References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
 In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -61,18 +60,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 9129077919805890876
+x-ovh-tracer-id: 9127389070351032636
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGrlNJ8ShesFc0BsmoWFi51A7F15j2IaCkSK7BVZBg/BM8MBdGhyqLZmkbZMHw/TdptOPm8sgahQti1Nc9RjBh0KMZiGtpja+p6qhts3jrWUso58aRKRrx2DXtHoeXDd8faKpktnEASA9l57md6lmCqaecpmqLv9KOaMd5Cxk2fFcLRCf7Y1jiwLpKZwWHOg5MLCHSu/c85HhHBD+9tK6DpmR22NTjUbN0dGZJB9cmuuQPGLboQ0v7ZPGbXkip9C+NIKd694im0qBCyEcUf/DwxdiDWy9o5iBQA1zQlg0Y75Jpr3La1ocQctyDO3tKJ1UAaq83N/bdymi3oIi31d22Yh6zN0szX2fjCorgmlUwVsjE42R4cTUcyqWz8MJeNfTNeP58CJHiBRHfaOjZHzza+XgPWTFpoIfg39AhpFofapCMjO7Ye8tJfkRcDZwKWHSZc3S4MvZTGAWdHg0lHSkQGvwVvhKn4W9HZH5r47r2MwndWzZPkDQNff/femBsHqANAlYoPK31aHYUR7TGaR5mpDIFitIRzL4jD39nXjOaEIIrSfuIPhhnyDASz5xnxL4YR3aqQtkjp50TS0CduEin0X3zqcP3/gH9LpY70gs6RDaQxwEGlT6DffCe+DpM7fanv05/Q08DKKvxNKcQEIfnBFMr26Jpm5IvsA5zPes/H5Q
-DKIM-Signature: a=rsa-sha256; bh=pL2GIfs9pCSQWKYD/oWsFK8PH5Ljesh1GOwIouQX/U8=; 
+X-VR-SPAMCAUSE: dmFkZTEIx5EftTv6qDYynIITLbKmw2V9F73qkvPfwN+6GC3Ph5+oNBPVWeKaotSSyzsLEoE6aoNeT/z/sb6JP+NEna0IvjfnNYhnKja1q6dxD3Jb7I4shHgEmfwt4RwYwfWMrJeeSWT1tVWzr+1Wc90ClmqxXufcv16gHHKk4vjPweAJ7XZzvQwOvhu6mvw7q+gxZaRp/SFrLzBp8jROoK4pIBgRzH7e8vIhWqDQYAnvzOg3wwI7Cm5iQjWjEqopVyP5ALcEWcgRSjmo1GQmwlWMV5+MubgYMTlgg7JHi/WHKBd7/pcOIWar7nF/9t66zi6TVtVu8SSomL6KSZeUYk011HiNWwXLDfpjBPWLSvSdmxUcsM9aYjoysNMPJOKFE8nluG2E8EZqXxvA+mdjAaTXT/M1hQOgWTPGS3FLsqSsgERyjY0Br1rtM8lxfaynmnKDOuH5dZ+vO/avb+2EpJT6UC1E9mjeCIYddylpjZFBgn3hbF9yDSZ7uNN/fAYfTjCTxYuQiDPv0pGzoO0eyl15hzjbEzRQ/VK1jR6qfZ93H0FmF0209waqBTz34/Mma8XU0xZUqgviYlMEDvnVxtOFDxHZBrBZ9lSK/2y3UQH9rHkB8l9WEvVjpYo4ySKPMOFdcmGok13u2lMDPyXdHv3zDyhh9yq+yAiEhS+dEijzDsRwow
+DKIM-Signature: a=rsa-sha256; bh=N1GjEJtFReJ0oNOCKsB1O/DXSe6xcHnaiP0zlVWxP2o=; 
  c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783332530; v=1;
- b=g2qFX0Bb0GEdNQAwaBtdy+IvZftPdYvnKZW6Sjv1c6W2jfP5cVO0sbPkGkDwBMIw9wwlgQiP
- SDbMVtBb1l1dGwl5RJRyZpsbaB9PVt8p1hi7Agsn+s/nNT5fn2zG5RXZchu956j9fWjzvAsVFw8
- vLFOe3n1nzzDPqouUk+Eqjs0u5N9nFa9efKPwBrJXuNiste1osfgtOwhYvvCFHPiOhkIEyACkXu
- zEdLxvpnhG6wr3P7xeQ9ZPveToyVKkLOpz2v3hemmtq86dm87aGNjAZAmHvgr7FJoIY5sqd8r7W
- tgbuFcD/H4Y9zDvSyWeZKOk+20jJBa/k2ZCBKBYQTT4tw==
+ s=ovhmo-selector-1; t=1783332523; v=1;
+ b=g9bm8HDGNv+oEfb4xMXacBXhP3UH0s3rxe5xsiBflxdCipgZVZmp2R+S7eagIy9MD95MFBpB
+ 1t4hpDTsp9SaS7WNVj2c2NaoZnM+HToChFhrlCeDLgiuMyPztfr8jdcRlO1xKzz1a3+PdTiBDCf
+ c4Kg/aVBf73Vb0+4uRRZqbI21MqNELLsgPcIE5dVK09C4U8LdHHKg6whhUm1iYpCH7HmFgfrsc8
+ 1l7vc12HNKgdOYtmkKwGQtEeJnR0HwPpYZIUm6lN6oeh/EMZBQ1GdY4YFtzyq5q51u2/5zaVreG
+ VIy62vzjyvuk/AIdvaALpSrURIxFsg8h74Nqmqy9Qhfig==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,155 +86,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of the walker wrapper use the underlying foreach. Saves us quite
-a bunch of complexity and loc.
+TTM is about to switch to drm_exec for locking objects
+in the LRU list. When we're done processing the object, we want to
+unlock it only if the caller doesn't already hold that lock. If
+DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
+require for unrelated reasons), we have no way of knowing whether the
+lock is already held.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+To remedy this, add a separate helper that forcefully bypasses the
+IGNORE_DUPLICATES flag for only a single locking operation.
+
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c     | 58 +++++++---------------------------------
- drivers/gpu/drm/ttm/ttm_device.c | 18 ++++++++++---
- include/drm/ttm/ttm_bo.h         |  5 ++--
- 3 files changed, 26 insertions(+), 55 deletions(-)
+ drivers/gpu/drm/drm_exec.c | 54 ++++++++++++++++++++++++++++++++++------------
+ include/drm/drm_exec.h     |  2 ++
+ 2 files changed, 42 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 1fb8c53da0362..24c52df169ac8 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -1080,25 +1080,18 @@ int ttm_bo_wait_ctx(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
- EXPORT_SYMBOL(ttm_bo_wait_ctx);
- 
- /**
-- * struct ttm_bo_swapout_walk - Parameters for the swapout walk
-+ * ttm_bo_swapout() - Swap out buffer objects on the LRU list to shmem.
-+ * @bo: The buffer to swap out.
-+ * @ctx: The ttm_operation_ctx governing the swapout operation.
-+ * @gfp_flags: The gfp flags used for shmem page allocations.
-+ *
-+ * Return: The number of bytes actually swapped out, or negative error code
-+ * on error.
-  */
--struct ttm_bo_swapout_walk {
--	/** @walk: The walk base parameters. */
--	struct ttm_lru_walk walk;
--	/** @gfp_flags: The gfp flags to use for ttm_tt_swapout() */
--	gfp_t gfp_flags;
--	/** @hit_low: Whether we should attempt to swap BO's with low watermark threshold */
--	/** @evict_low: If we cannot swap a bo when @try_low is false (first pass) */
--	bool hit_low, evict_low;
--};
--
--static s64
--ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
-+s64 ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
-+		   gfp_t gfp_flags)
- {
- 	struct ttm_place place = { .mem_type = bo->resource->mem_type };
--	struct ttm_bo_swapout_walk *swapout_walk =
--		container_of(walk, typeof(*swapout_walk), walk);
--	struct ttm_operation_ctx *ctx = walk->arg.ctx;
- 	struct ttm_device *bdev = bo->bdev;
- 	struct ttm_tt *tt = bo->ttm;
- 	s64 ret;
-@@ -1166,7 +1159,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
- 		bdev->funcs->swap_notify(bo);
- 
- 	if (ttm_tt_is_populated(tt)) {
--		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
-+		ret = ttm_tt_swapout(bdev, tt, gfp_flags);
- 		if (!ret) {
- 			spin_lock(&bdev->lru_lock);
- 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-@@ -1183,37 +1176,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+index 7988f5e7d56a3..ec33ed4a523cc 100644
+--- a/drivers/gpu/drm/drm_exec.c
++++ b/drivers/gpu/drm/drm_exec.c
+@@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
  	return ret;
  }
  
 -/**
-- * ttm_bo_swapout() - Swap out buffer objects on the LRU list to shmem.
-- * @bdev: The ttm device.
-- * @ctx: The ttm_operation_ctx governing the swapout operation.
-- * @man: The resource manager whose resources / buffer objects are
-- * goint to be swapped out.
-- * @gfp_flags: The gfp flags used for shmem page allocations.
-- * @target: The desired number of pages to swap out.
+- * drm_exec_lock_obj - lock a GEM object for use
+- * @exec: the drm_exec object with the state
+- * @obj: the GEM object to lock
 - *
-- * Return: The number of pages actually swapped out, or negative error code
-- * on error.
+- * Lock a GEM object for use and grab a reference to it.
+- *
+- * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
+- * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
+- * flag), -ENOMEM when memory allocation failed and zero for success.
 - */
--s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
--		   struct ttm_resource_manager *man, gfp_t gfp_flags,
--		   s64 target)
--{
--	struct ttm_bo_swapout_walk swapout_walk = {
--		.walk = {
--			.process_bo = ttm_bo_swapout_cb,
--			.arg = {
--				.ctx = ctx,
--				.trylock_only = true,
--			},
--		},
--		.gfp_flags = gfp_flags,
--	};
--
--	return ttm_lru_walk_for_evict(&swapout_walk.walk, bdev, man, target);
--}
--EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_bo_swapout);
--
- void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
+-int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
++static int __drm_exec_lock_obj(struct drm_exec *exec,
++			       struct drm_gem_object *obj,
++			       bool ignore_duplicates)
  {
- 	if (bo->ttm == NULL)
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index d3bfb9a696a74..06fc5255d4091 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -171,6 +171,12 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- 		       gfp_t gfp_flags)
- {
- 	struct ttm_resource_manager *man;
-+	struct ttm_bo_lru_cursor cursor;
-+	struct ttm_buffer_object *bo;
-+	struct ttm_lru_walk_arg arg = {
-+		.ctx = ctx,
-+		.trylock_only = true
-+	};
- 	unsigned i;
- 	s64 lret;
+ 	int ret;
  
-@@ -179,10 +185,14 @@ int ttm_device_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- 		if (!man || !man->use_tt)
- 			continue;
- 
--		lret = ttm_bo_swapout(bdev, ctx, man, gfp_flags, 1);
--		/* Can be both positive (num_pages) and negative (error) */
--		if (lret)
--			return lret;
-+		ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
-+			lret = ttm_bo_swapout(bo, ctx, gfp_flags);
-+			/* Can be both positive (num_pages) and negative (error) */
-+			if (lret && lret != -EBUSY && lret != -EALREADY)
-+				return lret;
-+		}
-+		if (IS_ERR(bo))
-+			return PTR_ERR(bo);
+@@ -226,8 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+ 		return -EDEADLK;
  	}
- 	return 0;
+ 
+-	if (unlikely(ret == -EALREADY) &&
+-	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
++	if (unlikely(ret == -EALREADY) && ignore_duplicates)
+ 		return 0;
+ 
+ 	if (unlikely(ret))
+@@ -243,8 +233,44 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+ 	dma_resv_unlock(obj->resv);
+ 	return ret;
  }
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 0fcd5082a7080..bbed63064c9a9 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -408,9 +408,8 @@ void *ttm_bo_kmap_try_from_panic(struct ttm_buffer_object *bo, unsigned long pag
- int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map);
- void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct iosys_map *map);
- int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo);
--s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
--		   struct ttm_resource_manager *man, gfp_t gfp_flags,
--		   s64 target);
-+s64 ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
-+		   gfp_t gfp_flags);
- void ttm_bo_pin(struct ttm_buffer_object *bo);
- void ttm_bo_unpin(struct ttm_buffer_object *bo);
- int ttm_bo_evict_first(struct ttm_device *bdev,
++
++/**
++ * drm_exec_lock_obj - lock a GEM object for use
++ * @exec: the drm_exec object with the state
++ * @obj: the GEM object to lock
++ *
++ * Lock a GEM object for use and grab a reference to it.
++ *
++ * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
++ * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
++ * flag), -ENOMEM when memory allocation failed and zero for success.
++ */
++int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
++{
++	return __drm_exec_lock_obj(exec, obj,
++				   exec->flags & DRM_EXEC_IGNORE_DUPLICATES);
++}
+ EXPORT_SYMBOL(drm_exec_lock_obj);
+ 
++/**
++ * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always report duplicates
++ * @exec: the drm_exec object with the state
++ * @obj: the GEM object to lock
++ *
++ * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference to it.
++ * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and duplicates are
++ * always reported.
++ *
++ * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
++ * already locked, -ENOMEM when memory allocation failed and zero for success.
++ */
++int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
++				 struct drm_gem_object *obj)
++{
++	return __drm_exec_lock_obj(exec, obj, false);
++}
++EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
++
+ /**
+  * drm_exec_unlock_obj - unlock a GEM object in this exec context
+  * @exec: the drm_exec object with the state
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index 8725ba92ff916..ff80dd2b72240 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
+ void drm_exec_fini(struct drm_exec *exec);
+ bool drm_exec_cleanup(struct drm_exec *exec);
+ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
++int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
++				 struct drm_gem_object *obj);
+ void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
+ int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
+ 			 unsigned int num_fences);
 
 -- 
 2.55.0
