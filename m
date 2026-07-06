@@ -4,96 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 525A3C43458
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 18:15:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E15FC43602
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 18:15:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD9EF10E1CB;
-	Mon,  6 Jul 2026 18:15:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD90310EA37;
+	Mon,  6 Jul 2026 18:15:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="boGUhcMM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GLUzmxBU";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E54E610E1CB
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 18:15:14 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010070.outbound.protection.outlook.com [52.101.61.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 924A110E1CB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 18:15:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F7mB6KmnqajHfQ4vhEbzMtoLTTrpKJS48IUJyWcdM2jhKRCGR/kCVe52r4zABhnTn6wRG1JvF7egKOVzWENLmWFGsPgt8BOp6ziAps9wUvQwp23VysLrrL35f7JF34vTMllVKOP8dkwLX912GkZoUVhPweY0BqlbC3Zu3Uvle1FQ5sq7pu2sevUmGL/Ftrmsji4RB47znPsAOA9/AhuQZHzSmSThOl9kOvMPFsiKidm8LOvrhpFAe5YNP3oaYhwiaSud5NX/EJgz+nFk2hFxT1MQIzZBnmY4upfROtkMzpoLCQ0HpvcDAF535Uu93Iuc71qVcuwC6O43nZoEOt3m3Q==
+ b=wTNDAk9HafFRZTzT3dmM2dxF8vIGy7lcgieMp89lhO9Zutx6TXfxhbq8dLuKeoECawXBTp2Sbwv6ct+OIVUS2JO05gXDLqIwQuftfqloTVT/j4dEJN0A1f4c8dIMyQkcUdLJRy3OHDbRfZiFWtfJCDD71QMMKim4BJoKQGyuM0mnVcBr6yfc7+3eSJIz7z7ac33LmSZNVNLpw4E21RojDkhiQDFXODb5KRCEgFsBtaLGfBvFPZoz/xaBw2phrE1gxuVcwNP9Ke/CZ7nuVuOlFrQMauCAFYya2fwrJnlAviJT6fqI/0oL+ESik6bHxcQS1mrUbMJhvTmZeraodSMYag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Q1be/vhbRasnbQTuKikT9c4IZjkN9ud4QjrHrufpCE=;
- b=LJa53xObcnWDHKwY5YQJKJesqe/JlQKBaXQ7fY3cba69ak3M2ASak7SPZNeqQ8depNyoV4JfMJVvipHIR/V1D6TeYosBAqXImijTOk7cu61F6m70K1v2nHU/ipcKQrVJqcEYie39tVWjIwYRpVmZo7b6XNwM8OyRtvZ7VCSEry8UOaybr9w/OG6k7Yte/j3bYdOLNyvJVyoo87Fy3QahQcpjhZgG3zVcOBjtkkRx6aGECVLGZKkAcAZYP/lIv5UpCXyZxdHHqAanvhVFBZjNrgKX9NoDZNTrDbEaARsJKadScwCeHRTWZG7GvbR200bevWraYPnt84AZLTMJZE1LNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=FaLVwBseUHFR30mqLvw2ORuTcbgKiNGjU2zg52ubZm8=;
+ b=OatYUDECvyKAA/uFzFIyzDQzjS+ZCaDW9tsNM61XhFUV2XmlepEdehhDyJ/Quiom0qYaH6dPO0Ddk3VUfEFDgd1szLEeRmfwM6fwMIhmnYS4fNz7NAfoyOuRcNZAhoM92n379XcRs+/ARkm0FKDtQveiAV1GwqBmPCIKY9H/zmbR4Xm7NaqFpqsjgFi17kz4GFr/WasXImCHzKcf/R+dScKbL87gZi2EukdYyplPNVgM4Kk+xHslMVL5kgvI6XYKizqSqsf2YGqJLsmrdDADQbFuF7wU921Q1oxz8CWLRPAM+RG7iBmkXbCtTs3hY46Y+OMBKZPePU2vpUvwiCQikg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Q1be/vhbRasnbQTuKikT9c4IZjkN9ud4QjrHrufpCE=;
- b=boGUhcMMtka+DZfXqnxFzsEwb/QrvCKfxam8uMUofVizER2ub0oUrI/PHE7Ko+FE4LRuRZWp6eZqWRQC7mqrYn5d3cgUfhu9G2GBYC+SNbW6Mt+sOtf2X0XlY3LNETpp+mjyDsfra9JZhqWipAm5hl8GH/TH70jqPh7MnL7jEnM=
-Received: from DS1PR03CA0010.namprd03.prod.outlook.com (2603:10b6:8:450::8) by
- DS5PPF7B9F1F8E0.namprd12.prod.outlook.com (2603:10b6:f:fc00::656)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Mon, 6 Jul
- 2026 18:15:08 +0000
-Received: from DS2PEPF00003448.namprd04.prod.outlook.com
- (2603:10b6:8:450:cafe::a0) by DS1PR03CA0010.outlook.office365.com
- (2603:10b6:8:450::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Mon, 6
- Jul 2026 18:15:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 6 Jul 2026 18:15:08 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
- 2026 13:15:07 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: David Francis <David.Francis@amd.com>
-Subject: [PATCH] drm/amdkfd: Check bounds on CRIU restore queue type and mqd
- size
-Date: Mon, 6 Jul 2026 14:14:51 -0400
-Message-ID: <20260706181451.3388067-1-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ bh=FaLVwBseUHFR30mqLvw2ORuTcbgKiNGjU2zg52ubZm8=;
+ b=GLUzmxBUOsxfeZ5Tnl4sPsFIuV7ZTrGBtd1nGc81KsainbLmf38aRT3uD/w04DtwyWg/4BVKJobbNaby927dsvB4K2VCwLGnPwAelwZ156kahAIlv7tZI/eFPkp7NREi005fMDCW6w2hNcgz94Ok/8E78qCKGaD61Bk9a5bjnb8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by PH7PR12MB7455.namprd12.prod.outlook.com
+ (2603:10b6:510:20e::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 6 Jul
+ 2026 18:15:12 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::e2a6:da85:2544:e542]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::e2a6:da85:2544:e542%4]) with mapi id 15.21.0181.012; Mon, 6 Jul 2026
+ 18:15:12 +0000
+Message-ID: <44417b66-afd1-4d56-abcc-d8dc903bfa9d@amd.com>
+Date: Mon, 6 Jul 2026 14:15:10 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdkfd: expose pasid of secondary contexts by debugfs
+To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
+ Christian.Koenig@amd.com
+Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260701040649.8836-1-lingshan.zhu@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20260701040649.8836-1-lingshan.zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQBPR0101CA0306.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::28) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|DS5PPF7B9F1F8E0:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57489df6-b175-4d5e-a8dd-08dedb8a82e7
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH7PR12MB7455:EE_
+X-MS-Office365-Filtering-Correlation-Id: a68eaac9-7c63-424a-8389-08dedb8a856a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|18002099003|11063799006|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info: Pi3Uw+fCfXlifQb7z+etlosb7tzVuYgSu5sy34KR8wmW7+8bd6qoFggrOydSjtt1ojlBUDBemT+1vjGDM+dfWvP1HzABGpeJ8KAs6w5nc7E+8xuSFgTXARziyFjiEfIby8nWbgjevpNYgSipDDEETz5TuLhs1/eNU5jVo8kBEC1hk8b8txkPZ9Yn1Sx8bMUUqdaj/1YnJ1Z7esjbBE07WCFWXPMpF6Pbeajf0n6yY504FUT4YnxRgn8E1/RVvcgvVhLUcXXVAglMs4Yy6JQeQtzSLygnIRx6RG+O1j0ktE+N2tsLK5f5Tg1Pvq1E6x+N6S/42XKboQgpflSUw/FB4wSvB3YVO1kY9Ygh4NEv4qNfi0KaP496NgGqBo3JgdviTyp3qO22IYpwnRF66QlNGlmfQC4covZ/ZtJpwhWt6ja4mbEYMvTfjHeig7wOWrtdlY0GuW4zS21aXS+ehgFicX7h2wMkY8aQfwRRViSsU9uIv99aE9UgqiBdWF//LQN6v2ynTaW/n0s2p48RRyCunzVq/dmkAf4WjltCgdY+In8Gn5jEVVpdjftGt3DwyBZ+PV+FXKvuuTgv89PT1MN7WzCbo1iq71iInA9kTyXSEFnXRQrD/jeHhfF57i3J1t3Z5a5n3yNL+3YTJicemA7FaV6tI3QH9QzUYRfww+CnfF/a4Ybdy+8FIiPg7Vl+kHPi5RoPYKfczd6pVNmr9qHa1w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(18002099003)(11063799006)(6133799003)(56012099006);
+ ARA:13230040|1800799024|376014|366016|23010399003|6133799003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 10CP/TzMTlQSFR2g7eYU6oJyezVyEjWanQlRqr8VLf5RMRdtvO8pKdEyWOHqqGyh6AKZ95j+LB62NHmasA2fstbbmTMp64b87HvOZ5S5oaOPVKoT7CksROl9QclGX1vVoLle6QjFFe2aqFCnZyJCqH2mqBcKmEZ/EO9aZULQn/IJULwpuq8hrDKPlWqobsTRUXdX1hD3efM89hOo+devJBkJf/wqySil3L+3ZhoPq+Z6mdaEqcFVTcTqqaZUaBZBMOes/T7gkV5sGVIVPz7ixtvTxGmxPcgW+dNHIub3nqPD7TZ8U01hWi/d7Ycxk7LCM2FY3JXrr+Gud82e0XPv5GhGB5yM3Amre2lG5kFkA3hVM0Zasm938T8S2yXr5vY8sW1/tOZMT6uEzWiGWopWo+cmY5SrKiW0D1uR9z8jdcWRymWGR4Rz/tloC2KuJWpdKp1yC/C6sninXGwXlREItxWBtvzwbDoniT2BsLr0IEqcBl+7FWARqUfLLXpH5Mq/yE1mOjLEZxeUHOfm1hU1cvGJWx+lTTelJYKcth1rgFiJLLWOiSow2oJkt+oDqWqP8z20Qp+/f1WuyHfAPjqYEjyQcyMRDmFEjYiJWqi0sbxzWLaN0aeJ21zE/Ov4sAnfoaafjwppsxnJ6IjPhzzzQJzdXU8C/rfAZ/bFU7jboRQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0y5191CB8T2S0klMpTr361Qm5ApmsLiagpFUavn4pXDEAJXKk1nLUU6fsR3z9coYCmXX2TLMvSb5a5vQ0cXGH1nyy9N+YBcGixuEAh9p1N4bijHL1suUcYTrk8AufFq6WWsZYDPJPulEzTMipWex25EHnZ+hmUg1Lo/Tu2ucl3CgnNIhuKu3nhxraOz5vL2+IZ5UMnIRee4IKRKe0WVD0Vou+vnL36ggYrLnHvLq+T8uG/VGE8uMpozwgP1jz7vv6r0Cx1E4zDYxpKZrivnTSN44b8TTeeRu5wMxsmzJIDNaWUpuh7BMaQyxTUok97jxzp4zKw3GAtmzpkjm5n5X/4PTFQi7cbgHGLDvGM5gf94pHeSbThkusCzV2XL5GFFeNtNsioQMaI1vezNQTun0zptd1+j9kMOW22cm7i0XR6AP2uW+AZkBUKOIsnt/8+61
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L25COFhiMlZiUVdwMDkzR3c5cWxHU1gzbHlkMDNLYUtFRmpkRTVLVm5KN09m?=
+ =?utf-8?B?UWo0SWd4QlZ3enA4aTdrSTZTemwxRlZDNWhVaFBoQmpWVTFUMGdjaEczQ0VR?=
+ =?utf-8?B?ZVdFN0ZMb1hNd29nQjY0TmN2RFpiK3p2VWdOdnp2NGI1clg0Y0JYMEZUVDJ2?=
+ =?utf-8?B?eTdVOWxQZUw5SVMwZC9LeE9WeWNqU3JoVmRpaE1hNDdTYzU1ZU9zRmdGb2Iz?=
+ =?utf-8?B?U2ZtY3phdWZUaC94b1pEWStSeE5tK3BXMWlDMEYrRTUyUkVIZTIweStpRFM0?=
+ =?utf-8?B?aU9DU00zbWFJbEM5MGlud2s3cmNwOTIrYVlIczBIa2dOc1d4RjNPZjhnVzVk?=
+ =?utf-8?B?ejh4c3ZJWjRvUWpCK0wxdnFiVjdETkg3UWE1eWRmdmxBRWViR29MK3diSCtj?=
+ =?utf-8?B?RlBBRWxkU2tvU1I4K1NGeHphYTZaY3QzMFRZaFF1a0I4Rk1MdHFRMVNENFho?=
+ =?utf-8?B?b0tGYkJWWlBmeE9KTEhBcklwL2Z3UUY0bHJFZTN0NS9wTFcxY2lDY2kwK1Bu?=
+ =?utf-8?B?aC8yNWhTK0RyLzZXMlo2T1RjLzBJdXhnUForU3ZCaEZtWnBadEQyUHA3aVN3?=
+ =?utf-8?B?bkNmREhWRzdGZ1NXaklmb3I3Tlc3bTYyNW5OK0QyMzY0L2h5bDF0OStHc3Rm?=
+ =?utf-8?B?eVZTcVdNNEhtT0hOUTF4YUg5TlhmbVRrVElnWTVsWkdlVkhtazMyTW9obnl4?=
+ =?utf-8?B?dVpZdDcxRlo3dnFQeTJ4dkRVV3o4bEZRem9lU01HQTlER2xNb0UxdUtyRDla?=
+ =?utf-8?B?am1CMzJxNHBsUmdSNU5ha0Ezc2N3VFVCNTZWeTFMWlU1NTQrS3hFSVV6UVky?=
+ =?utf-8?B?eHZaOUExMUx1MEh6cWNFZ2pXMUNMWnlCT2V5Rnl3SWdZMWNMelBGZEFzSXU5?=
+ =?utf-8?B?TlluMFlaU0VIYzhvdVN0cmtRVDU5bVgzU1JVS0hDaENkWEt4cDRlL1ZXWVY4?=
+ =?utf-8?B?STl0TW1ZNVVZazhSZkRVQmFkWitaZzA4RURlSVEzZkpET1BNcEdLdEt6aHVQ?=
+ =?utf-8?B?ck1QQXA4QkpxTjJ2WTlTMEowWVF0UzB1OG1DbmFhNFdMQnEyTnA4VVYrWTU4?=
+ =?utf-8?B?NDJtL3lBak1jUGdEUGczS2FVZHhMNTZyRmZXeFJSNEpuM055aFI1VjBJdEVT?=
+ =?utf-8?B?eXo1c1EyM0o3emYzU1cxdG9qcHNkd05ET2Q3eFE3KzZzTEF4ZFlZR3dqeXIy?=
+ =?utf-8?B?aUlJcnEzQk5FbXBJNjJEcUQ5QkptbVBMb0tVN2VxWTBWTnRBU2tpbkVwdTVy?=
+ =?utf-8?B?bGsxOWFYa0toZFRVSDZCUzRra0huc3ZLT3d1REVDeitEN1gvY2dYdjNKSVFj?=
+ =?utf-8?B?bWdjVXVxSHVhYTE5VFYxQ0ZiL1YydDR1eE1zSW1HeGFoU0o1UUYxUWtlalQ0?=
+ =?utf-8?B?ZU91L0lrUEVGR0dPSlhVdWZqNkpCQmJGL0VWQzUzbG9tNXgrTUxIanJnMDU5?=
+ =?utf-8?B?TjU3cEVsbkpHMitpbS9JTG1sK0Y3QW1yYTFRdjVzUWV0ejFYbVd3SGU1a3dQ?=
+ =?utf-8?B?Y2xDeXZrc1JpR1hmakhrVFgvcXBOcko1bldsejI5ZUZHSGMrdGkwWEU5MnJw?=
+ =?utf-8?B?ZVFydWZqVWNmcEo2bUN5WUdwQzB0UUlRcWQvbzVRckhxZHo0UjN4NnNST2Nr?=
+ =?utf-8?B?NTZMYkpwZGdDVFlPNm9acExHemNVcTB2bUs0Nk9HVlMvaVgzcTA1TUlDb2dn?=
+ =?utf-8?B?N0xWTHdMY2ZoZlpESEFKMXBhWjN1YjVLM2JIZ0s1dlUveDMrZThETFgzcGk2?=
+ =?utf-8?B?K0d3dkx5QmUrandHU0NCSmxTa3BWbG9ZS1RRSU1jTHZwWHVmMVVHaUFRRUtP?=
+ =?utf-8?B?Z3pJMEtFL3UzUU9Nb0N4S0NSNFNkbmRQcFFJdUxkS2JuczZ5RlpsbkdDdUlE?=
+ =?utf-8?B?NzVqV1NKUGdacVZnRmx6OWVhZU5OeklFTHBhY3FDUDdyanJvMjRmSzBrVkpx?=
+ =?utf-8?B?amVnVmx0RktoanV3NXYvSWl4dlczLzdkcnU2NEhNbEtLTkNUSndiaHhEZUky?=
+ =?utf-8?B?RDFmVUM2aVAwNUtZb2t1WnNSQWpkOU1SNVZBaUNFREdqdGp6QmNUY2JKYkZu?=
+ =?utf-8?B?TW4yMndiTk5IR2VMNjZ3N3N1SDI3cHZLcGs3dzk5dmJielZLZk0yYlRQeVQ5?=
+ =?utf-8?B?dGVDRlY5Y0l0aG53NzUrWjRmUkxuTHJhM3c4Yi81VkllTU9Lc0t3akNscVR1?=
+ =?utf-8?B?Q2Fua1BOeVk0M25kVUdqR3pGZ0lUdy9rTlYyQ2VNbEcxSFlZc05QZHVVQlRn?=
+ =?utf-8?B?TVowdDRSRGtQNENUSHYxTGowY1dvV0pBY0dPUllRZllla0k0NktiajVKeUww?=
+ =?utf-8?B?eWsxemFZaDJacjVCeTAyU05SMGRrWTBrTUxWU0IvLzRkK3BqNzNadz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 18:15:08.0878 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57489df6-b175-4d5e-a8dd-08dedb8a82e7
+X-MS-Exchange-CrossTenant-Network-Message-Id: a68eaac9-7c63-424a-8389-08dedb8a856a
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 18:15:12.4429 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003448.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF7B9F1F8E0
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NPdnmM/Eecksx97KjpsMhttnpM38JQwmA9C9jaAzwvnw3psEJfmRO/e5Yzwos7DcDBc+QDcSAXlQIh9INU22Ow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7455
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,109 +135,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We weren't checking whether the values provided in the private
-data in kfd CRIU restore were within bounds.
 
-For queue type, add a KFD_QUEUE_TYPE_MAX and ensure the provided
-type is less than it.
+On 2026-07-01 00:06, Zhu Lingshan wrote:
+> Current kfd debugfs interfaces only expose pasid
+> of the primary process, this commit exposes
+> pasid of secondary contexts by debugfs
+>
+> Just like entries under sysfs,
+> the secondary contexts are named as
+> context_<id> under its primary kfd process.
+>
+> The layout:
+> /sys/kernel/debug/kfd/proc# tree
+> .
+> └── 5802
+>      ├── context_0
+>      │   ├── pasid_1025
+>      │   └── pasid_63266
+>      ├── context_1
+>      │   ├── pasid_1025
+>      │   └── pasid_63266
+>      ├── pasid_1025
+>      └── pasid_63266
+>
+> Another fix is, kfd_debugfs_add_process may fail,
+> this commit change it to return a meaningful
+> value other than void
+>
+> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 
-For mqd_size, add new function mqd_size_from_queue_type and confirm
-that the provided mqd_size matches expectations.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  6 +++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  3 ++-
- .../amd/amdkfd/kfd_process_queue_manager.c    | 24 +++++++++++++------
- 4 files changed, 27 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index f6a749fbdd8e..0419fe869d4b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -3777,6 +3777,12 @@ bool kfd_dqm_is_queue_in_process(struct device_queue_manager *dqm,
- 	dqm_unlock(dqm);
- 	return r;
- }
-+
-+size_t mqd_size_from_queue_type(struct device_queue_manager *dqm, enum kfd_queue_type type)
-+{
-+	return dqm->mqd_mgrs[get_mqd_type_from_queue_type(type)]->mqd_size;
-+}
-+
- #if defined(CONFIG_DEBUG_FS)
- 
- static void seq_reg_dump(struct seq_file *m,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 2229f8b2f446..c9f9f7a87111 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -335,6 +335,8 @@ bool kfd_dqm_is_queue_in_process(struct device_queue_manager *dqm,
- 				 int doorbell_off, u32 *queue_format);
- int kfd_reset_queue_mes(struct device_queue_manager *dqm, int queue_type,
- 			int pipe, int queue, unsigned int db);
-+size_t mqd_size_from_queue_type(struct device_queue_manager *dqm,
-+				enum kfd_queue_type type);
- 
- static inline unsigned int get_sh_mem_bases_32(struct kfd_process_device *pdd)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 6e559aab4009..6c1b8255435f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -441,7 +441,8 @@ enum kfd_queue_type  {
- 	KFD_QUEUE_TYPE_SDMA,
- 	KFD_QUEUE_TYPE_HIQ,
- 	KFD_QUEUE_TYPE_SDMA_XGMI,
--	KFD_QUEUE_TYPE_SDMA_BY_ENG_ID
-+	KFD_QUEUE_TYPE_SDMA_BY_ENG_ID,
-+	KFD_QUEUE_TYPE_MAX,
- };
- 
- enum kfd_queue_format {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 0a7276eadf79..3131f1e46d50 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -1003,6 +1003,23 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 		goto exit;
- 	}
- 
-+	pdd = kfd_process_device_data_by_id(p, q_data->gpu_id);
-+	if (!pdd) {
-+		pr_err("Failed to get pdd\n");
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
-+	if (q_data->type >= KFD_QUEUE_TYPE_MAX) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
-+	if (q_data->mqd_size != mqd_size_from_queue_type(pdd->dev->dqm, q_data->type)) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
- 	*priv_data_offset += sizeof(*q_data);
- 	q_extra_data_size = (uint64_t)q_data->ctl_stack_size + q_data->mqd_size;
- 
-@@ -1025,13 +1042,6 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 
- 	*priv_data_offset += q_extra_data_size;
- 
--	pdd = kfd_process_device_data_by_id(p, q_data->gpu_id);
--	if (!pdd) {
--		pr_err("Failed to get pdd\n");
--		ret = -EINVAL;
--		goto exit;
--	}
--
- 	/*
- 	 * data stored in this order:
- 	 * mqd[xcc0], mqd[xcc1],..., ctl_stack[xcc0], ctl_stack[xcc1]...
--- 
-2.34.1
-
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |   5 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 113 +++++++++++++++++++----
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   4 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c |   5 +-
+>   4 files changed, 104 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index ab9e53dc8deb..2635218188cc 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -3303,6 +3303,11 @@ static int kfd_ioctl_create_process(struct file *filep, struct kfd_process *p, v
+>   	}
+>   
+>   	filep->private_data = process;
+> +	ret = kfd_debugfs_add_process(process);
+> +	if (ret)
+> +		pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
+> +			ret);
+> +
+>   	mutex_unlock(&kfd_processes_mutex);
+>   
+>   	ret = kfd_create_process_sysfs(process);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> index 9bde2c64540f..02673f01b448 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> @@ -33,6 +33,7 @@ static struct list_head procs;
+>   struct debugfs_proc_entry {
+>   	struct list_head list;
+>   	struct dentry *proc_dentry;
+> +	struct kfd_process *process;
+>   	pid_t pid;
+>   };
+>   
+> @@ -140,34 +141,97 @@ static const struct file_operations kfd_debugfs_pasid_fops = {
+>   	.read = kfd_debugfs_pasid_read,
+>   };
+>   
+> -void kfd_debugfs_add_process(struct kfd_process *p)
+> +/* This helper locates the debugfs entry of a kfd process */
+> +static struct debugfs_proc_entry *kfd_debugfs_find_process_entry(struct kfd_process *p)
+>   {
+> +	struct debugfs_proc_entry *entry;
+> +
+> +	list_for_each_entry(entry, &procs, list) {
+> +		if (entry->process == p)
+> +			return entry;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +/* This helper creates pasid file of a kfd process under debugfs */
+> +static void kfd_debugfs_create_pasid_files(struct kfd_process *p,
+> +					   struct dentry *dir)
+> +{
+> +	char name[MAX_DEBUGFS_FILENAME_LEN];
+> +	struct kfd_process_device *pdd;
+>   	int i;
+> +
+> +	/* create pasid file for each GPU */
+> +	for (i = 0; i < p->n_pdds; i++) {
+> +		pdd = p->pdds[i];
+> +		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "pasid_%u", pdd->dev->id);
+> +		debugfs_create_file((const char *)name, S_IFREG | 0444,
+> +				    dir, pdd, &kfd_debugfs_pasid_fops);
+> +	}
+> +}
+> +
+> +int kfd_debugfs_add_process(struct kfd_process *p)
+> +{
+> +	struct debugfs_proc_entry *primary_entry;
+>   	char name[MAX_DEBUGFS_FILENAME_LEN];
+> +	struct kfd_process *primary_process;
+>   	struct debugfs_proc_entry *entry;
+> +	int ret;
+>   
+>   	entry = kzalloc(sizeof(*entry), GFP_KERNEL);
+>   	if (!entry)
+> -		return;
+> +		return -ENOMEM;
+>   
+> -	list_add(&entry->list, &procs);
+> +	entry->process = p;
+>   	entry->pid = p->lead_thread->pid;
+> -	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+> -		 (int)entry->pid);
+> -	entry->proc_dentry = debugfs_create_dir(name, debugfs_proc);
+>   
+> -	/* Create debugfs files for each GPU:
+> -	 * - proc/<pid>/pasid_<gpuid>
+> -	 */
+> -	for (i = 0; i < p->n_pdds; i++) {
+> -		struct kfd_process_device *pdd = p->pdds[i];
+> +	if (p->context_id == KFD_CONTEXT_ID_PRIMARY) {
+> +		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+> +			 (int)entry->pid);
+> +		entry->proc_dentry = debugfs_create_dir(name, debugfs_proc);
+> +	} else {
+> +		primary_process = kfd_lookup_process_by_mm(p->lead_thread->mm);
+> +		if (!primary_process) {
+> +			ret = -ESRCH;
+> +			goto err_free_entry;
+> +		}
+>   
+> -		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "pasid_%u",
+> -			 pdd->dev->id);
+> -		debugfs_create_file((const char *)name, S_IFREG | 0444,
+> -				    entry->proc_dentry, pdd,
+> -				    &kfd_debugfs_pasid_fops);
+> +		primary_entry = kfd_debugfs_find_process_entry(primary_process);
+> +		kfd_unref_process(primary_process);
+> +		if (!primary_entry) {
+> +			pr_warn("Failed to find the primary debugfs entry for pid %d\n",
+> +				entry->pid);
+> +			ret = -ENOENT;
+> +			goto err_free_entry;
+> +		}
+> +
+> +		snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "context_%u",
+> +			 p->context_id);
+> +		entry->proc_dentry = debugfs_create_dir(name,
+> +							primary_entry->proc_dentry);
+>   	}
+> +	if (IS_ERR_OR_NULL(entry->proc_dentry)) {
+> +		ret = entry->proc_dentry ? PTR_ERR(entry->proc_dentry) : -ENOMEM;
+> +		goto err_free_entry;
+> +	}
+> +
+> +	list_add(&entry->list, &procs);
+> +	kfd_debugfs_create_pasid_files(p, entry->proc_dentry);
+> +
+> +	return 0;
+> +
+> +err_free_entry:
+> +	kfree(entry);
+> +	return ret;
+> +}
+> +
+> +/* This helper removes a debugfs entry and its sub-entries */
+> +static void kfd_debugfs_remove_entry(struct debugfs_proc_entry *entry)
+> +{
+> +	debugfs_remove(entry->proc_dentry);
+> +	list_del(&entry->list);
+> +	kfree(entry);
+>   }
+>   
+>   void kfd_debugfs_remove_process(struct kfd_process *p)
+> @@ -175,13 +239,22 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
+>   	struct debugfs_proc_entry *entry, *next;
+>   
+>   	mutex_lock(&kfd_processes_mutex);
+> +	if (p->context_id == KFD_CONTEXT_ID_PRIMARY) {
+> +		/* remove entries of secondary contexts */
+> +		list_for_each_entry_safe(entry, next, &procs, list) {
+> +			if (entry->pid != p->lead_thread->pid || entry->process == p)
+> +				continue;
+> +
+> +			kfd_debugfs_remove_entry(entry);
+> +		}
+> +	}
+> +
+>   	list_for_each_entry_safe(entry, next, &procs, list) {
+> -		if (entry->pid != p->lead_thread->pid)
+> +		if (entry->process != p)
+>   			continue;
+>   
+> -		debugfs_remove_recursive(entry->proc_dentry);
+> -		list_del(&entry->list);
+> -		kfree(entry);
+> +		kfd_debugfs_remove_entry(entry);
+>   	}
+> +
+>   	mutex_unlock(&kfd_processes_mutex);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index ad4897f094a2..365c6289b05d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1649,14 +1649,14 @@ int kfd_debugfs_hang_hws(struct kfd_node *dev);
+>   int pm_debugfs_hang_hws(struct packet_manager *pm);
+>   int dqm_debugfs_hang_hws(struct device_queue_manager *dqm);
+>   
+> -void kfd_debugfs_add_process(struct kfd_process *p);
+> +int kfd_debugfs_add_process(struct kfd_process *p);
+>   void kfd_debugfs_remove_process(struct kfd_process *p);
+>   
+>   #else
+>   
+>   static inline void kfd_debugfs_init(void) {}
+>   static inline void kfd_debugfs_fini(void) {}
+> -static inline void kfd_debugfs_add_process(struct kfd_process *p) {}
+> +static inline int kfd_debugfs_add_process(struct kfd_process *p) { return 0; }
+>   static inline void kfd_debugfs_remove_process(struct kfd_process *p) {}
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 8e701dcda8ec..a87878aee0f1 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1002,7 +1002,10 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>   		if (ret)
+>   			pr_warn("Failed to create sysfs entry for the kfd_process");
+>   
+> -		kfd_debugfs_add_process(process);
+> +		ret = kfd_debugfs_add_process(process);
+> +		if (ret)
+> +			pr_warn("Failed to create debugfs entry for the kfd_process, ret = %d\n",
+> +				ret);
+>   
+>   		init_waitqueue_head(&process->wait_irq_drain);
+>   	}
+>
