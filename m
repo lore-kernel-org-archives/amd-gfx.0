@@ -4,75 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B18FC43602
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:26:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D1EC43458
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A9510E895;
-	Mon,  6 Jul 2026 10:26:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFDE210E353;
+	Mon,  6 Jul 2026 11:36:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="AksVNzKt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BujReDTG";
 	dkim-atps=neutral
-Received: from smtpout3.mo534.mail-out.ovh.net
- (smtpout3.mo534.mail-out.ovh.net [51.210.94.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA7BA10E894
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:26:48 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net
- (director3.derp.mail-out.ovh.net [152.228.215.222])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SP5p9qz6JMk;
- Mon,  6 Jul 2026 10:08:53 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net
- (director3.derp.mail-out.ovh.net. [127.0.0.1])
- by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:53 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.100])
- by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4gv0SP4j4Hz5vW1; Mon,  6 Jul 2026 10:08:53 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.11])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 720FA8E1900; 
- Mon,  6 Jul 2026 10:08:51 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-104R0053612b4bd-563f-4dd2-a97a-1dd228f6edc0,
- F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-From: Natalie Vock <nat@pixelcluster.dev>
-Date: Mon, 06 Jul 2026 12:07:49 +0200
-Subject: [PATCH v2 07/10] drm/ttm: use ttm_bo_lru_for_each_reserved_guarded
- in evict_all
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B62210E353
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 11:36:19 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-92e533aacf2so129124285a.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jul 2026 04:36:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783337778; x=1783942578; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=eI2RFBADatE519dR/g8Z358f1+0B3inK+oU4BAAsg9w=;
+ b=BujReDTGEJTFP6aAuKic2+aRZMrBPx/BlZZVCseK78l97U/pgKGZi/bsKIkP/J+iGF
+ hPJhVqcwzRJrEbishF3JlSKJeKQBm1Q4tELM6ziCQkxEsVpmY8TTcoWFoKwG+GCjjH/g
+ 0V/sW5EGw+w8GDoQV98KZbhIXRLZfW+6qRaxzjmm2xvS+l+OscynL5jQOeofrpxlUcCa
+ j6NkXkawmjVmOrQQ6Qhg07wKkzIuNWrsczr4y2fHRbrPimvI2v/kgwzIYXnX5EfXDQSU
+ sKn761hARe1nrDJhRiSphIeSGL8Zvxgq0C/2rfsW+jxVvB6HJHB4p3XezyIfXYAQpzQ5
+ rIuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783337778; x=1783942578;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=eI2RFBADatE519dR/g8Z358f1+0B3inK+oU4BAAsg9w=;
+ b=CKNs69zmxrqBcfYtGP/3vegvtIU3fWXlnlan6VCONqzkkanx7ZD8BZgUZYc4Kb+eNl
+ S+uqHqfhfzWZ7xLOi4ttyRZPbJTpNbqNu6WTmerF14FWEZJEwyJvB69JLnWrkU+0aWsI
+ UcrVoiicmq5SgUS6k3LOlRCW6VbgwsiBckl1PAdfygI1uEePAgcm76XvmEUisPzAQuzH
+ bKUbqmj/DpSubo2EHXtRzGgaUieWPy5RcE8d1J/Nxy1p5yOlNQjpTBCZ58MfG/fmYk0Q
+ W/wF47NIN3/4jhJOv/nFq/gRybyBtCOeV0Z+gPpJKUNhLJSYbkOlAoMc3Q+stAF3n7He
+ uNJw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrUrFMeV70VKECMHljIJG7TvLD+vEyRUCeXXNC4rMbt52byjvNYKNCSgLBmjUF5GX8cs3D9vFUr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyemWcD4mVkfDUCHZT+zqKIX0HeEY3vaw9PeWOFQw66YnPEhOEk
+ Oa3q9V+MiFULjMfnMqkZ+xmbjLzlDM0yxyEvoFXfnjoGtq/ymEp+rVrY
+X-Gm-Gg: AfdE7clqLnXh5qySBPwtf3V8kYJgqL18ikVc5xViPh8UKTWnW/uzc09JowoIkWmfCnO
+ RE8L1HlxhvR4zdWllfTfZQsPs41PaSfJTYjD+pvJyJwY/aX2Cnl0bjne16YWTXndExiCY9C79iU
+ 3SWEzLWTRNYiU/dRWq+3fPszW4N20QenSVA7/QlUltLWygq/o/+KoF1B1AYlvgt9RwRla/OV6ff
+ tWS4iGRLG8mMv6syYogYhfrYERFSUkmW6y94pI0mWTMooKcUJkc+iUaZpGmxVTACWiBJ51/NnhS
+ 0pmmkAfSuPIChOsHudil3ik3FjgnaB1QQndfqrCl8loG6s7tOMSe2nj/xRzqiqpw3cWXsnKNvOx
+ u1NTceQs+WV3jOCKxduh8RLkRUuyCXLRAC5L25huSWjHZkOMFTPq+Po3+bhNarkLlieA+Dd5ExU
+ 6DjRkWxoOR8pbycnkI5mQsySABLh1flq28raZ0WyKKZnDW
+X-Received: by 2002:a05:620a:4486:b0:928:f440:2dc7 with SMTP id
+ af79cd13be357-92ebb5dec59mr16408385a.35.1783337777641; 
+ Mon, 06 Jul 2026 04:36:17 -0700 (PDT)
+Received: from [10.254.122.221] (mkmvpn.amd.com. [165.204.54.211])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-92e90cfe34dsm947412485a.46.2026.07.06.04.36.16
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 Jul 2026 04:36:17 -0700 (PDT)
+Message-ID: <48d65314-02fd-401e-b2a6-1b09c6f8da5f@gmail.com>
+Date: Mon, 6 Jul 2026 13:36:14 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260706-ttm_2_drm_exec-v2-7-4bf6bfc0d320@pixelcluster.dev>
-References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
-In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 9130203821519757628
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGrlNJ8ShesFc0BsmoWFi51A7F15j2IaCkSK7BVZBg/BM8MBdGhyqLZmkbZMHw/TdptOPm8sgahQti1Nc9RjBh0KMZiGtpja+p6qhts3jrWUso58aRKRrx2DXtHoeXDd8faKpktnEASA9l57md6lmCqaecpmqLv9KOaMd5Cxk2fFcLRCf7Y1jiwLpKZwWHOg5MLCHSu/c85HhHBD+9tK6DpmR22NTjUbN0dGZJB9cmuuQPGLboQ0v7ZPGbXkip9C+NIKd694im0qBCyEcUf/DwxdiDWy9o5iBQA1zQlg0Y75Jpr3La1ocQctyDO3tKJ1UAaq83N/bdymi3oIi31d22YfaQgISu8BkudkNFC83ngbYpyoXPrY/Vwp3yCL3PnclINqLD/Ub8JUuqwXOSMSABA03aSlmg66ZBy3Sw1AoZl0cbfxYbFgUrMuQ5w9Ie0kBtOepm9bcjMO5dT06DpOSISzEpb4nHUuZOLn58uU+JtJOgrdDnVoqmPC6PdSj55Vk5SYTs8UwgcSaeHr2CSZthjfr4yBQsL/aKXtt9PCLOnzDLnHJouvw8rHck6T6joSvckKUrkz851r+Ia8Q98SfNgLAMCT2D2Vxn3QZ9J2q0jYXaK1IJQ4/ztKOdgIcgdG5mbXApb4OdxAOKERgJpRRf7CU3QAmzr3U1TWnX3Rb40/w
-DKIM-Signature: a=rsa-sha256; bh=2VTWirLQQEh5gYLd+gBFz1PjIG9wAxQUW7SNqFxNanM=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783332534; v=1;
- b=AksVNzKt7iqsApTx11UxQ1+wT2z9FohXf8jrJQw0k2uOiEDHHLxh/SYaym1jaIUK7PK4e59t
- a0KslZGMqPN2PJCdVBnd5TwHu1odPKbx1CRo18we1QhBomAM3qQbtmsxPz6HZ5FRUayoYZC3sbJ
- Ycu8qzijfffAF1VHbqkjq/5b1uJwZvEqn/0vEPtFRomAKwAHNy0ONTOIumLSzL/cs0+TgX84oRk
- knFwazIXf5BjQlJbhM8iSz1giDd4Y747SNVXI5RV37fYNDAQb7j3iSPP3Dk/7vvH8fsivgy8xuF
- hweEuTeTS9oTt4C/zF+KRkkGBXzcxzK9DafXowBEWxjLA==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: read FB through BAR0 when aperture is
+ unavailable
+To: chong li <chongli2@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: HaiJun.Chang@amd.com, Emily.Deng@amd.com, Cursor <cursoragent@cursor.com>
+References: <20260701055355.20478-1-chongli2@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20260701055355.20478-1-chongli2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,137 +91,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the for_each loop to evict all BOs of an resource manager as well.
+On 7/1/26 07:53, chong li wrote:
+> Allow early VRAM reads to fall back to a temporary BAR0 mapping
+> when the normal aperture mapping has not been established yet.
 
-Greately simplifying the handling and finally allows us to
-remove ttm_bo_evict_first().
+Clear NAK.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
----
- drivers/gpu/drm/ttm/ttm_bo.c       | 51 +-------------------------------------
- drivers/gpu/drm/ttm/ttm_resource.c | 21 ++++++++++------
- include/drm/ttm/ttm_bo.h           |  1 +
- 3 files changed, 16 insertions(+), 57 deletions(-)
+You are just trying to fix a symptom of incorrect initialization order here.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 54f01611ec823..80933ba6aada9 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -351,8 +351,7 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
- 	return 0;
- }
- 
--static int ttm_bo_evict(struct ttm_buffer_object *bo,
--			struct ttm_operation_ctx *ctx)
-+int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
- {
- 	struct ttm_resource *evict_mem;
- 	struct ttm_placement placement;
-@@ -437,54 +436,6 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- }
- EXPORT_SYMBOL(ttm_bo_eviction_valuable);
- 
--/**
-- * ttm_bo_evict_first() - Evict the first bo on the manager's LRU list.
-- * @bdev: The ttm device.
-- * @man: The manager whose bo to evict.
-- * @ctx: The TTM operation ctx governing the eviction.
-- *
-- * Return: 0 if successful or the resource disappeared. Negative error code on error.
-- */
--int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man,
--		       struct ttm_operation_ctx *ctx)
--{
--	struct ttm_resource_cursor cursor;
--	struct ttm_buffer_object *bo;
--	struct ttm_resource *res;
--	unsigned int mem_type;
--	int ret = 0;
--
--	spin_lock(&bdev->lru_lock);
--	ttm_resource_cursor_init(&cursor, man);
--	res = ttm_resource_manager_first(&cursor);
--	ttm_resource_cursor_fini(&cursor);
--	if (!res) {
--		ret = -ENOENT;
--		goto out_no_ref;
--	}
--	bo = res->bo;
--	if (!ttm_bo_get_unless_zero(bo))
--		goto out_no_ref;
--	mem_type = res->mem_type;
--	spin_unlock(&bdev->lru_lock);
--	ret = ttm_bo_reserve(bo, ctx->interruptible, ctx->no_wait_gpu, NULL);
--	if (ret)
--		goto out_no_lock;
--	if (!bo->resource || bo->resource->mem_type != mem_type)
--		goto out_bo_moved;
--
--	ret = ttm_bo_evict(bo, ctx);
--out_bo_moved:
--	dma_resv_unlock(bo->base.resv);
--out_no_lock:
--	ttm_bo_put(bo);
--	return ret;
--
--out_no_ref:
--	spin_unlock(&bdev->lru_lock);
--	return ret;
--}
--
- /**
-  * struct ttm_bo_evict_walk - Parameters for the evict walk.
-  */
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 154d6739256f8..107b6cfea66b3 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -561,17 +561,24 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
- int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 				   struct ttm_resource_manager *man)
- {
--	struct ttm_operation_ctx ctx = { };
-+	struct ttm_bo_lru_cursor cursor;
-+	struct ttm_buffer_object *bo;
-+	struct ttm_operation_ctx ctx = {
-+		.interruptible = false,
-+		.no_wait_gpu = false,
-+	};
-+	struct ttm_lru_walk_arg arg = {
-+		.ctx = &ctx,
-+	};
- 	struct dma_fence *fence;
- 	int ret, i;
- 
--	do {
--		ret = ttm_bo_evict_first(bdev, man, &ctx);
-+	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
-+		ret = ttm_bo_evict(bo, &ctx);
-+		if (ret)
-+			return ret;
- 		cond_resched();
--	} while (!ret);
--
--	if (ret && ret != -ENOENT)
--		return ret;
-+	}
- 
- 	ret = 0;
- 
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index bbed63064c9a9..a4060e44d23d0 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -389,6 +389,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- void ttm_bo_fini(struct ttm_buffer_object *bo);
- void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
- 			  struct ttm_lru_bulk_move *bulk);
-+int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx);
- bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 			      const struct ttm_place *place);
- int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+Regards,
+Christian.
 
--- 
-2.55.0
+> 
+> Signed-off-by: chong li <chongli2@amd.com>
+> Co-authored-by: Cursor <cursoragent@cursor.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 43 +++++++++++++++++++++-
+>  1 file changed, 42 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5442a1fc1c37..610d82b79de3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -743,6 +743,44 @@ void amdgpu_device_mm_access(struct amdgpu_device *adev, loff_t pos,
+>  	drm_dev_exit(idx);
+>  }
+>  
+> +static int amdgpu_device_read_fb_via_bar0(struct amdgpu_device *adev,
+> +					  u64 offset, void *buf, size_t size)
+> +{
+> +	resource_size_t bar_start, bar_size, map_base;
+> +	void __iomem *vram;
+> +	size_t map_offset, map_size;
+> +	unsigned long flags;
+> +	u64 end;
+> +
+> +	if (!buf || !size)
+> +		return -EINVAL;
+> +
+> +	flags = pci_resource_flags(adev->pdev, 0);
+> +	if ((flags & IORESOURCE_UNSET) || !(flags & IORESOURCE_MEM))
+> +		return -EINVAL;
+> +
+> +	bar_size = pci_resource_len(adev->pdev, 0);
+> +	if (!bar_size)
+> +		return -ENODEV;
+> +
+> +	if (check_add_overflow(offset, size, &end) || end > bar_size)
+> +		return -EINVAL;
+> +
+> +	bar_start = pci_resource_start(adev->pdev, 0);
+> +	map_offset = offset_in_page(offset);
+> +	map_base = bar_start + (offset & PAGE_MASK);
+> +	map_size = PAGE_ALIGN(map_offset + size);
+> +
+> +	vram = ioremap_wc(map_base, map_size);
+> +	if (!vram)
+> +		return -ENOMEM;
+> +
+> +	memcpy_fromio(buf, (u8 __iomem *)vram + map_offset, size);
+> +	iounmap(vram);
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * amdgpu_device_aper_access - access vram by vram aperture
+>   *
+> @@ -762,8 +800,11 @@ size_t amdgpu_device_aper_access(struct amdgpu_device *adev, loff_t pos,
+>  	size_t count = 0;
+>  	uint64_t last;
+>  
+> -	if (!adev->mman.aper_base_kaddr)
+> +	if (!adev->mman.aper_base_kaddr) {
+> +		if (!write && !amdgpu_device_read_fb_via_bar0(adev, pos, buf, size))
+> +			return size;
+>  		return 0;
+> +	}
+>  
+>  	last = min(pos + size, adev->gmc.visible_vram_size);
+>  	if (last > pos) {
 
