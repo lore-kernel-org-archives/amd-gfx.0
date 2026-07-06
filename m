@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15798C44501
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D470C44503
 	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3B9D10ECD4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F027710ECD6;
 	Tue,  7 Jul 2026 12:58:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jyDkadYb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bZLBPl1g";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B902A10E458;
- Tue,  7 Jul 2026 06:56:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4837510EA2D;
+ Mon,  6 Jul 2026 18:03:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783407394; x=1814943394;
+ t=1783361037; x=1814897037;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=0mg3njSAhy8CKpc7a+sAQ6xW4q41nuWRJjlXuyCOl2o=;
- b=jyDkadYbowtFXaVdq+CURR+3DrY5pILMJmkLWd5nNpPBnX5ofV3nuZOb
- BADijE8ZP2XIBxybt6/RmNZcE+8ocPiRmRFShyDXpjD+7XITV3zs7B8hF
- g2kNk7vHQpSZwvKwQtI09Y4/gu9TSmJsA0Y1KCVbbKl9ZZeEWQRGUEv+R
- 2t8pzdjd1zIEjyumh3lSJX7Zd/zbzWdXS5vvUh8UGw4wVC1dVAIW3pFCF
- j1V7HtYgzUhidRiSAouU29eftgOUmukZp9ikI6U7ez/24L9PulPefiWok
- lRlO+/bmsDp64Eq7T5YavyAGzHgWY/SuTFdleW23NAwtIY1unaCHRqX96 w==;
-X-CSE-ConnectionGUID: rW8imQ63QhCx3jNdBlOSrA==
-X-CSE-MsgGUID: VHs5lsGmQIGogBJWw35u8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="94402751"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="94402751"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 23:56:33 -0700
-X-CSE-ConnectionGUID: i2hkhISsTw+R2iQfSH86qQ==
-X-CSE-MsgGUID: N/CjuHZDR8aonDwETqOO3g==
+ bh=2kcQBkGpNPCI1AvVOTzKbPcT9nWlCRpBwE3xZaqBWA0=;
+ b=bZLBPl1gViEUj4XV5MEKHPhksZiYQoMwAXhrjERQ9RHTohaoaDej5MJE
+ 1k1weTcRUezGx3Hz+ci1Q1CKTsgWNyPfHyLAh1toIZpTOnb3fpdH72f53
+ H16EyMeq0D2xifPqlVumxX1zP1n+YgFpaV/10r8BEMxc9gjNEmxyJYwac
+ 5l/MGvFW7PO3etta+wLRQqPKz/1QyDwpdaOS1dg7kp/bTJQ/6JLCqGHAb
+ 5luji2vTyf+LI5jJq5v6KhvkBJPCkhyiRZKHwrrwxDVmk81GbiptWCxHJ
+ VSwazt21t4KmLTXljN4CsqyhufCG+xDh67gDX1mP7htrcRDJv1Hm8sTui w==;
+X-CSE-ConnectionGUID: pmb0pptcQzGfZd70jvlbHA==
+X-CSE-MsgGUID: DHAiv1OMQhSw2WPvc9hylw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="109547919"
+X-IronPort-AV: E=Sophos;i="6.25,151,1779174000"; d="scan'208";a="109547919"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 11:03:56 -0700
+X-CSE-ConnectionGUID: 59Kn16hXStuL4+5PuDS4bQ==
+X-CSE-MsgGUID: XAixNBXJS1ivs9FoPT5rTg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="254003179"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
- ([10.245.244.199])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 23:56:29 -0700
-Message-ID: <eebae66784e24f4b2af6e0079ef74d11100d4020.camel@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,151,1779174000"; d="scan'208";a="291944761"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.132])
+ ([10.245.244.132])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 11:03:52 -0700
+Message-ID: <257957966546bbccdf18f883cab690646c18ab80.camel@linux.intel.com>
 Subject: Re: [PATCH 02/10] drm/ttm: replace TTMs refcount with the DRM
  refcount v4
 From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Natalie
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Natalie
  Vock <natalie.vock@gmx.de>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen	 <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
  <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
- <matthew.brost@intel.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Date: Tue, 07 Jul 2026 08:56:06 +0200
-In-Reply-To: <5d56ec48-b0f0-4f03-8ec2-f8cc34cb3186@amd.com>
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Alex Deucher
+ <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 	intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 	amd-gfx@lists.freedesktop.org
+Date: Mon, 06 Jul 2026 20:03:49 +0200
+In-Reply-To: <akvrBLBhgbQodMNi@gsse-cloud1.jf.intel.com>
 References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
  <20260703-ttm_2_drm_exec-v1-2-43685ac1286b@gmx.de>
  <b2932c85fee8e4bf89fdd80ada8883c199d823c0.camel@linux.intel.com>
  <88614266-6ee3-4488-9e2f-030ae0266e0e@amd.com>
  <7031c630c987940d814eaef9d1696969be12d81b.camel@linux.intel.com>
- <5d56ec48-b0f0-4f03-8ec2-f8cc34cb3186@amd.com>
+ <akvrBLBhgbQodMNi@gsse-cloud1.jf.intel.com>
 Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -86,8 +86,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-06 at 20:23 +0200, Christian K=C3=B6nig wrote:
-> On 7/6/26 19:01, Thomas Hellstr=C3=B6m wrote:
+On Mon, 2026-07-06 at 10:51 -0700, Matthew Brost wrote:
+> On Mon, Jul 06, 2026 at 07:01:27PM +0200, Thomas Hellstr=C3=B6m wrote:
 > > On Mon, 2026-07-06 at 16:49 +0200, Christian K=C3=B6nig wrote:
 > > > On 7/6/26 15:14, Thomas Hellstr=C3=B6m wrote:
 > > > > On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
@@ -145,9 +145,25 @@ On Mon, 2026-07-06 at 20:23 +0200, Christian K=C3=B6nig wrote:
 > > once
 > > the gem refcount reaches zero.
 >=20
-> I don't really like the solution either, but I don't see much other
-> option.
+> When you say resurrecting a refcount - what exactly do you mean by
+> this?
 >=20
+> ref -> 0 -> init ref count 1 -> 0 again?
+
+Resending with full CC list.
+
+Yes. The destructor re-initializes the refcount to 1. Previously this
+was confined to the TTM refcount with limited visibility.
+
+/Thomas
+
+
+>=20
+> Matt
+>=20
+> >=20
+> > >=20
+> > > >=20
 > > > > For example xe_bo.c:
 > > > >=20
 > > > > 	if (!xe_bo_is_xe_bo(bo) ||
@@ -170,47 +186,9 @@ On Mon, 2026-07-06 at 20:23 +0200, Christian K=C3=B6nig wrote:
 > >=20
 > > https://lore.kernel.org/dri-devel/20250716160555.20217-2-christian.koen=
 ig@amd.com/#r
->=20
-> Well, I clearly rejected the idea to wait for the delayed delete
-> worker because that can cause deadlocks no matter how we do it.
->=20
-> The only possibility I see is to grab a reference on the next busy
-> fence and wait for that to signal.
->=20
-> But that approach still leaves a window open where the cleanup worker
-> has not yet cleaned up the resource before we try to allocate a new
-> one.
->=20
-> The only two possibilities I see to close that window are:
-> 1. Resurrect the GEM object.
-> 2. Keep a reference to the GEM object while it is on the LRU.
->=20
-> I would really like to do #2 instead, but that requires that we
-> distinct between GEM object referenze and backing store reference.
->=20
-> The GEM object does have some kind of backing store reference with
-> the handle_count field, but that unfortunately doesn't have the right
-> semantic (e.g. only goes from 0->1 when you actually create a handle
-> etc..).
-
-I think putting a struct completion + refcount on the TTM resource
-would work. Or a much simpler variant, wait for anyone to release
-something on the resource manager in question, (although the simpler
-variant would be harder to debug if a deadlock occured).
-
-Both of these would probably need to come with lockdep annotation so
-that we could annotate the critical sections from ttm_bo_fini() to
-resource_free, similar to the dma-fence signalling annotation.
-
-At this point, following that previous discussion we know that imported
-dma-bufs are an exception because we grab the shared dma-resv to
-release the attachment. So until we add a way to avoid that in the dma-
-buf code, we need to wake / signal completion before we grab that lock.
-Not a big deal because imported bos will not matter for local reclaim
-anyway.
-
-
->=20
+> >=20
+> > >=20
+> > > >=20
 > > > > I fully support removing the ttm refcount, but not if it means
 > > > > resurrecting the gem refcount.
 > > > >=20
@@ -239,44 +217,6 @@ m@linux.intel.com/
 > > and which of the stated benefits/use-cases in the cover-letter do
 > > you
 > > think aren't worthwhile?
->=20
-> Of course could the drm_exec object work with different reference
-> counters, but as far as I can see that just complicates the situation
-> and again creates a TTM specific solutions which I clearly want to
-> avoid.
->=20
-> I would rather go with the resurrection approach instead, that has
-> less potential for problem I think.
->=20
-> Alaternatively we could re-work the whole GEM refcount/GEM handle
-> count/TTM refcount mess, but that has even more potential to break.
-
-I think looking forward to a "final" solution we're happy with, we
-would have removed the TTM refcount and found a way to deal with zombie
-resources by finding something to wait for.
-
-I'm also convinced that we want apps with shared bos to fully
-participate so that a process trying to validate / map a shared bo
-doesn't get killed because a trylock-driven eviction failed.
-
-Since it's a layer violation to pass a drm_exec in an augmented dma-buf
-map we will be needing something at the dma-buf level to handle that,
-and given that, it also makes sense to base the eviction mechanism on
-it.
-
-The ability to reuse the TTM refcount for now would just be a way to
-separate out the zombie handling from this series until we can do it
-properly. After all this series is about enabling sleeping ww locks.
-
-Thanks,
-Thomas
-
-
->=20
-> Regards,
-> Christian.
->=20
->=20
 > >=20
 > > Also for reference: (Section at the end and follow-up messages)
 > > https://lore.kernel.org/all/3716d43462188590743060755b37e3d060f7600f.ca=
