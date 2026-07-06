@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1804C43458
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:26:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B18FC43602
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:26:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B88710E894;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6A9510E895;
 	Mon,  6 Jul 2026 10:26:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="g9bm8HDG";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="AksVNzKt";
 	dkim-atps=neutral
-Received: from 10.mo534.mail-out.ovh.net (10.mo534.mail-out.ovh.net
- [46.105.32.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9000710E894
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:26:47 +0000 (UTC)
+Received: from smtpout3.mo534.mail-out.ovh.net
+ (smtpout3.mo534.mail-out.ovh.net [51.210.94.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA7BA10E894
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:26:48 +0000 (UTC)
 Received: from director3.derp.mail-out.ovh.net
  (director3.derp.mail-out.ovh.net [152.228.215.222])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SC1QPYz6JPw;
- Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+ by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SP5p9qz6JMk;
+ Mon,  6 Jul 2026 10:08:53 +0000 (UTC)
 Received: from director3.derp.mail-out.ovh.net
  (director3.derp.mail-out.ovh.net. [127.0.0.1])
  by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.1])
- by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SC0HkGz5vVf;
- Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+ for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:53 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.100])
+ by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4gv0SP4j4Hz5vW1; Mon,  6 Jul 2026 10:08:53 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.11])
  (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id C78D98E1903; 
- Mon,  6 Jul 2026 10:08:40 +0000 (UTC)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 720FA8E1900; 
+ Mon,  6 Jul 2026 10:08:51 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-104R005c18bf4c1-4a57-40e9-bf8d-5f756da7189f,
+ (GARM-104R0053612b4bd-563f-4dd2-a97a-1dd228f6edc0,
  F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp: 88.133.252.134
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Mon, 06 Jul 2026 12:07:43 +0200
-Subject: [PATCH v2 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES flag
+Date: Mon, 06 Jul 2026 12:07:49 +0200
+Subject: [PATCH v2 07/10] drm/ttm: use ttm_bo_lru_for_each_reserved_guarded
+ in evict_all
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-ttm_2_drm_exec-v2-1-4bf6bfc0d320@pixelcluster.dev>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260706-ttm_2_drm_exec-v2-7-4bf6bfc0d320@pixelcluster.dev>
 References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
 In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -60,18 +61,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 9127389070351032636
+x-ovh-tracer-id: 9130203821519757628
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEIx5EftTv6qDYynIITLbKmw2V9F73qkvPfwN+6GC3Ph5+oNBPVWeKaotSSyzsLEoE6aoNeT/z/sb6JP+NEna0IvjfnNYhnKja1q6dxD3Jb7I4shHgEmfwt4RwYwfWMrJeeSWT1tVWzr+1Wc90ClmqxXufcv16gHHKk4vjPweAJ7XZzvQwOvhu6mvw7q+gxZaRp/SFrLzBp8jROoK4pIBgRzH7e8vIhWqDQYAnvzOg3wwI7Cm5iQjWjEqopVyP5ALcEWcgRSjmo1GQmwlWMV5+MubgYMTlgg7JHi/WHKBd7/pcOIWar7nF/9t66zi6TVtVu8SSomL6KSZeUYk011HiNWwXLDfpjBPWLSvSdmxUcsM9aYjoysNMPJOKFE8nluG2E8EZqXxvA+mdjAaTXT/M1hQOgWTPGS3FLsqSsgERyjY0Br1rtM8lxfaynmnKDOuH5dZ+vO/avb+2EpJT6UC1E9mjeCIYddylpjZFBgn3hbF9yDSZ7uNN/fAYfTjCTxYuQiDPv0pGzoO0eyl15hzjbEzRQ/VK1jR6qfZ93H0FmF0209waqBTz34/Mma8XU0xZUqgviYlMEDvnVxtOFDxHZBrBZ9lSK/2y3UQH9rHkB8l9WEvVjpYo4ySKPMOFdcmGok13u2lMDPyXdHv3zDyhh9yq+yAiEhS+dEijzDsRwow
-DKIM-Signature: a=rsa-sha256; bh=N1GjEJtFReJ0oNOCKsB1O/DXSe6xcHnaiP0zlVWxP2o=; 
+X-VR-SPAMCAUSE: dmFkZTGrlNJ8ShesFc0BsmoWFi51A7F15j2IaCkSK7BVZBg/BM8MBdGhyqLZmkbZMHw/TdptOPm8sgahQti1Nc9RjBh0KMZiGtpja+p6qhts3jrWUso58aRKRrx2DXtHoeXDd8faKpktnEASA9l57md6lmCqaecpmqLv9KOaMd5Cxk2fFcLRCf7Y1jiwLpKZwWHOg5MLCHSu/c85HhHBD+9tK6DpmR22NTjUbN0dGZJB9cmuuQPGLboQ0v7ZPGbXkip9C+NIKd694im0qBCyEcUf/DwxdiDWy9o5iBQA1zQlg0Y75Jpr3La1ocQctyDO3tKJ1UAaq83N/bdymi3oIi31d22YfaQgISu8BkudkNFC83ngbYpyoXPrY/Vwp3yCL3PnclINqLD/Ub8JUuqwXOSMSABA03aSlmg66ZBy3Sw1AoZl0cbfxYbFgUrMuQ5w9Ie0kBtOepm9bcjMO5dT06DpOSISzEpb4nHUuZOLn58uU+JtJOgrdDnVoqmPC6PdSj55Vk5SYTs8UwgcSaeHr2CSZthjfr4yBQsL/aKXtt9PCLOnzDLnHJouvw8rHck6T6joSvckKUrkz851r+Ia8Q98SfNgLAMCT2D2Vxn3QZ9J2q0jYXaK1IJQ4/ztKOdgIcgdG5mbXApb4OdxAOKERgJpRRf7CU3QAmzr3U1TWnX3Rb40/w
+DKIM-Signature: a=rsa-sha256; bh=2VTWirLQQEh5gYLd+gBFz1PjIG9wAxQUW7SNqFxNanM=; 
  c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783332523; v=1;
- b=g9bm8HDGNv+oEfb4xMXacBXhP3UH0s3rxe5xsiBflxdCipgZVZmp2R+S7eagIy9MD95MFBpB
- 1t4hpDTsp9SaS7WNVj2c2NaoZnM+HToChFhrlCeDLgiuMyPztfr8jdcRlO1xKzz1a3+PdTiBDCf
- c4Kg/aVBf73Vb0+4uRRZqbI21MqNELLsgPcIE5dVK09C4U8LdHHKg6whhUm1iYpCH7HmFgfrsc8
- 1l7vc12HNKgdOYtmkKwGQtEeJnR0HwPpYZIUm6lN6oeh/EMZBQ1GdY4YFtzyq5q51u2/5zaVreG
- VIy62vzjyvuk/AIdvaALpSrURIxFsg8h74Nqmqy9Qhfig==
+ s=ovhmo-selector-1; t=1783332534; v=1;
+ b=AksVNzKt7iqsApTx11UxQ1+wT2z9FohXf8jrJQw0k2uOiEDHHLxh/SYaym1jaIUK7PK4e59t
+ a0KslZGMqPN2PJCdVBnd5TwHu1odPKbx1CRo18we1QhBomAM3qQbtmsxPz6HZ5FRUayoYZC3sbJ
+ Ycu8qzijfffAF1VHbqkjq/5b1uJwZvEqn/0vEPtFRomAKwAHNy0ONTOIumLSzL/cs0+TgX84oRk
+ knFwazIXf5BjQlJbhM8iSz1giDd4Y747SNVXI5RV37fYNDAQb7j3iSPP3Dk/7vvH8fsivgy8xuF
+ hweEuTeTS9oTt4C/zF+KRkkGBXzcxzK9DafXowBEWxjLA==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,116 +87,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-TTM is about to switch to drm_exec for locking objects
-in the LRU list. When we're done processing the object, we want to
-unlock it only if the caller doesn't already hold that lock. If
-DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
-require for unrelated reasons), we have no way of knowing whether the
-lock is already held.
+Use the for_each loop to evict all BOs of an resource manager as well.
 
-To remedy this, add a separate helper that forcefully bypasses the
-IGNORE_DUPLICATES flag for only a single locking operation.
+Greately simplifying the handling and finally allows us to
+remove ttm_bo_evict_first().
 
+Signed-off-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/drm_exec.c | 54 ++++++++++++++++++++++++++++++++++------------
- include/drm/drm_exec.h     |  2 ++
- 2 files changed, 42 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c       | 51 +-------------------------------------
+ drivers/gpu/drm/ttm/ttm_resource.c | 21 ++++++++++------
+ include/drm/ttm/ttm_bo.h           |  1 +
+ 3 files changed, 16 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 7988f5e7d56a3..ec33ed4a523cc 100644
---- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
- 	return ret;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 54f01611ec823..80933ba6aada9 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -351,8 +351,7 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
+ 	return 0;
  }
+ 
+-static int ttm_bo_evict(struct ttm_buffer_object *bo,
+-			struct ttm_operation_ctx *ctx)
++int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
+ {
+ 	struct ttm_resource *evict_mem;
+ 	struct ttm_placement placement;
+@@ -437,54 +436,6 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ }
+ EXPORT_SYMBOL(ttm_bo_eviction_valuable);
  
 -/**
-- * drm_exec_lock_obj - lock a GEM object for use
-- * @exec: the drm_exec object with the state
-- * @obj: the GEM object to lock
+- * ttm_bo_evict_first() - Evict the first bo on the manager's LRU list.
+- * @bdev: The ttm device.
+- * @man: The manager whose bo to evict.
+- * @ctx: The TTM operation ctx governing the eviction.
 - *
-- * Lock a GEM object for use and grab a reference to it.
-- *
-- * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-- * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
-- * flag), -ENOMEM when memory allocation failed and zero for success.
+- * Return: 0 if successful or the resource disappeared. Negative error code on error.
 - */
--int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-+static int __drm_exec_lock_obj(struct drm_exec *exec,
-+			       struct drm_gem_object *obj,
-+			       bool ignore_duplicates)
- {
- 	int ret;
- 
-@@ -226,8 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
- 		return -EDEADLK;
- 	}
- 
--	if (unlikely(ret == -EALREADY) &&
--	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
-+	if (unlikely(ret == -EALREADY) && ignore_duplicates)
- 		return 0;
- 
- 	if (unlikely(ret))
-@@ -243,8 +233,44 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
- 	dma_resv_unlock(obj->resv);
- 	return ret;
- }
-+
-+/**
-+ * drm_exec_lock_obj - lock a GEM object for use
-+ * @exec: the drm_exec object with the state
-+ * @obj: the GEM object to lock
-+ *
-+ * Lock a GEM object for use and grab a reference to it.
-+ *
-+ * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-+ * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
-+ * flag), -ENOMEM when memory allocation failed and zero for success.
-+ */
-+int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-+{
-+	return __drm_exec_lock_obj(exec, obj,
-+				   exec->flags & DRM_EXEC_IGNORE_DUPLICATES);
-+}
- EXPORT_SYMBOL(drm_exec_lock_obj);
- 
-+/**
-+ * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always report duplicates
-+ * @exec: the drm_exec object with the state
-+ * @obj: the GEM object to lock
-+ *
-+ * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference to it.
-+ * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and duplicates are
-+ * always reported.
-+ *
-+ * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-+ * already locked, -ENOMEM when memory allocation failed and zero for success.
-+ */
-+int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-+				 struct drm_gem_object *obj)
-+{
-+	return __drm_exec_lock_obj(exec, obj, false);
-+}
-+EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
-+
+-int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man,
+-		       struct ttm_operation_ctx *ctx)
+-{
+-	struct ttm_resource_cursor cursor;
+-	struct ttm_buffer_object *bo;
+-	struct ttm_resource *res;
+-	unsigned int mem_type;
+-	int ret = 0;
+-
+-	spin_lock(&bdev->lru_lock);
+-	ttm_resource_cursor_init(&cursor, man);
+-	res = ttm_resource_manager_first(&cursor);
+-	ttm_resource_cursor_fini(&cursor);
+-	if (!res) {
+-		ret = -ENOENT;
+-		goto out_no_ref;
+-	}
+-	bo = res->bo;
+-	if (!ttm_bo_get_unless_zero(bo))
+-		goto out_no_ref;
+-	mem_type = res->mem_type;
+-	spin_unlock(&bdev->lru_lock);
+-	ret = ttm_bo_reserve(bo, ctx->interruptible, ctx->no_wait_gpu, NULL);
+-	if (ret)
+-		goto out_no_lock;
+-	if (!bo->resource || bo->resource->mem_type != mem_type)
+-		goto out_bo_moved;
+-
+-	ret = ttm_bo_evict(bo, ctx);
+-out_bo_moved:
+-	dma_resv_unlock(bo->base.resv);
+-out_no_lock:
+-	ttm_bo_put(bo);
+-	return ret;
+-
+-out_no_ref:
+-	spin_unlock(&bdev->lru_lock);
+-	return ret;
+-}
+-
  /**
-  * drm_exec_unlock_obj - unlock a GEM object in this exec context
-  * @exec: the drm_exec object with the state
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 8725ba92ff916..ff80dd2b72240 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
- void drm_exec_fini(struct drm_exec *exec);
- bool drm_exec_cleanup(struct drm_exec *exec);
- int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
-+int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-+				 struct drm_gem_object *obj);
- void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
- int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
- 			 unsigned int num_fences);
+  * struct ttm_bo_evict_walk - Parameters for the evict walk.
+  */
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 154d6739256f8..107b6cfea66b3 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -561,17 +561,24 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
+ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 				   struct ttm_resource_manager *man)
+ {
+-	struct ttm_operation_ctx ctx = { };
++	struct ttm_bo_lru_cursor cursor;
++	struct ttm_buffer_object *bo;
++	struct ttm_operation_ctx ctx = {
++		.interruptible = false,
++		.no_wait_gpu = false,
++	};
++	struct ttm_lru_walk_arg arg = {
++		.ctx = &ctx,
++	};
+ 	struct dma_fence *fence;
+ 	int ret, i;
+ 
+-	do {
+-		ret = ttm_bo_evict_first(bdev, man, &ctx);
++	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
++		ret = ttm_bo_evict(bo, &ctx);
++		if (ret)
++			return ret;
+ 		cond_resched();
+-	} while (!ret);
+-
+-	if (ret && ret != -ENOENT)
+-		return ret;
++	}
+ 
+ 	ret = 0;
+ 
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index bbed63064c9a9..a4060e44d23d0 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -389,6 +389,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+ void ttm_bo_fini(struct ttm_buffer_object *bo);
+ void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
+ 			  struct ttm_lru_bulk_move *bulk);
++int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx);
+ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 			      const struct ttm_place *place);
+ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
 
 -- 
 2.55.0
