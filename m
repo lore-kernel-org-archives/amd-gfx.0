@@ -4,122 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA23C43602
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 13:00:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1460CC43602
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 13:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36DF910E985;
-	Mon,  6 Jul 2026 13:00:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20CC310E96A;
+	Mon,  6 Jul 2026 13:06:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N1VLd5Nq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fu/WEdCE";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010060.outbound.protection.outlook.com [52.101.85.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 414B310E1B6
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 13:00:52 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010017.outbound.protection.outlook.com
+ [40.93.198.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 920FE89FD4;
+ Mon,  6 Jul 2026 13:06:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mMEH7VKhoqU9Hhg2FPNL8WikPNIlNs3w29kaowQtLE/KymLtNWk6gEnDwsdOVp0jyc3pAzyP1NA3dt2wdm3/nWK7wTTwOjQ45CHTvAX1d5Z5LRR08bunGy+By/Bboe8wY3SOp1gL5t/F9BDk/u0dPWVFPiqBVrnBePYSrnFmKWh5NR40cDWofFAZ9g6/JtJG+6JuOcDPk9PzgvWzS4KeYabzd6eWkkb/ki/7kxxUavQuJYHCZG0ePVXwpq1WC0qIFZ8/miZAnL1u8hJvNP+mAUvX2ECXBclEhvC3mHtmbH6u27f2lk+wBPvDlbxJR4DGHp8WwAwOSP4Zxz3stP65EQ==
+ b=E29bh8MaL5LmXqHwu0iQ+KdKvufX9/IyO9s1PAKIPv+c/IOwXB0M7glVu5O4EuNgjKUTL8UcbGAsaXVN6t6GGCNfdY/rn9KB7fNj2TLJ0DaPPRcLlr/pHOGERJAEr/cUMZbdQ+9NVwZZ0mh4PjOZi+aH4CXQH2pchh9524s4h0O1gyCd8VQtg8MOHFcETTH0+NKtvtgwEsEhuTBNMDYSDUze6LqgWDSxXLy7IuOdVGsuz+agfbP+MAGadMXySGxDH4GidTFv0TbTVrerY83f4OJ8SXNWvw0/NmLOp0xxudEbZInjz/trszXhS6hyI52kAIR18Yl8YD2W96NDO/4Scg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wKMK5+vtwVuGmUoEiBEFC54fu1YLwqw0PuEJmbGx2FE=;
- b=rPr1MzZRNyp38lYDPDyUQIA3KQFtmPoiJKox97bTwpzbCJzhroChBTnmZefZDCR64fuEvCUdQYmpehiWiQf7KP8eYjuJjRSx4bjDI+A+zuEOTq09SzeauOEBIFwcfaZsr579e8iQySfqsR+5O2wnXRmCLroPC7GboLX5mcnOQJRMQOyJYH47KJYD+dOr7cIUYo7TSgoq7VpDrtNv+YL0tglA6Nxxv+EfQ7HbGbptuhKbZcix8Q8XrJzhlIzRpAcidbzyzbvrMZi5zK4m2eQjPHPM/7U0GbXMu5BAAVF52Aj+ejvl8beRBRDyvDUuLjjodjfhyWcxezRmLs0HVUCDfw==
+ bh=8R4qgqZLu8a6eQIwqdmHx+EWBHCSwtMzx2aEWL3+Q0c=;
+ b=KJSVSc1ItGorpMCCcVT0ZNWctJCgfqk1HgHjxvxQbQbpRbTC0r8exMyg3FXDNLDxTTddURMHiTOW/Mze6VgW4r3se0x8RN6HgEhUA6fH5XmRmL6IO3yUOZA+HlJACvrzydX3PNupL4inIHO837XEZXLhmCJktPmFjOH+MscksPGCIOvu0zToNjPz6iqwVbNQGUJWVkcy2AOvw1b8NJgYExhXKiaiDqzCKlYe2hw2kAbpCmVVkknduexqaNxwZAJDrf6sRxJM4VCuX16vom8/Pr3OFt3218MJtE3CfHqjZCyJqoJhRnLL+fdRR3r+fMEbhKKJGudbDZpOoFOp6YzkBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wKMK5+vtwVuGmUoEiBEFC54fu1YLwqw0PuEJmbGx2FE=;
- b=N1VLd5Nqc/I0wD8PdRLQ/mPjgMDO82PvVJom1wwu5qbHarv1acyxBioDFiPn9XPUXyeFI8eCw9stPtiadCvNF1Hxpvpf4fyGx15z2TIKSvh3LfZ2L8NXibwy+yVKMBUcVC8xZUAixf+it9Xmr7VQp1NPhRZlb6twB0DYVucYk8M=
+ bh=8R4qgqZLu8a6eQIwqdmHx+EWBHCSwtMzx2aEWL3+Q0c=;
+ b=Fu/WEdCE+Vhr7u4MGl8o2qiArB4QXsl6B+KTRgqnmsZW33wVqDzxLocmfJxgGilV9tGIaBOJVvT1Fip2jsGP7Z9tgASo2O352kcTB/mi9FHS2wqCljcCxx+nDEtJTfPSvM/6+0QMxr2jBIyJBJoTH5BvsBeyGJFalFl/9bxSWiU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB9446.namprd12.prod.outlook.com (2603:10b6:8:192::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 13:00:45 +0000
+ by SA1PR12MB6824.namprd12.prod.outlook.com (2603:10b6:806:25f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
+ 13:06:03 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 13:00:45 +0000
-Message-ID: <d14e081f-d0b0-41b9-adf2-f7a914449812@amd.com>
-Date: Mon, 6 Jul 2026 15:00:41 +0200
+ 13:06:03 +0000
+Message-ID: <be0b18e2-d5c0-40d5-b5ed-01acf6189955@amd.com>
+Date: Mon, 6 Jul 2026 15:05:54 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix lifetime issue of
- amdgpu_vm_get_task_info_pasid()
-To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20260706125856.634904-1-shahyan.soltani@amd.com>
+Subject: Re: [PATCH 03/10] drm/ttm: remove ttm_lru_walk_ops
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-3-43685ac1286b@gmx.de>
+ <247fece24913008be6d42ab0b6f19da1cb95abe1.camel@linux.intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260706125856.634904-1-shahyan.soltani@amd.com>
+In-Reply-To: <247fece24913008be6d42ab0b6f19da1cb95abe1.camel@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0063.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT1PR01CA0057.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::26) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB9446:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5641892-e6a7-4c74-3fc8-08dedb5e97ae
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6824:EE_
+X-MS-Office365-Filtering-Correlation-Id: b73ba18b-ee73-4ded-3a14-08dedb5f54fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: sOCNsC+4Hv6tMwBLKfllvmcilchrE2wcxvD3gLitLFbIcbsncoMIYbX/VYAcBPVYJQjv8svqMiJmWqi8aY9RaXaqmA6pJu/Qh+BNc05z23pMcnuLz0UVlIS0x4MzLvMJH9MCgFJWlsEv1Qj8rPDvEklsB5wfRhbarCE7PsisPhkyZ7f84o99RPj0APgyMpIl+GJ3YM6I9K/X8xzEXDJ13HRhlg/SByflOZupAqgCJFX1RdiLBp3F2Oc0Sp+g1YapcYSb0zrulHlc2MSDsRMxM/dYmqQeY5WlvQoI5l1wbHnxTMJhR5ZwW7ajxhzlm6RtYHxsHXECXUEtqweLEjHDE0bSx2nY+DYgVPQdxD8iubbHyecoDrj/kbQt2llAsT2AISwRC10Ge+2d34kPsOI+rZI/3IHwFMhaWZRHHokJNF41EubveolVQPlFJH23+UHkn1i+1jJ8pqQthKosFm3Opq7dUMiCTmsZtwqkSy/UPxdCRgdye4WT6fwM77pdm+4WJirEmk5uSSpb3RiLC6YuQYEYL5ftq6RfdtNgo7XDatJsCxPnMcCHVimArU0xfYWFZKopxoaqvpNUSbC5IE7Zl5rp/E+d5odWiUzepLfLmGDFmuMHI+0sFEVo0BTn4ugzKRTfVWNgBiZOOtg13Jzy79hd4K4dYtBAexCCwFBYy74=
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|56012099006|11063799006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info: Pr0bIgSdb2lXFtwIIa3M0Gorx6n2ZRv8fi+8Ibv3yiPDosYUkdEhDh5XqwzYMOI9UZucYArnHRu2CfCmH5lO3M7E5xWXfsC2CJq4JvyS1aY9ZDudP15kyJgGe2wakcQGJHbLNhnvDkBvnoCB7Y8G41b/mU1uCndVtvCNMEPJUjCeau0LIMw5Qi6x++HYnTJV12HVE1xjUdCDeeRPE8/w216kI6qsfcsYkh6RfE2lWUtq5Rt0toHP/qX2ysXeCE6BW8j8i9nqyTwTHBG3qgFYw2019EsL/TedRZlrhB2936tB+s53fRn/9OIkioaVwYgT3FM4uVGp77RUiNRE6IEMA9l5DstkXEHZXLdEwI7g63RbT95JOQfdJ809+J1rkUwwxT8uKGVRj2bAxS1he9EYTRyYmcuUkBvEUXZj3xplErfdh9cCvUhhA9Yyja/41FXSbWME9CAWNCBdrKztjPhyE4qyN0p+ijI9B/xHwpaPLb0hqg7hBPwpz/57ek/xQ74fpxmacEjDETSnUbuDF7S7FOdrPzuwVu//CzhIMRriH2Ujp2REpL2ScNeMD0IijoRHjGWbSMK13RmDC2A80oF2dIj3lYRGwucTvs7Lx9lIldGxWU2Bwzj1JFAev2WAt/VqwqbaSXWVPRrelqKroHuT3M0ogR1pgLFSewi78zl3/SKYycWxmtakbEcSUKJ1+6MlLv2pJihF+9mgMLPtAnCuMg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(56012099006)(11063799006)(18002099003)(22082099003)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDJDVWFSTEJwaXR3SWFYeGNDTm1lRFMyVHlPTFRvVUpCTGVidWdIVGNVZXo3?=
- =?utf-8?B?enM3VWZSd24waHZiU29WSTI5Si9KUU16R0dISWUxODlYNEh1MjBzRlNyRXM4?=
- =?utf-8?B?bGxEQ3I1bURRT3pwajNQZHMzcXRPUG9TNWYzR0o5M0JEVGhIQ0FJWWthUWkx?=
- =?utf-8?B?QWlyd251VXFCQlg2ckZRcXk1TVB0a3FKUGNPb0VHYXBqUlZBbE1wYk9oUGpS?=
- =?utf-8?B?QzdGNDFtaXJwU0xMclVWUCtzK1IrSzJDQzA4RWp1di9iQVQ0cE9Way9MRDRQ?=
- =?utf-8?B?c0hGUHdINGhNWGRhSXRjdEJVNS9QSGNUa0tIdTNvMm5SUlVteGw4ZXZJZS9a?=
- =?utf-8?B?ZlJ2QnZ4bGxjZWwweFZGaXhaZVBBT2NpaDBteHA2bDZGak5iSndNYlZrY2hX?=
- =?utf-8?B?RVlTYlVvQzhONndGWGw4SXVUeFM4eVFlMTlzZFJQdFZScXA0RjBqT2h6eE1R?=
- =?utf-8?B?K01Hc2JNeVZIbFdaQXZXa0llTW9INWM2QjZoekVONlo1QnhyUE1BQTVrMFRO?=
- =?utf-8?B?eXFCd0h0ZDhZbU14WXVJL2tOajJuTzJjbnRtazBld3I4c2FWUnQzYisyYjQ4?=
- =?utf-8?B?NytDWWVqeVcyUzdEdjZFUGRNQnNtSmJMZkJUeVN0aE1oTTg5YkFZTEhqaUFm?=
- =?utf-8?B?cUVNRXBnS3UzbEdnek4zRGt2NEozc20wVjJmNFBsVkV2bXR0Y25YT25BdHVj?=
- =?utf-8?B?c0lPVmNoV3BrODN2VVl1ZXFQWHpoSzFFTTRueGZYUlE4L0N0TWkxcmIwMHBB?=
- =?utf-8?B?QzBzZmtlY2FBMUtwb2hkc3l2Qm0zL2NpUTR5Yk9CT0hveHdqdDhNVmVVVlYv?=
- =?utf-8?B?bkVXRmlwajNtZUFHRXc4TzMvSnBXSWJSeUc1K3JPLzZZa2ZOTVprWnVFRHBm?=
- =?utf-8?B?SmV3RGxDQWpPZnNMOW1PL2ppTHppT2JSUkVZR2NrME0wTkdmSkxzYnBlREU3?=
- =?utf-8?B?R3FMT0NubEh1bzdPL1FROTZ6a0dDSjA0K1ZTQ2tLeEtCTmhEaUE1ZThqYUdP?=
- =?utf-8?B?dmp4VkcwSTdqcEsrRU1ZbGRtbGxwK2NRYVl3aVYvU01zVkFjT2lqZmV1aGlU?=
- =?utf-8?B?eWh4czluZ3VJSmpPTVNIZEdRYzYvZnJCL0NFU0Z5ZC9hNXNpbTQyWnczSHRZ?=
- =?utf-8?B?bmN0VDBDRzhpNDNMT2ozTzA3anFseTVZK0lndWtlMjBLU0VWaFBOQ3FNcUw0?=
- =?utf-8?B?cnZUb3QxSEpPU1hVZHZKQXpTKzhoS3MvQWZPQXRSNGZTSHg5YVVhcGFSL3hm?=
- =?utf-8?B?QW5GYUkwajF0UGRWcDQvaWRmRnZlTldyMFdRcExRQUtRaTZDMFM4Vnk0ZTFU?=
- =?utf-8?B?WHNpWnpiRU50enNWdVpLZ3R0K2w4ckZnWElESjFNRzlTZDRKd0thQnRpY1dw?=
- =?utf-8?B?bGpEUmErczc2ejNXWENGNy9oQzdGcTlraWxlWFp2NHl6N2gzMWloQXlTRm9U?=
- =?utf-8?B?ak96NTRkNU5Ha21mZGVNb3VoeFlKTm4ySU5BYjkzRHJBM3V4VHkvOFV2dHkz?=
- =?utf-8?B?djRvdjRXNDlhZnhpVkpRbytwTGplVnFJS09EUFIxWEdlbWNCaU1jbFhCRG5q?=
- =?utf-8?B?b0R4aWI5dEdNcnYzT3VTODFGUkdhM0JlT1BJc3ZjNHBsdXY5NWZlNXJzOThW?=
- =?utf-8?B?OWRZTXBqL3VzVTMrMGVhMkk0Y25JcnVjUG9kOCtiZkFXM3d0ekljL0sybS9K?=
- =?utf-8?B?VDBtSFpabXdhWlRqcnZUd2FLSXZBb1FaM3U4aWVDbDhnMThvWmdVcFZvVnAz?=
- =?utf-8?B?YnRXNFpIMGVsQVpsR1UzYlNqMWNMdjFoeGRYL1hqVjlOS1FUQ1JRbnJCUFc2?=
- =?utf-8?B?aUdKQVBDYlE5VlQ4UFlFZVgwUk5ERlJoR1E1N2R4SHRNWmxSMWxvTjExakRG?=
- =?utf-8?B?NlZWeVRVbWpZSDU3ajNCNStDRGVTdytFRm85UXp6THhSaE1BZWlObEM3NWIy?=
- =?utf-8?B?ODdJWjErTXFqRHJjcFJ2Ty9kT3RSS0M0SGxycnlmOFNVUGZKRTBEbitUYk55?=
- =?utf-8?B?UmgweGtnK2M0VDZrSVZ0UFhmK2E2OHhVSnFvUkxtaThzcVdPaUhJVUpmMWhM?=
- =?utf-8?B?TUYyRTBKTG1FWkdocDlTTFZpaS9ZbVlIRVVSTWFXWWNCa2dUR1U5eDQwVzJY?=
- =?utf-8?B?RkRxY2QrVVNTMEJXSVI5LzU1VlZVVVJ3S1lxdWVuY2gzUmplTkJUekovK3lF?=
- =?utf-8?B?QlArNzNlMUlyL0hSWUJ1M1pkUXlPeGxnTXhiYThWckczWEN3N0M1ZVFvUW1p?=
- =?utf-8?B?WGNLc0ZmUUJGcVZsK0tvR040eG43Y081NDJOSHVFTkRPQTRoSjYwTExwVFZS?=
- =?utf-8?Q?D6y0K2zvpKsNYvd6WZ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVhTVkVhbWFnTUVsSFJhbUFRV2N4eTVtWCtxRTc4b084eEphN1VQYVVqcnpG?=
+ =?utf-8?B?MFVYRC94V0tKVzYwTW0xUjJrN2dadFEzcFUzcGVuR3IwUFMyaW1aS1ZYVFpl?=
+ =?utf-8?B?YjhkdGQxNXpCUHZleWxUa1Z6VHZoaEcwbnlxb3MyQjcwb0Y4MVNKNlZXQzlI?=
+ =?utf-8?B?cmRvSUlJcTh6NWd3cXQ4TmpiYkd0dXpLS3l5Z1RLd3lGb3lZTFpNdlpCM3VE?=
+ =?utf-8?B?cWtaSGxXYlM5YXVBbjRYS0QyV051dkt2TjBLU0tEaUtGSUk2Nlg5a2dibi94?=
+ =?utf-8?B?VWE2RDBPazdJbXhNVjJ4UURTZmVqS1hLS3dzNHcvZG90djg5QXA0NmN4cE5l?=
+ =?utf-8?B?eFpWWm5KNzI3ODRTWUtadnhuaEhwdDMxU2VFUzVqRzQzbldxMTdqR3NyQVlI?=
+ =?utf-8?B?eXZhVXVtbE4wSG14NUp1dXYxNlJpU3EyYVNsNVI5TTlZdnBmMEF3bGR6c1Ni?=
+ =?utf-8?B?Zm4xSUlROGE5S25jdWpYTWZsRlFQSjQwS0VyMHIyMWFITTNDZXdpbjliSGIz?=
+ =?utf-8?B?cXVjalBpdFl4NTdJcVdSTEl4TXdHcHdZcWZNMDdMaDg5VkxLZS9hKytxeVNP?=
+ =?utf-8?B?dkpzWTNCZ3l4LzYyRmhuR3BiME4rcjhoS2FYSlNOM3VkdVpVdlZBZkwrV08y?=
+ =?utf-8?B?c3gzMnE0UDgyM3kvejZCYXhvVW95RUZkVUNxR0cvMVRDWTFnUGdoQWVqYjZm?=
+ =?utf-8?B?WGx5S2pZbzZEc0xxZHUxWHJsQjJvanhtckQzcTR4K0g0cmQ3NzV3YUJtV08v?=
+ =?utf-8?B?bzI4UjVSVDZhOFVKWVlneC9IQ1dueFE3ektZaGNOa0J4TFlLY1BlNTJvR093?=
+ =?utf-8?B?aFl6NG1XWXpXQU1FZ3FRZFl1SkcxWlkrRkZtejBHUHIwcEhWVkF1YzlUVzRI?=
+ =?utf-8?B?YWhqQWVZRmRUQkNwN090ckNRa0JTTHRGN1JCVFZZUldCaVYxd21yWEZuTlRM?=
+ =?utf-8?B?cE1aZFB5Q1FwNThrYStWck5hTXlCeEVxQ05BK2dBUVlhQUpsSkdMbXdUd2R6?=
+ =?utf-8?B?VUNFNVNybEZMOEVPTFJlTW94bEp4eE5NRHZ0MjF2bkI5SFFDL1Z0VlFTdE16?=
+ =?utf-8?B?ZGFtYU9xUTJpcnloREhMMkxMQUNBR3VpVjBMRzFTQzZXelUzR2FVVWxwQ1dq?=
+ =?utf-8?B?ckdSYlFuS2d5OFFzQ2ozaUFyWkFrenhrVUNmUUM5djhQZHhHMFhOY1dKMm1m?=
+ =?utf-8?B?QkdZZytXUmdYYnh5M0pESTJIb2pKRW9zZ0dPdVVWRTgxcTl5eElub0RFQ085?=
+ =?utf-8?B?amJrZFU1OWpMdXF1Tnk2NitCTzNQNmFUalVIcUNvS3BXc3JzcElWaWpJc3NE?=
+ =?utf-8?B?dUNMYWdiUEhpSzBXWU4vczFtUFJVWFAwRnR3Z0pNL0x5TDhiVDMxT3QzR1g3?=
+ =?utf-8?B?Vi9nWE5mZUlvRVcyQUI3S1NGYkxScnY3d01nUXVTa3o1NXIxVVU3d3RSc1hh?=
+ =?utf-8?B?dndRQlFXWHJFaU1CcVdaamt6d3k4WDdOT3c4RlFoVEJGUHNJL1Q4ZjJsblJ4?=
+ =?utf-8?B?OEdyU3AzUlFsY0VKUjh3NzFpYmhhOFpjcFU1SGRCZnB2YjBOWXhuRmFFUEZp?=
+ =?utf-8?B?cXNmdGsyM0ZzSXUzaWJvVFdMaHdmUHdqV2Y1elBnVTBRV1Z3SGNhTUZqMmY0?=
+ =?utf-8?B?V3p1RDQyVXlkQy9vSUZVVVhvUzZxSzNrN0w5T2lPRXJzcTB5djlxd1RmU3U1?=
+ =?utf-8?B?elVWODk4WkNrUlZqT3drci92eE4zRUsxLzhCQmIzUkRFYS9NalhRUmhvL3py?=
+ =?utf-8?B?cnQ3RzduS1o2djdLRDZHUWpGK0UyeXBxVXRXNkVvVE9pS3Erai93SUkwZ3J5?=
+ =?utf-8?B?VlZOOWFyZDZ1MXVTLzlLOHJFbmozSzVOcElpSHp5VHBFQTVLdDl0dkhvcTh5?=
+ =?utf-8?B?NmNrK0g5cXV1Q0VxOVN0b05LNnBURU9Sa3duRTNZK3N6TCt6NkN6Ni9rUUYv?=
+ =?utf-8?B?cWFzY1BRdWh2MWhkQkFVdDJIMVowMTBhYVFBRngzMHk0SlZrVWhId2RqTkJz?=
+ =?utf-8?B?RkVuY0lpenRMUHNGZ2JQYTFxellZbTA5YXQ5dFpjYnBPczloMDlUZThJWG8z?=
+ =?utf-8?B?Ky83MU5BUTFNcWV6UzJtQUNobjBHYlJNZnZzcGp2c3NqZTFMU2tEY3cyS1Rx?=
+ =?utf-8?B?Q2JIVm5ueHlwc2JkUW82RmxQcjZ5VkFjcmx3d1pKdzlQNWNoY1k3Yzc5TVF2?=
+ =?utf-8?B?eEFzd2dWNDM0dHZseUcvREtpREtSU0xiSllZUEJRSGZOdE1RQlNGaFY4RHQy?=
+ =?utf-8?B?RGJhMVE5YmVOdHpCbk4rYkIwMHpkOGhNTm91SVZvY0JabzErVFFhTTFGSjkx?=
+ =?utf-8?B?Vmw3K1h1Z0MveFd0YWpPK3VJVjlzVEJaMFBnMm9YeU9rYkpUQkJkdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5641892-e6a7-4c74-3fc8-08dedb5e97ae
+X-MS-Exchange-CrossTenant-Network-Message-Id: b73ba18b-ee73-4ded-3a14-08dedb5f54fb
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 13:00:45.4430 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 13:06:02.9230 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A2LZfFKNmE48XzM2qgoPZDXunyxObnBnYHaqZ+6mQ/q1LwT5+9kwaZpd4rm2c5/K
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9446
+X-MS-Exchange-CrossTenant-UserPrincipalName: thPI4Q7unD9eOOhJzKr0Ky1l848DQJeviVRG2k8Rrs3ohQHTkSo/PS0PGbMzYEkK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6824
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,68 +149,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/6/26 14:58, Shahyan Soltani wrote:
-> The vm pointer returned from amdgpu_vm_get_vm_from_pasid() is only
-> valid while the lock is still being held. Once xa_unlock_irqrestore is
-> called and returned, the pointer is no longer under lock and is subject
-> to modification. Since, the caller still dereferences vm->task_info in
-> amdgpu_vm_get_task_info_vm() after the lock is removed, this causes a
-> use after unlock problem.
+On 7/6/26 14:34, Thomas Hellström wrote:
+> Hi,
 > 
-> Remove the lifetime issue present in amdgpu_vm_get_task_info_pasid()
-> through removing the amdgpu_vm_get_vm_from_pasid() function from
-> amdgpu_vm.c and making the relevant code inline to hold the lock while
-> it is still in use.
+> On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+>> From: Christian König <christian.koenig@amd.com>
+>>
+>> It's just another layer of indirection.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 > 
-> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+> Personally I don't have a strong opinion on this, but the reason for
+> separating out the ops is that adding function pointers in the walk
+> iterator itself was once pushed back on quite forcefully by Linus when
+> I tried to do that in mm/pagewalk. Claiming for various reasons the
+> standard way of doing that in Linux is using a const ops struct that
+> ends up in unmodifiable memory.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Ah! I was already wondering why the extra indirection was used.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 25 ++++++++++---------------
->  1 file changed, 10 insertions(+), 15 deletions(-)
+I'm perfectly fine to keep it. It just looked a bit odd.
+
+Regards,
+Christian.
+
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 32719f31b6c9..180d694323e8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2460,19 +2460,6 @@ static void amdgpu_vm_destroy_task_info(struct kref *kref)
->  	kfree(ti);
->  }
->  
-> -static inline struct amdgpu_vm *
-> -amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
-> -{
-> -	struct amdgpu_vm *vm;
-> -	unsigned long flags;
-> -
-> -	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
-> -	vm = xa_load(&adev->vm_manager.pasids, pasid);
-> -	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
-> -
-> -	return vm;
-> -}
-> -
->  /**
->   * amdgpu_vm_put_task_info - reference down the vm task_info ptr
->   *
-> @@ -2519,8 +2506,16 @@ amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm)
->  struct amdgpu_task_info *
->  amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid)
->  {
-> -	return amdgpu_vm_get_task_info_vm(
-> -			amdgpu_vm_get_vm_from_pasid(adev, pasid));
-> +	struct amdgpu_task_info *ti;
-> +	struct amdgpu_vm *vm;
-> +	unsigned long flags;
-> +
-> +	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
-> +	vm = xa_load(&adev->vm_manager.pasids, pasid);
-> +	ti = amdgpu_vm_get_task_info_vm(vm);
-> +	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
-> +
-> +	return ti;
->  }
->  
->  static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
+> /Thomas
+> 
+> 
+>> ---
+>>  drivers/gpu/drm/ttm/ttm_bo.c      | 12 ++----------
+>>  drivers/gpu/drm/ttm/ttm_bo_util.c |  2 +-
+>>  include/drm/ttm/ttm_bo.h          | 34 ++++++++++++++---------------
+>> -----
+>>  3 files changed, 17 insertions(+), 31 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+>> b/drivers/gpu/drm/ttm/ttm_bo.c
+>> index 2b470c1746f60..1fb8c53da0362 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>> @@ -545,10 +545,6 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk
+>> *walk, struct ttm_buffer_object *
+>>  	return lret;
+>>  }
+>>  
+>> -static const struct ttm_lru_walk_ops ttm_evict_walk_ops = {
+>> -	.process_bo = ttm_bo_evict_cb,
+>> -};
+>> -
+>>  static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+>>  			      struct ttm_resource_manager *man,
+>>  			      const struct ttm_place *place,
+>> @@ -560,7 +556,7 @@ static int ttm_bo_evict_alloc(struct ttm_device
+>> *bdev,
+>>  {
+>>  	struct ttm_bo_evict_walk evict_walk = {
+>>  		.walk = {
+>> -			.ops = &ttm_evict_walk_ops,
+>> +			.process_bo = ttm_bo_evict_cb,
+>>  			.arg = {
+>>  				.ctx = ctx,
+>>  				.ticket = ticket,
+>> @@ -1187,10 +1183,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
+>> struct ttm_buffer_object *bo)
+>>  	return ret;
+>>  }
+>>  
+>> -const struct ttm_lru_walk_ops ttm_swap_ops = {
+>> -	.process_bo = ttm_bo_swapout_cb,
+>> -};
+>> -
+>>  /**
+>>   * ttm_bo_swapout() - Swap out buffer objects on the LRU list to
+>> shmem.
+>>   * @bdev: The ttm device.
+>> @@ -1209,7 +1201,7 @@ s64 ttm_bo_swapout(struct ttm_device *bdev,
+>> struct ttm_operation_ctx *ctx,
+>>  {
+>>  	struct ttm_bo_swapout_walk swapout_walk = {
+>>  		.walk = {
+>> -			.ops = &ttm_swap_ops,
+>> +			.process_bo = ttm_bo_swapout_cb,
+>>  			.arg = {
+>>  				.ctx = ctx,
+>>  				.trylock_only = true,
+>> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> index 7ed085adf1c9b..29f068944a972 100644
+>> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> @@ -919,7 +919,7 @@ s64 ttm_lru_walk_for_evict(struct ttm_lru_walk
+>> *walk, struct ttm_device *bdev,
+>>  	s64 lret;
+>>  
+>>  	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &walk-
+>>> arg, bo) {
+>> -		lret = walk->ops->process_bo(walk, bo);
+>> +		lret = walk->process_bo(walk, bo);
+>>  		if (lret == -EBUSY || lret == -EALREADY)
+>>  			lret = 0;
+>>  		progress = (lret < 0) ? lret : progress + lret;
+>> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+>> index 1eae9eea5ff32..0fcd5082a7080 100644
+>> --- a/include/drm/ttm/ttm_bo.h
+>> +++ b/include/drm/ttm/ttm_bo.h
+>> @@ -189,24 +189,6 @@ struct ttm_operation_ctx {
+>>  	uint64_t bytes_moved;
+>>  };
+>>  
+>> -struct ttm_lru_walk;
+>> -
+>> -/** struct ttm_lru_walk_ops - Operations for a LRU walk. */
+>> -struct ttm_lru_walk_ops {
+>> -	/**
+>> -	 * process_bo - Process this bo.
+>> -	 * @walk: struct ttm_lru_walk describing the walk.
+>> -	 * @bo: A locked and referenced buffer object.
+>> -	 *
+>> -	 * Return: Negative error code on error, User-defined
+>> positive value
+>> -	 * (typically, but not always, size of the processed bo) on
+>> success.
+>> -	 * On success, the returned values are summed by the walk
+>> and the
+>> -	 * walk exits when its target is met.
+>> -	 * 0 also indicates success, -EBUSY means this bo was
+>> skipped.
+>> -	 */
+>> -	s64 (*process_bo)(struct ttm_lru_walk *walk, struct
+>> ttm_buffer_object *bo);
+>> -};
+>> -
+>>  /**
+>>   * struct ttm_lru_walk_arg - Common part for the variants of BO LRU
+>> walk.
+>>   */
+>> @@ -223,8 +205,20 @@ struct ttm_lru_walk_arg {
+>>   * struct ttm_lru_walk - Structure describing a LRU walk.
+>>   */
+>>  struct ttm_lru_walk {
+>> -	/** @ops: Pointer to the ops structure. */
+>> -	const struct ttm_lru_walk_ops *ops;
+>> +	/**
+>> +	 * process_bo - Process this bo.
+>> +	 * @walk: struct ttm_lru_walk describing the walk.
+>> +	 * @bo: A locked and referenced buffer object.
+>> +	 *
+>> +	 * Return: Negative error code on error, User-defined
+>> positive value
+>> +	 * (typically, but not always, size of the processed bo) on
+>> success.
+>> +	 * On success, the returned values are summed by the walk
+>> and the
+>> +	 * walk exits when its target is met.
+>> +	 * 0 also indicates success, -EBUSY means this bo was
+>> skipped.
+>> +	 */
+>> +	s64 (*process_bo)(struct ttm_lru_walk *walk,
+>> +			  struct ttm_buffer_object *bo);
+>> +
+>>  	/** @arg: Common bo LRU walk arguments. */
+>>  	struct ttm_lru_walk_arg arg;
+>>  };
 
