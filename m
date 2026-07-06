@@ -4,77 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D1EC43458
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34726C43458
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFDE210E353;
-	Mon,  6 Jul 2026 11:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0D5A10E34D;
+	Mon,  6 Jul 2026 11:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BujReDTG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="opJzsSk0";
 	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B62210E353
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 11:36:19 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-92e533aacf2so129124285a.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jul 2026 04:36:19 -0700 (PDT)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2C810E34D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 11:39:31 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-92e512a9a6bso120638085a.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jul 2026 04:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783337778; x=1783942578; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=eI2RFBADatE519dR/g8Z358f1+0B3inK+oU4BAAsg9w=;
- b=BujReDTGEJTFP6aAuKic2+aRZMrBPx/BlZZVCseK78l97U/pgKGZi/bsKIkP/J+iGF
- hPJhVqcwzRJrEbishF3JlSKJeKQBm1Q4tELM6ziCQkxEsVpmY8TTcoWFoKwG+GCjjH/g
- 0V/sW5EGw+w8GDoQV98KZbhIXRLZfW+6qRaxzjmm2xvS+l+OscynL5jQOeofrpxlUcCa
- j6NkXkawmjVmOrQQ6Qhg07wKkzIuNWrsczr4y2fHRbrPimvI2v/kgwzIYXnX5EfXDQSU
- sKn761hARe1nrDJhRiSphIeSGL8Zvxgq0C/2rfsW+jxVvB6HJHB4p3XezyIfXYAQpzQ5
- rIuw==
+ d=gmail.com; s=20251104; t=1783337970; x=1783942770; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=M0Z8z2hQuVXZTXJB/8X2KRBea8t4sgsU0prcB/4mvG8=;
+ b=opJzsSk06LlM362iXKbAE0vB55zbZ+minE4HCL+CllcgAqiU77vdGAAaoZ16nOhG+L
+ Ssyct1wvLfMS3UMG4SnoMIBoEUjnHA2ThMCpwnCdB3u/Yp9Dh9cTS2S01OB+jUCaJZVK
+ GB/5hTrJvfiXZ+O+Ygi67HdI0wydHMaYAlSPXm2g91dSqeSonYg+UErYu3WDxgGp8WAJ
+ KIsFgHnihHxcreJhXpgMrcx5VIJAkvAEbhK1t/kulUdGZ2MSf8QlswPBbgxvtcE1GV1B
+ h7RCRuxFCVJddukOeBpIFMwPs28ehD0FgBPRgY+/B+7JVozB7YYK39eny3TAsMfFx2LT
+ 9QRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783337778; x=1783942578;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eI2RFBADatE519dR/g8Z358f1+0B3inK+oU4BAAsg9w=;
- b=CKNs69zmxrqBcfYtGP/3vegvtIU3fWXlnlan6VCONqzkkanx7ZD8BZgUZYc4Kb+eNl
- S+uqHqfhfzWZ7xLOi4ttyRZPbJTpNbqNu6WTmerF14FWEZJEwyJvB69JLnWrkU+0aWsI
- UcrVoiicmq5SgUS6k3LOlRCW6VbgwsiBckl1PAdfygI1uEePAgcm76XvmEUisPzAQuzH
- bKUbqmj/DpSubo2EHXtRzGgaUieWPy5RcE8d1J/Nxy1p5yOlNQjpTBCZ58MfG/fmYk0Q
- W/wF47NIN3/4jhJOv/nFq/gRybyBtCOeV0Z+gPpJKUNhLJSYbkOlAoMc3Q+stAF3n7He
- uNJw==
+ d=1e100.net; s=20251104; t=1783337970; x=1783942770;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=M0Z8z2hQuVXZTXJB/8X2KRBea8t4sgsU0prcB/4mvG8=;
+ b=UforprEaxglsWNPG1eucNPWvOek+oMWZ1CyopszlQQbWjrP8YakAH+GPYBDYHb4+7K
+ AFqEHbCqRURUTrBmyZKRP6/JUqr/phyoW41CHXr2cOUqwgBb3VhxZwhyidhA0LVBM8yf
+ fnbi87/SSBOe+n5cXVRsJXif3A98aps3RCf5uIQNoK+8uucCCFfr+MlAxMA/U3RN0oOx
+ +zbDePyeyJ18bmtidhAsfDRD1YTVr4E7RIiPh2ybScqzS0R7R3l1SVzx4dfCME4E9j7n
+ 3P44GE2jZeGD7s/5ODFfuDlu0caYmtNs2aG2JjSRNVkZFwCncV4ttNwdAHLT/j9hIawT
+ mA2A==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrUrFMeV70VKECMHljIJG7TvLD+vEyRUCeXXNC4rMbt52byjvNYKNCSgLBmjUF5GX8cs3D9vFUr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyemWcD4mVkfDUCHZT+zqKIX0HeEY3vaw9PeWOFQw66YnPEhOEk
- Oa3q9V+MiFULjMfnMqkZ+xmbjLzlDM0yxyEvoFXfnjoGtq/ymEp+rVrY
-X-Gm-Gg: AfdE7clqLnXh5qySBPwtf3V8kYJgqL18ikVc5xViPh8UKTWnW/uzc09JowoIkWmfCnO
- RE8L1HlxhvR4zdWllfTfZQsPs41PaSfJTYjD+pvJyJwY/aX2Cnl0bjne16YWTXndExiCY9C79iU
- 3SWEzLWTRNYiU/dRWq+3fPszW4N20QenSVA7/QlUltLWygq/o/+KoF1B1AYlvgt9RwRla/OV6ff
- tWS4iGRLG8mMv6syYogYhfrYERFSUkmW6y94pI0mWTMooKcUJkc+iUaZpGmxVTACWiBJ51/NnhS
- 0pmmkAfSuPIChOsHudil3ik3FjgnaB1QQndfqrCl8loG6s7tOMSe2nj/xRzqiqpw3cWXsnKNvOx
- u1NTceQs+WV3jOCKxduh8RLkRUuyCXLRAC5L25huSWjHZkOMFTPq+Po3+bhNarkLlieA+Dd5ExU
- 6DjRkWxoOR8pbycnkI5mQsySABLh1flq28raZ0WyKKZnDW
-X-Received: by 2002:a05:620a:4486:b0:928:f440:2dc7 with SMTP id
- af79cd13be357-92ebb5dec59mr16408385a.35.1783337777641; 
- Mon, 06 Jul 2026 04:36:17 -0700 (PDT)
+ AHgh+Rp/Y9fxkE1ysVHm7wBPdPpEo8NKA0tyoMlVY5ze5sWIO9qTfwKJywVQwLClJ84WDKzR2XX2uWvR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwreOCFtWR52znfoWoPU1blm+I6lg42GnS/FNPrerpDujiZt9D0
+ pwIGZY3c2fmLEAXweCx9F+jGvltOOG5KKq9QcrTC013Y8klqay03EV+U
+X-Gm-Gg: AfdE7clnhs4vZ5rnhSlYK4I78Cp1tew8QKl8HNN9OmCrXSBIJdQtb9s9gD2L+OvMngp
+ 0fEU1RXCRmf+/u4ITrA7TVXsMPRkoQ4qsj4pn3tiD1pQT07FT/ZUpuDlVLoCDgmnHa+Gbw6NPqv
+ C5SILfpr7287Zu7+wt9sVPyU8aEf1rxRpxH6zkOU4q1hIVbD1X5JJGihSPTqf+CXozBJMiw/h7H
+ uFKZZFehgZ0W8xCQEqiXoDXAQzWF4SizK2iW2nq5o91CUrFWkTE0ZuUK72bEWzeHqWqiBLLtIZi
+ +hYOSizv8JDTeSs14iulmWVb97pQC4JYbJzkkgyIEpcAjIj77UZDNi2Mp8xAZhbBAkWrbEgi4j1
+ RHxuu8xp0LkfP1Q5ZuhqXzQ3ezg+d7nWAjRP0MvOxEEBX+aTF1AZ5402N09aS84JBHoB5cg846u
+ 3U2Z6P+G8jFTx4hOS+DAfM+yDGACxGGVStrJYZiF0uQ8k4
+X-Received: by 2002:a05:620a:198b:b0:92e:6b16:6a09 with SMTP id
+ af79cd13be357-92ebb589de4mr19803685a.49.1783337970461; 
+ Mon, 06 Jul 2026 04:39:30 -0700 (PDT)
 Received: from [10.254.122.221] (mkmvpn.amd.com. [165.204.54.211])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92e90cfe34dsm947412485a.46.2026.07.06.04.36.16
+ 6a1803df08f44-8f46f304533sm133446416d6.18.2026.07.06.04.39.29
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 06 Jul 2026 04:36:17 -0700 (PDT)
-Message-ID: <48d65314-02fd-401e-b2a6-1b09c6f8da5f@gmail.com>
-Date: Mon, 6 Jul 2026 13:36:14 +0200
+ Mon, 06 Jul 2026 04:39:30 -0700 (PDT)
+Message-ID: <6151568f-037e-4a2e-9a38-aa1ad692dba2@gmail.com>
+Date: Mon, 6 Jul 2026 13:39:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: read FB through BAR0 when aperture is
- unavailable
+Subject: Re: [PATCH 2/2] drm/amdgpu: improve the amdgpu device init progress
+ in sriov mode
 To: chong li <chongli2@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: HaiJun.Chang@amd.com, Emily.Deng@amd.com, Cursor <cursoragent@cursor.com>
 References: <20260701055355.20478-1-chongli2@amd.com>
+ <20260701055355.20478-2-chongli2@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20260701055355.20478-1-chongli2@amd.com>
+In-Reply-To: <20260701055355.20478-2-chongli2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,12 +93,14 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 7/1/26 07:53, chong li wrote:
-> Allow early VRAM reads to fall back to a temporary BAR0 mapping
-> when the normal aperture mapping has not been established yet.
+> Move the initialization of non-GPU resources
+> out of the full GPU access region during AMDGPU device initialization
 
-Clear NAK.
+As far as I can see that won't work like this.
 
-You are just trying to fix a symptom of incorrect initialization order here.
+There are a lot of steps which require full GPU access.
+
+What exactly is the justification of the change?
 
 Regards,
 Christian.
@@ -106,69 +109,35 @@ Christian.
 > Signed-off-by: chong li <chongli2@amd.com>
 > Co-authored-by: Cursor <cursoragent@cursor.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 43 +++++++++++++++++++++-
->  1 file changed, 42 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5442a1fc1c37..610d82b79de3 100644
+> index 610d82b79de3..c2ce4659ddc7 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -743,6 +743,44 @@ void amdgpu_device_mm_access(struct amdgpu_device *adev, loff_t pos,
->  	drm_dev_exit(idx);
->  }
+> @@ -1994,10 +1994,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  	amdgpu_device_enable_virtual_display(adev);
 >  
-> +static int amdgpu_device_read_fb_via_bar0(struct amdgpu_device *adev,
-> +					  u64 offset, void *buf, size_t size)
-> +{
-> +	resource_size_t bar_start, bar_size, map_base;
-> +	void __iomem *vram;
-> +	size_t map_offset, map_size;
-> +	unsigned long flags;
-> +	u64 end;
-> +
-> +	if (!buf || !size)
-> +		return -EINVAL;
-> +
-> +	flags = pci_resource_flags(adev->pdev, 0);
-> +	if ((flags & IORESOURCE_UNSET) || !(flags & IORESOURCE_MEM))
-> +		return -EINVAL;
-> +
-> +	bar_size = pci_resource_len(adev->pdev, 0);
-> +	if (!bar_size)
-> +		return -ENODEV;
-> +
-> +	if (check_add_overflow(offset, size, &end) || end > bar_size)
-> +		return -EINVAL;
-> +
-> +	bar_start = pci_resource_start(adev->pdev, 0);
-> +	map_offset = offset_in_page(offset);
-> +	map_base = bar_start + (offset & PAGE_MASK);
-> +	map_size = PAGE_ALIGN(map_offset + size);
-> +
-> +	vram = ioremap_wc(map_base, map_size);
-> +	if (!vram)
-> +		return -ENOMEM;
-> +
-> +	memcpy_fromio(buf, (u8 __iomem *)vram + map_offset, size);
-> +	iounmap(vram);
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * amdgpu_device_aper_access - access vram by vram aperture
->   *
-> @@ -762,8 +800,11 @@ size_t amdgpu_device_aper_access(struct amdgpu_device *adev, loff_t pos,
->  	size_t count = 0;
->  	uint64_t last;
+>  	if (amdgpu_sriov_vf(adev)) {
+> -		r = amdgpu_virt_request_full_gpu(adev, true);
+> -		if (r)
+> -			return r;
+> -
+>  		r = amdgpu_virt_init_critical_region(adev);
+>  		if (r)
+>  			return r;
+> @@ -2159,6 +2155,12 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  	if (!total)
+>  		return -ENODEV;
 >  
-> -	if (!adev->mman.aper_base_kaddr)
-> +	if (!adev->mman.aper_base_kaddr) {
-> +		if (!write && !amdgpu_device_read_fb_via_bar0(adev, pos, buf, size))
-> +			return size;
->  		return 0;
+> +	if (amdgpu_sriov_vf(adev)) {
+> +		r = amdgpu_virt_request_full_gpu(adev, true);
+> +		if (r)
+> +			return r;
 > +	}
+> +
+>  	if (adev->gmc.xgmi.supported)
+>  		amdgpu_xgmi_early_init(adev);
 >  
->  	last = min(pos + size, adev->gmc.visible_vram_size);
->  	if (last > pos) {
 
