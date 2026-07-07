@@ -4,59 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB4EC44500
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 149CEC44503
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D7A10ECD9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB0AC10ECE1;
 	Tue,  7 Jul 2026 12:58:31 +0000 (UTC)
-X-Greylist: delayed 18681 seconds by postgrey-1.36 at gabe;
- Mon, 06 Jul 2026 14:36:47 UTC
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net
- (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
- by gabe.freedesktop.org (Postfix) with ESMTP id C8A1210E3B2;
- Mon,  6 Jul 2026 14:36:47 +0000 (UTC)
-Received: from zju.edu.cn (unknown [10.98.66.117])
- by mtasvr (Coremail) with SMTP id _____wA3lWV7vUtqkwsSAA--.40276S3;
- Mon, 06 Jul 2026 22:36:44 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
- by mail-app1 (Coremail) with SMTP id yy_KCgCXUpp7vUtqr5qdAg--.62646S2;
- Mon, 06 Jul 2026 22:36:43 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com
-Cc: christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] drm/amd/display: fix HDCP workqueue use-after-free on
- destroy
-Date: Mon,  6 Jul 2026 14:35:48 +0000
-Message-Id: <20260706143548.136979-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ORyrNEqw";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB30F10E4B1;
+ Tue,  7 Jul 2026 12:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783428537; x=1814964537;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=c3xJLGT78382H2wwUUXrHkSRAD2v/5i9yMYobiMW27o=;
+ b=ORyrNEqwR+PyCgLnzJM1twMbyGPZPQM4NjvVkCElfhe0VHiU0myQv4yj
+ NzDpZE74B7blXwXFLlq7Z2XAKIhqsiYdpG8HhRIwo1Qh4WYQgQnyy1+YL
+ U0wj4CT+krUVNyWMUlRlyqQ1j+k///wuOI/O/W2KfNrr9DLG2dzjGE+ya
+ XuzmCKtifKWaIGj4BjiAIzdhdopI2tu0cXSyAAZ0XVFT6MsnQ8GjAKWjQ
+ eoOuxMOIRs/wIkiXnjj5t1DNFcYIIn6QBoS0YEa8XfQVaZrSV/OVUlTyW
+ C0Sh4chLJweUocl+IQMNvCcNGhY8YH8ygsVgDp7I3kC6uTmVp3eWUMUB4 Q==;
+X-CSE-ConnectionGUID: J0EFLz0GQ+aB0L4UqdwNmw==
+X-CSE-MsgGUID: Q8jydyYYQoSAmPiBx8CGaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="84263705"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84263705"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:48:57 -0700
+X-CSE-ConnectionGUID: xQhwTzvLQ/eZltsfvJDHDg==
+X-CSE-MsgGUID: 6++/c9N0RRSb04ShGpxCbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251321073"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
+ ([10.245.244.199])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:48:52 -0700
+Message-ID: <944807b30e00606dc3f4a8ad57c3e8e70ddd2d10.camel@linux.intel.com>
+Subject: Re: [PATCH 09/10] drm/ttm: support using drm_exec during eviction v4
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Christian Koenig	
+ <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
+ <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Alex
+ Deucher	 <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Tue, 07 Jul 2026 14:48:50 +0200
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: yy_KCgCXUpp7vUtqr5qdAg--.62646S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?hJKP1wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
- sfnVCjTgEH9dVomQuWcozCBBGoR3dPZ79r59DHMQ051o0gjtqxuCbEIjiKMJGoEUvIi0Pt
- AvxUW0K5SLWfMxk7ti+p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxXFW7ZFWkWr47tF4kKr4ftFc_yoWrAw4rpr
- WYqr1Yyw4UAr42qr9rXF1kWF90k3ZYqFW0kr4xCw4ay3yrGr13tw1rJFy2gF4xWFWDZa1a
- vF4UX39rZrn0vwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
- xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
- CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
- xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
- kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
- 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
- wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
- WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
- cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 X-Mailman-Approved-At: Tue, 07 Jul 2026 12:58:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,103 +82,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hdcp_destroy() cancels callback_dwork, watchdog_timer_dwork and
-property_validate_dwork, but leaves cpirq_work and property_update_work
-queued. These works are queued with schedule_work(), recover struct
-hdcp_workqueue through container_of(), and dereference it. If either work
-runs after hdcp_destroy() frees hdcp_work, it can trigger a
-use-after-free.
+On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
+>=20
+> Allow specifying a drm_exec object in TTMs operation context which is
+> used to lock objects during eviction.
+>=20
+> This allows to handle deadlocks much more gracefully and with that
+> avoid returning -ENOMEM on heavily contended domains.
+>=20
+> v2: rebased on top of Thomas work
+> v3: rebased again
+> v4: rebased, fixed locks of already-reserved buffers being dropped
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c | 30 ++++++++++++++++++++++------=
+-
+> -
+> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 5 +++++
+> =C2=A02 files changed, 27 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index a53b25e8c2967..96699532817c2 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -38,6 +38,7 @@
+> =C2=A0#include <drm/ttm/ttm_tt.h>
+> =C2=A0
+> =C2=A0#include <drm/drm_cache.h>
+> +#include <drm/drm_exec.h>
+> =C2=A0
+> =C2=A0#include "ttm_bo_internal.h"
+> =C2=A0
+> @@ -837,6 +838,8 @@ static bool ttm_lru_walk_trylock(struct
+> ttm_bo_lru_cursor *curs,
+> =C2=A0	struct ttm_operation_ctx *ctx =3D curs->arg->ctx;
+> =C2=A0
+> =C2=A0	curs->needs_unlock =3D false;
+> +	if (ctx->exec)
+> +		return false;
 
-The HDCP callbacks also call process_output(), which can requeue the HDCP
-works: it always queues property_validate_dwork and may queue
-callback_dwork or watchdog_timer_dwork depending on the state-machine
-output. A simple cancel sequence can therefore miss work requeued by
-another callback. hdcp_handle_cpirq() can also queue cpirq_work from
-outside the callback path.
+The first passes of eviction typically trylocks, and no_wait_gpu also
+skips sleeping locks since they can be held why waiting for fences.
+Otoh we could check that no_wait_gpu and exec is mutually exclusive.
 
-Set a teardown flag under hdcp_work->mutex before draining the works.
-The callbacks already hold this mutex while calling process_output(), and
-hdcp_handle_cpirq() takes it before queueing cpirq_work, so once teardown
-is set no path can requeue work. Then cancel cpirq_work, the delayed
-works, and property_update_work before freeing hdcp_work.
+But I think trylocking should be tried before exec locking to also
+avoid costly rollbacks, in line with mutex lock stealing.
 
-This bug was found by static analysis.
+> =C2=A0
+> =C2=A0	if (dma_resv_trylock(bo->base.resv)) {
+> =C2=A0		curs->needs_unlock =3D true;
+> @@ -857,7 +860,9 @@ static int ttm_lru_walk_ticketlock(struct
+> ttm_bo_lru_cursor *curs,
+> =C2=A0	struct ttm_lru_walk_arg *arg =3D curs->arg;
+> =C2=A0	int ret;
+> =C2=A0
+> -	if (arg->ctx->interruptible)
+> +	if (arg->ctx->exec)
+> +		ret =3D drm_exec_lock_obj_report_dup(arg->ctx->exec,
+> &bo->base);
+> +	else if (arg->ctx->interruptible)
+> =C2=A0		ret =3D dma_resv_lock_interruptible(bo->base.resv,
+> arg->ticket);
+> =C2=A0	else
+> =C2=A0		ret =3D dma_resv_lock(bo->base.resv, arg->ticket);
+> @@ -871,7 +876,11 @@ static int ttm_lru_walk_ticketlock(struct
+> ttm_bo_lru_cursor *curs,
+> =C2=A0		 * trylocking for this walk.
+> =C2=A0		 */
+> =C2=A0		arg->ticket =3D NULL;
+> -	} else if (ret =3D=3D -EDEADLK) {
+> +
+> +	} else if (arg->ctx->exec && arg->ctx->allow_res_evict &&
+> +		=C2=A0=C2=A0 ret =3D=3D -EALREADY) {
+> +		ret =3D 0;
+> +	} else if (!arg->ctx->exec && ret =3D=3D -EDEADLK) {
+> =C2=A0		/* Caller needs to exit the ww transaction. */
+> =C2=A0		ret =3D -ENOSPC;
+> =C2=A0	}
+> @@ -937,12 +946,17 @@ static void ttm_bo_lru_cursor_cleanup_bo(struct
+> ttm_bo_lru_cursor *curs)
+> =C2=A0{
+> =C2=A0	struct ttm_buffer_object *bo =3D curs->bo;
+> =C2=A0
+> -	if (bo) {
+> -		if (curs->needs_unlock)
+> +	if (!bo)
+> +		return;
+> +
+> +	if (curs->needs_unlock) {
+> +		if (curs->arg->ctx->exec)
+> +			drm_exec_unlock_obj(curs->arg->ctx->exec,
+> &bo->base);
 
-Fixes: a193ed2094ba ("drm/amd/display: Create amdgpu_dm_hdcp")
-Fixes: da3fd7ac0bcf ("drm/amd/display: Update CP property based on HW query")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Unlocking after each locks sort of defeats the purpose of ww locking,
+since it can't guarantee forward progress, but I guess will work as an
+initial attempt.
 
----
-Changes in v2:
-- Gate hdcp_handle_cpirq() with the teardown flag so late CPIRQ handling
-  cannot requeue cpirq_work after hdcp_destroy() starts.
----
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 20 ++++++++++++++++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |  2 ++
- 2 files changed, 21 insertions(+), 1 deletion(-)
+Thanks,
+Thomas
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index 4c164ae4a4f9..2293e9761891 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -164,6 +164,9 @@ void process_output(struct hdcp_workqueue *hdcp_work)
- {
- 	struct mod_hdcp_output output = hdcp_work->output;
- 
-+	if (hdcp_work->teardown)
-+		return;
-+
- 	if (output.callback_stop)
- 		cancel_delayed_work(&hdcp_work->callback_dwork);
- 
-@@ -310,7 +313,10 @@ void hdcp_handle_cpirq(struct hdcp_workqueue *hdcp_work, unsigned int link_index
- {
- 	struct hdcp_workqueue *hdcp_w = &hdcp_work[link_index];
- 
--	schedule_work(&hdcp_w->cpirq_work);
-+	mutex_lock(&hdcp_w->mutex);
-+	if (!hdcp_w->teardown)
-+		schedule_work(&hdcp_w->cpirq_work);
-+	mutex_unlock(&hdcp_w->mutex);
- }
- 
- static void event_callback(struct work_struct *work)
-@@ -487,9 +493,21 @@ void hdcp_destroy(struct kobject *kobj, struct hdcp_workqueue *hdcp_work)
- 	int i = 0;
- 
- 	for (i = 0; i < hdcp_work->max_link; i++) {
-+		/*
-+		 * process_output() can requeue the HDCP works. Set teardown
-+		 * under the callback mutex first so no callback can requeue
-+		 * work after destroy starts, then drain any work already
-+		 * queued.
-+		 */
-+		mutex_lock(&hdcp_work[i].mutex);
-+		hdcp_work[i].teardown = true;
-+		mutex_unlock(&hdcp_work[i].mutex);
-+
-+		cancel_work_sync(&hdcp_work[i].cpirq_work);
- 		cancel_delayed_work_sync(&hdcp_work[i].callback_dwork);
- 		cancel_delayed_work_sync(&hdcp_work[i].watchdog_timer_dwork);
- 		cancel_delayed_work_sync(&hdcp_work[i].property_validate_dwork);
-+		cancel_work_sync(&hdcp_work[i].property_update_work);
- 	}
- 
- 	sysfs_remove_bin_file(kobj, &hdcp_work[0].attr);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-index 90b18c450ca6..2313434b57c0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-@@ -54,6 +54,8 @@ struct hdcp_workqueue {
- 	struct amdgpu_dm_connector *aconnector[AMDGPU_DM_MAX_DISPLAY_INDEX];
- 	struct mutex mutex;
- 
-+	bool teardown;
-+
- 	struct mod_hdcp hdcp;
- 	struct mod_hdcp_output output;
- 	struct mod_hdcp_display display;
--- 
-2.34.1
 
+> +		else
+> =C2=A0			dma_resv_unlock(bo->base.resv);
+> -		ttm_bo_put(bo);
+> -		curs->bo =3D NULL;
+> =C2=A0	}
+> +	ttm_bo_put(bo);
+> +	curs->bo =3D NULL;
+> =C2=A0}
+> =C2=A0
+> =C2=A0/**
+> @@ -1016,8 +1030,8 @@ __ttm_bo_lru_cursor_next(struct
+> ttm_bo_lru_cursor *curs)
+> =C2=A0		if (ttm_lru_walk_trylock(curs, bo)) {
+> =C2=A0			bo_locked =3D true;
+> =C2=A0
+> -		} else if (!arg->ticket || arg->ctx->no_wait_gpu ||
+> -			=C2=A0=C2=A0 arg->trylock_only) {
+> +		} else if ((!arg->ticket || arg->ctx->no_wait_gpu ||
+> +			=C2=A0=C2=A0=C2=A0 arg->trylock_only) && !arg->ctx->exec) {
+> =C2=A0			spin_unlock(lru_lock);
+> =C2=A0			ttm_bo_put(bo);
+> =C2=A0			spin_lock(lru_lock);
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index a4060e44d23d0..156444b5e85d8 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -187,6 +187,11 @@ struct ttm_operation_ctx {
+> =C2=A0	 * @bytes_moved: Statistics on how many bytes have been
+> moved.
+> =C2=A0	 */
+> =C2=A0	uint64_t bytes_moved;
+> +	/**
+> +	 * @exec: optional drm_exec object to use for locking BOs
+> and
+> +	 * tracking which are locked.
+> +	 */
+> +	struct drm_exec *exec;
+> =C2=A0};
+> =C2=A0
+> =C2=A0/**
