@@ -4,97 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E836FC43458
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 13:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 566F8C43458
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 13:57:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 629EC10ED18;
-	Tue,  7 Jul 2026 13:56:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E018610ED38;
+	Tue,  7 Jul 2026 13:57:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X5tP97ZG";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JZMcKQXP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C+RyRdWP";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JZMcKQXP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="C+RyRdWP";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011027.outbound.protection.outlook.com [52.101.57.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0C7210ED18
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2026 13:56:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pWCnUb0vOIygzqrJop/5Z7V9NF91L967UKs1l+wW03uTWXQh6b+n/kbeISu7nIJpy0rcQDBjv1ZIJ0VOijIpdPaO9NcMLnw40fTU9jt+KVhN+OxCLuKTBt+Zu++cgZM+uNYNZ7DGampaDNDw03a7mV3qRn3B1I9+Zg7gZ0oEMad+3v5bf6oJ7Qda2+tcWsUDrcFIiZTWpaboWE/cg5uK/AxoDryabFu4z/6zgziNZgV1LcbTrvEHxRtWHXRNv/ml/8XRgLTedve8llPw7cNGNq7u+dI8vOGRocd8WyqQf1MkqF5IHCEPx2fZx66xPtCI0jdwuDu49o3GbN/3Rtrkcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WAytwJJDzgBISneoDXYGAdYZGfbNw2GZ9XNIGub53xM=;
- b=NqSaTFqbRfxays/GjJNtcWNCKgvwhPoxZ7dgwQlRE73KJWybj627r1KbRkKwtfH9/qkmY4rmyfs0WQFhqQumOjXGB5KWXbrTlo0yxEBmVR/UzcU0/TfJwLbtc7Z6YIjla4cF9WsIhooKXwppcioffZeuX78HFW8ignQlk1NsefxstHU3t69AI+DOmPpx1RgWVmXa0/wjEuxiWVj/Jwv2AycUzJAUSaDp3zXhqAQQbEheJHN9VRW6FUDt2wCo/51BAKY9x1zQkFIk3+U04HkMlxzU2uuweiZmlVzkQjAKLEPFX2L3xNew1/VzmQPY+jMK8/WCXLPJo39tuCMgUl6b3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WAytwJJDzgBISneoDXYGAdYZGfbNw2GZ9XNIGub53xM=;
- b=X5tP97ZGL/y7BX5W+kTubJQbvEkXEYS3ImizYTG+51aSNgs1u85bpTfbsN7VOazvCO86VMH6eLJoWvvHQ3C1KhH3JM/2a6jiGcB7s5pZZKxsPpiRPs25ougmkzg+X2ovdqNrp9rDPYQ+ocV1yLKXmsCL/wPrRIwDbSgGfODquVs=
-Received: from PH7PR10CA0010.namprd10.prod.outlook.com (2603:10b6:510:23d::19)
- by CYXPR12MB9278.namprd12.prod.outlook.com (2603:10b6:930:e5::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 13:56:44 +0000
-Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:510:23d:cafe::90) by PH7PR10CA0010.outlook.office365.com
- (2603:10b6:510:23d::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Tue, 7
- Jul 2026 13:56:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 13:56:43 +0000
-Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 08:56:40 -0500
-From: Ce Sun <cesun102@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
- <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: move uniras IP version check to
- amdgpu_ras_init
-Date: Tue, 7 Jul 2026 21:56:31 +0800
-Message-ID: <20260707135631.1027988-1-cesun102@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF4C10ED38
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2026 13:57:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9DF37726F2;
+ Tue,  7 Jul 2026 13:57:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783432649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/BZajym9uebxwqSIz0M7fPVZU/Sl2uebGIt4iYrAV9g=;
+ b=JZMcKQXPD3wy5PFRcdEITfw+miSKvKJ5RTlRAuxpEpPsS5l8wPBhu7f94fvq1bAr/WOr+0
+ pUsglwjcyaxwYnrT281uqhdnEzEsoLSpufH5gEu8rNbl0G+vLT7wj+TNMpLAvAf9fzIZ7E
+ SO+h0aYfew01KkkLL+kgOIcGFv6WVZE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783432649;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/BZajym9uebxwqSIz0M7fPVZU/Sl2uebGIt4iYrAV9g=;
+ b=C+RyRdWPPLFcwhiNscmhIGQS0IMWLqWZiaNhJ0EJauZjg3KpsekXPUg7vgQhjJxISCOmvl
+ +TLK6kAXvGZsgVAQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JZMcKQXP;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=C+RyRdWP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783432649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/BZajym9uebxwqSIz0M7fPVZU/Sl2uebGIt4iYrAV9g=;
+ b=JZMcKQXPD3wy5PFRcdEITfw+miSKvKJ5RTlRAuxpEpPsS5l8wPBhu7f94fvq1bAr/WOr+0
+ pUsglwjcyaxwYnrT281uqhdnEzEsoLSpufH5gEu8rNbl0G+vLT7wj+TNMpLAvAf9fzIZ7E
+ SO+h0aYfew01KkkLL+kgOIcGFv6WVZE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783432649;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/BZajym9uebxwqSIz0M7fPVZU/Sl2uebGIt4iYrAV9g=;
+ b=C+RyRdWPPLFcwhiNscmhIGQS0IMWLqWZiaNhJ0EJauZjg3KpsekXPUg7vgQhjJxISCOmvl
+ +TLK6kAXvGZsgVAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 19C6C779AE;
+ Tue,  7 Jul 2026 13:57:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 1EnlBMkFTWoFSgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 07 Jul 2026 13:57:29 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ dakr@kernel.org, deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 00/10] vga_switcheroo,
+ drm: Push fbcon handling into DRM clients
+Date: Tue,  7 Jul 2026 15:38:07 +0200
+Message-ID: <20260707135724.247562-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|CYXPR12MB9278:EE_
-X-MS-Office365-Filtering-Correlation-Id: a655dfb9-3055-4401-3d9a-08dedc2f939f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|11063799006|56012099006|3023799007|18002099003;
-X-Microsoft-Antispam-Message-Info: faGRAhpuaizc7ussbGiIwkpDnLOBJlqjDeaJ8OmCO9lfxOwBFi7h1EdlwDJ7aNoCZr+WBbLhp4Go3z7rsmTHauqv2ooBdDIz07FBWb05K67wL7I0khxRXceQVoidWCEEPbYQ7kuJTTsqB7+pMbeavW5C4sYBESW4oTSocIICb3mSbIFN2Id6tKNT/JPr6SWY1nNVF63JInP0auzBeS5uMYwbzafvYkSmTUJTVI7Au9l9wJqEkgXCE8PaOlVEaIMg/sa8gPtTVA3P1jFbYltxL7FYvLzXTdd5i1+sNCnJhu8eP4N/fCgBkS9wGCuVvnl6MYTrcYHcCEplQ5zQ/QjVcApk+tIWuVmfTHmUx/3vkFDFPZUS87VAeIYKnMCwzOKbqdOWGQ7qkRNtUdkvl9Hhn+QZ/puFQLCd52pPJXE4yq1HZEWj+M3H1p5XN9UX5zADNw2uJYMNxJyPQ90t63Cq36wEFr7eMMTHobI1mzv/B/MANGWNaduY+wmEsrEx1Fr5b77g34NCsDYpUDOnIsIeKb+xQqWzFQl0KubFzTEUTgJsMQF6noNzjH0inAvJWxjmGc/gv0MtMpIa4NqZLublGy3fUyMcHKZ6glpFtvijC/oPP5JpjZkgwdzrCCsnaPioib2Hgrrub0yIPJyZgtakKrh4cwX5vVO6tdYMntwDHOKZT6s9OKZcJkc81COSAcEueSWy/V+FtJLj0SD7j6fblQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(11063799006)(56012099006)(3023799007)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UDnvlIb9l4Iom8M/VAvZjt/uSGaVgPzJqZR15QvOS/V3Sa1Nr0/KXDtzoS0hnSmhg7EjBN8xfcREH58BlFk9JQfdlHHo3Y8nqIDH7jkEwAt8Dg/jFVy6fD+3SNGcBCfcwLpf61mtDwFtIDxP0MllolVpS2ZmroosnPkTY+6gSYq3cG6iJkw9O390MGSh6R7BuuqBr6g7HHY9gkVL5HihwDZl1uOwq53HSODdtrQCfmcQcbFGbOBjY6Q7+S3u9CvXGAEzlOx3ehvmP3EHcQwqkdbvIEKcfz0RJP3nPFjXeyB28i7t7rKj7+w0Ih5oJBUVhhhySR8764WZMVl15EUQuRqhZEVlqbd9j2ypP0B60F9Ae0JsF4MDqW2GNQCWuzGsifQUvnPD77vskvqK4wu2/CuoHv8Bni0YC3BQvbkL+KWmSqldT3GM0EMeFTGxemKz
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 13:56:43.0620 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a655dfb9-3055-4401-3d9a-08dedc2f939f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9278
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 9DF37726F2
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[22];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,58 +118,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Late uniras enable in amdgpu_ras_mgr_sw_init leads to xxx_err_count
-sysfs node creation failure during NPS mode switching. Move the uniras
-IP version check into amdgpu_ras_init to set uniras_enabled ahead
-of sysfs node creation
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c          | 11 +++++++++++
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 10 +---------
- 2 files changed, 12 insertions(+), 9 deletions(-)
+Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
+about switching of the physical outputs among framebuffer devices. But
+new DRM clients to not use fbdev/fbcon and might require their own
+vga_switcheroo support. Let's strictly separate them from each other.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index e300d951898d..8ade3da6f132 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3595,6 +3595,17 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 		goto release_con;
- 	}
- 
-+	switch (amdgpu_ip_version(adev, MP0_HWIP, 0)) {
-+	case IP_VERSION(13, 0, 14):
-+	case IP_VERSION(13, 0, 12):
-+	case IP_VERSION(13, 0, 6):
-+		con->uniras_enabled = true;
-+		break;
-+	default:
-+		con->uniras_enabled = false;
-+		break;
-+	}
-+
- 	con->update_channel_flag = false;
- 	con->features = 0;
- 	con->schema = 0;
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index b8b831a91bc7..6224c4921a42 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -327,15 +327,7 @@ static int amdgpu_ras_mgr_sw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_ras_mgr *ras_mgr;
- 	int ret = 0;
- 
--	/* Disabled by default */
--	con->uniras_enabled = false;
--
--	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14) ||
--	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 12) ||
--	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6) ||
--	    adev->debug_enable_ras_aca)
--		con->uniras_enabled = true;
--	else
-+	if (!con->uniras_enabled)
- 		return 0;
- 
- 	ras_mgr = kzalloc(sizeof(*ras_mgr), GFP_KERNEL);
+Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
+for vga_switcheroo clients to do the fbcon update. Allows for removing
+all direct interactions between vga_switcheroo and fbdev/fbcon.
+
+Also replace the existing reprobe hook with post_switch for symetry.
+
+At the same time, push the fbcon update into DRM's client for fbdev
+emulation. Do this with the new DRM client callback acquire_outputs,
+so that other clients can have their own handling of vga_switcheroo.
+
+There are only four drivers that support vga_switcheroo: amdgpu,
+radeon, i915 and nouveau. Update each of them with the new callbacks.
+When vga_switcheroo now invokes pre_switch, each DRM driver forwards
+to aquire_outputs and lets the DRM clients handle the new outputs.
+
+Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
+
+Thomas Zimmermann (10):
+  drm/edid: Include <linux/fb.h>
+  drm/client: Add acquire_outputs callback; implement for fbdev
+    emulation
+  vga_switcheroo: Add pre_switch callback to client ops
+  vga_switcheroo: Add post_switch callback to client ops
+  drm/amdgpu: Implement struct vga_switcheroo_client_ops.pre_switch
+  drm/i915: Implement vga_switcheroo_client_ops.pre_switch
+  drm/nouveau: Implement vga_switcheroo_client_ops.pre_switch
+  drm/nouveau: Implement vga_switcheroo_client_ops.post_switch
+  drm/radeon: Implement struct vga_switcheroo_client_ops.pre_switch
+  vga-switcheroo: Remove unused interfaces
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
+ drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
+ drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
+ drivers/gpu/drm/drm_edid.c                 |  1 +
+ drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
+ drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
+ drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
+ drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
+ drivers/video/fbdev/core/fbcon.c           |  8 -----
+ include/drm/drm_client.h                   | 14 ++++++++
+ include/drm/drm_client_event.h             |  3 ++
+ include/linux/vga_switcheroo.h             | 30 +++++++++-------
+ 12 files changed, 122 insertions(+), 73 deletions(-)
+
+
+base-commit: cd8abe2554ec7eba16c1d48ab508732bf93534eb
 -- 
-2.34.1
+2.54.0
 
