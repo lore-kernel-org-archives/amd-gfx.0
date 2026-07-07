@@ -4,65 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74435C43458
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 13:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61136C43602
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 13:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0422510ECEB;
-	Tue,  7 Jul 2026 13:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDAA888784;
+	Tue,  7 Jul 2026 13:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="ASeBTo/0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MHw8Nhg3";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7E3C10ECEB;
- Tue,  7 Jul 2026 13:16:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783430152; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cpB50S59VRu/EKC48+ikzc9YvMgOjb8U5Ft9BR+34AcvftHQpubdQBUO8Kp4Tnii0393/df63cZZWxlNSwXV4v0ADaursX12DTXLdDvztPK3+WDFhKLayAGs93KKU7mTe+BhEHRKybK8GyB/oCR0BQ3XtAoMXHQDJooynakP84I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783430152;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=AjiMAH+aUOZ1T5Y6Winl/yzirQDCF30FfDqJLLs3nI0=; 
- b=XoWvc7PgKPbRe4euzkb03O8L74Ui6RFjRRTnMIVj5k8XLyU5cC08klbz52cMlKejV/iRE57KxNzWliZ8uZU+4BYdLqxOiD3QiDORLVPkWlLFGsMY+mHa9xAFOh3OOZJIcPr67eK/rLI4OR2Juo29HJNFJAPBerrU9I+YVUEUak8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783430152; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=AjiMAH+aUOZ1T5Y6Winl/yzirQDCF30FfDqJLLs3nI0=;
- b=ASeBTo/0jYpDQViBrlxcZh+DVqaQYOejqc0HosMJJCUeUhh3KnToXBT9njL+QcZS
- 2EviRqwfOu3LymyGLKAQA/8h/xP46I0WIfn73TyYz9z4eTcF8Em/cStE2RdpKaAQ7+I
- sibf1iY/kf4kvEOvgoO763I/JthTOnYTbiTppsmc=
-Received: by mx.zohomail.com with SMTPS id 1783430149837990.5307558137384;
- Tue, 7 Jul 2026 06:15:49 -0700 (PDT)
-Message-ID: <d3e954dd-381f-480b-8f48-698d8aead017@collabora.com>
-Date: Tue, 7 Jul 2026 15:15:44 +0200
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+ [209.85.222.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A41C688784
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2026 13:23:16 +0000 (UTC)
+Received: by mail-ua1-f47.google.com with SMTP id
+ a1e0cc1a2514c-96942d43d65so98151241.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jul 2026 06:23:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783430595; cv=none;
+ d=google.com; s=arc-20260327;
+ b=J+28VYDj6ZKsPekgVF6NOJ6TGn/i8p07BmNaKhOGz72IL2uJYnX6lurFXjxjWYnESR
+ 3MjIc1g/P0/nknjoRGlSTtMwzoqNKZDpI1+5NQNxVfy1fX49kwYxw2VySmet74vji0V5
+ nQJfgcYGoY+itb2tSL8NzWUrVOtevpGksoNnLuf8uMH4su1Y6s+5sy8IbPRYcXL+326y
+ uRNvinQphKKpCdrtRdXp3oj8YzWJ+V6q6IopEvrdFqbCFJYy/FsukG3jamQuLy3CMMkn
+ AyL+UilSoj7Psncsy7GKpNVN23eRLDGCDT6V8nbCU/DztbUgL3cl3+VHWmSdS8+e0+4Q
+ d0Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=zsRbd2iXQS4Pv9VQ95qVDWTuZqDNYcSM1NPff7gLUVQ=;
+ fh=qsxv4CT9Glly1JpmFCnYUVR+2SiI27sX2Y2K4GsxsPc=;
+ b=PRlK4rDBV87cSPZbyifz30i0wvromEacJ40br/e9ZHcYAy7n+1AZyB+E3gVUzttpDQ
+ +Sc+W6PZwPJBxP5PgFZR2Yplq4kz35DxSLhxQvSKQ1tXC9JGC9OtV4Zf3JMLDFDjbr1E
+ WLyy2059v/b/pNJTW19JCANu91IjJ03m2OVRYoqnpYBlsDlnsBgEiu0YYjG2yOWe2x4U
+ vFF6ZKHFtiF5YZJOEOp5/lS6f/05lYgS4x7ruX+38whS20FiINCQ7uV/mbhOhEQDGrdS
+ +nEZzq4sDPoA/lbfBsrnSQE396p6DbenhJkjugQ92dmrHnjZYoqEAnLfY9YrBoQwG9/7
+ srAQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783430595; x=1784035395; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=zsRbd2iXQS4Pv9VQ95qVDWTuZqDNYcSM1NPff7gLUVQ=;
+ b=MHw8Nhg3xWAIw2j1Irci47rMLoBbpR5/db1W1MGJ1KWZmBeAn6B1ueqOp8xH3f/0In
+ ev9j9/o1eq3/8yvjaPTlSHGR52NkIwc1ZgLEzHXjZFxdsQ4ePEAmdgFcSUZ4eBHKLXBJ
+ oei4wktKspFPvof+Wn3Fk7mJcXQRj7dS9iUN05z6n1kvSzJxeZP3gryTVnvoCueTj1yh
+ Oo50T0siyUBAFJlmXXIzZxe4eF83Tyzva9B0DJCcLupaSXOO0cTbUxO+XZ4lltSiYGLn
+ MM+mbe0Pog5JCBYV8Fai8UgC8MltsvwTlKGMMrFyEYW9andQIBvlA2vvrV6zYTtDhe+u
+ s2ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783430595; x=1784035395;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=zsRbd2iXQS4Pv9VQ95qVDWTuZqDNYcSM1NPff7gLUVQ=;
+ b=azFy+lf9ZARNR5SWaTYuQMfyn4H6kxk7XzPKHgiPo8opqXhsJu0JGZb+42AqDpgb9N
+ rTvWEJbBb+hlpiYTd3XNzkebJqTpu0OC/VK0Uf2KLiUAUgcr6DCcH/ago5FBZjuEr+WL
+ lsycIrgsk73me7aBEcpAeeb950xCOAufPhewnN65CF7pjwKlzuTUp8ucocfocSrJsuFo
+ oWAE4ZhgKMW+k9EPlldegiEoB7fxHFMZOFdFRaRYXVFTFXFtqRLoqayLTbylCsIgHKNE
+ Rh0HF3Vh4W4YeZ6KJgAdhM/7vVe1dgi5JuepizHjsKnBBDKE1YUm/wHbSUdLhRUU9gi1
+ jPbw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq5iejOrIvUvU51G9ryprPRS2ONT5Rwvh1qFsAJapc2jiFQhBap2gC0okTO2xbKFdXE4G7rfDkq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8+GsDFXHqW/gc5Gs/zNnN3k4pssjSgVE4pomEPnzoPWoQYOGB
+ pJtCPwNQD9rN67IyPSy4B9oyZua9Vcp7znpEjxatcKrbF+P3bdWXzTj2T/hywFrb2eSOHaef5J9
+ C7EWyHfUdWbTkMbKwXgIDV7J4rtzbs+Y=
+X-Gm-Gg: AfdE7cla5cstCABXj2fRfq5oqOrxK6CGFpsKuK2Rny/O0REugPwYLS6Mec/egTj9hcP
+ Znmt9iq67NJjDdUnbHNsUt3m9BbpPBGtsdO0xKwfyQy64yc0GUgTp4zapCnwuqty9+U2e1femXO
+ qScB6TNHZgagu25J3XPHzYpHdl0Sg1NJnmF+nKHrKY3QSwSNSEHAHKJiuRb5dPD5oJbTHk9bQZ+
+ myNbgqocBEaSQoAGY+E3LkjBFUieC4595oS5hv9fShyefMpyCdIsZdi2lv9W1bDIDe7ROQbBgLM
+ q29ldZVj5mDRCPtsxBJ9Lf8iBReM95eVR/AztdfGd2LRaypTDF6pLIxf8Ho=
+X-Received: by 2002:a05:6102:5f05:b0:62f:46c:40bb with SMTP id
+ ada2fe7eead31-744c115adcamr680244137.5.1783430595240; Tue, 07 Jul 2026
+ 06:23:15 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
- <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
- <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260706200600.15071-1-alexander.deucher@amd.com>
+ <6513b774-2d75-4819-b76c-20c6447705f2@amd.com>
+In-Reply-To: <6513b774-2d75-4819-b76c-20c6447705f2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Jul 2026 09:23:02 -0400
+X-Gm-Features: AVVi8Ce8t43Zlfo70RiTLljoF7rYdkcg3rnzMk-O1LbUrdJrXdDxhoJJbiZJqqc
+Message-ID: <CADnq5_NDnqvuRbKDQySF0w-1HW-5ckUK4C+O2eC9BWBE69kK+A@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm/amdgpu/gfx10: disallow gfxoff around GPU reset
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,55 +105,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 07.07.26 15:01, Maarten Lankhorst wrote:
-> Hey,
+On Tue, Jul 7, 2026 at 8:04=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wro=
+te:
 >
-> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
->>
->> On 7/3/2026 1:02 PM, Robert Mader wrote:
->>> The client cap is currently advertised unconditionally, even for drivers
->>> that do not support plane color pipelines. If clients supporting the later,
->> s/later/latter
->>
->>> like Wayland compositors or tools like drm_info, enable the client cap on
->>> such drivers they will be left without both color pipeline and the legacy
->>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
->>> conversion support.
->>>
->>> Prevent that by only marking the cap supported if there are actually planes
->>> with color pipelines.
->>>
->>> Note: while the color pipeline replacement for the legacy properties is
->>> still under review (1), we can assume that it will work as a drop-in
->>> replacement.
->> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
->>
->> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
-> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
 >
-> But thanks for all feedback, as I was about to push this patch, I noticed it still uses -EOPNOTSUPP, can it be changed to -EINVAL?
+>
+> On 07-Jul-26 1:35 AM, Alex Deucher wrote:
+> > If gfx is hung, we shouldn't need this since gfx won't be
+> > powered down, but we could potentially have a case where
+> > a queue can be preempted, but due logic errors in the commands,
+> > the fence never signals.  GFX could potentially go into
+> > the off state.  Protect against that.
+> >
+> > Assisted-by: Claude:claude-opus-4.6
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 34 +++++++++++++++++--------=
+-
+> >   1 file changed, 23 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v10_0.c
+> > index f03cbf358cd7b..516a621d11faa 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > @@ -9528,6 +9528,7 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ring=
+ *ring,
+> >               return -ENOMEM;
+> >       }
+> >
+> > +     amdgpu_gfx_off_ctrl(adev, false);
+>
+> Can this be moved to helper begin/end logic - check against
+> sdma/compute/gfx rings? It doesn't harm to include sdma even for SOCs
+> where it's outside of GFX domain.
 
-For existing users it shouldn't make a difference. drm_info and Weston 
-just check for "drmSetClientCap() == 0" - and old kernels without the 
-cap will also return -EINVAL AFAICS.
+If something in the reset path fails, the end helper doesn't get run
+so the ref count will be off.  It could potentially be moved to the
+job_timedout() and kfd queue reset paths however.
 
-I personally find -EOPNOTSUPP more appropriate and more in line with 
-other return values in that function - but no strong opinion, thus feel 
-free to change while applying (or I can resend the patch accordingly if 
-you prefer).
-
-Robert
+Alex
 
 >
-> ~Maarten
-
--- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
-
+> Thanks,
+> Lijo
+>
+>
+> >       addr =3D amdgpu_bo_gpu_offset(ring->mqd_obj) +
+> >               offsetof(struct v10_gfx_mqd, cp_gfx_hqd_active);
+> >       tmp =3D REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << vmid)=
+;
+> > @@ -9547,28 +9548,33 @@ static int gfx_v10_0_reset_kgq(struct amdgpu_ri=
+ng *ring,
+> >       r =3D amdgpu_ring_test_ring(kiq_ring);
+> >       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> >       if (r)
+> > -             return r;
+> > +             goto fail;
+> >
+> >       r =3D gfx_v10_0_kgq_init_queue(ring, true);
+> >       if (r) {
+> >               DRM_ERROR("fail to init kgq\n");
+> > -             return r;
+> > +             goto fail;
+> >       }
+> >
+> >       spin_lock_irqsave(&kiq->ring_lock, flags);
+> >
+> >       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size)) {
+> >               spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -             return -ENOMEM;
+> > +             r =3D -ENOMEM;
+> > +             goto fail;
+> >       }
+> >       kiq->pmf->kiq_map_queues(kiq_ring, ring);
+> >       amdgpu_ring_commit(kiq_ring);
+> >       r =3D amdgpu_ring_test_ring(kiq_ring);
+> >       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> >       if (r)
+> > -             return r;
+> > +             goto fail;
+> >
+> > -     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
+> > +     r =3D amdgpu_ring_reset_helper_end(ring, timedout_fence);
+> > +
+> > +fail:
+> > +     amdgpu_gfx_off_ctrl(adev, true);
+> > +     return r;
+> >   }
+> >
+> >   static int gfx_v10_0_reset_kcq(struct amdgpu_ring *ring,
+> > @@ -9593,13 +9599,14 @@ static int gfx_v10_0_reset_kcq(struct amdgpu_ri=
+ng *ring,
+> >               return -ENOMEM;
+> >       }
+> >
+> > +     amdgpu_gfx_off_ctrl(adev, false);
+> >       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, RESET_QUEUES,
+> >                                  0, 0);
+> >       amdgpu_ring_commit(kiq_ring);
+> >       r =3D amdgpu_ring_test_ring(kiq_ring);
+> >       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> >       if (r)
+> > -             return r;
+> > +             goto fail;
+> >
+> >       /* make sure dequeue is complete*/
+> >       amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+> > @@ -9617,28 +9624,33 @@ static int gfx_v10_0_reset_kcq(struct amdgpu_ri=
+ng *ring,
+> >       amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
+> >       if (r) {
+> >               dev_err(adev->dev, "fail to wait on hqd deactivate\n");
+> > -             return r;
+> > +             goto fail;
+> >       }
+> >
+> >       r =3D gfx_v10_0_kcq_init_queue(ring, true);
+> >       if (r) {
+> >               dev_err(adev->dev, "fail to init kcq\n");
+> > -             return r;
+> > +             goto fail;
+> >       }
+> >
+> >       spin_lock_irqsave(&kiq->ring_lock, flags);
+> >       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size)) {
+> >               spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -             return -ENOMEM;
+> > +             r =3D -ENOMEM;
+> > +             goto fail;
+> >       }
+> >       kiq->pmf->kiq_map_queues(kiq_ring, ring);
+> >       amdgpu_ring_commit(kiq_ring);
+> >       r =3D amdgpu_ring_test_ring(kiq_ring);
+> >       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> >       if (r)
+> > -             return r;
+> > +             goto fail;
+> > +
+> > +     r =3D amdgpu_ring_reset_helper_end(ring, timedout_fence);
+> >
+> > -     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
+> > +fail:
+> > +     amdgpu_gfx_off_ctrl(adev, true);
+> > +     return r;
+> >   }
+> >
+> >   static void gfx_v10_ip_print(struct amdgpu_ip_block *ip_block, struct=
+ drm_printer *p)
+>
