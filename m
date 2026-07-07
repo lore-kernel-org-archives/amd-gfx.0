@@ -4,69 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 149CEC44503
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41741C44508
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB0AC10ECE1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9A2110ECE3;
 	Tue,  7 Jul 2026 12:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ORyrNEqw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MbFHFh8G";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB30F10E4B1;
- Tue,  7 Jul 2026 12:48:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D05E310E47F;
+ Tue,  7 Jul 2026 11:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783428537; x=1814964537;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=c3xJLGT78382H2wwUUXrHkSRAD2v/5i9yMYobiMW27o=;
- b=ORyrNEqwR+PyCgLnzJM1twMbyGPZPQM4NjvVkCElfhe0VHiU0myQv4yj
- NzDpZE74B7blXwXFLlq7Z2XAKIhqsiYdpG8HhRIwo1Qh4WYQgQnyy1+YL
- U0wj4CT+krUVNyWMUlRlyqQ1j+k///wuOI/O/W2KfNrr9DLG2dzjGE+ya
- XuzmCKtifKWaIGj4BjiAIzdhdopI2tu0cXSyAAZ0XVFT6MsnQ8GjAKWjQ
- eoOuxMOIRs/wIkiXnjj5t1DNFcYIIn6QBoS0YEa8XfQVaZrSV/OVUlTyW
- C0Sh4chLJweUocl+IQMNvCcNGhY8YH8ygsVgDp7I3kC6uTmVp3eWUMUB4 Q==;
-X-CSE-ConnectionGUID: J0EFLz0GQ+aB0L4UqdwNmw==
-X-CSE-MsgGUID: Q8jydyYYQoSAmPiBx8CGaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="84263705"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84263705"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 05:48:57 -0700
-X-CSE-ConnectionGUID: xQhwTzvLQ/eZltsfvJDHDg==
-X-CSE-MsgGUID: 6++/c9N0RRSb04ShGpxCbg==
+ t=1783422467; x=1814958467;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=aO48w8PVIDro5YsfrNyw5wz9Z5QNVXJ32g6GmqQl2wk=;
+ b=MbFHFh8GyoNO9T/IDMNP7lNvQWyxTAfgTNm8cQrWuCcH2jv6ojPXqiri
+ o1SopWs/jswuElWSNY0vqAT91+tq5gmBTqSW5pf4zMxo7ibzQIst9H5jP
+ VCvXs29kQgtgR1LORThfr+93lTBVRz3v1oBHsKozRcahe9NoqmgJlUMhD
+ 3PXTMBk88Kk7jT7wCYIEROtux3LKA8hJXXu3UdwmfdYbK4chqLnTnBR11
+ 4CmLD6UfRAFZY/ImVZuqa1STNaegRUmd1ASttdZG3uANNBMizyPfee7/D
+ rFPqNuGSjazHQVJeJZnu2lKrTc+AUAi+7+jCqbU9J0iUCVSdvrHE7Dlw0 Q==;
+X-CSE-ConnectionGUID: kNCsw6wbSIOxS4svc4XLKQ==
+X-CSE-MsgGUID: eJKRWORpTQ2ATjXHDQJVJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="84185614"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84185614"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 04:07:47 -0700
+X-CSE-ConnectionGUID: RbSTKyxlSBmh6aQ6JSDmtQ==
+X-CSE-MsgGUID: IeyNT6nZS0qM9sQN2evmug==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="251321073"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
- ([10.245.244.199])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 05:48:52 -0700
-Message-ID: <944807b30e00606dc3f4a8ad57c3e8e70ddd2d10.camel@linux.intel.com>
-Subject: Re: [PATCH 09/10] drm/ttm: support using drm_exec during eviction v4
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Christian Koenig	
- <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Alex
- Deucher	 <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Date: Tue, 07 Jul 2026 14:48:50 +0200
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="254054244"
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by orviesa007-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 04:07:44 -0700
+Date: Tue, 7 Jul 2026 13:07:40 +0200
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v2 7/7] tests/dmem_cgroups: add test for dmem.current
+Message-ID: <20260707110740.5tublsdxxxsp222u@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+References: <20260702130108.1397444-1-cascardo@igalia.com>
+ <20260702130108.1397444-8-cascardo@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260702130108.1397444-8-cascardo@igalia.com>
 X-Mailman-Approved-At: Tue, 07 Jul 2026 12:58:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,148 +90,295 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
-> From: Christian K=C3=B6nig <christian.koenig@amd.com>
->=20
-> Allow specifying a drm_exec object in TTMs operation context which is
-> used to lock objects during eviction.
->=20
-> This allows to handle deadlocks much more gracefully and with that
-> avoid returning -ENOMEM on heavily contended domains.
->=20
-> v2: rebased on top of Thomas work
-> v3: rebased again
-> v4: rebased, fixed locks of already-reserved buffers being dropped
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+Hi Thadeu,
+On 2026-07-02 at 10:00:58 -0300, Thadeu Lima de Souza Cascardo wrote:
+> Based on the work of Thomas Hellström to test dmem.max eviction, add a test
+> for dmem.current usage after allocations and setting dmem.max.
+> 
+> Create a dmem cgroup, allocate close to capacity (or at most 4GiB), check
+> current usage is within a small slack of the expected allocation.  Then,
+> set max to a small value and check allocations and current usage are
+> limited to the max set.  Set max to 0, then check no allocations are
+> allowed and current usage is also within the slack.  After each allocation,
+> release memory and check current usage has gone down.
+> 
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 > ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c | 30 ++++++++++++++++++++++------=
--
-> -
-> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 5 +++++
-> =C2=A02 files changed, 27 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> index a53b25e8c2967..96699532817c2 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -38,6 +38,7 @@
-> =C2=A0#include <drm/ttm/ttm_tt.h>
-> =C2=A0
-> =C2=A0#include <drm/drm_cache.h>
-> +#include <drm/drm_exec.h>
-> =C2=A0
-> =C2=A0#include "ttm_bo_internal.h"
-> =C2=A0
-> @@ -837,6 +838,8 @@ static bool ttm_lru_walk_trylock(struct
-> ttm_bo_lru_cursor *curs,
-> =C2=A0	struct ttm_operation_ctx *ctx =3D curs->arg->ctx;
-> =C2=A0
-> =C2=A0	curs->needs_unlock =3D false;
-> +	if (ctx->exec)
-> +		return false;
+>  tests/dmem_cgroups.c | 245 +++++++++++++++++++++++++++++++++++++++++++
 
-The first passes of eviction typically trylocks, and no_wait_gpu also
-skips sleeping locks since they can be held why waiting for fences.
-Otoh we could check that no_wait_gpu and exec is mutually exclusive.
+Why two tests? dmesm_cgropus and cgroups_dmem?
+Why not only one? This is confusing.
 
-But I think trylocking should be tried before exec locking to also
-avoid costly rollbacks, in line with mutex lock stealing.
+Regards,
+Kamil
 
-> =C2=A0
-> =C2=A0	if (dma_resv_trylock(bo->base.resv)) {
-> =C2=A0		curs->needs_unlock =3D true;
-> @@ -857,7 +860,9 @@ static int ttm_lru_walk_ticketlock(struct
-> ttm_bo_lru_cursor *curs,
-> =C2=A0	struct ttm_lru_walk_arg *arg =3D curs->arg;
-> =C2=A0	int ret;
-> =C2=A0
-> -	if (arg->ctx->interruptible)
-> +	if (arg->ctx->exec)
-> +		ret =3D drm_exec_lock_obj_report_dup(arg->ctx->exec,
-> &bo->base);
-> +	else if (arg->ctx->interruptible)
-> =C2=A0		ret =3D dma_resv_lock_interruptible(bo->base.resv,
-> arg->ticket);
-> =C2=A0	else
-> =C2=A0		ret =3D dma_resv_lock(bo->base.resv, arg->ticket);
-> @@ -871,7 +876,11 @@ static int ttm_lru_walk_ticketlock(struct
-> ttm_bo_lru_cursor *curs,
-> =C2=A0		 * trylocking for this walk.
-> =C2=A0		 */
-> =C2=A0		arg->ticket =3D NULL;
-> -	} else if (ret =3D=3D -EDEADLK) {
+>  tests/meson.build    |   1 +
+>  2 files changed, 246 insertions(+)
+>  create mode 100644 tests/dmem_cgroups.c
+> 
+> diff --git a/tests/dmem_cgroups.c b/tests/dmem_cgroups.c
+> new file mode 100644
+> index 000000000000..da2475a14ff9
+> --- /dev/null
+> +++ b/tests/dmem_cgroups.c
+> @@ -0,0 +1,245 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2026 Intel Corporation
+> + */
 > +
-> +	} else if (arg->ctx->exec && arg->ctx->allow_res_evict &&
-> +		=C2=A0=C2=A0 ret =3D=3D -EALREADY) {
-> +		ret =3D 0;
-> +	} else if (!arg->ctx->exec && ret =3D=3D -EDEADLK) {
-> =C2=A0		/* Caller needs to exit the ww transaction. */
-> =C2=A0		ret =3D -ENOSPC;
-> =C2=A0	}
-> @@ -937,12 +946,17 @@ static void ttm_bo_lru_cursor_cleanup_bo(struct
-> ttm_bo_lru_cursor *curs)
-> =C2=A0{
-> =C2=A0	struct ttm_buffer_object *bo =3D curs->bo;
-> =C2=A0
-> -	if (bo) {
-> -		if (curs->needs_unlock)
-> +	if (!bo)
-> +		return;
+> +/**
+> + * TEST: dmem_cgroups
+> + * DESCRIPTION: Tests exercising the dmem cgroup controller on devices.
+> + * Category: Core
+> + * Mega feature: General Core features
+> + * Sub-category: cgroup
+> + * FUNCTIONALITY: cgroup dmem controller
+> + */
 > +
-> +	if (curs->needs_unlock) {
-> +		if (curs->arg->ctx->exec)
-> +			drm_exec_unlock_obj(curs->arg->ctx->exec,
-> &bo->base);
-
-Unlocking after each locks sort of defeats the purpose of ww locking,
-since it can't guarantee forward progress, but I guess will work as an
-initial attempt.
-
-Thanks,
-Thomas
-
-
-> +		else
-> =C2=A0			dma_resv_unlock(bo->base.resv);
-> -		ttm_bo_put(bo);
-> -		curs->bo =3D NULL;
-> =C2=A0	}
-> +	ttm_bo_put(bo);
-> +	curs->bo =3D NULL;
-> =C2=A0}
-> =C2=A0
-> =C2=A0/**
-> @@ -1016,8 +1030,8 @@ __ttm_bo_lru_cursor_next(struct
-> ttm_bo_lru_cursor *curs)
-> =C2=A0		if (ttm_lru_walk_trylock(curs, bo)) {
-> =C2=A0			bo_locked =3D true;
-> =C2=A0
-> -		} else if (!arg->ticket || arg->ctx->no_wait_gpu ||
-> -			=C2=A0=C2=A0 arg->trylock_only) {
-> +		} else if ((!arg->ticket || arg->ctx->no_wait_gpu ||
-> +			=C2=A0=C2=A0=C2=A0 arg->trylock_only) && !arg->ctx->exec) {
-> =C2=A0			spin_unlock(lru_lock);
-> =C2=A0			ttm_bo_put(bo);
-> =C2=A0			spin_lock(lru_lock);
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index a4060e44d23d0..156444b5e85d8 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -187,6 +187,11 @@ struct ttm_operation_ctx {
-> =C2=A0	 * @bytes_moved: Statistics on how many bytes have been
-> moved.
-> =C2=A0	 */
-> =C2=A0	uint64_t bytes_moved;
-> +	/**
-> +	 * @exec: optional drm_exec object to use for locking BOs
-> and
-> +	 * tracking which are locked.
+> +#include <errno.h>
+> +#include <signal.h>
+> +#include <stdatomic.h>
+> +#include <stdint.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> +
+> +#include "drmtest.h"
+> +#include "igt.h"
+> +#include "igt_aux.h"
+> +#include "igt_cgroup.h"
+> +#include "igt_dmem_driver.h"
+> +
+> +#define BO_SIZE			SZ_64M
+> +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> +#define USAGE_SLACK		SZ_4M		/* tolerance above the set max */
+> +#define USAGE_POLL_MS		10
+> +#define USAGE_DROP_TIMEOUT_MS	1000
+> +
+> +/**
+> + * SUBTEST: current
+> + * DESCRIPTION:
+> + *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+> + *  check current usage is within a small slack of the expected allocation.
+> + *  Then, set max to a small value and check allocations and current usage
+> + *  are limited to the max set.
+> + *  Set max to 0, then check no allocations are allowed and current usage
+> + *  is also within the slack.
+> + *  After each allocation, release memory and check current usage has gone
+> + *  down.
+> + * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+> + */
+> +
+> +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
+> +				    uint64_t limit)
+> +{
+> +	uint64_t current;
+> +	unsigned int elapsed = 0;
+> +
+> +	do {
+> +		igt_cgroup_dmem_get_current(cg, region, &current);
+> +		if (current <= limit)
+> +			return current;
+> +		usleep(USAGE_POLL_MS * 1000);
+> +		elapsed += USAGE_POLL_MS;
+> +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
+> +
+> +	return current;
+> +}
+> +
+> +static int allocate_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo, size_t len)
+> +{
+> +	int n_bo, err = 0;
+> +	for (n_bo = 0; n_bo < max_bo; n_bo++) {
+> +		err = drv->allocate_vram(ctx, n_bo, len);
+> +		if (err)
+> +			break;
+> +	}
+> +	/* These are expected failures we can ignore. */
+> +	if (err == -ENOMEM || err == -ENOSPC)
+> +		err = 0;
+> +	return err ?: n_bo;
+> +}
+> +
+> +static void free_vram(const struct igt_dmem_driver *drv, void *ctx, int max_bo)
+> +{
+> +	int i;
+> +	for (i = 0; i < max_bo; i++)
+> +		drv->free_vram(ctx, i);
+> +}
+> +
+> +static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv)
+> +{
+> +	struct igt_cgroup *cg;
+> +	void *ctx;
+> +	uint64_t current, capacity, cg_max;
+> +	int n_bo = 0, max_bo;
+> +	int err;
+> +
+> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> +	igt_require_f(capacity >= 4 * BO_SIZE,
+> +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
+> +		      capacity / SZ_1M);
+> +
+> +	/*
+> +	 * Use up to 4 GiB, or the full capacity if the device has less.
+> +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
+> +	 * exhausted before the cgroup limit is hit.
 > +	 */
-> +	struct drm_exec *exec;
-> =C2=A0};
-> =C2=A0
-> =C2=A0/**
+> +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE - USAGE_SLACK);
+> +	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
+> +
+> +	/* Create cgroup and move into it */
+> +	cg = igt_cgroup_new("igt_cgroups_test");
+> +	igt_cgroup_move_current(cg);
+> +
+> +	max_bo = cg_max / BO_SIZE;
+> +
+> +	err = drv->init(&ctx, fd, max_bo);
+> +	igt_assert_f(!err, "Failed to initialize driver");
+> +
+> +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < cg_max + USAGE_SLACK && current > cg_max - USAGE_SLACK,
+> +		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
+> +		     current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	free_vram(drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
+> +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> +
+> +	/* Allow for a slack as there might be some extra pages allocated. */
+> +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE + USAGE_SLACK, false);
+> +
+> +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current > 2 * BO_SIZE - USAGE_SLACK,
+> +		     "current usage (%"PRIu64" MiB) is not within margin of allocation (%"PRIu64" MiB)\n",
+> +		     current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	free_vram(drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
+> +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> +
+> +	igt_cgroup_dmem_set_max(cg, cg_region, USAGE_SLACK, false);
+> +
+> +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo != -ENOMEM, "VRAM allocation succeeded despite max set to 0\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		     "current usage (%"PRIu64" MiB) is not within margin\n",
+> +		     current / SZ_1M);
+> +
+> +	if (n_bo > 0)
+> +		free_vram(drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		     "current usage (%"PRIu64" MiB) is not within margin (%d MiB)\n",
+> +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> +
+> +	drv->deinit(ctx);
+> +	igt_cgroup_free(cg);
+> +}
+> +
+> +static const struct {
+> +	const char *name;
+> +	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv);
+> +	unsigned int flags;
+> +} subtests[] = {
+> +	{ "current", test_current, 0 },
+> +	{ }
+> +};
+> +
+> +static const struct {
+> +	int driver_flag;
+> +	const struct igt_dmem_driver *driver;
+> +} drivers[] = {
+> +	{ DRIVER_XE, &xe_dmem_driver },
+> +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
+> +	{ },
+> +};
+> +
+> +int igt_main()
+> +{
+> +	igt_fixture() {
+> +		igt_require_f(getuid() == 0, "Test requires root\n");
+> +		/* Check dmem cgroup controller is available before doing anything else */
+> +		igt_require_f(igt_cgroup_dmem_available(),
+> +			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
+> +
+> +	}
+> +
+> +	for (int d = 0; drivers[d].driver; d++) {
+> +		igt_subtest_group() {
+> +			int fd = -1;
+> +			char *cg_region;
+> +			igt_fixture() {
+> +				fd = drm_open_driver(drivers[d].driver_flag);
+> +				igt_require_f(fd >= 0,
+> +					"No %s device found, skipping\n",
+> +					drivers[d].driver->name);
+> +				cg_region = drivers[d].driver->get_region_name(fd);
+> +				igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
+> +			}
+> +
+> +			for (int i = 0; subtests[i].name; i++)
+> +				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
+> +					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver);
+> +
+> +			igt_fixture() {
+> +				if (fd >= 0)
+> +					drm_close_driver(fd);
+> +				free(cg_region);
+> +			}
+> +		}
+> +	}
+> +}
+> diff --git a/tests/meson.build b/tests/meson.build
+> index 88a0ce224432..dfdaab41825a 100644
+> --- a/tests/meson.build
+> +++ b/tests/meson.build
+> @@ -11,6 +11,7 @@ test_progs = [
+>  	'core_sysfs',
+>  	'dmabuf',
+>  	'dmabuf_sync_file',
+> +	'dmem_cgroups',
+>  	'device_reset',
+>  	'dumb_buffer',
+>  	'drm_buddy',
+> -- 
+> 2.47.3
+> 
