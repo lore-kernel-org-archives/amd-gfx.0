@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04895C4450A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB94C44502
 	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDF610ECE8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6620910ECEE;
 	Tue,  7 Jul 2026 12:58:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NQzwviyj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G6PBZFgP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6317410E4C6;
- Tue,  7 Jul 2026 11:52:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51BC710E4BD;
+ Tue,  7 Jul 2026 12:24:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783425172; x=1814961172;
+ t=1783427079; x=1814963079;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=scQCim2uIGkfX0a9VP64B6UKFOAUFt223J/TjraSZmg=;
- b=NQzwviyjSZMv0zhaRtt720/khriIFUStCYcvybyIStxQiPUp+zyIHov8
- Yrz3gO+y92pEE9G1vDruMs0bIuYHZXpjEcNI34ct4LmXuSJZBhgdzRh6A
- 1EiL3CgNJPaUz37KQZkoDjg4hLueCefVNkMp9JhpZPiURU7jsEaySM8IF
- Wpri4Ye2/Mjv9XAIloOtEateryjDf0Aj7CFqh7rtoAe1Zau48jufJ+D93
- Ej2Xqg9N3eC+wnN3w6lRLUcOrIl+dCHDTplSxsLKphtRiZOGCu6FaHKdD
- lqQ67dvDarjbPGrrj3JS26qE9lHCVgMIOVwdvBR4mHB+MWZP2rPJ1ESqQ Q==;
-X-CSE-ConnectionGUID: Q1+5cvVvTG+kJ7QoyH4FgA==
-X-CSE-MsgGUID: 5P7MkFtsTOWCOjtXpmH2KQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="84093076"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84093076"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 04:52:46 -0700
-X-CSE-ConnectionGUID: CujSQrjNSnWL6j8xh9YzhQ==
-X-CSE-MsgGUID: EF03b59zRt2Xh3PwRNnI3g==
+ bh=H+e3am5bkmWAqDrpInK+XxfwX0696SVIY/2yyZwcuLM=;
+ b=G6PBZFgPN7pYLMHsD2vLpGvBHeFhM41mbgbvqwKDFEL7PWQy2WEhddRo
+ 1vd+pL1pz+txcmOdB1qROfimmWVbJEvm08i3JVwrOplTqckOR59F4zWOI
+ c5nalecSYtioMLzAy0VvXJWAX5Xq0qU5sUBbad3phV+VcnuPOeX7sgS9X
+ tr9OIFFf2396fb5rGBIng6ghNO60bjlwW83XUCW8kuKRvcgBOTQKCQDIB
+ +Ifk60AnITUGU9hCE4e8/j6WkBVGn6nFSKSq/dekTJ++UAewu1geurzzG
+ mg5ljeh5qQPLPuJ51QmSrcGfpBaggjhdPr5LILiEXNSbEZxw4KfbjhZWz A==;
+X-CSE-ConnectionGUID: UuYpJLrBQzaAjuD+pyB94w==
+X-CSE-MsgGUID: qmQKhxbATDmf/6ssG5m1IA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="101617694"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="101617694"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:24:39 -0700
+X-CSE-ConnectionGUID: S3/zQBKCTAmUH7YB7P3t/Q==
+X-CSE-MsgGUID: Fz5OH36eQy2vJvOkNPFyjg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="258292634"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="249998997"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
  ([10.245.244.199])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 04:52:42 -0700
-Message-ID: <8642419f410b3c4b21b905b59a800bd5a78fe875.camel@linux.intel.com>
-Subject: Re: [PATCH 08/10] drm/xe: remove workaround for TTM internals
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:24:35 -0700
+Message-ID: <80900aaceb79fc445c19016f08df8dedf3735aa2.camel@linux.intel.com>
+Subject: Re: [PATCH 06/10] drm/ttm: move zombie handling into ttm_bo_evict
 From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
 To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -58,10 +58,10 @@ To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
-Date: Tue, 07 Jul 2026 13:52:39 +0200
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-8-43685ac1286b@gmx.de>
+Date: Tue, 07 Jul 2026 14:24:32 +0200
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-6-43685ac1286b@gmx.de>
 References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-8-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-6-43685ac1286b@gmx.de>
 Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -85,85 +85,72 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
 > From: Christian K=C3=B6nig <christian.koenig@amd.com>
 >=20
-> This should no longer be necessary, TTM doesn't lock the BO without a
-> reference any more.
->=20
-> Only compile tested!
+> Both callers do the same thing, so we can trivially unify that.
 >=20
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+
+Although might need a different definition of ttm_bo_is_zombie if we
+keep the ttm refcount for now.
+
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+
+
 > ---
-> =C2=A0drivers/gpu/drm/xe/xe_bo.c | 32 +++++---------------------------
-> =C2=A01 file changed, 5 insertions(+), 27 deletions(-)
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++---------------
+> =C2=A01 file changed, 9 insertions(+), 15 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 5843f850339c7..34eae56716076 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -1642,31 +1642,6 @@ static unsigned long xe_ttm_io_mem_pfn(struct
-> ttm_buffer_object *ttm_bo,
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 24c52df169ac8..54f01611ec823 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -359,6 +359,13 @@ static int ttm_bo_evict(struct ttm_buffer_object
+> *bo,
+> =C2=A0	struct ttm_place hop;
+> =C2=A0	int ret =3D 0;
 > =C2=A0
-> =C2=A0static void __xe_bo_vunmap(struct xe_bo *bo);
+> +	if (ttm_bo_is_zombie(bo)) {
+> +		ret =3D ttm_bo_wait_ctx(bo, ctx);
+> +		if (!ret)
+> +			ttm_bo_cleanup_memtype_use(bo);
+> +		return ret;
+> +	}
+> +
+> =C2=A0	memset(&hop, 0, sizeof(hop));
 > =C2=A0
-> -/*
-> - * TODO: Move this function to TTM so we don't rely on how TTM does
-> its
-> - * locking, thereby abusing TTM internals.
-> - */
-> -static bool xe_ttm_bo_lock_in_destructor(struct ttm_buffer_object
-> *ttm_bo)
-> -{
-> -	struct xe_device *xe =3D ttm_to_xe_device(ttm_bo->bdev);
-> -	bool locked;
-> -
-> -	xe_assert(xe, !kref_read(&ttm_bo->base.refcount));
-> -
-> -	/*
-> -	 * We can typically only race with TTM trylocking under the
-> -	 * lru_lock, which will immediately be unlocked again since
-> -	 * the ttm_bo refcount is zero at this point. So trylocking
-> *should*
-> -	 * always succeed here, as long as we hold the lru lock.
-> -	 */
-> -	spin_lock(&ttm_bo->bdev->lru_lock);
-> -	locked =3D dma_resv_trylock(&ttm_bo->base._resv);
-> -	spin_unlock(&ttm_bo->bdev->lru_lock);
-
-We could just remove the spinlocks, update the comment and keep the
-asserts. Also the new code below locks .resv rather than ._resv, which
-is incorrect for imported dma-bufs.
-
-Thanks,
-Thomas
-
-
-> -	xe_assert(xe, locked);
-> -
-> -	return locked;
-> -}
-> -
-> =C2=A0static void xe_ttm_bo_release_notify(struct ttm_buffer_object
-> *ttm_bo)
-> =C2=A0{
-> =C2=A0	struct dma_resv_iter cursor;
-> @@ -1680,8 +1655,11 @@ static void xe_ttm_bo_release_notify(struct
-> ttm_buffer_object *ttm_bo)
-> =C2=A0	bo =3D ttm_to_xe_bo(ttm_bo);
-> =C2=A0	xe_assert(xe_bo_device(bo), !(bo->created &&
-> kref_read(&ttm_bo->base.refcount)));
+> =C2=A0	dma_resv_assert_held(bo->base.resv);
+> @@ -466,13 +473,7 @@ int ttm_bo_evict_first(struct ttm_device *bdev,
+> struct ttm_resource_manager *man
+> =C2=A0	if (!bo->resource || bo->resource->mem_type !=3D mem_type)
+> =C2=A0		goto out_bo_moved;
 > =C2=A0
-> -	if (!xe_ttm_bo_lock_in_destructor(ttm_bo))
-> -		return;
-> +	/*
-> +	 * This should never fail since there are no other
-> references to the BO
-> +	 * any more.
-> +	 */
-> +	WARN_ON(!dma_resv_trylock(ttm_bo->base.resv));
-
-
-
+> -	if (ttm_bo_is_zombie(bo)) {
+> -		ret =3D ttm_bo_wait_ctx(bo, ctx);
+> -		if (!ret)
+> -			ttm_bo_cleanup_memtype_use(bo);
+> -	} else {
+> -		ret =3D ttm_bo_evict(bo, ctx);
+> -	}
+> +	ret =3D ttm_bo_evict(bo, ctx);
+> =C2=A0out_bo_moved:
+> =C2=A0	dma_resv_unlock(bo->base.resv);
+> =C2=A0out_no_lock:
+> @@ -520,14 +521,7 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk
+> *walk, struct ttm_buffer_object *
+> =C2=A0	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo,
+> evict_walk->place))
+> =C2=A0		return 0;
 > =C2=A0
-> =C2=A0	/*
-> =C2=A0	 * Scrub the preempt fences if any. The unbind fence is
-> already
+> -	if (ttm_bo_is_zombie(bo)) {
+> -		lret =3D ttm_bo_wait_ctx(bo, walk->arg.ctx);
+> -		if (!lret)
+> -			ttm_bo_cleanup_memtype_use(bo);
+> -	} else {
+> -		lret =3D ttm_bo_evict(bo, walk->arg.ctx);
+> -	}
+> -
+> +	lret =3D ttm_bo_evict(bo, walk->arg.ctx);
+> =C2=A0	if (lret)
+> =C2=A0		goto out;
+> =C2=A0
