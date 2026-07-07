@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF99AC44507
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF1CAC44506
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 12:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9FE410ECDF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5022110ECDA;
 	Tue,  7 Jul 2026 12:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QbuaaVHa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ls3K45+T";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0056610EC14
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2026 10:06:44 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-493c5220cb7so30628145e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jul 2026 03:06:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783418803; x=1784023603; darn=lists.freedesktop.org;
- h=to:from:subject:message-id:date:content-type
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=p0NYG5TD09/yR8WkDDiynJAqcMoU3ICsbKt6BPhGobM=;
- b=QbuaaVHaOc9E/Dw1+BHNeotdCY7dD/UuwGUdTPcLvgzG0A4Nd9TnDz5Z51tZFY7IJ/
- rJuQs/Xq/E5gitsH3Caa/0DEKybgpghzikq92wVhOlUJBEY4BhzSbzZ9wUR81PlYOKv6
- 3r5sHix96M4fgmReibQwCeBRFvLR8L/kPEJ9HtrGEONXE0l5g1c/VBsWRXkaywY+X2K+
- qKiC8KfPweyI4UZB3bCp0j33IbZGs1OlnUQ2dI70zWbLLN7YlQTI61TvCMxLA3uPwGsO
- fd6cXccqNS/uvFPDL232nX/ZmrnqYoL/j5MWFs0RiZ3j6CQ7OQmeH8DmDG9c0AD88K6U
- BcBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783418803; x=1784023603;
- h=to:from:subject:message-id:date:content-type
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=p0NYG5TD09/yR8WkDDiynJAqcMoU3ICsbKt6BPhGobM=;
- b=Bd0BTaRkX8k3o/QtUkVQkpyX6e7itkrVqrwr1l51kFCggK70apLngEckSFUeWAd6AK
- Vz6vyZS+ctdmltgxSCKYsjnA5XMMUWMmhMng3/IDMnkD8+C1yr+DEqu6wP4Hk8mtyq8q
- aSvcWnVnhLkRGEAvqCBTuwZGobent5Cl2j9rDCNWYSoC6KsMo3GroX4pthZc6RR+WhRA
- DrLK9GCudeBdgaI+mECnn6zBTyiA/YKG2z0fPHdB/UFg+zuSzFFkO78v+u35gQGRQqLs
- ib0KCWo4CJu+glRpuWbwXONdF0WhStqGr4x10hnd2WVn/hP3YLOq5HFBtYYIs8t1wsyP
- h20w==
-X-Gm-Message-State: AOJu0Yx85tkk79Ni8Ymt2glleVNwo3WDUGjTIK4UIFABWOCOKE4PcASS
- Y/JHU9cQ8HTmOrFJw+WrqmZEUoB9QyLQ7cK3z8FtxeniP4RgfubR6zpSqPz2Oeit
-X-Gm-Gg: AfdE7cmfe1thLtX4qk1be5LzwamSZaxWTBjDeCeDnAlAJG0F+We7iRbf6SN4xcHBZRp
- 0UnD+j69mVWul3ts2xpQOw0PB+R+AZanjz2Z62Ocnueax7zPeKYqraf0rddfTWm7RJXPN5MngFg
- jvrNzJcR/y2IdgiElCYVmY2BnlWlQlZomCmiaRIX/QA3TAcrqvSoOuWf1V7JrzrwPD6Mq3ZhPr3
- eJNUFFvQj71PQNJ6ZIdoIv8S6ICeSMzoga8u9fi2j8ME+cPwqSc1p2rAgxYDNddEW2DdOJc0c+k
- 8+Hc0BlCS5ssSH1JiHDqWahyGaHvRjhtTD6AIJNg8b2Q1jkMPyIxWf1Z5B3ERVird8d4GFpTOwA
- sXgOvHdDr25x91J5ersBhLxIO9mPsyw6EtKeMzYZuMhcoTkreJPfNU2Nvsz9y0XK70k+8YK0+Ef
- BqyqECmA+2Jwcj5Zm4
-X-Received: by 2002:a05:600c:3b01:b0:493:c389:d436 with SMTP id
- 5b1f17b1804b1-493df041c46mr45256345e9.9.1783418803241; 
- Tue, 07 Jul 2026 03:06:43 -0700 (PDT)
-Received: from localhost ([193.30.163.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e0fbd355sm40383395e9.13.2026.07.07.03.06.42
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jul 2026 03:06:42 -0700 (PDT)
-Mime-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD9789226;
+ Tue,  7 Jul 2026 12:41:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783428120; x=1814964120;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=oLxyLktYGNMszk3W/9KmRAP6Lv0GJ8nHgtRDf5wsq7Q=;
+ b=Ls3K45+TD4se66v4g7vQW+pVBZLuSCXhNMHcO1/x7JYg/ZJGxdW+Wr2L
+ ioDnVEmPAC9QeLOoiHb6JBKV6jZFcSnBZIvypw26G1sVqkzXxYb2Gv0sP
+ RkD3irW2cQ15o9gjgxKEmn8LuZ+pU917H7Cf+3EgVpxzXUqZ9tAWEnvtS
+ DnbpGewLgLCRzGsB4VZWWmcgZ2AGuCxzbVEDMuGhY9r7daby+2+Op0MO7
+ vYF5meT6WG1iJOMCoOKoV2sbNmpAPeBR6br3G5UOJUT0Nd77VlLd8OEAh
+ 97hPW0mGuMNxeS+b9pzDQBNWtwiKcpLxxzlVl8DiyD1N3yevRg2whD/EM w==;
+X-CSE-ConnectionGUID: 5zJbvexJQHKOf0izA32bZw==
+X-CSE-MsgGUID: NCIU4sCgSPuHGOUnuKXu7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="95452012"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="95452012"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:41:59 -0700
+X-CSE-ConnectionGUID: mPdUbNyyRx+oyuNH9e3/dw==
+X-CSE-MsgGUID: XEnS8VB2QBa4q5tY8f8zYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="258299506"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
+ ([10.245.244.199])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:41:54 -0700
+Message-ID: <6fac8343dc71b1dbf17e77390cc878cfaeb6d650.camel@linux.intel.com>
+Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
+ flag
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Natalie
+ Vock <natalie.vock@gmx.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen	 <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
+ <matthew.brost@intel.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Tue, 07 Jul 2026 14:41:52 +0200
+In-Reply-To: <0f85e12e-7d34-40a8-9efc-0d1a00b7c24c@amd.com>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
+ <673ae71a1fc4dcce0e6a1655985a141d6f08c06f.camel@linux.intel.com>
+ <0f85e12e-7d34-40a8-9efc-0d1a00b7c24c@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Jul 2026 12:06:42 +0200
-Message-Id: <DJS97B8F8T0P.3VZ24NB8R2DLY@gmail.com>
-Subject: Question about HF-EEODB EDID extension override handling
-From: =?utf-8?q?Timo_Pr=C3=B6mer?= <timo.proemer04@gmail.com>
-To: <amd-gfx@lists.freedesktop.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 07 Jul 2026 12:58:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,28 +84,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, 2026-07-07 at 14:28 +0200, Christian K=C3=B6nig wrote:
+> On 7/7/26 14:09, Thomas Hellstr=C3=B6m wrote:
+> > On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+> > > TTM is about to switch to drm_exec for locking objects
+> > > in the LRU list. When we're done processing the object, we want
+> > > to
+> > > unlock it only if the caller doesn't already hold that lock. If
+> > > DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which
+> > > callers
+> > > may
+> > > require for unrelated reasons), we have no way of knowing whether
+> > > the
+> > > lock is already held.
+> > >=20
+> > > To remedy this, add a separate helper that forcefully bypasses
+> > > the
+> > > IGNORE_DUPLICATES flag for only a single locking operation.
+> > >=20
+> > > Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+> >=20
+> > The first, more complete attempt to try to tackle the exhaustive
+> > eviction introduced a drm_exec snapshot ability instead.
+> >=20
+> > https://lists.freedesktop.org/archives/intel-xe/2024-May/035820.html
+> >=20
+> > The idea was that one would want to incrementally lock more buffer
+> > objects until the validation succeeded, rather than dropping each
+> > single lock after processing the eviction. That's actually what
+> > guarantees forward progress. Restoring the snapshot unlocked all
+> > locks
+> > that we grabbed in the process, and would work also for single
+> > locks.
+>=20
+> That's actually not what this patch here tries to solve.
+>=20
+> The problem is rather since we don't remove the BOs from the LRU list
+> that we try to evict some which are actually part of our working set.
+>=20
+> So when we lock for eviction we can't ignore duplicates no matter
+> what the global flag says.
 
-I am trying to get my Samsung Odyssey Neo G8 to run on 3840x2160@240Hz
-over HDMI 2.1 (Linux 7.2-rc2), but that mode does not show up.
-
-I noticed that the EDID only contains block 0 and 1,
-even though the HF-EEODB specifies an extension block count of 3.
-
-From my reading, the EDID parsing code in 'drivers/gpu/drm/drm_edid.c'=20
-does respect this override as far as i can tell.
-However I also found some code that appears to be copying / truncating the=
-=20
-EDID in 'drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c:1208'
-(function: 'dm_helpers_read_local_edid') without accounting for this overri=
-de.
-
-I am new to kernel-level development, so I apologize in advance if I=20
-am misunderstanding the intended flow here. Could this be the reason for
-my incomplete EDID? The kernel does not log any EDID-related errors or
-warnings, so I am not sure whether this is expected behavior or a bug.
-
-Please keep me on Cc; I am not subscribed to the list.
+Ah yes, I see that now when I've gotten to patch 9. But then I think
+the commit message is a bit misleading. It talks about unlocking an
+already processed object?
 
 Thanks,
-Timo Pr=C3=B6mer
+Thomas
+
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Thanks,
+> > Thomas
+> >=20
+> >=20
+> > > ---
+> > > =C2=A0drivers/gpu/drm/drm_exec.c | 52
+> > > ++++++++++++++++++++++++++++++++++--
+> > > ----------
+> > > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
+> > > =C2=A02 files changed, 41 insertions(+), 13 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/drm_exec.c
+> > > b/drivers/gpu/drm/drm_exec.c
+> > > index 7988f5e7d56a3..91de6b4d29df8 100644
+> > > --- a/drivers/gpu/drm/drm_exec.c
+> > > +++ b/drivers/gpu/drm/drm_exec.c
+> > > @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct
+> > > drm_exec *exec)
+> > > =C2=A0	return ret;
+> > > =C2=A0}
+> > > =C2=A0
+> > > -/**
+> > > - * drm_exec_lock_obj - lock a GEM object for use
+> > > - * @exec: the drm_exec object with the state
+> > > - * @obj: the GEM object to lock
+> > > - *
+> > > - * Lock a GEM object for use and grab a reference to it.
+> > > - *
+> > > - * Returns: -EDEADLK if a contention is detected, -EALREADY when
+> > > object is
+> > > - * already locked (can be suppressed by setting the
+> > > DRM_EXEC_IGNORE_DUPLICATES
+> > > - * flag), -ENOMEM when memory allocation failed and zero for
+> > > success.
+> > > - */
+> > > -int drm_exec_lock_obj(struct drm_exec *exec, struct
+> > > drm_gem_object
+> > > *obj)
+> > > +static int __drm_exec_lock_obj(struct drm_exec *exec,
+> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_gem_object *obj,
+> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool always_report_duplicate=
+s)
+> > > =C2=A0{
+> > > =C2=A0	int ret;
+> > > =C2=A0
+> > > @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec,
+> > > struct drm_gem_object *obj)
+> > > =C2=A0		return -EDEADLK;
+> > > =C2=A0	}
+> > > =C2=A0
+> > > -	if (unlikely(ret =3D=3D -EALREADY) &&
+> > > +	if (unlikely(ret =3D=3D -EALREADY) &&
+> > > !always_report_duplicates
+> > > &&
+> > > =C2=A0	=C2=A0=C2=A0=C2=A0 exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
+> > > =C2=A0		return 0;
+> > > =C2=A0
+> > > @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec,
+> > > struct drm_gem_object *obj)
+> > > =C2=A0	dma_resv_unlock(obj->resv);
+> > > =C2=A0	return ret;
+> > > =C2=A0}
+> > > +
+> > > +/**
+> > > + * drm_exec_lock_obj - lock a GEM object for use
+> > > + * @exec: the drm_exec object with the state
+> > > + * @obj: the GEM object to lock
+> > > + *
+> > > + * Lock a GEM object for use and grab a reference to it.
+> > > + *
+> > > + * Returns: -EDEADLK if a contention is detected, -EALREADY when
+> > > object is
+> > > + * already locked (can be suppressed by setting the
+> > > DRM_EXEC_IGNORE_DUPLICATES
+> > > + * flag), -ENOMEM when memory allocation failed and zero for
+> > > success.
+> > > + */
+> > > +int drm_exec_lock_obj(struct drm_exec *exec, struct
+> > > drm_gem_object
+> > > *obj)
+> > > +{
+> > > +	return __drm_exec_lock_obj(exec, obj, false);
+> > > +}
+> > > =C2=A0EXPORT_SYMBOL(drm_exec_lock_obj);
+> > > =C2=A0
+> > > +/**
+> > > + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but
+> > > always report duplicates
+> > > + * @exec: the drm_exec object with the state
+> > > + * @obj: the GEM object to lock
+> > > + *
+> > > + * Like drm_exec_lock_obj, lock a GEM object for use and grab a
+> > > reference to it.
+> > > + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is
+> > > ignored
+> > > and duplicates are
+> > > + * always reported.
+> > > + *
+> > > + * Returns: -EDEADLK if a contention is detected, -EALREADY when
+> > > object is
+> > > + * already locked, -ENOMEM when memory allocation failed and
+> > > zero
+> > > for success.
+> > > + */
+> > > +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
+> > > +				 struct drm_gem_object *obj)
+> > > +{
+> > > +	return __drm_exec_lock_obj(exec, obj, false);
+> > > +}
+> > > +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
+> > > +
+> > > =C2=A0/**
+> > > =C2=A0 * drm_exec_unlock_obj - unlock a GEM object in this exec
+> > > context
+> > > =C2=A0 * @exec: the drm_exec object with the state
+> > > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> > > index 8725ba92ff916..ff80dd2b72240 100644
+> > > --- a/include/drm/drm_exec.h
+> > > +++ b/include/drm/drm_exec.h
+> > > @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32
+> > > flags, unsigned nr);
+> > > =C2=A0void drm_exec_fini(struct drm_exec *exec);
+> > > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
+> > > =C2=A0int drm_exec_lock_obj(struct drm_exec *exec, struct
+> > > drm_gem_object
+> > > *obj);
+> > > +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
+> > > +				 struct drm_gem_object *obj);
+> > > =C2=A0void drm_exec_unlock_obj(struct drm_exec *exec, struct
+> > > drm_gem_object *obj);
+> > > =C2=A0int drm_exec_prepare_obj(struct drm_exec *exec, struct
+> > > drm_gem_object *obj,
+> > > =C2=A0			 unsigned int num_fences);
