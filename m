@@ -4,83 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 254A6C43602
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 13:13:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74435C43458
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jul 2026 13:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F5210ED01;
-	Tue,  7 Jul 2026 13:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0422510ECEB;
+	Tue,  7 Jul 2026 13:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="dWjazBt6";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="ASeBTo/0";
 	dkim-atps=neutral
-X-Greylist: delayed 96969 seconds by postgrey-1.36 at gabe;
- Tue, 07 Jul 2026 13:12:54 UTC
-Received: from 12.mo534.mail-out.ovh.net (12.mo534.mail-out.ovh.net
- [46.105.38.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E126910ECF7
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jul 2026 13:12:54 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gvhVC6Qf5z6JcK;
- Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
-Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.231.53])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4gvhVC55kjz1xyV; Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.11])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 6586D9A1903;
- Tue,  7 Jul 2026 13:12:49 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-95G001ad5d9db4-2061-4297-b6e6-0f6bd507a9e5,
- F51ABC51DEFAB5EDC130C4DD81C4A0C3FBCA9704) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <35e58b52-8b40-424e-8d27-00e0ca34acda@pixelcluster.dev>
-Date: Tue, 7 Jul 2026 15:12:48 +0200
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E3C10ECEB;
+ Tue,  7 Jul 2026 13:16:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783430152; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=cpB50S59VRu/EKC48+ikzc9YvMgOjb8U5Ft9BR+34AcvftHQpubdQBUO8Kp4Tnii0393/df63cZZWxlNSwXV4v0ADaursX12DTXLdDvztPK3+WDFhKLayAGs93KKU7mTe+BhEHRKybK8GyB/oCR0BQ3XtAoMXHQDJooynakP84I=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783430152;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=AjiMAH+aUOZ1T5Y6Winl/yzirQDCF30FfDqJLLs3nI0=; 
+ b=XoWvc7PgKPbRe4euzkb03O8L74Ui6RFjRRTnMIVj5k8XLyU5cC08klbz52cMlKejV/iRE57KxNzWliZ8uZU+4BYdLqxOiD3QiDORLVPkWlLFGsMY+mHa9xAFOh3OOZJIcPr67eK/rLI4OR2Juo29HJNFJAPBerrU9I+YVUEUak8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783430152; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=AjiMAH+aUOZ1T5Y6Winl/yzirQDCF30FfDqJLLs3nI0=;
+ b=ASeBTo/0jYpDQViBrlxcZh+DVqaQYOejqc0HosMJJCUeUhh3KnToXBT9njL+QcZS
+ 2EviRqwfOu3LymyGLKAQA/8h/xP46I0WIfn73TyYz9z4eTcF8Em/cStE2RdpKaAQ7+I
+ sibf1iY/kf4kvEOvgoO763I/JthTOnYTbiTppsmc=
+Received: by mx.zohomail.com with SMTPS id 1783430149837990.5307558137384;
+ Tue, 7 Jul 2026 06:15:49 -0700 (PDT)
+Message-ID: <d3e954dd-381f-480b-8f48-698d8aead017@collabora.com>
+Date: Tue, 7 Jul 2026 15:15:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
- <673ae71a1fc4dcce0e6a1655985a141d6f08c06f.camel@linux.intel.com>
- <0f85e12e-7d34-40a8-9efc-0d1a00b7c24c@amd.com>
- <6fac8343dc71b1dbf17e77390cc878cfaeb6d650.camel@linux.intel.com>
- <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+ <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
+ <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 18109818530335777084
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGpMHMiR+lV9BG0g8y0r2YN9yKo++eDVO5jx4tO5/nQak9qOI47eseKMoIcSZ62nsQ8OdE5PKzsBipKvfIlVx9gsfZynHGCR9kl6L+2Nb4b5DI490aLOJ701YTtbnnrQKXmE/03XMqw1I+PvFIeiCSj8m8PSMaqxqq0ns7qepNXdNHJFR7QlZZWpzV/eVdNy5XnJ+6To7eqXqAgJ+LaLhGak6FrxMlCWiaVc5Ibzr0BEQdeqmaUoCsEcyoacxj4wjWZngaHCgj5goJPa2I8+0KK5GfBxvZ0l6mJdd72hsGkSf3F0b2vQWVQe8d2sRv3iaFqVvfiOdArPni0Q97UD34yuIsL1N2s+vFsKkHGR9/o2EovG25L6inKQn+SXh4jCA+u8njsQqGqornxTSRLdMfo2CsZinW73WZHVWdPuGYcUyUGOwIFFG/QhO+uvwUf2TSVIp9DIWCedg1bydg2sRA432R/m24W0DsPeVijIARYeY7gXQlU2ZcsLA5+ygN3DZ99ziGuc4qwgkAeH5E/xlyWCmI+nGGhDwm1z1oBdr3rEZmjdFLcYXBuTPeLPJGOyxDxc4ZqBWvX+66eljpK8auN4JKwmOY3yc05oyB4QnnmAnQQ+i3jTcIIwB8bYiMP12+b4vuKB8c2Qy1IIg/LXcOPpEchjgISrc4J5oLBZEfGHg
-DKIM-Signature: a=rsa-sha256; bh=wAaSTv7CvzFDUj4WCr27u6J3GWGLHQxhDZYELXFtVPc=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783429972; v=1;
- b=dWjazBt6rp8LErXBxgUf0PFTFcyJ9ver2YjnnHcWM/VevIPoip/0kWFxZngk/Mf+817pNbNy
- g6utW/bEfkfwb3uF2Zwo0KkXV4y/2j1f1rwEyymqWYB+GAwuIecgS6+B685kgZVjRwKDdgFoBtQ
- 65ErNX+rKEmp/E3Vr2/2o6S3gv6aj6vajBW3Uw9xeww6MiDt72oqqOYa4zRoEVleFlPMsrebtKf
- h4Hi9D4TppFL/udb8Ws6JopTTNEmT9kwJO0CxcKxf/dZnCVOdrO+rZIjjJoIzTfFRYdQAC5NCIy
- ZlR6Q0VqCIsvQKdvxcXW2UIteFiel7atxOKzg0PnQpQBQ==
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,221 +77,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/7/26 14:54, Christian König wrote:
-> On 7/7/26 14:41, Thomas Hellström wrote:
->> On Tue, 2026-07-07 at 14:28 +0200, Christian König wrote:
->>> On 7/7/26 14:09, Thomas Hellström wrote:
->>>> On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
->>>>> TTM is about to switch to drm_exec for locking objects
->>>>> in the LRU list. When we're done processing the object, we want
->>>>> to
->>>>> unlock it only if the caller doesn't already hold that lock. If
->>>>> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which
->>>>> callers
->>>>> may
->>>>> require for unrelated reasons), we have no way of knowing whether
->>>>> the
->>>>> lock is already held.
->>>>>
->>>>> To remedy this, add a separate helper that forcefully bypasses
->>>>> the
->>>>> IGNORE_DUPLICATES flag for only a single locking operation.
->>>>>
->>>>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->>>>
->>>> The first, more complete attempt to try to tackle the exhaustive
->>>> eviction introduced a drm_exec snapshot ability instead.
->>>>
->>>> https://lists.freedesktop.org/archives/intel-xe/2024-May/035820.html
->>>>
->>>> The idea was that one would want to incrementally lock more buffer
->>>> objects until the validation succeeded, rather than dropping each
->>>> single lock after processing the eviction. That's actually what
->>>> guarantees forward progress. Restoring the snapshot unlocked all
->>>> locks
->>>> that we grabbed in the process, and would work also for single
->>>> locks.
->>>
->>> That's actually not what this patch here tries to solve.
->>>
->>> The problem is rather since we don't remove the BOs from the LRU list
->>> that we try to evict some which are actually part of our working set.
->>>
->>> So when we lock for eviction we can't ignore duplicates no matter
->>> what the global flag says.
+Hi,
+
+On 07.07.26 15:01, Maarten Lankhorst wrote:
+> Hey,
+>
+> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
 >>
->> Ah yes, I see that now when I've gotten to patch 9. But then I think
->> the commit message is a bit misleading. It talks about unlocking an
->> already processed object?
-> 
-> Oh, good point! Yeah the problem isn't the unlocking but that we evict an object from the working set.
-> 
-> The commit message clearly needs to be fixed.
-
-The problem is actually both. Evicting an object from the working set 
-definitely is potentially unsafe, but I considered that a minor thing. 
-Unlocking the already processed objects is a much, much bigger problem IMO.
-
-The worst breakage is for AMDGPU's per-VM buffers whose resv is just the 
-VM's own reservation object: If we encounter another per-VM buffer from 
-our own VM on the LRU, we may or may not decide to evict it, but in any 
-case we leave the VM completely unlocked for the remainder of the 
-submission, including in pagetable updates and all that, which more or 
-less completely smashes the state of the entire VM if multiple PT update 
-operations end up racing with each other.
-
-This was the breakage I observed myself, so that's what I described in 
-the commit message. In any case, I can also change the commit message to 
-primarily point at self-eviction and/or expand my explanation on why 
-unlocking causes issues.
-
-Best,
-Natalie
-
-> 
-> Christian.
-> 
+>> On 7/3/2026 1:02 PM, Robert Mader wrote:
+>>> The client cap is currently advertised unconditionally, even for drivers
+>>> that do not support plane color pipelines. If clients supporting the later,
+>> s/later/latter
 >>
->> Thanks,
->> Thomas
->>
->>
+>>> like Wayland compositors or tools like drm_info, enable the client cap on
+>>> such drivers they will be left without both color pipeline and the legacy
+>>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+>>> conversion support.
 >>>
->>> Regards,
->>> Christian.
+>>> Prevent that by only marking the cap supported if there are actually planes
+>>> with color pipelines.
 >>>
->>>>
->>>> Thanks,
->>>> Thomas
->>>>
->>>>
->>>>> ---
->>>>>   drivers/gpu/drm/drm_exec.c | 52
->>>>> ++++++++++++++++++++++++++++++++++--
->>>>> ----------
->>>>>   include/drm/drm_exec.h     |  2 ++
->>>>>   2 files changed, 41 insertions(+), 13 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/drm_exec.c
->>>>> b/drivers/gpu/drm/drm_exec.c
->>>>> index 7988f5e7d56a3..91de6b4d29df8 100644
->>>>> --- a/drivers/gpu/drm/drm_exec.c
->>>>> +++ b/drivers/gpu/drm/drm_exec.c
->>>>> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct
->>>>> drm_exec *exec)
->>>>>   	return ret;
->>>>>   }
->>>>>   
->>>>> -/**
->>>>> - * drm_exec_lock_obj - lock a GEM object for use
->>>>> - * @exec: the drm_exec object with the state
->>>>> - * @obj: the GEM object to lock
->>>>> - *
->>>>> - * Lock a GEM object for use and grab a reference to it.
->>>>> - *
->>>>> - * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>>> object is
->>>>> - * already locked (can be suppressed by setting the
->>>>> DRM_EXEC_IGNORE_DUPLICATES
->>>>> - * flag), -ENOMEM when memory allocation failed and zero for
->>>>> success.
->>>>> - */
->>>>> -int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object
->>>>> *obj)
->>>>> +static int __drm_exec_lock_obj(struct drm_exec *exec,
->>>>> +			       struct drm_gem_object *obj,
->>>>> +			       bool always_report_duplicates)
->>>>>   {
->>>>>   	int ret;
->>>>>   
->>>>> @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec,
->>>>> struct drm_gem_object *obj)
->>>>>   		return -EDEADLK;
->>>>>   	}
->>>>>   
->>>>> -	if (unlikely(ret == -EALREADY) &&
->>>>> +	if (unlikely(ret == -EALREADY) &&
->>>>> !always_report_duplicates
->>>>> &&
->>>>>   	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
->>>>>   		return 0;
->>>>>   
->>>>> @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec,
->>>>> struct drm_gem_object *obj)
->>>>>   	dma_resv_unlock(obj->resv);
->>>>>   	return ret;
->>>>>   }
->>>>> +
->>>>> +/**
->>>>> + * drm_exec_lock_obj - lock a GEM object for use
->>>>> + * @exec: the drm_exec object with the state
->>>>> + * @obj: the GEM object to lock
->>>>> + *
->>>>> + * Lock a GEM object for use and grab a reference to it.
->>>>> + *
->>>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>>> object is
->>>>> + * already locked (can be suppressed by setting the
->>>>> DRM_EXEC_IGNORE_DUPLICATES
->>>>> + * flag), -ENOMEM when memory allocation failed and zero for
->>>>> success.
->>>>> + */
->>>>> +int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object
->>>>> *obj)
->>>>> +{
->>>>> +	return __drm_exec_lock_obj(exec, obj, false);
->>>>> +}
->>>>>   EXPORT_SYMBOL(drm_exec_lock_obj);
->>>>>   
->>>>> +/**
->>>>> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but
->>>>> always report duplicates
->>>>> + * @exec: the drm_exec object with the state
->>>>> + * @obj: the GEM object to lock
->>>>> + *
->>>>> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a
->>>>> reference to it.
->>>>> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is
->>>>> ignored
->>>>> and duplicates are
->>>>> + * always reported.
->>>>> + *
->>>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>>> object is
->>>>> + * already locked, -ENOMEM when memory allocation failed and
->>>>> zero
->>>>> for success.
->>>>> + */
->>>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
->>>>> +				 struct drm_gem_object *obj)
->>>>> +{
->>>>> +	return __drm_exec_lock_obj(exec, obj, false);
->>>>> +}
->>>>> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
->>>>> +
->>>>>   /**
->>>>>    * drm_exec_unlock_obj - unlock a GEM object in this exec
->>>>> context
->>>>>    * @exec: the drm_exec object with the state
->>>>> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
->>>>> index 8725ba92ff916..ff80dd2b72240 100644
->>>>> --- a/include/drm/drm_exec.h
->>>>> +++ b/include/drm/drm_exec.h
->>>>> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32
->>>>> flags, unsigned nr);
->>>>>   void drm_exec_fini(struct drm_exec *exec);
->>>>>   bool drm_exec_cleanup(struct drm_exec *exec);
->>>>>   int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object
->>>>> *obj);
->>>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
->>>>> +				 struct drm_gem_object *obj);
->>>>>   void drm_exec_unlock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object *obj);
->>>>>   int drm_exec_prepare_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object *obj,
->>>>>   			 unsigned int num_fences);
-> 
+>>> Note: while the color pipeline replacement for the legacy properties is
+>>> still under review (1), we can assume that it will work as a drop-in
+>>> replacement.
+>> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
+>>
+>> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
+> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
+>
+> But thanks for all feedback, as I was about to push this patch, I noticed it still uses -EOPNOTSUPP, can it be changed to -EINVAL?
+
+For existing users it shouldn't make a difference. drm_info and Weston 
+just check for "drmSetClientCap() == 0" - and old kernels without the 
+cap will also return -EINVAL AFAICS.
+
+I personally find -EOPNOTSUPP more appropriate and more in line with 
+other return values in that function - but no strong opinion, thus feel 
+free to change while applying (or I can resend the patch accordingly if 
+you prefer).
+
+Robert
+
+>
+> ~Maarten
+
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
