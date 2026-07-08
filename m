@@ -4,94 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55AD2C43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 21:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A68C43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 22:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7BD110F2DC;
-	Wed,  8 Jul 2026 21:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2303410E36C;
+	Wed,  8 Jul 2026 22:21:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Q7TCknvg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AJzTImP8";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB77A10F2DC
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 21:57:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783547857;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=btjBlfn1gEh32xkLC16toOwaofpK3E2AbdoJxAP/F/4=;
- b=Q7TCknvg4uMWaH6juK6bQB2DUTn0TpXVzhpknxxlQewCKHF9Ctu+/GkDAZ0p0GqC5wPCP0
- iUzaSvakYU7TFCsw+o0YjQNhYtjn2uQLBb2Yc3rARg7CmCOaejo4ww7edWbzM/m4Gvc1HS
- C87+HRDMDjKksEG5wK372r0xo1hIpdA=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-NEZjgN3-N4WIjja29oVcnw-1; Wed, 08 Jul 2026 17:56:28 -0400
-X-MC-Unique: NEZjgN3-N4WIjja29oVcnw-1
-X-Mimecast-MFC-AGG-ID: NEZjgN3-N4WIjja29oVcnw_1783547788
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-92e82060977so41865885a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 14:56:28 -0700 (PDT)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C582110E36C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 22:21:11 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-80cebd41372so19657567b3.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 15:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783549270; x=1784154070; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=6ryEBOu0tdMaJYn0ZWk82G78CEwzIufJFF6xesijT5I=;
+ b=AJzTImP8z5+C4a/AqLFGI6+CP72moPwCjMvpTtdV/+h90bZOV8onysxCNm5hHJFXNm
+ Z+FxTzr0paLCu87JzIsgDyycwXTM7AGVWo0PEwLw+qauztUNtrYgBwRZQJDF/klANGvm
+ ZypKVkTpjYs+I5tGqtPaASodUISamBIs6YaLnz+f9y/3TbAJD3gC012l1SmhkoIN5oDK
+ VwW4y+tZzaLcr1JDYARkgYt2U6ljXZOpwWByJLR2CKYIIqKjJVEvjL6+K89S1qdLHnt9
+ jXezdKZR0pItPyULoZ0JC7m8wYxGZOVImTPZMArDQaIE1KblsTAQIH8PGToZPHIStEms
+ YUHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783547788; x=1784152588;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=btjBlfn1gEh32xkLC16toOwaofpK3E2AbdoJxAP/F/4=;
- b=LVN1ceSphK6P9QSUOhSMr2e0MhdGO9X+uhVs0WbdUYoD2sBz317mh7oBHEOrUvGO6u
- 9SkbDjP9CHtfCNEzdyvPQbxzKUsfJZs4KsbZRz6B9sgLVaJFNyS3Ai1f/2c/SmhXEvVn
- Ab2TMwOsqfs4LJqf1mrfklaTo0W4OToXiNgKzT0YzI5lOVBHZaBBLBVgPiZpLqt38Xds
- JBMKuNfVzzhJWL/kOAt7DXFCvyXZZWqG+bkeJzQtciJPjC8o5ghj81DJbT36/n/7dHCf
- S89ET16A3C6HVeFZfpyAIEwTDLqcAVW1fmXyFfJqi1Z3RaAbYlVPnb32Y8B0Sz0grCS+
- y19A==
+ d=1e100.net; s=20251104; t=1783549270; x=1784154070;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6ryEBOu0tdMaJYn0ZWk82G78CEwzIufJFF6xesijT5I=;
+ b=X69F56Sn3zkq4vjF1a03844tGe12ziXB4g920bClFQQH/WoG/+zGyZroY7TUProuWd
+ JFsD2EPmtDxvg68QnJK0DRmJKcYvzjnRETysHcPrzoLlgyN9zgXjNUL5ZldV748DLen5
+ Y4XGS7DJNwWPBqftejcLOLKpegpsqnMaG91+jjxyo9A0C7IvwFwcUDJvV3N/WrB0Xbzx
+ lZwIHpjoFkYXmRJZPz32h4JeOSkYkQ9IzmpY4gi8+Ep3WQLphsKqu9cbyiSJqX68yuSt
+ IkxxnBOVEZBmNuYW/HyYStN7Qucu2IVGzHFl+Eab48NWsFqCxDO4oc/K7byj86/YyjxY
+ 8ang==
 X-Forwarded-Encrypted: i=1;
- AHgh+RocXfNfOkf7XaHr3Uvb6dMZ7DOl2TWsjf1k9219Q2/IdtvFrtPpXvP8Fw12GYNvivcJPbBQPFQL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzwBU5KlVjVyWfkwMRw0jbE/62RDOYNg3uhQvkx5UM3Dz26lUC
- LOp7OUZhatr6I1Q10FVVllR8SG5lKJAfo9eAAydwuYLB4EO8tYaqsQ/cwn87VSemOpDXRVtrRHd
- 30xFRcpyeZ3xDND1R+LM2lXYI2VfrfpOjDu6Sqz8ksvacQ9XoFHLff9pMMcorfxww9+0=
-X-Gm-Gg: AfdE7cl9nsObR7xgiRKhi9aV2qMcHxoZ6z6+hfYpPPhKcvi1QFUoH/qmw2yqZsHAVzW
- 2H4YYvdY14OlWOq2mQd0qdOJDw0oaXZ4M+ezeL8q+xVLtKdU+tIveEs1pWJFzNDF4UKUdZ0J2BQ
- VD5+G1EZOqU1u1G0qjjAMssD1h8658qmN2hmmOoGS+hdYTU24UTmGJvbuC4ZBkEQOH3QnT6bUao
- KlLPEfhQwuc2VW9k482qIfm5xDfY2+qQaxsTbIuLn3WIandoNjl9TYWXf25s7nKr/PaCcQCSDgI
- DHW99ZRuBngX1Xfc0lPoeW3SfJxCSZbYipqbw3pmB+FOhXMwj5G6ZGcp4FSlcuPWzeAUWC7xtAk
- fONaH0iI=
-X-Received: by 2002:a05:620a:444a:b0:911:e11e:dc0d with SMTP id
- af79cd13be357-92edac0d694mr13100285a.24.1783547788070; 
- Wed, 08 Jul 2026 14:56:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:444a:b0:911:e11e:dc0d with SMTP id
- af79cd13be357-92edac0d694mr13096985a.24.1783547787628; 
- Wed, 08 Jul 2026 14:56:27 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92e90ca90a5sm1483479985a.32.2026.07.08.14.56.25
+ AHgh+RqqDe6vhsTqviJk5No0BRZIXazbL7DvUsmnOKQEMssocaeL5YufVLFgrdha4Q7E3yDWdG04MXP7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYocZKTeDqltD2wc0jXM6YWoz7lA+2dI/rDKE+kwLchBfspu+9
+ T70DN0jWmRzFRIrAAJi+3kZvtH4DXsDIGt7soZnUgEQpVlTFTU7/UQQ=
+X-Gm-Gg: AfdE7cn51mUKa8CQ5Ki8gGOJMsEJ6kAKDyq0SfYoSY8VSBuXh6SaU5/dzmZB6DSH/QM
+ RAxxOz/VcvhJb+NlBeroxzO4GTXEBtzdmuxpdcAfNuX+ubagzOJoTs8HBPTgnzqKMGpsiXE6BQT
+ A/+3Wou876ZJ4gDUvisiPYKOJi14IhEe3KUSaLNjnhdBTuDhaebehNARN/fAYzMMrWZoLUjsiE4
+ wvZN/r3CcFoLzvadtedkm7xIF1WlKH2OfesDvh9zzSe6ysdwFi8dS49BqfRH5HeqQ8N+A2nUejf
+ v7lg6hOJlEGqaC2qd6dSdDgtx6EDq75uwf2PZPJZ7xcIl2l+ZqxQXbYq80O7qgAI+GNY7yxjGvk
+ M7nErxlGGfddxINDugbCNot9fuzBdSyn3ycsrJdAs2wOMchD8YQapRE4xeIQ8KmFAmk5mq+M5ko
+ wRiok5zprZLr7EdImuR+0XRTbFw+zrHenE9+dQTyahs9UdJBqU/a7xrmRorMQzHO+9PA==
+X-Received: by 2002:a05:690c:4b90:b0:80d:a249:486c with SMTP id
+ 00721157ae682-81dbbe3b5b4mr36173027b3.3.1783549270397; 
+ Wed, 08 Jul 2026 15:21:10 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-81e6bf653desm3151417b3.17.2026.07.08.15.21.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 14:56:26 -0700 (PDT)
-Message-ID: <b6b58477af57eb25e28eefb1a979a65aa250dc45.camel@redhat.com>
-Subject: Re: [PATCH 00/10] vga_switcheroo, drm: Push fbcon handling into DRM
- clients
-From: lyude@redhat.com
-To: Thomas Zimmermann <tzimmermann@suse.de>, lukas@wunner.de, 
- jfalempe@redhat.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, 	rodrigo.vivi@intel.com,
- tursulin@ursulin.net, dakr@kernel.org, deller@gmx.de
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Date: Wed, 08 Jul 2026 17:56:25 -0400
-In-Reply-To: <20260707135724.247562-1-tzimmermann@suse.de>
-References: <20260707135724.247562-1-tzimmermann@suse.de>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+ Wed, 08 Jul 2026 15:21:09 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Brigham Campbell <me@brighamcampbell.com>,
+ David Airlie <airlied@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Inline drm_simple_encoder_init()
+Date: Wed,  8 Jul 2026 19:20:21 -0300
+Message-ID: <20260708222035.7324-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: kjOd6phrbvGU9uW69innokbGegK2eFLKh30no9gU4fg_1783547788
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,75 +92,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For both nouveau patches:
+Simple KMS helpers are deprecated because they introduce an unnecessary
+intermediate layer between atomic modesetting and the DRM driver.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Inline the functionality of drm_simple_encoder_init() to remove
+dependencies on these deprecated helpers.
 
-On Tue, 2026-07-07 at 15:38 +0200, Thomas Zimmermann wrote:
-> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
-> about switching of the physical outputs among framebuffer devices.
-> But
-> new DRM clients to not use fbdev/fbcon and might require their own
-> vga_switcheroo support. Let's strictly separate them from each other.
->=20
-> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch
-> callback
-> for vga_switcheroo clients to do the fbcon update. Allows for
-> removing
-> all direct interactions between vga_switcheroo and fbdev/fbcon.
->=20
-> Also replace the existing reprobe hook with post_switch for symetry.
->=20
-> At the same time, push the fbcon update into DRM's client for fbdev
-> emulation. Do this with the new DRM client callback acquire_outputs,
-> so that other clients can have their own handling of vga_switcheroo.
->=20
-> There are only four drivers that support vga_switcheroo: amdgpu,
-> radeon, i915 and nouveau. Update each of them with the new callbacks.
-> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
-> to aquire_outputs and lets the DRM clients handle the new outputs.
->=20
-> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
->=20
-> Thomas Zimmermann (10):
-> =C2=A0 drm/edid: Include <linux/fb.h>
-> =C2=A0 drm/client: Add acquire_outputs callback; implement for fbdev
-> =C2=A0=C2=A0=C2=A0 emulation
-> =C2=A0 vga_switcheroo: Add pre_switch callback to client ops
-> =C2=A0 vga_switcheroo: Add post_switch callback to client ops
-> =C2=A0 drm/amdgpu: Implement struct vga_switcheroo_client_ops.pre_switch
-> =C2=A0 drm/i915: Implement vga_switcheroo_client_ops.pre_switch
-> =C2=A0 drm/nouveau: Implement vga_switcheroo_client_ops.pre_switch
-> =C2=A0 drm/nouveau: Implement vga_switcheroo_client_ops.post_switch
-> =C2=A0 drm/radeon: Implement struct vga_switcheroo_client_ops.pre_switch
-> =C2=A0 vga-switcheroo: Remove unused interfaces
->=20
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 9 ++++-
-> =C2=A0drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
-> =C2=A0drivers/gpu/drm/drm_client_event.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 18 ++++++++++
-> =C2=A0drivers/gpu/drm/drm_edid.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/i915/i915_switcheroo.c=C2=A0=C2=A0=C2=A0=C2=A0 | 11=
- +++++-
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_vga.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 28 +++++++++------
-> =C2=A0drivers/gpu/drm/radeon/radeon_device.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 9 ++++-
-> =C2=A0drivers/gpu/vga/vga_switcheroo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 41 +++++---------------
-> --
-> =C2=A0drivers/video/fbdev/core/fbcon.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 -----
-> =C2=A0include/drm/drm_client.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 14 +++=
-+++++
-> =C2=A0include/drm/drm_client_event.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
-> =C2=A0include/linux/vga_switcheroo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 30 +++++++++-------
-> =C2=A012 files changed, 122 insertions(+), 73 deletions(-)
->=20
->=20
-> base-commit: cd8abe2554ec7eba16c1d48ab508732bf93534eb
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 170adaf7e76a..d5b0692fe860 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -2,7 +2,7 @@
+
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_edid.h>
+-#include <drm/drm_simple_kms_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_vblank_helper.h>
+@@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(struct drm_device *dev,
+ 	return plane;
+ }
+
++static const struct drm_encoder_funcs drm_encoder_funcs_cleanup = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+ 				   amdgpu_vkms_output *output, int index)
+ {
+@@ -342,7 +346,9 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+
+ 	drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_funcs);
+
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
++	ret = drm_encoder_init(dev, encoder,
++			       &drm_encoder_funcs_cleanup,
++			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to init encoder\n");
+ 		goto err_encoder;
+--
+2.47.3
 
