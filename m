@@ -4,123 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBA3C43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC95C43602
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:30:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88A110E5E2;
-	Wed,  8 Jul 2026 13:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53B4510E5EE;
+	Wed,  8 Jul 2026 13:30:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P8h1uAuY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iWECkuOn";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012053.outbound.protection.outlook.com
- [40.107.200.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B84F410E542
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:21:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xdD8nCwsyaKgt+txn/FqjEkKGDEL+a5Sz7EDKFsRTDAj0NyhY5ybr5X41oTIxM7NAsEAZtcLlb+VMcidgz7xmviwT9rjQ3MR6RfDWhNkmPKx948TCje6R2Z8kh32mc/YAukfVxI1jG871/XTe6sYjUQNSVNwU6Mh1MjZHy+JCfI85QpQAgagfBqiPEhs4c0yx12tc1dwr3DYjRboRIgKlaQcCGKQvE6xMRhHBkVZ2RMsudJCia0ZzSZrpzmOIn35egWZqNXjnsBvdFKMfcMKNSgxXXSiDXG+zRtDUWtbfEOZggoE9O38Fe6oCZ9kdXMwFUYrbiFVzUzE082aLf7kCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MpYRwb8lIk71U3zfxD8P2pxqGO0Tb24pJtLZXQrtCVI=;
- b=ionNjtgJD1sTNG6AmLjjXlLY5wObjd6LM5tR66NvDgZU3QrMYCIUepzIdUwszOeb0nSIK3hJvIRxZpD9CJcPRu3O13MZk5+aXho0hg4j+kQPAyacXjxj9N7rGOhM8EDVz/cjETELmaC6Tr1WSJB8Pk6syRaCo2IbpD0PGyk7hQ+bYJlXaLyYW0HUrjkv4DASdi4vHJE7Hj4PMrlgxPXf6F1sQl5jI2kBrHl5iNztDY6G08WJTT7AUYdBfSX6RsS2gq3qu9pZatp99Yw/2C7PzUO825L6oB/kJXM/YiU6vc0QSfKirNq6du/ynVtfWCx57LDHV6xpKSKJmP0pXiRD9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MpYRwb8lIk71U3zfxD8P2pxqGO0Tb24pJtLZXQrtCVI=;
- b=P8h1uAuYwcxYpNp//1B2+Nxy9viMwOCEjgH51UwhAd46bWzyDRacKJcIoLxlxTaMhguXqMbl6McP+qyJ4444x4wsP46Rhi8+LNY0IE/wEVv+UppHKFFKjwZcUHhKRgYXXqg9/AEp7o5pK7Z41MwAw/NWk//zbzRzzJGPwYEE49s=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DM4PR12MB6398.namprd12.prod.outlook.com (2603:10b6:8:b5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 13:21:16 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::1aeb:47e6:faf1:5f13%5]) with mapi id 15.21.0181.014; Wed, 8 Jul 2026
- 13:21:15 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Russell, Kent" <Kent.Russell@amd.com>, "Yang, Stanley"
- <Stanley.Yang@amd.com>
-Subject: RE: [PATCH V3 1/1] drm/amdgpu/ras: only check bad page for
- address-based UMC injection
-Thread-Topic: [PATCH V3 1/1] drm/amdgpu/ras: only check bad page for
- address-based UMC injection
-Thread-Index: AQHdDtH+X0X2PN6kdku9qNXgFqMC/rZjm4wA
-Date: Wed, 8 Jul 2026 13:21:15 +0000
-Message-ID: <BN9PR12MB52573B9BFD2FF7B28C24FD91FCFF2@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20260708120418.376019-1-Stanley.Yang@amd.com>
-In-Reply-To: <20260708120418.376019-1-Stanley.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-08T13:20:50.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DM4PR12MB6398:EE_
-x-ms-office365-filtering-correlation-id: c16e1a62-2d1d-487f-caee-08dedcf3ca0d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|38070700021|56012099006|11063799006;
-x-microsoft-antispam-message-info: JrwaY5VhO0oQRTtuMqP/puVf1P8tONgwqlNnpYMxrPJLBgg+lbbRB2IkRSHcwUc//YgHjL4b6Eol9yOeuIlrUoxaAT+8U3/ech/HKpeNO3/kGOJGCLXq40oBR9NTRNygZon5FKlRaZjYhFgKaaIBMIl0fSIpDIGqwTPrIG76Jb0uzGJG7y/UhyQchzGvzUQVXNUkD1T4wOjK+ZCv9hHghxmB/0fxJWGc7WjCNikRYp4QZyif9EU5lTyvfUB6H8gKqB+2ChIIIXIJ/qJ04+j6NT0XyepvDGIMzF/2nzQffCwWCsHVozHYxeJ7nvZBQS8ciulEPT4EsyzjKKljbJIMIjtdtQ+dvN0+/aT81REphEhrLy6geYlsEjZWi2Pm6l58BinhgMeY+wI+5xhBfn16kMtWt46iYWU9pD0009y/5cl826XYiPcT7cIcXfbWwYEvBGNIM71yTkVQeeVzSVP5UXwBljXdm309h05WpOP+Cb+pnsQPKXaC30ZvKA9scwBuWuDeEwsVFuphFflmQaqWuVkiXD5ttEqpxqBPH/1DMJ9A9bSDyzFl90/pM26cKCYL9Fmfri81JijPJiuW+eACKHTNnoZmfj8Ac7lUS9fbK51YRaU2Ov3Tj+zYDoAYI231DbbdVILtipws7kAPKxrtfvG1UsDsY/k1BLKSSUndyymQ7Bo9XK06nQ8cMkZd65WIYeEJZf4LZN4ojQSBCqLMkEgTGED+qKQMzd4kIx+9G84=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?p6oUT1RVvudhSLIHHcj1mXTejAI+9iC7ANeYEXD2fc8XtBQmLi/mh8iJUuEY?=
- =?us-ascii?Q?jAeetVuV71qwG71vMYKpn2d8fWyctsORh7QGRCHL5zr2oFEXER05NaAmJGZo?=
- =?us-ascii?Q?LlsmQMDkyR7aTb6clvO4hC9koxDUb/+/DUybSGb5ajcRmXZVleORPk+wpdFc?=
- =?us-ascii?Q?3qMN8sSNoug5ynseHbqTwc/gb5aCALofdurZS8bskrmPObmB0hXlk9jVz1wj?=
- =?us-ascii?Q?CRmSQ+lzxum8+u3SmItPHFMvGM3V0kf4SGZn686Oka9sUtJNHkcRaJZp74Tv?=
- =?us-ascii?Q?GxATElI6NnBdRbao3whQ0yc7SvVt1PO0sTNYhcLBR+yiln8FqMsonbm9gFhv?=
- =?us-ascii?Q?TgDKIeS/3kWU9DAQYgGMctXBkmVAjV2c7yvxk4I7QFUx29/JnzDDNSIKVcyB?=
- =?us-ascii?Q?TZucorgYEeSt+n2HQE//TfWdqXCofUhoHBNS5xiA+IR778BMIomRz4WDSqeJ?=
- =?us-ascii?Q?KybZjaig37SNI5neZZqCEqdrdpP1KxxxKfXbnjNhIRWa8ijP+lMdOcQ+QFxL?=
- =?us-ascii?Q?l1CtHrm68ooYnCexujZSx4M1UZZOhp+gwvct2JU34z5DxOV4awfPR5ceE8WY?=
- =?us-ascii?Q?mJeAvgxKWIFjb0+mvzWcLOoveX6fK6NtFIhvy+kNx6HRYYVjw6PWitOt+Mg6?=
- =?us-ascii?Q?Hs2iWxd6C8kuI03smGsyGbaHQ+dGPbvROyvAPGvufE0FMvt20F3loXx6wR/p?=
- =?us-ascii?Q?Ua2YhShv0PfNpEaq35uPbItrwT37bVpJ0Lcy9p6UHV+vv5XmKDgc7tQFMsg0?=
- =?us-ascii?Q?/94dvNuLFW2RzinA6Ayzhw6s7X81J+7xXKPnbYJqeTu3S59VYgZ0xEq1dqQz?=
- =?us-ascii?Q?g1ehNNT9BPNB8/EAMbb4PNFDKZ1Loc+rn9KrPtgGN2dA1EbauUBDtZF69zMI?=
- =?us-ascii?Q?5m+ke6Gs7fXhBW4Q0zYH7ILhFez8VtTnarcEdJMFKTYHi/nN6BxBnlTKAr6g?=
- =?us-ascii?Q?sK7tln6Sz7B9qTK3H7OLtj2TliD6LqyIfHAgVOf+t/M0R0fepNNc87Ldpju6?=
- =?us-ascii?Q?yClTfsExSIiGfAfk077+w8N+qjk0mTOWJO0I9PekJIqkpLSR7P/Ags/DP8cH?=
- =?us-ascii?Q?UGQFb/dkE3FiqVlA4NNEBasHtbsYKP0sy5wImVodnn0i22uZksxGxY8Diygv?=
- =?us-ascii?Q?AdjgeeKNyTfv54ELxfUuQgkAG2gV7qSd3vLSlvkpbBYgC966B9O4L8n6e2yU?=
- =?us-ascii?Q?a1wQzGUalyX2nMA7Z2mTyFAWmyTk0o1njlcxv8a/V5kKfhVPsdYX06xnPqAJ?=
- =?us-ascii?Q?hsIQhRL8o7TZi7dcDVcc+yXQ/XsroMb9Rqwtiw85qpGf8xJANlJkT2iItenv?=
- =?us-ascii?Q?t9b1WMXBjpvAs4uOTgI1vELjU+N8QhZdG55U5EGHJe5rLBmtb9VhTvWHcCta?=
- =?us-ascii?Q?UUw6LYT15WQAtczRW6a4Pn7NWcSiGV+KamOuys7OXPaPRAdix16IK6al2Yv0?=
- =?us-ascii?Q?OA1sT32329JuFXEoWTxZdxQ5tmZgadyb2cike7yufTWkkZkjtQll98I5ho2C?=
- =?us-ascii?Q?hckB1iyfwFCOH4RPDPnP+IhAV44/XsTi5wGWlSt395dMhoXMvVbKb5VEm8DY?=
- =?us-ascii?Q?6vbWLsT0oRmKp7i5JxoLUHjBWqQX0HTOIn/uOJajlP9Nc3YkSQ4yH75l1h+S?=
- =?us-ascii?Q?clT4Ms7owUpuQf8cFIIEYK9pisE3hsJqfQLXLY9MBtpAgbJ7R4iCht1A1wx+?=
- =?us-ascii?Q?3c77JClN/4t7uSjquq25pyvMSP0De3FUOEsulxYmk2YubNSr?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1609C10E5EE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:30:31 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2caa0551d8bso2570145ad.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 06:30:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783517430; cv=none;
+ d=google.com; s=arc-20260327;
+ b=SXcASIVu0bOjnqxeaXoSeJ8zAeufMaoTobFJNIuTurVCUIh6N4D5Kbtt0VEHW5O8rQ
+ G0FV4j54DGGzHg5GaW7VHnoKSByFQUWUhtZZanfZxj0wNehUgcGLdKUk3YleihJaMmbJ
+ mzjrtTLIPXfdlw80JVgm4+h/YZgcMXTMN/TXI975nMKBZjTun+TgZMgca3UFQJ/BjWHT
+ Pl5+KALBbqkOLDo4/pvpausD5rMSLSKlWZM2lHTQP5xxem07KgY6v9uJUqI8S8IKC8we
+ ReCCP39GK7DJ6oNnI/JZAJSJcfPx9fgL29GEkoOLpyaQFGXTxmDGa6Fx76PhHt6pkEI4
+ 23TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=BSwavkeH+LcVYKCLrB4zma0uyvhD0qqFx3FCZkmYrVw=;
+ fh=qWGDbas/IhvIUbgk75S8XrizEO2xTmjjiVSS6c9mV1Q=;
+ b=BmjgA5ONMiZYKZyvrjFHldISq2klKRqU+lTQVHhJfhdM8WIwaerUfkytTrllrVovmd
+ o8zLfayGqiOCOYgwdhzIEHpGIjuA8V1c47GCa9BZDQtt6HFUXZdXkD3G4Du7hkrB2kAI
+ 5W3itxG9Z4TpOktE7H8uDY1jZlPAvURYDauWyv1xcdVzy81EZE8VoWlLXul8AjSMxbTV
+ PwS26ACCXR0Vm9PTLxhkofF2ecvgjixmrDA5VxcoASlq5A3wAb9LyPuTdULFPAeesnPl
+ +3ti25KY0xeyBY6y+/6QgKemruF8bEaaQpOu3XNIekUufxLCO0M5fSHXyUEKYe7ZtBZ6
+ mSyA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783517430; x=1784122230; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=BSwavkeH+LcVYKCLrB4zma0uyvhD0qqFx3FCZkmYrVw=;
+ b=iWECkuOnq/Rsse0t/NCtb8O+BS/a2oFDfYoU9ELJjz5iSL13uqixtvb2aVsq96ne/m
+ xSUY0tTqSIDc7pqNoI4sURsj92bb+Hv4zCJq/D8qTw+lv3iyRdkP0N+cBbGBx6xl/meV
+ 0kohFrKYxfPkt7v4mFV9SMzELfppFEEpXs7PIi2TZ6AXDzheUMq21gyiUch2eCCpiUVk
+ 32LyCAoXDRgOQ2RBeuGW7Xvnw5j/FsaumtTKjl0JFFt7FWoh6AC1sq9nyUtScR19fSMZ
+ uzL+rc3HHFCgB1jWS4Pm6nrYOqeuS5BtkdDfNaGVPzIAXALO6g5gla4Fh/00cd5uxbBk
+ 0aPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783517430; x=1784122230;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BSwavkeH+LcVYKCLrB4zma0uyvhD0qqFx3FCZkmYrVw=;
+ b=bCKnlV+3gEMbMy5c69euVRZoZZ0KAF4tFRavCroF989GKAOzkbpQv4wA7KIIZ17YZZ
+ gSXRiH5lJkxJxeUwzRN9UTfTKJWEDTTmPgFw9C8cl/eg17hiGIdVZSgmfcXr0wCkDaZe
+ /p8jLQ41N8y4LFLGqcAOFbTw/5wb/f0JnwyxPJyKB+R+RQnj+i32jNqIKEBIbJbhRfSW
+ SKeS8vAIbJvQNcmvo+OmMUCjUP9iCdqvde9wIx9DcL+BfSfsZPXuJwQkyAiobWcyR2qx
+ /IKUCpVgM9hPccjV+wgitr/YP3eMyJlDd0mL9EiAmsiePCBrf8Uytl24PFN/hO2cTGi4
+ O7ow==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpf1pAx8H4YVF3uEkqSkGh6N9XE7KmjQI/Sly27ugpJPAboHTleThRCdzocMTMYOf9MgztogOCt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz4CrWS1Lf4Hna7dX5epIZEMNl1ADi2wA7nHhLc+sKUSMCvUoLg
+ yaNRsJuf02vw3HOFX/K+sOcxHwxDZMdnAf6fYiBeQjIazy4r0hUFuWAWfI6w9HjcCk2AuX+FKD9
+ p/KgZ6vjRqicZnil2081AoZ4rm9W3viA=
+X-Gm-Gg: AfdE7clSoccJlcYCdg8a3CCWmYf6U5vEEVR3kBBxWj6FSOkPoYakwDaZtgwTsXIbDwD
+ lKsv+261xDvjpJHShfVcXNdNi3lUXikyB1chauxF9MVTI2TiGrBYOJH4x+S70XXmB42wX5OPIq6
+ 0hBfM/3U33PtWfgSUDmoJD3GHJg8TT/ctoFysavOnpBAUsB4TmAwP2EU4j5PEwFehDZw9J53acm
+ sNAwdfpZiV+B2ENS1B0UzzC0ByDkm+V2T4iLGE68cQ1sCP1VO3McorBpGjFOc+RU7C5V9WFGoas
+ Bqw0TqGSOE6hg5k4hD/p3NDb0Xg954H97vq1LGGmh8UERz0ISyxzaDi6zOfzUW5z8d7O+Q==
+X-Received: by 2002:a17:903:b85:b0:2cb:2b50:d9da with SMTP id
+ d9443c01a7336-2ccea357aa2mr22247225ad.3.1783517430158; Wed, 08 Jul 2026
+ 06:30:30 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c16e1a62-2d1d-487f-caee-08dedcf3ca0d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 13:21:15.7766 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /JjLX0U52akju6AdAcuqw0ZRAvWJ52T8ZIp0pT1tlluwLgRwP1zhsOt1V1TIAqPBCU1wt4aLEWUmcIxt+NgroQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6398
+References: <20260628161719.1598835-1-geoffrey.mcrae@amd.com>
+ <20260628163239.1599449-1-geoffrey.mcrae@amd.com>
+In-Reply-To: <20260628163239.1599449-1-geoffrey.mcrae@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 8 Jul 2026 09:30:18 -0400
+X-Gm-Features: AVVi8Cd9ViZy-1GAajz3vKTBRa5Z47lkuD12EbzKdbMmNQx0jn-1EvfXHb9Gqc4
+Message-ID: <CADnq5_NviF+5uO_HQ_H+BTY+M1WNZcf5fynYxNXE_vsDMg0_eQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Fix DM I2C teardown race
+To: Geoffrey McRae <geoffrey.mcrae@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,205 +106,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+On Sun, Jun 28, 2026 at 12:39=E2=80=AFPM Geoffrey McRae <geoffrey.mcrae@amd=
+.com> wrote:
+>
+> DM I2C adapters can remain visible to userspace while DM teardown is
+> already in progress. A concurrent i2c-dev transfer may then enter
+> amdgpu_dm_i2c_xfer() after the backing DM state has been torn down,
+> leading to a NULL pointer dereference.
+>
+> Create a devres group around the DM I2C adapter lifetime and release it
+> at the start of dm_hw_fini(), before HPD, IRQ, and DM state are torn
+> down. This removes the I2C adapters first and waits for in-flight users
+> to drain before the structures used by amdgpu_dm_i2c_xfer() disappear.
+>
+> This fixes a teardown ordering race seen during device removal:
+>
+> BUG: kernel NULL pointer dereference
+> RIP: amdgpu_dm_i2c_xfer+0x122/0x1c0 [amdgpu]
+> Call Trace:
+> __i2c_transfer
+> i2c_transfer
+> i2cdev_ioctl_rdwr
+>
+> Fixes: 5b3eca05cfb0 ("drm/amd/display: Use devm_i2c_add_adapter to simpli=
+fy i2c cleanup logic")
+> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
-Yang
-Sent: Wednesday, July 8, 2026 8:04 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Russell, Kent <Kent.Russell@amd=
-.com>; Yang, Stanley <Stanley.Yang@amd.com>
-Subject: [PATCH V3 1/1] drm/amdgpu/ras: only check bad page for address-bas=
-ed UMC injection
-
-UMC error injection on MI300 series is dispatched by the RAS TA using the i=
-njection method; only the "coherent" methods are address based, the single-=
-shot/persistent/ac-parity ones ignore the address.
-
-The debugfs control path validated the injection address against the bad pa=
-ge list for every UMC injection. On uniras (SMU v13+) devices the address i=
-s now validated by the ras_mgr inject handler, so the legacy debugfs bad pa=
-ge check only runs on the legacy RAS path; other ASICs keep injecting by ad=
-dress.
-
-In the ras_mgr handler an injection is treated as non address-based only wh=
-en userspace passes the U64_MAX sentinel address and the method is a non-ad=
-dress method. In that case the address is cleared to 0 and the bad page / r=
-ange validation is skipped; otherwise the injection address is validated as=
- before.
-
-Changed from V1:
-        move address based checking to uniras layer
-
-Changed from V2:
-        Check umc injection address setting flag,
-        simplify non address based injection judgment
-
-
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 10 ++-
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  | 83 +++++++++++++++----
- 2 files changed, 73 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index af48dd2ebd16..f280a312b0a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -606,8 +606,14 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fi=
-le *f,
-                ret =3D amdgpu_ras_feature_enable(adev, &data.head, 1);
-                break;
-        case 2:
--               /* umc ce/ue error injection for a bad page is not allowed =
-*/
--               if (data.head.block =3D=3D AMDGPU_RAS_BLOCK__UMC)
-+               /*
-+                * UMC ce/ue error injection for a bad page is not allowed.=
- For
-+                * uniras (SMU v13+) devices the injection address is valid=
-ated by
-+                * the ras_mgr inject handler, so only run the legacy bad p=
-age
-+                * check for the legacy RAS path.
-+                */
-+               if (data.head.block =3D=3D AMDGPU_RAS_BLOCK__UMC &&
-+                   !amdgpu_uniras_enabled(adev))
-                        ret =3D amdgpu_ras_check_bad_page(adev, data.inject=
-.address);
-                if (ret =3D=3D -EINVAL) {
-                        dev_warn(adev->dev, "RAS WARN: input address 0x%llx=
- is invalid.", diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.=
-c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-index bfbfdffbfbe6..c2285fde8b3c 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-@@ -82,6 +82,43 @@ static uint64_t local_addr_to_xgmi_global_addr(struct ra=
-s_core_context *ras_core
-        return (addr + xgmi->physical_node_id * xgmi->node_segment_size);  =
-}
-
-+/*
-+ * UMC error injection is dispatched by the RAS TA using the injection
-+method
-+ * carried in struct ras_cmd_inject_error_req. Only the "coherent"
-+methods
-+ * program an explicit injection address and are therefore
-+address-based; the
-+ * single-shot, persistent and ac-parity methods ignore the address.
-+ *
-+ * Keep these values in sync with the RAS TA.
-+ */
-+enum umc_inject_method {
-+       UMC_METHOD_COHERENT             =3D 0,
-+       UMC_METHOD_SINGLE_SHOT          =3D 1,
-+       UMC_METHOD_PERSISTENT           =3D 2,
-+       UMC_METHOD_PERSISTENT_DISABLE   =3D 3,
-+       UMC_METHOD_COHERENT_NO_DETECTION        =3D 4,
-+       UMC_METHOD_COHERENT_WR          =3D 5,
-+       UMC_METHOD_SINGLE_SHOT_WR               =3D 6,
-+       UMC_METHOD_PERSISTENT_WR                =3D 7,
-+       UMC_METHOD_SINGLE_SHOT_CLEAN    =3D 8,
-+};
-+
-+/*
-+ * Return true when @method does not program an explicit injection address=
-.
-+ * Only the coherent methods are address-based; every other method
-+ignores the
-+ * address, so userspace signals them by setting the address to U64_MAX.
-+ */
-+static bool amdgpu_ras_mgr_is_non_address_injection(u64 method) {
-+       switch (method) {
-+       case UMC_METHOD_COHERENT:
-+       case UMC_METHOD_COHERENT_NO_DETECTION:
-+       case UMC_METHOD_COHERENT_WR:
-+               return false;
-+       default:
-+               return true;
-+       }
-+}
-+
- static int amdgpu_ras_inject_error(struct ras_core_context *ras_core,
-                        struct ras_cmd_ctx *cmd, void *data)  { @@ -91,25 +=
-128,35 @@ static int amdgpu_ras_inject_error(struct ras_core_context *ras_c=
-ore,
-        int ret =3D RAS_CMD__ERROR_GENERIC;
-
-        if (req->block_id =3D=3D RAS_BLOCK_ID__UMC) {
--               if (amdgpu_ras_mgr_check_retired_addr(adev, req->address)) =
-{
--                       RAS_DEV_WARN(ras_core->dev,
--                               "RAS WARN: inject: 0x%llx has already been =
-marked as bad!\n",
--                               req->address);
--                       return RAS_CMD__ERROR_ACCESS_DENIED;
--               }
--
--               if ((req->address >=3D adev->gmc.mc_vram_size &&
--                       adev->gmc.mc_vram_size) ||
--                       (req->address >=3D RAS_UMC_INJECT_ADDR_LIMIT)) {
--                       RAS_DEV_WARN(adev, "RAS WARN: input address 0x%llx =
-is invalid.",
-+               /*
-+                * Only address-based UMC injections carry an explicit inje=
-ction
-+                * address that has to be validated. A non address-based me=
-thod
-+                * ignores the address, and userspace flags such an injecti=
-on by
-+                * setting the address to U64_MAX. When both the sentinel a=
-nd the
-+                * method agree, clear the address so the RAS TA ignores it=
- and
-+                * skip the validation; otherwise validate the injection ad=
-dress.
-+                */
-+               if (req->address =3D=3D U64_MAX && amdgpu_ras_mgr_is_non_ad=
-dress_injection(req->method)) {
-+                       req->address =3D 0x0;
-+               } else {
-+                       if (amdgpu_ras_mgr_check_retired_addr(adev, req->ad=
-dress)) {
-+                               RAS_DEV_WARN(ras_core->dev,
-+                                       "RAS WARN: inject: 0x%llx has alrea=
-dy been marked as bad!\n",
-                                        req->address);
--                       return RAS_CMD__ERROR_INVALID_INPUT_DATA;
--               }
--
--               /* Calculate XGMI relative offset */
--               if (adev->gmc.xgmi.num_physical_nodes > 1 &&
--                       req->block_id !=3D RAS_BLOCK_ID__GFX) {
--                       req->address =3D local_addr_to_xgmi_global_addr(ras=
-_core, req->address);
-+                               return RAS_CMD__ERROR_ACCESS_DENIED;
-+                       }
-+
-+                       if ((req->address >=3D adev->gmc.mc_vram_size &&
-+                               adev->gmc.mc_vram_size) ||
-+                               (req->address >=3D RAS_UMC_INJECT_ADDR_LIMI=
-T)) {
-+                               RAS_DEV_WARN(adev, "RAS WARN: input address=
- 0x%llx is invalid.",
-+                                               req->address);
-+                               return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-+                       }
-+
-+                       /* Calculate XGMI relative offset */
-+                       if (adev->gmc.xgmi.num_physical_nodes > 1)
-+                               req->address =3D local_addr_to_xgmi_global_=
-addr(ras_core,
-+req->address);
-                }
-        }
-
---
-2.43.0
-
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++++++++-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
+>  2 files changed, 20 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b97ceabe6173..5613dc9903fe 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1496,17 +1496,26 @@ static int dm_hw_init(struct amdgpu_ip_block *ip_=
+block)
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>         int r;
+>
+> +       adev->dm.i2c_devres_group =3D devres_open_group(adev->dev, NULL, =
+GFP_KERNEL);
+> +       if (!adev->dm.i2c_devres_group)
+> +               return -ENOMEM;
+> +
+>         /* Create DAL display manager */
+>         r =3D amdgpu_dm_init(adev);
+>         if (r)
+> -               return r;
+> +               goto err_release_i2c;
+>         amdgpu_dm_hpd_init(adev);
+>
+>         r =3D dm_oem_i2c_hw_init(adev);
+>         if (r)
+>                 drm_info(adev_to_drm(adev), "Failed to add OEM i2c bus\n"=
+);
+>
+> +       devres_close_group(adev->dev, adev->dm.i2c_devres_group);
+>         return 0;
+> +
+> +err_release_i2c:
+> +       devres_release_group(adev->dev, adev->dm.i2c_devres_group);
+> +       return r;
+>  }
+>
+>  /**
+> @@ -1521,6 +1530,9 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_bl=
+ock)
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>
+> +       if (adev->dm.i2c_devres_group)
+> +               devres_release_group(adev->dev, adev->dm.i2c_devres_group=
+);
+> +
+>         amdgpu_dm_hpd_fini(adev);
+>
+>         amdgpu_dm_irq_fini(adev);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 909ee71d6d59..13a18e1ed576 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -688,6 +688,13 @@ struct amdgpu_display_manager {
+>          */
+>         void *bb_from_dmub;
+>
+> +       /**
+> +        * @i2c_devres_group:
+> +        *
+> +        * Devres group for DM i2c adapter lifetime management.
+> +        */
+> +       void *i2c_devres_group;
+> +
+>         /**
+>          * @oem_i2c:
+>          *
+> --
+> 2.43.0
+>
