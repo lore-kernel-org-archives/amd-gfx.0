@@ -4,76 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15436C44503
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79271C43602
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97CAB10F121;
-	Wed,  8 Jul 2026 13:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF32A10F119;
+	Wed,  8 Jul 2026 13:12:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BTYTXZmR";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="rUy27V8D";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDA6F10E566
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 06:18:54 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2ca158f02ccso962015ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783491534; x=1784096334; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
- b=BTYTXZmRXEGLSW08x0qkRr3samnRGgPeroXCqZi9voM8dc9/npppgcuRhrpaneqGRR
- 7vLcoc3aKfcapsWLsY/z/LVB3YJrxT+IvCOSke+ht17tlUxqSKJ5SCZVus0ZgHE0yyBY
- Ti4SHjX+SgUJwpZqusEpFq/RErbR2DxFzOIAXAYBpZqi5xl00nqIKM2oJYsNbCKibKwE
- Jn7nLt3ynYiiCcFZXtl5E6IpH7+/poEQVIyKPbc7Lr4DHPpGf8R9C/FBkye0O2etAdAt
- RI80u58FakzoMwL+MwyR4KpuLc0ID8fNomd95PhyTzPP4gx47yRf5I+9982aaF1QZalw
- H/Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783491534; x=1784096334;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
- b=pcJpjlhtWd2Sqq4vPkdwhqyMq2KYj3JeifEW1ZrDXu1bY3Oz18pzuHqg0BasjcqTJv
- TSdtv/0nL2ru3ByU+33TIwB0Hba6UElTqUWMhoD9mDs2LThrbZ5oc/gfSMFfHcqLZ9uN
- VJqZCg+T++vklyolmOPZ/0CsGe++uMNQ2qwIwRk4SgdABAXEl6/74DhyNFUo1TT9ENhp
- QRRbbgKuHW1NPd3gplfIR8/uzvV0Q8JxBl49dhku1yqKLR9ZT26keDj8TR2yZd0y/hyQ
- kk1LOIzIH56KkzzJxa5G35sp8dhWXZL43im3jIzflgWUu5lzvgm8BFkxq4StkzYkyFAW
- hLOQ==
-X-Gm-Message-State: AOJu0YxKBpY+aUd3HJAVAhWzLJO9knqHhIG4bUxv0oWOMhsu0mgmkQKb
- FrtbtXawxhkXT31XDDl4pd2xpm/uTn1esPNMAWfqZZa5IJ2kjGUWpOA7
-X-Gm-Gg: AfdE7ckQbGNg2AXKfkxMiH4cz/qljibksfaeO+XC4EaHNWaInoQe2ZZUfOPvsf1laJ0
- hb4T7Zy9ygc6BADBRHxZHwlUP6Go+/s/rMizrZLFyo7xyJBNG9rY6NeS/J2sVdro0tfpQ+idUMG
- vtntE0FLMGqkVc2FUneF7Hbv5/A0U06P7aMnTp03X242uuBZ+Ox0FKWSrd3vtH4+Xl3RoKIAMC+
- qZfy6H06E+7DbWFwqFXeeiAJmhMKztjPQV9szsn6QZOa9ZXowHQk2MY6shbT8ESQQWCwRY/Ym3R
- 0ADnbnbgpw8YE6uZDtr+oYyumxN2GeVhE+MymVB6eVHvLVnZSp57haiugN9eY6Vfn+rzJZmIBPg
- RDD8OndT7Tf/qd7wmKR3q7IV9MJE2B3+DcNpLIvNWDycnLXCIRZB2DHCdSoyi28Me7igBwXF9Ui
- HqFXNkn7jxMQtgsXidhA==
-X-Received: by 2002:a17:90b:57cd:b0:381:77cd:38ca with SMTP id
- 98e67ed59e1d1-389417e432fmr977538a91.4.1783491534182; 
- Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
-Received: from kali ([122.162.146.188]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3117d847e17sm12888463eec.18.2026.07.07.23.18.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 23:18:53 -0700 (PDT)
-From: Pavitra Jha <jhapavitra98@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Pavitra Jha <jhapavitra98@gmail.com>
-Subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP
- discovery header cast
-Date: Wed,  8 Jul 2026 02:18:34 -0400
-Message-ID: <20260708061835.111986-1-jhapavitra98@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260624184444.D4A401F000E9@smtp.kernel.org>
-References: <20260624184444.D4A401F000E9@smtp.kernel.org>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71ABD10E549;
+ Wed,  8 Jul 2026 05:05:24 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 667Mn2SQ1238976; Wed, 8 Jul 2026 05:05:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=pp1; bh=MhldLM9QD9GuE5p3/DJ9u6OdZWb/
+ 6XIIA3VNSVKn6sU=; b=rUy27V8DZ6AzXiG0CnEiKb1CPLWgpxXQhAx0Q/zTKn3F
+ G6R0liofXi9do9o6LXs2gZ0t/+2YvoDiu2u5uwxSQawsYrzMVTkX2zL+mtZXg3hN
+ wqlGgv+q3AuCs25KD/qa1Bo2DJbG9cj2p4DM70xruoJ68K0oqbrz/TZUq+QIOJp4
+ 6FK/Lgkoib+h0YOgP5xOUpfUEmB4NgjTDo+SITUKqF3hzYS2zM7pV5hGUfyBFuaJ
+ yUQ0ijPSdkRHrtOAaI92a7f/8biMqUjyxtAm8PqeT8gl/2BRdlABQS+avQDW0YHm
+ 75/r3qRW5uRbilEQ5SqmFYDe+Dru/+V+nx3b6OWarw==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6suqtde4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jul 2026 05:05:21 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66854exs023111;
+ Wed, 8 Jul 2026 05:05:20 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7dgk61ny-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jul 2026 05:05:20 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com
+ [10.39.53.229])
+ by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66855KL921693032
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 8 Jul 2026 05:05:20 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 299E058058;
+ Wed,  8 Jul 2026 05:05:20 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EC33758059;
+ Wed,  8 Jul 2026 05:05:15 +0000 (GMT)
+Received: from [9.123.5.126] (unknown [9.123.5.126])
+ by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  8 Jul 2026 05:05:15 +0000 (GMT)
+Message-ID: <fde3656e-9e22-4e4c-937f-7e8cb918da6b@linux.ibm.com>
+Date: Wed, 8 Jul 2026 10:35:14 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: [REGRESSION] drm/amd/display: amdgpu_dm_plane_test.ko fails to build
+ due to modpost "too long symbol"
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ george.zhang@amd.com, bhawanpreet.lakha@amd.com,
+ LKML <linux-kernel@vger.kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, broonie@kernel.org,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA0MyBTYWx0ZWRfXx0A8A3/+wMdh
+ IGdNB9frgkFd3+ogfITlwXCSCg8smE9KU0aP9Mcz8FYKF5xPV4lXqZZyMP7IXCNQYONZ/FABaxf
+ 1nxq3j13A8aSGRweRtRFj5gIoTdkFcU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA0MyBTYWx0ZWRfXyCO6cjikT03N
+ dlETvzl2Esw47FNH6CR8c8CBUNjhM9SvQWqcjy4+e41kug+OFrfYRooP4PnhQwGtFKYoIeMygcK
+ bOi3mk3wmrRoKgwKHJGrG2BoQLOf5L5NdKU8Oiy7XNvaCCZtTuUXbYqC6ETvD0XpdtgjtEgKXnE
+ DHakvO+emWk6lIpJqwN6zqcxISltPUCuxnDPe9O3uqAOtqzKKTzaf820kGIxAp8qIbuhDdI1E9a
+ HpIkqPA4ddiMSvh4peKwzlpJXAJmA7ypMX4pOsZBPkfONaBDjqwn2vXHq4X9MdE19vkGLVmLBYx
+ hr5gj6/wHb9Zdl0izx40S5dslC+WRNlPbcbf/+I+tTUACJCuh4nQmCVgGsBdRuLqcmNSQNsIa0T
+ YWxRmKo1Mr8s/ISkQ1Ym5kK+rb6rdDkQbfE9mfzwzcxbYe3rsLTck/ESuO2twrwCcqsL4g/cc2y
+ EpQ6MlJA6/rlXcFD2iw==
+X-Proofpoint-GUID: ECAVD29mq7Ou5idDAiIdvd5zYB28nI21
+X-Authority-Analysis: v=2.4 cv=Oot/DS/t c=1 sm=1 tr=0 ts=6a4dda91 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=vszvPysokf05iRVejT4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: ECAVD29mq7Ou5idDAiIdvd5zYB28nI21
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080043
 X-Mailman-Approved-At: Wed, 08 Jul 2026 13:12:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,77 +115,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sashiko AI review of the previous fix flagged three remaining gaps in
-the discovery blob parser, all stemming from the same root cause: the
-ip_discovery_header pointer itself is constructed from a firmware-
-controlled offset with no validation before the cast.
+Greetings!!!
 
-  ihdr = (struct ip_discovery_header *)(discovery_bin +
-                    le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
+linux-next is failing to build for me with:
 
-This offset is a firmware-controlled u16 read directly from the
-discovery blob's table_list, with no bounds check against
-adev->discovery.size before being used to construct ihdr. Every
-subsequent read from ihdr, including num_dies and die_info[], is
-downstream of this unchecked pointer.
+ERROR: modpost: too long symbol
+"amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
+[drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_plane_test.ko]
 
-The other two items in that review (unbounded ip_offset advancement
-via num_base_address, and num_dies exceeding die_info[]'s capacity)
-were already addressed in the previous fix.
+make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
+make[1]: *** [Makefile:2165: modpost] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Fix by validating the table offset in amdgpu_discovery_get_table_info(),
-which is the common path used by all callers except
-amdgpu_discovery_read_harvest_bit_per_ip() (which reads
-table_list[IP_DISCOVERY].offset directly rather than going through
-get_table_info()). Add the equivalent check at that direct access site
-as well, so all paths that construct an ip_discovery_header pointer
-from a table offset are covered.
+The failure occurs during modpost while building:
 
-The check validates the offset itself against adev->discovery.size,
-independent of any specific downstream struct size, since
-get_table_info() is shared across ten different table types
-(IP_DISCOVERY, HARVEST_INFO, GC, MALL_INFO, VCN_INFO, NPS_INFO, and
-others) each with differently-sized table structures.
+drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.ko
 
-Fixes: d0c647a6aae2 ("drm/amdgpu/discovery: support new discovery binary header")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+This appears to be a regression in the AMD display KUnit test code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index b4ee5fc8e..9b55c56cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -564,6 +564,12 @@ static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
- 		return -EINVAL;
- 	}
- 
-+	if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
-+		dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
-+			le16_to_cpu((*info)->offset), table_id);
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-@@ -766,6 +772,14 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(struct amdgpu_device *adev,
- 	int i, j;
- 
- 	bhdr = (struct binary_header *)discovery_bin;
-+
-+	if (le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset) >=
-+	    adev->discovery.size) {
-+		dev_err(adev->dev, "invalid IP_DISCOVERY table offset %u\n",
-+			le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
-+		return;
-+	}
-+
- 	ihdr = (struct ip_discovery_header
- 			*)(discovery_bin +
- 			   le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
--- 
-2.53.0
+Could someone please take a look?
+
+
+If you happen to fix this, please add below tag.
+
+Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+
+
+Regards,
+
+Venkat.
+
 
