@@ -4,106 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CEF3C44503
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9084CC44501
 	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEFF10E5EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7B4010E5ED;
 	Wed,  8 Jul 2026 13:12:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="HqaPy0z3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D0TQZORo";
 	dkim-atps=neutral
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2930D10EFFC
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 06:23:27 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5aebfa21c62so354334e87.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jul 2026 23:23:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783491805; cv=none;
- d=google.com; s=arc-20260327;
- b=JH2ZRNTgETNGYKLCR2uUKsvYBC+uG00jzu7QsxPKxP5mTd1/bmsZD9sc58so1AKeMK
- 30qzvh9xHNBk+FO5tCuXQnUklvSjPQ2gP6uqpFe6eP0eMQZL5v20OIJSsFffs6kQnbiI
- PVi/MTmZsaJeH0nUBewnhav1kw866qjG2jlfcYKFa1y0gYNJGl/0weNXcf0/uEZPS4m2
- 3neOtADYELS3wxEwkZZvINbE3I5fNb3+Cmih3fKKD13G9N5Kcnc5xWyAvOZKzqZIYoet
- m2Bc9I+8RhlKv6RIiNTN1fXI0fLkPBzVgwQr9FoXr+n9P/MlFv4NSXpYi9ccxVq7PqdH
- ys2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=2mrsdnvD8wyDjJzaLu44gItX8Fn98lAu0yzczJuLApQ=;
- fh=VntcOgbegSGBtS0sD75bbYKcJGhrjSd0CPwM4oZp1YQ=;
- b=D99dF9DouML9rJB/DULBd68hGpKGRIP56c8WWGOg0zfHf0GnHlMZBB7WWG2T/UH7vP
- 6gWw/Gko9PrzORhdRrut/J/ZjHmokd0x2RLpqVtzTcH3yuSj9n7DwVus0cFncPYByeVL
- zTDQ73dFEZFUw7Xr7RDykfDG2XFg8HpOwlhvs4VGYfqGPwMrMe3DSYKeViH2yulIiryy
- qVFD9jVWMiXPw7eu/6aaTFmHIS5vLpGnviYSDmC8yXRctR5I23OIqARuQZm6vPksEmwk
- 6Hw1v5yeXSZN7H9YY9vJrQxdgFnweZjw9d0/IyeK9F3p2+vPNUNTXxkFidFdDUkZyqjV
- eOzw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE6110F0B4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 10:51:25 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-84783bce476so458948b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 03:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1783491805; x=1784096605; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2mrsdnvD8wyDjJzaLu44gItX8Fn98lAu0yzczJuLApQ=;
- b=HqaPy0z3L41MHnGdaeMOCyAioRN31Y4eIKGJlLAG22r1ZqcUCjIVHumFd8jp7ddT+/
- kGIn/IHUTj+99bipqc6I9CiPDUcRdlI8NWcrBqMoESbALqQU2n0Pa5OL3XN0JRNUAimD
- Q+qyFjqKcZ1aA8f/oWluNzFZ6CQ+JnwPMYn5o9BEFgi5lOkQwlZr7zeTCOrkWZ6rXZ+w
- c2Rv+Uv7EW6n4TLffM7HsCke5FBAJaEtP0KJRaWIjJMUcSDm91gCQxHN5CX+ITJ+Nh1q
- kwSJLX5y3tcyQbajB/rtz09IcN+Kc9jrotKdYAjm+azjf3G8Z/o3O8ZB2t2FL0krZ6D6
- Zxuw==
+ d=gmail.com; s=20251104; t=1783507885; x=1784112685; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4A/oLhgrzmAdBx1StZRZebeEK/bn7LhBiB+cKgJw7kc=;
+ b=D0TQZORoBlk89qzg19zwMxMgh0xdXQND72MVGlWP9PtpluhmxqTEJYcdXK8o+4GlJC
+ WNzUWa6Xjm2iCtgbZh9FOUu0oIDXeO7+bcVBH/huplLBJbWB2bkI/kijIfnOmmtvjzOf
+ Uf+0xKQUiq39GaxevmG++oR05Zrs3KCchwc+3UhqcL5dtctT1h8sV6OVKtf+DZE5voh/
+ 74x9jOzBApMiaz9UxphQtWWQ6hfL9QQgQ94WeTQj6PaGIN/BET/A4p7zQ43cGUitM6lS
+ tKVm9c8/2Fj1ZAOS98FbHxVENrIoL1QWt7zMhUemtnNvA/iPA0Flew9Ec5PipCyvp9En
+ 03jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783491805; x=1784096605;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=2mrsdnvD8wyDjJzaLu44gItX8Fn98lAu0yzczJuLApQ=;
- b=AoEZUdVj6JmIHrAfnxORKre+Lj4WDDWqBIpvEqhPgsmSf5t124ks3fxoxHQ0/VLRQw
- QXoB3lIHzJfxuIORcJRkieDocimcrwdfRYfGJpdfcpPUULxvB07I++yhLK1Rv7Uu4D4g
- 9B9zogXAPET7gu7o1qOl0TyxR8TG2hbhNlpfNRNQAcdXvY9Ai1FEe9ZsNA4wbiquWaln
- 6g7XzS2B9D+OYOEugIBtmrQ0N7ZXkglfuN95odhKSitGzHh6Fq+B72tvMiTnstyEYkX9
- Y/tgVdtgP1vBfgPx1+fNuOrvZCPtQnt1JBT4nr0N8wMXATM77wX8OtGva47xBLie603v
- 8nYg==
+ d=1e100.net; s=20251104; t=1783507885; x=1784112685;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4A/oLhgrzmAdBx1StZRZebeEK/bn7LhBiB+cKgJw7kc=;
+ b=mHI2EBDg2vYyHQZ6vCZ6h400wPpRhmGj0Lk6TzvJl2REoEvZsUTz8WZ2ds+Ut6/DWU
+ svydnY+H74YUDkfrp+LxXuBpeupvPbW3qyi0BCuPsOIqo4awRfJKh/8K65L+iou/f46w
+ khK077xN5ZZacDHB0Ka7VJwxs2jE9ec0hNC+HDp9jjQ9n/tV+5unoCbBccYRrOnWw3+S
+ BWR/vo8ajluUS5IcGPKFqT//VbaYnOMv5lln7otQhqbjp+kE8K14ykiwm5/CqSol3jN7
+ Q5tPf1oW3aF8UAM2LJMjuteldCeNUExHo5OlNMDwAY1EVU0stD/x7x51UJSNeEyElVBk
+ SWMA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoxmSxwT2SPLjPeILmMiIBgfDA8UkJpkc8ejroPD8XU6pqT1cDA0EFLLmKqulUhtyKYApWtu9we@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaZ6GMt0tbicWK7IyCBWbjD13sb8dAKrOBV/O6m+u1dxNHbB+a
- Wxwkm1TXXLcEPnZ4kloRId76XaqXP+WgGiATeG6XTOQAGX24lZU0yJsEik/+m3CvmOjQYYWWNj1
- 6lPEF+TTP8aF49vxtZy+tKt0Qqvk1+koI8Saf1icOgg==
-X-Gm-Gg: AfdE7cnlPo4l54GxwTGOfZg73265oJM3Q7a8LnVZ1nQcLM7W+evOCV+cc5gfb+qjd0C
- 5HIPCaeJab1g7oLHezgmzWpWLh+vQytNrlMsmVjzSAQ7k3FjMBZIWTV98th9lI5FhercIym1Awx
- pG4LeJ08/4vvWukdyHo5jCROLpnL10LMdlBxT+SZl51mbaAOTj6B29/UNgphX78ARDPcg/wVMIP
- jVeCeZN+otSwClMNVLAoDHjfW6rbGPq+Fkk5/+9Io/RyU6Fy4hgM7w/uszmvLVxLic+ICl8tUkz
- eCiF01Co2impixEAAgMjhFNslx4S2C+KDNsTlBRZ
-X-Received: by 2002:a05:6512:838b:b0:5b0:d0d:1f41 with SMTP id
- 2adb3069b0e04-5b01145dc07mr247846e87.32.1783491805462; Tue, 07 Jul 2026
- 23:23:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260707093812.109176-1-marco.crivellari@suse.com>
- <12766042.8bMQJbFj6T@timur-max>
- <CADnq5_MHa8L9gWutwRKBQQ5QuM=5qd8eJgC8ZYKyBQQ1J9NUZQ@mail.gmail.com>
-In-Reply-To: <CADnq5_MHa8L9gWutwRKBQQ5QuM=5qd8eJgC8ZYKyBQQ1J9NUZQ@mail.gmail.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Wed, 8 Jul 2026 08:23:14 +0200
-X-Gm-Features: AVVi8CeJhDw9N0PwmBetZLqNcsqmdLEyWTsa6Ck_ToyKT89sOJoqix71D3z0JWk
-Message-ID: <CAAofZF6186ZO2j-pphxxW=Gg1asF03-ZhcW3Z0-kUB=q3_xm3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Change system_unbound_wq with system_dfl_wq
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>, 
+ AHgh+RrtKvi29zJOuvk8KAWBY4dh3vB/dEXslJwfZoJDxYq6iOq2tKwx8R2DwShH+/hc72HAz//CVCjp@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy1AKpatRlIHmY4OhW7ZrgSKbxI8Bbr69fTQpQaA35n9e2Sbg4n
+ K8UgIShYcIKMDbnWluM+dtXzlZJM7l53jcSWR+ONBPwWVLPEx/e5lUv/
+X-Gm-Gg: AfdE7cmD4PO66UmuKhDExBpgCbnWo6e/p6WIjt246umH6YEeM00ltfa+mDOq4FFxfPC
+ uB5WNmb2JKNq7WzDl28MiluKGQb5GpbYckVOgqXn3pjwC2EIRKf7fTxk156BJ+s7xtVRqFNZ2gr
+ lalgFGqudCYIzwLpSBs1Wo2CenVR7YxzcZ6lLMGi6nfZnXD2QgagIf0HHeKvwLDJzxlRb2hapuY
+ N6zDuwwjDfgwROKSLE8a5wOBWfOS6Jh+oTqMKQr71SyC6M5Z1oCaA1FdAEQR3BzJLpIXqx8jU3H
+ DQOIZUY+afNvp8SsdLWlyZE9SZjCf5hxaIsL1I6VeSC0EkVpkV9tovqpEg1TsBA/rMoGVPGK2As
+ zbb68pNGJ8Y4K8igN2S99vZgJxBrRZXKjZG0RQC4FZ3lLEGeszUs4pb3bmNig0Hwx7y8k2wstta
+ 8T0A==
+X-Received: by 2002:a05:6a00:1795:b0:845:cb04:9cbf with SMTP id
+ d2e1a72fcca58-84842fec8e2mr2316101b3a.39.1783507885324; 
+ Wed, 08 Jul 2026 03:51:25 -0700 (PDT)
+Received: from lgs.. ([118.193.39.24]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-848429d65fasm862430b3a.51.2026.07.08.03.51.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 03:51:24 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kees Cook <kees@kernel.org>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Ce Sun <cesun102@amd.com>, 
- Tao Zhou <tao.zhou1@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Oak Zeng <Oak.Zeng@amd.com>, Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH] drm/amdkfd: free MQD managers on DQM init failures
+Date: Wed,  8 Jul 2026 18:51:15 +0800
+Message-ID: <20260708105115.746474-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 08 Jul 2026 13:12:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,15 +90,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 7, 2026 at 8:13=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com>=
- wrote:
->
-> Applied.  Thanks!
+The change referenced by the Fixes tag releases the HIQ SDMA MQD trunk
+buffer when device_queue_manager_init() fails after it has been
+allocated.
 
-Many thanks!
+However, the same failure path can also be reached after
+init_mqd_managers() has succeeded. At that point dqm->mqd_mgrs[] contains
+per-type MQD manager objects owned by the device queue manager. The
+normal teardown path frees those objects from uninitialize(), but the
+initialization error path only frees dqm itself.
 
---=20
+Free the MQD managers from the initialization error path as well. This is
+safe for earlier failures because dqm is zeroed when allocated and
+init_mqd_managers() clears the entries it rolls back internally.
 
-Marco Crivellari
+Fixes: b7cccc8286bb ("drm/amdkfd: fix a memory leak in device_queue_manager_init()")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-SUSE Labs
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 2e010c1f8828..be75fd3a9acc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -3103,6 +3103,7 @@ static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
+ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
+ {
+ 	struct device_queue_manager *dqm;
++	int i;
+ 
+ 	pr_debug("Loading device queue manager\n");
+ 
+@@ -3231,6 +3232,9 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
+ 		deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
+ 
+ out_free:
++	for (i = 0; i < KFD_MQD_TYPE_MAX; i++)
++		kfree(dqm->mqd_mgrs[i]);
++
+ 	kfree(dqm);
+ 	return NULL;
+ }
+-- 
+2.43.0
+
