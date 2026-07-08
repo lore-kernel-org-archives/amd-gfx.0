@@ -4,91 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB9FC44501
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 17:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 159FEC44501
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 17:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40A7810E3E1;
-	Wed,  8 Jul 2026 17:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A448210F1DA;
+	Wed,  8 Jul 2026 17:45:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sOHpog/1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UdvCrtA4";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3191110E40B
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 17:27:00 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2cc7a269ca1so1517595ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 10:27:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783531620; cv=none;
- d=google.com; s=arc-20260327;
- b=BcPpUKpMtfOoIKN99SfVfMQKhk8oeh8+WIHoGeQiE+9p56bTvupoeIJAp9Shq35xVY
- R4I1cP5qezY+jcZiWUakN7OteTWGu+Q3BSwLKR70JrDfxXz2YUnof9L0NlIK0We/uGRi
- M4io/uaps4X0SL3OZyIo6dvzsCHTM7tyrWweZk7PY/T9t1Xqet/mFRLoEuFAP+Q5VsYr
- c0+IrbL9DhkTRLParGszCFiQ6sKaFuXSWHIVLhbhbo1sksp4dmO+3P5OgbRsjqRdVaF7
- 1sCYRhHpPAMyY35kE6PONYWILvCUIXfqqP9JxKBb7IOST6+cQkPz6g+xvw4ZuR17IC7U
- 1I3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kpU7Mu1mZxXFjEe70JSeaFfv84/FPXdAhclxIwrMZgQ=;
- fh=gZ/QuQ1El2NU1RRI5pc/CAX4Mv4g4Ez7PWwEsOz7Ag0=;
- b=sAI/TyIDnEUKHIjI9RnUmZbi+TmmhDtAxP0Rj9vExCvXX9V+8eb1ag/Fv1ey80RO/O
- YicPGEfig9PHvFZR3WPc1w/ciM9wFPmL4sXAVwGiihh3RzhDvt6efYPrxRpGdmKW9cvq
- O4QZlrsSqdffqWdxwWNMopE/cDsmgYIkPxHf+IX2ciBWRJIZhIocd50zAwY+lU6iTlU5
- ueXvC2vTVTaUf6EXihcA3I/PCztHcIPtwddVXHU1kTtkh4YH9PgjnZAtvu9NXbSgPtLG
- Oeuv06cpicg9Q2/wAdOO985DTTgG6kZZWcFaE/7NoEnuBjiYHgLWsoP+Q8nIXVoxG34D
- 8Idw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783531620; x=1784136420; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kpU7Mu1mZxXFjEe70JSeaFfv84/FPXdAhclxIwrMZgQ=;
- b=sOHpog/1ksaM9YobPip7hYJ/zNt8gX3dvw+l16remMmZO5VgbheH+0FYyeGPka/XDc
- vxxfmDoOLsgp2RR9FB4/e47TIl+WoU8j7VAeAQdRaI2yV/vgRXscHbRcR1kDlQiuTixM
- cbDI3p3pRraX6C+DL76nPqTnUrtKfkvfb1QSecBS67fg0+kiIf4ff4ypqDJOK2YL/+sM
- 2LsFz0UjEA1IQjyGdNjn3a4dkwC9o+Cndc1pCV5krr1W0aT59ci3BboEbh0pDlbLpIm0
- 86ubodyGTfmzUmLlHrdCqLyq5hGAfgCVtdsnClyln5Gczoiy/+9ma4Fni34yyzh9dX2a
- mmWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783531620; x=1784136420;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kpU7Mu1mZxXFjEe70JSeaFfv84/FPXdAhclxIwrMZgQ=;
- b=XUkut3SpCYXyXorLr4jSmoFJSaC2xDPnaLskBWwlGYjm2p6kxc+xj5CyCB5ZS66uKE
- qMRoJg9//QIh9M3q8flgig0VotXbDCLpVrkscZC3aa+jekVF+KX2H0dtH/srshqcSEGV
- 4pKhhoCfoOWV5/HHe8wO6r1Q/4ZVz80dpiRoZNmocPy7U6tmu8XsA1gBS2SZJshHpQ6t
- 4m6TgE7ywa7qPoKykpaWDTG8yRKataaVvRvMlgA/e8gedYpS1H0m+V52LzOirVllaz8T
- 7Bo9/QKb3RjXw9bGQYBKhm9Me2wcklxUWcaiA2pL+QkI9nJLyqdbNj6pm7EcSNlIgU1j
- Qahg==
-X-Gm-Message-State: AOJu0Yytbb32nzxBYGvUSDDPD3rV7O/QQru9AeW+1MMXQZgQVTKooXjZ
- wG1LZLkPPcqxwPweYjFiexQ3YqaqZeZ5Wd300m4NuBTox+l5skhFmf3Y6k76VvQDug2URdrrAEt
- V72k6hTxPWxhqPRhA51ottwGAxPYhS4z0zQ==
-X-Gm-Gg: AfdE7cnbm+Mhc72VO11qRXYynG/7v1suAglmoTbkUo+M7oeeb557MbcPPX1Pw3u4q4F
- 2sjIp33kz0Db10KZQ0W3q4H26NhleawMAHVdn86G9bhYZr/SoGE319ODjEAq+oiey7jwyyXR4R5
- KssnW/0Ehz/turruWKyHO08ywa+lwm7jcpXWXEFg4f0UkD81O/huaFnJBKk6A0f8CR9HxlBY2yS
- nH45IVvy46cUKqfQFmBwFN7+XGXTodRMOnddLOLaV3AjU9yiCy4reeJp5f11SZGQg0+jhZOua5A
- s59on27YZsqSj94Lgw1PfDquUEUmBL5cAQVOJvV2DiSm4p3TGPkVmiUJxnY=
-X-Received: by 2002:a17:902:e80a:b0:2ca:d344:7743 with SMTP id
- d9443c01a7336-2ccff305eadmr3203105ad.7.1783531619583; Wed, 08 Jul 2026
- 10:26:59 -0700 (PDT)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012054.outbound.protection.outlook.com
+ [40.107.200.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 554CD10F1DA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 17:45:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wfplpNRPL7EjfSP5xV1pTPQ8qd18jxr4WxSqkp0r2eqZeGMrK2lyoloN0ScDM9s8KYxgNWYHAjQId6bPS3IEUj6a0z8VQNI902/Iu9MI8BzBMB1mvX+pnlV20PvtUfKOQtk0kBZM95d9zEmYJMLjMINd511Q2lfJGv3kMrqWZEqhq74mbn4Zzl5vOOdSiqBRsMRNn/MpdXWTf0xFCdHeGYQtKPzdOmlqeBkbow4k0vVcvV4Op815oEht9QxQ7gSAf986PqDdMh7b9yo/klBMp1G72CF9jrBGsC+/Z3FgCaOcKPHId/dGkwSsKo4Z9rZp+U/ROFOxZue4ihLYUXznOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OaJYWfC8xns2j123Coo92AY57wo7/CmdNiilfh+uIuw=;
+ b=DK9sXrpfeR19OABQ/+XBp7GWQ1RxoP8T/QdUJeh9f2zKDcGbXbR0UFYtFRoiQp7xVyulIl3ewMkWsHjF0ijV5RP1jTTzg3kB7PwraIwCyWM0+dtrQAQb1NZjCUawZ2FuhoG14X86qJ+mhvvh/j+S/moTZJyQ/fUqqHzYEa10ynlvnQJtV1Na+93OIt332de2kBkyjnk6506fwyLUg6EkidV9M1qEj0ElXtPS/rNOESKowM7RbmCnBfq/vL5d8EUu0r7zP0PtAoRx6Q3QZsXYMPgEym0dPF+bB3ATJ38z6vLehK0RNkYFQmh+TW7ItZvM3PoMm92b0gikPP7VaQL5Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OaJYWfC8xns2j123Coo92AY57wo7/CmdNiilfh+uIuw=;
+ b=UdvCrtA4cmsTSi3kOWnhcoV0RleAFoPzQjbpksfahKWeE/KbzSjPtywFhzsPlCPsMi0jjWkvwzk6ej3ZjqmuXbuwu8ILzyPxzj0dkTdLSkSKHEl5gQi/1c2PqEZTtZdg6ppqHwtNXNGu6iqLF40vWm6Fsy/HqD5+HluPjGG6dGQ=
+Received: from BN9PR03CA0953.namprd03.prod.outlook.com (2603:10b6:408:108::28)
+ by MW3PR12MB4443.namprd12.prod.outlook.com (2603:10b6:303:2d::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Wed, 8 Jul
+ 2026 17:45:15 +0000
+Received: from BN2PEPF000055DA.namprd21.prod.outlook.com
+ (2603:10b6:408:108:cafe::8f) by BN9PR03CA0953.outlook.office365.com
+ (2603:10b6:408:108::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Wed, 8
+ Jul 2026 17:45:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055DA.mail.protection.outlook.com (10.167.245.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.0 via Frontend Transport; Wed, 8 Jul 2026 17:45:14 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 8 Jul
+ 2026 12:45:14 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 8 Jul
+ 2026 10:45:13 -0700
+Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 8 Jul 2026 12:45:13 -0500
+From: <Roman.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ <Kanala.RamalingeswaraReddy@amd.com>
+CC: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>,
+ <Praful.Swarnakar@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, "Matthew
+ Stewart" <Matthew.Stewart2@amd.com>, Roman Li <Roman.Li@amd.com>
+Subject: [PATCH] drm/amdgpu/discovery: Fix device family for DCN42
+Date: Wed, 8 Jul 2026 13:45:01 -0400
+Message-ID: <20260708174501.179428-1-Roman.Li@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260708164336.4099991-1-Yongqiang.Sun@amd.com>
-In-Reply-To: <20260708164336.4099991-1-Yongqiang.Sun@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Jul 2026 13:26:47 -0400
-X-Gm-Features: AVVi8CdNpZ9hQouomun9sWZq0Wqwz4PRV2UO94YTD0JrFnUSTInnPcNSQWZJvlQ
-Message-ID: <CADnq5_MkXOYQ_2N5cgyx6+7nMzWqK3mTwa-RU7ck-YyAc8Ew8w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: fix 32-bit overflow in CWSR total size
- calculation
-To: Yongqiang Sun <Yongqiang.Sun@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|MW3PR12MB4443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c80d50c-530f-404e-b302-08dedd18aa95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: PWH1Fmz+fz2O2HRs45/4a9kAjWmbHvsvrOD+pYR02P+YVqniCNFImh5ef2zoX5LOFfheOuhWULqy96SVHWZTtn5o5WVu2QVsYRqawFPVY3Lt48XI+LJrK3xZR0gEQ/TDWvYT46fNHtOlV/PeeXdZyVNTYjxN2E2uWM8WgRy6gZ4VbEgCMfuiiuAPT+0PLvtns8gHI8DZFLcm5jTxyuY/EowxIsyeBX16Z3GpjoI+172yvMKW1U3hqRaEWKqX5lDx60QFHYMtyGl1ZFG1YG3LUMWG557gw6tIL7iUai2SXqa31eaPSnN15KxnidhiSn5hQmXqqK3wji2oi63b/woXYofBoEThu8NbmFG8GLp5jgnU8ZKrRtMzGLNouBUvSCundCC/CgW+F39yE6mzu+E4cPInwTBoLbxKr3wiifLjLydF2WoEJgwfMLRky+fAjtDgR3lg4GQPGTpUrOXzqEjsUpvRtDXemT88B16JpCGkjqn/XtMDSaKre4PIdALDy0jYib9HN9cA4sgDk0n+dnMqUvJOoijZ62fX26uj+pwn48EdA66i7pt0EC0hQTsvKQNbCxmWOrETyZPIYpnAesYBwyLVYZ/S2EiB59a1t6QGgaCDqu0kDGoyquhMCGEdUneVqnnGx5E/kbQpCOvNUZ0Pt5SwQCQmpadQRPA/2e5LvpF6xiFWHaUTneYBPnPYd51cVeNLPTo2UwVwtG6NMch+GQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YkvkEvBx429gnU/Gq6Sg5b7OcNR5C+Hnl4rUhwDAuLCvI0QIGAqPEkE10heo60L4KsUS2bHC0w+ea0W6kY4SChVKafyi6+yg+iY8Fk4DwIxNmnevc8XThtKdbO5A7rOE2a+KBGxdqwpMcSAbOkANiShvWK6XAqiJYEEtowk4sVawKZC4P+eh3D/3CBnW50SYN3a5C3jNsQJroYoxQyO3cFrFdz90632yQPCmvxQOudMg5YYEXmTiWsoMFeCfZqD8CI10jEqd4RjPG/ob5IO24ZR/RbPCxzYEDdUM06E9O1xH1carOJMi9M1bf3+OZ0qrnM0PgpK5MBvpOTEw/wjUSV7JV/5EFKxpj1k/9bfqUsAvyZt5DqAViBkq++0yix10d+KEgk8eZc4WQ9GndibU/qE0BPQy6F+bUN5XnCxof3U2btTIlpF7u8EGhJl+HNho
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 17:45:14.3656 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c80d50c-530f-404e-b302-08dedd18aa95
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DA.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,99 +115,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 8, 2026 at 12:54=E2=80=AFPM Yongqiang Sun <Yongqiang.Sun@amd.co=
-m> wrote:
->
-> total_cwsr_size was computed in 32-bit before being used as a BO/SVM
-> allocation size.
-> With large ctx_save_restore_area_size and debug_memory_size
-> multiplied by the XCC count, the product can wrap,
-> yielding an undersized CWSR save area that firmware later overruns.
->
-> Promote total_cwsr_size to u64 and use check_add_overflow()/
-> check_mul_overflow() in both kfd_queue_acquire_buffers() and
-> kfd_queue_release_buffers().
->
-> Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+From: Roman Li <Roman.Li@amd.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+GC 11.7.0 and 11.7.1 should map to AMDGPU_FAMILY_GC_11_5_4 for DCN42.
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_queue.c
-> index 9d4838461168..01e228fc1860 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> @@ -23,6 +23,7 @@
->   */
->
->  #include <linux/slab.h>
-> +#include <linux/overflow.h>
->  #include "kfd_priv.h"
->  #include "kfd_topology.h"
->  #include "kfd_svm.h"
-> @@ -235,7 +236,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_devi=
-ce *pdd, struct queue_prope
->         struct kfd_topology_device *topo_dev;
->         u64 expected_queue_size;
->         struct amdgpu_vm *vm;
-> -       u32 total_cwsr_size;
-> +       u64 total_cwsr_size;
->         int err;
->
->         topo_dev =3D kfd_topology_device_by_id(pdd->dev->id);
-> @@ -308,8 +309,14 @@ int kfd_queue_acquire_buffers(struct kfd_process_dev=
-ice *pdd, struct queue_prope
->                 goto out_err_unreserve;
->         }
->
-> -       total_cwsr_size =3D (properties->ctx_save_restore_area_size +
-> -                          topo_dev->node_props.debug_memory_size) * NUM_=
-XCC(pdd->dev->xcc_mask);
-> +       total_cwsr_size =3D (u64)properties->ctx_save_restore_area_size +
-> +                         topo_dev->node_props.debug_memory_size;
-> +       if (check_mul_overflow(total_cwsr_size,
-> +                              NUM_XCC(pdd->dev->xcc_mask),
-> +                              &total_cwsr_size)) {
-> +               err =3D -EINVAL;
-> +               goto out_err_unreserve;
-> +       }
->         total_cwsr_size =3D ALIGN(total_cwsr_size, PAGE_SIZE);
->
->         err =3D kfd_queue_buffer_get(vm, (void *)properties->ctx_save_res=
-tore_area_address,
-> @@ -344,7 +351,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_devi=
-ce *pdd, struct queue_prope
->  int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties)
->  {
->         struct kfd_topology_device *topo_dev;
-> -       u32 total_cwsr_size;
-> +       u64 total_cwsr_size;
->
->         kfd_queue_buffer_put(&properties->wptr_bo);
->         kfd_queue_buffer_put(&properties->rptr_bo);
-> @@ -355,8 +362,12 @@ int kfd_queue_release_buffers(struct kfd_process_dev=
-ice *pdd, struct queue_prope
->         topo_dev =3D kfd_topology_device_by_id(pdd->dev->id);
->         if (!topo_dev)
->                 return -EINVAL;
-> -       total_cwsr_size =3D (properties->ctx_save_restore_area_size +
-> -                          topo_dev->node_props.debug_memory_size) * NUM_=
-XCC(pdd->dev->xcc_mask);
-> +       total_cwsr_size =3D (u64)properties->ctx_save_restore_area_size +
-> +                         topo_dev->node_props.debug_memory_size;
-> +       if (check_mul_overflow(total_cwsr_size,
-> +                              NUM_XCC(pdd->dev->xcc_mask),
-> +                              &total_cwsr_size))
-> +               return -EINVAL;
->         total_cwsr_size =3D ALIGN(total_cwsr_size, PAGE_SIZE);
->
->         kfd_queue_buffer_svm_put(pdd, properties->ctx_save_restore_area_a=
-ddress, total_cwsr_size);
-> --
-> 2.43.0
->
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index f33278fcc0f4..f52566e05caa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -3368,9 +3368,11 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(11, 5, 3):
+ 	case IP_VERSION(11, 5, 4):
+ 	case IP_VERSION(11, 5, 6):
++		adev->family = AMDGPU_FAMILY_GC_11_5_0;
++		break;
+ 	case IP_VERSION(11, 7, 0):
+ 	case IP_VERSION(11, 7, 1):
+-		adev->family = AMDGPU_FAMILY_GC_11_5_0;
++		adev->family = AMDGPU_FAMILY_GC_11_5_4;
+ 		break;
+ 	case IP_VERSION(12, 0, 0):
+ 	case IP_VERSION(12, 0, 1):
+-- 
+2.34.1
+
