@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE798C44503
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 19:44:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FDEC43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 19:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B398F10F265;
-	Wed,  8 Jul 2026 19:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07BC310F266;
+	Wed,  8 Jul 2026 19:44:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fwQBsuoN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QXYyFRcB";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56C1D10F264;
- Wed,  8 Jul 2026 19:44:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6BB410F262;
+ Wed,  8 Jul 2026 19:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=g2gFe0ryYdUdJRocri9LN2xg4yLKDgHAX0vgmCaHB0I=; b=fwQBsuoNRBFoaLxRwQCo4asg8J
- AZyWgk3HUj13rwO0O7jmsX6WvWxICV+1HwXA7fe3qEPkLylCsPhbDTcwCsbdYBvPye64pexHNeoHL
- 5od74uY4rgRXURkXgexCe4uDBt9Eg7FaCkOJ0Cm3CYgXjE4+w0QUngh52WwT61K8KMk/EGKnnEBBn
- VkptqAv5R0fk404b2USHwh0LluBwpqHDhdSf7yqc7rj7XTC2TOeLpf3dtsmVOLxQd55bb5JeWz68O
- whvAmbtE4gFRKnoSMwlh7mJ4nAi5Vfzi4N2jN5cCzniGMicwlwJ0C4JfDPQBkEmDEmHEVys3eTBlc
- vfyoZUgA==;
+ bh=HAeo0RZH52dXqAgB9XDU8dBq6yXWaateAKX3L4UJFMI=; b=QXYyFRcBB8wpuhETjlnOd8DwcA
+ vxUNxd63ZpF+l58CWIXWfGITSvOSK+bjOSwc+fIlXO7E/O7X3std5Nbs+9Q0DtMkoHImbpK5DcF+Z
+ IcGn645GX5xsPfU0mcuiir3fVB53kzEPXD6GEb7iPzV25m0N2/Xp5E4+jxnn9v4H5ygStvckNW/jO
+ Jawm/HBGVPrv0WeVnPdgQYPZtChS6HZMsjLP4fhi/XSD6tOJS/uUYRkGLhTt36m1EDJNdo+Oo/QcB
+ JI/ER8q9DCf31FQZzwMuvFvwyX5CuSZ+i1P4QhwP+lwVSb2Ypw4VQ7FurjK0wSxl2Y4lUkOZPOM/y
+ 1j5jEALg==;
 Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1whYBX-00BtrH-60; Wed, 08 Jul 2026 21:43:55 +0200
+ id 1whYBY-00BtrH-DB; Wed, 08 Jul 2026 21:43:56 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -45,10 +45,11 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH 04/19] drm/crtc: Add COLOR_PIPELINE property
-Date: Wed,  8 Jul 2026 21:37:19 +0200
-Message-ID: <20260708194343.2578387-5-mwen@igalia.com>
+ kernel-dev@igalia.com, Louis Chauvet <louis.chauvet@bootlin.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [RFC PATCH 05/19] drm: Introduce DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
+Date: Wed,  8 Jul 2026 21:37:20 +0200
+Message-ID: <20260708194343.2578387-6-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260708194343.2578387-1-mwen@igalia.com>
 References: <20260708194343.2578387-1-mwen@igalia.com>
@@ -71,197 +72,202 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-Add a COLOR_PIPELINE property to the CRTC to allow userspace to set a
-post-blend color pipeline analogously to how pre-blend color pipelines
-are set on planes.
+Introduce DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE which a DRM client can set
+to enable the usage of CRTC (post-blend) color pipelines instead of the
+now deprecated CRTC color management properties: "GAMMA_LUT",
+"DEGAMMA_LUT" and "CTM".
 
 Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 50 ++++++++++++++++++++++++++++---
- drivers/gpu/drm/drm_crtc.c        | 31 +++++++++++++++++++
- include/drm/drm_atomic_uapi.h     |  2 ++
- include/drm/drm_crtc.h            | 11 +++++++
- 4 files changed, 90 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c   | 21 +++++++++++++++++++++
+ drivers/gpu/drm/drm_connector.c     |  1 +
+ drivers/gpu/drm/drm_crtc_internal.h |  1 +
+ drivers/gpu/drm/drm_ioctl.c         |  7 +++++++
+ drivers/gpu/drm/drm_mode_object.c   |  9 +++++++++
+ include/drm/drm_file.h              |  7 +++++++
+ include/uapi/drm/drm.h              | 19 +++++++++++++++++++
+ 7 files changed, 65 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index d52504d823bc..9b4a32f1b694 100644
+index 9b4a32f1b694..8f9c11bd94c6 100644
 --- a/drivers/gpu/drm/drm_atomic_uapi.c
 +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -294,6 +294,34 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- }
- EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
- 
-+/**
-+ * drm_atomic_set_colorop_for_crtc - set colorop for crtc
-+ * @crtc_state: atomic state object for the crtc
-+ * @colorop: colorop to use for the crtc
-+ *
-+ * Helper function to select the color pipeline on a crtc by setting
-+ * it to the first drm_colorop element of the pipeline.
-+ */
-+void
-+drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
-+				 struct drm_colorop *colorop)
-+{
-+	struct drm_crtc *crtc = crtc_state->crtc;
-+
-+	if (colorop)
-+		drm_dbg_atomic(crtc->dev,
-+			       "Set [COLOROP:%d] for [CRTC:%d:%s] state %p\n",
-+			       colorop->base.id, crtc->base.id, crtc->name,
-+			       crtc_state);
-+	else
-+		drm_dbg_atomic(crtc->dev,
-+			       "Set [NOCOLOROP] for [CRTC:%d:%s] state %p\n",
-+			       crtc->base.id, crtc->name, crtc_state);
-+
-+	crtc_state->color_pipeline = colorop;
-+}
-+EXPORT_SYMBOL(drm_atomic_set_colorop_for_crtc);
-+
- /**
-  * drm_atomic_set_crtc_for_connector - set CRTC for connector
-  * @conn_state: atomic state object for the connector
-@@ -402,8 +430,8 @@ static s32 __user *get_out_fence_for_connector(struct drm_atomic_commit *state,
- }
- 
- static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
--		struct drm_crtc_state *state, struct drm_property *property,
--		uint64_t val)
-+		struct drm_crtc_state *state, struct drm_file *file_priv,
-+		struct drm_property *property, uint64_t val)
- {
- 	struct drm_device *dev = crtc->dev;
- 	struct drm_mode_config *config = &dev->mode_config;
-@@ -412,7 +440,17 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 
+@@ -441,6 +441,11 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
  	if (property == config->prop_active)
  		state->active = val;
--	else if (property == config->prop_mode_id) {
-+	else if (property == crtc->color_pipeline_property) {
-+		/* find DRM colorop object */
-+		struct drm_colorop *colorop = NULL;
-+
-+		colorop = drm_colorop_find(dev, file_priv, val);
-+
-+		if (val && !colorop)
-+			return -EACCES;
-+
-+		drm_atomic_set_colorop_for_crtc(state, colorop);
-+	} else if (property == config->prop_mode_id) {
- 		struct drm_property_blob *mode =
- 			drm_property_lookup_blob(dev, val);
- 		ret = drm_atomic_set_mode_prop_for_crtc(state, mode);
-@@ -519,6 +557,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
- 		*val = state->scaling_filter;
- 	else if (property == crtc->sharpness_strength_property)
- 		*val = state->sharpness_strength;
-+	else if (property == crtc->color_pipeline_property)
-+		*val = (state->color_pipeline) ? state->color_pipeline->base.id : 0;
- 	else if (crtc->funcs->atomic_get_property)
- 		return crtc->funcs->atomic_get_property(crtc, state, property, val);
- 	else {
-@@ -1106,6 +1146,8 @@ int drm_atomic_get_property(struct drm_mode_object *obj,
+ 	else if (property == crtc->color_pipeline_property) {
++		if (!file_priv->crtc_color_pipeline) {
++			drm_dbg_atomic(dev,
++				"Setting COLOR_PIPELINE CRTC property not permitted without DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE client cap\n");
++			return -EINVAL;
++		}
+ 		/* find DRM colorop object */
+ 		struct drm_colorop *colorop = NULL;
  
- 		if (colorop->plane)
- 			WARN_ON(!drm_modeset_is_locked(&colorop->plane->mutex));
-+		else if (colorop->crtc)
-+			WARN_ON(!drm_modeset_is_locked(&colorop->crtc->mutex));
+@@ -462,6 +467,11 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		const size_t elem_size = sizeof(struct drm_color_lut);
+ 		u64 lut_size;
  
- 		ret = drm_atomic_colorop_get_property(colorop, colorop->state, property, val);
++		if (file_priv->crtc_color_pipeline) {
++			drm_dbg_atomic(dev,
++				"Setting DEGAMMA_LUT CRTC property not permitted with DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE client cap\n");
++			return -EINVAL;
++		}
+ 		ret = drm_object_immutable_property_get_value(&crtc->base,
+ 							      config->degamma_lut_size_property,
+ 							      &lut_size);
+@@ -476,6 +486,11 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		state->color_mgmt_changed |= replaced;
+ 		return ret;
+ 	} else if (property == config->ctm_property) {
++		if (file_priv->crtc_color_pipeline) {
++			drm_dbg_atomic(dev,
++				"Setting CTM CRTC property not permitted with DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE client cap\n");
++			return -EINVAL;
++		}
+ 		ret = drm_property_replace_blob_from_id(dev,
+ 					&state->ctm,
+ 					val,
+@@ -487,6 +502,12 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		const size_t elem_size = sizeof(struct drm_color_lut);
+ 		u64 lut_size;
+ 
++		if (file_priv->crtc_color_pipeline) {
++			drm_dbg_atomic(dev,
++				"Setting GAMMA_LUT CRTC property not permitted with DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE client cap\n");
++			return -EINVAL;
++		}
++
+ 		ret = drm_object_immutable_property_get_value(&crtc->base,
+ 							      config->gamma_lut_size_property,
+ 							      &lut_size);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index cbb067d02cb9..2c1a6c6294d3 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -3625,6 +3625,7 @@ int drm_mode_getconnector(struct drm_device *dev, void *data,
+ 	 */
+ 	ret = drm_mode_object_get_properties(&connector->base, file_priv->atomic,
+ 			file_priv->plane_color_pipeline,
++			file_priv->crtc_color_pipeline,
+ 			(uint32_t __user *)(unsigned long)(out_resp->props_ptr),
+ 			(uint64_t __user *)(unsigned long)(out_resp->prop_values_ptr),
+ 			&out_resp->count_props);
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 83146ffef00c..9752bf3c29ca 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -164,6 +164,7 @@ void drm_mode_object_unregister(struct drm_device *dev,
+ 				struct drm_mode_object *object);
+ int drm_mode_object_get_properties(struct drm_mode_object *obj, bool atomic,
+ 				   bool plane_color_pipeline,
++				   bool crtc_color_pipeline,
+ 				   uint32_t __user *prop_ptr,
+ 				   uint64_t __user *prop_values,
+ 				   uint32_t *arg_count_props);
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index ff193155129e..ae374733e154 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -380,6 +380,13 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+ 			return -EINVAL;
+ 		file_priv->plane_color_pipeline = req->value;
  		break;
-@@ -1262,7 +1304,7 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
++	case DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE:
++		if (!file_priv->atomic)
++			return -EINVAL;
++		if (req->value > 1)
++			return -EINVAL;
++		file_priv->crtc_color_pipeline = req->value;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index 21fc9deda437..e9f317126035 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -413,6 +413,7 @@ EXPORT_SYMBOL(drm_object_immutable_property_get_value);
+ /* helper for getconnector and getproperties ioctls */
+ int drm_mode_object_get_properties(struct drm_mode_object *obj, bool atomic,
+ 				   bool plane_color_pipeline,
++				   bool crtc_color_pipeline,
+ 				   uint32_t __user *prop_ptr,
+ 				   uint64_t __user *prop_values,
+ 				   uint32_t *arg_count_props)
+@@ -441,6 +442,13 @@ int drm_mode_object_get_properties(struct drm_mode_object *obj, bool atomic,
+ 				continue;
  		}
  
- 		ret = drm_atomic_crtc_set_property(crtc,
--				crtc_state, prop, prop_value);
-+				crtc_state, file_priv, prop, prop_value);
- 		break;
- 	}
- 	case DRM_MODE_OBJECT_PLANE: {
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 63ead8ba6756..a0d82ba92f6c 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -991,3 +991,34 @@ bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state)
- 	return hweight32(crtc_state->encoder_mask) > 1;
- }
- EXPORT_SYMBOL(drm_crtc_in_clone_mode);
++		if (!crtc_color_pipeline && obj->type == DRM_MODE_OBJECT_CRTC) {
++			struct drm_crtc *crtc = obj_to_crtc(obj);
 +
-+/**
-+ * drm_crtc_create_color_pipeline_property - create a new color pipeline
-+ * property
-+ *
-+ * @crtc: drm CRTC
-+ * @pipelines: list of pipelines
-+ * @num_pipelines: number of pipelines
-+ *
-+ * Create the COLOR_PIPELINE CRTC property to specify color pipelines on
-+ * the CRTC.
-+ *
-+ * RETURNS:
-+ * Zero for success or -errno
-+ */
-+int drm_crtc_create_color_pipeline_property(struct drm_crtc *crtc,
-+					    const struct drm_prop_enum_list *pipelines,
-+					    int num_pipelines)
-+{
-+	struct drm_property *prop;
++			if (prop == crtc->color_pipeline_property)
++				continue;
++		}
 +
-+	prop = drm_property_create_color_pipeline(crtc->dev, &crtc->base,
-+						  pipelines, num_pipelines);
-+	if (IS_ERR(prop))
-+		return PTR_ERR(prop);
-+
-+	crtc->color_pipeline_property = prop;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_crtc_create_color_pipeline_property);
-diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-index 4e7e78f711e2..90e5c207a53b 100644
---- a/include/drm/drm_atomic_uapi.h
-+++ b/include/drm/drm_atomic_uapi.h
-@@ -54,6 +54,8 @@ void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_framebuffer *fb);
- bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				      struct drm_colorop *colorop);
-+void drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
-+				     struct drm_colorop *colorop);
- int __must_check
- drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
- 				  struct drm_crtc *crtc);
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 30afa05b7c0f..5852b506c614 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -1141,6 +1141,14 @@ struct drm_crtc {
+ 		if (*arg_count_props > count) {
+ 			ret = __drm_object_property_get_value(obj, prop, &val);
+ 			if (ret)
+@@ -500,6 +508,7 @@ int drm_mode_obj_get_properties_ioctl(struct drm_device *dev, void *data,
+ 
+ 	ret = drm_mode_object_get_properties(obj, file_priv->atomic,
+ 			file_priv->plane_color_pipeline,
++			file_priv->crtc_color_pipeline,
+ 			(uint32_t __user *)(unsigned long)(arg->props_ptr),
+ 			(uint64_t __user *)(unsigned long)(arg->prop_values_ptr),
+ 			&arg->count_props);
+diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+index 6ee70ad65e1f..d0c323378ae4 100644
+--- a/include/drm/drm_file.h
++++ b/include/drm/drm_file.h
+@@ -214,6 +214,13 @@ struct drm_file {
  	 */
- 	struct drm_property *sharpness_strength_property;
+ 	bool plane_color_pipeline;
  
 +	/**
-+	 * @color_pipeline_property:
++	 * @crtc_color_pipeline:
 +	 *
-+	 * Optional "COLOR_PIPELINE" enum property for specifying
-+	 * a color pipeline to use on the CRTC.
++	 * True if client understands CRTC (post-blend) color pipelines
 +	 */
-+	struct drm_property *color_pipeline_property;
++	bool crtc_color_pipeline;
 +
  	/**
- 	 * @state:
+ 	 * @was_master:
  	 *
-@@ -1376,6 +1384,9 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index bc7ef7684099..514c8f4b3aaf 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -903,6 +903,25 @@ struct drm_get_cap {
+  */
+ #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
  
- int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
- 					    unsigned int supported_filters);
-+int drm_crtc_create_color_pipeline_property(struct drm_crtc *crtc,
-+					     const struct drm_prop_enum_list *pipelines,
-+					     int num_pipelines);
- bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state);
- int drm_crtc_create_sharpness_strength_property(struct drm_crtc *crtc);
- #endif /* __DRM_CRTC_H__ */
++/**
++ * DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
++ *
++ * If set to 1 the DRM core will allow setting the COLOR_PIPELINE
++ * property on a &drm_crtc, as well as drm_colorop properties.
++ *
++ * Setting of these crtc properties will be rejected when this client
++ * cap is set:
++ * - GAMMA_LUT
++ * - DEGAMMA_LUT
++ * - CTM
++ *
++ * The client must enable &DRM_CLIENT_CAP_ATOMIC first.
++ *
++ * This client cap can only be set if the driver sets the corresponding driver
++ * cap &DRM_CAP_CRTC_COLOR_PIPELINE.
++ */
++#define DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE	8
++
+ /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
+ struct drm_set_client_cap {
+ 	__u64 capability;
 -- 
 2.53.0
 
