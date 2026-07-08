@@ -4,94 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C223BC44501
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8146DC43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5431D10E60A;
-	Wed,  8 Jul 2026 13:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 127E310E5EA;
+	Wed,  8 Jul 2026 13:59:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EnYN97LV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T/7dd5Iw";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E5B910E5FE
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:45:12 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2caa0551d8bso2624945ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 06:45:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783518312; cv=none;
- d=google.com; s=arc-20260327;
- b=sxpQcNuJQnO+JYwoX4YQpZNVA+zIhvqdCW6NUEjLc0kesJQoMAtX8XelBV+gBji2pP
- 6T49TRiJ5gwKzEQc8CeMnOefx+B7fXAHZE3iTh49SsOtxSAgjAeM3eByUl3iRO77sqNu
- AnBMK+Eh+0C3KSOQPnQoG4dmKa44oqrAyZHl965zwYNXY8wCgPOKdT3diDjMeveYC41B
- ofIZQa2z69BAwWjQ5rlwSU6Jz67tz5mYPbTVwCP0A0wMygAqV4VkXwU5qiURXRj9JAGS
- 00bN3Nq9uc6yZ6tdSkMsq5fvwSnEs8+F1+3V/b17PacMSpwosMN9pFCe/6eR1Jy74s4A
- hWmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=HwiQN+ryzN4/zjOcZQGSXPZItUEbTdFtTzTPRd87xhg=;
- fh=BJAqlRfvMCtYI+D79GzXg6fcLv5eVizEO9Yg83744MA=;
- b=V97z4tZ5r6CWOBTEqnNvpfazf7TCPIFHQjpTqbmxxQUfEw1f97nUoEOixZ/mDkcLAk
- CKoLgvcQfVs0PvV8ookOnRy2JFEuzvHLd976CxZV11BiUDCUQo5crAtyq/FO0Zf2Sapt
- uCEhs+X68Ka1ZpxAKA2Ir/dFrq7KowlGqwTiPWQd4PlFQMwbIDygrJj5iJqEDjdGxvIr
- ARhdRp8ppTsF1p69RBv/XPVmpVmu2MX9agTZ18xWE+7+grIajfBdYE5nwTaukRCTFo1f
- KwFmTkw9OCGMv2sgvsc4RNsZEfX7GYlsAfTilourzTrZ7Iw9Gz3uJMdpEmAvt2l5SmE4
- tMNg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783518312; x=1784123112; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=HwiQN+ryzN4/zjOcZQGSXPZItUEbTdFtTzTPRd87xhg=;
- b=EnYN97LVi2qS9c/um3QJMoYYRvx6ZeMvtX1epzYy4OtuBjiMztCYFOmmNnEUCRKBQi
- uZFKedYBQ4ug0NvkEh2ni4p4Jyd5uMt5nXj+nvpwB0wJbOO3cpliMEDTEcAw2gxrH6zn
- WMs5/A+nApPa6zeymQSlHF/4CPM16Yd7eex+A3MBNGMv8yad0hgGrHIAcPuU1R/HPbkK
- SdKc6CvoAZmCFAGqPj3TUApDXXTAupn2svycqeJe6diClAd7j1I+PMMbk76A0kO+c+1Q
- ScFoXDROmpq1V2vS0o5+z8OefZ6LGJOG2LCcN1uRfC94edTE2Nf6DI4pcmL77wUuTT8x
- xJ3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783518312; x=1784123112;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HwiQN+ryzN4/zjOcZQGSXPZItUEbTdFtTzTPRd87xhg=;
- b=W58gtxS0tTIA/AsAbNAOhrLesEueaM37FPp60ZwjCZFaMe53S8c4v4l45ghfREloit
- u0FkG3HiXT5c1TeHFscxZqXgXSYMChswG/lm9+anKxiYtJYLqvTgAP9Fk2gpr3ecP9N/
- zoNZDD8pEPOE+gX4V/cJjB7Evorg0D5o49kB6lEFGfgt9FdqM6NV0SYZKeeTMbFdICVT
- 6DSDONbiTnOFIxbesx35ZSFxb0VLrR7Y4c+4NINbA4erq0izUpaXqnZtl9Bblxkx/ZGP
- ah0BhX5LLs9P7/0meEUY3mM9mbaITiesLVBdn48caplb87RaWdzEjUXYaZgOH+gkL3/5
- /s5w==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq95hrN4h2kgGnuvoI5gkDT/1iGkSPgaAzUzd3P7g17+uLw1j7WpZJlJTbCodq4TkVRW+irmrXO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrXVva/bwO+/URzxE23p/M18r50oVSih+F+/XKucPeHJ6YJLL9
- 0R/5X9rYZdqwNJIu6hrKFXwFzIdARqFhaPqNyq9p48s3QqV1AUma2gBJZ7CLkwbv58peETvw0D9
- zHy5fg8GWtYu+LldmigvP/dduaTipuvoLdg==
-X-Gm-Gg: AfdE7clp7K7eD5dnko7wcXSIV/CaYGN/Vg/uofm7Tck4hzb69XT7qSh9yhq/wQkFwQh
- /qlKuIrgdvYCT1hKwXUeF+jVPgPPwbx/TuEplBNAIg2NWDyetNZTDGe8wvtcv55dqw+3HpIpXRA
- Me3tbiAqzZKM/yvc5Ks72C7D5rNhiiNOt/wbOcHj1eEBn4Wl3P/WAIm927EUTVgIYQsM7v9mt7c
- S1Twk0VdEsw3jmjgEWDL8BpxlL4icV08UAwDh1NuEhY0LMk/HflxpQ774YppIGxks7OaIFK1Wnd
- XV8/UHVwQaBA4jul32X+HaxaNMpvlcG7kE2MymRgzxPnJ8Hpdc6a+lsEzuZqY+8pWhGAEA==
-X-Received: by 2002:a17:903:3885:b0:2ca:d344:7743 with SMTP id
- d9443c01a7336-2ccea3954d4mr22026805ad.7.1783518311651; Wed, 08 Jul 2026
- 06:45:11 -0700 (PDT)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010029.outbound.protection.outlook.com [52.101.56.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC6510E5EA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:59:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vziMnrAo86HcKc7QVBDVzHGBHY9sJOAHMon21PFrbrC1yfCGI5J370oVIlgeP68SAfy5AxHxrqLSDUmdcpGXtmexeclxS+KBCR8vMOs4KwN46XV0OxcDo/mFeSMMfUGB9OlEKNtxqHrYR7ixeBummD0LuDuZZ1fSsMcHfup2KhMZrN7uF5WFsgYiLJWR0VTMkZD1V2dwdDshnXTgrbzH25skrftt1CU4YCs/AXCD2C4SxhTyaObQ1FdRwjUuXQTM3cYUXLHitWOKnQjaLRViqp2k0jDfFQdVZzpBqN2rEyqPLmXKjR4nby53KvkKDzlTEO594611AhLVorm3f3t4ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WpkbmQBOmJbnUbBNITLExqdH6IJmusPulzwb95wZU/Y=;
+ b=LPtroEFeO3urC6Zm7Jt14wDaqTbAVrZ4OXn0WpfNMf0CmvHgdXxQ1dN/fyczvlZVyOqmrnQtG4vI4Wd9vDbQ5J1v1v/S1RBR9qzUQXTBVJggICztuuXetklOh/0ENAo0vdy8C8MDJImBtqdLNzF4gDD9h2Q8VabFHkUGKRLF9oihBJp7FFL3427g83MdFoQmCd12gPprd+kRoMdQTwaybQgXzLHH320/3UFAltT7G5bFu5/hCIKDwI8ujvl8Hu4meZJXAawVNb/S9y7qX8yOZdWoXTOuuwEjfh88nFH/XsmzdXfydO2No9SlaINWEL72nQu1tTeVVyyw0cNMowQHCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WpkbmQBOmJbnUbBNITLExqdH6IJmusPulzwb95wZU/Y=;
+ b=T/7dd5Iw89qkjrR+i2Cw0d2VXJOHUQc8VrXaVSgeVCduoF39IzBRPoGtpPc2rn1EtVmKoDibV0LlXQ9ljX3YX05JLpr6iEi9nRRzIhuVepWx8KVuhBBr/4q5B6AR0GLfIdq2FHMJbjLfkCaOUkfN7ie0rSv4xBC0/OIqlVnLy1Q=
+Received: from CH0PR12MB5139.namprd12.prod.outlook.com (2603:10b6:610:be::9)
+ by IA0PR12MB7721.namprd12.prod.outlook.com (2603:10b6:208:433::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 8 Jul 2026
+ 13:59:10 +0000
+Received: from CH0PR12MB5139.namprd12.prod.outlook.com
+ ([fe80::8715:80d8:e0b7:7bb1]) by CH0PR12MB5139.namprd12.prod.outlook.com
+ ([fe80::8715:80d8:e0b7:7bb1%6]) with mapi id 15.21.0181.014; Wed, 8 Jul 2026
+ 13:59:09 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 4/6] drm/amdgpu: disallow gfxoff around gfx/compute/sdma
+ KQ reset
+Thread-Topic: [PATCH 4/6] drm/amdgpu: disallow gfxoff around gfx/compute/sdma
+ KQ reset
+Thread-Index: AQHdDh3AvMWGjfNghUm1UJ+FWIBQR7ZiL8sAgAF2GoA=
+Date: Wed, 8 Jul 2026 13:59:09 +0000
+Message-ID: <CH0PR12MB51392C204D64BC4663A27850F7FF2@CH0PR12MB5139.namprd12.prod.outlook.com>
+References: <20260707143420.2104857-1-alexander.deucher@amd.com>
+ <20260707143420.2104857-4-alexander.deucher@amd.com>
+ <4730132e-8bd0-44c3-b639-3fb9e7f3c86f@amd.com>
+In-Reply-To: <4730132e-8bd0-44c3-b639-3fb9e7f3c86f@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-08T13:52:49.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5139:EE_|IA0PR12MB7721:EE_
+x-ms-office365-filtering-correlation-id: c208c71d-c43a-4dac-5592-08dedcf9153e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|38070700021|18002099003|4143699003|3023799007|56012099006|11063799006|22082099003;
+x-microsoft-antispam-message-info: iqej8Eyk9dmO1EF4mlcOlwGgXmcq5/UkBsthdKpv5d/LTks119JAtDcczHBC5r2kw5lHBEWUYqZ1ygzK7ERlMJYFEWImIbmXVoC8Ll6IL2PE/UK31Ys0Q/f75GExhn92nU83hsjNKu34cNVPQer8rlYnQY7UaxkkvYNpx7vG0kXRvI7fY1fAaFVzdDhOqy2Wg2XgW5tYQSR9ieV5kTAQOu7LY6UK7KSUMwJDmJf49NPSck4rx9XkIg9EAkbKKWAD8DYd5EaiJ5u+Hnru+1VS2EJQS4LEkhmXeP6URFXggHDIcrJ/OmBoCx2b3xdMfSw0hHPoNHpjogCfb/EgdzjMj+0L2pb045n5zHPYB7KhQSgh+/AEmY/g/JxhKKqcq6J0xQEWjaAeTesguYvczgyCQBa+g4isUUkuBNUplcmRZvPC9IDKTY9LG/W1xtBNMQJvt8m3yeeNH3ui+PphRNsZBTB2wUkWn6kjE/lTCQTALs4B33z1dF+aLvQsYogogq4RyYB35NvZPRtsiF2MpCaIVp19qyYtL9TMdCN5/wIbGAL3YcbEQwY6bZfvSJNH3+nXpTy9bQkv0IC07cuNxok+6i8EjS9UjVulltPrUKinLMgAn/Y68CL6WZ8dNg51KieV3n9gmD4VrTc58Ci80StDEJoTSrMDBhwCcoNEGoxGsNentvjdggBa0QeHLUvuUauPVkk/gyX7qwFArqSBrIPrbuVNhjzraXtW91N1BPpwBGs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5139.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(18002099003)(4143699003)(3023799007)(56012099006)(11063799006)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SE9oT2d1bTNnUUFmWElrcmNlM2srQUc3dGpiTlQzM0E3Ui9HVGliaFVlWWsz?=
+ =?utf-8?B?TlZZMk9tbnlTL0pQc25vN2crSDRtWHpRd2VDQU94bGxjbWxRcVdhaUpSMVl6?=
+ =?utf-8?B?UmgwMVBlS29BVHE0Z1FONHZMNFRVTVIzNjJpbzZOUDVOa2REbDg3NzFRWm5J?=
+ =?utf-8?B?Q0Z0ZzIvV2JMOWRNYWhRR3VJNDlUUTVIdGlDU1o0Vjd4NVRTclV3em91a1N2?=
+ =?utf-8?B?QW5NZ1FmMXY0TDVkc21LeVNTZUpyUGZGcEE3NkR4MFJxaVYzbGdGbUpTa2dh?=
+ =?utf-8?B?blZzK1lHQnpOZEMvT0FoTjJNMXY2aS9HNGtwQkFNa2wrZHZ5Y0tNak83WEt6?=
+ =?utf-8?B?REhrVXJ0U0RJbk5CeDk4RmRDR25lbnBmMVo5WUJBdkd4WTVYcXVpZGRLQldY?=
+ =?utf-8?B?TStBNmt2ajk1SFkzOEhGYzYyZnA0MTVnaHhxUmZoczJWa2d1S3VIamprb2o2?=
+ =?utf-8?B?UzVBN05UTDVkanh5Mk15MWJtaktiY0YwbW54THVNOXRUbHc3NlVvR3I2T0R4?=
+ =?utf-8?B?NFUwQmt4TWNWd0tWbGp4WndLU1IwOTcxZWc5Tk1zQXhaeGtKT0tFMGU1bDE2?=
+ =?utf-8?B?TWpROCt0L0lVQkdaaUZ1OTlRQUlLYUI0Y1l6Q0o2VC9QMTY4SGZzVHJrd1ZY?=
+ =?utf-8?B?NTY4RW1rL25BZkRGeEVkK0o0Z2RTb1Y4cWJQRUo0OEtoYW9QS25RbStaNXpH?=
+ =?utf-8?B?bkdHTXU2dlc2eW5UL0Z1NzFyQWZoRURkbFc4cnU1YWpBNTNqNS8xdHhWbVpV?=
+ =?utf-8?B?ckZ4L1ptVmpEejA1bUQ4N0hzYnlUWWU3cXRXZ09tQlB5NDkxWjhuUzF1WnY5?=
+ =?utf-8?B?Nm43Q05yR1pDOWNPQ3R1SVBISDRncXlMNXlnQXkxZno4cDZjREhwa1Q5cGhk?=
+ =?utf-8?B?SngvVU9YR0xKQUx6V3prOERhUm1Yb1R0K0N0Wi9jVEJoL1dhcXMzVEt6OExy?=
+ =?utf-8?B?K2dGcWlqRXZRcnZWVDEzenRyVHNFVm5DL1JsZFBNT3duWCtFdFhqOWxWWi80?=
+ =?utf-8?B?RlZtWEZOUEovY2gxelN6M2pQY3MzV0FZZG9TOUl6c2hzNWx4VUVzdDQ5UGRy?=
+ =?utf-8?B?NnhZNVdsQU5Kb2I4RzNwYnlGZk1mVDMrVGp5TGpjdDNmb2tic3ZNM3NPVTdk?=
+ =?utf-8?B?RzA3bU5hUDVkcDhuTFFBVjNxYlRIN1FybzJ5NUpiRFJWUkhJTEZTSzNDRnpi?=
+ =?utf-8?B?eW84cWxoSHZ5aFlmbGprZFhTTVhrd0Q3VHBLTFYzU2RCNTVKdHdWUUtkUXNY?=
+ =?utf-8?B?bUlkekJjalpUR3NsalBXUSs1RTNCRHBkZjJTdnJqSk41SFZSUDJ1dFlCRWZG?=
+ =?utf-8?B?MnUrRTdvZ25UUkc3MVZGeUtKOUZvbGVKdVEvTzNUckMxM0plajJWZ3JRVFo1?=
+ =?utf-8?B?YThMTGJ6RHBseWZMektpSGRCQzJhQ3RBTDlDdmhxQyt5U3FSQjMzeG5VVDZG?=
+ =?utf-8?B?dHByUDlUNW9BaEtxQzBWamZydUN1b0JjRDhIUnBaUHZmOTJDRk1QVDhkZjVR?=
+ =?utf-8?B?RThjUmp4R0VSdVlxTEhWUlk5elBWcWhGcSs5cjZDWDFSWWlVdHN6c1NhWGo1?=
+ =?utf-8?B?alo2c09jKzh2UWwrNHVaMUtVc3ZFelBPR2N0ZStDUG9mQjROMDFPdlhTb05Z?=
+ =?utf-8?B?bUliYjc0ODh3bnNuOGl5R3l2Y2o0K0dPNVpLb3pQUVNMeWl5SFdvNE0zTHJo?=
+ =?utf-8?B?cjRZN1N2ZDVGeEJtazlzVm9Tamk3N0k3WUFRU0JTaytORk4wNzJyU05XcHM1?=
+ =?utf-8?B?aEZqck11YWNrbGhJZVdPak5wYlQ5T0VqQUJ2akdyS3FNUVFmblBOUXBVTHJk?=
+ =?utf-8?B?OFdTRUJrU2RXZjA5N0lLdXE0ZlZhVnNFOGNSTmxlNWZUM2lVNkdWSVR5a1BF?=
+ =?utf-8?B?T2kwTDhORWdRN3RGYTlCajhNNHczTzFsTkVESXA1bXhiNmFIK3MyeXZ5U1E2?=
+ =?utf-8?B?em5sQTU3Vk1tTnRaZVZhZGRaU3FITEFnSGhKTy9YSGxwdDB3UHpRTjFoRm9N?=
+ =?utf-8?B?VEJURnVzM0hDQUY4c1RQSzZhQisvZ3ROeWJnREZDaHkrYm9uNzJSZEdDRjVo?=
+ =?utf-8?B?OVFBeFQvemJtN05zK3k4ZStDRDlFd2NGYW1kOEY5SlZDMk93U2FuUHVzcHph?=
+ =?utf-8?B?encxTTlBSCtreEMvUUJ2ZTdBcDZ6VUhYVGd6S2I0anc5b0pkUUMwUGwwZHVE?=
+ =?utf-8?B?cXU5ZHdoaUNqS1RLNWxLcFRTM1paUHYrWDNVY1pGZkZDak03bElRMGxzVkY2?=
+ =?utf-8?B?TlFYUjE3Q2I4VHZ6bzZ4dWVFaHFobjRoOElaVEdlYlNoUE50ZlE4Mkd3YVJQ?=
+ =?utf-8?Q?mHFLbRyvuns1zdFF6y?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20260629165129.5550-1-geoffrey.mcrae@amd.com>
-In-Reply-To: <20260629165129.5550-1-geoffrey.mcrae@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Jul 2026 09:44:59 -0400
-X-Gm-Features: AVVi8CdSfJX6WvcsVVcSKTB43OU7p1LaepGUMqXwpltlrDDoVgQBxAgCeqBCGMw
-Message-ID: <CADnq5_Pq8ZZQXtSQ0YLp+1=i0Yvzn2o-rLN8ZCTU7xfEzmKwaA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Fix DM IRQ teardown races
-To: Geoffrey McRae <geoffrey.mcrae@amd.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
- amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5139.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c208c71d-c43a-4dac-5592-08dedcf9153e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 13:59:09.4265 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wxU1bxhwz6csrwrlWcmx7svguuGapdX53Lut1pM/ekRMkdgCnVpWMFPJNHAqeRPYFKSXf2aFrtLpxTdi0GeWug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7721
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,401 +144,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 12:51=E2=80=AFPM Geoffrey McRae <geoffrey.mcrae@amd=
-.com> wrote:
->
-> DM IRQ teardown can race with interrupt handling and low-context work.
-> The IRQ handler can still walk the DM IRQ handler tables while the
-> teardown path removes and frees entries. Low-context work can also
-> remain queued after its handler has been removed, leading to a possible
-> use-after-free when the work item later runs.
->
-> Add an irq_fini_in_progress flag and set it before the IRQ tables are
-> torn down. Check the flag in the ISR and work scheduling paths so they
-> do not access the handler tables or queue new work once teardown has
-> started.
->
-> Rework amdgpu_dm_irq_fini() to detach all low and high context handlers
-> from the IRQ tables under the table lock, then cancel pending
-> low-context work outside the lock before freeing the handlers. Also
-> cancel low-context work in remove_irq_handler() before freeing an
-> individual handler.
->
-> Fix the suspend path by disabling HPD and HPD RX hardware interrupts
-> under the IRQ table lock before flushing pending low-context work,
-> avoiding a TOCTOU window where new work could be queued after the list
-> check.
->
-> Finally, call amdgpu_dm_irq_fini() from amdgpu_dm_fini() before DC is
-> destroyed, so IRQ teardown happens while the display core state is still
-> valid.
->
-> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-
-Series looks correct to me, but I'm not an expert on the display code.
-So ideally we'd get some feedback from Harry or Leo.
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   8 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 164 ++++++++++--------
->  3 files changed, 96 insertions(+), 79 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b97ceabe6173..9c5e963337cc 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1010,14 +1010,11 @@ static void amdgpu_dm_fini(struct amdgpu_device *=
-adev)
->                 adev->dm.hpd_rx_offload_wq =3D NULL;
->         }
->
-> +       amdgpu_dm_irq_fini(adev);
-> +
->         /* DC Destroy TODO: Replace destroy DAL */
->         if (adev->dm.dc)
->                 dc_destroy(&adev->dm.dc);
-> -       /*
-> -        * TODO: pageflip, vlank interrupt
-> -        *
-> -        * amdgpu_dm_irq_fini(adev);
-> -        */
->
->         if (adev->dm.cgs_device) {
->                 amdgpu_cgs_destroy_device(adev->dm.cgs_device);
-> @@ -1523,7 +1520,6 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_bl=
-ock)
->
->         amdgpu_dm_hpd_fini(adev);
->
-> -       amdgpu_dm_irq_fini(adev);
->         amdgpu_dm_fini(adev);
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 909ee71d6d59..88687a7e01a5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -340,6 +340,8 @@ struct hpd_rx_irq_offload_work {
->   * @dmcub_trace_event_en: enable dmcub trace events
->   * @dmub_outbox_params: DMUB Outbox parameters
->   * @num_of_edps: number of backlight eDPs
-> + * @irq_fini_in_progress: Set during IRQ teardown to prevent interrupt h=
-andlers
-> + *                       from accessing the IRQ tables during cleanup
->   * @disable_hpd_irq: disables all HPD and HPD RX interrupt handling in t=
-he
->   *                  driver when true
->   * @dmub_aux_transfer_done: struct completion used to indicate when DMUB
-> @@ -634,6 +636,7 @@ struct amdgpu_display_manager {
->          */
->         struct amdgpu_encoder mst_encoders[AMDGPU_DM_MAX_CRTC];
->         bool force_timing_sync;
-> +       bool irq_fini_in_progress;
->         bool disable_hpd_irq;
->         bool dmcub_trace_event_en;
->         /**
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> index c5467f34c51f..3a5de9364ed1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> @@ -195,6 +195,9 @@ static struct list_head *remove_irq_handler(struct am=
-dgpu_device *adev,
->                 return NULL;
->         }
->
-> +       if (int_params->int_context =3D=3D INTERRUPT_LOW_IRQ_CONTEXT)
-> +               cancel_work_sync(&handler->work);
-> +
->         kfree(handler);
->
->         DRM_DEBUG_KMS(
-> @@ -204,55 +207,6 @@ static struct list_head *remove_irq_handler(struct a=
-mdgpu_device *adev,
->         return hnd_list;
->  }
->
-> -/**
-> - * unregister_all_irq_handlers() - Cleans up handlers from the DM IRQ ta=
-ble
-> - * @adev: The base driver device containing the DM device
-> - *
-> - * Go through low and high context IRQ tables and deallocate handlers.
-> - */
-> -static void unregister_all_irq_handlers(struct amdgpu_device *adev)
-> -{
-> -       struct list_head *hnd_list_low;
-> -       struct list_head *hnd_list_high;
-> -       struct list_head *entry, *tmp;
-> -       struct amdgpu_dm_irq_handler_data *handler;
-> -       unsigned long irq_table_flags;
-> -       int i;
-> -
-> -       DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-> -
-> -       for (i =3D 0; i < DAL_IRQ_SOURCES_NUMBER; i++) {
-> -               hnd_list_low =3D &adev->dm.irq_handler_list_low_tab[i];
-> -               hnd_list_high =3D &adev->dm.irq_handler_list_high_tab[i];
-> -
-> -               list_for_each_safe(entry, tmp, hnd_list_low) {
-> -
-> -                       handler =3D list_entry(entry, struct amdgpu_dm_ir=
-q_handler_data,
-> -                                            list);
-> -
-> -                       if (handler =3D=3D NULL || handler->handler =3D=
-=3D NULL)
-> -                               continue;
-> -
-> -                       list_del(&handler->list);
-> -                       kfree(handler);
-> -               }
-> -
-> -               list_for_each_safe(entry, tmp, hnd_list_high) {
-> -
-> -                       handler =3D list_entry(entry, struct amdgpu_dm_ir=
-q_handler_data,
-> -                                            list);
-> -
-> -                       if (handler =3D=3D NULL || handler->handler =3D=
-=3D NULL)
-> -                               continue;
-> -
-> -                       list_del(&handler->list);
-> -                       kfree(handler);
-> -               }
-> -       }
-> -
-> -       DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
-> -}
-> -
->  static bool
->  validate_irq_registration_params(struct dc_interrupt_params *int_params,
->                                  void (*ih)(void *))
-> @@ -459,38 +413,84 @@ EXPORT_IF_KUNIT(amdgpu_dm_irq_init);
->   * amdgpu_dm_irq_fini() - Tear down DM IRQ management
->   * @adev: The base driver device containing the DM device
->   *
-> - * Flush all work within the low context IRQ table.
-> + * Prevents any new interrupt handler scheduling, removes all handlers f=
-rom
-> + * the IRQ tables, cancels pending work items, and deallocates all handl=
-er
-> + * data. The irq_fini_in_progress flag ensures the ISR and work schedule=
-r
-> + * do not access the handler lists during teardown.
->   */
->  void amdgpu_dm_irq_fini(struct amdgpu_device *adev)
->  {
->         int src;
-> -       struct list_head *lh;
-> +       LIST_HEAD(low_handlers);
-> +       LIST_HEAD(high_handlers);
->         struct list_head *entry, *tmp;
->         struct amdgpu_dm_irq_handler_data *handler;
->         unsigned long irq_table_flags;
->
->         DRM_DEBUG_KMS("DM_IRQ: releasing resources.\n");
-> +
-> +       /*
-> +        * Set the fini flag before tearing down the IRQ tables. This ens=
-ures
-> +        * that any concurrent ISR (amdgpu_dm_irq_handler()) or work sche=
-duler
-> +        * (amdgpu_dm_irq_schedule_work()) will bail out early rather tha=
-n
-> +        * accessing handler data that is about to be freed.
-> +        *
-> +        * smp_store_release() pairs with the READ_ONCE() in the ISR and =
-work
-> +        * scheduler paths to guarantee visibility across CPUs.
-> +        */
-> +       smp_store_release(&adev->dm.irq_fini_in_progress, true);
-> +
->         for (src =3D 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
->                 DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-> -               /* The handler was removed from the table,
-> -                * it means it is safe to flush all the 'work'
-> -                * (because no code can schedule a new one).
-> +
-> +               /*
-> +                * Move all handlers from the low and high context tables=
- to
-> +                * temporary lists under the lock. This prevents the ISR =
-from
-> +                * finding them while we process them outside the lock.
->                  */
-> -               lh =3D &adev->dm.irq_handler_list_low_tab[src];
-> +               list_splice_init(&adev->dm.irq_handler_list_low_tab[src],
-> +                                &low_handlers);
-> +               list_splice_init(&adev->dm.irq_handler_list_high_tab[src]=
-,
-> +                                &high_handlers);
-> +
->                 DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
->
-> -               if (!list_empty(lh)) {
-> -                       list_for_each_safe(entry, tmp, lh) {
-> -                               handler =3D list_entry(
-> -                                       entry,
-> -                                       struct amdgpu_dm_irq_handler_data=
-,
-> -                                       list);
-> -                               flush_work(&handler->work);
-> -                       }
-> +               /*
-> +                * Cancel all pending work for the low-context handlers
-> +                * outside the lock. cancel_work_sync() may sleep and wai=
-ts
-> +                * until any running work completes, preventing UAF.
-> +                */
-> +               list_for_each_safe(entry, tmp, &low_handlers) {
-> +                       handler =3D list_entry(entry,
-> +                                           struct amdgpu_dm_irq_handler_=
-data,
-> +                                           list);
-> +                       cancel_work_sync(&handler->work);
->                 }
-> +
-> +               /*
-> +                * High-context handlers are executed synchronously withi=
-n ISR
-> +                * context (see amdgpu_dm_irq_immediate_work()) and have =
-no
-> +                * work_struct, so there is no pending work to cancel her=
-e.
-> +                * They will be freed along with low_handlers after the l=
-oop.
-> +                */
-> +       }
-> +
-> +       /* Deallocate all handlers. */
-> +       list_for_each_safe(entry, tmp, &low_handlers) {
-> +               handler =3D list_entry(entry,
-> +                                    struct amdgpu_dm_irq_handler_data,
-> +                                    list);
-> +               list_del(&handler->list);
-> +               kfree(handler);
-> +       }
-> +
-> +       list_for_each_safe(entry, tmp, &high_handlers) {
-> +               handler =3D list_entry(entry,
-> +                                    struct amdgpu_dm_irq_handler_data,
-> +                                    list);
-> +               list_del(&handler->list);
-> +               kfree(handler);
->         }
-> -       /* Deallocate handlers from the table. */
-> -       unregister_all_irq_handlers(adev);
->  }
->  EXPORT_IF_KUNIT(amdgpu_dm_irq_fini);
->
-> @@ -498,7 +498,6 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *adev=
-)
->  {
->         struct drm_device *dev =3D adev_to_drm(adev);
->         int src;
-> -       struct list_head *hnd_list_h;
->         struct list_head *hnd_list_l;
->         unsigned long irq_table_flags;
->         struct list_head *entry, *tmp;
-> @@ -511,12 +510,15 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *ad=
-ev)
->         /**
->          * Disable HW interrupt  for HPD and HPDRX only since FLIP and VB=
-LANK
->          * will be disabled from manage_dm_interrupts on disable CRTC.
-> +        *
-> +        * Disable the HW interrupt first, then flush any pending work. S=
-ince
-> +        * the HW interrupt is disabled under the lock, no new IRQ can be
-> +        * generated after the disable completes. Any work already queued=
- by an
-> +        * in-flight ISR will be flushed below.
->          */
->         for (src =3D DC_IRQ_SOURCE_HPD1; src <=3D DC_IRQ_SOURCE_HPD6RX; s=
-rc++) {
->                 hnd_list_l =3D &adev->dm.irq_handler_list_low_tab[src];
-> -               hnd_list_h =3D &adev->dm.irq_handler_list_high_tab[src];
-> -               if (!list_empty(hnd_list_l) || !list_empty(hnd_list_h))
-> -                       dc_interrupt_set(adev->dm.dc, src, false);
-> +               dc_interrupt_set(adev->dm.dc, src, false);
->
->                 DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
->
-> @@ -597,10 +599,20 @@ static void amdgpu_dm_irq_schedule_work(struct amdg=
-pu_device *adev,
->         struct  list_head *handler_list =3D &adev->dm.irq_handler_list_lo=
-w_tab[irq_source];
->         struct  amdgpu_dm_irq_handler_data *handler_data;
->         bool    work_queued =3D false;
-> +       unsigned long irq_table_flags;
->
-> -       if (list_empty(handler_list))
-> +       /*perform a lockless check first*/
-> +       if (READ_ONCE(adev->dm.irq_fini_in_progress))
->                 return;
->
-> +       DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-> +
-> +       if (READ_ONCE(adev->dm.irq_fini_in_progress))
-> +               goto out_unlock;
-> +
-> +       if (list_empty(handler_list))
-> +               goto out_unlock;
-> +
->         list_for_each_entry(handler_data, handler_list, list) {
->                 if (queue_work(system_highpri_wq, &handler_data->work)) {
->                         work_queued =3D true;
-> @@ -617,7 +629,7 @@ static void amdgpu_dm_irq_schedule_work(struct amdgpu=
-_device *adev,
->                 handler_data_add =3D kzalloc(sizeof(*handler_data), GFP_A=
-TOMIC);
->                 if (!handler_data_add) {
->                         DRM_ERROR("DM_IRQ: failed to allocate irq handler=
-!\n");
-> -                       return;
-> +                       goto out_unlock;
->                 }
->
->                 /*copy new amdgpu_dm_irq_handler_data members from handle=
-r_data*/
-> @@ -639,6 +651,9 @@ static void amdgpu_dm_irq_schedule_work(struct amdgpu=
-_device *adev,
->                                   "from display for IRQ source %d\n",
->                                   irq_source);
->         }
-> +
-> +out_unlock:
-> +       DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
->  }
->
->  /*
-> @@ -678,9 +693,12 @@ static int amdgpu_dm_irq_handler(struct amdgpu_devic=
-e *adev,
->                                  struct amdgpu_irq_src *source,
->                                  struct amdgpu_iv_entry *entry)
->  {
-> +       enum dc_irq_source src;
-> +
-> +       if (READ_ONCE(adev->dm.irq_fini_in_progress))
-> +               return 0;
->
-> -       enum dc_irq_source src =3D
-> -               dc_interrupt_to_irq_source(
-> +       src =3D dc_interrupt_to_irq_source(
->                         adev->dm.dc,
->                         entry->src_id,
->                         entry->src_data[0]);
-> --
-> 2.43.0
->
+QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXph
+ciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBKdWx5IDcsIDIw
+MjYgMTE6MzQgQU0NCj4gVG86IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJA
+YW1kLmNvbT47IGFtZC0NCj4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBS
+ZTogW1BBVENIIDQvNl0gZHJtL2FtZGdwdTogZGlzYWxsb3cgZ2Z4b2ZmIGFyb3VuZA0KPiBnZngv
+Y29tcHV0ZS9zZG1hIEtRIHJlc2V0DQo+DQo+DQo+DQo+IE9uIDA3LUp1bC0yNiA4OjA0IFBNLCBB
+bGV4IERldWNoZXIgd3JvdGU6DQo+ID4gSWYgdGhlIGVuZ2luZSBpcyBodW5nLCB3ZSBzaG91bGRu
+J3QgbmVlZCB0aGlzIHNpbmNlIGl0IHdvbid0IGJlDQo+ID4gcG93ZXJlZCBkb3duLCBidXQgd2Ug
+Y291bGQgcG90ZW50aWFsbHkgaGF2ZSBhIGNhc2Ugd2hlcmUgYSBxdWV1ZSBjYW4NCj4gPiBiZSBw
+cmVlbXB0ZWQsIGJ1dCBkdWUgdG8gbG9naWMgZXJyb3JzIGluIHRoZSBjb21tYW5kcywgdGhlIGZl
+bmNlIG5ldmVyDQo+ID4gc2lnbmFscy4gIFRoZSBlbmdpbmUgY291bGQgcG90ZW50aWFsbHkgZ28g
+aW50byB0aGUgb2ZmIHN0YXRlLiAgUHJvdGVjdA0KPiA+IGFnYWluc3QgdGhhdC4NCj4NCj4gT24g
+YSBzZWNvbmQgdGhvdWdodCwgaXMgdGhpcyBhIHJlYWwgY2FzZT8gSWYgZW5naW5lIGFscmVhZHkg
+Z29lcyB0byBvZmYgc3RhdGUsDQo+IHdvdWxkbid0IGV2ZXJ5dGhpbmcgYmUgcmVzZXQgYnkgZGVm
+YXVsdCBvbmNlIGl0IGNvbWVzIGJhY2s/DQoNCkknbSBub3Qgc3VyZSBpZiBnZnhvZmYgd2lsbCBh
+Y3R1YWxseSBlbnRlciBvciBub3QsIGJ1dCBjb25zaWRlciB0aGUgY2FzZSBvZiBhbiBJQiB3aGlj
+aCBpcyB3YWl0aW5nIGZvciBzb21lIG1lbW9yeSBsb2NhdGlvbi4gIEl0J3MganVzdCB3YWl0aW5n
+IHNvIHRoZSBxdWV1ZSBjYW4gYmUgcHJlZW1wdGVkLCBidXQgd2hlbiBpdCdzIHJlc3VtZWQsIGl0
+IGp1c3QgZ29lcyBiYWNrIHRvIHdhaXRpbmcgc28gaXQgbmVlZHMgdG8gYmUgcmVzZXQgZXZlbiB0
+aG91Z2ggaXQncyBub3QgaHVuZyBwZXIgc2UgYmVjYXVzZSBpdCdzIGZlbmNlIHdpbGwgbmV2ZXIg
+c2lnbmFsLiAgRm9yIGNvbXB1dGUgcXVldWVzIGF0IGxlYXN0LCB3ZSBwZWVtcHQgYWxsIHRoZSBx
+dWV1ZXMgaW4gdGhlIHJlc2V0IGhhbmRsZXIgYW5kIHRoZW4gcmVzZXQgdGhlIGJhZCBxdWV1ZXMu
+ICBJbiB0aGVvcnkgdGhlcmUgY291bGQgYmUgYSB3aW5kb3cgdGhlcmUgd2hlcmUgZ2Z4b2ZmIGVu
+dHJ5IGNvdWxkIGhhcHBlbiBhbmQgdGhlbiB3ZSBtYXkgYWNjZXNzIGEgR0MgcmVnaXN0ZXIgdmlh
+IE1NSU8gd2hlbiB3ZSByZXNldCBvbmUgb2YgdGhlIGJhZCBxdWV1ZXMuDQoNCkFsZXgNCg0KPg0K
+PiBUaGFua3MsDQo+IExpam8NCj4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gPiAtLS0NCj4gPiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyB8IDggKysrKysrKysNCj4gPiAgIDEgZmlsZSBj
+aGFuZ2VkLCA4IGluc2VydGlvbnMoKykNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9qb2IuYw0KPiA+IGluZGV4IGI1YzJkMWQ0ZDg4MzkuLmM4YTFhYTg4YTlk
+ZTAgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pv
+Yi5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jDQo+
+ID4gQEAgLTEzNyw3ICsxMzcsMTUgQEAgc3RhdGljIGVudW0gZHJtX2dwdV9zY2hlZF9zdGF0DQo+
+IGFtZGdwdV9qb2JfdGltZWRvdXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKQ0KPiA+ICAg
+ICAgICAgICAgICAgICAgICAgc19qb2ItPnNjaGVkLT5uYW1lKTsNCj4gPiAgICAgICAgICAgICAv
+KiBTdG9wIHRoZSBzY2hlZHVsZXIgdG8gcHJldmVudCBhbnlib2R5IGVsc2UgZnJvbSB0b3VjaGlu
+Zw0KPiB0aGUgcmluZyBidWZmZXIuICovDQo+ID4gICAgICAgICAgICAgZHJtX3NjaGVkX3dxdWV1
+ZV9zdG9wKCZyaW5nLT5zY2hlZCk7DQo+ID4gKyAgICAgICAgICAgaWYgKHJpbmctPmZ1bmNzLT50
+eXBlID09IEFNREdQVV9SSU5HX1RZUEVfR0ZYIHx8DQo+ID4gKyAgICAgICAgICAgICAgIHJpbmct
+PmZ1bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfQ09NUFVURSB8fA0KPiA+ICsgICAgICAg
+ICAgICAgICByaW5nLT5mdW5jcy0+dHlwZSA9PSBBTURHUFVfUklOR19UWVBFX1NETUEpDQo+ID4g
+KyAgICAgICAgICAgICAgICAgICBhbWRncHVfZ2Z4X29mZl9jdHJsKGFkZXYsIGZhbHNlKTsNCj4g
+PiAgICAgICAgICAgICByID0gYW1kZ3B1X3JpbmdfcmVzZXQocmluZywgam9iLT52bWlkLCBqb2It
+Pmh3X2ZlbmNlKTsNCj4gPiArICAgICAgICAgICBpZiAocmluZy0+ZnVuY3MtPnR5cGUgPT0gQU1E
+R1BVX1JJTkdfVFlQRV9HRlggfHwNCj4gPiArICAgICAgICAgICAgICAgcmluZy0+ZnVuY3MtPnR5
+cGUgPT0gQU1ER1BVX1JJTkdfVFlQRV9DT01QVVRFIHx8DQo+ID4gKyAgICAgICAgICAgICAgIHJp
+bmctPmZ1bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfU0RNQSkNCj4gPiArICAgICAgICAg
+ICAgICAgICAgIGFtZGdwdV9nZnhfb2ZmX2N0cmwoYWRldiwgdHJ1ZSk7DQo+ID4gICAgICAgICAg
+ICAgaWYgKCFyKSB7DQo+ID4gICAgICAgICAgICAgICAgICAgICAvKiBTdGFydCB0aGUgc2NoZWR1
+bGVyIGFnYWluICovDQo+ID4gICAgICAgICAgICAgICAgICAgICBkcm1fc2NoZWRfd3F1ZXVlX3N0
+YXJ0KCZyaW5nLT5zY2hlZCk7DQoNCg==
