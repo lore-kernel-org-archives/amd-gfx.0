@@ -4,133 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 003D4C43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 17:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25822C43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 17:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD7F10E63F;
-	Wed,  8 Jul 2026 17:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2EAE10E634;
+	Wed,  8 Jul 2026 17:26:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qze5nDFV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1wjGr74H";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012025.outbound.protection.outlook.com [40.107.209.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBF810E32A;
- Wed,  8 Jul 2026 17:11:34 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011066.outbound.protection.outlook.com [52.101.62.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDAC10E638
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 17:26:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o1coAfxs07zmRW5DCN+qqpY/FiNo1dGTHbv6QhS9lRZFlmG5Q1zUhIfYKzdMEho7G/CoeeOUhphiddf/kYDJsd8zvJgLjDz3oVq5EHzLvazilkpJPLW5NcRCL0rEozEVzvaZD7m9qN/nDRCIC6chTg9Jzc2BKxoG9r68lxuEA1P1+Hm5d5QRtKG6aKN7uA2duTsFPKuxNCWYnpqzzBXVh9ZxYZ2SlZG2JToGCC/ALUvB/ALIgdNdQfxrmKVrEmvAOKPQ+2V4LnYz3emTvCS2kc0tHUFgMwCsxCstu0QSSrAUHOuMNSWZTR1lVjDl3TYYDmNRS3ojBt6tGbgTlmIiDA==
+ b=brJ91lt3HmJvmsFCYd4fKYpwd2TcEgBv2s1R8zu7ojUjdy5Hz1Q7exWZeRfCth5X/4awBcKVs175Vr7wubijA4B/I822eCW7pzezZyzWpo9/BZHPwmCM98yvxsslV/Jr149UxQ6eaksWFJMy3Xuv3eBeBqiAxYQp5fnEK4yT5j5xjuAPwsgsJa0d8BoAfavwo6JS1UuDcPYgZ/KonUmNB00FtiGFNzaykgk/cRYI68SkTWmaqH/NcclUZ/SsYxx/kVybys72qc065iXo9Sm2d+hEAOoXDnuJqBu7Tz5LRfqBB+q+AInCyUOu2oaREhiuFcYIqe+kHhVwZrPYYokqAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y7EQBJLVb1seC8GL0j8OJI4ufUlHaTav9nJAqG1dTSs=;
- b=LWApcZPIaUD9e5P4fQGCUTjZs/bsiqYfoDSLEJjzv69IkTtZuHnyNd612hDxJ1tqKtr9UWQBpz9N7JZ0NrxuO2nNH8raaPIG6hMlofDbGpDjeBv7OK7RbeMym08r1kT9ye9ldty166z3gS124a6yzsKAlDBTzR6LqqbGU8RBX9ymQZ8R6FxCaPclJubxO6mGwQFr7i9x3iC3O64FF77qqRlsh3nXpqKt6qzY5uHRBX8332UK/uDAfHwiRKneyNdfoPXCuNz6QVyTdpmExpBTIp++4+4K3C+VixDT5o6llnj9jgsoljq0qL/0GefwXiJDVaKo+j652YyttdMVZuLIjA==
+ bh=QxudPvKAsYbrodjCcH2o/D+YUIxKXUptGGS58OS5oZo=;
+ b=eAxyDWXK12XbWy/aCUc4IcSRbVP15KjsOXDus5mAT7tt+iw1rAklnVmJ9UZ0Q9QHn89n9npKC2o5AcCHUDiPbVTV0CC8HOnb/gyha2HVmpAjkYr71uerYQy8c6hWJ3Ksx34Fio8BzzJACCxzUHuZNJrvVjM5MQ7EHTpJAbqdGNB0r+OC2jREg0vAMPWQfdL70p+SwN+B6n84dG2aaXdiHEgjnU1zyTs30elJZDHkFqDpnMXDH6XOv0w7OLTtglrEgJUg20sBOFfd3hJY3QGnSgOuwhUzHpb/XikmWbcx8OFhmPsKFmSnUL7UwsgFqgEuXcRpfN6HRARj/c5RQAHSoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y7EQBJLVb1seC8GL0j8OJI4ufUlHaTav9nJAqG1dTSs=;
- b=Qze5nDFVxclXfbgSFc59fB9tdL1ReFrKZbbAu1W4+rboKp9e3c2HecyBZqFmtei6nVXL36wn+OE1rTIlH3vW3fxwFgxenc42QCdQyXHLYtgctynUDsfQ/jWzeVKc+egIq7XZSUp6735MTlSnDIheZdk5VLrdraQ/W4iSnHUmxQw=
+ bh=QxudPvKAsYbrodjCcH2o/D+YUIxKXUptGGS58OS5oZo=;
+ b=1wjGr74HyqCHlVyQlF/z7wu2hWo4db2ryHNwzhJEYlOECWDlIQiczz5iN6E5BDhTt4CyXjD6cLsJbffACGOC86N4rN8W0JI0Rg1CMFCFUM92rptGnRXFH9xQBh9LOxVOSetb6S3uIEsqQ6SQbuJ3tatxHbqhFh44pHa4d8xftbQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by LV8PR12MB9643.namprd12.prod.outlook.com (2603:10b6:408:297::11)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by SAVPR12MB999145.namprd12.prod.outlook.com (2603:10b6:806:4e5::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 8 Jul 2026
- 17:11:29 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 17:11:29 +0000
-Message-ID: <2171fd97-275b-4e2e-836e-00c811984719@amd.com>
-Date: Wed, 8 Jul 2026 12:11:24 -0500
+ 17:26:06 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.21.0181.014; Wed, 8 Jul 2026
+ 17:26:06 +0000
+Content-Type: multipart/alternative;
+ boundary="------------bHQwXXX0ZMnEujikibXSevST"
+Message-ID: <191cae83-e11b-4189-9a8b-2b48989736fb@amd.com>
+Date: Wed, 8 Jul 2026 13:26:05 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: move connector state dereference after
- NULL check
+Subject: Re: [PATCH] drm/amdkfd: fix 32-bit overflow in CWSR total size
+ calculation
+To: Yongqiang Sun <Yongqiang.Sun@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20260708164336.4099991-1-Yongqiang.Sun@amd.com>
 Content-Language: en-US
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Hung <alex.hung@amd.com>, "Mario Limonciello (AMD)"
- <superm1@kernel.org>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Ray Wu <ray.wu@amd.com>,
- Chenyu Chen <chen-yu.chen@amd.com>, Maxime Ripard <mripard@kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260708072751.724400-1-lgs201920130244@gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260708072751.724400-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0389.namprd03.prod.outlook.com
- (2603:10b6:610:119::28) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20260708164336.4099991-1-Yongqiang.Sun@amd.com>
+X-ClientProxiedBy: YT4PR01CA0491.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10c::28) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|LV8PR12MB9643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e62a949-9ec0-48b2-c888-08dedd13f31a
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SAVPR12MB999145:EE_
+X-MS-Office365-Filtering-Correlation-Id: 799735ec-d958-4695-b238-08dedd15fe11
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|7416014|366016|921020|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: ObPY3RA0vCKpD+fkroLsJYHjnpT8adQtP+JPb99dV4q5MsnVRf8JzH7D4JumrtId4vSYvtZ2P2yxRLYQ2Rg0dBqxZqzIkdBVWrvcxWoOYQFFjNajUL7hGNy8zZNGkyPgJSVIeWC+GqroiYUybNRvAQe2IMMa4pvw3+9ygD/cUlErIEyBbv9mAEPI9/Wqr/im10vS3628wk1KTZJEDau1C4J+QipgUVV5UfLqq6wfEpxk0S9yMYvzsspfEj8WaP5yz3e3sVA1gik5UQPEGcwX+utuORTciiI7CK0QiaWBV6iKZXOuPMoj84msLUzDfxh7DMUZUiK5YtyKCCKOVd2hptXCYC63n2l1hlPt/dUMHcHhfdrx8G0PnMqhHWuyWMbSw1HLlnYtCGEPuO8uWHh2Tg0BqGueabPh5m96rs6Ps9jR8oMEacA9Ezea02oLMHYF2r8DrrUVt1fAGThEGbskjdnPRv9fYVe1a+IAQb3TnDKbxVSotv3pIoZTSDFdp5l4Li7PdiUhujRmX6rFlKlcv/cgnthVy6K3eZAr63eSFrG75GVoNYFgrdJQG77FfFrR+FJ8xjEcvt2KnfDEINycswZfL0IDEw5t8dsxjfpX86aAP4YZLccUJEB3tgAdaYX4F1sNSmziBCBfEsS57x2FwAHaoFsR+Q02qv5Mi6TpBlYkDpSPz602gzdbuq///QSO+/ha8Qer+H+iI/uU0GHBOg==
+ ARA:13230040|376014|1800799024|366016|23010399003|6133799003|18002099003|22082099003|56012099006|11063799006|8096899003;
+X-Microsoft-Antispam-Message-Info: fcpZSFFMn4sGwooeWfDXmJCfxee2GVha/kP8O71AxHeN/38GWGrlGZbOJnVLQCgKSRiX0rsxZ//7nRpsFO8ftjCf/wkguvugONQS3YxTBSjKZbWGNmMcRTjeKNJ3yetm5iyGyF/kOnTmeAuuMp/G+RVBscnc76W771K7VZLxAmEcYMxfJCS6hGB+StjLIqdvQooGVqFWy5d3KNYSvOH9cJP6uI9zFdjI6bsqkI/fDGfsZ75Cyj1t0GHKI9r9Z75vLQpPB1eiEjo/RN5Vr1xF51Xqtagrl+rY1mzdL8lDV7TbVwY9SERSkVCTCbBRIm9YWgke7gJrLadsb9afyCls7ew68IteHAMvonk9mrRraGnhJkc8xjoxEZ+XbjtPE2/Q8YANeh0JSBtCPvf5VmPNo2kPs2/p4ymKOkLHa1257oo5B6Cfrx7ZARatc+KjaEoR4Yvh/gegX1Jg1i5JK8r2HJgm/aV30h57TTOOU1IkEpRj8vmiqkQRtMnB8LgCf976zdZ56iCRzjQDs206mH9rM4pqreY5uZ3s9Q2RxS/6ljyGZIOeyG/2o+I+XzSGIa3aoE6X7FuPnzD6reM8M7vxLBLlaqfPesd56d/Zqq64SNgA/J/1Bg/RcRWMc0AGWSzfTmXKsl/+Hp7DL0LJMlrqA4vsQm7OkYAm5c5+Lg1UF8U=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(366016)(921020)(18002099003)(22082099003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFV0eng3OVAwRU05RksxNFdrZjFaczBJb0dkTGFNZDllRkdQVEtwWGxjTExG?=
- =?utf-8?B?dEJMU0NDR1paUDNuSmZtY1RucS9yQllIYjFQQnhSZHMvNHJYYng3Ni9JdVpa?=
- =?utf-8?B?R0dpR3VCcGZYMUZWRkw5WVRrcDg5WVh6aGxlSk5JQkt1OE5jTzZic0FoY3BE?=
- =?utf-8?B?YXVyL0FsUWVCTkt6ZXRIc1BqNU54ZnlWWWlibGk0QmxnbWZGekhFYnpNb1cv?=
- =?utf-8?B?OWZ0L0FnWDU5VW1QR0RTaWtFZUxidmpnZ0tmdFVxY1BmSmNPb0pSeUpVTEVu?=
- =?utf-8?B?UTZrUkd1Z0dRUzhLMndFVnNFRmhKU1B5NW5CeVJEL0oxeVZ3amhVeG5STmRu?=
- =?utf-8?B?ZzR3WGF4S01JOW0wL2Y1ajNJMnpVeHJ5Y3Bjc3VrVm5sQWNxYkQzbTFlZFJW?=
- =?utf-8?B?WjFXRmlxNVQ0S3JKSHJhOE92ZWplaUxtTnZuKytUbWJvcDdheTltWGdSRWZt?=
- =?utf-8?B?TmhKejUySDdTSkNzWWFSbUxrRWl1QUVKZUtHNmR5bEFkQzF6QlUwWmhwbHpq?=
- =?utf-8?B?eCtOZEFlcGE4UGNOSzBZNVdoWVN0QXlqSHlnSk5LbzFGNFo3VDQ1VnVxcDFK?=
- =?utf-8?B?WXFOaW5WeG0ycm5LdmwyeHJNdDJ3ODVWb2VPejFDQUJMenZZenR3bHltdktP?=
- =?utf-8?B?SmtaU1hSREVsZ2M2ZlRZQ1I3NC81YU9DK2tIdEMraXN1RUxEcU5MM1M5b1FI?=
- =?utf-8?B?VHQxZ1IxTGQyazBjakJLT09yQlFSQ2FxZVc0ckc4Z2JKaXVNaEdFWGRWVCt0?=
- =?utf-8?B?RVJpQXdleG9HTHhHcGFBWE5tWkczZW5POSswM2d4WDI4T2k4SnMvMFM2dnlh?=
- =?utf-8?B?ZUxaOXc0cFZkTnhHVU5DYWVFaW9XMERSb08yZWVZQVBaRUNWQ1l5aVloOGkx?=
- =?utf-8?B?T0tmbU5YcmJWc1RySWszL01Fb0tVS0czWDlRbnRhclNXUm41ZzU1UmtESUJF?=
- =?utf-8?B?amlsTWV0c0U1OU9SL1V5S3FvekVqaGhVeC9LVlBodVp1dzhyK0IvdGd6NENQ?=
- =?utf-8?B?UVQ3eURTSTRDZlE1YlcyT21DMTArSHp4cTZDbE5FVFdyZENObWhMSkpRc1Nm?=
- =?utf-8?B?WllyVFdmZDY4UG1sQ0hVbEFZWGRlRm5lUmdURTdHWE5MNHliRlNvMnVMam54?=
- =?utf-8?B?WWtPaWxwelJiYTM4VnJXYktCWWkySEdRMFVpcVlFWlhTeENVblpUODlsT2Vr?=
- =?utf-8?B?ZnpJVmhoMm1FVkhOQlYwV0ZxZElVT0lhU3RJaXAvZFIvU0VqaElXRjlYS042?=
- =?utf-8?B?YjE5YzJ0ZExYTER3M0dWZUF5Z3FKOW92MStnOWw1TGRBbHdCMjlncCtrTXh0?=
- =?utf-8?B?Vk1zRVBNZ2VYZ3EzVFJJR28raXRkdTlIdGhiQjZESlEzd3FOL1FqTmtBaXVr?=
- =?utf-8?B?clBlTE0wa1VGaGhBTWlieEFSalJ2RjBidkZHdGROY2xBRENwSjNROTdLbGxq?=
- =?utf-8?B?MERHaGFqbjhpS3ZqN3V4NXgzTFo4cGNyc1B0ZVorY3phYjBtQ0dnbTM5UUYx?=
- =?utf-8?B?NDFDTTJ3TXJmTWpmSlc1TVYwaGVhRkVPOWhHS0xpOVJlZWlzWXo1eUNoQlFj?=
- =?utf-8?B?cWNUV2FLa1VrdnYyVU5id1ZEWGVETWpCWk9hbWFXeHpGRXNFcWZCSXBQcWt2?=
- =?utf-8?B?YyswbTlMSDNCSXpoUWlOZzZMTG9GSGU5Q08wK1hhYzMyWmdlODkzSTVUeEdq?=
- =?utf-8?B?dW5ZOFp0QUh5SlloakxpL1gwTGwxbHZRYzcyaG9sV0hxclRqdlRUUjVKQ3pk?=
- =?utf-8?B?V1JrcU53dFUrT1V0TEc3d2k2ZzZ4SFF3MFpQWk9nUWdmUStEekZyTVJoTzQ3?=
- =?utf-8?B?ejdiTXVjVk5ybVp6KzJmMTduS1hVb0lFaXlMRXA5dS96b25yU2VzalRWNnFP?=
- =?utf-8?B?V1lpdG1VWURTaVNmTnNiSEVhSnBRN0ZSekpTTUpQSkRWSExodFhEVDh6dk9a?=
- =?utf-8?B?ci80QjFDb3VTdjJJSlJHZ0Q1YnJULzNneWE1dk9ZSGlLS25uOUx2QjRSUWtm?=
- =?utf-8?B?cUFNK2Q4b0R2RmR1WWsxV1RPWnIzZzdSREZNL2tPYzFrQXl5dWpRZStsUXlT?=
- =?utf-8?B?emtGSUg1aXlkdEkrSmo2YmRid05tOTNHSjljL2djRHdKUU14eXZRZk8wT1NY?=
- =?utf-8?B?dHZnTlMxY3poSlJ3NjhBdkVCWlB5L29GMUVjaWUxNTNFUmRqZDBxN0VqRWF0?=
- =?utf-8?B?eHdtVjIvNTdEUDlaZmZubjAxUE9NcFhzNkpleUNKT3J3TDRUa2FNNzlPSWhp?=
- =?utf-8?B?dWRXK01aRzU2UEtEamEya2hKRkxWOU1VQ3hlL0YxM1lWQUUycHZDZEU4U3gr?=
- =?utf-8?Q?bfTF/XuyCpLg5odAuC?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjRoNTJGNXphbjMrd0xuNFdlRG1JUG5wQ3AvZnJKMDhxck5YaDBYWUU1cmhr?=
+ =?utf-8?B?bXM3U0RmM3BITmZrbFVKenlpRytGYkc4K1pTMnRkWnAzSnNabzdFY0w3UEd1?=
+ =?utf-8?B?SXRjcWxjTHN4aUZKcy9DSlhHNStpMWhJc1NLcWw2NXN0YUpOMVl1WERzVC8z?=
+ =?utf-8?B?bmtOVnFnaU1yQ2M4RnU0b1A5RkJlZnBxTlBSQ3ZDdSs5YmJzMlI3OHFaNWZt?=
+ =?utf-8?B?UE90R2FrRFVDS2hlS3A4dE9STng1MjFaZDFqdzU3QmN1VnJORUtOeXdTbDlK?=
+ =?utf-8?B?NmNvY3QwQkxXaktYaE5KaVEvQTVMSUo4YVhrRjM0WDNsQ2orTnVSUk1TdDYy?=
+ =?utf-8?B?WGlzWjAvR2ZpVnhOMi95TmFOSzB1WXZYeGJMVnVYMkJXOWNTVFlUbjcvd2JB?=
+ =?utf-8?B?NzhxL0wzeHlMTE5DdkxYUktUTEJpSmhIUkp1ckFqdzIyaUJJRy9CSjFVT3ZR?=
+ =?utf-8?B?eDE2bzZQeUZCTDhMSmJ2QmUzc2l3eDZBeDdCbGpKaWQwMGdubk1EVHBjYjl1?=
+ =?utf-8?B?NXZNTzA1NzJwSGFZUFJYSXFPblVFUllWZU1kamp2Y2RyYzBzWnZ6MnExQ0pN?=
+ =?utf-8?B?QWtXNHlGcmFTeld1RVBFVkJtUUJjcEc1QUl3ZVpCVG5Pa0UrQzk3UHpzUEVn?=
+ =?utf-8?B?WEFaSEJXOFRxcmpPZjBtdUI4a1pER3dsR0x0ZHo2VDIrQTFZSmFwNDVZVXNl?=
+ =?utf-8?B?OWJRdUcvK0ZCcHZYbmF4VWNzNlltUFNMYjRKQTI4K1UzM1NsSVAraWliYlRK?=
+ =?utf-8?B?V0NweDZaNEY4ZG1TcEdsaHZpeHA1cGgza1JjNzRFUVBaZUVJb0tTMmQ0TFl2?=
+ =?utf-8?B?VE1uV1FEUFphbkFibEROdWdBUmhxWGY2UXJscXByOVlnMVBuYUw4TTVxRUxR?=
+ =?utf-8?B?bDFYVnpTWndySU9LTmdxcEpjSmxNam92a2tlanRmQk12N1E2TlZpNGxEdFMy?=
+ =?utf-8?B?ZHZJU2kxeGttWWpTc2hrTzFGbXgvNnBraU05V21DNXRIeG9CMUd3SlVHVVVF?=
+ =?utf-8?B?L0k4WHZGeEpBTGdielJVSUgwUk44OFJpYXNHbnh0eFFlaVVMNThwcEc1Qk1H?=
+ =?utf-8?B?V2E4elI4OUwrUE9IdXhQZVlXRUxCcmpnZHYzUk5DV0V1M3dwdWpVRVBQYURV?=
+ =?utf-8?B?a0NrL3BjVkVBbHptS0RQSTJleVlYMUNyUWVIU3c5QTYyZEZBSHZ4K3ZadURI?=
+ =?utf-8?B?NzVuaHEvRjlYUitUV2t0T3VmcUttNkx4SDBuV214V0JkUm1RRlJSOFc2MjF6?=
+ =?utf-8?B?TDU2WUpCUFVucWdKd2tUQmZhZnZDcll1UEJEaVE3RnRIdFpRZGdpQ2RRQzRk?=
+ =?utf-8?B?SkN2UVhPVTBVdDVHSW9HRWw1SzhDbm9kYXpkcDluaDFheFVsQ1RMUFRFL2Jx?=
+ =?utf-8?B?UGR4YjlwZjRrVWR5Y3VoQWNBTkhJY2s1TFU2M01YQWRmenoydzdrRHgwMC9D?=
+ =?utf-8?B?R2tiWURLUlZEWkJPU3d3VHo1SFVPOFczbDZ6aXE5ZFdZSHN4SnJWZFBHY2lM?=
+ =?utf-8?B?aExoWGNPQlJpUzY5RFlvVE1UQmZmOGFWRkQ5Q2s1dDNtZXZVQjFlUjJNOHFv?=
+ =?utf-8?B?UVhsUjd2b05yV0x0RzVvbXdDbEhKam0vWGNGRFhnZkQwczM3Y3VGdmtkRXp2?=
+ =?utf-8?B?WTRoajdxQmFzRHNpRVpFT3RwQ2xEYnRvSnBvTm42eTdrSXVveHdKVlRSczdL?=
+ =?utf-8?B?N2FlRGdvdEdVcXFlUFBlYkpSSGtRaFJGbzRJWlV5c3UrTnhpZjY1ZXRaeVN6?=
+ =?utf-8?B?KzJDaXBWWmN3V29lR3pYS0wrcDJYV04ranRvUEt2eDZFTWlKY0hsanRkRFJt?=
+ =?utf-8?B?d3VCWisyTjZpMTZ3WGMrTWJicHkySkVadWUyNmJJZ3lpaTQrYkNqdWtCUHJm?=
+ =?utf-8?B?RGI4eEVWeGVab0phTEw2VW56YWxLZlgrMVdrWGhFcmU0N24rWFFaekxiUk5S?=
+ =?utf-8?B?YWgvNnJrVjdVSWpJQ0NycHdHZUlhbDl0MjNXVTZVc0pELytCemZJUU5tUENx?=
+ =?utf-8?B?Q2kzRDNhWC9lbFowUFJTMi9KTVNrcXJheUUxQXJCOFVBaytLdXJDRVd2TlF6?=
+ =?utf-8?B?STNteFZoYVA3Z0NqQkdpNFdsM0xxTnY4TWxxMFc0T1JQdkRzSHZBMDBXMDA0?=
+ =?utf-8?B?NE5hdGs5anFOVWJKMEIzZEdyQVBiWnZUdUpyYzlSbmxEVmU0Ty8welZCVzVB?=
+ =?utf-8?B?cnZCR3dlM2ZVVFlBMG0wWjV3RUVmaEdsMCthcjFCRm1QMFk4eUpka1hGTXZL?=
+ =?utf-8?B?YWVENXhDN05lamVuYXJVckM4ZmxKeVRLLzYzVUFTRTFWdkpYTmZ2amZkd3Nu?=
+ =?utf-8?Q?LP0v79taZFMsIxHQuF?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e62a949-9ec0-48b2-c888-08dedd13f31a
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 799735ec-d958-4695-b238-08dedd15fe11
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 17:11:28.8656 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 17:26:06.1145 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jf/JatiEvThmxxizpNypxcWMqLeLF5bDBN0SQdJvUKlvueXbCyWlohw/PFte6rPcJ5LkR8wjAud9VQ0Ed5ym3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9643
+X-MS-Exchange-CrossTenant-UserPrincipalName: eLBSd99AMwe37ARqX2iW6ntNWt4mPW6RjngUr7QpGeQ0bs6QuSH0VY3lLp7wStCE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999145
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,50 +133,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--------------bHQwXXX0ZMnEujikibXSevST
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-On 7/8/26 02:27, Guangshuo Li wrote:
-> amdgpu_dm_connector_atomic_check() checks whether the old or new
-> connector state returned by the atomic helpers is NULL before using
-> those pointers.
-> 
-> However, new_con_state is already dereferenced while initializing crtc,
-> before the NULL check is reached. If
-> drm_atomic_get_new_connector_state() returns NULL, the function can
-> dereference the NULL pointer before the WARN_ON() check can handle it.
-> 
-> Declare crtc first and initialize it only after the NULL check has
-> succeeded.
-> 
-> Fixes: 1e5e8d672fec ("drm/amd/display: Avoid a NULL pointer dereference")
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+
+On 2026-07-08 12:43, Yongqiang Sun wrote:
+> total_cwsr_size was computed in 32-bit before being used as a BO/SVM
+> allocation size.
+> With large ctx_save_restore_area_size and debug_memory_size
+> multiplied by the XCC count, the product can wrap,
+> yielding an undersized CWSR save area that firmware later overruns.
+>
+> Promote total_cwsr_size to u64 and use check_add_overflow()/
+
+Remove check_add_overflow(), with this fixed, this patch is
+
+Reviewed-by: Philip Yang<philip.yang@amd.com>
+
+> check_mul_overflow() in both kfd_queue_acquire_buffers() and
+> kfd_queue_release_buffers().
+>
+> Signed-off-by: Yongqiang Sun<Yongqiang.Sun@amd.com>
 > ---
-
-Good finding.  I'll get this applied.
-
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d3a8d681227a..7b040fd7e3fb 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8640,13 +8640,14 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
->   		drm_atomic_get_new_connector_state(state, conn);
->   	struct drm_connector_state *old_con_state =
->   		drm_atomic_get_old_connector_state(state, conn);
-> -	struct drm_crtc *crtc = new_con_state->crtc;
-> +	struct drm_crtc *crtc;
->   	struct drm_crtc_state *new_crtc_state;
->   	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(conn);
->   	int ret;
+>   drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 23 +++++++++++++++++------
+>   1 file changed, 17 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> index 9d4838461168..01e228fc1860 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> @@ -23,6 +23,7 @@
+>    */
 >   
->   	if (WARN_ON(unlikely(!old_con_state || !new_con_state)))
+>   #include <linux/slab.h>
+> +#include <linux/overflow.h>
+>   #include "kfd_priv.h"
+>   #include "kfd_topology.h"
+>   #include "kfd_svm.h"
+> @@ -235,7 +236,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+>   	struct kfd_topology_device *topo_dev;
+>   	u64 expected_queue_size;
+>   	struct amdgpu_vm *vm;
+> -	u32 total_cwsr_size;
+> +	u64 total_cwsr_size;
+>   	int err;
+>   
+>   	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
+> @@ -308,8 +309,14 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+>   		goto out_err_unreserve;
+>   	}
+>   
+> -	total_cwsr_size = (properties->ctx_save_restore_area_size +
+> -			   topo_dev->node_props.debug_memory_size) * NUM_XCC(pdd->dev->xcc_mask);
+> +	total_cwsr_size = (u64)properties->ctx_save_restore_area_size +
+> +			  topo_dev->node_props.debug_memory_size;
+> +	if (check_mul_overflow(total_cwsr_size,
+> +			       NUM_XCC(pdd->dev->xcc_mask),
+> +			       &total_cwsr_size)) {
+> +		err = -EINVAL;
+> +		goto out_err_unreserve;
+> +	}
+>   	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
+>   
+>   	err = kfd_queue_buffer_get(vm, (void *)properties->ctx_save_restore_area_address,
+> @@ -344,7 +351,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+>   int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
+>   {
+>   	struct kfd_topology_device *topo_dev;
+> -	u32 total_cwsr_size;
+> +	u64 total_cwsr_size;
+>   
+>   	kfd_queue_buffer_put(&properties->wptr_bo);
+>   	kfd_queue_buffer_put(&properties->rptr_bo);
+> @@ -355,8 +362,12 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
+>   	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
+>   	if (!topo_dev)
 >   		return -EINVAL;
-> +	crtc = new_con_state->crtc;
+> -	total_cwsr_size = (properties->ctx_save_restore_area_size +
+> -			   topo_dev->node_props.debug_memory_size) * NUM_XCC(pdd->dev->xcc_mask);
+> +	total_cwsr_size = (u64)properties->ctx_save_restore_area_size +
+> +			  topo_dev->node_props.debug_memory_size;
+> +	if (check_mul_overflow(total_cwsr_size,
+> +			       NUM_XCC(pdd->dev->xcc_mask),
+> +			       &total_cwsr_size))
+> +		return -EINVAL;
+>   	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
 >   
->   	trace_amdgpu_dm_connector_atomic_check(new_con_state);
->   
+>   	kfd_queue_buffer_svm_put(pdd, properties->ctx_save_restore_area_address, total_cwsr_size);
 
+--------------bHQwXXX0ZMnEujikibXSevST
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2026-07-08 12:43, Yongqiang Sun
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260708164336.4099991-1-Yongqiang.Sun@amd.com">
+      <pre wrap="" class="moz-quote-pre">total_cwsr_size was computed in 32-bit before being used as a BO/SVM
+allocation size.
+With large ctx_save_restore_area_size and debug_memory_size
+multiplied by the XCC count, the product can wrap,
+yielding an undersized CWSR save area that firmware later overruns.</pre>
+    </blockquote>
+    <blockquote type="cite" cite="mid:20260708164336.4099991-1-Yongqiang.Sun@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Promote total_cwsr_size to u64 and use check_add_overflow()/</pre>
+    </blockquote>
+    <pre wrap="" class="moz-quote-pre">Remove check_add_overflow(), with this fixed, this patch is
+
+Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:philip.yang@amd.com">&lt;philip.yang@amd.com&gt;</a></pre>
+    <blockquote type="cite" cite="mid:20260708164336.4099991-1-Yongqiang.Sun@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+check_mul_overflow() in both kfd_queue_acquire_buffers() and
+kfd_queue_release_buffers().
+
+Signed-off-by: Yongqiang Sun <a class="moz-txt-link-rfc2396E" href="mailto:Yongqiang.Sun@amd.com">&lt;Yongqiang.Sun@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 9d4838461168..01e228fc1860 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -23,6 +23,7 @@
+  */
+ 
+ #include &lt;linux/slab.h&gt;
++#include &lt;linux/overflow.h&gt;
+ #include &quot;kfd_priv.h&quot;
+ #include &quot;kfd_topology.h&quot;
+ #include &quot;kfd_svm.h&quot;
+@@ -235,7 +236,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 	struct kfd_topology_device *topo_dev;
+ 	u64 expected_queue_size;
+ 	struct amdgpu_vm *vm;
+-	u32 total_cwsr_size;
++	u64 total_cwsr_size;
+ 	int err;
+ 
+ 	topo_dev = kfd_topology_device_by_id(pdd-&gt;dev-&gt;id);
+@@ -308,8 +309,14 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 		goto out_err_unreserve;
+ 	}
+ 
+-	total_cwsr_size = (properties-&gt;ctx_save_restore_area_size +
+-			   topo_dev-&gt;node_props.debug_memory_size) * NUM_XCC(pdd-&gt;dev-&gt;xcc_mask);
++	total_cwsr_size = (u64)properties-&gt;ctx_save_restore_area_size +
++			  topo_dev-&gt;node_props.debug_memory_size;
++	if (check_mul_overflow(total_cwsr_size,
++			       NUM_XCC(pdd-&gt;dev-&gt;xcc_mask),
++			       &amp;total_cwsr_size)) {
++		err = -EINVAL;
++		goto out_err_unreserve;
++	}
+ 	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
+ 
+ 	err = kfd_queue_buffer_get(vm, (void *)properties-&gt;ctx_save_restore_area_address,
+@@ -344,7 +351,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
+ {
+ 	struct kfd_topology_device *topo_dev;
+-	u32 total_cwsr_size;
++	u64 total_cwsr_size;
+ 
+ 	kfd_queue_buffer_put(&amp;properties-&gt;wptr_bo);
+ 	kfd_queue_buffer_put(&amp;properties-&gt;rptr_bo);
+@@ -355,8 +362,12 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 	topo_dev = kfd_topology_device_by_id(pdd-&gt;dev-&gt;id);
+ 	if (!topo_dev)
+ 		return -EINVAL;
+-	total_cwsr_size = (properties-&gt;ctx_save_restore_area_size +
+-			   topo_dev-&gt;node_props.debug_memory_size) * NUM_XCC(pdd-&gt;dev-&gt;xcc_mask);
++	total_cwsr_size = (u64)properties-&gt;ctx_save_restore_area_size +
++			  topo_dev-&gt;node_props.debug_memory_size;
++	if (check_mul_overflow(total_cwsr_size,
++			       NUM_XCC(pdd-&gt;dev-&gt;xcc_mask),
++			       &amp;total_cwsr_size))
++		return -EINVAL;
+ 	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
+ 
+ 	kfd_queue_buffer_svm_put(pdd, properties-&gt;ctx_save_restore_area_address, total_cwsr_size);
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------bHQwXXX0ZMnEujikibXSevST--
