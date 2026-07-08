@@ -4,91 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC95C43602
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7628BC43458
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B4510E5EE;
-	Wed,  8 Jul 2026 13:30:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA0910E5EF;
+	Wed,  8 Jul 2026 13:39:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iWECkuOn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HIHwRioW";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1609C10E5EE
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:30:31 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2caa0551d8bso2570145ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 06:30:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783517430; cv=none;
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD5110E5EF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:39:42 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-38115bbb83dso84839a91.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 06:39:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783517982; cv=none;
  d=google.com; s=arc-20260327;
- b=SXcASIVu0bOjnqxeaXoSeJ8zAeufMaoTobFJNIuTurVCUIh6N4D5Kbtt0VEHW5O8rQ
- G0FV4j54DGGzHg5GaW7VHnoKSByFQUWUhtZZanfZxj0wNehUgcGLdKUk3YleihJaMmbJ
- mzjrtTLIPXfdlw80JVgm4+h/YZgcMXTMN/TXI975nMKBZjTun+TgZMgca3UFQJ/BjWHT
- Pl5+KALBbqkOLDo4/pvpausD5rMSLSKlWZM2lHTQP5xxem07KgY6v9uJUqI8S8IKC8we
- ReCCP39GK7DJ6oNnI/JZAJSJcfPx9fgL29GEkoOLpyaQFGXTxmDGa6Fx76PhHt6pkEI4
- 23TQ==
+ b=MfoKipEu5H35TB5EIltg5GNwTWBf5+uHpbS+a5j+OciswkeCTU/5sCq+1mJSKhYzw2
+ fITIZaEa32RTXx6kmHFZ8ZvqXR2fDMpUO/Oyldz2vDhYz+2BP5RCbkfVRZNbVXGIYSuh
+ /yri9cTkCxTehroEtt4ghDUosLYHJMccLd4wpVJCNUgq8nVHtyL8Meh0WEP2p1Yyh+yB
+ kdl0LW2KDap/vIkTP2+DgfGuLYv9ghjGAmw9ymCKkZ9lOC65WOXnWzBcajfnzXIOYdOO
+ bE+nNvOIi4TERfu+GTsfOg2jEINCjR/hHGNJTtPdPbJES+QFpOmofbai8tKmi9GO+LkR
+ Yaiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=BSwavkeH+LcVYKCLrB4zma0uyvhD0qqFx3FCZkmYrVw=;
- fh=qWGDbas/IhvIUbgk75S8XrizEO2xTmjjiVSS6c9mV1Q=;
- b=BmjgA5ONMiZYKZyvrjFHldISq2klKRqU+lTQVHhJfhdM8WIwaerUfkytTrllrVovmd
- o8zLfayGqiOCOYgwdhzIEHpGIjuA8V1c47GCa9BZDQtt6HFUXZdXkD3G4Du7hkrB2kAI
- 5W3itxG9Z4TpOktE7H8uDY1jZlPAvURYDauWyv1xcdVzy81EZE8VoWlLXul8AjSMxbTV
- PwS26ACCXR0Vm9PTLxhkofF2ecvgjixmrDA5VxcoASlq5A3wAb9LyPuTdULFPAeesnPl
- +3ti25KY0xeyBY6y+/6QgKemruF8bEaaQpOu3XNIekUufxLCO0M5fSHXyUEKYe7ZtBZ6
- mSyA==; darn=lists.freedesktop.org
+ bh=TeN4q6If/rnBXJuV0jsut6YSkKXgnCtyXya/a1o2jkQ=;
+ fh=evqTgW+tALMvdpXfYLTZyt5ZywD+/VBUVQ8ZNaSLclU=;
+ b=ElZ9Xm7bIyDDl3EjgDpnOxsJVpoAnSN+UQQMUFCuBe5iZQ8YM2RPLOC8jYKH4kfAVu
+ yLLbSXIMXtGM5rrmWLDB8zEuTCIReFBH8QsHIpDb3XT1lcRHEBZ0925MTvx4yhhXU5Ay
+ 0CSoEIGDDilG51/J2yrCiI+Yh1PpFVnrn/YvkdN09bnB5EeFsJr7vUVeRov3AvTq5YJK
+ pq90jQ1wCyya7aYY6Bey4uorf+62v6zDzt24v/1n8AJeAnbMeJJ07f/bCfUc7gWn7VPh
+ Uir162S3Ve+SRHVs7wwXuCR0gRAHulvAwYHZV/2wvSWVZrhR+3xjv1l06gbfcWvZdNnu
+ qqMA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783517430; x=1784122230; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783517982; x=1784122782; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=BSwavkeH+LcVYKCLrB4zma0uyvhD0qqFx3FCZkmYrVw=;
- b=iWECkuOnq/Rsse0t/NCtb8O+BS/a2oFDfYoU9ELJjz5iSL13uqixtvb2aVsq96ne/m
- xSUY0tTqSIDc7pqNoI4sURsj92bb+Hv4zCJq/D8qTw+lv3iyRdkP0N+cBbGBx6xl/meV
- 0kohFrKYxfPkt7v4mFV9SMzELfppFEEpXs7PIi2TZ6AXDzheUMq21gyiUch2eCCpiUVk
- 32LyCAoXDRgOQ2RBeuGW7Xvnw5j/FsaumtTKjl0JFFt7FWoh6AC1sq9nyUtScR19fSMZ
- uzL+rc3HHFCgB1jWS4Pm6nrYOqeuS5BtkdDfNaGVPzIAXALO6g5gla4Fh/00cd5uxbBk
- 0aPA==
+ bh=TeN4q6If/rnBXJuV0jsut6YSkKXgnCtyXya/a1o2jkQ=;
+ b=HIHwRioW9MGyykKJLri2V8/T/IdeLgNtPEdf+l3KJwuJKp2tPNSnl73hyn/LckPS7c
+ 3kyI2k73yACktmnc72wwDjXAdjZffMGiKRa9La3xp4B4p5w6udOUXB4TVh2+bL0DRhSS
+ hTBR6xI42ZmVDGPN8gZjXFt8PQ6FIeiS2C7q4MOcaTXeGTUoGdcrq4gTh6rIz3KcXFKH
+ kNrkzCJNcldXdRlkIuu5zllgdDkV5TxbQ15tc7A3g3KHCYH3Cp2CURJ4ZToZMR+22c12
+ RgIiZKfvxKR6KfZvdBhMUeg9kKqbPdz6CAK+YtWD5ZdE3A7ZM1VvJvfGj11iBI92IelA
+ FA4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783517430; x=1784122230;
+ d=1e100.net; s=20251104; t=1783517982; x=1784122782;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=BSwavkeH+LcVYKCLrB4zma0uyvhD0qqFx3FCZkmYrVw=;
- b=bCKnlV+3gEMbMy5c69euVRZoZZ0KAF4tFRavCroF989GKAOzkbpQv4wA7KIIZ17YZZ
- gSXRiH5lJkxJxeUwzRN9UTfTKJWEDTTmPgFw9C8cl/eg17hiGIdVZSgmfcXr0wCkDaZe
- /p8jLQ41N8y4LFLGqcAOFbTw/5wb/f0JnwyxPJyKB+R+RQnj+i32jNqIKEBIbJbhRfSW
- SKeS8vAIbJvQNcmvo+OmMUCjUP9iCdqvde9wIx9DcL+BfSfsZPXuJwQkyAiobWcyR2qx
- /IKUCpVgM9hPccjV+wgitr/YP3eMyJlDd0mL9EiAmsiePCBrf8Uytl24PFN/hO2cTGi4
- O7ow==
+ bh=TeN4q6If/rnBXJuV0jsut6YSkKXgnCtyXya/a1o2jkQ=;
+ b=BQyQkQwXGojoir0VMM1EwzD3HDeU7+xb7Zv6J1wJKKRawaS8zTeqE2fFvaK+xCS+hS
+ tHFy4VG0uwvzvyHLajRIuvcPOp6qht+Elrdkz6I8OEzQgEULJVeWkAnhrt77PKwqAu+L
+ J3QjeqYYkvi3UCDY/ES6/X6wRkbJtOWCls4qUWi8Zum/6oQAnSdOouj+EsWFX5IV/iHg
+ lc9JP1wMZqbL2gistKx+/oUusw5+rD/oe/LMidkgsn3VPaIZmZ57Q9vMAZ1n3+wn7bP2
+ UAKhu7GPHkTJDDWtYeVOmBg76bPt+VJFzbpM5yLWKXMvjJWaddui+zXUO+xIACwYRCXq
+ +yuw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpf1pAx8H4YVF3uEkqSkGh6N9XE7KmjQI/Sly27ugpJPAboHTleThRCdzocMTMYOf9MgztogOCt@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz4CrWS1Lf4Hna7dX5epIZEMNl1ADi2wA7nHhLc+sKUSMCvUoLg
- yaNRsJuf02vw3HOFX/K+sOcxHwxDZMdnAf6fYiBeQjIazy4r0hUFuWAWfI6w9HjcCk2AuX+FKD9
- p/KgZ6vjRqicZnil2081AoZ4rm9W3viA=
-X-Gm-Gg: AfdE7clSoccJlcYCdg8a3CCWmYf6U5vEEVR3kBBxWj6FSOkPoYakwDaZtgwTsXIbDwD
- lKsv+261xDvjpJHShfVcXNdNi3lUXikyB1chauxF9MVTI2TiGrBYOJH4x+S70XXmB42wX5OPIq6
- 0hBfM/3U33PtWfgSUDmoJD3GHJg8TT/ctoFysavOnpBAUsB4TmAwP2EU4j5PEwFehDZw9J53acm
- sNAwdfpZiV+B2ENS1B0UzzC0ByDkm+V2T4iLGE68cQ1sCP1VO3McorBpGjFOc+RU7C5V9WFGoas
- Bqw0TqGSOE6hg5k4hD/p3NDb0Xg954H97vq1LGGmh8UERz0ISyxzaDi6zOfzUW5z8d7O+Q==
-X-Received: by 2002:a17:903:b85:b0:2cb:2b50:d9da with SMTP id
- d9443c01a7336-2ccea357aa2mr22247225ad.3.1783517430158; Wed, 08 Jul 2026
- 06:30:30 -0700 (PDT)
+ AHgh+RocLfXNAKs3BjEfcwzGFcr80dcR+mlVMkNQMVoSF6h2Cy+YwB7M3BwnmvvujzEleLX5OHxAFJYh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDtguSthBD2pIUXhsTXk+XEWYuXfxo3KBWP+aiinHDnn6AjE6C
+ PUG6pANfW/aY5Q2rYvGDuReDwutvpcdbndIiz1ssDgp/SkxPAl0MHe0S2lLQJj+LV+zfzITKHmZ
+ mKeAiYEqwxYTH3Il+m+fk6645MwGvJoo=
+X-Gm-Gg: AfdE7cl+epSzRtZ3pP+2lRZhCqMooZMgCgpcQS0nw6DVHGZ8JHbi4AXGKID9kvxsYB3
+ RosQ8rdo1vMdurMxzDdvOol1O+uQ6a6mxTAFMfLq9eteNcTre8KmL+O1BroyoGljGWXegIektRm
+ EBF8YearLpq3MrCILmlkDvcR1B7tEvQz26zTUJEPMxmuXK3kdxQczXcgalA8FyvaVIM8UB1k006
+ VlXtykV8AOwKnvjKfjTxHT1lB51OAQ0OJb3ybankKBUXZ5RL4qrB9cOZ3aZbwpBjSglp1Kndxp6
+ F9CPdZr+PQpFoDsec5dQTVqybbFTKHom0mvu8XCIiWk+LP9R8/U2y/Gi9MM=
+X-Received: by 2002:a17:90b:17ca:b0:381:abcc:c8d8 with SMTP id
+ 98e67ed59e1d1-3894014e3fbmr2330872a91.1.1783517982031; Wed, 08 Jul 2026
+ 06:39:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260628161719.1598835-1-geoffrey.mcrae@amd.com>
- <20260628163239.1599449-1-geoffrey.mcrae@amd.com>
-In-Reply-To: <20260628163239.1599449-1-geoffrey.mcrae@amd.com>
+References: <20260627043801.1025055-1-geoffrey.mcrae@amd.com>
+ <20260627055720.1543432-1-geoffrey.mcrae@amd.com>
+ <db4d886f-7310-42a8-a480-5b4c4c99e4de@amd.com>
+In-Reply-To: <db4d886f-7310-42a8-a480-5b4c4c99e4de@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Jul 2026 09:30:18 -0400
-X-Gm-Features: AVVi8Cd9ViZy-1GAajz3vKTBRa5Z47lkuD12EbzKdbMmNQx0jn-1EvfXHb9Gqc4
-Message-ID: <CADnq5_NviF+5uO_HQ_H+BTY+M1WNZcf5fynYxNXE_vsDMg0_eQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Fix DM I2C teardown race
-To: Geoffrey McRae <geoffrey.mcrae@amd.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+Date: Wed, 8 Jul 2026 09:39:29 -0400
+X-Gm-Features: AVVi8CfdoxxGAW7qhi1nkU_uzhwKNlDzQYtcJNL4gC13VCJZ90hsqUIaYxFbjfc
+Message-ID: <CADnq5_NDZqV4ihd70PBgXOrfRfzfYrgz948-FnNh+8tpvn7kxQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: remove gfx sysfs files on device unbind
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>, alexander.deucher@amd.com, 
  amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -106,108 +107,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jun 28, 2026 at 12:39=E2=80=AFPM Geoffrey McRae <geoffrey.mcrae@amd=
-.com> wrote:
+On Mon, Jun 29, 2026 at 6:01=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> DM I2C adapters can remain visible to userspace while DM teardown is
-> already in progress. A concurrent i2c-dev transfer may then enter
-> amdgpu_dm_i2c_xfer() after the backing DM state has been torn down,
-> leading to a NULL pointer dereference.
+> On 6/27/26 07:57, Geoffrey McRae wrote:
+> > Fix more sysfs file duplication errors when reinitializing the device:
+> >
+> >   sysfs: cannot create duplicate filename '.../enforce_isolation'
+> >   sysfs: cannot create duplicate filename '.../sdma_reset_mask'
+> >   sysfs: cannot create duplicate filename '.../vcn_reset_mask'
+> >   sysfs: cannot create duplicate filename '.../jpeg_reset_mask'
+> >   sysfs: cannot create duplicate filename '.../vpe_reset_mask'
+> >   sysfs: cannot create duplicate filename '.../current_memory_partition=
+'
+> >   sysfs: cannot create duplicate filename '.../available_memory_partiti=
+on'
+> >
+> > Fix this by:
+> >   - improve amdgpu_gfx_sysfs_init error unwinding so partially-created
+> >     gfx sysfs files are removed on registration failure.
+> >   - added adev->gfx.sysfs_registered tracking so gfx sysfs cleanup is
+> >     idempotent when harware teardown runs before the existing software
+> >     teardown cleanup path.
+> >   - calling amdgpu_gfx_sysfs_fini, amdgpu_sdma_sysfs_reset_mask_fini,
+> >     amdgpu_vcn_sysfs_reset_mask_fini, amdgpu_jpeg_sysfs_reset_mask_fini=
+,
+> >     amdgpu_vpe_sysfs_reset_mask_fini and amdgpu_gmc_sysfs_fini from
+> >     amdgpu_device_sys_interface_fini
+> >
+> > Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
-> Create a devres group around the DM I2C adapter lifetime and release it
-> at the start of dm_hw_fini(), before HPD, IRQ, and DM state are torn
-> down. This removes the I2C adapters first and waits for in-flight users
-> to drain before the structures used by amdgpu_dm_i2c_xfer() disappear.
+> Alex can you take a look at this?
 >
-> This fixes a teardown ordering race seen during device removal:
+> In general the coding seems correct, but Greg usually insists that we use=
+ the managed sysfs functions which remove stuff automatically on driver unb=
+ind.
 >
-> BUG: kernel NULL pointer dereference
-> RIP: amdgpu_dm_i2c_xfer+0x122/0x1c0 [amdgpu]
-> Call Trace:
-> __i2c_transfer
-> i2c_transfer
-> i2cdev_ioctl_rdwr
+> But if I'm not completely mistaken that doesn't work here because the dev=
+ice structure is not released before all userspace refs drop.
 >
-> Fixes: 5b3eca05cfb0 ("drm/amd/display: Use devm_i2c_add_adapter to simpli=
-fy i2c cleanup logic")
-> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> If the device is re-created before that happens we run into the error abo=
+ve.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I think the proper fix for this is to properly unwind in
+amdgpu_device_ip_init().  If sw_init() fails, we should goto a proper
+unwind loop which calls sw_fini() for all IPs where status.sw =3D=3D true,
+etc.
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++++++++-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
->  2 files changed, 20 insertions(+), 1 deletion(-)
+Alex
+
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b97ceabe6173..5613dc9903fe 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1496,17 +1496,26 @@ static int dm_hw_init(struct amdgpu_ip_block *ip_=
-block)
->         struct amdgpu_device *adev =3D ip_block->adev;
->         int r;
+> Regards,
+> Christian.
 >
-> +       adev->dm.i2c_devres_group =3D devres_open_group(adev->dev, NULL, =
-GFP_KERNEL);
-> +       if (!adev->dm.i2c_devres_group)
-> +               return -ENOMEM;
-> +
->         /* Create DAL display manager */
->         r =3D amdgpu_dm_init(adev);
->         if (r)
-> -               return r;
-> +               goto err_release_i2c;
->         amdgpu_dm_hpd_init(adev);
 >
->         r =3D dm_oem_i2c_hw_init(adev);
->         if (r)
->                 drm_info(adev_to_drm(adev), "Failed to add OEM i2c bus\n"=
-);
->
-> +       devres_close_group(adev->dev, adev->dm.i2c_devres_group);
->         return 0;
-> +
-> +err_release_i2c:
-> +       devres_release_group(adev->dev, adev->dm.i2c_devres_group);
-> +       return r;
->  }
->
->  /**
-> @@ -1521,6 +1530,9 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_bl=
-ock)
->  {
->         struct amdgpu_device *adev =3D ip_block->adev;
->
-> +       if (adev->dm.i2c_devres_group)
-> +               devres_release_group(adev->dev, adev->dm.i2c_devres_group=
-);
-> +
->         amdgpu_dm_hpd_fini(adev);
->
->         amdgpu_dm_irq_fini(adev);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 909ee71d6d59..13a18e1ed576 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -688,6 +688,13 @@ struct amdgpu_display_manager {
->          */
->         void *bb_from_dmub;
->
-> +       /**
-> +        * @i2c_devres_group:
-> +        *
-> +        * Devres group for DM i2c adapter lifetime management.
-> +        */
-> +       void *i2c_devres_group;
-> +
->         /**
->          * @oem_i2c:
->          *
-> --
-> 2.43.0
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 ++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 32 +++++++++++++++++-----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  2 ++
+> >  3 files changed, 35 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 70d07ca187a3..c0a22d2411f2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3674,6 +3674,14 @@ static int amdgpu_device_sys_interface_init(stru=
+ct amdgpu_device *adev)
+> >
+> >  static void amdgpu_device_sys_interface_fini(struct amdgpu_device *ade=
+v)
+> >  {
+> > +     amdgpu_gfx_sysfs_fini(adev);
+> > +     amdgpu_sdma_sysfs_reset_mask_fini(adev);
+> > +     amdgpu_vcn_sysfs_reset_mask_fini(adev);
+> > +     amdgpu_jpeg_sysfs_reset_mask_fini(adev);
+> > +     amdgpu_vpe_sysfs_reset_mask_fini(adev);
+> > +     if (amdgpu_is_multi_aid(adev))
+> > +             amdgpu_gmc_sysfs_fini(adev);
+> > +
+> >       if (adev->pm.sysfs_initialized)
+> >               amdgpu_pm_sysfs_fini(adev);
+> >       if (adev->ucode_sysfs_en)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.c
+> > index 982b41606d48..ab37c4a9f415 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > @@ -2175,6 +2175,8 @@ int amdgpu_gfx_sysfs_init(struct amdgpu_device *a=
+dev)
+> >  {
+> >       int r;
+> >
+> > +     adev->gfx.sysfs_registered =3D false;
+> > +
+> >       r =3D amdgpu_gfx_sysfs_xcp_init(adev);
+> >       if (r) {
+> >               dev_err(adev->dev, "failed to create xcp sysfs files");
+> > @@ -2182,23 +2184,39 @@ int amdgpu_gfx_sysfs_init(struct amdgpu_device =
+*adev)
+> >       }
+> >
+> >       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> > -     if (r)
+> > +     if (r) {
+> >               dev_err(adev->dev, "failed to create isolation sysfs file=
+s");
+> > +             goto err_isolation_shader;
+> > +     }
+> >
+> >       r =3D amdgpu_gfx_sysfs_reset_mask_init(adev);
+> > -     if (r)
+> > +     if (r) {
+> >               dev_err(adev->dev, "failed to create reset mask sysfs fil=
+es");
+> > +             goto err_reset_mask;
+> > +     }
+> >
+> > +     adev->gfx.sysfs_registered =3D true;
+> > +
+> > +     return 0;
+> > +
+> > +err_reset_mask:
+> > +     amdgpu_gfx_sysfs_reset_mask_fini(adev);
+> > +     amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> > +err_isolation_shader:
+> > +     amdgpu_gfx_sysfs_xcp_fini(adev);
+> >       return r;
+> >  }
+> >
+> >  void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
+> >  {
+> > -     if (adev->dev->kobj.sd) {
+> > -             amdgpu_gfx_sysfs_xcp_fini(adev);
+> > -             amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> > -             amdgpu_gfx_sysfs_reset_mask_fini(adev);
+> > -     }
+> > +     if (!adev->gfx.sysfs_registered)
+> > +             return;
+> > +
+> > +     amdgpu_gfx_sysfs_xcp_fini(adev);
+> > +     amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> > +     amdgpu_gfx_sysfs_reset_mask_fini(adev);
+> > +
+> > +     adev->gfx.sysfs_registered =3D false;
+> >  }
+> >
+> >  static void amdgpu_gfx_reset_start_compute_scheds(struct amdgpu_device=
+ *adev,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.h
+> > index aefd4f03b443..df7ce026bfa9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > @@ -477,6 +477,8 @@ struct amdgpu_gfx {
+> >       struct amdgpu_irq_src           rlc_poison_irq;
+> >       struct sq_work                  sq_work;
+> >
+> > +     bool                            sysfs_registered;
+> > +
+> >       /* gfx status */
+> >       uint32_t                        gfx_current_status;
+> >       /* ce ram size*/
 >
