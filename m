@@ -4,97 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0262C43458
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 12:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E30B5C43602
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 12:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 724FC10E5CB;
-	Wed,  8 Jul 2026 12:04:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAC110F10D;
+	Wed,  8 Jul 2026 12:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z7KbPs4o";
+	dkim=pass (2048-bit key; unprotected) header.d=shift-computing.de header.i=@shift-computing.de header.b="wBDtzHAC";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C743B10E5CB
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 12:04:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f1/CatDYcWSkTfPttYt/L8n06kFJPlKT7RHUSA/4JN7/NopLyPcYl0+Z/aE1BWrmj0nhziMDmUN2yFkv1YCbmWkwBXO07teFamn7oWR16QYfP8Wwhu+WktDG1GvyH+pwNqJezOza7crHriZKhtrda20rn6l6XXn57K/PaPrmKkYmsgaydhm/skw7ZyLiK5ju+WNg+xjLhffWxsZvPIXW3orcTchGz+rX3xnu3QePX6W1uvdNrhIdHwWMNZEkFWBP/0x1s00BVFETfEQsHsC9vErnDaGHQh6VAo90E1rULnROFkN3AZmRfRiX3tF/oBahBsgZtyaLItCSuQuecntudQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5d2tkXiTJ514NIMp+p1S2AOkNksjuNOCI6Oo+PXoPbk=;
- b=ZDtZ1kCuu9JAunbnbEg2Rv2GYH5Re6DpcF+jkgoZYNeELPOtVDwjnMcZCvLTkzoqJwYYNFw+AnJ6bxKyfahKib5blzELSWbVBCrEe93Qt4o3u5gIe+Klok7byzQM+EWl9y2W8dUIB4UTNgw9gsuib7gpgMU7gWOZmMf9tsWNo2xSBNY5m1hk52Z0eBa04cMMZ0j7M9PpBQpqIAQoPYN1C5bzCPbfunzwZuKYFboleYXAnc7wau0QgOgCmL2gIgsq8t5wo26ud0wL04zX72ThXdRpUAF1I2GtbSfsjgBsP5RMpu4xoev3pulYbv1n38LDL+2n3ZLcR4nQC7DeiQegGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5d2tkXiTJ514NIMp+p1S2AOkNksjuNOCI6Oo+PXoPbk=;
- b=z7KbPs4oKE/6J6abWj69TWxP4qA+XD5YH8VrajuflJB210Wp5Dj0V7lahPMTqW7ElPpIenFmSuoB9Hq9B4bVlwZ+HP20UeQTt292u0wa18MnD0QpLGx4xJL91hxalRB+eWY7g5K+K6nKche5T1t2EXMSbkhnUj4oYte6AKuTJtU=
-Received: from SA9PR13CA0111.namprd13.prod.outlook.com (2603:10b6:806:24::26)
- by DS0PR12MB7746.namprd12.prod.outlook.com (2603:10b6:8:135::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 12:04:35 +0000
-Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
- (2603:10b6:806:24:cafe::4b) by SA9PR13CA0111.outlook.office365.com
- (2603:10b6:806:24::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.3 via Frontend Transport; Wed, 8
- Jul 2026 12:04:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Wed, 8 Jul 2026 12:04:34 +0000
-Received: from stanley-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 8 Jul
- 2026 07:04:33 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Kent.Russell@amd.com>, Stanley.Yang
- <Stanley.Yang@amd.com>
-Subject: [PATCH V3 1/1] drm/amdgpu/ras: only check bad page for address-based
- UMC injection
-Date: Wed, 8 Jul 2026 20:04:18 +0800
-Message-ID: <20260708120418.376019-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail.teamster.cloud (mail.teamster.cloud [213.136.73.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2392410F115;
+ Wed,  8 Jul 2026 12:36:51 +0000 (UTC)
+Message-ID: <80f34509-9781-421e-b60f-1b8c772a01a9@shift-computing.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shift-computing.de;
+ s=dkim; t=1783514208;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6HWlykTPm2CjKRIMM9if7IOVCGspnjA0WX9p397X0xE=;
+ b=wBDtzHACM8WPkUu+O8ycHjtPmON8rHW+1XWvnH2/tk5dvCt73jAqVvNQm6rTymdoNrtYHu
+ qIWvsOeNK64Dk2LHmGfC79RiXohn6jgwVG+TUjUk01XYdlWAPp3WzvhdqkEu44KjAGqdjs
+ hLq9MBXX0C+m6kU4eEmGsXY8/YMJDOq0++kIDOcOIbyWaChN2x4pa27P/Gk5HP40X7J6A0
+ h9bit2EBMObtlgkEiYk/F4du9uDvBXrSvT1KJaG05JcSRfTbLXCCTENi6XybWSBU4eAwgA
+ H5Uv5KcCwgAKbTi+n9KavWJygSy9lXwUualbqUQkRh581EtJNrXSZozv8Mi90A==
+Authentication-Results: mail.teamster.cloud;
+ auth=pass smtp.mailfrom=oz@shift-computing.de
+Date: Wed, 8 Jul 2026 14:36:26 +0200
 MIME-Version: 1.0
+Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
+ VBIOS discovery
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
+ <20260705100436.6877-1-oz@shift-computing.de>
+ <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
+ <42e07bbb-9384-4871-a345-e0fd6c00a772@shift-computing.de>
+ <bd1f1632-f53d-4bfd-9d28-5b66e466366c@amd.com>
+From: Oz Tiram <oz@shift-computing.de>
+In-Reply-To: <bd1f1632-f53d-4bfd-9d28-5b66e466366c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|DS0PR12MB7746:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb3df90b-40ee-482e-89ef-08dedce913aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|11063799006|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: M9hFVFYk/dLglmm/uKquSVEdp/xBCSVxNBPU2N/j2hMiojNsp93xiitgN/a2fgWM5n1tFyIEBP1jpvVbkZZ8w0y32IrVvn4iiPj0q7YcM7QBGbRc942jvKl1Hc1XO1xgbtuRsLUuPQ0pkQFrQenGPl1/ddmFMjAWx79vHB6QjVGafvjMrVgbB0vj3IkpsWiT0baGT4Xq/V2LUro2qAa7+hs6jmwVm5AodFZj26uTdQ+Iy69PBImqmG0bqNks8/Lvs7Yvvd4Qs6RFA2s2g4gssP9pxEGTDSb4hI0urKCyM0hN2gkPMMZhHHghgdZkDHOol5vh99gje2zGygG32HbwCNW333v5ljuTejQWZI9zrlUT8SBDKvv2meZeqPq/qalm3LHJgstCYISIcqzDJCupUwxxZwIVQdCUxX5x+zQFOvXjGqSu7/QX4Ykx/2X4ZMtgdx5eDdN7Re7zA5cR1j25sY31Xt+kaB9x5fc6JQblQevnd26Tr6At7hZuf25iwK66smhjSXgoDTEf/1e/PicwBm5G9FKKfh4VsSXK7adDH8iTj9iNIK4ARz3kwpc7F3MSgVRTy5iADtsbdwqxYzso59sAn78L/om7LPr4ns32REGCr2ffksf6xBHOwTk9hzBsvYJ70P4metyZzsA7j55lCyTEa1N2TB7zMYYndNWyGdSPQm6iEiPx1olNXnuTiEvY4p0QPNAhUyrSRsdg4WVOnQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(11063799006)(18002099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BKDCKDj+YVIX14hcuRj8qwjrvmxuFg9R/4dS09aU8s1f4V/xWG118xO7moEUCk6xQitNtu/vxPCrPAtwrPa8IgfjwGXGinp+GVgcUrGJatfOmfmCVPn6K/Nm7rYsE0Ne7OY03m8p5UpHEoN4R9CVHEcnrF5WLuHcR4a4cA/58Yc8d5odO1+F6SDc1hrnOFyctI5OXcCSeZfS8XNTPv6c+lziXYTT9yRoUNeO9jpaGd3b3ooGucSx82bAAGD4n3q9lVfnA3Fvj1oXxU1uLNsHaeR3cjhiN+RC5KdpcN6wZKZamnW90+SBtkehQEFTrbPY8AwLhWETvQ56uE4roUzRYipiHy00EZDAN/ryQTLSbtqzZZ+Jc10vSIVIh4+FQSWNnGUt2qyFbnyJ+33u5Zyk38P4v81/Sh3Hs+f1HbSVblT2VFvWFDcIbpjYCrsLxaOW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 12:04:34.8270 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb3df90b-40ee-482e-89ef-08dedce913aa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7746
+X-Spamd-Bar: ---
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,159 +64,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-UMC error injection on MI300 series is dispatched by the RAS TA using
-the injection method; only the "coherent" methods are address based,
-the single-shot/persistent/ac-parity ones ignore the address.
+Hi Mario,
 
-The debugfs control path validated the injection address against the
-bad page list for every UMC injection. On uniras (SMU v13+) devices the
-address is now validated by the ras_mgr inject handler, so the legacy
-debugfs bad page check only runs on the legacy RAS path; other ASICs
-keep injecting by address.
+Tested on a Morefine MNAS X1 AI Workstation (AMD Ryzen 7 Pro 8845HS / 
+Radeon 780M iGPU) with pci=realloc,assign-busses.
 
-In the ras_mgr handler an injection is treated as non address-based only
-when userspace passes the U64_MAX sentinel address and the method is a
-non-address method. In that case the address is cleared to 0 and the bad
-page / range validation is skipped; otherwise the injection address is
-validated as before.
+The VFCT entry for the iGPU has PCIBus=106 (0x6A, recorded at POST) 
+while the
+runtime bus is 11 (0x0B). Your patch fires exactly as expected:
 
-Changed from V1:
-	move address based checking to uniras layer
+   amdgpu 0000:0b:00.0: amdgpu: VFCT bus number mismatch: table 106 != 
+runtime 11,
+       matching by device identity (vendor 0x1002 device 0x1900)
+   amdgpu 0000:0b:00.0: amdgpu: Fetched VBIOS from VFCT
 
-Changed from V2:
-	Check umc injection address setting flag,
-	simplify non address based injection judgment
+The iGPU initialises fully and drives the framebuffer.
 
+One minor nit: the dev_notice format string ends with \\n (two 
+characters) rather
+than \n. The resulting kernel message has a literal "\n" at the end. 
+Same issue
+exists in the nearby "too short #2" dev_info -- not introduced by your 
+patch, but
+might be worth cleaning up.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 10 ++-
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c  | 83 +++++++++++++++----
- 2 files changed, 73 insertions(+), 20 deletions(-)
+Tested-by: Oz Tiram <oz@shift-computing.de>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index af48dd2ebd16..f280a312b0a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -606,8 +606,14 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f,
- 		ret = amdgpu_ras_feature_enable(adev, &data.head, 1);
- 		break;
- 	case 2:
--		/* umc ce/ue error injection for a bad page is not allowed */
--		if (data.head.block == AMDGPU_RAS_BLOCK__UMC)
-+		/*
-+		 * UMC ce/ue error injection for a bad page is not allowed. For
-+		 * uniras (SMU v13+) devices the injection address is validated by
-+		 * the ras_mgr inject handler, so only run the legacy bad page
-+		 * check for the legacy RAS path.
-+		 */
-+		if (data.head.block == AMDGPU_RAS_BLOCK__UMC &&
-+		    !amdgpu_uniras_enabled(adev))
- 			ret = amdgpu_ras_check_bad_page(adev, data.inject.address);
- 		if (ret == -EINVAL) {
- 			dev_warn(adev->dev, "RAS WARN: input address 0x%llx is invalid.",
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-index bfbfdffbfbe6..c2285fde8b3c 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-@@ -82,6 +82,43 @@ static uint64_t local_addr_to_xgmi_global_addr(struct ras_core_context *ras_core
- 	return (addr + xgmi->physical_node_id * xgmi->node_segment_size);
- }
- 
-+/*
-+ * UMC error injection is dispatched by the RAS TA using the injection method
-+ * carried in struct ras_cmd_inject_error_req. Only the "coherent" methods
-+ * program an explicit injection address and are therefore address-based; the
-+ * single-shot, persistent and ac-parity methods ignore the address.
-+ *
-+ * Keep these values in sync with the RAS TA.
-+ */
-+enum umc_inject_method {
-+	UMC_METHOD_COHERENT		= 0,
-+	UMC_METHOD_SINGLE_SHOT		= 1,
-+	UMC_METHOD_PERSISTENT		= 2,
-+	UMC_METHOD_PERSISTENT_DISABLE	= 3,
-+	UMC_METHOD_COHERENT_NO_DETECTION	= 4,
-+	UMC_METHOD_COHERENT_WR		= 5,
-+	UMC_METHOD_SINGLE_SHOT_WR		= 6,
-+	UMC_METHOD_PERSISTENT_WR		= 7,
-+	UMC_METHOD_SINGLE_SHOT_CLEAN	= 8,
-+};
-+
-+/*
-+ * Return true when @method does not program an explicit injection address.
-+ * Only the coherent methods are address-based; every other method ignores the
-+ * address, so userspace signals them by setting the address to U64_MAX.
-+ */
-+static bool amdgpu_ras_mgr_is_non_address_injection(u64 method)
-+{
-+	switch (method) {
-+	case UMC_METHOD_COHERENT:
-+	case UMC_METHOD_COHERENT_NO_DETECTION:
-+	case UMC_METHOD_COHERENT_WR:
-+		return false;
-+	default:
-+		return true;
-+	}
-+}
-+
- static int amdgpu_ras_inject_error(struct ras_core_context *ras_core,
- 			struct ras_cmd_ctx *cmd, void *data)
- {
-@@ -91,25 +128,35 @@ static int amdgpu_ras_inject_error(struct ras_core_context *ras_core,
- 	int ret = RAS_CMD__ERROR_GENERIC;
- 
- 	if (req->block_id == RAS_BLOCK_ID__UMC) {
--		if (amdgpu_ras_mgr_check_retired_addr(adev, req->address)) {
--			RAS_DEV_WARN(ras_core->dev,
--				"RAS WARN: inject: 0x%llx has already been marked as bad!\n",
--				req->address);
--			return RAS_CMD__ERROR_ACCESS_DENIED;
--		}
--
--		if ((req->address >= adev->gmc.mc_vram_size &&
--			adev->gmc.mc_vram_size) ||
--			(req->address >= RAS_UMC_INJECT_ADDR_LIMIT)) {
--			RAS_DEV_WARN(adev, "RAS WARN: input address 0x%llx is invalid.",
-+		/*
-+		 * Only address-based UMC injections carry an explicit injection
-+		 * address that has to be validated. A non address-based method
-+		 * ignores the address, and userspace flags such an injection by
-+		 * setting the address to U64_MAX. When both the sentinel and the
-+		 * method agree, clear the address so the RAS TA ignores it and
-+		 * skip the validation; otherwise validate the injection address.
-+		 */
-+		if (req->address == U64_MAX && amdgpu_ras_mgr_is_non_address_injection(req->method)) {
-+			req->address = 0x0;
-+		} else {
-+			if (amdgpu_ras_mgr_check_retired_addr(adev, req->address)) {
-+				RAS_DEV_WARN(ras_core->dev,
-+					"RAS WARN: inject: 0x%llx has already been marked as bad!\n",
- 					req->address);
--			return RAS_CMD__ERROR_INVALID_INPUT_DATA;
--		}
--
--		/* Calculate XGMI relative offset */
--		if (adev->gmc.xgmi.num_physical_nodes > 1 &&
--			req->block_id != RAS_BLOCK_ID__GFX) {
--			req->address = local_addr_to_xgmi_global_addr(ras_core, req->address);
-+				return RAS_CMD__ERROR_ACCESS_DENIED;
-+			}
-+
-+			if ((req->address >= adev->gmc.mc_vram_size &&
-+				adev->gmc.mc_vram_size) ||
-+				(req->address >= RAS_UMC_INJECT_ADDR_LIMIT)) {
-+				RAS_DEV_WARN(adev, "RAS WARN: input address 0x%llx is invalid.",
-+						req->address);
-+				return RAS_CMD__ERROR_INVALID_INPUT_DATA;
-+			}
-+
-+			/* Calculate XGMI relative offset */
-+			if (adev->gmc.xgmi.num_physical_nodes > 1)
-+				req->address = local_addr_to_xgmi_global_addr(ras_core, req->address);
- 		}
- 	}
- 
--- 
-2.43.0
-
+On 7/6/26 02:56, Mario Limonciello wrote:
+>
+>
+> On 7/5/26 14:10, Oz Tiram wrote:
+>> Hi Mario,
+>>
+>>    To make sure I understand correctly: are you suggesting that the bus
+>>    number in the VFCT was legitimate at BIOS POST time, and that
+>>    pci=realloc,assign-busses is what changes it at runtime, causing the
+>>    mismatch?
+>
+> That's what it sounds like right now.  You can easily drop all the 
+> superfluous kernel command line optiosn and see.
+>
+>>
+>>    I'm not familiar enough with the PCI subsystem to know the right 
+>> way to
+>>    implement that — could you point me in the right direction?
+>
+> Well there's a variety of ways to do it.  But how about we start here 
+> - if we make that specific busnr match optional and instead make a 
+> VID/DID match.
+>
+> See if the attached patch helps.
+>
+>>
+>>    Oz
+>>
+>> On 7/5/26 20:37, Mario Limonciello wrote:
+>>>
+>>>
+>>> On 7/5/26 05:04, Oz Tiram wrote:
+>>>> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
+>>>> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
+>>>> before giving up:
+>>>>
+>>>>    1. ACPI VFCT table
+>>>>    2. VRAM BAR read
+>>>>    3. ROM BAR read
+>>>>    4. platform BIOS
+>>>>
+>>>> On some systems all four fail.  The specific case motivating this 
+>>>> patch
+>>>> is a hybrid graphics machine (dGPU + APU) where:
+>>>>
+>>>>    - The VFCT table contains the iGPU entry but with a stale PCIBus 
+>>>> value
+>>>>      from BIOS POST time (0x6A).  When the kernel boots with
+>>>>      pci=realloc,assign-busses, PCI bus numbers are reassigned 
+>>>> dynamically
+>>>>      and the iGPU lands on bus 0x0B at runtime. 
+>>>> amdgpu_acpi_vfct_bios()
+>>>>      matches entries by bus number, so the entry is never found.
+>>>>    - The VRAM BAR is unmapped at probe time.
+>>>>    - The ROM BAR is zero (PCI firmware did not assign it).
+>>>>    - No platform BIOS mapping exists.
+>>>>
+>>>> The UEFI GOP driver initialises the iGPU successfully for early 
+>>>> display,
+>>>> confirming the hardware is functional.  The VBIOS image data 
+>>>> embedded in
+>>>> the VFCT is also valid; only the PCIBus metadata is wrong.
+>>>
+>>> So the BIOS on this machine is actually totally fine; it's just when 
+>>> the kernel is booted to reassign busses there is a problem?
+>>>
+>>> In that case; why not detect the kernel was booted this way and keep 
+>>> track of the original bus number when reassigned to avoid the issue?
+>>>
+>>>> The firmware
+>>>> file can be extracted directly from the VFCT using dd:
+>>>>
+>>>>    dd if=/sys/firmware/acpi/tables/VFCT bs=1 skip=$((0x68)) 
+>>>> count=16896 \
+>>>>       of=/lib/firmware/amdgpu/1002_1900.bin
+>>>>
+>>>> (0x68 is the byte offset of the VBIOS image after the ACPI table 
+>>>> header
+>>>> and VFCT_IMAGE_HEADER; the image length 16896 comes from the 
+>>>> ImageLength
+>>>> field in VFCT_IMAGE_HEADER.)
+>>>>
+>>>> The driver then prints "Unable to locate a BIOS ROM" and refuses to
+>>>> bind, leaving the APU completely unusable under Linux.
+>>>>
+>>>> Add a fifth fallback: request a firmware file named
+>>>> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
+>>>> request_firmware().  This allows a VBIOS image extracted as above 
+>>>> to be
+>>>> placed in /lib/firmware/ and makes the binding succeed without 
+>>>> patching
+>>>> ACPI tables or BIOS.
+>>>>
+>>>> The fallback is only reached if all existing paths have already 
+>>>> failed,
+>>>> so there is no regression risk for boards where VFCT or ROM BAR work.
+>>>
+>>> What happens if the VBIOS changes in another way one boot to 
+>>> another? You might have some other stateful information that isn't 
+>>> updated.
+>>>
+>>> The whole thing to me feels like a hack for a behavior we can 
+>>> control in the kernel when doing reassignments.
+>>>>
+>>>> Signed-off-by: Oz Tiram <oz@shift-computing.de>
+>>>> ---
+>>>> v2: Fix commit message: clarify that VFCT contains the iGPU entry but
+>>>>      with a stale PCIBus from BIOS POST that mismatches the runtime 
+>>>> bus
+>>>>      number assigned by pci=realloc,assign-busses.  Explain that 
+>>>> the VBIOS
+>>>>      image data is valid and document the dd extraction command and 
+>>>> byte
+>>>>      offsets.  Note that the UEFI GOP driver initialises the iGPU
+>>>>      successfully, confirming the hardware is functional.
+>>>>
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 
+>>>> +++++++++++++++++++++++
+>>>>   1 file changed, 23 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c 
+>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_bios.c
+>>>> index aa039e148a5e..86064c753b09 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>>>> @@ -26,6 +26,7 @@
+>>>>    *          Jerome Glisse
+>>>>    */
+>>>>   +#include <linux/firmware.h>
+>>>>   #include "amdgpu.h"
+>>>>   #include "atom.h"
+>>>>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
+>>>> amdgpu_device *adev)
+>>>>           goto success;
+>>>>       }
+>>>>   +    {
+>>>> +        const struct firmware *fw;
+>>>> +        char fw_name[32];
+>>>> +        size_t fw_size;
+>>>> +
+>>>> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
+>>>> +             adev->pdev->vendor, adev->pdev->device);
+>>>> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
+>>>> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
+>>>> +            fw_size = fw->size;
+>>>> +            release_firmware(fw);
+>>>> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
+>>>> +                amdgpu_bios_release(adev);
+>>>> +            } else {
+>>>> +                adev->bios_size = fw_size;
+>>>> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
+>>>> file %s\n",
+>>>> +                     fw_name);
+>>>> +                goto success;
+>>>> +            }
+>>>> +        }
+>>>> +    }
+>>>> +
+>>>>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>>>>       return false;
+>>>
