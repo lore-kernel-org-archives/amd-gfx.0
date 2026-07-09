@@ -4,61 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 541FCC44501
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 07:19:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CACCC44508
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 07:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9191B10F7DA;
-	Fri, 10 Jul 2026 07:19:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2858110F7EA;
+	Fri, 10 Jul 2026 07:19:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=haghiri.net header.i=@haghiri.net header.b="LBzLfljO";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kt7UasVB";
 	dkim-atps=neutral
-X-Greylist: delayed 601 seconds by postgrey-1.36 at gabe;
- Thu, 09 Jul 2026 14:30:37 UTC
-Received: from a4i160.smtp2go.com (a4i160.smtp2go.com [158.120.80.160])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E32B10E608
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 14:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=haghiri.net;
- i=@haghiri.net; q=dns/txt; s=s670074; t=1783606550; h=from : subject :
- to : message-id : date;
- bh=mdB8OqUm+ncxLatu3kgLr3emg8wmlyvEUD+Bxuu6u+M=;
- b=LBzLfljO6YIRwQDQ/hYgMtVK6JulngTmZeeO5mUlPI3zMwTNjJLDno/ALYqlGgs8lk3kb
- G7opS8F1mNtFVmO4elRx7ijyU2LKusVznvF/5mbxIhpgXLTPnHDBClYjNqJJvCc/rJstaZu
- LGCWs74j5bpY2DUbIARWg1cWj2N7RF/7cEOIsX+guBpA0r+QmDibhXHN1ABB6ykN+u9ltbg
- /9mFhfUwJBf7Arf69lxjrhvhKyvkz+yQtG1JjPIwYWK+vmsT0rxy4bkwz/xknhWaxUEvtOH
- NQtKHt+5tr/mnq79EWotMIogGeCAolksDFzuyGqpv3LPQ2j3zgcl2M4c0utA==
-Received: from [10.132.241.142] (helo=[172.27.1.123])
- by smtpcorp.com with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.99.4) (envelope-from <nick@haghiri.net>)
- id 1whpXB-4o5NDgrt40K-htNc; Thu, 09 Jul 2026 14:15:25 +0000
-From: Nick Haghiri <nick@haghiri.net>
-Date: Thu, 09 Jul 2026 10:15:20 -0400
-Subject: [PATCH v3] drm/amd/display: unify HDMI/DVI/DP SST HPD debounce delay
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
+ [209.85.217.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96C9E10E2A5
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 17:34:54 +0000 (UTC)
+Received: by mail-vs1-f43.google.com with SMTP id
+ ada2fe7eead31-738a5cc517eso55508137.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2026 10:34:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783618493; cv=none;
+ d=google.com; s=arc-20260327;
+ b=k9D2ZbHw/Woe9lmPs83pJp/n9pVS3D3LnFgMQXqjLdyPlWHe0+/sL1qDvYJa6LfR+b
+ XCOSvam//b8pikeTFAuc3WJhS7OrJd04GN8VdaKja7uJhKfiZfcR5HS8PzqmYX4dUAPa
+ HI9tuRyoay8004RATjGPWrXQEbxK6hRzbox9IhcmSvzKlVhM+TRGC/ZrNcn3tH/QSj/b
+ VzuMo0P7a3DBTN6iI1ESrKFIrPmRANJgXvtCtdJIMHLEXDRl3EvxbNxOkDYzCEMsR5b/
+ +2oc7l/Nuo+bH7xoQJj/hEZPT1qkyTYjR0nSjWCLVBmraOrfNr2NySG01BERzN8DRNZ0
+ AnyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=HoTls+/3jNNwhhK7JPnNWelIETxDTsvMuGQrUxLI1QU=;
+ fh=aDVewn9wtm+aWJrQRWZE0+nBOMbKT1ntYn7AxGKz7vM=;
+ b=JrGHXTfqvm1NnXYifVMmkVgxFpr26IFe1euxWMp4hS2a/V1lKd9FFRKApDtVWyH+QK
+ oZtwyHvyKZhS0hn/jPFROJY0qkNxoDXg1Irq7Pa2VHOc4V8WXOJAZTKk6Y6AfrPstw3I
+ lT69/Y2dc78/L5Wtm4CSxO7X/VFqymufkiOKbxpBkv3mzlhLwJYI+5AqMU1TsWahw0Z8
+ 0GXbi+oPqdUsLHtCkRm+z+ET1uCBY+KVgz/cQ7cbRV9TLKJ86agq+8kS4qoBIIUSTD7r
+ 2g6U0Ftp3BAKs28ZBFhSRlwN3PW+nHluXCs1jEWBdJZ6ns+D+OekB4pealKkQdo3Lc+T
+ Oc1w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783618493; x=1784223293; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HoTls+/3jNNwhhK7JPnNWelIETxDTsvMuGQrUxLI1QU=;
+ b=Kt7UasVBySdaVfkKSyfOJxvKjrzZ9dBUiMvrXIrTo6ee1RbDI0yu6o5ilk703zT6fI
+ xcoMYm21FYXCvBktg6mRiNyKqTZd99DvV8jIAy1zwEWAdAkh5zrRGUMp9VQrHRRpxMal
+ Z5Qx6ogftSkCA58zAlrNTBOeGxTBfBMlX6uJi1IZpK9PSCCP4BsTd4pK7qUtNE8S7WVS
+ X5GE7N4RyRoSFmjnx4E3ku8yoqXSxsUzZhY03gExG6FvQxcAokDsiDyz2/NNdlgQmWxC
+ NwXjvVEcjgvrruOK+fyH/1SYPov8ILZhKpPWGjPGKjT+i8kh2xep/k/VR6UU16z23wf1
+ mr/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783618493; x=1784223293;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=HoTls+/3jNNwhhK7JPnNWelIETxDTsvMuGQrUxLI1QU=;
+ b=EXGBTlPEbDNTpCrQzEeeeTWxnlV3ZhgRFHaQayF2X/Ht0awfqC4n80lhCOKB14uNg6
+ pRmxgdY7gWUSOMflpDf8EbP1vS+SFWSx0Skh3ugfcwBuJoCTjWGNxzLMBpTXN9/Acb0E
+ HMb9Wbuzm2P8tdZbWiOuaEe7hrFVLvSYDLJmuzKRcxSzQl+ufIc/iOPGoqiTGTPcckpC
+ NGRD10frK0WfAaS3Ytbtb08/YVRGR5urOkEipiN4vLYgyjtN+wHW4eDmyDneux+NeTbk
+ Adu+07bVkkgZT1L1029soTakaJvLxNHhUY4cT4Zo+2xDsvcPJcKHzBop8Oxv1N88NSFI
+ CBQw==
+X-Gm-Message-State: AOJu0YxjWXl1AI54PExJP+Rug6W/j5ympTk66csbA5HJ70gUVDHCmk3K
+ 7E/JEFD98RtBW50KiJQRDxZ+WSREWNbqCntCZyYUx2Rbg5lOoc75aen+vQoSqCMjVPnr5yRmAu1
+ eG3GSnfc9hWCCdpsFAUAhf/EGdV84Omv1+CABCY8=
+X-Gm-Gg: AfdE7cmZH9f6RLgOGJyJEOb0WVXEUw0UOOFF5jDs97jZY3i8TunE7hBemWBFUKxWiqN
+ X+9O+h7Z5AZBuq9G2FrS1LXKDBM6ANrga5QAs2bCFXFbl6tbVeccb/TxQFCJqXnuNi4LgONVjSN
+ Ju5jDXSqUGk0dt5QmJPwKKCLpV1NLnNJtWZfGcJ2uRs8G65ve6Xo+8VTNWhbFZjwaVW/zK85zZF
+ wNkDrGt2SO6d6hfcO+Dp8jm43JvVOhrATTFw9u5F2sRKpfpcA0vZtT0hsvo7GvnT2Jb1Gtqqw==
+X-Received: by 2002:a05:6102:424c:b0:726:e81f:f3f9 with SMTP id
+ ada2fe7eead31-744e0367abamr4896967137.15.1783618493480; Thu, 09 Jul 2026
+ 10:34:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-hpd-debounce-unify-v3-1-d7584920a242@haghiri.net>
-X-B4-Tracking: v=1; b=H4sIAPisT2oC/32OwQ6CMBBEf8X07Jp2C7V48j+MB0oXuh4KaYFoD
- P8u4M2Dx5fMvJm3yJSYsrgc3iLRzJn7uII+HkQT6tgRsF9ZoEQjz9JCGDx4cv0UG4IpcvsCW5n
- aa3N2rUSxFodELT936e3+5Ty5BzXjZtoSgfPYp9e+OqstJywZbJWuQHmjoNCawEqswCkpsazRV
- l5fQ90FTnyKNIrNPOPe/XduRlDgURVWY1kq9yNZluUD5t7H0gQBAAA=
-X-Change-ID: 20260708-hpd-debounce-unify-896ad367bf02
-In-Reply-To: <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
-References: <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
-To: Ivan Lipski <ivlipski@amd.com>, amd-gfx@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Xaver Hugl <xaver.hugl@kde.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Nick Haghiri <nick@haghiri.net>
-X-Mailer: b4 0.15.2
-X-Report-Abuse: Please forward a copy of this message, including all headers,
- to <abuse-report@smtp2go.com>
-Feedback-ID: 670074m:670074aX29xAY:670074sBNMa2YpOp
-X-smtpcorp-track: jHBCa9a-cdb1.lR1Ymw1mmIqN.mv0FhwSVKs2
+From: Andriy Korud <a.korud@gmail.com>
+Date: Thu, 9 Jul 2026 19:34:41 +0200
+X-Gm-Features: AUfX_mxcky_ruoxBYkY3q96T0DwdPSRMhA5FTxEHqjS75bvh7qTH869YkOzzMag
+Message-ID: <CAOidqQCv-M7oHt9jMMGo2LvhGyXDfNwjfeP+2tASOvg+yRF9mg@mail.gmail.com>
+Subject: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream encoders
+ for DP MST
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, mario.limonciello@amd.com
+Content-Type: multipart/mixed; boundary="000000000000b81cc10656310ae3"
 X-Mailman-Approved-At: Fri, 10 Jul 2026 07:19:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,366 +97,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Per review feedback on the DP SST debounce extension, fold
-hdmi_hpd_debounce_delay_ms and dp_hpd_debounce_delay_ms into a single
-hpd_debounce_delay_ms module parameter (eDP and MST still excluded),
-and rename the shared connector fields, work, and cached sink from
-hdmi_* to generic hpd_*. Also extend eligibility to DVI, which shares
-the same HPD toggle behavior and has no MST/eDP variants to exclude.
+--000000000000b81cc10656310ae3
+Content-Type: multipart/alternative; boundary="000000000000b81cc00656310ae1"
 
-Also add an apply_edid_quirks() case for the MSI MPG 274U
-(drm_edid_encode_panel_id('M', 'S', 'I', 0x3CF0)) that enables a
-1500ms default debounce delay for that panel, overridable by the
-module parameter.
+--000000000000b81cc00656310ae1
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Nick Haghiri <nick@haghiri.net>
----
-Ivan, generalized to a single hpd_debounce_delay_ms for both HDMI and
-DP SST as suggested, and added the apply_edid_quirks() case for the
-MSI MPG 274U (1500ms default, module param still overrides it).
+Hi,
+On DCE8-class ASICs (e.g. Bonaire), the resource pool contains digital DIG
+stream encoders plus one analog DAC encoder. When assigning a stream
+encoder for a second DisplayPort MST stream, if the preferred digital
+encoder is already acquired,
+dce100_find_first_free_match_stream_enc_for_link() falls back to the first
+free pool entry. That entry may be the analog encoder, whose funcs table
+lacks DP hooks such as dp_set_stream_attribute. The subsequent atomic
+commit then dereferences NULL function pointers in link_set_dpms_on() and
+crashes.
 
-Went with replacing hdmi_hpd_debounce_delay_ms rather than keeping a
-back-compat alias, since it's only a couple cycles old. Shout if you'd
-rather I keep the alias.
+Skip encoders without dp_set_stream_attribute when the stream uses a DP
+signal (including MST). Use dc_is_dp_signal(stream->signal) for the MST
+fallback path instead of checking only the link connector signal.
 
-Alex, done. debounce_eligible now also checks dc_is_dvi_signal(),
-reusing the same hpd_debounce_delay_ms param. Updated text and
-comments to reflect scope now being HDMI, DVI, and DP.
----
-Changes in v3:
-- Extend HPD debounce eligibility to DVI (dc_is_dvi_signal()), per Alex
-- Update comments/docs to reflect HDMI/DVI/DP SST scope
-- Link to v2: https://patch.msgid.link/20260708-hpd-debounce-unify-v2-1-d214832551b3@haghiri.net
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 26 ++-------
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  | 18 ++----
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 29 +++-------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  8 +++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 65 +++++++++++-----------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h  |  2 +-
- 7 files changed, 64 insertions(+), 87 deletions(-)
+Tested on:
+- GPU: AMD Radeon R7 260X (Bonaire / DCE8)
+- Board: Supermicro C9X299-PG300
+- Setup: DP MST daisy chain, either hotplug second monitor or have it
+connected on boot
+- Kernel: 7.1.3 (issue observed since 6.19)
+- Result: kernel oops without patch; dual monitors stable with patch
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index c085a6cc1..af1748984 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -270,8 +270,7 @@ extern int amdgpu_wbrf;
- extern int amdgpu_user_queue;
- extern int amdgpu_ptl;
- 
--extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
--extern uint amdgpu_dp_hpd_debounce_delay_ms;
-+extern uint amdgpu_hpd_debounce_delay_ms;
- 
- #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
- #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 78df53b8c..a82d807f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -245,8 +245,7 @@ int amdgpu_damage_clips = -1; /* auto */
- int amdgpu_umsch_mm_fwlog;
- int amdgpu_rebar = -1; /* auto */
- int amdgpu_user_queue = -1;
--uint amdgpu_hdmi_hpd_debounce_delay_ms;
--uint amdgpu_dp_hpd_debounce_delay_ms;
-+uint amdgpu_hpd_debounce_delay_ms;
- int amdgpu_ptl = -1; /* auto */
- 
- DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
-@@ -1105,25 +1104,12 @@ MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disab
- module_param_named(user_queue, amdgpu_user_queue, int, 0444);
- 
- /*
-- * DOC: hdmi_hpd_debounce_delay_ms (uint)
-- * HDMI HPD disconnect debounce delay in milliseconds.
-- *
-- * Used to filter short disconnect->reconnect HPD toggles some HDMI sinks
-- * generate while entering/leaving power save. Set to 0 to disable by default.
-- */
--MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
--module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
--
--/*
-- * DOC: dp_hpd_debounce_delay_ms (uint)
-- * DisplayPort SST HPD disconnect debounce delay in milliseconds.
-- *
-- * Used to filter short disconnect->reconnect HPD toggles some DisplayPort SST
-- * sinks generate while entering/leaving power save. Set to 0 to disable by
-- * default. eDP and MST are not affected.
-+ * DOC: hpd_debounce_delay_ms (uint)
-+ * HDMI/DVI/DP SST HPD disconnect debounce delay in milliseconds. eDP and MST
-+ * are not affected. Overrides any per-panel default set via EDID quirks.
-  */
--MODULE_PARM_DESC(dp_hpd_debounce_delay_ms, "DisplayPort SST HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
--module_param_named(dp_hpd_debounce_delay_ms, amdgpu_dp_hpd_debounce_delay_ms, uint, 0644);
-+MODULE_PARM_DESC(hpd_debounce_delay_ms, "HDMI/DVI/DP SST HPD disconnect debounce delay in milliseconds (0 to disable (by default) or use the EDID quirk default, 1500 is common)");
-+module_param_named(hpd_debounce_delay_ms, amdgpu_hpd_debounce_delay_ms, uint, 0644);
- 
- /**
-  * DOC: ptl (int)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index abc17f547..5235a5ef6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -61,14 +61,9 @@ enum amd_vsdb_panel_type {
- #define AMDGPU_HDR_MULT_DEFAULT (0x100000000LL)
- 
- /*
-- * Maximum HDMI HPD debounce delay in milliseconds
-+ * Maximum HDMI/DVI/DP SST HPD debounce delay in milliseconds
-  */
--#define AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS 5000
--
--/*
-- * Maximum DisplayPort SST HPD debounce delay in milliseconds
-- */
--#define AMDGPU_DM_MAX_DP_HPD_DEBOUNCE_MS 5000
-+#define AMDGPU_DM_MAX_HPD_DEBOUNCE_MS 5000
- /*
- #include "include/amdgpu_dal_power_if.h"
- #include "amdgpu_dm_irq.h"
-@@ -878,11 +873,10 @@ struct amdgpu_dm_connector {
- 	enum adaptive_sync_type as_type;
- 	struct amdgpu_hdmi_vsdb_info vsdb_info;
- 
--	/* HDMI HPD debounce support */
--	unsigned int hdmi_hpd_debounce_delay_ms;
--	unsigned int dp_hpd_debounce_delay_ms;
--	struct delayed_work hdmi_hpd_debounce_work;
--	struct dc_sink *hdmi_prev_sink;
-+	/* HDMI/DVI/DP SST HPD debounce support */
-+	unsigned int hpd_debounce_delay_ms;
-+	struct delayed_work hpd_debounce_work;
-+	struct dc_sink *hpd_prev_sink;
- 
- 	/* HDMI compliance automation */
- 	bool hdmi_comp_auto;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index c79a8ada8..798825ec1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1748,12 +1748,10 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
- 		drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
- 
- 	/* Cancel and flush any pending HPD debounce work */
--	if (aconnector->hdmi_hpd_debounce_delay_ms || aconnector->dp_hpd_debounce_delay_ms) {
--		cancel_delayed_work_sync(&aconnector->hdmi_hpd_debounce_work);
--		if (aconnector->hdmi_prev_sink) {
--			dc_sink_release(aconnector->hdmi_prev_sink);
--			aconnector->hdmi_prev_sink = NULL;
--		}
-+	cancel_delayed_work_sync(&aconnector->hpd_debounce_work);
-+	if (aconnector->hpd_prev_sink) {
-+		dc_sink_release(aconnector->hpd_prev_sink);
-+		aconnector->hpd_prev_sink = NULL;
- 	}
- 
- 	if (aconnector->bl_idx != -1) {
-@@ -2828,20 +2826,11 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	mutex_init(&aconnector->hpd_lock);
- 	mutex_init(&aconnector->handle_mst_msg_ready);
- 
--	/*
--	 * If an HPD debounce delay is set, clamp each signal's delay to its
--	 * maximum. The debounce work and cached sink are shared by both the
--	 * HDMI and DisplayPort SST paths.
--	 */
--	aconnector->hdmi_hpd_debounce_delay_ms = amdgpu_hdmi_hpd_debounce_delay_ms ?
--		min(amdgpu_hdmi_hpd_debounce_delay_ms, AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS) : 0;
--	aconnector->dp_hpd_debounce_delay_ms = amdgpu_dp_hpd_debounce_delay_ms ?
--		min(amdgpu_dp_hpd_debounce_delay_ms, AMDGPU_DM_MAX_DP_HPD_DEBOUNCE_MS) : 0;
--
--	if (aconnector->hdmi_hpd_debounce_delay_ms || aconnector->dp_hpd_debounce_delay_ms) {
--		INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, amdgpu_dm_hdmi_hpd_debounce_work);
--		aconnector->hdmi_prev_sink = NULL;
--	}
-+	/* May be overridden later by an EDID quirk in apply_edid_quirks() */
-+	aconnector->hpd_debounce_delay_ms = amdgpu_hpd_debounce_delay_ms ?
-+		min(amdgpu_hpd_debounce_delay_ms, AMDGPU_DM_MAX_HPD_DEBOUNCE_MS) : 0;
-+	aconnector->hpd_prev_sink = NULL;
-+	INIT_DELAYED_WORK(&aconnector->hpd_debounce_work, amdgpu_dm_hpd_debounce_work);
- 
- 	dm->hdmi_frl_status_polling_delay_ms = 200;
- 	INIT_DELAYED_WORK(&dm->hdmi_frl_status_polling_work, hdmi_frl_status_polling_work);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 9c4e0a4e2..71c897416 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -137,6 +137,14 @@ static void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 		drm_dbg_driver(dev, "Skip PHY SSC reduction on panel id %X\n", panel_id);
- 		link->wa_flags.skip_phy_ssc_reduction = true;
- 		break;
-+	/* Workaround for monitors that toggle HPD on entering deep sleep */
-+	case drm_edid_encode_panel_id('M', 'S', 'I', 0x3CF0):
-+		if (!aconnector->hpd_debounce_delay_ms) {
-+			drm_dbg_driver(dev, "Enabling HPD debounce on panel id %X\n", panel_id);
-+			aconnector->hpd_debounce_delay_ms =
-+				min(1500U, AMDGPU_DM_MAX_HPD_DEBOUNCE_MS);
-+		}
-+		break;
- 	default:
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 2a732d19b..151db9893 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -1217,13 +1217,13 @@ EXPORT_IF_KUNIT(are_sinks_equal);
- 
- 
- /**
-- * DOC: amdgpu_dm_hdmi_hpd_debounce_work
-+ * DOC: amdgpu_dm_hpd_debounce_work
-  *
-- * HDMI HPD debounce delay in milliseconds. When an HDMI display toggles HPD
-+ * HDMI/DVI/DP SST HPD debounce delay in milliseconds. When a display toggles HPD
-  * (such as during power save transitions), this delay determines how long to
-  * wait before processing the HPD event. This allows distinguishing between a
-- * physical unplug (>hdmi_hpd_debounce_delay)
-- * and a spontaneous RX HPD toggle (<hdmi_hpd_debounce_delay).
-+ * physical unplug (>hpd_debounce_delay)
-+ * and a spontaneous RX HPD toggle (<hpd_debounce_delay).
-  *
-  * If the toggle is less than this delay, the driver compares sink capabilities
-  * and permits a hotplug event if they changed.
-@@ -1231,11 +1231,11 @@ EXPORT_IF_KUNIT(are_sinks_equal);
-  * The default value of 1500ms was chosen based on experimental testing with
-  * various monitors that exhibit spontaneous HPD toggling behavior.
-  */
--void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
-+void amdgpu_dm_hpd_debounce_work(struct work_struct *work)
- {
- 	struct amdgpu_dm_connector *aconnector =
- 		container_of(to_delayed_work(work), struct amdgpu_dm_connector,
--			     hdmi_hpd_debounce_work);
-+			     hpd_debounce_work);
- 	struct drm_connector *connector = &aconnector->base;
- 	struct drm_device *dev = connector->dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
-@@ -1259,11 +1259,12 @@ void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
- 		/* Apply workaround delay for certain panels */
- 		amdgpu_dm_apply_delay_after_dpcd_poweroff(adev, aconnector->dc_sink);
- 		/* Compare sinks to determine if this was a spontaneous HPD toggle */
--		if (are_sinks_equal(aconnector->dc_link->local_sink, aconnector->hdmi_prev_sink)) {
-+		if (are_sinks_equal(aconnector->dc_link->local_sink, aconnector->hpd_prev_sink)) {
- 			/*
--			 * Sinks match - this was a spontaneous HDMI HPD toggle.
-+			 * Sinks match - this was a spontaneous HPD toggle.
- 			 */
--			drm_dbg_kms(dev, "HDMI HPD: Sink unchanged after debounce, internal re-enable\n");
-+			drm_dbg_kms(dev,
-+				    "HPD: Sink unchanged after debounce, internal re-enable\n");
- 			fake_reconnect = true;
- 		}
- 
-@@ -1280,9 +1281,9 @@ void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
- 	}
- 
- 	/* Release the cached sink reference */
--	if (aconnector->hdmi_prev_sink) {
--		dc_sink_release(aconnector->hdmi_prev_sink);
--		aconnector->hdmi_prev_sink = NULL;
-+	if (aconnector->hpd_prev_sink) {
-+		dc_sink_release(aconnector->hpd_prev_sink);
-+		aconnector->hpd_prev_sink = NULL;
- 	}
- 
- 	scoped_guard(mutex, &adev->dm.dc_lock) {
-@@ -1302,7 +1303,7 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
- 	struct dc *dc = aconnector->dc_link->ctx->dc;
- 	bool ret = false;
- 	bool debounce_required = false;
--	unsigned int debounce_delay_ms = 0;
-+	bool debounce_eligible;
- 
- 	if (adev->dm.disable_hpd_irq)
- 		return;
-@@ -1326,16 +1327,16 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
- 		drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
- 
- 	/*
--	 * Check for an HDMI or DisplayPort SST disconnect with debounce
--	 * enabled. eDP and MST are intentionally excluded.
-+	 * Check for an HDMI, DVI, or DisplayPort SST disconnect with
-+	 * debounce enabled. eDP and MST are intentionally excluded.
- 	 */
--	if (dc_is_hdmi_signal(aconnector->dc_link->connector_signal))
--		debounce_delay_ms = aconnector->hdmi_hpd_debounce_delay_ms;
--	else if (aconnector->dc_link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
--		 aconnector->dc_link->type != dc_connection_mst_branch)
--		debounce_delay_ms = aconnector->dp_hpd_debounce_delay_ms;
-+	debounce_eligible = dc_is_hdmi_signal(aconnector->dc_link->connector_signal) ||
-+			     dc_is_dvi_signal(aconnector->dc_link->connector_signal) ||
-+			     (aconnector->dc_link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
-+			      aconnector->dc_link->type != dc_connection_mst_branch);
- 
--	debounce_required = (debounce_delay_ms > 0 &&
-+	debounce_required = (debounce_eligible &&
-+			      aconnector->hpd_debounce_delay_ms > 0 &&
- 			      new_connection_type == dc_connection_none &&
- 			      aconnector->dc_link->local_sink != NULL);
- 
-@@ -1353,28 +1354,28 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
- 		/*
- 		 * Disconnect detected - schedule delayed work instead of
- 		 * processing immediately. This allows us to coalesce spurious
--		 * HDMI/DP HPD signals from physical unplugs.
-+		 * HDMI/DVI/DP HPD signals from physical unplugs.
- 		 */
- 		drm_dbg_kms(dev, "HPD: Disconnect detected, scheduling debounce work (%u ms)\n",
--			    debounce_delay_ms);
-+			    aconnector->hpd_debounce_delay_ms);
- 
- 		/* Cache the current sink for later comparison */
--		if (aconnector->hdmi_prev_sink)
--			dc_sink_release(aconnector->hdmi_prev_sink);
--		aconnector->hdmi_prev_sink = aconnector->dc_link->local_sink;
--		if (aconnector->hdmi_prev_sink)
--			dc_sink_retain(aconnector->hdmi_prev_sink);
-+		if (aconnector->hpd_prev_sink)
-+			dc_sink_release(aconnector->hpd_prev_sink);
-+		aconnector->hpd_prev_sink = aconnector->dc_link->local_sink;
-+		if (aconnector->hpd_prev_sink)
-+			dc_sink_retain(aconnector->hpd_prev_sink);
- 
- 		/* Schedule delayed detection. */
- 		if (mod_delayed_work(system_percpu_wq,
--				 &aconnector->hdmi_hpd_debounce_work,
--				 msecs_to_jiffies(debounce_delay_ms)))
-+				 &aconnector->hpd_debounce_work,
-+				 msecs_to_jiffies(aconnector->hpd_debounce_delay_ms)))
- 			drm_dbg_kms(dev, "HPD: Re-scheduled debounce work\n");
- 
- 	} else {
- 
--		/* If the aconnector->hdmi_hpd_debounce_work is scheduled, exit early */
--		if (delayed_work_pending(&aconnector->hdmi_hpd_debounce_work))
-+		/* If the aconnector->hpd_debounce_work is scheduled, exit early */
-+		if (delayed_work_pending(&aconnector->hpd_debounce_work))
- 			return;
- 
- 		scoped_guard(mutex, &adev->dm.dc_lock) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-index bccb5d354..66fb82961 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-@@ -113,7 +113,7 @@ void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev);
- struct hpd_rx_irq_offload_work_queue *amdgpu_dm_hpd_rx_irq_create_workqueue(struct amdgpu_device *adev);
- void amdgpu_dm_hpd_rx_irq_work_suspend(struct amdgpu_display_manager *dm);
- int amdgpu_dm_register_hpd_handlers(struct amdgpu_device *adev);
--void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work);
-+void amdgpu_dm_hpd_debounce_work(struct work_struct *work);
- 
- /* IRQ handlers */
- struct amdgpu_crtc *amdgpu_dm_get_crtc_by_otg_inst(struct amdgpu_device *adev,
+Thanks,
+Andriy Korud
 
----
-base-commit: c92b5b607c1c8ab786fccf03d62352b82f6539ae
-change-id: 20260708-hpd-debounce-unify-896ad367bf02
+--000000000000b81cc00656310ae1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
---  
-Nick Haghiri <nick@haghiri.net>
+<div dir=3D"ltr">Hi,<br>On DCE8-class ASICs (e.g. Bonaire), the resource po=
+ol contains digital DIG stream encoders plus one analog DAC encoder. When a=
+ssigning a stream encoder for a second DisplayPort MST stream, if the prefe=
+rred digital encoder is already acquired, dce100_find_first_free_match_stre=
+am_enc_for_link() falls back to the first free pool entry. That entry may b=
+e the analog encoder, whose funcs table lacks DP hooks such as dp_set_strea=
+m_attribute. The subsequent atomic commit then dereferences NULL function p=
+ointers in link_set_dpms_on() and crashes.<div><br></div>Skip encoders with=
+out dp_set_stream_attribute when the stream uses a DP signal (including MST=
+). Use dc_is_dp_signal(stream-&gt;signal) for the MST fallback path instead=
+ of checking only the link connector signal.<br><div><br></div><div>Tested =
+on:</div>- GPU: AMD Radeon R7 260X (Bonaire / DCE8)<br>- Board: Supermicro =
+C9X299-PG300<br>- Setup: DP MST daisy chain, either hotplug second monitor =
+or have it connected on boot<br>- Kernel: 7.1.3 (issue observed since 6.19)=
+<br>- Result: kernel oops without patch; dual monitors stable with patch<br=
+><div><br></div><div>Thanks,</div>Andriy Korud</div>
 
+--000000000000b81cc00656310ae1--
+
+--000000000000b81cc10656310ae3
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-drm-amd-display-dce100-skip-non-DP-stream-encoders-f.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amd-display-dce100-skip-non-DP-stream-encoders-f.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mrds9t8b0>
+X-Attachment-Id: f_mrds9t8b0
+
+RnJvbSBkNzcxNzhmZTZmMmNiZjU0ZjZiZThjMWUzYzQ5MTA4ODQ5ZTUzZWJhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbmRyaXkgS29ydWQgPGEua29ydWRAZ21haWwuY29tPgpEYXRl
+OiBUaHUsIDkgSnVsIDIwMjYgMTk6Mjc6MzQgKzAyMDAKU3ViamVjdDogW1BBVENIIGRybS1hbWRd
+IGRybS9hbWQvZGlzcGxheTogZGNlMTAwOiBza2lwIG5vbi1EUCBzdHJlYW0gZW5jb2RlcnMKIGZv
+ciBEUCBNU1QgT24gRENFOC1jbGFzcyBBU0lDcyAoZS5nLiBCb25haXJlKSwgdGhlIHJlc291cmNl
+IHBvb2wgY29udGFpbnMKIGRpZ2l0YWwgRElHIHN0cmVhbSBlbmNvZGVycyBwbHVzIG9uZSBhbmFs
+b2cgREFDIGVuY29kZXIuIFdoZW4gYXNzaWduaW5nIGFuCiBlbmNvZGVyIGZvciBhIHNlY29uZCBE
+aXNwbGF5UG9ydCBNU1Qgc3RyZWFtLCBpZiB0aGUgcHJlZmVycmVkIGRpZ2l0YWwgZW5jb2Rlcgog
+aXMgYWxyZWFkeSBhY3F1aXJlZCwgZGNlMTAwX2ZpbmRfZmlyc3RfZnJlZV9tYXRjaF9zdHJlYW1f
+ZW5jX2Zvcl9saW5rKCkgZmFsbHMKIGJhY2sgdG8gdGhlIGZpcnN0IGZyZWUgcG9vbCBlbnRyeS4g
+VGhhdCBlbnRyeSBtYXkgYmUgdGhlIGFuYWxvZyBlbmNvZGVyLAogd2hvc2UgZnVuY3MgdGFibGUg
+bGFja3MgRFAgaG9va3MgKGRwX3NldF9zdHJlYW1fYXR0cmlidXRlLCBldGMuKS4gVGhlCiBzdWJz
+ZXF1ZW50IGF0b21pYyBjb21taXQgdGhlbiBkZXJlZmVyZW5jZXMgTlVMTCBmdW5jdGlvbiBwb2lu
+dGVycyBpbgogbGlua19zZXRfZHBtc19vbigpIGFuZCBjcmFzaGVzLiBTa2lwIGVuY29kZXJzIHdp
+dGhvdXQgZHBfc2V0X3N0cmVhbV9hdHRyaWJ1dGUKIHdoZW4gdGhlIHN0cmVhbSB1c2VzIGEgRFAg
+c2lnbmFsIChpbmNsdWRpbmcgTVNUKS4gVXNlCiBkY19pc19kcF9zaWduYWwoc3RyZWFtLT5zaWdu
+YWwpIGZvciB0aGUgTVNUIGZhbGxiYWNrIHBhdGggaW5zdGVhZCBvZiBjaGVja2luZwogb25seSB0
+aGUgbGluayBjb25uZWN0b3Igc2lnbmFsLiBSZXByb2R1Y2VkIG9uIFJhZGVvbiBSNyAyNjBYIChC
+b25haXJlKSB3aXRoCiBEUCBNU1QgaG90cGx1ZyBvZiBhIHNlY29uZCBtb25pdG9yIG9uIExpbnV4
+IDYuMTkrLgoKU2lnbmVkLW9mZi1ieTogQW5kcml5IEtvcnVkIDxhLmtvcnVkQGZhbGNvbnZzeXN0
+ZW1zLmNvbT4KLS0tCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTEwMC9kY2Ux
+MDBfcmVzb3VyY2UuYyB8IDkgKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL3Jlc291cmNlL2RjZTEwMC9kY2UxMDBfcmVzb3VyY2UuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2UxMDAvZGNlMTAwX3Jlc291cmNlLmMKaW5kZXgg
+YjkyZDRmMzc4ZDYwLi5iZWFmMmU2NTQ2NzIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9yZXNvdXJjZS9kY2UxMDAvZGNlMTAwX3Jlc291cmNlLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL3Jlc291cmNlL2RjZTEwMC9kY2UxMDBfcmVzb3Vy
+Y2UuYwpAQCAtMjksNiArMjksNyBAQAogI2luY2x1ZGUgInN0cmVhbV9lbmNvZGVyLmgiCiAKICNp
+bmNsdWRlICJyZXNvdXJjZS5oIgorI2luY2x1ZGUgInNpZ25hbF90eXBlcy5oIgogI2luY2x1ZGUg
+ImNsa19tZ3IuaCIKICNpbmNsdWRlICJpbmNsdWRlL2lycV9zZXJ2aWNlX2ludGVyZmFjZS5oIgog
+I2luY2x1ZGUgImRpby92aXJ0dWFsL3ZpcnR1YWxfc3RyZWFtX2VuY29kZXIuaCIKQEAgLTk5Miw2
+ICs5OTMsMTIgQEAgc3RydWN0IHN0cmVhbV9lbmNvZGVyICpkY2UxMDBfZmluZF9maXJzdF9mcmVl
+X21hdGNoX3N0cmVhbV9lbmNfZm9yX2xpbmsoCiAJZm9yIChpID0gMDsgaSA8IHBvb2wtPnN0cmVh
+bV9lbmNfY291bnQ7IGkrKykgewogCQlpZiAoIXJlc19jdHgtPmlzX3N0cmVhbV9lbmNfYWNxdWly
+ZWRbaV0gJiYKIAkJCQlwb29sLT5zdHJlYW1fZW5jW2ldKSB7CisJCQkvKiBEUC9NU1QgbmVlZHMg
+YSBkaWdpdGFsIGVuY29kZXI7IHNraXAgYW5hbG9nL25vLURQIGVuY29kZXJzICovCisJCQlpZiAo
+ZGNfaXNfZHBfc2lnbmFsKHN0cmVhbS0+c2lnbmFsKSAmJgorCQkJICAgICghcG9vbC0+c3RyZWFt
+X2VuY1tpXS0+ZnVuY3MgfHwKKwkJCSAgICAgIXBvb2wtPnN0cmVhbV9lbmNbaV0tPmZ1bmNzLT5k
+cF9zZXRfc3RyZWFtX2F0dHJpYnV0ZSkpCisJCQkJY29udGludWU7CisKIAkJCS8qIFN0b3JlIGZp
+cnN0IGF2YWlsYWJsZSBmb3IgTVNUIHNlY29uZCBkaXNwbGF5CiAJCQkgKiBpbiBkYWlzeSBjaGFp
+biB1c2UgY2FzZQogCQkJICovCkBAIC0xMDE0LDcgKzEwMjEsNyBAQCBzdHJ1Y3Qgc3RyZWFtX2Vu
+Y29kZXIgKmRjZTEwMF9maW5kX2ZpcnN0X2ZyZWVfbWF0Y2hfc3RyZWFtX2VuY19mb3JfbGluaygK
+IAkgKiByZXF1aXJlZCBmb3Igbm9uIERQIGNvbm5lY3RvcnMuCiAJICovCiAKLQlpZiAoaiA+PSAw
+ICYmIGxpbmstPmNvbm5lY3Rvcl9zaWduYWwgPT0gU0lHTkFMX1RZUEVfRElTUExBWV9QT1JUKQor
+CWlmIChqID49IDAgJiYgZGNfaXNfZHBfc2lnbmFsKHN0cmVhbS0+c2lnbmFsKSkKIAkJcmV0dXJu
+IHBvb2wtPnN0cmVhbV9lbmNbal07CiAKIAlyZXR1cm4gTlVMTDsKLS0gCjIuNTUuMAoK
+--000000000000b81cc10656310ae3--
