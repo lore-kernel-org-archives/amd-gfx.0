@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98913C4450A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2359C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F3910F71B;
-	Thu,  9 Jul 2026 21:03:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D11A10F701;
+	Thu,  9 Jul 2026 21:03:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="einbd/60";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ktpzpROk";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012055.outbound.protection.outlook.com [40.107.209.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F171710F6FF
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:47 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011058.outbound.protection.outlook.com
+ [40.93.194.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5596210F70C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m7CN916hsnbHOu0pTiDFelrCncEb9wPy95GGX/rEIi339Y4Z0Qtwh8StxoA1komtiPdfDWN17VwuxE3eYhTM/vSg4aILrPal6DU2hKrK0ArF2eXfAEil/QL6bqyLJaF57Di6+R2Xn/OPUeydVmpPZlf4Xt+12xFJ81TQm0OqQaLQuYywPvbcH98uy/SaPXEcPYGrzBoFXvjB+6+ACn7XMkHxxyL+dAWV7KiIPKclOkx7Fiu9WcT3v5v6yJqsJg9SyteVZun6NYYDep3nfsEsORUYzMv+3MIZKQ8JGh89fnj3wBeNNzOQwNVrU08fh0U+S2ogm60Q9hyqJJPqIBmCIg==
+ b=hZp9OWQ1Wnrkv+8gwE7U8MbcaiRpUJpQD98x5Be3eo2kFCbzBUJYd2ikTJOvYlyaZlv8pDMwstV8Hx0Cs1apqBAsnnhGmGQVaXZsFXZ3s22GPSSU3sWSWjNxGMr1QYGivFYPHmFexsZhMrQAzb65d0Wesug6+uRTuFHC0pZ2GahjQ6RON3KEL7OJ7HpemCLVzuSJ6Dte+I3jk/CHcXp+nQdr7zf7n6SSNxTzda/uBMIrCbhzAYjFmKK/0/oIla10Dmx87SsI3OAwkuOE8v9BDJBDxuZ+AxuBeQElR3qpN19tNYsdZE1r9j4CH43oU+v91wUZskBakMGNdHKr6d6FkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6B2lGsKFpvuYl8+O66Jon0KjGJ1mttJ7r8Gb1W7YpgA=;
- b=GaW9AqzpeWmS00nJlKp/IYDAN10o4HS77SoSeCZXioozQIy/aw3PVwrqpBc5lRPdYY3UhvA1ZoJTBMittIi8Ev1SZCBkCKKrmifZx7XchoLa0ffCiosfnQV8LGstNsqLEzF+fVBN5SCq2ceF3FCNtF0LZ8D5u1bIZJK5pU8UyZ5JDNHnNz9u6JXJ2tW7jYbSegbcb9Xe0pGkl7xclNNhglslzgY2tkv24LzC36fGI2b062TMFt6fvecvHAJXSIEDuLeco+o+jVtGxU9KMHJnpvfyMwUbWHtMWzRJmseQFSLuNExx1ut7fnxNp5QzZG1ivFxGZ2SLQ/LxwkoYMKhtww==
+ bh=93SvPCK6tpvQYPRoo5gMQ819IwuKm00ZmAc4eLf3TU0=;
+ b=fFUibhE0PAY5LCPQqcunst46ZumG7ZEIRK5Vo2svPc3I4ny/bbSBXo9hZL/bgqIdzVcDaFZMGyUYU0vQmLn2AtsUy8GOb8XZJFZTIknhiepudAE0+mCx05Vi0oYoI5UdvKQhcgBS0v9dasBHb+KSqruqXhISQYOs2YitvvidWvfLx6tRVsKlvyvU2BCeAfSIwdqu0e33hoShDZuoS+6xGmksmFJAkmaPgXMhk4n+6dCNfFsvOqbhsUMO2oAKMX+E7HSZQ2X7wvi0EvclwpEgPhhwADTk0+YlynEdPcOBfIOUoYLYNE1HumsqwQg6/U8slgX2rwFyn+zuPTJf0zrp1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6B2lGsKFpvuYl8+O66Jon0KjGJ1mttJ7r8Gb1W7YpgA=;
- b=einbd/60Y5rJdYQcm6xBeglzvYaYAajuC2vZpq8wKY2TFiHhKj8tu0nEEVRH9g7xddGkqCVeLCYKbId0pnp6WPy3tIvDysGTnHICfphGnemz1b31dyG0oxNytgzZFtOoKrSJF5CDDhzQjYIiSSekzyxdGqWOTkW49YlPv72oYwM=
-Received: from MN2PR07CA0002.namprd07.prod.outlook.com (2603:10b6:208:1a0::12)
- by CY5PR12MB6381.namprd12.prod.outlook.com (2603:10b6:930:3f::18)
+ bh=93SvPCK6tpvQYPRoo5gMQ819IwuKm00ZmAc4eLf3TU0=;
+ b=ktpzpROkAQMJWJUFQFtReqoQ4k2PkdoGKahiSFlbS78gT6yTZldJYat866oXFY8QYzhzt5llBbVWT9F2TlvY5shcut65QgBECMvhe4bN7+IcSU/qWl/DtzBvgr7jOkjZ0LJKqlDlVkH6/25Bgf5LFiYk0BrYDzapTG8tpwtED3o=
+Received: from BL1P223CA0034.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::16)
+ by MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Thu, 9 Jul
- 2026 21:02:35 +0000
-Received: from BL02EPF0001A0FC.namprd03.prod.outlook.com
- (2603:10b6:208:1a0:cafe::1e) by MN2PR07CA0002.outlook.office365.com
- (2603:10b6:208:1a0::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 21:02:39 +0000
+Received: from BL02EPF0001A0FB.namprd03.prod.outlook.com
+ (2603:10b6:208:5b6:cafe::5c) by BL1P223CA0034.outlook.office365.com
+ (2603:10b6:208:5b6::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
- Jul 2026 21:02:35 +0000
+ Jul 2026 21:02:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A0FC.mail.protection.outlook.com (10.167.242.103) with Microsoft
+ BL02EPF0001A0FB.mail.protection.outlook.com (10.167.242.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:35 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:39 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 16:02:23 -0500
+ 2026 16:02:35 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 62/80] drm/amd/display: Test backlight level programming path
-Date: Thu, 9 Jul 2026 16:48:30 -0400
-Message-ID: <20260709205936.5719-63-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Leo Chen
+ <leo.chen@amd.com>, George Zhang <george.zhang@amd.com>
+Subject: [PATCH 77/80] drm/amd/display: add DST_Y_DELTA_DRQ_LIMIT reg macro
+ for later use
+Date: Thu, 9 Jul 2026 16:48:45 -0400
+Message-ID: <20260709205936.5719-78-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709205936.5719-1-george.zhang@amd.com>
 References: <20260709205936.5719-1-george.zhang@amd.com>
@@ -79,29 +81,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FC:EE_|CY5PR12MB6381:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69648909-a110-4618-9ad8-08deddfd66df
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FB:EE_|MN0PR12MB6293:EE_
+X-MS-Office365-Filtering-Correlation-Id: f05e5275-5f2e-41a7-9aca-08deddfd6967
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: jcgGdkIOEJMRRGaoTbdUonz0zT0K8k2nBxPKBjwVlUNszW0KvnsKrN9LrFQ23qZdGpj5HJKl0mCX2oJz3rshPvpriHDscuGknlTvuW59xTbaWeLI9gnLV73YKFnkjBQ/WG3S/LqWaGBnialYVFC0FKwSvk9tZiInmS8Ze7j/gCQyDR7EReoBAg7Wdkwnkbzx1ylLVxW8QhVYshmF4AbAPBvYL0WPH5AiHBvvIvdmqJnr7/Q3IkRMcTB2ME0X0fsi8cY1+/ggwQc4o6lc4j3ub2R70+gQhVk2v/C5r7n5Ebrx61LD5A4v8N7rjxvkWClgGTicPmZWpl6DU45A1T89YLDW7VJ+AUdFcCmYkGkkLUV3xXQfxx9wpjw0E2MAOY37iKQkur1qEgz46LyuEXF9PGl87RgHNd3bw6MZMdVxfpLKc3949O279h5xl0SY5ceIoT/jc2yQFR/vrJ8TRfTHbNXpVXhhTEA8cfbPQrn3wwkVWuFVTDUwOV62IRKNBKLWkgSqRWUOPJpgAwjjDrvGOlZfGd4Y5jUAG4nPSR+jQhZgfPOVHaT4TXdZ6NZYpdjWXcgE5JtigoT7MkPAYClMsqyBEX+j9p2+4Dde2EQuv/BzhF90KBLIo4IGd9YhzlLjUeqnyXCXuVNdm4bPKWQyTQdgpwzDp0fRAgQcxMA5LFV7MXOrfqWeYBDtwpE9d/yRPlAGvsaVda90zULCglSMsQ==
+ ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: +AyRK0TxNhUH6Jweah5nz6OTRmkUnswNrf/cvZrJwzmMEiS0zxrp5aoiCyGtL8YK8JLHTtcIvl6/naXko6wERx+icPwMeM6a7QtQOJhbLKfHLzfWTLx/DXv6GuULXr8jUnsickWqXB03dmnTk+WV2+tGDjR0rsFlh3tQ7hzifj9DbaftiOlOgbyubCXhoSgMEW2QDL51/p09AvoVyFCot2PpWNoofvASEIBfocm3qojtXfUgS9STJmRNCtkB0ou/7qhO38hk2g3xfDFMe7BxYb7dCUBj/pEA7/tUJ6uf3BRwaUsYRYpkpUUGwp1nY/+ZJvM5Wb4wUYdrJtlHFFC+g2ekVqo/VIuQC1E+VMUWirVspj2UKuyGLifnejTcue3fbpOuiN8mkh88Q+O7+DFPl9AAsFZNAS8m8+KN7Www0jkEqrl1Y6INKeD4NOzOAoZVvlx5W0Bw7cgzmuHpHhvdCgHMJGaQUf+j5in3YY+fJrJZ7pmVInjyvcpIzeOCgbNKanjNILAZknAX9M2RdDxi0LFvmEUk2rxXznV7HFpAmaKD0CcosBHN5f9aY65OR4QMqpNRrIc97whR96/Bu0SI6gX+pnsuYwgJtlsutkS8L6KV7+07/bl+fBbt2B6BNC/tbPWm9CXWPDiCyp+svNAckZssMki52NRQCGiGoWcz+/txVR88Zabh0YNy7kqH98Oglm+fgpaK6NDnd3DQ2I+TLQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(18002099003)(22082099003)(11063799006)(56012099006);
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(56012099006)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: nR/HTUCVv2XTerqTERKJtIaN58jbduVIoRQKAVbuyme8PYQgPLv9kA3slt7fuGaXjGcLhcvlaUNXz3KAIzLrOQkZ9CyBGlNu/oLYTe6D9jW/g6cA8oFdPRYHjK9JwRD0AQVP1+dYwGX5WJl7yL+ME1EUmzsN5VZiYNegjoDPk+AWwdrYHc2glTUYzLsbCgKrkPLpiHgnR1MBc9jiyyBmhj1jJwhTPPg3khI52G0AFtPygttohy3lyIXFUbLxPJz3q9i0k/wSkoikwePMh2xfZWMpEHKO2E7j2LEnjK6sq6Uf5yQBM3m7kDUnRuPU/dcg5aAV9TUOwZsBzWzNjNbiqsErfdAh+sbc5hJiGtHuZDIuxoAGADcwJObc0b6C6BDDVeMKwM6ZkWUqPX/qZTTM7hED/H8+uVyZzezuU4qEtZ/T/nfm3mUbM2fIa7DiJuKF
+X-MS-Exchange-AntiSpam-MessageData-0: lU+78v4UXX+hEe6b6hVuVnrNbr1H7OXbHG4ZIXQVlLE6B4bgPn0UX52PmMagyZcalK4EZe92SG1fIGGpuL+oX0WjSQV4fTWrv/qmxxDrbRd/ZyBRku6ijsE9kdfnf3Cet8wnj0uMF2VFgff+EGmY7pNbPYCf3tEEjNp1Y4N5whUUxqeHJ1t8M6y6nN/WKX1RhC+uGpZVunzeKqGrmDSGnokctTDpcqSrMlTgQdot8blIIIsOjEU+V02icVfyyiBJobFh/PCRxMnYIbjffCva1AtvK61ASkUmxRqODmb+xmhLc8EkO8d7ZhjkNKDhrxB1VM5mh3FJOIOnAyhAhRhGtsO7S7VdblwsNmsRTxawB5cBKU220CFF/OBSbmDO4OO0lsLhvNM0bDLjkBVfH6SZ90lX7cPmOZ66cLWekfer2Bd5QgBKVz/CjvvrjRh9Di8v
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:35.5151 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69648909-a110-4618-9ad8-08deddfd66df
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:39.7616 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f05e5275-5f2e-41a7-9aca-08deddfd6967
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FB.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6381
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,377 +118,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[WHAT]
-Add KUnit coverage for the backlight level write path in
-amdgpu_dm_backlight.c.
+[why]
+DST_Y_DELTA_DRQ_LIMIT from dml2.1
 
-Tests cover stream lookup hit/miss, the connector-off and no-stream early
-returns, and the AUX/PWM/idle-reallow programming branches. The DC
-programming calls stay safe by injecting a NULL power module and keeping
-idle optimizations a no-op via disable_idle_power_optimizations.
-
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Leo Chen <leo.chen@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   |   9 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   5 +
- .../tests/amdgpu_dm_backlight_test.c          | 260 ++++++++++++++++++
- 3 files changed, 272 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h         | 3 ++-
+ drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h         | 2 ++
+ drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.h | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index ca60c72855fd..d35b90912bd2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -219,7 +219,8 @@ u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
- }
- EXPORT_IF_KUNIT(convert_brightness_to_user);
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
+index 80be394a8852..2595c6441f00 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
+@@ -286,7 +286,8 @@
+ 	type MCACHEID_MALL_PREF_2H_P0;\
+ 	type MCACHEID_MALL_PREF_1H_P1;\
+ 	type MCACHEID_MALL_PREF_2H_P1;\
+-	type HUBP_FGCG_REP_DIS
++	type HUBP_FGCG_REP_DIS;\
++	type DST_Y_DELTA_DRQ_LIMIT
  
--static struct dc_stream_state *dm_find_stream_with_link(
-+STATIC_IFN_KUNIT
-+struct dc_stream_state *dm_find_stream_with_link(
- 	struct amdgpu_display_manager *dm,
- 	struct dc_link *link)
- {
-@@ -235,6 +236,7 @@ static struct dc_stream_state *dm_find_stream_with_link(
- 
- 	return NULL;
- }
-+EXPORT_IF_KUNIT(dm_find_stream_with_link);
- 
- STATIC_IFN_KUNIT
- int amdgpu_dm_backlight_get_device_index(struct amdgpu_display_manager *dm,
-@@ -346,8 +348,10 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
- 	if (rc)
- 		dm->actual_brightness[bl_idx] = user_brightness;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_backlight_set_level);
- 
--static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
-+STATIC_IFN_KUNIT
-+int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- {
- 	struct amdgpu_display_manager *dm = bl_get_data(bd);
- 	int i = amdgpu_dm_backlight_get_device_index(dm, bd);
-@@ -356,6 +360,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- 
- 	return 0;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_backlight_update_status);
- 
- static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
- 					 int bl_idx)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 98d612c60ae9..5fbaf67369f1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -28,6 +28,8 @@ struct amdgpu_display_manager;
- struct amdgpu_dm_connector;
- struct backlight_device;
- struct backlight_properties;
-+struct dc_link;
-+struct dc_stream_state;
- struct drm_connector;
- struct attribute_group;
- 
-@@ -49,6 +51,9 @@ bool amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *aconnector);
- extern const struct attribute_group amdgpu_group;
- 
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+struct dc_stream_state *dm_find_stream_with_link(struct amdgpu_display_manager *dm,
-+						 struct dc_link *link);
-+int amdgpu_dm_backlight_update_status(struct backlight_device *bd);
- int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 			 unsigned int *min, unsigned int *max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index 8ebc0f263e3e..732ac8db742d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -9,6 +9,7 @@
- #include <linux/backlight.h>
- 
- #include "dc.h"
-+#include "dc_dmub_srv.h"
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
-@@ -40,6 +41,255 @@ static void setup_test_connector(struct kunit *test,
- 	fixture->link->connector_signal = signal;
- }
- 
-+static void setup_test_dm_ddev(struct kunit *test, struct amdgpu_display_manager *dm)
-+{
-+	struct drm_device *ddev;
-+
-+	ddev = kunit_kzalloc(test, sizeof(*ddev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ddev);
-+
-+	INIT_LIST_HEAD(&ddev->mode_config.connector_list);
-+	spin_lock_init(&ddev->mode_config.connector_list_lock);
-+	dm->ddev = ddev;
-+}
-+
-+/* Tests for dm_find_stream_with_link() */
-+
-+/**
-+ * dm_test_find_stream_with_link_returns_match - Test matching stream lookup
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_find_stream_with_link_returns_match(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_link *other_link = dm_kunit_alloc_link(test);
-+	struct dc_link *target_link = dm_kunit_alloc_link(test);
-+	struct dc_stream_state *stream;
-+
-+	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 0, other_link);
-+	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 1, target_link);
-+	stream = dm_find_stream_with_link(dm, target_link);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, stream);
-+	KUNIT_EXPECT_PTR_EQ(test, stream->link, target_link);
-+}
-+
-+/**
-+ * dm_test_find_stream_with_link_missing - Test missing stream lookup
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_find_stream_with_link_missing(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_link *stream_link = dm_kunit_alloc_link(test);
-+	struct dc_link *missing_link = dm_kunit_alloc_link(test);
-+
-+	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 0, stream_link);
-+
-+	KUNIT_EXPECT_NULL(test, dm_find_stream_with_link(dm, missing_link));
-+}
-+
-+/* Tests for amdgpu_dm_backlight_set_level() */
-+
-+/**
-+ * dm_test_backlight_set_level_connector_off - Test connector-off cache path
-+ * @test: The KUnit test context
-+ *
-+ * If the matching connector has no encoder, set_level() must cache the
-+ * requested brightness and return before touching DC or backlight hardware.
-+ */
-+static void dm_test_backlight_set_level_connector_off(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct amdgpu_dm_connector *aconnector;
-+
-+	setup_test_dm_ddev(test, dm);
-+	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconnector);
-+	INIT_LIST_HEAD(&aconnector->base.head);
-+	aconnector->bl_idx = 1;
-+	aconnector->base.encoder = NULL;
-+	list_add_tail(&aconnector->base.head, &dm->ddev->mode_config.connector_list);
-+
-+	amdgpu_dm_backlight_set_level(dm, 1, 1234);
-+
-+	KUNIT_EXPECT_EQ(test, dm->brightness[1], 1234U);
-+	KUNIT_EXPECT_EQ(test, dm->actual_brightness[1], 0U);
-+}
-+
-+/**
-+ * dm_test_backlight_set_level_no_stream - Test no-stream early return
-+ * @test: The KUnit test context
-+ *
-+ * With no stream for the backlight link, set_level() records the requested
-+ * brightness and exits before calling the power-module programming path.
-+ */
-+static void dm_test_backlight_set_level_no_stream(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+
-+	setup_test_dm_ddev(test, dm);
-+	dm->backlight_caps[1].caps_valid = true;
-+	dm->backlight_caps[1].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+	dm->backlight_caps[1].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	dm->backlight_link[1] = link;
-+
-+	amdgpu_dm_backlight_set_level(dm, 1, 2000);
-+
-+	KUNIT_EXPECT_EQ(test, dm->brightness[1], 2000U);
-+	KUNIT_EXPECT_EQ(test, dm->actual_brightness[1], 0U);
-+}
-+
-+/**
-+ * dm_test_backlight_set_level_aux_programs_power_module - Test AUX programming path
-+ * @test: The KUnit test context
-+ *
-+ * With a matching stream present, set_level() walks into the DC programming
-+ * path. A NULL power_module makes mod_power_set_backlight_nits() a safe
-+ * early-false, and ips_support disabled leaves idle optimizations untouched.
-+ * A non-matching connector exercises the connector-list skip, and a non-zero
-+ * brightness_mask exercises the quirk-OR path.
-+ */
-+static void dm_test_backlight_set_level_aux_programs_power_module(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+	struct amdgpu_dm_connector *other;
-+
-+	setup_test_dm_ddev(test, dm);
-+	mutex_init(&dm->dc_lock);
-+	dm->power_module = NULL;
-+
-+	/* Non-matching connector exercises the bl_idx skip (continue). */
-+	other = kunit_kzalloc(test, sizeof(*other), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, other);
-+	INIT_LIST_HEAD(&other->base.head);
-+	other->bl_idx = 0;
-+	list_add_tail(&other->base.head, &dm->ddev->mode_config.connector_list);
-+
-+	dm->backlight_caps[1].caps_valid = true;
-+	dm->backlight_caps[1].aux_support = true;
-+	dm->backlight_caps[1].brightness_mask = 0x3;
-+	dm->backlight_caps[1].aux_min_input_signal = 1;
-+	dm->backlight_caps[1].aux_max_input_signal = 512;
-+	dm->backlight_caps[1].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+	dm->backlight_caps[1].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	dm->backlight_link[1] = link;
-+	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 0, link);
-+
-+	amdgpu_dm_backlight_set_level(dm, 1, 2000);
-+
-+	/* power_module is NULL so programming fails; actual stays unchanged. */
-+	KUNIT_EXPECT_EQ(test, dm->brightness[1], 2000U);
-+	KUNIT_EXPECT_EQ(test, dm->actual_brightness[1], 0U);
-+}
-+
-+/**
-+ * dm_test_backlight_set_level_pwm_programs_power_module - Test PWM programming path
-+ * @test: The KUnit test context
-+ *
-+ * With aux_support cleared, set_level() takes the millipercent branch:
-+ * get_brightness_range() + mod_power_set_backlight_percent(). A NULL
-+ * power_module keeps the call a safe early-false.
-+ */
-+static void dm_test_backlight_set_level_pwm_programs_power_module(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+
-+	setup_test_dm_ddev(test, dm);
-+	mutex_init(&dm->dc_lock);
-+	dm->power_module = NULL;
-+
-+	dm->backlight_caps[1].caps_valid = true;
-+	dm->backlight_caps[1].aux_support = false;
-+	dm->backlight_caps[1].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+	dm->backlight_caps[1].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	dm->backlight_link[1] = link;
-+	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 0, link);
-+
-+	amdgpu_dm_backlight_set_level(dm, 1, 2000);
-+
-+	KUNIT_EXPECT_EQ(test, dm->brightness[1], 2000U);
-+	KUNIT_EXPECT_EQ(test, dm->actual_brightness[1], 0U);
-+}
-+
-+/**
-+ * dm_test_backlight_set_level_reallows_idle - Test idle-optimization toggle path
-+ * @test: The KUnit test context
-+ *
-+ * When ips_support is set and dmub idle is allowed, set_level() disables idle
-+ * optimizations around the programming call and re-enables them afterwards.
-+ * disable_idle_power_optimizations keeps dc_allow_idle_optimizations() a safe
-+ * early return, and ctx->logger is wired because DC_LOG_* dereferences it.
-+ */
-+static void dm_test_backlight_set_level_reallows_idle(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+	struct dc_dmub_srv *dmub_srv;
-+	struct dal_logger *logger;
-+	struct dc_context *ctx;
-+
-+	setup_test_dm_ddev(test, dm);
-+	mutex_init(&dm->dc_lock);
-+	dm->power_module = NULL;
-+
-+	/* dm_kunit_alloc_dm() leaves dc->ctx NULL; the idle path dereferences it. */
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+	dm->dc->ctx = ctx;
-+
-+	logger = kunit_kzalloc(test, sizeof(*logger), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, logger);
-+	logger->dev = &adev->ddev;
-+	dm->dc->ctx->logger = logger;
-+
-+	dmub_srv = kunit_kzalloc(test, sizeof(*dmub_srv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmub_srv);
-+	dmub_srv->idle_allowed = true;
-+	dm->dc->ctx->dmub_srv = dmub_srv;
-+	dm->dc->caps.ips_support = true;
-+	/* Keep dc_allow_idle_optimizations() a safe early return. */
-+	dm->dc->debug.disable_idle_power_optimizations = true;
-+
-+	dm->backlight_caps[1].caps_valid = true;
-+	dm->backlight_caps[1].aux_support = true;
-+	dm->backlight_caps[1].aux_min_input_signal = 1;
-+	dm->backlight_caps[1].aux_max_input_signal = 512;
-+	dm->backlight_caps[1].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+	dm->backlight_caps[1].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	dm->backlight_link[1] = link;
-+	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 0, link);
-+
-+	amdgpu_dm_backlight_set_level(dm, 1, 2000);
-+
-+	KUNIT_EXPECT_EQ(test, dm->brightness[1], 2000U);
-+}
-+
-+/**
-+ * dm_test_backlight_update_status_no_stream - Test update_status wrapper
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_backlight_update_status_no_stream(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
-+	struct backlight_device *bd;
-+
-+	setup_test_dm_ddev(test, dm);
-+	bd = kunit_kzalloc(test, sizeof(*bd), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, bd);
-+	dev_set_drvdata(&bd->dev, dm);
-+	bd->props.brightness = 3456;
-+	dm->num_of_edps = 2;
-+	dm->backlight_dev[1] = bd;
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_update_status(bd), 0);
-+	KUNIT_EXPECT_EQ(test, dm->brightness[1], 3456U);
-+}
-+
- /* Tests for amdgpu_dm_backlight_get_device_index() */
- 
- /**
-@@ -1200,6 +1450,16 @@ static void dm_test_setup_backlight_device_oled_success(struct kunit *test)
- }
- 
- static struct kunit_case dm_backlight_test_cases[] = {
-+	/* dm_find_stream_with_link */
-+	KUNIT_CASE(dm_test_find_stream_with_link_returns_match),
-+	KUNIT_CASE(dm_test_find_stream_with_link_missing),
-+	/* amdgpu_dm_backlight_set_level / update_status */
-+	KUNIT_CASE(dm_test_backlight_set_level_connector_off),
-+	KUNIT_CASE(dm_test_backlight_set_level_no_stream),
-+	KUNIT_CASE(dm_test_backlight_set_level_aux_programs_power_module),
-+	KUNIT_CASE(dm_test_backlight_set_level_pwm_programs_power_module),
-+	KUNIT_CASE(dm_test_backlight_set_level_reallows_idle),
-+	KUNIT_CASE(dm_test_backlight_update_status_no_stream),
- 	/* amdgpu_dm_backlight_get_device_index */
- 	KUNIT_CASE(dm_test_backlight_device_index_matches_second),
- 	KUNIT_CASE(dm_test_backlight_device_index_missing_fallback),
+ #define DCN42_HUBP_REG_FIELD_VARIABLE_LIST(type) \
+ 	type HUBP_3DLUT_CROSSBAR_SEL_G;\
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h
+index fc30afd4c912..27528f82058c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h
+@@ -35,6 +35,7 @@
+ 	HUBP_SF(HUBP0_3DLUT_FL_CONFIG, HUBP0_3DLUT_FL_FORMAT, mask_sh),\
+ 	HUBP_SF(HUBP0_3DLUT_FL_BIAS_SCALE, HUBP0_3DLUT_FL_BIAS, mask_sh),\
+ 	HUBP_SF(HUBP0_3DLUT_FL_BIAS_SCALE, HUBP0_3DLUT_FL_SCALE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DST_Y_DELTA_DRQ_LIMIT, DST_Y_DELTA_DRQ_LIMIT, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_CONTROL, HUBP_3DLUT_ENABLE, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_CONTROL, HUBP_3DLUT_DONE, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_CONTROL, HUBP_3DLUT_ADDRESSING_MODE, mask_sh),\
+@@ -54,6 +55,7 @@
+ 	HUBP_SF(HUBP0_3DLUT_FL_CONFIG, HUBP0_3DLUT_FL_FORMAT, mask_sh),\
+ 	HUBP_SF(HUBP0_3DLUT_FL_BIAS_SCALE, HUBP0_3DLUT_FL_BIAS, mask_sh),\
+ 	HUBP_SF(HUBP0_3DLUT_FL_BIAS_SCALE, HUBP0_3DLUT_FL_SCALE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DST_Y_DELTA_DRQ_LIMIT, DST_Y_DELTA_DRQ_LIMIT, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_CONTROL, HUBP_3DLUT_ENABLE, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_CONTROL, HUBP_3DLUT_DONE, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_CONTROL, HUBP_3DLUT_ADDRESSING_MODE, mask_sh),\
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.h
+index 3e4d9b188b26..f2b98f1574ed 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.h
+@@ -581,6 +581,7 @@
+ 		SRI_ARR(DCHUBP_VMPG_CONFIG, HUBP, id),                         \
+ 		SRI_ARR(UCLK_PSTATE_FORCE, HUBPREQ, id),                       \
+ 		SRI_ARR(HUBP_3DLUT_DLG_PARAM, CURSOR0_, id),                   \
++		SRI_ARR(DST_Y_DELTA_DRQ_LIMIT, HUBPREQ, id),               \
+ 		HUBP_3DLUT_FL_REG_LIST_DCN401(id)
+ struct dcn42_resource_pool {
+ 	struct resource_pool base;
 -- 
 2.55.0
 
