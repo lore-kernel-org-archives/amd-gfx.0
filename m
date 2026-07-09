@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29385C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A9AC44507
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 983FE10F6EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C41AB10F6E8;
 	Thu,  9 Jul 2026 21:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zqM6Ndnm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yOW/QP/Y";
 	dkim-atps=neutral
 Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011070.outbound.protection.outlook.com [40.107.208.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53EF110F6E9
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:36 +0000 (UTC)
+ (mail-westus3azon11011044.outbound.protection.outlook.com [40.107.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C05110F6E8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MsF2HWSgo8owPS9n0iTjHIjnbwippmJy+J39nnmFvk45Zk60inkjdpnX56QljLG7zd6Pto+I6VWvKeCSG1t5r8x9Snq4wPdDn3lx7UNVWICbNsm718Tq/gJywaiZK7tw68UlhOOeg4wt4T/AuP34xgHkf69HScpceyqeHqC2mWak0In88tmG3sRKW8mvVSoKv5wW2co2fblVn2+6AFMKvwAFLcrgfytJKRD5sZGti/57dklS/Zkui0QwJNGGESJTI6TAHuoIi9rmCA+Ew6abWiqelyBMLugi+FyhoHl+bjF61kZYFzhs5yZfgLffhYYZzGcLdOxLUiVBu1jRHk2NTA==
+ b=DpaXHjHoPYhyn/faGc9U8pA9y6fm0ayZxxZxo34H8t/e8ExJhaCd8xfurcZwWonmOOkUeSqyFWJisnsUNJ/VEs4vsbXUUMAjSXynUJagtxIXz7vqRU4aO3kgTvJL/13OC7L8YVGLW146meC/h8ewe1BAxd+DC+Ovn+Mk7JA7KUMkJDrwmTTljv60L1DhKBYn9vfYBXEQhZXaxZPn98dZ8Qqfm+6yk9DCBLW/h5ib/kuD/q4un6T/JmH7XwIoS/6rAlnxD8nN4n8WPA/oJVUcMEKdwvqCUgWXXlb8jcLt9AqjRtkmARvZodyoj/MkKgDU6roXdXgAYZkFXSscgbE0Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kyCHHLrpocJmQ5WeHHfABi2Uc7xOsfPR6PoYWvXH88I=;
- b=hUpN+yT9YpLNCRbYvjckb13lpcgfcgtjFHAEbMIqgU2kFtyBPhtH/VABijmIK5V22IDFHF2ALLzO6GVCLPd4shrXf+C2G4GRl6SnVaTd6jYDDiwLvKxgC0n5WQE6Ovp3wCY/EZvSXt5AkyBf2qjqS4XPzhAlPNA7yGQvFXTiU87JK/jnvjG0RTyPjFDauLVaBJgjZOa26yS1tgwPYv13vGsBnGTq4J5udeIXo7ujGiMri0nDw6x4da5FDcqOkyi1KlFj0PYOja5CHZ9mWWRSFShAUAWVcBswAEHy1at0n9jz0dQ6p4NmlK9gF4RKzm/DmcbaC1Eub+p3CyB8iJDU0Q==
+ bh=5iYXym4IjO9ICK/BVgXRUWFeM2rDEx4BO2HgSKPA/CU=;
+ b=xyRkGZFCA2G3zmBMKshzFqQ+Oh8B/MIKuDGQ+6Kmj3iFASCMoUdIDoKpof9S4mvbrpJYY7es+294AeDABdSmLJf59SQwRK4N5FeTJDKIU6HDpgjPLc5iuFeMk4NgvuyqWe6yWcyBSHRu0zGUh1TM1YLNhFeOtvLsAtN1mndt/P7Ta/uv5ECj9Ha1abOVKpTcEDg2GQPtwVnlb2shJJot8iGtUHWN6t0AGMN/MJmmsjqvoal4+05VsCkXpYj+5Qx9/DeIpj6D6J8XowpRIgoyQySjU3bOIYKZKFFA/ipA5ESrXn3ESTdaYwA5nnpP5cRthxrRYl56aUqPIz+Agqq4sA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kyCHHLrpocJmQ5WeHHfABi2Uc7xOsfPR6PoYWvXH88I=;
- b=zqM6NdnmYo8fFMqioKGrmsiW9b+1rO8Nl56sLbeJfXLCIPEUJGp9Y0AV5FvGzRgygA/x1LXF1xvrY4wt05skNu5Nbl4YJxAxHG3DfrjIfjdzJEfLI39epOIgO70KdUVgJtof4+vCPI0x5xZ0Ov4TmAvkPvKQ44BFIpz5F9KFzh8=
-Received: from MN0PR04CA0019.namprd04.prod.outlook.com (2603:10b6:208:52d::33)
- by SA1PR12MB7038.namprd12.prod.outlook.com (2603:10b6:806:24d::10)
+ bh=5iYXym4IjO9ICK/BVgXRUWFeM2rDEx4BO2HgSKPA/CU=;
+ b=yOW/QP/YbCRQMiJV/S5/2VkDgOQvOJpSUmY7rjbMS1juSdbEyCvLO0WQp3vC8ePqAfbX+PSEJgRdf/I8gaDEUv2cuNcbZ9DN5W2UMfGO3IpDzhH8TSDTiJvw/0N9eCd0ZoPlsJ1S10iRX3eBHCnj1MZLupyX+tQZK778NY+Nmkw=
+Received: from BN9PR03CA0507.namprd03.prod.outlook.com (2603:10b6:408:130::32)
+ by IA0PR12MB7529.namprd12.prod.outlook.com (2603:10b6:208:431::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Thu, 9 Jul 2026
- 21:02:31 +0000
-Received: from BL02EPF0001A100.namprd03.prod.outlook.com
- (2603:10b6:208:52d:cafe::28) by MN0PR04CA0019.outlook.office365.com
- (2603:10b6:208:52d::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
- Jul 2026 21:02:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Thu, 9 Jul
+ 2026 21:02:36 +0000
+Received: from BL02EPF0001A0FA.namprd03.prod.outlook.com
+ (2603:10b6:408:130:cafe::92) by BN9PR03CA0507.outlook.office365.com
+ (2603:10b6:408:130::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Thu, 9
+ Jul 2026 21:02:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ BL02EPF0001A0FA.mail.protection.outlook.com (10.167.242.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:31 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:36 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 16:02:12 -0500
+ 2026 16:02:26 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,9 +65,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 48/80] drm/amd/display: Test plane buffer attributes
-Date: Thu, 9 Jul 2026 16:48:16 -0400
-Message-ID: <20260709205936.5719-49-george.zhang@amd.com>
+Subject: [PATCH 66/80] drm/amd/display: Test backlight ABM property attach
+Date: Thu, 9 Jul 2026 16:48:34 -0400
+Message-ID: <20260709205936.5719-67-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709205936.5719-1-george.zhang@amd.com>
 References: <20260709205936.5719-1-george.zhang@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|SA1PR12MB7038:EE_
-X-MS-Office365-Filtering-Correlation-Id: 972c7fab-d0c7-43e1-273d-08deddfd644a
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FA:EE_|IA0PR12MB7529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a3ad324-465a-456a-c99f-08deddfd6746
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: N0myIDjrpjfYN6DX6ti7qQYKb3UJub3lAVM63LYsyRB9XBK+TnubZmt7AJpBBNR2Iti+UXkfS7MkZkT0Hg6WMznDd+poptp00Y6P8erdrrusSzIzlnib3oEGH46jQCkwR9XiiwFbRChwQKJWmRKFZHN8gdkTmtu4igD0DrOhrKlBKs7UQqki0c4xzpQVtPnaFu+l0X6C6cQnSVbmKaKqYExPayeYTqGsrvq1roxK7MsMUbxQLxroS2SLlfcdBKPzsq2GhHjlC1ug998km8ySLPHZ4P7hPEccrHeQ7CN1D/yMtO3QIjfOpqMd4MsnTZqpUxkOzxocUcTmn3vk8N+uza+TY/guzfrUCk7iOC9uMcX6ejSaXFzFUFJynqKzfDfVua4ARg+qIV7LgbCza5l+Rc0OiAhKdIbBZQBh/NiGbvE/74djBc4ZeLVuchlExiNmBqi4guLL4DL76jKzMIbg5gopemX4DXWxafWlbKg9s3T88UhhuhNjSXgWcEcM+03XV2XiYmU6KwMR6XuiApcesyjPf3qmjXkV27sG3uHSOMtMlKSbXI1nC+2E18Ax9UAKgccs36gq90Oeyh/pjbgLpqRA/qtLbOU1yCQ2foy5HjXE7u1u4sgUQg+QeVJWnvzfK2GXqD7VM8OgPDD/fb4u29gqz4W3FDm0fi7sNQyN1RPatfbglFyvA6BCDfL/G+y+3FN3naBWmQBMgxK4eaCGfg==
+ ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: omvYSgaIuPq1iH0sgbSncTSJ7OpFFhoaKvBrTl5+ZapNq59S/qSPBSv1/zgYcXylMdak7yF5JACIHHFJ5HSh1PteUkCZXOhf8FmjI9RWf6JC9jNnGYjxmhJyRcZv28tBgFq/oTPlD0ICBen3r9cp8yKW+OyF1vytllDPz4T6PT2lpdjIXTVswqY8++Od+11cQOI90bbi1Zmv5ZmktjQfYS3qblylknbZxAd5EbFrL0F/yy9u4lbbfs5Anrxi6kmudpXCSWOmR3eHZE8IyoTsGTCNq3MGrjNopZWGjcGFVfQIV2TRI33l/EmUi2rv4B21iFpLMaX2qKX1gDZDtqz+q/WsUF+o7nZXsZUWCljIz9XX2RHhA18ufSo5PjtW5AyQarcJmUM6htzzzMqlXZfKjH/f97/MhFAbAf1Db+91wJJWSzbea8idzxnEDSG9J3BNre9GwKEuuYqi/knuc6QLWY189O6NsC6xm8Ps+2Zs1s0p5T5JiyVxAMqlmPAkHNG6XgbMhs/0zMWo44br6Qs14h0hWAlNspNBbxU9Zxf0M/27c2z9/nVIRc9LlcS6l/NslUN2doY8zC1GniGaEuqySt3b5NXZJrReDTnWmpd62OP0mILGW8wLMOsWEjnsZmzsw7FURdLrdj6+ijIXnZLytgcqxkELYg4bC9//baqlkLBYBuU43EoOEp3ZoEUZx1fJDjDhOqYtXGBdWUGU3JS0Ng==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(11063799006)(22082099003)(18002099003)(56012099006);
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0Vbl2zsxFnH9XtVW7N8exRi6u3Q1/A65otVGE8YsRVox8wB2x4v7ZszbklKQE87kmfOCAuvgs8+hAAOAEdayj9BNOxmOpFZWowLrGcBSrs8aHSVIwpZmOwDgOo2NSaaAxnxcbJTEZncG/bcGRKYJkWD8izpVBgVJH2x+7gnwk/2GPlhZxUmbW0zzV9PfXfFaJxh/xdfSi8J5opnQxcBFwiCEzLfL59iWccJbmFmvj8cO4wvVwK16nIxViOTzLnLNB0USeoQNl8X5YSwwtERCTw71NffH+gafbaPaox3JZL1p3WZ3kCyM4X25Eo2VaaV2cjqjZQXdAoRsKEiWNsEBg13jwMERVi/lJwQj5Sv35IaFalXfJ+XvlsCkRfJKLBDQE5oCN+32Eh20TdxBVjxHmQUdYucuAeBYr5u2wzmWwToDtdxLtE1nuR6vLnLcV9YR
+X-MS-Exchange-AntiSpam-MessageData-0: H3d6bJXbvCNx42vn82tux/QVRnIvFwSZYKD2mo5Dypd6//dR5Nn6I1rfcuuvRxkLv0UxuNvkQz3fDT2XS9f1PWJarF9KHnOBne6ejEhbs5gmURi4SgZFOOtXL87w6n9l6qKZUtwOdRXYnORM+DgvOh0vnSVNgIQlbcj3HkCkSOUUXgbAWuG7EHPIdxZT12tr29txd5H4+KOOBV2U9I8x8BlANaqhc3ZBBZAAXolHzAHdgOmg3r4PcGTowSRgKCD23EZgmJ6D0BVKrpHNl3HY5osohtQf96rfwgGOWgVip6r89wmHHdDzLOLgoI8rIj8ok6pNBFjDSv+CFa2RHCLQTsHBwuTH7ZjFFi/fW+nlcwWYG16Ox9Zyto6vc6Vm39vN8eH/n4zL6Z5AWM+Zyo3rmxWjFejEIsdkX4Yn5B7fGnhttgfAwQWSeHKCeSYg1MmB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:31.1878 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 972c7fab-d0c7-43e1-273d-08deddfd644a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:36.1909 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a3ad324-465a-456a-c99f-08deddfd6746
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A100.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7038
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7529
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,181 +119,114 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for the video and GFX12 paths of
-amdgpu_dm_plane_fill_plane_buffer_attributes().
+Cover the eDP success path of amdgpu_dm_setup_backlight_device() where the
+ABM level property is attached to the connector. A DRM-managed connector
+fixture (drmm_mode_config_init + drmm_connector_init) lets the test verify
+that one property is added and that its value is ABM_SYSFS_CONTROL.
 
-Introduce the dm_test_plane_attrs(), dm_test_video_attrs() and
-dm_test_graphics_attrs() helpers that drive the buffer-attribute fill
-with representative plane states.
-
-Assisted-by: Copilot:Claude-Opus-4.8 GPT-5.5
+Assisted-by: Copilot:Claude-Opus-4.8
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 135 ++++++++++++++++++
- 1 file changed, 135 insertions(+)
+ .../tests/amdgpu_dm_backlight_test.c          | 63 +++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index 5d0691473a56..e05c9f71d451 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -1301,6 +1301,41 @@ static u64 *dm_test_get_primary_mods(struct kunit *test, struct amdgpu_device *a
- 	return mods;
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index b74bbbc7f56f..f55f93747df7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -16,6 +16,7 @@
+ #include "dc.h"
+ #include "dc_dmub_srv.h"
+ #include "amdgpu.h"
++#include "amdgpu_display.h"
+ #include "amdgpu_mode.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_backlight.h"
+@@ -30,6 +31,12 @@ struct dm_backlight_connector_fixture {
+ 	struct dc_link *link;
+ };
  
-+static int dm_test_plane_attrs(struct amdgpu_device *adev,
-+			       const struct amdgpu_framebuffer *afb,
-+			       enum surface_pixel_format format,
-+			       struct dc_tiling_info *tiling_info,
-+			       struct plane_size *plane_size,
-+			       struct dc_plane_dcc_param *dcc,
-+			       struct dc_plane_address *address)
-+{
-+	return amdgpu_dm_plane_fill_plane_buffer_attributes(adev, afb, format,
-+		ROTATION_ANGLE_0, 0, tiling_info, plane_size, dcc, address,
-+		false);
-+}
++static const struct drm_connector_funcs dm_backlight_test_connector_funcs = {
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
 +
-+static int dm_test_video_attrs(struct amdgpu_device *adev,
-+			       const struct amdgpu_framebuffer *afb,
-+			       struct dc_tiling_info *tiling_info,
-+			       struct plane_size *plane_size,
-+			       struct dc_plane_dcc_param *dcc,
-+			       struct dc_plane_address *address)
-+{
-+	return dm_test_plane_attrs(adev, afb, SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr,
-+		tiling_info, plane_size, dcc, address);
-+}
-+
-+static int dm_test_graphics_attrs(struct amdgpu_device *adev,
-+				  const struct amdgpu_framebuffer *afb,
-+				  struct dc_tiling_info *tiling_info,
-+				  struct plane_size *plane_size,
-+				  struct dc_plane_dcc_param *dcc,
-+				  struct dc_plane_address *address)
-+{
-+	return dm_test_plane_attrs(adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
-+		tiling_info, plane_size, dcc, address);
-+}
-+
- static void dm_test_setup_gfx11_device(struct amdgpu_device *adev,
- 				       struct dm_test_gfx11_reg_ctx *ctx,
- 				       u32 num_pkrs_log2, u32 num_pipes_log2)
-@@ -1642,6 +1677,104 @@ static void dm_test_get_plane_modifiers_gfx12(struct kunit *test)
- 	dm_test_expect_mods_terminated(test, adev);
+ static void setup_test_connector(struct kunit *test,
+ 				 struct dm_backlight_connector_fixture *fixture,
+ 				 int bl_idx, enum signal_type signal)
+@@ -1787,6 +1794,61 @@ static void dm_test_setup_backlight_device_oled_success(struct kunit *test)
+ 	amdgpu_dm_set_abm_level_param(saved_abm_level);
  }
  
 +/**
-+ * dm_test_fill_plane_buffer_attributes_video() - Verify NV12 attributes.
-+ * @test: KUnit test context.
-+ *
-+ * Verify if a video pixel format fills chroma plane size and the progressive
-+ * video address type on a GFX9 family device.
++ * dm_test_setup_backlight_device_attaches_abm_property - Test ABM property path
++ * @test: The KUnit test context
 + */
-+static void dm_test_fill_plane_buffer_attributes_video(struct kunit *test)
++static void dm_test_setup_backlight_device_attaches_abm_property(struct kunit *test)
 +{
++	struct amdgpu_dm_connector *aconnector;
++	struct amdgpu_display_manager *dm;
 +	struct amdgpu_device *adev;
-+	struct amdgpu_framebuffer *afb;
-+	struct dc_tiling_info tiling_info;
-+	struct plane_size plane_size;
-+	struct dc_plane_dcc_param dcc;
-+	struct dc_plane_address address;
++	struct drm_property *prop;
++	struct dc_link *link;
++	int saved_abm_level = amdgpu_dm_get_abm_level_param();
++	int saved_backlight = amdgpu_dm_get_backlight_param();
++	int old_count;
 +	int ret;
 +
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	afb = kunit_kzalloc(test, sizeof(*afb), GFP_KERNEL);
-+	tiling_info = (struct dc_tiling_info){0};
-+	plane_size = (struct plane_size){0};
-+	dcc = (struct dc_plane_dcc_param){0};
-+	address = (struct dc_plane_address){0};
-+	KUNIT_ASSERT_NOT_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_NULL(test, afb);
++	amdgpu_dm_set_abm_level_param(-1);
++	amdgpu_dm_set_backlight_param(-1);
++	adev = dm_kunit_alloc_adev(test);
++	ret = drmm_mode_config_init(&adev->ddev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
 +
-+	adev->family = AMDGPU_FAMILY_NV;
-+	adev->ip_versions[GC_HWIP][0] = IP_VERSION(10, 3, 0);
-+	afb->address = 0x80000000ULL;
-+	afb->base.width = 1920;
-+	afb->base.height = 1080;
-+	afb->base.offsets[0] = 0;
-+	afb->base.offsets[1] = 0x200000;
-+	afb->base.pitches[0] = 1920;
-+	afb->base.pitches[1] = 1920;
-+	afb->base.format = drm_format_info(DRM_FORMAT_NV12);
-+	afb->base.modifier = DRM_FORMAT_MOD_LINEAR;
-+	KUNIT_ASSERT_NOT_NULL(test, afb->base.format);
++	prop = drm_property_create_range(&adev->ddev, 0, "abm level", 0, 4);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, prop);
++	adev->mode_info.abm_level_property = prop;
 +
-+	ret = dm_test_video_attrs(adev, afb, &tiling_info, &plane_size, &dcc,
-+				  &address);
++	aconnector = dm_kunit_alloc_connector(test, adev, NULL);
++	ret = drmm_connector_init(&adev->ddev, &aconnector->base,
++				   &dm_backlight_test_connector_funcs,
++				   DRM_MODE_CONNECTOR_eDP, NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
 +
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, plane_size.surface_size.width, 1920);
-+	KUNIT_EXPECT_EQ(test, plane_size.chroma_size.width, 960U);
-+	KUNIT_EXPECT_EQ(test, plane_size.chroma_size.height, 540U);
-+	KUNIT_EXPECT_EQ(test, address.type,
-+			(int)PLN_ADDR_TYPE_VIDEO_PROGRESSIVE);
-+	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfxversion, (int)DcGfxVersion9);
++	link = dm_kunit_alloc_link(test);
++	link->connector_signal = SIGNAL_TYPE_EDP;
++	link->type = dc_connection_single;
++	aconnector->dc_link = link;
++	aconnector->bl_idx = -1;
++	dm = &adev->dm;
++	dm->adev = adev;
++	dm->ddev = &adev->ddev;
++	old_count = aconnector->base.base.properties->count;
++
++	amdgpu_dm_setup_backlight_device(dm, aconnector);
++
++	KUNIT_EXPECT_EQ(test, dm->num_of_edps, 1);
++	KUNIT_EXPECT_EQ(test, aconnector->bl_idx, 0);
++	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->count, old_count + 1);
++	KUNIT_EXPECT_PTR_EQ(test, aconnector->base.base.properties->properties[old_count], prop);
++	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->values[old_count],
++			 (uint64_t)ABM_SYSFS_CONTROL);
++
++	amdgpu_dm_set_backlight_param(saved_backlight);
++	amdgpu_dm_set_abm_level_param(saved_abm_level);
 +}
 +
-+/**
-+ * dm_test_fill_plane_buffer_attributes_gfx12() - Verify GFX12 dispatch path.
-+ * @test: KUnit test context.
-+ *
-+ * Verify if a GFX12 family device fills graphics attributes via the GFX12
-+ * modifier path and reports the GFX addr3 version.
-+ */
-+static void dm_test_fill_plane_buffer_attributes_gfx12(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dc *dc;
-+	struct amdgpu_framebuffer *afb;
-+	struct dc_tiling_info tiling_info;
-+	struct plane_size plane_size;
-+	struct dc_plane_dcc_param dcc;
-+	struct dc_plane_address address;
-+	int ret;
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	afb = kunit_kzalloc(test, sizeof(*afb), GFP_KERNEL);
-+	tiling_info = (struct dc_tiling_info){0};
-+	plane_size = (struct plane_size){0};
-+	dcc = (struct dc_plane_dcc_param){0};
-+	address = (struct dc_plane_address){0};
-+	KUNIT_ASSERT_NOT_NULL(test, adev);
-+	KUNIT_ASSERT_NOT_NULL(test, dc);
-+	KUNIT_ASSERT_NOT_NULL(test, afb);
-+
-+	adev->family = AMDGPU_FAMILY_GC_12_0_0;
-+	adev->dm.dc = dc;
-+	afb->address = 0x80000000ULL;
-+	afb->base.width = 1920;
-+	afb->base.height = 1080;
-+	afb->base.pitches[0] = 7680;
-+	afb->base.format = drm_format_info(DRM_FORMAT_XRGB8888);
-+	afb->base.modifier = DRM_FORMAT_MOD_LINEAR;
-+	KUNIT_ASSERT_NOT_NULL(test, afb->base.format);
-+
-+	ret = dm_test_graphics_attrs(adev, afb, &tiling_info, &plane_size, &dcc,
-+				     &address);
-+
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, address.type, (int)PLN_ADDR_TYPE_GRAPHICS);
-+	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfxversion, (int)DcGfxAddr3);
-+}
-+
- /**
-  * dm_test_get_min_max_dc_plane_scaling_fp16() - Verify fp16 cap selection.
-  * @test: KUnit test context.
-@@ -1832,6 +1965,8 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	KUNIT_CASE(dm_test_get_min_max_dc_plane_scaling_fp16),
- 	/* amdgpu_dm_plane_fill_plane_buffer_attributes() */
- 	KUNIT_CASE(dm_test_fill_plane_buffer_attributes_gfx8),
-+	KUNIT_CASE(dm_test_fill_plane_buffer_attributes_video),
-+	KUNIT_CASE(dm_test_fill_plane_buffer_attributes_gfx12),
- 	/* amdgpu_dm_plane_get_cursor_position() */
- 	KUNIT_CASE(dm_test_get_cursor_position),
- 	/* amdgpu_dm_plane_format_mod_supported() */
+ static struct kunit_case dm_backlight_test_cases[] = {
+ 	/* dm_find_stream_with_link */
+ 	KUNIT_CASE(dm_test_find_stream_with_link_returns_match),
+@@ -1872,6 +1934,7 @@ static struct kunit_case dm_backlight_test_cases[] = {
+ 	KUNIT_CASE(dm_test_setup_backlight_device_connection_none),
+ 	KUNIT_CASE(dm_test_setup_backlight_device_max_edps),
+ 	KUNIT_CASE(dm_test_setup_backlight_device_oled_success),
++	KUNIT_CASE(dm_test_setup_backlight_device_attaches_abm_property),
+ 	{}
+ };
+ 
 -- 
 2.55.0
 
