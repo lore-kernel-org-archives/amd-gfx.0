@@ -4,99 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3F66C44501
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 06:59:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69879C44501
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 07:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3845010F3D5;
-	Thu,  9 Jul 2026 06:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02FAC10F3DA;
+	Thu,  9 Jul 2026 07:17:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K22nSbwq";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PjZzkzyy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wbii7Sd0";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0JzL3oR5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BC/tholT";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010052.outbound.protection.outlook.com [52.101.56.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A7E410E028
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 06:59:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mVI24D2P5JPq7G67NMamMyVtBCSpgx/V/UBQ7PRRXLhDm6oDdGwhzrkHmHYm7nrgE9YP0Xon7WqkWi3pMV6mMF+p6EP5S/j0Rl6dx5Zh2b56EN1Zyk/Q+9kIVaAqxu+GPBpMkKELMpL5tvBzP/bTlgA9XnXHFwH6djipz5sCIyPQwDZfNk0TYozrwhgaiZi6jvBHv4ny1a+JTUTd/0Dz66gomYZo9rjP0+I4mozOxJiYue3FWKFjw3lWmMlm2DmxiINgC2JUyvOn4F91y+f9J/O6YoDs3/XQM8eKpNYsDbN9APjt1TnbCSrFNlatPUEGTg+0Y2yL7PFSmkVAaWmFSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YAhqZvzHKL1kKpzYlU2PG3m42Zh2koSMEgSdrl7fG3A=;
- b=ZyexovxFhat7GJYSvnNU0cAPTgMUpn8X3f3NRHkMGBhYhxXxFfP55oezz1gx66w0ZEASF9Uxa+fa0VS0ZrUt6o9RMUwPAbHtgZTljAmWVSTG8kCslMVtym7cE7ZLvf9olGW0t/9gVEnQFi9a5xc4iWpVhGQigSwmzL/pcKegPc8XD2h5GMhtOT4CoGfiYsDKJWWvEQFGk8ajEi7tD0c7BaJdYfy6PqQzi/HGzgqL9/1BZS7tEyWM/3Oz3/SmNqj/sj2FjoEcZA5zRIaNHc8Kz52bdVn2i8kCmnTCYp4YYmndddyj3gFQFlIRURqmRwbopTcxU5dL/6ED83MAG5DIaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YAhqZvzHKL1kKpzYlU2PG3m42Zh2koSMEgSdrl7fG3A=;
- b=K22nSbwqPWqMLgwHxUeQTOEnRLEGACNr8S+/YWVLyXr73aFYqi7+b2+RTRn1/Z5TqTQdjxTrvCxYnRFK7yhkoxf7yzCFTmrSEZ2ElLGLfrEOVhKnnV56mdlzTdYbWe9utrEGBlOXBEZh4Vc6iJ77WjEpWJYj3ocUP9GHmo2v82o=
-Received: from MW4PR04CA0083.namprd04.prod.outlook.com (2603:10b6:303:6b::28)
- by CY3PR12MB9630.namprd12.prod.outlook.com (2603:10b6:930:101::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
- 2026 06:59:16 +0000
-Received: from SJ5PEPF000001C8.namprd05.prod.outlook.com
- (2603:10b6:303:6b:cafe::9b) by MW4PR04CA0083.outlook.office365.com
- (2603:10b6:303:6b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Thu, 9
- Jul 2026 06:59:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001C8.mail.protection.outlook.com (10.167.242.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 06:59:16 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 01:59:13 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
- <Michael.Chen@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH 6/6] drm/amdgpu/mes11: enable MES process/gang load from MES
- local mem
-Date: Thu, 9 Jul 2026 14:58:56 +0800
-Message-ID: <20260709065856.472296-6-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260709065856.472296-1-Prike.Liang@amd.com>
-References: <20260709065856.472296-1-Prike.Liang@amd.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE6910F3DA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 07:17:35 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CD84D75E3E;
+ Thu,  9 Jul 2026 07:17:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783581451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wJWchXKiIe+/JTnT/jyFuWq42F8Rvy/XNisdngkOA44=;
+ b=PjZzkzyyr0mCbhartpMyxnskjHFxTbOPh/2y/OWR9IEa7iCxoE968JlD4U/36mHeI2OSGv
+ +xmfs+LpbVALARMgB2QxUj0F/sBHW7hCJ1aB9HN3j5vgPvie42gtqQgwdpowF4PiqirsrN
+ oXDgchfOiw8zl2wKq4WJBmTkwqKUJMQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783581451;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wJWchXKiIe+/JTnT/jyFuWq42F8Rvy/XNisdngkOA44=;
+ b=wbii7Sd05QK5lWmYk7m0HO+fNWizxsVTk3Or9dW3EdWEUrrUBCXmR7zd9MgYR3iFFr1P80
+ ghSwquw85pACUAAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783581449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wJWchXKiIe+/JTnT/jyFuWq42F8Rvy/XNisdngkOA44=;
+ b=0JzL3oR5uLLiCBc4AXOPoDZLmb7bta4GBJXAe/uMRWDnn1z96PAyTkNatvC3NjITDSMMFG
+ UmzdANCGEeq3o0XPfANU5bFK3Blxjav5eh5rYZZ+FJNInp8ff9j9AfbzQPm7Ir30fzozHG
+ N0wfNJnaZpJajaDa/XQAqJ7Fc8ZVu5w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783581449;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wJWchXKiIe+/JTnT/jyFuWq42F8Rvy/XNisdngkOA44=;
+ b=BC/tholTpUp/7iq3peiGlmNB6qSssS66sgizUs9lMxDWd0qCgLH9NIJpVo2hT/CaJ5gkti
+ 5VVEv0SUBifzc6DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89711779AA;
+ Thu,  9 Jul 2026 07:17:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id h/5SIAlLT2o7PgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Jul 2026 07:17:29 +0000
+Message-ID: <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
+Date: Thu, 9 Jul 2026 09:17:29 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Inline drm_simple_encoder_init()
+To: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Brigham Campbell <me@brighamcampbell.com>, David Airlie <airlied@gmail.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260708222035.7324-1-nico.antinori.7@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260708222035.7324-1-nico.antinori.7@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C8:EE_|CY3PR12MB9630:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2558ac82-8cb5-4e03-d90c-08dedd87975e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: SXAIcu2bnjmzCc/PD0rZW99KaV4qLgCJvgVsBDMxxe4jsD5GNggQQq8Ndy1K4mvAOoqZRF10jyzNmnM4Vftr1RaHjH6/KXEkuI3tQS6bLRxRqtScaUGv9KDA5rdgOQ2CNiRvYF2fQ4k5tjiR3+9m3nk/9+6F2AVhzOf/PQIHBVwgY0f3jfdETHtWpQ4Ub6Tnc3QEEbetK2EHuurZqjMITetyJK9Gq1tN2ULz8h5mTTrl1h44sF6L7HebXxR3gAF/X04ctXlacDR2RuxyWaQx/UoKxzPaVawQVHeBlIfrwzZyDLwDGZ9SaUTGScRnOi4lfjfjqtkAlZ7ZxnvAaYw0XdwAuFsD2FxkXVFzVYhmqEjShwqf/U5fDd+bpGnZ5eaGQ2nNfp22YAuIw4gdiZBFbh5eujRcwex5MBwGV7DNJigfGSDdCfcvBhtmOwGV29zBp97fsYfL4ttd1zifaA7y1mNCM75m8DWkxDbz1bAjyshPgtMqnIea32ODYcJhxSPwMoLYtaasZVGu00CPzQyTh3a2cYiFk13PUM6CwHy2s5OP3WdrCdcnw2/7Fe2uzWFrHe0PpAX7Nlc1ZJQ9+djO2MxxCsWGlp5LKo1rXRoE5rfDG9vyfL8om443xoypvajbT2Sn0RtkbNAl2PWzggbW4ZXkrHs3+QoSCPLhO7qZHNbGYRChzr0uMw+hT0HXKsc0WgMd6Tkffdj+uIsl5IEtxQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CxKuEQ4bGdsL7ASb0SXN8+6iBfqz/+aF23zTRng3drJKObG6uFKhuT4NxNx4VTMQzyzGFl0jE9091a8+8QySQM9Hx0HYLCBk2DhVmhjDv8wRYkghd30WY40jxq0wee6WvOauwVJFm7e5EJjE2kO9Z8WjWkbTwByP+rRYDeXHxaEyjVt6sBo4D46sizudKhYcLfMxW/Op67+CsJ6rwlniVuEiemZOxZulw13F3WGh3cRWHm7IsediLOvjvwF1U+EWEhg62cs9tNkP+MciS5eiTAsWF/fgwPbPDO5ftjMtJ1P+H9KsbyFOIQzg83/nfqL03wttJtHRkNnGYNEMHuDxhrqPmnZ54YzDS3eGzOvdrwnO28NbKprOLXCQltfC87XFV3m2MUQAoelopgIqo5tujkBdX6NDpOyjpbWRpS3nGf3UZBVkNJxSJ2+WXrb9xKzL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 06:59:16.1803 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2558ac82-8cb5-4e03-d90c-08dedd87975e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001C8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9630
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[gmail.com,amd.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[amd.com,brighamcampbell.com,gmail.com,linuxfoundation.org,ffwll.ch,vger.kernel.org,lists.linux.dev,lists.freedesktop.org];
+ RCPT_COUNT_SEVEN(0.00)[11]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,58 +143,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable the MES process/gang context load from MES local memory,
-this will reduce the MES firmware and driver handshake latency.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index c2129ea6614b..a85387122b11 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1012,6 +1012,7 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
- 	mes_set_hw_res_pkt.enable_reg_active_poll = 1;
- 	mes_set_hw_res_pkt.enable_level_process_quantum_check = 1;
- 	mes_set_hw_res_pkt.oversubscription_timer = 50;
-+	mes_set_hw_res_pkt.use_rs64mem_for_proc_gang_ctx = 1;
- 
- 	if (amdgpu_mes_log_enable) {
- 		mes_set_hw_res_pkt.enable_mes_event_int_logging = 1;
-@@ -1945,6 +1946,8 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	if (adev->mes.ring[0].sched.ready)
- 		goto out;
- 
-+	adev->mes.use_rs64mem = true;
-+
- 	if (!adev->enable_mes_kiq) {
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
- 			r = mes_v11_0_load_microcode(adev,
-@@ -1964,11 +1967,12 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 	/* Allocate GPU buffer for array size query results */
- 	r = amdgpu_mes_rs64mem_init(&adev->mes);
--	if (r)
-+	if (r) {
- 		dev_warn(adev->dev,
- 			 "RS64 local memory init failed (%d), "
- 			 "falling back to system memory path\n", r);
--
-+		adev->mes.use_rs64mem = false;
-+	}
- 	r = mes_v11_0_set_hw_resources(&adev->mes);
- 
- 	if (r)
-@@ -1985,6 +1989,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 				 "Failed to query ctx array sizes (%d), "
- 				 "disabling RS64 local memory\n", r);
- 			/* Continue without optimization - not fatal */
-+			adev->mes.use_rs64mem = false;
- 		}
- 	}
- 
+Am 09.07.26 um 00:20 schrieb Nicolás Antinori:
+> Simple KMS helpers are deprecated because they introduce an unnecessary
+> intermediate layer between atomic modesetting and the DRM driver.
+>
+> Inline the functionality of drm_simple_encoder_init() to remove
+> dependencies on these deprecated helpers.
+>
+> Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> index 170adaf7e76a..d5b0692fe860 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -2,7 +2,7 @@
+>
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_edid.h>
+> -#include <drm/drm_simple_kms_helper.h>
+> +#include <drm/drm_encoder.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_vblank.h>
+>   #include <drm/drm_vblank_helper.h>
+> @@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(struct drm_device *dev,
+>   	return plane;
+>   }
+>
+> +static const struct drm_encoder_funcs drm_encoder_funcs_cleanup = {
+> +	.destroy = drm_encoder_cleanup,
+> +};
+> +
+>   static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+>   				   amdgpu_vkms_output *output, int index)
+>   {
+> @@ -342,7 +346,9 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+>
+>   	drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_funcs);
+>
+> -	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
+> +	ret = drm_encoder_init(dev, encoder,
+> +			       &drm_encoder_funcs_cleanup,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+>   	if (ret) {
+>   		DRM_ERROR("Failed to init encoder\n");
+>   		goto err_encoder;
+> --
+> 2.47.3
+>
+
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
