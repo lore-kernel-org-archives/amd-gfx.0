@@ -4,85 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45ABBC43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 13:38:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C78BCC43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 14:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D89FD10E6D7;
-	Thu,  9 Jul 2026 13:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A4B10F56E;
+	Thu,  9 Jul 2026 14:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OLscckpr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oEQxT6wz";
 	dkim-atps=neutral
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C2E10E6D7
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 13:38:33 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-92e5d6f35c1so149495585a.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2026 06:38:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783604312; x=1784209112; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=cY+Cwx64dN8rgNGWsBXNTHATaNfDpSzQVoJ6jgXC8y4=;
- b=OLscckpr9CjLq+C/5cr/trdIxUehVtVBDdgPrSkSGay345W2f25ORgQxSOtv1DU5OW
- TZkeWxy1YIBnB9kJp/0S7QxdknvMUtXOhkDsyofV6pP5ghaB/lmvKjQefbl62+XnCksn
- bulfMxacofMJ0KPkWgeBmAFVms2rc/103iGJBLN7JLIdcDnKnJdkgdqb7TZv13y3KCX4
- Obr3UXnpVzAelpMiBi6udfzeOi4my6GLlu627YGkYi4K6mFi8QgaVgk2GpNrP3bZa4Cp
- pPmQbHIx1yWsQFy6DFjRb0nBpgQKAJ0sKWY0tdJcWMhWdcoIgKxJyPIF8KnGzqQitntB
- 6m3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783604312; x=1784209112;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cY+Cwx64dN8rgNGWsBXNTHATaNfDpSzQVoJ6jgXC8y4=;
- b=ZZ0x5myToTUel7FvJJ0DPd/GQx3TXo6bz+AXkLZCecUbJqlQ2CmrI7S638sh+eRckY
- SWrZU4ieX0KRYqV7yRrVeb/VfBkPoGlibdUgGwqM+8c/cF9FDZ8qccf1Tvp9yY1vcvUE
- jp6AHZ9+CHe2feBVx1EHlDsdGoOe4yTNbiuKai/nAdx8gTKFR1pQYnw973Ql7snnw27X
- mA0OSxMWs6Rw10BTSOVQ+IPcHBIxR+b+BXKCY7q38c6ELJ7WndrW4pC9nJFNR1sClDnl
- XwXwhh0fHrxUZQ/cHKYn8Nf2p1nPTnTSQS1qGeNPLwf36RpL8urwJ/wvF31aQyRaX9/o
- henw==
-X-Gm-Message-State: AOJu0Yxw1hokIpuY3cFz3AN5MxWe44XdXdyCcYioO8r5Z5YRvEGtstbT
- ZnN5nYfT+wXAhDLJ9eBPDD9AqX/vlyl/QRe+yL49l8vRW2n/SefP0t0O
-X-Gm-Gg: AfdE7ckiO9rZjkizrdB6hDdeR6DaSWT+kaXle7MYKW2rGOGuv3zvCkE3FQLRlSV+1nR
- 54zh2Etl0qCP32Cof6gzW3G8+ntuRHS2bKlrJv/+F+BEd+HpC1/k1c5LD4Bg/wAiDFUfNTer7RR
- 1x+kcD0qgjl2oArvu6G0+xbsrjaGCNB8RD3PSI8uch6YolFIExGWRz+iZTYRGSD5ctfsaa1CLR2
- ZX8vPBwUaj3QdLYMaUZ7q/eX9Q7E8x/1mTNRmn3KAivoqdaA9lBbASbetWJJbSLqCAT874qpEo7
- fRdE8eW2owQpno9rQ/iWJvh+l9/MwyJnMnOiz81MVNwpFlaq0NfMWOdsxf4ECzOU9pIKvsaxncB
- sY22SfGYyMQGxz1CAG66oXU/9U/8J53vVnmvtm5c/fkEMg0vjJTohIzmkNUc6EC13fqFuanwSPQ
- vOh5p6CgANe8CFNrvmtvD1
-X-Received: by 2002:a05:620a:6603:b0:915:abc4:b570 with SMTP id
- af79cd13be357-92ecf8d3e56mr813911985a.48.1783604311761; 
- Thu, 09 Jul 2026 06:38:31 -0700 (PDT)
-Received: from [192.168.1.100] ([32.219.225.223])
- by smtp.googlemail.com with ESMTPSA id
- af79cd13be357-92ecff35229sm383946685a.36.2026.07.09.06.38.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jul 2026 06:38:31 -0700 (PDT)
-Message-ID: <6135675c-9e65-4bfb-9b8d-0645187d6a82@gmail.com>
-Date: Thu, 9 Jul 2026 09:38:30 -0400
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013032.outbound.protection.outlook.com
+ [40.93.201.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B964510F56E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 14:29:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KVBIsS2T820f/NRHQj9jpDiwXZyUOfd9cXH4n2p6qcFQwggFuncTmDNmnB/ccbmi7nxfwuf6kK1fnN8T8uMy0ppmGMtcufoPW3OhLW+JQ3ror4YSrA1wDrca0rw/WjkNNEIOjLk/Pbv0Vy/jPM0z/AdZWAzH4ObXjMUXZHAnfAoAMu8SxuOm/a54Ut9QebHeEnosefDKjLI2ONBvYxQS7x4hUKd4HiQH+crUPaNdPyJ58mRd4QRfMdYbfl6/ot8GpxS9Ag1qnJq/DRWUVgohA8oZA/+4D+3qIEua5fExqsi2+7XK0jvOXmgu/bm7cIVBO0CLUnVomofOMx8a1JIjnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=svojBXe0YE/0E3gTCQ0vmArkVeJH5yjZfzMQ1U56ecU=;
+ b=ySLyeFbe090i9imKAPv7Mf0Ikvsjwg6ys8j2eIsXlxCLMF/yFgaPRYM93ZqrAfthlm/8hgRJw9jcr4hxwwl3XtoPvhW9FlmShTQtcb9y7fNxbRol5LzOPBiFzmRi/SpxazYiELFA7+ktvgiMl3mN3A95e8SV5wLHKYCSPzvJ2+ivu1ON162mixEpspeO6e/LWOjUX6r3FhVivbID1u+672Ar0gfPiKhFQMQpZP/0UVaLJwUOgvRhF8ZA6vfs3wJV3wuHhOm8YZ0QxsLfzSUjFy10vG5vWuMvdE/4SDAUHOpR7boTIXHhdM8a6bl8aW3pCq0d5MOV3RSdvfJ+BMTZ1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=svojBXe0YE/0E3gTCQ0vmArkVeJH5yjZfzMQ1U56ecU=;
+ b=oEQxT6wzYWZDsIBWxX133ASa1Wk7g+81hGjmcHfiS19jHMyReTFiQAyle940Ne7cCQ0n4FVJtv9aMrzW2r/3UorTK5nNasSOsA5fKdZKS5nDuPcMTY7O3PCd9l0V0toiSNR2o8FPoDmUjk95aFHDIBPUzwLcztAI0zKEtWx3iKc=
+Received: from CH0P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::16)
+ by DS0PR12MB8069.namprd12.prod.outlook.com (2603:10b6:8:f0::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.15; Thu, 9 Jul 2026 14:29:06 +0000
+Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
+ (2603:10b6:610:11c:cafe::2f) by CH0P221CA0012.outlook.office365.com
+ (2603:10b6:610:11c::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
+ Jul 2026 14:29:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 14:29:06 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 09:29:06 -0500
+Received: from [10.254.93.144] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 9 Jul 2026 09:29:05 -0500
+Message-ID: <e45fed67-77ee-41db-ab51-99304aa059ec@amd.com>
+Date: Thu, 9 Jul 2026 10:29:05 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: Remove vbios bounds check from
- pp_entries_max()
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Feng, Kenneth" <Kenneth.Feng@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-References: <20260704101120.674980-1-john.olender@gmail.com>
- <CADnq5_ODf=T4VD9_RptQaEtJr5Zinsom8jW8GJL56GN6shvJsQ@mail.gmail.com>
- <DM4PR12MB5748B149AA0BB0C5CE58BD3B8EFE2@DM4PR12MB5748.namprd12.prod.outlook.com>
- <c26d3312-0d50-4e2c-8516-7cee2b41bf83@gmail.com>
- <DM4PR12MB5748979CE743162FA87C69EB8EFE2@DM4PR12MB5748.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v2] drm/amd/display: Fix DM I2C teardown race
+To: Alex Deucher <alexdeucher@gmail.com>, Geoffrey McRae
+ <geoffrey.mcrae@amd.com>
+CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+References: <20260628161719.1598835-1-geoffrey.mcrae@amd.com>
+ <20260628163239.1599449-1-geoffrey.mcrae@amd.com>
+ <CADnq5_NviF+5uO_HQ_H+BTY+M1WNZcf5fynYxNXE_vsDMg0_eQ@mail.gmail.com>
 Content-Language: en-US
-From: John Olender <john.olender@gmail.com>
-In-Reply-To: <DM4PR12MB5748979CE743162FA87C69EB8EFE2@DM4PR12MB5748.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <CADnq5_NviF+5uO_HQ_H+BTY+M1WNZcf5fynYxNXE_vsDMg0_eQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|DS0PR12MB8069:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fa39163-8dd8-410e-fd0e-08deddc66ee9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|82310400026|42112799006|1800799024|376014|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 33KfGovN0vrUE3x+XQlsKfcgU1+wR0IpOWzP2b5f4Js5iVDlP6EQDdkQUUXYftUzemup3hO+/BaZI7SultptuqFhGpIOTydu0Z7jmvo6TQuKsCSVQ5bbE8WO8PESQ7aP29XZM6aiitVRz8f9VnK2wUQaTOoP03ZSnawNBcBtjAd2AWmLrXczKXVWZBeXb0YVBZVghIO8r+qkMDYPn2MbQ32koMwblwQofDSR4JRRa/HhTrcRj5DUGtb15pMclZm3Z8o2GSi1Iao5nS07Jt/PhUhxKIaH3Qi1cVLwu71BdXwdy05KrFrKV7ngOtnHPe8UYCq1KXCBnwQcqCwiBN7MR+3e3lF6tzxj6FOtMtIW6D9zhz+3KBnUziK0lBFtVLjIR6FsMw3pDNW/o/g7ZEC5tgextnV74Pzbz02Fzrae5dlKvGOTgtTikBtma6DNGvtBWpYNz5zKd7x9TLMeBD+FSC58V7jRJ/30Z2kqeAC4lQKGEFcC9QWatMQwET0/IdmvHClHV+fG3ipB5oxYJBx2pe1105JUylNSW+EzkF0mwAvaDAYr14TkdKY8ezPwdpK2f7Yx8dhwXAclaQHKU1/6f9Z9lrWie6egbVmLe5gajdIvjlA6TCPB9tZ/azxbhifsLY7cWFRucfpO/7edrUdkNnGET6JfWYAY3ssDD9Q4f4n+GWLsm78qjYqAoxuuwdy8i7Yi6svmOICWWI6TMw4F6w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(42112799006)(1800799024)(376014)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 27BM9fJruU99V3QtARK8CXZx5AGlp79FcG7920XYHjN+gKxdkei46PeisPQgyTULOfS7uX37oIy4Wnz+LimCMa2ilsFY4zXdUEyb5E9moHSPrAfNqRcA6ZYtLPiZVtrMNhhG1CZlAU3cwGEw22r1QX0qwtuae3fDinzaIZacdo3yG0fFboRjBGYdWDo7/i97Ld1BUpsi3J/juMMgxM9Y8oSlwhao4CIPGDbFAENdZFNdE74IBRswimT8o+iiNS12LQ1XPqHAKHKLkW6Sw/qn1UmjrqF7UY9yd2DFNFe6UMm+Axz3D+UvqUtopPYq3zdGyoFUzIBPGiNQ/+nqtvEgLBWgrocoJkq9HiMDhd5y+NZoh3bE8xqsX0d0ua9uZeAj93+Jr/Un+P0n9R6smNaMwju7k81k9G/STDExXvmsf4V9mTOEyQLM7yswccjOWgNQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 14:29:06.6736 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fa39163-8dd8-410e-fd0e-08deddc66ee9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000000A0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8069
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,126 +115,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/9/26 8:19 AM, Kamal, Asad wrote:
-> AMD General
-> 
-> Hi @John Olender,
-> 
-> amdgpu_atom_parse_data_header() does not validate usStructureSize against the BIOS boundary — it reads the value directly from the BIOS bytes without any bounds check:
-> 
-> if (size)
->     *size = CU16(idx);   /* raw BIOS read, no validation */
-> So soft_pp_table_size is whatever the VBIOS claims and cannot be trusted for the VBIOS path.
-> 
 
-Just before this assignment is where I'm suggesting the parsed table
-ends be sanity checked against the vbios size.  A table whose end
-blatantly overflows the vbios would then be rejected early.
 
-This would avoid redundant checks in the inline pp_entries_max().
+On 2026-07-08 09:30, Alex Deucher wrote:
+> On Sun, Jun 28, 2026 at 12:39 PM Geoffrey McRae <geoffrey.mcrae@amd.com> wrote:
+>>
+>> DM I2C adapters can remain visible to userspace while DM teardown is
+>> already in progress. A concurrent i2c-dev transfer may then enter
+>> amdgpu_dm_i2c_xfer() after the backing DM state has been torn down,
+>> leading to a NULL pointer dereference.
+>>
+>> Create a devres group around the DM I2C adapter lifetime and release it
+>> at the start of dm_hw_fini(), before HPD, IRQ, and DM state are torn
+>> down. This removes the I2C adapters first and waits for in-flight users
+>> to drain before the structures used by amdgpu_dm_i2c_xfer() disappear.
+>>
+>> This fixes a teardown ordering race seen during device removal:
+>>
+>> BUG: kernel NULL pointer dereference
+>> RIP: amdgpu_dm_i2c_xfer+0x122/0x1c0 [amdgpu]
+>> Call Trace:
+>> __i2c_transfer
+>> i2c_transfer
+>> i2cdev_ioctl_rdwr
+>>
+>> Fixes: 5b3eca05cfb0 ("drm/amd/display: Use devm_i2c_add_adapter to simplify i2c cleanup logic")
+>> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+> 
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks,
-John
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 
-> Regarding other ATOM tables — the PP table is unique in that the host driver parses its sub-tables entry-by-entry, using ucNumEntries from the BIOS to drive kzalloc() sizes and loop bounds. That is the direct exploit path this series addresses. Most other ATOM tables are either passed raw to firmware, read as a fixed-size struct, or executed as ATOM scripts — none use a BIOS-supplied count to allocate kernel memory in a loop, so an inflated usStructureSize is harmless for them.
 > 
-> The bios_end check in pp_entries_max() is still needed for the VBIOS path and the !hardcode_pp_table condition correctly gates it.
-> 
-> Thanks & Regards
-> Asad
-> 
-> -----Original Message-----
-> From: John Olender <john.olender@gmail.com>
-> Sent: Thursday, July 9, 2026 4:09 PM
-> To: Kamal, Asad <Asad.Kamal@amd.com>; Alex Deucher <alexdeucher@gmail.com>
-> Cc: amd-gfx@lists.freedesktop.org; Feng, Kenneth <Kenneth.Feng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Subject: Re: [PATCH] drm/amd/pm: Remove vbios bounds check from pp_entries_max()
-> 
-> On 7/9/26 5:57 AM, Kamal, Asad wrote:
->> AMD General
+>> ---
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++++++++-
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
+>>  2 files changed, 20 insertions(+), 1 deletion(-)
 >>
->> Hi @John Olender,
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index b97ceabe6173..5613dc9903fe 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -1496,17 +1496,26 @@ static int dm_hw_init(struct amdgpu_ip_block *ip_block)
+>>         struct amdgpu_device *adev = ip_block->adev;
+>>         int r;
 >>
->> Good catch. However,  as Alex points out, removing the check entirely drops protection for VBIOS-sourced tables.
+>> +       adev->dm.i2c_devres_group = devres_open_group(adev->dev, NULL, GFP_KERNEL);
+>> +       if (!adev->dm.i2c_devres_group)
+>> +               return -ENOMEM;
+>> +
+>>         /* Create DAL display manager */
+>>         r = amdgpu_dm_init(adev);
+>>         if (r)
+>> -               return r;
+>> +               goto err_release_i2c;
+>>         amdgpu_dm_hpd_init(adev);
 >>
->> Instead of removing the check, could you condition it on hardcode_pp_table? When it is NULL we are on the VBIOS path and the bios_end check should stay. When it is non-NULL a custom table was uploaded via sysfs and the check can be skipped — soft_pp_table_size is already set to the kernel-supplied upload size.
+>>         r = dm_oem_i2c_hw_init(adev);
+>>         if (r)
+>>                 drm_info(adev_to_drm(adev), "Failed to add OEM i2c bus\n");
 >>
->> if (!hwmgr->hardcode_pp_table) {
->>         const char *bios_end = (const char *)adev->bios + adev->bios_size;
->>         if (pp_end > bios_end)
->>                 return 0;
->> }
+>> +       devres_close_group(adev->dev, adev->dm.i2c_devres_group);
+>>         return 0;
+>> +
+>> +err_release_i2c:
+>> +       devres_release_group(adev->dev, adev->dm.i2c_devres_group);
+>> +       return r;
+>>  }
 >>
->> This fixes your regression while keeping Alex's concern addressed. Please let me know if it ok with you.
+>>  /**
+>> @@ -1521,6 +1530,9 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_block)
+>>  {
+>>         struct amdgpu_device *adev = ip_block->adev;
 >>
->> Thanks & Regards
->> Asad
-> 
-> Hmm.
-> 
-> Checking for vbios overflow when a table header is parsed should allow
-> pp_entries_max() to implicitly detect vbios overflow for the vbios-provided pp_table.
-> 
-> Is there a reason all atom tables are not sanity checked in this way?
-> It seems odd that the pp_table header isn't trusted while the rest of the table headers are.
-> 
-> Thanks,
-> John
-> 
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->> Alex Deucher
->> Sent: Wednesday, July 8, 2026 10:08 PM
->> To: John Olender <john.olender@gmail.com>
->> Cc: amd-gfx@lists.freedesktop.org; Feng, Kenneth
->> <Kenneth.Feng@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Lazar,
->> Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>;
->> Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
->> Subject: Re: [PATCH] drm/amd/pm: Remove vbios bounds check from
->> pp_entries_max()
+>> +       if (adev->dm.i2c_devres_group)
+>> +               devres_release_group(adev->dev, adev->dm.i2c_devres_group);
+>> +
+>>         amdgpu_dm_hpd_fini(adev);
 >>
->> On Sat, Jul 4, 2026 at 6:19 AM John Olender <john.olender@gmail.com> wrote:
->>>
->>> The soft_pp_table is not contained within the vbios when using a
->>> pp_table override since commit 3cfe433630508 ("drm/amd/pm: Use
->>> uploaded size for legacy custom PPTable").
->>>
->>> Fixes: e30b3e3ab51ad ("drm/amdgpu/pm: add pp_entries_max() helper")
->>> Signed-off-by: John Olender <john.olender@gmail.com>
+>>         amdgpu_dm_irq_fini(adev);
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> index 909ee71d6d59..13a18e1ed576 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>> @@ -688,6 +688,13 @@ struct amdgpu_display_manager {
+>>          */
+>>         void *bb_from_dmub;
 >>
->> Removing this will effectively remove the bounds check from tables read from the bios.  I don't think we want to do that.
+>> +       /**
+>> +        * @i2c_devres_group:
+>> +        *
+>> +        * Devres group for DM i2c adapter lifetime management.
+>> +        */
+>> +       void *i2c_devres_group;
+>> +
+>>         /**
+>>          * @oem_i2c:
+>>          *
+>> --
+>> 2.43.0
 >>
->> Alex
->>
->>> ---
->>>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 4 ----
->>>  1 file changed, 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->>> b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->>> index 7ebc1344023ff..19023a850e882 100644
->>> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->>> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->>> @@ -833,14 +833,10 @@ static inline uint32_t pp_entries_max(const struct pp_hwmgr *hwmgr,
->>>                                       const void *sub_table,
->>>                                       size_t hdr_size, size_t
->>> rec_size)  {
->>> -       struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
->>> -       const char *bios_end = (const char *)adev->bios + adev->bios_size;
->>>         const char *pp_end   = (const char *)hwmgr->soft_pp_table
->>>                                + hwmgr->soft_pp_table_size;
->>>         const char *entries  = (const char *)sub_table + hdr_size;
->>>
->>> -       if (pp_end > bios_end)
->>> -               return 0;
->>>         if (!rec_size || entries >= pp_end)
->>>                 return 0;
->>>         return (uint32_t)((pp_end - entries) / rec_size);
->>>
->>> base-commit: e3cc8c108f9a91728f9ff6e24cbf3b41c58b8f8b
->>> --
->>> 2.47.3
->>>
-> 
 
