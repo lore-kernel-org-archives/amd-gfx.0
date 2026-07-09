@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D45BAC43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:01:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362A4C44506
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C2810F6C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC47F10F6C6;
 	Thu,  9 Jul 2026 21:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WdVkUobY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nZfHbsW+";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010029.outbound.protection.outlook.com [52.101.61.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16EB210F6C6
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012053.outbound.protection.outlook.com [40.107.209.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9417810F6C4
  for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:01:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tO9BhVHzJGTKdP3bNwKY7L0pQQffWy+VBhBizn++HYDVM9ocRcQ/Qx1I1nwjtB8J5zpPmIyuhnMFvlCpqSSSJIDROzo2WAYDg+nerl8RgKVcnJVRQEMyeKrkHIz5uXAhuru9I0PlRvcomvkyW09yAwfCGKhKyKilq4K+ggF4cPogX6I6jpumLFkjNqWAWsaUtNMPDTaypcmBpry34NM+5aAQ6ONUKOymoI1ICNM6v+nTBakhfFIHz2ufVihFMeyHPL91hYhiOLe4dEG2q8QoFmBA0SrPYiyHK9fYG4EKiErQEPkjS+L2w38VXadG4U6Qq10beVopuLkrlJU4PngLiQ==
+ b=o2rACDiSou5EqpeFb9D173ctGnMfnuPFBzbX0c605bQW+sZJumx6lDvmo/DOWMtNPtWRqxezjdBL8c5vMIJazR6XfsVq+O/JXR+poBO6UuWaPRfDaYfsuVeM/ro3CGK8O9RAlFfR5qAQMx03vkWQNcS+XmgmcdQjQTt4S5Lsc9Y06LSmwVirPfjxg5V8Z4RAM756kwdun0+tML5NRTNPtzpddjGiuTAogvr/wrxdea46KtU1PtB2DUmp598XgvwhzifCZZ9hmk4cNkZjuRCMeCNu8dGgnzHYr7WE4pa6CCuSzxvvBnlSd+VCy8M1HwXIq2G9lDuwFPSG2U3tkMYx7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A6U+hgPEIqSkCsp521gGgVSevThoWtabk9j2B5SjVlY=;
- b=cxLLlsi8VbGkiXuhg5DbDCI+N6/NwTOYtRaNWJWZsTAATi3uXuyI9jVs7gtmmOF107PD9eMqwaXw2fNd71u6elBBJRNvvCQknSoWAywzE+OhiNZ49E5qUjQ7NFyLU6a9K3mhloFXSLYCnRwWatCYVahXd4IeuCMp6730XmhMo932d4Gv/x7zkCurI1hQiyGMHLpajz4kPxHhTfrlevUayXh4alRIFP0hP0+pm5kEX5Tq6DIcrHA8zgOyYnM2xrPyuQLJVCgdeC1D+iqefgXJX2kCrp0yn+JjDMkBCQuqKYtBoEchJsX5OB7UUN01FuO5yJuVJggnGqWAdX/fugePSA==
+ bh=7NthjUYMeyZ+66lLEnblpSE8x3SEY+J5qAcqCBMhnqk=;
+ b=TBJh8Pq+Rj2vdTUxd2yi9bTsxykCwsGR9oT3wvwbvhU5qzZfIo6W9rZnznxSiwFM5x5O6L2sUP9nHcFj6+Mz1nb5JeTrWY5WBSJ3WOjlDqBcW5cn6j2lPTaBXw8ow0haOMGUkNhrWaqiaPoLbR1a3R6qE+ZGnpIhme0QDpv4Lj6c2qwqcEgF/+oVIjWlyfACR8GERDXLXzUNrDPWw6avOJwMJb7cPcOmM3sH+1h6L8nEYYd6SzZtFbQ63lBQkTuBR1EGoYK3HrVK+YDSCPzfnNHtX80++yEqfq5rJtGIMinYycU89gyrRDoG0gD/ErH0A3l23RiL+vfqI82U5eahSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A6U+hgPEIqSkCsp521gGgVSevThoWtabk9j2B5SjVlY=;
- b=WdVkUobYh9Qw2uLGExpTF1BszzBQNScsXZ1CrVyJAxZt2YZEEoGa8pH89gCnHn8l6rQAmeKAilPC/x7xc9vdZbqCCMJ92YmGGErsNXElKWUgrh0ECbILiKY9b+qZwr9zy30kx4Jd+sxsAvWPwgf1V7kaSyea5omERiFW8tmKokg=
-Received: from SA9PR11CA0007.namprd11.prod.outlook.com (2603:10b6:806:6e::12)
- by SA1PR12MB8095.namprd12.prod.outlook.com (2603:10b6:806:33f::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=7NthjUYMeyZ+66lLEnblpSE8x3SEY+J5qAcqCBMhnqk=;
+ b=nZfHbsW+/b2wLsFIu3WfhdczWOl+RdwctXJFNx9KMVn2FMmCLMXXE0ngg/DGSDL6rAEoRdi5o4WYbQBrUrdQTjtj9U5jaa2O3noXLk+FJtsDJuVnuCk69mDxvNQY14SX6+Ap9jHRmsbRe7qTi8n8fcURnrEW94oxrUooFi5ki38=
+Received: from PH8P221CA0044.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:346::22)
+ by DS0PR12MB8368.namprd12.prod.outlook.com (2603:10b6:8:fe::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
- 2026 21:01:46 +0000
-Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
- (2603:10b6:806:6e:cafe::aa) by SA9PR11CA0007.outlook.office365.com
- (2603:10b6:806:6e::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Thu, 9
- Jul 2026 21:01:46 +0000
+ 2026 21:01:49 +0000
+Received: from SA2PEPF00003F64.namprd04.prod.outlook.com
+ (2603:10b6:510:346:cafe::21) by PH8P221CA0044.outlook.office365.com
+ (2603:10b6:510:346::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.12 via Frontend Transport; Thu, 9
+ Jul 2026 21:01:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ SA2PEPF00003F64.mail.protection.outlook.com (10.167.248.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:01:45 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:01:48 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 16:01:37 -0500
+ 2026 16:01:43 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Matthew Stewart <Matthew.Stewart2@amd.com>, "Ovidiu
- (Ovi) Bunea" <ovidiu.bunea@amd.com>, George Zhang <george.zhang@amd.com>
-Subject: [PATCH 06/80] drm/amd/display: Fix DCN42B null registers & register
- masks
-Date: Thu, 9 Jul 2026 16:47:34 -0400
-Message-ID: <20260709205936.5719-7-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, George Zhang
+ <george.zhang@amd.com>
+Subject: [PATCH 12/80] drm/amd/display: Fix dead-code panel type detection
+ from DID
+Date: Thu, 9 Jul 2026 16:47:40 -0400
+Message-ID: <20260709205936.5719-13-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709205936.5719-1-george.zhang@amd.com>
 References: <20260709205936.5719-1-george.zhang@amd.com>
@@ -80,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|SA1PR12MB8095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11758fd4-b192-4d09-baa8-08deddfd4949
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|DS0PR12MB8368:EE_
+X-MS-Office365-Filtering-Correlation-Id: 592103f4-6e47-40a1-2c3b-08deddfd4ac8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|56012099006|22082099003|18002099003|11063799006|3023799007;
-X-Microsoft-Antispam-Message-Info: Sj8npii8j9DrqCICx4TcOntftd3EEZSDTeGa/Lx2V/gzX4NFhSF8r8WjRaL+99D6iPKjTeR6Vc//pX5LYjJikCOfpk3FUV6qCQtxp66LNWNHWpVuKDrh0WUtTMTBpc9RNUjkG/+N+vyedyrlNMFpjyF6ovidSVrw54DiMZVXE55iw1sFC1xAwD4J6MKbyGHPC+b++8vdQjBWaH7DeRqLZ2jlo8/jiirVcuvkntCKM/GetYYnUTgagEQSq7Bq/QFJHsASUDxMtyAIa7/pRoxjGO4YCmwWTRH6FudMGf7NYed28JPan/9eTCnbWW2tF9SpaUayQ6MkmY8x0FzOTqMdvNicCreGOcjAm45w7G192zzTqwqggUHU/sZDxADRnHwtvzqVixAduWv4bNW+RuFg1FqzFzQhX30Tq9XCulGkLLezty91vk00hkBh6Pi1rkX9CgpXeCBllrP76dT7sdhR5kBxOTKoQjxvsmXQj2uJyAEa8TW0ERTpnTEbP8JYGFS2Zx7OGbcWro0ytRGHPCP07HPnldOxkdelbFVDnb+IwKrRpHyRrmWf62oSJXEFqJ2M8LbD5+9+/DF6tzbRTffiqh+RUblnNWv9ct0tgoRJIUMAegJgoUd+z5IfOpp7exKgx8ml+nqfVXCGrFk1Jwu49sRKjQXfRLKszmTyThn7sBoyqC7JmL+fBR0irJgWN6z7jVIxM9qytmBOyhkydDBY+Q==
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: zxJDWhr7ALOFYykmsvbfazQXRl1Tmzv9B5ja29lb8VQ7rZ4Kg88OiNpBV/on30fRN5bLbyVJwsZ24VYgOZ+wLJTNISa911Msm8V9eX1Z4hybNPzxYIAW+zw9YV4T6KQsFZWIaahijpaJlN+22TSHm2lT/exMnd9P5z3ZlG8w+ZF+o45ut2hUJz/YMSt5ccOsI85PDT/9020sE4z2N2QKo432APlg+8bpjSJZ88XFz1mrWQ3Vhu+qkb6D9rerxyvytnK2Dtd2einpn4K83tq37Mx84tXT9FifiMMfuV1OQdl0jaAHCXpixNCgSEMcDdrcCw3psBMa6/TNUMljDdvpFR2ccS6/QqM98YyLmpQFuIUCZFC/gszmTK+0z8ms+WZfWd5fSe5onESmkPkolLXBWPWDR35rnY5TpPzOQ+z5WOWihPR7evQIuUqEXvGpWW/meRRE9eiw8jhftsn5Xf3Of42XiXBblUk04E2jFisZhl2SCilpCEVmXPdWXb9Gh/EqfpjX7hl42rWblBEegbc+Dt67HbAC6fnoSAevU0Gmb4VxuvJ3xFiaohBC/DfEsm+AS5nauE6kh98SIko2g9489L/nZr3dob1z97GYqhWm2kqRyopOPMk8BOMHDYmhlr2rhUNBwZQQQUsFXJn00OztWi1jr4ML/G4aeo07QmxUH4epEqJ0ljpdyhzCwSJ1T680APRGyZ/bMqB2SfIqobVMpw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(56012099006)(22082099003)(18002099003)(11063799006)(3023799007);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sW4lWZnIuxLEaHJ4xIoU96ICl6sPV0FXAnydTL3nJc+4pwhCDJzhlJhE7de1C5L5hISCoT0Pi3C5p0Nv3DR14cb+wGbSO75rUvt7/tgIzqKOAd1Z7GTgTtBkFsu1dQr1H96r/ECpy47FlLaXo+395PCtHo7KalN6I7G8ESqEaN6eI6MSIIJZyWV0ILfnjazttJuX5DX4cm+XBAqGEIHjvmwUnHrGJ0TpyIDvuXOSUJIu5cfuaEQzc65NHZHk4PgE12Bd3zlyWtCqW4IRDQxem5JnWcFlnWogxc+SDa3GVJ3qLISSf1m8rYybZmJi56yBbcFfKZslZVTHGlSXOpX0303Ljqc2NapVqw6dz5LcXqJ6VGWwhmLcwp/Yn8vNcVhY/7XgtVD25kVX2OQAf//CA21TTkHsgxMWKRmTptPta9sE1c2Cdt+amJO6dxIwXVAP
+X-MS-Exchange-AntiSpam-MessageData-0: YWFK+cuRjCJG5B/WPmkzDyhF7ParIMFu7DLC4+Y9qSWMLTKYO4yKTLxNMvkpbKn0TBHd0o5k1+H9i6pROZxsYROe1PUo4YXce3fApK8buOdnm21GR60gYAdAQWZmY5/kqGDYUYK9FAI6IPCFsdRSuIzEwAmX7JyChjjEsWsEa7IHCaCX9G9EVHXS5O6pdVp7NhWnjfKsgTqxUdx7RrNERcLt87iG+GxZbyveYPv2cgEXER6xetHxYbdWKjmr9IgWt5Lucp4AFsWRe1pqgotxIPA4eKfTN5HPomBwhtkVhLDhkp9AiiVydidHWnwnOTayf+ULx+R3J8HjNDF99UQxmG6YGrMescoq5ve2SyAsv3GCEQuIf7NUl9ulkgjv7jFPQ5HwG0MPg3mExwyVJoFrNgk5Zgy0JTrI5LdmyZ/0hoz4vHaxEmdIMQ2KZI0P8LNI
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:01:45.7699 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11758fd4-b192-4d09-baa8-08deddfd4949
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:01:48.3701 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 592103f4-6e47-40a1-2c3b-08deddfd4ac8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F64.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8095
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8368
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,211 +117,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Stewart <Matthew.Stewart2@amd.com>
+From: Chenyu Chen <chen-yu.chen@amd.com>
 
-[why]
+[Why]
+In amdgpu_dm_set_panel_type() the DID fallback branch tested and wrote
+link->panel_type, while the rest of the function tracked the result in
+the local variable panel_type. The final assignment unconditionally
+overwrites link->panel_type from panel_type, so the value derived from
+DID was always discarded, making the DID branch dead code.
 
-DCN42B is missing some register masks, which are causing errors in dmesg.
+[How]
+Use the local panel_type variable in the DID fallback branch so that the
+DID result participates in the source priority (VSDB -> DPCD -> DID ->
+vendor luminance heuristic -> LCD default) and is preserved by the final
+assignment.
 
-[how]
-
-Make DCN42B reuse the DCN42 register lists, and add the missing defines manually.
-
-Fixes: 620081faa027 ("drm/amd/display: Fix DCN42 null registers & register masks")
-Reviewed-by: Ovidiu (Ovi) Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Matthew Stewart <Matthew.Stewart2@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.8
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../dc/resource/dcn42b/dcn42b_resource.c      |  20 ++-
- .../dc/resource/dcn42b/dcn42b_resource.h      | 116 +-----------------
- 2 files changed, 20 insertions(+), 116 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-index 1bc2452b271f..18a7fd9136af 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
-@@ -22,6 +22,7 @@
- #include "dcn35/dcn35_resource.h"
- #include "dcn321/dcn321_resource.h"
- #include "dcn401/dcn401_resource.h"
-+#include "dcn42/dcn42_resource.h"
- #include "dcn42/dcn42_resource_fpu.h"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index b9a3c8aa611e..9d0231016ad6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -420,11 +420,11 @@ static void amdgpu_dm_set_panel_type(struct amdgpu_dm_connector *aconnector)
+ 	}
 
- #include "dcn10/dcn10_ipp.h"
-@@ -116,6 +117,23 @@
- #define regAPG9_APG_DBG_GEN_CONTROL             0x38ae
- #define regAPG9_APG_DBG_GEN_CONTROL_BASE_IDX    2
+ 	/* If VSDB and DPCD didn't determine panel type, check DID */
+-	if (link->panel_type == PANEL_TYPE_NONE) {
++	if (panel_type == PANEL_TYPE_NONE) {
+ 		if (display_info->panel_type == DRM_MODE_PANEL_TYPE_LCD)
+-			link->panel_type = PANEL_TYPE_LCD;
++			panel_type = PANEL_TYPE_LCD;
+ 		else if (display_info->panel_type == DRM_MODE_PANEL_TYPE_OLED)
+-			link->panel_type = PANEL_TYPE_OLED;
++			panel_type = PANEL_TYPE_OLED;
+ 	}
 
-+#define regHUBP0_HUBPREQ_DEBUG_DB             0x05f8
-+#define regHUBP0_HUBPREQ_DEBUG_DB_BASE_IDX    2
-+#define regHUBP0_HUBPREQ_DEBUG                0x05f9
-+#define regHUBP0_HUBPREQ_DEBUG_BASE_IDX       2
-+#define regHUBP1_HUBPREQ_DEBUG_DB             0x06d4
-+#define regHUBP1_HUBPREQ_DEBUG_DB_BASE_IDX    2
-+#define regHUBP1_HUBPREQ_DEBUG                0x06d5
-+#define regHUBP1_HUBPREQ_DEBUG_BASE_IDX       2
-+#define regHUBP2_HUBPREQ_DEBUG_DB             0x07b0
-+#define regHUBP2_HUBPREQ_DEBUG_DB_BASE_IDX    2
-+#define regHUBP2_HUBPREQ_DEBUG                0x07b1
-+#define regHUBP2_HUBPREQ_DEBUG_BASE_IDX       2
-+#define regHUBP3_HUBPREQ_DEBUG_DB             0x088c
-+#define regHUBP3_HUBPREQ_DEBUG_DB_BASE_IDX    2
-+#define regHUBP3_HUBPREQ_DEBUG                0x088d
-+#define regHUBP3_HUBPREQ_DEBUG_BASE_IDX       2
-+
- enum dcn401_clk_src_array_id {
- 	DCN401_CLK_SRC_PLL0,
- 	DCN401_CLK_SRC_PLL1,
-@@ -461,7 +479,7 @@ static const struct dcn_optc_mask optc_mask = {
- 	OPTC_COMMON_MASK_SH_LIST_DCN42B(_MASK)};
-
- #define hubp_regs_init(id) \
--	HUBP_REG_LIST_DCN42B_RI(id)
-+	HUBP_REG_LIST_DCN42_RI(id)
-
- static struct dcn_hubp2_registers hubp_regs[4];
-
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.h
-index 2da3e3c8304a..2824a0e1acc9 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.h
-@@ -344,7 +344,6 @@
-  *  DCCG_SRII(PHASE, DP_DTO, 3),
-  *  DCCG_SRII(MODULO, DP_DTO, 3),
-  *	SR(DSCCLK3_DTO_PARAM),
-- *	SR(HDMISTREAMCLK_CNTL),
-  *  SR(SYMCLKD_CLOCK_ENABLE),
-  *  SR(SYMCLKE_CLOCK_ENABLE)
-  */
-@@ -360,6 +359,7 @@
- 	SR(PHYBSYMCLK_CLOCK_CNTL), \
- 	SR(PHYCSYMCLK_CLOCK_CNTL), \
- 	SR(DPSTREAMCLK_CNTL), \
-+	SR(HDMISTREAMCLK_CNTL), \
- 	SR(SYMCLK32_SE_CNTL), \
- 	SR(SYMCLK32_LE_CNTL), \
- 	DCCG_SRII(PIXEL_RATE_CNTL, OTG, 0), \
-@@ -542,120 +542,6 @@
- 		SRI_ARR(DC_ABM1_ACE_OFFSET_SLOPE_DATA, ABM, id),        \
- 		SRI_ARR(DC_ABM1_ACE_PWL_CNTL, ABM, id)
-
--/* HUBP */
--/* Not in DCN42B: HUBPREQ_DEBUG_DB and HUBPREQ_DEBUG */
--#define HUBP_REG_LIST_DCN42B_RI(id)                                         \
--	SRI_ARR(DCN_DMDATA_VM_CNTL, HUBPREQ, id),                               \
--	SRI_ARR(FLIP_PARAMETERS_3, HUBPREQ, id),                               \
--	SRI_ARR(FLIP_PARAMETERS_4, HUBPREQ, id),                               \
--	SRI_ARR(FLIP_PARAMETERS_5, HUBPREQ, id),                               \
--	SRI_ARR(FLIP_PARAMETERS_6, HUBPREQ, id),                               \
--	SRI_ARR(VBLANK_PARAMETERS_5, HUBPREQ, id),                             \
--	SRI_ARR(VBLANK_PARAMETERS_6, HUBPREQ, id),                             \
--	HUBP_REG_LIST_DCN_VM_RI(id),                                            \
--	SRI_ARR(PREFETCH_SETTINGS, HUBPREQ, id),                               \
--	SRI_ARR(PREFETCH_SETTINGS_C, HUBPREQ, id),                             \
--	SRI_ARR(DCN_VM_SYSTEM_APERTURE_LOW_ADDR, HUBPREQ, id),                 \
--	SRI_ARR(DCN_VM_SYSTEM_APERTURE_HIGH_ADDR, HUBPREQ, id),                \
--	SRI_ARR(CURSOR_SETTINGS, HUBPREQ, id),                                 \
--	SRI_ARR(CURSOR_SURFACE_ADDRESS_HIGH, CURSOR0_, id),                    \
--	SRI_ARR(CURSOR_SURFACE_ADDRESS, CURSOR0_, id),                         \
--	SRI_ARR(CURSOR_SIZE, CURSOR0_, id),                                    \
--	SRI_ARR(CURSOR_CONTROL, CURSOR0_, id),                                 \
--	SRI_ARR(CURSOR_POSITION, CURSOR0_, id),                                \
--	SRI_ARR(CURSOR_HOT_SPOT, CURSOR0_, id),                                \
--	SRI_ARR(CURSOR_DST_OFFSET, CURSOR0_, id),                              \
--	SRI_ARR(DMDATA_ADDRESS_HIGH, CURSOR0_, id),                            \
--	SRI_ARR(DMDATA_ADDRESS_LOW, CURSOR0_, id),                             \
--	SRI_ARR(DMDATA_CNTL, CURSOR0_, id),                                    \
--	SRI_ARR(DMDATA_SW_CNTL, CURSOR0_, id),                                 \
--	SRI_ARR(DMDATA_QOS_CNTL, CURSOR0_, id),                                \
--	SRI_ARR(DMDATA_SW_DATA, CURSOR0_, id),                                 \
--	SRI_ARR(DMDATA_STATUS, CURSOR0_, id),                                  \
--	SRI_ARR(FLIP_PARAMETERS_0, HUBPREQ, id),                               \
--	SRI_ARR(FLIP_PARAMETERS_1, HUBPREQ, id),                               \
--	SRI_ARR(FLIP_PARAMETERS_2, HUBPREQ, id),                               \
--	SRI_ARR(DCN_CUR1_TTU_CNTL0, HUBPREQ, id),                              \
--	SRI_ARR(DCN_CUR1_TTU_CNTL1, HUBPREQ, id),                              \
--	SRI_ARR(DCSURF_FLIP_CONTROL2, HUBPREQ, id),                            \
--	SRI_ARR(VMID_SETTINGS_0, HUBPREQ, id),                                 \
--	SRI_ARR(DCHUBP_CNTL, HUBP, id),                                        \
--	SRI_ARR(DCSURF_ADDR_CONFIG, HUBP, id),                                 \
--	SRI_ARR(DCSURF_TILING_CONFIG, HUBP, id),                               \
--	SRI_ARR(DCSURF_SURFACE_PITCH, HUBPREQ, id),                            \
--	SRI_ARR(DCSURF_SURFACE_PITCH_C, HUBPREQ, id),                          \
--	SRI_ARR(DCSURF_SURFACE_CONFIG, HUBP, id),                              \
--	SRI_ARR(DCSURF_FLIP_CONTROL, HUBPREQ, id),                             \
--	SRI_ARR(DCSURF_PRI_VIEWPORT_DIMENSION, HUBP, id),                      \
--	SRI_ARR(DCSURF_PRI_VIEWPORT_START, HUBP, id),                          \
--	SRI_ARR(DCSURF_SEC_VIEWPORT_DIMENSION, HUBP, id),                      \
--	SRI_ARR(DCSURF_SEC_VIEWPORT_START, HUBP, id),                          \
--	SRI_ARR(DCSURF_PRI_VIEWPORT_DIMENSION_C, HUBP, id),                    \
--	SRI_ARR(DCSURF_PRI_VIEWPORT_START_C, HUBP, id),                        \
--	SRI_ARR(DCSURF_SEC_VIEWPORT_DIMENSION_C, HUBP, id),                    \
--	SRI_ARR(DCSURF_SEC_VIEWPORT_START_C, HUBP, id),                        \
--	SRI_ARR(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, HUBPREQ, id),             \
--	SRI_ARR(DCSURF_PRIMARY_SURFACE_ADDRESS, HUBPREQ, id),                  \
--	SRI_ARR(DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH, HUBPREQ, id),           \
--	SRI_ARR(DCSURF_SECONDARY_SURFACE_ADDRESS, HUBPREQ, id),                \
--	SRI_ARR(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, HUBPREQ, id),        \
--	SRI_ARR(DCSURF_PRIMARY_META_SURFACE_ADDRESS, HUBPREQ, id),             \
--	SRI_ARR(DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH, HUBPREQ, id),      \
--	SRI_ARR(DCSURF_SECONDARY_META_SURFACE_ADDRESS, HUBPREQ, id),           \
--	SRI_ARR(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C, HUBPREQ, id),           \
--	SRI_ARR(DCSURF_PRIMARY_SURFACE_ADDRESS_C, HUBPREQ, id),                \
--	SRI_ARR(DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH_C, HUBPREQ, id),         \
--	SRI_ARR(DCSURF_SECONDARY_SURFACE_ADDRESS_C, HUBPREQ, id),              \
--	SRI_ARR(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C, HUBPREQ, id),      \
--	SRI_ARR(DCSURF_PRIMARY_META_SURFACE_ADDRESS_C, HUBPREQ, id),           \
--	SRI_ARR(DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH_C, HUBPREQ, id),    \
--	SRI_ARR(DCSURF_SECONDARY_META_SURFACE_ADDRESS_C, HUBPREQ, id),         \
--	SRI_ARR(DCSURF_SURFACE_INUSE, HUBPREQ, id),                            \
--	SRI_ARR(DCSURF_SURFACE_INUSE_HIGH, HUBPREQ, id),                       \
--	SRI_ARR(DCSURF_SURFACE_INUSE_C, HUBPREQ, id),                          \
--	SRI_ARR(DCSURF_SURFACE_INUSE_HIGH_C, HUBPREQ, id),                     \
--	SRI_ARR(DCSURF_SURFACE_EARLIEST_INUSE, HUBPREQ, id),                   \
--	SRI_ARR(DCSURF_SURFACE_EARLIEST_INUSE_HIGH, HUBPREQ, id),              \
--	SRI_ARR(DCSURF_SURFACE_EARLIEST_INUSE_C, HUBPREQ, id),                 \
--	SRI_ARR(DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C, HUBPREQ, id),            \
--	SRI_ARR(DCSURF_SURFACE_CONTROL, HUBPREQ, id),                          \
--	SRI_ARR(DCSURF_SURFACE_FLIP_INTERRUPT, HUBPREQ, id),                   \
--	SRI_ARR(HUBPRET_CONTROL, HUBPRET, id),                                 \
--	SRI_ARR(HUBPRET_READ_LINE_STATUS, HUBPRET, id),                        \
--	SRI_ARR(DCN_EXPANSION_MODE, HUBPREQ, id),                              \
--	SRI_ARR(DCHUBP_REQ_SIZE_CONFIG, HUBP, id),                             \
--	SRI_ARR(DCHUBP_REQ_SIZE_CONFIG_C, HUBP, id),                           \
--	SRI_ARR(BLANK_OFFSET_0, HUBPREQ, id),                                  \
--	SRI_ARR(BLANK_OFFSET_1, HUBPREQ, id),                                  \
--	SRI_ARR(DST_DIMENSIONS, HUBPREQ, id),                                  \
--	SRI_ARR(DST_AFTER_SCALER, HUBPREQ, id),                                \
--	SRI_ARR(VBLANK_PARAMETERS_0, HUBPREQ, id),                             \
--	SRI_ARR(REF_FREQ_TO_PIX_FREQ, HUBPREQ, id),                            \
--	SRI_ARR(VBLANK_PARAMETERS_1, HUBPREQ, id),                             \
--	SRI_ARR(VBLANK_PARAMETERS_3, HUBPREQ, id),                             \
--	SRI_ARR(NOM_PARAMETERS_4, HUBPREQ, id),                                \
--	SRI_ARR(NOM_PARAMETERS_5, HUBPREQ, id),                                \
--	SRI_ARR(PER_LINE_DELIVERY_PRE, HUBPREQ, id),                           \
--	SRI_ARR(PER_LINE_DELIVERY, HUBPREQ, id),                               \
--	SRI_ARR(VBLANK_PARAMETERS_2, HUBPREQ, id),                             \
--	SRI_ARR(VBLANK_PARAMETERS_4, HUBPREQ, id),                             \
--	SRI_ARR(NOM_PARAMETERS_6, HUBPREQ, id),                                \
--	SRI_ARR(NOM_PARAMETERS_7, HUBPREQ, id),                                \
--	SRI_ARR(DCN_TTU_QOS_WM, HUBPREQ, id),                                  \
--	SRI_ARR(DCN_GLOBAL_TTU_CNTL, HUBPREQ, id),                             \
--	SRI_ARR(DCN_SURF0_TTU_CNTL0, HUBPREQ, id),                             \
--	SRI_ARR(DCN_SURF0_TTU_CNTL1, HUBPREQ, id),                             \
--	SRI_ARR(DCN_SURF1_TTU_CNTL0, HUBPREQ, id),                             \
--	SRI_ARR(DCN_SURF1_TTU_CNTL1, HUBPREQ, id),                             \
--	SRI_ARR(DCN_CUR0_TTU_CNTL0, HUBPREQ, id),                              \
--	SRI_ARR(DCN_CUR0_TTU_CNTL1, HUBPREQ, id),                              \
--	SRI_ARR(HUBP_CLK_CNTL, HUBP, id),                                      \
--	SRI_ARR(HUBPRET_READ_LINE_VALUE, HUBPRET, id),                         \
--	SRI_ARR(DCHUBP_MALL_CONFIG, HUBP, id),                                 \
--	SRI_ARR(DCHUBP_VMPG_CONFIG, HUBP, id),                                 \
--	SRI_ARR(UCLK_PSTATE_FORCE, HUBPREQ, id),                               \
--	SRI_ARR(HUBP_3DLUT_DLG_PARAM, CURSOR0_, id),                           \
--	HUBP_3DLUT_FL_REG_LIST_DCN401(id)
- struct dcn42b_resource_pool {
- 	struct resource_pool base;
- };
+ 	if (panel_type == PANEL_TYPE_NONE) {
 --
 2.55.0
 
