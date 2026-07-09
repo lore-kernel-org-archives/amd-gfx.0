@@ -4,122 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC62C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 09:09:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74D5AC43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 09:22:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B45110E564;
-	Thu,  9 Jul 2026 09:09:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F073410E06F;
+	Thu,  9 Jul 2026 09:22:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZEisrucB";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="0V9iBXXJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ooVLJmJ0";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CtA5mnc/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MLavP7Q8";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011008.outbound.protection.outlook.com [40.107.208.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E53610E044
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 09:09:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lkpdckshH7DbEddlumrbIHh+xwJwpSc1N5CwZb2QzJs6t8+7DF9aXsyCfmseAHEnMUTqSq+EReocsVDUdR0CeUzbO+437v+4a8f6EIP4MiDRbzRM2VrZSSUFxKX9h5UsB1vxj8MRg15s1UKj3ogYDLHYZEfILYcwlHQskV0jXgKd2lsgFyq7T8PEvC8bVUEEcqBwcOIYhKirOXVOAK3rEzu/R39hPihmUv4tIG0CS0TOoG8ladxebMAsUEOPyCn3Ih+cwdVjBKu3QcKhcEzojVdKRRkiTK9vxHfRrYgVh70pqgjqBJiMrse2GB0dbrcLuu2j9zicyzP3gZWb/fsa3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JKapdCagBTC21RTJhQ8vbIKicRJj8RInr8wcOI53+n0=;
- b=j1ePeEa0JGAmMHT6VW5lmAkbZcA3NCiqnvpx9xCNuPBgKsablQcZpuH2DmO+09N7mg1vfFjTIAxs1A7JhZbla6P/bX/F/7Oga4m1VpdEY5wUkEhDJ3ia1rfoJxkdON+JOjp81uM3lkqZmLdAbTdnRm35Yp3YHlZCVeX3IGxJTZADqMOkbgGpXHODSV+P9qs3lWOzewJEd25N8x+wqNg76GVy7VPrF5OlhF6+cJZwYkxERZqG6ZlcDnsJIQB6JqepzRoDiqcqdlyZsz8zEldrP+Sbch3UtNeXOZ80X/sVzadlxGgjGHnnQJzrh6nPmHdFWCS10pjIEQW9hZXjjbznkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JKapdCagBTC21RTJhQ8vbIKicRJj8RInr8wcOI53+n0=;
- b=ZEisrucBeBXUxvyT1CNyECMyhAdHe4W9GjMf5B0PfX9oi2GuaEesw6g2lavS4IWr9zI9YT9FQsBciKnJQBSmMUEc1JebJcdVUW+iToRifYpz5vbLS2b+EvnArLiZaJMFRXsf/cOI7GaAkqmxfkykeXRHcOCBExPHgNnM/gNz+1Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SJ0PR12MB6688.namprd12.prod.outlook.com (2603:10b6:a03:47d::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
- 2026 09:09:24 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 09:09:24 +0000
-Message-ID: <3e1473a8-eb3d-42b2-a415-55bb2e8fd5ee@amd.com>
-Date: Thu, 9 Jul 2026 14:39:19 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Disable PCIe dynamic speed switching on Ryzen
- Pinnacle Ridge
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20260709031520.841611-1-mario.limonciello@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260709031520.841611-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0180.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::18) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2343B10E06F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 09:22:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 629A675D87;
+ Thu,  9 Jul 2026 09:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783588942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hfZMskM5sDDVFZ3OuxK0c2st+AvczEMqa0UUs0H1OVw=;
+ b=0V9iBXXJxARuBQk0rxVQW3nzcVZlMh+3OtqBVA9aepNnDcCgOhdpziWotECgtWzTVbIVNQ
+ +oAizS1oGQ1sBWmQwWbg43088nlYeKnxo/a/iduSfTwIuyO9juITICc33Ao0cNXaSIq/oX
+ +GFw8XAZvX95tSrhWkQmnuKEgk8KmSw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783588942;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hfZMskM5sDDVFZ3OuxK0c2st+AvczEMqa0UUs0H1OVw=;
+ b=ooVLJmJ0OSHqj2o91uyRISk765GsIrKdWgfmbzM20MdQyjDec8cotP6UirzebVKt05HerM
+ tvUIyk+F90u3OGBQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="CtA5mnc/";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MLavP7Q8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783588941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hfZMskM5sDDVFZ3OuxK0c2st+AvczEMqa0UUs0H1OVw=;
+ b=CtA5mnc/bcgop6qAG8QWVw5NETlRrPeLSyYXi/HeHLXdvHNm8tBMgIO+Jrv+Xdp3h4gO9Z
+ 5Voybwp+7PZbRbLnx93lbZYScs20cbN9gbwT+7Ot67BajgSV7tg3iBKkGcGZYLdWC20Njg
+ Vv7484bWA9QyoXXZO928SXwV77F6x8c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783588941;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hfZMskM5sDDVFZ3OuxK0c2st+AvczEMqa0UUs0H1OVw=;
+ b=MLavP7Q8wOIO/HAQvDa861exigfXJbSrHjqdtSxK8Zn3RxRJXyfK3h74BHmk8Jplq7oLF/
+ Pn2ruVs7e5ybF7CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C9C8D779AA;
+ Thu,  9 Jul 2026 09:22:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ht0JMExoT2q6OQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Jul 2026 09:22:20 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ dakr@kernel.org, deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 0/7] vga_switcheroo,
+ drm: Push fbcon handling into DRM clients
+Date: Thu,  9 Jul 2026 11:15:56 +0200
+Message-ID: <20260709092215.168172-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SJ0PR12MB6688:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73bf29c7-4f8b-4be2-3cee-08dedd99c535
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|6133799003|11063799006|18002099003|22082099003|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info: K/XxAR96EfjBFAU6mt5rCP7boustneGynjr9MOqlong67xqC+Z+3p29E84xx1qCJZPKgewxYxXET3zbl9CGfV0dDWVUyQO6nMZygdv/v2877LvUHna7kR3gBc9gs0xBbssgUc9T5anKUoFYp55b1IhA8c7x32I5bRZMlg/DVHSyaYPmyH2yA6y199xDUgkg+SZW18cDDiEXNu3S8BMpubQqxgkPfiBq/FWtirHAM/mP54igop94kBnU2GYSKNdaASnmUwnOALBRIapZYqlJptoIUvl/U5O4/pdBqpqaHKMYuOvwW7KfisHS23N93nOCMLI2AbDQrlmWXW0TP6RnLDLOzAqKLExkLnFn6W+89lsoqdlJiPL3qR7alOny7oAR59hHYxbH3TUrYGRUk9YyoGMf1D8sOMDkrbqQoZNfWg2ZIdjuii572WkeLjmlF27Ojrm1I+8LJTq/Elt06SgQDVXHYjnB4gb2/jjK++zbGmFcFoTwyRyLtQnMkccyB2KOjPhDllwOoHaqsLloANdVodTxl+wiEaxz1gX8yUzNppRirz8g5N+JWoI7hiNaxEaWV1rRILGj1HrhdwfXe8t5zA4E860f0T39WZijO60+vKwV2rhkJtzQMf6I5Vh6iqJvg
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(6133799003)(11063799006)(18002099003)(22082099003)(56012099006)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXlzVGRBd3gzeHg0cWJNd2JqTjBrVnpOSUt6NUFRTTZlbm15UVQxV3ArRlFO?=
- =?utf-8?B?N1AzZEpSVGVmVDdyUUJJK0k0aVFSMXRrYldoUTBYVHJ3SkR5WVl5b2JDWTZs?=
- =?utf-8?B?a3lwbFhuUk9vTEg2a1QvajZWWFIwanpaOVc5K3gwdkVobjRONW05OWFvYXI5?=
- =?utf-8?B?ZEE5WkZ4dWFyK0g4TXBSVjJGTWcwYUZwT1UvS1UzMjFkZkdlNXp5T1N5VjUy?=
- =?utf-8?B?WUdpVVVHeGkvN1ZsUTVnQ3ErMGt4OFpnRURKMmdvQkt0QWtjeTc4TzYwSE1P?=
- =?utf-8?B?aTY5NW5iREpoQXVJblA2Nm5qYUI1enVQczZsZC9xVEdzdzFqSUFKVzBGVUU2?=
- =?utf-8?B?YU5zd2VTU2REc00rWEZkKzZ2ejhTaVBpL0VzQTBBazFkSzEvWlBRNE1PVlo3?=
- =?utf-8?B?MDl4aXI1cEZzRmRvMFM3dDR5SkZmUCtCSEN3MCt3UXkwVWlhTXRCL1UrWFZh?=
- =?utf-8?B?Y1hJbWJ5SnJkbTBpSmZTVHJFVHUyS1dqVjdDK1g3SThpUG03M0U4aXVNU2hK?=
- =?utf-8?B?QXNyMjlTNGtETWRrYkJjUk9MUzVtV0FKRzVPU21PeFk1TFAvSjc2dUxjdERV?=
- =?utf-8?B?YnRVWFFPM1k2QmNzMGpZcUlENFB2TkJQVEZGK2htRUJObmlpM0UvdVFrWE1D?=
- =?utf-8?B?VXFsZWc5SE1HTGx0WVA1d0NqNDBHM292VHA1elVCdloyK2diL3pWTDhDcXpY?=
- =?utf-8?B?V3k3bm5DZi9qVUhNeXdUYmpUR1pNWTVoVkZ4b01xaEdOdDZvY3JNbXdBN1Np?=
- =?utf-8?B?UDJKaHFnYUpWNFZubGpabUVoS3orb3MwUTV6WUZwdS9EelZNbHFJakxycmhK?=
- =?utf-8?B?cCtDaFpxUFhadW04ZEJjckY2RjcvSmhUUHYwM3ZudThjemdvTWk2TVVrVEl4?=
- =?utf-8?B?VEhKNG9sOU9rUU9yWmVuY3NRSXdKT3Y3dGY3cHVuaDVYajFLblJRYnhmQU91?=
- =?utf-8?B?djkxTjE5NUdXT3BLMlNXSzNReFZOZVNLMmVkRWw0blI0YWNJNEZzYUhEdnk3?=
- =?utf-8?B?MlJXUVFoOHpuNDdpZUNaM2hncURwT0p4SVVuYTFNd0gwZ2pMd0diQlVFenZ6?=
- =?utf-8?B?eU1QczlJOUh0OWxxK1NWNXBtSVZhR2xmYVZUT3Nhb2NqcklZRkhodXpnQ242?=
- =?utf-8?B?OFJZUjJBdkF2Qm42TC82aFNaMjYwTHZGY2hxNHlRcXI2NlhtNjJjS1BLZ3RE?=
- =?utf-8?B?R1lhR3dUWG4vTVJURVBPWjFIV0VCenFDVDhxUkZ2Qis4SVNiaFdVZENuSzJH?=
- =?utf-8?B?TFNrWitPd2MzVHFUSFJ4c0h2aDhsVTNIeFVwaytlNmJGM0hNL3h5K1JRT1NU?=
- =?utf-8?B?aXo3cHIwbVhHTHRyQWR1QWxqVHBId25ESVg4VXVxOTJzbk5hRU1VeE1obDN5?=
- =?utf-8?B?M2owR0R6RWhQdlpDQUtQRlNlY3hhemtqTy9WMGpnd1FqSm1weTFlZVpBaG82?=
- =?utf-8?B?K2ppc2xyckJtL0o5YjVvZ2ZlVkF6WGlnNWozcXZwNTBxZlJUeXBqa0FkRkZi?=
- =?utf-8?B?WVowK3JmeWxVTEI4WWhHa1lvU1RkZFVDNHRnMzc3Q2x0UW9FZmtPc0VkZ1VJ?=
- =?utf-8?B?Q0VWMUxnSE5uckx3WGtlSmtXRHdPUDVnZFlKVGkyV2g2c1AyU2YwbkYwYmNj?=
- =?utf-8?B?alFKVkJzc0ovV3lCMy82VHg5NHc1NG1ucGx3aEpBK2dUSXhmVEorQ3haQUlB?=
- =?utf-8?B?TkdzRUNML0hod1krdXNWclJ6S2Y3RWVTRUZUUnkxUG0vRmxzaExFZXFINXJW?=
- =?utf-8?B?KzZDeGJYd1ZzaDZ5Y0F0ejNlTWJMT0J5bWxlVUY1WTNVL2lTUEhUSjRMbzdv?=
- =?utf-8?B?azA1ellwS016dHFtaisvQm5MMnVPVzV4Vm95Q1IyMUJoWjJCY3IvTkxpQjI1?=
- =?utf-8?B?QUlpMnJEMVVNanRDVDZvN21YZmFUMlEva1RHbHlpOHVkNWlHL1V5MFM0Q2lI?=
- =?utf-8?B?SWJqVkxCNzd3Sm1pNmY0MnpSNjVSVDVwVm44S3F1VlZ2UXQveGpBejR5QUd6?=
- =?utf-8?B?ZlI5V1VSbi9MOGc0MjJpSUVHd3RnMjBWZ3hGSDlLQ1plNWp2cFplOGlFdjRk?=
- =?utf-8?B?UkNhZkNrWVAzelFuUG1taEw4V1R3dFB5Z1pEdXpwUjNoaE1jajYvVEordXdM?=
- =?utf-8?B?WlF0SHRCUWRNeUlxWEFIZ3BUNFdBMFQ1allUWEdzcEs0MXRGUlhITS9NM2Z2?=
- =?utf-8?B?TlU1K2pSWkdMMGRFQXRDK1hPMkpha2c2cFN1ODBYUWV5bmJ1STl6ZGpJZGFP?=
- =?utf-8?B?djdIQk1XU0tpOGI4dG91UWFqNXFGaENCM0tTVDdJYVJsS0p2S0JTOCsrS1Nr?=
- =?utf-8?B?T3ErVlI1OXZrTDVLYVo4WHR1cHNIYlNkS3ZiVTVoQmRCZ1hya3NWUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73bf29c7-4f8b-4be2-3cee-08dedd99c535
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 09:09:24.3118 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +YDphvjJREJ9xwr4RtCPR15x9kimVOBRsPYokgzKDDpf716nOZNgyv4zABjf6MKA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6688
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_TWELVE(0.00)[22]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim];
+ FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 629A675D87
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,51 +121,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
+about switching of the physical outputs among framebuffer devices. But
+new DRM clients to not use fbdev/fbcon and might require their own
+vga_switcheroo support. Let's strictly separate them from each other.
+
+Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
+for vga_switcheroo clients to do the fbcon update. Allows for removing
+all direct interactions between vga_switcheroo and fbdev/fbcon.
+
+There are only four drivers that support vga_switcheroo: amdgpu,
+radeon, i915 and nouveau. Update each of them with the new callback.
+When vga_switcheroo now invokes pre_switch, each DRM driver forwards
+to aquire_outputs and lets the DRM clients handle the new outputs.
+
+At the same time, push the fbcon update into DRM's client for fbdev
+emulation. Do this with the new DRM client callback acquire_outputs,
+so that other clients can have their own handling of vga_switcheroo.
+
+Also replace the existing reprobe hook with post_switch for symetry.
+For nouveau, this is merely a rename of the helper function. The other
+drivers dor not implement reprobe.
+
+Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
+
+v2:
+- implement all of pre_switch in a single commit to avoid possible
+  deadlock in intermediate state (Sashiko)
+- fix erroneous docs (Sashiko)
+
+Thomas Zimmermann (7):
+  drm/edid: Include <linux/fb.h>
+  drm/client: Add acquire_outputs callback; implement for fbdev
+    emulation
+  vga_switcheroo: Add pre_switch callback to client ops
+  vga_switcheroo: Add post_switch callback to client ops
+  drm: Implement struct vga_switcheroo_client_ops.pre_switch
+  drm: Implement vga_switcheroo_client_ops.post_switch
+  vga-switcheroo: Remove unused interfaces
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
+ drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
+ drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
+ drivers/gpu/drm/drm_edid.c                 |  1 +
+ drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
+ drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
+ drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
+ drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
+ drivers/video/fbdev/core/fbcon.c           |  8 -----
+ include/drm/drm_client.h                   | 14 ++++++++
+ include/drm/drm_client_event.h             |  3 ++
+ include/linux/vga_switcheroo.h             | 29 ++++++++-------
+ 12 files changed, 121 insertions(+), 73 deletions(-)
 
 
-On 09-Jul-26 8:45 AM, Mario Limonciello wrote:
-> AMD Ryzen Pinnacle Ridge (Zen+, family 0x17 model 0x08) CPUs have
-> PCI controllers that don't support PCIe dynamic speed switching,
-> causing system freezes during GPU initialization when enabled.
-> 
-> Disable dynamic speed switching when this CPU is detected.
-> 
-> Assisted-by: Claude:sonnet
-> Fixes: 466a7d115326e ("drm/amd: Use the first non-dGPU PCI device for BW limits")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5436
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 27f7a841cd623..f8324712b712c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1289,6 +1289,15 @@ static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device
->   
->   	if (c->x86_vendor == X86_VENDOR_INTEL)
->   		return false;
-> +
-> +	/*
-> +	 * AMD Ryzen Pinnacle Ridge (Zen+, family 0x17 model 0x08) CPUs don't
-> +	 * support PCIe dynamic speed switching.
-> +	 * https://gitlab.freedesktop.org/drm/amd/-/work_items/5436
-> +	 */
-
-Assited-by effect is visibly seen :)
-
-As per rev guide, Gen3 switch hang is common in 0x17/00-0F.
-
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Thanks,
-Lijo
-
-> +	if (c->x86_vendor == X86_VENDOR_AMD && c->x86 == 0x17 &&
-> +	    c->x86_model == 0x08)
-> +		return false;
->   #endif
->   	return true;
->   }
+base-commit: 88c6be63ac7e9238c7791977d3f496ce6623afe4
+-- 
+2.54.0
 
