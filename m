@@ -4,131 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23CD8C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 17:30:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06495C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 17:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4A1B10E4CB;
-	Thu,  9 Jul 2026 17:30:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E14B10E0A0;
+	Thu,  9 Jul 2026 17:32:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XDDyDqf7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GG7I4FOw";
 	dkim-atps=neutral
 Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1594F10E6C5;
- Thu,  9 Jul 2026 17:30:23 +0000 (UTC)
+ (mail-eastusazon11011061.outbound.protection.outlook.com [52.101.52.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FDC410E0A0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 17:32:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GcJz9mYLpEvqI/G07xPoo13G7q8TeFOxzPLOvLj0/UI5yY0zHiET0s1wjYFT3i8IjfcGQJvt900K+15FWVWEhAIH+wIygmGJNFeuMShc5+UoBd93fPZDrD2ANUUcDFeWwftswHW2vTs9ztw8lJiUyc1rCLFZEOqh0kKbMojWlmCfmbZptuBIdy03O4y02MJWrhgKizrdx8aNoffgx6PQFOlvLzrY7LchN53hyCevcRKoS35xApIfIxTR1HRYGLz7trlQSoXISg/Nx+sooEn4GseiggOsOwhQ3fXMaGQoHPLPyPObhZPTssubnHNE3Ad7Nv6i6yU3ewDv4J0PVQ7c4g==
+ b=mn3Pp3dbyLOQgLif3bqZ7WgVPK5cFTc3c7WmY9ihk1w7Q6hliTutRpQwqvz7p9FLdqIs8XSVdLqs9+1Og1lhSBl6ZkeZZ8I0GIuPaB89kb72fViprScgcS+fivEKI1o0c/1WJrxj0N1RJ9FNkLhEkF3cPZB729ULPN5U+ct97k9rvGUuhK6g6hJ13w4s3BAOlOqE2GB9V/7IA+hDm1JIudi3qVLe63CDtHTE4HYwRa6tT3pbvKkp6VCr7FTj4MRrkPm0CALz2x7CyC6LRbnWYonXvVDjOUyLh20CqSpYHxEh4AO6tzAwoYO59/XmZxJ5H7EPp5DiBUn3dfpmASOOSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jZ/eePD36oZBCKlbkYOfjmTcOpRy+73D6NLOE+smo78=;
- b=WEJD9YAdmT/bfl6AJwSSRTHqeUpa/YTxPLUAycqAAovjBHVCmnkyomUsIIbgqSW3D/u+pKYL4cUpwFFOlOhDWwt8pru8R9IrSptqrlkNnhiH7KDn6luSYpfxiKuyRIIlsICKMlc8gL723h7yjzJeSv0ZllAuxIAw66EGc6IoDfUBMI1K3wucjVtiqfLVdBNlw1bcrCfavw7WBBPcJNkThlydPg1P/7fqWTCWIcNNpCXKXmhBZpr4ZmQ8U1Wbcncb8Y0YA0hWFedw4jt+P2Yk3SZRBvdXUtachxH7Crd3vzSjinePHLNcrL6h8BSpEKnCHHLpYqtvvesdMHobuDhFEw==
+ bh=0LaRSRFjomzAUTePqhZ2jZsOQv1DAYTVBuFMN+varFI=;
+ b=dGPB/PsoTal/RAMS6HFlaA4PUzkesn2CuSnKKRgqUDOix6bwGwyTAeuJVrJyDCHfWZO7BQjILJH6NHpXCE/3DUyejcmSL1TXWspaEtBjb8YoHYMBi4Efa2cMH3DLbFUA8dMoL6wB/rdQ3kW6F/uNKvFlwni0NOhmfQUI/jKjT5KOmoIIKqEIm3OWaiDiCcgsAvBljqnEQpEdqO2/WKltrolSOnjjbr4+F3Q5OyheefC2hWPwBtC2K4SrpRAunc4URJKOvWPFqKBRJigC2IAx+RDsgHcZ8PNuudUHnhEA6Fh62uQDKPoqpS0bbc8Yg0879MX+F243RlfXhCqoV0wgAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jZ/eePD36oZBCKlbkYOfjmTcOpRy+73D6NLOE+smo78=;
- b=XDDyDqf7s56XD/upB4w+VgY/HogGUM4nAQdK0UliBVbW+pxVXd4CZMaNzA8jArW3S0/2xF/fGS5wuZXnEPgKfy2CLjorYVgOfDW6A5vurHLwnZbYm8gwWAUkuPCjlUFOjt/yOWPdxYOJ4+nXhYXyuUxBvyCdmUkMNVSx+TRhgwI=
+ bh=0LaRSRFjomzAUTePqhZ2jZsOQv1DAYTVBuFMN+varFI=;
+ b=GG7I4FOwNPNqSa7dzh5Z1PuqBmK+C4dvgPlMF/E1nyUEAB/nFOneIBcJ9rzpkpUqk7b1dq4nvh49XoT8mXpf3XIFxoMitAi3PFB2ru0FO+T47e86HU/T4qzWBZUrM46MbNhf5//p+gR9ffPvQeN9UMbpO2FIGiPT30xlfuoMhmM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6114.namprd12.prod.outlook.com (2603:10b6:208:3ea::5)
- by DS0PR12MB8366.namprd12.prod.outlook.com (2603:10b6:8:f9::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Thu, 9 Jul
- 2026 17:30:14 +0000
-Received: from IA1PR12MB6114.namprd12.prod.outlook.com
- ([fe80::1273:26cf:eeaa:e2b3]) by IA1PR12MB6114.namprd12.prod.outlook.com
- ([fe80::1273:26cf:eeaa:e2b3%6]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 17:30:14 +0000
-Message-ID: <0a341678-062e-46d4-affc-d56cb7c95ba0@amd.com>
-Date: Thu, 9 Jul 2026 13:30:11 -0400
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA3PR12MB8048.namprd12.prod.outlook.com (2603:10b6:806:31e::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
+ 2026 17:32:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Thu, 9 Jul 2026
+ 17:32:05 +0000
+Message-ID: <42ed9967-7eb3-41c6-9f7a-c43b93833589@amd.com>
+Date: Thu, 9 Jul 2026 19:32:01 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amd/display: unify HDMI/DVI/DP SST HPD debounce
- delay
-To: Nick Haghiri <nick@haghiri.net>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Xaver Hugl <xaver.hugl@kde.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
- <20260709-hpd-debounce-unify-v3-1-d7584920a242@haghiri.net>
+Subject: Re: [PATCH] drm/amdgpu: improve the amdgpu device init progress in
+ sriov mode
+To: "Li, Chong(Alan)" <Chong.Li@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Chang, HaiJun"
+ <HaiJun.Chang@amd.com>, "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
+ Cursor <cursoragent@cursor.com>
+References: <20260708083035.186400-1-chongli2@amd.com>
+ <d3ffa862-8fff-40cb-8779-97d3bb4a429b@amd.com>
+ <DS7PR12MB5768E74BF2292A0F8F87E0CE9BFF2@DS7PR12MB5768.namprd12.prod.outlook.com>
+ <3ac3c6d5-8fad-4b0e-933d-42fa71a43657@amd.com>
+ <49ba42a4-b661-4673-95a0-c218ec1482e3@amd.com>
+ <de530731-21de-4470-9316-dccb767c87ac@amd.com>
+ <DS7PR12MB5768E211043CC584F05A16569BFF2@DS7PR12MB5768.namprd12.prod.outlook.com>
+ <989fc4ae-cbac-4f17-94cd-5be270845081@amd.com>
+ <c963d1df-e1a3-4fa6-8514-3c4ab204088f@amd.com>
+ <DS7PR12MB576870FE38FFB13002872F529BFF2@DS7PR12MB5768.namprd12.prod.outlook.com>
+ <2d96166c-b192-41be-83d1-19eb64d7306f@amd.com>
+ <DS7PR12MB57684EB76694DC4EB12791A09BFE2@DS7PR12MB5768.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: Ivan Lipski <ivlipski@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20260709-hpd-debounce-unify-v3-1-d7584920a242@haghiri.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d1::25) To IA1PR12MB6114.namprd12.prod.outlook.com
- (2603:10b6:208:3ea::5)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <DS7PR12MB57684EB76694DC4EB12791A09BFE2@DS7PR12MB5768.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0013.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6114:EE_|DS0PR12MB8366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63026cbf-8a8f-413a-2363-08dedddfbbb2
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB8048:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13dfbeb1-7ece-4c43-33a0-08dedddffea3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|56012099006|11063799006|4143699003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: 3UhRSHS5Pkmd2iBvdAAtjzhdCHdYc+S1UNkDucvNTj91q4bHHI3Od/eQ4xkIt6ox23CDcfip7OZRX+9hbdW3SL2BuaeQFnMMbNjf8YrFlmjRTKAYcrRd2IDHac/NZXzjF4GwNk8jWij98U06KMZxS6LGseG6eilU/ho6gLOwpw6fOMoyv+pysUwHn0F5FmSWNA6NQTRcrJOg4fPcEekPl7XAzYST3tWnoXEY6OeDX6VDq1ny+RwikITXTwtls7pWTYGkfPbET0L1urQ1P2uUjkRl4pVri31o962UrMyPy3EQX/VuZul7BpKTBzHRa3AyKoW3iGlLPhOlsIQ/ElhC2LMf52SbaRwgXtKA5IwfxVWI60fAmEPffbtsJfW7pjxc0int9pVERyN/x1LYTOkJiim2Fe+dUG2GlpA0vB8j9575/H8wReQ7+xP0ryeP0CWlef68bdKKoGEYNy/w1IDqRCgcYyxRRmbkDCJTBYzHwX1Wb/v25HwX4WGK3Wx/vXspmBqWMJxu0IgnAs9RmA9kgZMnsII79DqfvIg9H/LYTBDXdOryp0jas2wde41gwHI6b5fhK/NmR428fzFzokSrXx9tSGmc97+V13JfBwB9JVieZrnPNdpYsn85AqGSSayz
+ ARA:13230040|376014|1800799024|366016|23010399003|4143699003|11063799006|3023799007|5023799004|22082099003|18002099003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: tT7uD0CSMbFF7FMtDdaDUxYqXrPvazZE2WhAYHl/kDr6/Pe3fyanvbLSgluuxRlUC5F3w3lk/Bf4fYVpX+U47TnYBB7T+9wlzxyW6J1+ka/pGyASTEG8XeOYh28yhbLbXPXziYvBnv/0aKR2lXSnZc2kBQ6mxLbWdSmVoXRnx6UVQY2+mGvQECffY2OhnFDiCcUt45MlxdzLeWNq+YKnGb5C4f49oyfYYju6GhbdJprQQhS5N0/x+xTyMsesRvBXsnTSM8xSZULLg0vnjVpm0RuLOhq8BQxHtVzKzgNPa6LS0MoAHtcGagg90nlxkaG/5wQweCep/rg9wdTtvR0e8fX8mXd4Ns9O28vmDdXOXtFhcRgSpeQ7KhCZi6RI1mPBgJO47+HiPddl+4EGTxK3MdgfWG1Fjy30xAeh02uQjxd0/GpPX7T/UF8PNN2aLFY/3ffp0bKQSo2enm1MLWfTGgXAt9EoRVwhpIWulVU/d7gE4QHlZEQoVajLHPqFbluhQ2pOuKv5VaEvdv+wDq+oYUYU+xjS+qsYsZhHWhqPSsN40QkQ/fB68Xsdc2f5sPmWMcUadWZmO7Bt0v6Pn6A1LwoAJcqN8pT7sjlXidavM19g8Ax+psGK6MUSfz9JYlC2G6vH3xyNHuXUl0tBlcxVu+YXPayGTCJnAkSZXyLkFNU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB6114.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(11063799006)(3023799007)(5023799004)(22082099003)(18002099003)(56012099006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L25vMTRPbkk5bkc1VWI2RzFlOUlGWnJ5TFZaU2tTZWQ5R1hCSUJFYXM1UE5w?=
- =?utf-8?B?R2ZoVVlHTnZ1M0xwWXhkU1IxMEdjdzdJUzJPWkl4Q3FnUHJNNHFQOG9qQ0pm?=
- =?utf-8?B?QndxdnFpM2lVT2czdzhXQy9Nd3Q1NS9PcEVMTXlpQStWemNHOE1GMFVxdTc3?=
- =?utf-8?B?VTZmVWVHOTdBOVdQeVh2Y0ZGSHE2RTcyMitsUzBHR0FhYUUyV2ZCRGJXWEtn?=
- =?utf-8?B?Q2twc2Vseml0N2tqUzFvZHJTeiswb0c4Rm5mWWlyOGZ1NEJNS1Q1S1N2OXNG?=
- =?utf-8?B?blBlYmtRN0JQd3VMR3FDaDg5ZVNvZ0Z5OFJHMDdFek10NFFRa2tDbkJtUzBJ?=
- =?utf-8?B?TGYrTXFSbmVtTmw5Sm1zYzczcUJnYVMvdXZaaGk5WWlua1hYUzBzWG5DeVFG?=
- =?utf-8?B?SVBPWllQZ1dramY5QTJHU2pNWUZwUjhnRUVVdDBRNFVVcE5pM1BwaG5wdE1h?=
- =?utf-8?B?dk0xVHlyVit4UWZ4b0RLMDFDVUNMdXVSNW81cHlNcHBoVitzQ2xJMDRCNi95?=
- =?utf-8?B?aTlKSmVRb3NuK2p4WE1EeDQ1SUtnRU96aDd4eldJUys1ckx1ZFFQZWNNMnVI?=
- =?utf-8?B?YTVML3A2NGp0bElnRm5GYjczUDRyL2dydUcreGxjemRGZ3VCeHEwVlBSUHBr?=
- =?utf-8?B?TzJ0M2xNNEZXeDNoZVhZVUoxNlBiVEIzTmNoeTBDNlZveWFFaHRrMDBEWEdx?=
- =?utf-8?B?YzAzbEVjSEJMSFhCMktJU2doNi84WTZidEtvcTMrNWtCZ0VGbGsvVldwMSth?=
- =?utf-8?B?dDFadGs1OUYwUy9BeTRzZnpVY1c2T1d3eno5aGhiNUluVFlRTDJrWTlKS00y?=
- =?utf-8?B?RGVtU0dDTHZ2eWlXZk9mNFEzM0tKQ3VBOHVvTU9tYlFaMURLMlFRNVBrU09C?=
- =?utf-8?B?WVV5L2tRNHYrMzZoS29oem14eU9wQ2s0cE90WWZJQ0F4bDFRNmtPK29jc3VS?=
- =?utf-8?B?VEwxcGRMQlh5TWNSUFNoYTNQT0M5cGdyZTd4bEo2ekxqckUxYkQ3a2s0blcv?=
- =?utf-8?B?Lzg0b1J4YWoxZXFhVHF4azZMYXRoNXFBcjJBZzJOclhYQ0IyWXZLZDVrRG9n?=
- =?utf-8?B?THJnMzN6aTdQZy90dVBZeDBxSU0vQ0psK2ptZW5FRGZWeXgyL2ZWQkNXdDk3?=
- =?utf-8?B?OWlvek9RMTh6UWxuVEcrUEJTRnNiUTU2VUFzZE9aWXBGMmlXcThoMk15VGRJ?=
- =?utf-8?B?K1ZBQmFCdHhGTWs0ZUR6T0RyZ1VCZFlwUklJK2pJZjFYYThmNDRuZjlweUtQ?=
- =?utf-8?B?YzRBcm1NcUdCSDlHMHlhRlVLQS9pM0lxV1JLWmxRTzlnTkdZekQ0UjU4b0s5?=
- =?utf-8?B?L2xkQXBjVTVzNzgrWEdpWk1ibjE3ekVreVpYekU5a0h3U2hwYit6dzVpZEsz?=
- =?utf-8?B?cjRWNUtTRXU4NEltTzlacGlLV0tETGdBd09zUDBubDBjeG5OWXNYRXh2dEJN?=
- =?utf-8?B?VzNReDdndFNveEVweG1jRjV6aFcyTTE2NTZrQVNzMzFJN1ZZMFJuSVFjTnVm?=
- =?utf-8?B?Q1ROelJ2d1FSYWI0QzkxYTBoV0F5MU9hTGkrWjlyU2pvRDZiRFZzSkd3VFVz?=
- =?utf-8?B?NnlKRVozalltSDVwR3I2UXQ5ek5lK0tzQ0ZueURuR01DaG1vT1hrc2FRZHZO?=
- =?utf-8?B?a0U3UjVORmdGYXk3eitzSVllWk9CNVQ2dE5CUFJLbWFTQmVyRTZjY0VOWUJI?=
- =?utf-8?B?TlRtMUw3azUrb3R1dEhoUk5aOVBsbnhLT0JjbDd4WjZiRXpNcFowMW1Ga3Br?=
- =?utf-8?B?UEpNaHVDNUtBdE1BNk8ybzNiSmFmd2ZNZDducTBMUExBRmxiL2VMNnlLYWdO?=
- =?utf-8?B?VU5pcWpSWHpnL0tubWM1Q29rakNETDR1YWtsb0tEaWM1aVZJckUyY0VucU5S?=
- =?utf-8?B?Y2pnVW1vNHpUWjdwWkxEcUp0UjNDZkFNY2F0aGdGU0thMDV5VitUbFZnVCt3?=
- =?utf-8?B?VFZtMHFmR0hXSWllc1FHa2VWaWFxUHhXZTE2b3EzclNEUFA5M2Z5c0tiNGFq?=
- =?utf-8?B?L3hwc1BRZEdsR2x3VVNobUJneCtSMFV5bjBpaTNRdWx1K2ZEMkpVQlpyRjY5?=
- =?utf-8?B?Wi83MUZJTFVscmFQWnRSWFBiMmtnQ0dCRzR1a2NVZnJJRkZRSkNNSnNBdjQx?=
- =?utf-8?B?QlRDZ1V1LzJZM0tpTlhVS2JCVHlRVkF0ZXNjWVQxN2ZtK1REQzQvMVRWdWpU?=
- =?utf-8?B?RUExRlhFUlp4YnNPNml5ZW9HbFRya0NsK3JWeVZ2MjZNbFlPalJqbHB5RTNR?=
- =?utf-8?B?Yk11MEo5SkI5VHF5L0pXeTlyVnphWjUzdkN3SzlSb2ZiWDJqSEdjQkowemI5?=
- =?utf-8?B?S1hWU2tZY1hXMG45cDRjbFF5d3diT29Td3g5TmZ4NUZOeXRZWmtKdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlFCbkgwb3BIZjM2SzE2RjQ4UUZaVzE2b2pTQjgyZEhUVmk3akU4OXhaamZB?=
+ =?utf-8?B?Y1d6MVd1Y2JBZ1o0dVdUVkdpY29jK010ZW00QmlIVFRJaW1ydTlJWFI3SWc4?=
+ =?utf-8?B?aU9zOHYxampiQW9aTEc5aVBMWHBXRmkxM2o2VEY1dEVIWVBIbEpmem5SZEt4?=
+ =?utf-8?B?ajBNelpiUEtheWNkUWs3UkFIWVA0VzJoRHo3enpvRm9QUURmejhXbjBlU1Zk?=
+ =?utf-8?B?QkVOWDhWVDJqZW1RRFFIZkFVellTak1QSkRKZ1JFYkJmQS91RjZ4NVp4Tmxu?=
+ =?utf-8?B?WkJMUHdEamo5QzE3Yk9LbzduaFUwRHpEOGpHQnRUSVFvMUhXQmhTM2Q1a0Np?=
+ =?utf-8?B?cTJSb3QwWVBYdHVWREdSZDJZbVRoUlhBWjk3c0FVa28wQ3lBK0pBRERqYmVT?=
+ =?utf-8?B?OURpa2tuNENJc0xuSzZqTVFtZEtlemtLd0hPcmJIalVHMEFoZ3QwMG5kNjd2?=
+ =?utf-8?B?aGp3dHlMOHA3OGZSUXRDdzk0VlE4SFUyazVNK0dnZm9EcnhtUjRSRHIrRkNE?=
+ =?utf-8?B?TjRSV3ZaTW1vSy9OdVZJTlcxL0RUNDVJREFSZE1NTzFKQTdrekR4WGZYYTRx?=
+ =?utf-8?B?WFB1N1FYMDJ5OFMvRzloQjA3SzlBQXAzY3NPaFU0MldXcWY4K29NejVOZ1FO?=
+ =?utf-8?B?aFFxZ0JxNkZrVTVCUU00WFNRcEZmbmJHUVFiOUo2TmRES2F0OXkwN1dyMVhV?=
+ =?utf-8?B?d2V5WlVoQm12MjROdWZkVDVOUFM0aThGcG1IR3Q0aFFJeVhUWTJucU9RbHB1?=
+ =?utf-8?B?Wk40UExERTJNcWVFQUV1WmdVS20reVdUNjhvR3FvaTFBelowbmJRWUtUVTE3?=
+ =?utf-8?B?eEU5SVpSdmNtVHMzS3IzQ2d3ZExNUGJSVlpsbmErWlVMWjdFQVZNc2RjQWpH?=
+ =?utf-8?B?QkkvMnV6YXJ0aURITlhEbDhjVitncHhxdHVoUnJvUjZ5SzVsN2U4cjF6YXRE?=
+ =?utf-8?B?UGxBWTRoaWlpV3R0NHZCNlBTZjVPY21JQllIbjBFMnFnc0gvVVlKQWdMNGZK?=
+ =?utf-8?B?Mk5rZytaa3M1WDFWa1R3Mk9TNmVaaU9saG9BU2dGRVZKc09vNW1XUXBZRTJV?=
+ =?utf-8?B?bWVpYjBpZmdJNndYZkFjK204c1RwTFBkRnBmVnN6dElzUTROb0Q1K2JTUXNV?=
+ =?utf-8?B?czJub00wS0FwdFdTNTdHS2pSVklOakk1a1A3STlMSnhUZU5HcldhTVNuY1Ji?=
+ =?utf-8?B?Rkx5enI1eGNDZm9vTTdYN1ZxMWYwNzZCNUpKaU5SbUJLVFUvRkRrZ0hRWFpT?=
+ =?utf-8?B?eDI2WXIrbnpXWjRJVE9tME95ck96NlJmSEdzenJLVEloYmIvZXhLVmx5RVR0?=
+ =?utf-8?B?bDlmOTVvc1JrYUVWT3ZSNEFUNUxuWjhwRjdZYjdVS0hEanMydms0NytXSzVD?=
+ =?utf-8?B?R1BMTENabDlnVERPOTZveThCcm14cDkrU2JpNURKNGhicExXNnlvZGNoRHJL?=
+ =?utf-8?B?MmZyZjJKR2hiaXMwT0xueFZTZHE0bTZNTVJ0QW9jRzBhTW9ObjA3d2Yyd1FY?=
+ =?utf-8?B?aEVWbEgxVHlUdFhNZFB3dUFmUDlGRXVERVhhWGR5azdKUTNzRWpMY3o4NEJH?=
+ =?utf-8?B?Rk1yVjJXSDBQVnlHTjRjd1pwNFhOejdMVUQzU2ZjMEtJcnQrYXp5ZThXdTJ6?=
+ =?utf-8?B?WE9MaWEvNzROSE9xMk9uRW92bTJ2TGh4V1BBL0MwME5MN1hmTERWaGh5ZWhL?=
+ =?utf-8?B?VXhveC9pcmxFbTJUVnBRZDBLZ2lLdWVWaUdPaHBEeXg3eC8zdVpWWWpBaCs0?=
+ =?utf-8?B?Q0dteU90YVJuUWM5TXExdllBTmg2am1lT1M2VXRKWmF3aVpJcXJYY2lWSXEw?=
+ =?utf-8?B?cjl5WWN2RkpOVXBFQ1VNWGNoNGxyOUQ4ZHFvT2ZucGltM3lmeGFVRjNaTzMz?=
+ =?utf-8?B?Zy9MQ2gxa2VxSEN4WTdscXY3WHFncHJRckdUZDlXdWlMSjg1RnBVb2ZXQUFB?=
+ =?utf-8?B?YnpoVjNYVUhNcmJ0bHYwY0JLSmZReUtvUjM0WTRJT0ppZUZjbFlpTDcrZE8x?=
+ =?utf-8?B?YXN4VGd3UDBnRXFpK3ZhS3RnVmlCYThmRzJWSFJEdlh1UEoxYXdudVU0WENZ?=
+ =?utf-8?B?MlNrM21KUTBzYi9MRmdrWnk3MSsyMktzWnF4RVN6MThYLzBncjVhSE04eG1l?=
+ =?utf-8?B?bkRFVG9kQUxsV1dKbDZDWVgraEZTdHR3cnNBdlhBcytpRll2OWRyUDRFTDhG?=
+ =?utf-8?B?Vlp5Tk93ZWhGeGVlODNYSENmVEhCVnZMMjl2ZEhDVmdxSzdEM2xyQUVGalFV?=
+ =?utf-8?B?L3FaTWw5UTlZTEJaU3A3cklCY0hJVno1WjZINWtEUmVid3hNZm1pRlU3MUxo?=
+ =?utf-8?Q?XI4E6LB0swbvsDQKjW?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63026cbf-8a8f-413a-2363-08dedddfbbb2
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6114.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13dfbeb1-7ece-4c43-33a0-08dedddffea3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 17:30:13.7487 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 17:32:05.6134 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: klukngkKof7x8rYUs23YY+4XyzXkw9wrGZrvDOBsxvmlCjRsmlrS48nRC7uR6sC67mJUfOkuZ5KYU+jZrJpmcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8366
+X-MS-Exchange-CrossTenant-UserPrincipalName: uCAZYeuDOHDzHzCe9BcZxaq5dSHuum669mv8J8zLYxgfTFOuKGFMCKZBX/rsvnJN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,405 +148,372 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi all,
 
-On 7/9/26 10:15, Nick Haghiri wrote:
-> Per review feedback on the DP SST debounce extension, fold
-> hdmi_hpd_debounce_delay_ms and dp_hpd_debounce_delay_ms into a single
-> hpd_debounce_delay_ms module parameter (eDP and MST still excluded),
-> and rename the shared connector fields, work, and cached sink from
-> hdmi_* to generic hpd_*. Also extend eligibility to DVI, which shares
-> the same HPD toggle behavior and has no MST/eDP variants to exclude.
->
-> Also add an apply_edid_quirks() case for the MSI MPG 274U
-> (drm_edid_encode_panel_id('M', 'S', 'I', 0x3CF0)) that enables a
-> 1500ms default debounce delay for that panel, overridable by the
-> module parameter.
->
-> Signed-off-by: Nick Haghiri <nick@haghiri.net>
-> ---
-> Ivan, generalized to a single hpd_debounce_delay_ms for both HDMI and
-> DP SST as suggested, and added the apply_edid_quirks() case for the
-> MSI MPG 274U (1500ms default, module param still overrides it).
->
-> Went with replacing hdmi_hpd_debounce_delay_ms rather than keeping a
-> back-compat alias, since it's only a couple cycles old. Shout if you'd
-> rather I keep the alias.
->
-> Alex, done. debounce_eligible now also checks dc_is_dvi_signal(),
-> reusing the same hpd_debounce_delay_ms param. Updated text and
-> comments to reflect scope now being HDMI, DVI, and DP.
-> ---
-> Changes in v3:
-> - Extend HPD debounce eligibility to DVI (dc_is_dvi_signal()), per Alex
-> - Update comments/docs to reflect HDMI/DVI/DP SST scope
-> - Link to v2: https://patch.msgid.link/20260708-hpd-debounce-unify-v2-1-d214832551b3@haghiri.net
+I've discussed the issue with Alex today.
 
-Hey Nick,
+The current approach of keeping full GPU access while discovery has been intentionally added this way over 6 years ago after some back and forth discussion.
 
-Thank you very much for this patch.
+So that has been working reliable for quite a while and we don't see any justification to change that.
 
-My only concern is that a monitor that requires HPD debounce delay on 
-HDMI may not need it when connected via DP, a vice-versa, so I think we 
-should differentiate them.
+If the ESXi hypervisor has a problem with this then that needs to be handled on the hypervisor side.
 
-I think a proper approach for this would be adding two new integer 
-fields to the dc_panel_patch struct for DP and HDMI each, so a delay in 
-ms could be explicitly set for a specific monitor and specific connector 
-type.
+This patch is rejected.
 
-So in the apply_edid_quirks, we could have something like this in 
-apply_edid_quirk
+Regards,
+Christian.
 
-/* Workaround for monitors that toggle HPD on entering deep sleep */
-	case drm_edid_encode_panel_id('M', 'S', 'I', 0x3CF0):
-		if (!aconnector->hpd_debounce_delay_ms) {
-			drm_dbg_driver(dev, "Enabling HPD debounce on panel id %X\n", panel_id);
-			edid_caps.panel_patch.dp_hpd_debounce_delay_ms =
-				min(1500U, AMDGPU_DM_MAX_HPD_DEBOUNCE_MS);
-		}
-		break;
-
-That would also require changing logic of determining the 
-`debounce_eligible` as we'd need to check for initialized 
-dp_hpd_debounce_delay_ms && SIGNAL_TYPE_DISPLAY_PORT or 
-(hdmi_hpd_debounce_delay_ms && (HDMI || DVI)).
-
-sunpeng.li@amd.com, alexander.deucher@amd.com, what do you think?
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 26 ++-------
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  | 18 ++----
->   .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 29 +++-------
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  8 +++
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 65 +++++++++++-----------
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h  |  2 +-
->   7 files changed, 64 insertions(+), 87 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index c085a6cc1..af1748984 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -270,8 +270,7 @@ extern int amdgpu_wbrf;
->   extern int amdgpu_user_queue;
->   extern int amdgpu_ptl;
->   
-> -extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
-> -extern uint amdgpu_dp_hpd_debounce_delay_ms;
-> +extern uint amdgpu_hpd_debounce_delay_ms;
->   
->   #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
->   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 78df53b8c..a82d807f7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -245,8 +245,7 @@ int amdgpu_damage_clips = -1; /* auto */
->   int amdgpu_umsch_mm_fwlog;
->   int amdgpu_rebar = -1; /* auto */
->   int amdgpu_user_queue = -1;
-> -uint amdgpu_hdmi_hpd_debounce_delay_ms;
-> -uint amdgpu_dp_hpd_debounce_delay_ms;
-> +uint amdgpu_hpd_debounce_delay_ms;
->   int amdgpu_ptl = -1; /* auto */
->   
->   DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
-> @@ -1105,25 +1104,12 @@ MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disab
->   module_param_named(user_queue, amdgpu_user_queue, int, 0444);
->   
->   /*
-> - * DOC: hdmi_hpd_debounce_delay_ms (uint)
-> - * HDMI HPD disconnect debounce delay in milliseconds.
-> - *
-> - * Used to filter short disconnect->reconnect HPD toggles some HDMI sinks
-> - * generate while entering/leaving power save. Set to 0 to disable by default.
-> - */
-> -MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
-> -module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
-> -
-> -/*
-> - * DOC: dp_hpd_debounce_delay_ms (uint)
-> - * DisplayPort SST HPD disconnect debounce delay in milliseconds.
-> - *
-> - * Used to filter short disconnect->reconnect HPD toggles some DisplayPort SST
-> - * sinks generate while entering/leaving power save. Set to 0 to disable by
-> - * default. eDP and MST are not affected.
-> + * DOC: hpd_debounce_delay_ms (uint)
-> + * HDMI/DVI/DP SST HPD disconnect debounce delay in milliseconds. eDP and MST
-> + * are not affected. Overrides any per-panel default set via EDID quirks.
->    */
-> -MODULE_PARM_DESC(dp_hpd_debounce_delay_ms, "DisplayPort SST HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
-> -module_param_named(dp_hpd_debounce_delay_ms, amdgpu_dp_hpd_debounce_delay_ms, uint, 0644);
-> +MODULE_PARM_DESC(hpd_debounce_delay_ms, "HDMI/DVI/DP SST HPD disconnect debounce delay in milliseconds (0 to disable (by default) or use the EDID quirk default, 1500 is common)");
-> +module_param_named(hpd_debounce_delay_ms, amdgpu_hpd_debounce_delay_ms, uint, 0644);
->   
->   /**
->    * DOC: ptl (int)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index abc17f547..5235a5ef6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -61,14 +61,9 @@ enum amd_vsdb_panel_type {
->   #define AMDGPU_HDR_MULT_DEFAULT (0x100000000LL)
->   
->   /*
-> - * Maximum HDMI HPD debounce delay in milliseconds
-> + * Maximum HDMI/DVI/DP SST HPD debounce delay in milliseconds
->    */
-> -#define AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS 5000
-> -
-> -/*
-> - * Maximum DisplayPort SST HPD debounce delay in milliseconds
-> - */
-> -#define AMDGPU_DM_MAX_DP_HPD_DEBOUNCE_MS 5000
-> +#define AMDGPU_DM_MAX_HPD_DEBOUNCE_MS 5000
->   /*
->   #include "include/amdgpu_dal_power_if.h"
->   #include "amdgpu_dm_irq.h"
-> @@ -878,11 +873,10 @@ struct amdgpu_dm_connector {
->   	enum adaptive_sync_type as_type;
->   	struct amdgpu_hdmi_vsdb_info vsdb_info;
->   
-> -	/* HDMI HPD debounce support */
-> -	unsigned int hdmi_hpd_debounce_delay_ms;
-> -	unsigned int dp_hpd_debounce_delay_ms;
-> -	struct delayed_work hdmi_hpd_debounce_work;
-> -	struct dc_sink *hdmi_prev_sink;
-> +	/* HDMI/DVI/DP SST HPD debounce support */
-> +	unsigned int hpd_debounce_delay_ms;
-> +	struct delayed_work hpd_debounce_work;
-> +	struct dc_sink *hpd_prev_sink;
->   
->   	/* HDMI compliance automation */
->   	bool hdmi_comp_auto;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index c79a8ada8..798825ec1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -1748,12 +1748,10 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
->   		drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
->   
->   	/* Cancel and flush any pending HPD debounce work */
-> -	if (aconnector->hdmi_hpd_debounce_delay_ms || aconnector->dp_hpd_debounce_delay_ms) {
-> -		cancel_delayed_work_sync(&aconnector->hdmi_hpd_debounce_work);
-> -		if (aconnector->hdmi_prev_sink) {
-> -			dc_sink_release(aconnector->hdmi_prev_sink);
-> -			aconnector->hdmi_prev_sink = NULL;
-> -		}
-> +	cancel_delayed_work_sync(&aconnector->hpd_debounce_work);
-> +	if (aconnector->hpd_prev_sink) {
-> +		dc_sink_release(aconnector->hpd_prev_sink);
-> +		aconnector->hpd_prev_sink = NULL;
->   	}
->   
->   	if (aconnector->bl_idx != -1) {
-> @@ -2828,20 +2826,11 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
->   	mutex_init(&aconnector->hpd_lock);
->   	mutex_init(&aconnector->handle_mst_msg_ready);
->   
-> -	/*
-> -	 * If an HPD debounce delay is set, clamp each signal's delay to its
-> -	 * maximum. The debounce work and cached sink are shared by both the
-> -	 * HDMI and DisplayPort SST paths.
-> -	 */
-> -	aconnector->hdmi_hpd_debounce_delay_ms = amdgpu_hdmi_hpd_debounce_delay_ms ?
-> -		min(amdgpu_hdmi_hpd_debounce_delay_ms, AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS) : 0;
-> -	aconnector->dp_hpd_debounce_delay_ms = amdgpu_dp_hpd_debounce_delay_ms ?
-> -		min(amdgpu_dp_hpd_debounce_delay_ms, AMDGPU_DM_MAX_DP_HPD_DEBOUNCE_MS) : 0;
-> -
-> -	if (aconnector->hdmi_hpd_debounce_delay_ms || aconnector->dp_hpd_debounce_delay_ms) {
-> -		INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, amdgpu_dm_hdmi_hpd_debounce_work);
-> -		aconnector->hdmi_prev_sink = NULL;
-> -	}
-> +	/* May be overridden later by an EDID quirk in apply_edid_quirks() */
-> +	aconnector->hpd_debounce_delay_ms = amdgpu_hpd_debounce_delay_ms ?
-> +		min(amdgpu_hpd_debounce_delay_ms, AMDGPU_DM_MAX_HPD_DEBOUNCE_MS) : 0;
-> +	aconnector->hpd_prev_sink = NULL;
-> +	INIT_DELAYED_WORK(&aconnector->hpd_debounce_work, amdgpu_dm_hpd_debounce_work);
->   
->   	dm->hdmi_frl_status_polling_delay_ms = 200;
->   	INIT_DELAYED_WORK(&dm->hdmi_frl_status_polling_work, hdmi_frl_status_polling_work);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 9c4e0a4e2..71c897416 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -137,6 +137,14 @@ static void apply_edid_quirks(struct dc_link *link, struct edid *edid,
->   		drm_dbg_driver(dev, "Skip PHY SSC reduction on panel id %X\n", panel_id);
->   		link->wa_flags.skip_phy_ssc_reduction = true;
->   		break;
-> +	/* Workaround for monitors that toggle HPD on entering deep sleep */
-> +	case drm_edid_encode_panel_id('M', 'S', 'I', 0x3CF0):
-> +		if (!aconnector->hpd_debounce_delay_ms) {
-> +			drm_dbg_driver(dev, "Enabling HPD debounce on panel id %X\n", panel_id);
-> +			aconnector->hpd_debounce_delay_ms =
-> +				min(1500U, AMDGPU_DM_MAX_HPD_DEBOUNCE_MS);
-> +		}
-> +		break;
->   	default:
->   		return;
->   	}
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> index 2a732d19b..151db9893 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> @@ -1217,13 +1217,13 @@ EXPORT_IF_KUNIT(are_sinks_equal);
->   
->   
->   /**
-> - * DOC: amdgpu_dm_hdmi_hpd_debounce_work
-> + * DOC: amdgpu_dm_hpd_debounce_work
->    *
-> - * HDMI HPD debounce delay in milliseconds. When an HDMI display toggles HPD
-> + * HDMI/DVI/DP SST HPD debounce delay in milliseconds. When a display toggles HPD
->    * (such as during power save transitions), this delay determines how long to
->    * wait before processing the HPD event. This allows distinguishing between a
-> - * physical unplug (>hdmi_hpd_debounce_delay)
-> - * and a spontaneous RX HPD toggle (<hdmi_hpd_debounce_delay).
-> + * physical unplug (>hpd_debounce_delay)
-> + * and a spontaneous RX HPD toggle (<hpd_debounce_delay).
->    *
->    * If the toggle is less than this delay, the driver compares sink capabilities
->    * and permits a hotplug event if they changed.
-> @@ -1231,11 +1231,11 @@ EXPORT_IF_KUNIT(are_sinks_equal);
->    * The default value of 1500ms was chosen based on experimental testing with
->    * various monitors that exhibit spontaneous HPD toggling behavior.
->    */
-> -void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
-> +void amdgpu_dm_hpd_debounce_work(struct work_struct *work)
->   {
->   	struct amdgpu_dm_connector *aconnector =
->   		container_of(to_delayed_work(work), struct amdgpu_dm_connector,
-> -			     hdmi_hpd_debounce_work);
-> +			     hpd_debounce_work);
->   	struct drm_connector *connector = &aconnector->base;
->   	struct drm_device *dev = connector->dev;
->   	struct amdgpu_device *adev = drm_to_adev(dev);
-> @@ -1259,11 +1259,12 @@ void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
->   		/* Apply workaround delay for certain panels */
->   		amdgpu_dm_apply_delay_after_dpcd_poweroff(adev, aconnector->dc_sink);
->   		/* Compare sinks to determine if this was a spontaneous HPD toggle */
-> -		if (are_sinks_equal(aconnector->dc_link->local_sink, aconnector->hdmi_prev_sink)) {
-> +		if (are_sinks_equal(aconnector->dc_link->local_sink, aconnector->hpd_prev_sink)) {
->   			/*
-> -			 * Sinks match - this was a spontaneous HDMI HPD toggle.
-> +			 * Sinks match - this was a spontaneous HPD toggle.
->   			 */
-> -			drm_dbg_kms(dev, "HDMI HPD: Sink unchanged after debounce, internal re-enable\n");
-> +			drm_dbg_kms(dev,
-> +				    "HPD: Sink unchanged after debounce, internal re-enable\n");
->   			fake_reconnect = true;
->   		}
->   
-> @@ -1280,9 +1281,9 @@ void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
->   	}
->   
->   	/* Release the cached sink reference */
-> -	if (aconnector->hdmi_prev_sink) {
-> -		dc_sink_release(aconnector->hdmi_prev_sink);
-> -		aconnector->hdmi_prev_sink = NULL;
-> +	if (aconnector->hpd_prev_sink) {
-> +		dc_sink_release(aconnector->hpd_prev_sink);
-> +		aconnector->hpd_prev_sink = NULL;
->   	}
->   
->   	scoped_guard(mutex, &adev->dm.dc_lock) {
-> @@ -1302,7 +1303,7 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
->   	struct dc *dc = aconnector->dc_link->ctx->dc;
->   	bool ret = false;
->   	bool debounce_required = false;
-> -	unsigned int debounce_delay_ms = 0;
-> +	bool debounce_eligible;
->   
->   	if (adev->dm.disable_hpd_irq)
->   		return;
-> @@ -1326,16 +1327,16 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
->   		drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
->   
->   	/*
-> -	 * Check for an HDMI or DisplayPort SST disconnect with debounce
-> -	 * enabled. eDP and MST are intentionally excluded.
-> +	 * Check for an HDMI, DVI, or DisplayPort SST disconnect with
-> +	 * debounce enabled. eDP and MST are intentionally excluded.
->   	 */
-> -	if (dc_is_hdmi_signal(aconnector->dc_link->connector_signal))
-> -		debounce_delay_ms = aconnector->hdmi_hpd_debounce_delay_ms;
-> -	else if (aconnector->dc_link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
-> -		 aconnector->dc_link->type != dc_connection_mst_branch)
-> -		debounce_delay_ms = aconnector->dp_hpd_debounce_delay_ms;
-> +	debounce_eligible = dc_is_hdmi_signal(aconnector->dc_link->connector_signal) ||
-> +			     dc_is_dvi_signal(aconnector->dc_link->connector_signal) ||
-> +			     (aconnector->dc_link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
-> +			      aconnector->dc_link->type != dc_connection_mst_branch);
->   
-> -	debounce_required = (debounce_delay_ms > 0 &&
-> +	debounce_required = (debounce_eligible &&
-> +			      aconnector->hpd_debounce_delay_ms > 0 &&
->   			      new_connection_type == dc_connection_none &&
->   			      aconnector->dc_link->local_sink != NULL);
->   
-> @@ -1353,28 +1354,28 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector,
->   		/*
->   		 * Disconnect detected - schedule delayed work instead of
->   		 * processing immediately. This allows us to coalesce spurious
-> -		 * HDMI/DP HPD signals from physical unplugs.
-> +		 * HDMI/DVI/DP HPD signals from physical unplugs.
->   		 */
->   		drm_dbg_kms(dev, "HPD: Disconnect detected, scheduling debounce work (%u ms)\n",
-> -			    debounce_delay_ms);
-> +			    aconnector->hpd_debounce_delay_ms);
->   
->   		/* Cache the current sink for later comparison */
-> -		if (aconnector->hdmi_prev_sink)
-> -			dc_sink_release(aconnector->hdmi_prev_sink);
-> -		aconnector->hdmi_prev_sink = aconnector->dc_link->local_sink;
-> -		if (aconnector->hdmi_prev_sink)
-> -			dc_sink_retain(aconnector->hdmi_prev_sink);
-> +		if (aconnector->hpd_prev_sink)
-> +			dc_sink_release(aconnector->hpd_prev_sink);
-> +		aconnector->hpd_prev_sink = aconnector->dc_link->local_sink;
-> +		if (aconnector->hpd_prev_sink)
-> +			dc_sink_retain(aconnector->hpd_prev_sink);
->   
->   		/* Schedule delayed detection. */
->   		if (mod_delayed_work(system_percpu_wq,
-> -				 &aconnector->hdmi_hpd_debounce_work,
-> -				 msecs_to_jiffies(debounce_delay_ms)))
-> +				 &aconnector->hpd_debounce_work,
-> +				 msecs_to_jiffies(aconnector->hpd_debounce_delay_ms)))
->   			drm_dbg_kms(dev, "HPD: Re-scheduled debounce work\n");
->   
->   	} else {
->   
-> -		/* If the aconnector->hdmi_hpd_debounce_work is scheduled, exit early */
-> -		if (delayed_work_pending(&aconnector->hdmi_hpd_debounce_work))
-> +		/* If the aconnector->hpd_debounce_work is scheduled, exit early */
-> +		if (delayed_work_pending(&aconnector->hpd_debounce_work))
->   			return;
->   
->   		scoped_guard(mutex, &adev->dm.dc_lock) {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-> index bccb5d354..66fb82961 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-> @@ -113,7 +113,7 @@ void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev);
->   struct hpd_rx_irq_offload_work_queue *amdgpu_dm_hpd_rx_irq_create_workqueue(struct amdgpu_device *adev);
->   void amdgpu_dm_hpd_rx_irq_work_suspend(struct amdgpu_display_manager *dm);
->   int amdgpu_dm_register_hpd_handlers(struct amdgpu_device *adev);
-> -void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work);
-> +void amdgpu_dm_hpd_debounce_work(struct work_struct *work);
->   
->   /* IRQ handlers */
->   struct amdgpu_crtc *amdgpu_dm_get_crtc_by_otg_inst(struct amdgpu_device *adev,
->
-> ---
-> base-commit: c92b5b607c1c8ab786fccf03d62352b82f6539ae
-> change-id: 20260708-hpd-debounce-unify-896ad367bf02
->
-> Best regards,
-> --
-> Nick Haghiri <nick@haghiri.net>
->
--- 
-Thanks,
-Ivan Lipski
+On 7/9/26 12:35, Li, Chong(Alan) wrote:
+> AMD General
+> 
+> Hi, Lijo.
+> 
+> Yes, the current GIM driver ensures the early init data is placed within the VF’s visible BAR0 aperture.
+> 
+> 
+> Thanks,
+> Chong.
+> 
+> -----Original Message-----
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Thursday, July 9, 2026 3:56 PM
+> To: Li, Chong(Alan) <Chong.Li@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Deng, Emily <Emily.Deng@amd.com>; Chang, HaiJun <HaiJun.Chang@amd.com>; Skvortsov, Victor <Victor.Skvortsov@amd.com>; Cursor <cursoragent@cursor.com>
+> Subject: Re: [PATCH] drm/amdgpu: improve the amdgpu device init progress in sriov mode
+> 
+> 
+> 
+> On 08-Jul-26 6:12 PM, Li, Chong(Alan) wrote:
+>> AMD General
+>>
+>> Hi, Lijo.
+>>
+>> " In this commit, the statement is different."
+>> " It says FB access is enabled if init_data request is sent."
+>>
+>> Yes, VF FB access is enabled if init_data request is sent.
+>>
+>> However, without full GPU access, the guest cannot access the MM_INDEX/MM_DATA registers.
+>>
+>> With the legacy/existing read path, VF_FB_EN must be enabled so the
+>> host can dump early init data into the VF FB, and full GPU access is required so the guest can copy that data through the MM_INDEX/MM_DATA registers.
+>>
+>> I submitted patch " [PATCH 1/2] drm/amdgpu: read FB through BAR0 when
+>> aperture is unavailable " , With the new
+>> amdgpu_device_read_fb_via_bar0() path, the guest can read the VF FB
+>> without full GPU access
+>>
+> 
+> Yes, I saw that one. One other question - does host driver guarantee that discovery data will always be copied to visible BAR aperture of VF?
+> If not, it will still require mmindex/data regardless of FB access enablement.
+> 
+> Thanks,
+> Lijo
+> 
+>>
+>> Thanks,
+>> Chong.
+>>
+>>
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Wednesday, July 8, 2026 7:18 PM
+>> To: Koenig, Christian <Christian.Koenig@amd.com>; Li, Chong(Alan)
+>> <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deng, Emily <Emily.Deng@amd.com>; Chang, HaiJun
+>> <HaiJun.Chang@amd.com>; Skvortsov, Victor <Victor.Skvortsov@amd.com>;
+>> Cursor <cursoragent@cursor.com>
+>> Subject: Re: [PATCH] drm/amdgpu: improve the amdgpu device init
+>> progress in sriov mode
+>>
+>>
+>>
+>> On 08-Jul-26 4:18 PM, Christian König wrote:
+>>> Hi Chong,
+>>>
+>>> On 7/8/26 12:25, Li, Chong(Alan) wrote:
+>>>> AMD General
+>>>>
+>>>> Hi, Christian.
+>>>>
+>>>> The code " early_full_gpu_access = (adev->virt.req_init_data_ver == 0);" is related to the ASIC type, not the host platform:
+>>>>
+>>>>
+>>>> adev->virt.req_init_data_ver is initialized by amdgpu_virt_request_init_data().
+>>>>
+>>>> Some legacy ASICs, such as CHIP_VEGA20 and CHIP_ALDEBARAN, do not send amdgpu_virt_request_init_data() to the host.
+>>>>
+>>>> For those ASICs, the host dumps the early init data only after the guest requests full GPU access.
+>>>> Therefore, those ASICs still need to request full GPU access before the guest driver can read the early init data from the VF FB.
+>>>
+>>> No, exactly that is not the case as far as I can see. See the commit I mentioned below.
+>>>
+>>> According to that starting from SIENNA_CICHLID the full GPU access is mandatory for reading the discovery table.
+>>>
+>>
+>> It could also be because the legacy/existing way used mmindex/data, and that required full access including mmio register access.
+>>
+>> In this commit, the statement is different.
+>>
+>> "In SR-IOV, the guest sends GPU_INIT_DATA, then the host enables VF_FB_EN and places early initialization data, such as IP discovery, VBIOS, and PF-VF exchange data, in the VF FB"
+>>
+>> It says FB access is enabled if init_data request is sent.
+>>
+>> Thanks
+>> Lijo
+>>
+>>> So I absolutely clearly have to reject your patch here.
+>>>
+>>> As far as I can see this is a hack for ESXi and that is not going to fly.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>>
+>>>>
+>>>>           static bool amdgpu_virt_init_req_data(struct amdgpu_device *adev, u32 reg)
+>>>>           {
+>>>>                   ...
+>>>>                   case CHIP_VEGA20:
+>>>>                   case CHIP_ARCTURUS:
+>>>>                   case CHIP_ALDEBARAN:
+>>>>                           soc15_set_virt_ops(adev);
+>>>>                           break;
+>>>>                   case CHIP_NAVI10:
+>>>>                   case CHIP_NAVI12:
+>>>>                   case CHIP_SIENNA_CICHLID:
+>>>>                   case CHIP_IP_DISCOVERY:
+>>>>                           nv_set_virt_ops(adev);
+>>>>                           /* try send GPU_INIT_DATA request to host */
+>>>>                           amdgpu_virt_request_init_data(adev);
+>>>>                           break;
+>>>>                   ...
+>>>>           }
+>>>>
+>>>> Thanks,
+>>>> Chong.
+>>>>
+>>>> -----Original Message-----
+>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>> Sent: Wednesday, July 8, 2026 6:24 PM
+>>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Li, Chong(Alan)
+>>>> <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.org
+>>>> Cc: Deng, Emily <Emily.Deng@amd.com>; Chang, HaiJun
+>>>> <HaiJun.Chang@amd.com>; Skvortsov, Victor
+>>>> <Victor.Skvortsov@amd.com>; Cursor <cursoragent@cursor.com>
+>>>> Subject: Re: [PATCH] drm/amdgpu: improve the amdgpu device init
+>>>> progress in sriov mode
+>>>>
+>>>> On 7/8/26 12:03, Lazar, Lijo wrote:
+>>>>>
+>>>>>
+>>>>> On 08-Jul-26 3:23 PM, Christian König wrote:
+>>>>>> On 7/8/26 11:35, Li, Chong(Alan) wrote:
+>>>>>>> AMD General
+>>>>>>>
+>>>>>>> Hi, Christian.
+>>>>>>>
+>>>>>>> This version of the patch is not host-platform dependent; all host platforms follow the same path.
+>>>>>>>
+>>>>>>> I verified this patch with KVM in my local environment and with ESXi on a borrowed server.
+>>>>>>>
+>>>>>>> Distinguishing the host platform was a mistake, and I have
+>>>>>>> explained the situation at the end of the patch email.
+>>>>>>>
+>>>>>>> I have pasted the content below:
+>>>>>>>
+>>>>>>>            Hi, Christian and Lijo.
+>>>>>>>
+>>>>>>>            Sorry, I made a mistake.
+>>>>>>>            Host access to the VF FB is not platform-dependent. After the host driver sets VF_FB_EN in response to GPU_INIT_DATA, the host can access the VF FB.
+>>>>>>>
+>>>>>>>            I borrowed an ESXi server and tested this patch there.
+>>>>>>>            The amdgpu driver works normally.
+>>>>>>>
+>>>>>>>            I rewrote the background. Is anything still unclear?
+>>>>>>
+>>>>>> You still have this check here in the code: "early_full_gpu_access = (adev->virt.req_init_data_ver == 0);".
+>>>>>>
+>>>>>> As far as I can see that is Hypervisor specific and a NO-GO.
+>>>>>>
+>>>>>
+>>>>> I think this should be seen as a policy set by host driver on when a guest operation is allowed. Host driver could do it based on other conditions also, not specific to hypervisor environment.
+>>>>
+>>>> No, this was intentionally changed in 2020 because of a new feature. See this commit here:
+>>>>
+>>>> commit 00a979f3d69e0c275e88c741b854dbe0d5238ae0
+>>>> Author: Wenhui Sheng <Wenhui.Sheng@amd.com>
+>>>> Date:   Tue Jun 23 13:43:49 2020 +0800
+>>>>
+>>>>       drm/amdgpu: invoke req full access early enough
+>>>>
+>>>>       From SIENNA_CICHLID, HW introduce a new protection
+>>>>       feature which can control the FB, doorbell and MMIO
+>>>>       write access for VF, so guest driver should request
+>>>>       full access before ip discovery, or we couldn't access
+>>>>       ip discovery data in FB.
+>>>>
+>>>>       Signed-off-by: Wenhui Sheng <Wenhui.Sheng@amd.com>
+>>>>       Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+>>>>       Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>
+>>>> So as far as I can see this change here will break older hypervisor versions and that is absolutely clear reason to NAK it.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> Thanks,
+>>>>> Lijo
+>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>>
+>>>>>>> Thanks,
+>>>>>>> Chong.
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>> -----Original Message-----
+>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>> Sent: Wednesday, July 8, 2026 5:05 PM
+>>>>>>> To: Li, Chong(Alan) <Chong.Li@amd.com>;
+>>>>>>> amd-gfx@lists.freedesktop.org
+>>>>>>> Cc: Deng, Emily <Emily.Deng@amd.com>; Chang, HaiJun
+>>>>>>> <HaiJun.Chang@amd.com>; Skvortsov, Victor
+>>>>>>> <Victor.Skvortsov@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>;
+>>>>>>> Cursor <cursoragent@cursor.com>
+>>>>>>> Subject: Re: [PATCH] drm/amdgpu: improve the amdgpu device init
+>>>>>>> progress in sriov mode
+>>>>>>>
+>>>>>>> On 7/8/26 10:25, chong li wrote:
+>>>>>>>> v2:
+>>>>>>>> Some legacy ASICs do not send amdgpu_virt_request_init_data().
+>>>>>>>> Only keep the full GPU access request early when request_init_data is not sent.
+>>>>>>>>
+>>>>>>>> v1:
+>>>>>>>> Move the initialization of non-GPU resources out of the full GPU
+>>>>>>>> access region during AMDGPU device initialization.
+>>>>>>>>
+>>>>>>>> Background:
+>>>>>>>> In SR-IOV, the guest sends GPU_INIT_DATA, then the host enables
+>>>>>>>> VF_FB_EN and places early initialization data, such as IP
+>>>>>>>> discovery, VBIOS, and PF-VF exchange data, in the VF FB. The
+>>>>>>>> guest should then be able to read this data before requesting full GPU access.
+>>>>>>>>
+>>>>>>>> Before this patch, the VF still requested full GPU access in
+>>>>>>>> amdgpu_device_ip_early_init(). At that point TTM is not
+>>>>>>>> initialized yet, so the normal VRAM aperture mapping is
+>>>>>>>> unavailable and the guest falls back to MM_INDEX/MM_DATA
+>>>>>>>> register access. That register path requires full GPU access.
+>>>>>>>>
+>>>>>>>> Use the BAR0 framebuffer read path,
+>>>>>>>> amdgpu_device_read_fb_via_bar0(), for the early init-data copy
+>>>>>>>> instead of MM_INDEX/MM_DATA. This lets the driver delay the full
+>>>>>>>> GPU access request until after the early init data has been copied.
+>>>>>>>
+>>>>>>> That looks like it goes into the right direction, but as far as I can see it is still an ESXi specific change.
+>>>>>>>
+>>>>>>> So once more: We can't adjust the driver to the hypervisor!
+>>>>>>>
+>>>>>>> Either this works on all hypervisors or I have to reject the change.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Signed-off-by: chong li <chongli2@amd.com>
+>>>>>>>> Co-authored-by: Cursor <cursoragent@cursor.com>
+>>>>>>>> ---
+>>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 21
+>>>>>>>> +++++++++++++++++----
+>>>>>>>>     drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c      |  4 ++--
+>>>>>>>>     2 files changed, 19 insertions(+), 6 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> index 610d82b79de3..ac66796e8634 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>> @@ -38,6 +38,10 @@
+>>>>>>>>     #include <linux/apple-gmux.h>
+>>>>>>>>     #include <linux/nospec.h>
+>>>>>>>>
+>>>>>>>> +#ifdef CONFIG_X86
+>>>>>>>> +#include <asm/hypervisor.h>
+>>>>>>>> +#endif
+>>>>>>>> +
+>>>>>>>>     #include <drm/drm_atomic_helper.h>
+>>>>>>>>     #include <drm/drm_client_event.h>
+>>>>>>>>     #include <drm/drm_crtc_helper.h> @@ -1987,16 +1991,19 @@
+>>>>>>>> static int amdgpu_device_ip_early_init(struct
+>>>>>>>> amdgpu_device *adev)  {
+>>>>>>>>          struct amdgpu_ip_block *ip_block;
+>>>>>>>>          struct pci_dev *parent;
+>>>>>>>> -     bool total, skip_bios;
+>>>>>>>> +     bool total, skip_bios, early_full_gpu_access = false;
+>>>>>>>>          uint32_t bios_flags;
+>>>>>>>>          int i, r;
+>>>>>>>>
+>>>>>>>>          amdgpu_device_enable_virtual_display(adev);
+>>>>>>>>
+>>>>>>>>          if (amdgpu_sriov_vf(adev)) {
+>>>>>>>> -             r = amdgpu_virt_request_full_gpu(adev, true);
+>>>>>>>> -             if (r)
+>>>>>>>> -                     return r;
+>>>>>>>> +             early_full_gpu_access =
+>>>>>>>> +(adev->virt.req_init_data_ver == 0);
+>>>>>>>> +             if (early_full_gpu_access) {
+>>>>>>>> +                     r = amdgpu_virt_request_full_gpu(adev, true);
+>>>>>>>> +                     if (r)
+>>>>>>>> +                             return r;
+>>>>>>>> +             }
+>>>>>>>>
+>>>>>>>>                  r = amdgpu_virt_init_critical_region(adev);
+>>>>>>>>                  if (r)
+>>>>>>>> @@ -2159,6 +2166,12 @@ static int
+>>>>>>>> amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>>>>>>>>          if (!total)
+>>>>>>>>                  return -ENODEV;
+>>>>>>>>
+>>>>>>>> +     if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
+>>>>>>>> +             r = amdgpu_virt_request_full_gpu(adev, true);
+>>>>>>>> +             if (r)
+>>>>>>>> +                     return r;
+>>>>>>>> +     }
+>>>>>>>> +
+>>>>>>>>          if (adev->gmc.xgmi.supported)
+>>>>>>>>                  amdgpu_xgmi_early_init(adev);
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>> index 9a40107a0869..340703d89d6b 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+>>>>>>>> @@ -185,8 +185,8 @@ static int
+>>>>>>>> xgpu_ai_send_access_requests(struct
+>>>>>>>> amdgpu_device *adev,
+>>>>>>>>          } else if (req == IDH_REQ_GPU_INIT_DATA){
+>>>>>>>>                  /* Dummy REQ_GPU_INIT_DATA handling */
+>>>>>>>>                  r = xgpu_ai_poll_msg(adev,
+>>>>>>>> IDH_REQ_GPU_INIT_DATA_READY);
+>>>>>>>> -             /* version set to 0 since dummy */
+>>>>>>>> -             adev->virt.req_init_data_ver = 0;
+>>>>>>>> +             /* Version is set to 1 since GPU_CRIT_REGION_V1 */
+>>>>>>>> +             adev->virt.req_init_data_ver = GPU_CRIT_REGION_V1;
+>>>>>>>>          }
+>>>>>>>>
+>>>>>>>>          return 0;
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
