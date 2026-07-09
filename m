@@ -4,103 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C78BCC43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 14:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F8EDC43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 14:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60A4B10F56E;
-	Thu,  9 Jul 2026 14:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A856510F5F7;
+	Thu,  9 Jul 2026 14:33:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oEQxT6wz";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="QuIowKFl";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013032.outbound.protection.outlook.com
- [40.93.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B964510F56E
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 14:29:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KVBIsS2T820f/NRHQj9jpDiwXZyUOfd9cXH4n2p6qcFQwggFuncTmDNmnB/ccbmi7nxfwuf6kK1fnN8T8uMy0ppmGMtcufoPW3OhLW+JQ3ror4YSrA1wDrca0rw/WjkNNEIOjLk/Pbv0Vy/jPM0z/AdZWAzH4ObXjMUXZHAnfAoAMu8SxuOm/a54Ut9QebHeEnosefDKjLI2ONBvYxQS7x4hUKd4HiQH+crUPaNdPyJ58mRd4QRfMdYbfl6/ot8GpxS9Ag1qnJq/DRWUVgohA8oZA/+4D+3qIEua5fExqsi2+7XK0jvOXmgu/bm7cIVBO0CLUnVomofOMx8a1JIjnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=svojBXe0YE/0E3gTCQ0vmArkVeJH5yjZfzMQ1U56ecU=;
- b=ySLyeFbe090i9imKAPv7Mf0Ikvsjwg6ys8j2eIsXlxCLMF/yFgaPRYM93ZqrAfthlm/8hgRJw9jcr4hxwwl3XtoPvhW9FlmShTQtcb9y7fNxbRol5LzOPBiFzmRi/SpxazYiELFA7+ktvgiMl3mN3A95e8SV5wLHKYCSPzvJ2+ivu1ON162mixEpspeO6e/LWOjUX6r3FhVivbID1u+672Ar0gfPiKhFQMQpZP/0UVaLJwUOgvRhF8ZA6vfs3wJV3wuHhOm8YZ0QxsLfzSUjFy10vG5vWuMvdE/4SDAUHOpR7boTIXHhdM8a6bl8aW3pCq0d5MOV3RSdvfJ+BMTZ1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=svojBXe0YE/0E3gTCQ0vmArkVeJH5yjZfzMQ1U56ecU=;
- b=oEQxT6wzYWZDsIBWxX133ASa1Wk7g+81hGjmcHfiS19jHMyReTFiQAyle940Ne7cCQ0n4FVJtv9aMrzW2r/3UorTK5nNasSOsA5fKdZKS5nDuPcMTY7O3PCd9l0V0toiSNR2o8FPoDmUjk95aFHDIBPUzwLcztAI0zKEtWx3iKc=
-Received: from CH0P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::16)
- by DS0PR12MB8069.namprd12.prod.outlook.com (2603:10b6:8:f0::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.15; Thu, 9 Jul 2026 14:29:06 +0000
-Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
- (2603:10b6:610:11c:cafe::2f) by CH0P221CA0012.outlook.office365.com
- (2603:10b6:610:11c::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
- Jul 2026 14:29:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 14:29:06 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 09:29:06 -0500
-Received: from [10.254.93.144] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 9 Jul 2026 09:29:05 -0500
-Message-ID: <e45fed67-77ee-41db-ab51-99304aa059ec@amd.com>
-Date: Thu, 9 Jul 2026 10:29:05 -0400
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A42210E684;
+ Thu,  9 Jul 2026 14:33:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783607587; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=R81IqUKFPqrIBZMO2/z9lXid4HHRTQn+2fEAPU8L6Iw4LKy01WCQMzyH3QfDI91rytiGiQuEXc9zLoMKKWmyZdc6RZCdPNiSpL1xqrO3DvPMzCBEIagmQl4jlZan5IJixAX+dcIXENqkT2j3Zh1cRiRVAfUnGKHAncJwz/HJnJc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783607587;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=PDEhNohzJHelgz9LBFaxC5+YxUb/saf0XN+vBxQh76k=; 
+ b=Cn1UPQrl7nKhAxUIi4us+CkOe7a4CyuHZf0Jase5fK+M/o+f8klNLLTmQWMz4F3HtXSlMqE+wqdEHysmW+lwvDgSk6+lTvmYp9gmMiztlE3uNgyqB61UoTFvgfhFw39nQDxryN7JuOg33xQsZC4ZjfQI/r1tFngezNLPe7ABwK8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783607587; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=PDEhNohzJHelgz9LBFaxC5+YxUb/saf0XN+vBxQh76k=;
+ b=QuIowKFljR/gw76clT83ikVdKCxaVA5On+JGnGF9kk1DGYYM95bsM0o7MFLAwamK
+ BxCY916Qv9DT5ynJnGkLLczqZkr+JNXUkVrsvQZb5FTyxomJV4100GYaTPJZJaa4Jc9
+ bPTeK0zAeVzgEfoudiLVKm7OvEOlIklwyXUbtwVY=
+Received: by mx.zohomail.com with SMTPS id 1783607586450305.483764375728;
+ Thu, 9 Jul 2026 07:33:06 -0700 (PDT)
+Message-ID: <f5cbdbef-d76f-4ffb-983c-5bb22d40a3b2@collabora.com>
+Date: Thu, 9 Jul 2026 16:33:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Fix DM I2C teardown race
-To: Alex Deucher <alexdeucher@gmail.com>, Geoffrey McRae
- <geoffrey.mcrae@amd.com>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <amd-gfx@lists.freedesktop.org>
-References: <20260628161719.1598835-1-geoffrey.mcrae@amd.com>
- <20260628163239.1599449-1-geoffrey.mcrae@amd.com>
- <CADnq5_NviF+5uO_HQ_H+BTY+M1WNZcf5fynYxNXE_vsDMg0_eQ@mail.gmail.com>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <CADnq5_NviF+5uO_HQ_H+BTY+M1WNZcf5fynYxNXE_vsDMg0_eQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|DS0PR12MB8069:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fa39163-8dd8-410e-fd0e-08deddc66ee9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|82310400026|42112799006|1800799024|376014|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 33KfGovN0vrUE3x+XQlsKfcgU1+wR0IpOWzP2b5f4Js5iVDlP6EQDdkQUUXYftUzemup3hO+/BaZI7SultptuqFhGpIOTydu0Z7jmvo6TQuKsCSVQ5bbE8WO8PESQ7aP29XZM6aiitVRz8f9VnK2wUQaTOoP03ZSnawNBcBtjAd2AWmLrXczKXVWZBeXb0YVBZVghIO8r+qkMDYPn2MbQ32koMwblwQofDSR4JRRa/HhTrcRj5DUGtb15pMclZm3Z8o2GSi1Iao5nS07Jt/PhUhxKIaH3Qi1cVLwu71BdXwdy05KrFrKV7ngOtnHPe8UYCq1KXCBnwQcqCwiBN7MR+3e3lF6tzxj6FOtMtIW6D9zhz+3KBnUziK0lBFtVLjIR6FsMw3pDNW/o/g7ZEC5tgextnV74Pzbz02Fzrae5dlKvGOTgtTikBtma6DNGvtBWpYNz5zKd7x9TLMeBD+FSC58V7jRJ/30Z2kqeAC4lQKGEFcC9QWatMQwET0/IdmvHClHV+fG3ipB5oxYJBx2pe1105JUylNSW+EzkF0mwAvaDAYr14TkdKY8ezPwdpK2f7Yx8dhwXAclaQHKU1/6f9Z9lrWie6egbVmLe5gajdIvjlA6TCPB9tZ/azxbhifsLY7cWFRucfpO/7edrUdkNnGET6JfWYAY3ssDD9Q4f4n+GWLsm78qjYqAoxuuwdy8i7Yi6svmOICWWI6TMw4F6w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(82310400026)(42112799006)(1800799024)(376014)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 27BM9fJruU99V3QtARK8CXZx5AGlp79FcG7920XYHjN+gKxdkei46PeisPQgyTULOfS7uX37oIy4Wnz+LimCMa2ilsFY4zXdUEyb5E9moHSPrAfNqRcA6ZYtLPiZVtrMNhhG1CZlAU3cwGEw22r1QX0qwtuae3fDinzaIZacdo3yG0fFboRjBGYdWDo7/i97Ld1BUpsi3J/juMMgxM9Y8oSlwhao4CIPGDbFAENdZFNdE74IBRswimT8o+iiNS12LQ1XPqHAKHKLkW6Sw/qn1UmjrqF7UY9yd2DFNFe6UMm+Axz3D+UvqUtopPYq3zdGyoFUzIBPGiNQ/+nqtvEgLBWgrocoJkq9HiMDhd5y+NZoh3bE8xqsX0d0ua9uZeAj93+Jr/Un+P0n9R6smNaMwju7k81k9G/STDExXvmsf4V9mTOEyQLM7yswccjOWgNQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 14:29:06.6736 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fa39163-8dd8-410e-fd0e-08deddc66ee9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000000A0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8069
+Subject: Re: [PATCH v3 00/11] YUV conversion colorop with amdgpu and VKMS
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>
+References: <20260623164812.81110-1-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,106 +69,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
+in a related discussion in 
+https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/ 
+Maarten suggested that - given that the new Fixed Matrix colorop 
+effectively provides a drop-in replacement for the legacy properties - 
+it would be nice to have a helper that automatically provides support 
+for the legacy properties for drivers implementing the new color op. 
+That'd allow drivers a cleaner switch to the new API, keeping legacy 
+support for free.
 
-On 2026-07-08 09:30, Alex Deucher wrote:
-> On Sun, Jun 28, 2026 at 12:39 PM Geoffrey McRae <geoffrey.mcrae@amd.com> wrote:
->>
->> DM I2C adapters can remain visible to userspace while DM teardown is
->> already in progress. A concurrent i2c-dev transfer may then enter
->> amdgpu_dm_i2c_xfer() after the backing DM state has been torn down,
->> leading to a NULL pointer dereference.
->>
->> Create a devres group around the DM I2C adapter lifetime and release it
->> at the start of dm_hw_fini(), before HPD, IRQ, and DM state are torn
->> down. This removes the I2C adapters first and waits for in-flight users
->> to drain before the structures used by amdgpu_dm_i2c_xfer() disappear.
->>
->> This fixes a teardown ordering race seen during device removal:
->>
->> BUG: kernel NULL pointer dereference
->> RIP: amdgpu_dm_i2c_xfer+0x122/0x1c0 [amdgpu]
->> Call Trace:
->> __i2c_transfer
->> i2c_transfer
->> i2cdev_ioctl_rdwr
->>
->> Fixes: 5b3eca05cfb0 ("drm/amd/display: Use devm_i2c_add_adapter to simplify i2c cleanup logic")
->> Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
-> 
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Harry, WDYT, would that be an option for the two implementations here?
 
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Best regards
 
-> 
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++++++++-
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++++++
->>  2 files changed, 20 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index b97ceabe6173..5613dc9903fe 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -1496,17 +1496,26 @@ static int dm_hw_init(struct amdgpu_ip_block *ip_block)
->>         struct amdgpu_device *adev = ip_block->adev;
->>         int r;
->>
->> +       adev->dm.i2c_devres_group = devres_open_group(adev->dev, NULL, GFP_KERNEL);
->> +       if (!adev->dm.i2c_devres_group)
->> +               return -ENOMEM;
->> +
->>         /* Create DAL display manager */
->>         r = amdgpu_dm_init(adev);
->>         if (r)
->> -               return r;
->> +               goto err_release_i2c;
->>         amdgpu_dm_hpd_init(adev);
->>
->>         r = dm_oem_i2c_hw_init(adev);
->>         if (r)
->>                 drm_info(adev_to_drm(adev), "Failed to add OEM i2c bus\n");
->>
->> +       devres_close_group(adev->dev, adev->dm.i2c_devres_group);
->>         return 0;
->> +
->> +err_release_i2c:
->> +       devres_release_group(adev->dev, adev->dm.i2c_devres_group);
->> +       return r;
->>  }
->>
->>  /**
->> @@ -1521,6 +1530,9 @@ static int dm_hw_fini(struct amdgpu_ip_block *ip_block)
->>  {
->>         struct amdgpu_device *adev = ip_block->adev;
->>
->> +       if (adev->dm.i2c_devres_group)
->> +               devres_release_group(adev->dev, adev->dm.i2c_devres_group);
->> +
->>         amdgpu_dm_hpd_fini(adev);
->>
->>         amdgpu_dm_irq_fini(adev);
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> index 909ee71d6d59..13a18e1ed576 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->> @@ -688,6 +688,13 @@ struct amdgpu_display_manager {
->>          */
->>         void *bb_from_dmub;
->>
->> +       /**
->> +        * @i2c_devres_group:
->> +        *
->> +        * Devres group for DM i2c adapter lifetime management.
->> +        */
->> +       void *i2c_devres_group;
->> +
->>         /**
->>          * @oem_i2c:
->>          *
->> --
->> 2.43.0
->>
+On 23.06.26 18:48, Harry Wentland wrote:
+> When we merged the drm_plane color pipeline API the major gap
+> that existed was the lack of a YUV to RGB conversion colorop.
+> We deprecated any legacy drm_plane color properties, which
+> means that the COLOR_RANGE and COLOR_ENCODING properties can't
+> be used with the COLOR_PIPELINE property on a drm_plane. In
+> practice this means that we can't use a COLOR_PIPELINE on
+> YCbCr encoded framebuffers.
+>
+> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
+> and adds limited range variants of the YCbCr to RGB conversions.
+>
+> His full patchset can be found at
+> https://patchwork.freedesktop.org/patch/709860
+>
+> This code has been tested with IGT and an experimental KWin branch.
+>
+> IGT branch:
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
+>
+> KWin branch used for testing:
+> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
+>
+> The kernel branch containing these changes, based on drm-misc-next
+> can be found at:
+> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
+>
+> Further background on this work can be found at:
+> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
+>
+> v3:
+> - base on Chaitanya's updated patch and rename code accordingly
+>    to Fixed_Matrix instead of CSC Fixed-Function
+>
+> v2:
+> - use Chaitanya's CSC_FF block for named matrices
+>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Daniel Stone <daniels@collabora.com>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Simon Ser <contact@emersion.fr>
+> Cc: Robert Mader <robert.mader@collabora.com>
+>
+> Chaitanya Kumar Borah (1):
+>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+>
+> Harry Wentland (10):
+>    drm/colorop: Add limited-range YUV-to-RGB fixed matrix enum values
+>    drm/vkms: Add fixed matrix colorop to color pipeline
+>    drm/vkms: Add atomic check and matrix handling for fixed matrix
+>      colorop
+>    drm/amd/display: Add fixed matrix colorop to color pipeline
+>    drm/amd/display: Implement fixed matrix colorop color space mapping
+>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
+>    drm/amd/display: Check actual state during commit_tail
+>    drm/amd/display: Set color_space to plane_infos
+>    drm/amd/display: Set COLOR_SPACE_SRGB when fixed matrix colorop is
+>      bypassed
+>    drm/amd/display: Force GAMCOR for subsampled surfaces with
+>      PQ/Gamma22/HLG
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  91 +++++++++++++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 ++++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+>   .../amd/display/modules/color/color_gamma.c   |   3 +-
+>   drivers/gpu/drm/drm_atomic.c                  |   4 +
+>   drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
+>   drivers/gpu/drm/drm_colorop.c                 | 109 +++++++++++++++++
+>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 +++++++---
+>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+>   drivers/gpu/drm/vkms/vkms_plane.c             |  68 ++++++++++-
+>   include/drm/drm_colorop.h                     | 114 ++++++++++++++++++
+>   include/uapi/drm/drm_mode.h                   |  12 ++
+>   13 files changed, 487 insertions(+), 32 deletions(-)
+>
+> --
+> 2.54.0
+>
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
