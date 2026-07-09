@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF1AC4450B
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4721AC44509
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E495510F6EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB0A10F6F0;
 	Thu,  9 Jul 2026 21:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fJhgl4d0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5U3gDTVd";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011011.outbound.protection.outlook.com [52.101.57.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 433A110F6E1
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:33 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010038.outbound.protection.outlook.com [52.101.56.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5471610F6EA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ud9+kIhFHMJ+VZNdss3vIDAn8gwo5GKtiVodaKXdwo7O79N2YWceO2fCVpRCs5lLnevaq/hxUbEsC4J/xu7POauBrthVOBE86vtsIMXq7IQKr8CSjPh6zq6vjMJipRqrgqvHBnfRYfjmzq7zquOIc0Z1e8T+Hxs9UR3LjihE8MAfXhyJ4O1QFBLt/ukgxZ+T4S0vrRCdHyKVfNAHlPLOJ+BeBHwBibicnY359XvZTGDSGWqfcWiqowTrKVawLHD3mI9MG9/aoTHP+hMzdiKq7ABOCuonnrw30pR4Xm9uhtTcYdquOOhegRmorRAQ8xz0WpMS3+Kf4v3VXQLKW9Yztg==
+ b=C6cZN5sd8/BUp/tkFTY50AQKbZLsp6UseOTRj1xXbgeiV+S5xTcLtrFyUJ3rcJ+aapII6ELE+S8vK5Y/n2XsHyd2SbwZwLU1FCxELr9MWF23SI1+JvYZXRMU1TnKdlS/gUGPqB9+rdJVmdexAKB860L5cRHbCBkQzsQxbRdZJT0Bntgm+h+hifhty05Ou/Fxf/iuX+u5CwKJoHCCMCNiSy1uscbWbbfTM1c12xczGufe3pgiw/I2W0ikAu1Bmf+KtzjDIyhUHoGXpLCc4l/F3r6aFMJmyV8yja08C51vNlKIy5y2VAS6GCco48X359dy7ld5OaRUfUaUlOYJRMTY2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VBQnPlL7k9J1XJaeaNzY45Qk80U83EjpxsjxoqymMXU=;
- b=bMKPupvHmaJawbZyObIvm7M68VI+9I0UjVvoH/w/eVXYRhNxMnqJHw60bID+z6Y/VJwTyAMgpBdo4JZH+EK9hbKXAubvm6vOfFSvx0WD+VQY9mHOljT3SSLITLt1SAGwlBC6P35GWPjLsdLO+t9rAOdPCyLWRTzFMNp4St50d8MTjwCkdH9iZfm/lazDa0rafQ0GYx2+VMLdl7I27ZyBtr0myooG+R/xu8N8W22FnvWO5QxX+1ObT19PJj+77+DZHl0jzZLS3jEVd3AypyC6PD5Eil+gLuVW7tLpbcK/RPb7mMFKWJm5rKOJmv63h3Y5WFGFac2OhV7bRxcqnF5EXw==
+ bh=/BQH54rTH2d+UGzhjYxtOEfR2I2ss/6FEsAWW1cP/zU=;
+ b=rqmtGwzzgxZ/rzQvN2kgbyafcIqthUs18wvIs3Lw417GsmO2xem2BtuaXe6Q6GAKnw56YyzMrIHGAH1WDKqcXr/hMFBaTlkaNLbkZWgUEwQojlgdVc2Gk3/D/ExNlHiyidJVi1h7jUu41etmLQ0CniVFal9MI2RSLjNHgd0DRa4PWA7E9lLpMNVDshDm6nWSiQLowu15lWupoVIS2iKOvN+ax+ziFK2ecn/RQERSTfcVSzuJm3yUYEfNUrTC/KI83KnyusTJ+GN6zHhUsUZ+RuOEwfty8HuUmsqVSuwKf2tWTtVbo5h2AWUDa4rDW4P4XKnsm3/xOjejurO6sOif9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VBQnPlL7k9J1XJaeaNzY45Qk80U83EjpxsjxoqymMXU=;
- b=fJhgl4d0nXxBwXjHoanVDpkloIfO9iFS8/9sDTw9WcK4mFfXTZiBbMFgnNSj9g7Bgh/LCNpgmeVxgbpsl8UAkRIWcUYsFxxDP39aEuZnAJjh7qcJx9/nmqh08aEwHKKRr01N27UZee7PGFJlEMQqkcKN6jpHUsV9HL3syXGDDjM=
-Received: from BL1P223CA0032.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::15)
- by MN0PR12MB5932.namprd12.prod.outlook.com (2603:10b6:208:37f::9)
+ bh=/BQH54rTH2d+UGzhjYxtOEfR2I2ss/6FEsAWW1cP/zU=;
+ b=5U3gDTVdvgyOjul8Y2LdWIFqXLPISjLFGppPYTScBN2Q6Yce76dXESHTFekUAtTHNJE0u2SYcBivvTJlEAtzVBtnocGbpS3aYCdRMRIC9Q9M2ilqh5F+VN2AKRiYDZkbxuNjLCwlB4RgPejvNU7HIuERKn4zwAbEOb0hQQMRYUs=
+Received: from MN0PR04CA0017.namprd04.prod.outlook.com (2603:10b6:208:52d::10)
+ by PH7PR12MB6441.namprd12.prod.outlook.com (2603:10b6:510:1fb::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
- 2026 21:02:19 +0000
-Received: from BL02EPF0001A0FB.namprd03.prod.outlook.com
- (2603:10b6:208:5b6:cafe::92) by BL1P223CA0032.outlook.office365.com
- (2603:10b6:208:5b6::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Thu, 9 Jul
+ 2026 21:02:29 +0000
+Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
+ (2603:10b6:208:52d:cafe::13) by MN0PR04CA0017.outlook.office365.com
+ (2603:10b6:208:52d::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.12 via Frontend Transport; Thu, 9
- Jul 2026 21:02:19 +0000
+ Jul 2026 21:02:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A0FB.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:19 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:28 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 16:01:58 -0500
+ 2026 16:02:09 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,9 +65,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "George Zhang" <george.zhang@amd.com>
-Subject: [PATCH 30/80] drm/amd/display: Test irq funcs/suspend/workqueue
-Date: Thu, 9 Jul 2026 16:47:58 -0400
-Message-ID: <20260709205936.5719-31-george.zhang@amd.com>
+Subject: [PATCH 44/80] drm/amd/display: Test format info and blending
+Date: Thu, 9 Jul 2026 16:48:12 -0400
+Message-ID: <20260709205936.5719-45-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709205936.5719-1-george.zhang@amd.com>
 References: <20260709205936.5719-1-george.zhang@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FB:EE_|MN0PR12MB5932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 247f6e1a-c259-4501-6b91-08deddfd5d7c
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|PH7PR12MB6441:EE_
+X-MS-Office365-Filtering-Correlation-Id: 594ff702-f50f-4168-8a00-08deddfd62f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|376014|36860700016|18002099003|11063799006|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: pm29A9wVlPVc3DwMTN0rbqycjm/CdRtos2s8tqKOxIElbqO8HjsHt8uQqicSIsGhNmNLrooPr2aRvIhRicyBy3WZTsuQ6HUGVnLwXPiYU1qd/6vRxBigrHaDcsyIwLfsZ6dKG6Hinx5W1baOY92W36q0w7it5/H7479WCTKsTCiplWkKklxZmP/OmprI7V3F1HcODOmYUS4EC+iUaR3rWQvi1dPg1tbgndTjVhwXLV2c47oe1ecYmVtaf4FSh9nssUN6stzRwVl+2IYbBqnH+L47K0fnP1o7qtBXhS5oBIvUajBo00wklNaemBo3MkCHgVi6crJ7EM0aaskL5Fwx3XjorL05cDI3EuW8xlF61XJH3PPJ3uv8lq/uZcTmNwMCHRLEY7EGwbkLNf0F11h/ehHQb0bWZe6oyAbJRBDLMsGaaZzTlY6/fMlgd1ZupoPJRCkB751872gp6+p60mkM2ZWAkqHsYTfJn8kreC/POafz/dYgBfVSShKnlsJSqJBNuo+53YVvW70dvkuj8ivoSqkq3TbNzOsHtlJwa8vZJAmcp2KQIHn+yKDPfm93dZso+M2GEbcwFmKJL1sohneWyawTbDMz73/BaiaMi5NVXGGgslKlm1OdOjTR+6CISsvcxQGv+eFA49k0aQuBkgWD3mjpU1JZa3FfvHCan7Aj7ZHVtY02d4iUMVNKzWQRC1xJURr6G+vyN64d9flPaYnOPA==
+ ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: jvXcfP4jaxfP/JT/iItvM3GMfNPJPbB1bCfEulCCA1PSIqqmOZJW0DC6MRV86BjEsjY/N1IjxTPkqbSd0tmMT6nLWhXLLkdgj+GswBud8wzRbskhMvpcKu/y0ENM94EjOOHXtFkk5GESKL6q9mh3yOUqZvH5POaONtSP91QHA7hIU8teGx5fQVQ2uqfFGbFRIu7uYjMjuYsYD3QwKdlFXR7R/fVB9UyeZiTc95mcMpxVEci+de9p+p4ITOtaG8AVs1bMhnk3f6ULZ+mPOgk7/fohnXLZc/0z4Aaf/hP0vAoEq4t/+s1qgmGsDe2RX5zNKtRwxqR9DzySY7TRGCpsLdvL3TSarl1fLb8FcDfiXGao03fCiOzbAEWyhYft6LzMafByBhjDTT9WGqiNUJb4M8p0kLsAS+URo+2OjlsKcf2Cw+sr5IJc9e2LZiX5mwOJx9vbjts4knvoJwL5iZSS18nfFDHd89eJB1QJeA2Dx0NA5sfQ0dyYd656OEO1d3SiVbUmWYDAs7qAIjzfswKWS6T3ZkkIMpVzeL1f/ZfMlJy6BvKRH3pTvPo0YUfaHlekaR5CpN4Gfr9I0WiW7McEhKaNZ7DCd5HGdAJ/fmBaNJWvbzsSOBvPKNrgkIrnykGHi51wfOQ1m2nH43uv6zO+YVLSs/wLO9ZaRTFc5WInOoGR3iu2zdMM6tPENAW7PaAru6pQ7zw1grS2MVv/xKR4BQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(18002099003)(11063799006)(22082099003)(56012099006);
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(22082099003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: PtciNzWj6aHhHKZvHmQz2YZdq1k341IY4QIu0qH9uhHgTTBh5m78e+K8AY8czjNeHqQhE38HCrGh8pswApTP0uVNl5oP3p+k0bDEm9bGpu17Z3ybb1zTmtuuTqT0/+UIKWdA8+sHFyXe6B21+UR1EhFme2hqlG1ZS6QbbC5LDfV8LQSOJRWjwhvDgnNZrcY3Pgz6pbT0SIauBnODS++9yDRi71O7axGUbs4Kdk1qhrGHYVzb730AjKolnaMBW3OuhM2vhyhcq54E+xQh7hT8kSyND5speJqPg1kOovzeil3xGxYsYbKXx1Q7/Z0MqQHuIlUoeMhWvgr2mmPZFP4sSA4HbZPWCg6By0CWoVh0/tJd8UkqO7ByhshrRu5gOrpm1c/1IPEI43wYj7VCYJDx6XN1PTCwWpZWH9bsxbor2+CgUuN0HPgywv6Bumf4CIPO
+X-MS-Exchange-AntiSpam-MessageData-0: 2CIZcWTVypRrLnwcJzQOukQ5rJx2SIB7pwpK1GEyhThe8R+XIHeIE9pVEpy2/y/ai59+BeczNfhauqeeQilupvnnw/hnTE+cnI7tlbQVMgZrnO1UwiOfYgmAE5gv4YCRvnwAvWKGDrT4EylsANq2NiylU4/PUXQQNaUfnV++iEHXHME+dX6em17jGy94WdihEt7CZ8VFIGg6sAuwOn4KtZpc67TrZsd+0iuwOpJOFZciGBr6+YpKXgwzDOMYCouY3Sq2RKM9USFc/lyEJyxI73jcHPdIzDHd8vU04yLEDkW8JfFQQ8aA0nbsLksC44VRWeU+c3oNqjWXLHYM993W7515fJOWIkhq2VWTSxOQrSe0aT7Me7JNWPvN/0rGoxm9tjFDQvNTAeBYe/Wt9rsP+VQ8NJ42PIdmJhDV1HoQQWSGCrZGHRuqew3ylLZ74Lrc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:19.7616 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 247f6e1a-c259-4501-6b91-08deddfd5d7c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:28.9405 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 594ff702-f50f-4168-8a00-08deddfd62f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5932
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,465 +119,201 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Expand the amdgpu_dm_irq KUnit suite with the first batch of tests
-covering IRQ source-function setup, suspend/resume of the IRQ
-clients, and the HPD RX offload workqueue lifecycle.
+Add KUnit coverage for amdgpu_dm_plane_get_format_info(), the overlay
+universal-plane path of get_plane_formats(), the D-swizzle rejection
+path of format_mod_supported(), and the DCN4.2 variant of
+fill_blending_from_plane_state().
 
-Assisted-by: Copilot:Claude-Opus-4.8
+These exercise format-query and blending code paths that the existing
+suite did not cover.
+
+Assisted-by: Copilot:Claude-Opus-4.8 GPT-5.5
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |   7 +
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 353 ++++++++++++++++++
- 2 files changed, 360 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 141 +++++++++++++++++-
+ 1 file changed, 134 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index c5467f34c51f..ee74b212aebf 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -537,6 +537,7 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	if (dev->mode_config.poll_enabled)
- 		drm_kms_helper_poll_disable(dev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+index 46c9af432e37..512c51e60559 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+@@ -5,13 +5,16 @@
+  * Copyright 2026 Advanced Micro Devices, Inc.
+  */
+ 
+- #include <kunit/test.h>
+- #include <drm/drm_blend.h>
+- #include "link_enc_cfg.h"
+- #include "amdgpu_dm_plane.h"
+- #include <drm/amdgpu_drm.h>
+- #include <drm/drm_plane.h>
+-
++#include <kunit/test.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_blend.h>
++#include "link_enc_cfg.h"
++#include "amdgpu_dm_plane.h"
++#include "amdgpu_rlc.h"
++#include "gc/gc_11_0_0_offset.h"
++#include "gc/gc_11_0_0_sh_mask.h"
++#include <drm/amdgpu_drm.h>
++#include <drm/drm_plane.h>
+ 
+ struct dm_test_dcc_cap_ctx {
+ 	bool callback_ret;
+@@ -1162,19 +1165,142 @@ static void dm_test_fill_gfx9_tiling_info_from_modifier_nv(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, tiling_info.gfx9.shaderEnable, 1U);
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_irq_suspend);
-
- void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
- {
-@@ -558,6 +559,7 @@ void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
-
- 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_irq_resume_early);
-
- void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- {
-@@ -586,6 +588,7 @@ void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- 	if (dev->mode_config.poll_enabled)
- 		drm_kms_helper_poll_enable(dev);
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_irq_resume_late);
-
- /*
-  * amdgpu_dm_irq_schedule_work - schedule all work items registered for the
-@@ -900,6 +903,8 @@ void amdgpu_dm_set_irq_funcs(struct amdgpu_device *adev)
- 	adev->hpd_irq.num_types = adev->mode_info.num_hpd;
- 	adev->hpd_irq.funcs = &dm_hpd_irq_funcs;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_set_irq_funcs);
-+
- void amdgpu_dm_outbox_init(struct amdgpu_device *adev)
- {
- 	dc_interrupt_set(adev->dm.dc,
-@@ -1187,6 +1192,7 @@ struct hpd_rx_irq_offload_work_queue *amdgpu_dm_hpd_rx_irq_create_workqueue(stru
- 	kfree(hpd_rx_offload_wq);
- 	return NULL;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_hpd_rx_irq_create_workqueue);
-
- void amdgpu_dm_hpd_rx_irq_work_suspend(struct amdgpu_display_manager *dm)
- {
-@@ -1197,6 +1203,7 @@ void amdgpu_dm_hpd_rx_irq_work_suspend(struct amdgpu_display_manager *dm)
- 			flush_workqueue(dm->hpd_rx_offload_wq[i].wq);
- 	}
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_hpd_rx_irq_work_suspend);
-
- STATIC_IFN_KUNIT bool are_sinks_equal(const struct dc_sink *sink1, const struct dc_sink *sink2)
- {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index a73a6dd146d6..7ea6f93ca998 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -7,14 +7,23 @@
-
- #include <kunit/test.h>
- #include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_probe_helper.h>
-
- #include "dc.h"
-+#include "inc/core_types.h"
-+#include "irq/irq_service.h"
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_irq.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
-+#include "dc_dmub_srv.h"
-+#include "ivsrcid/ivsrcid_vislands30.h"
-+#include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
-+#include "link_service.h"
- #include "dmub/dmub_srv.h"
-+#include "dal_asic_id.h"
-
- static void dm_test_irq_handler(void *arg)
- {
-@@ -31,6 +40,22 @@ static void dm_test_crtc_list_del(void *data)
- 	list_del_init(&acrtc->base.head);
- }
-
-+struct dm_test_hpd_rx_wq_ctx {
-+	struct hpd_rx_irq_offload_work_queue *wq;
-+	int count;
-+};
-+
-+static void dm_test_destroy_hpd_rx_wq(void *data)
+ 
++/**
++ * dm_test_get_format_info() - Verify modifier-based format info lookup.
++ * @test: KUnit test context.
++ *
++ * Verify if non-AMD modifiers return NULL and AMD DCC modifiers resolve a
++ * dedicated format info structure.
++ */
++static void dm_test_get_format_info(struct kunit *test)
 +{
-+	struct dm_test_hpd_rx_wq_ctx *ctx = data;
-+	int i;
++	u64 dcc_mod = AMD_FMT_MOD |
++		      AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9) |
++		      AMD_FMT_MOD_SET(DCC, 1);
++	const struct drm_format_info *format_info;
 +
-+	for (i = 0; i < ctx->count; i++)
-+		if (ctx->wq[i].wq)
-+			destroy_workqueue(ctx->wq[i].wq);
-+	kfree(ctx->wq);
++	KUNIT_EXPECT_PTR_EQ(test,
++			    (void *)amdgpu_dm_plane_get_format_info(DRM_FORMAT_XRGB8888,
++								    DRM_FORMAT_MOD_LINEAR),
++			    NULL);
++	format_info = amdgpu_dm_plane_get_format_info(DRM_FORMAT_XRGB8888, dcc_mod);
++	KUNIT_EXPECT_NOT_NULL(test, format_info);
 +}
 +
- /* Tests for amdgpu_dm_hpd_to_dal_irq_source() */
-
- /**
-@@ -842,6 +867,318 @@ static void dm_test_get_crtc_by_otg_inst_empty_list(struct kunit *test)
- 	KUNIT_EXPECT_NULL(test, amdgpu_dm_get_crtc_by_otg_inst(adev, 0));
- }
-
-+/* Tests for amdgpu_dm_set_irq_funcs() */
-+
 +/**
-+ * dm_test_set_irq_funcs - Test irq src funcs and counts are populated
-+ * @test: The KUnit test context
++ * dm_test_fill_blending_global_alpha_dcn42() - Verify DCN 4.2 alpha scaling.
++ * @test: KUnit test context.
++ *
++ * Verify if DCN 4.2 scales the 16-bit DRM alpha down by 4 bits instead of 8.
 + */
-+static void dm_test_set_irq_funcs(struct kunit *test)
++static void dm_test_fill_blending_global_alpha_dcn42(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
++	struct drm_plane *plane;
++	struct drm_plane_state *state;
++	bool per_pixel_alpha;
++	bool pre_multiplied_alpha;
++	bool global_alpha;
++	int global_alpha_value;
 +
 +	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
++	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, adev);
++	KUNIT_ASSERT_NOT_NULL(test, plane);
++	KUNIT_ASSERT_NOT_NULL(test, state);
 +
-+	adev->mode_info.num_crtc = 6;
-+	adev->mode_info.num_hpd = 4;
++	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
++	plane->dev = &adev->ddev;
++	state->plane = plane;
++	state->pixel_blend_mode = DRM_MODE_BLEND_PIXEL_NONE;
++	state->alpha = 0x8000;
 +
-+	amdgpu_dm_set_irq_funcs(adev);
++	amdgpu_dm_plane_fill_blending_from_plane_state(state,
++						       &per_pixel_alpha,
++						       &pre_multiplied_alpha,
++						       &global_alpha,
++						       &global_alpha_value);
 +
-+	KUNIT_EXPECT_EQ(test, adev->crtc_irq.num_types, 6);
-+	KUNIT_EXPECT_EQ(test, adev->vline0_irq.num_types, 6);
-+	KUNIT_EXPECT_EQ(test, adev->vupdate_irq.num_types, 6);
-+	KUNIT_EXPECT_EQ(test, adev->pageflip_irq.num_types, 6);
-+	KUNIT_EXPECT_EQ(test, adev->dmub_outbox_irq.num_types, 1);
-+	KUNIT_EXPECT_EQ(test, adev->dmub_trace_irq.num_types, 1);
-+	KUNIT_EXPECT_EQ(test, adev->hpd_irq.num_types, 4);
-+
-+	KUNIT_EXPECT_TRUE(test, adev->crtc_irq.funcs != NULL);
-+	KUNIT_EXPECT_TRUE(test, adev->vline0_irq.funcs != NULL);
-+	KUNIT_EXPECT_TRUE(test, adev->dmub_outbox_irq.funcs != NULL);
-+	KUNIT_EXPECT_TRUE(test, adev->vupdate_irq.funcs != NULL);
-+	KUNIT_EXPECT_TRUE(test, adev->dmub_trace_irq.funcs != NULL);
-+	KUNIT_EXPECT_TRUE(test, adev->pageflip_irq.funcs != NULL);
-+	KUNIT_EXPECT_TRUE(test, adev->hpd_irq.funcs != NULL);
-+}
-+
-+/* Tests for amdgpu_dm_irq_suspend()/resume_early()/resume_late() */
-+
-+/**
-+ * dm_test_irq_suspend_empty - Test suspend walks empty handler tables safely
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_irq_suspend_empty(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	int src;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	/*
-+	 * With no registered handlers the HW dc_interrupt_set() calls are
-+	 * skipped, so suspend must complete without touching the (absent) DC.
-+	 */
-+	amdgpu_dm_irq_suspend(adev);
-+
-+	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
-+		KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.irq_handler_list_low_tab[src]));
-+		KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.irq_handler_list_high_tab[src]));
-+	}
++	KUNIT_EXPECT_TRUE(test, global_alpha);
++	KUNIT_EXPECT_EQ(test, global_alpha_value, 0x800);
 +}
 +
 +/**
-+ * dm_test_irq_resume_early_empty - Test early resume walks empty tables safely
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_irq_resume_early_empty(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	int src;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	amdgpu_dm_irq_resume_early(adev);
-+
-+	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++)
-+		KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.irq_handler_list_high_tab[src]));
-+}
-+
-+/**
-+ * dm_test_irq_resume_late_empty - Test late resume walks empty tables safely
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_irq_resume_late_empty(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	int src;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	amdgpu_dm_irq_resume_late(adev);
-+
-+	for (src = 0; src < DAL_IRQ_SOURCES_NUMBER; src++)
-+		KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.irq_handler_list_low_tab[src]));
-+}
-+
-+/**
-+ * dm_test_irq_suspend_registered - Test suspend reaches the dc_interrupt_set path
-+ * @test: The KUnit test context
++ * dm_test_get_plane_formats_overlay_universal_cap() - Verify universal overlay.
++ * @test: KUnit test context.
 + *
-+ * Registers a low-context HPD handler so the handler list is non-empty,
-+ * forcing amdgpu_dm_irq_suspend() to call dc_interrupt_set() (NULL-safe with
-+ * no DC) and flush_work() on the registered handler.
++ * Verify if an overlay plane with a DCN universal plane cap reports the RGB
++ * format list instead of the overlay-only list.
 + */
-+static void dm_test_irq_suspend_registered(struct kunit *test)
++static void dm_test_get_plane_formats_overlay_universal_cap(struct kunit *test)
 +{
-+	struct dc_interrupt_params int_params = { 0 };
-+	struct amdgpu_device *adev;
-+	void *handler;
++	struct drm_plane *plane;
++	struct dc_plane_cap *cap;
++	u32 formats[32] = {0};
 +
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
++	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
++	cap = kunit_kzalloc(test, sizeof(*cap), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, plane);
++	KUNIT_ASSERT_NOT_NULL(test, cap);
 +
-+	int_params.int_context = INTERRUPT_LOW_IRQ_CONTEXT;
-+	int_params.irq_source = DC_IRQ_SOURCE_HPD1;
-+	handler = amdgpu_dm_irq_register_interrupt(adev, &int_params,
-+						   dm_test_irq_handler, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, handler);
++	plane->type = DRM_PLANE_TYPE_OVERLAY;
++	cap->type = DC_PLANE_TYPE_DCN_UNIVERSAL;
 +
-+	amdgpu_dm_irq_suspend(adev);
-+
-+	amdgpu_dm_irq_unregister_interrupt(adev, DC_IRQ_SOURCE_HPD1,
-+					   dm_test_irq_handler);
++	KUNIT_EXPECT_EQ(test,
++			amdgpu_dm_plane_get_plane_formats(plane, cap, formats, 32),
++			14);
 +}
 +
 +/**
-+ * dm_test_irq_suspend_disables_polling - Test suspend disables KMS polling
-+ * @test: The KUnit test context
++ * dm_test_format_mod_supported_d_swizzle_reject() - Verify D swizzle rejection.
++ * @test: KUnit test context.
 + *
-+ * With KMS polling active, suspend must take the poll-disable branch.
-+ * drm_kms_helper_poll_disable() only cancels the poll work; it leaves the
-+ * poll_enabled flag set (cleared later by drm_kms_helper_poll_fini()).
++ * Verify if a D micro-swizzle modifier is rejected for formats narrower than
++ * 8 bytes per pixel.
 + */
-+static void dm_test_irq_suspend_disables_polling(struct kunit *test)
++static void dm_test_format_mod_supported_d_swizzle_reject(struct kunit *test)
 +{
 +	struct amdgpu_device *adev;
++	struct drm_plane *plane;
++	u64 listed_mod;
 +
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, adev);
++	KUNIT_ASSERT_NOT_NULL(test, plane);
 +
-+	/* Enable KMS polling so suspend takes the poll-disable branch. */
-+	drm_kms_helper_poll_init(&adev->ddev);
-+	KUNIT_ASSERT_TRUE(test, adev->ddev.mode_config.poll_enabled);
++	adev->family = AMDGPU_FAMILY_RV;
++	plane->dev = &adev->ddev;
 +
-+	amdgpu_dm_irq_suspend(adev);
++	listed_mod = AMD_FMT_MOD |
++		     AMD_FMT_MOD_SET(TILE, AMD_FMT_MOD_TILE_GFX9_64K_D) |
++		     AMD_FMT_MOD_SET(TILE_VERSION, AMD_FMT_MOD_TILE_VER_GFX9);
++	plane->modifiers = &listed_mod;
++	plane->modifier_count = 1;
 +
-+	KUNIT_EXPECT_TRUE(test, adev->ddev.mode_config.poll_enabled);
-+
-+	drm_kms_helper_poll_fini(&adev->ddev);
++	KUNIT_EXPECT_FALSE(test,
++			   amdgpu_dm_plane_format_mod_supported(plane, DRM_FORMAT_XRGB8888,
++								listed_mod));
 +}
 +
-+/**
-+ * dm_test_irq_resume_early_registered - Test early resume reaches dc_interrupt_set
-+ * @test: The KUnit test context
-+ *
-+ * Registers a low-context HPD RX handler so early resume calls
-+ * dc_interrupt_set() for the short-pulse interrupt source.
-+ */
-+static void dm_test_irq_resume_early_registered(struct kunit *test)
-+{
-+	struct dc_interrupt_params int_params = { 0 };
-+	struct amdgpu_device *adev;
-+	void *handler;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	int_params.int_context = INTERRUPT_LOW_IRQ_CONTEXT;
-+	int_params.irq_source = DC_IRQ_SOURCE_HPD1RX;
-+	handler = amdgpu_dm_irq_register_interrupt(adev, &int_params,
-+						   dm_test_irq_handler, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, handler);
-+
-+	amdgpu_dm_irq_resume_early(adev);
-+
-+	amdgpu_dm_irq_unregister_interrupt(adev, DC_IRQ_SOURCE_HPD1RX,
-+					   dm_test_irq_handler);
-+}
-+
-+/**
-+ * dm_test_irq_resume_late_registered - Test late resume reaches dc_interrupt_set
-+ * @test: The KUnit test context
-+ *
-+ * Registers a low-context HPD handler so late resume calls dc_interrupt_set()
-+ * for the HPD interrupt source.
-+ */
-+static void dm_test_irq_resume_late_registered(struct kunit *test)
-+{
-+	struct dc_interrupt_params int_params = { 0 };
-+	struct amdgpu_device *adev;
-+	void *handler;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	int_params.int_context = INTERRUPT_LOW_IRQ_CONTEXT;
-+	int_params.irq_source = DC_IRQ_SOURCE_HPD1;
-+	handler = amdgpu_dm_irq_register_interrupt(adev, &int_params,
-+						   dm_test_irq_handler, adev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, handler);
-+
-+	amdgpu_dm_irq_resume_late(adev);
-+
-+	amdgpu_dm_irq_unregister_interrupt(adev, DC_IRQ_SOURCE_HPD1,
-+					   dm_test_irq_handler);
-+}
-+
-+/**
-+ * dm_test_irq_resume_late_enables_polling - Test late resume re-enables polling
-+ * @test: The KUnit test context
-+ *
-+ * With KMS polling active, late resume must take the poll-enable branch and
-+ * leave polling enabled.
-+ */
-+static void dm_test_irq_resume_late_enables_polling(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
-+
-+	/* Enable KMS polling so resume_late takes the poll-enable branch. */
-+	drm_kms_helper_poll_init(&adev->ddev);
-+	KUNIT_ASSERT_TRUE(test, adev->ddev.mode_config.poll_enabled);
-+
-+	amdgpu_dm_irq_resume_late(adev);
-+
-+	KUNIT_EXPECT_TRUE(test, adev->ddev.mode_config.poll_enabled);
-+
-+	drm_kms_helper_poll_fini(&adev->ddev);
-+}
-+
-+/* Tests for amdgpu_dm_hpd_rx_irq_create_workqueue() */
-+
-+/**
-+ * dm_test_hpd_rx_irq_create_workqueue - Test workqueue array creation
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_hpd_rx_irq_create_workqueue(struct kunit *test)
-+{
-+	struct dm_test_hpd_rx_wq_ctx *ctx;
-+	struct amdgpu_device *adev;
-+	struct dc *dc;
-+	int i;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+	dc->caps.max_links = 4;
-+	adev->dm.dc = dc;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	ctx->wq = amdgpu_dm_hpd_rx_irq_create_workqueue(adev);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->wq);
-+	ctx->count = dc->caps.max_links;
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_destroy_hpd_rx_wq, ctx), 0);
-+
-+	for (i = 0; i < dc->caps.max_links; i++)
-+		KUNIT_EXPECT_TRUE(test, ctx->wq[i].wq != NULL);
-+}
-+
-+/* Tests for amdgpu_dm_hpd_rx_irq_work_suspend() */
-+
-+/**
-+ * dm_test_hpd_rx_irq_work_suspend_null - Test suspend with no work queue
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_hpd_rx_irq_work_suspend_null(struct kunit *test)
-+{
-+	struct amdgpu_display_manager *dm;
-+
-+	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm);
-+
-+	/* A NULL hpd_rx_offload_wq must be a safe no-op (DC untouched). */
-+	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
-+}
-+
-+/**
-+ * dm_test_hpd_rx_irq_work_suspend_flushes - Test suspend flushes queues
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_hpd_rx_irq_work_suspend_flushes(struct kunit *test)
-+{
-+	struct dm_test_hpd_rx_wq_ctx *ctx;
-+	struct amdgpu_device *adev;
-+	struct dc *dc;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+	dc->caps.max_links = 2;
-+	adev->dm.dc = dc;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	ctx->wq = amdgpu_dm_hpd_rx_irq_create_workqueue(adev);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->wq);
-+	ctx->count = dc->caps.max_links;
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_destroy_hpd_rx_wq, ctx), 0);
-+
-+	adev->dm.hpd_rx_offload_wq = ctx->wq;
-+
-+	amdgpu_dm_hpd_rx_irq_work_suspend(&adev->dm);
-+}
-+
- static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	/* amdgpu_dm_hpd_to_dal_irq_source */
- 	KUNIT_CASE(dm_test_hpd_to_dal_irq_source_hpd1),
-@@ -894,6 +1231,22 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	KUNIT_CASE(dm_test_get_crtc_by_otg_inst_returns_match),
- 	KUNIT_CASE(dm_test_get_crtc_by_otg_inst_returns_null),
- 	KUNIT_CASE(dm_test_get_crtc_by_otg_inst_empty_list),
-+	/* amdgpu_dm_set_irq_funcs */
-+	KUNIT_CASE(dm_test_set_irq_funcs),
-+	/* amdgpu_dm_irq_suspend/resume_early/resume_late */
-+	KUNIT_CASE(dm_test_irq_suspend_empty),
-+	KUNIT_CASE(dm_test_irq_resume_early_empty),
-+	KUNIT_CASE(dm_test_irq_resume_late_empty),
-+	KUNIT_CASE(dm_test_irq_suspend_registered),
-+	KUNIT_CASE(dm_test_irq_suspend_disables_polling),
-+	KUNIT_CASE(dm_test_irq_resume_early_registered),
-+	KUNIT_CASE(dm_test_irq_resume_late_registered),
-+	KUNIT_CASE(dm_test_irq_resume_late_enables_polling),
-+	/* amdgpu_dm_hpd_rx_irq_create_workqueue */
-+	KUNIT_CASE(dm_test_hpd_rx_irq_create_workqueue),
-+	/* amdgpu_dm_hpd_rx_irq_work_suspend */
-+	KUNIT_CASE(dm_test_hpd_rx_irq_work_suspend_null),
-+	KUNIT_CASE(dm_test_hpd_rx_irq_work_suspend_flushes),
- 	{}
- };
-
---
+ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
+ 	/* amdgpu_dm_plane_is_video_format() */
+ 	KUNIT_CASE(dm_test_plane_is_video_format_known_video),
++	/* amdgpu_dm_plane_get_format_info() */
++	KUNIT_CASE(dm_test_get_format_info),
+ 	/* amdgpu_dm_plane_fill_blending_from_plane_state() */
+ 	KUNIT_CASE(dm_test_fill_blending_defaults),
+ 	KUNIT_CASE(dm_test_fill_blending_premulti_alpha_format),
+ 	KUNIT_CASE(dm_test_fill_blending_coverage_alpha_format),
+ 	KUNIT_CASE(dm_test_fill_blending_global_alpha),
++	KUNIT_CASE(dm_test_fill_blending_global_alpha_dcn42),
+ 	/* amdgpu_dm_plane_modifier_* helpers() */
+ 	KUNIT_CASE(dm_test_modifier_has_dcc),
+ 	KUNIT_CASE(dm_test_modifier_gfx9_swizzle_mode),
+ 	/* amdgpu_dm_plane_get_plane_formats() */
+ 	KUNIT_CASE(dm_test_get_plane_formats),
++	KUNIT_CASE(dm_test_get_plane_formats_overlay_universal_cap),
+ 	/* amdgpu_dm_plane_get_plane_modifiers() */
+ 	KUNIT_CASE(dm_test_get_plane_modifiers),
+ 	/* amdgpu_dm_plane_fill_dc_scaling_info() */
+@@ -1187,6 +1313,7 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
+ 	KUNIT_CASE(dm_test_get_cursor_position),
+ 	/* amdgpu_dm_plane_format_mod_supported() */
+ 	KUNIT_CASE(dm_test_format_mod_supported),
++	KUNIT_CASE(dm_test_format_mod_supported_d_swizzle_reject),
+ 	/* amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers() */
+ 	KUNIT_CASE(dm_test_fill_gfx12_plane_attributes_from_modifiers),
+ 	/* amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers() */
+-- 
 2.55.0
 
