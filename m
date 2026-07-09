@@ -4,73 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4637C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 11:49:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC72C44506
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79E9910F524;
-	Thu,  9 Jul 2026 11:49:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B91910F52A;
+	Thu,  9 Jul 2026 11:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TseJUZSE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KF83OFlc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33BD810F522;
- Thu,  9 Jul 2026 11:49:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783597761; x=1815133761;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=u9WyhBwJWwZWKBFfj/tzgZqVEyLcVYZZsKrHDL6kEMo=;
- b=TseJUZSEtjSFyzKmvxBS1hkH80Lqq60Ug+GJPDh6WhJye/6vayrw2HHe
- 0OBVXJQc6XyaMRVjrl2QQpXLSRYuGDzOqJMrIviw7DQGn6uYPOt2cLrBw
- l+oKqc48yWwGPc5MGF80IaH0yxqGY21Dp5pEkoq6d7nA8yORQhicPNqj9
- ERqkNctw+/uHHPum1W/qshgzYH8IfcjYh3psiyJLCSv5bTbBW3YtZi5t1
- jmZTlgQtya24SvIbhJ2Eblua3J3llxNUjxEgnAyccNkBKb6e+GW4HzAye
- 83ESObosvHSvGwNpDEObX3zaBqETmV4l6P4gyYpymmBpN14IexZgxSGK5 g==;
-X-CSE-ConnectionGUID: wWRy4RcMSzqZn0V2eKLQsQ==
-X-CSE-MsgGUID: 6q3nsBVIS5WT42dcs6Bcwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="71795498"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="71795498"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2026 04:49:21 -0700
-X-CSE-ConnectionGUID: aes+foP4Sz6c7WdwoA6vYA==
-X-CSE-MsgGUID: F0RgrAboReG4T9CWPFB8zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="250166295"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.244.49])
- ([10.245.244.49])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2026 04:49:17 -0700
-Message-ID: <a7887776-c26c-4f6d-a662-2d8ef005ff4c@linux.intel.com>
-Date: Thu, 9 Jul 2026 13:49:59 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2048010F52D;
+ Thu,  9 Jul 2026 11:51:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0A4334198E;
+ Thu,  9 Jul 2026 11:51:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0EC1F000E9;
+ Thu,  9 Jul 2026 11:51:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783597893;
+ bh=oWMwdI40bkVcoA450+n7B9NPlb45mGSGW4PW6X9fmm4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=KF83OFlcZEXKC7D2ZnIvdzWTiYiXE3RWRIZklb5vdzfKQ9REno5yehaoCMaGt5OK4
+ zuf9m5KUzYypcEHlN1JI6yiWDJV2jz3czO8Kml34YqkEInecg0OvObS/iKRM3B41Il
+ BHVDgQ/mLQtrYppmDDXHoZtWU7mul9DFl2lKlTHygAeJrnAP5Mh9biioBMVa4pOB6R
+ vVpwrk2Fhes1m54yPSMRfNE3GSGXHd50pI2vJawYMzDmCusoG5bRQFmkE1Qa0Xlb1l
+ kwLnRZJ5ioBiTj/6qL4TvOLBjRfmCcSSMjmkCLsQ25KaLsQ8+ptKyjqePcTtV9ZCRm
+ wCTuNx065sGxw==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Thu, 09 Jul 2026 13:50:39 +0200
+Subject: [PATCH 13/60] drm/amdgpu: Convert to atomic_create_state
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Robert Mader <robert.mader@collabora.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
- <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
- <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
- <7d58b289-eabe-4d68-9080-c7202b0f60a0@intel.com>
- <d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com>
- <361dfc91-94e8-4289-9b3e-5280803d9257@collabora.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <361dfc91-94e8-4289-9b3e-5280803d9257@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-drm-no-more-plane-reset-v1-13-302d986fe5f0@kernel.org>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6064; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=GI9bqyYsOUr69R5f0NvKo2K7E/4WoU2g1hp1pDJqxEM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3fxMQgY5J2Zbc9XuCevnMd/1vvTfnrX8KRsi0qW/d
+ LoX1S3rmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABOZ/pGxms3g7eGTcxIa3hh8
+ rZ6sF8xboqGvGFv/+/Bb69PcPI08Ec2a948q9XrNmn9gTthhl84GxjqFDtf1/3urV+/OSd9uqn5
+ eJcJfJ9LTXbtxf9EOngMiNhdnfNmovWndkW/6v4OtNLmTBQA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,50 +68,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey,
+The plane only initializes a pristine state in its reset hook
+using drm_atomic_helper_plane_reset(), which is equivalent to what
+atomic_create_state expects. Convert to it.
 
-On 7/9/26 13:14, Robert Mader wrote:
-> Hi,
-> 
-> On 09.07.26 12:02, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 7/9/26 08:44, Borah, Chaitanya Kumar wrote:
->>>
->>> On 7/7/2026 6:31 PM, Maarten Lankhorst wrote:
->>>> Hey,
->>>>
->>>> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
->>>>> On 7/3/2026 1:02 PM, Robert Mader wrote:
->>>>>> The client cap is currently advertised unconditionally, even for drivers
->>>>>> that do not support plane color pipelines. If clients supporting the later,
->>>>> s/later/latter
->>>>>
->>>>>> like Wayland compositors or tools like drm_info, enable the client cap on
->>>>>> such drivers they will be left without both color pipeline and the legacy
->>>>>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
->>>>>> conversion support.
->>>>>>
->>>>>> Prevent that by only marking the cap supported if there are actually planes
->>>>>> with color pipelines.
->>>>>>
->>>>>> Note: while the color pipeline replacement for the legacy properties is
->>>>>> still under review (1), we can assume that it will work as a drop-in
->>>>>> replacement.
->>>>> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
->>>>>
->>>>> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
->>>> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
->>> Right now, the Bypass(default) pipeline is automatically created when we call drm_plane_create_color_pipeline_property(), we could come up with a similar helper that could also create a pipeline that replaces the legacy properties.
->>>
->>> But this can't replace the existing helper entirely because some HW (though unlikely) might not support YUV buffers.
->> No need to do this for free, but a cheaper way for drivers to implement legacy
->> properties by only implementing the pipeline would be nice, similar to how
->> atomic also implements legacy modesetting and universal planes.
-> 
-> I really like this idea - should we take it to the corresponding series, https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/ so the initial implementations for AMD and VKMS directly do so?
+The conversion was done using the following Coccinelle semantic patch:
 
-That would be great!
+@@
+identifier funcs;
+symbol drm_atomic_helper_plane_reset;
+symbol drm_atomic_helper_plane_create_state;
+@@
 
-Kind regards,
-~Maarten Lankhorst
+struct drm_plane_funcs funcs = {
+  ...,
+- .reset = drm_atomic_helper_plane_reset,
++ .atomic_create_state = drm_atomic_helper_plane_create_state,
+  ...,
+};
+
+@match_struct_reset@
+identifier funcs, reset_func;
+@@
+struct drm_plane_funcs funcs = {
+    ...,
+    .reset = reset_func,
+    ...,
+};
+
+@reset_uses_helpers depends on match_struct_reset@
+identifier match_struct_reset.reset_func;
+@@
+
+ void reset_func(...)
+ {
+ 	<+...
+(
+ 	__drm_atomic_helper_plane_reset(...);
+|
+	__drm_gem_reset_shadow_plane(...);
+)
+ 	...+>
+ }
+
+@match_struct_destroy@
+identifier funcs, destroy_func;
+@@
+struct drm_plane_funcs funcs = {
+    ...,
+    .atomic_destroy_state = destroy_func,
+    ...,
+};
+
+@script:python renamed_func@
+old_name << match_struct_reset.reset_func;
+new_name;
+@@
+if old_name.endswith("_reset"):
+    coccinelle.new_name = old_name.replace("_reset", "_create_state")
+else:
+    coccinelle.new_name = old_name
+
+@update_struct depends on match_struct_reset && reset_uses_helpers@
+identifier match_struct_reset.funcs, match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+@@
+struct drm_plane_funcs funcs = {
+    ...,
+-   .reset = reset_func,
++   .atomic_create_state = new_name,
+    ...,
+};
+
+@drop_destroy depends on update_struct && match_struct_destroy@
+identifier match_struct_reset.reset_func;
+identifier match_struct_destroy.destroy_func;
+identifier container_func;
+identifier P;
+symbol drm_atomic_helper_plane_destroy_state;
+symbol __drm_atomic_helper_plane_destroy_state;
+@@
+
+ void reset_func(struct drm_plane *P)
+ {
+ 	...
+(
+-	if (P->state) {
+- 		<+...
+(
+-		drm_atomic_helper_plane_destroy_state(P, P->state);
+|
+-		__drm_atomic_helper_plane_destroy_state(P->state);
+|
+-		P->funcs->atomic_destroy_state(P, P->state);
+|
+-		destroy_func(P, P->state);
+)
+- 		...+>
+- 	}
+|
+-	drm_WARN_ON_ONCE(P->dev, P->state);
+|
+-	WARN_ON(P->state);
+)
+ 	...
+(
+-	kfree(P->state);
+|
+-	kfree(container_func(P->state));
+|
+ 	// kfree is optional
+)
+(
+-	P->state = NULL;
+|
+ 	// plane->state clearing is optional
+)
+ 	...
+ }
+
+@drop_destroy_mtk depends on update_struct@
+identifier P;
+symbol __drm_atomic_helper_plane_destroy_state;
+symbol to_mtk_plane_state;
+@@
+
+ void mtk_plane_reset(struct drm_plane *P)
+ {
+ 	...
+-	if (P->state) {
+-		__drm_atomic_helper_plane_destroy_state(P->state);
+-		...
+-	} else {
+ 		...
+-	}
+ 	...
+ }
+
+@transform_nv50_wndw depends on update_struct@
+identifier S;
+@@
+
+ void nv50_wndw_reset(...)
+ {
+ 	...
+-	if (WARN_ON(!(S = kzalloc_obj(*S))))
++	S = kzalloc_obj(*S);
++	if (WARN_ON(!S))
+ 		return;
+ 	...
+ }
+
+@transform_kzalloc depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier P, S;
+statement ST;
+statement list STL;
+@@
+
+ void reset_func(struct drm_plane *P)
+ {
+ 	<...
+ 	S = kzalloc_obj(*S);
+(
+-	if (S)
+-	{
+-		STL
+-	}
++	if (!S) return;
++
++	STL
+|
+-	if (S) ST
++	if (!S) return;
++
++	ST
+)
+	...>
+ }
+
+@transform_body depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+identifier S, P;
+expression PS;
+@@
+- void reset_func(struct drm_plane *P)
++ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	...
+ 	S = kzalloc_obj(*S);
+	...
+(
+ 	if (!S) {
+		...
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+|
+ 	if (WARN_ON(!S)) {
+		...
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+|
+ 	if (S == NULL) {
+ 		...
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+)
+	...
+(
+-	__drm_atomic_helper_plane_reset(P, PS);
++	__drm_atomic_helper_plane_state_init(PS, P);
+|
+-	__drm_gem_reset_shadow_plane(P, PS);
++	__drm_gem_shadow_plane_state_init(P, PS);
+)
+	...
+}
+
+@update_early_return depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+identifier P;
+expression PS;
+@@
+ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	<+...
+-	return;
++	return ERR_PTR(-EINVAL);
+	...+>
+}
+
+@update_return_plane depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+identifier P;
+expression PS;
+@@
+ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	...
+ 	__drm_atomic_helper_plane_state_init(PS, P);
+	...
++
++	return PS;
+}
+
+@update_return_shadow depends on update_struct@
+identifier renamed_func.new_name;
+identifier P;
+expression PS;
+@@
+ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	...
+ 	__drm_gem_shadow_plane_state_init(P, PS);
+	...
++
++	return &PS->base;
+}
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Cc: alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 170adaf7e76a..9628239855d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -142,11 +142,11 @@ static const struct drm_connector_helper_funcs amdgpu_vkms_conn_helper_funcs = {
+ 
+ static const struct drm_plane_funcs amdgpu_vkms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+ 	.destroy		= drm_plane_cleanup,
+-	.reset			= drm_atomic_helper_plane_reset,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+ };
+ 
+ static void amdgpu_vkms_plane_atomic_update(struct drm_plane *plane,
+
+-- 
+2.54.0
+
