@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0A69C44501
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:40:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A1C2C44506
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 22:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5190C10E08F;
-	Thu,  9 Jul 2026 21:40:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1D410E0F2;
+	Thu,  9 Jul 2026 22:43:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BrB6JypK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="njWfmEfS";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010057.outbound.protection.outlook.com [52.101.61.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2421F10E03E;
- Thu,  9 Jul 2026 21:40:15 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012038.outbound.protection.outlook.com
+ [40.93.195.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500B810E0E9;
+ Thu,  9 Jul 2026 22:42:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R+4IoMXvhctbYeFz+FEwCuaquii3UHaBkCCLUYv6ZN0+8t0Xq194wU1o/EC8dCQBFmVvKssKeiXY8QRcssjm4LTk440mJ6oPilZBrx3iVGsn5c1XuajUj5GICD/+1CElONNlTkNLWnoQRx68yfFpI2QgDVCUGq3sQHfAmNfjVDSbIV6HNJzeLiVawZAKm59sGl9e7Ei1cFWGTBXIusJDvteKiZcA/jUo9dkFUQEggBR6D+jlnBxU9lCoJtbT+PS7ec9ks1UXARK8vp8Lm0bA9+G6VQYg+J+HorLyp6i1v8eVLX4O/SCtJ50KTzW7rJgppYAko8o8W1pckP9dAOn+fA==
+ b=dZXPNmYD5XW8e7O8pomGSBRNzIe6PF4+6UcdZ67C97OC3ibjso9A1CXG3Y9LB0RLZl3/5cuK1Zylj61FDlmEmyhrJjXsxBkgxwT/PoOi61NwywhOAuohvLsPlQpyU96bohJ69jYQ3MVwYCH+MuOc7MQ6IF4i3WjOzkdXyGrRnWruhBMi3WwnCrfSkN1pxIQviSw4Nvlj2iNVfiwa9CSY2KXj+iV1uTQq8V75L82aIcefnluUHmyNe/s6qp2PaC1nVbdg3OzrhjNQPg2KHzmlk3SCXYKqXY5IYsGlXJINOVscUx0+CfYOAsGfPutkumUL0BBYe0ylCHpR4IOBHBNqvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aA0wIC/dYbWb7fRKgHvUwwo55VJa9xUTF+3R/OlciHQ=;
- b=vj/ZUp3SSj4wlFQwaS30NaM0tpsilETEd0E0oHLKfXC28+j9Jky91+HY4IJsUSItL9CPhEQdtbh/GfpzGrW1sf5d4uav8upoISh+KATre3SNh5JKFyL0HOCJ1gI+eY6LKMIoRaGw8d6UZvrnb5y+ZtI1SuzumQVtXNwniwp2Z3ID3g/MR2IJMTbm54i6PIi+HmSXZIk7uY70rC0P/8S9PGd9apkUD+Syy6qcqXBBd9b656JbeNyOm/q7knjAHfEi0mfCriTtdZUiMKT/lGSSrxg7SSdIU01b7ZQvuEY1sh4E4+ddTuJGhFVB5q2l8mP+KguJaida0qI3YnYvw3ASKw==
+ bh=+95dXxt9DrH6+PFMz29917tTnzcnkYlMZ+JrXzdAsns=;
+ b=B/T3uD21VhXrN3tovX2E0q+Di95plqQxQT7Dd9nckDZ6mW04k8zc3T9GNhPJcDaAE7RFO9t7pm1GqeYWV181BLp1XB+AyGZTDAO6DI7vo6pglQBzi5IcMXtYeB0PoLutsCVEKMJPDah5L3olFtJkaQU6JJycwOJp8YP3NFtyfjlg5Y30trSHQIABfmirayV2UUGkrHlgBy8eK5xKICMkpdfGCOUHdWmo6W2WfbcxKH4QPHq8JRysRO5ljx2LKf1NCYRunu2Ry/UeFQbUMsJAE6QZRGwkuycQxvLqwsWwKjBkwJm+/7+LkeXxpuS0Evyy1PU1dodi4zmnN2PFKpBx1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aA0wIC/dYbWb7fRKgHvUwwo55VJa9xUTF+3R/OlciHQ=;
- b=BrB6JypK0psCQk7ljKivvutKxkIfuBhI3VRRujgRSgtvD0QJrSTKJI34nRhzMZ0yANFxjyw2Xv/dokjNinSLuRgpl4R52Sn+XhWYt6LbQjR1o2B+O9dmXxRW7+4kUHNM1eoSsUHKqM/b24R4NBY26RBpYZGvqtppPAxNzQ9xoSM=
-Received: from DS1PR04CA0001.namprd04.prod.outlook.com (2603:10b6:8:44f::8) by
- SA1PR12MB6918.namprd12.prod.outlook.com (2603:10b6:806:24d::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.8; Thu, 9 Jul 2026 21:40:09 +0000
-Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
- (2603:10b6:8:44f:cafe::5d) by DS1PR04CA0001.outlook.office365.com
- (2603:10b6:8:44f::8) with Microsoft SMTP Server (version=TLS1_3,
+ bh=+95dXxt9DrH6+PFMz29917tTnzcnkYlMZ+JrXzdAsns=;
+ b=njWfmEfSyyEyiiq11MBGRQUXPwBEr+nHgl/RBCLN7AjRo0zkz7uozRIvXLJvm1jHXzYsbpoleLUb/Exs+k9xy7n9I+wM3Lz62EJyKdtxL7eZw5QitECKfa4dtgTpyMN7aMaoCnsu85+EO4nypc4WygNvcD5Tr9MaG10u2gxEj1M=
+Received: from BN8PR04CA0049.namprd04.prod.outlook.com (2603:10b6:408:d4::23)
+ by CH1PPF93AB4E694.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::61b) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 22:42:55 +0000
+Received: from BN1PEPF00004683.namprd03.prod.outlook.com
+ (2603:10b6:408:d4:cafe::32) by BN8PR04CA0049.outlook.office365.com
+ (2603:10b6:408:d4::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.12 via Frontend Transport; Thu, 9
- Jul 2026 21:40:09 +0000
+ Jul 2026 22:42:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,52 +49,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ BN1PEPF00004683.mail.protection.outlook.com (10.167.243.89) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:40:08 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 22:42:55 +0000
+Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 16:40:00 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 9 Jul 2026 16:39:59 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-7.3
-Date: Thu, 9 Jul 2026 17:39:53 -0400
-Message-ID: <20260709213953.16494-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+ 2026 17:42:53 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <YiPeng.Chai@amd.com>, <Hawking.Zhang@amd.com>, <yunru.pan@amd.com>,
+ <lijo.lazar@amd.com>, <chongli2@amd.com>, <xiang.liu@amd.com>,
+ <harry.wentland@amd.com>, <alex.hung@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: kernel test robot <lkp@intel.com>
+Subject: [PATCH 1/2] drm/amdgpu: Fix __rcu fence pointer accesses
+Date: Thu, 9 Jul 2026 16:33:11 -0600
+Message-ID: <20260709223312.475563-1-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|SA1PR12MB6918:EE_
-X-MS-Office365-Filtering-Correlation-Id: a278acf6-aa2e-48eb-cb79-08dede02a5c9
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004683:EE_|CH1PPF93AB4E694:EE_
+X-MS-Office365-Filtering-Correlation-Id: 347ebc9c-50d4-45a7-2918-08dede0b6acf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|11063799006|6133799003|18002099003|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info: 52L0fFzFHchcdZr2EIQ69LQCbTwbijXhrCq8e03UMGyWWXdq2WazpHlZylkX6xq9z7vsJZsW4yH9oGAUaF5742nlvUefUbj0ax1IVLSxGLTHJfkOlK3SBrFl2YxRM6nkLGhbO6jxdo1LgIs5+mr+P+KwZtdjAtqSpiGb7QeFffRSiGs2xd8KxlEgMNrwWYhdlQNjIPOvKA4Puu8fEA4T4k0NFlGCdrCi9zvgMN2x97HzPV7+eBbysfApku9kXt9aFE3bWKnOMIZreP9W4HlMzo1LPCsrnX8NOMUgjKXcbIA/r49GlcSfE98BBQTzRyI3Ofst+YBDFrDUgE9JIq3s2p+8AZqsXLapULEBBBtuGRFP2/u2OLgkYzFHPGUtSJ3ZeXSwVjGdQm1ogN0VFZO/+iluFrY4/aL/BOHKTyVdas1QGt18TpYQDLp/5dZ90nnDJaIlHdsXaJB4i/4unvE6aaLQzC69AGEYxAsJudJskJU7pTin/CDLsqKxqNNHKkNch48nSnkW4l4lpLBY3h2/1aBbp4H9uDOkYB60Eh1mZnlnJCaj87BrNhi52kINEpjcV1/pOYnGOexg0y6XEj0ZwGjxTqubOGNfnw9IjLfYhw60xdIqlPe2dqSheMCVxTD1vJN72mTJ1lEUH8/TfFRV4Q==
+ ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|56012099006|6133799003|18002099003|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: iOeMJYUgXoOFA8XWQkSmZEF5ZwtbI88mMDzUL2SI34d7LYW2BB16DzfPQ5uTrPcksMEnNbIjwQ21IqdcjByEYP65X+ewYflUXZGzl+SX01oR6AblfYokMae+jQ2Kc2eBI7lZtz+I+7uFoPkZ56DyAsd/gOEq792AQeRMz7NOkyQtNK25tZr9QaFoD9buC2wftkDSPCSfCYULuoeQWzRLMpaWiXYP+yct0R78M89Bx7UlCNquPRQeb3nl5F5px6b5QEVuhP5Y8nvc1hZV/MvhMgo6mKTmjvdGh/C2pjAonJw1bhfyLCdWabEwz64YxzG94AdSHhuKlBu3p07dnpCol2o5iGfSer7bkO3o69XLYF4gpFFEXfVuKDp2RBpxt8uyK/QnyQzu54NtSXVaYN7Av3btaxJ1YdI16IEp5KuXyYRgg+JVcR1wC6HzoirG7AgHJ8NfeU3c2UA+nubqIctqrB6Ejc4IebWWSbxMrb5G7epXE6CUr71SgPChBG6YxX9Zbd8xL38EDDFJpmKFSg2Wl5OHmVWYit+P9KXtNdzhtwFV+nRjkJBmkAK7etDiT91QkfCU0hRaTRvTBi/hNEkZqup7RtrUcrmZWkurn5RLtoZJa9hHUIXnq7q2PmzxZGh/F1VciK0GCkBfKRzkyQBrF9B6+ojkp9Yf1+/eTe+cgtsvMWXY+Qc4I9YoXuiDqG9wOlrU43ojNUud2K1VxSMAl+i7q54vfRI28cZMZc6clOKZCryDT+DkXQByzkLWS6XZ
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(11063799006)(6133799003)(18002099003)(56012099006)(13003099007);
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(56012099006)(6133799003)(18002099003)(11063799006)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: h/aFP30O/EBoih1shaJK9sEFkMbjWjSOJ2CElvtYh11XxLw6xlBjcHDo3vuPfRnC/63UNuhCDsV/Z09mFPFG6HN6E8rIen6ttxYqdiHWD9jR/Eh46wZb6vuhz0jAAVxqmzGB+7I6e4dmNnG6SsirLsXl5sXkI+iXKQrA7kXTePS5SOSoYucGyDMFmfDII6UroLz2/PaoXiCACwfVgw+lL95ABxOZo5A6gG4M902KeHJfRwfGlfd9bpY4ERvZ/NGRoCmnr2EgYxW/UqHCszQaXw0fzjWXfVxU96ocAsaQSgLtNID02Bm/tnQ192nX+oxQl9vrtDpzi9C8G9cSjutdczvfvPLRJGJyQLc07sMfYpYzy1jEBAB2uZn0KG+u2I0kLiW+Zv/r8YlH8MX0zDmdHkHEqnjC4ZWA6ki9zlCRtLCxcprZXmISFy+hb+4yENwQ
+X-MS-Exchange-AntiSpam-MessageData-0: EiArUl2Y3RmDTGt0U4FWP5ZwI1ztZ9Q1GUnK7/ckKOmPFliNEDgvK4dijv51q9AOo7nRkFjJAo/CbrPnB2RM90nilQFnAh+W8LMGGXlBu1CT3UB54xDeiY+UPFkWR1oA2gX4ASJr6e9JqNTkPzZL+rvekSH+c8geUZ+KDEvWS0aY37arV77Z2cZ89Uuke7iuJ2nUJ89gw/3ICQ8mDpfB5elGW/qgOX9Er3fPyF+kJOUoxnyi6VNRnvFNizIaBC4o98cQbfUZM/zSX92+kHkoVKrjtC2ZvIU7dUD2NMN0ecCVANguIwVLTIuLbUlNY5sBJAmjg9tKwrh1Qw1egRqo10XS1vEMT8s6oyVTG5ha/xUpgr6AWVk5dXHlbqOR+SxHJzEZVQkglv4vroQezgKmWX7w03ZdQkTO0XxmL72ztpAk4NqNVs9i1CCaJUyNkfs4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:40:08.5542 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a278acf6-aa2e-48eb-cb79-08dede02a5c9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 22:42:55.0733 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 347ebc9c-50d4-45a7-2918-08dede0b6acf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004683.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6918
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF93AB4E694
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,228 +113,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+Building for ARCH=um with W=1 C=1 makes sparse report "incompatible
+types in comparison expression (different address spaces)" warnings in
+the KFD code, exposed after UML builds were enabled:
 
-New stuff for 7.3.
+- amdgpu_amdkfd_fence.c compares the __rcu-annotated dma_fence.ops
+  pointer directly in to_amdgpu_amdkfd_fence().
+- amdgpu_amdkfd_gpuvm.c compares the __rcu eviction fence pointer
+  directly in amdgpu_amdkfd_gpuvm_restore_process_bos().
 
-The following changes since commit 0461ba9a7994a9bfa2ceefe730e2c87759edc267:
+Fixes: af3f2f5db265 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202607091659.SHEscT0c-lkp@intel.com/
+Cc: Harry Wentland <harry.wentland@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.8
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-  Merge tag 'amd-drm-next-7.3-2026-07-02' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2026-07-07 16:48:23 +1000)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+index 6a364357522b..b0299d861903 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+@@ -92,7 +92,7 @@ struct amdgpu_amdkfd_fence *to_amdgpu_amdkfd_fence(struct dma_fence *f)
+ 		return NULL;
 
-are available in the Git repository at:
+ 	fence = container_of(f, struct amdgpu_amdkfd_fence, base);
+-	if (f->ops == &amdkfd_fence_ops)
++	if (rcu_access_pointer(f->ops) == &amdkfd_fence_ops)
+ 		return fence;
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-07-09
+ 	return NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 35fe2c974699..f0f516a79424 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -3096,7 +3096,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
+ 		process_info->eviction_fence = new_fence;
+ 		replace_eviction_fence(ef, dma_fence_get(&new_fence->base));
+ 	} else {
+-		WARN_ONCE(*ef != &process_info->eviction_fence->base,
++		WARN_ONCE(rcu_access_pointer(*ef) != &process_info->eviction_fence->base,
+ 			  "KFD eviction fence doesn't match KGD process_info");
+ 	}
 
-for you to fetch changes up to 5c6c247992d4d9200e073b83f4ec6c703c096845:
+--
+2.43.0
 
-  drm/amdkfd: Check bounds on CRIU restore event id (2026-07-08 14:27:26 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-7.3-2026-07-09:
-
-amdgpu:
-- RAS updates
-- PSP 15.0.9 update
-- SMU 15.0.9 update
-- VCN 5.3 fix
-- VI ASPM fix
-- Userq fix
-- lifetime fix for amdgpu_vm_get_task_info_pasid()
-- Gfx10 fix
-- SMU 14 fix
-- JPEG cleanups
-- MES fixes and cleanups
-- Header cleanups
-- Misc gfx fixes
-- Gfx pipe1 support on gfx11 APUs
-- BUG() and BUG_ON() removals
-
-amdkfd:
-- Merge fix
-- CRIU bounds checking fixes
-- secondary context id fix
-- Event bounds checking fix
-- Fix CWSR buffer mapping when in VRAM
-- Secondary context fixes
-
-----------------------------------------------------------------
-Alex Deucher (17):
-      drm/amdkfd: drop duplicate kfd_queue_acquire_buffers()
-      drm/gfx10: Program DB_RING_CONTROL
-      drm/gfx11: Program DB_RING_CONTROL
-      drm/gfx12: Program DB_RING_CONTROL
-      drm/amdgpu/gfx11: enable gfx pipe1 hardware support
-      drm/amdgpu: return an error instead of BUG() for CSA bo_va
-      drm/amdgpu/gfx11: WARN() rather than BUG() for invalid SDMA engine
-      drm/amdgpu/gfx12: WARN() rather than BUG() for invalid SDMA engine
-      drm/amdgpu/gfx12.1: WARN() rather than BUG() for invalid SDMA engine
-      drm/amdgpu/atomfirmware: WARN() rather than BUG()
-      drm/amdgpu/cgs: WARN() rather than BUG()
-      drm/amdgpu/ucode: WARN() rather than BUG()
-      drm/amdgpu/cik_sdma: replace BUG() with an error
-      drm/amdgpu/sdma2.4: replace BUG() with an error
-      drm/amdgpu/sdma3.0: replace BUG() with an error
-      drm/amdgpu/si: drop BUG()s
-      drm/amdgpu/gmc6: replace BUG() with an error
-
-Ce Sun (8):
-      drm/amdgpu: retire legacy pmfw eeprom interface wrapper
-      drm/amdgpu: retire legacy pmfw eeprom support check
-      drm/amd/pm: retire legacy smu ras driver framework
-      drm/amd/pm: retire legacy ras_smu_drv interface for smu v13.0.12
-      drm/amdgpu: retire legacy mca umc status check interface
-      drm/amdgpu: retire legacy get_retire_flip_bits for UMC
-      drm/amdgpu: retire legacy get_retire_flip_bits interface for UMC
-      drm/amdgpu: retire legacy deferred error separate logging
-
-David Francis (4):
-      drm/amdkfd: Check bounds on CRIU restore queue type and mqd size
-      drm/amdkfd: Don't acquire buffers during CRIU queue restore.
-      drm/amdkfd: Check bounds in allocate_event_notification_slot
-      drm/amdkfd: Check bounds on CRIU restore event id
-
-Geoffrey McRae (2):
-      drm/amdgpu/mes: Add NULL check for mes_hung_db_array allocation
-      drm/amdgpu/mes: Fix hung_queue_db_array loop limit for multi-XCC
-
-George Zhang (1):
-      drm/amd/display: Fix sign mismatch warning
-
-James Zhu (1):
-      drm/amdkfd: use iosys_map for CWSR buffer access
-
-Jesse Zhang (1):
-      drm/amdgpu: trigger GPU recovery when userq destroy fails to unmap a hung queue
-
-Kanala Ramalingeswara Reddy (2):
-      drm/amdgpu: add support for PSP version 15.0.9
-      drm/amdgpu: add support for SMU version 15.0.9
-
-Kenneth Feng (1):
-      drm/amd/amdgpu: disable ASPM on VI if pcie dpm is disabled
-
-Shahyan Soltani (7):
-      drm/amdgpu: move struct amdgpu_wb and helpers into separate files
-      drm/amdgpu: move struct amdgpu_video_codecs and helpers into header file
-      drm/amdgpu: move struct amdgpu_mqd and helpers into header file
-      drm/amdgpu: move amdgpu_acpi helpers into new header
-      drm/amdgpu: move amdgpu_allowed_register_entry into amdgpu_reg_access.h
-      drm/amdgpu: include amdgpu_video_codecs.h only where needed
-      drm/amdgpu: fix lifetime issue of amdgpu_vm_get_task_info_pasid()
-
-Srinivasan Shanmugam (1):
-      drm/amdgpu/mes12: Remove MES self test
-
-Suresh Guttula (1):
-      drm/amdgpu: Disable JDPG on VCN5_3
-
-Tiago Dourado (2):
-      drm/amdgpu/jpeg: deduplicate jpeg_v3_0 process_interrupt
-      drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0 process_interrupt
-
-Yang Wang (1):
-      drm/amd/pm: fix smu14 power limit range calculation
-
-Zhu Lingshan (2):
-      amdkfd: properly free secondary context id
-      drm/amdkfd: expose pasid of secondary contexts by debugfs
-
- drivers/gpu/drm/amd/amdgpu/Makefile                |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                | 267 +---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.h           | 151 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c |   3 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c   |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   |   2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c            |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 113 +------
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c             |  14 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h            |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  31 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |  46 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 127 ++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |  30 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     | 146 +--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h     |  23 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h     |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  18 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h            |  18 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c       |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |   9 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h   |  47 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  25 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c            |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c             | 129 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h             | 102 +++++++
- drivers/gpu/drm/amd/amdgpu/cik.c                   |   1 +
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c              |  11 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  13 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  35 ++-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  13 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |   4 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c              |   4 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  10 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |   4 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c              |   2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |   2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h             |   4 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |  21 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           |   2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h           |   4 +
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c           |  22 +-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   4 +-
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   6 +-
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   6 +-
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c             | 340 +--------------------
- drivers/gpu/drm/amd/amdgpu/nv.c                    |   1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c             |  11 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   8 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c           |   8 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c             |  10 +-
- drivers/gpu/drm/amd/amdgpu/si.c                    |   5 +-
- drivers/gpu/drm/amd/amdgpu/si_dma.c                |   8 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c                 |   1 +
- drivers/gpu/drm/amd/amdgpu/soc21.c                 |   4 +-
- drivers/gpu/drm/amd/amdgpu/soc24.c                 |   1 +
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c              |   1 +
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             | 151 ---------
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.h             |   3 -
- drivers/gpu/drm/amd/amdgpu/vi.c                    |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   5 +
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c           | 113 +++++--
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   6 +
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_events.c            |   5 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  10 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  73 +++--
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  43 +--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |   6 +-
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |   7 -
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   1 -
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   8 -
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  | 130 --------
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  21 --
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h   |   1 -
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  28 +-
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c     |   1 +
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   |   3 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h        |   1 -
- 94 files changed, 969 insertions(+), 1643 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.h
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h
