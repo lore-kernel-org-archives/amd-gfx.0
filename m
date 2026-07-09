@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6C0C44501
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 10:43:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABEAFC43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 10:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D45110EABC;
-	Thu,  9 Jul 2026 10:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4619210EAC9;
+	Thu,  9 Jul 2026 10:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FRQfoJZN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dKYx/Iyc";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011017.outbound.protection.outlook.com [52.101.57.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D0010EABC
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 10:42:58 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C25310EAC9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 10:43:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lwEaC1jQY4AFO4smRnofOJYfVW+SV/r0TiDxglb688b0TiADutku0mtNza92fdLfed2YrAx9pUsixhpiFEWQywKRpcm2fAAKlzjS4CUDNYnjzbKkLWDrDDkhAEfWBwPF8ialyGxuDmztMWOsXluBDdairc94CWFmuZyVPkpXlSAoRvvfs/PeWwGlQFKptds5De3/D1kglwnm8pBNxM4vzHkdI7ZvTjJmSqaZk0uyHEqYjWAgbcEF2ODNt/AvT4vnAfzY7gIg6pOpSIku/7pw1ccUR9cFCPk8acGKJDcIK9f7tCQlMUV89IlCDLATq0ctAGuf3rNJvbB9X02l6/sodA==
+ b=BwHE7+XNkxi0EG39H8sBxztQKdiWnsGrQxKXJVYEsmb2jbHFn5PIi7gAW5MuWtR8n9C2y3wwrWiXBAP8OiT5o5UifYKLFv2Xgv0oGknxfWs6LoSP7mUumR5I+iz91hhBweJD1L+w+Ek/hEIHjWu9xH7O9to4ItIhKFhJJ3tL27MzVmBPeaTvRgSbOwMPHI9Uzhad7aGAdXfOZXlL7V56DJm3bjWfdkfujnAZCnTf3RLnOwnRGFFf8drjKeOdn86UCcUlb/kL4heJjAGubUKM1S1fzkvXEN8Wfb++VDT8gP3vy0dBWOenVcAZaVflMVDGzNUpNcxcjF6l/AbvxNxHaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ms3aNVBpuPzval376aTPogqSbgko37bCaI+aDqSl4A8=;
- b=qNc7FV7a/+GOZOzwIKQTh+b00SG6aIcKNWmNbMyP5tYADJ0kq2F4wAjzxaTnnD7XkTjUNZ9eWBKCrm+BjQJc7gqrv4S55Cbk6j/MfJxZ/61IgHyVy8cr1Fid2ha6Mcc4wuatsIqnSS7o85xHIa3LJF4VoXTYksWfNTgSMivQCZAVDjk5sLDy2DT8cic7/N/CLHIOhl36j0N/Zj1YtLgysKQd0I9dh7ViUiWIab2VIr8QuNkcJznw4FzdDqpS0jgEZoAbn9wneFJMnsi9EsqaD9YrcPc+RUf2zObR5sqazKuxAuUZCOKWAwZ3qKDB8hbL/E5WFDawZaXak3VTlJx/JA==
+ bh=y+fIzKJ6bJCjuj2rjXFB7PyKlQtCLGotmfQCYDv/tn0=;
+ b=kuj+Sd9jwIKRlsl89Sp2VyMfTA4BK5QEzqRS0TtjArHbEkQb7URfiJifAN2AIcDqAhQ2dyrfcKHgugslKlnojICNLol5WmyV3rTQDQQ3AD2bbQQ6ztqQJG2CHSn1XLgkUmpnQx6MKZ3afUpK++CvKkATuwzLwvzKywiCHvlUrTDcT7uiFjEzpbYkHUYqfaVIX/iIb9of3pjaNA+WLz90M4hRP9jergIuf4AhPAVHf9oqb60QhDBkIm3Xcc/zD14uz598eFYYELLCKVXL1ILfp9UYExlzVN148sd+pOm/HBFQoPvE+5AuOopHI1FOLlmBYGkZ77o8944q8A46B18Hzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ms3aNVBpuPzval376aTPogqSbgko37bCaI+aDqSl4A8=;
- b=FRQfoJZNa6qQxEsd0qZCrzEta/OBzYYK1Xz7QtEjFi8QNENIjig9VqKKB+Dp/muNchIgBttCzRaumFPhafr0XlNYdTyMhCyka2ONHosVQxQwj3U7NtybafrnSNVNkr8xzK6jVxMjqtW5gA0yZRAobC0k6yS39YSOGWLkpECYy30=
-Received: from DM6PR04CA0012.namprd04.prod.outlook.com (2603:10b6:5:334::17)
- by MN2PR12MB4063.namprd12.prod.outlook.com (2603:10b6:208:1dc::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=y+fIzKJ6bJCjuj2rjXFB7PyKlQtCLGotmfQCYDv/tn0=;
+ b=dKYx/IycvXH3fMwLhhV4z/bLsTv3pGcRs/5nxczbsUDZkjHb7lUD8SbWV2h0uilGRGe811YeI3g3FDWIz+maixqA1Ia7jtazEwg0691aaMo0rth6ynm9nmNkqJsk4+4Kr9JsaJNNs0OCQNoxaDnZ9HDqbosAWYiVZnTk9z4SDOw=
+Received: from DS1P222CA0016.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:44b::12) by
+ CH1PPF989868826.namprd12.prod.outlook.com (2603:10b6:61f:fc00::61d)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
- 2026 10:42:54 +0000
-Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
- (2603:10b6:5:334:cafe::1d) by DM6PR04CA0012.outlook.office365.com
- (2603:10b6:5:334::17) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 10:42:51 +0000
+Received: from DS2PEPF000061C3.namprd02.prod.outlook.com
+ (2603:10b6:8:44b:cafe::46) by DS1P222CA0016.outlook.office365.com
+ (2603:10b6:8:44b::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
- Jul 2026 10:42:53 +0000
+ Jul 2026 10:42:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,24 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ DS2PEPF000061C3.mail.protection.outlook.com (10.167.23.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 10:42:53 +0000
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 10:42:50 +0000
 Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 05:42:50 -0500
+ 2026 05:42:48 -0500
 From: Asad Kamal <asad.kamal@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
  <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
  <asad.kamal@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: Update smu_v15_0_8 gpu metrics
-Date: Thu, 9 Jul 2026 18:42:26 +0800
-Message-ID: <20260709104226.1768300-2-asad.kamal@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm: align smu_v13_0_6 gpu metrics acc types
+Date: Thu, 9 Jul 2026 18:42:25 +0800
+Message-ID: <20260709104226.1768300-1-asad.kamal@amd.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260709104226.1768300-1-asad.kamal@amd.com>
-References: <20260709104226.1768300-1-asad.kamal@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,29 +72,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|MN2PR12MB4063:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3caf9333-1608-4d59-7afd-08dedda6d490
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C3:EE_|CH1PPF989868826:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2c9c926-4187-43ee-6da9-08dedda6d327
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: FBdJQymBRrIn0QtyqpuEmF2becU/83YlKwYwoGGJv2ySyMZLEbTaNgP58Nao3+BvK05SUihE4ISrs5tH5DmkmoV8zfD2zkfJMS4P8yB2Xu0yJDqsaaP7t4XtBe4krWww6bxGTc4c9ngZ77clg1rVc+stiAHI94s/OWymPfGh4upkwOn76br6pcor7Yb/q546yZK/awGCxZSOlGUnUldQJC5USxrifvInmRB2wCPt7E8l6L00rDyaYXTvUTJtc3+OdD1aQikaffSppZuOZ3kJNTBp/xp5+DNQePemSE2WgTD63DKXiZ+OiUpUYRqjDtE+Ir+OJaLZmB7QxyRhaUMlFYyBiK6THEWSrqh88lOCALnPJl8Pek9MwSpp56i0GsNAtW1GpUDD/eX10cTEEGa7N9W1VdKB+qHBV2IqXZjYeENEbc21RXtgtb8I/T96w5U8ufJFoAkujK/nq5Rc1/xtaHdMURpZntPA1vbVXacOGlISq2PEmCBP06Q4+YxBO1YfoeX9k1npV+nMECZXeWfo1RW3TeQvYzbC5dAUz5w3tgkboSGKJRqf2S/EpkKgzlIRzNF5jepmNiLl+QE/ew8ku9q6suUCvFfZ+QGitfbQSz1uNFZ9+fas+Vu5SG0hs/+GH3uP4pAH8egYMF0g5ZLbYP1uKQmdeAddCtfAEYJA62AqzOKgB9YvDSQCjWaNjgyJZUAUF6qo1nOFcWIetMNteQ==
+ ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: v8pdibeQCRjWtQgqdC/XxkBhp6sMXePVgjvt+CIt1vhlF28Uusm3NSdFZzj+A3a8Ldwjlp17rsTls4IAGFgwCpOTxBxwGHZH3uT8YWW6mMnoZoXQhiBvBSrilCb10oW+0kF4gD3AdxYVUqULRYmlBOPrMQe0KPRBp5k6ICROmMddxhs7Biayf69n+sEmiFghqRxFM8aUpisL/DlJnuz4OyzLRgEuAzGOyTq2i/ighKiXr4qsuA4GZY8de8HWaSxuCYVDi+eBxFecZi2aq1E7LWTl+XouNhzAC0aeA29dNeCDYWVU6mlYXvW8RUrCbTDDG/rc8K6aoI0GlR7/IdDYccIFV2m99YB+chkZPCdf6J5HPzoA+tf1aD0DmxPsH/m1cQs1jHurg82R5D9n5QPShtqiL8TYbk/R4SXGaoLqFG5XOC+f2GZrPa7LTAJQlsTHDchvSwrkEKM2hSmY7U+p1kYJ4HmLFX1xm+ROYxVUfRXU8F7Rm+JX3QE7gMtow7qfj0DVFYD576KvOCE+Hcy233BOK1xbFDNA8fzxV1NW6WeHGIALMU1T1CVg+eQAaWKdd3MTJ/YlkldUllWcYotnul48k+yPwzD4KkOeeDN58+Se5wuOxyUKk0nKx6Fk73MN0uCOLqCUQNtMDVx5tmkv7U70a6NI0Kd0+uhWGYaaYIYPUru45afNEO7Ap3tT5us8etY7nopQSfEGEyWroYaU4g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2WO1XnWx5/GOZkQhuG6SdPE+thlg9C+s6ZiF2ycYiP0UOaI9ru0AQPE4kHcEcTkEvPtU+MFiNr7jLCcADPKas3e58lXG97hTgPb9q+sFAXu9gKPZWXFZXn5FNpzsKlbixjNdzg31IwubMipzmEl1w1V5YzwvR4kpcFpcocyhgr+jFtFXPZcakFCKbppmlIigxrlq78vWrts8gXaZXExft9YVfGYgHGRLC95nL9ACvdZXOWXt8RfiezHJDcYGgyKOMLkLrA0u8Qg2d88L6Wbwti9qUhGivo5P2VYlMiXpgGYVClMI9Z5e9XdlGiTv091aHMPIwtpQ3l+44XLIYSzJmBYKY23f3jf+3PLbIZUHPbAhpw5LFqq9mw9tDGl302/0hQ4i0kyTN6IFVcOVOo15En+kyBrrgeJpUdmwRoaoUHeKmzcSyZBUQNFkfr5dWD/V
+X-MS-Exchange-AntiSpam-MessageData-0: vGAqWdISzcMVTxDmsdz53Y8vhdthfry5ukn3WDmgcXugQpHShNmH01Yv6JDCJdxiLeN2njdUNtIgKxTFyd9t8QgM3FkOSz5nq2SZYIzBC2aMu3WVm9EK9w0K4s1zmQvfW2Xol4Mn+CcPT4xhuiDLFXF47y1r/Trg4WnYdIkqcKrfXRoLHFJSeg5ZiM36RSxIl8Sb4pAH0woqBjHn5bfAjyD6sABk2lsm1rQ8JmTYQgO5dF6YKBBHgbYUpd0sict9ijh46plEtYo4gPq3cqYylPdd3iMos8jrSTfXz9SyNxwasl23j6GT1xY55ODxjMiimtq4uxqDUumiFgWfBwENteYdINUhbQYIxJ8BBcvSRELeIGvNlhZ0kWbrC9xN+odD5U0nQ8ZnpUImMqSVymlUY+GQ1fz1TRcgcon+zqy05VJPfQenqaDEEk5I5YtD5mbc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 10:42:53.3006 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3caf9333-1608-4d59-7afd-08dedda6d490
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 10:42:50.9285 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2c9c926-4187-43ee-6da9-08dedda6d327
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C3.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4063
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF989868826
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,62 +109,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update two classes of inconsistencies in the smu_v15_0_8 GPU metrics
-definition relative to smu_v13_0_6:
-
-Correct missing unit annotations for accumulated activity fields
-that represent percentage-based utilization. These were incorrectly
-marked as NONE instead of PERCENT
-
-Widen pcie_bandwidth_inst from U32 to U64 to be consistent with
-the smu_v13_0_6 definition.
+Widen several accumulated counter fields in the smu_v13_0_6 GPU
+metrics definition from U32 to U64 to be consistent with the
+equivalent field definitions in smu_v15_0_8
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  | 20 +++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
-index 4dfc40aaffcb..cebe1fba932b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
-@@ -118,14 +118,14 @@ typedef struct {
- 		   SMU_MTYPE(U16), xgmi_link_width);                           \
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+index a66bf33dbb58..011fc6eeb7ad 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+@@ -144,15 +144,15 @@ extern const struct smu_temp_funcs smu_v13_0_12_temp_funcs;
+ 	SMU_SCALAR(SMU_MATTR(ACCUMULATION_COUNTER), SMU_MUNIT(NONE),           \
+ 		   SMU_MTYPE(U64), accumulation_counter);                      \
+ 	SMU_SCALAR(SMU_MATTR(PROCHOT_RESIDENCY_ACC), SMU_MUNIT(NONE),          \
+-		   SMU_MTYPE(U32), prochot_residency_acc);                     \
++		   SMU_MTYPE(U64), prochot_residency_acc);                     \
+ 	SMU_SCALAR(SMU_MATTR(PPT_RESIDENCY_ACC), SMU_MUNIT(NONE),              \
+-		   SMU_MTYPE(U32), ppt_residency_acc);                         \
++		   SMU_MTYPE(U64), ppt_residency_acc);                         \
+ 	SMU_SCALAR(SMU_MATTR(SOCKET_THM_RESIDENCY_ACC), SMU_MUNIT(NONE),       \
+-		   SMU_MTYPE(U32), socket_thm_residency_acc);                  \
++		   SMU_MTYPE(U64), socket_thm_residency_acc);                  \
+ 	SMU_SCALAR(SMU_MATTR(VR_THM_RESIDENCY_ACC), SMU_MUNIT(NONE),           \
+-		   SMU_MTYPE(U32), vr_thm_residency_acc);                      \
++		   SMU_MTYPE(U64), vr_thm_residency_acc);                      \
+ 	SMU_SCALAR(SMU_MATTR(HBM_THM_RESIDENCY_ACC), SMU_MUNIT(NONE),          \
+-		   SMU_MTYPE(U32), hbm_thm_residency_acc);                     \
++		   SMU_MTYPE(U64), hbm_thm_residency_acc);                     \
+ 	SMU_SCALAR(SMU_MATTR(GFXCLK_LOCK_STATUS), SMU_MUNIT(NONE),             \
+ 		   SMU_MTYPE(U32), gfxclk_lock_status);                        \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_LINK_WIDTH), SMU_MUNIT(NONE),                \
+@@ -164,9 +164,9 @@ extern const struct smu_temp_funcs smu_v13_0_12_temp_funcs;
  	SMU_SCALAR(SMU_MATTR(XGMI_LINK_SPEED), SMU_MUNIT(SPEED_1),             \
  		   SMU_MTYPE(U16), xgmi_link_speed);                           \
--	SMU_SCALAR(SMU_MATTR(GFX_ACTIVITY_ACC), SMU_MUNIT(NONE),               \
-+	SMU_SCALAR(SMU_MATTR(GFX_ACTIVITY_ACC), SMU_MUNIT(PERCENT),               \
- 		   SMU_MTYPE(U64), gfx_activity_acc);                          \
--	SMU_SCALAR(SMU_MATTR(MEM_ACTIVITY_ACC), SMU_MUNIT(NONE),               \
-+	SMU_SCALAR(SMU_MATTR(MEM_ACTIVITY_ACC), SMU_MUNIT(PERCENT),               \
- 		   SMU_MTYPE(U64), mem_activity_acc);                          \
--	SMU_ARRAY(SMU_MATTR(PCIE_BANDWIDTH_ACC), SMU_MUNIT(NONE),              \
-+	SMU_ARRAY(SMU_MATTR(PCIE_BANDWIDTH_ACC), SMU_MUNIT(PERCENT),              \
- 		  SMU_MTYPE(U64), pcie_bandwidth_acc, SMU_15_0_8_MAX_MID);     \
- 	SMU_ARRAY(SMU_MATTR(PCIE_BANDWIDTH_INST), SMU_MUNIT(BW_1),             \
--		  SMU_MTYPE(U32), pcie_bandwidth_inst, SMU_15_0_8_MAX_MID);    \
-+		  SMU_MTYPE(U64), pcie_bandwidth_inst, SMU_15_0_8_MAX_MID);    \
- 	SMU_SCALAR(SMU_MATTR(PCIE_L0_TO_RECOV_COUNT_ACC), SMU_MUNIT(NONE),     \
- 		   SMU_MTYPE(U64), pcie_l0_to_recov_count_acc);                \
- 	SMU_SCALAR(SMU_MATTR(PCIE_REPLAY_COUNT_ACC), SMU_MUNIT(NONE),          \
-@@ -164,7 +164,7 @@ typedef struct {
- 		  jpeg_busy, SMU_15_0_8_MAX_JPEG);                             \
- 	SMU_ARRAY(SMU_MATTR(VCN_BUSY), SMU_MUNIT(PERCENT), SMU_MTYPE(U16),     \
- 		  vcn_busy, SMU_15_0_8_MAX_VCN);                               \
--	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(NONE), SMU_MTYPE(U64),    \
-+	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(PERCENT), SMU_MTYPE(U64),    \
- 		  gfx_busy_acc, SMU_15_0_8_MAX_XCC);                           \
- 	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_PPT_ACC), SMU_MUNIT(NONE),    \
- 		  SMU_MTYPE(U64), gfx_below_host_limit_ppt_acc,                \
-@@ -322,7 +322,7 @@ DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_baseboard_temp_metrics,
- 		  jpeg_busy, SMU_15_0_8_MAX_JPEG);                             \
- 	SMU_ARRAY(SMU_MATTR(VCN_BUSY), SMU_MUNIT(PERCENT), SMU_MTYPE(U8),     \
- 		  vcn_busy, SMU_15_0_8_MAX_VCN);                               \
--	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(NONE), SMU_MTYPE(U64),    \
-+	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(PERCENT), SMU_MTYPE(U64),    \
- 		  gfx_busy_acc, SMU_15_0_8_MAX_XCC);                           \
- 	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_PPT_ACC), SMU_MUNIT(NONE),    \
- 		  SMU_MTYPE(U64), gfx_below_host_limit_ppt_acc,                \
+ 	SMU_SCALAR(SMU_MATTR(GFX_ACTIVITY_ACC), SMU_MUNIT(PERCENT),            \
+-		   SMU_MTYPE(U32), gfx_activity_acc);                          \
++		   SMU_MTYPE(U64), gfx_activity_acc);                          \
+ 	SMU_SCALAR(SMU_MATTR(MEM_ACTIVITY_ACC), SMU_MUNIT(PERCENT),            \
+-		   SMU_MTYPE(U32), mem_activity_acc);                          \
++		   SMU_MTYPE(U64), mem_activity_acc);                          \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_BANDWIDTH_ACC), SMU_MUNIT(PERCENT),          \
+ 		   SMU_MTYPE(U64), pcie_bandwidth_acc);                        \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_BANDWIDTH_INST), SMU_MUNIT(BW_1),            \
+@@ -178,9 +178,9 @@ extern const struct smu_temp_funcs smu_v13_0_12_temp_funcs;
+ 	SMU_SCALAR(SMU_MATTR(PCIE_REPLAY_ROVER_COUNT_ACC), SMU_MUNIT(NONE),    \
+ 		   SMU_MTYPE(U64), pcie_replay_rover_count_acc);               \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_NAK_SENT_COUNT_ACC), SMU_MUNIT(NONE),        \
+-		   SMU_MTYPE(U32), pcie_nak_sent_count_acc);                   \
++		   SMU_MTYPE(U64), pcie_nak_sent_count_acc);                   \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_NAK_RCVD_COUNT_ACC), SMU_MUNIT(NONE),        \
+-		   SMU_MTYPE(U32), pcie_nak_rcvd_count_acc);                   \
++		   SMU_MTYPE(U64), pcie_nak_rcvd_count_acc);                   \
+ 	SMU_ARRAY(SMU_MATTR(XGMI_READ_DATA_ACC), SMU_MUNIT(DATA_1),            \
+ 		  SMU_MTYPE(U64), xgmi_read_data_acc,                          \
+ 		  SMU_13_0_6_NUM_XGMI_LINKS);                                  \
+@@ -203,7 +203,7 @@ extern const struct smu_temp_funcs smu_v13_0_12_temp_funcs;
+ 	SMU_SCALAR(SMU_MATTR(CURRENT_UCLK), SMU_MUNIT(CLOCK_1),                \
+ 		   SMU_MTYPE(U16), current_uclk);                              \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_LC_PERF_OTHER_END_RECOVERY),                 \
+-		   SMU_MUNIT(NONE), SMU_MTYPE(U32),                            \
++		   SMU_MUNIT(NONE), SMU_MTYPE(U64),                            \
+ 		   pcie_lc_perf_other_end_recovery);                           \
+ 	SMU_ARRAY(SMU_MATTR(GFX_BUSY_INST), SMU_MUNIT(PERCENT),                \
+ 		  SMU_MTYPE(U32), gfx_busy_inst, SMU_13_0_6_MAX_XCC);          \
 -- 
 2.46.0
 
