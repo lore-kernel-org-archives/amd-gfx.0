@@ -4,50 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4012EC44508
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 07:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC1F0C44501
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 07:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D180910F7D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A73610F7D4;
 	Fri, 10 Jul 2026 07:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="JJnxkTph";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="OnhN6t7A";
 	dkim-atps=neutral
-Received: from forward101a.mail.yandex.net (forward101a.mail.yandex.net
- [178.154.239.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35C9710E049;
- Thu,  9 Jul 2026 11:45:05 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net
- [IPv6:2a02:6b8:c0c:8912:0:640:42ab:0])
- by forward101a.mail.yandex.net (postfix) with ESMTPS id 636D7813A0;
- Thu, 09 Jul 2026 14:45:01 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net (smtp)
- with ESMTPSA id XiINBd2oAW20-NotBx8gv; 
- Thu, 09 Jul 2026 14:45:00 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1783597500; bh=Sn4PDwvqECVmn5QwC9xACIgixKNG02XVFvorw97wcag=;
- h=Message-ID:Date:Cc:Subject:To:From;
- b=JJnxkTphY1wk1F4GdglB+oVxK6nm6kat67MZhXzU92v1HXvTMkB89MzWaByUEMk+b
- u5aJTsnbq1+5/10mSOWSLrCzHl1x2OVQUEsXzLJbOy2xbccr43Dx/mB3Vtm8skyJrg
- 0phQWfe2l5xRr6kFZvbxXEQyK2yFtdlr+BT3yBIg=
-Authentication-Results: mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sashal@kernel.org, michael.chen@amd.com,
- Jack.Xiao@amd.com, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH 6.12] drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ring()
-Date: Thu,  9 Jul 2026 14:44:26 +0300
-Message-ID: <20260709114427.41013-1-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8867910F50E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 11:38:36 +0000 (UTC)
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
+ [209.85.219.48]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 507EF32E49F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 12:38:31 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1783597111; bh=VkImaP986qYsluwwoX8dWvkmM++SDGoD6+tk2rM71JE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OnhN6t7AaJcYkoCVuU91FFnHBLsxrNREYcA0nwK6xC7QJB9Seg3+aeMfkAyjlQr04
+ 68dk0YwD+Zq5dufJ5r3w16GTUQuvV76/m8Z1lt9EClMPsgz4Tq38NRhXuESQZxZKf4
+ uaLIvcfO5I5ONiCoyLFzEm4Qd+bNLhZeGiCmmRGC14co/PhEoa7O2t9Kp0015peicG
+ +prVO22N0Y6CKiNxCQANjm388zAlRkahygFCugGQpKo7Rrtkbu/B8TKOY7f8SlIu1N
+ xf7LLxWn5M5sxkehfso690/+Td6iF6Inh3YDobIFN4OXD+sNIaf/CvSuiptguKOHQs
+ JUGi2ydGbb/tg==
+Received: by mail-qv1-f48.google.com with SMTP id
+ 6a1803df08f44-8efcef23d21so5231266d6.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2026 04:38:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr94hJ1TjecYXPtguC+wdTnwO1cu7Dt3JVzTL8s4FzH/G9/9qbBtlRv4+TBvfkylhO7brorO76y@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzWmep6yM6mu/V5QlXtk3rfNxW1/U4hfKkW+JVshpB34oKTmZmJ
+ vspvMpVkOAABB1kTfwyKsiw5vXVjkffy5D0tLZGkGx3YzNO9hz8tjlEiZE52drbclRA4tLmHTLA
+ CGKp0d0k4KgOfhEEpgrCZUbNxVAG/zys=
+X-Received: by 2002:a05:6214:5087:b0:8fd:6de3:dd7e with SMTP id
+ 6a1803df08f44-8fec371c58bmr69260556d6.64.1783597109866; Thu, 09 Jul 2026
+ 04:38:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260625150439.330875-1-nick@haghiri.net>
+ <928d4c2a-d8b7-43d7-995e-a3e6996d2952@amd.com>
+ <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
+ <7a474010-67a1-426b-9ca2-76c11cfbb0ac@mailbox.org>
+In-Reply-To: <7a474010-67a1-426b-9ca2-76c11cfbb0ac@mailbox.org>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Thu, 9 Jul 2026 13:38:17 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGwv3Nb46EQ6qrxVVEao6RS6QNeYiAw+3FJ09bwwG4Qo4w@mail.gmail.com>
+X-Gm-Features: AUfX_mydIY1RLdkm4mRQqEkFzWqLWJy0RXCRjIgjB2fowZig78KG-pZVp99mDsc
+Message-ID: <CAFZQkGwv3Nb46EQ6qrxVVEao6RS6QNeYiAw+3FJ09bwwG4Qo4w@mail.gmail.com>
+Subject: Re: [RFC PATCH] drm/amd/display: extend HPD debounce filter to
+ DisplayPort SST
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Nick Haghiri <nick@haghiri.net>, Ivan Lipski <ivlipski@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 10 Jul 2026 07:19:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,52 +77,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace sprintf() with scnprintf() to prevent a potential buffer overflow
-when writing to ring->name. The buffer size is 16 bytes. For compute rings,
-the string format "compute_%d.%d.%d" can exceed this limit when the total
-number of digits in the three numbers is greater than 5 (e.g., pasid=1234,
-gang_id=0, queue_id=0). This can lead to memory corruption.
-
-Using scnprintf() guarantees that the buffer is not overflowed, even if the
-string is truncated. This is a minimal fix for the issue; the BUG() for
-unknown queue types is left unchanged to avoid additional risk.
-
-This code is only present in LTS kernels v6.12, v6.6, and v6.1, as it was
-completely refactored in upstream. Therefore, this patch is specifically
-intended for stable trees.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: d0c423b64765 ("drm/amdgpu/mes: use ring for kernel queue submission")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 41b88e0ea98b..746cb0c71fb3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1236,13 +1236,14 @@ int amdgpu_mes_add_ring(struct amdgpu_device *adev, int gang_id,
- 	ring->doorbell_index = qprops.doorbell_off;
- 
- 	if (queue_type == AMDGPU_RING_TYPE_GFX)
--		sprintf(ring->name, "gfx_%d.%d.%d", pasid, gang_id, queue_id);
-+		scnprintf(ring->name, sizeof(ring->name), "gfx_%d.%d.%d",
-+			pasid, gang_id, queue_id);
- 	else if (queue_type == AMDGPU_RING_TYPE_COMPUTE)
--		sprintf(ring->name, "compute_%d.%d.%d", pasid, gang_id,
--			queue_id);
-+		scnprintf(ring->name, sizeof(ring->name), "compute_%d.%d.%d",
-+			pasid, gang_id, queue_id);
- 	else if (queue_type == AMDGPU_RING_TYPE_SDMA)
--		sprintf(ring->name, "sdma_%d.%d.%d", pasid, gang_id,
--			queue_id);
-+		scnprintf(ring->name, sizeof(ring->name), "sdma_%d.%d.%d",
-+			pasid, gang_id, queue_id);
- 	else
- 		BUG();
- 
--- 
-2.43.0
-
+Am Fr., 26. Juni 2026 um 10:53 Uhr schrieb Michel D=C3=A4nzer
+<michel.daenzer@mailbox.org>:
+>
+>
+> [ Adding Xaver for awareness ]
+>
+> On 6/25/26 21:45, Nick Haghiri wrote:
+> > On 6/25/26 3:15 PM, Ivan Lipski wrote:
+> >> I don't think I've encountered a situation when a monitor with DP can
+> >> wake a system up from DPMS, so that's interesting. What distro and
+> >> desktop environment are you using? I'd like to reproduce this issue
+> >> and help with it.
+> >
+> > openSUSE Tumbleweed, KDE Plasma 6.7 on Wayland (KWin). GPU is an RX 907=
+0
+> > XT (RDNA4), monitor is an MSI MPG 274U over DisplayPort SST.
+> >
+> > What happens: when the output goes DPMS-off and the monitor drops into
+> > deep sleep, it briefly de-asserts and re-asserts HPD. amdgpu forwards
+> > that as a hotplug, KWin re-probes and re-enables the output, and the
+> > panel comes right back on, so it never actually stays asleep while
+> > connected.
+>
+> FWIW, that the panel comes on and stays on might be a KWin bug. Mutter ha=
+d a bug like that, which I fixed in https://gitlab.gnome.org/GNOME/mutter/-=
+/merge_requests/4209/diffs?commit_id=3Dec73076e07640fc0752d9ecc66c5934726db=
+2d7e.
+Yeah, I did find (and fix) a different problem with our workaround
+recently, where KWin-internal pointer warps in response to the
+"hotunplug" were wrongly counted as user activity in some cases.
+Either way, kernel-side debouncing is very much appreciated.
