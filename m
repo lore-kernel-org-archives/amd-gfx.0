@@ -4,83 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0120C43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 10:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6C0C44501
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 10:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D71C10F4D8;
-	Thu,  9 Jul 2026 10:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D45110EABC;
+	Thu,  9 Jul 2026 10:43:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KxJgaOgN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FRQfoJZN";
 	dkim-atps=neutral
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4108210F4D1
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 10:39:01 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-92e5d6f35c1so137432285a.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jul 2026 03:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783593540; x=1784198340; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Ipv8nUTZ4lSFh5Z+iy3nm8QjWynaDMWNF/DB7hYgx3Q=;
- b=KxJgaOgNF5FYA9xdSrqcIEmH6hfiL5bttdZ3dHW0DVQvwquqrReUGx1+gTsOuScjZ5
- KkC6OKsra8YJdFSvzGIECRJZ+SUI2TAAnAOlcbGbjskTr3nMw7QWqx8kV4eW0pq3O7p+
- HMwPC9n75dHOKwrrmzOfgRdZgVA7UWA9V4eL0UZkw4LvjGPjW0bzQVtuzKiRTwDPOJfn
- kOxNxfMnuypfCUXygHQpK8b395LF+sDz7iYGlzI/OIdq8S4J1g+lkAlCzBPyYX3H3O6z
- IHEZdTDS/oU5aK64YBuR+t8AG6PPsxuoVHWgYZmF+KWfLWXlequ7PHvgYVoz63MLHzSs
- x9dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783593540; x=1784198340;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ipv8nUTZ4lSFh5Z+iy3nm8QjWynaDMWNF/DB7hYgx3Q=;
- b=UV1LarU0fGkYp4k7UmNkcjmG9Wf0jwHqzWA2N0/j8JQ1JR0o7N4NVfn3b2SPtB2DNI
- 9IIYMLP5p6IG2aNliWrOxNBxE5l7pzpqs3OG/Hp5xR48PStPNulJXsZfN7mBSLl9Qvsq
- BDU43n9MAhyZmQ6yucaVwg4o8IoFRsGwzqJrymZMRsmYgEuRVgCoaPNdxQn7Gih0yv2r
- EDh3E/CCuf2QPqRl6O/pxN+lfvGZezpaWmwapFOmgzu16D1Et15ZhfkxIzIAr7BABHVL
- +cCtVbdoCU+Ycx+OH29yoJESDzgcSgCat6Q6/zGMbukU8TJcKSdwRchX6zQZuNwwzD6M
- WbpA==
-X-Gm-Message-State: AOJu0Ywu8CW4ARCqfA9FK9xEna9DfW/uJlc4cuOGpev2oXkbe08sddV9
- touH9BqqXxFB80bPgYl1FLLKIqUT4TWEJBfw6ZGvv1KFhyJxumaMLlQm
-X-Gm-Gg: AfdE7ckB0H8/uc2I9sUPVKjV0EY1nUciDqr1Opk7GqqZLipXW8V+b1+YIaQ4CcYwrLb
- zSlr0pODVNXhX+gjY0iqxIixuMtafPgy4Zev6WNHtaa9Dm1df9zYDcXmp2qx1Dc5GHxo1oXwnES
- bhiWUe2p6ffeJAGhGiIAJCcpbNbasxt4CMyszYtUNC+Td3rJuRaxTRNESwledQjG4tUTN5Dq2NN
- A+1Z/2Kwu0oFO+T+fjq+IYszBb+2SdfAqduLUbTYzhmNCiJ79AgCPUcOaspbA2ilH3+3I4vM3WZ
- eB+AR5CCnEoS0RYU+XnEtXIfE1iYLbrNW3fj2faXzBEpcAXqxmHYI0jpNZ3XfasHPg4j7U8gyap
- 7rJckaTjdP+ouyWs/aikuWxpMsMp/5BJPVDtItDc2SBXF6If8qH5pL4u7Hi6g7ZIgE4xGwuq4ZS
- uLeKInDf+u471aZdtx9dSN
-X-Received: by 2002:a05:620a:179f:b0:92e:c118:18b4 with SMTP id
- af79cd13be357-92ecf944d35mr643274485a.83.1783593540071; 
- Thu, 09 Jul 2026 03:39:00 -0700 (PDT)
-Received: from [192.168.1.100] ([32.219.225.223])
- by smtp.googlemail.com with ESMTPSA id
- af79cd13be357-92e90bc3a9csm1742856685a.21.2026.07.09.03.38.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jul 2026 03:38:59 -0700 (PDT)
-Message-ID: <c26d3312-0d50-4e2c-8516-7cee2b41bf83@gmail.com>
-Date: Thu, 9 Jul 2026 06:38:58 -0400
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011017.outbound.protection.outlook.com [52.101.57.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D0010EABC
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 10:42:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lwEaC1jQY4AFO4smRnofOJYfVW+SV/r0TiDxglb688b0TiADutku0mtNza92fdLfed2YrAx9pUsixhpiFEWQywKRpcm2fAAKlzjS4CUDNYnjzbKkLWDrDDkhAEfWBwPF8ialyGxuDmztMWOsXluBDdairc94CWFmuZyVPkpXlSAoRvvfs/PeWwGlQFKptds5De3/D1kglwnm8pBNxM4vzHkdI7ZvTjJmSqaZk0uyHEqYjWAgbcEF2ODNt/AvT4vnAfzY7gIg6pOpSIku/7pw1ccUR9cFCPk8acGKJDcIK9f7tCQlMUV89IlCDLATq0ctAGuf3rNJvbB9X02l6/sodA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ms3aNVBpuPzval376aTPogqSbgko37bCaI+aDqSl4A8=;
+ b=qNc7FV7a/+GOZOzwIKQTh+b00SG6aIcKNWmNbMyP5tYADJ0kq2F4wAjzxaTnnD7XkTjUNZ9eWBKCrm+BjQJc7gqrv4S55Cbk6j/MfJxZ/61IgHyVy8cr1Fid2ha6Mcc4wuatsIqnSS7o85xHIa3LJF4VoXTYksWfNTgSMivQCZAVDjk5sLDy2DT8cic7/N/CLHIOhl36j0N/Zj1YtLgysKQd0I9dh7ViUiWIab2VIr8QuNkcJznw4FzdDqpS0jgEZoAbn9wneFJMnsi9EsqaD9YrcPc+RUf2zObR5sqazKuxAuUZCOKWAwZ3qKDB8hbL/E5WFDawZaXak3VTlJx/JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ms3aNVBpuPzval376aTPogqSbgko37bCaI+aDqSl4A8=;
+ b=FRQfoJZNa6qQxEsd0qZCrzEta/OBzYYK1Xz7QtEjFi8QNENIjig9VqKKB+Dp/muNchIgBttCzRaumFPhafr0XlNYdTyMhCyka2ONHosVQxQwj3U7NtybafrnSNVNkr8xzK6jVxMjqtW5gA0yZRAobC0k6yS39YSOGWLkpECYy30=
+Received: from DM6PR04CA0012.namprd04.prod.outlook.com (2603:10b6:5:334::17)
+ by MN2PR12MB4063.namprd12.prod.outlook.com (2603:10b6:208:1dc::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 10:42:54 +0000
+Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
+ (2603:10b6:5:334:cafe::1d) by DM6PR04CA0012.outlook.office365.com
+ (2603:10b6:5:334::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
+ Jul 2026 10:42:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 10:42:53 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 05:42:50 -0500
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
+ <asad.kamal@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: Update smu_v15_0_8 gpu metrics
+Date: Thu, 9 Jul 2026 18:42:26 +0800
+Message-ID: <20260709104226.1768300-2-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260709104226.1768300-1-asad.kamal@amd.com>
+References: <20260709104226.1768300-1-asad.kamal@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: Remove vbios bounds check from
- pp_entries_max()
-To: "Kamal, Asad" <Asad.Kamal@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Feng, Kenneth" <Kenneth.Feng@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-References: <20260704101120.674980-1-john.olender@gmail.com>
- <CADnq5_ODf=T4VD9_RptQaEtJr5Zinsom8jW8GJL56GN6shvJsQ@mail.gmail.com>
- <DM4PR12MB5748B149AA0BB0C5CE58BD3B8EFE2@DM4PR12MB5748.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: John Olender <john.olender@gmail.com>
-In-Reply-To: <DM4PR12MB5748B149AA0BB0C5CE58BD3B8EFE2@DM4PR12MB5748.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|MN2PR12MB4063:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3caf9333-1608-4d59-7afd-08dedda6d490
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: FBdJQymBRrIn0QtyqpuEmF2becU/83YlKwYwoGGJv2ySyMZLEbTaNgP58Nao3+BvK05SUihE4ISrs5tH5DmkmoV8zfD2zkfJMS4P8yB2Xu0yJDqsaaP7t4XtBe4krWww6bxGTc4c9ngZ77clg1rVc+stiAHI94s/OWymPfGh4upkwOn76br6pcor7Yb/q546yZK/awGCxZSOlGUnUldQJC5USxrifvInmRB2wCPt7E8l6L00rDyaYXTvUTJtc3+OdD1aQikaffSppZuOZ3kJNTBp/xp5+DNQePemSE2WgTD63DKXiZ+OiUpUYRqjDtE+Ir+OJaLZmB7QxyRhaUMlFYyBiK6THEWSrqh88lOCALnPJl8Pek9MwSpp56i0GsNAtW1GpUDD/eX10cTEEGa7N9W1VdKB+qHBV2IqXZjYeENEbc21RXtgtb8I/T96w5U8ufJFoAkujK/nq5Rc1/xtaHdMURpZntPA1vbVXacOGlISq2PEmCBP06Q4+YxBO1YfoeX9k1npV+nMECZXeWfo1RW3TeQvYzbC5dAUz5w3tgkboSGKJRqf2S/EpkKgzlIRzNF5jepmNiLl+QE/ew8ku9q6suUCvFfZ+QGitfbQSz1uNFZ9+fas+Vu5SG0hs/+GH3uP4pAH8egYMF0g5ZLbYP1uKQmdeAddCtfAEYJA62AqzOKgB9YvDSQCjWaNjgyJZUAUF6qo1nOFcWIetMNteQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 2WO1XnWx5/GOZkQhuG6SdPE+thlg9C+s6ZiF2ycYiP0UOaI9ru0AQPE4kHcEcTkEvPtU+MFiNr7jLCcADPKas3e58lXG97hTgPb9q+sFAXu9gKPZWXFZXn5FNpzsKlbixjNdzg31IwubMipzmEl1w1V5YzwvR4kpcFpcocyhgr+jFtFXPZcakFCKbppmlIigxrlq78vWrts8gXaZXExft9YVfGYgHGRLC95nL9ACvdZXOWXt8RfiezHJDcYGgyKOMLkLrA0u8Qg2d88L6Wbwti9qUhGivo5P2VYlMiXpgGYVClMI9Z5e9XdlGiTv091aHMPIwtpQ3l+44XLIYSzJmBYKY23f3jf+3PLbIZUHPbAhpw5LFqq9mw9tDGl302/0hQ4i0kyTN6IFVcOVOo15En+kyBrrgeJpUdmwRoaoUHeKmzcSyZBUQNFkfr5dWD/V
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 10:42:53.3006 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3caf9333-1608-4d59-7afd-08dedda6d490
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4063
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,86 +111,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/9/26 5:57 AM, Kamal, Asad wrote:
-> AMD General
-> 
-> Hi @John Olender,
-> 
-> Good catch. However,  as Alex points out, removing the check entirely drops protection for VBIOS-sourced tables.
-> 
-> Instead of removing the check, could you condition it on hardcode_pp_table? When it is NULL we are on the VBIOS path and the bios_end check should stay. When it is non-NULL a custom table was uploaded via sysfs and the check can be skipped — soft_pp_table_size is already set to the kernel-supplied upload size.
-> 
-> if (!hwmgr->hardcode_pp_table) {
->         const char *bios_end = (const char *)adev->bios + adev->bios_size;
->         if (pp_end > bios_end)
->                 return 0;
-> }
-> 
-> This fixes your regression while keeping Alex's concern addressed. Please let me know if it ok with you.
-> 
-> Thanks & Regards
-> Asad
+Update two classes of inconsistencies in the smu_v15_0_8 GPU metrics
+definition relative to smu_v13_0_6:
 
-Hmm.
+Correct missing unit annotations for accumulated activity fields
+that represent percentage-based utilization. These were incorrectly
+marked as NONE instead of PERCENT
 
-Checking for vbios overflow when a table header is parsed should allow
-pp_entries_max() to implicitly detect vbios overflow for the
-vbios-provided pp_table.
+Widen pcie_bandwidth_inst from U32 to U64 to be consistent with
+the smu_v13_0_6 definition.
 
-Is there a reason all atom tables are not sanity checked in this way?
-It seems odd that the pp_table header isn't trusted while the rest of
-the table headers are.
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Thanks,
-John
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
-> Sent: Wednesday, July 8, 2026 10:08 PM
-> To: John Olender <john.olender@gmail.com>
-> Cc: amd-gfx@lists.freedesktop.org; Feng, Kenneth <Kenneth.Feng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Subject: Re: [PATCH] drm/amd/pm: Remove vbios bounds check from pp_entries_max()
-> 
-> On Sat, Jul 4, 2026 at 6:19 AM John Olender <john.olender@gmail.com> wrote:
->>
->> The soft_pp_table is not contained within the vbios when using a
->> pp_table override since commit 3cfe433630508 ("drm/amd/pm: Use
->> uploaded size for legacy custom PPTable").
->>
->> Fixes: e30b3e3ab51ad ("drm/amdgpu/pm: add pp_entries_max() helper")
->> Signed-off-by: John Olender <john.olender@gmail.com>
-> 
-> Removing this will effectively remove the bounds check from tables read from the bios.  I don't think we want to do that.
-> 
-> Alex
-> 
->> ---
->>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 4 ----
->>  1 file changed, 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->> b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->> index 7ebc1344023ff..19023a850e882 100644
->> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
->> @@ -833,14 +833,10 @@ static inline uint32_t pp_entries_max(const struct pp_hwmgr *hwmgr,
->>                                       const void *sub_table,
->>                                       size_t hdr_size, size_t
->> rec_size)  {
->> -       struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
->> -       const char *bios_end = (const char *)adev->bios + adev->bios_size;
->>         const char *pp_end   = (const char *)hwmgr->soft_pp_table
->>                                + hwmgr->soft_pp_table_size;
->>         const char *entries  = (const char *)sub_table + hdr_size;
->>
->> -       if (pp_end > bios_end)
->> -               return 0;
->>         if (!rec_size || entries >= pp_end)
->>                 return 0;
->>         return (uint32_t)((pp_end - entries) / rec_size);
->>
->> base-commit: e3cc8c108f9a91728f9ff6e24cbf3b41c58b8f8b
->> --
->> 2.47.3
->>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
+index 4dfc40aaffcb..cebe1fba932b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
+@@ -118,14 +118,14 @@ typedef struct {
+ 		   SMU_MTYPE(U16), xgmi_link_width);                           \
+ 	SMU_SCALAR(SMU_MATTR(XGMI_LINK_SPEED), SMU_MUNIT(SPEED_1),             \
+ 		   SMU_MTYPE(U16), xgmi_link_speed);                           \
+-	SMU_SCALAR(SMU_MATTR(GFX_ACTIVITY_ACC), SMU_MUNIT(NONE),               \
++	SMU_SCALAR(SMU_MATTR(GFX_ACTIVITY_ACC), SMU_MUNIT(PERCENT),               \
+ 		   SMU_MTYPE(U64), gfx_activity_acc);                          \
+-	SMU_SCALAR(SMU_MATTR(MEM_ACTIVITY_ACC), SMU_MUNIT(NONE),               \
++	SMU_SCALAR(SMU_MATTR(MEM_ACTIVITY_ACC), SMU_MUNIT(PERCENT),               \
+ 		   SMU_MTYPE(U64), mem_activity_acc);                          \
+-	SMU_ARRAY(SMU_MATTR(PCIE_BANDWIDTH_ACC), SMU_MUNIT(NONE),              \
++	SMU_ARRAY(SMU_MATTR(PCIE_BANDWIDTH_ACC), SMU_MUNIT(PERCENT),              \
+ 		  SMU_MTYPE(U64), pcie_bandwidth_acc, SMU_15_0_8_MAX_MID);     \
+ 	SMU_ARRAY(SMU_MATTR(PCIE_BANDWIDTH_INST), SMU_MUNIT(BW_1),             \
+-		  SMU_MTYPE(U32), pcie_bandwidth_inst, SMU_15_0_8_MAX_MID);    \
++		  SMU_MTYPE(U64), pcie_bandwidth_inst, SMU_15_0_8_MAX_MID);    \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_L0_TO_RECOV_COUNT_ACC), SMU_MUNIT(NONE),     \
+ 		   SMU_MTYPE(U64), pcie_l0_to_recov_count_acc);                \
+ 	SMU_SCALAR(SMU_MATTR(PCIE_REPLAY_COUNT_ACC), SMU_MUNIT(NONE),          \
+@@ -164,7 +164,7 @@ typedef struct {
+ 		  jpeg_busy, SMU_15_0_8_MAX_JPEG);                             \
+ 	SMU_ARRAY(SMU_MATTR(VCN_BUSY), SMU_MUNIT(PERCENT), SMU_MTYPE(U16),     \
+ 		  vcn_busy, SMU_15_0_8_MAX_VCN);                               \
+-	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(NONE), SMU_MTYPE(U64),    \
++	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(PERCENT), SMU_MTYPE(U64),    \
+ 		  gfx_busy_acc, SMU_15_0_8_MAX_XCC);                           \
+ 	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_PPT_ACC), SMU_MUNIT(NONE),    \
+ 		  SMU_MTYPE(U64), gfx_below_host_limit_ppt_acc,                \
+@@ -322,7 +322,7 @@ DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_baseboard_temp_metrics,
+ 		  jpeg_busy, SMU_15_0_8_MAX_JPEG);                             \
+ 	SMU_ARRAY(SMU_MATTR(VCN_BUSY), SMU_MUNIT(PERCENT), SMU_MTYPE(U8),     \
+ 		  vcn_busy, SMU_15_0_8_MAX_VCN);                               \
+-	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(NONE), SMU_MTYPE(U64),    \
++	SMU_ARRAY(SMU_MATTR(GFX_BUSY_ACC), SMU_MUNIT(PERCENT), SMU_MTYPE(U64),    \
+ 		  gfx_busy_acc, SMU_15_0_8_MAX_XCC);                           \
+ 	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_PPT_ACC), SMU_MUNIT(NONE),    \
+ 		  SMU_MTYPE(U64), gfx_below_host_limit_ppt_acc,                \
+-- 
+2.46.0
 
