@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E0F4C44506
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 09:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080F0C43458
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 09:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB9F510F49A;
-	Thu,  9 Jul 2026 09:22:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0F810F499;
+	Thu,  9 Jul 2026 09:22:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vMdq6UX5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gYK/tQ6n";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vMdq6UX5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gYK/tQ6n";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bt1nM3Vk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ru+n/XaS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FtcF++5l";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vyEO1pTz";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95E6810F47F
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 09:22:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C681D10F4A9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 09:22:47 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BC3F275DDE;
- Thu,  9 Jul 2026 09:22:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E55E675DDF;
+ Thu,  9 Jul 2026 09:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783588943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1783588945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=61tqgj47tXno87n5CLTjPvjoV/e/gW/vZ/ttrviqTMc=;
- b=vMdq6UX51wZMrbUXKc3lP9eGNPL+dWXc4tg4oO+X8BPR14h8e6lAXKBvtSLlgBvKxcChLr
- gTy1JbRQHy7pHHBbfY7I4tChOjhOzqIUvy9aZsuhxvFeX04KckXOmTHN38+3107fJVYOdb
- X/yB1nDXF1GxzDvRlfDAx9ayGKG173M=
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=bt1nM3VkmfDThiDAbaF4BJ6mO9hxtNq8gUobBwLZRD1OvV5yqwK7JPH/oVJ+Rrz9cyBes9
+ 3qewIhNbeKN3Hr6wcydT9nNgrR6VFKivIYls3H8B2V8KZlvyGq8j1YUPtigGpZ8vo/Oc88
+ S3Gtsxawobb00piq/epRxEZ5X4+PI+s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783588943;
+ s=susede2_ed25519; t=1783588945;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=61tqgj47tXno87n5CLTjPvjoV/e/gW/vZ/ttrviqTMc=;
- b=gYK/tQ6nEWhgYsoJwN2wawEg4/VsMDL63ux0FFkcOd9+aqq6Jsy37LGn4tsuOZl2UEOXA0
- aq+r8N6HFi0XBiDw==
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=Ru+n/XaSRnvME2VyrAxHuanA5vqeVXsr80d7F3thORp0G+zVqtJ17pvF1sZ16rTNSjBCNQ
+ 08ZRJ1O3Up/0zZCA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vMdq6UX5;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="gYK/tQ6n"
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FtcF++5l;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vyEO1pTz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783588943; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1783588944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=61tqgj47tXno87n5CLTjPvjoV/e/gW/vZ/ttrviqTMc=;
- b=vMdq6UX51wZMrbUXKc3lP9eGNPL+dWXc4tg4oO+X8BPR14h8e6lAXKBvtSLlgBvKxcChLr
- gTy1JbRQHy7pHHBbfY7I4tChOjhOzqIUvy9aZsuhxvFeX04KckXOmTHN38+3107fJVYOdb
- X/yB1nDXF1GxzDvRlfDAx9ayGKG173M=
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=FtcF++5lmc5X4hvZIQn1X0sy54vGMJ1Nd+7QsOlilsTBw42j4SFUS50NSxg0PImGk/g/oQ
+ XkxV6ODdzZcThLN4Gs3ITdeByaklTdnzy9PNR77XOxbMFplYtmkh2Ld9Aj5SIMioSaaa0c
+ 8jKpwejj9k7E74eOBjQ0/sUZzwpWRKg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783588943;
+ s=susede2_ed25519; t=1783588944;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=61tqgj47tXno87n5CLTjPvjoV/e/gW/vZ/ttrviqTMc=;
- b=gYK/tQ6nEWhgYsoJwN2wawEg4/VsMDL63ux0FFkcOd9+aqq6Jsy37LGn4tsuOZl2UEOXA0
- aq+r8N6HFi0XBiDw==
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=vyEO1pTz2UFwzodW3Lvv89Nebi05DKbH326C6DtDpSQ4YSOhipdj7fNnHk5hyCwIZkZE6M
+ ItiTVx8Q9QzdYaCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 334AC779AA;
- Thu,  9 Jul 2026 09:22:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D579779AA;
+ Thu,  9 Jul 2026 09:22:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ILk+C09oT2q6OQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 09 Jul 2026 09:22:23 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0MdcFVBoT2q6OQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Jul 2026 09:22:24 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
@@ -84,9 +84,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 4/7] vga_switcheroo: Add post_switch callback to client ops
-Date: Thu,  9 Jul 2026 11:16:00 +0200
-Message-ID: <20260709092215.168172-5-tzimmermann@suse.de>
+Subject: [PATCH v2 6/7] drm: Implement vga_switcheroo_client_ops.post_switch
+Date: Thu,  9 Jul 2026 11:16:02 +0200
+Message-ID: <20260709092215.168172-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260709092215.168172-1-tzimmermann@suse.de>
 References: <20260709092215.168172-1-tzimmermann@suse.de>
@@ -109,13 +109,13 @@ X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
  FROM_EQ_ENVFROM(0.00)[];
  R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
  RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
  TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BC3F275DDE
+X-Rspamd-Queue-Id: E55E675DDF
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,73 +130,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add post_switch to struct vga_switcheroo_client_ops to inform the
-switcheroo client about a completed switch of the output.
+An output's attached display might have changed while a DRM client's
+device did not have the output switched to it.
 
-This callback is intended to replace the reprobe client op. It is a
-rename of reprobe for consistency with pre_switch.
+The nouveau_switcheroo_reprobe() callback sends a hotplug notice to
+DRM's internal clients, so that they can reconfigure their display
+output if necessary.
+
+As post_switch callback replaces reprobe in vga_switcheroo, update
+nouveau accordingly. In the other drivers, remove the NULL-assignment
+to reprobe. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Lyude Paul <lyude@redhat.com> # nouveau
 ---
- drivers/gpu/vga/vga_switcheroo.c |  4 +++-
- include/linux/vga_switcheroo.h   | 12 +++++++-----
- 2 files changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 -
+ drivers/gpu/drm/i915/i915_switcheroo.c     |  1 -
+ drivers/gpu/drm/nouveau/nouveau_vga.c      | 19 +++++++++----------
+ drivers/gpu/drm/radeon/radeon_device.c     |  1 -
+ 4 files changed, 9 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switcheroo.c
-index bdf1e56ae891..7b0af4a8aa7d 100644
---- a/drivers/gpu/vga/vga_switcheroo.c
-+++ b/drivers/gpu/vga/vga_switcheroo.c
-@@ -746,7 +746,9 @@ static int vga_switchto_stage2(struct vga_switcheroo_client *new_client)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 87a59a79a019..5bb1567d512d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1708,7 +1708,6 @@ static void amdgpu_switcheroo_pre_switch(struct pci_dev *pdev)
  
--	if (new_client->ops->reprobe)
-+	if (new_client->ops->post_switch)
-+		new_client->ops->post_switch(new_client->pdev);
-+	else if (new_client->ops->reprobe)
- 		new_client->ops->reprobe(new_client->pdev);
+ static const struct vga_switcheroo_client_ops amdgpu_switcheroo_ops = {
+ 	.set_gpu_state = amdgpu_switcheroo_set_state,
+-	.reprobe = NULL,
+ 	.can_switch = amdgpu_switcheroo_can_switch,
+ 	.pre_switch = amdgpu_switcheroo_pre_switch,
+ };
+diff --git a/drivers/gpu/drm/i915/i915_switcheroo.c b/drivers/gpu/drm/i915/i915_switcheroo.c
+index 6b306ece0556..d97057722fde 100644
+--- a/drivers/gpu/drm/i915/i915_switcheroo.c
++++ b/drivers/gpu/drm/i915/i915_switcheroo.c
+@@ -69,7 +69,6 @@ static void i915_switcheroo_pre_switch(struct pci_dev *pdev)
  
- 	if (vga_switcheroo_pwr_state(active) == VGA_SWITCHEROO_ON)
-diff --git a/include/linux/vga_switcheroo.h b/include/linux/vga_switcheroo.h
-index 4422daca9ceb..51851831d4c1 100644
---- a/include/linux/vga_switcheroo.h
-+++ b/include/linux/vga_switcheroo.h
-@@ -127,21 +127,22 @@ struct vga_switcheroo_handler {
-  * @set_gpu_state: do the equivalent of suspend/resume for the card.
-  * 	Mandatory. This should not cut power to the discrete GPU,
-  * 	which is the job of the handler
-- * @reprobe: poll outputs.
-- * 	Optional. This gets called after waking the GPU and switching
-- * 	the outputs to it
-+ * @reprobe: deprecated
-  * @can_switch: check if the device is in a position to switch now.
-  * 	Mandatory. The client should return false if a user space process
-  * 	has one of its device files open
-  * @pre_switch: prepare switch
-  *	Optional. This gets called before switching the outputs to the
-  *	GPU. Allows drivers to prepare for the switch.
-+ * @post_switch: completes switch
-+ *	Optional. This gets called after waking the GPU and switching
-+ *	the outputs to it. Allows drivers to poll the switched outputs.
-  * @gpu_bound: notify the client id to audio client when the GPU is bound.
-  *
-  * Client callbacks. A client can be either a GPU or an audio device on a GPU.
-  * The @set_gpu_state and @can_switch methods are mandatory, @pre_switch and
-- * @reprobe may be set to NULL. For audio clients, the @pre_switch and
-- * @reprobe members are bogus. OTOH, @gpu_bound is only for audio clients,
-+ * @post_switch may be set to NULL. For audio clients, the @pre_switch and
-+ * @post_switch members are bogus. OTOH, @gpu_bound is only for audio clients,
-  * and not used for GPU clients.
-  */
- struct vga_switcheroo_client_ops {
-@@ -149,6 +150,7 @@ struct vga_switcheroo_client_ops {
- 	void (*reprobe)(struct pci_dev *dev);
- 	bool (*can_switch)(struct pci_dev *dev);
- 	void (*pre_switch)(struct pci_dev *dev);
-+	void (*post_switch)(struct pci_dev *dev);
- 	void (*gpu_bound)(struct pci_dev *dev, enum vga_switcheroo_client_id);
+ static const struct vga_switcheroo_client_ops i915_switcheroo_ops = {
+ 	.set_gpu_state = i915_switcheroo_set_state,
+-	.reprobe = NULL,
+ 	.can_switch = i915_switcheroo_can_switch,
+ 	.pre_switch = i915_switcheroo_pre_switch,
+ };
+diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
+index 2d2d08be8fbe..29a801124e56 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_vga.c
++++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
+@@ -54,15 +54,6 @@ nouveau_switcheroo_set_state(struct pci_dev *pdev,
+ 	}
+ }
+ 
+-static void
+-nouveau_switcheroo_reprobe(struct pci_dev *pdev)
+-{
+-	struct nouveau_drm *drm = pci_get_drvdata(pdev);
+-	struct drm_device *dev = drm->dev;
+-
+-	drm_client_dev_hotplug(dev);
+-}
+-
+ static bool
+ nouveau_switcheroo_can_switch(struct pci_dev *pdev)
+ {
+@@ -84,12 +75,20 @@ nouveau_switcheroo_pre_switch(struct pci_dev *pdev)
+ 	drm_client_dev_acquire_outputs(drm->dev);
+ }
+ 
++static void
++nouveau_switcheroo_post_switch(struct pci_dev *pdev)
++{
++	struct nouveau_drm *drm = pci_get_drvdata(pdev);
++
++	drm_client_dev_hotplug(drm->dev);
++}
++
+ static const struct vga_switcheroo_client_ops
+ nouveau_switcheroo_ops = {
+ 	.set_gpu_state = nouveau_switcheroo_set_state,
+-	.reprobe = nouveau_switcheroo_reprobe,
+ 	.can_switch = nouveau_switcheroo_can_switch,
+ 	.pre_switch = nouveau_switcheroo_pre_switch,
++	.post_switch = nouveau_switcheroo_post_switch,
  };
  
+ void
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 8697a9eb5d13..9523240110a6 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1267,7 +1267,6 @@ static void radeon_switcheroo_pre_switch(struct pci_dev *pdev)
+ 
+ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
+ 	.set_gpu_state = radeon_switcheroo_set_state,
+-	.reprobe = NULL,
+ 	.can_switch = radeon_switcheroo_can_switch,
+ 	.pre_switch = radeon_switcheroo_pre_switch,
+ };
 -- 
 2.54.0
 
