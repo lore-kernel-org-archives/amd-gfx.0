@@ -4,57 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4019DC43458
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CA49C44501
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 12:02:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6DE10F54F;
-	Thu,  9 Jul 2026 11:52:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 152B410F56B;
+	Thu,  9 Jul 2026 12:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h6zkElMs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vjyZ5yK/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 012B510F550;
- Thu,  9 Jul 2026 11:52:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DE9F5439E5;
- Thu,  9 Jul 2026 11:52:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ABDE1F00A3A;
- Thu,  9 Jul 2026 11:52:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597955;
- bh=KSmGKK3B1+3AzlrUpBRUrQ+BOWiZ8RlwKkA4OqXEYQ4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=h6zkElMs8OfPWkzpP9IDztporVta/wJyj3cYWkojm79pvnnJRLH98vd3kpVOPJIC0
- iNBX1QfPtJxnlGBnR8vUsLMIVU+z79Yx2wptgGXwpIsISovFmGcqNMhYtl2FWPf7li
- ukQJ4BDuSZg778H1JrHrHZzcjUOBDqwhcbRZjGH4etxSnFYHtQNzmOnkd5LqU7FKDl
- XfBDs08g+J3+ZKlTF+P3A9kZZBgtfr5xE1VeRiXSXlfU6cZEz+2dHO/e7P6QxAPukh
- cUTNj9kiLLsPJBjzmLG70nkFPbUFSNbOO+2CyiBnJej3XjHwvmh1ckW3OiQOZUvmWX
- 9ZNyUEsk6f7cw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:05 +0200
-Subject: [PATCH 39/60] drm/amdgpu_dm: Convert to atomic_create_state
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC9DB10F56B;
+ Thu,  9 Jul 2026 12:02:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uy2wylPdVLuhoV6oqs/Ctj5mTeCEF8DPsUuDTWJkG5HQBHe61kPlBzssZ5HPDKK+Mr9SRjKWxg/bzP8pHjI1W4WaC/+GELqRkUPTmDZ4gstb0tb2zbVTEiIrrDHKiwwdUl/xVZLc5QelHumY6fIJm4eF1XikfhggOBl23W7tdbfXvlyBI7b50SDGA/N3UFmN5Ts3P/6NS8eS29F+Aih/f4m2WThVGlf9xmJb78sthSFT5Q+Yhrv/nNZN3lvUgVLDr0bMW/WTJiDMtOj3YwCWugRu3EEmneh6+B3QsVmqWRKZXJdr7ROcfHRehdcirsK1cTT7DSiQZZFAPuwZFKE9aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BSVq9H8cdhCaUFSqZRi9VVDuI6AWsqw60aoQO1YJLlI=;
+ b=ARDjQBoHS8vVMeedVlnwar6hAmCAlP9wA91nCncc8u2Xox9mjKQgxR6r8011+GT91+z49NTZ+u0YRU/2zuKp85WIG92HCoJJNL95f4e8OG1Bs3PLhJr+iuVnn+8q0RIrL2rH4GndBxHUKDQHaPsTaloNMBuGdQ63ncRqT4zztJlitYHItJZLO2PQB0pgw3gx7ouLyM1j1REusgmSMqA9MPQjHMbrB0r7plWYvp2Fse5XYK7CcjO4udI0dVGXns5csXtW9mAzYfEszUG8AnumystC+xHZmWN+AN4btKVqxoqhklCNSQFjfSC57/ofGDCPlnamlVsZ0P0nNGOHGZ85zA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BSVq9H8cdhCaUFSqZRi9VVDuI6AWsqw60aoQO1YJLlI=;
+ b=vjyZ5yK/yYePJpt5p22NvY04lkqWMCO2g8b+61KkfwUpk4SrDhH3fjkGpAPeEad4wqgI5ScCRrR6x0nWuVSeUd9MA5k+nsKZBQqok4eOjdJx/WmLMFaN2OXIzHXPEWOCIz9EStFQ7G3XOUUY2v+8lpoU0Og3VOvXUfuCAd/o/5I=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB8729.namprd12.prod.outlook.com (2603:10b6:930:c2::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
+ 2026 12:02:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Thu, 9 Jul 2026
+ 12:02:33 +0000
+Message-ID: <bc45a40a-7cb4-4416-80f4-ce43272821f9@amd.com>
+Date: Thu, 9 Jul 2026 14:02:27 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1] drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ring()
+To: Evgenii Burenchev <evg28bur@yandex.ru>, stable@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Jack.Xiao@amd.com, Hawking.Zhang@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+References: <20260709112825.40016-1-evg28bur@yandex.ru>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260709112825.40016-1-evg28bur@yandex.ru>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-39-302d986fe5f0@kernel.org>
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com, harry.wentland@amd.com, siqueira@igalia.com, 
- sunpeng.li@amd.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7988; i=mripard@kernel.org;
- h=from:subject:message-id; bh=YnPa1VSYBaXq431BAn7Pg2e1Ida/FjFpETrDoQYveCw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3VImU2tFJz5q2LHz+SyZlyuKCtoK3nwV1rlUZmwTo
- j6tO2Zax1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIDCdjvVPgwv0COw7X/dV4
- dp0trt9S2fl7uX2Qm8Kdldps9erLfOJ3/TG4GCtt0b+Yv3WutMtZxobpzBqHWKUOPp88NWSmsEi
- ocVxS/LdZW2KeVZgxpv70z/IperLrq5zTSalDC5ydfq+17wUA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-ClientProxiedBy: FR4P281CA0054.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8729:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34668baf-340d-422b-6f6c-08deddb1f5a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: wACUf+fSxZhREa56DopBeTBAab328nEpqYQVGito/6jYra6xELjgiYZKEc5QVaA0sLQNrarrNCgGgNP2H6MatAI2abJ9fQ1LVGDDMc1ySIDDiY8VE60PeY7BlZ+16rpwKpHWf8gtMvhHZmFg+YYZoIA18dzDxTEFnnjvSG9ba/M/15JVc6EPdSckPwWj8v9WrXtoG1S03NseoxWQoQltffheuj5rVfW2J1NKsjpYvUQ2Dv2TDq68qpoIOH/T8zdipZuUyiUimqZALZtHQdAH4Ns2Dfo0xUjGbWAD0+9a0wz16d2sec/aszb7D1OE4fABjo1nuzqq2txXuV/AZTYX7Ve5WdEqzl3vULtzytYm3VwOhtNTwxsVX8l/7NQa1hA147qGI5rjoqaHClclE3OtAUXRpjqW+7PQTeVAdnFZKmxc8zyHn9peg+421GGqnh/A9PpSxk0t8CgOrXyBIbksViy9wfb8OFggJYkY0LlnaFnIggyfoEWDkByndnQJINNuV5q38Wv1nsnePu5xrogR9YDz/XnVO3MTEOPMkgaK4t81YElyFAfVj27p7WMOu0OFgTNNQR9ba2Hs/Ho5O8oxNaTFFU07666r65DWLtu5zHWu9Ge5IAOFvwLFlLsQNC9NyOtvUVdPV7LY/dZnJKU8DlqDbzK5xrPlezmsKKExn0M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ODU3ZkE0MnN4dm41a04rK3E5elRpaUVyK01md1RsZCs2VEUvMElud0JlaFdV?=
+ =?utf-8?B?SW5tNmhheGF5UEk3aXB2dW4yNk1sajE4czg1TElBVEw4NjFVOEY4aFFlTmVy?=
+ =?utf-8?B?TkUwYlhERFVsMGpVZFYzdVRMOWZSK3ZtemIybVFTYy9NL0g4UTNlYm1ta29p?=
+ =?utf-8?B?dDFjYkxHWkpSNlhQVi9Nb2tkV0ptL2g2VTdSeUhuRzgwZElXdzJZVjBlY3Zi?=
+ =?utf-8?B?b0FJMFdqbEtwWjZUUkhwZ2FVeFNSRWFzZ2dqUjNxbWdUK3Qxblp2d01zOWh1?=
+ =?utf-8?B?dTRZbmVtZTduQlBxSDNyTTNzL3h4SzRZM1J3MWpQWHkxdUdnekdaOEcwSzJX?=
+ =?utf-8?B?Z2xvSy9JWjI2OUtqbkdrNHJzUXhVdVpic0hVMDM1dVo3K3h0TW9qZGVMRFhO?=
+ =?utf-8?B?cWNDSmxzb1d6SDJMWjBiNllOS0NJMUZ2VnRqV0ZKOC9kMHMxRWtQZm52YU5G?=
+ =?utf-8?B?b2krNnU5Qm5mTUd6UURTYjAxL2lhbUJHVjFLakd1TkVQaVk2Wm51WHBYRWg1?=
+ =?utf-8?B?MmdSeWpjcmVxaml6cGFVMUlVMnRhY3dCNlhmS3ZidmszM25OQnhzbG80LzZI?=
+ =?utf-8?B?TGVUZDI0ODJtTlhmeTBNcTM0NVRzdkRuT0xmZkxJaG5sWFgzTzhMTkx0bzla?=
+ =?utf-8?B?QVdmQ3E1bzhBZHRWYmxHQ3VwNy8zMmJNWmhXMi8vWjQ0NWRJSm1vb2xaT21H?=
+ =?utf-8?B?dEthVVZGWXR2azd0cnU2Q05WK2xmOXZDL3d0U1k1RURWNFlrbTJhV3ZkV2Ey?=
+ =?utf-8?B?bm1rMkRPV1FGbG9ZRjg0MmQwNllzV2R1ZFRFcjBjdE5QVmFLWFpCa1VtY3Fk?=
+ =?utf-8?B?RG1NQ2tDNWROWGljUmdIQnhYb0NhWUE4VC9DZUs5QlhhWnE5MWg5bXRkemZW?=
+ =?utf-8?B?ZGR6clRFMmNXaUp1aDUwaDd3aTFvekFyMjJzWlJFb1Z1MTFhVmVzMDhPZUpR?=
+ =?utf-8?B?YVpCL2x3bzYyeFZmNy9VckRvUFFiekx0NEc1c2JJcWd1NmlscHhmQ0xkOEox?=
+ =?utf-8?B?cVJrS1hYUVlVMGV0dHVnTEJ2elhlUmJuQ1UrbkF3NXRHYUc5Q1NydCtxQlk1?=
+ =?utf-8?B?OG0veFRmNGszMUhEcXV2Y21UeWVvaVFGMVBPVi9xQnhDaG95bmFqTkNqaEF2?=
+ =?utf-8?B?Sm9jdFdRenFQd0YzblFCT0NZdjJvQjgzR3NLbVYvZ2puaVJXU3NpbjhTcVZM?=
+ =?utf-8?B?RVkyMW9scUsvNkZFYmo1RWRsN1d1cDZqak5YdWJrS3NiQ0hqdGFqZDRwWXFv?=
+ =?utf-8?B?MEVvcSsxS0VCK3V5VUlhMVVXdXg4ZWRobFhxOUlwWEpYUDZDQ01KYlNMZjBx?=
+ =?utf-8?B?a0JweUsyeStMdkRFYzZhUUxNQmxzeEhNMUxTcTlEYUdpVlp6T2tlaVo4UUU4?=
+ =?utf-8?B?K0ZSM3R4elFOZXN5Nm9lWkM4eXVaVDFhTjlIOHgvTVlIaFQ2T0d0UmgxZFdE?=
+ =?utf-8?B?OUFQKzJvcjRPMVJNc0NvZEhSMmdtWHFKUUVzb0NWZHRMeFBlblJGZExrWG03?=
+ =?utf-8?B?Yy9kMm1DWDFQcStxQ09UN0pzQ0FzaEZGY0toblRYM3NYQnBCZy9aL09ZMEZq?=
+ =?utf-8?B?dVhYNzF0aXBjSU5NUnJSaGNkbDlCOElMcmlTT0JaSzJnYUNkR0x2SUlVVlNr?=
+ =?utf-8?B?Q3lobjM1Rm55L2wxMDMzUVZCY1Y1N2p1ZFRUWk9hNGlQcHFPUDQ5MGl0YldL?=
+ =?utf-8?B?Y3VxdlZNUXA5QkR4WU14SU83YTNVNHRPTWJFN3VldS9nZUs1MG96MjlqNFBX?=
+ =?utf-8?B?Qm04YVkzelhQVDMvWDltUFhHSEFUcEVhb2xSMnFMNHQ0UFNrSmNpSFIxeDRz?=
+ =?utf-8?B?NEk0VENCTmtDZHJORzQ0M2hNMTVxUzVnNFpEbUlmQW9RZUZiM29MUWJUT29N?=
+ =?utf-8?B?SWtBQTNib0x5eUtPaW9yVm1MeEZxNDlUS3d3ckt0M09FV3pMQmRSZXEwdm96?=
+ =?utf-8?B?TmRJY2xtUlpMeDJVMzVaSWIwS2JHS3ZlZWp3M2NnT0RsR0RPWlRDU3JoM29n?=
+ =?utf-8?B?alVHVk5sUDR5Y2ZyRnZML1pqMkpGam1hU3dUaEdNM2pEZkNCa3pLYVF1Sjh1?=
+ =?utf-8?B?ZVdWbm9ldE5RS0dmc0JKbHhPbjRPcGFSZ1g4Z2dpUEhNY0MwWmcxelREWTVI?=
+ =?utf-8?B?MDVYeVFVVE1NNEJkbFZHRmhUNVVkaDZPVVpKU1hvWFI2YzVyYXFGWmZkRXhS?=
+ =?utf-8?B?TEJjU3BRT0RpRlVkQmRIK2RPc0RFNGFpbTJZbjdXM2NOWFAvS2lsU253blJ0?=
+ =?utf-8?B?RWJLSG9PL0xBZ2pwdmNUOW1CNm0yUHBjQklGdndmMmVNWnZOSUFkcW9lNHNG?=
+ =?utf-8?Q?fYzpM8eVzvAt5kfA3H?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34668baf-340d-422b-6f6c-08deddb1f5a0
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 12:02:33.4859 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rUfihP3zeRn/njHWcoQuH62DhArYwFy3JPvkX2kfnP+OBNKXVw+9nPkq4Vq835K0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8729
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,348 +137,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The plane reset implementation creates a custom state
-subclass, but only initializes a pristine state without resetting any
-hardware. This is equivalent to what atomic_create_state expects.
-Convert to it.
+On 7/9/26 13:28, Evgenii Burenchev wrote:
+> Replace sprintf() with scnprintf() to prevent a potential buffer overflow
+> when writing to ring->name. The buffer size is 16 bytes. For compute rings,
+> the string format "compute_%d.%d.%d" can exceed this limit when the total
+> number of digits in the three numbers is greater than 5 (e.g., pasid=1234,
+> gang_id=0, queue_id=0). This can lead to memory corruption.
+> 
+> Using scnprintf() guarantees that the buffer is not overflowed, even if the
+> string is truncated. This is a minimal fix for the issue; the BUG() for
+> unknown queue types is left unchanged to avoid additional risk.
+> 
+> This code is only present in LTS kernels v6.12, v6.6, and v6.1, as it was
+> completely refactored in upstream. Therefore, this patch is specifically
+> intended for stable trees.
 
-The conversion was done using the following Coccinelle semantic patch:
+That is not stuff which should ever go into a stable kernel.
 
-@@
-identifier funcs;
-symbol drm_atomic_helper_plane_reset;
-symbol drm_atomic_helper_plane_create_state;
-@@
+This is just a minor cleanup and not a bug fix at all.
 
-struct drm_plane_funcs funcs = {
-  ...,
-- .reset = drm_atomic_helper_plane_reset,
-+ .atomic_create_state = drm_atomic_helper_plane_create_state,
-  ...,
-};
+Regards,
+Christian.
 
-@match_struct_reset@
-identifier funcs, reset_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .reset = reset_func,
-    ...,
-};
-
-@reset_uses_helpers depends on match_struct_reset@
-identifier match_struct_reset.reset_func;
-@@
-
- void reset_func(...)
- {
- 	<+...
-(
- 	__drm_atomic_helper_plane_reset(...);
-|
-	__drm_gem_reset_shadow_plane(...);
-)
- 	...+>
- }
-
-@match_struct_destroy@
-identifier funcs, destroy_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .atomic_destroy_state = destroy_func,
-    ...,
-};
-
-@script:python renamed_func@
-old_name << match_struct_reset.reset_func;
-new_name;
-@@
-if old_name.endswith("_reset"):
-    coccinelle.new_name = old_name.replace("_reset", "_create_state")
-else:
-    coccinelle.new_name = old_name
-
-@update_struct depends on match_struct_reset && reset_uses_helpers@
-identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
--   .reset = reset_func,
-+   .atomic_create_state = new_name,
-    ...,
-};
-
-@drop_destroy depends on update_struct && match_struct_destroy@
-identifier match_struct_reset.reset_func;
-identifier match_struct_destroy.destroy_func;
-identifier container_func;
-identifier P;
-symbol drm_atomic_helper_plane_destroy_state;
-symbol __drm_atomic_helper_plane_destroy_state;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	...
-(
--	if (P->state) {
-- 		<+...
-(
--		drm_atomic_helper_plane_destroy_state(P, P->state);
-|
--		__drm_atomic_helper_plane_destroy_state(P->state);
-|
--		P->funcs->atomic_destroy_state(P, P->state);
-|
--		destroy_func(P, P->state);
-)
-- 		...+>
-- 	}
-|
--	drm_WARN_ON_ONCE(P->dev, P->state);
-|
--	WARN_ON(P->state);
-)
- 	...
-(
--	kfree(P->state);
-|
--	kfree(container_func(P->state));
-|
- 	// kfree is optional
-)
-(
--	P->state = NULL;
-|
- 	// plane->state clearing is optional
-)
- 	...
- }
-
-@drop_destroy_mtk depends on update_struct@
-identifier P;
-symbol __drm_atomic_helper_plane_destroy_state;
-symbol to_mtk_plane_state;
-@@
-
- void mtk_plane_reset(struct drm_plane *P)
- {
- 	...
--	if (P->state) {
--		__drm_atomic_helper_plane_destroy_state(P->state);
--		...
--	} else {
- 		...
--	}
- 	...
- }
-
-@transform_nv50_wndw depends on update_struct@
-identifier S;
-@@
-
- void nv50_wndw_reset(...)
- {
- 	...
--	if (WARN_ON(!(S = kzalloc_obj(*S))))
-+	S = kzalloc_obj(*S);
-+	if (WARN_ON(!S))
- 		return;
- 	...
- }
-
-@transform_kzalloc depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier P, S;
-statement ST;
-statement list STL;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	<...
- 	S = kzalloc_obj(*S);
-(
--	if (S)
--	{
--		STL
--	}
-+	if (!S) return;
-+
-+	STL
-|
--	if (S) ST
-+	if (!S) return;
-+
-+	ST
-)
-	...>
- }
-
-@transform_body depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier S, P;
-expression PS;
-@@
-- void reset_func(struct drm_plane *P)
-+ struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	S = kzalloc_obj(*S);
-	...
-(
- 	if (!S) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (WARN_ON(!S)) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (S == NULL) {
- 		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-)
-	...
-(
--	__drm_atomic_helper_plane_reset(P, PS);
-+	__drm_atomic_helper_plane_state_init(PS, P);
-|
--	__drm_gem_reset_shadow_plane(P, PS);
-+	__drm_gem_shadow_plane_state_init(P, PS);
-)
-	...
-}
-
-@update_early_return depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	<+...
--	return;
-+	return ERR_PTR(-EINVAL);
-	...+>
-}
-
-@update_return_plane depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_atomic_helper_plane_state_init(PS, P);
-	...
-+
-+	return PS;
-}
-
-@update_return_shadow depends on update_struct@
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_gem_shadow_plane_state_init(P, PS);
-	...
-+
-+	return &PS->base;
-}
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Cc: alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com
-Cc: harry.wentland@amd.com
-Cc: siqueira@igalia.com
-Cc: sunpeng.li@amd.com
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 1b564cfe2120..64647f4a4290 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1513,26 +1513,25 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
- 	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
- 	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
- 	.panic_flush = amdgpu_dm_plane_panic_flush,
- };
- 
--static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(struct drm_plane *plane)
- {
- 	struct dm_plane_state *amdgpu_state;
- 
- 	amdgpu_state = kzalloc_obj(*amdgpu_state);
- 	if (!amdgpu_state)
--		return;
-+		return ERR_PTR(-ENOMEM);
- 
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
--
--	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
-+	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
- 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-+
-+	return &amdgpu_state->base;
- }
- 
- static struct drm_plane_state *amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane)
- {
- 	struct dm_plane_state *dm_plane_state, *old_dm_plane_state;
-@@ -1881,11 +1880,11 @@ dm_plane_init_colorops(struct drm_plane *plane)
- 
- static const struct drm_plane_funcs dm_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset = amdgpu_dm_plane_drm_plane_reset,
-+	.atomic_create_state = amdgpu_dm_plane_drm_plane_create_state,
- 	.atomic_duplicate_state = amdgpu_dm_plane_drm_plane_duplicate_state,
- 	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
- 	.format_mod_supported = amdgpu_dm_plane_format_mod_supported,
- 	.format_mod_supported_async = amdgpu_dm_plane_format_mod_supported,
- #ifdef AMD_PRIVATE_COLOR
-@@ -1992,12 +1991,12 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 	if (res)
- 		return res;
- #endif
- 
- 	/* Create (reset) the plane state */
--	if (plane->funcs->reset)
--		plane->funcs->reset(plane);
-+	if (plane->funcs->atomic_create_state)
-+		plane->funcs->atomic_create_state(plane);
- 
- 	return 0;
- }
- 
- bool amdgpu_dm_plane_is_video_format(uint32_t format)
-
--- 
-2.54.0
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Fixes: d0c423b64765 ("drm/amdgpu/mes: use ring for kernel queue submission")
+> Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 3feb792c210d..6208967f0e6c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -1057,13 +1057,14 @@ int amdgpu_mes_add_ring(struct amdgpu_device *adev, int gang_id,
+>  	ring->doorbell_index = qprops.doorbell_off;
+>  
+>  	if (queue_type == AMDGPU_RING_TYPE_GFX)
+> -		sprintf(ring->name, "gfx_%d.%d.%d", pasid, gang_id, queue_id);
+> +		scnprintf(ring->name, sizeof(ring->name), "gfx_%d.%d.%d",
+> +			pasid, gang_id, queue_id);
+>  	else if (queue_type == AMDGPU_RING_TYPE_COMPUTE)
+> -		sprintf(ring->name, "compute_%d.%d.%d", pasid, gang_id,
+> -			queue_id);
+> +		scnprintf(ring->name, sizeof(ring->name), "compute_%d.%d.%d",
+> +			pasid, gang_id, queue_id);
+>  	else if (queue_type == AMDGPU_RING_TYPE_SDMA)
+> -		sprintf(ring->name, "sdma_%d.%d.%d", pasid, gang_id,
+> -			queue_id);
+> +		scnprintf(ring->name, sizeof(ring->name), "sdma_%d.%d.%d",
+> +			pasid, gang_id, queue_id);
+>  	else
+>  		BUG();
+>  
 
