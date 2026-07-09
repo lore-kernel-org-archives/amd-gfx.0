@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E61EEC44510
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B50C44512
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 21:02:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35ABA10F70D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918A210F706;
 	Thu,  9 Jul 2026 21:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GYGsoLOx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HB0Ae4wf";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013055.outbound.protection.outlook.com
- [40.93.196.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4BD10F6ED
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:40 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010008.outbound.protection.outlook.com
+ [52.101.193.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 959B510F6D8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 21:02:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zBteZPQ5pb1nKc8FXHJUyVse8QebrEnPVosHz8sPDAxpwZc0rCoUu6kULaGtOqdCMVLESGtvnlNdIwOUYUl6MODDk3L5Q2PW0TedmmL6e7RSpQnR82NQk5ajREJVFIukYIZ9nJicZ+VnTsYQCSiiEq/QI6aBUufmc695npp0XJhYZgO3BjgV0eevuBC/HOc+qINktvyid7n7H95vbGv0c6q/GnCeeyHtenizFbyYG8Mx/MGtlzYyQpGAp42p1uRlNmSwzWye2tsxGRuHTpgKn+RcqBNeFkrns/ZTVmDdlyjnh2z4hqz8tB+b7gnwjrrIFiHs2HU7W5u1gD+xfhboFQ==
+ b=y5f801HtOS1LErIKgZ6izFnu5JE+pk8lbClv/XiN9AXQ52tN68+0/NN2UVS6UaNIfj7zN11Kb9oXRnmoGLM+2JdelJALcr/9HRGTvio0ULTR8ag06M/u/WIw//hBpVW7NP6HwEmHk2SPc5Hxy2KvNVoottL/Y1FUWO4oNEZLXO/Q6yIHU7hF2n7FffiKY/gU/EScEcV4J65bjDxIR/uadV8ZswQJXNWHOSuoF9u8TXPlTvfR36Wgu7DOqwY89lhmHzoQkYIXMiMPAIAABPfFzAhXv/49HLaQxU970DtmqyFZDBievm95EP+feUBESB6bi5GXnKGtO0nEvrI9JvxLKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sfgm+W/Suz77Qb7rq8BiiiyhJXQig2ksTNOgEZHKKng=;
- b=XrHKm7LfYhnOp7EwthLQ3g1fvYKs5Gv2XTsQoFbvOfGopkG7pJHJGh5KwYNZ/l0UG3D9ymfy2f4uU2+Mu3krSJOjXUCrO9iMdCXzskXJd22iFGrHaURj7jRWWZvsLQTY6m9pT0XrnhvvNIQ79l1d06wi21LFvMRaTATT0rcLgwqnFhjOZT+kXBEfEjCR13gAuoPwPPlmDuBTs0TEng9WGx9FLsQbI2VnaH/YXcsXHhj+4LOutgIFBpKd4PXohE4/tNBKkiP4a63egPi1ksZIhNsQB4t1do/XuBKZlaII7lAZungvwyarJdVFVtXJpGXduTOTl9KHTqEFadkWs9/zUQ==
+ bh=rB63SOKvjhFEz+Roqcbj6M/kN4WUqhQGQ/nG9OfjqBA=;
+ b=HwE9MKpg+jboa2UE76w8UHhbz/O4bzRWVwMfY+bzUFvFBHsJDs+bvacrKSfLF83gZq3m/3aOOD4eEik0xszdtFsuVRtQTOpFCPaJDPChgtFXhDArWlibUEa9nP2Y8VW3A7eML2gKEvrAvHkLqm+8nya6LGa+ZZzGz09Nc8iBGqz2JUyL10/PMK5lWgm5Iq2wUwnwMKXUuBSi6iEtCwWSjQF2oIqNLjVQkEvU6PaxwJ8a42YOeEmjE+V/Vnwl25X9e0eHrEQv2KELkQzy3blP3VZw0joipk/C7DA3SPhQFACtK2PO/2qp1PZkcdAOL5sn5mn3iLOGk0lQW96IJZOesw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sfgm+W/Suz77Qb7rq8BiiiyhJXQig2ksTNOgEZHKKng=;
- b=GYGsoLOxtGAJ07QZ6Huvnn3U9oGTWOYfwcKYmpYtsSrqAjRu+yawd71wqjKVvEcd57cD4Y1MzyogKBmcpEXFLZb7ZPDq44NI1ZZamVTda7111YlV3hkw7T1Nj7q6FM++KNSC+r+FTxro64M8mPUseEucXKAh499YKFAnRZO0zSw=
-Received: from BL1P223CA0043.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::9)
- by MN2PR12MB4357.namprd12.prod.outlook.com (2603:10b6:208:262::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Thu, 9 Jul
- 2026 21:02:33 +0000
-Received: from BL02EPF0001A0FB.namprd03.prod.outlook.com
- (2603:10b6:208:5b6:cafe::63) by BL1P223CA0043.outlook.office365.com
- (2603:10b6:208:5b6::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
+ bh=rB63SOKvjhFEz+Roqcbj6M/kN4WUqhQGQ/nG9OfjqBA=;
+ b=HB0Ae4wf9ufbNRDM4tOjYr7uZ6vtLgJutIbWJFFTgzLJepE2l/dAMtt9xAJoN96uykHuYIMc9ur5yokViX034cKZjdws3begtW2hzVr5+TgZtoxwjtUVUuxvgw9LnD3Qt2k9AbGCxsC+HZyrI9Fjjpy+wif/Ar3b4ZLnyGOTOEo=
+Received: from BLAPR03CA0099.namprd03.prod.outlook.com (2603:10b6:208:32a::14)
+ by CH3PR12MB8305.namprd12.prod.outlook.com (2603:10b6:610:12e::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 21:02:34 +0000
+Received: from BL02EPF0001A0F9.namprd03.prod.outlook.com
+ (2603:10b6:208:32a:cafe::85) by BLAPR03CA0099.outlook.office365.com
+ (2603:10b6:208:32a::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Thu, 9
  Jul 2026 21:02:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -49,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A0FB.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ BL02EPF0001A0F9.mail.protection.outlook.com (10.167.242.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:02:33 +0000
 Received: from georzhanmkm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
- 2026 16:02:17 -0500
+ 2026 16:02:18 -0500
 From: George Zhang <george.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +64,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Iswara Nagulendran <Iswara.Nagulendran@amd.com>,
- Anthony Koo <anthony.koo@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- George Zhang <george.zhang@amd.com>
-Subject: [PATCH 54/80] drm/amd/display: Fix VABC Init and OLED Support
-Date: Thu, 9 Jul 2026 16:48:22 -0400
-Message-ID: <20260709205936.5719-55-george.zhang@amd.com>
+ <Chen-Yu.Chen@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>, George Zhang
+ <george.zhang@amd.com>
+Subject: [PATCH 55/80] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
+Date: Thu, 9 Jul 2026 16:48:23 -0400
+Message-ID: <20260709205936.5719-56-george.zhang@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709205936.5719-1-george.zhang@amd.com>
 References: <20260709205936.5719-1-george.zhang@amd.com>
@@ -81,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FB:EE_|MN2PR12MB4357:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3c0a1ae-0e04-4a6a-f23a-08deddfd65cd
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0F9:EE_|CH3PR12MB8305:EE_
+X-MS-Office365-Filtering-Correlation-Id: 597082fd-bac5-4dc6-9b4e-08deddfd65e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|3023799007|22082099003|18002099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: fWMvMpTZTqnpeax/OJBefsxJ0E8l6BxP/9T7vDB0/scXd5J3wlu0NE/DL38YGugEMq1Dy5NKKEmgyGPWrJmcnDBEr+M1TvVuSFO6a2uj3hvXNbOHGmQWbgfHa/O2MQQsgD7u84tQ7I1YoQ/36dBp82GNTOh1868ihlDe68RTkaJU2H406P5njluEMLSz+ZHoavNTT/M/HhfsrSvzNipmOVT9PRbH9LMjjHTRSdGO2q/2790stZyJ5CrZv5LsFFYR+oO0lrjoxq76jkbY1x7mIZ2CZUkW92r0MCNgyQdseqRntcMcDfNp6ab+vfpe8Sqq4D9p7ZWLqHLxIxODDAmAgTRA8ZrLn/K7IapiG+0Dkpwv+4/G/QRj0eKgVGpatWJB4yfsO2ttXjsNeJvBCa9wwsrZho4kL3QEDl8VcO72fkqstuWOmDnjPcyDjhZEO5Oe9yksLB6oPi+/TIxGO9ZUBK6rPfdocus8CUtZsoL6B1GcN8mwHMXDpBkWSMWGiyXsH6btQAvXaeT6I95dyryfr4FPB9DgncuvEmByl6HqLp/RvROMYUxjDqH8dxpsT3hD6ra0LDTwc90jXX2zebuttEvwHXf8shL2oujJJPhqyzFRD0imEk+U9fI427XWO54z0no6tPypyrHcF76MjRZFS2qXqcDcov+y1H935zsL5zvwt8p9vLsldjD4GES4X/EDn3OC2vf9wJDp4/g8qtZNRQ==
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: /PFX8zGepD38YA7WH6T9kGmjmDwwmZlhCNiz+HasiOe8F5EsQ/EfkIHmMl1EwWP9uSyquA4W/iTjWxRwbw6kCz2jrVlk6knWLqoMPl1paJ5EvEqioasmZvNJ7bPqdpQmJISxxqOwpcjoruQTcFyWj6IIurVJPlF/hNN7/lJjLu+hqIrpg8cnIkDhyEqXD89cHAEHBnyhpoNd3bk0lbOLyQuN94qne5x1yPrWRxkyLijOp4kSh+xSo9Ezu7VV0z2qAuTbNU0PTDPnHRsV3IdPCO14Xco0jqAMCHEIIrHLZMvcCrrJv2wIVp8WNC/CHOP1YBWs17AIHl4HWe5ACagNooPNtLUuOK7mPD6JOks4GFhOO0OFo4ReNdVI/qRhcnlzTcUlRrwmM90LxPbkXGOeqDHDSfvJO6XI1rb/BeplkSLvtYsY+z0UmKPIvqP8Zv3ho7vMbUH6vf5xAMD9UmvsziHZxO/2OYkp9daRxhqFIRyEIw4xqJVGqsT4bnuBWR0ng1ZJZkrPpMy9kTQ8eE8hDIrCAjAsqWuJDwqH1rMbrjDuisC0aImxNoV0ykHBb9MRZwL4LPk/y4UDuk1zy538avSd5tnPCamjBdDihHZBXlbARaqlflnFlKaGyQX7ze+VaQlhyzM5V7IblgwD52q1275fuO+aKi3q7gOWY3HCMT947GmoUc7IYNbPnSO15/Df9+F99RuCQnXfdlCSdOJRhw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(3023799007)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003);
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jntqElIb5ix5n4EH8681vhDmaWS4byVVxbxjMytWKgw+jmNMPvL7ebVvVAbIsXu+sXYasZOS195+q7/VtuPPzgHmvxv+y80nDF1AgBKGaatlg6UA3dyNfQicmrXJ2bWj1C5lrBCwgB4Y34dld6yQdTnCpANE110uYomYnmXHF5thOME4K4doeWY7oSWbttH42AKICnhUhnor59GwBbPZlIA3BCPwXb+1FC+x5Fc628MBDRlCvhFlHNEpwQ6NOXNVwq0T7JqAW6qPaxtdxKK93Il6wWBQwH3yZIB4H3CblPWIIvZ3tiqTrUvEfEb//YPl7iaKDx9JBmt/u85ELLiN1jv2Xn5impvL6Ilo8v/31T4GLe84O5m2/0+7ZiIcLlt2hpVmiBj4YkKE8UfA7isscM1N74k75ECo9U3e56MeFXt87RoxzzRDGKdj5NrRtdZM
+X-MS-Exchange-AntiSpam-MessageData-0: 6PSfaeaJHfkLt8IyAIhqWD38XE0CISGhTluXtmlmNXNQ1xowD9lMJmGEegBlFy480PuCssamfDRlgZUEwZ2WU/Kj/qofzbvacpT1V9Kp4OhwzyU9q4TAl8rwK9l436mirs/+hrlV8FpwDRDb5l58zGbfZykmTa+/tQs+vi8xhgtWgXym05Njs8DeoZ0/BW0KjNyOAZZTzVyjY8kGKnO4S4xrlF5SE5qnBSzSfHskjepU9VpuhS6aaBacMBgGyKM2THO7mM6mWLDA2OEk08iBTV0dOkxrFBmb22FcjlcdA59NFgoeODRWuOBzWjnp1kegK8dhnboU3Xp5MlfoholqciRtAy55aunZF0XavEmWVfB5B64FYibaOkMpp+ezaWWec434/ZT6h7htY2VRdZCAOKISoiquqtXWcVsqrKwGsaj9GEodPAHKycXIoOYuyE/f
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:33.7210 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3c0a1ae-0e04-4a6a-f23a-08deddfd65cd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:02:33.8967 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 597082fd-bac5-4dc6-9b4e-08deddfd65e7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0F9.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4357
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,170 +117,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
 [Why]
-TCONs supporting VESA AUX Backlight does not always
-support VESA Smooth Brightness. Driver software
-needs to implement smooth brightness by periodically
-updating the brightness by small steps. Driver
-implementation is completed and verified on LCD
-panels but solution is missing for OLED panels.
+On DCN32/321  sometimes DMCUB takes a long time to flush.
+This adds a delay before the data is available on the driver side even
+after driver receives notification from DMCUB via inbox
 
 [How]
-Updated driver to include smooth brightness for
-OLED panels using VESA Aux Backlight.
-Revert original workaround for VABC on oled issue,
-as it is no longer needed.
-Add VABC backlight Initialization sequence from
-driver side.
-Add fix to remove conflict between FW and driver
-backlight programming for future ASIC.
-Enable VABC for all future asic revisions.
+Allocating DMUB memory to GTT gives much better latency. Limit this to
+DCN32/1 for now; it will be made general to all other dGPUs later.
 
-Reviewed-by: Anthony Koo <anthony.koo@amd.com>
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 Signed-off-by: George Zhang <george.zhang@amd.com>
 ---
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 41 ++++++++++++++++++-
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |  2 +
- .../link/protocols/link_edp_panel_control.c   | 13 +++---
- .../drm/amd/display/modules/power/power_abm.c | 10 ++++-
- 4 files changed, 56 insertions(+), 10 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index e72e10c276de..b6f3c0480ab6 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -719,6 +719,34 @@ static void dmub_abm_set_backlight(struct dc_context *dc,
- 	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+index 9d08a3055996..d2148b62073d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+@@ -506,6 +506,7 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
+ 	};
+ 	int r;
++	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
  
-+static bool dmub_cacp_set_backlight(struct dc_context *dc,
-+	struct set_backlight_level_params *backlight_level_params,
-+	unsigned int panel_inst)
-+{
-+	union dmub_rb_cmd cmd;
+ 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+ 	case IP_VERSION(2, 1, 0):
+@@ -639,13 +640,19 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
+ 
++	/* Limit to allocate dmub to GTT on DCN32/1
++	 * TODO: Other asics with GDDR7 may have worse latency
++	 */
++	if (dmub_asic != DMUB_ASIC_DCN32 &&
++	    dmub_asic != DMUB_ASIC_DCN321)
++		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
 +
-+	memset(&cmd, 0, sizeof(cmd));
-+	cmd.cacp_set_backlight.header.type = DMUB_CMD__CACP;
-+	cmd.cacp_set_backlight.header.sub_type = DMUB_CMD__CACP_SET_BACKLIGHT;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.aux_inst = backlight_level_params->aux_inst;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.frame_ramp = backlight_level_params->frame_ramp;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.backlight_user_level =
-+		backlight_level_params->backlight_pwm_u16_16;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.backlight_control_type =
-+		(enum dmub_backlight_control_type)backlight_level_params->control_type;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.min_luminance = backlight_level_params->min_luminance;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.max_luminance = backlight_level_params->max_luminance;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.min_backlight_pwm = backlight_level_params->min_backlight_pwm;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.max_backlight_pwm = backlight_level_params->max_backlight_pwm;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.version = DMUB_CMD_CACP_CONTROL_VERSION_1;
-+	cmd.cacp_set_backlight.cacp_set_backlight_data.panel_mask = (0x01 << panel_inst);
-+	cmd.cacp_set_backlight.header.payload_bytes = sizeof(struct dmub_cmd_cacp_set_backlight_data);
-+
-+	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-+
-+	return true;
-+}
-+
- bool dcn31_set_backlight_level(struct pipe_ctx *pipe_ctx,
- 	struct set_backlight_level_params *backlight_level_params)
- {
-@@ -746,8 +774,19 @@ bool dcn31_set_backlight_level(struct pipe_ctx *pipe_ctx,
- 			panel_cntl->inst,
- 			panel_cntl->pwrseq_inst);
- 
--	if (backlight_level_params->control_type != BACKLIGHT_CONTROL_AMD_AUX)
-+	if (link && link->panel_type == PANEL_TYPE_OLED) {
-+		/* For OLED panel with AMD AUX, skip set backlight call */
-+		if (backlight_level_params->control_type == BACKLIGHT_CONTROL_VESA_AUX)
-+			dmub_cacp_set_backlight(dc, backlight_level_params, panel_cntl->inst);
-+	} else if (link && link->panel_type == PANEL_TYPE_MINILED) {
-+		/* For MiniLED panel we need to check if CACP or ABM is being used */
-+		if (link->panel_config.cacp.cacp_supported)
-+			dmub_cacp_set_backlight(dc, backlight_level_params, panel_cntl->inst);
-+		else
-+			dmub_abm_set_backlight(dc, backlight_level_params, panel_cntl->inst);
-+	} else {
- 		dmub_abm_set_backlight(dc, backlight_level_params, panel_cntl->inst);
-+	}
- 
- 	return true;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-index f415473517d4..cc8e96ffe7d1 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-@@ -281,6 +281,8 @@ void dcn42_init_hw(struct dc *dc)
- 		dc->caps.dmub_caps.psr = dc->ctx->dmub_srv->dmub->feature_caps.psr;
- 		dc->caps.dmub_caps.mclk_sw = dc->ctx->dmub_srv->dmub->feature_caps.fw_assisted_mclk_switch_ver > 0;
- 		dc->caps.dmub_caps.fams_ver = dc->ctx->dmub_srv->dmub->feature_caps.fw_assisted_mclk_switch_ver;
-+		dc->caps.dmub_caps.aux_backlight_support =
-+			dc->ctx->dmub_srv->dmub->feature_caps.abm_aux_backlight_support;
- 
- 		/* sw and fw FAMS versions must match for support */
- 		dc->debug.fams2_config.bits.enable &=
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index baf57692bbb5..16951a9550f2 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -161,9 +161,7 @@ bool edp_set_backlight_level_nits(struct dc_link *link,
- 	if (link->is_dds && !link->dpcd_caps.panel_luminance_control)
- 		return true;
- 
--	// use internal backlight control if dmub capabilities are not present
--	if (link->backlight_control_type == BACKLIGHT_CONTROL_VESA_AUX &&
--		!link->dc->caps.dmub_caps.aux_backlight_support) {
-+	if (link->backlight_control_type == BACKLIGHT_CONTROL_VESA_AUX) {
- 		uint8_t backlight_enable = 0;
- 		struct target_luminance_value *target_luminance = NULL;
- 
-@@ -273,10 +271,11 @@ bool edp_backlight_enable_aux(struct dc_link *link, bool enable)
- 
- 	if (link->is_dds)
- 		return true;
--	if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_ENABLE,
--		&backlight_enable, 1) != DC_OK)
--		return false;
--
-+	if (!link->dpcd_caps.panel_luminance_control) {
-+		if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_ENABLE,
-+			&backlight_enable, 1) != DC_OK)
-+			return false;
-+	}
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-index 5b972f04bf7a..b26ceaba940d 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -716,8 +716,9 @@ void mod_power_update_backlight_on_mode_change(
- {
-     struct set_backlight_level_params backlight_level_params = { 0 };
- 
--		if (link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
--			link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1)
-+		if ((link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
-+			link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1) &&
-+			link->backlight_control_type == BACKLIGHT_CONTROL_AMD_AUX)
- 			dc_link_set_backlight_level_nits(link, core_power->bl_state[panel_inst].isHDR,
- 				core_power->bl_state[panel_inst].backlight_millinit, 0);
- 
-@@ -746,6 +747,11 @@ static bool set_backlight_millinits_aux(struct core_power *core_power,
- 
- 	link = dc_stream_get_link(stream);
- 
-+	// only use internal backlight control if dmub capabilities are not present
-+	if (link->backlight_control_type == BACKLIGHT_CONTROL_VESA_AUX &&
-+		link->dc->caps.dmub_caps.aux_backlight_support)
-+		return true;
-+
- 	return dc_link_set_backlight_level_nits(link, core_power->bl_state[inst].isHDR,
- 			backlight_millinits, transition_time_millisec);
- }
+ 	/*
+ 	 * Allocate a framebuffer based on the total size of all the regions.
+ 	 * TODO: Move this into GART.
+ 	 */
+ 	r = amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_VRAM |
+-				    AMDGPU_GEM_DOMAIN_GTT,
++				    mem_domain,
+ 				    &adev->dm.dmub_bo,
+ 				    &adev->dm.dmub_bo_gpu_addr,
+ 				    &adev->dm.dmub_bo_cpu_addr);
 -- 
 2.55.0
 
