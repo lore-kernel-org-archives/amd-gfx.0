@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D065DC43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E463C44501
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3741E10E1B5;
-	Fri, 10 Jul 2026 13:17:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7190C10F8C7;
+	Fri, 10 Jul 2026 13:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E0cth/tS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UwlyvmeR";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF3010E1B5
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:17:36 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-380a02c71e2so417600a91.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:17:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783689455; cv=none;
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E5A10F8C3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:21:05 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2caf18d4904so1785595ad.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:21:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783689664; cv=none;
  d=google.com; s=arc-20260327;
- b=eQs2MDYO/tRkcFmcvaMEzN+a+/jpbRrhK74ry3VF3POH9OSaaMGJyfrL23uBIDnFCf
- ej4SmWBeOqNerQPPhEu+YFCikbhyr+rWdOjzT9mPyziTMoM/tLttBzYFyV2XB7U2T7ip
- 6yil0HgYcGx0sUPr0aBTJKAuPS7OtP9TNVznDRSUWhyudHYiD4BOwTpYcBdEy4iN6hXP
- fyD7DFo3n2lwVTNjVZhqktAQaBNSyKLMc/cs1bDqenipR25lFqheEuPCpPpGldYAkpSI
- 3rKQs9PDVO6Vq6GusCN4DJayd8HbV5C74yEM+KO0RhDLuV9hg4TzU2coE33utZtjEVYH
- ODGg==
+ b=cPGNbSuXOBcuiYPpdF8Z6JdL9gnDvgICf9TVGSHzBqErmp6DV+NfAu8ruTIt3OXcWS
+ uRshAQ0xvZA03HlZechlWgVHC8OiC4R73Cig6YgDIMjqtdZ8S4wLCq5tlMcQG0q5YD2v
+ tgVivZqihYX5AiehU1khc/MHDvwt5jEmBSlMfEeahQzdn2SdLj8JpltRm+Kz88DhxY4/
+ VvvgKIgCoPcbAnrw5hfoKBNsqxygCAo4KsjXvqQwH6F+0EwIsst0Pal25cp9Z67Jf/tG
+ oYNm6cc/VBdBFJzl92B9IgATkNDp8P28RxRQQwC77jpcp30k3CehGgyXU3ICssvjfojT
+ vwTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=lfEDLX5g+oPVDfMe7ZvqOKzl3SYDhrt0YnV2+d5jAmU=;
- fh=NTFLzSWid31u10IJwXC2si4MWTC0fDs+RxoZ7zZTVas=;
- b=SZ0BL2NKGyrGAr2bX0O7VWK9DJRy2GzOMDvx+QZLHZQ0O1Xm9IqOhjcDOrWcM8N0N5
- SfGholy9zpDK7hiUx86D+Ry5mHvpwRn20WZb0WKB2s+jVZ4h8gpUiFlpq5UUNaDS2qyv
- 2y49tkxEH73bRWVmlpRSqfpcjLuzSJxv5dtMN1EKrRbepBz7vowutrYGt3p3mzV+vmV0
- xYBUGqhcXD1RL3ZgrXpk3xv91p5r71MuYB1wQJ33CwfKoxTvEFD6ZwXs9tLJjyGrLFe2
- mUWq1yhxDDjgaHhIJ2JAP39Bept3yyHEQnz7sd9jQBYzfT1KDlJLTEM9TzM58rmI2Cyv
- TFvA==; darn=lists.freedesktop.org
+ bh=6Iv3/dHJP9eh11tlfDrZvOZIybFL9oIplbeFCapfAmc=;
+ fh=PSm27EbGRM6F2hsg87pdtkFCHF4tLmWSTgMvkZYoYQI=;
+ b=AwxYUmpi19ceCcfN58LAg+FnSXs2+5UUbci9CXr8HN3cjqls2WV8/VeAmwIwGCjw3E
+ PyGT3sdMaM4n0klexYNCwqZMZxleIPghOKB+tTeUb+7pg4uFsPdSI1oj6H16oPTI97Xa
+ Lr/EWLVA6lpXiNY8jMkIEzIlg8954uDlURpanXjk8dBrcC9QRyb7UX9wG3lSFSC688UC
+ RWjgmHPtVbg4YUPnBUH+20hqVSwPv3KbE0E5YtEi9qOk7UZrA7tzsH4MaDXLWn67Ij3Q
+ B7v2fOyzyL47WzuCdsQzoGw8Ae5c5rCYy6E2EAfp6WrziFqWN4xk2GYF39kyVze/4QT1
+ FOcg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783689455; x=1784294255; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783689664; x=1784294464; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=lfEDLX5g+oPVDfMe7ZvqOKzl3SYDhrt0YnV2+d5jAmU=;
- b=E0cth/tS6Nuie+IVzNGxPFS64BNIJeHpm5aSdJ9c40gMCvDFdDe6w4Q3DkwK6WQHNi
- RG8faoohqh/Kz9cbAQetgLs3E7J4eUg84GJyFhOb6cstbg36Rwc/fsWW8YtggEHqEH31
- fmjlD69wNFHnnsReHByiSEv1ewEuCaHAkPFmGziiJ+K/j6KmzVUH12fkyX6fGYSRvfLZ
- YSxQE3BVIVZgHEM8t3iaHl0GlfgMe/inrDIddTsePGD6OkEhLXhapKqf/2Mu/YsypdSe
- A/q7J60EeRs+l6raqMKvsD+jK+CrdQOuaQzcouENRYtGeSsDwHBJPCiIoUlQklCa35Ch
- GiKg==
+ bh=6Iv3/dHJP9eh11tlfDrZvOZIybFL9oIplbeFCapfAmc=;
+ b=UwlyvmeRQkvUJG8Kl2nxCt+d9I15hSxFVRPhl4zQAaSB6Bug5/x/jcSMhR7thLWdao
+ nkhEqTQ+MehDeVlcbRH7RAhYTf+Sq6q7epdtu58Za4nOAlr5iiszrSf5hqHtS9fPCHZN
+ SFX67lQaIbOyWWMbvV47MlzJg4xufR+zL9FsAKULcctOmKU4vocUO6SvrHdZv+HFLORt
+ oImoXgiIU/teESm7Mpnauns/LmbMS1SItdQoB3GkrlxHe87MKHaTNqPHAYkdTO594hjZ
+ CKOud7VhBzvlgk0hRuLseTvqqOTQ72ntIsrWpaIaIjnOxZBGrEsIDRjpO8JV56cun7jY
+ LSfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783689455; x=1784294255;
+ d=1e100.net; s=20251104; t=1783689664; x=1784294464;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=lfEDLX5g+oPVDfMe7ZvqOKzl3SYDhrt0YnV2+d5jAmU=;
- b=osJ2SmfXTQ7a7SzkrCnO1IZnMCmx9bvhi/4oWSdyLTuF2ymtXgQxWr++nEBdoprWY1
- WLINDEaqOe2seTxAzNFBLFksFdfTAFSKOKjDxcA2swjhelH6a3TRqd4CthFPlP+uzsor
- 8gTFjVdv2TLmEWbOBi7QlCBGazVivXgUC9eZBkNz0PHqwEiRZFoR4XWQ2G80mu9/QIzX
- j+AGjAkL9TwK80/OOAVoA91C6BrFk9TjzO1f0RHoIhc6rHIGvF1bLjnvvA059CihymZz
- fFaDUKYi5kWcGPNI04xpSlz3XECvuOkoN90G6VCFS7+70HVpjvMyROS+YofcA9MEKYYL
- JvNQ==
-X-Gm-Message-State: AOJu0YzAb2LAMzum8zJtwcpOa8wKY/SXu9DHsv0jqnQWPbZ36nZL8roc
- 6yA7AmIGfhAGERA9kdDRUnE6zO/oofoOVf4VQ2tKUts9568+GnV+MxR45L+vVkZB/NX9wBmC+Ur
- 19cRpaWe+K12ySyxGVvEseltpdAYiLCZt/g==
-X-Gm-Gg: AfdE7cmGFDOnIraxbJyt0sUW7apv4H5d/6aiP82mDI9AqE/NrFuUIC5h2SkCAVZTZZU
- k2S03iuj95G+ShRmU5m0lW3fmaJqBfC/4sgRxA5zF2M5C+tlbIk8ty1YSn31xDcrnmFl9AfxeeY
- fnzoHWeMoOH45XM4z+79UumYakGtVblwLv5gdbDg2YFiwFa4wyBGE0MyZ1AygUBFTEQSSQX2Nhb
- pGFiPK4uqAHitsjqofs+jvTsx4ZrA+yCIfJaHp0xKzp5VpCGNQe/5kkMB4+fErJQcOdvY7TmsUe
- 9cO1oo+faGkdbCmE11tgr5JCkI8uXpusVXZUL7aVjIPkNWBwzpj+gRO7J6o=
-X-Received: by 2002:a17:90a:ad89:b0:38d:90c1:2400 with SMTP id
- 98e67ed59e1d1-38d90c135cdmr1289227a91.2.1783689455394; Fri, 10 Jul 2026
- 06:17:35 -0700 (PDT)
+ bh=6Iv3/dHJP9eh11tlfDrZvOZIybFL9oIplbeFCapfAmc=;
+ b=fuPOU7UQuc4hIxftU1i5iw7UsXlvC4sudnEkSBhde07t6QgarUjAm2d6185bLIM/RA
+ 3i1bpk1TqpJS//6350rrTIPD/WyAFfSF7oazTvh/d4uKvToGzKtoEDJDln12jaX6Lar4
+ CaiVXl0CJDBHrqdl20ym0tTMVQnuq7k9H+ktPN7mirE7PkYAeTKo7GSO1f13o+xcGrJ3
+ fYICkqdH2P/QHVQ480XSDyz5KXpy6m2fVo/Ewny6kegoso3p3uhKZDnAt6vDp3qevyOp
+ QeXz1hp+T9XQFgeBv/CiEegkEfHce0H6SksRAS6iBjupC6UsapZeAtea9ttrpWpECfPR
+ +O+g==
+X-Gm-Message-State: AOJu0YzIWMT0tL7xf0MnMhVCuZLTfDkEHaT4fhIfltLZysU0cEqZl8Z6
+ cxhW8PuEPtpOI8ynPqOd9NLgI63a0p/2ikiEIoe1cbgipivvIQAYfC9gvt8X1B74aeeBryvWh8E
+ iWBcXR8NHclOX9FCOvfkGPz+HWz56Wqw=
+X-Gm-Gg: AfdE7cnpv0jzArumT/QJGnUbv1EgIgvrlCm1rWMFrd+X2PMRtT+tRIYaWTKmPGMsUna
+ sYUB0iV8n/4MTvvqZ89e8EKxw+pEUEMtUSLjL2+rUHBKZP/eeMZT+rhBYf+J1Q0toFT6FyDyqir
+ vYpjRBfdAuvGqlec8OIT/ehUfHxXZk72NcSIPUTdaPP8BR7/XGdvbWw+njx6XzLP7SUn+wryxB1
+ pIVBc/jn024RmdYAfpA7SydU0Omt1m/vcT7D4u4PI8YtdKVYMMdZqKRhHcFqJvpdaet7oIv+bzM
+ jLv2pMzQu7Npr+mX5I9LQyr2laF7WVnBk5DkNJWfYm5WEqy8C71Ymdws53QxBxU6BFZo5g==
+X-Received: by 2002:a17:902:e5c5:b0:2c6:b3d9:9bbd with SMTP id
+ d9443c01a7336-2ccea4822d3mr83423935ad.8.1783689664480; Fri, 10 Jul 2026
+ 06:21:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260709065856.472296-1-Prike.Liang@amd.com>
- <20260709065856.472296-3-Prike.Liang@amd.com>
-In-Reply-To: <20260709065856.472296-3-Prike.Liang@amd.com>
+References: <20260708163013.221986-1-andrebueno.mac@gmail.com>
+In-Reply-To: <20260708163013.221986-1-andrebueno.mac@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:17:23 -0400
-X-Gm-Features: AVVi8CdOVxIV1oeELcfr-OaqPZToK5WOmGNxG2EqnAdJhDLIIIu3adsip-iFgW4
-Message-ID: <CADnq5_PhWi1AUjhscrbB4pbUd9sOUv44U41kkyzsL2LZyrO=wg@mail.gmail.com>
-Subject: Re: [PATCH 3/6] drm/amdgpu/mes11: get MES process/gang contex size
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- christian.koenig@amd.com, Michael.Chen@amd.com
+Date: Fri, 10 Jul 2026 09:20:52 -0400
+X-Gm-Features: AVVi8CdHtR54ckxCbr800ZtgJ2GncqvnzX-KSnJuu5g2WzyX6D9T6ZYw-f3QraM
+Message-ID: <CADnq5_PXnX97HrF3t1xXeEZR7iV6ojDyTc3ReiNurY15e8bvLg@mail.gmail.com>
+Subject: Re: [PATCH V2] drm/amdgpu: deduplicate JPEG v5.0 interrupt routine
+To: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ Enzo Furegatti Spinella <enzo.spinella@usp.br>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,232 +104,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 9, 2026 at 3:09=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> wr=
-ote:
+Applied.  Thanks!
+
+On Thu, Jul 9, 2026 at 3:44=E2=80=AFAM Andre Luiz Batista Bueno
+<andrebueno.mac@gmail.com> wrote:
 >
-> Setup the MES_API_QUERY_MES__GET_CTX_ARRAY_SIZE MES firmware
-> command request, and get the MES11 process/gang contex size.
+> Both jpeg_v5_0_1.c and jpeg_v5_0_2.c implement identical
+> interrupt processing routines. To avoid code duplication,
+> make the implementation in jpeg_v5_0_1.c non-static and
+> call it directly from jpeg_v5_0_2.c.
 >
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> Signed-off-by: Andre Luiz Batista Bueno <andrebueno.mac@gmail.com>
+> Co-developed-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
+> Signed-off-by: Enzo Furegatti Spinella <enzo.spinella@usp.br>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 79 +++++++++++++++++++
->  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 61 ++++++++++++--
->  2 files changed, 132 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index c721a90051e9..195dc3b4058d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -832,6 +832,58 @@ static int mes_v11_0_query_sched_status(struct amdgp=
-u_mes *mes)
->                         offsetof(union MESAPI__QUERY_MES_STATUS, api_stat=
-us));
->  }
+> v2:
+>  - Dropped the new jpeg_v5_0_interrupt.c/h files and Makefile changes.
+>  - Kept the interrupt routine in jpeg_v5_0_1.c but removed the 'static' m=
+odifier.
+>  - Declared the function prototype in jpeg_v5_0_1.h and included it in jp=
+eg_v5_0_2.c to call it directly, as suggested by Alex Deucher.
 >
-> +/**
-> + * QUERY_SCHEDULER_STATUS: get proc/gang context array sizes
-> + */
-> +static int mes_v11_0_query_ctx_array_sizes(struct amdgpu_mes *mes)
-> +{
-> +       struct amdgpu_device *adev =3D mes->adev;;
-> +       union MESAPI__QUERY_MES_STATUS mes_query_pkt;
-> +       int r;
-> +
-> +       if (!mes->ctx_array_size_cpu_ptr)
-> +               return -EINVAL;
-> +
-> +       /* Clear the output buffer */
-> +       mes->ctx_array_size_cpu_ptr[0] =3D 0;  /* proc_ctx_array_size */
-> +       mes->ctx_array_size_cpu_ptr[1] =3D 0;  /* gang_ctx_array_size */
-> +
-> +       memset(&mes_query_pkt, 0, sizeof(mes_query_pkt));
-> +
-> +       mes_query_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
-> +       mes_query_pkt.header.opcode =3D MES_SCH_API_QUERY_SCHEDULER_STATU=
-S;
-> +       mes_query_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-> +
-> +       mes_query_pkt.subopcode =3D MES_API_QUERY_MES__GET_CTX_ARRAY_SIZE=
-;
-> +
-> +       /*
-> +        * MES FW will write the array sizes to these GPU addresses:
-> +        *   proc_ctx_array_size_addr -> uint32_t N (e.g., 50)
-> +        *   gang_ctx_array_size_addr -> uint32_t M (e.g., 300)
-> +        */
-> +       mes_query_pkt.ctx_array_size.proc_ctx_array_size_addr =3D
-> +               mes->ctx_array_size_gpu_addr;
-> +       mes_query_pkt.ctx_array_size.gang_ctx_array_size_addr =3D
-> +               mes->ctx_array_size_gpu_addr + sizeof(uint32_t);
-> +
-> +       mes_query_pkt.api_status.api_completion_fence_addr =3D
-> +               mes->ring[0].fence_drv.gpu_addr;
-> +       mes_query_pkt.api_status.api_completion_fence_value =3D
-> +               ++mes->ring[0].fence_drv.sync_seq;
-> +
-> +       r =3D mes_v11_0_submit_pkt_and_poll_completion(mes,
-> +                       &mes_query_pkt, sizeof(mes_query_pkt),
-> +                       offsetof(union MESAPI__QUERY_MES_STATUS, api_stat=
-us));
-> +       if (r) {
-> +               dev_err(adev->dev,
-> +                       "MES QUERY_SCHEDULER_STATUS (GET_CTX_ARRAY_SIZE) =
-failed, r=3D%d\n", r);
-> +               return r;
-> +       }
-> +
-> +       /* MES has written the sizes - now set up bitmaps */
-> +       return amdgpu_mes_rs64mem_setup_bitmaps(mes);
-> +}
-> +
->  static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
->                              struct mes_misc_op_input *input)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h |  8 +++
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c | 63 ++----------------------
+>  3 files changed, 12 insertions(+), 61 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_1.c
+> index edecbfe66c79..46bcbecd89e8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> @@ -755,7 +755,7 @@ static int jpeg_v5_0_1_set_ras_interrupt_state(struct=
+ amdgpu_device *adev,
+>
+>
+>
+> -static int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
+> +int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
+>                                          struct amdgpu_irq_src *source,
+>                                          struct amdgpu_iv_entry *entry)
 >  {
-> @@ -1907,10 +1959,33 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_blo=
-ck *ip_block)
->         if (r)
->                 goto failure;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_1.h
+> index a7e58d5fb246..67346faecb47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h
+> @@ -108,4 +108,12 @@ enum amdgpu_jpeg_v5_0_1_sub_block {
+>         AMDGPU_JPEG_V5_0_1_MAX_SUB_BLOCK,
+>  };
 >
-> +       /* Allocate GPU buffer for array size query results */
-> +       r =3D amdgpu_mes_rs64mem_init(&adev->mes);
-> +       if (r)
-> +               dev_warn(adev->dev,
-> +                        "RS64 local memory init failed (%d), "
-> +                        "falling back to system memory path\n", r);
+> +struct amdgpu_irq_src;
+> +struct amdgpu_iv_entry;
+> +struct amdgpu_device;
 > +
->         r =3D mes_v11_0_set_hw_resources(&adev->mes);
+> +int jpeg_v5_0_1_process_interrupt(struct amdgpu_device *adev,
+> +                                       struct amdgpu_irq_src *source,
+> +                                       struct amdgpu_iv_entry *entry);
 > +
->         if (r)
->                 goto failure;
+>  #endif /* __JPEG_V5_0_1_H__ */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_0_2.c
+> index 285c459379c4..250e7f849037 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> @@ -34,6 +34,8 @@
+>  #include "vcn/vcn_5_0_0_sh_mask.h"
+>  #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
 >
-> +       /*
-> +        * QUERY_SCHEDULER_STATUS to get array sizes (N, M).
-> +        * MES writes the sizes to the GPU buffer, then we allocate bitma=
-ps.
-> +        */
-> +       if (adev->mes.use_rs64mem) {
-> +               r =3D mes_v11_0_query_ctx_array_sizes(&adev->mes);
-> +               if (r) {
-> +                       dev_warn(adev->dev,
-> +                                "Failed to query ctx array sizes (%d), "
-> +                                "disabling RS64 local memory\n", r);
-> +                       /* Continue without optimization - not fatal */
-> +               }
-> +       }
+> +#include "jpeg_v5_0_1.h"
 > +
-> +
->         if ((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D 0x52=
-) {
->                 r =3D mes_v11_0_set_hw_resources_1(&adev->mes);
->                 if (r) {
-> @@ -1948,6 +2023,10 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->
->  static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block)
->  {
-> +       struct amdgpu_device *adev =3D ip_block->adev;
-> +
-> +       if (adev->mes.use_rs64mem)
-> +               amdgpu_mes_rs64mem_fini(&adev->mes);
+>  static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev);
+>  static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev);
+>  static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_=
+block,
+> @@ -583,65 +585,6 @@ static int jpeg_v5_0_2_set_interrupt_state(struct am=
+dgpu_device *adev,
 >         return 0;
 >  }
 >
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v11_api_def.h
-> index b06412ac8583..dfc27be4454d 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -329,6 +329,7 @@ union MESAPI__ADD_QUEUE {
->                 uint32_t                    pipe_id;
->                 uint32_t                    queue_id;
->                 uint32_t                    alignment_mode_setting;
-> +               uint32_t                    full_sh_mem_config_data;
->                 uint64_t                    unmap_flag_addr;
->         };
->
-> @@ -358,6 +359,7 @@ union MESAPI__REMOVE_QUEUE {
->                 uint32_t                    tf_data;
->
->                 enum MES_QUEUE_TYPE         queue_type;
-> +               uint64_t                    timestamp;
->         };
->
->         uint32_t        max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
-> @@ -516,14 +518,57 @@ union MESAPI__SET_LOGGING_BUFFER {
->         uint32_t        max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
->  };
->
-> -union MESAPI__QUERY_MES_STATUS {
-> -       struct {
-> -               union MES_API_HEADER    header;
-> -               bool                    mes_healthy; /* 0 - not healthy, =
-1 - healthy */
-> -               struct MES_API_STATUS   api_status;
-> -       };
+> -static int jpeg_v5_0_2_process_interrupt(struct amdgpu_device *adev,
+> -                                        struct amdgpu_irq_src *source,
+> -                                        struct amdgpu_iv_entry *entry)
+> -{
+> -       u32 i, inst;
 > -
-> -       uint32_t        max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
-> +enum MES_API_QUERY_MES_OPCODE
-> +{
-> +    MES_API_QUERY_MES__GET_CTX_ARRAY_SIZE,
-> +    MES_API_QUERY_MES__GET_CAPS =3D MES_API_QUERY_MES__GET_CTX_ARRAY_SIZ=
-E,
-> +    MES_API_QUERY_MES__CHECK_HEALTHY,
-> +    MES_API_QUERY_MES__MAX,
-> +};
-> +
-> +enum { QUERY_MES_MAX_SIZE_IN_DWORDS =3D 20 };
-> +
-> +/**
-> + * Obsolete
-> + * to be removed once KMD stopped refering to it.
-> + * use MES_API_QUERY_MES__CAPS instead
-> +*/
-> +struct MES_API_QUERY_MES__CTX_ARRAY_SIZE
-> +{
-> +    uint64_t    proc_ctx_array_size_addr;
-> +    uint64_t    gang_ctx_array_size_addr;
-> +};
-> +
-> +struct MES_API_QUERY_MES__HEALTHY_CHECK
-> +{
-> +    uint64_t    healthy_addr;
-> +};
-> +
-> +struct MES_API_QUERY_MES__CAPS
-> +{
-> +    uint64_t    proc_ctx_array_size_addr;
-> +    uint64_t    gang_ctx_array_size_addr;
-> +    uint64_t    features_enablement_addr;
-> +};
-> +
-> +union MESAPI__QUERY_MES_STATUS
-> +{
-> +    struct
-> +    {
-> +        union MES_API_HEADER            header;
-> +        enum MES_API_QUERY_MES_OPCODE   subopcode;
-> +        struct MES_API_STATUS           api_status;
-> +        uint64_t                        timestamp;
-> +        union
-> +        {
-> +            struct MES_API_QUERY_MES__CTX_ARRAY_SIZE    ctx_array_size;
-> +            struct MES_API_QUERY_MES__CAPS              caps;
-> +            struct MES_API_QUERY_MES__HEALTHY_CHECK     healthy_check;
-> +            uint32_t data[QUERY_MES_MAX_SIZE_IN_DWORDS];
-> +        };
-> +    };
-> +
-> +    uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
+> -       i =3D node_id_to_phys_map[entry->node_id];
+> -       DRM_DEV_DEBUG(adev->dev, "IH: JPEG TRAP\n");
+> -
+> -       for (inst =3D 0; inst < adev->jpeg.num_jpeg_inst; ++inst)
+> -               if (adev->jpeg.inst[inst].aid_id =3D=3D i)
+> -                       break;
+> -
+> -       if (inst >=3D adev->jpeg.num_jpeg_inst) {
+> -               dev_WARN_ONCE(adev->dev, 1,
+> -                             "Interrupt received for unknown JPEG instan=
+ce %d",
+> -                             entry->node_id);
+> -               return 0;
+> -       }
+> -
+> -       switch (entry->src_id) {
+> -       case VCN_5_0__SRCID__JPEG_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[0]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG1_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[1]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG2_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[2]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG3_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[3]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG4_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[4]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG5_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[5]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG6_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[6]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG7_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[7]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG8_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[8]);
+> -               break;
+> -       case VCN_5_0__SRCID__JPEG9_DECODE:
+> -               amdgpu_fence_process(&adev->jpeg.inst[inst].ring_dec[9]);
+> -               break;
+> -       default:
+> -               DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+> -                             entry->src_id, entry->src_data[0]);
+> -               break;
+> -       }
+> -
+> -       return 0;
+> -}
+>
+>  static void jpeg_v5_0_2_core_stall_reset(struct amdgpu_ring *ring)
+>  {
+> @@ -749,7 +692,7 @@ static void jpeg_v5_0_2_set_dec_ring_funcs(struct amd=
+gpu_device *adev)
+>
+>  static const struct amdgpu_irq_src_funcs jpeg_v5_0_2_irq_funcs =3D {
+>         .set =3D jpeg_v5_0_2_set_interrupt_state,
+> -       .process =3D jpeg_v5_0_2_process_interrupt,
+> +       .process =3D jpeg_v5_0_1_process_interrupt,
 >  };
 >
-
-Presumably we need a firmware version check to determine when this is
-available?  What about mes 12?
-
-Alex
-
->  union MESAPI__PROGRAM_GDS {
+>  static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev)
 > --
-> 2.34.1
+> 2.43.0
 >
