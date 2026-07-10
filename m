@@ -4,97 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8837C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 16:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FC24C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 16:38:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A13310E122;
-	Fri, 10 Jul 2026 16:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A4C10E1FD;
+	Fri, 10 Jul 2026 16:38:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F+9mYWWj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B1m8RJFW";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CD910E122
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 16:14:21 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-3860f32307bso244358a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 09:14:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783700061; cv=none;
- d=google.com; s=arc-20260327;
- b=SY9eZo57+fl8QldfabKtVXdJbNqg6oeaTGD26R2Mu+jR/6Inz/qOcmf54vUR2ddZa7
- mso47XqPGx3g1hRVjJZpz7lNcvqXHZyh30Ak5FGuhUU49ZrzwQx5H/nX0zoQp8uydcxP
- lgT6UT4oSOPxcu8yskQ80Sf9b+HrgRonU9LqwsSDErU+XUBPz2rR+jHy/2nw9EB4vay6
- LR0hu4Q+ZIZ8g1Dg/ttcRPr4BzEGD1NZwdd6fyQUdc5ysIXiEBsfY4ke5QY6kdIQXdCe
- ZGBfhaPbecgzM0goYC3cSPZLYdJVhEjreJ/onG1guGPNSGoOU7i8LxMN/enFeqc198vz
- JleA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=flhsOLdf2bEoLY1hjHSk0IG78a7QjpvReXUQh5QFThU=;
- fh=mRkfYj+pHnxY2c3B7zQT7AzAyn6PmTnzI5TrKA85fdE=;
- b=OIl2yOTG5Q9wKJbM9dcyU6HFlf2LEXyPGsQKUbQ+6Fyx8IoJmrumIMWCxFJUKZOuVa
- Vb19nwEm7hYnntUXSvImiykQa1ZcApOXMIv7Voz5G1prMTQrfLpHshCDN15XQ9s83xGR
- GTKG6b2j2rWR+O7t1SmmyNTM3Rx52xJqODL1t9TdDavcP6mP+H8mgP3bv/OaxcVteiz9
- NeCFihkvnituWLlUkAwpmZY+PXBZkvhdG5KvXVwjyFMu6ahZ7BTvFNddG7m70QN1vRBW
- YuTHFNgUbnAroBWmkg6vRLzBEL+YA3bbkTdEL4B6eu0rawsQ2NjBZFb8oGY1acNdDFUC
- lCqQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783700061; x=1784304861; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=flhsOLdf2bEoLY1hjHSk0IG78a7QjpvReXUQh5QFThU=;
- b=F+9mYWWjZeRLAYLapOhXnxTMPRMAwh2yIvvulr/tqJMK5FnVUEFoQFx75qFEesZvcX
- B0aail7Lr9T4U5vsScGWXrCOjBC77yCGBmmJzQGN9ALWmvPfjfj0hx6IPBLpWk7ramkz
- a8ovurYHmnvYMFg9egG82HEJch+SJBA5UeTtaHY+qx4izRHCVI9hETClyvgr37MmJOO6
- 4YheilZ6ECWRF+Ia1MjJQfTrpMCHWjZ5DjWm9Itxof2cSAEawAIW/dQkLHdNjzfJ1KgC
- 6KWMHoAxY6lmziX3ZMIfptIi444WMwjotxA25uoYO8oYzbE/syZ1Si7USp+EdUxsNyfK
- UP6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783700061; x=1784304861;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=flhsOLdf2bEoLY1hjHSk0IG78a7QjpvReXUQh5QFThU=;
- b=pb6zFxjh7EPOxZGHSbnnjPw9Nkcowat4qbGXjz3+FcsRbmVmuSxvxuRRlWGxvtbypu
- KWb7Rz6TPISN7vm2PSpZ+M3Zm+zigpE4P1K9x5j819liUdx9KgklAo6l67E5WO77BuNh
- 0DUxbzFBqAmFBTePZpl6O1xjVMDxRpEkxRbuOFe9W6QCzQnaqdTzK3fhbUW8LPXmuoyu
- 2+96mAABolF/px/uWII+OWPvMPdb8bKe3TH7AkKAIUbLgAxUMYm4QK0GEsk9cJTGpftp
- wKWmbR2boTf0xfXapICmluiZqO70I1Z88ZCQyBhBcvAADCiw+dm3161umMBx6734lJot
- goZQ==
-X-Gm-Message-State: AOJu0Yyk8cro8m/ufMkW3i2X7y2bptepnZYjb3CXYzmTh8jKGxbrM3jt
- 88JweVRzEVRjfN7ZskucdswfuP1aRW5waIQsmV5ha3UT+H1fHAqoX+qAhnChZO9u2thO96X369j
- 8j/aB62D2qPNIuvZqaD57XjYPg0PhcW0=
-X-Gm-Gg: AfdE7ck2C6XTk47KE5nd0kXNw5Tyf36VDm1vXXkBrzVPDb09BCG+T0ScMHOwe0FzhjH
- AyaG8LCIydrAzhK2NnWxhnClaxCBiaxQ+QFtTeVBDYPSl9U0neYnDIYUwDUm/bYSSfE0D6FR8wK
- ubz38rqpZq0hLg6LVQS5QyrKPVzCNgXVLtqg1HJe8JBPRxo0MWOJO+ZJ6vmlahTfKpuIfqteaXF
- W7U6fHeiPtEswJq2UNz9wRMStMIpEnpwnMNvAqERFZjh1F5Ph1jmY3gRRlvpz8S++goXtyI11SA
- iMW97yCSnaY+nh7I4D6IHecDxU8fkRUQOui6RBqT87UdhQt1B6ZB+y9jdIw=
-X-Received: by 2002:a17:90b:4d12:b0:380:9cd1:d985 with SMTP id
- 98e67ed59e1d1-38a2160e57emr8415572a91.6.1783700060864; Fri, 10 Jul 2026
- 09:14:20 -0700 (PDT)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73AC610E1FD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 16:38:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CjdBceOpSlKwqL1m0IX6TPCgyZIZsnYjPEjyM+4ENqaDuicDsL1qhbHWLjZWM1FUiFP/gow2UZ7/uSWAhfsmIAmOPI7+Y2D/ZJ7S+wIvjDO1LPPKk+IKa0rV2Rfb/c2EYGf11AZjvDzN7RjSRE57c/1xfbE7Qxx0EBrPAIF5WvyeZ+aiD6k7QLPyf8rT4DxeHz8MPnWyzuZEFInR6gCcJWHFBYxKVXmdLlrEOYtgzn++yewv/cnLxNByKVdP2lDKZCClnJKzSBiW0QYMNySt+6v2mxgloIqsOjeXtY96b4h/zYIZ1CskxEENnNWcyLYV9s2TI1TqbNIx+FPlnRosbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a85cXa0GzM3UoK+5vHSkmL69ALO/3QuQImJO/SP3PD4=;
+ b=Cao/Nt1RaL68cUPbjj0ergLwzeOnbOjrTLqOyJGd3KCMTVbKnjPKMsMbW+r5897vRCGnoYMZnzMP0FY3XWkmItPRJ4BwChCXxT33G+sL3sRh5Bkg8oelEOVl2MP1PpMGuh5ctfeRuzI+SRktX5CkinrpTs19ont3YLWj5nUdZETu3+AhHsLP9Omcr5g9Kx7tJPAOfE+8LsI/vSXxMIlKoa5OcJLrq4BbBWmmNHM0MvvLe5bnNMToARO+VaJLWg9LGY3KzoK8edeyg3XAt9OigJqxFdcliTZp3yFnvZTH+6bCk80w0EPgAm56WyvMbEGYXVlLgbIPWN0AQ26j3IJAJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a85cXa0GzM3UoK+5vHSkmL69ALO/3QuQImJO/SP3PD4=;
+ b=B1m8RJFW4FMuMiPHc+ICAvfZTTiFhhuSzUQy0Mmh8TJ/5rnqrrVNIHcEYWXHt3QYrRHFMkBTJbpbxuoRJNowZxoPl4pFNrtNNEndV2vXfk2iDUbSQS1Nf4bsJtTjMcLrGxtynx/rLYeHGFL22ueFXsOheDgXc6nV2k5pP91NY+Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS0PR12MB9347.namprd12.prod.outlook.com (2603:10b6:8:193::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Fri, 10 Jul
+ 2026 16:38:03 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
+ 16:38:03 +0000
+Message-ID: <19ea22f8-06e8-4f46-959b-b3636fd8b07a@amd.com>
+Date: Fri, 10 Jul 2026 10:38:01 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Run FP-disabled MST stub test only
+ without DC FP
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ George Zhang <george.zhang@amd.com>, Roman Li <roman.li@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>
+References: <20260710143633.3227281-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260710143633.3227281-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7PR05CA0105.namprd05.prod.outlook.com
+ (2603:10b6:8:56::19) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-References: <20260529090909.13206-1-timur.kristof@gmail.com>
- <20260529090909.13206-2-timur.kristof@gmail.com>
-In-Reply-To: <20260529090909.13206-2-timur.kristof@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 12:14:09 -0400
-X-Gm-Features: AVVi8Cf055xQEFr6hl8Y-thqDy24Bg1Z5LLSgdMlTX2SoX75vppVskZ-Zj3ik2M
-Message-ID: <CADnq5_NjkHsDJa6NrZ4B23kRad90XYBwW936VAx1EokAvtt1Gw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: Add dp_skip_rbr flag for NUTMEG
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com,
- Alex Hung <alex.hung@amd.com>, 
- Ray Wu <Ray.Wu@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Chuanyu Tseng <Chuanyu.Tseng@amd.com>, 
- Roman Li <roman.li@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS0PR12MB9347:EE_
+X-MS-Office365-Filtering-Correlation-Id: f882c815-fe4a-4321-127d-08dedea19c93
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: MxJabTawff8cUmB60ekzPYiHtwaQfzlp7Y7mKqw3OV7QWk8+WrJfDgDALHpt1Z41FtidXiL5NWUQyTfE5J+M0it3nLQpFO7Rez3Z/jtibKKVt6MUZvt+DA18E13sEHuQfYcPJH1DbHfhR6a0UKoWSvtblIg2Saa+oPLw1tFl7/BmYrcR7Yi8kfEE83n1r3OOdkITm/Mlh8IM8H2kQ3Rvt46R5RDsIa6XVlz04PW3cu1yQA1pcqQbQXoD3tOCbwc1iGdSDKA0QqR09Zk5V1ynZGNHwP9ZF80AO93FnSbeczRIE0roMC6wa05iE9eiVwpj857VJHwKHchCD/VKLfutjhPT3XDT6j910matbmh/nG/u4ScbOvDG6kppatdHhfSA1EFkyu6GM/XgnaQ5ORSIaUA0IS+Bb2AF7Qr+ECjuqZJy8eUX1un+QGDZQNeou8ILPTyjkm7/3Nnwxloms2ogCuebiTf/YVuZOLJXjbUpksasF8MeoWRJEk0YssvKH4He7rlgZzTu6NrhfV1sXSEPy/GBGRZIc6dOZt/QE92oxkNudn2SdRnFC9UKmobpw/BcF5FTZuQbLQX7K2l1xIVrZgQpqRSpOHkCKEmYHjNfqHOXn05CB7Ozi3d15sNUguSUONR5PbB5F2yD9gjDNi/+nmh7ruwoVkXKxWK0G1CU64M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGEwTytzcVVLYWZ3aUtIMkhLUWdPd0VDbHJGeVBnNDkxSjlQZDN1TWJIb2VY?=
+ =?utf-8?B?VkVzbFN1SkZUM3J0ZFM4WVNnMkVHK3pKYlFmTHQ2d0RxbjJMcW9Mdk9KR2Ny?=
+ =?utf-8?B?S1MrYzl4djV3UVZSby9lWjZuZmMzZzFUUzQrclNzMk5sYXdkVUlBZDBxS3dU?=
+ =?utf-8?B?WGt4MHdNaXUvWkorbW9VTjBFS0w4ZzZBY0lmcEUxUjg3Q2pFRUdkNSs0TGk3?=
+ =?utf-8?B?OXZGcFpadjVBNHcxZ2ZmdFFHMWg2eDhEbkc1Rkk1WlppVWtWc0FNeHRHRVYv?=
+ =?utf-8?B?RWU2Mmdzd09zQXJqeHI2aTdIK1N3KzBGNG0xclZ0TjVkYWJOUXcra2ZEN0Vm?=
+ =?utf-8?B?bTJ4Zjd4VEpPeWpGRE5PV0FDa3hFTm52TkpLVGFKL3Y1VkJmVHU4NzBub2V1?=
+ =?utf-8?B?aE50VHFkSUNkVlFMcmtMRzJFN0REbGF1TzE5SnpiYWZxUms2UHdWK0V5eEVF?=
+ =?utf-8?B?UFh6VTRGZlpUdTNNOGRJRnJIZWNkbmRhRE40dmxUenpMQnArK0Y2S2V5U0xv?=
+ =?utf-8?B?Y2RhQ2t4UkE0WjFIenA0bEtRVFFKRzdUc3BCLzUvR1RQbjVsS3NzRkFpUXNZ?=
+ =?utf-8?B?WXpieFV2WkVkMzhHNlFKZWpkd3RwemdFdEdIQlpMTnZaK3VGSUhvbTBpYkRp?=
+ =?utf-8?B?SWpBcGRpWmR3Q3NWZnMyTmlNV3A2T0tXc1RFTWhGRHBhWHdjNnBuN24xTVUv?=
+ =?utf-8?B?ai8wd2RYY3U4L3kyRXd6UWpEV1RHUkNIenVZcHZwZHdtMGdvVFNQK2hSZldX?=
+ =?utf-8?B?MUJrdnVIYkEyY2E3M0ptQkdORFZ4TFFQS0NOREU2RWpRVXhuaGFsN3BnZ0Jz?=
+ =?utf-8?B?eVBMK2NUNndKR29JeS9DRmVDU1JUSmFVVlZDeUw4TnRLS0pUZTZZckdaSEJJ?=
+ =?utf-8?B?VVl5bXdSdjc0M0FMQThpYWxJNzdFVjdqMExJNGZxak9qWGhGbTN5eUFua0ti?=
+ =?utf-8?B?U28wWHhmMmN3ZENZMTZoRGRyTU9FYVUxVG1sMVEySm9KeGMxb09LMkZUMVBK?=
+ =?utf-8?B?b2FlUHJJVjZRVEY1UU9Hc2JjT1FhRVdObGFVdm1XSWRzeFA3aXBFSDJQVUpN?=
+ =?utf-8?B?S2dWSVk5SldWbDhnMXRjdWVzTXlhZ2drbklRTmVVM2k1VCtONzhBUXBWcWJN?=
+ =?utf-8?B?K1RmSGgrRWJxbndpNlJzVDlaZGRLaXJwZWxGZDBMQUl6NDI2SDU5S01FWDBG?=
+ =?utf-8?B?NjVSTWpiSFVsSm1ZTFI2azkvamdqTk1Yc0xmL1FsSm5SczlncmZFeUdsSmRh?=
+ =?utf-8?B?QzBpYUhOWUc2SkV0UVk1QkNrZ2FqbzlKWWV6TnZiSEZDbGs0KzlxSWJuUFhn?=
+ =?utf-8?B?ajh1d2R2bEhGakhxc0d1SHNZdGszS0FUY24vVHpXVXRUOHg4R3ViaFlFbHF2?=
+ =?utf-8?B?bnN3NVRFcTBMSjc1RFA3Sm9FOHd4M1pkdDFKMTN6Y0Myd0tnam5YR2JJN09v?=
+ =?utf-8?B?NU94UmhGMEIxbHd6Y1RxK0UwTzBmRkRxQU44TFQ5ZlRNVUtmVFZPR21OQmtF?=
+ =?utf-8?B?bHBQUndtTU5GVGZMN3h1QkU4SktNanJhcHpyWG9pSUlJVHdhSG5Cckd2WkdT?=
+ =?utf-8?B?SEY3R0ZNRlg1T2ZwRjVuODJHcVFUNHRXbjU3bGhKam5DRzNIMUwzZi9LNWxh?=
+ =?utf-8?B?RXNuU0VGSjczL0VUZTNSZ1oveXhYSDRGa1hCeDh5eitwRmNqai9aWkEwNzBi?=
+ =?utf-8?B?MVBXeDdCYTlVcjg4WnRkbDFWcUFRdFVHbG9zeFQ0WlZiTm1RWUJKN1FmVlpy?=
+ =?utf-8?B?NnYyU1ZlK2pRWnREcmlMblN5Qll5ZEJmUjJYaTFmbDA0djNIdDIrMWRuU2s4?=
+ =?utf-8?B?ZU1DS2hhUDVpVEJIZjRndXFuSHJRS1hJZkpwYy91RUZ3TGRTY2hLQ2xQeU10?=
+ =?utf-8?B?RVh3bWJPQ0pVaWpZODQwY0o3VTQyWTlWWkFCTnFKeXd6WEgrSTFaaVBlcHRp?=
+ =?utf-8?B?NFZVdmR5Tm0rTkhIWXZtWmV2c3ROaVF2M2k3NTVxaGM0UndhSzVHZnJzR2pl?=
+ =?utf-8?B?MWJLUERsekpTNXAxNTVFcTl0Q0FHdWNyU1h2RUgrSWtXN2dzMURXcXQzSGFC?=
+ =?utf-8?B?NGFBRUsvYmxnN2JnSWJmcHBzcHVQbEUrZFRnSG5PNzdEalNMWWx2WVFSTVB4?=
+ =?utf-8?B?dXV4K2RHYm14ZU9OcXZLbm4zZ3VEUVFLQW4zWFZhWVlTZEdrVWdCck5GK2dr?=
+ =?utf-8?B?VVBIbGZLSWRMTXJGMDAxSzV3c2QvdnNBb0pzc09mV3hYMHo0eHpvcVQzd0pz?=
+ =?utf-8?B?c2hRcFVwVEJTUEJKK2QycHNpcVVmZ1ExS2ZVWmhwQTBBMWU1aHZBQTJkWEFi?=
+ =?utf-8?Q?e5M5YyZ40h0jKwpRVL?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f882c815-fe4a-4321-127d-08dedea19c93
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 16:38:03.2772 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d1kDoIno3FQrkn0SMaqeHQ/dX5suB6lvAhyL3pzcg3LpjahrmWkZtgnJpoLPPWUFiUZ6oqKuulM736RmD1lm1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9347
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,87 +138,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-Alex
-
-On Fri, May 29, 2026 at 5:34=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> No functional changes. Just clean up a conceptual mismatch.
->
-> Based on feedback on the NUTMEG code in DC, the
-> preferred_link_setting is meant to force the DP link to a
-> specific setting, meaning both the link rate and lane count
-> should be locked to an exact value. What NUTMEG needs is
-> a lower bound on the link rate, which is not the same concept.
->
-> Implement this as a HW workaround flag instead.
->
-> Suggested-by: Wenjing Liu <wenjing.liu@amd.com>
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+On 7/10/26 08:36, Srinivasan Shanmugam wrote:
+> dm_mst_test_fp_guarded_public_stubs() passes NULL arguments to
+> dm_dp_mst_is_port_support_mode() to test the stub implementation when
+> CONFIG_DRM_AMD_DC_FP is disabled.
+> 
+> However, this test is always registered. When CONFIG_DRM_AMD_DC_FP is
+> enabled, the real implementation is used instead of the stub. The real
+> implementation expects valid pointers, so passing NULL can lead to a
+> NULL pointer dereference.
+> 
+> Register this test only when CONFIG_DRM_AMD_DC_FP is disabled.
+> 
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: George Zhang <george.zhang@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dc.h                         | 2 ++
->  drivers/gpu/drm/amd/display/dc/link/link_detection.c        | 2 +-
->  .../drm/amd/display/dc/link/protocols/link_dp_capability.c  | 6 +++---
->  3 files changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/di=
-splay/dc/dc.h
-> index 75f59ca927ffe..3fb97860722df 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -1731,6 +1731,8 @@ struct dc_scratch_space {
->                 bool dp_skip_DID2;
->                 bool dp_skip_reset_segment;
->                 bool dp_skip_fs_144hz;
-> +               /* Some DP bridges don't work with RBR and must use HBR. =
-*/
-> +               bool dp_skip_rbr;
->                 bool dp_mot_reset_segment;
->                 /* Some USB4 docks do not handle turning off MST DSC once=
- it has been enabled. */
->                 bool dpia_mst_dsc_always_on;
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drive=
-rs/gpu/drm/amd/display/dc/link/link_detection.c
-> index 1ac6a22fecfee..9f4e90493fed5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -621,7 +621,7 @@ static bool detect_dp(struct dc_link *link,
->                 link->dpcd_caps.sink_count.bits.SINK_COUNT =3D 1;
->                 /* NUTMEG requires that we use HBR, doesn't work with RBR=
-. */
->                 if (link->dpcd_caps.branch_dev_id =3D=3D DP_BRANCH_DEVICE=
-_ID_00001A)
-> -                       link->preferred_link_setting.link_rate =3D LINK_R=
-ATE_HIGH;
-> +                       link->wa_flags.dp_skip_rbr =3D true;
->         }
->
->         return true;
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capabi=
-lity.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> index f44c13300a59c..708dd6f336d8c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> @@ -750,9 +750,9 @@ static bool decide_dp_link_settings(struct dc_link *l=
-ink, struct dc_link_setting
->         if (req_bw > dp_link_bandwidth_kbps(link, &link->verified_link_ca=
-p))
->                 return false;
->
-> -       if (link->preferred_link_setting.link_rate !=3D LINK_RATE_UNKNOWN=
-) {
-> -               initial_link_setting.link_rate =3D link->preferred_link_s=
-etting.link_rate;
-> -               current_link_setting.link_rate =3D link->preferred_link_s=
-etting.link_rate;
-> +       if (link->wa_flags.dp_skip_rbr) {
-> +               initial_link_setting.link_rate =3D LINK_RATE_HIGH;
-> +               current_link_setting.link_rate =3D LINK_RATE_HIGH;
->         }
->
->         /* search for the minimum link setting that:
-> --
-> 2.53.0
->
+>   .../amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c    | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+> index 3f591e3914d9..666fd2ad903e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+> @@ -1015,6 +1015,7 @@ static void dm_mst_test_detect_unregistered(struct kunit *test)
+>   			(int)connector_status_disconnected);
+>   }
+>   
+> +#if !defined(CONFIG_DRM_AMD_DC_FP)
+>   /**
+>    * dm_mst_test_fp_guarded_public_stubs - Test FP-off public fallbacks
+>    * @test: KUnit test context
+> @@ -1027,6 +1028,7 @@ static void dm_mst_test_fp_guarded_public_stubs(struct kunit *test)
+>   	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(NULL, NULL),
+>   			(enum dc_status)DC_OK);
+>   }
+> +#endif
+>   
+>   static struct kunit_case dm_mst_types_test_cases[] = {
+>   	/* needs_dsc_aux_workaround tests */
+> @@ -1077,7 +1079,9 @@ static struct kunit_case dm_mst_types_test_cases[] = {
+>   	/* dm_dp_mst_detect tests */
+>   	KUNIT_CASE(dm_mst_test_detect_unregistered),
+>   	/* CONFIG_DRM_AMD_DC_FP disabled public paths */
+> +#if !defined(CONFIG_DRM_AMD_DC_FP)
+>   	KUNIT_CASE(dm_mst_test_fp_guarded_public_stubs),
+> +#endif
+>   	{}
+>   };
+>   
+
