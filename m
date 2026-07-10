@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1A65C4450D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 962F6C4450C
 	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C7B10E4C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE4810E4BB;
 	Sun, 12 Jul 2026 15:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=murena.io header.i=@murena.io header.b="2lJg0bz7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PjQVa5HZ";
 	dkim-atps=neutral
-X-Greylist: delayed 469 seconds by postgrey-1.36 at gabe;
- Sat, 11 Jul 2026 19:43:03 UTC
-Received: from mail3.ecloud.global (mail3.ecloud.global [135.181.139.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B86910E0A3
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jul 2026 19:43:02 +0000 (UTC)
-Received: from authenticated-user (mail3.ecloud.global [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail3.ecloud.global (Postfix) with ESMTPSA id 994B6883824;
- Sat, 11 Jul 2026 19:35:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail3;
- t=1783798511;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QJ78cX5XhC2JGOtn0+rOIAZ6Qt08IpVtPC1zY7SfI3o=;
- b=2lJg0bz78nUSBHePrHSlMDhb2Z9iv+zrFvBV0qEtKoZeNvkpwfv5lzzA8mX8uhMC3o2AxF
- Xk8UPS8QJabfJYiQrjR9St2WFU+E/GiZ3R/dxMGekptYyIH/6HOP7fO04og8NVhJOclEB3
- Q5GyNPj0cVgPlDw71Y4U+qG8HSMwU/s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
- s=mail3; t=1783798511;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QJ78cX5XhC2JGOtn0+rOIAZ6Qt08IpVtPC1zY7SfI3o=;
- b=kWWI4e0tpln3TX7uPy/nctgHS64TM2QROzUARQYbiCZE+eYtc/XNWVZ1/TK3JWTO3ARrvm
- t4zOaXa0qvDjcfYfzgls7yu0FupGnxodSom/L/ci0EHAf+AR2X3b4oHCo0CwdfZJsQCJ7x
- HeR20LU+5bL3rDc34YfRXd0WI0bc+p0=
-ARC-Authentication-Results: i=1; mail3.ecloud.global;
- auth=pass smtp.mailfrom=lionso@murena.io
-ARC-Seal: i=1; s=mail3; d=murena.io; t=1783798511; a=rsa-sha256; cv=none;
- b=A2fc5yr+2syBcEqMvEu7oMqfEnB0Vnfuonrh7F2+Q1zIi/Rt9jjUeEfqIdOMzi0QW6WcID
- etqRafpnGavM3j7fkgMio0y/WPTrN1PMYMXaf3rpUqn2MrVABIYI9iWSNy+rb3WYvt1CWu
- oPyoHZA++J5T9hL+Pqy/L2PzagklngU=
-From: Lionso Alejandro Pacheco Vacacela <lionso@murena.io>
-To: Timur =?utf-8?q?Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Fix preferred link rate for NUTMEG
-In-Reply-To: <20260529090909.13206-1-timur.kristof@gmail.com>
-References: <20260529090909.13206-1-timur.kristof@gmail.com>
-Date: Sat, 11 Jul 2026 14:35:07 -0500
-Message-ID: <178379850751.8410.12007342378134020217@murena.io>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1CA610E225;
+ Fri, 10 Jul 2026 20:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:To:From:Date:Sender:Reply-To:Cc:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=nWMCsn7SL/siBSwB6UFwJByxu9dJFWCvNa6O7mKClts=; b=PjQVa5HZ6snuoLqG0zl1RrpsCw
+ lmhc62ysduDhxb5jFmj/T8iWuODj6/htZLn2UsW7tjb2rDF6dHa9/TrpBLjiB2H7yfAbcl5DfnFSv
+ TcGIbQ17C51PQPiaL8POp+uRLfkc8Nyk118pTdH4pmMBJMd/Se26ElfeXESqEAyyjVutHSa5n9LuM
+ qw8tCJPz7l+UGQ4lbh4GsQnCZJIFx279fwPkb9+3pvy1ijjnZCX6sOk1fQ19eJixU0zpLgVRjNmrR
+ 0Vla1DIImsjBvkaYNXcjZpZb3Cvf4jvN+i7znXE5CdjYIBVF5Yhuqs8QEcxumrC4bgp3e69JLTC8j
+ /nm5RqHA==;
+Received: from 179-125-92-221-dinamico.pombonet.net.br ([179.125.92.221]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wiHUM-00D82X-CH; Fri, 10 Jul 2026 22:06:22 +0200
+Date: Fri, 10 Jul 2026 17:06:15 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v2 7/7] tests/dmem_cgroups: add test for dmem.current
+Message-ID: <alFQt8d8we7nFztu@quatroqueijos.cascardo.eti.br>
+References: <20260702130108.1397444-1-cascardo@igalia.com>
+ <20260702130108.1397444-8-cascardo@igalia.com>
+ <20260707110740.5tublsdxxxsp222u@kamilkon-DESK.igk.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260707110740.5tublsdxxxsp222u@kamilkon-DESK.igk.intel.com>
 X-Mailman-Approved-At: Sun, 12 Jul 2026 15:22:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,37 +71,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, Jul 07, 2026 at 01:07:40PM +0200, Kamil Konieczny wrote:
+> Hi Thadeu,
+> On 2026-07-02 at 10:00:58 -0300, Thadeu Lima de Souza Cascardo wrote:
+> > Based on the work of Thomas Hellström to test dmem.max eviction, add a test
+> > for dmem.current usage after allocations and setting dmem.max.
+> > 
+> > Create a dmem cgroup, allocate close to capacity (or at most 4GiB), check
+> > current usage is within a small slack of the expected allocation.  Then,
+> > set max to a small value and check allocations and current usage are
+> > limited to the max set.  Set max to 0, then check no allocations are
+> > allowed and current usage is also within the slack.  After each allocation,
+> > release memory and check current usage has gone down.
+> > 
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > ---
+> >  tests/dmem_cgroups.c | 245 +++++++++++++++++++++++++++++++++++++++++++
+> 
+> Why two tests? dmesm_cgropus and cgroups_dmem?
+> Why not only one? This is confusing.
+> 
+> Regards,
+> Kamil
 
-I independently hit this regression on a desktop Kaveri system and can
-confirm this patch fixes it:
+Agreed. This is the result of cgroups_dmem being present in the original
+patchset and the other test being Xe specific. The Xe specific test is now
+replaced by what I initially called drv_dmem_cgroups, but I ended up
+renaming dmem_cgroups.
 
-  - AMD A10-7850K (Kaveri, DCE 8.1), MSI A68HM-E33, VGA monitor on the
-    onboard output (NUTMEG DP-to-VGA bridge)
-  - Debian kernel 7.1.3 (amdgpu.cik_support=1): VGA monitor receives no
-    signal from KMS takeover on; dmesg shows
-    "[drm] enabling link 2 failed: 15" (DC_FAIL_DP_LINK_TRAINING).
-  - Applying just this patch (1/2) on top of v7.1.3 restores VGA output
-    with DC enabled: the link trains, the CRTC comes up at 1360x768@60,
-    and the fix survived three consecutive reboots.
+I will merge them all into cgroups_dmem and send a v4.
 
-Tested-by: Lionso Alejandro Pacheco Vacacela <lionso@murena.io>
-
-Two notes:
-
-1. The Fixes: tag references b74322eea36b, but that hash does not exist
-   in mainline â€” it looks like an amd-staging-internal id. In Linus'
-   tree the offending commit is:
-
-     a62346043a89 ("drm/amd/display: Fix coding style issue")
-
-   It would be good to correct this before the patch is pushed so the
-   stable tooling can resolve the dependency.
-
-2. Since the offending commit shipped in v7.1, could this be annotated
-   Cc: stable@vger.kernel.org # 7.1.x (or nominated for 7.1.y once it
-   lands in mainline)? Every Kaveri/Kabini/Mullins system with a VGA
-   monitor loses display output on release kernels.
-
-Thanks,
-Lionso
+Thanks.
+Cascardo.
