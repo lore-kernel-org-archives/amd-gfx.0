@@ -4,83 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CDDC44508
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 661A6C44506
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E73EB10E4A4;
-	Sun, 12 Jul 2026 15:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE4410E4B0;
+	Sun, 12 Jul 2026 15:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lVnFU9G7";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="mClY73mw";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6033C10F90E
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 14:12:33 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-475881b9a4bso961351f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 07:12:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783692752; x=1784297552; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Xhl6wcIfeq3/MF7j47x/uRNfsJyo1U6JRMUP7xPRhDU=;
- b=lVnFU9G7/OOXvka44En+CtDpGbHnPZ4sxbbOuxLKwJm9qAAkq6zb7lDdBUrV0SGM54
- CSXMrWJv6+1Wmc8pMpn8kMljEqUBjM0e2Zix4aWBxotiBQNcoU403hpexLOgKqD6osjQ
- tbmH7TJltA0Yq1jdN9etgVPn3DhZLy/Gkp7W/98DEpsfOvTbeg68u5pxNQKWfbdRpWDF
- DpZjKRQZax7q7gWCrm8ctk9w6Am8qO2wfCwZwfS/P35H3MBAHQqD9vd5xG+STSITmvKh
- +PvIB+QOqhUP04Hb1PYXdAL0Pv4PQk7LcYjE04n1WMLG3NTi7hghvO/leyFdXsiU25Ox
- 1rTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783692752; x=1784297552;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Xhl6wcIfeq3/MF7j47x/uRNfsJyo1U6JRMUP7xPRhDU=;
- b=Kzer6geQFxLlZomuq6XyOnUaCFkEbqL9SfXMIrGIh+Xptkgzb4CswC+NWEQFS1m43i
- ieITrbngE8SyrS/9Empj+LwPh8wHsrmQWoQhBXupHkiRyjunLwsGEy8cCUHL/tEKgakH
- 0Rv1NO7/FKP5l2AvJV1rSORs8kqITlGGiTC81SxXoA1n7/j+4RuDvtIqrg/6yFT/SoXn
- KCvmIWpjHov/oA6Rxta66a/4PN+D6sWkhG1xr1qbqWVXcY2DMhCaRmCRMFr9P32aEt4Q
- kpAXTmtAAUjmEvMRdwTNpZA/F/kEjO7GV11OOfkklMMphpBwiZnDzciVcX9eJQjfcqe1
- 7Emw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RomKU2JwsajSwQxWLBNgO9brbUML8NK4UrBvi76N03vH8Zp3Z60QN1KchfqBO1TpGNSiRXeVIfe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqlxcZayE25GB4OA1H4WqqC1awBQW3gzh8eRxzplBofdBQhAg3
- 8X1dpg3pS2+7ElBXGI5rpA4VJH8Vb4B73h6sSDWV7WzoQ3DDL4F+4Ba0
-X-Gm-Gg: AfdE7cnKRZc/K7cWRmuRekEMYV3+qzW0g5vVXzbuja8GyK52VoSwau+d37Ooko0u9xu
- 4a7IuHmOFZy19Cdqh7KqK0pgJwcHP4cSSsASu4dDZbGtstcyUsENxptH2SxqmU0CpgdE3szO+Ir
- Fjq0OW3iU5XEePDocrDDhU5DPzQY3mSWklkZfBLQyqjMKZnyADeJw2nwmGI3U+RhkxfM0gwEl/X
- nPTSgiMNnKNph8oJRxxSZBWxgC0b09KK9gWtU212aNUuI35PZA1A84GVSwZlYWZBY9VgkLBngRZ
- jnPBjxt0xDjenNJJ8X7xOncJaQR24YHRnPlOCHTl1YLWTV8zp6fDByiTSZvyPzBaCqU/XgDKrna
- iqu7OBbiL7V1/piAIbsfDVKdLzqLW5QQB4SpmfLhnXYxPMPLOC6UAO3QmwqrOHw74R9hUHDQzkG
- RdugpYRxXP4sdAWnNXm2k=
-X-Received: by 2002:a5d:584e:0:b0:474:64bf:8fb6 with SMTP id
- ffacd0b85a97d-47df0762073mr13286605f8f.39.1783692751669; 
- Fri, 10 Jul 2026 07:12:31 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6da9sm59788170f8f.12.2026.07.10.07.12.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 07:12:30 -0700 (PDT)
-Date: Fri, 10 Jul 2026 17:12:27 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: Do not fail process debugfs setup on debugfs
- errors
-Message-ID: <alD9y0YBjo5_pJnh@stanley.mountain>
-References: <20260710112938.3225738-1-srinivasan.shanmugam@amd.com>
- <04d7a46f-3bba-412d-bfd4-89292d11e1db@amd.com>
- <alD6PcLowqjVBnSl@stanley.mountain>
- <a44c0a8c-e3b1-4013-8a36-4fa3f44d023d@amd.com>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306E410F801;
+ Fri, 10 Jul 2026 08:01:38 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66A7mJlo4024913; Fri, 10 Jul 2026 08:01:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=TRuwl8
+ 6BGWpU1jU8guWAWBH8ZYVteU8GtSs4ecwEwWc=; b=mClY73mweHu5ygEi9BG5GP
+ C0Ku4aPCymlqXbMQVpPqdi1OGQ4em6CUOBfNKkuZQoKSn1hAdszLX9S+EEpeqdKo
+ RItd6Eay1jiYW9QHiHGqA6neUhkdKaAnKDxr61b6TRm2i7esjA4Q/CW0T/Kx32kC
+ +BHtFelrZt1VsM66Xi6FxMsydCGfgfBmvWHRQmQ9iy69vdxCNOXBnv/ysD+bub91
+ /b/vD/bFhX4D+0VEjnaVgEIamRIJH+ZvjJ0V3N+HlH1fHrP5kqhKas19c+nfTHYQ
+ jueBM4ZvhP17ECp7bmxuQhqoss2yfk73sL8FPg9Aol3HvnFC4eILtH7BKRw/RB2A
+ ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6rke5wjf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jul 2026 08:01:29 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66A7oVtj015623;
+ Fri, 10 Jul 2026 08:01:29 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7cvwh7rg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jul 2026 08:01:29 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
+ [10.39.53.232])
+ by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66A81Shq29491918
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 10 Jul 2026 08:01:28 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 488A45805F;
+ Fri, 10 Jul 2026 08:01:28 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7D87158063;
+ Fri, 10 Jul 2026 08:01:23 +0000 (GMT)
+Received: from [9.61.248.61] (unknown [9.61.248.61])
+ by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Fri, 10 Jul 2026 08:01:23 +0000 (GMT)
+Message-ID: <14e618d3-34ea-4bc9-b9a8-3783e2b61e0a@linux.ibm.com>
+Date: Fri, 10 Jul 2026 13:31:21 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a44c0a8c-e3b1-4013-8a36-4fa3f44d023d@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] drm/amd/display: amdgpu_dm_plane_test.ko fails to
+ build due to modpost "too long symbol"
+Content-Language: en-GB
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+To: Randy Dunlap <rdunlap@infradead.org>, amd-gfx@lists.freedesktop.org,
+ bhawanpreet.lakha@amd.com
+Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ george.zhang@amd.com, bhawanpreet.lakha@amd.com,
+ LKML <linux-kernel@vger.kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, broonie@kernel.org,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>, alex.hung@amd.com
+References: <fde3656e-9e22-4e4c-937f-7e8cb918da6b@linux.ibm.com>
+ <54f6efe8-cab8-4fc8-bf00-f012b3224e54@infradead.org>
+ <85931e07-60eb-4df2-bc52-773c63f27f6c@linux.ibm.com>
+In-Reply-To: <85931e07-60eb-4df2-bc52-773c63f27f6c@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=M7J97Sws c=1 sm=1 tr=0 ts=6a50a6da cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=e5mUnYsNAAAA:8 a=VnNF1IyMAAAA:8 a=zd2uoN0lAAAA:8 a=SLFSCceQY6lPwsTqLRcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA3NCBTYWx0ZWRfX0AAz39XYJ6br
+ n52g+n7Uo0O666+XoQaqT01MESVilyVfzB9EckxfkLdYYhrmdgDknmzSQEEw/KIxGXXKqBtsB/t
+ dGGV0mEOq6Cmbvylx+JSoldV37g/rw+CT3LQRzuDeVokTtdCVfGkRs00pVx3HtLj5lHY1EjLsNu
+ 5VZYmRipvW/dM9iMAQy2j90mtwYBL+NOUTx3K9esWwQ2aI6rRkXDPWXzejPjJRS19NkDRgKLJWx
+ AUw7aZF4oC3imGw2mQySKp4fX9gusais46kLZn6YPhZ5yGtj1YJk5udZjE+5cW5RfmClt3kpZGp
+ 9+jKJlcUuOJvE0NJmr0JPgsPptIjERblN6WlYL2CEl4uzftyTicDblolJxgrLowwZIDZ9cGUWA/
+ 25DdxQ8NZEXcsNU8OqMUGG8oPLEpj1MOHrjc6BqSQ380cPh6gbW6csel6BVMxyYaUh8Xm3kKQDS
+ tXs6X2gQ1wS2+o0XCiw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDA3NCBTYWx0ZWRfX4zeUO8LDexsE
+ LK91sct/bPYvGcJlWMIUXQOTWmvZ7kZVyRXT3N8y6difVQNfCag8hiMAszJiuw2Aur1iWXBYIHb
+ IHTPoG3+zRq2x3spELlG9FZAvfmXFpM=
+X-Proofpoint-GUID: uZ-waZZZpH3XZhpfD9ErbABEoYWmFnVG
+X-Proofpoint-ORIG-GUID: uZ-waZZZpH3XZhpfD9ErbABEoYWmFnVG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-10_02,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1011 adultscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100074
 X-Mailman-Approved-At: Sun, 12 Jul 2026 15:22:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,64 +122,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 10:08:11PM +0800, Zhu, Lingshan wrote:
-> On 7/10/2026 9:57 PM, Dan Carpenter wrote:
-> 
-> > On Fri, Jul 10, 2026 at 09:47:32PM +0800, Zhu, Lingshan wrote:
-> >> On 7/10/2026 7:29 PM, Srinivasan Shanmugam wrote:
-> >>
-> >>> debugfs is intended for debugging only, and failures to create debugfs
-> >>> entries should not affect normal operation.
-> >>>
-> >>> Remove the check for debugfs_create_dir() in kfd_debugfs_add_process().
-> >>> If debugfs entries cannot be created, continue without them instead of
-> >>> reporting an unnecessary error.
-> >>>
-> >>> Fixes: 22ab1bb3994a ("amdkfd: expose pasid of secondary contexts by debugfs")
-> >>> Reported-by: Dan Carpenter <error27@gmail.com>
-> >>> Cc: Zhu Lingshan <lingshan.zhu@amd.com>
-> >>> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> >>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> >>> ---
-> >>>  drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 4 ----
-> >>>  1 file changed, 4 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-> >>> index 02673f01b448..7c5bc9c4559a 100644
-> >>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-> >>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-> >>> @@ -211,10 +211,6 @@ int kfd_debugfs_add_process(struct kfd_process *p)
-> >>>  		entry->proc_dentry = debugfs_create_dir(name,
-> >>>  							primary_entry->proc_dentry);
-> >>>  	}
-> >>> -	if (IS_ERR_OR_NULL(entry->proc_dentry)) {
-> >>> -		ret = entry->proc_dentry ? PTR_ERR(entry->proc_dentry) : -ENOMEM;
-> >>> -		goto err_free_entry;
-> >>> -	}
-> >> We need this check because debugfs_create_dir() may fail.
-> >> Removing this check leads to entry leaking when fail.
-> >>
-> > Debugfs functions aren't supposed to be checked.  Drivers aren't
-> > supposed to rely on debugfs so it's not required.  If debugfs is
-> > failing then you are pretty much screwed anyway.
-> >
-> > I have a blog about the history of this:
-> > https://staticthinking.wordpress.com/2023/07/24/debugfs-functions-are-not-supposed-to-be-checked/
-> >
-> > This code is inside #if defined(CONFIG_DEBUG_FS) so the check
-> > isn't harmful except that it sets a bad example.  Back in the day,
-> > this used to be a source of pain for me so Greg made it hard to
-> > write a correct check unless you have the #ifdef.  It's to
-> > discourage checking.
-> 
-> Thanks Dan for the background, then how do we prevent the entry leaking if we do not check debugfs_create_dir?
 
-We just don't worry about it.  If that happens, you probably are going
-to need to do a kernel upgrade or replace your ram or something.  A
-small leak is the least of your worries.
+On 10/07/26 10:45 am, Venkat Rao Bagalkote wrote:
+>
+> On 09/07/26 11:53 pm, Randy Dunlap wrote:
+>>
+>> On 7/7/26 10:05 PM, Venkat Rao Bagalkote wrote:
+>>> Greetings!!!
+>>>
+>>> linux-next is failing to build for me with:
+>>>
+>>> ERROR: modpost: too long symbol
+>>> "amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
+>>> [drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_plane_test.ko] 
+>>>
+>>>
+>>> make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
+>>> make[1]: *** [Makefile:2165: modpost] Error 2
+>>> make: *** [Makefile:248: __sub-make] Error 2
+>>>
+>>> The failure occurs during modpost while building:
+>>>
+>>> drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.ko
+>>>
+>>> This appears to be a regression in the AMD display KUnit test code.
+>>>
+>>> Could someone please take a look?
+>>>
+>>>
+>>> If you happen to fix this, please add below tag.
+>>>
+>>> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+>> Hi,
+>> I cannot reproduce this when using gcc v15.3.0.
+>>
+>> Which compiler & version are you using?
+>>
+> Hello,
+>
+> I am seeing this across below mentioned gcc version.
+>
+>
+> gcc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)
+> gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-11)
+> gcc (GCC) 12.2.1 20221121 (Red Hat 12.2.1-7)
+>
+>
+> Attched is the .config file.
 
-This is the answer that Greg told me back in the day.
+Git bisect is pointing to below commit as first bad commit.
 
-regards,
-dan carpenter
 
+# git bisect bad
+2b147895be109e0860269a7a72c697cdf049a885 is the first bad commit
+commit 2b147895be109e0860269a7a72c697cdf049a885 (HEAD)
+Author: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Date:   Fri Jun 12 16:12:21 2026 -0400
+
+     drm/amd/display: Add kunit tests for amdgpu_dm_plane
+
+     Add kunit tests for some functions in amdgpu_dm_plane.
+
+     Assisted-by: Copilot:Claude-Opus-4.8
+     Reviewed-by: Alex Hung <alex.hung@amd.com>
+     Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+     Signed-off-by: George Zhang <george.zhang@amd.com>
+     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  115 
+++++++-----
+  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   51 +++++
+  drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile  |    2 +
+  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c | 
+1204 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  4 files changed, 1325 insertions(+), 47 deletions(-)
+  create mode 100644 
+drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
+
+
+# git bisect log
+git bisect start
+# status: waiting for both good and bad commits
+# bad: [5c73cd9f0819c1c44e373e3dabb68318b1de1a12] Add linux-next 
+specific files for 20260707
+git bisect bad 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
+# good: [8cdeaa50eae8dad34885515f62559ee83e7e8dda] Linux 7.2-rc2
+git bisect good 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+# good: [aac7863446a8e0cf380f4a5087bc3cdc9b8c14c0] Merge branch 'master' 
+of https://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
+git bisect good aac7863446a8e0cf380f4a5087bc3cdc9b8c14c0
+# bad: [fe28d02cde5372d7f71cc6132ccdef37a98ac750] Merge branch 
+'for-linux-next' of https://gitlab.freedesktop.org/drm/i915/kernel.git
+git bisect bad fe28d02cde5372d7f71cc6132ccdef37a98ac750
+# good: [0639cb26862afe4e35a689a8b5df8b9117c19f52] Merge tag 
+'drm-xe-next-2026-07-03' of https://gitlab.freedesktop.org/drm/xe/kernel 
+into drm-next
+git bisect good 0639cb26862afe4e35a689a8b5df8b9117c19f52
+# good: [4e9c8a9c322427055c4892183d266ba391af1bc8] drm/amdkfd: drop 
+struct kfd_signal_page wrapper
+git bisect good 4e9c8a9c322427055c4892183d266ba391af1bc8
+# bad: [ea33aa1545535fdb4c1a208b7bfd63314c3a4aa2] drm/amdgpu: Drop 
+legacy ACA log RAS error data code
+git bisect bad ea33aa1545535fdb4c1a208b7bfd63314c3a4aa2
+# good: [a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f] drm/amd/pm: Validate 
+pp_table header before reading size
+git bisect good a17e79d01f22182a9fcbe79fcbe2ad1477d43e0f
+# bad: [7a561c2b1b63abcffb55f625c0d0adb68ab2961a] drm/amd/display: 
+Simplify boolean checks
+git bisect bad 7a561c2b1b63abcffb55f625c0d0adb68ab2961a
+# good: [53ef33c084c5778cc2dcd1efff25e31b6e231141] drm/amd/pm: Validate 
+Tonga PPTable subtable bounds
+git bisect good 53ef33c084c5778cc2dcd1efff25e31b6e231141
+# good: [fe5966d4fdcbed91e6b3478ea6c89d9915d6ed4a] drm/amdkfd: move 
+TBA/TMA from system to device memory
+git bisect good fe5966d4fdcbed91e6b3478ea6c89d9915d6ed4a
+# good: [7a39b1c3b2e6b27f4230a20ccf9ac5a2737fa8b0] drm/amd/display: 
+Replace repeated no-native-i2c checks with force_i2c_over_aux field
+git bisect good 7a39b1c3b2e6b27f4230a20ccf9ac5a2737fa8b0
+# good: [88ae862060f05cd8279e764832f04eafafa505d8] drm/amd/display: Add 
+more KUnit tests for amdgpu_dm_colorop
+git bisect good 88ae862060f05cd8279e764832f04eafafa505d8
+# bad: [2b147895be109e0860269a7a72c697cdf049a885] drm/amd/display: Add 
+kunit tests for amdgpu_dm_plane
+git bisect bad 2b147895be109e0860269a7a72c697cdf049a885
+# first bad commit: [2b147895be109e0860269a7a72c697cdf049a885] 
+drm/amd/display: Add kunit tests for amdgpu_dm_plane
+
+>
+>
+> Regards,
+>
+> Venkat.
