@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03CDDC44507
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987E4C4450B
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 19:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 451F010F969;
-	Fri, 10 Jul 2026 19:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 265C610F931;
+	Fri, 10 Jul 2026 19:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+oSygXn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Le8KTyLI";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD0B10F961
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:07 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-493e4cccd8dso5492965e9.2
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0987C10F967
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 19:08:08 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493c733f15aso12063375e9.0
  for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 12:08:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20251104; t=1783710486; x=1784315286; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=zbrYcqmMOcj7F4MQKjHREDeErg/FeYwN50JFqd0IkSY=;
- b=i+oSygXnGIF7RDeABxAQkP++3FoHIFTch2k4T5tASWfc/nrwxSF4WtVOm63zAxRiOR
- M6CfAPmJXFtOVnBmzwKw6ErQ8Y42mfTffwN3yptvyW3a7+dU9WU1/OWiSwekZk9BUy2N
- PCSXsG0HvSaHs04qwaUifTNgdfHXxLl8NKcDbc9RSc/ZwC2uSoQSguSfuQAYDhTZYgbQ
- IOd1KDr9x+d1PzmxmiFjcIEp1XrigVWTNFdNvAMxsh2i+dG6WpgONn84iJtd2jSG/Oea
- E0taIPUosuuvVpTP6dctRaxlZJZxREyJX8t+jw8U83KJWOOJ853Vq20kSpPVAps+1V2o
- Y4hw==
+ bh=IOmjbtLYRqKMFq3vRWGT3hOtZz67iXQHbJfJ46cKOMg=;
+ b=Le8KTyLIGLaA6v8sZadV65LV/7w46D5ggqmcWAgLzSW2OUnj8mjDM6Fc2t1goVxJ/E
+ 7IBCR0VO+upogSVpwBCkF4J5qvGP/uommSjsMKz55Qxsg2luoS/dlo5F5fMGVmebv1g4
+ LFiymyno3MZpYcGiOD6FAOLYwWIFiDqTsJSiy3L4HzGDCVxhE/wagJoZAJrL4J7fJcsc
+ JcTWPmNU/pdwvOeUbObxvhNj5Cg7Suv9EUadr53olIU3ASOI5TAWbk3jK+PnwptTzD5J
+ cMj6aoQ1eKKW2aUqQ/sJqDksdCXvyENC2uGLomZdLnnOB7n3TcOh9Fvm145wijPtaDLo
+ 1qhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20251104; t=1783710486; x=1784315286;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=zbrYcqmMOcj7F4MQKjHREDeErg/FeYwN50JFqd0IkSY=;
- b=RTJvRSGH54xu84guY7BiZ+HweFN+0O/Z2n0yglC0pSxJx5tSxjZTbPEpZDsebxuHJI
- lWaBm/wdpnGJHXn+cV5cBF3+8Mfy9XR+FdeLa02sTy1ffwi+mzQDqsPUAqGw4iyWc4vb
- hKCKR4XhPwMMSL0Y6kRCJ05jV3qeWCuOzjjV4RFGDgGNu1yPg9RNRoahf0r/qDtNw2c5
- jGtaH/AyRb9weZkwEP9Io2eTkrY7qsKLCsQHstkm59M2iKZfhwU6ZDEFU3s4insYJrJB
- Xk9dbD2NYIS2DNecidBmCeIPD12wrb86mQaBfnuWwu8WW7BC8yH+GnxdvGflMTL9/3MW
- lDyw==
+ bh=IOmjbtLYRqKMFq3vRWGT3hOtZz67iXQHbJfJ46cKOMg=;
+ b=bNjmQhBqGy5Tnfxj3Da5SNPXdwO+OYcdPLtlzXYd0MXE85G6+pPom6xM+kM3Wn9tCN
+ eCvEK/46obzC+R2eOr+qFCKSxuHgle69CKJkG9jrUC0Wq9L5JoR9Kmps4xgMGp9rOhog
+ VZl34JShyvoYVmfXJNzZ2dBWeJoiRGxW0pZpCI8ZmtAsD98jJ8RoY2ntxNzopkAFAXi7
+ LzOkJgJTF6AeLvkVZ97KvKAqLIy0iONZH8J/lZ9d3gWULoBF2k/l6fCbka8VzZ1z3ssS
+ 6nCYGRqKbgxZltBxkuLa1UBMU1utQKvabuWfwiHzrAYAH7jkZid6EygTUY7vmneLWaGs
+ +lkQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqR2UaBksGjzxgwVktqlY/IgKYbbr5bHGo6zYyaScGc9o/DUErfW9nqAKizlOglCDRRDCdS6ztk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzf13+su6BIGGHF0xEthZ74UdNc0WGQoXiLM2kIIq+sh3vOHUvv
- PYE7lStq6gHfcPml/9bjMcWzdl3KJoIpHctlIweSswql7ecEtsCnK0b3
-X-Gm-Gg: AfdE7clA69n4umiWUUXZuYgxPNLHOmX8sXkS9t4NWhylK1+e8eHG8kW7b4A8viKKPJ2
- 4gCGXo13NU/giWIyuNlXb4RkAZIUhw48eD86XquKjx1J3JKNF1b8zgD6GhyeBSlzqVcp2oI8k3y
- xpeaHiC8cDD1b0WwD24ShiiQAP43WDti2OWp/LzyRJNKJERZnTg1/EVtD5sHIynZ0KWqJFuRrul
- ef3QgA0U7UAF8EYtUZJ6r0qpuMJkMBrsRNXF1vtciEniVnOPbfJhxC0af/PGZ1Xm1i3QwvLva/V
- mLQkvL8uDv5Ibqy8bhhWrPwgkaqEcQBvBStjH2SDauDJmY/Y8nm5r6swZ6Lso2fCZJNYNHo/LTA
- vlxeY85s7hGa53dzLOjarzyyIEMS7b/tzFNRBZ6fSvhYj+Ycu7VTP1zUt5IvpyZ4EbsIFAaFg4+
- IBWY6mZzL1o5S1Qy+/wVubWyt50et2NYFWUw9G
-X-Received: by 2002:a05:600c:4ece:b0:493:a613:56b2 with SMTP id
- 5b1f17b1804b1-493f87d8573mr1160215e9.8.1783710485433; 
- Fri, 10 Jul 2026 12:08:05 -0700 (PDT)
+ AHgh+RqqdL/rLs47uUeZM3kQYELGGw/frHSpzxRCLstqN8KYPTRjOwIXt6p9fLC6zSFDuMog+n6RK14b@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjOPXBRefz1mAJqhhOFH4M7icIoxs2MftdFoeVzWd7gq12TNEa
+ rzOTgZeP7o/5wLMHDfVgjy57DSJrPPulpYkQzIE4bFcrU5AqdPMs5QDc
+X-Gm-Gg: AfdE7cnADOyTIMERxW8O1el7CJfb1da9e4CB2tKyo1r0+ysBMo9JwGJh80sM37youpH
+ IyZAKP0fRAyOS1X/X9ahEzmrYSaqjk9XRCSZxLnIIPSBahiWaf+uGH9u/6SOuQEkvcppZHmNPGv
+ upIXdz2IijVNKVED6d3DQYA5e5gIB/LZNqOKQ8WXleSdV1PABzhrMdJpM7P5f1O6OMHAoprTeUk
+ 1/r0z4bhrNTsr5UIBZnFiwBS7aUZMXOAtGCE/Plji8SWOvP0KbTKDyBjIAKTIQW7gDh3+RDcjKS
+ xezp9baeY5xXj3fQxr8EePTR/0n1GABGCWC7auSqb/hLLPHbowYWQ3nuTnmWCPgx2OhjbVqDWLp
+ bPeZSm+UA0iQzCUOQ/AqdPF82312c4Y79CsQ2hyER555nGdBgL1kP8MzNZTDq5qeS20xk93Cv27
+ GY+2cUbCGcPjhcs1k7ALrQ4ovA5g==
+X-Received: by 2002:a05:600c:5849:b0:493:b55f:bca2 with SMTP id
+ 5b1f17b1804b1-493f88389cemr678085e9.34.1783710486348; 
+ Fri, 10 Jul 2026 12:08:06 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:154f:ec00:aa08:de24:db33:4496])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.08.04
+ 5b1f17b1804b1-493f567eadfsm55000755e9.6.2026.07.10.12.08.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 10 Jul 2026 12:08:05 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
@@ -71,9 +71,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  airlied@gmail.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 11/12] drm/ttm: support using drm_exec during eviction v4
-Date: Fri, 10 Jul 2026 20:52:51 +0200
-Message-ID: <20260710190752.2355-12-christian.koenig@amd.com>
+Subject: [PATCH 12/12] drm/amdgpu: use drm_exec during BO validation
+Date: Fri, 10 Jul 2026 20:52:52 +0200
+Message-ID: <20260710190752.2355-13-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
 References: <20260710190752.2355-1-christian.koenig@amd.com>
@@ -95,82 +95,146 @@ Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allow specifying a drm_exec object in TTMs operation context which is
-used to lock objects during eviction.
+This allows to detect deadlocks happening because of resource
+constraints.
 
-This allows to handle deadlocks much more gracefully and with that
-avoid returning -ENOMEM on heavily contended domains.
-
-v2: rebased on top of Thomas work
-v3: rebased again
-v4: adjust to dma_resv changes
+Especially submissions which want to use all of GDS doesn't result in
+sporadic -ENOMEM any more.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c | 12 ++++++++----
- include/drm/ttm/ttm_bo.h          |  5 +++++
- 2 files changed, 13 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 82 ++++++++++++++------------
+ 1 file changed, 44 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 1bdd69643c313..570640ae79d84 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -38,6 +38,7 @@
- #include <drm/ttm/ttm_tt.h>
- 
- #include <drm/drm_cache.h>
-+#include <drm/drm_exec.h>
- 
- struct ttm_transfer_obj {
- 	struct ttm_buffer_object base;
-@@ -839,7 +840,9 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_cursor *curs,
- 	struct ttm_lru_walk_arg *arg = curs->arg;
- 	int ret;
- 
--	if (arg->ctx->interruptible)
-+	if (arg->ctx->exec)
-+		ret = drm_exec_lock_resv(arg->ctx->exec, resv);
-+	else if (arg->ctx->interruptible)
- 		ret = dma_resv_lock_interruptible(resv, arg->ticket);
- 	else
- 		ret = dma_resv_lock(resv, arg->ticket);
-@@ -853,7 +856,8 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_cursor *curs,
- 		 * trylocking for this walk.
- 		 */
- 		arg->ticket = NULL;
--	} else if (ret == -EDEADLK) {
-+
-+	} else if (!arg->ctx->exec && ret == -EDEADLK) {
- 		/* Caller needs to exit the ww transaction. */
- 		ret = -ENOSPC;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index c2e6495a28bc5..17223e295ff25 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -793,7 +793,7 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 	struct ttm_operation_ctx ctx = {
+ 		.interruptible = true,
+ 		.no_wait_gpu = false,
+-		.resv = bo->tbo.base.resv
++		.exec = &p->exec,
+ 	};
+ 	uint32_t domain;
+ 	int r;
+@@ -845,7 +845,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 				union drm_amdgpu_cs *cs)
+ {
+ 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
+-	struct ttm_operation_ctx ctx = { true, false };
++	struct ttm_operation_ctx ctx = {
++		.interruptible =true,
++		.exec = &p->exec
++	};
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct drm_gem_object *obj;
+@@ -899,6 +902,11 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		e->user_invalidated = userpage_invalidated;
  	}
-@@ -993,8 +997,8 @@ __ttm_bo_lru_cursor_iter(struct ttm_bo_lru_cursor *curs, bool first)
- 		if (!ttm_lru_walk_trylock(curs, res->bo->base.resv)) {
- 			struct dma_resv *resv;
  
--			if (!arg->ticket || arg->ctx->no_wait_gpu ||
--			    arg->trylock_only) {
-+			if ((!arg->ticket || arg->ctx->no_wait_gpu ||
-+			     arg->trylock_only) && !arg->ctx->exec) {
- 				spin_unlock(lru_lock);
- 				continue;
- 			}
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index e1221e3be7bda..0ffa84a5caa65 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -186,6 +186,11 @@ struct ttm_operation_ctx {
- 	 * @bytes_moved: Statistics on how many bytes have been moved.
- 	 */
- 	uint64_t bytes_moved;
-+	/*
-+	 * @exec: optional drm_exec object to use for locking and contention
-+	 * handling
-+	 */
-+	struct drm_exec *exec;
- };
++	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
++					  &p->bytes_moved_vis_threshold);
++	p->bytes_moved = 0;
++	p->bytes_moved_vis = 0;
++
+ 	drm_exec_until_all_locked(&p->exec) {
+ 		r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec, 1 + p->gang_size);
+ 		drm_exec_retry_on_contention(&p->exec);
+@@ -922,47 +930,48 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 			if (unlikely(r))
+ 				goto out_free_user_pages;
+ 		}
+-	}
  
- struct ttm_lru_walk;
+-	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+-		struct mm_struct *usermm;
++		amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
++			struct mm_struct *usermm;
+ 
+-		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
+-		if (usermm && usermm != current->mm) {
+-			r = -EPERM;
+-			goto out_free_user_pages;
+-		}
+-
+-		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
+-		    e->user_invalidated) {
+-			amdgpu_bo_placement_from_domain(e->bo,
+-							AMDGPU_GEM_DOMAIN_CPU);
+-			r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
+-					    &ctx);
+-			if (r)
++			usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
++			if (usermm && usermm != current->mm) {
++				r = -EPERM;
+ 				goto out_free_user_pages;
++			}
+ 
+-			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
+-						     e->range);
++			if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
++			    e->user_invalidated) {
++				amdgpu_bo_placement_from_domain(e->bo,
++								AMDGPU_GEM_DOMAIN_CPU);
++				r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
++						    &ctx);
++				drm_exec_retry_on_contention(&p->exec);
++				if (r)
++					goto out_free_user_pages;
++
++				amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
++							     e->range);
++			}
+ 		}
+-	}
+ 
+-	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
+-					  &p->bytes_moved_vis_threshold);
+-	p->bytes_moved = 0;
+-	p->bytes_moved_vis = 0;
++		r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
++				       amdgpu_cs_bo_validate, p);
++		drm_exec_retry_on_contention(&p->exec);
++		if (r) {
++			drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
++			goto out_free_user_pages;
++		}
+ 
+-	r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
+-			       amdgpu_cs_bo_validate, p);
+-	if (r) {
+-		drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
+-		goto out_free_user_pages;
+-	}
++		drm_exec_for_each_locked_object(&p->exec, obj) {
++			r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
++			drm_exec_retry_on_contention(&p->exec);
++			if (unlikely(r))
++				goto out_free_user_pages;
+ 
+-	drm_exec_for_each_locked_object(&p->exec, obj) {
+-		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
+-		if (unlikely(r))
+-			goto out_free_user_pages;
++			amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
++						     p->bytes_moved_vis);
++		}
+ 	}
+ 
+ 	if (p->uf_bo) {
+@@ -973,9 +982,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		p->gang_leader->uf_addr += amdgpu_bo_gpu_offset(p->uf_bo);
+ 	}
+ 
+-	amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
+-				     p->bytes_moved_vis);
+-
+ 	for (i = 0; i < p->gang_size; ++i)
+ 		amdgpu_job_set_resources(p->jobs[i], p->bo_list->gds_obj,
+ 					 p->bo_list->gws_obj,
 -- 
 2.43.0
 
