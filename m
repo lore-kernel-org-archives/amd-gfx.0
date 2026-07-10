@@ -4,96 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1817C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4CE3C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 296CD10F8EF;
-	Fri, 10 Jul 2026 13:38:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7246410F8F8;
+	Fri, 10 Jul 2026 13:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dve8sXe7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2yEATduM";
 	dkim-atps=neutral
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9291810F8EF
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:38:37 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-c9d290216d0so36923a12.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:38:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783690717; cv=none;
- d=google.com; s=arc-20260327;
- b=eqahncVLEhW0a2QmxrPpzBSknvUInvHn/Y1f7widKGxZz77LRt5v2iSqWK2JzqH99s
- oANVyfRhmdLGF6WSDAKoisvnIld6zpS+YVcslgHo6NiWnfFZt7nQ1Z+17wKZcAOjfzoC
- 49wKNRry0FuTyKORS2d4v3HFDXB44LMNERTSKocaThJpF69aiZ55MvMfjAaguhTbVE9w
- nXvpd5pCXoWDdnvcusEvWeC5A6T6UMt+yLz49VcDhzXlg22n16LEeeV2qMSTgM45/FPv
- cftGZoByVxoyPvs38MqacpCjmRVB0JTrMLPmg1jrUqDnJEgU3UVOMrFnOkrDJSIPlduH
- Xfpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GtVgo0Th6N5kIT7EHs1GOg24WxHLmb+gBKLJLX/7D3I=;
- fh=6oLe7oP4H8RQG1yT+UffGbVNYbdYTb5So1aYgbIc1Yw=;
- b=WTb4Kzh2bOfeItMx4vB0YRPo96kDnsZuy4zikrCDSSb4T7oVzb24Qza4pRotVOud/C
- G2rhB+Ylkxvr3Rqx8Vo6nFuH4Q5QrjEapVpwmee0qRvkHb6I3wU8iU7F7u055JxYrr7P
- O4adxZ3udhQJASrbV8kqXBNS905qFnK77RXGaqA4KYjoej7O18dsgnfUDpyD/WtzmkOX
- V4LRn+tsDUGJvMtIc4y0cg6FUkMjMcJddJHrTHkJt7Wo3lmVnTFicILbGJuVtJxq5UPH
- tKP6SMi09HN75nFresIX98YEP/hphO99G5xCV4pE72UiEs1zOWYQ6KOG39xUzjoF7kcn
- mMOA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783690717; x=1784295517; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GtVgo0Th6N5kIT7EHs1GOg24WxHLmb+gBKLJLX/7D3I=;
- b=dve8sXe7kDjAasSEADlBI5vqlDuIKl3K7OvYqynn92nELG+gUR3/Em1xVmWPcPcQ3F
- rKMkj/YeyFZv2wcNZfBrfPxOGR7QTzdXNbbkA0eeR5bDfkTUtSQYdQ8y+Zg3OVYl0eA8
- WBoOLk7LcgqAZ7Qrdzk5H/Yw3GwK13JSzwNt7lEmg8cJlfax2Yr071AXwv9PDXG5LbvF
- GuHA1wzjjXgmebbVRCe0WjjhR+myH2+Q9+sbAirRrT40dYrO+4fCGVJIP3UoSGwrD3x3
- qRyfTcswBVISXY0LsYtpPNyd84ust54u9D2QB4aJ6mhdfe5cr8MiJX1vqZqY8vruNNxf
- fn5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783690717; x=1784295517;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GtVgo0Th6N5kIT7EHs1GOg24WxHLmb+gBKLJLX/7D3I=;
- b=T6esTNafQJ5FdGH3gC0GMsYe7HWfBSTH4x+0pxD+q6B983VrfU7VjT9ci4JJzISR51
- sIPjnIjbHHvRC6bi5sM6L10jAUz+Mndtf1eIZgC2U/VZdshkfSuLjQjhYtO8fO+wWon7
- iloBJt3+DV7N0f7AbQ3Gy4NpzVaSkC0jH+AFTmF/i30K8UgZ0tSwHkYmNE+ERu7WuE1A
- 8lC+cqeYBFmhvjXJ0IRMj9+rqQzyJaIEgpWfzUJ5x9qSL0uHwTJzBVA45BOKx8XmUQNV
- 6wtZdTTvPNKPr90twP8qUWBmMDKNCp2my0fuqabuI6nQCABFkV+oL8XKokBrhoZu9Qw+
- 727w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpXHvPlWOq+Ha0zkyz6n0JKO7u5hNw2bUQVc3+IH2wPSqISLmCX+YxOOeCto7mSjHJrvEyGSOIm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxM1dinHyz7At7/RZ1MIod7dmgXmwAqcA7XRrcako2TqlguW0WY
- Xhbz3hWPdqwxc4Q1i85NhxmgP0gsII5pFSimopFPz2rnVIddL5DjifE7UMkoDD5WOjtwCGsqaA2
- GTHTZJE2VSTLj+sJHqEtCW9Ej4/9/O/A=
-X-Gm-Gg: AfdE7cmQ/tn5MnMeGiUMSsRRaXzAG2EJQbM6D6ZmOFpUa7lR2matnYyJ72w8N6QvacL
- td4R77W86JPCJrjhXfyGQMuQJAk9rjjVRe2bqtPJmUnTAikGc2K2z0LAD5jmVxjBFfxTix1mzKd
- 6d9/0exH3htuKnEoaMrfMTOIH+BTNJQjUUV73IqTBZkpWY6qMlAqy2ips3XDaFzD5L3RiB3WqGM
- J/MRkY4TPYSBQus5viDiaAnzYlUBVzfbJOsZLx0vUD7jxlrNlKLdIxK3kDo82Iwbyi639D9p9qL
- RdtDhR951KFoSQub3bLLG9Z1Wk220qlEJsFvKgnYsqhVCIrzCdsyi2G+IzQ=
-X-Received: by 2002:a05:6a20:12d2:b0:3bf:a543:e7da with SMTP id
- adf61e73a8af0-3c0bce50f42mr10058862637.3.1783690717085; Fri, 10 Jul 2026
- 06:38:37 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010014.outbound.protection.outlook.com [52.101.201.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8F210F8E8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:47:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ifyzMwRbOItps6B5xpSudkiZwk6T9kAZvkqU3yNXtlBvXLF7hR/y4Oi1L08NFAaTrNTzn1JmWW//SGkOS7Mik6e8fUyfYUYCRAZa/pzdRh2gVH47gtVhXvTQvWfVoemyd2TAnC2Fmhk41qrOXMw/c1Vck1hbfRt/Rxl1MqXqr1wROIH5d3IA6zRIaAiTeMWZX4Hsf2IZu8BHvmIn1XvNvkd7cs+kgOLMI5v6qQ7+NVjZcje/uFPOE725o4x1hWD8Z9hVECqQn0iEjbtPZKAXk+wUKlXeHqQMXAkRzjBHzOKfLrnadcEqQQK4YL/hZ0oNnI2MlmFCTDD849Sc1JJVlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vBzt2e57vafjA5tcYbmcKIAuBbxsiWWXbHwCeL8idoc=;
+ b=jxt/LKcqX6qWmx//f4Pg2Z4Sl7vxjxkSbS/ZpCJgbJ+/i6pRMjL4f6lEVoNVKewvHYoyr9jSY40gro7uI8XDLrLlYc/PRC1yEYlk35XiG+ssWV5sWBGe1o03yOBhG0PZxvPzwXLWf4nKciFhverjic35xfoQW7YzACBRFCSeGzzeTWlXK+17OdQluRiO9C9k3LSOvO1LoGyo1MJvAZOEj2ZSq0fwhLORvYk/YKhMnjkflq0Aj7JmEMMfZbGk+/9X4Ad6P+Q2JyT8FvdvLDHzpIjTuAuJE89Mk4TjrK5/ix/geEGtUamWZ6048Swc/Idd/VihmNcAp/QSKtzkrO6iqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vBzt2e57vafjA5tcYbmcKIAuBbxsiWWXbHwCeL8idoc=;
+ b=2yEATduMZZd8+mbiqfN0Hc9oZMaGmNBE7EmeLMdRCMwLj1meRZZzkNvsEJaLkzsqBl7pDaArriQ7o6nffaD6CBduyXuplZ9JhAYqvylUE1eFQ89apKerpTRpTKq8z3f/V7YAseX8ijivlyV5WV5cJWIgOjOxNe79mbylI3aS+3U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by SJ0PR12MB6711.namprd12.prod.outlook.com (2603:10b6:a03:44d::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Fri, 10 Jul
+ 2026 13:47:40 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%5]) with mapi id 15.21.0181.014; Fri, 10 Jul 2026
+ 13:47:40 +0000
+Content-Type: multipart/alternative;
+ boundary="------------fo0c50bLSxkqLsLDD8Gm6RFF"
+Message-ID: <04d7a46f-3bba-412d-bfd4-89292d11e1db@amd.com>
+Date: Fri, 10 Jul 2026 21:47:32 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Do not fail process debugfs setup on debugfs
+ errors
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Dan Carpenter <error27@gmail.com>,
+ Felix Kuehling <felix.kuehling@amd.com>
+References: <20260710112938.3225738-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <20260710112938.3225738-1-srinivasan.shanmugam@amd.com>
+X-ClientProxiedBy: TP0P295CA0044.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:4::6)
+ To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
 MIME-Version: 1.0
-References: <tencent_C3A258C2204BBB82CD35C736076BFC07F806@qq.com>
-In-Reply-To: <tencent_C3A258C2204BBB82CD35C736076BFC07F806@qq.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:38:25 -0400
-X-Gm-Features: AVVi8CcIkcfNa2DCX0mu7HJpXgHz6IiaY0GlK5uHI4fiH4DPAuGheYhUESnl-Tg
-Message-ID: <CADnq5_Oyyvn-PB+1Zwtd1Vf3Lb4MqyTwh_i3o1kr3vKP=GsuVQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix __udivdi3 link error
-To: 2681643870@qq.com
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, oushixiong@kylinos.cn, 
- yanglinlin <yanglinlin@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|SJ0PR12MB6711:EE_
+X-MS-Office365-Filtering-Correlation-Id: e73262bc-9450-4547-bb97-08dede89cef7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|11063799006|6133799003|56012099006|18002099003|22082099003|8096899003;
+X-Microsoft-Antispam-Message-Info: OD3dELR086X2NyhFgreyyQYo/WQHD9hp9HsR8PJRFkv6LxGCJZUndvqr7shfjvddGmRaV4OJ9ND8OpgqXNPmKnSHG4vRPzVe9bCgX2Z6wqbRaAjDvg2rR4zH0yGLT6I5bcwjb/TFp9dhfUZi1G0MG2dW2ILAWRrJ6ZHhsIA7P7XbAgDzavccC3bzzE+q9jCFmWuThv3Li0ZQUuxQ70Tl/MTQH6Sf9IuF4K9as/vRw8Yza8kNVFfEXMaqwHkKmMoN7gwrjRBCxbd+kdS+NbOwUTN6hjccbo6Y+VULVAXXPykaLXJHPyzDycxrvMPcemCxae+H5JRXeS/xmqgYZLVRDObZoeSaQzZm0mXHCPJEMwFEg3WbW2qu2yyHt6JJov/z4/Q/Hao1QbZd8Rhs7xujuCg0PHiKBg0Fz+eAaw6CsiyNIVtl70Ubg2UVhsUNUSYKixzu2kodwFgU0desLcLSK3ApLw+5UGU6S41P8ACH6bP59JIIhc45vWcejC+q2mgzH3yAKyZ0XZogV37LlVbtBwqz7sUExlLCGx62tnrWVsQ3bE/HL0b/UPVktfGkJUV9+yVBSzVaEtMMaMIbhePwU8eFntp8HnI1ru2jqRo5867iaopVQUtOe8roJQd6ttrIWo2G9Q3l318CoxmoqZZwDVb7Z2HVrJ1cO3d8inJtz+E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003)(8096899003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFFQQ0VlNjFGRENON2c1NEpTV1BxZEdFaXQxZTJRc2ZvTDYyWElEWDh4c2N6?=
+ =?utf-8?B?UGVzcXZTcEpIOVlvUzBTQnhRbUhyaUc1ZkVCb3JaNzRoZFpNcEVKU05vNlpM?=
+ =?utf-8?B?WnFpQzBGZkIzZXdodWNZcldxMkdOQzhpYnFqZ3gxVFk5dC83UW5tTE92ZU1q?=
+ =?utf-8?B?emxaRGlnb3BXV3VLVkRVMDZZU0cxdG9QR3h4VmtXUk1xL3gzT1gzUEZrQ09F?=
+ =?utf-8?B?cytOT1NKbzA5eFFOMExjT2tLU3NyU0JIMTFzdGZJeFJxaTduUmxrVjBMUzRi?=
+ =?utf-8?B?azQ0S0hTK1lNZTI0ODk1WDhCRG5nQnlCV2Z0OGgyRUpxRzZ2MW5HRkFKaG1u?=
+ =?utf-8?B?ckd1bW8wZVQ3c2lyL0drbVNTQlQ1S2pmdnN5RzVHRmthOC82MTVlekx5d1FJ?=
+ =?utf-8?B?V3lvbnQ2bGxLWGdrTG9IYWFneVErMk5BTFlKVHVUSFZlekxsVWJ5Szh3blZv?=
+ =?utf-8?B?TWNFZHFNaEVZYm5DTmZPQWxhSzdmc0dnNGxHSzZBUDFrRVRCQTE4dDAwL2k3?=
+ =?utf-8?B?VnJGOElkV213TzRYYUNnQVB3bWViNmRjSTRFamozWFBrNXdMZkFMM2llN0Rq?=
+ =?utf-8?B?YlVQOExuc3VOVU5sNHE2VGpxN3czR1JXWEpMM2hqaVhkSlJBS1ZqcGdnc3dW?=
+ =?utf-8?B?eHd6VWJsbDJ3SDQ4Uy96WUpEdUxWZXBlemV4cW54VXMwblBoNkdndVVuZVl4?=
+ =?utf-8?B?Q2xjVDZTMmlCbmVxSTN0N0FOeURFdVc2dEJ0elVQUXZudzFLcFc1NmdqSFdM?=
+ =?utf-8?B?NVNOR01jdDMxTlJ6UVBCbWJ4bTMrcU5pU2tmbkhvaDZocmtTdnhZLzJieXhK?=
+ =?utf-8?B?NW1DZXArcnAyWlUzVmIzczJNT3FVckpKbTZNRzUxQVFDcFNvcGlqaXRwekIr?=
+ =?utf-8?B?aEEwZ29hbGtRdmdQYlVKRElsUUl6SlNTcFprWTIwZUxiU0h6YmdnczU0YytF?=
+ =?utf-8?B?elhoS29UNmhYakxsSStPVUZvbnBzbFIyUUdPNGJoSjRTS3VOcFJvYmhybjEx?=
+ =?utf-8?B?TlZPTHNUemRhMEJKam0vS3lXVWVFZDdNWUtiMlBYMk0zb0RwenRCbGR4VS85?=
+ =?utf-8?B?VnI3Wkp1TmhsL2xndXRkOU1RR2hyZS8yZ3pkRFZhb0NsWjZBVzdRVHVMUWVL?=
+ =?utf-8?B?YmIxclVNT0I0Yk9qdUwxejBpdDBCL1JKSjVuUC94bzVyNzJWNUZ2WU9ZalZK?=
+ =?utf-8?B?eXptNHpTbElUTVNnSXBMaDhZYU5BOE02ellxYTlHREJkWUpDTGdGRGQzL0pG?=
+ =?utf-8?B?NUQxL0RJKzFhOTg2ZHVkeUczaE9nS0p5eXFkemFKTUtGMTZyci9taGFJTEJL?=
+ =?utf-8?B?T3BZU0o1cXZvTVpjTGxkNWw5MFZTRkRqc01BMkJHWjJLM1ROZG5rMEtOVnpU?=
+ =?utf-8?B?b0RHOFhROHZjYVdKdzY5V0pnYUtTcU1hSzh5Yzg1eU1XbkJXd2E3cE5SMGg4?=
+ =?utf-8?B?YjVBWllwYWdtaXdEckdpN0cvMHFuZUV6RnIzalNYeEFrNWQ3cDM4VTRxdndT?=
+ =?utf-8?B?TDR3d09zYk5JTSsvTzlXY09Ib25JM013TmpvOWJHNXY2WDU0SWVkaXJzTHds?=
+ =?utf-8?B?OHhQUm9SU3RhaUNScjRNekg2M09vYVorQWljNTNpNndhcFU5UnN0cmNwMzRu?=
+ =?utf-8?B?VThUVCtDY25Ea1ZrSDgydEV4dXNKRWF3OS9ERk9iOE5HRVZhRVZ3ckQrWDJz?=
+ =?utf-8?B?ejl2KzV1RnJsRkxmS3RuUGlJWjRyaUNtS0wzZmp3Rk9GWWJFUlJ6bkQwVjAr?=
+ =?utf-8?B?bGwvQ1E2aGFyV1hyQ0cwRUFUMncvbHBVZDVvdmEvQ3J0UDBYcC9NMXViN3Fy?=
+ =?utf-8?B?eFRDUlkwUDducWRCUXlrTzVJRWFGaTZ1QXVFRElGNFdzQ3U0U3VrOU94bjF4?=
+ =?utf-8?B?SEd6eDdpclNwMCtXOEJheTlSdDgvNnZMclBsK1h1L3hJTC9GR0VpS2NIT05P?=
+ =?utf-8?B?ZTJLV1VDYjhRR0xGUUNFcmJYbWZLUEIwWE5oZytuT01xMjYrWmNicThGa1lj?=
+ =?utf-8?B?VVRaWVFPTmYxZEVoWjR0bDVHZmlLZHJrT1U5SXYxL2szYTVGVWttWE1KR1R4?=
+ =?utf-8?B?MUZFKzdybjlWbFZxWXBRMnkxSTVsZVFEcDV1NVVnQTNmVXYyaXR0SXdIKzNw?=
+ =?utf-8?B?RkF1MzZzYXE3WUQ3bHV1ZVB0VnJicHdKVWkzN0dwWGdQWTVXVG5kN1haMXo2?=
+ =?utf-8?B?Y0JkNnhORTk5ekl1OUpvWWxZNjBLenFJMXRkd3gvbFJCclphbmx0ZFdKaVo5?=
+ =?utf-8?B?WDYvRERpOG5xS1VSUTZyVzhGTEZ5L1dGMXZHRS9VWVlzNlpzcFhUQmZ6VWth?=
+ =?utf-8?Q?pFbzS/W8NBV7HBID9T?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e73262bc-9450-4547-bb97-08dede89cef7
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 13:47:39.9398 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nHu7jOZ8tPD2+HoeFiH8maImKEp8UmgjMYvvUowjnTdJyHvTcs9D9hyvkEDBTBOZ/nKtP1NDKxiA7uo1W9npTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6711
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,73 +137,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 3:44=E2=80=AFAM <2681643870@qq.com> wrote:
+--------------fo0c50bLSxkqLsLDD8Gm6RFF
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 7/10/2026 7:29 PM, Srinivasan Shanmugam wrote:
+
+> debugfs is intended for debugging only, and failures to create debugfs
+> entries should not affect normal operation.
 >
-> From: yanglinlin <yanglinlin@kylinos.cn>
+> Remove the check for debugfs_create_dir() in kfd_debugfs_add_process().
+> If debugfs entries cannot be created, continue without them instead of
+> reporting an unnecessary error.
 >
-> When compiling the AMDGPU display driver for 32-bit architectures,
-> the linker reports undefined reference to `__udivdi3` in functions
-> get_dp_dto_frequency_100hz() and dcn401_get_dp_dto_frequency_100hz().
->
-> This is because the code uses 64-bit division (/) on 32-bit systems,
-> which GCC cannot handle directly and instead tries to call the missing
-> __udivdi3 helper function.
->
-> Replace the raw division with div_u64(), the kernel's standard 64-bit
-> division helper, to avoid the link error.
->
-> Signed-off-by: yanglinlin <yanglinlin@kylinos.cn>
+> Fixes: 22ab1bb3994a ("amdkfd: expose pasid of secondary contexts by debugfs")
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Cc: Zhu Lingshan <lingshan.zhu@amd.com>
+> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 4 ----
+>  1 file changed, 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driv=
-ers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> index 7c293917e6fd..9dfb6f132136 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> @@ -1229,9 +1229,9 @@ static bool get_dp_dto_frequency_100hz(
->                          */
->                         modulo_hz =3D REG_READ(MODULO[inst]);
->                         if (modulo_hz) {
-> -                               temp =3D div_u64((uint64_t)clock_hz * dp_=
-dto_ref_khz * 10, modulo_hz);
-> -                               ASSERT(temp / 100 <=3D 0xFFFFFFFFUL);
-> -                               *pixel_clk_100hz =3D (unsigned int)(temp =
-/ 100);
-> +                               temp =3D clock_hz * dp_dto_ref_khz * 10;
-> +                               ASSERT(temp <=3D INT_MAX * modulo_hz * 10=
-0);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> index 02673f01b448..7c5bc9c4559a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> @@ -211,10 +211,6 @@ int kfd_debugfs_add_process(struct kfd_process *p)
+>  		entry->proc_dentry = debugfs_create_dir(name,
+>  							primary_entry->proc_dentry);
+>  	}
+> -	if (IS_ERR_OR_NULL(entry->proc_dentry)) {
+> -		ret = entry->proc_dentry ? PTR_ERR(entry->proc_dentry) : -ENOMEM;
+> -		goto err_free_entry;
+> -	}
 
-Shouldn't this be UINT_MAX?
+We need this check because debugfs_create_dir() may fail.
+Removing this check leads to entry leaking when fail.
 
-Alex
+Thanks
+Lingshan
 
-> +                               *pixel_clk_100hz =3D div_u64(temp, modulo=
-_hz * 100);
->                         } else
->                                 *pixel_clk_100hz =3D 0;
->                 } else {
-> @@ -1285,13 +1285,12 @@ static bool dcn401_get_dp_dto_frequency_100hz(con=
-st struct clock_source *clock_s
->                  *     - target pix_clk_hz =3D (DPDTO INTEGER * DPDTO MOD=
-ULO + DPDTO PHASE)
->                  */
->                 temp =3D (unsigned long long)dp_dto_integer * modulo_hz +=
- phase_hz;
-> -
-> -               if (temp / 100 > 0xFFFFFFFFUL) {
-> +               if (temp > (UINT_MAX * 100ULL)) {
->                         /* pixel rate 100hz should never be this high, if=
- it is, throw an assert and return 0  */
->                         BREAK_TO_DEBUGGER();
->                         *pixel_clk_100hz =3D 0;
->                 } else {
-> -                       *pixel_clk_100hz =3D (unsigned int)(temp / 100);
-> +                       *pixel_clk_100hz =3D div_u64(temp, 100);
->                 }
->
->                 return true;
-> --
-> 2.25.1
->
+>  
+>  	list_add(&entry->list, &procs);
+>  	kfd_debugfs_create_pasid_files(p, entry->proc_dentry);
+--------------fo0c50bLSxkqLsLDD8Gm6RFF
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre>On 7/10/2026 7:29 PM, Srinivasan Shanmugam wrote:</pre>
+    <blockquote type="cite" cite="mid:20260710112938.3225738-1-srinivasan.shanmugam@amd.com">
+      <pre wrap="" class="moz-quote-pre">debugfs is intended for debugging only, and failures to create debugfs
+entries should not affect normal operation.
+
+Remove the check for debugfs_create_dir() in kfd_debugfs_add_process().
+If debugfs entries cannot be created, continue without them instead of
+reporting an unnecessary error.
+
+Fixes: 22ab1bb3994a (&quot;amdkfd: expose pasid of secondary contexts by debugfs&quot;)
+Reported-by: Dan Carpenter <a class="moz-txt-link-rfc2396E" href="mailto:error27@gmail.com">&lt;error27@gmail.com&gt;</a>
+Cc: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+Cc: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
+Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+index 02673f01b448..7c5bc9c4559a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+@@ -211,10 +211,6 @@ int kfd_debugfs_add_process(struct kfd_process *p)
+ 		entry-&gt;proc_dentry = debugfs_create_dir(name,
+ 							primary_entry-&gt;proc_dentry);
+ 	}
+-	if (IS_ERR_OR_NULL(entry-&gt;proc_dentry)) {
+-		ret = entry-&gt;proc_dentry ? PTR_ERR(entry-&gt;proc_dentry) : -ENOMEM;
+-		goto err_free_entry;
+-	}</pre>
+    </blockquote>
+    <pre>We need this check because debugfs_create_dir() may fail.
+Removing this check leads to entry leaking when fail.
+
+Thanks
+Lingshan</pre>
+    <blockquote type="cite" cite="mid:20260710112938.3225738-1-srinivasan.shanmugam@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 
+ 	list_add(&amp;entry-&gt;list, &amp;procs);
+ 	kfd_debugfs_create_pasid_files(p, entry-&gt;proc_dentry);
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------fo0c50bLSxkqLsLDD8Gm6RFF--
