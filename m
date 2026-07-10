@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF4D1C44506
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 06:46:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B719C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 06:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3A610F797;
-	Fri, 10 Jul 2026 06:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2EB10E137;
+	Fri, 10 Jul 2026 06:46:21 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213BC10F797
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:46:10 +0000 (UTC)
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 945F310E137
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:46:19 +0000 (UTC)
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-516-5g_PwdxOOPS3p0ajSRGD5g-1; Fri,
- 10 Jul 2026 02:40:00 -0400
-X-MC-Unique: 5g_PwdxOOPS3p0ajSRGD5g-1
-X-Mimecast-MFC-AGG-ID: 5g_PwdxOOPS3p0ajSRGD5g_1783665600
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-657-oplh1GaGMxGlAtAhTQJOTQ-1; Fri,
+ 10 Jul 2026 02:39:55 -0400
+X-MC-Unique: oplh1GaGMxGlAtAhTQJOTQ-1
+X-Mimecast-MFC-AGG-ID: oplh1GaGMxGlAtAhTQJOTQ_1783665595
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E41BE1801376
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:39:59 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 0EB14195605F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:39:55 +0000 (UTC)
 Received: from dreadlord.redhat.com (unknown [10.67.32.13])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 8E45530001A1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:39:58 +0000 (UTC)
+ id AEFF630001A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:39:53 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] amd/dc/spl: drop unused function.
-Date: Fri, 10 Jul 2026 16:37:44 +1000
-Message-ID: <20260710063946.2262582-4-airlied@gmail.com>
+Subject: [PATCH 1/3] amd/dc: move custom_float definition into custom_float.h
+Date: Fri, 10 Jul 2026 16:37:42 +1000
+Message-ID: <20260710063946.2262582-2-airlied@gmail.com>
 In-Reply-To: <20260710063946.2262582-1-airlied@gmail.com>
 References: <20260710063946.2262582-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: U5LSdxr8VwtK1yh62KgApMEIzLPkB587u6iSBMnkk_M_1783665600
+X-Mimecast-MFC-PROC-ID: iVux5ozFNI7FUsTo4NZ2GLtBaywNy0qHilcm7YXQ3Is_1783665595
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 content-type: text/plain; charset=WINDOWS-1252; x-default=true
@@ -62,56 +62,78 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This function is never called anywhere.
+Drop the unused custom_float_value and the spl one.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c | 17 -----------------
- drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h |  2 --
- 2 files changed, 19 deletions(-)
+ drivers/gpu/drm/amd/display/dc/inc/custom_float.h   |  7 ++++++-
+ drivers/gpu/drm/amd/display/dc/inc/hw/opp.h         | 13 -------------
+ .../gpu/drm/amd/display/dc/sspl/spl_custom_float.h  |  7 -------
+ 3 files changed, 6 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c b/drivers/gpu/drm=
-/amd/display/dc/sspl/dc_spl.c
-index d8aebaff7c3f..4e73996e7779 100644
---- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
-+++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
-@@ -1915,20 +1915,3 @@ bool SPL_NAMESPACE(spl_calculate_scaler_params(struc=
-t spl_in *spl_in, struct spl
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/custom_float.h b/drivers/gp=
+u/drm/amd/display/dc/inc/custom_float.h
+index f57239672216..c408fee8e181 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/custom_float.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/custom_float.h
+@@ -28,7 +28,12 @@
 =20
- =09return res;
- }
--
--/* External interface to get number of taps only */
--bool SPL_NAMESPACE(spl_get_number_of_taps(struct spl_in *spl_in, struct sp=
-l_out *spl_out))
--{
--=09bool res =3D false;
--=09bool enable_easf_v =3D false;
--=09bool enable_easf_h =3D false;
--=09bool enable_isharp =3D false;
--=09struct spl_scratch spl_scratch;
--=09struct dscl_prog_data *dscl_prog_data =3D spl_out->dscl_prog_data;
--=09const struct spl_scaler_data *data =3D &spl_scratch.scl_data;
--
--=09res =3D spl_calculate_number_of_taps(spl_in, &spl_scratch, spl_out,
--=09=09&enable_easf_v, &enable_easf_h, &enable_isharp);
--=09spl_set_taps_data(dscl_prog_data, data);
--=09return res;
--}
-diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h b/drivers/gpu/drm=
-/amd/display/dc/sspl/dc_spl.h
-index f9503c368db5..a53a2c1f5508 100644
---- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
-+++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.h
-@@ -14,6 +14,4 @@
+ #include "bw_fixed.h"
+ #include "hw_shared.h"
+-#include "opp.h"
++
++struct custom_float_format {
++        uint32_t mantissa_bits;
++        uint32_t exponenta_bits;
++        bool sign;
++};
 =20
- bool SPL_NAMESPACE(spl_calculate_scaler_params(struct spl_in *spl_in, stru=
-ct spl_out *spl_out));
 =20
--bool SPL_NAMESPACE(spl_get_number_of_taps(struct spl_in *spl_in, struct sp=
-l_out *spl_out));
+ bool convert_to_custom_float_format(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h b/drivers/gpu/drm/=
+amd/display/dc/inc/hw/opp.h
+index 73cc34ea7726..ce30eab16f86 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
+@@ -142,19 +142,6 @@ enum channel_name {
+ =09CHANNEL_NAME_BLUE
+ };
+=20
+-struct custom_float_format {
+-=09uint32_t mantissa_bits;
+-=09uint32_t exponenta_bits;
+-=09bool sign;
+-};
 -
- #endif /* __DC_SPL_H__ */
+-struct custom_float_value {
+-=09uint32_t mantissa;
+-=09uint32_t exponenta;
+-=09uint32_t value;
+-=09bool negative;
+-};
+-
+ struct hw_x_point {
+ =09uint32_t custom_float_x;
+ =09struct fixed31_32 x;
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/spl_custom_float.h b/drive=
+rs/gpu/drm/amd/display/dc/sspl/spl_custom_float.h
+index f3fd8d30e638..60620537ae3e 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/spl_custom_float.h
++++ b/drivers/gpu/drm/amd/display/dc/sspl/spl_custom_float.h
+@@ -14,13 +14,6 @@ struct spl_custom_float_format {
+ =09bool sign;
+ };
+=20
+-struct spl_custom_float_value {
+-=09uint32_t mantissa;
+-=09uint32_t exponenta;
+-=09uint32_t value;
+-=09bool negative;
+-};
+-
+ bool SPL_NAMESPACE(spl_convert_to_custom_float_format(
+ =09struct spl_fixed31_32 value,
+ =09const struct spl_custom_float_format *format,
 --=20
 2.54.0
 
