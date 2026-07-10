@@ -4,93 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33BB2C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:34:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E060EC43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3F5F10F8E2;
-	Fri, 10 Jul 2026 13:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E5AE10F8E4;
+	Fri, 10 Jul 2026 13:36:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KZfLiAyc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zktu+aP7";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57FEC10F8E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:34:04 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2ca158f02ccso2380675ad.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:34:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783690444; cv=none;
- d=google.com; s=arc-20260327;
- b=GZgTOlzo8Wq+bSTgxTBNoXHXDzB6CQ0ZD3WbnzBoELZmgf1ZJ53BT5ySdB5EDT/d/7
- 4OjLpNIjJTXaPdSct/nAV/PC9z7PJfV+vcuU4lVkMHKu4LyVu+5SYXQfq0eySiTw24da
- yvrKSinJr9ocne9GewtyUP/QTcRhi8sF0BX9KdjqUR/MWNjpNGqkQzOv9SP0sxrdRUpw
- qwnyPiPZlMKMAuNsTrwZzFkNrr72LcQiHjoBx9j/6fmsADJ0hCsTCHdrkqIfcuFr9EA4
- WiRS9GZKfWHL50XWrBFqYJx7BHmkOQzzavVmNrmfy8vrAi1/qRiemAMUJgDXRtwO4Ywt
- T2ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Jf9WDkMAlW1uiTPRoDFydqvr3xxuohSQSPO/b8Vz4dY=;
- fh=CAQvLrMO+G215KzMdEOSEliozUfcQ8VWfLOp36ir1Pk=;
- b=GYIvhsjcnQq4z2SQcZ1vIQ0ONuZJGbpC5Tp23Ksr55l15aPMECzKrxhkdXZbHJE1cB
- WRPCjCwtofIOk/h0OT/2ZgYo2Rc+9jSC5uulauWcjyf0HVZRHvZd+kVs09W4No43HiqJ
- 7tGVr6cmMn6sEV9WPXO6Es+PJwvpMb09+yngAvuVCvi+FF4A4lilXCJmOuTRIqN0giRM
- 10Mfdm0CrJ9GZUB8ESXe+0rfbvfJtB/S5sNK288dZ+oEMjpF/tkq7oR8hJgjmUp+pZiX
- KseXM13VSDfq/oYTYKZEJVQuZ8d5tAIdXZesaUYOV29X1op11I5EQpduHIkNDFet6AjK
- Qq0A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+ [209.85.219.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E86210F8E4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:36:34 +0000 (UTC)
+Received: by mail-qv1-f47.google.com with SMTP id
+ 6a1803df08f44-8ee43b3e5abso6120436d6.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:36:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783690444; x=1784295244; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Jf9WDkMAlW1uiTPRoDFydqvr3xxuohSQSPO/b8Vz4dY=;
- b=KZfLiAyclqn5P/C09/tVFCm/CS9rywJDSlmHgo6aM0ZgVREJBhM2LQjay7SZG9hztO
- +I7QhhxIfdRWM0Ick4wO//xG6d5CdguEW437KKBo2CGV+Lu7nbtt1QTYFcDveZgBPBJg
- GnkJER54f+OU58uRQe+Ryc/U8GTr5uFAUIHyF7wwwAYGkpqOEf37jORJU901ZXgEUUK9
- qe5DdPFAaMTWgDefQ/ykHs1e6FYPYbNIf3iSrUPos7ADxS6FqzZytSKu+BBUwjt4+ViN
- aidY0j0FBePiuUfV2swZGzBgNjnntssn7Q/6ySpE5LixoJN+RQVIPYWOOe5CZOIij47R
- BSrg==
+ d=gmail.com; s=20251104; t=1783690593; x=1784295393; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=KYJ2tLOC5oFWD8I3q/vCEnQGiCmzJnxrnM3h313/auo=;
+ b=Zktu+aP7IEq3AYiN0GcNbtUbqtYvAXO04U0M3F9dx7oppKCcFNoOIZjYKv5YLW/Ihi
+ p4sh3bBje7/xI74VpVfhZrb2KO+7SDiMJIAMu2dfrkGnUM5YF3wI7Nwp/vbFz1ud1ROI
+ 9h2qPWvo7W2dXwJotlvcjJ5IY9VF9KmIpL8Q/hZqpGy1cTSjEei9RL1IzrhiqL7FZsHD
+ OKyRMfv4yZmWomBKpfQaLCEluvBL4FE3bgfR+KOee/xFmSPcFgAP9ddFCvVwscholWB+
+ oQoG4+GMQ5Xn6y4fLFjbP2MCGV4s6km3/XBCod/q0sqX0oxb7hyszNGMDxYe6xTc2zxe
+ RUtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783690444; x=1784295244;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Jf9WDkMAlW1uiTPRoDFydqvr3xxuohSQSPO/b8Vz4dY=;
- b=As6TB4E1E082my5TfSokzz9B8IiYjbL2OFhOK94N6XsjlPgwUbMThEBAJxpG1kCTj2
- PPdnVqXGPwRURawmApRlT+NzSmUWpvFvbKkPWG0tgkv0rF7o8hdwX16m/OmOkGfjrrJ2
- NdPzo8kKhd/A1M+LUmJjAauVfOxHYY5S7WVKqMGXMP7mn2O3rTXDJ4OOZNKmdxMdJJ1I
- ERgW9hj95Ou/HPxdXa8VBYlmv1ab1Q+aU6vsLvTMU6rPpKygOsKY/kjBSgaHuPxah+B8
- HFhf8Tn/Hsl3SyP6tBEPeOIWkRYlhvsm6uakoPcvY0TuRmAemvEMIBxMJaYmKD8O3ViF
- E56g==
-X-Gm-Message-State: AOJu0Ywv/Qcv6+Bo+W2V6H5Vw6kGz1m5Kc7QQtKOjUuKW+SIMUagqsLc
- N3NEGSMG1ZU0qXL9xeNAs/MVz9CrRDy7kEdHGbFaBc9rIQwZpbHiSJKOBtYR/1LEQ5aNvRj9nAZ
- af0ztb3p9Yv0DYr3YCNWkgqqUFHQiQiM=
-X-Gm-Gg: AfdE7ckeZ9abNREvYlFxAtNFJgNG2nm6yLg6STi+5fOFAy92wrlxQlxza/5BXoKrlhM
- XJQwt7OP/5D2ntdK4Nxv24WVk3eMCUdorp1zomueKfDZ/nS0Rw6ZqovF9odV6gjJUjY85u9ITwv
- r7iZxKkJJ8BGlmnYe7MuV6nD6uAML2aimfzBluiM21Qbh40EJvfUQeU+oBbrMuTh0U0UJr/VGMM
- AW+Ft+Tm9BlAALmmZnL+VpSeNY7OohnRQEDyTCRVUtgbCmuUP9qBlSClkX0De8ejSFe66wZbrPr
- UXiCjK60xf0tqfnTcVd9TXr4yBp+e0NiBRPd5ZFgYbBc2K74KAjRLRHBYDM=
-X-Received: by 2002:a17:902:eccf:b0:2c9:ed4a:c3a4 with SMTP id
- d9443c01a7336-2ccfe05e629mr71465735ad.0.1783690443695; Fri, 10 Jul 2026
- 06:34:03 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1783690593; x=1784295393;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=KYJ2tLOC5oFWD8I3q/vCEnQGiCmzJnxrnM3h313/auo=;
+ b=bKS0G7iiUbpU51byQk8RGdweMsTI893bjlMGeFHrV/tXznTDYAfpTc5bItb//9AGGy
+ zj06CnGCjkodifUSB4R9uLnNTi9DJrA1o+uv4T/t/WT30ZJ37uP1V+V/KENaLWkW/z7F
+ W1p5uai74PVkb7YIKlNfvk3jnh6nQpDPfB4uakkNgl1I59roqWlnhYMz2GbP36jS+yar
+ OXrMq9NHrq/x6189hy73ObBjB+KcbXmtS75WBoSxQYzQEGSj3/8kVCLFPgDuOXAGj+tG
+ sHY77tXmNNgz/VO6TZY9+KYmeLpkjXH64JV7Lts8sf77zn58o03vNOB2LlNitL++HqXw
+ qYCw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RreVT33BJWCoLID2SknktgVKdj0PA/3Wb3uG4h7CLjvqfeTh+ZS9TsqbyA1uP0bgaxIV7EoIf6K@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHfRk3HPLOQwj88IYIHazVmChaA7zgNhBFiijUSpRbQTF/Houa
+ tfEVt6lTRdUEk/I6vDQfudrAnic/N1FzmAYxiFm+V3zw6Vj0zuFh3BZZ
+X-Gm-Gg: AfdE7cnIhZvb5iAXrZ6TwwNVtpRatKblHOJU4s55wDK++sGvQKvJZVHeOegdOmhFtQ2
+ YOQ2MRBC/l1jxhTB6sBLRKhnqaQLzuHZfPbHA16XD9/IgO4V7He/3Ze/4zuFiWPwKcvgtm1JBjb
+ sOb/9fyZ/L2gdGAaD+7PFqZhTVXW+Xzfg7DnosUfH/d1DhiyML8F78TCu7hmpiiUPhTLCJ+GisG
+ kXY5pSoZ85rasMuYl89d0DqC9P49rWRNC2pznNm7YG5Qme1lrScba0j1kxOdC44yJOco2wZNi7F
+ dUqw02/k+Acx+hwMR/dfkzVF2YYNCGpz4XugB9zRdcAItYnTRcSi7VA1sAc6p/enkiZMb07L70I
+ oaTkiTe8/NR/+DQKF6RGq3sPMW5ZmEbCpNJ8CmxJTHgEQrIk9CyHf17RBJiZVPqmdYx7nxGUZPz
+ TTM6/CH3kczLPJaUGa9nZX
+X-Received: by 2002:a05:6214:2604:b0:8ef:25f0:e01f with SMTP id
+ 6a1803df08f44-8fec304fd92mr132198306d6.54.1783690593101; 
+ Fri, 10 Jul 2026 06:36:33 -0700 (PDT)
+Received: from [192.168.1.100] ([32.219.225.223])
+ by smtp.googlemail.com with ESMTPSA id
+ 6a1803df08f44-8ffd50df5e2sm41371536d6.4.2026.07.10.06.36.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Jul 2026 06:36:31 -0700 (PDT)
+Message-ID: <eb3ae0f8-8695-4fcf-9851-2a42480558a4@gmail.com>
+Date: Fri, 10 Jul 2026 09:36:30 -0400
 MIME-Version: 1.0
-References: <20260710073648.41408-1-timur.kristof@gmail.com>
-In-Reply-To: <20260710073648.41408-1-timur.kristof@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:33:51 -0400
-X-Gm-Features: AVVi8CfdgHGfASG6k1Yd_9OOtNvARYW0TmzmmEF0MbZ3XJLutudpc0_NN8hqemw
-Message-ID: <CADnq5_MBR2QLU_w8PNU2ktSKpDPwgomGKC0JH0C6ASLs9ooTsg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix IP block NULL check during soft reset
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- Dan Carpenter <error27@gmail.com>, kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amd/display: Fix preferred link rate for NUTMEG
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com,
+ Alex Hung <alex.hung@amd.com>, Ray Wu <Ray.Wu@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Chuanyu Tseng <Chuanyu.Tseng@amd.com>, Roman Li <roman.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>
+References: <20260529090909.13206-1-timur.kristof@gmail.com>
+Content-Language: en-US
+From: John Olender <john.olender@gmail.com>
+In-Reply-To: <20260529090909.13206-1-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,49 +96,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Ping.
 
-Alex
+On 5/29/26 5:09 AM, Timur Kristóf wrote:
+> When there is a preferred link rate setting, it needs to be
+> applied to both the current and initial link rate.
+> This was regressed by a "coding style" fix, which caused
+> the current link rate to not respect the preferred value.
+> 
+> This commit restores the functionality of NUTMEG,
+> the DP bridge encoder found on old APUs such as Kaveri.
+> 
+> Fixes: b74322eea36b ("drm/amd/display: Fix coding style issue")
+> Cc: Chuanyu Tseng <Chuanyu.Tseng@amd.com>
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 
-On Fri, Jul 10, 2026 at 3:44=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> We can't print the IP block name when the IP block is NULL.
->
-> Note that it should never be NULL, the only way that
-> can happen is when amdgpu_ip_from_ring() is missing the
-> given ring type. The check is just there to be sure.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Closes: https://lore.kernel.org/r/202607031711.yLwFhGfp-lkp@intel.com/
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+A user recently reported this issue to the tracker and confirmed
+this patch is an effective fix.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5465
+
+Thanks,
+John
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ip.c
-> index 33a04113ed74..922f4b15619d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-> @@ -489,7 +489,13 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring *=
-guilty_ring,
->         ip_type =3D amdgpu_ip_from_ring(guilty_ring->funcs->type);
->         ip_block =3D amdgpu_device_ip_get_ip_block(adev, ip_type);
->
-> -       if (!ip_block || !ip_block->version->funcs->soft_reset) {
-> +       if (unlikely(!ip_block)) {
-> +               dev_warn(adev->dev, "IP block not found for ring %s\n",
-> +                        guilty_ring->name);
-> +               return -EOPNOTSUPP;
-> +       }
-> +
-> +       if (!ip_block->version->funcs->soft_reset) {
->                 dev_warn(adev->dev, "IP block soft reset not supported on=
- %s\n",
->                          ip_block->version->funcs->name);
->                 return -EOPNOTSUPP;
-> --
-> 2.54.0
->
+>  .../drm/amd/display/dc/link/protocols/link_dp_capability.c    | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> index 817b4010edcbe..f44c13300a59c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> @@ -750,8 +750,10 @@ static bool decide_dp_link_settings(struct dc_link *link, struct dc_link_setting
+>  	if (req_bw > dp_link_bandwidth_kbps(link, &link->verified_link_cap))
+>  		return false;
+>  
+> -	if (link->preferred_link_setting.link_rate != LINK_RATE_UNKNOWN)
+> +	if (link->preferred_link_setting.link_rate != LINK_RATE_UNKNOWN) {
+>  		initial_link_setting.link_rate = link->preferred_link_setting.link_rate;
+> +		current_link_setting.link_rate = link->preferred_link_setting.link_rate;
+> +	}
+>  
+>  	/* search for the minimum link setting that:
+>  	 * 1. is supported according to the link training result
+
