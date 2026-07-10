@@ -4,97 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30A9C43458
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D75AC44506
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37EC710E4A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5546610E4A5;
 	Sun, 12 Jul 2026 15:22:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="kGqj0aNh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YIygsfmA";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A874410E719;
- Sat, 11 Jul 2026 03:30:22 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66B3IGEJ2701577; Sat, 11 Jul 2026 03:30:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=pp1; bh=xqCBfEpl/mAyGJ405WEpHV5wVbpJ5wX0tabdzGuhw
- Zs=; b=kGqj0aNhjWh2aJtRwtqZmJcwJzlgq2gBmCHk8fVxKDpUz4jUc/7nCl5dj
- 53pXEp0dnzxs973tZ84H+AKnYCZ2BXuG7l8k/6MAHIHNdClJ3EOQtmki4jF1Rjdc
- 1BL+Iy6HprljPMQRUbcTALph312u+2j7VPvnmaXBRCh56o9XzGvcVhBZ/yFC4ydz
- igXkPlRZtkEDuHZTbamp6TRqdf6x9245XHK3EpRc6t7l1UFGGc7dnqrtTrL+gywE
- LPDHCRqtv62JqiMzNPyqScvglmWq8V5NZJuDKj8Vt3HAxFRDKa6iliU9LHGUGHvG
- 6GxDrD/YOT1C9lfo1lgicPRvl9XfA==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fbdj58274-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 11 Jul 2026 03:30:15 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66B34fB1001487;
- Sat, 11 Jul 2026 03:30:14 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4f7eqgmsjx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 11 Jul 2026 03:30:14 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
- [10.20.54.102])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 66B3UApt36241800
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 11 Jul 2026 03:30:10 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8E64F20043;
- Sat, 11 Jul 2026 03:30:10 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6769A2004B;
- Sat, 11 Jul 2026 03:30:04 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.61.249.103])
- by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Sat, 11 Jul 2026 03:30:03 +0000 (GMT)
-From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-To: alexander.deucher@amd.com
-Cc: chleroy@kernel.org, alex.hung@amd.com, maddy@linux.ibm.com,
- linuxppc-dev@lists.ozlabs.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, christian.koenig@amd.com, siqueira@igalia.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Subject: [PATCH] drm/amd/display: Shorten KUnit exported symbol names
-Date: Sat, 11 Jul 2026 08:59:56 +0530
-Message-ID: <20260711032956.87948-1-venkat88@linux.ibm.com>
-X-Mailer: git-send-email 2.45.2
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 911E110F7DC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 10:06:27 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-44d2204d195so224521fac.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 03:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783677987; x=1784282787; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=j4QdItyj/tw3kEX2YxwFoyu+/+p7aPl0/TpuZahyyCE=;
+ b=YIygsfmAb8fte/BKa0uaxmWjn/hcg41naxwyWkk3HF5t+WHDNdSseXfgkoKe+vHemA
+ subQiamAhr72ynP/0i2ItPOTqjs7c+nloytYbzxhjr8IRUEQHqezlXutYfzHbS6EYCc6
+ 9J7LXaLWkuOAQSu7OK602rlJIHkhafCBRPIU1qIK0jQdkb2xm9LI7S7ff0keefIdHsr9
+ D5eAhkOPjXpeeZASYhlJX71ud974oiCMfj3kVYFJNPV4s4yJaVjmDgSCdbUiaTEmEP0d
+ dURpBtU6KgQkpodwae2IkHMxbTgR+h/S6aHlyo0sxkMX7r9XD2VzreD+/nZG8E1KqP47
+ VahA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783677987; x=1784282787;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j4QdItyj/tw3kEX2YxwFoyu+/+p7aPl0/TpuZahyyCE=;
+ b=OKbYA/Va9/R4o4k0cXg+out2vCEx47vKFZu24Tzkm9ys0pKpJaX+qyyEQSjAcVk7sJ
+ e1nHOt70A+z2AVvhtWScxCHU9b9Q1a4esgAvA2/HQ4HV6zfjAPN13tpiEONW94QZqYlt
+ JzDSqpseqfp5IB3wZZvlT+1da6uV3k521QMPo/1yFXBHIEx70D0N++C3+AiI89UhbX5t
+ XYPIsoGVW0J3AizJd99dsQMQIIdZghx0+H82mJrPqJURgbt20WjZ0nCLrZ8F13p9J5hg
+ 67K0nkFFRSHBghphJEyK6m3fVGCWjbaZTNeXkDPfHO1AcQGfzBmxS6zv07va/Vvt99Gj
+ mFCA==
+X-Gm-Message-State: AOJu0YyqqUgdN0RjSAnW90kHTTsU9XswaOX7idv3QbqaL3s4LIj5ENiY
+ pCwxxweDJ+N/qs3kKhcFtZdfqMnO9ID4+lxBEdmcekXAXho3HA3JiAtS
+X-Gm-Gg: AfdE7ckjiy6ITenhQx2lmDt9OCW22clBhtN8K5a6TPcopPaErFm/t/waoeR1LhHbIL1
+ O8fDVimnOAnHpIAXeDU66Fun/Msrbl5mvHOjZlymgaisSEq6ZfzYnPNb7v7rfmIU2S1bZfOC6N6
+ lWEiE8DKPs07EcQJMoQ0m0fGyqsTMVm8/EM7akUnxJhEeRhmOZe4tAN3CY9aSqngS6Sy9+DXQ7L
+ HyiZ+TJSS2GbLkIm5R0sTpuViTl5AIACALPZjwkuvGdNcAFMgpkwHHVoTv0GOWysp7SyqLPgDrP
+ oOBK0DuxmfTIvptQwSeo6n+LWMrjxItoBPnCd0zwLLIY41qDpkwtfs7+JKPmM9ic8eyUcCNQ9Sd
+ Yk26lA2NZCVtD+rEmQG9/wEDVt9Bk7vNJS7cLxPWd5rQIEg95xiGZz7nBdgm92oSGUz55RHlKqy
+ KiWwVK
+X-Received: by 2002:a05:6808:15a8:b0:493:a860:5809 with SMTP id
+ 5614622812f47-4a201c02a11mr9635461b6e.4.1783677986771; 
+ Fri, 10 Jul 2026 03:06:26 -0700 (PDT)
+Received: from localhost ([74.80.182.70]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4a4099ace01sm2072278b6e.18.2026.07.10.03.06.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 03:06:25 -0700 (PDT)
+Date: Fri, 10 Jul 2026 13:06:19 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Zhu Lingshan <lingshan.zhu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdkfd: expose pasid of secondary contexts by debugfs
+Message-ID: <alDEGwPXIuUae3Rc@stanley.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDAyOSBTYWx0ZWRfX2EnfL07x0eJ+
- RR9UGxvx1ExkzEZvUo9rhtRa4gQwRjjEovnBMYwIOQN6heBpGVKsKf6PVQnGBoQkQPjuAYdOdY7
- tsa/Jgjz6HsrRNnlbCsDaSDwKUrrciE=
-X-Proofpoint-ORIG-GUID: KoJ7HB6QAXyF77kB1iiWZTD9rvr05PHm
-X-Authority-Analysis: v=2.4 cv=Et7iaycA c=1 sm=1 tr=0 ts=6a51b8c7 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=r9Pw27tAvqG1vXbKDuMA:9
-X-Proofpoint-GUID: KoJ7HB6QAXyF77kB1iiWZTD9rvr05PHm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDAyOSBTYWx0ZWRfX2zVl6VlAcUVZ
- V1klAT2bMHVRfRV5Cnc59EjzNn9jiIQdzY1AgFpI2ODtZOUzgD4mWQCt08mv+otL8v0fX7nn1m9
- rWVOdF3DsSMIzy2OETJD8qkSOt85d8zZ3KIkV3t8+n74jq3oHrIpB7u4fzaEB3UdmtTuDyegV28
- 3tEkEGtHbZY9JJP4nebijbsqkN/8QafWqqL6L5ZGp6CjYPsZqs50xTpoDo3hpsbp62XjbcV2rxY
- DS4gXjNq8SKtqBypeMbdHAKs094S3vzaW54SmVa2IyGYTTD0BxTz7VcpVlyTu8YUyeXdLZlSDsK
- nwm3pxn7IlMDmW+Y2qdumy7EUcPSIUMZ8iK5HXUdnLTajZCCP2ZcTfzjAI0HKy44ieHKLvC0JAo
- o49xKsd7p4W74E1q63qEH7vEROfpCpbJzYLk6u942jN4PVkwyrAhV6ECVsungcb145XFohRt1qB
- wpvIr0AFNmfCHFlO5Yg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-11_01,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501 phishscore=0
- spamscore=0 clxscore=1011 impostorscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110029
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Sun, 12 Jul 2026 15:22:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,134 +83,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The KUnit exported helpers
+Hello Zhu Lingshan,
 
-  amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers()
-  amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers()
+Commit 325de6bf3328 ("drm/amdkfd: expose pasid of secondary contexts
+by debugfs") from Jul 1, 2026 (linux-next), leads to the following
+Smatch static checker warning:
 
-exceed MODULE_NAME_LEN and cause modpost to fail with:
+	drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_debugfs.c:215 kfd_debugfs_add_process()
+	warn: 'entry->proc_dentry' is an error pointer or valid
 
-  ERROR: modpost: too long symbol
-  "amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_debugfs.c
+    174 int kfd_debugfs_add_process(struct kfd_process *p)
+    175 {
+    176         struct debugfs_proc_entry *primary_entry;
+    177         char name[MAX_DEBUGFS_FILENAME_LEN];
+    178         struct kfd_process *primary_process;
+    179         struct debugfs_proc_entry *entry;
+    180         int ret;
+    181 
+    182         entry = kzalloc_obj(*entry);
+    183         if (!entry)
+    184                 return -ENOMEM;
+    185 
+    186         entry->process = p;
+    187         entry->pid = p->lead_thread->pid;
+    188 
+    189         if (p->context_id == KFD_CONTEXT_ID_PRIMARY) {
+    190                 snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+    191                          (int)entry->pid);
+    192                 entry->proc_dentry = debugfs_create_dir(name, debugfs_proc);
+    193         } else {
+    194                 primary_process = kfd_lookup_process_by_mm(p->lead_thread->mm);
+    195                 if (!primary_process) {
+    196                         ret = -ESRCH;
+    197                         goto err_free_entry;
+    198                 }
+    199 
+    200                 primary_entry = kfd_debugfs_find_process_entry(primary_process);
+    201                 kfd_unref_process(primary_process);
+    202                 if (!primary_entry) {
+    203                         pr_warn("Failed to find the primary debugfs entry for pid %d\n",
+    204                                 entry->pid);
+    205                         ret = -ENOENT;
+    206                         goto err_free_entry;
+    207                 }
+    208 
+    209                 snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "context_%u",
+    210                          p->context_id);
+    211                 entry->proc_dentry = debugfs_create_dir(name,
+    212                                                         primary_entry->proc_dentry);
+    213         }
+    214         if (IS_ERR_OR_NULL(entry->proc_dentry)) {
+--> 215                 ret = entry->proc_dentry ? PTR_ERR(entry->proc_dentry) : -ENOMEM;
+    216                 goto err_free_entry;
 
-Shorten the helper names while preserving their functionality.
+This check should just be deleted.
+https://staticthinking.wordpress.com/2023/07/24/debugfs-functions-are-not-supposed-to-be-checked/
 
-Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Link: https://lore.kernel.org/all/fde3656e-9e22-4e4c-937f-7e8cb918da6b@linux.ibm.com/
-Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c  | 12 ++++++------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h  |  4 ++--
- .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c   |  8 ++++----
- 3 files changed, 12 insertions(+), 12 deletions(-)
+    217         }
+    218 
+    219         list_add(&entry->list, &procs);
+    220         kfd_debugfs_create_pasid_files(p, entry->proc_dentry);
+    221 
+    222         return 0;
+    223 
+    224 err_free_entry:
+    225         kfree(entry);
+    226         return ret;
+    227 }
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 1b564cfe2120..b58225338bc4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -328,7 +328,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_validate_dcc(struct amdgpu_device *adev,
- }
- EXPORT_IF_KUNIT(amdgpu_dm_plane_validate_dcc);
- 
--STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
-+STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device *adev,
- 									       const struct amdgpu_framebuffer *afb,
- 									       const enum surface_pixel_format format,
- 									       const enum dc_rotation_angle rotation,
-@@ -378,9 +378,9 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(s
- 
- 	return ret;
- }
--EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers);
-+EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers);
- 
--STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct amdgpu_device *adev,
-+STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct amdgpu_device *adev,
- 										const struct amdgpu_framebuffer *afb,
- 										const enum surface_pixel_format format,
- 										const enum dc_rotation_angle rotation,
-@@ -419,7 +419,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(
- 
- 	return ret;
- }
--EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers);
-+EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers);
- 
- static void amdgpu_dm_plane_add_gfx10_1_modifiers(const struct amdgpu_device *adev,
- 						  uint64_t **mods,
-@@ -927,14 +927,14 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 	}
- 
- 	if (adev->family == AMDGPU_FAMILY_GC_12_0_0) {
--		ret = amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(adev, afb, format,
-+		ret = amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(adev, afb, format,
- 										 rotation, plane_size,
- 										 tiling_info, dcc,
- 										 address);
- 		if (ret)
- 			return ret;
- 	} else if (adev->family >= AMDGPU_FAMILY_AI) {
--		ret = amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(adev, afb, format,
-+		ret = amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(adev, afb, format,
- 										rotation, plane_size,
- 										tiling_info, dcc,
- 										address);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index 911fb2d73e22..55c33e051aee 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -92,7 +92,7 @@ int amdgpu_dm_plane_get_plane_modifiers(struct amdgpu_device *adev,
- int amdgpu_dm_plane_get_plane_formats(const struct drm_plane *plane,
- 				      const struct dc_plane_cap *plane_cap,
- 				      uint32_t *formats, int max_formats);
--int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_device *adev,
-+int amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(struct amdgpu_device *adev,
- 							      const struct amdgpu_framebuffer *afb,
- 							      const enum surface_pixel_format format,
- 							      const enum dc_rotation_angle rotation,
-@@ -100,7 +100,7 @@ int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amdgpu_devi
- 							      struct dc_tiling_info *tiling_info,
- 							      struct dc_plane_dcc_param *dcc,
- 							      struct dc_plane_address *address);
--int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct amdgpu_device *adev,
-+int amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(struct amdgpu_device *adev,
- 							       const struct amdgpu_framebuffer *afb,
- 							       const enum surface_pixel_format format,
- 							       const enum dc_rotation_angle rotation,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index 46c9af432e37..fc84f5a08596 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -579,7 +579,7 @@ static void dm_test_fill_gfx12_plane_attributes_from_modifiers(struct kunit *tes
- 	plane_size.surface_size.height = 1080;
- 
- 	KUNIT_EXPECT_EQ(test,
--			amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(
-+			amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers(
- 			adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
- 			ROTATION_ANGLE_0, &plane_size, &tiling_info, &dcc, &address),
- 			0);
-@@ -623,7 +623,7 @@ static void dm_test_fill_gfx9_plane_attributes_from_modifiers(struct kunit *test
- 	afb->base.modifier = DRM_FORMAT_MOD_LINEAR;
- 
- 	KUNIT_EXPECT_EQ(test,
--			amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(
-+			amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers(
- 			adev, afb, SURFACE_PIXEL_FORMAT_GRPH_ARGB8888,
- 			ROTATION_ANGLE_0, &plane_size, &tiling_info, &dcc, &address),
- 			0);
-@@ -1187,9 +1187,9 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	KUNIT_CASE(dm_test_get_cursor_position),
- 	/* amdgpu_dm_plane_format_mod_supported() */
- 	KUNIT_CASE(dm_test_format_mod_supported),
--	/* amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers() */
-+	/* amdgpu_dm_plane_fill_gfx12_attrs_from_modifiers() */
- 	KUNIT_CASE(dm_test_fill_gfx12_plane_attributes_from_modifiers),
--	/* amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers() */
-+	/* amdgpu_dm_plane_fill_gfx9_attrs_from_modifiers() */
- 	KUNIT_CASE(dm_test_fill_gfx9_plane_attributes_from_modifiers),
- 	/* amdgpu_dm_plane_helper_check_state() */
- 	KUNIT_CASE(dm_test_helper_check_state_viewport_reject),
--- 
-2.45.2
+This email is a free service from the Smatch-CI project [smatch.sf.net].
 
+regards,
+dan carpenter
