@@ -4,71 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18956C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 07:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D9EC44501
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 07:19:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F60310F7CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78FAE10E12A;
 	Fri, 10 Jul 2026 07:19:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b0HZNLsJ";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="bn0Ti9II";
 	dkim-atps=neutral
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D85410E130
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 07:04:24 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-489f3611e0cso365020b6e.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 00:04:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783667063; x=1784271863; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=PNpUIB+yWBxGmrsO6ToHU/OY1f4TQqqjXVWxYss84FA=;
- b=b0HZNLsJXZhrSw+RhJM5KqyZxVKlkILKF+ezefUDbfaqxjBcfXngYFarnw+fEEZviB
- ZlOWVih6FbXVVHZOzDjaXJjY0pTLcGFxqec/X+wjRezXWuiF3uOStZV6K6tylPttFd76
- GFkMN4fB3IMnX/eKhz3hAZJ0SafjLmWk74/UA9JWF+e7RIgOzsdL0h0yPVMM1vJ1vheF
- e6/vYrX7qdMWaUS57rZT3Mx/gBdLTZQ1ZWu5iV4DChQIM/JK8IeFY+n1oikmcyp1Q0Tk
- 0O1qPT8HVUba8JbeO/9Ut+uuMOMy6DH10+dI0pWc+4nuY4sVrEtwKK3BrDWPdknl7pIu
- JfSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783667063; x=1784271863;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=PNpUIB+yWBxGmrsO6ToHU/OY1f4TQqqjXVWxYss84FA=;
- b=mz1JbPU1F8Py8PxoEoZP1dCvfOc8ENY4Wi4i3SxgniiSuiRy5yVpjIgzGyicMtkAhN
- bIDKnxyfaCLUjwlsZgymEUWUjBsLkAPWsMP3+DkEr8P0PY3OdTEBPB5s7elrQAVC2z2z
- CYCzob9Wd9Ilgoz0mTME+jKK9GI4k/DNaatCCU5Bq+iacjuTkHx7ngry3fUdCem2sp6r
- P19mYLepuUDgaQBKgj23+u3izr+YXQunjsIfcbulw8fTsxH7j81jrJ/oNDhtOzIRBvtL
- jwXDPunjUECFd3aiECerhZ33n3ybQo5+BAUy2MjHESZEUsfTnbiNFpBqST+6qCcU+QDc
- w8QQ==
-X-Gm-Message-State: AOJu0YxILMPhsUnm5FllgSaC8HLUL0uV9rMzW1SmbQP2lT5lBzPH5yiH
- C0aKSpxqXRR1dNEzHUI0UmH17ad99cApCY5OfpPyqa9vZy6CkuZYORF5
-X-Gm-Gg: AfdE7cmADyEB7/o7qu3u5wZ2vWM/7fOgOA1knDzq+d29IlU9Y0UzyYx82Dg4VjGnrGD
- zmeBnul3YZ/NRf8RChSmOcJBul9MpN0gyziZ0jgnYmEvgUm2mXIVQ3iP0csRnsWet+tlrZqJjp4
- Qp9s1AcMOI4PJq3l4OW+rRz9nAg7tianEw7Yu7VGCnDX5uq6jsoeBPi5/aaC9rjHU0JMOB5RYYJ
- fhDK/LXe6+16b3ssfVIUcvb6arZLTHggXK95H3j28n0ks/9THPRhLaD4w1f4pEANHylaEqnJ1xQ
- f3xJGjRgFe+RpscqAuwlOgX4rk5ZmDWJB64Y+oMLApMNv4gCgm+T5UCg+Szq3ovNG+zHBkBC4ip
- ruVw0FGDtBmwwLMQdi9zyxd5G0aZs/quUq1BwJK+foiX0PyTKCQgvUpbKkQ+ZO/FLOBLqvdOk1z
- G/HRN6
-X-Received: by 2002:a05:6808:179f:b0:49e:d43f:1b8d with SMTP id
- 5614622812f47-4a202fa9833mr9933489b6e.1.1783667063254; 
- Fri, 10 Jul 2026 00:04:23 -0700 (PDT)
-Received: from localhost ([74.80.182.70]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-4a1adca6bedsm5513802b6e.8.2026.07.10.00.04.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 00:04:21 -0700 (PDT)
-Date: Fri, 10 Jul 2026 10:04:15 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu/gfx9.4.3: add support for disabling kernel
- queues
-Message-ID: <alCZb2hYNYr0lUmJ@stanley.mountain>
+X-Greylist: delayed 1447 seconds by postgrey-1.36 at gabe;
+ Fri, 10 Jul 2026 01:55:58 UTC
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9445E10E10D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 01:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1783648556; bh=5EOkqBZUqrb39d1Nm8dwkAhCq6ui/t2PEv4lF3ANjGY=;
+ h=From:To:Cc:Subject:Date;
+ b=bn0Ti9IItIKsHNd6yXuJUHYATo54raOXAM4pMwHWsrJYaAjn1x4LPw5+rWuZ6Za4h
+ 7El4lypqjUr89H4yhgV2hGiqRAq1GmbIstfjpxAS181aCJ94oROdwFbr1tQyC5SF+F
+ pHxoAlrvdS0mokTXrO0/gb9jtbnkbx3Dz+3R22cU=
+Received: from localhost.localdomain ([116.128.244.169])
+ by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+ id 62218093; Fri, 10 Jul 2026 09:24:34 +0800
+X-QQ-mid: xmsmtpt1783646674thp1vxobr
+Message-ID: <tencent_C3A258C2204BBB82CD35C736076BFC07F806@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25Ge55ZC1eeD+B1t0ILvuY8k7EVBFtToFrl+v2/ZCUVMrc6eb8+Vc
+ gUUkoOtn827NNxUw7XsviOjuB+bcARXGcZDzS/2YJ4jvg7jUk5W8vcyPJbtRav2AFfQvxdIQXVfQ
+ yOwuM0rU2hhQpa8yzDJYvmcfezUynrSrKRrn3SdWi9DIKv9V4vn517tDEv1bgFM+gCGeByGwDcPN
+ SqV4pQKa75bapLIo7Kviz5PpD7Roaz+UnxPjxXPUVj05vGYza7e2CxvVQ3z6e9AiDFGSZ2gE+IYZ
+ M1eQwsDT+F6W3Eaxkbler3UA/h1DWP4h4EAT7N4Gjc/5Es3NLpqkY87cMfJ/xJLps0W+cZ0SC2R1
+ Xn3EG42HXksQxttkOP2M4dDAhP5MwTQOI/qzb0zoy+SbVhO5mKgnSazEoHouEizGk2luuy7gs9QL
+ ESQtGi1fgoZ0kX1wj67MUjDT4Vy1nzM4QJHU4eYmyFXe5NJzBObWb7/cqdutVBHDBmK86pk+vWgW
+ MTZCgZdL9bqwwwnjz9iuy2L1oppkkDbLUIWoYcHw2/KT7UyefpnH66aUCBR8FLEMUlAstK00Nl0i
+ 9V5a3kDQ3jj5dEDC2ymVOoTICJ5EZcZlV/l7Em85OzfMSZzqerklY3Q7s313/1Gu3lM4axOTSxEs
+ XBpjHcroXv4uRUNxKWo4QyXMA5U3kEzS7p/eB5/CkzXgi4q8O/vHYWViDtiq0HG1/tTAtRdBiUQ2
+ RX46BJA+lA4SQd+TDQXBsdecj9ZY/9MmbKCQc4BIv3Dfy52P2NnLUUfjb+DKt65JYgY85jyuMzEs
+ 1I5YpMIh6XiybzdqBZ+BOAV8V+QmAk0UpFPU1zB6E2PR12sTApO17iOnRdCia9s3wrDI675Jnwqf
+ qMrCkZeeyZ1tESYM6wbLM9459UN4Qv/1oOz8RDg4yyxy0YX/F5HrCeGpToYteb+7nB3EBleBhq3D
+ 1ePCc+uN4iOErhY5/ipnf+SWHJPB9vGe7txQbxpaPWu2YUp+LC6vFD37JE35c0SxPJy3f5ABHfma
+ GfyZAcjDbXXtsF3wvcYjfiES7+542VzLK7E5egxGR1RaiNxD9LyT6L1xsaIRs=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: 2681643870@qq.com
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, oushixiong@kylinos.cn,
+ yanglinlin <yanglinlin@kylinos.cn>
+Subject: [PATCH] drm/amd/display: fix __udivdi3 link error
+Date: Fri, 10 Jul 2026 09:24:23 +0800
+X-OQ-MSGID: <20260710012423.61550-1-2681643870@qq.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 10 Jul 2026 07:19:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,79 +71,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Alex Deucher,
+From: yanglinlin <yanglinlin@kylinos.cn>
 
-Commit 832f0aa050ff ("drm/amdgpu/gfx9.4.3: add support for disabling
-kernel queues") from May 27, 2026 (linux-next), leads to the
-following Smatch static checker warning:
+When compiling the AMDGPU display driver for 32-bit architectures,
+the linker reports undefined reference to `__udivdi3` in functions
+get_dp_dto_frequency_100hz() and dcn401_get_dp_dto_frequency_100hz().
 
-	drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:2334 gfx_v9_4_3_set_userq_eop_interrupts()
-	warn: count down condition reversed? 'm <= 0'
+This is because the code uses 64-bit division (/) on 32-bit systems,
+which GCC cannot handle directly and instead tries to call the missing
+__udivdi3 helper function.
 
-drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-    2287 static int gfx_v9_4_3_set_userq_eop_interrupts(struct amdgpu_device *adev,
-    2288                                                bool enable)
-    2289 {
-    2290         int num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-    2291         unsigned int irq_type;
-    2292         int m, p, xcc_id, r;
-    2293 
-    2294         if (adev->gfx.disable_kq) {
-    2295                 for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
-    2296                         for (m = 0; m < adev->gfx.mec.num_mec; ++m) {
-    2297                                 for (p = 0; p < adev->gfx.mec.num_pipe_per_mec; p++) {
-    2298                                         irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
-    2299                                                 + (m * adev->gfx.mec.num_pipe_per_mec)
-    2300                                                 + p;
-    2301 
-    2302                                         if (enable)
-    2303                                                 r = amdgpu_irq_get(adev, &adev->gfx.eop_irq,
-    2304                                                                    irq_type);
-    2305                                         else
-    2306                                                 r = amdgpu_irq_put(adev, &adev->gfx.eop_irq,
-    2307                                                                    irq_type);
-    2308                                         if (r) {
-    2309                                                 if (!enable)
-    2310                                                         return r;
-    2311                                                 goto err_compute;
-    2312                                         }
-    2313                                 }
-    2314                         }
-    2315                 }
-    2316         }
-    2317 
-    2318         return 0;
-    2319 
-    2320 err_compute:
-    2321         for (p--; p >= 0; p--) {
-    2322                 irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
-    2323                         + (m * adev->gfx.mec.num_pipe_per_mec) + p;
-    2324                 amdgpu_irq_put(adev, &adev->gfx.eop_irq, irq_type);
-    2325         }
-    2326         for (m--; m >= 0; m--) {
-    2327                 for (p = adev->gfx.mec.num_pipe_per_mec - 1; p >= 0; p--) {
-    2328                         irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
-    2329                                 + (m * adev->gfx.mec.num_pipe_per_mec) + p;
-    2330                         amdgpu_irq_put(adev, &adev->gfx.eop_irq, irq_type);
-    2331                 }
-    2332         }
-    2333         for (xcc_id--; xcc_id >= 0; xcc_id--) {
---> 2334                 for (m = adev->gfx.mec.num_mec - 1; m <= 0; m--) {
-                                                             ^^^^^^
-This should probably be m >= 0?
+Replace the raw division with div_u64(), the kernel's standard 64-bit
+division helper, to avoid the link error.
 
-    2335                         for (p = adev->gfx.mec.num_pipe_per_mec - 1; p >= 0; p--) {
-    2336                                 irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
-    2337                                         + (m * adev->gfx.mec.num_pipe_per_mec) + p;
-    2338                                 amdgpu_irq_put(adev, &adev->gfx.eop_irq, irq_type);
-    2339                         }
-    2340                 }
-    2341         }
-    2342 
-    2343         return r;
-    2344 }
+Signed-off-by: yanglinlin <yanglinlin@kylinos.cn>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-This email is a free service from the Smatch-CI project [smatch.sf.net].
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index 7c293917e6fd..9dfb6f132136 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -1229,9 +1229,9 @@ static bool get_dp_dto_frequency_100hz(
+ 			 */
+ 			modulo_hz = REG_READ(MODULO[inst]);
+ 			if (modulo_hz) {
+-				temp = div_u64((uint64_t)clock_hz * dp_dto_ref_khz * 10, modulo_hz);
+-				ASSERT(temp / 100 <= 0xFFFFFFFFUL);
+-				*pixel_clk_100hz = (unsigned int)(temp / 100);
++				temp = clock_hz * dp_dto_ref_khz * 10;
++				ASSERT(temp <= INT_MAX * modulo_hz * 100);
++				*pixel_clk_100hz = div_u64(temp, modulo_hz * 100);
+ 			} else
+ 				*pixel_clk_100hz = 0;
+ 		} else {
+@@ -1285,13 +1285,12 @@ static bool dcn401_get_dp_dto_frequency_100hz(const struct clock_source *clock_s
+ 		 *     - target pix_clk_hz = (DPDTO INTEGER * DPDTO MODULO + DPDTO PHASE)
+ 		 */
+ 		temp = (unsigned long long)dp_dto_integer * modulo_hz + phase_hz;
+-
+-		if (temp / 100 > 0xFFFFFFFFUL) {
++		if (temp > (UINT_MAX * 100ULL)) {
+ 			/* pixel rate 100hz should never be this high, if it is, throw an assert and return 0  */
+ 			BREAK_TO_DEBUGGER();
+ 			*pixel_clk_100hz = 0;
+ 		} else {
+-			*pixel_clk_100hz = (unsigned int)(temp / 100);
++			*pixel_clk_100hz = div_u64(temp, 100);
+ 		}
+ 
+ 		return true;
+-- 
+2.25.1
 
-regards,
-dan carpenter
