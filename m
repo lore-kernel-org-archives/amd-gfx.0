@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC78C44507
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D15C43458
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68C8D10E4A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7069210E4AD;
 	Sun, 12 Jul 2026 15:22:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ADjVwhNa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PV5cbjPT";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCBDA10F8DB
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:31:12 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-493c52cde9eso7902295e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:31:12 -0700 (PDT)
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E48110F7C8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 07:15:58 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-4472500e25fso311980fac.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 00:15:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783690271; x=1784295071; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783667757; x=1784272557; darn=lists.freedesktop.org;
  h=content-disposition:content-type:mime-version:message-id:subject:cc
  :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=B49BYydG0G+SVwT1ct2zU4r2nKnTZkCjB+W66DADfQM=;
- b=ADjVwhNawWj+BOMtNJxzuSct9ofWryxTvp37apBW3lBeRVQYZ2XGT1hQi0TOlKKTnK
- 7F0g3wKiiMZ2/C72U33wHBIlj0MQ2irjvbOcs50PZkpgrdtfVrRjvUfADhKwv6DjshVH
- Jy/QNP+eFlbrxWP2B+szpwteGZDWAB/8ZsZDjOoFDl8g6X8ScHPyV1GdDq1/7db813uG
- TIq2ttnj9mAv5TdRliM65z8bAmH5xbWIdbwjH+Wr+ac8yLIL8TWQBOL88u/Yhw8MQRvP
- rt8bZpFfbiUp2ZC3LCkhHlgcZg1JbwI50jcv8JuqmhDEekxmf3DuLcosVDcTSpesAmCc
- iqhw==
+ :content-type; bh=+fIDApUl8o/a7RJvsO5rejRSVTDoHitdTXQIKacb5pA=;
+ b=PV5cbjPT+3skrJxe+tJ4CtDXYyq+Vku1vot6gVI81L9uTkjTRYTKJuZa2ExdN1jGKX
+ 1VKB+AJ65yqM1o+awsmzXXR+Xz9R78QWK7++FNeb/05NEpS6nPtLHfEVr+Fn91hiz1WH
+ PW7JmWaWXl1/plOd8IgbdEM7gMFSYr4+JU8pQcxrpxcD9VBv3KL1Zww/E+d4oXADgFnU
+ RENLwvKIFXCW+rXpJqgQC0qpBfzAA0KQf7xbZx3/RJQoOSK17jvp/g+NVVtZfKX2a/l2
+ f+bUJzc9HH1CW8PwVQgBEYJ1EDEBhAxQD0LCbVx1dUoAr3gIXt4D8ey+VTovQn4jG9kq
+ EEBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783690271; x=1784295071;
+ d=1e100.net; s=20251104; t=1783667757; x=1784272557;
  h=content-disposition:content-type:mime-version:message-id:subject:cc
  :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=B49BYydG0G+SVwT1ct2zU4r2nKnTZkCjB+W66DADfQM=;
- b=ob+HRQNc9o+dOmc0gvQIF/Cw8roCJcKdpcOEKp2a3eFIlkyrZFulayLWbj4OMv1bxy
- N7zVIyaxmrI//q0weCner+uGdS9sTgjpBTZoq0M2PM/CWpquLlYPSRLI/g0ia/qR+oqU
- 3blWyYeZGda/F9vhZgxmcRE87lZZLos780vX1OVDkfzOZQfai2PJKO9xCNp7iAVH0JQA
- qICDKTDPB7mcc60BH3GQmbY42bZciElHHsve8In6K6LGfuC00trylHL5A24XGsnJ6jJl
- 2xxXy9gkpaqog0xuW944vldV5kpU7w3ONiACs7DQPvX4VcZnYui0P5dUOq9h1DTm4UvP
- J3Lg==
-X-Gm-Message-State: AOJu0YzE7woa8nS8WhqFeGcAPifrzhBIK6jwRkjPj4VkRRDxS3EZp/fZ
- aS6UX/aYVGVTlYJ0EQw1v7Gq4cXmbHFnUbLHUDNrIrkrGMvrmQzMIOf7
-X-Gm-Gg: AfdE7cnJ527hw7aNRr/uvSyudYJYBoBrWBeehlfeyzzTRrZcv6I0zw6589CDjSQqs8a
- ulQMz1Ba6p+WR02K4/8R9ISz0qN4gU8UopYFRFLLXlPH3UYyeNozHxYELezLEGG2TSFlN5ImvG+
- ScO6ImkVmWMjgIxxAHehwoTqEJ/iXeHFGy2UYwd/iOFrwniEVHAIsMdu3HlGQinG8TCcphmww+Q
- y9GioGof/j1C31pRbrrwHlwgrH0iEZb3oqRMipBBLstdwMk/SAYxZ2d3O4rEL+xbyT2zotN4WRu
- cPts75saFqrupaVBk2/7DbmTWA4T05MWgDJwrhOpbnaTxOJATogqD0PLprQuvEsTI/AqX6Kewb1
- 2dMa9YMz/SEXoaJaHeuNzxkHxM0DVadAeac6OYfFSEa3qt4/EK/P5YwzkVAdLR/5lzJPzGNJR++
- ZvQuaYKpva
-X-Received: by 2002:a05:600c:6206:b0:490:b8c0:d470 with SMTP id
- 5b1f17b1804b1-493e68c8063mr123645755e9.19.1783690270616; 
- Fri, 10 Jul 2026 06:31:10 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493f744e8d7sm10990725e9.15.2026.07.10.06.31.09
+ bh=+fIDApUl8o/a7RJvsO5rejRSVTDoHitdTXQIKacb5pA=;
+ b=EEm5v0c+mXA8tgYtyxP6lZS8uMYSeX2XrtI8UeO5JROcZJlGtEGEdEdWD4FY3zy5LP
+ vZk+rYM3zg3Hjm1sDpNtdN5O1inbEZTqUbJ59XffKRiiXQmEz52sl8sHetQlPfstvSgs
+ DheTGl7Q2+/WCC5/gf6W+GySNS8zsfuu+U+Sp1O4PiA50RMvmFk8eASqYjxVzd8uKMb0
+ AGtzeIUNzeropCngbvGXKow6IHFPM9zxCTOuznChdgCibcaA/gl1MA7r1vGkmaoeiKDA
+ 3HakBd3mpxMr+xi+KO7yPjDe/rFOn5fopQTWWm+IT8miIej/a4rEvJjWq5U/npZqQyNz
+ k4Yw==
+X-Gm-Message-State: AOJu0YwkcCvDe6Lz4PdKkVR3u0yA8KKVKQWd/MsB0V0ZYtl6RyE8Sio2
+ b68MbMBvfPtCMTxdLS9qvLpIAo2g+EU2A0PpfxkGGsQn9LEgyBs0Z+YV
+X-Gm-Gg: AfdE7cnzaOmnnfwCpM/5xjfyVpc2E7u4N0OYT0uQVQM7inEwK+EDbV0ZOy/j/IfoaMg
+ Qohvz4ZwVbMyaVWP6SpN6NAmKI0UScXnSM6tuhhpa6QB6dSQxk6F1T6wox0u2NDMVIraVeb9ZSN
+ SVf2ifdGUXRMsQ4eLEJ0Gkma0JB4Dk0ptPZpKpaW9+BaDd5MgLm7ZZJ2uzDWOudOmnHKr3YfFlZ
+ ufg50kEb1XFFuBYKx4kSvTWDNNx5icpWt7kB+KKsmklii6O9aFzmgenbFTs2GxLLzxhxYVsO6fR
+ ng0CaBMvrFF128JYuae54lVlrKgBFhvAwGqfHOKwlzEbiCENLM+wM4bZqQONm+UA59eVLoiJlUZ
+ MUDZfMSt2k8LoVvw8Llz5o0vjGYlGKfyx7d0u1vHPIRqRqDftjCw+hVpH7jpuhyRIU4K1Ua1IAE
+ lRfHsC
+X-Received: by 2002:a05:6808:c2fb:b0:495:97ef:b41e with SMTP id
+ 5614622812f47-4a2048e36cdmr7147858b6e.34.1783667757265; 
+ Fri, 10 Jul 2026 00:15:57 -0700 (PDT)
+Received: from localhost ([74.80.182.70]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4a41f5b69bfsm39967b6e.17.2026.07.10.00.15.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 06:31:10 -0700 (PDT)
-Date: Fri, 10 Jul 2026 16:31:06 +0300
+ Fri, 10 Jul 2026 00:15:56 -0700 (PDT)
+Date: Fri, 10 Jul 2026 10:15:50 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Alex Hung <alex.hung@amd.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Cc: amd-gfx@lists.freedesktop.org,
  "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/display: Add KUnit tests for mst_types
-Message-ID: <alD0Gp71kK2Cn6w3@stanley.mountain>
+Subject: [bug report] drm/amdgpu: Implement "color format" DRM property
+Message-ID: <alCcJmDeIYEE94Eh@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -84,24 +83,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Alex Hung,
+Hello Nicolas Frattaroli,
 
-Commit 04bed7922fa9 ("drm/amd/display: Add KUnit tests for
-mst_types") from Jun 17, 2026 (linux-next), leads to the following
+Commit 8a0343b03b98 ("drm/amdgpu: Implement "color format" DRM
+property") from Jun 9, 2026 (linux-next), leads to the following
 Smatch static checker warning:
 
-	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c:1027 dm_mst_test_fp_guarded_public_stubs()
-	error: NULL dereference inside function
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_connector.c:857 fill_stream_properties_from_drm_display_mode()
+	warn: duplicate zero check 'connector_state->color_format' (previous on line 848)
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-    1025 static void dm_mst_test_fp_guarded_public_stubs(struct kunit *test)
-    1026 {
---> 1027         KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(NULL, NULL),
-                                                                      ^^^^  ^^^^
-Passing a NULL here will just crash right away.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_connector.c
+    801 static void fill_stream_properties_from_drm_display_mode(
+    802         struct dc_stream_state *stream,
+    803         const struct drm_display_mode *mode_in,
+    804         const struct drm_connector *connector,
+    805         const struct drm_connector_state *connector_state,
+    806         const struct dc_stream_state *old_stream,
+    807         int requested_bpc)
+    808 {
+    809         bool is_dp_or_hdmi = dc_is_hdmi_signal(stream->signal) || dc_is_dp_signal(stream->signal);
+    810         struct dc_crtc_timing *timing_out = &stream->timing;
+    811         const struct drm_display_info *info = &connector->display_info;
+    812         struct amdgpu_dm_connector *aconnector = NULL;
+    813         struct hdmi_vendor_infoframe hv_frame;
+    814         struct hdmi_avi_infoframe avi_frame;
+    815         bool want_420;
+    816         bool want_422;
+    817         ssize_t err;
+    818 
+    819         if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+    820                 aconnector = to_amdgpu_dm_connector(connector);
+    821 
+    822         memset(&hv_frame, 0, sizeof(hv_frame));
+    823         memset(&avi_frame, 0, sizeof(avi_frame));
+    824 
+    825         timing_out->h_border_left = 0;
+    826         timing_out->h_border_right = 0;
+    827         timing_out->v_border_top = 0;
+    828         timing_out->v_border_bottom = 0;
+    829 
+    830         want_420 = (aconnector && aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420) ||
+    831                    (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420);
+    832         want_422 = (aconnector && aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR422) ||
+    833                    (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422);
+    834 
+    835         if (drm_mode_is_420_only(info, mode_in) &&
+    836             (want_420 || connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO)) {
+    837                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+    838         } else if (drm_mode_is_420_also(info, mode_in) && want_420) {
+    839                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+    840         } else if ((info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422)) &&
+    841                    want_422 && is_dp_or_hdmi) {
+    842                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR422;
+    843         } else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 &&
+    844                    (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
+    845                    is_dp_or_hdmi) {
+    846                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+    847         } else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_RGB444 ||
+    848                    connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AUTO is handled here.
 
-    1028                         (enum dc_status)DC_OK);
-    1029 }
+    849                 timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+    850         } else {
+    851                 /*
+    852                  * If a format was explicitly requested but the requested format
+    853                  * can't be satisfied, set it to an invalid value so that an
+    854                  * error bubbles up to userspace. This way, userspace knows it
+    855                  * needs to make a better choice.
+    856                  */
+--> 857                 if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
+    858                         timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+
+So we know this is true and the else if else is dead code.
+
+    859                 else if (drm_mode_is_420_only(info, mode_in))
+    860                         timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+    861                 else
+    862                         timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+    863         }
+    864 
+    865         timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+    866         timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
+    867                 connector,
+    868                 (timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
+    869                 requested_bpc);
+    870         timing_out->scan_type = SCANNING_TYPE_NODATA;
+    871         timing_out->hdmi_vic = 0;
+    872 
 
 This email is a free service from the Smatch-CI project [smatch.sf.net].
 
