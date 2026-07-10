@@ -4,93 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E04C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33BB2C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:34:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6255110F8DB;
-	Fri, 10 Jul 2026 13:32:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3F5F10F8E2;
+	Fri, 10 Jul 2026 13:34:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qDPpAz4N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KZfLiAyc";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC9710F8DB
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:32:54 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-383fff6e8b6so80173a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:32:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783690374; cv=none;
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57FEC10F8E2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:34:04 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2ca158f02ccso2380675ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:34:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783690444; cv=none;
  d=google.com; s=arc-20260327;
- b=C0J3SHHZFoZa98TT6sRwFaXtYq0Z7UTljacvST6Wi3eILibL6Ad0U6/RZWKwlZXDHV
- r9bq1eL1H4S9osKtnDS9nSqPq0l3czlV9YlTgrB9BohcJ1axzPqyacB28AxJP4cIkQIw
- IGNfq4TeUqwA3T8kzK1i66rQrCT+UeAbmhomsWdBV7xd/JSgPxyfnspyz9xBX3lX7HzU
- Oo4EoMbzLx5ydSDBWU4uuNhq3iOgZyUx6ZEdfYpSeil/zQ9b6XKD3GzdpICx2vOrehhX
- LewuA6/L1erlFbGb8KL0uVhd/QmkixIjJpPQhxV9mOdOEGjR2Nr5/UoIygZ7xowcn3fa
- CDsw==
+ b=GZgTOlzo8Wq+bSTgxTBNoXHXDzB6CQ0ZD3WbnzBoELZmgf1ZJ53BT5ySdB5EDT/d/7
+ 4OjLpNIjJTXaPdSct/nAV/PC9z7PJfV+vcuU4lVkMHKu4LyVu+5SYXQfq0eySiTw24da
+ yvrKSinJr9ocne9GewtyUP/QTcRhi8sF0BX9KdjqUR/MWNjpNGqkQzOv9SP0sxrdRUpw
+ qwnyPiPZlMKMAuNsTrwZzFkNrr72LcQiHjoBx9j/6fmsADJ0hCsTCHdrkqIfcuFr9EA4
+ WiRS9GZKfWHL50XWrBFqYJx7BHmkOQzzavVmNrmfy8vrAi1/qRiemAMUJgDXRtwO4Ywt
+ T2ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=m5SrBdJz51UnTf3Icv1UxkGSbrtyHFHTUabrOwepNZI=;
- fh=tYbzEOBut+TtYwEwlV5qsbDNjRL30b58tMXY7hHTrbQ=;
- b=lKOfaGR/qH0/o42JUIKtA8deDtXv4pxfQq+6hUmt7Q1+78RXvNIgcOqxr7jyAV2nnv
- EJdrvT+NSFGLR5UhNpLAN3oJ5cBs8fEQFGuEbSoPis1PIUBbqzjhv0TsIr/RKOTK7jvj
- 8rWLEmEaE8M4MuLYJtuawtJiK/KO6AEJBAW18B4jVsQHuv/w7JWBrsdTi1OPbRgzfgAP
- d9c7lsugdFhGl9SlgjcZg19iGK3yxB2Cd3vDMMGda2ajezdrZs9DFNFaVOPyC8UgXHgf
- lZYIz0UfRmvnBo/vm2gGGQ0RU2dB/Wnwliautql/bKwBUaAZPphbx8CV3Noj/k5b0f/Q
- bCsw==; darn=lists.freedesktop.org
+ bh=Jf9WDkMAlW1uiTPRoDFydqvr3xxuohSQSPO/b8Vz4dY=;
+ fh=CAQvLrMO+G215KzMdEOSEliozUfcQ8VWfLOp36ir1Pk=;
+ b=GYIvhsjcnQq4z2SQcZ1vIQ0ONuZJGbpC5Tp23Ksr55l15aPMECzKrxhkdXZbHJE1cB
+ WRPCjCwtofIOk/h0OT/2ZgYo2Rc+9jSC5uulauWcjyf0HVZRHvZd+kVs09W4No43HiqJ
+ 7tGVr6cmMn6sEV9WPXO6Es+PJwvpMb09+yngAvuVCvi+FF4A4lilXCJmOuTRIqN0giRM
+ 10Mfdm0CrJ9GZUB8ESXe+0rfbvfJtB/S5sNK288dZ+oEMjpF/tkq7oR8hJgjmUp+pZiX
+ KseXM13VSDfq/oYTYKZEJVQuZ8d5tAIdXZesaUYOV29X1op11I5EQpduHIkNDFet6AjK
+ Qq0A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783690374; x=1784295174; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783690444; x=1784295244; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=m5SrBdJz51UnTf3Icv1UxkGSbrtyHFHTUabrOwepNZI=;
- b=qDPpAz4N84GT8hKZdII4ynGS2LKVG7JFncu5O/fsyjj4tYc7Jt5a4xyHvR/0SFKp5s
- 9JGJkNF77r43PvkptNKSKMLg7sA+ajXbi2XNHk+8A0LRyiXL0bTuoQoiciouoyOPr2WN
- w0dL5pyhGKs5P0XjFhudRdJkyPJlRowSbfhxd4VjaUiprjZZ35SNppdUXlwzbXKoBGUF
- EK58c5E8kDm61uhgt713xN65k8zweTFz0lIA3ENnEsxJSoi9+POhwIVReCjUAOV+u/Pe
- rphWSwkMBip416rbvIu3KlNDOqcN06lSlmdfcOGp8GG1oVF4smdQB5jHKjJpMyT6J+9/
- wkzA==
+ bh=Jf9WDkMAlW1uiTPRoDFydqvr3xxuohSQSPO/b8Vz4dY=;
+ b=KZfLiAyclqn5P/C09/tVFCm/CS9rywJDSlmHgo6aM0ZgVREJBhM2LQjay7SZG9hztO
+ +I7QhhxIfdRWM0Ick4wO//xG6d5CdguEW437KKBo2CGV+Lu7nbtt1QTYFcDveZgBPBJg
+ GnkJER54f+OU58uRQe+Ryc/U8GTr5uFAUIHyF7wwwAYGkpqOEf37jORJU901ZXgEUUK9
+ qe5DdPFAaMTWgDefQ/ykHs1e6FYPYbNIf3iSrUPos7ADxS6FqzZytSKu+BBUwjt4+ViN
+ aidY0j0FBePiuUfV2swZGzBgNjnntssn7Q/6ySpE5LixoJN+RQVIPYWOOe5CZOIij47R
+ BSrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783690374; x=1784295174;
+ d=1e100.net; s=20251104; t=1783690444; x=1784295244;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=m5SrBdJz51UnTf3Icv1UxkGSbrtyHFHTUabrOwepNZI=;
- b=m9eo0XLKsWjVxVaZGyIxK3KFxnz4gK/ArSTxARou1XCUull7oirXH/BlbOU6NBZ3xW
- 98IdiYMweKALPen0ZsaDZiCBA0itU31jObUQHcY+BSyqfkhzmrumbOHoEeZKNlLIl9h6
- eGmNCpuCCHz7/XYaEbcYlZ5zfaxV+chJAnQt4uCSdw3ybZztiCswwIxZpCUb/dGMze/w
- hegqqZqrzIS8psdZyvJQjzzNfjPNUntLy6h8Uaw90sDJaneMyQVDuaCFs1v5/CDxPK1e
- rO2Z1OIpg0YJK9YcprSsXkhiP1TSHC3EVi4TeosAnDdMGQo1K4Z6TvhKns5ERWSugdBT
- cZOg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpNw4TJAhLOeC1dorBIoMSE82NbdOLSseXhu9cd49xdcUI+GQ6GdRpQJOzP+GfLl9YBX1tdacIl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzZrh7q0MwcIf9yOzA07XUQpnouP34ZZ2imzSVCQySguOSs5YBx
- /FQ1p4l1g1cTyiI2nd4vIlwXsADsoHZ/zPinHK151KPZP82IPIjHI749h16HhsApawv6y6O1oTX
- 3bNl7u9DXBGHyUv3Ss2/Gaa6Xel9bxLU=
-X-Gm-Gg: AfdE7ckUc+PDdlYcSMhZ/1EYfHls0ZHPEHJSsYpJwM+Pgi222bBCmLGXWqUwwV17YQN
- NbN9egPWH6WcuKCAgvFzc53eDdpoop1Oy6J9nO6+HWnJc/FOJs93lmh3W1TjCgXQIoEwpG0Lk8q
- G9pfRWK2n3oJPaTfkyTlzN+yZGPVs94lunXg8D3Hu8a+zTtPt5x9S0PSCil5ZyZNMSUn9f28r7t
- p9JUHYXwvJ+cyqD9DbiSeI/iGkWQ8Y4Ucx8bkiSu5hBXqBS2x0joQX51wU/yLPZ14vB7JSaUEQw
- e7/6Is81QW9rRAwGXqSocMCpX7AJ0DaYHT3AMFmJekIwaTseYWAMjMkYykot4W2ouxOouA==
-X-Received: by 2002:a17:90b:58e6:b0:381:fa5:5217 with SMTP id
- 98e67ed59e1d1-38a2170a4acmr7165869a91.7.1783690374160; Fri, 10 Jul 2026
- 06:32:54 -0700 (PDT)
+ bh=Jf9WDkMAlW1uiTPRoDFydqvr3xxuohSQSPO/b8Vz4dY=;
+ b=As6TB4E1E082my5TfSokzz9B8IiYjbL2OFhOK94N6XsjlPgwUbMThEBAJxpG1kCTj2
+ PPdnVqXGPwRURawmApRlT+NzSmUWpvFvbKkPWG0tgkv0rF7o8hdwX16m/OmOkGfjrrJ2
+ NdPzo8kKhd/A1M+LUmJjAauVfOxHYY5S7WVKqMGXMP7mn2O3rTXDJ4OOZNKmdxMdJJ1I
+ ERgW9hj95Ou/HPxdXa8VBYlmv1ab1Q+aU6vsLvTMU6rPpKygOsKY/kjBSgaHuPxah+B8
+ HFhf8Tn/Hsl3SyP6tBEPeOIWkRYlhvsm6uakoPcvY0TuRmAemvEMIBxMJaYmKD8O3ViF
+ E56g==
+X-Gm-Message-State: AOJu0Ywv/Qcv6+Bo+W2V6H5Vw6kGz1m5Kc7QQtKOjUuKW+SIMUagqsLc
+ N3NEGSMG1ZU0qXL9xeNAs/MVz9CrRDy7kEdHGbFaBc9rIQwZpbHiSJKOBtYR/1LEQ5aNvRj9nAZ
+ af0ztb3p9Yv0DYr3YCNWkgqqUFHQiQiM=
+X-Gm-Gg: AfdE7ckeZ9abNREvYlFxAtNFJgNG2nm6yLg6STi+5fOFAy92wrlxQlxza/5BXoKrlhM
+ XJQwt7OP/5D2ntdK4Nxv24WVk3eMCUdorp1zomueKfDZ/nS0Rw6ZqovF9odV6gjJUjY85u9ITwv
+ r7iZxKkJJ8BGlmnYe7MuV6nD6uAML2aimfzBluiM21Qbh40EJvfUQeU+oBbrMuTh0U0UJr/VGMM
+ AW+Ft+Tm9BlAALmmZnL+VpSeNY7OohnRQEDyTCRVUtgbCmuUP9qBlSClkX0De8ejSFe66wZbrPr
+ UXiCjK60xf0tqfnTcVd9TXr4yBp+e0NiBRPd5ZFgYbBc2K74KAjRLRHBYDM=
+X-Received: by 2002:a17:902:eccf:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2ccfe05e629mr71465735ad.0.1783690443695; Fri, 10 Jul 2026
+ 06:34:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260710110531.3222353-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260710110531.3222353-1-srinivasan.shanmugam@amd.com>
+References: <20260710073648.41408-1-timur.kristof@gmail.com>
+In-Reply-To: <20260710073648.41408-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:32:41 -0400
-X-Gm-Features: AVVi8Ce1j1eRPWhVSbzBtnoOoF92DZbkvfedMy6b-GFLFJh38MW1MGHvDMgj6no
-Message-ID: <CADnq5_Ny=OdigN_R+PKhnH9n-zzg_513+SYo9aokuorRg-9RNg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx9.4.3: Fix MEC rollback loop in EOP IRQ
- setup
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Dan Carpenter <error27@gmail.com>, Kent Russell <kent.russell@amd.com>
+Date: Fri, 10 Jul 2026 09:33:51 -0400
+X-Gm-Features: AVVi8CfdgHGfASG6k1Yd_9OOtNvARYW0TmzmmEF0MbZ3XJLutudpc0_NN8hqemw
+Message-ID: <CADnq5_MBR2QLU_w8PNU2ktSKpDPwgomGKC0JH0C6ASLs9ooTsg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix IP block NULL check during soft reset
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Natalie Vock <natalie.vock@gmx.de>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Dan Carpenter <error27@gmail.com>, kernel test robot <lkp@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -107,44 +105,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 10, 2026 at 7:24=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
+Applied.  Thanks!
+
+Alex
+
+On Fri, Jul 10, 2026 at 3:44=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
 >
-> Fix the error cleanup path in gfx_v9_4_3_set_userq_eop_interrupts() by
-> using the correct loop condition. This ensures all previously enabled
-> EOP IRQs are released if setup fails.
+> We can't print the IP block name when the IP block is NULL.
 >
-> Fixes: 832f0aa050ff ("drm/amdgpu/gfx9.4.3: add support for disabling kern=
-el queues")
+> Note that it should never be NULL, the only way that
+> can happen is when amdgpu_ip_from_ring() is missing the
+> given ring type. The check is just there to be sure.
+>
+> Reported-by: kernel test robot <lkp@intel.com>
 > Reported-by: Dan Carpenter <error27@gmail.com>
-> Cc: Kent Russell <kent.russell@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Closes: https://lore.kernel.org/r/202607031711.yLwFhGfp-lkp@intel.com/
+> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index 44d38b76cb4f..9512fef81d84 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -2331,7 +2331,7 @@ static int gfx_v9_4_3_set_userq_eop_interrupts(stru=
-ct amdgpu_device *adev,
->                 }
->         }
->         for (xcc_id--; xcc_id >=3D 0; xcc_id--) {
-> -               for (m =3D adev->gfx.mec.num_mec - 1; m <=3D 0; m--) {
-> +               for (m =3D adev->gfx.mec.num_mec - 1; m >=3D 0; m--) {
->                         for (p =3D adev->gfx.mec.num_pipe_per_mec - 1; p =
->=3D 0; p--) {
->                                 irq_type =3D AMDGPU_CP_IRQ_COMPUTE_MEC1_P=
-IPE0_EOP
->                                         + (m * adev->gfx.mec.num_pipe_per=
-_mec) + p;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ip.c
+> index 33a04113ed74..922f4b15619d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> @@ -489,7 +489,13 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring *=
+guilty_ring,
+>         ip_type =3D amdgpu_ip_from_ring(guilty_ring->funcs->type);
+>         ip_block =3D amdgpu_device_ip_get_ip_block(adev, ip_type);
+>
+> -       if (!ip_block || !ip_block->version->funcs->soft_reset) {
+> +       if (unlikely(!ip_block)) {
+> +               dev_warn(adev->dev, "IP block not found for ring %s\n",
+> +                        guilty_ring->name);
+> +               return -EOPNOTSUPP;
+> +       }
+> +
+> +       if (!ip_block->version->funcs->soft_reset) {
+>                 dev_warn(adev->dev, "IP block soft reset not supported on=
+ %s\n",
+>                          ip_block->version->funcs->name);
+>                 return -EOPNOTSUPP;
 > --
-> 2.34.1
+> 2.54.0
 >
