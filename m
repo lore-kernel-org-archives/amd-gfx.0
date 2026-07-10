@@ -4,98 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CBC6C43458
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:27:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E04C43458
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jul 2026 13:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F3F10F8F4;
-	Fri, 10 Jul 2026 13:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6255110F8DB;
+	Fri, 10 Jul 2026 13:32:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QiOegJAu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qDPpAz4N";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9D3310F8E5
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:27:36 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-381f03d7be0so182535a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:27:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783690056; cv=none;
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCC9710F8DB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 13:32:54 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-383fff6e8b6so80173a91.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 06:32:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783690374; cv=none;
  d=google.com; s=arc-20260327;
- b=n1k6RXx5YOwyAaW1TzXP/6phNBftcyPM+jLeaX5taMympEU4ClN0Un8XXB0W+c+TAU
- 1OxUgg4R9Byp3BwAyC1yDM3MnxxiHynQIz17cJpUS/35KCz/A1Wan+Vy975GGhkIrUO0
- SUOtn3C2wzxCHyHc9SED2iYs7qeQ81qe31QVSQztvkP+NA3n47yzHfNIlfEhNO1tdBwZ
- dWSwC9iCks71TBL50kmV5oly0wccwgpyWKT/p87CgI7WFADNEezBevTbLbn/lO/N1Gfh
- pro2htmkUqTBMd14g4w7W5MJOQVuQ0C70yCXzsAIcFNs1TdOMO1L7TY854WLP2HG6cgu
- NKPQ==
+ b=C0J3SHHZFoZa98TT6sRwFaXtYq0Z7UTljacvST6Wi3eILibL6Ad0U6/RZWKwlZXDHV
+ r9bq1eL1H4S9osKtnDS9nSqPq0l3czlV9YlTgrB9BohcJ1axzPqyacB28AxJP4cIkQIw
+ IGNfq4TeUqwA3T8kzK1i66rQrCT+UeAbmhomsWdBV7xd/JSgPxyfnspyz9xBX3lX7HzU
+ Oo4EoMbzLx5ydSDBWU4uuNhq3iOgZyUx6ZEdfYpSeil/zQ9b6XKD3GzdpICx2vOrehhX
+ LewuA6/L1erlFbGb8KL0uVhd/QmkixIjJpPQhxV9mOdOEGjR2Nr5/UoIygZ7xowcn3fa
+ CDsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
- fh=0IqcFP2YQzd+mxFvBoYD0Xi98xsG4fWtoE4jyMuKKvw=;
- b=gYj7Sa9Bdr2FOYwFoSiuYbc6sSvmqme9HNTECOndj8fOS/npuZT8fDuB9dsnJzU7zy
- RdE7oI7GxUf13aNi6bdBx56w011RozS/4R6IfFY4cFCsgNmlCKzAgrdUp1+5LSqk2Vpj
- Ng+7T/aaSv6lv+i8t018euJTiUdO2mBvXMuzSv0tPrZJfyL/bLj5YM9ignQwdth5dgXS
- QLsmH+Aor7voxz97AyaTAroxap6DjMdZzVfChsgXZayiauN5qreg1G6xdlLhAACNJDZ9
- b1EqcL1tX1x/j1USY/R5JFhPMb6gNRp2ezwRZwg08aduD5ARfaUqeoLFRypRhX771hyg
- eH+Q==; darn=lists.freedesktop.org
+ bh=m5SrBdJz51UnTf3Icv1UxkGSbrtyHFHTUabrOwepNZI=;
+ fh=tYbzEOBut+TtYwEwlV5qsbDNjRL30b58tMXY7hHTrbQ=;
+ b=lKOfaGR/qH0/o42JUIKtA8deDtXv4pxfQq+6hUmt7Q1+78RXvNIgcOqxr7jyAV2nnv
+ EJdrvT+NSFGLR5UhNpLAN3oJ5cBs8fEQFGuEbSoPis1PIUBbqzjhv0TsIr/RKOTK7jvj
+ 8rWLEmEaE8M4MuLYJtuawtJiK/KO6AEJBAW18B4jVsQHuv/w7JWBrsdTi1OPbRgzfgAP
+ d9c7lsugdFhGl9SlgjcZg19iGK3yxB2Cd3vDMMGda2ajezdrZs9DFNFaVOPyC8UgXHgf
+ lZYIz0UfRmvnBo/vm2gGGQ0RU2dB/Wnwliautql/bKwBUaAZPphbx8CV3Noj/k5b0f/Q
+ bCsw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783690056; x=1784294856; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783690374; x=1784295174; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
- b=QiOegJAu0Dati0+Qo2es+1AYTiX16oEq7iaiLSu1D7zDZwRkJnhG9TBcMNRnFS0D39
- 2cBTI8XcKO0CEJWAtP5tgUt0fmDninA3ge3AlcqyC4awgo4yDXqQo601XnlqkTBv9uHX
- rjeCj3GxuchqHtJoxzWthwKPxnJ23RWBbX75dByjy9Y5ahFor9BGhVtM8NF4RjUk6nvh
- 2g3zWrYcY734NAGfqKEZuNG6l23qnEUu7BbDssgKsP62miB4hSiCW/R0hbAhjcIT/dZw
- cRMN+vqL7HmEDPtv0OhQtek/nMAWh9RswNemljl4HnHhEVdtX2LseQlTzsqWzRukEUFq
- N42Q==
+ bh=m5SrBdJz51UnTf3Icv1UxkGSbrtyHFHTUabrOwepNZI=;
+ b=qDPpAz4N84GT8hKZdII4ynGS2LKVG7JFncu5O/fsyjj4tYc7Jt5a4xyHvR/0SFKp5s
+ 9JGJkNF77r43PvkptNKSKMLg7sA+ajXbi2XNHk+8A0LRyiXL0bTuoQoiciouoyOPr2WN
+ w0dL5pyhGKs5P0XjFhudRdJkyPJlRowSbfhxd4VjaUiprjZZ35SNppdUXlwzbXKoBGUF
+ EK58c5E8kDm61uhgt713xN65k8zweTFz0lIA3ENnEsxJSoi9+POhwIVReCjUAOV+u/Pe
+ rphWSwkMBip416rbvIu3KlNDOqcN06lSlmdfcOGp8GG1oVF4smdQB5jHKjJpMyT6J+9/
+ wkzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783690056; x=1784294856;
+ d=1e100.net; s=20251104; t=1783690374; x=1784295174;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=8Xz8mAiIS9bhxJSnBlNVStU7ycoiUswNHhwr3rObZng=;
- b=ecWLu8P+k+5Gq0fEDzudKZamLMrvapviS6sHzCCipweNNnfGMu3ZqbZm+wdA2LULgp
- a3VBqqDGOmxTQacF/vVDowuc/JZGCZkWqqYZZGiMyRJ//Y/0Qv1jeMB9vjSTIzKR9lb8
- e0zqmCtxA/hF9e0y73y9wXATSBUZ4zGwN2bwbX56+3FQqGZIPmJDtswfad4eF7SgQSVk
- o5n6ARh3PN+PtmuvOR1XSybPmaKDb+S3CQOjWp+oADyysqNuRENBAEBKyTRS5KR7j2sS
- vUbU0/LwJOuY6Xum1h9SXC9N6+m5vOKkm4VdBCNPz8lSAaU9kPePFm3gk1g7BUG6pT8s
- 5eRg==
+ bh=m5SrBdJz51UnTf3Icv1UxkGSbrtyHFHTUabrOwepNZI=;
+ b=m9eo0XLKsWjVxVaZGyIxK3KFxnz4gK/ArSTxARou1XCUull7oirXH/BlbOU6NBZ3xW
+ 98IdiYMweKALPen0ZsaDZiCBA0itU31jObUQHcY+BSyqfkhzmrumbOHoEeZKNlLIl9h6
+ eGmNCpuCCHz7/XYaEbcYlZ5zfaxV+chJAnQt4uCSdw3ybZztiCswwIxZpCUb/dGMze/w
+ hegqqZqrzIS8psdZyvJQjzzNfjPNUntLy6h8Uaw90sDJaneMyQVDuaCFs1v5/CDxPK1e
+ rO2Z1OIpg0YJK9YcprSsXkhiP1TSHC3EVi4TeosAnDdMGQo1K4Z6TvhKns5ERWSugdBT
+ cZOg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrlpFnnDeSOnS1dXkRsKzlzU9WMrgYn4I8mOXNhDlWCe9lmQVqtypk4GmnKmLzPrS8Lnaez+cfe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5/78Aqi20L4Wkx2j088pR99lKNGY7K5+FMOS2pwjm/wohz78q
- KILKm9+vWgDulTzyG80WyLsY6etIcP04Bos9uVp8FlDsLtl+Pk7E2fXq9M/lau1wff3LkGTaMWa
- QZ/WjnYiL2uXZRo8q+aJM3zP1pkdAjlw=
-X-Gm-Gg: AfdE7cnl108na9CrTnaIRn9FtL6eAlt+Pwo55xkVn+xfljufWsMU3n2lChbmw/v3HOU
- Z0+Rayj+SAXu3epzKs4bqpJ4CC/hG1VCFo7NIs8RzCGV3DehzglNBGT4PGjV8tnEt6qsD1CUf1j
- 3U5vTwqUntnTOgxrOnf97JFUl8Pc1NBsnt/FEjRCaraohVuT4oVlHDqk2FRITfTBjcWnTOVIiBs
- 4P9FGqXP6WzyoucZX2V5a40pFhBSA8A5PUPC8dAdPVPTukcSExv5HMHoOHVRSY4Dmz9CbhQbU4A
- xErsw/zt5WKa8eJm6ftQSnl6kql/6MHmSDza1mbdriyENtgt4watj4Q+nTzDRdjlHxnuXQ==
-X-Received: by 2002:a17:90b:390e:b0:381:77cd:38ca with SMTP id
- 98e67ed59e1d1-38a20c48ce0mr6963500a91.4.1783690056153; Fri, 10 Jul 2026
- 06:27:36 -0700 (PDT)
+ AHgh+RpNw4TJAhLOeC1dorBIoMSE82NbdOLSseXhu9cd49xdcUI+GQ6GdRpQJOzP+GfLl9YBX1tdacIl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZrh7q0MwcIf9yOzA07XUQpnouP34ZZ2imzSVCQySguOSs5YBx
+ /FQ1p4l1g1cTyiI2nd4vIlwXsADsoHZ/zPinHK151KPZP82IPIjHI749h16HhsApawv6y6O1oTX
+ 3bNl7u9DXBGHyUv3Ss2/Gaa6Xel9bxLU=
+X-Gm-Gg: AfdE7ckUc+PDdlYcSMhZ/1EYfHls0ZHPEHJSsYpJwM+Pgi222bBCmLGXWqUwwV17YQN
+ NbN9egPWH6WcuKCAgvFzc53eDdpoop1Oy6J9nO6+HWnJc/FOJs93lmh3W1TjCgXQIoEwpG0Lk8q
+ G9pfRWK2n3oJPaTfkyTlzN+yZGPVs94lunXg8D3Hu8a+zTtPt5x9S0PSCil5ZyZNMSUn9f28r7t
+ p9JUHYXwvJ+cyqD9DbiSeI/iGkWQ8Y4Ucx8bkiSu5hBXqBS2x0joQX51wU/yLPZ14vB7JSaUEQw
+ e7/6Is81QW9rRAwGXqSocMCpX7AJ0DaYHT3AMFmJekIwaTseYWAMjMkYykot4W2ouxOouA==
+X-Received: by 2002:a17:90b:58e6:b0:381:fa5:5217 with SMTP id
+ 98e67ed59e1d1-38a2170a4acmr7165869a91.7.1783690374160; Fri, 10 Jul 2026
+ 06:32:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260708222035.7324-1-nico.antinori.7@gmail.com>
- <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
-In-Reply-To: <fd5ecc7b-b9b5-4653-b7ad-72bdcd0b8518@suse.de>
+References: <20260710110531.3222353-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260710110531.3222353-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Jul 2026 09:27:24 -0400
-X-Gm-Features: AVVi8CfC8WMQvuOOX9IbEu4pHDNwlbHNhnBztQ4WqIxX3gf9mAdHkuUx5nllMac
-Message-ID: <CADnq5_OBYXSz2HG7SCA2eK5_z1J0SmJCwCW2RkGJ5d1-tAVC6g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Inline drm_simple_encoder_init()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Brigham Campbell <me@brighamcampbell.com>, 
- David Airlie <airlied@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, 
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
- linux-kernel-mentees@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
+Date: Fri, 10 Jul 2026 09:32:41 -0400
+X-Gm-Features: AVVi8Ce1j1eRPWhVSbzBtnoOoF92DZbkvfedMy6b-GFLFJh38MW1MGHvDMgj6no
+Message-ID: <CADnq5_Ny=OdigN_R+PKhnH9n-zzg_513+SYo9aokuorRg-9RNg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx9.4.3: Fix MEC rollback loop in EOP IRQ
+ setup
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Dan Carpenter <error27@gmail.com>, Kent Russell <kent.russell@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -112,78 +107,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Fri, Jul 10, 2026 at 7:24=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Fix the error cleanup path in gfx_v9_4_3_set_userq_eop_interrupts() by
+> using the correct loop condition. This ensures all previously enabled
+> EOP IRQs are released if setup fails.
+>
+> Fixes: 832f0aa050ff ("drm/amdgpu/gfx9.4.3: add support for disabling kern=
+el queues")
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Cc: Kent Russell <kent.russell@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-On Thu, Jul 9, 2026 at 3:17=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
->
->
-> Am 09.07.26 um 00:20 schrieb Nicol=C3=A1s Antinori:
-> > Simple KMS helpers are deprecated because they introduce an unnecessary
-> > intermediate layer between atomic modesetting and the DRM driver.
-> >
-> > Inline the functionality of drm_simple_encoder_init() to remove
-> > dependencies on these deprecated helpers.
-> >
-> > Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
->
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
-> >   1 file changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_vkms.c
-> > index 170adaf7e76a..d5b0692fe860 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> > @@ -2,7 +2,7 @@
-> >
-> >   #include <drm/drm_atomic_helper.h>
-> >   #include <drm/drm_edid.h>
-> > -#include <drm/drm_simple_kms_helper.h>
-> > +#include <drm/drm_encoder.h>
-> >   #include <drm/drm_gem_framebuffer_helper.h>
-> >   #include <drm/drm_vblank.h>
-> >   #include <drm/drm_vblank_helper.h>
-> > @@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(st=
-ruct drm_device *dev,
-> >       return plane;
-> >   }
-> >
-> > +static const struct drm_encoder_funcs drm_encoder_funcs_cleanup =3D {
-> > +     .destroy =3D drm_encoder_cleanup,
-> > +};
-> > +
-> >   static int amdgpu_vkms_output_init(struct drm_device *dev, struct
-> >                                  amdgpu_vkms_output *output, int index)
-> >   {
-> > @@ -342,7 +346,9 @@ static int amdgpu_vkms_output_init(struct drm_devic=
-e *dev, struct
-> >
-> >       drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_func=
-s);
-> >
-> > -     ret =3D drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VI=
-RTUAL);
-> > +     ret =3D drm_encoder_init(dev, encoder,
-> > +                            &drm_encoder_funcs_cleanup,
-> > +                            DRM_MODE_ENCODER_VIRTUAL, NULL);
-> >       if (ret) {
-> >               DRM_ERROR("Failed to init encoder\n");
-> >               goto err_encoder;
-> > --
-> > 2.47.3
-> >
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_4_3.c
+> index 44d38b76cb4f..9512fef81d84 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -2331,7 +2331,7 @@ static int gfx_v9_4_3_set_userq_eop_interrupts(stru=
+ct amdgpu_device *adev,
+>                 }
+>         }
+>         for (xcc_id--; xcc_id >=3D 0; xcc_id--) {
+> -               for (m =3D adev->gfx.mec.num_mec - 1; m <=3D 0; m--) {
+> +               for (m =3D adev->gfx.mec.num_mec - 1; m >=3D 0; m--) {
+>                         for (p =3D adev->gfx.mec.num_pipe_per_mec - 1; p =
+>=3D 0; p--) {
+>                                 irq_type =3D AMDGPU_CP_IRQ_COMPUTE_MEC1_P=
+IPE0_EOP
+>                                         + (m * adev->gfx.mec.num_pipe_per=
+_mec) + p;
 > --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
->
+> 2.34.1
 >
