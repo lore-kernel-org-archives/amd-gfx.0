@@ -4,70 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D15C43458
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CDDC44508
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7069210E4AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73EB10E4A4;
 	Sun, 12 Jul 2026 15:22:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PV5cbjPT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lVnFU9G7";
 	dkim-atps=neutral
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E48110F7C8
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 07:15:58 +0000 (UTC)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-4472500e25fso311980fac.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 00:15:58 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6033C10F90E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 14:12:33 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-475881b9a4bso961351f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 07:12:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783667757; x=1784272557; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=+fIDApUl8o/a7RJvsO5rejRSVTDoHitdTXQIKacb5pA=;
- b=PV5cbjPT+3skrJxe+tJ4CtDXYyq+Vku1vot6gVI81L9uTkjTRYTKJuZa2ExdN1jGKX
- 1VKB+AJ65yqM1o+awsmzXXR+Xz9R78QWK7++FNeb/05NEpS6nPtLHfEVr+Fn91hiz1WH
- PW7JmWaWXl1/plOd8IgbdEM7gMFSYr4+JU8pQcxrpxcD9VBv3KL1Zww/E+d4oXADgFnU
- RENLwvKIFXCW+rXpJqgQC0qpBfzAA0KQf7xbZx3/RJQoOSK17jvp/g+NVVtZfKX2a/l2
- f+bUJzc9HH1CW8PwVQgBEYJ1EDEBhAxQD0LCbVx1dUoAr3gIXt4D8ey+VTovQn4jG9kq
- EEBQ==
+ d=gmail.com; s=20251104; t=1783692752; x=1784297552; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Xhl6wcIfeq3/MF7j47x/uRNfsJyo1U6JRMUP7xPRhDU=;
+ b=lVnFU9G7/OOXvka44En+CtDpGbHnPZ4sxbbOuxLKwJm9qAAkq6zb7lDdBUrV0SGM54
+ CSXMrWJv6+1Wmc8pMpn8kMljEqUBjM0e2Zix4aWBxotiBQNcoU403hpexLOgKqD6osjQ
+ tbmH7TJltA0Yq1jdN9etgVPn3DhZLy/Gkp7W/98DEpsfOvTbeg68u5pxNQKWfbdRpWDF
+ DpZjKRQZax7q7gWCrm8ctk9w6Am8qO2wfCwZwfS/P35H3MBAHQqD9vd5xG+STSITmvKh
+ +PvIB+QOqhUP04Hb1PYXdAL0Pv4PQk7LcYjE04n1WMLG3NTi7hghvO/leyFdXsiU25Ox
+ 1rTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783667757; x=1784272557;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=+fIDApUl8o/a7RJvsO5rejRSVTDoHitdTXQIKacb5pA=;
- b=EEm5v0c+mXA8tgYtyxP6lZS8uMYSeX2XrtI8UeO5JROcZJlGtEGEdEdWD4FY3zy5LP
- vZk+rYM3zg3Hjm1sDpNtdN5O1inbEZTqUbJ59XffKRiiXQmEz52sl8sHetQlPfstvSgs
- DheTGl7Q2+/WCC5/gf6W+GySNS8zsfuu+U+Sp1O4PiA50RMvmFk8eASqYjxVzd8uKMb0
- AGtzeIUNzeropCngbvGXKow6IHFPM9zxCTOuznChdgCibcaA/gl1MA7r1vGkmaoeiKDA
- 3HakBd3mpxMr+xi+KO7yPjDe/rFOn5fopQTWWm+IT8miIej/a4rEvJjWq5U/npZqQyNz
- k4Yw==
-X-Gm-Message-State: AOJu0YwkcCvDe6Lz4PdKkVR3u0yA8KKVKQWd/MsB0V0ZYtl6RyE8Sio2
- b68MbMBvfPtCMTxdLS9qvLpIAo2g+EU2A0PpfxkGGsQn9LEgyBs0Z+YV
-X-Gm-Gg: AfdE7cnzaOmnnfwCpM/5xjfyVpc2E7u4N0OYT0uQVQM7inEwK+EDbV0ZOy/j/IfoaMg
- Qohvz4ZwVbMyaVWP6SpN6NAmKI0UScXnSM6tuhhpa6QB6dSQxk6F1T6wox0u2NDMVIraVeb9ZSN
- SVf2ifdGUXRMsQ4eLEJ0Gkma0JB4Dk0ptPZpKpaW9+BaDd5MgLm7ZZJ2uzDWOudOmnHKr3YfFlZ
- ufg50kEb1XFFuBYKx4kSvTWDNNx5icpWt7kB+KKsmklii6O9aFzmgenbFTs2GxLLzxhxYVsO6fR
- ng0CaBMvrFF128JYuae54lVlrKgBFhvAwGqfHOKwlzEbiCENLM+wM4bZqQONm+UA59eVLoiJlUZ
- MUDZfMSt2k8LoVvw8Llz5o0vjGYlGKfyx7d0u1vHPIRqRqDftjCw+hVpH7jpuhyRIU4K1Ua1IAE
- lRfHsC
-X-Received: by 2002:a05:6808:c2fb:b0:495:97ef:b41e with SMTP id
- 5614622812f47-4a2048e36cdmr7147858b6e.34.1783667757265; 
- Fri, 10 Jul 2026 00:15:57 -0700 (PDT)
-Received: from localhost ([74.80.182.70]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-4a41f5b69bfsm39967b6e.17.2026.07.10.00.15.54
+ d=1e100.net; s=20251104; t=1783692752; x=1784297552;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Xhl6wcIfeq3/MF7j47x/uRNfsJyo1U6JRMUP7xPRhDU=;
+ b=Kzer6geQFxLlZomuq6XyOnUaCFkEbqL9SfXMIrGIh+Xptkgzb4CswC+NWEQFS1m43i
+ ieITrbngE8SyrS/9Empj+LwPh8wHsrmQWoQhBXupHkiRyjunLwsGEy8cCUHL/tEKgakH
+ 0Rv1NO7/FKP5l2AvJV1rSORs8kqITlGGiTC81SxXoA1n7/j+4RuDvtIqrg/6yFT/SoXn
+ KCvmIWpjHov/oA6Rxta66a/4PN+D6sWkhG1xr1qbqWVXcY2DMhCaRmCRMFr9P32aEt4Q
+ kpAXTmtAAUjmEvMRdwTNpZA/F/kEjO7GV11OOfkklMMphpBwiZnDzciVcX9eJQjfcqe1
+ 7Emw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RomKU2JwsajSwQxWLBNgO9brbUML8NK4UrBvi76N03vH8Zp3Z60QN1KchfqBO1TpGNSiRXeVIfe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqlxcZayE25GB4OA1H4WqqC1awBQW3gzh8eRxzplBofdBQhAg3
+ 8X1dpg3pS2+7ElBXGI5rpA4VJH8Vb4B73h6sSDWV7WzoQ3DDL4F+4Ba0
+X-Gm-Gg: AfdE7cnKRZc/K7cWRmuRekEMYV3+qzW0g5vVXzbuja8GyK52VoSwau+d37Ooko0u9xu
+ 4a7IuHmOFZy19Cdqh7KqK0pgJwcHP4cSSsASu4dDZbGtstcyUsENxptH2SxqmU0CpgdE3szO+Ir
+ Fjq0OW3iU5XEePDocrDDhU5DPzQY3mSWklkZfBLQyqjMKZnyADeJw2nwmGI3U+RhkxfM0gwEl/X
+ nPTSgiMNnKNph8oJRxxSZBWxgC0b09KK9gWtU212aNUuI35PZA1A84GVSwZlYWZBY9VgkLBngRZ
+ jnPBjxt0xDjenNJJ8X7xOncJaQR24YHRnPlOCHTl1YLWTV8zp6fDByiTSZvyPzBaCqU/XgDKrna
+ iqu7OBbiL7V1/piAIbsfDVKdLzqLW5QQB4SpmfLhnXYxPMPLOC6UAO3QmwqrOHw74R9hUHDQzkG
+ RdugpYRxXP4sdAWnNXm2k=
+X-Received: by 2002:a5d:584e:0:b0:474:64bf:8fb6 with SMTP id
+ ffacd0b85a97d-47df0762073mr13286605f8f.39.1783692751669; 
+ Fri, 10 Jul 2026 07:12:31 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47a9e4d6da9sm59788170f8f.12.2026.07.10.07.12.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 00:15:56 -0700 (PDT)
-Date: Fri, 10 Jul 2026 10:15:50 +0300
+ Fri, 10 Jul 2026 07:12:30 -0700 (PDT)
+Date: Fri, 10 Jul 2026 17:12:27 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu: Implement "color format" DRM property
-Message-ID: <alCcJmDeIYEE94Eh@stanley.mountain>
+To: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Do not fail process debugfs setup on debugfs
+ errors
+Message-ID: <alD9y0YBjo5_pJnh@stanley.mountain>
+References: <20260710112938.3225738-1-srinivasan.shanmugam@amd.com>
+ <04d7a46f-3bba-412d-bfd4-89292d11e1db@amd.com>
+ <alD6PcLowqjVBnSl@stanley.mountain>
+ <a44c0a8c-e3b1-4013-8a36-4fa3f44d023d@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <a44c0a8c-e3b1-4013-8a36-4fa3f44d023d@amd.com>
 X-Mailman-Approved-At: Sun, 12 Jul 2026 15:22:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,96 +96,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Nicolas Frattaroli,
+On Fri, Jul 10, 2026 at 10:08:11PM +0800, Zhu, Lingshan wrote:
+> On 7/10/2026 9:57 PM, Dan Carpenter wrote:
+> 
+> > On Fri, Jul 10, 2026 at 09:47:32PM +0800, Zhu, Lingshan wrote:
+> >> On 7/10/2026 7:29 PM, Srinivasan Shanmugam wrote:
+> >>
+> >>> debugfs is intended for debugging only, and failures to create debugfs
+> >>> entries should not affect normal operation.
+> >>>
+> >>> Remove the check for debugfs_create_dir() in kfd_debugfs_add_process().
+> >>> If debugfs entries cannot be created, continue without them instead of
+> >>> reporting an unnecessary error.
+> >>>
+> >>> Fixes: 22ab1bb3994a ("amdkfd: expose pasid of secondary contexts by debugfs")
+> >>> Reported-by: Dan Carpenter <error27@gmail.com>
+> >>> Cc: Zhu Lingshan <lingshan.zhu@amd.com>
+> >>> Cc: Felix Kuehling <felix.kuehling@amd.com>
+> >>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> >>> ---
+> >>>  drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 4 ----
+> >>>  1 file changed, 4 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> >>> index 02673f01b448..7c5bc9c4559a 100644
+> >>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> >>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> >>> @@ -211,10 +211,6 @@ int kfd_debugfs_add_process(struct kfd_process *p)
+> >>>  		entry->proc_dentry = debugfs_create_dir(name,
+> >>>  							primary_entry->proc_dentry);
+> >>>  	}
+> >>> -	if (IS_ERR_OR_NULL(entry->proc_dentry)) {
+> >>> -		ret = entry->proc_dentry ? PTR_ERR(entry->proc_dentry) : -ENOMEM;
+> >>> -		goto err_free_entry;
+> >>> -	}
+> >> We need this check because debugfs_create_dir() may fail.
+> >> Removing this check leads to entry leaking when fail.
+> >>
+> > Debugfs functions aren't supposed to be checked.  Drivers aren't
+> > supposed to rely on debugfs so it's not required.  If debugfs is
+> > failing then you are pretty much screwed anyway.
+> >
+> > I have a blog about the history of this:
+> > https://staticthinking.wordpress.com/2023/07/24/debugfs-functions-are-not-supposed-to-be-checked/
+> >
+> > This code is inside #if defined(CONFIG_DEBUG_FS) so the check
+> > isn't harmful except that it sets a bad example.  Back in the day,
+> > this used to be a source of pain for me so Greg made it hard to
+> > write a correct check unless you have the #ifdef.  It's to
+> > discourage checking.
+> 
+> Thanks Dan for the background, then how do we prevent the entry leaking if we do not check debugfs_create_dir?
 
-Commit 8a0343b03b98 ("drm/amdgpu: Implement "color format" DRM
-property") from Jun 9, 2026 (linux-next), leads to the following
-Smatch static checker warning:
+We just don't worry about it.  If that happens, you probably are going
+to need to do a kernel upgrade or replace your ram or something.  A
+small leak is the least of your worries.
 
-	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_connector.c:857 fill_stream_properties_from_drm_display_mode()
-	warn: duplicate zero check 'connector_state->color_format' (previous on line 848)
-
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_connector.c
-    801 static void fill_stream_properties_from_drm_display_mode(
-    802         struct dc_stream_state *stream,
-    803         const struct drm_display_mode *mode_in,
-    804         const struct drm_connector *connector,
-    805         const struct drm_connector_state *connector_state,
-    806         const struct dc_stream_state *old_stream,
-    807         int requested_bpc)
-    808 {
-    809         bool is_dp_or_hdmi = dc_is_hdmi_signal(stream->signal) || dc_is_dp_signal(stream->signal);
-    810         struct dc_crtc_timing *timing_out = &stream->timing;
-    811         const struct drm_display_info *info = &connector->display_info;
-    812         struct amdgpu_dm_connector *aconnector = NULL;
-    813         struct hdmi_vendor_infoframe hv_frame;
-    814         struct hdmi_avi_infoframe avi_frame;
-    815         bool want_420;
-    816         bool want_422;
-    817         ssize_t err;
-    818 
-    819         if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
-    820                 aconnector = to_amdgpu_dm_connector(connector);
-    821 
-    822         memset(&hv_frame, 0, sizeof(hv_frame));
-    823         memset(&avi_frame, 0, sizeof(avi_frame));
-    824 
-    825         timing_out->h_border_left = 0;
-    826         timing_out->h_border_right = 0;
-    827         timing_out->v_border_top = 0;
-    828         timing_out->v_border_bottom = 0;
-    829 
-    830         want_420 = (aconnector && aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420) ||
-    831                    (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420);
-    832         want_422 = (aconnector && aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR422) ||
-    833                    (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422);
-    834 
-    835         if (drm_mode_is_420_only(info, mode_in) &&
-    836             (want_420 || connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO)) {
-    837                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-    838         } else if (drm_mode_is_420_also(info, mode_in) && want_420) {
-    839                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-    840         } else if ((info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422)) &&
-    841                    want_422 && is_dp_or_hdmi) {
-    842                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR422;
-    843         } else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 &&
-    844                    (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
-    845                    is_dp_or_hdmi) {
-    846                 timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
-    847         } else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_RGB444 ||
-    848                    connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
-                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AUTO is handled here.
-
-    849                 timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-    850         } else {
-    851                 /*
-    852                  * If a format was explicitly requested but the requested format
-    853                  * can't be satisfied, set it to an invalid value so that an
-    854                  * error bubbles up to userspace. This way, userspace knows it
-    855                  * needs to make a better choice.
-    856                  */
---> 857                 if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
-    858                         timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
-
-So we know this is true and the else if else is dead code.
-
-    859                 else if (drm_mode_is_420_only(info, mode_in))
-    860                         timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-    861                 else
-    862                         timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-    863         }
-    864 
-    865         timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
-    866         timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
-    867                 connector,
-    868                 (timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
-    869                 requested_bpc);
-    870         timing_out->scan_type = SCANNING_TYPE_NODATA;
-    871         timing_out->hdmi_vic = 0;
-    872 
-
-This email is a free service from the Smatch-CI project [smatch.sf.net].
+This is the answer that Greg told me back in the day.
 
 regards,
 dan carpenter
+
