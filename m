@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04420C43458
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Jul 2026 11:50:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45CCC43458
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Jul 2026 11:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A55A8981D;
-	Sat, 11 Jul 2026 11:50:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9E010E230;
+	Sat, 11 Jul 2026 11:50:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HJ2mjB/C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kqVb52mF";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F2788981D
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jul 2026 11:50:04 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-493f75f7172so8017515e9.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jul 2026 04:50:04 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8058981D
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jul 2026 11:50:06 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-493e4cccd8dso7277105e9.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jul 2026 04:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783770603; x=1784375403; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=QCPAYEKl6gqLpsi13f4PwI4++nmfTJJrXzoS7SKLfxU=;
- b=HJ2mjB/CPLs0vf3s5YrHG1ObdA4UNwuz3x/Zr/3fCNFTehWwM14I6hdRtTyNzu3Ryz
- NMToERNQznfxI+eTTbRhtJvIjIJAA0AZsOz3l8u62hNwdz3A7KJonNEaYrjOHuGhNYHE
- 2ofoAwm//2h8/cb87fvCUBbgbVBI66nkSGKkMumRpen7x7LPj8bLLQESo1JpiNkYtp5r
- wQzo2bbLA+fTjUjZRszI3b20SJtsNhSnFwpqdmbCrKT8kwyOLuHZ60KAcRcin81opY/s
- bHUyneyMaiVFplnuNLdXzYcZNKx3E2J8ye98tVfOMA1ZpxFxy95vVqn2FuXi4eMm19dO
- ImIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783770603; x=1784375403;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1783770604; x=1784375404; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=QCPAYEKl6gqLpsi13f4PwI4++nmfTJJrXzoS7SKLfxU=;
- b=iUU60QnJ0ezANyUIap23QpVahMuPBofU9SULyP5LWIrwBwPJrTqhhbDF8q89LrCFRL
- DL/i6AaspxghTbl0v8cVox+y451LmJAjl6Gn2nYM7Yp4EiMaaHJXbqyYSJVZ3Fjf3WHq
- 5Gpps94a+crLM2sIyNASkOQKr8nE8OT0yqQa8a1+nsFV3PuzzTGBP8I/qyCZM7aOSreu
- C3vVQJy/mQRkozdjsFP/i8N0sSqLgTFJYI2cUB77EO/w94RDgz9+UJeVJjzuBnTaP/TN
- c9BCyyDMXwGDOAVjZUWHZzipRrXiR2aPmeD/3I7RHOwwoHAYuUWmZD7zEd2/6L60SMU4
- N7LQ==
-X-Gm-Message-State: AOJu0YyhTLJobsatKfIdNKEodGhbCoTPfm8ytrnJU8HWItDy9zTQlFxj
- ocaz8KrSFbTjCuiSnP5vJMGj6p1ndJhPfJ4KhrroS08tLl9ySei+ybJ1ufhEyA==
-X-Gm-Gg: AfdE7cnByuGj7aOYxpDrWqQcVQDPRANDxYapwZBk8dSap7aADVxPSAbkWE+vVZHkqGc
- 2wyGIi4n/RU5FVebkBQwnRcl24VWc2Rwt3O64MBYVuHRNNhKOJm58QsUzVnggtIIwMXWBjxuDwo
- C8/5RYfvmeRF5a3Tx9AfYvzON3Ak2LLu12eWi1fTiLyxOX7YGyAzVxY4H9wo/dD61ei9lRi1Wzk
- wh/0d3zJ58J8rNMzmjIao1liWmqdcuEfTu5KAskBXhcd0IOIe25aSTX/YaUphrvnoOvM4cqgIkB
- fJurFtfcFqL9lotXlFF9zjGtY5thfng1xKHIwG5HHO3UKWtIatum0JHKG1oYXXEatTJBJOwNUri
- JX2F9RI3nmuwPQTN7LkrlwEibe8ypEU3Lac3kya2HJmLp4QIkTP3WABIYwJn27WY7OhjL7FWiPi
- QIqyW1uxWhaUmxMdJg9ZAfeSjrP1GvupI4zMxTwFWfZP98DazHg45aWA==
-X-Received: by 2002:a05:600c:190f:b0:492:4e09:9fc1 with SMTP id
- 5b1f17b1804b1-493f87e5b7fmr25325765e9.15.1783770602857; 
- Sat, 11 Jul 2026 04:50:02 -0700 (PDT)
+ bh=cVqLP2u+PWyKYab5Z1Hu7Vv0vC4hDA3S2JU9WjTYaeo=;
+ b=kqVb52mFulTZw3mAtP6xONbA80R/TdxUdIgwj7lK7N3WhxyVe2reshNj5fGaKfy0lk
+ 2/PVb1e5fqG68X3Rpzr3b73MLEtFLPZB9TAjrNbiYn91DrZph1k+yk20ZruS6TbRSEdh
+ xFRKorBgqVgbzaSOxG13+oDlVnFpJp1YWMgE/Yu8J8nnXmybyGdxB0ss26aOJ8NgackJ
+ Oh47v5bmhOD6z6dtbX2fNy4Pcu3i7IUMJwMs8Ch32fh38rKcqe8uOspN2rpSlslW3yB1
+ wW/SPvhWbEfvV8rRDxsE8n+HzujrQtGny4w4A2CNLVYaWLeAw2cQ/dAJtu/BWTn46RjP
+ mFew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783770604; x=1784375404;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=cVqLP2u+PWyKYab5Z1Hu7Vv0vC4hDA3S2JU9WjTYaeo=;
+ b=KV5Kmv9JDEAQrMWKJBUtrLgG5B/WMW917M8USo3rFZmOupV1/EdKgtRkpsrHtcOQIH
+ lr/CvPSiM8udB4rh2CgKHOiOND9ys2vKDmxh58ySFHgl3BzSiNPhrXmotYBvpmFQenhA
+ 6uik+ioTa0b6pA6aiRHa7f8/S70zbyLaUt+af9Ao0GsjweWeCyB8bGynFucPii50Kpyd
+ Y6wByrrRe5U9JslMJ9SVGQd2jvnj+bagVjV/emfCeU2xjDP8eWWCJR0KuUFd5pCZecxE
+ lee6VRMmi2Fcl2N0mEmDB+vj+Cg27nIYWsihSlAt+k7iz4FcpIW75QIObrFPW9ga1xiW
+ 7Jfw==
+X-Gm-Message-State: AOJu0YzGFML0f7pZo8GObPQcdsCuhCrarxcBIPsxwnAaIKC3teeGEI9E
+ lHBf069/qLlPKshELhbuwPOJnSLWTHb8M7uXWuFMApZNB9M9KoYHvrY54lL0SQ==
+X-Gm-Gg: AfdE7ckPiKcm9AGzZzUqahK6fAfyewTpe8QQDD6OafaxBrqwtm84JTVegXJTdEQ0xm8
+ VQlIgPT3j4YzKm3T+0yjYE9REFEQWg9FovEc8jxO4izY364uWhMurYNgrebM6jrbabxUSvaQ0GD
+ XK/Kbdr3x9ExPnsywieqeUOF1XvqYE2SUSFAaI4CRSqmJJGVMfvzcrk3SqCxPfhOKohGkf2FYQi
+ gso5BPp+GFGViHMN8XOZbG2+Mied7Z2RvlmXuFKe2lvh+X6TL06fqYEJWGrdlxorrVmfIwhqR4i
+ l6JSnwxZbQrvIUJbheA2YGMldN+PQdtSJGNquV3aWhVqN066rVuf1yxvWpmB52yKZdKcG5IpRbi
+ oTNdXk60ATwE85bFsUkYbfSkAPO88SPLLniMDTyPY3zpD4FhW06PHAzCnWXlYu+kOttEjd/wyaL
+ jt99+EFfS8FIAa4D3T3mCEZzOgrPT7ABI45yf8izRjD7v7aDd89kJEkg==
+X-Received: by 2002:a05:600d:8444:10b0:493:e46a:ab with SMTP id
+ 5b1f17b1804b1-493f8837638mr16598465e9.34.1783770604136; 
+ Sat, 11 Jul 2026 04:50:04 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
  [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493fbae1cdbsm16352865e9.10.2026.07.11.04.50.01
+ 5b1f17b1804b1-493fbae1cdbsm16352865e9.10.2026.07.11.04.50.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jul 2026 04:50:02 -0700 (PDT)
+ Sat, 11 Jul 2026 04:50:03 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
  pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/3] drm/amdgpu/ttm: Consider concurrent VM flushes for buffer
- entities
-Date: Sat, 11 Jul 2026 13:49:58 +0200
-Message-ID: <20260711115000.40655-1-timur.kristof@gmail.com>
+Subject: [PATCH 2/3] drm/amdgpu/ttm: Make buffer copy source readonly
+Date: Sat, 11 Jul 2026 13:49:59 +0200
+Message-ID: <20260711115000.40655-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260711115000.40655-1-timur.kristof@gmail.com>
+References: <20260711115000.40655-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -86,55 +89,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allow using multiple SDMA schedulers only on GPUs where
-we are allowed to do concurrent VM flushes.
-This consideration is necessary because all GART windows
-are mapped in VMID 0 (the kernel VMID) so each buffer
-entity would flush VMID 0 concurrently.
+When amdgpu is moving a BO from a location in VRAM to another
+location in VRAM, we map both BOs in the GART and perform the
+copy operation using the GART addresses.
 
-Practically this means that we can't use multiple SDMA
-engines for TTM on GFX6-8 and Navi 1x.
+We are not writing into the first GART window, so let's set
+the PTE flags to make it readonly. This doesn't fix any known
+issues but let's do it just to be safe.
 
-Fixes: 01c836788b37 ("drm/amdgpu: pass all the sdma scheds to amdgpu_mman")
-Fixes: e4029f7a9474 ("drm/amdgpu: only use working sdma schedulers for ttm")
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 74ada995bd8e..9eb55df6e692 100644
+index 9eb55df6e692..50725bd2448d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2685,12 +2685,22 @@ void amdgpu_sdma_set_buffer_funcs_scheds(struct amdgpu_device *adev,
- 		return;
- 	}
+@@ -199,7 +199,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 				 struct ttm_resource *mem,
+ 				 struct amdgpu_res_cursor *mm_cur,
+ 				 unsigned int window,
+-				 bool tmz, uint64_t *size, uint64_t *addr)
++				 bool tmz, uint64_t *size, uint64_t *addr,
++				 bool readonly)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+ 	unsigned int offset, num_pages, num_dw, num_bytes;
+@@ -260,6 +261,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	flags = amdgpu_ttm_tt_pte_flags(adev, bo->ttm, mem);
+ 	if (tmz)
+ 		flags |= AMDGPU_PTE_TMZ;
++	if (readonly)
++		flags &= ~AMDGPU_PTE_WRITEABLE;
  
--	/* Navi1x's workaround requires us to limit to a single SDMA sched
--	 * for ttm.
--	 */
- 	hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
--	adev->mman.num_buffer_funcs_scheds = hub->sdma_invalidation_workaround ?
--		1 : n;
-+
-+	/*
-+	 * Allow using multiple SDMA schedulers only on GPUs where
-+	 * we are allowed to do concurrent VM flushes.
-+	 * This consideration is necessary because all GART windows
-+	 * are mapped in VMID 0 (the kernel VMID) so each buffer
-+	 * entity would flush VMID 0 concurrently.
-+	 *
-+	 * Also consider the SDMA invalidation workaround on
-+	 * Navi 1x GPUs, which also prevents us from using
-+	 * multiple SDMA engines on VMID 0 at the same time.
-+	 */
-+	adev->mman.num_buffer_funcs_scheds =
-+		(adev->vm_manager.concurrent_flush &&
-+		 !hub->sdma_invalidation_workaround) ? n : 1;
- }
+ 	cpu_addr = &job->ibs[0].ptr[num_dw];
  
- #if defined(CONFIG_DEBUG_FS)
+@@ -329,12 +332,12 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+ 
+ 		/* Map src to window 0 and dst to window 1. */
+ 		r = amdgpu_ttm_map_buffer(entity, src->bo, src->mem, &src_mm,
+-					  0, tmz, &cur_size, &from);
++					  0, tmz, &cur_size, &from, true);
+ 		if (r)
+ 			goto error;
+ 
+ 		r = amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem, &dst_mm,
+-					  1, tmz, &cur_size, &to);
++					  1, tmz, &cur_size, &to, false);
+ 		if (r)
+ 			goto error;
+ 
+@@ -2593,7 +2596,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 		cur_size = min(dst.size, 256ULL << 20);
+ 
+ 		r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &dst,
+-					  0, false, &cur_size, &to);
++					  0, false, &cur_size, &to, false);
+ 		if (r)
+ 			goto error;
+ 
 -- 
 2.55.0
 
