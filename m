@@ -4,85 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D015CC43458
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1A65C4450D
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jul 2026 15:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4680C10E4B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9C7B10E4C5;
 	Sun, 12 Jul 2026 15:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nlIyWkA6";
+	dkim=pass (1024-bit key; secure) header.d=murena.io header.i=@murena.io header.b="2lJg0bz7";
 	dkim-atps=neutral
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
- [209.85.222.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAAD510F836
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 10:52:38 +0000 (UTC)
-Received: by mail-ua1-f41.google.com with SMTP id
- a1e0cc1a2514c-9696319e14dso300413241.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jul 2026 03:52:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783680757; cv=none;
- d=google.com; s=arc-20260327;
- b=rMUFMTg3QdUNDSJ6u5rQ5ES297ucCLet7mq6JEy8k9ck/bo1ITaXaHpparKmN3Mi/1
- Ua5iOwaEk7L9LRn8nq442j2lQW7kryToGh9u78jCbafYTwUV7dnaWylrkzCH9iwnmpql
- 2Ti+k0XZKXcWT3J92XnqkKv8aB323rWMtQ1dHYnu+1WeYBFWVAVM24/i/dIc+NO0XtKi
- 2R2abYGXH8AAcPsRFV5/U/2qFMZRBKC6xvxSZmDtrOVHGg1axdlN+bWpusSPXqn4DtGm
- E5ueLE6LgdUb2x7YFYk/nAn7mtfducEr7bxpSEYJG6PUNOh2N8Uy2W6+yfdOyJHtdI19
- sHZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=tE2af13ZjzzmnvVf9fs+rE4jiyGOe38dSKqZUzwPabM=;
- fh=mDrdPA2Hexg874CBaf5Dazd4zumHfFQNv1ry5xjZ00o=;
- b=YQQopz3SiLaF7VzVeyjCuYui1T5HTYldxXOp7zIJ1N8cvfqGFpTNRMdnmaXxyesyvA
- QhOheFrI0pG/lbUmCfxKZZOY3EHFDcAiaQZ7jSwQ0vFHbB1CayT5npWsawZ+5Hvb5BdC
- 4Uj+Oj+jKsJLAvZYzaZ2MrL0S2EPEefZC0mVYhEVUwiHiRGsMrolMd6Iz2tMWHyqWsYw
- SKhQHXavZumDNncRBJH7LOYfHQhARAbFDvhjgZ0nznDx7WsfYJkusIW0bkY5ZnSb8wl4
- bkOtqbRcXLYGodecnEO3SWMyuDmWqBd26P/Tlpk9w8jxWHLtRZba2rIXi2q7n34EbJDh
- wKYw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783680757; x=1784285557; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=tE2af13ZjzzmnvVf9fs+rE4jiyGOe38dSKqZUzwPabM=;
- b=nlIyWkA6Aq4/V0CiWstBCk/dNWOwWOuwhG0MkN1qfQf3jnkL222sSkcEVP+nAUJP7o
- xnxVXp4mmTZbI1NqoL9ovCyqyNXEiNB8ghS0xpL5jsQhzexRThwdYd73Qh7dBL7AGUbn
- ftem6jkiT9QgU59qqvFPvzj2I3tUpzMTmt3aftqWFaMs3KiaaIfi6LFPZIAFezoCqNWr
- qtHj21NuMpNRxxVukP0bHjBeJo1lH8A+gcTF09ljIiZz78VJws9n3ZAtoMmJ4RKMBidX
- 1ngzYINtIBG2QJ506DTJveREyylSm4UUUc2LvZD7W9r2ZY+cwgI/S5edsS+vhlNYBN0z
- Id1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783680757; x=1784285557;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=tE2af13ZjzzmnvVf9fs+rE4jiyGOe38dSKqZUzwPabM=;
- b=oHuIcVXpk3JXmTvu8DGpm6kNRA3F4brVDCgUu2Q6om0y2n3ojIibNElyjUl6ay4/iX
- UuamCibzcYB9jbfUbnGDAytJ3/gAS/hEykM5YB2MAGYzXDv+iXiQl1hdw1i8jC6b+jIM
- H0Ie05DKKoAULRe3wnx7isyDu8DeQ8l5rEXrCMfMgIkCZBwpBhjNjyluxWqp6mtJwiZL
- OT21ajbnQ0stkeq1dvD2J3JM/cIAbyKT84f8lRmik1eUElHWwcpEXmxdhCIHwSWwo3rJ
- 8nJepnLMmWkQ+0svliW+xKjcllKZ3lbzjUqYY91PvJWzcT7dfy5Sc9EFpKDQazbMffvO
- D7xw==
-X-Gm-Message-State: AOJu0YwZ+EXRkmQNo49iCYFJR8Jz7YA7dwmERLqYG72GjOOTvoIv3ziF
- DLf6UQEhySB2QBd0meiK6q+N2n1nFgpozIvO8/TgdIq9y7LnGpSIG+FrevnDXzOGbsEUXDbzZ3N
- ys7PDZ3goHFePDBKahCtH2qmkJ4s+NGFojTkR3V7Lsw==
-X-Gm-Gg: AfdE7cnsdEet3B9+P/6RNQPmMs/x40Y4fBenMDj83fNTVhiN8XAy3poNrmvPHuaCZ0X
- qCZDndXoyUo2o+VXNnYS8n/4xMdx8BPaeFQwuCUv/k/NBke8iYnYYvF2BmhySBzVSeod+guR8pD
- NFs7qGduLLmVpGwL5Dor2dCqZN+F+Nw/0LxZDCQNjkf3HD3OM8aXnxZExmMNw8CGOaf8Vz/FqFI
- ljAlFk1zPxNuIFmgxDWLJ9/GMzUk/Mf8xu2XMd9qnEiyTrIAxzv/TZEOMjjzbmDCpcIARwDXQ==
-X-Received: by 2002:a05:6102:598c:b0:744:a17f:7ba2 with SMTP id
- ada2fe7eead31-744e03134f3mr6196938137.16.1783680757324; Fri, 10 Jul 2026
- 03:52:37 -0700 (PDT)
+X-Greylist: delayed 469 seconds by postgrey-1.36 at gabe;
+ Sat, 11 Jul 2026 19:43:03 UTC
+Received: from mail3.ecloud.global (mail3.ecloud.global [135.181.139.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B86910E0A3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jul 2026 19:43:02 +0000 (UTC)
+Received: from authenticated-user (mail3.ecloud.global [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail3.ecloud.global (Postfix) with ESMTPSA id 994B6883824;
+ Sat, 11 Jul 2026 19:35:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail3;
+ t=1783798511;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QJ78cX5XhC2JGOtn0+rOIAZ6Qt08IpVtPC1zY7SfI3o=;
+ b=2lJg0bz78nUSBHePrHSlMDhb2Z9iv+zrFvBV0qEtKoZeNvkpwfv5lzzA8mX8uhMC3o2AxF
+ Xk8UPS8QJabfJYiQrjR9St2WFU+E/GiZ3R/dxMGekptYyIH/6HOP7fO04og8NVhJOclEB3
+ Q5GyNPj0cVgPlDw71Y4U+qG8HSMwU/s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+ s=mail3; t=1783798511;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QJ78cX5XhC2JGOtn0+rOIAZ6Qt08IpVtPC1zY7SfI3o=;
+ b=kWWI4e0tpln3TX7uPy/nctgHS64TM2QROzUARQYbiCZE+eYtc/XNWVZ1/TK3JWTO3ARrvm
+ t4zOaXa0qvDjcfYfzgls7yu0FupGnxodSom/L/ci0EHAf+AR2X3b4oHCo0CwdfZJsQCJ7x
+ HeR20LU+5bL3rDc34YfRXd0WI0bc+p0=
+ARC-Authentication-Results: i=1; mail3.ecloud.global;
+ auth=pass smtp.mailfrom=lionso@murena.io
+ARC-Seal: i=1; s=mail3; d=murena.io; t=1783798511; a=rsa-sha256; cv=none;
+ b=A2fc5yr+2syBcEqMvEu7oMqfEnB0Vnfuonrh7F2+Q1zIi/Rt9jjUeEfqIdOMzi0QW6WcID
+ etqRafpnGavM3j7fkgMio0y/WPTrN1PMYMXaf3rpUqn2MrVABIYI9iWSNy+rb3WYvt1CWu
+ oPyoHZA++J5T9hL+Pqy/L2PzagklngU=
+From: Lionso Alejandro Pacheco Vacacela <lionso@murena.io>
+To: Timur =?utf-8?q?Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Fix preferred link rate for NUTMEG
+In-Reply-To: <20260529090909.13206-1-timur.kristof@gmail.com>
+References: <20260529090909.13206-1-timur.kristof@gmail.com>
+Date: Sat, 11 Jul 2026 14:35:07 -0500
+Message-ID: <178379850751.8410.12007342378134020217@murena.io>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-From: Andriy Korud <a.korud@gmail.com>
-Date: Fri, 10 Jul 2026 12:52:26 +0200
-X-Gm-Features: AUfX_mwv-W63-i1yM_kVKRADc5pL3y_XCJPzArDNGAtBVvnwYfFmilX7njJhzjg
-Message-ID: <CAOidqQDq6khYfEjSz8=FHNBnR_nd17WYZDn7OdWOPG4BgPtTwQ@mail.gmail.com>
-Subject: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream encoders
- for DP MST
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, mario.limonciello@amd.com, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Sun, 12 Jul 2026 15:22:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,76 +78,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From d37cbde6a3b3e57a5dc794514e77fc66e7fa8943 Mon Sep 17 00:00:00 2001
-From: Andriy Korud <a.korud@gmail.com>
-Date: Fri, 10 Jul 2026 12:36:59 +0200
-Subject: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream encoders
-for DP MST
+Hi,
 
-On DCE8-class ASICs (e.g. Bonaire), the resource pool contains digital
-DIG stream encoders plus one analog DAC encoder. When assigning a stream
-encoder for a second DisplayPort MST stream, if the preferred digital
-encoder is already acquired, dce100_find_first_free_match_stream_enc_for_link()
-falls back to the first free pool entry. That entry may be the analog
-encoder, whose funcs table lacks DP hooks such as dp_set_stream_attribute.
-The subsequent atomic commit then dereferences NULL function pointers in
-link_set_dpms_on() and crashes.
+I independently hit this regression on a desktop Kaveri system and can
+confirm this patch fixes it:
 
-Skip encoders without dp_set_stream_attribute when the stream uses a DP
-signal (including MST). Use dc_is_dp_signal(stream->signal) for the MST
-fallback path instead of checking only the link connector signal.
+  - AMD A10-7850K (Kaveri, DCE 8.1), MSI A68HM-E33, VGA monitor on the
+    onboard output (NUTMEG DP-to-VGA bridge)
+  - Debian kernel 7.1.3 (amdgpu.cik_support=1): VGA monitor receives no
+    signal from KMS takeover on; dmesg shows
+    "[drm] enabling link 2 failed: 15" (DC_FAIL_DP_LINK_TRAINING).
+  - Applying just this patch (1/2) on top of v7.1.3 restores VGA output
+    with DC enabled: the link trains, the CRTC comes up at 1360x768@60,
+    and the fix survived three consecutive reboots.
 
-Tested on:
-- GPU: AMD Radeon R7 260X (Bonaire / DCE8)
-- Board: Supermicro C9X299-PG300
-- Setup: DP MST daisy chain, hotplug second monitor or have it connected on boot
-- Kernel: 7.1.3 (issue observed since 6.19)
-- Result: kernel oops without patch; dual monitors stable with patch
+Tested-by: Lionso Alejandro Pacheco Vacacela <lionso@murena.io>
 
-Signed-off-by: Andriy Korud <a.korud@gmail.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5162
----
-.../drm/amd/display/dc/resource/dce100/dce100_resource.c | 9 ++++++++-
-1 file changed, 8 insertions(+), 1 deletion(-)
+Two notes:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-index b92d4f378d60..beaf2e654672 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-@@ -29,6 +29,7 @@
-#include "stream_encoder.h"
+1. The Fixes: tag references b74322eea36b, but that hash does not exist
+   in mainline — it looks like an amd-staging-internal id. In Linus'
+   tree the offending commit is:
 
-#include "resource.h"
-+#include "signal_types.h"
-#include "clk_mgr.h"
-#include "include/irq_service_interface.h"
-#include "dio/virtual/virtual_stream_encoder.h"
-@@ -992,6 +993,12 @@ struct stream_encoder
-*dce100_find_first_free_match_stream_enc_for_link(
-       for (i = 0; i < pool->stream_enc_count; i++) {
-               if (!res_ctx->is_stream_enc_acquired[i] &&
-                               pool->stream_enc[i]) {
-+                       /* DP/MST needs a digital encoder; skip
-analog/no-DP encoders */
-+                       if (dc_is_dp_signal(stream->signal) &&
-+                           (!pool->stream_enc[i]->funcs ||
-+
-!pool->stream_enc[i]->funcs->dp_set_stream_attribute))
-+                               continue;
-+
-                       /* Store first available for MST second display
-                        * in daisy chain use case
-                        */
-@@ -1014,7 +1021,7 @@ struct stream_encoder
-*dce100_find_first_free_match_stream_enc_for_link(
-        * required for non DP connectors.
-        */
+     a62346043a89 ("drm/amd/display: Fix coding style issue")
 
--       if (j >= 0 && link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT)
-+       if (j >= 0 && dc_is_dp_signal(stream->signal))
-               return pool->stream_enc[j];
+   It would be good to correct this before the patch is pushed so the
+   stable tooling can resolve the dependency.
 
-       return NULL;
---
-2.55.0
+2. Since the offending commit shipped in v7.1, could this be annotated
+   Cc: stable@vger.kernel.org # 7.1.x (or nominated for 7.1.y once it
+   lands in mainline)? Every Kaveri/Kabini/Mullins system with a VGA
+   monitor loses display output on release kernels.
+
+Thanks,
+Lionso
