@@ -4,73 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9D7C44507
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8444C44501
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42B1510E9A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF2610E9A9;
 	Mon, 13 Jul 2026 13:09:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="gR+33CMf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IGLzlfl/";
 	dkim-atps=neutral
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Mon, 13 Jul 2026 11:28:15 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [194.59.206.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192F110E905
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 11:28:15 +0000 (UTC)
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gzKkP6NtXz4Gvt;
- Mon, 13 Jul 2026 13:21:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1783941661;
- bh=+Srm2RlS9ODdW1n2btLT8VOhjgw9/2wwoYrw2kYUT2I=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=gR+33CMfaI1l1hx5ixcv/PttLExzu3pJEldV+yAKaywPueWrkM5v+IkwpCCUP95GZ
- I5xL6NLQnj1nR0gEmnMfKVfYVcF4WCFJaehfCIaYN9zsJ/04s4fKcdhOIEGjSXKrmB
- E4svSxyWGr/mtJy1s0E1WCXHnrQqB/gQL7WN1B2roUODxb0kO+UHFRJIJwBXOAoGeE
- v2DDyETfyaBHXNUmHw85b4Ync9dfKIukW9C9/dUv6H0R9MKXoszo48FE5M6A/8WLf7
- mWBr/JjkmAUIbICxzgQzL6XRRD0d0K//UgI5iJhAl9ywdUdGaETbHwuhs3oc4HF3rU
- 09xxdpcG9/nDQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gzKkP5hcTz7wHk;
- Mon, 13 Jul 2026 13:21:01 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4gzKkP24dVz8sgw;
- Mon, 13 Jul 2026 13:21:01 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id A1882601EC;
- Mon, 13 Jul 2026 13:20:57 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <0dece759-302d-4b54-8716-9d641dad3b84@leemhuis.info>
-Date: Mon, 13 Jul 2026 13:20:57 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4331F10E911;
+ Mon, 13 Jul 2026 11:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783942374; x=1815478374;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ content-transfer-encoding:mime-version;
+ bh=db9eSoCMqiyiPL1Dl/5RAF99+DSiTdsNrZQEK+Xtow4=;
+ b=IGLzlfl/PyTO9DdmIbT7L6B3ut87KaSPabi+2qbQYa3T4EqHHI+//z3z
+ mTo6KkU7ln2Q4atfc1c7FMfw90CyFBuCyMzpLEhzuKZLI26ClwS/YWF3Q
+ RgL5/7yxg0GW8IeAxJkYRtVIGW5dHFaYUW8064y9uCtopQo2data0vPNg
+ r4f/L6ppsjE3KDatOUvjTegirnjs2YMJlMH2AScGOFUDyTxSEwVnH/WbI
+ IcksfCPAMTLmVLjO1i6VY4HteZm6Tm5we6Lvfr4P1DxUJkoPDv6a68Hgi
+ BaFp1QTF3bZDGio/0bhLcU5bDumR/24b3wWBiV4dExNP0Hz67BWGffDjG w==;
+X-CSE-ConnectionGUID: 6yh5gdxGQ1amq2PyCvPvVw==
+X-CSE-MsgGUID: QOo+hmy2QNSqlRF9lVtMEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="94899550"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="94899550"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:32:54 -0700
+X-CSE-ConnectionGUID: iec/IZY9Tk20QDiTheYBsA==
+X-CSE-MsgGUID: 0BwvW1IXQdK1LgG/q/5QaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251105714"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
+ ([10.245.245.123])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:32:51 -0700
+Message-ID: <b1eb8f038e0cb094b9df35cdea400b7fd7cd2d54.camel@linux.intel.com>
+Subject: Re: Refcounting dma_resv and using that for drm_exec support in TTM
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ dakr@kernel.org, ecourtney@nvidia.com, simona@ffwll.ch,
+ matthew.brost@intel.com, 	nat@pixelcluster.dev, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, 	intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Date: Mon, 13 Jul 2026 13:32:48 +0200
+In-Reply-To: <20260710190752.2355-1-christian.koenig@amd.com>
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658
- (R7 260X)
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <natalie.vock@gmx.de>
-References: <20260713061443.32561-1-timur.kristof@gmail.com>
- <fMZgsndLRnm1-Yt6VBK1JA@gmail.com>
- <f903ef1d-0d2d-4b71-afc2-e86207db7e8a@leemhuis.info>
- <5CyapnyQRMWqVd6eVa9xiw@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <5CyapnyQRMWqVd6eVa9xiw@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178394165796.3837220.6999120502901293845@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: A1882601EC
-X-NC-CID: wrqJVcW3Fhs7HhjnzHWlFUtcpgB02QyJ574RJZrev8Z7qQkiSm4=
 X-Mailman-Approved-At: Mon, 13 Jul 2026 13:09:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,28 +74,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/13/26 13:11, Timur Kristóf wrote:
->> To provide an example of what I want:
->>
->> https://gitlab.freedesktop.org/drm/i915/kernel/-/
->> work_items/16043#note_35638
->> 09 mentions commit-id 2914709c (Revert "drm/i915/backlight: Remove
->> try_vesa_interface"") -- but I didn't find a way to find tickets then
->> refer to that commit, for example with a search like this:
->> https://gitlab.freedesktop.org/search?
->> search=2914709c&nav_source=navbar&sear
->> ch_code=true
->>
->> Is there some trick to do this?
-> For that example, if you open the commit link:
-> https://gitlab.freedesktop.org/drm/i915/kernel/-/commit/
-> 2914709c914101eb704e01bed2351070d4161ccf
-> 
-> You can scroll down and see that the commit was mentioned, and you can then 
-> click on the issues where it was mentioned.
+Hi, Christian,
 
-Ahh, great, thx, you helped me quite a lot. Fun fact: I had briefly
-looked at pages like that for a reference already, but seem I didn't
-scroll down far enough. :-/
+On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
+> Hi everybody,
+>=20
+> The idea of ref-counting dma_resv or ww_mutex came up multiple times
+> from
+> different people, but so far at least I have abandoned that as to
+> complicated to implement considering how widely used that object is.
+>=20
+> Thanks to AI I gave the task to refcount dma_resv to Claude Sonet 4
+> just
+> to check how horrible it would look like.
+>=20
+> Well turns out that this is actually a cleanup we should most likely
+> aim
+> for and I'm really wondering why we haven't done it like this in the
+> first place.
+>=20
+> Not only resolves it a bunch of issues with dma_resv instances shared
+> by
+> multiple GEM objects (we just recently had a bunch of patches for
+> that on
+> the mailing list), but also allows TTM to implement it's delayed
+> delete
+> handling without any zombie resurrection or similar hacks.
+>=20
+> The patch set is totally work in progress and only survives a smoke
+> test
+> with amdgpu, but I still wanted to check if the idea is valuable and
+> should be looked in further.
+>=20
+> Please comment and/or tear apart :)
 
-Ciao, Thorsten
+Before starting to look at this, in the spirit of trying to aligning on
+a "final" solution for ww transactions used in TTM, could we agree on
+how we are supposed to pass the importer's ww transaction context to
+the exporter's dma_map_attachment() operation to handle exporter
+evictions while mapping, because that decides what abstaction we should
+use for WW transations within TTM.
+
+drm_exec_init()
+xe_bo_validate() // IMporter
+dma_buf_map()    // importer;
+map_attachment() // callback in exporter
+xe_bo_validate() // exporter tries to move exportert bo to VRAM but
+runs out of memory.
+ttm_bo_evict()   // exporter's evict needs importer's drm_exec
+
+As mentioned a couple of times before, we can't pass a drm_exec to the
+exporter because that would make dma-buf depend on drm.
+
+So with this series it would be sufficient to move drm_exec to the dma-
+buf layer and rename it, but I still think we should have a plan.
+
+Thanks,
+Thomas
+
+
+
+
+>=20
+> Cheers,
+> Christian.
