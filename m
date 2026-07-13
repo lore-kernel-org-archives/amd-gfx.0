@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 694B0C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 20:59:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D652C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 21:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FA610E65B;
-	Mon, 13 Jul 2026 20:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2278A10EB0B;
+	Mon, 13 Jul 2026 21:00:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NOE5GMUL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZcmNpds2";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C6210E65B
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 20:59:48 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2cc7a269ca1so8165345ad.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 13:59:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783976388; cv=none;
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BD210EB0B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 21:00:54 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2cc827a68fbso10107885ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 14:00:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783976454; cv=none;
  d=google.com; s=arc-20260327;
- b=OX+GeZ/68Dy2FVP9tSMHekMNp7syPatK9cHgNXikPsUzdidyUvaeZXWwvKLyfaaQiZ
- KG5RTsseJLY1f8KvSYQu2jYMBk0z7GJCJdx/DpMmpVjZB+7PuO0QGPe+QHvzfWU4f9k9
- gV1QuhRrKUDxCv40qadvm5aH3sAI2T/kZavoG/zgGeHV9RSet5NeEztnCb9RzZn0oPFd
- gVvIN38lMQDDnS04CylfThsffyQixlW573k3lsT/BNmwRLIziMrI1iIuQDKINq6ZvJTB
- 93+PbfSQVJ8FkOVGmhBbGdDuiR7TuC2AwBVlJv3tuawktauYNCccYNVzCPs7If1bAFiF
- VdIQ==
+ b=rq6SbH8r6xjGfmf3+LcVEeC0Qmu9YQverHtJaw1vNlveDN8a6rcok7ftMexDkOt/lP
+ GInKBWIWf3OxXQEmJNuKxYMFmthQIm9DZaa5TlB/odcu0DuqKXVXp515xr0eQ5GSYdiu
+ 28AQtM87dAhsK8TqT8GuAQ6rtNS8yTlLG23cohIy05un7n/2xQCL94d/6RPiCfzna1um
+ NKZWVvWEG9vvhwg8mdgrWZ9/RN4HBhWre8n6YGQGucZQN9xsdWgkEWo1ovzBVbq90pu6
+ Ybr53Q4qPByWSSZS3HfPRlah3Y5qr032y+6TIanwK/ZYR5zZB12h0+h5KjGJkQJzzawx
+ yVYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=uWZ6RnfH+sS7l94+90x2p/YrqRNuilzn5DDPDm/q3D4=;
- fh=gUJYOOnN1wdb5D7FcFaekT9/Mrf1IxL6fQF9/tKD4tk=;
- b=fpZYz1DV9OIyZkIDNASrr/mxD1Uj3Przp7iiD6X84B/HVKExR924F5o+9gnX/JPK58
- BWDXN+btEQCnErl1zA3o9JBHmO2VCpguZHEqFW5nQfLO8NSSVatktPmPM5SipbImqf+J
- 8G5+Xj6S8IPWyj1/2frfSStIOlvGJgY67LiOYH6oKjwe2KwP0hZTSR6q17jGU7kQ8ZzM
- gRFYy1OXuwUvjQ7dyIY5vPWNpd3lpn/U9Os6/16dSY6R7+xqOe0ghflHItfeTQ6ti2gz
- NbTyzjsokrOWWDxIqfrAZHNb03eYjHO2Y8fn7OOjnhan/W3N4N9eZpjqXImen4oLRNxa
- nlhA==; darn=lists.freedesktop.org
+ bh=bNpPiRgzRJWAtGU6MqEaeHnpnGRLxUroBVrpCrP2DDA=;
+ fh=2IpRurXvhGNuEJ/vy0+lo89l8gwfXFVnUF8ibJZ+6WU=;
+ b=U0Z/AzfdHPLAnaPrb4JS6+RfMvpsDDm6VmyHjm6f3ti2JraAVq0UqCGre+Clkge+Tb
+ SCayY+Phhh38m1DnHmBhc5qZGboGpowBJFF9VugQgsS4fYdiaY8AFXQLS2BbGFMtKyau
+ rIQBdqk/Y4thEI+rsS6+kPsmMolzPzavIGlf/b5VlLu90oXRhyT3y1Sf99ocR5b9BoxB
+ EUFRvSa3dYq6cKrGLnrsHGFb3kNpWzlOxnLmE9HChuipY/4lDMd82VfIG4w8lV5l9lbf
+ sGgiFt7xvHu1J+mMD8jIxF/eH+XXtZCUpavyUarsgi33+2L3aAP8MkFXBMQqdQS/NJ7w
+ 0IEA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783976388; x=1784581188; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783976454; x=1784581254; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=uWZ6RnfH+sS7l94+90x2p/YrqRNuilzn5DDPDm/q3D4=;
- b=NOE5GMUL9wPYnYQ2BRkQCD/HMHcG2NW9eYvPSv6T5GV1d5KZfy3/3tD2WOMiS4gVPM
- IZJCM0nv0Zzrak53jRtc/HcpGbXe+HBmt/kTtMLsnigfvOaDBl36ehhCjI9zGHwAhJgo
- H6Q0HGV44nCizZZdCOc4jJmLEBR1X71+ygDg8cCoLbOElJnzzwYdZQ0FqAG2hvm82WOh
- cXeM9GSXnRjjJSBidNvql9SbKGuwdaFiagm2oPxAKado+F8jQIO3EtQr0vS++xvN+JbS
- lLX3JYUp1tq8MuBJ5lFn7zfDOW1cWRMXKSjXbt12kfbdo9F7oKjZ0xR0tal1QMqCceK3
- lb/w==
+ bh=bNpPiRgzRJWAtGU6MqEaeHnpnGRLxUroBVrpCrP2DDA=;
+ b=ZcmNpds2YrLgUv3NYZG9tgCOsDmo3fmFZ1bHRYpiz+xOQEfHJltOQSPZU2JZM1CQ/W
+ 9FmEddg8ocNM68dLdmPaiwVM/W+riCu78xGWzr7/3fNo+BfAUoUcWe3f1XUtCJzrebM4
+ dIbiD3wWFxTb6CiBN7dzpMg1CUQtwHXi24qwJx7IwHTbXRRdulW2pREk5OeWK6v8nthw
+ q0DDJ7J20SjIRZM7k8g5aAgoLNLqjU9Cb6WKqpfkwgVpkr3iEF67FgU96jNN0v8Bb+2c
+ Y3slrYHcj2zFf9Qx2z9GuWHPtS8G6jNGj7F9BLObWfsn9wNuQ9Q7jCka4kA19qAz9FDs
+ CTUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783976388; x=1784581188;
+ d=1e100.net; s=20251104; t=1783976454; x=1784581254;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=uWZ6RnfH+sS7l94+90x2p/YrqRNuilzn5DDPDm/q3D4=;
- b=X7bmdsHwSn+bi3cZvDx2wMK6Wf0+8nq8dx0m+E4fMkEX7HcdPFc37INQjC1e4MBZyV
- RhNejunhgOVajw1QO/MIVHn+ZFLmgfe/aOCNV6mj3ktYEljIzQwKe/WWW4OwFs3GteOO
- qQBGuf9X1Ulsa8Mngr5QPFCofKSdBbX82z1diYEBlI/qgdP+jFj9zNHuhOBEGsuijzLh
- G0B3G00NlCbplA4uD8h2K74jGPxBr4zM85e6oNDIX5ILJYdzyno7wsJxoFWyxLNjQJkh
- 7ig6L+xjsM+sP4ZvUcN6Dz433d/Llzw86/XZOr01FTr3dWb7V7++hYTGrpFfqm903oGa
- OUPg==
+ bh=bNpPiRgzRJWAtGU6MqEaeHnpnGRLxUroBVrpCrP2DDA=;
+ b=YniCfYEugqmDGEUVJe0oMxbWiFy2mHCmrCJOGZfeRFFpl50f/blgs0jOnEuNGt8+go
+ eG1iz6tdNDW4TokEccikYqmIvpVIOiqxYCxpsZQ2k4yQMwJRn2tU6fAhCHZOjTE3f+FG
+ cdGd/evvU/Mx7eUqpBcL097UrjqYZq8DtZ4JtjPQR4BULKWomujyXPuHXah3s7e0Srcv
+ yNO6dxmJI4E/CfYY9pLK6kmnMKu1bbRaq2DnJplLisAz5JE4bpcCVZbO6miSNdBB+CYz
+ O70QwXQ1bZIJiJ4isKPGO8rnCJPS3oUeG9eGrmHbhE+VPfiHGGi22fhPXHyHzNdtSJUS
+ GtkQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrnKLubRpYhTwaizT4zYGnceiFeQQwue3sMSOabHuZOyteqj/ViUuBfOQGWNg0xIbHA5p3ftwfS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQ3DNc2RG9ySXOU336cq1gpUMwZgCO5ktH3YNvKSppsTgVxL2W
- S6/BpRTHkAhrhBOJl6VMYm8Uh5oHMCwowzJw0RKmUlckNVfDPIX+dqRNXveCf0M3SoDaOrPRN2B
- Za8RjUomTUtd8VfCACia0BCtrtI2quAY=
-X-Gm-Gg: AfdE7cmZvUqZyOtOx82Rqhr0LahcSfIwA2aQnqfHoLqNi99WPRjepTQaqlvedg3MntC
- enaEbffy0YYUSVPNYjtQ1P35+iOd5a/m+4RFT/X0ySHX34SrMcyCCEqLlwrRjNB1C/ee09TPWVU
- /sZvXbEsiOQ++qccOALkzST7quJCX7UirMtVkGH5r+vWpMgFBk39buPDTD71s28in89mcvG0CZC
- vIMO33W44pkFC0BXaHdZSgWlhdKI8J37mAeW+A1b2kCt1gszDMvDnzQdSaNoE8F2dTBwXN0pE4D
- uA1M4jeNemFCJBiit/ZifICARZXwaD00CZfr86SwAiIPsPLNTnsG5esDYjo=
-X-Received: by 2002:a17:903:24e:b0:2c4:397:dd7a with SMTP id
- d9443c01a7336-2ce9f1599f9mr77883275ad.4.1783976388343; Mon, 13 Jul 2026
- 13:59:48 -0700 (PDT)
+ AHgh+RpsW5xdMg01UdysTDUoWpwhQf+EjIM4R4tNZSECdfzIPiuyCU0Z3EqvIh3FFG0khYGRs5SPIgQe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+baLC5wg2DiRC0l8/Isz/tFSL85GR5T5Lgm14xhMwYnzC+Uxm
+ WPSjY0gw/U6dFB1LClpj18DyMup/Qa0y3AbcD1WWS7+POluQkbEHoouuzYDxg6Md3KASjGPwhhK
+ WnvK+DWjXvin6G/AZM16TCB0ScRNma9kfwA==
+X-Gm-Gg: AfdE7cnNlfipXurdnt7EQf/kwWliZM2nl6f135uFjQnKPBZ31CBC1ErJIoWrpWCM+do
+ bSDrBqwTcRV2Dphuimv2O/Szp9dd1hZEIZ9o9h0ghTu58YQ7pHIHKbJmsxTx4O9ZbPfevcN1C4A
+ wvqb2gV86bQ63P7otV+5P5l44KfLxbWTTacsGYdhreg4E7ivltX4zCbP/LIUmJ41uA7vVSZa2gm
+ F1eloVIrdKh+EaHBjKPW63PJTjvibwOV3WZkL9May2bqq1TdITM/l11+E36RpXsZmb2xe0jthrf
+ Cdig/FwSWFcKmYvdwiIMX/bTD5tBqKQPHWRQEQzrqseqL+1l8mR9ukjhGes=
+X-Received: by 2002:a17:903:19c3:b0:2cc:7d4a:3f59 with SMTP id
+ d9443c01a7336-2ce9f187e8cmr82387845ad.6.1783976453600; Mon, 13 Jul 2026
+ 14:00:53 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260713164321.3350036-1-srinivasan.shanmugam@amd.com>
- <20260713164321.3350036-4-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260713164321.3350036-4-srinivasan.shanmugam@amd.com>
+ <20260713164321.3350036-5-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260713164321.3350036-5-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jul 2026 16:59:37 -0400
-X-Gm-Features: AVVi8Cfrvy04xFjlMpclP7mHXD6E4Rn0z1T9RNGPc19vDJkjUHKazebXqtU_Nkk
-Message-ID: <CADnq5_MBhZ-MiYjDtjLp1TD244Oz0kf72NvvK2+k9cUJkgajqw@mail.gmail.com>
-Subject: Re: [PATCH v8 3/6] drm/amdgpu: Register WAIT_EVENT ioctl
+Date: Mon, 13 Jul 2026 17:00:41 -0400
+X-Gm-Features: AVVi8CcTs8junAfcZYyDpVs98cL5MwiGF79kYLdMO0N9bf8NJ3uPF6ECk6rUw_8
+Message-ID: <CADnq5_NMu8eVhhrnkKVui2_cY8yn7Opr7OOqW4V2Svc=fpnhFw@mail.gmail.com>
+Subject: Re: [PATCH v8 4/6] drm/amdgpu: Remove queue-scoped WAIT_EVENT records
+ on queue teardown
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
@@ -106,43 +107,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 12:44=E2=80=AFPM Srinivasan Shanmugam
+On Mon, Jul 13, 2026 at 1:39=E2=80=AFPM Srinivasan Shanmugam
 <srinivasan.shanmugam@amd.com> wrote:
 >
-> Register the WAIT_EVENT ioctl so render-node clients can wait for AMDGPU
-> event records and receive event metadata through the per-file WAIT_EVENT
-> manager.
+> Pending WAIT_EVENT records for queue-scoped events store queue pointers
+> and own queue references while queued.
+>
+> Remove all WAIT_EVENT records associated with a user queue before USERQ
+> drops its queue reference during queue teardown. This mirrors the
+> EVENTFD queue cleanup path and prevents pending records from keeping
+> stale queue state after the queue is removed from USERQ ownership.
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-This could be squashed into patch 2.
-
-Alex
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 21 +++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  2 ++
+>  2 files changed, 23 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index e90cf67c1cd8..b738a1bdf9d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3097,6 +3097,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =3D=
- {
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handle=
-s_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl,=
- DRM_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_EVENTFD, amdgpu_eventfd_ioctl, DRM_RENDE=
-R_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(AMDGPU_WAIT_EVENT, amdgpu_wait_event_drm_ioctl,=
- DRM_RENDER_ALLOW),
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 5bf231d7a630..b3ac1e81c9ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -56,6 +56,24 @@ amdgpu_userq_eventfd_mgr(struct amdgpu_userq_mgr *user=
+q_mgr)
+>         return &fpriv->eventfd_mgr;
+>  }
 >
->  static const struct drm_driver amdgpu_kms_driver =3D {
+> +/*
+> + * Get the per-file wait-event manager associated with this userq manage=
+r.
+> + */
+> +struct amdgpu_wait_event_mgr *
+> +amdgpu_userq_wait_event_mgr(struct amdgpu_userq_mgr *userq_mgr)
+> +{
+> +       struct amdgpu_fpriv *fpriv;
+> +
+> +       if (WARN_ON(!userq_mgr || !userq_mgr->file))
+> +               return NULL;
+> +
+> +       fpriv =3D userq_mgr->file->driver_priv;
+> +       if (WARN_ON(!fpriv))
+> +               return NULL;
+> +
+> +       return &fpriv->wait_event_mgr;
+> +}
+> +
+>  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
+>  {
+>         int i;
+> @@ -1040,6 +1058,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void=
+ *data,
+>                         return -ENOENT;
+>
+>                 amdgpu_eventfd_remove_queue(&fpriv->eventfd_mgr, queue);
+> +               amdgpu_wait_event_remove_queue(&fpriv->wait_event_mgr, qu=
+eue);
+>
+>                 amdgpu_userq_put(queue);
+>                 break;
+> @@ -1426,6 +1445,8 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr =
+*userq_mgr)
+>
+>                 amdgpu_eventfd_remove_queue(amdgpu_userq_eventfd_mgr(user=
+q_mgr),
+>                                             queue);
+> +               amdgpu_wait_event_remove_queue(amdgpu_userq_wait_event_mg=
+r(userq_mgr),
+> +                                              queue);
+>
+>                 amdgpu_userq_put(queue);
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.h
+> index 187bfd66eb13..6a53cd3208da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> @@ -203,4 +203,6 @@ int amdgpu_userq_input_cwsr_params_validate(
+>         struct amdgpu_cwsr_params *cwsr_params);
+>  struct amdgpu_eventfd_mgr *
+>  amdgpu_userq_eventfd_mgr(struct amdgpu_userq_mgr *userq_mgr);
+> +struct amdgpu_wait_event_mgr *
+> +amdgpu_userq_wait_event_mgr(struct amdgpu_userq_mgr *userq_mgr);
+>  #endif
 > --
 > 2.34.1
 >
