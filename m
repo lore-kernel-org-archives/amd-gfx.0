@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC98C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 20:44:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F3EC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 20:56:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3C4B10EAFC;
-	Mon, 13 Jul 2026 20:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6129C10EB05;
+	Mon, 13 Jul 2026 20:56:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MVU56IaK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y2Axs5GZ";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65C8810E1F5
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 20:44:11 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2cac39b729dso8742795ad.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 13:44:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783975451; cv=none;
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2391610EB05
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 20:56:14 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-384422b05b5so485503a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 13:56:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783976174; cv=none;
  d=google.com; s=arc-20260327;
- b=WSLNZIGgvqv57p13uc4XxU5q5tLaxgCMnGZMMO5ZXEbQUchk6aBXHi6J6jZdIrmFyu
- JitApJHcovPKfqky1QLmAzYBXvQ6Bhz2bmYCYv4lOUZyNgt6JpXxi9p28C7XdH1udrK2
- XzbRyMeZp69h9zCr/xfHEQjTB7yGoeF55EcPMcohgmWyoQZPn33yUC38j8RMlcQyJbfu
- lxNBHXmW7+fBr0N0HAyI26SvR/szvIwSamOWeEpqYCbCHuCxAiVa5sJWp5jp+mRTAct/
- xQuchhcfgZiSsXJRrC7yK80r6Boi100rvEwYFw7TfDWeNOja5y/GSJJAT1xCmkZbU/Fr
- S+sw==
+ b=RHv4W/HFEl7kyIRcs8vOK+fTX3vib9nEsJF3bOmtozG4O47eN5d3HWX6UnIlGrqoFc
+ gtBgJ+ImK9JPo9MD9hNCghdU9BaAEYNpgm8IeZvOSwIxkDBlebclv8VQsf1pU+za8ve9
+ BvAiVECaJ1POLvdNpTM4IjZCPnERMV4lZTsA5L3vYo5al0tcFROl4QeSmedhybC7EKTS
+ /CEWdqXUh67YsYCOMWG1biqcwyNsJ/Q5/uMjqoKjOCIPLNhLEfI47QFoOZE9E26N/E/x
+ PHskdsL53+jqgfOl0IY1cyWtCuejmGz/3TzEHX54vlJMwQCMVV9cFrT+awYEoonGPBPC
+ AEPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=fvJIMMGeH5CpxhnBMC3YiQouM9VphGJKpbxxSM20rfI=;
- fh=dDS2INNd4jdzjcwUt14ZDE5wwZiXtMeDLLkq52oMk0s=;
- b=rgeV7S46hxJVI/6gVNh77qHD6QmOjXCkQZBez0rclQsXbhF/ykpGBvFVYRal7G65Qv
- nQJyEPRl+4rlUVrdBzovIAOejVPF41CzVD2PigxCP1TtYO9cO6MF405v762M7aXnco7j
- RsLpFyt/PUPMc77WW7MV70PD4dIg9sFR75umxbE5mCfEPxcwrBUgYa/KWaLy38YCm1kr
- ocWHdE5Yj6jgBiQdZPCxpQJCbEPL2a6RdTPShWLtGxv3MlVQPhEU5EWjctdWh8UN2wIt
- IcOeGKZWO+a/+XuwpR45GFJjZruTG46BJ9hd82jQmKqh7MjN2ykAuEb9p+ngcBBEAxDf
- FY2g==; darn=lists.freedesktop.org
+ bh=fajXqVgz7OtsY2/oFKVs+Ln5ikrq9xiAp7QF7oNhba4=;
+ fh=zstBaiSMH6WYsp9IH0Bv+J7puqafAY6xfrHq3jiY1Mw=;
+ b=pztYn5EqWEMBjKP7V9YGyLvYKj8kmlmSHLj/N3hswLKeKJxutyNirJAkMNqMQoTWYL
+ WVCyrzgzIJ4a91oDi3Etfk4faWpI9SRjR9of77+9ZpjAaPlYeUgkayR/gnUy5kSkt2s/
+ ZCZg3OzZl1YxY9HOOavcLphwgz6ypOsfdhG/1+/Fsq/YW90Gp+iDip1jPQBqbtk6xZZp
+ b1swqDxQIvbANa+WgS/4Hf2fAlCxsPVnfcDyjPanpDm/5alUIZXSengIdhjrUUYsig/U
+ c5QsY0JsyKK5+RXmi3HqtH7LBevy4sTNFn8kcKSfYnvuwVpR9Sd/cpMMPmxcNOdclvzW
+ EF4w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783975451; x=1784580251; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783976174; x=1784580974; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fvJIMMGeH5CpxhnBMC3YiQouM9VphGJKpbxxSM20rfI=;
- b=MVU56IaK71oQN4v/M17IJUoRvOJ28Xr7o9VIEwX2bxFA3NrVZqujt9SqV2cOifuUOb
- qOzyVSIFO19k6eIiG+EfLFkg2Bh2dgn3kAuh32I3HjOpY8PZgQOBjQOKNv9+QdwHOX8l
- BBK0cXv8M9qq+9q4Lu7WyOGPdAT8h3cU+AW5VZpnZJi84/+oDUBiEmg15QsJiW8NMpcf
- E5yyw05YgMllH9Qtzsmk18pumj4j5t0bvz79it2PC/bp5Z6QmAJsiCLb/Dklr9h4odsA
- pZ1J8P1RMYof5Ob3GG1ENoFmuR5Q1fBa4SG8HYo21MKcg5E0/PNGE8ZfErtq4trk4RWF
- XcKg==
+ bh=fajXqVgz7OtsY2/oFKVs+Ln5ikrq9xiAp7QF7oNhba4=;
+ b=Y2Axs5GZ+uWXb3bA0Ec4lyuyve68x3OWOa3JLuIrX5W8UWSyUjzEJzfeAmIBLZ4z0W
+ jvWSE7C05GYIIX3/nZjbyQ41aACanCfivt7JWb84RReUZqTGC3/zy42qgrkgYj9WlwUQ
+ I0VnO9YLxhAu49aU/8K02aS7DRNhu4WLlLdD1mv5PUSGII3YPdtNZYzlBhePDB0qzL7u
+ Yqc9/mz8zG5YyYVggxo/eaATAG2RtNKdPuozWuDzwU7DG8sWvb2ZqoNwvniuexWtRjMa
+ 8PisD0Xl2ge5EnesAR2YeK1xXirqjvGrH9Kp0UzXhyzWBZi1NFRctgcZIM2C+oshkh8I
+ o6fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783975451; x=1784580251;
+ d=1e100.net; s=20251104; t=1783976174; x=1784580974;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fvJIMMGeH5CpxhnBMC3YiQouM9VphGJKpbxxSM20rfI=;
- b=LaahZGXy7sbAvvu6Xjki7I8gs4f5M2YX7rmNysvCOU86b7LedrtmTCPMtKK35zmjoc
- 9w8Qhua1nqFkxG+qhU6UXxLKhxeC47QIt37T9kbc4ucsl/VesOVsyng8pDWl+7Kqc9FO
- 5QM251C9oFxFo163rasL/aBM4Vn9fGLV7gkjwn/qBoBcOAmL/boNJs6PL19Q/UcJsr3W
- rfzy5kihERs1M0FyApe7f3uZcioPyLjmN6P4qVHwLc4toy+uPGMp3oYsD/5fVV0V6Q+i
- 0vlGIUQh/J0+a72Xl/GSyoZ3aSCpev/siWKCbKKjborj0bQl4KuKOkXQX6RpWX7j45EY
- tCCA==
+ bh=fajXqVgz7OtsY2/oFKVs+Ln5ikrq9xiAp7QF7oNhba4=;
+ b=FnhFvxLotJ3OReAEc9FZpfC4qV9ww/F808nDgj0AjHrojBi5MiwYI/1lf8aeMHR/HJ
+ fy4gPbMa6UF2QPTdcTOaRw5dzRmQGqkmayZOwRmQPqNlTnqd4miVJ67+4CBuwctY6RDs
+ IcwC7D/65jLa4oZLfQ/JCGzAysbogr/ryxdgygwzBHH+w2iFigSTNEe8U1BzumnXVySl
+ QRrYSFCTwNp0A+hupL8/vEIUIm+XXeRX/I3jJAXn2KuaKRJNACtu1p7OB2Qf80EFzN93
+ 2qRmsiQL2fX/3QemX6SsGdA9BuDVm7hLIO1r7gIn6QT7i8X84V5/Vi64txoHCIZO2fwu
+ VMiA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrrVpLhT0UwKHKWGT47+MSAOUctu4p98g2+BHMLhF4+5t0wwJFvXpnlvoc2vX+Up1eyeScYicXI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxpqC55FwCABfQvDvmNKthWBT3+J5ThKdF8+UzrM5MqA8h/uuPN
- 4XMzy0XxR5DUWXPbOnZwOLIO1tm5MeRMRndLSTsZWAWmZdstj+vZSJ/LrKlcpQnWR9v1j5zC92/
- Kfm0jnxmsUr+c0+BFqKhZoptMkUMAwXVRUg==
-X-Gm-Gg: AfdE7cl41Y5KV+8shizb8eFzFVrZqjmO7sYoV7NveICcmSBPFk+bgykqTUwszc1xsU+
- XmDxn24Yc6aHk+JcYTVxDs/oUUmKP4ffLqDMwDQJjKWuOGqQlPyD4xctsO4na6OajA2CKJ6Z2Jo
- q1uOqC0CYPZ3aIAq1TWe9D3ZE25SDPOVUgtb5rT4f+crla5WF8OkRJnXid5U09ob1fJpR5EmDa0
- vAi5fsy12rJlXkqkmxaFxMi4Bi5xQBF5tXbT92P8XOVdO7p3Jvrf8Hj5tov5E/I09kEAhJkI+6f
- ELJ4BCuq7kwQt/n9MfnZ3Zg7KBm0wyLNK+zcrJYpCzY3Rcv3dV0YQXAGhIE=
-X-Received: by 2002:a17:903:b85:b0:2c0:db23:4a6 with SMTP id
- d9443c01a7336-2ce9e2a0fb6mr80167275ad.1.1783975450878; Mon, 13 Jul 2026
- 13:44:10 -0700 (PDT)
+ AHgh+RqKnGgpHV3qPQrWjszu0KdEGZlTfK8MpSKs9p0jT4c4+5Jud6pkL75nOQVyx3Rg0gW3JW460rUc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZ/nah546v6de0qX5UGIVXpG4KwyyHU58iijGJUB7hG32x+XCG
+ hMttRLHLIXTrh1aHmb+1vUmoXOBhoNbPlqGAiY7ts4phZ36mWeVcBojkskxMbXmhXQqfgL17F9H
+ Y3d9Vj6kOpnY0XSKZ0CKHQnzbZuXmmEk=
+X-Gm-Gg: AfdE7ckEKQjUAzwDEKQYeKjeB99Rzi+Ta708T4zdD2pNeQHuk8bXneQZdf4uQZc+qN6
+ 0P07F/vllYmJ+L+CFgXXz7XTe7o4rJc5YZgFINHKWbbN9cxo7thASr017kLYdbEv1u+a5scDnVe
+ w2tMQg60dqte1CCqHV4wt4+/EK+gvWArZPpBX31IY9B4CFWD72MUWyeog0yRmnlB0tQZ+vgvtO/
+ HldSBldK4IqdrYxPcnz5sddJCz5oi849zgRuqL4PPTqBsyRzHRdLHTd2sXgstqZztVK/Do79CUs
+ c9aDJKH8UlNAAjLdT+rRL9L213HbU2OJh3D1OdW+xtlzCuFh9Je6fJMw8hA=
+X-Received: by 2002:a17:90b:2d4e:b0:368:b002:bdad with SMTP id
+ 98e67ed59e1d1-38dc779df28mr7286066a91.5.1783976173692; Mon, 13 Jul 2026
+ 13:56:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260713162722.3349626-1-srinivasan.shanmugam@amd.com>
- <20260713162722.3349626-4-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260713162722.3349626-4-srinivasan.shanmugam@amd.com>
+References: <20260713164321.3350036-1-srinivasan.shanmugam@amd.com>
+ <20260713164321.3350036-2-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260713164321.3350036-2-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jul 2026 16:43:57 -0400
-X-Gm-Features: AVVi8CcqALRWkKAP50MB7UTKwCp-ar0APMsPAOyTu3l28ztqJEcwIZnV6mnGwuA
-Message-ID: <CADnq5_MNJf9OpyjTSeH=vuAhGx_1Ok0FwsVPkYYi_tt6pj+Gow@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] drm/amdgpu: Signal GPU_RESET EVENTFD notifications
+Date: Mon, 13 Jul 2026 16:56:01 -0400
+X-Gm-Features: AVVi8CfNW8x4tgbqA4RFD87MXhpLKhL9k-7GDXQ6sFf6C5UVSW3TMOD-LNYxMU0
+Message-ID: <CADnq5_OY0a2xD-TN+zCc7gRbVVVXuOuF_4LduNYkWv4G0h1FfA@mail.gmail.com>
+Subject: Re: [PATCH v8 1/6] drm/amdgpu/uapi: Add WAIT_EVENT ioctl and metadata
+ structures
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
@@ -106,136 +107,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 13, 2026 at 12:34=E2=80=AFPM Srinivasan Shanmugam
+On Mon, Jul 13, 2026 at 12:54=E2=80=AFPM Srinivasan Shanmugam
 <srinivasan.shanmugam@amd.com> wrote:
 >
-> Signal GPU_RESET EVENTFD subscriptions after successful GPU reset
-> completion.
+> Add the UAPI definitions for a render-node WAIT_EVENT ioctl.
 >
-> GPU reset notifications allow userspace to observe that GPU recovery has
-> completed and the device is operational again.
+> WAIT_EVENT lets userspace wait for a kernel-defined event type and
+> receive metadata describing the event. This provides the
+> metadata-carrying half of the event interface and is kept separate from
+> EVENTFD, which is used only for lightweight readiness notification.
 >
-> GPU_RESET is a device-scoped event, so no queue object is used. All
-> processes that subscribed to GPU_RESET on the device are notified.
+> The new UAPI supports:
 >
-> EVENTFD remains notification-only.
+>  - event type selection
+>  - queue-scoped or GPU-scoped event selection
+>  - timeout-based waiting
+>  - metadata copy to userspace
+>  - single-consumer delivery of the first matching event
 >
-> v2:
-> - Move GPU_RESET EVENTFD signaling to the path that confirms a real
->   GPU hardware reset occurred.
-> - Notify only after successful hardware reset completion.
-> - Do not signal reset-skip or recovery-only paths.
+> queue_id is a userspace queue handle used at the ioctl boundary and in
+> returned metadata for queue-scoped events.
+
+You should mention that this is the queue handle used for userqs.  It
+corresponds to a queue created via the drm_amdgpu_userq IOCTL.  Other
+than that, looks good to me.
+
+Alex
+
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 51 +++++++++++++++++++++-
->  1 file changed, 49 insertions(+), 2 deletions(-)
+>  include/uapi/drm/amdgpu_drm.h | 103 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 103 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index c924a55fd16f..15aaceae13d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5390,15 +5390,43 @@ static void amdgpu_device_halt_activities(struct =
-amdgpu_device *adev,
->         }
->  }
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index bbda6ffc498b..8b6fddb43e86 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -61,6 +61,7 @@ extern "C" {
+>  #define DRM_AMDGPU_PROC_OPTIONS                0x1A
+>  #define DRM_AMDGPU_CWSR                        0x1B
+>  #define DRM_AMDGPU_EVENTFD             0x1C
+> +#define DRM_AMDGPU_WAIT_EVENT  0x1D
 >
-> +/*
-> + * Signal GPU_RESET EVENTFD subscriptions for all open DRM files.
-> + *
-> + * GPU reset is a device-wide event rather than being associated with a
-> + * specific user queue. Notify every process that subscribed to the
-> + * GPU_RESET event on this device.
-> + */
-> +static void amdgpu_device_eventfd_signal_gpu_reset(struct amdgpu_device =
-*adev)
-> +{
-> +       struct drm_device *ddev =3D adev_to_drm(adev);
-> +       struct drm_file *file;
-> +
-> +       mutex_lock(&ddev->filelist_mutex);
-> +
-> +       list_for_each_entry(file, &ddev->filelist, lhead) {
-> +               struct amdgpu_fpriv *fpriv =3D file->driver_priv;
-> +
-> +               if (fpriv)
-> +                       amdgpu_eventfd_signal(&fpriv->eventfd_mgr,
-> +                                             DRM_AMDGPU_EVENT_TYPE_GPU_R=
-ESET,
-> +                                             NULL);
-> +       }
-> +
-> +       mutex_unlock(&ddev->filelist_mutex);
-> +}
-> +
->  static int amdgpu_device_asic_reset(struct amdgpu_device *adev,
->                               struct list_head *device_list,
->                               struct amdgpu_reset_context *reset_context)
->  {
->         struct amdgpu_device *tmp_adev =3D NULL;
-> +       bool need_full_reset, skip_hw_reset;
->         int retry_limit =3D AMDGPU_MAX_RETRY_LIMIT;
->         int r =3D 0;
+>  #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
+MDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>  #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
+MDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> @@ -86,6 +87,8 @@ extern "C" {
+>  #define DRM_IOCTL_AMDGPU_CWSR  DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CW=
+SR, union drm_amdgpu_cwsr)
+>  #define DRM_IOCTL_AMDGPU_EVENTFD \
+>         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_EVENTFD, struct drm_amdgpu_=
+eventfd)
+> +#define DRM_IOCTL_AMDGPU_WAIT_EVENT \
+> +       DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_EVENT, struct drm_amd=
+gpu_wait_event)
 >
-> -retry: /* Rest of adevs pre asic reset from XGMI hive. */
-> +retry:
-> +       /* Rest of adevs pre asic reset from XGMI hive. */
->         list_for_each_entry(tmp_adev, device_list, reset_list) {
->                 r =3D amdgpu_device_pre_asic_reset(tmp_adev, reset_contex=
-t);
->                 /*TODO Should we stop ?*/
-> @@ -5430,10 +5458,30 @@ static int amdgpu_device_asic_reset(struct amdgpu=
-_device *adev,
->                 }
->                 if (r)
->                         adev->asic_reset_res =3D r;
-> +               else
-> +                       amdgpu_device_eventfd_signal_gpu_reset(adev);
->         } else {
-> +               /*
-> +                * Save the reset decision before amdgpu_do_asic_reset(),
-> +                * which may clear AMDGPU_NEED_FULL_RESET before returnin=
-g.
-> +                */
-> +               need_full_reset =3D
-> +                       test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->=
-flags);
-> +               skip_hw_reset =3D
-> +                       test_bit(AMDGPU_SKIP_HW_RESET, &reset_context->fl=
-ags);
-> +
->                 r =3D amdgpu_do_asic_reset(device_list, reset_context);
->                 if (r && r =3D=3D -EAGAIN)
->                         goto retry;
-> +
-> +               /*
-> +                * Notify only after a real hardware reset completed.
-> +                * Do not notify recovery-only or reset-skip paths.
-> +                */
-> +               if (!r && need_full_reset && !skip_hw_reset) {
-> +                       list_for_each_entry(tmp_adev, device_list, reset_=
-list)
-> +                               amdgpu_device_eventfd_signal_gpu_reset(tm=
-p_adev);
-> +               }
->         }
->
->         list_for_each_entry(tmp_adev, device_list, reset_list) {
-> @@ -5530,7 +5578,6 @@ static void amdgpu_device_gpu_resume(struct amdgpu_=
-device *adev,
->         }
->  }
->
-> -
 >  /**
->   * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->   *
+>   * DOC: memory domains
+> @@ -251,6 +254,106 @@ struct drm_amdgpu_eventfd {
+>         __u32 flags;
+>  };
+>
+> +/**
+> + * struct drm_amdgpu_wait_event_queue - queue-scoped event metadata
+> + * @queue_id: userspace queue handle
+> + * @status: event-specific status or error code
+> + * @data0: event-specific payload
+> + * @data1: event-specific payload
+> + */
+> +struct drm_amdgpu_wait_event_queue {
+> +       __u32 queue_id;
+> +       __u32 status;
+> +       __u64 data0;
+> +       __u64 data1;
+> +};
+> +
+> +/**
+> + * struct drm_amdgpu_wait_event_memory - memory exception metadata
+> + * @queue_id: userspace queue handle if applicable, else 0
+> + * @fault_status: device-specific fault or exception status
+> + * @va: faulting virtual address if applicable
+> + * @data0: event-specific payload
+> + */
+> +struct drm_amdgpu_wait_event_memory {
+> +       __u32 queue_id;
+> +       __u32 fault_status;
+> +       __u64 va;
+> +       __u64 data0;
+> +};
+> +
+> +/**
+> + * struct drm_amdgpu_wait_event_reset - reset metadata
+> + * @queue_id: userspace queue handle if queue-scoped, else 0
+> + * @reset_cause: reset cause or reason code
+> + * @data0: event-specific payload
+> + * @data1: event-specific payload
+> + */
+> +struct drm_amdgpu_wait_event_reset {
+> +       __u32 queue_id;
+> +       __u32 reset_cause;
+> +       __u64 data0;
+> +       __u64 data1;
+> +};
+> +
+> +/**
+> + * struct drm_amdgpu_wait_event_scratch - scratch event metadata
+> + * @queue_id: userspace queue handle
+> + * @error_code: scratch-related error code
+> + * @requested_bytes: requested scratch size
+> + * @available_bytes: available scratch size if known
+> + */
+> +struct drm_amdgpu_wait_event_scratch {
+> +       __u32 queue_id;
+> +       __u32 error_code;
+> +       __u64 requested_bytes;
+> +       __u64 available_bytes;
+> +};
+> +
+> +/**
+> + * struct drm_amdgpu_wait_event_data - returned event record
+> + * @event_type: kernel-defined event type
+> + * @queue_id: userspace queue handle, or 0 for GPU-scoped events
+> + * @flags: reserved, must be 0
+> + * @reserved: reserved, must be 0
+> + * @seqno: per-file event sequence number
+> + * @u: event-specific metadata
+> + */
+> +struct drm_amdgpu_wait_event_data {
+> +       __u32 event_type;
+> +       __u32 queue_id;
+> +       __u32 flags;
+> +       __u32 reserved;
+> +       __u64 seqno;
+> +       union {
+> +               struct drm_amdgpu_wait_event_queue queue;
+> +               struct drm_amdgpu_wait_event_memory memory;
+> +               struct drm_amdgpu_wait_event_reset reset;
+> +               struct drm_amdgpu_wait_event_scratch scratch;
+> +       } u;
+> +};
+> +
+> +/**
+> + * struct drm_amdgpu_wait_event - wait for a render-node event
+> + * @event_type: kernel-defined event type
+> + * @queue_id: userspace queue handle for queue-scoped events, 0 for GPU-=
+scoped events
+> + * @timeout_ns: relative timeout in nanoseconds; negative means wait for=
+ever
+> + * @out_ptr: userspace pointer to struct drm_amdgpu_wait_event_data
+> + * @out_size: size of userspace output buffer
+> + * @flags: must be 0
+> + *
+> + * Wait for the selected event and copy the first matching event record =
+to
+> + * userspace. Matching records are consumed by a single waiter.
+> + */
+> +struct drm_amdgpu_wait_event {
+> +       __u32 event_type;
+> +       __u32 queue_id;
+> +       __s64 timeout_ns;
+> +       __u64 out_ptr;
+> +       __u32 out_size;
+> +       __u32 flags;
+> +};
+> +
+>  /** Opcode to create new residency list.  */
+>  #define AMDGPU_BO_LIST_OP_CREATE       0
+>  /** Opcode to destroy previously created residency list */
 > --
 > 2.34.1
 >
