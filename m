@@ -4,78 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9037C44507
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56FECC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58B5410E9A4;
-	Mon, 13 Jul 2026 13:07:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF2D310E5D7;
+	Mon, 13 Jul 2026 13:09:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XVdg4R54";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SQ6Oafh/";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 038B010E9A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 13:07:43 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-493c7902f47so29055245e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 06:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783948061; x=1784552861; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=vZlgf0u1U1v2SqbI/Ib49u1TrAtu6TbT9Yn51lKShQY=;
- b=XVdg4R54Mcup7XmzzbPZ5eD9sjvXgcQwCfbYKU1zO5a//nPP81j5UquIVMthMq/vFV
- q7I9DsfOrXHJQB/b6WwuTJ7X/MYEjd2VAqV0flQdna1zdRtQAklrLXsxqBz0DiI+n85l
- CxlzZBJPIeLR+obY3sNb2P5bjQxLzJbmUxvZABfHkT2d2h1KkkEXdbtMAzAsvaA4TWpH
- 71fHiHKNrWxmvnJaue6oY6xmMsBp/mxJOPEYU5eWPCBkl1niNCLnq9kS2Xzpj7rboURs
- xooCA3ZJ1WA4rs58SPoyJDn2ZNKfPcj+ngSILO42XQpCKi1l6jVwZx7mD8YwkdJVbzyO
- vbsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783948061; x=1784552861;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=vZlgf0u1U1v2SqbI/Ib49u1TrAtu6TbT9Yn51lKShQY=;
- b=EWh8V3KOCkc7AWjAdQ8bW365hSheKU2xWtbEin7qZhVVs3pFi7ZGLjVT9cCGoQRH7T
- MeOqkbUaLhjhzNIdJZpBXtmpTelr2snC1CtLzZMkmN1lgTJ2+jroBRs5w3eBCVfXI00D
- wqgOLE0otDM4vXP157RERCM4XDRm0nmiIztNUdI9pLCTnThT3KVj2GGnBt9iTJSFV3LO
- mAmCSdktjeLEnpduCv+LmnBrvy35G1zrM+fppCKymSPCWjtzSO0K67d3uvFKpIMUGCZ1
- uDilLJ/UKBoNZruYylzYv8naYC8XL2mJHYATokDmeyovc8HOUrWCIhx8NiLjJQRHukUh
- iBrQ==
-X-Gm-Message-State: AOJu0YySTPl8N7nCB5xLRlUZDi6ZHWArBMsuz4ggeESGxO7nJ+aJv7Ze
- xfSv/BCmCN/WveeKIWXv1RlJayVgwssC6a/5UrAXVutFBcjbkZYO3wSufQx+OQ==
-X-Gm-Gg: AfdE7cl2JpqAL7CG2Zw01d0bse90ogXmsgrboQ89EHswOGMKDhtLSmvqF2Tzc6FnNfj
- txH2mDtVJP5LyinK9ZO4zv3hCV33mOjp/PacRNSePs2o+2QAqs9FtDfCEe0d7txfbTwieuSSCvj
- AtGFIB+PdFCt8RrFsk++yHLMXmq09lqoiqIWIZkba4PAbnRSXM+Ndc9hQEp7GBrzzVSWF3jbCxl
- C/7rOnK8jicT/wS+HWUK8rRyKw8NTOUMWKqeIro1mZJJBK9pxqBfwF4ChAQJyElf0vHaRTssGBf
- PGxiAOID7OozJVgoPZ0pDBcXF4yl4HFKVYBgn24X8eoAt2xlMZZ6l4tRa0WtKgiWhW+tm2Kof1t
- Y22KKqizYL5ZJRW2HoF+c6p89OkFgRNotrFXsUHLlUsZyQwi0flz914OGgzgxqflJTzYU/b8cwu
- GjYzHGs1yv+kx49Ew96vgps5a0fO+QqHQBOk4xuOZT9UfKNmKqAlUN9w==
-X-Received: by 2002:a05:600c:8b88:b0:494:e456:4596 with SMTP id
- 5b1f17b1804b1-494e45645ccmr5056155e9.21.1783948061282; 
- Mon, 13 Jul 2026 06:07:41 -0700 (PDT)
-Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
- [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493eb6df417sm387974995e9.8.2026.07.13.06.07.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 06:07:39 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
- pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 11/11] drm/amdgpu/gfx6: Enable IP block soft reset as a GPU
- recovery method
-Date: Mon, 13 Jul 2026 15:07:09 +0200
-Message-ID: <20260713130709.34262-12-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260713130709.34262-1-timur.kristof@gmail.com>
-References: <20260713130709.34262-1-timur.kristof@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F4AF10E947;
+ Mon, 13 Jul 2026 11:59:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783943963; x=1815479963;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ content-transfer-encoding:mime-version;
+ bh=PgDGdaaeyCwoG8D4U3B9sdB9c36Rvxkiwqgo8Jml1n0=;
+ b=SQ6Oafh/KNxQF42zEF2I94Jj+VRU02uujLwe3NiP8qmC6WquIxjmZ9Dg
+ W40vtOSS95LZ+4JqxfGVAlz2hohsr5DNavjNEsk6i6qpdPBV0IYkYOCV0
+ GCuj3v9FlgTsCQagzabaqw3sLDOTZfRNQVeYbhBijRYJU71J6l/a50bLc
+ bKzlwRaBEAYd0k4/Lu+Lfe74/nOcMKPZQ9on13I+S5ajhUrI8a8W1DxsI
+ rBQVF3UiEB9LmJT15OHviNjfxOtnObQflN4eVnaRKg6FlXW6CoUytvfVO
+ Jr0Q0143Oj6lYNhBUfTsZEaoW/fWPPbNlLkz4KnChROMEW+9p+8k3cEzg w==;
+X-CSE-ConnectionGUID: 0YipjySqQK+eXLIYU9kO4g==
+X-CSE-MsgGUID: JjJm1zbyRdKVjeVbXmYuPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="110093147"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="110093147"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:59:23 -0700
+X-CSE-ConnectionGUID: EdEs7uRIQRK4Y6eKspC4zA==
+X-CSE-MsgGUID: aWF+8JjORm2nS6zE8oKajA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="254399571"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
+ ([10.245.245.123])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:59:20 -0700
+Message-ID: <d09a8c6871494c34af9cdf8f99d3739e78427223.camel@linux.intel.com>
+Subject: Re: [PATCH 11/12] drm/ttm: support using drm_exec during eviction v4
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: christian.koenig@amd.com, dakr@kernel.org, ecourtney@nvidia.com, 
+ simona@ffwll.ch, matthew.brost@intel.com, nat@pixelcluster.dev,
+ airlied@gmail.com, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 	intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 	amd-gfx@lists.freedesktop.org
+Date: Mon, 13 Jul 2026 13:59:17 +0200
+In-Reply-To: <20260710190752.2355-12-christian.koenig@amd.com>
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+ <20260710190752.2355-12-christian.koenig@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 13 Jul 2026 13:09:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,56 +74,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable IP block soft reset as a GPU recovery method for GFX6
-graphics and compute rings.
+On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
+> Allow specifying a drm_exec object in TTMs operation context which is
+> used to lock objects during eviction.
+>=20
+> This allows to handle deadlocks much more gracefully and with that
+> avoid returning -ENOMEM on heavily contended domains.
+>=20
+> v2: rebased on top of Thomas work
+> v3: rebased again
+> v4: adjust to dma_resv changes
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-This improves current user experience on all GFX6 chips.
-The current GPU recovery method is a legacy ASIC reset which
-always clears the contents of VRAM, which means that a buggy
-(hanging) app can crash the whole graphical session, which
-is less than ideal. Also on some GPUs the ASIC reset causes
-the GPU to fall off the PCIe bus so it's not desireable.
+Same thing here. Use a ww context at the dma-buf level.
 
-Using GFX IP block soft reset means that we can now
-move on from GFX hangs on GFX6 dGPUs without crashing the
-whole system.
+Thanks,
+Thomas
 
-Tested with the "hard_reset_cp_wait" test case from the
-Hang Test Suite created by Natalie Vock and Konstantin Seurer.
-This Vulkan testcase waits for an event that never occurs,
-effectively a WAIT_REG_MEM packet that intentionally hangs.
-IP block soft reset can resolve that hang and allow
-the rest of the system to move on and keep functioning
-without needing a full ASIC reset.
 
-Tested on the following chips:
-
-Tahiti (FirePro W9000, Radeon HD 7870 XT)
-Cape Verde (Radeon R7 450)
-Pitcairn (Radeon R9 270X)
-Oland (Radeon 430)
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index a033da5fc307..f24129b54408 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -3242,6 +3242,11 @@ static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	adev->gfx.compute_supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
- 
-+	if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_ip_block_soft_reset) {
-+		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+		adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+	}
-+
- 	return r;
- }
- 
--- 
-2.55.0
-
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c | 12 ++++++++----
+> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 5 +++++
+> =C2=A02 files changed, 13 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 1bdd69643c313..570640ae79d84 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -38,6 +38,7 @@
+> =C2=A0#include <drm/ttm/ttm_tt.h>
+> =C2=A0
+> =C2=A0#include <drm/drm_cache.h>
+> +#include <drm/drm_exec.h>
+> =C2=A0
+> =C2=A0struct ttm_transfer_obj {
+> =C2=A0	struct ttm_buffer_object base;
+> @@ -839,7 +840,9 @@ static int ttm_lru_walk_ticketlock(struct
+> ttm_bo_lru_cursor *curs,
+> =C2=A0	struct ttm_lru_walk_arg *arg =3D curs->arg;
+> =C2=A0	int ret;
+> =C2=A0
+> -	if (arg->ctx->interruptible)
+> +	if (arg->ctx->exec)
+> +		ret =3D drm_exec_lock_resv(arg->ctx->exec, resv);
+> +	else if (arg->ctx->interruptible)
+> =C2=A0		ret =3D dma_resv_lock_interruptible(resv, arg-
+> >ticket);
+> =C2=A0	else
+> =C2=A0		ret =3D dma_resv_lock(resv, arg->ticket);
+> @@ -853,7 +856,8 @@ static int ttm_lru_walk_ticketlock(struct
+> ttm_bo_lru_cursor *curs,
+> =C2=A0		 * trylocking for this walk.
+> =C2=A0		 */
+> =C2=A0		arg->ticket =3D NULL;
+> -	} else if (ret =3D=3D -EDEADLK) {
+> +
+> +	} else if (!arg->ctx->exec && ret =3D=3D -EDEADLK) {
+> =C2=A0		/* Caller needs to exit the ww transaction. */
+> =C2=A0		ret =3D -ENOSPC;
+> =C2=A0	}
+> @@ -993,8 +997,8 @@ __ttm_bo_lru_cursor_iter(struct ttm_bo_lru_cursor
+> *curs, bool first)
+> =C2=A0		if (!ttm_lru_walk_trylock(curs, res->bo->base.resv))
+> {
+> =C2=A0			struct dma_resv *resv;
+> =C2=A0
+> -			if (!arg->ticket || arg->ctx->no_wait_gpu ||
+> -			=C2=A0=C2=A0=C2=A0 arg->trylock_only) {
+> +			if ((!arg->ticket || arg->ctx->no_wait_gpu
+> ||
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 arg->trylock_only) && !arg->ctx->exec)
+> {
+> =C2=A0				spin_unlock(lru_lock);
+> =C2=A0				continue;
+> =C2=A0			}
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index e1221e3be7bda..0ffa84a5caa65 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -186,6 +186,11 @@ struct ttm_operation_ctx {
+> =C2=A0	 * @bytes_moved: Statistics on how many bytes have been
+> moved.
+> =C2=A0	 */
+> =C2=A0	uint64_t bytes_moved;
+> +	/*
+> +	 * @exec: optional drm_exec object to use for locking and
+> contention
+> +	 * handling
+> +	 */
+> +	struct drm_exec *exec;
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct ttm_lru_walk;
