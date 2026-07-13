@@ -4,75 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D969C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:59:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BDDDC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:07:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35A6E10E976;
-	Mon, 13 Jul 2026 12:59:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18C4810E994;
+	Mon, 13 Jul 2026 13:07:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+5Xb3Tr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rbi4Mjo7";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B5510E976
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:59 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-4720d22c94aso2603175f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:59 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB1610E994
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 13:07:15 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-493ba701891so29379745e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 06:07:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783947538; x=1784552338; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ifWmatkuHnE/huKJkAvhI2hVTCiqs3WNZQd5bSfB9lc=;
- b=i+5Xb3TrIBGnSiFCYTrcffVwJTNtJ0MB5xXyOt+5HKLR9D5+UR8TJAoNFnsjit5mdo
- 1ED8HNWYXBFTCip3MXu3GpDHzsTpbGUWvbi4aXNLUcpcrlOBQ5EVU05BBoCs2CuXuAxt
- nE+Ft4V2Uvy6TZC+N1mepzmDA22C0pMMJcX7+QNZDXLJUpAe0kIlvELNy+gIrumi2j4M
- DQL1leuBK0R6rgaWHq78aJvawJ8P/SoctXXNcZbcX1vaADVGZaXXJLQQlSP3/Gmk5KNt
- gApeD1TJefzrKrMWQsRPbIEcf+MGOrh/5qEARhR/Ur7eqSi/QfW7QnGYrXQurnM6olnl
- 1Mlg==
+ d=gmail.com; s=20251104; t=1783948034; x=1784552834; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JvSUIVvbfqY6QHxM6iDD2gcQlCyxcaXqMc5Jht0NXfM=;
+ b=rbi4Mjo7ld+WGlU2W5NGpDsFaBFoVpzoMWgIzMZE7JGL3JrATKFJKX4fo3qn+5YJ5S
+ Ct1Wn0mYal/wqbnSyKHlxIcplKHeKKDQG+jdQQu3AYpHyM4ZBYQE2ORPigKbcsmN8Ot9
+ 8ykL2BTmPWiyq+gy2ROyhGgrSph8zr5LGMMx53OwZUj1tZwt6M0NIimT1Nzx7WPe6/+I
+ Vuq03M10sppU1Kpfl9Ouh3E5N91nslwzg1bDjxP/PByewd2WgiPtCzLN8F4g4eQCoWr9
+ HsYri4/y43YQn6+Wj1nqOfSwSXBFMIjY69pAXET4fPSoKNMfMoctANm1jb8lnHyxN6cm
+ 6lCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783947538; x=1784552338;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ifWmatkuHnE/huKJkAvhI2hVTCiqs3WNZQd5bSfB9lc=;
- b=XC2htB7KC9s5hNCsVe846jF4WbroenOEFmlSna3anApmPWD31mZkifAzO87CY7mLvP
- QUApf7mQWTkmIwEWkQ7q8ZZfNdbxT2G6ShuGeCMyRxKfjnPlfM1FJnkTBwJA7Lej4Nxv
- DAfOQ54zHfa+oAs3voJ0ora6hGdPvXaTY1vjgP1zp/1X3BBxlXVK7v9vv1mP8HigaMOm
- bWZPceG4PI6PuzyodvErDZ4kq7OfACV32Qwi0w5BXWq+5mfDtinMayRRhCFzz+acnDpw
- j7p0VNrE4jG+SyiZdois25nDLQJJaUJNFAA+3gb5NgpTY398GqwwqCS786BPg6KuOoM6
- PuOg==
-X-Gm-Message-State: AOJu0YxxpbPTF4IZeAhcaB7LHpQDIlCf2W/N0oVMt8KZ/Ra/dP4Z1Mst
- UsdE+ZbtG5brXn+wE963jLxI/f40OnuBS5erTiDCvHTtd0T+xUwnZe8KC7IjVg==
-X-Gm-Gg: AfdE7cl0wuz5CazpYog0CSbLtTqlZISeqEQ947VxTAoQeHxpqWcyjPr1+K3YIEGNaIi
- qe3pUVgKe9ulZwhXhC5gDmZchMKSnhcu31icBnRSxFCWhkOHWwplKLNizSTl2fNg1zNSYBaFWxp
- hr86XW/0tPyafPZkkGHyIeOLYxY3YvflamlKs0eW6rLqchmTQAtVB/tkCh7UxPB0HQuGNWxJju9
- 1IFEvo6zn6P1BLFdyXbY4XVJdNmajzHwwmZByey5sDaZRj+h/RUkHceBi91q/R/tmziNBSaxgeE
- PaFIySb+9DkdWyM48aKc/r8glKf0d90k7WQ0iZf31M8RWoq1ez34ZCavvBPoFjYYPnFD0U1fxEQ
- VuEDj1QQCcBT4laKdHFYhwYU5LFlL6vdiNdud2bWxXHBtODl5tjfeFx1N2Z0nX0O/gbu81gXJYy
- sVDJHLyW5W3I6WZGrGnQp0H3MdTu0hjeamYhaopyBC5Vd3WGron0K2Cg==
-X-Received: by 2002:a05:6000:4b03:b0:478:4de8:9b91 with SMTP id
- ffacd0b85a97d-47f2dd0517bmr10913533f8f.41.1783947538187; 
- Mon, 13 Jul 2026 05:58:58 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1783948034; x=1784552834;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JvSUIVvbfqY6QHxM6iDD2gcQlCyxcaXqMc5Jht0NXfM=;
+ b=ph0ph5sUy6L0v0b26vysgGp+yVsE7aryV/wtY4OC8jKgWohdSsxBqg5tl+fSTMoj+Q
+ g+39LOb2J6NSLM7ajBnLLbqkR0RTG/1OhFtFHScL3w1bOx2Y1t/HP0XkPe3ei+jJWUTb
+ oR0GvjwBO8Fqtcwcv74eJEI7EQ5Xi55WAxmsAANBSrlDqtO2mrzMxWy+N2GIt4KjFSeL
+ VDdG0h5461qoRwLRsXBbql+zQBYhjuXKooJs4m4JR/Ix+Em5XGLASwkQKUOYsJrH/AGF
+ wWi/K6XV97ney+PdmHneT1DSo5nrEoWORk50SFoWynQ4ObrTIST+4MoPZdgTns+dQsY1
+ J/zA==
+X-Gm-Message-State: AOJu0Yydq/V1ojRjxmL6kw3lEbazDH+6Tbq5kI8S8BYoBAsUI4MJVYL3
+ zufwfW2tbCVSqt1TweWcxjoJye7JYx4aPlZxlRQgbMcBtNh016gdV2Rj6CetMg==
+X-Gm-Gg: AfdE7cmk6RVC4Of/yMiqqApYNF5w71UXNK5r73ftb2NGXeizC/IXclPhkEcHv67X0dI
+ Wr/NKiEJRfx27GcJaFOqkoi0meDMejgLMMSfjOfr5+wrwtw2shSNgFMaXCkBj7wk5IDys7+hiCb
+ EbopZizHRdAOmLYoRJTB3cdTwHYenfX66G/80auebbc4yKHEH3abqprSptsRYCYQ3MKygiG8bAR
+ Zub/6jWEATCwOwqxGoTl5OCFjVE9Yri3bJdVlLehodp6flJ3PpmLn6GBUQSFXlZVTbFcPDkds8x
+ brDIV9vWmgn/+7p+VpiNE6iPvTLLdfnov9JpP5qjr9+Puil8Lme7qegrbuZJv7sgcb2XANPlI3x
+ Ao5gnu1YYWsX3Ef0oM5VCNycC0z/UwD+vAz4aiUNrM+md3G4BH6YwjHv5Hvd677BOGw5G+SThaG
+ 0O+Ru+Q+2Ah1Rt13RaPfXjlMvqQgnfjvhsKD2EYgIC4tzllyfoWWbVpg==
+X-Received: by 2002:a05:600c:8284:b0:493:b647:1acd with SMTP id
+ 5b1f17b1804b1-493f8845b3amr99440515e9.36.1783948033668; 
+ Mon, 13 Jul 2026 06:07:13 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
  [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.56
+ 5b1f17b1804b1-493eb6df417sm387974995e9.8.2026.07.13.06.07.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:58:57 -0700 (PDT)
+ Mon, 13 Jul 2026 06:07:11 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
  pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 9/9] drm/amdgpu/gfx7: Enable IP block soft reset as a GPU
- recovery method
-Date: Mon, 13 Jul 2026 14:58:38 +0200
-Message-ID: <20260713125838.30607-10-timur.kristof@gmail.com>
+Subject: [PATCH 00/11] drm/amdgpu/gfx6: Use GFX IP block soft reset on GFX6
+Date: Mon, 13 Jul 2026 15:06:58 +0200
+Message-ID: <20260713130709.34262-1-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260713125838.30607-1-timur.kristof@gmail.com>
-References: <20260713125838.30607-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -90,61 +85,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable IP block soft reset as a GPU recovery method for GFX7
-graphics and compute rings.
+Fix up various things in the GFX6 code to prepare it
+to work with IP block soft reset. The main challenge
+was figuring out how to properly initialize the
+compute queues so that they work well after a reset,
+as well as realizing that on GFX6 the compute queues
+also have a PFP (as opposed to GFX7+ where PFP is
+a graphics only thing). There are also other minor
+fixes.
 
-This improves current user experience on all GFX7 chips:
+Implement GFX6 IP block soft reset: just reset everything
+in the GFX IP block (instead of taking a guess at which
+parts need to be reset) to make it consistent, and
+also handle clock and power gating to make sure not to
+degrade GPU functionality after a GFX IP block soft reset.
 
-* On Kaveri and Kabini there is currently no working
-  GPU recovery method so those chips currently require
-  the user to manually reset the computer when there
-  was a hang.
+This improves current user experience on all GFX6 chips:
 
-* On Hawaii and Bonaire, the current GPU recovery method
-  always clears the contents of VRAM, which means that
-  a buggy (hanging) app can crash the whole graphical
-  session, which is less than ideal.
+On GFX6 dGPUs, the current GPU recovery method
+always clears the contents of VRAM, which means that
+a buggy (hanging) app can crash the whole graphical
+session, which is less than ideal.
 
 Using GFX IP block soft reset means that we can now
-have a working recovery on GFX7 APUs and we can also
 move on from GFX hangs on dGPUs without crashing the
 whole system.
 
-Tested with the "hard_reset_cp_wait" test case from the
-Hang Test Suite created by Natalie Vock and Konstantin Seurer.
-This Vulkan testcase waits for an event that never occurs,
-effectively a WAIT_REG_MEM packet that intentionally hangs.
-IP block soft reset can resolve that hang and allow
-the rest of the system to move on and keep functioning
-without needing a full ASIC reset.
-
 Tested on the following chips:
 
-Bonaire (Radeon HD 7790)
-Hawaii (Radeon R9 390X)
-Kaveri (A10-7850K)
+Tahiti (FirePro W9000, Radeon HD 7870 XT)
+Cape Verde (Radeon R7 450)
+Pitcairn (Radeon R9 270X)
+Oland (Radeon 430)
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Timur Kristóf (11):
+  drm/amdgpu/gfx6: Improve emit_cntxcntl()
+  drm/amdgpu/gfx6: Fixup emitting SWITCH_BUFFER packets
+  drm/amdgpu/gfx6: Use PFP on the compute queues too
+  drm/amdgpu/gfx6: Initialize compute rings before CP start
+  drm/amdgpu/gfx6: Clean up rings during reset
+  drm/amdgpu/gfx6: Execute CLEAR_STATE when initializing compute rings
+  drm/amdgpu/gfx6: Properly enable/disable priv_req and priv_inst
+    interrupts
+  drm/amdgpu/gfx6: Adjust how harvested TCCs are set up
+  drm/amdgpu/gfx6: Use COND_EXEC
+  drm/amdgpu/gfx6: Add IP block soft reset implementation
+  drm/amdgpu/gfx6: Enable IP block soft reset as a GPU recovery method
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 825e3d7d5f0f..1a7a6962303e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4434,6 +4434,11 @@ static int gfx_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	adev->gfx.compute_supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
- 
-+	if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_ip_block_soft_reset) {
-+		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+		adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+	}
-+
- 	return r;
- }
- 
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         | 403 +++++++++++++-----
+ .../include/asic_reg/gca/gfx_6_0_sh_mask.h    |  32 +-
+ 2 files changed, 316 insertions(+), 119 deletions(-)
+
 -- 
 2.55.0
 
