@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98CA6C44507
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856EAC44508
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 352C610E96E;
-	Mon, 13 Jul 2026 12:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2EC10E970;
+	Mon, 13 Jul 2026 12:58:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mVKW/iRP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I4bOhb1h";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C3610E96E
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:56 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-493f45e20cdso18870695e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:56 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEB6810E970
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:57 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47ddf7b09aaso2049184f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783947535; x=1784552335; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783947536; x=1784552336; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=ILaQRYSezNwpezNT9xke8PAPfa2SvCB6myZAQ0EdRrQ=;
- b=mVKW/iRPFYlI1yMdKivfS0wzeHWVK5nz0g7We7fZcWixIc7BZJ3GMspn2lgMSYVDYm
- PKcjWeIC1EgiwcIzFIecaOCQwdJ+sAqMpyedmXhuFxoBpFtgFVQL4x9A0n7QewB3+Qdw
- Nw/xKlIZV/823yzMG/DUOBzSyYuAvH780KrXnazUL8c1zTOnRdDaknVmI7LbmQwWTrUu
- 34au/DEe5NZtU90apTvDcJPiyblQaMUyykZE2ryHGVc7YmHSt1XuM798lbR1SPBZ1X0M
- yPkLorcEu9VsjpTeTkE06izq7FDIoxXc+uAO49nH0CW/f7/WCGIt7TSPkw1wG/4pG3WD
- Mnwg==
+ bh=WsdCGB9uCzuKYwcraoVHVMiQRUe60rRhYTedJJKR2lg=;
+ b=I4bOhb1hfhh9w9RL2jOgAhhD0tkIou/iWHq2g8ituBH3+EyNkBsPJ/C/Y7hsqTAkDi
+ 0OiGCXAa5XE4dNtLU2fjikLHr2nNQiKu0sA/sD+hM2YC7664rAeDWTpNAaO0QkNtSv8r
+ agaV+j+HCT/B9PhfW4JTNHh7b6VmGnHm4LEANbjjeIDsExEvw0YrPoVARw/dFpf4NspX
+ JdlyTgBSUvKOFmKodZFYmlWW/akBzsN63MQRTeXz6zVZsWFY0090XRYmGOkaa0rcUSob
+ km6cQTaDiHwEfQgvTL4QILgEtqZVIlln91C4ekMF6Nk8KQhC0T5u4T+OQcl8YYq5PYtB
+ N74Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783947535; x=1784552335;
+ d=1e100.net; s=20251104; t=1783947536; x=1784552336;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=ILaQRYSezNwpezNT9xke8PAPfa2SvCB6myZAQ0EdRrQ=;
- b=TIi6BBoSNRkwIVMp2jZoM9Qoaf5gRrv/Rc6yY5f3iLlsGY7hQxG3X6EAZW62I5Zst/
- 1bpl1jGFoYym5Et1ZF+Gfzhsiu7wKlJ8mZMs4kqMi0ekrZA0ATd8Ia7rASBiv0E9W4ys
- Eu744QomrDYxyUemu8Z9t8hFT8YQ8ppPPs15wKTMq69cikwGXbQ1YIaHGHF8usHf7hGV
- 4ziBv1r45qx9rtKa5J2umjVi/MGVANolwKINeYovR1H/HZ58o20Qe30M3eTbQMfZeAad
- zkcfaFFdh9E/12lm1XIOgxj92DWq8lJllwOqdDD5olQry1HQoloyso0Wib/pstcA/jXl
- papw==
-X-Gm-Message-State: AOJu0YwNraRlrzJggtKlJfSLDqq2D0Odbx82Q2z3XI7CRmVumCKFFM1b
- MFJhCXEUJTIyQSfOzRijPPuE/baImQhtLoC597kKcPlfTSI2cUvHY1TGMptCbg==
-X-Gm-Gg: AfdE7ckzjgWReI0yJhNhKgr1IdFStZNSafUO+NS6IBY+Ctks4KCw2z0eDjHtzCu5FMH
- /FUTGKNboIr85S/WhsnAPMY/obkSih6uVfjGs5nvCtJJl2okqH+FYxR1eCAsVT1NZwUzwbTju6o
- y5Y9vg3Cyzjppu4BJM0UX+4ezOASh8oj1qb4C3CXyq1k8uwbmXWlPUIDXNO9F5RTncqvS0wD6tc
- cowaD5KIs9/EbClrMHP+NpADHgHUdv7HogkAx97A9ApPUZqSt0kXwIpBtxiaoJUiMM5yZn7C1/h
- pqvaV5sgCuMrDjNJcbaYpiNHPvQNkVm9PI7xUtA7JZQWV8d5P5koVEWP+AVwT31MdKyHe4bU03i
- ddoq+huM5fb7SkGMfsPF1BSwq4BqHDY3R+MmkSuwnrp2srt7kVH9E0SiLnMaejSq3HS6oWOtF+3
- QaF+LrPapvp+/QvlA3L7vuZh2aLr4QfeqF/HYIZajC7BONprucMJgsMA==
-X-Received: by 2002:a05:600c:a14:b0:493:e311:5f10 with SMTP id
- 5b1f17b1804b1-493f87e72ecmr97664035e9.10.1783947534638; 
- Mon, 13 Jul 2026 05:58:54 -0700 (PDT)
+ bh=WsdCGB9uCzuKYwcraoVHVMiQRUe60rRhYTedJJKR2lg=;
+ b=XUZD1hs9VA05wkE44jw2ZehoLyTY97/6xaI252jKgOmkOA75naussGbU2NWKXkQyWJ
+ AZTpGcJVgP6XCnT5avCmV+pvZ+m6Mi28llb80JpV+UF/vc1QesUBiKcOr8Rzof1r+W+R
+ NpKL5dXNfTTd9mHolTJnwCxlqYrTn1XNaYs9Y3HJhpDgo0GixdYjJwSZlD1q55ILrTSv
+ 18TlQv2F1CxoLO3wfqjcFzn0gnHQf2HAxVe6mLBcteMOf+d+st1VYI1ep4+mJs6cOE5C
+ 4YyyZxAqYJX2T/pQEH5wQoA67NSjp5n93wqooxpWLlB38aBORwd2WtZLOJ86oDm+AIMK
+ r+IA==
+X-Gm-Message-State: AOJu0YxLAPWjB8ScvBq0glMA8eOY3I7OPebC89OY3oG8ksvms8qHRgaM
+ fLGg01GX6VFduRwrcLSu0PU2njkDzk4+2LxWiROw0X98S/V1heZrv1Y0m8k7Cg==
+X-Gm-Gg: AfdE7cluEUgBzOKhcxNy0JL2WYan4H0ES6ciOWjD7VJQhfFsiCQMS2HefBczpbvzQlL
+ U+6kvPE5cDd3K80bB9sep+E10A2QdeR83hqhw/faoxMl3QsByktD7BwDpXs+lCS2fvs6TyUDEiG
+ I8ERCgt5r85dzuHJExJV4j6PMkLwOqEfYxL7/avTjuDT3CcoJR0/bYVx0OM/POianE+ZK8HKCnq
+ Q4mhAflcIWr/JmiHuJX/sAQXoDz/lCd1Shhv8hyU0cCn1xJSZU9+yHAKpcDobhxx1j88p34iiL7
+ mXVQPFCSrI4KBVfDHot83ja5kIPPiq9S86jQrIOYFiMmOr8EoUT7A5ZIo6mWlbHVM21lK2TQLGn
+ UYgfPz0MPL7GzXxRBoH9m/c4WX7VOHVTme+DxjX8DENtwBsRgh0AReyyRz1kurq8sCPqan0RlHj
+ HYUwk7TFTnoh3uvtIWe2inijdXYa6WadTcP4hOAoSkCdRXf02BmGryXA==
+X-Received: by 2002:a05:6000:2912:b0:454:a41f:d082 with SMTP id
+ ffacd0b85a97d-47f2dcb3f2fmr9669026f8f.3.1783947536267; 
+ Mon, 13 Jul 2026 05:58:56 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
  [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.53
+ ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:58:53 -0700 (PDT)
+ Mon, 13 Jul 2026 05:58:55 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
  pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 7/9] drm/amdgpu/gfx7: Use COND_EXEC
-Date: Mon, 13 Jul 2026 14:58:36 +0200
-Message-ID: <20260713125838.30607-8-timur.kristof@gmail.com>
+Subject: [PATCH 8/9] drm/amdgpu/gfx7: Fixup IP block soft reset
+Date: Mon, 13 Jul 2026 14:58:37 +0200
+Message-ID: <20260713125838.30607-9-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260713125838.30607-1-timur.kristof@gmail.com>
 References: <20260713125838.30607-1-timur.kristof@gmail.com>
@@ -89,81 +89,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-COND_EXEC tells the CP to discard the dwords following it
-when its condition is zero (false).
+Use basically the same implementation as GFX8,
+except for the GFX7 specific MQD functions.
 
-This is useful for GPU recovery because it can help reduce
-collateral damage during GFX IP block soft reset, meaning
-that it reduces the likelyhood that we fail some jobs which
-are not guilty of the hang as the IP block soft reset
-mechanism clears the condition before doing the reset.
+Reset every block using the GRBM, then proceed
+to reset the GRBM and SEM blocks using the SRBM.
+
+Remove the redundant gfx_v7_0_update_cg() function.
+The soft reset now calls the clock and powergating
+functions of the IP block instead.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 148 +++++++++++++-------------
+ 1 file changed, 76 insertions(+), 72 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 915612628f9a..6d52b8710437 100644
+index 6d52b8710437..825e3d7d5f0f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -3162,6 +3162,22 @@ static void gfx_v7_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+@@ -3618,21 +3618,6 @@ static void gfx_v7_0_enable_mgcg(struct amdgpu_device *adev, bool enable)
  	}
  }
  
-+static unsigned int gfx_v7_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
-+						      uint64_t gpu_addr)
-+{
-+	unsigned int ret;
-+
-+	/* Discard following DWs after this packet when gpu_addr==0 */
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_COND_EXEC, 3));
-+	amdgpu_ring_write(ring, lower_32_bits(gpu_addr));
-+	amdgpu_ring_write(ring, upper_32_bits(gpu_addr));
-+	amdgpu_ring_write(ring, 0);
-+	ret = ring->wptr & ring->buf_mask;
-+	/* patch dummy value later */
-+	amdgpu_ring_write(ring, 0);
-+	return ret;
-+}
-+
- static void gfx_v7_0_ring_emit_wreg(struct amdgpu_ring *ring,
- 				    uint32_t reg, uint32_t val)
+-static void gfx_v7_0_update_cg(struct amdgpu_device *adev,
+-			       bool enable)
+-{
+-	gfx_v7_0_enable_gui_idle_interrupt(adev, false);
+-	/* order matters! */
+-	if (enable) {
+-		gfx_v7_0_enable_mgcg(adev, true);
+-		gfx_v7_0_enable_cgcg(adev, true);
+-	} else {
+-		gfx_v7_0_enable_cgcg(adev, false);
+-		gfx_v7_0_enable_mgcg(adev, false);
+-	}
+-	gfx_v7_0_enable_gui_idle_interrupt(adev, true);
+-}
+-
+ static void gfx_v7_0_enable_sclk_slowdown_on_pu(struct amdgpu_device *adev,
+ 						bool enable)
  {
-@@ -4943,6 +4959,8 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
- 	.get_wptr = gfx_v7_0_ring_get_wptr_gfx,
- 	.set_wptr = gfx_v7_0_ring_set_wptr_gfx,
- 	.emit_frame_size =
-+		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_ib_schedule) */
-+		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_vm_flush) */
- 		20 + /* gfx_v7_0_ring_emit_gds_switch */
- 		7 + /* gfx_v7_0_ring_emit_hdp_flush */
- 		5 + /* hdp invalidate */
-@@ -4965,6 +4983,7 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_switch_buffer = gfx_v7_0_ring_emit_sb,
- 	.emit_cntxcntl = gfx_v7_ring_emit_cntxcntl,
-+	.init_cond_exec = gfx_v7_0_ring_emit_init_cond_exec,
- 	.emit_wreg = gfx_v7_0_ring_emit_wreg,
- 	.soft_recovery = gfx_v7_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v7_0_emit_mem_sync,
-@@ -4979,6 +4998,8 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_compute = {
- 	.get_wptr = gfx_v7_0_ring_get_wptr_compute,
- 	.set_wptr = gfx_v7_0_ring_set_wptr_compute,
- 	.emit_frame_size =
-+		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_ib_schedule) */
-+		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_vm_flush) */
- 		20 + /* gfx_v7_0_ring_emit_gds_switch */
- 		7 + /* gfx_v7_0_ring_emit_hdp_flush */
- 		5 + /* hdp invalidate */
-@@ -4997,6 +5018,7 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_compute = {
- 	.test_ib = gfx_v7_0_ring_test_ib,
- 	.insert_nop = amdgpu_ring_insert_nop,
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
-+	.init_cond_exec = gfx_v7_0_ring_emit_init_cond_exec,
- 	.emit_wreg = gfx_v7_0_ring_emit_wreg,
- 	.soft_recovery = gfx_v7_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v7_0_emit_mem_sync_compute,
+@@ -4551,80 +4536,99 @@ static int gfx_v7_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 
+ static int gfx_v7_0_soft_reset(struct amdgpu_ip_block *ip_block)
+ {
++	struct amdgpu_device *adev = ip_block->adev;
+ 	u32 grbm_soft_reset = 0, srbm_soft_reset = 0;
+ 	u32 tmp;
+-	struct amdgpu_device *adev = ip_block->adev;
++	int i;
++	int r;
+ 
+-	/* GRBM_STATUS */
+-	tmp = RREG32(mmGRBM_STATUS);
+-	if (tmp & (GRBM_STATUS__PA_BUSY_MASK | GRBM_STATUS__SC_BUSY_MASK |
+-		   GRBM_STATUS__BCI_BUSY_MASK | GRBM_STATUS__SX_BUSY_MASK |
+-		   GRBM_STATUS__TA_BUSY_MASK | GRBM_STATUS__VGT_BUSY_MASK |
+-		   GRBM_STATUS__DB_BUSY_MASK | GRBM_STATUS__CB_BUSY_MASK |
+-		   GRBM_STATUS__GDS_BUSY_MASK | GRBM_STATUS__SPI_BUSY_MASK |
+-		   GRBM_STATUS__IA_BUSY_MASK | GRBM_STATUS__IA_BUSY_NO_DMA_MASK))
+-		grbm_soft_reset |= GRBM_SOFT_RESET__SOFT_RESET_CP_MASK |
+-			GRBM_SOFT_RESET__SOFT_RESET_GFX_MASK;
+-
+-	if (tmp & (GRBM_STATUS__CP_BUSY_MASK | GRBM_STATUS__CP_COHERENCY_BUSY_MASK)) {
+-		grbm_soft_reset |= GRBM_SOFT_RESET__SOFT_RESET_CP_MASK;
+-		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_GRBM_MASK;
+-	}
++	grbm_soft_reset =
++		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_RLC, 1) |
++		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_GFX, 1) |
++		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CP, 1) |
++		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CPF, 1) |
++		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CPC, 1) |
++		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CPG, 1);
++
++	srbm_soft_reset =
++		REG_SET_FIELD(0, SRBM_SOFT_RESET, SOFT_RESET_GRBM, 1) |
++		REG_SET_FIELD(0, SRBM_SOFT_RESET, SOFT_RESET_SEM, 1);
++
++	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
++		struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
++
++		mutex_lock(&adev->srbm_mutex);
++		cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
++		gfx_v7_0_mqd_deactivate(adev, 2);
++		cik_srbm_select(adev, 0, 0, 0, 0);
++		mutex_unlock(&adev->srbm_mutex);
+ 
+-	/* GRBM_STATUS2 */
+-	tmp = RREG32(mmGRBM_STATUS2);
+-	if (tmp & GRBM_STATUS2__RLC_BUSY_MASK)
+-		grbm_soft_reset |= GRBM_SOFT_RESET__SOFT_RESET_RLC_MASK;
++		udelay(50);
++	}
+ 
+-	/* SRBM_STATUS */
+-	tmp = RREG32(mmSRBM_STATUS);
+-	if (tmp & SRBM_STATUS__GRBM_RQ_PENDING_MASK)
+-		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_GRBM_MASK;
++	ip_block->version->funcs->set_clockgating_state(ip_block, AMD_CG_STATE_UNGATE);
++	ip_block->version->funcs->set_powergating_state(ip_block, AMD_PG_STATE_UNGATE);
++	ip_block->version->funcs->suspend(ip_block);
+ 
+ 	if (grbm_soft_reset || srbm_soft_reset) {
+-		/* disable CG/PG */
+-		gfx_v7_0_fini_pg(adev);
+-		gfx_v7_0_update_cg(adev, false);
++		tmp = RREG32(mmGMCON_DEBUG);
++		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_STALL, 1);
++		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_CLEAR, 1);
++		WREG32(mmGMCON_DEBUG, tmp);
+ 
+-		/* stop the rlc */
+-		adev->gfx.rlc.funcs->stop(adev);
++		udelay(100);
++	}
+ 
+-		/* Disable GFX parsing/prefetching */
+-		WREG32(mmCP_ME_CNTL, CP_ME_CNTL__ME_HALT_MASK | CP_ME_CNTL__PFP_HALT_MASK | CP_ME_CNTL__CE_HALT_MASK);
++	if (grbm_soft_reset) {
++		tmp = RREG32(mmGRBM_SOFT_RESET);
++		tmp |= grbm_soft_reset;
++		dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
++		WREG32(mmGRBM_SOFT_RESET, tmp);
++		tmp = RREG32(mmGRBM_SOFT_RESET);
+ 
+-		/* Disable MEC parsing/prefetching */
+-		WREG32(mmCP_MEC_CNTL, CP_MEC_CNTL__MEC_ME1_HALT_MASK | CP_MEC_CNTL__MEC_ME2_HALT_MASK);
++		udelay(100);
+ 
+-		if (grbm_soft_reset) {
+-			tmp = RREG32(mmGRBM_SOFT_RESET);
+-			tmp |= grbm_soft_reset;
+-			dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
+-			WREG32(mmGRBM_SOFT_RESET, tmp);
+-			tmp = RREG32(mmGRBM_SOFT_RESET);
++		tmp &= ~grbm_soft_reset;
++		WREG32(mmGRBM_SOFT_RESET, tmp);
++		tmp = RREG32(mmGRBM_SOFT_RESET);
+ 
+-			udelay(50);
++		udelay(100);
++	}
+ 
+-			tmp &= ~grbm_soft_reset;
+-			WREG32(mmGRBM_SOFT_RESET, tmp);
+-			tmp = RREG32(mmGRBM_SOFT_RESET);
+-		}
++	if (srbm_soft_reset) {
++		tmp = RREG32(mmSRBM_SOFT_RESET);
++		tmp |= srbm_soft_reset;
++		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
++		WREG32(mmSRBM_SOFT_RESET, tmp);
++		tmp = RREG32(mmSRBM_SOFT_RESET);
+ 
+-		if (srbm_soft_reset) {
+-			tmp = RREG32(mmSRBM_SOFT_RESET);
+-			tmp |= srbm_soft_reset;
+-			dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
+-			WREG32(mmSRBM_SOFT_RESET, tmp);
+-			tmp = RREG32(mmSRBM_SOFT_RESET);
++		udelay(100);
+ 
+-			udelay(50);
++		tmp &= ~srbm_soft_reset;
++		WREG32(mmSRBM_SOFT_RESET, tmp);
++		tmp = RREG32(mmSRBM_SOFT_RESET);
+ 
+-			tmp &= ~srbm_soft_reset;
+-			WREG32(mmSRBM_SOFT_RESET, tmp);
+-			tmp = RREG32(mmSRBM_SOFT_RESET);
+-		}
+-		/* Wait a little for things to settle down */
+-		udelay(50);
++		udelay(100);
+ 	}
++
++	if (grbm_soft_reset || srbm_soft_reset) {
++		tmp = RREG32(mmGMCON_DEBUG);
++		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_STALL, 0);
++		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_CLEAR, 0);
++		WREG32(mmGMCON_DEBUG, tmp);
++	}
++
++	/* Wait a little for things to settle down */
++	udelay(100);
++
++	r = ip_block->version->funcs->resume(ip_block);
++	r |= ip_block->version->funcs->late_init(ip_block);
++	if (r)
++		return r;
++
++	ip_block->version->funcs->set_clockgating_state(ip_block, AMD_CG_STATE_GATE);
++	ip_block->version->funcs->set_powergating_state(ip_block, AMD_PG_STATE_GATE);
++
+ 	return 0;
+ }
+ 
 -- 
 2.55.0
 
