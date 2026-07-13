@@ -4,128 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8947DC43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 09:25:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C635BC44501
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 10:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE4EA10E346;
-	Mon, 13 Jul 2026 09:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F09210E8C2;
+	Mon, 13 Jul 2026 10:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LcvSPjQr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YvWrLUqT";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD0010E346;
- Mon, 13 Jul 2026 09:25:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MsiFTdV/qIKceG4U4iF/1dcFY/xNAdKjlbGUpPA8Vpg4sVwwfaZuwPRPI+T4kiiSVqZpGrjgCmSblSeHIjUhAwCZ6SqQmZhVex3Pemwc3GavnihtJXtXaxMM5oH+iUzrv8t05S8LprZWizEouWtTms+zOmZUTwtFDMFr42+oiHvMg0mzLW+rSKXK6aXhfK93aAYoCmsCuEWOoT0O8KXehbTBeGraaCdfdNtaOGfVAfmKXMiU5u5gZ743jQNwbyqt1Jxd5W/CM+eZYNUROiIpUvZbYFE9CKP6VIp+Wl0winTjkCmda22gBl+5fuMzhS39EGgoFLV/8qr+OdOoOpWBpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YJL7fSWtbJQ9qquLdsMs3PMO9RebXbIvrBE/1ASKxhM=;
- b=NOoIOeiRrVxTcNpLh+NoR75yYDKQ7jDt1kPKU9+lluoquxY9A0+U+XYYWceDQQb/+iQqAmU+TNt6zh+UXuhROxTuNf1xIUk8XvnuOmUC0fkNX9YeCF7s0WjiagsM0SiKOSYLLfKD9WZ3C3mQryK7azkDEoHGa7yRSGsNlHbxrfEGMx4M+KTi3aOr0RHbjIo6DrVajajwxlMIVKP0aUJmzTHaU2G2oFWOVhfMnSRj0q45apL23AQ7qQHtT8tn+2rKkUcHhzFt4WbDm+VxXybhUIX5GBbgrOSAkkPzWtfiOEPIhY+lkz347S95oGwFDIHfrMpkGQRY/dJTDQ5aOGC5cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YJL7fSWtbJQ9qquLdsMs3PMO9RebXbIvrBE/1ASKxhM=;
- b=LcvSPjQr6+GgdBBgmVaHH7O5yZoj+h7qu3vSZqbkWp3NloWVSx0pLFVr8iDg5/XMPu/uyiAj/4mu90bBunpOej4lh3Bf+vwfQtkZAbYZmA97EofOw15Ed59nkc57k0qLvjrtbhC2WMOZGw5yrVw7vPwEOICkm+XThj0FqOekRQE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB5643.namprd12.prod.outlook.com (2603:10b6:303:188::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Mon, 13 Jul
- 2026 09:25:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
- 09:25:51 +0000
-Message-ID: <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
-Date: Mon, 13 Jul 2026 11:25:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] dma-buf: Add reference counting to dma_resv
-To: Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: thomas.hellstrom@linux.intel.com, ecourtney@nvidia.com, simona@ffwll.ch,
- nat@pixelcluster.dev, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20260710190752.2355-1-christian.koenig@amd.com>
- <20260710190752.2355-2-christian.koenig@amd.com>
- <alGcHjo9fzhHshx8@gsse-cloud1.jf.intel.com>
- <DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org>
- <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR04CA0025.namprd04.prod.outlook.com
- (2603:10b6:208:52d::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8041410E8C2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 10:00:38 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c1601d552a8so287558866b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 03:00:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783936837; x=1784541637; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=F0Kx/6nJW7T5cbKLyiEiZrUgnE+tjOe7fg9BmmK1tj0=;
+ b=YvWrLUqTFu3tEaIT5tZcc1lL3QqfbmRTo6mKQ7Z9uj5aYbQ2WssVcNRtzWfMvb3an+
+ cxYTVLmqLEpUfY8myeuXLeVq3h8F7CDEfguIT2+TnKuBRfcySzEdlr9fNvMbufR0hzIj
+ 9mW7raWlejs4I494B/UJwwqE9GHPr827eH9u0FqyHuzHff88goFZyqsD7SFgEDUjtjfb
+ fSAU4obsSKVrhhAIytaxtzBSwiMNfpcV3/NMGbE9MON8cXtCfikie58DiaQhX6QHUOs8
+ 1btZiSUbBfBR5nIHx7y4bmzwHmpXRXX6HV4wWZqpbUxiIV7F/jaKzpjuo3EU/5bHK8td
+ XcFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783936837; x=1784541637;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=F0Kx/6nJW7T5cbKLyiEiZrUgnE+tjOe7fg9BmmK1tj0=;
+ b=UxVyJ6J0HujUe4FN8iqgwObdKATsUqunC0rbQFQw7U5kifvANt6twKgouIVqqfwF/k
+ bITG8q8hgf/Yi1N/apOM53LM5/vk9l+TBMDXziKVPBcFUC05ZVAQGpW2wFPcSDmsHSXc
+ Bi+fpjpleWt7lCQFv6VrmTbbogQe5LIIpU69lPorZLas+Qz9+u+XeYx8E2IFoNofpYL5
+ g5bpJevem1YFzHvM9KlCGoBFIWp1L58+R+q2LH3vrU4nKgpquHkezSkdUwQUOLXCaaxB
+ nxz48pjnURhGeSnYkmeorBIdv1ksWMX5XIzlB2x7haKgUOGYeMVQfKwOTul9UEZ4tfQU
+ fxUA==
+X-Gm-Message-State: AOJu0YzHO8HHtWf/2amwI1X99JAmdRbWtSNmkDqpjbUt1yBJadzCrghC
+ Xt5M8pAMN814/Rz/W9s1H9efNW6OKx3lKEmiK2TWUmJQibEkueTRWgkBlsTCUw==
+X-Gm-Gg: AfdE7cnyITKUZG4+xddMkiPkt+UDFf41JHWZe28Fz4FJ2x/qIb3wn8eamos3F5SB+cS
+ dbfdy6Z65WQd6tdAO9pIZTkbMO25cCw4FUVDx90byAfZ2O1tptMT51tSftwvWWqGj3Z3GRv1nSG
+ mTOrir5o0g6z17v05OEhb/9Etyh5/up15qf6kcqMkWyfPTqltmlrxD/d2NIf324uB2Ounh7TRpM
+ HVkBmY2v7iUCodGx+SH9pFK9lZ7XbZNMD9jndSiWrX8Aqnr8j8IwB8OJkAqr7O+whUiUZeGKcai
+ LCCkQgMJpld8stZr3Qy3/AuKVI2XC4tq5v2G2JJ2H/OmzNbGCzt6W5eh0BJ7x9BSIbQqVn2ic2F
+ yjWlqiA1wpl+K8GpIwL3yLYOzLjpxXbFIfVYMT5xlW0e0Nb1zGzb+P6FsYYNxooEEdPI/2aNeSO
+ cU8oDnjrIBRa46qlYt13EmLovBukbPv6bKuGXwF/0BtQ/qDMPizMEvjG0P9Yo=
+X-Received: by 2002:a17:907:db02:b0:c12:9471:e231 with SMTP id
+ a640c23a62f3a-c161eaa950cmr296982966b.35.1783936836566; 
+ Mon, 13 Jul 2026 03:00:36 -0700 (PDT)
+Received: from timur-hyperion.localnet (54001386.dsl.pool.telekom.hu.
+ [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c15e1289befsm636740266b.28.2026.07.13.03.00.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jul 2026 03:00:35 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <natalie.vock@gmx.de>,
+ Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [PATCH] drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658
+ (R7 260X)
+Date: Mon, 13 Jul 2026 12:00:33 +0200
+Message-ID: <fMZgsndLRnm1-Yt6VBK1JA@gmail.com>
+In-Reply-To: <c2050464-7f95-4b6a-95db-698c637136df@leemhuis.info>
+References: <20260713061443.32561-1-timur.kristof@gmail.com>
+ <c2050464-7f95-4b6a-95db-698c637136df@leemhuis.info>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB5643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87db089c-44f0-43d8-0fa8-08dee0c0bb85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|1800799024|376014|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: cIKPKbrJw6i3BYgknbdEvGSn+wu1AYhPvsWS3uapzzdbLHtLeVdloCnszeOipFTGSVbnaEVgKJnhWmRQrUEWpqVvJE+eFNEWHrKZ0Fz2kiUjBE8kry2pbg0SfP4SPrFU/j9sFWrmlolRUczP406KvVN+ClHyxM+38rg0uEW/dMwqJjNjO/wf88aieglxmmXPg5li9sPcLCOiLSjOuHU/tyV5nafg2AEWrhHT/IzcClmtUq8fP5Np0l8sOzu0AiraS98Lu7O9EPBw8xDhXBm3eK4PmqYOp14EzbVTzShCjthdsd39JxVHojtUMqBGfHWCq1jSrmviL4khiiwyoIlWsL2q3L/UKUoSjKzGvGc5U4c73s3EqK0evKknXO427A1K1MqweaP33bhoK/STIBljR+aDxT6X09QrY/JPTZD+LzyXMcMEl+Icd60VCsCSzbj3I9JjqR7EobrlkuTnAM+eu1bvo8g3ACd9vzM5B01DwmR5jW6ZGloWJ+4g4ERS6y0muvzuwueDUEZ02S1bAXzIsoBFz4pfhmPzEucG3sFg6/Fx8Pyp9riiIYxFCxlgtR8lR9itkmVE6iKnfMHkUTwpoVUfC5rWuWUcldKdwsGQl9UDFk2FPpENcoYvr5wdtvrNkOU5gID1eYnlb7PBNLL+QgbqeHdfyO2jXRtt9/+C9AM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R3VhallvUTNQZHhNR2JGU2NsMnZZT29SSUNGU2dHcE1UcVBub0JsQXdHRDli?=
- =?utf-8?B?UW1sVnZVQlo3NUtLVFpCU2JZdXZlbENqU2VFS0tNNEVUb2ZOUm5rR3EwRHQx?=
- =?utf-8?B?VDJNdXFocFN4YTlTZjhlWE1qcVlaSGY2a3RLeXl1OGNLb2t1cG1BZ0IyTEww?=
- =?utf-8?B?a2p1ODZBZnhYaGRMZllsTnYxSDFNZCtLcitETStJbnJPRW9aNkNTcHhFOWlp?=
- =?utf-8?B?MDZTc3F5SCtiSnNIa2pFSFB4djlTcEluUWcxVnFVbUprdUdwNnJ6SXZZbklT?=
- =?utf-8?B?REZwUlI4MXBHUEZML0Y4bTNzczcyTjRRNmtXWitBaUF1THp4eXZSUWRNcjJO?=
- =?utf-8?B?V1Q4ZWFyRHRLUHVEMHdUa3ZuSW1QV1hMYkN5djg0MnFwaWJrbUJOSWFLWlVz?=
- =?utf-8?B?enQ3dTdVYkFIMWlWQkFHRUxtU1FFazY2TmpHRTIxMHZKc3hJRzJaU0N4cStY?=
- =?utf-8?B?NUJLTVAzajd2UWtjb3NCY05QbkVDRXBVdm9Danc1dzY3bmZMZ2lTcG84T0RH?=
- =?utf-8?B?Y2RrVlByYnQ2UFZuNDR4b0Q3ajZKUVViTkJIeWFicWNLWXRsc25FYmZxcmF5?=
- =?utf-8?B?bGE0dUxrWTh3SG9XSnAzcnZRMjJlN2dTekZ0RjN4TEFrRFNzQmMzNytIYTdi?=
- =?utf-8?B?TWFxYmVwYlM1OVhOVFd6UmlVaGFnWWI4T25Qb050eVY3dkxZSElkQmQ2UWhx?=
- =?utf-8?B?NTVMNzFYMk1mS2lmNFdlWGxaT0ZmYVpGWjJYcyt6NHhXUWlCenJEQjhWWGhZ?=
- =?utf-8?B?d2tIWk9CV3hMSXgreUl1aDNKVWtMMVZ5cHBCUHpkNEE4bmVWVThlT3htb0ZZ?=
- =?utf-8?B?MWx1bFRFUzBNaENLV0hReWVlcjhOVUNjOVdWc0hvWTdSb0FCdnRnUzJNOUtT?=
- =?utf-8?B?Z1JkTGhIZ2NqTVI3OFQ5QkRoVlFhZXJjWit2MGNzbUNvSVhVZnJwNWExUEFo?=
- =?utf-8?B?UzJlVmZyUGk1TC93UW5WY2drN3ByNVRrSVR6TDVjSXh3KzlRYTIwNGtQWHE4?=
- =?utf-8?B?UkNsRzRRZ0NJZEJOVmpsMTR0eVBVU3dqTVdKekIyL0lvTTBDczdyb21ibkg4?=
- =?utf-8?B?UlZMYzkyaU1CVXBqaWRXelE2enFpdmdHQ2Ixa1o3L0djYXpjM0JTeFBXU3cw?=
- =?utf-8?B?SzFBVXR1UnlHN3I2d0R6S0QwTERING12M2FUcUlxcWxVV1l5Y0JBMHRlaGo3?=
- =?utf-8?B?cEM4QXpHQnVnTTZrS29aUkVpM3VtckRnYmFQUS8wWkQyTDRrbjA1d0pKUHV2?=
- =?utf-8?B?QUNqcUM1a2hWWVVFdGJHRkNEWFpxSHR4aDhTeTl0ang3bmtXNnJKZjUwVlZZ?=
- =?utf-8?B?cDNZMm92dmpoWGRmbk1mczFqbE5mTEdOV0lzQUlSVG9Cd2tCemtaczI1ak9J?=
- =?utf-8?B?SXF4UitWZjBhbkZpMURsQkU1TWE0VHNweDkxOGlxaWZpY2YrVHlmSzJ4dXZV?=
- =?utf-8?B?bW45N0NBRWp2cmNYOElaclN4WTB3cDQyUFVybGhmUklNaUhBdVRqZFpTRk5Z?=
- =?utf-8?B?TUdmYitCaElkUGUzMGdrbCs5ZndNdWlBODc2dVJuNU11UEZiWTRaR0YvOUlT?=
- =?utf-8?B?azc4VVlucUthOU9vY09mY3VuRVBYYU1zSEVuYnRueFFnNExGeEVDMG1GeVo0?=
- =?utf-8?B?QW50VDRxbTJQK2lrd0QreE9pMktKWWYvbW9IQ0NWSGJuZVo3ZWJ0aUlubmhz?=
- =?utf-8?B?cFR1TVlZUE52NDVWTGFYcFk2T0xpZERMcmFRTHh2K0pvSGxFUUNOZ1IyaFo3?=
- =?utf-8?B?Y0J6ZGJ1VjluY2VSNlJkMzNHR2YwR1BwcEZjaExsY0VhQnFad0VnMzJQWFFi?=
- =?utf-8?B?cmZWM08xR2NCTG1wdlZaOEpYK1ZEbm1WVmJZQWlNaVpheGV3VXBVMTNKY0JV?=
- =?utf-8?B?dDkzWHZhZm5VUmxpSWFJK3UvcEFaMHVGbDA4UlIwWk81c3h6NXBlZWRHVkNS?=
- =?utf-8?B?REFqaHBzY3lnaHBlMElTaWd4SVlBVlhURVpGWGZUWUYwTFFHdmdhSDhlMmZL?=
- =?utf-8?B?SVdHbG5FZ0RiZnFHcDhBMDJ1NHNucVpxRTBuYlVnRUNvd2tramdldG8rbjNw?=
- =?utf-8?B?ZDRhSmxxSytKVFhKVzg2YnZjL1JRVEdCM213S0hNL09IYTl5aVdrM3J5NzNS?=
- =?utf-8?B?SE03aVJTUTRiSGhwSmFFbyttVWY4OFltNzVHNmdnM1QvWm8yamxTWG9QNmVn?=
- =?utf-8?B?Y1lIL0FuNFNEcXEvRXByTjZWNnkxN3B3TXlxUjJYNlY4eUFMd0NoTmV5Z2h4?=
- =?utf-8?B?dXd6bnRNLzV4UnhLZ0JwbDVGWmtDcEVxWmprYmNBVHMvQ0ZJY3BVZDhHaGI3?=
- =?utf-8?Q?wU50kANYEIMqrYZVvQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87db089c-44f0-43d8-0fa8-08dee0c0bb85
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 09:25:51.8678 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gS+4WUy+Fh+JMJmWkhjldpVrZf5NzWGLf4+Nqfh4meTaKusT3ILZi3epxm1+t0Ip
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5643
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,78 +89,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/12/26 21:51, Matthew Brost wrote:
-> On Sat, Jul 11, 2026 at 03:10:58PM +0200, Danilo Krummrich wrote:
->> On Sat Jul 11, 2026 at 3:27 AM CEST, Matthew Brost wrote:
->>> On Fri, Jul 10, 2026 at 08:52:41PM +0200, Christian König wrote:
->>>> This provides clearer ownership semantics and makes the code more
->>>> maintainable by removing the embedded allocation hack.
->>>>
->>>
->>> This looks a lot better to me. In particular, I agree with the last
->>> sentence in the commit message.
->>
->> I have to disagree with this, it is the opposite. As long as the struct
-> 
-> Daniilo is of course correct here, completely missed this when I looked.
-> 
->> dma_resv::allocated fields and the corresponding semantics exists, this does
->> result into less clear ownership semantics.
->>
->> When the dma_resv is embedded in another object the reference count becomes
->> meaningless. If the object embedding the dma_resv is freed it doesn't matter
->> whether I have a reference count, it would a UAF regardless.
->>
-> 
-> Yes, I agree. The allocated field would need to be dropped to make this
-> viable, and we would disallow embedding a dma-resv object into other
-> objects (which I believe is the suggestion).
+On Monday, July 13, 2026 10:28:08=E2=80=AFAM Central European Summer Time T=
+horsten=20
+Leemhuis wrote:
+> On 7/13/26 08:14, Timur Krist=C3=B3f wrote:
+> > The old radeon driver has a documented workaround in ci_dpm.c
+> > which claims that Bonaire 0x6658 with old memory controller
+> > firmware is unstable with MCLK DPM, so as a precaution I
+> > disabled MCLK DPM on this ASIC in amdgpu.
+> >=20
+> > Note that the old MC firmware is not actually used with
+> > amdgpu, but in theory it's possible that the VBIOS sets
+> > up the ASIC with an old MC firmware that is already running
+> > when amdgpu initializes (in which case amdgpu doesn't
+> > load its own firmware).
+> >=20
+> > What I expected to happen is that the GPU would simply use
+> > its maximum memory clock, and indeed this is what seemed
+> > to happen according to amdgpu_pm_info which reads the
+> > current MCLK value from the SMU.
+> > However, some users reported a huge perf regression
+>=20
+> Were those private reports? If not, please consider linking them in the
+> trailers using Link: or Closes: tags, as explained in the patch
+> submission guidelines (and mandated by Linus, see the quotes and links
+> in
+> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#=
+on-> the-importance-of-pointing-to-bug-reports-using-link-closes-tags for
+> details).
+>=20
+> Ciao, Thorsten
 
-Yeah completely agree as well. This was basically just the first hacky version.
+Hi Thorsten,
 
-> This doesn't look too painful, as I can only find two instances of
-> embedding in the kernel: drm_gem_object and i915_address_space and
-> handful of stack variables.
+There is no bug report. I had a conversation on Reddit which brought my=20
+attention to this issue, then I actually plugged in the GPU, tested it and=
+=20
+noticed that there is indeed a problem, and this patch here is the best fix=
+ I=20
+could find.
 
-The use case in the TTM BO deletion path is the only really ugly one as far as I can see.
+Best regards,
+Timur
 
-It uses the drm_gem_object embedded reservation object to make sure memory allocation can't fail during deletion.
+>=20
+> > and upon a closer look it seems that the GPU seems to
+> > not actually use the highest MCLK value, despite the SMU
+> > reporting that it does.
+> >=20
+> > Let's not disable MCLK DPM on Bonaire 0x6658 (R7 260X).
+> >=20
+> > Keep MCLK DPM disabled on R9 M380 in the 2015 iMac
+> > because that still hangs if we enable it.
+> >=20
+> > Fixes: 9851f29cb06c ("drm/amd/pm/ci: Disable MCLK DPM on problematic CI
+> > ASICs") Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > ---
+> >=20
+> >  drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c | 7 ++-----
+> >  1 file changed, 2 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c index
+> > 1d6e30269d56..4d553be56396 100644
+> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
+> > @@ -106,11 +106,8 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
+> >=20
+> >  		hwmgr->od_enabled =3D false;
+> >  		switch (hwmgr->chip_id) {
+> >=20
+> >  		case CHIP_BONAIRE:
+> > -			/* R9 M380 in iMac 2015: SMU hangs when=20
+enabling MCLK DPM
+> > -			 * R7 260X cards with old MC ucode: MCLK DPM=20
+is unstable
+> > -			 */
+> > -			if (adev->pdev->subsystem_vendor =3D=3D 0x106B=20
+||
+> > -			    adev->pdev->device =3D=3D 0x6658) {
+> > +			/* R9 M380 in iMac 2015: SMU hangs when=20
+enabling MCLK DPM */
+> > +			if (adev->pdev->subsystem_vendor =3D=3D 0x106B)=20
+{
+> >=20
+> >  				dev_info(adev->dev, "disabling=20
+MCLK DPM on quirky ASIC");
+> >  				adev->pm.pp_feature &=3D=20
+~PP_MCLK_DPM_MASK;
+> >  				hwmgr->feature_mask &=3D=20
+~PP_MCLK_DPM_MASK;
 
-We need something like a dummy delete_resv allocated for each TTM BO during creation or something like that to avoid this.
 
-But that in turn means potentially means taking a look at all TTM using drivers if/when they use this in their deletion path.
 
-Doable but a bit more work. Probably also a good job for AI.
-
-Question is also who is taking that work? @Natalie can you pick up from here?
-
-Regards,
-Christian.
-
-> 
-> Matt
-> 
->> It is misleading (and hence error prone) to have an API where one can obtain a
->> reference count of an object where the underlying memory can be freed regardless
->> of the obtained reference count.
->>
->> A refernece count represents a shared ownership model, which is undermined if
->> the underlying memory is not owned by the reference count.
->>
->> That said, I don't mind the reference count, but we can't mix up exclusive
->> ownership (embedding a structure) and shared ownership (reference count).
->>
->>>> +static void dma_resv_release(struct kref *kref)
->>>>  {
->>>> -	/*
->>>> -	 * This object should be dead and all references must have
->>>> -	 * been released to it, so no need to be protected with rcu.
->>>> -	 */
->>>> +	struct dma_resv *obj = container_of(kref, struct dma_resv, refcount);
->>>> +
->>>>  	dma_resv_list_free(rcu_dereference_protected(obj->fences, true));
->>>>  	ww_mutex_destroy(&obj->lock);
->>>> +	if (obj->allocated)
->>>> +		kfree(obj);
->>>> +}
 
