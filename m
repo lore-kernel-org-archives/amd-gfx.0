@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C517C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56511C44501
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2764410E62F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E925D10E89C;
 	Mon, 13 Jul 2026 12:58:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C0Fiaurh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WHP7+GHV";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A520810E62F
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:50 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-47df6a5202bso1833782f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:50 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B30610E62F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:49 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-493ec555a26so20412885e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783947529; x=1784552329; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783947527; x=1784552327; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=/uTxEj2yTuZ36HP7TyCebyqbOFU6Rhjg6uBnVAfIYuQ=;
- b=C0FiaurhJzA7F+hQhGLbX/W6tdHue38IuKbmst2ltSBW/mci5xQ0gJUfCnbJA3a5Yp
- nFpxJk3JvdXsyU/MWPX5YXhi/L3Ho3xia5kXuYMLSDR6iONrj3pUwk10kntwkyeYyUiF
- iaMXnK/6y1lbmnoBXs7SnQ8wB0nQopYHGy2crIrdm86LonSV7bKYjzTEdTUsNg4ejHJB
- gcpk26BwE3D0fozzuUN7f8KykJd6YzpFQcqpNfOp8lhM+Ds2X+eaE6sxtA+nz6hJSP0H
- 8yaYwLTujPe1d1xHbJLbhQbpXxIevwvDzj9AAmoIbmgAkx2A3QsjiWVSiUtl2RKt3wKq
- k7Hw==
+ bh=Kyn9O1pwIsT+lRxrQav83mRh9kcKOfr6CDA7+SuVIJE=;
+ b=WHP7+GHVnWixOCejhTSJUE9pssdcTV6O7hk8xia5DhJO0GTD55O8XTjLOqSpjwX+V/
+ o2/ywQQOhKUVkBOxy2UG7Xzkj2WK5AtAM3o7rI4wGTEwt5gAVvjMOXFxRqJ2LT91ynP0
+ TdB/LCH0n5e1thbq/XqlEAapDccslHaN7tufHBeV3+L5DI3QvqmccVY/Lj6p9b2r87ie
+ /ELTaKSwsfhmhqgU1uI5kTpMURAIwo4t8FRxswb1ZsJicFM3Nvl9qyEYc8HNfAmWJgWI
+ SoHMm/HrVDWPriuL7h1DA7hZHQN9ijMQp8ks6ArcnW9n8SglNnFAmKxxfiOOO6nvuGEu
+ FsmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783947529; x=1784552329;
+ d=1e100.net; s=20251104; t=1783947527; x=1784552327;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=/uTxEj2yTuZ36HP7TyCebyqbOFU6Rhjg6uBnVAfIYuQ=;
- b=M8XKUYRFCP9rnOkaLWIgNoBeHcZnNke9hRmnccoiDyi0tIt7jDy7hVf21MYUnOcprb
- IdNMSWjdOdy8rkGAw3hscZvATTNC3BJswV1vHP+7VASLjz0Yh9hY6bO0PE18JWLCHbLr
- jq4z2oNmLuxkIpHLBOiiYZT8A0qxjENCCNDwtmTJhQOYpSHRydUHwg4dXdA085QwoUJY
- 7FoODPnw2sX+utAQm9duapBE/2LwexPEKb8RltBhpiegCEY0IFjMC4YFmzB4l/6SOzOD
- EvHgrZ0I11cm7UbljOxCIQQhGfn30EX8lCmVdd1GUOhvhsyEhKd5/Hk3Armi36Hgd554
- gE9Q==
-X-Gm-Message-State: AOJu0YzSwJPaYVvr5uo7sYDpWNfwjnEn44uakEWFXN+v+FZDm7h6II1l
- 51TX3vL5rmiv8KiZKUXaW+MrUcY8XeiCniI/mjrIiFwqDFyHj/ELkCdt3p3qdw==
-X-Gm-Gg: AfdE7ckQC1cCX1lEqOH+x19DTuQR0u+ZfUYWojBpsqbxJ5MFqhuBZ1n+06HXQJdP0sr
- n5qm9nlRsgamdsbDQ25yHhFGnU8zW/WTx+tD1ZYm44BLBz6Qu1uF2lTPATgxAobETCT+JAw9y2N
- 1Sq3+RWOi3o7zi2126AMxaonziA+tHHp6pTDVko9SbudrNun+aXAUWCIWVQDe9CiZAjHmb7TJPb
- eC7g0tEU6uM0e/1tfoH+iBSmgZEpeRviRxmgL8sVuCgUwi+svHOmYRhPD4AIWudUsyo2wdeDX43
- 9QkD5RKEaGwDZ0amtxmIf2TXCSr1x9yHIEua7TbwP/o0vUITQ1mmA+UG1blqBVwxGbDTLc0UBB4
- Y+xpTKYR3rDtMxoLgenZzvdtlmVhoR7z4myGKh3nhX7Nd06cplkNdO7+AhcvNGG4iDBL/9tkHfw
- j2Qary86STkfABEkjsZmDurlQ8zh1oXc4Sql9OL/+jMIjUxWopeCxk01893cnfebha
-X-Received: by 2002:a05:6000:400a:b0:46f:7d90:8114 with SMTP id
- ffacd0b85a97d-47f2dcb50e7mr10284805f8f.14.1783947528958; 
- Mon, 13 Jul 2026 05:58:48 -0700 (PDT)
+ bh=Kyn9O1pwIsT+lRxrQav83mRh9kcKOfr6CDA7+SuVIJE=;
+ b=IPu4b4XvcCTcvuqgaZljXq2zMAxAMTFlycmhkUHKGhOLTrjeDBK1euerzat0VSskRi
+ FyEm1Zv5/Kj6Z6SAnCGFPLtzt01bXcchWKQ9II0LQHp109YROXtVrK02fI5oHJk12Nst
+ KSk4qf/SAUu1hbvufdGnWwK/+Vdk+0F6lvrl2EHpiRjDvX2SgbtVsI06SfPfIW/hbZFW
+ d6yKh7WLD2gH2PixUf+BYnakelOr62ZtYE1/OeXJnC2jU2f26gWPZZouda2emNse//9V
+ QZl+sdXXKHQRWhjFd/7cTIKHchBd87SbAl92AopHMKikK3xHSu2tRbxWtWOnY+C1h8Mm
+ juLg==
+X-Gm-Message-State: AOJu0YzpipF1bYHuwxbZdaD15Cx4ehtaF8oONfTk5dUpN8kKKdXLTGx+
+ pCLhHqHZ7mM9AwQ2eHXIkL4Esr0qE9wX7o5GGSbnUw/hGoXA5Vb8FrLjKQFfBw==
+X-Gm-Gg: AfdE7ckQfUgk+6zOO+B/bKUcm18/tDlGRxq9+dS1yPzRjDoR/rhfmM+Q4jP+1YpzTZT
+ 3Vz7NU4/J1ZyUzTJ2ztoXMRRdwP4tdyH+FTfajq6MouUjEzUd/EiesPloznsi3MrmhdJj1QlB0V
+ kfbHmTQuEapCf4QZN40X5vpft0pa7usfjX9JVcl2S6PSke21V8MvCa4p3348fBY4Bt4qIGFYFYm
+ 1S1yH/gDv25nb0m7tU0GJ72b8t0IojQyV00IM6UX4VjGkPr4bdWRrSnRd6wLN8uy7joaLKHsOkW
+ jtMnFw11Q+lT5Ow0ELOIewvqPPaHU91AN9CId9a0stImdITGUu3o4SBTYLcVp3P6VozsLyVbZaC
+ lSlUJ5pWv3keIew6JKo/miwNvFbyYmr1ZntsHFvubcPxsLQa72wUUDSuHxWO2zYHx81azevxxEl
+ oJi+ris+oMuUhpikFmtVc0ClTVppjiUjLCUqTumxV8Y1ZNr8rY0scmoQ==
+X-Received: by 2002:a05:600c:348e:b0:493:bd37:1cdf with SMTP id
+ 5b1f17b1804b1-493f87d6219mr93703245e9.2.1783947527447; 
+ Mon, 13 Jul 2026 05:58:47 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
  [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.47
+ ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:58:48 -0700 (PDT)
+ Mon, 13 Jul 2026 05:58:46 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
  pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 4/9] drm/amdgpu/gfx7: Return error code when failing to start
- GFX ring
-Date: Mon, 13 Jul 2026 14:58:33 +0200
-Message-ID: <20260713125838.30607-5-timur.kristof@gmail.com>
+Subject: [PATCH 3/9] drm/amdgpu/gfx7: Return error code when compute ring
+ tests fail
+Date: Mon, 13 Jul 2026 14:58:32 +0200
+Message-ID: <20260713125838.30607-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260713125838.30607-1-timur.kristof@gmail.com>
 References: <20260713125838.30607-1-timur.kristof@gmail.com>
@@ -90,29 +90,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Return an error code instead of silently failing.
+The gfx_v7_0_cp_compute_resume() function should only return
+success when all compute rings are actually functional.
+This will be especially important for soft reset which needs
+this to know whether the reset was successful.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index a1a9f3fc4567..0ceadb107d26 100644
+index 9c4b3ac27e1f..a1a9f3fc4567 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -2576,7 +2576,10 @@ static int gfx_v7_0_cp_gfx_resume(struct amdgpu_device *adev)
- 	WREG32(mmCP_RB0_BASE_HI, upper_32_bits(rb_addr));
+@@ -3019,12 +3019,14 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
  
- 	/* start the ring */
--	gfx_v7_0_cp_gfx_start(adev);
-+	r = gfx_v7_0_cp_gfx_start(adev);
-+	if (r)
-+		return r;
+ 	gfx_v7_0_cp_compute_enable(adev, true);
+ 
++	r = 0;
 +
- 	r = amdgpu_ring_test_helper(ring);
- 	if (r)
- 		return r;
+ 	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+ 		ring = &adev->gfx.compute_ring[i];
+-		amdgpu_ring_test_helper(ring);
++		r |= amdgpu_ring_test_helper(ring);
+ 	}
+ 
+-	return 0;
++	return r;
+ }
+ 
+ static void gfx_v7_0_cp_enable(struct amdgpu_device *adev, bool enable)
 -- 
 2.55.0
 
