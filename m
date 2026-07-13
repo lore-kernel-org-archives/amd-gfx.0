@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E16C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 17:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2273C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 18:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 188FF10E618;
-	Mon, 13 Jul 2026 17:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84F5510E61A;
+	Mon, 13 Jul 2026 18:24:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PpjM1NSb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3kDRlMz4";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011034.outbound.protection.outlook.com
- [40.93.194.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB5B10E618
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 17:24:49 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012003.outbound.protection.outlook.com
+ [40.93.195.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA00510E0FF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 18:24:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YCCccoeRkARaHk6mNh3oPIBiWfqmm/+ExRgLtzONYRcknrALDuZfILJk2dyKfSEZvwteIn5ga/BLJlEEBLwbUJeuZDy3oPHwjhnQPx7YZN9wkVPdVe9GbRDV4yW2yRT3PnfRDg9bGhJrsRQwqGlqZ8DwS7BqpawiEhEfsEcr/hGAXAMBzHAJw55MvKFi4yswu49x3wHmLApT9X5VrPJGkGaPKintO3QHBpglmMNsHb0pozU/cglnOwR1Fr7ACIy8PmPJBIxhXlfEr/Oa7Cqmwn8XHKWfBsBCkZKsCRWLp2FNUi+hrfywDyWjC/HWRT5ApH4H+jJ80aInO2VeizAw2Q==
+ b=qOkLN3SFXBCTnR0XuktDFFQH/xQeG+CU9qJIe6LezFcUzf238GZE6yBR99k8rceMbX1ikNOId916V+8UZVDWOBxwEfcDg60i3yRK24SLXFkwmV/VkW3Eqv10xzEZhsnAWjIOmRJzcGIU1Z3r+dbmBEfGKnk6yOxcM4b2pV/xo4ORm2Sr6zaNxdJDQed60idQXXHmG/TsJzidYg2SOBv0nhSsJ6WVlw8LilegfQH6RmJjbo5C+n2C0NyeZc1NvWPvoL8F6Y/nt/RZJhaBnhuFvOF47YFE6zpuD5Rf19NeRM8wqhhCZ6uVU1cHxSB8gc9877JrKSqDtHjj5K9ONyDrLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y+ARr65fQlhnLsS5MvDOEIdukg9ZaeZ6llsV1aDZKWI=;
- b=yMuh+WA03mejoglfrPMiJHX0madLi2pcYs0vkUqeeYVTfClOPWt08Bt3l+uTxcteNttjxaNoL4wshKetd3h4ue1l0+NepQM5POF1XOIBNaBWx5tvFRTt2Pl/O9Wik2ygDyGCReb0RmLfDgJJAEto6auNa1vaoc3+3X6AosEM5/2FHPvS3kxgCPuSYD8V2lr9USMUrh7opFH9rk4LTjX1aEZq0uAx+2qIIjwDm8ftIelnUoXv9KIHE6qXGV6DFUROd2xtGtNhc+UzLHI1ocLi8XltPnUnUrPub3WXEYYaPjH6GrcqGXfQGJQvYyF/lxvynW6LnuZ+CL3ZI9pI/dR4Ig==
+ bh=ILJjzIBS2EW6qJ/Vh+OUAzsdk9a8UkpieAGL2OYK30Y=;
+ b=tBVlDOIrqtl/QGrY3z1Wz196y2+/gnlpD3O5a0ZHwxWxXf4rsIYjIXd2NiEX/k1YL1L3Ah0EQhAvGvMchzZkRxwDgWBPr47yZDTHKbbDj5nWvzBvF4IpI4wpmD0RNtq8VDTqoDzhzIUe68LutO2MPU4DcDvZKPbbQtPEJaiJYVGYal4KgaeuFZZorEhjsJedewgNHDE8wYco1j6WhfONOw9xc3cXiOhcBBzqCUIzoRzOgoRhqHxyIV2dfeGNiFLOYmkqsSxptTNwg7Mk04ocpEZnXSBNL2H3Zw8Ek5128H2ysnSXYmsWJxuTGr+ebMFsZmQRmhqrmG8H0lWjoRXa/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y+ARr65fQlhnLsS5MvDOEIdukg9ZaeZ6llsV1aDZKWI=;
- b=PpjM1NSb/ek7PDBZuIDd8IcF9Uy8sgzTFrVnzWb0x46QGuLpgLYhuMUxL7I3D3pxYim5UmTXBqYYFXY6l0OVH9z6RrCI2bn3yLvyMKs6ypdb40rgOkZk7uZ30OSO0nXKpfl3A1feYpgBzwix3YBvO2F3d5a8tsv6aUkTvXNimTk=
-Received: from SN7PR04CA0224.namprd04.prod.outlook.com (2603:10b6:806:127::19)
- by LV8PR12MB9358.namprd12.prod.outlook.com (2603:10b6:408:201::12)
+ bh=ILJjzIBS2EW6qJ/Vh+OUAzsdk9a8UkpieAGL2OYK30Y=;
+ b=3kDRlMz4OpAO3s7UGIB7OVDLYxefkTBO2bZaUWSy8BkVx3xzq2Mwh6vtDm0ciJT3M3f61a2iBdNH6rvzpqCw52U3FpET17FkRFK3ULJefeisORIENWsqSjg/X4t0uteSrRZt7p5mfdKzIj50UpwPaX9G3zS0tWnBcJXZLLoAsVY=
+Received: from CH0PR03CA0240.namprd03.prod.outlook.com (2603:10b6:610:e7::35)
+ by PH7PR12MB5619.namprd12.prod.outlook.com (2603:10b6:510:136::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
- 2026 17:24:43 +0000
-Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
- (2603:10b6:806:127:cafe::13) by SN7PR04CA0224.outlook.office365.com
- (2603:10b6:806:127::19) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 18:24:38 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:610:e7:cafe::5c) by CH0PR03CA0240.outlook.office365.com
+ (2603:10b6:610:e7::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.19 via Frontend Transport; Mon,
- 13 Jul 2026 17:24:43 +0000
+ 13 Jul 2026 18:24:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,52 +49,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Mon, 13 Jul 2026 17:24:43 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.223.9 via Frontend Transport; Mon, 13 Jul 2026 18:24:37 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 13 Jul
- 2026 12:24:42 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
+ 2026 13:24:36 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 13 Jul 2026 13:24:36 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] drm/amd: Move dynamic PCIe switching quirks to X86_MATCH_*
- macros
-Date: Mon, 13 Jul 2026 12:24:31 -0500
-Message-ID: <20260713172431.1599801-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: fix missing check in vm_flush()
+Date: Mon, 13 Jul 2026 14:24:13 -0400
+Message-ID: <20260713182414.630372-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260713182414.630372-1-alexander.deucher@amd.com>
+References: <20260713182414.630372-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|LV8PR12MB9358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59cb280b-2bb6-4767-814b-08dee103a0ec
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|PH7PR12MB5619:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef02954b-bcc9-4c5f-3f20-08dee10bff08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|56012099006|11063799006|13003099007;
-X-Microsoft-Antispam-Message-Info: x956VwOOFnPRFo/Yt36k21s+mxMqGRG56MqVcY2P90c45fpopKDhbW+xwyQJxP71Zb/62m2H1zofTuHC/SqTWekw9GLzOAt/XURmnZHBAg0b7YpNY2Qnqk4mqbM9my00WQ8yeLNh79OOAv7s9dD61RySZWlvTGSYHVRTwZSBiDXHy2N8sdTzDhLkSAtpLtpQ+o+hP0Yf1326typk7i6JFMo8xE4MubgWIdUHaXwPMqkphlJh9Xl8KUqrGO7uOR9zRTEZAbdQ9zQVupP95x6eTQ2nvFirTostR01jN3T+gMC+zMch3wYuyfrXJiZrpVbDBIObd1EZpRtvCATHBu4ytfaBZhVuKJHg5ztOLGApyo2d0XQbQlD1+rGcuhWnFuHbiec+vklLuFX5cSLrx4JEGwe7X4qOy0r/QIxhfB5LIhwqyQATO/OQnkpDjgeENcwsuMPez98Rg/6lDor/hVUMOHEJNRUNt8LEzpV5OALlZke3c7cMXclgB6jXe+I+vpeDrjQeC8zKRjtPvmOWaD6SvDaoE3Cm0ZIkDm/PBBN6l4nLmrG+m8HRwAM2n1/f8qBtVW+XhO80y+KdwryxjdVWduzUfIF82WWQOtbsA8jy6Ar1Pzrd5MLrjr+t4s/NLzjlUaPMwcSUsdJJWLk3UtLPPA==
+ ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|18002099003|22082099003|56012099006|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info: Kf90QkIibzD9MnBu5zE1JBlSRKYsSnfTIT0/x3p3zA/LxWIf5vDxFGDPERLJoMQbkumWhWceirFm9Y5Y97RV9XnSaiEwxKv8C1tQT1ygDlnQVTOI+U5wygIbXQnt8XVTBWzqrxkwy9DOdgBTH/4/p7mwNk8wp5/aYV+JqG6BZMKSfjnSWlLNqEXKVB7L1zM2q+uiSIG0htA/l5/DPPLHw1ezV40cGLaw93t/iA/GuyvudnKKxUdtTSryXloMok7pBDG1nT5FiGs2zmFLzYDGJX9PsTrEbIFnyAyJeMH/gdXSap5cJEAfEGwS87sSDUp2GeqonoyObHxHXFEnNALtVACJ6GGNspH3zvfz1cLoILQUMgGKwwC9IpNpP4IoGPMzrhV5DjbGCchZeCbbz0zFrSfYfcjuh5D9L9+4t/ZhmpYpukcgWmkwPFyWkWzSHN/1bbPWkKWGQYWs8L2YBVNf8fdBG44wrqXrQvk/cDjU1assQm35OdcmzcSEnAYIApa3LVCTbIZfr4KWgeLMlDvML/yy2E/Kn4i+CYtIxVLGIQUqok7ksX7pgACYckO8be1h7DXmsNGIfocXHZDNM+mYTpG+BF159gXhG6PJX9tBTX3QkLzbf3a373lZkQH/5sG8j4uxCEyPrYuE4BGVadozIygQfjmeuZ5pN91clyvmtQo5Uv0ccmW+VX/bUxmEL0LL7UzLaVkbv90E+BzqKSXQJg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(56012099006)(11063799006)(13003099007);
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(18002099003)(22082099003)(56012099006)(6133799003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: G6T52HeoekRTLRwxM6/6ZPGEWG430WduAc3jsdP486HhixQrv+fa6pYe1psgI0Na+up3uVDU1D5ce36Rs0vvktKJyzxFBKLecJO76GzsNUYa6pw0qWwnfv8GL7yTUTv01z8Y+KpG4k9IzRc6aC0uy3yOQY0WMHfZfKRcziH7zYcovmyTGtdZMwmEp2QoCmX6siobaqpNy/wbKoymAPZGrEZf0C6a9ui2wSMt2QVeJGxCEGlcgMAggiH9woK/b81mSGh1scZcrGq9N2/7OyJm+cGhTuwNTtqucJuBL7ydIonJnw/n2M0JJOrdMUP8hlarAe7tQTSEuzPQLNl5XG9fVP10J7p+zCUqWCjeuNVYXFge4bbQH1CTvzrUdFtycIPzrzf0VnAFrxZbXuwNnw7PbFUCOwKSXyA1Q+gsrm1eeHYj8pRb6z7t9Z/Xw9dkpnmo
+X-MS-Exchange-AntiSpam-MessageData-0: +jFP5r+GGt4T2TmGX2ekq6wPinSml+TiTU/+YkoHzKIg1FO3krp+lRpKfTVLfTXUh7i6e0rzZc3ALOQc0nd6obRvMm/OQ9v8kpHHphwZaieXh6r422ljkW6MhEn3LzVHm2PmmCtbQ82AWHe2mwVPttaKPOXhF4Nm1vpVUNVzMm4H+WyHJcYmWG3jvVhcOKxe0g2suAZsk5rd2k3ZNNwvDsz5XonfXCe/VVfdDdlbhwOMLW1CKreR7HWJy0ZkMQB99Jr5zAtMTEPDrURSLoevW8COnqUUMLXRI/GabKUzvzio+9sHiMbq1nTIVxW20bMfxkhpu2VDkWJJ2czjFHm5mRkmpJA103uKzREPyGbtmcKfUs6MPT/XT0p9p3+OYDwyD+HO/LqYeU+hkUs3Dz2Fk/ej2poJZUxWoAnJAJ2fa2JOT14kv+J3AlWnMuW9zlvY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 17:24:43.3538 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59cb280b-2bb6-4767-814b-08dee103a0ec
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 18:24:37.1983 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef02954b-bcc9-4c5f-3f20-08dee10bff08
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003442.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9358
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,84 +110,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the X86_MATCH_VENDOR_FAM() and X86_MATCH_VENDOR_FAM_MODEL() macros
-to make the quirks for dynamic speed switching more scalable.
+We shouldn't return early if we need to emit spm update.
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 49 ++++++++++++----------
- 1 file changed, 28 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a4c8702fbf5a7..128a285e2bf4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1304,37 +1304,44 @@ bool amdgpu_device_seamless_boot_supported(struct amdgpu_device *adev)
- 	return amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 0, 0);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 0affcb9e6d34e..aec8468634535 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -811,7 +811,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		&job->base.s_fence->scheduled == isolation->spearhead;
  
--/*
-- * Intel hosts such as Rocket Lake, Alder Lake, Raptor Lake and Sapphire Rapids
-- * don't support dynamic speed switching. Until we have confirmation from Intel
-- * that a specific host supports it, it's safer that we keep it disabled for all.
-- *
-- * https://edc.intel.com/content/www/us/en/design/products/platforms/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/005/pci-express-support/
-- * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
-- */
--static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device *adev)
--{
- #if IS_ENABLED(CONFIG_X86)
--	struct cpuinfo_x86 *c = &cpu_data(0);
-+static const struct x86_cpu_id amdgpu_pcie_dynamic_switching_quirks[] = {
-+	/*
-+	 * Intel hosts such as Rocket Lake, Alder Lake, Raptor Lake and Sapphire Rapids
-+	 * don't support dynamic speed switching. Until we have confirmation from Intel
-+	 * that a specific host supports it, it's safer that we keep it disabled for all.
-+	 *
-+	 * https://edc.intel.com/content/www/us/en/design/products/platforms/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/005/pci-express-support/
-+	 * https://gitlab.freedesktop.org/drm/amd/-/issues/2663
-+	 */
-+	X86_MATCH_VENDOR_FAM(INTEL, X86_FAMILY_ANY, NULL),
-+	/*
-+	 * AMD Ryzen Pinnacle Ridge (Zen+, family 0x17 model 0x08) CPUs don't
-+	 * support PCIe dynamic speed switching.
-+	 * https://gitlab.freedesktop.org/drm/amd/-/work_items/5436
-+	 */
-+	X86_MATCH_VENDOR_FAM_MODEL(AMD, 0x17, 0x08, NULL),
-+	{}
-+};
+ 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
+-	    !cleaner_shader_needed)
++	    !cleaner_shader_needed && !spm_update_needed)
+ 		return;
  
-+static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device *adev)
-+{
- 	/* eGPU change speeds based on USB4 fabric conditions */
- 	if (dev_is_removable(adev->dev))
- 		return true;
- 
--	if (c->x86_vendor == X86_VENDOR_INTEL)
-+	/* Hosts have problems with dynamic speed switching */
-+	if (x86_match_cpu(amdgpu_pcie_dynamic_switching_quirks))
- 		return false;
- 
--	/*
--	 * AMD Ryzen Pinnacle Ridge (Zen+, family 0x17 model 0x08) CPUs don't
--	 * support PCIe dynamic speed switching.
--	 * https://gitlab.freedesktop.org/drm/amd/-/work_items/5436
--	 */
--	if (c->x86_vendor == X86_VENDOR_AMD && c->x86 == 0x17 &&
--	    c->x86_model == 0x08)
--		return false;
--#endif
- 	return true;
- }
-+#else
-+static inline bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device *adev)
-+{
-+	return true;
-+}
-+#endif
- 
- static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
- {
+ 	amdgpu_ring_ib_begin(ring);
 -- 
-2.43.0
+2.55.0
 
