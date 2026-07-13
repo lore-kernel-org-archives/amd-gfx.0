@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD843C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 486B4C44501
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C4D10E965;
-	Mon, 13 Jul 2026 12:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D632810E5FC;
+	Mon, 13 Jul 2026 12:58:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sx9YFJhb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IhejRE4+";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 962BC10E965
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:52 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-47d6c634f45so1627931f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:52 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A07C210E5FC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:54 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-471eeac43bfso3057197f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783947531; x=1784552331; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783947533; x=1784552333; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=eEz+EYVz9J++diS0Srd2Kz1MvSYb3U+TurhJtOTC0+U=;
- b=Sx9YFJhbFiJ9OfAAASfDIZofCP0vN6PKgLiCwTbnmkypLN5M8cD2FKs3VUacS5rRpY
- Uv1eZv3Gr3h3v7SHAxX2ZrihzmtQF8ntC7/J9+ONlEH3Vytpl6VVVlm7QeV8jCV/dizj
- q0ymkdfLLoA3MxKYCbdNBzEhDdcBBPWw24eucRP2lBrupJiIo9VfzM4j7Z3K1cKI5bwc
- +zbHVVOe+GxSh8b5cEPr64ciXkLyq6oCcfVEHTRrEHm93SwEWOSPTHv7dBSw80s0rpOM
- oI3U6a8nu4rDuVBqaLsr6l9TtqyPyhqZt+NrID9Zs46oxVaVNdz5CcxLGvlfcSL0JgLZ
- hNZQ==
+ bh=oJOb6BAC0cez3rS5MVtUh5rneKdBGYJmpPGOArzVMYo=;
+ b=IhejRE4+hsZlkvNs2rc7QNtuEHBR/N73veuTMCRFXVgyWDf+6QqJdRA+J/o4pCqkAt
+ bOTDb8lfibuve2x50IIj2cNE5hUyhmEM3TFG6MKs+BPXV/lKMw/Ydp6qxVPcp3RF+ISR
+ 3hJyHTSCTMStLVfXqH0lbUoQ32Mz2Jry1L70DhSRV72VOWhHGT6pBX+ahNzDHk0Bnk/W
+ /lQSt+uDX26eMee51O3NQf+gO14BR5mp2wbHiPjXbsv/JUATanb58LNNoXirfgT/UkUb
+ 1yYItkZqJkxqqoNthlUuxTPJp5G5E7+g2gSOoJyee8RVh3M3vjPFK2zwNxr+JZRTE0rx
+ 4OuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783947531; x=1784552331;
+ d=1e100.net; s=20251104; t=1783947533; x=1784552333;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=eEz+EYVz9J++diS0Srd2Kz1MvSYb3U+TurhJtOTC0+U=;
- b=PTrttapLUq3ZQDgxFD69KP0clZQVj7XrzNVDLeVwKMY1cUS2ZFOcI7/9Yw4cM0bzkX
- susBKxX+18ERE2o7W+Lrp0bR/+Q9gTIBe094ZLKRjIOrSRhlXSvxmHiHYkr5wCe6q/1+
- uOvwGrD3b9ametC1RkfoMKI5mfXve3YTWMto8hx+/+aHbLySySBRobnuiDT32T32pvhh
- tOQNJQpS92uvZdVHwzVfBR8y3vtD+W8CyT4sDCxMJVmo6fNzuBNJirxHjbrwrjHqqm69
- md75yurMd9BdoW2CinvnTIeQEUy97FcNM7GiQbB5eieQ4nb/zbpl3V8TZCKLTKVb0oLb
- H8wA==
-X-Gm-Message-State: AOJu0YwOTQIZrO6lGj1s5epsJd7qYmRdCglPlQcK26oYXwSWYFfuQCv6
- ImWQ/NG5AyzSvGHEQqjVk7bgpuugvl5bdQ4U41PyojbRbVRxjTSvOB+Dz/CRcQ==
-X-Gm-Gg: AfdE7clES12iHaCs0jX4P+GpZ2iP1v3zG8PkQXfEUQR52GaDM2WQLtrw8S61w8ivZ84
- IGxB0SXXycwkPE4NuochxmiRZT8JrwriA0Iopd2mf7p/22nnj/muUgz29AJeUKosO/1lsM+8VLN
- PCqBsAnCVEU7P5yveFZildHVfaI2XHdf9qy/Sy4ljvH/dudAxHbaoHQz25ktuN4YaQimrVS52pd
- 7gsB7KC/p7TTgTTKpurB8z+2WcyqO3NE9Cq0OS7+zE9fbF8w6oHlvyO+jkROAnpJ5nLk66s5Xww
- DfaDfVfxx5AK/qjm7XymUPp5ziGCNLqHjg7DgdFdiEN0AP6NeLnOATJhFUIGaWc2ax71PCCK+nj
- YY6rqDBJeBGmmJ/vtEnVJfui1l2t8Kabm4Fs9nDRb9haYuakjcIWsiBKyH19vgBM5rFfCs5Oelu
- Kw1E86xMsjIIqvTQU2Hew1KLw+VPCQobVZx1HdPmtq/nQPT9vHwOZIcgN/CDw9MyTy
-X-Received: by 2002:a5d:5c84:0:b0:46e:27ed:6d0d with SMTP id
- ffacd0b85a97d-47f2dc7d213mr9932670f8f.8.1783947530861; 
- Mon, 13 Jul 2026 05:58:50 -0700 (PDT)
+ bh=oJOb6BAC0cez3rS5MVtUh5rneKdBGYJmpPGOArzVMYo=;
+ b=dbGUgUrXQmyvBEK8Ytryrtsa8SfExtGUXDb7BNDbfgFU3WrLAB5Ym8pYJrqmN0x9PZ
+ /WmLI5QpDRD2Ew5pIsgVoQt19fK42tSbMy8p4a6or+TXX578K3Kbbve6EzAdeqGX0tLI
+ Z4EFuDI6nUS4XBEmxBnAC1umGObIbYw7coyyicXZN2lBK8tMZjiw0B3OK+frlG2q2Qb1
+ DHQ0qQjQousRvHUbt2PiF2W0QvShPMNqdIxxAzgjdRxYPAx0PTRI9Yobgp+eXDndvdr1
+ i6O77Q48lqbc5L1gMVQW3vMA/i1KuVPzbv8yoto32E8FBf06rz7NHGl4DPMiI97NkO9D
+ yi7w==
+X-Gm-Message-State: AOJu0YwwBxHLWIQLsBedFuB0xsQUXj37cGOooJgY38Hg3+gSf21L1mRM
+ 6wMKT1pMbe1ndFwUon6cTUV+Jq6D+3cN/rD2yew0fsOlRWhW5LTXyTacgpxGnA==
+X-Gm-Gg: AfdE7ck8RHcAskxFnnI9r8wPO5a4Cv1isqp87B43022XJiwxGWM6j3CoU7+u3H28asU
+ 22SZyPMaBWfFuD7g6no/0VN4gnH3zA+OZGxeiTTpSy8P7oQZqjwmTPD2VktDn+I2fn3H6fwcJba
+ Wp+eQwHpH2UffzG5Z78JFx/vQ3E/R+XCq/I3NEmILg8rJRo/7rmUd23pXfZcsWV/nQsT31z8Ug8
+ lcPSgXKRj83OIDFYr49Cw2aCJqnpNAazooZYRx+n34odl02kyLODR8kO6TRQoZCkB41WhyQKLBm
+ HOgT70Rkyz7fWg51cWXlOdpIyJ7w1LeMEOHgUEBKF37KPKFrNOaUrUVzxTgLH/Grd3Qda1LO4xJ
+ PBJKEeyIJ5NQ6188DjZmdzOye9g3XSkkZiF2cbr47Qhtenv66bxVlgOoqfz9qB6qc9Vuy4ucU29
+ Of19AVt8+S7eNC6QegNYTT9sx/8O09p84BHGEWWN/LB/TEm7FD2FkaV6uB9cRPxF4j
+X-Received: by 2002:a5d:64ee:0:b0:47d:e549:38d3 with SMTP id
+ ffacd0b85a97d-47f2dca7e69mr9416703f8f.8.1783947532978; 
+ Mon, 13 Jul 2026 05:58:52 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
  [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.49
+ ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:58:49 -0700 (PDT)
+ Mon, 13 Jul 2026 05:58:51 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
  pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 5/9] drm/amdgpu/gfx7: Fixup emitting SWITCH_BUFFER packets
-Date: Mon, 13 Jul 2026 14:58:34 +0200
-Message-ID: <20260713125838.30607-6-timur.kristof@gmail.com>
+Subject: [PATCH 6/9] drm/amdgpu/gfx7: Clean up gfx ring during reset
+Date: Mon, 13 Jul 2026 14:58:35 +0200
+Message-ID: <20260713125838.30607-7-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260713125838.30607-1-timur.kristof@gmail.com>
 References: <20260713125838.30607-1-timur.kristof@gmail.com>
@@ -89,97 +89,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement the emit_switch_buffer() function instead of emitting
-them duing emit_ib, emit_pipeline_sync and emit_vm_flush.
-
-Note that it isn't necessary to emit these in both
-emit_pipeline_sync() and emit_vm_flush() because
-amdgpu_vm_flush() already calls these when calling
-either of those functions.
+Clear the WPTR and RPTR at ring initialization.
+Additionally clear the ring contents during reset.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 32 +++++++++------------------
- 1 file changed, 10 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 0ceadb107d26..a93cc02c3400 100644
+index a93cc02c3400..915612628f9a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -2201,12 +2201,6 @@ static void gfx_v7_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
- 	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
- 	u32 header, control = 0;
+@@ -2546,8 +2546,14 @@ static int gfx_v7_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32(mmSCRATCH_ADDR, 0);
  
--	/* insert SWITCH_BUFFER packet before first IB in the ring frame */
--	if (flags & AMDGPU_HAVE_CTX_SWITCH) {
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--	}
--
- 	if (ib->flags & AMDGPU_IB_FLAG_CE)
- 		header = PACKET3(PACKET3_INDIRECT_BUFFER_CONST, 2);
- 	else
-@@ -2258,6 +2252,12 @@ static void gfx_v7_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
- 	amdgpu_ring_write(ring, control);
- }
- 
-+static void gfx_v7_0_ring_emit_sb(struct amdgpu_ring *ring)
-+{
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
-+	amdgpu_ring_write(ring, 0);
-+}
+ 	/* ring 0 - compute and gfx */
+-	/* Set ring buffer size */
+ 	ring = &adev->gfx.gfx_ring[0];
++	atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
++	atomic64_set((atomic64_t *)ring->rptr_cpu_addr, 0);
 +
- static void gfx_v7_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
- {
- 	uint32_t dw2 = 0;
-@@ -3111,14 +3111,6 @@ static void gfx_v7_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, seq);
- 	amdgpu_ring_write(ring, 0xffffffff);
- 	amdgpu_ring_write(ring, 4); /* poll interval */
--
--	if (usepfp) {
--		/* sync CE with ME to prevent CE fetch CEIB before context switch done */
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--	}
- }
++	if (amdgpu_in_reset(adev))
++		amdgpu_ring_clear_ring(ring);
++
++	/* Set ring buffer size */
+ 	rb_bufsz = order_base_2(ring->ring_size / 8);
+ 	tmp = (order_base_2(AMDGPU_GPU_PAGE_SIZE/8) << 8) | rb_bufsz;
+ #ifdef __BIG_ENDIAN
+@@ -2559,6 +2565,7 @@ static int gfx_v7_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32(mmCP_RB0_CNTL, tmp | CP_RB0_CNTL__RB_RPTR_WR_ENA_MASK);
+ 	ring->wptr = 0;
+ 	WREG32(mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
++	WREG32(mmCP_RB0_RPTR, lower_32_bits(ring->wptr));
  
- /*
-@@ -3160,12 +3152,6 @@ static void gfx_v7_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 		/* sync PFP to ME, otherwise we might get invalid PFP reads */
- 		amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME, 0));
- 		amdgpu_ring_write(ring, 0x0);
--
--		/* synce CE with ME to prevent CE fetch CEIB before context switch done */
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
- 	}
- }
- 
-@@ -4954,8 +4940,9 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
- 		7 + /* gfx_v7_0_ring_emit_hdp_flush */
- 		5 + /* hdp invalidate */
- 		12 + 12 + 12 + /* gfx_v7_0_ring_emit_fence_gfx x3 for user fence, vm fence */
--		7 + 4 + /* gfx_v7_0_ring_emit_pipeline_sync */
--		CIK_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 6 + /* gfx_v7_0_ring_emit_vm_flush */
-+		7 + /* gfx_v7_0_ring_emit_pipeline_sync */
-+		CIK_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 2 + /* gfx_v7_0_ring_emit_vm_flush */
-+		3 * 2 + /* gfx_v7_0_ring_emit_sb x3 (from amdgpu_vm_flush, amdgpu_ib_schedule) */
- 		3 + 4 + /* gfx_v7_ring_emit_cntxcntl including vgt flush*/
- 		5, /* SURFACE_SYNC */
- 	.emit_ib_size = 4, /* gfx_v7_0_ring_emit_ib_gfx */
-@@ -4969,6 +4956,7 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
- 	.test_ib = gfx_v7_0_ring_test_ib,
- 	.insert_nop = amdgpu_ring_insert_nop,
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
-+	.emit_switch_buffer = gfx_v7_0_ring_emit_sb,
- 	.emit_cntxcntl = gfx_v7_ring_emit_cntxcntl,
- 	.emit_wreg = gfx_v7_0_ring_emit_wreg,
- 	.soft_recovery = gfx_v7_0_ring_soft_recovery,
+ 	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
 -- 
 2.55.0
 
