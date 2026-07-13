@@ -4,83 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E50BC43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 14:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4155EC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 14:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBD310E9FC;
-	Mon, 13 Jul 2026 14:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023D510EA18;
+	Mon, 13 Jul 2026 14:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="bZiSHw76";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O9IgtRRI";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E8910E9FC
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 14:39:12 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-493f25d47dcso33025e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 07:39:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1783953550; x=1784558350; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=YNqQGnjwsoyTH11jf3qUXD5jCOjIpWNYwJ5y4OgiCqE=;
- b=bZiSHw76ctXGNNlUasn2HvNKAgcFAuZxa7CvKESc3ktXYsiPK5VCvCDkbhQBUvQyvu
- 3j8fRIS4B1REnaneW8MqH3ybICeFCKJrfIjvnUF9z2osDCDHMUdAG2DDWQnIgu+2mgFt
- KjsJdweaSbFsFkdzu9bcrOyTufshMMWDyQKtZCQ6kt4YxHCjdalHc47pk3qlkl4NsM0d
- JRIUupSKHLw3/H/E9tAvX/y1GLx/ssfiLnhyzHjqNu1suQsPI49r51RcTlvITd8esQmp
- 8PEILkcfehWOjiMV3GokTugY2KytDHlAt/qyqHeaMkMp/mPyOUErenMDE/J8KZe3M0FA
- lJNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783953550; x=1784558350;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=YNqQGnjwsoyTH11jf3qUXD5jCOjIpWNYwJ5y4OgiCqE=;
- b=boF3sZ9yPqFGCypokSf+1Nl7z95Vw/OGeWDBXli2oc6JTLdYAQnGfLikkJ9yiwEIxW
- 0mCaEAzxRbHYloYa7cJ5PIIHuHpppshreKWlj7T2GZpMIvLc0VsJSCZRcZonxPycnQZT
- Czaam7PuZP+dMZ+G/85cjLVvThqaDUjwpLSValZDHdNkYdfrYnHUpvQ+fb9cYNyq9vqe
- Is+uGUDGRi9iMYe3vEOTVM1fyW5GlxWfGyKcDT9+FQmXXkuKlxS6rPDMf7K7K7zf4++j
- XIClaJ13Pi/Lb0FUiCbOYUrJuREBCelu/zj717g8LhFGXlXK5BFvxUENpHMOPT8iPqk5
- bTSw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp9RRuT1fV+gDY+Ut9tBNXLIwEod3bR1E/hMpa0tffMH/2hQV2DJ2euAx/og0tx8emKodRfKdEk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzuQ9q3DVHEgFUsl3obppHkOtZC9oLisbommMh6VXUUfQPTq627
- H7jEg5dX76l+eAEB72sdCvF9jDa/FCC7XTC/CcTmoewYYQOXHyvrAFWoS7KqbZOiQl4=
-X-Gm-Gg: AfdE7cm7bbr2QB2y2+02jzqBl+nujHEdQqgQAB/M1highE37cp5g9DzXXsMI9cn+WXB
- Lc2xeLET/GwOg4aFVkqxUBOyKMQzsChBcel3hbUI95JtBDmSPjcO2gmJzkF4BnmXK8xc7wfzT6Y
- 7RYu1OsRieZDFUu5CwxuAW4y4Slzdh7w7zfPCd5Plk3njymQPqYaqSS64E4p94xgXYuGNTpFPMG
- RVy1N6daZ1m666EUevtriuVgJ9XRmyRGL+kmf5D5/Z9qblAqT+dXbuYjh1v7YZqN38EjRYdi0Tn
- 2iVCGFxhKbxnzfTNEFePA9YVHI77Xg8QZ6M9NdZvQGoWyo8n1CSnPVDKjFN+uWq+tVmTVNMl/5D
- PyLbVc6+pbSoLUYyQUq5d0/HDyEqI0onih82dMVBtW7AgreZ0RTID4w8aV5eXLx9mcjpjjGdX+A
- bjSAX75TI9OZO42ceeR7q553ph8dYaCsvrxQ==
-X-Received: by 2002:a7b:cd0e:0:b0:493:92c9:1e6d with SMTP id
- 5b1f17b1804b1-493f8839c02mr72552485e9.33.1783953549974; 
- Mon, 13 Jul 2026 07:39:09 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4950871e830sm719255e9.2.2026.07.13.07.39.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jul 2026 07:39:09 -0700 (PDT)
-Message-ID: <85a1a097-7f6b-4d26-b0ac-8a78d7dd0a79@ursulin.net>
-Date: Mon, 13 Jul 2026 15:39:08 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amd/pm/si: Don't schedule thermal work when queue
- isn't initialized
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Natalie Vock <natalie.vock@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <20260712173928.259701-1-timur.kristof@gmail.com>
- <e00d5e54-0713-47e9-9f88-a177a1ffa474@ursulin.net>
- <tM3iYIRPQHWYpTCh4LOKcw@gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <tM3iYIRPQHWYpTCh4LOKcw@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5B310E5FF;
+ Mon, 13 Jul 2026 14:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783954666; x=1815490666;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=vGr1Y0YREj7u0VXJVlpLH/+1i6FIEq1VaYnIMWDINsY=;
+ b=O9IgtRRIbt+u4nbaffGFO0YVRhTJGVqX8/ntPclsX6dGFW/51xQj3SKT
+ jpiVazYwvnsCxcd39bJCLgNma9ZXR5Vf77luZ00wzJtStgmp0VpknSUN7
+ JP6t/u2FzTtB3qBdmC9s1mETjlGY5V2mlqQnen48va6/X6NR7yfdx/E9Y
+ txoxBoZHu+BAzyhMdIiVDwMULYJ+1/vv9F+AS5q/gyDhND1EEOMARXHCK
+ oIEPsBV2/BNwdbdeGrgAgAIrBfI/gyQNLE3Gnrj2NUX6URPfgRhIwxcbI
+ BU53TR5hwX81rOlYA1vgd/cY8LKxROdkCZH/7yHZTeUCCm5dYyN2I8LhL Q==;
+X-CSE-ConnectionGUID: tMYA7rysSXuac6Da5+nxPA==
+X-CSE-MsgGUID: dINhVRDSSy21G82cJ86mkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95713856"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="95713856"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 07:57:46 -0700
+X-CSE-ConnectionGUID: 3QhNCQeIR569pRTugrD7QQ==
+X-CSE-MsgGUID: ZSNnfrmrTIG8I0oXtwNxCQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251629916"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 07:57:45 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 07:57:45 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Mon, 13 Jul 2026 07:57:45 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.24) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 13 Jul 2026 07:57:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UZimCcbyYPB9c+njVrEP0RkZURGdKrkylixTQi48miIdQsJBAEj7ocNOCdGLRxuW/SgqQIem4NNV5RHeQlNtXACBH1PWidSZF1a4msAIzY02lz07GGSbsjHwbhm9hgUg36j+dSShp0f9XdBAebem3gTn0VYlubc6uV7FCSB/orBabvlQoV796cCPB5lztTXInLcupwFPN4DAIPsv0DniymhAsuztNNdXsw+IDFUko3zmnx1puhcyF5p5DkCuCB5+pb2Fx4GMw5uVB02Jto+LyN2Z5fIFTxihEdAEygnK68xueyUOhBOYE2YURxohdlZLsuKGMkP/yaDCwAnuZ1sGmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jKG/PPgJKnF2REyCXY2MNdYTYcHNkRvGNZrcWD+S5O8=;
+ b=sKA1ejNFDs5YfecLkikPz+KCs3UOKybWeYbnA9Y6eC7o9yu/WCEWu4Tl726j/kmlxt4wMXs5vNmD85yfUUC4RweeDUDEEeS+AFzW6uFb5C/aC+P+s+/HvgTNIIzz1pyAuiFoLu2Gtccqv0vv67KC5Tlc/ALnj662br6KXXv+DmSu79TvgF1ZF8wPxq2teubvxcKJk4Z2mLfWQWVo2cDgGE9gBCGuT5NTCXBO0eJWKkDn6kZPOJ67a01z5mo4xSbXTEfuG6qXLTc5Nr41Wy9yslaPchpk91EfHtJt44/rK7YasNU8aPx4PgzOJiEtMMp9Mmj71dV1+BrRbg/U7yDFQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by CH3PR11MB7324.namprd11.prod.outlook.com (2603:10b6:610:14f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
+ 2026 14:57:41 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
+ 14:57:41 +0000
+Date: Mon, 13 Jul 2026 07:57:38 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+CC: Danilo Krummrich <dakr@kernel.org>, <thomas.hellstrom@linux.intel.com>,
+ <ecourtney@nvidia.com>, <simona@ffwll.ch>, <nat@pixelcluster.dev>,
+ <airlied@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 01/12] dma-buf: Add reference counting to dma_resv
+Message-ID: <alT84pX0nLaEtDl9@gsse-cloud1.jf.intel.com>
+References: <20260710190752.2355-1-christian.koenig@amd.com>
+ <20260710190752.2355-2-christian.koenig@amd.com>
+ <alGcHjo9fzhHshx8@gsse-cloud1.jf.intel.com>
+ <DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org>
+ <alPwTypl8Y8PN7hz@gsse-cloud1.jf.intel.com>
+ <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aff7eb27-22c1-4e84-91ab-627c2604e488@amd.com>
+X-ClientProxiedBy: MW4PR04CA0289.namprd04.prod.outlook.com
+ (2603:10b6:303:89::24) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|CH3PR11MB7324:EE_
+X-MS-Office365-Filtering-Correlation-Id: 513c015f-fc27-4de3-8720-08dee0ef165c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|6133799003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: z6cjybvjv9WxQnzd6NDuOmCDH+NwDxy3sBhLC0hA+prj6kFMXtKSSbVZ9H5JxtzRdyCsLCNDXcaBszqnUIxvlds1+HO3Y3M5IEmd/pUnpTQwZ9l+Id6zc4E09MgSIfXIf1XZ3kofCy/dKjyirw9zmBSEkQo3Bkl2NSbSqjc6Dgca9iOeM4DaJk/Czqo2NJ9mOsObvmrPHJWFbo3mJWa3HLSXfL3Oz4XMYMtjCf0WaeG2wvoqq7Xu6AJmNhJN4rmJs3pALtqWQxywpx3vAhLmqO/u8TvRmPrKHMoTdGwJRBS2AAoQie2N7Ew03NDyR9N3xZmP9ifLdYl9/WXsDOhL6oKE8KIw0DJ1FhnDAxMiZou4ML0GHq1pPDTUt9yAdUtA5hsY+zRfai5gulcLshwC7za/7z8Zgds68iMVQlXdBO51EEZdyWH6K22Upj9hLSyDFpsJ5leBWQ3CQAXhQvbZil2cfK2slQDbZcr67mrmL+f2FbVOPIrImfn8GKCAfdiyHoAQMC+XarUFtfbhjViby3cxk107QxvDrP3fEKYCBlNhM8gR3NYj3WtqLyD7rt6uxog6l9OUz4DnwvBxApoM8d2kdh57oGGfK3+l+peJvJNCoMyRchFkDO31GprbM3BvFc6mi0n4T4OR/DT0MscUakFlGMYrZcglWqbcWlElgY4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?eH2mnTaVBaV/L8J9v/o/JMVts3phvJglkhhgEuLFfv5smWs5qhv3Z+14p8?=
+ =?iso-8859-1?Q?khpD8t9+7eYYsAvOlpKNd/k51SVtj7qrXA3w4eIQQFkM6Xj5zNBtifbhJY?=
+ =?iso-8859-1?Q?o/L1LN3dlJdejnqevl3oiw2xykkf9V6aTyXxDebu/KM1qTDNvS2zSWdLVm?=
+ =?iso-8859-1?Q?CJ1Lx9WvsIMru0sjvPujSlcjuFHCVT9B+W/PBARc37IG2I0PQyHy/kPdxZ?=
+ =?iso-8859-1?Q?YhdZbCl/8TxJOgxJYj+ny21k3i7V367tHQ5O0SbmXCXhPeWw+dU6E/ab7G?=
+ =?iso-8859-1?Q?7cnlqtMyptawXV705aEgpw31X+qRyw17wprzRlz7t+96XhH/XfeTJAJoTb?=
+ =?iso-8859-1?Q?0t0uezxHm3lCN++zpWiY8Mzn6rrOXwRTrZZzvd4/0/83QPagKNhg7y+8b4?=
+ =?iso-8859-1?Q?AikcMf6HsOSsbIhYD445Z931sPOP3C5ORC01bjFW96tvYRCRd+T2qEvMK1?=
+ =?iso-8859-1?Q?Lo7zx8sDn6xNkX2j4huZW4CzOwRPK8EKPSiYxzIRsHr3EuywPMDSpIRIVx?=
+ =?iso-8859-1?Q?blrwAWd26p3BogTWJwl/bQ7LPVjXm4K3ePMwmaM9CW6ztcI7kvM5/kzI3x?=
+ =?iso-8859-1?Q?l/+xlN4oxspJXPq1PIPpP0WTdnekeO6IhqZ5nTEiwtg6lzhf9hqGamTTKa?=
+ =?iso-8859-1?Q?tr3H7jyvPoHej9u1xtvJZyg6Dg5ZcfX9Aa6IveFEIyhN+uUZ8nuISygTAn?=
+ =?iso-8859-1?Q?RKLdip8Z3oVKI/pUsMDJnQstdDPnu6FOFDj/WoU9lpuTyrhE5yZxNcjHVf?=
+ =?iso-8859-1?Q?fq1YiEWaEIUZio0nMdfD65TzJgypRrWlwf5rGcs8YIxzqzyaMl4fo2aEcq?=
+ =?iso-8859-1?Q?X3JlUIFejJAtHYR8rcMuf2fgvjUZUi/VHuGqItaZypU5XabppySaCcFS1Y?=
+ =?iso-8859-1?Q?Xas3lfRogJkZjKveUL+3q485LjbGgKG1Gcrei+wiso7slSAdT9pgwRYXP5?=
+ =?iso-8859-1?Q?PVuxx1y6TRTPXvlYLqhIrprTQMg1VosfSUP8Yw4DN2hX8BSmZjMTwut9uK?=
+ =?iso-8859-1?Q?eZWeDk4nSkLfUuwmNSshOvvC9dTg0tJl8Nwg0mrgupjlMJTLhJnuU/PTvU?=
+ =?iso-8859-1?Q?ipwb7IeoPdKmTSIQvSIO+CuNeTTnaNf1YlB3n4yvweQiZAQ2FQOTEHnZwH?=
+ =?iso-8859-1?Q?rEHd6tuikjjtAiLrcjQ8jhF9TSejoYsFm38wu51ImLyjX0NiX97bUEnfzW?=
+ =?iso-8859-1?Q?LhQ6VRlaWKx2x5CcUo4Q8tXqS6GtT1OnjR2be4p82O+zuAW6wTtKU7odE9?=
+ =?iso-8859-1?Q?0W38GgTogLYIC7kWQf/N53yE3lxbgNTLGvWV6Ea+PcWiPw6gJyaswiVFk0?=
+ =?iso-8859-1?Q?Pb9qSXSzG2+yvLoSQUdG094XRDgmskhKwsme/v11bNlmFBLpQjbrxTT8qY?=
+ =?iso-8859-1?Q?GGj7GbpzR3Np1ahyAmy7sbpgn3DxbA54wF5iDAZnYMdty4D+ou6UigjMM4?=
+ =?iso-8859-1?Q?loL6PI7uiQUqcBhwgdIm0WOA2mzvZcUpK5SR5PADesS34FVKaVMDUeJy1s?=
+ =?iso-8859-1?Q?U6tSjx55R0GanBIyOcGWQ+zjnZgWKP8zYS/Y9VWewbqFGKEmKTOe4AJcu3?=
+ =?iso-8859-1?Q?9024K3wzlq2GTGBpZUZdJ/NTU9X1BwgHyGXOF9lkx3JcpEEu0uaikpWVmb?=
+ =?iso-8859-1?Q?O42+pOCcYP6y/nUJr5Ptjv5B6csKH6LJ413+bwXt+TvTtdAolPOtNpAJkA?=
+ =?iso-8859-1?Q?KDtg/wGaGSnMlKnOGm7/X7MuerPn55YXfNy45DybgDmjl9at7jOb96hrku?=
+ =?iso-8859-1?Q?FC/r7XwOGp+SwSFljMZLFdpDrsJHFTUA6fSo4i+6v0lhVGSzE+f+jJz+1U?=
+ =?iso-8859-1?Q?HPtL3cgeag=3D=3D?=
+X-Exchange-RoutingPolicyChecked: dmMk7N7c6zvbU+/H7aldfpN2u0vSiTMUr4eqA5hJmOfus+2m/QhLoOaFDzpdmqGLgVykINjZcVxYAkNFfSj9K/PMI+Q9AyMqlQKWpD5L4VdaeD7zpeOWOwCT0ktoIOrbE33+vORvjmm/syBT7ZwwiBpAvZ93ZmizFxrf7ovNTawc4gVVNZZb28kAFEbCAHMljKGuGtki41IkIBG2EpD2DEo0kns6Rbqbmg+8E31hMFThe2/GvSKgvlsfgTaOr1KlgMZZgCRHEqQfo6Xd2FQ5gE77LE8L+YzQGumOCKnPJsmg4jsjGtcWOKw1Zm4qVe4K+L8APkpawjfwMqbDbcqjTg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513c015f-fc27-4de3-8720-08dee0ef165c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 14:57:41.2616 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g21noJe9wLacBqzf/vvDn5MaoCqJp12Apzo36aX5rNYbDo655tnbnDWO5vnu08AnvOQMWXYq32Yi5oXxp7MNLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7324
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,67 +167,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 13/07/2026 12:16, Timur Kristóf wrote:
-> On Monday, July 13, 2026 12:25:38 PM Central European Summer Time Tvrtko
-> Ursulin wrote:
->> On 12/07/2026 18:39, Timur Kristóf wrote:
->>> When DPM is turned off with the amdgpu.dpm=0 module parameter,
->>> the thermal work queue isn't initialized so we shouldn't
->>> schedule any work on it.
->>>
->>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->>> ---
->>>
->>>    drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c index
->>> 832953941266..6a54566d1a68 100644
->>> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> @@ -7692,7 +7692,7 @@ static int si_dpm_process_interrupt(struct
->>> amdgpu_device *adev,>
->>>    		break;
->>>    	
->>>    	}
->>>
->>> -	if (queue_thermal)
->>> +	if (queue_thermal && amdgpu_dpm)
->>>
->>>    		schedule_work(&adev->pm.dpm.thermal.work);
->>>    	
->>>    	return 0;
->>
->> I don't know this code but what is suspicious to me is that there appear
->> to be other unguarded entry points to the un-initialized work. Like all
->> the flush_work() calls and one cancel_work_sync() as well.
->>
->> Presumably as long as si_dpm_sw_init() is returning success when
->> amdgpu_dpm == 0 those two can get called?
->>
->> Finding the right Fixes: target might be a good thing too.
->>
->> Regards,
->>
->> Tvrtko
+On Mon, Jul 13, 2026 at 11:25:43AM +0200, Christian K�nig wrote:
+> On 7/12/26 21:51, Matthew Brost wrote:
+> > On Sat, Jul 11, 2026 at 03:10:58PM +0200, Danilo Krummrich wrote:
+> >> On Sat Jul 11, 2026 at 3:27 AM CEST, Matthew Brost wrote:
+> >>> On Fri, Jul 10, 2026 at 08:52:41PM +0200, Christian K�nig wrote:
+> >>>> This provides clearer ownership semantics and makes the code more
+> >>>> maintainable by removing the embedded allocation hack.
+> >>>>
+> >>>
+> >>> This looks a lot better to me. In particular, I agree with the last
+> >>> sentence in the commit message.
+> >>
+> >> I have to disagree with this, it is the opposite. As long as the struct
+> > 
+> > Daniilo is of course correct here, completely missed this when I looked.
+> > 
+> >> dma_resv::allocated fields and the corresponding semantics exists, this does
+> >> result into less clear ownership semantics.
+> >>
+> >> When the dma_resv is embedded in another object the reference count becomes
+> >> meaningless. If the object embedding the dma_resv is freed it doesn't matter
+> >> whether I have a reference count, it would a UAF regardless.
+> >>
+> > 
+> > Yes, I agree. The allocated field would need to be dropped to make this
+> > viable, and we would disallow embedding a dma-resv object into other
+> > objects (which I believe is the suggestion).
 > 
-> Hi Tvrtko,
+> Yeah completely agree as well. This was basically just the first hacky version.
 > 
-> That's a nice find. Indeed si_dpm_sw_init doesn't initialize the thermal.work
-> when amdgpu_dpm is zero. And in fact the same issue seems to be present also
-> in kv_dpm. I can address both of these in a follow-up series if you like.
+> > This doesn't look too painful, as I can only find two instances of
+> > embedding in the kernel: drm_gem_object and i915_address_space and
+> > handful of stack variables.
+> 
+> The use case in the TTM BO deletion path is the only really ugly one as far as I can see.
+> 
+> It uses the drm_gem_object embedded reservation object to make sure memory allocation can't fail during deletion.
+> 
 
-You mean merge this fix for si_dpm_process_interrupt but leave 
-si_dpm_sw_fini and si_dpm_suspend for later? I am not sure if that makes 
-sense TBH but I guess I don't have the full context. For example whether 
-you have hit this bug or just spotted by code inspection? If you hit it, 
-can't fini and suspend also be hit and if so why does it make sense not 
-to immediately fix all three?
+Can't you just preallocate, during gem initialization, what is currently
+the embedded reservation as a separate pointer, drop the reference to
+the shared reservation, copy the fences, and then perform a pointer
+swap during individualization?
 
-Regards,
+Maybe I'm missing some details here, but when I briefly thought about
+the individualization, it seemed fairly straightforward.
 
-Tvrtko
+Matt
 
+> We need something like a dummy delete_resv allocated for each TTM BO during creation or something like that to avoid this.
+> 
+> But that in turn means potentially means taking a look at all TTM using drivers if/when they use this in their deletion path.
+> 
+> Doable but a bit more work. Probably also a good job for AI.
+> 
+> Question is also who is taking that work? @Natalie can you pick up from here?
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Matt
+> > 
+> >> It is misleading (and hence error prone) to have an API where one can obtain a
+> >> reference count of an object where the underlying memory can be freed regardless
+> >> of the obtained reference count.
+> >>
+> >> A refernece count represents a shared ownership model, which is undermined if
+> >> the underlying memory is not owned by the reference count.
+> >>
+> >> That said, I don't mind the reference count, but we can't mix up exclusive
+> >> ownership (embedding a structure) and shared ownership (reference count).
+> >>
+> >>>> +static void dma_resv_release(struct kref *kref)
+> >>>>  {
+> >>>> -	/*
+> >>>> -	 * This object should be dead and all references must have
+> >>>> -	 * been released to it, so no need to be protected with rcu.
+> >>>> -	 */
+> >>>> +	struct dma_resv *obj = container_of(kref, struct dma_resv, refcount);
+> >>>> +
+> >>>>  	dma_resv_list_free(rcu_dereference_protected(obj->fences, true));
+> >>>>  	ww_mutex_destroy(&obj->lock);
+> >>>> +	if (obj->allocated)
+> >>>> +		kfree(obj);
+> >>>> +}
+> 
