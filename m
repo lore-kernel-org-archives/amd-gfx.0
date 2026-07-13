@@ -4,77 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C635BC44501
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 10:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4051C44501
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 10:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F09210E8C2;
-	Mon, 13 Jul 2026 10:00:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B84310E5B4;
+	Mon, 13 Jul 2026 10:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YvWrLUqT";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="qvXOeFB1";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8041410E8C2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 10:00:38 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c1601d552a8so287558866b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 03:00:38 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 135D810E5C8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 10:15:17 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493e8d4f4dcso23285505e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 03:15:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783936837; x=1784541637; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=F0Kx/6nJW7T5cbKLyiEiZrUgnE+tjOe7fg9BmmK1tj0=;
- b=YvWrLUqTFu3tEaIT5tZcc1lL3QqfbmRTo6mKQ7Z9uj5aYbQ2WssVcNRtzWfMvb3an+
- cxYTVLmqLEpUfY8myeuXLeVq3h8F7CDEfguIT2+TnKuBRfcySzEdlr9fNvMbufR0hzIj
- 9mW7raWlejs4I494B/UJwwqE9GHPr827eH9u0FqyHuzHff88goFZyqsD7SFgEDUjtjfb
- fSAU4obsSKVrhhAIytaxtzBSwiMNfpcV3/NMGbE9MON8cXtCfikie58DiaQhX6QHUOs8
- 1btZiSUbBfBR5nIHx7y4bmzwHmpXRXX6HV4wWZqpbUxiIV7F/jaKzpjuo3EU/5bHK8td
- XcFQ==
+ d=ursulin.net; s=google; t=1783937715; x=1784542515; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ezVvMXgVuxsjETkQm1N+Yw2QZyX2xds9AKCWJ1Q4YA0=;
+ b=qvXOeFB1/rOe5Qhdof76knC7GztlCDQOCO5qShyxb1EF2nE+Z3//KdNz8/Nywijr3y
+ L3ARPS8PhtBxZZGG9juRE0b7JOz7XTa+9lFNvzNuulYGVaJR5gQgr8SqTFXVeL5XZGTx
+ WYYBrEz1QWtgF8XRfBp+QBgKEuNN4uHGctmL2WIzB8ITKKNNwry2Xvx81lmIvLfZIiqT
+ FEwt/1X8SrKWg/aFHbKrhmLiBHBfV+QYtR28x9MR1alQpvN1cUV8+q8WydNbxZgPK4eP
+ 2DEbOxvEh+esnjW1eqIvYN2hXn9jYOuEfipWzNheIyf7BgwjDN3gez6sTacwgdLHbWSr
+ ne+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783936837; x=1784541637;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=F0Kx/6nJW7T5cbKLyiEiZrUgnE+tjOe7fg9BmmK1tj0=;
- b=UxVyJ6J0HujUe4FN8iqgwObdKATsUqunC0rbQFQw7U5kifvANt6twKgouIVqqfwF/k
- bITG8q8hgf/Yi1N/apOM53LM5/vk9l+TBMDXziKVPBcFUC05ZVAQGpW2wFPcSDmsHSXc
- Bi+fpjpleWt7lCQFv6VrmTbbogQe5LIIpU69lPorZLas+Qz9+u+XeYx8E2IFoNofpYL5
- g5bpJevem1YFzHvM9KlCGoBFIWp1L58+R+q2LH3vrU4nKgpquHkezSkdUwQUOLXCaaxB
- nxz48pjnURhGeSnYkmeorBIdv1ksWMX5XIzlB2x7haKgUOGYeMVQfKwOTul9UEZ4tfQU
- fxUA==
-X-Gm-Message-State: AOJu0YzHO8HHtWf/2amwI1X99JAmdRbWtSNmkDqpjbUt1yBJadzCrghC
- Xt5M8pAMN814/Rz/W9s1H9efNW6OKx3lKEmiK2TWUmJQibEkueTRWgkBlsTCUw==
-X-Gm-Gg: AfdE7cnyITKUZG4+xddMkiPkt+UDFf41JHWZe28Fz4FJ2x/qIb3wn8eamos3F5SB+cS
- dbfdy6Z65WQd6tdAO9pIZTkbMO25cCw4FUVDx90byAfZ2O1tptMT51tSftwvWWqGj3Z3GRv1nSG
- mTOrir5o0g6z17v05OEhb/9Etyh5/up15qf6kcqMkWyfPTqltmlrxD/d2NIf324uB2Ounh7TRpM
- HVkBmY2v7iUCodGx+SH9pFK9lZ7XbZNMD9jndSiWrX8Aqnr8j8IwB8OJkAqr7O+whUiUZeGKcai
- LCCkQgMJpld8stZr3Qy3/AuKVI2XC4tq5v2G2JJ2H/OmzNbGCzt6W5eh0BJ7x9BSIbQqVn2ic2F
- yjWlqiA1wpl+K8GpIwL3yLYOzLjpxXbFIfVYMT5xlW0e0Nb1zGzb+P6FsYYNxooEEdPI/2aNeSO
- cU8oDnjrIBRa46qlYt13EmLovBukbPv6bKuGXwF/0BtQ/qDMPizMEvjG0P9Yo=
-X-Received: by 2002:a17:907:db02:b0:c12:9471:e231 with SMTP id
- a640c23a62f3a-c161eaa950cmr296982966b.35.1783936836566; 
- Mon, 13 Jul 2026 03:00:36 -0700 (PDT)
-Received: from timur-hyperion.localnet (54001386.dsl.pool.telekom.hu.
- [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c15e1289befsm636740266b.28.2026.07.13.03.00.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 03:00:35 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <natalie.vock@gmx.de>,
- Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [PATCH] drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658
- (R7 260X)
-Date: Mon, 13 Jul 2026 12:00:33 +0200
-Message-ID: <fMZgsndLRnm1-Yt6VBK1JA@gmail.com>
-In-Reply-To: <c2050464-7f95-4b6a-95db-698c637136df@leemhuis.info>
-References: <20260713061443.32561-1-timur.kristof@gmail.com>
- <c2050464-7f95-4b6a-95db-698c637136df@leemhuis.info>
+ d=1e100.net; s=20251104; t=1783937715; x=1784542515;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ezVvMXgVuxsjETkQm1N+Yw2QZyX2xds9AKCWJ1Q4YA0=;
+ b=E9AjckR4drLkgDbR+7m6nhYWegnJrdfky0GGvTQwFkyVxh3XRe4fLv+02K4f8w0wIX
+ vH0ZonyaZXz7rTHOChbp/m0EqF8pghH9kChEhCf/wa53gY+xhO+DSlLPnY7sW2UMGeKt
+ XDjr4bfLgh1F0qOOXyVZQM65UcBgk3EyiQj+uVbWwKe/pAPAiRsqI1pmT/BI6T9IaXid
+ hbXY/X5w4I9DW68wSaMXYCn6pT/yjlxLoVV7+987tG6l+kVLouwyoy49xN7FLfuc/lKk
+ FXkgHRmM2rTHDNCt3dt7VrRx+xf48PPNHw4cTghrjUoBWJnZUk+fMx5lY/VqdznnWOD+
+ bngg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqgf6nyy11/PbRabPFKurzj36Fly3GhHOozYP2cQrnoBvnA150asYRbb/2UZIvMjIGmWA6O1oLS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzpvqE6FvQhskxcjCejGq5hLuHIg9Lk0iTAE69qoHYdYHIKAxV4
+ Q2k7QVxK6IFp5txAYqw7YaFy/yHnmxPXjKS2FjI1dzfMOhbhl9ge1x9vTrkzZ2cOtiU=
+X-Gm-Gg: AfdE7cmop/hhWNesgBaHQ44O91lWBDXqRK7uIW0kcsVkdjhDTzpq8FmDaQbh6T9nRaE
+ FZrji86YX5oB5ANXRkjlnINuEc2fZpJlR0KPJ4z7TwaO2rKVm280HbayaHTEaw5DTOkUMLRFyZf
+ D1xcdepd+n225GFi7CdlkIO4QjJgj4GVv9EcbBO5BQ/nV/yzMXWOwAO1UP7p0bHUqLZ1JJ62VNp
+ N59axea73HihKcvTnYUhXx6qwZcnuq2o+GThqhYFI7BTapafZ3TQH9xAX3GQgYOk6Atur6bzefP
+ ifch7DQgV1l+0kf3/CwIhhH9SWumRBKbDPGV31akisjMUwNMM+2CvAuVNitvTNDgLlUsaADST0C
+ cfSpvRoAHiFhthsMQHVRlTeXvRVFn8DVEIw023nwPClTUZF2p08uPlz1NLuZgVJpfozvMToMNk8
+ beguItxlXELa6J9QZ8Xvdi5xBelf+I1e2L+Q==
+X-Received: by 2002:a05:600c:154a:b0:493:f73d:cc6d with SMTP id
+ 5b1f17b1804b1-493f8824ba6mr95320975e9.24.1783937714683; 
+ Mon, 13 Jul 2026 03:15:14 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493eb6e0e5asm353267425e9.9.2026.07.13.03.15.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jul 2026 03:15:14 -0700 (PDT)
+Message-ID: <c1d30a27-0fa2-442c-b2be-aac23137a08e@ursulin.net>
+Date: Mon, 13 Jul 2026 11:15:13 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amd/display: Shorten name of FRL polling workqueue
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Melissa Wen <mwen@igalia.com>,
+ mario.limonciello@amd.com, alex.hung@amd.com, harry.wentland@amd.com
+References: <20260711113009.26512-1-timur.kristof@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260711113009.26512-1-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,97 +92,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, July 13, 2026 10:28:08=E2=80=AFAM Central European Summer Time T=
-horsten=20
-Leemhuis wrote:
-> On 7/13/26 08:14, Timur Krist=C3=B3f wrote:
-> > The old radeon driver has a documented workaround in ci_dpm.c
-> > which claims that Bonaire 0x6658 with old memory controller
-> > firmware is unstable with MCLK DPM, so as a precaution I
-> > disabled MCLK DPM on this ASIC in amdgpu.
-> >=20
-> > Note that the old MC firmware is not actually used with
-> > amdgpu, but in theory it's possible that the VBIOS sets
-> > up the ASIC with an old MC firmware that is already running
-> > when amdgpu initializes (in which case amdgpu doesn't
-> > load its own firmware).
-> >=20
-> > What I expected to happen is that the GPU would simply use
-> > its maximum memory clock, and indeed this is what seemed
-> > to happen according to amdgpu_pm_info which reads the
-> > current MCLK value from the SMU.
-> > However, some users reported a huge perf regression
->=20
-> Were those private reports? If not, please consider linking them in the
-> trailers using Link: or Closes: tags, as explained in the patch
-> submission guidelines (and mandated by Linus, see the quotes and links
-> in
-> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#=
-on-> the-importance-of-pointing-to-bug-reports-using-link-closes-tags for
-> details).
->=20
-> Ciao, Thorsten
-
-Hi Thorsten,
-
-There is no bug report. I had a conversation on Reddit which brought my=20
-attention to this issue, then I actually plugged in the GPU, tested it and=
-=20
-noticed that there is indeed a problem, and this patch here is the best fix=
- I=20
-could find.
-
-Best regards,
-Timur
-
->=20
-> > and upon a closer look it seems that the GPU seems to
-> > not actually use the highest MCLK value, despite the SMU
-> > reporting that it does.
-> >=20
-> > Let's not disable MCLK DPM on Bonaire 0x6658 (R7 260X).
-> >=20
-> > Keep MCLK DPM disabled on R9 M380 in the 2015 iMac
-> > because that still hangs if we enable it.
-> >=20
-> > Fixes: 9851f29cb06c ("drm/amd/pm/ci: Disable MCLK DPM on problematic CI
-> > ASICs") Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> >=20
-> >  drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c | 7 ++-----
-> >  1 file changed, 2 insertions(+), 5 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-> > b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c index
-> > 1d6e30269d56..4d553be56396 100644
-> > --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-> > +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-> > @@ -106,11 +106,8 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
-> >=20
-> >  		hwmgr->od_enabled =3D false;
-> >  		switch (hwmgr->chip_id) {
-> >=20
-> >  		case CHIP_BONAIRE:
-> > -			/* R9 M380 in iMac 2015: SMU hangs when=20
-enabling MCLK DPM
-> > -			 * R7 260X cards with old MC ucode: MCLK DPM=20
-is unstable
-> > -			 */
-> > -			if (adev->pdev->subsystem_vendor =3D=3D 0x106B=20
-||
-> > -			    adev->pdev->device =3D=3D 0x6658) {
-> > +			/* R9 M380 in iMac 2015: SMU hangs when=20
-enabling MCLK DPM */
-> > +			if (adev->pdev->subsystem_vendor =3D=3D 0x106B)=20
-{
-> >=20
-> >  				dev_info(adev->dev, "disabling=20
-MCLK DPM on quirky ASIC");
-> >  				adev->pm.pp_feature &=3D=20
-~PP_MCLK_DPM_MASK;
-> >  				hwmgr->feature_mask &=3D=20
-~PP_MCLK_DPM_MASK;
 
 
+On 11/07/2026 12:30, Timur Kristóf wrote:
+> The current name is too long and triggers a warning.
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b97ceabe6173..6299f0e384f1 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -829,9 +829,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>   	}
+>   	if (adev->dm.dc->caps.max_links > 0) {
+>   		adev->dm.hdmi_frl_status_polling_wq =
+> -			create_singlethread_workqueue("hdmi_frl_status_polling_workqueue");
+> +			create_singlethread_workqueue("hdmi_frl_status_polling_wq");
+>   		if (!adev->dm.hdmi_frl_status_polling_wq)
+> -			drm_err(adev_to_drm(adev), "failed to initialize hdmi_frl_status_polling_workqueue\n");
+> +			drm_err(adev_to_drm(adev), "failed to initialize hdmi_frl_status_polling_wq\n");
+>   	}
+>   	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
+>   		init_completion(&adev->dm.dmub_aux_transfer_done);
 
+This one does not require display knowledge so I feel okay to review it:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Two nitpicks would be that the _wq suffix is even redundant since for 
+the task name it will have the kworker/ prefix anyway. Second one is 
+that while touching this it may make sense to replace the variable name 
+from the error message with a human readable name like "failed to 
+initialize HDMI FLR status polling". In fact, is this even an error or 
+should be a warning given I do not see an immediate exit?
+
+Regards,
+
+Tvrtko
 
