@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D652BC44501
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 23:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 366AFC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 23:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E2A10E90C;
-	Mon, 13 Jul 2026 23:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2D4110E03B;
+	Mon, 13 Jul 2026 23:52:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DmlLwH/6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g7VBA5XD";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4957F10E90C;
- Mon, 13 Jul 2026 23:08:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E521710E03B;
+ Mon, 13 Jul 2026 23:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
@@ -22,26 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
  In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=oshCRkuTSc7HxbPUpUr4GjCt+a0l1+09+Fh6sX4fpLk=; b=DmlLwH/6NutqCUyxeNF/F1+a/v
- bUV+IJzG28pvrTIYoYlgp0HQlfJjfamy9+jQh8BToWUqmEjDeV4P2lNe3cJIX36z9rAi6eAFzaCGA
- wnkSZdTp2mgFeyx4vNqQqWeGCogW1QJI0yct7Rb+C3/MZAlTiExZ+h/H1spXbbMOFzf5vfFz1v/jZ
- muLHFECSTfZNaUSzrkRTHddXFTOaR4I4WzK5nvf4wEdAt9lG5zIeNSW1DROXUZpHjAOndoTk+hljb
- ZIwq+DM23AAhQvuueCEWyId6gSwFa6sYuEpDl1Wu+PreDHn8gfQzB953Br97QsPOkX7u1bpHl5w//
- lDY2rkvQ==;
+ bh=oshCRkuTSc7HxbPUpUr4GjCt+a0l1+09+Fh6sX4fpLk=; b=g7VBA5XDvnfdDlnIRZRUfNhIAi
+ s2ZBkYWHnsScnBwuY8HBw7OUPK2qMcNc8E27oWIQEYijBLOoXvvW83SrTXKdv6mknBOQgYeJUK7cC
+ a+hX1yKpQvSWhbaaEcCqtc1DDvy3xMdtzWAoGT9w9cy3e3eT5Ioe+cmYDNa2uKx6d7h60gKVqqiEa
+ /n28FlMKmVnU0iox8EUtM5YOwLV0+IfcazQlXNMZ+S2Sl+qze8csFPsfEPOD2cMSSAlEg/qjgBk7l
+ I/eHfwq5mDakgfPrwRAAbQN2XPmhUKxa6c32ymeDibujg9xZDcOC4IIjtgqKh+b+QFM6wEZhWrU5O
+ 6tjwc6fw==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjPkj-00EiHA-Vu; Tue, 14 Jul 2026 01:07:58 +0200
+ id 1wjQRy-00EjJa-9K; Tue, 14 Jul 2026 01:52:39 +0200
 From: John Harrison <John.Harrison@Igalia.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
 Subject: [PATCH v7 0/9] v7 drm: writeback: clean up writeback connector
  initialization
-Date: Mon, 13 Jul 2026 16:07:16 -0700
-Message-ID: <20260713230726.3738290-1-John.Harrison@Igalia.com>
+Date: Mon, 13 Jul 2026 16:51:42 -0700
+Message-ID: <20260713235153.3862650-1-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
