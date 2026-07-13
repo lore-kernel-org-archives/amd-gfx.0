@@ -4,65 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B98C44501
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 08:29:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6563DC44509
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 08:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A9310EC7B;
-	Tue, 14 Jul 2026 08:29:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB4B10EC7E;
+	Tue, 14 Jul 2026 08:29:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WK49smQa";
+	dkim=pass (2048-bit key; unprotected) header.d=squebb.ca header.i=@squebb.ca header.b="ZOrtxssr";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="IGj23SL7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD02F10E5DF;
- Mon, 13 Jul 2026 13:37:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783949874; x=1815485874;
- h=message-id:subject:from:to:date:in-reply-to:references:
- content-transfer-encoding:mime-version;
- bh=VaiiiSXA2tW300f95CVO5r2r91ZNzT/rX9FcMVLNutU=;
- b=WK49smQa+KReNNkJ3IAis6IvBcfGiX2g4ML5dDAIkHcfYrOxyrKaPKnE
- uKOZZRZDMbfp83TGrl918LW88mlj/7Bs7AcVnp0ScpgzofeComjWu+mpT
- UwH55uwuXD0D0fB5PsZgTzW7+dikZ3E5o73b5RqgzA2WOUGUB07sW+3MT
- kfNVQYWoQF0h53m9B31iLteABnk1sneBc5P9E//5vhQjSiJLwP5IAlMge
- rsVRYSmNwgZcVwkEM9yVAVTf8QpEzKocKFSGkN7Gw4aIMHtECQAk1ZWXl
- Ec86MkrOiDoILTZcnl7eQxfxXTt5Kr6o3+vgrSjihEPU/AaQgugW5DbJM A==;
-X-CSE-ConnectionGUID: w/Vy8ZTCT4ugXP70gHqFow==
-X-CSE-MsgGUID: SYnIpAUuQRyoY/HZoCIizA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84575423"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="84575423"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 06:37:53 -0700
-X-CSE-ConnectionGUID: 20sOKCn8QNu8nTRGvYmkZw==
-X-CSE-MsgGUID: faqOZqR9RkWWTfO7sIXQsw==
-X-ExtLoop1: 1
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.123])
- ([10.245.245.123])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2026 06:37:50 -0700
-Message-ID: <856018c9da5bbc03eba0e7fd5862c6b9567c695a.camel@linux.intel.com>
-Subject: Re: [PATCH 10/12] drm/exec: add drm_exec_lock_resv function
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- dakr@kernel.org, ecourtney@nvidia.com, simona@ffwll.ch,
- matthew.brost@intel.com, 	nat@pixelcluster.dev, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, 	intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Date: Mon, 13 Jul 2026 15:37:48 +0200
-In-Reply-To: <ff8e2004-366b-447a-b1b2-504e1cbcb265@amd.com>
-References: <20260710190752.2355-1-christian.koenig@amd.com>
- <20260710190752.2355-11-christian.koenig@amd.com>
- <0cfc1913440ce8f19f715f5df7faa23dc1164755.camel@linux.intel.com>
- <bda9ac0e-cca5-4262-94e1-d048c470c3af@amd.com>
- <60e358ad5babca098e4ae20fa89703988fda64f2.camel@linux.intel.com>
- <ff8e2004-366b-447a-b1b2-504e1cbcb265@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+X-Greylist: delayed 518 seconds by postgrey-1.36 at gabe;
+ Mon, 13 Jul 2026 21:41:26 UTC
+Received: from fhigh-a2-smtp.messagingengine.com
+ (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99D6010E179
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 21:41:26 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id D4B8814000B8;
+ Mon, 13 Jul 2026 17:32:47 -0400 (EDT)
+Received: from phl-imap-08 ([10.202.2.84])
+ by phl-compute-02.internal (MEProxy); Mon, 13 Jul 2026 17:32:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1783978367;
+ x=1784064767; bh=YVO66dwtkD3NeXv09l5YFuW1pV0F3oSa91ho8hTgCMI=; b=
+ ZOrtxssrNRAQeS4x3vGLvQxIy3HtmkrTyWecyAkLolbkpgjwa7iWlXEQkusOsKZJ
+ fb0ftaU6Le0yhQJGrPLo4r9uuU8/n9cqk+3oG7SlllMfYCSbLnxM2htjuAfiJD/B
+ sU1i2O2G43nyZIIRhEQZ+mcxk/0UMw1leEog9yDyor/w6bXCzBHAqPIMKSSRiXJc
+ BxKBkVC+iKVMgSLQFYMpzInq9I9258VSTXCcAsXGp3RdgZxpmRpHfXVzFVIqDY/G
+ my3mLzt2N6Bm6Bkh6nphkmCPiVHmvY2PSqs/1VlbfltkLadbqMtpVMiPIqzW4jlh
+ bAso1YrOjRLaZkpnYB25WQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1783978367; x=
+ 1784064767; bh=YVO66dwtkD3NeXv09l5YFuW1pV0F3oSa91ho8hTgCMI=; b=I
+ Gj23SL7SJuT+DJP5714qJvOuXjXcUb4fZJNqtz6zYW91VKvMShjjWSgcqQONIUwY
+ UBhkvPLJmQ2gLbfWFavD66ODq0XcgeX6h0kD8YZNgYB3rU4OpBSST1sFiDfVx+HO
+ 6y6e1GhisXI2YtZV2Wqg1cR6Sl3YRwJIDZPKn5VFHbh2HylARmVyxPVcDAgYKq6m
+ nLkWmxPfxy3T/jP6OfmTOkqM0AX5C+CZ+LfhKkhmu3j+QiKBmVFYUHnY1WkOt7ln
+ CkG9F73SiyQdbqO3wFCiC325gTHY1KvMKAK0+L3e55dV4DJChGVhCYkyi8M4NnGL
+ 6RcZehzfriEN0BCf04wjw==
+X-ME-Sender: <xms:f1lVauz4pPVy_YJlhEjjaoJK3CQZ-eUnNAp8430A127p8Wf-IRRrjw>
+ <xme:f1lValHYAMwzuK5ltOqGrH-YnXodTQqjApiyLeG9e7vMvCFOXbCISOHKWwV5oTn3l
+ dEqazElEPvitRFg6gpRAA-T4eH6hgZLzvFipIfofHtnjN2ZQX0WxH3z>
+X-ME-Proxy-Cause: dmFkZTE0rk0j3tbkAwY1sHMHywWc+HsGZY4JGfo+NzNBq2hFUDqN6fJlBIsbk0laOsE2p+
+ PTDN+qfOKugSNVspnMApKwpMtyqAX7vg9B+sKnFIZcgZvnz81BwVDN+cUEE5Vq4ygZgATg
+ f/9L6w14ZN60n7YoATkQsTtNTFzmvhAuWxNVBRe1TDKMzCHpb0E8cXizCjFSqs01iXAc7Y
+ Ab/5zc/D6xkbgSiQHXzdBPyp701a2Lbo1y4zMga465xd7U3XWuLMHY49sYI76wtG/tzMbZ
+ QcXvZaqvknfRSh/C0gLA9BptchJflNBQac8hMf2xalDH0fJlIXKr998IsqgQcTN+mx07Qi
+ rsolYJ8dPGhdJHRIF8iGnuIe8jSKQ8UtgULGi9KKTdnnZqDS4ZESD0+QqC1IQuKSMkJSeQ
+ dFtT0doyFvdWJNvSi5Gr863K0tyQtzcKUWdBIkZi9Wbf6XTtEhG25EjhIbmxZqk2EqyHAy
+ oAThKwM6qGOf1wxykTT/ioiTz18kgcG96DRjwoEEP6u1eFCcAMJ8Yzb40N34LaPLQtPUg2
+ 33PthTZ3v3MMxmsLyn70BMhHyp9n+Nszo0rh+S1fiwrNpdjAVn++XaFhN2XLDDXyk+ByiR
+ +z0L1FNwTp2NgXjHxH+S0/5xfF2xwzXW1jQF8Hd8yBWonv9nl7tsV4uQT/Dg
+X-ME-Proxy: <xmx:f1lVatbdCvPG0NWkxyjFLcAESwndtwn4lU-zz9Ra39e7UADkTtGS6w>
+ <xmx:f1lVaiPGVi0oQUR0qVvr0vDbcnVOYvZxVElAblTgP_wrRnITIU__Vw>
+ <xmx:f1lVaqYEe_PC5OUmFbpAo8MUIxn0QK6YmRCX0hnCuVACtMybdLK5PA>
+ <xmx:f1lVao1sLL1MV2-HiaTFUroOpeRI1J3D7mDYTgfBKZ69O2a3zWJntQ>
+ <xmx:f1lVakOLK6ZtONS89IKtOHbaDq-qY8Y91F-v0NtrqZj1P6N4C_ij1WKM>
+Feedback-ID: ic2b14614:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 4E4BF2CE03BD; Mon, 13 Jul 2026 17:32:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
+X-ThreadId: APXOgOBcCE4N
+Date: Mon, 13 Jul 2026 17:32:27 -0400
+From: "Mark Pearson" <mpearson@squebb.ca>
+To: "Limonciello, Mario" <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: "Aaron Ma" <aaron.ma@canonical.com>, mrh@frame.work
+Message-Id: <e3883839-e431-4ad1-aa01-b8b96c089e29@app.fastmail.com>
+In-Reply-To: <20260713195313.1739762-1-mario.limonciello@amd.com>
+References: <20260713195313.1739762-1-mario.limonciello@amd.com>
+Subject: Re: [PATCH] drm/amd: Create a device link between APU display and
+ XHCI devices
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 14 Jul 2026 08:29:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,373 +99,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-13 at 15:14 +0200, Christian K=C3=B6nig wrote:
-> On 7/13/26 14:19, Thomas Hellstr=C3=B6m wrote:
-> > On Mon, 2026-07-13 at 14:07 +0200, Christian K=C3=B6nig wrote:
-> > > On 7/13/26 13:57, Thomas Hellstr=C3=B6m wrote:
-> > > > On Fri, 2026-07-10 at 20:52 +0200, Christian K=C3=B6nig wrote:
-> > > > > Restructure the drm_exec object to work with dma_resv
-> > > > > references
-> > > > > instead
-> > > > > of GEM object references.
-> > > > >=20
-> > > > > Add the new function dma_exec_lock_resv() to lock individual
-> > > > > dma_resv
-> > > > > objects and so allow higher level implementations to handle
-> > > > > contention
-> > > > > purely on dma_resv objects.
-> > > > >=20
-> > > > > WIP! Don't commit like that!
-> > > > >=20
-> > > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > >=20
-> > > > Here, IMO we should move a dma-resv based implementation to
-> > > > dma-buf
-> > > > to
-> > > > facilitate passing it also through dma_buf_map(),
-> > >=20
-> > > I still don't see why that would be necessary?
-> > >=20
-> > > dma_buf_map() just maps the current location of the buffer, it
-> > > has no
-> > > requirement to force the buffer into VRAM.
-> > >=20
-> > > At least on amdgpu we always validate buffer during dma_buf_map()
-> > > with VRAM|GTT, so we never cause any eviction at all.
-> >=20
-> > For fast interconnects xe wants to avoid pinning in VRAM and needs
-> > a
-> > more aggressive validation. If you have a bunch of processes using
-> > WW
-> > transactions to lock out others from VRAM allocation with one
-> > process
-> > not participating that wouldn't work out well.
-> >=20
-> > > =C2=A0
-> > > > And if wanting to avoid rewriting all users of drm_exec, Make
-> > > > drm_exec
-> > > > a thin wrapper on top.
-> > >=20
-> > > DMA-buf looks like the wrong place for this since it only works
-> > > on
-> > > exported buffers and that should be the absolute minority.
-> > >=20
-> > > We could have a dma-resv contention tracking helper, but I still
-> > > don't see for what that would be good for?
-> >=20
-> > See the above. The problem is that the WW transaction always starts
-> > with a drm_exec on the importer side and it needs to be the same
-> > structure that holds the contended lock on rollback.
-> >=20
-> > What are the issues you are seeing?
->=20
-> Mhm, there had been quite some discussion on that topic in the past
-> and so far the result was usually that this shouldn't be necessary.
->=20
-> On the other hand with a reference counted dma_resv object it should
-> be technically doable and the past discussions have already been
-> years ago with quite a bunch of different requirements.
+Thanks Mario
 
-Yeah, IIRC the main argument was that for various reasons neither the
-WW mutex nor the dma_resv had a refcount, so either one had to use an
-ops (like my rfc) or attach a refcount to the drm_resv or ww_mutex,
-like the series under discussion.
+On Mon, Jul 13, 2026, at 3:53 PM, Mario Limonciello wrote:
+> Some AMD APU multi-function devices expose an integrated USB xHCI
+> controller. In some circumstances (such as larger VRAM), the PM core
+> can resume can fail when the xHCI controller is resuming in parallel
+> with the GPU/display function.
 
->=20
-> For dma_buf_map() I still don't see the use case, cause that function
-> is really "give me access to the current location of the buffer" it
-> should not move the buffer. If the exporter needs the buffer in a
-> different location later on it can still do so.
->=20
-> But for dma_buf_pin() it might be perfectly valid to kick out other
-> buffers and then I agree that definately needs to ww locking context.
+Minor: extra 'can' in there (before 'resume').
 
-OK, so xe has always seen the dma_buf_map() as the dma-buf equivalent
-of ttm_bo_validate() + dma_mapping. The main reason for that is the
-pairing with what was previously known as move_notify. If the map was
-invalidated, you'd release it and when you needed it again, you called
-dma_buf_map(), and if p2p was requested, the exporter moved the dma_buf
-to vram if all attachments supported it.
+>
+> On affected systems, the xHCI controller can complete pci_pm_resume
+> and start resuming USB devices while the GPU is still in its much
+> longer resume path. This race condition leads to USB device resume
+> failures followed by:
+>
+>   xhci_hcd ...: xHCI host not responding to stop endpoint command
+>   xhci_hcd ...: HC died; cleaning up
+>
+> Create a device link from any xHCI controller sharing the same PCIe
+> root port as the APU display function. The link uses DL_FLAG_STATELESS
+> and DL_FLAG_PM_RUNTIME to ensure the GPU completes its resume before
+> the xHCI controller begins resuming USB devices.
+>
+> This device link is done specifically in amdgpu so that if the
+> platform firmware has been modified such that this issue doesn't happen
+> the version can be detected and the workaround skipped.
+>
+> Suggested-by: Aaron Ma <aaron.ma@canonical.com>
+> Reported-by: mrh@frame.work
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221073
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 12 +++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 11 +++++
+>  .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 45 +++++++++++++++++++
+>  3 files changed, 68 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c 
+> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 4314dff4ac996..c1ceec7a1986b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1366,6 +1366,14 @@ static void smu_feature_cap_init(struct 
+> smu_context *smu)
+>  	bitmap_zero(fea_cap->cap_map, SMU_FEATURE_CAP_ID__COUNT);
+>  }
+> 
+> +static int smu_set_power_dep(struct smu_context *smu, bool enable)
+> +{
+> +	if (!smu->ppt_funcs->set_power_dep)
+> +		return 0;
+> +
+> +	return smu->ppt_funcs->set_power_dep(smu, enable);
+> +}
+> +
+>  static int smu_sw_init(struct amdgpu_ip_block *ip_block)
+>  {
+>  	struct amdgpu_device *adev = ip_block->adev;
+> @@ -1427,6 +1435,8 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_block)
+>  	if (!smu->ppt_funcs->get_fan_control_mode)
+>  		smu->adev->pm.no_fan = true;
+> 
+> +	smu_set_power_dep(smu, true);
+> +
+>  	return 0;
+>  }
+> 
+> @@ -1449,6 +1459,8 @@ static int smu_sw_fini(struct amdgpu_ip_block *ip_block)
+> 
+>  	smu_fini_microcode(smu);
+> 
+> +	smu_set_power_dep(smu, false);
+> +
+>  	return 0;
+>  }
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h 
+> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index f8fd93999617d..7ea7c4a5279be 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -749,6 +749,9 @@ struct smu_context {
+>  	bool pm_enabled;
+>  	bool is_apu;
+> 
+> +	/* Power dependency link from an integrated xHCI controller to the GPU */
+> +	struct device_link		*usb_power_link;
+> +
+>  	uint32_t smc_driver_if_version;
+>  	uint32_t smc_fw_if_version;
+>  	uint32_t smc_fw_version;
+> @@ -1618,6 +1621,14 @@ struct pptable_funcs {
+>  	 */
+>  	int (*ras_send_msg)(struct smu_context *smu,
+>  			    enum smu_message_type msg, uint32_t param, uint32_t *read_arg);
+> +
+> +	/**
+> +	 * @set_power_dep: Create or destroy a power dependency link
+> +	 * from an integrated xHCI controller to the GPU so that the GPU is
+> +	 * resumed before the USB controller during PM resume. @enable is true
+> +	 * to create the link and false to tear it down.
+> +	 */
+> +	int (*set_power_dep)(struct smu_context *smu, bool enable);
+>  };
+> 
+>  typedef enum {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c 
+> b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> index 2fe006de927a3..2abdfef8644e0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> @@ -1701,6 +1701,50 @@ static int 
+> smu_v14_0_0_restore_user_od_settings(struct smu_context *smu)
+>  	return 0;
+>  }
+> 
+> +/*
+> + * Link any xHCI controller sharing the GPU's PCIe root port as a 
+> consumer
+> + * of the GPU so the GPU resumes first, avoiding an xHCI resume race.
+> + */
+> +static int smu_v14_0_0_set_power_dep(struct smu_context *smu, bool 
+> enable)
+> +{
+> +	struct amdgpu_device *adev = smu->adev;
+> +	struct pci_dev *gpu_pdev = adev->pdev;
+> +	struct pci_dev *root_port, *usb_pdev = NULL;
+> +	struct device_link *link;
+> +
+> +	if (!enable) {
+> +		if (smu->usb_power_link) {
+> +			device_link_del(smu->usb_power_link);
+> +			smu->usb_power_link = NULL;
+> +		}
+> +		return 0;
+> +	}
+> +
+> +	root_port = pcie_find_root_port(gpu_pdev);
+> +	while ((usb_pdev = pci_get_class(PCI_CLASS_SERIAL_USB_XHCI, 
+> usb_pdev))) {
+> +		struct pci_dev *usb_root;
+> +
+> +		usb_root = pcie_find_root_port(usb_pdev);
+> +		if (usb_root != root_port)
+> +			continue;
+> +
+> +		/* Create device link: USB (consumer) depends on GPU (supplier) */
+> +		link = device_link_add(&usb_pdev->dev, &gpu_pdev->dev,
+> +				       DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME);
+> +		if (link) {
+> +			smu->usb_power_link = link;
+> +			drm_info(adev_to_drm(adev), "USB controller %s D0 power state 
+> depends on %s\n",
+> +				 pci_name(usb_pdev), pci_name(gpu_pdev));
+> +			/* Only create one link for the first USB controller found */
+> +			break;
+> +		}
+> +	}
+> +
+> +	pci_dev_put(usb_pdev);
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
+>  	.check_fw_status = smu_v14_0_check_fw_status,
+>  	.check_fw_version = smu_cmn_check_fw_version,
+> @@ -1734,6 +1778,7 @@ static const struct pptable_funcs 
+> smu_v14_0_0_ppt_funcs = {
+>  	.dpm_set_umsch_mm_enable = smu_v14_0_0_set_umsch_mm_enable,
+>  	.get_dpm_clock_table = smu_v14_0_common_get_dpm_table,
+>  	.set_mall_enable = smu_v14_0_common_set_mall_enable,
+> +	.set_power_dep = smu_v14_0_0_set_power_dep,
+>  };
+> 
+>  static void smu_v14_0_0_init_msg_ctl(struct smu_context *smu)
+> -- 
+> 2.43.0
 
-Pinning would create the awkwardness of having to pin and then
-immediately unpin again.
+Tested on my T14 G7 AMD platform and confirmed it fixes the issue (which I am able to easily reproduce otherwise).
 
-But regardless of what dma_buf interface we use for this, or perhaps
-agree on a new interface, the functionality will be needed, and since
-with refcounted dma_resv, this is more of a move than a
-reimplementation, I think we should do it now or agree to do it as a
-follow-up.
+Tested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
 
-Thanks,
-Thomas
-
-
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > /Thomas
-> >=20
-> >=20
-> > >=20
-> > > Regards,
-> > > Christian.
-> > >=20
-> > > >=20
-> > > > Thanks,
-> > > > Thomas
-> > > >=20
-> > > >=20
-> > > >=20
-> > > > > ---
-> > > > > =C2=A0drivers/gpu/drm/drm_exec.c | 75 ++++++++++++++++++++++-----=
--
-> > > > > ----
-> > > > > ----
-> > > > > --
-> > > > > =C2=A0drivers/gpu/drm/drm_gem.c=C2=A0 |=C2=A0 2 +
-> > > > > =C2=A0include/drm/drm_exec.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 ++=
-+--
-> > > > > =C2=A03 files changed, 50 insertions(+), 36 deletions(-)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/drm_exec.c
-> > > > > b/drivers/gpu/drm/drm_exec.c
-> > > > > index fa923852fae45..382bf7bcd5ff3 100644
-> > > > > --- a/drivers/gpu/drm/drm_exec.c
-> > > > > +++ b/drivers/gpu/drm/drm_exec.c
-> > > > > @@ -58,8 +58,11 @@ static void drm_exec_unlock_all(struct
-> > > > > drm_exec
-> > > > > *exec)
-> > > > > =C2=A0		drm_gem_object_put(obj);
-> > > > > =C2=A0	}
-> > > > > =C2=A0
-> > > > > -	drm_gem_object_put(exec->prelocked);
-> > > > > -	exec->prelocked =3D NULL;
-> > > > > +	if (exec->prelocked) {
-> > > > > +		dma_resv_unlock(exec->prelocked);
-> > > > > +		dma_resv_put(exec->prelocked);
-> > > > > +		exec->prelocked =3D NULL;
-> > > > > +	}
-> > > > > =C2=A0}
-> > > > > =C2=A0
-> > > > > =C2=A0/**
-> > > > > @@ -101,7 +104,7 @@ void drm_exec_fini(struct drm_exec *exec)
-> > > > > =C2=A0	drm_exec_unlock_all(exec);
-> > > > > =C2=A0	kvfree(exec->objects);
-> > > > > =C2=A0	if (exec->contended !=3D DRM_EXEC_DUMMY) {
-> > > > > -		drm_gem_object_put(exec->contended);
-> > > > > +		dma_resv_put(exec->contended);
-> > > > > =C2=A0		ww_acquire_fini(&exec->ticket);
-> > > > > =C2=A0	}
-> > > > > =C2=A0}
-> > > > > @@ -158,50 +161,41 @@ static int drm_exec_obj_locked(struct
-> > > > > drm_exec
-> > > > > *exec,
-> > > > > =C2=A0/* Make sure the contended object is locked first */
-> > > > > =C2=A0static int drm_exec_lock_contended(struct drm_exec *exec)
-> > > > > =C2=A0{
-> > > > > -	struct drm_gem_object *obj =3D exec->contended;
-> > > > > +	struct dma_resv *resv =3D exec->contended;
-> > > > > =C2=A0	int ret;
-> > > > > =C2=A0
-> > > > > -	if (likely(!obj))
-> > > > > +	if (likely(!resv))
-> > > > > =C2=A0		return 0;
-> > > > > =C2=A0
-> > > > > =C2=A0	/* Always cleanup the contention so that error
-> > > > > handling
-> > > > > can
-> > > > > kick in */
-> > > > > =C2=A0	exec->contended =3D NULL;
-> > > > > =C2=A0	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT) {
-> > > > > -		ret =3D dma_resv_lock_slow_interruptible(obj-
-> > > > > > resv,
-> > > > > -						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > > > > &exec-
-> > > > > > ticket);
-> > > > > +		ret =3D dma_resv_lock_slow_interruptible(resv,
-> > > > > &exec-
-> > > > > > ticket);
-> > > > > =C2=A0		if (unlikely(ret))
-> > > > > =C2=A0			goto error_dropref;
-> > > > > =C2=A0	} else {
-> > > > > -		dma_resv_lock_slow(obj->resv, &exec-
-> > > > > >ticket);
-> > > > > +		dma_resv_lock_slow(resv, &exec->ticket);
-> > > > > =C2=A0	}
-> > > > > =C2=A0
-> > > > > -	ret =3D drm_exec_obj_locked(exec, obj);
-> > > > > -	if (unlikely(ret))
-> > > > > -		goto error_unlock;
-> > > > > -
-> > > > > -	exec->prelocked =3D obj;
-> > > > > +	exec->prelocked =3D resv;
-> > > > > =C2=A0	return 0;
-> > > > > =C2=A0
-> > > > > -error_unlock:
-> > > > > -	dma_resv_unlock(obj->resv);
-> > > > > -
-> > > > > =C2=A0error_dropref:
-> > > > > -	drm_gem_object_put(obj);
-> > > > > +	dma_resv_put(resv);
-> > > > > =C2=A0	return ret;
-> > > > > =C2=A0}
-> > > > > =C2=A0
-> > > > > =C2=A0/**
-> > > > > - * drm_exec_lock_obj - lock a GEM object for use
-> > > > > + * drm_exec_lock_resv - lock a dma_resv object
-> > > > > =C2=A0 * @exec: the drm_exec object with the state
-> > > > > - * @obj: the GEM object to lock
-> > > > > + * @resv: the dma_resv object to lock
-> > > > > =C2=A0 *
-> > > > > - * Lock a GEM object for use and grab a reference to it.
-> > > > > + * Lock a dma_resv object for use or grab a reference to it
-> > > > > on
-> > > > > contention.
-> > > > > =C2=A0 *
-> > > > > =C2=A0 * Returns: -EDEADLK if a contention is detected, -EALREADY
-> > > > > when
-> > > > > object is
-> > > > > - * already locked (can be suppressed by setting the
-> > > > > DRM_EXEC_IGNORE_DUPLICATES
-> > > > > - * flag), -ENOMEM when memory allocation failed and zero for
-> > > > > success.
-> > > > > + * already locked, -ENOMEM when memory allocation failed and
-> > > > > zero
-> > > > > for success.
-> > > > > =C2=A0 */
-> > > > > -int drm_exec_lock_obj(struct drm_exec *exec, struct
-> > > > > drm_gem_object
-> > > > > *obj)
-> > > > > +int drm_exec_lock_resv(struct drm_exec *exec, struct
-> > > > > dma_resv
-> > > > > *resv)
-> > > > > =C2=A0{
-> > > > > =C2=A0	int ret;
-> > > > > =C2=A0
-> > > > > @@ -209,22 +203,39 @@ int drm_exec_lock_obj(struct drm_exec
-> > > > > *exec,
-> > > > > struct drm_gem_object *obj)
-> > > > > =C2=A0	if (unlikely(ret))
-> > > > > =C2=A0		return ret;
-> > > > > =C2=A0
-> > > > > -	if (exec->prelocked =3D=3D obj) {
-> > > > > -		drm_gem_object_put(exec->prelocked);
-> > > > > +	if (exec->prelocked =3D=3D resv) {
-> > > > > +		dma_resv_put(exec->prelocked);
-> > > > > =C2=A0		exec->prelocked =3D NULL;
-> > > > > =C2=A0		return 0;
-> > > > > =C2=A0	}
-> > > > > =C2=A0
-> > > > > =C2=A0	if (exec->flags & DRM_EXEC_INTERRUPTIBLE_WAIT)
-> > > > > -		ret =3D dma_resv_lock_interruptible(obj->resv,
-> > > > > &exec-
-> > > > > > ticket);
-> > > > > +		ret =3D dma_resv_lock_interruptible(resv,
-> > > > > &exec-
-> > > > > > ticket);
-> > > > > =C2=A0	else
-> > > > > -		ret =3D dma_resv_lock(obj->resv, &exec-
-> > > > > >ticket);
-> > > > > +		ret =3D dma_resv_lock(resv, &exec->ticket);
-> > > > > =C2=A0
-> > > > > -	if (unlikely(ret =3D=3D -EDEADLK)) {
-> > > > > -		drm_gem_object_get(obj);
-> > > > > -		exec->contended =3D obj;
-> > > > > -		return -EDEADLK;
-> > > > > -	}
-> > > > > +	if (unlikely(ret =3D=3D -EDEADLK))
-> > > > > +		exec->contended =3D dma_resv_get(resv);
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +EXPORT_SYMBOL(drm_exec_lock_resv);
-> > > > > +
-> > > > > +/**
-> > > > > + * drm_exec_lock_obj - lock a GEM object for use
-> > > > > + * @exec: the drm_exec object with the state
-> > > > > + * @obj: the GEM object to lock
-> > > > > + *
-> > > > > + * Lock a GEM object for use and grab a reference to it.
-> > > > > + *
-> > > > > + * Returns: -EDEADLK if a contention is detected, -EALREADY
-> > > > > when
-> > > > > object is
-> > > > > + * already locked (can be suppressed by setting the
-> > > > > DRM_EXEC_IGNORE_DUPLICATES
-> > > > > + * flag), -ENOMEM when memory allocation failed and zero for
-> > > > > success.
-> > > > > + */
-> > > > > +int drm_exec_lock_obj(struct drm_exec *exec, struct
-> > > > > drm_gem_object
-> > > > > *obj)
-> > > > > +{
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	ret =3D drm_exec_lock_resv(exec, obj->resv);
-> > > > > =C2=A0
-> > > > > =C2=A0	if (unlikely(ret =3D=3D -EALREADY) &&
-> > > > > =C2=A0	=C2=A0=C2=A0=C2=A0 exec->flags & DRM_EXEC_IGNORE_DUPLICATE=
-S)
-> > > > > diff --git a/drivers/gpu/drm/drm_gem.c
-> > > > > b/drivers/gpu/drm/drm_gem.c
-> > > > > index bbcbd25f014f0..f5cf9ad596a67 100644
-> > > > > --- a/drivers/gpu/drm/drm_gem.c
-> > > > > +++ b/drivers/gpu/drm/drm_gem.c
-> > > > > @@ -229,6 +229,8 @@ void drm_gem_private_object_init(struct
-> > > > > drm_device *dev,
-> > > > > =C2=A0	obj->size =3D size;
-> > > > > =C2=A0	mutex_init(&obj->gpuva.lock);
-> > > > > =C2=A0	dma_resv_init(&obj->_resv);
-> > > > > +
-> > > > > +	/* TODO: This needs to go away for drm_exec to work
-> > > > > correctly!!! */
-> > > > > =C2=A0	if (!obj->resv)
-> > > > > =C2=A0		obj->resv =3D dma_resv_get(&obj->_resv);
-> > > > > =C2=A0
-> > > > > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> > > > > index 8725ba92ff916..9daedb676d7b1 100644
-> > > > > --- a/include/drm/drm_exec.h
-> > > > > +++ b/include/drm/drm_exec.h
-> > > > > @@ -47,14 +47,14 @@ struct drm_exec {
-> > > > > =C2=A0	struct drm_gem_object	**objects;
-> > > > > =C2=A0
-> > > > > =C2=A0	/**
-> > > > > -	 * @contended: contended GEM object we backed off
-> > > > > for
-> > > > > +	 * @contended: contended dma_resv object we backed
-> > > > > off
-> > > > > for
-> > > > > =C2=A0	 */
-> > > > > -	struct drm_gem_object	*contended;
-> > > > > +	struct dma_resv		*contended;
-> > > > > =C2=A0
-> > > > > =C2=A0	/**
-> > > > > -	 * @prelocked: already locked GEM object due to
-> > > > > contention
-> > > > > +	 * @prelocked: already locked dma_resv object due to
-> > > > > contention
-> > > > > =C2=A0	 */
-> > > > > -	struct drm_gem_object *prelocked;
-> > > > > +	struct dma_resv		*prelocked;
-> > > > > =C2=A0};
-> > > > > =C2=A0
-> > > > > =C2=A0/**
-> > > > > @@ -175,6 +175,7 @@ static inline struct ww_acquire_ctx
-> > > > > *drm_exec_ticket(struct drm_exec *exec)
-> > > > > =C2=A0void drm_exec_init(struct drm_exec *exec, u32 flags,
-> > > > > unsigned
-> > > > > nr);
-> > > > > =C2=A0void drm_exec_fini(struct drm_exec *exec);
-> > > > > =C2=A0bool drm_exec_cleanup(struct drm_exec *exec);
-> > > > > +int drm_exec_lock_resv(struct drm_exec *exec, struct
-> > > > > dma_resv
-> > > > > *resv);
-> > > > > =C2=A0int drm_exec_lock_obj(struct drm_exec *exec, struct
-> > > > > drm_gem_object
-> > > > > *obj);
-> > > > > =C2=A0void drm_exec_unlock_obj(struct drm_exec *exec, struct
-> > > > > drm_gem_object *obj);
-> > > > > =C2=A0int drm_exec_prepare_obj(struct drm_exec *exec, struct
-> > > > > drm_gem_object *obj,
+Mark
