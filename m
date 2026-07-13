@@ -4,66 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6850C44507
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 21:06:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B94BDC43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 21:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13FCA10EB16;
-	Mon, 13 Jul 2026 21:06:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2137C10E67E;
+	Mon, 13 Jul 2026 21:19:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MEtLxz+Q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E30w/u0u";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2F310EB11;
- Mon, 13 Jul 2026 21:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xQrScTMErwGvqTbe4/xRXxRntlCADJUSrD0i3fE7pTU=; b=MEtLxz+QaBvAuYqwlzpVK9DTMK
- 2vEikTmQdo/d7diC4pmJnjScn04vhjDtET+9wHUXgiQHEmu0BIMMxxhxshP4pVaYWrXatPaYZ9UqU
- mc7YRYAqKwsAHGUmizXgKPSxzM/lR3Gk1SW1YMdgGr1ylDHKsHYyNGACbJzqA8tE7ufKdKb5y0ko8
- BAS0RWViFgPHrjDdIEE4xm0VgTh5XjXn4fV/TRBbRBTN928yOaf1tbGjAI8++zHNBrx68UpXzoWbo
- fKemjPL6WqzUQzwwWLoDWB+nc2P+XC3EtFfudlRWuulA7M+RJqiCW7gImoyIrJRQ0COXpx48MLmcI
- 59Z0HZjA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wjNr8-00Eg7T-Rb; Mon, 13 Jul 2026 23:06:27 +0200
-Message-ID: <220b89a8-348e-4021-a11a-cfd73610c688@Igalia.com>
-Date: Mon, 13 Jul 2026 14:06:18 -0700
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02FC010E67E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 21:19:26 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2ccae46de39so6860325ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 14:19:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783977565; cv=none;
+ d=google.com; s=arc-20260327;
+ b=FH7CYK2/FBqKoFzNhAsMQQgPiKT2l3JInFY09lx9pXRyxQniyXQOKQFa4boMzv37L3
+ sRTwlBVWlzXnNt5/eHAuqD02D55xlTb5GxGHB8mhyyflByV86gyfBtwFcGq+Psx8yXR6
+ 6/oQHPEA2QbGe88d7TVIhKIAgXn6S8p4ROuESzMfuE0/29KEa9aOwsf+ipc3dT0PwWg4
+ 0s+9oY2vuvSNVWwQHopv2GviIAHxjvDrhTafDlGlcGZucKNhg7CAwqwOPkNcdiIZJmIj
+ /oOMGAbQXT4xjbgbxANzs6Bth0vOHQdtIUvFR3XXTJGCFnGliJwdx8J+DOj6meWWy/pO
+ g4bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=33TaPqQmEjFsrm7H2HHTx5ta5j9OZEpDZHAN+VT+ZQc=;
+ fh=yzBb+3Uy77011+KwgcQKRzDLInMnxr7dimZllKyVGMU=;
+ b=AmGCBw4NoXIsS6GBfZLexvpGY1nMGMv+fsEnDxMgba6rCtQpD8Y483qZ9aAtLzA/ii
+ AcPOXsHmN8AhdAee7XKWnUSo1vVI7PbsKtnFxsiIDkaZ9L4AfTxj/e9INH2f4pUa74Kw
+ isROyRFG+LYngvfWSaTU62gLBohZx65VUwCU3UoawsxestfHCRAg/X9NVYGG67hKyFVr
+ Qutpv6WZf2Vt5IPxMI+NrXSYUNx2R1+GF61fXnxEeL5VJFLDTDRB/FGfDHHZwALefKdV
+ EmNsN4yPvc9/w7lEAl7JG9EzDx0b9uV+GYy9wRX02sQ6+2cpNlFZRVfA+PmF+MNs0pt8
+ Pm4Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783977565; x=1784582365; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=33TaPqQmEjFsrm7H2HHTx5ta5j9OZEpDZHAN+VT+ZQc=;
+ b=E30w/u0uD+Lpcf7NCFKU4v5UM/lrfTZnMq/uH0ChR6YBeNciJVOK/oSM8tfV+S2uyk
+ 1+jioeMFtEcZNrL/jd6yq010FmPLOye56DtJh4wbx74Bj6WeSbhiNzaHx0cnxSxDKFFs
+ Zv623LwA6qiK9OMTQo4+h6G6I5th1mTlR7dXusY1hHkAHXh+ZjUNABFrV1xpM8YJAic8
+ johsrTcAgUzbMSI7NuWSTqEltVJbHs/MlnEejAu9FyvsyxZ2J4msWVrDoiqdiqI2N59A
+ axiq3c4JpQZt5dAlg7dBV3/fdBLI8yqZEzo8nTUIuYoMtoinJnOqqXkhbpZfFr2zmC2b
+ yRfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783977565; x=1784582365;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=33TaPqQmEjFsrm7H2HHTx5ta5j9OZEpDZHAN+VT+ZQc=;
+ b=IHhFY44GnlStN98AmSGL4Mf51eJ9SF5jOBW7660fyUE1Tp533N1k61j466CLcEiSFB
+ 1mrVtPQH4wY2TP01x5xgfUgaUe4zjduGZpgBppx3EYVdCJrb4qfHwuU0BOpikcdQwT9n
+ f1y6foipB2WzsbzokqopviGUm6s1MsIwvCEXME96D7YW6th9ijgafk3UHv2DjvqILUJ8
+ acPvJIdYofMnpyF2gJXpusDIf/1hTtn2uKK8yUHqaiUOoRwq7OFTUCycRkfxyOBKETlR
+ 956Heun4/k3sH4XX2s3JUn3QRrG8PNZK+R811keCgOd3U+8RerpSxMeZONIzg8q4JlK/
+ 1qbg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqebxXC25JCXBygX1O7eQZXv+toIjBc2TBVvii62KDj3Y32N/nT3B4ZOzevNRJqte53QcyEU6um@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwpJzKPcyjWxfLKzfScQ8b0w1t+ZZ5Mz+AKDoE0ORhVcNVaj4yv
+ Qd9KdB+nG0pq6hNrLy1TJPXHlsdRmDnFvLSm/YegAFOXvcHL2yY9+eDTsXR4jp9cRjw99lEPaH9
+ hosAjdR+mPx/QqHsd7HtjYvvcqkU50Po=
+X-Gm-Gg: AfdE7cmcA9A3HT3Md/LKdrDYOQz1Ph8U4zPBpELjX8/bCkTNmAXxQUGLyYSZTTHa5e+
+ 3Gitd6/bAJ9J5ehn+ehTMdCTpUldCtaEJo2R2QV8fAXH1TWA2j6bzZI4e/lQMMb1SdIVtrOKdTX
+ XvXTHP9/Gwac14gaSd8dNTjSPegBJfwJ7MK4Ab8GHt9ZXaqgmgm3Lu4wG/6RQNZ/TRWvTlPTq2Y
+ yZN+mA7VqDYH6I7zm9GK+3g/9uzd/7u8V21j/UdeRvXQnBxXViICIM7xUSzfP7CLvbhk3oZaM4e
+ G6L9NSv5OYOQ4wNAdw/ZHua/YOkwj0mCBi+wxG4ibLZe8yvyDOkKPP+ic6U=
+X-Received: by 2002:a17:90b:564c:b0:37f:eda5:516f with SMTP id
+ 98e67ed59e1d1-38dc760604fmr7510028a91.0.1783977565391; Mon, 13 Jul 2026
+ 14:19:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/9] drm/managed: implement managed versions of
- kzalloc_obj/objs()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-References: <20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com>
- <20260612-wb-drop-encoder-v6-1-9f3a54f81310@oss.qualcomm.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20260612-wb-drop-encoder-v6-1-9f3a54f81310@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260713164321.3350036-1-srinivasan.shanmugam@amd.com>
+ <20260713164321.3350036-7-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260713164321.3350036-7-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 13 Jul 2026 17:19:13 -0400
+X-Gm-Features: AVVi8CcggNroJJND5UlZkDg3bvHCnqUk0cYHHqaUY_2ZkTPayFovTC6uu0dgBh8
+Message-ID: <CADnq5_PFOgExqt5BZkDkRGKZi+okxsnqxk-0GbNyZJXR3wFZuA@mail.gmail.com>
+Subject: Re: [PATCH v8 6/6] drm/amdgpu: Record QUEUE_RESET WAIT_EVENT
+ notifications
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,56 +107,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/12/26 11:30, Dmitry Baryshkov wrote:
-> The kzalloc_obj() and kzalloc_objs() functions proven to be useful and
-> widely used for the reset of the kernel. Implement a drm_device-managed
-> versions of those macros to mix the nice interface with the automatic
-> freeing of the pointers.
+On Mon, Jul 13, 2026 at 12:54=E2=80=AFPM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
-> Note: the original macros accept optional GFP_foo arguments. They are
-> skipped for now, making all allocations use GFP_KERNEL. If necessary,
-> support for overriding the GFP type can be introduced later.
+> The queue reset path already resolves the affected queue directly from
+> the doorbell and funnels successful reset handling through
+> amdgpu_userq_handle_hung_queue(). Reuse that common handling point to
+> create the corresponding WAIT_EVENT record.
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Keeping the notification in the common helper ensures that queue state
+> is updated before userspace is notified and that both EVENTFD and
+> WAIT_EVENT observe the same reset. It also avoids duplicating the
+> doorbell lookup or adding a queue scan in the MES reset path.
+>
+> No MES or GFX interrupt changes are needed.
+>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+
+Patches 5, 6 are:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->   include/drm/drm_managed.h | 22 ++++++++++++++++++++++
->   1 file changed, 22 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 >
-> diff --git a/include/drm/drm_managed.h b/include/drm/drm_managed.h
-> index 72d0d68be226..79049bec277d 100644
-> --- a/include/drm/drm_managed.h
-> +++ b/include/drm/drm_managed.h
-> @@ -105,6 +105,28 @@ static inline void *drmm_kcalloc(struct drm_device *dev,
->   	return drmm_kmalloc_array(dev, n, size, flags | __GFP_ZERO);
->   }
->   
-> +/**
-> + * drmm_kzalloc_objs - &drm_device-managed kzalloc_objs()
-> + * @dev: DRM device
-> + * @p: Variable or type to allocate an array of
-> + * @count: How many elements in the array
-> + *
-> + * Returns: newly allocated pointer to the zeroed array of @P on success, or
-There is a mix of p and P going on here. With this made more consistent:
-Reviewed-by: John Harrison <John.Harrison@Igalia.com>
-
-> + * NULL on failure.
-> + */
-> +#define drmm_kzalloc_objs(dev, p, count) \
-> +	drmm_kcalloc(dev, count, sizeof(typeof(p)), GFP_KERNEL)
-> +
-> +/**
-> + * drmm_kzalloc_obj - &drm_device-managed kzalloc_obj()
-> + * @dev: DRM device
-> + * @p: Variable or type to allocate
-> + *
-> + * Returns: newly allocated pointer to a @p on success, or NULL on failure.
-> + */
-> +#define drmm_kzalloc_obj(dev, P) \
-> +	drmm_kzalloc_objs(dev, P, 1)
-> +
->   char *drmm_kstrdup(struct drm_device *dev, const char *s, gfp_t gfp);
->   
->   void drmm_kfree(struct drm_device *dev, void *data);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 1abc05779192..8d081fda3e52 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -271,8 +271,8 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_dev=
+ice *adev, u32 doorbell)
+>   * @adev: AMDGPU device
+>   * @queue: affected user queue
+>   *
+> - * Mark the queue as hung, notify matching QUEUE_RESET EVENTFD
+> - * subscribers, force-complete its fences, and send the DRM wedged event=
+.
+> + * Mark the queue as hung, notify userspace of the queue reset,
+> + * force-complete its fences, and send the DRM wedged event.
+>   *
+>   * Return:
+>   * true when the queue was handled, false for an invalid queue.
+> @@ -282,6 +282,7 @@ amdgpu_userq_handle_hung_queue(struct amdgpu_device *=
+adev,
+>                                struct amdgpu_usermode_queue *queue)
+>  {
+>         struct amdgpu_eventfd_mgr *eventfd_mgr;
+> +       struct amdgpu_wait_event_mgr *wait_event_mgr;
 >
-
+>         if (!queue)
+>                 return false;
+> @@ -293,6 +294,11 @@ amdgpu_userq_handle_hung_queue(struct amdgpu_device =
+*adev,
+>                               DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET,
+>                               queue);
+>
+> +       wait_event_mgr =3D amdgpu_userq_wait_event_mgr(queue->userq_mgr);
+> +       amdgpu_wait_event_add(wait_event_mgr,
+> +                             DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET,
+> +                             queue);
+> +
+>         amdgpu_userq_fence_driver_force_completion(queue);
+>
+>         drm_dev_wedged_event(adev_to_drm(adev),
+> --
+> 2.34.1
+>
