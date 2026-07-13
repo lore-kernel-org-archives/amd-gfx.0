@@ -4,91 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB91C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 14:09:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A0E9C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 14:17:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5E310E5E2;
-	Mon, 13 Jul 2026 14:09:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F34A810E9C3;
+	Mon, 13 Jul 2026 14:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GmjHM1xq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="glR+f9W6";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B31B10E5E2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 14:09:17 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-381d656c36eso227658a91.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 07:09:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783951757; cv=none;
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D82110E9C3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 14:17:42 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2cc8311c6ddso4664825ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 07:17:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783952262; cv=none;
  d=google.com; s=arc-20260327;
- b=IAnuSlJg+6t5nbJIfUcyuEe8sbuyRPzqhmA5Shoin9dYGEn2picPlhk1i0IA7j/bYc
- rC/P2iinZB9byDC43r2d8FcXjDYaofh67+PFfYGL10iDK7BFk9d9/aq2sF8ygGGkwLBf
- 5NuD85UOTEm5RiRWU5s3AbWt270PF/1BUWpitOgwTKtIlU9C/akLFSoJ0mj7pQox3NNA
- Ma8Ws9rQ1XYNTcsLeV7CnDHfwJ23JcBj+BrBvOcUlzDnH0CXoWhMe9vZZT9PaPg+JveB
- jvpHLFF6VzLMjKQKv3jPBD/kRcsOaYtlSVZHlfieIRX8kw/PNDxLb9tow9urriX67WXG
- iHCg==
+ b=NDv2kh6Qb4vBRy06hRVfrCHmJ2qHJunuDPpfS01uCye9flPxVwN0hn2Ja4V9iSKL3x
+ sMxQazyL81+SYJRrv7qitVYQhRxq99iVzV2nSn2Wa5w+igr5mUstwYuRToDrzeVLLR6z
+ 60btr2ujHLEAVEV44/btyOHKXKVeKlELM4YnnL75zWj3Z7ry5GqEHHqjs7nhSkTzNuXw
+ AN3DSbUB6UNQZdcfNMg/X459PXkKP9E6772oAfQqwGoq8Nrn430oyF5NnHNNsZ/KacH0
+ k9Zl4AzBraqEs4ugXWKbCYJPcV9H+gyjWMCPJWTEI1i0Ty1vogDnupECAyE2wm0EWPm3
+ bt1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Iqz3PzcMAT9OeuKMMBY/xNxb5BdndsauKwJWxurxn0s=;
- fh=HeCrNI7cw8ZNH8ybYljUoSzRC5RPOPc0WCtG/c3Kv1M=;
- b=GADHg+Ae2+0SD4Q9TipUN9MUDNqnSVvkhkR9UCmssAcXceMN66mQpBYBisOE52SY4Z
- nnTya7tkDHSd+32tBuxTwZZs3DS2NldiNbuA5DBjzkZz2s7jFcCR2C3U0OXOzRHAU0LH
- j95HdMCaBJS19urePuUeISLQMQoBwYpdcBmnckkfz6QnLdR8oH2J+Klo+eEcpywgVvBk
- wHpAcFLb6EDOv+lHMsgnS9vroUnMK45wuT06S3/3hCNc0k7484OYjYzTEC9uaYC6oyPj
- qOEP3r9jRQewT2Zza8FYrdvcFGEpqJhSK4cc9u2D+rZPkLo4OIan6xzGOl3BiuGYmK9y
- 7UKw==; darn=lists.freedesktop.org
+ bh=uI8pYvQDTVFaBU/6757QQZt+Es90CqnPBzdo3TbBxgk=;
+ fh=617Qhbbr/F15eztTuXYW22/7QVKJPJfvN+/lyFDFHQE=;
+ b=IkUy7sdIkjkI2jz53wJSL1xyZ3ZnbI/X6XX6MsIK43DeqFV8oy25f6pUJp1aKFhERg
+ abCo+gIT9Gd6aTjonutG6dQggHLrC5tkXgCt+pof+aaIS4eUHGFpnh7DkSBkXTx7V6xv
+ NoYeHNxElrBQERg7x3CfhKvit1w64YPHEquSJ4Pu+Ljh6L5t/oIS/7O5joGGCEICEfxu
+ Y3XkTAh7ypXn5piRMhhHosQpDrz5Fj1mpn8BXTIhMzGHgr+sW9BeXNr7sCZK7mZiexlA
+ LFSJCyWR9fhWfW7ItmUpl5cAa7xwIVPy5lb4Ui6dCQ8bpI33uVEb8stpEnmHwFG1+9T5
+ WnWQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783951757; x=1784556557; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783952262; x=1784557062; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Iqz3PzcMAT9OeuKMMBY/xNxb5BdndsauKwJWxurxn0s=;
- b=GmjHM1xq4aeix0RR1iltmJqjOQdKoG/3eA/9tO2Z+vZcrT/jpT/HGNqRN/3Q3mcvlZ
- AAu3CWhGaqNRzKGpuzmbmQCwN92vH3eiF5kwr1KgJae5QRkSmMq16Qlax30Gs6hbDYHO
- fAEwn2hvgC1hWTYz+zErUODWFyhU2lFpmho6elCDq1UjuuFlPtcIDUfI94RS8pEvntS7
- j025PMet5wiqf8VAtQjKsI8NEkGpjMtFzi5WHuJI9o1CCmdWXBFQg2dmq91mhRr4t6uL
- XcTA+askgziKjGKHNSTThKnQGU7tmzh/Lwa4qAq/hpYDOgkHtEP7XL1xAAb+H8PdCdDb
- wAMg==
+ bh=uI8pYvQDTVFaBU/6757QQZt+Es90CqnPBzdo3TbBxgk=;
+ b=glR+f9W666PxY5mZ/E+9X9SJgdEC4M/MqbD9eZM7bsRZsRfQXiXm4qLcguvR/ZBNOS
+ xeFLVR3v50G0HZmtVZZyulFXTOcvrh82ZCyrddQNPVT+XaU4URYpkPxPVVUr852ArTWN
+ iqFof0KcbKTlV6I5KqyWvol/Vpfk/+k53AlON8103aWrDBZsRIuP4YfPCU6SjHshpLEL
+ Cw9WJYdIzrJVOr2n072d777ERtSnExZYC6JFASEXXE+CckGPS83rFwodFb9BQL9XuvLu
+ X7bIyJZMJGtXuC5DjTVceC4nfCPJCrV+e1EiUQ30mQE5KhVTe9nntkmasnNTaZOgnosR
+ RXog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783951757; x=1784556557;
+ d=1e100.net; s=20251104; t=1783952262; x=1784557062;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Iqz3PzcMAT9OeuKMMBY/xNxb5BdndsauKwJWxurxn0s=;
- b=HAxE3FbLlkGpu6yHbntztGIBldbV1lpJjyVBr4ZHu+YaeEEswKEajaSDpHaOd9BIVA
- p5oo5GPTrVi2KDOcwAi6kghV6tt7Fs+PkE/UAue+lP74gUwIDgs05/MAK/csZI0JacBa
- YJxSJ5Bv9mYchNLazDyNY93d3RFdGKq5gUMDVY4ldtN7iSbr+OTs20wPB5iDFaEVD5yO
- 8Kl0NYkFDEwTMuR9ItMWBG9kJiaHbvoxzzU2GjLdhpw/YoHKIz34euvhSu0bzINFzS8I
- fYYMA8eufWi3Q+/0A8vEXAG5rt69L5Yn54hJmt97IMSaXUCNa0qk+5dD+H+IuoX1HH+r
- Gysw==
-X-Gm-Message-State: AOJu0YwhL/8pZt1OhrzQh0plzJDMePkh+fjwvQ0grytVAQnnvZfEKCCS
- JxGEAP6gtCKNM1dCfDhD4UvT459SnjqqbIQLVR6rIgo5fIHa/S75E7aHWpaMFnd4JOlJxMnXXcP
- 4RL+qUraupz71WTYhQbfajcENihxy4o8=
-X-Gm-Gg: AfdE7ckzCKCsYeLUfRVSVWcyJmb/gvr/QEEaHTOMMo9mtuB8mNaP0oX0hoEk+taHkc7
- X+2F+XLXQXtjk1uQkdxYsgvaTPweVdjBLn3XaJ2IKcLGIL1DQHcIQL0AF99fQY4Q4FA4eXlssT6
- shmX6WJpP6D4j1/G9Vj6LtwFqJi5PfoN0EoFLyM1TSCwvXm2CVkCNR8AYu2NVFT+L51c71AeBie
- 1v10LV4YR5jtuLQaMH6uDH1Vx+tNY0yf3ZeMkbHJjC/B5WpXP3f015e3bIQzsAFXXE6prDAy113
- Ox/e4l6E5/5qr/snN+m+BI1luZAp1r2FIwOguJN6B+SQ0WA1IueUytzsZ1E=
-X-Received: by 2002:a17:90b:3e48:b0:380:7688:fc06 with SMTP id
- 98e67ed59e1d1-38dc7849860mr6743253a91.8.1783951756794; Mon, 13 Jul 2026
- 07:09:16 -0700 (PDT)
+ bh=uI8pYvQDTVFaBU/6757QQZt+Es90CqnPBzdo3TbBxgk=;
+ b=IgM3SZLKn2VVw+iydSfOWjYA6A++HnVmE70eOsBqrDlKPA5zDgEG4XJnRVF6iEVKqa
+ KF3QyjUvslhJh+RO0JH4F1sTwcxKrEkxxZMoCOxIAfrNSBqsShb8DQc83JT5nAdswMSw
+ KjMkpA5vvkc0E7xvTk8EOqeOS5Xvwg5XhSgZ0XmgbW8IN/edyVsO7wxwG+gQNfIXU+8B
+ zOU4sUydGikqgQNEgy6YcorgsOTxTms9Y6flR9loasAstQ995JQsoYH8ZQZ50nsT9oUg
+ IPKTt+3sCuHjoVxIzTdnfDfyps9JH1qgeWqJxcxNbMwMd/RvUe/DMcurr11ZBnQdBObc
+ ibVQ==
+X-Gm-Message-State: AOJu0YzQqNtqktFr9PX39NNwugZWrQCgzz2egO3n5ulPZqdaEqJNEvr3
+ 7AWnklfq/XCQ1dcU7ANCKlpZGFyPGjDeQrvWbH5wYLy6iAy+55LWYt9MdzkFPCPRR1zsRMBqIXj
+ OIiJ1rbs3TVaqT2TbbITwJxWrmSUGagM=
+X-Gm-Gg: AfdE7cn6wQ0wyf3lQU3vTn2uU7PciWr92IUM1lq3CqXuQTm78+1EE1Bju63GxzAkboF
+ g34FWNjnI/AolEPMLgyQxv+OzbnR84NAO/KFwLl6WMGHl3bT1t+bpEBYqvfoDBIv0C8yWmmBeSv
+ U4Yy70Xhwy4IRuC8oqVU7+owDY9FTJ120W5Djsspp+WMkxnyl1dDKY/LOO673LLXSQ5F9mdoFUw
+ MKBKxIS+Ilp69IPngtjqmRlGms6hrCt8xg58/06VYvOMoCEXyQhm+trekHwx8Pznfkkf3K3WBIr
+ y77+tunCeceDxko3VYJMkfVtwZxGKi1OMXN6ZaEFtqBFwtfs0qAklbLb6QxK6eZDMW3JSw==
+X-Received: by 2002:a17:902:fdab:b0:2cc:df15:91e2 with SMTP id
+ d9443c01a7336-2ce9f1838d2mr77380885ad.7.1783952261799; Mon, 13 Jul 2026
+ 07:17:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260711115000.40655-1-timur.kristof@gmail.com>
-In-Reply-To: <20260711115000.40655-1-timur.kristof@gmail.com>
+References: <CAOidqQDq6khYfEjSz8=FHNBnR_nd17WYZDn7OdWOPG4BgPtTwQ@mail.gmail.com>
+In-Reply-To: <CAOidqQDq6khYfEjSz8=FHNBnR_nd17WYZDn7OdWOPG4BgPtTwQ@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jul 2026 10:09:05 -0400
-X-Gm-Features: AVVi8Cfi4TBXTT4yBIHXS6K2s_Zak6FY-Obdqn0ngE9PBD2licArnx9k4pGJ3Mo
-Message-ID: <CADnq5_P5F1_v3ZqUBprSM0t93Lbcn4RfzPtw_PZuTvVmkGuWPQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu/ttm: Consider concurrent VM flushes for
- buffer entities
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>, 
- pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
+Date: Mon, 13 Jul 2026 10:17:30 -0400
+X-Gm-Features: AVVi8CfQIS4rEL1wc5ky61QejnpfLIm4aqhKsrQowe1QPdHtP2twCTzHwUMyN5Y
+Message-ID: <CADnq5_Oga9bvHFdYgnq47h+-xznkcOOsi5U18CCaApLg9rSu9w@mail.gmail.com>
+Subject: Re: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream
+ encoders for DP MST
+To: Andriy Korud <a.korud@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ mario.limonciello@amd.com, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,66 +104,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+On Sun, Jul 12, 2026 at 11:39=E2=80=AFAM Andriy Korud <a.korud@gmail.com> w=
+rote:
+>
+> From d37cbde6a3b3e57a5dc794514e77fc66e7fa8943 Mon Sep 17 00:00:00 2001
+> From: Andriy Korud <a.korud@gmail.com>
+> Date: Fri, 10 Jul 2026 12:36:59 +0200
+> Subject: [PATCH drm-amd] drm/amd/display: dce100: skip non-DP stream enco=
+ders
+> for DP MST
+>
+> On DCE8-class ASICs (e.g. Bonaire), the resource pool contains digital
+> DIG stream encoders plus one analog DAC encoder. When assigning a stream
+> encoder for a second DisplayPort MST stream, if the preferred digital
+> encoder is already acquired, dce100_find_first_free_match_stream_enc_for_=
+link()
+> falls back to the first free pool entry. That entry may be the analog
+> encoder, whose funcs table lacks DP hooks such as dp_set_stream_attribute=
+.
+> The subsequent atomic commit then dereferences NULL function pointers in
+> link_set_dpms_on() and crashes.
+>
+> Skip encoders without dp_set_stream_attribute when the stream uses a DP
+> signal (including MST). Use dc_is_dp_signal(stream->signal) for the MST
+> fallback path instead of checking only the link connector signal.
+>
+> Tested on:
+> - GPU: AMD Radeon R7 260X (Bonaire / DCE8)
+> - Board: Supermicro C9X299-PG300
+> - Setup: DP MST daisy chain, hotplug second monitor or have it connected =
+on boot
+> - Kernel: 7.1.3 (issue observed since 6.19)
+> - Result: kernel oops without patch; dual monitors stable with patch
+>
+> Signed-off-by: Andriy Korud <a.korud@gmail.com>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5162
 
-On Sat, Jul 11, 2026 at 7:59=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
->
-> Allow using multiple SDMA schedulers only on GPUs where
-> we are allowed to do concurrent VM flushes.
-> This consideration is necessary because all GART windows
-> are mapped in VMID 0 (the kernel VMID) so each buffer
-> entity would flush VMID 0 concurrently.
->
-> Practically this means that we can't use multiple SDMA
-> engines for TTM on GFX6-8 and Navi 1x.
->
-> Fixes: 01c836788b37 ("drm/amdgpu: pass all the sdma scheds to amdgpu_mman=
-")
-> Fixes: e4029f7a9474 ("drm/amdgpu: only use working sdma schedulers for tt=
-m")
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+I've manually fixed this up, but please use git send email in the
+future to avoid having the patch get mangled.
+
+Thanks!
+
+Alex
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 +++++++++++++++-----
->  1 file changed, 15 insertions(+), 5 deletions(-)
+> .../drm/amd/display/dc/resource/dce100/dce100_resource.c | 9 ++++++++-
+> 1 file changed, 8 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 74ada995bd8e..9eb55df6e692 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2685,12 +2685,22 @@ void amdgpu_sdma_set_buffer_funcs_scheds(struct a=
-mdgpu_device *adev,
->                 return;
->         }
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resour=
+ce.c
+> b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+> index b92d4f378d60..beaf2e654672 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+> @@ -29,6 +29,7 @@
+> #include "stream_encoder.h"
 >
-> -       /* Navi1x's workaround requires us to limit to a single SDMA sche=
-d
-> -        * for ttm.
-> -        */
->         hub =3D &adev->vmhub[AMDGPU_GFXHUB(0)];
-> -       adev->mman.num_buffer_funcs_scheds =3D hub->sdma_invalidation_wor=
-karound ?
-> -               1 : n;
+> #include "resource.h"
+> +#include "signal_types.h"
+> #include "clk_mgr.h"
+> #include "include/irq_service_interface.h"
+> #include "dio/virtual/virtual_stream_encoder.h"
+> @@ -992,6 +993,12 @@ struct stream_encoder
+> *dce100_find_first_free_match_stream_enc_for_link(
+>        for (i =3D 0; i < pool->stream_enc_count; i++) {
+>                if (!res_ctx->is_stream_enc_acquired[i] &&
+>                                pool->stream_enc[i]) {
+> +                       /* DP/MST needs a digital encoder; skip
+> analog/no-DP encoders */
+> +                       if (dc_is_dp_signal(stream->signal) &&
+> +                           (!pool->stream_enc[i]->funcs ||
 > +
-> +       /*
-> +        * Allow using multiple SDMA schedulers only on GPUs where
-> +        * we are allowed to do concurrent VM flushes.
-> +        * This consideration is necessary because all GART windows
-> +        * are mapped in VMID 0 (the kernel VMID) so each buffer
-> +        * entity would flush VMID 0 concurrently.
-> +        *
-> +        * Also consider the SDMA invalidation workaround on
-> +        * Navi 1x GPUs, which also prevents us from using
-> +        * multiple SDMA engines on VMID 0 at the same time.
-> +        */
-> +       adev->mman.num_buffer_funcs_scheds =3D
-> +               (adev->vm_manager.concurrent_flush &&
-> +                !hub->sdma_invalidation_workaround) ? n : 1;
->  }
+> !pool->stream_enc[i]->funcs->dp_set_stream_attribute))
+> +                               continue;
+> +
+>                        /* Store first available for MST second display
+>                         * in daisy chain use case
+>                         */
+> @@ -1014,7 +1021,7 @@ struct stream_encoder
+> *dce100_find_first_free_match_stream_enc_for_link(
+>         * required for non DP connectors.
+>         */
 >
->  #if defined(CONFIG_DEBUG_FS)
+> -       if (j >=3D 0 && link->connector_signal =3D=3D SIGNAL_TYPE_DISPLAY=
+_PORT)
+> +       if (j >=3D 0 && dc_is_dp_signal(stream->signal))
+>                return pool->stream_enc[j];
+>
+>        return NULL;
 > --
 > 2.55.0
->
