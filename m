@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53001C43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C517C43458
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 12:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E22DF10E601;
-	Mon, 13 Jul 2026 12:58:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2764410E62F;
+	Mon, 13 Jul 2026 12:58:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cDpbQYlX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C0Fiaurh";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC5110E5FC
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:47 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-47df43bfb07so641352f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:47 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A520810E62F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:58:50 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-47df6a5202bso1833782f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 05:58:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783947525; x=1784552325; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783947529; x=1784552329; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=4hXu2Mw5J6id5mSDe82fAv6xb216F4fxNl2soSNjZOc=;
- b=cDpbQYlXnoOQAT8TnnBKRtH2xAj/LuFKobp83/Bro0TB0/FImEyMxf4II09iKZ8zc9
- zhnrrS8RM2AY5fcjldmpzAZap6mLtKg4CrGOBH6QWcTeDh5Yo66Y8hEccRshxkbQDUoM
- zOGzV4obAzFMAHNJNOZ/AxnKvQjbgLuMKnRkUX2w6omIiIhHIBq8SdvVjbIOOsf5dlb+
- Zv2OhuKbldqA5JiXET62Uumb/EDwjVI9litUe30z7cB6gE6lSG92XGjmy+ZkRt/sphUk
- wOYxhtUtJK7iNfnDrlaoKnp3SgHylyF3o7kE2B9xVBJLdAcuXRWOdqJwlkgN6atMRqIb
- kFpw==
+ bh=/uTxEj2yTuZ36HP7TyCebyqbOFU6Rhjg6uBnVAfIYuQ=;
+ b=C0FiaurhJzA7F+hQhGLbX/W6tdHue38IuKbmst2ltSBW/mci5xQ0gJUfCnbJA3a5Yp
+ nFpxJk3JvdXsyU/MWPX5YXhi/L3Ho3xia5kXuYMLSDR6iONrj3pUwk10kntwkyeYyUiF
+ iaMXnK/6y1lbmnoBXs7SnQ8wB0nQopYHGy2crIrdm86LonSV7bKYjzTEdTUsNg4ejHJB
+ gcpk26BwE3D0fozzuUN7f8KykJd6YzpFQcqpNfOp8lhM+Ds2X+eaE6sxtA+nz6hJSP0H
+ 8yaYwLTujPe1d1xHbJLbhQbpXxIevwvDzj9AAmoIbmgAkx2A3QsjiWVSiUtl2RKt3wKq
+ k7Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783947525; x=1784552325;
+ d=1e100.net; s=20251104; t=1783947529; x=1784552329;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=4hXu2Mw5J6id5mSDe82fAv6xb216F4fxNl2soSNjZOc=;
- b=qgh3mivo+ghUluRZWBET5Kq/TjCFFbrun4CpA3xQbgK4V1Y2zRTFrBgKoe2soAwZQp
- kqhV5BX7NeIUbqo9RQa80OMeFnCMF/u9SxyqPQQTqNX0QHuazEPKqaAIIg7MyyF0xI+F
- xzMDEQeOYmZ6Gko0N+63VKSzciWqXo/YTfz2H7Sa2w7xhGV9WuXZJxUntaTrISurspMC
- EThkUo2BmOkRK0zkXcx74f5Uz98xBTeD4RehuD+um/fXSQffxPGT4b36g48HrGf1TgK6
- X23UvK/y09EXN7fjvSj9UTNZVCdaKJZkILF57JjtPVqM9Xu8BER0PeA0RnJQdRe/xVop
- RJbg==
-X-Gm-Message-State: AOJu0YxziEmZ30wygoAu4B+DE59pCbpZ6FKyd6usWnxsXSkTAQWsBNmS
- tyPqqpPgAw4xSxraR0dS96Iq5CMVc8cLPrZhqiohRGfFzpsbyr0vd02sUfDbFQ==
-X-Gm-Gg: AfdE7cmUtSg9BHm317Bk50p3PRG3eibWA7ZW96u8bAU1xzShoOtnlot7Y66azdwCF4t
- kILke1UufXXM94ltBz5zcntlrs3B45+Npi4+xRXe+Rgc/LFgUrGIHYfK5EuVfVDc64vc1tu0hdX
- pJkHNGbIMPQnLC8FsHdTfB6kAwbkRgjebH9rheisHokIpl5AAd0bxX9sndgZJzcvwGKuag7sVad
- yzIQ/SjNloOe3eTxAL5rqmgoVXdvK1CzyY5UNInfTQYRBFrr4KwubT7xTlfxslwjt/ZzFMCeBOK
- kaM9OxsfiMwe8GEJrWpyheqSbP5ODV5W+qBbXphW1DhMSpmJTBA6fvsQyj3kDUH5I7SIPCohpeZ
- XpqOmvi3LwNSfgXaBZaFXVF6cQDln0QpjIGi+rn3cZ3PviWuNTwvFNxM/AkkwsVxR02qNS2M1ow
- aIgTZL+bLewMbBDTsvTrnikvdrJTELuwa4hkmlkcVsbYLwOkjp+odf6g==
-X-Received: by 2002:a05:6000:2887:b0:47d:edab:1b4e with SMTP id
- ffacd0b85a97d-47f2dcb3a0amr9534582f8f.8.1783947525381; 
- Mon, 13 Jul 2026 05:58:45 -0700 (PDT)
+ bh=/uTxEj2yTuZ36HP7TyCebyqbOFU6Rhjg6uBnVAfIYuQ=;
+ b=M8XKUYRFCP9rnOkaLWIgNoBeHcZnNke9hRmnccoiDyi0tIt7jDy7hVf21MYUnOcprb
+ IdNMSWjdOdy8rkGAw3hscZvATTNC3BJswV1vHP+7VASLjz0Yh9hY6bO0PE18JWLCHbLr
+ jq4z2oNmLuxkIpHLBOiiYZT8A0qxjENCCNDwtmTJhQOYpSHRydUHwg4dXdA085QwoUJY
+ 7FoODPnw2sX+utAQm9duapBE/2LwexPEKb8RltBhpiegCEY0IFjMC4YFmzB4l/6SOzOD
+ EvHgrZ0I11cm7UbljOxCIQQhGfn30EX8lCmVdd1GUOhvhsyEhKd5/Hk3Armi36Hgd554
+ gE9Q==
+X-Gm-Message-State: AOJu0YzSwJPaYVvr5uo7sYDpWNfwjnEn44uakEWFXN+v+FZDm7h6II1l
+ 51TX3vL5rmiv8KiZKUXaW+MrUcY8XeiCniI/mjrIiFwqDFyHj/ELkCdt3p3qdw==
+X-Gm-Gg: AfdE7ckQC1cCX1lEqOH+x19DTuQR0u+ZfUYWojBpsqbxJ5MFqhuBZ1n+06HXQJdP0sr
+ n5qm9nlRsgamdsbDQ25yHhFGnU8zW/WTx+tD1ZYm44BLBz6Qu1uF2lTPATgxAobETCT+JAw9y2N
+ 1Sq3+RWOi3o7zi2126AMxaonziA+tHHp6pTDVko9SbudrNun+aXAUWCIWVQDe9CiZAjHmb7TJPb
+ eC7g0tEU6uM0e/1tfoH+iBSmgZEpeRviRxmgL8sVuCgUwi+svHOmYRhPD4AIWudUsyo2wdeDX43
+ 9QkD5RKEaGwDZ0amtxmIf2TXCSr1x9yHIEua7TbwP/o0vUITQ1mmA+UG1blqBVwxGbDTLc0UBB4
+ Y+xpTKYR3rDtMxoLgenZzvdtlmVhoR7z4myGKh3nhX7Nd06cplkNdO7+AhcvNGG4iDBL/9tkHfw
+ j2Qary86STkfABEkjsZmDurlQ8zh1oXc4Sql9OL/+jMIjUxWopeCxk01893cnfebha
+X-Received: by 2002:a05:6000:400a:b0:46f:7d90:8114 with SMTP id
+ ffacd0b85a97d-47f2dcb50e7mr10284805f8f.14.1783947528958; 
+ Mon, 13 Jul 2026 05:58:48 -0700 (PDT)
 Received: from Timur-Hyperion.home (54001386.dsl.pool.telekom.hu.
  [84.0.19.134]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.43
+ ffacd0b85a97d-47a9e4d6e4csm80456918f8f.10.2026.07.13.05.58.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 05:58:44 -0700 (PDT)
+ Mon, 13 Jul 2026 05:58:48 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, Tvrtko Ursulin <tursulin@ursulin.net>,
  pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/9] drm/amdgpu/gfx7: Refactor MQD initialization and
- finalization
-Date: Mon, 13 Jul 2026 14:58:31 +0200
-Message-ID: <20260713125838.30607-3-timur.kristof@gmail.com>
+Subject: [PATCH 4/9] drm/amdgpu/gfx7: Return error code when failing to start
+ GFX ring
+Date: Mon, 13 Jul 2026 14:58:33 +0200
+Message-ID: <20260713125838.30607-5-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260713125838.30607-1-timur.kristof@gmail.com>
 References: <20260713125838.30607-1-timur.kristof@gmail.com>
@@ -90,188 +90,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Call amdgpu_gfx_mqd_sw_init()/_fini() on GFX7 to initialize and
-finalize the MQD, just like GFX8 and newer; instead of doing
-an ad-hoc BO allocation. This introduces the possibility of
-doing an MQD backup instead of trying to reinitialize the
-MQD every time.
-
-This solves an issue with GFX IP block soft reset where
-all compute rings would hang after the reset.
+Return an error code instead of silently failing.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 106 +++++++++++++-------------
- 1 file changed, 51 insertions(+), 55 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 65b8497ad5f0..9c4b3ac27e1f 100644
+index a1a9f3fc4567..0ceadb107d26 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -2698,25 +2698,6 @@ static int gfx_v7_0_cp_compute_load_microcode(struct amdgpu_device *adev)
- 	return 0;
- }
+@@ -2576,7 +2576,10 @@ static int gfx_v7_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32(mmCP_RB0_BASE_HI, upper_32_bits(rb_addr));
  
--/**
-- * gfx_v7_0_cp_compute_fini - stop the compute queues
-- *
-- * @adev: amdgpu_device pointer
-- *
-- * Stop the compute queues and tear down the driver queue
-- * info.
-- */
--static void gfx_v7_0_cp_compute_fini(struct amdgpu_device *adev)
--{
--	int i;
--
--	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--		struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
--
--		amdgpu_bo_free_kernel(&ring->mqd_obj, NULL, NULL);
--	}
--}
--
- static void gfx_v7_0_mec_fini(struct amdgpu_device *adev)
- {
- 	amdgpu_bo_free_kernel(&adev->gfx.mec.hpd_eop_obj, NULL, NULL);
-@@ -2788,28 +2769,29 @@ static void gfx_v7_0_compute_pipe_init(struct amdgpu_device *adev,
- 	mutex_unlock(&adev->srbm_mutex);
- }
- 
--static int gfx_v7_0_mqd_deactivate(struct amdgpu_device *adev)
-+static int gfx_v7_0_mqd_deactivate(struct amdgpu_device *adev, u32 req)
- {
--	int i;
-+	int i, r = 0;
- 
- 	/* disable the queue if it's active */
--	if (RREG32(mmCP_HQD_ACTIVE) & 1) {
--		WREG32(mmCP_HQD_DEQUEUE_REQUEST, 1);
-+	if (RREG32(mmCP_HQD_ACTIVE) & CP_HQD_ACTIVE__ACTIVE_MASK) {
-+		WREG32_FIELD(CP_HQD_DEQUEUE_REQUEST, DEQUEUE_REQ, req);
- 		for (i = 0; i < adev->usec_timeout; i++) {
--			if (!(RREG32(mmCP_HQD_ACTIVE) & 1))
-+			if (!(RREG32(mmCP_HQD_ACTIVE) & CP_HQD_ACTIVE__ACTIVE_MASK))
- 				break;
- 			udelay(1);
- 		}
- 
- 		if (i == adev->usec_timeout)
--			return -ETIMEDOUT;
-+			r = -ETIMEDOUT;
- 
--		WREG32(mmCP_HQD_DEQUEUE_REQUEST, 0);
--		WREG32(mmCP_HQD_PQ_RPTR, 0);
--		WREG32(mmCP_HQD_PQ_WPTR, 0);
- 	}
- 
--	return 0;
-+	WREG32(mmCP_HQD_DEQUEUE_REQUEST, 0);
-+	WREG32(mmCP_HQD_PQ_RPTR, 0);
-+	WREG32(mmCP_HQD_PQ_WPTR, 0);
-+
-+	return r;
- }
- 
- static void gfx_v7_0_mqd_init(struct amdgpu_device *adev,
-@@ -2964,31 +2946,42 @@ static int gfx_v7_0_mqd_commit(struct amdgpu_device *adev, struct cik_mqd *mqd)
- 
- static int gfx_v7_0_compute_queue_init(struct amdgpu_device *adev, int ring_id)
- {
--	int r;
--	u64 mqd_gpu_addr;
--	struct cik_mqd *mqd;
- 	struct amdgpu_ring *ring = &adev->gfx.compute_ring[ring_id];
--
--	r = amdgpu_bo_create_reserved(adev, sizeof(struct cik_mqd), PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
--				      &mqd_gpu_addr, (void **)&mqd);
--	if (r) {
--		dev_warn(adev->dev, "(%d) create MQD bo failed\n", r);
--		return r;
-+	struct cik_mqd *mqd = ring->mqd_ptr;
-+	int mqd_idx = ring - &adev->gfx.compute_ring[0];
-+
-+	if (!amdgpu_in_reset(adev) && !adev->in_suspend) {
-+		memset((void *)mqd, 0, ring->mqd_size);
-+		mutex_lock(&adev->srbm_mutex);
-+		cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
-+		gfx_v7_0_mqd_init(adev, mqd, ring->mqd_gpu_addr, ring);
-+		gfx_v7_0_mqd_deactivate(adev, 1);
-+		gfx_v7_0_mqd_commit(adev, mqd);
-+		cik_srbm_select(adev, 0, 0, 0, 0);
-+		mutex_unlock(&adev->srbm_mutex);
-+
-+		if (adev->gfx.mec.mqd_backup[mqd_idx])
-+			memcpy(adev->gfx.mec.mqd_backup[mqd_idx], mqd, ring->mqd_size);
-+	} else {
-+		/* restore MQD to a clean status */
-+		if (adev->gfx.mec.mqd_backup[mqd_idx])
-+			memcpy(mqd, adev->gfx.mec.mqd_backup[mqd_idx], ring->mqd_size);
-+
-+		/* Re-commit the restored backup */
-+		mutex_lock(&adev->srbm_mutex);
-+		cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
-+		gfx_v7_0_mqd_deactivate(adev, 2);
-+		gfx_v7_0_mqd_commit(adev, mqd);
-+		cik_srbm_select(adev, 0, 0, 0, 0);
-+		mutex_unlock(&adev->srbm_mutex);
-+
-+		/* reset ring buffer */
-+		ring->wptr = 0;
-+		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		atomic64_set((atomic64_t *)ring->rptr_cpu_addr, 0);
-+		amdgpu_ring_clear_ring(ring);
- 	}
- 
--	mutex_lock(&adev->srbm_mutex);
--	cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
--
--	gfx_v7_0_mqd_init(adev, mqd, mqd_gpu_addr, ring);
--	gfx_v7_0_mqd_deactivate(adev);
--	gfx_v7_0_mqd_commit(adev, mqd);
--
--	cik_srbm_select(adev, 0, 0, 0, 0);
--	mutex_unlock(&adev->srbm_mutex);
--
--	amdgpu_bo_kunmap(ring->mqd_obj);
--	amdgpu_bo_unreserve(ring->mqd_obj);
- 	return 0;
- }
- 
-@@ -3020,10 +3013,8 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
- 	/* init the queues */
- 	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
- 		r = gfx_v7_0_compute_queue_init(adev, i);
--		if (r) {
--			gfx_v7_0_cp_compute_fini(adev);
-+		if (r)
- 			return r;
--		}
- 	}
- 
- 	gfx_v7_0_cp_compute_enable(adev, true);
-@@ -4430,6 +4421,11 @@ static int gfx_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		}
- 	}
- 
-+	/* create MQD for all compute queues */
-+	r = amdgpu_gfx_mqd_sw_init(adev, sizeof(struct cik_mqd), 0);
+ 	/* start the ring */
+-	gfx_v7_0_cp_gfx_start(adev);
++	r = gfx_v7_0_cp_gfx_start(adev);
 +	if (r)
 +		return r;
 +
- 	adev->gfx.ce_ram_size = 0x8000;
- 
- 	gfx_v7_0_gpu_early_init(adev);
-@@ -4452,7 +4448,7 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 	for (i = 0; i < adev->gfx.num_compute_rings; i++)
- 		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
- 
--	gfx_v7_0_cp_compute_fini(adev);
-+	amdgpu_gfx_mqd_sw_fini(adev, 0);
- 	amdgpu_gfx_rlc_fini(adev);
- 	gfx_v7_0_mec_fini(adev);
- 	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
+ 	r = amdgpu_ring_test_helper(ring);
+ 	if (r)
+ 		return r;
 -- 
 2.55.0
 
