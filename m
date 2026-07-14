@@ -4,79 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA84FC43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 00:23:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5A75C43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 01:38:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E76810E9F7;
-	Tue, 14 Jul 2026 00:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208B110EB97;
+	Tue, 14 Jul 2026 01:38:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s0PUCY4w";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5jlV3IjR";
 	dkim-atps=neutral
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2532910E9F7
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 00:23:06 +0000 (UTC)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-92eafc94c9cso262094085a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 17:23:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783988585; x=1784593385; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Koso+bSPPHaqPvmr39rQPkbp0UVDUHxcqL3tZvHC0nY=;
- b=s0PUCY4wpHb65bteF3MPAa1cB53m2hHStaj5Yenlth3Aqe1nM4Bl4nPtjNlvAqKPQD
- bbGFrY9OyTsYLa2wrLE+/hbZidV+Eh29q03vjrwY+zj7HoGbaWPzCPVw5JWeahiI4nVP
- PQqbtMXkroCrciPCsq/ZNzWzGuBZHehZRJGKcNaIl/Zh17O2qHiHWnyLiHdYzdeHauKN
- zJma6ZM9eX1zTWregR8POSoHtSTEJz/xJfe/5RQ/QyOIlvFf0Ldz45bTd5py1rsRbWLh
- kRqzZfZZ4kcM3AIU6vwsK3edaXMTRmxQnanf4M1YDhGjynvHubT8w9/77IddOvFjWhER
- vwqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783988585; x=1784593385;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Koso+bSPPHaqPvmr39rQPkbp0UVDUHxcqL3tZvHC0nY=;
- b=XBi2kRVphEF8t12BIrKRv6tn+X/3ikDvbw/5IHrGEBpDnUUamcKK76APoE2UEzMyhi
- kdyOMPblHKwWcWWbBM8PAUlTzbkg9t4QtH4MnFifNwyL7t6DDRLzzKSDcTPxvTZS1Z6c
- 24AT+8DeJLnuIDIv/6CdrkHas7SoFicMqrDi2lZwPPWZS5KEnDJxDY1THfbwBWdB/9bl
- gQpUVfzNtU2QhlNbAH0iPgkQL2MBOZq88C3XSjVszYe9U0t5TuE2RK3OxGBzZNJR0O3g
- TfV0wQ+m6MOtnpdAZfzbfbiNpKGRnrJ1DQBtCluamMqW10VZzoePqZZcCFwNRcwlDqv0
- 2UoQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq25DXK/YAEbGFOf5JxlOzSC87iyoP89rADmaJRdrTtcqi0qA2sg8/a9rfQYwXMnKgeMxqU7G0l@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzy3XY2roSrxQfmNUSvMeBoo/8OjYhwqI/E/jKSsMa5d0wE0KTy
- CW6ieNsrtYKDP0OHWxKwL9VBagxn9SvVzitiCfWTlb/9TvW4aGE7NYvb
-X-Gm-Gg: AfdE7cnHYNzuz/clqFeAY0bxw0iyepy3GOS/IdH0Hybm2jwsSRYfGtl+rqRLluaHxgm
- Ife46Tz6Ll7LNG0OvfF94UxSghlSyuNEFudvSFjd5mXMqNEA54XncQlRzML2svFXjFzKacmZa1P
- FigC5aVGgVYroGs90sSYMkB8jKPY75V47qXpjyC6o1Ojp2ppYbuBBz/2sQuAE+AGNEK17a7ZXEn
- cQipnbhqa5mtW2hifvazaBpLPhadVwRr9St9wcOHKULDGMvxq3HMLqTkGiINfi/0im2t622WaKU
- OSyW/7ZJIqfoJzN4P2nd9A5z5TnSvkRfVKfDkMLzGDW7GVlFE8ywqPnGtyIszWepDsVAn7yfl0P
- m6eSQ32mLZD4PYPc6FUb79Gy4uM0SAPSvE4plhk4iuwxjZ8TAZHClkUwcJ03L5FtZbDEOlXn42n
- 3wybkE7rEY7sKe1ANC8a/Y
-X-Received: by 2002:a05:620a:6909:b0:92e:6a43:4768 with SMTP id
- af79cd13be357-9308683c3f6mr29539685a.11.1783988584699; 
- Mon, 13 Jul 2026 17:23:04 -0700 (PDT)
-Received: from [192.168.1.100] ([32.219.251.147])
- by smtp.googlemail.com with ESMTPSA id
- af79cd13be357-92ee5b4a082sm1217193785a.7.2026.07.13.17.23.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Jul 2026 17:23:03 -0700 (PDT)
-Message-ID: <1690367e-5e83-4121-bf3c-96f15f7060c8@gmail.com>
-Date: Mon, 13 Jul 2026 20:23:02 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: Fix pp_entries_max() bios check
-To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: lijo.lazar@amd.com, hawking.zhang@amd.com, le.ma@amd.com,
- shiwu.zhang@amd.com, alexander.deucher@amd.com, kevinyang.wang@amd.com
-References: <20260713042902.2220454-1-asad.kamal@amd.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012016.outbound.protection.outlook.com
+ [40.107.200.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C10C410E695
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 01:38:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JW6bSETKYrMaT5AIgkHqHeq/eyIPkAWYZp1t9mdHZPW4RGQEvUAO+9nyCid5ZgUoD1rfWd2aStZZyZ6cKjkfYWLSE83+AuoZddfcM6eN/fkmHE8sHZ3Y1GwR5dqyJa6CxXVevJ4QXOtp+Zx4cznh8ETJtkbXPJku/o0U/BMwSWI6BDcv0Pn8FpmELn/m7a7h3ZTR07pqg2TghgMvJq/POnau0A0MeMHPQmt3X4pmfhx0yHGS7cu+KOJmnMcrv67yk8KQF4xDBnEt2IFnOlOtDMgzSftUeWwCL2qoNLnexzrKrqWkGCGv0Z63Rq+yl3xl6p3H8thDI0Xj8QhF3SxlWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jMN7ixpeutcBogO9mQ+kV0NVrH2BamHx7gkq9PNoSes=;
+ b=vDuxMoghtXoMtDkXtDLpczKd1UyAdG4keKDke81yJ8Ub9aFRaVT9v4OaIAsHU7G3EsNEk3Ch5uP8eF7NXkaz0/eT+cvH0/eNm0s2b31/2dMMEepWYBvN/XxU3dSQi/op2yKm9fBBSHjZ53QxMgt9+wOrMUQlDg1nOxL1GkMlh+3RC/DA5GKagqfk0EbLeosOpFu5/J8fhvBeA1XXv3rVHR7UhmG1hE4r04ym2g6wCH2SWBc0Shd5b+k+SEu00ohLQFNQzopLcgrWFjWQHMMJMfJXetc/KjCjjCklZPkVAQZt5mJKzJbqobxVUcltDWPpQU7ra2Zt16HDVLvdqO/O1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jMN7ixpeutcBogO9mQ+kV0NVrH2BamHx7gkq9PNoSes=;
+ b=5jlV3IjRQXHgb6tfoNUtC0xEOibvBBIcxXAk4TfpEN5D06BSgHxyPC2GxXP3GSqVWMiFyNHC7O2Szpdcxh+cCwTWvUa+Q1Z4rozQtme62+SMY9f1TfwaKk6Fe0ntY9EFMzo6pcy6yZCqbqxr8BxNWzd9PpzClI4UXDBieW14q0Q=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by IA1PR12MB8358.namprd12.prod.outlook.com (2603:10b6:208:3fa::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.23; Tue, 14 Jul
+ 2026 01:38:50 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d%5]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 01:38:48 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "SHANMUGAM, SRINIVASAN"
+ <SRINIVASAN.SHANMUGAM@amd.com>, "Liang, Prike" <Prike.Liang@amd.com>,
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/userq: properly account for resets
+Thread-Topic: [PATCH] drm/amdgpu/userq: properly account for resets
+Thread-Index: AQHdEweq90Jme/L2M0qaoc/Rb+QkiLZsPLJA
+Date: Tue, 14 Jul 2026 01:38:48 +0000
+Message-ID: <DM4PR12MB51522EF711068BCB2B72C7DEE3F92@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20260713203850.650426-1-alexander.deucher@amd.com>
+In-Reply-To: <20260713203850.650426-1-alexander.deucher@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: John Olender <john.olender@gmail.com>
-In-Reply-To: <20260713042902.2220454-1-asad.kamal@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-14T01:37:48.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|IA1PR12MB8358:EE_
+x-ms-office365-filtering-correlation-id: 9360c22e-5380-431a-ad64-08dee148a6b5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|22082099003|38070700021|18002099003|11063799006|56012099006;
+x-microsoft-antispam-message-info: 5Zh461yFFxrboGh2qH2493GcYEeWHDn5xGHXTaJMbWwUnU26RHHkEqEv1Ee4CC2rOpH5xrgYL/iLDojjWTYTyYF+dbOaARBZppAmIT+aWdFAAlfeb34v6Z1UjUkPLE1lWg5gzrBJEx2ICoKs8Fgpm1RKXoObwz+06IoGEJUi4ReNYcnCIjMo1LAiknZXYfQPD1eU0xfMAmAt2INDAcgWfZ0vjb9/NhqaHYMR/41E2boOz+ZqZElcx+04R9EqzljP5SKEClSydYOR0suxcra7rDDsQsepfwkIx8nxTuomjfEsK2JKiPtrGqR3zPsEWj15C/veZJbJmtJbYOWFf9i2tHkifeFyzOzCLQi5R36IbMYFT91teBriE6BDgtNIfbRbTlQw1jVuRpomxwud4TGGybkpNFaNfPLK0QJf8zEQ03H+jlNCJcByqjCU27fNTDlsBOnEhCpSipenHdkrOW6WokvIYNxcSGOlLcmo3ujY/45GiA9Y4VSHn1xyUZ5md362wFHDNNvNY0MMgych0BgEeumr+t2yl2MVQgJ+Zei0TbxPcSBRCObPMyJdsEtqDYkxKY29THcR82MTqSCgCIwzOUM5furX/Rb/ubzcsq0KoCZfQUyEtGf9YNL1KGwkHXHy6A8TXP9myflbO3IWYRCubB7Xmw3008UX7mTIS7TpatA6woBpp4TGlwAbR/23cfcUA6ipmnQ7PAQTcaQ8HabJvR9svT/GjA1FnUkeGJ+J3fU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(38070700021)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Duenbb4XRMQ7kECzXBlL8s0R1wRdK0AiW/exyDxsNSOy0zWS64CqdyCBv17w?=
+ =?us-ascii?Q?hZFGoap3sG9yySQX01p51GJ+STNYTIZpCXNwwJvh9gQYwbae+6JRApT8/Jro?=
+ =?us-ascii?Q?/8Nnw/mPx13dtT9B2Esh/IGhQGGBk8YGPE5W2k5nR3Ed5TgotE88uOZHg9aB?=
+ =?us-ascii?Q?dj6SL1lx2FyJZvyeuU6FYxJPMdEcXdaMjAvIYA0TKhV7q+CWVOJQer65ZuLJ?=
+ =?us-ascii?Q?ubd2cZt011tTPm7s/FFmBAaTohOznnZMbcKje8NzUtJLid1+IuIG5PbzwDFf?=
+ =?us-ascii?Q?m5pW9f2E60PsVTJeDxBDlfjw55FxS58deioqUO5UhZs3OZQ4OQ5FHOMdSBxX?=
+ =?us-ascii?Q?ycDeoK8dC8jfh51B3qIhBd/FFmQQYTbVS3oqKlFvUkRb3ASBAlXTULbgD9S+?=
+ =?us-ascii?Q?7Cgwu0vIbp5AAWRTCeN0i4QhsTbAkcJ9DqIZ+L75z5Hu/5Vcv5k+kRtgoSJ2?=
+ =?us-ascii?Q?1yYEsUynjwf8L5FKzCCT8lAe6ZVbKCEngBLUQDbh892ESTVKscmYpgLECUlf?=
+ =?us-ascii?Q?dTtXyY/5+JN7U1tDGrdsAyGUa3zLgP2YS5BxOty1xxHgzw+9/fTqcLHOQXLY?=
+ =?us-ascii?Q?2qSB+z8JRXB66wyfG5vM2jezfzdcXTI3wlmiRiFgHAjJ1JjhmG9F/aTh5m0S?=
+ =?us-ascii?Q?U3C5NdoVs14/MY/WXxKdmwq8CJbrNt6Ksk/28SL9UhLRkOy7ELONP/OjKd8A?=
+ =?us-ascii?Q?bv3YlBvqFmDjpr52fxs3kge3AOaqpDGMq3ef2vgbMUavaoaGA+iOii/t6/ty?=
+ =?us-ascii?Q?oooCawsUrPwjJ0pqh5Afr0D2ZCA1P6PL+zBCuwZz57I7iGk2F1oKJYU8mwn4?=
+ =?us-ascii?Q?MGrVVRulNvGFICB4W6qiddnV9pK07EbLTUCNsdb3LEnBbq5sTp7fMyl/bapI?=
+ =?us-ascii?Q?hGeAG0AwGkNGhZBRJB2ZNMotRJVwf1tpb9jb6dbe7G1q2+PMS3AnVOQ49ywm?=
+ =?us-ascii?Q?es545weHS+VYIAvsTGOFMH0ILhJK834XOWCMdugqwuzkcQ8lx9OCOsqMS3vV?=
+ =?us-ascii?Q?vd1oL3Wgh/bmIY4X/dRTdqmMySwXJbBRiTtlngr6TkDu0+VVQhJtss666CmH?=
+ =?us-ascii?Q?a2sScw5MKG90Km69dzfsCLiUDK7ERjc/VJo7ZX3bSJ1ydSEoYuYomuHf14gl?=
+ =?us-ascii?Q?dZMc8vHFPR57ywQtT5CFsSieIXwcW1tqxN5Q1jtMzno9aO9OEVdmkLwcaaNJ?=
+ =?us-ascii?Q?iznj8GQtexHrEv0eIO8eEJwQRqWIDXI3xw/VQ9wsLZv2u9aL5qyhvOsfWjHX?=
+ =?us-ascii?Q?HK6U9lj/BHzCz9O4FzqxmezP2flKmHuWMYV9Bg/DH3o+x+a3ulo5TMEVmIG/?=
+ =?us-ascii?Q?Ii+LWwMMJklRmSkkeDljjUBHK5UjE+SSlKmODmQMgVSauRzozpwcgRtdF625?=
+ =?us-ascii?Q?Voq7748rodpDIATqkw+YAnJNZMQHJdBgls7tVO1XnACFzEQUB9EwDWQ3/02/?=
+ =?us-ascii?Q?LrC9WpiK8KtG+Iv3cQKLswcysjzz7H/C09gpX893PugpZMeWMXrZpECufv/z?=
+ =?us-ascii?Q?VOJuL0A1VUW8yL1s3CQpSlxqmAeSvPBx72jz3QBBjhWf0MKzs8XvpIzi9QUT?=
+ =?us-ascii?Q?XV4545lkpFLHUguImIeLF2fwY3ruCMqsHX7sPBlnpfOWwZ6CtvOSIje/tc8X?=
+ =?us-ascii?Q?7Cv+VhvrY0nS/fIDa6hNGLWZ0rmVBE0hZ3Eaf2SBzUQqGN22VaNoOd7K1AI0?=
+ =?us-ascii?Q?+MT6nmVtr+OztfsmysazK21fFIBgAaG2ydS+bEUO3BbFrtsd?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9360c22e-5380-431a-ad64-08dee148a6b5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 01:38:48.3943 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TQL7+yfWh5rJpbx8HD0BWtrEc+lvFuNVjXC/tiEuOn4EzIZ5C0Hh4SHFmsX0fRsudAijz7snqG1//76KcAQOzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8358
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,90 +134,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/13/26 12:29 AM, Asad Kamal wrote:
-> Commit 3cfe43363050 ("drm/amd/pm: Use uploaded size for legacy custom
-> PPTable") changed pp_dpm_set_pp_table() to kmemdup the uploaded buffer
-> directly and set soft_pp_table_size to the uploaded size.  As a result
-> soft_pp_table now points to an allocation completely outside adev->bios,
-> making the unconditional pp_end > bios_end check in pp_entries_max()
-> always true for custom PP tables — silently returning 0 and breaking
-> PP table overrides via sysfs.
-> 
+AMD General
 
-When I hit this issue, the pp_end > bios_end check didn't always return
-true.  The order of pp_table overrides mattered for triggering the
-failure on a system with multiple cards.
+Reviewed-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-I also wouldn't call this failure path silent.  Callers of
-pp_entries_max() print appropriate warnings, painting a nice picture of
-what's happening during the resulting cascade:
-
-$ sudo cp custom_pp_table.bin /sys/class/drm/cardN/device/pp_table
-Killed
-
-[   71.320109] kernel: amdgpu: amdgpu: MM dependency table: clamping ucNumEntries 8 -> 0
-[   71.320137] kernel: amdgpu: amdgpu: Polaris SCLK dependency table: clamping ucNumEntries 8 -> 0
-[   71.320149] kernel: amdgpu: amdgpu: MCLK dependency table: clamping ucNumEntries 4 -> 0
-[   71.320166] kernel: amdgpu: Number of Pcie Entries exceed the number of SCLK Dpm Levels! Disregarding the excess entries...
-[   71.320179] kernel: amdgpu: SCLK DPM index for VRHot cannot exceed the total sclk level count!
-[   71.320190] kernel: amdgpu: amdgpu: VddcLookup table: clamping ucNumEntries 15 -> 0
-[   71.320200] kernel: amdgpu: amdgpu: VddcLookup table: clamping ucNumEntries 8 -> 0
-[   71.320211] kernel: amdgpu: [powerplay] Lookup table is empty
-[   71.320222] kernel: amdgpu: [powerplay] Lookup table is empty
-...
-[   71.678679] kernel: note: cp[2243] exited with irqs disabled
-
-> Fix this by conditioning the BIOS containment check on
-> hardcode_pp_table being NULL.  hardcode_pp_table is zero-initialised
-> (kzalloc) and only set when a custom table is uploaded via sysfs, so:
-> 
->   - hardcode_pp_table == NULL: VBIOS path — enforce pp_end <= bios_end
->     to reject a malicious VBIOS inflating usStructureSize past the BIOS
->     image.
-> 
->   - hardcode_pp_table != NULL: custom upload path — skip the bios_end
->     check, soft_pp_table_size is the kernel-supplied upload size and is
->     already trusted.
-> 
-> Fixes: e30b3e3ab51a ("drm/amdgpu/pm: add pp_entries_max() helper")
-> Reported-by: John Olender <john.olender@gmail.com>
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-
-Tested-by: John Olender <john.olender@gmail.com>
-
-Thanks,
-John
-
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Tuesday, July 14, 2026 4:39 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
+> SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike
+> <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
+> Subject: [PATCH] drm/amdgpu/userq: properly account for resets
+>
+> We need to increment the reset counter, force fence completion, and set t=
+he
+> wedged event when a user queue is reset.
+>
+> mes_userq_reset_queue() handles this for collateral damage, but the calle=
+r needs
+> to handle this directly for the original guilty queue.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Cc: Prike Liang <Prike.Liang@amd.com>
+> Cc: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 15 +++++++++------
->  1 file changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> index 7ebc1344023f..a23e01921842 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> @@ -833,14 +833,17 @@ static inline uint32_t pp_entries_max(const struct pp_hwmgr *hwmgr,
->  				      const void *sub_table,
->  				      size_t hdr_size, size_t rec_size)
->  {
-> -	struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
-> -	const char *bios_end = (const char *)adev->bios + adev->bios_size;
-> -	const char *pp_end   = (const char *)hwmgr->soft_pp_table
-> -			       + hwmgr->soft_pp_table_size;
-> +	const char *pp_start = (const char *)hwmgr->soft_pp_table;
-> +	const char *pp_end   = pp_start + hwmgr->soft_pp_table_size;
->  	const char *entries  = (const char *)sub_table + hdr_size;
->  
-> -	if (pp_end > bios_end)
-> -		return 0;
-> +	if (!hwmgr->hardcode_pp_table) {
-> +		struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
-> +		const char *bios_end = (const char *)adev->bios + adev->bios_size;
-> +
-> +		if (pp_end > bios_end)
-> +			return 0;
-> +	}
->  	if (!rec_size || entries >= pp_end)
->  		return 0;
->  	return (uint32_t)((pp_end - entries) / rec_size);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 6aa75da27f912..5e1262636e1e9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -146,8 +146,13 @@ static void amdgpu_userq_hang_detect_work(struct
+> work_struct *work)
+>                                                        queue, NULL, NULL)=
+;
+>               else
+>                       r =3D userq_funcs->reset(queue);
+> -             if (r)
+> +             if (r) {
+>                       gpu_reset =3D true;
+> +             } else {
+> +                     atomic_inc(&adev->gpu_reset_counter);
+> +                     amdgpu_userq_fence_driver_force_completion(queue);
+> +                     drm_dev_wedged_event(adev_to_drm(adev),
+> DRM_WEDGE_RECOVERY_NONE, NULL);
+> +             }
+>       } else {
+>               gpu_reset =3D true;
+>       }
+> --
+> 2.55.0
 
