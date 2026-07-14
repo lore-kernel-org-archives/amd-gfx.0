@@ -4,44 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 366AFC43458
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 23:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA84FC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 00:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2D4110E03B;
-	Mon, 13 Jul 2026 23:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E76810E9F7;
+	Tue, 14 Jul 2026 00:23:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g7VBA5XD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s0PUCY4w";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E521710E03B;
- Mon, 13 Jul 2026 23:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=oshCRkuTSc7HxbPUpUr4GjCt+a0l1+09+Fh6sX4fpLk=; b=g7VBA5XDvnfdDlnIRZRUfNhIAi
- s2ZBkYWHnsScnBwuY8HBw7OUPK2qMcNc8E27oWIQEYijBLOoXvvW83SrTXKdv6mknBOQgYeJUK7cC
- a+hX1yKpQvSWhbaaEcCqtc1DDvy3xMdtzWAoGT9w9cy3e3eT5Ioe+cmYDNa2uKx6d7h60gKVqqiEa
- /n28FlMKmVnU0iox8EUtM5YOwLV0+IfcazQlXNMZ+S2Sl+qze8csFPsfEPOD2cMSSAlEg/qjgBk7l
- I/eHfwq5mDakgfPrwRAAbQN2XPmhUKxa6c32ymeDibujg9xZDcOC4IIjtgqKh+b+QFM6wEZhWrU5O
- 6tjwc6fw==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wjQRy-00EjJa-9K; Tue, 14 Jul 2026 01:52:39 +0200
-From: John Harrison <John.Harrison@Igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v7 0/9] v7 drm: writeback: clean up writeback connector
- initialization
-Date: Mon, 13 Jul 2026 16:51:42 -0700
-Message-ID: <20260713235153.3862650-1-John.Harrison@Igalia.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2532910E9F7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 00:23:06 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-92eafc94c9cso262094085a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 17:23:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783988585; x=1784593385; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Koso+bSPPHaqPvmr39rQPkbp0UVDUHxcqL3tZvHC0nY=;
+ b=s0PUCY4wpHb65bteF3MPAa1cB53m2hHStaj5Yenlth3Aqe1nM4Bl4nPtjNlvAqKPQD
+ bbGFrY9OyTsYLa2wrLE+/hbZidV+Eh29q03vjrwY+zj7HoGbaWPzCPVw5JWeahiI4nVP
+ PQqbtMXkroCrciPCsq/ZNzWzGuBZHehZRJGKcNaIl/Zh17O2qHiHWnyLiHdYzdeHauKN
+ zJma6ZM9eX1zTWregR8POSoHtSTEJz/xJfe/5RQ/QyOIlvFf0Ldz45bTd5py1rsRbWLh
+ kRqzZfZZ4kcM3AIU6vwsK3edaXMTRmxQnanf4M1YDhGjynvHubT8w9/77IddOvFjWhER
+ vwqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783988585; x=1784593385;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Koso+bSPPHaqPvmr39rQPkbp0UVDUHxcqL3tZvHC0nY=;
+ b=XBi2kRVphEF8t12BIrKRv6tn+X/3ikDvbw/5IHrGEBpDnUUamcKK76APoE2UEzMyhi
+ kdyOMPblHKwWcWWbBM8PAUlTzbkg9t4QtH4MnFifNwyL7t6DDRLzzKSDcTPxvTZS1Z6c
+ 24AT+8DeJLnuIDIv/6CdrkHas7SoFicMqrDi2lZwPPWZS5KEnDJxDY1THfbwBWdB/9bl
+ gQpUVfzNtU2QhlNbAH0iPgkQL2MBOZq88C3XSjVszYe9U0t5TuE2RK3OxGBzZNJR0O3g
+ TfV0wQ+m6MOtnpdAZfzbfbiNpKGRnrJ1DQBtCluamMqW10VZzoePqZZcCFwNRcwlDqv0
+ 2UoQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq25DXK/YAEbGFOf5JxlOzSC87iyoP89rADmaJRdrTtcqi0qA2sg8/a9rfQYwXMnKgeMxqU7G0l@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzy3XY2roSrxQfmNUSvMeBoo/8OjYhwqI/E/jKSsMa5d0wE0KTy
+ CW6ieNsrtYKDP0OHWxKwL9VBagxn9SvVzitiCfWTlb/9TvW4aGE7NYvb
+X-Gm-Gg: AfdE7cnHYNzuz/clqFeAY0bxw0iyepy3GOS/IdH0Hybm2jwsSRYfGtl+rqRLluaHxgm
+ Ife46Tz6Ll7LNG0OvfF94UxSghlSyuNEFudvSFjd5mXMqNEA54XncQlRzML2svFXjFzKacmZa1P
+ FigC5aVGgVYroGs90sSYMkB8jKPY75V47qXpjyC6o1Ojp2ppYbuBBz/2sQuAE+AGNEK17a7ZXEn
+ cQipnbhqa5mtW2hifvazaBpLPhadVwRr9St9wcOHKULDGMvxq3HMLqTkGiINfi/0im2t622WaKU
+ OSyW/7ZJIqfoJzN4P2nd9A5z5TnSvkRfVKfDkMLzGDW7GVlFE8ywqPnGtyIszWepDsVAn7yfl0P
+ m6eSQ32mLZD4PYPc6FUb79Gy4uM0SAPSvE4plhk4iuwxjZ8TAZHClkUwcJ03L5FtZbDEOlXn42n
+ 3wybkE7rEY7sKe1ANC8a/Y
+X-Received: by 2002:a05:620a:6909:b0:92e:6a43:4768 with SMTP id
+ af79cd13be357-9308683c3f6mr29539685a.11.1783988584699; 
+ Mon, 13 Jul 2026 17:23:04 -0700 (PDT)
+Received: from [192.168.1.100] ([32.219.251.147])
+ by smtp.googlemail.com with ESMTPSA id
+ af79cd13be357-92ee5b4a082sm1217193785a.7.2026.07.13.17.23.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jul 2026 17:23:03 -0700 (PDT)
+Message-ID: <1690367e-5e83-4121-bf3c-96f15f7060c8@gmail.com>
+Date: Mon, 13 Jul 2026 20:23:02 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/pm: Fix pp_entries_max() bios check
+To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: lijo.lazar@amd.com, hawking.zhang@amd.com, le.ma@amd.com,
+ shiwu.zhang@amd.com, alexander.deucher@amd.com, kevinyang.wang@amd.com
+References: <20260713042902.2220454-1-asad.kamal@amd.com>
+Content-Language: en-US
+From: John Olender <john.olender@gmail.com>
+In-Reply-To: <20260713042902.2220454-1-asad.kamal@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -58,103 +91,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Drivers using drm_writeback_connector_init() / _with_encoder() don't
-perform cleanup in a manner similar to drmm_writeback_connector_init()
-(see drm_writeback_connector_cleanup()). Migrate all existing drivers
-to use drmm_writeback_connector_init(), drop
-drm_writeback_connector_init() and drm_writeback_connector::encoder
-(it's unused afterwards).
+On 7/13/26 12:29 AM, Asad Kamal wrote:
+> Commit 3cfe43363050 ("drm/amd/pm: Use uploaded size for legacy custom
+> PPTable") changed pp_dpm_set_pp_table() to kmemdup the uploaded buffer
+> directly and set soft_pp_table_size to the uploaded size.  As a result
+> soft_pp_table now points to an allocation completely outside adev->bios,
+> making the unconditional pp_end > bios_end check in pp_entries_max()
+> always true for custom PP tables — silently returning 0 and breaking
+> PP table overrides via sysfs.
+> 
 
-This series leaves former drm_writeback_connector_init_with_encoder()
-(renamed to drm_writeback_connector_init as a non-managed counterpart
-for drmm_writeback_connector_init()). It is supposed to be used by
-drivers which can not use drmm functions (like Intel). However I think
-it would be better to drop it completely.
+When I hit this issue, the pp_end > bios_end check didn't always return
+true.  The order of pp_table overrides mattered for triggering the
+failure on a system with multiple cards.
 
-NB: Patch set written by Dmitry B but taken over by John H at v7 due to
-time pressures.
+I also wouldn't call this failure path silent.  Callers of
+pp_entries_max() print appropriate warnings, painting a nice picture of
+what's happening during the resulting cascade:
 
----
-Changes in v7 (by John Harrison):
-- Fix missing parameter in drmm_kfree
-- Fix leaking error paths
-- Fix kernel docs
-- Add typecast to drmm_zalloc_obj(s)
-- Drop extra obsolete cleanup call in vc4
+$ sudo cp custom_pp_table.bin /sys/class/drm/cardN/device/pp_table
+Killed
 
-Changes in v6:
-- Dropped applied patch
-- Implemented suggestion by Alex to use drmm allocation for the
-  writeback connector.
-- Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
+[   71.320109] kernel: amdgpu: amdgpu: MM dependency table: clamping ucNumEntries 8 -> 0
+[   71.320137] kernel: amdgpu: amdgpu: Polaris SCLK dependency table: clamping ucNumEntries 8 -> 0
+[   71.320149] kernel: amdgpu: amdgpu: MCLK dependency table: clamping ucNumEntries 4 -> 0
+[   71.320166] kernel: amdgpu: Number of Pcie Entries exceed the number of SCLK Dpm Levels! Disregarding the excess entries...
+[   71.320179] kernel: amdgpu: SCLK DPM index for VRHot cannot exceed the total sclk level count!
+[   71.320190] kernel: amdgpu: amdgpu: VddcLookup table: clamping ucNumEntries 15 -> 0
+[   71.320200] kernel: amdgpu: amdgpu: VddcLookup table: clamping ucNumEntries 8 -> 0
+[   71.320211] kernel: amdgpu: [powerplay] Lookup table is empty
+[   71.320222] kernel: amdgpu: [powerplay] Lookup table is empty
+...
+[   71.678679] kernel: note: cp[2243] exited with irqs disabled
 
-Changes in v5:
-- Rebased on top of drm-misc-next
-- Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
-- Expanded commit messages, describing why the drivers are converted to
-  drmm_writeback_connector_init() (Laurent)
-- Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
+> Fix this by conditioning the BIOS containment check on
+> hardcode_pp_table being NULL.  hardcode_pp_table is zero-initialised
+> (kzalloc) and only set when a custom table is uploaded via sysfs, so:
+> 
+>   - hardcode_pp_table == NULL: VBIOS path — enforce pp_end <= bios_end
+>     to reject a malicious VBIOS inflating usStructureSize past the BIOS
+>     image.
+> 
+>   - hardcode_pp_table != NULL: custom upload path — skip the bios_end
+>     check, soft_pp_table_size is the kernel-supplied upload size and is
+>     already trusted.
+> 
+> Fixes: e30b3e3ab51a ("drm/amdgpu/pm: add pp_entries_max() helper")
+> Reported-by: John Olender <john.olender@gmail.com>
+> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 
-Changes in v4:
-- Rebase on top of drm-misc-next, dropping applied patch.
-- Added a note regarding memory leak in the AMDGPU driver.
-- Fixed a devm vs drmm issue in the msm/dpu driver.
-- Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
+Tested-by: John Olender <john.olender@gmail.com>
 
-Changes in v3:
-- Fixed subject prefix for the rcar-du patch (Jessica Zhang)
-- Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
+Thanks,
+John
 
-Changes in v2:
-- Switched to drm_crtc_mask() where applicable (Louis Chauvet)
-- Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
-
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Harry Wentland <harry.wentland@amd.com>
-To: Leo Li <sunpeng.li@amd.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Magnus Damm <magnus.damm@gmail.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-To: Maíra Canal <mcanal@igalia.com>
-To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org
-
-Dmitry Baryshkov (9):
-  drm/managed: implement managed versions of kzalloc_obj/objs()
-  drm/amd/display: use drmm allocation for writeback connector
-  drm/amd/display: use drmm_writeback_connector_init()
-  drm/komeda: use drmm_writeback_connector_init()
-  drm/mali: use drmm_writeback_connector_init()
-  drm: renesas: rcar-du: use drmm_writeback_connector_init()
-  drm/vc4: use drmm_writeback_connector_init()
-  drm: writeback: drop excess connector initialization functions
-  drm: writeback: rename drm_writeback_connector_init_with_encoder()
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 18 +++--
- .../arm/display/komeda/komeda_wb_connector.c  | 37 ++++++----
- drivers/gpu/drm/arm/malidp_mw.c               | 26 ++++---
- drivers/gpu/drm/drm_writeback.c               | 71 +++----------------
- .../drm/renesas/rcar-du/rcar_du_writeback.c   | 22 ++++--
- drivers/gpu/drm/vc4/vc4_txp.c                 | 18 ++---
- include/drm/drm_managed.h                     | 23 ++++++
- include/drm/drm_writeback.h                   | 22 +-----
- 9 files changed, 106 insertions(+), 138 deletions(-)
-
--- 
-2.43.0
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> index 7ebc1344023f..a23e01921842 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> @@ -833,14 +833,17 @@ static inline uint32_t pp_entries_max(const struct pp_hwmgr *hwmgr,
+>  				      const void *sub_table,
+>  				      size_t hdr_size, size_t rec_size)
+>  {
+> -	struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
+> -	const char *bios_end = (const char *)adev->bios + adev->bios_size;
+> -	const char *pp_end   = (const char *)hwmgr->soft_pp_table
+> -			       + hwmgr->soft_pp_table_size;
+> +	const char *pp_start = (const char *)hwmgr->soft_pp_table;
+> +	const char *pp_end   = pp_start + hwmgr->soft_pp_table_size;
+>  	const char *entries  = (const char *)sub_table + hdr_size;
+>  
+> -	if (pp_end > bios_end)
+> -		return 0;
+> +	if (!hwmgr->hardcode_pp_table) {
+> +		struct amdgpu_device *adev = (struct amdgpu_device *)hwmgr->adev;
+> +		const char *bios_end = (const char *)adev->bios + adev->bios_size;
+> +
+> +		if (pp_end > bios_end)
+> +			return 0;
+> +	}
+>  	if (!rec_size || entries >= pp_end)
+>  		return 0;
+>  	return (uint32_t)((pp_end - entries) / rec_size);
 
