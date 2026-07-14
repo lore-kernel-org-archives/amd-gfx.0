@@ -4,128 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4092C43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 10:32:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CF7FC44507
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 10:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7786110ECCB;
-	Tue, 14 Jul 2026 10:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D45610E052;
+	Tue, 14 Jul 2026 10:45:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UiBPMh1P";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BWd4uYsL";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013051.outbound.protection.outlook.com
- [40.93.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E7F810ECCB
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 10:31:59 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0087810E052
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 10:45:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HfNZhGVHgLQuccb4reAX/HBBOW1EnDcc6AoFHLSlrnOyBbwDxK6sR6CEQMbGt/DrgvkVLufcKQxm4fE4LMuHzjULXWyUfjoC4Q4v+HtiZ4hhszMsILcAsECfev3D6n6iWeHuhATG5N39jUxXMXQF7CF4dmfbVmtbpGIeHNFFkF3/ukB0MPI494Pw58SJ2Qy/73st9I+YQrJFXLwiwLnoJDgIIXJ38FDy3Y4UN9dELCq9rBiNT4CQvElDPN8j46WYE2phpRlsSyCRfMp7Lq2XYiJeQa79uO+EeKUoQB6Iuv8CKKsNLPfzInZ6hnp+fMlRrDzloSo4bPMRe/4TaokIDw==
+ b=bUOyVpQTx9kY75sUtFolf+EZzqlQ+6lKs7R+gHd2aSHszVzy7KhJzqttjv9up1i6Xs8bNjMZg27He5kMsLjH+1xnhwQ+LnuSCRHFyF9oH8hIQIHu1cy8NL2NqhwpiMXU4l0f/e2PpsHtCsajYCgXN4hHZr1b40472o2VMQdyazuYLOnpLseNvfKCSsgH9+Pk/Sur+hZ2gJ11ekAkXxxh14mVulgRiXY8AHfZ4Uj/ybObP0vpMF8kda9KgwvJVZ5DLvm8NYaFObMOuDjCVNEfomw82r44exQfMdQGz6HU1Wu0clCnXLKDtoVZcG4qvE+3VEu1tJ9f0H7Gv7Q6eQ1iCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lUVGS959zaU+2qTTDEsiXHXRd9DA+oY8eOXey8ZEtv4=;
- b=DavHpxNKkyosbMTsKAYhArSEuf+o1rIJy5ryHgh7LMB1OLkPz9Mbl0/fP8BB05Ak1JRSXEiVR/M8XrKlfnd4DhUtHg3g5bDWToWhaMp+pvcqelsIdiaJ7GIFKiKACzaul+pvEKXABzuV7sdk0+M1dzL4YfM0soYzq1eJ945w7QZNP4ecpLWebKCt5gxTw37QZ6VAci472VWku8/Y/CPuw/dXva1spfoRl8yOy04WbkVl5hgRSzt+B8+Ut38WvZsQZBHC1jq/BzSjuR08q00txg9QB+cOPHPKdiTbsWcaRQPwUfTuRy7lKi1KanFW9ZUegj2fVlmlUymHWkqJEnyZMw==
+ bh=NyppKyWEej7hXUP7uJ/M0ItBS9WEOYKo5HCoDJH+RcY=;
+ b=V2dLg7wvCde4pyjgXHQr3q9B2xcxU4P+Ufzo9aKfOGBnZhVevq8D5ngcdDWmIk3OkUhgrqlsl7BcF/YjLU5q+rlpG0ia7AdLbihvHosCUWvU4zdO6HNmG6CIv/agVIDG3QsGKYLLn6SpHc/8eLIitV0/sZZokRXfiontkdOH/TehTZ1SlUHKjcNYWfEhQKl88Wj/JRwimb1lBTHe3UECVh+InwTDS0J5drzT6tsqiTkHo4GsfE1GYdWbvg2Ebx6D7YR879gQULT8fouVBcdTWhuKig8SU2H1g837xPPYzuiSYxa06YJPq8vIFMYq7EAyBz+iQFUqTmPOfL6D2+0lEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lUVGS959zaU+2qTTDEsiXHXRd9DA+oY8eOXey8ZEtv4=;
- b=UiBPMh1PMMb1aXkoyrLb21DG1pakszW5B91qAb7yllCQxrIRGd50Md3IXIzwC7rhEunfs5y/Ap8OfgHcoImjp4MJoDxP0VQUyZXHd8+iq/Yi2nIQNchP1/PR1stxzBtoERUXSIO5WL+1iDFea59zHGwOL58HaVgXaDAlnPgfnZI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by DS7PR12MB9504.namprd12.prod.outlook.com (2603:10b6:8:252::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=NyppKyWEej7hXUP7uJ/M0ItBS9WEOYKo5HCoDJH+RcY=;
+ b=BWd4uYsLCreyRIjGDE+UASkMCCN5KGZh1EwZEsyaOf7W0eTu99RCzEWEAsc18Pd04FQJBzBuzRl37KKw2hwkhIkjoOK+OFrMdGvYFCzBq4QnTsvWYbFTowJUE+Ke4rLWyr2NWX89iGSzmhmBLwcfsKKG2YJcizNMKilk/04SwyI=
+Received: from IA1PR12MB6332.namprd12.prod.outlook.com (2603:10b6:208:3e2::13)
+ by PH8PR12MB7424.namprd12.prod.outlook.com (2603:10b6:510:228::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 10:31:56 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
- 10:31:55 +0000
-Message-ID: <9d575350-c3a2-4e9c-b842-b2a68678914e@amd.com>
-Date: Tue, 14 Jul 2026 16:01:49 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/userq: properly account for resets
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Liang, Prike" <Prike.Liang@amd.com>, "Khatri, Sunil"
- <Sunil.Khatri@amd.com>
-References: <20260713203850.650426-1-alexander.deucher@amd.com>
- <IA0PR12MB820888C41AF05BAA5C2CA57090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
- <3656074a-1a01-49f6-8f7c-129ab379f129@amd.com>
- <IA0PR12MB8208F00938342B8FD8377E0090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ 2026 10:45:35 +0000
+Received: from IA1PR12MB6332.namprd12.prod.outlook.com
+ ([fe80::3d12:dc5d:9ed7:abe7]) by IA1PR12MB6332.namprd12.prod.outlook.com
+ ([fe80::3d12:dc5d:9ed7:abe7%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 10:45:35 +0000
+From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
+ <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, "Chai, Thomas"
+ <YiPeng.Chai@amd.com>
+Subject: Re: [PATCH] drm/amd/ras: initialize CPER after XGMI reset on init
+Thread-Topic: [PATCH] drm/amd/ras: initialize CPER after XGMI reset on init
+Thread-Index: AQHdE3dwrIi7wO85T0G2NAuGF0IY47ZszMkAgAAH/lQ=
+Date: Tue, 14 Jul 2026 10:45:35 +0000
+Message-ID: <IA1PR12MB6332C9925CC2273459F17520FAF92@IA1PR12MB6332.namprd12.prod.outlook.com>
+References: <20260714095832.52308-1-xiang.liu@amd.com>
+ <94866f41-1a60-4b5b-9ebb-89eb80697ced@amd.com>
+In-Reply-To: <94866f41-1a60-4b5b-9ebb-89eb80697ced@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <IA0PR12MB8208F00938342B8FD8377E0090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0103.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:276::9) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS7PR12MB9504:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d1ec09b-04f8-4b27-2016-08dee1932032
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|4143699003|11063799006|6133799003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: g/J8icodnMCd4WYlSNxnPYcTtjDpdFWEB9HnhirYeY1qddOdwWYNU1ygX4zf6jOqOuAvSaJxMETFC1LBNk85EJqctWc42ekreLfLIaWUmKZ061eVA6FbwnVkCGe/oJdj5/LPHsd5E9l2HBkOGq0A5YXDUGS7Xfl8e0m6UhUlZVgr9IG90TbR/gKtNoDhGtblF7CoMJvb/U9WlTJR3Eq9Qk3kqKFQO0Rhu11kNtToVelQWUq5WrjXj7akoPoDlBiyZRmt7MXRbhejiKuQEyzKhN36l0PT2qmhxPOZnqJVo8Bk/vtXe0PL01fo761Mt0KUzO38v+hGPmdYNLLbEJUtmDMYPSY/v0AUYvPldXLEErzjAEL7YZKFkAkmpJZ4RXzcChoD08IEu02r1EhYXovgYpITaGP1iLfnlByG4b6ygr0XfDBvJgGSgnZDAEJ6kM4e2royQ0TdwINc6mjn83DG68Nz79YBBpd5L+wUJXPmz5oOAPn3y+30yGU0OP1Knlh7rHnSJ5P7ili47woL59XzyATus+E8YeS03dIWwaHPa93q/fiQzoMztyb69P+BPEmwaL9T3ILTA9+ANnlokGkSC+ot5GVPHTtVYKLXz7kUckg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(4143699003)(11063799006)(6133799003)(56012099006)(22082099003)(18002099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-14T10:45:34.589Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB6332:EE_|PH8PR12MB7424:EE_
+x-ms-office365-filtering-correlation-id: 6a12b0b1-75e5-4a88-a90f-08dee195090b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|8096899003|38070700021|56012099006|11063799006|4143699003|6133799003;
+x-microsoft-antispam-message-info: rvxAdaDPHSOCic/k7lX0aIcYWEkcQPCLTEwHc7udfI9Xqso99BuzX7FhDQFUTxsA1EUtR1zszEl1BNE+rYWV3UM5WDVywF93p8H/6IZj22/8TBxeYdiVHjjLNh9sHoWRL4ng8KvroE8j4HKi1ftw3YjIa6/z4eTQ+ZqmJa3LjySGnJUVsoGcZg7JNl3xWDluKZ7o2XtQBFFN/mIM/L7lAQFEg27/2aeuPlvzyzu8tL36p34NUX45Znsg6OUsuCh5mHgUCkM946YWZPz/YFFZfzoEswYmS1w9Qn82f/QMhAgGeTgqpB2nuhZacxZYcmTw6rssWVFTrKf76KxTaW840ZiFFtFK1ei8s/vQovbkQhoJw6vEGfx6M4COILiqSB55pfYgZosg6Hdsh3ixcv4Xi4+3VV3TvZAoOPi2WPBmIIguYCv+4K0s4CYrgRRl8jEyU7XSBK/iq34JEtZGdzx8gy8yjB/QszP5W3IfblwDLzh7GhqQAFNXsBYY+MqdTvCkBkS7hvXn2VLaSHD15DE6ljjf7UtE1Q0VlXgVjHQf+fxoYQqwgsT22fsCwDyhQTKo04JfQEMFj5BKVZsYHU7HKHLFekjxhMiZ1Z2df1Hm6AE4UzpkMgAtEmbymfoPLglxHf8rnvpQgMfyPXzKqCsXcrOn4ZIcybNwiUT6cC38nlj/jhwQVbK0Zb2KP2PTA6W64g214SCNiPtD+JY9QG3Y4bgnqW23IIIJHm0TGX2ABZ4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB6332.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(8096899003)(38070700021)(56012099006)(11063799006)(4143699003)(6133799003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVdIcUJOS2pPWFpvMkY4QUE1VzNhVWhiMVhIb0xVQ056SGtYVmIya2RPN0Iz?=
- =?utf-8?B?KzNld0gwY1ptZ1l4VkVVRndkeFRVOTJrVkJ2WWZPN0JyODlyZHBoOUV4ZWQ5?=
- =?utf-8?B?MWN0N2o0RkRNUVkvL0JVbEZvQ0JOaG9PcHAzZDMvSUhFbkh5Yk8vVTd1TE5Q?=
- =?utf-8?B?bEtya3dDLzEzam1RNDVjMDNEN21HejVrdDBqYjZjVG5TbFhYRTZBOUdkV3BF?=
- =?utf-8?B?cEpxcFVBU2xTWlQyQU1FMmpBZ0xqMS9GZnh5NUw4Sm1RUkErN2ZhSW0yaEZj?=
- =?utf-8?B?eTdsWHEzZDg3VHF2Mk1NVTRJanN2SG5NRmhrdmo2L3NxS2NnalI0UFNDU1Ns?=
- =?utf-8?B?K2hhK01WYTVSVjViQWV1ZFFjd3V5QmV5NTUxOEhDbUltUE1WVTkrSXNoVEpP?=
- =?utf-8?B?aDIvNlZKbUVGTzFaSGZwcUxPVlRMbTdJY0grWW95enVBV0taNlJMdmdDUzZW?=
- =?utf-8?B?ekNDZzVNYXdhNk1jb0JKalVUaW9Ya2NZSGIwSktNaHJmbk5DN0NvaFdndnJG?=
- =?utf-8?B?d0tNVEhiREFWMjFNQmdBVTgxZ3V3b2pnbk84aFRMWnZNMDdiZVVLZlY0dXRv?=
- =?utf-8?B?OUxnSGM0bU5ZTWduR25nbDJIaGwvQ2F6WlBLZnd1bWZIdTdsUEFuRE5BNG1a?=
- =?utf-8?B?LzI1NzJxdG8yZXVIZWlVeDlsTlRkMExld2FDbHJyWkpYa2tNeC8wc2lmOXdP?=
- =?utf-8?B?NXA1dmxyb0ZJNDBLWmh2R2tOUHNMc2l1dlZiNnBydFVMNlFnYjcvUVpyY1JD?=
- =?utf-8?B?K3BhdmtSbXJaaGZKOG1qNTE1YnVnRmdTa1dnZ21RSDNkRkNaYWVlc1QxMTJT?=
- =?utf-8?B?a2lyemxxRDBJTHVWME9CVkhIbVBnMjRkaG5yaFRyMElUbzVTTTQwTXRCNkkr?=
- =?utf-8?B?bys0bFg1NFpKaTNVVzVnNE1vci94U3NaV21QeWYvSlpVRi9mS1g5TWxRNUh1?=
- =?utf-8?B?czM2TmQ0ZW52bk5BdUsySVF3S3g0aUdiVE1nVGs3U3Bpc2NIMWo4L1YweHNv?=
- =?utf-8?B?M2dnQU5Ob1VCZTlrQlRiWmd6d2dkOW8ycmZRTFZTVmxoczBVMWFDS3ZBNFRN?=
- =?utf-8?B?a3l4SnlMUmxoWVJtNk9YYTFGMjZFUzB4UnVYNzlIZlVzWUFJK2NTMmFjd3pP?=
- =?utf-8?B?SW9NclJRbW9RSnFtM2RiZXI5d2xqaXJPUVRWUUtsU1NFMER0My9EVDRWNFlu?=
- =?utf-8?B?NEREc3g0Qnp3VXFEQXR1WlM0d00xMCszeGthTmI1ckZQYTVCalFpUzJOVzA5?=
- =?utf-8?B?WWJyVlhYd3lkTlpLWUt3SC92V3VoQ1lEaDNkejRZTjRnYzJ6UE9lSFExVmdS?=
- =?utf-8?B?YnRlUWRDcTNhU0YybnYwZHJ6MC9QL2pZd2QrbmhBV3BMOHF2aGV2T0N3S1dE?=
- =?utf-8?B?d3RVYWRVQy9UYTROZmxsa04xSWx5K2RFazFpalhRYS9tcjF3am5FREZPcmxr?=
- =?utf-8?B?UGxXb2RYNm5LZmRrU0VwOWpXei9TOGpxYXpKejNvRmJ5TjdwYTA1Y3c5Kysx?=
- =?utf-8?B?MUNqVTVKTCtyTHA5ZUt5ZWJDWmIrcVlSNWNkOGVMT0NkOWhoeFA4eExsN0hW?=
- =?utf-8?B?dXJoeXZjd09DbVlMR0lpR3RpMXZhRGRNLzJ6T3RzU0FtbTlBMVVNTHU0dC84?=
- =?utf-8?B?VzZiY2JtU2pWMEc0eUljZ1hOd3pOUE83MHlEWUZ3L3Y0NVoweFd5NU9YL2Nw?=
- =?utf-8?B?WGowZEhBMU5ROWlxLzdTMTlwa3hTcHVtbUNVRlhBRFFXWGk4QU1GV2Z6ZVZ4?=
- =?utf-8?B?cXNLR3c2OUpRYjZCNGdERDNpb2JXVUpjd2R2aGtEMnhPR0VoR0hzYklHNjZ3?=
- =?utf-8?B?VXlCRVNrd0ZIbTljancrSVBxMnU3K2pzU2FvRW1LZkFqTnN1clZKYmlpcUkw?=
- =?utf-8?B?Yk02ZUU3NE9lZUpGV3pOUHpjUldUSEZNUkV5d2dsQ3pUZlMvQWdiT3JOS05Y?=
- =?utf-8?B?amVXMVVsS2tJeTRBdXVqM0pXVVFUQ3JPOHU4bGtad2VmSlJYVVJVSU9XUjBv?=
- =?utf-8?B?bEpwWUpYRjJRWTFqM0Nmb0VVUTNaQXc5SFQ5c3paek5oZzlzcEJRZElhcFYy?=
- =?utf-8?B?cHFzaTFMcUZxYWJnNzY4bDB1V2V1OWZkdVNiQ2VFNnp5WW9QdkR2OVp3Rmlo?=
- =?utf-8?B?bzMxRUhuQ3MzMnhUUU5xTXJCbkx5QVVObHlNVjZIZ0ZtdVFIOW8rcklOYlFR?=
- =?utf-8?B?Ym1QN2g5a0NYcis3bWdvd0pXZVFncjBLOWxDWDd1NmhRY3pSTzliQVE5VjEy?=
- =?utf-8?B?TWgyUWRscFJyYkwvb3ZxUHJyTmJId2QvU2NyMWw4ZVJ2SUlCUHREbmRoZWFs?=
- =?utf-8?B?Ky9EVjBQMGhFcTZ5aEpYSHpvTnlzQTZ1Qmg4aWFsSzluaDM5eENTdz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xORjEKwlVKz0BjoAykOzSZS4lMNElsrD1ZawkXgxLPOoCDklKrQdH0Uzyq1H?=
+ =?us-ascii?Q?9N91NKukopwW0F5WybBdDvbMxnMnFayBa7Ms9Nn5w+MVA6QDyPysbQZHM95Y?=
+ =?us-ascii?Q?EZPJlJU3co5yfRq2bwWJ8SmtAaviTkamvjfNME2oIs7mnzAKLaFD5u7DXfFc?=
+ =?us-ascii?Q?Zdmr8JBBg2q2jb5vNe0LGEeMOTr2bi7fHKm1sZWemb7bIDFPnsIoncOrQvFh?=
+ =?us-ascii?Q?iC4jJ2iMS4YiyO4Es9TrCNVtNGxF7RAD04okQuW0msoGVO1vvVdEc/cWkKeh?=
+ =?us-ascii?Q?3FT0bgw7jW0s/32QqWcl3mU4LoxZ6FvYp9MZkri3BHZmtetGCEryPMhUP9oL?=
+ =?us-ascii?Q?Jrd+7eH/8iaMygpfk5HL7jK6srBynMt5vX9Rn9HlA8ETbAZoIn4oGnaefOKT?=
+ =?us-ascii?Q?M1JEQqGqboISEKwE3kdWz6AnHfpHLcqo9VoNg5C7uiikbOXHKGA88O/7n+Uf?=
+ =?us-ascii?Q?68Yzvbn2zP4MgRvRdlzngGbdQhxJQvTDTH/7EjchtVOb9FYpy0Hm46UZFy4w?=
+ =?us-ascii?Q?WWBI2iINMwe77uBUT58L4/jn3hJ4ybEfk9fIP7tVNZ3B5W7C+X8dEAqEYUub?=
+ =?us-ascii?Q?liASvVXSXB8/tt/vxraEBWMsOOIIhQPKzFpInqXijvPy/cPc7Un9UbgOavJX?=
+ =?us-ascii?Q?cz1GhIDM3mX9WT5D5+yWbjcPGnphfghgQB47/gdAo8ivw+qWKwXm2TANIqlF?=
+ =?us-ascii?Q?RBov6Hm8FKg33I+yJ+EfWnxJmCw8fs4Ht2O+KPqZVmF14kWNyN9s0BDrpUji?=
+ =?us-ascii?Q?5Osj/F+ugPHYt2RTDsjY/jJOqGSFgT8PDPueqOomKGRafZ4K03xDAJzq76hm?=
+ =?us-ascii?Q?R18i4aA4w4wjNySK3IHcpFP3kn7hdQeh6xLIWY2Z+/sVtXLWJwmzH9xM4H5Q?=
+ =?us-ascii?Q?FuW1pItDyky3pwcMpHGiBLImAdh4NZvb9RuHzHjCR0W32kqR2Y8JYX59fPV1?=
+ =?us-ascii?Q?gNy0vcnT3B6gysEWbBVBLt4FVKQPt+rgPVTEBxESFYAX8KQO5mae30fQpgut?=
+ =?us-ascii?Q?KhZeKHCglB6Atq6IhhmqM7muDLGMVHxB6aESXxcXFB2f3UCXzBv1FE5ejo3U?=
+ =?us-ascii?Q?4iCvr5g8Ea5hY+Ypr2AghISfXq9CqcyuqND5EMJwo6jI99BHK0Ah7llBKMl3?=
+ =?us-ascii?Q?auYteuLnoAPc82j2l9mPTtS7sHo1Bm5XSJE9ESYIV4vUvssPsb60LPFZVcK7?=
+ =?us-ascii?Q?FbqhWLcGAFfCaPR2f9y6D8T6SMly9BHTLEOzsbCtY00YVDMde1aQAAMX7v0j?=
+ =?us-ascii?Q?LXOqmK9b2RalUCtR1lm6WM4og9/lEI66Pl1G+Owpq0Zp2hOaDtKZnI6MMsuc?=
+ =?us-ascii?Q?DlhLHTchwFW1+BIdVQzatTII6HrfRwXCy/UL27UvnzZ6du0glWDme8PzOe0g?=
+ =?us-ascii?Q?cDhM0ZeRNSfHIO4TtNeoV6zlADFFJtAj3oyh251UI0LxWwgovG2NaLFUL6jf?=
+ =?us-ascii?Q?gX+h1K5PPlLvSl6J2CiHWp8Nz8ZqAkaR38nKIhKDbuKAK2Nta0f/+H8hz4Fk?=
+ =?us-ascii?Q?JSnZrWwXoWHA5rz2l/XNoImtqYcfE1G/J49FcIwNJLWU2NHtPxPDZLg44pTr?=
+ =?us-ascii?Q?GGq8KGx9d1r6NuYAFD4xg2cA/tMQXh7F6UjArrUBFWeucJvilEgCHYPEoVHz?=
+ =?us-ascii?Q?eFqyb2r5bY0MHLIS4gUrP3AhwwaJcUwhJQzZTeX3lWGwofyGk8+BtEK01xjh?=
+ =?us-ascii?Q?Lhadu+9wRfD+Lx2uAXXW7JFU9IIZK/Pg6rKBcqF5TC9PnX5R?=
+Content-Type: multipart/alternative;
+ boundary="_000_IA1PR12MB6332C9925CC2273459F17520FAF92IA1PR12MB6332namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d1ec09b-04f8-4b27-2016-08dee1932032
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 10:31:55.1190 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y57dATB4OPa6rQYlR3z+5gFfkwRSZXXfH/9B56eWgv7WrV7BYazLcmyGYiM9xLD3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9504
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6332.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a12b0b1-75e5-4a88-a90f-08dee195090b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 10:45:35.1053 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 95Hs5O/8J5uazVtZW9AW5uqOTCgibimW7cMhBVsqyggvcdICXs98SZ+E33oIsA66ZqrV6iwTgh08D2gl46VNeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7424
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,105 +134,373 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_IA1PR12MB6332C9925CC2273459F17520FAF92IA1PR12MB6332namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+AMD General
+
+Thanks, will improve this.
+
+Best Regards,
+
+Liu, Xiang
+
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Tuesday, July 14, 2026 6:16 PM
+To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org <am=
+d-gfx@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: Re: [PATCH] drm/amd/ras: initialize CPER after XGMI reset on init
 
 
-On 14-Jul-26 3:57 PM, SHANMUGAM, SRINIVASAN wrote:
-> AMD General
-> 
-> 
-> 
-> 
-> Get Outlook for Android <https://aka.ms/AAb9ysg>
-> 
-> ------------------------------------------------------------------------
-> *From:* Lazar, Lijo <Lijo.Lazar@amd.com>
-> *Sent:* Tuesday, July 14, 2026 3:14:34 PM
-> *To:* SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Deucher, 
-> Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil 
-> <Sunil.Khatri@amd.com>
-> *Subject:* Re: [PATCH] drm/amdgpu/userq: properly account for resets
-> 
-> 
-> 
-> On 14-Jul-26 10:16 AM, SHANMUGAM, SRINIVASAN wrote:
->  > AMD General
->  >
->  >> -----Original Message-----
->  >> From: Alex Deucher <alexander.deucher@amd.com>
->  >> Sent: Tuesday, July 14, 2026 2:09 AM
->  >> To: amd-gfx@lists.freedesktop.org
->  >> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
->  >> SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike
->  >> <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
->  >> Subject: [PATCH] drm/amdgpu/userq: properly account for resets
->  >>
->  >> We need to increment the reset counter, force fence completion, and 
-> set the
->  >> wedged event when a user queue is reset.
->  >>
->  >> mes_userq_reset_queue() handles this for collateral damage, but the 
-> caller needs
->  >> to handle this directly for the original guilty queue.
->  >>
->  >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->  >> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->  >> Cc: Prike Liang <Prike.Liang@amd.com>
->  >> Cc: Sunil Khatri <sunil.khatri@amd.com>
->  >> ---
->  >>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-
->  >>   1 file changed, 6 insertions(+), 1 deletion(-)
->  >>
->  >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->  >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->  >> index 6aa75da27f912..5e1262636e1e9 100644
->  >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->  >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->  >> @@ -146,8 +146,13 @@ static void amdgpu_userq_hang_detect_work(struct
->  >> work_struct *work)
->  >>                                                         queue, NULL, 
-> NULL);
->  >>                else
->  >>                        r = userq_funcs->reset(queue);
->  >> -             if (r)
->  >> +             if (r) {
->  >>                        gpu_reset = true;
->  >> +             } else {
->  >> +                     atomic_inc(&adev->gpu_reset_counter);
->  >> +                     amdgpu_userq_fence_driver_force_completion(queue);
->  >> +                     drm_dev_wedged_event(adev_to_drm(adev),
->  >> DRM_WEDGE_RECOVERY_NONE, NULL);
->  >> +             }
->  >>        } else {
->  >>                gpu_reset = true;
->  >>        }
->  >
->  > After the original queue was reset successfully, it did not update 
-> gpu_reset_counter, complete its pending fences, or send the wedged event.
->  > mes_userq_reset_queue() already updates gpu_reset_counter, completes 
-> the pending fences, and sends the wedged event for the other affected 
-> queues,
->  > but skips the original queue because it has already been reset.
-> 
-> What is the rationale of sending multiple device wedged events on a per
-> queue basis?
-> 
-> The question of whether drm_dev_wedged_event() should be emitted once 
-> per queue or once per overall recovery seems like a broader design 
-> discussion.
-> 
 
-Along with that, also need to consider if device reset_counter needs to 
-be incremented on a per queue basis or based on reset event recovery. It 
-could get incremented multiple times inside this - mes_userq_reset_queue.
+On 14-Jul-26 3:28 PM, Xiang Liu wrote:
+> The XGMI reset-on-init path can run while the device is still at the
+> minimal init level, such as during an NPS memory partition switch. In
+> that flow the normal RAS IP block hw_init is skipped, so unified RAS
+> is not enabled when the early CPER initialization is attempted.
+>
+> Resume RAS after the XGMI reset-on-init completes and retry CPER
+> initialization for devices that still do not have CPER enabled. This
+> lets the CPER ring come up once RAS is ready while keeping the path a
+> no-op for devices where CPER was already initialized.
+>
+> CPER may now be initialized after the normal debugfs setup has already
+> walked the ring list, so register the CPER ring debugfs entry from the
+> retry path when debugfs is available. Track CPER ring debugfs
+> registration to avoid duplicate registration and clear that state when
+> CPER is torn down.
+>
+> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c    |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h    |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  5 +++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c    | 15 +++++++++++++++
+>   4 files changed, 22 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cper.c
+> index 6fb129025761..7513541e6eff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+> @@ -504,6 +504,7 @@ int amdgpu_cper_fini(struct amdgpu_device *adev)
+>                return 0;
+>
+>        adev->cper.enabled =3D false;
+> +     adev->cper.ring_debugfs_registered =3D false;
+>
+>        amdgpu_ring_fini(&(adev->cper.ring_buf));
+>        adev->cper.count =3D 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cper.h
+> index d12c98077d9d..76df176eab9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
+> @@ -51,6 +51,7 @@ enum amdgpu_cper_type {
+>
+>   struct amdgpu_cper {
+>        bool enabled;
+> +     bool ring_debugfs_registered;
+>
+>        atomic_t unique_id;
+>        struct mutex cper_lock;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index 3d1ede5f8de2..78130f8565c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -2184,8 +2184,13 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev=
+)
+>
+>                if (!ring)
+>                        continue;
+> +             if (ring =3D=3D &adev->cper.ring_buf &&
+> +                 adev->cper.ring_debugfs_registered)
+> +                     continue;
+
+Instead of a new flag, can this check if (!adev->cper.enabled)?>
+>                amdgpu_debugfs_ring_init(adev, ring);
+> +             if (ring =3D=3D &adev->cper.ring_buf)
+> +                     adev->cper.ring_debugfs_registered =3D true;
+>        }
+>
+>        for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_xgmi.c
+> index b265b68e0f37..4ec8e446d377 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -1400,6 +1400,21 @@ static void amdgpu_xgmi_reset_on_init_work(struct =
+work_struct *work)
+>                 * initialized, and for non-uniras devices.
+>                 */
+>                amdgpu_ras_resume_after_reset(tmp_adev);
+> +
+> +             if (!tmp_adev->cper.enabled) {
+> +                     r =3D amdgpu_cper_init(tmp_adev);
+> +                     if (r)
+> +                             dev_err(tmp_adev->dev, "failed to initializ=
+e CPER after XGMI reset-on-init\n");
+> +#if defined(CONFIG_DEBUG_FS)
+> +                     else if (tmp_adev->cper.enabled &&
+> +                              !tmp_adev->cper.ring_debugfs_registered &&
+> +                              adev_to_drm(tmp_adev)->primary->debugfs_ro=
+ot) {
+> +                             amdgpu_debugfs_ring_init(tmp_adev,
+> +                                                      &tmp_adev->cper.ri=
+ng_buf);
+> +                             tmp_adev->cper.ring_debugfs_registered =3D =
+true;
+> +                     }
+> +#endif
+
+Here it could then init both debugfs and cper together since cper is
+enabled only at this point.
+
+BTW, is it possible to call both inside amdgpu_ras_resume_after_reset?
+If not, better to create a wrapper function like
+amdgpu_cper_deferred_init or similar and move inside that.
 
 Thanks,
 Lijo
 
-> Thanks,
-> Srini
-> 
-> 
-> 
+> +             }
+>        }
+>   }
+>
 
+
+--_000_IA1PR12MB6332C9925CC2273459F17520FAF92IA1PR12MB6332namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
+s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+Thanks, will improve this.</div>
+<p class=3D"elementToProof" style=3D"direction: ltr; text-align: left; text=
+-indent: 0px; background-color: white; margin-top: 0px; margin-bottom: 0px;=
+">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
+; color: black;">Best Regards,</span></p>
+<p class=3D"elementToProof" style=3D"direction: ltr; text-align: left; text=
+-indent: 0px; background-color: white; margin-top: 0px; margin-bottom: 0px;=
+">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
+; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
+s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
+Lazar@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, July 14, 2026 6:16 PM<br>
+<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
+.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Chai, Thoma=
+s &lt;YiPeng.Chai@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/ras: initialize CPER after XGMI reset o=
+n init</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+<br>
+On 14-Jul-26 3:28 PM, Xiang Liu wrote:<br>
+&gt; The XGMI reset-on-init path can run while the device is still at the<b=
+r>
+&gt; minimal init level, such as during an NPS memory partition switch. In<=
+br>
+&gt; that flow the normal RAS IP block hw_init is skipped, so unified RAS<b=
+r>
+&gt; is not enabled when the early CPER initialization is attempted.<br>
+&gt; <br>
+&gt; Resume RAS after the XGMI reset-on-init completes and retry CPER<br>
+&gt; initialization for devices that still do not have CPER enabled. This<b=
+r>
+&gt; lets the CPER ring come up once RAS is ready while keeping the path a<=
+br>
+&gt; no-op for devices where CPER was already initialized.<br>
+&gt; <br>
+&gt; CPER may now be initialized after the normal debugfs setup has already=
+<br>
+&gt; walked the ring list, so register the CPER ring debugfs entry from the=
+<br>
+&gt; retry path when debugfs is available. Track CPER ring debugfs<br>
+&gt; registration to avoid duplicate registration and clear that state when=
+<br>
+&gt; CPER is torn down.<br>
+&gt; <br>
+&gt; Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c&nbsp;&nbsp;&nbsp;=
+ |&nbsp; 1 +<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h&nbsp;&nbsp;&nbsp;=
+ |&nbsp; 1 +<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |&nbsp; 5 ++++=
++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c&nbsp;&nbsp;&nbsp;=
+ | 15 +++++++++++++++<br>
+&gt;&nbsp;&nbsp; 4 files changed, 22 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_cper.c<br>
+&gt; index 6fb129025761..7513541e6eff 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c<br>
+&gt; @@ -504,6 +504,7 @@ int amdgpu_cper_fini(struct amdgpu_device *adev)<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;cper.enabled =3D fa=
+lse;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;cper.ring_debugfs_registered =3D fa=
+lse;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_fini(&amp;(adev-=
+&gt;cper.ring_buf));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;cper.count =3D 0;<b=
+r>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_cper.h<br>
+&gt; index d12c98077d9d..76df176eab9f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h<br>
+&gt; @@ -51,6 +51,7 @@ enum amdgpu_cper_type {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; struct amdgpu_cper {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool enabled;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; bool ring_debugfs_registered;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t unique_id;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex cper_lock;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_debugfs.c<br>
+&gt; index 3d1ede5f8de2..78130f8565c5 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
+&gt; @@ -2184,8 +2184,13 @@ int amdgpu_debugfs_init(struct amdgpu_device *a=
+dev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!ring)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (ring =3D=3D &amp;adev-&gt;cper.ring_buf &amp;&amp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;cper.ring_debugfs_registered)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+<br>
+Instead of a new flag, can this check if (!adev-&gt;cper.enabled)?&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_debugfs_ring_init(adev, ring);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (ring =3D=3D &amp;adev-&gt;cper.ring_buf)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;cper.ring_debu=
+gfs_registered =3D true;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&g=
+t;vcn.num_vcn_inst; i++) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_xgmi.c<br>
+&gt; index b265b68e0f37..4ec8e446d377 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
+&gt; @@ -1400,6 +1400,21 @@ static void amdgpu_xgmi_reset_on_init_work(stru=
+ct work_struct *work)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * initialized, and for non-uniras devices.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_ras_resume_after_reset(tmp_adev);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (!tmp_adev-&gt;cper.enabled) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_cper_init(=
+tmp_adev);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; dev_err(tmp_adev-&gt;dev, &quot;failed to initiali=
+ze CPER after XGMI reset-on-init\n&quot;);<br>
+&gt; +#if defined(CONFIG_DEBUG_FS)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (tmp_adev-&gt;c=
+per.enabled &amp;&amp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !tmp_adev-&gt;cper.ring_debugfs_registered &=
+amp;&amp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev_to_drm(tmp_adev)-&gt;primary-&gt;debugf=
+s_root) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_debugfs_ring_init(tmp_adev,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; &amp;tmp_adev-&gt;cper.ring_buf);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; tmp_adev-&gt;cper.ring_debugfs_registered =3D true=
+;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +#endif<br>
+<br>
+Here it could then init both debugfs and cper together since cper is <br>
+enabled only at this point.<br>
+<br>
+BTW, is it possible to call both inside amdgpu_ras_resume_after_reset? <br>
+If not, better to create a wrapper function like <br>
+amdgpu_cper_deferred_init or similar and move inside that.<br>
+<br>
+Thanks,<br>
+Lijo<br>
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_IA1PR12MB6332C9925CC2273459F17520FAF92IA1PR12MB6332namp_--
