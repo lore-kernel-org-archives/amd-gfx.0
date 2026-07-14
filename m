@@ -4,160 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44463C44501
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 15:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78571C44501
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 15:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B04F10ED92;
-	Tue, 14 Jul 2026 15:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F25089E69;
+	Tue, 14 Jul 2026 15:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QAvNoFVa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="160Ed/3k";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A210E10E050;
- Tue, 14 Jul 2026 15:15:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784042151; x=1815578151;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=5gq2JqqwRWDGyfhW4eM3NXDxIpyiCNHAyvXrU2wNRoM=;
- b=QAvNoFVaHoXZpyp/CfFqOWWmu3WEKsp3kWC3s/Hk1/QybwhmqhaqoA6G
- ulZ01HosCQPehkqtl3+3Aac4WTGtIWUlgTZ1led1y0eqFkm3eToLkJnup
- 1V9EpAhBkP1eudhRtR0aCT4dOy97lmvE456ZZJoneivv7MSE2PxU1LKp0
- nxHtjC2hTN9EzNpe45LqY9Hv/9EjL6JwhwmB3OAOQ07aXDYRaWMIlRcJD
- 08Hq+f5G6udx7AI8U43CNcRcR1VmenaEHJZR4WXnbcLnnUKS90CFtU055
- P+C2L4ZSCMZH0dgiKmQcnyuCGOWnaV/+yNOMOW8fYteSOFyEnT77KC5LS A==;
-X-CSE-ConnectionGUID: am2sPBZKTAu/ulxsX+t9eA==
-X-CSE-MsgGUID: P49NaPf0Q+GRh0M7+b38bw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="95311986"
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="95311986"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 08:15:50 -0700
-X-CSE-ConnectionGUID: PQvDKDCxRUurRVLr50yYZA==
-X-CSE-MsgGUID: YOg7w4C/QOKc3l/BUvTY+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,164,1779174000"; d="scan'208";a="251927650"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 08:15:50 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 14 Jul 2026 08:15:49 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Tue, 14 Jul 2026 08:15:49 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.18) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 14 Jul 2026 08:15:49 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012049.outbound.protection.outlook.com
+ [40.93.195.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87F1989E69
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 15:16:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dNkYz55pw/8Swv2Arpf7W1XrnWXGBwtkw/JQNByjxaTvGpHpmgBZPTotkmbkfBNYnBuz1UZrNUS2UQO0ZXwM5OkXIk6F9izUCEJqkBXBd4YkXFFnDvzMhlkP8eOEdxp9WczQyP6bTh4oUE4k9+1AVRrAre7blhgx08R+PWa/DJgNqBbjI68+FBpFoOQVPUJhvDbMNFag6NclNBXCXRs9fGOg7xncR1uwrsevY+G0Nq2ywhdS9IpWhhCSDNCb43ogt3oDR83y39NPLjb1kzJt5rI7o5l6odERWbtapr54evJ4DdiY0Dlt82cCJd16kiezwYVsPqsiefeDO1st7/TYsw==
+ b=vQGZXoK+c1V0K4LOqSGfqiU9a4EMNBH+DfN502Hy4h9XmN62gFJW1RoSVsX1B32oOfalldXO7e0I8pbTrB6qqweedrU7KEsgY/ifinXn4UL4zBR2WtNmk/0CQcziKOKWfnM7JTRc6kShwhDIIqrU7FFK5twyMTdgaeLThcS30mvPxEjxVg+7gG5WFbc9PrwZHUMaq/uyronWbb9tjQjAuWEbkuC8ogTY/ghG7N77C1XXicOZha+EJvjygwgMnCcHOp/6LU7Ayi1/uTaeKn7/YUq1D+CXcSNxIRf2ZKx5gzwvudQwm1kg2Uz63bIquX6Ow5NxDA3ECZlZrYR2DK+ZUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LoBFwA+1kDqGojuBeVV27ZytGjFCzOArHAu7pnHoxwQ=;
- b=jXJ6tetam/B51icPbSiaXNN5ZxwveXhazC+vuSJEcJIx4rJSpZ6E7bpFvexG1GjpBAsU7moQmifFI6Ea9tnD2xCa3fpw08okx+31xS6S/6vfJYl2O7ITiAIHasPjQSEHyTPahSoAl066NuOTqoelSdKgfQRO8wtvMYvG2GBSHFGBt1xcGuApLaQ3D+L2JfuLlMAI9JbJpjLkflGHmdVrmhi69vZ+1Hiap+Ohd4544iVEoy9KMSynWrCW+eFD+JSYrGqzLxUDniGUGe95qtBuYAWisU2jMQMgaKubjoxeR42B98soCyOCplfnEib80UmDc+PHUY676iqXECan6VrfmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by MN2PR11MB4725.namprd11.prod.outlook.com (2603:10b6:208:263::13)
+ bh=2IF8aHLUwm/8lOo0HwYwfjKBu0ib66adFBBFQerwfHI=;
+ b=FN6DrAwXfZ9/t0MwHfnfHL7NDUHT7KNqefitXJ5ndLZq+DfuSAEAV1hrGWf5EWcS4tx82VhvB2EeGlHlrlAHMRQo8SO9fG+sArPshi87/jML/To+2B7ckfDRbzBY1QB/b2RbouV6PjdAyzpVdxPK7AEuzo04/QT8qm5rJEbC53+pktK+WtidD0/AnlRY9iO2RylOwn1ECtT/sabdEy2A1N7SYyUORBXoAVGA8StAX5aCkLaO3kheVo8utbONzlRmAbRrZ2JeHckv6z2cVfven8YGBBJCZG5u1hLhBZfD2l3v5SWTXVbTM4YGp9K7VOe5AJP/pqPr2zKcmrseTUeuog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2IF8aHLUwm/8lOo0HwYwfjKBu0ib66adFBBFQerwfHI=;
+ b=160Ed/3kzTr88syDL1v/cBxi1ufv5PyLN4kGk05IL1gQexGl9Si8qjrKtFQx7gPMmdsXoRZ1aseLzv6V1Y3MQqm2j9XNhFlEXPogoEYFKo+E0dHXiezcqezFsR+im1LsoBEw7NxOBFym992S1/BF0Az9xKp52+/T6WIMuAtVua4=
+Received: from SJ0PR05CA0037.namprd05.prod.outlook.com (2603:10b6:a03:33f::12)
+ by BL3PR12MB6523.namprd12.prod.outlook.com (2603:10b6:208:3bf::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Tue, 14 Jul
- 2026 15:15:45 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
- 15:15:45 +0000
-Date: Tue, 14 Jul 2026 08:15:42 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- "Huang Rui" <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-kernel@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 33/33] drm/amdgpu: Preallocate system BO pages outside
- the reservation lock
-Message-ID: <alZSnjM53f9dfjSR@gsse-cloud1.jf.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-34-matthew.brost@intel.com>
- <13b16ffb-f9aa-4b83-a1cc-1b9ac8475c5f@amd.com>
- <alVJgfBepuNZhAmd@gsse-cloud1.jf.intel.com>
- <357a21c0-7181-474f-bb97-c795d9456238@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <357a21c0-7181-474f-bb97-c795d9456238@amd.com>
-X-ClientProxiedBy: MW4PR04CA0281.namprd04.prod.outlook.com
- (2603:10b6:303:89::16) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.20; Tue, 14 Jul
+ 2026 15:15:58 +0000
+Received: from MWH0EPF000C6191.namprd02.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::68) by SJ0PR05CA0037.outlook.office365.com
+ (2603:10b6:a03:33f::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.4 via Frontend Transport; Tue, 14
+ Jul 2026 15:15:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C6191.mail.protection.outlook.com (10.167.249.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 15:15:57 +0000
+Received: from suresh-X570-AORUS-ELITE-WIFI.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Tue, 14 Jul 2026 10:15:56 -0500
+From: Suresh Guttula <suresh.guttula@amd.com>
+To: <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: <suresh.guttula@amd.com>
+Subject: [PATCH] drm/amdgpu : update mmhub eco sec lvl for vcn5_3
+Date: Tue, 14 Jul 2026 20:45:36 +0530
+Message-ID: <20260714151536.3315492-1-suresh.guttula@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|MN2PR11MB4725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99663a49-d9ba-4cd5-66d2-08dee1bac71b
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6191:EE_|BL3PR12MB6523:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3509030b-dad5-459e-c804-08dee1bace92
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: wlj1pL7IwX4S7pUHefdwPiCt8IThXZDHu3AWHgF3/qE1hxGbJpEQnB1k4Lo/XlPZ84gopPyXj42quIYb7H1SBu3vX1/sdQteme9QjUPm9FoW5Hma7k+K1riFN7iegeyAAcu4hIzcPCjqB7QBFz3rFhBrpuj9rPV+dxS3kfi02qL18C7wIcw64U2dnIxQqJ6maW6UOkK9QYkebU9lt7n1+2xV//I2Zw1U8jJJ8KT1yys4naaLAn0uQFFgErB0sD7d5sJzTt9258PdQdbnhZbtPA1bj74nKPOMfJ5X9TgrMwN+lW8gyXK8KXSJOebL7Yok60khh6mxT4dsHAVaY7rqcYI9R49JhmKfp7qdNwKWiktglVLgTbGTEo27jiz42q6MBSdXioYzoUl0dWH2RfZ4/4O8BIGRdT1OqbH4E8u7iYAajk5bc8XbFzSyiNbKXvRElWWJujcceo2jlvSL1+JMYMYRsmX58W5WI419PvzWCQ8bMUvJwi1F8AyKnvOBN0MWxpdhZrabvp4CrkbcLTSmM8/qNBV7zK/A6KQG/60nD/emnF2x4QOvQOkOGG8uNSGpUzTeOfNc457Xx/bu6e2rHhwy2GH5jwbkFQnBJV4hBWWVPB7fCeNPYuSxq/86iwtCzZmgUHeVXblHaG/T+JILKm5xP+mZYlzD3ie4LA3LJq8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
+ ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|18002099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 3JadrajDFqOSiNfp17/uKB72qbJCRUeDq19JCiihd5NsUoBfhHpMSkO6E8zCiVtfodGr1+Sodh8NYFps+Ee/yq/ZCOyKdaXha8xI3l8aekHlYl5He0UYjbPpaCoaddDldx7srT64t91EMxV8CWAL+FYzR0eDSyDSVcPNX5Jn3d7EmLmMu7nzEeyKyQjx20TMDXHBf2o/lJhkI57MdXdmcBy2E7TzrMxihfNMecVd6ujGWmKaPCR6fvz2dQ9HHbGFNaG/Oi14QhPjtbsj8dq4z/H8oaRcvM9ZsKtTumIc3rShW45xPm+CkYrsdS564iKsjF0MU8QIqqlMoD+YsliYDX38+aE8Q5WlNrUl2dKMbsWaKydb+VL9sYMgvMROQYMkcjt4+rkAizAxITi4kAwjznX872Kq0Dp22M3SrDwTGcjrevdITjfL6A8q+SuDATsiFD+LeUQdzvuH+7SLlT/LiqtbrecbOHuQ77O20Jq+yABCHJKmkDPabH/ifv60sRdACAf/ZF00ucJa1uKpDY/njYyJCpFy0+svJ8YcEbjVpcZtO5DH0XnQKHVUHShi+wvUrKbsJXpL1Fn5fbcxj4Xj0d1979iI/WT5tixrV2PdbGI4+qNLziQ55BCw3gGkAoa0x1ONhTERBWiNpyEGAgBiflXf3pxmjmi+jHkw8s6KEFfPaW9bAYU27Gt2g8IXGQVu82TrcRlASLh8Tu8J3bZX6g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(18002099003)(3023799007)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?BiCZdveK+q9MAC0urc0te0+Ly3g+Zvts4PUAHA9/wtdf258cuJEZe0A1c2?=
- =?iso-8859-1?Q?m2KqDBthNXaxqSrJdWS6xKHFS9C5rcbjRFeOWgvLw+4bQmkorPUEyoHsa+?=
- =?iso-8859-1?Q?ATm3nAEpnzjDXxe54bBqwKcUh3A8kHzRAnrLAOluGylGGXlOw/DRkgENR1?=
- =?iso-8859-1?Q?9gA9abC+xbocCPUUW27lipY9CSLRFG9RbInasrWPcLJZJcvYXmSXRMEaTK?=
- =?iso-8859-1?Q?hRMTs0fRn3CCVsDzQM22bzNsMi57rhoAPW70LZizLHLNhvGJCMwzRr1zHk?=
- =?iso-8859-1?Q?a3ouHpfCXtZptSD/cL0PUpbpLRhRQzcfH1YVIosXmhBIBpsA94DprDEDld?=
- =?iso-8859-1?Q?9ugobWq+td/Xgh9FP2SQ3QppY7zpq78AF1jZUx+UiRfjWuase7Lq6m58ZZ?=
- =?iso-8859-1?Q?TJfA8WP1pq+01stydE2hr0an2uWQE/mnOOZsnHa9eM2JtUaiSbVuW+A2vB?=
- =?iso-8859-1?Q?Yv8wX7m6ANFl2ORGrEKawZFHcsRl1UBwBAHSHhrYrYHuTb2e9ejyxzz5zp?=
- =?iso-8859-1?Q?IbevsSYuixoajPRH80Qouvsh969xrgXFqya1JYWrQHX2EtI4D8xNNxLy3y?=
- =?iso-8859-1?Q?gpapvCXF0c5UzI/rl4S4bBgR9UpMuzthxX3oRetdt55UQa9zrlIb0ExGXK?=
- =?iso-8859-1?Q?289QPyMCH2v+Mojg/HXbAVI0TFedUCn2/R9VaVhO6FIcdbC8/hH/7qQN5w?=
- =?iso-8859-1?Q?qpw4B4ecovHRRSNYRduomHu5L1mY91Oyet09tYeZxJWMkpdQkhCNWvj0T3?=
- =?iso-8859-1?Q?DOe2nyW4gthmLwu7zY1aHfMIIAJqoVFS7EWKOX4ncTem7CfiklgiYSE5Gf?=
- =?iso-8859-1?Q?uaLpA2ytZGRQF774TEqktMW00vYLkIwSVLSPp5UcRgaLn9jjzLfT1JZvGH?=
- =?iso-8859-1?Q?vXG/T2Ygw3NkiTYpuwKnRzH3/KZBioh+1IT6ALtSJoxrrLQgPiilUD4yZw?=
- =?iso-8859-1?Q?JGedL34WjjbOYdaLs5cC9sq75G3JqqAoXBeThBJfa6GTW2hgShRCbvCquj?=
- =?iso-8859-1?Q?uPJ415K0blehqe/KeR4eX7XZaPdn5fL2KPMTUCmHUg3o8o84JmYMXZVnzI?=
- =?iso-8859-1?Q?YMn64eTS5ruEym/ti64TggyTRWsKAClakBLUGdAFFcp5azWa+52F9k4f78?=
- =?iso-8859-1?Q?FiUlct5cXBk++LBE/WFh36KidFmMY4+n6vt5f2Z5bewqgkl9qeFIdlMLbH?=
- =?iso-8859-1?Q?u5v+SJVtkrRFR8Kg+U6pXx0+sdQMXeC/vTtvebo4C3gxobgqksqsO7IsVC?=
- =?iso-8859-1?Q?bjsJ7QY1Rrx2yPMytsPm5m3BVXOl/oKwtMCJojMwhZafbqXqZovqRcwArl?=
- =?iso-8859-1?Q?YtHrgNdTdQDtos7AZn4Pyw93LMMpDaHqKatxi90j7k0dPyjuReUoa4++Rq?=
- =?iso-8859-1?Q?H7mN/AaHVO5hp3SXUdCVcv4Wx8fOYi3Zz+UNqX1oEZURpKvWs+LdBFh8N7?=
- =?iso-8859-1?Q?0A1ncehx/XYqu/trfwcMoCsBGtsYB+aEjNYRsX7fXcCxiNRVxh1RIgAPgz?=
- =?iso-8859-1?Q?NdFzph8ksFPhf/LnXECoUdAVGXP9Sn1YGDePh5t8pKCYP8oy/X4FrwStcg?=
- =?iso-8859-1?Q?fsKc7PEZy01+cHf7nQs4nCUgB4UlI3qpwcUX/r1IQ6Gys8DjTEUzxB8+gp?=
- =?iso-8859-1?Q?/r+TXlMlwIAfumZtOJg5yi/VqQwDnO/2jgMIeUygqFuhJtMy8rF+PXQpYZ?=
- =?iso-8859-1?Q?ykM1KWQIj865w7WJ3agfLDuBqeMqpWi0uWOJIxE1XQfRvhuZFKIAve1tlJ?=
- =?iso-8859-1?Q?plVrOIt4+Mj22q4mfv7poM2TzwuibSglG/vl3ny2SEesvb6ijBekQ1upUQ?=
- =?iso-8859-1?Q?U2088FQAX0oyNY0vJZYhavBewhIQ2HU=3D?=
-X-Exchange-RoutingPolicyChecked: Jt2SpUpF4HYvFgt8iCKJSqA6x3bZ0hjOWtuFVD7s70N51AqKOtz8rFAtBmtLze4FfOyoI4pg4Y1O1QEfiav53+m3ZcfNCfc/HdW32Ld9A6f5FjNcLuyK/BMfV19T11L7o2RjCLZ9TZGMBeDjL/KlxTAUBHbHat+/zOPakKpZjsOZIlUWOi6m+OjVk8z5kGT3xnHZMXkBPxnCLKOAzvBIvckWHUQ4uQx18ZAR0DwMlwFmHZOe19wnDBP7AiEeHnvfyN3xBPBjg6sCqPmDnS6W3RiDslYX7nQ1fiZgm2f8SdEKaW/u+Qi8A9TYeT1548wrId4h1jee0Q4YHCgRXMGkYQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99663a49-d9ba-4cd5-66d2-08dee1bac71b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 15:15:45.5713 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5ebKn79HSpBHlDO8icUvu2pbxWNFOzbbBKHEH3Fx/m5GON3EnkLN3RTYm9xHipXiGrVMa2nuD6+voVRlmRqgZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4725
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: rE0df/fo7uk354j5BF2okxbV2nbTTVYzsKAs7KuTHlkkS0QKSGCfxhkiRaatsvyz+VOGxpPugXIOOYWyaDA9HQBL2+sSaShguD4XlSwgo1gEZRIfrm7+7k7MAexGGoPACntm8+TU+I+sSZd7KP68TlSrWdl8b7c/p3/ch5+UA3xh65Rla+l2qmlSG4oN9/vnSAB6yM4DECvt400G6xQzBv8xp4kQRO2Z+aILyfZFiOYPVNIgJ4XsqkXXXsDjWYvRi12uR4BbfS/JAwaiROCaYs97AUuNY+u4dZ1/+hgwQjT4n79SFFWdEvogAFRCBgdgZg0GX6cNhUGv3O8ucIVFalb6VUn8R3waKpxUDP3PGMzdks8BdEtQRQbk2iyPoYWl9Z853r1O3DPx1SccigcKEyDCRSc0+q3NWg3yE5xWPWwjBtZjD/51K2UynkdPPZ7y
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 15:15:57.8223 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3509030b-dad5-459e-c804-08dee1bace92
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6191.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6523
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,472 +108,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 11:17:32AM +0200, Christian König wrote:
-> On 7/13/26 22:24, Matthew Brost wrote:
-> > On Sat, Jul 11, 2026 at 12:46:40PM +0200, Christian König wrote:
-> >> On 7/11/26 04:56, Matthew Brost wrote:
-> >>> Populating a GTT (system) buffer object under the reservation lock can
-> >>> stall in reclaim and compaction while trying to satisfy beneficial-order
-> >>> allocations, holding the lock for the duration.
-> >>
-> >> Yeah and that is perfectly intentional behavior.
-> >>
-> >> I really don't see any reason for any driver to change that.
-> >>
-> >> The purpose of the dma_resv lock is to stall other allocation for the same object it protects, making sure that we don't have multiple threads allocating memory for the same buffer object.
-> >>
-> >> Why in the world should that be a problem?
-> >>
-> > 
-> > See my example in my reply to the cover letter: multiple threads
-> > sharing a VM, with a memory allocation performed under the VM dma-resv
-> > lock, which in turn blocks exec IOCTLs, CPU page faults or VM binds on
-> > BOs sharing the same VM dma-resv lock. With that, this code could be
-> > gating on whether the BO allocation shares a VM dma-resv lock.
-> 
-> Ah, ok I see the problem now.
-> 
-> > The most relevant example here, I believe, is that launching a new
-> > Chrome tab could potentially stall the aforementioned operations in a
-> > different Chrome tab. Likewise, if games allocate memory on demand
-> > (they typically do not, because memory allocations are prone to
-> > introducing stalls), they could also incur the aforementioned stalls.
-> 
-> Yeah, I was already wondering how such an use case is seen with gaming or HPC.
-> 
-> But Chrome is indeed the right stress test for memory allocation :)
-> 
-> > I think the opposite question is more appropriate here: does
-> > preallocating memory outside of dma-resv before a device can DMA to it
-> > break any invariants? The answer is no; it does not in the case of GEM
-> > create IOCTLs or the defragmentation moves introduced in this series.
-> 
-> Of hand it looks like a valid approach to me, but it is still quite hacky.
-> 
-> I would rather suggest something like that:
-> 
-> 1. Allocate a BO #1 with a separate dma_resv lock.
-> 2. Populate that BO with the backing store you want to have.
-> 3. Allocate a BO #2 with the dma_resv lock of the VM, but no backing store whatsoever.
-> 4. Lock both BO #1 and #2.
-> 5. Use a new function ttm_bo_swap_backing_stores() to switch the backing store between the two.
-> 6. Unlock everything and drop the reference on BO #1 to let it cleanup.
-> 
-> This way the memory/resources are always allocated to some resource and buffer object which makes it possible to track it.
-> 
-> Tracking the allocated memory is necessary for hot plug and eventually shrinking it.
+This patch requests PSP to set the sec lvl for
+vcn and jpeg.
 
-Thanks. Let me see what the rework looks like and whether I run into any
-issues.
+Signed-off-by: Suresh Guttula <suresh.guttula@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 27 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 24 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  | 26 +++++++++++++++++++++++
+ 5 files changed, 79 insertions(+)
 
-I did have a concern about the pre-allocation not being attached to any
-reservation, and therefore not being available for shrinking during the
-pre-allocation <-> reservation attachment window as well. Of course, the
-defrag step gets trickier here since it is not a 1:1 transfer (it's a
-subset plus a copy), but it is likely workable too.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index a36cbfc1f6f1..64281553c6d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1222,6 +1222,33 @@ int psp_memory_partition(struct psp_context *psp, int mode)
+ 	return ret;
+ }
+ 
++int psp_set_mmhub_eco_sec_level(struct amdgpu_device *adev)
++{
++	int ret;
++	struct psp_context *psp = &adev->psp;
++	struct psp_gfx_cmd_resp *cmd = acquire_psp_cmd_buf(psp);
++
++	cmd->cmd_id = GFX_CMD_ID_SET_MMHUB_ECO_SEC_LEVEL;
++
++	ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
++	if (ret) {
++		dev_err(psp->adev->dev,
++			"PSP request failed to set mmuhub eco sec level with ret=%d\n", ret);
++		release_psp_cmd_buf(psp);
++		return ret;
++	}
++
++	if (cmd->resp.status) {
++		dev_err(psp->adev->dev,
++			"MMHUB ECO SEC LEVEL command 0x%x failed, PSP response status: 0x%X\n",
++				cmd->cmd_id, cmd->resp.status);
++		ret = -EIO;
++	}
++	release_psp_cmd_buf(psp);
++
++	return ret;
++}
++
+ static int psp_ptl_fmt_verify(struct psp_context *psp, enum amdgpu_ptl_fmt fmt,
+ 						 uint32_t *ptl_fmt)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 2d838b1b2b11..3d7744d60fac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -656,5 +656,6 @@ int amdgpu_psp_reg_program_no_ring(struct psp_context *psp, uint32_t val,
+ void amdgpu_psp_debugfs_init(struct amdgpu_device *adev);
+ int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
+ 			   enum psp_gfx_fw_type *type);
++int psp_set_mmhub_eco_sec_level(struct amdgpu_device *adev);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+index 66d4c487eee5..4dcdbf84745e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+@@ -399,6 +399,25 @@ static void jpeg_v5_3_0_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
+ 	WREG32_SOC15(JPEG, inst_idx, regUVD_JPEG_POWER_STATUS, reg_data);
+ }
+ 
++/**
++ * jpeg_v5_3_0_set_mmhub_eco_sec_level - set jpeg sec lvl reg
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * request psp to set secure lvl
++ */
++static int jpeg_v5_3_0_set_mmhub_eco_sec_level(struct amdgpu_device *adev)
++{
++	int r = 0;
++
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		//Request to PSP to program JPEG secure lvl
++		r = psp_set_mmhub_eco_sec_level(adev);
++	}
++
++	return r;
++}
++
+ /**
+  * jpeg_v5_3_0_start - start JPEG block
+  *
+@@ -424,6 +443,11 @@ static int jpeg_v5_3_0_start(struct amdgpu_device *adev)
+ 	if (r)
+ 		return r;
+ 
++	/* program JPEG secure lvl register */
++	r = jpeg_v5_3_0_set_mmhub_eco_sec_level(adev);
++	if (r)
++		return r;
++
+ 	/* JPEG disable CGC */
+ 	jpeg_v5_3_0_disable_clock_gating(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+index ac34bac3c839..ad618b78685f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
++++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+@@ -110,6 +110,7 @@ enum psp_gfx_cmd_id
+     GFX_CMD_ID_PERF_HW            = 0x0000004C,   /* performance monitor */
+     GFX_CMD_ID_FB_FW_RESERV_ADDR  = 0x00000050,  /* Query FW reservation addr */
+     GFX_CMD_ID_FB_FW_RESERV_EXT_ADDR = 0x00000051,  /* Query FW reservation extended addr */
++    GFX_CMD_ID_SET_MMHUB_ECO_SEC_LEVEL = 0x0000005D,  /* Set MMHUB ECO sec lvls on VCN block */
+ };
+ 
+ /* PSP boot config sub-commands */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index 45580e9c4e0c..0ca87ab2bfc2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -795,6 +795,27 @@ static int vcn_v5_0_0_start_dpg_mode(struct amdgpu_vcn_inst *vinst,
+ 	return 0;
+ }
+ 
++/**
++ * vcn_v5_0_0_set_mmhub_eco_sec_level - set vcn sec lvl reg
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * request psp to set sec lvl
++ */
++static int vcn_v5_0_0_set_mmhub_eco_sec_level(struct amdgpu_device *adev)
++{
++	int r = 0;
++
++	if (amdgpu_ip_version(adev, VCN_HWIP, 0) == IP_VERSION(5, 3, 0)) {
++		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++			//Request to PSP to program VCN secure lvl
++			r = psp_set_mmhub_eco_sec_level(adev);
++		}
++	}
++
++	return r;
++}
++
+ /**
+  * vcn_v5_0_0_start - VCN start
+  *
+@@ -819,6 +840,11 @@ static int vcn_v5_0_0_start(struct amdgpu_vcn_inst *vinst)
+ 
+ 	fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
+ 
++	/* program VCN secure lvl register */
++	r = vcn_v5_0_0_set_mmhub_eco_sec_level(adev);
++	if (r)
++		return r;
++
+ 	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+ 		return vcn_v5_0_0_start_dpg_mode(vinst, adev->vcn.inst[i].indirect_sram);
+ 
+-- 
+2.43.0
 
-Also, there's the corner case where BO #1 is immediately shrunk, though
-perhaps that doesn't matter and the next execution fixes it up at that
-point.
-
-I'll reply here once I have a better understanding of the corner cases
-and whether this approach fits both goals: defragmentation and
-minimizing shared VM dma-resv lock hold time.
-
-Matt
-
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> > Matt
-> > 
-> >> Regards,
-> >> Christian.
-> >>
-> >>>
-> >>> Mirror the Xe out-of-lock preallocation for pure system BOs: when a
-> >>> gem_create request targets AMDGPU_GEM_DOMAIN_GTT only, fill the full page
-> >>> backing up front via ttm_pool_prealloc_fill_full() before taking the
-> >>> reservation lock. The populate under the lock then simply installs these
-> >>> pages instead of reclaiming and compacting in the critical section. The
-> >>> fill is best-effort - a short fill falls back to the normal in-lock
-> >>> allocation for the remaining pages, and any leftover pages are released
-> >>> by ttm_pool_prealloc_fini() on all exit paths.
-> >>>
-> >>> Unlike Xe, amdgpu has no background defragmenter, so the higher-order
-> >>> reclaim backoff is left disabled (normal reclaim). If the pool uses
-> >>> dma-alloc (swiotlb), the fill bails and the feature is a silent no-op.
-> >>>
-> >>> Factor the tt pool selection into amdgpu_ttm_tt_pool_id() and
-> >>> amdgpu_ttm_pool() so the preallocation targets the exact pool the
-> >>> populate will consume, and thread an optional prealloc bag through
-> >>> amdgpu_gem_object_create() and amdgpu_bo_param into the populate ctx.
-> >>>
-> >>> Cc: amd-gfx@lists.freedesktop.org
-> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >>> Cc: Carlos Santa <carlos.santa@intel.com>
-> >>> Cc: Ryan Neph <ryanneph@google.com>
-> >>> Cc: Christian Koenig <christian.koenig@amd.com>
-> >>> Cc: Huang Rui <ray.huang@amd.com>
-> >>> Cc: Matthew Auld <matthew.auld@intel.com>
-> >>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> >>> Cc: Maxime Ripard <mripard@kernel.org>
-> >>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> >>> Cc: David Airlie <airlied@gmail.com>
-> >>> Cc: Simona Vetter <simona@ffwll.ch>
-> >>> Cc: dri-devel@lists.freedesktop.org
-> >>> Cc: linux-kernel@vger.kernel.org
-> >>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> >>> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> >>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> >>>
-> >>> ---
-> >>>
-> >>> v3:
-> >>>  - Keep WC caching only when USWC is supported and bound the
-> >>>    preallocation to available GTT space (Sashiko)
-> >>> ---
-> >>>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  4 +-
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |  2 +-
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 73 +++++++++++++++++--
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |  5 +-
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  3 +-
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  4 +
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 39 +++++++---
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  3 +
-> >>>  8 files changed, 108 insertions(+), 25 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> >>> index 20831dbebc31..940f58848a97 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> >>> @@ -345,7 +345,7 @@ create_dmamap_sg_bo(struct amdgpu_device *adev,
-> >>>  
-> >>>  	ret = amdgpu_gem_object_create(adev, mem->bo->tbo.base.size, 1,
-> >>>  			AMDGPU_GEM_DOMAIN_CPU, AMDGPU_GEM_CREATE_PREEMPTIBLE | flags,
-> >>> -			ttm_bo_type_sg, mem->bo->tbo.base.resv, &gem_obj, 0);
-> >>> +			ttm_bo_type_sg, mem->bo->tbo.base.resv, &gem_obj, 0, NULL);
-> >>>  
-> >>>  	amdgpu_bo_unreserve(mem->bo);
-> >>>  
-> >>> @@ -1811,7 +1811,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
-> >>>  		 domain_string(alloc_domain), xcp_id);
-> >>>  
-> >>>  	ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain, alloc_flags,
-> >>> -				       bo_type, NULL, &gobj, xcp_id + 1);
-> >>> +				       bo_type, NULL, &gobj, xcp_id + 1, NULL);
-> >>>  	if (ret) {
-> >>>  		pr_debug("Failed to create BO on domain %s. ret %d\n",
-> >>>  			 domain_string(alloc_domain), ret);
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> >>> index b33c300e26e2..51510e831129 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> >>> @@ -435,7 +435,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
-> >>>  
-> >>>  	ret = amdgpu_gem_object_create(adev, dma_buf->size, PAGE_SIZE,
-> >>>  				       AMDGPU_GEM_DOMAIN_CPU, flags,
-> >>> -				       ttm_bo_type_sg, resv, &gobj, 0);
-> >>> +				       ttm_bo_type_sg, resv, &gobj, 0, NULL);
-> >>>  	if (ret)
-> >>>  		goto error;
-> >>>  
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> >>> index 6a0699746fbc..e8b732218e7d 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> >>> @@ -39,6 +39,7 @@
-> >>>  #include <drm/drm_exec.h>
-> >>>  #include <drm/drm_gem_ttm_helper.h>
-> >>>  #include <drm/ttm/ttm_tt.h>
-> >>> +#include <drm/ttm/ttm_pool.h>
-> >>>  #include <drm/drm_syncobj.h>
-> >>>  
-> >>>  #include "amdgpu.h"
-> >>> @@ -168,7 +169,8 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
-> >>>  			     int alignment, u32 initial_domain,
-> >>>  			     u64 flags, enum ttm_bo_type type,
-> >>>  			     struct dma_resv *resv,
-> >>> -			     struct drm_gem_object **obj, int8_t xcp_id_plus1)
-> >>> +			     struct drm_gem_object **obj, int8_t xcp_id_plus1,
-> >>> +			     struct ttm_pool_prealloc *prealloc)
-> >>>  {
-> >>>  	struct amdgpu_bo *bo;
-> >>>  	struct amdgpu_bo_user *ubo;
-> >>> @@ -188,6 +190,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
-> >>>  	bp.domain = initial_domain;
-> >>>  	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-> >>>  	bp.xcp_id_plus1 = xcp_id_plus1;
-> >>> +	bp.prealloc = prealloc;
-> >>>  
-> >>>  	r = amdgpu_bo_create_user(adev, &bp, &ubo);
-> >>>  	if (r)
-> >>> @@ -412,6 +415,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
-> >>>  	struct dma_resv *resv = NULL;
-> >>>  	struct drm_gem_object *gobj;
-> >>>  	uint32_t handle, initial_domain;
-> >>> +	struct ttm_pool_prealloc prealloc = {};
-> >>> +	struct ttm_pool *prealloc_pool = NULL;
-> >>>  	int r;
-> >>>  
-> >>>  	/* reject invalid gem flags */
-> >>> @@ -443,10 +448,57 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
-> >>>  		flags |= AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
-> >>>  	}
-> >>>  
-> >>> +	/*
-> >>> +	 * For system-only (pure GTT) BOs, preallocate the whole page backing
-> >>> +	 * up front, outside the reservation lock. Populate under the lock then
-> >>> +	 * just installs these pages instead of reclaiming/compacting in the
-> >>> +	 * critical section. Best-effort: a short fill falls back to the normal
-> >>> +	 * in-lock allocation for the missing pages.
-> >>> +	 */
-> >>> +	if (args->in.domains == AMDGPU_GEM_DOMAIN_GTT) {
-> >>> +		struct ttm_resource_manager *gtt_man =
-> >>> +			ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
-> >>> +		int32_t xcp_id = adev->gmc.mem_partitions ? fpriv->xcp_id : 0;
-> >>> +		int32_t pool_id = amdgpu_ttm_tt_pool_id(adev, xcp_id);
-> >>> +		/*
-> >>> +		 * Mirror the USWC handling in amdgpu_bo_create(): the flag is
-> >>> +		 * stripped when the platform can't do write-combining, in which
-> >>> +		 * case the tt is created ttm_cached. The prealloc caching must
-> >>> +		 * match the final tt caching exactly, otherwise ttm_pool_free()
-> >>> +		 * would restore the wrong PAT state on these pages (PAT aliasing
-> >>> +		 * / leak of WC pages into the cached allocator).
-> >>> +		 */
-> >>> +		bool uswc = (flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
-> >>> +			amdgpu_bo_support_uswc(flags);
-> >>> +		enum ttm_caching caching =
-> >>> +			uswc ? ttm_write_combined : ttm_cached;
-> >>> +
-> >>> +		/*
-> >>> +		 * Only prealloc when the request fits the currently-available
-> >>> +		 * GTT (total manager size minus current usage). This mirrors the
-> >>> +		 * amdgpu_bo_validate_size() bound applied later in
-> >>> +		 * amdgpu_bo_create() while also skipping the up-front reclaim /
-> >>> +		 * compaction when GTT is already near full or the user-controlled
-> >>> +		 * size is over-large (the creation path handles those anyway).
-> >>> +		 */
-> >>> +		if (gtt_man) {
-> >>> +			u64 used = ttm_resource_manager_usage(gtt_man);
-> >>> +			u64 avail = gtt_man->size > used ?
-> >>> +				gtt_man->size - used : 0;
-> >>> +
-> >>> +			if (size <= avail) {
-> >>> +				prealloc_pool = amdgpu_ttm_pool(adev, pool_id);
-> >>> +				ttm_pool_prealloc_fill_full(prealloc_pool,
-> >>> +							    caching, &prealloc,
-> >>> +							    PFN_UP(size), false);
-> >>> +			}
-> >>> +		}
-> >>> +	}
-> >>> +
-> >>>  	if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
-> >>>  		r = amdgpu_bo_reserve(vm->root.bo, false);
-> >>>  		if (r)
-> >>> -			return r;
-> >>> +			goto out_prealloc;
-> >>>  
-> >>>  		resv = vm->root.bo->tbo.base.resv;
-> >>>  	}
-> >>> @@ -455,7 +507,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
-> >>>  retry:
-> >>>  	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
-> >>>  				     initial_domain,
-> >>> -				     flags, ttm_bo_type_device, resv, &gobj, fpriv->xcp_id + 1);
-> >>> +				     flags, ttm_bo_type_device, resv, &gobj,
-> >>> +				     fpriv->xcp_id + 1, prealloc_pool ? &prealloc : NULL);
-> >>>  	if (r && r != -ERESTARTSYS) {
-> >>>  		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
-> >>>  			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> >>> @@ -479,17 +532,21 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
-> >>>  		amdgpu_bo_unreserve(vm->root.bo);
-> >>>  	}
-> >>>  	if (r)
-> >>> -		return r;
-> >>> +		goto out_prealloc;
-> >>>  
-> >>>  	r = drm_gem_handle_create(filp, gobj, &handle);
-> >>>  	/* drop reference from allocate - handle holds it now */
-> >>>  	drm_gem_object_put(gobj);
-> >>>  	if (r)
-> >>> -		return r;
-> >>> +		goto out_prealloc;
-> >>>  
-> >>>  	memset(args, 0, sizeof(*args));
-> >>>  	args->out.handle = handle;
-> >>> -	return 0;
-> >>> +
-> >>> +out_prealloc:
-> >>> +	if (prealloc_pool)
-> >>> +		ttm_pool_prealloc_fini(prealloc_pool, &prealloc);
-> >>> +	return r;
-> >>>  }
-> >>>  
-> >>>  int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
-> >>> @@ -528,7 +585,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
-> >>>  
-> >>>  	/* create a gem object to contain this object in */
-> >>>  	r = amdgpu_gem_object_create(adev, args->size, 0, AMDGPU_GEM_DOMAIN_CPU,
-> >>> -				     0, ttm_bo_type_device, NULL, &gobj, fpriv->xcp_id + 1);
-> >>> +				     0, ttm_bo_type_device, NULL, &gobj, fpriv->xcp_id + 1, NULL);
-> >>>  	if (r)
-> >>>  		return r;
-> >>>  
-> >>> @@ -1298,7 +1355,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
-> >>>  	domain = amdgpu_bo_get_preferred_domain(adev,
-> >>>  				amdgpu_display_supported_domains(adev, flags));
-> >>>  	r = amdgpu_gem_object_create(adev, args->size, 0, domain, flags,
-> >>> -				     ttm_bo_type_device, NULL, &gobj, fpriv->xcp_id + 1);
-> >>> +				     ttm_bo_type_device, NULL, &gobj, fpriv->xcp_id + 1, NULL);
-> >>>  	if (r)
-> >>>  		return -ENOMEM;
-> >>>  
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> >>> index b558336bc4c6..706aeca011f1 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> >>> @@ -35,6 +35,8 @@
-> >>>  
-> >>>  extern const struct drm_gem_object_funcs amdgpu_gem_object_funcs;
-> >>>  
-> >>> +struct ttm_pool_prealloc;
-> >>> +
-> >>>  unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
-> >>>  
-> >>>  /*
-> >>> @@ -45,7 +47,8 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
-> >>>  			     int alignment, u32 initial_domain,
-> >>>  			     u64 flags, enum ttm_bo_type type,
-> >>>  			     struct dma_resv *resv,
-> >>> -			     struct drm_gem_object **obj, int8_t xcp_id_plus1);
-> >>> +			     struct drm_gem_object **obj, int8_t xcp_id_plus1,
-> >>> +			     struct ttm_pool_prealloc *prealloc);
-> >>>  int amdgpu_mode_dumb_create(struct drm_file *file_priv,
-> >>>  			    struct drm_device *dev,
-> >>>  			    struct drm_mode_create_dumb *args);
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>> index f98bfba59a2c..18c4cf3f35a5 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> >>> @@ -632,7 +632,8 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
-> >>>  		/* We opt to avoid OOM on system pages allocations */
-> >>>  		.gfp_retry_mayfail = true,
-> >>>  		.allow_res_evict = bp->type != ttm_bo_type_kernel,
-> >>> -		.resv = bp->resv
-> >>> +		.resv = bp->resv,
-> >>> +		.prealloc = bp->prealloc,
-> >>>  	};
-> >>>  	struct amdgpu_bo *bo;
-> >>>  	unsigned long page_align, size = bp->size;
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> >>> index ff11a0903499..11f1d403f152 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> >>> @@ -45,6 +45,8 @@
-> >>>  #define to_amdgpu_bo_user(abo) container_of((abo), struct amdgpu_bo_user, bo)
-> >>>  #define to_amdgpu_bo_vm(abo) container_of((abo), struct amdgpu_bo_vm, bo)
-> >>>  
-> >>> +struct ttm_pool_prealloc;
-> >>> +
-> >>>  struct amdgpu_bo_param {
-> >>>  	unsigned long			size;
-> >>>  	int				byte_align;
-> >>> @@ -58,6 +60,8 @@ struct amdgpu_bo_param {
-> >>>  	void				(*destroy)(struct ttm_buffer_object *bo);
-> >>>  	/* xcp partition number plus 1, 0 means any partition */
-> >>>  	int8_t				xcp_id_plus1;
-> >>> +	/* optional out-of-lock preallocated backing (system/GTT only) */
-> >>> +	struct ttm_pool_prealloc	*prealloc;
-> >>>  };
-> >>>  
-> >>>  /* bo virtual addresses in a vm */
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> >>> index b10b0878df37..c9cd4714f515 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> >>> @@ -1173,6 +1173,30 @@ void amdgpu_ttm_mmio_remap_free_sgt(struct device *dev,
-> >>>  	kfree(sgt);
-> >>>  }
-> >>>  
-> >>> +/*
-> >>> + * amdgpu_ttm_tt_pool_id - compute the ttm pool id backing a given xcp
-> >>> + *
-> >>> + * Mirrors the mapping used when creating the gtt ttm_tt, so callers that only
-> >>> + * have an xcp id (e.g. an out-of-lock preallocation before the bo exists) pick
-> >>> + * the same pool the populate will use.
-> >>> + */
-> >>> +int32_t amdgpu_ttm_tt_pool_id(struct amdgpu_device *adev, int32_t xcp_id)
-> >>> +{
-> >>> +	if (adev->gmc.mem_partitions && xcp_id >= 0)
-> >>> +		return KFD_XCP_MEM_ID(adev, xcp_id);
-> >>> +
-> >>> +	return xcp_id;
-> >>> +}
-> >>> +
-> >>> +/* amdgpu_ttm_pool - select the ttm pool for a given pool id */
-> >>> +struct ttm_pool *amdgpu_ttm_pool(struct amdgpu_device *adev, int32_t pool_id)
-> >>> +{
-> >>> +	if (adev->mman.ttm_pools && pool_id >= 0)
-> >>> +		return &adev->mman.ttm_pools[pool_id];
-> >>> +
-> >>> +	return &adev->mman.bdev.pool;
-> >>> +}
-> >>> +
-> >>>  /**
-> >>>   * amdgpu_ttm_tt_create - Create a ttm_tt object for a given BO
-> >>>   *
-> >>> @@ -1194,10 +1218,7 @@ static struct ttm_tt *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
-> >>>  		return NULL;
-> >>>  
-> >>>  	gtt->gobj = &bo->base;
-> >>> -	if (adev->gmc.mem_partitions && abo->xcp_id >= 0)
-> >>> -		gtt->pool_id = KFD_XCP_MEM_ID(adev, abo->xcp_id);
-> >>> -	else
-> >>> -		gtt->pool_id = abo->xcp_id;
-> >>> +	gtt->pool_id = amdgpu_ttm_tt_pool_id(adev, abo->xcp_id);
-> >>>  
-> >>>  	if (abo->flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC)
-> >>>  		caching = ttm_write_combined;
-> >>> @@ -1239,10 +1260,7 @@ static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
-> >>>  	if (ttm->page_flags & TTM_TT_FLAG_EXTERNAL)
-> >>>  		return 0;
-> >>>  
-> >>> -	if (adev->mman.ttm_pools && gtt->pool_id >= 0)
-> >>> -		pool = &adev->mman.ttm_pools[gtt->pool_id];
-> >>> -	else
-> >>> -		pool = &adev->mman.bdev.pool;
-> >>> +	pool = amdgpu_ttm_pool(adev, gtt->pool_id);
-> >>>  	ret = ttm_pool_alloc(pool, ttm, ctx);
-> >>>  	if (ret)
-> >>>  		return ret;
-> >>> @@ -1284,10 +1302,7 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_device *bdev,
-> >>>  
-> >>>  	adev = amdgpu_ttm_adev(bdev);
-> >>>  
-> >>> -	if (adev->mman.ttm_pools && gtt->pool_id >= 0)
-> >>> -		pool = &adev->mman.ttm_pools[gtt->pool_id];
-> >>> -	else
-> >>> -		pool = &adev->mman.bdev.pool;
-> >>> +	pool = amdgpu_ttm_pool(adev, gtt->pool_id);
-> >>>  
-> >>>  	return ttm_pool_free(pool, ttm);
-> >>>  }
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> >>> index ff9e2e346609..f90844937b73 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> >>> @@ -207,6 +207,9 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
-> >>>  void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
-> >>>  uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
-> >>>  
-> >>> +int32_t amdgpu_ttm_tt_pool_id(struct amdgpu_device *adev, int32_t xcp_id);
-> >>> +struct ttm_pool *amdgpu_ttm_pool(struct amdgpu_device *adev, int32_t pool_id);
-> >>> +
-> >>>  #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
-> >>>  int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
-> >>>  				 struct amdgpu_hmm_range *range);
-> >>
-> 
