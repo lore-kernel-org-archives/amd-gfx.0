@@ -4,86 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B2D4C44501
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 08:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FB82C44508
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 08:29:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C6A10EC6F;
-	Tue, 14 Jul 2026 08:29:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BUWNmxVw";
-	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD7010E642
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 19:33:57 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-47d70879764so2271925f8f.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jul 2026 12:33:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783971235; x=1784576035; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=fva3fNs5KHsr7s0cnZc7nNvHW+HXrMU/GnXk6nCiZ1U=;
- b=BUWNmxVwpfyjxuDF94N4B10Uwxibf/TOcJ7BgKdekIROQHPfCDMgCk8aA/anjEtQWs
- cUbY9mRFl4YcF5xMf8V69STW6gzRyBBgpkIgfNsG0Vy/D4fC6M1SeXryqDeY3e85o9I0
- lGcZTABjx0CldpUe0VlKYgJBgqg+obpYcPe9278G1hjt6FkGfOyMgQdlpX+FRNZfyDie
- fgqnn/3Biq09ezt2sjfOzrv0ccKsroZNcRnNwvg1Xg6zmjZTlurnlV7GPGtJeX2nqMyH
- XzW3Pz1abUbwEz1YcblqZhgBbPyi7SXlx4c7aQepLA1dcEWW2VbVUafCMzBcwxac7lW4
- rm9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783971235; x=1784576035;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fva3fNs5KHsr7s0cnZc7nNvHW+HXrMU/GnXk6nCiZ1U=;
- b=EgIlozsKM1AGBtwrrXAhKg8KFSUGnNiQa1MqDXK/PeFCsd3QbiUwtcJ+RjLka+JcQa
- W+Xb0s0AOGGOkA9Tyev4LLvkyu4w8/Qfx2biQrpmBD0G2SK+WY/YCE/o8GsxpdTwpBB1
- AUu3jSLk82VZcJIuU79G4hKesiPiFqtEpXC3yDFPUEidGTej8YWqkr43SWYFql8a1u8o
- lIwrT7IJGqNaakaHTXwouoxpJFBuoBGVOGbSVINOOEnafLMBEYnkklbdDHr+fPCcsUWt
- t8UYg+Tqu0temL0JvC3/k+sZGrRB+RNWE7LQyUsXukZr/w8spM4sOOZfrKR4WH7pbIcm
- SaCg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq+LgU2+WVYDXW4ik+13L94WF6nPSfvzc6TSnMPPcwUI9FW2zQQLrLkStZsVcaKnqtL6o0NVe6M@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKTjLOMUE4NG3kXeQF7DZvv1tpixFQe08k32+71m0oW3NtMCpK
- /NHFegup5ldOOExLre/Aw8SgWoNQ9uknZDxcKe90Vf67/4A9RYibHVB6
-X-Gm-Gg: AfdE7cntGcR36ZMZX9q/g9ifHnYENPjFtkUVlo//JVr74MdaWo9plW3cHXVRsX4O6Gj
- 4v/wrm+AhHIQJUhyOBqHMtoZKbxlu3uIqJePxYn3hnDu3uMsVx9zjC6jngFfDk/uSWz4veCMUcB
- BfxgfVt6ecffwGIvmcFilLYBUBcgcSEs6yBd6bmX3uOeFvgWCnTuyQuEqsYAuYXyKtbK+3vLYtW
- OcTMKrvvTWJWPHLVol+BLCCiGZiXTWcUwQVddRY2Gf0Tj1ewCt6A1ldnOSUeUFNRxGNH+0iwVmq
- 2mEXkcPBUN+fCgxd7nx4gxpuwpUyVMmsRPavZaj1bq33d2W5P600xOU1WfXjJ6kwtbOlEJjPaoP
- /AAKSkYqJmMmR02gvj0c06qRaPn29GFmafdVY+ZiwulCzoCd4y0KOL/dcf4Sxb818/jwCj/g+bc
- 2BWI4Kr1UZTWALse7gR7YCSYS1oHWb
-X-Received: by 2002:a05:6000:24c9:b0:47a:1f6b:ddb8 with SMTP id
- ffacd0b85a97d-47f2dcf4294mr12197284f8f.39.1783971235502; 
- Mon, 13 Jul 2026 12:33:55 -0700 (PDT)
-Received: from timo-z13.fritz.box ([193.30.163.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f4634e0d9sm1912993f8f.2.2026.07.13.12.33.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 12:33:55 -0700 (PDT)
-From: =?UTF-8?q?Timo=20Pr=C3=B6mer?= <timo.proemer04@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Timoyoungster <timo.proemer04@gmail.com>
-Subject: [PATCH v2 2/2] drm/amd/display: Use drm_edid_block_count() instead of
- raw extensions
-Date: Mon, 13 Jul 2026 21:32:37 +0200
-Message-ID: <20260713193237.2639-3-timo.proemer04@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260713193237.2639-1-timo.proemer04@gmail.com>
-References: <20260713193237.2639-1-timo.proemer04@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77F4310EC7A;
+	Tue, 14 Jul 2026 08:29:46 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF4610EC13;
+ Tue, 14 Jul 2026 07:40:10 +0000 (UTC)
+Received: from localhost (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowAAXnP_X51VqxagpGA--.13440S2;
+ Tue, 14 Jul 2026 15:40:08 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com,
+ tvrtko.ursulin@igalia.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] drm/amdgpu: Remove unneeded semicolon
+Date: Tue, 14 Jul 2026 15:39:03 +0800
+Message-Id: <20260714073903.3646544-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAAXnP_X51VqxagpGA--.13440S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZFWDuF4rXw4DXFWDAF43Wrg_yoW3Arg_uF
+ W3XwnxXrnxCFn0qF17Zw4rZ34qyayrur48Ww1Sgan3try7Z3yUXa4UuanrXa1UCr1xCasr
+ X3WFgF4Fk3ZrGjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb4AFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+ Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+ 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+ 6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+ AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+ c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+ AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+ Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbYFAJ
+ UUUUU==
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
 X-Mailman-Approved-At: Tue, 14 Jul 2026 08:29:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,52 +60,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Timoyoungster <timo.proemer04@gmail.com>
+Remove unnecessary semicolons reported by Coccinelle/coccicheck and the
+semantic patch at scripts/coccinelle/misc/semicolon.cocci.
 
-Instead of manually calculating the EDID block count by reading the
-extensions field from the raw edid structure (`edid->extensions + 1`),
-utilize the core DRM helper `drm_edid_block_count()`.
-
-This now includes possible HF-EEODB extension blocks, which are not
-included in `edid->extensions` and were previously truncated with the
-`memmove`.
-
-Signed-off-by: Timo Prömer <timo.proemer04@gmail.com>
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index c6f94eb71..d6d6ea719 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1160,6 +1160,7 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 	struct drm_connector *connector = &aconnector->base;
- 	struct i2c_adapter *ddc;
- 	int retry = 25;
-+	int block_count;
- 	enum dc_edid_status edid_status = EDID_NO_RESPONSE;
- 	const struct drm_edid *drm_edid;
- 	const struct edid *edid;
-@@ -1201,11 +1202,15 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 			continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index ce1d08f112a8..c5cde42333d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -211,7 +211,7 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
  
- 		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
--		if (!edid ||
--		    edid->extensions >= sizeof(sink->dc_edid.raw_edid) / EDID_LENGTH)
-+		if (!edid)
- 			return EDID_BAD_INPUT;
+ 	default:
+ 		return -EINVAL;
+-	};
++	}
  
--		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
-+		block_count = drm_edid_block_count(drm_edid);
-+
-+		if (block_count > sizeof(sink->dc_edid.raw_edid) / EDID_LENGTH)
-+			return EDID_BAD_INPUT;
-+
-+		sink->dc_edid.length = EDID_LENGTH * block_count;
- 		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
- 
- 		/* We don't need the original edid anymore */
+ 	switch (args->in.operation) {
+ 	case AMDGPU_BO_LIST_OP_CREATE:
 -- 
-2.55.0
+2.25.1
 
