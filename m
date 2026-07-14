@@ -4,91 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D9CC43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 13:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03917C43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 13:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 219D210ED4B;
-	Tue, 14 Jul 2026 13:36:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B37510E083;
+	Tue, 14 Jul 2026 13:40:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BzXdXE8d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rYVzMl2y";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0544810ED4B
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 13:36:52 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2cc827a68fbso11932395ad.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 06:36:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784036211; cv=none;
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1FC810E083
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 13:40:52 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-c8612812170so565574a12.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 06:40:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784036452; cv=none;
  d=google.com; s=arc-20260327;
- b=NCi80mltTBM9yybvP/YTm7U9AOmqMEWhl3ZcbO2c2O52FhR5qj50FnH95uKzOTJS1D
- ulI2i/ZKnERuJ5EQxI/MzZzueTikD80PGpRVFrZmJnQKpiwrIx69DGX2cf+4Iarb8B6H
- jpTOpbF4Amm0sivBwHF+oV1SpVY3re2uEJSzVS/sMHFJyGqdWjZmqi9P8/7ypsUem6v3
- uchxXutYlwa/Ndvs/cngdhIcJ+yAu6XwY3tjbPG6va5vY6g/jiKupSr1IkXbMetb4c22
- +5XI2Kvnu0UTZWaO78akdgiazob5t273uj68Mj2wW9lqNxEXt1QyVqCeYTmTANyI4rtu
- 4LWA==
+ b=bHUvWn0zrV83WMnm8opLkqM4JZNdEYds/p5PK6hRr3jQEojxIRvWTbnK6S34eFXAmM
+ TrAVuDaGaySOJB6Vpi7HpaWNyPnJ5FRIlbIZEEzVjsDu+B7Ef8YO40cOw7zbQcDAJqPG
+ v2b1FmO7dM3REi3lvLkGt59fqO+27a+s0ZFc7dnPIQm7jBwBahXlDt/4COjGZU8gQKnp
+ r4lmSRDc2HvmmN+jUlmFmVVD9whQ8eg/S7rYOGGKMQLHbQ+ueMitnMVHUYj5BwD2hndF
+ 7wbbwHp8dVpLYUdpGcmuT115ZNNdhf02g9t2/htYwfRcLv3oVSL0urWl+OhfPSZeb4cd
+ 0foQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=e0uR5TsnldD22UbNVtH3933qHDGf95MOXOJB5FzcY70=;
- fh=um3rK6dJDxiIl42w9K2UJdByoFe+bs3ULDbFVzpDJAc=;
- b=M+SvNY2HHVvy5+coxh4BrlLMLKRhqq0204lb1/UpvA/rQwOWI2xaEYPNmiYSPrJC/A
- k60mCD1Bidl65z3OMu1ymKHwjPaGM8+AQ+g39YN0dS0wNsNqaQrD9SURZ96vSbS8tVLR
- 7gSDBUU5XV3lTbmTbLjD+qen6nRQyFNkqAudhKB2xHoKIs8Yzs7nbrvv+kXgDnGEDb2f
- FvAN2FRxkHBrv9MpMcP3YpMz7I66It8qDnt3493p0Yp0mgI/n8hdAdWqXem09zjH9KxI
- X/eVXhkaN5lr7gJNpInOgQmOcE08wpmSG73fWEYPS6EvTXt/kGjv8+NzMfka6vLhjdCs
- B9Pg==; darn=lists.freedesktop.org
+ bh=EoE5E4v2bdewNclLVvGL95rHSltmNPxTCq5J2nM8KwY=;
+ fh=wgURtbBzqlebdSSt8uXLWxIynNc9WuwaTLLM18RxH+s=;
+ b=JHt8s/PmYVOHK8dVZBfrKMEIUdheVbc7A4qkXcIEbJTWpGq+ijcalzohUOOG2s7LrM
+ kceJV8lryw8tl457g6oNJ/W18epcLc6/G09A7xHakxZifnT06eJ+WGvABmxVDfu05/BK
+ S6jxfVIxeKL0jLbQCtNIeVwbi+CjKjuJVq6oN/pjBgQRReLtgDMxSaH0orR18b0Xs8DH
+ WNIKBntbiRJNi8azI5z22SUoLUNctnTzR4Uks8fbgBoFGotEUv02HaPm9c6tUCEsS3lC
+ Rv7QB1ufh3gl60vbRmWR3mEX8Bb53J8mgulqprBfXe9OxnzT/btvB6k0pib0MY4Jj4ST
+ Up8Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784036211; x=1784641011; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784036452; x=1784641252; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=e0uR5TsnldD22UbNVtH3933qHDGf95MOXOJB5FzcY70=;
- b=BzXdXE8dSPf7Y/zt3DV3oN0T7QQRkSXebfZIEBmO0sElPvp84gXGpvdMjiSy4iksNz
- ScR9EDXZ8CiU0oV4I/wY9AsRSDPAqcZv6sKv7pnOEZaE7rtp8ki/4KctwfphyZjyU8q2
- YJxitbT1IqHGQy/A3P+sI3NJIKQdgKlbYF+dTZ0kLl9rQsTKiMmuPBlRdAuprnNgcrhg
- JQzIuOs5RUFkV+1pGaP0lRzTSt1AaTPrC54q7KxuF3aw1J7iF5bgLNpKotfJa/CbcE1S
- LSmKzR2Q6W46LcP1g5dw+BL7Qwi8YK98lVsyJ9YnYw6hlJrPIUyzGNiuq6dTpkPBnnAb
- dyow==
+ bh=EoE5E4v2bdewNclLVvGL95rHSltmNPxTCq5J2nM8KwY=;
+ b=rYVzMl2yVlEWd7bCVeR+p6TyE13xNb47PhDOHjDhR/tqW8MwMzPx4lYV6J9s6HV43y
+ 5y7Y6GoxCssakiKCAwGIVHmJFmaeckv3cllxNWdEGsYtPtfv0TNMngUNsO9me3JTmY5l
+ D3WMFbzydtVEYw3VdaP7MxJu53UiXhQGMMyNio6HsdfIOK9LBHdQN/vGothwvD03HsXz
+ eMXwbe7KaJbJJQfbYHRNzWQVP+NEb2+115OeCtM2V0oz/GpH6H1Ooxkt5lhYhcLs+UFC
+ 1BVqKKDUe7AOltUwUc8r8fS/kCin7gWAoL+bSpiZTnPIuAGu9DBLl0RDiwArFybVMdXX
+ w08w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784036211; x=1784641011;
+ d=1e100.net; s=20251104; t=1784036452; x=1784641252;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=e0uR5TsnldD22UbNVtH3933qHDGf95MOXOJB5FzcY70=;
- b=ACWZpe6zd0gXL8MgFDST72GaGljk5YA6rtWfS/PNwe6JBGsZo35LvYbAKUuV4A3086
- xy7PgAYd8ysAM7Z6YbuFYDpJ3zj8Y0U2CtK+u1XcMqzB0/kLH/p+9MHtUf2FuHS7ImPL
- CgSySyUQXjXkXS5RoZVzm5JEav3OiJPxE7ae/UZBdp3sWGmc3uxsMYY6DPjU1V2Wn/x+
- pSapOliH3q1B2bmX2g1iCWIz5ykmUfAmudq+AVfeyYcZ4GycL91FnP/k+Uu7FaXNuo6/
- nrJdrO/T1J+7blHxITbaZ8e8HtjgeZPD46gPsxVWnmsBaQ8T2HfDvQUdVVIHYk60aH69
- qchA==
+ bh=EoE5E4v2bdewNclLVvGL95rHSltmNPxTCq5J2nM8KwY=;
+ b=S9mdQZatiQANCi0mXcBipzwPjvD69Wm+nijPeljQKooqvaJRzeWST5VQEo/gOSy5I2
+ pJAuUJbhJ6ISUaI937fVSAiJWg5lLRVVJZslLy0NFVIdkj6MuCPhzqWqTNOpeLU2nasa
+ r415dADSQ5P1ncVNGp4KsTLQVQs/PyGx0w6aU4vtlW14ry5n79s0XD8AejNrKppCkek2
+ fh6abjYwba/utImM4fndjHx1q9dothc8OII4MOOu0h59idqyqf302YFpv0rtnaFZrfR4
+ H5CNSYZG9KHl9Z2LXRRRzPtt71a22gTMy62jwPV45eJfiTO9ag3EqJ5FNi/ry+QfVZLf
+ OZvg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqTEoG2VV8QeHPIWEc4PS90BolgyNbFK2x/OxPuAss32qxk/JtXTaR5+m3nZgpubL+wj5gojFYd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWZm9IYcmAmnESTxoVEstGgKprV20cYr9QB2bAKyYUr59jmo9Y
- aaKjQlvqV7x+1Qy5RanTWKZFFDS193YjoBOzhUrXCGMTB5AXev2q7VfZzGQJLI4ldD0lCpQq3nu
- U5NYjB+kzFpIftnMn0ZzX9F0DBNR8amY=
-X-Gm-Gg: AfdE7ckSKtmpOoCfALng00MDgpq/iRMZBQbpCJentWon7O4Gxb6mCvoJQh6lWI3h6aW
- vzJpcaOUtCVjJ+iGefmduFUP15flWgaPjsb1nysPGWRSUi1q8HpjTghAoDsquROVv5b2dwZukcl
- Cp522f+haqqDk4TSh+UgeAApKKRcoERXPkzk6S5829m7jXBL450C20DVOxgAHep3+AR39jn5vWQ
- D7fNTUshCk74xi/wxB6MktRzj3/7eCIhkjNxDfGq3PYZOGyzeLgsIIUz0FkRwZwHvXeVkiLN1fI
- oeVVRT4e/qIJRlNm2RGg1WiS++cN2OgUc6gNW4hlC4/nbxpp2kEpi5VhJvY=
-X-Received: by 2002:a17:903:24e:b0:2c4:397:dd7a with SMTP id
- d9443c01a7336-2ce9f1599f9mr103296685ad.4.1784036211252; Tue, 14 Jul 2026
- 06:36:51 -0700 (PDT)
+ AHgh+RrE7A43m8J47Qm56tfqOmEzjXiFG/8U4zfbPTN+z3lI7Jl0+KU0VC4Tb2tT8sLp16yM0ql5uukN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqMy1t/dlmGWDLIA9ALw25tm8Ojb8DF8r1plTKOhOTlXQ3oBE0
+ FNcaTGDQ1skhpnOdz88yocSFF9M3Dn7aWJDsGJ/W1PRUcTQAyuRNX+3manc4dRWbvVhRRG7Ve2j
+ m554opnLQZf1HDsw8mvbSZXP6K2kUxig=
+X-Gm-Gg: AfdE7cloMg/NMPWdPNiQqjE8td/SWYy8oV3dgyouT4siUiRhfiHDumThBZVOEgO5nK3
+ HdqQZxyNNQKiaZu0KCfUWHQ6QQeKCV+fb47DZvwpOpuU73jandmTokMGbHgM8Z0D+xHSFJjlGLj
+ dTfEmfnQzauFRoTEZ4nXkW9Q1CGlzaYbz4OyC7hNV9yP+5AYPJ9VyUaAv3XJ72n0zNWYFBbH9Zu
+ nd2Qp5Wzu0bs2V4aFOz/KCCSPxjuZyEUInw/3QW2p+0wl1TzAjVlpbJE2iQcKIx6uQXKzE/ERni
+ TLxoUCeaXUm2680+QoiADUEvlb0MuAMOK3XkWzPLlhACZjdcPa0fiFCsXys=
+X-Received: by 2002:a05:6a20:7287:b0:3bf:95f4:dacf with SMTP id
+ adf61e73a8af0-3c110b15ba3mr10056038637.7.1784036452154; Tue, 14 Jul 2026
+ 06:40:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260713182732.630947-1-alexander.deucher@amd.com>
- <0bdd946c-3763-430a-b613-be7f1c9b5885@amd.com>
-In-Reply-To: <0bdd946c-3763-430a-b613-be7f1c9b5885@amd.com>
+References: <98fff9ff-f013-404d-9d92-aa1dd6160f63@gmail.com>
+In-Reply-To: <98fff9ff-f013-404d-9d92-aa1dd6160f63@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Jul 2026 09:36:39 -0400
-X-Gm-Features: AUfX_mzUaTycv7_cA8medhAfrpY1MXluz44Uc4OH-EWpMbABkEXL2SqGDkyYmrc
-Message-ID: <CADnq5_MfYX0fSmsxSABGWRQhig97967fEZjT8McoijSr0FA=_Q@mail.gmail.com>
-Subject: Re: [PATCH 01/14] drm/amdgpu/gmc9: disallow gfxoff around TLB flushes
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Tue, 14 Jul 2026 09:40:40 -0400
+X-Gm-Features: AUfX_mwhHVjEGHPCpoUA7DyyfTA1nc_LbivSjVnxBUEMSxVShl02R1kThL-Za2g
+Message-ID: <CADnq5_Mv_ojWBD-=g60EaGMV_HMzodNs2K8XC8n-Okm4fzr0wQ@mail.gmail.com>
+Subject: Re: TODO: Open-code drm_simple_encoder_init in amdgpu
+To: Gravias Panagiotis <graviaspanagiotis1@gmail.com>
+Cc: tzimmermann@suse.de, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, kees@kernel.org, felix.kuehling@amd.com, 
+ jani.nikula@intel.com, superm1@kernel.org, pierre-eric.pelloux-prayer@amd.com, 
+ mripard@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,64 +108,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 5:39=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Tue, Jul 14, 2026 at 4:39=E2=80=AFAM Gravias Panagiotis
+<graviaspanagiotis1@gmail.com> wrote:
 >
-> On 7/13/26 20:27, Alex Deucher wrote:
-> > We need to disallow gfxoff if we touch GC MMIO registers.
-> > At the moment we use KIQ or MES for TLB flushes so
-> > no intended functional change.
+> Hi all,
 >
-> IIRC we actually tried this before and reverted it because it caused quit=
-e a bit of trouble.
+> I am looking to get started with kernel development and would like to
+> claim the TODO item to open-code drm_simple_encoder_init().
 >
-> The final solution was to use the semaphore to prevent GFXOFF from happen=
-ing.
+> I plan to implement this for the amdgpu_vkms driver. Let me know if
+> anyone is already working on this or if there are any objections. I have
+> a patch prepared and can send it over.
 
-I think you need to disallow gfxoff to access the semaphore registers
-via MMIO.  The semaphore registers just prevent the smu from entering
-gfxoff while they are held.  I think the problem was that the smu
-would enter gfxoff while the CP/SDMA was waiting for the ACK which
-caused the ACK to never signal.
+Someone already did this last week.
+
+Thanks!
 
 Alex
 
 >
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gmc_v9_0.c
-> > index 1fcc0594fd0a9..83b91c94a6623 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > @@ -808,6 +808,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_d=
-evice *adev, uint32_t vmid,
-> >               return;
-> >       }
-> >
-> > +     /* disabllow gfxoff when we invalidate */
-> > +     if (vmhub < AMDGPU_MMHUB0(0))
-> > +             amdgpu_gfx_off_ctrl(adev, false);
-> > +
-> >       /* This path is needed before KIQ/MES/GFXOFF are set up */
-> >       spin_lock(&adev->gmc.invalidate_lock);
-> >
-> > @@ -873,6 +877,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_de=
-vice *adev, uint32_t vmid,
-> >
-> >       spin_unlock(&adev->gmc.invalidate_lock);
-> >
-> > +     if (vmhub < AMDGPU_MMHUB0(0))
-> > +             amdgpu_gfx_off_ctrl(adev, true);
-> > +
-> >       if (j < adev->usec_timeout)
-> >               return;
-> >
+> Thanks,
+> Panagiotis Gravias
 >
