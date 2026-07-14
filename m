@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B121FC43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 08:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8C0AC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 08:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F11910EC45;
-	Tue, 14 Jul 2026 08:03:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C8C110EC34;
+	Tue, 14 Jul 2026 08:10:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FJZVLP5n";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HaaTXxMM";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013067.outbound.protection.outlook.com
- [40.93.201.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51C4410EC45
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 08:03:25 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010005.outbound.protection.outlook.com [52.101.46.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59C710EC34
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 08:10:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U9wPGpH9gI9rFv6I4oeaku/dcfAQKE719PvgW8zBLteDG1+ZQZFmakGwU58fuhID4E+M/+Xzyv+QqDBKr0MBJ8Oi/g8Lupkg2kR2R1m397WWLf9zr+fGbxKitoYQfQ0FUSBHh2tH5Ljg8+HtuzQMal+zhHWQ2bEd4iVrfMJeOoDh2hWsPpJJNCJzB2YYT+dJ1r495dXx02me94u3FycBr0NGNqC8RNeZ858uc7pXjlJ9n7Tige7LBjOQa2YzxJcZGU0MhV/EgVpiuULa/e2Sdbd/W/zg8NqDRTYSHfZAHt32jK9QNeNKmR/rYY4EVBdgTRc4kHKEUXkwcA/Q5r4k+w==
+ b=EPbbuGuQC3EXjaf7BlLs2Ue8jlzxOhiugXZBrhRt13DFX5ZZwMYWDph/6QkA2DWDOBo6jcWrY1j8sIO92yvBEg842o/Tbmc00u8zG7BUTmmpGg6m4WxaunpDZtNkO0fkM6EuVTECfhXcCrlrIevnUUvdN9INk+upONDndioW3TRH4GLh0oVe2GNWl8z4No+2QrB/hiiWT7+1p02MHueq+O01g5fHpN1VkAmqdROuBI3dnew2kDcXESZcbbSvGvElkQjz559UHfaXtD7cz+A2MJobDxY311W+kz5fxB44xwTB6tWLGffIbpyEpkC65SLtYFPeoGufh884kmcPvB7wxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uStDRCgzuf7MedmTnfCytUY/QaDoGCMV7U2/Vy+f7l0=;
- b=RmG4szmrVxrg1j36C+TddhjEGWGr/fMbz7ql9nUy9IBZpjAadV5Es7xAcclz1r63CjQgPAWZXAZ3o+WRTAeL2PHOs7TaU2cGw4QYoOsarW5MsVxUE7ZgG5mCNk297BZ/zAYQfDGHwvii5FNK0UBtJdlhlehZb5ai1di/N0tLj0dxIALsbWtY41t6dmPAwAEMS7+iQPnv2nnMy58AlFFMTEr1duP+T6d+5Aetvg0XELzUV2pSRAlhC9v3KxHAQuKjbEte8qxAdOOXPEuzD8R4LX0Fzik6kzuSIQaAvEeGJD0gIEEQnH6sjKiypfleIC9RxWq3mKbPYDwConrgZlN++g==
+ bh=8BUY5yfLYzUKnxJwmVhMo7H77vA5TRDp0Uo+IBH5T+s=;
+ b=YbO2BKYpjB91sMA2QXh8QDZFeoWTAAt/rBuOicLdsewVhn6aE+zZCW73XGj/XZkUsK6vypmU+aDsa/78dwN3kxfxy5SCgj7Yqd8b21XE0nxv+ZXTtK/iyEffRvZfRXIqeP2mKumbNOWi1+QC7euirdNxTtD02p0IBNsoMXixWa2g/hBt2RcnhbBIGl/XuZkDjZv+59swWKgLuM/IDhvspXn+NBa4V2olyP1zox0oQxJz0QJ0B1BZnAb347oD7iTBQkUIqIS/CsmwwCngwe6rqwTDWRttSVgFO4l8B03rweEmymRljPKs/0NsIARK7uUL8byXoR7OHUkfPIqfvsAH5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uStDRCgzuf7MedmTnfCytUY/QaDoGCMV7U2/Vy+f7l0=;
- b=FJZVLP5n7VLBPa6TZFN0TVkpU03vYDQN1oojvYI3VmCCUrvjUwWHTj8om955lJ0GZ3Njv7sTh35XnqPeAD5odngDsNf34RlyQj+EJmXc4DsSdMH0FyW/Yd7afB6hHNo+9mR9Ajxhkpl0rmwtTxkj2+0oWVy8x4JRxKtDYw4eVbQ=
-Received: from SJ0PR05CA0001.namprd05.prod.outlook.com (2603:10b6:a03:33b::6)
- by LV5PR12MB9826.namprd12.prod.outlook.com (2603:10b6:408:2fe::8)
+ bh=8BUY5yfLYzUKnxJwmVhMo7H77vA5TRDp0Uo+IBH5T+s=;
+ b=HaaTXxMMlKRSPftOsYgY1dQHSkZZOT7H5qYW5PmGUeAlyCF1Mh/IammmfjpRfhPeEe8rxwMk6O+NQ0+3ONoG4k3QJTBLb3j9CeJy34SzbcD6TxiL4XtPHbVb6/emmm1w27qtoUcdb88EkX2UJU8Bizj5khVBZ2mtJqTw5EwVG9I=
+Received: from SJ0PR03CA0300.namprd03.prod.outlook.com (2603:10b6:a03:39e::35)
+ by CY8PR12MB8268.namprd12.prod.outlook.com (2603:10b6:930:6c::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 08:03:21 +0000
-Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
- (2603:10b6:a03:33b:cafe::3c) by SJ0PR05CA0001.outlook.office365.com
- (2603:10b6:a03:33b::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.9 via Frontend Transport; Tue, 14
- Jul 2026 08:03:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Tue, 14 Jul
+ 2026 08:10:34 +0000
+Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::25) by SJ0PR03CA0300.outlook.office365.com
+ (2603:10b6:a03:39e::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.19 via Frontend Transport; Tue,
+ 14 Jul 2026 08:10:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,24 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 08:03:20 +0000
+ 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 08:10:34 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Tue, 14 Jul 2026 03:02:40 -0500
+ 15.2.2562.41; Tue, 14 Jul 2026 03:10:32 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
  <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v4 4/4] drm/amdgpu: Signal GPU_RESET EVENTFD notifications
-Date: Tue, 14 Jul 2026 13:32:20 +0530
-Message-ID: <20260714080220.3395155-5-srinivasan.shanmugam@amd.com>
+Subject: [PATCH v9 0/5] drm/amdgpu: Add WAIT_EVENT ioctl for render-node events
+Date: Tue, 14 Jul 2026 13:40:18 +0530
+Message-ID: <20260714081023.3395485-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260714080220.3395155-1-srinivasan.shanmugam@amd.com>
-References: <20260714080220.3395155-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -75,29 +72,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|LV5PR12MB9826:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8aa1e10e-653f-4873-6064-08dee17e5f02
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|CY8PR12MB8268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39ac9e94-e93d-4571-2fd5-08dee17f615b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|22082099003|6133799003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: dpS3U/m+NDZCxi9LuSHE7G7aK2vVwi6nJWJ8A/f3B5nzxdcFMO00bU/AXG8tEOXBR43fzBPyiK0zKN+b7ekt74ApCVuzTzVUGgHlJBbImZapwTJpJ8e/zajX8UUkNRf7Eh4e6Lhp4o/QZSGXaO+TbdI6+7JuxLLdvx4SQHAu5mHaD07wKSH/UaOVMupjDfaPqweqRltr/vX6iQlr5uLPPohW1FYFlid35BquyDi6CQcBLyMv2GEoZxsgbmn7a8FQl6TPz+oTKUT1dsomYAMe4o6tre/az1/w4VZKptKp4qRcbv5dPpyDx2K8GknWxNqT55TmOnR98LqlAGK0Wi+CfVNROIcfhuWCYUkcsAW7VW7WJqLtzCQi+SlPYlhFv4YCNEFsl+DiC2BV52XzNeAW8JnuHH0C4NM2vBgZAEHxrTd4G7HKgG2wJ5C4RKK0KOIWVTawGEQ4klEi896ATK5hNh0JiZ0xrOo4wZ4FPHmBOAb96byaVkK+lsbL1IYyl4aSAlIbIm2PxBHeT4utDFkwwW4X9GerGE/Czb49uF8HVszrP0Xelj9+JsW4ny/2zctppMoK2op77iLTWvVtHUowPEmhyuMf4axtF1Mmy/nCkyAQz9Vj2WQaR1HS323X5FVQHrDMU7I71VjZ5XGHAhZ3zdZ8ms108x1VkDoVcuWoMm/PbnsJlNFYC0yZEfR0ien3SEYAwPH31/nq4CSDUhCy5A==
+ ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|6133799003|56012099006|11063799006|13003099007|18002099003;
+X-Microsoft-Antispam-Message-Info: e4dERavgYZCsn94P2YKpdQYDNArge2FSCzeK7wJKxYMmPzkzXGz1iBN2F1Y1/0vWP9BkUmlriiS7hBNdP+Rfn9PYIdDUIQ9AVfZoA9qixswFTVNthNNH4r2cvVg/AvUlxgRkePcW7ua5fWHXx7tDQFvuaCAKS4BUkdJwtrQs0PxfO22mw2LSswtYBFRqvkE+HtOubVHsbl8PTqkUiBQcNIc6Rf5D9X0gE2k2FCJbQYgHWDhdGcNGVQBY7sJeZyruD/i5fbzOsO4YIbODOyyGHpbzAwRpJMlmS28/kQaSDuM2aQW+Lhj+LIUKcpIXiMzjegM3wvf9w+//WWKI8PoJqQPC17rJOZyoXUfVagE6D6td3cexJjZxPRBNYB6/th7200L1dCyduFSpetukLn8yqiqO3QU6iXA5ye+KBbsKqdwScekmvjXxtuuyUo1lPb9eVj6GnkdEvDqEdLmuK9cSAYF0CGkjxQlMsZYoRy1xSBVZnCHm+JtSafrJrCdxV4rDFjjchZowIp6MQ+WLL9LhBmbjOB7QeAtdstu9D9Yd/67ywr+dRd2oryD08mP1vpC0EOGTGEChUUxXD0BjUfqUmy8vKZ8/zE28kDch9pQaoaIrYqXdjSBhkhrhclbEvd+w/f48UsGERPPJQqTDtp25xw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(22082099003)(6133799003)(56012099006)(11063799006)(18002099003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(6133799003)(56012099006)(11063799006)(13003099007)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0uZXTTpt2x8eGyq8hwSfZmRfMr3tWM8ok67dTGVII+AvcB/IgHRWQSZjI1exSP2Sri1lN13ADDxq/KFpHs/w0/Dnxfo9vPRh0SXr+9Z6cXZ/OCWs3VpesBrPOab0xWc71GACxc9nni/FYA0rScXQgUYJY0CqjNwQOGLFfdmdxltMj9weTveBh4Y/XkMNjcwPsC9Rl57M7RekWacBMaDS+dI6tgp6o8gehBb8DTz6MONHsOL3qJfW7m6gBhnLMuEbn4xT0UOcDB62sako1kq5VDDQk0poRIsv4zFU7+hTPHPNTnOzuT5fr3CJNUrNbVbyeWkgvaR/Jnxxy2HF+Ergyd1XcLa72+KBXWY/7lpPROuVybjHK6nvuLyHIoKlp3jyBe+/hL3e2TUaUQvd2tgG22VkvyjUP8s4xiZgikwzfyzOyoaZMLQmh7XovUtNaKDH
+X-MS-Exchange-AntiSpam-MessageData-0: q7rAtw7tL10I8ED9TaNz9MbV9JvXZdTlaM/xASqzhyp8v0U8fp9uvdScOeuFWzANLLIr4+1XqdRyJp3vkzl63iN96RenuXzUHTMNEQz/5PJgT9um6H17TDrwpWtFnecv9xX6iSoNIz129mpF4MK5aFV3+qB798PE2QjtmC28aUZw5Uy/KDvmMqrRZ3yNYiJqCd+3csFkus+ZlO6H4dI14oJAKbF3faMCx5I2+BYBQqV17B7212oTNaHXnZHrDGzsBvpQDPWEMmjfIEZSa/J5q1GH5m/cc9nEsTStOe/2B7dWt27jc+d3b9mUMlZeJact7swRts5m0CVB01alrtMUUYpmNgEyxfOhZw5RiPuMwVfTe0bSm+cqIa/5+JyBw2c00iiN8dkfPpdVI45+WStIEaPCnMCclJoYYGQDNAZSFU1nONTKk1MQ/KHRi02e0lTD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 08:03:20.8282 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa1e10e-653f-4873-6064-08dee17e5f02
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 08:10:34.2375 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39ac9e94-e93d-4571-2fd5-08dee17f615b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231B.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9826
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8268
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,119 +109,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signal GPU_RESET EVENTFD subscriptions after successful GPU reset
-completion.
+This series introduces a render-node WAIT_EVENT ioctl for retrieving
+AMDGPU event records and associated metadata.
 
-GPU reset notifications allow userspace to observe that GPU recovery has
-completed and the device is operational again.
+WAIT_EVENT complements the EVENTFD notification interface. EVENTFD
+provides lightweight wakeups when an event occurs, while WAIT_EVENT
+allows userspace to retrieve the corresponding event type, queue
+identity, and event-specific metadata.
 
-GPU_RESET is a device-scoped event, so no queue object is used. All
-processes that subscribed to GPU_RESET on the device are notified.
+This series builds on the render-node EVENTFD infrastructure introduced
+in:
 
-EVENTFD remains notification-only.
+  https://patchwork.freedesktop.org/series/164618/#rev7
 
-v2:
-- Move GPU_RESET EVENTFD signaling to the path that confirms a real
-  GPU hardware reset occurred.
-- Notify only after successful hardware reset completion.
-- Do not signal reset-skip or recovery-only paths.
+It also depends on the EVENTFD producer series:
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 51 +++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 2 deletions(-)
+  drm/amdgpu: Wire GPU events into EVENTFD notifications
+  https://patchwork.freedesktop.org/series/168402/#rev4
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c924a55fd16f..15aaceae13d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5390,15 +5390,43 @@ static void amdgpu_device_halt_activities(struct amdgpu_device *adev,
- 	}
- }
- 
-+/*
-+ * Signal GPU_RESET EVENTFD subscriptions for all open DRM files.
-+ *
-+ * GPU reset is a device-wide event rather than being associated with a
-+ * specific user queue. Notify every process that subscribed to the
-+ * GPU_RESET event on this device.
-+ */
-+static void amdgpu_device_eventfd_signal_gpu_reset(struct amdgpu_device *adev)
-+{
-+	struct drm_device *ddev = adev_to_drm(adev);
-+	struct drm_file *file;
-+
-+	mutex_lock(&ddev->filelist_mutex);
-+
-+	list_for_each_entry(file, &ddev->filelist, lhead) {
-+		struct amdgpu_fpriv *fpriv = file->driver_priv;
-+
-+		if (fpriv)
-+			amdgpu_eventfd_signal(&fpriv->eventfd_mgr,
-+					      DRM_AMDGPU_EVENT_TYPE_GPU_RESET,
-+					      NULL);
-+	}
-+
-+	mutex_unlock(&ddev->filelist_mutex);
-+}
-+
- static int amdgpu_device_asic_reset(struct amdgpu_device *adev,
- 			      struct list_head *device_list,
- 			      struct amdgpu_reset_context *reset_context)
- {
- 	struct amdgpu_device *tmp_adev = NULL;
-+	bool need_full_reset, skip_hw_reset;
- 	int retry_limit = AMDGPU_MAX_RETRY_LIMIT;
- 	int r = 0;
- 
--retry:	/* Rest of adevs pre asic reset from XGMI hive. */
-+retry:
-+	/* Rest of adevs pre asic reset from XGMI hive. */
- 	list_for_each_entry(tmp_adev, device_list, reset_list) {
- 		r = amdgpu_device_pre_asic_reset(tmp_adev, reset_context);
- 		/*TODO Should we stop ?*/
-@@ -5430,10 +5458,30 @@ static int amdgpu_device_asic_reset(struct amdgpu_device *adev,
- 		}
- 		if (r)
- 			adev->asic_reset_res = r;
-+		else
-+			amdgpu_device_eventfd_signal_gpu_reset(adev);
- 	} else {
-+		/*
-+		 * Save the reset decision before amdgpu_do_asic_reset(),
-+		 * which may clear AMDGPU_NEED_FULL_RESET before returning.
-+		 */
-+		need_full_reset =
-+			test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-+		skip_hw_reset =
-+			test_bit(AMDGPU_SKIP_HW_RESET, &reset_context->flags);
-+
- 		r = amdgpu_do_asic_reset(device_list, reset_context);
- 		if (r && r == -EAGAIN)
- 			goto retry;
-+
-+		/*
-+		 * Notify only after a real hardware reset completed.
-+		 * Do not notify recovery-only or reset-skip paths.
-+		 */
-+		if (!r && need_full_reset && !skip_hw_reset) {
-+			list_for_each_entry(tmp_adev, device_list, reset_list)
-+				amdgpu_device_eventfd_signal_gpu_reset(tmp_adev);
-+		}
- 	}
- 
- 	list_for_each_entry(tmp_adev, device_list, reset_list) {
-@@ -5530,7 +5578,6 @@ static void amdgpu_device_gpu_resume(struct amdgpu_device *adev,
- 	}
- }
- 
--
- /**
-  * amdgpu_device_gpu_recover - reset the asic and recover scheduler
-  *
+The series adds the WAIT_EVENT infrastructure and producers for
+USERQ_EOP and QUEUE_RESET event records.
+
+Base branch:
+  origin/amd-unified-interface
+
+Base commit:
+  540d68973c0b
+  ("drm/amdgpu/userq: fix NULL deref in amdgpu_userq_evict_all")
+
+The patches are organized as follows:
+
+  1. Define the WAIT_EVENT ioctl and metadata structures.
+  2. Add the per-file WAIT_EVENT manager, lifetime handling, and ioctl
+     registration.
+  3. Remove queue-scoped WAIT_EVENT records during queue teardown.
+  4. Record USERQ_EOP WAIT_EVENT notifications.
+  5. Record QUEUE_RESET WAIT_EVENT notifications.
+
+WAIT_EVENT records are maintained per DRM file. For queue-scoped
+events, queue_id is treated as a userspace USERQ handle and is resolved
+to the corresponding queue object at the ioctl boundary. Internally,
+records are matched using queue pointer equality and hold queue
+references while pending.
+
+Changes since v8:
+
+* Clarified the WAIT_EVENT UAPI documentation for queue_id.
+
+  - Document queue_id as the userspace USERQ queue handle for a queue
+    created through DRM_IOCTL_AMDGPU_USERQ.
+  - Apply the same clarification to the ioctl arguments and returned
+    queue-scoped metadata.
+
+* Squashed the WAIT_EVENT ioctl registration patch into the wait-event
+  manager and per-file lifetime plumbing patch, as suggested by Alex.
+
+* Reduced the series from six patches to five patches.
+
+* Rebased onto the latest EVENTFD infrastructure and EVENTFD producer
+  series.
+
+The USERQ_EOP and QUEUE_RESET producer implementations are unchanged
+from v8 and retain Alex's Reviewed-by tags.
+
+Only compilation tested.
+
+Srinivasan Shanmugam (5):
+  drm/amdgpu/uapi: Add WAIT_EVENT ioctl and metadata structures
+  drm/amdgpu: Add wait-event manager and per-file lifetime plumbing
+  drm/amdgpu: Remove queue-scoped WAIT_EVENT records on queue teardown
+  drm/amdgpu: Record USERQ_EOP WAIT_EVENT notifications
+  drm/amdgpu: Record QUEUE_RESET WAIT_EVENT notifications
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  33 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |   2 +
+ .../gpu/drm/amd/amdgpu/amdgpu_wait_event.c    | 339 ++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/amdgpu_wait_event.h    |  78 ++++
+ include/uapi/drm/amdgpu_drm.h                 | 109 ++++++
+ 9 files changed, 571 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h
+
 -- 
 2.34.1
 
