@@ -4,79 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43481C44508
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 15:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 117D5C44501
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 15:52:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5A5210E074;
-	Tue, 14 Jul 2026 15:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F27010E06D;
+	Tue, 14 Jul 2026 15:52:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DTU2s2Df";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLAAyfig";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0C910E074
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 15:39:45 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-475881b9a4bso1001626f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 08:39:45 -0700 (PDT)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD9110E06D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 15:52:00 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-c8612812170so605909a12.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 08:52:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784044320; cv=none;
+ d=google.com; s=arc-20260327;
+ b=FU8edgihjHHymCJnBBZSVRuMtf7HbC0WFMjPX8AF9uYJ5i/Xo37IJ9/BIc1aOHqlq7
+ FLfUA9PaRbHS9tlM68WjM79qPwRL0C9iGAS93snVyiZJkeHRoCJkX8Ev/5pp13/ESF3O
+ dSZ4U/QaJy2uA3LAaN6+78TqdLlVoPuTUzTNRpOu7D1H0BlokuNYuOdTVnYxE1TX6zOt
+ dZD1s7/JKqK5JfaaP8TwyMgtNIh+3DPkTeSMV8XU/cBgohwBmi2T6fqjV8WNFVOssU2r
+ bD2ywOr4ZsS6eOYboJYzJ8AZFL9RFWDf0KuuZJR80DQThdBbnrmid1wxbwC11Aoxf0IV
+ u2qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=t53sl9wwp6xbNnV5IpEuMPWZ/vHYemLyviQqs1IKJ1c=;
+ fh=G/DKVfBmoRW5yQ4cOQMlIFLX8ggET+32rA1vet4+vmg=;
+ b=UuUOWsZjh0rIJ1I59HbUSdJvnpE2HEQNUxmgicW4ss6jW4topoCgSElVYUTWw1QFWE
+ NQNCo2fWUk/26OXd2CNZG513XWNERn+o7GkcWY2fS1xYNEj3oJt9TZeFXi9IJgVKix8A
+ RYSoXXuzz/srT0rLk1pZgck/wh+LI5HPYIITX7KkOIHvDN9ZDxFdQeZCy1eSJX6t4KqT
+ 01hSGZbDs7N+jgJWk4Lk7i9gICELmIVe10pbfP/CSIi8KXfsUeCAJR9PnTkzdLISeUcK
+ r7RZKV1tPTE6bf2bvzHr/OG+BRvKCTOC6egWSxUDCUSzmGtdaTA0979gbdW4Q9PxM9YS
+ qIdg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784043584; x=1784648384; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1784044320; x=1784649120; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=hU1HHqXSZbkcEDf0w+wJjDB22ACaAi2S3LpJwzADS9w=;
- b=DTU2s2DfSTGrEcm/E4J3rZ5bY/yXw4mll04Izp/y/aA/TIy/oL09BG0MGHerM1T1We
- 5XAV6oYxIaCZxkpxBSwB6Hvl7pJ8vEbc5xc4w0V5rflWelMhbWUGbiPU+nr2vNR5rd1p
- z81l2WmqiB5k6co2kZjCuRq/XQRq91lKo/bJlmu+DXwpzwQe0BrUiKbXomVyK7lKK03p
- 0mHDnOaUyvISsRRf9qAO65Y/s44HerEPf2KDLunx41koOHAVuLYjb4p2O4sAwwR0twFA
- nOKpBJEFc4J0QDzjmD1QnrPTv4LJ+xo0DnDC9Sj1DiHIA5kuCcBWOg+jnYuVB/pm53Sy
- hIqQ==
+ bh=t53sl9wwp6xbNnV5IpEuMPWZ/vHYemLyviQqs1IKJ1c=;
+ b=hLAAyfigTwhj5PNsKnLhCtDnG7lfKDvV1j0ksEo4MWBjxVFf363I1lx59lnDvp3lRs
+ XnhOJ0QIaAxS2jUxhyWC8o7EZvLM3AD5zcqrbXcZ4HbvPlVguqHI2JZ57gQablW4FXL/
+ +v/qHdOtirOttPhnFUXQ5YD811Wml7uBIJ2C2IOqeZ5oQE1fsxBryAkPj2dzOI+LQBxe
+ ZtdmH6dNBZmQLKMIDFodEB3/GIOy3yM0QAJGx/Q0nxGRZbJeyY+vMx15qFiSXETwZJes
+ aN+gqg0mkphwqeblRRKRnaF0HJKy7Srxdq8CvnuqpLe4gHWS5ffVSPZ9/o/ZgYPP+/Rl
+ k2/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784043584; x=1784648384;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20251104; t=1784044320; x=1784649120;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=hU1HHqXSZbkcEDf0w+wJjDB22ACaAi2S3LpJwzADS9w=;
- b=PucISXY1eiKk2CBgHB/TvoOWLRnyFaDrbGOwIdYosIqP9quWGxFkcG9clteDVXnk+N
- ejBIG5AXTd9FaXIj/Alu7nQMB6+Pwp5A4iahagNo3ZvgXnw1B2Fr9GBu3ghBbGcn9yRD
- 8Qj2bKW6QiwNX7XRMeIHfSVctOA6HgtnZkBHEnacWt8neuKNzrXSB4mCp09sn7ML64tV
- uFak0nz1wcJzzGYgjOTaWQ6vOniP6wlcbPJ9WYt4qlTSCDnb8kUC5oi96ALeUHqhAVCp
- iDK09RZ6jQ/RDV9Gc4au5jbDG7rLCt2GQGMik0Dqb21eZ5SiY/fQM6v9P70kP/z2NCH9
- 9RZA==
-X-Gm-Message-State: AOJu0Yw2Zu45ZGbsq700wrl8eSFuM6dBXi32TU2Np2Bdtu4xpT788ATP
- Zb9H+fscmspQezZ0jOcBMLsHuM0tPnimwHPgJ+QSTbsf+WDsvItBGUVq
-X-Gm-Gg: AfdE7cl9dpSxaz+F+F6CzmiG5iQ0iyu5OX6nEsIyf3GXmjkS83LchMXYqvTiydQmFWH
- 9rb09HG/4caqQ98vO1Qm598E1PtbfAnfW9dm8taBq5oa9/j4CDGRLicGcDDdYrCFN/w66LwzvJJ
- ewQRYCZQsSs1bX2qBwjm2Ap9X8rXPPz+nqjT8RjHmoMJqag0ptE0veEiGXyOHoiK/mg2/mt+uAR
- SGhStVmggRIl9LJ7c9NW0YCZuY8i5AWwfLHP3NHE33wnE4eQRJm7IP3/I4j+GSBDu57ja/kNVHC
- Km9KQiqx6qHsUudKO+8GYRBuGd28dpMzRIZYQjTwDqdao+msu804Fnybb3I7c9nKWx1Pk4iH82R
- a8C7AlhMPThuvENUCKvMlcyLoO5SjjoYlikmInV7MqAlNtF0aD6H6DUNhZ8DKxG8T6+JDwpwF99
- /mGyv8a0SrxJ68rs/SKkUSdCegPh53lUH4f26xgAnk2BEyiXlgtfBD2qVPReSMpw==
-X-Received: by 2002:a05:6000:2285:b0:473:6e8d:7f3 with SMTP id
- ffacd0b85a97d-47f2dcd1a25mr16400840f8f.1.1784043583494; 
- Tue, 14 Jul 2026 08:39:43 -0700 (PDT)
-Received: from timur-hyperion.localnet (5E1BC569.dsl.pool.telekom.hu.
- [94.27.197.105]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f464c1f84sm9330314f8f.29.2026.07.14.08.39.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2026 08:39:43 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>
-Subject: Re: [PATCH 1/9] drm/amdgpu/gfx7: Make amdgpu_gfx_mqd_sw_init() usable
- on GFX7
-Date: Tue, 14 Jul 2026 17:39:41 +0200
-Message-ID: <OYDF_volTbuQ8b1_pht54A@gmail.com>
-In-Reply-To: <061761c8-cdd1-47d2-abcb-718711c49cef@ursulin.net>
-References: <20260713125838.30607-1-timur.kristof@gmail.com>
- <CADnq5_MWaSxpnMBRYsk-vqhKPvZB_ohq4yCZsu_iYMG+M2dmiA@mail.gmail.com>
- <061761c8-cdd1-47d2-abcb-718711c49cef@ursulin.net>
+ bh=t53sl9wwp6xbNnV5IpEuMPWZ/vHYemLyviQqs1IKJ1c=;
+ b=PtQngWBKRRGAj9YKik0NQEGuqs6QNgVu2OblW4Zy894ElkvaAV2rEwHfUYzEQJpn8v
+ IUjf3cG/50gf2Gce6l0LcIrXwaf4U1AYJFvgBp/ABEG5sShvv8hpYic0YPghwdt5AWCy
+ cTukOGXlOVEugdOlBPpLES6Bisrg07WGuxm4vZp9XO3iPjUz0K9ezk7dG1+rVf32KB6M
+ /6koA1ooKBHvlkgI3H8glPOG1ccICyl6b8ImNx2Usm5hL6qIswhiKTQmAajakoLmbA2J
+ +TR0ksv33aUUpbxIRZjWTkZfikmV2Ld8SZi3W0H7dimUbp8igpyD/4/C/HKVWTvBc1PB
+ xWYw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoGEK6bGJ+tphdGSDLIruHaL6E2Rgwwa7JBJU+uiikNcD0YZ8zpfk8qLsyFO1ZaJkMdCiu/liXW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzscdRdLePYAX5fwDDlszCfdZoc0bgTIZOooBPHwW/x4ZlrEx/
+ KbmyKustg7bhIvbOPkmhS0HflQRmDiPSJksYYwHyS7A7Rqm2BnaMbYljm7ZxnAqvVjXtBugeeXn
+ yT9/OfnMo4b+a6scodBWOXTa25cwdYi8=
+X-Gm-Gg: AfdE7cnAMufVNTOG8D2ZgbCdKClnVAPeDof8uv1ycOxwQcf/3vOjjPhaXfRMkxMGRCn
+ 5jfK/Cpijvi8et2FV81ipTQc29SWuQ3exDFfYjrRrp+ejk2rCUrZYWGUtCylobLMebHRzFDsHQo
+ tWMM3VjDEAXJdJGYTwpCZGh391aJHrYxF1Jgfekymp4QKJZSqkX8/IBZVLEVLYqHkYPls5G3FhF
+ HbJtaRFqMvP7WUXo/bqreJXSTYOtLfU+rWE7MlKiAXZAoKsDlKJu3vxzFxwHxwQnTNtwAfnUzHi
+ s9xx3yswtTj/JWH9ZNXOmUQ9dNtFqbrs0LgfI7x8hJYpmqTdm70EcWFgXjI=
+X-Received: by 2002:a05:6a21:32a2:b0:3bf:d1f9:b1e5 with SMTP id
+ adf61e73a8af0-3c110b6c280mr11266341637.8.1784044319633; Tue, 14 Jul 2026
+ 08:51:59 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260714143939.680824-1-alexander.deucher@amd.com>
+ <IA0PR12MB820835A0622B2BDB9DE560B890F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+In-Reply-To: <IA0PR12MB820835A0622B2BDB9DE560B890F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Jul 2026 11:51:48 -0400
+X-Gm-Features: AUfX_mwyU3vuC_oWf1v7_GMlKNLXBI1wfYfAEBwQiIOIMkea4Z15MTK6hZytqyE
+Message-ID: <CADnq5_MNLK2pyvUMQn=xupXp3L5SVajU==hiGbQXNdrjTUBZSw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: properly account for resets with user queues
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liang,
+ Prike" <Prike.Liang@amd.com>, 
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,77 +108,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, July 14, 2026 5:19:57=E2=80=AFPM Central European Summer Time T=
-vrtko=20
-Ursulin wrote:
-> On 14/07/2026 16:05, Alex Deucher wrote:
-> > On Tue, Jul 14, 2026 at 10:59=E2=80=AFAM Tvrtko Ursulin <tursulin@ursul=
-in.net>=20
-wrote:
-> >> On 13/07/2026 13:58, Timur Krist=C3=B3f wrote:
-> >>> We don't use KIQ on GFX7 but otherwise MQD works the
-> >>> same way as GFX8 and newer.
-> >>>=20
-> >>> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> >>> ---
-> >>>=20
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
-> >>>    1 file changed, 1 insertion(+), 1 deletion(-)
-> >>>=20
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c index
-> >>> 96c9d4f00b27..0f142c156afa 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >>> @@ -420,7 +420,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device
-> >>> *adev,
-> >>>=20
-> >>>    #endif
-> >>>   =20
-> >>>        /* create MQD for KIQ */
-> >>>=20
-> >>> -     if (!adev->enable_mes_kiq && !ring->mqd_obj) {
-> >>> +     if (adev->asic_type >=3D CHIP_TOPAZ && !adev->enable_mes_kiq &&
-> >>> !ring->mqd_obj) {>>=20
-> >> CHIP_TOPAZ is gfx7? Hm if it is then the branch would already run ther=
-e.
-> >> So the change is limiting the branch to a subset of platforms, while t=
-he
-> >> patch title made me think it is enabling something on gfx7. Perhaps
-> >> somehow indirectly or what am I not understanding?
-> >=20
-> > TOPAZ is gfx8.
+On Tue, Jul 14, 2026 at 11:19=E2=80=AFAM SHANMUGAM, SRINIVASAN
+<SRINIVASAN.SHANMUGAM@amd.com> wrote:
+>
+> AMD General
+>
+> Hi Alex,
+>
+> > -----Original Message-----
+> > From: Alex Deucher <alexander.deucher@amd.com>
+> > Sent: Tuesday, July 14, 2026 8:10 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
+> > SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike
+> > <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Lazar, Lij=
+o
+> > <Lijo.Lazar@amd.com>
+> > Subject: [PATCH] drm/amdgpu: properly account for resets with user queu=
+es
+> >
+> > We need to increment the reset counter, force fence completion, and set=
+ the
+> > wedged event when a user queue is reset, but only for the guilty queue.=
+  We don't
+> > want additional events for collateral damage.
+> >
+> > Only increment the reset counter and set the wedged event in the top le=
+vel userq
+> > reset callers (both KGD and KFD).
+> > This aligns with how this is managed for kernel queue resets.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> > Cc: Prike Liang <Prike.Liang@amd.com>
+> > Cc: Sunil Khatri <sunil.khatri@amd.com>
+> > Cc: Lazar, Lijo <lijo.lazar@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c       | 17 ++++++++++++++++-
+> >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c      |  2 --
+> >  .../drm/amd/amdkfd/kfd_device_queue_manager.c   | 14 ++++++++++++++
+> >  3 files changed, 30 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > index 6aa75da27f912..0a0ebcdc271f8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > @@ -123,6 +123,8 @@ static void amdgpu_userq_hang_detect_work(struct
+> > work_struct *work)
+> >       struct amdgpu_device *adev =3D uq_mgr->adev;
+> >       const struct amdgpu_userq_funcs *userq_funcs =3D
+> >               adev->userq_funcs[queue->queue_type];
+> > +     struct drm_wedge_task_info *info =3D NULL;
+> > +     struct amdgpu_task_info *ti =3D NULL;
+> >       bool gpu_reset =3D false;
+> >
+> >       if (unlikely(adev->debug_disable_gpu_ring_reset)) { @@ -137,6 +13=
+9,14
+> > @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
+> >       if (!amdgpu_gpu_recovery)
+> >               return;
+> >
+> > +     if (queue->vm && queue->vm->pasid) {
+> > +             ti =3D amdgpu_vm_get_task_info_pasid(adev, queue->vm->pas=
+id);
+> > +             if (ti) {
+> > +                     amdgpu_vm_print_task_info(adev, ti);
+> > +                     info =3D &ti->task;
+> > +             }
+> > +     }
+> > +
+>
+> `amdgpu_vm_get_task_info_pasid()` returns a referenced
+> `amdgpu_task_info`, and the existing `amdgpu_job_timedout()` path pairs
+> it with `amdgpu_vm_put_task_info(ti)` on the exit path.
+>
+> Since `info` points into `ti`, should we keep the reference until after
+> `drm_dev_wedged_event()` and then add the matching
+> `amdgpu_vm_put_task_info(ti)` on the common exit path here?
 
-We currently don't use KIQ on GFX7 so the patch changes the code to allocat=
-e=20
-the BO only on GFX8 and newer. Topaz is the first GFX8 chip in the enum, so=
-=20
-that's why the code checks >=3D TOPAZ here.
+Good catch.  Fixed.
 
-> Ah now I get it, thank you! Could maybe adev->gfx[0].kiq.something or be
-> used to make it a bit self-documenting?
+>
+>
+> >       if (amdgpu_userq_is_reset_type_supported(adev, queue->queue_type,
+> >
+> > AMDGPU_RESET_TYPE_PER_QUEUE)) {
+> >               int r;
+> > @@ -146,8 +156,13 @@ static void amdgpu_userq_hang_detect_work(struct
+> > work_struct *work)
+> >                                                        queue, NULL, NUL=
+L);
+> >               else
+> >                       r =3D userq_funcs->reset(queue);
+> > -             if (r)
+> > +             if (r) {
+> >                       gpu_reset =3D true;
+> > +             } else {
+> > +                     atomic_inc(&adev->gpu_reset_counter);
+> > +                     amdgpu_userq_fence_driver_force_completion(queue)=
+;
+> > +                     drm_dev_wedged_event(adev_to_drm(adev),
+> > DRM_WEDGE_RECOVERY_NONE, info);
+> > +             }
+> >       } else {
+> >               gpu_reset =3D true;
+> >       }
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > index d3d79bbaf9eb7..a1371a9f961d1 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > @@ -234,9 +234,7 @@ int mes_userq_reset_queue(struct amdgpu_device *ade=
+v,
+> >                               r =3D mes_userq_unmap(uq);
+> >                               if (r)
+> >                                       return r;
+> > -                             atomic_inc(&adev->gpu_reset_counter);
+> >                               amdgpu_userq_fence_driver_force_completio=
+n(uq);
+> > -                             drm_dev_wedged_event(adev_to_drm(adev),
+> > DRM_WEDGE_RECOVERY_NONE, NULL);
+> >                               break;
+> >                       }
+> >               }
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> > b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> > index 0419fe869d4b0..0ae2d951bd21e 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> > @@ -448,6 +448,9 @@ int kfd_reset_queue_mes(struct device_queue_manager
+> > *dqm, int queue_type,  static int reset_queues_mes(struct device_queue_=
+manager
+> > *dqm, struct queue *q)  {
+> >       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->=
+adev;
+> > +     struct drm_wedge_task_info *info =3D NULL;
+> > +     struct amdgpu_task_info *ti =3D NULL;
+> > +     struct kfd_process_device *pdd;
+> >       unsigned int num_hung =3D 0;
+> >       int r =3D 0;
+> >       struct mes_remove_queue_input queue_input; @@ -476,6 +479,17 @@
+> > static int reset_queues_mes(struct device_queue_manager *dqm, struct qu=
+eue *q)
+> >       r =3D amdgpu_gfx_reset_mes_compute(adev, NULL, NULL, NULL,
+> > &num_hung, &queue_input);
+> >       if (r)
+> >               goto fail;
+> > +     pdd =3D kfd_get_process_device_data(q->device, q->process);
+> > +     if (pdd) {
+> > +             ti =3D amdgpu_vm_get_task_info_pasid(adev, pdd->pasid);
+> > +             if (ti) {
+> > +                     amdgpu_vm_print_task_info(adev, ti);
+> > +                     info =3D &ti->task;
+> > +             }
+> > +     }
+>
+> Same here: the task-info reference appears to need a matching
+> `amdgpu_vm_put_task_info(ti)` after the last use of `info`.
 
-Technically, GFX7 supports the KIQ, amdgpu just doesn't use it. So, I fear=
-=20
-that adding a field would mislead the reader into thinking that the HW supp=
-ort=20
-is missing when it really is just the kernel doesn't use it.
+Fixed.
 
-How would you feel about just updating the comment above the changed line?
-Maybe like this?
+>
+> > +
+> > +     atomic_inc(&adev->gpu_reset_counter);
+> > +     drm_dev_wedged_event(adev_to_drm(adev),
+> > DRM_WEDGE_RECOVERY_NONE,
+> > +info);
+>
+> The existing KFD reset event is conditioned on num_hung, while amdgpu_gfx=
+_reset_mes_compute() can also handle the known bad queue through queue_inpu=
+t when num_hung =3D=3D 0.
+>
+> Could you pls clarify what condition should determine whether the reset c=
+ounter and wedged event are emitted in this path? Should successful removal=
+ of the known bad queue also count as the recovery event?
 
-/* create MQD for KIQ - only on GFX8+ GPUs where we use the KIQ */
+Yes, we should align on whether a bad queue was found or not.  Fixed.
 
-I think that would make it self-explanatory.
+Thanks!
 
->=20
-> >>>                /* originaly the KIQ MQD is put in GTT domain, but for
-> >>>                SRIOV VRAM domain is a must>>>               =20
-> >>>                 * otherwise hypervisor trigger SAVE_VF fail after dri=
-ver
-> >>>                 unloaded which mean MQD * deallocated and gart_unbind,
-> >>>                 to strict diverage we decide to use VRAM domain for
+Alex
 
-
-
-
+>
+> Thanks,
+> Srini
