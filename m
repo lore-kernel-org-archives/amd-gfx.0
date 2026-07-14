@@ -4,101 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96440C4450A
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 15:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D68BC44508
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 16:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3219210EE0C;
-	Tue, 14 Jul 2026 15:55:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1142E10EDE1;
+	Tue, 14 Jul 2026 16:06:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O2QrlhNK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VI4P2p2d";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E21F10EE0C
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 15:55:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wm0qFij5EQC83AbyS+tyPJFjZ9d7FDJMBoGUDA4QoEZ3iBZxVOFYx3C+v/ncoyEbCbJrpJxBmll+mSuFmzu6rY584ukz0rMdcZSZ75P791kGdxEGTYfMNBaLYmeBFJjdAJILjlrpt8GrUcQ3GjD6l52Po2+aVKNv4uATGNmECJxPThzU8xHQmuuBc8FM829y/XPp2DhjKAaARzNG8dGIzcty01kbh8hGTLHjjcg+Bf1unBdG77VHyQfVUKgFtoEa2gAFR45trdvNUm97q4Aj0NpEQsiUn2FpR3pgGnoFtkWlEOhy25I+k+jXpQbhFu/yD6Ivxt7siPMCVjh6KC3G4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o0+YCj5Bg7TajHugkscKDD8SL2p+fM2o6EgVHvsgilU=;
- b=rFL/ficgipLbpQVJCIjT6hB6HNL1fUCYCDpxKzP1u+WAOCq8PdKDr6F/O1m1asvFi0B+B2sq719oxaeEJDHiVs8tRiKL/qlBgVECA13jubyf942Yy7wDh+whu5zWWYwOPXrXnkqyYEmKLLlCnkkYiSuUBPcM3Kk47QjtTkDA22MiHqoJDgi7woQRN/vHu6ZpbluB2cmBMoetf8X3y1nRSN3zlVrTHeAE6XFlU33BVBdy4nk03nq+KJQtBKiX4HDkWIF+C3Q2cMFFzvycAkcOUXTQUOpTD+2xRr30G0Wh7INFlrkufAg/XrPfy8n/tjaZxzqNOXomtKVdcdtzB35czQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o0+YCj5Bg7TajHugkscKDD8SL2p+fM2o6EgVHvsgilU=;
- b=O2QrlhNKdYkbxSNKvPk1osAzaEz8IadladhHj7ln4YyLpROyqx0zqJjmCsJbuHE2F4QteNgR//gIU74RMbBGOug9sD9JOXqQ4P6XB36X+Ob1M9DXDNddhI0X9f7WUxWmZrO26Zj975tK6cOMNpnuxayIvWlOzjcwqSKMTqDa3kk=
-Received: from PH8P223CA0019.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::24)
- by DM4PR12MB6062.namprd12.prod.outlook.com (2603:10b6:8:b2::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.10; Tue, 14 Jul 2026 15:55:25 +0000
-Received: from SJ1PEPF000023CE.namprd02.prod.outlook.com
- (2603:10b6:510:2db:cafe::2f) by PH8P223CA0019.outlook.office365.com
- (2603:10b6:510:2db::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.10 via Frontend Transport; Tue,
- 14 Jul 2026 15:55:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023CE.mail.protection.outlook.com (10.167.244.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 15:55:24 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 14 Jul
- 2026 10:55:23 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 14 Jul
- 2026 10:55:23 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 14 Jul 2026 10:55:22 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Prike Liang <Prike.Liang@amd.com>, "Sunil
- Khatri" <sunil.khatri@amd.com>, "Lazar, Lijo" <lijo.lazar@amd.com>
-Subject: [PATCH V2] drm/amdgpu: properly account for resets with user queues
-Date: Tue, 14 Jul 2026 11:55:16 -0400
-Message-ID: <20260714155516.684775-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9500E10EDE1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 16:06:54 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2cc827a68fbso12450665ad.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 09:06:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784045214; cv=none;
+ d=google.com; s=arc-20260327;
+ b=OUMKOjCg3YhZ5p6Iun+3kd2jx9YiUnbBxMp37RX10kjqClFECda2iWn7rlCIMJh4e0
+ AdNiNk70Fwuet3PzrGjo4X+3ojZy4mY51WQMJrpk4Tfc2mvGuVOkny/iAGrdSOJ7Xy6+
+ nosvB/KgqgJOU2MXRxW++iczTRtix0+7OBAf67s7jcXkcnoDcxheumD3qBgypFfPDr+q
+ 4S3uKUDl5NF5/AJEL+CykJWi3TRzdYcCW8Yd2Lecgiffdiy6bXxebmTYXnz+oZ4GfCec
+ LXcxHENeremmcJ3Wl5p1D/X1v535UeHcK5FTtFUsjUhCKCESwY+jm6Lv0c+gHd0HMjap
+ qPqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=CWAVCJ1HsGO85iHwY2inQ9WtMD2v1rUjV9gVG+BMN7A=;
+ fh=P046pYA4XqzknrYfp7+brb3GFhObpTLRV0lbJCZULsk=;
+ b=nZE1i5oyVgkNr33shqwr79L8oTF9BMgunm4+M0zlWOXpf+bWxnUpJXu+Sg4MrgoDgX
+ cZyH5e92Zo2hOmK5liLn6XU23pC52a8adWpdvpMYA5bT8i7gCE+mrjaC+rT+7d4dUJEt
+ 4UBMatJC/NC8gKEX/tv6TPXwYiyhX0CKXBXTcyNinhAWRAvdPCGIPsfzgT4bpd1t9OZX
+ usyUJS0LWyW3Xg/KW0oedEDUOifqRGKl+XPgL6a8MbOopaopOJF+uvDZzt2w7YtFP4C+
+ XESrvCkTlBDVP3L/sUDaXzkFzPU55I+gJrZ//VJNe/CbneLOMOAicdOTkGyNihh3e/W/
+ C90w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784045214; x=1784650014; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=CWAVCJ1HsGO85iHwY2inQ9WtMD2v1rUjV9gVG+BMN7A=;
+ b=VI4P2p2d58fSuXfzjmR0wyb1FSDz4c7nCo4g5VXNcdwjSIg2Eo88Ke+RM79aEhL4WR
+ 6500qi/brsqz/gPFqeiiNwWgo0PqNILSBjC+Gax6Cxr5TEuVrWjmjyW4RUIlaPhCXpi3
+ x+or7fXnbMiowv6T+oBES3oTVW5jbprxVup834Ix2NOKAq7TpLXp4xMrN1WX83JORRLu
+ GezEhiPmmTN3S8Xnvoz+zoWfW7eZl0eeDcfhMzPveexbPHyrM/mvrL50T+aW5vxvzhqq
+ 3S0+RLqwM4SUTxT7abhMx4NL2zx9QoGT8wVdh/1MlpUcVRz9HikjzF5XOOvyegLTeQR7
+ vaTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784045214; x=1784650014;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=CWAVCJ1HsGO85iHwY2inQ9WtMD2v1rUjV9gVG+BMN7A=;
+ b=B03pUAsW9hXzdkCmlvgqwbN0WAXD06l9UVkDmtjlMxHzq2gaA62V+g8mihnQHOnQ2F
+ GZC4DIEwRed7Dp22/Qp53KOc+g5EZvfWsO8MOQdDNr5sP41pRVR1WQTsWExWaeik58Fc
+ SHI8/xjsGNFG7zp6cEFcEg6m8QGgCmRGkcCBrsRJNAXp5c4ASLeiRNP+gb5OuSBW479n
+ jvDbnFwlJkxAoRAO/ZnyV0Ht7dQLS9ln669mbvMM2gPadPc6uHCKLbuBr6ig7l0J+tVz
+ Sjp/Q2wddGHiL0wu276AhXgyWHegJbI6tfN92qwORpbKbfcUBKm9i8gCH1VFpelPe1Di
+ G7lg==
+X-Gm-Message-State: AOJu0YzJSekmJubejOqeLAqChankveU5HtKrbXw/sj/tSuxEgZrGIg3t
+ wVEBPO1ui7MdBBI3jrKrHHj0qoiO+FKyo96ocgoGIT78NdYBO9vMlICXa88qQktST0SeXA6JyOW
+ 1HQoRr44mBBcDW+JWxDuf/E79sDQ2x2lASA==
+X-Gm-Gg: AfdE7cnFm1IpjZEVSpN+k6KH3n8C7mtIMhpfAl9Acw+SnICYHd9UcPHlc+WhHpTlpK/
+ loEhoY6/c+Xq/lTCNIxaf6uS/Wd0Dvl5qO8fxp9FEsnHa9i7bxlBV+vSf2BRxsQgnV10nSfsq80
+ ln1/2t7o07KACtHoE/qpuusOqc/0yzQahhc1lrF8aIGFReHlK0aQ/ori0sNJR8tcqyFO7g7C5G6
+ YvXSodnC6l7DYGu/MQmxGsE1nflLnyZlRCGNbYEXmsDGOmdUdL7I4Hmk3woTFxia0T/csK0xUkc
+ pyDW0lQ5MYzjRuE4poB8ncimEwYSQyhyVn2aXtIrPE63nalFP89UirlQCfgecttXWMx9DQ==
+X-Received: by 2002:a17:903:2ca:b0:2cb:2b50:d9da with SMTP id
+ d9443c01a7336-2ce9f159a12mr109833655ad.3.1784045213990; Tue, 14 Jul 2026
+ 09:06:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CE:EE_|DM4PR12MB6062:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e640d4c-1fc8-43a3-fc1f-08dee1c05141
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: WLmZpHP3K2ZithzIfDgX0voA0xT+xK7M8ljx2yB5DtZAlOPS3vy1cXR8fCJUMKn/p1FDXhGfBs0Ga5Ahf9D9+nAesA2hPlgJhiI+rND6PBAIHtUSKKbpPfrAOKawVcl24ie0yyC35t5sou/1ziG02BrWuJKqcmQRjWoKRKXDbbbnawdUPx1Q1kHl6yUwogqdJ3Q/C3x6Ks4NfuUWEqLwDuaFqB/5C4Q0mJ70y7eTVcwBPKBVrRFj3p1+oOo/yWWKc9Kzqdon0ufYLdKyocEC2RGx0h3cryiEKGcLizKOn3IMkp0d0FQHBmBFYVT5ONOeaIZ6ZnuPxkBnDs8vWgbpUOSPgF6kC90okalEcWM8gp3aUAXFMbyTqcv2CWmUQiRd3a9pPfGzixJQUznapm6wX0Qnn5rLwBICiSUsxZgvF83jtT8YobzJLlfvrhlyx+AJw+zpBf8vRSIjaeGdn3Mmrtl8Sbs2jesRD+PWSumEUrp/E5nzmD5igPMcLYc/69+jZRJleGctQmAdpMCKddweXCdE8c7HReK2yrwgLJftkVu+AsX2fM/S+9YQsrFljnLZsuwaErB6BP/JfTDH024M3vMX9iI/r+q9zQBm7mUVmDf4XYNsxwMO4B2fNrzyVChfeyJcfuDg9hCdMSrSefQGffihMisgfhDue3BJLmfXddsIXlLVz/eXVKMY9zDGOD048e798UA8UkB21dcsoFoxoA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: HnSvw6k5W8gLTjficNl3heImIPfv7krKF6v6gMR4yxQnsHQ9cOV+nlfShGfPBRKCDUWUyix2z/hyFiK/w1clvysA5Pv6PacfRcutuQEiR+v8BPAXF87uX4hoRO1vpdrSKaFiaFEGG29VQ0xUQURSK6dUJSLepa+8LL5EnEgHMwoczd0zPMqWkk8UQtlp5t9erdXaIXi9Yd/cgI/7hQofyVzcVL1zJMlJX0vZsZeha6ebKOM5jGhRQK/C29TB67WLl2SyJe26X53zEZDZp6eVlifeChzjwH6588myr5ilFz1RCu7agUXPkkFSCHC6RcLKrfciL5s9uI1YcdsGPVKNOoJJHqStQzemyvsGJhA/k1icgNQRAEU8JzmKk2ToSI0BPGs668LhFBDJDYhDFQINtT6nj+VS0zwBAHY3nmJ/jNsyGUNDeb+8vr48N+M2vgkY
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 15:55:24.5177 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e640d4c-1fc8-43a3-fc1f-08dee1c05141
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023CE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6062
+References: <20260713195313.1739762-1-mario.limonciello@amd.com>
+In-Reply-To: <20260713195313.1739762-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Jul 2026 12:06:41 -0400
+X-Gm-Features: AUfX_mzxRXeVjkyfKXlK_SVcrCbcntCEv-cBIINuGT_KBKhpPyo9-k1LgVcBS6M
+Message-ID: <CADnq5_OBoBLeK+WvSez+A97NvNVDJP6VWocRxezeC5dZ9oLTXg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Create a device link between APU display and
+ XHCI devices
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Aaron Ma <aaron.ma@canonical.com>,
+ mrh@frame.work
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,131 +104,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need to increment the reset counter, force fence completion,
-and set the wedged event when a user queue is reset, but only
-for the guilty queue.  We don't want additional events for
-collateral damage.
+On Mon, Jul 13, 2026 at 4:19=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> Some AMD APU multi-function devices expose an integrated USB xHCI
+> controller. In some circumstances (such as larger VRAM), the PM core
+> can resume can fail when the xHCI controller is resuming in parallel
+> with the GPU/display function.
+>
+> On affected systems, the xHCI controller can complete pci_pm_resume
+> and start resuming USB devices while the GPU is still in its much
+> longer resume path. This race condition leads to USB device resume
+> failures followed by:
+>
+>   xhci_hcd ...: xHCI host not responding to stop endpoint command
+>   xhci_hcd ...: HC died; cleaning up
+>
+> Create a device link from any xHCI controller sharing the same PCIe
+> root port as the APU display function. The link uses DL_FLAG_STATELESS
+> and DL_FLAG_PM_RUNTIME to ensure the GPU completes its resume before
+> the xHCI controller begins resuming USB devices.
+>
+> This device link is done specifically in amdgpu so that if the
+> platform firmware has been modified such that this issue doesn't happen
+> the version can be detected and the workaround skipped.
+>
+> Suggested-by: Aaron Ma <aaron.ma@canonical.com>
+> Reported-by: mrh@frame.work
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221073
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Only increment the reset counter and set the wedged event
-in the top level userq reset callers (both KGD and KFD).
-This aligns with how this is managed for kernel queue resets.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-v2: fix task info refcount handling, align with
-    kfd error reporting.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: Prike Liang <Prike.Liang@amd.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Lazar, Lijo <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c      | 18 +++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c     |  2 --
- .../drm/amd/amdkfd/kfd_device_queue_manager.c  | 17 ++++++++++++++++-
- 3 files changed, 33 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 6aa75da27f912..58754fc41bb6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -123,6 +123,8 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 	struct amdgpu_device *adev = uq_mgr->adev;
- 	const struct amdgpu_userq_funcs *userq_funcs =
- 		adev->userq_funcs[queue->queue_type];
-+	struct drm_wedge_task_info *info = NULL;
-+	struct amdgpu_task_info *ti = NULL;
- 	bool gpu_reset = false;
- 
- 	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
-@@ -137,6 +139,14 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 	if (!amdgpu_gpu_recovery)
- 		return;
- 
-+	if (queue->vm && queue->vm->pasid) {
-+		ti = amdgpu_vm_get_task_info_pasid(adev, queue->vm->pasid);
-+		if (ti) {
-+			amdgpu_vm_print_task_info(adev, ti);
-+			info = &ti->task;
-+		}
-+	}
-+
- 	if (amdgpu_userq_is_reset_type_supported(adev, queue->queue_type,
- 						 AMDGPU_RESET_TYPE_PER_QUEUE)) {
- 		int r;
-@@ -146,11 +156,17 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- 							 queue, NULL, NULL);
- 		else
- 			r = userq_funcs->reset(queue);
--		if (r)
-+		if (r) {
- 			gpu_reset = true;
-+		} else {
-+			atomic_inc(&adev->gpu_reset_counter);
-+			amdgpu_userq_fence_driver_force_completion(queue);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
-+		}
- 	} else {
- 		gpu_reset = true;
- 	}
-+	amdgpu_vm_put_task_info(ti);
- 
- 	/*
- 	 * Don't schedule the work here! Scheduling or queue work from one reset
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index d3d79bbaf9eb7..a1371a9f961d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -234,9 +234,7 @@ int mes_userq_reset_queue(struct amdgpu_device *adev,
- 				r = mes_userq_unmap(uq);
- 				if (r)
- 					return r;
--				atomic_inc(&adev->gpu_reset_counter);
- 				amdgpu_userq_fence_driver_force_completion(uq);
--				drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
- 				break;
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 0419fe869d4b0..58ccbf955f287 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -448,6 +448,9 @@ int kfd_reset_queue_mes(struct device_queue_manager *dqm, int queue_type,
- static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-+	struct drm_wedge_task_info *info = NULL;
-+	struct amdgpu_task_info *ti = NULL;
-+	struct kfd_process_device *pdd;
- 	unsigned int num_hung = 0;
- 	int r = 0;
- 	struct mes_remove_queue_input queue_input;
-@@ -476,13 +479,25 @@ static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q)
- 	r = amdgpu_gfx_reset_mes_compute(adev, NULL, NULL, NULL, &num_hung, &queue_input);
- 	if (r)
- 		goto fail;
-+	pdd = kfd_get_process_device_data(q->device, q->process);
-+	if (pdd) {
-+		ti = amdgpu_vm_get_task_info_pasid(adev, pdd->pasid);
-+		if (ti) {
-+			amdgpu_vm_print_task_info(adev, ti);
-+			info = &ti->task;
-+		}
-+	}
- 
- 	dqm->detect_hang_count = num_hung;
- 	/* When MES doesn't detect any queue hang, no reset happens. Don't signal reset
- 	 * event.
- 	 */
--	if (dqm->detect_hang_count)
-+	if (dqm->detect_hang_count) {
- 		kfd_signal_reset_event(dqm->dev);
-+		atomic_inc(&adev->gpu_reset_counter);
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
-+	}
-+	amdgpu_vm_put_task_info(ti);
- 
- fail:
- 	dqm->detect_hang_count = 0;
--- 
-2.55.0
-
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 12 +++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 11 +++++
+>  .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 45 +++++++++++++++++++
+>  3 files changed, 68 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index 4314dff4ac996..c1ceec7a1986b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1366,6 +1366,14 @@ static void smu_feature_cap_init(struct smu_contex=
+t *smu)
+>         bitmap_zero(fea_cap->cap_map, SMU_FEATURE_CAP_ID__COUNT);
+>  }
+>
+> +static int smu_set_power_dep(struct smu_context *smu, bool enable)
+> +{
+> +       if (!smu->ppt_funcs->set_power_dep)
+> +               return 0;
+> +
+> +       return smu->ppt_funcs->set_power_dep(smu, enable);
+> +}
+> +
+>  static int smu_sw_init(struct amdgpu_ip_block *ip_block)
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+> @@ -1427,6 +1435,8 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_b=
+lock)
+>         if (!smu->ppt_funcs->get_fan_control_mode)
+>                 smu->adev->pm.no_fan =3D true;
+>
+> +       smu_set_power_dep(smu, true);
+> +
+>         return 0;
+>  }
+>
+> @@ -1449,6 +1459,8 @@ static int smu_sw_fini(struct amdgpu_ip_block *ip_b=
+lock)
+>
+>         smu_fini_microcode(smu);
+>
+> +       smu_set_power_dep(smu, false);
+> +
+>         return 0;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
+drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index f8fd93999617d..7ea7c4a5279be 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -749,6 +749,9 @@ struct smu_context {
+>         bool pm_enabled;
+>         bool is_apu;
+>
+> +       /* Power dependency link from an integrated xHCI controller to th=
+e GPU */
+> +       struct device_link              *usb_power_link;
+> +
+>         uint32_t smc_driver_if_version;
+>         uint32_t smc_fw_if_version;
+>         uint32_t smc_fw_version;
+> @@ -1618,6 +1621,14 @@ struct pptable_funcs {
+>          */
+>         int (*ras_send_msg)(struct smu_context *smu,
+>                             enum smu_message_type msg, uint32_t param, ui=
+nt32_t *read_arg);
+> +
+> +       /**
+> +        * @set_power_dep: Create or destroy a power dependency link
+> +        * from an integrated xHCI controller to the GPU so that the GPU =
+is
+> +        * resumed before the USB controller during PM resume. @enable is=
+ true
+> +        * to create the link and false to tear it down.
+> +        */
+> +       int (*set_power_dep)(struct smu_context *smu, bool enable);
+>  };
+>
+>  typedef enum {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> index 2fe006de927a3..2abdfef8644e0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> @@ -1701,6 +1701,50 @@ static int smu_v14_0_0_restore_user_od_settings(st=
+ruct smu_context *smu)
+>         return 0;
+>  }
+>
+> +/*
+> + * Link any xHCI controller sharing the GPU's PCIe root port as a consum=
+er
+> + * of the GPU so the GPU resumes first, avoiding an xHCI resume race.
+> + */
+> +static int smu_v14_0_0_set_power_dep(struct smu_context *smu, bool enabl=
+e)
+> +{
+> +       struct amdgpu_device *adev =3D smu->adev;
+> +       struct pci_dev *gpu_pdev =3D adev->pdev;
+> +       struct pci_dev *root_port, *usb_pdev =3D NULL;
+> +       struct device_link *link;
+> +
+> +       if (!enable) {
+> +               if (smu->usb_power_link) {
+> +                       device_link_del(smu->usb_power_link);
+> +                       smu->usb_power_link =3D NULL;
+> +               }
+> +               return 0;
+> +       }
+> +
+> +       root_port =3D pcie_find_root_port(gpu_pdev);
+> +       while ((usb_pdev =3D pci_get_class(PCI_CLASS_SERIAL_USB_XHCI, usb=
+_pdev))) {
+> +               struct pci_dev *usb_root;
+> +
+> +               usb_root =3D pcie_find_root_port(usb_pdev);
+> +               if (usb_root !=3D root_port)
+> +                       continue;
+> +
+> +               /* Create device link: USB (consumer) depends on GPU (sup=
+plier) */
+> +               link =3D device_link_add(&usb_pdev->dev, &gpu_pdev->dev,
+> +                                      DL_FLAG_STATELESS | DL_FLAG_PM_RUN=
+TIME);
+> +               if (link) {
+> +                       smu->usb_power_link =3D link;
+> +                       drm_info(adev_to_drm(adev), "USB controller %s D0=
+ power state depends on %s\n",
+> +                                pci_name(usb_pdev), pci_name(gpu_pdev));
+> +                       /* Only create one link for the first USB control=
+ler found */
+> +                       break;
+> +               }
+> +       }
+> +
+> +       pci_dev_put(usb_pdev);
+> +
+> +       return 0;
+> +}
+> +
+>  static const struct pptable_funcs smu_v14_0_0_ppt_funcs =3D {
+>         .check_fw_status =3D smu_v14_0_check_fw_status,
+>         .check_fw_version =3D smu_cmn_check_fw_version,
+> @@ -1734,6 +1778,7 @@ static const struct pptable_funcs smu_v14_0_0_ppt_f=
+uncs =3D {
+>         .dpm_set_umsch_mm_enable =3D smu_v14_0_0_set_umsch_mm_enable,
+>         .get_dpm_clock_table =3D smu_v14_0_common_get_dpm_table,
+>         .set_mall_enable =3D smu_v14_0_common_set_mall_enable,
+> +       .set_power_dep =3D smu_v14_0_0_set_power_dep,
+>  };
+>
+>  static void smu_v14_0_0_init_msg_ctl(struct smu_context *smu)
+> --
+> 2.43.0
+>
