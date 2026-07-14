@@ -4,95 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 282F4C43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 13:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1268C44501
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 13:55:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABF9910E081;
-	Tue, 14 Jul 2026 13:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64E9B10E069;
+	Tue, 14 Jul 2026 13:55:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eQhnI9g1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d/Io6Co3";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F18710E081
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 13:51:45 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2cc7a269ca1so9534845ad.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 06:51:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784037105; cv=none;
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6640310E069
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 13:55:58 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-ca957338f14so530703a12.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 06:55:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784037358; cv=none;
  d=google.com; s=arc-20260327;
- b=WZ4enIDIFF2WsdvmjSeoWNxSDSVu6UBNcOnitatMrhG4Z7yllQrYsd7iA5Jwgwdwm1
- 8Mm/pSPnudNqzjY8OEljwpxaIbQh7RP2qFluzKR9qsQY1EkYWej8xjv8w/3t39lB6Pk5
- zTOJj305DbflJLz/avZWyhCe8hMfAKFvMvhScXfrFMKX+vXsBJJV5T07hRdzUSebvR5g
- II1h7vBk3v0J/XUflbiX06WQ7uNGtDa65hLNygGHpw1yZMpT3FeS+cpEN4b5q3tfeYXR
- ADHjogIInit43G2RwrJhGxWdJqDsfxWUoXFAFByeS+7zPMt5seGXmAkHakZmJGVZRDjo
- ViVQ==
+ b=e1X9bfpxHKZhazTawO/EspqgYCRhrO3Mrrvc1sLkSlhN1zLbze19Ys6VBakVa4KbG3
+ jWsuKrLH4U/rnAFkGdJdxnj1ROT/Zmw3DjnYbGkeECTw4Zui3Ew/c7BPVJd6H/Y7eWPZ
+ lHGDGJVk4elqpRu8DupORvFgmP3Iu39uT9575YYoWim4QhbP9T+I2b8/13Gp3/ZCKGB3
+ jYwgyReZTDhKSVZJeJUwQE1WHOXP2+hEBp1rBte4DBU5FimMol9mwoUCvyRzI/k9kuej
+ gjAq/lcraOCKhfULkDem9sQPP2QuCpFi2OmuId+bGFjcC5gX68rG92A+4GnJ9smZG8SG
+ gbrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=BBlwPW3Chv3OZQWF7upXVPR9tBQmUVwhWiJsztQtsMM=;
- fh=7APGDQfHPJPqBJAU5I6RPihyHWyjyasdvHchQr/UQGc=;
- b=piuLq4BegkeeBBU1jAH4b7KRr5YGRF9FvYfIWS1e9vTOakBaD8t6MkNo2VNfLXCB/e
- U/Ma3moQhhVizrOjUBRDMV8SHt/YG05VWJb0dFpnR2WBvDbk5dbGJuoBMyluGbz9DpLO
- TMkMp1oUvRk9FMmh5cK0p5xjsFA1OpVarazgL41LEAeuOBwYuUBXxRjvY8/y7m0Dw+F4
- XFe/fDtDgSglou3evwdfYOjupxltm5qo1N7zbiK4seVGkCNSRLFdg8GzQlOPnKy3nWeI
- rrEpKg8wG801ClUM4An5f+VP/9s0RR06nzWXayS459IW0tw8E5a2XbhhW9xKuvSXwifS
- t/Fw==; darn=lists.freedesktop.org
+ bh=pg63fAsCzqUCOXK609nTGzd1wiIjRJfrGFQbPBornkk=;
+ fh=GodexM9FIVDdB1onryv8arwRPgNIIZj6AlbRJHptWss=;
+ b=aN21mz4SmpvII2icQYJH/1bEuApw1R/GOpxnwyWDGf7mOdfsGVHFAKyU3+OFG5NiQr
+ WxLB+2DXJiU3rQBdZHFS4Nz6MS0KAfDgKdyCMzGydwkJlwwJwHbANc/QDjpEz17CBbDC
+ e8rU/aU+HxmwzBtx/Y9vhKLeWPzsJ7/VG/lR0Atj/W99rma+Mp7tHu3axJWPyyzWsgpH
+ JE9U3R+r1aE0LQETNnz9/pxuwv45gFG9Q4ns7PQ44KcrjBw8vPMfncbn3/dBOPwRdFiw
+ qJD9jUHC2tIAg6aqXqflr4GylR5FCjRmCleHtDqlyhfSd4Nd8Qu9BS2rKREYDdtUfZ7j
+ U8wQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784037105; x=1784641905; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784037358; x=1784642158; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=BBlwPW3Chv3OZQWF7upXVPR9tBQmUVwhWiJsztQtsMM=;
- b=eQhnI9g17ScRWShwG0LnvXRWEm9V2AFHMkeaBc9aNl+CIjijx8vNMoU/S5XDRN/lEN
- 15m3WVaGkGXlBM/5u4IcNccwmS0E0vBaMmlWuYcr01TYB9CMJvzn4P2xGi5CYeM6P9n4
- HedSSZRGkwissaWNM41qA5QUF6RlBA4c1uPyPMA6KKp2rpWR2yIlqf/rkYBrHkfwfMEA
- ROn0R1tKH2iF4heAxeQqWki7L+L1Ydka3frDZMXE3dua7QPJyeIZ7LW4391LGUf8G+SX
- t07S4BoulSTYHLSIiSJDujpQkw+LoOlOw5TKLduPnk0svsj/ZffNDFtZ/8InFXk7noh5
- 26sA==
+ bh=pg63fAsCzqUCOXK609nTGzd1wiIjRJfrGFQbPBornkk=;
+ b=d/Io6Co3b4ruBqAeJzXhbWKULYh0mcfIN/jxp5j71YSshrpvGNb31OuBu7wcgV48Le
+ ncCVe3bjSPpsHdIRI4nwSNkf9HIYLUMg2wamw10avqG7KdoccBVt0Ze7VA1SmoejAGQn
+ lH8uLvH3I89vDWI7LTWUl3cyFoNOIU/YDs8Wsm7TGb70Xj3/t8BpiXJJkoCChK+hvGjo
+ hIsLSRGrNQY3RSQIiofdXeeYsBm0Ibjbjlt4dpHA2zbFiTx4w5NgXyrlOFB5TNzl5Gkf
+ svoVlTKXqBtjLOg/1CkNWwnYNyaN2mOPTLGL0PRZvaDhHDOoFxi6mG4o8t0ShMHUf0XD
+ Tuzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784037105; x=1784641905;
+ d=1e100.net; s=20251104; t=1784037358; x=1784642158;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=BBlwPW3Chv3OZQWF7upXVPR9tBQmUVwhWiJsztQtsMM=;
- b=lmq5XxoYeOgiFWJSrTCcPWTXOwL3v1CylB7wqbijmocHUukm05Bc0OfuA0P7BwGJUX
- cSCxl8U5aRBnscwHDxLAt6aUtibOHmJ3+gVsHIBGeGjPfLIRNEsQvqn5ao8q2IVV8ruo
- OjZWkj8kRk7KVZl9b+TeQABKMLEq+umoofjVszZtvkxsdfxyCuNcXgvWGnTcWbqpD0Q0
- lGgjyQ/RtIaDcdx1gfJHQxYc962OcgsStiPwAYhsle7mMloAJBTfePQ3y5t1lDJjDw/V
- mLSO9IGQ4XFZRKWXtycCqSdncie7vBOpHV2VfT9TgQWH0iEBeE2fZ0/ym/pOq97VOA3U
- EQsw==
+ bh=pg63fAsCzqUCOXK609nTGzd1wiIjRJfrGFQbPBornkk=;
+ b=qMnqgHzr/6gBVS1x2IfOK7jL77wBPbrdZ/NOk/IRvSEbVaT5A4zh1q6pRhE5dwRlsJ
+ 2SjM698NqFT2SpPUpPJXc+J6S+NykFaqrTJDOMocmNhEkv4JSUT1+SE2RwvzkIa5cEyw
+ uWqbE3KSvwfFcAjbHj1RLkcJSTUl0Ws2PWEnv7QP1rktH0fB9s0G25mR0ZZciAA/9zi+
+ 5y2d6kKoPiL9CHXv1PL9YiEMV9eeFwmrYBySRUqW4+HMjeNIU5U3Qh/FpQ/AHq1AVlti
+ oPxkoNEUV8IJ1tz5M/hZFPFFbrAuuCzHp9xREV9OVcb2cgCCxN29V9EklkVJX7EqEYNX
+ SBig==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrq09T0luy0qL+ahrsrl5S0swvs85M1H/rozPvh0BHvbPyy0Io4xDiWsZ0Gl2SYCSjZQ8ydk1uM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYonCSHqAax+iA/ufQ03NA/3gY6V82sRZwInDpQWhPXCOrCsq6
- rgNdZFwrkeSBUnu0EX/wv2nRbSz97f5MCjyvm13jJcqLhYE2SuYvOEHvtyIJOT3Biy1SJwwgfyC
- H8nmIM1gM7ZyinDTo7vWJy+B1sPQGS+Y=
-X-Gm-Gg: AfdE7cmNQ2pK77sgYf8hu56RIVwli2X+W+oZRtIROcl76k0562rFlFT/cbyyDcrsnPx
- h91RpSiXPPeGDJAuaMudopIzLG6lIHjDDNxgnAH65BV7Y518VId05USBEvIaDXboruNhyvmn+wn
- Bt9fBcxw0WQbGpo+n7c69EV7ps1pLQx27K/qwbZnaMDyaT2cwDrFQIeSvMhVGB5DnATvXs/Vvhm
- XdIpFil3QB0a/P7RKtj5KUuQ5IucRZwjXPFr9t5Ft4nCTrNVUviAk/gkwl9zONXbPx+U9Vz/qj7
- 70mJeFZnUKgXRpY4gjse72tf+MOXeg89X19XplJn9KAgxQfT6s7EEGqqylI=
-X-Received: by 2002:a17:902:ebc8:b0:2cc:9d9:b8df with SMTP id
- d9443c01a7336-2ce9f187200mr107627315ad.5.1784037105198; Tue, 14 Jul 2026
- 06:51:45 -0700 (PDT)
+ AHgh+RpAcsrt9GhSLxY5WmAJOHKiZGnh9E2blgv6WHvKiACQf4kQo4B65Pu6VI1geOB2CDP0p4XhjjKc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzASru3mMjonntKA1Guzyn8A9/GX/vrDOWCjXjn7unQG/ne+qdx
+ vjBp2qqJ6ckJE5GBDcmhhjNLDqTxINFY7gGa7L7vaKekfEooA5Rfp8p+5wZAjRecVzkTe4prKlH
+ iO9ERxqJqGO3ZB6K4UjjaQX5eRJOE2bA=
+X-Gm-Gg: AfdE7cnWdfYFoC8402q+IUsAyMjZE/jjjKfOg1ZRmAX6jkEkilvgk4ovhIfzhDoOKay
+ peblPv+4UHE31BlPgZ3GlEtme3NWtw4y0M20bdul4/vbhVTuDAQaqs7s4VJksEN4wSWJwhwWkjF
+ 9DOFiXArwJr4SHMp/nyHTa80+pwITmC4Ww7pv2lWMikOmSV0uvRZxUAJJsYCB7mYtOqUiFHDNA1
+ nAexKNwiW3S9vE+l9PMp0TXTjLKfIonvX8LG4lxamtTJlQwZPP82oeHQInN8ksd82xncjAFdX10
+ AwlG3cpinyCh55knv27YNVXzglEVfgI9817XN5b4xk1vnB3vY2UCXSt5f8PDpbZUUIQKnA==
+X-Received: by 2002:a05:6a20:7287:b0:3bf:95f4:dacf with SMTP id
+ adf61e73a8af0-3c110b15ba3mr10092073637.7.1784037357821; Tue, 14 Jul 2026
+ 06:55:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260713203850.650426-1-alexander.deucher@amd.com>
- <DS7PR12MB600589F9C41083DA5506725BFBF92@DS7PR12MB6005.namprd12.prod.outlook.com>
- <DS7PR12MB6005FB0DF535C58EAA3DC93BFBF92@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6005FB0DF535C58EAA3DC93BFBF92@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <IA0PR12MB820888C41AF05BAA5C2CA57090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <3656074a-1a01-49f6-8f7c-129ab379f129@amd.com>
+ <IA0PR12MB8208F00938342B8FD8377E0090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <9d575350-c3a2-4e9c-b842-b2a68678914e@amd.com>
+ <IA0PR12MB8208EB469D4C2403243D321C90F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+In-Reply-To: <IA0PR12MB8208EB469D4C2403243D321C90F92@IA0PR12MB8208.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Jul 2026 09:51:33 -0400
-X-Gm-Features: AUfX_mxuSif4U3ZjRNnCt53jXx4VLHJHMQ4X_k69TENsf4C0VXejVA3wzy46omY
-Message-ID: <CADnq5_NtsmdSgmzJrFcv4dCaBdDwAoWEZ2RrRQgGdXqaXGOd_w@mail.gmail.com>
+Date: Tue, 14 Jul 2026 09:55:46 -0400
+X-Gm-Features: AUfX_my2wCxGnkf944ACL0YRnwf9Ptk5qhqbv0X0tOscPaLJgdutZSFZf5mIAeI
+Message-ID: <CADnq5_PbxvfpjCDQKyeySp1fipA12YduN2t7XzgE7iacc1v-Rg@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu/userq: properly account for resets
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liang,
+ Prike" <Prike.Liang@amd.com>, "Khatri, Sunil" <Sunil.Khatri@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -109,103 +112,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 3:44=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
+On Tue, Jul 14, 2026 at 9:49=E2=80=AFAM SHANMUGAM, SRINIVASAN
+<SRINIVASAN.SHANMUGAM@amd.com> wrote:
 >
 > AMD General
 >
-> Regards,
->       Prike
->
 > > -----Original Message-----
-> > From: Liang, Prike
-> > Sent: Tuesday, July 14, 2026 10:49 AM
-> > To: 'Alex Deucher' <alexander.deucher@amd.com>; amd-gfx@lists.freedeskt=
-op.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
-> > SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Khatri, Sunil
-> > <Sunil.Khatri@amd.com>
-> > Subject: RE: [PATCH] drm/amdgpu/userq: properly account for resets
+> > From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> > Sent: Tuesday, July 14, 2026 4:02 PM
+> > To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+> > Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
+> > gfx@lists.freedesktop.org
+> > Cc: Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd=
+.com>
+> > Subject: Re: [PATCH] drm/amdgpu/userq: properly account for resets
 > >
 > >
 > >
-> > Regards,
-> >       Prike
-> >
-> > > -----Original Message-----
-> > > From: Alex Deucher <alexander.deucher@amd.com>
-> > > Sent: Tuesday, July 14, 2026 4:39 AM
-> > > To: amd-gfx@lists.freedesktop.org
-> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
-> > > SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike
-> > > <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> > > Subject: [PATCH] drm/amdgpu/userq: properly account for resets
+> > On 14-Jul-26 3:57 PM, SHANMUGAM, SRINIVASAN wrote:
+> > > AMD General
 > > >
+> > >
+> > >
+> > >
+> > > Get Outlook for Android <https://aka.ms/AAb9ysg>
+> > >
+> > > ---------------------------------------------------------------------=
+-
+> > > --
+> > > *From:* Lazar, Lijo <Lijo.Lazar@amd.com>
+> > > *Sent:* Tuesday, July 14, 2026 3:14:34 PM
+> > > *To:* SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+> > Deucher,
+> > > Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org
+> > > <amd-gfx@lists.freedesktop.org>
+> > > *Cc:* Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil
+> > > <Sunil.Khatri@amd.com>
+> > > *Subject:* Re: [PATCH] drm/amdgpu/userq: properly account for resets
+> > >
+> > >
+> > >
+> > > On 14-Jul-26 10:16 AM, SHANMUGAM, SRINIVASAN wrote:
+> > >  > AMD General
+> > >  >
+> > >  >> -----Original Message-----
+> > >  >> From: Alex Deucher <alexander.deucher@amd.com>  >> Sent: Tuesday,
+> > > July 14, 2026 2:09 AM  >> To: amd-gfx@lists.freedesktop.org  >> Cc:
+> > > Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,  >>
+> > > SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike  >>
+> > > <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>  >>
+> > > Subject: [PATCH] drm/amdgpu/userq: properly account for resets  >>  >=
+>
 > > > We need to increment the reset counter, force fence completion, and
-> > > set the wedged event when a user queue is reset.
+> > > set the  >> wedged event when a user queue is reset.
+> > >  >>
+> > >  >> mes_userq_reset_queue() handles this for collateral damage, but
+> > > the caller needs  >> to handle this directly for the original guilty
+> > > queue.
+> > >  >>
+> > >  >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>  >> Cc:
+> > > Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>  >> Cc: Prike
+> > > Liang <Prike.Liang@amd.com>  >> Cc: Sunil Khatri
+> > > <sunil.khatri@amd.com>  >> ---  >>
+> > > drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-  >>   1 file
+> > > changed, 6 insertions(+), 1 deletion(-)  >>  >> diff --git
+> > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > >  >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > >  >> index 6aa75da27f912..5e1262636e1e9 100644  >> ---
+> > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > >  >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> > >  >> @@ -146,8 +146,13 @@ static void
+> > > amdgpu_userq_hang_detect_work(struct
+> > >  >> work_struct *work)
+> > >  >>                                                         queue,
+> > > NULL, NULL);  >>                else  >>                        r =3D
+> > > userq_funcs->reset(queue);  >> -             if (r)  >> +
+> > > if (r) {  >>                        gpu_reset =3D true;  >> +
+> > > } else {  >> +
+> > > atomic_inc(&adev->gpu_reset_counter);
+> > >  >> +
+> > > amdgpu_userq_fence_driver_force_completion(queue);
+> > >  >> +                     drm_dev_wedged_event(adev_to_drm(adev),
+> > >  >> DRM_WEDGE_RECOVERY_NONE, NULL);
+> > >  >> +             }
+> > >  >>        } else {
+> > >  >>                gpu_reset =3D true;
+> > >  >>        }
+> > >  >
+> > >  > After the original queue was reset successfully, it did not update
+> > > gpu_reset_counter, complete its pending fences, or send the wedged ev=
+ent.
+> > >  > mes_userq_reset_queue() already updates gpu_reset_counter,
+> > > completes the pending fences, and sends the wedged event for the othe=
+r
+> > > affected queues,  > but skips the original queue because it has
+> > > already been reset.
 > > >
-> > > mes_userq_reset_queue() handles this for collateral damage, but the
-> > > caller needs to handle this directly for the original guilty queue.
+> > > What is the rationale of sending multiple device wedged events on a
+> > > per queue basis?
 > > >
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> > > Cc: Prike Liang <Prike.Liang@amd.com>
-> > > Cc: Sunil Khatri <sunil.khatri@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-
-> > >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > > The question of whether drm_dev_wedged_event() should be emitted once
+> > > per queue or once per overall recovery seems like a broader design
+> > > discussion.
 > > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > index 6aa75da27f912..5e1262636e1e9 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > > @@ -146,8 +146,13 @@ static void amdgpu_userq_hang_detect_work(struct
-> > > work_struct *work)
-> > >                                                      queue, NULL, NUL=
-L);
-> > >             else
-> > >                     r =3D userq_funcs->reset(queue);
-> > > -           if (r)
-> > > +           if (r) {
-> > >                     gpu_reset =3D true;
-> > > +           } else {
-> > > +                   atomic_inc(&adev->gpu_reset_counter);
-> > > +                   amdgpu_userq_fence_driver_force_completion(queue)=
-;
-> > > +                   drm_dev_wedged_event(adev_to_drm(adev),
-> > > DRM_WEDGE_RECOVERY_NONE, NULL);
 > >
-> > If we do the userq reset post similar process here just like as
-> > mes_userq_reset_queue(), so do we need to clear the duplicate the code =
-in the
-> > mes_userq_reset_queue()? Otherwise, the gpu reset counter should be inc=
-orrect.
-> > Except that, we might input the wedge task info to report the guilty pr=
-ocess info.
+> > Along with that, also need to consider if device reset_counter needs to=
+ be
+> > incremented on a per queue basis or based on reset event recovery. It c=
+ould get
+> > incremented multiple times inside this - mes_userq_reset_queue.
 >
-> As to the first question, I recheck the code and found out the guilty use=
-r queue in the amdgpu_gfx_reset_mes_compute() was reset separately before  =
-mes_userq_reset_queue(), with this current reset sequence then this change =
-it make sense to update reset counter and  force complete fence.
+> Looking at the current flow, both gpu_reset_counter and drm_dev_wedged_ev=
+ent() are updated once for each successfully reset queue. It would be helpf=
+ul to clarify whether they are intended to be updated per affected queue or=
+ once per overall recovery.
 >
-> But why need to reset the original guilty queue separately, should this g=
-uilty queue was found by the amdgpu_mes_detect_and_reset_hung_queues() in t=
-he MES firmware? If so, we may need to reset the guilty queue through mes_u=
-serq_reset_queue() rather than reset separately, then we don't need to add =
-this change anymore.
 
-We still need it for gfx and sdma queues.  Those don't get reset via
-amdgpu_gfx_reset_mes_compute(),
+What are the semantics around the reset counter and wedged events?
+Presumably each should be incremented for each queue that is reset? If
+a hang affects multiple queues shouldn't each be a separate "reset"?
+In the most common case, there should just be one since queue reset
+should be able to reset just the guilty queue.
 
 Alex
 
+> Thanks,
+> Srini
 >
 > >
-> > > +           }
-> > >     } else {
-> > >             gpu_reset =3D true;
-> > >     }
-> > > --
-> > > 2.55.0
+> > Thanks,
+> > Lijo
+> >
+> > > Thanks,
+> > > Srini
+> > >
+> > >
+> > >
 >
