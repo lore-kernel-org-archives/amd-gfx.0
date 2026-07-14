@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA03C43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 11:57:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C908FC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 12:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0D3610E05E;
-	Tue, 14 Jul 2026 11:57:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3802D10E05A;
+	Tue, 14 Jul 2026 12:38:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ONTazWSi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="05yyqWXe";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013048.outbound.protection.outlook.com
- [40.93.201.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D490F10E05E
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 11:57:53 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012053.outbound.protection.outlook.com
+ [40.93.195.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 114DD10E05A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 12:38:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FIyBdVhpk0jBNDFY8zTkBHWYbtC5xAi7Zj3xNxcmQHvrMkYdDvL4NILlPI7QBk114oe4Z6GTbXQlQ3ApGExN+yBhGd3J58tYXjvxW7bqF4uWN+7EjDH6BUshd88ku5VNboRkxjtGoSygkQmZW+uPaIZVrRwKrept0YtcEtzM2UWVM7MXDpgHGDFz4zpjUmLIla3ozxkGS3Fmo2plpLxi/G6m0Btp3aVYvBNzKL3psT75D7L5E1tYXtmVA5fcZujBBUqa+m3+UbVmGnWhNza6i+UXoJv21F0UH/kWRY1iv74vWbjrzD672WkDqJfJsRs3V1e9uQbMy7w25Gr+N0/ruA==
+ b=gT3rTpeG+x9u0bQS+AQSHITxQEmTCU5DaxBwrJlhLQ7b6yIE5hQVnPwgKpkOX77wus+9B5273hsMiMuFxoMMkqjtXp5lsSWxFEuaCKGs8MrGibY9xaq8STFr9+X4/hwZvnBE2LKDz1ZB4kkMIAB52w8s2+MoTBhYJaZJv9IhC07cYnDJDWHhnNp8MiQBqhILUYobXh0Bhh8R4yq0tczZZSGsFt0b3ivIZBUHZVyzQjfkv+xee8cZ+tkqh83KimMDwQjYjZ2taKIEE6tU8hLHWZ9vPzfvnsWvONbntrAWIbxwGf0lJ6nMDV1Xg/pcgP2DZ5kYlrzDYdaQUkuUON1SfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nKraNbbP4UZ/J4QT9iAEvL0EsigbQbPTCkTJg5PfinE=;
- b=uMyn6okJnzVO+AIbvVOwQ4MbYQnOSM5q4IcGJ45KKpZVRc5dkDcUfGPbTEzguNUNGwr6ZtPshpCxc7cRiB4tQe5eMvpgf1p8qzTvtH+bASdV3Gick2TDn0NPiq3x+9FCdqmJ7mdJ6tUV+1O3Q7Nc6giQP49jAbpWicZ2i4wNoMMgjZ9ACtrNw9h01u+rUq0lxrqv0Bu47l2iaTq0XrhMi1AY3ocIETXwk9F5GemPqCd4l4aGfQeD1JCZ3o2iqPoN3QgzAHymQSjxFUg3gCJfPQ9RGSogr/83rJDuqMDFzaJCnWU4tQhYrCbLNJcrG0VYRh86CTC6DfAdWVdYfF/+BQ==
+ bh=7jWeVm+VHEHHG4+/5zQ/vi7GL97DiccP8hwMNT+ai2o=;
+ b=aIDFLPv5iT5rujFOv+K4hr/HFOBtRv4A/wm5YtJ9GriWeGM19LB4TDtz0XBCM91ajsC0F+NvN5FxM5GxLT7/t28aa/Hn4Vs4D2gBWgiTyVYNpvW6G4AiqCnUltDZ7PQqw+GUXZFM8u8PgO+bMqvVqPL28/kmGKf6q3rE4KYePoWvm14tdpJ5p976Cpu2LHVY5V7lt8lEdMR1BnNpf0a7K+BUyzyyfEB5eJwgh3ElDdQXiBdUIxeMgmSD8Zlmarp0uvG6rpNrBlXzVPs4eV6lqpQ7vTAPH8s7Fk4B6AQmg6JHESjp02BjhklWNWbn3ovekLNPS9Uxw4m7FKd8FX8kxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nKraNbbP4UZ/J4QT9iAEvL0EsigbQbPTCkTJg5PfinE=;
- b=ONTazWSibHaTVaQSXBh0pSZz6eXtpmKETLd6Ue6ppL4yb2Wj65nXOvUfG2KfTUrbzvW1InT740IxLf33IgWwSoqB2X/sJ7KWOl2CSr1/TEPjnUFG1vfPe/47uWs4qRh+sE+8UrRSbBRvMRwF+5EP/tr/q2nLXTiYi12VG9Vm168=
-Received: from SJ0PR05CA0048.namprd05.prod.outlook.com (2603:10b6:a03:33f::23)
- by CY8PR12MB7730.namprd12.prod.outlook.com (2603:10b6:930:85::17)
+ bh=7jWeVm+VHEHHG4+/5zQ/vi7GL97DiccP8hwMNT+ai2o=;
+ b=05yyqWXeHFDChfaS71mJqf8pj7/+UwksJtk6dbsdSXOXAX/AE7nR5MwS4l+fy7QKblLJXFiTj+KaOVBhVl+Zi66BM7DUWKfkx7LxtZbP+OCCJtu/ciZwIiqjWna8XEZvO+kID7j7f8hI7JD8fisE2zmsx2rR+1MN1Oeo4h6I2nw=
+Received: from BN8PR04CA0047.namprd04.prod.outlook.com (2603:10b6:408:d4::21)
+ by CY8PR12MB8362.namprd12.prod.outlook.com (2603:10b6:930:7e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 11:57:46 +0000
-Received: from MWH0EPF000C6190.namprd02.prod.outlook.com
- (2603:10b6:a03:33f:cafe::1d) by SJ0PR05CA0048.outlook.office365.com
- (2603:10b6:a03:33f::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.8 via Frontend Transport; Tue, 14
- Jul 2026 11:57:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Tue, 14 Jul
+ 2026 12:38:17 +0000
+Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
+ (2603:10b6:408:d4:cafe::96) by BN8PR04CA0047.outlook.office365.com
+ (2603:10b6:408:d4::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.20 via Frontend Transport; Tue,
+ 14 Jul 2026 12:38:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,52 +49,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6190.mail.protection.outlook.com (10.167.249.101) with Microsoft
+ BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 11:57:46 +0000
-Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 12:38:16 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 14 Jul
- 2026 06:57:43 -0500
+ 2026 07:38:13 -0500
+Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 14 Jul
+ 2026 05:37:50 -0700
 From: Xiang Liu <xiang.liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
  <YiPeng.Chai@amd.com>, <Lijo.Lazar@amd.com>, Xiang Liu <xiang.liu@amd.com>
-Subject: [PATCH v2] drm/amd/ras: initialize CPER after XGMI reset on init
-Date: Tue, 14 Jul 2026 19:57:14 +0800
-Message-ID: <20260714115714.84800-1-xiang.liu@amd.com>
+Subject: [PATCH v3] drm/amd/ras: initialize CPER after XGMI reset on init
+Date: Tue, 14 Jul 2026 20:37:21 +0800
+Message-ID: <20260714123721.105472-1-xiang.liu@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6190:EE_|CY8PR12MB7730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38f41bb2-848b-461a-e1bf-08dee19f1ea2
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|CY8PR12MB8362:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1197273-348e-452a-b1bb-08dee1a4c72a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|18002099003|6133799003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: gYwxOzPwPjEWC2Vrc8b0gniWl+JYdzrc9VUyPDqGZpByAlUZ43c7id0Ba7PEFy/NuuOWpvNfPqb+dskTdO9npW59q9ZmEIQYBPj9VIabVddAjKDB6yg45N1PPczS+jROvS2UHnN5WqOfS4Y8bTZpanWqhZTfmq3z3JM+PyWIDueUO/QsD+LnuXv3Rbp4nYWqCyQDWEeicFFLaKJdzpGgoYnTqqvVQO0zye2Y29RBcUxyzpT3/iiFg9OgTlRu9W8RndCUiFk03wWIgz0iJ+dW1CQYPfZPlhtvuo8pGUu2YOifKtQkfgJqmUIhun29nMKzj5PJGXyY+VOKAfAwMxR+UcxACUl6wy1pmyfA4aOCgX1jJEpPDgFzTEHlY/VkpwDTLD4GamGN5y1DSWvWq4+e6L3Ss4laPlEPyQ+mjgmcJKbnGvKuU3vz2h8Je1c/uyd1fRjILWvf9KHLlW3x50CUC4OjOMJKXjXv3LcZSwVoHULe2DkevCrebuEqpEMREBWfg66elhFMNfJ6N1D4mriSiVA0WDmTaLFBheE3V+9bxYqqlQJG3m/FmKnF5ASAHdC61yWX9Poi7AryYkaWRsnGdfcCv+I1vYBaAsZkUl23Fx7WDsB4+aSkumbbOG0nTxp9YzDuykU2nPwolMggC0Ymc9eBqYStYQAawMxyAIy1YbhQHTq7HMzU6hr6JqfkyO2ceCc7RBbyQw6D2X8W9ezdBA==
+ ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|11063799006|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: 5KzYrqskGNJoJcJNhvMnEg4qQ9nkH+tC8KxG6TyyM7vwNA/4cVhe2NehB2jBsifyFlJPHvy3DPFb+uExZRos76USXLLMF2SSHrg758VZItP+blNm+bz9wyx0Ryof8eQxoKt8q/X3sE1ffjjIs1POsQfewb/ESNYvyMCgWdSMYtjwYxGOWr3Fl2B01mQ+eyZjgPbhUa9pCLUwZa6MDaubu/LpMHuK19ifx9M+5cK3iqswYuicoH1Zoklr685eSMdmgbjXrilUtlJv/0S0emGRHKBKnfTJqhqNcUxv4cDQsMR3eHzmY778ZyHX2zeTiGFOWr97FjsLSeyIAohG8BWLdTuc7oUKCyOLMly66UFrzRhAtWwGT0+X7nZmYdOPc1R1rj3YPFtkXyCxgPTdexTjygGBFlmJWEwtWtava+BhddlSXD3JmZl2RNgBoCtN9T36Qjvnv/8MN8bwJkdApY7aC5gw2kuHSDv0pmJgjjqhyQf1zKMbxAayU+buhrFgmho5F2xXHMahG5vVut4DGis1vmfq101N1NtwMa87E+F1O9t0BgvbtYZs3eWOcsipQBCzcF1JQb+K8lPzSbYtrtkNrfsqRvm0W+nRVYMPkyQXpKubIFPWdqAndOgrFpe/+qSqzRZU6fj8962oPd0TFbY1qmGp8LTIm9d+PTdByZIL7tUt/f4CDYg3qt/g9nRFfr2MfBvRaAMWRe5RBnHBB4mxbQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(18002099003)(6133799003)(56012099006)(11063799006);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(11063799006)(56012099006)(6133799003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4QRGCTXia5iuCmBaLbfcihPLfUkUt/yDNlZr8HaKVgzDVf5r3VSCe84ScaMNJZ01aWJKoa+MQlBjjBnReAes5Wd2XhwPd1rcGbcgklVDnbckwHkpks3gL5ohbPrfj4Ivkj5XamcnM4qSPRWUxI49YCvouVe/6k5OYR87hG5vW4rmhq/o9jrXcH1PJYgkOgWP9UY3fYu6Y1pRJbB8Su47RfreW6kHxpI6xIxxq5ufmMBfh1ACJzuaGBvvKD5kSQlE189K4PdH8iJEPZxyQPPIQIs1c3kgeEkTMBSAnKS7T7wVTBTY2Fw6tncUUDBtKbH9CujSI1grgmAW3C3Dm+GS1M17WzzZqIJALtD8Q3462uHh54m7WD4AXdGreO0elphpnPCqWKhtHkHBsD7j6Pbe9b2oviDHuQhrfbbmsv4GXOB4fn/2H7YthofS0v1IxWAU
+X-MS-Exchange-AntiSpam-MessageData-0: sHmyE+c4f9x3MO9B9WW/j+nXx8qDiBCuOzT0/lIjLyqTixGaY9iwyc1rjROYG68pKSGWPWKUPt3meUv9MKgy7v08w/LHohVRTA1/P+isTQGwvUlAH+7Szk0JeYXdQF3qdfoVPT5qa41ZarVcy1FQcyzPW2+3VoAvuIP9DmizcLfEOjUFhqty5YSk30EX9m+USx0OZwbK7YOtTYA0a9HcggPtu6wIc+VuqGsneyy2DCHxIeIueQSTVqRAhfFq4r4zTKDxDoZk9izIJ1G5GPWpsVx1Xo783LQwZNd2snCzt7lGzx0Hmsn4z5PSSZKU2N8Qbs8HCoBUYEKrO8lbHFLq1RfsHwn1dpVvIR5f1eNOd6qUagmzaouUwY+rz0matGyjJXAYGO5aJvhbc649gT8NDzr/m4pgiEH5s5lWnC5Ra5pqbETszzfyWSoPwqb0TgN0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 11:57:46.1894 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38f41bb2-848b-461a-e1bf-08dee19f1ea2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 12:38:16.5093 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1197273-348e-452a-b1bb-08dee1a4c72a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6190.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7730
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8362
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,23 +119,26 @@ that flow the normal RAS IP block hw_init is skipped, so unified RAS
 is not enabled when the early CPER initialization is attempted, leaving
 CPER disabled for the rest of the device's lifetime.
 
-Resume RAS after the XGMI reset-on-init completes and use deferred CPER
-initialization for devices that still do not have CPER enabled. This
-lets the CPER ring come up once RAS is ready while keeping the path a
-no-op for devices where CPER was already initialized.
+Resume RAS after the XGMI reset-on-init completes. Once the RAS manager
+resume succeeds, the RAS resume wrapper performs deferred CPER
+initialization, keeping the path a no-op for devices where CPER was
+already initialized.
 
-Keep the deferred CPER retry and its debugfs registration together in a
-CPER helper. The normal debugfs ring walk skips the CPER ring until CPER
-is enabled, so the ring debugfs entry is created either by the deferred
-helper when debugfs is already available or by the normal debugfs walk.
+Keep the deferred CPER retry and its debugfs registration together in
+the CPER helper. The normal debugfs ring walk skips the CPER ring until
+CPER is enabled, so the ring debugfs entry is created either by the
+deferred helper when debugfs is already available or by the normal
+debugfs walk.
 
 Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c    | 19 +++++++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h    |  1 +
  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c    |  5 +++++
- 4 files changed, 27 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c     | 10 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c    |  5 ++++-
+ 6 files changed, 35 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
 index 6fb129025761..0af8b7be326e 100644
@@ -188,19 +195,50 @@ index 3d1ede5f8de2..fd349eed820f 100644
  
  		amdgpu_debugfs_ring_init(adev, ring);
  	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 0eb440e4ca1a..8bf3fd015a45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -5002,7 +5002,13 @@ void amdgpu_ras_post_reset(struct amdgpu_device *adev,
+ 	}
+ }
+ 
+-void amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)
++int amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)
+ {
+-	amdgpu_ras_mgr_resume_after_reset(adev);
++	int r;
++
++	r = amdgpu_ras_mgr_resume_after_reset(adev);
++	if (r)
++		return r;
++
++	return amdgpu_cper_deferred_init(adev);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 23bff7a0f35b..c53f911d5729 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -980,5 +980,5 @@ void amdgpu_ras_pre_reset(struct amdgpu_device *adev,
+ 					  struct list_head *device_list);
+ void amdgpu_ras_post_reset(struct amdgpu_device *adev,
+ 					  struct list_head *device_list);
+-void amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);
++int amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);
+ #endif
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index b265b68e0f37..ab7d2b5b3b49 100644
+index b265b68e0f37..87cefa1e22bd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -1400,6 +1400,11 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
+@@ -1399,7 +1399,10 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
+ 		 * no-op for any other reset path where RAS is already
  		 * initialized, and for non-uniras devices.
  		 */
- 		amdgpu_ras_resume_after_reset(tmp_adev);
-+
-+		r = amdgpu_cper_deferred_init(tmp_adev);
+-		amdgpu_ras_resume_after_reset(tmp_adev);
++		r = amdgpu_ras_resume_after_reset(tmp_adev);
 +		if (r)
 +			dev_err(tmp_adev->dev,
-+				"failed to initialize CPER after XGMI reset-on-init\n");
++				"failed to resume RAS after XGMI reset-on-init\n");
  	}
  }
  
