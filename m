@@ -4,82 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2262DC44508
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 14:59:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 383BAC44501
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 15:03:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3D6910E077;
-	Tue, 14 Jul 2026 14:59:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADDA10E4AF;
+	Tue, 14 Jul 2026 15:03:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="uH9qIomi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C3q8Azup";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A446C10E077
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 14:59:11 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-47df440fcd5so2470249f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 07:59:11 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89AE910ED8D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 15:03:18 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2cc7e132d3eso6222845ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 08:03:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784041398; cv=none;
+ d=google.com; s=arc-20260327;
+ b=LevpaRbhU8zxjCzhOGsPqtpv1XNSCaqTU6fEdnoNlPYCWZc4QuI/bpB5NDHjUiG4fJ
+ 45vaL6mLSQ8IWfWbNTfStg5t3qPQqPzvS+SWLGmnXHZJguggNmzaao6MtpuoS+8hX8jj
+ gZccNjtEg5zioJYBmJa6z8/aWwUzB2Oo2Mphriq8IN0nBkCw3HuuAE4ZFYlMM7mo5hiW
+ CxGR86eY4OWJUO3vDi3UIqdA2+pBPO8h+kxTjd1V1sW6PC5mNAkYN7gFe4iEdZTxO8oQ
+ gLjE9G/MOQquVbqylb+PrQs3mVB61wl0UXi7N8LF6mE7J5R03rylsTt3AnVE1UYJ5BKw
+ 1j6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+DzlyWp2etMmWuZBhLlYvRM3K9KwQkU7WrlJATKyM4Y=;
+ fh=JXcrtMhQzB5pOVVzYC4w8oUOQdqn1C9L5etxDS9Dlvo=;
+ b=oLoBn+3zUfd/Z1Aw6qy7D/+tVuT1yxFQrH40qPUQ9d6IFY0+kmj8lvtK0VobS3IGME
+ uBdtkSKGFsQMDpENCFc6U69hMthvHkOtB4sAWI5g0OLbM7/v19y3IvO9E439h+hiNWr/
+ J6k4dhCSZhnTUr1YVnVdBAaG0TDjVVcdcqzyDG9gpgSOBsi7Lh8R9P2WfEROHiZM3jPe
+ jtqW0cnDLm7xGSBdcfWDAjlO4sC7qCLT1lryMjqF61Ntt4mPzBNG9da/0ss3mAT1y5hB
+ /lE92TryOZcE6cagMlpgc7h/+Go4583Wz5H68FyDhI79fuoiV9+fX5JuENnvY7dtfZMZ
+ 4RPg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1784041150; x=1784645950; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=oYZZepljDnQ/yS2lNe55a/6NoFmqdJatcOFQ2VemdI0=;
- b=uH9qIomiu2mtq7LPkYjLxjjCr2kFVELHLTrYw4Pdt9vpPWAdHWideNE3SvMn4L4LpW
- 9JnUoX1RD4egCpND889RR7Lkf1EqUqazykRvd6DsA6Wg1NWKC1oInW9Glo+nGITHcY7Z
- p/VEpti+5hlkxn0SaJpwDwIDChA+CEZQOMjDjJyvki9ejkV8FVqE8L/i83mMJnu/JpaE
- u9r2tFCjYfsHBH0HBZdutlhMBCIixhJfsYvwXvFYGMW5o3gOKfpsLJk5nHKa9v+8DmmU
- OK3U6MmWylk8//AIDt4FLacc+Yugt/nhjxzj/8yPkH0XPYABd87WShTvGRRDuRjBuqTW
- QSWw==
+ d=gmail.com; s=20251104; t=1784041398; x=1784646198; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=+DzlyWp2etMmWuZBhLlYvRM3K9KwQkU7WrlJATKyM4Y=;
+ b=C3q8Azupl0DEPEQ+v7NK5hjveDPuyoILuhjOCCbZI0x2FqJoa19rZIHm8BSFKD/pnJ
+ G3RPf5OVgCvrf3xR1eFZJF/0QfF9SWAUJq/p+U1yNnpGfiBUCEHxA+oAb6kHyraeDqPS
+ mk6CZyuMJjzF6c+Fx4VgI+3JlDNS0SUS/Y8rsrIum/js5W1bwuApTm5PtsvsGqQ1u/ww
+ 5mDs8qtwFOctJFyKdQbnZNi+/6CJR051uWMbKGu0L7mUvqDNY+3FhN91W+nW6bTlWfwJ
+ xF+qsm3d4OhLc//GypHYbqxO4zI3OZFBtgnwSocnGcSa9eriJbSnN5C0KoOhmpgGVmQk
+ SuGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784041150; x=1784645950;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=oYZZepljDnQ/yS2lNe55a/6NoFmqdJatcOFQ2VemdI0=;
- b=dBOhhHuGZneNdvBnyLjns/xXCrgexwsEx8Vex5xBhw2KxK7+WxxUouAIkFxpsVbgnv
- 37RqBQQJY+NLILmEZPJ0PbZ+n6pJNT7TakraE6bEoXdN1My987YA1ZhGxRNnzeaRpqo0
- zo0K+tBrr8sVwXld21V4/fq2NEphymFNhi0O8PVh/9672pAB8jtLdZCPuobiMX+OoCUx
- OFTv03K8qjJnJuAN4FgyZ/vKr2F3XgtgPsLFY4aovpxDU1f9jd5MhCVOZeFxjFjbj8VQ
- XATHtf78f4G7751JEGslZBPi7zKdAtgMkfp7uVIydThVXFLqUzWJpxKctpDVJiyIkI8i
- XohQ==
+ d=1e100.net; s=20251104; t=1784041398; x=1784646198;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+DzlyWp2etMmWuZBhLlYvRM3K9KwQkU7WrlJATKyM4Y=;
+ b=aKJFriTQBLRJJ8i2qOwV9jtogKb7aWSSUsW1zQS7DO9spT5INsbl5S601OT/8okZel
+ 14Z/z+DkdyD8x2++ZbzmDeAqdGnC8HYiJoXg9AHP1VXkrrIvVfcZfsqBTena2ueC7Yn7
+ 9n/dxLVr9RUrbXIArg6yXekrgYzFz1DySV1ewIfJvXoKGk+QTNnaRoXZ9+sprnLoe5mD
+ KEwHbx3UMa/QlsWi878eJA10qhxuDInOtADIqO/Rthj1scLovdyZ/m1a3EU6l2Ykpi45
+ h4s8dnRnXHccXyAV+jgzl1HpIyD+u5JZGt7MFDNAJr2qzhHK94ePVNjaSD6knejiouRG
+ 0/5w==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrYxUfgpolCzSo1ETS/JSX3Fs9xdC672Wk3tOE4L0Jb+7Kh237jRHzG5r9hunwr/V16v7PyIr67@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzIAOrvJCHXKQNfGJOJyDFpsWx88rnq0faig7xeiH/9lWddQTSD
- qZORM2qT/1AXZlwMq0pGfYaRUBv3wU57PrkFj97W+nNgdrs/rMGzDLon4SPlmE4dDag=
-X-Gm-Gg: AfdE7ckqorvCLQMJ2d67tnQdbe96kFhoXNAtz2D35jsgXIA6E1Hjiaf/nncL8tpANdc
- 6eodyVTJdSyANK/2DkW3aohAbRmoG+DV4G4hECPRiNNyZvtu3LuOQr3BU08ETkCM+j9JIHH2Jof
- 3zkr+QggjMqrho8OoHBj/je3k3N5ydwGojvrCFUJRqugnCC5/v4nd7G4MUndJkLbNqJG2jUDp7M
- pBPW+wZl5NAR0stSPHVXbiwe9NVj6n54p2j98COZGsOUdQR0pTz0T8F1MnWg6GlerG+XVtWSZ6r
- y3r8CdVoQK9va0dlvHAj9QzEzwjdYb79STogqbAx22lfx2jWhuIC5pEJ5XNlf6gOToY6X7PTUDR
- +ruXFOsQZEu0PF2I+1ISrWufBJan9XaWUTmQ15upHo9icPZIR9q8DWcXEvS0lrBCA//074I0byC
- IA7pWwoKG7d/yGilF66KWte0RvXFe2NbRlIQ==
-X-Received: by 2002:a05:600c:3143:b0:492:5e22:ef18 with SMTP id
- 5b1f17b1804b1-493f87ebbbemr146632555e9.9.1784041149628; 
- Tue, 14 Jul 2026 07:59:09 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4950a322c86sm73623115e9.11.2026.07.14.07.59.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jul 2026 07:59:09 -0700 (PDT)
-Message-ID: <46f1492b-7e48-4a62-8a2b-7a058221f033@ursulin.net>
-Date: Tue, 14 Jul 2026 15:59:08 +0100
+ AHgh+RpFRctziFUgAqa/7THav5Klk204w3ovrubvGYO64Ono9SR39i/i/eUmUskbYDEggdrp0jputYpr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yze8K5ZSKfvHr4NowV+01EYIB8BG+H7EAJANEfzvdUWf15aS7ll
+ t4rVPZwhqJu+EiVzl51qcH1Ti7p21PUewBjowliNDuJf5toZxG/nYxwGv5DalTHYXwCRA0TXMQ7
+ 6gcm0Nwb/1YSdtnfsw4/q+WwSSXVCOgQaC2BW
+X-Gm-Gg: AfdE7cm3+4kqcw5302jdaIowmWwud+768NX741k1gXKSS3rjuUglePjHwv8D3AYPaJk
+ cRqwQKgrb3WEWXHxkgkTU50/dNcIgv4CRr9vqEK6ggZ9VFr8XhLVx86h2wiJJxNfoN8cEaMVgBF
+ LKrdyclP1hhOMddWFB/bS9Q/p7cUHD1DLwhrdo/CDWRgxCpbIiCQotl73Q2NwiyIt1y+CpjEaXB
+ rvJRs+lZZbhF3ZklMvPc2ekbDTsjbd73RrHV25vqQNj3/bfOseOiKOPzD16sUxZyqjjk4CZ/A0o
+ fUSkbORcwoN4VWLi4izc0KzXet5c1vTJ2Vtp+PivKkm6U2s9MVeCD9h7HC4=
+X-Received: by 2002:a17:903:8cc:b0:2cc:d6de:d58e with SMTP id
+ d9443c01a7336-2ce9f0580d8mr106348495ad.4.1784041397433; Tue, 14 Jul 2026
+ 08:03:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] drm/amdgpu/gfx7: Make amdgpu_gfx_mqd_sw_init() usable
- on GFX7
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>
-References: <20260713125838.30607-1-timur.kristof@gmail.com>
- <20260713125838.30607-2-timur.kristof@gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260713125838.30607-2-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260713182732.630947-1-alexander.deucher@amd.com>
+ <20260713182732.630947-5-alexander.deucher@amd.com>
+ <e8926046-2e03-4224-98ba-8601de0421db@amd.com>
+ <CADnq5_OGJBx5xkSDfU4cyt0bjZRot18F-PE29RJFSkC=YPz6oQ@mail.gmail.com>
+ <1e4cead4-73b7-461f-b4d4-a66e293d0d96@amd.com>
+In-Reply-To: <1e4cead4-73b7-461f-b4d4-a66e293d0d96@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Jul 2026 11:03:05 -0400
+X-Gm-Features: AUfX_mwg_5Hugo2OccxE2LfeiIpiEa80K85hi2BLtgjT3dFfZorrJOJ7P0Ha6do
+Message-ID: <CADnq5_OnTfvMf+Bx3V36p0W_M4ARksHZ+emGSNb07Us9xPr2uw@mail.gmail.com>
+Subject: Re: [PATCH 05/14] drm/amdgpu: add an buffer funcs callback for TLB
+ invalidation
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,37 +109,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Jul 14, 2026 at 9:46=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 7/14/26 15:42, Alex Deucher wrote:
+> > On Tue, Jul 14, 2026 at 3:19=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> On 7/13/26 20:27, Alex Deucher wrote:
+> >>> Use this interface to issue TLB invalidations using
+> >>> SDMA.
+> >>
+> >> Hui? What should that be good for?
+> >
+> > To use as a replacement for doing the invalidation using MES.
+>
+> We should already have that as workaround for the Navi 1x SDMA bug.
+>
+> I suggest to just move that code into a separate function instead.
+>
+> But the SDMA can't do PASID based invalidation and that is what we need t=
+he MES for, so I'm not sure how useful that will be.
 
-On 13/07/2026 13:58, Timur Kristóf wrote:
-> We don't use KIQ on GFX7 but otherwise MQD works the
-> same way as GFX8 and newer.
-> 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 96c9d4f00b27..0f142c156afa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -420,7 +420,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
->   #endif
->   
->   	/* create MQD for KIQ */
-> -	if (!adev->enable_mes_kiq && !ring->mqd_obj) {
-> +	if (adev->asic_type >= CHIP_TOPAZ && !adev->enable_mes_kiq && !ring->mqd_obj) {
+The current gmc code doesn't do pasid based invalidation either.
+Everything ends up in gmc_vXX_0_flush_gpu_tlb() for each gmc version.
 
-CHIP_TOPAZ is gfx7? Hm if it is then the branch would already run there. 
-So the change is limiting the branch to a subset of platforms, while the 
-patch title made me think it is enabling something on gfx7. Perhaps 
-somehow indirectly or what am I not understanding?
+Alex
 
-Regards,
-
-Tvrtko
-
->   		/* originaly the KIQ MQD is put in GTT domain, but for SRIOV VRAM domain is a must
->   		 * otherwise hypervisor trigger SAVE_VF fail after driver unloaded which mean MQD
->   		 * deallocated and gart_unbind, to strict diverage we decide to use VRAM domain for
-
+>
+> Regards,
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>> ---
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h | 18 ++++++++++++++++++
+> >>>  1 file changed, 18 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_sdma.h
+> >>> index 4f4e56022c970..4ab92d287675a 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> >>> @@ -155,6 +155,23 @@ struct amdgpu_buffer_funcs {
+> >>>                                uint64_t dst_offset,
+> >>>                                /* number of byte to fill */
+> >>>                                uint32_t byte_count);
+> >>> +
+> >>> +     /* number of dw to reserve per operation */
+> >>> +     unsigned        tlb_inv_num_dw;
+> >>> +
+> >>> +     /* used for buffer clearing */
+> >>> +     void (*emit_tlb_inv)(struct amdgpu_device *adev,
+> >>> +                          struct amdgpu_ib *ib,
+> >>> +                          /* vmid to target */
+> >>> +                          unsigned int vmid,
+> >>> +                          /* vmhub to target */
+> >>> +                          u32 vmhub,
+> >>> +                          /* inv eng to target */
+> >>> +                          u32 eng,
+> >>> +                          /* flush type */
+> >>> +                          u32 flush_type,
+> >>> +                          /* XCC to target */
+> >>> +                          u32 xcc_inst);
+> >>>  };
+> >>>
+> >>>  int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t in=
+stance_id,
+> >>> @@ -162,6 +179,7 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device=
+ *adev, uint32_t instance_id,
+> >>>
+> >>>  #define amdgpu_emit_copy_buffer(adev, ib, s, d, b, t) (adev)->mman.b=
+uffer_funcs->emit_copy_buffer((ib),  (s), (d), (b), (t))
+> >>>  #define amdgpu_emit_fill_buffer(adev, ib, s, d, b) (adev)->mman.buff=
+er_funcs->emit_fill_buffer((ib), (s), (d), (b))
+> >>> +#define amdgpu_emit_tlb_inv(adev, ib, v, h, e, f, x) (adev)->mman.bu=
+ffer_funcs->emit_tlb_inv((adev), (ib), (v), (h), (e), (f), (x))
+> >>>
+> >>>  struct amdgpu_sdma_instance *
+> >>>  amdgpu_sdma_get_instance_from_ring(struct amdgpu_ring *ring);
+> >>
+>
