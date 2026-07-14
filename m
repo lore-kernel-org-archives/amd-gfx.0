@@ -4,122 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F00CFC43458
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 13:29:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2300BC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 13:32:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 762588949C;
-	Tue, 14 Jul 2026 13:29:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F0510ED3E;
+	Tue, 14 Jul 2026 13:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="idgOl9Om";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gXfQeHSB";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013028.outbound.protection.outlook.com
- [40.93.196.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A852E8949C
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 13:29:40 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012030.outbound.protection.outlook.com
+ [40.107.200.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E2D10ED3E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 13:32:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FKFV4cSQehlxMFZiNO4+fwwcmZpQZvZcoLuxIpvgDpJBq8rBaiD9VN1sBMfowbAQRVf0DGM/eJVJJdaPIad/l7l0teeLvH2oBXM+OTYzVuTfaUrU4hL627/owwOhMvxXD+1M7jmdEPRuR0wXGS6ThMO2gGRLWKIh94XV69aHmLL0NUHBGCkZWu1cJoton5Ox6ZO5oOGS2XwhTpNZ41XUpRUsMDyKL1yvum0t28LaRdJILn0hhYUppKX4OOcSIpABYOai6YdORqRuMUc4u45NJV7mxDbIRrsa41p4WbaLavtH7UfgiPFDdQshpjbpH+rgloac7EEEv25YPMf/qyXNDg==
+ b=K3pCINHyvhTZuy/hxeVa7hkDDHGoJThIB6GK0eTh1x+9hiXPNHM1U9IWg0Dc3HQjr+J3qJERGqSKptHAeME2LQ1JkP0Eqtfvd59Vj3/QLVua+u7zQCtJUwH1OZq+C8FLPqR+DXgJNt6NG1Mlv7wXC91dzTVZYl1dK4vcJ2FbyvyfHvmOJKIk987TrRvvSxMQBj5kCrbxLzVXiJn0ipboMS6YK0NE6/jkrpJ624LXom2z0PCWBKt8kP7P9cot+TQcjhko+UVmJIX+4l/++ZWEuTxevlY5GhHgHr5uuWXOhRPDSP7rqa4JAkXA/t+jUIz40K/o16QIajIdQk5ulJ9wMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jUgB3neKRHlQV1mINYhV4EFg8LYJjSQ3txW9DKAkv4U=;
- b=SMSw0kMNZi4bukkV1QSJMI8YAa/kN/KwgbznKhKYjlu8OB7uaQH2MzhSzV/+Y3hHyO8LU/Vd3od6MZ5zES0ADctQcFLFoTGgWAv75C+MPkec8B6j2+FG0IXD/DO2FoHDIqe3oGO2FtDoGkDgW4XPCF7ZKCwKCz9+W974xv9+C6bggWm2B4EGadgIFooeZaLaoZvwwIhlS0HDZ+ui47QQ/iVts31ev7w57PP9Nz0LKtHbLsmw0NXsfTgJ496yV2xI4HP5cfynnAR9ivAMzF/zqpKy3WF+jten3h9pWWB25uPZEe7/t4uNHrE2Mj10K3o9riQVXe5NJBg5fmm61AnmrA==
+ bh=mDazqrTZuiVUMQ9JUKGxF5JB7fTtUg9mEXwbvLIHusQ=;
+ b=yO4EOpLCUvOsniZ6c6fSE0jxE/UAH7ynLki7l13VHdvqRHE33fB0KEpp62MUjqQiTaN/EsoMZ/C8KTnRDcm4toeXKYG0t2mSZ6O2/bVIocpldknYrsR2Hpt6YQ6tHGt2ILOjB0igY6HeJVSKNWR6FQsMTNQfQluQV6yYHuBSeYVKpkHKaX1S0wbeQH03CXbD4O+3HfRuaK++kM4hcc90wrMpr+82GmUBGPYFcsOEVqVa+CBha9fhjkSgkkaQsvj1Pqp1Ma6pEZhHmcqHfK/4yLHeU573WBaoUNGF52fNpedBbnX8xRFabGdrOyAyNWt2HWwV4hv6z9ol9RwjoWU98g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jUgB3neKRHlQV1mINYhV4EFg8LYJjSQ3txW9DKAkv4U=;
- b=idgOl9OmFkMiYWqGvjTmkJfiogXZcDQRCZcScf/q1jKHjLm5T1kg4LEJH7gvEXlQ4C6OoYxYXPJAtbk7xQ/Qbc2ew/ZX1ICjPlchboTKqGlySJmDcDTPMZzXy4DGuRiDUlO+f0ZDDUYCcU34hKRQUvMVY8cxdnOvOVDa+AZjdwo=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7)
+ bh=mDazqrTZuiVUMQ9JUKGxF5JB7fTtUg9mEXwbvLIHusQ=;
+ b=gXfQeHSBk0X6RdVVyZwMcncAXoiVhZilHtMHr7swSSZiE1Kd/7VqWkNYVQME2gy34qMo3NoNwV9YVHC3GamzTQ9UO1govel8Wudj1k5FskePNZPGkMqBuvzkm2WSiqSGJdLeREMQraNNUmGIwDA+73X4FHbvm/6Zl4PNG5PL7cE=
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by SN7PR12MB8817.namprd12.prod.outlook.com (2603:10b6:806:347::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 13:29:35 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac%4]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
- 13:29:35 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
+ 2026 13:32:43 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 13:32:43 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, 
- "Chai, Thomas" <YiPeng.Chai@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: Re: [PATCH v3] drm/amd/ras: initialize CPER after XGMI reset on init
-Thread-Topic: [PATCH v3] drm/amd/ras: initialize CPER after XGMI reset on init
-Thread-Index: AQHdE42vEkR1uv4U8k6AvpLW/sil1rZtAEKAgAACIYA=
-Date: Tue, 14 Jul 2026 13:29:35 +0000
-Message-ID: <CY5PR12MB63451F054537A84F4A1E53EBFAF92@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20260714123721.105472-1-xiang.liu@amd.com>
- <BN9PR12MB525756EA24FB966923ECEEC4FCF92@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB525756EA24FB966923ECEEC4FCF92@BN9PR12MB5257.namprd12.prod.outlook.com>
+CC: "Liang, Prike" <Prike.Liang@amd.com>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/userq: properly account for resets
+Thread-Topic: [PATCH] drm/amdgpu/userq: properly account for resets
+Thread-Index: AQHdEwemLj48Zo5+FEGWvILeBy4uu7ZsZOoAgABfvQCAAAuG2oAAAbiAgAAybUA=
+Date: Tue, 14 Jul 2026 13:32:43 +0000
+Message-ID: <IA0PR12MB8208EB469D4C2403243D321C90F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20260713203850.650426-1-alexander.deucher@amd.com>
+ <IA0PR12MB820888C41AF05BAA5C2CA57090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <3656074a-1a01-49f6-8f7c-129ab379f129@amd.com>
+ <IA0PR12MB8208F00938342B8FD8377E0090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <9d575350-c3a2-4e9c-b842-b2a68678914e@amd.com>
+In-Reply-To: <9d575350-c3a2-4e9c-b842-b2a68678914e@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-14T13:29:34.730Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-14T13:32:17.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|LV8PR12MB9715:EE_
-x-ms-office365-filtering-correlation-id: 9f387030-3b00-4579-51cf-08dee1abf23a
+x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|SN7PR12MB8817:EE_
+x-ms-office365-filtering-correlation-id: a7f4e120-0e07-431d-5c77-08dee1ac624e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|4143699003|11063799006|8096899003|38070700021|56012099006|6133799003;
-x-microsoft-antispam-message-info: 3BjXkpYtsLNbgUAmRMZjYVlbP4h2FFo7ipJFUxLIIzpXna72kKATr1sCySzllmIRm8pUWqXN2/Woipzo9phvQ+6kKKZHeUGojjpj0awDEyfcbqSrfogA+xbRC0FbXzTM5RXdCRPvZ1C0KQ78F0BdNgcMNlItncpc9FkaXoINQWigdnkDdBBSihHick1wvhJ1Vni7NufoJBu0Fd835Yf/htMrZI1qRP+7/Ue925FK7xCTuSns0PxBmkOBu9AXroizuZM4oOIgjrz+AeGeh0WbH2t8WMYab+Vs2XLQufBLYHnSdt6lXBIefau20ktoBD2oBvOKpgCP/HjxnIeJ/fjEj7lbMcLg+pRZ5XhOIGcsUQEGiVLw6X3jW58/Nfn059mK0OKSzNL28hmhCW/J4RJWcWYGX6C5agsxWwsRTWfU3xiKO1Bb30cRgNoxJWBceNFKZH4j/EjyMNAnfGTtQTzmo/e1XO0MXCTLW24VarniwZzn1hQlBE5XtnstYEZoj2UX8B+H68RTHvEP3dpEldBAUtHwz2e04NUy5sckYz7Ngv7nowqcmbjG3IllrEZjA9QEiDi0t81hbodxz0NR5rPTwIcfYoTSyCuX/kvnVuc6/xAt2HKsc6VwtodBZc6PwwFlkd2rZegHyoNAxuJb+gMmgYeCM2imrrpp3eCQE6PLsN285xnqTCvCfmbVOAkEwWxzrcS2WK9To9ix8eZQZKiBnNwjCd5cZa9rS9WXUxDrbfQ=
+ ARA:13230040|376014|1800799024|23010399003|366016|18002099003|22082099003|38070700021|6133799003|56012099006|4143699003|11063799006;
+x-microsoft-antispam-message-info: Z6gP+MoCrquN+yvULFtxu4AVitH16aU9U3Bdwt1opys4vvUZo6T8Io6VQQ8O7xeiY9tlKM1GvLAHlLDZqcwI7VVwC8VpC58tR9f+slk7QYwoAeFuuRQVzlb20yHDy0xjbjBNYyyJHxvRX+FXaUp4YZT6NUHZKupWVg1EybmgokVtdW82Js9mrkPQlBZ1HuCYg5lXRRONpEs2ZjhfGPIZ6UASK7aIrBp/dWS0mTaiQHWX8pmngB+k1QbFxpeoOpg++A1K8WWbw59pMyJCBIyELVyerf0O870BOn9Qq0F6S6bZpanynfVm5DXNg+v7jj4agyM1RF5I9JDaAWotRtJvxbdQKAUl4Zn5EbViABE4uYxP958xWBBPzQhAQTCWIgJ+0CPpELO2CcqtQc5421KhJJS8B8fWDfADqCfOVC4QvCTeTxd34o1rUacwIJ7fM5S/EjEcpV46IOyKjXqtVaXwmIiGA7Pyv9lLDRoPID/soLKGp37WXpsyVfMsqq+gvzkFQwLsQYeVK30H3pM28i+QTuPB3Imn+SmPEtiVbufFFvQEt95yFkXMBhEvfYluGi2InNkjMrBq4dbpPt0VtojZHEF9VArDqlXarBhD3WXz0Cp0eWC2oEPXdyVsjI9OR7tBnRyoQqnZ/BNyyHw77mlElgsrxNcNXFM6IVjJvSsCZj0=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(8096899003)(38070700021)(56012099006)(6133799003);
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(38070700021)(6133799003)(56012099006)(4143699003)(11063799006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wMwNrC1WRLn2EQAeegL25HnE84ewKK84uR8NQc+RGwTSBRIZsNyxUNcTO7JE?=
- =?us-ascii?Q?dKkHiAMMf2Aaz3T8WhHoG71IsUyE4U4QbiIMWxWZMsHVtvBzKYVxyeDE+hf6?=
- =?us-ascii?Q?LSltX4qK/aVADLSrEvOUr6XtbDzD6RRvqvdU9yVTJeF6OiVbjBw4aWbl4O01?=
- =?us-ascii?Q?HfCaEcllAPUcTRaS4IR4yrbVdMiz19UfvwsvKrySaVWIUbdj5IpK5NwpbfUr?=
- =?us-ascii?Q?3ocgwk6Zldduqma9qAmza7D7kcC/KcUy6BWXNCnlHhcKHT4ZfMuDsUrwvmUF?=
- =?us-ascii?Q?Z937COM5BYKZCwxYQenwS8nmpKt7b0gqAp9NGcPixPm4T4Zf7QxYKBEKD2CI?=
- =?us-ascii?Q?snsGgDzdTQmPSjSORRwaTWlBi6V0fxx2aANiw+ihB3778a4pSEk6dLPC81JH?=
- =?us-ascii?Q?xN0h0eHCILkJz4bhHcvOIZvi4+1kfFVoI8z/YPBtEY0rbPQnZ87HOiBUJyOX?=
- =?us-ascii?Q?J7Q1Vmm07Zt6Nyudfw1XjzrL0pdiFTLfR2QaGNiRBwQ/kjhIf4j0eJsplAD8?=
- =?us-ascii?Q?HjueyOtXqLjYTh+ZPZDbA9LMQGHHuqsfUijegCrLwL8AX/TEoDypdBX29Qlo?=
- =?us-ascii?Q?nEqbrERr+G6HdaGGLsJ0dCFtgRwVPGjDu3RDvteu8wUI6xFkkpX3eQmkXUur?=
- =?us-ascii?Q?lEW2RctbUN6mEwpRpj7aoHo92PRSd3FtCbOPB4yUoiI3marVD3afdXs3TE9l?=
- =?us-ascii?Q?EcVs9a3s7jIEPKqyBLqiKXVzP0gj93lDfvip6xpjtUA1ZYg2gqnQ3y45/sL8?=
- =?us-ascii?Q?7HOQCesNxNEfOee1QapCDgTqdwJyG8eTlfr4jAzWHUmtXkqxOHWx93AWkqU4?=
- =?us-ascii?Q?xmkcvTIDtehmKSzSooiiMpINy+O88kvHYlMe6Tt3NSnsCecqOFjOIyGpSHAF?=
- =?us-ascii?Q?XbIGv22mf64ppVVRBuBBE6ePtEAxpYhN3YypcaA81UrKwbghE+uKvthuAZ86?=
- =?us-ascii?Q?Ltv6Vlyph1HV7NUVQSo1pQhs865SBzhn7rv3UboueGs1OBxsUtjNRHRE0GKw?=
- =?us-ascii?Q?uBl70hyIHHEq560/z53NshMv+0kbNcamC7nwtJexeGUfmghr0y1J0TI9Fp2+?=
- =?us-ascii?Q?wljx88Uqs5i4EV8sFjTgH0mBbhQOtjZhEe9JEmP//SfbJQkdz3NiEI9rbqSO?=
- =?us-ascii?Q?zaqdr0X30ASzPVnIT22GjaXiBu78/phzFK3bKgvNAsO20z8kQk77P8DeY0Pu?=
- =?us-ascii?Q?x5yDqX8MvhujzjzuSJpVd8vATc8aKuQsItiGEZkHo8wgSVW3zZH8hpAKIScr?=
- =?us-ascii?Q?/mSvwsXkmMuafZ0v4dO5m1WoegV6BB/MTlgaOYh5S+pw6XpUkiZiRUX0vY9B?=
- =?us-ascii?Q?hhaGfsYAKsxNE/YVSJcxw/ItzAcP6T85flPcqKhdzkqA5E8jU9ikAWBGPFOR?=
- =?us-ascii?Q?i7AImcBrFGkCIzBjxojRn4StlvnUIUmE+plUCuoulMqQCq4UN1rySyajcgLX?=
- =?us-ascii?Q?DX1UWmZxsfeAYjL1hlAv+ekhF7cDzUKjeMatz/XG6SysQmMgYUw1g0EHJUWj?=
- =?us-ascii?Q?ejmAhX0zmfANcVcrypTAne3/IwfzS5IFIWvXYi3iFhWpVmhZRz6LsVysrDMX?=
- =?us-ascii?Q?G/KEVqgRkqPCT/SYxr+1a79R1QoGQk9zfNsBh9JzlCfjiWGTreP0kabBfrb8?=
- =?us-ascii?Q?VSVglqf4CJJcmDqmzjJhS/BtOHk/QIVJBhMns3dL/U894pbBY2xIWx2eTq/a?=
- =?us-ascii?Q?A8suFT5xeag1aLyOAjqzSuQ1cmOEMuOCR7g1YXQq3GgRB+XR?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB63451F054537A84F4A1E53EBFAF92CY5PR12MB6345namp_"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WkFDb2U2K0JEd3RrbndES1lTYkNNQ3NhRmxFT3J6RjdXc2RjNERrQ2tibG9Y?=
+ =?utf-8?B?UDRnSEY4YXJSUWNtS3B3c3dQN3ErS0dBdWdXcSs1SjU3TEdJZ2tNaUVSb1VQ?=
+ =?utf-8?B?enVxSWVsUUxTRldrL0VLaWZIWmZhbnpxeTVwZ05pS2J5cUdHVXl4VE5vKyt4?=
+ =?utf-8?B?bUlCVndMcVc1MmRpcU1tN3hKTy91d0dnVXVUd2hrbEpYUW9lSWltL3JjZHNm?=
+ =?utf-8?B?TDdqVHlncnVuNEhpNlZ1eWdmQ1Z4VGRPMXdtdTd5ekJsK3NjbytNODRialNT?=
+ =?utf-8?B?MkE0QVlPMHBvMEFuM0FoUFhGYlhuQnk2K1MyRmVTa0RtR3N4ajlmRkRvTHRz?=
+ =?utf-8?B?ODNBTmJXakhjeHdreW9UL3hzQ1dGQ0VrRStDd2J2eGVzOERyZTNQeHRFK2xH?=
+ =?utf-8?B?VVRIWElRUU54NmIyNE5SM1Y3L0dJNzVqSXV2dG5ROW5rSTVMZjdaYXk3bHZH?=
+ =?utf-8?B?c3RhNnlUREozS1RhMVYvM1ZHbFhPUVJEYnpyaG90bXJ0Nko0R2R5am5rdXBt?=
+ =?utf-8?B?TjdQQVQ1UGZubldvdWNHWm5OdDljWktFM3gxR1N3Ny9oc25QU2xYYnJNTWVa?=
+ =?utf-8?B?Sll2QjlsYW9yZElvWlkxWEtNRXNaZFVlMXlsOWZOY0lSK29yRHBkdWhpMnJJ?=
+ =?utf-8?B?VmdYdDQxOThMMUVWMWtFam9RY29iTkV5OHU4dWFDdkhLZjdFQ2N4ZWwwOUgr?=
+ =?utf-8?B?VHRTYzlWS1Z2VUFTWmZGbkRXeEdGN2FUM0Nqd1BIWjNCek5ndVBLYU5DQmdW?=
+ =?utf-8?B?SVh5Ly9BbUpLbzFIVFdCREQvYjZhTDZUMHhhUnp4OWFvV205OE5SSjBvQnZW?=
+ =?utf-8?B?TFo5QmkxOG9NZHhPMWhWZHV2eFFnU1VnZExqQlZEWEdvc2ZqOHlXTDVBTVhZ?=
+ =?utf-8?B?V2tNTldaZzF6UmlaOXRRd0N1NDhONHpaQllkamxGZzViQnM5WEtUSzcxaXNa?=
+ =?utf-8?B?dC9YNSt5MkpERThCTEM2bmJ6a3JENldOWWI2MCs1cVorZ1U2N0NxcmZrMStp?=
+ =?utf-8?B?bTIzOUVFZmVQOVJva21KdEtHS2V2YlgwOEZLdERGRThmNm5NSi9FVFJodkNF?=
+ =?utf-8?B?NnMzeGVrNlFFN25SbGhwOElidmc3K3ZXTGdKUlgrcG5LRzV5Si82dGgwOHpj?=
+ =?utf-8?B?NDVEaW1OdlFydmZLekppUENGU2l3clRXOEtqaG90RllIdWJsdVBQZUZLS1NI?=
+ =?utf-8?B?N3NZdzJQVTZXTEdxSmJ3RXRMUlplTlZKY2FKbis1NkJMbUN0c1Q3Z0FFUjBj?=
+ =?utf-8?B?cjZqbEpyaFM4M21PcXlINUovTEFoTmkySlhDeEtWc1FDdWF6UVhrd1paakdP?=
+ =?utf-8?B?L01wS1ZwcEJkQjl0OWhOWktkMDV2d01lODdGMWh1Q3U5Zi9peVkvcDR5NEc5?=
+ =?utf-8?B?QUdmR1M3TUhMdDRpK0o2d0VRRXI4L04wSWJWMlAzOWxVbnE1Q042K0FEY2pS?=
+ =?utf-8?B?b1pCdU1DZFRLYzZyQzdkMFVMUFUzeFVPUnhSdFhUbVU0TUtUM2Y3OThsdUVG?=
+ =?utf-8?B?b1pqQUtBN0Yxb3ZPTDI5OFhIZ0U0M3hHUTNxU2dyeEVxeUllNm5ocmJMejRN?=
+ =?utf-8?B?UGhCQVhkdG9EVFE1bHZ4T2pibWVVM1o2d2l5bTUrREtrWS9xWlc2bDVlZFAz?=
+ =?utf-8?B?UWN2SEhYbXZOL2grWDE0TWNhNm44N0IyQ3JVQWpYSVRXWUVNQTZ5M3ZhdDNL?=
+ =?utf-8?B?SnlmU0c5MVRMdnlSYkI4T1JoTHpFN3NEQWcxR2IrMXBRc2VjT2owTUEzM2Fi?=
+ =?utf-8?B?WW5OWnJQazdqWDRkVGVackNjWnF1bkZYWmkzaGN5K2kyM0lrT2dhWG1qN3lY?=
+ =?utf-8?B?aWNJZHdKSGQ0L0I5d2RiVHpuKy8rRWNsdHdnTER0YzNtMk0wRkozVFd6dGo2?=
+ =?utf-8?B?Vml2QUpLWkhENVdONmwrWllpTXFlMG1USHNyMzlhaytRLy9GYk9oZjdzRlVI?=
+ =?utf-8?B?ZEU2Mm95THZWYzFNRjJIdXlMdWlQdWdoR01GS1RmSFBDeU1uOTJHNUJGY0dU?=
+ =?utf-8?B?cFloc3AvL3ByNHEwcW45WWtPMEJLRVVZZW5uZVphNHpuckdHRWlEaldyOW9F?=
+ =?utf-8?B?T2xwaHltSGUvUGRvSHB1THJyckVzUGtzeHFIdGFXdHF6ZENIelhzWTM1c3Ex?=
+ =?utf-8?B?cjlhRGxaY3NkMHJoaWNKMFowNC9ieWhiamQyRHVrblh3a0YxUC9oYlgyczEy?=
+ =?utf-8?B?bXZPL3Q2Wk5oMVU2U1ZYclpGMHZaWUF2M2VsMmwrcjRQTHB1emsxZ0tJMng4?=
+ =?utf-8?B?WlpvcFJLd3lUUVEzbWRUaVVCM3I5VVNQeWdtT25tYk4rSXNueXNCekRleisw?=
+ =?utf-8?Q?lIIl6gvPt4fXJOv7+u?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f387030-3b00-4579-51cf-08dee1abf23a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 13:29:35.2528 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7f4e120-0e07-431d-5c77-08dee1ac624e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 13:32:43.3007 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0DdHiHSW6yWvAwHCzo9qsp9i+iWDekxrMmkYPf/TTPC1e8nAqqpbuESC5/wQdPJTq1jJzLj/+XAwz4h8T5VjFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9715
+X-MS-Exchange-CrossTenant-userprincipalname: YrrF+0ha3BTFixJX+f1jqAPYIeFC8Ue1SibnFsjnPgelPcA/M853YQHe77gJJNHFflzwCG7QPuBBu8NrGNhJew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,616 +148,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB63451F054537A84F4A1E53EBFAF92CY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-AMD General
-
-Sure, thanks.
-
-Best Regards,
-
-Liu, Xiang
-
-________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Tuesday, July 14, 2026 9:21 PM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; C=
-hai, Thomas <YiPeng.Chai@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Liu, X=
-iang(Dean) <Xiang.Liu@amd.com>
-Subject: RE: [PATCH v3] drm/amd/ras: initialize CPER after XGMI reset on in=
-it
-
-AMD General
-
-+#if defined(CONFIG_DEBUG_FS)
-+       if (adev_to_drm(adev)->primary->debugfs_root)
-+               amdgpu_debugfs_ring_init(adev, &adev->cper.ring_buf);
-+ #endif
-
-Feel free to remove the #if defined protection when committing the change, =
-since it is already handled within amdgpu_debugfs_ring_init.
-
-With above fixed, the change is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Xiang Li=
-u
-Sent: Tuesday, July 14, 2026 8:37 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
-Lazar, Lijo <Lijo.Lazar@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Subject: [PATCH v3] drm/amd/ras: initialize CPER after XGMI reset on init
-
-The XGMI reset-on-init path can run while the device is still at the minima=
-l init level, such as during an NPS memory partition switch. In that flow t=
-he normal RAS IP block hw_init is skipped, so unified RAS is not enabled wh=
-en the early CPER initialization is attempted, leaving CPER disabled for th=
-e rest of the device's lifetime.
-
-Resume RAS after the XGMI reset-on-init completes. Once the RAS manager res=
-ume succeeds, the RAS resume wrapper performs deferred CPER initialization,=
- keeping the path a no-op for devices where CPER was already initialized.
-
-Keep the deferred CPER retry and its debugfs registration together in the C=
-PER helper. The normal debugfs ring walk skips the CPER ring until CPER is =
-enabled, so the ring debugfs entry is created either by the deferred helper=
- when debugfs is already available or by the normal debugfs walk.
-
-Signed-off-by: Xiang Liu <xiang.liu@amd.com<mailto:xiang.liu@amd.com>>
----
-drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c    | 19 +++++++++++++++++++
-drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h    |  1 +
-drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 ++
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c     | 10 ++++++++--
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h     |  2 +-
-drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c    |  5 ++++-
-6 files changed, 35 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cper.c
-index 6fb129025761..0af8b7be326e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -498,6 +498,25 @@ int amdgpu_cper_init(struct amdgpu_device *adev)
-         return 0;
-}
-
-+int amdgpu_cper_deferred_init(struct amdgpu_device *adev) {
-+       int r;
-+
-+       if (adev->cper.enabled)
-+               return 0;
-+
-+       r =3D amdgpu_cper_init(adev);
-+       if (r || !adev->cper.enabled)
-+               return r;
-+
-+#if defined(CONFIG_DEBUG_FS)
-+       if (adev_to_drm(adev)->primary->debugfs_root)
-+               amdgpu_debugfs_ring_init(adev, &adev->cper.ring_buf); #endi=
-f
-+
-+       return 0;
-+}
-+
-int amdgpu_cper_fini(struct amdgpu_device *adev)  {
-         if (amdgpu_sriov_vf(adev))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cper.h
-index d12c98077d9d..eea30be91b47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-@@ -92,6 +92,7 @@ int amdgpu_cper_generate_bp_threshold_record(struct amdgp=
-u_device *adev);  void amdgpu_cper_ring_write(struct amdgpu_ring *ring,
-                         void *src, int count);
-int amdgpu_cper_init(struct amdgpu_device *adev);
-+int amdgpu_cper_deferred_init(struct amdgpu_device *adev);
-int amdgpu_cper_fini(struct amdgpu_device *adev);
-
-#endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_debugfs.c
-index 3d1ede5f8de2..fd349eed820f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -2184,6 +2184,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
-
-                 if (!ring)
-                         continue;
-+               if (ring =3D=3D &adev->cper.ring_buf && !adev->cper.enabled=
-)
-+                       continue;
-
-                 amdgpu_debugfs_ring_init(adev, ring);
-         }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 0eb440e4ca1a..8bf3fd015a45 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -5002,7 +5002,13 @@ void amdgpu_ras_post_reset(struct amdgpu_device *ade=
-v,
-         }
-}
-
--void amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)
-+int amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)
-{
--       amdgpu_ras_mgr_resume_after_reset(adev);
-+       int r;
-+
-+       r =3D amdgpu_ras_mgr_resume_after_reset(adev);
-+       if (r)
-+               return r;
-+
-+       return amdgpu_cper_deferred_init(adev);
-}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h
-index 23bff7a0f35b..c53f911d5729 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -980,5 +980,5 @@ void amdgpu_ras_pre_reset(struct amdgpu_device *adev,
-                                           struct list_head *device_list);
-void amdgpu_ras_post_reset(struct amdgpu_device *adev,
-                                           struct list_head *device_list);
--void amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);
-+int amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);
-#endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c
-index b265b68e0f37..87cefa1e22bd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -1399,7 +1399,10 @@ static void amdgpu_xgmi_reset_on_init_work(struct wo=
-rk_struct *work)
-                  * no-op for any other reset path where RAS is already
-                  * initialized, and for non-uniras devices.
-                  */
--               amdgpu_ras_resume_after_reset(tmp_adev);
-+               r =3D amdgpu_ras_resume_after_reset(tmp_adev);
-+               if (r)
-+                       dev_err(tmp_adev->dev,
-+                               "failed to resume RAS after XGMI reset-on-i=
-nit\n");
-         }
-}
-
---
-2.34.1
-
-
---_000_CY5PR12MB63451F054537A84F4A1E53EBFAF92CY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-background-color: rgb(255, 255, 255); margin: 0px; font-family: Calibri, He=
-lvetica, sans-serif; font-size: 11pt; color: black;">
-Sure, thanks.</div>
-<p class=3D"elementToProof" style=3D"direction: ltr; text-align: left; text=
--indent: 0px; background-color: white; margin-top: 0px; margin-bottom: 0px;=
-">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: black;">Best Regards,</span></p>
-<p class=3D"elementToProof" style=3D"direction: ltr; text-align: left; text=
--indent: 0px; background-color: white; margin-top: 0px; margin-bottom: 0px;=
-">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
-wking.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, July 14, 2026 9:21 PM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.=
-Yang@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; Lazar, Lijo &lt=
-;Lijo.Lazar@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH v3] drm/amd/ras: initialize CPER after XGMI rese=
-t on init</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Calibri" size=3D"2"><span style=
-=3D"font-size:10pt;">
-<div style=3D"padding-right:5pt;padding-left:5pt;"><font color=3D"blue">AMD=
- General<br>
-</font></div>
-<div style=3D"margin-top:5pt;"><font face=3D"Times New Roman" size=3D"3"><s=
-pan style=3D"font-size:12pt;"><br>
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+#if=
- defined(CONFIG_DEBUG_FS)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev_to_drm(adev)-&gt;primary-&gt;deb=
-ugfs_root)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; amdgpu_debugfs_ring_init(adev, &amp;adev-&gt;cper.ring_buf);
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+ #e=
-ndif</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Feel=
- free to remove the #if defined protection when committing the change, sinc=
-e it is already handled within amdgpu_debugfs_ring_init.</span></font></div=
->
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">With=
- above fixed, the change is</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Revi=
-ewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hawk=
-ing</span></font></div>
-<a name=3D"_MailEndCompose"></a>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
--Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Xi=
-ang Liu<br>
-Sent: Tuesday, July 14, 2026 8:37 PM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@=
-amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Chai, Thomas &lt;Y=
-iPeng.Chai@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Liu, Xiang(=
-Dean) &lt;Xiang.Liu@amd.com&gt;<br>
-Subject: [PATCH v3] drm/amd/ras: initialize CPER after XGMI reset on init</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">The =
-XGMI reset-on-init path can run while the device is still at the minimal in=
-it level, such as during an NPS memory partition switch. In that flow the n=
-ormal RAS IP block hw_init is skipped,
- so unified RAS is not enabled when the early CPER initialization is attemp=
-ted, leaving CPER disabled for the rest of the device's lifetime.</span></f=
-ont></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Resu=
-me RAS after the XGMI reset-on-init completes. Once the RAS manager resume =
-succeeds, the RAS resume wrapper performs deferred CPER initialization, kee=
-ping the path a no-op for devices where
- CPER was already initialized.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Keep=
- the deferred CPER retry and its debugfs registration together in the CPER =
-helper. The normal debugfs ring walk skips the CPER ring until CPER is enab=
-led, so the ring debugfs entry is created
- either by the deferred helper when debugfs is already available or by the =
-normal debugfs walk.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
-ed-off-by: Xiang Liu &lt;<a href=3D"mailto:xiang.liu@amd.com">xiang.liu@amd=
-.com</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_cper.c&nbsp;&nbsp;&nbsp; | 19 +++++++++++++++=
-++++</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_cper.h&nbsp;&nbsp;&nbsp; |&nbsp; 1 +</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |&nbsp; 2 ++</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_ras.c&nbsp;&nbsp;&nbsp;&nbsp; | 10 ++++++++--=
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_ras.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 +-</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c&nbsp;&nbsp;&nbsp; |&nbsp; 5 ++++-</spa=
-n></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">6 fi=
-les changed, 35 insertions(+), 4 deletions(-)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amd=
-gpu/amdgpu_cper.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 6fb129025761..0af8b7be326e 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-498,6 +498,25 @@ int amdgpu_cper_init(struct amdgpu_device *adev)</span></f=
-ont></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">}</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+int=
- amdgpu_cper_deferred_init(struct amdgpu_device *adev) {</span></font></div=
->
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;cper.enabled)</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_cper_init(adev);</span></fon=
-t></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r || !adev-&gt;cper.enabled)</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return r;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+#if=
- defined(CONFIG_DEBUG_FS)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev_to_drm(adev)-&gt;primary-&gt;deb=
-ugfs_root)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; amdgpu_debugfs_ring_init(adev, &amp;adev-&gt;cper.ring_buf); #endif<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+}</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">int =
-amdgpu_cper_fini(struct amdgpu_device *adev)&nbsp; {</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))</sp=
-an></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h b/drivers/gpu/drm/amd/amd=
-gpu/amdgpu_cper.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x d12c98077d9d..eea30be91b47 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-92,6 +92,7 @@ int amdgpu_cper_generate_bp_threshold_record(struct amdgpu_de=
-vice *adev);&nbsp; void amdgpu_cper_ring_write(struct amdgpu_ring *ring,</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *src=
-, int count);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">int =
-amdgpu_cper_init(struct amdgpu_device *adev);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+int=
- amdgpu_cper_deferred_init(struct amdgpu_device *adev);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">int =
-amdgpu_cper_fini(struct amdgpu_device *adev);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">#end=
-if</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_debugfs.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 3d1ede5f8de2..fd349eed820f 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-2184,6 +2184,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)</span=
-></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (!ring)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;=
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (ring =3D=3D &amp;adev-&gt;cper.ring_buf &amp;&amp; !adev-&gt;cpe=
-r.enabled)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;</span></fo=
-nt></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; amdgpu_debugfs_ring_init(adev, ring);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_ras.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 0eb440e4ca1a..8bf3fd015a45 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-5002,7 +5002,13 @@ void amdgpu_ras_post_reset(struct amdgpu_device *adev,</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">}</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-voi=
-d amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)</span></font></=
-div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+int=
- amdgpu_ras_resume_after_reset(struct amdgpu_device *adev)</span></font></d=
-iv>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">{</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_mgr_resume_after_reset(adev);<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ras_mgr_resume_after_reset(a=
-dev);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return r;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_cper_deferred_init(adev);</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">}</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_ras.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 23bff7a0f35b..c53f911d5729 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-980,5 +980,5 @@ void amdgpu_ras_pre_reset(struct amdgpu_device *adev,</span=
-></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; struct list_head *device_list);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">void=
- amdgpu_ras_post_reset(struct amdgpu_device *adev,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; struct list_head *device_list);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-voi=
-d amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+int=
- amdgpu_ras_resume_after_reset(struct amdgpu_device *adev);</span></font></=
-div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">#end=
-if</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amd=
-gpu/amdgpu_xgmi.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x b265b68e0f37..87cefa1e22bd 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-1399,7 +1399,10 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_s=
-truct *work)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; * no-op for any other reset path where RAS is alrea=
-dy</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; * initialized, and for non-uniras devices.</span></=
-font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; amdgpu_ras_resume_after_reset(tmp_adev);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; r =3D amdgpu_ras_resume_after_reset(tmp_adev);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (r)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(tmp_adev-&gt=
-;dev,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;failed to resume RAS after XGMI reset-on-=
-init\n&quot;);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">}</s=
-pan></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.34=
-.1</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY5PR12MB63451F054537A84F4A1E53EBFAF92CY5PR12MB6345namp_--
+QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXph
+ciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBKdWx5IDE0LCAy
+MDI2IDQ6MDIgUE0NCj4gVG86IFNIQU5NVUdBTSwgU1JJTklWQVNBTiA8U1JJTklWQVNBTi5TSEFO
+TVVHQU1AYW1kLmNvbT47DQo+IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJA
+YW1kLmNvbT47IGFtZC0NCj4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogTGlhbmcs
+IFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29tPjsgS2hhdHJpLCBTdW5pbCA8U3VuaWwuS2hhdHJp
+QGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHUvdXNlcnE6IHByb3Bl
+cmx5IGFjY291bnQgZm9yIHJlc2V0cw0KPg0KPg0KPg0KPiBPbiAxNC1KdWwtMjYgMzo1NyBQTSwg
+U0hBTk1VR0FNLCBTUklOSVZBU0FOIHdyb3RlOg0KPiA+IEFNRCBHZW5lcmFsDQo+ID4NCj4gPg0K
+PiA+DQo+ID4NCj4gPiBHZXQgT3V0bG9vayBmb3IgQW5kcm9pZCA8aHR0cHM6Ly9ha2EubXMvQUFi
+OXlzZz4NCj4gPg0KPiA+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gPiAtLQ0KPiA+ICpGcm9tOiogTGF6YXIs
+IExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4gPiAqU2VudDoqIFR1ZXNkYXksIEp1bHkgMTQs
+IDIwMjYgMzoxNDozNCBQTQ0KPiA+ICpUbzoqIFNIQU5NVUdBTSwgU1JJTklWQVNBTiA8U1JJTklW
+QVNBTi5TSEFOTVVHQU1AYW1kLmNvbT47DQo+IERldWNoZXIsDQo+ID4gQWxleGFuZGVyIDxBbGV4
+YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
+PiA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQo+ID4gKkNjOiogTGlhbmcsIFByaWtl
+IDxQcmlrZS5MaWFuZ0BhbWQuY29tPjsgS2hhdHJpLCBTdW5pbA0KPiA+IDxTdW5pbC5LaGF0cmlA
+YW1kLmNvbT4NCj4gPiAqU3ViamVjdDoqIFJlOiBbUEFUQ0hdIGRybS9hbWRncHUvdXNlcnE6IHBy
+b3Blcmx5IGFjY291bnQgZm9yIHJlc2V0cw0KPiA+DQo+ID4NCj4gPg0KPiA+IE9uIDE0LUp1bC0y
+NiAxMDoxNiBBTSwgU0hBTk1VR0FNLCBTUklOSVZBU0FOIHdyb3RlOg0KPiA+ICA+IEFNRCBHZW5l
+cmFsDQo+ID4gID4NCj4gPiAgPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiAgPj4g
+RnJvbTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPiAgPj4gU2VudDog
+VHVlc2RheSwNCj4gPiBKdWx5IDE0LCAyMDI2IDI6MDkgQU0gID4+IFRvOiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZyAgPj4gQ2M6DQo+ID4gRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5k
+ZXIuRGV1Y2hlckBhbWQuY29tPjsgU0hBTk1VR0FNLCAgPj4NCj4gPiBTUklOSVZBU0FOIDxTUklO
+SVZBU0FOLlNIQU5NVUdBTUBhbWQuY29tPjsgTGlhbmcsIFByaWtlICA+Pg0KPiA+IDxQcmlrZS5M
+aWFuZ0BhbWQuY29tPjsgS2hhdHJpLCBTdW5pbCA8U3VuaWwuS2hhdHJpQGFtZC5jb20+ICA+Pg0K
+PiA+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdS91c2VycTogcHJvcGVybHkgYWNjb3VudCBm
+b3IgcmVzZXRzICA+PiAgPj4NCj4gPiBXZSBuZWVkIHRvIGluY3JlbWVudCB0aGUgcmVzZXQgY291
+bnRlciwgZm9yY2UgZmVuY2UgY29tcGxldGlvbiwgYW5kDQo+ID4gc2V0IHRoZSAgPj4gd2VkZ2Vk
+IGV2ZW50IHdoZW4gYSB1c2VyIHF1ZXVlIGlzIHJlc2V0Lg0KPiA+ICA+Pg0KPiA+ICA+PiBtZXNf
+dXNlcnFfcmVzZXRfcXVldWUoKSBoYW5kbGVzIHRoaXMgZm9yIGNvbGxhdGVyYWwgZGFtYWdlLCBi
+dXQNCj4gPiB0aGUgY2FsbGVyIG5lZWRzICA+PiB0byBoYW5kbGUgdGhpcyBkaXJlY3RseSBmb3Ig
+dGhlIG9yaWdpbmFsIGd1aWx0eQ0KPiA+IHF1ZXVlLg0KPiA+ICA+Pg0KPiA+ICA+PiBTaWduZWQt
+b2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ICA+PiBDYzoN
+Cj4gPiBTcmluaXZhc2FuIFNoYW5tdWdhbSA8c3Jpbml2YXNhbi5zaGFubXVnYW1AYW1kLmNvbT4g
+ID4+IENjOiBQcmlrZQ0KPiA+IExpYW5nIDxQcmlrZS5MaWFuZ0BhbWQuY29tPiAgPj4gQ2M6IFN1
+bmlsIEtoYXRyaQ0KPiA+IDxzdW5pbC5raGF0cmlAYW1kLmNvbT4gID4+IC0tLSAgPj4NCj4gPiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuYyB8IDcgKysrKysrLSAgPj4g
+ICAxIGZpbGUNCj4gPiBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkgID4+
+ICA+PiBkaWZmIC0tZ2l0DQo+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dXNlcnEuYw0KPiA+ICA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2Vy
+cS5jDQo+ID4gID4+IGluZGV4IDZhYTc1ZGEyN2Y5MTIuLjVlMTI2MjYzNmUxZTkgMTAwNjQ0ICA+
+PiAtLS0NCj4gPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycS5jDQo+
+ID4gID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycS5jDQo+
+ID4gID4+IEBAIC0xNDYsOCArMTQ2LDEzIEBAIHN0YXRpYyB2b2lkDQo+ID4gYW1kZ3B1X3VzZXJx
+X2hhbmdfZGV0ZWN0X3dvcmsoc3RydWN0DQo+ID4gID4+IHdvcmtfc3RydWN0ICp3b3JrKQ0KPiA+
+ICA+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHF1ZXVlLA0KPiA+IE5VTEwsIE5VTEwpOyAgPj4gICAgICAgICAgICAgICAgZWxzZSAgPj4g
+ICAgICAgICAgICAgICAgICAgICAgICByID0NCj4gPiB1c2VycV9mdW5jcy0+cmVzZXQocXVldWUp
+OyAgPj4gLSAgICAgICAgICAgICBpZiAocikgID4+ICsNCj4gPiBpZiAocikgeyAgPj4gICAgICAg
+ICAgICAgICAgICAgICAgICBncHVfcmVzZXQgPSB0cnVlOyAgPj4gKw0KPiA+IH0gZWxzZSB7ICA+
+PiArDQo+ID4gYXRvbWljX2luYygmYWRldi0+Z3B1X3Jlc2V0X2NvdW50ZXIpOw0KPiA+ICA+PiAr
+DQo+ID4gYW1kZ3B1X3VzZXJxX2ZlbmNlX2RyaXZlcl9mb3JjZV9jb21wbGV0aW9uKHF1ZXVlKTsN
+Cj4gPiAgPj4gKyAgICAgICAgICAgICAgICAgICAgIGRybV9kZXZfd2VkZ2VkX2V2ZW50KGFkZXZf
+dG9fZHJtKGFkZXYpLA0KPiA+ICA+PiBEUk1fV0VER0VfUkVDT1ZFUllfTk9ORSwgTlVMTCk7DQo+
+ID4gID4+ICsgICAgICAgICAgICAgfQ0KPiA+ICA+PiAgICAgICAgfSBlbHNlIHsNCj4gPiAgPj4g
+ICAgICAgICAgICAgICAgZ3B1X3Jlc2V0ID0gdHJ1ZTsNCj4gPiAgPj4gICAgICAgIH0NCj4gPiAg
+Pg0KPiA+ICA+IEFmdGVyIHRoZSBvcmlnaW5hbCBxdWV1ZSB3YXMgcmVzZXQgc3VjY2Vzc2Z1bGx5
+LCBpdCBkaWQgbm90IHVwZGF0ZQ0KPiA+IGdwdV9yZXNldF9jb3VudGVyLCBjb21wbGV0ZSBpdHMg
+cGVuZGluZyBmZW5jZXMsIG9yIHNlbmQgdGhlIHdlZGdlZCBldmVudC4NCj4gPiAgPiBtZXNfdXNl
+cnFfcmVzZXRfcXVldWUoKSBhbHJlYWR5IHVwZGF0ZXMgZ3B1X3Jlc2V0X2NvdW50ZXIsDQo+ID4g
+Y29tcGxldGVzIHRoZSBwZW5kaW5nIGZlbmNlcywgYW5kIHNlbmRzIHRoZSB3ZWRnZWQgZXZlbnQg
+Zm9yIHRoZSBvdGhlcg0KPiA+IGFmZmVjdGVkIHF1ZXVlcywgID4gYnV0IHNraXBzIHRoZSBvcmln
+aW5hbCBxdWV1ZSBiZWNhdXNlIGl0IGhhcw0KPiA+IGFscmVhZHkgYmVlbiByZXNldC4NCj4gPg0K
+PiA+IFdoYXQgaXMgdGhlIHJhdGlvbmFsZSBvZiBzZW5kaW5nIG11bHRpcGxlIGRldmljZSB3ZWRn
+ZWQgZXZlbnRzIG9uIGENCj4gPiBwZXIgcXVldWUgYmFzaXM/DQo+ID4NCj4gPiBUaGUgcXVlc3Rp
+b24gb2Ygd2hldGhlciBkcm1fZGV2X3dlZGdlZF9ldmVudCgpIHNob3VsZCBiZSBlbWl0dGVkIG9u
+Y2UNCj4gPiBwZXIgcXVldWUgb3Igb25jZSBwZXIgb3ZlcmFsbCByZWNvdmVyeSBzZWVtcyBsaWtl
+IGEgYnJvYWRlciBkZXNpZ24NCj4gPiBkaXNjdXNzaW9uLg0KPiA+DQo+DQo+IEFsb25nIHdpdGgg
+dGhhdCwgYWxzbyBuZWVkIHRvIGNvbnNpZGVyIGlmIGRldmljZSByZXNldF9jb3VudGVyIG5lZWRz
+IHRvIGJlDQo+IGluY3JlbWVudGVkIG9uIGEgcGVyIHF1ZXVlIGJhc2lzIG9yIGJhc2VkIG9uIHJl
+c2V0IGV2ZW50IHJlY292ZXJ5LiBJdCBjb3VsZCBnZXQNCj4gaW5jcmVtZW50ZWQgbXVsdGlwbGUg
+dGltZXMgaW5zaWRlIHRoaXMgLSBtZXNfdXNlcnFfcmVzZXRfcXVldWUuDQoNCkxvb2tpbmcgYXQg
+dGhlIGN1cnJlbnQgZmxvdywgYm90aCBncHVfcmVzZXRfY291bnRlciBhbmQgZHJtX2Rldl93ZWRn
+ZWRfZXZlbnQoKSBhcmUgdXBkYXRlZCBvbmNlIGZvciBlYWNoIHN1Y2Nlc3NmdWxseSByZXNldCBx
+dWV1ZS4gSXQgd291bGQgYmUgaGVscGZ1bCB0byBjbGFyaWZ5IHdoZXRoZXIgdGhleSBhcmUgaW50
+ZW5kZWQgdG8gYmUgdXBkYXRlZCBwZXIgYWZmZWN0ZWQgcXVldWUgb3Igb25jZSBwZXIgb3ZlcmFs
+bCByZWNvdmVyeS4NCg0KVGhhbmtzLA0KU3JpbmkNCg0KPg0KPiBUaGFua3MsDQo+IExpam8NCj4N
+Cj4gPiBUaGFua3MsDQo+ID4gU3JpbmkNCj4gPg0KPiA+DQo+ID4NCg0K
