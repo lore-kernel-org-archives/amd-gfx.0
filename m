@@ -4,123 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5B2C44508
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 10:16:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C3BEC43458
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 10:27:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6494810ECC2;
-	Tue, 14 Jul 2026 10:16:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C3C10E67B;
+	Tue, 14 Jul 2026 10:27:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QBRVfRJu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1QANvH2+";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010058.outbound.protection.outlook.com
- [52.101.193.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D39DA10ECC2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 10:16:53 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96F9B10E67B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jul 2026 10:27:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RA+mcTGvANS22SXu8fL3N4eOlDaTVFZ46+1UOxUDP042CEvmxw22EzHJJjJyR/Nz7/bRa6zR1C1QPZhcO5SLzwldjAKWCM7mNqdapK52DpVu365H5Fp/VyetWNqwt+FuMoNh6Abqev1E4M+TFtRiB0ctrLVybbIo3cHvvwS1YWOBp5ibzTue5dxBWOAApjFfXyXxKitBgaOATnKOgy+8HhE9Ldy8NnbNHUTG0ykbu1+he9VQvJtWciqRm9BAcait+E62AuNA7ahaKJQbNUU91xWOq7Y2+tRYea/MJTFjC0VVESao/O6jcyjwpo/3depaoN5zqPlSKBSp7fCzrwtCXw==
+ b=zLHCNR6eStj2PuuHPSBA29oHC5iYxuPgWpVO9Mvncys6yJ8XLqa4KLmcDohLZ8efQaEwlnjKbapLfPt8/QyVu/U9q1gS+sFdqTocAmTkULOoC/IHw557pwu0VsFa0vFR5dBc2bIPZgtDp5IjOHJvc0d8dFgvkbpVyVev6dYG7O+XsGqKXeZ7lFY3kCKQkWg4YO1Zt6Rvi9VfB3cfsKR7mOTrxNiVv9xMcuHEZ9mh5qq9u5wB8wm+ZkRd9DwVuIhwQFzh0CpvMoCQM+y8QtZ6esLSWA9bQnCJ8bQ2zk9KwnJnTriBSR9R+BVXFB74wu0fdScMZt0xRfs1wJ5tBWwcTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PLWsgOSFGDLU3DH8+6TecdE+UMAzkXMOHXwihlkSDA8=;
- b=f0t9lgD+zuv4jAjT3pcnpZk0R/ayUWc9PFR0Z7+aXjvAnxN45wltRemQzwDTmarFp9llb3MS8C8LMBxDkeNGMOnMv43r+oj3UTLnZh3EFxizzs+8R3GBJ8m81XLgpxY1OPleI+DKJMd/8mJJhsyq70DOGCLylyb9Aja7+IVlwGFaHklc0ujRVbZHMSShYSWv1Kx/f70//twtsakPg8rYLKfJBICE+cvq12jUlkKhStD17eYhSpqZ/ftojvBi0ac+ZUpXzNws7pljQea/qWFu7+lUURzp4OfwAM0K+1zZ4MWxyuqCAwrp+UbOO/685PUGm2JP864cVjdJTN0Fr1XrTQ==
+ bh=1uPEHuUTeAAXZwBGMbopAxKbnr8rsJzOPDw4U4T8MRc=;
+ b=ihSNjvyqgO4kLn9U0jORz2ZZ19UtdGOqKIzLTCS2VpE2OlkEWjfFkt9gpF0725IAHNonJ8K4lxFpMWXXJfM1nUFnF49PTusvkkpsrYeXR+T6dcKMAPrQECVN/7LVsnjcgFdb4t845bXkSYPXX7XnYa54RB9i9AHNNpBqRdivGV+Tclzmv8H3hHa4cRJptCrx5c7LnIVoP0k/i+09sWYhi9A9e6IIJ9mj0tC7UXiNjMoFGbZArpCqKaX0JVJ9Sq/JHzfyQICEieOYVpN8rTMlNep74sxH0eYwgUq8Q09FG3+KkVT19ETn/1ELGYiTmtscHshqWF/kHvsiTjolZ0zsBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PLWsgOSFGDLU3DH8+6TecdE+UMAzkXMOHXwihlkSDA8=;
- b=QBRVfRJuUqxbRrmOBlsc1wztcH4voN/g04Ywi5ZlhNcGoSwFfhE0S39ezZ/8Qb/bQHpOWItZwpbDbTgLqUtFPptJAAiH28s1mt3RZIlqsfaSY0+EZLvdOItDZOgvKgFfczgL2PWvyk8gulhFguKWgiC1/QB1dlpmrIx8JsshHYo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by MW6PR12MB8706.namprd12.prod.outlook.com (2603:10b6:303:249::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 10:16:47 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
- 10:16:47 +0000
-Message-ID: <94866f41-1a60-4b5b-9ebb-89eb80697ced@amd.com>
-Date: Tue, 14 Jul 2026 15:46:40 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/ras: initialize CPER after XGMI reset on init
-To: Xiang Liu <xiang.liu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Tao.Zhou1@amd.com, Stanley.Yang@amd.com,
- YiPeng.Chai@amd.com
-References: <20260714095832.52308-1-xiang.liu@amd.com>
+ bh=1uPEHuUTeAAXZwBGMbopAxKbnr8rsJzOPDw4U4T8MRc=;
+ b=1QANvH2+07mRFYg/UHSYt+EarEgM0A+zUwgIbWqy7zim+yC7/Uq+jjSHmkwKFcc/ft1auQKHDcwnnpCIAqohCfax1quoyJkgUlc2awiTrMuuwxIUgteeepQn5TTghcfJQrMCOJFfnun8kLheac56YU3M+OEx9u6diX564FOW+Ls=
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 14 Jul
+ 2026 10:27:25 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::dbd3:cc22:a850:dc1e%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 10:27:24 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Liang, Prike" <Prike.Liang@amd.com>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/userq: properly account for resets
+Thread-Topic: [PATCH] drm/amdgpu/userq: properly account for resets
+Thread-Index: AQHdEwemLj48Zo5+FEGWvILeBy4uu7ZsZOoAgABfvQCAAAuG2g==
+Date: Tue, 14 Jul 2026 10:27:24 +0000
+Message-ID: <IA0PR12MB8208F00938342B8FD8377E0090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20260713203850.650426-1-alexander.deucher@amd.com>
+ <IA0PR12MB820888C41AF05BAA5C2CA57090F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <3656074a-1a01-49f6-8f7c-129ab379f129@amd.com>
+In-Reply-To: <3656074a-1a01-49f6-8f7c-129ab379f129@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260714095832.52308-1-xiang.liu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0275.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f2::13) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MW6PR12MB8706:EE_
-X-MS-Office365-Filtering-Correlation-Id: a98ba6a0-b353-44e0-9e53-08dee1910323
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|6133799003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: SgrFambBm1TkFAGn0Y44SWY/tCbH6Dc89vRvbuuxiTPHEfM2ornL2BSIub6WCIJrL5nv6FE5PDdH3qhFywzVHCpbnjfEBvwWJ8/Xpk3GLNaW1MJEuTcGYwJTib2/0nKEV+VK/OvFM+X1UKbuas7OlwuxUwE5LRxFX7BzQkrk6QqY6JltImH3eaOHtUmirlCUvfmQWcoPNYZZP4dtqD8kPHeCUCJeA+0aUg+snyz0MwbLENACQIVHRPf1Om78gbTajXztQkFTZU7Bts8WJa5IKpMGZIhNzxE4G3aa46vtT63rUfPJ8OtML0m7t4F9EsO9T0JaT4tPFlLnUXGDQ7wINAwxrngVnlfKMUcjTb2KD71dg1QTedNy4qcqNV9i7AcMZAfL7b3upJjxVcRcYTBovFCJcL3vn2znBW/iWGXyxecTGsbn9mZy1Rnrekwp2w8XSlqqu11Ik0XnYtDD7peQ5ULrpYHZvHCKN3fY/bz7BGK+ULLnQpXS4SJ2FyShHh6tH044hmRCyHWRCGZgi3gZCTIH9UvTYhpo+IwT+6lsivhm+kgjqvkvAbPADOMciuepSLIAF0qAKjQC9RQ/szNv6eRe+STIxnM2hrZumPIQ31OyBZxfYPxKIgb4Ys9JJ+WxD8VvM9GVLRqv488iuYmWVCodKE15ymElY+oWTJuvaZw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-14T10:25:40.2600717Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+x-ms-reactions: allow
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|DS7PR12MB5768:EE_
+x-ms-office365-filtering-correlation-id: b13f2fef-118d-4a5f-efcc-08dee1927f28
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|8096899003|38070700021|18002099003|22082099003|56012099006|11063799006|4143699003|6133799003;
+x-microsoft-antispam-message-info: cZYf1GaMATIVYZ8f3miFvBlraItILQXasgRlicsa+tFxScHUJjdwURjbS2C4qKmy/b21iEc674UNFhncWd2BoEXH6rfkXhXtf/mLyn9gYWmrHO7gxL0c/0XbfPTNHFVRnx/6mNiUzPjy1I84Oc2C8dM6U6/Ei5vO7ToMfMPM50DOGa4qMR1rIUv0+abYeZMOwDfnkz0aRdbnUu1H3idhbKXQ0mk0+I21wdF8SOeJIhHTsW9L5GEamQm/33zpOqWLGfSnLW3UBN6eAxKMA/oOaxSUyb0iodXQR2xSUs9vvb9xD+0RHl27dEAOv4KyblBkq9HnNGFMWSkN2G9t88mLMhla5qheaX/Ply9HhUC3lGFGXUYCLP/kh8WvCZaqKv11vVPWE9zaw284lbuhPgtkAy9VnoMVwsMVP/mJjOCcvFw7VKmh2Y+FhEczoW9dOoVjYznWXUz73OVeZbEgD4M9wDXR5WH3L6otnJKh/Ri0UbphmuQJ/P/gsj2t2uf9iklTEKKzIdRhVEBW1FNYkNEbgVUdaeWRKaWQkUzze+ir+35kjLk2lOq1hC1zGbp5GaBNyQSxZuIr5pR21FY4xYbGIIyTs6RUV6lrG694YUo8LCDqlZ5cwWw655/pd5kONJfhLsLNyZDhzw08/3RXI1nSm/5nOfE3Jvfp4axDc6afT7c=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(8096899003)(38070700021)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(6133799003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WlhIcGZqQ0lGcjNsbGtSeEFsK1VidC9Ba3FjMURSVzAwQnBqTCtwRnl6TEtX?=
- =?utf-8?B?U2pwU0JsVjhtNDUxdm5jbUlXUmJGc3QrUVQ3cDd3dDNOVDRjUTBlbEhibUR3?=
- =?utf-8?B?MHhMekdneWdndFhIZnNzT3k2VUM3dTJwWFV1NXAzTDhSS3lCOUs3R002UWl4?=
- =?utf-8?B?ek0zUTBBMHhyNnZWbDdQRGpBQlNKTWg4OWoyTzAzSTRUMWlsZG1rZUNlREs4?=
- =?utf-8?B?TTZHSUd1OTVmOVNFeHFERnhTMTVkZkQzbnUyMlFPaEY2UzF3azJTM3ZaeFZR?=
- =?utf-8?B?bmQvTk9jcmk5OW16T3IrWGttcVF5RTArT1RaTFRXQjhrT1FXTHE3Y0RWVDg2?=
- =?utf-8?B?S1dpY2JDMUFVV2Nia1ZSa0lPejBVaHhsQjAxdzFWRDVJSDYyaUVYbnUxM2tt?=
- =?utf-8?B?SERwK1JmdE5KRXVWU3FFT291STBSM1ZmOWo4aWxaZzBGVzg3TVl6ejhlT05V?=
- =?utf-8?B?aFk2TGU2T1lQR3Z5cWdRRHBoVXhZeGg1TFdYamtIVUw1c1hQQjFjTkFNZlVj?=
- =?utf-8?B?QlhVMmxkakZjaHA5ZTFBeThsRWtPd3NKWTFNV3Z4VS80M0Y2V1laVFB4NXdP?=
- =?utf-8?B?OGpyejZHbTB5eFZvV09WM2J1L2lZMTVnY2tPcjJIanFFVUk5WThKS0RaNG5r?=
- =?utf-8?B?bDBQem54YUdjUEQ2QzV4eTVYWWh6UlI2SU1PelBlM0N3M0xmdUwxbzVHTUpa?=
- =?utf-8?B?SHNTRW8vMWFNa2FLVUdmek9nZEkrQkNpeGYzNjZQTU9PYmZCVW5FR1pUTWQx?=
- =?utf-8?B?cWtwR1RzYXpzaFVxbFBsczkxVmhJVmRHdm5mdFVTOWk0eHNYM0ZaZkpDZnJ0?=
- =?utf-8?B?OWYrSFhJZ1lTNVZGVnh3K3IzV25hYkJLdzdQbHNpWmpSWXV3aStLT0pWYjRu?=
- =?utf-8?B?U0lzV2JnVXJiRGFNaHBZVGl5TW0yNDc3VFVObWs3OEx6OE5LM05pRUMxVG9i?=
- =?utf-8?B?eW5iVk0xdG1DSDBzTGxTVWVVQkpiV0lPdFFFZExxdmRoL09HVVN1eFQ4U3U4?=
- =?utf-8?B?eWFVSDg1QklvaWlWMUxUNTBxYkxKTk4rL3o5YVpHcXA5YytQV2dyRzdSY3gz?=
- =?utf-8?B?eUZVTDlJWnJEN213VGtONkk0OVFGNmM2TUtEU3p2UGtoT3hweEx0UkN1anI1?=
- =?utf-8?B?VmQycGZzVG1PekFISnN1c2dtaHlmMkNPc0c0ZktLSUdzWWVkN29Jc3pGYzUv?=
- =?utf-8?B?NFErWldDQnFqVTZUT0ZNdEsyWEpPZWw5dmVpb1M0eU83YjVnYVJaa2VyejZG?=
- =?utf-8?B?c3pJb0xZRnRJSS9CYUFhS0tyRzE2bktBRkppTUtwSkdBeS9OYnMzSktYbVdt?=
- =?utf-8?B?TG8wakt4RzBjUFcxbEI3cWFXQ2x6RzZPbER1ZHYxa1JERlZiZGU1TzZZYXdy?=
- =?utf-8?B?YUVqWkg0SFVlb2V1bFV0cG1RY2JnR1h5Yk9FRGppK21QbVJvNGVyemJlS0RK?=
- =?utf-8?B?ZysydFRZYVEzNDg4R1J6NS9FV2hKY3M4aUxzTkVocFBoOHZabnpnRWRlWldl?=
- =?utf-8?B?ZFhhRStEVEUxQkJjMndNSlRXT2tiRGhxbjlQVDRzc0FtOHhGVnpxbkNaY1VZ?=
- =?utf-8?B?MTBuNzJjK0k2dytKWndZd3hHa25ISmxvSUZTeGF0eUV0ZW1CYko2VUU1SlR1?=
- =?utf-8?B?S2FvZ3dvcGlPeVR4K2FNZUkydzg2V0lrZGt5aERsT1Z0WENvVk1ZRlp5ZDdy?=
- =?utf-8?B?N0lUc3JsR1ZtOXgwUHF3eHdobWVaQXRoanRBckR4REU2cVNiV0YzVnpEbnhV?=
- =?utf-8?B?bmNURHRFbHdtMEI3VnJpbk14NENXcUszUGlLR25CVlJSeXYwL3Q3N1d1QUVn?=
- =?utf-8?B?QWVLSUhzWUh6UFY3a2dTS0JRSHlySHlad0x2bnBMSGVkR1B0OTJYdzROS2pF?=
- =?utf-8?B?RlZsa1R3UzNMVFNHdVNjZ0JCd1hRK2FWTi8zak9lWmxwcDdvdWN5QUNldWhE?=
- =?utf-8?B?TmlMZVNITlVlQkoyd0JzV2lYVGlXN0RpZGJqRUZSc2pnU0xDSVdCV0xUc2R0?=
- =?utf-8?B?VDNjaThnZ3dkdE5nd1BxT3ZEMzNjYkVvWGFYZFdaNit3UXZCTmdKZFcraVhS?=
- =?utf-8?B?MWZoZjRRTFJhZkNhcnllRWRSVDN4aDVYQkpDT0ZkVUtMVXk4cjdIcDZzSncr?=
- =?utf-8?B?cy95dzloSzErdDlnd3BZOGlxVzQ0cXhEdE8yTGdMR3JEak83eHdITm8xR3dY?=
- =?utf-8?B?eXNDSU5tUDh2N0hPQm9SL0g0NlFTL3cyd2Q5WWQxbk9hMkRXV0JLUUkweklC?=
- =?utf-8?B?cjBlOG1rUVRFUElwMllvazErakFsYUZBbXN4TklTcDlqZmFXYmtBRThNM0RO?=
- =?utf-8?B?ZFY2T2VVYXRYbXQ5ZE0wZXdBUzVhQUJ6RVp6S3JHSGRId05yWklCZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UWW2/oszVqYGBKsqQwcXfTf6qyTqcNQeYc3SBvjpO9LXATCIOhOcNN3ket2a?=
+ =?us-ascii?Q?cGmoUFJY8OzXeNKg+zcpoIceSCmdxG4BMD1oKSWjCO0zVbSUWHCwiH2b3kh0?=
+ =?us-ascii?Q?chaObmFGWfYyogfwXi88kruusJpzZKO4CBB3B7Ynx02XD2Z5wjczoxx9x6C5?=
+ =?us-ascii?Q?7TFNTzNENJwA2KyYYfnRpzIXHVlRPBGljWERoDxFQLy8wZRe5DDVb3V7aCg2?=
+ =?us-ascii?Q?CxiUOxaXEX8k/QMmhIWAz+kOYfBKp5tjWBdMSADX8x9sE2MGfroCxuZiLpoc?=
+ =?us-ascii?Q?9s6kitSUYpoCQbR43DGiVgg7/XU8aTEeb50DHNtUumNkQQYbkq69sizAqAWI?=
+ =?us-ascii?Q?7djFZ7yJw0sRTPHZKIMZdEWUMGV20ZhXTNx6vepakT+5DCL+vyvSozFnVT59?=
+ =?us-ascii?Q?XR6RkuvAu/hyjMxW5vhAkT81lKxyN4w1c5AJ1S9YCfw54ERWWOhwZ7pCQpFJ?=
+ =?us-ascii?Q?uhTh+H2X4oIcKyXndI6Y+1xtLCibZKBaLScd/vG/xqK7wzSOv2O424V9ekOM?=
+ =?us-ascii?Q?V6oIBwxqdvIsQSjGogElD9OW4PkGo8Vyu0IuLWM0V5GYiBNjhOP8B4URwDsM?=
+ =?us-ascii?Q?8Oeyae+3Z9LJreFmCpAgw/TIUxxM03v2yEQcJjhqCElieJ8EAqQDUzzCKq5Z?=
+ =?us-ascii?Q?8rjQMMagW0Z4tOffFURYGuBIyELm0chgxHBJawX32e5zKxHdFst4knReVy1e?=
+ =?us-ascii?Q?8OfOgfnqGsSLeJI6H2n6eDZ9s7iBMTE4uSKFBmBo3SHPg7K56g2e/qnuopcw?=
+ =?us-ascii?Q?hGFBagx85hhWq6ykgSdKvuwPa5ch0Iydu4yZXfUnL4/Te3QTfQNLq4LFBExU?=
+ =?us-ascii?Q?RgKl7jzD+F/SL/K7EwPkRPL5k+apN8RMI6OtAx0bQ/fJFtOQ4bx6mYzQCnCB?=
+ =?us-ascii?Q?jnRGSRi3f3WL9shTpdFXzfuE+lx7RxpLu9lLbLRdXcUjwtLxbtdFYeS8k56p?=
+ =?us-ascii?Q?kwXzGPcHzUKUAn+jzs1qDe+9+gzdKu7fj9PmgzhFmLl1Pd6zn/acPSKb5FeW?=
+ =?us-ascii?Q?EnJueUuOVsDRVcvtW0UWo7G1xuz9GHhs+CV/+N/f//Jklf159GuyyKMI/u7G?=
+ =?us-ascii?Q?WlTxoklbiVaYFuu7yKr3mwLzLo1FPOMuh6W7vLbU687lHp5LU65Wjl22uVn6?=
+ =?us-ascii?Q?pf0NFp+UgrR5xYQ7fvl/bjSaVH/qp92N8LNrdXmqrq5Y5fscfMJhorRH58S3?=
+ =?us-ascii?Q?Lrr6XsyDRz+ZMLEfq3XbQmiSV2Z8+HrPtv+X5GGzTDo7U0lloVM9iWfxlEMl?=
+ =?us-ascii?Q?hn2PmWXoZlWQW4J5RQygLSLSCSP7SDPTIcuBblGBQUfHY1wX52zc/qsT2M0U?=
+ =?us-ascii?Q?VyJcEbpxwkfmD78g/AldN0W6SHp+MOIYKc2CAbHnJKGjDGSvXX6srl+YewU3?=
+ =?us-ascii?Q?P3MH4ssTkvMunxbON2/zXRxaGF29iNII0aFmgflziaZ5o40+q7oVyyJahVJc?=
+ =?us-ascii?Q?2tMYZPlMmUJ9NyL2FT0OQgTpWtORdthi/Lh201UncOjNeH9DelOkYmnNqKkB?=
+ =?us-ascii?Q?6nuD8wCnwUhPlrNSZOK0BiB47DLvQxtrMk3WuELTtKPZ5NoD/pdba25XG1i4?=
+ =?us-ascii?Q?v0lC5hHtvUaXsQzcgqhnVJofp6pGFid/BeRq6ERGutDdM7954ohPPqrQ5qxF?=
+ =?us-ascii?Q?tMl+RBchUi/zel7zCPSuoDtnGfYyofWYwMf05f2Ry0xovU81LvkPT5R69QkP?=
+ =?us-ascii?Q?f4QA6SCANlW7Vny4RT4FfewGHxdjDbRE4Zjlz830fzpUST5Hgm5RbsCeQtHI?=
+ =?us-ascii?Q?Oje2KmyPeg=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_IA0PR12MB8208F00938342B8FD8377E0090F92IA0PR12MB8208namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a98ba6a0-b353-44e0-9e53-08dee1910323
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 10:16:47.4235 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BIvHx/BcP7q4Y3IbLt5CF0a12U+eKWk1SzfasJ0SEEx4ILgSzdNUFRRP3k8aXXNN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8706
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b13f2fef-118d-4a5f-efcc-08dee1927f28
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 10:27:24.7826 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: T9qgeYW2lA89E86r8H7JCUcaCA5SF6VLr32ZMuzNfpp5ut4UouTV1VC7Tz+JTG7tp1ozOv8y9u4vIchN6GUjLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,111 +137,251 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_IA0PR12MB8208F00938342B8FD8377E0090F92IA0PR12MB8208namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+AMD General
 
 
-On 14-Jul-26 3:28 PM, Xiang Liu wrote:
-> The XGMI reset-on-init path can run while the device is still at the
-> minimal init level, such as during an NPS memory partition switch. In
-> that flow the normal RAS IP block hw_init is skipped, so unified RAS
-> is not enabled when the early CPER initialization is attempted.
-> 
-> Resume RAS after the XGMI reset-on-init completes and retry CPER
-> initialization for devices that still do not have CPER enabled. This
-> lets the CPER ring come up once RAS is ready while keeping the path a
-> no-op for devices where CPER was already initialized.
-> 
-> CPER may now be initialized after the normal debugfs setup has already
-> walked the ring list, so register the CPER ring debugfs entry from the
-> retry path when debugfs is available. Track CPER ring debugfs
-> registration to avoid duplicate registration and clear that state when
-> CPER is torn down.
-> 
-> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c    |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h    |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  5 +++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c    | 15 +++++++++++++++
->   4 files changed, 22 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> index 6fb129025761..7513541e6eff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-> @@ -504,6 +504,7 @@ int amdgpu_cper_fini(struct amdgpu_device *adev)
->   		return 0;
->   
->   	adev->cper.enabled = false;
-> +	adev->cper.ring_debugfs_registered = false;
->   
->   	amdgpu_ring_fini(&(adev->cper.ring_buf));
->   	adev->cper.count = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-> index d12c98077d9d..76df176eab9f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
-> @@ -51,6 +51,7 @@ enum amdgpu_cper_type {
->   
->   struct amdgpu_cper {
->   	bool enabled;
-> +	bool ring_debugfs_registered;
->   
->   	atomic_t unique_id;
->   	struct mutex cper_lock;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 3d1ede5f8de2..78130f8565c5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -2184,8 +2184,13 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
->   
->   		if (!ring)
->   			continue;
-> +		if (ring == &adev->cper.ring_buf &&
-> +		    adev->cper.ring_debugfs_registered)
-> +			continue;
 
-Instead of a new flag, can this check if (!adev->cper.enabled)?>
->   		amdgpu_debugfs_ring_init(adev, ring);
-> +		if (ring == &adev->cper.ring_buf)
-> +			adev->cper.ring_debugfs_registered = true;
->   	}
->   
->   	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index b265b68e0f37..4ec8e446d377 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -1400,6 +1400,21 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
->   		 * initialized, and for non-uniras devices.
->   		 */
->   		amdgpu_ras_resume_after_reset(tmp_adev);
-> +
-> +		if (!tmp_adev->cper.enabled) {
-> +			r = amdgpu_cper_init(tmp_adev);
-> +			if (r)
-> +				dev_err(tmp_adev->dev, "failed to initialize CPER after XGMI reset-on-init\n");
-> +#if defined(CONFIG_DEBUG_FS)
-> +			else if (tmp_adev->cper.enabled &&
-> +				 !tmp_adev->cper.ring_debugfs_registered &&
-> +				 adev_to_drm(tmp_adev)->primary->debugfs_root) {
-> +				amdgpu_debugfs_ring_init(tmp_adev,
-> +							 &tmp_adev->cper.ring_buf);
-> +				tmp_adev->cper.ring_debugfs_registered = true;
-> +			}
-> +#endif
+Get Outlook for Android<https://aka.ms/AAb9ysg>
 
-Here it could then init both debugfs and cper together since cper is 
-enabled only at this point.
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Tuesday, July 14, 2026 3:14:34 PM
+To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Deucher, Alexande=
+r <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists=
+.freedesktop.org>
+Cc: Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com=
+>
+Subject: Re: [PATCH] drm/amdgpu/userq: properly account for resets
 
-BTW, is it possible to call both inside amdgpu_ras_resume_after_reset? 
-If not, better to create a wrapper function like 
-amdgpu_cper_deferred_init or similar and move inside that.
+
+
+On 14-Jul-26 10:16 AM, SHANMUGAM, SRINIVASAN wrote:
+> AMD General
+>
+>> -----Original Message-----
+>> From: Alex Deucher <alexander.deucher@amd.com>
+>> Sent: Tuesday, July 14, 2026 2:09 AM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
+>> SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike
+>> <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
+>> Subject: [PATCH] drm/amdgpu/userq: properly account for resets
+>>
+>> We need to increment the reset counter, force fence completion, and set =
+the
+>> wedged event when a user queue is reset.
+>>
+>> mes_userq_reset_queue() handles this for collateral damage, but the call=
+er needs
+>> to handle this directly for the original guilty queue.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>> Cc: Prike Liang <Prike.Liang@amd.com>
+>> Cc: Sunil Khatri <sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> index 6aa75da27f912..5e1262636e1e9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>> @@ -146,8 +146,13 @@ static void amdgpu_userq_hang_detect_work(struct
+>> work_struct *work)
+>>                                                         queue, NULL, NUL=
+L);
+>>                else
+>>                        r =3D userq_funcs->reset(queue);
+>> -             if (r)
+>> +             if (r) {
+>>                        gpu_reset =3D true;
+>> +             } else {
+>> +                     atomic_inc(&adev->gpu_reset_counter);
+>> +                     amdgpu_userq_fence_driver_force_completion(queue);
+>> +                     drm_dev_wedged_event(adev_to_drm(adev),
+>> DRM_WEDGE_RECOVERY_NONE, NULL);
+>> +             }
+>>        } else {
+>>                gpu_reset =3D true;
+>>        }
+>
+> After the original queue was reset successfully, it did not update gpu_re=
+set_counter, complete its pending fences, or send the wedged event.
+> mes_userq_reset_queue() already updates gpu_reset_counter, completes the =
+pending fences, and sends the wedged event for the other affected queues,
+> but skips the original queue because it has already been reset.
+
+What is the rationale of sending multiple device wedged events on a per
+queue basis?
+
+The question of whether drm_dev_wedged_event() should be emitted once per q=
+ueue or once per overall recovery seems like a broader design discussion.
 
 Thanks,
-Lijo
+Srini
 
-> +		}
->   	}
->   }
->   
 
+
+
+--_000_IA0PR12MB8208F00938342B8FD8377E0090F92IA0PR12MB8208namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+AMD General<br>
+</p>
+<br>
+<div>
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
+3, 33, 33);">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
+es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
+, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div>
+</div>
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(33, 33, 33);" =
+id=3D"ms-outlook-mobile-signature" dir=3D"auto">
+<span style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robo=
+to, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(33, 33, 33);"=
+>Get
+</span><span style=3D"font-family: Aptos, Aptos_MSFontService, -apple-syste=
+m, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;"><a href=3D"https=
+://aka.ms/AAb9ysg">Outlook for Android</a></span></div>
+<div dir=3D"auto" id=3D"mail-editor-reference-message-container"><br>
+<hr style=3D"display: inline-block; width: 98%;">
+<div id=3D"divRplyFwdMsg" style=3D"font-size: 11pt;" dir=3D"auto"><b>From:<=
+/b>&nbsp;Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+<b>Sent:</b>&nbsp;Tuesday, July 14, 2026 3:14:34 PM<br>
+<b>To:</b>&nbsp;SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;;=
+ Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b>&nbsp;Liang, Prike &lt;Prike.Liang@amd.com&gt;; Khatri, Sunil &lt=
+;Sunil.Khatri@amd.com&gt;<br>
+<b>Subject:</b>&nbsp;Re: [PATCH] drm/amdgpu/userq: properly account for res=
+ets<br>
+</div>
+<br>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<div dir=3D"auto" class=3D"PlainText" style=3D"font-size: 11pt;"><br>
+<br>
+On 14-Jul-26 10:16 AM, SHANMUGAM, SRINIVASAN wrote:<br>
+&gt; AMD General<br>
+&gt;<br>
+&gt;&gt; -----Original Message-----<br>
+&gt;&gt; From: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+&gt;&gt; Sent: Tuesday, July 14, 2026 2:09 AM<br>
+&gt;&gt; To: amd-gfx@lists.freedesktop.org<br>
+&gt;&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; SHANMUGA=
+M,<br>
+&gt;&gt; SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Liang, Prike<br>
+&gt;&gt; &lt;Prike.Liang@amd.com&gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.co=
+m&gt;<br>
+&gt;&gt; Subject: [PATCH] drm/amdgpu/userq: properly account for resets<br>
+&gt;&gt;<br>
+&gt;&gt; We need to increment the reset counter, force fence completion, an=
+d set the<br>
+&gt;&gt; wedged event when a user queue is reset.<br>
+&gt;&gt;<br>
+&gt;&gt; mes_userq_reset_queue() handles this for collateral damage, but th=
+e caller needs<br>
+&gt;&gt; to handle this directly for the original guilty queue.<br>
+&gt;&gt;<br>
+&gt;&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+&gt;&gt; Cc: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br>
+&gt;&gt; Cc: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
+&gt;&gt; Cc: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 7 ++++++-<=
+br>
+&gt;&gt;&nbsp;&nbsp; 1 file changed, 6 insertions(+), 1 deletion(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+&gt;&gt; index 6aa75da27f912..5e1262636e1e9 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+&gt;&gt; @@ -146,8 +146,13 @@ static void amdgpu_userq_hang_detect_work(str=
+uct<br>
+&gt;&gt; work_struct *work)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue, NULL, NULL);<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+=3D userq_funcs-&gt;reset(queue);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (r)<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (r) {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu=
+_reset =3D true;<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; } else {<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_inc(&amp;ade=
+v-&gt;gpu_reset_counter);<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_fence_=
+driver_force_completion(queue);<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_dev_wedged_even=
+t(adev_to_drm(adev),<br>
+&gt;&gt; DRM_WEDGE_RECOVERY_NONE, NULL);<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; }<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; gpu_reset =3D true;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;<br>
+&gt; After the original queue was reset successfully, it did not update gpu=
+_reset_counter, complete its pending fences, or send the wedged event.<br>
+&gt; mes_userq_reset_queue() already updates gpu_reset_counter, completes t=
+he pending fences, and sends the wedged event for the other affected queues=
+,<br>
+&gt; but skips the original queue because it has already been reset.<br>
+<br>
+What is the rationale of sending multiple device wedged events on a per<br>
+queue basis?</div>
+<div dir=3D"auto" style=3D"font-size: 11pt; color: rgb(33, 33, 33);"><br>
+<span style=3D"color: rgb(0, 0, 0);">The question of whether drm_dev_wedged=
+_event() should be emitted once per queue or once per overall recovery seem=
+s like a broader design discussion.</span><br>
+<br>
+Thanks,</div>
+<div dir=3D"auto" style=3D"font-size: 11pt;">Srini<br>
+<br>
+<br>
+</div>
+<br>
+</div>
+</div>
+</body>
+</html>
+
+--_000_IA0PR12MB8208F00938342B8FD8377E0090F92IA0PR12MB8208namp_--
