@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB66C44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:47:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87B5EC4450A
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF1FF10F094;
-	Wed, 15 Jul 2026 13:47:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2847A10F095;
+	Wed, 15 Jul 2026 13:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H2eJv7Lb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qhdTCpUZ";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011010.outbound.protection.outlook.com [52.101.57.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEC2710F094
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:47:22 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010017.outbound.protection.outlook.com [52.101.46.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14ECC10F094
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:47:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uqPC0jsMZhoKINU5rrctkJCLjZEhPdxhpw17Rjv95P1BglF3OUl0MtEdQChH74tm3C1upcnWW8ZZS2r3dUD7/ygd9u9N0Ga5U8MVFRoxM9/qiU67DVjka6L2tGxzhifz+3QShHjlFjW2PHQqnIeTZvMIGxi8CcKX8hPSSyLotBjbk4xk1Fhoyf9P8KF1Dln0VJUlGzQD/gP5WQ8OzIIqGXWZbSZYCffbbpGOEzC6fCvYormNUDRzH5Kiy/n1nqovvVLJBVGxBMVCGv3mx1KN9OIKAMNBxUdPtyLYGUFXwKzMgdSv+CKg0fID+hWG7wvcuhH2GFLmXNNI0ZaJb45aUQ==
+ b=EYMUmbPhLi9fVz/WbJL0zhK3VsILBna6dZzVEx/1TPH6rgq3JsG2wXK9wHzNQdIV931cf7Fk+8gM/DgHJ8u3OOKeyZdf7CzxQCkb7pH/fJq4hQ5Cimpx9gndLixbPWNZxIw2uIs2i4c2Xe8XAxlKtOkxV6t1AD8RTl577IYSA6tc6HNPbwORmb++PkkcTdBkxUqZJHQtdM7RX5reVHOph+Z3c5bP5EuefFXqWU56+4YlZ1wxsfhC0VvCPeH0rVDF0OAGrWw8vEbO/akUzjR+MRCzKjI548OSgD69Mc0tZEs3yaCnBVewm298UIlXn1J19+o0GjrfySTTn8yP25IUCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jRvyXjqzLuBlRpam/hdQ9dg/svp0R6CFVv63tR2ARgw=;
- b=FvGONM1s3wjH06IRLf3NAYse6cePmIlRKNcWC0ifjGqDWAHikHokx+EO6W8MtnvS+qTUW20yUOKZ3DFO5WfOQQ/u6UhhnaMLZmDYfP6wLKlBKos8IHxJGf8T2jmtzVAr7U7FLz5rryA/P58vdxLH1Kht7fa+4CnXWBROQlTb1sv0+SEQHC0QFh2LzRiJf9OfJfhax2WOg4QMWB81m+Q4oNketOBJvicKMlR6knvhdb0rxawJRYO4zngday2HW79qpBd/U5nLHx3bbQaWUB9HtkKEBRAXeiqVztMPTjfoVY5vZgEIiAMF67DmGn4uIozYMU0Ulz+ESsAUBsW0fSFn0w==
+ bh=5PIT9d5koIKPaK50yGSxm1UOvyxdJGuV4d/fN3dyxJI=;
+ b=xhilT2ySBgB7qe16DxCocQeLKZ7Yb6y5F0viJ+vf0bVemxAfnLo3Tbbnqt+jqzLHFxdr76hdMd6A74pgY+eJ1dDPcTkJ3/qbOlLK20Mup60GJ6SJzEaPFdk3wgDcSHUBKMm75MOXbFQaUl+VTpHVXUwNanf8oUVd1TiiKcve3Rlgh296URXcxjE5gzCz64n5ZCZozFVuGEWp9r9k7rRyx4KBRm/jTBGTQJ8oEiQ5zyODAxe66B8PLT5C6Ut1UzqN70ZChuu6WJCGIlK/wE7T0xwA55vNBVKWWqpXWrUfxTiN9Q7KWyR2CCYge0cHbEFzeO1HTPegFvI3oJTW7KMHcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jRvyXjqzLuBlRpam/hdQ9dg/svp0R6CFVv63tR2ARgw=;
- b=H2eJv7LbnE+3mM2B9973ihW3QQz7loNzi2zpwbMU86T0XN+n/33ZrIJrYC1E/qss0uRPhhUvpsd6UrATyUQthlpBqWEBl1j9CfsKQpXwo2tlsNnskzOB5M++cLOaozKIPTxY3Ectvv/7UYRWJFxHg404vh1iEzPj/Ktryr9wmww=
-Received: from SJ0PR03CA0178.namprd03.prod.outlook.com (2603:10b6:a03:338::33)
- by PH8PR12MB7448.namprd12.prod.outlook.com (2603:10b6:510:214::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Wed, 15 Jul
- 2026 13:47:13 +0000
-Received: from SJ5PEPF000001F6.namprd05.prod.outlook.com
- (2603:10b6:a03:338:cafe::98) by SJ0PR03CA0178.outlook.office365.com
- (2603:10b6:a03:338::33) with Microsoft SMTP Server (version=TLS1_3,
+ bh=5PIT9d5koIKPaK50yGSxm1UOvyxdJGuV4d/fN3dyxJI=;
+ b=qhdTCpUZNLpcPNGdkSpw6F5tFK64WxYoIs/4zD7Hc/Kw9bPzBvyQXWtqtq2noQZvFSDb1OE1x0jdkrrWJwkgGnguwdCfG4KEn35GgV5+YANYBS+G695uZGF9kWIQ7JbXgd3zTowKp2YZjb62j5GRURynNJ/yQQEWaGleTEZKOVg=
+Received: from DS7P220CA0073.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:259::7) by
+ SN7PR12MB7130.namprd12.prod.outlook.com (2603:10b6:806:2a2::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
+ 2026 13:47:18 +0000
+Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
+ (2603:10b6:8:259:cafe::a5) by DS7P220CA0073.outlook.office365.com
+ (2603:10b6:8:259::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
- 15 Jul 2026 13:47:13 +0000
+ 15 Jul 2026 13:47:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F6.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:47:13 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:47:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:47:13 -0500
+ 2026 08:47:16 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:47:12 -0500
+ 2026 08:47:16 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 15 Jul 2026 08:47:09 -0500
+ Transport; Wed, 15 Jul 2026 08:47:13 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,9 +71,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 37/70] drm/amd/display: add KUnit tests for stutter quirk
-Date: Wed, 15 Jul 2026 21:37:47 +0800
-Message-ID: <20260715134432.1975118-38-Wayne.Lin@amd.com>
+Subject: [PATCH 38/70] drm/amd/display: add KUnit tests for DPCD poweroff delay
+Date: Wed, 15 Jul 2026 21:37:48 +0800
+Message-ID: <20260715134432.1975118-39-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
@@ -82,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F6:EE_|PH8PR12MB7448:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6dff836-adc7-44b1-5867-08dee2779356
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|SN7PR12MB7130:EE_
+X-MS-Office365-Filtering-Correlation-Id: f287a88f-0283-41a2-c171-08dee2779633
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|22082099003|10067099003|11063799006|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info: YBDx72Vy77Wip2+UfVRvlpjAN5T0mbOsZ+VqEzBHnDD0YSXT/SLLIw1S2rb5HsEbAbYalvGWXAXk+oapZdAhyKtpMiWPJWhcj56lW1Vo4BBW/IlczsvBIGAng3Qpy3xJXnWkUTsbk5yuURpsvH2x2qv64cRQEYm9RdeihT7lQBAtyluO+w5oqjMoxrWpgdunpQJeCvzWBm1A3/civikx5G3o7PAkQecPumHyZKm43OIaNClXQwqRBWT2edr5mVzK0Rs2wA1uJ+CsanOrpzk01NcyxNQeldpsxoTWx/1Sljlqy+CjKZ6V3OwzYxAXizhYt+Ls2lP79cM12iz9Lbzlor+spppAoYZTaUfiLtz66N0B5Gy96/DqmiJihQd0p7w7fmdzaCY4TzB3Jl7vPRFq/Fub2P0se4FQWS0EGaJuOX8R3loWGPDdOEekzw5Xzz0xgLQna9skWEhoi8Uhm0j+ieaYvKp09hvuSyHGkOV3Y5GHUwOn3yOhDIkefRsXZYCHYJ1VS1Pw+pGTU2Md3WEbySqmgufRcxDZl8KoxoSFpCeknpt+FQUjgyekpe/BhNH8RX9wSwg0p/BhmwpCYnduL2s6l0yaz9WVY3y74Xq9HzZa9N9cbhLi8S9rDL2G2ypl6deLUM9SUYTudXCaRVzQKgpoDc4d5/H3ypR8mr/9Tqx16zaos9pOUBbc/46zDh1tyvhMGvJtiUCFINOaYP5amw==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|3023799007|6133799003|10067099003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: auhjQR2CZ8tzKGDoob91HyJ9yhrE+j4CAHIzzlomYpryTTqbem81KQbSy8+oduMX/PtDTnhZI+ELMNHTWb3PhBmmgArXO/GcOPQ9CBUbP2lGh70sYZqaXUZw6mLpz6bN8Mw2yqnzvlR3Xjy17uCEEA6DqV7nkkVUSseFVL2sio+JBkZPJ0SFE+0qZTDVmNPKIxkbDv9N0jCoTTKg5VXLbPoyqS5W5sS/bBrW5RzTKOi9oCEcocc959FXytNvZu5crdfPKjfA7jfS/7EmEaBRCWj9bR/qUnpjzmnWPWrcDM2GLAd/pspkD8rHmIetxx1A8GTnYPSQQQ66xTvtn3Cn9NBUlKhVNMhcXfKR3fISLFr386UvuO/rFNrBdosqrbRga9KZcInekjG/ujWNqjKhCx6xW+0hWkEn0Vkh1YePSL0Qn/+kX1WFV61Ihi0QrMloPYmbK2uMu0ru1yOZDOaBaV9D+zReJKmPsmOtaZJm0RxLXgUv0nPNm+9Cx1xA2legzdJWez6bQkTlBXeHkhke2WQYK4klw+be81et11CaJmwibPGnExJrkSyex0gsczLVRmtJptINO5E3xXK6CWl+4XUu9Nac8cI06Ea9uSx0iEJOKMhdHRPZXcrYJ1MYJOcblcLqC9ULpSlL01Bd4UvOARuMr3iF6O+SayFaW5hv6G45aJo7gm6MHqwGrDeOd+dX6z7eZLHnSxLK5QNIkQFA5g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(22082099003)(10067099003)(11063799006)(6133799003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(3023799007)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Gx/HjIssPorBFPqj4wDOWb0N4jPUXuqk5hTkFZKmWJi5nFc6RceIZQEUvAERgvpQEjB498mv9Rr2ny7aKHoYij/SPQ4GO8iyWVBZd7S+0/+e5NP5B0LuMLvMGSgpDsB6G+7Er5f6Z+9t1weI0jQZcgM9603slUWGd7RK7nYk80V6WuqHRDAGZrhG38xC5kBbBp5ORWCyy+R66kwdvTeGilKBqhMhXvo+yS/MAgqA6BLrXHc+IzRE7EH1DO5CGpZocrXt8EBCU3WdBQ1HUjK2nYpo2EznKNmk5EmsVCMhahosJKzBsSPH9wgkkV4orrc1eXyfM6YpfDwx0BiouO8SxgaFOFlVNO5oTfphZcoC6f6BsVHhGJ9HgqqD0eu+pruCkU0EjopztAHQZnuaCUsxTvtgmy/7FTsexuLu5E9ysXBS8WWNbvpC6FI38ORZK5Z5
+X-MS-Exchange-AntiSpam-MessageData-0: /S0zHaEnmtp7XEzgM2HsJyQnSRRi7Y18avDNeHOdL7h1UhAOlqmQyCefFNOtJw6R6bpRdWA3xtL9DyPz6FsHZ/Gp+nxhbJbWiOmh7k/kxQGTf4buyFbiua1gfNT+8Cu81boSEA+adUEwMZa4zWIdAhSfS85fIHJ48/8wlR2EzUQcd9+J/OFSX0oBSAn8Nyim5dE/ZgCH08Sy9qk26rLlE5SbHH3LB7wFmdsZEHe0uJA8sVDyXhVITDPGIzLDT/VUjIrYko6v1q7+jmQj8qFQVrZJ0/pxPz5HW/pfi4yLS1XLZlhuviOg8ITM8WsTo+a5+eXhM+9sm2A5RU8qyEaFAtQjoKSCmNpndtrurZdkvjQAbe0EcWrV9RU0CIEGygD9ziGFF4zGutcAJsdJTZ0X7yCOz6OkDAGO7GmlgDFqtbSe8C6bY5KxOCawBKDD2yMH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:47:13.2821 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6dff836-adc7-44b1-5867-08dee2779356
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:47:18.1280 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f287a88f-0283-41a2-c171-08dee2779633
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F6.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBE.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7448
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,133 +122,94 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for dm_should_disable_stutter covering a full quirk
-match, a non-matching device, and a partial match that differs only in
-the PCI revision.
+Add KUnit tests for amdgpu_dm_apply_delay_after_dpcd_poweroff covering
+the NULL-sink early return, the zero-wait skip path, and the non-zero
+wait interval.
 
 Assisted-by: Copilot:Claude-Opus-4.8
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 64 +++++++++++++++++++
- 3 files changed, 68 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 48 +++++++++++++++++++
+ 2 files changed, 49 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8fe7e125e14a..8195ca386419 100644
+index 8195ca386419..9a3f78c17a5a 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -424,7 +424,7 @@ static const struct amdgpu_stutter_quirk amdgpu_stutter_quirk_list[] = {
- 	{ 0, 0, 0, 0, 0 },
- };
- 
--static bool dm_should_disable_stutter(struct pci_dev *pdev)
-+STATIC_IFN_KUNIT bool dm_should_disable_stutter(struct pci_dev *pdev)
- {
- 	const struct amdgpu_stutter_quirk *p = amdgpu_stutter_quirk_list;
- 
-@@ -440,6 +440,7 @@ static bool dm_should_disable_stutter(struct pci_dev *pdev)
+@@ -1919,6 +1919,7 @@ void amdgpu_dm_apply_delay_after_dpcd_poweroff(struct amdgpu_device *adev,
+ 			       ppatch->wait_after_dpcd_poweroff_ms / 1000);
  	}
- 	return false;
  }
-+EXPORT_IF_KUNIT(dm_should_disable_stutter);
++EXPORT_IF_KUNIT(amdgpu_dm_apply_delay_after_dpcd_poweroff);
  
- 
- void*
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 897434504459..84c0bcfc093f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1178,6 +1178,8 @@ bool is_dc_timing_adjust_needed(struct dm_crtc_state *old_state,
- 				struct dm_crtc_state *new_state);
- void set_multisync_trigger_params(struct dc_stream_state *stream);
- void set_master_stream(struct dc_stream_state *stream_set[], int stream_count);
-+struct pci_dev;
-+bool dm_should_disable_stutter(struct pci_dev *pdev);
- void reset_freesync_config_for_crtc(struct dm_crtc_state *new_crtc_state);
- void get_freesync_config_for_crtc(struct dm_crtc_state *new_crtc_state,
- 				  struct dm_connector_state *new_con_state);
+ /**
+  * amdgpu_dm_dump_links_and_sinks - Debug dump of all DC links and their sinks
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index b988198418c6..dfdef08343a4 100644
+index dfdef08343a4..c1a00e0e94a1 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -1937,6 +1937,66 @@ static void dm_test_per_frame_master_sync_skips_null_stream(struct kunit *test)
- 			    stream);
+@@ -1997,6 +1997,50 @@ static void dm_test_should_disable_stutter_revision_differs(struct kunit *test)
+ 	KUNIT_EXPECT_FALSE(test, dm_should_disable_stutter(pdev));
  }
  
-+/* Tests for dm_should_disable_stutter() */
++/* Tests for amdgpu_dm_apply_delay_after_dpcd_poweroff() */
 +
 +/**
-+ * dm_test_should_disable_stutter_match - Test the quirk device matches
++ * dm_test_apply_delay_null_sink - Test a NULL sink returns without delay
 + * @test: The KUnit test context
 + */
-+static void dm_test_should_disable_stutter_match(struct kunit *test)
++static void dm_test_apply_delay_null_sink(struct kunit *test)
 +{
-+	struct pci_dev *pdev;
-+
-+	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
-+
-+	pdev->vendor = 0x1002;
-+	pdev->device = 0x15dd;
-+	pdev->subsystem_vendor = 0x1002;
-+	pdev->subsystem_device = 0x15dd;
-+	pdev->revision = 0xc8;
-+
-+	KUNIT_EXPECT_TRUE(test, dm_should_disable_stutter(pdev));
++	/* NULL sink: early return, no delay, no dereference */
++	amdgpu_dm_apply_delay_after_dpcd_poweroff(NULL, NULL);
 +}
 +
 +/**
-+ * dm_test_should_disable_stutter_no_match - Test a non-quirk device does not match
++ * dm_test_apply_delay_zero_wait - Test a zero wait interval skips the delay
 + * @test: The KUnit test context
 + */
-+static void dm_test_should_disable_stutter_no_match(struct kunit *test)
++static void dm_test_apply_delay_zero_wait(struct kunit *test)
 +{
-+	struct pci_dev *pdev;
++	struct dc_sink *sink;
 +
-+	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
++	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, sink);
 +
-+	pdev->vendor = 0x1002;
-+	pdev->device = 0x1234;
-+
-+	KUNIT_EXPECT_FALSE(test, dm_should_disable_stutter(pdev));
++	/* wait == 0: no msleep, adev is unused so NULL is safe */
++	sink->edid_caps.panel_patch.wait_after_dpcd_poweroff_ms = 0;
++	amdgpu_dm_apply_delay_after_dpcd_poweroff(NULL, sink);
 +}
 +
 +/**
-+ * dm_test_should_disable_stutter_revision_differs - Test a partial match (revision) fails
++ * dm_test_apply_delay_nonzero_wait - Test a non-zero wait interval executes delay path
 + * @test: The KUnit test context
 + */
-+static void dm_test_should_disable_stutter_revision_differs(struct kunit *test)
++static void dm_test_apply_delay_nonzero_wait(struct kunit *test)
 +{
-+	struct pci_dev *pdev;
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct dc_sink *sink;
 +
-+	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdev);
++	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, sink);
 +
-+	/* Everything matches the quirk except the revision */
-+	pdev->vendor = 0x1002;
-+	pdev->device = 0x15dd;
-+	pdev->subsystem_vendor = 0x1002;
-+	pdev->subsystem_device = 0x15dd;
-+	pdev->revision = 0x00;
-+
-+	KUNIT_EXPECT_FALSE(test, dm_should_disable_stutter(pdev));
++	sink->edid_caps.panel_patch.wait_after_dpcd_poweroff_ms = 1;
++	amdgpu_dm_apply_delay_after_dpcd_poweroff(adev, sink);
 +}
 +
  static struct kunit_case amdgpu_dm_tests[] = {
  	/* Simple DM callbacks */
  	KUNIT_CASE(dm_test_is_idle),
-@@ -2042,6 +2102,10 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_per_frame_master_sync_single_stream),
- 	KUNIT_CASE(dm_test_per_frame_master_sync_two_streams),
- 	KUNIT_CASE(dm_test_per_frame_master_sync_skips_null_stream),
-+	/* dm_should_disable_stutter */
-+	KUNIT_CASE(dm_test_should_disable_stutter_match),
-+	KUNIT_CASE(dm_test_should_disable_stutter_no_match),
-+	KUNIT_CASE(dm_test_should_disable_stutter_revision_differs),
+@@ -2106,6 +2150,10 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_should_disable_stutter_match),
+ 	KUNIT_CASE(dm_test_should_disable_stutter_no_match),
+ 	KUNIT_CASE(dm_test_should_disable_stutter_revision_differs),
++	/* amdgpu_dm_apply_delay_after_dpcd_poweroff */
++	KUNIT_CASE(dm_test_apply_delay_null_sink),
++	KUNIT_CASE(dm_test_apply_delay_zero_wait),
++	KUNIT_CASE(dm_test_apply_delay_nonzero_wait),
  	{}
  };
  
