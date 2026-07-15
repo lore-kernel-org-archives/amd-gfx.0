@@ -4,81 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE50DC44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 11:07:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 280B9C44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 11:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCC010E19B;
-	Wed, 15 Jul 2026 11:07:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF4510EFFF;
+	Wed, 15 Jul 2026 11:20:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="U7FP5t/Q";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="ereKaZgT";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D49110E19B
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 11:07:52 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-c1600d040e4so308044166b.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 04:07:51 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8500010EFFF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 11:20:08 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-475881b9a4bso1748208f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 04:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1784113670; x=1784718470; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1784114407; x=1784719207; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=BqvNWS7ynothILQGOIFzn3zEwNSgdylTQT+Ovugrxi0=;
- b=U7FP5t/QkJ2Kf+kiZzw/AYqn/Kfed5RbABtCAQkwkVtRxrF6Hnu6uwqSDG5CXLDRbn
- 3/N+/5RXeN8QPQC6SWcQgBMapGB2wceZnaVeZpMJxkhdkdEU1r7eVAK2G8bIzlfBhkWY
- RlEfsyfdhxV1ApC90DbGnDMWQ8d8tP90PXH7BGblQ3QHvko14fmp0Rfa9qNIOhusJq1A
- ooqWb8dhKTAYhNW2XhJwrwy9dnps22ig6tvbDCuq0ljkBj+anp/uBr9h/ZKWg3PgM3KD
- oypetxotp28AUs7RdaoDqNEAyG6Iyp1BYQIj81Sy1v/ulGakKH6vwgEB/woi0/V1+1Ns
- nICg==
+ bh=p1xLqNggGe5knTrFpye58dQpgRIw/ZbCq3Wy8LtvhUQ=;
+ b=ereKaZgTe68Ymw8hTlw1ka4ZpZbq9jr4rnJrmdsUg2SIUEW887yex+vTgfiWGoP0cM
+ S15oBFMFWAafhrEZjwcZUhdudpX9Vd7aWbn12ousYQmN+mSDwsdJ/FJmQ4CPlH2pySfm
+ AS7g2xUNLN+GVWmqGNec58BsGMJtCMv3JrjU/3MRvVozycm7nfH9TWXAXUZUTzcMXcZS
+ llvjzWdGaDv0WcIdhUCXt1cvF5/IJT9BuGlaLA/eI6OQCW8ZqqNcDhHEucx+/dfgm8yo
+ vK4uXGPKk3J0aKQTIF0d92YNyaLjcVmPS2vnRxEpJ9LUZPBstSwvKQI3o6d+XHVBvrWr
+ tzsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784113670; x=1784718470;
+ d=1e100.net; s=20251104; t=1784114407; x=1784719207;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=BqvNWS7ynothILQGOIFzn3zEwNSgdylTQT+Ovugrxi0=;
- b=G+CeRsjTm7YdIbkfdXcluXH84kvlJ98X/Vo9nP3QwXnnJ1tVY8ZPluNySsrcswUp1Y
- G68C15pRHYYIYOHkFPQmjzOiRHvL3bqKCXO39+saz+mpak5B9s2ayZYx9i5iWBuo888r
- R8xpT69NIDqzHMdGwSi11HNRhFca5tA6PSIT9kT7FXtTd2JbwCRQ/iFMmAhXZR76nsWC
- JMiyrrvjaJXfqRjT2vgLTffFi6hkP7O4mJTYEhJiwtg9P8hlXDn9ebBhNpxuwqMvLq8q
- HDOVEFgZt8Bbw8fp1cdmCHX4R0kq5aY+pjl01VfD1E8qbHqZhGzZ9U1kFVRCxeosu3FO
- 76kg==
+ bh=p1xLqNggGe5knTrFpye58dQpgRIw/ZbCq3Wy8LtvhUQ=;
+ b=fNjLjqRFUc1rTUH20R+zpNvL0j8OauLY9MKDpre7WzHJblydqS/S0sM69z2ucDCd2s
+ FJoT6TXbrHYZ4EyQPCM50nuel0mmV9jJwApJVqyIesL49WzuC+mzTCXuGxccLYyf67IY
+ zlI9GTXiR1G8SFUH7alaD2N4t5TYkuqyp+0Y8vhLRgE8QgnxjHI5RVCXVJeoOpsTWFXO
+ Jcv0ncD/P1twcTA+hwVFrgW5fZws18mKsRtNRGB+ndNqFZ+xPspA8Rwuzm8ZOrZUdBPG
+ kGIYRyrhgajqdsCde2QDiF1DYNxMEZLWuEJg6KglwvlotTd/MLVBPq7rRAJuPwgQBOqu
+ MT/Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqZ+mFCWGsnMOO7QNxSZ2iZQWY02C8W0KluHZfHqgFfprFTiP6l4j9mX0qWXJDytTp6lZY6vueu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxi5o7VwzuAMfM9kBV2KXFx4IlFNfY5ZciqrrhtqgZoYT0/Vxkn
- TwS28RYCyDMd/sz8m1IHIEPCPNvJ1A16nWOAxKck1TNaMBqnspfkPu9Rx4W3KGqsTkE=
-X-Gm-Gg: AfdE7cmz8cc1ASYSQty1+HGBlait2j+eJrX5k28dFxSIy2Gl8v6iZ/sL7tD73KmcE3/
- fDwVs4HMAEmzdAjQAIfpSpcCS3j5SVf97suZJnVhamEnQqgdjVEZfJa4qNppicVlwUH73yq+TMK
- GJbJoFxUIvQSHMG5bZjvr+qgjMqoFztyYdgNLFbneRf2T3qPsIkgB5QbfwkCM2LNk+ELnEw75h2
- bA98cYl1CddDGzpMbnCa+IMziE3wiTXLJGjeuHJpWFEarI/IHy4DTPE8VQEaTBgQXGcUOU/DH2c
- b0TebpmF0kNwD6Meviz2BLoAcGbxqI4L2jcdYnE1iHSPjg2si+i9VKm5g77DfnZgRIhQ5vwTtZY
- Xt6l6gFzemLc5Ind4l7/s2KLS09xGw5IBbZZmWrbcAjr49VLQ9De978qtBRYILhvOw/5vjhPmO+
- jkZM1cyWT1BJxNso4WotO3IwYoChSvIQMEtA==
-X-Received: by 2002:a17:907:7247:b0:c15:a7b9:2ae1 with SMTP id
- a640c23a62f3a-c161e844fc3mr1071625566b.6.1784113670174; 
- Wed, 15 Jul 2026 04:07:50 -0700 (PDT)
+ AHgh+Rqt8ZbZBhP7uIIEaTCI4x/ZPTjcow6HnzVx5Ctbl3BU0ae7kVGJh2QBHsuksUUiT5+f+U3FE1VB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHPajJDLwUVoXR6opreaKqo1fcT2ZEyU+v84sD0y2yE1L9S0b2
+ c5QxzJkF7nnchmE4yEDq+bTATcKikhE++dlwAaWrFX34MIPLuT8Jzd2qVEabR+ww1tI=
+X-Gm-Gg: AfdE7cm0t581U1u0G2J6DUHmUz4+ihXgSjzfiKblKR+cMtbN3L2OvvCtxWjYdd2fBwu
+ wgPAURFpqNdmJgm2imp1lwYU8MXimMeozMMN8F0GbdJ9RhK5KV0SsJa3QY867GukZOKOn6W8zZF
+ ItFVn54MN30J/F8PwLDKH+Co52+oz8ZW5QwB9/sVMjqfywj8pyj1hcsnQKaVr9VrIGDVkDj1DTD
+ PErf/eZQHA7PAOEaCYwj1cbhPQaAmtY6PMpEgTvnDi3tPIexWeyuRAdmkSGNhT5TiDr01S0Pgg8
+ hzaeQ3ZK+mAPAbSxOdnttOs+MH7E2SsQJUvnzkzMn5+YV8O5NasA05FXR5EvYgPHa30JfQicKOa
+ odtUrcbwULYmSLJhXjNu8ZHpu4NgvpqsZ+7XzroS2q/tcWE3WYrFHQsqkcRjWNpn3iojTGEHR1Q
+ 8pn/M+fzH695NYjo6FZHdP6NpPt/Ji0V3WHLAkRlN5NRTU
+X-Received: by 2002:a05:6000:3c6:b0:474:64bf:8fb6 with SMTP id
+ ffacd0b85a97d-47f2dd26293mr22841280f8f.39.1784114406695; 
+ Wed, 15 Jul 2026 04:20:06 -0700 (PDT)
 Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c16873187absm4086666b.38.2026.07.15.04.07.49
+ ffacd0b85a97d-47f464a973fsm16508487f8f.17.2026.07.15.04.20.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jul 2026 04:07:49 -0700 (PDT)
-Message-ID: <c4989cf2-9826-4c8f-9a7f-d3155fde8738@ursulin.net>
-Date: Wed, 15 Jul 2026 12:07:49 +0100
+ Wed, 15 Jul 2026 04:20:06 -0700 (PDT)
+Message-ID: <7c7058e7-8a0e-40c7-b12a-dc4c3dabf982@ursulin.net>
+Date: Wed, 15 Jul 2026 12:20:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] drm/amdgpu/gfx7: Clean up gfx ring during reset
+Subject: Re: [PATCH 5/9] drm/amdgpu/gfx7: Fixup emitting SWITCH_BUFFER packets
 To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
  Natalie Vock <natalie.vock@gmx.de>
 References: <20260713125838.30607-1-timur.kristof@gmail.com>
- <20260713125838.30607-7-timur.kristof@gmail.com>
- <d6e5a13d-bb65-4633-8c0e-8b89f292bc3f@ursulin.net>
- <20288812.fSG56mABFh@timur-max>
+ <20260713125838.30607-6-timur.kristof@gmail.com>
+ <fb4f5735-2ccb-4a75-8d69-d776b3f3bb84@ursulin.net>
+ <7296917.jJDZkT8p0M@timur-max>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20288812.fSG56mABFh@timur-max>
+In-Reply-To: <7296917.jJDZkT8p0M@timur-max>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -96,120 +96,250 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 15/07/2026 11:16, Timur Kristóf wrote:
-> On 2026. július 15., szerda 11:18:19 közép-európai nyári idő Tvrtko Ursulin
+On 15/07/2026 11:36, Timur Kristóf wrote:
+> On 2026. július 15., szerda 10:56:38 közép-európai nyári idő Tvrtko Ursulin
 > wrote:
 >> On 13/07/2026 13:58, Timur Kristóf wrote:
->>> Clear the WPTR and RPTR at ring initialization.
->>> Additionally clear the ring contents during reset.
+>>> Implement the emit_switch_buffer() function instead of emitting
+>>> them duing emit_ib, emit_pipeline_sync and emit_vm_flush.
 >>
->> Please add the why part to your commit messages. ;)
-> 
-> After a reset, the ring contents could be "dirty" and thus need to be cleared
-> to prevent the command processor from executing packets left over in the ring
-> from before the reset. I think this is obvious, but I'm happy to add some text
-> to the commit message to explain it more.
-
-Yes please, it's easier to review if commit messages always explain the 
-what, how and why. It does not have to be long when it is simple like in 
-this patch.
-
->> Cover letter mentions the series is reworking to match gfx7 to gfx8 but
->> I looked in drm-tip and amd-staging-drm-next and
->> gfx_v8_0_cp_gfx_resume() does not yet have these changes.
-> 
-> The GFX8 code does have this:
-> 
-> For graphics queues:
-> In gfx_v8_0_cp_gfx_resume() it also sets wptr = 0; and calls
-> amdgpu_ring_clear_ring() unconditionally. This is actually not needed during
-> first initialization because the amdgpu_ring_init() called from
-> gfx_v8_0_sw_init() already clears the ring, which is why I call the clear
-> conditionally on GFX6-7. I could of course change the GFX6-7 code to also call
-> it unconditionally though for the sake of simplicity and consistency.
-> (It is missing the atomic things though. I think it should have that too.)
-
-Ack. Then just improve the commit message please - instead "Additionally 
-clear the ring contents during reset", have something like "Move the 
-existing clearing of ring content to happen only during reset because it 
-is otherwise already done during ring init".
-
-Presumably this is also true during resume?
-
-> For compute queues:
-> In gfx_v8_0_kcq_init_queue() it clears the wptr, also the wptr_cpu_addr and
-> also calls amdgpu_ring_clear_ring().
-
-Specifically about wptr_cpu_addr and rptr_cpu_addr.
-
-1)
-Does gfx7 have 64-bit support or normal write would do? Ie. I don't see 
-gfx7 code using the atomic64. 64-bit support seems to start in gfx9.
-
-2)
-Does rptr_cpu_addr need touching at all? Out of all other files only MES 
-does it. At least if my quick grep is to be trusted.
-
+>> during
 >>
+>>> Note that it isn't necessary to emit these in both
+>>> emit_pipeline_sync() and emit_vm_flush() because
+>>> amdgpu_vm_flush() already calls these when calling
+>>> either of those functions.
+>>
+>> The amdgpu_vm_flush indeed does emit two switch buffers:
+>>
+>> 	/* the double SWITCH_BUFFER here *cannot* be skipped by COND_EXEC
+> */
+>> 	if (ring->funcs->emit_switch_buffer) {
+>> 		amdgpu_ring_emit_switch_buffer(ring);
+>> 		amdgpu_ring_emit_switch_buffer(ring);
+>> 	}
+>>
+>> Comments are different though:
+>>
+>> /* sync CE with ME to prevent CE fetch CEIB before context switch done */
+>>
+>> Are you confident the two emissions are about the same thing?
+> 
+> Yes, I'm confident. One of the comments explains why the SWITCH_BUFFER packet
+> is emitted, the other one explains why it is emitted outside COND_EXEC.
+> 
+> This packet is interpreted by the CE (constant engine). The reason why this
+> packet is emitted is basically to make sure the CE can't start executing
+> packets from the next submission until the current one is finished.
+> 
+> (Note that CE is not utilized by any maintained userspace driver and is
+> discontinued in new GPUs. As far as I remember there were experiments to try
+> to use the CE in Mesa but it didn't yield any noteworthy perf improvement so
+> we just never used it. The old proprietary driver may have used it. It is now
+> also deprecated in the kernel.)
+
+Sounds believable to me.
+
 >>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 >>> ---
 >>>
->>>    drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 9 ++++++++-
->>>    1 file changed, 8 insertions(+), 1 deletion(-)
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 32 +++++++++------------------
+>>>    1 file changed, 10 insertions(+), 22 deletions(-)
 >>>
 >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
->>> b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c index a93cc02c3400..915612628f9a
+>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c index 0ceadb107d26..a93cc02c3400
 >>> 100644
 >>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
 >>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
->>> @@ -2546,8 +2546,14 @@ static int gfx_v7_0_cp_gfx_resume(struct
->>> amdgpu_device *adev)>
->>>    	WREG32(mmSCRATCH_ADDR, 0);
->>>    	
->>>    	/* ring 0 - compute and gfx */
+>>> @@ -2201,12 +2201,6 @@ static void gfx_v7_0_ring_emit_ib_gfx(struct
+>>> amdgpu_ring *ring,>
+>>>    	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+>>>    	u32 header, control = 0;
 >>>
->>> -	/* Set ring buffer size */
->>>
->>>    	ring = &adev->gfx.gfx_ring[0];
->>>
->>> +	atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
->>> +	atomic64_set((atomic64_t *)ring->rptr_cpu_addr, 0);
+>>> -	/* insert SWITCH_BUFFER packet before first IB in the ring frame */
+>>> -	if (flags & AMDGPU_HAVE_CTX_SWITCH) {
+>>> -		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER,
+> 0));
+>>> -		amdgpu_ring_write(ring, 0);
+>>> -	}
 >>
->> One day we need to fix this whole atomic64 situation.
+>> Commit message does not explain why the change of ring buffer command
+>> this creates is okay. Current flow is:
+>>
+>> amdgpu_ib_schedule()
+>> {
+>> ...
+>>     amdgpu_ring_emit_ib
+>>       amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
+>>
+>>
+>> New flow is:
+>>
+>> ...
+>>     amdgpu_ring_emit_ib
+>> ... other ring commands ...
+>>     amdgpu_ring_emit_switch_buffer
+>>       amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
 > 
-> What is the situation that needs to be fixed?
+> No, that's not what the new flow is. If you check the callers of
+> emit_switch_buffer() you can see that it's called from two places:
+> 
+> - amdgpu_vm_flush() emits it before the first IB when necessary
+> - amdgpu_ib_schedule() emits it after the last IB when necessary
+> 
+>> Is this okay? Specifically due the above comment saying "insert
+>> SWITCH_BUFFER packet before first IB in the ring frame" - is the "first"
+>> part not important?
+> 
+> amdgpu_vm_flush() emits it before the first IB.
 
-It is defined as normal u32 * and then, AFAIU, different ip version use 
-32- or 64-bit access depending on whether the respective ip version has 
-support for 64-bit ring pointers. The ugly casting should be hidden in 
-wrappers as minimum. Another task for a rainy day.
+True, I wrote the above before I got to the vm_flush etc and forgot to 
+revisit my earlier thinking.
+
+>> Also, amdgpu_ib_schedule only emits amdgpu_ring_emit_switch_buffer if
+>> there is a job. Currently it is always emitted.
+> 
+> I trust that the GFX8+ implementations are more precise and that it's sufficient
+> to emit this packet in the cases where the emit_switch_buffer() function is
+> called.
+
+I am not sure about gfx7 vs gfx8 because in my mind it's always possible 
+different hw generations may need subtly different handling. I will have 
+to defer to AMD experts here.
+
+> When there is "no job" that's a special case that is only used during
+> initialization (specifically the IB ring tests). In that case we are not
+> executing commands submitted by userspace but rather commands generated by the
+> kernel. So we can be sure the CE is not used in those cases.
+
+Sounds believable. I thought for a while whether a kernel submission can 
+interleave with userspace, like perhaps ring test post resume, but in 
+that case I guess context switch isn't needed since GPU has been 
+sufficiently re-initialized?
+
+>> Final interesting part is how amdgpu_ib_schedule clears
+>> AMDGPU_HAVE_CTX_SWITCH after having called amdgpu_ring_emit_ib.
+>>
+>> After this change only gfx6 remains the user of that flag in
+>> gfx_v6_0_ring_emit_ib. Everyone else only use it in emit_cntxcntl. If
+>> gfx6 was adjusted too (later), amdgpu_ib_schedule could reduce the scope
+>> of that flag to just the scope where it calls amdgpu_ring_emit_frame_cntl.
+> 
+> I also adjusted the same thing for GFX6 in the next series.
+> Can clean up the flag later once both series are accepted.
+
+Yep.
 
 Regards,
 
 Tvrtko
 
+> 
+> 
 >>
->>> +
->>> +	if (amdgpu_in_reset(adev))
->>> +		amdgpu_ring_clear_ring(ring);
->>> +
->>> +	/* Set ring buffer size */
+>>> -
 >>>
->>>    	rb_bufsz = order_base_2(ring->ring_size / 8);
->>>    	tmp = (order_base_2(AMDGPU_GPU_PAGE_SIZE/8) << 8) | rb_bufsz;
+>>>    	if (ib->flags & AMDGPU_IB_FLAG_CE)
+>>>    	
+>>>    		header = PACKET3(PACKET3_INDIRECT_BUFFER_CONST, 2);
+>>>    	
+>>>    	else
+>>>
+>>> @@ -2258,6 +2252,12 @@ static void gfx_v7_0_ring_emit_ib_compute(struct
+>>> amdgpu_ring *ring,>
+>>>    	amdgpu_ring_write(ring, control);
 >>>    
->>>    #ifdef __BIG_ENDIAN
+>>>    }
 >>>
->>> @@ -2559,6 +2565,7 @@ static int gfx_v7_0_cp_gfx_resume(struct
->>> amdgpu_device *adev)>
->>>    	WREG32(mmCP_RB0_CNTL, tmp | CP_RB0_CNTL__RB_RPTR_WR_ENA_MASK);
->>>    	ring->wptr = 0;
->>>    	WREG32(mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
+>>> +static void gfx_v7_0_ring_emit_sb(struct amdgpu_ring *ring)
+>>> +{
+>>> +	amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
+>>> +	amdgpu_ring_write(ring, 0);
+>>> +}
+>>> +
 >>>
->>> +	WREG32(mmCP_RB0_RPTR, lower_32_bits(ring->wptr));
+>>>    static void gfx_v7_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t
+>>>    flags) {
+>>>    
+>>>    	uint32_t dw2 = 0;
 >>>
->>>    	/* set the wb address whether it's enabled or not */
->>>    	rptr_addr = ring->rptr_gpu_addr;
+>>> @@ -3111,14 +3111,6 @@ static void gfx_v7_0_ring_emit_pipeline_sync(struct
+>>> amdgpu_ring *ring)>
+>>>    	amdgpu_ring_write(ring, seq);
+>>>    	amdgpu_ring_write(ring, 0xffffffff);
+>>>    	amdgpu_ring_write(ring, 4); /* poll interval */
+>>>
+>>> -
+>>> -	if (usepfp) {
+>>> -		/* sync CE with ME to prevent CE fetch CEIB before
+> context switch done
+>>> */ -		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER,
+> 0));
+>>> -		amdgpu_ring_write(ring, 0);
+>>> -		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER,
+> 0));
+>>> -		amdgpu_ring_write(ring, 0);
+>>> -	}
+>>>
+>>>    }
+>>>    
+>>>    /*
+>>>
+>>> @@ -3160,12 +3152,6 @@ static void gfx_v7_0_ring_emit_vm_flush(struct
+>>> amdgpu_ring *ring,>
+>>>    		/* sync PFP to ME, otherwise we might get invalid PFP
+> reads */
+>>>    		amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME,
+> 0));
+>>>    		amdgpu_ring_write(ring, 0x0);
+>>>
+>>> -
+>>> -		/* synce CE with ME to prevent CE fetch CEIB before
+> context switch done
+>>> */ -		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER,
+> 0));
+>>> -		amdgpu_ring_write(ring, 0);
+>>> -		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER,
+> 0));
+>>> -		amdgpu_ring_write(ring, 0);
+>>>
+>>>    	}
+>>>    
+>>>    }
+>>>
+>>> @@ -4954,8 +4940,9 @@ static const struct amdgpu_ring_funcs
+>>> gfx_v7_0_ring_funcs_gfx = {>
+>>>    		7 + /* gfx_v7_0_ring_emit_hdp_flush */
+>>>    		5 + /* hdp invalidate */
+>>>    		12 + 12 + 12 + /* gfx_v7_0_ring_emit_fence_gfx x3 for
+> user fence, vm
+>>>    		fence */>
+>>> -		7 + 4 + /* gfx_v7_0_ring_emit_pipeline_sync */
+>>> -		CIK_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 6 + /*
+> gfx_v7_0_ring_emit_vm_flush
+>>> */ +		7 + /* gfx_v7_0_ring_emit_pipeline_sync */
+>>> +		CIK_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 2 + /*
+> gfx_v7_0_ring_emit_vm_flush
+>>> */ +		3 * 2 + /* gfx_v7_0_ring_emit_sb x3 (from
+> amdgpu_vm_flush,
+>>> amdgpu_ib_schedule) */>
+>>>    		3 + 4 + /* gfx_v7_ring_emit_cntxcntl including vgt
+> flush*/
+>>>    		5, /* SURFACE_SYNC */
+>>>    	
+>>>    	.emit_ib_size = 4, /* gfx_v7_0_ring_emit_ib_gfx */
+>>>
+>>> @@ -4969,6 +4956,7 @@ static const struct amdgpu_ring_funcs
+>>> gfx_v7_0_ring_funcs_gfx = {>
+>>>    	.test_ib = gfx_v7_0_ring_test_ib,
+>>>    	.insert_nop = amdgpu_ring_insert_nop,
+>>>    	.pad_ib = amdgpu_ring_generic_pad_ib,
+>>>
+>>> +	.emit_switch_buffer = gfx_v7_0_ring_emit_sb,
+>>>
+>>>    	.emit_cntxcntl = gfx_v7_ring_emit_cntxcntl,
+>>>    	.emit_wreg = gfx_v7_0_ring_emit_wreg,
+>>>    	.soft_recovery = gfx_v7_0_ring_soft_recovery,
 > 
 > 
 > 
