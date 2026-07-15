@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7655AC44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF28C44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1528B10F05A;
-	Wed, 15 Jul 2026 13:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 770D410F05F;
+	Wed, 15 Jul 2026 13:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="si2QVp2H";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rrJ55tgb";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012061.outbound.protection.outlook.com [52.101.48.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2DB10F05E
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:17:42 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013038.outbound.protection.outlook.com
+ [40.93.196.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22C8510F04D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:42:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kAv6HEoWRnFNGmd3dUwj0qFHkbDaWaDcQnxt3QIXQb+lgJ/Lxs42nxM3mMeWnwgNKXta8SLc4sCmXaPAktAKfDsnhAcTKSNW7/2D7RojEW0BPQfbk3i9TK/J/k1YJFXmWQSb96lstY5XFXfSd8NuvimbcCVmkyY4B2hx4Y7PKQedbU1BiPgd/VQtvhQuJpaDydhAp3CfwaIyPDK7nlvrILrULqNlpzc9KMigGGPKY5vyEScsYFnchrMksTSD4FtysqI7PYHspdykWALiaiuXI4wKf7Nu891S/1EDh9qL0YPCW7zqGJP1V0yHYY/slA7RGNERzivTBx/FKT215waywA==
+ b=Rf5c2lFgVMIbqdxcgxWUUEgKKXq7iC1uQtW66hvBUVbx87DZCWm/C3s7loQR1QNBchhFQcPT6HSHVH/QAO+1EIPV9mm4v1qUX/+ImFpmpYaFWb759di+tJU60T71hl5PgzSXi1G3eSkHuqDQc7aGP23VfFbHYJEZIqpY4wpPSHLI7NHV+ZJeTGGyfHMFbW9rT2GQ72PPcDtYr0sWJ0mSmcTGA8pInRe6HJ3STcdWcrc5EwldOfxLcnvNV7caYiuyqgC2sL+g46DCsOHSQgBtcEjheFDB3tcsb9PhqHt3wYoBw7imBCpFS/jKyJZ/CBIERPG5Scn/dokWW+L5EPNEEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Om+slnwM8qfLYT9s1YjVWvcc4oNuSz/Tk4+HouSYJXo=;
- b=GXQaXeDgG3YVbI1BkcDHk7VFIimLQu997vBCc6ry00IMqtuwjdJkS8KSxETH00MZ0OOsLwsjZ/bOtY4prW219SUVChPN8tDPn2zNG3/t+067jA+y2KiV7asSksCt50aXZcdqLtb/OyGdu53puPfrUBIJlL8TMlgYIroPFWNwRwtQ8HvfhXDvTUqsnCwc2yd9fug0dP5P6m8r2nnhSv2AdGgNWJG6E8NjiJHcgzSxoKWsR0P/A0oxBW2P8vVPT3ejt0o4W29+s88roQtQ4DYzR+2JjUSCXOjWlozVpfeo0WPI8lrApsz09uwK54PUoDagyecr/71QBIUb/Ddb7ayjLg==
+ bh=YVzijzAIaf9uAfhkTx3KMr0j+ymL/H5EVu02mQzpG0M=;
+ b=iLZRfzkrTJDRU2/57u/JJ6r5jjs9XyPHamnUbdGL5HqtBpH8qgnlsLAiwkwPI5qjHD/ccYAY5QIoZcdAkmXITDbysFHUHSIE2tvelApt9QOWxSTbqlPgRB8VC+GRPS6qrvBuLX13ueaCuwW1mrswlzlVHwg5NnSDm10Iuw/mhsh29gnpknuolGKdXr2xk3DgdAumxJhmL/DkABMcBKt7bzFGK/InwcBMl2YkQP35JRScLdrjsdcj74K1jzmMwypEAeJoEdGKcxWaik+8Qw6g+dGH76VYcTvMmhTWQIJD0XpWrqMpedBNAjU9aQofKK8cLU+clQY7AP0TjJJinzyufg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Om+slnwM8qfLYT9s1YjVWvcc4oNuSz/Tk4+HouSYJXo=;
- b=si2QVp2HW1lIVg9DCXxom7ZLpRviFQy+WvBdKcLgH8By4+zsb5vPzG/HQpFOSu9cvpLPi77vh8FL1/zpL6o73GU4oR0rVYQDKH4XXvFkn6B1ex0m70tVA6JZzwlgLT1TQw/aIzRTbfcdeC+n9jN3G7FhkMyY1G7oH+A0O0BhGtw=
-Received: from BN9PR03CA0135.namprd03.prod.outlook.com (2603:10b6:408:fe::20)
- by DS4PR12MB9659.namprd12.prod.outlook.com (2603:10b6:8:27f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Wed, 15 Jul
- 2026 13:17:33 +0000
-Received: from BN2PEPF000055E1.namprd21.prod.outlook.com
- (2603:10b6:408:fe:cafe::3e) by BN9PR03CA0135.outlook.office365.com
- (2603:10b6:408:fe::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
- 15 Jul 2026 13:17:32 +0000
+ bh=YVzijzAIaf9uAfhkTx3KMr0j+ymL/H5EVu02mQzpG0M=;
+ b=rrJ55tgbZFy+y8deM6Y6brOU8Wh6tJLjuNvM9BJ9mybLPFc7nnoyjxEd/6h57DtdX+RF1rZrWfC/2cBoW08xmIc1fiPBR8Vh40NCVUDK133Gir3UHSBHLkLyzYsqilckXbv+Is88smJZ09XVtPQQny5MgiN72MGF3okDKieoBbM=
+Received: from CH5PR02CA0020.namprd02.prod.outlook.com (2603:10b6:610:1ed::25)
+ by IA4PR12MB9833.namprd12.prod.outlook.com (2603:10b6:208:55b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
+ 2026 13:42:30 +0000
+Received: from CH2PEPF0000009A.namprd02.prod.outlook.com
+ (2603:10b6:610:1ed:cafe::19) by CH5PR02CA0020.outlook.office365.com
+ (2603:10b6:610:1ed::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Wed,
+ 15 Jul 2026 13:42:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,55 +49,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055E1.mail.protection.outlook.com (10.167.245.11) with Microsoft
+ CH2PEPF0000009A.mail.protection.outlook.com (10.167.244.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.3 via Frontend Transport; Wed, 15 Jul 2026 13:17:32 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Wed, 15 Jul 2026 08:17:25 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v10 4/5] drm/amdgpu: Record USERQ_EOP WAIT_EVENT notifications
-Date: Wed, 15 Jul 2026 18:47:03 +0530
-Message-ID: <20260715131704.3452312-5-srinivasan.shanmugam@amd.com>
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:42:29 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 08:42:29 -0500
+From: William Palacek <William.Palacek@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harish.Kasiviswanathan@amd.com>, <Alysa.Liu@amd.com>, William Palacek
+ <William.Palacek@amd.com>
+Subject: [PATCH] drm/amdkfd: Add bounds check for CRAT subtype length
+Date: Wed, 15 Jul 2026 09:40:04 -0400
+Message-ID: <20260715134004.163459-1-William.Palacek@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260715131704.3452312-1-srinivasan.shanmugam@amd.com>
-References: <20260715131704.3452312-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E1:EE_|DS4PR12MB9659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a50d6a4-014f-4dfd-c501-08dee2736df4
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009A:EE_|IA4PR12MB9833:EE_
+X-MS-Office365-Filtering-Correlation-Id: 735f6d0e-8d34-4e4c-91cc-08dee276ea4f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|56012099006|11063799006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: wMej3dG4XuVt/xC3iLK+j8Vhvx+BLfKSGf74UAG07RIB63YxVgsEYd9dRpm6ELKhVCx2uRwhS0B8kIqms0xdDmoRzik9pxWA03IdRB768GAVzF48yp4xOUAGXDEmpnHTWcC+cP0SdVxevCAXQklIvxhbgOxrDP61jDj/0ZsEPmA6B3fF2AAdcDSHEFGF6O5B9yoLcWbwEu28167U8DXbhZWMe6cGhnpcQtLfx5kLe8p3GL1nCzyNYvmVZJcQNJ/dFO8wJSdXKJfn+lDhPv71wYfRBMEz67l/Nb23nVzil5GSpn6uY9H8O2lNNX8pa6Sbo0XVrDyQgUzC05BQRQ8rmNBPtLgh8AKwv8GI1b6jcivLhhR8EtVVzZlKtE7ZGM7utY1NM9eGBXAlMjm8oEf6iOFvvXRh71X1emoHYf72+TQKfsdmnodr8xN0Q3AtSMFk3NuiEVg2mTn/2B2j0GNdJpc2NPJWoChaUcmT6AhV6d+edEbbgGtXw6zSFBT4mkzA74jGEsdPpWgG6t3czgu5vDJ4xcmkXisEe5VwyAd3WN1H07h5eAUtnC60l8Bn92JrrUHcm2qWii7eWMi+xZl6gi1fbRNZXTBtXER66x0cyBaXpU8DXnTJtcDVDm4GYM6T4rzYcwbABWhzZOHyAZILInGo0GxY/gegkDWTfG1o0iD25sGygwYkUCbSiy6DZZeBMOnk2uigRf69xAGOA03Wzw==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: t2ZEJYfLs0eXcv8YL/H0Dp63vsV9GeCrBgXDdp4faf7JHq6mcmfa2BPjSbEFsD2q+fHRLkLTEfhUW+7jTZfISnQUqJuCw8+XmBRUIGPRMp6LZDhRUHhDddqBt2tlcQaB5au29clER0jBKe9JuFDeHGUHZktVVj/uO+XqqOQDcPjnSrlf/2iKT82U8CzP4PYchTJaa5gsgOh+RBOTYPqegrP45QmytF6Qcy0Z1EV2ThclgXWnTxJRs6Jx/h8fspvdsnx0SuJ/Z0ngI9uHCJN7q7K6/FF4ahczJ4IoCUj9sRF35ne+X9XSmbDM7ZTFicZwgVC2dPXqOm3UqLbtx19uqAap62oEK6ekDEzNMwHh+EDEA/I6UIOFG8lRNU+/Od3XXLVP/DFDuAk7zFwvVfwDUrTzlobkTL4mB4HhH9b1Rs6r/HrtM0QquCiATzXi37PZhZdNbp/EAsAvqDwe+Piau6nnO0m+15uTp2PQuF/uIBsxL2gG5Mi41CT2JQwqIk6YEH1SSvyY073LQSHdV+aVPPL/voo8uNNN5vq0dlOb5D43gIZx+h/33k3mW3GFjEpJDH7xJybXMCy0meCxkneGSS+l65z7pk4LmgaIuoe8Ad7F1yOA9R4fWAi7nMJzOqlfNstx2NJrIarx69urFBhrt62OQliKyxRWbtkHb0S2TTSy9oFWSE6ld8HjzdNyoUoRObQ1uy/4ksQZNSU3fTXb2Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003)(10067099003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lQrAIXJcoGj2dI7zTmhklpbbchOWQAl5O+L2uEKlx0Pfq0EzenbGdWpXiqOcAJEJ5e38A/3CHo3Te7eQuON8d9HxjlkNLo+KJv1/6Nrb38XKQJ6uAJuBMY5H1LGRckjVXBXkK9Hq9ZMU9mhnQAGP8nR2YqsecD/yP42tyBqrwwA+fQk8Fc/oaZcF2/0IvPurR4AD/eT+4QceAkhM9ZFUH4GmpodSVnkGVE2XpC/RaNpyd/4jdGvgaEk9ON8eyGur5c1K8CEovWyF7GblI5rh2ZLNUtRYzMfWD5+rnZU2ZDSRKb8QIxjaA8yDqfx7+zqphO3iHYimOS62e8alo0ja09xv3/EMGwltLJJSrlK0FyaQyAdRmfH7IXasSqB6c4f5cbo+Ojc8AsRofH6cs3ogwjzow79C3sV0iHiz3RJZpXSoc0deVDPoBJyjagusBEa7
+X-MS-Exchange-AntiSpam-MessageData-0: PDUuir5J2lItlyYj4Mj2vO/SEvz0bGaQ7VzYfibupowCPApNLHGyq8abtbYDbLoU+ZbdYkjpNWG0lvkRdGDzck6KbAltSiRT3js4rt6L+DtlP3s365Aj3EgS0Ud2RB5JwnfvUyo2ZaNS7IvNjIVUE/GTEueRp03bswQazlr+8G4b1HVgY3ogbGuaty1YS/4cYoSCUKTvX0rTGk7MYTKxqRCD+99iHT7nzdE+l4ZzgkqH6TXI7vWt+vaC3Ce0XpplxchdSl1imPGKXt3xJX2So6dPnEAWMeSuTYoQUChUqoyjFzzf/MA++UUL8fUuzKJcesh7aUiJx4n/mhfOYtpXhlMvGUdbXvk4c1DyUItHRiPspPiPzfGqFGOgP311AvFPKHcRwOJPQUGPGOZQ5FlTr+jITo1KcJ+1zCYMAMgkGL2eEk8vBneDn9K7P5QSIPN5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:17:32.6634 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a50d6a4-014f-4dfd-c501-08dee2736df4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:42:29.7745 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 735f6d0e-8d34-4e4c-91cc-08dee276ea4f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055E1.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9659
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9833
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,188 +109,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-WAIT_EVENT currently provides the per-file queue, matching, and lifetime
-infrastructure, but no producer creates records when a user queue fence
-completes.
+The CRAT parser validates that the subtype header fits within the image,
+but does not verify that the advertised subtype length fits. A malformed
+CRAT table with an oversized length field causes out-of-bounds reads when
+kfd_parse_subtype() casts the header to specific subtype structures.
 
-Add an IRQ-safe helper which appends a WAIT_EVENT record using the queue
-pointer as the internal routing key. The record takes a queue reference
-before it is published and releases it through the existing record
-cleanup paths.
+Add validation that sub_type_hdr + length does not exceed the image
+boundary before parsing the subtype contents.
 
-The producer does not translate the queue pointer back to a queue ID.
-Instead, the WAIT_EVENT ioctl adds the queue ID supplied by the waiter
-to the matched record immediately before returning it to userspace. This
-keeps queue IDs at the UAPI boundary while retaining queue-pointer-based
-matching internally.
-
-Call the helper from amdgpu_userq_process_fence_irq(), next to the
-existing EVENTFD notification. This reuses the established
-doorbell-to-queue lookup and does not add another queue lookup or change
-the GFX interrupt handling.
-
-Changes since v9:
-- Keep queue pointers for internal event matching.
-- Populate queue_id in returned metadata at the WAIT_EVENT ioctl
-  boundary.
-- Clarify the producer and ioctl matching flow in the kerneldoc.
-
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  6 ++
- .../gpu/drm/amd/amdgpu/amdgpu_wait_event.c    | 85 ++++++++++++++++++-
- 2 files changed, 89 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index aa17e55d52e8..28f9d3fe0e80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -264,6 +264,7 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
- 	struct xarray *xa = &adev->userq_doorbell_xa;
- 	struct amdgpu_usermode_queue *queue;
- 	struct amdgpu_eventfd_mgr *eventfd_mgr;
-+	struct amdgpu_wait_event_mgr *wait_event_mgr;
- 	unsigned long flags;
- 	int r;
- 
-@@ -286,6 +287,11 @@ void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32 doorbell)
- 		amdgpu_eventfd_signal(eventfd_mgr,
- 				      DRM_AMDGPU_EVENT_TYPE_USERQ_EOP,
- 				      queue);
-+
-+		wait_event_mgr = amdgpu_userq_wait_event_mgr(queue->userq_mgr);
-+		amdgpu_wait_event_add(wait_event_mgr,
-+				      DRM_AMDGPU_EVENT_TYPE_USERQ_EOP,
-+				      queue);
- 	}
- 	xa_unlock_irqrestore(xa, flags);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.c
-index db612106fb12..7f22f950bfd6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.c
-@@ -40,7 +40,8 @@
-  * of jiffies. A negative deadline requests an indefinite wait.
-  *
-  * The caller recalculates the remaining time after every wakeup so that
-- * spurious wakeups do not extend the userspace deadline.
-+ * interrupted or spurious wakeups continue to honor the original
-+ * userspace deadline.
-  *
-  * Return:
-  * Remaining wait time in jiffies, zero if the deadline has expired, or
-@@ -98,6 +99,35 @@ static bool amdgpu_wait_event_valid_type(u32 event_type)
- 	}
- }
- 
-+/**
-+ * amdgpu_wait_event_set_queue_id - populate queue-scoped event metadata
-+ * @rec: matched WAIT_EVENT record being returned
-+ * @queue_id: userspace USERQ queue handle
-+ *
-+ * Store the queue handle in the common record header and in the
-+ * event-specific metadata for queue-scoped events.
-+ */
-+static void
-+amdgpu_wait_event_set_queue_id(struct amdgpu_wait_event_record *rec,
-+			       u32 queue_id)
-+{
-+	rec->data.queue_id = queue_id;
-+
-+	switch (rec->data.event_type) {
-+	case DRM_AMDGPU_EVENT_TYPE_USERQ_EOP:
-+		rec->data.u.queue.queue_id = queue_id;
-+		break;
-+	case DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET:
-+		rec->data.u.reset.queue_id = queue_id;
-+		break;
-+	case DRM_AMDGPU_EVENT_TYPE_SCRATCH:
-+		rec->data.u.scratch.queue_id = queue_id;
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
- /**
-  * amdgpu_wait_event_record_free - release a pending event record
-  * @rec: record to release
-@@ -269,6 +299,48 @@ void amdgpu_wait_event_mgr_init(struct amdgpu_wait_event_mgr *mgr)
- 	mgr->dead = false;
- }
- 
-+/**
-+ * amdgpu_wait_event_add - append a queue-scoped WAIT_EVENT record
-+ * @mgr: per-file WAIT_EVENT manager
-+ * @event_type: kernel-defined AMDGPU event type
-+ * @queue: queue which generated the event
-+ *
-+ * This helper can be called from interrupt context. Allocate the record
-+ * with GFP_ATOMIC and take a queue reference before publishing it on the
-+ * manager's pending list.
-+ *
-+ * The queue pointer is retained as the internal routing key. queue_id is
-+ * copied from the producing queue only as metadata returned to userspace.
-+ */
-+void amdgpu_wait_event_add(struct amdgpu_wait_event_mgr *mgr,
-+			   u32 event_type,
-+			   struct amdgpu_usermode_queue *queue)
-+{
-+	struct amdgpu_wait_event_record *rec;
-+	unsigned long flags;
-+
-+	rec = kzalloc(sizeof(*rec), GFP_ATOMIC);
-+	if (!rec)
-+		return;
-+
-+	kref_get(&queue->refcount);
-+	rec->queue = queue;
-+	rec->data.event_type = event_type;
-+	rec->data.seqno = atomic64_inc_return(&mgr->seqno);
-+
-+	spin_lock_irqsave(&mgr->lock, flags);
-+	if (mgr->dead) {
-+		spin_unlock_irqrestore(&mgr->lock, flags);
-+		amdgpu_wait_event_record_free(rec);
-+		return;
-+	}
-+
-+	list_add_tail(&rec->node, &mgr->pending);
-+	spin_unlock_irqrestore(&mgr->lock, flags);
-+
-+	wake_up_interruptible(&mgr->wq);
-+}
-+
- /**
-  * amdgpu_wait_event_mgr_fini - finalize a per-file WAIT_EVENT manager
-  * @mgr: manager to finalize
-@@ -350,7 +422,13 @@ void amdgpu_wait_event_remove_queue(struct amdgpu_wait_event_mgr *mgr,
-  *
-  * deadline_ns is an absolute CLOCK_MONOTONIC deadline. The remaining wait
-  * interval is recomputed from the original deadline after every wakeup so
-- * that spurious wakeups cannot extend the requested deadline.
-+ * that interrupted or spurious wakeups cannot extend the requested
-+ * deadline.
-+ *
-+ * For queue-scoped events, queue_id is resolved to a queue pointer before
-+ * waiting. Pending records are matched using queue pointer equality. After
-+ * a record is matched, the request queue_id is written to the returned
-+ * metadata.
-  *
-  * Return:
-  * Zero on success or a negative error code.
-@@ -412,6 +490,9 @@ int amdgpu_wait_event_drm_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 2a239f45fc24..6e0df685503d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1412,6 +1412,15 @@ int kfd_parse_crat_table(void *crat_image, struct list_head *device_list,
+ 			break;
  		}
- 	}
  
-+	if (queue)
-+		amdgpu_wait_event_set_queue_id(rec, args->queue_id);
++		/* Validate subtype fits within remaining image */
++		if ((char *)sub_type_hdr + sub_type_hdr->length >
++		    (char *)crat_image + image_len) {
++			pr_warn("CRAT subtype length %u exceeds image bounds\n",
++				sub_type_hdr->length);
++			ret = -EINVAL;
++			break;
++		}
 +
- 	if (copy_to_user(u64_to_user_ptr(args->out_ptr), &rec->data,
- 			 sizeof(rec->data)))
- 		ret = -EFAULT;
+ 		if (sub_type_hdr->flags & CRAT_SUBTYPE_FLAGS_ENABLED) {
+ 			ret = kfd_parse_subtype(sub_type_hdr, device_list);
+ 			if (ret)
 -- 
 2.34.1
 
