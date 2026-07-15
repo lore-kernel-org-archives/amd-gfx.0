@@ -4,101 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98192C4450A
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE05FC44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5E210F066;
-	Wed, 15 Jul 2026 13:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B13510F069;
+	Wed, 15 Jul 2026 13:45:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L9V6/uqv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EXjz9gcG";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67C4610F066
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:45:11 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2ccae46de39so10719645ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 06:45:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784123111; cv=none;
- d=google.com; s=arc-20260327;
- b=dHcYHE+bdWU3H1IAq/qWi9/gLN8wotgyzbi78duMk2uGQOVyVD6ngKEibf9/0U8oUC
- QWrt7HoSzvES2j2qBPXS9eHOD4hUAIh1TSqSdnirh8jHIinKuP1RKqpmh5a3B7SLLk3+
- JY/ZFrhaKLPVkz6fEL+e2Z66STjb6hbMzG8h95DsII36QdQQPZCmoyaT2R6a64F8tKm7
- eR7a/e+O5OtX54ZS3ioFMDX2VAn1r15RkbLL8xuzKuPqxSQd2FQId5v7m5sJTziFgo4C
- B3sieFkV3CY2jQGb7L2ZKVv+jTgnu0lUd9KvmdFsaFWqjVFjpz8AVBj+Egm4FGUbWbu9
- dvxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Vy3sTjOkVDiLdu6EZkwlmHhnIXIucJfDO7aoHh3lPpU=;
- fh=kN554ZXdjNLFYlsoSN+4k+ab7ffU5SVaCgbW6KOXSBE=;
- b=KAEZRVVTUfwQdt/CLkgu8p2+S4CtXQtHAyF1YFngz4T+E0om2TvRnSUOuGbfbVkv2K
- 2yVbYyCrXVzweMaHsaBEwKO15lACVLTI1k4OT87EAPADHIUfUg4nns/NOcL3fnS478ID
- RUg8ZAlKil5CsAyJtGp3uUXtJTqxJfLDyF7sTEr0FVrY0sv1Wm6wL4a6EO6eJOxtkRdm
- s54JE8QsiR+FD7ygQ4N1W8RRvaDFAOxrHc3B/rNaE7uTtIf997KAF9eIDMVnCUSYbB9L
- qTPebIftSavHQ7ilLFIVUyl+yL5kpi5uJK51q9SDksQcP0GVV/DuGo1FXon3Ds27KmFG
- qpdA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784123111; x=1784727911; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Vy3sTjOkVDiLdu6EZkwlmHhnIXIucJfDO7aoHh3lPpU=;
- b=L9V6/uqvbwX2cSxoSWvX0CrVOp5tW2mKsZwPKA6qXgWZiYFc2jWgF0ZjBxlYtpfQOy
- nwhSli+QUrKguC+CfKhbwbuHq3MchLMPKXXZrE6hLBA1I9NIQ3b6W6HkHO0vvDtl0+hh
- gbxZfJ7mfsy/os3nwOfQMMCeSx9nUJW7HoTxXpFOEhKukUgeH4OViYc6jrEN/v3NmCGG
- 9y6Eg+AQb0RM9pEqokQln9rQ4sqSFbXEDpyuCnAplsfiKBAXMi3a7jRrHo7V15wRhvDl
- +6tjKklteFJsGYDRYZ/0fCw+Y1mUiNy9OsMIlc+lJaD5CZ/aO5Edqi23O6k7+yHSY78g
- xRmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784123111; x=1784727911;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Vy3sTjOkVDiLdu6EZkwlmHhnIXIucJfDO7aoHh3lPpU=;
- b=LS9N8LhLjYKCCEO5BCKlj2OawQP7k5LRkF8oXt+QH4CSbb5ZQ2PHgWKnyfAkUzpNhl
- A8Fh0pz5Htymrl7fGvXMe9bwcO+iI3hZUxbmIkwpkIAmd+vqVWbjh5dUPOxlxpwmCtDh
- G6wEG/N89ngqsL+dsl7IjMOPft4M1T2sluE2alnmJSPlDGKatBGnH70QACFonw0kNkqZ
- oY8CM69wldHCDtYUiW3dyxF8Uj5az5w63XFj3Do8zLJkqgN7G/Z+UrSOquWJOu/7CNpO
- 5aCPHzQX4hlM3gGpKXZmt6wMZvjDTcF5nb0Wr2lpvdJq/dH/NjbKR429EzFf0L+W8biQ
- sByg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrNrJHjKO7s+G+szWF9iDmwAcZJPK52mZtPVGo8725EGRHboWkkRzPaPCx3pBm7uG0phje7hzDT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqEJed60QcgkC9tCh71QoIrGLlSJKt0cS38JGlO236Y+QUswJk
- SdWO86lwCEYOeolAE06CX60aeV/2EVNTz8QDyTQsptAMaSzjEwPN8PN5U6vZAcsYwpmwwr09jVO
- DDcQWL3W4XOrSKo8d/fZQ3YX9yDfIo613Ld17
-X-Gm-Gg: AfdE7clokfptN/kTEhRt7NTMkgqp9ieX1pL6Xv0fMqaVce2LXLOd8zvpzUgGgW1TyZI
- 0sMlYMS3ibmRhwPp3dnQfKNR2X7sXw2NnNxd1DdFUXIO68PXIVh20zRVr56EkeKpRu6PvOygN7U
- EqfNqkmroRrN+vhQ/hbCfAiGBZ/HC2a7fN2xlzpl9/+zuhpJ3KYbfnpyzimO/eLk/MT1GE75A+g
- Xw13cdb19elZMl1ZClJOT/1K0gOvleo1rNKVreSdcK/2EfhbWGFSjd/fYK6qk9RBqjzxiy1u5En
- sz7evBiTr7xunPBEFRcyb7bXYF5KrGglu7Hyol5QHPiam92vUyPTuVWPRx4=
-X-Received: by 2002:a17:902:ea0f:b0:2ca:6885:8a06 with SMTP id
- d9443c01a7336-2ce9f04c866mr141309635ad.5.1784123110806; Wed, 15 Jul 2026
- 06:45:10 -0700 (PDT)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011040.outbound.protection.outlook.com [52.101.52.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA2510F069
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:45:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PdPQrqwZjAxPa5iUXcAM3rSsvpB14BOVx+9KVi3KiGC6VqwdiCc5Wqb1H4g/QYMX0Vx1KhIjs/s31DHIt0w8TfW56EL8XAVH5lRV6Pe6y5K2pDNELRhtjUA3gvhvSWaRvXb5OX6GXCtioYUnIFP86nECDoreIWWvkVfu5/SRUQ6hSxZGWN8XxL/MvU4rWGSY8O2ykO/pc5xR+yps3slSFRrDXcYOfVuYvxfi9e+xvekecGx5vb6dg+sq+KXkBSuHEV6fHu+YBJUVv9KtwzgVdVlfijQZssksP/wLuzrIFJiUYvRpCRpeKgnEGg9cr27DNAyVd3QJSREdmcq3mZJbmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2KQ1CVW9Gf7RwNIQJVKEXe4KcH3GFoK7wIujQiI4YX8=;
+ b=it0+N1tYi0P7l8uuBC0FAApoakF9mWCU/kh7TH5UxVMZhjepGkGAGQ9bPcVt0czcwBgLG4nsIgIYhrENm51uov/rEsy2VoypMa6CqaRS/2Iyjc1MMYPM7aJQngOMgk0fz177erw9xqS8+RmbUdoOHx/qOz8C+n9SA53XI+vsk5tjcCIoBeVYe2DlSRgTZqiq/YeowFwfQoAQG2Ew/eR4BCoeRC7+kgO6QTgf/A7ZR3nSG2HPgBpnZ9SQu2oUhfjzMLRp/wQeA0vIbJBCwQiH5/dgNxWbXSMRxz3HSMvA+EoPcze3HieeeFp0T9JsMFTsO333J3O6b4s0UH590daJAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2KQ1CVW9Gf7RwNIQJVKEXe4KcH3GFoK7wIujQiI4YX8=;
+ b=EXjz9gcGcEetfy53vNIq3s0mNww1qOF6+vFF5UuOqewavPJrGAjrO3ehzW/R2TtQgG17NiQmpXdZt8z98hIuoa3pibdwZDkJH5WBXHt2j024a9YR5nlH7pVEVaC4dA8GBzZ2xQ61SrhPiJ6xI3qdxekXRJbV9E5DCq+u62i3u24=
+Received: from DS7P220CA0074.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:259::9) by
+ SJ2PR12MB8650.namprd12.prod.outlook.com (2603:10b6:a03:544::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
+ 2026 13:45:21 +0000
+Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
+ (2603:10b6:8:259:cafe::2b) by DS7P220CA0074.outlook.office365.com
+ (2603:10b6:8:259::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
+ 15 Jul 2026 13:45:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:45:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 08:45:16 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 08:45:15 -0500
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 15 Jul 2026 08:45:12 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Subject: [PATCH 06/70] drm/amd/display: add dm_dmub_hw_resume KUnit coverage
+Date: Wed, 15 Jul 2026 21:37:16 +0800
+Message-ID: <20260715134432.1975118-7-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
+References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 MIME-Version: 1.0
-References: <20260713182732.630947-1-alexander.deucher@amd.com>
- <20260713182732.630947-5-alexander.deucher@amd.com>
- <e8926046-2e03-4224-98ba-8601de0421db@amd.com>
- <CADnq5_OGJBx5xkSDfU4cyt0bjZRot18F-PE29RJFSkC=YPz6oQ@mail.gmail.com>
- <1e4cead4-73b7-461f-b4d4-a66e293d0d96@amd.com>
- <CADnq5_OnTfvMf+Bx3V36p0W_M4ARksHZ+emGSNb07Us9xPr2uw@mail.gmail.com>
- <c9e1526e-c2b6-465c-9f82-24299d8a0e23@amd.com>
- <CADnq5_P8dPWAJCd_=u13KKDPmJQecC9MqHJ6K9g4+4iQxYvi_Q@mail.gmail.com>
- <70f3e844-002a-46b2-9341-47428abfd829@amd.com>
-In-Reply-To: <70f3e844-002a-46b2-9341-47428abfd829@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jul 2026 09:44:58 -0400
-X-Gm-Features: AUfX_mzgN6MoTs_NV5FIB_gbU3jNPGEHhmJRsRsRItNCsOSB_GTI-Lv6_cFQVRo
-Message-ID: <CADnq5_OzP69GXe4TgotojQd7U8DUbyY-QK_HP6JR-h8+0PoTPA@mail.gmail.com>
-Subject: Re: [PATCH 05/14] drm/amdgpu: add an buffer funcs callback for TLB
- invalidation
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|SJ2PR12MB8650:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0351b9d0-9cfa-402c-2894-08dee2774ff4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: v9y+Hn42NZLtvtacp7rhjvOQY34Rh/a4g02QYHI5cK/FwflU0mC51sh6RsHFJ1EIF5qB3h9KwnZvWNphAFZ8QOIUXkMzzRvaNpFZSHYDbjvtqJaIHPEuAv7k3KqyAxo+1y750KjITp3wJo/itLJDP2GP5Be/FU5QwOz/NTLyu+Nf4DB8ub6buXFG/Yehice73A+/vCtRFiQymYkLB/yti0twMRDg8KdiPNhv2BNhH3oQPPU2Z5FJqvfXbuhUAh0KXlPsGAQXafcN4jwK5Zw+7WmAPmgaP/kWTgbsC9iuKPSAKTcAvzXGsUTa2YZtyaAMeeqUKaHo26DHz7UhWwtYnyQs4Xgdr62bPN3HkhxjVF76foELwgMBK28mesw78OZjk8WK98QrsY95yy/Ffl3AI6JphJkI+75gi333evK651TdjeA6VVXavgl527fcRSvMXykbk8FyrS60jSv+Oy2L29PefQNt8Ux5aPVpjcGmZb54I/FPtjmrrE7JYxYqr9nI2adx8vcsmw7ucM3lbtPdkSfNmRUwo1UbwxZjhwwcKQ+7E6LwwLHqRQEYFIgz1MQS85lePKngnPR7bBMy4ybb32NfjCZOtDxYwkCrw6glCklN8JLBZ7fs9cvH2t7hFvghHW6HgZOMeuWYyUgOldA8uzgqpUlthMniuYyBdGrA/uimOnuMAQCInDvRXk06P3cDgCgRjtkKDjDpEmSihTjzqA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /UGgk5s9oVZMWkdrFhqAPXeNVsQACNRzpyUDCze0Y4tLwkR8VReJXo6SyJh0P1rNkfibH/zocDLZH3PLPlYQjoqhBZWoP5IyEc++1WGqraiX437PQDdihWycbahSHWEUE047QOUJ/eI4Vs9UVYnhBY7vQaSgM5wuMiKZFNOxVbZZ8KuDQjCqLq8X7AzTAsmAW3HBSKrIsNrDXATjLJSgImOGgRo+y66PpX8m6aPhxNWRqvm+zeJAN/1MZdO29xeVNxg6slyVdolgtWl2uWdr8U698u09B7JpHsXphpH0yBZzXiCSy8mdht+3jSM3oId1Ce0IPrVMnlX8/s90zzMWB44VyFRwEIpaMpLwj3m3vOWguF8GGYAw7zIbhH/ZS7qk/TT9vTB/hO2nPsMJwQfHip/GoC0BCh1YpP2/I9/W33z1vsmxdiFlqG7T4+wLBW5h
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:45:20.2706 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0351b9d0-9cfa-402c-2894-08dee2774ff4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8650
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,57 +119,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 5:00=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 7/14/26 17:19, Alex Deucher wrote:
-> >> Why are we using the MES for per VMID invalidation?
-> >
-> > gfxoff.  We can't access the registers directly unless we disallow gfxo=
-ff.
->
-> Well there is a remark that VM_INVALIDATE_ENG*_ACK is always save to read=
-, even when gfxoff is active.
->
-> And we explicitly acquire the semaphore to avoid that GFXOFF kicks in.
+From: Alex Hung <alex.hung@amd.com>
 
-I'm pretty sure the semaphore just keeps it active if it's already
-active, but the registers are in the gfx tile so they are gfxoff
-controlled.  I think the semaphore is just meant to be used as a lock
-to keep gfxoff from kicking in in the middle of an invalidation.
+[WHAT]
+Extend KUnit coverage for dm_dmub_hw_resume() using the fake-DMUB
+fixtures. New cases cover the already-initialized wait path, the full
+reinitialization path, a failed init-state query, and an auto-load
+timeout, none of which require real hardware.
 
->
-> I also don't see how we use the MES here?
->
-> What we do is to use the KIQ on gfx9, but that is actually only as a work=
-around for some SRIOV problems.
->
+Assisted-by: Copilot:Claude-Opus-4.8 GPT-5.5
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+---
+ .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     | 77 +++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-We do it for everything gfx9 and newer.  For example gmc_v11_0_flush_gpu_tl=
-b():
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
+index 4c01f7919170..bae34436c89e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
+@@ -801,6 +801,79 @@ static void dm_test_dmub_hw_resume_no_dmub_srv(struct kunit *test)
+ 	dm_dmub_hw_resume(adev);
+ }
+ 
++/**
++ * dm_test_dmub_hw_resume_initialized_dmub - Test resume waits for initialized DMUB
++ * @test: The KUnit test context
++ *
++ * When the fake DMUB service reports hardware already initialized, resume
++ * should only wait for firmware readiness and skip full reinitialization.
++ */
++static void dm_test_dmub_hw_resume_initialized_dmub(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
++
++	adev->dm.dmub_srv = dm_test_alloc_dmub_srv(test);
++
++	/* Must not crash. */
++	dm_dmub_hw_resume(adev);
++}
++
++/**
++ * dm_test_dmub_hw_resume_full_init - Test resume performs full init when uninitialized
++ * @test: The KUnit test context
++ *
++ * When the fake DMUB service reports hardware not yet initialized, resume
++ * should continue into a full dm_dmub_hw_init() and create the DC DMUB
++ * server.
++ */
++static void dm_test_dmub_hw_resume_full_init(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
++
++	adev->dm.dmub_srv->hw_init = false;
++
++	dm_dmub_hw_resume(adev);
++
++	KUNIT_EXPECT_NOT_NULL(test, adev->dm.dc->ctx->dmub_srv);
++}
++
++/**
++ * dm_test_dmub_hw_resume_init_check_failed - Test resume handles a failed init check
++ * @test: The KUnit test context
++ *
++ * When the DMUB service is not software-initialized, the init-state query
++ * fails and resume continues into dm_dmub_hw_init(), which also fails; the
++ * call must warn and return without crashing.
++ */
++static void dm_test_dmub_hw_resume_init_check_failed(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
++
++	adev->dm.dmub_srv->sw_init = false;
++
++	/* Must not crash. */
++	dm_dmub_hw_resume(adev);
++}
++
++/**
++ * dm_test_dmub_hw_resume_auto_load_timeout - Test resume tolerates an auto-load timeout
++ * @test: The KUnit test context
++ *
++ * When the DMUB reports hardware already initialized but the firmware never
++ * signals ready, resume's auto-load wait times out and only warns; the call
++ * must not crash.
++ */
++static void dm_test_dmub_hw_resume_auto_load_timeout(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
++
++	adev->dm.dmub_srv = dm_test_alloc_dmub_srv(test);
++	adev->dm.dmub_srv->hw_funcs.get_fw_status = dm_test_dmub_fw_not_ready;
++
++	/* Must not crash; auto-load times out and only warns. */
++	dm_dmub_hw_resume(adev);
++}
++
+ /* Tests for dm_dmub_sw_init() */
+ 
+ /**
+@@ -878,6 +951,10 @@ static struct kunit_case amdgpu_dm_dmub_tests[] = {
+ 	KUNIT_CASE(dm_test_dmub_hw_init_dmcu_abm),
+ 	/* dm_dmub_hw_resume() */
+ 	KUNIT_CASE(dm_test_dmub_hw_resume_no_dmub_srv),
++	KUNIT_CASE(dm_test_dmub_hw_resume_initialized_dmub),
++	KUNIT_CASE(dm_test_dmub_hw_resume_full_init),
++	KUNIT_CASE(dm_test_dmub_hw_resume_init_check_failed),
++	KUNIT_CASE(dm_test_dmub_hw_resume_auto_load_timeout),
+ 	/* dm_dmub_sw_init() */
+ 	KUNIT_CASE(dm_test_dmub_sw_init_unsupported_asic),
+ 	/* dm_init_microcode() */
+-- 
+2.43.0
 
-        /* This is necessary for SRIOV as well as for GFXOFF to
-function
-         * properly under bare metal
-         */
-        if ((adev->gfx.kiq[0].ring.sched.ready ||
-adev->mes.ring[0].sched.ready) &&
-            (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-        amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
-                                                 1 << vmid, GET_INST(GC, 0)=
-);
-                return;
-        }
-
-The only time we use the MMIO path is if KIQ or MES is not ready yet.
-The goal of this patch set was to switch to using SDMA rather than MES
-and to clean up the gmc code since most of the logic is the same for
-gfx9 and above.
-
-Alex
-
-
-> Christian.
->
-> >
-> > Alex
