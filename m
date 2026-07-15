@@ -4,128 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF69C44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 09:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3897CC44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 09:53:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED3210E160;
-	Wed, 15 Jul 2026 09:50:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D415A10E162;
+	Wed, 15 Jul 2026 09:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="azfjZGsg";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="JrGV1V3w";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013035.outbound.protection.outlook.com
- [40.93.196.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F5710E160
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 09:50:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GBr74Gn8dhITDnC1j5bEAbt3vbuoL8La1PgsYUCJ7EX9AU6/+VeK5gOw/7lu0BslDZOXyzeEUQm/ay58su6fMCGS3yAFyHUaUsUKcY20qGaKhZxaTEPSVy0yFHH51Al+K9hPic8NH3gzOoZNFI+O8qJ3TX+oaYzsA7oMB+I6bhScnG2G2InyBMQAfcwXI6eYm+O1wk1sn2K2gDFWlhfatcrb70igGkBI8MR0VDo7ydzIr8ZW6lE7Pi+UwwwKELPMX1/veMZraVAh0pgoOF4FVba0ZeI3Y4tIpC+jx1PRlhW+ObZW32UbyrGhjcV5Z81yVVgajUlmBxrG2Wb8q2LYLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TE3tFb6yw1HrVr5aE25z5Bwe9aw9yQx69d0zzmTs8hA=;
- b=VUsZf1WelXuCYzlG3Cjlh1XM1YoiQXxkCPpZfYOdb/O1Nohwa61hideKnwC4EYhwYJU9OIMRis8AENHAIAXMcjNYcYt/V+622wbrTe4YrzCQwA+gZrqTxqgKu3BBORi5icky5hjF4Ly+O1a8Lnx2e7otGrThcxeFzlOlD0Tic0y+HZDW8nHljXDDmdsa8G9qvsW3Urhy765aIGDwUaE9fQS0L73bcTnoy0vuG2UhHbnlR5Berlij2LfmIw/GkyiUY3NHwzIfQxUh/v65U0Ue5dwGswqX757sNqXRrJI4xm2SWm/p3/DNLBI8ByEaREMGZt36f8re72s8tsTXnPVJiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TE3tFb6yw1HrVr5aE25z5Bwe9aw9yQx69d0zzmTs8hA=;
- b=azfjZGsgtpKrTFfCanuWFvfwKzpdQDSxzybqsT7fi4LgR8bqrt683lDeWpTutdXtGdT4lBpjxrzw7xqK3a+E1UpFqgpfqiwqtOHneZFtBs4ys3RJ1QR2sskK15CXET95zUPnaqp5TihmUOAa2OIxfCZLQt4ivhJjDzVN7DXLQrc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB999080.namprd12.prod.outlook.com (2603:10b6:8:2fe::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Wed, 15 Jul
- 2026 09:50:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
- 09:50:35 +0000
-Message-ID: <dddb24b1-2ee5-4dc7-ac40-b66f08fec51c@amd.com>
-Date: Wed, 15 Jul 2026 11:50:30 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] drm/amdgpu/gfx7: Return error code when compute ring
- tests fail
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- pierre-eric.pelloux-prayer@amd.com, Natalie Vock <natalie.vock@gmx.de>
-References: <20260713125838.30607-1-timur.kristof@gmail.com>
- <2c920253-9bbc-4057-b5e0-15414220a52b@ursulin.net>
- <CADnq5_M9hwLQw8YMqEebQ7q_kYLx2KKetZJFrszGOiOSYio_dQ@mail.gmail.com>
- <7296879.9J7NaK4W3v@timur-max>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <7296879.9J7NaK4W3v@timur-max>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0269.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CB5010E162
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 09:53:45 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-493c19bad03so46571395e9.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 02:53:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1784109223; x=1784714023; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Fd59QixXrhEFMMTjBHesxiX+c9wZlfFVsDk56O14d/A=;
+ b=JrGV1V3wv8SuDRqw4GzFMzmzJ5SPm8MgUyNVn3f3zgIbOsRdQgeXytRM5w3vsv5Vto
+ 8sU+qwsek4f0Or+t1095BWuBfVYvdeehvGxDAEXyWBRW2hrcunykKSW1l1Jk9gAaBZMG
+ OQuxrwoKj6wONobUy+ulZ3Wqi6jlySPektBJs9eNT4iHX3KhAkIJIdq12LvIpRdw48fY
+ NoRJYjhr9YeAAchTXwfP1Rjd+oivY3DhFiKlWbWbAr8euc9ouGzNwsj2MVTpeRVXY5Sf
+ HEvR8+CGbkLPzx2yd9IKCsOcR9pVVxSjn7wnlF5y5Kn9jYtwg/tGUFkZmmocVuL3PfPg
+ oRKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784109223; x=1784714023;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Fd59QixXrhEFMMTjBHesxiX+c9wZlfFVsDk56O14d/A=;
+ b=B7N1VCT6b4Pjkz+/+QYWTNLOQuIjXOBdZLIdIEykIdrsHb1o7vsJvH2otNE0ehhzUx
+ p+t2csHIUpCajTTd3dDrfO0PEy9UOjbaAHYMA22PDzyWwbFx3JodXfH2ae+GgnIFWJLx
+ XCRcu25z6NI6MGE3xUBdMwf/2xGns6hK/Pp+ddlLfobzqou3AoJe6rpdbsXRi4OIevpn
+ 2p5HDFSkI2d4O3BUSf6gtz+ah6+OihN0/5rzmn2iaGm7RFl/QurteBiCYi3dCQOkKY0E
+ neAn9xOJ/oTPAqXlRDCKUXTzTDss4fK1r1xBV84WcvwJVq/dm8cNOiS2aM1YBn9qSrUJ
+ 74bw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr5WYbYnKDMSG+x0eWtG/Ip9PD6F1pUx6NNJEULxp5gpfc/746FOBAAutZcWnD0vU7unKqAysxj@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxojOp/iUIueFWpN2mwVqQfMMGPjnNlQdZY/ixSlG0NwO/LJx3b
+ LdXm1sDjCgJENhyKPLU6Zi4MoPYutuMzquv/9OaE7L7EbScN18snyWCz2dwYGVGq/Yg=
+X-Gm-Gg: AfdE7ck3U1xu++wHPfUuJRCJD+AZu1mV7oZH5zm6bjSC4eCRiuInV7OzPKDYHFIjn84
+ mMtm7sgGKpGw18LYk/+VSPMqx14pwvkOmOddTSwQbiJpNMok/rMLJ9j0tgWhbfPsWCvF8dB0kpI
+ P8/rE8ok7NpHa3p6gEk/TJPnLshs7d5Rp/KRMGJW95cn9SRtGPflH8dbtxacpp01+vhggdMvnqA
+ FSNO1QAwsFpHtCcS0D7o0x+XA715QG7r28bqGpd/Bsp1qmmEcEjrfoYJA1BDz8iNYLrdgGTlOrS
+ JY04HZ9nqt8Y+90LsgETsdjxYQWrdSgpiTHcr3eFCRHYPQsRa9znKrpFxT6m/6lTUSPrb5YPCXy
+ Ld5gSRDPz4XDpDfuf6i8q8PLJwyPCXVCpiqv7UI6vKJVEYsB1sq8Ccxs+Smfka0G1F41pCslJ84
+ HidroEWYVr1zOPcs1TQfvn6/APue5z/DMmyg==
+X-Received: by 2002:a05:600c:b8d:b0:493:f5bf:4dc6 with SMTP id
+ 5b1f17b1804b1-4953c14ef45mr23551365e9.7.1784109223392; 
+ Wed, 15 Jul 2026 02:53:43 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4953c704bfasm44023745e9.2.2026.07.15.02.53.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jul 2026 02:53:43 -0700 (PDT)
+Message-ID: <772fefb0-bb30-4f89-809d-8a63bedead1c@ursulin.net>
+Date: Wed, 15 Jul 2026 10:53:42 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB999080:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ee21bf2-f129-41ef-f827-08dee256849b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|6133799003|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 40uptUcD99sLEakT2Ra2gQcJAM+9hHFECkCIG+b2obLQYDO+W42Pr+HXDzSjWkA8n7kwwZzykEz82B2vOKIPV86IKUPcTcNqIXFVI03jsgoWqLPpBmhBoQ8rTgPafEIv9buklPFpkyjqPk6FI/g3hHPpxgkMLbxooZ8v0oeNPR5PR0kHiHNYyyA8s+nG62X44NuCFaPerCT81XUukHxVPuKya8hln8Lto6jL90+Ace0F6kEFhgqXnKgYZHxu5DpRwVW1MN0MGhjiu83KSvfPqFF5Gtm92FOqh9E4fnro0RET8g2y7lrECxoOUp9Cot8WoB04MP0giYJ8kvrgVIxxcPphvwKUL4AHoG0W5d5h0j+/v8pVpWf+DLcRjtcxzUO1jyAp9HCbDTmglQ+hsiiLIKYJUaYSwF5IusAozetEMhdlb9AYYPznnK0F5cJqn40MD03TKvzVZApeyFc59/Gy9QAHe6gKLerxMIl5sWz1deKbScr4LeDY8vv4IKR5uJJs0mT/DxsABj4pfPnGKEoH5WLqAiWe4zTY3WbVRsOStFhpRl/ddzQRZtXOO/JlkqKFcpg9WzWXiTtao3y+q4xcCMVnovkhFELWvq1dMr88ZaR7Jl2jFkS8jHssLNK3kGbkHnBEmc6QCIFuZB1UhfL5QFhLLsly9M5AkelPHeU3aHs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTlWQzRaRnNIRDVnbElZazNGcGo1SU5UM0J5aWpvWVdGeHBOQ1BmZ0YveFV6?=
- =?utf-8?B?RVpXR042MHo0MDNZN0pMWjk4bkc1cy9JVzN2NmlNREd5QmhjdVNmUVBjSytY?=
- =?utf-8?B?Q2toQ0FYMWNxS2VrbjgvZGJnaXNESC9aeW1YdTQyN01IRUNkVEtmVmhCRDZG?=
- =?utf-8?B?VFNXOU5mYW0rTjVHMm5OUmRvLzZpNEZJYWJQUUhHM2oxSXllM0VSQjlJT01o?=
- =?utf-8?B?ZkVhaWZ6ZzdFdmRPY2lneUZoK1ExOGE5ell0azVTblZTbTJGRkt5cGxpNW80?=
- =?utf-8?B?MWxKMWxrZjVoU0V0Zm1KVjlZOXVzOWxHZVA5bkxPUjd2aFFjWVNXUTBLOVZo?=
- =?utf-8?B?UldaWmJueTNxbW5NQkJkMkZ2eFRtOC8wazNyeWttc0lzaklaUzFnZWk2c2cv?=
- =?utf-8?B?OG0xMVFJOFBLUERpWTN6QnczWkhSemRZU1lOem5sdmUxdm5HNWZwRWNRbGNs?=
- =?utf-8?B?M2dMWHFIZnZTcEFJbWh5MWhNYy9oMGdHdm9IU2w1QzZhOXJIa2lucDdzT3RQ?=
- =?utf-8?B?SGExTUIwdEUvN0RtaDhyR2RhSjhNU0lsNklrNXFHNGw4dk9DR0R2bERuaGxH?=
- =?utf-8?B?Z2pKU2R4R3BtQXlzRWU4M3hMcUgxcWtYemJNcFhkaFpOc01CU29jeG9BRVZI?=
- =?utf-8?B?SWt4STBMWmg3ZUp5Qm91RlBHcWZlUTFmejN4QWp4VGVRTVdpakdSRlhRbDY1?=
- =?utf-8?B?MWlMUUlkRXM1UXZtMWhrQ0NWUnhJNTJSYWJSRVlwVmVTYnhHSjdLZXFVVmNH?=
- =?utf-8?B?b2hMcUV5bW5wV1d1RE5KOFZFeDV3MFpaK1BIYXpkV0NMMjIzQWx2VlgzbE9n?=
- =?utf-8?B?YjVGZnUrOXVUV0Z6eUJ6TlpKRytNbVkwdE1zQWRxdUtSc0ppeUdnRnNMOFNi?=
- =?utf-8?B?MTYyODBSRXdSUng1aTFGR0tmS214RkR3NDhSVUl0enhqWXNScjZhNE1SQ2Fr?=
- =?utf-8?B?RjhnQUJ2MldwYlVNMzRuM1FzR1A0L251SG5raXlLVzZvbW9JVkZXV2dKMHlN?=
- =?utf-8?B?QkpERldya2FuMG0vU0RmYlkxMWxvZ3duMy9KSENhVjUwYVhiSFZ3ZWhCamps?=
- =?utf-8?B?NElUdTA3SlRYY3UzQ2FLa1Fic3JDT1JwTDgySU0yZC9aV0FkdGdzdUtPM2ov?=
- =?utf-8?B?M3B0Rms1SWtVRjZoWDc3YTdjTEs1aERNb2J6d0dQOVZDaDQ3WUtjZnpPY2k5?=
- =?utf-8?B?OHlFWU9lLzk3L1ZpZjE1WStyeEhjRFJJeDZiOEI0SVZiVXFRdEo3ZDlOZS96?=
- =?utf-8?B?RWtjZEUxOUMwSmI5NGhKT0M3Y2RRVk1EeFBvOFd4V2d3bTJ5b1hpNHhCQ2hy?=
- =?utf-8?B?T1JoWXNmOHUyZHNXb1pJOGI3bnltWE9obU9LSWZiV3FSc0NpNHhYRmZGM1NH?=
- =?utf-8?B?T3dsNXBnalV5YWRSOXpBM3diaUtUOS8zYUhLYVFYbjN4UE15TGJwMGxXRmxm?=
- =?utf-8?B?M0xBa2NVY0Z5aVBaM1d5RjI5ejJOMHAzdjF0NTV6ZTlFeTByNEs2YXIwQ3ds?=
- =?utf-8?B?R0k3TVVhRnUzN2lZRkhGZXQ1S3ZjaFlQWmNFUEJBVWEzeGk4WlBHZlUxOW8r?=
- =?utf-8?B?enJDNHUwYk1DYjBLZzh2ZFBseXFNbFZ0djVjK2VoZU1xUUtOb3BmY2kxcXQ2?=
- =?utf-8?B?bU1palVYNkNVOVlxWWYrditYY1BxUlpGRGIyelhSR0JCeXUyOGNibE1KSXpU?=
- =?utf-8?B?dkMzQWdJRDZ1d2ZxOHh0UzNqOFpiNHBONTI3UTM1cnV1RmtpV2g4K1M2cHdq?=
- =?utf-8?B?UnM2cUVhVDNQeHloa0VPVjBQZWh2ejlaYzFNKzI3SGxHd0s5L2xIZ0N0dnk2?=
- =?utf-8?B?NFFrTi9qNTlkaSt4OHVqeW9XVXlNTkYrTFY0R3Rub1RRMXloZGV0OHF1cyt2?=
- =?utf-8?B?K2JXaXk2UnpTK2F1UlJhbXEyZ3dEY1k3ZUtSR3dKazArSnMxM0FHOXRZTE4v?=
- =?utf-8?B?VC9OTk1yZGNiMmZRRG9OVjA4K3pyeVh4cGptcWpKYy9lOXpDaHVJNVg1Si9l?=
- =?utf-8?B?aWdlRmhvQlNuVnFMSmNSekd0S2dwQ3RndXpGRnVQQ3pDUTgzU1ZsbWg4ZER0?=
- =?utf-8?B?VnZaV1J1Ym5lZGlUYVJ4bmRBR1Q4ckxZK3R1RUY1dEdzLytJaGEwMU1CVVZt?=
- =?utf-8?B?a1V4YmVUSTV0UXNHODM5cEg1Ly91QXpXbGpibko5UWV6RWNXa3ZaMzNFbG9S?=
- =?utf-8?B?M0lmRGwxb0J3dThXU1BwZ24vV3JEYWRUOFh2NUNPQVVpZHFJQXRlMmE0aE5y?=
- =?utf-8?B?TEhhZW14a3BWbUFnVm96dURkbyt0b0huZFhXWnRMelFHQ1c3MjJQQlNka2lj?=
- =?utf-8?Q?tyIUATcbVwq20bRw8X?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ee21bf2-f129-41ef-f827-08dee256849b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 09:50:35.4382 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ulemf4hb3acJkuTz+or0B2AmShZ4FoJORAF4P5Bu9xJ8McLZIV3RSopOys+Xe0z8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999080
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/9] drm/amdgpu/gfx7: Fixup IP block soft reset
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+References: <20260713125838.30607-1-timur.kristof@gmail.com>
+ <20260713125838.30607-9-timur.kristof@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260713125838.30607-9-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,65 +93,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/15/26 10:02, Timur Kristóf wrote:
-> On 2026. július 14., kedd 22:41:33 közép-európai nyári idő Alex Deucher wrote:
->> On Tue, Jul 14, 2026 at 4:14 PM Tvrtko Ursulin <tursulin@ursulin.net> wrote:
->>> On 13/07/2026 13:58, Timur Kristóf wrote:
-...
->>>
->>> I actually might like this because maybe it gets us closer to removing
->>> the ring->sched.ready hack but what I am just not sure if the idea was
->>> to allow driver to function with some non-functional rings after resume.
->>> Under the premise that if they initialized during init, then after
->>> resume they must too, or if they don't, it is a transient glitch. I
->>> don't know.. I am being imaginative here thinking about silly driver
->>> workarounds for weird hardware glitches. It is much more likely this was
->>> just an oversight and it is completely fine to to error out.
->>>
->>> I have to defer to Alex and Christian on this one.
->>
->> The reason for not checking the errors was because compute queue
->> failure was not seen as fatal.  There are a lot of compute queues
->> (relative to other engines), so if something happened, it seemed
->> better to just continue in a degraded mode with fewer compute queues
->> than to fail to resume in general.
+
+On 13/07/2026 13:58, Timur Kristóf wrote:
+> Use basically the same implementation as GFX8,
+> except for the GFX7 specific MQD functions.
 > 
-> We had a conversation about a similar topic (it was about UVD), where Alex 
-> said that in general we should prefer not to handle degraded functionality in 
-> amdgpu. I think the same principle should apply here.
-
-Yeah, well that's a rather problematic topic.
-
-Ignore such errors leads to never fix them. But on the other hand if we handle that as fatal and UVD doesn't comes up after resume you end up with a black screen while otherwise UVD is just not working.
-
-> 1. My main problem with handling degraded functionality here is that I have 
-> never seen any issue where just some compute queues fail to initialize after 
-> boot or after suspend/resume. That means we can't meaningfully test that 
-> scenario, so we can't trust any code we write to handle that either.
-
-We had a bunch of cases where some engine didn't worked in the past (UVD, VCE, Compute) either on initial load or after suspend/resume.
-
-Especially there was a Compute issues that was really annoying because it only caused trouble after Mesa switched to using compute engines for VA-API. Before that we didn't even know that Compute rings sometimes don't properly come up again after a resume.
-
-> 2. It would be very tedious to keep track of which queues didn't work in the 
-> first place vs. which are those that don't work because of a bug in the soft 
-> reset code. I consider the soft reset as failed if not all queues work 
-> correctly.
+> Reset every block using the GRBM, then proceed
+> to reset the GRBM and SEM blocks using the SRBM.
 > 
-> Considering the above, I vote that we should just expect all queues to work 
-> correctly at initialization and after a recovery. What do you guys think?
+> Remove the redundant gfx_v7_0_update_cg() function.
+> The soft reset now calls the clock and powergating
+> functions of the IP block instead.
 
-Well it's basically choosing what is the lesser evil.
+Does what it says on the tin - matches the gfx8 implementation.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
 Regards,
-Christian.
 
+Tvrtko
+
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 148 +++++++++++++-------------
+>   1 file changed, 76 insertions(+), 72 deletions(-)
 > 
-> Thanks & best regards,
-> Timur
-> 
-> 
-> 
-> 
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 6d52b8710437..825e3d7d5f0f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -3618,21 +3618,6 @@ static void gfx_v7_0_enable_mgcg(struct amdgpu_device *adev, bool enable)
+>   	}
+>   }
+>   
+> -static void gfx_v7_0_update_cg(struct amdgpu_device *adev,
+> -			       bool enable)
+> -{
+> -	gfx_v7_0_enable_gui_idle_interrupt(adev, false);
+> -	/* order matters! */
+> -	if (enable) {
+> -		gfx_v7_0_enable_mgcg(adev, true);
+> -		gfx_v7_0_enable_cgcg(adev, true);
+> -	} else {
+> -		gfx_v7_0_enable_cgcg(adev, false);
+> -		gfx_v7_0_enable_mgcg(adev, false);
+> -	}
+> -	gfx_v7_0_enable_gui_idle_interrupt(adev, true);
+> -}
+> -
+>   static void gfx_v7_0_enable_sclk_slowdown_on_pu(struct amdgpu_device *adev,
+>   						bool enable)
+>   {
+> @@ -4551,80 +4536,99 @@ static int gfx_v7_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+>   
+>   static int gfx_v7_0_soft_reset(struct amdgpu_ip_block *ip_block)
+>   {
+> +	struct amdgpu_device *adev = ip_block->adev;
+>   	u32 grbm_soft_reset = 0, srbm_soft_reset = 0;
+>   	u32 tmp;
+> -	struct amdgpu_device *adev = ip_block->adev;
+> +	int i;
+> +	int r;
+>   
+> -	/* GRBM_STATUS */
+> -	tmp = RREG32(mmGRBM_STATUS);
+> -	if (tmp & (GRBM_STATUS__PA_BUSY_MASK | GRBM_STATUS__SC_BUSY_MASK |
+> -		   GRBM_STATUS__BCI_BUSY_MASK | GRBM_STATUS__SX_BUSY_MASK |
+> -		   GRBM_STATUS__TA_BUSY_MASK | GRBM_STATUS__VGT_BUSY_MASK |
+> -		   GRBM_STATUS__DB_BUSY_MASK | GRBM_STATUS__CB_BUSY_MASK |
+> -		   GRBM_STATUS__GDS_BUSY_MASK | GRBM_STATUS__SPI_BUSY_MASK |
+> -		   GRBM_STATUS__IA_BUSY_MASK | GRBM_STATUS__IA_BUSY_NO_DMA_MASK))
+> -		grbm_soft_reset |= GRBM_SOFT_RESET__SOFT_RESET_CP_MASK |
+> -			GRBM_SOFT_RESET__SOFT_RESET_GFX_MASK;
+> -
+> -	if (tmp & (GRBM_STATUS__CP_BUSY_MASK | GRBM_STATUS__CP_COHERENCY_BUSY_MASK)) {
+> -		grbm_soft_reset |= GRBM_SOFT_RESET__SOFT_RESET_CP_MASK;
+> -		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_GRBM_MASK;
+> -	}
+> +	grbm_soft_reset =
+> +		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_RLC, 1) |
+> +		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_GFX, 1) |
+> +		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CP, 1) |
+> +		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CPF, 1) |
+> +		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CPC, 1) |
+> +		REG_SET_FIELD(0, GRBM_SOFT_RESET, SOFT_RESET_CPG, 1);
+> +
+> +	srbm_soft_reset =
+> +		REG_SET_FIELD(0, SRBM_SOFT_RESET, SOFT_RESET_GRBM, 1) |
+> +		REG_SET_FIELD(0, SRBM_SOFT_RESET, SOFT_RESET_SEM, 1);
+> +
+> +	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+> +		struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
+> +
+> +		mutex_lock(&adev->srbm_mutex);
+> +		cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
+> +		gfx_v7_0_mqd_deactivate(adev, 2);
+> +		cik_srbm_select(adev, 0, 0, 0, 0);
+> +		mutex_unlock(&adev->srbm_mutex);
+>   
+> -	/* GRBM_STATUS2 */
+> -	tmp = RREG32(mmGRBM_STATUS2);
+> -	if (tmp & GRBM_STATUS2__RLC_BUSY_MASK)
+> -		grbm_soft_reset |= GRBM_SOFT_RESET__SOFT_RESET_RLC_MASK;
+> +		udelay(50);
+> +	}
+>   
+> -	/* SRBM_STATUS */
+> -	tmp = RREG32(mmSRBM_STATUS);
+> -	if (tmp & SRBM_STATUS__GRBM_RQ_PENDING_MASK)
+> -		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_GRBM_MASK;
+> +	ip_block->version->funcs->set_clockgating_state(ip_block, AMD_CG_STATE_UNGATE);
+> +	ip_block->version->funcs->set_powergating_state(ip_block, AMD_PG_STATE_UNGATE);
+> +	ip_block->version->funcs->suspend(ip_block);
+>   
+>   	if (grbm_soft_reset || srbm_soft_reset) {
+> -		/* disable CG/PG */
+> -		gfx_v7_0_fini_pg(adev);
+> -		gfx_v7_0_update_cg(adev, false);
+> +		tmp = RREG32(mmGMCON_DEBUG);
+> +		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_STALL, 1);
+> +		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_CLEAR, 1);
+> +		WREG32(mmGMCON_DEBUG, tmp);
+>   
+> -		/* stop the rlc */
+> -		adev->gfx.rlc.funcs->stop(adev);
+> +		udelay(100);
+> +	}
+>   
+> -		/* Disable GFX parsing/prefetching */
+> -		WREG32(mmCP_ME_CNTL, CP_ME_CNTL__ME_HALT_MASK | CP_ME_CNTL__PFP_HALT_MASK | CP_ME_CNTL__CE_HALT_MASK);
+> +	if (grbm_soft_reset) {
+> +		tmp = RREG32(mmGRBM_SOFT_RESET);
+> +		tmp |= grbm_soft_reset;
+> +		dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
+> +		WREG32(mmGRBM_SOFT_RESET, tmp);
+> +		tmp = RREG32(mmGRBM_SOFT_RESET);
+>   
+> -		/* Disable MEC parsing/prefetching */
+> -		WREG32(mmCP_MEC_CNTL, CP_MEC_CNTL__MEC_ME1_HALT_MASK | CP_MEC_CNTL__MEC_ME2_HALT_MASK);
+> +		udelay(100);
+>   
+> -		if (grbm_soft_reset) {
+> -			tmp = RREG32(mmGRBM_SOFT_RESET);
+> -			tmp |= grbm_soft_reset;
+> -			dev_info(adev->dev, "GRBM_SOFT_RESET=0x%08X\n", tmp);
+> -			WREG32(mmGRBM_SOFT_RESET, tmp);
+> -			tmp = RREG32(mmGRBM_SOFT_RESET);
+> +		tmp &= ~grbm_soft_reset;
+> +		WREG32(mmGRBM_SOFT_RESET, tmp);
+> +		tmp = RREG32(mmGRBM_SOFT_RESET);
+>   
+> -			udelay(50);
+> +		udelay(100);
+> +	}
+>   
+> -			tmp &= ~grbm_soft_reset;
+> -			WREG32(mmGRBM_SOFT_RESET, tmp);
+> -			tmp = RREG32(mmGRBM_SOFT_RESET);
+> -		}
+> +	if (srbm_soft_reset) {
+> +		tmp = RREG32(mmSRBM_SOFT_RESET);
+> +		tmp |= srbm_soft_reset;
+> +		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
+> +		WREG32(mmSRBM_SOFT_RESET, tmp);
+> +		tmp = RREG32(mmSRBM_SOFT_RESET);
+>   
+> -		if (srbm_soft_reset) {
+> -			tmp = RREG32(mmSRBM_SOFT_RESET);
+> -			tmp |= srbm_soft_reset;
+> -			dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
+> -			WREG32(mmSRBM_SOFT_RESET, tmp);
+> -			tmp = RREG32(mmSRBM_SOFT_RESET);
+> +		udelay(100);
+>   
+> -			udelay(50);
+> +		tmp &= ~srbm_soft_reset;
+> +		WREG32(mmSRBM_SOFT_RESET, tmp);
+> +		tmp = RREG32(mmSRBM_SOFT_RESET);
+>   
+> -			tmp &= ~srbm_soft_reset;
+> -			WREG32(mmSRBM_SOFT_RESET, tmp);
+> -			tmp = RREG32(mmSRBM_SOFT_RESET);
+> -		}
+> -		/* Wait a little for things to settle down */
+> -		udelay(50);
+> +		udelay(100);
+>   	}
+> +
+> +	if (grbm_soft_reset || srbm_soft_reset) {
+> +		tmp = RREG32(mmGMCON_DEBUG);
+> +		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_STALL, 0);
+> +		tmp = REG_SET_FIELD(tmp, GMCON_DEBUG, GFX_CLEAR, 0);
+> +		WREG32(mmGMCON_DEBUG, tmp);
+> +	}
+> +
+> +	/* Wait a little for things to settle down */
+> +	udelay(100);
+> +
+> +	r = ip_block->version->funcs->resume(ip_block);
+> +	r |= ip_block->version->funcs->late_init(ip_block);
+> +	if (r)
+> +		return r;
+> +
+> +	ip_block->version->funcs->set_clockgating_state(ip_block, AMD_CG_STATE_GATE);
+> +	ip_block->version->funcs->set_powergating_state(ip_block, AMD_PG_STATE_GATE);
+> +
+>   	return 0;
+>   }
+>   
 
