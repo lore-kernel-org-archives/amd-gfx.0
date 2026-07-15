@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87F71C4450A
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C15AC44508
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E48810F08A;
-	Wed, 15 Jul 2026 13:46:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED43010F08E;
+	Wed, 15 Jul 2026 13:46:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hlWfBTL5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oibTl78E";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013002.outbound.protection.outlook.com
- [40.107.201.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C44D610F08A
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:46:49 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010057.outbound.protection.outlook.com [52.101.56.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C286A10F08E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:46:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cuWIzFQxkaJi+EGZE020QxwYYNJt8Rc2hOeMWw18C2AyDiCzLZxjQ5zRpP61a3rFxLTl7DEItBgo83/ekPfAUgdWN3aWQCvepuQ+FSM5IS6n2Xes4n3QcquxQARIIMFhVUXqxVfftvr4yEoBsNzOZii0fahOc+C/8c7NPjmWWElOiUakckLHCObDRF1fg5vk+eMItJxYhJJtR3kG0STVqPNhsCPaAkc9H64pYNtV4lxjWtFvqxlKze/joPbtWZ3qoRtwGtdkJH3QrIY6xaSrM5uTzRwUvNpy0bg4CKw+TIx79wZAdP5XbUaJpPP/miybADzO2OcNo7TQxAZP1v0EAA==
+ b=kSsRBw1VHDMik+f95rbfTNv5fUj5a1kR0QfLRlt+cy9eYE7BuQcysWSgCZf/KsupwXGmt2U57tLyYucuCJ7EDuA2J1er17W6QL315GUjw7dWdtg4mn2JfmWR51hWD28/8PQGzzP6HXmeam/+n4aeUoPhLmSpLZps1RsJz+Dt6etRLD1VptdTNVqoY+oJufIlNkPjfLRvItAIv226Ce6TnNy6Yq3fcQT6BE74KDCiD3ev0xIcvxlybU9+IKN+lP/TSZUNOXRTLVbDvDPmzpK3ODpK/fxs/3UgfGHrhp2cAc+K6fB3mBlhfNNC4h5KxFoCclxH9iDL4hCuorAJREmgAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o0qKrCTLioqn5W0cTbi23AXvMhr8Pm0+26raqkGYdfo=;
- b=UvMmdtkvlU3M5MTbJlKHWPXdMIuJxQc1WQvkEKwdvH87KSL4v5OJtr7m6+pmjaSH17NDCB0qbrPmkT2csCB+wvRgY5zGs0/bkRgiHNbayD/gl6XfdiSWqlIcudEBfY1cPSnz0aKjbfm1sngS2RfyaWlAxLeDQBEPGAJrl2Z1qPg55fuwwY8PnRwsyKbdBlY3kqHears03vn2wBSNlrqrE04Y0qanwHLicLCgp+qa9Ny/jXE5sOgzIJluu1Ii9b/6WKBAJYBUruaSaSRf8CZziZk4+pHdwELmUgCPEMqdcqzpHAqdIkO+1cmrjeFDmlDz47YQtbZzW+5Twa6N1b5QmQ==
+ bh=ehkcoeekICbs20mmgy+3iIGSuZeIvyU87wKPg93zV90=;
+ b=C4EVaB636XrC7aSeUErDa3UzM+BJuv/UJfFqaALNT2LyqERzfJdfv/3sB9ZTVWNj3PNr3hOsOic+juzgEuMA+LCO5DWVFrMREVVFTUgi0B97UnQH1y0IgeygNtj5LZ7Pu8Ksj5sJd+nD0EPTMQ47s06/RTfW0G3GfF6BnUWp44PTd8zZ9ZvthUmQ4mXESntE9acQzVfc31iF7S73ib+Tm2rgAwn0sNAgQluVDZBgKFcf8+jccF/qF6AzK8TUCwo4fbW1nN/FFfB85bMvdC7ZP/C8gQiC/cZ7bL+6BN0nvE+VU0OU9HFixG0O12GiGgd2TV/+N+2mudAtN+Pwke7gpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o0qKrCTLioqn5W0cTbi23AXvMhr8Pm0+26raqkGYdfo=;
- b=hlWfBTL5SUFtCZBFnEriPaITdJR5hXnZwff3DPA1MGYOqkOX1X/XTv26OXRfnk5N1Ecc5QzeaJMFmHpziMOfYYuksDHG7QeQTkWN2g8CJVe1nXR4rzcsOrsdXLQcoEiV0nwCwwovISrJ3nCeQ5Eq6rVGUd0C9sV0l8Vngf6d8lQ=
-Received: from PH8P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:345::23)
- by MW4PR12MB6756.namprd12.prod.outlook.com (2603:10b6:303:1e9::7)
+ bh=ehkcoeekICbs20mmgy+3iIGSuZeIvyU87wKPg93zV90=;
+ b=oibTl78ERpaU26/qcFdI4PF/AYWMYW8nZqQyuOItii2iACFUq12flEUsDwK4lFIr4rr23goWhgQ94wpa1GJlT/Rrr9Ea2cjRFtmSjjrRAGreg8WyyaLNjIUeszQHxupiRaBwMDJy8tPBlce24OT7XJwsf3rQ6eL2FDoQR8Pb620=
+Received: from MW4PR04CA0346.namprd04.prod.outlook.com (2603:10b6:303:8a::21)
+ by DSVPR12MB999173.namprd12.prod.outlook.com (2603:10b6:8:38a::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Wed, 15 Jul
- 2026 13:46:44 +0000
-Received: from CY4PEPF0000FCC3.namprd03.prod.outlook.com
- (2603:10b6:510:345:cafe::a3) by PH8P220CA0015.outlook.office365.com
- (2603:10b6:510:345::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Wed,
- 15 Jul 2026 13:46:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 13:46:48 +0000
+Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
+ (2603:10b6:303:8a:cafe::a4) by MW4PR04CA0346.outlook.office365.com
+ (2603:10b6:303:8a::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
+ 15 Jul 2026 13:46:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000FCC3.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:46:43 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:46:47 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:46:43 -0500
+ 2026 08:46:47 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:46:42 -0500
+ 2026 08:46:46 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 15 Jul 2026 08:46:39 -0500
+ Transport; Wed, 15 Jul 2026 08:46:43 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,9 +71,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 29/70] drm/amd/display: Test plane colorop pipeline update
-Date: Wed, 15 Jul 2026 21:37:39 +0800
-Message-ID: <20260715134432.1975118-30-Wayne.Lin@amd.com>
+Subject: [PATCH 30/70] drm/amd/display: add KUnit tests for DM IP-block
+ callbacks
+Date: Wed, 15 Jul 2026 21:37:40 +0800
+Message-ID: <20260715134432.1975118-31-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
@@ -83,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|MW4PR12MB6756:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d2a85bc-007d-4ad5-c4aa-08dee27781b7
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|DSVPR12MB999173:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6be33462-44ca-4f35-6311-08dee2778417
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|11063799006|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: XIg+W6sL2qVP6aKDCtAVIv6gtsnKleqcLrqaJyaRiniETerMfi77ph5m3i5QBjK2BbNDogTO6+LZXapkHyDwmrSyRxPCsGESI+ZhVmSk6o9iRt00GBBaebppKhPTkES+iKpSXFjcX9qG07guz6D6TjDkmzgN7gLD/WlSyJZnDS8mmpSvpzpJex3kTXO4LQrurhVnNIIwq1PrdENckv9mndjiXMcx9JoCI5B8UR7uvSrXeJUbS4i6fJJIMY7dEpSrKb+NLyL9Z3vnVeIvD2oUc2IiBhOkVbSd5YVgmEkyAVYfFi0xw/DOwuY5J6elkz/RVOZKtU36zOeNpwF/uO76iXmeJ4KlwjpU24Gn8tKjIre1ssstmwsK5TAMyGfXG9kwXm+peDqecrFKfIwum0Y9mlwl3QaXceuBsjF1e41jtoucXqQITaKFKsIezrYKJquIP1TDM+0K4WvXdDLNwq/hpOzwbPqm595Sjfl7eqnOoTTahQ2L/kM3yGPlmcWOugHXorx+GSq3TPYj70Twhr8C1GROpKwnd+lBThUs/QW8vQpbKPe3h12tg55JN7OWl+T1EJU5EpSelXzB5L0lDfKOlAxeDiWpnIvWriOuWPgR5yMnmKwqKfc2ms41mPHx/gygzuOyMyHl14T7jY1iJttadBZaTwkA5xXyg9B7ovpa0n1cwhiK7YobIH5ihTtTfgm+Jqm88bToyzfV4cizoM1k0w==
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|11063799006|56012099006|18002099003|22082099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: 0dCVHvNcerdvjo/ZLYZZgYwsHMzN3QV1AUqBFL0OD7PsuESSTttPFC5z3RkN72ltrMS25FLKZyfryvQnMUl6qoFzQJozMKzWitqX+V1SEaQScdqYCO23kyun911N/6R9XPGN971pHdHvu2FSeI5btiWBn0enhgnLy45tiiKQ4sQnpiccCT67LUy6FO4phq1I++lpwmtHVg6f/pZ/lsVbHaqNMw3RQA1MMlmEHDPUoIe8VaPplYownqSEfcJuOECxeQn4PockMdXaGsEhPDSfKDyNRKI4iKq/CXFNwl2vaZStYG+Yv2TncbPVbemATu8xIhJXnE0/9z9FTHt1v2q1TWdNXks0nL2doEpGqnivXUhh3dZRm3oSUVzQ/NWX+z87Mi4BSzZ0ruPgiJ+SO27gREeA47KWCNKUKF3PdW97ubCabtGhIxvjcZQ1NUU61pGd52CdV/BOlAzZubXCAS/TsZigcThHG1kcFHVlsriCH00l1bEkHZe1EPoPZsR3XbEp2FP3iOuZ+syEq+2GNIU+bF7k6opt2vNYN5rplx6Gh1y+9kXr3MgTLUJw8N5JJaLxOxe0gVUd0VeS3zzUcWQtTXywOjVunudwlZgIcs38kl13BgrAENM+KLY6jm3fXbK9ECMej2FdTb4XBFoQT/rzQw/pFGtv/lG4cpGvIyxmwqU+TV4Q3Blhoo4G/826+ZoAcQzz6E08ksY/v8if5nL5zw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(11063799006)(56012099006)(18002099003)(22082099003)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZiMsFdv+xGyGgHRlu5s2ipyi/xrHmOWtio6d8HGueuHUoWRPOPVJ9CQ2MgsXUQcvW6pAwltKlZQ/EJiF++WQ5jA4vbnYGxDIWWEdgeOycBqwQJiLTFXTvKjtJwlx2CYuKmRT1Dr6ITtuG5Onc0+OX4VozKs2YFqAsp18F0VmRdrUDEo6OhNs5mbKLPcwHch6jWkr19H6hXmrDBJIb93vZFbAxQkb/P/VVrT48nYmpdIzbLQkCRQpkLT2DHKhgbb73XILwXPfNI5M3M0Fn0TuHPipNJU+ToGmIW/Gj3ZBHealWK/tTOJo0RwJYF5YnrfjZtknuVOJEEKwvaywCrbp5s5FWcR6l/RZ5XEbwTJb1SHCO7lNofS755L8kEH4w3rhjCxqknGUGx6fv+yZtmzwNFLhDvH0BWedOWiyUTBq7NkGNFzd0IFZpI582AdPXdsa
+X-MS-Exchange-AntiSpam-MessageData-0: M+0Li1lT8DgX+Ypf/AUlo16ikGXM5DIddUpm/0TqgYFqna4dHvZRsXdyldxXU7LsarIEOeFr3dm8tRewtnn5dsy0QhrgJfnOw+c4goTuFXc/aEXMYbCqb3GhT3a6N/CeuuWzYVuTwpWwwaWltGlxqKDCD6VmmeBPa/GAhUS8UR9d1BpNbO2/4IYvIKJqHjM7+oJFKeK4pdCa+d356dbO+hzvS29mmLdxVPj2VrU84bsqMq7/VVtzu9B2RxszMrU8yT0rnzHlKL6ZB3hRiHATxg68hszuqW9iIzJsWI8Wg/H500DRXvBJPecbJi8LjnN5B7kTgrjj+Fgg+iV0pLMZ3LfYbUeJ6jufSix0nBebBn6vZoyVMgFGUN68JOMEtdOBj9c1O6nzKmBTLLfMkwNHy/wZFRFQ/dYPNgURjjTjL38q92XwM5+rfTHTRb+Y8z8D
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:46:43.7597 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d2a85bc-007d-4ad5-c4aa-08dee27781b7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:46:47.7040 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6be33462-44ca-4f35-6311-08dee2778417
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC3.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6756
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,259 +123,208 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit coverage for the colorop-pipeline path of
-amdgpu_dm_update_plane_color_mgmt().
+Add KUnit coverage for the simple amdgpu_dm IP-block callbacks
+(is_idle, wait_for_idle, soft_reset, set_clockgating_state,
+set_powergating_state and the bandwidth_update display hook) by
+asserting their placeholder return values. Also add the shared test
+include block used by the amdgpu_dm test suite.
 
-Test-local helpers fabricate a linked colorop pipeline so the update path
-can be exercised end to end: a fully bypassed pipeline succeeds, a
-pipeline missing the multiplier or the 3x4 op falls back to defaults, and
-a pipeline with no 3D LUT hardware skips the 3D ops.
-
-Assisted-by: Copilot:Claude-Opus-4.8 GPT-5.5
+Assisted-by: Copilot:Claude-Opus-4.8
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_color_test.c    | 219 ++++++++++++++++++
- 1 file changed, 219 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 +++
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 73 +++++++++++++++++++
+ 3 files changed, 96 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-index 6bca2b2f62a8..641126d03c65 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-@@ -2082,6 +2082,221 @@ static void dm_test_update_plane_color_mgmt_plane_ctm(struct kunit *test)
- 	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->input_csc_color_matrix.enable_adjustment);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index cb10c5fa374e..80778d7e7337 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -224,23 +224,26 @@ static int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+ 	return 0;
  }
  
-+/**
-+ * dm_test_colorop_pipeline_add - append one colorop to a fabricated pipeline
-+ * @test: KUnit test context
-+ * @f: color update fixture that owns the atomic state
-+ * @index: colorop array index to populate
-+ * @type: colorop type
-+ * @curve_1d_type: 1D curve type for DRM_COLOROP_1D_CURVE states
-+ * @bypass: bypass flag for the new colorop state
-+ *
-+ * Returns: the newly allocated colorop.
-+ */
-+static struct drm_colorop *
-+dm_test_colorop_pipeline_add(struct kunit *test,
-+			     struct dm_test_color_update_fixture *f,
-+			     int index, enum drm_colorop_type type,
-+			     enum drm_colorop_curve_1d_type curve_1d_type,
-+			     bool bypass)
-+{
-+	struct drm_colorop_state *colorop_state;
-+	struct drm_colorop *colorop;
-+
-+	colorop = kunit_kzalloc(test, sizeof(*colorop), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, colorop);
-+	colorop->dev = &f->adev->ddev;
-+	colorop->type = type;
-+	colorop->size = MAX_COLOR_LUT_ENTRIES;
-+
-+	colorop_state = kunit_kzalloc(test, sizeof(*colorop_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, colorop_state);
-+	colorop_state->colorop = colorop;
-+	colorop_state->curve_1d_type = curve_1d_type;
-+	colorop_state->bypass = bypass;
-+
-+	f->state->colorops[index].ptr = colorop;
-+	f->state->colorops[index].new_state = colorop_state;
-+
-+	return colorop;
-+}
-+
-+/**
-+ * dm_test_colorop_pipeline_setup - build a linked colorop pipeline prefix
-+ * @test: KUnit test context
-+ * @f: color update fixture that owns the atomic state
-+ * @types: colorop types to create
-+ * @curves: curve type for each colorop state
-+ * @bypass: bypass flag for each colorop state
-+ * @count: number of colorops to create
-+ *
-+ * Returns: the first colorop in the linked pipeline.
-+ */
-+static struct drm_colorop *
-+dm_test_colorop_pipeline_setup(struct kunit *test,
-+			       struct dm_test_color_update_fixture *f,
-+			       const enum drm_colorop_type *types,
-+			       const enum drm_colorop_curve_1d_type *curves,
-+			       const bool *bypass,
-+			       int count)
-+{
-+	struct drm_colorop **colorops;
-+	int i;
-+
-+	f->state->colorops = kunit_kcalloc(test, count, sizeof(*f->state->colorops),
-+					   GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, f->state->colorops);
-+	f->adev->ddev.mode_config.num_colorop = count;
-+
-+	colorops = kunit_kcalloc(test, count, sizeof(*colorops), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, colorops);
-+
-+	for (i = 0; i < count; i++)
-+		colorops[i] = dm_test_colorop_pipeline_add(test, f, i, types[i], curves[i], bypass[i]);
-+
-+	for (i = 0; i < count - 1; i++)
-+		colorops[i]->next = colorops[i + 1];
-+
-+	return colorops[0];
-+}
-+
-+/**
-+ * dm_test_update_plane_color_mgmt_colorop_bypass_pipeline - bypassed pipeline succeeds
-+ * @test: KUnit test context
-+ */
-+static void dm_test_update_plane_color_mgmt_colorop_bypass_pipeline(struct kunit *test)
-+{
-+	static const enum drm_colorop_type types[] = {
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_MULTIPLIER,
-+		DRM_COLOROP_CTM_3X4,
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_1D_LUT,
-+		DRM_COLOROP_3D_LUT,
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_1D_LUT,
-+	};
-+	static const enum drm_colorop_curve_1d_type curves[] = {
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+	};
-+	static const bool bypass[] = {
-+		true, true, true, true, true, true, true, true,
-+	};
-+	struct dm_test_color_update_fixture f = dm_test_color_update_setup(test);
-+
-+	f.adev->dm.dc->caps.color.dpp.hw_3d_lut = true;
-+	f.dm_plane_state->base.color_pipeline =
-+		dm_test_colorop_pipeline_setup(test, &f, types, curves, bypass, ARRAY_SIZE(types));
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_update_plane_color_mgmt(f.crtc_state, &f.dm_plane_state->base, f.dc_plane_state),
-+			0);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.shaper_enable);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.lut3d_enable);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.blend_enable);
-+}
-+
-+/**
-+ * dm_test_update_plane_color_mgmt_colorop_missing_multiplier - missing second op falls back
-+ * @test: KUnit test context
-+ */
-+static void dm_test_update_plane_color_mgmt_colorop_missing_multiplier(struct kunit *test)
-+{
-+	static const enum drm_colorop_type types[] = { DRM_COLOROP_1D_CURVE };
-+	static const enum drm_colorop_curve_1d_type curves[] = {
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+	};
-+	static const bool bypass[] = { true };
-+	struct dm_test_color_update_fixture f = dm_test_color_update_setup(test);
-+
-+	f.dm_plane_state->base.color_pipeline =
-+		dm_test_colorop_pipeline_setup(test, &f, types, curves, bypass, ARRAY_SIZE(types));
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_update_plane_color_mgmt(f.crtc_state, &f.dm_plane_state->base, f.dc_plane_state),
-+			0);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.shaper_enable);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.blend_enable);
-+}
-+
-+/**
-+ * dm_test_update_plane_color_mgmt_colorop_missing_3x4 - missing third op falls back
-+ * @test: KUnit test context
-+ */
-+static void dm_test_update_plane_color_mgmt_colorop_missing_3x4(struct kunit *test)
-+{
-+	static const enum drm_colorop_type types[] = {
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_MULTIPLIER,
-+	};
-+	static const enum drm_colorop_curve_1d_type curves[] = {
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+	};
-+	static const bool bypass[] = { true, true };
-+	struct dm_test_color_update_fixture f = dm_test_color_update_setup(test);
-+
-+	f.dm_plane_state->base.color_pipeline =
-+		dm_test_colorop_pipeline_setup(test, &f, types, curves, bypass, ARRAY_SIZE(types));
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_update_plane_color_mgmt(f.crtc_state, &f.dm_plane_state->base, f.dc_plane_state),
-+			0);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.shaper_enable);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.blend_enable);
-+}
-+
-+/**
-+ * dm_test_update_plane_color_mgmt_colorop_no_3dlut_hw - no 3D LUT skips 3D ops
-+ * @test: KUnit test context
-+ */
-+static void dm_test_update_plane_color_mgmt_colorop_no_3dlut_hw(struct kunit *test)
-+{
-+	static const enum drm_colorop_type types[] = {
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_MULTIPLIER,
-+		DRM_COLOROP_CTM_3X4,
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_1D_LUT,
-+		DRM_COLOROP_3D_LUT,
-+		DRM_COLOROP_1D_CURVE,
-+		DRM_COLOROP_1D_LUT,
-+	};
-+	static const enum drm_colorop_curve_1d_type curves[] = {
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+		DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+	};
-+	static const bool bypass[] = {
-+		true, true, true, true, true, false, true, true,
-+	};
-+	struct dm_test_color_update_fixture f = dm_test_color_update_setup(test);
-+
-+	f.adev->dm.dc->caps.color.dpp.hw_3d_lut = true;
-+	f.dm_plane_state->base.color_pipeline =
-+		dm_test_colorop_pipeline_setup(test, &f, types, curves, bypass,
-+					       ARRAY_SIZE(types));
-+	f.adev->dm.dc->caps.color.dpp.hw_3d_lut = false;
-+
-+	KUNIT_EXPECT_EQ(test,
-+		amdgpu_dm_update_plane_color_mgmt(f.crtc_state, &f.dm_plane_state->base,
-+						  f.dc_plane_state),
-+		0);
-+	KUNIT_EXPECT_FALSE(test, f.dc_plane_state->cm.flags.bits.lut3d_enable);
-+}
-+
- static struct kunit_case dm_color_test_cases[] = {
- 	/* amdgpu_dm_fixpt_from_s3132 */
- 	KUNIT_CASE(dm_test_fixpt_from_s3132_zero),
-@@ -2204,6 +2419,10 @@ static struct kunit_case dm_color_test_cases[] = {
- 	KUNIT_CASE(dm_test_update_plane_color_mgmt_maps_crtc_degamma),
- 	KUNIT_CASE(dm_test_update_plane_color_mgmt_uses_color_caps),
- 	KUNIT_CASE(dm_test_update_plane_color_mgmt_plane_ctm),
-+	KUNIT_CASE(dm_test_update_plane_color_mgmt_colorop_bypass_pipeline),
-+	KUNIT_CASE(dm_test_update_plane_color_mgmt_colorop_missing_multiplier),
-+	KUNIT_CASE(dm_test_update_plane_color_mgmt_colorop_missing_3x4),
-+	KUNIT_CASE(dm_test_update_plane_color_mgmt_colorop_no_3dlut_hw),
- 	{}
- };
+-static bool dm_is_idle(struct amdgpu_ip_block *ip_block)
++STATIC_IFN_KUNIT bool dm_is_idle(struct amdgpu_ip_block *ip_block)
+ {
+ 	/* XXX todo */
+ 	return true;
+ }
++EXPORT_IF_KUNIT(dm_is_idle);
  
+-static int dm_wait_for_idle(struct amdgpu_ip_block *ip_block)
++STATIC_IFN_KUNIT int dm_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ {
+ 	/* XXX todo */
+ 	return 0;
+ }
++EXPORT_IF_KUNIT(dm_wait_for_idle);
+ 
+-static int dm_soft_reset(struct amdgpu_ip_block *ip_block)
++STATIC_IFN_KUNIT int dm_soft_reset(struct amdgpu_ip_block *ip_block)
+ {
+ 	/* XXX todo */
+ 	return 0;
+ }
++EXPORT_IF_KUNIT(dm_soft_reset);
+ 
+ STATIC_IFN_KUNIT bool is_dc_timing_adjust_needed(struct dm_crtc_state *old_state,
+ 						 struct dm_crtc_state *new_state)
+@@ -310,17 +313,19 @@ static inline bool update_planes_and_stream_adapter(struct dc *dc,
+ 					   stream_update);
+ }
+ 
+-static int dm_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+-		  enum amd_clockgating_state state)
++STATIC_IFN_KUNIT int dm_set_clockgating_state(struct amdgpu_ip_block *ip_block,
++					      enum amd_clockgating_state state)
+ {
+ 	return 0;
+ }
++EXPORT_IF_KUNIT(dm_set_clockgating_state);
+ 
+-static int dm_set_powergating_state(struct amdgpu_ip_block *ip_block,
+-		  enum amd_powergating_state state)
++STATIC_IFN_KUNIT int dm_set_powergating_state(struct amdgpu_ip_block *ip_block,
++					      enum amd_powergating_state state)
+ {
+ 	return 0;
+ }
++EXPORT_IF_KUNIT(dm_set_powergating_state);
+ 
+ /* Prototypes of private functions */
+ static int dm_early_init(struct amdgpu_ip_block *ip_block);
+@@ -2795,10 +2800,11 @@ static void amdgpu_dm_destroy_drm_device(struct amdgpu_display_manager *dm)
+  *
+  * Calculate and program the display watermarks and line buffer allocation.
+  */
+-static void dm_bandwidth_update(struct amdgpu_device *adev)
++STATIC_IFN_KUNIT void dm_bandwidth_update(struct amdgpu_device *adev)
+ {
+ 	/* TODO: implement later */
+ }
++EXPORT_IF_KUNIT(dm_bandwidth_update);
+ 
+ static const struct amdgpu_display_funcs dm_display_funcs = {
+ 	.bandwidth_update = dm_bandwidth_update, /* called unconditionally */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index f753e90bdeda..7bb552d1ddba 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1140,6 +1140,15 @@ void amdgpu_dm_apply_delay_after_dpcd_poweroff(struct amdgpu_device *adev,
+ 											   struct dc_sink *sink);
+ 
+ #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
++struct amdgpu_ip_block;
++bool dm_is_idle(struct amdgpu_ip_block *ip_block);
++int dm_wait_for_idle(struct amdgpu_ip_block *ip_block);
++int dm_soft_reset(struct amdgpu_ip_block *ip_block);
++int dm_set_clockgating_state(struct amdgpu_ip_block *ip_block,
++			     enum amd_clockgating_state state);
++int dm_set_powergating_state(struct amdgpu_ip_block *ip_block,
++			     enum amd_powergating_state state);
++void dm_bandwidth_update(struct amdgpu_device *adev);
+ int dm_plane_layer_index_cmp(const void *a, const void *b);
+ int fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+ 				const enum surface_pixel_format format,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index 0b29bf0a7d04..d4e37580316f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -6,10 +6,76 @@
+  */
+ 
+ #include <kunit/test.h>
++#include <linux/pci.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_writeback.h>
+ 
+ #include "dc.h"
++#include "inc/core_types.h"
++#include "amd_shared.h"
++#include "amdgpu.h"
+ #include "amdgpu_mode.h"
+ #include "amdgpu_dm.h"
++#include "amdgpu_dm_kunit_test_helpers.h"
++
++/* Tests for simple DM callbacks */
++
++/**
++ * dm_test_is_idle - Test placeholder idle callback returns true
++ * @test: The KUnit test context
++ */
++static void dm_test_is_idle(struct kunit *test)
++{
++	KUNIT_EXPECT_TRUE(test, dm_is_idle(NULL));
++}
++
++/**
++ * dm_test_wait_for_idle - Test placeholder wait-for-idle callback returns success
++ * @test: The KUnit test context
++ */
++static void dm_test_wait_for_idle(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, dm_wait_for_idle(NULL), 0);
++}
++
++/**
++ * dm_test_soft_reset - Test placeholder soft-reset callback returns success
++ * @test: The KUnit test context
++ */
++static void dm_test_soft_reset(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, dm_soft_reset(NULL), 0);
++}
++
++/**
++ * dm_test_set_clockgating_state - Test placeholder clockgating callback returns success
++ * @test: The KUnit test context
++ */
++static void dm_test_set_clockgating_state(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, dm_set_clockgating_state(NULL, AMD_CG_STATE_GATE), 0);
++}
++
++/**
++ * dm_test_set_powergating_state - Test placeholder powergating callback returns success
++ * @test: The KUnit test context
++ */
++static void dm_test_set_powergating_state(struct kunit *test)
++{
++	KUNIT_EXPECT_EQ(test, dm_set_powergating_state(NULL, AMD_PG_STATE_GATE), 0);
++}
++
++/**
++ * dm_test_bandwidth_update - Test placeholder bandwidth update is callable
++ * @test: The KUnit test context
++ */
++static void dm_test_bandwidth_update(struct kunit *test)
++{
++	dm_bandwidth_update(NULL);
++}
+ 
+ /* Tests for dm_plane_layer_index_cmp() */
+ 
+@@ -884,6 +950,13 @@ static void dm_test_master_stream_defaults_to_first(struct kunit *test)
+ }
+ 
+ static struct kunit_case amdgpu_dm_tests[] = {
++	/* Simple DM callbacks */
++	KUNIT_CASE(dm_test_is_idle),
++	KUNIT_CASE(dm_test_wait_for_idle),
++	KUNIT_CASE(dm_test_soft_reset),
++	KUNIT_CASE(dm_test_set_clockgating_state),
++	KUNIT_CASE(dm_test_set_powergating_state),
++	KUNIT_CASE(dm_test_bandwidth_update),
+ 	/* dm_plane_layer_index_cmp */
+ 	KUNIT_CASE(dm_test_plane_layer_index_cmp_equal),
+ 	KUNIT_CASE(dm_test_plane_layer_index_cmp_descending),
 -- 
 2.43.0
 
