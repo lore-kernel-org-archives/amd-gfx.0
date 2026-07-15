@@ -4,124 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4928EC44508
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 08:12:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D898C44507
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 08:26:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE9610EF36;
-	Wed, 15 Jul 2026 08:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9010E10EF46;
+	Wed, 15 Jul 2026 08:26:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qu5JyCw5";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="k6X8BPh/";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010036.outbound.protection.outlook.com
- [52.101.193.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B785410EF36
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 08:12:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EDMs2LgoGqH4RjMQHIXOa+ZCDwaYbT0Oiv1JG24h1P8PqinNewqJaELpDknZhFHocitSWD27qskDj8Lgye9f37tZCYV7Ivm7X8Ml1o6DJ2XGfnNaZd9kXZO91Q2EdtqzWPom6393q/fwJf2yAEQ5Jxh2CFeHRIZtUj98S1wB+T91kMXepiUfz+I5V1POkb+izmT9oBTFrQlrxShCL9/67Kv6mpnQ3we9fMJmb6bZd0HvaAYijcEQfFq3PUBe4mZK1Stw7WLn8S4lG3vhcnFNN/SNJfj2S3xN5+TIihQm2O0j6qJMdmX7WnTI9cYlNtRpJsPPGCNrQaPL8AEv955Q5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WF1Rf1pMkGqE3E8/UhTVPyW/cU2s3KK6ZL/0XKJpdK0=;
- b=ZTmI5UrvDBA1fvHhSraVs8ZZ1DPnbeW/GAnoiYzVDWZnRw6d0LtuvmvdVy2S2nz/fUemPe/W3Ka7qI3Tjdx+UykQxhMhA2VoqREAtYz+OXPctyzjrlLhwGAWOe6hvTuW7DHAnb0C1OHGxshyY4jopLIhB6crhbrwCcFizleyg5G4giiR8A37BSJ+DJ2ZOmPgvUL4vHaHdloQJBsZIxDG3MvUazP54eNCISUnqE3be+4Oh73stewuen5Y6QeBISXqAzTcKvVDRLNBQiCsJ38NZ7ezpOm68QJc6iNouRkAgtjl9G7mQgoDa3TRrBoHCva7Pcxbz5UfUF22DbovmNdATQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WF1Rf1pMkGqE3E8/UhTVPyW/cU2s3KK6ZL/0XKJpdK0=;
- b=qu5JyCw5KS7Lf2dioQpHKsfyY+bzD7eer9pQyVGNGWJ6wz5hjRdAqSVTERskydOZChOg73EUgo6ujlY4FSdmUfjTTziCboiM5iMU/Vu53Kr9tlBixKJObRg0kL7P//A+UZL4OSy+jjXqAcjTEvbTpZ8bD0UVGNkI0GThEI+tt9c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by PH0PR12MB5632.namprd12.prod.outlook.com (2603:10b6:510:14c::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
- 2026 08:12:44 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0202.014; Wed, 15 Jul 2026
- 08:12:44 +0000
-Message-ID: <97b0eb91-80a4-4df8-a75b-a2bcfeaa578b@amd.com>
-Date: Wed, 15 Jul 2026 13:42:37 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] drm/amdgpu: properly account for resets with user
- queues
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Prike Liang <Prike.Liang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>
-References: <20260714155516.684775-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260714155516.684775-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0008.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:26a::9) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 713B810EF46
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 08:26:56 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-493c52cde9eso44254165e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 01:26:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1784104015; x=1784708815; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6bWJkTlZB0Mxa40KQe7ThDk5sc6EIYRYGQoo0iveetY=;
+ b=k6X8BPh/X1LKX8S6zLe+r8FgDSc+TzHoEmLwEwmnCscPtt8gVG2kOktlpa1KHdWSIc
+ PlbbjJ+xh2FGoFdmi6OZyASjJ75lU0Dv4LZRLSKWcKnrwxGAa3WTrdWVcqwyxVYhgB+D
+ vsRBPpTrRsZiRDeK8W5d8+S5THwHMRAbfJ5W2IHHKNYpZqLxmsYwx4I0J4mB/aFpNAwD
+ 02lUhCl4m/1yOBPHHZZTsF/uynFroXifgIa9ForCKfpwdqL0oml2OSIoeaZdgEoVH7P5
+ X6JCta1WMwNv2qtpZmrl5tcbobrCibB/r2Wung1gh4Mj7BzIl0YC83KqEk9V6dbPQiWx
+ ZW8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784104015; x=1784708815;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6bWJkTlZB0Mxa40KQe7ThDk5sc6EIYRYGQoo0iveetY=;
+ b=LLZ3l+5y422cKX1vbNLjq7QzQXk7qZhiTvJtllrh21RXGzOUvOsEpBBAXZjDwhIS7B
+ pVLDkbO0OnX651RrtxjIJOWN59PIvQ5CjlYxn5gVeVdmyp5Ex53CJzt2YsjO/k0/C56G
+ 9X8uT1+G50kAxpNSMDgposX6ixlCLVwLfeDYuu+o0LSxgsWrWJzpg7tD2yYg2xIMFc/Y
+ aJ0BUMZvt0VPfQ7dg+PNR7+frPFmLC0zq3XeUQxLCRx6JDLVoSiARXebVdtdrPOlMCKx
+ s8qCGy1XIdMgKjNHmabMZDc8DeigrpmCU+mpmi6cGZ6YulXNluuuVGtySN7NeRLKanij
+ +ZcQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr8Ex3YsUknfQVwmxv+a25BVH7E8vnQNXkPQcW6hs6CKROGNM4o+ojTpZADchHuffk1NFA+rsrB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YygwaMOOh4ea6gjK41NeUYvVsDC8jYBSS8fQ0gxkeH3KIn294IS
+ 35lS4rIyGCxBedIF44QB9vRfdyqPxtpZbrw8yOWq3jlLGYpNMc7R8/d8+NQvEyyKkOY=
+X-Gm-Gg: AfdE7ckv+av/PZVBr2XS7356XTaKISpSqZaxadjAhzJN2ZApqNVi94dVnGTSKkHYhSO
+ 7Zq30XSFjjz3AS1VNRvGAqa29f8s1wqnKBXBSa7I5HTkTdfOgeGEMnrL2HId3BXPAQz+RAr3E65
+ kRy78sqbFXM7AqmsjID2IH6Nv3nFEW2/tk4w7XOoEHkbYAayxhhYLpTPT26O07dhVkP3VZviuuT
+ GuHRAfEs6Eq8SPPm0PPqznt2tmadELNfN+7/49HE7jEEywX/a4z7O6TYluIpulP882BYpboPfIF
+ lxrGBm4579hm7j+h8PGiUdigADaDOQtr6qrN+VqPgQ+FsOnTlprnQd6jCxaTqm7vv018zZV3imB
+ 40XSXjnwcjadnMm9i7dQ2HpJ++1jWwiDNGzyxfg30b41whcCq15/8yM7FqMkLecN28Sjx7xQMoT
+ +z246+gPx/YCjDRSo1YSI/Hx71FFCuvWTZYfhVrsP4lcLJ
+X-Received: by 2002:a05:600c:c84:b0:493:ece1:86b9 with SMTP id
+ 5b1f17b1804b1-495389cdfbdmr57816385e9.8.1784104014080; 
+ Wed, 15 Jul 2026 01:26:54 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-495087366c0sm243329295e9.7.2026.07.15.01.26.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jul 2026 01:26:53 -0700 (PDT)
+Message-ID: <0613d385-648a-4ef1-be31-a1174fd838b9@ursulin.net>
+Date: Wed, 15 Jul 2026 09:26:53 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH0PR12MB5632:EE_
-X-MS-Office365-Filtering-Correlation-Id: b22ec15e-cf8b-4b7a-9d56-08dee248d8e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: StqPDzE7SP3VO4iu7RDzeZex64DeBI7LxbZX/z3bmyL4FultEWullaFssDrmTNOGbc8XwobU81d3Kon8jfn/XVOXSvnF0jjsuVHbh5/vzZggEHgXFSZeXkrMNKZ+d8zPCJeyFhHzKbRcxa9/YpSVseHr1CgsImb88CAPVRYheUrp+oAnmXdVmYVc8HAVojepynv4T2EI3NlSg5gTxqijK97eCzxpLNccIvSz0kboIMbY+9LMrJ7sUArHJRf608Gp9qrzW7vUHcFE4UNk5bHE+CyodF9vtonIa2nK/2NBIE9YlPxqV7nk0tonCOINTeEXk4hKCnlH3ErcPFS8YvC3rkDjJfb1sZn3EV91yq5UGqJwvbITWRxAKVOnmspxcndobr6wd1/N8zaYq9OnsajI7LMsCH6iafgmlpLcSd0iQnsz6+A7AFGfXnMAg8TbKiNZTyigKcBt3gt4YEh/d7yt26jC4pJ2ukaoWoyK6n84oXQUipmZbUD/J9mZe/Np3aFzD6CmRGtG/yj6JsU18HRyHxWQjfeLwKwHWO4XguzYTCOShSl8VMBEHjazWy28FRz6cUNqhFS3apk+URMzvou+VQOoRCGQW3iN0C4y0SKqI7ssoXGoy/z1j0S5cWp2uU2vX3LLIg3AvhiJHCAom9NiDm+kEUsFtrwBwm50PAUY67g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDNkbUN2dWV5N204Nnd6VW80Sm0vZGxHd2RJdkFqenRqZkpuNHh6cHdTNWpm?=
- =?utf-8?B?N2JJOC8zL00yelRHREVmdHVtQmdzV1h1YlpwcDRRVGZ2K2R0MHgraWRJYmJs?=
- =?utf-8?B?MWJWZW5pMms0OGZGbytoVU5jWTM1aVkrMXFjb2Z5TnZJSDQyYm5oZDFqcDY5?=
- =?utf-8?B?ZnNQWXlxdktyYm5UQW9JZXJmV3hMRkpSdStxMGpPVTFlUkQ3MmRUdm9tL2FF?=
- =?utf-8?B?NWFDbFllWVdlTWZFNkVlajFiSndzZWFpWTdsZmIzdlVnQUs3Ni9sUmdlTDE5?=
- =?utf-8?B?RkQwUStWcmwwZENaT1A5Uis5OCtVYjBRSmFkYUZZK1NsVXB0WHhCTmtjUVdJ?=
- =?utf-8?B?VWQ0bzJmc0dlU0pOUmM4TjVpZ08wZTlGQWdFMWFKalRrcG8vTWdVbFdzWmRq?=
- =?utf-8?B?RXYrdTJjMDllRzRCQlNXbFFIZEVkeWdSNmVpYlhjK2xWZWtOMWsyQ0g1VzNT?=
- =?utf-8?B?Y1pxcnFodkVPajlMKzlhWlBHYTlYSWhSczJRbEV1RG5iUUF1K2dPRWtlNitl?=
- =?utf-8?B?T0NSYy94TGdIR0JUMWQwT3dMcnZaNnJyS01jczM0UENpS1BRVE9EZkhqakdm?=
- =?utf-8?B?WVZ2eFBMbGNGL3lxVXpCZnNjWitIa1RaRitEdURDVU50ZE9BR0dOSzFMQlFT?=
- =?utf-8?B?QzFHSGZyeEVvdlF1dXhkbE94QWZnMWxtaG1Rdk91a1EydzlTWmNTZ3A3Y3gx?=
- =?utf-8?B?TVdHNWtXQjZEQ0ZNU3BGS0dZcENsK0tiVXNOTUlBbUprS1kxYUUzZktkdFM2?=
- =?utf-8?B?eE0yS1RLNk91eFk1OE16S2dOQ2VuQjI1aDZ0RmFxRXZxVDYzTHR1QnhMY2pG?=
- =?utf-8?B?SkRnaHpidEF1WEFxZHZKU0JEaCtSVFd5WG5jRndDVy9vUnNoaDhValNUb0VY?=
- =?utf-8?B?Rk9iRW1yYkNjWmd4VXdteE1KYWszYXNsVGEzZFZxNTRyZkxWaWFvcHg3QUp2?=
- =?utf-8?B?aDB4bmdob0s4dGk4SGk2K1NXNUVUblgzRW94MVVIMTZGNWJyUWw4d1FLZVM2?=
- =?utf-8?B?dktZNW9DMjAydUNuSzh1RUxkWUxGYTVsYU5pc2tjOTZBWXAzK2RuRUVPalM3?=
- =?utf-8?B?ZlA3YXhqK3kzcG14NC9hc1VNMEk0dFA0T2MvelE5cHFiaVloakdpdFpRTU9P?=
- =?utf-8?B?WGF2ZFZkeUoxM3A5RHFiaWVLbEFrUnhiMWZCS3YvTFkzbGhzc2JvU0g0bER1?=
- =?utf-8?B?bHE3K1JSVkcwLzB2WU1GSFZ4TFFzZzVyYzIxQ0NvejFaSFNLaURSQkNIVFhP?=
- =?utf-8?B?MDFYQk1sajBBdXVSK0JhS3dwbS9uVDRkYWQyTmNMRWNhbzVnUjlWai9FZDl4?=
- =?utf-8?B?eGR3QzlPSXA3QTYrcHVYWEVPNklQWksvNVNMcDlTeFRLVlp1OGd6V0FHRUJU?=
- =?utf-8?B?UXJrcFo3Qk5OVlZQTjBWaGZ1QXB3dVcvZG1PT2NQd3Uxa1kxRk9WVGdDeHBx?=
- =?utf-8?B?a1B6ZWc5WERldzlrdWFxZm52cXdybFMwRjhwY3dPejkrUzA1aEpsU053M2l1?=
- =?utf-8?B?OFRxUXFucXFjUklDTGxJYWFsSUZZTzQ2N3lvT3NBZEptR0R5TGZVb1pFakts?=
- =?utf-8?B?VEd4RDhOZTArRjBoWjBYT3R1MVJnb1ZSZnpFY1Y5c2V3K1B6djkzK3R5cGgz?=
- =?utf-8?B?ZWJIY3N6ZURmN29aandaeHRYaC9DYk5OemsxcVZVQThkN08zUUVKYkhRd0ZF?=
- =?utf-8?B?YlhEU2VLVURKV2ZGNXBwVXZlSU4vYVdRbEhKbDF3eEY4WmRCalVORlVCTmJu?=
- =?utf-8?B?cW1DV3BMcldaaGlUYjZ0TlowMGMvZHFFbW50cVB1WHQrR1hMUGhVZjlPRzNr?=
- =?utf-8?B?TXBtaFRXampONmQrODFLQUcrMmRIVXFtdjhhS1ArNzVKajZHeE9YczlUVlJI?=
- =?utf-8?B?T1M3K243MXVObTJFSkFjS3ExbTFFYzFEMWlPOFVGZkUvc2wyQllSK1YyUjcv?=
- =?utf-8?B?WmJwWFU4K1k2c3hwQXN3VWJTVmdJN3dCSkxJM2djeDZzNmVtNXpDc1NQdmxi?=
- =?utf-8?B?VUF4UkdTK2lXcUZoZ2JSNUVkMFJGRjFob0ZQQmU0VFpSWmtpZE5ub3NLTnpZ?=
- =?utf-8?B?Y1hmTUpvbCtFSjMzK3NadmkrUks4alBPdkhaYnpBZWpSNGd3TXB2UUxLQUNC?=
- =?utf-8?B?VXdDdkhlQmRBTkJVUTI0RENFMGJTRTRGMWVuV1hEUlY5NHdYOERienB6RW5k?=
- =?utf-8?B?WU1zMHJROXlVamNHZVBrdGJFN2ZFNHhMMXA1NDBhZUxZaVo2VXZ1alBKOGJZ?=
- =?utf-8?B?aFk2azgyYXlNaW5RclQ0cHdkNEZjT3kxeDgvUHl2ekc0TnpQNE1wTzVIdzdN?=
- =?utf-8?B?TFREK2FRWmFiZ3NFRWpqdURsRS93QzkrTHg3M29BZEtJalgvWTcyQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b22ec15e-cf8b-4b7a-9d56-08dee248d8e7
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 08:12:44.5274 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vXzeol3j78bbGRh/MFtKbrDfehcTalQArYR26LWBjrH7cnM1cOd3AqFZcfrKDrQm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5632
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] drm/amdgpu/gfx7: Refactor MQD initialization and
+ finalization
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+References: <20260713125838.30607-1-timur.kristof@gmail.com>
+ <20260713125838.30607-3-timur.kristof@gmail.com>
+ <f0fe75db-5ded-4370-b931-3ef3827f0b16@ursulin.net>
+ <4566110.UPlyArG6xL@timur-max>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <4566110.UPlyArG6xL@timur-max>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,137 +97,282 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 14-Jul-26 9:25 PM, Alex Deucher wrote:
-> We need to increment the reset counter, force fence completion,
-> and set the wedged event when a user queue is reset, but only
-> for the guilty queue.  We don't want additional events for
-> collateral damage.
+On 15/07/2026 09:08, Timur Kristóf wrote:
+> On 2026. július 14., kedd 20:47:14 közép-európai nyári idő Tvrtko Ursulin
+> wrote:
+>> On 13/07/2026 13:58, Timur Kristóf wrote:
+>>> Call amdgpu_gfx_mqd_sw_init()/_fini() on GFX7 to initialize and
+>>> finalize the MQD, just like GFX8 and newer; instead of doing
+>>> an ad-hoc BO allocation. This introduces the possibility of
+>>> doing an MQD backup instead of trying to reinitialize the
+>>> MQD every time.
+>>>
+>>> This solves an issue with GFX IP block soft reset where
+>>> all compute rings would hang after the reset.
+>>>
+>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>>> ---
+>>>
+>>>    drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 106 +++++++++++++-------------
+>>>    1 file changed, 51 insertions(+), 55 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c index 65b8497ad5f0..9c4b3ac27e1f
+>>> 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+>>> @@ -2698,25 +2698,6 @@ static int
+>>> gfx_v7_0_cp_compute_load_microcode(struct amdgpu_device *adev)>
+>>>    	return 0;
+>>>    
+>>>    }
+>>>
+>>> -/**
+>>> - * gfx_v7_0_cp_compute_fini - stop the compute queues
+>>> - *
+>>> - * @adev: amdgpu_device pointer
+>>> - *
+>>> - * Stop the compute queues and tear down the driver queue
+>>> - * info.
+>>> - */
+>>> -static void gfx_v7_0_cp_compute_fini(struct amdgpu_device *adev)
+>>> -{
+>>> -	int i;
+>>> -
+>>> -	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+>>> -		struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
+>>> -
+>>> -		amdgpu_bo_free_kernel(&ring->mqd_obj, NULL, NULL);
+>>> -	}
+>>> -}
+>>> -
+>>>
+>>>    static void gfx_v7_0_mec_fini(struct amdgpu_device *adev)
+>>>    {
+>>>    
+>>>    	amdgpu_bo_free_kernel(&adev->gfx.mec.hpd_eop_obj, NULL, NULL);
+>>>
+>>> @@ -2788,28 +2769,29 @@ static void gfx_v7_0_compute_pipe_init(struct
+>>> amdgpu_device *adev,>
+>>>    	mutex_unlock(&adev->srbm_mutex);
+>>>    
+>>>    }
+>>>
+>>> -static int gfx_v7_0_mqd_deactivate(struct amdgpu_device *adev)
+>>> +static int gfx_v7_0_mqd_deactivate(struct amdgpu_device *adev, u32 req)
+>>>
+>>>    {
+>>>
+>>> -	int i;
+>>> +	int i, r = 0;
+>>>
+>>>    	/* disable the queue if it's active */
+>>>
+>>> -	if (RREG32(mmCP_HQD_ACTIVE) & 1) {
+>>> -		WREG32(mmCP_HQD_DEQUEUE_REQUEST, 1);
+>>> +	if (RREG32(mmCP_HQD_ACTIVE) & CP_HQD_ACTIVE__ACTIVE_MASK) {
+>>> +		WREG32_FIELD(CP_HQD_DEQUEUE_REQUEST, DEQUEUE_REQ, req);
+>>>
+>>>    		for (i = 0; i < adev->usec_timeout; i++) {
+>>>
+>>> -			if (!(RREG32(mmCP_HQD_ACTIVE) & 1))
+>>> +			if (!(RREG32(mmCP_HQD_ACTIVE) &
+> CP_HQD_ACTIVE__ACTIVE_MASK))
+>>>
+>>>    				break;
+>>>    			
+>>>    			udelay(1);
+>>>    		
+>>>    		}
+>>>    		
+>>>    		if (i == adev->usec_timeout)
+>>>
+>>> -			return -ETIMEDOUT;
+>>> +			r = -ETIMEDOUT;
+>>>
+>>> -		WREG32(mmCP_HQD_DEQUEUE_REQUEST, 0);
+>>> -		WREG32(mmCP_HQD_PQ_RPTR, 0);
+>>> -		WREG32(mmCP_HQD_PQ_WPTR, 0);
+>>>
+>>>    	}
+>>>
+>>> -	return 0;
+>>> +	WREG32(mmCP_HQD_DEQUEUE_REQUEST, 0);
+>>> +	WREG32(mmCP_HQD_PQ_RPTR, 0);
+>>> +	WREG32(mmCP_HQD_PQ_WPTR, 0);
+>>> +
+>>> +	return r;
+>>
+>> I can see this matches gfx_v8_0_deactivate_hqd. If I am not missing
+>> anything only to replace the hardcoded 1 with CP_HQD_ACTIVE__ACTIVE_MASK?
 > 
-> Only increment the reset counter and set the wedged event
-> in the top level userq reset callers (both KGD and KFD).
-> This aligns with how this is managed for kernel queue resets.
-> 
-> v2: fix task info refcount handling, align with
->      kfd error reporting.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Cc: Prike Liang <Prike.Liang@amd.com>
-> Cc: Sunil Khatri <sunil.khatri@amd.com>
-> Cc: Lazar, Lijo <lijo.lazar@amd.com>
-> ---
+> There are two changes here:
+> - Replacing the hardcoded "1" with the define from the register definition
+> - When it times out, still write the CP_HQD_ registers afterwards like gfx8
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Right, thanks!
 
-Thanks,
-Lijo
-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c      | 18 +++++++++++++++++-
->   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c     |  2 --
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c  | 17 ++++++++++++++++-
->   3 files changed, 33 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 6aa75da27f912..58754fc41bb6c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -123,6 +123,8 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
->   	struct amdgpu_device *adev = uq_mgr->adev;
->   	const struct amdgpu_userq_funcs *userq_funcs =
->   		adev->userq_funcs[queue->queue_type];
-> +	struct drm_wedge_task_info *info = NULL;
-> +	struct amdgpu_task_info *ti = NULL;
->   	bool gpu_reset = false;
->   
->   	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
-> @@ -137,6 +139,14 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
->   	if (!amdgpu_gpu_recovery)
->   		return;
->   
-> +	if (queue->vm && queue->vm->pasid) {
-> +		ti = amdgpu_vm_get_task_info_pasid(adev, queue->vm->pasid);
-> +		if (ti) {
-> +			amdgpu_vm_print_task_info(adev, ti);
-> +			info = &ti->task;
-> +		}
-> +	}
-> +
->   	if (amdgpu_userq_is_reset_type_supported(adev, queue->queue_type,
->   						 AMDGPU_RESET_TYPE_PER_QUEUE)) {
->   		int r;
-> @@ -146,11 +156,17 @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
->   							 queue, NULL, NULL);
->   		else
->   			r = userq_funcs->reset(queue);
-> -		if (r)
-> +		if (r) {
->   			gpu_reset = true;
-> +		} else {
-> +			atomic_inc(&adev->gpu_reset_counter);
-> +			amdgpu_userq_fence_driver_force_completion(queue);
-> +			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
-> +		}
->   	} else {
->   		gpu_reset = true;
->   	}
-> +	amdgpu_vm_put_task_info(ti);
->   
->   	/*
->   	 * Don't schedule the work here! Scheduling or queue work from one reset
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index d3d79bbaf9eb7..a1371a9f961d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -234,9 +234,7 @@ int mes_userq_reset_queue(struct amdgpu_device *adev,
->   				r = mes_userq_unmap(uq);
->   				if (r)
->   					return r;
-> -				atomic_inc(&adev->gpu_reset_counter);
->   				amdgpu_userq_fence_driver_force_completion(uq);
-> -				drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
->   				break;
->   			}
->   		}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 0419fe869d4b0..58ccbf955f287 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -448,6 +448,9 @@ int kfd_reset_queue_mes(struct device_queue_manager *dqm, int queue_type,
->   static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-> +	struct drm_wedge_task_info *info = NULL;
-> +	struct amdgpu_task_info *ti = NULL;
-> +	struct kfd_process_device *pdd;
->   	unsigned int num_hung = 0;
->   	int r = 0;
->   	struct mes_remove_queue_input queue_input;
-> @@ -476,13 +479,25 @@ static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q)
->   	r = amdgpu_gfx_reset_mes_compute(adev, NULL, NULL, NULL, &num_hung, &queue_input);
->   	if (r)
->   		goto fail;
-> +	pdd = kfd_get_process_device_data(q->device, q->process);
-> +	if (pdd) {
-> +		ti = amdgpu_vm_get_task_info_pasid(adev, pdd->pasid);
-> +		if (ti) {
-> +			amdgpu_vm_print_task_info(adev, ti);
-> +			info = &ti->task;
-> +		}
-> +	}
->   
->   	dqm->detect_hang_count = num_hung;
->   	/* When MES doesn't detect any queue hang, no reset happens. Don't signal reset
->   	 * event.
->   	 */
-> -	if (dqm->detect_hang_count)
-> +	if (dqm->detect_hang_count) {
->   		kfd_signal_reset_event(dqm->dev);
-> +		atomic_inc(&adev->gpu_reset_counter);
-> +		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, info);
-> +	}
-> +	amdgpu_vm_put_task_info(ti);
->   
->   fail:
->   	dqm->detect_hang_count = 0;
+>> Is it okay to call the function mqd if the registers are hqd and is v7
+>> or v8 (which calls it hqd) more correct? Not saying either way, just
+>> observing a curiosity.
+> 
+> My best guess is that it's just that they used a different naming convention
+> and forgot to update the older code.
+> 
+>>
+>>>    }
+>>>    
+>>>    static void gfx_v7_0_mqd_init(struct amdgpu_device *adev,
+>>>
+>>> @@ -2964,31 +2946,42 @@ static int gfx_v7_0_mqd_commit(struct
+>>> amdgpu_device *adev, struct cik_mqd *mqd)>
+>>>    static int gfx_v7_0_compute_queue_init(struct amdgpu_device *adev, int
+>>>    ring_id) {
+>>>
+>>> -	int r;
+>>> -	u64 mqd_gpu_addr;
+>>> -	struct cik_mqd *mqd;
+>>>
+>>>    	struct amdgpu_ring *ring = &adev->gfx.compute_ring[ring_id];
+>>>
+>>> -
+>>> -	r = amdgpu_bo_create_reserved(adev, sizeof(struct cik_mqd),
+> PAGE_SIZE,
+>>> -				      AMDGPU_GEM_DOMAIN_GTT,
+> &ring->mqd_obj,
+>>> -				      &mqd_gpu_addr, (void
+> **)&mqd);
+>>> -	if (r) {
+>>> -		dev_warn(adev->dev, "(%d) create MQD bo failed\n", r);
+>>> -		return r;
+>>> +	struct cik_mqd *mqd = ring->mqd_ptr;
+>>> +	int mqd_idx = ring - &adev->gfx.compute_ring[0];
+>>> +
+>>> +	if (!amdgpu_in_reset(adev) && !adev->in_suspend) {
+>>> +		memset((void *)mqd, 0, ring->mqd_size);
+>>> +		mutex_lock(&adev->srbm_mutex);
+>>> +		cik_srbm_select(adev, ring->me, ring->pipe, ring-
+>> queue, 0);
+>>> +		gfx_v7_0_mqd_init(adev, mqd, ring->mqd_gpu_addr, ring);
+>>> +		gfx_v7_0_mqd_deactivate(adev, 1);
+>>> +		gfx_v7_0_mqd_commit(adev, mqd);
+>>> +		cik_srbm_select(adev, 0, 0, 0, 0);
+>>> +		mutex_unlock(&adev->srbm_mutex);
+>>> +
+>>> +		if (adev->gfx.mec.mqd_backup[mqd_idx])
+>>> +			memcpy(adev->gfx.mec.mqd_backup[mqd_idx],
+> mqd, ring->mqd_size);
+>>> +	} else {
+>>> +		/* restore MQD to a clean status */
+>>> +		if (adev->gfx.mec.mqd_backup[mqd_idx])
+>>> +			memcpy(mqd, adev-
+>> gfx.mec.mqd_backup[mqd_idx], ring->mqd_size);
+>>> +
+>>> +		/* Re-commit the restored backup */
+>>> +		mutex_lock(&adev->srbm_mutex);
+>>> +		cik_srbm_select(adev, ring->me, ring->pipe, ring-
+>> queue, 0);
+>>> +		gfx_v7_0_mqd_deactivate(adev, 2);
+>>> +		gfx_v7_0_mqd_commit(adev, mqd);
+>>> +		cik_srbm_select(adev, 0, 0, 0, 0);
+>>> +		mutex_unlock(&adev->srbm_mutex);
+>>> +
+>>> +		/* reset ring buffer */
+>>> +		ring->wptr = 0;
+>>> +		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
+>>> +		atomic64_set((atomic64_t *)ring->rptr_cpu_addr, 0);
+>>> +		amdgpu_ring_clear_ring(ring);
+>>>
+>>>    	}
+>>>
+>>> -	mutex_lock(&adev->srbm_mutex);
+>>> -	cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
+>>> -
+>>> -	gfx_v7_0_mqd_init(adev, mqd, mqd_gpu_addr, ring);
+>>> -	gfx_v7_0_mqd_deactivate(adev);
+>>> -	gfx_v7_0_mqd_commit(adev, mqd);
+>>> -
+>>> -	cik_srbm_select(adev, 0, 0, 0, 0);
+>>> -	mutex_unlock(&adev->srbm_mutex);
+>>> -
+>>> -	amdgpu_bo_kunmap(ring->mqd_obj);
+>>> -	amdgpu_bo_unreserve(ring->mqd_obj);
+>>>
+>>>    	return 0;
+>>>    
+>>>    }
+>>
+>> I think I can follow this - only the wptr and rptr reset is a bit
+>> different than what v8 does it. Any specific reason? Gfx9 then reverts
+>> back to a single ring->wptr = 0. I guess v8 is somehow special?
+>>
+>>> @@ -3020,10 +3013,8 @@ static int gfx_v7_0_cp_compute_resume(struct
+>>> amdgpu_device *adev)>
+>>>    	/* init the queues */
+>>>    	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+>>>    	
+>>>    		r = gfx_v7_0_compute_queue_init(adev, i);
+>>>
+>>> -		if (r) {
+>>> -			gfx_v7_0_cp_compute_fini(adev);
+>>> +		if (r)
+>>>
+>>>    			return r;
+>>>
+>>> -		}
+>>>
+>>>    	}
+>>>    	
+>>>    	gfx_v7_0_cp_compute_enable(adev, true);
+>>>
+>>> @@ -4430,6 +4421,11 @@ static int gfx_v7_0_sw_init(struct amdgpu_ip_block
+>>> *ip_block)>
+>>>    		}
+>>>    	
+>>>    	}
+>>>
+>>> +	/* create MQD for all compute queues */
+>>> +	r = amdgpu_gfx_mqd_sw_init(adev, sizeof(struct cik_mqd), 0);
+>>> +	if (r)
+>>> +		return r;
+>>> +
+>>>
+>>>    	adev->gfx.ce_ram_size = 0x8000;
+>>>    	
+>>>    	gfx_v7_0_gpu_early_init(adev);
+>>>
+>>> @@ -4452,7 +4448,7 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_block
+>>> *ip_block)>
+>>>    	for (i = 0; i < adev->gfx.num_compute_rings; i++)
+>>>    	
+>>>    		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
+>>>
+>>> -	gfx_v7_0_cp_compute_fini(adev);
+>>> +	amdgpu_gfx_mqd_sw_fini(adev, 0);
+>>>
+>>>    	amdgpu_gfx_rlc_fini(adev);
+>>>    	gfx_v7_0_mec_fini(adev);
+>>>    	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
+>>
+>> I am assuming all this applies only to compute because gfx is single
+>> instance on v7?
+> 
+> It applies only to compute because only compute has HQD/MQD
+> on these hardware generations.
+> 
+>> Anyway, it looks plausible to me so assuming you were able to exercise
+>> both paths
+> 
+> What do you mean by "both paths"?
+
+The two paths in gfx_v7_0_compute_queue_init. But you must of had since 
+one is the normal path and the other is on reset which you specifically 
+add and test. LGTM in this case.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Regards,
+
+Tvrtko
 
