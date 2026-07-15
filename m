@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF1FC44508
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E134C44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FED910F0B7;
-	Wed, 15 Jul 2026 13:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0F9410F0B3;
+	Wed, 15 Jul 2026 13:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TEwg48vx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BaWSCxPT";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010069.outbound.protection.outlook.com [52.101.61.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9DE910F0B6
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:49:25 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010060.outbound.protection.outlook.com [52.101.56.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47A3B10F0B3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:49:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xsMcZhPTJXffazTHcHMPU/2f6GYaol9nhgCGwRTnLGZJsdtbtMfDSXLWK3jR3uKfWVQ11old0t0No+Rif87+8cDZXdduJYDdQmZGDcIAIjM42c7NzLZCv6PhJ9GQ8q3Mx0Yx36pgCfGYoDQrLTjBUvhWvzdF0n4c5KFiXceBr2yuuj4hvKQTBAynghPgbCuJTsNdAFaI8roxz2UrAd7olNtHlVx6ZI2PYEFmbRrvsiiwoYwukIUK8zZ3aPUpM2Oat7SderEliiqzXnh1dDLAFx1YB7J2DdvIO9zN4by6UnMHighgEeKUf/BUdxOsZRcGRP3jdf2wt29VCzn3XIwKtA==
+ b=onRTYIZsEXp7TEsmqgNOW08aM64J6ejrRbpMylV0hieKbhPcLNdf9fc+mXbqOW7lV2WW6y8sd3QVZQGUvn/Ulz5QA03mJs+cBCJYBwLRO70jx9XNJ9nIlanw1CViRxvJS+Ewp4HW8OEWCClB5LSj1GL/dK6HKnMFkVQLyMJ+B/taO3iDGfRGhLxhLKd8+gfSRO9fAAEcrWeFLBWy85/VPBRh90PX6G/0HfoSLJqLmBd2mOaMIy9k5+Pskl1r9GWVQTzLoSBhW9w5AGnrs1s8VXS7MIWsfVxr7CNjyQ8b/Jd1XzIbgbVoy8d30Hqdnj8LTcg83Z7eGSsymlVi54Wrlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WomUek6dDXyw15Y4OGjYaJVd0JZAnhg0cBdGiLfby5o=;
- b=JeP78d2tdA/8mGFb9Bw2NjGh+I74KaQWj/0oS5nYCmW2csqIfR4O7BTux6NL/OJuCUzdsmNf65c8mPsyIFRDUZCRCJT8T9xX4v0rwoOOVoSB41J+ZyEH8OqBbb/2DLA7q+/2/FwefS7a8rddEHDTR6jSUT8+xpQHat8TEnxsxi7uXMDaMpqYnCYRxF0zwnKbyfn5rAtm+L7w+pQ/HrpjfNBwJs2wZbIa5fXqK2dJurV3QWZ22ZH2VCL+bdxeMZTrdS43hf17evlr7Y6IxMElHX5MidguGCeMad3+y0+qwV9LWTEOJkM3mioH4kmlQLdcj2qvrTK2/l4VFoNAK4yvRA==
+ bh=NW4/cYRCMVcZ0SySQBvVzWYuyo194cORmNbaQVTCGDU=;
+ b=iIIeWD+9kkebcLflaYEMt92zeaw06sgZfkvdQUNhTsXN3rP1hLe0NANovc9t5ylYHeLxr/k+Np+X51gOQEWdGz9OwS9OBTQDxt+JFlLWWg4ihU5QtVVEP+2Vw8ZdxMFgAI+rem4TvXm0GWveyxTuUKdGnImMT/vF70VhyxXhCc1tXlVPfITd/QuEl+nfk4JoricPYubxDLxv9QUrY9618vAJO0Q3feykMUcAynvp/FJiGy6k3VDGHvrKKk+z7AT3v71na8uVQGDAsb2x8rr668PxncaQFaWMNrKfBwxcT8fSWyu0JFlBbeXB0Pl6C9hZMJOaDE/2fpt4yVersEm9Sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WomUek6dDXyw15Y4OGjYaJVd0JZAnhg0cBdGiLfby5o=;
- b=TEwg48vxlC21mnbCRuJZ4dv0vmmCf9zJq1LSrBuwMlwhaAalTHL/GzBLOXR+A7l2FwXLA9EYQdJszP92FjJHgGc9ZZ1XyaFESsWM1OwgTshvbBAtnvDDR3lRh+VKy/afTD6u2lUsjCjE1sHPmlW8ktL0LaaptwYFjgeQE8zSNLw=
-Received: from MN2PR22CA0004.namprd22.prod.outlook.com (2603:10b6:208:238::9)
- by PH0PR12MB7932.namprd12.prod.outlook.com (2603:10b6:510:280::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
- 2026 13:49:13 +0000
-Received: from BL6PEPF00020E5F.namprd04.prod.outlook.com
- (2603:10b6:208:238:cafe::6e) by MN2PR22CA0004.outlook.office365.com
- (2603:10b6:208:238::9) with Microsoft SMTP Server (version=TLS1_3,
+ bh=NW4/cYRCMVcZ0SySQBvVzWYuyo194cORmNbaQVTCGDU=;
+ b=BaWSCxPTn747943rglkS2RAypy1mFB759N/8g0qPVDbfwZPEkcxZrHGD0ADeb8iHLpfB8EgMbPIyZhGaUMap5eF7USrt2p3l7O9u4XAiy7BPDKq8YArNM4/xWplFu6VM+QFnLccaWousI7uNeD14DsEg/4hXTo9D2RABy3fWPLI=
+Received: from MN2PR01CA0038.prod.exchangelabs.com (2603:10b6:208:23f::7) by
+ SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
+ 2026 13:49:22 +0000
+Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
+ (2603:10b6:208:23f:cafe::86) by MN2PR01CA0038.outlook.office365.com
+ (2603:10b6:208:23f::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
- 15 Jul 2026 13:49:13 +0000
+ 15 Jul 2026 13:49:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00020E5F.mail.protection.outlook.com (10.167.249.20) with Microsoft
+ BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:49:13 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:49:21 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:49:12 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 06:49:12 -0700
+ 2026 08:49:21 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 15 Jul 2026 08:49:09 -0500
+ Transport; Wed, 15 Jul 2026 08:49:12 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,12 +66,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Geoffrey McRae <geoffrey.mcrae@amd.com>, "Bhawanpreet
- Lakha" <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 68/70] drm/amd/display: Flush IRQ workqueue in schedule-work
- tests
-Date: Wed, 15 Jul 2026 21:38:18 +0800
-Message-ID: <20260715134432.1975118-69-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH 69/70] drm/amd/display: Add SPL UPSP upsampling and YUV422
+ scaling support
+Date: Wed, 15 Jul 2026 21:38:19 +0800
+Message-ID: <20260715134432.1975118-70-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
@@ -84,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|PH0PR12MB7932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ab72152-7ea1-4471-5aee-08dee277dabb
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|SJ1PR12MB6194:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6e58a00-640a-4f36-3868-08dee277dfe5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|18002099003|22082099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: UmvbUzhfVu5m2otC8PgDFa+ffHOaCwUk+5V8Q2NcV18beQxgA0OTFRmTUP86fE1aiUgNC1u8tpvnd75QbvmIeunWvQloSECKip0IVloB7JA44cJIFVZWXRFrDjpqAeN452S5Us+nhr/aWMyGuLniQjyOj8r6m1sJh/AwQ9j8nN6ksk3QmCCe3Sx+6ZJ8sd5bLNWA/5JeP7rl9rioguJ4D0YUBPOOMHVtoMSLykms0/PV5iQ3TDDZdt8wu69H2MsAI7S64lFtiWKwwbSgDwfqhKveqM+UZSmShTgS8O+zDJGG57GYXYFMDGRoWYrzIu3MASwFzkyH9E9iFae6uMdVPv+RXkA6xGyInyaw53SXpv5IivsI6h0GcHduKh3cp9ffbGqHu4COcDiVEXosDczvh2N+fDs036b9EmIXOcp6MZjIwwhxfLFx1K/dY/KYLKqPWyPZ54bu3CEellKmHA/3Ihh1qg5pdhBtmtgKX2FltEeDJOqfnzoFralqqOmF7TnQv/oG8evjsWr2+NNA6jXXKy6O5E/CVckQCRwDSV2OI4CCmHKV+DMc9OsBrVzzakiTcCUAcCwICilZFhU8QrKwC5AObR4M5ukoIGNTJJN70152RjZz2UtbO8fB6mARXWeO2QVGAxCbk8Vbb5TcgllzTkm9RiN97tBrPvwQnC9TbiWFPK88ZFiRZBqIBSilNEUI6qKJ6qbbTcaIJcxdVGVsmw==
+ ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|6133799003|22082099003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 9AwMbfYGRx+xt4LJKRM5330cEew+3AxfLfhnPOxei2vc7feCx3YAbukPDdpO8LB5dROMbnVdjSgwfFBeFz2Sd879lOa+RXcvHwbjLc5ywiQbYDU01jqh/TnEfg7KgdCO868u0pZ52BWs32s4HnE2y6GuqxbPqG4LgRdpLVmcvGYzNJTx3faavHTVtr5YfSEvcaw/GQMLxnhdLqfrlDvZiS53RifMuzPgx1S7yeSHLosvBnHyHiOs1M35Ha7Vm4ooZJqEyJE799sDnIMCm0KpbIq9m9hi5wac6FsmjoXIXwGqTOjbllfvm/ZMZcFd7bQ1a7/kMtSjHFjlXy2C62sX4kALiQAcI593973zafvfaJL7mHs7Z2vTM5kIlb0UQM8Pt1oSkRdnFimXsJK4abd7WU+3EWmMCSDvuLb//9rFkI0ghqEud/RIUABXeRHoRKy7xK7Nn6VafHhtUsJ3vWvnbLcJOqMQBEBr/DUPW7x9baZDzj1T3fGvj+yrVHcMP7kJ9KAJtN0VhR1Cfn4bSlr7coqKvqS6bL+Pqi8RP4ERnqllw9S3lhreQhBOr6W3A1CtRIlRKn1FM1KOfutvS61jykhdtwTAy7jQ+CCBFSSqHVkMZDZiXHx9SecM5ZyOkB9RkOAfbuE9uz1swVWZYd/QSrPEFu5/YGKafSjVB66hSwEPJCwhLI7BZN+U7E1QbQkSI1waDiadok5Szlr/yiVSlQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);
+ SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(6133799003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AERD8vhX6ozYQ1FuDcNJ+HSmTPeDc5hqzdYqOQFhbSEb03mqME5GkKtxDgtSoZ/ndBiDnltarWlhNwvz26gzk+UIdvx0RaKdDyCFlTTVbP1tc7+4+2ZpuDO8o4duBmgyrRhRRDKnw15EV0cvKSEqLdN39cYZQbpW5rT/A35C/McNdyoUZ/5cUm0DsR9oEHPT2awf9910W4CXhtKxSloWrjWyDKoyw+e6bPo4T8dPQw3RrPAJ3X2mNbHw/cX23OCelDrq77dfluhe4NAvQlfoeLx36RO3CSSOmcAu5feLbvqV2Ma1Y/Hd/6L3qMaUObud6Ye6Twr1/sJYIYEr0S3unHjkihLAQuC1ecug6iV1HbFpKexpyM5V692CbJpEVP1Jrl6Xd/YKgAWIXdDzyEG8qWzqwkfH/+nReOLaS+bJT7FbSW5eLXnkht43MyP7dwFO
+X-MS-Exchange-AntiSpam-MessageData-0: eKoOaQF1xk4zH7769ZJZnRVcslE/YjGtpOs1oU7mV5cm9sIaMz5noE7ZTVeThW+3NAKewdlmqd2jF+UnV13SXJQ2/hqHL1ksTYAWjqpzrNGiNTBbs85B2YrATL4rL2Z8cICebIlLA5BPg6pkuIyocKqnuXPLO1922nfH1vRtOUr4nom5gPF4IwkjHe7JVsEEbZtHTZzzR1eh2jOR7TfkJL9IY96IaVGGkK/DWGgzywfB6LCB87eMbH57F4Wk9kW5et8U1GT0HOFAvSq5MYjllrDoxCVLGRSj0iuRIqOipTr08b5N1yT/pMHg94gAtklf2lL0SgjDAS7ilYn+XFc/2BIFj+T3wKe7f5o9p8yPXiEvWSzfbtNGtVOljW3mU7aXDiTKk3v3wGNIDRAa7yjnHF6pbxoiK1PMimaz4/9G6I3ilgSPwDLOdJPOES+TWNwI
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:49:13.1457 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ab72152-7ea1-4471-5aee-08dee277dabb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:49:21.8068 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6e58a00-640a-4f36-3868-08dee277dfe5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E5F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7932
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6194
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,102 +116,491 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+- Add YUV422/YUV444 pixel format definitions
+- Handle YUV422 chroma scaling ratios
+- Use separate horizontal and vertical viewport divisors
+- Add UPSP upsampling register programming
+- Refine tap selection for horizontally and vertically subsampled formats
 
-[WHAT]
-The tests dm_test_irq_schedule_work_queues_handler,
-dm_test_irq_schedule_work_requeue_fallback, and
-dm_test_irq_handler_dispatches_work relied on amdgpu_dm_irq_fini()
-running each pending low-context work item before freeing the
-handlers, and only checked the handler counts afterwards.
-
-amdgpu_dm_irq_fini() now cancels pending work with
-cancel_work_sync() instead of flushing it, so work that has not yet
-started never runs and the counts stay below the expected values,
-failing the tests.
-
-Flush the private DM IRQ workqueue (adev->dm.irq_wq) so the
-scheduled handlers complete, check the counts, then tear down.
-Flushing this driver-owned workqueue is allowed, unlike the
-system-wide workqueues.
-
-Fixes: 258df8e4f860 ("drm/amd/display: Fix DM IRQ teardown races")
-Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 31 +++++++++++++------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c  | 202 ++++++++++++++++--
+ .../drm/amd/display/dc/sspl/dc_spl_types.h    |  58 ++++-
+ 2 files changed, 234 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index ed20e278742d..dc7ef0523b8f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -1842,12 +1842,15 @@ static void dm_test_irq_schedule_work_queues_handler(struct kunit *test)
- 	amdgpu_dm_irq_schedule_work(adev, DC_IRQ_SOURCE_HPD1);
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
+index d8aebaff7c3f..1f1318769d5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
+@@ -9,7 +9,6 @@
  
- 	/*
--	 * Low-context work runs asynchronously on system_highpri_wq.
--	 * amdgpu_dm_irq_fini() flushes each pending work item before freeing
--	 * the handlers, so the handler is guaranteed to have run afterwards.
-+	 * Low-context work runs asynchronously on the DM IRQ workqueue.
-+	 * Flush it so the handler completes before we check the count;
-+	 * amdgpu_dm_irq_fini() cancels (rather than runs) any work that is
-+	 * still pending, so the flush must happen first.
- 	 */
--	amdgpu_dm_irq_fini(adev);
-+	flush_workqueue(adev->dm.irq_wq);
- 	KUNIT_EXPECT_EQ(test, count, 1);
-+
-+	amdgpu_dm_irq_fini(adev);
- }
- 
- /**
-@@ -1858,7 +1861,7 @@ static void dm_test_irq_schedule_work_queues_handler(struct kunit *test)
-  * schedule before the work has run makes queue_work() fail for the
-  * still-pending item, forcing amdgpu_dm_irq_schedule_work() into the fallback
-  * that allocates and queues a fresh handler copy. Both work items run when
-- * amdgpu_dm_irq_fini() flushes the queue, so the handler fires twice.
-+ * the DM IRQ workqueue is flushed, so the handler fires twice.
-  */
- static void dm_test_irq_schedule_work_requeue_fallback(struct kunit *test)
+ #define IDENTITY_RATIO(ratio) (SPL_NAMESPACE(spl_fixpt_u3d19(ratio)) == (1 << 19))
+ #define MIN_VIEWPORT_SIZE 12
+-
+ static bool spl_is_yuv420(enum spl_pixel_format format)
  {
-@@ -1880,8 +1883,15 @@ static void dm_test_irq_schedule_work_requeue_fallback(struct kunit *test)
- 	amdgpu_dm_irq_schedule_work(adev, DC_IRQ_SOURCE_HPD1);
- 	amdgpu_dm_irq_schedule_work(adev, DC_IRQ_SOURCE_HPD1);
- 
--	amdgpu_dm_irq_fini(adev);
-+	/*
-+	 * Flush the DM IRQ workqueue so both work items run before we check
-+	 * the count; amdgpu_dm_irq_fini() would cancel any still-pending work
-+	 * instead of running it.
-+	 */
-+	flush_workqueue(adev->dm.irq_wq);
- 	KUNIT_EXPECT_EQ(test, count, 2);
-+
-+	amdgpu_dm_irq_fini(adev);
+ 	if ((format >= SPL_PIXEL_FORMAT_420BPP8) &&
+@@ -19,6 +18,15 @@ static bool spl_is_yuv420(enum spl_pixel_format format)
+ 	return false;
  }
  
- /* Tests for amdgpu_dm_set_hpd_irq_state() */
-@@ -3855,11 +3865,14 @@ static void dm_test_irq_handler_dispatches_work(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, high_count, 1);
++static bool spl_is_yuv422(enum spl_pixel_format format)
++{
++	if ((format >= SPL_PIXEL_FORMAT_422BPP8) &&
++		(format <= SPL_PIXEL_FORMAT_422BPP12))
++		return true;
++
++	return false;
++}
++
+ static bool spl_is_rgb8(enum spl_pixel_format format)
+ {
+ 	if (format == SPL_PIXEL_FORMAT_ARGB8888)
+@@ -468,6 +476,12 @@ static void spl_calculate_scaling_ratios(struct spl_in *spl_in,
+ 	if (spl_is_yuv420(spl_in->basic_in.format)) {
+ 		spl_scratch->scl_data.ratios.horz_c.value /= 2;
+ 		spl_scratch->scl_data.ratios.vert_c.value /= 2;
++	} else if (spl_is_yuv422(spl_in->basic_in.format)) {
++		if (spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_90 ||
++			spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_270)
++			spl_scratch->scl_data.ratios.vert_c.value /= 2;
++		else
++			spl_scratch->scl_data.ratios.horz_c.value /= 2;
+ 	}
+ 	spl_scratch->scl_data.ratios.horz = spl_fixpt_truncate(
+ 			spl_scratch->scl_data.ratios.horz, 19);
+@@ -612,7 +626,8 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 	struct spl_rect recout_clip_in_recout_dst;
+ 	struct spl_rect overlap_in_active_timing;
+ 	struct spl_rect odm_slice = calculate_odm_slice_in_timing_active(spl_in);
+-	int vpc_div = spl_is_subsampled_format(spl_in->basic_in.format) ? 2 : 1;
++	int vp_hc_div = spl_is_subsampled_format(spl_in->basic_in.format) ? 2 : 1;
++	int vp_vc_div = spl_is_yuv420(spl_in->basic_in.format) ? 2 : 1;
+ 	bool orthogonal_rotation, flip_vert_scan_dir, flip_horz_scan_dir;
+ 	struct spl_fixed31_32 init_adj_h = spl_fixpt_zero;
+ 	struct spl_fixed31_32 init_adj_v = spl_fixpt_zero;
+@@ -667,6 +682,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 	if (orthogonal_rotation) {
+ 		spl_swap(src.width, src.height);
+ 		spl_swap(flip_vert_scan_dir, flip_horz_scan_dir);
++		spl_swap(vp_hc_div, vp_vc_div);
+ 		spl_swap(init_adj_h, init_adj_v);
+ 	}
  
- 	/*
--	 * Low-context work runs asynchronously; amdgpu_dm_irq_fini() flushes
--	 * each pending work item before freeing, so it has run afterwards.
-+	 * Low-context work runs asynchronously; flush the DM IRQ workqueue so
-+	 * it completes before we check the count. amdgpu_dm_irq_fini() cancels
-+	 * any still-pending work rather than running it.
+@@ -685,7 +701,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 			flip_horz_scan_dir,
+ 			recout_clip_in_recout_dst.x,
+ 			spl_scratch->scl_data.recout.width,
+-			src.width / vpc_div,
++			src.width / vp_hc_div,
+ 			spl_scratch->scl_data.taps.h_taps_c,
+ 			spl_scratch->scl_data.ratios.horz_c,
+ 			init_adj_h,
+@@ -707,7 +723,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 			flip_vert_scan_dir,
+ 			recout_clip_in_recout_dst.y,
+ 			spl_scratch->scl_data.recout.height,
+-			src.height / vpc_div,
++			src.height / vp_vc_div,
+ 			spl_scratch->scl_data.taps.v_taps_c,
+ 			spl_scratch->scl_data.ratios.vert_c,
+ 			init_adj_v,
+@@ -719,12 +735,13 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 		spl_swap(spl_scratch->scl_data.viewport.width, spl_scratch->scl_data.viewport.height);
+ 		spl_swap(spl_scratch->scl_data.viewport_c.x, spl_scratch->scl_data.viewport_c.y);
+ 		spl_swap(spl_scratch->scl_data.viewport_c.width, spl_scratch->scl_data.viewport_c.height);
++		spl_swap(vp_hc_div, vp_vc_div);
+ 	}
+ 	spl_scratch->scl_data.viewport.x += src.x;
+ 	spl_scratch->scl_data.viewport.y += src.y;
+-	SPL_ASSERT(src.x % vpc_div == 0 && src.y % vpc_div == 0);
+-	spl_scratch->scl_data.viewport_c.x += src.x / vpc_div;
+-	spl_scratch->scl_data.viewport_c.y += src.y / vpc_div;
++	SPL_ASSERT(src.x % vp_hc_div == 0 && src.y % vp_vc_div == 0);
++	spl_scratch->scl_data.viewport_c.x += src.x / vp_hc_div;
++	spl_scratch->scl_data.viewport_c.y += src.y / vp_vc_div;
+ }
+ 
+ static void spl_handle_3d_recout(struct spl_in *spl_in, struct spl_rect *recout)
+@@ -760,6 +777,7 @@ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+ 				const struct spl_scaler_data *data,
+ 				bool enable_isharp, bool enable_easf)
+ {
++	(void)enable_easf;
+ 	const long long one = spl_fixpt_one.value;
+ 	enum spl_pixel_format pixel_format = spl_in->basic_in.format;
+ 
+@@ -894,7 +912,8 @@ static bool spl_get_isharp_en(struct spl_in *spl_in,
+ static void spl_get_taps_non_adaptive_scaler(
+ 		struct spl_scratch *spl_scratch,
+ 		const struct spl_taps *in_taps,
+-		bool is_subsampled)
++		bool is_horz_subsampled,
++		bool is_vert_subsampled)
+ {
+ 	bool check_max_downscale = false;
+ 
+@@ -959,11 +978,10 @@ static void spl_get_taps_non_adaptive_scaler(
+ 		spl_scratch->scl_data.taps.h_taps = 1;
+ 	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert))
+ 		spl_scratch->scl_data.taps.v_taps = 1;
+-	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_subsampled)
++	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_horz_subsampled)
+ 		spl_scratch->scl_data.taps.h_taps_c = 1;
+-	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_subsampled)
++	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_vert_subsampled)
+ 		spl_scratch->scl_data.taps.v_taps_c = 1;
+-
+ }
+ 
+ /* Calculate optimal number of taps */
+@@ -977,12 +995,13 @@ static bool spl_get_optimal_number_of_taps(
+ 	unsigned int min_taps_y, min_taps_c;
+ 	enum lb_memory_config lb_config;
+ 	bool skip_easf          = false;
+-	bool is_subsampled = spl_is_subsampled_format(spl_in->basic_in.format);
++	bool is_horz_subsampled = spl_is_subsampled_format(spl_in->basic_in.format);
++	bool is_vert_subsampled = spl_is_yuv420(spl_in->basic_in.format);
+ 
+ 	if (spl_scratch->scl_data.viewport.width > spl_scratch->scl_data.h_active &&
+ 		max_downscale_src_width != 0 &&
+ 		spl_scratch->scl_data.viewport.width > max_downscale_src_width) {
+-		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_subsampled);
++		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_horz_subsampled, is_vert_subsampled);
+ 		*enable_easf_v = false;
+ 		*enable_easf_h = false;
+ 		*enable_isharp = false;
+@@ -991,7 +1010,7 @@ static bool spl_get_optimal_number_of_taps(
+ 
+ 	/* Disable adaptive scaler and sharpener when integer scaling is enabled */
+ 	if (spl_in->scaling_quality.integer_scaling) {
+-		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_subsampled);
++		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_horz_subsampled, is_vert_subsampled);
+ 		*enable_easf_v = false;
+ 		*enable_easf_h = false;
+ 		*enable_isharp = false;
+@@ -1007,15 +1026,15 @@ static bool spl_get_optimal_number_of_taps(
+ 	 * taps = 4 for upscaling
  	 */
--	amdgpu_dm_irq_fini(adev);
-+	flush_workqueue(adev->dm.irq_wq);
- 	KUNIT_EXPECT_EQ(test, low_count, 1);
-+
-+	amdgpu_dm_irq_fini(adev);
+ 	if (skip_easf) {
+-		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_subsampled);
++		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps, is_horz_subsampled, is_vert_subsampled);
+ 	}
+ 	else {
+-		if (spl_is_video_format(spl_in->basic_in.format)) {
++		if (spl_is_subsampled_format(spl_in->basic_in.format)) {
+ 			spl_scratch->scl_data.taps.h_taps = 6;
+ 			spl_scratch->scl_data.taps.v_taps = 6;
+ 			spl_scratch->scl_data.taps.h_taps_c = 4;
+ 			spl_scratch->scl_data.taps.v_taps_c = 4;
+-		} else { /* RGB */
++		} else { /* RGB / YUV444 */
+ 			spl_scratch->scl_data.taps.h_taps = 6;
+ 			spl_scratch->scl_data.taps.v_taps = 6;
+ 			spl_scratch->scl_data.taps.h_taps_c = 6;
+@@ -1149,10 +1168,10 @@ static bool spl_get_optimal_number_of_taps(
+ 			(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert))) {
+ 			spl_scratch->scl_data.taps.h_taps = 1;
+ 			spl_scratch->scl_data.taps.v_taps = 1;
+-			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_subsampled)
++			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_horz_subsampled)
+ 				spl_scratch->scl_data.taps.h_taps_c = 1;
+ 
+-			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_subsampled)
++			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_vert_subsampled)
+ 				spl_scratch->scl_data.taps.v_taps_c = 1;
+ 
+ 			*enable_easf_v = false;
+@@ -1166,11 +1185,11 @@ static bool spl_get_optimal_number_of_taps(
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert)))
+ 				spl_scratch->scl_data.taps.v_taps = 1;
+ 
+-			if ((!*enable_easf_h) && !is_subsampled &&
++			if ((!*enable_easf_h) && !is_horz_subsampled &&
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c)))
+ 				spl_scratch->scl_data.taps.h_taps_c = 1;
+ 
+-			if ((!*enable_easf_v) && !is_subsampled &&
++			if ((!*enable_easf_v) && !is_vert_subsampled &&
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c)))
+ 				spl_scratch->scl_data.taps.v_taps_c = 1;
+ 
+@@ -1693,6 +1712,7 @@ static void spl_set_isharp_data(struct dscl_prog_data *dscl_prog_data,
+ 		const struct spl_scaler_data *data, struct spl_fixed31_32 ratio,
+ 		enum system_setup setup, enum scale_to_sharpness_policy scale_to_sharpness_policy)
+ {
++	(void)format;
+ 	/* Turn off sharpener if not required */
+ 	if (!enable_isharp) {
+ 		dscl_prog_data->isharp_en = 0;
+@@ -1823,6 +1843,144 @@ static void spl_set_isharp_data(struct dscl_prog_data *dscl_prog_data,
+ 	SPL_NAMESPACE(spl_set_blur_scale_data(dscl_prog_data, data));
  }
  
- /* Tests for dm_handle_vmin_vmax_update() */
++static void determine_upsp_values(struct spl_in *spl_in, struct dscl_prog_data *dscl_prog_data)
++{
++	dscl_prog_data->upsp_mode = spl_in->upsp_mode;
++
++	if (dscl_prog_data->upsp_mode == UPSP_BYPASS) { //Set all UPSP register fields to 0 if bypass
++		dscl_prog_data->upsp_v_num_taps = UPSP_2_TAPS;
++		dscl_prog_data->upsp_h_num_taps = UPSP_2_TAPS;
++		dscl_prog_data->upsp_boundary_mode = UPSP_BOUNDARY_EDGE;
++		dscl_prog_data->upsp_v_init_int = 0x0;
++		dscl_prog_data->upsp_v_init_frac = 0x0;
++		dscl_prog_data->upsp_v_coef_tap0_p0 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap1_p0 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap2_p0 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap3_p0 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap0_p1 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap1_p1 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap2_p1 = 0x0;
++		dscl_prog_data->upsp_v_coef_tap3_p1 = 0x0;
++		dscl_prog_data->upsp_h_init_int = 0x0;
++		dscl_prog_data->upsp_h_init_frac = 0x0;
++		dscl_prog_data->upsp_h_coef_tap0_p0 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap1_p0 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap2_p0 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap3_p0 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap0_p1 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap1_p1 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap2_p1 = 0x0;
++		dscl_prog_data->upsp_h_coef_tap3_p1 = 0x0;
++		dscl_prog_data->upsp_clamp_max = 0x0;
++		dscl_prog_data->upsp_clamp_min = 0x0;
++	} else {
++		dscl_prog_data->upsp_v_num_taps = UPSP_4_TAPS;
++		dscl_prog_data->upsp_h_num_taps = UPSP_4_TAPS;
++		dscl_prog_data->upsp_boundary_mode = UPSP_BOUNDARY_EDGE;
++		dscl_prog_data->upsp_clamp_max = 0xFFF;//4095
++		dscl_prog_data->upsp_clamp_min = 0x0;
++
++		if (spl_in->basic_in.cositing == CHROMA_COSITING_TOPLEFT) { //Vertical Subsampling: Co-sited
++			if (dscl_prog_data->upsp_v_num_taps == UPSP_4_TAPS) {
++				dscl_prog_data->upsp_v_init_int = 0x3;
++				dscl_prog_data->upsp_v_init_frac = 0x0;
++				dscl_prog_data->upsp_v_coef_tap0_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap1_p0 = 0x40;
++				dscl_prog_data->upsp_v_coef_tap2_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap3_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap0_p1 = 0xFC;
++				dscl_prog_data->upsp_v_coef_tap1_p1 = 0x24;
++				dscl_prog_data->upsp_v_coef_tap2_p1 = 0x24;
++				dscl_prog_data->upsp_v_coef_tap3_p1 = 0xFC;
++			} else { //2 taps
++				dscl_prog_data->upsp_v_init_int = 0x2;
++				dscl_prog_data->upsp_v_init_frac = 0x0;
++				dscl_prog_data->upsp_v_coef_tap0_p0 = 0x40;
++				dscl_prog_data->upsp_v_coef_tap1_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap2_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap3_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap0_p1 = 0x20;
++				dscl_prog_data->upsp_v_coef_tap1_p1 = 0x20;
++				dscl_prog_data->upsp_v_coef_tap2_p1 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap3_p1 = 0x00;
++			}
++		} else { //Vertical Subsampling: Interstitial
++			if (dscl_prog_data->upsp_v_num_taps == UPSP_4_TAPS) {
++				dscl_prog_data->upsp_v_init_int = 0x2;
++				dscl_prog_data->upsp_v_init_frac = 0x1;
++				dscl_prog_data->upsp_v_coef_tap0_p0 = 0xFB;
++				dscl_prog_data->upsp_v_coef_tap1_p0 = 0x2F;
++				dscl_prog_data->upsp_v_coef_tap2_p0 = 0x19;
++				dscl_prog_data->upsp_v_coef_tap3_p0 = 0xFD;
++				dscl_prog_data->upsp_v_coef_tap0_p1 = 0xFD;
++				dscl_prog_data->upsp_v_coef_tap1_p1 = 0x19;
++				dscl_prog_data->upsp_v_coef_tap2_p1 = 0x2F;
++				dscl_prog_data->upsp_v_coef_tap3_p1 = 0xFB;
++			} else { //2 taps
++				dscl_prog_data->upsp_v_init_int = 0x1;
++				dscl_prog_data->upsp_v_init_frac = 0x1;
++				dscl_prog_data->upsp_v_coef_tap0_p0 = 0x28;
++				dscl_prog_data->upsp_v_coef_tap1_p0 = 0x18;
++				dscl_prog_data->upsp_v_coef_tap2_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap3_p0 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap0_p1 = 0x18;
++				dscl_prog_data->upsp_v_coef_tap1_p1 = 0x28;
++				dscl_prog_data->upsp_v_coef_tap2_p1 = 0x00;
++				dscl_prog_data->upsp_v_coef_tap3_p1 = 0x00;
++			}
++		}
++		if (spl_in->basic_in.cositing == CHROMA_COSITING_LEFT || spl_in->basic_in.cositing == CHROMA_COSITING_TOPLEFT) { //Horizontal Subsampling: Co-sited
++			if (dscl_prog_data->upsp_h_num_taps == UPSP_4_TAPS) {
++				dscl_prog_data->upsp_h_init_int = 0x3;
++				dscl_prog_data->upsp_h_init_frac = 0x0;
++				dscl_prog_data->upsp_h_coef_tap0_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap1_p0 = 0x40;
++				dscl_prog_data->upsp_h_coef_tap2_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap3_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap0_p1 = 0xFC;
++				dscl_prog_data->upsp_h_coef_tap1_p1 = 0x24;
++				dscl_prog_data->upsp_h_coef_tap2_p1 = 0x24;
++				dscl_prog_data->upsp_h_coef_tap3_p1 = 0xFC;
++			} else { //2 taps
++				dscl_prog_data->upsp_h_init_int = 0x2;
++				dscl_prog_data->upsp_h_init_frac = 0x0;
++				dscl_prog_data->upsp_h_coef_tap0_p0 = 0x40;
++				dscl_prog_data->upsp_h_coef_tap1_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap2_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap3_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap0_p1 = 0x20;
++				dscl_prog_data->upsp_h_coef_tap1_p1 = 0x20;
++				dscl_prog_data->upsp_h_coef_tap2_p1 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap3_p1 = 0x00;
++			}
++		} else { //Horizontal Subsampling: Interstitial
++			if (dscl_prog_data->upsp_h_num_taps == UPSP_4_TAPS) {
++				dscl_prog_data->upsp_h_init_int = 0x2;
++				dscl_prog_data->upsp_h_init_frac = 0x1;
++				dscl_prog_data->upsp_h_coef_tap0_p0 = 0xFB;
++				dscl_prog_data->upsp_h_coef_tap1_p0 = 0x2F;
++				dscl_prog_data->upsp_h_coef_tap2_p0 = 0x19;
++				dscl_prog_data->upsp_h_coef_tap3_p0 = 0xFD;
++				dscl_prog_data->upsp_h_coef_tap0_p1 = 0xFD;
++				dscl_prog_data->upsp_h_coef_tap1_p1 = 0x19;
++				dscl_prog_data->upsp_h_coef_tap2_p1 = 0x2F;
++				dscl_prog_data->upsp_h_coef_tap3_p1 = 0xFB;
++			} else { //2 taps
++				dscl_prog_data->upsp_h_init_int = 0x1;
++				dscl_prog_data->upsp_h_init_frac = 0x1;
++				dscl_prog_data->upsp_h_coef_tap0_p0 = 0x28;
++				dscl_prog_data->upsp_h_coef_tap1_p0 = 0x18;
++				dscl_prog_data->upsp_h_coef_tap2_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap3_p0 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap0_p1 = 0x18;
++				dscl_prog_data->upsp_h_coef_tap1_p1 = 0x28;
++				dscl_prog_data->upsp_h_coef_tap2_p1 = 0x00;
++				dscl_prog_data->upsp_h_coef_tap3_p1 = 0x00;
++			}
++		}
++	}
++}
++
+ /* Calculate recout, scaling ratio, and viewport, then get optimal number of taps */
+ static bool spl_calculate_number_of_taps(struct spl_in *spl_in, struct spl_scratch *spl_scratch, struct spl_out *spl_out,
+ 	bool *enable_easf_v, bool *enable_easf_h, bool *enable_isharp)
+@@ -1865,6 +2023,8 @@ bool SPL_NAMESPACE(spl_calculate_scaler_params(struct spl_in *spl_in, struct spl
+ 	bool enable_isharp = false;
+ 	const struct spl_scaler_data *data = &spl_scratch.scl_data;
+ 
++	determine_upsp_values(spl_in, spl_out->dscl_prog_data);
++
+ 	res = spl_calculate_number_of_taps(spl_in, &spl_scratch, spl_out,
+ 		&enable_easf_v, &enable_easf_h, &enable_isharp);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
+index 20e4e52a77ac..b24f1ef3fe17 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
+@@ -62,17 +62,21 @@ enum spl_pixel_format {
+ 	/*video*/
+ 	SPL_PIXEL_FORMAT_420BPP8,
+ 	SPL_PIXEL_FORMAT_420BPP10,
++	SPL_PIXEL_FORMAT_422BPP8,
++	SPL_PIXEL_FORMAT_422BPP10,
++	SPL_PIXEL_FORMAT_422BPP12,
++	SPL_PIXEL_FORMAT_444BPP8,
++	SPL_PIXEL_FORMAT_444BPP10,
+ 	/*end of pixel format definition*/
+ 	SPL_PIXEL_FORMAT_GRPH_BEGIN = SPL_PIXEL_FORMAT_INDEX8,
+ 	SPL_PIXEL_FORMAT_GRPH_END = SPL_PIXEL_FORMAT_FP16,
+ 	SPL_PIXEL_FORMAT_SUBSAMPLED_BEGIN = SPL_PIXEL_FORMAT_420BPP8,
+-	SPL_PIXEL_FORMAT_SUBSAMPLED_END = SPL_PIXEL_FORMAT_420BPP10,
++	SPL_PIXEL_FORMAT_SUBSAMPLED_END = SPL_PIXEL_FORMAT_422BPP12,
+ 	SPL_PIXEL_FORMAT_VIDEO_BEGIN = SPL_PIXEL_FORMAT_420BPP8,
+-	SPL_PIXEL_FORMAT_VIDEO_END = SPL_PIXEL_FORMAT_420BPP10,
++	SPL_PIXEL_FORMAT_VIDEO_END = SPL_PIXEL_FORMAT_444BPP10,
+ 	SPL_PIXEL_FORMAT_INVALID,
+ 	SPL_PIXEL_FORMAT_UNKNOWN
+ };
+-
+ enum lb_memory_config {
+ 	/* Enable all 3 pieces of memory */
+ 	LB_MEMORY_CONFIG_0 = 0,
+@@ -88,7 +92,6 @@ enum lb_memory_config {
+ 	 */
+ 	LB_MEMORY_CONFIG_3 = 3
+ };
+-
+ /* Rotation angle */
+ enum spl_rotation_angle {
+ 	SPL_ROTATION_ANGLE_0 = 0,
+@@ -128,6 +131,23 @@ enum chroma_cositing {
+ 	CHROMA_COSITING_COUNT
+ };
+ 
++enum upsp_mode {
++	UPSP_BYPASS = 0,
++	UPSP_HORIZONTAL_UPSAMPLING_ONLY,
++	UPSP_VERTICAL_UPSAMPLING_ONLY,
++	UPSP_HORIZONTAL_VERTICAL_UPSAMPLING
++};
++
++enum upsp_num_taps {
++	UPSP_2_TAPS,
++	UPSP_4_TAPS
++};
++
++enum upsp_boundary_mode {
++	UPSP_BOUNDARY_EDGE, //Replace out of bound samples with the edge samples
++	UPSP_BOUNDARY_BLACK //Replace out of bound samples with black as 12bpc(0x800)
++};
++
+ // Scratch space for calculating scaler params
+ struct spl_scaler_data {
+ 	int h_active;
+@@ -253,7 +273,7 @@ enum isharp_en	{
+ #define ISHARP_LUT_TABLE_SIZE 32
+ // Below struct holds values that can be directly used to program
+ // hardware registers. No conversion/clamping is required
+-struct dscl_prog_data {
++struct dscl_prog_data	{
+ 	struct spl_rect recout; // RECOUT - set based on scl_data.recout
+ 	struct mpc_size mpc_size;
+ 	uint32_t dscl_mode;
+@@ -395,6 +415,33 @@ struct dscl_prog_data {
+ 	uint32_t easf_matrix_c1;
+ 	uint32_t easf_matrix_c2;
+ 	uint32_t easf_matrix_c3;
++	// UPSP registers
++	uint32_t upsp_mode;//UPSP_MODE
++	uint32_t upsp_v_num_taps;
++	uint32_t upsp_v_init_int;
++	uint32_t upsp_v_init_frac;
++	uint32_t upsp_h_num_taps;
++	uint32_t upsp_h_init_int;
++	uint32_t upsp_h_init_frac;
++	uint32_t upsp_boundary_mode;
++	uint32_t upsp_v_coef_tap0_p0;//UPSP_V_COEF_P0
++	uint32_t upsp_v_coef_tap1_p0;
++	uint32_t upsp_v_coef_tap2_p0;
++	uint32_t upsp_v_coef_tap3_p0;
++	uint32_t upsp_v_coef_tap0_p1;//UPSP_V_COEF_P1
++	uint32_t upsp_v_coef_tap1_p1;
++	uint32_t upsp_v_coef_tap2_p1;
++	uint32_t upsp_v_coef_tap3_p1;
++	uint32_t upsp_h_coef_tap0_p0;//UPSP_H_COEF_P0
++	uint32_t upsp_h_coef_tap1_p0;
++	uint32_t upsp_h_coef_tap2_p0;
++	uint32_t upsp_h_coef_tap3_p0;
++	uint32_t upsp_h_coef_tap0_p1;//UPSP_H_COEF_P1
++	uint32_t upsp_h_coef_tap1_p1;
++	uint32_t upsp_h_coef_tap2_p1;
++	uint32_t upsp_h_coef_tap3_p1;
++	uint32_t upsp_clamp_max;//UPSP_CLAMP
++	uint32_t upsp_clamp_min;
+ 	// iSharp
+ 	uint32_t isharp_en;     //      ISHARP_EN
+ 	struct isharp_noise_det isharp_noise_det;       //      ISHARP_NOISEDET
+@@ -554,6 +601,7 @@ struct spl_in	{
+ 	int min_viewport_size;
+ 	int sdr_white_level_nits;
+ 	enum sharpen_policy sharpen_policy;
++	enum upsp_mode upsp_mode;
+ };
+ // end of SPL inputs
+ 
 -- 
 2.43.0
 
