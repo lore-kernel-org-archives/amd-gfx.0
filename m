@@ -4,123 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44CDAC44508
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 05:50:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E63CC44508
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 05:56:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D70CC10E12B;
-	Wed, 15 Jul 2026 05:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 083CD10EEC9;
+	Wed, 15 Jul 2026 05:56:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tPpYJN2L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ipvfumzs";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21BC410E12B
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 05:50:26 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010032.outbound.protection.outlook.com [52.101.46.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8EB310EEC9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 05:56:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G2NBvlK2h4bQc2Kc6veJRpucFIAZLLJHfuilq/m6/ezm2+zNnwKr389Ui51ZQe1+nRWareBxn4MZPAndwVjmjlXQ7fnYoiY9P+V39zN8ljhLQfc814x+GPwFEhIT3yXGIKC0PDJkmzG6RLQMKoSG/IOGMWJLzBqAEuMfq/8LaSzsp00uJailMUeZ7cFqePyitiF4Ol+KaBXYK75D0z/Hoe/UqHkBtkZbnP5JB0ehnOcA1WOngSnETaYCQoUSlq6H6CRkBgkhIPhsmgRyMmZ2ZUK/iL68mFN7QSB33S59+uEZM/4W7E7d69xl0bQ5hqmBd561v59MiDZW+nflPRn17w==
+ b=JK9h/w25nQMCd+Ey3xoXPZq3Ao+pZFN6Q7v53zx/P4tT80A/QwqulKo8Sp66B3hE8OWamY+t2MJc/WjjMy8j6tG7td96IcSP9Ut5oS/wFlMhecV7gefSqwEk/F++c6wDbrALJPWQIlet3zRIeXYe5SZbVfUWzCeKe0v57EYgtzvdL+n1Fbjygh88LbqLMbUPDf2+xPkKsuWe1cPSjK94mZ+7sAcv+d3MjgaTqfCwUSJWIS7GTK4UQw4fxS9RBocNb+E4llcqj5yz92l6Q6AuoKTJrXGeuMf4nWqMmulELHDAJf+t+xZ1ZW9pFbbEGnxsZwGYFFZGNJJ/Twd7koSqbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+wO25rTMPEd9HeXLi9O9gYq5dp7NO3q4IkYXezKHaiw=;
- b=H9ulcFSA7qbC6SnHaXCrqOtG0iQGAhlrXvrE2pIqyGqXzgr0DxSw6Xgh0lV8n2wExlIf77eWQAufsJhlf8l0LF1NO41sEPXRXnIEKdQaApv+JzqOM5bogSFx3LXaqaHJTvDskDQltCMxivXeG/kjBMh4tUR2Sn/MKVjHOZTv7FgTwfxYGIR2F+xDT91NAmZZVs61GO/6/4fbBjcxDiifOtlbR/YEhUXGX8VM+cmxTiaLmzbXWLEyYSaWX/XSiSVb3y6bDIg/yUmr6vh5/aO9F/H61mB4Akm2EuZxfFLs58DVKp0CNV/JeAnJAFHvBdkC9zOsi3VU4U6VIL8u9sksrA==
+ bh=oJn42GmyjQOo9HPuh8yI3mzkiYShQenY3callFxq+W0=;
+ b=Fs5yRxaJSneDAfjUPm1yaFl355vval8ewxwTscdZ4dS4V3nIVWRuGa/Kejp7S8jEC1/ANvEQA9u5sG0+JH9s9VDH6VIHSN1DleMyRhQL6YkMJEeEVKI0mjoAGtVZeLCgfzY/g0tFQgJgFx1s2LFblyB6N7qsFXHv+ujVLf8UcQVmrzrd61dnZEfZMIwJEuvCp64Vh9r1oVn5UMndeJD2i2LxPzOqOHBxTM3Tx++8Qdr5sotbkfpuhv04XEVBDIue24XGHtAXez7AIk7WqJvvDaMpOpcOOgjL153emjFfbi0ukuHMbDQ6zTFM89rUIq7ihHeS5iGxHIefs0BLjPacCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+wO25rTMPEd9HeXLi9O9gYq5dp7NO3q4IkYXezKHaiw=;
- b=tPpYJN2LKNg6PH+juApTxpAO4X++3/8ZsOP8YYFoMt83GWV1OZxZ6AGTgBUh8fGgSzXD8JZg0/yC2pRyS/hQdXYlGBKkSNOTIOZObBKwPljvbU0INXI9WWHtC4EWqEbfe/bdg9Hrr5YL206937opCTibyz2NO9PwJG+GdLPtm2A=
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by SJ2PR12MB9210.namprd12.prod.outlook.com (2603:10b6:a03:561::11)
+ bh=oJn42GmyjQOo9HPuh8yI3mzkiYShQenY3callFxq+W0=;
+ b=ipvfumzsKIxfu3YKPXFEH37KKex2DeSTzGY/mCADZir5gT1b9iqO8+79bZ4bs7qJ6rGjRN6se2hMP7BbxHUd3RrN//8i+65oBClKmM19QdcrCBxD6Go+y6HonqQjZkaI7NCv/1Ep6WxIQtTOI6RWyh4V/7QQAhFp4Kzqd6gEFt0=
+Received: from CH0PR12MB5297.namprd12.prod.outlook.com (2603:10b6:610:d4::24)
+ by IA1PR12MB8262.namprd12.prod.outlook.com (2603:10b6:208:3f6::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
- 2026 05:50:22 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%6]) with mapi id 15.21.0202.018; Wed, 15 Jul 2026
- 05:50:21 +0000
-From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liang, Prike"
- <Prike.Liang@amd.com>, "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH V2] drm/amdgpu: properly account for resets with user
- queues
-Thread-Topic: [PATCH V2] drm/amdgpu: properly account for resets with user
- queues
-Thread-Index: AQHdE6k4htvn/e0t7EyD58w2HLLNXrZuECdg
-Date: Wed, 15 Jul 2026 05:50:21 +0000
-Message-ID: <IA0PR12MB8208CE1C35C3748D3BCBC5A790F82@IA0PR12MB8208.namprd12.prod.outlook.com>
-References: <20260714155516.684775-1-alexander.deucher@amd.com>
-In-Reply-To: <20260714155516.684775-1-alexander.deucher@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Wed, 15 Jul
+ 2026 05:56:39 +0000
+Received: from CH0PR12MB5297.namprd12.prod.outlook.com
+ ([fe80::9d57:4d43:58bc:70a1]) by CH0PR12MB5297.namprd12.prod.outlook.com
+ ([fe80::9d57:4d43:58bc:70a1%5]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 05:56:39 +0000
+From: "Chai, Thomas" <YiPeng.Chai@amd.com>
+To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
+ <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/ras: Add debug mask to disable CE logs for
+ uniras
+Thread-Topic: [PATCH] drm/amdgpu/ras: Add debug mask to disable CE logs for
+ uniras
+Thread-Index: AQHdFAZoUXE/mSjAOUyAF/obuVsbdbZuEaTQ
+Date: Wed, 15 Jul 2026 05:56:39 +0000
+Message-ID: <CH0PR12MB529760041D3F3D8421686C95FCF82@CH0PR12MB5297.namprd12.prod.outlook.com>
+References: <20260715030229.1050986-1-cesun102@amd.com>
+In-Reply-To: <20260715030229.1050986-1-cesun102@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-15T05:35:25.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-15T05:43:21.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|SJ2PR12MB9210:EE_
-x-ms-office365-filtering-correlation-id: ed8fffe9-2ef9-4610-ae8d-08dee234f574
+x-ms-traffictypediagnostic: CH0PR12MB5297:EE_|IA1PR12MB8262:EE_
+x-ms-office365-filtering-correlation-id: 25bf4ea2-abf9-4f07-c250-08dee235d66e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|38070700021|22082099003|18002099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: zcj4GL78zB86aF+4x2KZMCb/uwS/OEpUxBWnt4Ao1ig3NxqtPQKjlfLWd1Oam1CE5FQUMKreZLW+MqH6zse/KzeuScDuUx1VGqFBlVljEeIMhZ/QSUcVtdC7aSw0MR9ay0w/6SFXfCaYxpPdfPhTNM1RslWSgzbJHTUdDEM1ZPj90Y6Ka5VaZ/0byfsdjH9sY4dt9BrqjR51H1mDpPNQMa66AEcp0Bhth8HTR0TV61azIBP2TZypWK19DVhb9V1XIqaev6NaGd4IFgCR8O7HrsVUWqUpirJByGK/NH5yaLKaRoBrMRWTUHNj+UrbhEI0hF8iHplkItL4sQU7dVQP80wfH0a8zSwhYJl6qd8iu7U6TB0YrRSqHGfyeIJ+U5hXDbKzMuDMDgSSTZ2GDju7HbX7yU+YCHZHs/c+Aid7Mz8Hl2SmGnTWWXC5QVQ5Bxt4Y2oeYmljqm9zc6D4z53qpm96nYvujBVrzF9VZ2FaUUNbf8DL32RmZopQNJI2ttmZifuvcfiDRX+arHw3V9U0kIWvZgv4jHkIUESw6cSVWHmRyzIA4iBg8yjihVMCGJQkSQh+beUoFgk5q9Wu4bddl7UPCE5QgXw7vbh5/RBf0xFLVqw0AadCCStkwvQYspG76iBp2Kj5hZLnw5wzkccasxloPB9y+eIDDUSN1TYbqlr1/ZvjLcYVyWeE4a5YwdpjaOwCwjyIFLCZoZWUpwRsI3Qx+cvGCRVFdB1VIyBO93o=
+ ARA:13230040|23010399003|376014|1800799024|366016|38070700021|18002099003|22082099003|11063799006|56012099006;
+x-microsoft-antispam-message-info: lel8xPSwISOoz5BUxWx6sZ1qbM/qyH2rJ4BdfpNpuF2YLZD8G+dcVCzz6yA465ZJEiFAcuVGFTwsy0pTrVibtD4sNdVV2qttLCCJB4PzPgyU1WDX8HKrPUXEN/eJUB4dmlBxKW0PhYxwPKBdyYjj7aKrkUH7Lq6GxGIjmKVjJ8dvkoCfzJD/zWbJ3TbJQ/KChWuPLlFwZ0nYw0hRobqHCetAqzf4UB5N+efIrMvAHe4bT/aNu+WwyzMoV7nd7XSGEVZGtxnRfvvOjK6yNkuPZA2nSM8TOrL6IN18ggkSqMRI0f1FniTuTd91j0CpR/di9c1FII6jNG9w37H+q7FJW9CxgLXKawUi8Ij61NUn0qwnYkbMN45RjzXZY2YrfSm4fww9KhgMPUqyrkZZkx4iPKAdNcT+5hOzOr9ckd+dMvz/L6xYe16MEkugE8uzSED+cGHu28YDaMxtLC9I5jkP4r6IUYs9rZl8vPZ2L1aBxyT+7PWkf91PKwbNrV+XW7D/WokAWSjqnkyrjtd+O/DhGNeW4I3A4m4GYB1IfXCZhAiiGNicrlsqZrnqpCMzj/bHw522CoamFEO/JFJPMeTMyD9e7r1hHkSacWT4FS5hSHGvkG5ItOTzAX02M66CnqT4k8gYWiqrVwiDGjYZDKa8m4ofmZGO492/jiz4dNqgOv4iSIZSVBYMFMbFZd6b/foVvRCRTQes3AmgMJLMqex0ANcGa4RyFAVwYLdx/KI/g/k=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(22082099003)(18002099003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5297.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+GxjDEfOgE1ElrUY2YwyjQXJiKbWqR4xd0/29UsqR1HBCIPkeG5GMzenjgc5?=
- =?us-ascii?Q?kLAyRySthC0H0envEBf2SOz11KjqIqjBwXJ99YB+8e5IcQRyijOB0XiqyDiY?=
- =?us-ascii?Q?SwwSeJRg/LP9/geYfELTPLplRYaOvyHJ0yJd/SfNRPn732dnI03YGgtj4soN?=
- =?us-ascii?Q?PqM3dLHu0OnSdvfMbVpYWx5pfaEKZ1LO8o6njPoEoCQHg15LYBNqLsoKfXlM?=
- =?us-ascii?Q?1nJzHt2UkPIEfcMPTUZby1usWMDZqRWf9kvHOMI63JRTd+AB+k9dIlq2cCF9?=
- =?us-ascii?Q?DHtXZnpLNtKq/v9Z57G4Z7zGRvx/yHPgIyUjU1Hryio28qmxgJKjLf5+TMVX?=
- =?us-ascii?Q?pJEQsstN8l+0r8xsPmIh8iBDebVJqKeafZYJlS0pHGl/k9Eb+i6NNJkpnRvR?=
- =?us-ascii?Q?tJycAzU9z2ZdtXbV8rzLc2LADl4uAKMZYWHuM7ta5Q0tyne/BqnZHL3/pm11?=
- =?us-ascii?Q?wqm1nph7/CjNq4+4+9t1vm3yDziixqNpfbZ+HfpkQOuqNO4xepDe4QirIxha?=
- =?us-ascii?Q?3BkqFb/HGJ3MzbFp3AA98D6sxyDMTXOC+2yRQvaYEs/FazLZFeXQK0E6ZaAd?=
- =?us-ascii?Q?3mSzGS4oEAW5PgqwfExIIrhIEGKBXIt3J+HwuGHuNgvZ8xEoHJ+ZD5MhNwtn?=
- =?us-ascii?Q?ynnUQ9O0db52yrBK93tRsTOFLXWJjQEB30DgS43sVZVf04wunrRKE35iCtNs?=
- =?us-ascii?Q?QCdj/ZIWsuWM0M9AwoEBjrMjIBovp9e5JkzboIKiDQi1q6u/MmZ05vu506GO?=
- =?us-ascii?Q?KEMX7OKrnHzxKRcl/nb4kumM6KuEbGxZzTcnnHyqqDSdEplBZt8XjiHJI5pp?=
- =?us-ascii?Q?XGY8Q8E+b7Prmia8lDLip7fQeTS7eVKjgyLH/yCX3gnkc1ejkQyLHfPAQpMJ?=
- =?us-ascii?Q?BwBJoKTsOkCtTlBg2lFW/FtNJ/y+zPIy5uy+wtd4MIr3leabCjGbqq5TVaYc?=
- =?us-ascii?Q?qp6QL6m5rFbC7BjNb+dee4xAPGkN3ggZ6UZnBkpJLiKOY6PNZOh/n80/CH5z?=
- =?us-ascii?Q?ldDfRkM5ak3PanQj0GAhWU6J0j9pbcvQqXYw2xBQ19gC7eiBs+U+WkrkpmU7?=
- =?us-ascii?Q?L782ht6JIR/DMjY+mL/QygzaoM/liy0G3WIibYCpB9wKJIo8nKJBTc94sZVg?=
- =?us-ascii?Q?vQm2RbWopPpA1dV5TpTJWq+Hb8nVckhH8LQV1FfyiNLDNkL8EexAY5nLxDz5?=
- =?us-ascii?Q?LXfsqY1b7y9bAWOnbOJbL+DAY8jt9PC/EYMMjyDlkhV4c1IWBTGr371vthmW?=
- =?us-ascii?Q?6RerzkPp+ZLzPZWsmPCvqDthBH+oQfdHjPtZ7J+Kd56UtWmK0OJC3s27056Q?=
- =?us-ascii?Q?D96JqzK0SWkwXFPkPhZFWjp9RzKDhU1OVkdVbsG8R2l5exFGwYXWpy553Wqo?=
- =?us-ascii?Q?bD392AnEAdt+MgSHXhF7OUTmOxedoZ/PBHTfO2Cp5wPO3mswtjgBz5FgwQge?=
- =?us-ascii?Q?Y4UyVVuJgcaWjCCyKBkLZi7IB7mgUxF1nwHFYZccPiwmac4uv+GbndquF2HH?=
- =?us-ascii?Q?Znywrbyj4ApwtK73VlU9v7osv6imdWvdpbBS9LzzSoP5gKbTSm3rG2pHkZDY?=
- =?us-ascii?Q?FopgUkua4/A2UzyBTpz2qonMDVCck60Ro/tzhn3CRtOC56sjXqC8joxF4RNw?=
- =?us-ascii?Q?+FBwY8qzBoavej0Xp+EwqT9iQLLhwwVFSwj56uzIzEanpSLIgG0ABjmrkl7x?=
- =?us-ascii?Q?FjpLHd+XQY2jeVf+wHtGEPtHcYapL9HJwg70vn5iIaEn8OrN?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/z9UsjTL+NVptr8tf+q9gDvrlqjGz/gxgj0vi3mAfzwFzvsad9gl5FHj7GSG?=
+ =?us-ascii?Q?N46uUZfuzeqW0pa2P2/THUEju4pYRkUO4lBGtgPXY9yHUHHqEA3ROdq3gPYV?=
+ =?us-ascii?Q?Fld5RA7aUGwuwWtx7/ZI6w0hUHZdYgPWF01AN8ezyX3tZcjI5O4FzEG0A6i9?=
+ =?us-ascii?Q?5IVQqQ1Z0A/e4G5NS1tUT4WmjAN6RqjEZmSdbmzn6anB1vltVjQ20Nm0poRu?=
+ =?us-ascii?Q?psVp/6w/f4/XYrPeMga5WpicJFrms9OjMvgCE2eHp4v81v5g3yplpwBMeVRP?=
+ =?us-ascii?Q?asloYzM17UlDWa8GtGiHoJoVT9uMFJIiyUaeySHChn6sMA8VtxoYSkOyi/in?=
+ =?us-ascii?Q?YnMHzSaq3Y0hEDFN6+ro2eHJwBsxvP7Eic7+34ADi/Q++7jJItV6k1Ka9jIb?=
+ =?us-ascii?Q?7gFqt1Sk2YAFPzF412nzWzYigCtO9OK5SorgiRasopupK7DcbNkOdvBFYJFv?=
+ =?us-ascii?Q?xhY7121frMXMcw1Vc3qIhvOQ1cKNUjZFSXtInS/OYHIg+0iCoizIu4lic5uh?=
+ =?us-ascii?Q?MRxzgh941jE//iLinNLuPH79aYXp5mGcUB9imXHjb1lVCFVto6qjsCpUskuK?=
+ =?us-ascii?Q?pRcBMjQZJrdfhgWNjrlUmc6UvLxM0AAgPVxux2zeTY9nESnaVFI7XXASRNc9?=
+ =?us-ascii?Q?xES85wqGJUYzBEJa4FlFgMg2wXm1sO0f9PNaUo9xlGeTYsH9sTmr2TK+8UPg?=
+ =?us-ascii?Q?+srNCJI7fM2hT0rerERMJUbBCwPN435JCF0gdi0Gsa8T2u9krhUbgQK7VMWB?=
+ =?us-ascii?Q?pkTyIe3EBp780tk8jpPSh4BIKrhfaBrfZPg38bDNh8z9VAG7TOothTi+mOJm?=
+ =?us-ascii?Q?HUWM6jho6PeAyNPsCKOOdk0//mWCXQ95my6B0XT0n+nTxxOejvYRDzSDqIk4?=
+ =?us-ascii?Q?H+cq9rIDc1LEhhjsnFrRQq21ODAcNLipzsuoCfivFmHvwSS0u5AXWQDzja/a?=
+ =?us-ascii?Q?0rcvFbUPaoRlYFlDAumcZ8ho9jifeyV24x2McafcHRY1hdJ24nik1e/znZct?=
+ =?us-ascii?Q?35xoRQLGHxg5rfmUlh1uB1I8No92yzkRawcETmPTIx1wueuS3Ry+pLcKZ3fC?=
+ =?us-ascii?Q?J8jA6FlMt4r6eQ22xmKVygGawDTm7qTN6rU+dobksAqzNREttQdeIWEYMzV8?=
+ =?us-ascii?Q?jeNN2YEjpNdvkt7n1W1xmxTu7/CjDVJBV5LkFJBbTHwNLiJ5STRrAt5eYeYd?=
+ =?us-ascii?Q?6x6ylb2wotUFGge2ma9q50FAOeIebV+M9lYt05JsP9p5h+c3ctMgjJ/Tlv+c?=
+ =?us-ascii?Q?jqtTD/jrpvrMLTjkSZvlwPlfYCsHWX3pEHSlWGX3yWG1vYnoxhQt8bsWCOxj?=
+ =?us-ascii?Q?sRSyPwnkXIEeqKubSTSr+fHmozZBVOunROzEbcP6WGxYeGVcawJG/LU+Vkx3?=
+ =?us-ascii?Q?HE8VM54orGL58CNxnizVvhzTaE47yUA/a4HT5b5DLBYS5iOMnhH8OoLAmIfN?=
+ =?us-ascii?Q?nlrHhvoS37lKN63381oRnDp6oiCo+Ti4ql0Dfl+lhDQDoqp4v7NUFNFBBPUT?=
+ =?us-ascii?Q?YwydIVSQ/RcBEb6SbqDWjQncIO3Xj8C857mYBijEEx5NnDpdLuPdt873gbmO?=
+ =?us-ascii?Q?ucbEmtDA0kkVVqHkSwthGIhkZkY9jKSLeZFjGMLeGYFqh7ZT99SnFXh0RtHq?=
+ =?us-ascii?Q?Nt2p2TqlQdiVSl7DqIFO1PBinBH99Kg+xEcnV/mHyAK27KE0FMI+Da+b9Lt2?=
+ =?us-ascii?Q?TIdFegbjIkyvRrxbDQaMKAJjxUTVQnLvZx3RFzORharGdlW+?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed8fffe9-2ef9-4610-ae8d-08dee234f574
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2026 05:50:21.7079 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5297.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25bf4ea2-abf9-4f07-c250-08dee235d66e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2026 05:56:39.1851 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: c6zZyKTAG22Um51WzBc5ODS0pIwiymoIwLHuDrlNGX6A9gN/PmPoz3Kz1kBFNKshBi7nu41yGTPRqwcSplN3Fg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9210
+X-MS-Exchange-CrossTenant-userprincipalname: m/v6tUtVPpEFQOj8qG7IxpZQn7dY0KpFaO2P3CVkaSd8qTzlGq3CUnMpuxQeMoYRHW0Uw9nhiAWlcKCp8wjo6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8262
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,185 +136,171 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Tuesday, July 14, 2026 9:25 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
-> SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike
-> <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Lazar, Lijo
-> <Lijo.Lazar@amd.com>
-> Subject: [PATCH V2] drm/amdgpu: properly account for resets with user que=
-ues
->
-> We need to increment the reset counter, force fence completion, and set t=
-he
-> wedged event when a user queue is reset, but only for the guilty queue.  =
-We don't
-> want additional events for collateral damage.
->
-> Only increment the reset counter and set the wedged event in the top leve=
-l userq
-> reset callers (both KGD and KFD).
-> This aligns with how this is managed for kernel queue resets.
->
-> v2: fix task info refcount handling, align with
->     kfd error reporting.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Cc: Prike Liang <Prike.Liang@amd.com>
-> Cc: Sunil Khatri <sunil.khatri@amd.com>
-> Cc: Lazar, Lijo <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c      | 18 +++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c     |  2 --
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c  | 17 ++++++++++++++++-
->  3 files changed, 33 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 6aa75da27f912..58754fc41bb6c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -123,6 +123,8 @@ static void amdgpu_userq_hang_detect_work(struct
-> work_struct *work)
->       struct amdgpu_device *adev =3D uq_mgr->adev;
->       const struct amdgpu_userq_funcs *userq_funcs =3D
->               adev->userq_funcs[queue->queue_type];
-> +     struct drm_wedge_task_info *info =3D NULL;
-> +     struct amdgpu_task_info *ti =3D NULL;
->       bool gpu_reset =3D false;
->
->       if (unlikely(adev->debug_disable_gpu_ring_reset)) { @@ -137,6 +139,=
-14
-> @@ static void amdgpu_userq_hang_detect_work(struct work_struct *work)
->       if (!amdgpu_gpu_recovery)
->               return;
->
-> +     if (queue->vm && queue->vm->pasid) {
-> +             ti =3D amdgpu_vm_get_task_info_pasid(adev, queue->vm->pasid=
-);
-> +             if (ti) {
-> +                     amdgpu_vm_print_task_info(adev, ti);
-> +                     info =3D &ti->task;
-> +             }
-> +     }
-> +
->       if (amdgpu_userq_is_reset_type_supported(adev, queue->queue_type,
->
-> AMDGPU_RESET_TYPE_PER_QUEUE)) {
->               int r;
-> @@ -146,11 +156,17 @@ static void amdgpu_userq_hang_detect_work(struct
-> work_struct *work)
->                                                        queue, NULL, NULL)=
+Best Regards,
+Thomas
+-----Original Message-----
+From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Sent: Wednesday, July 15, 2026 11:02 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
+om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; =
+Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Subject: [PATCH] drm/amdgpu/ras: Add debug mask to disable CE logs for unir=
+as
+
+Add debug mask to disable kernel logs of RAS correctable errors, including =
+both ACA and CE error counter kernel messages.
+
+Signed-off-by: Ce Sun <cesun102@amd.com>
+---
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 12 ++++++++++++  driver=
+s/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h |  1 +
+ drivers/gpu/drm/amd/ras/rascore/ras.h            |  3 +++
+ drivers/gpu/drm/amd/ras/rascore/ras_aca.c        |  7 +++++++
+ drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h   |  4 ++++
+ drivers/gpu/drm/amd/ras/rascore/ras_core.c       | 10 ++++++++++
+ 6 files changed, 37 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu=
+/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index ea95e0f93d1c..2be008a9da6a 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -437,6 +437,7 @@ static int amdgpu_ras_mgr_hw_init(struct amdgpu_ip_bloc=
+k *ip_block)
+        ras_mgr->ras_is_ready =3D true;
+
+        amdgpu_enable_uniras(adev, true);
++       amdgpu_set_ce_log_state(adev);
+
+        RAS_DEV_INFO(adev, "AMDGPU RAS Is Ready.\n");
+        return 0;
+@@ -510,6 +511,17 @@ const struct amdgpu_ip_block_version ras_v1_0_ip_block=
+ =3D {
+        .funcs =3D &ras_v1_0_ip_funcs,
+ };
+
++void amdgpu_set_ce_log_state(struct amdgpu_device *adev) {
++       struct amdgpu_ras_mgr *ras_mgr =3D amdgpu_ras_mgr_get_context(adev)=
 ;
->               else
->                       r =3D userq_funcs->reset(queue);
-> -             if (r)
-> +             if (r) {
->                       gpu_reset =3D true;
-> +             } else {
-> +                     atomic_inc(&adev->gpu_reset_counter);
-> +                     amdgpu_userq_fence_driver_force_completion(queue);
-> +                     drm_dev_wedged_event(adev_to_drm(adev),
-> DRM_WEDGE_RECOVERY_NONE, info);
-> +             }
->       } else {
->               gpu_reset =3D true;
->       }
-> +     amdgpu_vm_put_task_info(ti);
->
->       /*
->        * Don't schedule the work here! Scheduling or queue work from one =
-reset
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index d3d79bbaf9eb7..a1371a9f961d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -234,9 +234,7 @@ int mes_userq_reset_queue(struct amdgpu_device *adev,
->                               r =3D mes_userq_unmap(uq);
->                               if (r)
->                                       return r;
-> -                             atomic_inc(&adev->gpu_reset_counter);
->                               amdgpu_userq_fence_driver_force_completion(=
-uq);
-> -                             drm_dev_wedged_event(adev_to_drm(adev),
-> DRM_WEDGE_RECOVERY_NONE, NULL);
->                               break;
->                       }
->               }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 0419fe869d4b0..58ccbf955f287 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -448,6 +448,9 @@ int kfd_reset_queue_mes(struct device_queue_manager
-> *dqm, int queue_type,  static int reset_queues_mes(struct device_queue_ma=
-nager
-> *dqm, struct queue *q)  {
->       struct amdgpu_device *adev =3D (struct amdgpu_device *)dqm->dev->ad=
-ev;
-> +     struct drm_wedge_task_info *info =3D NULL;
-> +     struct amdgpu_task_info *ti =3D NULL;
-> +     struct kfd_process_device *pdd;
->       unsigned int num_hung =3D 0;
->       int r =3D 0;
->       struct mes_remove_queue_input queue_input; @@ -476,13 +479,25 @@
-> static int reset_queues_mes(struct device_queue_manager *dqm, struct queu=
-e *q)
->       r =3D amdgpu_gfx_reset_mes_compute(adev, NULL, NULL, NULL,
-> &num_hung, &queue_input);
->       if (r)
->               goto fail;
-> +     pdd =3D kfd_get_process_device_data(q->device, q->process);
-> +     if (pdd) {
-> +             ti =3D amdgpu_vm_get_task_info_pasid(adev, pdd->pasid);
-> +             if (ti) {
-> +                     amdgpu_vm_print_task_info(adev, ti);
-> +                     info =3D &ti->task;
-> +             }
-> +     }
->
->       dqm->detect_hang_count =3D num_hung;
->       /* When MES doesn't detect any queue hang, no reset happens. Don't
-> signal reset
->        * event.
->        */
-> -     if (dqm->detect_hang_count)
-> +     if (dqm->detect_hang_count) {
->               kfd_signal_reset_event(dqm->dev);
-> +             atomic_inc(&adev->gpu_reset_counter);
-> +             drm_dev_wedged_event(adev_to_drm(adev),
-> DRM_WEDGE_RECOVERY_NONE, info);
-> +     }
-> +     amdgpu_vm_put_task_info(ti);
->
->  fail:
->       dqm->detect_hang_count =3D 0;
-> --
++       bool disable_ce_log =3D !!adev->debug_disable_ce_logs;
++
++       if (!ras_mgr || !ras_mgr->ras_core)
++               return;
++
++       ras_core_set_ce_log_status(ras_mgr->ras_core, disable_ce_log); }
++
 
-Thanks for addressing the review comments.
+[Thomas ] Since ras_core_ce_log_disabled is a boolean, consider renaming th=
+e function to xxx_disable_ce_log() or xxx_ce_log_disabled() to better refle=
+ct its semantics.
 
-Looks good to me.
+ int amdgpu_enable_uniras(struct amdgpu_device *adev, bool enable)  {
+        struct amdgpu_ras_mgr *ras_mgr =3D amdgpu_ras_mgr_get_context(adev)=
+; diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/g=
+pu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+index a20bb8fdce87..efbdb25241a3 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+@@ -63,6 +63,7 @@ extern const struct amdgpu_ip_block_version ras_v1_0_ip_b=
+lock;  struct amdgpu_ras_mgr *amdgpu_ras_mgr_get_context(
+                        struct amdgpu_device *adev);
+ int amdgpu_enable_uniras(struct amdgpu_device *adev, bool enable);
++void amdgpu_set_ce_log_state(struct amdgpu_device *adev);
+ bool amdgpu_uniras_enabled(struct amdgpu_device *adev);  int amdgpu_ras_mg=
+r_handle_fatal_interrupt(struct amdgpu_device *adev, void *data);  int amdg=
+pu_ras_mgr_handle_controller_interrupt(struct amdgpu_device *adev, void *da=
+ta); diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/a=
+md/ras/rascore/ras.h
+index 878dfdfcb18a..5911ce63f889 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
+@@ -346,6 +346,7 @@ struct ras_core_context {
+        spinlock_t seqno_lock;
 
-The reset accounting is now performed only for the guilty queue in the
-top-level KGD/KFD reset paths. During a queue recovery, additional
-collateral queues may also need to be reset as part of the same recovery
-operation. Those collateral queues still have their fences
-force-completed, but they no longer increment the device reset counter
-or generate additional DRM wedged events. As a result, a single
-recovery operation generates one device-level reset notification,
-which aligns with the kernel queue reset handling.
+        bool ras_core_enabled;
++       bool ras_core_ce_log_disabled;
 
-The task-info reference handling is also now consistent with the
-existing amdgpu_job_timedout() path. The reference obtained through
-amdgpu_vm_get_task_info_pasid() is released with
-amdgpu_vm_put_task_info() after its final use.
+        u64 ras_fw_features;
+ };
+@@ -403,4 +404,6 @@ int ras_core_convert_soc_pa_to_cur_nps_pages(struct ras=
+_core_context *ras_core,  int ras_core_check_address_sanity(struct ras_core=
+_context *ras_core, uint64_t addr);
 
-Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+ int ras_core_set_debug_mode(struct ras_core_context *ras_core, bool enable=
+);
++void ras_core_set_ce_log_status(struct ras_core_context *ras_core, bool
++disable); bool ras_core_get_ce_log_status(struct ras_core_context
++*ras_core);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c b/drivers/gpu/drm/am=
+d/ras/rascore/ras_aca.c
+index 67a35409ff0e..5a46a265e26d 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
+@@ -99,6 +99,8 @@ static void aca_report_ecc_info(struct ras_core_context *=
+ras_core,
+        }
 
-> 2.55.0
+        if (ecc_count.new_ce_count) {
++               if (ras_core_get_ce_log_status(ras_core))
++                       return;
+                RAS_DEV_INFO(ras_core->dev,
+                "{%llu} socket: %d, die: %d, %u new correctable hardware er=
+rors detected in %s block\n",
+                        seq_no, skt, aid, ecc_count.new_ce_count, blk_name(=
+blk)); @@ -114,6 +116,11 @@ static void aca_bank_log(struct ras_core_contex=
+t *ras_core,  {
+        int i;
+
++       if(ras_core_get_ce_log_status(ras_core) &&
++          bank->ecc_type =3D=3D RAS_ERR_TYPE__CE &&
++          !ACA_BANK_ERR_IS_DEFFERED(bank))
+
+[Thomas] Can we use " bank_ecc -> de_count " as the check condition ?
+
++               return;
++
+        RAS_DEV_INFO(ras_core->dev,
+                "{%llu}" RAS_HW_ERR "Accelerator Check Architecture events =
+logged\n",
+                bank->seq_no);
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h b/drivers/gpu/d=
+rm/amd/ras/rascore/ras_aca_v1_0.h
+index 40e5d94b037f..c42a47492d4a 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h
+@@ -67,5 +67,9 @@
+ #define mmSMNXCD_XCD0_MCA_SMU 0x40430400       /* SMN XCD XCD0 */
+ #define mmSMNAID_AID0_MCA_SMU 0x03b30400       /* SMN AID AID0 */
+
++#define ACA_BANK_ERR_IS_DEFFERED(bank)                                \
++       (ACA_REG_STATUS_POISON((bank)->regs[ACA_REG_IDX__STATUS]) || \
++        ACA_REG_STATUS_DEFERRED((bank)->regs[ACA_REG_IDX__STATUS]))
++
+ extern const struct ras_aca_ip_func ras_aca_func_v1_0;  #endif diff --git =
+a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rasc=
+ore/ras_core.c
+index 08e17a83ad5b..80974b8d6297 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+@@ -545,6 +545,16 @@ bool ras_core_is_enabled(struct ras_core_context *ras_=
+core)
+        return ras_core->ras_core_enabled;
+ }
+
++void ras_core_set_ce_log_status(struct ras_core_context *ras_core, bool
++disable) {
++       ras_core->ras_core_ce_log_disabled =3D disable; }
++
++bool ras_core_get_ce_log_status(struct ras_core_context *ras_core) {
++       return ras_core->ras_core_ce_log_disabled;
++}
++
+
+ uint64_t ras_core_get_utc_second_timestamp(struct ras_core_context *ras_co=
+re)  {
+        if (!ras_core)
+--
+2.34.1
 
