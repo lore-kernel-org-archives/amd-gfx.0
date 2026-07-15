@@ -4,80 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F06F5C44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 10:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C28E0C44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 10:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46AA510E176;
-	Wed, 15 Jul 2026 10:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5586910EF9A;
+	Wed, 15 Jul 2026 10:19:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dvvt7S5o";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="hlMGXabw";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61AF910E176
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 10:16:40 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-474560436c3so1433771f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 03:16:40 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6771B10E034
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 10:19:43 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4953ddae026so2749125e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 03:19:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784110599; x=1784715399; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ekLiH4NWujisXko+EZlaccF1jWzq+ulmz63PT5dzQws=;
- b=dvvt7S5ohm3XVhGdSyl+hKbxOOfU2R/TQmepEtl94TC0nF8Lcm43YPPNLNPtqQXeDj
- IwDUtfZn6SXcmhOHd2gP1gWgWiZMvxiYltQu7mp+mU20W6S9d2kP4LIcZ+l+/6sNq9wT
- uXQJXdlhk3hf48SvAw7nHLwu0uQsDRpX/HFTPA+cec4iq8Ley0SUwQj/E8s38XjsL667
- pp9giFtiSGGA0Khc70z6KBZAtbhRENN5Yso3N345bnxkG4Hnxohkg5/3TfgsFzzmPV5w
- 7J+ApiKk6CY2WncpYudw9DEdD42TEW4QWY8Dq4qlX8zslybTaiEH7N6WyUO46TAX10qE
- jdbA==
+ d=ursulin.net; s=google; t=1784110782; x=1784715582; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bRzTwkXH6xGawDP7fc9UhZlTlCmnDu73EAsqN4QfQcg=;
+ b=hlMGXabwA68iQbotbz4HHeJR7UZiViofLRQN/e1xvPmaasIAA921BnvcuUHYcM1f27
+ kgL3jTzTwtrhJsXC4eKoeKXdM5gcyz2c8KS1LcbW7JO/5tENAJFZc+Im088h/gfSYeKE
+ PD8ekf4OkQzcubvoVQ6Y89AXf3yzrEr3g2PbRg2hA5r70WPBD16daKUKOBJJszjBzc9P
+ dgRIrxQe/wLOVVj9DxY17xjgNVZ6ulZBg6rmKb9qLw7hriMsPAQy37E3wA3jaXqwf7pE
+ lsy+K2iQo5IONFNx+itJpu7BG9OqAQgFf7JOMYBuleAi1cLxnf1C3FFQyWSKB5f9f9ei
+ Vmqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784110599; x=1784715399;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ekLiH4NWujisXko+EZlaccF1jWzq+ulmz63PT5dzQws=;
- b=Rr3EdaQsSj4qnAx0zfXjvIQ2wb6k4XlstzIyETtDzgxPnxoLpqPVa4fxDubOnOpaCL
- yLuCX8OvHJGdvbUTvHmuyDvYNG9Be3qGVgHr7PZvBR3lgbSjX6aENaetivhdAI5sjMQf
- 9A/rBAX6npN6mS+mJAdrmzsMzzuy1tEnBBYBNSFQ3xyWQYoO/TL6mm9uiDvXzvjqycj8
- efHg2i8/gFxGb300m9cP3yA8FXjSm3wcPopagXvYwWciS/jbU6eTh8XIEwQP06kxoro2
- KbYxbeV6e1fsUrn/KgjFEHePNX4ihfig/EDENdaDXt4quOWNEZ0a4nGITDZZJNIwtEEr
- wfGA==
-X-Gm-Message-State: AOJu0Yw2SONt+AVmaMWQdzYGfTrUgMDHh8MupHy55yLroRD78rG2NGKw
- 0JpwKykI1K4HzYAHjwTnr1CLkB4CsEbjnq4YA+THcl7CAl1OjMyrpGjQUl4djA==
-X-Gm-Gg: AfdE7ckEPiLCyd1cCFdGzpWQPLxFkogRlGYEM+iGFlEDwdYHwINd1ZmjCXSRfHWldx7
- wWJiAIAv4oxZsgY/eR5zxGnAMbDJJBgYh4tbJIZz0LGEoXVQ35IcQK6Z88noWnMRKDmT9vKGoPT
- TdhRPsALreMdo5q8tImLULpbDwEcuupXZsy+5E0HPjQZpXXkK35qkPmjBYC+F6kGnSexX/7eIQm
- Ie1rO6pxA7wXn9Uzrn9N1ljPCX+iHoAEVCa+9KlYMoGONoPiwBZiMRJcphuz5x7WZGIQCPipC8W
- M/pmvGMcXEm/I2PozR6/Hc6nT9HWmI+fmbDk5H7IKFe+h1p8tgF7SQ7Gcv6AsgixlB6Nh+TGx/U
- uaU7BAOuPfZ4NzRSrWYIA8uhLrusXl14xxMWr4oREHYgPN3f0fjRsAglXEdgKIMq71LObzkn0fL
- AwsYMEvh7Gzm02I2thS3jmByNYLvU7JhPYPOxdAhPARBKUpmWCGVrD9iEMc/4/CQaojS/s2h4t/
- UJPsDCtAArFAWt/BA4=
-X-Received: by 2002:a05:6000:2f85:b0:47f:53cc:3a1d with SMTP id
- ffacd0b85a97d-47f53cc3fa6mr191486f8f.35.1784110598450; 
- Wed, 15 Jul 2026 03:16:38 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24CD7200F6BBA872344E1A32.dsl.pool.telekom.hu.
- [2001:4c4e:24cd:7200:f6bb:a872:344e:1a32])
+ d=1e100.net; s=20251104; t=1784110782; x=1784715582;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bRzTwkXH6xGawDP7fc9UhZlTlCmnDu73EAsqN4QfQcg=;
+ b=bcHSLuv3ANNEIXLrVxLZU2ImhF9txSIM4U/rubQhtiws9+438qlCn83TEjWeR2jph/
+ dAXLqzjc24kHk6nq9KbXUw7quC/5pFNJf1pUyuyBxU0vyoVzgg07V++5V9oNAg83FFjK
+ Fu7vWFBq01TtXJiFzIjdy1KHQX7LDmIUN2sMZCfvUHouoSXQ8aWjhMUv3cu12nRd4lQa
+ f+tcslVieelbZcCiw+GlKkigHfdlXmh16FMdQYbw9UqYkzQz0oRxk+Lup6BIHmTLtO4x
+ iRWU59KqadwpVKO0WrWEIhIRDa6jzYVpwPzskAvWdDEU1JTlgQ3wqApPSVTjexxL1sdr
+ NZiw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpPj85+zS60Ls/jsAODN4cJzSgSNMumSAElPhATf2lLHReJ3dwUpGM2ISLGIHEeyGUedDTflcKv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz86r7BaUBZHUrDHro8i3mKrQSoPuShT3a+aPpJisNpIsUqKHdw
+ bGxrbeuqkLBZyNlWHRxy/g0MPY+7cW6s0G1l9RYL/lgZqyIgqdS/AZJ3NaDqlK7RJIY=
+X-Gm-Gg: AfdE7ckKb3DQ5BjgyAwmJUXehj88YAyQF8h6xFDP7+FiE7ARqK9fDjyktZo/q3fce0K
+ APHEn1I+xEak2/VLGPcyQ/eqQSpDuZenVYkyE1cCruC674l7fR0bujJ13bx0ZSXciBxy0xJblES
+ Ym0aQsT/l7/MOFG7poiwh6xsZRUIMWfvoVMP1d0essRi1D1VX1+GsS2JTJrrHX/SE00j0UbDrzg
+ 5qYJDdwRKRniuJyxaiyrnsV7rCMYACJbabw8RW+zCw0vkKzVWnIkZXH5CRQ6xXP9IKUDyLOykud
+ ELYFc8F8f/jwK8ff1G77ADnk3LuOOZCrxzHeduejWUlummmDBR+fPEIW3JH47mgK03xIvCc+NkU
+ xqYuqCNhUPo/+lNQnVSGxMDbLPWc3RF6QjvCiTFlQ5tlCihHAUFX7SRRHU5aro+rHMod0zLNPq8
+ 9cD2xfdAY2vTTmNtONUs9or0namJMB81A+UQ==
+X-Received: by 2002:a05:600c:4a21:b0:493:bc4b:b8c with SMTP id
+ 5b1f17b1804b1-493f88389d9mr115897165e9.38.1784110781786; 
+ Wed, 15 Jul 2026 03:19:41 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f464b7e22sm14773371f8f.25.2026.07.15.03.16.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jul 2026 03:16:37 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>
-Subject: Re: [PATCH 6/9] drm/amdgpu/gfx7: Clean up gfx ring during reset
-Date: Wed, 15 Jul 2026 12:16:36 +0200
-Message-ID: <20288812.fSG56mABFh@timur-max>
-In-Reply-To: <d6e5a13d-bb65-4633-8c0e-8b89f292bc3f@ursulin.net>
-References: <20260713125838.30607-1-timur.kristof@gmail.com>
- <20260713125838.30607-7-timur.kristof@gmail.com>
- <d6e5a13d-bb65-4633-8c0e-8b89f292bc3f@ursulin.net>
+ 5b1f17b1804b1-4953c5a4c0csm31022245e9.0.2026.07.15.03.19.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jul 2026 03:19:41 -0700 (PDT)
+Message-ID: <12b8dbe8-579d-4b90-a3af-ec604710299c@ursulin.net>
+Date: Wed, 15 Jul 2026 11:19:40 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/11] drm/amdgpu/gfx6: Properly enable/disable priv_req
+ and priv_inst interrupts
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+References: <20260713130709.34262-1-timur.kristof@gmail.com>
+ <20260713130709.34262-8-timur.kristof@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260713130709.34262-8-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,100 +94,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. j=C3=BAlius 15., szerda 11:18:19 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
-=C3=A1ri id=C5=91 Tvrtko Ursulin=20
-wrote:
-> On 13/07/2026 13:58, Timur Krist=C3=B3f wrote:
-> > Clear the WPTR and RPTR at ring initialization.
-> > Additionally clear the ring contents during reset.
->=20
-> Please add the why part to your commit messages. ;)
 
-After a reset, the ring contents could be "dirty" and thus need to be clear=
-ed=20
-to prevent the command processor from executing packets left over in the ri=
-ng=20
-from before the reset. I think this is obvious, but I'm happy to add some t=
-ext=20
-to the commit message to explain it more.
+On 13/07/2026 14:07, Timur Kristóf wrote:
+> These were used without ever calling get()/put() on them.
+> Implement it like on GFX7-8:
 
->=20
-> Cover letter mentions the series is reworking to match gfx7 to gfx8 but
-> I looked in drm-tip and amd-staging-drm-next and
-> gfx_v8_0_cp_gfx_resume() does not yet have these changes.
+Used as in how? Are they even enabled without this change and if not 
+then does this patch fixes something other than being prep work for soft 
+reset?
 
-The GFX8 code does have this:
+Regards,
 
-=46or graphics queues:
-In gfx_v8_0_cp_gfx_resume() it also sets wptr =3D 0; and calls=20
-amdgpu_ring_clear_ring() unconditionally. This is actually not needed durin=
-g=20
-first initialization because the amdgpu_ring_init() called from=20
-gfx_v8_0_sw_init() already clears the ring, which is why I call the clear=20
-conditionally on GFX6-7. I could of course change the GFX6-7 code to also c=
-all=20
-it unconditionally though for the sake of simplicity and consistency.
-(It is missing the atomic things though. I think it should have that too.)
+Tvrtko
 
-=46or compute queues:
-In gfx_v8_0_kcq_init_queue() it clears the wptr, also the wptr_cpu_addr and=
-=20
-also calls amdgpu_ring_clear_ring().
-
-
->=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> >=20
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 9 ++++++++-
-> >   1 file changed, 8 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c index a93cc02c3400..915612628f9a
-> > 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > @@ -2546,8 +2546,14 @@ static int gfx_v7_0_cp_gfx_resume(struct
-> > amdgpu_device *adev)>=20
-> >   	WREG32(mmSCRATCH_ADDR, 0);
-> >   =09
-> >   	/* ring 0 - compute and gfx */
-> >=20
-> > -	/* Set ring buffer size */
-> >=20
-> >   	ring =3D &adev->gfx.gfx_ring[0];
-> >=20
-> > +	atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-> > +	atomic64_set((atomic64_t *)ring->rptr_cpu_addr, 0);
->=20
-> One day we need to fix this whole atomic64 situation.
-
-What is the situation that needs to be fixed?
-
-
->=20
-> > +
-> > +	if (amdgpu_in_reset(adev))
-> > +		amdgpu_ring_clear_ring(ring);
-> > +
-> > +	/* Set ring buffer size */
-> >=20
-> >   	rb_bufsz =3D order_base_2(ring->ring_size / 8);
-> >   	tmp =3D (order_base_2(AMDGPU_GPU_PAGE_SIZE/8) << 8) | rb_bufsz;
-> >  =20
-> >   #ifdef __BIG_ENDIAN
-> >=20
-> > @@ -2559,6 +2565,7 @@ static int gfx_v7_0_cp_gfx_resume(struct
-> > amdgpu_device *adev)>=20
-> >   	WREG32(mmCP_RB0_CNTL, tmp | CP_RB0_CNTL__RB_RPTR_WR_ENA_MASK);
-> >   	ring->wptr =3D 0;
-> >   	WREG32(mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
-> >=20
-> > +	WREG32(mmCP_RB0_RPTR, lower_32_bits(ring->wptr));
-> >=20
-> >   	/* set the wb address whether it's enabled or not */
-> >   	rptr_addr =3D ring->rptr_gpu_addr;
-
-
-
+> * Call amdgpu_irq_get() from gfx_v6_0_late_init()
+> * Call amdgpu_irq_put() from gfx_v6_0_hw_fini()
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> index 5b570a4b5c01..1c7cd265fbca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -3131,6 +3131,22 @@ static int gfx_v6_0_early_init(struct amdgpu_ip_block *ip_block)
+>   	return 0;
+>   }
+>   
+> +static int gfx_v6_0_late_init(struct amdgpu_ip_block *ip_block)
+> +{
+> +	struct amdgpu_device *adev = ip_block->adev;
+> +	int r;
+> +
+> +	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> +	if (r)
+> +		return r;
+> +
+> +	r = amdgpu_irq_get(adev, &adev->gfx.priv_inst_irq, 0);
+> +	if (r)
+> +		return r;
+> +
+> +	return 0;
+> +}
+> +
+>   static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_ring *ring;
+> @@ -3243,6 +3259,8 @@ static int gfx_v6_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   
+> +	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+> +	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+>   	gfx_v6_0_cp_enable(adev, false);
+>   	adev->gfx.rlc.funcs->stop(adev);
+>   	gfx_v6_0_fini_pg(adev);
+> @@ -3532,6 +3550,7 @@ static void gfx_v6_0_emit_mem_sync(struct amdgpu_ring *ring)
+>   static const struct amd_ip_funcs gfx_v6_0_ip_funcs = {
+>   	.name = "gfx_v6_0",
+>   	.early_init = gfx_v6_0_early_init,
+> +	.late_init = gfx_v6_0_late_init,
+>   	.sw_init = gfx_v6_0_sw_init,
+>   	.sw_fini = gfx_v6_0_sw_fini,
+>   	.hw_init = gfx_v6_0_hw_init,
 
