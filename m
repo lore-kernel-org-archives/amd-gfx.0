@@ -4,123 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7028BC44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 21:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A6FC44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 22:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 085E110E2D8;
-	Wed, 15 Jul 2026 21:52:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3A2E10E251;
+	Wed, 15 Jul 2026 22:28:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fNHFRUMS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yD1f7B3d";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA5B10E203;
- Wed, 15 Jul 2026 21:52:49 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012033.outbound.protection.outlook.com
+ [40.107.200.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F65410E229;
+ Wed, 15 Jul 2026 22:28:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sY/4XcQ7Nn5eBUTKN4+xUErqDFsz5cCYs8EZVfDO4LIq/fP++YNuS9dOKj/FRQJJTZqlMMKRUffQWVfaUV5kDmFIhCQ1wECHbEKqLMXLbqq+WFep2r+xoufjjoM0EQ3LbkXDa1RMDuu6EYGjNb0air7Xdyrhy+CCeyM2DK+8QfuU0sim/r6QGwWO/2RbSH7zDVX6rnC3rubFXJq1we7BAhK2l1mhVCAsq/zmzwgq6Kmyr5wGpGXa6vTCPgyJwSo8rmvmzBr7oEcG26m8rl7KEhKbLgSmPz+Q7LYQcfkA7e4qHIuzC1b79qXdUrKp8onbIdZeAjwCYL875Lc52lqCcg==
+ b=vPOI0P81WLvthGvUEJFI79dPCyHWE6p8jHYZtVKBaN2OLfT6ublWaleKmAFLzenlD3LGByFVvorGcf3QKNjpGrt+nPHxxQTU9LiJ9oyMKYCp6fBaAf+d7htrq86/XIrBVnJ/dUMGJ3BnS9omEJxnilngbJq8YNLtycKbY+k1sOrKMFd0nnPOlNqiMuoqWrB5BOYic+jEeA89NMk+thAbFpuVNxaaWscruJRjdEnvguiuZza9OkO9cXC1zMRUyTYF1Sefp+zbqI6ysMSQ27GWRVfUFuyfYhEOlwuhig9mBQ0KjA8YbJxAS7yrsgJY1yF6lJbApVT46TKRXrlVKYZN9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WEFBki3hIKnNrWVtchzaxOsk1TXHr1S3yYDZh/9GKGg=;
- b=cUyMFAUtlcIhCNjAB/Vu5YokEhvRngZtU6JA4/FHBBaCvYdXAZIbO+t4UMKK4Zd8yAnwtvhPjSLdMcQ/rsM2oPfiNKIHA7mFRGbErfhM/X98Bmpj7Kct4kopSHrQVMAElmArQSGwmfYn4if45ayz2/Xaj6Ck8FYfi8HgE0l6Aux9EX74DtXzvqS7yHvoq2Nvz8LqJmUIQzw5pyLhjOz7ELE4IZzBHqtRQuXErbY6SMHlgkpFmN7VGPxkoB53Lk0Ku8UF1AZj/8MQgPCBy86N2PZaNeTJgD30GTvmrI5kCnbnuulkyo1kfjudge3UnBYF7iqdrVZGjEXmPXNTYRqbqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=IGvjk/VLComexPRB46P9dDqzIndz0k8e31ay39RANRc=;
+ b=rJzeKUftSAiAw7umPNdDilGTyqnxsb+WPINLQ8PL7j8geXDrJJVBL23cLtcm+QQULKXg7gnqSD4uyNqj3z3YedXT8DKJapAXqhmwhcFNJtS/lb2S2YKKw8FvpweKRHUjkcGgHEyR11c6kk3XRfsi86DPjJweAZs9bqUCPiEn8Ci+CRVH5NkputMvvb46QItVUltA7hnQB34iliTPCPAxZqKHuhTaVvL9AWMPm9IDtgBdd5I09y3p2Wfrw9g/jM0MjkfArcuqXbDwvvpsUMijnZy33udKjYPa2B7nH8r+eorE7/Ixfsy0sxs2/DJy05ReZTpS7lrbDuHsJra8h52DTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WEFBki3hIKnNrWVtchzaxOsk1TXHr1S3yYDZh/9GKGg=;
- b=fNHFRUMSAKa2BulPSu85HB6aHJz2wq2BOj5+6seKkqFmttJwdcWX5vyKCoqn7CncMeh95T72K3e6GvaWwjxI8KIKFZPGieYrjalW4RjBhXev+dnWoWEPq5dy/2IHI0+g3vUv3qiJbSCWL7xOtzm42/CRxvhyB5os4bnEJb0IBeo=
-Received: from PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10)
- by DS0PR12MB8766.namprd12.prod.outlook.com (2603:10b6:8:14e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.9; Wed, 15 Jul
- 2026 21:52:45 +0000
-Received: from PH8PR12MB7279.namprd12.prod.outlook.com
- ([fe80::87e7:239d:191f:3bb]) by PH8PR12MB7279.namprd12.prod.outlook.com
- ([fe80::87e7:239d:191f:3bb%3]) with mapi id 15.21.0223.011; Wed, 15 Jul 2026
- 21:52:45 +0000
-From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
-To: Jiri Slaby <jirislaby@kernel.org>, "Wentland, Harry"
- <Harry.Wentland@amd.com>
-CC: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "siqueira@igalia.com"
- <siqueira@igalia.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Cheng, Tony" <Tony.Cheng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, DRI devel <dri-devel@lists.freedesktop.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: amdgpu crashes in get_ss_info_from_atombios()
-Thread-Topic: amdgpu crashes in get_ss_info_from_atombios()
-Thread-Index: AQHdFDcXP/GhfParmU6bujxoj/Qn1rZvFJ04
-Date: Wed, 15 Jul 2026 21:52:44 +0000
-Message-ID: <PH8PR12MB7279ACE40040268C9A48F484F9F82@PH8PR12MB7279.namprd12.prod.outlook.com>
-References: <a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org>
-In-Reply-To: <a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-15T21:52:43.904Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR12MB7279:EE_|DS0PR12MB8766:EE_
-x-ms-office365-filtering-correlation-id: 7e540aa7-5ce6-46d9-890a-08dee2bb670a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|376014|22082099003|18002099003|38070700021|11063799006|5023799004|56012099006|8096899003|10067099003|6133799003|13003099007;
-x-microsoft-antispam-message-info: JpaTb0rJigT7QW75nSA8pBPsGy1dTVMkiLtto/YVaHKJzeUDfrfwiVo4qIF59g+vy+c60xLeYxVn02ONdXDWRJN4nyWt60adzfBjStmWbDUkFb1/hRNSP5qx4i4x+y3NVArvgN+fF9rJdtXtQg7xH8sEky6u71IUERm9mAWaWPU8HmBIZ4DW8stSDJJk/sn6vUWz+U9Cwz1BOS6r2GfHtxLf8w3cnWtlys4apZhylZvsVRFpZVumAggIlxzulT75rCLUPJ/v/qHylJkWFwqtSFwIJXg5L8kzPzomGNl4iqIlyeB5OFMUxVN59fRZN0cFVsX/3hfqhq5dn07zWDJZrunDEDsKHGooktL/vJY5GCHpwLMm4mcW8RnkK+Jm0tTMRCd6/4dJhrDfROvuKSW4kEc/EIDrzasUbROuv9burh5i+fGDcCFAveQtMbXJvUj0EG6nZ7MkuRAivHSJbSjsOdU4rtVIw/poq+4HQZXc+r0GIAIu2sbxzajqbZntur9LybHkFX/qeminABKExG3G6kCzdPFGtx8cuNsV0IFFr/XTYALaDDi9ehbp9AuIexZkAii1p4b51CwnPyDCL+8msBHZ7s1hLU34fw2EOzwWnCL4sPWXxJXpvoZUhBZFSKrcdbZUdgvS+5XIFgEda8mdDdxvCDIuFRYlVDTxs9fy0CWOmMXX/kaeEh4W9PAtFWaxdnrr5ozY6scsQdP30pstRXz8cV8dPXqqOPYHSPeHX9c=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7279.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(22082099003)(18002099003)(38070700021)(11063799006)(5023799004)(56012099006)(8096899003)(10067099003)(6133799003)(13003099007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7elJzCrFTn1Nt/3Pc+QKSJDuFywyBq0ok+awdJBqPAQbG8racNXnqV4QZVAT?=
- =?us-ascii?Q?oKBINWXC77W3OeJCvhHbk0etl0QgRjcQxRP1ETCyDLjch5oue3DfHbukzcQo?=
- =?us-ascii?Q?EWfnwqzSjlwpZVrGwuC3HIRrKN4iTfI0DbkCVDnd9lz8WJv4v/xTnCaIk8k+?=
- =?us-ascii?Q?aloud1RMce+gb55fN/NXW7xH86u6tW+50fibp4d0Lq6WGFKmmrdXtDHvztPY?=
- =?us-ascii?Q?O1pE1C0JOGdApIn3nqbLValeoPrxEXycRJo+RdiwBL6CM+Ja67x6MH6asNe0?=
- =?us-ascii?Q?vrbBvc51Fp87nzB9wihjksj0Hx/A/cYU0A+Y8uTLisJco/dQ/P0kQO2P1A3n?=
- =?us-ascii?Q?ARXcR0cmMyq1cg1rBtH0TURQHctgTweG+g4mlnZHZkqxWvMsNzh6rdywo5Cu?=
- =?us-ascii?Q?pXv+chvDzZGxXurubEnrL7LXM5rNGohmtXzXHH66rM03eQ4RyAEFPpxx/4eJ?=
- =?us-ascii?Q?ftpdE8/QtAVx9jBsS91pmHp3usTvQ3FtwGF/Ux9TOs10dGom7gW0vnp95iBS?=
- =?us-ascii?Q?ACY4uhyJjoNAGWXV1VBRHR4Eo28qc5plXyUPDsI/UkWM8eNSwJGQ3P75B0vG?=
- =?us-ascii?Q?HlS7Hcr8DTF7u4qCbZDlYXg5WSFURuW51n39UGdbOuyWcZj67NA//tPkm9pN?=
- =?us-ascii?Q?VKD8w8wBHte2GEsh342TTySXgX9M/w9fWTmKDdMieDQE1ZNKH8vnjX/eWMr5?=
- =?us-ascii?Q?rDNDkyGQqEIqTgurT4L5+IN9g5ZpqVtlz+5hAry9SbFakhtyXQbtH3sN17DR?=
- =?us-ascii?Q?E8pt+t3UjfDHvEYc+tziktep+OVDJhlfK/PiPXXtJoclF5zBRVLWoZM2CcHJ?=
- =?us-ascii?Q?jS6UfzegGe3AUYdMEwWH5iM3gYwYvVKJvzu+QQK1Laq9dqvj4kW31IJIkY8k?=
- =?us-ascii?Q?onw/mdccZmtT2oaAPhR9eDIyTCrXSSOiO7zBg0juhNG/OOC1ZMyBjOxh/SAS?=
- =?us-ascii?Q?WVnUbS5z98O1H2uGkR5cCsOwX9M7Mie0vI2yGqhAJ61kAAmYdcwm2lKxxYPK?=
- =?us-ascii?Q?UUgRfcvqCrSaDE93pvVx8ang7X56jHAsZYNPhETRJ9QG1jiUbwxcjWEltupg?=
- =?us-ascii?Q?xfog2lkNATJL6K3zZvxfSbqSUMIsNLZT/shqLZsbK0R+0D9DXybmKkIsw6Rl?=
- =?us-ascii?Q?2OlgpScAYgtcYDvoTlevhhpC82jq19fH/rYgHyrXcGsqWebHmqa5VB6JXKuG?=
- =?us-ascii?Q?8Mgtwu+3AanNrkE/2AtAHF3r8tRLZcxi6R+BsN0TFwdNRWw34zsa6K5ILv0Y?=
- =?us-ascii?Q?eJtSELi63s8DGCj+QX+u2bwl4KulcNJyVLZJ1EWvZPsSex6tSpEOUWjvmrYf?=
- =?us-ascii?Q?9nZwH+syNfG9d6IYBAdIC95i99rEaCSCPyaUOuKTE6FodR+BugJxFFUIyHbf?=
- =?us-ascii?Q?z1tMX3nYAVVnCK+ioc/eoHy/4nmTRySSp9ezSe6UcuND+Rz76QNSWDFXHP//?=
- =?us-ascii?Q?Gh0TL5SCIj4J/SqBrBZ4lEwiyKaup1RAzPaw+OTNyJBX9olaxHs+4aLYluQS?=
- =?us-ascii?Q?iI4AJc5T8WTo06ENgRmBdyskjgaPr41uNaNU2v53T3n8uPXwTQY14yEWehg+?=
- =?us-ascii?Q?c8tenhgrcckSdZzTMLMCVNGG69BmG6TOHOsjSFGSQN+9usCLDSv031N7rYBy?=
- =?us-ascii?Q?D70UaQSzf0m+mRNh0yRvjnxwE9vzqM1SCF/t1N2tCzQeKlmvNMN9M5VTwUv2?=
- =?us-ascii?Q?O24e422/aizgnAnbQYQ38xSMwvYMajKpDjGwIuX6bDIqZDQi?=
-Content-Type: multipart/alternative;
- boundary="_000_PH8PR12MB7279ACE40040268C9A48F484F9F82PH8PR12MB7279namp_"
+ bh=IGvjk/VLComexPRB46P9dDqzIndz0k8e31ay39RANRc=;
+ b=yD1f7B3dw17yF8vQ+VYtkRRcFxddsAv62QrvTJ2NlB0CKbjh1dI1LycirGqFjTLQK4J6qKFhSk0SQPOVCHHQ3QBiq2bU6x23hHjY+YAetHPq/cxreNAl1zrg3uDSQWxxvk7klEhfR77DWJXxITrxy05rFrLZiL7smQZT4xZDkfs=
+Received: from MN0P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::28)
+ by PH0PR12MB8127.namprd12.prod.outlook.com (2603:10b6:510:292::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 22:27:53 +0000
+Received: from BL02EPF0001A100.namprd03.prod.outlook.com
+ (2603:10b6:208:52b:cafe::87) by MN0P223CA0002.outlook.office365.com
+ (2603:10b6:208:52b::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
+ 15 Jul 2026 22:27:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 22:27:52 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 17:27:52 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 17:27:51 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 15 Jul 2026 17:27:51 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-next-7.3
+Date: Wed, 15 Jul 2026 18:27:31 -0400
+Message-ID: <20260715222732.2719273-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|PH0PR12MB8127:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28ce238c-843e-4b12-eccc-08dee2c04f54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|6133799003|3023799007|18092099006|11063799006|56012099006|5023799004|18002099003|10067099003|13003099007;
+X-Microsoft-Antispam-Message-Info: 1TcpH1xd6KDJn27W2RGKgosUSRlzOqtQUUVoKuS02OIYJnVNVQsshr120pErCmn5wESkQbB9GeiCG5sg1/xFhv63nYfLbbOfxKzgiKhTp+DfUTUXn+eBDS9vqBgIO9kXVABAFuaYk+km/tKbPesNEa78kqq8vJ+c3mtKqxFfkZQ+caBGjzFwn63VWVBQl9EzXrcGXTWxKemYIh+u89BZ65OFMONUTgw5F4O9DDCUDKmRO/JVy6OChHLqEMg4snyySffwYiP0lfhXlsiSJIZhELECNQ8O+IAsi1ouQF974pJkVB4Kn8rzqcXPc0OMS2IA4As6JrgFEBzpNFjLvrnU/kc8w9Pcb08CEYeCLArkXIUwavsWg2kmBc2e4x2UFDGJqNMxhzKSADfS7tFeEbRoXMQIFo1kOnjpxp7uQDQug+GSEkDaPI3JY7Yk2ocVP53tUfx+b3UjF8UQpG6F13qjDu2fsMdKHj5RGuTnK6gt61imCXd+56LdB6uibX569NZtYHTareUnStOz0lLrDx2m3wSEm5H8yo48YlRyrtJOlBqC6tYVQapXLkoUjxqFpnmIH7WwgxSuxEtrK8Y4anVTW0zZPu554RALYFNXLorXD/pj0jE7nOPUf645vQlFGQ3btXaNeWL2/rqzPFph+jFpjA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(6133799003)(3023799007)(18092099006)(11063799006)(56012099006)(5023799004)(18002099003)(10067099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: NEHhZcEE5BWROqyDUXuJfV7Z3iiUsixy+n05rIiMOdIpDB4Lb7+YPUiydTCnGwUds4D6KNGhK8x8deucM5pCoQF47Wb59OCNaPAhUlj6mB4ZM+Fr/NXvCHE1juebtZZSSElPFcb+KwpJMXgLA0h+kNx+YJ6Ejs+iBrOLHJytMALj8OEoxoycG+hnf64PDBNSD6XiipGJbMUBZ5pYi1PtvjTbFMku7JDbVN05mYM2y83rSo6I55AeK3i6cy0+BRgdw3wMbC55fM//0wM276rSRgtFEIXfmldtod8/z1k5dw/R12tbRb3f1MufTm5fEU4iDs60awX0yGSf989u805UoiSTHDXfEfv9zxszSDpvtMYSqvsoTwYwwjkXbeVG4cR1r990WE8gB0dvh/rA2GYxMjCYnXrFxicGQq382NI7O5GQt/4CfJnNYMlbUQseP7QA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7279.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e540aa7-5ce6-46d9-890a-08dee2bb670a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2026 21:52:44.8306 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: r5uKX1h6DeE6U+Z6qrCGZouOhJNrDZbCOiIF/gG9fd3WVu5KFIVUX3c8J1uCWM55
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8766
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 22:27:52.5321 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28ce238c-843e-4b12-eccc-08dee2c04f54
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A100.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,322 +113,469 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH8PR12MB7279ACE40040268C9A48F484F9F82PH8PR12MB7279namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi Dave, Simona,
 
-AMD General
+Updates for 7.3.
 
-Hey,
+The following changes since commit e3cdab67efa8b1981620c792a845da91f75aaa63:
 
-Nice catch it looks like the init order is incorrect. Strange we never saw =
-any crashes, that log wasn't used by anyone it seems.
+  Merge tag 'amd-drm-next-7.3-2026-07-09' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2026-07-10 11:43:22 +1000)
 
-The fix would be to redefine DC_LOGGER so we have ctx available in         =
-                get_ss_info_from_atombios().  We can redefine the DC_LOGGER=
- to use  clk_src->base.ctx->logger (like you mentioned) since clk_src is av=
-ailable everywhere.
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-07-15
 
-Thanks,
-Bhawan
+for you to fetch changes up to 5ab89b491f215f69b750130ead2ff6bbde6c0e2e:
 
+  drm/amdgpu: add mes gang contex alloc/free helper (2026-07-15 09:15:43 -0400)
 
+----------------------------------------------------------------
+amd-drm-next-7.3-2026-07-15:
 
+amdgpu:
+- mmhub 4.2 update
+- DCN4.2 updates
+- DC CACP support
+- DMUB updates
+- PSR fixes
+- Replay fixes
+- Change system_unbound_wq with system_dfl_wq
+- GC 12.1 ip dump support
+- DCN4 fixes
+- DCN4.2 updates
+- DSC fixes
+- More DC KUNIT tests
+- JPEG cleanups
+- NUTMEG fixes
+- 8K fix
+- Backlight fixes
+- Cursor fixes
+- UserQ fixes
+- Fix bo->pin leak in amdgpu_bo_create_reserved()
+- MES11 updates
+- Loosen VFCT bios parsing to deal with pci=realloc messing around with the PCI buses
+- DCN pageflip timeout fixes
+- devcoredump fixes
+- MCLK DPM fix for bonaire SKU
+- DCE fix for DP MST when analog encoders are present
+- SI AC/DC switch fix
+- SMU7 AC/DC switch fix
+- VM fence handling fix
+- PCIe DPM fix
+- SMU 13 updates
+- SMU 15 updates
+- Inline drm_simple_encoder_init()
+- RAS updates
+- HDA sound fix
+- Handle dependency between GPU and XHCI devices
 
+amdkfd:
+- Bounds checking in CWSR size calculation
+- DQM init failure fixes
 
+radeon:
+- Loosen VFCT bios parsing to deal with pci=realloc messing around with the PCI buses
 
-________________________________
-From: Jiri Slaby <jirislaby@kernel.org>
-Sent: July 15, 2026 4:51 AM
-To: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Wentland, Harry <Harry.=
-Wentland@amd.com>
-Cc: Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; siqueira@igalia.com <siqueira@=
-igalia.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Cheng, Tony <T=
-ony.Cheng@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedeskto=
-p.org>; DRI devel <dri-devel@lists.freedesktop.org>; Thomas Zimmermann <tzi=
-mmermann@suse.de>
-Subject: amdgpu crashes in get_ss_info_from_atombios()
+----------------------------------------------------------------
+Alessandro Rinaldi (1):
+      drm/amd/display: Force PWM backlight on Lenovo Legion 5 15ARH05
 
-Hi,
+Alex Deucher (7):
+      drm/amdgpu: update mmhub 4.2.0 client list
+      drm/amdgpu/gfx12.1: Add ip dump support
+      drm/amdgpu/gfx9: fix IP dump alloc ordering
+      drm/amdgpu/gfx10: fix IP dump alloc ordering
+      drm/amdgpu/gfx11: fix IP dump alloc ordering
+      drm/amdgpu/gfx12: fix IP dump alloc ordering
+      drm/amdgpu: always emit the job vm fence
 
-SUSE received a bug report:
-https://bugzilla.suse.com/show_bug.cgi?id=3D1271175
+Alex Hung (32):
+      drm/amd/display: Fix KUnit backlight tests for CACP
+      drm/amd/display: Add KUnit tests for ism
+      drm/amd/display: Test EDID and ACPI/VBIOS readers
+      drm/amd/display: Test DPCD AUX and Synaptics helpers
+      drm/amd/display: Test MST start/stop and panel settings
+      drm/amd/display: Test I2C, stubs and MST early returns
+      drm/amd/display: Test MCCS FreeSync VCP helpers
+      drm/amd/display: Test MST payload and DSC enable helpers
+      drm/amd/display: Test irq funcs/suspend/workqueue
+      drm/amd/display: Test irq state setters and work
+      drm/amd/display: Test HPD init/fini
+      drm/amd/display: Test HPD interrupt handling
+      drm/amd/display: Test dmub HPD callbacks and handlers
+      drm/amd/display: Test high-IRQ and handler registration
+      drm/amd/display: Test top-level IRQ handler and vmin/vmax worker
+      drm/amd/display: Test format info and blending
+      drm/amd/display: Test GFX9/GFX10 plane modifiers
+      drm/amd/display: Test GFX11/GFX12 plane modifiers
+      drm/amd/display: Test plane scaling info paths
+      drm/amd/display: Test plane buffer attributes
+      drm/amd/display: Test GFX9 DCC plane attributes
+      drm/amd/display: Test GFX12 DCC plane attributes
+      drm/amd/display: Test DCC and cursor edge cases
+      drm/amd/display: Test helper_check_state rejects
+      drm/amd/display: Test plane atomic check and hooks
+      drm/amd/display: Add KUnit test for wb jobs
+      drm/amd/display: Test MST coverage gaps
+      drm/amd/display: Test backlight level programming path
+      drm/amd/display: Test backlight level readback path
+      drm/amd/display: Test backlight device registration
+      drm/amd/display: Test panel power savings sysfs
+      drm/amd/display: Test backlight ABM property attach
 
-get_ss_info_from_atombios() crashes in 7.1.2.
+Anas Khan (1):
+      drm/amd/display: remove duplicate link_dp_panel_replay.h include
 
-calc_pll_cs->ctx (dc_context) is NULL while trying to log by the first
-DC_LOG_SYNC() in get_ss_info_from_atombios():
-                 if (as_signal =3D=3D AS_SIGNAL_TYPE_HDMI
-                                 &&
-ss_info_cur->spread_spectrum_percentage > 6){
-                         /* invalid input, do nothing */
-                         DC_LOG_SYNC(
-                                 "Invalid SS percentage ");
-                         DC_LOG_SYNC(
-                                 "for HDMI in ATOMBIOS info Table!!!\n");
-                         continue;
-                 }
+Andre Luiz Batista Bueno (1):
+      drm/amdgpu: deduplicate JPEG v5.0 interrupt routine
 
+Andriy Korud (1):
+      drm/amd/display: dce100: skip non-DP stream encoders for DP MST
 
+Asad Kamal (4):
+      drm/amd/pm: add jpeg/vcn busy to smu_v15_0_8 gpu metrics
+      drm/amd/pm: update smu_v13_0_6 acc gpu metrics
+      drm/amd/pm: Update smu_v15_0_8 gpu metrics
+      drm/amd/pm: Fix pp_entries_max() bios check
 
+Austin Zheng (1):
+      drm/amd/display: Add Debug Option To Enable Per-DPM De-rate Usage
 
-Note dce110_clk_src_construct() calls:
-   -> ss_info_from_atombios_create()
-     -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx
-   -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx AFAICT
+Bhawanpreet Lakha (9):
+      drm/amd/display: Add more tests for HDCP
+      drm/amd/display: More Kunit tests for audio
+      drm/amd/display: Add color space and timing tests for connector
+      drm/amd/display: Add subconnector property tests for connector
+      drm/amd/display: Add FBC init tests for connector
+      drm/amd/display: Add MST link detection tests for connector
+      drm/amd/display: Add crtc matching and panel type tests for connector
+      drm/amd/display: Add CACP caps tests for connector
+      drm/amd/display: Add stream property tests for connector
 
-calc_pll_cs->ctx should not be used in the former, or something.
+Bhuvanachandra Pinninti (1):
+      drm/amd/display: Fix dc_stream_remove_writeback dropping wrong writeback entries.
 
+Ce Sun (2):
+      drm/amdgpu: use IP version check in sysfs creation conditional logic
+      drm/amdgpu: drop debug_enable_ras_aca debug mask flag
 
+Charlene Liu (6):
+      drm/amd/display: add null pointer access check
+      drm/amd/display: ensure dtbclk clk_src selected before hdmistream_clk_en
+      drm/amd/display: limit reuse dsc capable bootup timing
+      drm/amd/display: enable hdmistreamclk_rcg by default for dcn42
+      drm/amd/display: add DST_Y_DELTA_DRQ_LIMIT reg macro for later use
+      drm/amd/display: add DST_Y_DELTA_DRQ_LIMIT hw programming
 
+Chenyu Chen (3):
+      drm/amd/display: Enable CACP on Linux
+      drm/amd/display: Fix dead-code panel type detection from DID
+      drm/amd/display: Add KUnit tests for CACP on Linux
 
+Dillon Varone (1):
+      drm/amd/display: Generalize DMUB memory flushes from host
 
-This was likely introduced by:
-commit 1296423bf23c7a58133970e223b1f47ec6570308
-Author: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Date:   Tue Feb 20 17:42:50 2018 -0500
+Dmytro Laktyushkin (4):
+      drm/amd/display: update memclk clock table read for dcn42
+      drm/amd/display: remove unused dcn42 socbb values
+      drm/amd/display: fix dcn42 det allocation order
+      drm/amd/display: fix dcn42b det allocation order
 
-     drm/amd/display: define DC_LOGGER for logger
+Dominik Kaszewski (2):
+      drm/amd/display: Remove sink usage from DPMS
+      drm/amd/display: Fix indenting of dpms on
 
+Dyllan Kobal (1):
+      drm/amd/display: fix wrong register field in dccg35_set_hdmistreamclk_src_new
 
+Fangzhi Zuo (3):
+      drm/amd/display: Fix 8K Mode Not Parsed by EDID
+      drm/amd/display: Allocate DCN32/1 dmub memory to GTT
+      drm/amd/display: Skip Update HDCP Config In Transition State
 
+Gabe Teeger (3):
+      drm/amd/display: Enable PSR and Replay on DCN4 variant [Part 2]
+      drm/amd/display: Enable IPS support for DCN4 Variant
+      drm/amd/display: Enable zstate support and fix seamless boot
 
+Geoffrey McRae (3):
+      drm/amd/display: Fix DM I2C teardown race
+      drm/amd/display: Fix DM IRQ teardown races
+      drm/amd/display: Use unbound workqueues for deferred DM work
 
-Before the commit,
-   clk_src->base.ctx->logger
-was used in get_ss_info_from_atombios(). The commit unified all users to
-use:
-   clk_src->ctx->logger
+Gleb Markov (1):
+      drm/amd/display: Remove unused-but-set variable hubp from
 
-The former is set at the beginning of dce110_clk_src_construct() (before
-the crash location). The latter only in calc_pll_max_vco_construct()
-(after the crash location).
+Guangshuo Li (2):
+      drm/amd/display: move connector state dereference after NULL check
+      drm/amdkfd: free MQD managers on DQM init failures
 
+Iswara Nagulendran (1):
+      drm/amd/display: Fix VABC Init and OLED Support
 
-Any ideas how to fix this? Redefine DC_LOGGER to clk_src->base in
-get_ss_info_from_atombios()?
+James Lin (4):
+      drm/amd/display: program dither on all OPP heads under ODM combine
+      drm/amd/display: Add MALL status readback support for DCN 4.0.1
+      drm/amd/display: Re-evaluate cursor mode on plane position/size change
+      drm/amd/display: don't re-evaluate cursor mode on cursor plane movement
 
+Jesse Zhang (2):
+      drm/amdgpu/userq: fix indefinite fence wait during GPU reset
+      drm/amdgpu/mes11: set remove_queue_after_reset for reset unmap path
 
-I'm not sure if this is a regression and there is some underlying issue
-provoking the "Invalid SS percentage" dump -- asked in the bug and
-waiting for a reply.
+Karthi Kandasamy (1):
+      drm/amd/display: Fix DMSS not triggering for HDR to SDR transition
 
-thanks,
---
-js
-suse labs
+Leo Chen (1):
+      drm/amd/display: Enable HUBP/DPP Driver PG for DCN42
 
+Leo Li (3):
+      drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
+      drm/amd/display: check GRPH_FLIP status before sending event
+      Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"
 
---_000_PH8PR12MB7279ACE40040268C9A48F484F9F82PH8PR12MB7279namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Marco Crivellari (1):
+      drm/amdgpu: Change system_unbound_wq with system_dfl_wq
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Hey,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Nice catch it looks like the init order is incorrect. Strange we never saw =
-any crashes, that log wasn't used by anyone it seems.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-The fix would be to redefine DC_LOGGER so we have ctx available in&nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp;get_ss_info_from_atombios().&nbsp; We can redefine the DC_LOGGER to u=
-se&nbsp; clk_src-&gt;base.ctx-&gt;logger (like you mentioned) since clk_src=
- is available everywhere.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Thanks,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Bhawan</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jiri Slaby &lt;jirisl=
-aby@kernel.org&gt;<br>
-<b>Sent:</b> July 15, 2026 4:51 AM<br>
-<b>To:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; Wentland, =
-Harry &lt;Harry.Wentland@amd.com&gt;<br>
-<b>Cc:</b> Li, Sun peng (Leo) &lt;Sunpeng.Li@amd.com&gt;; siqueira@igalia.c=
-om &lt;siqueira@igalia.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@am=
-d.com&gt;; Cheng, Tony &lt;Tony.Cheng@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;; DRI devel &lt;dri-devel@lists.=
-freedesktop.org&gt;;
- Thomas Zimmermann &lt;tzimmermann@suse.de&gt;<br>
-<b>Subject:</b> amdgpu crashes in get_ss_info_from_atombios()</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hi,<br>
-<br>
-SUSE received a bug report:<br>
-<a href=3D"https://bugzilla.suse.com/show_bug.cgi?id=3D1271175">https://bug=
-zilla.suse.com/show_bug.cgi?id=3D1271175</a><br>
-<br>
-get_ss_info_from_atombios() crashes in 7.1.2.<br>
-<br>
-calc_pll_cs-&gt;ctx (dc_context) is NULL while trying to log by the first <=
-br>
-DC_LOG_SYNC() in get_ss_info_from_atombios():<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (as_signal =3D=3D AS_SIGNAL_TYPE_HDMI<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; <br>
-ss_info_cur-&gt;spread_spectrum_percentage &gt; 6){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* in=
-valid input, do nothing */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_LO=
-G_SYNC(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Invalid SS percentage &quo=
-t;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DC_LO=
-G_SYNC(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;for HDMI in ATOMBIOS info =
-Table!!!\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
-nue;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-<br>
-<br>
-<br>
-<br>
-Note dce110_clk_src_construct() calls:<br>
-&nbsp;&nbsp; -&gt; ss_info_from_atombios_create()<br>
-&nbsp;&nbsp;&nbsp;&nbsp; -&gt; get_ss_info_from_atombios()&nbsp;&nbsp; &lt;=
-- uses calc_pll_cs-&gt;ctx<br>
-&nbsp;&nbsp; -&gt; calc_pll_max_vco_construct()&nbsp;&nbsp;&nbsp; &lt;- set=
-s calc_pll_cs-&gt;ctx AFAICT<br>
-<br>
-calc_pll_cs-&gt;ctx should not be used in the former, or something.<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-This was likely introduced by:<br>
-commit 1296423bf23c7a58133970e223b1f47ec6570308<br>
-Author: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
-Date:&nbsp;&nbsp; Tue Feb 20 17:42:50 2018 -0500<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; drm/amd/display: define DC_LOGGER for logger<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-Before the commit,<br>
-&nbsp;&nbsp; clk_src-&gt;base.ctx-&gt;logger<br>
-was used in get_ss_info_from_atombios(). The commit unified all users to <b=
-r>
-use:<br>
-&nbsp;&nbsp; clk_src-&gt;ctx-&gt;logger<br>
-<br>
-The former is set at the beginning of dce110_clk_src_construct() (before <b=
-r>
-the crash location). The latter only in calc_pll_max_vco_construct() <br>
-(after the crash location).<br>
-<br>
-<br>
-Any ideas how to fix this? Redefine DC_LOGGER to clk_src-&gt;base in <br>
-get_ss_info_from_atombios()?<br>
-<br>
-<br>
-I'm not sure if this is a regression and there is some underlying issue <br=
->
-provoking the &quot;Invalid SS percentage&quot; dump -- asked in the bug an=
-d <br>
-waiting for a reply.<br>
-<br>
-thanks,<br>
--- <br>
-js<br>
-suse labs<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+Mario Limonciello (10):
+      drm/amd/display: Fix backlight max_brightness to match exported range
+      drm/amdgpu: Fix VFCT bus number matching with soft filter
+      drm/amdgpu: Release VFCT ACPI table reference
+      drm/radeon: Modernize VFCT error handling
+      drm/radeon: Fix VFCT bus number matching with soft filter
+      drm/radeon: Validate VBIOS signature in VFCT path
+      drm/amdgpu/display: Add amdgpu_display.c documentation
+      drm/amdgpu: Disable PCIe dynamic speed switching on Ryzen Pinnacle Ridge
+      drm/amd: Move dynamic PCIe switching quirks to X86_MATCH_* macros
+      drm/amd: Create a device link between APU display and XHCI devices
 
---_000_PH8PR12MB7279ACE40040268C9A48F484F9F82PH8PR12MB7279namp_--
+Matthew Stewart (3):
+      drm/amd/display: Fix DCN42B null registers & register masks
+      drm/amd/display: Add passive dongle handling in force_to_use_aux case
+      drm/amd/display: Add DCN42B VID_CRC_CONTROL and HBLANK_CONTROL registers
+
+Michał Mirosław (5):
+      drm/amd/display/amdgpu_dm: show error names
+      drm/amd/pm/smu7: make SMU message reports more readable
+      drm/amd/pm/smu7: return error on message send failure
+      drm/amd/amdgpu/cgs: Avoid redundant copying of firmware filename
+      drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info
+
+Nicholas Kazlauskas (1):
+      drm/amd/display: Exit LS for ISHARP before coefficient write
+
+Nicolás Antinori (1):
+      drm/amdgpu: Inline drm_simple_encoder_init()
+
+Nícolas F. R. A. Prado (1):
+      drm/amd/display: Always notify the HDA driver on connector disconnect
+
+Pengpeng Hou (1):
+      drm/amd/display: wire DCN42B mcache programming callback
+
+Prike Liang (5):
+      drm/amdgpu: add RS64 local memory context array init/fini
+      drm/amdgpu/mes: add MES process/gang context size and bitmap helper
+      drm/amdgpu: add mes process context alloc/free
+      drm/amdgpu/mes11: get MES process/gang contex size
+      drm/amdgpu: add mes gang contex alloc/free helper
+
+Randy Dunlap (1):
+      drm/amdgpu: drop kernel-doc for deleted struct fields
+
+Roman Li (1):
+      drm/amdgpu/discovery: Fix device family for DCN42
+
+Srinivasan Shanmugam (3):
+      drm/amd/display: Check dc_link before applying DSC policy
+      drm/amdkfd: Do not fail process debugfs setup on debugfs errors
+      drm/amd/display: Run FP-disabled MST stub test only without DC FP
+
+Stanley.Yang (1):
+      drm/amdgpu/ras: only check bad page for address-based UMC injection
+
+Taimur Hassan (1):
+      drm/amd/display: Promote DC to 3.2.389
+
+Timur Kristóf (11):
+      drm/amd/display: Fix preferred link rate for NUTMEG
+      drm/amd/display: Add dp_skip_rbr flag for NUTMEG
+      drm/amdgpu: Print vmid, pasid and more task info in devcoredump
+      drm/amdgpu: Reserve space for IB contents in devcoredumps
+      drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658 (R7 260X)
+      drm/amd/display: Set native cursor mode for disabled CRTCs
+      drm/amd/pm/si: Don't schedule thermal work when queue isn't initialized
+      drm/amd/pm/si: Fix AC/DC switch notification
+      drm/amdgpu: Fix IP block NULL check during soft reset
+      drm/amd/pm/smu7: Fix AC/DC switch notification
+      drm/amdgpu/ttm: Consider concurrent VM flushes for buffer entities
+
+Tom Chung (1):
+      drm/amd/display: Tear down dangling pipe on boot to fix s0i3
+
+Venkat Rao Bagalkote (1):
+      drm/amd/display: Shorten KUnit exported symbol names
+
+WenTao Liang (1):
+      drm/amd/display: set new_stream to NULL after release
+
+Xiang Liu (1):
+      drm/amd/ras: initialize CPER after XGMI reset on init
+
+Yongqiang Sun (1):
+      drm/amdkfd: fix 32-bit overflow in CWSR total size calculation
+
+Zhu Lingshan (1):
+      drm/amdgpu: fix bo->pin leaking in amdgpu_bo_create_reserved
+
+Ziran Zhang (1):
+      drm/amd/display: Remove redundant NULL check before kfree() in mod_power_create()
+
+yanglinlin (1):
+      drm/amd/display: fix __udivdi3 link error
+
+ .../gpu/amdgpu/display/display-manager.rst         |    9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |   62 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c            |   54 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c           |   19 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h           |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |    2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |   10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   42 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |    6 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c             |    8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  200 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |   28 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   27 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   20 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |   25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |    3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |   10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |    5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |    4 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |    4 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |    4 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |  277 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |    4 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c           |    2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.h           |    8 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c           |   63 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   14 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   87 +
+ drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c          |   65 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c           |    4 -
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |    4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |   23 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  337 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   11 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |   38 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h    |    4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |   71 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   15 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |   92 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   15 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |   70 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |   16 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |   76 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h |    5 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   90 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.h  |   41 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  546 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h  |   57 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |    4 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |    4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    |    1 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   57 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h    |   13 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |   18 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.h   |    4 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |  118 +
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |  734 +++-
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 1655 +++++++++
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |  240 ++
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       | 3867 ++++++++++++++++++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   | 3199 +++++++++++++++-
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |  353 ++
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |  375 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c | 2078 ++++++++++-
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   44 +
+ .../amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c   |   16 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  214 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   21 +-
+ drivers/gpu/drm/amd/display/dc/dc.h                |   10 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |    4 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h          |    8 +
+ .../gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c |   11 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.h |    5 +-
+ .../gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c |    2 +-
+ drivers/gpu/drm/amd/display/dc/dce/Makefile        |    4 +-
+ .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |   11 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c      |   73 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm_cacp.c |  213 ++
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm_cacp.h |   20 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c  |    4 +-
+ .../amd/display/dc/dio/dcn10/dcn10_link_encoder.c  |   10 +-
+ .../dml2_0/dml21/inc/bounding_boxes/dcn42_soc_bb.h |    6 -
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c    |   25 +-
+ .../amd/display/dc/hubbub/dcn401/dcn401_hubbub.c   |    3 +-
+ .../amd/display/dc/hubbub/dcn401/dcn401_hubbub.h   |    4 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c |    3 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h |    3 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c |   51 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h |    5 +
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |   12 +-
+ .../drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c    |   40 +-
+ .../drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.h    |    2 +
+ .../drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c    |   70 +-
+ .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |   15 +-
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |   23 +-
+ .../drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c    |    2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/abm.h        |    3 +
+ .../gpu/drm/amd/display/dc/link/link_detection.c   |   27 +-
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |  192 +-
+ .../display/dc/link/protocols/link_dp_capability.c |    6 +-
+ .../dc/link/protocols/link_dp_irq_handler.c        |    1 -
+ .../dc/link/protocols/link_edp_panel_control.c     |   13 +-
+ .../display/dc/resource/dce100/dce100_resource.c   |    7 +-
+ .../display/dc/resource/dcn401/dcn401_resource.h   |    3 +-
+ .../amd/display/dc/resource/dcn42/dcn42_resource.c |    7 +-
+ .../amd/display/dc/resource/dcn42/dcn42_resource.h |    1 +
+ .../display/dc/resource/dcn42b/dcn42b_resource.c   |   55 +-
+ .../display/dc/resource/dcn42b/dcn42b_resource.h   |  159 +-
+ .../dcn401/dcn401_soc_and_ip_translator.c          |   16 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h        |    9 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    |   55 +-
+ .../gpu/drm/amd/display/modules/inc/mod_power.h    |   11 +
+ drivers/gpu/drm/amd/display/modules/power/power.c  |   16 +-
+ .../gpu/drm/amd/display/modules/power/power_abm.c  |  136 +-
+ .../drm/amd/display/modules/power/power_helpers.h  |   10 +
+ .../gpu/drm/amd/display/modules/power/power_psr.c  |    7 +
+ .../drm/amd/display/modules/power/power_replay.c   |    7 +
+ drivers/gpu/drm/amd/include/amd_shared.h           |    3 -
+ drivers/gpu/drm/amd/include/mes_v11_api_def.h      |   47 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |   17 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |    7 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |   16 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h       |   15 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c  |   25 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   12 +
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   11 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h   |   30 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |   45 +
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   |    7 +-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h   |    2 +-
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c   |   83 +-
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c   |    3 +-
+ drivers/gpu/drm/drm_panel_backlight_quirks.c       |    9 +
+ drivers/gpu/drm/radeon/radeon_bios.c               |   64 +-
+ include/drm/drm_utils.h                            |    1 +
+ 142 files changed, 15830 insertions(+), 1576 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_abm_cacp.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_abm_cacp.h
