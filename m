@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D859C4450A
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1CA5C44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C22A510F08F;
-	Wed, 15 Jul 2026 13:47:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BCB510F092;
+	Wed, 15 Jul 2026 13:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MF/8arK1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QnC6L6OA";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012044.outbound.protection.outlook.com [40.107.209.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9699010F08D
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:47:09 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011069.outbound.protection.outlook.com [40.107.208.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C15810F08D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:47:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d3RldZpIDFLaGu2kH/F1BtbWfu3hfRZcmy9q/BGBXpf+U3hj0Yzbj+mIhZ5O99ePuf+wcZMcNOEYCs4uw9Fx/ZFFTWWByMMnukJLTUW++2y5UAwdc62it9p78Vv/bJs/PEs1M5fSVpBjrLOuaHHLnE75CD6XR3q+ePVC7brBNj6Kjt5z4Pw9tYyXKAtVcskzn6gy40eZa3dDmbFfIstYFdHNhWF0H9ptTrayyyV5+nqJ5GzMF0moFqY1uIXoWfGbGg0O4CRMdQ7bwi02yZDc12eeU1Jrk1NGpaP0LECIiT6/Ue6iVXm3M/VK7ENqQcOavbaHI9kvXcXWq8y/uVj6sQ==
+ b=nalqIRjNDU2tN2uwiXRN0VI9LMNTYOxCWO4HYmB06zQuGkg/+xt8fI/3nHaQW0D8GseU4WuvGepetBApnqh1KEFnLkl0sDZWbzSnFb3Ug0u/zlTy1BGOzSMe2Z/eWLowoK7e+CrXq/8lk1Hnv8hzCgHSPJ2oCbaUXZg/aRZdjNrNm9hwDn9IlrDZ/TpX7Aaxngo2HkeNfgcrY69+R12qmr+CuAG5TqmXQFYxpotTCAqdZCnHIpDVuVhIbuQBK6oeUXxFMmUDzgT87GB2UNqIf/PUJuL70AZqwwGZW/2Z7cRsHHOvQTFPKWGu1eedWHY44OdXsmg7/HjaFUQqiF7hCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sSCbGtRIWzkqhvuuzkvuzDRjwPRGlOmpjf5w2cclWUE=;
- b=cM/zO5eWEvHRKPJjjKpN/Duf7l91T5flDcjwc0A1fKHtljY2YDw1yP2lJhwdbPYjiWfdRr997gTXzPDcUx0hh9Wn3mh/Pgc3q0Rp2di5M39WFbhKoDtp1dGxAmdPmkV0pMIwghwDoR4FepvB5czpZzoFbCrdDBOXeArwqpu7zx0TO8U6F4Q+pcy16HoZRAeF+SkbQB8VbdlDRT5CGUUG4vVBgBLXE/zcaazf9RrY4nKkZbFmvmsT494Y4LJL6Pa+aIH0p+VhlGFrJB7XOTu5ULfIpUUrWbr88G/lp+4hnlWbpJ4jSkqH23T7OTFUFM1waUt8qOTovouidFq6nMyFKg==
+ bh=jxFkugpYVf+qRM3mgFynIVDW++Lb8YZhJNL8gmJTKZw=;
+ b=dKHZ8jtrkco5xPbMfnhK5f2FdfpxKVKt/WRruG9+O/ObBCEJvnbLOl/iLCLLhanqhkI9AF0IuiulASuC3D7xetxTiFJlP4VOihxtU64hrHnx/gt9JCkqQ1xJG+znv9Yeg36y5Et2qWL8YQRyHlYr4Jl86L8Bl9MmgMHyUwyQZ+pgjrn8jRd7XYAHmkdzVhtvFbrmxO3lZl95INI9/aiCtbPqZSbvbuxMha2cysgmaIlNCcFU993rW1Vm2EmPfUhz82cx+Cj31RQmKQmDEBSFzVq+vGQAh4n1IVnh6BbnKnoETD6HTPiqYiswRzEPgGrnvAM4S+G+xPvwnvv/izsdNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sSCbGtRIWzkqhvuuzkvuzDRjwPRGlOmpjf5w2cclWUE=;
- b=MF/8arK1vxQ/s1VvZ6rp96E0jBopYBb/yT4Yf5cs/Zz1FSXuipoHoD+IST2toF1SXFH/gLlI+ZhGt04LUZ8lO/LbZgb5qsB1NbJZ8pRC+5nCZArBuTagt7Al5JcWV5qtAipzLaMALuLjD1EpAsvcrNz+0+oTsjVEyeFcTGpjz6c=
-Received: from PH0P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::33)
- by CH3PR12MB8211.namprd12.prod.outlook.com (2603:10b6:610:125::11) with
+ bh=jxFkugpYVf+qRM3mgFynIVDW++Lb8YZhJNL8gmJTKZw=;
+ b=QnC6L6OAN4p7WIl6A1yuFVDb4jdbzGEUimSQdQxUoWDpOR2hHMUQo/3GdqqB3r+/NhlcGRshA8hzvPZFxzlDgNB9WubpERmFr8LLMgFBq3wcKomL0gCM9j6840BjLA9byT2As3HjJBSivyrNfUMky8PJvZdahZ9kM8vkV8R33Us=
+Received: from CY5PR18CA0002.namprd18.prod.outlook.com (2603:10b6:930:5::25)
+ by DS7PR12MB6213.namprd12.prod.outlook.com (2603:10b6:8:97::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
- 2026 13:47:00 +0000
-Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2603:10b6:510:d3:cafe::80) by PH0P220CA0018.outlook.office365.com
- (2603:10b6:510:d3::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
- 15 Jul 2026 13:47:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
+ 2026 13:47:02 +0000
+Received: from CY4PEPF0000FCC1.namprd03.prod.outlook.com
+ (2603:10b6:930:5:cafe::5c) by CY5PR18CA0002.outlook.office365.com
+ (2603:10b6:930:5::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Wed,
+ 15 Jul 2026 13:47:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ CY4PEPF0000FCC1.mail.protection.outlook.com (10.167.242.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:47:00 +0000
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:47:02 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:46:57 -0500
+ 2026 08:47:01 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 15 Jul 2026 08:46:54 -0500
+ Transport; Wed, 15 Jul 2026 08:46:58 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,9 +67,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 33/70] drm/amd/display: add KUnit tests for DM stream scaling
-Date: Wed, 15 Jul 2026 21:37:43 +0800
-Message-ID: <20260715134432.1975118-34-Wayne.Lin@amd.com>
+Subject: [PATCH 34/70] drm/amd/display: add KUnit tests for HDCP state diffing
+Date: Wed, 15 Jul 2026 21:37:44 +0800
+Message-ID: <20260715134432.1975118-35-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
@@ -78,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|CH3PR12MB8211:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0135b5ad-df8f-4e41-9bcc-08dee2778b88
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC1:EE_|DS7PR12MB6213:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5da637a1-872f-4862-f867-08dee2778cbe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|13003099007|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: sZBOaUFwEMYU1Jels5l7+dvMFyXXjm0J0/SbluCbcJk/p3gvQPS6ytLmV5EQG9pM5GgA1yweQ+T3QkMHEIu8W9vgSwk1ofhdsm62S4B0Itehv+uuky9Jh6IX1mODiQNRuGY76urA378/EL+0R+VMfmEPiAATWVEAgCvhkunHnHwUZ6+YoJYJpcbXGM5jrPjCeyFHITLAs/yEES9p3GquyML+OrLz9NF0vqo/HsGdMeXcCh4w3/6OFqDMnxv49bgOjrsYuxy7X2hfPa+Wf3yO/BOD8b+x3P3nrheXNUV7xWhvjp26Bv0S1oEzP87/Ne+b5qHaSFcxnLPEDujfSU5rmuYbrchkvVci+KHKIJDrwgduZ3BYPtKByZDfrkbmXUfsJS+7TPdO40+FEhlSKo5KOrPszAkpjqTSdrkvtZhlpQFvfGZ+6OID0ZzQZONXip94zR4KdqbQtG/aDiGzQdlEAh3IFgYx+LXWWPakmwzBP02i126SYdBNsRVRg06cjU/4cWzSt+X3rS/2v5JAdZEaV6s0CMzK7NJQ/cSRmGPlb51xLXmQJMV2VtlUKsaznQqibqbnXLsApDjA3xCffhjn7TFyOZ29j6Mfh4WxWW/NmiRf/m/FxkspQw//U1osQ/g/9M4RyuwQYp5EA/LJ8rDH3Q==
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|11063799006|22082099003|18002099003|56012099006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: +ERrvDjJBrykCKp/FNipN0WdZL+5L1s7f+skJWy5IFFExTfZH0DlPS5/8AMLIWSCPVBmtuYYVYfkVcDLAiejkG0hWysVABKZ+1Q5WPM4ixakBYc5S/8R7p7ER8zkaHX692/Vnf8ZwWfJNZDgcGTDH0FiYy9YzsfQY8HXTUZODAIIowSLuC09HPk6R34iytc4KpKG+mNuV65ePa8pR5hdkhhHKF7D6r2A56yd7FQrh+j955KKzRrVcPGGipsnHjGVarK3h2Wxmqpfs8Wq4cLGKhePZl7NhsC1YUUdLcR49mAOvnyKzUelb0xkkvq69UlYRlZI6eScZDchNOGdNJQO+ACTuWFW4cCnWtl5WQ6Lzr4n0YEoCn5me2JVIgZOjHzvPpT093Q8VV4G9PiyJxOzqfi2L2R+BvWR6snYq+GKNJX2hXZldJlFWACA5z50I71PgZAv1KTpYj+pUwiamjKvOW8JxpGk0P2xaAmOuhC31H8t2FKe0sjG/gXKbSgGkktNR2bUzR3g/ueuB+v386SN2hndwZZf2NiJlF659E3U/QeYGATZ+KLC3Aa3/vPC/Sq2x+S6CuRkQ94a574OTjXBFB4k5CgDATPetKqwUmlNm0OoYo8cktX3UKJfFWR9wVHgD08bo7pGXy/BySEVtmW91A25O2EzJYyqlMCsNRIl9/d++SSEDayJFCYlxxQpM3BaeUvkagoCtPokQOupq7+ZYg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(13003099007)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(11063799006)(22082099003)(18002099003)(56012099006)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OqWjmS3xc3Xb7PNrd+wsfrkpnAENdCM07ntXLvJ4wnqqtwqMhlhhZX1ZY2Ey74wxZpQeunCV46dOMH0qgDa0vN3GOysPt3OQNsOCEboLFHPcC51dDuCc2ZF2qhFbcEaV222cG8exajQsbmC6Axq01KJKLnmajpD4QjZ0WeneArsHzT2M439WS8UScL0budUSOR3sqnhI+zoL4BJJ28287l1BkyEpyQvk/NjU8TgOToBkcT8qJ+roWRNDN5dSnC3+Lno+A4BR8Vvz6XP30DrgZPbUmGuryZJS83FCq4tFKUyQ8TVKcyKVvAjUnuxLCaMMGNflE2SKfglfrpH5PFQrDVsq4/bjsbwzrJmvuQMX4JnwwmRQckOWJC4KMXpq9zRI8OMtxQ/4vDZ4XwDBTcCTmW8gh8FzOjL2H8T5w3QTYPZPNz1/wiXqjhLdzK/UZ79i
+X-MS-Exchange-AntiSpam-MessageData-0: kxn2QUG6BOcOP9VigX+LT0qxlrB8+n1O72Zlf58UTWf2WIft71lhB59NmlgJBMSVVFRC4+bu4UOQYDAYctJ4dpFfZxcQ+ImEY5/hpGkrHgeHLCmjdh7wqrgF6okNzgrKDSRJVvnJD74Rfg+9VB+J9TSsC+fDQ9q+MywpPdaYOwpTkQl+7Iy4iebCQ5pvBtwK1bbpDdXhIDxFKhxrysXw9goOdDtXMvpeexa5UMV93MvSl4kdDPRp+HMSIV6SCJcV7yK7xTeIMBqBUTX0v07UoPkx9h1TcwJLEsI+EbcXRolvj96zzaC3W5SwyfubCjzuztmyubnlGGdyyqg3F7uJRWdS/nsCOEl/Do6f9u2pBMXRzkS/oVUzEeONqrDTu8r87GIRY+EoklkZ9dlpZlMoFRSTU2fSjwIf7Gc6uP/CQZaoKqXUmFE9uwzgl7CXFn6T
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:47:00.2288 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0135b5ad-df8f-4e41-9bcc-08dee2778b88
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:47:02.2617 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5da637a1-872f-4862-f867-08dee2778cbe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8211
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6213
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,293 +118,324 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for the stream scaling path: a disable-underscan case
-for is_scaling_state_different, and coverage of
-amdgpu_dm_update_stream_scaling_settings across the full-screen
-default, RMX_FULL, RMX_ASPECT pillarbox/letterbox, RMX_CENTER and
-underscan paths.
+Add KUnit tests for is_content_protection_different using a shared
+connector/crtc fixture. Cover the content-type change, ENABLED->DESIRED
+re-enable (with and without modeset), UNDESIRED and DESIRED steady
+states, the update_hdcp hot-plug and stream re-enable paths, and the
+S3/DESIRED/UNDESIRED enable transitions.
 
 Assisted-by: Copilot:Claude-Opus-4.8
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   1 +
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 231 ++++++++++++++++++
- 2 files changed, 232 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 237 ++++++++++++++++++
+ 3 files changed, 252 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7806b3405c3d..fc1a73435203 100644
+index fc1a73435203..03b9079ce818 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3456,6 +3456,7 @@ void amdgpu_dm_update_stream_scaling_settings(struct drm_device *dev,
- 		    dst.x, dst.y, dst.width, dst.height);
- 
+@@ -3653,12 +3653,13 @@ is_scaling_state_different(const struct dm_connector_state *dm_state,
  }
-+EXPORT_IF_KUNIT(amdgpu_dm_update_stream_scaling_settings);
+ EXPORT_IF_KUNIT(is_scaling_state_different);
  
- static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
- 					    struct dc_state *dc_state,
+-static bool is_content_protection_different(struct drm_crtc_state *new_crtc_state,
+-					    struct drm_crtc_state *old_crtc_state,
+-					    struct drm_connector_state *new_conn_state,
+-					    struct drm_connector_state *old_conn_state,
+-					    const struct drm_connector *connector,
+-					    struct hdcp_workqueue *hdcp_w)
++STATIC_IFN_KUNIT bool
++is_content_protection_different(struct drm_crtc_state *new_crtc_state,
++				struct drm_crtc_state *old_crtc_state,
++				struct drm_connector_state *new_conn_state,
++				struct drm_connector_state *old_conn_state,
++				const struct drm_connector *connector,
++				struct hdcp_workqueue *hdcp_w)
+ {
+ 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+ 	struct dm_connector_state *dm_con_state = to_dm_connector_state(connector->state);
+@@ -3772,6 +3773,7 @@ static bool is_content_protection_different(struct drm_crtc_state *new_crtc_stat
+ 	pr_debug("[HDCP_DM] DESIRED->ENABLED %s :false\n", __func__);
+ 	return false;
+ }
++EXPORT_IF_KUNIT(is_content_protection_different);
+ 
+ static void remove_stream(struct amdgpu_device *adev,
+ 			  struct amdgpu_crtc *acrtc,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index bef9663caf6e..c508f0be1b55 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1178,6 +1178,13 @@ bool is_dc_timing_adjust_needed(struct dm_crtc_state *old_state,
+ 				struct dm_crtc_state *new_state);
+ void set_multisync_trigger_params(struct dc_stream_state *stream);
+ void set_master_stream(struct dc_stream_state *stream_set[], int stream_count);
++struct hdcp_workqueue;
++bool is_content_protection_different(struct drm_crtc_state *new_crtc_state,
++				     struct drm_crtc_state *old_crtc_state,
++				     struct drm_connector_state *new_conn_state,
++				     struct drm_connector_state *old_conn_state,
++				     const struct drm_connector *connector,
++				     struct hdcp_workqueue *hdcp_w);
+ #endif
+ 
+ #endif /* __AMDGPU_DM_H__ */
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 92056f4147d3..724d03db2736 100644
+index 724d03db2736..1caacad43106 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -830,6 +830,28 @@ static void dm_test_scaling_state_underscan_enabled(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, is_scaling_state_different(new_state, old_state));
+@@ -1425,6 +1425,231 @@ static void dm_test_update_scaling_underscan(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, stream->dst.height, 1048);
  }
  
-+/**
-+ * dm_test_scaling_state_underscan_disabled - Test disabling underscan with borders differs
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_scaling_state_underscan_disabled(struct kunit *test)
++/* Tests for is_content_protection_different() */
++
++struct dm_test_cp_ctx {
++	struct amdgpu_dm_connector *aconnector;
++	struct dm_connector_state *new_dm;	/* also connector->state */
++	struct dm_connector_state *old_dm;
++	struct drm_crtc_state *new_crtc;
++	struct drm_crtc_state *old_crtc;
++};
++
++static struct dm_test_cp_ctx *dm_test_cp_ctx_alloc(struct kunit *test)
 +{
-+	struct dm_connector_state *old_state;
-+	struct dm_connector_state *new_state;
++	struct dm_test_cp_ctx *ctx;
 +
-+	old_state = kunit_kzalloc(test, sizeof(*old_state), GFP_KERNEL);
-+	new_state = kunit_kzalloc(test, sizeof(*new_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_state);
-+	KUNIT_ASSERT_NOT_NULL(test, new_state);
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
 +
-+	old_state->underscan_enable = true;
-+	old_state->underscan_hborder = 16;
-+	old_state->underscan_vborder = 16;
-+	new_state->underscan_enable = false;
++	ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx->aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
++	ctx->new_dm = kunit_kzalloc(test, sizeof(*ctx->new_dm), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_dm);
++	ctx->old_dm = kunit_kzalloc(test, sizeof(*ctx->old_dm), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_dm);
++	ctx->new_crtc = kunit_kzalloc(test, sizeof(*ctx->new_crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_crtc);
++	ctx->old_crtc = kunit_kzalloc(test, sizeof(*ctx->old_crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_crtc);
 +
-+	KUNIT_EXPECT_TRUE(test, is_scaling_state_different(new_state, old_state));
++	/* connector->state must be the new dm connector state */
++	ctx->aconnector->base.state = &ctx->new_dm->base;
++	ctx->aconnector->base.dpms = DRM_MODE_DPMS_ON;
++
++	return ctx;
 +}
 +
- /**
-  * dm_test_scaling_state_underscan_border_changed - Test changed underscan borders differ
-  * @test: The KUnit test context
-@@ -1203,6 +1225,206 @@ static void dm_test_master_stream_defaults_to_first(struct kunit *test)
- 			    stream0);
- }
- 
-+/* Tests for amdgpu_dm_update_stream_scaling_settings() */
-+
-+/**
-+ * dm_test_update_scaling_null_mode - Test NULL mode leaves the stream rects untouched
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_scaling_null_mode(struct kunit *test)
++static bool dm_test_cp_diff(struct dm_test_cp_ctx *ctx)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+
-+	stream->timing.h_addressable = 1920;
-+	stream->timing.v_addressable = 1080;
-+
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, NULL, NULL, stream);
-+
-+	/* NULL mode: early return before touching src/dst */
-+	KUNIT_EXPECT_EQ(test, stream->src.width, 0);
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 0);
++	return is_content_protection_different(ctx->new_crtc, ctx->old_crtc,
++					       &ctx->new_dm->base,
++					       &ctx->old_dm->base,
++					       &ctx->aconnector->base, NULL);
 +}
 +
 +/**
-+ * dm_test_update_scaling_fullscreen_default - Test full-screen default with no dm_state
++ * dm_test_cp_diff_hdcp_type_change - Test an HDCP content-type change forces true
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_scaling_fullscreen_default(struct kunit *test)
++static void dm_test_cp_diff_hdcp_type_change(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct drm_display_mode mode = { 0 };
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
 +
-+	mode.hdisplay = 1920;
-+	mode.vdisplay = 1080;
-+	stream->timing.h_addressable = 2560;
-+	stream->timing.v_addressable = 1440;
++	ctx->old_dm->base.hdcp_content_type = 0;
++	ctx->new_dm->base.hdcp_content_type = 1;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_ENABLED;
 +
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, &mode, NULL, stream);
-+
-+	/* src = mode, dst = timing addressable, no centering without dm_state */
-+	KUNIT_EXPECT_EQ(test, stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, stream->src.height, 1080);
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 2560);
-+	KUNIT_EXPECT_EQ(test, stream->dst.height, 1440);
-+	KUNIT_EXPECT_EQ(test, stream->dst.x, 0);
-+	KUNIT_EXPECT_EQ(test, stream->dst.y, 0);
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_dm->base.content_protection,
++			(int)DRM_MODE_CONTENT_PROTECTION_DESIRED);
 +}
 +
 +/**
-+ * dm_test_update_scaling_rmx_full - Test RMX_FULL keeps a full-size, centered dst
++ * dm_test_cp_diff_reenable_mode_changed - Test ENABLED->DESIRED with modeset forces true
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_scaling_rmx_full(struct kunit *test)
++static void dm_test_cp_diff_reenable_mode_changed(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_connector_state *dm_state;
-+	struct drm_display_mode mode = { 0 };
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
 +
-+	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dm_state);
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_ENABLED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_crtc->mode_changed = true;
 +
-+	mode.hdisplay = 1280;
-+	mode.vdisplay = 720;
-+	stream->timing.h_addressable = 1920;
-+	stream->timing.v_addressable = 1080;
-+	dm_state->scaling = RMX_FULL;
-+
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, &mode, dm_state, stream);
-+
-+	/* RMX_FULL: dst stays full addressable, offset 0 */
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 1920);
-+	KUNIT_EXPECT_EQ(test, stream->dst.height, 1080);
-+	KUNIT_EXPECT_EQ(test, stream->dst.x, 0);
-+	KUNIT_EXPECT_EQ(test, stream->dst.y, 0);
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_dm->base.content_protection,
++			(int)DRM_MODE_CONTENT_PROTECTION_DESIRED);
 +}
 +
 +/**
-+ * dm_test_update_scaling_rmx_aspect_pillarbox - Test RMX_ASPECT preserves aspect ratio
++ * dm_test_cp_diff_reenable_no_change - Test ENABLED->DESIRED without modeset restores ENABLED
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_scaling_rmx_aspect_pillarbox(struct kunit *test)
++static void dm_test_cp_diff_reenable_no_change(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_connector_state *dm_state;
-+	struct drm_display_mode mode = { 0 };
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
 +
-+	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dm_state);
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_ENABLED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_crtc->mode_changed = false;
 +
-+	/* 4:3 source on a 16:9 panel -> pillarboxed */
-+	mode.hdisplay = 1024;
-+	mode.vdisplay = 768;
-+	stream->timing.h_addressable = 1920;
-+	stream->timing.v_addressable = 1080;
-+	dm_state->scaling = RMX_ASPECT;
-+
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, &mode, dm_state, stream);
-+
-+	/*
-+	 * src.width*dst.height (1024*1080) < src.height*dst.width (768*1920):
-+	 * width scaled to src.width*dst.height/src.height = 1440, height stays
-+	 * 1080, centered horizontally at (1920-1440)/2 = 240.
-+	 */
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 1440);
-+	KUNIT_EXPECT_EQ(test, stream->dst.height, 1080);
-+	KUNIT_EXPECT_EQ(test, stream->dst.x, 240);
-+	KUNIT_EXPECT_EQ(test, stream->dst.y, 0);
++	KUNIT_EXPECT_FALSE(test, dm_test_cp_diff(ctx));
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_dm->base.content_protection,
++			(int)DRM_MODE_CONTENT_PROTECTION_ENABLED);
 +}
 +
 +/**
-+ * dm_test_update_scaling_rmx_aspect_letterbox - Test RMX_ASPECT letterboxes wide sources
++ * dm_test_cp_diff_undesired - Test UNDESIRED->UNDESIRED needs no update
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_scaling_rmx_aspect_letterbox(struct kunit *test)
++static void dm_test_cp_diff_undesired(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_connector_state *dm_state;
-+	struct drm_display_mode mode = { 0 };
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
 +
-+	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dm_state);
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_UNDESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_UNDESIRED;
 +
-+	/* 16:9 source on a 4:3 panel -> letterboxed */
-+	mode.hdisplay = 1920;
-+	mode.vdisplay = 1080;
-+	stream->timing.h_addressable = 1024;
-+	stream->timing.v_addressable = 768;
-+	dm_state->scaling = RMX_ASPECT;
-+
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, &mode, dm_state, stream);
-+
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 1024);
-+	KUNIT_EXPECT_EQ(test, stream->dst.height, 576);
-+	KUNIT_EXPECT_EQ(test, stream->dst.x, 0);
-+	KUNIT_EXPECT_EQ(test, stream->dst.y, 96);
++	KUNIT_EXPECT_FALSE(test, dm_test_cp_diff(ctx));
 +}
 +
 +/**
-+ * dm_test_update_scaling_rmx_center - Test RMX_CENTER centers a 1:1 dst
++ * dm_test_cp_diff_desired_mode_changed - Test DESIRED->DESIRED with modeset forces true
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_scaling_rmx_center(struct kunit *test)
++static void dm_test_cp_diff_desired_mode_changed(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_connector_state *dm_state;
-+	struct drm_display_mode mode = { 0 };
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
 +
-+	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dm_state);
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_crtc->mode_changed = true;
 +
-+	mode.hdisplay = 1280;
-+	mode.vdisplay = 720;
-+	stream->timing.h_addressable = 1920;
-+	stream->timing.v_addressable = 1080;
-+	dm_state->scaling = RMX_CENTER;
-+
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, &mode, dm_state, stream);
-+
-+	/* RMX_CENTER: dst = src, centered on the addressable area */
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 1280);
-+	KUNIT_EXPECT_EQ(test, stream->dst.height, 720);
-+	KUNIT_EXPECT_EQ(test, stream->dst.x, 320);
-+	KUNIT_EXPECT_EQ(test, stream->dst.y, 180);
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
 +}
 +
 +/**
-+ * dm_test_update_scaling_underscan - Test underscan borders shrink and offset dst
++ * dm_test_cp_diff_desired_no_change - Test steady DESIRED->DESIRED needs no update
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_scaling_underscan(struct kunit *test)
++static void dm_test_cp_diff_desired_no_change(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_connector_state *dm_state;
-+	struct drm_display_mode mode = { 0 };
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
 +
-+	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dm_state);
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_crtc->mode_changed = false;
 +
-+	mode.hdisplay = 1920;
-+	mode.vdisplay = 1080;
-+	stream->timing.h_addressable = 1920;
-+	stream->timing.v_addressable = 1080;
-+	dm_state->scaling = RMX_FULL;
-+	dm_state->underscan_enable = true;
-+	dm_state->underscan_hborder = 64;
-+	dm_state->underscan_vborder = 32;
++	KUNIT_EXPECT_FALSE(test, dm_test_cp_diff(ctx));
++}
 +
-+	amdgpu_dm_update_stream_scaling_settings(&adev->ddev, &mode, dm_state, stream);
++/**
++ * dm_test_cp_diff_update_hdcp_hotplug - Test the update_hdcp hot-plug path forces true
++ * @test: The KUnit test context
++ */
++static void dm_test_cp_diff_update_hdcp_hotplug(struct kunit *test)
++{
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
++	struct dc_sink *sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
 +
-+	/* Full dst, then underscan: x/y += border/2, width/height -= border */
-+	KUNIT_EXPECT_EQ(test, stream->dst.x, 32);
-+	KUNIT_EXPECT_EQ(test, stream->dst.y, 16);
-+	KUNIT_EXPECT_EQ(test, stream->dst.width, 1856);
-+	KUNIT_EXPECT_EQ(test, stream->dst.height, 1048);
++	KUNIT_ASSERT_NOT_NULL(test, sink);
++
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->update_hdcp = true;
++	ctx->aconnector->base.dpms = DRM_MODE_DPMS_ON;
++	ctx->aconnector->dc_sink = sink;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
++	KUNIT_EXPECT_FALSE(test, ctx->new_dm->update_hdcp);
++}
++
++/**
++ * dm_test_cp_diff_stream_reenabled - Test the stream removed-and-re-enabled path forces true
++ * @test: The KUnit test context
++ */
++static void dm_test_cp_diff_stream_reenabled(struct kunit *test)
++{
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
++	struct drm_crtc *crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++
++	KUNIT_ASSERT_NOT_NULL(test, crtc);
++	crtc->enabled = true;
++
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->update_hdcp = true;
++	ctx->old_dm->base.crtc = NULL;
++	ctx->new_dm->base.crtc = crtc;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
++	KUNIT_EXPECT_FALSE(test, ctx->new_dm->update_hdcp);
++}
++
++/**
++ * dm_test_cp_diff_s3_undesired_to_enabled - Test the S3 UNDESIRED->ENABLED path forces true
++ * @test: The KUnit test context
++ */
++static void dm_test_cp_diff_s3_undesired_to_enabled(struct kunit *test)
++{
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
++
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_UNDESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_ENABLED;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
++	KUNIT_EXPECT_EQ(test, (int)ctx->new_dm->base.content_protection,
++			(int)DRM_MODE_CONTENT_PROTECTION_DESIRED);
++}
++
++/**
++ * dm_test_cp_diff_desired_to_enabled - Test DESIRED->ENABLED needs no update
++ * @test: The KUnit test context
++ */
++static void dm_test_cp_diff_desired_to_enabled(struct kunit *test)
++{
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
++
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_ENABLED;
++
++	KUNIT_EXPECT_FALSE(test, dm_test_cp_diff(ctx));
++}
++
++/**
++ * dm_test_cp_diff_desired_to_undesired - Test DESIRED->UNDESIRED forces update
++ * @test: The KUnit test context
++ */
++static void dm_test_cp_diff_desired_to_undesired(struct kunit *test)
++{
++	struct dm_test_cp_ctx *ctx = dm_test_cp_ctx_alloc(test);
++
++	ctx->old_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++	ctx->new_dm->base.content_protection = DRM_MODE_CONTENT_PROTECTION_UNDESIRED;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_cp_diff(ctx));
 +}
 +
  static struct kunit_case amdgpu_dm_tests[] = {
  	/* Simple DM callbacks */
  	KUNIT_CASE(dm_test_is_idle),
-@@ -1254,6 +1476,7 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_scaling_state_same),
- 	KUNIT_CASE(dm_test_scaling_state_scaling_changed),
- 	KUNIT_CASE(dm_test_scaling_state_underscan_enabled),
-+	KUNIT_CASE(dm_test_scaling_state_underscan_disabled),
- 	KUNIT_CASE(dm_test_scaling_state_underscan_border_changed),
- 	/* is_timing_unchanged_for_freesync */
- 	KUNIT_CASE(dm_test_timing_unchanged_null_args),
-@@ -1274,6 +1497,14 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	/* set_master_stream */
- 	KUNIT_CASE(dm_test_master_stream_highest_refresh),
- 	KUNIT_CASE(dm_test_master_stream_defaults_to_first),
-+	/* amdgpu_dm_update_stream_scaling_settings */
-+	KUNIT_CASE(dm_test_update_scaling_null_mode),
-+	KUNIT_CASE(dm_test_update_scaling_fullscreen_default),
-+	KUNIT_CASE(dm_test_update_scaling_rmx_full),
-+	KUNIT_CASE(dm_test_update_scaling_rmx_aspect_pillarbox),
-+	KUNIT_CASE(dm_test_update_scaling_rmx_aspect_letterbox),
-+	KUNIT_CASE(dm_test_update_scaling_rmx_center),
-+	KUNIT_CASE(dm_test_update_scaling_underscan),
+@@ -1505,6 +1730,18 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_update_scaling_rmx_aspect_letterbox),
+ 	KUNIT_CASE(dm_test_update_scaling_rmx_center),
+ 	KUNIT_CASE(dm_test_update_scaling_underscan),
++	/* is_content_protection_different */
++	KUNIT_CASE(dm_test_cp_diff_hdcp_type_change),
++	KUNIT_CASE(dm_test_cp_diff_reenable_mode_changed),
++	KUNIT_CASE(dm_test_cp_diff_reenable_no_change),
++	KUNIT_CASE(dm_test_cp_diff_undesired),
++	KUNIT_CASE(dm_test_cp_diff_desired_mode_changed),
++	KUNIT_CASE(dm_test_cp_diff_desired_no_change),
++	KUNIT_CASE(dm_test_cp_diff_update_hdcp_hotplug),
++	KUNIT_CASE(dm_test_cp_diff_stream_reenabled),
++	KUNIT_CASE(dm_test_cp_diff_s3_undesired_to_enabled),
++	KUNIT_CASE(dm_test_cp_diff_desired_to_enabled),
++	KUNIT_CASE(dm_test_cp_diff_desired_to_undesired),
  	{}
  };
  
