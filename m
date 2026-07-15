@@ -4,124 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD20BC44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 16:01:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A96C44508
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 16:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC0E10E0E7;
-	Wed, 15 Jul 2026 16:01:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A66A610F10B;
+	Wed, 15 Jul 2026 16:50:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VuuwZcws";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vIR17jxV";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011054.outbound.protection.outlook.com [40.107.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93EBB10E0E7
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 16:01:12 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013052.outbound.protection.outlook.com
+ [40.93.201.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABAC510E1FE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 16:50:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sFTgUAa9h/ZFLd9l921opFoGUUpu7DXnYNmP0vOxlPrUIoB1zN4MIzoCWxn5EAc0eO3SvKA+QJISsluUx1So0XJqIQVdDEzbrdhW88ezxjb/KzPtchkNnsX9HEzIngQFNGlvSSJweX96Osh/EZsi/mXFQS1NNfC4dwRUA+NZrfT7wtfQA16WOHzxTUcjpihF4T07QCV/7C17MRTy/IRh0h9oMYU/nvYD6DSANjy53DMtdSdPFQTS1eIoLu0KHU7E5vj7dkMlMBTAoFis/6/DU/UJ4PvAwshURCBfYEpG+ULpwKE2TlX+45kDAYgz5P2raptJYfPbTgL1o1QtqkWwXw==
+ b=CHjq950okODlADEXmEcBRkmf9apiN1BwGh6XbM0eO2nDcB4aZVhv+7xzEe7Ygp9Hyn7ZQBkWUgUniodmZ/8CBhCiMX4q0zqn1KR8iMoRq5BcSfulfOYAGmo5mdMKEdWGFQV8khLVpDNFEQHG8v8XgHkJdb3Bu9WEogFwt1Uo26S0WDqeerUb95YenkspsG8tO/j8mKRiq/jIK+zIuhLO/1wR70B5bJ3rHdPRc9Uqn4/ino+UrDQMeYeZAe81kI25hOPeHDxxCvygAlSOI92bPcK3Lb8Fn5RFEjh1ICqAKuNCG8czoOcmGPBKBHqQ1Rzo0o9oob1aPgbMLAlmTElFew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jX+msuBJ4wz2XoFP7cJ+Y2xPqsOn9DYvkiJlGca4HnI=;
- b=nzIsvV8o4MnZE/6Y/u4nCO3zacygOjxnK62U7h0Gws/wBhOIcHXgz1n5siz+xjmg83MGHOgFmxjIc38c6OkIWqzoi8HUNORIcEOoMJN/CC9xuv0/pYaz/9onlIBL7HBCk5+3LgjVykOEwawJ3tprY6xJOUXHaBZV9FomlsU45F+13fbdjlO/6YzLJ03j8lEjoBHg0Ktul/Sqb35ZF/iT8qckD4NOYYR+pb9nwMDKxBTqCwjW7fCfenJxHyIpFnYOIuMJteW7OHXnIZVZOIJyVLlv1zgv8q05lBiYlghxpJYafPhSLZRrZCLO0QgFB+TDeH9NkQweSIm6+uOax4Gpww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=yiZ2GVksDkg4oYMsWcZxgMaYRHZ9jA/13a6r1TJED1o=;
+ b=SFdVZR/D9AI+wMmdf0v8YkBPuvBjpBriJkHI4+fNa3D/eVX8hMPSuW0nNPTfKPVganp55Q4kZKVXtPYdYaYS4EvJ2BwXGUBeH8zfjHWqIDJgJwXkfTH1MFKO6t9+ggQw7HPXSW0cBEWPjYIDMM/hCwy71uvNExJB4r9qnLwHpGrHEtzec5IXeyOO6v3okfe9+ntW5JZll3H178ZXFFKhI3oKp4YZoy8t8AZO1IfMmaVojkztl69djr8IicZ3sp4Y+xjqwkA97/rS3oX9rQU04NrPJqBabYaSe84RVfpRpJBIhagsQZ5K8AX7Dsm7n+tlLJeUjdOeVPnIPQeQIZUXIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jX+msuBJ4wz2XoFP7cJ+Y2xPqsOn9DYvkiJlGca4HnI=;
- b=VuuwZcws6xV0T5WcxdPHiUZn7pKhXX01qZeFRkDkSHadWMxa824JNUQAvQ6dgc+0EWnISLiqqjkVC+7pUJ4sXSqGfkWHdXmyWQZKrksBIq74k7LJbDLXR4UqVSylEzYS33vFStF9+8JDEgkUFAE1xEu8n8kFSc5uT131ZfN1YgY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
- by LV8PR12MB9644.namprd12.prod.outlook.com (2603:10b6:408:296::8)
+ bh=yiZ2GVksDkg4oYMsWcZxgMaYRHZ9jA/13a6r1TJED1o=;
+ b=vIR17jxVCs0WBMos/raRqDQi1E62jkxpyN5/GjsDTqLRGi+hjCZVXcQPT9d8vXsEIeSIQlZPkbVCD88i2CSoWyEMhYjHx3fu3pB+ZO4T0InKtvpH/10aRNMDxOTHc1Cru9BOZzNN8mznVNBtziTNKfAbktOpIN0DAvK6dkWNIeY=
+Received: from BL1PR13CA0406.namprd13.prod.outlook.com (2603:10b6:208:2c2::21)
+ by MN0PR12MB6001.namprd12.prod.outlook.com (2603:10b6:208:37d::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Wed, 15 Jul
- 2026 16:01:06 +0000
-Received: from SA3PR12MB7782.namprd12.prod.outlook.com
- ([fe80::a9df:115c:2208:56f3]) by SA3PR12MB7782.namprd12.prod.outlook.com
- ([fe80::a9df:115c:2208:56f3%5]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
- 16:01:06 +0000
-Content-Type: multipart/alternative;
- boundary="------------dtDI9D7pHmh5y0Mx83NAWaWT"
-Message-ID: <a965a413-19ea-46c0-a092-faf6f6b1de2c@amd.com>
-Date: Wed, 15 Jul 2026 21:31:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: dont pin wptr bo instead use eviction fence
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260715142444.53373-1-sunil.khatri@amd.com>
- <b2d8c2c6-15bd-4733-a7fe-035dce4c674f@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <b2d8c2c6-15bd-4733-a7fe-035dce4c674f@amd.com>
-X-ClientProxiedBy: MA5PR01CA0224.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f3::7) To SA3PR12MB7782.namprd12.prod.outlook.com
- (2603:10b6:806:31c::18)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.9; Wed, 15 Jul
+ 2026 16:50:22 +0000
+Received: from BL02EPF0001A0FE.namprd03.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::1c) by BL1PR13CA0406.outlook.office365.com
+ (2603:10b6:208:2c2::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.3 via Frontend Transport; Wed, 15
+ Jul 2026 16:50:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A0FE.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 16:50:22 +0000
+Received: from lsttdev4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 11:50:21 -0500
+From: "Galantsev, Dmitrii" <dmitrii.galantsev@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <paul.blinzer@amd.com>, Dmitrii Galantsev
+ <dmitrii.galantsev@amd.com>
+Subject: [PATCH] drm/amdgpu: add Component Unified ID (CUID) sysfs interface
+Date: Wed, 15 Jul 2026 11:48:36 -0500
+Message-ID: <20260715164836.3879564-1-dmitrii.galantsev@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB7782:EE_|LV8PR12MB9644:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd9cbd22-970b-425d-33c7-08dee28a46e1
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FE:EE_|MN0PR12MB6001:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d6777de-f4da-43d1-9d3e-08dee2912929
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|4143699003|5023799004|10067099003|56012099006|8096899003|11063799006;
-X-Microsoft-Antispam-Message-Info: M9Vn0gWqH21nXY7TbcSDAJHvkNDffAGc4RGMB06/pDePqfJrn5CG1Hq6pfnbUnu4NW099OLW1xaZtQzi+qQAbU5aTz87koe5VVg8IikRHsXbYDo9tskfgGZj9fKoMAwXXo//XFHDdSNjV9xTdPExQYQ9z5NMRcCQwQvEjf9s1F1tUGgvYBdIrGBbM5dpfmowqkePl3wL9gc3MUQRF9T0iwP8GkpGUaMxoAjrrwwR9gabW2Vucw+jxStkqSPdUPB/SzFgtp8lP3x8FMcaSYFzExGPsgVp8yFIcoRDsqB3zn8AatAQ7+/d7TaYR9if7o2Vv873qjgOwbX9T5v1y1B304RX0vo50dNHMMSgPXUYQ9KaKw0QvdlNTHqXd50d64kxSRaowARtYGRyR5la5wwI0IbfSVyRkYrONgC6uawT704acTdigDeiu38ojG4atuuXfB6zIHpCuvOGwKJD8CQF/fCSKCT6BNcViOrHGNkf8O8T0s+tbqc9H43Tp9ddoLQ6glYgX2dUwPuPFql2GcF7AJfXdMHsuTXx1lIdwWZKTRRcpldXDp254FbwnxNrBIp3yxLqP0MCFeaVdGd5nbZiyh3sks2BX1/l/nEzr2RYL1Pv8cpwvwyq8OHNBrlht8Wtp2NbYn4IuYy82ynK9AcOyR0Gw7okJ4MUIudao//sCAA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB7782.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(5023799004)(10067099003)(56012099006)(8096899003)(11063799006);
+ ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|10067099003|6133799003|18002099003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: JR+BggB5FJ/H5Nr/Ztw432x2DHIfGa/NqpHCKgvz1Pdzm8ODZiJmhm3WCdSMQbK9AUAGGw6VQYg0yJIyG5eqFXxEmGSQy8IWdttKv2nhERWLnHOfMD2XPSJRecx7Qfhz8CAFWFc1HLlvC/GRVyDDTGuF8RGCCP74/SOHcGak/hgXTTins2pkpK03789mZXoiu1LTEPvVsZkdP+VYv/Fcvu1VTXaUIOAwNSUirw4DyVSeChItV2v/QnD3aCz49Xe/poMm2FwlyoTOyA0lpf/400S1MFOEAu5DN9Qu39Bb7MxUjs6D4PlSxLpNb9Cp63GCdV44mX9RwQTLWJe5rsDfn87Mj0BSkI+LatAkw0CXzmmyMzhzplK+oSquTdXCcTAG0MJ1xK76OJTnu5OveuffGLtMTIsOloGcCyX+irSz6mKr3KmuAAPYSDkI2KfsZfvqbMwyqCA5BdjHTeAZuFf8GsKacbcFAVBtI2qvDENRY9yO04D839VYIRy+ozKV9O5Nmw3jeNElNQvXmsxTGHKuVvHYm80+Z6Sg1AmoC0JrB7MJvIWw4osg92KimYTn+ELgjC6zHpGsiOn5sE7knbvuYm86Qyqy9X/mvufGO6rDkUd2umlBCezXITKHUOzOfDodpwX7r71V/vmCtcBMabxgZqoMjH8W7tXRRCLxefWjyQlWc7AxugyyDPyeDoaqJQZJcUbneKLgvAKbCKBooIJNvA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(10067099003)(6133799003)(18002099003)(5023799004)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dElFVTRkc0R1alYxblhldFUwcmVkRzRSL25FVTl6Wi84M2haMDFEV1F3eEY4?=
- =?utf-8?B?L0FSd2V0TWpDVFlYOHpGQVpVTXk2T21QZHBvbFpiL2gyL0NGMFlDNHV0RUlx?=
- =?utf-8?B?ZGRvRGVHMWZ2VHgrR256T1J5ak5Ud3FLTTMvSmUwUTBZVGZIMFVkN0tIYzJk?=
- =?utf-8?B?ZnN6N09rWGFCVTIxY0dZa1pGTEF5SGMyQUhnU3BxMEllSkRleHpMWlVTUENH?=
- =?utf-8?B?aUFTYmFIS2dPSnptczRSTGtXRGh5RUp6Z2FOTVl6NCs5YjNjUEhkUk5RVlZI?=
- =?utf-8?B?RXRJa2ROK0hFS1BaaElWUWZ2QTFhUDBkd3R1emlobXJCbXJkS1JQM2VKeUYy?=
- =?utf-8?B?S0JlQWtPbUJ6bW1ZZ1ZEaVdvcEg1QUs3dU9YbmN6cHRCcnRBZGMxU3FlcXpX?=
- =?utf-8?B?MTdtYUFtOU9YQlZTaDJHNHB5eEo3bnMyZlk5OGVyVm1jWnJDVWtkMTBRZlZN?=
- =?utf-8?B?VHE5SFkvM2dRNVVlMkM3clFieTVrNXU1c1JGSzNHclFDSVp5NEMwTXpJNnR1?=
- =?utf-8?B?UXlYK0ErN1NBbzU0NXZyTGFCYXkxS2tSbGJjeEZNUk54OUdHUXpJN0o2SFNO?=
- =?utf-8?B?RHJUREhJM1BVSEF4Zm44OG9tRnpNOGlXdmc2VmN2LzhlRkt2NmdEWFp5OU8z?=
- =?utf-8?B?VUtsajRMaTM4UVRtN1pZVnlxMzVFcFhKU1dqR1g0M1VOQlhWTjYrUU1jcWhi?=
- =?utf-8?B?TTE0R0dTbmo3TjNmNmhxRUw5SFkyTXptL0RUcUZRWTJzQm1DWUdQZHFyV3FJ?=
- =?utf-8?B?UzdEY0F1YWtyUk5hWGlkNmhtMkMyUTE1S3pnV2M2eGxsTGhja2YwUUlQMndJ?=
- =?utf-8?B?TlZXOHZ6MDhiZmM2ZVREYktBV1ZDT1d1WVhZUDRPNnhJT1pwa2JoOGg5dkgr?=
- =?utf-8?B?b2tSb0srR1pOM09vcXVXYUxHNkV4NnlwNzhFODVJL2ZyK3VsR01iaWp5Y2dB?=
- =?utf-8?B?WmJTT0h1OGwwZWd1dkZuNncvM2FGMTVobHFvWVpZRDA2eVNaQWRNV2laaE9N?=
- =?utf-8?B?ajhXWmFka1d0a1NRUGFMTWU0c3luZmJKc1drR1RBVkNJVVpYNkwwSVBEZU5i?=
- =?utf-8?B?Q0RIOWpmdFlMYUxwVHgycmhoNmlwSkRXOFBvUVIraHlWUlhQZWJ5OFhVaVRV?=
- =?utf-8?B?ODJJTXlndGdWbTJMVmw2Zm8rU3p0TWZNNzEvUmJlRFBFYnFXVmh6TERWOFNt?=
- =?utf-8?B?QVZEQXFLU0pkb3RXMzVVOUFJRGN6a29EVzZIenVxWVp2MTQxSTNIZE0wYlBy?=
- =?utf-8?B?ZHJEV24vRmQyTC9EbmdrdzlYQkFVV2krb2N2WEVCa2IvTmNGL3B6KzJYMWpi?=
- =?utf-8?B?MFRhTWdCZWw0WFhRWmtEc3BwYXhaZU5SRGpIcTF0azcrM015QWxoUFE2ZVI0?=
- =?utf-8?B?NGtjV2JKRW1qYk1qWDlPektEdGdlbFMyZ0hUdE9sUHNkV0IwTkhOZlJ0WXh5?=
- =?utf-8?B?WUlHL3haQ2QzdDFSb2ZaN3lCRjZVTjVrQ21JeE53eVc4aFdDT01ibDRsSFRG?=
- =?utf-8?B?N05CUDRvb3ZaNkJYMnowQjZPRStlNHZmWXlLU1I3OUVUOFlaQ3VSeUplUHh2?=
- =?utf-8?B?Z2E3NWdhUWRMdWVZcmhGR3dOQ3lUVWg5N3dEdy9JY2J4endWZnVqblBWZlFv?=
- =?utf-8?B?M3JGZ2VWbU9mUGZ2Tm1LZE5YZ1F4YXhGejNOd1BLTW9mRHdRQ2kvclllWExs?=
- =?utf-8?B?YTNzQnJCS1NEaHhSZTB0YVNPaFJNY1QzSUtRK3pVTmpibUIrZWdYZEpROFda?=
- =?utf-8?B?YVpOYnhkNVYrU05hbnFaSGl6Wm5IQ0pNS2hkSWlob240c0JWR0ZMK0ZXbVpG?=
- =?utf-8?B?Y212M2IrcEJjQngxd1NzSktlOWs4K2NwZ0pzM2EvL3d0T21WUmZwQjhWdW9Z?=
- =?utf-8?B?Yy9ydUhldWhDNkdjL1lQNzVGQWsrSTZnbEJmSGZrbEtGcjM3ak1jVmJYSTUr?=
- =?utf-8?B?clJneVNtTVNzblY4T0V5Tnl0ZFREd1l0SWJwK1JEYlRqK1pBa1FWSWlSbGUr?=
- =?utf-8?B?TFQ0Zi9GRS9qbWw1UklrOFFGMVhkWTljVHZtNWtYbzNJZXdEODNDVGF6OEl5?=
- =?utf-8?B?bEF4c0pIakJraWczeUJENmV1a0xmTGlqWkVMeFAxaytCa0dwejFtQjZha2h3?=
- =?utf-8?B?MXl2T3FTYUJ6dXYxTExGcSs0UnN0TnM5MERvcXRLUFdnMGx0UXhWTEliSlEy?=
- =?utf-8?B?bFNUWDVFTTVBMVNRTW5jYndXTVFIYm5GL0VGZVFkdklOWWhZZko0UTRqRHJ1?=
- =?utf-8?B?MDNYcHRuK0tZTkVQUlNXLzFJMTVwSWwyY1NrQWkxWFJGc0FtMXpNSzJkd1pi?=
- =?utf-8?B?T0dnVU9neUZFQWZYdE90SGo2Mkd3L0g5SnhvQTJSWkNoOGNVSzNJdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: 5vNPM2C6F9Ty2HdUoAwvY6zylziYPr2w1ZdWoz74kp3GTSiFJeVcr4TzPzzmeEcIZr+jM/bDBo+yYfALiPFZ+Xoo1oGOZHvDDleC/B+qg/yRX4PMjhGm0aQ/fhDVQUdY76mni6DawUkWZq7oXorwBBzOX7wvKm6ZmcD2fGYIfKLUhkpFRcMQ4ZL4AG7gnfcBjvj2WTrVvX97GR1QIR6PcNLO/Rs0/fqTuTve6KS9Bf1qQ2sWN+nhD1a7tJpbYTCn5YQ5MrgOlk494ponNbqzK/GgnRG3Mj0JTJNUl4Pw1gdUU1JCnArrb6FUQKfIUVTvke1e6Vpd7RjeNa0WkV8KIyBQjw+cftlfzK+rdhzexeZbwDp07fM03Gu3kM+X5+574nlDsd3P/A8dpM+WejHSsaBgd04xpUPL0AaXlWGC+sU7AdNJF6tew+20sSIwv9tQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd9cbd22-970b-425d-33c7-08dee28a46e1
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7782.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 16:01:05.8865 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 16:50:22.1489 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d6777de-f4da-43d1-9d3e-08dee2912929
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ie+2K2D0UiZiu8oxQT5c/bBygS7AZ5GCBfuSp7JBJdrbpMsTact66PooSINV4vcBrqKdGdcS233KvMtCYmbl/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9644
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6001
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,337 +109,482 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------dtDI9D7pHmh5y0Mx83NAWaWT
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Dmitrii Galantsev <dmitrii.galantsev@amd.com>
 
+Expose a stable, per-GPU identifier so fleet and inventory tooling can name
+a device without reading the raw serial number.
 
-On 15-07-2026 08:30 pm, Christian König wrote:
-> On 7/15/26 16:24, Sunil Khatri wrote:
->> Instead of pinning the wptr bo attach the eviction fence to
->> the bo to make sure it remains valid all the time.
->>
->> Signed-off-by: Sunil Khatri<sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 34 ++++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 17 ++++-------
->>   2 files changed, 39 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index 911fb325c70c..e1eb689710c8 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -936,6 +936,29 @@ static int amdgpu_userq_validate_vm(void *param, struct amdgpu_bo *bo)
->>   	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->>   }
->>   
->> +static int amdgpu_userq_validate_wptr_bo(struct drm_exec *exec,
->> +					 struct amdgpu_usermode_queue *queue)
->> +{
->> +	struct amdgpu_bo *bo = queue->wptr_obj.obj;
->> +	int ret;
->> +
->> +	if (!bo)
->> +		return -EINVAL;
->> +
->> +	ret = drm_exec_prepare_obj(exec, &bo->tbo.base,
->> +				   TTM_NUM_MOVE_FENCES + 1);
->> +	if (unlikely(ret))
->> +		return ret;
-> The WPTR BO should already be locked and prepared with fence slots by the caller, doing that here again can cause problems.
->
->> +
->> +	ret = amdgpu_ttm_alloc_gart(&bo->tbo);
->> +	if (ret)
->> +		return ret;
->> +
->> +	queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(bo);
->> +
->> +	return 0;
->> +}
->> +
->>   /* Handle all BOs on the invalidated list, validate them and update the PTs */
->>   static int
->>   amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
->> @@ -988,6 +1011,7 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
->>   	struct amdgpu_vm *vm = &fpriv->vm;
->>   	unsigned long key, tmp_key;
->>   	struct amdgpu_bo_va *bo_va;
->> +	struct amdgpu_usermode_queue *queue;
->>   	struct amdgpu_bo *bo;
->>   	struct drm_exec exec;
->>   	struct xarray xa;
->> @@ -1094,6 +1118,16 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
->>   	if (ret)
->>   		goto unlock_all;
->>   
->> +	xa_for_each(&uq_mgr->userq_xa, tmp_key, queue) {
->> +		ret = amdgpu_userq_validate_wptr_bo(&exec, queue);
->> +		if (unlikely(ret)) {
->> +			drm_file_err(uq_mgr->file,
->> +				     "failed to validate wptr bo on resume, qid=%lu ret=%d\n",
->> +				     tmp_key, ret);
->> +			goto unlock_all;
->> +		}
->> +	}
->> +
->>   	/*
->>   	 * We need to wait for all VM updates to finish before restarting the
->>   	 * queues. Using the idle list like that is now ok since everything is
->> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->> index 19c3cb61929c..ab8baaa83e60 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
->> @@ -71,27 +71,23 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
->>   		ret = -EINVAL;
->>   		goto fail_map;
->>   	}
->> -
->> -	/* TODO use eviction fence instead of pinning. */
->> -	ret = amdgpu_bo_pin(wptr_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
->> +	/* Keep WPTR BO under eviction-fence control instead of pinning. */
->> +	ret = amdgpu_evf_mgr_attach_fence(&uq_mgr_to_fpriv(uq_mgr)->evf_mgr, wptr_obj->obj);
-> The eviction fence should already be attached to the WPTR BO when it is part of the VM.
-Sorry i dint understand. From amdgpu_userq_create, sequence is like this 
-uq_funcs->mqd_create(queue, &args->in) -> mes_userq_create_wptr_mapping 
-(This is where eviction fence is attached)
+A 122-bit primary payload (serial, PCI vendor/device/revision, unit and
+component type) is packed LSB-first and rendered as an RFC 9562 UUIDv8.
+Three sysfs attributes sit beside unique_id:
 
-after mqd_create we are checking if the ev fence is signalled or not and 
-based on that we are again going ahead to attach new ev fence if 
-signaled to all bos.
+  - cuid_primary (0400): raw identity; root-only as it embeds the serial.
+  - cuid_secondary (0444): HMAC-SHA256(seed, primary), world-readable as it
+    leaks neither the serial nor the seed. A public default seed is used
+    until a secret is provisioned via cuid_seed.
+  - cuid_seed (0600): the secret seed, raw bytes (at most 32).
 
+Derivation uses the synchronous library HMAC-SHA256 (crypto/sha2.h) on the
+read path; the only persistent state is the seed, guarded by a mutex. CUID
+init is best-effort and does not fail device attribute init.
 
->
-> The problem is more that the function is called at the completely wrong time. See amdgpu_userq_create():
-You mean to say mqd create is called at wrong place ?
->
-> And BTW why do we have the abstraction of uq_funcs? That doesn't seem to make sense.
-
-I also need to check that.
-
-Regards
-Sunil Khatri
-
->
-> Regards,
-> Christian.
->
->>   	if (ret) {
->> -		DRM_ERROR("Failed to pin wptr bo. ret %d\n", ret);
->> +		DRM_ERROR("Failed to attach eviction fence to wptr bo. ret %d\n", ret);
->>   		goto fail_map;
->>   	}
->>   
->>   	ret = amdgpu_ttm_alloc_gart(&wptr_obj->obj->tbo);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to bind bo to GART. ret %d\n", ret);
->> -		goto fail_alloc_gart;
->> +		DRM_ERROR("Failed to bind wptr bo to GART. ret %d\n", ret);
->> +		goto fail_map;
->>   	}
->>   
->>   	queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(wptr_obj->obj);
->>   
->>   	drm_exec_fini(&exec);
->>   	return 0;
->> -
->> -fail_alloc_gart:
->> -	amdgpu_bo_unpin(wptr_obj->obj);
->>   fail_map:
->>   	amdgpu_bo_unref(&wptr_obj->obj);
->>   fail_lock:
->> @@ -520,9 +516,6 @@ static void mes_userq_mqd_destroy(struct amdgpu_usermode_queue *queue)
->>   	amdgpu_bo_free_kernel(&queue->mqd.obj, &queue->mqd.gpu_addr,
->>   			      &queue->mqd.cpu_ptr);
->>   
->> -	amdgpu_bo_reserve(queue->wptr_obj.obj, true);
->> -	amdgpu_bo_unpin(queue->wptr_obj.obj);
->> -	amdgpu_bo_unreserve(queue->wptr_obj.obj);
->>   	amdgpu_bo_unref(&queue->wptr_obj.obj);
->>   }
->>   
---------------dtDI9D7pHmh5y0Mx83NAWaWT
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 15-07-2026 08:30 pm, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:b2d8c2c6-15bd-4733-a7fe-035dce4c674f@amd.com">
-      <pre wrap="" class="moz-quote-pre">On 7/15/26 16:24, Sunil Khatri wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Instead of pinning the wptr bo attach the eviction fence to
-the bo to make sure it remains valid all the time.
-
-Signed-off-by: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a>
+Signed-off-by: Dmitrii Galantsev <dmitrii.galantsev@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 34 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 17 ++++-------
- 2 files changed, 39 insertions(+), 12 deletions(-)
+ Documentation/gpu/amdgpu/driver-misc.rst   |  21 ++
+ drivers/gpu/drm/amd/amdgpu/Kconfig         |   2 +
+ drivers/gpu/drm/amd/amdgpu/Makefile        |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c   | 278 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.h   |  45 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  13 +-
+ 7 files changed, 364 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 911fb325c70c..e1eb689710c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -936,6 +936,29 @@ static int amdgpu_userq_validate_vm(void *param, struct amdgpu_bo *bo)
- 	return ttm_bo_validate(&amp;bo-&gt;tbo, &amp;bo-&gt;placement, &amp;ctx);
- }
+diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu/amdgpu/driver-misc.rst
+index e1a964c3add2..983358ab4c4c 100644
+--- a/Documentation/gpu/amdgpu/driver-misc.rst
++++ b/Documentation/gpu/amdgpu/driver-misc.rst
+@@ -154,3 +154,24 @@ uma/carveout
  
-+static int amdgpu_userq_validate_wptr_bo(struct drm_exec *exec,
-+					 struct amdgpu_usermode_queue *queue)
+ .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+    :doc: uma/carveout
++
++Component Unified ID (CUID) Information
++======================================
++
++cuid_primary
++------------
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c
++   :doc: cuid_primary
++
++cuid_secondary
++--------------
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c
++   :doc: cuid_secondary
++
++cuid_seed
++---------
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c
++   :doc: cuid_seed
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 12e4a41bf1f0..1430096412ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -26,6 +26,8 @@ config DRM_AMDGPU
+ 	select DRM_SUBALLOC_HELPER
+ 	select DRM_EXEC
+ 	select DRM_PANEL_BACKLIGHT_QUIRKS
++	# CUID derives its secondary ID with library HMAC-SHA256
++	select CRYPTO_LIB_SHA256
+ 	# amdgpu depends on ACPI_VIDEO when ACPI is enabled, for select to work
+ 	# ACPI_VIDEO's dependencies must also be selected.
+ 	select INPUT if ACPI
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 105b9dcc19a2..66f4476966cc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -52,6 +52,7 @@ amdgpu-y := amdgpu_drv.o
+ 
+ # add KMS driver
+ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
++	amdgpu_cuid.o \
+ 	amdgpu_atombios.o atombios_crtc.o amdgpu_connectors.o \
+ 	atom.o amdgpu_fence.o amdgpu_ttm.o amdgpu_object.o amdgpu_gart.o \
+ 	amdgpu_encoders.o amdgpu_display.o amdgpu_i2c.o \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index f5d65bd0ac25..90abbdfcec5b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -872,6 +872,11 @@ struct amdgpu_device {
+ 
+ 	uint64_t			unique_id;
+ 	uint8_t				unitid;
++
++	/* CUID: secret seed for HMAC-derived secondary CUID */
++	struct mutex			cuid_seed_lock;
++	u8				cuid_seed[32];
++	unsigned int			cuid_seed_len;
+ 	uint64_t	df_perfmon_config_assign_mask[AMDGPU_MAX_DF_PERFMONS];
+ 
+ 	/* enable runtime pm on the device */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c
+new file mode 100644
+index 000000000000..a365f8ab4591
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.c
+@@ -0,0 +1,278 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * CUID (Canonical Unique ID) support for amdgpu.
++ *
++ * Builds a primary identifier from the GPU identity (vendor/device/revision and
++ * the serial in adev->unique_id) and exposes it, plus an HMAC-derived secondary
++ * value, as UUIDv8 sysfs files beside unique_id.
++ *
++ * The packing, UUIDv8 framing and HMAC derivation form a frozen ABI: the
++ * payload is packed LSB-first into 16 little-endian bytes, framed as an
++ * RFC 9562 UUIDv8, and derived as HMAC-SHA256(key, primary). Derivation uses
++ * the synchronous library HMAC-SHA256 (crypto/sha2.h), so it cannot fail and is
++ * callable from the sysfs read path. The only persistent state is the secret
++ * seed (adev->cuid_seed*, guarded by adev->cuid_seed_lock).
++ */
++#include <linux/device.h>
++#include <linux/sysfs.h>
++#include <linux/capability.h>
++#include <linux/pci.h>
++#include <linux/string.h>
++#include <linux/uuid.h>
++#include <linux/mutex.h>
++#include <linux/unaligned.h>
++#include <crypto/sha2.h>
++
++#include <drm/drm_drv.h>
++
++#include "amdgpu.h"
++#include "amdgpu_cuid.h"
++
++/* Public default seed for cuid_secondary until a secret is provisioned. */
++static const u8 CUID_DEFAULT_SEED[] = "AMD-CUID-DEFAULT-SEED-v1";
++
++/* Pack the 122-bit primary payload into 16 little-endian bytes. */
++static void cuid_pack(const struct cuid_primary *p, u8 raw[16])
 +{
-+	struct amdgpu_bo *bo = queue-&gt;wptr_obj.obj;
-+	int ret;
++	put_unaligned_le64(p->dsn, raw);	/* 0:63 DSN */
 +
-+	if (!bo)
-+		return -EINVAL;
++	raw[8]  = p->unit_id & 0xFF;		/* 64:71 UnitID lo */
++	raw[9]  = p->revision_id;		/* 72:79 revision */
++	put_unaligned_le16(p->device_id, &raw[10]);	/* 80:95 device */
++	put_unaligned_le16(p->vendor_id, &raw[12]);	/* 96:111 vendor */
 +
-+	ret = drm_exec_prepare_obj(exec, &amp;bo-&gt;tbo.base,
-+				   TTM_NUM_MOVE_FENCES + 1);
-+	if (unlikely(ret))
-+		return ret;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The WPTR BO should already be locked and prepared with fence slots by the caller, doing that here again can cause problems.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+
-+	ret = amdgpu_ttm_alloc_gart(&amp;bo-&gt;tbo);
-+	if (ret)
-+		return ret;
-+
-+	queue-&gt;wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(bo);
-+
-+	return 0;
++	/* 112:116 UnitID hi | 117 aux | 118:121 component type */
++	raw[14] = ((p->unit_id >> 8) & 0x1F) |
++		  ((p->aux & 0x1) << 5) |
++		  ((p->component_type & 0x03) << 6);
++	raw[15] = (p->component_type >> 2) & 0x03;
 +}
 +
- /* Handle all BOs on the invalidated list, validate them and update the PTs */
- static int
- amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
-@@ -988,6 +1011,7 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 	struct amdgpu_vm *vm = &amp;fpriv-&gt;vm;
- 	unsigned long key, tmp_key;
- 	struct amdgpu_bo_va *bo_va;
-+	struct amdgpu_usermode_queue *queue;
- 	struct amdgpu_bo *bo;
- 	struct drm_exec exec;
- 	struct xarray xa;
-@@ -1094,6 +1118,16 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 	if (ret)
- 		goto unlock_all;
- 
-+	xa_for_each(&amp;uq_mgr-&gt;userq_xa, tmp_key, queue) {
-+		ret = amdgpu_userq_validate_wptr_bo(&amp;exec, queue);
-+		if (unlikely(ret)) {
-+			drm_file_err(uq_mgr-&gt;file,
-+				     &quot;failed to validate wptr bo on resume, qid=%lu ret=%d\n&quot;,
-+				     tmp_key, ret);
-+			goto unlock_all;
-+		}
++/* UUIDv8 framing bits: version nibble (76:79), variant bits (62:63). */
++static bool cuid_is_framing_bit(int pos)
++{
++	return pos == 62 || pos == 63 || (pos >= 76 && pos <= 79);
++}
++
++/* Insert RFC 9562 UUIDv8 version(8)/variant(10b) framing losslessly. */
++static void cuid_to_uuidv8(const u8 raw[16], u8 uuid[16])
++{
++	int src = 0, pos;
++
++	memset(uuid, 0, 16);
++	for (pos = 0; pos < 128; pos++) {
++		if (cuid_is_framing_bit(pos))
++			continue;
++		if ((raw[src >> 3] >> (src & 7)) & 1)
++			uuid[15 - (pos >> 3)] |= 1u << (pos & 7);
++		src++;
++	}
++	uuid[6] = (uuid[6] & 0x0F) | 0x80;	/* version 8 */
++	uuid[8] = (uuid[8] & 0x3F) | 0x80;	/* variant 10b */
++}
++
++/*
++ * Derive the secondary payload from HMAC-SHA256(key, raw_primary):
++ *   0:63    = hash[0:63]
++ *   72:116  = hash[64:108]	(45 bits)
++ *   117     = aux (from primary); all other bits zero.
++ */
++static void cuid_derive(const u8 *key, unsigned int keylen,
++			const u8 raw_primary[16], u8 derived_raw[16])
++{
++	u8 digest[SHA256_DIGEST_SIZE];
++	int i;
++
++	hmac_sha256_usingrawkey(key, keylen, raw_primary, 16, digest);
++
++	memset(derived_raw, 0, 16);
++
++	/* hash[0:63] -> derived[0:63] */
++	memcpy(derived_raw, digest, 8);
++
++	/* hash[64:108] -> derived[72:116] */
++	for (i = 0; i < 45; i++) {
++		int hb = 64 + i, db = 72 + i;
++		u8 bit = (digest[hb >> 3] >> (hb & 7)) & 1;
++
++		derived_raw[db >> 3] |= bit << (db & 7);
 +	}
 +
- 	/*
- 	 * We need to wait for all VM updates to finish before restarting the
- 	 * queues. Using the idle list like that is now ok since everything is
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index 19c3cb61929c..ab8baaa83e60 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -71,27 +71,23 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
- 		ret = -EINVAL;
- 		goto fail_map;
- 	}
--
--	/* TODO use eviction fence instead of pinning. */
--	ret = amdgpu_bo_pin(wptr_obj-&gt;obj, AMDGPU_GEM_DOMAIN_GTT);
-+	/* Keep WPTR BO under eviction-fence control instead of pinning. */
-+	ret = amdgpu_evf_mgr_attach_fence(&amp;uq_mgr_to_fpriv(uq_mgr)-&gt;evf_mgr, wptr_obj-&gt;obj);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The eviction fence should already be attached to the WPTR BO when it is part of the VM.</pre>
-    </blockquote>
-    Sorry i dint understand. From&nbsp;&nbsp;<span style="white-space: pre-wrap">amdgpu_userq_create, sequence is like this
-</span>uq_funcs-&gt;mqd_create(queue, &amp;args-&gt;in) -&gt;&nbsp;<span style="white-space: pre-wrap">mes_userq_create_wptr_mapping (This is where eviction fence is attached)
-
-</span>
-    <p><span style="white-space: pre-wrap">after mqd_create we are checking if the ev fence is signalled or not and based on that we are again going ahead to attach new ev fence if signaled to all bos.</span></p>
-    <p><br>
-    </p>
-    <p><span style="white-space: pre-wrap"></span></p>
-    <span style="white-space: pre-wrap">
-</span>
-    <blockquote type="cite" cite="mid:b2d8c2c6-15bd-4733-a7fe-035dce4c674f@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-The problem is more that the function is called at the completely wrong time. See amdgpu_userq_create():</pre>
-    </blockquote>
-    You mean to say mqd create is called at wrong place ?&nbsp;
-    <blockquote type="cite" cite="mid:b2d8c2c6-15bd-4733-a7fe-035dce4c674f@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-And BTW why do we have the abstraction of uq_funcs? That doesn't seem to make sense.</pre>
-    </blockquote>
-    <p>I also need to check that.</p>
-    <p>Regards<br>
-      Sunil Khatri</p>
-    <blockquote type="cite" cite="mid:b2d8c2c6-15bd-4733-a7fe-035dce4c674f@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Regards,
-Christian.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> 	if (ret) {
--		DRM_ERROR(&quot;Failed to pin wptr bo. ret %d\n&quot;, ret);
-+		DRM_ERROR(&quot;Failed to attach eviction fence to wptr bo. ret %d\n&quot;, ret);
- 		goto fail_map;
- 	}
++	/* aux (bit 117) copied from primary; same position in both buffers */
++	derived_raw[14] |= raw_primary[14] & BIT(5);
++
++	memzero_explicit(digest, sizeof(digest));
++}
++
++static void amdgpu_cuid_build_primary(struct amdgpu_device *adev,
++				      struct cuid_primary *p)
++{
++	u64 dsn = 0;
++
++	memset(p, 0, sizeof(*p));
++
++	if (adev->pdev) {
++		p->vendor_id = adev->pdev->vendor;
++		p->device_id = adev->pdev->device;
++		p->revision_id = adev->pdev->revision;
++
++		/* Prefer the PCIe DSN capability, else the SMU serial. */
++		dsn = pci_get_dsn(adev->pdev);
++	}
++	if (!dsn)
++		dsn = adev->unique_id;
++
++	p->dsn = dsn;
++	/* aux (bit 117): set when no genuine serial was found (dsn == 0). */
++	p->aux = (dsn == 0);
++	p->component_type = CUID_COMPONENT_GPU;
++}
++
++/*
++ * DOC: cuid_primary
++ *
++ * Primary CUID as a UUIDv8. Embeds the raw serial, so it is root-only (0400).
++ */
++static ssize_t cuid_primary_show(struct device *dev,
++				 struct device_attribute *attr, char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct cuid_primary primary;
++	u8 raw[16], uuid[16];
++
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++
++	amdgpu_cuid_build_primary(adev, &primary);
++	cuid_pack(&primary, raw);
++	cuid_to_uuidv8(raw, uuid);
++
++	return sysfs_emit(buf, "%pUb\n", uuid);
++}
++
++static DEVICE_ATTR(cuid_primary, 0400, cuid_primary_show, NULL);
++
++/*
++ * DOC: cuid_secondary
++ *
++ * HMAC-SHA256(seed, primary) as a UUIDv8. Leaks neither the serial nor the
++ * seed, so it is world-readable (0444). Without a provisioned seed a public
++ * default is used: stable but not fleet-unique, so treat it as a placeholder.
++ */
++static ssize_t cuid_secondary_show(struct device *dev,
++				   struct device_attribute *attr, char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct cuid_primary primary;
++	u8 raw[16], derived[16], uuid[16];
++	u8 seed[32];
++	unsigned int seedlen;
++
++	amdgpu_cuid_build_primary(adev, &primary);
++	cuid_pack(&primary, raw);
++
++	mutex_lock(&adev->cuid_seed_lock);
++	if (adev->cuid_seed_len) {
++		seedlen = adev->cuid_seed_len;
++		memcpy(seed, adev->cuid_seed, sizeof(seed));
++	} else {
++		/* default seed, excluding the string's NUL terminator */
++		seedlen = sizeof(CUID_DEFAULT_SEED) - 1;
++		memcpy(seed, CUID_DEFAULT_SEED, seedlen);
++	}
++	mutex_unlock(&adev->cuid_seed_lock);
++
++	cuid_derive(seed, seedlen, raw, derived);
++	memzero_explicit(seed, sizeof(seed));
++
++	cuid_to_uuidv8(derived, uuid);
++	return sysfs_emit(buf, "%pUb\n", uuid);
++}
++
++static DEVICE_ATTR_RO(cuid_secondary);
++
++/*
++ * DOC: cuid_seed
++ *
++ * Root-only (0600) secret seed for cuid_secondary, as raw bytes (at most 32).
++ * Reading returns the seed in use (the provisioned secret, or the default);
++ * read and write use the same encoding, so the value round-trips.
++ */
++static ssize_t cuid_seed_show(struct device *dev,
++			      struct device_attribute *attr, char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	unsigned int seedlen;
++
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++
++	mutex_lock(&adev->cuid_seed_lock);
++	if (adev->cuid_seed_len) {
++		seedlen = adev->cuid_seed_len;
++		memcpy(buf, adev->cuid_seed, seedlen);
++	} else {
++		/* default seed, excluding the string's NUL terminator */
++		seedlen = sizeof(CUID_DEFAULT_SEED) - 1;
++		memcpy(buf, CUID_DEFAULT_SEED, seedlen);
++	}
++	mutex_unlock(&adev->cuid_seed_lock);
++
++	/* Raw bytes so the value round-trips through a write. */
++	return seedlen;
++}
++
++static ssize_t cuid_seed_store(struct device *dev,
++			       struct device_attribute *attr,
++			       const char *buf, size_t count)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
++	if (count > sizeof(adev->cuid_seed))
++		return -EINVAL;
++
++	mutex_lock(&adev->cuid_seed_lock);
++	memset(adev->cuid_seed, 0, sizeof(adev->cuid_seed));
++	memcpy(adev->cuid_seed, buf, count);
++	adev->cuid_seed_len = count;
++	mutex_unlock(&adev->cuid_seed_lock);
++
++	return count;
++}
++
++static DEVICE_ATTR(cuid_seed, 0600, cuid_seed_show, cuid_seed_store);
++
++static struct attribute *amdgpu_cuid_attrs[] = {
++	&dev_attr_cuid_primary.attr,
++	&dev_attr_cuid_secondary.attr,
++	&dev_attr_cuid_seed.attr,
++	NULL,
++};
++
++static const struct attribute_group amdgpu_cuid_group = {
++	.attrs = amdgpu_cuid_attrs,
++};
++
++int amdgpu_cuid_sysfs_init(struct amdgpu_device *adev)
++{
++	mutex_init(&adev->cuid_seed_lock);
++	adev->cuid_seed_len = 0;
++
++	/* On failure the lock is torn down by amdgpu_cuid_sysfs_fini(). */
++	return sysfs_create_group(&adev->dev->kobj, &amdgpu_cuid_group);
++}
++
++void amdgpu_cuid_sysfs_fini(struct amdgpu_device *adev)
++{
++	sysfs_remove_group(&adev->dev->kobj, &amdgpu_cuid_group);
++
++	memzero_explicit(adev->cuid_seed, sizeof(adev->cuid_seed));
++	adev->cuid_seed_len = 0;
++	mutex_destroy(&adev->cuid_seed_lock);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.h
+new file mode 100644
+index 000000000000..473ba3a4ab8f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cuid.h
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * CUID (Canonical Unique ID) support for amdgpu.
++ *
++ * Builds a 122-bit primary identifier from the per-GPU hardware identity and
++ * exposes it as a UUIDv8, together with an HMAC-derived secondary CUID.
++ */
++#ifndef __AMDGPU_CUID_H__
++#define __AMDGPU_CUID_H__
++
++#include <linux/types.h>
++
++struct amdgpu_device;
++
++/*
++ * 122-bit primary CUID layout (frozen ABI):
++ *
++ *   0:63     Device Serial Number (amdgpu: adev->unique_id)
++ *   64:71    UnitID low 8 bits
++ *   72:79    RevisionID
++ *   80:95    DeviceID
++ *   96:111   VendorID
++ *   112:116  UnitID high 5 bits
++ *   117      Auxiliary Indicator
++ *   118:121  Component Type
++ *
++ * Packed with explicit shift/mask (not C bitfields) for a stable ABI.
++ */
++struct cuid_primary {
++	u64 dsn;
++	u16 vendor_id;
++	u16 device_id;
++	u16 unit_id;		/* 13 bits */
++	u8 revision_id;
++	u8 component_type;	/* 4 bits */
++	u8 aux;			/* bit 117 */
++} __packed;
++
++/* Component Type values (bits 118:121). */
++#define CUID_COMPONENT_GPU	0x2
++
++int amdgpu_cuid_sysfs_init(struct amdgpu_device *adev);
++void amdgpu_cuid_sysfs_fini(struct amdgpu_device *adev);
++
++#endif /* __AMDGPU_CUID_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 472e96ae884e..760103641592 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -48,6 +48,7 @@
+ #include <linux/vga_switcheroo.h>
+ #include <linux/efi.h>
+ #include "amdgpu.h"
++#include "amdgpu_cuid.h"
+ #include "amdgpu_trace.h"
+ #include "amdgpu_i2c.h"
+ #include "atom.h"
+@@ -246,8 +247,16 @@ static int amdgpu_device_attr_sysfs_init(struct amdgpu_device *adev)
+ 	if (amdgpu_nbio_is_replay_cnt_supported(adev))
+ 		ret = sysfs_create_file(&adev->dev->kobj,
+ 					&dev_attr_pcie_replay_count.attr);
++	if (ret)
++		return ret;
  
- 	ret = amdgpu_ttm_alloc_gart(&amp;wptr_obj-&gt;obj-&gt;tbo);
- 	if (ret) {
--		DRM_ERROR(&quot;Failed to bind bo to GART. ret %d\n&quot;, ret);
--		goto fail_alloc_gart;
-+		DRM_ERROR(&quot;Failed to bind wptr bo to GART. ret %d\n&quot;, ret);
-+		goto fail_map;
- 	}
- 
- 	queue-&gt;wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(wptr_obj-&gt;obj);
- 
- 	drm_exec_fini(&amp;exec);
- 	return 0;
--
--fail_alloc_gart:
--	amdgpu_bo_unpin(wptr_obj-&gt;obj);
- fail_map:
- 	amdgpu_bo_unref(&amp;wptr_obj-&gt;obj);
- fail_lock:
-@@ -520,9 +516,6 @@ static void mes_userq_mqd_destroy(struct amdgpu_usermode_queue *queue)
- 	amdgpu_bo_free_kernel(&amp;queue-&gt;mqd.obj, &amp;queue-&gt;mqd.gpu_addr,
- 			      &amp;queue-&gt;mqd.cpu_ptr);
- 
--	amdgpu_bo_reserve(queue-&gt;wptr_obj.obj, true);
--	amdgpu_bo_unpin(queue-&gt;wptr_obj.obj);
--	amdgpu_bo_unreserve(queue-&gt;wptr_obj.obj);
- 	amdgpu_bo_unref(&amp;queue-&gt;wptr_obj.obj);
+-	return ret;
++	/* CUID is informational; a failure here should not fail device init. */
++	ret = amdgpu_cuid_sysfs_init(adev);
++	if (ret)
++		dev_warn(adev->dev, "failed to create CUID sysfs attributes: %d\n",
++			 ret);
++
++	return 0;
  }
  
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-  </body>
-</html>
+ static void amdgpu_device_attr_sysfs_fini(struct amdgpu_device *adev)
+@@ -255,6 +264,8 @@ static void amdgpu_device_attr_sysfs_fini(struct amdgpu_device *adev)
+ 	if (amdgpu_nbio_is_replay_cnt_supported(adev))
+ 		sysfs_remove_file(&adev->dev->kobj,
+ 				  &dev_attr_pcie_replay_count.attr);
++
++	amdgpu_cuid_sysfs_fini(adev);
+ }
+ 
+ static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
+-- 
+2.54.0
 
---------------dtDI9D7pHmh5y0Mx83NAWaWT--
