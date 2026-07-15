@@ -4,121 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEA3C44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 09:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91AE7C44507
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 09:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73C0B10E13F;
-	Wed, 15 Jul 2026 09:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2C110E15F;
+	Wed, 15 Jul 2026 09:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mghmxb1N";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="WV8QhpUr";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012067.outbound.protection.outlook.com
- [40.93.195.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F2210E13F
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 09:35:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oy+pcL5oosbIFMCZP3b7VTnUD7fI7FBQDYyzs1tFRrqXaWllhqWiZ1Zod/c/RHr3IswjwD07xJ+UtT9bB6wmWP/uscQi7tU2zV2mu7v27OraoFSftfbIq2l+LA1QmpoElfceN2uDmvXWxn6j1oNBL/VSyY+KzMRP3yrBBz2EDyStFV/cZydXC3iXJp+a3DoFEZ2Xdl8dXrjLM25ZIQ+ws6w1qCrgx4VvFO9L/o1XJUyaVz+ZM7NdwM4ZI0NQAM7MWI0a5bdzKQ5z65gu0WGVNzxbRjYcg2b/3KwA8eMnu9WBA/Cd4ufN8B07J6qUVzV7uw5/w8Jl+b0Tz9db8dRWzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fE+g8a8dFfctb2PbUvj4b77wXFnJxVKbiVyCvzZVsNY=;
- b=dtT8AEFp04NsAJulEDI9S66RGmUFgoFTxowUC2b3afDyqpzbCsE73Rp4QS/dg2d0JAl1K8huKsKZHgm49r7T0zOyWADqy7xoys4sGAW3RoFr7uWOMEVFOL9kUPmeYy3fm7uuhS5eAKLvFCs5mzeH1/PSiwXBy4Uuk/gj7WG6coeFH4Aqlv3m9ZEyi5U/uTefjY4dXWhCck/IX7Y6xFqUG56xNY8Lz+rGOU1spF6qPMTxRXbvtdNqnSuHig1ROYrvGfc3ODtgIxfIQjV/4BTLKvAX94U+vdsh3os6tHHPtcX7e0AlGOjc4x+UMlvkKMe6hBt0Lz3aRUQ72lNg25XsYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fE+g8a8dFfctb2PbUvj4b77wXFnJxVKbiVyCvzZVsNY=;
- b=mghmxb1NVSu0mhDRv+DhrMGr8MgGWCEOVQ71gObW1yOqezGLUeZTvqR2B4pd0xQ//TqHYv0FYeTnV/W1zQd/RuviZF2exLiJA1R7PJiQvK4ufRTNS25YIBXrlUFBJzYcqwTzjdLN4Y0PkBzzbA/aVBB3/UaDSAl97b4qOmwMdbg=
-Received: from CH0PR12MB5123.namprd12.prod.outlook.com (2603:10b6:610:be::12)
- by IA1PR12MB8519.namprd12.prod.outlook.com (2603:10b6:208:44c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
- 2026 09:35:00 +0000
-Received: from CH0PR12MB5123.namprd12.prod.outlook.com
- ([fe80::f6fc:f6bf:4c44:1e8c]) by CH0PR12MB5123.namprd12.prod.outlook.com
- ([fe80::f6fc:f6bf:4c44:1e8c%5]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
- 09:35:00 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
-Thread-Topic: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
-Thread-Index: AQHdFC4+Haz6NDq5mk2U42AOiJ+D97ZuUFgAgAAA1aA=
-Date: Wed, 15 Jul 2026 09:35:00 +0000
-Message-ID: <CH0PR12MB512339D00AF5EA7400D2D45EB0F82@CH0PR12MB5123.namprd12.prod.outlook.com>
-References: <20260715074734.2668631-1-tao.zhou1@amd.com>
- <20260715074734.2668631-4-tao.zhou1@amd.com>
- <BN9PR12MB525757867B3C2EB0FED0CE73FCF82@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB525757867B3C2EB0FED0CE73FCF82@BN9PR12MB5257.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-15T09:22:27.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5123:EE_|IA1PR12MB8519:EE_
-x-ms-office365-filtering-correlation-id: 26548f02-9311-4fde-6bb5-08dee254578e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|4143699003|56012099006|11063799006|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: WweB86PeWGJ2GBKwBD8YOhkI+J+U3AnVx27I8eOYwWlUZYWK5pBifd/zFde45HfaM7UzezgtfjFLY0Span766hgkB2n3txoU0+2UAtfcbCoOP8Fata4nvAyid+Pmr8ZitKzVNYn0OIhZAU4tVu6A2gaOKdcL62Qa9w6JVTjG6rVGTidqCPRb3bnC5d8v//3YHAHdsfBEwUh66rLsqbL7MTcouu8zHEZ1uIsB394SNACuR9M7yYNTImIqY+N0rVLc4XNBoAZ1mPZCaTk2koS/amXVpM7CuFeXqsbyrlls4ohou2ChctRyOxSrmXHO1836X1GBJaNspy/cAHTTRsy7gQfdCJDPrupchlmbbtcsarg10CVU1qtjkTMeMzVKnYofV8XPkM0phrFnjfPLsqnkLsxONR4s0kCZbsiyiX9uy1ArFISrV9SMO+f5gQRpkN6SFCDMZPM0M8b2h0cAUMsskrIVbSLNuShm1pcv3cgXnE0RbjreH+lprYIw0BQ8YjN++p7CIDsyvzqKmdPW8BC9kx5UWlbWcrY2XRIOrqPaJpUAJGYJneP+oYSII1f4YIKpfud4sG63N7zL4w8sK6hZ7drRbAVSXB3AWEzfel2yCZm5tY3Uf2rJzdUopVsX6DoVrb0r2PmljTnmmMqinpuBVFPLlTt32k6d0evGK6KdqqtsRryjiRvH8k8lC+vBSW9Q6Rt6e6UBCND6soh8QhOcfrEJRWnbmL8KcqhCv5FO7jo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5123.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?oqijRlHq5iOrLbg3WROkSmJ4JP0GZhFlbH10NuIXCrZYj+Lv8y/d05SCYPj3?=
- =?us-ascii?Q?zR25Ce53erAkVmyB+6nrPSvoRmZPZpQEVHzeHDQ5ylWvlYO6Fxn7MkaHnXOI?=
- =?us-ascii?Q?sXa6/SiGWCWNuBUOuHaaauQatLiy1jGWAcmO9E+ToXj1bb0pv1Bsy8bLJ1KJ?=
- =?us-ascii?Q?bDDFuCKqcbOHvnAftpTCVPdn7PFw5I2+5Ai5j0H7yMGD4oxweC3cBf1dZr9o?=
- =?us-ascii?Q?JHKg/Kyh8R7Dz+8kKDmqgAIln22ZgRAWIpiTLxXL2NDoNbTewKJw+TLZO2tj?=
- =?us-ascii?Q?8dA/Qjp06ctyptjypCVDf1Qe4g81FAKoS+oLkDWy8mOtrf2xE8ebhjwvsC0W?=
- =?us-ascii?Q?xGGkiujuZg5J8AzG2Yi+XVsl4GxVDvcVlozJUUTH+7rYRQ+rI/KJrTfHQleT?=
- =?us-ascii?Q?3Q/MZ3yzPDMfSE06phdpCoxj7FqQxACWhhV5EDZOqz185mJ+OJRvynRUvT50?=
- =?us-ascii?Q?sL4Fkaqdq1HsqfGtdi2xdKKuEKhB7pCjZL8L4bUdQly01Z6FiKLbd2e3aY2C?=
- =?us-ascii?Q?mbF9T5d87fwj0T7we1WiArUscGksbmhdh/pTteLroBVqy7lsMdwexUy1prKU?=
- =?us-ascii?Q?+Upmw28cYQ/3Fb19C4enAQyEqcWaXo3uvhGJ/H0WEtdCeoIQp/oA+QGcPjsO?=
- =?us-ascii?Q?EE5ym9jvFFvZrsP0IEi0YgA2nSiJ3PjozXzg2Z3VhKdgePHj0q8QoFFYj+md?=
- =?us-ascii?Q?wDw6m63C5WNQxU6fb51M3cpCCAXPk0jmCDmhilo7KwuNkCsYZjTIkrNAIzzY?=
- =?us-ascii?Q?wJ+4OKsAzxQmEL4rb7PNGnOUe3wzpfN4UxPjhFf/RK5VeISfXzyv6qiXUc9N?=
- =?us-ascii?Q?ptcyEzixa8qEXrO5TGv9DKo1z2ckleJAiM8a/uXl2IUKe9nxsGUd8d1hQc3/?=
- =?us-ascii?Q?tV53cWOSAYRz4/PhsfmwILMZ2VRi82z3wp3EqHPuMJn3G0Wfx4y8nigQO6Y8?=
- =?us-ascii?Q?ANHtrohsZ+ewutmPkTvenV9MJvWR7PqteSE/sMO4mV881ZF0oRH84RGlyCu/?=
- =?us-ascii?Q?FoXAgBNopzWMDWsdVPm0UNMzVcgXNWOR1LPX2ecaA+gQ+9YVKSVJ0BcsZLwr?=
- =?us-ascii?Q?SRv4uBmZzkiWRF2KAW2IDY/256QcydVphs9o0/RMDjef+wHeQzpINrp1w2Jj?=
- =?us-ascii?Q?M7PnYEY30FbjwPPlM70B7dFanwPFqy96d78XNiNl8ZwBkLtWAzgVJHRgS3nd?=
- =?us-ascii?Q?7vE+KS8ueCTMLE8XO/zCPnrQE4XUdYRxw4Xa7367FswOvB4wCe6AjloSika8?=
- =?us-ascii?Q?6JCfiVSspcHC5gZ8+P+csbfA0kOAUZ+SNVbgozhu1WpJM4ZWwCnhdDADqgmN?=
- =?us-ascii?Q?1Y6Oeh7fNlUBbuiyNy49IMO8kx9wAhdMjbC13bdrX14y2OIqF/srbM61XzHS?=
- =?us-ascii?Q?JfZaoQ2Zll3U8LjeOspQr8V3faM+q3ZAApcp3g3Nr2wKdRajy7espBXm8rtg?=
- =?us-ascii?Q?/4kpostjwv9GMoY2iO2WDr+//71q/gMHLVobISastWkHjbCo0pUpXR5Z8rlY?=
- =?us-ascii?Q?TEOTIqnLZ2LgHdP3GbHKFoNXNUj4kWB4GYtzOdv3Nu51BMcFEbwbPlV3nqCW?=
- =?us-ascii?Q?wEN+/CWelsamWlQKQXLk73Ff9vVWF3y+C1t+VUUTYojKWGgbQ6OgQnxzHSyV?=
- =?us-ascii?Q?Sdwa4h6IEqzvgZ9ArNrCodGdVPNMqLyfEAPCIv8bznRz27rq1L28lSfY5aw+?=
- =?us-ascii?Q?1vncA7bDjMptHzwLTr2HTme4OPjQsPXAT+uAMMFRohExEUWE?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF2410E15F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 09:38:43 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-493f431e317so14456085e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 02:38:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1784108322; x=1784713122; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=AbxlUXBEQTQDQ6dtK3BtbH2dZAbiBjbDwaTSG+TsdFc=;
+ b=WV8QhpUrE8ALPXiWUT7AIGflWgQckND/5QSUzlQ5qaIivNLWkwtq1ulngHtjdI7NAw
+ bou1pdaMztRXBK45zPVEQT7Ul0p+7MZosR9ymRqaqnQiFpbFPKyUQE3vkgXd0qJnAqY/
+ HT7xSbrLd6/e1Vqfe74v5qROsQnFHRMfe3KPpYFXyVB+yYaKfIudiynZoqrYeots/gKu
+ pn1JnrfB8yVYjGaZ39ebZwsO9+VxbN2NBiLg3TqDn1QocMOYQZDr+wL2/aw7NP5ZCn9F
+ ZnFVCX3oTLYE8wmVQiH8JJjGLa6E+aEzYBS1dfd1X0AjdCgVPYM3NGh2Bav4TzIw6m7A
+ 45NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784108322; x=1784713122;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AbxlUXBEQTQDQ6dtK3BtbH2dZAbiBjbDwaTSG+TsdFc=;
+ b=nDFnDE8oTsbl5DBRwQlK7xdoy4DPkrPVbNDgobu26p+kZdRM/edQNm9+PrGtCQ/fuX
+ atW/8kUnjNw3vmKUZMuU2iwOJtp8Eh8VQh0mwyBXH75q822K5r9QCGSwcmypwpGJ4/cN
+ YZovIkRNBRQnZCKRB3ZdBZ0nLARTzQlxO2z/r1WfXKkVIHGJEMOTAJ1nteU+xw+Ywl0o
+ 3XM/eZ83xSJTeKu50E8Pgt25tEaEao3Wp9zWw6EdUZLC/b8JjgL7P8+zlHke4VQs9QUg
+ C1n5YgoXGpUV1JbNeF14klH3q2odUN0Lb8e4PSMaWW25/9ovasr0Q5zN8Kt1b+GKTIrn
+ dlNg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoOF8+g4Q/zhgEQKSnlL0kDoyJLJs7QfRn6ot6yRzG/09voMAXR0POeaH5horO6Tz5W+VJ30log@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUZFOaFjh/qZTzp8RuYM2Ds9BQ5xVlGDf/M5uUdJo2wIo9QReF
+ /ItShpR986hY0P2K4PG5nHxLrIYtLGvTWbwRcWiuDsRi1646xnsGAcQPnAo0rZ05I8jwHPXvZyj
+ YYBxKzSs=
+X-Gm-Gg: AfdE7clepoFlZO/aLWrn18L9zGDDScp5ByrVVROVFa3CBNfZgC0wSGk7gOLmpvdl0e/
+ R8pQk/voynqe4SAir6rOmlXVd+NO23Uj8TV/moli3EyO4TUoFeBtLqFDGlfN6oF3tykcVg+bp7a
+ liFzobQcLAjcLgy6IPP2V8nClraxzZ4h+6vD/Fw06P+A2x7NOmPnX5Sv9X6iwy/wessXeCBs9hw
+ BaPaocpzVZmUbeQV5sGQoF52QCDfAvUzXrhUUQX1AKeOsvSsNdFmrJZwuL1GYHVybykaADMJfAc
+ aU3+KitftTtzIHu7+Ed33QE5lUU2M8Docahro4/pnWWCY54HOpR0HfDywqA+C7RWKabzk8i9uf8
+ 775IOpSyDqHEkOmHG6hqb9EN2Xj2mRFDUVLFfuOWZjK5NrCO9bvJd0QtkvGGqY1Xq3WdZ2PrkJJ
+ E3KF0nGFM+XthWPOOGsHTa3a3yCYMR3oySsuHpRhg73xoG
+X-Received: by 2002:a05:600c:1548:b0:495:3e2e:11e5 with SMTP id
+ 5b1f17b1804b1-4953e2e1373mr11731875e9.13.1784108321806; 
+ Wed, 15 Jul 2026 02:38:41 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-495087366c0sm251005525e9.7.2026.07.15.02.38.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jul 2026 02:38:41 -0700 (PDT)
+Message-ID: <2a8374ee-bd72-4306-9524-a8cb3cc0d5f8@ursulin.net>
+Date: Wed, 15 Jul 2026 10:38:40 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26548f02-9311-4fde-6bb5-08dee254578e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2026 09:35:00.7101 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AJKOrJkvoewukUWIrWmRfwJKSqFusarvFjFAd7kixqAbRC3ILJzhuarUpA7gTsc3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8519
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/9] drm/amdgpu/gfx7: Use COND_EXEC
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+References: <20260713125838.30607-1-timur.kristof@gmail.com>
+ <20260713125838.30607-8-timur.kristof@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260713125838.30607-8-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,122 +94,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-> -----Original Message-----
-> From: Zhang, Hawking <Hawking.Zhang@amd.com>
-> Sent: Wednesday, July 15, 2026 5:29 PM
-> To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-> Subject: RE: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
->
-> AMD General
->
-> Can we just use ACA_REG__MISC0__ERRCNT instead? Was trying to understand
-> the use of real_de_count
->
-> Regards,
-> Hawking
-
-[Tao] as you can see in aca_parse_bank_default:
-
-         if (aca_check_bank_is_de(ras_core, status)) {
-                 ecc->de_count =3D 0;
- ...
-
-for non-umc blocks, the ecc->de_count is 0 even aca_check_bank_is_de is tru=
-e, so I introduce real_de_count to represent the status of aca_check_bank_i=
-s_de.
-
-BRs,
-Tao
-
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zh=
-ou
-> Sent: Wednesday, July 15, 2026 3:48 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-> Subject: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
->
-> It only depends on the status of ras bank register, and can be used in co=
-mmon aca
-> layer.
->
-> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+On 13/07/2026 13:58, Timur Kristóf wrote:
+> COND_EXEC tells the CP to discard the dwords following it
+> when its condition is zero (false).
+> 
+> This is useful for GPU recovery because it can help reduce
+> collateral damage during GFX IP block soft reset, meaning
+> that it reduces the likelyhood that we fail some jobs which
+> are not guilty of the hang as the IP block soft reset
+> mechanism clears the condition before doing the reset.
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 > ---
->  drivers/gpu/drm/amd/ras/rascore/ras_aca.h      |  2 ++
->  drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c | 18 +++++++++++-------
->  2 files changed, 13 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
-> b/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
-> index f61b02a5f0fc..0bde803f7472 100644
-> --- a/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
-> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
-> @@ -83,6 +83,8 @@ struct aca_bank_ecc {
->         u32 ce_count;
->         u32 ue_count;
->         u32 de_count;
-> +       /* only depends on bank reg status */
-> +       u32 real_de_count;
->  };
->
->  struct aca_ecc_count {
-> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-> b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-> index 840610538c1f..41df331587a0 100644
-> --- a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-> @@ -207,6 +207,13 @@ static bool aca_check_umc_ce(struct ras_core_context
-> *ras_core, uint64_t mc_umc_
->                      !(aca_check_umc_ue(ras_core, mc_umc_status)))));  }
->
-> +static bool aca_check_bank_is_de(struct ras_core_context *ras_core,
-> +                               uint64_t status) {
-> +       return (ACA_REG_STATUS_POISON(status) ||
-> +                               ACA_REG_STATUS_DEFERRED(status)); }
+>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 22 ++++++++++++++++++++++
+>   1 file changed, 22 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 915612628f9a..6d52b8710437 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -3162,6 +3162,22 @@ static void gfx_v7_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+>   	}
+>   }
+>   
+> +static unsigned int gfx_v7_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
+> +						      uint64_t gpu_addr)
+> +{
+> +	unsigned int ret;
 > +
->  static int aca_parse_umc_bank(struct ras_core_context *ras_core,
->                         struct aca_block *ras_blk, void *data, void *buf)=
-  { @@ -230,6 +237,9
-> @@ static int aca_parse_umc_bank(struct ras_core_context *ras_core,
->         ext_error_code =3D ACA_REG_STATUS_ERRORCODEEXT(status0);
->         misc0_errcnt =3D ACA_REG_MISC0_ERRCNT(bank-
-> >regs[ACA_REG_IDX__MISC0]);
->
-> +       if (aca_check_bank_is_de(ras_core, status0))
-> +               ecc->real_de_count =3D misc0_errcnt ? misc0_errcnt : 1;
+> +	/* Discard following DWs after this packet when gpu_addr==0 */
+> +	amdgpu_ring_write(ring, PACKET3(PACKET3_COND_EXEC, 3));
+> +	amdgpu_ring_write(ring, lower_32_bits(gpu_addr));
+> +	amdgpu_ring_write(ring, upper_32_bits(gpu_addr));
+> +	amdgpu_ring_write(ring, 0);
+> +	ret = ring->wptr & ring->buf_mask;
+> +	/* patch dummy value later */
+> +	amdgpu_ring_write(ring, 0);
+> +	return ret;
+> +}
 > +
->         if (aca_check_umc_de(ras_core, status0))
->                 ecc->de_count =3D misc0_errcnt ? misc0_errcnt : 1;
->         else if (aca_check_umc_ue(ras_core, status0)) @@ -240,13 +250,6 @=
-@ static
-> int aca_parse_umc_bank(struct ras_core_context *ras_core,
->         return 0;
->  }
->
-> -static bool aca_check_bank_is_de(struct ras_core_context *ras_core,
-> -                               uint64_t status)
-> -{
-> -       return (ACA_REG_STATUS_POISON(status) ||
-> -                               ACA_REG_STATUS_DEFERRED(status));
-> -}
-> -
->  static int aca_parse_bank_default(struct ras_core_context *ras_core,
->                                   struct aca_block *ras_blk,
->                                   void *data, void *buf) @@ -266,6 +269,7=
- @@ static int
-> aca_parse_bank_default(struct ras_core_context *ras_core,
->
->         if (aca_check_bank_is_de(ras_core, status)) {
->                 ecc->de_count =3D 0;
-> +               ecc->real_de_count =3D 1;
->         } else {
->                 if (bank->ecc_type =3D=3D RAS_ERR_TYPE__UE)
->                         ecc->ue_count =3D 1;
-> --
-> 2.34.1
->
+>   static void gfx_v7_0_ring_emit_wreg(struct amdgpu_ring *ring,
+>   				    uint32_t reg, uint32_t val)
+>   {
+> @@ -4943,6 +4959,8 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
+>   	.get_wptr = gfx_v7_0_ring_get_wptr_gfx,
+>   	.set_wptr = gfx_v7_0_ring_set_wptr_gfx,
+>   	.emit_frame_size =
+> +		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_ib_schedule) */
+> +		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_vm_flush) */
+
+gfx8 version /appears/ to make an effort to keep the additions here 
+sorted in the emission order. I think at least. Not sure how much value 
+it adds since the whole emit_frame_size mechanism is "fragilotedious". 
+:) Another task for a rainy day - we see if it can be replaced with 
+something more manageable. Anyway, digressions aside:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Regards,
+
+Tvrtko
+
+>   		20 + /* gfx_v7_0_ring_emit_gds_switch */
+>   		7 + /* gfx_v7_0_ring_emit_hdp_flush */
+>   		5 + /* hdp invalidate */
+> @@ -4965,6 +4983,7 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_gfx = {
+>   	.pad_ib = amdgpu_ring_generic_pad_ib,
+>   	.emit_switch_buffer = gfx_v7_0_ring_emit_sb,
+>   	.emit_cntxcntl = gfx_v7_ring_emit_cntxcntl,
+> +	.init_cond_exec = gfx_v7_0_ring_emit_init_cond_exec,
+>   	.emit_wreg = gfx_v7_0_ring_emit_wreg,
+>   	.soft_recovery = gfx_v7_0_ring_soft_recovery,
+>   	.emit_mem_sync = gfx_v7_0_emit_mem_sync,
+> @@ -4979,6 +4998,8 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_compute = {
+>   	.get_wptr = gfx_v7_0_ring_get_wptr_compute,
+>   	.set_wptr = gfx_v7_0_ring_set_wptr_compute,
+>   	.emit_frame_size =
+> +		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_ib_schedule) */
+> +		5 + /* gfx_v7_0_ring_emit_init_cond_exec (from amdgpu_vm_flush) */
+>   		20 + /* gfx_v7_0_ring_emit_gds_switch */
+>   		7 + /* gfx_v7_0_ring_emit_hdp_flush */
+>   		5 + /* hdp invalidate */
+> @@ -4997,6 +5018,7 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring_funcs_compute = {
+>   	.test_ib = gfx_v7_0_ring_test_ib,
+>   	.insert_nop = amdgpu_ring_insert_nop,
+>   	.pad_ib = amdgpu_ring_generic_pad_ib,
+> +	.init_cond_exec = gfx_v7_0_ring_emit_init_cond_exec,
+>   	.emit_wreg = gfx_v7_0_ring_emit_wreg,
+>   	.soft_recovery = gfx_v7_0_ring_soft_recovery,
+>   	.emit_mem_sync = gfx_v7_0_emit_mem_sync_compute,
 
