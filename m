@@ -4,97 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA24C4450B
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 07:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8510FC44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 08:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3CEC10EF44;
-	Wed, 15 Jul 2026 07:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19F1B10EF2C;
+	Wed, 15 Jul 2026 08:02:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jcnd3vyS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qFHIf8g0";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011050.outbound.protection.outlook.com [52.101.52.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82FCF10EF1D
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 07:47:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qnj6eUaYExANFPNzrSZZ4Z97uSNtLWvLFxGepFpAPHz6FE4xvXSL97JVupeIn6trYZ5CE9XraoQ0x+HBZocvZ1q3McKb1lluukRfyuKsYlJaujdfFwlUtQs4wvCc6k6sE3u9gwcYM2TwmbShB6um8+lmZYw2BmAlW21uJQTeTOOK0zZ/uawa8P29S8QWA2Cx/7BHe5c+i19phT1DNMB/r2Hgxi4m0anTYLIEmDoYqxk38RyfPSSpNWFUvvEcsYczng9oV24p5jsDElHV8e1HDGSEE/aHZ26nHbSBkKsD8lqfAFnaXDjpE1MFLiteMaiYZNsM4ipzTUFcVivCai3yMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C94jRG0YxB71fgUBwgKJn8+zjQxPUPCexadwbEJeZ4I=;
- b=eeENKu3hZUxigLm4fg6dEKj9f6bVUtzvr03+PPysk0Qax+yjZp6RVsiPLF/MPU5z8ykldzFxLp3hu2DVuDgOMkhSKUGTbxRkSUmHJ8NMqlBFpVk3QlLalunRc2wd5WJmawJjfiD78/lccdEhIIIs9g+EASks5nbWnmZ2bUJkXZTCMZVQVQjUgOWeYLBNyNu0/s40uU1mFYslIq3pY9q+mNFqAUZsE7yUjHD+MKAHXDYq4qHLSzDycIF9glWKPE9XqBUkscqL1EeBnziWoo2JvkVZn8ZczrpDOeh56ePqUlArKoB+zgyEpyB+zaWawnAjVD+h2Fqkj0btWZXYnkIojQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C94jRG0YxB71fgUBwgKJn8+zjQxPUPCexadwbEJeZ4I=;
- b=jcnd3vyS5d1UU/t5xxN7tlu2RTRdYuW9v+0rQ3W899eZ7W3UDq7kaN89EOYqmipwFNxNZhCjkkbEN6tc0o6KsDgSXUkeBhMGNkAoHw+E85MqjJ9NGkt6Lf9N5ooL5dBdZ4EhVUIUxNz7b+hgqaHfbdrbbMA3gNDp8dackzwq5rE=
-Received: from MN0PR02CA0008.namprd02.prod.outlook.com (2603:10b6:208:530::10)
- by LV3PR12MB9215.namprd12.prod.outlook.com (2603:10b6:408:1a0::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
- 2026 07:47:51 +0000
-Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
- (2603:10b6:208:530:cafe::15) by MN0PR02CA0008.outlook.office365.com
- (2603:10b6:208:530::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.10 via Frontend Transport; Wed,
- 15 Jul 2026 07:47:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 07:47:51 +0000
-Received: from tao-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 02:47:50 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
-Date: Wed, 15 Jul 2026 15:47:34 +0800
-Message-ID: <20260715074734.2668631-5-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260715074734.2668631-1-tao.zhou1@amd.com>
-References: <20260715074734.2668631-1-tao.zhou1@amd.com>
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12D8010EF22
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 08:02:54 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so42782735e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 01:02:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784102572; x=1784707372; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IXG7e5rrawzo35m9/0tm3JVzxLn0JXGxhNy6R+mWNdA=;
+ b=qFHIf8g0SwHCjd48BmAeNucbA+ian3Y443vpovgus9bcLeSODgT3vg+8TGgIRvNzM3
+ lo2SgyoHXzddFdmnZ81G/YJd0f5sgtDjF5fAqp/QN6nMcL+g4BhCGZvm4gnh5rr8eDFo
+ nN8XiHf2ly/lTTu8wbMfV990nrG8uaQ4QiI02kqKzq3znfGMksW0J78x99ZBI0YiR35+
+ ScifE7gJNJY8zfvxJ+VuZqoas4eXiMeBYNgvd1W4GzkKBaaQUxu2s8DAW35tNsJArkS5
+ waC+FUGfxz/uSxK4bth3cykdyW0OPE5j9xcvk5qllhdjRO/pPE97EoPU+Hben5oC27OJ
+ jcww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784102572; x=1784707372;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IXG7e5rrawzo35m9/0tm3JVzxLn0JXGxhNy6R+mWNdA=;
+ b=tZvCB3Qr7HTBqbX9gZEksrM1O8cACSKACUU0doLN6HOv/v+JOU3RlYjmHYZLkalkVh
+ MmBP0XCZttY3mrBrtNoFmxX0xMMyKA43rXgsQkTRBarJbuwL5VqhrPTpnSZvNQ37Vov1
+ SUS7eCqAiGOW1Ltd/BiUpg4nRPke9PRshdbhv5a8fGWU7VNvV0XVITKFFq4Zdqywdf+w
+ u9E8qO5yZlYbR1PXPCwTy+F+9XqVHOD9jmVLXN7Z9Brzoua8OojNE5YsrzaXJoyTw0le
+ 0k7EckZBvu5teBA8PQY2uRQcZnbaWD0CxT4K6af9EopatsowYcfSuPIcYszt8gpKRHa2
+ dZWQ==
+X-Gm-Message-State: AOJu0YwFZpGI0453Pwe13dYNy0Skdr2oeVSgwfFx/MFpo02JuRIEh/M9
+ lVeiqMbOzZirNn2cQ1Sexp+JaW7256CrhYs5Z/njsVB1mH3gBo7GDI5L14TC5g==
+X-Gm-Gg: AfdE7cmO1vt9LEyOy7X39EhfBwhZvfPoRH+g45a12psItfuidY0+ONBhpGu6SReOiYg
+ gFEM6wd7rg5+T6q4HVVmB3UFbXgEvA9oWkNChokSNWH+oaIpEvPO9SAKykkNxz338fcREBhPk3v
+ IDTVPlfjoHNFmLy2MccnO+37Eir7GXsYae3MXNYS2lsmg3RFL0O9I7mBGuYIHeqOxdTiCk1kQUR
+ Ju1gkv6WzWUp1hekLm3V6Sjuwx8ELMyDNvDmtX2MwnmnL3RMJgvBsF9MI5VUu0y0/JG4RwNwmpq
+ 2l9QYtIOjse19wuwCCu5CUET3SnXoTB4PYKxiDXRVneH1IZmI46oYE2Fuk/3okyyW1ipUMib9Or
+ EBsuf+7zqNj38B7nCmqQc/ADG+fp12XD6c9ziG5OvjZKR4oVy2xa5Pslj8o2GPCgAcjHIOpj5Vy
+ VMhyEx6eS9wocrr5+rpz9GrkCy0a5iHPVocYCbOkcCqHcMsky2t1GzuIN+HHivkkW8mGivFSX8G
+ HYF1P5WmM2BF8JBQ/CSCHighmi4sQ==
+X-Received: by 2002:a05:600c:6207:b0:493:faf3:3ea5 with SMTP id
+ 5b1f17b1804b1-49538992bcdmr60001505e9.4.1784102571996; 
+ Wed, 15 Jul 2026 01:02:51 -0700 (PDT)
+Received: from timur-max.localnet
+ (20014C4E24CD7200F6BBA872344E1A32.dsl.pool.telekom.hu.
+ [2001:4c4e:24cd:7200:f6bb:a872:344e:1a32])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49508728019sm130013635e9.5.2026.07.15.01.02.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jul 2026 01:02:51 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+Subject: Re: [PATCH 3/9] drm/amdgpu/gfx7: Return error code when compute ring
+ tests fail
+Date: Wed, 15 Jul 2026 10:02:49 +0200
+Message-ID: <7296879.9J7NaK4W3v@timur-max>
+In-Reply-To: <CADnq5_M9hwLQw8YMqEebQ7q_kYLx2KKetZJFrszGOiOSYio_dQ@mail.gmail.com>
+References: <20260713125838.30607-1-timur.kristof@gmail.com>
+ <2c920253-9bbc-4057-b5e0-15414220a52b@ursulin.net>
+ <CADnq5_M9hwLQw8YMqEebQ7q_kYLx2KKetZJFrszGOiOSYio_dQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|LV3PR12MB9215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c1d7123-3534-4a62-0d88-08dee2455f4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: +sWQP1sLJvCUo2dGCtOZbzHPJltkD+cl4ofe/SMAD0OSUxELxMRHBoqXmk9co9Wc7XThwH80XJDJVjLbjP1M9jz3+Sa8HGfcYgSuk7ViQxVMMDL2vEQQ472etCKJsSsCW+R/Imtx6ApdHDLyFsG926wdbH5wmoYTacQQ6+yxAtZL/iznZh/G80MB3pk3riym6Kzrd5A+nqhCelC7u4LTFbTQuEvDjTfU12YfaIswCPFJa7KSUN1heb8HVrEpx3hME1BuaG/ilQyH2m9a1HkVfaq+YzEEe1pcaX84ztZpO/BLeBUGLZLNuh0pzPoP+po4IiZJcsQpPyF7Ez3CUPftkZt6C4hw21rdJA5lp9pWBCwyAxHtWcmBb0cP7wrJQWqQO9de5hfgTiYIQTMOCQy2Yz1HqEUp/Td1fqV7sgb/m8cfCkgDlB5Ruv8hogKp7BO/frHzigbUPhVVjtX3LIgEZYJBXGyYPukSOhYfH1EeyNPDvV06bibNwp+VZ7YJxlQo7IoouuTYTnbNrWvugU9F3ktGB2zKVuBmjyebJb4wViSf2OBKwY0OHZkes0IjAAoKFfyK0YbzRjYEc0sDIMyHEi/RijYSQZzudScEn7QD23MVyI/ImP9wV1VfXftcosE190UTEVkOC1Df5PsVnhHWfbtXTUb6F/aK6joJcPeFl+dSDItXaTvXu3VIrGqDamtXbWWBeZp9Cfd5nB4Ksm8LlQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sHUS+ZVbySEcfW+ErUTkhQe4XRyNvuXyDS926ryMMRmD5u4INsfhNdJhjvfrniitZBGMoqgrJIW3gQT50W8+lWsrfILOlbJxXYcvpzisPmzqULMesejVpeIANuwroDm6MmSdyhEbdnjLwizFu3rQo2ZecfB/dmT6991AitgPmGgga56SDiyQtUoH15H1ONOEX8eHpvW3KMKZPzVSVcKSQC27vHyY2asKscjHUCIDsgAypUBPvwFnugDh05G0uCrpRZixd6lYgEtB13VtcLfvG8S8+jfUMB0G4R1ve60UdnzJd1whgPBN+VISjTJodYXEH429qH4n6wb6j8V3PGj+9Kgkzk/5cpGKCuS0gtm1K4tRK3NE09KhmKXL8p1JDP3ggy0k6uBk8bSF1zhKERnUSH9QAwzljD9eUah2wy4XL6Dd/9WQv4o7EB55EAGslb7o
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 07:47:51.2067 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c1d7123-3534-4a62-0d88-08dee2455f4a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9215
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,85 +94,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So we can disable ce log manually.
+On 2026. j=C3=BAlius 14., kedd 22:41:33 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=
+=A1ri id=C5=91 Alex Deucher wrote:
+> On Tue, Jul 14, 2026 at 4:14=E2=80=AFPM Tvrtko Ursulin <tursulin@ursulin.=
+net> wrote:
+> > On 13/07/2026 13:58, Timur Krist=C3=B3f wrote:
+> > > The gfx_v7_0_cp_compute_resume() function should only return
+> > > success when all compute rings are actually functional.
+> > > This will be especially important for soft reset which needs
+> > > this to know whether the reset was successful.
+> > >=20
+> > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > ---
+> > >=20
+> > >   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 6 ++++--
+> > >   1 file changed, 4 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c index
+> > > 9c4b3ac27e1f..a1a9f3fc4567 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> > > @@ -3019,12 +3019,14 @@ static int gfx_v7_0_cp_compute_resume(struct
+> > > amdgpu_device *adev)> >=20
+> > >       gfx_v7_0_cp_compute_enable(adev, true);
+> > >=20
+> > > +     r =3D 0;
+> > > +
+> > >=20
+> > >       for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+> > >      =20
+> > >               ring =3D &adev->gfx.compute_ring[i];
+> > >=20
+> > > -             amdgpu_ring_test_helper(ring);
+> > > +             r |=3D amdgpu_ring_test_helper(ring);
+> > >=20
+> > >       }
+> > >=20
+> > > -     return 0;
+> > > +     return r;
+> > >=20
+> > >   }
+> > >  =20
+> > >   static void gfx_v7_0_cp_enable(struct amdgpu_device *adev, bool
+> > >   enable)
+> >=20
+> > Gfx8 and 9 (did not look further) do not do it like that. Should they?
+> > Or there is more work there to be done first?
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 1 +
- drivers/gpu/drm/amd/ras/rascore/ras.h            | 2 ++
- drivers/gpu/drm/amd/ras/rascore/ras_aca.c        | 7 ++++++-
- drivers/gpu/drm/amd/ras/rascore/ras_core.c       | 1 +
- 4 files changed, 10 insertions(+), 1 deletion(-)
+I actually added the same code for GFX8 in the previous series.
+In gfx_v8_0_cp_test_all_rings() it checks that all rings are functional, an=
+d=20
+it calls that from gfx_v8_0_cp_resume().
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index c55288c2df9a..1e95419989b4 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -310,6 +310,7 @@ static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_dev
- 		amdgpu_ras_mgr_eeprom_is_supported(adev);
- 	init_config.poison_supported =
- 		amdgpu_ras_is_poison_mode_supported(adev);
-+	init_config.debug_disable_ce_logs = adev->debug_disable_ce_logs;
- 
- 	amdgpu_ras_mgr_init_aca_config(adev, &init_config);
- 	amdgpu_ras_mgr_init_eeprom_config(adev, &init_config);
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
-index 5719bc1b6167..9d538a07c50e 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
-@@ -301,6 +301,7 @@ struct ras_core_config {
- 
- 	bool poison_supported;
- 	bool ras_eeprom_supported;
-+	bool debug_disable_ce_logs;
- 	const struct ras_sys_func *sys_fn;
- 
- 	struct ras_aca_config aca_cfg;
-@@ -348,6 +349,7 @@ struct ras_core_context {
- 	bool ras_core_enabled;
- 
- 	u64 ras_fw_features;
-+	bool debug_disable_ce_logs;
- };
- 
- struct ras_core_context *ras_core_create(struct ras_core_config *init_config);
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-index 67a35409ff0e..9760894c4c66 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-@@ -98,7 +98,7 @@ static void aca_report_ecc_info(struct ras_core_context *ras_core,
- 			blk_name(blk));
- 	}
- 
--	if (ecc_count.new_ce_count) {
-+	if (ecc_count.new_ce_count && !ras_core->debug_disable_ce_logs) {
- 		RAS_DEV_INFO(ras_core->dev,
- 		"{%llu} socket: %d, die: %d, %u new correctable hardware errors detected in %s block\n",
- 			seq_no, skt, aid, ecc_count.new_ce_count, blk_name(blk));
-@@ -114,6 +114,11 @@ static void aca_bank_log(struct ras_core_context *ras_core,
- {
- 	int i;
- 
-+	if (ras_core->debug_disable_ce_logs &&
-+	    bank->ecc_type == RAS_ERR_TYPE__CE &&
-+	    !bank_ecc->real_de_count)
-+		return;
-+
- 	RAS_DEV_INFO(ras_core->dev,
- 		"{%llu}" RAS_HW_ERR "Accelerator Check Architecture events logged\n",
- 		bank->seq_no);
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-index 2346918c7736..cdef7727decb 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-@@ -377,6 +377,7 @@ int ras_core_hw_init(struct ras_core_context *ras_core)
- 			ras_core->config->ras_eeprom_supported;
- 
- 	ras_core->poison_supported = ras_core->config->poison_supported;
-+	ras_core->debug_disable_ce_logs = ras_core->config->debug_disable_ce_logs;
- 
- 	ret = ras_psp_hw_init(ras_core);
- 	if (ret)
--- 
-2.34.1
+I think it would be a good idea to do this for newer GPUs as well, but I=20
+haven't yet touched the code for those.
+
+> >=20
+> > I actually might like this because maybe it gets us closer to removing
+> > the ring->sched.ready hack but what I am just not sure if the idea was
+> > to allow driver to function with some non-functional rings after resume.
+> > Under the premise that if they initialized during init, then after
+> > resume they must too, or if they don't, it is a transient glitch. I
+> > don't know.. I am being imaginative here thinking about silly driver
+> > workarounds for weird hardware glitches. It is much more likely this was
+> > just an oversight and it is completely fine to to error out.
+> >=20
+> > I have to defer to Alex and Christian on this one.
+>=20
+> The reason for not checking the errors was because compute queue
+> failure was not seen as fatal.  There are a lot of compute queues
+> (relative to other engines), so if something happened, it seemed
+> better to just continue in a degraded mode with fewer compute queues
+> than to fail to resume in general.
+
+We had a conversation about a similar topic (it was about UVD), where Alex=
+=20
+said that in general we should prefer not to handle degraded functionality =
+in=20
+amdgpu. I think the same principle should apply here.
+
+1. My main problem with handling degraded functionality here is that I have=
+=20
+never seen any issue where just some compute queues fail to initialize afte=
+r=20
+boot or after suspend/resume. That means we can't meaningfully test that=20
+scenario, so we can't trust any code we write to handle that either.
+2. It would be very tedious to keep track of which queues didn't work in th=
+e=20
+first place vs. which are those that don't work because of a bug in the sof=
+t=20
+reset code. I consider the soft reset as failed if not all queues work=20
+correctly.
+
+Considering the above, I vote that we should just expect all queues to work=
+=20
+correctly at initialization and after a recovery. What do you guys think?
+
+Thanks & best regards,
+Timur
+
+
+
+
 
