@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE05FC44501
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:45:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16A7FC44501
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 13:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B13510F069;
-	Wed, 15 Jul 2026 13:45:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E2A10F06F;
+	Wed, 15 Jul 2026 13:45:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EXjz9gcG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JEGTZVd9";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011040.outbound.protection.outlook.com [52.101.52.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDA2510F069
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:45:24 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011050.outbound.protection.outlook.com [52.101.62.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4720E10F06B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 13:45:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PdPQrqwZjAxPa5iUXcAM3rSsvpB14BOVx+9KVi3KiGC6VqwdiCc5Wqb1H4g/QYMX0Vx1KhIjs/s31DHIt0w8TfW56EL8XAVH5lRV6Pe6y5K2pDNELRhtjUA3gvhvSWaRvXb5OX6GXCtioYUnIFP86nECDoreIWWvkVfu5/SRUQ6hSxZGWN8XxL/MvU4rWGSY8O2ykO/pc5xR+yps3slSFRrDXcYOfVuYvxfi9e+xvekecGx5vb6dg+sq+KXkBSuHEV6fHu+YBJUVv9KtwzgVdVlfijQZssksP/wLuzrIFJiUYvRpCRpeKgnEGg9cr27DNAyVd3QJSREdmcq3mZJbmw==
+ b=JSd4cYdBRGNxxMpNP6YFoc+Zlwq+uKE8elZEI3OwKOFQykx35xts1Q/gJBNLew3uP9iJCxNNQq4hylSNCP+GKlCzsp3fDqia1j73V/NS0NTV2eTXSx23KdOlW4nJfOjIR0FkbRBFF37jYsuYnSjy7Lf0gktJy+WTMOQPusR+uptZ9l7SucrT4o99dUOwKEXI5QusWajRig7QFlaqbk4Jv2My7pqljFUHqZQGVx43MLYSS8ivQpxLWTbN/KqJ/gcliZZXN8igFvw5yrRoX9Mv9Z0jQhHiq34jlYKkmMPWuLe3h9oo3b81FlUp2nq3fv/Z12SOfZ2fs5MAnEIoL6cGPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2KQ1CVW9Gf7RwNIQJVKEXe4KcH3GFoK7wIujQiI4YX8=;
- b=it0+N1tYi0P7l8uuBC0FAApoakF9mWCU/kh7TH5UxVMZhjepGkGAGQ9bPcVt0czcwBgLG4nsIgIYhrENm51uov/rEsy2VoypMa6CqaRS/2Iyjc1MMYPM7aJQngOMgk0fz177erw9xqS8+RmbUdoOHx/qOz8C+n9SA53XI+vsk5tjcCIoBeVYe2DlSRgTZqiq/YeowFwfQoAQG2Ew/eR4BCoeRC7+kgO6QTgf/A7ZR3nSG2HPgBpnZ9SQu2oUhfjzMLRp/wQeA0vIbJBCwQiH5/dgNxWbXSMRxz3HSMvA+EoPcze3HieeeFp0T9JsMFTsO333J3O6b4s0UH590daJAw==
+ bh=PYjEO/kWkr9Rk8SKBfk42ffEBASavxvpSpxbhiI/EGs=;
+ b=QFfTuBJ0nSTGwGoEbP2WeEoZoJjy0dlgKX0saMVxQyNclk4UV4/h3EMLCc8aslSC9jP+mEO5VUwyDdvlHdKd7vL4AVLxTFn0/ARYQj+Z2BctV55G+9ouQP2r2K05jcXlRONXpaQDY0rx6BY/34Ma2PykSRGUbev9EosBUY8h6Bp/Uo6dpcPvoLtNYsbtzwliE3+z1aMadkYzO0mtyIxaqF51OcaKQiV582ea449L+Kf9oV5w08Rllnmte8xNV+JV2Kmty/nqOB93tDp8iJMEEFj9ZPvXhafLQMzLB7EZCWX87B0GdV+JQa7jjChXzjLhBFcdgztxhBcy2TSyKwQ0Uw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2KQ1CVW9Gf7RwNIQJVKEXe4KcH3GFoK7wIujQiI4YX8=;
- b=EXjz9gcGcEetfy53vNIq3s0mNww1qOF6+vFF5UuOqewavPJrGAjrO3ehzW/R2TtQgG17NiQmpXdZt8z98hIuoa3pibdwZDkJH5WBXHt2j024a9YR5nlH7pVEVaC4dA8GBzZ2xQ61SrhPiJ6xI3qdxekXRJbV9E5DCq+u62i3u24=
-Received: from DS7P220CA0074.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:259::9) by
- SJ2PR12MB8650.namprd12.prod.outlook.com (2603:10b6:a03:544::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
- 2026 13:45:21 +0000
-Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
- (2603:10b6:8:259:cafe::2b) by DS7P220CA0074.outlook.office365.com
- (2603:10b6:8:259::9) with Microsoft SMTP Server (version=TLS1_3,
+ bh=PYjEO/kWkr9Rk8SKBfk42ffEBASavxvpSpxbhiI/EGs=;
+ b=JEGTZVd9CSRdK9u3h+RRtCX6q39I5tEzfCEm4MWOpzlkWzytKs1PvRHVM8N8LaJOUpwTtffUoVouQYj9xTxXuZSih+G1e7+W0wj/U9aM75uJu5q6XjwIyWx2LGvOSUAUAnva+TRueas6zb9gxMgfp48e3G2/fgqbMRQomk4U5iA=
+Received: from SJ0PR13CA0094.namprd13.prod.outlook.com (2603:10b6:a03:2c5::9)
+ by IA0PR12MB8696.namprd12.prod.outlook.com (2603:10b6:208:48f::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 13:45:23 +0000
+Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::30) by SJ0PR13CA0094.outlook.office365.com
+ (2603:10b6:a03:2c5::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
- 15 Jul 2026 13:45:20 +0000
+ 15 Jul 2026 13:45:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:45:20 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 13:45:22 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:45:16 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 08:45:08 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
- 2026 08:45:15 -0500
+ 2026 06:45:08 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 15 Jul 2026 08:45:12 -0500
+ Transport; Wed, 15 Jul 2026 08:44:59 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,10 +70,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 06/70] drm/amd/display: add dm_dmub_hw_resume KUnit coverage
-Date: Wed, 15 Jul 2026 21:37:16 +0800
-Message-ID: <20260715134432.1975118-7-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 04/70] drm/amd/display: Increase HDMI AV mute wait from 2 to 3
+ frames
+Date: Wed, 15 Jul 2026 21:37:14 +0800
+Message-ID: <20260715134432.1975118-5-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260715134432.1975118-1-Wayne.Lin@amd.com>
 References: <20260715134432.1975118-1-Wayne.Lin@amd.com>
@@ -82,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|SJ2PR12MB8650:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0351b9d0-9cfa-402c-2894-08dee2774ff4
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|IA0PR12MB8696:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1bde8ee-d81d-48da-000d-08dee277514d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: v9y+Hn42NZLtvtacp7rhjvOQY34Rh/a4g02QYHI5cK/FwflU0mC51sh6RsHFJ1EIF5qB3h9KwnZvWNphAFZ8QOIUXkMzzRvaNpFZSHYDbjvtqJaIHPEuAv7k3KqyAxo+1y750KjITp3wJo/itLJDP2GP5Be/FU5QwOz/NTLyu+Nf4DB8ub6buXFG/Yehice73A+/vCtRFiQymYkLB/yti0twMRDg8KdiPNhv2BNhH3oQPPU2Z5FJqvfXbuhUAh0KXlPsGAQXafcN4jwK5Zw+7WmAPmgaP/kWTgbsC9iuKPSAKTcAvzXGsUTa2YZtyaAMeeqUKaHo26DHz7UhWwtYnyQs4Xgdr62bPN3HkhxjVF76foELwgMBK28mesw78OZjk8WK98QrsY95yy/Ffl3AI6JphJkI+75gi333evK651TdjeA6VVXavgl527fcRSvMXykbk8FyrS60jSv+Oy2L29PefQNt8Ux5aPVpjcGmZb54I/FPtjmrrE7JYxYqr9nI2adx8vcsmw7ucM3lbtPdkSfNmRUwo1UbwxZjhwwcKQ+7E6LwwLHqRQEYFIgz1MQS85lePKngnPR7bBMy4ybb32NfjCZOtDxYwkCrw6glCklN8JLBZ7fs9cvH2t7hFvghHW6HgZOMeuWYyUgOldA8uzgqpUlthMniuYyBdGrA/uimOnuMAQCInDvRXk06P3cDgCgRjtkKDjDpEmSihTjzqA==
+ ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|3023799007|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 4v69cv/okuxHKjN8igBw3xOOUPB9mjDw75iWUGEj1ltHxYZwtFaYv7AaeR2g0SaXudRbZvcoLStQh+sbcL/KE/kj0yq6Z385tb9/pPgHWKfJ1wogBlL/mNLbFFZKBaO41UpHFJa8gGAkqocwY0/jkCyIv0GZSOuvtmm1EI7ZPMIunXySiez407RJwAB6DLr3e17qxb0pFg+iVhuuUcsRVzO40FSXAIf432YkSG9RFR5C6G1mjL+9NgGsddbg2SOuhbngROJwpd1jvIBlROFOASKKRCcm+F/ytp3kttPgEiW+zl2TI2FcT+VbxyWpq2ps3QiAezSnAPkiEg1cwfrUB1vNCTZaMJXCBc+eZslmjIUYONXGtjIOtV1FbJ2FGl0hGeP84blsdNqoB7dFd6FcHspVpa3KUPiKzqUJrc3DGM5GmIqMLXvWgMD1wrTcYDdxXNDwkhW81KDI5OrGzYaJDIRPRvTQHaN9PXjUWr+bIWL+dC7sBXZKv2EzDs4lcrbmOSDMrg8wVoRZ8mltOEEvFXueDKLRi4JByFSbhmHUF5wRmhWJuFtYQiFPzYdV/SYnedF6G/3A0BnpBAKM8CTrGHqJwiAhmNapXWuq3vnSSaMzug5lzdat1ivLaNDEqCf2trptm7F3gVgKsfwoGgCK7LjnAhk/4DRcuYAQ/VUYPOl4vmKb/JmQUTyc1E3pfAxvG4pTNwIAR2+DB9AlL38AGA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(3023799007)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /UGgk5s9oVZMWkdrFhqAPXeNVsQACNRzpyUDCze0Y4tLwkR8VReJXo6SyJh0P1rNkfibH/zocDLZH3PLPlYQjoqhBZWoP5IyEc++1WGqraiX437PQDdihWycbahSHWEUE047QOUJ/eI4Vs9UVYnhBY7vQaSgM5wuMiKZFNOxVbZZ8KuDQjCqLq8X7AzTAsmAW3HBSKrIsNrDXATjLJSgImOGgRo+y66PpX8m6aPhxNWRqvm+zeJAN/1MZdO29xeVNxg6slyVdolgtWl2uWdr8U698u09B7JpHsXphpH0yBZzXiCSy8mdht+3jSM3oId1Ce0IPrVMnlX8/s90zzMWB44VyFRwEIpaMpLwj3m3vOWguF8GGYAw7zIbhH/ZS7qk/TT9vTB/hO2nPsMJwQfHip/GoC0BCh1YpP2/I9/W33z1vsmxdiFlqG7T4+wLBW5h
+X-MS-Exchange-AntiSpam-MessageData-0: oVr22qsa1xZmiUxyW7ZMmgjPe+XHDzkDmm/RWAGEgXdLWFdm7F/NSRVhpXF5WG6LkZQ+uFfEbju1G9+RmywCfSB8moWuCIOx0phXhv3by2HQV6INgY7WAhrb6jDnB1W7bgfiQFwsVaoWj1D09SY+tjI/izPSvh6AGoBwngqvp1gKEkFxQydKWWFVJCGZUPcg0jQhsgWqeV6u2X7yvx71I0f/sMUJ7wKd30s8mhk/dzxfQeiqcsH8YTmay3+QBflVZr4IgWhYV0XO7+K0XQoLpvucw76+oQSpsyPRUb05VaVX5iMr7ovEenjvQKY0uBN2hE1DgGY6ktA4DmgxhkT/mG9AzSy4k6Jh1RpiwydcyXuQQMFbydgZqw6XPgzD9zY2jKiibBoCu1ubolFgmfFOmzSxBy0g1N2kYQu4O9xY6T4LJC2USzg1WSl3dRHXvbu0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:45:20.2706 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0351b9d0-9cfa-402c-2894-08dee2774ff4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:45:22.4917 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1bde8ee-d81d-48da-000d-08dee277514d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBE.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8650
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8696
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,117 +120,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Ray Wu <ray.wu@amd.com>
 
-[WHAT]
-Extend KUnit coverage for dm_dmub_hw_resume() using the fake-DMUB
-fixtures. New cases cover the already-initialized wait path, the full
-reinitialization path, a failed init-state query, and an auto-load
-timeout, none of which require real hardware.
+Some HDMI sinks need additional GCP packets to properly process the
+mute state before the timing generator is disabled, especially after
+link re-establishment with HDMI 2.0 scrambling enabled. Waiting for
+only 2 frames is insufficient for certain monitor firmware, resulting
+in garbled display output on resume from suspend.
 
-Assisted-by: Copilot:Claude-Opus-4.8 GPT-5.5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+Increase the AV mute wait in dcn30_set_avmute() from 2 to 3 frames
+to ensure the sink receives enough GCP packets.
+
+Assisted-by: Cursor:Claude-Opus-4.6
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     | 77 +++++++++++++++++++
- 1 file changed, 77 insertions(+)
+ .../drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c  | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-index 4c01f7919170..bae34436c89e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-@@ -801,6 +801,79 @@ static void dm_test_dmub_hw_resume_no_dmub_srv(struct kunit *test)
- 	dm_dmub_hw_resume(adev);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index aed9d06ec538..aa7707b2b25b 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -849,13 +849,19 @@ void dcn30_set_avmute(struct pipe_ctx *pipe_ctx, bool enable)
+ 				pipe_ctx->stream_res.stream_enc,
+ 				enable);
+ 
+-		/* Wait for two frame to make sure AV mute is sent out */
++		/* Wait for three frames to make sure AV mute is sent out.
++		 * Some HDMI sinks need additional GCP packets to properly
++		 * process the mute state, especially after link re-establishment
++		 * with HDMI 2.0 scrambling enabled.
++		 */
+ 		if (enable && pipe_ctx->stream_res.tg->funcs->is_tg_enabled(pipe_ctx->stream_res.tg)) {
++			int i;
++
+ 			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VACTIVE);
+-			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VBLANK);
+-			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VACTIVE);
+-			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VBLANK);
+-			pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VACTIVE);
++			for (i = 0; i < 3; i++) {
++				pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VBLANK);
++				pipe_ctx->stream_res.tg->funcs->wait_for_state(pipe_ctx->stream_res.tg, CRTC_STATE_VACTIVE);
++			}
+ 		}
+ 	}
  }
- 
-+/**
-+ * dm_test_dmub_hw_resume_initialized_dmub - Test resume waits for initialized DMUB
-+ * @test: The KUnit test context
-+ *
-+ * When the fake DMUB service reports hardware already initialized, resume
-+ * should only wait for firmware readiness and skip full reinitialization.
-+ */
-+static void dm_test_dmub_hw_resume_initialized_dmub(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
-+
-+	adev->dm.dmub_srv = dm_test_alloc_dmub_srv(test);
-+
-+	/* Must not crash. */
-+	dm_dmub_hw_resume(adev);
-+}
-+
-+/**
-+ * dm_test_dmub_hw_resume_full_init - Test resume performs full init when uninitialized
-+ * @test: The KUnit test context
-+ *
-+ * When the fake DMUB service reports hardware not yet initialized, resume
-+ * should continue into a full dm_dmub_hw_init() and create the DC DMUB
-+ * server.
-+ */
-+static void dm_test_dmub_hw_resume_full_init(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
-+
-+	adev->dm.dmub_srv->hw_init = false;
-+
-+	dm_dmub_hw_resume(adev);
-+
-+	KUNIT_EXPECT_NOT_NULL(test, adev->dm.dc->ctx->dmub_srv);
-+}
-+
-+/**
-+ * dm_test_dmub_hw_resume_init_check_failed - Test resume handles a failed init check
-+ * @test: The KUnit test context
-+ *
-+ * When the DMUB service is not software-initialized, the init-state query
-+ * fails and resume continues into dm_dmub_hw_init(), which also fails; the
-+ * call must warn and return without crashing.
-+ */
-+static void dm_test_dmub_hw_resume_init_check_failed(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
-+
-+	adev->dm.dmub_srv->sw_init = false;
-+
-+	/* Must not crash. */
-+	dm_dmub_hw_resume(adev);
-+}
-+
-+/**
-+ * dm_test_dmub_hw_resume_auto_load_timeout - Test resume tolerates an auto-load timeout
-+ * @test: The KUnit test context
-+ *
-+ * When the DMUB reports hardware already initialized but the firmware never
-+ * signals ready, resume's auto-load wait times out and only warns; the call
-+ * must not crash.
-+ */
-+static void dm_test_dmub_hw_resume_auto_load_timeout(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc(test);
-+
-+	adev->dm.dmub_srv = dm_test_alloc_dmub_srv(test);
-+	adev->dm.dmub_srv->hw_funcs.get_fw_status = dm_test_dmub_fw_not_ready;
-+
-+	/* Must not crash; auto-load times out and only warns. */
-+	dm_dmub_hw_resume(adev);
-+}
-+
- /* Tests for dm_dmub_sw_init() */
- 
- /**
-@@ -878,6 +951,10 @@ static struct kunit_case amdgpu_dm_dmub_tests[] = {
- 	KUNIT_CASE(dm_test_dmub_hw_init_dmcu_abm),
- 	/* dm_dmub_hw_resume() */
- 	KUNIT_CASE(dm_test_dmub_hw_resume_no_dmub_srv),
-+	KUNIT_CASE(dm_test_dmub_hw_resume_initialized_dmub),
-+	KUNIT_CASE(dm_test_dmub_hw_resume_full_init),
-+	KUNIT_CASE(dm_test_dmub_hw_resume_init_check_failed),
-+	KUNIT_CASE(dm_test_dmub_hw_resume_auto_load_timeout),
- 	/* dm_dmub_sw_init() */
- 	KUNIT_CASE(dm_test_dmub_sw_init_unsupported_asic),
- 	/* dm_init_microcode() */
 -- 
 2.43.0
 
