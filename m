@@ -4,96 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3343FC44508
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 19:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D54C44508
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 20:02:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32D210E114;
-	Wed, 15 Jul 2026 19:51:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E027310E222;
+	Wed, 15 Jul 2026 20:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kdeuaslw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Uy9+28we";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 796C210E114
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 19:51:05 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2cf1777c25aso555955ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 12:51:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784145065; cv=none;
- d=google.com; s=arc-20260327;
- b=nJX2OVzVG+iODMaF7o2ORZLwp9vIe+fWp6Fi/BuwWpmBfWX64+NZCENIhyAlSQ5z3G
- sDRtDF00yezyA9Hy7aQ6aTydCnfMJA88tVa2SsaizpFXz04CCLEXuPNHllnCg12Qp6In
- WtDDKgTCIntgiewigjKwOQYVkS2ub0cHz1j+lqKwyToGVOi0QR0C3afuaYm4ovakLbeM
- M6Eihp7hy9ku56R1Nu4alWj6Ph8q/dLMRirip1dim9D0LzHLaPL6JJiCcZ132I5np6ha
- D219DAwBdIadCSRAltNnjUZ42I2pmOKW+uc/fv5Tiv+PKZJO3TYRudnnY3rEivFsBcac
- eU3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jRirA46e+5eL3/vklb0NYpcSllQksExzLx/8bDK/e54=;
- fh=Z5+lJzJVrUGghoV2JaJWZjN0K+/3UzuWAbchkpFR9hU=;
- b=Ptv4xjPWXTUsylwAQ9HCwYOINY1YMS73OfUStXFwHPevHYKxxM/E6F6F381moF1YLh
- L8dcuvXRSXuGb2CIGTPyZuTndfZ9DsDbvejMCV9IL31IiI0HVGqxtWr/IfcP+83Ya3N+
- 8RSQmgZIvfYds792i/6YRTXlqtPoQEOpUJVUz9MrbERwL3rMbZBLwoWKzdOCnEVzRtAN
- zbYtlDb3958rS6aEGt/XaAFUVjqHHqR4VCE4i7JrG1hB1E+HZSXcX9AaGBgUo8XIlbHr
- VZKUOPDtNTmdTdcNndytSDvwch9JE5WGmhtHpIjFMpSCVW3kl0YmvHzsIOKrmQT2xEWQ
- 3BqA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784145065; x=1784749865; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jRirA46e+5eL3/vklb0NYpcSllQksExzLx/8bDK/e54=;
- b=KdeuaslwXIbEoh9cKHh/F/ogAzKh+s2+As6/CDCU1UsMWhbBvKDKVgNVgcazw09WxG
- C0QO1q/YgDpCTjLZEOKl0Rte8HfXWiEphm809Si3sRl8OxVe7/5aHplHJTZC2vUMmx7P
- db2X4YusCHpa1Nmbwx+E05l8yRrtVxqw1WAjdK54fq+6HpGcPELjWMvlvnnL7KQGl3IR
- ZCpKcuY8LsX7nfU+CQUMp95MF2TdCMjNJgEnx/F2p5WrNwQAO8LFIAfRKUeHl2TxSHbb
- +X/J4Z/0+vO9+ImK8cu6mVwdbrK10Kh+pWBavt+kAYDnuTL7mBhlX89UqjGZAeiVd6Nt
- ccCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784145065; x=1784749865;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jRirA46e+5eL3/vklb0NYpcSllQksExzLx/8bDK/e54=;
- b=a0waGZ+Wpj6GNU0FTyuTcCujL08pVsMLxmPr94uI987tQfzAfN/bDUnLRWiPBr99sG
- RBpShlrXDFPQQ83DBLRX6pbtfrBQWlS5vQNllDlLqa2QXTNhiiVqhunomrkotIEEtI+6
- FMKIjGXfDTwo/ZZ76+s8pm401aQGZxOPN32FJ/tWr8LJOIFRBlca9LopkELHG4i2WWSW
- Fmyq5bFK1lUHLtnHp6WDFvnYkiwA2I8jyMx51mKoUIptoLAk2/HVkUfOD4Jbkf38gh5k
- LFZyYVslwfME3Y9t+DokDUwEIiQYtqy2ES0aA+JsChHKojosuavWMiBPGTGCitzInG7i
- tsFQ==
-X-Gm-Message-State: AOJu0Yz+AAIdzYtoWB6cXTkfM5jnC3Ef34ZK2+H6HiOOHlUCDtz7nhWv
- nLbmwtqWnSOoNf0LpLvSwTbwkHmXiIMeKwvHUWD0ULinWzUvL647PitTUR8vyx991bQhsM9poDP
- dxPjc1Y177DAs2xDyt5qDPf5rg8Y54Yc=
-X-Gm-Gg: AfdE7ckHNrd4qMGDBZ8SbSWLDFTBq0UnTcx+dyA5k/+xYadfnf09mIUIbv6jlFTm+JC
- 5WHDGp2xEkl1maXqlxTSwFZlUBHwEQLLNRvCt9eB8scJGTrEcTT9JvptLaHsy5ZX9ApMf/imj7y
- yNh991tUWCkBy9uVCezr8dLN1AsW3QcRRE4lgSW9E17icRegq5IlvSc+M2QngX6Vv7FI1+PZwaG
- xRxMIGjMt0btwAAVZEqyxpHhKVmnkWgm/TF8cSDxb07IGWdE3AbHN0rI5+Y6hp4eToiFuaPnSVY
- XYX4wY1hn6/ueam1whdaeg9csJ0SZvuAzXignfVq/vkzWVN2OKThef+qwWU=
-X-Received: by 2002:a17:902:da2d:b0:2ca:bca8:109b with SMTP id
- d9443c01a7336-2ce9f176961mr136947375ad.5.1784145064871; Wed, 15 Jul 2026
- 12:51:04 -0700 (PDT)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010007.outbound.protection.outlook.com
+ [52.101.193.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD8C510E1F2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jul 2026 20:02:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Dm5nHTCgKA+SlpJaGES7CsyEt6CqQrIsgXrMpPyAcnPqxriTKqtRrbOBHjoLuW4NOuhrJrzBwdyRLrnY+VWoIhvjuTLZbxIzqpWZ8jXe4F44Br+qWV4aRvewhA4mnrIF/BtRUzaQydyIqq9un4H+uslKam5Qe5n43zbBUUiAOIhA5bHMc0ssGpQhQnKeYZfLCK/3apgcw2pVEGRkGuHiv0dDrMt6AtSz8/OWvLQg+YCrsA21AUU4mJh/JAYF5NEoOtK//IHYZ1DSE5dXEOfQUU5/k079lr4+p9DA5tCgHIyz13a8fw7hS56sr9J7thbTsSTB5OMW/pbI8si41UvK9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pPAE516Ydwbk9GmLLbZMJLVNM8pIGTPZ/cEg09+w1SE=;
+ b=nVr/gFw5c5QMj+MAnP5oQBPlxUpVWV/LU+Ju9Hsk88OaTspjsHkSJMLeTlT0wlPOUve2t9B41QS6sqTQIn6uucXbM1h0VjbTpbYMlJA8YLt7QnWWYXDPZtr0FK2zObkYqemGyZ2m2VIQSk/Z1KFjvGD+Fo/JgsdCWbJtgz2ssyHb/6AkbZP8C4OTjaAkis+Cay2H3/QPfHIwouI1/bOvkXF2xPZA8pbmUYJYot56yMc3Afj3iwZdNjB4JxI3jrHxF4p4OmgV9UNHSABO3x1Pw6dSyt5hidI3ZWqQPvSEnjuMOtrC/x5kMR7Yukwj/7t5WvK61IMB3S8QsuFLn2p1BQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pPAE516Ydwbk9GmLLbZMJLVNM8pIGTPZ/cEg09+w1SE=;
+ b=Uy9+28weCAxHs8kvE7TwBc85OY3Leh3od0LjBq9AJ0pfYZmzZgrDbmzYjVfOeb2KC3fDj4XC9KBWus5u2L8Nj+ic9iGhABUTyPXjk3yE23yjYF85WarivQM+v/jLmXDrvwcS0mNIC2l0xbVIK4pde2LN947DZVYQmDPAx5nSJwY=
+Received: from PH3PEPF000040A6.namprd05.prod.outlook.com (2603:10b6:518:1::55)
+ by SA1PR12MB8722.namprd12.prod.outlook.com (2603:10b6:806:373::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.23; Wed, 15 Jul
+ 2026 20:02:11 +0000
+Received: from SA2PEPF00003F65.namprd04.prod.outlook.com
+ (2a01:111:f403:f90f::6) by PH3PEPF000040A6.outlook.office365.com
+ (2603:1036:903:49::3) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Wed,
+ 15 Jul 2026 20:02:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003F65.mail.protection.outlook.com (10.167.248.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Wed, 15 Jul 2026 20:02:10 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 15 Jul
+ 2026 15:02:10 -0500
+From: Fangzhi <jerry.zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <aurabindo.pillai@amd.com>
+CC: Fangzhi <jerry.zuo@amd.com>
+Subject: [PATCH] drm/amd/display: dispatch compressed FRL cap check inside
+ dml1_frl_cap_chk_inter
+Date: Wed, 15 Jul 2026 16:02:01 -0400
+Message-ID: <20260715200201.2458988-1-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260713125838.30607-1-timur.kristof@gmail.com>
- <20260713125838.30607-3-timur.kristof@gmail.com>
- <f0fe75db-5ded-4370-b931-3ef3827f0b16@ursulin.net>
- <4566110.UPlyArG6xL@timur-max>
-In-Reply-To: <4566110.UPlyArG6xL@timur-max>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jul 2026 15:50:53 -0400
-X-Gm-Features: AUfX_my4kMxn0B5q5WUKbxCer5Q69vbS5XqroyRGqoGA-K6mBnxYJLmrnIxh_ec
-Message-ID: <CADnq5_OFgNWvM-CoE4yVa_kxiu83r50XeLuZw=+B3e95QF_b6g@mail.gmail.com>
-Subject: Re: [PATCH 2/9] drm/amdgpu/gfx7: Refactor MQD initialization and
- finalization
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com, 
- Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F65:EE_|SA1PR12MB8722:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1faa7ac3-e3fc-47d4-e6bd-08dee2abf4cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|11063799006|56012099006|3023799007|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: SQ16hcI147+4x13Q4UoP1+XxcwGcdcCH2X1EhXqvPA2JYZgbbnvbjV5zoy31IoiXGwcwCMNPz7Djyf3JDLgUQCokpuZcfKo+iVuWEOp4fs/CWMR3fjrX7pvD5JZBeU/0HLZJY61wZxF9cQ1PFmGLGrukVs688TkqajISKvjdRHLnNdYT1kOivaXb4/aCEgcqAX0sLk+pPxCpRJn1PNoohfTlWg8OL/7iIw6w+/GQV3CwFLVrbgfX8imS5c7GZH1BszgEb1DCgrxEcM6B9WMkX/guigu6KD8eJYT3Iqu7U/dQ0ppM3uNoSJ4jnaPMlCTupuzGz43tVNMxSC9/6pfxpcEwqA+KMFwpunltzifgCgGeliWkWnFCCwxNpnjWjQU9L/8fxLtBkT7GyRUraaM4mQkbBcOflA4knkVXnHcQP5/f6RwTfIz0O5lAJdo2Oni2qsxwecZRmCFpz22CWmkk/GA7u4+faA3gNEg+8Wo6BBREertCIUYrtnRmRI5UjJbhF1Gh5vnGyOo68YruOYxrDDRVjlu8mYR8JwSH/HE44Au24pEskHtjVZlFH0eSkhmOp/MUz1iFblTIF3JJ0VUIEXSxmOlcO6A1v8F5jhaVfiVhrkwVSEnYfaP57CLph+BrmKJBSIIJMe/OCL7iyvKBtY2yJp5ItLA1AJ9E2yH4Bk15JXJwgLNBVQJ9IUR2aF+WBWGpR4v4Z5xkwuwZ97MHrw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(11063799006)(56012099006)(3023799007)(18002099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: s095SaK6k6IuZ6OZzywp/3BdPKwklOQJ9aokMqcSUjlxdp4gIiQGeDREBzPazSpPYL6eBhh8VFju0zT3GK21DGFmxs8I+b8uBlRt6/z5jlT/PE4T2fYzuCYRjvroQPRteAz4nzf8XwmaBWdQ3Ghl2egGQtcuvFTyra1yKAiTPdPlJ/ueetHVMFNLefqGq6voX3yK1bE6Uq0AK0OpBuHm5zKwwkU8RRZRqAk7Ly/ruY1vOST/rDSCRBMuUrNKnRC48dPGJJVTFziOs3R2kZkgGev+QT8eE/u3pzr4loW57IN/d4vyR98WG7WYS8LJ+VouwRWAF4ogtpq6cfRZzNA3Byx+T0VXd6TAAu8kVnYl3wKmmhYGqe1Ov7Nr4XAhGTm4PZkkathp5+2eS/gpIPNZZ9zrTB8GE7UdM6YgchdYosK9I/YdpX12OFRpzPW6QCHu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 20:02:10.7178 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1faa7ac3-e3fc-47d4-e6bd-08dee2abf4cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,301 +109,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 11:54=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@=
-gmail.com> wrote:
->
-> On 2026. j=C3=BAlius 14., kedd 20:47:14 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
-=C3=A1ri id=C5=91 Tvrtko Ursulin
-> wrote:
-> > On 13/07/2026 13:58, Timur Krist=C3=B3f wrote:
-> > > Call amdgpu_gfx_mqd_sw_init()/_fini() on GFX7 to initialize and
-> > > finalize the MQD, just like GFX8 and newer; instead of doing
-> > > an ad-hoc BO allocation. This introduces the possibility of
-> > > doing an MQD backup instead of trying to reinitialize the
-> > > MQD every time.
-> > >
-> > > This solves an issue with GFX IP block soft reset where
-> > > all compute rings would hang after the reset.
-> > >
-> > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > ---
-> > >
-> > >   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 106 +++++++++++++----------=
+[why]
+DSC over HDMI FRL (e.g. 4k144) was pruned by DML mode support
+because the compressed FRL cap check was never reached.
+
+dml32_TruncToValidBPP() validates the FRL output by calling
+dml1_frl_cap_chk_inter() directly. The compressed-vs-uncompressed
+dispatch (if params->compressed -> dml1_frl_cap_chk_compressed()) had
+been moved up into the top-level dml1_frl_cap_chk() wrapper, leaving
+dml1_frl_cap_chk_inter() as uncompressed-only. As a result a DSC stream
+routed through TruncToValidBPP was validated against the full
+uncompressed bandwidth, failed the cap check, and the mode was pruned
+(vlevel == num_states).
+
+[how]
+Move the compressed dispatch back into dml1_frl_cap_chk_inter() so every
+caller of _inter() (including TruncToValidBPP) honours params->compressed.
+This matches the internal DAL tree.
 ---
-> > >   1 file changed, 51 insertions(+), 55 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c index 65b8497ad5f0..9c4b3ac27=
-e1f
-> > > 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> > > @@ -2698,25 +2698,6 @@ static int
-> > > gfx_v7_0_cp_compute_load_microcode(struct amdgpu_device *adev)>
-> > >     return 0;
-> > >
-> > >   }
-> > >
-> > > -/**
-> > > - * gfx_v7_0_cp_compute_fini - stop the compute queues
-> > > - *
-> > > - * @adev: amdgpu_device pointer
-> > > - *
-> > > - * Stop the compute queues and tear down the driver queue
-> > > - * info.
-> > > - */
-> > > -static void gfx_v7_0_cp_compute_fini(struct amdgpu_device *adev)
-> > > -{
-> > > -   int i;
-> > > -
-> > > -   for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> > > -           struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
-> > > -
-> > > -           amdgpu_bo_free_kernel(&ring->mqd_obj, NULL, NULL);
-> > > -   }
-> > > -}
-> > > -
-> > >
-> > >   static void gfx_v7_0_mec_fini(struct amdgpu_device *adev)
-> > >   {
-> > >
-> > >     amdgpu_bo_free_kernel(&adev->gfx.mec.hpd_eop_obj, NULL, NULL);
-> > >
-> > > @@ -2788,28 +2769,29 @@ static void gfx_v7_0_compute_pipe_init(struct
-> > > amdgpu_device *adev,>
-> > >     mutex_unlock(&adev->srbm_mutex);
-> > >
-> > >   }
-> > >
-> > > -static int gfx_v7_0_mqd_deactivate(struct amdgpu_device *adev)
-> > > +static int gfx_v7_0_mqd_deactivate(struct amdgpu_device *adev, u32 r=
-eq)
-> > >
-> > >   {
-> > >
-> > > -   int i;
-> > > +   int i, r =3D 0;
-> > >
-> > >     /* disable the queue if it's active */
-> > >
-> > > -   if (RREG32(mmCP_HQD_ACTIVE) & 1) {
-> > > -           WREG32(mmCP_HQD_DEQUEUE_REQUEST, 1);
-> > > +   if (RREG32(mmCP_HQD_ACTIVE) & CP_HQD_ACTIVE__ACTIVE_MASK) {
-> > > +           WREG32_FIELD(CP_HQD_DEQUEUE_REQUEST, DEQUEUE_REQ, req);
-> > >
-> > >             for (i =3D 0; i < adev->usec_timeout; i++) {
-> > >
-> > > -                   if (!(RREG32(mmCP_HQD_ACTIVE) & 1))
-> > > +                   if (!(RREG32(mmCP_HQD_ACTIVE) &
-> CP_HQD_ACTIVE__ACTIVE_MASK))
-> > >
-> > >                             break;
-> > >
-> > >                     udelay(1);
-> > >
-> > >             }
-> > >
-> > >             if (i =3D=3D adev->usec_timeout)
-> > >
-> > > -                   return -ETIMEDOUT;
-> > > +                   r =3D -ETIMEDOUT;
-> > >
-> > > -           WREG32(mmCP_HQD_DEQUEUE_REQUEST, 0);
-> > > -           WREG32(mmCP_HQD_PQ_RPTR, 0);
-> > > -           WREG32(mmCP_HQD_PQ_WPTR, 0);
-> > >
-> > >     }
-> > >
-> > > -   return 0;
-> > > +   WREG32(mmCP_HQD_DEQUEUE_REQUEST, 0);
-> > > +   WREG32(mmCP_HQD_PQ_RPTR, 0);
-> > > +   WREG32(mmCP_HQD_PQ_WPTR, 0);
-> > > +
-> > > +   return r;
-> >
-> > I can see this matches gfx_v8_0_deactivate_hqd. If I am not missing
-> > anything only to replace the hardcoded 1 with CP_HQD_ACTIVE__ACTIVE_MAS=
-K?
->
-> There are two changes here:
-> - Replacing the hardcoded "1" with the define from the register definitio=
-n
-> - When it times out, still write the CP_HQD_ registers afterwards like gf=
-x8
->
-> > Is it okay to call the function mqd if the registers are hqd and is v7
-> > or v8 (which calls it hqd) more correct? Not saying either way, just
-> > observing a curiosity.
->
-> My best guess is that it's just that they used a different naming convent=
-ion
-> and forgot to update the older code.
+ drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Technically, the MQD (Memory Queue Descriptor) and HQD (Hardware Queue
-Descriptor) are separate things.  The MQD is a structure stored in
-memory which stores the state of a queue.  The HQD is the hardware
-state which stores the queue when it's mapped to hardware.  The way
-it's supposed to work is that the driver sets up MQDs in memory and
-then asks KIQ to map those queues to an HQD or put them on a runlist
-(for user queues) if there are more MQDs than HQDs.  For gfx8 and
-newer the driver sets up the MQD and then uses the KIQ to map the
-queues.  gfx7 could work that way as well, but we never got around to
-porting the changes back to gfx7.  Instead the driver maps the queues
-to the HQD directly via MMIO rather than having KIQ do it on gfx7.
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
+index 260f58a97fc7..da2c92e5c02f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
+@@ -630,17 +630,17 @@ enum frl_cap_chk_result dml1_frl_cap_chk(struct frl_cap_chk_params *params)
+ {
+ 	struct frl_cap_chk_intermediates inter;
+ 
+-#if defined (CONFIG_DRM_AMD_DC_FP)
+-	if (params->compressed)
+-		return dml1_frl_cap_chk_compressed(params, &inter);
+-#endif
+-
+ 	return dml1_frl_cap_chk_inter(params, &inter);
+ }
+ 
+ enum frl_cap_chk_result dml1_frl_cap_chk_inter(struct frl_cap_chk_params *params,
+ 					       struct frl_cap_chk_intermediates *inter)
+ {
++#if defined (CONFIG_DRM_AMD_DC_FP)
++	if (params->compressed)
++		return dml1_frl_cap_chk_compressed(params, inter);
++#endif
++
+ 	return dml1_frl_cap_chk_uncompressed(params, inter);
+ }
+ 
+-- 
+2.53.0
 
-Alex
-
->
-> >
-> > >   }
-> > >
-> > >   static void gfx_v7_0_mqd_init(struct amdgpu_device *adev,
-> > >
-> > > @@ -2964,31 +2946,42 @@ static int gfx_v7_0_mqd_commit(struct
-> > > amdgpu_device *adev, struct cik_mqd *mqd)>
-> > >   static int gfx_v7_0_compute_queue_init(struct amdgpu_device *adev, =
-int
-> > >   ring_id) {
-> > >
-> > > -   int r;
-> > > -   u64 mqd_gpu_addr;
-> > > -   struct cik_mqd *mqd;
-> > >
-> > >     struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[ring_id];
-> > >
-> > > -
-> > > -   r =3D amdgpu_bo_create_reserved(adev, sizeof(struct cik_mqd),
-> PAGE_SIZE,
-> > > -                                 AMDGPU_GEM_DOMAIN_GTT,
-> &ring->mqd_obj,
-> > > -                                 &mqd_gpu_addr, (void
-> **)&mqd);
-> > > -   if (r) {
-> > > -           dev_warn(adev->dev, "(%d) create MQD bo failed\n", r);
-> > > -           return r;
-> > > +   struct cik_mqd *mqd =3D ring->mqd_ptr;
-> > > +   int mqd_idx =3D ring - &adev->gfx.compute_ring[0];
-> > > +
-> > > +   if (!amdgpu_in_reset(adev) && !adev->in_suspend) {
-> > > +           memset((void *)mqd, 0, ring->mqd_size);
-> > > +           mutex_lock(&adev->srbm_mutex);
-> > > +           cik_srbm_select(adev, ring->me, ring->pipe, ring-
-> >queue, 0);
-> > > +           gfx_v7_0_mqd_init(adev, mqd, ring->mqd_gpu_addr, ring);
-> > > +           gfx_v7_0_mqd_deactivate(adev, 1);
-> > > +           gfx_v7_0_mqd_commit(adev, mqd);
-> > > +           cik_srbm_select(adev, 0, 0, 0, 0);
-> > > +           mutex_unlock(&adev->srbm_mutex);
-> > > +
-> > > +           if (adev->gfx.mec.mqd_backup[mqd_idx])
-> > > +                   memcpy(adev->gfx.mec.mqd_backup[mqd_idx],
-> mqd, ring->mqd_size);
-> > > +   } else {
-> > > +           /* restore MQD to a clean status */
-> > > +           if (adev->gfx.mec.mqd_backup[mqd_idx])
-> > > +                   memcpy(mqd, adev-
-> >gfx.mec.mqd_backup[mqd_idx], ring->mqd_size);
-> > > +
-> > > +           /* Re-commit the restored backup */
-> > > +           mutex_lock(&adev->srbm_mutex);
-> > > +           cik_srbm_select(adev, ring->me, ring->pipe, ring-
-> >queue, 0);
-> > > +           gfx_v7_0_mqd_deactivate(adev, 2);
-> > > +           gfx_v7_0_mqd_commit(adev, mqd);
-> > > +           cik_srbm_select(adev, 0, 0, 0, 0);
-> > > +           mutex_unlock(&adev->srbm_mutex);
-> > > +
-> > > +           /* reset ring buffer */
-> > > +           ring->wptr =3D 0;
-> > > +           atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-> > > +           atomic64_set((atomic64_t *)ring->rptr_cpu_addr, 0);
-> > > +           amdgpu_ring_clear_ring(ring);
-> > >
-> > >     }
-> > >
-> > > -   mutex_lock(&adev->srbm_mutex);
-> > > -   cik_srbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
-> > > -
-> > > -   gfx_v7_0_mqd_init(adev, mqd, mqd_gpu_addr, ring);
-> > > -   gfx_v7_0_mqd_deactivate(adev);
-> > > -   gfx_v7_0_mqd_commit(adev, mqd);
-> > > -
-> > > -   cik_srbm_select(adev, 0, 0, 0, 0);
-> > > -   mutex_unlock(&adev->srbm_mutex);
-> > > -
-> > > -   amdgpu_bo_kunmap(ring->mqd_obj);
-> > > -   amdgpu_bo_unreserve(ring->mqd_obj);
-> > >
-> > >     return 0;
-> > >
-> > >   }
-> >
-> > I think I can follow this - only the wptr and rptr reset is a bit
-> > different than what v8 does it. Any specific reason? Gfx9 then reverts
-> > back to a single ring->wptr =3D 0. I guess v8 is somehow special?
-> >
-> > > @@ -3020,10 +3013,8 @@ static int gfx_v7_0_cp_compute_resume(struct
-> > > amdgpu_device *adev)>
-> > >     /* init the queues */
-> > >     for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> > >
-> > >             r =3D gfx_v7_0_compute_queue_init(adev, i);
-> > >
-> > > -           if (r) {
-> > > -                   gfx_v7_0_cp_compute_fini(adev);
-> > > +           if (r)
-> > >
-> > >                     return r;
-> > >
-> > > -           }
-> > >
-> > >     }
-> > >
-> > >     gfx_v7_0_cp_compute_enable(adev, true);
-> > >
-> > > @@ -4430,6 +4421,11 @@ static int gfx_v7_0_sw_init(struct amdgpu_ip_b=
-lock
-> > > *ip_block)>
-> > >             }
-> > >
-> > >     }
-> > >
-> > > +   /* create MQD for all compute queues */
-> > > +   r =3D amdgpu_gfx_mqd_sw_init(adev, sizeof(struct cik_mqd), 0);
-> > > +   if (r)
-> > > +           return r;
-> > > +
-> > >
-> > >     adev->gfx.ce_ram_size =3D 0x8000;
-> > >
-> > >     gfx_v7_0_gpu_early_init(adev);
-> > >
-> > > @@ -4452,7 +4448,7 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_bl=
-ock
-> > > *ip_block)>
-> > >     for (i =3D 0; i < adev->gfx.num_compute_rings; i++)
-> > >
-> > >             amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
-> > >
-> > > -   gfx_v7_0_cp_compute_fini(adev);
-> > > +   amdgpu_gfx_mqd_sw_fini(adev, 0);
-> > >
-> > >     amdgpu_gfx_rlc_fini(adev);
-> > >     gfx_v7_0_mec_fini(adev);
-> > >     amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
-> >
-> > I am assuming all this applies only to compute because gfx is single
-> > instance on v7?
->
-> It applies only to compute because only compute has HQD/MQD
-> on these hardware generations.
->
-> > Anyway, it looks plausible to me so assuming you were able to exercise
-> > both paths
->
-> What do you mean by "both paths"?
->
-> Thanks,
-> Timur
->
->
