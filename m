@@ -4,98 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A57AC4450A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 09:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33E5C4450A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 11:05:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB38010F250;
-	Thu, 16 Jul 2026 09:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8048510E328;
+	Thu, 16 Jul 2026 11:05:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aPP/KXPZ";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="p4XxcRbL";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013066.outbound.protection.outlook.com
- [40.93.196.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B39410E765
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 09:27:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QDOGzmi8N5sf7Nolh8zU400r1ybvAp3jeD7uTPshbcpMd2PMViCOXP/vR4S7WhbaqLJYy0f0YSsgntimsSrJUsZKaRpo3aMb/vXDAhkoXgHHOBfrXUnAjfkzEo6B0nW3vy6Z93a5l5l/jD9WDyOVVrofgdSy3NQfffqeVqHVPoHRx0iQcz5dyaO5ACXKhQbbAOu2+eidBWnehlybWVmyNr35PswxUA1THplqqIQZ8H6khLEOXO9kc9b90extNUtaNc0r7ReoBVr2uncpSdpcRfggmIkRsbuPJvo6aRf9EfQMullPXVR8ibWhFYJRucG2Z5IZAsQwpFa8SkwIAGjuAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5lh80ewdYSKbHuDwv2yOcoqmWm3wnXKNE6EZdFFsTS0=;
- b=n3gkJTW4HxNYIADQ0iawZuFbTQl5EyWc3Amr+r+pb6WUGj9vhpbd2cpP4j67uOAN3/QGxl9JDw1SovjGTifxgchlxJgbBuNdhWEb7zk/ratfbyOifgWpce9yS7yzHabjFfZ8SI574tk/fIpc7ujUOa6TS0CbEIuyFXV+kjOxxuDnbvi0bBfk+O+jVphE00Ca4oIKI3LQwn9aiSW6V6OItJXKYVF5pGD6oeIDwtDJG63CWtupOxLHnS/s6SZR7NFewQzdNp0uVdw5uGTr3g7HMKuZ2iWS/OH56EKSBZqOioozv6q3wN9JMIEbggfVagq8whlVXqgWdjzkUpFCbontXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5lh80ewdYSKbHuDwv2yOcoqmWm3wnXKNE6EZdFFsTS0=;
- b=aPP/KXPZ7SWjPeF342GuVuOGpWsALdk+rBkhoFoc92cJTWvR9yzTp+v12S1vDYSqhrjInvqwh0mp4XZk6UP/tTxlj1u8QFn/EDxG79lRmP9+smAP+2d1vqswOWXUDcdI0y93frr4AD8uO91P09PQb6cC8Fez2pcCILjaaOgmqtQ=
-Received: from PH8P221CA0065.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::13)
- by PH7PR12MB5998.namprd12.prod.outlook.com (2603:10b6:510:1da::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Thu, 16 Jul
- 2026 09:27:13 +0000
-Received: from SN1PEPF00036F3C.namprd05.prod.outlook.com
- (2603:10b6:510:349:cafe::3d) by PH8P221CA0065.outlook.office365.com
- (2603:10b6:510:349::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Thu,
- 16 Jul 2026 09:27:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00036F3C.mail.protection.outlook.com (10.167.248.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Thu, 16 Jul 2026 09:27:12 +0000
-Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 16 Jul
- 2026 04:27:10 -0500
-From: Ce Sun <cesun102@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
- <Stanley.Yang@amd.com>, Ce Sun <cesun102@amd.com>
-Subject: [PATCH V4] drm/amdgpu/ras: Add debug mask to disable CE logs for
- uniras
-Date: Thu, 16 Jul 2026 17:26:56 +0800
-Message-ID: <20260716092656.1057364-1-cesun102@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6B1810E328
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 11:05:50 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-c15cb6f5c12so1124479966b.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 04:05:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1784199949; x=1784804749; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1YIpuHOv/MBUTDXYL9hsOT5uvF8tiPnkJS9HvLi2zC8=;
+ b=p4XxcRbLQR6zqPHFXQIkbcC5J/eMETJp+nZkPTfMpLkGYzIVyzd/nF/Ngtpfl5f/wb
+ ZjIFIfXHyEqD9MKI3i14xlH3OLL2YW95TOAZ/xZG/HT94dNVIurDJB8uPc4uSIS/JdHS
+ /jmE78JXJ5eP2S+L928agJT6tNNkQQKfrBMVIyaBDlqM6l5oc5XiWBqXS6pq9miPEgNm
+ DAdP3ajOgqqujKuNxbqwxdFwqIREIBV0ORbU9xEMBn101OKvwktJIzB23TmJb9JzRqUg
+ P6skENOZC7lUWrv/61IbdmSSFJqFPcy3de7Q7gFEs3vCFokVqGBejPdOlBCpr/84wcnT
+ /z6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784199949; x=1784804749;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1YIpuHOv/MBUTDXYL9hsOT5uvF8tiPnkJS9HvLi2zC8=;
+ b=S6vi1JV4NBn2rALMMZxkHiIjnpH4oWgQtdMoiu0Im1cAjsYtvcoB8dg1zCW8eG9sWT
+ pheTONbVEjkbFH2UNQgADVcomFLiXg6jJWz0pEJz009VZ9ysZDD4VRdUNoGOGTHdv+/S
+ pPfAds+RBTAb8ReOW9H/KjJaWRJSg2lmASYVmzNddGxG6/OWyPIjhwVk0YUCw2MnAor/
+ /nh0RRxSaue91kOq55SdwETQAQN+GrSonu402tWmbn3U3zTJilSLZ+SRbD/S81F5mXvj
+ qd6zbwZXTtppJrDbIJzNi6QtbZ9G8MdrguohT1jK0X1PKkYR8s7rENj2LNpoA8FmIoeE
+ BHyA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rop4670c4RqPNZdWOxVg5eOvVdEiV/YaQym+L0ZcWQmL9C9RgbBOfKiRvqiFIRJvOTaoX8KE2Kk@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+tK8LOvWQ63ocHxutuPwPlWuZNGVMXQjp7OLGlXGyydfaUPdh
+ +7pvopvQDM6//3jixYYlMoajI0GGR9taiz3H8vFZXSOrVaXsAJG+8hpWvfqTKWOYYOQ=
+X-Gm-Gg: AfdE7ckMB34XolWegr/wtj1F3lO5f+mNdX6D7pxCOOtFUJ71Q3nFOCWD/O+evqJhc/L
+ 69jIsz98hCsZ++vz5vWDlKKGQ8wSLTxNFFGrp1zQno9KXku04cxn81dsSV00FIBc4vchHQ8thoT
+ Z2oNmInbq0U+3jwlbOJDLH/a+ZzwU7+Y483IjML5U2Qsy45549wk3riR13vCYtu1EeEDrhlpYN+
+ ezY1Fu3uA38q+2XPs02+DRnhoEM263m8ZPXoS3bk3SPKotUXLNztTYVhkWEdTP3ksEbCV+JyeAx
+ PJb8aSlCd3+IAQEEY0/nVC+dIW7IUI4D1OmzTmHkMAga3l1YAOTGVPKqPWEG33BXr9OhXrN1tyr
+ LFZdTgqtWY50EocOnXhkVlbK/O8T0XhCh8b1iDu9Q8bLxrq6SmpwqIyvzYLJkOorg+CuJklBKJT
+ m5D1TtooJBism6qqIwuYDMgpY=
+X-Received: by 2002:a17:907:3909:b0:c12:34ed:e0fe with SMTP id
+ a640c23a62f3a-c16795577cdmr408380266b.60.1784199948611; 
+ Thu, 16 Jul 2026 04:05:48 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1687125db5sm193653366b.12.2026.07.16.04.05.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Jul 2026 04:05:48 -0700 (PDT)
+Message-ID: <afb43e28-45d2-4529-98af-6fc7ea071ec7@ursulin.net>
+Date: Thu, 16 Jul 2026 12:05:47 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/11] drm/amdgpu/gfx6: Properly enable/disable priv_req
+ and priv_inst interrupts
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+References: <20260713130709.34262-1-timur.kristof@gmail.com>
+ <5733138.E0xQCEvomI@timur-max>
+ <d56d2eef-0bd1-4289-b315-8ecb7f5d01eb@ursulin.net>
+ <178429166.VBMTVartND@timur-max>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <178429166.VBMTVartND@timur-max>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3C:EE_|PH7PR12MB5998:EE_
-X-MS-Office365-Filtering-Correlation-Id: b55c6f6b-e38b-4dec-ea02-08dee31c6aeb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|11063799006|56012099006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: qeiWTOxffm0CGEI33GDVd044OAp9fDBAHmnFA4sfCJ7aE0bC30IEjk9yFq6telRco3r493mmdYZeq4csZ6kmsSxcfwbtwhvmpUNOrkJbNHGuKuufj6rFK8i3to9s48DgspiTiwXj6WCTC4q44bCBTqKqxfhwalOqGT4dnqMZmeh952nel85EobGcsemwxhr5ZM0d+HoWQdF62pIFf4WwopoPbrtYML49Bk34VK2EvgY8mKiEUJ6VuOiUbdTOSMKZkQRWZ/aTe7GvlCQ3fp1oNDxUPuco/EInn0bzzfhsBJKtPTImMMOjtMJpru06AMJ2Tqg73Uo/NNEd1NQzoXrzlYR0HL7G/lxZHhrvKCQKMM+J16pBdrg5KhBO6dp8bh3BcFYO3dEhSAfOlIVEvBX4r28rnMYu16RkfMDK3hRSMYe5HrUX0/SDRQ5Q41QKDkfLTNye5BAyd0lrnU82ZN8fLrdEJri+PWWh+9Xrb3NxE51drBBF367JmC/9XZF/hYDX9ih/q1ZpdpltRvLAJX4LbzzZMHjVSdmt9s9o1oVNb4V70z9A913sfIeXUAtEOJ19zPrLNYWEb8MyqcM1XEKUy5QU0D+LW+P30Erw6Eeo4ZtDTZOkT8ezeAh/t3WcfavIq+aC5uj2JgDUUAaPm9VQ4E/A6o2j1EjN1CncITU62XxzMbog0f5wOTIotlH+Y0UhTX8y3/OLNAi3rot7YgE9FA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(11063799006)(56012099006)(18002099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Ph3hDbibuZLFtYHi/OfpjiuKoRa4Yly/fp1eoSrGjmUjC8FUSyjuciXoM7MgVtsujI2udhrspggVKc2pghs5Gj+Ry1kALInawXODY3o0QoJ/MQRT+U6Z5C0wIg3IEDypSiGw6plpwgYw1/lBAOfy7CnF+vwdsdnkntb3/dofG8IiHhT8GlWXjCXVcvy02jwNhsBbEfyRfsDddyw+1cGSuTOVSRajWB5f5ylhbZHKqf7Isz/jlwP7a4/q9SW3aIhKLOyR+IwvaOy4EM5A5oEAQ3bc6QdXzLB9N94d3FKxbFdICxVsnbVRBv82fqKtRPyOiDeQJYG3VD5P3CXh0f88FdoYv0kMOefFc2FBXv077fR3n8N5Za4JWY/bHj+IizSEpjioh8A+0YIJbrX0lvcSpBb7np121Oye3TbMQvZtr2WjR+vHcZB2QACjo9vnMGQO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 09:27:12.4975 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b55c6f6b-e38b-4dec-ea02-08dee31c6aeb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F3C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5998
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,145 +96,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add debug mask to disable kernel logs of RAS correctable errors,
-including both ACA and CE error counter kernel messages.
 
-Signed-off-by: Ce Sun <cesun102@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h             |  1 +
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c    |  1 +
- drivers/gpu/drm/amd/ras/rascore/ras.h           |  2 ++
- drivers/gpu/drm/amd/ras/rascore/ras_aca.c       | 17 ++++++++++-------
- drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c  |  2 +-
- drivers/gpu/drm/amd/ras/rascore/ras_core.c      |  9 +++++++++
- 6 files changed, 24 insertions(+), 8 deletions(-)
+On 15/07/2026 20:23, Timur Kristóf wrote:
+> On 2026. július 15., szerda 13:22:21 közép-európai nyári idő Tvrtko Ursulin
+> wrote:
+>> On 15/07/2026 11:53, Timur Kristóf wrote:
+>>> On 2026. július 15., szerda 12:19:40 közép-európai nyári idő Tvrtko
+>>> Ursulin
+>>>
+>>> wrote:
+>>>> On 13/07/2026 14:07, Timur Kristóf wrote:
+>>>>> These were used without ever calling get()/put() on them.
+>>>>
+>>>>> Implement it like on GFX7-8:
+>>>> Used as in how? Are they even enabled without this change and if not
+>>>> then does this patch fixes something other than being prep work for soft
+>>>> reset?
+>>>
+>>> If you open gfx_v6_0.c and search for priv_reg or priv_inst, you can see
+>>> that the interrupts are used in the same manner as gfx7 and newer, but
+>>> without get() and put().
+>>
+>> Yes, they are used in code. Are they used in reality was my question. :)
+> 
+> Looking at the code I think the original intention was to wire up these
+> interrupts. I think the hardware actually supports these interrupts and the
+> author of the code simply forgot to call get() and put().
+> 
+> If you are not convinced, maybe Alex or Christian can confirm whether the
+> interrupt actually exists on this HW generation. If it turns out it doesn't
+> exist then we should just delete this code.
+> 
+>> I ask because it appears that without amdgpu_irq_get() they may not even
+>> get enabled so never received. Yes or no? Consequences if yes?
+> 
+> Yes, that sounds correct. The consequence is that the interrupt will now be
+> enabled and the HW will tell us about some illegal register access and some
+> illegal instructions when it happens.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a3dafdca7eb3..bc6b7da3914f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -226,6 +226,7 @@ extern int amdgpu_use_xgmi_p2p;
- extern bool pcie_p2p;
- extern int amdgpu_mtype_local;
- extern int amdgpu_enforce_isolation;
-+extern uint amdgpu_debug_mask;
- #ifdef CONFIG_HSA_AMD
- extern int sched_policy;
- extern bool debug_evictions;
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index ea95e0f93d1c..0db755ba7037 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -309,6 +309,7 @@ static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_dev
- 		amdgpu_ras_mgr_eeprom_is_supported(adev);
- 	init_config.poison_supported =
- 		amdgpu_ras_is_poison_mode_supported(adev);
-+	init_config.ras_debug_mask = amdgpu_debug_mask;
- 
- 	amdgpu_ras_mgr_init_aca_config(adev, &init_config);
- 	amdgpu_ras_mgr_init_eeprom_config(adev, &init_config);
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
-index 878dfdfcb18a..88b0bac158af 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
-@@ -301,6 +301,7 @@ struct ras_core_config {
- 
- 	bool poison_supported;
- 	bool ras_eeprom_supported;
-+	uint ras_debug_mask;
- 	const struct ras_sys_func *sys_fn;
- 
- 	struct ras_aca_config aca_cfg;
-@@ -403,4 +404,5 @@ int ras_core_convert_soc_pa_to_cur_nps_pages(struct ras_core_context *ras_core,
- int ras_core_check_address_sanity(struct ras_core_context *ras_core, uint64_t addr);
- 
- int ras_core_set_debug_mode(struct ras_core_context *ras_core, bool enable);
-+bool ras_core_is_ce_log_disabled(struct ras_core_context *ras_core);
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-index 67a35409ff0e..a1fb9a5f72cf 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-@@ -83,22 +83,20 @@ static void aca_report_ecc_info(struct ras_core_context *ras_core,
- 			seq_no, skt, aid, ecc_count.total_ue_count, blk_name(blk));
- 	}
- 
--	if (ecc_count.new_de_count) {
-+	if (ecc_count.new_de_count && blk == RAS_BLOCK_ID__UMC) {
- 		RAS_DEV_INFO(ras_core->dev,
--		"{%llu} socket: %d, die: %d, %u new %s detected in %s block\n",
-+		"{%llu} socket: %d, die: %d, %u new deferred hardware errors detected in %s block\n",
- 			seq_no, skt, aid, ecc_count.new_de_count,
--			(blk == RAS_BLOCK_ID__UMC) ?
--				"deferred hardware errors" : "poison consumption",
- 			blk_name(blk));
- 		RAS_DEV_INFO(ras_core->dev,
--		"{%llu} socket: %d, die: %d, %u %s detected in total in %s block\n",
-+		"{%llu} socket: %d, die: %d, %u deferred hardware errors detected in total in %s block\n",
- 			seq_no, skt, aid, ecc_count.total_de_count,
--			(blk == RAS_BLOCK_ID__UMC) ?
--				"deferred hardware errors" : "poison consumption",
- 			blk_name(blk));
- 	}
- 
- 	if (ecc_count.new_ce_count) {
-+		if (ras_core_is_ce_log_disabled(ras_core))
-+			return;
- 		RAS_DEV_INFO(ras_core->dev,
- 		"{%llu} socket: %d, die: %d, %u new correctable hardware errors detected in %s block\n",
- 			seq_no, skt, aid, ecc_count.new_ce_count, blk_name(blk));
-@@ -114,6 +112,11 @@ static void aca_bank_log(struct ras_core_context *ras_core,
- {
- 	int i;
- 
-+	if(ras_core_is_ce_log_disabled(ras_core) &&
-+	   bank->ecc_type == RAS_ERR_TYPE__CE &&
-+	   !bank_ecc->de_count)
-+		return;
-+
- 	RAS_DEV_INFO(ras_core->dev,
- 		"{%llu}" RAS_HW_ERR "Accelerator Check Architecture events logged\n",
- 		bank->seq_no);
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-index 840610538c1f..288fad0862a2 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-@@ -265,7 +265,7 @@ static int aca_parse_bank_default(struct ras_core_context *ras_core,
- 	ecc->bank_info.addr = bank->regs[ACA_REG_IDX__ADDR];
- 
- 	if (aca_check_bank_is_de(ras_core, status)) {
--		ecc->de_count = 0;
-+		ecc->de_count = 1;
- 	} else {
- 		if (bank->ecc_type == RAS_ERR_TYPE__UE)
- 			ecc->ue_count = 1;
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-index 08e17a83ad5b..c90db914aa5f 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-@@ -28,6 +28,10 @@
- 
- #define IS_LEAP_YEAR(x) ((x % 4 == 0 && x % 100 != 0) || x % 400 == 0)
- 
-+enum RAS_DEBUG_MASK {
-+	RAS_DEBUG_DISABLE_RAS_CE_LOG = 9,
-+};
-+
- static const char * const ras_block_name[] = {
- 	"umc",
- 	"sdma",
-@@ -545,6 +549,11 @@ bool ras_core_is_enabled(struct ras_core_context *ras_core)
- 	return ras_core->ras_core_enabled;
- }
- 
-+bool ras_core_is_ce_log_disabled(struct ras_core_context *ras_core)
-+{
-+	return !!(ras_core->config->ras_debug_mask & BIT(RAS_DEBUG_DISABLE_RAS_CE_LOG));
-+}
-+
- uint64_t ras_core_get_utc_second_timestamp(struct ras_core_context *ras_core)
- {
- 	if (!ras_core)
--- 
-2.34.1
+Right, AFAIU assuming the CP hangs, instead of waiting for the TDR 
+timeout with this patch it will be instant via drm_sched_fault() called 
+from either irq handler. Or if CP does not hang but somehow ends up 
+going over it with corruption with this patch it will insta GPU hang.
+
+In any case I think it is needed to have a definitive answer whether the 
+interrupts were not enabled until now, and if so, also exercise the 
+until now unused code paths just to make sure it all works as expected. 
+Presumably there are test cases which trigger both conditions?
+
+Then I would suggest putting this info in the commit message. That is, 
+instead of saying "These were used without ever calling get()/put() on 
+them." expand with the full story so the whole situation is clear both 
+before and after the patch.
+
+Assuming interrupts were not enabled until now, that the unused irq 
+handlers work as expected, and with the improved commit message:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Unless you don't have the hardware to test it and there are no existing 
+test cases to verify it?
+
+Regards,
+
+Tvrtko
+
+> To give you additional context: for the purpose of diagnosing issues related
+> to GPU hangs and recovery, all additional information helps. If the CP has
+> interrupts to tell us about some error cases, we should absolutely use that.
+> 
+> Side note: from the register definitions it looks like the HW actually supports
+> other interrupts which would be interesting to enable in the future.
+> In this patch I just wanted to fix up the two that were already in the code.
+> 
+>>
+>>>>> * Call amdgpu_irq_get() from gfx_v6_0_late_init()
+>>>>> * Call amdgpu_irq_put() from gfx_v6_0_hw_fini()
+>>>>>
+>>>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>>>>> ---
+>>>>>
+>>>>>     drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 19 +++++++++++++++++++
+>>>>>     1 file changed, 19 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c index 5b570a4b5c01..1c7cd265fbca
+>>>>> 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+>>>>> @@ -3131,6 +3131,22 @@ static int gfx_v6_0_early_init(struct
+>>>>> amdgpu_ip_block *ip_block)>
+>>>>>
+>>>>>     	return 0;
+>>>>>     
+>>>>>     }
+>>>>>
+>>>>> +static int gfx_v6_0_late_init(struct amdgpu_ip_block *ip_block)
+>>>>> +{
+>>>>> +	struct amdgpu_device *adev = ip_block->adev;
+>>>>> +	int r;
+>>>>> +
+>>>>> +	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+>>>>> +	if (r)
+>>>>> +		return r;
+>>>>> +
+>>>>> +	r = amdgpu_irq_get(adev, &adev->gfx.priv_inst_irq, 0);
+>>>>> +	if (r)
+>>>>> +		return r;
+>>>>> +
+>>>>> +	return 0;
+>>>>> +}
+>>>>> +
+>>>>>
+>>>>>     static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+>>>>>     {
+>>>>>     
+>>>>>     	struct amdgpu_ring *ring;
+>>>>>
+>>>>> @@ -3243,6 +3259,8 @@ static int gfx_v6_0_hw_fini(struct amdgpu_ip_block
+>>>>> *ip_block)>
+>>>>>
+>>>>>     {
+>>>>>     
+>>>>>     	struct amdgpu_device *adev = ip_block->adev;
+>>>>>
+>>>>> +	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+>>>>> +	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+>>>>>
+>>>>>     	gfx_v6_0_cp_enable(adev, false);
+>>>>>     	adev->gfx.rlc.funcs->stop(adev);
+>>>>>     	gfx_v6_0_fini_pg(adev);
+>>>>>
+>>>>> @@ -3532,6 +3550,7 @@ static void gfx_v6_0_emit_mem_sync(struct
+>>>>> amdgpu_ring *ring)>
+>>>>>
+>>>>>     static const struct amd_ip_funcs gfx_v6_0_ip_funcs = {
+>>>>>     
+>>>>>     	.name = "gfx_v6_0",
+>>>>>     	.early_init = gfx_v6_0_early_init,
+>>>>>
+>>>>> +	.late_init = gfx_v6_0_late_init,
+>>>>>
+>>>>>     	.sw_init = gfx_v6_0_sw_init,
+>>>>>     	.sw_fini = gfx_v6_0_sw_fini,
+>>>>>     	.hw_init = gfx_v6_0_hw_init,
+> 
+> 
+> 
+> 
 
