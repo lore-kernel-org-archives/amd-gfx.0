@@ -4,128 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DAEC44501
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0CAAC4450A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:21:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1005D10F2F6;
-	Thu, 16 Jul 2026 13:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1F410F2ED;
+	Thu, 16 Jul 2026 13:21:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RBPE0r7c";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NBoMWDeY";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010018.outbound.protection.outlook.com
- [52.101.193.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E20FD10F2ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 13:12:44 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010039.outbound.protection.outlook.com
+ [40.93.198.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C01EC10F2ED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 13:21:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sdu68zMUI98uqXg+MllE3j0lhvBAemdtZq73FqP9DRZFId9reK7+tEi9SOfWcBOtjgJfdUcw96DxZqvPyl7EGDTEDqRy32LFdGmCgmWRF+/K0atC+er0GEVmLIfZnweVpdu7LDhiR0YaaxUS7WADM2ucp1NBCsTb2vcfFM3t05cnNEB00rXYueQkYlcyPOMLcf1rIQpKo5/88RL3kSjy0IxF1CvEKLrwMB3/lbzo3gfo/P0H3CGWp9+mYYvucekGFwQg0jNa/Vz6rOEwldpMoFlQkr/A9dDbZJwp5TzkgTpinJ189ruVa2lcSkZ8+2ta9Z+KCCV6+H+L2ye/tdMaWQ==
+ b=uhhMb85San1HOVmtV2XHhOyX24R/jpmlWlQzNtRZjzRoxil2ijndZAs154LNui6vH5Rk55+mYjSGzIFNpUZGnePZeoPcKrnDvgiH9teGglqfNOxaC1wLjsSxj/pSexRX/4NKmNFyMfE92N5wQhW9Rvtjg5JKDvpa0GEc+G5x+RJ4rp7GHxCPFim/44Oa7JNG4PAmijfGB0JimUVg0JGMPzkiRX7bW00BLL5wVqIttQrhTQPNO17pdWewEvCuCkxCE8tcFBplpeXt3kI3sk0k60Xl9vnedR1BUNa2aoqDmbkNCobU/16ZJuJEjUD/ITFYw0JhJxRqG0yNqbAg2i8y1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cbRuo75bbAqJQ887KF5G4K02elYWvhikat1fHPw03+E=;
- b=MzIY0V+PZmHXYvJgIu5qU2hP3SJHeiTF1UrvnvXxnDZEhPTHLqYKNpY8REY0AgCSq3gQcNhpB49k08W6sYLpQPxxeST7K3jD3gpo9f+6KSUV9RrvMI81LJZzCLBHjdXKUdEq4kvDvZNHvczEosoQOdy+q8Q1sQTce6Tj11nGPPW79bSsKIwvYvANGwOyGtWwzP06sgxVTapnVxezcGy0BVUDGN3ckujvlGL1h9xXcbmXA5Ft+hG0nhYShhAeBJtUowwTPBoqHrG2A6KB5a/e+dNJAJOfDyFAjO03TeFPIBT05atdV1CHAei9vmatoTFxP7elo6/RbVqQ0qNcYLKQBw==
+ bh=Pk1x2+VVaZpQ+KAQR0OlHi4TNEdy/LtLl97+bGluN6Y=;
+ b=QBghGPjSKKD87pEf9aTt4Ts8sMvRvtPDuTfQW19E4o2A+Zh3RL4lx4CiDyYTxYl9HHwS+wEZCoVssOjmG0NILXntWDNXc/sLeGJjWmMv0v3dH2hWhT0dgNj/Lweh34o47P8emojVBWBlPmQYKOGfImdscoavX7iu4FOv/f3w6iHfD8vaz69ab1Pn1/yvGtBAobe+5ObFP+/EQbyHoFk0OcVi6BNInqhHiebb2QVWszh23VTMJ9XE5jNwW81291r6H1AtfaGu8rpknyLYFkYIK82c+3zrJR2b3JMbCreLbS3nldvmvzLQ2+gWZx7LwMDyfl8gfHFkAMZfmIUcLe69RA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cbRuo75bbAqJQ887KF5G4K02elYWvhikat1fHPw03+E=;
- b=RBPE0r7c+vjgs6blYK+6djphTd5NpBFC3QVWDTubCYLCaX0/KPlDqB4mwl3GGdU2dqEPwD/TK6Maax3smHFlRs3PmrPBN94Dc4vdcKKQPm3vnMpURclr6puuSlG/LkctnH5GffBAL/iSm0k3RZoUmCIGv0IyRDCbeK9uOmGIg8I=
+ bh=Pk1x2+VVaZpQ+KAQR0OlHi4TNEdy/LtLl97+bGluN6Y=;
+ b=NBoMWDeYgoeYf9XNwS6pHgaE3ezNTNeT4I3ciwpeVEY3N8EWfx5ROvVBrTgZh4LER2t8TLd8qwubAnQzWuOhToLAbcEHMHmeHqCIQ04wu7UyoTcFk+AULEK8/DrURve58gM1VCUc3rl6HJHKSdtyW61fnkIVZDrZBBhzx5Juq9k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ1PR12MB6218.namprd12.prod.outlook.com (2603:10b6:a03:457::17)
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by MW3PR12MB4425.namprd12.prod.outlook.com (2603:10b6:303:5e::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
- 2026 13:11:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 13:11:26 +0000
-Message-ID: <ae02e6a7-aac2-4ed2-a24c-c9a1d0e0e9df@amd.com>
-Date: Thu, 16 Jul 2026 15:11:22 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
+ 2026 13:21:16 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 13:21:16 +0000
+Message-ID: <6f4ec487-6cb8-412c-ac1a-b0710c79c584@amd.com>
+Date: Thu, 16 Jul 2026 08:21:14 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/5] drm/amdgpu: Record QUEUE_RESET WAIT_EVENT
- notifications
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260714081023.3395485-1-srinivasan.shanmugam@amd.com>
- <20260714081023.3395485-6-srinivasan.shanmugam@amd.com>
- <b40ff22e-2d09-4644-a4d3-a9cffcdaec6d@amd.com>
- <IA0PR12MB8208D744889CEED95FB6DB0E90F92@IA0PR12MB8208.namprd12.prod.outlook.com>
- <IA0PR12MB82082D2D3FDABB394796856B90C72@IA0PR12MB8208.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu: Fix VFCT bus number matching with soft
+ filter
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <IA0PR12MB82082D2D3FDABB394796856B90C72@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Oz Tiram <oz@shift-computing.de>
+References: <20260708193518.702584-1-mario.limonciello@amd.com>
+ <20260708193518.702584-2-mario.limonciello@amd.com>
+ <aljQlgDxiRrtMJti@monoceros>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <aljQlgDxiRrtMJti@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAP220CA0004.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: SN7P220CA0007.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:806:123::12) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6218:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dc657bf-0bb8-4945-5305-08dee33bbde1
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|MW3PR12MB4425:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05cb3472-6ec1-4613-bdbb-08dee33d1d8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: g2i61rjjtbBZC2qn79IyX4TMP1gW8QnwRWY3T2b1VDAWQZ+EnRe6n7/t7gzs+fkbxxtIxTv+sio8rER722ymQDjUqnax0jFXQNTP3nuwB8JKwaZ+9xSxn34z4N29QAiUhEgGsvNfEC2vX1VjiY4OYPqbC7UQs5O89gKDMxqO+du1NOwZd0KHuduu38lUJplIgi//TO+IQ6r/B7Ma/uEe1lp3fPHWRIwWntKedRUjGnFCD+oNgaqZ9k+C6aWCMIq47CsHprId7JZ2scw+kIEcpVNUOuzUdHvex0ghTOu33oj05tnUgzRivm3uEgyXtww9DKh6WX4ZELbZeYtV+HwNZjFrIGO3447NFi/b2PvDaxeDEbVg0odKl0d42r2bHri25F2IsNOp+8nhWf68KKMdAT/p7X7OwHaIHLFKALCV2MWmIZT/HYoQOtd7ZY4nwUYe8H5kcj+jkDtT+x5c51wMWKKJP56T9OdFHwqKQ9joPPnwfeiSM8/5VaiqufHGJyjuJ/Va69C5dMbPnNF38Ul7K+NlCtNSzN2csEbhgH+98Oaq95W9K30+BR/w1QduHAS8lvS9w90+4hoE0W8g2YB6vDpGadubk1nPjYuLbpWaUdr88YS2Z+j0gs6R5FWy+NwJ
+ ARA:13230040|376014|23010399003|1800799024|366016|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: m26YacnVVmd0nUQLQHfdB4/b3zD7xRfwiETgoaA2FmknBWQ7P3Ood40u0SmoG+G6WaF9uBzPKz3ZlHMIE+LeT417hLD995g+0jXjiGvQu/TMgsWEnXYjJGZm+Aop6TNxsIlPGp7Ue4LOlXZ1U1cmvzXwoCfccOCCax+/lNZYO/wiy0hHa9it/sWeIUs+h6llYpxji4L7hrZBcBSu7lluvOiHw95t2MkDn6S6jFwQ1Au8OjeTrMKaY1H0umYUvcBiNFJlvsupkHZWyk1RrUK231VqJYen/GUBGwTeMgEJ4QtCyoZ25pUEoJOu87qZaA+uSowb/FsfRXCF1pV+K7alnlQsnvtdIgEeIkB3wprahgM20qzaT1Xva6vDxALoXeO53I3y5nfInD23nib8KbzQhZzrc0NxnMq7EO7MISojaeLso8yhhFopC4VeqWStWoau2IJAu4x7s7xAWXMBASaSr3WVsjvb/eMmxE4bb0TSnnx/CxFquls1DaSd3mgTopFZePcFLkWt2JVENC0vZoA6eC3WLSVhkxga14wRoxjfnjpUc0m2t08wrQuWUTNgoKCG2Lg0uzJ92PhVMDQpyDXzwXVxNpFREFPYCpZ6gtsJZhhix1c9U6RnRwh8vPg9kp4c
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDk1dmhSNTNUemxGY3AxbFNoVm1OcUxuYTYrTzJoam1IZitoUWxMMmVNN2lL?=
- =?utf-8?B?OHJYc3JIZUdFanZUcTk0aVV3amE3UUJUcExzQTJOODFXa1VoOW9Oa285c0Qr?=
- =?utf-8?B?RXJEbDJEQi9ldFdxQVZ6MnBQS1Nad2IycC92TXFQNDl5SEc5MTZJMzJBOWJz?=
- =?utf-8?B?bVo3b3czcGRwY21FN0VQaTZoUFVOclBITzZibTl6S0pRSFIyVnFBbjg4OWVx?=
- =?utf-8?B?SFA1bkExOW92dTZHZTYwMkw1dXZtR1BmTG00MFhMVVBTQUZoQklZTHRhUGo0?=
- =?utf-8?B?UmZjWHVIcWNNa29GUG9pUXNMMUx5UytCeUFZNDdGeWI0ekcxcFJSZitHV1Z5?=
- =?utf-8?B?MW5BV3BEcityclpoRXRvU25hb2hkWWhjaGtsTFVGQ250SVpOUnFxSk1PbFBO?=
- =?utf-8?B?L1FFelhGWEM1RGtNMXJMOXc0MEdmckgrNGppMWp2K1NZeHRubEd0RStLQVlQ?=
- =?utf-8?B?VjN4SUxaNE5xQU5jdlFkUDhSaFNHQUlKdmkyVEpCUjYwV3dQMXZERW1MVnBY?=
- =?utf-8?B?UHZiNnZxK2ZKbktzakFLUjByYVZoaDNxSmVqYTB0Qk0yRXdxQ3dneVNLVWdO?=
- =?utf-8?B?VU5BL0pnRlJEdHVxVGM2Z0RiazNRTk1yUGowTWlyWjJmVE5HQjVhRmtnRXQ1?=
- =?utf-8?B?VjUxTVlreWhpWmlqNGJYcEI3eW45aXBXa1ZqWDdEVDlmTENtYjBoK2dkVG44?=
- =?utf-8?B?cGZTdjFTTXBTWW9iSWhkR014OHdhK1IxSXpRRTA5cnc1RmdJWmphdU1Jbk80?=
- =?utf-8?B?eG5BLzhsVTlzQW40QnpxS2dVSlBqTjVtUHN2dDgvR3RReTUvVkNmSjZwdTRI?=
- =?utf-8?B?OUdCbjFyRHM2eGcydjc1SWJPTkJJeWlkUENPZmpnbStYbUw5U25DMWlSM3Aw?=
- =?utf-8?B?OGw2RlV1OFROT2hwS25KcjdDQ082V3kwT0tOeEZkVmxYUG5na1NqSkhIQVNn?=
- =?utf-8?B?alZ2azFlZE8xaEhiUUVpTkRCeXlaK0VCUDBocHZiQWtNNVJnWUh1cUZIOFlH?=
- =?utf-8?B?YS8wYXlENHZ4emJsRG9zQjhCT3lIVlFKZ1JVeHhKQURmQWJ2Y0R0dkNRd1Jk?=
- =?utf-8?B?TGh5bkdlV0crUlZvZXFWUTJmV2JMWUhTYVdicTA2cmRUU2lyME9WaTd2MEl2?=
- =?utf-8?B?eEFjUWFrSEY5RyttQjltSDNkcW8xUWJXUTVEYjB5c3Q1ZUFzeVgxN25XdzN4?=
- =?utf-8?B?YisxZC9kazRPa1I2SldZNGJWZWZzdHlzclpjVzR5ODFqa3BaTnFNWnNIajdP?=
- =?utf-8?B?cjQremFaR3NwZlB3cEFaKzFsdjRRazdpSmdtSllSWDM2QzJXckJaZ3B0NFY3?=
- =?utf-8?B?aUgzZ3dqSHltdG1jSkIrdlpjOXNEOGV3eklUM01HYlVqbkcwMkRsMTY1REdJ?=
- =?utf-8?B?R1lkb09WdUg1YzZJTGs1Mm9remNyZnJveTdlM2pOVTV2TmoxRU0zSWVVVnhV?=
- =?utf-8?B?cWhDNTc1T0tkNFRxbEUyaTZOSmd2cC8yR1VROG9aMVYxd243OE0vRFB4YXZu?=
- =?utf-8?B?UTBhV0M5UytodW1XOU5UMzNVL3NNR1BjemJzMjFEZ3pvY1NxL3U3NnZSSkg1?=
- =?utf-8?B?QkZYcE1hQ3hEVkIxTjhiT3laekdLMUFRblpIYy9ubjVnQ3d1QjhtQ1FxN3Rq?=
- =?utf-8?B?UzAxN3FjdTlrZ2FNN293UHhoaFZHUVhLQmZValZxOEJJWG1aUWpsb3ZBU0V0?=
- =?utf-8?B?eGdiZ0d5eEduYTlRNDV6ZHJQQkQxcDA0ckJ6QVJoTlorcDBsWnNmZVZZOCtF?=
- =?utf-8?B?S241cFdGalNJdXJpWndia2dqTVlERDNRbGVYUFlaM2xFbmNCc1pkVE9FYjJP?=
- =?utf-8?B?MFgrUW9XampWNTJobWZTWTJiR3d0M2lVMnZOeTBXaEY0ZEp4eVdKUmZPVWFJ?=
- =?utf-8?B?Qm9OMTNhNGFqM3RBNzF6M2ZhSlg2ZDkzYVA1cEkyUWw5NXBHUjVyazRab0tv?=
- =?utf-8?B?VG9BTDI1eFJIVDNVVFpUdUlENnJleEw4cUkrcG4zY1VSSU84Nkpob0dzZnk5?=
- =?utf-8?B?RzZFWS84bWxsZCtrVXBKeDQxWk5RV1BqQWF3Q3NyTXBOR01xbDdLdHNxRlFk?=
- =?utf-8?B?emFWbkNSWUxuT05VazV6OUcrT01RcFFDYk5oTHJlQzlrL3hJeHY0RTdpajh6?=
- =?utf-8?B?Y01yckJPTnFSbmQ4R2xqVnhoU3VVc052a1hraHZxWm9nMFRyZzFyTlpOLzli?=
- =?utf-8?B?Z1V2N1RDV1JJUFE5akhRNkNmalg4NEdidUtscTk0bjMyTTc2eVUwT2RWbXZW?=
- =?utf-8?B?VlQ4ZWhhdGdncERCL2h5SGRvb04wV01OUG5GNkNzcFlucVlhekcwaUdFK0Z4?=
- =?utf-8?Q?5/rtOhNq37GyZATaxi?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bjJnR3FQZ3RGY2hXMEtCUlFNWWdoaGxLR2hFekZaUWNwRDhCaDUveVdEWVpT?=
+ =?utf-8?B?cURSSDhPdWxMSk1UT2E5UFVDb29PcHJFQldGemd2MG5vODV0azB0dTF4WGF1?=
+ =?utf-8?B?U3VrR0lnbnVFaUdnNVZnR3J5UnhjcnRHdHZxU2dvZWRzREErcEdXZGcxSUJR?=
+ =?utf-8?B?Y0d5Qk52c2g0bFQrV1pxNkdkVE1EOHFhTUQ2ZGNCclNqV1JyaTdOWG8zdDE5?=
+ =?utf-8?B?ZlE5aDExK1VRNHg5Zkd1NkI4d25sWXR0N3I3T281SVZ1YVRleDdxTlBmcjl6?=
+ =?utf-8?B?bUc0cnlubWFzWVkrMDQxRlF5ZzlWbkpEckQ1Sndzb1lTN0xNMTBhVE5YZ2Rw?=
+ =?utf-8?B?YjROa2NOU1BDblR2OUJPaytWRGgyelYyc1J1Y0VRc2JrRXVpem4wY2dBMzNk?=
+ =?utf-8?B?czJaa2dxTXlFR05hNXF3WUsycmMxZUx6aisrNFBKeDRyaU1qUzNQMXR2aXVC?=
+ =?utf-8?B?aUxDQ3pYTzRTeWlHc2lRcXFFV1dlU1JtRWtwSCs3cGNoOG05ZUI5SDh6eUpN?=
+ =?utf-8?B?WmlIUFJIR0JJZE1FZVdQWGN1bXZ4NU5FckdRT0RTUHkyNWFnRFRrMnFUazBI?=
+ =?utf-8?B?MjUrelVzR3B0VjFMeDIwalpDN2tEVCtTWnB1MVp3VDNIbmp2OTJkOXp1eUVu?=
+ =?utf-8?B?TTIwdUc3dExSN0pEUURwUDlYR3VOU0lPbFJ4SFFPQzVYZUl4SS9MQVQzZFY0?=
+ =?utf-8?B?YWlqMzJ4UUU2U0Vra21MVSt2SXpGR1hIR0ZsSVZsdGRXd1hKdTMvZ0JsdDJw?=
+ =?utf-8?B?RmtvdklmcS9MYzNPR1NHWGVhVHRhQzJkeEUrT2d6UWw3Z3RCY2M2Z09jL0Rw?=
+ =?utf-8?B?OEVISVNHcktqYlNEaHRKTytha3hRSzNRdWZyZlNERWc0RnY4Ry8rWXpxNHBG?=
+ =?utf-8?B?SkVDK1RKWlg3cVJ1QkxkUGpvc0lMWUVhS2I5WVJ4U1hPNHZJV0x3SVhza1Z4?=
+ =?utf-8?B?cEo4Q3RCdFltNStBVDZQUkNVN3NkbGp2LzRWYUhTVi9mbXROc0dkbGU3Y29m?=
+ =?utf-8?B?VTlhbTFCMXdWQ2wwbXdIdnovMDlRdTZFY0NwRlVqNmJSR0VBU1JoditmVmlm?=
+ =?utf-8?B?WlB6eUtkbFNPbkl0WUFtRmZxOEMwQ3kwZ0xHbFZvMzhHOXYrUGJvWnRLeTFT?=
+ =?utf-8?B?WXk0MEliUnZVVmlSYTlZdVp1bG0xVUdmMTFkNjZJVm1VM0w4VjFHdDlQZit2?=
+ =?utf-8?B?WlExNGpQdFNxSmZKY3pWK21JOG8zdXc5UDByaUkraWhFR3psc0VYL09kQ1Q5?=
+ =?utf-8?B?WEs4cW9oUVY0S0VoeDBXZUpEZU5EUUVsNTJZTWdGY1VOR3BicmR6VFowUSs3?=
+ =?utf-8?B?eSt5Q3QreHNwNVYzYUdDN1RQUWlIL2J0Ujl2QWt6Wk4rMGhzamlab1QzdkxJ?=
+ =?utf-8?B?bEpLZWx3by9nRjhDVGs4K09nak9lN3QxWUsxQmpEQjdTemdvTEtjdjVGMHQr?=
+ =?utf-8?B?YWI4RlZwSE1EY2pxSmZWWjF3RC91WjI3VThYeERFUjJCc0FWU2FtSkZWdmhC?=
+ =?utf-8?B?d3Nra01FOTQ1dzJpOHNKeGtPVktEdWhYUjNUM1BTWCtKMVlQTVFKZDJGYlhm?=
+ =?utf-8?B?NkEwUWpmSTdPVkhwNnNwb3VrejRoQzM3cnFCK1BrandwTHAyVkZmMUdBaHhE?=
+ =?utf-8?B?SmRDczZ5a0JxV3E1bE96VzZVZHZMZm9ydU9WOXVBRmhob0NydkdYZlBsTzly?=
+ =?utf-8?B?Y3MwZTNZRlhzTFlaM0J2MzIybmY2WVhrOW92M29VbXpxYi9CdWNQK0ZzeVZw?=
+ =?utf-8?B?S2x5endaeWxGa3h0WnI3ck5XMW9Fc1lXWEs3UzMrUlMzOFJ2S0sxSGZKOU9U?=
+ =?utf-8?B?SG5iTjFCNWxNMnlLSXJlTDJsSkVvY29SM25Oa2dkbGJqWCtUSFFWZGg4NExZ?=
+ =?utf-8?B?OWx3Tjd0NGpjR0l3NEJVYzRTcWkyVWZBNk1iNVF0MURUcDNnYzd3eTJUMWR4?=
+ =?utf-8?B?S3c4SnduMmpLU252R3hqbzNEZDcrUm9rb0loZTVLOVBHYm1jdU5wNTg3dDh5?=
+ =?utf-8?B?UUF2Y3cvNXlBTEhtNi9EMmN1NXFCYk9LamZ4V0l1K2RTN1lXTjd5RzkzdFhG?=
+ =?utf-8?B?cEp2cU9LRW0wZFVDNG1IY3NmWk96SXlBNEZDRW1COHQyYWtTQTFCaWpHaDI4?=
+ =?utf-8?B?UW8rczlCUG1HSFN4dTdrRFk1amZCQjNZakcxZGJMS2hieXl4b2QyL0Z4VWFS?=
+ =?utf-8?B?TE96Znppb3NwbEJzanhVMTBuQmhoYmg3UGtFcTIzWWlKY0dJNzVZOTRiMi85?=
+ =?utf-8?B?Tm51MHhkUzFibTBUQndtUXpuTDFtd1ZQRUJ5UEpna3l1bEs3c2xOY0dXQmgv?=
+ =?utf-8?B?US9LdlRFeS9UNjUwMlQrQkQ2eW1nK29zNG1Pbm0yc2NCTVU5TzVIQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dc657bf-0bb8-4945-5305-08dee33bbde1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05cb3472-6ec1-4613-bdbb-08dee33d1d8d
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 13:11:26.2955 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 13:21:16.3031 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 24muqG3VmbO1addaU3x5NmG6hyeobBF5Ueb9NKbP9LHxf1G9UInVldhH8yaZbf7j
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6218
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1TcSj/IO1huViq0OxG9v9W7X7JdkFM30+o7GNS7kmByooIH5BSwDGigP7kQOvqSZIr0orK3V5xH7FhLfxTZYng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4425
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,111 +138,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/16/26 14:53, SHANMUGAM, SRINIVASAN wrote:
-> AMD General
-> 
->> -----Original Message-----
->> From: SHANMUGAM, SRINIVASAN
->> Sent: Tuesday, July 14, 2026 7:43 PM
->> To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org
->> Subject: RE: [PATCH v9 5/5] drm/amdgpu: Record QUEUE_RESET WAIT_EVENT
->> notifications
->>
->>
->>
->>> -----Original Message-----
->>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>> Sent: Tuesday, July 14, 2026 6:36 PM
->>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Deucher,
->>> Alexander <Alexander.Deucher@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org
->>> Subject: Re: [PATCH v9 5/5] drm/amdgpu: Record QUEUE_RESET
->> WAIT_EVENT
->>> notifications
->>>
->>> On 7/14/26 10:10, Srinivasan Shanmugam wrote:
->>>> The queue reset path already resolves the affected queue directly
->>>> from the doorbell and funnels successful reset handling through
->>>> amdgpu_userq_handle_hung_queue(). Reuse that common handling point
->>>> to create the corresponding WAIT_EVENT record.
->>>>
->>>> Keeping the notification in the common helper ensures that queue
->>>> state is updated before userspace is notified and that both EVENTFD
->>>> and WAIT_EVENT observe the same reset. It also avoids duplicating
->>>> the doorbell lookup or adding a queue scan in the MES reset path.
->>>>
->>>> No MES or GFX interrupt changes are needed.
->>>>
->>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>>> ---
->>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++
->>>>  1 file changed, 6 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>> index 28f9d3fe0e80..9e1d03eb31d7 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->>>> @@ -166,6 +166,7 @@ void amdgpu_userq_handle_hung_queue(struct
->>> amdgpu_device *adev,
->>>>                               struct amdgpu_usermode_queue *queue)  {
->>>>   struct amdgpu_eventfd_mgr *eventfd_mgr;
->>>> + struct amdgpu_wait_event_mgr *wait_event_mgr;
->>>>
->>>>   queue->state = AMDGPU_USERQ_STATE_HUNG;
->>>>   atomic_inc(&adev->gpu_reset_counter);
->>>> @@ -176,6 +177,11 @@ void amdgpu_userq_handle_hung_queue(struct
->>> amdgpu_device *adev,
->>>>   amdgpu_eventfd_signal(eventfd_mgr,
->>>>                         DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET,
->>>>                         queue);
->>>> +
->>>> + wait_event_mgr = amdgpu_userq_wait_event_mgr(queue->userq_mgr);
->>>> + amdgpu_wait_event_add(wait_event_mgr,
->>>> +                       DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET,
->>>> +                       queue);
->>>
->>> How are we making sure here that this wait_event_mgr doesn't go out of scope?
->>
->> Good point. wait_event_mgr is part of the owning amdgpu_fpriv, not the queue itself.
->> In the reset path, we currently take a reference to the queue, which guarantees that
->> the queue remains valid while we handle the reset.
->> However, that reference does not explicitly guarantee that the owning amdgpu_fpriv
->> (and therefore wait_event_mgr) is still alive.
->> I'll review the lifetime rules and teardown sequence to make sure the manager
->> cannot be freed while a reset notification is still in progress.
->> If additional synchronization or a reference is needed, I'll include that in the next
->> revision.
-> 
-> Hi Christian,
-> 
-> Thanks for pointing this out.
-> 
-> I reviewed the lifetime and teardown sequence in more detail. wait_event_mgr is part of the owning amdgpu_fpriv, so it is not allocated or freed independently. Its lifetime is tied to the corresponding drm_file.
-> 
-> During file teardown, the USERQ manager and queues are torn down before amdgpu_wait_event_mgr_fini() is called. Queue teardown removes the producer lookup paths, and amdgpu_wait_event_mgr_fini() marks the manager dead, removes pending records, releases their queue references, and wakes blocked waiters before amdgpu_fpriv is freed.
-> 
-> Based on this teardown ordering, the producer should no longer be able to access wait_event_mgr after it is finalized, so an additional manager reference does not appear to be necessary.
-> 
-> I've also documented this ownership and teardown ordering in Patch 2 ("Add wait-event manager and per-file lifetime plumbing") in https://patchwork.freedesktop.org/patch/740465/?series=164813&rev=11
 
-Sounds great, feel free to add Reviewed-by: Christian König <christian.koenig@amd.com> to the patch set as well.
 
-Thanks,
-Christian.
-
+On 7/16/26 07:41, Uwe Kleine-König wrote:
+> Hello,
 > 
-> Thanks,
-> Srini
+> On Wed, Jul 08, 2026 at 02:35:14PM -0500, Mario Limonciello wrote:
+>> On systems where PCI bus renumbering occurs (e.g. pci=realloc,
+>> resource conflicts), the runtime bus number may differ from the
+>> BIOS POST bus number recorded in the VFCT table. This causes
+>> amdgpu_acpi_vfct_bios() to fail finding the VBIOS even though
+>> the correct device entry exists.
 >>
->> Thanks,
->> Srini
+>> Introduce amdgpu_acpi_vfct_match() which treats the bus number
+>> as a soft filter: vendor/device/function identity is the hard
+>> requirement, while exact bus match is the preferred path. When
+>> bus numbers disagree but device identity matches, accept the
+>> VFCT entry and log a dev_notice for diagnostics.
 >>
->>>
->>> Regards,
->>> Christian.
+>> Reported-by: Oz Tiram <oz@shift-computing.de>
+>> Closes: https://lore.kernel.org/amd-gfx/20260621173211.28443-1-oz@shift-computing.de/
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 45 +++++++++++++++++++++---
+>>   1 file changed, 40 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>> index 3ebdd792feec1..d8fd047295d9d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>> @@ -377,6 +377,45 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
+>>   		false : amdgpu_asic_read_disabled_bios(adev);
+>>   }
+>>   
+>> +/**
+>> + * amdgpu_acpi_vfct_match() - Check if a VFCT entry matches the device
+>> + * @adev: AMDGPU device
+>> + * @vhdr: VFCT image header to check
+>> + *
+>> + * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+>> + * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+>> + * resource conflicts), the runtime bus number may differ from the POST
+>> + * value.  Match by device identity (vendor + device + function) and use
+>> + * the bus number as a preference: exact bus match is preferred, but when
+>> + * the bus numbers disagree we accept the entry if the device identity
+>> + * matches.
+>> + *
+>> + * Returns: 0 on match, -ENODEV on no match
+>> + */
+>> +static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
+>> +				  VFCT_IMAGE_HEADER *vhdr)
+>> +{
+>> +	/* Vendor and device IDs must always match */
+>> +	if (vhdr->VendorID != adev->pdev->vendor ||
+>> +	    vhdr->DeviceID != adev->pdev->device)
+>> +		return -ENODEV;
+>> +
+>> +	if (vhdr->PCIDevice != PCI_SLOT(adev->pdev->devfn) ||
+>> +	    vhdr->PCIFunction != PCI_FUNC(adev->pdev->devfn))
+>> +		return -ENODEV;
+>> +
+>> +	/* Exact bus number match - preferred */
+>> +	if (vhdr->PCIBus == adev->pdev->bus->number)
+>> +		return 0;
+>> +
+>> +	/* Bus mismatch but device identity matches (PCI renumbering case) */
+>> +	dev_notice(adev->dev,
+>> +		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+>> +		   vhdr->PCIBus, adev->pdev->bus->number,
+>> +		   adev->pdev->vendor, adev->pdev->device);
+>> +	return 0;
+>> +}
+>> +
+>>   #ifdef CONFIG_ACPI
+>>   static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
+>>   {
+>> @@ -413,11 +452,7 @@ static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
+>>   		}
+>>   
+>>   		if (vhdr->ImageLength &&
+>> -		    vhdr->PCIBus == adev->pdev->bus->number &&
+>> -		    vhdr->PCIDevice == PCI_SLOT(adev->pdev->devfn) &&
+>> -		    vhdr->PCIFunction == PCI_FUNC(adev->pdev->devfn) &&
+>> -		    vhdr->VendorID == adev->pdev->vendor &&
+>> -		    vhdr->DeviceID == adev->pdev->device) {
+>> +		    !amdgpu_acpi_vfct_match(adev, vhdr)) {
+>>   			adev->bios = kmemdup(&vbios->VbiosContent,
+>>   					     vhdr->ImageLength,
+>>   					     GFP_KERNEL);
+> 
+> For the record to hopefully make it easier for others to find the fix:
+> 
+> This patch became 33a18ecd2fbf in
+> 
+> 	https://gitlab.freedesktop.org/agd5f/linux.git drm-next
+> 
+> and thus next and it introduces a build failure for !CONFIG_ACPI builds:
+> 
+> 	drivers/gpu/drm/radeon/radeon_bios.c:614:12: error: ‘radeon_acpi_vfct_match’ defined but not used [-Werror=unused-function]
+> 	  614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
+> 	      |            ^~~~~~~~~~~~~~~~~~~~~~
+> 
+> Patch available at https://lore.kernel.org/all/20260716123646.1933293-2-u.kleine-koenig@baylibre.com/
+> 
+> Best regards
+> Uwe
+
+Thanks.  Alex can you squash that in, or has the merge request already 
+gone out?
 
