@@ -4,97 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63CC8C44511
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 15:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B934C44512
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDB9210F35E;
-	Thu, 16 Jul 2026 15:30:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 027BF10E030;
+	Thu, 16 Jul 2026 16:06:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VGj1zHpZ";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="M+NvjTm6";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011052.outbound.protection.outlook.com
- [40.93.194.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A00C510F354;
- Thu, 16 Jul 2026 15:30:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WhKYp9+f9WqTOqbKxvXquaFPE3UXLdxYCasVbKc4kuOOntYOPa3chNG6f2AhGyp4lqSHu1tB6SQlU7z9OvmK/txYPy6ZeQCAYWt6YFsMDuKm5Z97TYZ3yWO48C6jlKj6k9/ZDwgZyw1dsLr+gPpuDp276Kli/i2PmlkGpo2ib1eze6kfvhLEaDztMJO5yisalX/R6sg0n6vmz5WrhLiIOdDteoGUPNT6gsbOF/h9XAZvG97gCb8BuF/4PIKAspkdZgbtjvKSZJKtRy/6J2CKwh/ZZUeTzG58SAdKtMImFp2XBj3fzzaJtejntwVDkz4MxQt2zMrkgLU3hYX0o6cH/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kxeP5CO0HC+vWl4X/SfL5/wzwLCwq2cgPg3AW/SdRDo=;
- b=m6yWW3kjZwmlvRBJvJqblQOUxqT7g4lqj24n5+WnOCCafWKKJMH0on62KcEkV2lfWhEQJBxRwMUXJJXSO/O61Gj0uLWQCAVOUSyctaT+J2azcI8MvPJBrKPdhct51YM3MOwTxzSkDsNpjD6NFXykPlTWNvowy5Xjac34aRcN1fKP4GOWJSh+ItaS00G+wS5u1etd1+zDhYV7rKGQ3EQ7R8i7RwAXOINek+sGJ7d6CKB/GN3S5bKj/m04KfqL+9D2a6L4oHgtXYNvps6y+J7mPwmyF8al3mbOfDpD7sM48B3JNeN4FOA7sevsci+OyS0xcAC7mJCALLuccyhexaiQfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kxeP5CO0HC+vWl4X/SfL5/wzwLCwq2cgPg3AW/SdRDo=;
- b=VGj1zHpZbm/jXN0dTgAuwq6/HY2vrskMu9VuzHeU1SbjbGczkQ4z8gy0e6cVG2e2Me7Gm8lhB9xDVHbZdlS2bz3APunAm5hobuO2ruNbT7r+NhZvVdiRo7v8DXwt7SQK2gYPJxZlrU3zJw3IbXxnf1eDBq0ztdH7JRjsiUzvmW4=
-Received: from BN9PR03CA0052.namprd03.prod.outlook.com (2603:10b6:408:fb::27)
- by MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
- 2026 15:30:29 +0000
-Received: from BN2PEPF000055E1.namprd21.prod.outlook.com
- (2603:10b6:408:fb:cafe::2b) by BN9PR03CA0052.outlook.office365.com
- (2603:10b6:408:fb::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.12 via Frontend Transport; Thu,
- 16 Jul 2026 15:30:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055E1.mail.protection.outlook.com (10.167.245.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.3 via Frontend Transport; Thu, 16 Jul 2026 15:30:28 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 16 Jul
- 2026 10:30:27 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 16 Jul 2026 10:30:27 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-fixes-7.2
-Date: Thu, 16 Jul 2026 11:30:19 -0400
-Message-ID: <20260716153020.3171253-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91EF610E030;
+ Thu, 16 Jul 2026 16:06:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=g2gFe0ryYdUdJRocri9LN2xg4yLKDgHAX0vgmCaHB0I=; b=M+NvjTm6WRdrMjUImAuyqxTmjK
+ y7Z9VbkQb10N37kE+Do+1bcv7898jOQkxzUQq0L2vM0gkJMIeSZ3rPkiMkjb2jZSgTUhcJodtkHcq
+ FFMjTH7zPBIhD0AIZXKnlXbCbaijp0ku/NMt9hegx271VuIH9JJjR9eUU9MuCzvOMrx2eOwdQX4xQ
+ aZlpg2p+OK9A1tZcTEXvQ2AOCWgrCocGCioVANJDFh0qukuCDsjWanW4C35BuooMdc7vN/o+B9MOz
+ 14NvRcp21BcpzpmtgUj2j9GmgWycX6XsNXAYoTjqVp4DdzUexKOY0js1FlTxLWrJW/G+5bIm8Qjy4
+ 19UwiHOA==;
+Received: from [178.139.170.72] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wkObH-00G01i-Ol; Thu, 16 Jul 2026 18:06:15 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
+ "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
+ Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [RFC PATCH v2 04/20] drm/crtc: Add COLOR_PIPELINE property
+Date: Thu, 16 Jul 2026 18:03:01 +0200
+Message-ID: <20260716160556.227556-5-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
+References: <20260716160556.227556-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E1:EE_|MW3PR12MB4409:EE_
-X-MS-Office365-Filtering-Correlation-Id: ebd568eb-8b71-4a86-86ed-08dee34f2a27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|13003099007|6133799003|56012099006|11063799006|10067099003|18002099003|18092099006|3023799007;
-X-Microsoft-Antispam-Message-Info: zhmnGctNouLEBoWpY08Z2H+74TWrUjuN/Hi7P4aoTGNZgpxomFP6OkhS7NSQNW+DbUQQg5ztfsDb9nqXKbbv4HdGTkIQjG8ZUjDO2vnnQaEj2V92ORSpeZ6UfQK23eI/Ukv3l7cpaq7SgTLI1/DsXKbOOBzy/dK8eV4xN5P8cpoZxK00c6J5s2hRD25aIrC3/qNgrHlGujTi/4KPbovcKuXT3FKDP1M4J4Up42xQpFLKRIMdDey+ZLqWDWpcOCNlQAQskTRF0Py/XKdb38wRwNy9l4loKIyuDgqVTXy2IoBeDvNTyRvGXX4pb57z6ovZt8sVP3t4kIhxv1FYI0qdYHaI5XqnS8KwAIqXUvzMlWtafuhOw/snaszRfAMKYO4+VMz16mwCpY5CaswSLEylt/uZsDMCtEmwCTZIT/1AsM/hhRhmkBPgXNhmWG0UJbou5/DEL9hHdOGLoHLkv1U/Cg5p47TxwjS7Dr060tSYUiJvzT0mOL379QAZcB6TguV8R7w6HfVGGUNhQdOVe3i3/hsaSPYCvKrYlLIwjxZp4Zo77vRztaaNG6aomvvo6EIKzGiG/4W1r1rSYlQox7A/OSLgDOwh3lPccYL0qMdGOx9+a2kbdkbE/0cI4F0aNEle
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(13003099007)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(18092099006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: nc/adqvC/+k4HIsI9spUqSg/qyRlsBF/RwYG8rA1ejhC6+fEho/FzYTV4EEEIQ5uAvWiRlil4y8c/CyXJZfmMDneYqBg5Oa7oSMuCje+Y3KqAJfz0eQ8GQKKh+vM4i4eFoo2T2QA/ggk5PLnh3loGYdefQfRgMApgxszzmtOn8sV1AYc77Re3/f/yS4x/kHW8aKYSGVOVYn2fHNW13C5SL2kr4jMuVr0kfPxtxZuTi9Zr8QcObxjQ/F3LeTqNrCBPFXkiiNHAq/CWcPwxg+1o6NRIm0qQFcZAstfQj2TipHbdUuW2uBChyHvN0+W6I14h1uKz7zKktJgKcuXbDfLYDdFDv8PbXbrU+OriecoLxbJgWKm1qpHJGSgCfEAeh0L+KsfiOaI9EiUZA4QgmWwW2JbusPry1JeXvDqiFahJz0yB2NWShdhIavRzdYL9J6q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 15:30:28.1825 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebd568eb-8b71-4a86-86ed-08dee34f2a27
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055E1.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,143 +66,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-Fixes for 7.2.
+Add a COLOR_PIPELINE property to the CRTC to allow userspace to set a
+post-blend color pipeline analogously to how pre-blend color pipelines
+are set on planes.
 
-The following changes since commit a13c140cc289c0b7b3770bce5b3ad42ab35074aa:
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 50 ++++++++++++++++++++++++++++---
+ drivers/gpu/drm/drm_crtc.c        | 31 +++++++++++++++++++
+ include/drm/drm_atomic_uapi.h     |  2 ++
+ include/drm/drm_crtc.h            | 11 +++++++
+ 4 files changed, 90 insertions(+), 4 deletions(-)
 
-  Linux 7.2-rc3 (2026-07-12 14:16:39 -0700)
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index d52504d823bc..9b4a32f1b694 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -294,6 +294,34 @@ drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+ }
+ EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
+ 
++/**
++ * drm_atomic_set_colorop_for_crtc - set colorop for crtc
++ * @crtc_state: atomic state object for the crtc
++ * @colorop: colorop to use for the crtc
++ *
++ * Helper function to select the color pipeline on a crtc by setting
++ * it to the first drm_colorop element of the pipeline.
++ */
++void
++drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
++				 struct drm_colorop *colorop)
++{
++	struct drm_crtc *crtc = crtc_state->crtc;
++
++	if (colorop)
++		drm_dbg_atomic(crtc->dev,
++			       "Set [COLOROP:%d] for [CRTC:%d:%s] state %p\n",
++			       colorop->base.id, crtc->base.id, crtc->name,
++			       crtc_state);
++	else
++		drm_dbg_atomic(crtc->dev,
++			       "Set [NOCOLOROP] for [CRTC:%d:%s] state %p\n",
++			       crtc->base.id, crtc->name, crtc_state);
++
++	crtc_state->color_pipeline = colorop;
++}
++EXPORT_SYMBOL(drm_atomic_set_colorop_for_crtc);
++
+ /**
+  * drm_atomic_set_crtc_for_connector - set CRTC for connector
+  * @conn_state: atomic state object for the connector
+@@ -402,8 +430,8 @@ static s32 __user *get_out_fence_for_connector(struct drm_atomic_commit *state,
+ }
+ 
+ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+-		struct drm_crtc_state *state, struct drm_property *property,
+-		uint64_t val)
++		struct drm_crtc_state *state, struct drm_file *file_priv,
++		struct drm_property *property, uint64_t val)
+ {
+ 	struct drm_device *dev = crtc->dev;
+ 	struct drm_mode_config *config = &dev->mode_config;
+@@ -412,7 +440,17 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 
+ 	if (property == config->prop_active)
+ 		state->active = val;
+-	else if (property == config->prop_mode_id) {
++	else if (property == crtc->color_pipeline_property) {
++		/* find DRM colorop object */
++		struct drm_colorop *colorop = NULL;
++
++		colorop = drm_colorop_find(dev, file_priv, val);
++
++		if (val && !colorop)
++			return -EACCES;
++
++		drm_atomic_set_colorop_for_crtc(state, colorop);
++	} else if (property == config->prop_mode_id) {
+ 		struct drm_property_blob *mode =
+ 			drm_property_lookup_blob(dev, val);
+ 		ret = drm_atomic_set_mode_prop_for_crtc(state, mode);
+@@ -519,6 +557,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ 		*val = state->scaling_filter;
+ 	else if (property == crtc->sharpness_strength_property)
+ 		*val = state->sharpness_strength;
++	else if (property == crtc->color_pipeline_property)
++		*val = (state->color_pipeline) ? state->color_pipeline->base.id : 0;
+ 	else if (crtc->funcs->atomic_get_property)
+ 		return crtc->funcs->atomic_get_property(crtc, state, property, val);
+ 	else {
+@@ -1106,6 +1146,8 @@ int drm_atomic_get_property(struct drm_mode_object *obj,
+ 
+ 		if (colorop->plane)
+ 			WARN_ON(!drm_modeset_is_locked(&colorop->plane->mutex));
++		else if (colorop->crtc)
++			WARN_ON(!drm_modeset_is_locked(&colorop->crtc->mutex));
+ 
+ 		ret = drm_atomic_colorop_get_property(colorop, colorop->state, property, val);
+ 		break;
+@@ -1262,7 +1304,7 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		}
+ 
+ 		ret = drm_atomic_crtc_set_property(crtc,
+-				crtc_state, prop, prop_value);
++				crtc_state, file_priv, prop, prop_value);
+ 		break;
+ 	}
+ 	case DRM_MODE_OBJECT_PLANE: {
+diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+index 63ead8ba6756..a0d82ba92f6c 100644
+--- a/drivers/gpu/drm/drm_crtc.c
++++ b/drivers/gpu/drm/drm_crtc.c
+@@ -991,3 +991,34 @@ bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state)
+ 	return hweight32(crtc_state->encoder_mask) > 1;
+ }
+ EXPORT_SYMBOL(drm_crtc_in_clone_mode);
++
++/**
++ * drm_crtc_create_color_pipeline_property - create a new color pipeline
++ * property
++ *
++ * @crtc: drm CRTC
++ * @pipelines: list of pipelines
++ * @num_pipelines: number of pipelines
++ *
++ * Create the COLOR_PIPELINE CRTC property to specify color pipelines on
++ * the CRTC.
++ *
++ * RETURNS:
++ * Zero for success or -errno
++ */
++int drm_crtc_create_color_pipeline_property(struct drm_crtc *crtc,
++					    const struct drm_prop_enum_list *pipelines,
++					    int num_pipelines)
++{
++	struct drm_property *prop;
++
++	prop = drm_property_create_color_pipeline(crtc->dev, &crtc->base,
++						  pipelines, num_pipelines);
++	if (IS_ERR(prop))
++		return PTR_ERR(prop);
++
++	crtc->color_pipeline_property = prop;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_crtc_create_color_pipeline_property);
+diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
+index 4e7e78f711e2..90e5c207a53b 100644
+--- a/include/drm/drm_atomic_uapi.h
++++ b/include/drm/drm_atomic_uapi.h
+@@ -54,6 +54,8 @@ void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
+ 				 struct drm_framebuffer *fb);
+ bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
+ 				      struct drm_colorop *colorop);
++void drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
++				     struct drm_colorop *colorop);
+ int __must_check
+ drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
+ 				  struct drm_crtc *crtc);
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 30afa05b7c0f..5852b506c614 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -1141,6 +1141,14 @@ struct drm_crtc {
+ 	 */
+ 	struct drm_property *sharpness_strength_property;
+ 
++	/**
++	 * @color_pipeline_property:
++	 *
++	 * Optional "COLOR_PIPELINE" enum property for specifying
++	 * a color pipeline to use on the CRTC.
++	 */
++	struct drm_property *color_pipeline_property;
++
+ 	/**
+ 	 * @state:
+ 	 *
+@@ -1376,6 +1384,9 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
+ 
+ int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
+ 					    unsigned int supported_filters);
++int drm_crtc_create_color_pipeline_property(struct drm_crtc *crtc,
++					     const struct drm_prop_enum_list *pipelines,
++					     int num_pipelines);
+ bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state);
+ int drm_crtc_create_sharpness_strength_property(struct drm_crtc *crtc);
+ #endif /* __DRM_CRTC_H__ */
+-- 
+2.53.0
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-07-16
-
-for you to fetch changes up to c9ab9622f5b2799fe624a4a134e60112149271dd:
-
-  Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs" (2026-07-15 09:55:55 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-7.2-2026-07-16:
-
-amdgpu:
-- DCN 4.2 fixes
-- NUTMEG fixes
-- 8K panel fix
-- Backlight fixes
-- UserQ fix
-- Fix bo->pin leaking in amdgpu_bo_create_reserved()
-- VFCT fixes
-- devcoredump fixes
-- Display fixes
-- SMU7 DPM fix
-- AC/DC fixes for SMU7 and SI
-- Queue reset fix
-- PCIe DPM fix
-- XHCI/GPU resume ordering fix
-- Pageflip timeout fix
-
-amdkfd:
-- Fix potential overflow in CWSR size calculation
-- DQM error clean up fixes
-
-----------------------------------------------------------------
-Alessandro Rinaldi (1):
-      drm/amd/display: Force PWM backlight on Lenovo Legion 5 15ARH05
-
-Alex Deucher (1):
-      drm/amdgpu: always emit the job vm fence
-
-Andriy Korud (1):
-      drm/amd/display: dce100: skip non-DP stream encoders for DP MST
-
-Dmytro Laktyushkin (2):
-      drm/amd/display: fix dcn42 det allocation order
-      drm/amd/display: fix dcn42b det allocation order
-
-Fangzhi Zuo (1):
-      drm/amd/display: Fix 8K Mode Not Parsed by EDID
-
-Guangshuo Li (1):
-      drm/amdkfd: free MQD managers on DQM init failures
-
-Jesse Zhang (1):
-      drm/amdgpu/userq: fix indefinite fence wait during GPU reset
-
-Leo Li (3):
-      drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
-      drm/amd/display: check GRPH_FLIP status before sending event
-      Revert "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"
-
-Mario Limonciello (5):
-      drm/amd/display: Fix backlight max_brightness to match exported range
-      drm/amdgpu: Fix VFCT bus number matching with soft filter
-      drm/amdgpu: Release VFCT ACPI table reference
-      drm/amdgpu: Disable PCIe dynamic speed switching on Ryzen Pinnacle Ridge
-      drm/amd: Create a device link between APU display and XHCI devices
-
-Matthew Stewart (1):
-      drm/amd/display: Fix DCN42B null registers & register masks
-
-Pengpeng Hou (1):
-      drm/amd/display: wire DCN42B mcache programming callback
-
-Roman Li (1):
-      drm/amdgpu/discovery: Fix device family for DCN42
-
-Timur Kristóf (10):
-      drm/amd/display: Fix preferred link rate for NUTMEG
-      drm/amd/display: Add dp_skip_rbr flag for NUTMEG
-      drm/amdgpu: Print vmid, pasid and more task info in devcoredump
-      drm/amdgpu: Reserve space for IB contents in devcoredumps
-      drm/amd/pm/ci: Don't disable MCLK DPM on Bonaire 0x6658 (R7 260X)
-      drm/amd/display: Set native cursor mode for disabled CRTCs
-      drm/amd/pm/si: Don't schedule thermal work when queue isn't initialized
-      drm/amd/pm/si: Fix AC/DC switch notification
-      drm/amd/pm/smu7: Fix AC/DC switch notification
-      drm/amdgpu/ttm: Consider concurrent VM flushes for buffer entities
-
-WenTao Liang (1):
-      drm/amd/display: set new_stream to NULL after release
-
-Yongqiang Sun (1):
-      drm/amdkfd: fix 32-bit overflow in CWSR total size calculation
-
-Zhu Lingshan (1):
-      drm/amdgpu: fix bo->pin leaking in amdgpu_bo_create_reserved
-
-yanglinlin (1):
-      drm/amd/display: fix __udivdi3 link error
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |  62 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   9 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  13 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  20 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  21 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  10 +-
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   4 +
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 551 +++++++++++++--------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  70 +--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  20 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  45 ++
- drivers/gpu/drm/amd/display/dc/dc.h                |   3 +
- .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  11 +-
- .../gpu/drm/amd/display/dc/link/link_detection.c   |   2 +-
- .../display/dc/link/protocols/link_dp_capability.c |   6 +-
- .../display/dc/resource/dce100/dce100_resource.c   |   7 +-
- .../amd/display/dc/resource/dcn42/dcn42_resource.c |   1 +
- .../display/dc/resource/dcn42b/dcn42b_resource.c   |  23 +-
- .../display/dc/resource/dcn42b/dcn42b_resource.h   | 116 +----
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  17 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |   7 +-
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  16 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 +
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  12 +-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  45 ++
- drivers/gpu/drm/drm_panel_backlight_quirks.c       |   9 +
- include/drm/drm_utils.h                            |   1 +
- 31 files changed, 720 insertions(+), 431 deletions(-)
