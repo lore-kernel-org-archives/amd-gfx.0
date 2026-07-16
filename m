@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4951C44507
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 02:39:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D0FC44501
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 02:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751E310E284;
-	Thu, 16 Jul 2026 02:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0FC10E2B2;
+	Thu, 16 Jul 2026 02:41:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C9tf01P/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HiR5esqi";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012037.outbound.protection.outlook.com [52.101.53.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E8410E284
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 02:39:18 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013054.outbound.protection.outlook.com
+ [40.93.201.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E0A10E2B2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 02:41:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mu2izLBuixgV3+N0nX+GGP/0/uS5Xhm/pGV7d8OCKl086aWywYVnVrKzSUfmFibn0lhBd/CYDbbmzyDLR5Jp6NKvF1cLGgISJtymN+H998U8PUsDtOTbqyNFZgmI+DqgSwowkPb0Chn/EjODwIHb/qeNUg+u1rSUW/q/CJwTQI/H6GQ86FaHb5hWipOWxLS+tCrEERqs/Aw6c4OVzaKi51wvOGftdj8Wv1X9w2BNov2iOjTGbafu4yG6ac7VYegDspMCY4w6yVIvkiJDpBvT64Pn4Swtto8e4n/gUUJft1HW1DKFtJgIo15g86mW1Mlz3ovLoo35dlxPMk6ulFggjQ==
+ b=ZZCdXnwKSvXnw6E0O74uRdAsCTI6iRnTKY6pPtFeUuCyn1j7CWJ8m7H50DTKHJcDd/JcQNcPJW0+KMQsykO5x4hzrDSkudJxjA4w5h7ShgSyH9cMTGsT2GZk681q8cvLH7Y2vYtzI7lETm02h2V11G5QYxC8Ug8mtCJvn3qErQbZ3PbUanWjHOqIKZc4T+gdw+9EaZJP722PENerUh2ozLQpfcwULpxkLKTrt22OI1bL7imTwrS1dnzUxrGmYVhoIjCg42d6PLwVEojPpF3PZ/23qLT4rE32+r/z2QMnbN+MspQnR++xP6o30ywGRZriAzCIvMNZDRlY1Fb04Q3u4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y+aEWr5NW9y/+UKtT8RfH2QPFc5ZJz5DyOstEatF4f4=;
- b=KCWcnVjDQ/45r0f2TzmuVU8j6FMLYfjobmnSWGNQpu2AbGWTyKurFQJf8i9tdZtEM6W43I6jGyCMu1qj73/DjBPCHLnxMV80urlY2AdXIzOCuT7+UQbRvYjaMvQz+/vbwrGeM/Cx6QJC7YM3lxeJV3gbS9hnGg1/4//adYMC1qZrgVkTn1a9XhbzLIEQbx1ScWni6ieBAno96kKnv6dR3CsW6M27TlA+3t/yCN1Lo9E529/EmldArBOcTxzai1m35R25/KD8o1smCMF4d+whPIczpXHgy5wpcxuGMZ7ImT4Lxj6+iRUENBm5rLNgp0tC4odh/HBQcF+WuWyW1xXqRA==
+ bh=46rorv5zhX1q6D7/jnPJjxpxk9dmyoeF9S5x24ukq0w=;
+ b=pyyXs2KICQB28+Uklc1L3pD/bgDul44aJFTraOOc+8dTeIHOTriqX0qTLTFEFUsycr2cfQhr7pnXq10rouK9OGtmbPLOLjdFPJUCxuly0I0mYYH/yQqsg9Hu2hylPGR3lofmUoT46O3ud0uqRQnyUaVdX9uFPrdynd9fW9Ta/9eMAf0qgvVAnUnaUyqhSSOk4/wtmonR1VAzksDFvgqu7KoxusU5dr6csJC8YNafV/pu3F3jtzzNVmPKNiRmImh+P4SIlY1TfWU8GJPuxyGpjTDCUs3wZ1XQR7y7IN0uej5b9GcynAcGmN8e/WOpZYZNWeqFG6H0OXRhmQFuywESAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y+aEWr5NW9y/+UKtT8RfH2QPFc5ZJz5DyOstEatF4f4=;
- b=C9tf01P/bJ8Xg562QfvNTKFsM5FeDvivbaVRmHqEA2KB4BFKcc2w3b+4SCVUxMwwBL/8EdAX/+9dr8jlLrYHxFzuK0Sq24frWDvBept1UZjAHnNAxp/Nw0VgFS2yuBKvb2mJca0ydxs1Biw4EjCwTTNJ4REOPds4LtSUPHRudu4=
+ bh=46rorv5zhX1q6D7/jnPJjxpxk9dmyoeF9S5x24ukq0w=;
+ b=HiR5esqihJ1+Re1HN4/GMRh219cqd37un4qRLADMG542abpCkBd/u5i3TgwBhgBMQgytLACy8s7EDupvOylfkQipkAOmaKbL4EsWNrHgTdkadZvVXc3nhWUTkQwoFZqlXRLLgpc4gR/xRIfa+aFEZQoCkI2zF64KReRop+sSpB8=
 Received: from BL1PR12MB5127.namprd12.prod.outlook.com (2603:10b6:208:31b::14)
  by DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
- 2026 02:39:14 +0000
+ 2026 02:40:59 +0000
 Received: from BL1PR12MB5127.namprd12.prod.outlook.com
  ([fe80::2760:8b04:f874:e077]) by BL1PR12MB5127.namprd12.prod.outlook.com
  ([fe80::2760:8b04:f874:e077%6]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 02:39:14 +0000
+ 02:40:59 +0000
 From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
 To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
-Thread-Topic: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
-Thread-Index: AQHdFC5ANm4aqLrdWUuf8NmcTtp5mrZuPweAgAAHAECAARyOAIAADX0Q
-Date: Thu, 16 Jul 2026 02:39:13 +0000
-Message-ID: <BL1PR12MB51274C0109B82B4B7B8B1CA4B0C72@BL1PR12MB5127.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
+Thread-Topic: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
+Thread-Index: AQHdFC4+Haz6NDq5mk2U42AOiJ+D97ZuUFgAgAAA1aCAAQ7AAIAAEE/w
+Date: Thu, 16 Jul 2026 02:40:59 +0000
+Message-ID: <BL1PR12MB5127D7A9DB17D93760DBE45BB0C72@BL1PR12MB5127.namprd12.prod.outlook.com>
 References: <20260715074734.2668631-1-tao.zhou1@amd.com>
- <20260715074734.2668631-5-tao.zhou1@amd.com>
- <BN9PR12MB52575849F098B6FD36227AB1FCF82@BN9PR12MB5257.namprd12.prod.outlook.com>
- <BL1PR12MB5127187AC95C256DB499E271B0F82@BL1PR12MB5127.namprd12.prod.outlook.com>
- <BN9PR12MB5306E81D6FF9283352A26382FCC72@BN9PR12MB5306.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB5306E81D6FF9283352A26382FCC72@BN9PR12MB5306.namprd12.prod.outlook.com>
+ <20260715074734.2668631-4-tao.zhou1@amd.com>
+ <BN9PR12MB525757867B3C2EB0FED0CE73FCF82@BN9PR12MB5257.namprd12.prod.outlook.com>
+ <CH0PR12MB512339D00AF5EA7400D2D45EB0F82@CH0PR12MB5123.namprd12.prod.outlook.com>
+ <BN9PR12MB530619F56C12D005A3A1776FFCC72@BN9PR12MB5306.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB530619F56C12D005A3A1776FFCC72@BN9PR12MB5306.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-15T08:25:25.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-15T09:22:27.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
@@ -68,58 +69,58 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: BL1PR12MB5127:EE_|DM4PR12MB7742:EE_
-x-ms-office365-filtering-correlation-id: f74ff47f-f828-415d-66eb-08dee2e36c82
+x-ms-office365-filtering-correlation-id: 750ed89d-7008-4510-76a8-08dee2e3ab71
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|38070700021|10067099003|4143699003|56012099006|11063799006;
-x-microsoft-antispam-message-info: 4spxRflL8jNoGba9bK/70WGQpGAn1qsOGum0gb7kAFCSi/D8ClzM55zGxGK8T8vlP7JYTuCCsIHc8aUgtdO5F/1x6/k66hrUOjVRERQGqazltVoSTiQMdilNAcRnndM33qnHKom+tIYjdQh0m6N47UTyGXmjj/miWJjoqhJ+C43mYA1q7bzWH7ocpiGb2cndC7kWQi7Y+oSmjGMgfJmcdgJ50RMebnotElhMn/uke5LrNmMLxZgUd15OcFqJmLDkCSll/fztm5RwZkUkGOs3sCJzjU0JgKJvefSgwXkk9HKSj19MU1hlXfOFom9dAaiN1g1HeYLWAoCTtmqYRbJqoAF9/51QYM/nztXXDTnLwIdcueHa44AH2sP2ezMiFw4VgZwFuw9zKr6NTYtPTF6Z43oXqBobmp0YPpOo+/lUIVpXAWgjjSvgdq9VItVHIUEsfNOrIv8y8o8zOxGLXCCl7uvJSjat0nOUvfipLexXCqvcveLrSzllR7l952OUK9aYh9QjlsulwkxMm0Z6O8Vd9ao6RbMeRez+nLTB+Im++8nGJEwMC05BBRWdn7SiPW1Zkj/8eXl4RbTqUDAUek2/0aALQzyWVQJyTirR/Dvh2QTWGVZ2ThcH9hccPBX1LORjN3pqrFtzeGBq6wjVw0Z31Vme8f58BGccGCgawUwd+U0OdU8ux01mTTWgcLAiYbmW/ge3GzHxDqvzJrT1YSo/yTKSVEnq83cgifzS2LnxSs4=
+x-microsoft-antispam-message-info: D7wIZFL0RZf1CQsKmW8Iapn3F+ENtzdxCX3c/uHxT9LJVdMRVcKynESSLSMeiP7+x8OpEBhRZCGM6Q16k6iide0mIPy3AFIbice3F+3NrUwbSCMjHOE07htLkfwQlgOH9zC3nHCytj97rkA0MXt9/Q1IfI6oRRG7nR21tLM1bQWCk4MHb2+K1bCmN752a4KcLR6IPKIwubtNjUGcBCaGyqy7NOL82uQ9eCWPFkv2n6JBbbgeCZKI+k10JbGeGr5h0BIw23DmGgKVaW0uDwH9S6dPvJtJ9m8yS6VzWvqZxC5SXZuBVJ+HmI+cHQtWI0th31rUdXFbQ35kr2wJ454frO50hmKzYkx3YW6txAXnaaCANQGt51G/gJEEQuOravsKaMITVjuDwzWurnTwOQ/r82Kd0BpjjQk/El7ADrCQLyBIpx95eq6OaLlsgonddLrZBGE5oH5hLzDv742lRkxJXqBUz3qFLjBnocj/1Sg4qlDkBHaDqWHDIv9vjueUXPaYwH0xMK4bKgaoqARCJ3uoOOeMD2tduv1Y2ILGZu6qDggIaQE9VNjL6YJJ+geLJ44Y5CsWQ1Kfu145g5S10gvN+7Kip3UWmKvk8966hMG73cN6/RbYv2s41Fmvx3Q7Oam2ndrbKhED2eZMnTbN4wBY3S+iuBUkTKlzZNBb84gL0P4Oc73RmYxiSLpKeMC7y/0I4jq1K1bLE1qnxiYMC32jeO2nVXDoXvme0NwRozT8JcU=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5127.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(38070700021)(10067099003)(4143699003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?s2fWtDI3tWALVIByKPLCTOy5wbUeDmjPAsKvIrtDTmnkcHc2AP0Hx2qZ55hz?=
- =?us-ascii?Q?SMC4skAN+Gy11LEfzvlmO92utNvCRBPHhcbtdWKn7tzw/QVrS6jZcE/24dg2?=
- =?us-ascii?Q?nP4XVefBVFWFQaZc/EPBHJASz1v11dJM4hiWqei7G23tM81UB67cQZrrFxjF?=
- =?us-ascii?Q?BwL+BNk2P2zkfFSkN3OK/xpu1r1uiDKkDBHnJuFrKWCVO/cRhx7yUnyB3LQO?=
- =?us-ascii?Q?29UsDgyX+R3XiJLCvYBsWO/FgNbN+Fb7JW6888otyLQpAZ4s5MvW15Qro+c9?=
- =?us-ascii?Q?C5Y3bh0MaZEoxbh+UkhsubiTjYN3K+U+9RGd6XebKQ0t4bZ5ZmLdzZcsJs2s?=
- =?us-ascii?Q?3yVIEgHRyRXOi5twlqgRKSpeMrQo+dl/wZAVsjXMOtdFF0Lx09RNu9LQAiaA?=
- =?us-ascii?Q?BQnd3DXpV/bPGPkXNo7oRQM+PoOyS8rzcsy4Jn1gwTpqlcLavSKH8T9I+gWe?=
- =?us-ascii?Q?B5UUzEyoSnfoWLzjFQe4lAT6W6ehU/yXTYlVvdaMyI5jY5B4n95TxPeBwGnz?=
- =?us-ascii?Q?hMn0qqa2gTFGu5LuveNgeZUidpr86tnZdg6FdaTZvtwo9KuG6CGzIm6tOe1l?=
- =?us-ascii?Q?HpuISIY94+bawaPPH79BVQ18qk8FHYHfDZGwH6Ml5Og1KNb7dEipjJ3txJkh?=
- =?us-ascii?Q?Y37MAlJ+lLip07shcKVPmRLtltwmc2/QR/XJHvi4a2t0qb85aI11Cu4vTf3p?=
- =?us-ascii?Q?ViIWV5S1B+vXya1KFD9+jDK0gtKL8GswCyE4SPAJMkOrAGh4UUX5byeJbOof?=
- =?us-ascii?Q?i57cwpLeLXIH4fGADNw/RBjXftZTNNyeeKMEvULnCxbfFVE/NSAcC2IPipwI?=
- =?us-ascii?Q?0JNPFs89scx0vgj5Zm6jZdJBgFcWBYVylNH4emusOa9buLX5SkSz3ZRRO08o?=
- =?us-ascii?Q?7Ict7fYtUa0rH2w0QntqEzD+U+vduHmTvuflpfBrIdDjYqHH5kbO5Q0/7N5c?=
- =?us-ascii?Q?ZC4AZsr8tPLwOkX5sBpKjM12oMB6/dIU3fdpZ8+K1LPjEqkFPJj8B4AEMGfH?=
- =?us-ascii?Q?3deX2LYNLfbf0cYvpu6Ho5pM0zA2EErvhPcpDKMoqkry6Z6FLvrr4I6TWnOS?=
- =?us-ascii?Q?xSFO05hTu8r1Qr14g706VrG/a2RGKCApa0UTCZSgt9WK1HsTzK1NXJ6QkGDJ?=
- =?us-ascii?Q?A9vOwWOqftgbVHUdKPg+EzhC8hgL0PEWeB4QJHlAPS28LExM9bR7sxRoAXgz?=
- =?us-ascii?Q?KeXUi30xr7au7lGkG/L7nygMvFw3ecaASiGXkaSLCo7KJ0ABASEwD3nPjnrm?=
- =?us-ascii?Q?gc3/tTaYQhxuTVyWNUpPOHg/cw1FY8ETquxw/SjPmlM2Z3IfumkGJ1Qu1nvA?=
- =?us-ascii?Q?EUWnfjLtBzIo4YqKjFvcTVIZ7h/fOKQGle2S4KOYVUy99FWCTQmR0lfIrBNn?=
- =?us-ascii?Q?58K7KsYASIz/6FLaE9W23dL7Pusaau+trQtjrPj40QVqBjnwvIS3EmHFDbHo?=
- =?us-ascii?Q?Nxc6v3vFf1Fi5xnTl0s7I/CDJohCcE62P0zj2iRFa+dOTwLgQOT0Qn1k8Wxn?=
- =?us-ascii?Q?JaaSSWVNJ/cdunMpPTelouOHraOyXQCueA6A0gfi/HXR5doNDQMkBMzQAN1x?=
- =?us-ascii?Q?GYYftgvAFj58wkIzwAhUGs0sSHWFsDq6O5+Fd7KmmkSSrOqx0LRqk1+0nH0d?=
- =?us-ascii?Q?SkfRtwfoWBLbgzgh5wnebG7yfSZt0ngXa6h3fgDEHF/UMXfQxduN0tAjw88X?=
- =?us-ascii?Q?rJU0Cs4HkigNnvxjYvRJucznmaRsKG9EgTgdBqa0XLHg0CCE?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6wHlXBzRL4sDlGjvtZ9nq1KRBWObqRXRbYR6IG8tO2X1JG8tH58HAvpDI5xG?=
+ =?us-ascii?Q?pUJI7HIEtFH257JjitDNB9XASGEEaxj4bUMh3MtTnoHbIk+BDBcLDgZGKNXo?=
+ =?us-ascii?Q?p3Pm12PgfRrIhDQrGrpCe1nvFfE3iKyY0niuquFms6MQ8xW0QwpRmt/5g5LF?=
+ =?us-ascii?Q?wQvXOlH1tnY6JRYGeU3BK+8eSBjLh/Xi7uLPzJdnVo35wUieCdYXf+GHGhkx?=
+ =?us-ascii?Q?AT4XrQSs/gG5uxEkwLE+Df3S8g/AW1wFkjV2Mrk3bXmNrevYvQzKd0PafVe3?=
+ =?us-ascii?Q?QJdjT/KyfeL093wVl+ncc/KLzCt2lQy5XZ2kBWgLa6GKuxWyjGpWajbLxf/3?=
+ =?us-ascii?Q?8Zkb0DxjtYzxpPrj0lA5OQcItrW3eoVpXw3WU2Ww0ozrvbKNaF93OWmLXVdJ?=
+ =?us-ascii?Q?R3bZGm6g3caeT08Lh6XMbhd0iFNsuBeA/adgTEO/mU+OnGdl7IXJ1pAmnWCf?=
+ =?us-ascii?Q?PrYE6YoWIDs2pT4qmyc1b6W/JppmKSn5Xw/QPoL+guWXr2NaeEhtJmKoVLsJ?=
+ =?us-ascii?Q?UxMCcxBBqkddMFRlIWGKTXpE7jfbDMw4vovd1szB/y5Q9YgOQppUKa+87xrg?=
+ =?us-ascii?Q?9Hxw9fnGlMOH3cf6g5SChi27ROEw9bxSZkRBBE57Ix+n5hcsQuMluaAr/cWi?=
+ =?us-ascii?Q?xvvyp7LVM+m7WaX2OW5Pno2W32JGer15KRS2fZgqwvPg31zrFZNlFnJqIVg6?=
+ =?us-ascii?Q?CR/NV34Al2kikJhVfrNiHhUUBUyEJxc1BbqAHk/Uv7iucSvrq98cDCXO3qvF?=
+ =?us-ascii?Q?o9HNFVGlSE3YgeZuEh5YDkBmB7QD+B8KYKFGX/yJcb81vjFOWGjnXlGWPqo/?=
+ =?us-ascii?Q?l2pbx0G20X7gNBQtnk19u9QaGP+LD/70nCz990YoNpL2ynJz1R0foonf+kPv?=
+ =?us-ascii?Q?CeLSdpxaHkHEp3RnIYN92jkVa9AMaKNMclFuWeniDU9tl1eHv17VyN1vP++D?=
+ =?us-ascii?Q?qZ1Mm1yL0PPuDAVDVJvrpAL7PA+LKgzZyFVQa6bRNTcDxnWb3V6WZCJu+iEs?=
+ =?us-ascii?Q?zLpD65ZFKN0FULMsPkFhRJgQUr9B4QB2fdV8wRe+N3UDc86rQy13yKKybbP5?=
+ =?us-ascii?Q?682DtirEW0mDTwToBTsHZ6mjBapL0/qmtGDDxoV042SqO7C0AMUl/Yx52za7?=
+ =?us-ascii?Q?qNJGqtErOGqZH0vDyXPpA2huDHJ3N2trbcWXikfb0MW3bgFLVktZPQEiNAd/?=
+ =?us-ascii?Q?5xFuLCCGf+7YfaLTEBwC5UWXtqCDH0G99cG+aEF8FUNdkr121EtDAqReo0KJ?=
+ =?us-ascii?Q?G/yetjOz878NYjd7H2F17St+eMYzPEQgQ+XgC03sXTAkh8fOLfKk+ppfOC9B?=
+ =?us-ascii?Q?7BHJhMtAbyTnMcuO1+8IBJhw5LPuVzhnBj4HnfD5pCHuOLXcP48TWhj0Bu3p?=
+ =?us-ascii?Q?sMU66ZV4XEEOG3w7GjCoy7UJgtsPHfBbgCD3w7ZTbQgscCo8MCqOhLdOG/Nk?=
+ =?us-ascii?Q?ehCNniHquRT4e2x0AIyUaBNf5vvvC6IvhYcnmiK3E5sWRw8Aww9avhDp05jc?=
+ =?us-ascii?Q?xw71Qr+ux2BcKW0HDYcirbKm6ktebiCPl9/HXlpMYaSy3ab4FQKOzs/pafRd?=
+ =?us-ascii?Q?NjiAs+h3cku89kExM8HY+XnLddtoLyjsHQutj3To8X6galtjd6RGFx2vRksl?=
+ =?us-ascii?Q?dRh7wTEIv4hULjblNbIUVPiOeoHU3EM9v0ZdZi+Tln/yRf/XGrxi+j/FaB3C?=
+ =?us-ascii?Q?sPDOCzaYQ9/5pRgzREeGeBwKPS2NMpZdvs6l/t+NcyOt0txE?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5127.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f74ff47f-f828-415d-66eb-08dee2e36c82
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 02:39:13.8491 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 750ed89d-7008-4510-76a8-08dee2e3ab71
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 02:40:59.4754 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iVlgbzzDhB13CQe/IB5dyrRspFZU2XrrRfId8CSyOk0ssmCwYTyYgOYAmBBYTN6k
+X-MS-Exchange-CrossTenant-userprincipalname: 5zP9tao+aELMS+iZALDMYR6WSF0kM7u/8KIUW+yTlKPTCihNVnUzoWQZIW35ZPYP
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7742
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,10 +140,10 @@ AMD General
 
 > -----Original Message-----
 > From: Chai, Thomas <YiPeng.Chai@amd.com>
-> Sent: Thursday, July 16, 2026 9:50 AM
+> Sent: Thursday, July 16, 2026 9:41 AM
 > To: Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking
 > <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-> Subject: RE: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
+> Subject: RE: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
 >
 > AMD General
 >
@@ -151,35 +152,49 @@ AMD General
 > -----Original Message-----
 > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhou1,=
  Tao
-> Sent: Wednesday, July 15, 2026 4:57 PM
+> Sent: Wednesday, July 15, 2026 5:35 PM
 > To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
-> Subject: RE: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
+> Subject: RE: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
 >
 > AMD General
 >
-> OK. Since Ce is working on it as well, he will refine his code per my pat=
-ch and your
-> suggestion.
->
-> Regards,
-> Tao
->
 > > -----Original Message-----
 > > From: Zhang, Hawking <Hawking.Zhang@amd.com>
-> > Sent: Wednesday, July 15, 2026 4:27 PM
+> > Sent: Wednesday, July 15, 2026 5:29 PM
 > > To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
 > > Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-> > Subject: RE: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
+> > Subject: RE: [PATCH 4/5] drm/amd/ras: add real ras deferred error
+> > count
 > >
 > > AMD General
 > >
-> > +       init_config.debug_disable_ce_logs =3D
-> > + adev->debug_disable_ce_logs;
-> >
-> > Let's pass the full amdgpu_debug_mask to ras core
+> > Can we just use ACA_REG__MISC0__ERRCNT instead? Was trying to
+> > understand the use of real_de_count
 > >
 > > Regards,
 > > Hawking
+>
+> >[Tao] as you can see in aca_parse_bank_default:
+>
+> >         if (aca_check_bank_is_de(ras_core, status)) {
+>  >                ecc->de_count =3D 0;
+>  >...
+>
+> >for non-umc blocks, the ecc->de_count is 0 even aca_check_bank_is_de is =
+true, so
+> I introduce real_de_count to represent the status of aca_check_bank_is_de=
+.
+>
+> [Thomas] Can we add disable ce log check to here? If ce log is disabled t=
+hen set
+> ecc->de_count =3D 1,  so that not need to introduce a new variable?
+
+[Tao] we can drop this patch if de_count is only valid for umc block.
+
+>
+> BRs,
+> Tao
+>
 > >
 > > -----Original Message-----
 > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao
@@ -187,109 +202,85 @@ ch and your
 > > Sent: Wednesday, July 15, 2026 3:48 PM
 > > To: amd-gfx@lists.freedesktop.org
 > > Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-> > Subject: [PATCH 5/5] drm/amd/ras: add ras ce log switch for uniras
+> > Subject: [PATCH 4/5] drm/amd/ras: add real ras deferred error count
 > >
-> > So we can disable ce log manually.
+> > It only depends on the status of ras bank register, and can be used in
+> > common aca layer.
 > >
 > > Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 > > ---
-> >  drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 1 +
-> >  drivers/gpu/drm/amd/ras/rascore/ras.h            | 2 ++
-> >  drivers/gpu/drm/amd/ras/rascore/ras_aca.c        | 7 ++++++-
-> >  drivers/gpu/drm/amd/ras/rascore/ras_core.c       | 1 +
-> >  4 files changed, 10 insertions(+), 1 deletion(-)
+> >  drivers/gpu/drm/amd/ras/rascore/ras_aca.h      |  2 ++
+> >  drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c | 18
+> > +++++++++++-------
+> >  2 files changed, 13 insertions(+), 7 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> > b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> > index c55288c2df9a..1e95419989b4 100644
-> > --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> > +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-> > @@ -310,6 +310,7 @@ static struct ras_core_context
-> > *amdgpu_ras_mgr_create_ras_core(struct amdgpu_dev
-> >                 amdgpu_ras_mgr_eeprom_is_supported(adev);
-> >         init_config.poison_supported =3D
-> >                 amdgpu_ras_is_poison_mode_supported(adev);
-> > +       init_config.debug_disable_ce_logs =3D
-> > + adev->debug_disable_ce_logs;
-> >
-> >         amdgpu_ras_mgr_init_aca_config(adev, &init_config);
-> >         amdgpu_ras_mgr_init_eeprom_config(adev, &init_config); diff
-> > --git a/drivers/gpu/drm/amd/ras/rascore/ras.h
-> > b/drivers/gpu/drm/amd/ras/rascore/ras.h
-> > index 5719bc1b6167..9d538a07c50e 100644
-> > --- a/drivers/gpu/drm/amd/ras/rascore/ras.h
-> > +++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
-> > @@ -301,6 +301,7 @@ struct ras_core_config {
-> >
-> >         bool poison_supported;
-> >         bool ras_eeprom_supported;
-> > +       bool debug_disable_ce_logs;
-> >         const struct ras_sys_func *sys_fn;
-> >
-> >         struct ras_aca_config aca_cfg; @@ -348,6 +349,7 @@ struct
-> > ras_core_context {
-> >         bool ras_core_enabled;
-> >
-> >         u64 ras_fw_features;
-> > +       bool debug_disable_ce_logs;
+> > diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
+> > b/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
+> > index f61b02a5f0fc..0bde803f7472 100644
+> > --- a/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
+> > +++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca.h
+> > @@ -83,6 +83,8 @@ struct aca_bank_ecc {
+> >         u32 ce_count;
+> >         u32 ue_count;
+> >         u32 de_count;
+> > +       /* only depends on bank reg status */
+> > +       u32 real_de_count;
 > >  };
 > >
-> >  struct ras_core_context *ras_core_create(struct ras_core_config
-> > *init_config); diff -- git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-> > b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-> > index 67a35409ff0e..9760894c4c66 100644
-> > --- a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-> > +++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-> > @@ -98,7 +98,7 @@ static void aca_report_ecc_info(struct
-> > ras_core_context *ras_core,
-> >                         blk_name(blk));
-> >         }
+> >  struct aca_ecc_count {
+> > diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
+> > b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
+> > index 840610538c1f..41df331587a0 100644
+> > --- a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
+> > +++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
+> > @@ -207,6 +207,13 @@ static bool aca_check_umc_ce(struct
+> > ras_core_context *ras_core, uint64_t mc_umc_
+> >                      !(aca_check_umc_ue(ras_core, mc_umc_status)))));
+> > }
 > >
-> > -       if (ecc_count.new_ce_count) {
-> > +       if (ecc_count.new_ce_count &&
-> > + !ras_core->debug_disable_ce_logs) {
->
-> [Thomas] Can we replace ras_core->debug_disable_ce_logs with the function
-> interface in sun,ce patch?  The other changes are the same.
-
-[Tao] sure, Ce will update it.
-
->
-> >                 RAS_DEV_INFO(ras_core->dev,
-> >                 "{%llu} socket: %d, die: %d, %u new correctable
-> > hardware errors detected in %s block\n",
-> >                         seq_no, skt, aid, ecc_count.new_ce_count,
-> > blk_name(blk)); @@ -
-> > 114,6 +114,11 @@ static void aca_bank_log(struct ras_core_context *ras_=
-core,  {
-> >         int i;
-> >
-> > +       if (ras_core->debug_disable_ce_logs &&
-> > +           bank->ecc_type =3D=3D RAS_ERR_TYPE__CE &&
-> > +           !bank_ecc->real_de_count)
-> > +               return;
+> > +static bool aca_check_bank_is_de(struct ras_core_context *ras_core,
+> > +                               uint64_t status) {
+> > +       return (ACA_REG_STATUS_POISON(status) ||
+> > +                               ACA_REG_STATUS_DEFERRED(status)); }
 > > +
-> >         RAS_DEV_INFO(ras_core->dev,
-> >                 "{%llu}" RAS_HW_ERR "Accelerator Check Architecture eve=
-nts
-> logged\n",
-> >                 bank->seq_no);
-> > diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-> > b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-> > index 2346918c7736..cdef7727decb 100644
-> > --- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-> > +++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-> > @@ -377,6 +377,7 @@ int ras_core_hw_init(struct ras_core_context *ras_c=
-ore)
-> >                         ras_core->config->ras_eeprom_supported;
+> >  static int aca_parse_umc_bank(struct ras_core_context *ras_core,
+> >                         struct aca_block *ras_blk, void *data, void
+> > *buf)  { @@ -230,6 +237,9 @@ static int aca_parse_umc_bank(struct
+> ras_core_context *ras_core,
+> >         ext_error_code =3D ACA_REG_STATUS_ERRORCODEEXT(status0);
+> >         misc0_errcnt =3D ACA_REG_MISC0_ERRCNT(bank-
+> > >regs[ACA_REG_IDX__MISC0]);
 > >
-> >         ras_core->poison_supported =3D
-> > ras_core->config->poison_supported;
-> > +       ras_core->debug_disable_ce_logs =3D
-> > +ras_core->config->debug_disable_ce_logs;
+> > +       if (aca_check_bank_is_de(ras_core, status0))
+> > +               ecc->real_de_count =3D misc0_errcnt ? misc0_errcnt : 1;
+> > +
+> >         if (aca_check_umc_de(ras_core, status0))
+> >                 ecc->de_count =3D misc0_errcnt ? misc0_errcnt : 1;
+> >         else if (aca_check_umc_ue(ras_core, status0)) @@ -240,13
+> > +250,6 @@ static int aca_parse_umc_bank(struct ras_core_context
+> > +*ras_core,
+> >         return 0;
+> >  }
 > >
-> >         ret =3D ras_psp_hw_init(ras_core);
-> >         if (ret)
+> > -static bool aca_check_bank_is_de(struct ras_core_context *ras_core,
+> > -                               uint64_t status)
+> > -{
+> > -       return (ACA_REG_STATUS_POISON(status) ||
+> > -                               ACA_REG_STATUS_DEFERRED(status));
+> > -}
+> > -
+> >  static int aca_parse_bank_default(struct ras_core_context *ras_core,
+> >                                   struct aca_block *ras_blk,
+> >                                   void *data, void *buf) @@ -266,6
+> > +269,7 @@ static int aca_parse_bank_default(struct ras_core_context
+> > *ras_core,
+> >
+> >         if (aca_check_bank_is_de(ras_core, status)) {
+> >                 ecc->de_count =3D 0;
+> > +               ecc->real_de_count =3D 1;
+> >         } else {
+> >                 if (bank->ecc_type =3D=3D RAS_ERR_TYPE__UE)
+> >                         ecc->ue_count =3D 1;
 > > --
 > > 2.34.1
 > >
