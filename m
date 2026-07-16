@@ -4,96 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636A7C4450A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3543CC44515
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 14:01:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8A610F31D;
-	Thu, 16 Jul 2026 13:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB92510F31F;
+	Thu, 16 Jul 2026 14:01:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jWU5YkBw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K4D2MuVQ";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0D2310F31E
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 13:36:45 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2cab1f435afso13002285ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 06:36:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784209005; cv=none;
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 961DC10F31F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 14:01:03 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2cac39b729dso16703355ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 07:01:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784210463; cv=none;
  d=google.com; s=arc-20260327;
- b=IJ9LojqIZxs1YaIQul0i5Jd95Iqr78YkQL2nDm9NTvRxpNOahB/eGw7UwXCz/uCPw2
- le92OLSHPUgQXYCYsq8LP3CtM9XVF2XYf1wi0rlKtr4J1F1VVGKHAoQocs/yzRwsFTrl
- CsdiJag7PDhlm03tzBHOTc0k7N3kpqXAPSaWSLBc2fKB5IeLjuceub3hNjUfERomREz6
- Bt5+aZVnVn7ZgazzE++Uz/bb+7boHAW6X+d3Acxtf27/2BMgSaztXAFyn0Pig1Ot7PJ8
- Rb9lIhkLL7Dueb/nbwyerIvflaJo834U7KGHhSU6oTNyMPKIOOSi0PQ7tf0YzD8zkmUd
- FC4A==
+ b=JLadnwl7GqZ4ndcn2mMlmxXRVSL850urSrJApnMYNHoeKUDhZ4xvEkDlc484+evQNU
+ R++TaKZzicYrxUDsiAy5r/kgjd1va/yYxjz2xLadCW4EChr5/etLrwO2FUvdqJpDOl1s
+ fLWMHXTy2QULhHfVUsEN/B8pqHtVIOKTQYMfeJmkz1BbwtE9o5lUJJAX+AOFyFO/YoUQ
+ bF67D7bHc5+gYbfuYKwAuVCDDTPVVTTkYrHrdO54zJ8b3rVa2fNbN3zSEX2YDgAUJuBw
+ 8wEzbxbSsgJy0lhCDEVl0bAtOQD4EDlj1N7nOSQ+zUTCn9R+hGlkOFk9L2enuKWZDYFM
+ t9hA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=3k33WIextkyJdwnrh1ZNf4QmV7aDLl0J8tljMyRAcno=;
- fh=RVbr5Ty/y8k/x9IeAJ3WcJpdqqkV6MC1BFxxvomoSkk=;
- b=eyPHDc0zWfqsPCfuniZMOQ2RhS9XmBzrLMMvQuFYX1eycA8Yc9ZrA10o4IMRJXsZyA
- UGINUWr1MGaaw5yQchMJRDi9dkvK37Ei08vSrZNEpyouRp4El021sNE4rQYbw6Xnj914
- gEkRIjEq0+nYDi5KwV4y5RHW7+GnRv5t+QjoQry1MpDAfoyvMIuAZIqfpp2YPGSnsDnA
- g3I25uu6mq2ylCqjpfVeWcgyDB4gKxtkpCxiE9uXY9M04nMPnyVSVmt5H+K72AVl49tT
- shi1pyY6ntqM1q2fGLcDgV32vYych/yWqettICNxF9/qrof4tLF65IxlMow6SJSkf/Sp
- 4tFQ==; darn=lists.freedesktop.org
+ bh=iZ7LQj/V80q7GW/Qfg1Nt1/2do8wHfbT6i3WQFuZjVU=;
+ fh=4ql5AVrIUDvKC2jBuwKXG/FIPmBRqfCOURlaLtLhDxM=;
+ b=KAPdnQuYvLY9lKFxI1m0ZDXZ+/WTqS5rUkYB+iX4VDeNlkmqgUj7k8Xw5VR7lgIXcH
+ 6ptpMDYLPh3OQD+Z82z6mdWeDLCPKkDg4mutx4YXP7o/5x0UqI2LkAF1rhqVGDUMPtb7
+ 3cyBzlbwEMucdumoUOaY1eqRXdZg8p0kwIOIRaUyVgogYE8s1Vs/iFJ0XYoKz44sB03D
+ /DYI3YyqrcSDvUWQONFzaNCYKv3Afq8AnBDCIrA5IKSNmFL54Uw31redKiz/7b7fmrJD
+ qwjVBzFywbrJGgN+aJ80FuVkEo//L/fsnsuukHtJBaFFHCUkiqlqyl19exexUogZS36+
+ GjqA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784209005; x=1784813805; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784210463; x=1784815263; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=3k33WIextkyJdwnrh1ZNf4QmV7aDLl0J8tljMyRAcno=;
- b=jWU5YkBwXbNerEPRhzsh2kC66W+NxQYSi1hrGOt+o9k+osYStN17SCW0IbkNYBByiF
- kZohX91einSX/7JkPx+V0waxeoyQ77aKqnIs0SuOIrDmZUNRdCwVEp/wG73b17RP4a5r
- YC06G9AaKUViX4qilzLW+i8DTwhSQyeIvez4iZgWTxw900bLXas2JlGYw8NFiOVyYW/V
- x8rMCdrUq6SQQcAo1kEzAIKmtA0s1iw9aaFiAQplvbSPaszET6Oh1voCz+oCIJ6r5Oea
- fsvTN0AhzLbr1yrU7sPREq8XnzwAmRv+JKR4ZlBOB4jSLhIamwCfYkxdGpd5F77sH7JX
- ArEw==
+ bh=iZ7LQj/V80q7GW/Qfg1Nt1/2do8wHfbT6i3WQFuZjVU=;
+ b=K4D2MuVQVe+dr5fJqCR1YFIfgXZT4gmCPL0tT82iWyezWYVIdnn+IIaKmFsVELNV8x
+ Ayb4r5qRbsq9OvjMjdFxAEICA5+8Aq8k0txAWG4T1iqxK4VpjN2KRjkA95AoZjq9+ELY
+ Lv3110QF1wH3C7Q3IXAL2KMCYESANPMHpHP32YFJtq5ay3Tu6a3asfuLcgLJnyzj1ilC
+ K1B+cuNiFsIXANgJ1tFuVelFMYwIQdeBdru3WaO/BBvMZnkcezWU13qWWkp/9tmR2Xjh
+ 6XhnA+AX/Xm8VlhHfAAX3rYxHwENd/Ifg5zqZ8SFAYqotHqvPKEIeM13/t2D+eMFHIOm
+ usVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784209005; x=1784813805;
+ d=1e100.net; s=20251104; t=1784210463; x=1784815263;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=3k33WIextkyJdwnrh1ZNf4QmV7aDLl0J8tljMyRAcno=;
- b=l3A2/oZGNf156I3mjkNcDK77V7w+iW2vPJkaYMvdID13+GVEnwMMNWKH2pdTNdNRYD
- aW7Ntzs0uJUfEhul4d2d21K1wDzKb071+TdH7qd4bpnF9K4Larx5uO8MGGhgIgK6Tt4B
- hxWyNpuD+eYv+ErC/wb2MR4DvPl81JaserYeOn1BkuDHMllB/juEeP5zorxO2gLhaGL9
- DxJnly3L6ow8Jxz4mcS/4B66N7ZU126KA/CBJttJBmH9MGAltUEUqb81sAOz5XronC46
- NKUL/h6kW7yLvbmy9uSkTT+jhLmP3H78EsIa03h6pivg/ZbIek/Rer1KEd9wpPrXU8or
- cS4w==
+ bh=iZ7LQj/V80q7GW/Qfg1Nt1/2do8wHfbT6i3WQFuZjVU=;
+ b=mWGI0HKm6VnRlgb8pJNCUTyJivoggtCa+xzYvWQkpi/P+8pveh2Z7LibPo1XA5782R
+ EdYN2V7pyEDar9sF+hEOejremgP9pDM0tptNuV7T6O+8uNuk07iGR12ycu/eiroRDrTI
+ YFXO/1Mb1saARTsp+kxMs8mSPNE3yqkrwC6Kx0hu3nORfNJ734tx3YjoE0EP7m/fAr9o
+ mpVtZVOGI7rFEn2ySaijA/f/QiwzVzSG8v9EnYsybwqsrrMtWT5xebsOvhmsmIgnAYCl
+ zM+oKjPJGinxNMFaLWpblZHrrGLaWW8lJ6HwK4K2JH9n9KUPPmjyLwJTP8XWJQia7sz2
+ q36g==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrFT2rDbW8cB1SdRpCvsTwJSfIGThiWNOxJzT5yEuu0srBRMLbwWu8w+HFCnZqEkxmXFUlUoROw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfEsrvQqjilzQ+upxKsxCjQJRyIPwhty3ZDLQmRMc2TLWwtItR
- P7kAJs5/oEScJv4g+QlgWP7OycZpN0oHF91xPKt/2UMAJjZov9NCYL/3vnsQwjP1kbD+isdv6WL
- RhHSb2r1h1Qfihiz8K1P/C/+0UDE7zWk=
-X-Gm-Gg: AfdE7ck/m+yU8nkC+2UgJgX3pMo99PZOElY1gxmfEbWjC/E9WIHPl/Bh1lq3mUhBCkF
- FGCNL/+KUPdqY6of6OUyZt6xvwJ9teJ2GyRKSIIVNswGmjk8LVjfsA6AGU/6sd9OFw1txczka55
- d2aGj9iqdo2u06rHfuL73AjvkeMZmKhYFSsQ76hvvR7S8MvWGsWu0vXmqiHsRSMlxJcITXkXzua
- GCggFoOL8XngQQzjBCnuA107VaMNl+PbuusytQXVRAnU/1awsbqMgLIOvoUlLYEGAnAV5Df/9mL
- M0Mt26sbyrIPv4MBo53eb1b+x7IG47Zghb1Hcy6nzTWZ0r1RTHutJfJaeYw=
-X-Received: by 2002:a17:902:e551:b0:2ca:d344:7752 with SMTP id
- d9443c01a7336-2ce9f18746amr171788715ad.8.1784209005117; Thu, 16 Jul 2026
- 06:36:45 -0700 (PDT)
+ AHgh+RokppDJ/sSvweyXVXMZipXArMjYjgmbY05oczd/vd3WaOnQz30rbuG4pHwvxmmhTVkuNI18zlb6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw33CHBxJ0Ix+QA0koQuNqEWVahPTO69XZTQu3aknbDTsHiqu0I
+ giHfoFlvQElChjwR7OqMaD+kPe9T2+kvS3hwccUqmbjhFLfmoSaxKoaGr29FX3pfKqY06y/n2A8
+ LgWT64SohtVr5LlzYA21T9sSUkJe44CFrgA==
+X-Gm-Gg: AfdE7cnBd5DJqaFSxk65SRWjhpVuv8KMHFnNIcEtteaISP+uINugG2Cp5Q1az+I2mDX
+ bTowQydJfZUOUq3jxz66vUTas36Ip6cMVpIj/JT8aL9sbpcqZMZDp7TnXnGk6XzJgEzefZT24MX
+ VEYULMaIaftksurHEzTf0JRtK+9x0nCKFclTlz+4Xk6HtS6ZIRTugXAYFB5ifDCUQEg0s3DYsX6
+ WKDvuDhFPfeCTYuQUVIJOyfjvsLNlm7i+4vGImPCLQQsIRdXZQbjmDFqjChhUWxWHMjRnbeOa4a
+ 0t89+N6Of73ixVYiVe6H1JuNWg1XzeLW9bm3d9WtIoq50wW/
+X-Received: by 2002:a17:90b:4d08:b0:38d:fe7d:2a83 with SMTP id
+ 98e67ed59e1d1-38dfe7d2abfmr12017883a91.3.1784210463037; Thu, 16 Jul 2026
+ 07:01:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260708193518.702584-1-mario.limonciello@amd.com>
- <20260708193518.702584-2-mario.limonciello@amd.com>
- <aljQlgDxiRrtMJti@monoceros>
- <6f4ec487-6cb8-412c-ac1a-b0710c79c584@amd.com>
-In-Reply-To: <6f4ec487-6cb8-412c-ac1a-b0710c79c584@amd.com>
+References: <20260713130709.34262-1-timur.kristof@gmail.com>
+ <5733138.E0xQCEvomI@timur-max>
+ <d56d2eef-0bd1-4289-b315-8ecb7f5d01eb@ursulin.net>
+ <178429166.VBMTVartND@timur-max>
+ <afb43e28-45d2-4529-98af-6fc7ea071ec7@ursulin.net>
+In-Reply-To: <afb43e28-45d2-4529-98af-6fc7ea071ec7@ursulin.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Jul 2026 09:36:33 -0400
-X-Gm-Features: AUfX_mwOy3oW7f81kDe0rN3AUeokJ5T5CERVwo_v8d_1CiIAr5vkdjULMKBC-ss
-Message-ID: <CADnq5_M_soaFDLBsp-kZFf_AB=Q9erXYHaNvHG-YJVgZa9BbXA@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu: Fix VFCT bus number matching with soft
- filter
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- "Deucher, Alexander" <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Oz Tiram <oz@shift-computing.de>
+Date: Thu, 16 Jul 2026 10:00:50 -0400
+X-Gm-Features: AUfX_mwWOENa3vbKMZXsYMEYkDm7hoVWyTDYTvIHjGTZhELPo1M2R6cV5zoX2DQ
+Message-ID: <CADnq5_OTNp-+mJ=BLU6p4vF4B4xrim+8hOVb6fbkmXC01PxURg@mail.gmail.com>
+Subject: Re: [PATCH 07/11] drm/amdgpu/gfx6: Properly enable/disable priv_req
+ and priv_inst interrupts
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com, 
+ Natalie Vock <natalie.vock@gmx.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,138 +112,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 16, 2026 at 9:21=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Thu, Jul 16, 2026 at 8:24=E2=80=AFAM Tvrtko Ursulin <tursulin@ursulin.ne=
+t> wrote:
 >
 >
+> On 15/07/2026 20:23, Timur Krist=C3=B3f wrote:
+> > On 2026. j=C3=BAlius 15., szerda 13:22:21 k=C3=B6z=C3=A9p-eur=C3=B3pai =
+ny=C3=A1ri id=C5=91 Tvrtko Ursulin
+> > wrote:
+> >> On 15/07/2026 11:53, Timur Krist=C3=B3f wrote:
+> >>> On 2026. j=C3=BAlius 15., szerda 12:19:40 k=C3=B6z=C3=A9p-eur=C3=B3pa=
+i ny=C3=A1ri id=C5=91 Tvrtko
+> >>> Ursulin
+> >>>
+> >>> wrote:
+> >>>> On 13/07/2026 14:07, Timur Krist=C3=B3f wrote:
+> >>>>> These were used without ever calling get()/put() on them.
+> >>>>
+> >>>>> Implement it like on GFX7-8:
+> >>>> Used as in how? Are they even enabled without this change and if not
+> >>>> then does this patch fixes something other than being prep work for =
+soft
+> >>>> reset?
+> >>>
+> >>> If you open gfx_v6_0.c and search for priv_reg or priv_inst, you can =
+see
+> >>> that the interrupts are used in the same manner as gfx7 and newer, bu=
+t
+> >>> without get() and put().
+> >>
+> >> Yes, they are used in code. Are they used in reality was my question. =
+:)
+> >
+> > Looking at the code I think the original intention was to wire up these
+> > interrupts. I think the hardware actually supports these interrupts and=
+ the
+> > author of the code simply forgot to call get() and put().
+> >
+> > If you are not convinced, maybe Alex or Christian can confirm whether t=
+he
+> > interrupt actually exists on this HW generation. If it turns out it doe=
+sn't
+> > exist then we should just delete this code.
+> >
+> >> I ask because it appears that without amdgpu_irq_get() they may not ev=
+en
+> >> get enabled so never received. Yes or no? Consequences if yes?
+> >
+> > Yes, that sounds correct. The consequence is that the interrupt will no=
+w be
+> > enabled and the HW will tell us about some illegal register access and =
+some
+> > illegal instructions when it happens.
 >
-> On 7/16/26 07:41, Uwe Kleine-K=C3=B6nig wrote:
-> > Hello,
-> >
-> > On Wed, Jul 08, 2026 at 02:35:14PM -0500, Mario Limonciello wrote:
-> >> On systems where PCI bus renumbering occurs (e.g. pci=3Drealloc,
-> >> resource conflicts), the runtime bus number may differ from the
-> >> BIOS POST bus number recorded in the VFCT table. This causes
-> >> amdgpu_acpi_vfct_bios() to fail finding the VBIOS even though
-> >> the correct device entry exists.
-> >>
-> >> Introduce amdgpu_acpi_vfct_match() which treats the bus number
-> >> as a soft filter: vendor/device/function identity is the hard
-> >> requirement, while exact bus match is the preferred path. When
-> >> bus numbers disagree but device identity matches, accept the
-> >> VFCT entry and log a dev_notice for diagnostics.
-> >>
-> >> Reported-by: Oz Tiram <oz@shift-computing.de>
-> >> Closes: https://lore.kernel.org/amd-gfx/20260621173211.28443-1-oz@shif=
-t-computing.de/
-> >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 45 +++++++++++++++++++++-=
---
-> >>   1 file changed, 40 insertions(+), 5 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_bios.c
-> >> index 3ebdd792feec1..d8fd047295d9d 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> >> @@ -377,6 +377,45 @@ static bool amdgpu_read_disabled_bios(struct amdg=
-pu_device *adev)
-> >>              false : amdgpu_asic_read_disabled_bios(adev);
-> >>   }
-> >>
-> >> +/**
-> >> + * amdgpu_acpi_vfct_match() - Check if a VFCT entry matches the devic=
-e
-> >> + * @adev: AMDGPU device
-> >> + * @vhdr: VFCT image header to check
-> >> + *
-> >> + * VFCT entries contain the PCI bus number as recorded during BIOS PO=
-ST.
-> >> + * On systems where the kernel renumbers PCI buses (e.g. pci=3Dreallo=
-c or
-> >> + * resource conflicts), the runtime bus number may differ from the PO=
-ST
-> >> + * value.  Match by device identity (vendor + device + function) and =
-use
-> >> + * the bus number as a preference: exact bus match is preferred, but =
-when
-> >> + * the bus numbers disagree we accept the entry if the device identit=
-y
-> >> + * matches.
-> >> + *
-> >> + * Returns: 0 on match, -ENODEV on no match
-> >> + */
-> >> +static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
-> >> +                              VFCT_IMAGE_HEADER *vhdr)
-> >> +{
-> >> +    /* Vendor and device IDs must always match */
-> >> +    if (vhdr->VendorID !=3D adev->pdev->vendor ||
-> >> +        vhdr->DeviceID !=3D adev->pdev->device)
-> >> +            return -ENODEV;
-> >> +
-> >> +    if (vhdr->PCIDevice !=3D PCI_SLOT(adev->pdev->devfn) ||
-> >> +        vhdr->PCIFunction !=3D PCI_FUNC(adev->pdev->devfn))
-> >> +            return -ENODEV;
-> >> +
-> >> +    /* Exact bus number match - preferred */
-> >> +    if (vhdr->PCIBus =3D=3D adev->pdev->bus->number)
-> >> +            return 0;
-> >> +
-> >> +    /* Bus mismatch but device identity matches (PCI renumbering case=
-) */
-> >> +    dev_notice(adev->dev,
-> >> +               "VFCT bus number mismatch: table %u !=3D runtime %u, m=
-atching by device identity (vendor 0x%04x device 0x%04x)\n",
-> >> +               vhdr->PCIBus, adev->pdev->bus->number,
-> >> +               adev->pdev->vendor, adev->pdev->device);
-> >> +    return 0;
-> >> +}
-> >> +
-> >>   #ifdef CONFIG_ACPI
-> >>   static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
-> >>   {
-> >> @@ -413,11 +452,7 @@ static bool amdgpu_acpi_vfct_bios(struct amdgpu_d=
-evice *adev)
-> >>              }
-> >>
-> >>              if (vhdr->ImageLength &&
-> >> -                vhdr->PCIBus =3D=3D adev->pdev->bus->number &&
-> >> -                vhdr->PCIDevice =3D=3D PCI_SLOT(adev->pdev->devfn) &&
-> >> -                vhdr->PCIFunction =3D=3D PCI_FUNC(adev->pdev->devfn) =
-&&
-> >> -                vhdr->VendorID =3D=3D adev->pdev->vendor &&
-> >> -                vhdr->DeviceID =3D=3D adev->pdev->device) {
-> >> +                !amdgpu_acpi_vfct_match(adev, vhdr)) {
-> >>                      adev->bios =3D kmemdup(&vbios->VbiosContent,
-> >>                                           vhdr->ImageLength,
-> >>                                           GFP_KERNEL);
-> >
-> > For the record to hopefully make it easier for others to find the fix:
-> >
-> > This patch became 33a18ecd2fbf in
-> >
-> >       https://gitlab.freedesktop.org/agd5f/linux.git drm-next
-> >
-> > and thus next and it introduces a build failure for !CONFIG_ACPI builds=
-:
-> >
-> >       drivers/gpu/drm/radeon/radeon_bios.c:614:12: error: =E2=80=98rade=
-on_acpi_vfct_match=E2=80=99 defined but not used [-Werror=3Dunused-function=
-]
-> >         614 | static int radeon_acpi_vfct_match(struct radeon_device *r=
-dev,
-> >             |            ^~~~~~~~~~~~~~~~~~~~~~
-> >
-> > Patch available at https://lore.kernel.org/all/20260716123646.1933293-2=
--u.kleine-koenig@baylibre.com/
-> >
-> > Best regards
-> > Uwe
+> Right, AFAIU assuming the CP hangs, instead of waiting for the TDR
+> timeout with this patch it will be instant via drm_sched_fault() called
+> from either irq handler. Or if CP does not hang but somehow ends up
+> going over it with corruption with this patch it will insta GPU hang.
 >
-> Thanks.  Alex can you squash that in, or has the merge request already
-> gone out?
+> In any case I think it is needed to have a definitive answer whether the
+> interrupts were not enabled until now, and if so, also exercise the
+> until now unused code paths just to make sure it all works as expected.
+> Presumably there are test cases which trigger both conditions?
+>
+> Then I would suggest putting this info in the commit message. That is,
+> instead of saying "These were used without ever calling get()/put() on
+> them." expand with the full story so the whole situation is clear both
+> before and after the patch.
+>
+> Assuming interrupts were not enabled until now, that the unused irq
+> handlers work as expected, and with the improved commit message:
+>
 
-Already out.  I've picked up Uwe's patch.
+The interrupts would not have been enabled if get() was never called.
+I think they were never enabled because radeon didn't implement
+support and this code was ported from radeon.
+
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>
+> Unless you don't have the hardware to test it and there are no existing
+> test cases to verify it?
+
+An example test would be attempting to access a privileged register
+from a user IB.
 
 Alex
+
+>
+> Regards,
+>
+> Tvrtko
+>
+> > To give you additional context: for the purpose of diagnosing issues re=
+lated
+> > to GPU hangs and recovery, all additional information helps. If the CP =
+has
+> > interrupts to tell us about some error cases, we should absolutely use =
+that.
+> >
+> > Side note: from the register definitions it looks like the HW actually =
+supports
+> > other interrupts which would be interesting to enable in the future.
+> > In this patch I just wanted to fix up the two that were already in the =
+code.
+> >
+> >>
+> >>>>> * Call amdgpu_irq_get() from gfx_v6_0_late_init()
+> >>>>> * Call amdgpu_irq_put() from gfx_v6_0_hw_fini()
+> >>>>>
+> >>>>> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> >>>>> ---
+> >>>>>
+> >>>>>     drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 19 +++++++++++++++++++
+> >>>>>     1 file changed, 19 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> >>>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c index 5b570a4b5c01..1c7cd26=
+5fbca
+> >>>>> 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> >>>>> @@ -3131,6 +3131,22 @@ static int gfx_v6_0_early_init(struct
+> >>>>> amdgpu_ip_block *ip_block)>
+> >>>>>
+> >>>>>           return 0;
+> >>>>>
+> >>>>>     }
+> >>>>>
+> >>>>> +static int gfx_v6_0_late_init(struct amdgpu_ip_block *ip_block)
+> >>>>> +{
+> >>>>> + struct amdgpu_device *adev =3D ip_block->adev;
+> >>>>> + int r;
+> >>>>> +
+> >>>>> + r =3D amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
+> >>>>> + if (r)
+> >>>>> +         return r;
+> >>>>> +
+> >>>>> + r =3D amdgpu_irq_get(adev, &adev->gfx.priv_inst_irq, 0);
+> >>>>> + if (r)
+> >>>>> +         return r;
+> >>>>> +
+> >>>>> + return 0;
+> >>>>> +}
+> >>>>> +
+> >>>>>
+> >>>>>     static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+> >>>>>     {
+> >>>>>
+> >>>>>           struct amdgpu_ring *ring;
+> >>>>>
+> >>>>> @@ -3243,6 +3259,8 @@ static int gfx_v6_0_hw_fini(struct amdgpu_ip_=
+block
+> >>>>> *ip_block)>
+> >>>>>
+> >>>>>     {
+> >>>>>
+> >>>>>           struct amdgpu_device *adev =3D ip_block->adev;
+> >>>>>
+> >>>>> + amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
+> >>>>> + amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
+> >>>>>
+> >>>>>           gfx_v6_0_cp_enable(adev, false);
+> >>>>>           adev->gfx.rlc.funcs->stop(adev);
+> >>>>>           gfx_v6_0_fini_pg(adev);
+> >>>>>
+> >>>>> @@ -3532,6 +3550,7 @@ static void gfx_v6_0_emit_mem_sync(struct
+> >>>>> amdgpu_ring *ring)>
+> >>>>>
+> >>>>>     static const struct amd_ip_funcs gfx_v6_0_ip_funcs =3D {
+> >>>>>
+> >>>>>           .name =3D "gfx_v6_0",
+> >>>>>           .early_init =3D gfx_v6_0_early_init,
+> >>>>>
+> >>>>> + .late_init =3D gfx_v6_0_late_init,
+> >>>>>
+> >>>>>           .sw_init =3D gfx_v6_0_sw_init,
+> >>>>>           .sw_fini =3D gfx_v6_0_sw_fini,
+> >>>>>           .hw_init =3D gfx_v6_0_hw_init,
+> >
+> >
+> >
+> >
+>
