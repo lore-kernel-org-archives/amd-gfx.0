@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 835C4C44515
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:11:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE08C44512
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171AC10E39B;
-	Thu, 16 Jul 2026 16:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 934C410E524;
+	Thu, 16 Jul 2026 16:11:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i7Gjtsas";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q6qnpq2I";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E83C10F38E
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 16:11:18 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-ca6bda96134so427033a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 09:11:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784218278; cv=none;
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F6B010E524
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 16:11:28 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-ca6a6181273so546535a12.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 09:11:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784218287; cv=none;
  d=google.com; s=arc-20260327;
- b=rx18/Uu1UFoqhHzSm9PR4477Q2LlSs5Vg4094/7XkF6qLrOyH6LjYHKOgRnQiHfEAL
- WFjLrN5r8t1JQ1YZHHkugwKUKkZxTDToPwpeql9ENGRMOqeFtGTbn/hSZX2QqGjSrFiu
- kECpxo5g3U0wC8gKRYs6x2C1/Br8mhLA990TYIwUQiV663rV+BL4TsTHFJyPlu7hSw6W
- 3jm+RfyevWyDTxa61scrAWG5a0PJ1Rg6ApvXcyCWYa+/lbT3vIhUlQgHCWqdyuvEuURV
- Pd5H1YzE+J+LvXW6ubIr/fDXgAypdT4Sy7aiaXZFj5zcIn2qMMdeCvCJVLnze18Gi1si
- A6Hw==
+ b=MCE426QOhpAd+CNL34CUGiBBUaAGVYMno4G6HndMbabP2reC8xersaSG/DgORZ0xFL
+ 9LlHMkokMJuq2QwSFQUur+DjVO0BpKrChft5Y5spVBEqzH3bcxrYC+YQc9EpDV4EwumP
+ vWv4vHAtXikgFiiq6eIUtd+9R58IoIWjik2MSRO7rDzKWZLx9/IYr+E4Yh6wh83PzB8+
+ udTs3L7d+5YKjrukIpsSJ9+fClNMAXI5cEap5wcAa3LsWUykBi922lq7PgnN+2nT1AHA
+ 5s4EJN7IkEwX80Egum6Vje0UYC4skXM5sWNdhtFsT7kzxshTurJX9c1fN5ljt/vEHlwT
+ hB7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=eLm2bOZWqjEYnV7dD449x3+Yq/PgK0wDYTfRlxo/O0o=;
- fh=aw/8YpNNo8pQldfHtLTi4JFuH/4zlzkVW0l27pIEJRY=;
- b=YQq6TAmPDktV58FSSsw7zBqd9MsXxXTxmLwKXbPXAwUXjMjbDp7n8kGGR6/6JdLufR
- zE4kBuBrfJUAZ2Ua6PWeDhUtH9Mymdx6/lYZOpoASD2hMesMN8K1OoAUVs2QxIXPFW/g
- jZ8cq7JEDIhFwwk3OITkmTRLW9BpY2HEog9doOObkp+pp7e54L51YXU157N3uXFZ/f7h
- 0+Wlw/PQYsjkLNzZhGx908lIplIbTtvT1RJ0o8611CdzHAoaASSf28nuD5WvoJIbs8qO
- tWmJSfOkibvzg+NTiLkV0mRyiZ9QpGTwmZS0/sMxJJmX5mcTTQNyWooASjAZHzV+iwRO
- ZI7g==; darn=lists.freedesktop.org
+ bh=jR1Y5r7I4M7vLOlnIqx8RnOmATrvV4sXGXCLpvOUAvE=;
+ fh=o5uh0/ZziMmBX0jY1NrVc/wFowl4SecZsIjpyIS9ggo=;
+ b=ReD8z7l1O5U4sycZBz3ocULpQGqW3wR1OFlEDUo5dXJY2K/OARx8dH6m7ePmiVwQhB
+ keJtbou6IBdiwCop71tmx8Tx9jCh0og51Gzqn6iF9mPLRTthjV6wfbuMb64o1ls6lLSd
+ 7cmSae6ewiy+zQVu3do3+TrJgjpaGGg7WyvYK3xBQq3YVIxyrm9th0tmccjV71hvbF6o
+ wPUUT3rt+FwEIVRoBOtOPvOaA+TUy8Dy/s8vuJbFlR5fGp3dtYRAG4keHLTKCiSoohrj
+ eAWpyFwQDc7S6QspPYIfRevSX1GvuALSjLZdaH2a2DtUIzvzm7kxvtC4DCoXQeJ6p7Wr
+ 4paw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784218278; x=1784823078; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784218287; x=1784823087; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=eLm2bOZWqjEYnV7dD449x3+Yq/PgK0wDYTfRlxo/O0o=;
- b=i7GjtsasEVHXAiTvD9l09ncRS7r0VabQq3sTXt5uZUpz1Zam+FLJU1HmBDhmuGdqxF
- LPPM404TtR1U0vQZDlxN5Iuw9FzWwChRnJlIfTN/2Qax3YhUfXnt2pRknReB24jhsGDd
- 1FxcYHmLOAEePa6BANsslsCYKxf8qQcOQ5hBEPFO9luYXXBh0L2GB9Atm2sxFMOtgPWf
- /RFqoudZvxp5HT9vklVBh83sj4pQ89Z4DD6w9uVQvDPi8XteT23gr8ZBrkqI2nwQjDu2
- fnp4VWlIsuIwcvzgrRD75ULEy0hBjWqO6EeaexDU+bOCGI2veEE3f/3EPT5fjeVwVwCn
- vaJw==
+ bh=jR1Y5r7I4M7vLOlnIqx8RnOmATrvV4sXGXCLpvOUAvE=;
+ b=q6qnpq2IIumL7Ulxbo2SFWbjdXUWrpdbSwyxoAYjPwEVBGJsACbCTFaDt2H9OfUbWO
+ Hn8064DkuQkI3L9op7OfkqBjtkeDSfR5RlAYCzTPPl5HjYDkS21aHbEPr9ZrzqsHadJs
+ PPTQQZ4t07TUD92x6/HtZe6Ef6e8/CiWtiv9spCux+vT+irocugFebVZX6xy4GJut0TU
+ NbHJOoZlw/kyp9C0Oh63kRR1hm8H9QNCZIEVyHVF91kUFkWF2vKDhrt2e5mZeqYx3IqQ
+ x4MDhjkPnYWss6Aacqb7R+BPi2NVnpVna5XlFEbL3DykypQOZmOo/ulpQcd7PgMyU4VG
+ U4Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784218278; x=1784823078;
+ d=1e100.net; s=20251104; t=1784218287; x=1784823087;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=eLm2bOZWqjEYnV7dD449x3+Yq/PgK0wDYTfRlxo/O0o=;
- b=KTXeGiOeSp2xatNz0OFRYL3bQO2UaHcfwqwI5JLi1o8WCGX8EickLXq+8Tp9O65FFT
- /lLHjqZoyzaKdohKejZWeyoH/BRZR0P1o5cmkjeQt0/XFEf+GdQbJHvu0J0v2OJnPBrs
- IE47K+xUfh5mIMNEzzFh+ucnMtjbJIOrhZ1tOdH6ohUF8lRpOHXY/SDvW1uSvL2VyT33
- YqLPnqS6MUPKXOT+xW7KJYO7yFkAOzOBKHp2GWqdnRLoYy9mNsjbT7fQfYsATfB9bktQ
- zBtXMXSA0vpBa7OdKIf4K5KuyTIf/hiN7wURkL57IukdBXOdeP733jjIX7XCOhIq7YwU
- E5OQ==
+ bh=jR1Y5r7I4M7vLOlnIqx8RnOmATrvV4sXGXCLpvOUAvE=;
+ b=QeiLZG4JevMsNX0+VNCSmPe1U1JmFJIRy3EfvgUVSZemG7enenZeI2ClX7BwjvzMrP
+ EvEH1ISkIOU1OYu4cv1IGXD+pF4KR10UHj1kWme2PrO6uikSE9LekJOJA3zGrqV98RyV
+ IfC30zgeMTjPYVirOerygfo6JRZ36Jbtcf4HkulKgfhRKAJIsK34tab2n6A1p17x4Pyx
+ IdBn66CF7Uf8a68o/6B+NSYN/lobJD8JpQ38lkBPb055Zl8kc8RioItZGxyPAeM/DSy5
+ OznJ6CeX2DrTV+O8HWmFXT4yvu10iItJ2d3ucpISZppP100V/K4K6/4k63Uc+H7rYQkN
+ rm4Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpDYcSUMoQi4UVwVwRbl9NmaqY9gVmQ0EZ8z3X0/u5P4PRIY8Po1iNIYtFSL+WkFe8ILIptOvtT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyfI19vj+ERBOvvz7c/3zZxsammDdXJRwDwCG6YCB4Y0B3pSNKX
- p4cxIX3bOb7fbhlDRlGaiWIjFyvNEQuXWn+F9AaIxlzO6KuxGwDSul3FEnYD3lLGdwTld4sBvv/
- bzuFAcSiIq9OFG3xGmZyjZFyXMpqkrJU=
-X-Gm-Gg: AfdE7clDAyjhfSrDHU+BCTwSoAOGBPQqOg3hhLWZE/T7pdiXXXiT6dM4JGnbNzj9SrL
- l8Bxs8sEHf59gdnjHAAOY2hTUNfRQ4g53Db4ySi36Fms88FWl8pke5Zy25LScLbsdy7bwhdZsun
- 6oRLqGOSUhE6e0LdyXaegEMJHTJaiV9Q1y+55YKoYt76K351wcXB9Hc5RGcN+49b1wqfqydMPYs
- 7vvVp7YaLEKD+1ibAZ9P15heTL621x8uE0vqbCge0sSW8vN5bQ3pHUfVp89Hrxmg6W2nJ1if95+
- nn9SsejrYU8lCCw9DF0G0QInilLUp1JMJbry3pEPSfPLHUGdorHCFXdZ/K4=
+ AHgh+RrwfkVUzmvlgKHV1Ohk6PK8fCwhAo/euKfFmjtADD3Ylesm2b9l53+K4xea0iPQYHTnbTHKHuBY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/tBdzb56HJ71VbYtYASNsi4FQ/xRcltdu1/maFTy3hb5OjN0m
+ 90TyglruxawZvORr4Gh+O1Vta+g6llAl9DO8ReXqmB1ymy53xMrpBgQmwRfzqpRovk+dJe9v2l7
+ JKsgeqHe1LSCwwTwPAqFov+8jLQFoYYg=
+X-Gm-Gg: AfdE7cnWR0a61msiXx1VvMh94iOIedTQTIy4qstWhgTyEja3vlchfsR0D24HeXhDUQf
+ od6hqJ09Df1LDoTHw4FsXJh2+uWZBcuNQ2o/lJS32FKDMFiWBwY02El2zD5lci7nQui04wUVpGG
+ Jbxkv7Za+5fJHIoV7v95O4a02+YwZ5YTrkX8x0ULjIVbrrcHHu6Xv1L+6gOztAMNErcaPESZ0BT
+ SQjiuytrNV8pat3/l3vibaU9NlA1iUK624UfuJEemzsOLuQf6pv2wTlzNezdrb/KEDyauv4eob6
+ jhIsEXR2othFRhyXYC15q5cQKRwe3O1Z8ctCHiRKYa+xgO8A
 X-Received: by 2002:a17:902:e5ce:b0:2ca:ecf6:9115 with SMTP id
- d9443c01a7336-2ce9e7a4c64mr180753675ad.2.1784218277889; Thu, 16 Jul 2026
- 09:11:17 -0700 (PDT)
+ d9443c01a7336-2ce9e7a4c64mr180759065ad.2.1784218287438; Thu, 16 Jul 2026
+ 09:11:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260715142824.3475418-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260715142824.3475418-1-srinivasan.shanmugam@amd.com>
+References: <20260716132100.3496327-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260716132100.3496327-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Jul 2026 12:11:04 -0400
-X-Gm-Features: AUfX_mwpV9nceUpdksSMUnO3amGImY2nFdKROBe010Q00qs__8qWk0A1WhefVcA
-Message-ID: <CADnq5_OUy6LqBZioxrp2aVh9mGTrFQmY=MKF68VdBUbnq591ew@mail.gmail.com>
-Subject: Re: [PATCH v5 0/4] drm/amdgpu: Wire GPU events into EVENTFD
- notifications
+Date: Thu, 16 Jul 2026 12:11:14 -0400
+X-Gm-Features: AUfX_mzTaIWsqWYnwhXx-_2z66JfKiWoX7LqHjFXrrawwHeR-BajknGjQHY4-II
+Message-ID: <CADnq5_PFDW_ek=OU6BtL51J2xUPCD5+YWL1R4fkbh0xXCgVD8g@mail.gmail.com>
+Subject: Re: [PATCH v12 0/5] drm/amdgpu: Add WAIT_EVENT ioctl for render-node
+ events
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
@@ -109,54 +109,50 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Wed, Jul 15, 2026 at 10:39=E2=80=AFAM Srinivasan Shanmugam
+On Thu, Jul 16, 2026 at 9:21=E2=80=AFAM Srinivasan Shanmugam
 <srinivasan.shanmugam@amd.com> wrote:
 >
-> This series wires GPU events into the render-node EVENTFD
-> notification infrastructure.
+> This series introduces a render-node WAIT_EVENT ioctl for retrieving
+> AMDGPU event records and associated metadata.
 >
-> It builds on the render-node EVENTFD infrastructure by adding
-> notification producers for USERQ_EOP, QUEUE_RESET, and GPU_RESET
-> events.
+> WAIT_EVENT complements the EVENTFD notification interface. EVENTFD
+> provides lightweight readiness notification, while WAIT_EVENT allows
+> userspace to retrieve the corresponding event record and associated
+> metadata.
 >
-> QUEUE_RESET notifications are generated from the common
-> queue-specific reset helper, while device-level reset accounting
-> and DRM wedged-event notification remain in the top-level
-> recovery paths.
+> This series builds on the previously proposed render-node EVENTFD
+> infrastructure and adds WAIT_EVENT support together with USERQ_EOP and
+> QUEUE_RESET event producers.
 >
-> Patches
-> =3D=3D=3D=3D=3D=3D=3D
+> Changes since v11:
+> - Use an unsigned absolute CLOCK_MONOTONIC deadline for WAIT_EVENT.
+> - Preserve zero timeout semantics as an immediate check-and-return.
+> - Remove the special handling for indefinite waits.
+> - Improve kerneldoc for timeout handling and WAIT_EVENT manager
+>   lifetime.
+> - Clarify the existing teardown ordering that guarantees the embedded
+>   WAIT_EVENT manager remains valid while USERQ producers are active.
+> - Address review comments from Christian.
 >
->   1. drm/amdgpu: Signal USERQ_EOP EVENTFD notifications
->   2. drm/amdgpu/userq: properly account for resets with user queues
->   3. drm/amdgpu: Signal QUEUE_RESET EVENTFD notifications
->   4. drm/amdgpu: Signal GPU_RESET EVENTFD notifications
+> Srinivasan Shanmugam (5):
+>   drm/amdgpu/uapi: Add WAIT_EVENT ioctl and metadata structures
+>   drm/amdgpu: Add wait-event manager and per-file lifetime plumbing
+>   drm/amdgpu: Remove queue-scoped WAIT_EVENT records on queue teardown
+>   drm/amdgpu: Record USERQ_EOP WAIT_EVENT notifications
+>   drm/amdgpu: Record QUEUE_RESET WAIT_EVENT notifications
 >
-> Changes since v4
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> - Rebased on the latest user queue reset handling changes.
-> - Reworked the QUEUE_RESET producer to reuse the common
->   queue-specific reset helper.
-> - Kept device-level reset accounting and DRM wedged-event
->   notification in the top-level recovery paths.
->
-> Only compilation tested.
->
-> Alex Deucher (1):
->   drm/amdgpu: properly account for resets with user queues
->
-> Srinivasan Shanmugam (3):
->   drm/amdgpu: Signal USERQ_EOP EVENTFD notifications
->   drm/amdgpu: Signal QUEUE_RESET EVENTFD notifications
->   drm/amdgpu: Signal GPU_RESET EVENTFD notifications
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 51 +++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 61 +++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  1 +
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c    | 77 +++++++++++++------
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 17 +++-
->  5 files changed, 173 insertions(+), 34 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  35 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |   2 +
+>  .../gpu/drm/amd/amdgpu/amdgpu_wait_event.c    | 490 ++++++++++++++++++
+>  .../gpu/drm/amd/amdgpu/amdgpu_wait_event.h    | 101 ++++
+>  include/uapi/drm/amdgpu_drm.h                 | 114 ++++
+>  9 files changed, 751 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wait_event.h
 >
 > --
 > 2.34.1
