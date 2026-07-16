@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9341CC44511
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E18E6C44511
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31CFF10F377;
-	Thu, 16 Jul 2026 16:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 820FF10F36B;
+	Thu, 16 Jul 2026 16:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lCUOat6+";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MD3OjAY8";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3B410F36B;
- Thu, 16 Jul 2026 16:06:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9644210F36B;
+ Thu, 16 Jul 2026 16:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=b3l281+Jm1AKS6Qg9eGQ12J1cB0+K8ejD+iPwx5sAz4=; b=lCUOat6+Ktl7qQQnEsbfv/6LcV
- lm00LVzEWbLZg6TBMubE1miZe6KMeeUXKOVQyUFO/nCZr1DoEr6W+faMHmCwXiLKqWo9Z0wBpaOhT
- ym5Dm4PUXvxQTlLdzZ7HQEmaT2c4uwwcIxY8+wy3LSr5ldSCLv1UdUVgaTp+dYTzEmHVTksIGvMdm
- Vj07v3oWbCFsZOTpsazNeq1Lb1AVkzuRhpx4H74obv7j1JNbZd8uXHAzbFPJRQ1UOSLQVoTE5wSqH
- nVF1kcZ7p7zMN3r6a/2Gi7tnRVhUOOHeu4PR0wG3zpm7O9cSO8VrR4XP14Xpm5AGsqCnNnR8UTuX+
- Y5BTFnOg==;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=Z7nNq9lLK+w9Z+e1sxK+eA5MYoTrZRPzvFVVcsZGLaE=; b=
+ MD3OjAY8a3w0bF7eF/5dBzK622IdFY9HF1qec69RLyYvVbY4cefsG18CUmDnWscHckeYwF7oRfLHV
+ 4evY8IIPB6e49qMu6AtLVQL8QN9cRdq261D1UQpNOSIIrDkJ4QHK+XiARwEOPmVCrM1t7z9wOZ2xu
+ onSFtwU78wMKAl3SUgVfTmgRZZ6D0zFoWUHN4ZY/vqj0FTSs2EKp527HBkOXJqPTdXUxLch+uCgfu
+ ZIQJ3kRFqtK8hTjzhPgMXQPU4VhD45sv8rcq+TSgypmCrFlkmBj6s/VHSsHiZUYx7nEsvOtDdPm6K
+ 9651vm73QYrGBB94j5PZ2MJM04TCZ439nA==;
 Received: from [178.139.170.72] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkObd-00G01i-5H; Thu, 16 Jul 2026 18:06:37 +0200
+ id 1wkObk-00G01i-Bb; Thu, 16 Jul 2026 18:06:44 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,17 +41,15 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
- Louis Chauvet <louis.chauvet@bootlin.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 11/20] drm/crtc: Track crtc color pipeline client cap
- in drm_crtc_state
-Date: Thu, 16 Jul 2026 18:03:08 +0200
-Message-ID: <20260716160556.227556-12-mwen@igalia.com>
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [RFC PATCH v2 12/20] drm: Add helper to extract a 3x4 matrix from any
+ CTM matrix dimensions
+Date: Thu, 16 Jul 2026 18:03:09 +0200
+Message-ID: <20260716160556.227556-13-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
 References: <20260716160556.227556-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,56 +65,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 
-Some drivers, like VKMS, only have access to the drm_crtc_state but not
-the drm_atomic_state during composition of the output framebuffer. Store
-the state of the CRTC (post-blend) color pipeline client cap in the
-drm_crtc_state so those drivers can decide whether to look at the color
-pipeline or the legacy properties for the color management settings to
-apply.
+Add a common helper to ease the conversion from both 3x3 or 3x4 matrices
+to a CTM 3x4 matrix. This is handy for code that needs to handle both
+dimensions.
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/drm_atomic.c | 1 +
- include/drm/drm_crtc.h       | 8 ++++++++
- 2 files changed, 9 insertions(+)
+ include/drm/drm_color_mgmt.h | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 76c7665b3c4c..8bb0e5d124f8 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -468,6 +468,7 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
- 	state->crtcs[index].new_state = crtc_state;
- 	state->crtcs[index].ptr = crtc;
- 	crtc_state->state = state;
-+	crtc_state->color_pipeline_enabled = state->crtc_color_pipeline;
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index 5140691f476a..51279267ed3f 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -66,6 +66,40 @@ static inline u32 drm_color_lut32_extract(u32 user_input, int bit_precision)
+ 				     (1ULL << 32) - 1);
+ }
  
- 	drm_dbg_atomic(state->dev, "Added [CRTC:%d:%s] %p state to %p\n",
- 		       crtc->base.id, crtc->name, crtc_state, state);
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 5852b506c614..bd36acf902e8 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -282,6 +282,14 @@ struct drm_crtc_state {
- 	 */
- 	struct drm_colorop *color_pipeline;
- 
-+	/**
-+	 * @color_pipeline_enabled:
-+	 *
-+	 * Whether color management should be done based on the &color_pipeline
-+	 * or the legacy color properties (&ctm, &gamma_lut and &degamma_lut).
-+	 */
-+	bool color_pipeline_enabled;
++/**
++ * drm_color_ctm_to_ctm_3x4 - Copy CTM matrix contents to 3x4 dimensions matrix
++ *
++ * @dest: The destination CTM 3x4 dimensions matrix
++ * @src: The source CTM matrix (3x3 or 3x4 dimensions depending on @ctm_3x4)
++ * @ctm_3x4: Boolean indicating the source CTM matrix dimensions
++ *
++ * Copy the contents of a CTM matrix from @src, to a CTM 3x4 dimensions matrix.
++ * The source matrix can be 3x3 or 3x4 dimensions depending on the @ctm_3x4
++ * boolean argument.
++ */
++static inline void drm_color_ctm_to_ctm_3x4(struct drm_color_ctm_3x4 *dest,
++					    void *src, bool ctm_3x4)
++{
++	if (ctm_3x4) {
++		*dest = *(struct drm_color_ctm_3x4 *)src;
++	} else {
++		struct drm_color_ctm *ctm = (struct drm_color_ctm *)src;
 +
- 	/**
- 	 * @background_color:
- 	 *
++		dest->matrix[0] = ctm->matrix[0];
++		dest->matrix[1] = ctm->matrix[1];
++		dest->matrix[2] = ctm->matrix[2];
++		dest->matrix[3] = 0;
++		dest->matrix[4] = ctm->matrix[3];
++		dest->matrix[5] = ctm->matrix[4];
++		dest->matrix[6] = ctm->matrix[5];
++		dest->matrix[7] = 0;
++		dest->matrix[8] = ctm->matrix[6];
++		dest->matrix[9] = ctm->matrix[7];
++		dest->matrix[10] = ctm->matrix[8];
++		dest->matrix[11] = 0;
++	}
++}
++
+ u64 drm_color_ctm_s31_32_to_qm_n(u64 user_input, u32 m, u32 n);
+ 
+ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
 -- 
 2.53.0
 
