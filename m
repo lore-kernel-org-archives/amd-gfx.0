@@ -4,84 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33E5C4450A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 11:05:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91C39C4450A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 11:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8048510E328;
-	Thu, 16 Jul 2026 11:05:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3061210E291;
+	Thu, 16 Jul 2026 11:42:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="p4XxcRbL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mP/kWhkE";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6B1810E328
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 11:05:50 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c15cb6f5c12so1124479966b.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 04:05:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1784199949; x=1784804749; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1YIpuHOv/MBUTDXYL9hsOT5uvF8tiPnkJS9HvLi2zC8=;
- b=p4XxcRbLQR6zqPHFXQIkbcC5J/eMETJp+nZkPTfMpLkGYzIVyzd/nF/Ngtpfl5f/wb
- ZjIFIfXHyEqD9MKI3i14xlH3OLL2YW95TOAZ/xZG/HT94dNVIurDJB8uPc4uSIS/JdHS
- /jmE78JXJ5eP2S+L928agJT6tNNkQQKfrBMVIyaBDlqM6l5oc5XiWBqXS6pq9miPEgNm
- DAdP3ajOgqqujKuNxbqwxdFwqIREIBV0ORbU9xEMBn101OKvwktJIzB23TmJb9JzRqUg
- P6skENOZC7lUWrv/61IbdmSSFJqFPcy3de7Q7gFEs3vCFokVqGBejPdOlBCpr/84wcnT
- /z6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784199949; x=1784804749;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=1YIpuHOv/MBUTDXYL9hsOT5uvF8tiPnkJS9HvLi2zC8=;
- b=S6vi1JV4NBn2rALMMZxkHiIjnpH4oWgQtdMoiu0Im1cAjsYtvcoB8dg1zCW8eG9sWT
- pheTONbVEjkbFH2UNQgADVcomFLiXg6jJWz0pEJz009VZ9ysZDD4VRdUNoGOGTHdv+/S
- pPfAds+RBTAb8ReOW9H/KjJaWRJSg2lmASYVmzNddGxG6/OWyPIjhwVk0YUCw2MnAor/
- /nh0RRxSaue91kOq55SdwETQAQN+GrSonu402tWmbn3U3zTJilSLZ+SRbD/S81F5mXvj
- qd6zbwZXTtppJrDbIJzNi6QtbZ9G8MdrguohT1jK0X1PKkYR8s7rENj2LNpoA8FmIoeE
- BHyA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rop4670c4RqPNZdWOxVg5eOvVdEiV/YaQym+L0ZcWQmL9C9RgbBOfKiRvqiFIRJvOTaoX8KE2Kk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+tK8LOvWQ63ocHxutuPwPlWuZNGVMXQjp7OLGlXGyydfaUPdh
- +7pvopvQDM6//3jixYYlMoajI0GGR9taiz3H8vFZXSOrVaXsAJG+8hpWvfqTKWOYYOQ=
-X-Gm-Gg: AfdE7ckMB34XolWegr/wtj1F3lO5f+mNdX6D7pxCOOtFUJ71Q3nFOCWD/O+evqJhc/L
- 69jIsz98hCsZ++vz5vWDlKKGQ8wSLTxNFFGrp1zQno9KXku04cxn81dsSV00FIBc4vchHQ8thoT
- Z2oNmInbq0U+3jwlbOJDLH/a+ZzwU7+Y483IjML5U2Qsy45549wk3riR13vCYtu1EeEDrhlpYN+
- ezY1Fu3uA38q+2XPs02+DRnhoEM263m8ZPXoS3bk3SPKotUXLNztTYVhkWEdTP3ksEbCV+JyeAx
- PJb8aSlCd3+IAQEEY0/nVC+dIW7IUI4D1OmzTmHkMAga3l1YAOTGVPKqPWEG33BXr9OhXrN1tyr
- LFZdTgqtWY50EocOnXhkVlbK/O8T0XhCh8b1iDu9Q8bLxrq6SmpwqIyvzYLJkOorg+CuJklBKJT
- m5D1TtooJBism6qqIwuYDMgpY=
-X-Received: by 2002:a17:907:3909:b0:c12:34ed:e0fe with SMTP id
- a640c23a62f3a-c16795577cdmr408380266b.60.1784199948611; 
- Thu, 16 Jul 2026 04:05:48 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1687125db5sm193653366b.12.2026.07.16.04.05.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jul 2026 04:05:48 -0700 (PDT)
-Message-ID: <afb43e28-45d2-4529-98af-6fc7ea071ec7@ursulin.net>
-Date: Thu, 16 Jul 2026 12:05:47 +0100
-MIME-Version: 1.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5F010E291
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 11:42:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rxnW0KcIKh1FEPyKv03ef+UggpkOMyUo1uKUoIKPp+cztUzyiqhQRG9WeCgRFNyY6oqIj3SqDBvemlls2ic86l322K570WRK4pO4R5qm5l23+lGfL6fi8N8CRwfJpizQp9H77GJKCQSLLtAlKYJVKQ+kUw8+o4fMg40HcIik/hMk2VCX2TvCwrgbC/0TPrENV8ZbjZI+L1t+fub9I/mWrrWWsPtLKlt61gRDyg6YeV16g545vi4q2Qct5Y2+5F5MjrzgIxmJHBeglV2KQihOtiq8TRW0XnISKtkly192FDdbJIUkiinjyxN8odznHGRyNPnM65za0MUcXpgAWsHt+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R4EkCXKTAcdlB7a1diyeL80nVt0A1CyJsg3JVfYu6Hs=;
+ b=PWeJL8EL+sRkK+q2SR2HTI4O3VLaFw49+zHXgLMUQHtvfZyuHgxH0lUHUpru0+B50XmMVsM96S6N01STDOk2FbhzqmxUuS98o5jt3YfDuSM3Y9UH6ZCd/A3ZbtbozT36UBg0o/G2QXpmXL72zYYhgJtX4sVoNDVhUdn/0fHPJa7txLlwnHbpLTEhYSXsVKxzk/OjMGA6rUE9sqOPa2nwCgjDwOA4uXfgqbSI9yQjm3zAKaBBg8wNpN82r/FpIjMFchSzr3B7j9r07JD/AP+JFjfMYqSg/FE9QxmIRHgsGJlWUdWhAbzNvphKU/odCU38XjNM3qMQDLFUmnoB9/DnFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R4EkCXKTAcdlB7a1diyeL80nVt0A1CyJsg3JVfYu6Hs=;
+ b=mP/kWhkEbI6tIO2SEcEJy8PicQB3U3G6V0uHTxmw1ot71bhMUhpZoP2OzN0XbJBKrcN+fAX+LCTkuVAuh+SwYLst/wRgWINV5bM2NJopQCwyZFG6yeRvN6zv4DBrRAfHJne01NcGKKYqYYaPUTtrU+ih6QQ8P3Dy2PSgUQxXmIM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655) by DM6PR12MB4354.namprd12.prod.outlook.com
+ (2603:10b6:5:28f::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Thu, 16 Jul
+ 2026 11:42:44 +0000
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0202.018; Thu, 16 Jul 2026
+ 11:42:44 +0000
+Message-ID: <6cc4733f-0ff7-47de-9fa9-77e27bf6baef@amd.com>
+Date: Thu, 16 Jul 2026 07:42:45 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/11] drm/amdgpu/gfx6: Properly enable/disable priv_req
- and priv_inst interrupts
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>
-References: <20260713130709.34262-1-timur.kristof@gmail.com>
- <5733138.E0xQCEvomI@timur-max>
- <d56d2eef-0bd1-4289-b315-8ecb7f5d01eb@ursulin.net>
- <178429166.VBMTVartND@timur-max>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <178429166.VBMTVartND@timur-max>
+Subject: Re: [PATCH v2] drm/amdgpu: skip clearing empty freed VM list on GEM
+ close
+To: Bob Zhou <bobzhou2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com
+References: <20260716025608.1247345-1-bobzhou2@amd.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260716025608.1247345-1-bobzhou2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQ1P288CA0017.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::28) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|DM6PR12MB4354:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99686633-c140-4772-31db-08dee32f59be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|10067099003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 7qHmDD3HZO8Cwl5a1UREH4Y7zMVtRM1vhz7vhJOFnwbNDK5SfUUZ/PrAtFBPwTdgR39OHBAvAYlhvBvgUNunZW99N01o/hEPWn86BbYGJyxwrWMmy9u6Wr5E0BLPTWV8wOb6E/uBoYc/PMnFZkKz2MgkPDKZYKl/XhrTUDF/q35zjbPp54AySbT+CAVW52OFcoFFsn9o4cbam/+WVbEBiSahYIdRXhw6Xe7V6PKhp619p1S3b/HHqcxY8QDDtqsbvzlmah709f9vZXKGmi3FWMUY8n4G6TrCvaR8romRW/BTV0qsUJ6Z5cpgI98Qda0viVulWb4XeG20ELBpEGEW7K/PaWMPSivAZmpohLrQQVHSUHn8TP3iEDmVXOxMj2IAUoqIsCSI2y0ZZP5Ed1fs9qwKbfRxgG6vp/zFnBocsgaWXqSMYuoZJXPdcFEJ/o/0j9wrq27VxyjzTHRPIqOLOWCsahwgwJZBnAWuuRQdo/uuHoC2WkksebmxzVxCX7TgQeC22/gyFryF0xXx8Ii+LqrTsLtI9vBc0Vcy9/5k8ziAB+v5aJeUpXmipy0ruEtgEPd4XzIWtIHIWWBaMjgs3PztPFMqVoE3fhIaBgWyi1wJ5Gdx/y/7OrpP6mEL/KhiCqw8xijSJcDcKoJ4ATwxNq2GvdkDRKN1sZ8B/4FLbu0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUZOWHpacjZBYk9NMFh0UkVRaWQrY3R2cXR3UGlvSTh2TzBPNFJpb1M2bDZ1?=
+ =?utf-8?B?SGZmN2NhN1EzUmc4WmovT0VJL0xNR1FjUklYb3p0dTFqRDRqSDBkWFZlT0xB?=
+ =?utf-8?B?YXg2YW40OGVzS1ZTS2w0U0ErVzJKZTd4SXpJblFmK1NzblQvUUJDZk9EWUhC?=
+ =?utf-8?B?SjJIWjJUekxEbEM0aExoZ3E1Q0E2K21JWkIvOTRCc3ZLZXJZclFkS3lpa3FK?=
+ =?utf-8?B?b1gyOVRiTnBpYjhyYlJwYzZDdjF0c0crSnBKdmRLdW5SN1FZS3puNTY4bngy?=
+ =?utf-8?B?d3haTkpXdjFJbkdOakVBK1Ixb0RKZm1NYVkwY1VXMEFiSnJ5aFROTHFzL3lN?=
+ =?utf-8?B?UlhLMmYzMUp3RXk1MTg2TVJSOHNZNzhDVnhjRnZKUjZKRk1HbGNMNTM3aFB1?=
+ =?utf-8?B?aDZVTWlCUENZWGZlWHZxT0FrdUJhemY2Umpia0kxTHBaM3dHWWVmWEpIWEg1?=
+ =?utf-8?B?MEhiT051c3lXelVmQjNKcG9uekRqWmJTc0JzUG9OZ2xjOWh5RmVkendTT1Ba?=
+ =?utf-8?B?WkprN2ZzNW1PVEVxRWJwc2paN2UrYVFPbEJqZHZ2K0t3WlE3NUMvb0dHM3Jt?=
+ =?utf-8?B?ZVpWQVBNT1N1R1grVzFxYm9ObTY2MDZBOEZtSXhHOUhIaDJIYVo0bUpUYTVp?=
+ =?utf-8?B?QVAwTGJoWHMyN0lYL2laZUQzYitsbFgvL1p2Znh2MnZsZE1SQWlraEoxaTRU?=
+ =?utf-8?B?MURweVhiQ1UzcXdNTVViUjVpTHAyUGZNUVAvV01NakxhNmhtTmFUblJoenNR?=
+ =?utf-8?B?dlVQOHJIQXdtT05WbzlGaFhuenE1V1piTUVrQXd0Q2tGZ09hOHBuY2E1cysz?=
+ =?utf-8?B?KzhsMnRJcWlWZCtLZU1EOGw2ZVQwaG94K25xbUkrQ0hBM0VFbUtSdXIzdmd5?=
+ =?utf-8?B?YkxjMm5nRVpOenVlNmhPY0x5WFlqdnkyWXV5bFZTdS82OFlVWHBUV3NkaG5m?=
+ =?utf-8?B?a1JUcExYL21WM1FsejFJUkZ2a3BUMDNPYmJDZDMzSEV1Q3dYYUFXVjNIeE1j?=
+ =?utf-8?B?bG9VRkJIbE1xZ201SUNnMlIweGpKbHRhWTQ5aUpQYmFES2ppZjJ2OVcyaVJK?=
+ =?utf-8?B?SDVGdDJBeWJROHhSeExZVkFzb3gxMmVUa2hHL2dhTVBjVGd1YlRtRmRDTFIx?=
+ =?utf-8?B?bFRDY1JkUDZQcXlhK3E3cEJ3UTdDY3VvNlE4ZTl4MFlsUUxHQ05DWlNWN3dq?=
+ =?utf-8?B?TmdsYnpDNjBiZndKS21nZ242dmJpWlEvRmxGemEvVDBHVHdkZHlpL0hIOVc2?=
+ =?utf-8?B?enJBem5nMXRDRUQxQkZYWW9waVNXMUhjMUdYdExnbEV2Qm1Qa0s0NTZsVTBh?=
+ =?utf-8?B?UjY5YTBIcWpvNEhQMzRqa0JpRjd3amlzeWNqT2dRZlYxcy9QbmFoaDlrRTNq?=
+ =?utf-8?B?L0tFeXdCZDRRY1FmZ1dBRElvNncxTGRYY3lzMVFrckRybzRMYndzZXdndFFt?=
+ =?utf-8?B?MVcrRzlxK1hqMGVid051L3ZRVlp2cHAwWXBiVnl0cVVNd1hCWjY4WDE0RE15?=
+ =?utf-8?B?M3I0T0wxcWd1UEVaeGJOa1BCeTlvOHkxOURJVjljSWtpNzVKUStqNkFGQnpN?=
+ =?utf-8?B?SlF5YllKVVIramZYSGJXWUFjMDFVblpZUFFEQUZRSUpDQzhvYjdod1I1VWJW?=
+ =?utf-8?B?L1hYb2d2TTA1VUhJT1p1ZndrMHpGa1ZNN1Z1ZVc5em1pWkxVYUFzRXRFK2JM?=
+ =?utf-8?B?Tk52UzM1MmVDd2c4MHA2ZUQxa09CU3FTUk5jOWljenZBNkJ1cTRJa3EwS0JB?=
+ =?utf-8?B?ZDdkL1lQZlFYYVBEVnJjWis5M3M3ZXl5QjVBZEtBR3QxVnpxem84ZjE2Yk45?=
+ =?utf-8?B?cnFrclNycys5MXJUb2t0elZaa3RlM0pLa1VZZXI3eXJnZVJGME1OYzVxaVRq?=
+ =?utf-8?B?UFpXUmVVY25MMG5HV2I3TjNWSDRGMnNwR3R0UXRMSWlTaHBsYnhaYksrME1y?=
+ =?utf-8?B?MDhGSC9vbGJyYmZwUWx1cm1kdStUL0JOM3pZYUticEVLMUg3RjZ2bFJFaXNo?=
+ =?utf-8?B?ZTUzVW5PZk4wTXFLVXV6anQ1aW1CbjhtM2ZxWFNrcDBGeVRUSjFXSXh0Y3VO?=
+ =?utf-8?B?NEh3Wng2QlVRMjFaNFA3dlJidm9jMWpMZjg3RjkybkVjQmRUczNhUER0dk84?=
+ =?utf-8?B?TWNVQWo3MkNsQ3dMdFB1YXEzYm1iZzRqaFlVQ0gyZStnR0x3a0FFVE1ONzVw?=
+ =?utf-8?B?dHpqaHNBT0hWUWIxU2JiYmFucklQTlBwdGtqekJKTU1tUlNKK0M5QVg2Q1J4?=
+ =?utf-8?B?RGN2ZUc2TTdQZkdqZ294TDNULzFmV0l4d1I0Z294TnVtVWJkcUx6MS92RkFw?=
+ =?utf-8?B?RzNnbHNXaGM4eVBnVGxCWkt5ajNUYmFHU3l1SEV4SHRZVVY3ampLZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99686633-c140-4772-31db-08dee32f59be
+X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 11:42:44.3671 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TBrHORMGRbA45oL9tp+0I4MpUevAMwBlyIf8DBpQGz+v3tSDm4nTlYrtm103DAWf0A6dbrXyLvHQaryQxPEsZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,152 +134,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2026-07-15 22:56, Bob Zhou wrote:
+> amdgpu_vm_clear_freed() allocates an amdgpu_sync object and walks the VM
+> reservation fences via amdgpu_sync_resv() before checking whether vm->freed
+> has anything to clear. Return early when the list is empty to skip this
+> overhead on a hot path (every GEM close and command submission).
+>
+> Signed-off-by: Bob Zhou <bobzhou2@amd.com>
 
-On 15/07/2026 20:23, Timur Kristóf wrote:
-> On 2026. július 15., szerda 13:22:21 közép-európai nyári idő Tvrtko Ursulin
-> wrote:
->> On 15/07/2026 11:53, Timur Kristóf wrote:
->>> On 2026. július 15., szerda 12:19:40 közép-európai nyári idő Tvrtko
->>> Ursulin
->>>
->>> wrote:
->>>> On 13/07/2026 14:07, Timur Kristóf wrote:
->>>>> These were used without ever calling get()/put() on them.
->>>>
->>>>> Implement it like on GFX7-8:
->>>> Used as in how? Are they even enabled without this change and if not
->>>> then does this patch fixes something other than being prep work for soft
->>>> reset?
->>>
->>> If you open gfx_v6_0.c and search for priv_reg or priv_inst, you can see
->>> that the interrupts are used in the same manner as gfx7 and newer, but
->>> without get() and put().
->>
->> Yes, they are used in code. Are they used in reality was my question. :)
-> 
-> Looking at the code I think the original intention was to wire up these
-> interrupts. I think the hardware actually supports these interrupts and the
-> author of the code simply forgot to call get() and put().
-> 
-> If you are not convinced, maybe Alex or Christian can confirm whether the
-> interrupt actually exists on this HW generation. If it turns out it doesn't
-> exist then we should just delete this code.
-> 
->> I ask because it appears that without amdgpu_irq_get() they may not even
->> get enabled so never received. Yes or no? Consequences if yes?
-> 
-> Yes, that sounds correct. The consequence is that the interrupt will now be
-> enabled and the HW will tell us about some illegal register access and some
-> illegal instructions when it happens.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Right, AFAIU assuming the CP hangs, instead of waiting for the TDR 
-timeout with this patch it will be instant via drm_sched_fault() called 
-from either irq handler. Or if CP does not hang but somehow ends up 
-going over it with corruption with this patch it will insta GPU hang.
 
-In any case I think it is needed to have a definitive answer whether the 
-interrupts were not enabled until now, and if so, also exercise the 
-until now unused code paths just to make sure it all works as expected. 
-Presumably there are test cases which trigger both conditions?
-
-Then I would suggest putting this info in the commit message. That is, 
-instead of saying "These were used without ever calling get()/put() on 
-them." expand with the full story so the whole situation is clear both 
-before and after the patch.
-
-Assuming interrupts were not enabled until now, that the unused irq 
-handlers work as expected, and with the improved commit message:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Unless you don't have the hardware to test it and there are no existing 
-test cases to verify it?
-
-Regards,
-
-Tvrtko
-
-> To give you additional context: for the purpose of diagnosing issues related
-> to GPU hangs and recovery, all additional information helps. If the CP has
-> interrupts to tell us about some error cases, we should absolutely use that.
-> 
-> Side note: from the register definitions it looks like the HW actually supports
-> other interrupts which would be interesting to enable in the future.
-> In this patch I just wanted to fix up the two that were already in the code.
-> 
->>
->>>>> * Call amdgpu_irq_get() from gfx_v6_0_late_init()
->>>>> * Call amdgpu_irq_put() from gfx_v6_0_hw_fini()
->>>>>
->>>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->>>>> ---
->>>>>
->>>>>     drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 19 +++++++++++++++++++
->>>>>     1 file changed, 19 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c index 5b570a4b5c01..1c7cd265fbca
->>>>> 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
->>>>> @@ -3131,6 +3131,22 @@ static int gfx_v6_0_early_init(struct
->>>>> amdgpu_ip_block *ip_block)>
->>>>>
->>>>>     	return 0;
->>>>>     
->>>>>     }
->>>>>
->>>>> +static int gfx_v6_0_late_init(struct amdgpu_ip_block *ip_block)
->>>>> +{
->>>>> +	struct amdgpu_device *adev = ip_block->adev;
->>>>> +	int r;
->>>>> +
->>>>> +	r = amdgpu_irq_get(adev, &adev->gfx.priv_reg_irq, 0);
->>>>> +	if (r)
->>>>> +		return r;
->>>>> +
->>>>> +	r = amdgpu_irq_get(adev, &adev->gfx.priv_inst_irq, 0);
->>>>> +	if (r)
->>>>> +		return r;
->>>>> +
->>>>> +	return 0;
->>>>> +}
->>>>> +
->>>>>
->>>>>     static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
->>>>>     {
->>>>>     
->>>>>     	struct amdgpu_ring *ring;
->>>>>
->>>>> @@ -3243,6 +3259,8 @@ static int gfx_v6_0_hw_fini(struct amdgpu_ip_block
->>>>> *ip_block)>
->>>>>
->>>>>     {
->>>>>     
->>>>>     	struct amdgpu_device *adev = ip_block->adev;
->>>>>
->>>>> +	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
->>>>> +	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
->>>>>
->>>>>     	gfx_v6_0_cp_enable(adev, false);
->>>>>     	adev->gfx.rlc.funcs->stop(adev);
->>>>>     	gfx_v6_0_fini_pg(adev);
->>>>>
->>>>> @@ -3532,6 +3550,7 @@ static void gfx_v6_0_emit_mem_sync(struct
->>>>> amdgpu_ring *ring)>
->>>>>
->>>>>     static const struct amd_ip_funcs gfx_v6_0_ip_funcs = {
->>>>>     
->>>>>     	.name = "gfx_v6_0",
->>>>>     	.early_init = gfx_v6_0_early_init,
->>>>>
->>>>> +	.late_init = gfx_v6_0_late_init,
->>>>>
->>>>>     	.sw_init = gfx_v6_0_sw_init,
->>>>>     	.sw_fini = gfx_v6_0_sw_fini,
->>>>>     	.hw_init = gfx_v6_0_hw_init,
-> 
-> 
-> 
-> 
-
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 157d4168907ce..eb6a70fe79ceb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1553,6 +1553,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   	struct amdgpu_sync sync;
+>   	int r;
+>   
+> +	if (list_empty(&vm->freed))
+> +		return 0;
+>   
+>   	/*
+>   	 * Implicitly sync to command submissions in the same VM before
