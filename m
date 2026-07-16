@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E18E6C44511
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84B33C44512
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 820FF10F36B;
-	Thu, 16 Jul 2026 16:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2FC10F378;
+	Thu, 16 Jul 2026 16:07:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MD3OjAY8";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hizjXDT/";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9644210F36B;
- Thu, 16 Jul 2026 16:07:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D563810F378;
+ Thu, 16 Jul 2026 16:07:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=Z7nNq9lLK+w9Z+e1sxK+eA5MYoTrZRPzvFVVcsZGLaE=; b=
- MD3OjAY8a3w0bF7eF/5dBzK622IdFY9HF1qec69RLyYvVbY4cefsG18CUmDnWscHckeYwF7oRfLHV
- 4evY8IIPB6e49qMu6AtLVQL8QN9cRdq261D1UQpNOSIIrDkJ4QHK+XiARwEOPmVCrM1t7z9wOZ2xu
- onSFtwU78wMKAl3SUgVfTmgRZZ6D0zFoWUHN4ZY/vqj0FTSs2EKp527HBkOXJqPTdXUxLch+uCgfu
- ZIQJ3kRFqtK8hTjzhPgMXQPU4VhD45sv8rcq+TSgypmCrFlkmBj6s/VHSsHiZUYx7nEsvOtDdPm6K
- 9651vm73QYrGBB94j5PZ2MJM04TCZ439nA==;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=VKSrdgcaQ2t3VcbsZUUWHukOs2eulpMLQGxwH2uEukw=; b=hizjXDT/rUWnqQN5gsEoNAPfsY
+ KnP/cuBJTB4NTZtvQy/v3fTaIEf2TXM+Wbqovf2SwHOsf5+Z3sbGBQpxpEDb6NBvRdJvKMtvFLmi9
+ LhZeELhlxjbjYgF7W/LKqzuIgQzCFMbM5L39+sE97gGhjC7/vOHfsLtsabAt2gGodIekv9GVVOjEd
+ QuOulgmoeD/USg6v+QIJ+foTahKAGwrLNs3ts/pkgNxfVpFDlh7ARDiCC98RRPzHPCeftgWC2xhb6
+ 241I4A3mTsAInWOZ4Wu/DZH1c7/n8vKWFbsrayiMCKNSO+KA753C/uJzQFSVHgwO9chpy/8Zjm1cj
+ AsrIq+Qg==;
 Received: from [178.139.170.72] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkObk-00G01i-Bb; Thu, 16 Jul 2026 18:06:44 +0200
+ id 1wkObn-00G01i-CD; Thu, 16 Jul 2026 18:06:47 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,14 +43,15 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  Pekka Paalanen <pekka.paalanen@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 12/20] drm: Add helper to extract a 3x4 matrix from any
- CTM matrix dimensions
-Date: Thu, 16 Jul 2026 18:03:09 +0200
-Message-ID: <20260716160556.227556-13-mwen@igalia.com>
+Subject: [RFC PATCH v2 13/20] drm: Add helper to extract a LUT entry from
+ either 16-bit or 32-bit LUT
+Date: Thu, 16 Jul 2026 18:03:10 +0200
+Message-ID: <20260716160556.227556-14-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
 References: <20260716160556.227556-1-mwen@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,60 +69,55 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 
-Add a common helper to ease the conversion from both 3x3 or 3x4 matrices
-to a CTM 3x4 matrix. This is handy for code that needs to handle both
-dimensions.
+Add a common helper to ease extracting a 32-bit LUT entry from either
+16-bit or 32-bit LUT entry. This is handy for code that needs to handle
+both bit widths.
 
 Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Co-developed-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 ---
- include/drm/drm_color_mgmt.h | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ include/drm/drm_color_mgmt.h | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index 5140691f476a..51279267ed3f 100644
+index 51279267ed3f..3d0117aae342 100644
 --- a/include/drm/drm_color_mgmt.h
 +++ b/include/drm/drm_color_mgmt.h
-@@ -66,6 +66,40 @@ static inline u32 drm_color_lut32_extract(u32 user_input, int bit_precision)
+@@ -66,6 +66,33 @@ static inline u32 drm_color_lut32_extract(u32 user_input, int bit_precision)
  				     (1ULL << 32) - 1);
  }
  
 +/**
-+ * drm_color_ctm_to_ctm_3x4 - Copy CTM matrix contents to 3x4 dimensions matrix
++ * drm_color_lut_to_lut32 - Copy LUT entry contents to 32-bit channel color LUT
 + *
-+ * @dest: The destination CTM 3x4 dimensions matrix
-+ * @src: The source CTM matrix (3x3 or 3x4 dimensions depending on @ctm_3x4)
-+ * @ctm_3x4: Boolean indicating the source CTM matrix dimensions
++ * @dest: The destination 32-bit per channel color LUT entry
++ * @src: The source array of LUT entries (16-bit or 32-bit depending on @bits32)
++ * @index: LUT entry array index
++ * @bits32: Boolean indicating the source LUT entry bit-witdh
 + *
-+ * Copy the contents of a CTM matrix from @src, to a CTM 3x4 dimensions matrix.
-+ * The source matrix can be 3x3 or 3x4 dimensions depending on the @ctm_3x4
-+ * boolean argument.
++ * Copy the contents of a LUT entry from the source array, to a 32-bit channel
++ * color LUT. The source array of LUT entries can be 16-bit or 32-bit width
++ * depending on the @bits32 boolean argument.
 + */
-+static inline void drm_color_ctm_to_ctm_3x4(struct drm_color_ctm_3x4 *dest,
-+					    void *src, bool ctm_3x4)
++static inline void drm_color_lut_to_lut32(struct drm_color_lut32 *dest,
++					  void *src, int index, bool bits32)
 +{
-+	if (ctm_3x4) {
-+		*dest = *(struct drm_color_ctm_3x4 *)src;
++	if (bits32) {
++		*dest = ((struct drm_color_lut32 *)src)[index];
 +	} else {
-+		struct drm_color_ctm *ctm = (struct drm_color_ctm *)src;
-+
-+		dest->matrix[0] = ctm->matrix[0];
-+		dest->matrix[1] = ctm->matrix[1];
-+		dest->matrix[2] = ctm->matrix[2];
-+		dest->matrix[3] = 0;
-+		dest->matrix[4] = ctm->matrix[3];
-+		dest->matrix[5] = ctm->matrix[4];
-+		dest->matrix[6] = ctm->matrix[5];
-+		dest->matrix[7] = 0;
-+		dest->matrix[8] = ctm->matrix[6];
-+		dest->matrix[9] = ctm->matrix[7];
-+		dest->matrix[10] = ctm->matrix[8];
-+		dest->matrix[11] = 0;
++		struct drm_color_lut *lut =
++			&((struct drm_color_lut *)src)[index];
++		dest->red = lut->red;
++		dest->green = lut->green;
++		dest->blue = lut->blue;
++		dest->reserved = lut->reserved;
 +	}
 +}
 +
- u64 drm_color_ctm_s31_32_to_qm_n(u64 user_input, u32 m, u32 n);
- 
- void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ /**
+  * drm_color_ctm_to_ctm_3x4 - Copy CTM matrix contents to 3x4 dimensions matrix
+  *
 -- 
 2.53.0
 
