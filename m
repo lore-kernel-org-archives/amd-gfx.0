@@ -4,114 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B23A5C44512
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DAEC44501
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C544A10F2D3;
-	Thu, 16 Jul 2026 13:04:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1005D10F2F6;
+	Thu, 16 Jul 2026 13:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="f++vEyqb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RBPE0r7c";
 	dkim-atps=neutral
-X-Greylist: delayed 595 seconds by postgrey-1.36 at gabe;
- Thu, 16 Jul 2026 05:08:08 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BADCE10E1F7
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 05:08:08 +0000 (UTC)
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
- by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4h114X52rRz65Kb;
- Thu, 16 Jul 2026 06:57:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1784177852;
- bh=Y+aLt6RD/gcPHY8Y02l03KxsxSyNRGTtfi73yCVNIrI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=f++vEyqb7i74wzLk2ER2SNq2SDHOHTlypXyj4k587+F9R177fnp1FoWZVpbC/QnNL
- iaaeWRpS5uZaRH4u6T67TuSmX5AkRIDi7ttyVH0z5DOLJoW++ETrlgNINBy6KiTgNO
- Fgs/PGLQ69rVos9T0d8p3bvhB4u3R6m+S62BfnBj9e+Lw8pRUzhmosktIAjyTRMEJl
- +8fTyEA3JpnW/V2jJGPnvMite1jem2oWzTDFPjzNMOaqO3OajkFvDpVdVXVAiBg6RS
- e5VoymYl5fu867orMlkm1llz6htdL3wGf/q/DksznQsRSVVxyaJyhCQoZpRWQ3rpxd
- F/8MDrWIlsc9Q==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4h114X4Hgyz4yRB;
- Thu, 16 Jul 2026 06:57:32 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4h114W2zt8z8tcF;
- Thu, 16 Jul 2026 06:57:31 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id CF58F60305;
- Thu, 16 Jul 2026 06:57:30 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=linux@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <b7f32505-25bb-494e-b574-f0dee575b991@leemhuis.info>
-Date: Thu, 16 Jul 2026 06:57:30 +0200
-MIME-Version: 1.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010018.outbound.protection.outlook.com
+ [52.101.193.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E20FD10F2ED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 13:12:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sdu68zMUI98uqXg+MllE3j0lhvBAemdtZq73FqP9DRZFId9reK7+tEi9SOfWcBOtjgJfdUcw96DxZqvPyl7EGDTEDqRy32LFdGmCgmWRF+/K0atC+er0GEVmLIfZnweVpdu7LDhiR0YaaxUS7WADM2ucp1NBCsTb2vcfFM3t05cnNEB00rXYueQkYlcyPOMLcf1rIQpKo5/88RL3kSjy0IxF1CvEKLrwMB3/lbzo3gfo/P0H3CGWp9+mYYvucekGFwQg0jNa/Vz6rOEwldpMoFlQkr/A9dDbZJwp5TzkgTpinJ189ruVa2lcSkZ8+2ta9Z+KCCV6+H+L2ye/tdMaWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cbRuo75bbAqJQ887KF5G4K02elYWvhikat1fHPw03+E=;
+ b=MzIY0V+PZmHXYvJgIu5qU2hP3SJHeiTF1UrvnvXxnDZEhPTHLqYKNpY8REY0AgCSq3gQcNhpB49k08W6sYLpQPxxeST7K3jD3gpo9f+6KSUV9RrvMI81LJZzCLBHjdXKUdEq4kvDvZNHvczEosoQOdy+q8Q1sQTce6Tj11nGPPW79bSsKIwvYvANGwOyGtWwzP06sgxVTapnVxezcGy0BVUDGN3ckujvlGL1h9xXcbmXA5Ft+hG0nhYShhAeBJtUowwTPBoqHrG2A6KB5a/e+dNJAJOfDyFAjO03TeFPIBT05atdV1CHAei9vmatoTFxP7elo6/RbVqQ0qNcYLKQBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cbRuo75bbAqJQ887KF5G4K02elYWvhikat1fHPw03+E=;
+ b=RBPE0r7c+vjgs6blYK+6djphTd5NpBFC3QVWDTubCYLCaX0/KPlDqB4mwl3GGdU2dqEPwD/TK6Maax3smHFlRs3PmrPBN94Dc4vdcKKQPm3vnMpURclr6puuSlG/LkctnH5GffBAL/iSm0k3RZoUmCIGv0IyRDCbeK9uOmGIg8I=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ1PR12MB6218.namprd12.prod.outlook.com (2603:10b6:a03:457::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
+ 2026 13:11:26 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
+ 13:11:26 +0000
+Message-ID: <ae02e6a7-aac2-4ed2-a24c-c9a1d0e0e9df@amd.com>
+Date: Thu, 16 Jul 2026 15:11:22 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] drm/radeon: Fix VFCT bus number matching with soft
- filter
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Oz Tiram <oz@shift-computing.de>
-References: <20260708193518.702584-1-mario.limonciello@amd.com>
- <20260708193518.702584-5-mario.limonciello@amd.com>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <20260708193518.702584-5-mario.limonciello@amd.com>
+Subject: Re: [PATCH v9 5/5] drm/amdgpu: Record QUEUE_RESET WAIT_EVENT
+ notifications
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260714081023.3395485-1-srinivasan.shanmugam@amd.com>
+ <20260714081023.3395485-6-srinivasan.shanmugam@amd.com>
+ <b40ff22e-2d09-4644-a4d3-a9cffcdaec6d@amd.com>
+ <IA0PR12MB8208D744889CEED95FB6DB0E90F92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <IA0PR12MB82082D2D3FDABB394796856B90C72@IA0PR12MB8208.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <IA0PR12MB82082D2D3FDABB394796856B90C72@IA0PR12MB8208.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178417785107.4061344.8980285396872252790@mxe9fb.netcup.net>
-X-NC-CID: R4xaiyy9Rhqk3FGGO7Jmn9y6IlIeft87FF7F+kd5MPy7BUoWOok=
-X-Mailman-Approved-At: Thu, 16 Jul 2026 13:04:52 +0000
+X-ClientProxiedBy: BLAP220CA0004.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:32c::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1dc657bf-0bb8-4945-5305-08dee33bbde1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: g2i61rjjtbBZC2qn79IyX4TMP1gW8QnwRWY3T2b1VDAWQZ+EnRe6n7/t7gzs+fkbxxtIxTv+sio8rER722ymQDjUqnax0jFXQNTP3nuwB8JKwaZ+9xSxn34z4N29QAiUhEgGsvNfEC2vX1VjiY4OYPqbC7UQs5O89gKDMxqO+du1NOwZd0KHuduu38lUJplIgi//TO+IQ6r/B7Ma/uEe1lp3fPHWRIwWntKedRUjGnFCD+oNgaqZ9k+C6aWCMIq47CsHprId7JZ2scw+kIEcpVNUOuzUdHvex0ghTOu33oj05tnUgzRivm3uEgyXtww9DKh6WX4ZELbZeYtV+HwNZjFrIGO3447NFi/b2PvDaxeDEbVg0odKl0d42r2bHri25F2IsNOp+8nhWf68KKMdAT/p7X7OwHaIHLFKALCV2MWmIZT/HYoQOtd7ZY4nwUYe8H5kcj+jkDtT+x5c51wMWKKJP56T9OdFHwqKQ9joPPnwfeiSM8/5VaiqufHGJyjuJ/Va69C5dMbPnNF38Ul7K+NlCtNSzN2csEbhgH+98Oaq95W9K30+BR/w1QduHAS8lvS9w90+4hoE0W8g2YB6vDpGadubk1nPjYuLbpWaUdr88YS2Z+j0gs6R5FWy+NwJ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDk1dmhSNTNUemxGY3AxbFNoVm1OcUxuYTYrTzJoam1IZitoUWxMMmVNN2lL?=
+ =?utf-8?B?OHJYc3JIZUdFanZUcTk0aVV3amE3UUJUcExzQTJOODFXa1VoOW9Oa285c0Qr?=
+ =?utf-8?B?RXJEbDJEQi9ldFdxQVZ6MnBQS1Nad2IycC92TXFQNDl5SEc5MTZJMzJBOWJz?=
+ =?utf-8?B?bVo3b3czcGRwY21FN0VQaTZoUFVOclBITzZibTl6S0pRSFIyVnFBbjg4OWVx?=
+ =?utf-8?B?SFA1bkExOW92dTZHZTYwMkw1dXZtR1BmTG00MFhMVVBTQUZoQklZTHRhUGo0?=
+ =?utf-8?B?UmZjWHVIcWNNa29GUG9pUXNMMUx5UytCeUFZNDdGeWI0ekcxcFJSZitHV1Z5?=
+ =?utf-8?B?MW5BV3BEcityclpoRXRvU25hb2hkWWhjaGtsTFVGQ250SVpOUnFxSk1PbFBO?=
+ =?utf-8?B?L1FFelhGWEM1RGtNMXJMOXc0MEdmckgrNGppMWp2K1NZeHRubEd0RStLQVlQ?=
+ =?utf-8?B?VjN4SUxaNE5xQU5jdlFkUDhSaFNHQUlKdmkyVEpCUjYwV3dQMXZERW1MVnBY?=
+ =?utf-8?B?UHZiNnZxK2ZKbktzakFLUjByYVZoaDNxSmVqYTB0Qk0yRXdxQ3dneVNLVWdO?=
+ =?utf-8?B?VU5BL0pnRlJEdHVxVGM2Z0RiazNRTk1yUGowTWlyWjJmVE5HQjVhRmtnRXQ1?=
+ =?utf-8?B?VjUxTVlreWhpWmlqNGJYcEI3eW45aXBXa1ZqWDdEVDlmTENtYjBoK2dkVG44?=
+ =?utf-8?B?cGZTdjFTTXBTWW9iSWhkR014OHdhK1IxSXpRRTA5cnc1RmdJWmphdU1Jbk80?=
+ =?utf-8?B?eG5BLzhsVTlzQW40QnpxS2dVSlBqTjVtUHN2dDgvR3RReTUvVkNmSjZwdTRI?=
+ =?utf-8?B?OUdCbjFyRHM2eGcydjc1SWJPTkJJeWlkUENPZmpnbStYbUw5U25DMWlSM3Aw?=
+ =?utf-8?B?OGw2RlV1OFROT2hwS25KcjdDQ082V3kwT0tOeEZkVmxYUG5na1NqSkhIQVNn?=
+ =?utf-8?B?alZ2azFlZE8xaEhiUUVpTkRCeXlaK0VCUDBocHZiQWtNNVJnWUh1cUZIOFlH?=
+ =?utf-8?B?YS8wYXlENHZ4emJsRG9zQjhCT3lIVlFKZ1JVeHhKQURmQWJ2Y0R0dkNRd1Jk?=
+ =?utf-8?B?TGh5bkdlV0crUlZvZXFWUTJmV2JMWUhTYVdicTA2cmRUU2lyME9WaTd2MEl2?=
+ =?utf-8?B?eEFjUWFrSEY5RyttQjltSDNkcW8xUWJXUTVEYjB5c3Q1ZUFzeVgxN25XdzN4?=
+ =?utf-8?B?YisxZC9kazRPa1I2SldZNGJWZWZzdHlzclpjVzR5ODFqa3BaTnFNWnNIajdP?=
+ =?utf-8?B?cjQremFaR3NwZlB3cEFaKzFsdjRRazdpSmdtSllSWDM2QzJXckJaZ3B0NFY3?=
+ =?utf-8?B?aUgzZ3dqSHltdG1jSkIrdlpjOXNEOGV3eklUM01HYlVqbkcwMkRsMTY1REdJ?=
+ =?utf-8?B?R1lkb09WdUg1YzZJTGs1Mm9remNyZnJveTdlM2pOVTV2TmoxRU0zSWVVVnhV?=
+ =?utf-8?B?cWhDNTc1T0tkNFRxbEUyaTZOSmd2cC8yR1VROG9aMVYxd243OE0vRFB4YXZu?=
+ =?utf-8?B?UTBhV0M5UytodW1XOU5UMzNVL3NNR1BjemJzMjFEZ3pvY1NxL3U3NnZSSkg1?=
+ =?utf-8?B?QkZYcE1hQ3hEVkIxTjhiT3laekdLMUFRblpIYy9ubjVnQ3d1QjhtQ1FxN3Rq?=
+ =?utf-8?B?UzAxN3FjdTlrZ2FNN293UHhoaFZHUVhLQmZValZxOEJJWG1aUWpsb3ZBU0V0?=
+ =?utf-8?B?eGdiZ0d5eEduYTlRNDV6ZHJQQkQxcDA0ckJ6QVJoTlorcDBsWnNmZVZZOCtF?=
+ =?utf-8?B?S241cFdGalNJdXJpWndia2dqTVlERDNRbGVYUFlaM2xFbmNCc1pkVE9FYjJP?=
+ =?utf-8?B?MFgrUW9XampWNTJobWZTWTJiR3d0M2lVMnZOeTBXaEY0ZEp4eVdKUmZPVWFJ?=
+ =?utf-8?B?Qm9OMTNhNGFqM3RBNzF6M2ZhSlg2ZDkzYVA1cEkyUWw5NXBHUjVyazRab0tv?=
+ =?utf-8?B?VG9BTDI1eFJIVDNVVFpUdUlENnJleEw4cUkrcG4zY1VSSU84Nkpob0dzZnk5?=
+ =?utf-8?B?RzZFWS84bWxsZCtrVXBKeDQxWk5RV1BqQWF3Q3NyTXBOR01xbDdLdHNxRlFk?=
+ =?utf-8?B?emFWbkNSWUxuT05VazV6OUcrT01RcFFDYk5oTHJlQzlrL3hJeHY0RTdpajh6?=
+ =?utf-8?B?Y01yckJPTnFSbmQ4R2xqVnhoU3VVc052a1hraHZxWm9nMFRyZzFyTlpOLzli?=
+ =?utf-8?B?Z1V2N1RDV1JJUFE5akhRNkNmalg4NEdidUtscTk0bjMyTTc2eVUwT2RWbXZW?=
+ =?utf-8?B?VlQ4ZWhhdGdncERCL2h5SGRvb04wV01OUG5GNkNzcFlucVlhekcwaUdFK0Z4?=
+ =?utf-8?Q?5/rtOhNq37GyZATaxi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dc657bf-0bb8-4945-5305-08dee33bbde1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 13:11:26.2955 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 24muqG3VmbO1addaU3x5NmG6hyeobBF5Ueb9NKbP9LHxf1G9UInVldhH8yaZbf7j
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,185 +140,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/8/26 21:35, Mario Limonciello wrote:
-> On systems where PCI bus renumbering occurs (e.g. pci=realloc,
-> resource conflicts), the runtime bus number may differ from the
-> BIOS POST bus number recorded in the VFCT table. This causes
-> radeon_acpi_vfct_bios() to fail finding the VBIOS even though
-> the correct device entry exists.
+On 7/16/26 14:53, SHANMUGAM, SRINIVASAN wrote:
+> AMD General
 > 
-> Introduce radeon_acpi_vfct_match() 
-
-This patch showed up in -next yesterday and from a very quick look seems
-likely to be the reason for a ppc64le build error I ran into:
-
-"""drivers/gpu/drm/radeon/radeon_bios.c:614:12: error:
-‘radeon_acpi_vfct_match’ defined but not used [-Werror=unused-function]
-  614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
-      |            ^~~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
-make[6]: *** [scripts/Makefile.build:289:
-drivers/gpu/drm/radeon/radeon_bios.o] Error 1
-make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/radeon] Error 2
-make[5]: *** Waiting for unfinished jobs....
-make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-make[1]: ***
-[/builddir/build/BUILD/kernel-7.2.0-build/kernel-next-20260715/linux-7.2.0-0.0.next.20260715.427.vanilla.fc45.ppc64le/Makefile:2228:
-.] Error 2
-make: *** [Makefile:256: __sub-make] Error 2
-"""
-
-Full log:
-https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/next/fedora-rawhide-ppc64le/10721545-next-next-all/builder-live.log.gz
-
-Ciao, Thorsten
-
-> drivers/gpu/drm/radeon/radeon_bios.c:6> drivers/gpu/drm/radeon/radeon_bios.c:614:12: error:
-‘radeon_acpi_vfct_match’ defined but not used [-Werror=unused-function]
->   614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
->       |            ^~~~~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/radeon/radeon_bios.o] Error 1
-> make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/radeon] Error 2
-> make[5]: *** Waiting for unfinished jobs....
-> make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-> make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-> make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-> make[1]: *** [/builddir/build/BUILD/kernel-7.2.0-build/kernel-next-20260715/linux-7.2.0-0.0.next.20260715.427.vanilla.fc45.ppc64le/Makefile:2228: .] Error 2
-> make: *** [Makefile:256: __sub-make] Error 2
-
-14:12: error: ‘radeon_acpi_vfct_match’ defined but not used
-[-Werror=unused-function]
->   614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
->       |            ^~~~~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/radeon/radeon_bios.o] Error 1
-> make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/radeon] Error 2
-> make[5]: *** Waiting for unfinished jobs....
-> make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-> make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-> make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-> make[1]: *** [/builddir/build/BUILD/kernel-7.2.0-build/kernel-next-20260715/linux-7.2.0-0.0.next.20260715.427.vanilla.fc45.ppc64le/Makefile:2228: .] Error 2
-> make: *** [Makefile:256: __sub-make] Error 2
-
-> drivers/gpu/drm/radeon/radeon_bios.c:614:12: error: ‘radeon_acpi_vfct_match’ defined but not used [-Werror=unused-function]
->   614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
->       |            ^~~~~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/radeon/radeon_bios.o] Error 1
-> make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/radeon] Error 2
-> make[5]: *** Waiting for unfinished jobs....
-> make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-> make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-> make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-> make[1]: *** [/builddir/build/BUILD/kernel-7.2.0-build/kernel-next-20260715/linux-7.2.0-0.0.next.20260715.427.vanilla.fc45.ppc64le/Makefile:2228: .] Error 2
-> make: *** [Makefile:256: __sub-make] Error 2
-
-> drivers/gpu/drm/radeon/radeon_bios.c:614:12: error: ‘radeon_acpi_vfct_match’ defined but not used [-Werror=unused-function]
->   614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
->       |            ^~~~~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/radeon/radeon_bios.o] Error 1
-> make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/radeon] Error 2
-> make[5]: *** Waiting for unfinished jobs....
-> make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-> make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-> make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-> make[1]: *** [/builddir/build/BUILD/kernel-7.2.0-build/kernel-next-20260715/linux-7.2.0-0.0.next.20260715.427.vanilla.fc45.ppc64le/Makefile:2228: .] Error 2
-> make: *** [Makefile:256: __sub-make] Error 2
-
-
-> drivers/gpu/drm/radeon/radeon_bios.c:614:12: error: ‘radeon_acpi_vfct_match’ defined but not used [-Werror=unused-function]
->   614 | static int radeon_acpi_vfct_match(struct radeon_device *rdev,
->       |            ^~~~~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/radeon/radeon_bios.o] Error 1
-> make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/radeon] Error 2
-> make[5]: *** Waiting for unfinished jobs....
-> make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-> make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-> make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-> make[1]: *** [/builddir/build/BUILD/kernel-7.2.0-build/kernel-next-20260715/linux-7.2.0-0.0.next.20260715.427.vanilla.fc45.ppc64le/Makefile:2228: .] Error 2
-> make: *** [Makefile:256: __sub-make] Error 2
-
-
-
-> which treats the bus number
-> as a soft filter: vendor/device/function identity is the hard
-> requirement, while exact bus match is the preferred path. When
-> bus numbers disagree but device identity matches, accept the
-> VFCT entry and log a dev_notice for diagnostics. This mirrors the
-> equivalent amdgpu change.
+>> -----Original Message-----
+>> From: SHANMUGAM, SRINIVASAN
+>> Sent: Tuesday, July 14, 2026 7:43 PM
+>> To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Subject: RE: [PATCH v9 5/5] drm/amdgpu: Record QUEUE_RESET WAIT_EVENT
+>> notifications
+>>
+>>
+>>
+>>> -----Original Message-----
+>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>> Sent: Tuesday, July 14, 2026 6:36 PM
+>>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+>> Deucher,
+>>> Alexander <Alexander.Deucher@amd.com>
+>>> Cc: amd-gfx@lists.freedesktop.org
+>>> Subject: Re: [PATCH v9 5/5] drm/amdgpu: Record QUEUE_RESET
+>> WAIT_EVENT
+>>> notifications
+>>>
+>>> On 7/14/26 10:10, Srinivasan Shanmugam wrote:
+>>>> The queue reset path already resolves the affected queue directly
+>>>> from the doorbell and funnels successful reset handling through
+>>>> amdgpu_userq_handle_hung_queue(). Reuse that common handling point
+>>>> to create the corresponding WAIT_EVENT record.
+>>>>
+>>>> Keeping the notification in the common helper ensures that queue
+>>>> state is updated before userspace is notified and that both EVENTFD
+>>>> and WAIT_EVENT observe the same reset. It also avoids duplicating
+>>>> the doorbell lookup or adding a queue scan in the MES reset path.
+>>>>
+>>>> No MES or GFX interrupt changes are needed.
+>>>>
+>>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++
+>>>>  1 file changed, 6 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> index 28f9d3fe0e80..9e1d03eb31d7 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> @@ -166,6 +166,7 @@ void amdgpu_userq_handle_hung_queue(struct
+>>> amdgpu_device *adev,
+>>>>                               struct amdgpu_usermode_queue *queue)  {
+>>>>   struct amdgpu_eventfd_mgr *eventfd_mgr;
+>>>> + struct amdgpu_wait_event_mgr *wait_event_mgr;
+>>>>
+>>>>   queue->state = AMDGPU_USERQ_STATE_HUNG;
+>>>>   atomic_inc(&adev->gpu_reset_counter);
+>>>> @@ -176,6 +177,11 @@ void amdgpu_userq_handle_hung_queue(struct
+>>> amdgpu_device *adev,
+>>>>   amdgpu_eventfd_signal(eventfd_mgr,
+>>>>                         DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET,
+>>>>                         queue);
+>>>> +
+>>>> + wait_event_mgr = amdgpu_userq_wait_event_mgr(queue->userq_mgr);
+>>>> + amdgpu_wait_event_add(wait_event_mgr,
+>>>> +                       DRM_AMDGPU_EVENT_TYPE_QUEUE_RESET,
+>>>> +                       queue);
+>>>
+>>> How are we making sure here that this wait_event_mgr doesn't go out of scope?
+>>
+>> Good point. wait_event_mgr is part of the owning amdgpu_fpriv, not the queue itself.
+>> In the reset path, we currently take a reference to the queue, which guarantees that
+>> the queue remains valid while we handle the reset.
+>> However, that reference does not explicitly guarantee that the owning amdgpu_fpriv
+>> (and therefore wait_event_mgr) is still alive.
+>> I'll review the lifetime rules and teardown sequence to make sure the manager
+>> cannot be freed while a reset notification is still in progress.
+>> If additional synchronization or a reference is needed, I'll include that in the next
+>> revision.
 > 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> Cc: Oz Tiram <oz@shift-computing.de>
->  drivers/gpu/drm/radeon/radeon_bios.c | 45 ++++++++++++++++++++++++----
->  1 file changed, 40 insertions(+), 5 deletions(-)
+> Hi Christian,
 > 
-> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-> index c6df799c3cf4a..cc10880af096b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_bios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
-> @@ -596,6 +596,45 @@ static bool radeon_read_disabled_bios(struct radeon_device *rdev)
->  		return legacy_read_disabled_bios(rdev);
->  }
->  
-> +/**
-> + * radeon_acpi_vfct_match() - Check if a VFCT entry matches the device
-> + * @rdev: Radeon device
-> + * @vhdr: VFCT image header to check
-> + *
-> + * VFCT entries contain the PCI bus number as recorded during BIOS POST.
-> + * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
-> + * resource conflicts), the runtime bus number may differ from the POST
-> + * value.  Match by device identity (vendor + device + function) and use
-> + * the bus number as a preference: exact bus match is preferred, but when
-> + * the bus numbers disagree we accept the entry if the device identity
-> + * matches.
-> + *
-> + * Returns: 0 on match, -ENODEV on no match
-> + */
-> +static int radeon_acpi_vfct_match(struct radeon_device *rdev,
-> +				  VFCT_IMAGE_HEADER *vhdr)
-> +{
-> +	/* Vendor and device IDs must always match */
-> +	if (vhdr->VendorID != rdev->pdev->vendor ||
-> +	    vhdr->DeviceID != rdev->pdev->device)
-> +		return -ENODEV;
-> +
-> +	if (vhdr->PCIDevice != PCI_SLOT(rdev->pdev->devfn) ||
-> +	    vhdr->PCIFunction != PCI_FUNC(rdev->pdev->devfn))
-> +		return -ENODEV;
-> +
-> +	/* Exact bus number match - preferred */
-> +	if (vhdr->PCIBus == rdev->pdev->bus->number)
-> +		return 0;
-> +
-> +	/* Bus mismatch but device identity matches (PCI renumbering case) */
-> +	dev_notice(&rdev->pdev->dev,
-> +		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
-> +		   vhdr->PCIBus, rdev->pdev->bus->number,
-> +		   rdev->pdev->vendor, rdev->pdev->device);
-> +	return 0;
-> +}
-> +
->  #ifdef CONFIG_ACPI
->  static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
->  {
-> @@ -633,11 +672,7 @@ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
->  		}
->  
->  		if (vhdr->ImageLength &&
-> -		    vhdr->PCIBus == rdev->pdev->bus->number &&
-> -		    vhdr->PCIDevice == PCI_SLOT(rdev->pdev->devfn) &&
-> -		    vhdr->PCIFunction == PCI_FUNC(rdev->pdev->devfn) &&
-> -		    vhdr->VendorID == rdev->pdev->vendor &&
-> -		    vhdr->DeviceID == rdev->pdev->device) {
-> +		    !radeon_acpi_vfct_match(rdev, vhdr)) {
->  			rdev->bios = kmemdup(&vbios->VbiosContent,
->  					     vhdr->ImageLength,
->  					     GFP_KERNEL);
+> Thanks for pointing this out.
+> 
+> I reviewed the lifetime and teardown sequence in more detail. wait_event_mgr is part of the owning amdgpu_fpriv, so it is not allocated or freed independently. Its lifetime is tied to the corresponding drm_file.
+> 
+> During file teardown, the USERQ manager and queues are torn down before amdgpu_wait_event_mgr_fini() is called. Queue teardown removes the producer lookup paths, and amdgpu_wait_event_mgr_fini() marks the manager dead, removes pending records, releases their queue references, and wakes blocked waiters before amdgpu_fpriv is freed.
+> 
+> Based on this teardown ordering, the producer should no longer be able to access wait_event_mgr after it is finalized, so an additional manager reference does not appear to be necessary.
+> 
+> I've also documented this ownership and teardown ordering in Patch 2 ("Add wait-event manager and per-file lifetime plumbing") in https://patchwork.freedesktop.org/patch/740465/?series=164813&rev=11
+
+Sounds great, feel free to add Reviewed-by: Christian König <christian.koenig@amd.com> to the patch set as well.
+
+Thanks,
+Christian.
+
+> 
+> Thanks,
+> Srini
+>>
+>> Thanks,
+>> Srini
+>>
+>>>
+>>> Regards,
+>>> Christian.
 
