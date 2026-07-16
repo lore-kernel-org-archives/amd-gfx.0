@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ECC7C44514
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 21:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80002C4450A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 22:01:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E828010F3F8;
-	Thu, 16 Jul 2026 21:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05F8D10F3FA;
+	Thu, 16 Jul 2026 22:01:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KdYDP9dd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UNZppCtm";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A835D10E249;
- Thu, 16 Jul 2026 21:59:32 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012006.outbound.protection.outlook.com [52.101.53.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B38010F3E6;
+ Thu, 16 Jul 2026 22:01:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rJ/zXFc73DT4t8cLsS9HfbcCjUf94y+t6YFxkq/4r1WvLMfNZFb6nuWB/ZWt5fdX4f24MDz40SrNziNOaLDAjQdCDGRdzjf9e6Cg4y7Q/kA5qIwdAbwQipkAGjjBt8NJtcUxtdkJkAOykFFOI9fGHaHxwZZIxjjgPJ7zovg/1XprOxSqTwUxbPiusLoNDZythrOD7qe+ypAMYoVMwKdzvurdeue9CQPgFGr2HHRAzHVA/axVlAfPn7JH4pz6E1iiNCjTlIX67YsH0ZhukRF/JLn8Q/fe97GKrmYngWeFYddFICcpySynkLGeFIF4Thvn1F+SPeodW5eEQHM+1eEamQ==
+ b=k6rLj35LZOpsCUWa78bkeT/uPXFjStRNj/0/XnhfZf+xEkscnHmfZLX8jl6Ef2c1E+xJHuv1P+10/iRiV1Fr8VpNI518siDYZb4XZvdvrTX0Qfp9DVI5bXiOtQUBIa11TDGQDIklZNy2k48M0K63MzAtFb5wU6LQ/GlBuFBWjOBZ7J03DN8DFc4i2+5C3khhOkiPaUwc2scZTI+V2v7UvEqi/UFrCmnqBF07z/mKzrzXuHMW9EVn0w+jKNgkMAGIj/cLH9QuP9pko4Fj6Ah0TddSNFPGyJYXc5mlRDSKJfnCh1J6eu7GkWre7mMhZtTJc8J8/kbi20Mkmwqj9zFVKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NKcUA3pAzY4FuFm95L+EdwOTIzC7LRillzP+bSIPZhU=;
- b=u7p68kkdfX3sjOqrDXAvQDtX6qrROKnWv7MgrTKFfiznRQazVEGQ8e/D/OkPcpVqwZS2p8ziW+m/OpRohkwWvgbp9uo8ruzTfFLIOfc64f9u/JXXHOeY4gLMV6L6GVnT8KLpT7zhxbKeaYkR9rIYN4AMTlLpHCheGVxEtLONkdBSpaC/fK9p/Bd7FwnOKCtjyxvq/KRZHI6MFCuZdnco9rdysKaFa0/oQFO2UDVCbPPmhWFf+99jjJCeXNnVXmayShxD9vD9yipcf/Ox/DlelgHZZpr/lSpkf7p6tJrybfFsT4nnPftZoltfcPpeCTLda+sRAgkgqazT7cmwSQzKYg==
+ bh=mCnAbahFfvjpFVa7b9JWPaW1f6kEJL9D75GUQCNRJn4=;
+ b=sGrqLLGfFvLGdAFDKEeqsQIGb92Yt7/5lLhlYs3jztY5bcMgdptdVqippGvrgF4LmERFNrrg1esjDH7ExVIfniGE9PxMb3fKIK6AKV14Y9KspcAQPgHed4m/kR2PqG+2DCJad4TsKcQISF5SobGXqOgPZuoP9ydTaViiaybeFFLqjD5pkxaGMwlFKCsXyghDh2cMZmrpmcI4N2JV3KEhBtX6co/NJmk/meQPaIke5xlMRF6XVL62TPmfZFQE2NlPVvyIiuvkSv5bI4EV0JOzt8jKxiHJuQ1OochAZCB74HQRfW4OG6k9JN/Cx3Sj1SCKFBYduTmJiMk0GgQR1myk7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NKcUA3pAzY4FuFm95L+EdwOTIzC7LRillzP+bSIPZhU=;
- b=KdYDP9ddjAsM9i+kyXijmJi26kNLRYyv7B+H33I+RIYzlQiC4RNKV2gAedozgbbAKKjYpC32Ac44xwJIRDVNkB1vtYr3P2IodETIKD0OIL5sZrwDu6NuBequ+5HtCWIuq4WXc5Fy6F3M96dvDvhLkhAloETTOr56Sb0fMwx5dmQ=
+ bh=mCnAbahFfvjpFVa7b9JWPaW1f6kEJL9D75GUQCNRJn4=;
+ b=UNZppCtmtcxO7b7IASDpPkZz3vYNgBUJid+jVU7cljW3DUR0vTXy/6lX8gj4HclTmD24SFYfspyVQB6AjX31+mlT83fX1YXCVyttS2szZ/pU2yh15j80YSpQThVnE+/n6RVI4Bji365dMcnA26lJIAyGhXJ/c6nFcm98Ny5DOdY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
  by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Thu, 16 Jul
- 2026 21:59:27 +0000
+ 2026 22:01:17 +0000
 Received: from DM4PR12MB8476.namprd12.prod.outlook.com
  ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
  ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0223.008; Thu, 16 Jul 2026
- 21:59:27 +0000
-Message-ID: <e90d1c97-7aca-4bcf-95eb-bde07c3cdccd@amd.com>
-Date: Thu, 16 Jul 2026 15:59:24 -0600
+ 22:01:15 +0000
+Message-ID: <191d1caa-6fa4-4577-b193-47f4f08d19a9@amd.com>
+Date: Thu, 16 Jul 2026 16:01:12 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/7] drm: writeback: Modify drm_writeback_get_out_fence
- helper
+Subject: Re: [PATCH v6 6/7] drm: writeback: Modify prepare_writeback_job helper
 To: Suraj Kandpal <suraj.kandpal@intel.com>, freedreno@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, kernel-list@raspberrypi.com,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
@@ -55,79 +54,80 @@ Cc: uma.shankar@intel.com, arun.r.murthy@intel.com, abhinav.kumar@linux.dev,
  laurent.pinchart+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
  tomi.valkeinen+renesas@ideasonboard.com,
  kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com,
- kernel-dev@igalia.com, John.Harrison@Igalia.com
+ kernel-dev@igalia.com, John.Harrison@Igalia.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 References: <20260714042805.77934-1-suraj.kandpal@intel.com>
- <20260714042805.77934-6-suraj.kandpal@intel.com>
+ <20260714042805.77934-7-suraj.kandpal@intel.com>
 Content-Language: en-US
 From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260714042805.77934-6-suraj.kandpal@intel.com>
+In-Reply-To: <20260714042805.77934-7-suraj.kandpal@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0155.namprd03.prod.outlook.com
- (2603:10b6:303:8d::10) To DM4PR12MB8476.namprd12.prod.outlook.com
+X-ClientProxiedBy: MW4PR03CA0166.namprd03.prod.outlook.com
+ (2603:10b6:303:8d::21) To DM4PR12MB8476.namprd12.prod.outlook.com
  (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SJ2PR12MB8133:EE_
-X-MS-Office365-Filtering-Correlation-Id: b184d20b-787d-4b76-425e-08dee385813b
+X-MS-Office365-Filtering-Correlation-Id: 73198134-93ac-4745-3ec7-08dee385c193
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|7416014|376014|1800799024|366016|23010399003|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: GjxODccJjRpVmBWYNbwKb3qNyNpsFuXxiHLF9mT1KDSmos9LLRvwhZ17zOo8MeK9R+4hGfA+jU72LReG5SW99Kn8IgKmwJfHDaEZBfNknL7EdkmN0NE6mVmwEhqT5Idqs99QJihBj0Yr0pCHA5uZwCNhVnyvYyBuyI1Zz52E+pC3XZ/8PSLOTfmhQwC6W4k862gRCTm1C1lR+HF2HLKZPUdyW9rStPCRnjCBoF8Y06fZwjAIQuAU6zeM7c3cPCh0vf4453Pw7v9Q8ei/khhSNASQxiqNpnngOHLQgc1irWgP8779I1jOS3LXShlhgpQ4UZ1kRIl2Y3hrb7+VbW/l+3X4hM7TMnu7jqe5CnLIjRsCvT5O571sOpszCLBQZoTbEd4snPj0SPFaKa4Syp8j6ryTb2PHs7eXM2eKvWN3qf6tpz6SpBPP8NIWjx+8fLAZPg0vX7K7G2brb9sTVBPGD0glyyncAwpDTioxbg/4zz0eRmj4sQxbWczj4Ut4uTZcaiI6eHvep3rDku1tGQGEfiRExrwl/uVfamziSoTh6VS3SLjotjnehIkAQ6XMmNbtk0jo438cAf9lOq5BsBqW6psOtAL/nUvXWdODVhpPf/v0dAcknNRXZbbxNsn7J/2J1ICXASIl+Cnv7S4ZXqj7JLRTa54qltkdK2ZyuwjMkjk=
+X-Microsoft-Antispam-Message-Info: C1RT833pWjq7XV2W5Y+C/5XmnKpTr+Q9RvBhpEyxD9JO01EuC9Jy1y22eQir0umqfkXIjBFaw86or1UcXAP+wBPPYjorNLuJBUrLWLgSrQ+LG/gH/Qs9RnjEVVjjUV8tX28ne2IE4Iv+k2iFi1IAuxNTNiNXca5e0RrDFpppI7mQ9hRZk7Ev7B4+kjxGIrZeKunvIB716XKk2NlYhQeq2ctGcKH0SvfY2SU6G9mh4riHzjgMD311lyg1hfk5pJ9P2eNS3MUScXJfuArMQkvKJRUoURYfDIAErlcur6w5R7FSzM5fkGqoOsu/I/MeuWh2xDtuFDwdtIRjSNa/m3GLipFy/T6ButOLHte7UADaaZJsmJlaW0EdqA1Defmx0J3w8A9giGbxHAQe6nVa4icHUEU5mTbQTo8IO6RrTT+Y/vcOrN5w4b42N3kkeb2mpQy/1qFQYRcJGxHYTPx2pTAqvbkZCUCEkQZiiNMcA/Qk4Isk5I4zEwgtqN2CYQdbmTcZXya1CJ09JnZMmgVjmvHCfpJHMJLWfJGS1xwpPSVw4ir59f+gDKu2yLSgiy1Zp3unaen33MiM7NQbnwrKl1SGn1ZcSJYQsYCzIgTAFC09CmUxNiIYMkdgZ9HKDTsWmI4DUqaYLwH8U9CCtp1T8VhlVSc8jYiJBTC3/66jRWW6Mc4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0Fob3ZCM2FTMTlrSDZ1NGxuclF6R3lIaDdaaDUyUGx5ckgzbThmYnlQSVhs?=
- =?utf-8?B?eERUZEQ5V1FjSjBPNyt1eGF2RjJzRFBmVHB0UXhXSERUaVp5aEYrME9oYmdJ?=
- =?utf-8?B?SFhjNTlIMXNwekpjckFPSHBzT201K2VTbks2UlU5K3QvbmZPZzlPUU1DOHBk?=
- =?utf-8?B?UkFzU2I3eW1CWnd1WXYyYTlYeXZHQmI0Vmpscm11TzllbTVyd1B5aU1mYzIw?=
- =?utf-8?B?UmRPNXNkWi9QMm4yVVhvSU1XTU93RlB5eDFMRll0Mlcrc3l6UXFrcVE0amtL?=
- =?utf-8?B?SXpaMW4zRTlrL2VRQk40WkNza3BqdUUyU0hpeGpPeklzSkFJeHg2UStSOUxp?=
- =?utf-8?B?U2tSZmduQ1ZoQ213N1NZVWtzSkcvM3JPVUk1WDhtSzRoZmFZSTE5dXYwOGpn?=
- =?utf-8?B?QTZnRU9oSVZWL1VVZlRQekMvcG80dnZEL1hoT3RBNmlsdVU3MU5vTGJkQnNY?=
- =?utf-8?B?K295WmpWeDZCZGlSRHBvVmhHcTh2YkxjeFVHVU5kZFkzUjkwdEpiS1hoM3R6?=
- =?utf-8?B?V1BZTW9NckRYTHNOa0krZzJLM0xRUENKc1U4cGRWc0h6cGFnQVV2SURHRm5a?=
- =?utf-8?B?THBRWDdDbXlOQWJkbnExSFVmSkZOV05FYUhqbDdaSUx6Yjh1Qy9LcXc0NXRj?=
- =?utf-8?B?c0FaK0hVd0NIdEhWREd5WGd0NldoSnB6UlkzY0xCYkt3dEJlaFVDc1JFU0gw?=
- =?utf-8?B?ZTkrVEszZ3N4aTREZXlGbmh1S2FSWEl4MTk2cHBkWGI4R1NFZ1ZXcytEMXUy?=
- =?utf-8?B?aG9FWUkwU05wYzg1dDlGbE5pYTVyUXpsaUVnZklhZ2FFN1Z2MTExMEZrM2kw?=
- =?utf-8?B?Y3ZxNHAwWWQ3dGhkTlNDVjM3ZFNKdkpaaE9NVTgzQWJRbklid24veXZIWU9I?=
- =?utf-8?B?emNJOG1abGpCMG03OEI0ckMyeTNjSFVHL3Yrc1p5UlV5Ym5tQlNrS0RFb011?=
- =?utf-8?B?a2h3U213bU9UMkJ1ZlNnK1ppdFpMYXliZUltQW9tT1JBdTJOOVg3aXBLWnBN?=
- =?utf-8?B?d2pqUTdmRTJka2c1MG9BRUZ6SU1hN2lkaGNXU2lKdE5ZRGJXMmFlbmNFUUUv?=
- =?utf-8?B?OFVMUktvZUd0SGkvblM1YzFnYUxSMytCV05WT1R2TFZRQWlqVHVZSzRjZ2Er?=
- =?utf-8?B?UXZHN1BxVzNwTTVUbVNrTEdRaXpucW1CMXArSmpVM3FuRGZOcERodXlyUVp1?=
- =?utf-8?B?YjJIbm00WUw1Wk9WSm1tcHZrTWVJSkdRNVltOTc0WDBJQXV6dWJvOVRrQTRE?=
- =?utf-8?B?aUgvVlZGNVh6TUxrbEJXTHlJVmczc1VxSTMxV2xkcUVBWHNtdkpETEgzWUJs?=
- =?utf-8?B?amNPTGdzT1AxbndieFRTUjUyY1RrN2xNbkdpRWN4bjRobUpnOWNlYmRmSHdJ?=
- =?utf-8?B?dSsxSHZQNS9FN1dvNWZxUUNrNVlURXhjcDEvRkRNU21wUkRTTlJKNUx4b1Rx?=
- =?utf-8?B?UlhveHhXK0FDU2dvc0NYYVRjb1VIUHdvUUJGZkRBTG1RR29pK3V1TWZUK2tD?=
- =?utf-8?B?QXp2bWEydVVlV0UzcmVjVEYzWDhyMHNkKzhncmRnRzF5Ym1xRElBODkrWE4x?=
- =?utf-8?B?UStxc0ZjVUVzbHJqeVdzOE9vUHBpZUpLVFBLVXJUQ3MyRWs3blZGbDgycVZI?=
- =?utf-8?B?SjU3OTZ1VjMrOUswemswcmpNY1ZHWndEL29pOEkrYTFkRk1TNC9QY2lOc2lr?=
- =?utf-8?B?ams4LytucVJmTVZMcm5Ob3hoOHB1c0hmVUxTbjErb3NnU0FSNWxPYUV5RlQ1?=
- =?utf-8?B?ZkQxY3dDU0tndW95RVJscm5kSHdMYUM5MytnU1lzL05kU2VGTHhmajd3Z0NY?=
- =?utf-8?B?d1RDYVNXMjJOQmgvWjcrYUl4cVp4OTdTeUxYTk93TnZnL2ptL0tVdHZZcE1l?=
- =?utf-8?B?YVRrTS9xRStGVm40L0xGT091c1N1RENiaVNvSmVxeVpoY3U1RkpBZTJIMjlK?=
- =?utf-8?B?bUJhS3RkYWNPVzN2bXlFcFQzMVROOUFtdlBNZGxHVFp6SVhrVjNHVmNJR1dH?=
- =?utf-8?B?YnBRdDU3aGlQdFllSml6UU5Zd09KWlJzMCszcW8rQTMwOEZsT21SNjYzVjRZ?=
- =?utf-8?B?NklEeGpMaEF3SEZ1TzRxdjVnejlTRG1kUEMrdk9SRjV1N1BSdTBMOEh4M1Z5?=
- =?utf-8?B?cWQ5SkVXTUNsNG1MSTI4a2lzckxhRHZRa3JvLzNvU0g1Zys2NUk1VDluSkZL?=
- =?utf-8?B?OGhaaG9YSngva1JsQWRKU2dvQ2FOeXpydUx2N3RQTjBwL2F6SUR1M3pNQXAy?=
- =?utf-8?B?SDVHTmpMMHk3YkRJQWJORHl4dmp4bnVwZnoxVUxDMTdsdGYvdDcrZTFUTUVP?=
- =?utf-8?Q?eM015bxYJum7eWd0ej?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0IxSmY1K1hUc1FhU0grNzJUWWxqUy9NbHhpazlyTko4OFJvNlRUZmljb1FW?=
+ =?utf-8?B?bTBnd2VxZWNISlNTRjRBMFgyOGozcURHOVdaMTl6L2dIcXZUUWZxWkVlY0o4?=
+ =?utf-8?B?ZmlDWlAxUStJQXlGckk4Y2s0WEw2aGdoeURlaUdkVGw0dm5HbDM0VXRUWXp6?=
+ =?utf-8?B?azAyeXlsRU5SVncxRXIrNjlOR0ZrNmFSM0J3aFFieGNzUkdvRGE5cStYOVpN?=
+ =?utf-8?B?dE5sYWpDNlBOU2wyNENmY1ptOFAwQ0g1ejdGWXQrRWIzY1dzTUd6MGJRZ25F?=
+ =?utf-8?B?NHp2MDBuMmpGNmcrR0tReGdIWmpCWFYrZ2pkMXgrUFRjTW1nZmc1Vjc0SnZw?=
+ =?utf-8?B?VUJHemx2Y0hGajhDZXhoYjlHNWEwbkNscUZvVHY4dHJleXFRVU83YUVuZnp3?=
+ =?utf-8?B?MEZmYUt4YzA2b3QzSWRKZU5mand3UzZxbG9KR3NqQlM2djJCdmZwRkR4L1Ja?=
+ =?utf-8?B?L0l6RjRKQ041bVN3V2xETFQ0STgyRDBIWXMxb010MjEzLytFUDVzbGlTVG03?=
+ =?utf-8?B?QVhGWDNtazNORlNRVHVsQ0k0Uy9aUFc5bDNKbVFiM1pFM2R0VXQ1eWlFT1ZB?=
+ =?utf-8?B?ZmZPZFc1K05xRGtQbVRGWDdnUDFLZHlHTXJJdHhxaS82V21NZGNGNmhDeWV1?=
+ =?utf-8?B?dlI3andNL3hOQTcrOHFNZlNxTElrYVBremh1ZnV5R1ZwN25YNHo3VnA2L05E?=
+ =?utf-8?B?MnBucDl4UjFhaVhDcFNCRldUTmFGK2UyakJnbDQxcUZyVlVkMEVpdGIvcFJF?=
+ =?utf-8?B?VEhHb09TZnAvUlFUSHNHMjdNK3YycmJZRkhrRFhselkyaEVvSHhKVnBLbUNy?=
+ =?utf-8?B?TTlIVzRRQWRNVGttUkprNTZ1QU8rUGhHUmdDVklXeVVWVkpkbC82cGZYRnRa?=
+ =?utf-8?B?NEhWMkVtcFM5QTZvUUpVdGtVaTVDY2MrS3hESDNEdTZoZTVmTkhGZ2cxaGpE?=
+ =?utf-8?B?Q2pKajIyVWc5RUtCU1FodUQxbi8raFhUVmR3R2plZTlqVGJqY3JHM2ppZVVU?=
+ =?utf-8?B?Q2dWemxqdk1sbHBBVUNtSnZWRTBZKzF4RTlxaWczTW1PaDMyUzJrNGhaQ1pr?=
+ =?utf-8?B?WTlmT2pHOVVBZWYrS013T1pDRGE0a1dMSUNmdWZ4c2tBa1FvRVEydVkvcXNH?=
+ =?utf-8?B?TUk3c3h5bmZzcmROWm9tQXZ0eEJkMXovaEEvS0RQQXZnUW1pMjFKbk9EaFlr?=
+ =?utf-8?B?RGZVNGkrZ0NDK1diTGdsc0xUVklBZlR2VTByRk1WSm5Sb1hwS01UZVI4SEdX?=
+ =?utf-8?B?S1BPb2plR0VpSUhOYUh2UENPTHkwb3RVeEhpSDc5dzlyUG1ialdjajI3ejNG?=
+ =?utf-8?B?bjErc0x1Y2FMdk1scG5xM3ZHV2lQb3drU1ZhY0F5emdEdTV1a0J3UUg0cWNQ?=
+ =?utf-8?B?VWxSbEpOTXhQUUdkV3NPTzk0UWkxdlc3NENZdkRRellNL0tKZy9NcUlMMG1U?=
+ =?utf-8?B?NExNc2JDclArU3JlWC81TmFvbmhyaVdUdU05blZ6aXY0V0lzcEpjMk81T3Ir?=
+ =?utf-8?B?b1BXZ0dsVWl3clBueU55ME9wcDhOQjRQM0RTL2Z0djBXZFpWbWpTYXJSeXNk?=
+ =?utf-8?B?a0lleWs2dzhsWHpvVXcrenpzNGdFOGI3S3ZDUEU4dFhLQUJuYUxseEw4VlVz?=
+ =?utf-8?B?VFVwUkt3TFR2ai9haE1GMGxqNnRob095dWZRT0Z6M1pOWWpKa05pV0EyVEFn?=
+ =?utf-8?B?bkp5VG4rZ1QrOHhGanYvNEVnMFVkZmczNUhnZ0VBOVljR0k5OFRzaE5ZUWE5?=
+ =?utf-8?B?a3YvQmtSM1RFUUs2d0lhVndhOGN0YzB1WkxIL3pYV1pCVi9OUXkwRE5wTTBl?=
+ =?utf-8?B?RmlBck4yZ1IxeEs1Zm53RzFkZStRU0tOd0NGZ3NkUlVsR3p1bTZUR2NpRVNv?=
+ =?utf-8?B?VlBWMGxlTzl2NVlmVUpONFFFQ0tCYVFZOWM4aEN6Ui9iM3dSYTF0WERtRWEr?=
+ =?utf-8?B?NiswTnZUYm1FbGhmdzVnaHVjRmgvT1JCdGdqNWhJdzY5UzV0a3Y4T0htN0Yx?=
+ =?utf-8?B?Tjg5SDRNM1JLcFd1TGtQcGF5RTRTQ01QT0VEVmRUVXAxWVhFUDM2TXdXcVlu?=
+ =?utf-8?B?Nk12NHREZVRaZGtaU3ZDSzVKQmQ2WktPdGdET1MyQWZtNEZKSXRiTERIdG1z?=
+ =?utf-8?B?QzBReDIybzV1YUFqWnRZTzc4cmt2ODdGZEhGVlY2UVN3N0xGRlpYRDBtWHhQ?=
+ =?utf-8?B?M3RscldGNzROMndORVlaUUFaS1pBT0xxTTRhT2NjUHJmdCtSaXhxekZGUGQr?=
+ =?utf-8?B?V0VGQUtiZm1NdVdrM2hxdWx2UGxma0x4RUwySERjTWt3STFUVENDTU9vVTRB?=
+ =?utf-8?Q?VK6y8NyXroMIziWJEa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b184d20b-787d-4b76-425e-08dee385813b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73198134-93ac-4745-3ec7-08dee385c193
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 21:59:27.3444 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2026 22:01:15.3194 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8DBwWcDHsC8caowLKQTo7LxmTt0x05/NMYehRXNIIckrnnebRTdfJpOEpbL2arx34Xtrt3OkJ3y9ywziEqs0yw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /DAKnHsd1MG8V+VVNZoeBUpll+7Gnh/89c0e5T5qnIc8ZOxsDuDIYEWDK+sgMPkUa+KQQ/hKnLeLRHP06wMbQw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,14 +146,15 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 
 On 7/13/26 22:28, Suraj Kandpal wrote:
-> drm_writeback_get_out_fence() does not itself need the parent
-> drm_connector object, but update it to take drm_connector for
-> consistency across the writeback interface, which is being moved
-> to use the top level drm_connector and traverse down to
-> drm_writeback_connector rather than passing in the lower level
-> object and traversing back up.
+> The prepare_writeback_job() connector helper hook needs access to
+> the parent drm_connector object as well as the drm_writeback_connector
+> object itself. So, pass in the top level drm_connector and traverse
+> down to drm_writeback_connector rather than passing in the lower
+> level object and traversing back up. This also makes it uniform
+> with the params passed to other drm_connector_helper_funcs hooks.
 > 
 > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > Reviewed-by: John Harrison <John.Harrison@Igalia.com>
 > ---
 > v5 -> v6:
@@ -163,59 +164,98 @@ On 7/13/26 22:28, Suraj Kandpal wrote:
 > - Update subject line for consitency (John)
 > - Update commit message across commits for consitency (John)
 > 
->   drivers/gpu/drm/drm_atomic_uapi.c | 4 +---
->   drivers/gpu/drm/drm_writeback.c   | 4 ++--
->   include/drm/drm_writeback.h       | 2 +-
->   3 files changed, 4 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 2 +-
+>   drivers/gpu/drm/drm_writeback.c                      | 2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c        | 3 +--
+>   drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c  | 5 ++---
+>   drivers/gpu/drm/vkms/vkms_writeback.c                | 2 +-
+>   include/drm/drm_modeset_helper_vtables.h             | 2 +-
+>   6 files changed, 7 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index a5c11832ff64..2271cd970985 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1492,7 +1492,6 @@ static int prepare_signaling(struct drm_device *dev,
->   	}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> index 92039d93f9e4..e0425eda0bb6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> @@ -85,7 +85,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_wb_connector_get_modes(struct drm_connector *conn
+>   }
+>   EXPORT_IF_KUNIT(amdgpu_dm_wb_connector_get_modes);
 >   
->   	for_each_new_connector_in_state(state, conn, conn_state, i) {
-> -		struct drm_writeback_connector *wb_conn;
->   		struct drm_out_fence_state *f;
->   		struct dma_fence *fence;
->   		s32 __user *fence_ptr;
-> @@ -1514,8 +1513,7 @@ static int prepare_signaling(struct drm_device *dev,
->   		f[*num_fences].out_fence_ptr = fence_ptr;
->   		*fence_state = f;
->   
-> -		wb_conn = &conn->writeback;
-> -		fence = drm_writeback_get_out_fence(wb_conn);
-> +		fence = drm_writeback_get_out_fence(conn);
->   		if (!fence)
->   			return -ENOMEM;
->   
+> -static int amdgpu_dm_wb_prepare_job(struct drm_writeback_connector *wb_connector,
+> +static int amdgpu_dm_wb_prepare_job(struct drm_connector *connector,
+>   			       struct drm_writeback_job *job)
+>   {
+>   	struct amdgpu_framebuffer *afb;
 > diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index df8484a7aa03..d2ccb4dcba0a 100644
+> index d2ccb4dcba0a..e6b52de69ad6 100644
 > --- a/drivers/gpu/drm/drm_writeback.c
 > +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -531,10 +531,10 @@ drm_writeback_signal_completion(struct drm_connector *connector,
->   EXPORT_SYMBOL(drm_writeback_signal_completion);
+> @@ -396,7 +396,7 @@ int drm_writeback_prepare_job(struct drm_writeback_job *job)
+>   	int ret;
 >   
->   struct dma_fence *
-> -drm_writeback_get_out_fence(struct drm_writeback_connector *wb_connector)
-> +drm_writeback_get_out_fence(struct drm_connector *connector)
+>   	if (funcs->prepare_writeback_job) {
+> -		ret = funcs->prepare_writeback_job(wb_connector, job);
+> +		ret = funcs->prepare_writeback_job(connector, job);
+>   		if (ret < 0)
+>   			return ret;
+>   	}
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index c9f53490c1a7..061e6960c09b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -87,10 +87,9 @@ static const struct drm_connector_funcs dpu_wb_conn_funcs = {
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   };
+>   
+> -static int dpu_wb_conn_prepare_job(struct drm_writeback_connector *wb_conn,
+> +static int dpu_wb_conn_prepare_job(struct drm_connector *connector,
+>   		struct drm_writeback_job *job)
 >   {
->   	struct dma_fence *fence;
-> -	struct drm_connector *connector = drm_writeback_to_connector(wb_connector);
-> +	struct drm_writeback_connector *wb_connector = &connector->writeback;
+> -	struct drm_connector *connector = drm_writeback_to_connector(wb_conn);
+>   	struct dpu_wb_connector *dpu_wb_conn = to_dpu_wb_conn(connector);
 >   
->   	if (WARN_ON(connector->connector_type !=
->   		    DRM_MODE_CONNECTOR_WRITEBACK))
-> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> index 5e8ab51c2da4..2afa48ea7c00 100644
-> --- a/include/drm/drm_writeback.h
-> +++ b/include/drm/drm_writeback.h
-> @@ -104,5 +104,5 @@ drm_writeback_signal_completion(struct drm_connector *connector,
->   				int status);
+>   	if (!job->fb)
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> index 4b0f6cd46acb..218b6504cacf 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
+> @@ -47,11 +47,10 @@ static int rcar_du_wb_conn_get_modes(struct drm_connector *connector)
+>   				    dev->mode_config.max_height);
+>   }
 >   
->   struct dma_fence *
-> -drm_writeback_get_out_fence(struct drm_writeback_connector *wb_connector);
-> +drm_writeback_get_out_fence(struct drm_connector *connector);
->   #endif
+> -static int rcar_du_wb_prepare_job(struct drm_writeback_connector *connector,
+> +static int rcar_du_wb_prepare_job(struct drm_connector *connector,
+>   				  struct drm_writeback_job *job)
+>   {
+> -	struct drm_connector *conn = drm_writeback_to_connector(connector);
+> -	struct rcar_du_crtc *rcrtc = wb_to_rcar_crtc(conn);
+> +	struct rcar_du_crtc *rcrtc = wb_to_rcar_crtc(connector);
+>   	struct rcar_du_wb_job *rjob;
+>   	int ret;
+>   
+> diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+> index 2e3df9388dd2..86e5b92c7965 100644
+> --- a/drivers/gpu/drm/vkms/vkms_writeback.c
+> +++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+> @@ -72,7 +72,7 @@ static int vkms_wb_connector_get_modes(struct drm_connector *connector)
+>   				    dev->mode_config.max_height);
+>   }
+>   
+> -static int vkms_wb_prepare_job(struct drm_writeback_connector *wb_connector,
+> +static int vkms_wb_prepare_job(struct drm_connector *connector,
+>   			       struct drm_writeback_job *job)
+>   {
+>   	struct vkms_writeback_job *vkmsjob;
+> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+> index ca6268945c28..4e26568a16fb 100644
+> --- a/include/drm/drm_modeset_helper_vtables.h
+> +++ b/include/drm/drm_modeset_helper_vtables.h
+> @@ -1119,7 +1119,7 @@ struct drm_connector_helper_funcs {
+>   	 *
+>   	 * This callback is used by the atomic modeset helpers.
+>   	 */
+> -	int (*prepare_writeback_job)(struct drm_writeback_connector *connector,
+> +	int (*prepare_writeback_job)(struct drm_connector *connector,
+>   				     struct drm_writeback_job *job);
+>   	/**
+>   	 * @cleanup_writeback_job:
 
