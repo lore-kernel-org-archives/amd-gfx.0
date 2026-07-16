@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57B76C44517
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB078C44511
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 16:06:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D137310F362;
-	Thu, 16 Jul 2026 16:06:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6511910F371;
+	Thu, 16 Jul 2026 16:06:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mWPp6x1d";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ORJH/E3V";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E842E10E74F;
- Thu, 16 Jul 2026 16:06:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F53710F353;
+ Thu, 16 Jul 2026 16:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=EVbs9WCN3mhlAo6SGZxK7diTq45Y1pSFmb85ZuSqsr0=; b=mWPp6x1d6Oo36gncKjHULm5OFO
- CAcEib543jrOOeF0qLpWE1+gsAAKmZz20dE7rCFQlUoKHhrJNGfUf9SbmZ3YgW/p39/WJHYaJzmWJ
- WD7rvvwZ5MOOYNrO55GYqQL8C4bg2Vq/i/z7h56Jwgqg45Ydq4qhrDU26Bi4IvT26MKiSnxsv5clw
- AgjRv3hW4fIFLgJxgskVV+GJ/vPBAfNNwgZxvAu+nL7GKyzjFgSC278NKrJdzIddQE5cgFWzg50JG
- Asj64GbK8NXQfBqd3UKg+NP2KCRwn6Z/JYTudLi8c6buuM4lvbd/CjmZAWYtKhcnssiE4Ztp/s5rh
- 1VVA/Duw==;
+ bh=D3WVSl0cn+GOIKUPYVB3+ziUrywvK4pXRs/fw6orwj8=; b=ORJH/E3VFX9KVugAOCwJ3F3WYK
+ OzqSs/aYA1vBHq0hjMJuQ6MjnR0ftWx9k0Rt30w9nhblHldhVUh/sa5OIz1MaUOkL1pvWT4VOLGok
+ 9VfOlg9l2zdtqPDa0xzqfo35T+f2jfM/9GvcWTMNa/ymTNEZLsl7y+0T1lcV4vR9ZhgkvOeBLewSi
+ tdZ4Q202oDuSLk6cslz8nVKc0zEf2HVyMlIgWMmCqkQ3kJ4eIkogN3Ti4GBiTdNIMDcftVxhpm7a0
+ Lvbf/rB3Gqlf2Za5SLZj5Gsw3LIr7HHn4JWnsUa64R6Q1tYVLQwsFm9t5+Zm3OvZpnqKnpegBlV9W
+ FriMX8ig==;
 Received: from [178.139.170.72] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkObF-00G01i-1d; Thu, 16 Jul 2026 18:06:13 +0200
+ id 1wkObO-00G01i-BS; Thu, 16 Jul 2026 18:06:22 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -44,10 +44,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
  Louis Chauvet <louis.chauvet@bootlin.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH v2 03/20] drm: Factor out common color_pipeline property
- initialization code
-Date: Thu, 16 Jul 2026 18:03:00 +0200
-Message-ID: <20260716160556.227556-4-mwen@igalia.com>
+Subject: [RFC PATCH v2 07/20] drm/atomic: Print the color pipeline as part of
+ the CRTC state print
+Date: Thu, 16 Jul 2026 18:03:04 +0200
+Message-ID: <20260716160556.227556-8-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
 References: <20260716160556.227556-1-mwen@igalia.com>
@@ -70,138 +70,31 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-In preparation for sharing the initialization code for the color
-pipeline property between pre-blend (plane) and post-blend (crtc) color
-pipelines, factor out the common initialization to a separate function.
+Print the value of the color pipeline in the CRTC state as part of the
+CRTC state print.
 
 Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/drm_plane.c    | 34 ++++----------------------
- drivers/gpu/drm/drm_property.c | 44 ++++++++++++++++++++++++++++++++++
- include/drm/drm_property.h     |  5 ++++
- 3 files changed, 53 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-index 46adef2a30c0..e7f388817b66 100644
---- a/drivers/gpu/drm/drm_plane.c
-+++ b/drivers/gpu/drm/drm_plane.c
-@@ -1839,41 +1839,15 @@ int drm_plane_create_color_pipeline_property(struct drm_plane *plane,
- 					     const struct drm_prop_enum_list *pipelines,
- 					     int num_pipelines)
- {
--	struct drm_prop_enum_list *all_pipelines;
- 	struct drm_property *prop;
--	int len = 0;
--	int i;
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index c41759aedc6f..76c7665b3c4c 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -554,6 +554,8 @@ static void drm_atomic_crtc_print_state(struct drm_printer *p,
+ 	drm_printf_indent(p, 1, "plane_mask=%x\n", state->plane_mask);
+ 	drm_printf_indent(p, 1, "connector_mask=%x\n", state->connector_mask);
+ 	drm_printf_indent(p, 1, "encoder_mask=%x\n", state->encoder_mask);
++	drm_printf_indent(p, 1, "color-pipeline=%d\n",
++			  state->color_pipeline ? state->color_pipeline->base.id : 0);
+ 	drm_printf_indent(p, 1, "mode: " DRM_MODE_FMT "\n", DRM_MODE_ARG(&state->mode));
+ 	drm_printf_indent(p, 1, "background_color=%llx\n", state->background_color);
  
--	all_pipelines = kzalloc_objs(*all_pipelines, num_pipelines + 1);
-+	prop = drm_property_create_color_pipeline(plane->dev, &plane->base,
-+						  pipelines, num_pipelines);
-+	if (IS_ERR(prop))
-+		return PTR_ERR(prop);
- 
--	if (!all_pipelines) {
--		drm_err(plane->dev, "failed to allocate color pipeline\n");
--		return -ENOMEM;
--	}
--
--	/* Create default Bypass color pipeline */
--	all_pipelines[len].type = 0;
--	all_pipelines[len].name = "Bypass";
--	len++;
--
--	/* Add all other color pipelines */
--	for (i = 0; i < num_pipelines; i++, len++) {
--		all_pipelines[len].type = pipelines[i].type;
--		all_pipelines[len].name = pipelines[i].name;
--	}
--
--	prop = drm_property_create_enum(plane->dev, DRM_MODE_PROP_ATOMIC,
--					"COLOR_PIPELINE",
--					all_pipelines, len);
--	if (!prop) {
--		kfree(all_pipelines);
--		return -ENOMEM;
--	}
--
--	drm_object_attach_property(&plane->base, prop, 0);
- 	plane->color_pipeline_property = prop;
- 
--	kfree(all_pipelines);
- 	return 0;
- }
- EXPORT_SYMBOL(drm_plane_create_color_pipeline_property);
-diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-index f38f2c5437e6..ff606f31eb4b 100644
---- a/drivers/gpu/drm/drm_property.c
-+++ b/drivers/gpu/drm/drm_property.c
-@@ -1008,3 +1008,47 @@ void drm_property_change_valid_put(struct drm_property *property,
- 	} else if (drm_property_type_is(property, DRM_MODE_PROP_BLOB))
- 		drm_property_blob_put(obj_to_blob(ref));
- }
-+
-+struct drm_property *
-+drm_property_create_color_pipeline(struct drm_device *dev, struct drm_mode_object *obj,
-+				   const struct drm_prop_enum_list *pipelines,
-+				   int num_pipelines)
-+{
-+	struct drm_prop_enum_list *all_pipelines;
-+	struct drm_property *prop;
-+	int len = 0;
-+	int i;
-+
-+	all_pipelines = kcalloc(num_pipelines + 1,
-+				sizeof(*all_pipelines),
-+				GFP_KERNEL);
-+
-+	if (!all_pipelines) {
-+		drm_err(dev, "failed to allocate color pipeline\n");
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	/* Create default Bypass color pipeline */
-+	all_pipelines[len].type = 0;
-+	all_pipelines[len].name = "Bypass";
-+	len++;
-+
-+	/* Add all other color pipelines */
-+	for (i = 0; i < num_pipelines; i++, len++) {
-+		all_pipelines[len].type = pipelines[i].type;
-+		all_pipelines[len].name = pipelines[i].name;
-+	}
-+
-+	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC,
-+					"COLOR_PIPELINE",
-+					all_pipelines, len);
-+	if (!prop) {
-+		kfree(all_pipelines);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	drm_object_attach_property(obj, prop, 0);
-+
-+	kfree(all_pipelines);
-+	return prop;
-+}
-diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
-index aa49b5a42bb5..2ba4062f8bfa 100644
---- a/include/drm/drm_property.h
-+++ b/include/drm/drm_property.h
-@@ -297,6 +297,11 @@ bool drm_property_replace_blob(struct drm_property_blob **blob,
- struct drm_property_blob *drm_property_blob_get(struct drm_property_blob *blob);
- void drm_property_blob_put(struct drm_property_blob *blob);
- 
-+struct drm_property *
-+drm_property_create_color_pipeline(struct drm_device *dev, struct drm_mode_object *obj,
-+				   const struct drm_prop_enum_list *pipelines,
-+				   int num_pipelines);
-+
- /**
-  * drm_property_find - find property object
-  * @dev: DRM device
 -- 
 2.53.0
 
