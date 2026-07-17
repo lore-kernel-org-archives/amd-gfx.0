@@ -4,51 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 666F2C44529
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6A54C44528
 	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:57:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 738F910F561;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2030D10F55F;
 	Fri, 17 Jul 2026 12:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dG7wpNWE";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="b8Qam9Oz";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4518110E446;
- Fri, 17 Jul 2026 12:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=EL2t/09vcN9V6Rkygrdza4kyop6teAGJd5C5hkrlR48=; b=
- dG7wpNWEvxsRsmJnvd3EoaEOntXgsV6TItZk0htBc1xluRkGOpUdcreq4JkzwZJobMYt1aT297fcV
- jIvBsLPMapw16LuEDCZGxGwpz2DYCwYnk7iV1a9v3JrEi6LyL8N+1Uq1uLEElzj6vS5rcfhWqrsMv
- +4Jv1AC+WpsdA+eD6DGpPEF2W4qid/gCOuQ3hmi1fwgO0ltukv25aF8itjyMa+pFC56lxJAVpHnk+
- QcJPDO2mLpU54Rpuj+Yd5vII/SyBIkqdehLDkYMEnzdhuB9jSOrV8r2nSRB8xzl2Vi3M/vkC7F81y
- 0A61CPpwmlf8gMmcX/GDzzu3r+nu4Uuewg==;
-Received: from 179-125-86-98-dinamico.pombonet.net.br ([179.125.86.98]
- helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkhJz-00GPAm-Vp; Fri, 17 Jul 2026 14:05:40 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v4 6/7] lib/amdgpu: add amdgpu support to igt_dmem_driver
-Date: Fri, 17 Jul 2026 09:04:46 -0300
-Message-ID: <20260717120447.1837818-7-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260717120447.1837818-1-cascardo@igalia.com>
-References: <20260717120447.1837818-1-cascardo@igalia.com>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0DD10E1BC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 10:04:52 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-493b27c7451so9482255e9.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 03:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1784282690; x=1784887490;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=0Yhw0dInsGeTj4F3fnFaxZZDS+mO0VoDjtgnr4yzlww=;
+ b=b8Qam9OzvZRL8/A6hdIhNo33J6lBnvji46nq01dv9qrMdlr2NeiaQmqsMXWQzyM0Bq
+ ZFmDZi4DkDx7Qq6m263v5FK4ekphU38FIco4CtNzdjFuSJaeKSQqLz+wWNW97w1tFZsK
+ 1T0mlgKQpBgaP68/KrYauQGT/7mccn8i6cYFbiGgUg2daFv3HMB/KkSMpD2XSX5/qAY8
+ cIhN36LGNfNV9RufUygFlwhTozlfPCavhqWZh77OU3uOPNDC4RScUzsrDTXwMDc+S0mF
+ Z3W2ODnBEqZ0UpBLV0ozZE6xPUUhn6RB47vSi3umNBUHf+wL/6GxBUxnl2YGRT3OgENU
+ SPRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784282690; x=1784887490;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=0Yhw0dInsGeTj4F3fnFaxZZDS+mO0VoDjtgnr4yzlww=;
+ b=Wbx7G2YjtWVulXvgKCjrvsll/3JiBkHeluTPdMbVbBXXm4ziTkYQ75+7IslezxWlu+
+ pFUgX9qXivgjOsmUoQBwPYQU9VWt93/SVlEqbDEWWdOM0bG/Pke01Zxs2U++m784pqas
+ /T6vGZzOJnXUmC31axp9oXvIlkXnilJ5nEbch2DfvEi9rTyeyc5Z2o/qHEcKm9exRG3i
+ xWGqJZ1eoZIaXQfi/gr7fv3I1q2YfmSZv0/gIwjxefTu7bSbvlEmeJ47s91007FzfD8S
+ 7uDm4vKgQF/ct9nTKxU+925Hk9rFiBpCRJ4j4jTdjwTwdadFAjYvZzOkQZXHw23LJ0lN
+ gaag==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RojqVJ6Gfy3vfDDaxJS31iqtd/rTPWNYoWjQV43QSgQG247g8eJWiFi3+L+2Llpq+BhPC9ruhy/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxkSKcxTv/VBJAX7vgldNBFuu9Z8IDdNMX8JcKNms/TRkbMnzxq
+ SKrkG7uR+GCg6DDCON/9F3wVUQyuMV9HO7awPcF6187EvU9PUrn3VyNkUp4ZN8RPbeM=
+X-Gm-Gg: AfdE7cnaEteJML4XlyDxcpR1yaXQnoYtYspTSxYmznAqK8THWhVxNM6fSxOTnnBLoLT
+ SXT0wgmhp8FF2TGT2u8W561lEFFClxdreeHCl+omUTf0ZCim+/82HY93w9pIPlBzfTey7NEkzvc
+ nlYxxT0CVAOXEltz8Y7z7k6MdobEkUHGECGurVqIrcT+3BLGb+c+O+QOpLQvpmDXHv60QuSaDBQ
+ cnXevwP/lHyjF8PX/10esx+QjpZYTtCz3LDY9d1ItAcCqcvGs2tmHZ2gH4jl+qQzLdJGz6MLYtv
+ S0WyNzF2yhSOI5svQCkirhRbQnpPqFVUtx34Wf1/dhnfITO6oGlL5gE9sUvB5+UKv3m+ZpFKdwX
+ oOhKaIN1GT8ROCrDPJocyai5LXx0/jfoBCMpecbfnLL2uttLBCzQjpHJaO7byme00+2mWT6HUg2
+ BIgLETNIhp5G3IbSaBaz/0HVnWStMbuX41q/hv5pdHQxIx5FB+sI89ufVW/zjlq36tXA==
+X-Received: by 2002:a7b:ca51:0:b0:493:e686:6134 with SMTP id
+ 5b1f17b1804b1-4954288e0ffmr54427165e9.7.1784282690333; 
+ Fri, 17 Jul 2026 03:04:50 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db047d2d8b161e35ab77.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:7d2d:8b16:1e35:ab77])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-47f63eea8afsm2585028f8f.33.2026.07.17.03.04.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jul 2026 03:04:49 -0700 (PDT)
+Date: Fri, 17 Jul 2026 12:04:48 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
+Subject: Re: [PATCH v1 1/3] drm/amdgpu: Drop unused include of
+ <drm/drm_pciids.h>
+Message-ID: <aln9i5jDFwq-5mP2@monoceros>
+References: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
+ <3205129f75aba48bd1ad8fc810cf6a18e718206d.1777545446.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="omrg542u6n5yvpy2"
+Content-Disposition: inline
+In-Reply-To: <3205129f75aba48bd1ad8fc810cf6a18e718206d.1777545446.git.u.kleine-koenig@baylibre.com>
 X-Mailman-Approved-At: Fri, 17 Jul 2026 12:57:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,148 +99,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows dmem cgroups tests to run on top of amdgpu driver, adding
-support to allocate and release VRAM memory.
 
-This does this by allocating a BO from VRAM domain, which will try to
-place BOs on VRAM, but may fallback to GTT.
+--omrg542u6n5yvpy2
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 1/3] drm/amdgpu: Drop unused include of
+ <drm/drm_pciids.h>
+MIME-Version: 1.0
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- lib/amdgpu/amd_dmem.c | 99 +++++++++++++++++++++++++++++++++++++++++++
- lib/igt_dmem_driver.h |  1 +
- lib/meson.build       |  1 +
- 3 files changed, 101 insertions(+)
- create mode 100644 lib/amdgpu/amd_dmem.c
+Hello,
 
-diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
-new file mode 100644
-index 000000000000..5ff6437dc78a
---- /dev/null
-+++ b/lib/amdgpu/amd_dmem.c
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Valve Corporation
-+ * Authors:
-+ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-+ */
-+
-+#include <errno.h>
-+
-+#include "igt.h"
-+#include "igt_cgroup.h"
-+#include "igt_dmem_driver.h"
-+#include "lib/amdgpu/amd_memory.h"
-+
-+struct amdgpu_dmem_ctx {
-+	int fd;
-+	amdgpu_device_handle device;
-+	amdgpu_bo_handle *handles;
-+	int max_bo;
-+};
-+
-+static int amdgpu_dmem_init(void **ctx, int fd, int max_bo)
-+{
-+	struct amdgpu_dmem_ctx *actx;
-+	uint32_t major, minor;
-+	int err = -ENOMEM;
-+
-+	actx = malloc(sizeof(*actx));
-+	if (!actx)
-+		return -ENOMEM;
-+
-+	actx->handles = calloc(max_bo, sizeof(actx->handles[0]));
-+	if (!actx->handles)
-+		goto out;
-+
-+	actx->max_bo = max_bo;
-+
-+	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
-+	if (err)
-+		goto out;
-+
-+	*ctx = actx;
-+
-+	return 0;
-+
-+out:
-+	if (actx->handles)
-+		free(actx->handles);
-+	free(actx);
-+
-+	return err;
-+}
-+
-+static void amdgpu_dmem_deinit(void *ctx)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+
-+	amdgpu_device_deinitialize(actx->device);
-+	free(actx->handles);
-+	free(actx);
-+}
-+
-+static int amdgpu_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+	amdgpu_bo_handle handle;
-+	int err;
-+
-+	if (n_bo >= actx->max_bo)
-+		return -ENOMEM;
-+
-+	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
-+				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
-+	if (err)
-+		return err;
-+
-+	actx->handles[n_bo] = handle;
-+
-+	return 0;
-+}
-+
-+static void amdgpu_dmem_free_vram(void *ctx, int n_bo)
-+{
-+	struct amdgpu_dmem_ctx *actx = ctx;
-+	if (n_bo >= actx->max_bo)
-+		return;
-+	if (actx->handles[n_bo])
-+		amdgpu_bo_free(actx->handles[n_bo]);
-+	actx->handles[n_bo] = 0;
-+}
-+
-+const struct igt_dmem_driver amdgpu_dmem_driver = {
-+	.name = "amdgpu",
-+	.get_region_name = amdgpu_cgroup_region_name,
-+	.init = amdgpu_dmem_init,
-+	.deinit = amdgpu_dmem_deinit,
-+	.allocate_vram = amdgpu_dmem_allocate_vram,
-+	.free_vram = amdgpu_dmem_free_vram,
-+};
-diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
-index 2f4a4673ab16..d34c839740a5 100644
---- a/lib/igt_dmem_driver.h
-+++ b/lib/igt_dmem_driver.h
-@@ -20,5 +20,6 @@ struct igt_dmem_driver {
- };
- 
- extern const struct igt_dmem_driver xe_dmem_driver;
-+extern const struct igt_dmem_driver amdgpu_dmem_driver;
- 
- #endif
-diff --git a/lib/meson.build b/lib/meson.build
-index 012802475de0..27177f385ae6 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -199,6 +199,7 @@ if libdrm_amdgpu.found()
- 		'amdgpu/amd_mmd_shared.c',
- 		'amdgpu/amd_jpeg_shared.c',
- 		'amdgpu/amd_utils.c',
-+		'amdgpu/amd_dmem.c',
- 		'amdgpu/amd_vcn_shared.c'
- 	]
- 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
--- 
-2.47.3
+On Thu, Apr 30, 2026 at 12:45:13PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> The <drm/drm_pciids.h> header only defines radeon_PCI_IDS which isn't
+> used in the amdgpu driver. So drop the useless include statement.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
+ibre.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 8b71834a73df..1239fb32311f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -28,7 +28,6 @@
+>  #include <drm/drm_fbdev_ttm.h>
+>  #include <drm/drm_gem.h>
+>  #include <drm/drm_managed.h>
+> -#include <drm/drm_pciids.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/drm_vblank.h>
 
+Patches #2 and #3 of this series was applied, but this one wasn't.
+
+Is this still on someone's radar?
+
+Best regards
+Uwe
+
+--omrg542u6n5yvpy2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpZ/j0ACgkQj4D7WH0S
+/k6UOAgAuvDRmjFRe/c+Yvwalkgkm1V2bTFEO+Y68kvArSjs3tPu91nAVku6dRh3
+k9/kieLXUO8zqnxoGUNzrBt2NvgJiXqs2O18wbCBSuvgHzGS75GnIiqNaa0cC3a/
+Ruf1D5hgtNG/yzx0EhTq9v7xbjnAs5exnJB+mCQtlmIevG+B6NXkyy7Edv/OBkI/
+meLpqDk6cipFwid4f1ENTQ7p9vYirpHKYiFgsQIh2FMsfAw8QfPmOVY2G129eNDO
+WoEIzwQqZgeEp/YrpvL7pEC+l8Ar6NgP+HXetR7Qw6WGYAAGxmXDNhPQ8CI+uYbL
+Lcl/XrLFa8Th1GDQ8vdlul1ohKLb/g==
+=wMWV
+-----END PGP SIGNATURE-----
+
+--omrg542u6n5yvpy2--
