@@ -4,99 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 924C6C4451C
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 14:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59020C4451B
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 16:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA08A10F594;
-	Fri, 17 Jul 2026 14:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B2C10E4BD;
+	Fri, 17 Jul 2026 16:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oxAP8+kG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RelqKIw6";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7606710F594
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 14:55:24 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2cab1f435afso14935195ad.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 07:55:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784300124; cv=none;
- d=google.com; s=arc-20260327;
- b=jRo5BLETtoacDnoSwgMSS+k2ufDwhJBHBNyHNtlxaFiyCAXS8XC+6ufHbV0XxDAaud
- H6kh+Df2A7sNxnp+gUeOwFKQ2weziS02y2IyvU4PZuLB7noxUyzN4HuEtsCX1nrA9sMS
- gMRKiF7QPoyYmwKXwJX+DAmhLSUsxASM8voAOXkX6rUkqZad0RbhqXs5/HR7uhG1kLbb
- 0fAc5xRcNFcSsXxOLqdkS9GBrqGyqLPHjnUaNiRa6wFbGLdQl7BKtXs80X1dBJAGenwp
- aRX0MAkwxXdD8f4bb/E7/3kojwCm4UZPj6Zf9rLCm7myZLKWkQHwwXyLzVt6ddaNEPNw
- NOSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ar+1Hu+PGKB3bctJhS4XtPd2fbL2DABSj6SyXwdhS78=;
- fh=7A/YqYZ/jkw8OyKa1kmAeSpucSljyHmGgfIYC2eInts=;
- b=gOZ8L+vpacrsC6pJZm8GFScK6l3ticU2ZZc5p0sAyyJlHwwVVOoYpxOE64hW7dn37e
- 4lGQ8h4M963eC9L1YWSJh8lu7P0rZLK3dzdX54C4SPFEclTM9b8bMnz4n8ZlTQTIYRhi
- 55rZEQ8KNjzkRViVnYvGXskTCFL8LNjypCRWNvw3TJYwBvVgklqBBELr9ZMwPenJKgA5
- 0N1rRFxNNJZ1L9jetSkU2+Ez1D2wexhovPMzZCoutMmEzd48pQ/7d/SpAOzT8D4r8n1k
- XvWcS3mxX5uhfv9mCeJ4Lm3ZFQGKb0wms4WsKCCnnaJwy1WI9oIlSsQZur7rYXjbi2ug
- L2nw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784300124; x=1784904924; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ar+1Hu+PGKB3bctJhS4XtPd2fbL2DABSj6SyXwdhS78=;
- b=oxAP8+kGWqYwU0IGnUP/MZZ2qRGNxa19JgGWvXJHvYBDxZnpNZqzD3J+ssx7B2aB3F
- oxlFA8qvnpHKqvlg8WXJcH8xKHdDRHt+iAtwEr9GOCWa7KUH2bZ4nksdvgRtSHXhc9wt
- +4b1lOrPZVKhvvs8/5ld6jThyyQf/OZGFcIzT0jCKTNXXgPjXaH26526mvtijzp7eLLH
- CF7W/oYUa8a/AWyOTPREhOEWn5ytcPaFoIfB8JiE/EhQpoacEO8a4CUQxwotXcwz4Jks
- wsHl4khGPUs9QvbHsaeenYjq+4I/Wq2cUILAL7PBqbaMF/eu04/IrSi0KyZeiSDUAIjn
- aXQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784300124; x=1784904924;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ar+1Hu+PGKB3bctJhS4XtPd2fbL2DABSj6SyXwdhS78=;
- b=ftIrOcKuVkrqCGAUsLrbNHYmbKh6HVXmDsfUQANNhgSHBH4VMM0xEZY4VfAlZq6aW/
- uEJYs1DWxJtC6uCmKCixm8vnhDwGSy2ry93HvI5WyQweLGsTX5n1huc1ebuPGSGS3JCr
- 4qitx9LwBz6IQf7QXb4UmUGSiigCr8vGKzdVNLrExnMuaCXRrlXD8nkVXfCzAcFVuLzK
- akpa/Mg1qqrDSd5LlBCIGmEkEm70DFfQFvikhDrNQEe3QQpWa9Jg5g/f4P/lV3ClEYLw
- btjuWG/enHEHeJzBTDNQaIAKTS5F2h3+QxPtByvc4d16D8y3ep5rTdor+ZB2f7HmJ0+I
- WU6w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoYjtTB786cFh5hr1eYSl0lep8JazfWfUoWhzzw6CxZrDgBT2fjwN2j9uBaD6AVvyn2EGqzMitG@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOdKgLwtTEcmv3vxVHBNeXGkNNp4CaoGv1ONAMXp/CnntYtLpr
- wYQmRmECYHTy/RojUDLTQeBinCL6EcUOf4dJWVPrT+Kr0MX2Ui2mb4G2WNB3qQkwW0iYHslwO39
- zFMVDXx92lQC66D63g0ldP4uhe0NaKYs=
-X-Gm-Gg: AfdE7cngZ69dnABU3pgFU9TVxCi9cL32SVCMVwNYDKf7LjJtC5n+sdVs9svr9jvQKWp
- z6cPmJgfLOVOj1aSd8+PlQpjvjQ3EG1vbN+WyspYMMkSMVeWwUqH0nQJazxKv+LopFuyqGe9jeQ
- ASFhlCfDONmytqIDjiPbkbsM1RPUS0Tvl5CZ3bD1hD7gW7F2x9dTGOacc5vwFC/AxGk6m3KdWbA
- oM+2Zseu0YJVl5eNXe/OgbhbKEy2nE9i028QEOGhyUe2x+h9F6ewW+/waRlw3w8OA63I8jGMHZR
- Syy4RmNPHuyBp+quu6gROgCsfPIU0h1lLewTn2RJbyrNlRKR/MLKlMw0H08=
-X-Received: by 2002:a17:902:d4c9:b0:2ca:ecf6:9105 with SMTP id
- d9443c01a7336-2cf3485978amr26279085ad.1.1784300123950; Fri, 17 Jul 2026
- 07:55:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260716152933.6744-1-spasswolf@web.de>
-In-Reply-To: <20260716152933.6744-1-spasswolf@web.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Jul 2026 10:55:11 -0400
-X-Gm-Features: AUfX_mwnPugTm_pl4sjXfiipoM2X5NDIEbYMRhDvStaI7DQRbBnnWEYgh9sQs-I
-Message-ID: <CADnq5_PEN=iuspWbQ9C3gJZ5qJVOLmJ5hrsi6FH0Dg2Y_u2mZQ@mail.gmail.com>
-Subject: Re: warnings from validate_blend_mode_for_alpha_formats() in
- next-20260715
-To: Bert Karwatzki <spasswolf@web.de>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, 
- "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, Alex Hung <alex.hung@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- Leandro Ribeiro <leandro.ribeiro@collabora.com>, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org, 
- Jesse Zhang <jesse.zhang@amd.com>, Amber Lin <Amber.Lin@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010053.outbound.protection.outlook.com [52.101.61.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B547E10F5BE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 16:04:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PinbmK2vceDECBTF/e2LXNUWlwas4Dl8UKuga3itpv15v9hhSJJ4ZAeRHk9pXoQU0EMfemD1ObbLiMEuewjgOlmgcnvpZrgaPFxDORvNLB803LimuBKi8UPmEyU1NCy2u6GZfm9Do7mMYAL7O70Fd6NI1BkiLiZMfQy70W2SLk88Bb/ZlZrKJV+bRQ1qfk2SSrCGt/b8KErF4xosPpi9nUHw3i63U4RLOgQVJXBmGjNawI4PqtBrPfb3HsnVKdjyZvru2xeq3auEzURFHTupY2F/5yUFc6G6nRbWyEYM7GTJ1BdKoItW1L6HYAqpTCzt6pBpuvh14T6NsvkC2HLLlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YMvJGsl4CGrirrVD+rTAtiIo349Qzlvm7y8ElW4muwA=;
+ b=devGexiQwDEFRPmJESxokmtMUwWvnFeWp8e4oV1TOOmnZ65kDsy+WzA2HYrTqnazWG8SLUcFq24/FEPmgL1mHKze10LfdvsUNDfgtTIYChqx5WwipqeWxOxSovqPM/TfmiD0w7J1y8PmRdhSgAyzg46KAHkOnJhUlKs/fzZ9Ot7uV6mtlXhoGn2GoitkxykBa+jCqSD/i/5274vvsiZ/7IQO2X1vkNWVlU/ooi2/ElpsN0ZTP9n7iGLzJlXad/WHVG1xZ+Rtvi13DpZqX8wmpDMsxwzG+eNpLKv/tEG4laNpY9ZjaBTcfaf1Q3L/DoCLTKqIYyloAmwwwpreson3jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YMvJGsl4CGrirrVD+rTAtiIo349Qzlvm7y8ElW4muwA=;
+ b=RelqKIw6ReADFAWRsti3Yv9mEOPSblMkRLTpUWhmA6GQpRYAHpMSjWGZV7U/Wm/J9Q6ul69s4VB5nBUr86ZsHyAoCYzrfPlfYkNCmIAb5pTwdUmkW97aw7XT8fxjHktKdER4g/qwi/N39OQ7bOol/KzfPfwLKK9P0a9ZnnHotGw=
+Received: from SA1PR12MB8600.namprd12.prod.outlook.com (2603:10b6:806:257::19)
+ by DS7PR12MB5813.namprd12.prod.outlook.com (2603:10b6:8:75::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
+ 2026 16:04:27 +0000
+Received: from SA1PR12MB8600.namprd12.prod.outlook.com
+ ([fe80::96bd:d94:4dac:b1d0]) by SA1PR12MB8600.namprd12.prod.outlook.com
+ ([fe80::96bd:d94:4dac:b1d0%5]) with mapi id 15.21.0223.012; Fri, 17 Jul 2026
+ 16:04:27 +0000
+From: "Marioukhine, Vladimir" <Vladimir.Marioukhine@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH v2] drm/amdkfd: fix QID bit leak in pqm_create_queue()
+Thread-Topic: [PATCH v2] drm/amdkfd: fix QID bit leak in pqm_create_queue()
+Thread-Index: AQHc/pvT5ClGBwC5gkq0xEhfw51mGLZyDn0g
+Date: Fri, 17 Jul 2026 16:04:26 +0000
+Message-ID: <SA1PR12MB8600221AFFB709854500D0D59FC62@SA1PR12MB8600.namprd12.prod.outlook.com>
+References: <SA1PR12MB8600B7A9323EB2698E2C20A49FE42@SA1PR12MB8600.namprd12.prod.outlook.com>
+In-Reply-To: <SA1PR12MB8600B7A9323EB2698E2C20A49FE42@SA1PR12MB8600.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-06-17T21:02:26.1860000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR12MB8600:EE_|DS7PR12MB5813:EE_
+x-ms-office365-filtering-correlation-id: 1cbce3e9-f5d9-4719-58fb-08dee41d13c3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|38070700021|56012099006|11063799006|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: qzHXPyd9v7xFOWbgnJCIqzEAl9CZnhCpvyOlWYdvQfWFcrQOUyPdKHiTjQ2cE1wE3eY3sJwYXsHeDn7Sqea1XCAC39Er6DrE87Kj88l32B3vdlGFc7WL1l+iYdjPYPKZd1HP7vQtmbBa2h+HsdBcgujx9bNN4kIGAIOWnLAFTvAexYrjzL5Y9VmlBSzEAGXpItFPYfTXiOFcVbp4xsN3ImF55xO4tcuvq3peEMwi18XwkPMAM/dlxCiSBgW55FMfh1bo0Ve/F32iuWpmxB6oKBF4GpG8Xc0qBFUcKVBthSWWPTZAk5+xMoUHFIEAxjTUfk0QZ40Xo5In26qjK9zNh2L240Il1AC7SpK0KuxFV/hzydzzc5g6fGYDSQ3gjGgQxqeiXZW0tMa2aTO2wCXlFbDNW93V5dwiGdxjuwtAhfeIFuC27m9ih2CGLsm7GxobWENjFD53+0DMePkWxJGu41zDBvxbpbjPi+bgfFCNlqPJEEUNKkXRjovbDGmKuLbu6GVjWN4yJ8ytdSp0o1IGfxbIGqbgm0xBaKDR6vpu+LLWIw+iI8/TnMunqZIzQcqZRQ58B+NeveH9wsjoEGELueC/f8ZKLRY8g3wnLxHCsDqOyPqDtBWtgdHW+2ZHTvrr0XCobvTOn7DoKVeFoZtZCWr2aR7UGJIasV40jJh9iXNLqwbogNfSeSz9Uy3ZnFK3VZoL6SpWTN9df8frcJJvFV8kNqyH59patUXihCy6ISE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB8600.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?s4KM7aL8liQHaprhjbEv/PCpCR59MnuZoG98AMRn0ap91U1t7lyyiLGaac?=
+ =?iso-8859-1?Q?6gob0tkzNHTXHKSHMIYWRY3rEyeDyJ94nEzI8H+KpD30GBe10eU1ar0dXV?=
+ =?iso-8859-1?Q?W1SCsIs7YgHVYmZlq5/vgg8l73SjEi7HGcbUXluLXePA1wu8bY8O6eWxbz?=
+ =?iso-8859-1?Q?11neBtpUEfhW1NTdAFjLb2lrwpPCidhrW4nh0UxehL3X2If3mCY3GGe7yh?=
+ =?iso-8859-1?Q?bejeM+JHHd4YlV6IA4wHDASRam8Zr108wmMAviKP7KC64MBeNrT0agf23V?=
+ =?iso-8859-1?Q?l3kllonlNW/RgagHz6ZdrknFiZ+pJ0GdRQ0rs+KClt/CkiCqTa59+qKkvw?=
+ =?iso-8859-1?Q?vdt8F4i+pwPBh/UKE4q5M777JlMKVNA917PIilvtdlsE59+5wYpIENSpLE?=
+ =?iso-8859-1?Q?A1SkRIGLkEgUgQInPZLZc1BXs7wfdIaLP0W9MGcJPoD7zKMpijTc0muKBa?=
+ =?iso-8859-1?Q?yCeGHvCmDpIRJNY9Fj73A9snUto1r645DxCERlpz+QdDE2U6U3kyShwWtb?=
+ =?iso-8859-1?Q?SsokwvNiCgDAM9A2p/tRG1h+TwJHUXJbGX5EqK+atABt44e6/NcSImBACv?=
+ =?iso-8859-1?Q?IJ06RYXnLOcrcJFfZQEQwhXAN4wZhBUz0Vb+ItKPDVgtY6BlJO+FR8XBsj?=
+ =?iso-8859-1?Q?0ia6U5euT4msUR2iwWSnNbTwv94qxiPHNC1vm7vDCfZyfU7qkPqAr1Bixr?=
+ =?iso-8859-1?Q?tzeWLDaDaptuVzKoBzKUNsJxiJMeJiNr1Td47IJp8506g8DBzgs3XjFwjx?=
+ =?iso-8859-1?Q?9dvkMqSvN3tsgnPplGMQmofZdFFvC4mF3Kxrq70x7RRyf9orbjp4+E3sHi?=
+ =?iso-8859-1?Q?r8+9xIG+eFWpdHYRFqR5WaTgTIz3lf43/emfv4mpU9ER1zfi0VxQ5nPYyx?=
+ =?iso-8859-1?Q?c8HvWvqglRcZgfTt3VUH4ejhrx/7mHQeur0pTSiOgTSJ19WBg8auNCya4Z?=
+ =?iso-8859-1?Q?N5W7YB51hZlOPjWuanxqxp/GYmJKKgDEqa4WFirX448x/pCvM1SB12JkhM?=
+ =?iso-8859-1?Q?aNG2i3eCS6AcH7ByhnaChmH+qXUYTdJy3KCaRVKZ15Sa+5vL/sFwJfsMAP?=
+ =?iso-8859-1?Q?v6jWYEyydwOQA3R1UWv4qW7XI3p2PlaIQBO2jsdZptI1il9dkwzubHrPcl?=
+ =?iso-8859-1?Q?cM6R+SAABtEf0wDv+xOQ5rFRsrMBu8xxBqD37x0NaG3L9U5rcD8jnsAXeO?=
+ =?iso-8859-1?Q?gzVc96TEdXx3B8oLaQYgq8JHecPy0yLA2gJ9mzAVp/DVaS1d6QfpIrHBe+?=
+ =?iso-8859-1?Q?hX9mQtTqBeoYOHy7q5XC3U94hSY+kO68des9AcE6trVUUlijpmHwbgcbob?=
+ =?iso-8859-1?Q?gB92IxwWg+vhRlxwfIB6GXMusgA/ZQmahdohH+YHW2WWu1iG+S2Xc0vWND?=
+ =?iso-8859-1?Q?uxxhdSn5JS/zOx7go9oWuaF/ALas8mv2GTa+MHYe7eu3G3ZdCx8933cffb?=
+ =?iso-8859-1?Q?rwmkcR1E6oogZ/NqTTAiUDW7gi/Kya1pOrnkwsy4kiF9Fja9yKs+EsgeSD?=
+ =?iso-8859-1?Q?PDRMnRAz/M+c6Yxxz+Vam9gnkzIxoi0G7IqPDcUZTXEjAWlQvf7qbEUXst?=
+ =?iso-8859-1?Q?yXPv2ahcrrtLeQuYvlJo42NhH6nIr7deGYR5TYCfXARs4zkgzBil42xLQu?=
+ =?iso-8859-1?Q?zaYJbdx6KvxH8S+3bO3tJyuDGKzSvaoTlmpRs9ZzyTrgyjvWNyF18njdAT?=
+ =?iso-8859-1?Q?0v5n02RZ/hLH3kw/zQDP036EMCY6SqqyxoLQT5xyfqiI6PEgtr8Url1gPX?=
+ =?iso-8859-1?Q?iT1IzMLzdKByBARv+uUd2DtY3LHUJMHVgFlPKJbBtVrCEU?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8600.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cbce3e9-f5d9-4719-58fb-08dee41d13c3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2026 16:04:26.9385 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: geQPye6E4YTOUTvwxbigkESE8oYuzU78EHZt6JqV5O2d4JrCYRZ+7rozLEptzpbGoI+5A6RLBu1/f+bJiyyk7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5813
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,42 +131,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Some display folks
+AMD General
 
-On Fri, Jul 17, 2026 at 9:04=E2=80=AFAM Bert Karwatzki <spasswolf@web.de> w=
-rote:
->
-> commit 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
-th alpha exposed")
-> introduces validate_blend_mode_for_alpha_formats() which prints warnings =
-for amdpgu as
-> amdgpu only set blend_mode_property for planes of type DRM_PLANE_TYPE_OVE=
-RLAY. I tried to fix
-> this by removing he (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) check in =
-amdgpu_dm_plane_init():
->
->         printk(KERN_INFO "%s: plane=3D%px plane->type=3D0x%x plane_cap=3D=
-%px\n", __func__, plane, plane->type, plane_cap);
->         if (plane_cap)
->                 printk(KERN_INFO "%s: per_pixel_alpha =3D%u\n", __func__,=
- plane_cap->per_pixel_alpha);
->         if (plane_cap && plane_cap->per_pixel_alpha) {
->                 unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NONE=
-) |
->                                           BIT(DRM_MODE_BLEND_PREMULTI) |
->                                           BIT(DRM_MODE_BLEND_COVERAGE);
->
->                 printk(KERN_INFO "%s: creating alpha and blend mode prope=
-rties for plane %px\n", __func__, plane);
->                 drm_plane_create_alpha_property(plane);
->                 drm_plane_create_blend_mode_property(plane, blend_caps);
->         }
->
-> But this does not completely silence the warnings becuase for planes of t=
-ype DRM_PLANE_TYPE_CURSOR plane_cap is NULL.
-> Is this a problem that should be fixed in amdgpu or is should validate_bl=
-end_mode_for_alpha_formats() only be called
-> for planes of certain types?
->
-> Bert Karwatzki
->
+Ping,
+
+Can I get a review on this change please?
+
+Kind regards,
+Vladimir
+
+-----Original Message-----
+From: Marioukhine, Vladimir
+Sent: Wednesday, June 17, 2026 5:02 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH v2] drm/amdkfd: fix QID bit leak in pqm_create_queue()
+
+When MES is enabled and amdgpu_amdkfd_alloc_kernel_mem() fails during the f=
+irst queue creation for a process, pqm_create_queue() returns early via 're=
+turn retval' without going through the err_create_queue cleanup label.
+
+This means clear_bit(*qid, pqm->queue_slot_bitmap) is never called, leaving=
+ the reserved QID bit permanently set in queue_slot_bitmap.
+Over time this leaks QID slots, potentially exhausting all available queue =
+slots.
+
+Fix this by replacing 'return retval' with 'goto err_create_queue'
+so that clear_bit() is always called on the error path.
+
+Fixes: AILIKFD-813
+Reported-by: Deucher, Alexander <alexander.deucher@amd.com>
+Signed-off-by: Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>
+
+Changes in v2:
+- Fixed author name format to First Last order (suggested by A. Deucher)
+- Removed incorrect attachments from mailing list submission
+
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 1234567..abcdefg 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -378,7 +378,7 @@
+                                                     false);
+                if (retval) {
+                        dev_err(dev->adev->dev, "failed to allocate process=
+ context bo\n");
+-                       return retval;
++                       goto err_create_queue;
+                }
+                memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
+        }
+--
+2.34.1
