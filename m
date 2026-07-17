@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF40C44526
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDFDC44525
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF65A10F55D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 890CD10F55C;
 	Fri, 17 Jul 2026 12:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ffLZuGli";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="IIZbWGJu";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9E4210E59B;
- Fri, 17 Jul 2026 12:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=UZZZIyK2AovRwfjZ0N/6ajWt/Sn0YJbtCsW3Hgfz5Kw=; b=ffLZuGlifFHz9ix2FmdwQi7+o0
- BiMzeQ/ZrZwgDfkDvpRBDE9s8lYUIgv3z3WYLxU7Cpz2Otk7EW8GROMsyZ8hQyG04Hfr5Uah2MatN
- YU8srfUkJwOZvhOwMEMfi/F5N6HrF0P8nkMkfrwCprbLt/pC7nx/2GuAuO31+C0BGr4UlplvqNJdC
- cb2G1vqXYm2kFyIWIC6DksesnzrLCL3gYf/p7+vTyXpyRjYv/qVxVvy+QCSMZn3/4Nvo/35pqvUBb
- dfglIy+z51+H6P4CUu6nUk4uA5wUF9IYDmw3kBqTvsFEAkHMFtMJm5BduyyPmn/4fK2SzV0SToxWZ
- Avjz6Ojw==;
-Received: from 179-125-86-98-dinamico.pombonet.net.br ([179.125.86.98]
- helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wkhJe-00GPAm-Ir; Fri, 17 Jul 2026 14:05:18 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v4 2/7] tests/cgroup_dmem: add dmem cgroup controller
- test
-Date: Fri, 17 Jul 2026 09:04:42 -0300
-Message-ID: <20260717120447.1837818-3-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260717120447.1837818-1-cascardo@igalia.com>
-References: <20260717120447.1837818-1-cascardo@igalia.com>
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com
+ [101.71.155.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4916210E50D;
+ Fri, 17 Jul 2026 03:35:40 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 46879f81a;
+ Fri, 17 Jul 2026 11:30:33 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: christian.koenig@amd.com,
+	alexander.deucher@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, kevinyang.wang@amd.com,
+ kenneth.feng@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn
+Subject: [RFC PATCH v2 5/5] drm/amdgpu/mes: reset full 64-bit wptr in queue
+ init
+Date: Fri, 17 Jul 2026 11:30:09 +0800
+Message-Id: <20260717033009.649538-6-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
+References: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f6e203b5403a1kunm4f30d1372211f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSRgfVh5PTB9JSRlMHx4fTVYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=IIZbWGJuumWibbF6WTwXarDaWRSfi7dFCAw8UYm56FeJ+4P9HKXrKaUaEsq7rWxgA5zjDkaM7DqN4E43LI2dIxrtaFjF5b3Yd6lzRhZQW0m1NcJ32U+YpYFvX2P/JUM0e8GE6PM+B4omGj3Zv3eVqFoKrKXLDSuS64PP0h0YGd4=;
+ s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
+ bh=D8BPlwy/yKNUW+N2/wdpgefyrg1G/2dIU/LMcGXI7iY=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Fri, 17 Jul 2026 12:57:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,136 +61,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+mes_v11_0_queue_init(), mes_v12_0_queue_init(), and
+mes_v12_1_queue_init() clear wptr_cpu_addr in their reset/suspend paths
+before reinitializing the MES queue.
 
-Add a test that exercises the cgroup v2 dmem controller interface using
-the new igt_cgroup library.
+Those MES rings otherwise use the same writeback slot as a 64-bit wptr
+carrier. Clearing it through a 32-bit access resets only the low 32 bits
+and can leave stale high 32 bits behind, so the reset path does not
+necessarily produce a fully zeroed 64-bit wptr state.
 
-The test uses igt_simple_main and:
-  - Skips if no dmem regions are registered (no cgroup v2 or no
-   dmem-capable device).
-  - Creates a sub-cgroup and moves the test process into it.
-  - Enumerates all registered device memory regions and prints their
-   capacity, system-wide current usage, per-cgroup current usage, and
-   configured min, low and max limits.
-  - Destroys the cgroup on completion.
+Use the typed 64-bit writeback helper for the MES wptr reset so the full
+carrier is cleared in all three queue-init paths.
 
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++
- tests/meson.build   |  1 +
- 2 files changed, 93 insertions(+)
- create mode 100644 tests/cgroup_dmem.c
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-new file mode 100644
-index 000000000000..442c965f9bbf
---- /dev/null
-+++ b/tests/cgroup_dmem.c
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+/**
-+ * TEST: cgroup dmem
-+ * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
-+ *              cgroup, moves the process into it, enumerates all dmem regions,
-+ *              prints their capacity, system-wide current usage, per-cgroup
-+ *              current usage and configured limits, then destroys the cgroup.
-+ * Category: Core
-+ * Mega feature: General Core features
-+ * Sub-category: uapi
-+ * Functionality: cgroup
-+ * Feature: dmem
-+ * Test category: uapi
-+ */
-+
-+#include <inttypes.h>
-+
-+#include "igt.h"
-+#include "igt_cgroup.h"
-+
-+IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
-+
-+static void fmt_bytes(uint64_t v, char *buf, size_t len)
-+{
-+	if (v == IGT_CGROUP_DMEM_MAX)
-+		snprintf(buf, len, "max");
-+	else
-+		snprintf(buf, len, "%" PRIu64, v);
-+}
-+
-+int igt_simple_main()
-+{
-+	struct igt_cgroup *cg;
-+	const char *region;
-+	char **regions;
-+	uint64_t capacity, sys_current, cg_current, min, low, max;
-+	char cap_s[32], sys_s[32], cg_s[32];
-+	char min_s[32], low_s[32], max_s[32];
-+	int i;
-+
-+	igt_require_f(igt_cgroup_dmem_available(),
-+		      "No dmem regions found; is cgroup v2 with the "
-+		      "dmem controller available?\n");
-+
-+	cg = igt_cgroup_new("igt-cgroup-dmem-test");
-+	igt_assert_f(cg, "Failed to create cgroup\n");
-+
-+	igt_cgroup_move_current(cg);
-+
-+	regions = igt_cgroup_dmem_regions();
-+	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
-+
-+	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+		 "region", "capacity", "system-current",
-+		 "cgroup-current", "min", "low", "max");
-+	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+		 "------", "--------", "--------------",
-+		 "--------------", "---", "---", "---");
-+
-+	for (i = 0; regions[i]; i++) {
-+		region = regions[i];
-+
-+		igt_cgroup_dmem_get_capacity(region, &capacity);
-+		fmt_bytes(capacity, cap_s, sizeof(cap_s));
-+
-+		igt_cgroup_dmem_get_system_current(region, &sys_current);
-+		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
-+
-+		igt_cgroup_dmem_get_current(cg, region, &cg_current);
-+		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
-+
-+		igt_cgroup_dmem_get_min(cg, region, &min);
-+		fmt_bytes(min, min_s, sizeof(min_s));
-+
-+		igt_cgroup_dmem_get_low(cg, region, &low);
-+		fmt_bytes(low, low_s, sizeof(low_s));
-+
-+		igt_cgroup_dmem_get_max(cg, region, &max);
-+		fmt_bytes(max, max_s, sizeof(max_s));
-+
-+		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
-+			 region, cap_s, sys_s, cg_s,
-+			 min_s, low_s, max_s);
-+	}
-+
-+	igt_cgroup_dmem_regions_free(regions);
-+	igt_cgroup_free(cg);
-+}
-diff --git a/tests/meson.build b/tests/meson.build
-index 9c266569df25..880f6f5410ba 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -1,4 +1,5 @@
- test_progs = [
-+	'cgroup_dmem',
- 	'core_auth',
- 	'core_debugfs',
- 	'core_getclient',
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 46f6dfd77..2d5baed0c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1307,8 +1307,8 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
+ 
+ 	if ((pipe == AMDGPU_MES_SCHED_PIPE) &&
+ 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
+-		*(ring->wptr_cpu_addr) = 0;
+-		*(ring->rptr_cpu_addr) = 0;
++		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
++		amdgpu_ring_wb_write32(ring->rptr_cpu_addr, 0);
+ 		amdgpu_ring_clear_ring(ring);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index fb6f34b06..b397f1816 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -1475,8 +1475,8 @@ static int mes_v12_0_queue_init(struct amdgpu_device *adev,
+ 
+ 	if ((adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) &&
+ 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
+-		*(ring->wptr_cpu_addr) = 0;
+-		*(ring->rptr_cpu_addr) = 0;
++		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
++		amdgpu_ring_wb_write32(ring->rptr_cpu_addr, 0);
+ 		amdgpu_ring_clear_ring(ring);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+index b00b65090..34edb98ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -1451,8 +1451,8 @@ static int mes_v12_1_queue_init(struct amdgpu_device *adev,
+ 
+ 	if ((adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) &&
+ 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
+-		*(ring->wptr_cpu_addr) = 0;
+-		*(ring->rptr_cpu_addr) = 0;
++		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
++		amdgpu_ring_wb_write32(ring->rptr_cpu_addr, 0);
+ 		amdgpu_ring_clear_ring(ring);
+ 	}
+ 
 -- 
-2.47.3
+2.34.1
 
