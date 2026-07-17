@@ -4,122 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E15C44514
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 08:06:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA5F1C44514
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 08:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 756DB10F49B;
-	Fri, 17 Jul 2026 08:06:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E5610E436;
+	Fri, 17 Jul 2026 08:54:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ieXsP1Bx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z9kKFrYo";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010038.outbound.protection.outlook.com
- [52.101.193.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A361510F49B
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 08:06:54 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012031.outbound.protection.outlook.com [52.101.48.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EACC10E436
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 08:54:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kIb17hErsrypAewt5B54+pTk7TntyOZ835jL6kTR1RrbP+VgrGNC5a2/ZEtTm2t5xib2bNndCCna9VrPSgL6LbW1Zac8qct2xLpRKxLUmsmzj4e2MX22slflxASPiiJl267QcSJ4nbjsLS1SBK45gIU48Z/rQDD58woCovmDXhalTRYdD2PViemVeDkgO18W44GcYqMHvFaRbRVd2K+wOWa7nD2/JfwRw+GV68nme2760JGmNuoRwy1wftXV6jtHuJdPNUPICdkmpj83Z88Zi3q29lOrmeKEVftury4JXy/A8RLiUBw2GW6vQka3RLdIOqeoFnx9JWjgP3QObcioog==
+ b=HTyOcHmEeR9XjaeJfExCZfVF9vjxXh1niI13JgHMrDI42C/4oTszMxmCyS1mWduIi/OBHyU9B9LbzBgjVpECw8vc1FK4+2Af0DDX1/DSNwraB/ZvqSwb7ylR343bpXVvzKd9x4M3Nhg0nWrYDzF1lQm7DPQygCLxLiqDlxXdohjsCun1LHMhjbWy8rjWXsZ2xJgY3MrcuHg/Wmlkbl4sPHLpcNfErGYYm6QmQsH6abi0/Yw0Bd59650HEg06j83FNHqYkOa4eXHrdmrdgHda4ugVZrxGqyOUTTC8TKxk6R25fJYoRJdI61jEGQaK6byrK6lu8l/KAXgkSCs0SSpuqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+kt/m4oH8g6l9tJJ3tExo4YEuPK0DsQqZbMnC9FbkEA=;
- b=DfRpiFgLNc6UI+sJqL/fDe2KuIAynvzOJ0LTjwwbwSWcLc+1EOLe09aQ02WfR1n93GrkvAtlm43DwXTZE44qKhs5CBcFZajhwUKRHXcsqeEj4Z0kg3vXb/OLWrRm17VwzQdyg67gbGoqZlGR7VnnbvBHVXiIUxFeKXqcMEBnWXNNR+k48+edvo3it0Ldr5Z0bRxSzhTuZV6pUw1lAumhjuEdq5KmE73sHgOY+GeW03UbhSWp1sCxSDTZXlE4RBfDasPvwWBm1pOfwSqpEJNH95cNRIiE3jF+pnqEkzja5wdqyqtOH7YWM3BjX7FoPLUabXDFGRpEMgHa9WGJZnhw3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=LfgWBHMYX53Ky6NZO7/W93U7x/wXFu7F830RQofXJEs=;
+ b=xZHKdkCXoAzkP0vJBCaJo5EqeKzRtyWJ9AF5zHONMCK1JyePXhAXV8265G0WPON/nGxTTi/HzuVrlJVW3Qnq6DIVN+eUYBiWWYV4jIk9zpIPZpgFypdqdxT9+cub6pdcI1ZF7Qcv40cFqKttwqM1Iw2z2/doKFo7cLYKXBsn8ylUTHFUyhlhmlavpCXAGssEhp97ENQWhayMqfvHfoWl5ffG4XYqdLkwInEUdYpGwsMgV/82oAbTctRUEvLUeuyxBGT7ox6SOPbgJYf9i5P7100tF7I5nCXxrIcxZKkiQSB5roKrBX9AvqMHq1iF6gYXppMzEd180DSClmsCf6Av7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+kt/m4oH8g6l9tJJ3tExo4YEuPK0DsQqZbMnC9FbkEA=;
- b=ieXsP1Bxp8wxbYsVWj9i+BR0BxOWapApah/i4hzIKDca4QkUP1W0wu2ySvQ38T82w8gp7/0K304hEV6VD7tS216AdBpWBdKaA/hthmM6DtYO6YAoXSjDlrav+juYlIWoCPOvXWo0/XfXTUJla00aflQWGTrKKJVQeRlVyGhWm6w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB6141.namprd12.prod.outlook.com (2603:10b6:8:9b::15) with
+ bh=LfgWBHMYX53Ky6NZO7/W93U7x/wXFu7F830RQofXJEs=;
+ b=Z9kKFrYobbb8jkWgr/P1ltHhmB+iDsgT4MKViv2tDj90kSLxR/xp7mNuNpwfe1HScZP6oaoUMIPZ+WqIgkpo9neFOWgujjg9FqC0ensGI0cBOK9Ah+MFmmH3gBucypjtUJSxoNBe+MxrURj888NMNO1qt4EPLR0j2NICOUvHE0M=
+Received: from BL1P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::15)
+ by CY8PR12MB7612.namprd12.prod.outlook.com (2603:10b6:930:9c::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 08:06:51 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
- 08:06:51 +0000
-Message-ID: <fb70da66-351b-4e12-ad2a-6835f8360202@amd.com>
-Date: Fri, 17 Jul 2026 10:06:47 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix userq page count in input_validate
-To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com
-Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260717022550.6549-1-lingshan.zhu@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260717022550.6549-1-lingshan.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0087.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Fri, 17 Jul
+ 2026 08:54:37 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::42) by BL1P221CA0004.outlook.office365.com
+ (2603:10b6:208:2c5::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.11 via Frontend Transport; Fri,
+ 17 Jul 2026 08:54:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Fri, 17 Jul 2026 08:54:36 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
+ 2026 03:54:31 -0500
+Received: from shikangserver.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 17 Jul 2026 03:54:29 -0500
+From: Shikang Fan <shikang.fan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Philip.Yang@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <felix.kuehling@amd.com>, Shikang Fan
+ <shikang.fan@amd.com>
+Subject: [PATCH v2] drm/amdkfd: save/restore MQD across hibernation when MQD
+ is in VRAM
+Date: Fri, 17 Jul 2026 16:53:57 +0800
+Message-ID: <20260717085357.41610-1-shikang.fan@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260715103056.3529178-1-shikang.fan@amd.com>
+References: <20260715103056.3529178-1-shikang.fan@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB6141:EE_
-X-MS-Office365-Filtering-Correlation-Id: 885af3b8-d238-4dac-f8a4-08dee3da5b9e
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|CY8PR12MB7612:EE_
+X-MS-Office365-Filtering-Correlation-Id: 532edb66-de83-44d1-0b8d-08dee3e1078c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 4IDLN4JjUOSY4MCifvoAXCCUIK4aiTAXMkUprznxpnW6+K/3iQdIUQXQ4m2ulUcxY2cjnWuI0yo8r9uPGXGoA3IgGLQIs2bAWOKijNBr6SSo/maOvax/kPehgbgPhn3bw16aA7GOxtHI0Nm9DjSBz146ynh3wBwoedzttBYix1oRA2HwVp5F1dOC0tMEynQeVk0aNwbNcERQ/zugn4Cp7fgcTjVXSzRaUILRth5/sjVFaxa9jvw7HJFMv1SG6i1xPrc/jFlBP3eZDosKGqVyX8VaFQaQz1+JEEVMtkWOl9VNk2kJD9tnlcXgj/ZKA6foZmy0Nq5W7nqe/FP2WRgG0+0f8PQn72GWaTE8Uq/TlzeEORj3++J4xxaHF26Bv+WTT9J8TRYqb2YmYeBjCP8DUSqM/CTQbKmffV6dLZ6NT7Aj9xDWZugSspbFmh5zwzzeIpKMZV56d56/Da4KrfQuzYi41q+Olhsv+iosDRcbplfuXFYmpYl1slURF7nbC8Ue/53AolQYdDm6y8ZweIvorbXc3hbbqI/Az1Dg7x+RK6KgXpO0MMMKkTHB9kIz/vH7BDfEa1NH2NypaSZPSkDKtCgXNxW0NMnMu8XOQnuv/w0qhAeFGz4uOeQ3VXp4bkzryCkv45hIl8bquVIPZZAn9/CN/BXlo1uigIHyc/xCCto=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006);
+ ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|18002099003|22082099003|11063799006|5023799004|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: Mh0EJIoBe9pjWXM/UciSMisE3Ci+5NpplCmBVvRbu6kFt7MCYUzblKIuuBqGFA9LtDyTgTkVnUctIMwcXhDWrlHTKHWo6Jua2ciQXLr25mz9of4NeFAdMlb6IA0NqUCGmPDmJfeCoZQlqLknbgCI//xHm8HV+2sYX4dJVu6fGgyL96bioJ+d9tFbgUny0SMs8zQV4Ga+Hx6pRzDBqWMu2TcjEdUb+LDg2hNRW/RzwR/bc9j0f7Yl1GiBSIc4Od879voZpOJ65Pp3bFQgCu4XlWvzwBvG+TFbHs8Bg8qkgDg5sAzKeoT+3EEg3xFLz5vgmSV3GZ2AAWEuBlUadsnrIb6rDS8wlg26hBgKwyRYXffb9DitbBsn5DeLCxtpPLbYc2ToPbamDOEolXk47RiDaQU2XXr0rM2LbsI/gPT3HyxLUPwHZ3eZNSKHd6PAQyITN11pe/t1dfsrLzzCp8KgF02ZyxX+SjORpAs5G/TNAQTgPDNnLVK3KzDyhZGJLoCCz6WUOZi40rBI2Qgm1e2LD9Ru3YPjUQ/4iMUnoWLFhsptFDFc/Hpms8Im53xx6c3QNr4a8TWs/JvvuocOp6soZFtR9ZkKemteIH3bYwGDgA0+ClO8dU1srRVyxAdTIX55b5bBKkvcGhR6FS7dIXwtnhdo0dINRhDBABVYi2M+kNwGd+/832IEjBuLUNLJmXHMkigd6CU4s7WR4DdTIv0DnQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(5023799004)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm1BVDZrU0RxT1JKTVZUQ0t4Sm1PK2ZQcjExTExPTUhycVlWV2E3ZTB0eGFY?=
- =?utf-8?B?YjNuMzR4NmtTTzFSY2RlM0JLRlpqWlZZa0N5d09ON253aHlvYklxa0xhQ28y?=
- =?utf-8?B?THJWMTExby9qREp5d1JQRjNhUHc4ZVZydWJhZjdPZGhkNTFLNmNJekJHc0tQ?=
- =?utf-8?B?aFdncSt2d1Z1cUk0cnpGWFlTdlR3YWp3Q1hUM0hFWUd1djl6M0lqcWxJT3Va?=
- =?utf-8?B?NzQ3dnd1VjViRmp5amFVNTFQaldGc3Y0emhNQzZvYmU1Rk5FaXNUNE5UQ3dq?=
- =?utf-8?B?WWVWQkt1N1RMNDhUTElRTS8ybFFkM1lVMjZnMEVzaEwrK1VtdmlHemFXL2Fi?=
- =?utf-8?B?YnUwV2E2Z3FPSEgrK0IyVEhSYlFaTVptN3A2TUZxWGpVNXNMc1B6Qi9xMFh6?=
- =?utf-8?B?TEF2M1hiTWJtcEJ0M2FBakt1TktiZEt3R3IxaVE1a2Nxcm52dzNLZm9zSmdw?=
- =?utf-8?B?QmtzTGFGdHpDenRJeUNoWjNnaFFDNDlkR3kwNXB4Y3A5anA0TUVQMEdoc25O?=
- =?utf-8?B?cEhDbW1qV3UyN1FBZ2pXUE5lNStKamlCYlpiNHRWeW54WktldmQ0bVdmN3hz?=
- =?utf-8?B?SUQ2akFuVHlGZjdCNmY2UzdHd09SRE5ETGI4cjlJNzhrWXdkY0ozUm1VTG4y?=
- =?utf-8?B?R1RLekxnNWRkWDFjUytoa3orNzJGOEU1QlByQVFmSGMwVTU3MUdxUzZzZjJW?=
- =?utf-8?B?Um1XVmluTWtMeG8vbFNpQmprQTdKUEQ4eWRma2oySFBUVTNVUFRPWVI2Ymk1?=
- =?utf-8?B?bERCTUVha1BLVHVvZFE0RkphQVpqZHVWbW9rSnpoUXFTOUFFV0dwTUFLMklV?=
- =?utf-8?B?eTdibFdxZ2NTODZ4czQrV2t1dTNRbGxTQ0RoaEZwRjdiWnpidXU2bmxBZm5G?=
- =?utf-8?B?a2pqTE9zazdVTHZvWmdFMWJSTDBwaU0venBQaGgxelBNTlZvdkc0bm9aSzY4?=
- =?utf-8?B?SVhVMk15MFVoYTBHb3FpSEp2WG82WTYrMlFVZ2hEMWxJUkxYVktzL0taMTFR?=
- =?utf-8?B?MGtneXlPZ3lnQjVoQldlOUdtdkQ5YVVLSGMwYW5xM1BYOTg0WXFQQyt6bUJW?=
- =?utf-8?B?dDNFYUVTdVBNZ2VZc1FWbFZ4RDl5LzY5Wmpybm5OMEVkQ2t3OHFINnhydTJw?=
- =?utf-8?B?ZVdMMVh4S2FkMlAvaDJMeTEwSHRRZUFXcmxOSnoxVitpYXhCTmd6SFhWS0U3?=
- =?utf-8?B?bzAvYmdVTHh2ZDMreGVpam81T1k2cDBTbWRGUDYvaGJRQnVoY29pMEpFUzVi?=
- =?utf-8?B?Q3d1SEJPUzM2N01INUhVZ3ZmR3NocFFXcEZVclk3Y1kvRVhFUGFmQWpNaCsr?=
- =?utf-8?B?UXIwa2tYNXZqWnBMRGRDc2JQV2ZtSGYwcDFJQUZGaUlXSDZqeXB0OVVBUDVJ?=
- =?utf-8?B?NkFHclFwOEVNbnpwQ0YrWmQxa1B2ZmE1WHN6c3B5b1lWUGt3V3Y2MzVIRkZq?=
- =?utf-8?B?MWJVVjdmNGtLNlpqWlpkWVg2aENsUmpHNWVuZ3BIL3ZSN2RlenhBaU1UR0Uw?=
- =?utf-8?B?RjFXYUNVdXFLMHJ4TVI0THEvc3QzdXQ3Q1l2dGlDZldMbmxjTnQxZ2YzU2VF?=
- =?utf-8?B?R0pJYWRqZE40SVlXWFZ5U2hIdm83WXQ2VUx2elhzS1pXeXpOVFN6MGlKVnpV?=
- =?utf-8?B?M3FHc2p6YlZxa3RUZG94ZzNLSkMrV01DSkhKSXJlMFd5WHROQ1pOd3pmeHF3?=
- =?utf-8?B?ZDAyNWtFWmNJd09LKzFoKzd4MmxDUXZGUTRRU0s5ZzZMdGJBa05lT0hpZG5K?=
- =?utf-8?B?aWk3MFhMcmRBUk16dEtzeE51aTk3bEhoY0dWUU41WldPNU1SbzdsTU9zY0hq?=
- =?utf-8?B?ZXp6bzhYcWdwVm1oTXRsTk5iQTBRdzNBWW5IZk1oMEZxbXN4VmJSS3NLRWxJ?=
- =?utf-8?B?V2J6MDB0TTFvL0FISWlUcDJFL2JpalJTM0xFbU9FZ1NqZWxnOWlEVXJRRlRu?=
- =?utf-8?B?WkROd1NyMkxPOTcvaGZBNkc3TDhLcjRQUXYyRG5vM2pRL2t3cVdoRlZ3b2lM?=
- =?utf-8?B?dDVQL1IrSXl5U1ZicTBMdzg5T3RBdlRWd0tkRUN6VkNvQlQvemRuNjdxNWVW?=
- =?utf-8?B?U2ovdVNRNHpxVythUE5CdStRc3VqNU1UeDlNRGxReTN5Y3BxV1lQNkN0Tlcr?=
- =?utf-8?B?cmlIUCtlc1pCTXhCMFh4NkE3RW1pT2JBZlJXeVNxRGIxbU5mSU9jeEVsQkpn?=
- =?utf-8?B?MGJlcGpUaTl6REhOc3gwQjd4RmZ0ZEFSU21SK1NkUEhCYTFWL1lJdURxeGg1?=
- =?utf-8?B?cXltaHI3VS8xODZXTlBrRXFOYjVTWlpncUwzYndKMDh3Zk4zTTFBV045R1pk?=
- =?utf-8?Q?Xq6e9rGuAqT6CmyL6j?=
+X-MS-Exchange-AntiSpam-MessageData-0: C0JUq52jYNEj3C0sY7Cg51fmDc1GTot/D8DIVlUEAySq5AIxZvuT1nbz3dW/B0QZIjX5gBKaNQU3E85wg858Ri9anR6uj+LEU4YyG2qMABNP9H+Uw8KWZhrJ6bS+WLsmUgF65bIHNRU6BBgOEeHGxlsefHLLSyACFTmzTxiuUkUlvOHXDwP5aKdjSObymLQuQu5ydYTLEtcgzSpZj2Mg3evE+LyU6cnf1VQ0orECpiU/qsiNIwaPCZMG2u2VrbeMkgCCc8Kx0BpDIfkYtFpXq8jxNNx8nbddHhP9bBwGQHSrUNciMouWSfsLy9m9/lynm/Tn8e1BFE2OedLx826qDEPMFoPi3/pR43w8D81tPnnWRw7FXebWlZpLQ5DJ2nzn7wstdMM7u9jA7Oxp5CElen3ehhLFizGJgqt6a8ow10KiOKZSMAgqvEIoIzMWrDkL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 885af3b8-d238-4dac-f8a4-08dee3da5b9e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 08:06:51.5840 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 08:54:36.6534 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 532edb66-de83-44d1-0b8d-08dee3e1078c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 55d0SaFmz0dpXn+cC+v4i7LTJ1T64UpuWbzI+LMG7TypPhFGgfaJOnKbjNcUxdTu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6141
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7612
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,70 +112,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On gfx942/944 and gfx9.5.0, KFD compute-queue MQDs live in a pinned VRAM
+BO (mqd_on_vram()). Pinned VRAM is skipped by TTM eviction and not saved
+across S4 hibernation, so the MQD is garbage on resume and the first
+submission faults. Save it to a system-RAM shadow at suspend and restore
+it on resume, reusing the CRIU checkpoint_mqd/restore_mqd primitives.
 
+v2:
+ - Also snapshot the MQD when a process is already runtime-evicted at
+   hibernation start. The qpd->evicted refcount early-return previously
+   skipped the save loop, losing the MQD across the VRAM wipe (both the
+   cpsch and nocpsch evict paths).
 
-On 7/17/26 04:25, Zhu Lingshan wrote:
-> amdgpu_userq_input_va_validate() converts userq
-> expected_size to page count by right shift.
-> 
-> This undercounts va buffers that less than a page.
-> For example, in the AMDGPU_HW_IP_COMPUTE userq
-> creation case, the expected_size 2048,
-> so size(page count) becomes zero page and the
-> "va_map->last - user_addr + 1 >= size" is always true
-> once the start addr locates in the va_map mapping.
-> 
-> A similar case is AMDGPU_HW_IP_DMA, where expected_size is 32.
-> 
-> This commit calculates a proper page count by subtracting
-> the start_addr and end_addr in pages.
-> 
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 969f49592450..f9f11bdf2cef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -25,6 +25,7 @@
->  #include <drm/drm_auth.h>
->  #include <drm/drm_exec.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/overflow.h>
->  #include <drm/drm_drv.h>
->  
->  #include "amdgpu.h"
-> @@ -238,14 +239,21 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
->  {
->  	struct amdgpu_bo_va_mapping *va_map;
->  	struct amdgpu_vm *vm = queue->vm;
-> -	u64 user_addr;
-> +	u64 user_addr, end;
->  	u64 size;
->  
->  	/* Caller must hold vm->root.bo reservation */
->  	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
->  
-> -	user_addr = (addr & AMDGPU_GMC_HOLE_MASK) >> AMDGPU_GPU_PAGE_SHIFT;
-> -	size = expected_size >> AMDGPU_GPU_PAGE_SHIFT;
+Signed-off-by: Shikang Fan <shikang.fan@amd.com>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 120 +++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   9 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |   2 +
+ 3 files changed, 129 insertions(+), 2 deletions(-)
 
-Good catch, but I would just use ALIGN(expected_size, AMDGPU_GPU_PAGE_SIZE) here.
-
-Regards,
-Christian.
-
-> +	if (!expected_size)
-> +		return -EINVAL;
-> +
-> +	user_addr = addr & AMDGPU_GMC_HOLE_MASK;
-> +	if (check_add_overflow(user_addr, expected_size - 1, &end))
-> +		return -EINVAL;
-> +
-> +	user_addr >>= AMDGPU_GPU_PAGE_SHIFT;
-> +	size = (end >> AMDGPU_GPU_PAGE_SHIFT) - user_addr + 1;
->  
->  	va_map = amdgpu_vm_bo_lookup_mapping(vm, user_addr);
->  	if (!va_map)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 51ee9c39104b..d168686ee324 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -65,6 +65,9 @@ static int map_queues_cpsch(struct device_queue_manager *dqm);
+ static void deallocate_sdma_queue(struct device_queue_manager *dqm,
+ 				struct queue *q);
+ 
++static int dqm_alloc_mqd_backup(struct device_queue_manager *dqm, struct queue *q);
++static void dqm_save_mqd_backup(struct device_queue_manager *dqm, struct queue *q);
++
+ static inline void deallocate_hqd(struct device_queue_manager *dqm,
+ 				struct queue *q);
+ static int allocate_hqd(struct device_queue_manager *dqm, struct queue *q);
+@@ -802,6 +805,10 @@ static int create_queue_nocpsch(struct device_queue_manager *dqm,
+ 		mqd_mgr->init_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj,
+ 					&q->gart_mqd_addr, &q->properties);
+ 
++	retval = dqm_alloc_mqd_backup(dqm, q);
++	if (retval)
++		goto out_free_mqd;
++
+ 	if (q->properties.is_active) {
+ 		if (!dqm->sched_running) {
+ 			WARN_ONCE(1, "Load non-HWS mqd while stopped\n");
+@@ -1263,8 +1270,16 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 	int retval, ret = 0;
+ 
+ 	dqm_lock(dqm);
+-	if (qpd->evicted++ > 0) /* already evicted, do nothing */
++	if (qpd->evicted++ > 0) { /* already evicted, do nothing */
++		/* A process already runtime-evicted when hibernation starts
++		 * skips the save loop below, so snapshot its VRAM MQDs here
++		 * before the S4 image is taken. dqm_save_mqd_backup() is a
++		 * no-op outside S4.
++		 */
++		list_for_each_entry(q, &qpd->queues_list, list)
++			dqm_save_mqd_backup(dqm, q);
+ 		goto out;
++	}
+ 
+ 	pdd = qpd_to_pdd(qpd);
+ 	pr_debug_ratelimited("Evicting process pid %d queues\n",
+@@ -1297,6 +1312,8 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 			 * maintain a consistent eviction state
+ 			 */
+ 			ret = retval;
++
++		dqm_save_mqd_backup(dqm, q);
+ 	}
+ 
+ out:
+@@ -1304,6 +1321,88 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 	return ret;
+ }
+ 
++/* MQD software-shadow save/restore across S4 hibernation, reusing the CRIU
++ * checkpoint_mqd/restore_mqd primitives.
++ */
++static int dqm_alloc_mqd_backup(struct device_queue_manager *dqm, struct queue *q)
++{
++	struct mqd_manager *mqd_mgr;
++	uint32_t mqd_size, ctl_stack_size = 0;
++
++	if (!mqd_on_vram(dqm->dev->adev))
++		return 0;
++	if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE)
++		return 0;
++	if (!q->mqd)
++		return 0;
++
++	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
++	if (!mqd_mgr->checkpoint_mqd || !mqd_mgr->restore_mqd)
++		return 0;
++
++	mqd_size = AMDGPU_MQD_SIZE_ALIGN(mqd_mgr->mqd_size) *
++		   NUM_XCC(dqm->dev->xcc_mask);
++	if (mqd_mgr->get_checkpoint_info)
++		mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, &ctl_stack_size);
++
++	if (!q->mqd_backup) {
++		q->mqd_backup = kzalloc(mqd_size, GFP_KERNEL);
++		if (!q->mqd_backup)
++			return -ENOMEM;
++		q->mqd_backup_size = mqd_size;
++	}
++	if (ctl_stack_size && !q->ctl_stack_backup) {
++		q->ctl_stack_backup = kzalloc(ctl_stack_size, GFP_KERNEL);
++		if (!q->ctl_stack_backup) {
++			kfree(q->mqd_backup);
++			q->mqd_backup = NULL;
++			q->mqd_backup_size = 0;
++			return -ENOMEM;
++		}
++		q->ctl_stack_backup_size = ctl_stack_size;
++	}
++
++	return 0;
++}
++
++static void dqm_save_mqd_backup(struct device_queue_manager *dqm, struct queue *q)
++{
++	struct mqd_manager *mqd_mgr;
++
++	/* in_s4 is reliably set at evict/suspend time; skip normal runtime eviction
++	 * (pinned VRAM MQD stays intact then).
++	 */
++	if (!dqm->dev->adev->in_s4)
++		return;
++	if (!q->mqd_backup)
++		return;
++	if (!q->mqd || !q->mqd_mem_obj || !q->mqd_mem_obj->cpu_ptr)
++		return;
++
++	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
++	mqd_mgr->checkpoint_mqd(mqd_mgr, q->mqd, q->mqd_backup, q->ctl_stack_backup);
++	q->mqd_backup_valid = true;
++}
++
++static void dqm_restore_mqd_backup(struct device_queue_manager *dqm, struct queue *q)
++{
++	struct mqd_manager *mqd_mgr;
++
++	if (!q->mqd_backup_valid || !q->mqd_backup)
++		return;
++	if (!q->mqd_mem_obj)
++		return;
++
++	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
++	if (!mqd_mgr->restore_mqd)
++		return;
++
++	mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->gart_mqd_addr,
++			     &q->properties, q->mqd_backup, q->ctl_stack_backup,
++			     q->ctl_stack_backup_size);
++	q->mqd_backup_valid = false;
++}
++
+ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+ 				      struct qcm_process_device *qpd)
+ {
+@@ -1313,8 +1412,16 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+ 	int retval = 0;
+ 
+ 	dqm_lock(dqm);
+-	if (qpd->evicted++ > 0) /* already evicted, do nothing */
++	if (qpd->evicted++ > 0) { /* already evicted, do nothing */
++		/* A process already runtime-evicted when hibernation starts
++		 * skips the save loop below, so snapshot its VRAM MQDs here
++		 * before the S4 image is taken. dqm_save_mqd_backup() is a
++		 * no-op outside S4.
++		 */
++		list_for_each_entry(q, &qpd->queues_list, list)
++			dqm_save_mqd_backup(dqm, q);
+ 		goto out;
++	}
+ 
+ 	pdd = qpd_to_pdd(qpd);
+ 
+@@ -1350,6 +1457,8 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+ 				goto out;
+ 			}
+ 		}
++
++		dqm_save_mqd_backup(dqm, q);
+ 	}
+ 
+ 	if (!dqm->dev->kfd->shared_resources.enable_mes) {
+@@ -1423,6 +1532,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 
+ 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 				q->properties.type)];
++		dqm_restore_mqd_backup(dqm, q);
+ 		q->properties.is_active = true;
+ 		increment_queue_count(dqm, qpd, q);
+ 
+@@ -1486,6 +1596,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+ 		if (!QUEUE_IS_ACTIVE(q->properties))
+ 			continue;
+ 
++		dqm_restore_mqd_backup(dqm, q);
+ 		q->properties.is_active = true;
+ 		increment_queue_count(dqm, &pdd->qpd, q);
+ 
+@@ -2161,6 +2272,10 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 		mqd_mgr->init_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj,
+ 					&q->gart_mqd_addr, &q->properties);
+ 
++	retval = dqm_alloc_mqd_backup(dqm, q);
++	if (retval)
++		goto out_free_mqd;
++
+ 	list_add(&q->list, &qpd->queues_list);
+ 	qpd->queue_count++;
+ 
+@@ -2193,6 +2308,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 	list_del(&q->list);
+ 	if (q->properties.is_active)
+ 		decrement_queue_count(dqm, qpd, q);
++out_free_mqd:
+ 	mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
+ 	dqm_unlock(dqm);
+ out_deallocate_doorbell:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 88191a4c1657..1f728f13813e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -637,6 +637,15 @@ struct queue {
+ 	void *gang_ctx_cpu_ptr;
+ 
+ 	struct amdgpu_bo *wptr_bo_gart;
++
++	/* system-RAM shadow of a VRAM-resident MQD (+ control stack)
++	 * for hibernation snapshot/restore
++	 */
++	void *mqd_backup;
++	void *ctl_stack_backup;
++	uint32_t mqd_backup_size;
++	uint32_t ctl_stack_backup_size;
++	bool mqd_backup_valid;
+ };
+ 
+ enum KFD_MQD_TYPE {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 98a5512b701b..cbc90bf87792 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -83,6 +83,8 @@ int init_queue(struct queue **q, const struct queue_properties *properties)
+ 
+ void uninit_queue(struct queue *q)
+ {
++	kfree(q->mqd_backup);
++	kfree(q->ctl_stack_backup);
+ 	kfree(q);
+ }
+ 
+-- 
+2.34.1
 
