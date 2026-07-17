@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDFDC44525
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:57:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 666F2C44529
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:57:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 890CD10F55C;
-	Fri, 17 Jul 2026 12:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 738F910F561;
+	Fri, 17 Jul 2026 12:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="IIZbWGJu";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dG7wpNWE";
 	dkim-atps=neutral
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com
- [101.71.155.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4916210E50D;
- Fri, 17 Jul 2026 03:35:40 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
- by smtp.qiye.163.com (Hmail) with ESMTP id 46879f81a;
- Fri, 17 Jul 2026 11:30:33 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: christian.koenig@amd.com,
-	alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kevinyang.wang@amd.com,
- kenneth.feng@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn
-Subject: [RFC PATCH v2 5/5] drm/amdgpu/mes: reset full 64-bit wptr in queue
- init
-Date: Fri, 17 Jul 2026 11:30:09 +0800
-Message-Id: <20260717033009.649538-6-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
-References: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4518110E446;
+ Fri, 17 Jul 2026 12:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=EL2t/09vcN9V6Rkygrdza4kyop6teAGJd5C5hkrlR48=; b=
+ dG7wpNWEvxsRsmJnvd3EoaEOntXgsV6TItZk0htBc1xluRkGOpUdcreq4JkzwZJobMYt1aT297fcV
+ jIvBsLPMapw16LuEDCZGxGwpz2DYCwYnk7iV1a9v3JrEi6LyL8N+1Uq1uLEElzj6vS5rcfhWqrsMv
+ +4Jv1AC+WpsdA+eD6DGpPEF2W4qid/gCOuQ3hmi1fwgO0ltukv25aF8itjyMa+pFC56lxJAVpHnk+
+ QcJPDO2mLpU54Rpuj+Yd5vII/SyBIkqdehLDkYMEnzdhuB9jSOrV8r2nSRB8xzl2Vi3M/vkC7F81y
+ 0A61CPpwmlf8gMmcX/GDzzu3r+nu4Uuewg==;
+Received: from 179-125-86-98-dinamico.pombonet.net.br ([179.125.86.98]
+ helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wkhJz-00GPAm-Vp; Fri, 17 Jul 2026 14:05:40 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v4 6/7] lib/amdgpu: add amdgpu support to igt_dmem_driver
+Date: Fri, 17 Jul 2026 09:04:46 -0300
+Message-ID: <20260717120447.1837818-7-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717120447.1837818-1-cascardo@igalia.com>
+References: <20260717120447.1837818-1-cascardo@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6e203b5403a1kunm4f30d1372211f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSRgfVh5PTB9JSRlMHx4fTVYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=IIZbWGJuumWibbF6WTwXarDaWRSfi7dFCAw8UYm56FeJ+4P9HKXrKaUaEsq7rWxgA5zjDkaM7DqN4E43LI2dIxrtaFjF5b3Yd6lzRhZQW0m1NcJ32U+YpYFvX2P/JUM0e8GE6PM+B4omGj3Zv3eVqFoKrKXLDSuS64PP0h0YGd4=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=D8BPlwy/yKNUW+N2/wdpgefyrg1G/2dIU/LMcGXI7iY=;
- h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Fri, 17 Jul 2026 12:57:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,70 +64,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-mes_v11_0_queue_init(), mes_v12_0_queue_init(), and
-mes_v12_1_queue_init() clear wptr_cpu_addr in their reset/suspend paths
-before reinitializing the MES queue.
+This allows dmem cgroups tests to run on top of amdgpu driver, adding
+support to allocate and release VRAM memory.
 
-Those MES rings otherwise use the same writeback slot as a 64-bit wptr
-carrier. Clearing it through a 32-bit access resets only the low 32 bits
-and can leave stale high 32 bits behind, so the reset path does not
-necessarily produce a fully zeroed 64-bit wptr state.
+This does this by allocating a BO from VRAM domain, which will try to
+place BOs on VRAM, but may fallback to GTT.
 
-Use the typed 64-bit writeback helper for the MES wptr reset so the full
-carrier is cleared in all three queue-init paths.
-
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ lib/amdgpu/amd_dmem.c | 99 +++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_dmem_driver.h |  1 +
+ lib/meson.build       |  1 +
+ 3 files changed, 101 insertions(+)
+ create mode 100644 lib/amdgpu/amd_dmem.c
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 46f6dfd77..2d5baed0c 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1307,8 +1307,8 @@ static int mes_v11_0_queue_init(struct amdgpu_device *adev,
+diff --git a/lib/amdgpu/amd_dmem.c b/lib/amdgpu/amd_dmem.c
+new file mode 100644
+index 000000000000..5ff6437dc78a
+--- /dev/null
++++ b/lib/amdgpu/amd_dmem.c
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "lib/amdgpu/amd_memory.h"
++
++struct amdgpu_dmem_ctx {
++	int fd;
++	amdgpu_device_handle device;
++	amdgpu_bo_handle *handles;
++	int max_bo;
++};
++
++static int amdgpu_dmem_init(void **ctx, int fd, int max_bo)
++{
++	struct amdgpu_dmem_ctx *actx;
++	uint32_t major, minor;
++	int err = -ENOMEM;
++
++	actx = malloc(sizeof(*actx));
++	if (!actx)
++		return -ENOMEM;
++
++	actx->handles = calloc(max_bo, sizeof(actx->handles[0]));
++	if (!actx->handles)
++		goto out;
++
++	actx->max_bo = max_bo;
++
++	err = amdgpu_device_initialize(fd, &major, &minor, &actx->device);
++	if (err)
++		goto out;
++
++	*ctx = actx;
++
++	return 0;
++
++out:
++	if (actx->handles)
++		free(actx->handles);
++	free(actx);
++
++	return err;
++}
++
++static void amdgpu_dmem_deinit(void *ctx)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++
++	amdgpu_device_deinitialize(actx->device);
++	free(actx->handles);
++	free(actx);
++}
++
++static int amdgpu_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	amdgpu_bo_handle handle;
++	int err;
++
++	if (n_bo >= actx->max_bo)
++		return -ENOMEM;
++
++	err = amdgpu_bo_alloc_wrap(actx->device, len, 4096,
++				   AMDGPU_GEM_DOMAIN_VRAM, 0, &handle);
++	if (err)
++		return err;
++
++	actx->handles[n_bo] = handle;
++
++	return 0;
++}
++
++static void amdgpu_dmem_free_vram(void *ctx, int n_bo)
++{
++	struct amdgpu_dmem_ctx *actx = ctx;
++	if (n_bo >= actx->max_bo)
++		return;
++	if (actx->handles[n_bo])
++		amdgpu_bo_free(actx->handles[n_bo]);
++	actx->handles[n_bo] = 0;
++}
++
++const struct igt_dmem_driver amdgpu_dmem_driver = {
++	.name = "amdgpu",
++	.get_region_name = amdgpu_cgroup_region_name,
++	.init = amdgpu_dmem_init,
++	.deinit = amdgpu_dmem_deinit,
++	.allocate_vram = amdgpu_dmem_allocate_vram,
++	.free_vram = amdgpu_dmem_free_vram,
++};
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+index 2f4a4673ab16..d34c839740a5 100644
+--- a/lib/igt_dmem_driver.h
++++ b/lib/igt_dmem_driver.h
+@@ -20,5 +20,6 @@ struct igt_dmem_driver {
+ };
  
- 	if ((pipe == AMDGPU_MES_SCHED_PIPE) &&
- 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
--		*(ring->wptr_cpu_addr) = 0;
--		*(ring->rptr_cpu_addr) = 0;
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write32(ring->rptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
+ extern const struct igt_dmem_driver xe_dmem_driver;
++extern const struct igt_dmem_driver amdgpu_dmem_driver;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index fb6f34b06..b397f1816 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -1475,8 +1475,8 @@ static int mes_v12_0_queue_init(struct amdgpu_device *adev,
- 
- 	if ((adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) &&
- 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
--		*(ring->wptr_cpu_addr) = 0;
--		*(ring->rptr_cpu_addr) = 0;
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write32(ring->rptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-index b00b65090..34edb98ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-@@ -1451,8 +1451,8 @@ static int mes_v12_1_queue_init(struct amdgpu_device *adev,
- 
- 	if ((adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) &&
- 	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
--		*(ring->wptr_cpu_addr) = 0;
--		*(ring->rptr_cpu_addr) = 0;
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write32(ring->rptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
+ #endif
+diff --git a/lib/meson.build b/lib/meson.build
+index 012802475de0..27177f385ae6 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -199,6 +199,7 @@ if libdrm_amdgpu.found()
+ 		'amdgpu/amd_mmd_shared.c',
+ 		'amdgpu/amd_jpeg_shared.c',
+ 		'amdgpu/amd_utils.c',
++		'amdgpu/amd_dmem.c',
+ 		'amdgpu/amd_vcn_shared.c'
+ 	]
+ 	if libdrm_amdgpu.version().version_compare('> 2.4.99')
 -- 
-2.34.1
+2.47.3
 
