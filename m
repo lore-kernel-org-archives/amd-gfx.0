@@ -4,49 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43429C4451C
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF88CC4451B
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 14:32:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E4D10F550;
-	Fri, 17 Jul 2026 12:57:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADC510F58C;
+	Fri, 17 Jul 2026 14:32:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iq6QCAHb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FK1YqH6v";
 	dkim-atps=neutral
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com
- [101.71.155.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90E3910E4C1;
- Fri, 17 Jul 2026 03:35:34 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
- by smtp.qiye.163.com (Hmail) with ESMTP id 46879f815;
- Fri, 17 Jul 2026 11:30:28 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: christian.koenig@amd.com,
-	alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, kevinyang.wang@amd.com,
- kenneth.feng@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn
-Subject: [RFC PATCH v2 3/5] drm/amdgpu: convert 64-bit ring writeback accesses
- to helpers
-Date: Fri, 17 Jul 2026 11:30:07 +0800
-Message-Id: <20260717033009.649538-4-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
-References: <20260717033009.649538-1-runyu.xiao@seu.edu.cn>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4135D10F58C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 14:32:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y48rzC7x3SQ+PZXySWWiNdAc8CAUt+/RLySb5YyBGLUgpRlEXqxbkR3vv0cMCwPZIV8I9h4eQtyy90bD59Sy1DcjftxbV37sO9hXtoOtiMIFJiX3k8qkVGK6kyNtSqzmE3QSQRmCTKyG9c5oDQhSW1QwTNDa0lSMdxE0bfg6Eo6J2ZnHfLpjEulf9rNWHkX3JtCRMR1Fwq1SLay6etvG06oM8va+MmrzkzGTyGSaRuTmnvWna2RXaBiaMqvT2ChGUBVE7aGpjx2B4ZsxXW1jAlOjvyNCiOPyZ+fPp4Ejik2NXYr8X8OLPF3d925APWNIOeEnFVUrQeeHnleLn+2mdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pHGkAxAddMuAZxWsnrM6m2hXdTQQ5rzaLmcARF15INo=;
+ b=QPLyKNv8/FPLc8NiNccpzD+374RNeAEO/2iFaky2kcVGaHqgR8qBs6mqy37Je1WxfWgKhHrPdmOknFhJR/PBWmICZDhxwm6CoJViXh4LrD5KcoBiQLTNcTUNdX/iG6f0yeQkjiE3NXY2hUrd3lcaR26WugGWqxArXAuXuTINxuPxxuK9gYwkGwz4uULQVSITN2B4GjRvtpPSU6Vv6vaoJTMA8heCTW8AYtf1tP2QDDgEk4SSVHcAmxzY1NvYuBxarLzZuxD5seqMpvJ/TmCLhL5NdQr9I6QibN7Zz5N3wROt2aDsU1NHYAzSAn/3pVKzFBZhDQazypBOL1O6bQ8FXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pHGkAxAddMuAZxWsnrM6m2hXdTQQ5rzaLmcARF15INo=;
+ b=FK1YqH6vz/EAjsGjOH/FRkQFY9cdxsyFU6+fVy39nYH6/ajAyF9YzoojkSAEfVayITCvlqBYFcAu13fEHzB8eUMAiGGSIB9pOPsVZDd+FRmp5wRCBDcuokTd8kOe/wwh+n5Kzpo9jAOTE1j8HyiQNzSroik59t4b9i2V9BMj4fA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by SA0PR12MB7002.namprd12.prod.outlook.com (2603:10b6:806:2c0::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
+ 2026 14:32:38 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0181.019; Fri, 17 Jul 2026
+ 14:32:38 +0000
+Message-ID: <97767326-078c-424f-a38f-007355556aa4@amd.com>
+Date: Fri, 17 Jul 2026 10:32:34 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Dispatch Compressed FRL Cap Check Inside
+ dml1_frl_cap_chk_inter
+To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ aurabindo.pillai@amd.com
+References: <20260717024329.2609156-1-jerry.zuo@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260717024329.2609156-1-jerry.zuo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0498.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10c::6) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f6e2024d203a1kunm4f30d1372210f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTh4fVhlKSUNOS0xMSEIYHVYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=iq6QCAHbk7Ft8mS5wB7tW8qy/+7DAgYtgDoB102m8oo4exZCbff5jU6D+IC8+Zy8TFZ9bWhZfgWV09kHyUVj1yXBveP5u64FLkFgIqHgYesXG40y74okrRZbgO4JBlRTl+gcJfIW8UgJaG4SMTCYVMA2fcWdYQYs0FeT9KbxEIM=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=dLT+mVUrd+JVxV8J3gAEmb4SDo/4YjdxGRBXchfxq38=;
- h=date:mime-version:subject:message-id:from;
-X-Mailman-Approved-At: Fri, 17 Jul 2026 12:57:14 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|SA0PR12MB7002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b6c14ba-fa05-40c8-a589-08dee4104068
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|23010399003|1800799024|10067099003|18002099003|22082099003|56012099006|11063799006|3023799007;
+X-Microsoft-Antispam-Message-Info: klpZe+JeccCZeumaSHVQDFZIq5G0q+foEWyZ3Tf7uo1FymgTaRpJI7y46Bky2vDFs7fKtYvwwfFGygIXESF/ds41+C7klN12sVlYnLXdhxEB10FJA07vVwMpCVTMSa501FHbNLMgI7nnMfJk18SUvIDK8U+u9Uz8laFgfBio7To49l6tu2JiR9C8lJ5RVakHQFkY10T/UkdrHQIRRmY1ylmwywR+Fu65agZfbu47R6sQK7FLVitT8fDs+EoI028+m6wTSPvh+DoRtGnbcZtFVx+Dq8WL25l8FiWllHRMDCvPW9/bzT+RHQhcZe0YvuA6pXQg+CMqtoRrAaZCsSj/dkZ68JXnf60jVM/avJ2b1HgiQDxA3VmO3YtQZGodFi7CxHLhloZFPODX/VBzBYEAgVUXF4KEDyMqTmngjzOQ/C/QQ2pmccezbJ1oEeLjRrn0dB95qc7eHVLAma+vXRPfzPUDpYcHNLxcf5lFmlqWLJCP/dEGIs3cVPYK+0tsK/gyFL/aMDFd5Ikpni85K5l7eVrj6a2SCWPnzzps75H4oCGZ46BWIOfv+M0AcWe1vWlPOuajZwU3io5bK0sFnL/62WRvcA9uJbav/d/y+22guRrgt73C7+HRnSszROGmGOfjt2u5ffC/0PiPGjM99gxE92F+Z1dKnLbVGdzrzSL1OOo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eVVXOEVKNlZhME5LYTFnYmJaWmNwV1UzdkxNSHJlL1pjeTRtK2w3Nmo2OTBO?=
+ =?utf-8?B?dS9qeVVzL1RsRFNkTC9KU2pMcnJvNHlKZWVHVVhqV3lVRW0walpBTXRlbytS?=
+ =?utf-8?B?ZFZVRTBzZ2c3R2QrVnJ4MERSM2xNUFdZZkZJSDhqZkRVMFVqM3F2RTNGZGk3?=
+ =?utf-8?B?NkE4VlJRamxzZW1lQXNjemVOblBVMHZoZWhHQ2lsa2QzQ3NFeUxqcjRPeUxB?=
+ =?utf-8?B?M05WV0RWNTFUMzZsMHhsdGRPaVJwRlZxQ2JjZkV3eFVDMzBRaGk0Zk5pRGlD?=
+ =?utf-8?B?K2pUOU1PT3V5RkYwNUxGM0NPeVhpSjZQa255ZlNjVWMxczFjbnQ0N1lReDIw?=
+ =?utf-8?B?ZGQ4QnpKYlRHM09oaXp4UFd0NTI1dXhyb2ZSUmFIdXFudHh5UGdCVytNeEpK?=
+ =?utf-8?B?bzdKM2pYdUZjNzFMSFBIc2lGUEpLbzFOZzZZWjJxQlNVWTRuc1A2T1dHZTJa?=
+ =?utf-8?B?TVhIWG5ob2pVWFJoWGZmWHhIaXhJMy9Bc1ZrN1lHTUxpc2FBaDJzbVYwSjNU?=
+ =?utf-8?B?VGJoQlJIUkFjUjlOcFd6YTdaMUpoZFBJVnFadnhGRUR0MVJvYzRuRVBXRk9x?=
+ =?utf-8?B?R25yV1NheTU1VnFRTk1DVTNpOGs0MGxHMWxscnFNYy93WXdkOW13NmtTWVZj?=
+ =?utf-8?B?Y01ncnloeGp2cGI0OHd5UkxwMWpCWmxFTVA0ait2ZDNPc2I2dFpGZldFdjJy?=
+ =?utf-8?B?RGg0TDJxK2lhSFlRcDFjbW9uZVZSTk1rOUNKUHdtZlJXYVNuRVpGQUtUVXMw?=
+ =?utf-8?B?WHo4cVJBU0tkUVc5MzlmVGt0ajNkd01aY3N3UEk0OE5CMmRYTFUrb0QvbWRE?=
+ =?utf-8?B?T3pxTURraWNYeERkL0JlWW02djRPTzY3MGU3WWZUN2taS2l1Mm5OdmU5RGt4?=
+ =?utf-8?B?alNkLzZLTHZDQlcxSm50dDNMN1QwR3U3bkprZmVLbG1palBmaktNT0lEazQ4?=
+ =?utf-8?B?b2hRM0dzdEpuNTBiR3VsbzJDVHoySitwdEt4WkhnWmlYQXJ2bHI1MUdCdVox?=
+ =?utf-8?B?VEQ3MXFLT1lHMXFtTEh0Y09iNUZnQ2NwWlRoblAvQ0VCZWkvNnBPTGRjTzd2?=
+ =?utf-8?B?V3JxaXA4ZlJoM2VXKytSTFpjQkxJVGVBeU4xNVpGUWx1QUNyMmZpSEdrT0Js?=
+ =?utf-8?B?Y2UrYjJRKzcxK3o5L1YzNkJPVlBBbEVxVlBRK1ZOOEtrU0ZGbldwZ1I0VXVj?=
+ =?utf-8?B?Zkd5ZWVCNkIyRU40S08rVHRMZ05aeGxOOFFzSE5KZ3ltbThyLy84dHdoSlYr?=
+ =?utf-8?B?WnBVaTZGbkVVUEFMdEh3eGJBU3krU1NsZkFLWTBza2V1a1lLVjlzTjlISmJS?=
+ =?utf-8?B?aDF2eEs1cUlGQXhIVUxNYVBUd0hFZlp3dVhBZzNPMmIyNFBvUEl6YkIyekw1?=
+ =?utf-8?B?WEJmdEpITVhMa1ZvV1pqV2JaN2FqQm5lUWppVzJsekN3NFZRZ0lKZzRkcC9s?=
+ =?utf-8?B?NXRzUitpMDFyT0lweFhiVkpDTEw1UmkrT2VXSnBoRFVteE96elhaVjVEQTNH?=
+ =?utf-8?B?QkJpR2pJc0h0M29meC9Ga1pZTFB4eFRHdzNSOHh5bFY3NEd5Y2NscW9TSld0?=
+ =?utf-8?B?cWpOczV1YWtiN09SR0VTcVdzSUoyVmRVUktaeiszaHc2ZXFkZWdmMzRPWlBL?=
+ =?utf-8?B?a0lZVE5XbEIrYmdSSjZpYW9OdGpjK1pPVHhhYkg1aG1keGZBOGFOVTlqcGVX?=
+ =?utf-8?B?UWVNdDhBUDhDb3R1NFY3ZTBRV0szR0RvM0pGYS9ycDFqc1ZkaGlOZWNoKzJS?=
+ =?utf-8?B?UnFubFJxWXZ2YXNmTFJWRmszN2swcExuZWRkc2Zrbks2U2laR0hnU0lRZ0tV?=
+ =?utf-8?B?WnlxRytBWW90SkFRSFQyQnE2SUZWaXZyYlVsa2J1b2p4Y1JYMTh5NlN6TnAr?=
+ =?utf-8?B?NitZZDk2STBSMzg0TllVc2pYazExQWkvSDBnS3NBQkc0U3dwT1o2NDh1RFdJ?=
+ =?utf-8?B?Y21aVTJjK2xVOEdiUHIwdUZmZWx6ekwzeWJKUzhLZXpHak1zcUwyRk44RkxZ?=
+ =?utf-8?B?Uk5zcWhTcGc0RzgvRzB5NnozYUMyZEg0T1h4VVZnLzRLc0FTbTJHVG1NaXlR?=
+ =?utf-8?B?aXZMazBNS1JleGxCV3RaWU10RHhJbkMrNGFBd1RxVVpHT1I5UmRyM051UlA2?=
+ =?utf-8?B?a1ZHM0xvM2Q1eHQrM01Tb01XWWtJeUNPYXNTUkNrS2hJM2ZlRkdjdW9BNitt?=
+ =?utf-8?B?VDJsSVBIcUU3VmFkQURQTVhsK0xJZnYvVFlhbkhPUVE4aFdCa3hNQ1hVaWdr?=
+ =?utf-8?B?RGE3cFJBYVZIaTZ3U3NaZGZrcjNsWk80OG92QjNwSGNvdTFYWUpRdHBxUTFt?=
+ =?utf-8?B?ZEF5OUYwYklyUnR5RTRIa21WRk5IVFh6OU55WmJaWDZ4enZwTWJDUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b6c14ba-fa05-40c8-a589-08dee4104068
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 14:32:38.6267 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +79ZTn+u1S5yGJ5EXP+IdNHWRmlOXtrjCiMB77EzscpjCfar1Wpleg6C6EfIfd9f4lnSBYpQyQhVSsGk5hXv1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7002
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,918 +134,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert the ring writeback users that operate on 64-bit slots to the new
-typed helper accessors.
 
-Current 64-bit writeback users still mix several different access
-styles, including plain u64 casts, READ_ONCE()/WRITE_ONCE() on casted
-pointers, and atomic64_t casts. Convert those users to the typed 64-bit
-helpers so they all follow the same access model.
 
-This also converts the related rptr read paths in the same set of users,
-so both rptr and wptr accesses to 64-bit writeback slots are handled
-consistently before changing the stored pointer types in struct
-amdgpu_ring.
+On 2026-07-16 22:43, Fangzhi Zuo wrote:
+> [why]
+> DSC over HDMI FRL (e.g. 4k144) was pruned by DML mode support
+> because the compressed FRL cap check was never reached.
+> 
+> dml32_TruncToValidBPP() validates the FRL output by calling
+> dml1_frl_cap_chk_inter() directly. The compressed-vs-uncompressed
+> dispatch (if params->compressed -> dml1_frl_cap_chk_compressed()) had
+> been moved up into the top-level dml1_frl_cap_chk() wrapper, leaving
+> dml1_frl_cap_chk_inter() as uncompressed-only. As a result a DSC stream
+> routed through TruncToValidBPP was validated against the full
+> uncompressed bandwidth, failed the cap check, and the mode was pruned
+> (vlevel == num_states).
+> 
+> [how]
+> Move the compressed dispatch back into dml1_frl_cap_chk_inter() so every
+> caller of _inter() (including TruncToValidBPP) honours params->compressed.
+> This matches the internal DAL tree.
+> 
+> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
-This is a cleanup only. No functional change is intended.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c  |  6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 18 ++++++++----------
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 18 ++++++++----------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 18 ++++++++----------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c   |  9 ++++-----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 14 +++++++-------
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  8 ++++----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  7 +++----
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |  7 +++----
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c   | 10 ++++------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 20 ++++++++------------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 14 +++++---------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 13 ++++++-------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 15 +++++++--------
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 13 ++++++-------
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 13 ++++++-------
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c   | 13 ++++++-------
- 18 files changed, 97 insertions(+), 121 deletions(-)
+Harry
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-index 0a34a27d1..579fecd7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-@@ -710,7 +710,7 @@ static uint64_t vpe_ring_get_rptr(struct amdgpu_ring *ring)
- 	uint64_t rptr;
- 
- 	if (ring->use_doorbell) {
--		rptr = atomic64_read((atomic64_t *)ring->rptr_cpu_addr);
-+		rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 		dev_dbg(adev->dev, "rptr/doorbell before shift == 0x%016llx\n", rptr);
- 	} else {
- 		rptr = RREG32(vpe_get_reg_offset(vpe, ring->me, vpe->regs.queue0_rb_rptr_hi));
-@@ -729,7 +729,7 @@ static uint64_t vpe_ring_get_wptr(struct amdgpu_ring *ring)
- 	uint64_t wptr;
- 
- 	if (ring->use_doorbell) {
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		dev_dbg(adev->dev, "wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	} else {
- 		wptr = RREG32(vpe_get_reg_offset(vpe, ring->me, vpe->regs.queue0_rb_wptr_hi));
-@@ -754,7 +754,7 @@ static void vpe_ring_set_wptr(struct amdgpu_ring *ring)
- 			ring->wptr_offs,
- 			lower_32_bits(ring->wptr << 2),
- 			upper_32_bits(ring->wptr << 2));
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, ring->wptr << 2);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
- 		if (vpe->collaborate_mode)
- 			WDOORBELL64(ring->doorbell_index + 4, ring->wptr << 2);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 58c69dcb5..b8fc3893c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -6880,7 +6880,7 @@ static int gfx_v10_0_kgq_init_queue(struct amdgpu_ring *ring, bool reset)
- 			memcpy_toio(mqd, adev->gfx.me.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset the ring */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -7195,7 +7195,7 @@ static int gfx_v10_0_kcq_init_queue(struct amdgpu_ring *ring, bool restore)
- 			memcpy_toio(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -8549,7 +8549,7 @@ static void gfx_v10_0_get_clockgating_state(struct amdgpu_ip_block *ip_block, u6
- static u64 gfx_v10_0_ring_get_rptr_gfx(struct amdgpu_ring *ring)
- {
- 	/* gfx10 is 32bit rptr*/
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v10_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
-@@ -8559,7 +8559,7 @@ static u64 gfx_v10_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	} else {
- 		wptr = RREG32_SOC15(GC, 0, mmCP_RB0_WPTR);
- 		wptr += (u64)RREG32_SOC15(GC, 0, mmCP_RB0_WPTR_HI) << 32;
-@@ -8574,8 +8574,7 @@ static void gfx_v10_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		WREG32_SOC15(GC, 0, mmCP_RB0_WPTR,
-@@ -8588,7 +8587,7 @@ static void gfx_v10_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- static u64 gfx_v10_0_ring_get_rptr_compute(struct amdgpu_ring *ring)
- {
- 	/* gfx10 hardware is 32bit rptr */
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v10_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
-@@ -8597,7 +8596,7 @@ static u64 gfx_v10_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -8608,8 +8607,7 @@ static void gfx_v10_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG(); /* only DOORBELL method supported on gfx10 now */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index fabdbbd0a..4521e81ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -4233,7 +4233,7 @@ static int gfx_v11_0_kgq_init_queue(struct amdgpu_ring *ring, bool reset)
- 			memcpy_toio(mqd, adev->gfx.me.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset the ring */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -4604,7 +4604,7 @@ static int gfx_v11_0_kcq_init_queue(struct amdgpu_ring *ring, bool reset)
- 			memcpy_toio(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -5849,7 +5849,7 @@ static void gfx_v11_0_get_clockgating_state(struct amdgpu_ip_block *ip_block, u6
- static u64 gfx_v11_0_ring_get_rptr_gfx(struct amdgpu_ring *ring)
- {
- 	/* gfx11 is 32bit rptr*/
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v11_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
-@@ -5859,7 +5859,7 @@ static u64 gfx_v11_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	} else {
- 		wptr = RREG32_SOC15(GC, 0, regCP_RB0_WPTR);
- 		wptr += (u64)RREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI) << 32;
-@@ -5874,8 +5874,7 @@ static void gfx_v11_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		WREG32_SOC15(GC, 0, regCP_RB0_WPTR,
-@@ -5888,7 +5887,7 @@ static void gfx_v11_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- static u64 gfx_v11_0_ring_get_rptr_compute(struct amdgpu_ring *ring)
- {
- 	/* gfx11 hardware is 32bit rptr */
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v11_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
-@@ -5897,7 +5896,7 @@ static u64 gfx_v11_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -5909,8 +5908,7 @@ static void gfx_v11_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG(); /* only DOORBELL method supported on gfx11 now */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index f47928dcd..6779ac539 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -3092,7 +3092,7 @@ static int gfx_v12_0_kgq_init_queue(struct amdgpu_ring *ring, bool reset)
- 			memcpy_toio(mqd, adev->gfx.me.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset the ring */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -3463,7 +3463,7 @@ static int gfx_v12_0_kcq_init_queue(struct amdgpu_ring *ring, bool reset)
- 			memcpy_toio(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -4366,7 +4366,7 @@ static void gfx_v12_0_get_clockgating_state(struct amdgpu_ip_block *ip_block, u6
- static u64 gfx_v12_0_ring_get_rptr_gfx(struct amdgpu_ring *ring)
- {
- 	/* gfx12 is 32bit rptr*/
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v12_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
-@@ -4376,7 +4376,7 @@ static u64 gfx_v12_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	} else {
- 		wptr = RREG32_SOC15(GC, 0, regCP_RB0_WPTR);
- 		wptr += (u64)RREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI) << 32;
-@@ -4391,8 +4391,7 @@ static void gfx_v12_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		WREG32_SOC15(GC, 0, regCP_RB0_WPTR,
-@@ -4405,7 +4404,7 @@ static void gfx_v12_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- static u64 gfx_v12_0_ring_get_rptr_compute(struct amdgpu_ring *ring)
- {
- 	/* gfx12 hardware is 32bit rptr */
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v12_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
-@@ -4414,7 +4413,7 @@ static u64 gfx_v12_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -4426,8 +4425,7 @@ static void gfx_v12_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG(); /* only DOORBELL method supported on gfx12 now */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index 033f15e21..1502ff1ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -2462,7 +2462,7 @@ static int gfx_v12_1_xcc_kcq_init_queue(struct amdgpu_ring *ring,
- 			memcpy_toio(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(*mqd));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -3365,7 +3365,7 @@ static void gfx_v12_1_get_clockgating_state(struct amdgpu_ip_block *ip_block, u6
- static u64 gfx_v12_1_ring_get_rptr_compute(struct amdgpu_ring *ring)
- {
- 	/* gfx12 hardware is 32bit rptr */
--	return *(uint32_t *)ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 gfx_v12_1_ring_get_wptr_compute(struct amdgpu_ring *ring)
-@@ -3374,7 +3374,7 @@ static u64 gfx_v12_1_ring_get_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -3386,8 +3386,7 @@ static void gfx_v12_1_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG(); /* only DOORBELL method supported on gfx12 now */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 64511ee05..c3e2f9ae3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -4648,7 +4648,7 @@ static int gfx_v8_0_kcq_init_queue(struct amdgpu_ring *ring)
- 			memcpy(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(struct vi_mqd_allocation));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index bf270e605..c335fcbcd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -3914,7 +3914,7 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_ring *ring, bool restore)
- 			memcpy(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(struct v9_mqd_allocation));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- 
-@@ -5351,7 +5351,7 @@ static void gfx_v9_0_get_clockgating_state(struct amdgpu_ip_block *ip_block, u64
- 
- static u64 gfx_v9_0_ring_get_rptr_gfx(struct amdgpu_ring *ring)
- {
--	return *ring->rptr_cpu_addr; /* gfx9 is 32bit rptr*/
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr); /* gfx9 is 32bit rptr*/
- }
- 
- static u64 gfx_v9_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
-@@ -5361,7 +5361,7 @@ static u64 gfx_v9_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	} else {
- 		wptr = RREG32_SOC15(GC, 0, mmCP_RB0_WPTR);
- 		wptr += (u64)RREG32_SOC15(GC, 0, mmCP_RB0_WPTR_HI) << 32;
-@@ -5376,7 +5376,7 @@ static void gfx_v9_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		WREG32_SOC15(GC, 0, mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
-@@ -5631,7 +5631,7 @@ static void gfx_v9_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 
- static u64 gfx_v9_0_ring_get_rptr_compute(struct amdgpu_ring *ring)
- {
--	return *ring->rptr_cpu_addr; /* gfx9 hardware is 32bit rptr */
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr); /* gfx9 hardware is 32bit rptr */
- }
- 
- static u64 gfx_v9_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
-@@ -5640,7 +5640,7 @@ static u64 gfx_v9_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -5652,7 +5652,7 @@ static void gfx_v9_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else{
- 		BUG(); /* only DOORBELL method supported on gfx9 now */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 9f76e1af8..dfe51d96a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -2191,7 +2191,7 @@ static void gfx_v9_4_3_xcc_kcq_init_queue(struct amdgpu_ring *ring, int xcc_id,
- 			memcpy(mqd, adev->gfx.mec.mqd_backup[mqd_idx], sizeof(struct v9_mqd_allocation));
- 		/* reset ring buffer */
- 		ring->wptr = 0;
--		atomic64_set((atomic64_t *)&adev->wb.wb[ring->wptr_offs], 0);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, 0);
- 		amdgpu_ring_clear_ring(ring);
- 	}
- }
-@@ -3002,7 +3002,7 @@ static void gfx_v9_4_3_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 
- static u64 gfx_v9_4_3_ring_get_rptr_compute(struct amdgpu_ring *ring)
- {
--	return ring->adev->wb.wb[ring->rptr_offs]; /* gfx9 hardware is 32bit rptr */
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr); /* gfx9 hardware is 32bit rptr */
- }
- 
- static u64 gfx_v9_4_3_ring_get_wptr_compute(struct amdgpu_ring *ring)
-@@ -3011,7 +3011,7 @@ static u64 gfx_v9_4_3_ring_get_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)&ring->adev->wb.wb[ring->wptr_offs]);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -3023,7 +3023,7 @@ static void gfx_v9_4_3_ring_set_wptr_compute(struct amdgpu_ring *ring)
- 
- 	/* XXX check if swapping is necessary on BE */
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)&adev->wb.wb[ring->wptr_offs], ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG(); /* only DOORBELL method supported on gfx9 now */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index a926a3307..46f6dfd77 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -76,8 +76,7 @@ static void mes_v11_0_ring_set_wptr(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG();
-@@ -86,7 +85,7 @@ static void mes_v11_0_ring_set_wptr(struct amdgpu_ring *ring)
- 
- static u64 mes_v11_0_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	return *ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 mes_v11_0_ring_get_wptr(struct amdgpu_ring *ring)
-@@ -94,7 +93,7 @@ static u64 mes_v11_0_ring_get_wptr(struct amdgpu_ring *ring)
- 	u64 wptr;
- 
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 023c7345e..fb6f34b06 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -55,8 +55,7 @@ static void mes_v12_0_ring_set_wptr(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG();
-@@ -65,7 +64,7 @@ static void mes_v12_0_ring_set_wptr(struct amdgpu_ring *ring)
- 
- static u64 mes_v12_0_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	return *ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 mes_v12_0_ring_get_wptr(struct amdgpu_ring *ring)
-@@ -73,7 +72,7 @@ static u64 mes_v12_0_ring_get_wptr(struct amdgpu_ring *ring)
- 	u64 wptr;
- 
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-index 4217b3fea..b00b65090 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-@@ -58,8 +58,7 @@ static void mes_v12_1_ring_set_wptr(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	if (ring->use_doorbell) {
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr);
- 	} else {
- 		BUG();
-@@ -68,7 +67,7 @@ static void mes_v12_1_ring_set_wptr(struct amdgpu_ring *ring)
- 
- static u64 mes_v12_1_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	return *ring->rptr_cpu_addr;
-+	return amdgpu_ring_wb_read32(ring->rptr_cpu_addr);
- }
- 
- static u64 mes_v12_1_ring_get_wptr(struct amdgpu_ring *ring)
-@@ -76,7 +75,7 @@ static u64 mes_v12_1_ring_get_wptr(struct amdgpu_ring *ring)
- 	u64 wptr;
- 
- 	if (ring->use_doorbell)
--		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	else
- 		BUG();
- 	return wptr;
-@@ -2113,7 +2112,7 @@ static int mes_v12_1_test_ring(struct amdgpu_device *adev, int xcc_id,
- 		wptr <<= 2;
- 	}
- 
--	atomic64_set((atomic64_t *)wptr_cpu_addr, wptr);
-+	amdgpu_ring_wb_write64(wptr_cpu_addr, wptr);
- 	WDOORBELL64(doorbell_idx, wptr);
- 
- 	for (i = 0; i < adev->usec_timeout; i++) {
-@@ -2326,4 +2325,3 @@ static int mes_v12_1_self_test(struct amdgpu_device *adev, int xcc_id)
- 	amdgpu_pasid_free(pasid);
- 	return r;
- }
--
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index cb64d1700..1c4ab6d5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -651,13 +651,13 @@ static int sdma_v4_0_init_microcode(struct amdgpu_device *adev)
-  */
- static uint64_t sdma_v4_0_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	u64 *rptr;
-+	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = ((u64 *)ring->rptr_cpu_addr);
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
--	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
--	return ((*rptr) >> 2);
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
-+	return rptr >> 2;
- }
- 
- /**
-@@ -674,7 +674,7 @@ static uint64_t sdma_v4_0_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	} else {
- 		wptr = RREG32_SDMA(ring->me, mmSDMA0_GFX_RB_WPTR_HI);
-@@ -700,8 +700,6 @@ static void sdma_v4_0_ring_set_wptr(struct amdgpu_ring *ring)
- 
- 	DRM_DEBUG("Setting write pointer\n");
- 	if (ring->use_doorbell) {
--		u64 *wb = (u64 *)ring->wptr_cpu_addr;
--
- 		DRM_DEBUG("Using doorbell -- "
- 				"wptr_offs == 0x%08x "
- 				"lower_32_bits(ring->wptr << 2) == 0x%08x "
-@@ -710,7 +708,7 @@ static void sdma_v4_0_ring_set_wptr(struct amdgpu_ring *ring)
- 				lower_32_bits(ring->wptr << 2),
- 				upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		WRITE_ONCE(*wb, (ring->wptr << 2));
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 				ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-@@ -743,7 +741,7 @@ static uint64_t sdma_v4_0_page_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	} else {
- 		wptr = RREG32_SDMA(ring->me, mmSDMA0_PAGE_RB_WPTR_HI);
- 		wptr = wptr << 32;
-@@ -765,10 +763,8 @@ static void sdma_v4_0_page_ring_set_wptr(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	if (ring->use_doorbell) {
--		u64 *wb = (u64 *)ring->wptr_cpu_addr;
--
- 		/* XXX check if swapping is necessary on BE */
--		WRITE_ONCE(*wb, (ring->wptr << 2));
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
- 	} else {
- 		uint64_t wptr = ring->wptr << 2;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 88428b88e..14680520f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -221,7 +221,7 @@ static uint64_t sdma_v4_4_2_ring_get_rptr(struct amdgpu_ring *ring)
- 	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = READ_ONCE(*((u64 *)&ring->adev->wb.wb[ring->rptr_offs]));
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
- 	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
- 	return rptr >> 2;
-@@ -241,7 +241,7 @@ static uint64_t sdma_v4_4_2_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)&adev->wb.wb[ring->wptr_offs]));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	} else {
- 		wptr = RREG32_SDMA(ring->me, regSDMA_GFX_RB_WPTR_HI);
-@@ -267,8 +267,6 @@ static void sdma_v4_4_2_ring_set_wptr(struct amdgpu_ring *ring)
- 
- 	DRM_DEBUG("Setting write pointer\n");
- 	if (ring->use_doorbell) {
--		u64 *wb = (u64 *)&adev->wb.wb[ring->wptr_offs];
--
- 		DRM_DEBUG("Using doorbell -- "
- 				"wptr_offs == 0x%08x "
- 				"lower_32_bits(ring->wptr) << 2 == 0x%08x "
-@@ -277,7 +275,7 @@ static void sdma_v4_4_2_ring_set_wptr(struct amdgpu_ring *ring)
- 				lower_32_bits(ring->wptr << 2),
- 				upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		WRITE_ONCE(*wb, (ring->wptr << 2));
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 				ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-@@ -310,7 +308,7 @@ static uint64_t sdma_v4_4_2_page_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)&adev->wb.wb[ring->wptr_offs]));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 	} else {
- 		wptr = RREG32_SDMA(ring->me, regSDMA_PAGE_RB_WPTR_HI);
- 		wptr = wptr << 32;
-@@ -332,10 +330,8 @@ static void sdma_v4_4_2_page_ring_set_wptr(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 
- 	if (ring->use_doorbell) {
--		u64 *wb = (u64 *)&adev->wb.wb[ring->wptr_offs];
--
- 		/* XXX check if swapping is necessary on BE */
--		WRITE_ONCE(*wb, (ring->wptr << 2));
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
- 	} else {
- 		uint64_t wptr = ring->wptr << 2;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index fa0290721..553b712b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -325,13 +325,13 @@ static unsigned sdma_v5_0_ring_init_cond_exec(struct amdgpu_ring *ring,
-  */
- static uint64_t sdma_v5_0_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	u64 *rptr;
-+	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = (u64 *)ring->rptr_cpu_addr;
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
--	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
--	return ((*rptr) >> 2);
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
-+	return rptr >> 2;
- }
- 
- /**
-@@ -348,7 +348,7 @@ static uint64_t sdma_v5_0_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	} else {
- 		wptr = RREG32_SOC15_IP(GC, sdma_v5_0_get_reg_offset(adev, ring->me, mmSDMA0_GFX_RB_WPTR_HI));
-@@ -381,8 +381,7 @@ static void sdma_v5_0_ring_set_wptr(struct amdgpu_ring *ring)
- 			  lower_32_bits(ring->wptr << 2),
- 			  upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr << 2);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 			  ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index f6ecbc524..3ae05ae93 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -165,13 +165,13 @@ static unsigned sdma_v5_2_ring_init_cond_exec(struct amdgpu_ring *ring,
-  */
- static uint64_t sdma_v5_2_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	u64 *rptr;
-+	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = (u64 *)ring->rptr_cpu_addr;
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
--	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
--	return ((*rptr) >> 2);
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
-+	return rptr >> 2;
- }
- 
- /**
-@@ -188,7 +188,7 @@ static uint64_t sdma_v5_2_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	} else {
- 		wptr = RREG32(sdma_v5_2_get_reg_offset(adev, ring->me, mmSDMA0_GFX_RB_WPTR_HI));
-@@ -221,10 +221,9 @@ static void sdma_v5_2_ring_set_wptr(struct amdgpu_ring *ring)
- 				lower_32_bits(ring->wptr << 2),
- 				upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr << 2);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
--				ring->doorbell_index, ring->wptr << 2);
-+			  ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
- 		if (amdgpu_ip_version(adev, SDMA0_HWIP, 0) == IP_VERSION(5, 2, 1)) {
- 			/* SDMA seems to miss doorbells sometimes when powergating kicks in.
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index bf09ac841..f332969e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -167,13 +167,13 @@ static unsigned sdma_v6_0_ring_init_cond_exec(struct amdgpu_ring *ring,
-  */
- static uint64_t sdma_v6_0_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	u64 *rptr;
-+	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = (u64 *)ring->rptr_cpu_addr;
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
--	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
--	return ((*rptr) >> 2);
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
-+	return rptr >> 2;
- }
- 
- /**
-@@ -189,7 +189,7 @@ static uint64_t sdma_v6_0_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	}
- 
-@@ -216,8 +216,7 @@ static void sdma_v6_0_ring_set_wptr(struct amdgpu_ring *ring)
- 			  lower_32_bits(ring->wptr << 2),
- 			  upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr << 2);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 			  ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index f154b68dd..03d63498e 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -166,13 +166,13 @@ static unsigned sdma_v7_0_ring_init_cond_exec(struct amdgpu_ring *ring,
-  */
- static uint64_t sdma_v7_0_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	u64 *rptr;
-+	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = (u64 *)ring->rptr_cpu_addr;
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
--	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
--	return ((*rptr) >> 2);
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
-+	return rptr >> 2;
- }
- 
- /**
-@@ -188,7 +188,7 @@ static uint64_t sdma_v7_0_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	}
- 
-@@ -217,8 +217,7 @@ static void sdma_v7_0_ring_set_wptr(struct amdgpu_ring *ring)
- 			  lower_32_bits(ring->wptr << 2),
- 			  upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr << 2);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 			  ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index e1c0a4ff0..3b541db0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -160,13 +160,13 @@ static unsigned sdma_v7_1_ring_init_cond_exec(struct amdgpu_ring *ring,
-  */
- static uint64_t sdma_v7_1_ring_get_rptr(struct amdgpu_ring *ring)
- {
--	u64 *rptr;
-+	u64 rptr;
- 
- 	/* XXX check if swapping is necessary on BE */
--	rptr = (u64 *)ring->rptr_cpu_addr;
-+	rptr = amdgpu_ring_wb_read64(ring->rptr_cpu_addr);
- 
--	DRM_DEBUG("rptr before shift == 0x%016llx\n", *rptr);
--	return ((*rptr) >> 2);
-+	DRM_DEBUG("rptr before shift == 0x%016llx\n", rptr);
-+	return rptr >> 2;
- }
- 
- /**
-@@ -182,7 +182,7 @@ static uint64_t sdma_v7_1_ring_get_wptr(struct amdgpu_ring *ring)
- 
- 	if (ring->use_doorbell) {
- 		/* XXX check if swapping is necessary on BE */
--		wptr = READ_ONCE(*((u64 *)ring->wptr_cpu_addr));
-+		wptr = amdgpu_ring_wb_read64(ring->wptr_cpu_addr);
- 		DRM_DEBUG("wptr/doorbell before shift == 0x%016llx\n", wptr);
- 	}
- 
-@@ -211,8 +211,7 @@ static void sdma_v7_1_ring_set_wptr(struct amdgpu_ring *ring)
- 			  lower_32_bits(ring->wptr << 2),
- 			  upper_32_bits(ring->wptr << 2));
- 		/* XXX check if swapping is necessary on BE */
--		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
--			     ring->wptr << 2);
-+		amdgpu_ring_wb_write64(ring->wptr_cpu_addr, ring->wptr << 2);
- 		DRM_DEBUG("calling WDOORBELL64(0x%08x, 0x%016llx)\n",
- 			  ring->doorbell_index, ring->wptr << 2);
- 		WDOORBELL64(ring->doorbell_index, ring->wptr << 2);
--- 
-2.34.1
+> ---
+>  drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
+> index 260f58a97fc7..da2c92e5c02f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_frl_cap_chk.c
+> @@ -630,17 +630,17 @@ enum frl_cap_chk_result dml1_frl_cap_chk(struct frl_cap_chk_params *params)
+>  {
+>  	struct frl_cap_chk_intermediates inter;
+>  
+> -#if defined (CONFIG_DRM_AMD_DC_FP)
+> -	if (params->compressed)
+> -		return dml1_frl_cap_chk_compressed(params, &inter);
+> -#endif
+> -
+>  	return dml1_frl_cap_chk_inter(params, &inter);
+>  }
+>  
+>  enum frl_cap_chk_result dml1_frl_cap_chk_inter(struct frl_cap_chk_params *params,
+>  					       struct frl_cap_chk_intermediates *inter)
+>  {
+> +#if defined (CONFIG_DRM_AMD_DC_FP)
+> +	if (params->compressed)
+> +		return dml1_frl_cap_chk_compressed(params, inter);
+> +#endif
+> +
+>  	return dml1_frl_cap_chk_uncompressed(params, inter);
+>  }
+>  
 
