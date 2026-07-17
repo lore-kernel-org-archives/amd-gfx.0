@@ -4,141 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4366EC4450A
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jul 2026 01:44:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04B2C44521
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jul 2026 01:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD90E10E629;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 087C910E626;
 	Sun, 19 Jul 2026 01:44:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="Dtc4W3v/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mcgvd3sE";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07B4D10E0FA
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Jul 2026 12:23:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1784377368; x=1784982168; i=spasswolf@web.de;
- bh=ophsb4TC4FD28+SkdnDgfY4KzIucqgCPoxvDF5HB71U=;
- h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
- References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=Dtc4W3v/STaSJxTCoif98N0iXITIMcyZYaGqVtWhgONg7lIWKoMtiygCElNpqugN
- k1qy6C1A+aDlWKIyZv23D47WSQ8zXw6IbId+xoIhzjyLzokbbi+miEnPCWHYjIYF1
- +SLqoYKvtQpQ9EfzMylLFZtNS1kpuVUvp1TqCBOG2XGdZTDlN9wjgyic3MoW3vYpZ
- F6nmGSqAphAGu/LHKs/bvvASjKJjP8bXEO7bBIRIX+8wV4DilKqOWFpDZvEeOWiNf
- 417CA8eEla7Jrkki6a2E5vzJ0RSJNwLP7vr2dTJpIMtiS6Xuz0ZGQpG38p4PR4hZz
- FPJPW4KUO3mDD8aWPA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1M1rP8-1wisCm2eIS-009p6Q; Sat, 18
- Jul 2026 14:22:48 +0200
-Message-ID: <514c5423b98376e2e6f1fe4bb56c0f3607b4cd52.camel@web.de>
-Subject: Re: warnings from validate_blend_mode_for_alpha_formats() in
- next-20260715
-From: Bert Karwatzki <spasswolf@web.de>
-To: Leandro Ribeiro <leandro.ribeiro@collabora.com>, Alex Deucher
- <alexdeucher@gmail.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Leo
- (Sunpeng) Li" <Sunpeng.Li@amd.com>, Alex Hung <alex.hung@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, linux-next@vger.kernel.org, Jesse Zhang
- <jesse.zhang@amd.com>, Amber Lin <Amber.Lin@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, spasswolf@web.de
-Date: Sat, 18 Jul 2026 14:22:47 +0200
-In-Reply-To: <cd96faf15c338157e49a858f9e4f94acba4c28ab.camel@web.de>
-References: <20260716152933.6744-1-spasswolf@web.de>
- <CADnq5_PEN=iuspWbQ9C3gJZ5qJVOLmJ5hrsi6FH0Dg2Y_u2mZQ@mail.gmail.com>
- <45d341e6-d438-4e34-bba2-f6d23dbcf7fb@collabora.com>
- <cd96faf15c338157e49a858f9e4f94acba4c28ab.camel@web.de>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74C2D10E2C9;
+ Fri, 17 Jul 2026 13:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784293240; x=1815829240;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=TkcnxLhgwX6O5nJjNSjksAcUqdGQAPjb6pfqo7xQWDU=;
+ b=mcgvd3sELtoV8xXwZIsZDw0ErFuWXj9hiq7i8Pd8tis1aBV0FBkVcS66
+ ASdIY6PbDEgLStpZB2HkIXISmH3B8w5rbfap7QgEMBmJbvw6DoK0ytZx5
+ XxEA6iCrhD6LVZ2arVl6c89XA44qFOEbNPLmFjcIg5h6K0VCC5ldSKKYF
+ KYF350yxklgBzVVA6KIyCMN86kYIF95Gwu2tL54xlWx+1sdDGvY6KKZlu
+ 2C+MC8ozC0ckZUlChFLLgZRAql71VR1r21CP6r4+/4l/A4psjPWNQA0wV
+ VL5LgdEe+vH2fP43ALw468lC7gKKYjfhf6/Xf3T8SlpYZuFvy71yuLJF9 A==;
+X-CSE-ConnectionGUID: l8z6oJlZQweag6D3VePIAg==
+X-CSE-MsgGUID: s02n4rIAQzWm0l6pT9KrzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="85055148"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; d="scan'208";a="85055148"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2026 06:00:39 -0700
+X-CSE-ConnectionGUID: x4qGi51JQOOet2xvBZy+tg==
+X-CSE-MsgGUID: rVfFPm7dRWuKzLKlBWQOQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; d="scan'208";a="260595854"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.245.155])
+ ([10.245.245.155])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2026 06:00:35 -0700
+Message-ID: <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
+Subject: Re: [PATCH i-g-t v4 7/7] tests/dmem_cgroups: add test for dmem.current
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Christian
+ Koenig	 <christian.koenig@amd.com>, maarten.lankhorst@linux.intel.com,
+ Kamil Konieczny	 <kamil.konieczny@linux.intel.com>, Janusz Krzysztofik	
+ <janusz.krzysztofik@linux.intel.com>, Vitaly Prosyak
+ <vitaly.prosyak@amd.com>,  Natalie Vock <natalie.vock@gmx.de>, Tvrtko
+ Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Date: Fri, 17 Jul 2026 15:00:33 +0200
+In-Reply-To: <20260717120447.1837818-8-cascardo@igalia.com>
+References: <20260717120447.1837818-1-cascardo@igalia.com>
+ <20260717120447.1837818-8-cascardo@igalia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.56.2-10 
-MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:yiHcwlPeUGTAYBqD7HKQNKtHRtnNTpT00YRXyF8trDeMNqwfehY
- homsdZH/U2IV+s9Yp4xCzk87kkNSJnQFfogtb5zYlBQd/lbpZN5hmWR27u2YYoKrFS4c5xk
- IcHcpX6K4SC3z/aH4nydBMOdA+dw3UL+MfM93W0GRC97l+VhurL3oh9e6f4exU4tajkzqya
- DKyGVxeEGi60mAFHiDY/A==
-UI-OutboundReport: notjunk:1;M01:P0:cTXVYsrGP4A=;3vAR6zcMoCvb55nUUtVjM05h5BP
- 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
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-Mailman-Approved-At: Sun, 19 Jul 2026 01:43:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,132 +78,371 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Samstag, dem 18.07.2026 um 11:21 +0200 schrieb Bert Karwatzki:
-> Am Freitag, dem 17.07.2026 um 19:54 -0300 schrieb Leandro Ribeiro:
-> >=20
-> > On 7/17/26 11:55 AM, Alex Deucher wrote:
-> > > + Some display folks
-> > >=20
-> > > On Fri, Jul 17, 2026 at 9:04=E2=80=AFAM Bert Karwatzki <spasswolf@we=
-b.de> wrote:
-> > > >=20
-> > > > commit 860e748bddcc ("drm: ensure blend mode supported if pixel fo=
-rmat with alpha exposed")
-> > > > introduces validate_blend_mode_for_alpha_formats() which prints wa=
-rnings for amdpgu as
-> > > > amdgpu only set blend_mode_property for planes of type DRM_PLANE_T=
-YPE_OVERLAY. I tried to fix
-> > > > this by removing he (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) ch=
-eck in amdgpu_dm_plane_init():
-> > > >=20
-> > > >         printk(KERN_INFO "%s: plane=3D%px plane->type=3D0x%x plane=
-_cap=3D%px\n", __func__, plane, plane->type, plane_cap);
-> > > >         if (plane_cap)
-> > > >                 printk(KERN_INFO "%s: per_pixel_alpha =3D%u\n", __=
-func__, plane_cap->per_pixel_alpha);
-> > > >         if (plane_cap && plane_cap->per_pixel_alpha) {
-> > > >                 unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIX=
-EL_NONE) |
-> > > >                                           BIT(DRM_MODE_BLEND_PREMU=
-LTI) |
-> > > >                                           BIT(DRM_MODE_BLEND_COVER=
-AGE);
-> > > >=20
-> > > >                 printk(KERN_INFO "%s: creating alpha and blend mod=
-e properties for plane %px\n", __func__, plane);
-> > > >                 drm_plane_create_alpha_property(plane);
-> > > >                 drm_plane_create_blend_mode_property(plane, blend_=
-caps);
-> > > >         }
-> > > >=20
-> > > > But this does not completely silence the warnings becuase for plan=
-es of type DRM_PLANE_TYPE_CURSOR plane_cap is NULL.
-> > > > Is this a problem that should be fixed in amdgpu or is should vali=
-date_blend_mode_for_alpha_formats() only be called
-> > > > for planes of certain types?
-> >=20
-> > IMO validate_blend_mode_for_alpha_formats() should be called for all
-> > types of planes. I can't think of anything special about a cursor plan=
-e
-> > that would justify it being allowed to expose formats with alpha but n=
-ot
-> > the blend mode property.
-> >=20
-> > I'm not familiar with the AMD codebase to suggest the best fix, but th=
-e
-> > driver would need some way to know whether cursor planes are exposing
-> > formats with alpha.
-> >=20
-> > > >=20
-> > > > Bert Karwatzki
-> > > >=20
+On Fri, 2026-07-17 at 09:04 -0300, Thadeu Lima de Souza Cascardo wrote:
+> Based on the work of Thomas Hellstr=C3=B6m to test dmem.max eviction, add
+> a
+> test for dmem.current usage after allocations and setting dmem.max.
 >=20
-> So I looked through the code and found that the cursor planes are initia=
-llized by=C2=A0
-> amdgpu_dm_crtc_init() which calls amdgpu_dm_plane_init() with plane_cap =
-=3D NULL.
-> So I was able to silence the warning by introducing a dummy_plane_cap in=
- amdgpu_dm_crtc_init()
-> and dropping the plane->type check in amdgpu_dm_plane_init().
+> Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+> check current usage is within a small slack of the expected
+> allocation.
+> Then, set max to a small value and check allocations and current
+> usage
+> are limited to the max set.=C2=A0 Set max to less than a single BO size,
+> then
+> check no allocations are allowed and current usage is also within the
+> slack. After each allocation, release memory and check current usage
+> has gone down.
 >=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index d63688b9d93d..7fb118444d14 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -731,13 +731,17 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_mana=
-ger *dm,
->         struct drm_plane *cursor_plane;
->         bool has_degamma;
->         int res =3D -ENOMEM;
-> +       struct dc_plane_cap dummy_cap =3D {
-> +               .type =3D DC_PLANE_TYPE_DCE_RGB,
-> +               .per_pixel_alpha =3D 1,
-> +       };
-> =20
->         cursor_plane =3D kzalloc_obj(*cursor_plane);
->         if (!cursor_plane)
->                 goto fail;
-> =20
->         cursor_plane->type =3D DRM_PLANE_TYPE_CURSOR;
-> -       res =3D amdgpu_dm_plane_init(dm, cursor_plane, 0, NULL);
-> +       res =3D amdgpu_dm_plane_init(dm, cursor_plane, 0, &dummy_cap);
-> =20
->         acrtc =3D kzalloc_obj(struct amdgpu_crtc);
->         if (!acrtc)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 26f35434a92f..20785fb451dd 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1932,8 +1932,7 @@ int amdgpu_dm_plane_init(struct amdgpu_display_man=
-ager *dm,
->         if (res)
->                 return res;
-> =20
-> -       if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY &&
-> -           plane_cap && plane_cap->per_pixel_alpha) {
-> +       if (plane_cap && plane_cap->per_pixel_alpha) {
->                 unsigned int blend_caps =3D BIT(DRM_MODE_BLEND_PIXEL_NON=
-E) |
->                                           BIT(DRM_MODE_BLEND_PREMULTI) |
->                                           BIT(DRM_MODE_BLEND_COVERAGE);
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+
+In what situations do you see the need for a slack? I've seen it only
+when max is set close to 0. For higher max limit, the slack usage may
+potentially mask bugs. Is there a way the slack can be activated only
+when it's needed?
+
+Thanks,
+Thomas
+
+
+
+> ---
+> =C2=A0tests/cgroup_dmem.c | 251
+> +++++++++++++++++++++++++++++++++++++++++++-
+> =C2=A01 file changed, 246 insertions(+), 5 deletions(-)
 >=20
-> One can probably also omit the .type field in the dummy_cap struct and
-> also does not have to check if plance_cap is NULL anymore.
->=20
-> Bert Karwatzki
-
-This might seem problematic as this unconditionally sets per_pixel_alpha =
-=3D true for cursor planes,
-but currently the only pixel format used for cursor planes in amdgpu is DR=
-M_FORMAT_ARGB8888:
-
-$ grep -B 1 -A 3 'cursor_formats\[\]' drivers/gpu/drm/amd/display/amdgpu_d=
-m/amdgpu_dm_plane.c
-
-static const u32 cursor_formats[] =3D {
-	DRM_FORMAT_ARGB8888
-};
-
-Bert Karwatzki
+> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> index 442c965f9bbf..fa4694b45035 100644
+> --- a/tests/cgroup_dmem.c
+> +++ b/tests/cgroup_dmem.c
+> @@ -1,6 +1,8 @@
+> =C2=A0// SPDX-License-Identifier: MIT
+> =C2=A0/*
+> =C2=A0 * Copyright =C2=A9 2025 Intel Corporation
+> + * Copyright =C2=A9 2026 Intel Corporation
+> + * Copyright 2026 Valve Corporation
+> =C2=A0 */
+> =C2=A0
+> =C2=A0/**
+> @@ -17,10 +19,214 @@
+> =C2=A0 * Test category: uapi
+> =C2=A0 */
+> =C2=A0
+> +#include <errno.h>
+> =C2=A0#include <inttypes.h>
+> +#include <signal.h>
+> +#include <stdatomic.h>
+> +#include <stdint.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> =C2=A0
+> +#include "drmtest.h"
+> =C2=A0#include "igt.h"
+> +#include "igt_aux.h"
+> =C2=A0#include "igt_cgroup.h"
+> +#include "igt_dmem_driver.h"
+> +
+> +#define BO_SIZE			SZ_64M
+> +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> +#define USAGE_SLACK		SZ_4M		/* tolerance above
+> the set max */
+> +#define USAGE_POLL_MS		10
+> +#define USAGE_DROP_TIMEOUT_MS	1000
+> +
+> +/**
+> + * SUBTEST: simple
+> + * DESCRIPTION:
+> + *=C2=A0 Creates a cgroup, moves the process into it, enumerates all dme=
+m
+> regions,
+> + *=C2=A0 prints their capacity, system-wide current usage, per-cgroup
+> current usage
+> + *=C2=A0 and configured limits, then destroys the cgroup.
+> + */
+> +
+> +/**
+> + * SUBTEST: current
+> + * DESCRIPTION:
+> + *=C2=A0 Create a dmem cgroup, allocate close to capacity (or at most
+> 4GiB),
+> + *=C2=A0 check current usage is within a small slack of the expected
+> allocation.
+> + *=C2=A0 Then, set max to a small value and check allocations and curren=
+t
+> usage
+> + *=C2=A0 are limited to the max set.
+> + *=C2=A0 Set max to less than a single BO size, then check no allocation=
+s
+> are allowed
+> + *=C2=A0 and current usage is also within the slack.
+> + *=C2=A0 After each allocation, release memory and check current usage
+> has gone
+> + *=C2=A0 down.
+> + * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+> + */
+> +
+> +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const
+> char *region,
+> +				=C2=A0=C2=A0=C2=A0 uint64_t limit)
+> +{
+> +	uint64_t current;
+> +	unsigned int elapsed =3D 0;
+> +
+> +	do {
+> +		igt_cgroup_dmem_get_current(cg, region, &current);
+> +		if (current <=3D limit)
+> +			return current;
+> +		usleep(USAGE_POLL_MS * 1000);
+> +		elapsed +=3D USAGE_POLL_MS;
+> +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
+> +
+> +	return current;
+> +}
+> +
+> +static int allocate_vram(const struct igt_dmem_driver *drv, void
+> *ctx, int fd, int max_bo, size_t len)
+> +{
+> +	int n_bo, err =3D 0;
+> +	for (n_bo =3D 0; n_bo < max_bo; n_bo++) {
+> +		err =3D drv->allocate_vram(ctx, n_bo, len);
+> +		if (err)
+> +			break;
+> +	}
+> +	/* These are expected failures we can ignore. */
+> +	if (err =3D=3D -ENOMEM || err =3D=3D -ENOSPC)
+> +		err =3D 0;
+> +	return err ?: n_bo;
+> +}
+> +
+> +static void free_vram(const struct igt_dmem_driver *drv, void *ctx,
+> int max_bo)
+> +{
+> +	int i;
+> +	for (i =3D 0; i < max_bo; i++)
+> +		drv->free_vram(ctx, i);
+> +}
+> +
+> +static void test_current(int fd, char *cg_region, unsigned int
+> flags, const struct igt_dmem_driver *drv)
+> +{
+> +	struct igt_cgroup *cg;
+> +	void *ctx;
+> +	uint64_t current, capacity, cg_max;
+> +	int n_bo =3D 0, max_bo;
+> +	int err;
+> +
+> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> +	igt_require_f(capacity >=3D 4 * BO_SIZE,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "VRAM capacity (%"PRIu64" MiB) too smal=
+l to
+> test\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 capacity / SZ_1M);
+> +
+> +	/*
+> +	 * Use up to 4 GiB, or the full capacity if the device has
+> less.
+> +	 * Leave one BO_SIZE worth of headroom so the device isn't
+> completely
+> +	 * exhausted before the cgroup limit is hit.
+> +	 */
+> +	cg_max =3D min(MAX_LIMIT, capacity - BO_SIZE - USAGE_SLACK);
+> +	cg_max =3D ALIGN_DOWN(cg_max, BO_SIZE);
+> +
+> +	/* Create cgroup and move into it */
+> +	cg =3D igt_cgroup_new("igt_cgroups_test");
+> +	igt_cgroup_move_current(cg);
+> +
+> +	max_bo =3D cg_max / BO_SIZE;
+> +
+> +	err =3D drv->init(&ctx, fd, max_bo);
+> +	igt_assert_f(!err, "Failed to initialize driver");
+> +
+> +	n_bo =3D allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current =3D %"PRIu64" MiB, "
+> +		=C2=A0 "max =3D %"PRIu64" MiB\n",
+> +		=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < cg_max + USAGE_SLACK && current >
+> cg_max - USAGE_SLACK,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 "current usage (%"PRIu64" MiB) is not within
+> margin of allocation (%"PRIu64" MiB)\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	free_vram(drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current =3D %"PRIu64" MiB, "
+> +		=C2=A0 "max =3D %"PRIu64" MiB\n",
+> +		=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 "current usage (%"PRIu64" MiB) is not within
+> margin (%d MiB)\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 current / SZ_1M, USAGE_SLACK / SZ_1M);
+> +
+> +	/* Allow for a slack as there might be some extra pages
+> allocated. */
+> +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE +
+> USAGE_SLACK, false);
+> +
+> +	n_bo =3D allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current =3D %"PRIu64" MiB, "
+> +		=C2=A0 "max =3D %"PRIu64" MiB\n",
+> +		=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current
+> > 2 * BO_SIZE - USAGE_SLACK,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 "current usage (%"PRIu64" MiB) is not within
+> margin of allocation (%"PRIu64" MiB)\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	free_vram(drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current =3D %"PRIu64" MiB, "
+> +		=C2=A0 "max =3D %"PRIu64" MiB\n",
+> +		=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 "current usage (%"PRIu64" MiB) is not within
+> margin (%d MiB)\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 current / SZ_1M, USAGE_SLACK / SZ_1M);
+> +
+> +	igt_cgroup_dmem_set_max(cg, cg_region, USAGE_SLACK, false);
+> +
+> +	n_bo =3D allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> +
+> +	/*
+> +	 * amdgpu may succeed the allocation, by falling back to
+> GTT, so no assertion here.
+> +	 * Verify by reading current usage.
+> +	 */
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current =3D %"PRIu64" MiB, "
+> +		=C2=A0 "max =3D %"PRIu64" MiB\n",
+> +		=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 "current usage (%"PRIu64" MiB) is not within
+> margin\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 current / SZ_1M);
+> +
+> +	if (n_bo > 0)
+> +		free_vram(drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current =3D %"PRIu64" MiB, "
+> +		=C2=A0 "max =3D %"PRIu64" MiB\n",
+> +		=C2=A0 current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current < USAGE_SLACK,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 "current usage (%"PRIu64" MiB) is not within
+> margin (%d MiB)\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0 current / SZ_1M, USAGE_SLACK / SZ_1M);
+> +
+> +	drv->deinit(ctx);
+> +	igt_cgroup_free(cg);
+> +}
+> +
+> +static const struct {
+> +	const char *name;
+> +	void (*test_fn)(int fd, char *cg_region, unsigned int flags,
+> const struct igt_dmem_driver *drv);
+> +	unsigned int flags;
+> +} subtests[] =3D {
+> +	{ "current", test_current, 0 },
+> +	{ }
+> +};
+> +
+> +static const struct {
+> +	int driver_flag;
+> +	const struct igt_dmem_driver *driver;
+> +} drivers[] =3D {
+> +	{ DRIVER_XE, &xe_dmem_driver },
+> +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
+> +	{ },
+> +};
+> =C2=A0
+> =C2=A0IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller
+> interface.");
+> =C2=A0
+> @@ -32,7 +238,7 @@ static void fmt_bytes(uint64_t v, char *buf,
+> size_t len)
+> =C2=A0		snprintf(buf, len, "%" PRIu64, v);
+> =C2=A0}
+> =C2=A0
+> -int igt_simple_main()
+> +static void simple_cgroup(void)
+> =C2=A0{
+> =C2=A0	struct igt_cgroup *cg;
+> =C2=A0	const char *region;
+> @@ -42,10 +248,6 @@ int igt_simple_main()
+> =C2=A0	char min_s[32], low_s[32], max_s[32];
+> =C2=A0	int i;
+> =C2=A0
+> -	igt_require_f(igt_cgroup_dmem_available(),
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "No dmem regions found; is cgroup v2 wi=
+th the
+> "
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "dmem controller available?\n");
+> -
+> =C2=A0	cg =3D igt_cgroup_new("igt-cgroup-dmem-test");
+> =C2=A0	igt_assert_f(cg, "Failed to create cgroup\n");
+> =C2=A0
+> @@ -90,3 +292,42 @@ int igt_simple_main()
+> =C2=A0	igt_cgroup_dmem_regions_free(regions);
+> =C2=A0	igt_cgroup_free(cg);
+> =C2=A0}
+> +
+> +int igt_main()
+> +{
+> +	igt_fixture() {
+> +		igt_require_f(getuid() =3D=3D 0, "Test requires
+> root\n");
+> +		/* Check dmem cgroup controller is available before
+> doing anything else */
+> +		igt_require_f(igt_cgroup_dmem_available(),
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "dmem cgroup controller not available
+> (no cgroup v2 or no registered regions)\n");
+> +
+> +	}
+> +
+> +	igt_subtest("simple")
+> +		simple_cgroup();
+> +
+> +	for (int d =3D 0; drivers[d].driver; d++) {
+> +		igt_subtest_group() {
+> +			int fd =3D -1;
+> +			char *cg_region;
+> +			igt_fixture() {
+> +				fd =3D
+> drm_open_driver(drivers[d].driver_flag);
+> +				igt_require_f(fd >=3D 0,
+> +					"No %s device found,
+> skipping\n",
+> +					drivers[d].driver->name);
+> +				cg_region =3D drivers[d].driver-
+> >get_region_name(fd);
+> +				igt_require_f(cg_region, "Region not
+> tracked by dmem cgroup controller\n");
+> +			}
+> +
+> +			for (int i =3D 0; subtests[i].name; i++)
+> +				igt_subtest_f("%s-%s",
+> drivers[d].driver->name, subtests[i].name)
+> +					subtests[i].test_fn(fd,
+> cg_region, subtests[i].flags, drivers[d].driver);
+> +
+> +			igt_fixture() {
+> +				if (fd >=3D 0)
+> +					drm_close_driver(fd);
+> +				free(cg_region);
+> +			}
+> +		}
+> +	}
+> +}
