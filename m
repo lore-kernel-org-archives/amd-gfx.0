@@ -4,104 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D853BC44514
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 10:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 439C1C4451C
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 12:06:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7196A10F4E7;
-	Fri, 17 Jul 2026 10:27:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D523210E468;
+	Fri, 17 Jul 2026 12:06:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yCO/ZgtH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZyjwiE0E";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010021.outbound.protection.outlook.com
- [40.93.198.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB7A10F4E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 10:27:08 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013014.outbound.protection.outlook.com
+ [40.93.196.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3C510F533
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jul 2026 12:06:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oNftCN8fbg7gBXZb/VdZ2FSkaGUd0400BSNPVERvh2v83tFsEm3EiSlATAyjl5nlY8gH5H2Q6CK+LPqz8qGlliZbBqYA5dbZOMH9Gjg6R5PH/SUoYYghRp8XRwJoXGnkOaSd/DyzZl/+nF3oR5FSUm/KyB5HMyuuxJ1YieEzKCOnBA3DG+us7HAfYr74POKGNbl3+wF2/HsA7JeaVForgmCGadGaQFR6q500nYd0EG/uaX6Txopb6uPnksHcbVvp5reJ7QVIPFzHU70I4N90ZzGstkcdaLpe2foPTBBvpEYPfKNibBTzwKQvU19qfAu+chriGTFglKPDhBXbW3yZGw==
+ b=p1mEQ+osm3tnOJMQZ369Kz16cidkd4iSVB2DXeqgw7kagfPvZ6DG9ErMPjwGXrwN7XKNqjEXDs90JKb0UE1KzuZEIfqwU8nWq+1tJ+mcfTFAAZQtaGmG4zDJT81geQfuZB/RnVXGHs+SBIzDra+DZTFKxU5z3YBy300oEFnZ5/WO5Dh3RUHIvfz029duWuZhEq604kOVgWBz9DX8V50By3/QXf1nkNJAIM8PnpCMIO1PQAYo6AB64VpEpCAVzfHpiY+NTm+byRkAyAMvmOqlq3a/PIv3Xds/I+nkbU/r1UoQPD8ie0ts5FE4y70C3HUbvk3DKooDDEVOA/T5TX/xhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mOhkMSIvW+TzauEAdnp87GcDaGpdR7B4OGiqD7GQa9E=;
- b=lBEoaDNKVtVAB5MTKSTQNHLeOP7pXGcZD7j+YcnMdmVhSgCEwHFY9uUWyyx5VmZGrQC58R0cNF6JMMJWAsGWxAABwpuEf5nTK4yDOm8BlZ/bXapQ42JDaYogGkYTCNlEOx9cfSzRIQhyOz1B192hnqThvviGVTKpWUPdITxgaOOWqln+RVB2mQmn4dBDwgvLAcs0MUa/+jPxXyz8sVzHWWcLPNuiziIqkE8H0pF7SBK/UccYuX5CZ+1IffAoP/muj4fFoeBvRX8NUOztmEVJ/uEqj+4SmO35RhIg6i6QI+PRQFxm/3x3VXnnSxCB1bO56erV4+JC+QiKd96rB/jmDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=/7XND+Nd5sEU/SG8RXh08EzdIwlvNG3py9jdKmQhwVc=;
+ b=aqx48/YT3pLczoMoCFllbeZoPHagkGkU+oCDxPgFry17Fv8xkblK/yv1iBTwmXszHzxZ9flEs1gkCz/8NlDSFZz/eHkt9bfyFR5/buDl8lPFWM7N5mVEjEkptIyWH8gZbxW8iOG7IXWGzJlk2XQsVPtBBzexpQX+ILBkJnAD3jbLGrQTHjqPSt7ABSQxFCHXH3hDPJxmHRVts/XYG4iUki+7teJL/XU4TynXTbwmCzHxgucdmLyrkBoKgNOqpyfv5gdPR2+2XinYz4ebGTllB8MVtMXoHrsFDv8sZsnMoKGi3Rna50TyiPI5v8oACo1yd5iedBudpXQpGIdI7KIeLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mOhkMSIvW+TzauEAdnp87GcDaGpdR7B4OGiqD7GQa9E=;
- b=yCO/ZgtH8MiTIOpv2uvlmVIwfGsWoQcprO53vA+Nftq75d6wDiHiTKGN8bNabAxMk9doqLrQHU7xSIg9a/3DqJwtXLRuS8i4KT/Z+oq7MzhrpTyki4Reh0TQN6c4vdoV834J/hW5gRqRGPlDzx3EPmx1HFhhz8cGYPo/B17aW38=
-Received: from CH0PR03CA0290.namprd03.prod.outlook.com (2603:10b6:610:e6::25)
- by MW4PR12MB6732.namprd12.prod.outlook.com (2603:10b6:303:1ea::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=/7XND+Nd5sEU/SG8RXh08EzdIwlvNG3py9jdKmQhwVc=;
+ b=ZyjwiE0EgzdnoLS7GtY733PbeWDWWrzYGt+amO4oeOpkSbOLrgfPrwoCISwGglEh/mJDZIE/yCfUjeqszCU0dcCJZypVul8pL90nCMkxyxnqAJOBrLFMjAW+KtttmmZ6ADPrnGyj58VGW+34vrY9dNlLy3ZC3bg940tP+2XBpug=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ5PPF5D591B24D.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::994) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.12; Fri, 17 Jul
- 2026 10:27:04 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:e6:cafe::a4) by CH0PR03CA0290.outlook.office365.com
- (2603:10b6:610:e6::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.13 via Frontend Transport; Fri,
- 17 Jul 2026 10:27:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Fri, 17 Jul 2026 10:27:03 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
- 2026 05:27:03 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 17 Jul
- 2026 05:27:03 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 17 Jul 2026 05:27:02 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu/mes: pass connected queue index to hung queue
- detection
-Date: Fri, 17 Jul 2026 18:26:03 +0800
-Message-ID: <20260717102658.3665597-3-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260717102658.3665597-1-Jesse.Zhang@amd.com>
-References: <20260717102658.3665597-1-Jesse.Zhang@amd.com>
-MIME-Version: 1.0
+ 2026 12:06:09 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
+ 12:06:08 +0000
+Message-ID: <04c9f424-e672-4073-a112-8bd23b55db10@amd.com>
+Date: Fri, 17 Jul 2026 14:06:00 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/14] drm/amdgpu/gfxhub: Enable retry fault interrupts
+ when needed
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>
+References: <20260701161721.85681-1-timur.kristof@gmail.com>
+ <2821958.vuYhMxLoTh@timur-max> <d03ddb99-56fa-4b33-b2a5-61a9af4e4e6d@amd.com>
+ <e8giIPlBQ5SK8N3AZK-a1g@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <e8giIPlBQ5SK8N3AZK-a1g@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR5P281CA0017.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f1::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|MW4PR12MB6732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 731b3de9-1857-4063-a8fb-08dee3edf201
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ5PPF5D591B24D:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbafdf28-e75f-462a-dc5a-08dee3fbc8ec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|18002099003|22082099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: zchF+AdRiwJ/2YqvqVsbGk4ta3zmiFal4wS3eT0s7dnQecCnE1ejXF0PlKUl+3W+MmNmkQGg8Ze4I6RF3hNpi+4jo9pPbNK95Bxrb4HvXW6DDQ2eXUoG9dLhhWBdgKuZCa1Q92jFL3KKl9z7O9yFZf+bA4J8xwJgYCfjJJ+UDj/m/LGvi8VI97NtokdZlcBKShQIcNVYjko5nNHM5kpWArO+umUNNwQZM7SF+QNEX6J4N7BD73Zx8vxOwTb6hUZxG1Tg2akZ/UPOUsCvKL2p9SZIg/xvypJLv/W0un0lpX1XHfIt8ufwTXCDbdcLec6GitWSXKLzC1tn2uO2Hbt6WpAcvM1SeGqgBvAsRo8vfh/B9KRsSKK+AavjGe72icplZkcnmx6UxgBDNaV0U8BSnrggCGSzDPJwL55ilb12hS0kxzKfOU1XrJugcv7VmPMFVkbqicw02YseHiXnZvY8tGDb8f6x9TMsv//9+prXQ3ZiVAO/LBwt+VB2Q+64fr3eOxgTTZlKMrf89+fRk1n6Etd4VNVw746qr/vzjFi7DZQnuBy60Zco4iuPrpHbFPQuJXCjNTM2nfWtpZFw6ccYvC+gSEkEhbvfUo7ROLtWG7+xSiNLnqgtN62fm/EN+I4r7PLne+g3E+DgWj7G6bGlMtTNbVBgaclWV34EchjYYOaFAxe3T5X25b5zbiLNnwlOZM0OMr/ram5bT6rNtSfRUw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);
+ ARA:13230040|1800799024|376014|23010399003|366016|11063799006|56012099006|6133799003|4143699003|921020|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: ygolTKFcDff760cxpoI13Iuu9/+4FI+n0T1q6gWlLQZIGADKJTAc6MlLl3LckJ7xbjKYokZ/3iInRYk1VOqB0zbtVZsTlnoTh97ViSsNz+/go8so+BZtg8u5/4EZT6R32cX2htjhkWvhn858bTLYszo+52q4sz7JgAtLIGo+UFN/AfN6lFFDuLLi83+CbMA+CgkCeP/bCECN8UpCwG7i7D1BeXMkOfwGztQ6Cc8YbNILxtGcTNZ8UAWeEW/O3T8e1IEzHpmkiuCVBwhzzWu/PJYVpyXcA85mcfqPrzp2HVJp2GswxmoZK6hdeFyJd+r5/mgU8Aq5foqjVsxEaqrgscznLbWgA2GjI49WqjDYXoz7SjCHvriLyPj9/8RtTrsIEDEhxE5zyLkWEmeAp3SGCMvTQKuqdx4+/CKRcVqPJlJ40fGwEIsBgCjw+ZoogeI/aAEqSX9H3XUFyyp/a4+SO0UElMyahZqtt5wfWhMdjx5gdyGXzGu0mbSKDPtlkdCA7IgcHOA6F5jSV6+ZjKZFX/RLDmmRJhhTgnTnccNXixOnDNIpqns6mspWkkJKdEtcKt61X/NZYQh8WrdWb5Mk5mRRFFYTdUvtbJMZxt+5XdEP9avCu0DZcIKZrctRCbbZRTCUQzTzTBiTGsP9K8y8BdClUth2XsHR0DcMdIr4HH1UxarJAbNkhXl7QoJ7Uii5ip3/Ydr43atGXifnlSf90A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(11063799006)(56012099006)(6133799003)(4143699003)(921020)(18002099003)(22082099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qUzYhdf/KntJ/v+qUGhUiU3idAwu3CM+4GMwoQma+CwiPILngq1WdcvHyEH5wSvt3DQ8SvcwSjPJYZzCM2PzbC/iDTpKOAu01BsD6o96Cff3VWcNHE0RM9ALmkywrkBIl+XZLgWuKQJjS9NOVeg6bx40UMR0nqfW3kP/BHHH4CDtdGYlb063WTVmdPiBoWwegMr1csLpRVU3McEXxpQicbK1k22eBPoPSoPncGrmhc5GiQSuk9dvCr05MJKMkWobLr4n1stlwehgJ4KZKgL74bvgPvasgLNB+7fI+3G4VYO0lwtmCcsXE7vYAPBV+u4YekM3qvKb5uSGmv2JZzX4/PF7kBJFRTUmSIagI5qoNoUnUIFj4k4sD9G/GIGOsPGfOBgC8x653ycUhcqILcrtCbtEoX1HJBPiZtKl+SnZOGeWp0AuluQ8Gf/5+7UJp8lO
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1lFSUUzWGRYMXZ0VFQ5bGNEeWc1R3JsNVZoMDZaTHRkYkxYUzVSMFJ6aUNL?=
+ =?utf-8?B?ajF1Y0xtZTRtQXkzeGpmZmdCdFBBZFRkRkd3QjBVc1ArL3A4eElQUjhtQmR2?=
+ =?utf-8?B?bVNvMHBDZFNlQW91bHNjbThndXJlUXAxbzc0cENFUnY5UXFmMGY3NHZ0Znh2?=
+ =?utf-8?B?MkptS05XVXZsVUw2UFVMWWZPZWhScWgxRXZJbmdHNllMdW5QR3FrMEdPelV1?=
+ =?utf-8?B?VTRHeUNsOE9uaFFMZzI0ZlNxTWZmaGJVWG9MYnpwaXhWWUFiVWVYOEZFQUl2?=
+ =?utf-8?B?bERPSjZOU1NGakFGN2V4aStpdXBWTnlVUExjWG5NSXR1LzVqeExtd2JHUzd5?=
+ =?utf-8?B?QlpRYUVXakRxNzNFb0ZHYTVHUi94RFVGUUtFNjNPcTkxZmgvWWFrVUZzZEJK?=
+ =?utf-8?B?elc2a3dXWGZhcnV1Sk8ydkJHSFV5WUZXUG1VZitEd3BJalRRdTM3YWJtZ1Bv?=
+ =?utf-8?B?RXc4c0RGOEh4eFVzciszVkNXWUJNU2JMT3BTSjUrQTZwM0gveXVqR0RZVVMx?=
+ =?utf-8?B?R0RjYzdDNnpUejgxNzFjTkllR0xzRUlBeDVhY0JNcjZ3bkU1a1JHY2xQZEk0?=
+ =?utf-8?B?cnMrcXZjekJYbzBZMWg1ajQyR2pxeVRvM3ZqOFAvVGhwRExlQ3BGREpyL2NW?=
+ =?utf-8?B?ODFCU2hIY2VmeXQ4bWVvRUw4Zkdtc1E0S1ZhcksvSXYrREl3M0ZkUG50eXUx?=
+ =?utf-8?B?YTJGazluZUJoTW53a2JJbHREcXBjWkpSSXl5UTJXSnRsU0RqOGtFYzdsaFR5?=
+ =?utf-8?B?TjNaclhjQ0Ftd1E2YkV6WGxWaGowTHRiVzAwR1JwM24ySmExaVBtcCt0b2VI?=
+ =?utf-8?B?YkUwVnBkQ1JXMkgvR3o2ZFg0QlQ5YU5Icmg4RTBzdDNXSllaSHp4VU81UzMv?=
+ =?utf-8?B?a3VvaWdGcmpWc2NCYW5GdldVMmU4YTNiTHY2TCs3VkF6b1ZLYmtQTklxRkli?=
+ =?utf-8?B?RHlxbDRsQWR4dVdPbzZSc2V5bWd2c2RMcnNlU0h5SmVDY0ZrUmg0QVdHTitQ?=
+ =?utf-8?B?VjJxSWFkZ0JBSXhTc3BMOXZtNUoyaE0wSjM2TUJVL1hEY1VyN2x4cWRUWk5B?=
+ =?utf-8?B?WVJSSVpCZWxMNGJQTkVzVlBYWFBxWFlVakhTaHo3Q1dnUlJoTUk5Q3hVMFc3?=
+ =?utf-8?B?WEFBUHF4VjFpQlRSQ1ZQbGRObE1WeTJlMDVjcmR6ZFM5SjNGU1VmNU9aT3dI?=
+ =?utf-8?B?QVFZU2Rsd2d2YnZpVDAvdkxqOUFQNDJndEdkVGlZbFRPZjYvSlhuOWNxaHlh?=
+ =?utf-8?B?aVNZaFRBSUh6Z3FHMWdLSlhVREI5WnphNkhBUjFHS3JVWTZRdHErV3RDTFk1?=
+ =?utf-8?B?WTdJdVdGRmlvYWZlVTFYemV1NjhDckdYTHdvbjQxR1RIR2dicEhFSUNLcHAy?=
+ =?utf-8?B?bnQ1Y2kxUXFRUHB2M1VSRVkvV2tIZzZoaVBWUjFidC9vN1JGejJQSFNFNnhQ?=
+ =?utf-8?B?K2RheWNtRzlxZUhBYjFmaWw0b3kwN1RQdHNuMFA1cmdBL0FlV2d1MnV4V2o2?=
+ =?utf-8?B?MnRpMnFLSW14bEVaVk84UTFMeENUQXplR2lDWVJBaEFDdHR6YjNOU3dQNVcw?=
+ =?utf-8?B?WW9tUCs1bGtNemhDUXNtbjA2cVIxTEFLVXJqdE1uUENnR2NuanpVUUJQakxZ?=
+ =?utf-8?B?Y0ppQ1Z0c3ZkYkdIN1FoM1BFdGZjWjN0ZjRDL3VDendpNk1SN0VZcGF3MjN4?=
+ =?utf-8?B?N1JsUHNPVjRqdlpNRTBra2xpT2ZXNWpNc1c1dHVxRU9TcVFETTBqbk9CK2dP?=
+ =?utf-8?B?K2xWbFAzUklzYUlsdkVrdGpkRFZzL3BZRnZ1VzgraTJzcU92Vjg5V1FPTE1s?=
+ =?utf-8?B?elRyd2xFSVdZZUozWkRLcFNLTkVzZzd3RTk0am1vbnVSWU1mTStFNG9PUExL?=
+ =?utf-8?B?cUQvYmwzVzg1ZnIwZjY3bkM2cXViRkVFRWRrcU16K3Y1V0VQeFRYVE5pcGhL?=
+ =?utf-8?B?cHlMTFJUVVB4MyttV2V5bXIwQTRvd2s1OUtGempNdUkxUnlLQ3pWWmRYQzhB?=
+ =?utf-8?B?RHVsNXlmWEdxSjFyeG1PMGh2K0VwbzR1d21hOFJScWZwcitBaHc4UVhnY0FY?=
+ =?utf-8?B?TVlTdVdENmVCNGFWeXF5a1hHUEt4K1diTEFkQ1ZMNDBoN2tROTh0YWswNEhS?=
+ =?utf-8?B?V3l2YlI0TklBRW1lVEc2YVB6aVFYTzU0QjJrV2RLbzgwYXd6cTAwQVdKWU5y?=
+ =?utf-8?B?SlU2UmZuam96QUtNR25SVmNTeXJVK3h4RjI1V0ZMeEVNNmFVTjlDazQyYkZD?=
+ =?utf-8?B?cGk4STQvL3BxanA2a00xd3dlQkVCWXlWcG1YY0Erd1lSdUFmWGtES2dsakVC?=
+ =?utf-8?Q?x1hhdzVr5nwfay06vs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 10:27:03.9832 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 731b3de9-1857-4063-a8fb-08dee3edf201
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbafdf28-e75f-462a-dc5a-08dee3fbc8ec
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2026 12:06:08.1784 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6732
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C6Pb78Gb7zhIAG25GrnWKkOFEs2Ibyzpv+G+TEjJ4eawaQIVf5v93HzXB74G+xWx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF5D591B24D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,102 +144,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The MES query_status hang detection needs a live CP and so cannot find a
-CP-frozen gfx user queue. The MES firmware has a CP_CNTX_STAT fallback
-(find_hung_queue_by_cp_ctx_stat) that locates a hung gfx queue from its
-pipe/hqd slot without query_status, but the driver never fed it the slot.
+On 7/16/26 00:51, Timur Kristóf wrote:
+> On Thursday, July 2, 2026 2:02:50 PM Central European Summer Time Christian 
+> König wrote:
+>> On 7/2/26 11:14, Timur Kristóf wrote:
+>>> On 2026. július 2., csütörtök 10:10:10 közép-európai nyári idő Christian
+>>> König> 
+>>> wrote:
+>>>> On 7/1/26 18:17, Timur Kristóf wrote:
+>>>>> Enable retry fault interrupts when initializing the GFXHUB
+>>>>> system aperture registers according to whether retrying
+>>>>> page faults is enabled in amdgpu (ie. amdgpu.noretry=0).
+>>>>>
+>>>>> Needs to be done for each GFXHUB version at once,
+>>>>> because none of them actually enabled this interrupt.
+>>>>
+>>>> Thinking more about it we are clearly missing something here. The retry
+>>>> fault interrupt itself should be enabled all the time.
+>>>
+>>> Why would it be enabled all the time?
+>>> I haven't seen any retry faults on neither Navi 3 nor Navi 4 without
+>>> enabling the ENABLE_RETRY_FAULT_INTERRUPT bit.
+>>
+>> As far as I understand it the GCVM_L2_PROTECTION_FAULT_CNTL2 is actually a
+>> debug register for the fault behavior of the GC block.
+> 
+> After our last conversation I tested this again and I can confirm that I do NOT 
+> get any retry fault interrupts on Navi 3 if I remove the code that enables 
+> this bit. That makes me think this is not enabled by default.
+> 
+>> According to the register spec for Navi 44 the ENABLE_RETRY_FAULT_INTERRUPT
+>> should be default 1 and always be set under normal cricumstances.
+> 
+> This is definitely not the case on Navi 31 and also on Strix Halo.
+> I haven't checked on Navi 4x but judging by the fact that the gfxhub_v12_1 
+> code has to enable this bit explicitly, I doubt it would be enabled on Navi 4x 
+> either.
 
-Extend mes_detect_and_reset_queue_input and
-amdgpu_mes_detect_and_reset_hung_queues() with a connected pipe/queue
-hint (pipe 0 -> connected_queue_index, pipe 1 -> _p1); callers that do
-not know the slot pass -1 to keep the existing behaviour.
+My guess is that this is either some bug in the golden register settings or the VBIOS so that isn't correctly initialized by default, or that this bit is controlled by FW to enable/disable the functionality depending on which queue is currently processing.
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 19 +++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  9 ++++++++-
- 3 files changed, 27 insertions(+), 4 deletions(-)
+I need to double check that when I'm back from vacation.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 9d3b40c385c9..f5ae16f7b4ed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2299,7 +2299,8 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
- 		 */
- 		goto fence_reset;
- 	r = amdgpu_mes_detect_and_reset_hung_queues(adev, AMDGPU_RING_TYPE_COMPUTE,
--						    true, &num_hung, adev->gfx.mec.mes_hung_db_array, 0);
-+						    true, &num_hung, adev->gfx.mec.mes_hung_db_array, 0,
-+						    -1, 0);
- 	if (r)
- 		goto out;
- 	if (hung_queue_count)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 1e3a23c81552..40e966a0d676 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -513,9 +513,11 @@ int amdgpu_mes_detect_and_reset_hung_queues(struct amdgpu_device *adev,
- 					    bool detect_only,
- 					    unsigned int *hung_db_num,
- 					    u32 *hung_db_array,
--					    uint32_t xcc_id)
-+					    uint32_t xcc_id,
-+					    int connected_pipe,
-+					    int connected_queue_index)
- {
--	struct mes_detect_and_reset_queue_input input;
-+	struct mes_detect_and_reset_queue_input input = {0};
- 	u32 *db_array = adev->mes.hung_queue_db_array_cpu_addr[xcc_id];
- 	int hqd_info_offset = adev->mes.hung_queue_hqd_info_offset, r, i;
- 
-@@ -534,6 +536,19 @@ int amdgpu_mes_detect_and_reset_hung_queues(struct amdgpu_device *adev,
- 	input.detect_only = detect_only;
- 	input.xcc_id = xcc_id;
- 
-+	/*
-+	 * For a CP-frozen gfx queue the MES query_status hang detection can't
-+	 * see it; hand the MES the exact pipe/queue slot so its CP_CNTX_STAT
-+	 * fallback can find and reset it.
-+	 */
-+	if (connected_pipe == 0) {
-+		input.use_connected_queue_index = true;
-+		input.connected_queue_index = connected_queue_index;
-+	} else if (connected_pipe == 1) {
-+		input.use_connected_queue_index_p1 = true;
-+		input.connected_queue_index_p1 = connected_queue_index;
-+	}
-+
- 	r = adev->mes.funcs->detect_and_reset_hung_queues(&adev->mes,
- 							  &input);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index c67db2d6e122..a5d0e649d113 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -350,6 +350,11 @@ struct mes_detect_and_reset_queue_input {
- 	u32	queue_type;
- 	bool		detect_only;
- 	u32	xcc_id;
-+	/* gfx-only: locate a CP-frozen queue the MES query_status path can't see */
-+	bool		use_connected_queue_index;
-+	bool		use_connected_queue_index_p1;
-+	u32	connected_queue_index;
-+	u32	connected_queue_index_p1;
- };
- 
- struct mes_inv_tlbs_pasid_input {
-@@ -544,7 +549,9 @@ int amdgpu_mes_detect_and_reset_hung_queues(struct amdgpu_device *adev,
- 					    bool detect_only,
- 					    unsigned int *hung_db_num,
- 					    u32 *hung_db_array,
--					    uint32_t xcc_id);
-+					    uint32_t xcc_id,
-+					    int connected_pipe,
-+					    int connected_queue_index);
- 
- uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg,
- 			 uint32_t xcc_id);
--- 
-2.49.0
+>>>> IIRC only the RETRY_PERMISSION_OR_INVALID_PAGE_FAULT bit in the
+>>>> VM_CONTEXT0_CNTL register should be set or cleared by the kernel driver
+>>>> or
+>>>> firmware to control if the HW retries the access or not.
+>>>
+>>> That is clearly not the case on GFX12.1 and I haven't seen any indication
+>>> that it would be different on GFX11.x and 12.0 either.
+>>
+>> Mhm, then either the FW or golden register settings for that register is not
+>> correct.
+>>
+>> That we set ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY to one is rather strange as
+>> well since we don't use that feature in the Linux driver.
+>>
+>> My suggestion is to always set the ENABLE_RETRY_FAULT_INTERRUPT in
+>> GCVM_L2_PROTECTION_FAULT_CNTL2 no matter what the noretry flag says, but
+>> I'm going to ask Alex and our ROCm people about that again when I have
+>> time.
+> 
+> I don't see why we should enable this bit when we don't want to enable retry 
+> faults.
+
+Because according to the HW documentation it should always be on and never disabled. I'm pretty sure we shouldn't touch it from the kernel driver.
+
+For now just always set it to one during initialization, if the retry fault interrupt is enabled or not is gated through the bit in the VM_CONTEXT1_CNTL register for the kernel driver.
+
+Regards,
+Christian.
+
+> 
+> Thanks & best regards,
+> Timur
+> 
+> 
+> 
+> 
 
